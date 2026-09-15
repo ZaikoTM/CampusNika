@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Nika | Módulo de Estudio - Cirugía</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nika-primary: #0284c7;
+            --nika-dark: #0f172a;
+            --nika-accent: #38bdf8;
+            --bg-body: #f8fafc;
+            --border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --success: #16a34a;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+            --pomo-bg: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+            --pomo-border: #bae6fd;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR SUPERIOR ================= */
+        .navbar {
+            background-color: var(--nika-dark);
+            padding: 15px 35px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-title { font-size: 1.35rem; font-weight: 800; color: #ffffff; text-decoration: none; }
+        .brand-slogan { font-size: 0.72rem; color: var(--nika-accent); text-transform: uppercase; letter-spacing: 1px; display: block; }
+        
+        .navbar-actions { display: flex; align-items: center; gap: 12px; }
+
+        .btn-toggle-panel {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--nika-accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.82rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-toggle-panel:hover { background: var(--nika-primary); color: white; }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-back:hover { background: rgba(255, 255, 255, 0.25); }
+
+        /* ================= LAYOUT CON SIDEBAR ================= */
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+
+        /* Barra Lateral Izquierda: Tono Celeste Suave */
+        .pomodoro-sidebar {
+            width: 320px;
+            background: var(--pomo-bg);
+            color: var(--text-main);
+            position: fixed;
+            top: 65px;
+            left: 0;
+            bottom: 0;
+            z-index: 900;
+            box-shadow: 4px 0 20px rgba(2, 132, 199, 0.08);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            border-right: 1px solid var(--pomo-border);
+        }
+
+        .pomodoro-sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .pomo-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .pomo-brand { font-size: 0.85rem; font-weight: 800; color: #0369a1; text-transform: uppercase; letter-spacing: 1px; }
+
+        .btn-close-sidebar {
+            background: #ffffff;
+            border: 1px solid var(--pomo-border);
+            color: #0369a1;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .btn-close-sidebar:hover { background: #e0f2fe; }
+
+        .pomo-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--pomo-border);
+            border-radius: 8px;
+            padding: 3px;
+            margin-bottom: 12px;
+        }
+        .pomo-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 7px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pomo-tab.active { background: var(--nika-primary); color: white; box-shadow: 0 2px 6px rgba(2,132,199,0.2); }
+
+        .pomodoro-timer {
+            font-size: 2.8rem;
+            font-weight: 900;
+            font-family: monospace;
+            text-align: center;
+            margin: 4px 0 10px 0;
+            color: #0c4a6e;
+            letter-spacing: -1px;
+        }
+
+        .pomo-task-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid var(--pomo-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--text-main);
+            font-size: 0.82rem;
+            outline: none;
+            margin-bottom: 12px;
+            font-family: inherit;
+        }
+        .pomo-task-input::placeholder { color: #94a3b8; }
+        .pomo-task-input:focus { border-color: var(--nika-primary); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
+
+        .pomodoro-controls { display: flex; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .pomo-btn { padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 0.82rem; cursor: pointer; border: none; }
+        .btn-start { background: var(--nika-primary); color: white; }
+        .btn-reset { background: #ffffff; color: #475569; border: 1px solid var(--pomo-border); }
+        .btn-settings { background: #ffffff; color: #0284c7; border: 1px solid var(--pomo-border); padding: 4px 8px; font-size: 0.72rem; border-radius: 4px; }
+
+        .pomo-settings {
+            display: none;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 14px;
+            font-size: 0.78rem;
+            border: 1px solid var(--pomo-border);
+        }
+        .pomo-settings.open { display: block; }
+        .settings-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .settings-row input { width: 48px; background: #f8fafc; border: 1px solid var(--border); color: var(--text-main); text-align: center; border-radius: 4px; padding: 3px; }
+
+        /* Métricas seleccionables */
+        .stats-selector-tabs {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--pomo-border);
+            padding: 3px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        .stats-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 5px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .stats-tab.active { background: #e0f2fe; color: #0369a1; }
+
+        .stat-display-box {
+            background: #ffffff;
+            border: 1px solid var(--pomo-border);
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .stat-display-box span { font-size: 0.68rem; text-transform: uppercase; color: #64748b; font-weight: 600; }
+        .stat-display-box strong { font-size: 1.25rem; color: #0369a1; display: block; }
+
+        /* Heatmap Dinámico de 30 días */
+        .heatmap-container { border-top: 1px solid var(--pomo-border); padding-top: 10px; margin-bottom: 15px; }
+        .heatmap-header { display: flex; justify-content: space-between; font-size: 0.68rem; color: #64748b; margin-bottom: 6px; font-weight: 600; }
+        .heatmap-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+        .heatmap-cell { width: 100%; aspect-ratio: 1; border-radius: 3px; background: #e2e8f0; }
+        .heatmap-cell.level-green  { background: #16a34a; }
+        .heatmap-cell.level-yellow { background: #eab308; }
+        .heatmap-cell.level-orange { background: #f97316; }
+        .heatmap-cell.level-red    { background: #ef4444; }
+
+        /* Historial de Temas */
+        .topics-log-accordion {
+            background: #ffffff;
+            border: 1px solid var(--pomo-border);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.78rem;
+        }
+        .topics-log-accordion summary {
+            padding: 8px 12px;
+            font-weight: 700;
+            color: #0369a1;
+            cursor: pointer;
+            user-select: none;
+            background: #f8fafc;
+        }
+        .topics-log-list {
+            padding: 10px 12px;
+            max-height: 140px;
+            overflow-y: auto;
+            list-style: none;
+        }
+        .topics-log-item {
+            padding: 5px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            color: #334155;
+        }
+        .topics-log-item:last-child { border-bottom: none; }
+
+        /* ================= CONTENEDOR PRINCIPAL DERECHO ================= */
+        .main-content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 320px;
+            min-width: 0;
+            transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .main-content-area.expanded { margin-left: 0; }
+
+        .container {
+            max-width: 1250px;
+            margin: 35px auto;
+            padding: 0 35px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Tarjeta Introductoria */
+        .study-intro-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+        }
+
+        .study-intro-card h1 { font-size: 1.8rem; color: var(--nika-dark); margin-bottom: 8px; font-weight: 800; }
+        .study-intro-desc { color: var(--text-muted); font-size: 0.96rem; margin-bottom: 20px; line-height: 1.6; }
+
+        .progress-container { background: #e2e8f0; border-radius: 99px; height: 12px; width: 100%; overflow: hidden; margin-bottom: 6px; }
+        .progress-bar { background: var(--success); height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 99px; }
+        .progress-stats { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: var(--text-muted); }
+
+        /* Buscador e instrucción */
+        .search-box { margin-bottom: 25px; }
+        .search-input {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            background: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .search-input:focus { border-color: var(--nika-primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        .instruction-subtitle {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--nika-primary);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ================= GRILLA DE UPs ================= */
+        #ups-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+            gap: 22px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            #ups-container { grid-template-columns: 1fr; }
+        }
+
+        .up-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-self: start;
+        }
+
+        /* Colores pasteles suaves */
+        .up-card:nth-child(1)  { border-left: 6px solid #93c5fd; }
+        .up-card:nth-child(2)  { border-left: 6px solid #86efac; }
+        .up-card:nth-child(3)  { border-left: 6px solid #fde047; }
+        .up-card:nth-child(4)  { border-left: 6px solid #fca5a5; }
+        .up-card:nth-child(5)  { border-left: 6px solid #d8b4fe; }
+        .up-card:nth-child(6)  { border-left: 6px solid #fdba74; }
+        .up-card:nth-child(7)  { border-left: 6px solid #5eead4; }
+        .up-card:nth-child(8)  { border-left: 6px solid #f472b6; }
+        .up-card:nth-child(9)  { border-left: 6px solid #cbd5e1; }
+        .up-card:nth-child(10) { border-left: 6px solid #a5f3fc; }
+        .up-card:nth-child(11) { border-left: 6px solid #fed7aa; }
+
+        .up-card:hover { transform: translateY(-2px); box-shadow: 0 12px 25px -8px rgba(0,0,0,0.1); }
+
+        .up-header {
+            padding: 18px 22px;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .up-card:has(.up-content.open) .up-header { border-bottom-color: var(--border); }
+
+        .up-title-area h3 { font-size: 1.02rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 2px; }
+        .up-title-area span { font-size: 0.78rem; color: var(--text-muted); }
+
+        .up-badge { font-size: 0.75rem; padding: 3px 10px; border-radius: 20px; font-weight: 700; background: #e2e8f0; color: var(--text-muted); }
+
+        .up-content {
+            padding: 18px 22px;
+            background: rgba(248, 250, 252, 0.6);
+            display: none;
+        }
+
+        .up-content.open { display: block; }
+        .up-content h4 { font-size: 0.78rem; font-weight: 800; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 0.88rem;
+            cursor: pointer;
+            border-bottom: 1px dashed var(--border);
+        }
+        .checklist-item:last-child { border-bottom: none; }
+        .checklist-item input[type="checkbox"] { margin-top: 3px; transform: scale(1.1); cursor: pointer; accent-color: var(--nika-primary); }
+        .checklist-item.completed span { text-decoration: line-through; color: var(--text-muted); opacity: 0.7; }
+
+        /* Toast */
+        #toast {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--nika-dark); color: white;
+            padding: 14px 24px; border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            font-weight: 700; font-size: 0.9rem;
+            transform: translateY(100px); opacity: 0;
+            transition: all 0.3s ease; z-index: 2000;
+        }
+        #toast.show { transform: translateY(0); opacity: 1; }
+
+        .footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border);
+            color: var(--text-muted); padding: 20px 30px;
+            text-align: center; font-size: 0.82rem; margin-top: auto;
+        }
+        .footer span { color: var(--nika-primary); font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR SUPERIOR -->
+    <header class="navbar">
+        <div>
+            <a href="index.html" class="brand-title">CAMPUS NIKA</a>
+            <span class="brand-slogan">Estudia, competi, aprobá</span>
+        </div>
+        <div class="navbar-actions">
+            <button class="btn-toggle-panel" onclick="togglePomodoroSidebar()">⏱️ Panel Pomodoro</button>
+            <a href="cirugia_hub.html" class="btn-back">← Volver al Menú de Cirugía</a>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- ================= BARRA LATERAL IZQUIERDA: TONO CELESTE SUAVE ================= -->
+        <aside class="pomodoro-sidebar" id="pomoSidebar">
+            <div>
+                <div class="pomo-header-top">
+                    <span class="pomo-brand">⏱️ Pomodoro Pro</span>
+                    <div style="display: flex; gap: 6px;">
+                        <button class="pomo-btn btn-settings" onclick="togglePomoSettings()">⚙️ Ajustes</button>
+                        <button class="btn-close-sidebar" onclick="togglePomodoroSidebar()">✖</button>
+                    </div>
+                </div>
+
+                <!-- Pestañas de Modo -->
+                <div class="pomo-tabs">
+                    <button class="pomo-tab active" id="tab-work" onclick="setPomoMode('work')">Foco (60m)</button>
+                    <button class="pomo-tab" id="tab-shortBreak" onclick="setPomoMode('shortBreak')">Corto (25m)</button>
+                    <button class="pomo-tab" id="tab-longBreak" onclick="setPomoMode('longBreak')">Largo (45m)</button>
+                </div>
+
+                <!-- Tarea Activa -->
+                <input type="text" id="pomo-task" class="pomo-task-input" placeholder="Tema en estudio (ej. UP2 Abdomen Agudo)">
+
+                <!-- Reloj -->
+                <div class="pomodoro-timer" id="pomo-display">60:00</div>
+
+                <!-- Controles -->
+                <div class="pomodoro-controls">
+                    <button class="pomo-btn btn-start" id="pomo-toggle" onclick="togglePomodoro()">Iniciar</button>
+                    <button class="pomo-btn btn-reset" onclick="resetPomodoro()">Reiniciar</button>
+                </div>
+
+                <!-- Configuración desplegable -->
+                <div class="pomo-settings" id="pomo-settings-panel">
+                    <div class="settings-row">
+                        <span>Foco (min):</span>
+                        <input type="number" id="cfg-work" value="60" min="1" max="180" onchange="saveCustomTimes()">
+                    </div>
+                    <div class="settings-row">
+                        <span>Corto (min):</span>
+                        <input type="number" id="cfg-short" value="25" min="1" max="90" onchange="saveCustomTimes()">
+                    </div>
+                    <div class="settings-row">
+                        <span>Largo (min):</span>
+                        <input type="number" id="cfg-long" value="45" min="1" max="120" onchange="saveCustomTimes()">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <!-- Selector de Registros -->
+                <div class="stats-selector-tabs">
+                    <button class="stats-tab active" id="stat-tab-daily" onclick="switchStatsView('daily')">Diario</button>
+                    <button class="stats-tab" id="stat-tab-weekly" onclick="switchStatsView('weekly')">Semanal</button>
+                    <button class="stats-tab" id="stat-tab-monthly" onclick="switchStatsView('monthly')">30 Días</button>
+                </div>
+
+                <div class="stat-display-box">
+                    <span id="stat-label-title">Bloques Completados (Hoy)</span>
+                    <strong id="stat-main-value">0</strong>
+                </div>
+
+                <!-- Heatmap Dinámico de 30 Días -->
+                <div class="heatmap-container">
+                    <div class="heatmap-header">
+                        <span>Actividad (30d)</span>
+                        <span id="pomo-total-historical">Total: 0</span>
+                    </div>
+                    <div class="heatmap-grid" id="pomo-heatmap"></div>
+                </div>
+
+                <!-- Casilla Desplegable: Historial de Temas -->
+                <details class="topics-log-accordion" style="margin-top: 10px;">
+                    <summary>📚 Historial de Temas</summary>
+                    <ul class="topics-log-list" id="topics-log-list">
+                        <li style="color:#64748b; font-style:italic;">No hay sesiones registradas aún.</li>
+                    </ul>
+                </details>
+            </div>
+        </aside>
+
+        <!-- ================= CONTENEDOR PRINCIPAL DERECHO ================= -->
+        <div class="main-content-area" id="mainContentArea">
+            <main class="container">
+                
+                <!-- TARJETA INTRODUCTORIA -->
+                <div class="study-intro-card">
+                    <h1>Programa de Estudio: Cirugía</h1>
+                    <p class="study-intro-desc">
+                        Escriba o repase los núcleos conceptuales y procedimentales de la asignatura. Este espacio integra las <strong>11 Unidades Problema (UPs)</strong> oficiales de la cátedra de Cirugía General, diseñadas para fortalecer el juicio clínico, la semiología quirúrgica y la toma de decisiones basada en evidencias científicas de alto nivel para el estudiante de medicina de 5.° año (UNER)[cite: 1].
+                    </p>
+
+                    <div class="progress-container">
+                        <div class="progress-bar" id="global-progress"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span id="progress-text">Progreso global: 0% completado</span>
+                        <span id="items-count">0 / 0 ítems estudiados</span>
+                    </div>
+                </div>
+
+                <!-- BUSCADOR E INSTRUCCIÓN -->
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar temas, patologías o contenidos en el programa (ej. Apendicitis, Heridas, Hernias)..." onkeyup="filterContent()">
+                    <div class="instruction-subtitle">📌 Marca tu progreso de estudio de cada unidad</div>
+                </div>
+
+                <!-- GRILLA DE UPs -->
+                <div id="ups-container">
+                    <!-- Inyectado por JavaScript -->
+                </div>
+
+            </main>
+
+            <div id="toast">✅ ¡Unidad completada con éxito! Excelente avance.</div>
+
+            <footer class="footer">
+                <div><strong>Campus Nika</strong> — Módulo Teórico de Estudio | <span>Estudia, competi, aprobá.</span></div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // DATOS DE LAS 11 UNIDADES PROBLEMA DE CIRUGÍA
+        const surgicalUnits = [
+            {
+                id: "up1",
+                title: "UP 1: Trauma de miembro superior en el adulto joven",
+                subtitle: "Generalidades, Anestesia, Heridas, Quirófano y Ortopedia Básica",
+                items: [
+                    "Cirugía: Definición, nomenclatura quirúrgica y acto quirúrgico.",
+                    "Asepsis, antisepsia, normas de bioseguridad y quirófano.",
+                    "Instrumental quirúrgico básico (diéresis, prehensión, hemostasia, separación, síntesis).",
+                    "Materiales de sutura y clasificación de heridas (limpias, contaminadas, sucias).",
+                    "Anestesia: Tipos (local, regional, raquídea, general) y drogas utilizadas.",
+                    "Preoperatorio: Valoración del riesgo quirúrgico (ASA) y consentimiento informado.",
+                    "Post-operatorio: Vigilancia estricta, complicaciones frecuentes y alta.",
+                    "Biología de la herida: Cicatrización (fases) y cicatrices patológicas (queloide/hipertrófica).",
+                    "Ortopedia y Traumatología: Fracturas, luxaciones y biología de la consolidación.",
+                    "Materiales de osteosíntesis, yesos y traumatismos de miembros superiores."
+                ]
+            },
+            {
+                id: "up2",
+                title: "UP 2: Evaluación del abdomen agudo",
+                subtitle: "Claves clínicas, diagnósticas y terapéuticas",
+                items: [
+                    "Abdomen agudo: Definición y clasificación clínica (inflamatorio, perforativo, peritonítico, obstructivo, vascular).",
+                    "Fisiología y fisiopatología del dolor abdominal (visceral, somático y referido).",
+                    "Síndrome doloroso en fosa ilíaca derecha y diagnósticos diferenciales.",
+                    "Apendicitis aguda: Clínica, evolución, complicaciones (plastrón, absceso) y tumores del apéndice.",
+                    "Métodos complementarios por imágenes en el abdomen agudo.",
+                    "Estrés preoperatorio, impacto emocional, adaptación y riesgo psicológico quirúrgico."
+                ]
+            },
+            {
+                id: "up3",
+                title: "UP 3: Evaluación integral de la disfagia",
+                subtitle: "Síntomas digestivos y patología esofagogástrica",
+                items: [
+                    "Disfagia: Causas orgánicas y funcionales.",
+                    "Hemorragia digestiva alta (HDA): Causas, diagnóstico y abordaje inicial.",
+                    "Patología benigna esofágica: Esofagitis, acalasia, divertículo de Zenker y ERGE / Esófago de Barrett.",
+                    "Patología gástrica benigna: Úlcera péptica, gastritis y hernias hiatales.",
+                    "Cáncer esofágico y gástrico: Factores de riesgo, clínica y tratamiento.",
+                    "Patología del estómago operado (Síndrome de Dumping y asa aferente).",
+                    "Estudios complementarios: Endoscopia y manometría esofágica."
+                ]
+            },
+            {
+                id: "up4",
+                title: "UP 4: Enfermedad colorrectal en el adulto mayor",
+                subtitle: "Colon, recto y ano",
+                items: [
+                    "Anatomía, fisiología y semiología del colon. Hemorragia digestiva baja (HDB).",
+                    "Enfermedad diverticular: Diverticulosis, diverticulitis y complicaciones.",
+                    "Enfermedades inflamatorias intestinales (Colitis ulcerosa y Crohn).",
+                    "Patología neoplásica del colon y grupos de riesgo (screening).",
+                    "Región anorrectal: Hemorroides, fisuras, fístulas, abscesos y cáncer de recto.",
+                    "Ostomías digestivas: Tipos, cuidados postoperatorios y seguimiento."
+                ]
+            },
+            {
+                id: "up5",
+                title: "UP 5: Patología hepatobiliar en adultos",
+                subtitle: "Hígado, vías biliares y páncreas",
+                items: [
+                    "Anatomía quirúrgica y segmentación hepática. Traumatismos y abscesos hepáticos.",
+                    "Hipertensión portal y tumores hepáticos.",
+                    "Vías biliares y litiasis biliar. Colecistitis aguda y síndrome coledociano.",
+                    "Páncreas: Fisiología, traumatismos, pancreatitis aguda y crónica.",
+                    "Tumores benignos y malignos de páncreas y región periampular."
+                ]
+            },
+            {
+                id: "up6",
+                title: "UP 6: Dolor inguinal en adultos",
+                subtitle: "Pared abdominal y patología escrotal",
+                items: [
+                    "Enfermedades quirúrgicas de la pared abdominal (hernias inguinales, crurales, umbilicales, epigástricas).",
+                    "Eventraciones y evisceraciones. Complicaciones (incarceración y estrangulamiento).",
+                    "Diagnóstico diferencial del dolor inguinal (pubalgia, radiculopatías, apendicitis retrocecal).",
+                    "Patología escrotal aguda (torsión testicular, hidrocele, varicocele, epididimitis)."
+                ]
+            },
+            {
+                id: "up7",
+                title: "UP 7: Abordaje del paciente con tumoración cervical",
+                subtitle: "Cuello, tiroides, glándulas salivales y burnout",
+                items: [
+                    "Anatomía quirúrgica del cuello y estudio de masas cervicales.",
+                    "Patología tiroidea: Bocio nodular, adenomas y carcinomas tiroideos.",
+                    "Complicaciones de la cirugía tiroidea (hipoparatiroidismo y lesión del nervio laríngeo recurrente).",
+                    "Tumores laterales del cuello y patología de glándulas salivales (parótida, submaxilar).",
+                    "Traqueostomía: Indicaciones, técnica y cuidados postoperatorios.",
+                    "Estrés laboral en salud y Síndrome de Burnout."
+                ]
+            },
+            {
+                id: "up8",
+                title: "UP 8: Patología musculoesquelética en miembros inferiores",
+                subtitle: "Traumatología avanzada y discapacidad",
+                items: [
+                    "Biología ósea, consolidación de fracturas y politraumatismos.",
+                    "Lesiones traumáticas de pelvis, miembros inferiores y columna vertebral.",
+                    "Tumores óseos y de partes blandas, y metástasis óseas.",
+                    "Patología del pie y tobillo.",
+                    "Concepto de discapacidad, incapacidad, invalidez y comunicación de malas noticias al paciente."
+                ]
+            },
+            {
+                id: "up9",
+                title: "UP 9: Atención prehospitalaria al politraumatizado y procuración",
+                subtitle: "Protocolo ATLS, quemados y trasplantes",
+                items: [
+                    "Atención inicial del politraumatizado según protocolo ATLS (ABCDE).",
+                    "Manejo del shock traumático y traumatismo encéfalo-craneano.",
+                    "Evaluación y manejo del paciente quemado (Fórmula de Parkland y superficie corporal).",
+                    "Procuración y trasplante de órganos y tejidos (INCUCAI). Diagnóstico de muerte encefálica.",
+                    "Comunicación de la muerte y el duelo en el equipo de salud."
+                ]
+            },
+            {
+                id: "up10",
+                title: "UP 10: Enfermedad vascular periférica",
+                subtitle: "Riesgo cardiovascular global",
+                items: [
+                    "Enfermedades del sistema arterial periférico (isquemia arterial aguda y crónica).",
+                    "Enfermedades del sistema venoso periférico (várices, TVP, TEP).",
+                    "Aneurismas arteriales (aorta abdominal y poplíteo)."
+                ]
+            },
+            {
+                id: "up11",
+                title: "UP 11: Obstrucción urinaria baja en el adulto mayor",
+                subtitle: "Urología quirúrgica y accesos vasculares",
+                items: [
+                    "Patología general del aparato urogenital y urgencias urológicas (retención aguda de orina).",
+                    "Obstrucción urinaria alta y baja, y litiasis urinaria.",
+                    "Patología prostática benigna (HPB) y cáncer de próstata.",
+                    "Patología oncológica urogenital (riñón, vejiga, testículo).",
+                    "Accesos vasculares para hemodiálisis."
+                ]
+            }
+        ];
+
+        // Leemos quién está logueado para guardar su progreso personal
+        const activeUser = JSON.parse(localStorage.getItem('nika_currentUser'));
+        const userSuffix = activeUser ? activeUser.username : 'invitado';
+        
+        // Claves únicas por usuario
+        const progressKey = `nika_surgery_progress_${userSuffix}`;
+        const pctKey = `nika_surgery_global_pct_${userSuffix}`;
+
+        let progressData = JSON.parse(localStorage.getItem(progressKey)) || {};
+
+        function renderUnits() {
+            const container = document.getElementById('ups-container');
+            container.innerHTML = '';
+
+            surgicalUnits.forEach(up => {
+                if(!progressData[up.id]) progressData[up.id] = {};
+
+                let completedCount = 0;
+                const totalItems = up.items.length;
+
+                up.items.forEach((item, index) => {
+                    if(progressData[up.id][index]) completedCount++;
+                });
+
+                const percentage = Math.round((completedCount / totalItems) * 100);
+
+                let html = `
+                    <div class="up-card" data-id="${up.id}">
+                        <div class="up-header" onclick="toggleCard(event, '${up.id}')">
+                            <div class="up-title-area">
+                                <h3>${up.title}</h3>
+                                <span>${up.subtitle}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span class="up-badge" id="badge-${up.id}">${percentage}% completado</span>
+                                <span style="font-size: 1.1rem; color: var(--text-muted);" id="arrow-${up.id}">▼</span>
+                            </div>
+                        </div>
+                        <div class="up-content" id="content-${up.id}">
+                            <h4>Objetivos y Contenidos de Estudio</h4>
+                `;
+
+                up.items.forEach((item, index) => {
+                    const isChecked = progressData[up.id][index] ? 'checked' : '';
+                    const isCompletedClass = isChecked ? 'completed' : '';
+                    html += `
+                        <label class="checklist-item ${isCompletedClass}" id="label-${up.id}-${index}">
+                            <input type="checkbox" ${isChecked} onchange="updateProgress('${up.id}', ${index}, this)">
+                            <span>${item}</span>
+                        </label>
+                    `;
+                });
+
+                html += `</div></div>`;
+                container.innerHTML += html;
+            });
+
+            updateGlobalStats();
+        }
+
+        function toggleCard(event, id) {
+            const content = document.getElementById(`content-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            const isOpen = content.classList.contains('open');
+            
+            if (isOpen) {
+                content.classList.remove('open');
+                arrow.innerText = '▼';
+            } else {
+                content.classList.add('open');
+                arrow.innerText = '▲';
+            }
+        }
+
+        function updateProgress(upId, itemIndex, checkbox) {
+            if(!progressData[upId]) progressData[upId] = {};
+            progressData[upId][itemIndex] = checkbox.checked;
+
+            const label = document.getElementById(`label-${upId}-${itemIndex}`);
+            if(checkbox.checked) {
+                label.classList.add('completed');
+            } else {
+                label.classList.remove('completed');
+            }
+
+            // Guardamos usando la clave única del usuario
+            localStorage.setItem(progressKey, JSON.stringify(progressData));
+
+            const upObj = surgicalUnits.find(u => u.id === upId);
+            let completed = 0;
+            upObj.items.forEach((_, idx) => {
+                if(progressData[upId][idx]) completed++;
+            });
+            const pct = Math.round((completed / upObj.items.length) * 100);
+            document.getElementById(`badge-${upId}`).innerText = `${pct}% completado`;
+
+            if(pct === 100) {
+                showToast(`🎉 ¡Completaste el 100% de la ${upObj.title.split(':')[0]}!`);
+            }
+
+            updateGlobalStats();
+        }
+
+        function updateGlobalStats() {
+            let totalItemsAll = 0;
+            let totalCompletedAll = 0;
+
+            surgicalUnits.forEach(up => {
+                up.items.forEach((_, idx) => {
+                    totalItemsAll++;
+                    if(progressData[up.id] && progressData[up.id][idx]) {
+                        totalCompletedAll++;
+                    }
+                });
+            });
+
+            const globalPct = totalItemsAll > 0 ? Math.round((totalCompletedAll / totalItemsAll) * 100) : 0;
+            
+            document.getElementById('global-progress').style.width = `${globalPct}%`;
+            document.getElementById('progress-text').innerText = `Progreso global: ${globalPct}% completado`;
+            document.getElementById('items-count').innerText = `${totalCompletedAll} / ${totalItemsAll} ítems estudiados`;
+
+            // Guardamos el porcentaje global atado al usuario para que lo lea index.html
+            localStorage.setItem(pctKey, globalPct);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = message;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3500);
+        }
+
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            surgicalUnits.forEach(up => {
+                const card = document.querySelector(`.up-card[data-id="${up.id}"]`);
+                const matchesTitle = up.title.toLowerCase().includes(query) || up.subtitle.toLowerCase().includes(query);
+                const matchesItem = up.items.some(item => item.toLowerCase().includes(query));
+
+                if(matchesTitle || matchesItem || query === '') {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ================= POMODORO PRO =================
+        let workTime = 60;
+        let shortBreakTime = 25;
+        let longBreakTime = 45;
+        
+        let currentMode = 'work';
+        let pomoSeconds = workTime * 60;
+        let pomoInterval = null;
+        let isPomoRunning = false;
+        let currentStatView = 'daily';
+
+        function togglePomodoroSidebar() {
+            const sidebar = document.getElementById('pomoSidebar');
+            const mainContentArea = document.getElementById('mainContentArea');
+            sidebar.classList.toggle('collapsed');
+            mainContentArea.classList.toggle('expanded');
+        }
+
+        function togglePomoSettings() {
+            document.getElementById('pomo-settings-panel').classList.toggle('open');
+        }
+
+        function saveCustomTimes() {
+            workTime = parseInt(document.getElementById('cfg-work').value) || 60;
+            shortBreakTime = parseInt(document.getElementById('cfg-short').value) || 25;
+            longBreakTime = parseInt(document.getElementById('cfg-long').value) || 45;
+            
+            document.getElementById('tab-work').innerText = `Foco (${workTime}m)`;
+            document.getElementById('tab-shortBreak').innerText = `Corto (${shortBreakTime}m)`;
+            document.getElementById('tab-longBreak').innerText = `Largo (${longBreakTime}m)`;
+
+            if (!isPomoRunning) {
+                if (currentMode === 'work') pomoSeconds = workTime * 60;
+                if (currentMode === 'shortBreak') pomoSeconds = shortBreakTime * 60;
+                if (currentMode === 'longBreak') pomoSeconds = longBreakTime * 60;
+                updatePomoDisplay();
+            }
+        }
+
+        function setPomoMode(mode) {
+            if (isPomoRunning) {
+                if (!confirm("Hay un bloque en curso. ¿Cambiar de modo y reiniciar?")) return;
+                clearInterval(pomoInterval);
+                isPomoRunning = false;
+                document.getElementById('pomo-toggle').innerText = "Iniciar";
+                document.getElementById('pomo-toggle').style.background = "var(--nika-primary)";
+            }
+            currentMode = mode;
+            document.querySelectorAll('.pomo-tab').forEach(t => t.classList.remove('active'));
+            
+            const activeTab = document.getElementById(`tab-${mode}`);
+            if(activeTab) activeTab.classList.add('active');
+
+            if (mode === 'work') {
+                pomoSeconds = workTime * 60;
+            } else if (mode === 'shortBreak') {
+                pomoSeconds = shortBreakTime * 60;
+            } else if (mode === 'longBreak') {
+                pomoSeconds = longBreakTime * 60;
+            }
+            updatePomoDisplay();
+        }
+
+        function togglePomodoro() {
+            const btn = document.getElementById('pomo-toggle');
+            if (!isPomoRunning) {
+                isPomoRunning = true;
+                btn.innerText = "Pausar";
+                btn.style.background = "#dc2626";
+                pomoInterval = setInterval(() => {
+                    if (pomoSeconds > 0) {
+                        pomoSeconds--;
+                        updatePomoDisplay();
+                    } else {
+                        clearInterval(pomoInterval);
+                        isPomoRunning = false;
+                        btn.innerText = "Iniciar";
+                        btn.style.background = "var(--nika-primary)";
+                        
+                        if (currentMode === 'work') {
+                            const taskName = document.getElementById('pomo-task').value.trim() || "Estudio General";
+                            recordPomodoroCompletion(taskName);
+                            alert(`🍅 ¡Bloque de Foco completado! Tema registrado: ${taskName}`);
+                        } else {
+                            alert("🔔 ¡Descanso finalizado! Volvemos al estudio.");
+                        }
+                        resetPomodoro();
+                    }
+                }, 1000);
+            } else {
+                isPomoRunning = false;
+                btn.innerText = "Reanudar";
+                btn.style.background = "var(--nika-primary)";
+                clearInterval(pomoInterval);
+            }
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+            if (currentMode === 'work') pomoSeconds = workTime * 60;
+            if (currentMode === 'shortBreak') pomoSeconds = shortBreakTime * 60;
+            if (currentMode === 'longBreak') pomoSeconds = longBreakTime * 60;
+            updatePomoDisplay();
+            const btn = document.getElementById('pomo-toggle');
+            btn.innerText = "Iniciar";
+            btn.style.background = "var(--nika-primary)";
+        }
+
+        function updatePomoDisplay() {
+            const mins = Math.floor(pomoSeconds / 60);
+            const secs = pomoSeconds % 60;
+            document.getElementById('pomo-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // ================= GESTIÓN DE HISTORIAL Y HEATMAP =================
+        function getTodayKey() {
+            const d = new Date();
+            return d.toISOString().split('T')[0];
+        }
+
+        function recordPomodoroCompletion(topicName) {
+            let history = JSON.parse(localStorage.getItem('nika_pomo_history')) || {};
+            const today = getTodayKey();
+            history[today] = (history[today] || 0) + 1;
+            localStorage.setItem('nika_pomo_history', JSON.stringify(history));
+
+            let topicsLog = JSON.parse(localStorage.getItem('nika_pomo_topics')) || [];
+            const now = new Date();
+            const timeStr = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+            topicsLog.unshift({
+                date: today,
+                time: timeStr,
+                topic: topicName,
+                duration: workTime
+            });
+            localStorage.setItem('nika_pomo_topics', JSON.stringify(topicsLog));
+
+            loadPomoStats();
+            renderTopicsLog();
+        }
+
+        function switchStatsView(view) {
+            currentStatView = view;
+            document.querySelectorAll('.stats-tab').forEach(t => t.classList.remove('active'));
+            const tabBtn = document.getElementById(`stat-tab-${view}`);
+            if (tabBtn) tabBtn.classList.add('active');
+            loadPomoStats();
+        }
+
+        function loadPomoStats() {
+            let history = JSON.parse(localStorage.getItem('nika_pomo_history')) || {};
+            const todayKey = getTodayKey();
+            
+            let todayCount = history[todayKey] || 0;
+
+            let weekCount = 0;
+            for (let i = 0; i < 7; i++) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                weekCount += (history[d.toISOString().split('T')[0]] || 0);
+            }
+
+            let monthCount = 0;
+            for (let i = 0; i < 30; i++) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                monthCount += (history[d.toISOString().split('T')[0]] || 0);
+            }
+
+            let totalCount = 0;
+            Object.values(history).forEach(v => totalCount += v);
+
+            const labelEl = document.getElementById('stat-label-title');
+            const valEl = document.getElementById('stat-main-value');
+
+            if (currentStatView === 'daily') {
+                labelEl.innerText = "Bloques Completados (Hoy)";
+                valEl.innerText = todayCount;
+            } else if (currentStatView === 'weekly') {
+                labelEl.innerText = "Bloques Últimos 7 Días";
+                valEl.innerText = weekCount;
+            } else if (currentStatView === 'monthly') {
+                labelEl.innerText = "Bloques Últimos 30 Días";
+                valEl.innerText = monthCount;
+            }
+
+            document.getElementById('pomo-total-historical').innerText = `Total: ${totalCount}`;
+
+            // Renderizar Heatmap Dinámico de 30 días
+            const heatmapContainer = document.getElementById('pomo-heatmap');
+            heatmapContainer.innerHTML = '';
+            
+            for (let i = 29; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                const dateKey = d.toISOString().split('T')[0];
+                const count = history[dateKey] || 0;
+
+                const cell = document.createElement('div');
+                cell.className = 'heatmap-cell';
+                cell.title = `${dateKey}: ${count} bloques (~${count * 1}h)`;
+
+                if (count >= 1 && count <= 2) cell.classList.add('level-green');
+                else if (count >= 3 && count <= 4) cell.classList.add('level-yellow');
+                else if (count >= 5 && count <= 6) cell.classList.add('level-orange');
+                else if (count >= 7) cell.classList.add('level-red');
+
+                heatmapContainer.appendChild(cell);
+            }
+        }
+
+        function renderTopicsLog() {
+            const listEl = document.getElementById('topics-log-list');
+            let topicsLog = JSON.parse(localStorage.getItem('nika_pomo_topics')) || [];
+
+            if (topicsLog.length === 0) {
+                listEl.innerHTML = '<li style="color:#64748b; font-style:italic;">No hay sesiones registradas aún.</li>';
+                return;
+            }
+
+            listEl.innerHTML = '';
+            topicsLog.slice(0, 10).forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'topics-log-item';
+                li.innerHTML = `
+                    <span><strong>${item.topic}</strong> (${item.duration}m)</span>
+                    <span style="color:#64748b; font-size:0.7rem;">${item.date.slice(5)} ${item.time}</span>
+                `;
+                listEl.appendChild(li);
+            });
+        }
+
+        window.onload = () => {
+            renderUnits();
+            loadPomoStats();
+            renderTopicsLog();
+        };
+    </script>
+</body>
+</html>

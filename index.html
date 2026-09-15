@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Nika | Simulador Médico y Alto Rendimiento</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nika-primary: #0284c7;
+            --nika-dark: #0f172a;
+            --nika-deep: #0a192f;
+            --nika-accent: #38bdf8;
+            --bg-body: #f1f5f9;
+            --border: #cbd5e1;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --warning: #ca8a04;
+            --warning-light: #fef9c3;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --card-bg: #ffffff;
+            --sidebar-bg: #0a192f;
+            --sidebar-text: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+        }
+
+        /* Desplazamiento suave para anclas */
+        html { scroll-behavior: smooth; }
+
+        body.dark-mode {
+            --nika-primary: #38bdf8; --nika-dark: #f8fafc; --nika-deep: #020617; --nika-accent: #0ea5e9;
+            --bg-body: #090d16; --border: #1e293b; --text-main: #f8fafc; --text-muted: #94a3b8;
+            --card-bg: #111827; --sidebar-bg: #020617; --sidebar-text: #cbd5e1;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; display: flex; min-height: 100vh; overflow-x: hidden; transition: 0.3s ease; flex-direction: column; }
+
+        /* ================= BARRA LATERAL ================= */
+        .sidebar { width: 300px; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #020617 100%); color: var(--sidebar-text); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; z-index: 1100; box-shadow: 5px 0 25px rgba(0,0,0,0.2); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar.collapsed { transform: translateX(-100%); }
+        .sidebar-brand-box { padding: 22px 20px; margin: 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; text-align: center; }
+        .sidebar-brand-box h2 { font-size: 1.4rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; margin-bottom: 2px; }
+        .sidebar-brand-box span { font-size: 0.72rem; font-weight: 700; color: var(--nika-accent); text-transform: uppercase; letter-spacing: 1.5px; }
+
+        .sidebar-menu { list-style: none; padding: 10px 16px; flex: 1; overflow-y: auto; }
+        .sidebar-category { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #64748b; padding: 12px 16px 6px 16px; }
+        .sidebar-menu li { margin-bottom: 4px; }
+        .sidebar-link { display: flex; align-items: center; gap: 12px; padding: 11px 16px; color: var(--sidebar-text); text-decoration: none; font-size: 0.88rem; font-weight: 600; border-radius: 8px; transition: all 0.2s ease; background: transparent; border: none; width: 100%; cursor: pointer; text-align: left; }
+        .sidebar-link:hover { background: rgba(56, 189, 248, 0.12); color: var(--nika-accent); transform: translateX(4px); }
+
+        .sidebar-user-card { background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 10px; padding: 10px 14px; margin: 0 16px 10px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.2s; }
+        .sidebar-user-card:hover { background: rgba(2, 132, 199, 0.25); }
+        .sidebar-user-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--nika-accent); background: #0f172a; }
+        .sidebar-user-info h4 { font-size: 0.85rem; color: #ffffff; font-weight: 700; line-height: 1.2; }
+        .sidebar-user-info span { font-size: 0.72rem; color: var(--nika-accent); }
+
+        /* ================= CONTENEDOR PRINCIPAL ================= */
+        .main-content { flex: 1; display: flex; flex-direction: column; margin-left: 300px; min-width: 0; transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1); width: calc(100% - 300px); }
+        .main-content.expanded { margin-left: 0; width: 100%; }
+        .top-header { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 15px 35px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.03); width: 100%; }
+        .toggle-sidebar-btn { background: rgba(2, 132, 199, 0.1); color: var(--nika-primary); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .toggle-sidebar-btn:hover { background: var(--nika-primary); color: white; }
+        .account-btn { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: white; border: none; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.88rem; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25); transition: transform 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .account-btn:hover { transform: translateY(-1px); }
+
+        /* Contenedor central unificado para evitar desplazamientos laterales */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 30px; flex: 1; width: 100%; display: flex; flex-direction: column; box-sizing: border-box; }
+
+        /* HERO & BRANDING */
+        .central-branding { text-align: center; margin-bottom: 35px; position: relative; width: 100%; }
+        .brand-badge-pill { display: inline-block; background: rgba(2, 132, 199, 0.1); color: var(--nika-primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; padding: 6px 18px; border-radius: 30px; margin-bottom: 14px; border: 1px solid rgba(2, 132, 199, 0.25); box-shadow: 0 4px 12px rgba(2,132,199,0.08); }
+        .central-branding h1 { font-size: 3.8rem; font-weight: 900; background: linear-gradient(135deg, var(--nika-dark) 0%, var(--nika-primary) 40%, var(--nika-accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1.5px; margin-bottom: 8px; }
+        .central-branding p { color: var(--text-muted); font-size: 1.15rem; font-weight: 600; }
+
+        /* ================= ESFERA MÉDICA CON LATIDO ================= */
+        @keyframes medicalPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4), inset 0 0 15px rgba(56, 189, 248, 0.2);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 0 0 18px rgba(56, 189, 248, 0), inset 0 0 25px rgba(56, 189, 248, 0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0), inset 0 0 15px rgba(56, 189, 248, 0.2);
+            }
+        }
+
+        .medical-pulse-container {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 24px auto;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(2, 132, 199, 0.08) 65%, transparent 100%);
+            border: 2px solid rgba(56, 189, 248, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: medicalPulse 2.8s infinite ease-in-out;
+            box-shadow: 0 10px 35px rgba(56, 189, 248, 0.25);
+            backdrop-filter: blur(4px);
+        }
+
+        body.dark-mode .medical-pulse-container {
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.14) 0%, rgba(2, 132, 199, 0.05) 65%, transparent 100%);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15);
+        }
+
+        .hero-banner { background: linear-gradient(135deg, #0a192f 0%, #0f172a 50%, #0284c7 100%); border-radius: 14px; padding: 32px 40px; color: white; margin-bottom: 30px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border: 1px solid rgba(56, 189, 248, 0.15); width: 100%; box-sizing: border-box; }
+        .hero-text h2 { font-size: 1.55rem; font-weight: 700; margin-bottom: 6px; }
+        .hero-text p { font-size: 0.92rem; color: #cbd5e1; max-width: 520px; }
+        .hero-badge-box { background: rgba(255, 255, 255, 0.06); padding: 14px 20px; border-radius: 10px; border-left: 4px solid var(--nika-accent); font-size: 0.82rem; max-width: 320px; backdrop-filter: blur(5px); }
+        .hero-badge-box strong { display: block; color: var(--nika-accent); margin-bottom: 4px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* QUICK ACCESS */
+        .quick-access-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 40px; width: 100%; }
+        .quick-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.25s ease; box-shadow: var(--shadow); color: var(--text-main); width: 100%; box-sizing: border-box; }
+        .quick-card:hover { border-color: var(--nika-primary); transform: translateY(-3px); box-shadow: 0 12px 30px -10px rgba(2, 132, 199, 0.2); }
+        .quick-icon { font-size: 1.6rem; background: rgba(2, 132, 199, 0.1); color: var(--nika-primary); padding: 10px; border-radius: 10px; }
+        .quick-info h4 { font-size: 0.92rem; font-weight: 700; color: var(--nika-primary); margin-bottom: 2px; }
+        .quick-info span { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* MÓDULOS (Grilla asegurada dentro del ancho del contenedor principal) */
+        .section-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 20px; scroll-margin-top: 100px; width: 100%; }
+        .module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 40px; width: 100%; box-sizing: border-box; }
+        .module-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 30px; cursor: pointer; transition: all 0.3s ease; position: relative; box-shadow: var(--shadow); width: 100%; box-sizing: border-box; }
+        .module-card:hover { transform: translateY(-5px); box-shadow: 0 20px 35px -10px rgba(2, 132, 199, 0.2); border-color: var(--nika-primary); }
+        .module-card.active-module { border-left: 5px solid var(--nika-primary); }
+        .module-status { position: absolute; top: 20px; right: 20px; font-size: 0.7rem; padding: 4px 10px; border-radius: 20px; font-weight: 800; text-transform: uppercase; }
+        .status-active { background: var(--success-light); color: var(--success); }
+        .status-dev { background: #fef3c7; color: #d97706; }
+
+        /* Barra de progreso sutil dentro de la tarjeta de módulo activo */
+        .module-progress-track { width: 100%; height: 6px; background: var(--bg-body); border-radius: 10px; overflow: hidden; margin: 10px 0 6px 0; }
+        .module-progress-fill { height: 100%; background: linear-gradient(90deg, var(--nika-primary), var(--nika-accent)); border-radius: 10px; }
+        .module-progress-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); font-weight: 700; margin-bottom: 14px; }
+
+        /* Sidebar: accesos secundarios inferiores (Tutorial / Demo / Manual) */
+        .sidebar-secondary-links { margin-top: auto; padding: 10px 16px 18px 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .sidebar-secondary-links .sidebar-category { color: #475569; }
+        .sidebar-secondary-links .sidebar-link { font-size: 0.8rem; opacity: 0.85; }
+
+        /* Bloque de acción principal debajo del lema */
+        .action-hub { margin-bottom: 40px; width: 100%; box-sizing: border-box; }
+        .continuity-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 22px 26px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 22px; flex-wrap: wrap; width: 100%; box-sizing: border-box; }
+        .continuity-info h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 800; margin-bottom: 6px; }
+        .continuity-info span.continuity-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 10px; }
+        .continuity-progress-wrap { min-width: 220px; }
+        .continuity-progress-track { width: 100%; height: 8px; background: var(--bg-body); border-radius: 10px; overflow: hidden; }
+        .continuity-progress-fill { height: 100%; background: linear-gradient(90deg, var(--nika-primary), var(--nika-accent)); border-radius: 10px; }
+        .continuity-progress-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; font-weight: 700; }
+        .btn-continue-action { background: var(--nika-primary); color: white; font-weight: 700; border: none; padding: 12px 22px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; white-space: nowrap; transition: background 0.2s; }
+        .btn-continue-action:hover { background: var(--nika-dark); }
+
+        .action-buttons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; width: 100%; box-sizing: border-box; }
+        .action-btn-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.25s ease; box-shadow: var(--shadow); width: 100%; box-sizing: border-box; }
+        .action-btn-card:hover { transform: translateY(-4px); border-color: var(--nika-primary); box-shadow: 0 14px 28px -10px rgba(2,132,199,0.25); }
+        .action-btn-card .action-icon { font-size: 2rem; margin-bottom: 8px; }
+        .action-btn-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
+        .action-btn-card span { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* Widget de Comunidad — Compañeros conectados */
+        .community-widget { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow); margin-bottom: 40px; width: 100%; box-sizing: border-box; }
+        .community-widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .community-widget-header h4 { font-size: 0.95rem; font-weight: 800; color: var(--text-main); }
+        .community-widget-header a { font-size: 0.78rem; color: var(--nika-primary); font-weight: 700; cursor: pointer; text-decoration: none; }
+        .online-friends-list { display: flex; flex-direction: column; gap: 10px; }
+        .online-friend-item { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; transition: background 0.2s; cursor: pointer; }
+        .online-friend-item:hover { background: var(--bg-body); }
+        .online-status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px rgba(22,163,74,0.18); flex-shrink: 0; }
+        .online-friend-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; background: #e2e8f0; flex-shrink: 0; }
+        .online-friend-name { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+        .online-friend-meta { font-size: 0.72rem; color: var(--text-muted); }
+        .community-widget-empty { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 12px 0; }
+        .module-icon { font-size: 2.3rem; margin-bottom: 14px; }
+        .module-title { font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
+        .module-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px; }
+        .btn-module { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 11px 16px; background: rgba(2, 132, 199, 0.1); color: var(--nika-primary); font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s ease; font-size: 0.9rem; }
+        .module-card:hover .btn-module { background: var(--nika-primary); color: white; }
+
+        /* ================= PANEL DE ADMINISTRACIÓN ================= */
+        .admin-dashboard { display: none; margin-top: 20px; width: 100%; }
+        .admin-header { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 25px 30px; margin-bottom: 24px; box-shadow: var(--shadow); border-left: 6px solid var(--danger); display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box; }
+        .admin-header h2 { font-size: 1.5rem; font-weight: 900; color: var(--nika-dark); margin-bottom: 5px; }
+        .admin-header p { color: var(--text-muted); font-size: 0.95rem; }
+        
+        .admin-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 30px; width: 100%; box-sizing: border-box; }
+        .admin-stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; box-shadow: var(--shadow); width: 100%; box-sizing: border-box; }
+        .admin-stat-card h4 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 800; }
+        .admin-stat-card .stat-val { font-size: 2.2rem; font-weight: 900; color: var(--nika-primary); }
+
+        .admin-panels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; box-sizing: border-box; }
+        @media (max-width: 900px) { .admin-panels-grid { grid-template-columns: 1fr; } }
+        
+        .admin-panel-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; width: 100%; box-sizing: border-box; }
+        .admin-panel-header { padding: 16px 20px; background: var(--bg-body); border-bottom: 1px solid var(--border); font-weight: 800; color: var(--nika-dark); font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+        .admin-panel-body { padding: 0; max-height: 400px; overflow-y: auto; }
+
+        /* Lista de Erratas y Pain Points */
+        .admin-list-item { padding: 16px 20px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+        .admin-list-item:hover { background: var(--bg-body); }
+        .admin-list-item:last-child { border-bottom: none; }
+        
+        .errata-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700; }
+        .errata-q { font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+        .errata-justif { font-size: 0.85rem; color: var(--text-muted); background: rgba(0,0,0,0.03); padding: 10px; border-radius: 6px; font-style: italic; margin-bottom: 12px; border-left: 3px solid var(--nika-primary); }
+        
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; cursor: pointer; border: 1px solid transparent; }
+        .status-badge.pending { background: var(--warning-light); color: var(--warning); border-color: #fef08a; }
+        .status-badge.fixed { background: var(--success-light); color: var(--success); border-color: #bbf7d0; }
+        .status-badge.rejected { background: var(--danger-light); color: var(--danger); border-color: #fecaca; }
+
+        /* MODALES */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(4px); }
+        .modal-content { background: var(--card-bg); border-radius: 14px; padding: 30px; width: 100%; max-width: 440px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
+        .modal-tabs { display: flex; background: rgba(2, 132, 199, 0.1); border-radius: 8px; padding: 4px; margin-bottom: 20px; }
+        .modal-tab-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; color: var(--text-muted); font-weight: 700; font-size: 0.80rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .modal-tab-btn.active { background: var(--nika-primary); color: white; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+        .form-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body); color: var(--text-main); font-family: inherit; font-size: 0.9rem; outline: none; }
+        .form-input:focus { border-color: var(--nika-primary); }
+        .modal-footer-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+        
+        .footer { background-color: var(--card-bg); border-top: 1px solid var(--border); color: var(--text-muted); padding: 22px 30px; text-align: center; font-size: 0.85rem; margin-top: auto; width: 100%; flex-shrink: 0; box-sizing: border-box; }
+        .footer span { color: var(--nika-primary); font-weight: 700; }
+        #toast { position: fixed; bottom: 30px; right: 30px; background: var(--nika-dark); color: white; padding: 14px 24px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); font-weight: 700; font-size: 0.9rem; transform: translateY(100px); opacity: 0; transition: all 0.3s ease; z-index: 4000; }
+        #toast.show { transform: translateY(0); opacity: 1; }
+
+        /* NIKA BRAND ASSETS */
+        .nika-asset-img { display: block; margin: 0 auto; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+        .sidebar-brand-box { padding: 16px 20px; display: flex; flex-direction: column; align-items: center; }
+        .sidebar-brand-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+        .sidebar-brand-logo .nika-isotipo { height: 52px; max-height: 54px; min-height: 48px; width: auto; }
+        .central-branding-logo-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .hero-n-logo { height: 75px; max-height: 80px; min-height: 65px; width: auto; }
+        .hero-text-logo { max-width: 180px; width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar" id="appSidebar">
+        <div class="sidebar-brand-box">
+            <div class="sidebar-brand-logo">
+                <img src="assets/N%20NIKA.png" alt="NIKA" class="nika-asset-img nika-isotipo">
+            </div>
+            <span>Estudia, competi, aprobá</span>
+        </div>
+
+        <div id="sidebar-user-section" class="sidebar-user-card" onclick="handleProfileClick()">
+            <img id="sidebar-avatar-img" class="sidebar-user-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Avatar">
+            <div class="sidebar-user-info">
+                <h4 id="sidebar-user-name">Invitado</h4>
+                <span id="sidebar-user-role">Sin cuenta</span>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <div id="sidebar-admin-category" style="display: none;">
+                <div class="sidebar-category" style="color: var(--danger);">Administración</div>
+                <li><button onclick="showAdminDashboard()" class="sidebar-link" style="color: var(--danger);">⚙️ Panel Admin</button></li>
+            </div>
+
+            <div class="sidebar-category">Mi Cuenta</div>
+            <li><button onclick="handleProfileClick()" class="sidebar-link">👤 Mi Perfil</button></li>
+
+            <div class="sidebar-category">Navegación</div>
+            <li><button onclick="showDashboard()" class="sidebar-link">🏠 Inicio / Dashboard</button></li>
+            <li><button onclick="showOnlyModules()" class="sidebar-link">📚 Módulos Clínicos</button></li>
+
+            <div class="sidebar-category">Competitivo & Social</div>
+            <li><button onclick="openNewsModal()" class="sidebar-link">📢 Novedades</button></li>
+            <li><button onclick="openFriendsModal()" class="sidebar-link">🤝 Comunidad & Amigos</button></li>
+            <li><button onclick="openForumModal()" class="sidebar-link">💬 Foro Académico</button></li>
+            <li><button onclick="openVersusModal()" class="sidebar-link">⚔️ Modo Versus 1vs1</button></li>
+            <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
+
+            <div class="sidebar-category">Herramientas</div>
+            <li><button onclick="toggleDarkMode()" id="dark-mode-btn" class="sidebar-link">🌙 Modo Oscuro</button></li>
+        </ul>
+
+        <div class="sidebar-secondary-links">
+            <div class="sidebar-category">Ayuda & Recursos</div>
+            <ul class="sidebar-menu" style="padding: 0;">
+                <li><button onclick="openAboutCreatorModal()" class="sidebar-link">👨‍⚕️ Sobre el Creador</button></li>
+                <li><button onclick="openInfoModal('tutorial')" class="sidebar-link">🎯 Tutorial Rápido</button></li>
+                <li><button onclick="openInfoModal('demo')" class="sidebar-link">🎮 Versión Demo</button></li>
+                <li><button onclick="openInfoModal('manual')" class="sidebar-link">📖 Manual de Usuario</button></li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="main-content" id="mainContent">
+        <header class="top-header">
+            <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><span>☰</span> Menú Lateral</button>
+            <button class="account-btn" id="header-auth-btn" onclick="handleProfileClick()">👤 Iniciar sesión / Registrarse</button>
+        </header>
+
+        <main class="container">
+            <!-- ================= DASHBOARD GENERAL ================= -->
+            <div id="dashboard-hero-section">
+                <div class="central-branding">
+                    <!-- Contenedor con la Esfera de Latido Médico y centrado perfecto -->
+                    <div class="medical-pulse-container">
+                        <div class="central-branding-logo-wrap" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin-bottom: 0;">
+                            <img src="assets/N%20NIKA.png" alt="N" class="nika-asset-img hero-n-logo" style="height: 50px; width: auto;">
+                            <img src="assets/TEXTO%20VECTOR%20NIKA.png" alt="NIKA" class="nika-asset-img hero-text-logo" style="max-width: 110px; width: auto;">
+                        </div>
+                    </div>
+                    
+                    <div class="brand-badge-pill" style="margin-top: 15px;">CAMPUS DE ENTRENAMIENTO MÉDICO</div>
+                    <h1 style="font-size: 1.4rem; letter-spacing: 3px; -webkit-text-fill-color: unset; -webkit-background-clip: unset; background: none; color: var(--nika-primary); margin-top: 10px;">APRENDER · ENTRENAR · MEJORAR</h1>
+                    <p>¿Qué querés hacer hoy?</p>
+                </div>
+
+                <section class="hero-banner">
+                    <div class="hero-text">
+                        <h2>Bienvenido a tu plataforma médica</h2>
+                        <p>Entrená con simulacros bajo presión de tiempo, medite codo a codo con tus colegas y alcanzá la máxima nota en tus exámenes.</p>
+                    </div>
+                    <div class="hero-badge-box">
+                        <strong>💡 Frase Célebre del Día</strong>
+                        <span id="daily-quote">"La medicina es el arte de conservar la salud y, eventualmente, curar las enfermedades." — Galeno</span>
+                    </div>
+                </section>
+
+                <div class="action-hub">
+                    <div class="continuity-card">
+                        <div class="continuity-info">
+                            <h4>Continuá donde lo dejaste</h4>
+                            <span class="continuity-title" id="continuity-title-text">Cirugía · UP3 - Seguir entrenando</span>
+                            <div class="continuity-progress-wrap">
+                                <div class="continuity-progress-track"><div class="continuity-progress-fill" style="width: 82%;"></div></div>
+                                <div class="continuity-progress-label" id="continuity-progress-label">82% completado</div>
+                            </div>
+                        </div>
+                        <button class="btn-continue-action" onclick="location.href='cirugia_hub.html'">Seguir entrenando →</button>
+                    </div>
+
+                    <div class="action-buttons-grid">
+                        <div class="action-btn-card" onclick="location.href='cirugia_hub.html'">
+                            <div class="action-icon">🎯</div>
+                            <h4>Seguir entrenando</h4>
+                            <span>Acceso directo al banco activo</span>
+                        </div>
+                        <div class="action-btn-card" onclick="openVersusModal()">
+                            <div class="action-icon">⚔️</div>
+                            <h4>Desafiar compañero</h4>
+                            <span>Abrí la sala de duelos 1vs1</span>
+                        </div>
+                        <div class="action-btn-card" onclick="location.href='examen.html'">
+                            <div class="action-icon">🩺</div>
+                            <h4>Hacer simulacro</h4>
+                            <span>Examen cronometrado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- ================= BLOQUE MI RENDIMIENTO ================= -->
+                <div class="community-widget" id="mi-rendimiento-widget">
+                    <div class="community-widget-header">
+                        <h4>📊 Mi Rendimiento Académico</h4>
+                        <span style="font-size: 0.78rem; color: var(--nika-primary); font-weight: 700;">Estadísticas en vivo</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 14px;">
+                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 900; color: var(--nika-primary); margin-bottom: 4px;" id="perf-exams-count">0</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Simulacros Realizados</div>
+                        </div>
+                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 900; color: var(--success); margin-bottom: 4px;" id="perf-accuracy">0%</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Efectividad Global</div>
+                        </div>
+                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 900; color: var(--warning); margin-bottom: 4px;" id="perf-streak">0 d</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Racha Activa</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= WIDGET DE COMUNIDAD ================= -->
+                <div class="community-widget" id="dashboard-community-widget">
+                    <div class="community-widget-header">
+                        <h4>🟢 Compañeros conectados</h4>
+                        <a onclick="openFriendsModal()">Ver comunidad →</a>
+                    </div>
+                    <div class="online-friends-list" id="dashboard-online-friends-list">
+                        <div class="community-widget-empty">Cargando actividad de tu red...</div>
+                    </div>
+                </div>
+
+            <!-- ================= SECCIÓN DE MÓDULOS ================= -->
+            <div id="modulos-section">
+                <h2 class="section-title">📚 Módulos Académicos Disponibles</h2>
+                <div class="module-grid">
+                    <div class="module-card active-module" onclick="location.href='cirugia_hub.html'">
+                        <span class="module-status status-active">Activo</span>
+                        <div class="module-icon">⚕️</div>
+                        <div class="module-title">Cirugía</div>
+                        <div class="module-desc">Introducción a las especialidades clínico-quirúrgicas. Incluye teoría, simulador de choices y duelos.</div>
+                        <div class="module-progress-track"><div class="module-progress-fill" style="width: 82%;"></div></div>
+                        <div class="module-progress-meta"><span>82% de avance</span><span>Última: UP3</span></div>
+                        <button class="btn-module">Continuar →</button>
+                    </div>
+                    <div class="module-card" onclick="openInfoModal('coming_soon')">
+                        <span class="module-status status-dev">En desarrollo</span>
+                        <div class="module-icon">🩺</div>
+                        <div class="module-title">Ginecología</div>
+                        <div class="module-desc">Obstetricia y Ginecología clínica. Banco de preguntas y casos de estudio en preparación.</div>
+                        <button class="btn-module" style="background: transparent; border: 1px solid var(--border); color: var(--text-muted);">Próximamente</button>
+                    </div>
+                    <div class="module-card" onclick="openInfoModal('coming_soon')">
+                        <span class="module-status status-dev">En desarrollo</span>
+                        <div class="module-icon">🧓</div>
+                        <div class="module-title">S.I.A.M.</div>
+                        <div class="module-desc">Salud Integral del Adulto Mayor. Casos clínicos geriátricos y evaluación integral avanzada.</div>
+                        <button class="btn-module" style="background: transparent; border: 1px solid var(--border); color: var(--text-muted);">Próximamente</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= PANEL DE ADMINISTRACIÓN ================= -->
+            <div id="admin-dashboard-section" class="admin-dashboard">
+                <div class="admin-header">
+                    <div>
+                        <h2>Centro de Control del Creador</h2>
+                        <p>Gestión de métricas, análisis de rendimiento y bandeja de erratas.</p>
+                    </div>
+                    <button class="btn-module" style="width:auto; background:var(--bg-body); color:var(--text-main); border:1px solid var(--border);" onclick="showDashboard()">Cerrar Panel ✖</button>
+                </div>
+
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card"><h4>👥 Usuarios Registrados</h4><div class="stat-val" id="admin-stat-users">0</div></div>
+                    <div class="admin-stat-card"><h4>📝 Simulacros Completados</h4><div class="stat-val">342</div><span style="font-size:0.75rem; color:var(--success);">+12 esta semana</span></div>
+                    <div class="admin-stat-card"><h4>📊 Nota Promedio Global</h4><div class="stat-val" style="color:var(--warning);">7.8</div><span style="font-size:0.75rem; color:var(--text-muted);">Objetivo: 9.0</span></div>
+                </div>
+
+                <div class="admin-panels-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+                    <div class="admin-panel-card">
+                        <div class="admin-panel-header"><span>📢 Publicar Nueva Novedad</span></div>
+                        <div class="admin-panel-body" style="padding: 20px;">
+                            <div class="form-group">
+                                <label class="form-label">Título / Anuncio:</label>
+                                <input type="text" id="admin-news-title" class="form-input" placeholder="Ej. ¡Nuevo banco de preguntas UP3 disponible!">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contenido de la Actualización:</label>
+                                <textarea id="admin-news-content" class="form-input" rows="4" placeholder="Detalles de la actualización..." style="resize:vertical;"></textarea>
+                            </div>
+                            <button class="btn-module" style="background:var(--nika-primary); color:white; width:100%;" onclick="adminPublishNews()">Publicar en el Tablón 🚀</button>
+                        </div>
+                    </div>
+
+                    <div class="admin-panel-card">
+                        <div class="admin-panel-header">
+                            <span>📥 Bandeja de Erratas y Reportes</span>
+                            <span style="font-size:0.8rem; background:var(--danger); color:white; padding:2px 8px; border-radius:10px;">Pendientes</span>
+                        </div>
+                        <div class="admin-panel-body" id="admin-erratas-list"></div>
+                    </div>
+
+                    <div class="admin-panel-card">
+                        <div class="admin-panel-header">
+                            <span>🔥 Ranking Global de Pain Points</span>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">Top 3 más falladas</span>
+                        </div>
+                        <div class="admin-panel-body">
+                            <div class="admin-list-item">
+                                <div class="errata-meta"><span>UP 2: Abdomen Agudo</span><span style="color:var(--danger);">82% de fallos</span></div>
+                                <div class="errata-q">¿Cuál es el estudio por imágenes angiográfico no invasivo de elección para confirmar isquemia mesentérica?</div>
+                            </div>
+                            <div class="admin-list-item">
+                                <div class="errata-meta"><span>UP 7: Patología Tiroidea</span><span style="color:var(--danger);">75% de fallos</span></div>
+                                <div class="errata-q">En un paciente con bocio multinodular y TSH suprimida, ¿cuál es el paso diagnóstico siguiente?</div>
+                            </div>
+                            <div class="admin-list-item">
+                                <div class="errata-meta"><span>UP 1: Trauma y Heridas</span><span style="color:var(--warning);">68% de fallos</span></div>
+                                <div class="errata-q">Respecto a la profilaxis antitetánica en herida sucia de un paciente con esquema incompleto...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-panel-card" style="grid-column: 1 / -1;">
+                        <div class="admin-panel-header">
+                            <span>📦 Gestor Dinámico de Bancos JSON (UP 6 a UP 11 y futuras)</span>
+                            <span style="font-size:0.8rem; background:var(--nika-primary); color:white; padding:2px 8px; border-radius:10px;">Dinámico</span>
+                        </div>
+                        <div class="admin-panel-body" style="padding: 20px;">
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                                Cargá o actualizá bancos de preguntas en formato JSON sin modificar el código fuente base. Se almacenarán con persistencia en el dispositivo.
+                            </p>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 15px;">
+                                <select id="admin-unit-selector" class="form-input" style="width: auto; padding: 8px 12px;">
+                                    <option value="06">Unidad 06</option>
+                                    <option value="07">Unidad 07</option>
+                                    <option value="08">Unidad 08</option>
+                                    <option value="09">Unidad 09</option>
+                                    <option value="10">Unidad 10</option>
+                                    <option value="11">Unidad 11</option>
+                                </select>
+                                <input type="file" id="admin-json-file" accept=".json" class="form-input" style="width: auto; padding: 6px 10px;">
+                                <button type="button" class="btn-module" style="width: auto; background: var(--nika-primary); color: white; padding: 9px 18px;" onclick="adminProcessQuestionBankUpload()">Subir e Integrar Banco 📥</button>
+                            </div>
+                            <div id="admin-bank-status-list" style="font-size: 0.82rem; color: var(--text-muted); background: var(--bg-body); padding: 12px; border-radius: 8px; border: 1px solid var(--border);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer"><div><strong>Campus Nika</strong> — Plataforma de Evaluación Médica Independiente | <span>Estudia, competi, aprobá.</span></div></footer>
+    </div>
+
+    <!-- ================= MODALES DE AUTENTICACIÓN ================= -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-content">
+            <div class="modal-tabs">
+                <button class="modal-tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">Ingresar</button>
+                <button class="modal-tab-btn" id="tab-register-btn" onclick="switchAuthTab('register')">Registrarse</button>
+                <button class="modal-tab-btn" id="tab-admin-btn" onclick="switchAuthTab('admin')">Admin</button>
+            </div>
+            <form id="form-login" onsubmit="handleLogin(event)">
+                <div class="form-group"><label>Usuario o Correo:</label><input type="text" id="login-identifier" class="form-input" required></div>
+                <div class="form-group"><label>Contraseña:</label><input type="password" id="login-password" class="form-input" required></div>
+                <div class="modal-footer-btns"><button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeAuthModal()">Cancelar</button><button type="submit" class="btn-module" style="background:var(--nika-primary); color:white; width:auto;">Iniciar Sesión</button></div>
+            </form>
+            <form id="form-register" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="form-group"><label>Nombre y Apellido:</label><input type="text" id="reg-fullname" class="form-input" required></div>
+                <div class="form-group"><label>Nombre de Usuario:</label><input type="text" id="reg-username" class="form-input" required></div>
+                <div class="form-group"><label>Correo Electrónico:</label><input type="email" id="reg-email" class="form-input" required></div>
+                <div class="form-group"><label>Contraseña:</label><input type="password" id="reg-password" class="form-input" required></div>
+                <div class="modal-footer-btns"><button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeAuthModal()">Cancelar</button><button type="submit" class="btn-module" style="background:var(--nika-primary); color:white; width:auto;">Crear Cuenta</button></div>
+            </form>
+            <form id="form-admin" style="display: none;" onsubmit="handleAdminLogin(event)">
+                <div class="form-group"><label>🔐 Contraseña Maestra:</label><input type="password" id="admin-pass-input" class="form-input" required></div>
+                <div class="modal-footer-btns"><button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeAuthModal()">Cancelar</button><button type="submit" class="btn-module" style="background:var(--nika-primary); color:white; width:auto;">Ingresar</button></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL PERFIL ================= -->
+    <div class="modal-overlay" id="profile-modal">
+        <div class="modal-content">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">⚙️ Configuración de Mi Perfil</h3>
+            <form id="form-profile" onsubmit="handleSaveProfile(event)">
+                
+                <div class="form-group" style="text-align: center; margin-bottom: 20px;">
+                    <label style="text-align: left; margin-bottom: 8px;">Foto de Perfil:</label>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <!-- Acá se va a previsualizar la foto -->
+                        <img id="prof-avatar-preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid var(--nika-primary); background: var(--bg-body); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                        
+                        <div style="flex: 1; text-align: left;">
+                            <input type="file" id="prof-avatar-file" class="form-input" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleAvatarPreview(event)" style="padding: 6px; font-size: 0.85rem;">
+                            <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">Se auto-recortará al centro. (JPG o PNG)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre y Apellido:</label>
+                    <input type="text" id="prof-fullname" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Nombre de Usuario:</label>
+                    <input type="text" id="prof-username" class="form-input" required disabled>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" id="prof-email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Cambiar Contraseña:</label>
+                    <input type="password" id="prof-password" class="form-input" placeholder="Dejar en blanco para mantener la actual">
+                </div>
+                <div class="modal-footer-btns">
+                    <button type="button" class="btn-module" style="background:#fee2e2; color:#dc2626; width:auto;" onclick="handleLogout()">Cerrar Sesión</button>
+                    <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeProfileModal()">Cerrar</button>
+                    <button type="submit" class="btn-module" style="background:var(--nika-primary); color:white; width:auto;">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL COMUNIDAD & AMIGOS ================= -->
+    <div class="modal-overlay" id="friends-modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">🤝 Comunidad & Amigos</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Agregá colegas a tu red para poder desafiarlos directamente en el Modo 1vs1.</p>
+            
+            <div class="modal-tabs">
+                <button class="modal-tab-btn active" id="tab-friend-list" onclick="switchFriendsTab('list')">Mis Amigos</button>
+                <button class="modal-tab-btn" id="tab-friend-search" onclick="switchFriendsTab('search')">Buscar Usuarios</button>
+                <button class="modal-tab-btn" id="tab-friend-req" onclick="switchFriendsTab('req')">Solicitudes <span id="req-badge" style="background:var(--danger);color:white;padding:2px 6px;border-radius:10px;font-size:0.6rem;display:none;">0</span></button>
+            </div>
+
+            <div id="friends-view-list" style="max-height: 250px; overflow-y: auto;"></div>
+            <div id="friends-view-search" style="display: none;">
+                <input type="text" id="friend-search-input" class="form-input" placeholder="Buscar por @usuario o nombre..." onkeyup="searchUsers()">
+                <div id="search-results-box" style="margin-top: 15px; max-height: 200px; overflow-y: auto;"></div>
+            </div>
+            <div id="friends-view-req" style="display: none; max-height: 250px; overflow-y: auto;"></div>
+
+            <div class="modal-footer-btns" style="margin-top: 25px;">
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeFriendsModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL NOVEDADES ================= -->
+    <div class="modal-overlay" id="news-modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">📢 Novedades del Campus</h3>
+            <div id="news-feed" style="max-height: 350px; overflow-y: auto; padding-right: 10px;"></div>
+            <div class="modal-footer-btns" style="margin-top: 20px;">
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeNewsModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL FORO ACADÉMICO ================= -->
+    <div class="modal-overlay" id="forum-modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">💬 Foro Académico - Consultas por UP</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Compartí dudas sobre justificaciones bibliográficas con tus colegas.</p>
+            
+            <div class="form-group">
+                <input type="text" id="forum-title" class="form-input" placeholder="Título de la duda (ej. Duda sobre UP2 Hemorragia)">
+            </div>
+            <div class="form-group">
+                <textarea id="forum-body" class="form-input" rows="3" placeholder="Escribí tu consulta fundamentada..." style="resize:vertical;"></textarea>
+            </div>
+            <button class="btn-module" style="background:var(--nika-primary); color:white; width:100%; margin-bottom:20px;" onclick="postForumThread()">Publicar Debate 📝</button>
+
+            <div id="forum-threads-list" style="max-height: 250px; overflow-y: auto; border-top: 1px solid var(--border); padding-top: 15px;"></div>
+
+            <div class="modal-footer-btns" style="margin-top: 20px;">
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="document.getElementById('forum-modal').style.display='none'">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL RANKING GLOBAL ================= -->
+    <div class="modal-overlay" id="leaderboard-modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">🏆 Podio & Ranking Global</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Estudiantes ordenados por precisión en simulacros y duelos ganados.</p>
+            
+            <div id="leaderboard-list" style="max-height: 300px; overflow-y: auto;">
+                <!-- Generado dinámicamente -->
+            </div>
+
+            <div class="modal-footer-btns" style="margin-top: 25px;">
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="document.getElementById('leaderboard-modal').style.display='none'">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL INFORMATIVO (TUTORIAL/MANUAL) ================= -->
+    <div class="modal-overlay" id="info-modal">
+        <div class="modal-content">
+            <h3 id="info-modal-title" style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">Título</h3>
+            <div id="info-modal-body" style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;"></div>
+            <div class="modal-footer-btns"><button class="btn-module" style="background:#e2e8f0; color:#334155; width:auto; border-radius:8px; padding:10px 16px; font-weight:700; border:none; cursor:pointer;" onclick="closeInfoModal()">Cerrar</button></div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL SOBRE EL CREADOR ================= -->
+    <div class="modal-overlay" id="about-creator-modal">
+        <div class="modal-content" style="max-width: 440px; text-align: center; padding: 30px 24px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 14px;">
+                <div style="width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 8px 24px rgba(2, 132, 199, 0.3); border: 3px solid #ffffff;">👨‍⚕️</div>
+                <div style="position: absolute; bottom: 0; right: 0; width: 22px; height: 22px; background: #16a34a; border: 2.5px solid #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 900;">✓</div>
+            </div>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">Augusto Blanc Weigandt</h3>
+            <div style="display: inline-block; background: rgba(2, 132, 199, 0.1); color: var(--nika-primary); font-size: 0.76rem; font-weight: 800; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px; letter-spacing: 0.5px;">CREADOR & DESARROLLADOR</div>
+            <p style="font-size: 0.86rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Estudiante de 5.º año de Medicina en la <strong>Facultad de Ciencias de la Salud (UNER)</strong>, Villaguay, Entre Ríos. Plataforma diseñada para potenciar el entrenamiento y rendimiento clínico de la comunidad académica.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px;">
+                <a href="https://instagram.com" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; text-decoration: none; font-size: 0.82rem; font-weight: 700; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.25); transition: transform 0.2s;">Instagram</a>
+                <a href="https://tiktok.com" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: #000000; color: white; text-decoration: none; font-size: 0.82rem; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: transform 0.2s;">TikTok</a>
+            </div>
+            <div style="background: var(--bg-body); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; border: 1px solid var(--border); text-align: left;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Apoyo al Proyecto (Alias MP)</span>
+                    <span style="font-size: 0.72rem; background: #e0f2fe; color: #0284c7; padding: 2px 6px; border-radius: 6px; font-weight: 700;">Transferencia</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px;">
+                    <strong style="font-size: 0.95rem; color: var(--text-main); font-family: monospace; letter-spacing: 1px;">aguswei7</strong>
+                    <button type="button" onclick="copyCreatorAlias()" style="background: var(--nika-primary); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">📋 Copiar</button>
+                </div>
+            </div>
+            <button class="btn-module" style="background: var(--nika-primary); color: white; width: 100%; border-radius: 10px; padding: 11px; font-weight: 700;" onclick="closeAboutCreatorModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="toast">Notificación</div>
+
+    <script>
+        const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+
+        // ================= SINCRONIZACIÓN DE PROGRESO =================
+        function syncStudyProgress() {
+            const activeUser = JSON.parse(localStorage.getItem('nika_currentUser'));
+            const userSuffix = activeUser ? activeUser.username : 'invitado';
+            
+            // Leer el porcentaje real del usuario logueado
+            const savedPct = localStorage.getItem(`nika_surgery_global_pct_${userSuffix}`) || 0;
+
+            // 1. Actualizar widget "Continuá donde lo dejaste"
+            const continuityFill = document.querySelector('.continuity-progress-fill');
+            const continuityLabel = document.getElementById('continuity-progress-label');
+            if (continuityFill) continuityFill.style.width = `${savedPct}%`;
+            if (continuityLabel) continuityLabel.innerText = `${savedPct}% completado`;
+
+            // 2. Actualizar tarjeta del Módulo "Cirugía"
+            const modFill = document.querySelector('.active-module .module-progress-fill');
+            const modLabel = document.querySelector('.active-module .module-progress-meta span:first-child');
+            if (modFill) modFill.style.width = `${savedPct}%`;
+            if (modLabel) modLabel.innerText = `${savedPct}% de avance`;
+        }
+
+        // ================= NAVEGACIÓN Y GENERALES =================
+        function toggleSidebar() { 
+            const sidebar = document.getElementById('appSidebar');
+            const main = document.getElementById('mainContent');
+            if (sidebar) sidebar.classList.toggle('collapsed'); 
+            if (main) main.classList.toggle('expanded'); 
+        }
+        
+        function showOnlyModules() {
+            const hero = document.getElementById('dashboard-hero-section');
+            const admin = document.getElementById('admin-dashboard-section');
+            const modulos = document.getElementById('modulos-section');
+            if (hero) hero.style.display = 'none';
+            if (admin) admin.style.display = 'none';
+            if (modulos) {
+                modulos.style.display = 'block';
+                modulos.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (window.innerWidth <= 900) toggleSidebar();
+        }
+
+        function showDashboard() {
+            const hero = document.getElementById('dashboard-hero-section');
+            const modulos = document.getElementById('modulos-section');
+            const admin = document.getElementById('admin-dashboard-section');
+            if (hero) hero.style.display = 'block';
+            if (modulos) modulos.style.display = 'block';
+            if (admin) admin.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (window.innerWidth <= 900) toggleSidebar();
+        }
+
+        function showAdminDashboard() {
+            const hero = document.getElementById('dashboard-hero-section');
+            const modulos = document.getElementById('modulos-section');
+            const admin = document.getElementById('admin-dashboard-section');
+            if (hero) hero.style.display = 'none';
+            if (modulos) modulos.style.display = 'none';
+            if (admin) admin.style.display = 'block';
+            loadAdminData();
+            if (window.innerWidth <= 900) toggleSidebar();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.getElementById('dark-mode-btn');
+            if (document.body.classList.contains('dark-mode')) { 
+                if (btn) btn.innerHTML = "☀️ Modo Claro"; 
+                localStorage.setItem('nika_theme', 'dark'); 
+            } else { 
+                if (btn) btn.innerHTML = "🌙 Modo Oscuro"; 
+                localStorage.setItem('nika_theme', 'light'); 
+            }
+        }
+
+        function showToast(msg) { 
+            const toast = document.getElementById('toast'); 
+            if (!toast) return;
+            toast.innerText = msg; 
+            toast.classList.add('show'); 
+            setTimeout(() => { toast.classList.remove('show'); }, 3000); 
+        }
+
+        // ================= RENDIMIENTO ACADÉMICO =================
+        function renderUserPerformance() {
+            const userJson = localStorage.getItem('nika_currentUser');
+            const examsEl = document.getElementById('perf-exams-count');
+            const accEl = document.getElementById('perf-accuracy');
+            const streakEl = document.getElementById('perf-streak');
+
+            if (!examsEl || !accEl || !streakEl) return;
+
+            if (!userJson) {
+                examsEl.innerText = "-";
+                accEl.innerText = "-";
+                streakEl.innerText = "-";
+                return;
+            }
+
+            const user = JSON.parse(userJson);
+            const stats = JSON.parse(localStorage.getItem(`nika_stats_${user.username}`)) || { exams: 0, accuracy: 0, streak: 0 };
+
+            examsEl.innerText = stats.exams;
+            accEl.innerText = stats.accuracy + "%";
+            streakEl.innerText = stats.streak + " d";
+        }
+
+        function recordExamCompletion(correctAnswers, totalQuestions) {
+            const userJson = localStorage.getItem('nika_currentUser');
+            if (!userJson) return; 
+            const user = JSON.parse(userJson);
+            const key = `nika_stats_${user.username}`;
+            let stats = JSON.parse(localStorage.getItem(key)) || { exams: 0, totalCorrect: 0, totalQuestionsAnswered: 0, streak: 1, accuracy: 0, lastDate: null };
+            
+            stats.exams += 1;
+            stats.totalCorrect += correctAnswers;
+            stats.totalQuestionsAnswered += totalQuestions;
+            
+            if (stats.totalQuestionsAnswered > 0) {
+                stats.accuracy = Math.round((stats.totalCorrect / stats.totalQuestionsAnswered) * 100);
+            }
+            
+            const today = new Date().toDateString();
+            if (stats.lastDate !== today) {
+                if (stats.lastDate) {
+                    const last = new Date(stats.lastDate);
+                    const now = new Date(today);
+                    const diffTime = Math.abs(now - last);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    if (diffDays === 1) stats.streak += 1; 
+                    else if (diffDays > 1) stats.streak = 1; 
+                }
+                stats.lastDate = today;
+            }
+
+            localStorage.setItem(key, JSON.stringify(stats));
+            if (typeof renderUserPerformance === 'function') renderUserPerformance();
+        }
+        
+        // ================= AUTENTICACIÓN =================
+        function checkAuthState() {
+            const userJson = localStorage.getItem('nika_currentUser');
+            const headerBtn = document.getElementById('header-auth-btn');
+            const sidebarName = document.getElementById('sidebar-user-name');
+            const sidebarRole = document.getElementById('sidebar-user-role');
+            const sidebarAdmin = document.getElementById('sidebar-admin-category');
+            const sidebarAvatar = document.getElementById('sidebar-avatar-img');
+
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                if (headerBtn) headerBtn.innerHTML = `👤 ${user.fullname}`;
+                if (sidebarName) sidebarName.innerText = user.fullname;
+                if (sidebarRole) sidebarRole.innerText = `@${user.username}`;
+                if (sidebarAvatar && user.avatar) sidebarAvatar.src = user.avatar;
+                
+                if (user.role === 'admin') {
+                    if (sidebarAdmin) sidebarAdmin.style.display = 'block';
+                } else {
+                    if (sidebarAdmin) sidebarAdmin.style.display = 'none';
+                    const adminSec = document.getElementById('admin-dashboard-section');
+                    if (adminSec && adminSec.style.display === 'block') showDashboard();
+                }
+            } else {
+                if (headerBtn) headerBtn.innerHTML = `👤 Iniciar sesión / Registrarse`;
+                if (sidebarName) sidebarName.innerText = "Invitado";
+                if (sidebarRole) sidebarRole.innerText = "Sin cuenta";
+                if (sidebarAdmin) sidebarAdmin.style.display = 'none';
+                if (sidebarAvatar) sidebarAvatar.src = DEFAULT_AVATAR;
+            }
+            renderDashboardOnlineFriends();
+            renderUserPerformance();
+        }
+
+        let tempAvatarBase64 = null;
+
+        function handleAvatarPreview(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.type.match('image.*')) {
+                showToast("⚠️ Por favor seleccioná una imagen válida.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    // Tamaño cuadrado ideal para avatares
+                    const SIZE = 200; 
+                    canvas.width = SIZE;
+                    canvas.height = SIZE;
+                    const ctx = canvas.getContext('2d');
+
+                    // Lógica para auto-recortar al centro
+                    let offsetX = 0;
+                    let offsetY = 0;
+                    let drawWidth = img.width;
+                    let drawHeight = img.height;
+
+                    if (img.width > img.height) {
+                        drawWidth = (img.width / img.height) * SIZE;
+                        drawHeight = SIZE;
+                        offsetX = -(drawWidth - SIZE) / 2;
+                    } else {
+                        drawHeight = (img.height / img.width) * SIZE;
+                        drawWidth = SIZE;
+                        offsetY = -(drawHeight - SIZE) / 2;
+                    }
+
+                    // Fondo blanco por si acaso y dibujado de imagen
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fillRect(0, 0, SIZE, SIZE);
+                    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+                    // Convertir y mostrar en el visor
+                    tempAvatarBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                    
+                    const previewEl = document.getElementById('prof-avatar-preview');
+                    if (previewEl) previewEl.src = tempAvatarBase64; 
+
+                    showToast("Imagen lista 🖼️");
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleProfileClick() { 
+            localStorage.getItem('nika_currentUser') ? openProfileModal() : openAuthModal('login'); 
+        }
+
+        function openAuthModal(tab) { 
+            const modal = document.getElementById('auth-modal');
+            if (modal) modal.style.display = 'flex'; 
+            switchAuthTab(tab); 
+        }
+
+        function closeAuthModal() { 
+            const modal = document.getElementById('auth-modal');
+            if (modal) modal.style.display = 'none'; 
+        }
+
+        function switchAuthTab(tab) {
+            ['login', 'register', 'admin'].forEach(t => { 
+                const btn = document.getElementById(`tab-${t}-btn`);
+                const form = document.getElementById(`form-${t}`);
+                if (btn) btn.classList.remove('active'); 
+                if (form) form.style.display = 'none'; 
+            });
+            const activeBtn = document.getElementById(`tab-${tab}-btn`);
+            const activeForm = document.getElementById(`form-${tab}`);
+            if (activeBtn) activeBtn.classList.add('active'); 
+            if (activeForm) activeForm.style.display = 'block';
+        }
+
+        function handleLogin(e) {
+            e.preventDefault(); 
+            const id = document.getElementById('login-identifier').value.trim().toLowerCase(); 
+            const pass = document.getElementById('login-password').value;
+            let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            const found = users.find(u => (u.email.toLowerCase() === id || u.username.toLowerCase() === id) && u.password === pass);
+            if (found) { 
+                localStorage.setItem('nika_currentUser', JSON.stringify(found)); 
+                showToast(`¡Bienvenido, ${found.fullname}!`); 
+                closeAuthModal(); 
+                checkAuthState(); 
+                syncStudyProgress(); 
+            } else { alert("Datos incorrectos."); }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault(); 
+            const fullname = document.getElementById('reg-fullname').value.trim(); 
+            const username = document.getElementById('reg-username').value.trim(); 
+            const email = document.getElementById('reg-email').value.trim().toLowerCase(); 
+            const password = document.getElementById('reg-password').value;
+            let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) return alert("El usuario ya existe.");
+            const newUser = { fullname, username, email, password, avatar: DEFAULT_AVATAR, role: 'user' };
+            users.push(newUser); 
+            localStorage.setItem('nika_registered_users', JSON.stringify(users)); 
+            localStorage.setItem('nika_currentUser', JSON.stringify(newUser));
+            showToast("¡Cuenta creada!"); 
+            closeAuthModal(); 
+            checkAuthState();
+            syncStudyProgress();
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault(); 
+            const pass = document.getElementById('admin-pass-input').value;
+            if (pass === "43538879Augusto#") {
+                const adminUser = { fullname: "Augusto Blanc Weigandt", username: "Aguswei7", email: "aguswei7@hotmail.com", avatar: DEFAULT_AVATAR, role: 'admin' };
+                localStorage.setItem('nika_currentUser', JSON.stringify(adminUser));
+                showToast("Acceso Admin concedido."); 
+                closeAuthModal(); 
+                checkAuthState(); 
+                showAdminDashboard();
+                syncStudyProgress();
+            } else { alert("Clave maestra incorrecta."); }
+        }
+
+        function openProfileModal() {
+            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!user) return;
+            const fn = document.getElementById('prof-fullname');
+            const un = document.getElementById('prof-username');
+            const em = document.getElementById('prof-email');
+            const pw = document.getElementById('prof-password');
+            const fileInput = document.getElementById('prof-avatar-file');
+            const previewEl = document.getElementById('prof-avatar-preview'); 
+            
+            if (fn) fn.value = user.fullname || ''; 
+            if (un) un.value = user.username || ''; 
+            if (em) em.value = user.email || ''; 
+            if (pw) pw.value = '';
+            if (fileInput) fileInput.value = '';
+            
+            if (previewEl) previewEl.src = user.avatar || DEFAULT_AVATAR;
+            
+            tempAvatarBase64 = null;
+            const modal = document.getElementById('profile-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeProfileModal() { 
+            const modal = document.getElementById('profile-modal');
+            if (modal) modal.style.display = 'none'; 
+        }
+        
+        function handleSaveProfile(e) {
+            e.preventDefault(); 
+            let user = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!user) return;
+            user.fullname = document.getElementById('prof-fullname').value.trim(); 
+            user.email = document.getElementById('prof-email').value.trim();
+            const newPass = document.getElementById('prof-password').value; 
+            if (newPass.trim() !== '') user.password = newPass;
+            
+            if (tempAvatarBase64) {
+                user.avatar = tempAvatarBase64;
+                tempAvatarBase64 = null;
+            }
+
+            localStorage.setItem('nika_currentUser', JSON.stringify(user));
+            let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            const idx = users.findIndex(u => u.username === user.username);
+            if (idx !== -1) { 
+                users[idx] = user; 
+                localStorage.setItem('nika_registered_users', JSON.stringify(users)); 
+            }
+            showToast("Perfil actualizado."); 
+            closeProfileModal(); 
+            checkAuthState();
+        }
+
+        function handleLogout() { 
+            if (confirm("¿Cerrar sesión?")) { 
+                localStorage.removeItem('nika_currentUser'); 
+                closeProfileModal(); 
+                checkAuthState(); 
+                showDashboard(); 
+                syncStudyProgress(); 
+            } 
+        }
+
+        // ================= COMUNIDAD Y AMIGOS =================
+        function renderDashboardOnlineFriends() {
+            const listBox = document.getElementById('dashboard-online-friends-list');
+            if (!listBox) return;
+            const userJson = localStorage.getItem('nika_currentUser');
+            if (!userJson) {
+                listBox.innerHTML = '<div class="community-widget-empty">Iniciá sesión para ver a tus colegas conectados.</div>';
+                return;
+            }
+            const currentUser = JSON.parse(userJson);
+            const friendsMap = JSON.parse(localStorage.getItem('nika_friends')) || {};
+            const myFriends = friendsMap[currentUser.username] || [];
+            if (myFriends.length === 0) {
+                listBox.innerHTML = '<div class="community-widget-empty">Aún no agregaste amigos a tu red.</div>';
+                return;
+            }
+            const allUsers = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            listBox.innerHTML = myFriends.slice(0, 5).map(fUsername => {
+                const fUser = allUsers.find(u => u.username === fUsername);
+                const displayName = fUser ? fUser.fullname : fUsername;
+                const avatar = (fUser && fUser.avatar) ? fUser.avatar : DEFAULT_AVATAR;
+                return `
+                    <div class="online-friend-item" onclick="openFriendsModal()">
+                        <span class="online-status-dot"></span>
+                        <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
+                        <div>
+                            <div class="online-friend-name">${displayName}</div>
+                            <div class="online-friend-meta">@${fUsername} · En línea</div>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function openFriendsModal() {
+            if (!localStorage.getItem('nika_currentUser')) { alert("Iniciá sesión para usar la comunidad."); return; }
+            const modal = document.getElementById('friends-modal');
+            if (modal) modal.style.display = 'flex'; 
+            switchFriendsTab('list');
+        }
+
+        function closeFriendsModal() { 
+            const modal = document.getElementById('friends-modal');
+            if (modal) modal.style.display = 'none'; 
+        }
+
+        function switchFriendsTab(tab) {
+            ['list', 'search', 'req'].forEach(t => { 
+                const btn = document.getElementById(`tab-friend-${t}`);
+                const view = document.getElementById(`friends-view-${t}`);
+                if (btn) btn.classList.remove('active'); 
+                if (view) view.style.display = 'none'; 
+            });
+            const activeBtn = document.getElementById(`tab-friend-${tab}`);
+            const activeView = document.getElementById(`friends-view-${tab}`);
+            if (activeBtn) activeBtn.classList.add('active'); 
+            if (activeView) activeView.style.display = 'block';
+            if (tab === 'list') renderFriendsList();
+            if (tab === 'req') renderFriendRequests();
+        }
+
+        function updateFriendsBadge(myUsername) {
+            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
+            let myReqs = requests[myUsername] || [];
+            const badge = document.getElementById('req-badge');
+            if (!badge) return;
+            if (myReqs.length > 0) { 
+                badge.style.display = 'inline-block'; 
+                badge.innerText = myReqs.length; 
+            } else { badge.style.display = 'none'; }
+        }
+
+        function searchUsers() {
+            const query = document.getElementById('friend-search-input').value.toLowerCase();
+            const resultsBox = document.getElementById('search-results-box');
+            const currentUser = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!currentUser || query.length < 2) { 
+                if (resultsBox) resultsBox.innerHTML = ''; 
+                return; 
+            }
+            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            let friends = JSON.parse(localStorage.getItem('nika_friends')) || {};
+            let myFriends = friends[currentUser.username] || [];
+            const filtered = users.filter(u => u.username !== currentUser.username && !myFriends.includes(u.username) && (u.username.toLowerCase().includes(query) || u.fullname.toLowerCase().includes(query)));
+            if (resultsBox) {
+                resultsBox.innerHTML = filtered.length ? '' : '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se encontraron usuarios.</p>';
+                filtered.forEach(u => {
+                    resultsBox.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%;"><div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div></div><button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="sendFriendRequest('${u.username}')">Añadir</button></div>`;
+                });
+            }
+        }
+
+        function sendFriendRequest(targetUsername) {
+            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!user) return;
+            const myUsername = user.username;
+            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
+            if (!requests[targetUsername]) requests[targetUsername] = [];
+            if (!requests[targetUsername].includes(myUsername)) {
+                requests[targetUsername].push(myUsername);
+                localStorage.setItem('nika_friend_requests', JSON.stringify(requests));
+                showToast(`Solicitud enviada a @${targetUsername}`); 
+                searchUsers();
+            }
+        }
+
+        function renderFriendRequests() {
+            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!user) return;
+            const reqBox = document.getElementById('friends-view-req');
+            if (!reqBox) return;
+            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
+            let myReqs = requests[user.username] || [];
+            if (myReqs.length === 0) { 
+                reqBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding: 20px;">No tenés solicitudes pendientes.</p>'; 
+                updateFriendsBadge(user.username); 
+                return; 
+            }
+            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            reqBox.innerHTML = '';
+            myReqs.forEach(reqUsername => {
+                const u = users.find(userItem => userItem.username === reqUsername);
+                if (u) { 
+                    reqBox.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%;"><div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div></div><button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="acceptFriend('${u.username}')">Aceptar</button></div>`; 
+                }
+            });
+            updateFriendsBadge(user.username);
+        }
+
+        function acceptFriend(friendUsername) {
+            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!user) return;
+            const myUsername = user.username;
+            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
+            requests[myUsername] = (requests[myUsername] || []).filter(u => u !== friendUsername);
+            localStorage.setItem('nika_friend_requests', JSON.stringify(requests));
+            let friends = JSON.parse(localStorage.getItem('nika_friends')) || {};
+            if (!friends[myUsername]) friends[myUsername] = [];
+            if (!friends[friendUsername]) friends[friendUsername] = [];
+            friends[myUsername].push(friendUsername); 
+            friends[friendUsername].push(myUsername);
+            localStorage.setItem('nika_friends', JSON.stringify(friends));
+            showToast(`¡Ahora sos amigo de @${friendUsername}!`); 
+            renderFriendRequests();
+            renderDashboardOnlineFriends();
+        }
+
+        function renderFriendsList() {
+            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!user) return;
+            const listBox = document.getElementById('friends-view-list');
+            if (!listBox) return;
+            let friends = JSON.parse(localStorage.getItem('nika_friends')) || {};
+            let myFriends = friends[user.username] || [];
+            if (myFriends.length === 0) { 
+                listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding: 20px;">Aún no agregaste amigos a tu red.</p>'; 
+                return; 
+            }
+            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            listBox.innerHTML = '';
+            myFriends.forEach(fUsername => {
+                const u = users.find(userItem => userItem.username === fUsername);
+                if (u) { 
+                    listBox.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%;"><div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div></div><span style="font-size:0.75rem; color:var(--success); font-weight:700;">Amigo</span></div>`; 
+                }
+            });
+        }
+
+        // ================= PANEL DE ADMIN Y ERRATAS =================
+        function loadAdminData() {
+            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            const statUsers = document.getElementById('admin-stat-users');
+            if (statUsers) statUsers.innerText = users.length;
+            renderErratas();
+            renderLoadedBanksStatus();
+        }
+
+        function initMockErratas() {
+            if (!localStorage.getItem('nika_erratas')) {
+                const mock = [
+                    { id: 1, user: "@sofimed", q: "Manejo inicial de neumotórax a tensión...", justif: "Según ATLS 10ma ed. el abordaje cambió al 5to espacio intercostal línea axilar media.", status: "pending" },
+                    { id: 2, user: "@fabrip", q: "Clasificación de Hinchey...", justif: "La opción C dice absceso pélvico pero debería ser peritonitis purulenta según Schwartz.", status: "pending" }
+                ];
+                localStorage.setItem('nika_erratas', JSON.stringify(mock));
+            }
+        }
+
+        function renderErratas() {
+            const list = document.getElementById('admin-erratas-list');
+            if (!list) return;
+            const erratas = JSON.parse(localStorage.getItem('nika_erratas')) || [];
+            if (erratas.length === 0) { 
+                list.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding:20px;">No hay erratas pendientes.</p>'; 
+                return; 
+            }
+            list.innerHTML = '';
+            erratas.forEach(e => {
+                let badgeClass = e.status === 'pending' ? 'pending' : (e.status === 'fixed' ? 'fixed' : 'rejected');
+                let badgeText = e.status === 'pending' ? '🟡 Pendiente' : (e.status === 'fixed' ? '🟢 Corregido' : '🔴 Descartado');
+                list.innerHTML += `<div class="admin-list-item"><div class="errata-meta"><span>Reportado por: ${e.user}</span><span class="status-badge ${badgeClass}" onclick="cycleStatus(${e.id})">${badgeText}</span></div><div class="errata-q">"${e.q}"</div><div class="errata-justif"><strong>Fundamento:</strong> ${e.justif}</div></div>`;
+            });
+        }
+
+        function cycleStatus(id) {
+            let erratas = JSON.parse(localStorage.getItem('nika_erratas')) || [];
+            let item = erratas.find(e => e.id === id);
+            if (item) {
+                if (item.status === 'pending') item.status = 'fixed';
+                else if (item.status === 'fixed') item.status = 'rejected';
+                else item.status = 'pending';
+                localStorage.setItem('nika_erratas', JSON.stringify(erratas));
+                renderErratas(); 
+                showToast("Estado actualizado");
+            }
+        }
+
+        function adminProcessQuestionBankUpload() {
+            const unit = document.getElementById('admin-unit-selector').value;
+            const fileInput = document.getElementById('admin-json-file');
+            if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+                showToast("Seleccioná un archivo JSON primero.");
+                return;
+            }
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const parsed = JSON.parse(evt.target.result);
+                    let questions = [];
+                    if (Array.isArray(parsed)) {
+                        questions = parsed;
+                    } else if (parsed.preguntas && Array.isArray(parsed.preguntas)) {
+                        questions = parsed.preguntas;
+                    } else { throw new Error("Estructura no válida."); }
+                    localStorage.setItem(`nika_banco_unidad_${unit}`, JSON.stringify(questions));
+                    showToast(`Unidad ${unit} guardada (${questions.length} preguntas).`);
+                    fileInput.value = '';
+                    renderLoadedBanksStatus();
+                } catch (err) { alert("Error al procesar el archivo JSON: " + err.message); }
+            };
+            reader.readAsText(file);
+        }
+
+        function renderLoadedBanksStatus() {
+            const container = document.getElementById('admin-bank-status-list');
+            if (!container) return;
+            let units = ['06', '07', '08', '09', '10', '11'];
+            let html = '<strong style="display:block; margin-bottom:6px; color:var(--text-main);">Estado de bancos locales:</strong><ul style="padding-left:18px; margin:0; line-height:1.6;">';
+            units.forEach(u => {
+                const data = localStorage.getItem(`nika_banco_unidad_${u}`);
+                if (data) {
+                    const count = JSON.parse(data).length;
+                    html += `<li style="color:var(--success); font-weight:700;">🟢 Unidad ${u}: ${count} preguntas</li>`;
+                } else { html += `<li style="color:var(--text-muted);">⚪ Unidad ${u}: Nativo</li>`; }
+            });
+            html += '</ul>';
+            container.innerHTML = html;
+        }
+
+        function openNewsModal() {
+            const modal = document.getElementById('news-modal');
+            if (modal) modal.style.display = 'flex';
+            const feed = document.getElementById('news-feed');
+            if (!feed) return;
+            let newsList = JSON.parse(localStorage.getItem('nika_news')) || [];
+            if (newsList.length === 0) { 
+                feed.innerHTML = '<p style="text-align:center; color:var(--text-muted);">No hay novedades recientes.</p>'; 
+                return; 
+            }
+            feed.innerHTML = '';
+            newsList.forEach(item => {
+                feed.innerHTML += `<div style="background:var(--bg-body); border-left:4px solid var(--nika-primary); padding:12px; margin-bottom:10px; border-radius:6px;"><span style="font-size:0.75rem; color:var(--text-muted); font-weight:800;">📅 ${item.date}</span><p style="font-size:0.9rem; margin-top:4px;">${item.content}</p></div>`;
+            });
+        }
+
+        function closeNewsModal() { 
+            const modal = document.getElementById('news-modal');
+            if (modal) modal.style.display = 'none'; 
+        }
+
+        function adminPublishNews() {
+            const titleInput = document.getElementById('admin-news-title');
+            const contentInput = document.getElementById('admin-news-content');
+            if (!titleInput || !contentInput) return;
+            const title = titleInput.value.trim();
+            const content = contentInput.value.trim();
+            if (!title || !content) return alert("Completá título y contenido.");
+            let news = JSON.parse(localStorage.getItem('nika_news')) || [];
+            const dateStr = new Date().toLocaleDateString('es-AR');
+            news.unshift({ date: dateStr, content: `<strong>${title}</strong><br>${content}` });
+            localStorage.setItem('nika_news', JSON.stringify(news));
+            titleInput.value = ''; 
+            contentInput.value = '';
+            showToast("Novedad publicada globalmente 🚀");
+        }
+
+        function openForumModal() { 
+            const modal = document.getElementById('forum-modal');
+            if (modal) modal.style.display = 'flex'; 
+            renderForumThreads(); 
+        }
+
+        function postForumThread() {
+            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
+            if (!user) return alert("Iniciá sesión para participar en el foro.");
+            const titleInput = document.getElementById('forum-title');
+            const bodyInput = document.getElementById('forum-body');
+            if (!titleInput || !bodyInput) return;
+            const title = titleInput.value.trim();
+            const body = bodyInput.value.trim();
+            if (!title || !body) return alert("Completá los campos del debate.");
+            let threads = JSON.parse(localStorage.getItem('nika_forum')) || [];
+            threads.unshift({ author: user.username, title, body, date: new Date().toLocaleDateString('es-AR') });
+            localStorage.setItem('nika_forum', JSON.stringify(threads));
+            titleInput.value = ''; 
+            bodyInput.value = '';
+            renderForumThreads(); 
+            showToast("Debate publicado");
+        }
+
+        function renderForumThreads() {
+            const list = document.getElementById('forum-threads-list');
+            if (!list) return;
+            let threads = JSON.parse(localStorage.getItem('nika_forum')) || [];
+            if (threads.length === 0) { 
+                list.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">No hay debates abiertos aún.</p>'; 
+                return; 
+            }
+            list.innerHTML = '';
+            threads.forEach(t => {
+                list.innerHTML += `<div style="background:var(--bg-body); padding:12px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);"><div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">@${t.author} • ${t.date}</div><div style="font-size:0.95rem; font-weight:800; color:var(--text-main); margin:4px 0;">${t.title}</div><div style="font-size:0.85rem; color:var(--text-muted);">${t.body}</div></div>`;
+            });
+        }
+
+        function openVersusModal() {
+            const user = localStorage.getItem('nika_currentUser');
+            if (!user) return alert("Iniciá sesión para usar el modo Versus.");
+            location.href = 'versus.html';
+        }
+
+        function openLeaderboardModal() {
+            const modal = document.getElementById('leaderboard-modal');
+            if (modal) modal.style.display = 'flex';
+            const list = document.getElementById('leaderboard-list');
+            if (!list) return;
+            let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            list.innerHTML = '';
+            if (users.length === 0) { 
+                list.innerHTML = '<p style="text-align:center; color:var(--text-muted);">No hay usuarios en el ranking aún.</p>'; 
+                return; 
+            }
+            users.forEach((u, index) => {
+                let medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : '🏅'));
+                let score = 95 - (index * 4);
+                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%;"><div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${score}% efectividad</span></div>`;
+            });
+        }
+
+        const modalData = {
+            tutorial: {
+                title: "🎯 Tutorial de Alto Rendimiento",
+                content: `<p style="margin-bottom:12px;">El <strong>Campus Nika</strong> está diseñado para estudiantes que buscan la excelencia y no se conforman con la mediocridad.</p>
+                <ul style="font-size:0.9rem; padding-left:20px; color:var(--text-muted); line-height:1.6;">
+                    <li><strong>Estudio Teórico:</strong> Llevá un control estricto de tu progreso marcando las check-lists del temario oficial en cada Unidad Problema.</li>
+                    <li><strong>Foco Absoluto:</strong> Utilizá el temporizador Pomodoro integrado para evitar distracciones y generar un mapa de calor de tu actividad de estudio diaria.</li>
+                    <li><strong>Simulador Avanzado:</strong> Entrená con exámenes. Si activás el modo <em>"Estilo Residencia"</em>, cada error te descontará puntaje, emulando la presión real de los exámenes de especialidad.</li>
+                </ul>`
+            },
+            demo: {
+                title: "🎮 Versión Demo Limitada",
+                content: `<p style="margin-bottom:10px;">Probá la experiencia del simulador con <strong>10 preguntas al azar</strong> sin registrar tus estadísticas.</p><div style="text-align:center; margin-top:15px;"><button class="btn-module" style="background:var(--nika-primary); color:white; width:100%; border-radius:8px; padding:12px; font-weight:700; border:none; cursor:pointer;" onclick="location.href='examen.html?mode=demo'">Iniciar Demo Flash 🚀</button></div>`
+            },
+            manual: {
+                title: "📖 Manual de Usuario y Gamificación",
+                content: `<p style="margin-bottom:10px;"><strong>Modo Competitivo (Versus):</strong> Desafiá a tus colegas en duelos 1vs1. Cada victoria suma puntos a tu <strong>ELO</strong> (sistema de puntuación competitivo), haciéndote subir en el Ranking Global.</p>
+                <p style="margin-bottom:10px;"><strong>Sistema de Rangos:</strong> Comenzás como <em>Estudiante</em> y, a medida que aumentes tu ELO y precisión, ascenderás hasta <em>Jefe de Residentes</em>.</p>
+                <p style="margin-bottom:10px;"><strong>Atajos Rápidos (Exámenes):</strong> <br><kbd>A</kbd>, <kbd>B</kbd>, <kbd>C</kbd>, <kbd>D</kbd> para responder. Flechas <kbd>←</kbd> <kbd>→</kbd> para navegar. <kbd>Espacio</kbd> para marcar con banderita. <kbd>Enter</kbd> para entregar.</p>`
+            },
+            coming_soon: { title: "🚀 ¡Próximamente!", content: `<p>Esta función se encuentra en desarrollo activo y estará disponible muy pronto en <strong>Campus Nika</strong>.</p>` }
+        };
+
+        function openInfoModal(type) {
+            const item = modalData[type] || modalData['coming_soon'];
+            const title = document.getElementById('info-modal-title');
+            const body = document.getElementById('info-modal-body');
+            const modal = document.getElementById('info-modal');
+            if (title) title.innerHTML = item.title;
+            if (body) body.innerHTML = item.content;
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeInfoModal() {
+            const modal = document.getElementById('info-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function openAboutCreatorModal() {
+            const modal = document.getElementById('about-creator-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeAboutCreatorModal() {
+            const modal = document.getElementById('about-creator-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function copyCreatorAlias() {
+            navigator.clipboard.writeText('aguswei7').then(() => {
+                showToast("¡Alias 'aguswei7' copiado al portapapeles! 📋");
+            }).catch(() => {
+                showToast("Alias: aguswei7");
+            });
+        }
+
+        Object.assign(window, {
+            syncStudyProgress, toggleSidebar, showOnlyModules, showDashboard, showAdminDashboard, toggleDarkMode, showToast,
+            handleProfileClick, openAuthModal, closeAuthModal, switchAuthTab, handleLogin, handleRegister, handleAdminLogin,
+            handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, adminProcessQuestionBankUpload, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal, copyCreatorAlias
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('nika_theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                const btn = document.getElementById('dark-mode-btn');
+                if (btn) btn.innerHTML = "☀️ Modo Claro";
+            }
+            let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            if (users.length === 0) {
+                users.push({ fullname: "Augusto Blanc Weigandt", username: "Aguswei7", email: "aguswei7@hotmail.com", password: "admin", role: "admin", avatar: DEFAULT_AVATAR });
+                localStorage.setItem('nika_registered_users', JSON.stringify(users));
+            }
+            
+            checkAuthState();
+            initMockErratas();
+            syncStudyProgress();
+
+            const medicalQuotes = [
+                "\"La medicina es el arte de conservar la salud y, eventualmente, curar las enfermedades.\" — Galeno",
+                "\"Donde quiera que el arte de la medicina es amado, también hay un amor por la humanidad.\" — Hipócrates",
+                "\"El médico abnegado debe curar a veces, aliviar a menudo y consolar siempre.\" — Louis Pasteur",
+                "\"El mejor médico es el que conoce la inutilidad de la mayoría de los medicamentos.\" — Sir William Osler",
+                "\"Curar a veces, aliviar a menudo, consolar siempre.\" — Ambroise Paré",
+                "\"La principal meta de la medicina no es sólo prolongar la vida, sino enriquecerla.\" — William Osler",
+                "\"El estudio de la enfermedad sin libros es como navegar en un mar inexplorado, mientras que no ir a los pacientes es no echar jamás al mar.\" — William Osler"
+            ];
+            
+            const quoteElement = document.getElementById('daily-quote');
+            if (quoteElement) {
+                const randomIndex = Math.floor(Math.random() * medicalQuotes.length);
+                quoteElement.innerText = medicalQuotes[randomIndex];
+            }
+        });
+    </script>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Nika | Módulo Cirugía - Central</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nika-primary: #0f6cbf;
+            --nika-dark: #0b4f8c;
+            --nika-accent: #38bdf8;
+            --bg-body: #f8fafc;
+            --border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --card-bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--nika-dark);
+            padding: 18px 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-title { font-size: 1.4rem; font-weight: 800; color: #ffffff; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nika-asset-img { display: block; margin: 0 auto; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+        .brand-title img.nika-isotipo-mini { height: 48px; max-height: 54px; min-height: 48px; width: auto; margin: 0; }
+        .brand-slogan { font-size: 0.8rem; color: var(--nika-accent); text-transform: uppercase; letter-spacing: 1px; display: block; }
+        .btn-back { background: rgba(255, 255, 255, 0.15); color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
+        .btn-back:hover { background: rgba(255, 255, 255, 0.25); }
+
+        /* Contenedor */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; flex: 1; width: 100%; }
+
+        .hub-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hub-header h1 { font-size: 2rem; color: var(--nika-dark); margin-bottom: 8px; font-weight: 800; }
+        .hub-header p { color: var(--text-muted); font-size: 1.05rem; }
+
+        /* Secciones del Hub en Grid */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .hub-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hub-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -5px rgba(0,0,0,0.1);
+            border-color: var(--nika-primary);
+        }
+
+        .hub-icon { font-size: 3rem; margin-bottom: 20px; }
+        .hub-card h3 { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 10px; }
+        .hub-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px; }
+
+        .btn-hub {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background: var(--nika-primary);
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-hub:hover { background: var(--nika-dark); }
+
+        /* Footer */
+        .footer {
+            background-color: var(--nika-dark);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--nika-primary);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div>
+            <a href="index.html" class="brand-title"><img src="assets/N%20NIKA.png" alt="NIKA" class="nika-asset-img nika-isotipo-mini">CAMPUS NIKA</a>
+            <span class="brand-slogan">Estudia, competi, aprobá</span>
+        </div>
+        <a href="index.html" class="btn-back">← Volver al Inicio</a>
+    </header>
+
+    <main class="container">
+        
+        <div class="hub-header">
+            <h1>Módulo: Cirugía General y Quirúrgica</h1>
+            <p>Seleccioná la sección en la que querés trabajar hoy para avanzar en tu preparación.</p>
+        </div>
+
+        <div class="hub-grid">
+            <!-- 1. Sección de Estudio Teórico -->
+            <div class="hub-card" onclick="location.href='estudio.html'">
+                <div>
+                    <div class="hub-icon">📖</div>
+                    <h3>Sección Estudio Teórico</h3>
+                    <p>Accedé al programa completo con las 11 Unidades Problema de Cirugía, objetivos de cátedra y checklists interactivos de progreso.</p>
+                </div>
+                <a href="estudio.html" class="btn-hub">Ingresar a Estudio →</a>
+            </div>
+
+            <!-- 2. Sección Simulador Choice -->
+            <div class="hub-card" onclick="location.href='examen.html'">
+                <div>
+                    <div class="hub-icon">📝</div>
+                    <h3>Simulador de Exámenes / Choices</h3>
+                    <p>Entrená con parciales cronometrados, examen final integral y banco masivo de preguntas con justificación bibliográfica oficial.</p>
+                </div>
+                <a href="examen.html" class="btn-hub">Iniciar Simulacro →</a>
+            </div>
+
+            <!-- 3. Sección Duelos 1vs1 y Ranking -->
+            <div class="hub-card" onclick="location.href='versus.html'">
+                <div>
+                    <div class="hub-icon">⚔️</div>
+                    <h3>Duelos 1vs1 y Ranking</h3>
+                    <p>Competí cara a cara con tus compañeros en modo muerte súbita, sumá medallas y escalá en el podio de rangos médicos.</p>
+                </div>
+                <a href="versus.html" class="btn-hub" style="background: #047857;">Ir a Duelos 1vs1 →</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div><strong>Campus Nika</strong> — Módulo de Cirugía | Estudia, competi, aprobá.</div>
+    </footer>
+
+</body>
+</html>

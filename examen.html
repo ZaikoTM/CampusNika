@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Nika | Simulador de Examen - Cirugía</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nika-primary: #0284c7;
+            --nika-dark: #0f172a;
+            --nika-accent: #38bdf8;
+            --bg-body: #f8fafc;
+            --border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --warning: #ca8a04;
+            --warning-light: #fef9c3;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+        }
+
+        body.dark-mode {
+            --nika-primary: #38bdf8;
+            --nika-dark: #f8fafc;
+            --nika-accent: #0ea5e9;
+            --bg-body: #090d16;
+            --border: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #111827;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* ================= NAVBAR SUPERIOR ================= */
+        .navbar {
+            background-color: var(--nika-dark);
+            padding: 12px 35px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-title { font-size: 1.35rem; font-weight: 800; color: #ffffff; text-decoration: none; }
+        .brand-slogan { font-size: 0.72rem; color: var(--nika-accent); text-transform: uppercase; letter-spacing: 1px; display: block; }
+        
+        .navbar-actions { display: flex; align-items: center; gap: 10px; }
+        .nav-tool-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 700; transition: 0.2s; }
+        .nav-tool-btn:hover { background: rgba(255,255,255,0.25); }
+        .btn-back { background: var(--nika-primary); color: white; padding: 6px 16px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.2s;}
+        .btn-back:hover { background: #0369a1; }
+
+        /* ================= CONTENEDOR CENTRAL ================= */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 30px; flex: 1; width: 100%; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden; }
+        .card-header { padding: 20px 24px; border-bottom: 1px solid var(--border); font-weight: 800; font-size: 1.2rem; color: var(--nika-dark); background: var(--card-bg);}
+        .card-body { padding: 24px; }
+
+        /* ================= MOSAICOS (CONFIG) ================= */
+        .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .mode-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 10px; padding: 18px; cursor: pointer; transition: all 0.2s; display: flex; align-items: flex-start; gap: 14px; }
+        .mode-card:hover { border-color: #bae6fd; transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.1); }
+        .mode-card.active { border-color: var(--nika-primary); background: rgba(2, 132, 199, 0.03); box-shadow: 0 0 0 1px var(--nika-primary); }
+        .mode-icon { font-size: 1.8rem; background: rgba(2, 132, 199, 0.1); padding: 10px; border-radius: 10px; }
+        .mode-info h4 { font-size: 1rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px; }
+        .mode-info p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; font-size: 0.9rem; font-weight: 800; margin-bottom: 6px; color: var(--text-main); }
+        .form-control { width: 100%; padding: 10px 14px; font-size: 0.95rem; border: 1px solid var(--border); border-radius: 8px; outline: none; background: var(--card-bg); color: var(--text-main); font-family: inherit; }
+        .form-control:focus { border-color: var(--nika-primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+
+        .btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 700; padding: 12px 24px; font-size: 1rem; border-radius: 8px; border: 1px solid transparent; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .btn-primary { color: #fff; background: var(--nika-primary); }
+        .btn-primary:hover { background: #0369a1; }
+        .btn-outline { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); }
+        .btn-outline:hover { background: var(--bg-body); }
+
+        /* ================= EXAMEN EN VIVO ================= */
+        #quiz-screen, #result-screen { display: none; }
+        .layout-exam { display: flex; gap: 24px; align-items: flex-start; }
+        .content-left { flex: 1; min-width: 0; }
+        .sidebar-right { width: 300px; position: sticky; top: 90px; flex-shrink: 0; }
+
+        /* Timer y Anti-Ansiedad */
+        .timer-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; text-align: center; margin-bottom: 20px; padding: 20px; box-shadow: var(--shadow); position: relative; }
+        .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .timer-header h4 { margin: 0; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; }
+        .btn-anti-anxiety { background: transparent; border: none; cursor: pointer; font-size: 1rem; opacity: 0.6; transition: 0.2s; }
+        .btn-anti-anxiety:hover { opacity: 1; }
+        .time-display { font-size: 2.8rem; font-weight: 900; font-family: monospace; color: var(--text-main); line-height: 1; margin-bottom: 10px; transition: opacity 0.3s; }
+        .time-display.hidden { opacity: 0; filter: blur(10px); }
+        
+        .pace-box { padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-align: center; border: 1px solid transparent; transition: all 0.3s; }
+        .pace-green { background: var(--success-light); color: var(--success); border-color: #bbf7d0; }
+        .pace-yellow { background: var(--warning-light); color: var(--warning); border-color: #fef08a; }
+        .pace-red { background: var(--danger-light); color: var(--danger); border-color: #fecaca; }
+
+        /* Grilla Moodle Inteligente */
+        .nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+        .nav-box { position: relative; height: 40px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; cursor: pointer; border-radius: 6px; background: var(--card-bg); color: var(--nika-primary); transition: 0.15s; }
+        .nav-box.visited { background: var(--bg-body); color: var(--text-muted); border-color: var(--border); }
+        .nav-box.answered { background: var(--nika-primary); color: white; border-color: var(--nika-primary); }
+        .nav-box.current { border: 2px solid var(--text-main); color: var(--text-main); font-weight: 900; }
+        .nav-box.flagged::after { content: "🚩"; position: absolute; top: -5px; right: -5px; font-size: 0.8rem; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2)); }
+
+        /* Pregunta UI */
+        .q-wrapper { display: flex; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow); overflow: hidden; }
+        .q-info-col { width: 130px; background-color: var(--bg-body); padding: 20px 14px; border-right: 1px solid var(--border); flex-shrink: 0; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .q-info-col span { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
+        .q-info-col .q-number { font-size: 1.3rem; font-weight: 900; color: var(--nika-primary); margin-bottom: 12px; }
+        
+        .btn-flag { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; width: 100%; transition: 0.2s; }
+        .btn-flag.active { background: var(--danger-light); color: var(--danger); border-color: #fca5a5; }
+
+        .q-content-col { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+        .q-text { font-size: 1.1rem; margin-bottom: 20px; color: var(--text-main); line-height: 1.6; font-weight: 700; white-space: pre-line; }
+        
+        .option-wrap { padding: 14px 18px; margin-bottom: 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: flex-start; transition: 0.15s; border: 1px solid var(--border); background: var(--card-bg); }
+        .option-wrap:hover { background-color: var(--bg-body); border-color: var(--nika-primary); }
+        .option-wrap input[type="radio"] { margin-top: 4px; margin-right: 14px; transform: scale(1.3); cursor: pointer; accent-color: var(--nika-primary); }
+        .option-text { font-size: 0.95rem; color: var(--text-main); line-height: 1.5; font-weight: 500; }
+
+        /* Herramientas de Pregunta */
+        .q-tools { display: flex; justify-content: space-between; margin-top: 15px; border-top: 1px dashed var(--border); padding-top: 15px; }
+        .btn-text-tool { background: transparent; border: none; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .btn-text-tool:hover { color: var(--nika-primary); }
+        
+        .notes-area { display: none; margin-top: 10px; }
+        .notes-area textarea { width: 100%; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); border-radius: 6px; padding: 10px; font-size: 0.85rem; outline: none; resize: vertical; min-height: 60px; font-family: inherit; }
+
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+
+        /* ================= MODALES (Ayuda y Reporte) ================= */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(3px); }
+        .modal-content { background: var(--card-bg); padding: 24px; border-radius: 12px; width: 100%; max-width: 450px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); }
+        .modal-content h3 { margin-bottom: 15px; color: var(--text-main); font-size: 1.2rem; }
+        .shortcut-list { list-style: none; font-size: 0.9rem; color: var(--text-muted); }
+        .shortcut-list li { margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .key-badge { background: var(--bg-body); border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; font-family: monospace; font-weight: 800; color: var(--text-main); }
+
+        /* ================= RESULTADOS Y REVISIÓN ================= */
+        .results-header { text-align: center; margin-bottom: 30px; }
+        .score-huge { font-size: 5rem; font-weight: 900; color: var(--text-main); letter-spacing: -2px; line-height: 1; margin-bottom: 5px; }
+        .rank-badge { display: inline-block; background: var(--text-main); color: var(--card-bg); padding: 6px 16px; border-radius: 20px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        
+        .feedback-msg { padding: 16px; border-radius: 8px; font-weight: 700; font-size: 1.05rem; margin-bottom: 25px; line-height: 1.5; }
+        .feedback-perfect { background: rgba(2, 132, 199, 0.1); color: var(--nika-primary); border: 1px solid var(--nika-primary); }
+        .feedback-success { background: var(--success-light); color: var(--success); border: 1px solid #bbf7d0; }
+        .feedback-warning { background: var(--warning-light); color: var(--warning); border: 1px solid #fef08a; }
+        .feedback-danger  { background: var(--danger-light); color: var(--danger); border: 1px solid #fecaca; }
+
+        /* Desglose UP y Filtros */
+        .up-breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 30px; }
+        .up-stat-box { border: 1px solid var(--border); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 700; background: var(--card-bg); color: var(--text-main);}
+        
+        .review-filters { display: flex; gap: 10px; margin-bottom: 20px; }
+        .filter-btn { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+        .filter-btn.active { background: var(--nika-dark); color: white; border-color: var(--nika-dark); }
+
+        .review-card { border-left: 6px solid var(--success); margin-bottom: 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: var(--shadow); }
+        .review-card.incorrect { border-left-color: var(--danger); }
+        .review-card.flagged-review { border-right: 4px solid var(--warning); }
+        
+        .feedback-box { background: var(--bg-body); border: 1px solid var(--border); padding: 16px; margin-top: 15px; border-radius: 8px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+        
+        #toast { position: fixed; bottom: 30px; right: 30px; background: var(--nika-dark); color: white; padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 0.9rem; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 3000; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        #toast.show { transform: translateY(0); opacity: 1; }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none; }
+    </style>
+</head>
+<body>
+    <canvas id="confetti-canvas"></canvas>
+
+    <header class="navbar">
+        <div>
+            <a href="index.html" class="brand-title">CAMPUS NIKA</a>
+            <span class="brand-slogan">Estudia, competi, aprobá</span>
+        </div>
+        <div class="navbar-actions">
+            <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
+            <button class="nav-tool-btn" onclick="toggleFocusMode()" title="Modo Enfoque (Pantalla Completa)">🔍 Enfoque</button>
+            <button class="nav-tool-btn" onclick="openHelpModal()" title="Atajos de Teclado">❓ Atajos</button>
+            <a href="cirugia_hub.html" class="btn-back">← Menú Cirugía</a>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- ================= CONFIGURACIÓN ================= -->
+            <div class="card" id="config-screen">
+                <div class="card-header">Configuración del Simulacro</div>
+                <div class="card-body">
+                    <div class="mode-grid">
+                        <div class="mode-card active" data-mode="parcial_1">
+                            <div class="mode-icon">📝</div>
+                            <div class="mode-info"><h4>Primer Parcial</h4><p>UP 1 a la 5.</p></div>
+                        </div>
+                        <div class="mode-card" data-mode="parcial_2">
+                            <div class="mode-icon">📚</div>
+                            <div class="mode-info"><h4>Segundo Parcial</h4><p>UP 6 a la 11.</p></div>
+                        </div>
+                        <div class="mode-card" data-mode="final">
+                            <div class="mode-icon">🎓</div>
+                            <div class="mode-info"><h4>Examen Final</h4><p>Integral 11 UPs.</p></div>
+                        </div>
+                        <div class="mode-card" data-mode="residencia">
+                            <div class="mode-icon">🏥</div>
+                            <div class="mode-info"><h4>Estilo Residencia</h4><p>100 preg / 120 min.</p></div>
+                        </div>
+                        <div class="mode-card" data-mode="up_especifica">
+                            <div class="mode-icon">🎯</div>
+                            <div class="mode-info"><h4>UP Específica</h4><p>Entrenamiento focalizado.</p></div>
+                        </div>
+                        <div class="mode-card" data-mode="flash">
+                            <div class="mode-icon">⚡</div>
+                            <div class="mode-info"><h4>Flash</h4><p>10 preguntas al azar.</p></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="up-selector-group" style="display: none; background: var(--bg-body); padding: 20px; border-radius: 12px; border: 1px dashed var(--nika-primary); margin-top: 20px;">
+                        <label class="form-label" style="color: var(--text-main);">📌 Unidad Problema a Evaluar:</label>
+                        <select id="specific-up" class="form-control">
+                            <option value="1">UP 1: Trauma de miembro superior en el adulto joven</option>
+                            <option value="2">UP 2: Evaluación del abdomen agudo</option>
+                            <option value="3">UP 3: Evaluación integral de la disfagia</option>
+                            <option value="4">UP 4: Enfermedad colorrectal en el adulto mayor</option>
+                            <option value="5">UP 5: Patología hepatobiliar en adultos</option>
+                            <option value="6">UP 6: Dolor inguinal en adultos</option>
+                            <option value="7">UP 7: Abordaje del paciente con tumoración cervical</option>
+                            <option value="8">UP 8: Patología musculoesquelética en miembros inferiores</option>
+                            <option value="9">UP 9: Atención prehospitalaria al politraumatizado y procuración</option>
+                            <option value="10">UP 10: Enfermedad vascular periférica</option>
+                            <option value="11">UP 11: Obstrucción urinaria baja en el adulto mayor</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 20px; margin-top: 20px; margin-bottom: 24px;">
+                        <div class="form-group" style="flex: 1;"><label class="form-label">Cantidad de Preguntas:</label><input type="number" id="q-count" class="form-control" value="60" min="5" max="400"></div>
+                        <div class="form-group" style="flex: 1;"><label class="form-label">Tiempo Límite (Minutos):</label><input type="number" id="q-time" class="form-control" value="60" min="5" max="180"></div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.15rem;" onclick="startQuiz()">Comenzar Evaluación 🚀</button>
+                </div>
+            </div>
+
+        <!-- ================= EXAMEN EN VIVO ================= -->
+        <div id="quiz-screen">
+            <div class="layout-exam">
+                <div class="content-left">
+                    <div id="question-container"></div>
+                    <div class="nav-buttons" id="nav-footer"></div>
+                </div>
+
+                <div class="sidebar-right">
+                    <div class="timer-box">
+                        <div class="timer-header">
+                            <h4>Tiempo Restante</h4>
+                            <button class="btn-anti-anxiety" onclick="toggleTimerVisibility()" title="Modo Anti-Ansiedad">👁️</button>
+                        </div>
+                        <div class="time-display" id="time-left">00:00</div>
+                        <div class="pace-box pace-green" id="pace-indicator">🟢 Buen ritmo de examen</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" style="font-size: 1rem; padding: 14px 20px;">Navegación</div>
+                        <div class="card-body" style="padding: 16px;">
+                            <div class="nav-grid" id="nav-grid"></div>
+                            <button class="btn btn-outline" style="width: 100%; margin-top: 20px; background: var(--danger-light); color: var(--danger); border-color: #fecaca;" onclick="confirmSubmit()">Entregar Examen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= RESULTADOS Y GAMIFICACIÓN ================= -->
+        <div class="card" id="result-screen">
+            <div class="card-body" style="padding: 40px;">
+                <div class="results-header">
+                    <div class="rank-badge" id="res-rank">Rango: Estudiante</div>
+                    <div class="score-huge" id="final-score">0%</div>
+                    <div style="color: var(--text-muted); font-size: 1.2rem; font-weight: 700; margin-bottom: 20px;" id="final-grade-text">Calificación: 0 / 10</div>
+                    <div id="motivational-feedback"></div>
+                </div>
+                
+                <table class="stats-table" style="margin-bottom: 30px;">
+                    <tbody>
+                        <tr><th>Modalidad</th><td id="res-mode"></td></tr>
+                        <tr><th>Tiempo empleado</th><td id="res-time"></td></tr>
+                        <tr><th>Aciertos</th><td id="res-correct"></td></tr>
+                    </tbody>
+                </table>
+
+                <!-- Desglose por UP -->
+                <h4 style="margin-bottom: 12px; color: var(--text-main);">Rendimiento por Unidad Problema:</h4>
+                <div class="up-breakdown-grid" id="up-breakdown-container"></div>
+
+                <div style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="color: var(--text-main); font-weight: 900; font-size: 1.3rem;">Revisión Detallada</h3>
+                        <div class="review-filters">
+                            <button class="filter-btn active" onclick="filterReview('all', this)">Todas</button>
+                            <button class="filter-btn" onclick="filterReview('incorrect', this)">Incorrectas</button>
+                            <button class="filter-btn" onclick="filterReview('flagged', this)">🚩 Marcadas</button>
+                        </div>
+                    </div>
+                    <div id="review-container"></div>
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 40px;">
+                    <button class="btn btn-outline" onclick="generateWhatsAppReport()">📱 Compartir Nota</button>
+                    <button class="btn btn-outline" id="btn-retry-errors" style="display: none; color: var(--warning); border-color: var(--warning);" onclick="retryErrors()">🔄 Reintentar Errores</button>
+                    <button class="btn btn-primary" onclick="location.href='index.html'">Volver al Inicio</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODALES -->
+    <div class="modal-overlay" id="help-modal">
+        <div class="modal-content">
+            <h3>Atajos de Teclado</h3>
+            <ul class="shortcut-list">
+                <li><span>Seleccionar Opción A</span><span class="key-badge">A</span> o <span class="key-badge">1</span></li>
+                <li><span>Seleccionar Opción B</span><span class="key-badge">B</span> o <span class="key-badge">2</span></li>
+                <li><span>Seleccionar Opción C</span><span class="key-badge">C</span> o <span class="key-badge">3</span></li>
+                <li><span>Seleccionar Opción D</span><span class="key-badge">D</span> o <span class="key-badge">4</span></li>
+                <li><span>Pregunta Anterior</span><span class="key-badge">←</span></li>
+                <li><span>Siguiente Pregunta</span><span class="key-badge">→</span></li>
+                <li><span>Marcar/Desmarcar (🚩)</span><span class="key-badge">Espacio</span></li>
+                <li><span>Entregar Examen</span><span class="key-badge">Enter</span></li>
+            </ul>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="closeHelpModal()">Entendido</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="report-modal">
+        <div class="modal-content">
+            <h3>Reportar Error en Pregunta</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Para mantener la excelencia académica, todo reporte debe estar fundamentado bibliográficamente.</p>
+            <div class="form-group">
+                <label class="form-label">Justificación Bibliográfica (Obligatorio):</label>
+                <textarea id="report-text" class="form-control" rows="4" placeholder="Ej. Según Schwartz Principios de Cirugía 11va Ed. pág 45..." style="resize:vertical;"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-outline" style="flex: 1;" onclick="closeReportModal()">Cancelar</button>
+                <button class="btn btn-primary" style="flex: 1; background: var(--danger); border: none;" onclick="submitReport()">Enviar Reporte</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">✅ Acción realizada</div>
+
+    <script>
+        // ================= ESTADO GLOBAL =================
+        let questionDatabase = [];
+        let currentExam = [];
+        let currentIndex = 0;
+        let userAnswers = {};
+        let flaggedQuestions = {};
+        let visitedQuestions = new Set();
+        let userNotes = {};
+        
+        let timerInterval;
+        let timeLeftSeconds = 0;
+        let totalExamTime = 0;
+        let isExamActive = false;
+        
+        let isAudioMuted = localStorage.getItem('nika_audio_muted') === 'true';
+        let isTimerHidden = false;
+        let selectedMode = 'parcial_1';
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // ================= INICIALIZACIÓN Y DEMO =================
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (localStorage.getItem('nika_theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+            if (isAudioMuted) {
+                document.getElementById('btn-audio').innerText = "🔇 Audio OFF";
+                document.getElementById('btn-audio').style.color = "#94a3b8";
+            }
+            
+            await loadQuestionDatabase();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const isDemo = urlParams.get('mode') === 'demo';
+            const isLoggedIn = localStorage.getItem('nika_currentUser') !== null;
+
+            // Bloquear acceso completo a invitados
+            if (!isDemo && !isLoggedIn) {
+                alert("⚠️ Acceso denegado. Debés iniciar sesión o crear una cuenta para acceder al simulador completo. Serás redirigido a la versión Demo Flash (10 preguntas).");
+                window.location.href = "examen.html?mode=demo";
+                return;
+            }
+
+            if (isDemo) {
+                // Modo Demo Flash Directo
+                document.getElementById('config-screen').style.display = 'none';
+                document.getElementById('quiz-screen').style.display = 'block';
+                document.getElementById('question-container').innerHTML = '<h3 style="text-align:center; padding: 40px; color: var(--nika-primary);">Generando Simulacro Demo...</h3>';
+                
+                selectedMode = 'flash'; 
+                setTimeout(() => { startQuiz(true); }, 500); // Arranque forzado
+            } else {
+                // Usuario logueado viendo la config normal
+                document.getElementById('config-screen').style.display = 'block';
+                checkAutoSave();
+            }
+        });
+
+        // Prevención de cierre accidental
+        window.addEventListener('beforeunload', (e) => {
+            if (isExamActive && localStorage.getItem('nika_currentUser')) {
+                saveProgressLocally();
+                e.preventDefault(); e.returnValue = '';
+            }
+        });
+
+        // Atajos de teclado
+        document.addEventListener('keydown', (e) => {
+            if (!isExamActive || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') return;
+            const key = e.key.toLowerCase();
+            if (['a', '1'].includes(key)) { selectOption('a'); }
+            else if (['b', '2'].includes(key)) { selectOption('b'); }
+            else if (['c', '3'].includes(key)) { selectOption('c'); }
+            else if (['d', '4'].includes(key)) { selectOption('d'); }
+            else if (key === 'arrowleft') { prevQuestion(); }
+            else if (key === 'arrowright') { nextQuestion(); }
+            else if (key === ' ') { e.preventDefault(); toggleFlag(); }
+            else if (key === 'enter') { confirmSubmit(); }
+        });
+
+        // ================= BASE DE DATOS =================
+        async function loadQuestionDatabase() {
+            try {
+                const response = await fetch('db_cirugia_organizado.json');
+                const rawData = await response.json();
+                
+                for (let upKey in rawData) {
+                    const upNumber = parseInt(upKey.replace('up', '')) || 1;
+                    const questionsList = rawData[upKey].questions || [];
+                    
+                    questionsList.forEach(item => {
+                        let cleanQ = item.q;
+                        let cleanOptions = { ...item.options };
+
+                        // Limpieza OCR Inteligente
+                        if (cleanOptions.a) {
+                            const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
+                            if (matchA && matchA[1].trim() !== "") {
+                                cleanQ += " " + matchA[1].trim(); 
+                                cleanOptions.a = matchA[2]; 
+                            }
+                        }
+                        ['a', 'b', 'c', 'd'].forEach(key => {
+                            if (cleanOptions[key]) {
+                                const regex = new RegExp(`^${key}\\)\\s*`, 'i');
+                                cleanOptions[key] = cleanOptions[key].replace(regex, '').trim();
+                            }
+                        });
+                        let cleanFeedback = item.verificacion || "Sin justificación detallada.";
+                        cleanFeedback = cleanFeedback.replace(/Banco de Preguntas.*/ig, '').trim();
+
+                        questionDatabase.push({ up: upNumber, q: cleanQ, options: cleanOptions, correct: item.correct, feedback: cleanFeedback });
+                    });
+                }
+            } catch (error) { console.error("Error BD:", error); }
+        }
+
+        // (Nota: se eliminaron 2 bloques duplicados de "let currentExamMode" / "function selectMode"
+        //  que causaban un SyntaxError de parseo y tumbaban TODO el script. La definición única
+        //  queda más abajo, junto al resto de la lógica de configuración.)
+
+        // Activamos los escuchadores de eventos al cargar la página para evitar fallos de alcance
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.mode-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const mode = card.getAttribute('data-mode');
+                    selectMode(mode, card);
+                });
+            });
+        });
+
+        // ================= HERRAMIENTAS GLOBALES =================
+        function playSound(type) {
+            if (isAudioMuted) return;
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+            const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+
+            if (type === 'click') {
+                osc.frequency.setValueAtTime(450, audioCtx.currentTime); gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+            } else if (type === 'success') {
+                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); 
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+            } else if (type === 'alert') {
+                osc.type = 'square'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.setValueAtTime(1200, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.6);
+            }
+        }
+
+        function toggleAudio() {
+            isAudioMuted = !isAudioMuted; localStorage.setItem('nika_audio_muted', isAudioMuted);
+            const btn = document.getElementById('btn-audio');
+            if (isAudioMuted) { btn.innerText = "🔇 Audio OFF"; btn.style.color = "#94a3b8"; showToast("Audio silenciado"); } 
+            else { btn.innerText = "🔊 Audio ON"; btn.style.color = "white"; playSound('click'); showToast("Audio activado"); }
+        }
+
+        function toggleFocusMode() {
+            if (!document.fullscreenElement) { document.documentElement.requestFullscreen().then(() => showToast("Modo Enfoque activado")); } 
+            else { if (document.exitFullscreen) document.exitFullscreen(); }
+        }
+
+        function toggleTimerVisibility() {
+            isTimerHidden = !isTimerHidden;
+            const display = document.getElementById('time-left');
+            if (isTimerHidden) { display.classList.add('hidden'); showToast("Reloj oculto"); } 
+            else { display.classList.remove('hidden'); }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast'); toast.innerText = msg; toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        // ================= CONFIGURACIÓN =================
+        function selectMode(mode, element) {
+            playSound('click');
+            document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+            selectedMode = mode;
+            document.getElementById('up-selector-group').style.display = (mode === 'up_especifica') ? 'block' : 'none';
+
+            const qCount = document.getElementById('q-count'); const qTime = document.getElementById('q-time');
+            if (mode === 'residencia' || mode === 'final') { qCount.value = 100; qTime.value = 120; }
+            else if (mode === 'flash') { qCount.value = 10; qTime.value = 10; }
+            else { qCount.value = 60; qTime.value = 60; }
+
+            // Registrar si activa el modo residencia estricto con penalización
+            localStorage.setItem('nika_exam_mode', mode === 'residencia' ? 'residencia' : 'normal');
+        }
+
+        function startQuiz(isDemoForce = false) {
+            if (questionDatabase.length === 0) return alert("Cargando preguntas...");
+            if (!isDemoForce) playSound('click');
+
+            const countInput = isDemoForce ? 10 : parseInt(document.getElementById('q-count').value);
+            const timeInput = isDemoForce ? 10 : parseInt(document.getElementById('q-time').value);
+
+            let pool = [];
+            if (selectedMode === 'parcial_1') pool = questionDatabase.filter(q => q.up >= 1 && q.up <= 5);
+            else if (selectedMode === 'parcial_2') pool = questionDatabase.filter(q => q.up >= 6 && q.up <= 11);
+            else if (selectedMode === 'up_especifica') {
+                const up = parseInt(document.getElementById('specific-up').value);
+                pool = questionDatabase.filter(q => q.up === up);
+            } else { pool = [...questionDatabase]; }
+
+            if (pool.length === 0) return alert("No hay preguntas para este filtro.");
+
+            pool.sort(() => Math.random() - 0.5);
+            const finalCount = (selectedMode === 'flash') ? 10 : Math.min(countInput, pool.length);
+            currentExam = pool.slice(0, finalCount);
+
+            userAnswers = {}; flaggedQuestions = {}; visitedQuestions = new Set(); userNotes = {};
+            currentIndex = 0; timeLeftSeconds = timeInput * 60; totalExamTime = timeLeftSeconds;
+            isExamActive = true;
+
+            document.getElementById('config-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+
+            buildNavGrid(); renderQuestion(); startTimer();
+            if (!isDemoForce && localStorage.getItem('nika_currentUser')) saveProgressLocally();
+        }
+
+        function saveProgressLocally() {
+            if (!isExamActive) return;
+            const state = { exam: currentExam, answers: userAnswers, flags: flaggedQuestions, visited: Array.from(visitedQuestions), notes: userNotes, time: timeLeftSeconds, total: totalExamTime, idx: currentIndex, mode: selectedMode };
+            localStorage.setItem('nika_active_exam', JSON.stringify(state));
+        }
+
+        function checkAutoSave() {
+            const saved = localStorage.getItem('nika_active_exam');
+            if (saved && localStorage.getItem('nika_currentUser')) {
+                if (confirm("Tenés un examen guardado en progreso. ¿Querés continuarlo?")) {
+                    const state = JSON.parse(saved);
+                    currentExam = state.exam; userAnswers = state.answers; flaggedQuestions = state.flags;
+                    visitedQuestions = new Set(state.visited); userNotes = state.notes;
+                    timeLeftSeconds = state.time; totalExamTime = state.total; currentIndex = state.idx; selectedMode = state.mode;
+                    
+                    isExamActive = true;
+                    document.getElementById('config-screen').style.display = 'none';
+                    document.getElementById('quiz-screen').style.display = 'block';
+                    buildNavGrid(); renderQuestion(); startTimer();
+                } else { localStorage.removeItem('nika_active_exam'); }
+            }
+        }
+
+        // ================= SELECCIÓN DE MODO EN SIMULACRO =================
+        let selectedExamMode = 'parcial1'; // por defecto
+
+        function selectExamMode(modeElement, modeName) {
+            // Quitamos la clase 'active' o el borde destacado de todas las tarjetas
+            document.querySelectorAll('.config-card, .mode-card').forEach(card => {
+                card.style.borderColor = 'var(--border)';
+                card.style.background = 'var(--bg-card, #ffffff)';
+            });
+            
+            // Destacamos la tarjeta elegida
+            modeElement.style.borderColor = 'var(--nika-primary)';
+            modeElement.style.background = 'rgba(56, 189, 248, 0.05)';
+            selectedExamMode = modeName;
+            
+            // Guardamos el modo en memoria para que examen.html sepa si usará -0.25
+            if (modeName === 'residencia') {
+                localStorage.setItem('nika_exam_mode', 'residencia');
+            } else {
+                localStorage.setItem('nika_exam_mode', 'normal');
+            }
+        }
+
+        // ================= TEMPORIZADOR =================
+        function startTimer() {
+            const timeDisplay = document.getElementById('time-left');
+            const paceBox = document.getElementById('pace-indicator');
+
+            timerInterval = setInterval(() => {
+                if (timeLeftSeconds <= 0) { clearInterval(timerInterval); submitQuiz(); return; }
+                timeLeftSeconds--;
+                
+                if (timeLeftSeconds === 60) { playSound('alert'); showToast("¡Último minuto!"); timeDisplay.style.color = "var(--danger)"; }
+
+                const mins = Math.floor(timeLeftSeconds / 60); const secs = timeLeftSeconds % 60;
+                timeDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                const elapsedRatio = (totalExamTime - timeLeftSeconds) / totalExamTime;
+                const expectedRatio = Object.keys(userAnswers).length / currentExam.length;
+
+                if (elapsedRatio - expectedRatio > 0.2) { paceBox.className = "pace-box pace-red"; paceBox.innerText = "🔴 Ritmo lento"; } 
+                else if (elapsedRatio - expectedRatio > 0.1) { paceBox.className = "pace-box pace-yellow"; paceBox.innerText = "🟡 Ritmo moderado"; } 
+                else { paceBox.className = "pace-box pace-green"; paceBox.innerText = "🟢 Buen ritmo"; }
+                
+                if (timeLeftSeconds % 30 === 0 && localStorage.getItem('nika_currentUser')) saveProgressLocally();
+            }, 1000);
+        }
+
+        // ================= NAVEGACIÓN Y GRILLA =================
+        function buildNavGrid() {
+            const grid = document.getElementById('nav-grid'); grid.innerHTML = '';
+            currentExam.forEach((_, idx) => {
+                const box = document.createElement('div'); box.id = `nav-box-${idx}`; box.innerText = idx + 1;
+                box.onclick = () => { playSound('click'); goToQuestion(idx); };
+                grid.appendChild(box);
+            });
+            updateNavGridStyles();
+        }
+
+        function updateNavGridStyles() {
+            currentExam.forEach((_, idx) => {
+                const box = document.getElementById(`nav-box-${idx}`); if (!box) return;
+                box.className = 'nav-box'; 
+                if (visitedQuestions.has(idx)) box.classList.add('visited');
+                if (userAnswers[idx] !== undefined) box.classList.add('answered'); 
+                if (idx === currentIndex) box.classList.add('current');
+                if (flaggedQuestions[idx]) box.classList.add('flagged');
+            });
+        }
+
+        function toggleFlag() { playSound('click'); flaggedQuestions[currentIndex] = !flaggedQuestions[currentIndex]; saveProgressLocally(); renderQuestion(); }
+        function toggleNotes() { const area = document.getElementById('notes-area'); area.style.display = area.style.display === 'block' ? 'none' : 'block'; }
+        function saveNote(val) { userNotes[currentIndex] = val; saveProgressLocally(); }
+
+        function renderQuestion() {
+            visitedQuestions.add(currentIndex); const q = currentExam[currentIndex]; const container = document.getElementById('question-container');
+            const isFlagged = flaggedQuestions[currentIndex]; const currentNote = userNotes[currentIndex] || '';
+            
+            let optionsHtml = '';
+            for (let key in q.options) {
+                const checked = userAnswers[currentIndex] === key ? 'checked' : '';
+                optionsHtml += `<label class="option-wrap" onclick="playSound('click')"><input type="radio" name="q-option" value="${key}" ${checked} onchange="selectOption('${key}')"><span class="option-text"><strong>${key.toUpperCase()})</strong> ${q.options[key]}</span></label>`;
+            }
+
+            container.innerHTML = `
+                <div class="q-wrapper">
+                    <div class="q-info-col">
+                        <span>Pregunta</span><div class="q-number">${currentIndex + 1} / ${currentExam.length}</div>
+                        <span style="color:var(--nika-primary); font-weight:800; margin-bottom:15px;">UP ${q.up}</span>
+                        <button class="btn-flag ${isFlagged ? 'active' : ''}" onclick="toggleFlag()">${isFlagged ? '🚩 Desmarcar' : '⛳ Marcar'}</button>
+                    </div>
+                    <div class="q-content-col">
+                        <div class="q-text">${q.q}</div><div class="options-container">${optionsHtml}</div>
+                        <div class="q-tools"><button class="btn-text-tool" onclick="toggleNotes()">📝 Notas Privadas</button><button class="btn-text-tool" style="color:var(--danger);" onclick="openReportModal()">⚠️ Reportar Error</button></div>
+                        <div class="notes-area" id="notes-area" ${currentNote ? 'style="display:block;"' : ''}><textarea placeholder="Escribe aquí apuntes rápidos..." onkeyup="saveNote(this.value)">${currentNote}</textarea></div>
+                    </div>
+                </div>
+            `;
+            const footer = document.getElementById('nav-footer');
+            footer.innerHTML = `<button class="btn btn-outline" ${currentIndex === 0 ? 'disabled style="opacity:0.5"' : ''} onclick="playSound('click'); prevQuestion()">← Anterior</button><button class="btn btn-primary" ${currentIndex === currentExam.length - 1 ? 'onclick="playSound(\'click\'); confirmSubmit()"' : 'onclick="playSound(\'click\'); nextQuestion()"'}>${currentIndex === currentExam.length - 1 ? 'Finalizar Examen' : 'Siguiente →'}</button>`;
+            updateNavGridStyles();
+        }
+
+        function selectOption(opt) { userAnswers[currentIndex] = opt; saveProgressLocally(); updateNavGridStyles(); }
+        function nextQuestion() { if (currentIndex < currentExam.length - 1) { currentIndex++; renderQuestion(); } }
+        function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderQuestion(); } }
+        function goToQuestion(idx) { currentIndex = idx; renderQuestion(); }
+
+        // ================= MODALES =================
+        function openHelpModal() { document.getElementById('help-modal').style.display = 'flex'; }
+        function closeHelpModal() { document.getElementById('help-modal').style.display = 'none'; }
+        function openReportModal() { document.getElementById('report-modal').style.display = 'flex'; }
+        function closeReportModal() { document.getElementById('report-modal').style.display = 'none'; }
+        function submitReport() {
+            const text = document.getElementById('report-text').value.trim();
+            if (text.length < 10) return alert("Debes incluir una justificación bibliográfica válida.");
+            showToast("Reporte enviado al administrador."); document.getElementById('report-text').value = ''; closeReportModal();
+        }
+
+        // ================= RESULTADOS Y GAMIFICACIÓN =================
+        function confirmSubmit() {
+            const unanswered = currentExam.length - Object.keys(userAnswers).length;
+            if (unanswered > 0) { if (!confirm(`⚠️ Tenés ${unanswered} preguntas sin responder. ¿Querés entregar de todas formas?`)) return; }
+            submitQuiz();
+        }
+
+        function submitQuiz() {
+            playSound('success'); 
+            clearInterval(timerInterval); 
+            isExamActive = false; 
+            localStorage.removeItem('nika_active_exam');
+            document.getElementById('quiz-screen').style.display = 'none'; 
+            document.getElementById('result-screen').style.display = 'block';
+
+            let correctCount = 0; 
+            let upStats = {};
+            
+            // 1. Contar respuestas y agrupar estadísticas por Unidad Problema
+            currentExam.forEach((q, idx) => {
+                const isCorrect = userAnswers[idx] === q.correct;
+                if (isCorrect) correctCount++;
+                if (!upStats[q.up]) upStats[q.up] = { total: 0, correct: 0 };
+                upStats[q.up].total++; 
+                if (isCorrect) upStats[q.up].correct++;
+            });
+
+            // 2. Lógica Matemática de Penalización (Estilo Residencia)
+            const totalQuestions = currentExam.length;
+            const answeredCount = Object.keys(userAnswers).length;
+            const incorrectCount = answeredCount - correctCount;
+            const blankCount = totalQuestions - answeredCount;
+            
+            let finalScore = correctCount; 
+            let penaltyPoints = 0;
+
+            // Leer si activamos el modo residencia (desde la URL o memoria)
+            const urlParams = new URLSearchParams(window.location.search);
+            const isResidencyMode = urlParams.get('mode') === 'residencia' || localStorage.getItem('nika_exam_mode') === 'residencia';
+
+            if (isResidencyMode) {
+                // Penaliza -0.25 solo por los errores (las en blanco son estratégicas, no restan)
+                penaltyPoints = incorrectCount * 0.25;
+                finalScore = finalScore - penaltyPoints;
+                if (finalScore < 0) finalScore = 0; // Evitamos puntajes negativos irreales
+            }
+
+            // Calculamos la nota final en formato porcentaje y en base 10
+            const scorePct = Math.round((finalScore / totalQuestions) * 100);
+            const grade10 = ((finalScore / totalQuestions) * 10).toFixed(1);
+
+            // 3. Mostrar en la Interfaz
+            document.getElementById('final-score').innerText = `${scorePct}%`;
+            document.getElementById('final-grade-text').innerText = `Calificación: ${grade10} / 10`;
+
+            let rank = "Estudiante"; let feedbackHtml = '';
+            if (scorePct === 100) { rank = "🌟 Jefe de Residentes"; feedbackHtml = `<div class="feedback-msg feedback-perfect">🏆 ¡Examen Perfecto! Un 10/10 absoluto. Has demostrado un dominio clínico superior. Este es el estándar que buscás.</div>`; triggerConfetti(); }
+            else if (scorePct >= 80) { rank = "🥇 Residente Superior (R4)"; feedbackHtml = `<div class="feedback-msg feedback-success">✅ Excelente desempeño. Aprobaste con un nivel muy alto, pero recordá: un 9 no es la meta, apuntamos al 10. ¡Repasá los detalles!</div>`; }
+            else if (scorePct >= 60) { rank = "🥈 Médico Residente (R1)"; feedbackHtml = `<div class="feedback-msg feedback-warning">⚠️ Aprobaste al límite. Estás dentro, pero la mediocridad no es una opción para vos. Usá el desglose para reforzar puntos débiles.</div>`; }
+            else { rank = "🛑 Interno Rotatorio"; feedbackHtml = `<div class="feedback-msg feedback-danger">❌ Desaprobado. Usá la frustración como motor. Analizá la justificación de cada error y volvé a intentarlo.</div>`; document.getElementById('btn-retry-errors').style.display = 'inline-block'; }
+            if (isResidencyMode && penaltyPoints > 0) {
+                feedbackHtml += `<div style="color:var(--danger); font-weight:800; margin-top:8px;">Penalización Residencia: -${penaltyPoints} puntos (${incorrectCount} incorrectas)</div>`;
+            }
+
+            document.getElementById('res-rank').innerText = rank;
+            document.getElementById('motivational-feedback').innerHTML = feedbackHtml;
+
+            const upContainer = document.getElementById('up-breakdown-container'); upContainer.innerHTML = '';
+            Object.keys(upStats).sort((a,b)=>a-b).forEach(up => {
+                const stat = upStats[up]; const pct = Math.round((stat.correct / stat.total) * 100);
+                let color = pct >= 80 ? 'var(--success)' : (pct >= 60 ? 'var(--warning)' : 'var(--danger)');
+                upContainer.innerHTML += `<div class="up-stat-box" style="border-left: 4px solid ${color};"><span>UP ${up}</span><span style="color:${color};">${pct}% (${stat.correct}/${stat.total})</span></div>`;
+            });
+
+            let modeText = "Modalidad Específica";
+            if (selectedMode === 'parcial_1') modeText = "Primer Parcial (UP 1 a 5)";
+            else if (selectedMode === 'parcial_2') modeText = "Segundo Parcial (UP 6 a 11)";
+            else if (selectedMode === 'final') modeText = "Examen Final Integral";
+            else if (selectedMode === 'residencia') modeText = "Simulacro Estilo Residencia";
+            else if (selectedMode === 'flash') modeText = "Examen Flash (Demo/Azar)";
+            else if (selectedMode === 'up_especifica') { modeText = "Choice Específico: " + document.getElementById('specific-up').options[document.getElementById('specific-up').selectedIndex].text; }
+
+            document.getElementById('res-mode').innerText = modeText;
+            document.getElementById('res-time').innerText = `${Math.floor((totalExamTime - timeLeftSeconds)/60)} min`;
+            document.getElementById('res-correct').innerText = `${correctCount} de ${currentExam.length} aciertos`;
+
+            renderReview('all');
+
+            // 4. Guardar en las estadísticas globales para el Dashboard (una sola vez, ya con penalización aplicada)
+            recordExamStatsLocally(finalScore, totalQuestions);
+        }
+
+        // ================= ACTUALIZACIÓN DEL DASHBOARD =================
+        function recordExamStatsLocally(score, total) {
+            const userJson = localStorage.getItem('nika_currentUser');
+            if (!userJson) return; // Los invitados no alteran las estadísticas base
+            
+            const user = JSON.parse(userJson);
+            const key = `nika_stats_${user.username}`;
+            let stats = JSON.parse(localStorage.getItem(key)) || { exams: 0, totalCorrect: 0, totalQuestionsAnswered: 0, streak: 1, accuracy: 0, lastDate: null };
+            
+            stats.exams += 1;
+            // Sumamos el puntaje real (ya penalizado si aplica)
+            stats.totalCorrect += score; 
+            stats.totalQuestionsAnswered += total;
+            
+            if (stats.totalQuestionsAnswered > 0) {
+                stats.accuracy = Math.round((stats.totalCorrect / stats.totalQuestionsAnswered) * 100);
+            }
+            
+            // Sistema de control de racha diaria
+            const today = new Date().toDateString();
+            if (stats.lastDate !== today) {
+                if (stats.lastDate) {
+                    const diffDays = Math.ceil(Math.abs(new Date(today) - new Date(stats.lastDate)) / (1000 * 60 * 60 * 24));
+                    if (diffDays === 1) stats.streak += 1; 
+                    else if (diffDays > 1) stats.streak = 1; 
+                }
+                stats.lastDate = today;
+            }
+            localStorage.setItem(key, JSON.stringify(stats));
+        }
+
+        function filterReview(filter, btnElement) {
+            if (btnElement) { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btnElement.classList.add('active'); }
+            renderReview(filter);
+        }
+
+        function renderReview(filter) {
+            const reviewContainer = document.getElementById('review-container'); reviewContainer.innerHTML = '';
+            currentExam.forEach((q, idx) => {
+                const userAns = userAnswers[idx]; const isCorrect = userAns === q.correct; const isFlagged = flaggedQuestions[idx];
+                if (filter === 'incorrect' && isCorrect) return; if (filter === 'flagged' && !isFlagged) return;
+                
+                reviewContainer.innerHTML += `
+                    <div class="review-card ${isCorrect ? '' : 'incorrect'} ${isFlagged ? 'flagged-review' : ''}">
+                        <div style="margin-bottom:12px;"><strong>Pregunta ${idx + 1} (UP ${q.up}):</strong> ${q.q}</div>
+                        <div style="font-size: 0.95rem; margin-bottom: 4px;">Tu respuesta: <strong style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}">${userAns ? userAns.toUpperCase() + ') ' + q.options[userAns] : 'Sin responder'}</strong></div>
+                        <div style="font-size: 0.95rem;">Respuesta correcta: <strong style="color: var(--text-main);">${q.correct.toUpperCase()}) ${q.options[q.correct]}</strong></div>
+                        <div class="feedback-box"><strong style="color: var(--text-main);">📚 Justificación Oficial:</strong><br> ${q.feedback}</div>
+                    </div>`;
+            });
+            if (reviewContainer.innerHTML === '') reviewContainer.innerHTML = '<p style="text-align:center; color:var(--text-muted);">No hay preguntas para este filtro.</p>';
+        }
+
+        function retryErrors() {
+            let errorPool = currentExam.filter((q, idx) => userAnswers[idx] !== q.correct);
+            if (errorPool.length === 0) return;
+            currentExam = errorPool; userAnswers = {}; flaggedQuestions = {}; visitedQuestions = new Set(); userNotes = {};
+            currentIndex = 0; timeLeftSeconds = currentExam.length * 60; totalExamTime = timeLeftSeconds; isExamActive = true;
+            document.getElementById('result-screen').style.display = 'none'; document.getElementById('quiz-screen').style.display = 'block';
+            buildNavGrid(); renderQuestion(); startTimer(); showToast("Reintentando solo preguntas incorrectas");
+        }
+
+        function generateWhatsAppReport() {
+            let correctCount = 0; currentExam.forEach((q, idx) => { if (userAnswers[idx] === q.correct) correctCount++; });
+            const scorePct = Math.round((correctCount / currentExam.length) * 100); const grade10 = ((correctCount / currentExam.length) * 10).toFixed(1);
+            const msg = `*Resultados Campus Nika ⚕️*\n\n📊 *Nota:* ${grade10}/10 (${scorePct}%)\n⏱️ *Tiempo:* ${Math.floor((totalExamTime - timeLeftSeconds)/60)} min\n🎯 *Aciertos:* ${correctCount}/${currentExam.length}\n\n_Simulador Médico de Alto Rendimiento_`;
+            navigator.clipboard.writeText(msg).then(() => { showToast("Resultados copiados."); setTimeout(() => { window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank'); }, 1000); });
+        }
+
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas'); 
+            if (!canvas) return;
+            canvas.style.display = 'block'; 
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d'); 
+            const particles = [];
+            for (let i=0; i<150; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, w: Math.random() * 10 + 5, h: Math.random() * 10 + 5, vx: Math.random() * 4 - 2, vy: Math.random() * 4 + 2, color: `hsl(${Math.random()*360}, 100%, 50%)` });
+            function render() {
+                ctx.clearRect(0,0,canvas.width,canvas.height); let active = false;
+                particles.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.y < canvas.height) active = true; ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.w, p.h); });
+                if (active) requestAnimationFrame(render); else canvas.style.display = 'none';
+            }
+            render();
+        }
+
+        // Exponer funciones críticas al ámbito global para evitar errores de enlace en los botones HTML
+        Object.assign(window, {
+            selectMode,
+            startQuiz,
+            submitQuiz,
+            confirmSubmit,
+            nextQuestion,
+            prevQuestion,
+            goToQuestion,
+            toggleFlag,
+            toggleNotes,
+            saveNote,
+            openHelpModal,
+            closeHelpModal,
+            openReportModal,
+            closeReportModal,
+            submitReport,
+            triggerConfetti
+        });
+    </script>
+</body>
+</html>
