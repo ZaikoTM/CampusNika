@@ -341,7 +341,7 @@
 
     </main>
 
-    <!-- MODALES -->
+   <!-- MODALES -->
     <div class="modal-overlay" id="help-modal">
         <div class="modal-content">
             <h3>Atajos de Teclado</h3>
@@ -376,9 +376,12 @@
 
     <div id="toast">✅ Acción realizada</div>
 
+    <!-- SDK oficial de Supabase (requerido para inicializar el cliente) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+
     <script>
         // ================= ESTADO GLOBAL =================
-        let questionDatabase = [];
         let currentExam = [];
         let currentIndex = 0;
         let userAnswers = {};
@@ -407,8 +410,6 @@
                 document.getElementById('btn-audio').style.color = "#94a3b8";
             }
             
-            await loadQuestionDatabase();
-
             const urlParams = new URLSearchParams(window.location.search);
             const isDemo = urlParams.get('mode') === 'demo';
             const isLoggedIn = localStorage.getItem('nika_currentUser') !== null;
@@ -421,15 +422,13 @@
             }
 
             if (isDemo) {
-                // Modo Demo Flash Directo
                 document.getElementById('config-screen').style.display = 'none';
                 document.getElementById('quiz-screen').style.display = 'block';
                 document.getElementById('question-container').innerHTML = '<h3 style="text-align:center; padding: 40px; color: var(--nika-primary);">Generando Simulacro Demo...</h3>';
                 
                 selectedMode = 'flash'; 
-                setTimeout(() => { startQuiz(true); }, 500); // Arranque forzado
+                setTimeout(() => { startQuiz(true); }, 500); 
             } else {
-                // Usuario logueado viendo la config normal
                 document.getElementById('config-screen').style.display = 'block';
                 checkAutoSave();
             }
@@ -457,48 +456,6 @@
             else if (key === 'enter') { confirmSubmit(); }
         });
 
-        // ================= BASE DE DATOS =================
-        async function loadQuestionDatabase() {
-            try {
-                const response = await fetch('db_cirugia_organizado.json');
-                const rawData = await response.json();
-                
-                for (let upKey in rawData) {
-                    const upNumber = parseInt(upKey.replace('up', '')) || 1;
-                    const questionsList = rawData[upKey].questions || [];
-                    
-                    questionsList.forEach(item => {
-                        let cleanQ = item.q;
-                        let cleanOptions = { ...item.options };
-
-                        // Limpieza OCR Inteligente
-                        if (cleanOptions.a) {
-                            const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
-                            if (matchA && matchA[1].trim() !== "") {
-                                cleanQ += " " + matchA[1].trim(); 
-                                cleanOptions.a = matchA[2]; 
-                            }
-                        }
-                        ['a', 'b', 'c', 'd'].forEach(key => {
-                            if (cleanOptions[key]) {
-                                const regex = new RegExp(`^${key}\\)\\s*`, 'i');
-                                cleanOptions[key] = cleanOptions[key].replace(regex, '').trim();
-                            }
-                        });
-                        let cleanFeedback = item.verificacion || "Sin justificación detallada.";
-                        cleanFeedback = cleanFeedback.replace(/Banco de Preguntas.*/ig, '').trim();
-
-                        questionDatabase.push({ up: upNumber, q: cleanQ, options: cleanOptions, correct: item.correct, feedback: cleanFeedback });
-                    });
-                }
-            } catch (error) { console.error("Error BD:", error); }
-        }
-
-        // (Nota: se eliminaron 2 bloques duplicados de "let currentExamMode" / "function selectMode"
-        //  que causaban un SyntaxError de parseo y tumbaban TODO el script. La definición única
-        //  queda más abajo, junto al resto de la lógica de configuración.)
-
-        // Activamos los escuchadores de eventos al cargar la página para evitar fallos de alcance
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.mode-card').forEach(card => {
                 card.addEventListener('click', () => {
@@ -553,7 +510,7 @@
             setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
 
-        // ================= CONFIGURACIÓN =================
+        // ================= CONFIGURACIÓN Y CONEXIÓN SUPABASE =================
         function selectMode(mode, element) {
             playSound('click');
             document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
@@ -566,27 +523,109 @@
             else if (mode === 'flash') { qCount.value = 10; qTime.value = 10; }
             else { qCount.value = 60; qTime.value = 60; }
 
-            // Registrar si activa el modo residencia estricto con penalización
             localStorage.setItem('nika_exam_mode', mode === 'residencia' ? 'residencia' : 'normal');
         }
 
-        function startQuiz(isDemoForce = false) {
-            if (questionDatabase.length === 0) return alert("Cargando preguntas...");
+        async function startQuiz(isDemoForce = false) {
+            const btn = document.querySelector('button[onclick="startQuiz()"]');
+            if (btn) { btn.innerText = "Cargando preguntas de la Base de Datos..."; btn.disabled = true; }
             if (!isDemoForce) playSound('click');
 
             const countInput = isDemoForce ? 10 : parseInt(document.getElementById('q-count').value);
             const timeInput = isDemoForce ? 10 : parseInt(document.getElementById('q-time').value);
 
+            let upsToFetch = [];
+            if (selectedMode === 'parcial_1') upsToFetch = [1,2,3,4,5];
+            else if (selectedMode === 'parcial_2') upsToFetch = [6,7,8,9,10,11];
+            else if (selectedMode === 'up_especifica') upsToFetch = [parseInt(document.getElementById('specific-up').value)];
+            else upsToFetch = [1,2,3,4,5,6,7,8,9,10,11]; // final, residencia, flash
+
             let pool = [];
-            if (selectedMode === 'parcial_1') pool = questionDatabase.filter(q => q.up >= 1 && q.up <= 5);
-            else if (selectedMode === 'parcial_2') pool = questionDatabase.filter(q => q.up >= 6 && q.up <= 11);
-            else if (selectedMode === 'up_especifica') {
-                const up = parseInt(document.getElementById('specific-up').value);
-                pool = questionDatabase.filter(q => q.up === up);
-            } else { pool = [...questionDatabase]; }
+            const modulo = new URLSearchParams(window.location.search).get('modulo') || 'cirugia';
 
-            if (pool.length === 0) return alert("No hay preguntas para este filtro.");
+            // 1. INTENTO DE CARGA DESDE SUPABASE
+            try {
+                if (window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
+                    const fetchPromises = upsToFetch.map(async (up) => {
+                        const upStr = up.toString().padStart(2, '0');
+                        try {
+                            // Intentamos con paso de objeto (según el script de Claude)
+                            let res = await window.NikaSupabase.cargarPreguntasUP({ modulo: modulo, upId: upStr });
+                            return { upNum: up, data: (res && res.data) ? res.data : (Array.isArray(res) ? res : (res.questions || [])) };
+                        } catch(err) {
+                            try {
+                                // Fallback a paso de argumentos posicionales por las dudas
+                                let res = await window.NikaSupabase.cargarPreguntasUP(modulo, upStr);
+                                return { upNum: up, data: (res && res.data) ? res.data : (Array.isArray(res) ? res : (res.questions || [])) };
+                            } catch(e2) {
+                                console.warn(`Error individual consultando UP ${up}:`, e2);
+                                return { upNum: up, data: [] };
+                            }
+                        }
+                    });
 
+                    const results = await Promise.all(fetchPromises);
+                    
+                    results.forEach(res => {
+                        if (res.data && res.data.length > 0) {
+                            res.data.forEach(item => {
+                                let cleanQ = item.q; let cleanOptions = { ...item.options };
+                                
+                                // Limpieza OCR Inteligente para uniformar bases viejas
+                                if (cleanOptions.a) {
+                                    const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
+                                    if (matchA && matchA[1].trim() !== "") { cleanQ += " " + matchA[1].trim(); cleanOptions.a = matchA[2]; }
+                                }
+                                ['a', 'b', 'c', 'd'].forEach(key => {
+                                    if (cleanOptions[key]) cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
+                                });
+                                let cleanFeedback = item.verificacion || item.feedback || "Sin justificación detallada.";
+                                cleanFeedback = cleanFeedback.replace(/Banco de Preguntas.*/ig, '').trim();
+                                
+                                pool.push({ up: res.upNum, q: cleanQ, options: cleanOptions, correct: item.correct, feedback: cleanFeedback });
+                            });
+                        }
+                    });
+                }
+            } catch(e) {
+                console.warn("Fallo la conexión general con Supabase, intentando fallback local...", e);
+            }
+
+            // 2. FALLBACK A JSON LOCAL (Mecanismo anti-caída por falta de internet)
+            if (pool.length === 0) {
+                try {
+                    const response = await fetch('db_cirugia_organizado.json');
+                    const rawData = await response.json();
+                    for (let upKey in rawData) {
+                        const upNumber = parseInt(upKey.replace('up', '')) || 1;
+                        if (!upsToFetch.includes(upNumber)) continue;
+                        const questionsList = rawData[upKey].questions || [];
+                        questionsList.forEach(item => {
+                            let cleanQ = item.q; let cleanOptions = { ...item.options };
+                            if (cleanOptions.a) {
+                                const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
+                                if (matchA && matchA[1].trim() !== "") { cleanQ += " " + matchA[1].trim(); cleanOptions.a = matchA[2]; }
+                            }
+                            ['a', 'b', 'c', 'd'].forEach(key => {
+                                if (cleanOptions[key]) cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
+                            });
+                            let cleanFeedback = item.verificacion || item.feedback || "Sin justificación detallada.";
+                            cleanFeedback = cleanFeedback.replace(/Banco de Preguntas.*/ig, '').trim();
+                            pool.push({ up: upNumber, q: cleanQ, options: cleanOptions, correct: item.correct, feedback: cleanFeedback });
+                        });
+                    }
+                } catch (error) { console.error("Error cargando BD local de emergencia:", error); }
+            }
+
+            if (pool.length === 0) {
+                alert("No se pudieron cargar las preguntas solicitadas. Verificá tu conexión a internet o asegurate de haber subido los bancos en el Panel de Administración.");
+                if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; }
+                return;
+            }
+
+            if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; }
+
+            // 3. Mezclamos y preparamos el Examen
             pool.sort(() => Math.random() - 0.5);
             const finalCount = (selectedMode === 'flash') ? 10 : Math.min(countInput, pool.length);
             currentExam = pool.slice(0, finalCount);
@@ -622,29 +661,6 @@
                     document.getElementById('quiz-screen').style.display = 'block';
                     buildNavGrid(); renderQuestion(); startTimer();
                 } else { localStorage.removeItem('nika_active_exam'); }
-            }
-        }
-
-        // ================= SELECCIÓN DE MODO EN SIMULACRO =================
-        let selectedExamMode = 'parcial1'; // por defecto
-
-        function selectExamMode(modeElement, modeName) {
-            // Quitamos la clase 'active' o el borde destacado de todas las tarjetas
-            document.querySelectorAll('.config-card, .mode-card').forEach(card => {
-                card.style.borderColor = 'var(--border)';
-                card.style.background = 'var(--bg-card, #ffffff)';
-            });
-            
-            // Destacamos la tarjeta elegida
-            modeElement.style.borderColor = 'var(--nika-primary)';
-            modeElement.style.background = 'rgba(56, 189, 248, 0.05)';
-            selectedExamMode = modeName;
-            
-            // Guardamos el modo en memoria para que examen.html sepa si usará -0.25
-            if (modeName === 'residencia') {
-                localStorage.setItem('nika_exam_mode', 'residencia');
-            } else {
-                localStorage.setItem('nika_exam_mode', 'normal');
             }
         }
 
@@ -762,7 +778,7 @@
             let correctCount = 0; 
             let upStats = {};
             
-            // 1. Contar respuestas y agrupar estadísticas por Unidad Problema
+            // 1. Contar respuestas y agrupar estadísticas
             currentExam.forEach((q, idx) => {
                 const isCorrect = userAnswers[idx] === q.correct;
                 if (isCorrect) correctCount++;
@@ -771,7 +787,7 @@
                 if (isCorrect) upStats[q.up].correct++;
             });
 
-            // 2. Lógica Matemática de Penalización (Estilo Residencia)
+            // 2. Lógica de Penalización (Estilo Residencia)
             const totalQuestions = currentExam.length;
             const answeredCount = Object.keys(userAnswers).length;
             const incorrectCount = answeredCount - correctCount;
@@ -780,18 +796,15 @@
             let finalScore = correctCount; 
             let penaltyPoints = 0;
 
-            // Leer si activamos el modo residencia (desde la URL o memoria)
             const urlParams = new URLSearchParams(window.location.search);
             const isResidencyMode = urlParams.get('mode') === 'residencia' || localStorage.getItem('nika_exam_mode') === 'residencia';
 
             if (isResidencyMode) {
-                // Penaliza -0.25 solo por los errores (las en blanco son estratégicas, no restan)
                 penaltyPoints = incorrectCount * 0.25;
                 finalScore = finalScore - penaltyPoints;
-                if (finalScore < 0) finalScore = 0; // Evitamos puntajes negativos irreales
+                if (finalScore < 0) finalScore = 0;
             }
 
-            // Calculamos la nota final en formato porcentaje y en base 10
             const scorePct = Math.round((finalScore / totalQuestions) * 100);
             const grade10 = ((finalScore / totalQuestions) * 10).toFixed(1);
 
@@ -831,22 +844,19 @@
             document.getElementById('res-correct').innerText = `${correctCount} de ${currentExam.length} aciertos`;
 
             renderReview('all');
-
-            // 4. Guardar en las estadísticas globales para el Dashboard (una sola vez, ya con penalización aplicada)
             recordExamStatsLocally(finalScore, totalQuestions);
         }
 
         // ================= ACTUALIZACIÓN DEL DASHBOARD =================
         function recordExamStatsLocally(score, total) {
             const userJson = localStorage.getItem('nika_currentUser');
-            if (!userJson) return; // Los invitados no alteran las estadísticas base
+            if (!userJson) return; 
             
             const user = JSON.parse(userJson);
             const key = `nika_stats_${user.username}`;
             let stats = JSON.parse(localStorage.getItem(key)) || { exams: 0, totalCorrect: 0, totalQuestionsAnswered: 0, streak: 1, accuracy: 0, lastDate: null };
             
             stats.exams += 1;
-            // Sumamos el puntaje real (ya penalizado si aplica)
             stats.totalCorrect += score; 
             stats.totalQuestionsAnswered += total;
             
@@ -854,7 +864,6 @@
                 stats.accuracy = Math.round((stats.totalCorrect / stats.totalQuestionsAnswered) * 100);
             }
             
-            // Sistema de control de racha diaria
             const today = new Date().toDateString();
             if (stats.lastDate !== today) {
                 if (stats.lastDate) {
@@ -922,24 +931,11 @@
             render();
         }
 
-        // Exponer funciones críticas al ámbito global para evitar errores de enlace en los botones HTML
+        // Exponer al ámbito global
         Object.assign(window, {
-            selectMode,
-            startQuiz,
-            submitQuiz,
-            confirmSubmit,
-            nextQuestion,
-            prevQuestion,
-            goToQuestion,
-            toggleFlag,
-            toggleNotes,
-            saveNote,
-            openHelpModal,
-            closeHelpModal,
-            openReportModal,
-            closeReportModal,
-            submitReport,
-            triggerConfetti
+            selectMode, startQuiz, submitQuiz, confirmSubmit, nextQuestion, prevQuestion, goToQuestion,
+            toggleFlag, toggleNotes, saveNote, openHelpModal, closeHelpModal, openReportModal,
+            closeReportModal, submitReport, triggerConfetti
         });
     </script>
 </body>

@@ -694,12 +694,9 @@
     // Modo Duelo vs IA (práctica local, sin red ni impacto en ELO)
     // ------------------------------------------------------------
     let dificultadIAActual = null;
-    let modoIAActual = 'parcial_1';   // mismo vocabulario de modos que examen.html
+    let modoIAActual = 'parcial_1';
     let upEspecificaIAActual = 1;
 
-    // Cantidad recomendada de preguntas por modo (el usuario puede
-    // sobreescribirla a mano en el input #ia-cantidad-preguntas / 
-    // #online-cantidad-preguntas antes de arrancar el duelo).
     const CANTIDAD_PREGUNTAS_POR_MODO = {
         parcial_1: 30,
         parcial_2: 30,
@@ -713,15 +710,13 @@
         mostrarVista('view-ia-modo');
     }
 
-    // Paso 1: elegir modo/alcance (idéntico en concepto a selectMode() de examen.html)
     function seleccionarModoIA(modo, element) {
         playSound('click');
         document.querySelectorAll('#view-ia-modo .mode-card').forEach((c) => c.classList.remove('active'));
         element.classList.add('active');
         modoIAActual = modo;
         document.getElementById('ia-up-selector-group').style.display = (modo === 'up_especifica') ? 'flex' : 'none';
-        // Precarga la cantidad recomendada para el modo elegido (el usuario
-        // igual puede editarla a mano antes de tocar "Continuar").
+        
         const inputCantidad = document.getElementById('ia-cantidad-preguntas');
         if (inputCantidad) inputCantidad.value = CANTIDAD_PREGUNTAS_POR_MODO[modo] ?? 10;
     }
@@ -738,7 +733,6 @@
         mostrarVista('view-ia-modo');
     }
 
-    // Paso 2: elegir dificultad y arrancar la partida
     async function iniciarDueloVsIA(dificultadKey) {
         dificultadIAActual = dificultadKey;
         playSound('click');
@@ -752,7 +746,7 @@
             if (payload?.tipo === 'fin_duelo') mostrarResultado(payload);
         };
 
-        iniciarVistaDuelo({ chatDisponible: false }); // el chat no aplica contra la IA
+        iniciarVistaDuelo({ chatDisponible: false });
         try {
             const cantidadInput = parseInt(document.getElementById('ia-cantidad-preguntas').value, 10);
             const cantidad = Number.isFinite(cantidadInput) && cantidadInput > 0 ? cantidadInput : (CANTIDAD_PREGUNTAS_POR_MODO[modoIAActual] ?? 10);
@@ -770,7 +764,7 @@
     }
 
     // ------------------------------------------------------------
-    // Verificación de sesión (reutiliza nika_currentUser de index.html)
+    // Verificación de sesión
     // ------------------------------------------------------------
     document.addEventListener('DOMContentLoaded', async () => {
         const username = window.NikaSupabase.getNikaCurrentUsername();
@@ -786,13 +780,12 @@
         window.NotificacionesManager.onChallengeReceived = mostrarToastDesafio;
     });
 
-    // Limpieza de timers de IA si el usuario cierra/recarga la pestaña a mitad de partida
     window.addEventListener('beforeunload', () => {
         window.DuelosManager.cancelarDueloIA();
     });
 
     // ------------------------------------------------------------
-    // Sala por código
+    // Sala por código y emparejamiento
     // ------------------------------------------------------------
     async function crearSalaPorCodigo() {
         try {
@@ -839,8 +832,8 @@
     }
 
     let temporizadorActual = null;
-    let bancoPreguntas = null; // cache del JSON de cirugía, cargado una sola vez
-    let cantidadPreguntasOnlineActual = 10; // configurable por el host en sala por código; quick match usa este default
+    let bancoPreguntas = null;
+    let cantidadPreguntasOnlineActual = 10;
 
     function _escucharInicioDeDuelo() {
         window.DuelosManager.onStateChange = (payload) => {
@@ -866,8 +859,6 @@
             _pintarMensajeChat(payload, payload.username === window.NikaSupabase.getNikaCurrentUsername());
         };
 
-        // Poll simple para detectar cuando la sala pasa a 'in_progress' (se unió un rival)
-        // y decidir quién arranca el loop de preguntas (solo el Host).
         const check = setInterval(async () => {
             const roomState = window.DuelosManager.state;
             if (!roomState.roomId) return;
@@ -879,7 +870,6 @@
 
             if (room?.status === 'in_progress') {
                 clearInterval(check);
-                const yo = window.NikaSupabase.getNikaCurrentUsername();
                 document.getElementById('name-rival').textContent = roomState.isHost ? room.guest_username : room.host_username;
                 iniciarVistaDuelo({ chatDisponible: true });
                 if (roomState.isHost) {
@@ -891,57 +881,126 @@
     }
 
     // ------------------------------------------------------------
-    // Carga del banco de preguntas (reutiliza db_cirugia_organizado.json,
-    // el mismo que ya usa examen.html) y arma N preguntas al azar,
-    // filtradas por modo/alcance (mismos modos que selectMode() de
-    // examen.html: parcial_1, parcial_2, final, residencia,
-    // up_especifica, flash).
-    //
-    // NOTA: el JSON real trae cada unidad como "up1".."up11" con
-    // questions:[{ q, options:{a,b,c,d}, correct:'a'|'b'|'c'|'d', verificacion }],
-    // es decir 'options' es un OBJETO por letra, no un array. La versión
-    // anterior de esta función hacía `.map()` directo sobre ese objeto,
-    // lo cual tira TypeError y frena _cargarPreguntasParaDuelo apenas se
-    // la llama — otro motivo por el que ningún duelo (online o vs IA)
-    // llegaba a mostrar una pregunta real.
+    // Banco de preguntas optimizado con limpieza OCR
     // ------------------------------------------------------------
-    async function _cargarBancoPreguntas() {
-        if (bancoPreguntas) return bancoPreguntas;
-        const res = await fetch('db_cirugia_organizado.json');
-        const raw = await res.json();
+    async function _cargarBancoPreguntas(modo, upEspecifica) {
+        let upsTarget = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+        if (modo === 'parcial_1') upsTarget = [1, 2, 3, 4, 5];
+        else if (modo === 'parcial_2') upsTarget = [6, 7, 8, 9, 10, 11];
+        else if (modo === 'up_especifica' && upEspecifica) upsTarget = [parseInt(upEspecifica, 10)];
+
         bancoPreguntas = [];
-        Object.keys(raw).forEach((upKey) => {
-            const upNumber = parseInt(upKey.replace('up', ''), 10) || 1;
-            (raw[upKey].questions || []).forEach((item, idx) => {
-                const opciones = ['a', 'b', 'c', 'd']
-                    .filter((letra) => item.options && item.options[letra] !== undefined)
-                    .map((letra) => ({
-                        id: letra,
-                        texto: item.options[letra],
-                        correcta: letra === item.correct,
-                    }));
-                bancoPreguntas.push({
-                    id: `${upKey}_${idx}`,
-                    up: upNumber,
-                    pregunta: item.q,
-                    opciones,
+
+        try {
+            if (window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
+                const promesas = upsTarget.map(upNum => {
+                    const upId = upNum.toString().padStart(2, '0');
+                    return window.NikaSupabase.cargarPreguntasUP({ modulo: 'cirugia', upId })
+                        .catch(() => ({ data: [] }));
                 });
-            });
-        });
+                const resultados = await Promise.all(promesas);
+
+                resultados.forEach((res, i) => {
+                    const upNum = upsTarget[i];
+                    const items = (res && res.data) ? res.data : (Array.isArray(res) ? res : (res && res.questions ? res.questions : []));
+                    
+                    items.forEach((item, idx) => {
+                        let cleanQ = item.q;
+                        let cleanOptions = { ...item.options };
+
+                        // Limpieza OCR: rescata texto de opción pegado al enunciado
+                        if (cleanOptions.a) {
+                            const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
+                            if (matchA && matchA[1].trim() !== "") {
+                                cleanQ += " " + matchA[1].trim();
+                                cleanOptions.a = matchA[2];
+                            }
+                        }
+                        ['a', 'b', 'c', 'd'].forEach(key => {
+                            if (cleanOptions[key]) {
+                                cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
+                            }
+                        });
+
+                        const opciones = ['a', 'b', 'c', 'd']
+                            .filter(l => cleanOptions[l] !== undefined && cleanOptions[l] !== '')
+                            .map(l => ({
+                                id: l,
+                                texto: cleanOptions[l],
+                                correcta: l === item.correct
+                            }));
+
+                        bancoPreguntas.push({
+                            id: `up${upNum}_${idx}`,
+                            up: upNum,
+                            pregunta: cleanQ,
+                            opciones
+                        });
+                    });
+                });
+            }
+        } catch (err) {
+            console.warn("[Versus] Error consultando Supabase, recurriendo a respaldo local:", err);
+        }
+
+        if (bancoPreguntas.length === 0) {
+            try {
+                const res = await fetch('db_cirugia_organizado.json');
+                const raw = await res.json();
+                upsTarget.forEach(upNum => {
+                    const upKey = `up${upNum}`;
+                    if (raw[upKey] && raw[upKey].questions) {
+                        raw[upKey].questions.forEach((item, idx) => {
+                            let cleanQ = item.q;
+                            let cleanOptions = { ...item.options };
+
+                            if (cleanOptions.a) {
+                                const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
+                                if (matchA && matchA[1].trim() !== "") {
+                                    cleanQ += " " + matchA[1].trim();
+                                    cleanOptions.a = matchA[2];
+                                }
+                            }
+                            ['a', 'b', 'c', 'd'].forEach(key => {
+                                if (cleanOptions[key]) {
+                                    cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
+                                }
+                            });
+
+                            const opciones = ['a', 'b', 'c', 'd']
+                                .filter(letra => cleanOptions[letra] !== undefined && cleanOptions[letra] !== '')
+                                .map(letra => ({
+                                    id: letra,
+                                    texto: cleanOptions[letra],
+                                    correcta: letra === item.correct
+                                }));
+
+                            bancoPreguntas.push({
+                                id: `${upKey}_${idx}`,
+                                up: upNum,
+                                pregunta: cleanQ,
+                                opciones
+                            });
+                        });
+                    }
+                });
+            } catch (fallbackErr) {
+                console.error("[Versus] Error cargando base de respaldo local:", fallbackErr);
+            }
+        }
+
         return bancoPreguntas;
     }
 
     function _filtrarBancoPorModo(banco, modo, upEspecifica) {
         if (modo === 'parcial_1') return banco.filter((q) => q.up >= 1 && q.up <= 5);
         if (modo === 'parcial_2') return banco.filter((q) => q.up >= 6 && q.up <= 11);
-        if (modo === 'up_especifica') return banco.filter((q) => q.up === upEspecifica);
-        // 'final', 'residencia' y 'flash' (y cualquier duelo online sin modo explícito)
-        // usan el banco integral completo, igual que en examen.html.
+        if (modo === 'up_especifica') return banco.filter((q) => q.up === parseInt(upEspecifica, 10));
         return banco;
     }
 
     async function _cargarPreguntasParaDuelo(cantidad, modo, upEspecifica) {
-        const banco = await _cargarBancoPreguntas();
+        const banco = await _cargarBancoPreguntas(modo, upEspecifica);
         const pool = _filtrarBancoPorModo(banco, modo, upEspecifica);
         if (pool.length === 0) throw new Error('No hay preguntas disponibles para el modo elegido.');
 
@@ -958,6 +1017,85 @@
         window.DuelosManager.salirDeSala();
         window.DuelosManager.salirDeQuickMatch();
         volverASelector();
+    }
+
+    function iniciarVistaDuelo({ chatDisponible = true } = {}) {
+        mostrarVista('view-duelo');
+        _pintarEscudos('shields-me', 5);
+        _pintarEscudos('shields-rival', 5);
+        _resetearIndicadorRival();
+        document.getElementById('chat-messages').innerHTML = '';
+        document.getElementById('chat-toggle-btn').classList.toggle('show', chatDisponible);
+        if (!chatDisponible) document.getElementById('chat-panel').classList.remove('show');
+    }
+
+    function _pintarEscudos(containerId, cantidad) {
+        const el = document.getElementById(containerId);
+        el.innerHTML = '';
+        for (let i = 0; i < cantidad; i++) {
+            const s = document.createElement('div');
+            s.className = 'shield' + (containerId === 'shields-rival' ? ' rival' : '');
+            el.appendChild(s);
+        }
+    }
+
+    function _resetearIndicadorRival() {
+        const el = document.getElementById('rival-answer-status');
+        el.textContent = '🕐 Pensando...';
+        el.classList.remove('answered');
+        el.classList.add('thinking');
+    }
+
+    function _marcarRivalRespondio() {
+        const el = document.getElementById('rival-answer-status');
+        el.textContent = '⚡ ¡Respondió!';
+        el.classList.remove('thinking');
+        el.classList.add('answered');
+    }
+
+    function renderizarPregunta(payload) {
+        clearInterval(temporizadorActual);
+        _resetearIndicadorRival();
+        document.getElementById('question-text').textContent = payload.pregunta;
+        document.getElementById('duel-progress-text').textContent =
+            'Pregunta ' + ((payload.index ?? 0) + 1) + ' de ' + (payload.total || 5);
+
+        const grid = document.getElementById('options-grid');
+        grid.innerHTML = '';
+        grid.dataset.respondido = '0';
+        const opcionesBarajadas = window.DuelosManager.barajarIndependiente(payload.opciones);
+        opcionesBarajadas.forEach((opt) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = `<strong style="color:var(--nika-primary); margin-right:8px;">${opt.id.toUpperCase()})</strong> ${opt.texto}`;
+            btn.dataset.optionId = opt.id;
+            btn.onclick = () => seleccionarOpcion(opt, payload, btn);
+            grid.appendChild(btn);
+        });
+
+        const limiteSeg = payload.tiempoLimite || 20;
+        const fill = document.getElementById('timer-fill');
+        fill.style.transition = 'none';
+        fill.style.width = '100%';
+        requestAnimationFrame(() => {
+            fill.style.transition = `width ${limiteSeg}s linear`;
+            fill.style.width = '0%';
+        });
+
+        const timerText = document.getElementById('duel-timer-text');
+        let segundosRestantes = limiteSeg;
+        timerText.textContent = '⏱️ ' + segundosRestantes + 's';
+        timerText.classList.remove('urgent');
+        temporizadorActual = setInterval(() => {
+            segundosRestantes--;
+            if (segundosRestantes <= 0) {
+                timerText.textContent = '⏱️ 0s';
+                clearInterval(temporizadorActual);
+                return;
+            }
+            timerText.textContent = '⏱️ ' + segundosRestantes + 's';
+            if (segundosRestantes <= 5) timerText.classList.add('urgent');
+        }, 1000);
     }
 
     // ------------------------------------------------------------

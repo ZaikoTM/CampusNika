@@ -64,21 +64,6 @@
         .sidebar-user-info h4 { font-size: 0.85rem; color: #ffffff; font-weight: 700; line-height: 1.2; }
         .sidebar-user-info span { font-size: 0.72rem; color: var(--nika-accent); }
 
-        /* ================= ESTADO VACÍO AUXILIAR (FASE C) ================= */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            text-align: center;
-            color: var(--text-muted);
-            padding: 18px 12px;
-            font-size: 0.8rem;
-        }
-        .empty-state strong { color: var(--text-main); font-size: 0.85rem; }
-        .empty-state span { color: var(--text-muted); }
-
         /* ================= CONTENEDOR PRINCIPAL ================= */
         .main-content { flex: 1; display: flex; flex-direction: column; margin-left: 300px; min-width: 0; transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1); width: calc(100% - 300px); }
         .main-content.expanded { margin-left: 0; width: 100%; }
@@ -265,50 +250,77 @@
         
         .footer { background-color: var(--card-bg); border-top: 1px solid var(--border); color: var(--text-muted); padding: 22px 30px; text-align: center; font-size: 0.85rem; margin-top: auto; width: 100%; flex-shrink: 0; box-sizing: border-box; }
         .footer span { color: var(--nika-primary); font-weight: 700; }
-        
-        /* TOAST MEJORADO (FASE C) */
         #toast {
             position: fixed;
             bottom: 30px;
             right: 30px;
             max-width: min(420px, calc(100vw - 32px));
-            background: var(--card-bg);
-            color: var(--text-main);
-            padding: 14px 18px;
+            background: var(--nika-dark);
+            color: #fff;
+            padding: 14px 20px;
             border-radius: 12px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-            border: 1px solid var(--border);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+            border: 1px solid rgba(255,255,255,0.12);
             font-weight: 700;
-            font-size: 0.88rem;
-            transform: translateY(100px);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            transform: translateY(18px) scale(0.97);
             opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.2s ease;
             z-index: 4000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-        #toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        #toast::before {
-            content: "";
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--nika-primary);
-            flex-shrink: 0;
-        }
-        #toast.toast-success::before { background: var(--success); }
-        #toast.toast-error::before { background: var(--danger); }
-        #toast.toast-warning::before { background: var(--warning); }
-        #toast.toast-info::before { background: var(--nika-primary); }
-
+        #toast.show { transform: translateY(0) scale(1); opacity: 1; }
         #toast.toast-success { border-color: rgba(34,197,94,0.45); }
         #toast.toast-error { border-color: rgba(248,113,113,0.5); }
         #toast.toast-warning { border-color: rgba(250,204,21,0.5); }
         #toast.toast-info { border-color: rgba(56,189,248,0.45); }
+        #toast::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 9px; background: currentColor; vertical-align: 1px; opacity: 0.9; }
+        #toast.toast-success::before { color: #4ade80; }
+        #toast.toast-error::before { color: #f87171; }
+        #toast.toast-warning::before { color: #facc15; }
+        #toast.toast-info::before { color: #38bdf8; }
+
+        /* ================= FEEDBACK VACÍO + AUDIO ================= */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            text-align: center;
+            color: var(--text-muted);
+            padding: 18px 12px;
+            border: 1px dashed var(--border);
+            border-radius: 10px;
+            background: var(--card-bg);
+        }
+        .empty-state strong { color: var(--text-main); font-size: 0.84rem; }
+        .empty-state span { font-size: 0.76rem; color: var(--text-muted); }
+        .performance-empty {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: rgba(2,132,199,0.06);
+            border: 1px solid rgba(2,132,199,0.16);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        body.dark-mode .performance-empty {
+            background: rgba(56,189,248,0.07);
+            border-color: rgba(56,189,248,0.18);
+        }
+        body.dark-mode .community-widget-empty,
+        body.dark-mode .status-motivational-text,
+        body.dark-mode .module-progress-meta,
+        body.dark-mode .continuity-progress-label {
+            color: #aebdce;
+        }
+        body.dark-mode .sidebar-category { color: #7f91a8; }
+        body.dark-mode .admin-panel-header,
+        body.dark-mode .admin-header h2 { color: var(--text-main); }
+        body.dark-mode .errata-justif { background: rgba(255,255,255,0.035); }
 
         /* NIKA BRAND ASSETS */
         .nika-asset-img { display: block; margin: 0 auto; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
@@ -478,13 +490,139 @@
             line-height: 1.4;
             margin: 0;
         }
+
+        /* ================= TOUR GUIADO SPOTLIGHT ================= */
+        #spotlight-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            pointer-events: none;
+        }
+        #spotlight-overlay.active { display: block; }
+        .spotlight-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.72);
+            pointer-events: auto;
+            transition: opacity 0.25s ease;
+        }
+        .spotlight-highlighted {
+            position: relative;
+            z-index: 5001;
+            border-radius: 14px;
+            box-shadow: 0 0 0 4px var(--nika-accent), 0 0 0 9999px rgba(2, 6, 23, 0.72), 0 10px 30px rgba(0,0,0,0.4);
+            transition: box-shadow 0.3s ease;
+            pointer-events: auto;
+        }
+        .spotlight-tooltip {
+            position: fixed;
+            z-index: 5002;
+            width: 300px;
+            max-width: calc(100vw - 32px);
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            padding: 18px 20px;
+            pointer-events: auto;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, top 0.3s ease, left 0.3s ease;
+        }
+        .spotlight-tooltip.visible { opacity: 1; transform: translateY(0); }
+        .spotlight-tooltip-step {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--nika-primary);
+            margin-bottom: 6px;
+        }
+        .spotlight-tooltip h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+        .spotlight-tooltip p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .spotlight-tooltip-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .spotlight-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .spotlight-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .spotlight-dot.active {
+            background: var(--nika-primary);
+            transform: scale(1.3);
+        }
+        .spotlight-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .spotlight-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .spotlight-btn-primary {
+            background: var(--nika-primary);
+            color: #fff;
+        }
+        .spotlight-btn-primary:hover { filter: brightness(1.08); }
+        .spotlight-btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+        }
+        .spotlight-btn-ghost:hover { color: var(--text-main); }
+        .spotlight-skip {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 5002;
+            background: rgba(15, 23, 42, 0.55);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 7px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+        .spotlight-skip:hover { background: rgba(15, 23, 42, 0.8); }
+        @media (max-width: 600px) {
+            .spotlight-tooltip { width: calc(100vw - 32px); left: 16px !important; right: 16px; }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
 </head>
 <body>
 
-    <aside class="sidebar" id="appSidebar">
+    <aside class="sidebar" id="appSidebar" data-tour-step="1">
         <div class="sidebar-brand-box">
             <div class="sidebar-brand-logo">
                 <img src="assets/N%20NIKA.png" alt="NIKA" class="nika-asset-img nika-isotipo">
@@ -522,13 +660,14 @@
 
             <div class="sidebar-category">Herramientas</div>
             <li><button onclick="toggleDarkMode()" id="dark-mode-btn" class="sidebar-link">🌙 Modo Oscuro</button></li>
+            <li><button onclick="toggleAudioFeedback()" id="audio-feedback-btn" class="sidebar-link" aria-pressed="true">🔊 Sonidos: Activados</button></li>
         </ul>
 
         <div class="sidebar-secondary-links">
             <div class="sidebar-category">Ayuda & Recursos</div>
             <ul class="sidebar-menu" style="padding: 0;">
                 <li><button onclick="openAboutCreatorModal()" class="sidebar-link">👨‍⚕️ Sobre el Creador</button></li>
-                <li><button onclick="openInfoModal('tutorial')" class="sidebar-link">🎯 Tutorial Rápido</button></li>
+                <li><button onclick="iniciarTourSpotlight()" class="sidebar-link">🎯 Tutorial Rápido</button></li>
                 <li><button onclick="openInfoModal('demo')" class="sidebar-link">🎮 Versión Demo</button></li>
                 <li><button onclick="openInfoModal('manual')" class="sidebar-link">📖 Manual de Usuario</button></li>
             </ul>
@@ -593,7 +732,7 @@
             </div>
         </section>
 
-        <div class="action-hub">
+        <div class="action-hub" data-tour-step="2">
             <div class="continuity-card">
                 <div class="continuity-info">
                     <h4>Continuá donde lo dejaste</h4>
@@ -646,6 +785,7 @@
                             <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Racha Activa</div>
                         </div>
                     </div>
+                    <div id="performance-empty-state" class="performance-empty" style="display:none;"></div>
                 </div>
 
                 <!-- ================= WIDGET DE COMUNIDAD ================= -->
@@ -660,7 +800,7 @@
                 </div>
 
             <!-- ================= SECCIÓN DE MÓDULOS ================= -->
-            <div id="modulos-section">
+            <div id="modulos-section" data-tour-step="3">
                 <h2 class="section-title">📚 Módulos Académicos Disponibles</h2>
                 <div class="module-grid">
                     <div class="module-card active-module" onclick="location.href='cirugia_hub.html'">
@@ -1074,7 +1214,36 @@
                 } catch (e) { /* noop */ }
             }
 
-            return { unlock, play, isUnlocked: () => unlocked };
+            // Efectos cortos sintetizados: no dependen de archivos externos.
+            function beep(type = 'success') {
+                if (localStorage.getItem('nika_audio_feedback') === 'off') return;
+
+                const audioCtx = getContext();
+                if (!audioCtx) return;
+
+                try {
+                    if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+                    const now = audioCtx.currentTime;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    const isError = type === 'error' || type === 'incorrect';
+
+                    osc.type = isError ? 'sine' : 'triangle';
+                    osc.frequency.setValueAtTime(isError ? 220 : 660, now);
+                    osc.frequency.exponentialRampToValueAtTime(isError ? 150 : 880, now + 0.12);
+
+                    gain.gain.setValueAtTime(0.0001, now);
+                    gain.gain.exponentialRampToValueAtTime(0.07, now + 0.015);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.18);
+                } catch (e) { /* noop */ }
+            }
+
+            return { unlock, play, beep, isUnlocked: () => unlocked };
         })();
 
         function unlockMobileAudio() {
@@ -1085,6 +1254,44 @@
             };
             events.forEach(ev => document.addEventListener(ev, handler, { passive: true, once: false }));
         }
+
+        function isAudioFeedbackEnabled() {
+            return localStorage.getItem('nika_audio_feedback') !== 'off';
+        }
+
+        function updateAudioFeedbackButton() {
+            const btn = document.getElementById('audio-feedback-btn');
+            if (!btn) return;
+            const enabled = isAudioFeedbackEnabled();
+            btn.innerHTML = enabled ? '🔊 Sonidos: Activados' : '🔇 Sonidos: Desactivados';
+            btn.setAttribute('aria-pressed', String(enabled));
+        }
+
+        function toggleAudioFeedback() {
+            const enabled = isAudioFeedbackEnabled();
+            localStorage.setItem('nika_audio_feedback', enabled ? 'off' : 'on');
+            updateAudioFeedbackButton();
+
+            if (!enabled) {
+                NikaAudio.unlock();
+                NikaAudio.beep('success');
+                showToast('Sonidos de feedback activados 🔊', 'success');
+            } else {
+                showToast('Sonidos de feedback desactivados 🔇', 'info');
+            }
+        }
+
+        // API reutilizable para examen.html / cirugia_hub.html.
+        const NikaFeedback = {
+            play(type = 'correct') {
+                if (!isAudioFeedbackEnabled()) return;
+                NikaAudio.unlock();
+                NikaAudio.beep(type === 'incorrect' || type === 'error' ? 'error' : 'success');
+            }
+        };
+
+        function playCorrectSound() { NikaFeedback.play('correct'); }
+        function playIncorrectSound() { NikaFeedback.play('incorrect'); }
 
         // ================= NAVEGACIÓN Y GENERALES =================
         const MOBILE_BREAKPOINT = 900;
@@ -1165,12 +1372,24 @@
             }
         }
 
-        function showToast(msg) { 
-            const toast = document.getElementById('toast'); 
+        let toastTimer = null;
+
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toast');
             if (!toast) return;
-            toast.innerText = msg; 
-            toast.classList.add('show'); 
-            setTimeout(() => { toast.classList.remove('show'); }, 3000); 
+
+            const allowedTypes = ['success', 'error', 'warning', 'info'];
+            const safeType = allowedTypes.includes(type) ? type : 'info';
+
+            clearTimeout(toastTimer);
+            toast.classList.remove('toast-success', 'toast-error', 'toast-warning', 'toast-info');
+            toast.classList.add(`toast-${safeType}`);
+            toast.textContent = msg;
+            toast.classList.add('show');
+
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
 
         // ================= RENDIMIENTO ACADÉMICO =================
@@ -1195,6 +1414,17 @@
             examsEl.innerText = stats.exams;
             accEl.innerText = stats.accuracy + "%";
             streakEl.innerText = stats.streak + " d";
+
+            const emptyState = document.getElementById('performance-empty-state');
+            if (emptyState) {
+                if (stats.exams === 0) {
+                    emptyState.style.display = 'block';
+                    emptyState.innerHTML = '🎯 <strong>¡Todavía no registraste tu primer simulacro!</strong><br><span>Empezá con un examen cronometrado y acá vas a ver cómo evoluciona tu rendimiento.</span>';
+                } else {
+                    emptyState.style.display = 'none';
+                    emptyState.innerHTML = '';
+                }
+            }
         }
 
         function recordExamCompletion(correctAnswers, totalQuestions) {
@@ -1262,6 +1492,13 @@
             }
             renderDashboardOnlineFriends();
             renderUserPerformance();
+
+            // Dispara el tour guiado solo si este usuario se acaba de registrar
+            // (flag seteada en handleRegister), nunca para invitados ni usuarios
+            // que ya venían usando la plataforma.
+            if (userJson && localStorage.getItem('nika_tour_pendiente') === '1') {
+                setTimeout(() => iniciarTourSpotlight(), 700);
+            }
         }
 
         let tempAvatarBase64 = null;
@@ -1491,11 +1728,13 @@
             if (!user) {
                 // Supabase Auth tiene "Confirm email" activado: la cuenta se creó
                 // pero no hay sesión todavía hasta que el usuario confirme el mail.
+                marcarTourPendienteParaNuevoUsuario();
                 showToast("¡Cuenta creada! Revisá tu correo para confirmar el registro.");
                 closeAuthModal();
                 return;
             }
 
+            marcarTourPendienteParaNuevoUsuario();
             showToast("¡Cuenta creada!");
             closeAuthModal();
             checkAuthState();
@@ -2127,10 +2366,10 @@
     }
 
     function copyCreatorAlias() {
-         navigator.clipboard.writeText('aguswei7').then(() => {
+        navigator.clipboard.writeText('aguswei7').then(() => {
             showToast("¡Alias 'aguswei7' copiado al portapapeles! 📋", "success");
         }).catch(() => {
-            showToast("No se pudo copiar automáticamente. Alias: aguswei7", "warning");
+            showToast("Alias: aguswei7", "warning");
         });
     }
 
@@ -2169,12 +2408,7 @@
             `).join('');
         } else {
             badge.style.display = 'none';
-            list.innerHTML = `
-                <div class="empty-state">
-                    <strong>✨ Todo al día</strong>
-                    <span>No tenés notificaciones pendientes por ahora.</span>
-                </div>
-            `;
+            list.innerHTML = `<div class="empty-state"><strong>✨ Todo al día</strong><span>No tenés notificaciones pendientes por ahora.</span></div>`;
         }
     }
 
@@ -2260,7 +2494,7 @@
         handleProfileClick, openAuthModal, closeAuthModal, switchAuthTab, handleLogin, handleRegister,
         openForgotPasswordForm, closeForgotPasswordForm, handleForgotPassword, openResetPasswordModal, closeResetPasswordModal, handleUpdatePassword,
         handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal, copyCreatorAlias,
-        NikaAudio, applySidebarResponsiveState,
+        NikaAudio, NikaFeedback, playCorrectSound, playIncorrectSound, toggleAudioFeedback, isAudioFeedbackEnabled, updateAudioFeedbackButton, applySidebarResponsiveState,
         cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario
     });
 
@@ -2273,6 +2507,7 @@
     window.addEventListener('DOMContentLoaded', async () => {
         applySidebarResponsiveState();
         unlockMobileAudio();
+        updateAudioFeedbackButton();
         if (localStorage.getItem('nika_theme') === 'dark') {
             document.body.classList.add('dark-mode');
             const btn = document.getElementById('dark-mode-btn');
@@ -2395,4 +2630,210 @@
 
     // Exponer función globalmente para reutilizarla tras guardar cambios de perfil
     window.verificarExpedienteMedico = verificarExpedienteMedico;
+</script>
+
+<!-- ================= TOUR INTERACTIVO GUIADO (SPOTLIGHT) ================= -->
+<div id="spotlight-overlay">
+    <div class="spotlight-backdrop"></div>
+    <button class="spotlight-skip" onclick="cerrarTour()">✕ Saltar tutorial</button>
+    <div class="spotlight-tooltip" id="spotlight-tooltip">
+        <div class="spotlight-tooltip-step" id="spotlight-step-label">Paso 1 de 3</div>
+        <h4 id="spotlight-title"></h4>
+        <p id="spotlight-text"></p>
+        <div class="spotlight-tooltip-footer">
+            <div class="spotlight-dots" id="spotlight-dots"></div>
+            <div class="spotlight-actions">
+                <button class="spotlight-btn spotlight-btn-ghost" id="spotlight-btn-prev" onclick="pasoAnteriorTour()">Atrás</button>
+                <button class="spotlight-btn spotlight-btn-primary" id="spotlight-btn-next" onclick="siguientePasoTour()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ================= LÓGICA DEL TOUR GUIADO SPOTLIGHT =================
+    const PASOS_TOUR = [
+        {
+            selector: '#appSidebar',
+            titulo: '👋 ¡Bienvenido a Nika!',
+            texto: 'Este es tu menú principal. Desde acá accedés a tu perfil, a los módulos clínicos, al Modo Versus 1vs1 y a toda la parte social de la plataforma.',
+            posicion: 'right'
+        },
+        {
+            selector: '.action-hub',
+            titulo: '🚀 Accesos rápidos',
+            texto: 'Seguí donde lo dejaste, desafiá a un compañero en el Modo Versus o arrancá un simulacro cronometrado, todo con un solo clic.',
+            posicion: 'bottom'
+        },
+        {
+            selector: '#modulos-section',
+            titulo: '📚 Módulos Académicos',
+            texto: 'Acá encontrás todos los módulos clínicos disponibles y su progreso. Elegí uno para empezar a entrenar.',
+            posicion: 'top'
+        }
+    ];
+
+    let pasoActualTour = 0;
+    let elementoResaltadoTour = null;
+
+    function iniciarTourSpotlight() {
+        pasoActualTour = 0;
+        const overlay = document.getElementById('spotlight-overlay');
+        overlay.classList.add('active');
+        renderizarPasoTour();
+    }
+
+    function renderizarPasoTour() {
+        // Limpia el resaltado anterior
+        if (elementoResaltadoTour) {
+            elementoResaltadoTour.classList.remove('spotlight-highlighted');
+            elementoResaltadoTour = null;
+        }
+
+        const paso = PASOS_TOUR[pasoActualTour];
+        const tooltip = document.getElementById('spotlight-tooltip');
+        tooltip.classList.remove('visible');
+
+        const target = document.querySelector(paso.selector);
+        if (!target) {
+            // Si el elemento no existe en esta vista, saltamos al siguiente paso automáticamente
+            if (pasoActualTour < PASOS_TOUR.length - 1) {
+                pasoActualTour++;
+                renderizarPasoTour();
+            } else {
+                cerrarTour();
+            }
+            return;
+        }
+
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.classList.add('spotlight-highlighted');
+        elementoResaltadoTour = target;
+
+        // Textos y contador
+        document.getElementById('spotlight-step-label').textContent = `Paso ${pasoActualTour + 1} de ${PASOS_TOUR.length}`;
+        document.getElementById('spotlight-title').textContent = paso.titulo;
+        document.getElementById('spotlight-text').textContent = paso.texto;
+
+        // Puntos de progreso
+        const dotsContainer = document.getElementById('spotlight-dots');
+        dotsContainer.innerHTML = '';
+        PASOS_TOUR.forEach((_, i) => {
+            const dot = document.createElement('span');
+            dot.className = 'spotlight-dot' + (i === pasoActualTour ? ' active' : '');
+            dotsContainer.appendChild(dot);
+        });
+
+        // Botones
+        const btnPrev = document.getElementById('spotlight-btn-prev');
+        const btnNext = document.getElementById('spotlight-btn-next');
+        btnPrev.style.visibility = pasoActualTour === 0 ? 'hidden' : 'visible';
+        btnNext.textContent = pasoActualTour === PASOS_TOUR.length - 1 ? '¡Listo! 🎉' : 'Siguiente';
+
+        // Pequeño delay para dejar que el scroll termine antes de posicionar el tooltip
+        setTimeout(() => posicionarTooltipTour(target, paso.posicion), 320);
+    }
+
+    function posicionarTooltipTour(target, posicion) {
+        const tooltip = document.getElementById('spotlight-tooltip');
+        const rect = target.getBoundingClientRect();
+        const tooltipWidth = tooltip.offsetWidth || 300;
+        const tooltipHeight = tooltip.offsetHeight || 160;
+        const margen = 16;
+
+        let top, left;
+
+        if (window.innerWidth <= 600) {
+            // En mobile, el tooltip siempre se ancla abajo, centrado
+            top = Math.min(rect.bottom + margen, window.innerHeight - tooltipHeight - margen);
+            top = Math.max(top, margen);
+            left = 16;
+        } else {
+            switch (posicion) {
+                case 'right':
+                    top = Math.min(Math.max(rect.top, margen), window.innerHeight - tooltipHeight - margen);
+                    left = rect.right + margen;
+                    break;
+                case 'bottom':
+                    top = rect.bottom + margen;
+                    left = Math.min(Math.max(rect.left, margen), window.innerWidth - tooltipWidth - margen);
+                    break;
+                case 'top':
+                    top = rect.top - tooltipHeight - margen;
+                    left = Math.min(Math.max(rect.left, margen), window.innerWidth - tooltipWidth - margen);
+                    break;
+                default:
+                    top = rect.bottom + margen;
+                    left = rect.left;
+            }
+
+            // Si no entra a la derecha (ej. sidebar en pantallas chicas), lo bajamos debajo del elemento
+            if (posicion === 'right' && left + tooltipWidth > window.innerWidth - margen) {
+                left = Math.min(Math.max(rect.left, margen), window.innerWidth - tooltipWidth - margen);
+                top = rect.bottom + margen;
+            }
+
+            // Clamp final por si el elemento es muy alto (ej. sidebar completo)
+            top = Math.min(Math.max(top, margen), window.innerHeight - tooltipHeight - margen);
+        }
+
+        tooltip.style.top = `${top}px`;
+        tooltip.style.left = `${left}px`;
+        tooltip.classList.add('visible');
+    }
+
+    function siguientePasoTour() {
+        if (pasoActualTour < PASOS_TOUR.length - 1) {
+            pasoActualTour++;
+            renderizarPasoTour();
+        } else {
+            cerrarTour();
+        }
+    }
+
+    function pasoAnteriorTour() {
+        if (pasoActualTour > 0) {
+            pasoActualTour--;
+            renderizarPasoTour();
+        }
+    }
+
+    function cerrarTour() {
+        const overlay = document.getElementById('spotlight-overlay');
+        overlay.classList.remove('active');
+        document.getElementById('spotlight-tooltip').classList.remove('visible');
+
+        if (elementoResaltadoTour) {
+            elementoResaltadoTour.classList.remove('spotlight-highlighted');
+            elementoResaltadoTour = null;
+        }
+
+        try {
+            localStorage.setItem('nika_tour_visto', 'true');
+            localStorage.removeItem('nika_tour_pendiente');
+        } catch (_) { /* localStorage no disponible: no bloquea el cierre del tour */ }
+    }
+
+    // Se llama únicamente al crear una cuenta nueva (ver handleRegister).
+    // Deja marcada la flag que checkAuthState() consume para mostrar el tour
+    // una sola vez, apenas el usuario recién registrado ve su dashboard.
+    function marcarTourPendienteParaNuevoUsuario() {
+        try {
+            localStorage.setItem('nika_tour_pendiente', '1');
+        } catch (_) { /* si localStorage falla, simplemente no se ofrece el tour automático */ }
+    }
+    window.marcarTourPendienteParaNuevoUsuario = marcarTourPendienteParaNuevoUsuario;
+
+    // Reposiciona el tooltip si el usuario cambia el tamaño de ventana durante el tour
+    window.addEventListener('resize', () => {
+        const overlay = document.getElementById('spotlight-overlay');
+        if (overlay.classList.contains('active') && elementoResaltadoTour) {
+            posicionarTooltipTour(elementoResaltadoTour, PASOS_TOUR[pasoActualTour].posicion);
+        }
+    });
+
+    // Nota: el tour ya NO se dispara automáticamente para cualquier visitante.
+    // Se activa únicamente desde checkAuthState() cuando existe la flag
+    // 'nika_tour_pendiente', que solo se setea al completar un registro nuevo
+    // (ver marcarTourPendienteParaNuevoUsuario() en handleRegister).
 </script>
