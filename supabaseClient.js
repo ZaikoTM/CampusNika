@@ -24,28 +24,67 @@ const SUPABASE_ANON_KEY = "sb_publishable_DPSe7yJoTpBCFFKZdKI9pg_v40eqnvr";
 // ------------------------------------------------------------
 // 2. Carga del SDK de Supabase (CDN, sin bundler)
 // ------------------------------------------------------------
-// Se asume que en el <head> de versus.html se incluye:
+// Se asume que en el <head> de campus.html se incluye, ANTES que este
+// archivo:
 // <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 // lo que expone la variable global `supabase`.
-
-if (typeof window.supabase === "undefined") {
-    console.error(
-        "[supabaseClient] El SDK de Supabase no está cargado. " +
-        "Asegurate de incluir <script src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'></script> " +
-        "ANTES de este archivo en versus.html."
-    );
+//
+// En vez de asumir que window.supabase YA está disponible en el instante
+// exacto en que este script corre (lo que rompe todo con
+// "Cannot read properties of undefined (reading 'createClient')" ante
+// cualquier hipo de red, caché de Service Worker sirviendo una versión
+// vieja, o un simple reordenamiento accidental de los <script>), esperamos
+// activamente a que aparezca, con un timeout razonable.
+function _esperarSDKSupabase(maxEsperaMs = 5000, intervaloMs = 50) {
+    return new Promise((resolve, reject) => {
+        if (window.supabase && typeof window.supabase.createClient === "function") {
+            resolve(window.supabase);
+            return;
+        }
+        const inicio = Date.now();
+        const intervalId = setInterval(() => {
+            if (window.supabase && typeof window.supabase.createClient === "function") {
+                clearInterval(intervalId);
+                resolve(window.supabase);
+            } else if (Date.now() - inicio > maxEsperaMs) {
+                clearInterval(intervalId);
+                reject(new Error(
+                    "[supabaseClient] Timeout esperando el SDK de Supabase (window.supabase). " +
+                    "Revisá que <script src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'></script> " +
+                    "esté ANTES de supabaseClient.js en el <head>, que no haya un Service Worker sirviendo " +
+                    "una versión vieja cacheada, y que el CDN no esté bloqueado (ad-blocker / sin conexión)."
+                ));
+            }
+        }, intervaloMs);
+    });
 }
 
 // ------------------------------------------------------------
 // 3. Cliente único (singleton) reutilizado por toda la app
 // ------------------------------------------------------------
-const nikaSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    realtime: {
-        params: {
-            eventsPerSecond: 10, // límite razonable para un duelo 1vs1
-        },
-    },
-});
+// nikaSupabase arranca en null y se completa recién cuando el SDK
+// confirma que está listo. Todas las funciones de este archivo lo leen
+// en el momento en que se LLAMAN (no cuando se definen), así que en la
+// práctica ya está listo para cuando el usuario interactúa con la app,
+// siempre que el resto del código espere window.NikaSupabase.ready
+// (ver auth-guard.js) antes de operar.
+let nikaSupabase = null;
+
+const NikaSupabaseReady = _esperarSDKSupabase()
+    .then((supabaseSDK) => {
+        nikaSupabase = supabaseSDK.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            realtime: {
+                params: {
+                    eventsPerSecond: 10, // límite razonable para un duelo 1vs1
+                },
+            },
+        });
+        return nikaSupabase;
+    })
+    .catch((err) => {
+        console.error(err.message || err);
+        throw err;
+    });
 
 // ------------------------------------------------------------
 // 4. Identidad del jugador actual
@@ -74,6 +113,7 @@ function getNikaCurrentUsername() {
 // que no sean la PK no es directo en Supabase, así que hacemos
 // un select previo).
 async function ensureVersusPlayer() {
+    await NikaSupabaseReady;
     const username = getNikaCurrentUsername();
     if (!username) {
         console.warn("[supabaseClient] No hay usuario logueado (nika_currentUser vacío).");
@@ -129,6 +169,7 @@ async function ensureVersusPlayer() {
 // Registro: crea el usuario en Supabase Auth y dispara el trigger que
 // crea automáticamente su fila en "profiles" (username, fullname, avatar).
 async function registrarUsuario({ fullname, username, email, password, avatar }) {
+    await NikaSupabaseReady;
     const usernameNorm = username.trim();
     const emailNorm = email.trim().toLowerCase();
 
@@ -162,6 +203,7 @@ async function registrarUsuario({ fullname, username, email, password, avatar })
 // vía la función RPC resolve_email_by_username (no expone la tabla completa)
 // antes de llamar a signInWithPassword.
 async function iniciarSesion({ identifier, password }) {
+    await NikaSupabaseReady;
     let email = identifier.trim().toLowerCase();
 
     if (!email.includes("@")) {
@@ -182,6 +224,7 @@ async function iniciarSesion({ identifier, password }) {
 }
 
 async function cerrarSesion() {
+    await NikaSupabaseReady;
     await nikaSupabase.auth.signOut();
     localStorage.removeItem("nika_currentUser");
 }
@@ -196,6 +239,7 @@ async function cerrarSesion() {
 // email, así que del lado del cliente no hay forma (ni se debe) distinguir
 // "no encontrado" de "enviado" — evita filtrar qué correos están registrados.
 async function solicitarResetPassword(email) {
+    await NikaSupabaseReady;
     const { error } = await nikaSupabase.auth.resetPasswordForEmail(email, {
         redirectTo: window.location.origin + window.location.pathname,
     });
@@ -210,8 +254,12 @@ async function solicitarResetPassword(email) {
 // para saber cuándo abrir el modal de "nueva contraseña" — no hay que leer
 // ni parsear el hash a mano.
 function onPasswordRecovery(callback) {
-    nikaSupabase.auth.onAuthStateChange((event, _session) => {
-        if (event === "PASSWORD_RECOVERY") callback();
+    NikaSupabaseReady.then(() => {
+        nikaSupabase.auth.onAuthStateChange((event, _session) => {
+            if (event === "PASSWORD_RECOVERY") callback();
+        });
+    }).catch(() => {
+        /* ya se logueó el error en _esperarSDKSupabase */
     });
 }
 
@@ -220,6 +268,7 @@ function onPasswordRecovery(callback) {
 // intercambió por la sesión en el paso anterior). Al terminar el usuario
 // queda logueado con la sesión normal, así que refrescamos el caché local.
 async function actualizarPassword(newPassword) {
+    await NikaSupabaseReady;
     const { data, error } = await nikaSupabase.auth.updateUser({ password: newPassword });
     if (error) return { error };
 
@@ -231,6 +280,7 @@ async function actualizarPassword(newPassword) {
 // correcta, el servidor promueve profiles.role a 'admin' para el usuario
 // actualmente logueado. Requiere sesión activa (usa el JWT del usuario).
 async function solicitarRolAdmin(masterPassword) {
+    await NikaSupabaseReady;
     const { data: { session } } = await nikaSupabase.auth.getSession();
     if (!session) {
         return { error: { message: "Iniciá sesión primero." } };
@@ -251,6 +301,7 @@ async function solicitarRolAdmin(masterPassword) {
 // caché local (ej. login persistido por otra pestaña, o el localStorage se
 // limpió pero el token de sesión sigue vivo), reconstruye nika_currentUser.
 async function restaurarSesionSiExiste() {
+    await NikaSupabaseReady;
     const { data: { session } } = await nikaSupabase.auth.getSession();
     if (!session) return null;
     return _cachearSesionLocal(session.user);
@@ -260,6 +311,7 @@ async function restaurarSesionSiExiste() {
 // sigue leyendo (perfil, dashboard, admin, amigos, etc. no se tocaron).
 async function _cachearSesionLocal(authUser) {
     if (!authUser) return null;
+    await NikaSupabaseReady;
 
     const { data: perfil, error } = await nikaSupabase
         .from("profiles")
@@ -296,6 +348,7 @@ async function _cachearSesionLocal(authUser) {
 // Alta o actualización de un banco. Usa upsert para que re-subir el mismo
 // (modulo, up_id) reemplace el banco anterior en vez de duplicar filas.
 async function guardarBancoJSON({ modulo, upId, data }) {
+    await NikaSupabaseReady;
     const { data: { user } } = await nikaSupabase.auth.getUser();
 
     const { data: fila, error } = await nikaSupabase
@@ -319,6 +372,7 @@ async function guardarBancoJSON({ modulo, upId, data }) {
 // Trae un único banco (modulo + up_id). Es lo que consulta el simulador
 // (examen.html / cirugia_hub.html) antes de recurrir al caché local.
 async function obtenerBancoJSON({ modulo, upId }) {
+    await NikaSupabaseReady;
     const { data, error } = await nikaSupabase
         .from("bancos_json")
         .select("modulo, up_id, data, actualizado_por, updated_at")
@@ -332,6 +386,7 @@ async function obtenerBancoJSON({ modulo, upId }) {
 
 // Trae todos los bancos de un área (para el listado de estado del admin dashboard).
 async function listarBancosJSON(modulo) {
+    await NikaSupabaseReady;
     const { data, error } = await nikaSupabase
         .from("bancos_json")
         .select("modulo, up_id, data, updated_at")
@@ -365,7 +420,18 @@ async function cargarPreguntasUP({ modulo, upId }) {
 // 8. Export global (sin módulos ES, coherente con el resto del proyecto)
 // ------------------------------------------------------------
 window.NikaSupabase = {
-    client: nikaSupabase,
+    // Getter: siempre devuelve el valor MÁS RECIENTE de nikaSupabase, sea
+    // null (todavía no listo) o el cliente ya inicializado. Evita que algún
+    // módulo se quede con una referencia congelada a "undefined" por haber
+    // leído window.NikaSupabase.client antes de tiempo.
+    get client() {
+        return nikaSupabase;
+    },
+    // Promesa que resuelve con el cliente listo. Cualquier módulo que
+    // necesite garantías (no solo "probar suerte") debe hacer:
+    //   await window.NikaSupabase.ready;
+    // antes de operar contra Supabase.
+    ready: NikaSupabaseReady,
     getNikaCurrentUsername,
     ensureVersusPlayer,
     registrarUsuario,

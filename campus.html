@@ -16,9 +16,75 @@
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabaseClient.js"></script>
-    <script src="js/auth-guard.js" defer></script>
+    <!-- ================================================================
+         Carga del SDK de Supabase con RESPALDO automático.
+         ------------------------------------------------------------
+         Antes esto era un único <script src="https://cdn.jsdelivr.net/...">.
+         El problema: si jsdelivr está bloqueado/inaccesible en la red del
+         usuario (firewall, antivirus, ISP, colegio, etc.), window.supabase
+         nunca aparece y toda la app se queda "ciega" sin ningún aviso claro.
+         Ahora probamos jsDelivr primero y, si falla (onerror, o si nunca
+         carga), probamos unpkg como espejo alternativo. Recién cuando
+         window.supabase existe (por cualquiera de los dos caminos)
+         seguimos con supabaseClient.js y auth-guard.js.
+    ================================================================= -->
+    <script>
+        (function () {
+            var FUENTES_SDK = [
+                "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+                "https://unpkg.com/@supabase/supabase-js@2",
+            ];
+
+            function cargarScript(src) {
+                return new Promise(function (resolve, reject) {
+                    var s = document.createElement("script");
+                    s.src = src;
+                    s.onload = function () { resolve(src); };
+                    s.onerror = function () { reject(new Error("No se pudo cargar: " + src)); };
+                    document.head.appendChild(s);
+                });
+            }
+
+            async function cargarSDKConRespaldo(fuentes) {
+                for (var i = 0; i < fuentes.length; i++) {
+                    try {
+                        await cargarScript(fuentes[i]);
+                        if (window.supabase && typeof window.supabase.createClient === "function") {
+                            console.info("[Nika] SDK de Supabase cargado desde:", fuentes[i]);
+                            return;
+                        }
+                    } catch (err) {
+                        console.warn("[Nika] Falló una fuente del SDK de Supabase, probando la siguiente:", err.message);
+                    }
+                }
+                console.error(
+                    "[Nika] No se pudo cargar el SDK de Supabase desde NINGUNA fuente (jsDelivr ni unpkg). " +
+                    "Esto normalmente significa que la red actual (firewall, antivirus, colegio, VPN) está " +
+                    "bloqueando esos dominios, o que no hay conexión a internet."
+                );
+            }
+
+            // Cargamos los scripts propios (que dependen de window.supabase)
+            // recién después de intentar ambas fuentes del SDK.
+            //
+            // window.NikaScriptsReady: promesa global que resuelve recién
+            // cuando supabaseClient.js Y js/auth-guard.js terminaron de
+            // cargar y ejecutarse. Como estos scripts ahora se inyectan de
+            // forma dinámica (para poder tener el respaldo de CDN de arriba),
+            // "DOMContentLoaded" ya NO garantiza que estén listos —a
+            // diferencia de <script defer>, que sí lo garantizaba—. Por eso
+            // cualquier código que necesite window.NikaSupabase debe hacer
+            // `await window.NikaScriptsReady;` antes de tocarlo, en vez de
+            // asumir que ya está disponible en el DOMContentLoaded de la página.
+            window.NikaScriptsReady = cargarSDKConRespaldo(FUENTES_SDK).finally(function () {
+                return cargarScript("supabaseClient.js").then(function () {
+                    return cargarScript("js/auth-guard.js");
+                });
+            }).catch(function (err) {
+                console.error("[Nika] Error cargando los scripts propios:", err);
+            });
+        })();
+    </script>
 </head>
 <body>
 
@@ -770,18 +836,21 @@
 
         const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
-        // Alias al cliente real de Supabase (creado en supabaseClient.js, cargado
-        // antes que este script en el <head>). Todo el código de notificaciones/
-        // amigos/directorio más abajo ya llamaba a "supabase.auth...", "supabase.from(...)"
-        // esperando esto, pero antes de esta migración NUNCA se cargaba el SDK ni
-        // se creaba un cliente — esas funciones siempre hacían return en silencio.
-        // OJO: el SDK cargado por CDN ya crea una variable global "supabase"
-        // (el namespace de la librería, con .createClient). Por eso acá NO se
-        // puede usar const/let (choca con esa declaración y rompe TODO el
-        // script). Se pisa la referencia con "var" para que las llamadas
-        // existentes más abajo ("supabase.auth...", "supabase.from(...)")
-        // terminen usando el cliente real en vez de la librería cruda.
-        var supabase = window.NikaSupabase ? window.NikaSupabase.client : undefined;
+        // Alias al cliente real de Supabase (creado en supabaseClient.js).
+        // Todo el código de notificaciones/amigos/directorio más abajo llama
+        // a "supabase.auth...", "supabase.from(...)" esperando esto.
+        // OJO: el SDK cargado por CDN también crea una variable global
+        // "supabase" (el namespace de la librería, con .createClient pero
+        // SIN .from ni .auth). Si asignáramos el alias acá mismo —al
+        // parsear la página—, el SDK del CDN (que termina de cargar
+        // DESPUÉS, en segundo plano) terminaría pisando nuestro alias con
+        // la librería cruda, rompiendo cualquier llamada a "supabase.from(...)"
+        // con "supabase.from is not a function". Por eso solo declaramos acá
+        // (con "var", para que todo lo de abajo comparta el mismo binding) y
+        // la asignación real ocurre más abajo, en el listener de
+        // DOMContentLoaded, recién cuando NikaSupabase ya está listo — así
+        // somos siempre los últimos en escribir esta variable.
+        var supabase;
 
         // ================= SINCRONIZACIÓN DE PROGRESO =================
     function syncStudyProgress() {
@@ -1097,14 +1166,14 @@
             try {
                 const { data, error } = await window.NikaSupabase.client
                     .from('versus_players')
-                    .select('elo_score')
+                    .select('elo')
                     .eq('username', username)
                     .maybeSingle();
                 if (error || !data) {
                     badge.style.display = 'none';
                     return;
                 }
-                badge.innerText = `${data.elo_score} ELO`;
+                badge.innerText = `${data.elo} ELO`;
                 badge.style.display = 'inline-block';
             } catch (err) {
                 console.error('[updateSidebarElo] Error:', err);
@@ -2213,7 +2282,7 @@
                 const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : '🏅'));
                 const nombre = u.profiles?.fullname || 'Estudiante Nika';
                 const avatar = u.profiles?.avatar || NikaSocial.DEFAULT_AVATAR;
-                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${avatar}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong style="font-size:0.85rem; display:block;">${nombre}</strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo_score} ELO</span></div>`;
+                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${avatar}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong style="font-size:0.85rem; display:block;">${nombre}</strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo} ELO</span></div>`;
             });
         }
 
@@ -2526,6 +2595,7 @@
 
     // ================= PWA: SERVICE WORKER + INSTALACIÓN =================
     let _deferredInstallPrompt = null;
+    const PWA_MOBILE_BREAKPOINT = "(max-width: 768px)";
 
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
@@ -2535,11 +2605,29 @@
         });
     }
 
-    function _mostrarUIInstalacionPWA() {
+    function _esMobilPWA() {
+        return window.matchMedia(PWA_MOBILE_BREAKPOINT).matches;
+    }
+
+    function _appYaInstaladaPWA() {
+        // display-mode: standalone cubre Android/Chrome/Edge; navigator.standalone cubre iOS Safari.
+        return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    }
+
+    // El banner SOLO se muestra en celulares (<768px) y solo si la app todavía
+    // no está instalada. En escritorio queda oculto siempre, sin importar el
+    // estado de beforeinstallprompt.
+    function actualizarVisibilidadBannerPWA() {
+        const banner = document.getElementById("pwa-install-banner");
+        if (!banner) return;
+        banner.style.display = (_esMobilPWA() && !_appYaInstaladaPWA()) ? "block" : "none";
+    }
+
+    // El botón de la sidebar (desktop y mobile) depende únicamente de si el
+    // navegador ofreció el prompt nativo de instalación.
+    function _mostrarBotonSidebarPWA() {
         const item = document.getElementById("pwa-install-item");
         if (item) item.style.display = "block";
-        const banner = document.getElementById("pwa-install-banner");
-        if (banner) banner.style.display = "block";
     }
 
     function _ocultarUIInstalacionPWA() {
@@ -2549,10 +2637,14 @@
         if (banner) banner.style.display = "none";
     }
 
+    window.addEventListener("load", actualizarVisibilidadBannerPWA);
+    window.addEventListener("resize", actualizarVisibilidadBannerPWA);
+
     window.addEventListener("beforeinstallprompt", (event) => {
         event.preventDefault();
         _deferredInstallPrompt = event;
-        _mostrarUIInstalacionPWA();
+        _mostrarBotonSidebarPWA();
+        actualizarVisibilidadBannerPWA();
     });
 
     async function _dispararPromptInstalacion() {
@@ -2570,6 +2662,9 @@
         if (!disparado) showToast("Ya la tenés instalada o tu navegador no lo permite.");
     }
 
+    // Botón del banner mobile: si el navegador soporta el prompt nativo, lo
+    // dispara; si no (típico de iOS Safari, que nunca emite
+    // beforeinstallprompt), muestra el instructivo manual.
     async function instalarAppNikaDesdeBanner() {
         const disparado = await _dispararPromptInstalacion();
         if (!disparado) alert("Para instalar la app, tocá el menú de tu navegador y seleccioná 'Instalar aplicación' o 'Agregar a la pantalla principal'.");
@@ -2709,7 +2804,7 @@
                 <strong>📋 Pregunta compartida${q.up ? ' · ' + q.up : ''}</strong><br>${q.q || ''}
             </div>`;
         }
-        return `<div class="chat-msg ${mia ? 'mine' : 'rival'}" style="max-width:80%; ${mia ? 'align-self:flex-end;' : 'align-self:flex-start;'} background:${mia ? 'var(--nika-primary)' : 'var(--card-bg)'}; color:${mia ? 'white' : 'var(--text-main)'}; border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:0.85rem;">${m.body || ''}</div>`;
+        return `<div class="chat-msg ${mia ? 'mine' : 'rival'}" style="max-width:80%; ${mia ? 'align-self:flex-end;' : 'align-self:flex-start;'} background:${mia ? 'var(--nika-primary)' : 'var(--card-bg)'}; color:${mia ? 'white' : 'var(--text-main)'}; border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:0.85rem;">${m.content || ''}</div>`;
     }
 
     function _agregarBurbujaPrivada(m) {
@@ -2890,11 +2985,34 @@
             if (btn) btn.innerHTML = "☀️ Modo Claro";
         }
         
+        // IMPORTANTE: supabaseClient.js y js/auth-guard.js ahora se cargan
+        // de forma dinámica (ver el loader con respaldo de CDN en el
+        // <head>), así que "DOMContentLoaded" puede disparar ANTES de que
+        // terminen de cargar. Esperamos explícitamente esa promesa antes de
+        // tocar window.NikaSupabase, si no, esto explota con
+        // "Cannot read properties of undefined".
+        if (window.NikaScriptsReady) {
+            await window.NikaScriptsReady;
+        }
+
+        // Recién ACÁ asignamos el alias "supabase" (declarado más arriba con
+        // "var supabase;"), después de que NikaSupabase terminó de
+        // inicializar su propio cliente. Al ser lo último en escribir esta
+        // variable, ganamos nosotros y no la librería cruda del CDN.
+        if (window.NikaSupabase) {
+            try {
+                await window.NikaSupabase.ready;
+            } catch (_) { /* ya se logueó el error en supabaseClient.js */ }
+            supabase = window.NikaSupabase.client;
+        }
+
         if (window.NikaSupabase?.onPasswordRecovery) {
             window.NikaSupabase.onPasswordRecovery(() => openResetPasswordModal());
         }
 
-        await window.NikaSupabase.restaurarSesionSiExiste();
+        if (window.NikaSupabase) {
+            await window.NikaSupabase.restaurarSesionSiExiste();
+        }
         checkAuthState();
         initMockErratas();
         syncStudyProgress();

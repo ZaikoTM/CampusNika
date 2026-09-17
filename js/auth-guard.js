@@ -14,10 +14,36 @@ window.NikaAuth = {
 };
 
 window.NikaAuth.ready = new Promise((resolve) => {
-    document.addEventListener("DOMContentLoaded", async () => {
-        // Verificamos si el cliente de Supabase está disponible
-        if (typeof supabaseClient === 'undefined') {
-            console.error('[AuthGuard] supabaseClient no está definido. Verificá que js/supabaseClient.js se cargue antes que auth-guard.js.');
+    // auth-guard.js ahora puede cargarse dinámicamente (ver el loader con
+    // respaldo de CDN en el <head> de campus.html), lo que significa que
+    // para cuando este script corre, "DOMContentLoaded" puede haber
+    // disparado YA. Si solo escucháramos ese evento, este código nunca
+    // correría. Por eso: si el DOM ya está listo, arrancamos directo;
+    // si no, esperamos el evento como antes.
+    function _iniciarAuthGuard() {
+        (async () => {
+        // Verificamos si el cliente de Supabase está disponible.
+        // OJO: supabaseClient.js NO expone una variable global "supabaseClient",
+        // expone window.NikaSupabase.client (ver punto 8 de supabaseClient.js).
+        // Ese desajuste era la causa real del error
+        // "[AuthGuard] supabaseClient no está definido".
+        //
+        // Además, en vez de asumir que window.NikaSupabase.client ya está
+        // inicializado en este instante, esperamos su promesa "ready": eso
+        // cubre cualquier demora real en la carga del SDK del CDN (red lenta,
+        // caché de Service Worker sirviendo una versión vieja, etc.) sin
+        // explotar en falso.
+        if (typeof window.NikaSupabase === 'undefined') {
+            console.error('[AuthGuard] window.NikaSupabase no está definido. Verificá que supabaseClient.js se cargue antes que js/auth-guard.js.');
+            resolve(null);
+            return;
+        }
+
+        let supabaseClient;
+        try {
+            supabaseClient = await window.NikaSupabase.ready;
+        } catch (err) {
+            console.error('[AuthGuard] El SDK de Supabase nunca terminó de inicializar:', err);
             resolve(null);
             return;
         }
@@ -64,5 +90,12 @@ window.NikaAuth.ready = new Promise((resolve) => {
             console.error("[AuthGuard] Error al verificar la sesión:", err);
             resolve(null);
         }
-    });
+        })();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", _iniciarAuthGuard);
+    } else {
+        _iniciarAuthGuard();
+    }
 });

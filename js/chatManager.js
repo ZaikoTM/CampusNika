@@ -17,7 +17,7 @@
  *     id uuid pk default gen_random_uuid(),
  *     from_username text not null,
  *     to_username text not null,
- *     body text,                 -- null si el mensaje es solo una pregunta compartida
+ *     content text,               -- null si el mensaje es solo una pregunta compartida
  *     shared_question jsonb,     -- { id, up, q, options } cuando se comparte una pregunta
  *     created_at timestamptz default now(),
  *     read_at timestamptz
@@ -97,12 +97,12 @@ const ChatManager = (function () {
     // ------------------------------------------------------------
     // 3. Enviar mensaje de texto
     // ------------------------------------------------------------
-    async function enviarMensaje(toUsername, body) {
+    async function enviarMensaje(toUsername, contenido) {
         const username = window.NikaSupabase.getNikaCurrentUsername();
         if (!username) throw new Error("No hay usuario logueado.");
-        if (!body || !body.trim()) return null;
+        if (!contenido || !contenido.trim()) return null;
 
-        const row = await _insertarYNotificar({ from_username: username, to_username: toUsername, body: body.trim() });
+        const row = await _insertarYNotificar({ from_username: username, to_username: toUsername, content: contenido.trim() });
         return row;
     }
 
@@ -129,7 +129,7 @@ const ChatManager = (function () {
         const row = await _insertarYNotificar({
             from_username: username,
             to_username: toUsername,
-            body: null,
+            content: null,
             shared_question: snapshot,
         });
 
