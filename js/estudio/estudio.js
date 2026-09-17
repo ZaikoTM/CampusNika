@@ -358,7 +358,7 @@ function renderUpDetail(unit) {
     }
 }
 
-// ================= CHECKLIST DE OBJETIVOS =================
+// ================= CHECKLIST DE OBJETIVOS (LOCAL-FIRST & OPTIMISTA) =================
 
 async function renderObjectivesChecklist(unit) {
     const objList = document.getElementById('up-objectives-list');
@@ -367,22 +367,50 @@ async function renderObjectivesChecklist(unit) {
     const moduleId = EstudioState.modulo;
     const upId = unit.id;
 
-    objList.innerHTML = unit.objectives.map(obj => `
-        <li style="list-style:none; display:flex; align-items:flex-start; gap:10px; padding:6px 0; opacity:0.55;">
-            <input type="checkbox" disabled style="margin-top:4px; width:16px; height:16px; accent-color:#16a34a;">
-            <span style="font-size:0.9rem; color:#0f172a;">${obj}</span>
-        </li>
-    `).join('');
-
+    // 1. Obtener identificador de usuario de forma robusta
     let userId = null;
-    if (typeof window.NikaAuth !== 'undefined' && window.NikaAuth.ready) {
-        userId = await window.NikaAuth.ready;
+    let usernameKey = 'invitado';
+
+    const rawUser = localStorage.getItem('nika_currentUser');
+    if (rawUser) {
+        try {
+            const activeUser = JSON.parse(rawUser);
+            userId = activeUser.id || activeUser.uid || activeUser.username || activeUser.email;
+            usernameKey = activeUser.username || activeUser.email || 'usuario';
+        } catch (e) {
+            userId = rawUser;
+            usernameKey = rawUser;
+        }
+    }
+
+    try {
+        const client = window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client);
+        if (client && client.auth) {
+            const { data: { session } } = await client.auth.getSession();
+            if (session && session.user) {
+                userId = session.user.id;
+            }
+        }
+    } catch (err) {
+        console.warn('[Estudio] Sesión de Supabase no disponible, usando identidad local:', err);
     }
 
     if (EstudioState.currentUpId !== upId) return;
 
+    // 2. Cargar progreso desde localStorage (rápido, sin bloqueos)
     let progressMap = {};
-    if (userId && typeof supabaseClient !== 'undefined') {
+    const localProgressKey = `nika_progress_${usernameKey}_${moduleId}_${upId}`;
+    try {
+        const savedLocal = localStorage.getItem(localProgressKey);
+        if (savedLocal) {
+            progressMap = JSON.parse(savedLocal);
+        }
+    } catch (e) {
+        console.error('[Progreso] Error leyendo localStorage:', e);
+    }
+
+    // 3. Sincronizar opcionalmente con Supabase en segundo plano si hay un ID válido
+    if (userId && typeof supabaseClient !== 'undefined' && userId.length > 3) {
         try {
             const { data, error } = await supabaseClient
                 .from('user_progress')
@@ -391,34 +419,34 @@ async function renderObjectivesChecklist(unit) {
                 .eq('module_id', moduleId)
                 .eq('up_id', upId);
 
-            if (!error && data) {
-                data.forEach(row => { progressMap[row.objective_index] = row.completed; });
+            if (!error && data && data.length > 0) {
+                data.forEach(row => { 
+                    progressMap[row.objective_index] = row.completed; 
+                });
+                localStorage.setItem(localProgressKey, JSON.stringify(progressMap));
             }
         } catch (err) {
-            console.error('[Progreso] Excepción al cargar checklist:', err);
+            console.warn('[Progreso] Sincronización remota omitida, usando caché local:', err);
         }
     }
 
     if (EstudioState.currentUpId !== upId) return;
-    renderChecklistUI(objList, unit.objectives, progressMap, moduleId, upId, userId);
+    renderChecklistUI(objList, unit.objectives, progressMap, moduleId, upId, userId, usernameKey);
 }
 
-function renderChecklistUI(container, objectives, progressMap, moduleId, upId, userId) {
+function renderChecklistUI(container, objectives, progressMap, moduleId, upId, userId, usernameKey) {
     const total = objectives.length;
     const completedCount = objectives.filter((_, i) => progressMap[i]).length;
     const pct = total ? Math.round((completedCount / total) * 100) : 0;
 
     try {
-        const rawUser = localStorage.getItem('nika_currentUser');
-        const activeUser = rawUser ? JSON.parse(rawUser) : null;
-        const userSuffix = activeUser ? activeUser.username : 'invitado';
-        
-        localStorage.setItem(`nika_surgery_global_pct_${userSuffix}`, pct);
+        const activeUsername = usernameKey || 'invitado';
+        localStorage.setItem(`nika_surgery_global_pct_${activeUsername}`, pct);
         
         const currentUnit = (typeof EstudioState !== 'undefined' && EstudioState.unitsById) ? EstudioState.unitsById[upId] : null;
         const upName = currentUnit ? `UP${currentUnit.number}` : upId.toUpperCase();
 
-        localStorage.setItem(`nika_last_study_progress_${userSuffix}`, JSON.stringify({
+        localStorage.setItem(`nika_last_study_progress_${activeUsername}`, JSON.stringify({
             modulo: 'Cirugía',
             up: upName,
             porcentaje: pct,
@@ -440,34 +468,46 @@ function renderChecklistUI(container, objectives, progressMap, moduleId, upId, u
         </div>
     `;
 
+    const canInteract = !!userId;
+
     const itemsHtml = objectives.map((obj, i) => `
         <li style="list-style:none; display:flex; align-items:flex-start; gap:10px; padding:6px 0;">
-            <input type="checkbox" data-index="${i}" class="up-objective-checkbox" ${progressMap[i] ? 'checked' : ''} ${userId ? '' : 'disabled'}
-                   style="margin-top:4px; width:16px; height:16px; accent-color:#16a34a; cursor:${userId ? 'pointer' : 'not-allowed'};">
+            <input type="checkbox" data-index="${i}" class="up-objective-checkbox" ${progressMap[i] ? 'checked' : ''} ${canInteract ? '' : 'disabled'}
+                   style="margin-top:4px; width:16px; height:16px; accent-color:#16a34a; cursor:${canInteract ? 'pointer' : 'not-allowed'};">
             <span style="font-size:0.9rem; color:${progressMap[i] ? '#94a3b8' : '#0f172a'}; text-decoration:${progressMap[i] ? 'line-through' : 'none'};">${obj}</span>
         </li>
     `).join('');
 
-    const sessionNoticeHtml = userId ? '' : `
+    const sessionNoticeHtml = canInteract ? '' : `
         <div style="font-size:0.75rem; color:#ca8a04; margin-bottom:10px;">Iniciá sesión para guardar tu progreso.</div>
     `;
 
     container.innerHTML = progressBarHtml + sessionNoticeHtml + itemsHtml;
 
-    if (!userId) return;
+    if (!canInteract) return;
 
     container.querySelectorAll('.up-objective-checkbox').forEach(cb => {
         cb.addEventListener('change', async (e) => {
             const index = parseInt(e.target.dataset.index, 10);
             const completed = e.target.checked;
 
+            // 1. Guardado local inmediato (Optimista): la UI responde al instante
             progressMap[index] = completed;
-            renderChecklistUI(container, objectives, progressMap, moduleId, upId, userId);
+            const localProgressKey = `nika_progress_${usernameKey}_${moduleId}_${upId}`;
+            try {
+                localStorage.setItem(localProgressKey, JSON.stringify(progressMap));
+            } catch (err) {
+                console.error('[Progreso] Error guardando local:', err);
+            }
 
-            const ok = await toggleObjective(userId, moduleId, upId, index, completed);
-            if (!ok) {
-                progressMap[index] = !completed;
-                renderChecklistUI(container, objectives, progressMap, moduleId, upId, userId);
+            // 2. Refrescar UI al vuelo
+            renderChecklistUI(container, objectives, progressMap, moduleId, upId, userId, usernameKey);
+
+            // 3. Sincronizar en segundo plano con Supabase de forma silenciosa
+            if (userId && typeof supabaseClient !== 'undefined' && userId.length > 3) {
+                toggleObjective(userId, moduleId, upId, index, completed).catch(err => {
+                    console.warn('[Progreso] Sync silencioso con Supabase falló:', err);
+                });
             }
         });
     });
@@ -489,12 +529,12 @@ async function toggleObjective(userId, moduleId, upId, index, completed) {
             }, { onConflict: 'user_id,module_id,up_id,objective_index' });
 
         if (error) {
-            console.error('[Progreso] Error al guardar el objetivo:', error);
+            console.error('[Progreso] Error en Supabase:', error);
             return false;
         }
         return true;
     } catch (err) {
-        console.error('[Progreso] Excepción al guardar el objetivo:', err);
+        console.error('[Progreso] Excepción en Supabase:', err);
         return false;
     }
 }
