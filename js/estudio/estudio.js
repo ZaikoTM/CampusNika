@@ -257,6 +257,31 @@ function renderChecklistUI(container, objectives, progressMap, moduleId, upId, u
     const completedCount = objectives.filter((_, i) => progressMap[i]).length;
     const pct = total ? Math.round((completedCount / total) * 100) : 0;
 
+    // 👇 INYECCIÓN: ACTUALIZAR PROGRESO PARA CAMPUS.HTML 👇
+    try {
+        const rawUser = localStorage.getItem('nika_currentUser');
+        const activeUser = rawUser ? JSON.parse(rawUser) : null;
+        const userSuffix = activeUser ? activeUser.username : 'invitado';
+        
+        // 1. Guardar porcentaje global (para la barra verde chica)
+        localStorage.setItem(`nika_surgery_global_pct_${userSuffix}`, pct);
+        
+        // 2. Buscar el nombre de la UP activa (ej: "UP3") leyendo el estado global
+        const currentUnit = (typeof EstudioState !== 'undefined' && EstudioState.unitsById) ? EstudioState.unitsById[upId] : null;
+        const upName = currentUnit ? `UP${currentUnit.number}` : upId.toUpperCase();
+
+        // 3. Guardar el progreso detallado para la tarjeta gigante "Continuá donde lo dejaste"
+        localStorage.setItem(`nika_last_study_progress_${userSuffix}`, JSON.stringify({
+            modulo: 'Cirugía',
+            up: upName,
+            porcentaje: pct,
+            url: 'estudio.html?modulo=cirugia'
+        }));
+    } catch(e) {
+        console.error("[Progreso] Error sincronizando panel principal:", e);
+    }
+    // 👆 FIN DE LA INYECCIÓN 👆
+
     const progressBarHtml = `
         <div style="margin-bottom: 14px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">

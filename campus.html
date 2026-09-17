@@ -563,6 +563,7 @@
             <div class="sidebar-user-info">
                 <h4 id="sidebar-user-name">Invitado</h4>
                 <span id="sidebar-user-role">Sin cuenta</span>
+                <span id="sidebar-user-elo" class="sidebar-elo-badge" style="display:none; font-size:0.72rem; font-weight:800; color:var(--nika-primary); background:rgba(2,132,199,0.12); border-radius:6px; padding:1px 6px; margin-left:4px;"></span>
             </div>
         </div>
 
@@ -1179,25 +1180,64 @@
         var supabase = window.NikaSupabase ? window.NikaSupabase.client : undefined;
 
         // ================= SINCRONIZACIÓN DE PROGRESO =================
-        function syncStudyProgress() {
-            const activeUser = JSON.parse(localStorage.getItem('nika_currentUser'));
-            const userSuffix = activeUser ? activeUser.username : 'invitado';
-            
-            // Leer el porcentaje real del usuario logueado
+    function syncStudyProgress() {
+        const activeUser = JSON.parse(localStorage.getItem('nika_currentUser'));
+        const userSuffix = activeUser ? activeUser.username : 'invitado';
+
+        // 1. ACTUALIZAR WIDGET PRINCIPAL "CONTINUÁ DONDE LO DEJASTE" (Dinámico)
+        const titleEl = document.getElementById('continuity-title-text');
+        const continuityFill = document.querySelector('.continuity-progress-fill');
+        const continuityLabel = document.getElementById('continuity-progress-label');
+        const btnEl = document.querySelector('.btn-continue-action');
+
+        // Buscamos si hay un progreso detallado (con UP exacta) guardado recientemente
+        const lastProgress = localStorage.getItem(`nika_last_study_progress_${userSuffix}`);
+        
+        if (lastProgress) {
+            try {
+                const data = JSON.parse(lastProgress);
+                if (titleEl) titleEl.textContent = `${data.modulo} · ${data.up} - Seguir entrenando`;
+                if (continuityFill) continuityFill.style.width = `${data.porcentaje}%`;
+                if (continuityLabel) continuityLabel.innerText = `${data.porcentaje}% completado`;
+                if (btnEl) {
+                    btnEl.textContent = "Seguir entrenando →";
+                    btnEl.onclick = () => location.href = data.url;
+                }
+            } catch (e) {
+                console.error("Error leyendo último progreso:", e);
+            }
+        } else {
+            // Lógica de rescate: Si no hay UP exacta, lee el global de cirugía (tu código original)
             const savedPct = localStorage.getItem(`nika_surgery_global_pct_${userSuffix}`) || 0;
-
-            // 1. Actualizar widget "Continuá donde lo dejaste"
-            const continuityFill = document.querySelector('.continuity-progress-fill');
-            const continuityLabel = document.getElementById('continuity-progress-label');
-            if (continuityFill) continuityFill.style.width = `${savedPct}%`;
-            if (continuityLabel) continuityLabel.innerText = `${savedPct}% completado`;
-
-            // 2. Actualizar tarjeta del Módulo "Cirugía"
-            const modFill = document.querySelector('.active-module .module-progress-fill');
-            const modLabel = document.querySelector('.active-module .module-progress-meta span:first-child');
-            if (modFill) modFill.style.width = `${savedPct}%`;
-            if (modLabel) modLabel.innerText = `${savedPct}% de avance`;
+            
+            if (savedPct > 0) {
+                if (titleEl) titleEl.textContent = `Cirugía - Seguir entrenando`;
+                if (continuityFill) continuityFill.style.width = `${savedPct}%`;
+                if (continuityLabel) continuityLabel.innerText = `${savedPct}% completado`;
+                if (btnEl) {
+                    btnEl.textContent = "Seguir entrenando →";
+                    btnEl.onclick = () => location.href = 'cirugia_hub.html';
+                }
+            } else {
+                // Si el usuario está en cero total
+                if (titleEl) titleEl.textContent = `Aún no iniciaste ningún módulo`;
+                if (continuityFill) continuityFill.style.width = `0%`;
+                if (continuityLabel) continuityLabel.innerText = `0% completado`;
+                if (btnEl) {
+                    btnEl.textContent = "Ir a Salas de Estudio →";
+                    btnEl.onclick = () => document.getElementById('modulos-section')?.scrollIntoView({behavior:'smooth'});
+                }
+            }
         }
+
+        // 2. ACTUALIZAR TARJETA DEL MÓDULO "CIRUGÍA" (La que está en el plan de estudios)
+        const savedSurgeryPct = localStorage.getItem(`nika_surgery_global_pct_${userSuffix}`) || 0;
+        const modFill = document.querySelector('.active-module .module-progress-fill');
+        const modLabel = document.querySelector('.active-module .module-progress-meta span:first-child');
+        
+        if (modFill) modFill.style.width = `${savedSurgeryPct}%`;
+        if (modLabel) modLabel.innerText = `${savedSurgeryPct}% de avance`;
+    }
 
         // ================= AUDIO: DESBLOQUEO PARA MÓVILES =================
         // Los navegadores móviles bloquean audio/AudioContext hasta que haya una interacción
@@ -1436,6 +1476,34 @@
             }
             renderDashboardOnlineFriends();
             renderUserPerformance();
+            updateSidebarElo(userJson ? JSON.parse(userJson).username : null);
+        }
+
+        // Trae el ELO actual desde versus_players y lo muestra como badge en la
+        // tarjeta del usuario en la sidebar. No bloquea el resto de checkAuthState.
+        async function updateSidebarElo(username) {
+            const badge = document.getElementById('sidebar-user-elo');
+            if (!badge) return;
+            if (!username || !window.NikaSupabase || !window.NikaSupabase.client) {
+                badge.style.display = 'none';
+                return;
+            }
+            try {
+                const { data, error } = await window.NikaSupabase.client
+                    .from('versus_players')
+                    .select('elo_score')
+                    .eq('username', username)
+                    .maybeSingle();
+                if (error || !data) {
+                    badge.style.display = 'none';
+                    return;
+                }
+                badge.innerText = `${data.elo_score} ELO`;
+                badge.style.display = 'inline-block';
+            } catch (err) {
+                console.error('[updateSidebarElo] Error:', err);
+                badge.style.display = 'none';
+            }
         }
 
         let tempAvatarBase64 = null;
@@ -1744,7 +1812,7 @@
             if (modal) modal.style.display = 'none'; 
         }
         
-        function handleSaveProfile(e) {
+        async function handleSaveProfile(e) {
             e.preventDefault(); 
             let user = JSON.parse(localStorage.getItem('nika_currentUser'));
             if (!user) return;
@@ -1752,10 +1820,36 @@
             user.email = document.getElementById('prof-email').value.trim();
             const newPass = document.getElementById('prof-password').value; 
             if (newPass.trim() !== '') user.password = newPass;
-            
+
+            let avatarChanged = false;
             if (tempAvatarBase64) {
                 user.avatar = tempAvatarBase64;
                 tempAvatarBase64 = null;
+                avatarChanged = true;
+            }
+
+            // Persistencia real en Supabase (tabla profiles) además del caché local.
+            // Requiere sesión Auth activa (user.id viene de _cachearSesionLocal).
+            const saveBtn = e.target.querySelector('button[type="submit"]');
+            const origText = saveBtn ? saveBtn.textContent : null;
+            if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Guardando...'; }
+            try {
+                if (window.NikaSupabase && window.NikaSupabase.client && user.id) {
+                    const updatePayload = { fullname: user.fullname, email: user.email };
+                    if (avatarChanged) updatePayload.avatar = user.avatar;
+                    const { error } = await window.NikaSupabase.client
+                        .from('profiles')
+                        .update(updatePayload)
+                        .eq('id', user.id);
+                    if (error) {
+                        console.error('[handleSaveProfile] Error guardando en Supabase:', error);
+                        showToast("No se pudo sincronizar el perfil con el servidor. Se guardó localmente.", "warning");
+                    }
+                }
+            } catch (err) {
+                console.error('[handleSaveProfile] Excepción guardando en Supabase:', err);
+            } finally {
+                if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = origText; }
             }
 
             localStorage.setItem('nika_currentUser', JSON.stringify(user));
@@ -1861,24 +1955,69 @@
             } else { badge.style.display = 'none'; }
         }
 
+        let _searchUsersDebounce = null;
+        let _searchUsersToken = 0;
+
         function searchUsers() {
-            const query = document.getElementById('friend-search-input').value.toLowerCase();
+            // Bug #4: antes filtraba sobre nika_registered_users en localStorage
+            // (una foto vieja del registro, nunca se actualizaba). Ahora consulta
+            // la tabla profiles de Supabase en vivo, con debounce para no
+            // disparar una query por cada tecla.
+            clearTimeout(_searchUsersDebounce);
+            _searchUsersDebounce = setTimeout(_searchUsersSupabase, 250);
+        }
+
+        async function _searchUsersSupabase() {
+            const inputEl = document.getElementById('friend-search-input');
             const resultsBox = document.getElementById('search-results-box');
-            const currentUser = JSON.parse(localStorage.getItem('nika_currentUser'));
-            if (!currentUser || query.length < 2) { 
-                if (resultsBox) resultsBox.innerHTML = ''; 
-                return; 
+            if (!inputEl || !resultsBox) return;
+
+            const rawQuery = inputEl.value.trim();
+            if (rawQuery.length < 1) {
+                resultsBox.innerHTML = '';
+                return;
             }
-            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
-            let friends = JSON.parse(localStorage.getItem('nika_friends')) || {};
-            let myFriends = friends[currentUser.username] || [];
-            const filtered = users.filter(u => u.username !== currentUser.username && !myFriends.includes(u.username) && (u.username.toLowerCase().includes(query) || u.fullname.toLowerCase().includes(query)));
-            if (resultsBox) {
-                resultsBox.innerHTML = filtered.length ? '' : '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se encontraron usuarios.</p>';
-                filtered.forEach(u => {
-                    resultsBox.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%;"><div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div></div><button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="sendFriendRequest('${u.username}')">Añadir</button></div>`;
-                });
+
+            if (typeof supabase === 'undefined') {
+                resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Buscador no disponible.</p>';
+                return;
             }
+
+            const myToken = ++_searchUsersToken; // evita que una respuesta vieja pise una más nueva
+            resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Buscando…</p>';
+
+            const { data: { user: authUser } } = await supabase.auth.getUser();
+            const myId = authUser ? authUser.id : null;
+
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('id, username, fullname, avatar')
+                .or(`username.ilike.%${rawQuery}%,fullname.ilike.%${rawQuery}%`)
+                .limit(20);
+
+            if (myToken !== _searchUsersToken) return; // llegó una búsqueda más nueva mientras esperábamos
+
+            if (error) {
+                resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Error al buscar usuarios.</p>';
+                return;
+            }
+
+            const filtered = (data || []).filter(u => u.id !== myId);
+
+            if (filtered.length === 0) {
+                resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se encontraron usuarios.</p>';
+                return;
+            }
+
+            resultsBox.innerHTML = filtered.map(u => `
+                <div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
+                        <div><strong style="font-size:0.85rem; display:block;">${u.fullname || 'Estudiante Nika'}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div>
+                    </div>
+                    <button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
+                </div>
+            `).join('');
         }
 
         function sendFriendRequest(targetUsername) {
@@ -2248,8 +2387,8 @@
             // Si estaba el placeholder de "no hay mensajes"/carga, lo limpiamos
             if (list.dataset.empty !== 'false') { list.innerHTML = ''; list.dataset.empty = 'false'; }
 
-            const nombre = row.profiles?.full_name || 'Estudiante Nika';
-            const avatar = row.profiles?.avatar_url || (typeof NikaSocial !== 'undefined' ? NikaSocial.DEFAULT_AVATAR : '');
+            const nombre = row.profiles?.fullname || 'Estudiante Nika';
+            const avatar = row.profiles?.avatar || (typeof NikaSocial !== 'undefined' ? NikaSocial.DEFAULT_AVATAR : '');
             const hora = row.created_at ? new Date(row.created_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) : '';
 
             const msgEl = document.createElement('div');
@@ -2333,7 +2472,7 @@
             }
 
             list.innerHTML = res.data.map(t => {
-                const autor = t.profiles?.full_name || 'Estudiante Nika';
+                const autor = t.profiles?.fullname || 'Estudiante Nika';
                 const fecha = t.created_at ? new Date(t.created_at).toLocaleDateString('es-AR') : '';
                 const cantRespuestas = Array.isArray(t.forum_replies) && t.forum_replies[0] ? t.forum_replies[0].count : 0;
                 return `
@@ -2360,7 +2499,7 @@
             const res = await NikaSocial.cargarRespuestasHilo(threadId);
             const repliesHtml = res.ok && res.data.length
                 ? res.data.map(r => {
-                    const autor = r.profiles?.full_name || 'Estudiante Nika';
+                    const autor = r.profiles?.fullname || 'Estudiante Nika';
                     const fecha = r.created_at ? new Date(r.created_at).toLocaleDateString('es-AR') : '';
                     return `<div style="font-size:0.82rem; padding:6px 0; border-bottom:1px solid var(--border);"><strong style="color:var(--nika-primary);">${autor}</strong> <span style="color:var(--text-muted); font-size:0.72rem;">${fecha}</span><div>${r.content}</div></div>`;
                 }).join('')
@@ -2421,8 +2560,8 @@
             list.innerHTML = '';
             res.data.forEach((u, index) => {
                 const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : '🏅'));
-                const nombre = u.profiles?.full_name || 'Estudiante Nika';
-                const avatar = u.profiles?.avatar_url || NikaSocial.DEFAULT_AVATAR;
+                const nombre = u.profiles?.fullname || 'Estudiante Nika';
+                const avatar = u.profiles?.avatar || NikaSocial.DEFAULT_AVATAR;
                 list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${avatar}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong style="font-size:0.85rem; display:block;">${nombre}</strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo_score} ELO</span></div>`;
             });
         }
@@ -2543,26 +2682,26 @@
     }
 
     async function cargarDirectorioUsuarios(currentUserId) {
-        if (typeof supabase === 'undefined') return;
+        if (!window.NikaSupabase || !window.NikaSupabase.client) return;
+        const supabase = window.NikaSupabase.client; // Usar el cliente correcto
+
         const { data, error } = await supabase
             .from('profiles')
             .select('*')
             .neq('id', currentUserId);
 
-        if (error) return;
-
         const grid = document.getElementById('global-users-grid');
         if (!grid) return;
 
-        if (!data || data.length === 0) {
+        if (error || !data || data.length === 0) {
             grid.innerHTML = `<p style="color: var(--text-muted); text-align: center; grid-column: 1/-1;">No hay otros estudiantes registrados todavía.</p>`;
             return;
         }
 
         grid.innerHTML = data.map(user => `
             <div class="module-card" style="padding: 24px; text-align: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;">
-                <img src="${user.avatar_url || 'assets/N%20NIKA.png'}" alt="Avatar" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 0 auto 12px auto; border: 2px solid var(--nika-primary); background: var(--bg-body);">
-                <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${user.full_name || 'Estudiante Nika'}</h4>
+                <img src="${user.avatar || 'assets/N%20NIKA.png'}" alt="Avatar" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 0 auto 12px auto; border: 2px solid var(--nika-primary); background: var(--bg-body);">
+                <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${user.fullname || 'Estudiante Nika'}</h4>
                 <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 16px; font-weight: 600;">${user.faculty || 'Facultad de Ciencias de la Salud UNER'}</span>
                 
                 <div style="display: flex; gap: 8px; justify-content: center;">
@@ -2573,8 +2712,55 @@
         `).join('');
     }
 
+    async function searchUsers() {
+        const query = document.getElementById('friend-search-input').value.trim().toLowerCase();
+        const resultsBox = document.getElementById('search-results-box');
+        if (!resultsBox) return;
+
+        if (query.length < 1) {
+            resultsBox.innerHTML = '';
+            return;
+        }
+
+        if (!window.NikaSupabase || !window.NikaSupabase.client) {
+            resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Error de conexión.</p>';
+            return;
+        }
+
+        const supabase = window.NikaSupabase.client; // Usar el cliente correcto
+        const { data: { user: currentUser } } = await supabase.auth.getUser();
+        if (!currentUser) return;
+
+        // Filtra por username o fullname usando ilike
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .neq('id', currentUser.id)
+            .or(`username.ilike.%${query}%,fullname.ilike.%${query}%`);
+
+        if (error || !data || data.length === 0) {
+            resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se encontraron usuarios.</p>';
+            return;
+        }
+
+        resultsBox.innerHTML = data.map(u => `
+            <div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <img src="${u.avatar || 'assets/N%20NIKA.png'}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
+                    <div>
+                        <strong style="font-size:0.85rem; display:block;">${u.fullname || 'Estudiante'}</strong>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">@${u.username || 'usuario'}</span>
+                    </div>
+                </div>
+                <button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
+            </div>
+        `).join('');
+    }
+
     async function enviarSolicitudAmistad(destinatarioId) {
-        if (typeof supabase === 'undefined') return;
+        if (!window.NikaSupabase || !window.NikaSupabase.client) return;
+        const supabase = window.NikaSupabase.client; // Usar el cliente correcto
+
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
             showToast("Debes iniciar sesión.");
@@ -2589,6 +2775,7 @@
         }]);
 
         if (error) {
+            console.error("Error enviando solicitud:", error);
             showToast("Error al enviar la solicitud.");
         } else {
             showToast("¡Solicitud de amistad enviada con éxito!");
@@ -2624,36 +2811,24 @@
             const btn = document.getElementById('dark-mode-btn');
             if (btn) btn.innerHTML = "☀️ Modo Claro";
         }
-        // Fase A.2 — cuando el usuario vuelve desde el link del mail de reset,
-        // Supabase parsea el token del hash de la URL automáticamente y dispara
-        // este evento con una sesión temporal ya activa. No hace falta leer el
-        // hash a mano: solo escuchamos el evento y abrimos el modal de nueva
-        // contraseña. Se registra antes de restaurarSesionSiExiste porque el
-        // evento puede dispararse apenas se crea el cliente de Supabase.
+        
         if (window.NikaSupabase?.onPasswordRecovery) {
             window.NikaSupabase.onPasswordRecovery(() => openResetPasswordModal());
         }
 
-        // Reemplaza la siembra de usuario admin en localStorage (ya no existe
-        // "nika_registered_users" — las cuentas viven en Supabase Auth). Si hay
-        // una sesión de Supabase activa (token persistido), la reconstruimos acá
-        // antes de pintar la UI, para que cambiar de pestaña o volver más tarde
-        // no te deslogueé.
         await window.NikaSupabase.restaurarSesionSiExiste();
-
         checkAuthState();
         initMockErratas();
         syncStudyProgress();
 
-        // Cargar datos sociales y escuchar Supabase en tiempo real si hay sesión activa
-        if (typeof supabase !== 'undefined') {
+        if (window.NikaSupabase && window.NikaSupabase.client) {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
+                const { data: { user } } = await window.NikaSupabase.client.auth.getUser();
                 if (user) {
                     cargarNotificaciones(user.id);
                     cargarDirectorioUsuarios(user.id);
 
-                    supabase
+                    window.NikaSupabase.client
                         .channel('public:notifications')
                         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications', filter: `user_id=eq.${user.id}` }, payload => {
                             cargarNotificaciones(user.id);
@@ -2663,6 +2838,15 @@
             } catch (e) {
                 console.log("Supabase init check:", e);
             }
+
+            window.NikaSupabase.client.auth.onAuthStateChange((event, session) => {
+                if (event === 'SIGNED_OUT') {
+                    localStorage.removeItem('nika_currentUser');
+                    checkAuthState();
+                } else if (event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
+                    window.NikaSupabase.restaurarSesionSiExiste().then(() => checkAuthState());
+                }
+            });
         }
 
         // Verificación de completitud del expediente médico
@@ -2683,7 +2867,7 @@
             const randomIndex = Math.floor(Math.random() * medicalQuotes.length);
             quoteElement.innerText = medicalQuotes[randomIndex];
         }
-    });
+    }); // <--- ESTE ES EL ÚNICO CIERRE CORRECTO
 
     // ================= BANNER DE EXPEDIENTE MÉDICO =================
     function verificarExpedienteMedico() {

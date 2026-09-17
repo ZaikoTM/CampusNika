@@ -106,6 +106,47 @@
         .content-left { flex: 1; min-width: 0; }
         .sidebar-right { width: 300px; position: sticky; top: 90px; flex-shrink: 0; }
 
+        /* ================= BUG #7: HEADER PISANDO CONTENIDO EN MOBILE =================
+           El navbar es sticky/fixed y en pantallas chicas su texto envuelve a dos
+           líneas, aumentando su altura real; como .container y .sidebar-right usaban
+           un offset fijo pensado para la altura de escritorio, el header terminaba
+           tapando la pregunta y la grilla de navegación numérica. */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                row-gap: 8px;
+                padding: 10px 16px;
+            }
+            .brand-title { font-size: 1.1rem; }
+            .navbar-actions { width: 100%; justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
+
+            /* Empuja todo el contenido por debajo del header real (que ahora puede
+               medir más de una línea) en vez de un margen fijo pensado para desktop. */
+            .container { margin-top: 16px; padding: 0 14px; }
+
+            .layout-exam { flex-direction: column; }
+
+            /* En mobile la sidebar deja de ser sticky (evita que vuelva a pisar
+               las preguntas al hacer scroll) y pasa a fluir debajo del contenido. */
+            .sidebar-right {
+                position: static;
+                top: auto;
+                width: 100%;
+            }
+
+            .card-body { padding: 16px; }
+            .card-header { padding: 14px 16px; font-size: 1.05rem; }
+
+            .nav-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+            .nav-grid button { min-height: 40px; }
+
+            .time-display { font-size: 2.2rem; }
+        }
+
+        @media (max-width: 420px) {
+            .nav-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
         /* Timer y Anti-Ansiedad */
         .timer-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; text-align: center; margin-bottom: 20px; padding: 20px; box-shadow: var(--shadow); position: relative; }
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -199,7 +240,7 @@
 
     <header class="navbar">
         <div>
-            <a href="index.html" class="brand-title">CAMPUS NIKA</a>
+            <a href="campus.html" class="brand-title">CAMPUS NIKA</a>
             <span class="brand-slogan">Estudia, competi, aprobá</span>
         </div>
         <div class="navbar-actions">
@@ -851,6 +892,65 @@
 
             renderReview('all');
             recordExamStatsLocally(finalScore, totalQuestions);
+            renderAssistantSuggestion();
+        }
+
+        // ================= ASISTENTE PROACTIVO POST-SIMULACRO =================
+        // Se ejecuta SOLO al terminar (nunca durante el examen). Detecta si el
+        // alumno falló 2 o 3 preguntas SEGUIDAS de la misma Unidad Problema
+        // (en el orden real en que las respondió) y sugiere un repaso puntual.
+        function renderAssistantSuggestion() {
+            let existingBox = document.getElementById('assistant-suggestion-box');
+            if (existingBox) existingBox.remove();
+
+            const rachas = []; // rachas de fallos consecutivos por UP
+            let rachaActualUp = null;
+            let rachaActualLen = 0;
+
+            currentExam.forEach((q, idx) => {
+                const failed = userAnswers[idx] !== q.correct; // sin responder también cuenta como fallo
+                if (failed && q.up === rachaActualUp) {
+                    rachaActualLen++;
+                } else if (failed) {
+                    rachaActualUp = q.up;
+                    rachaActualLen = 1;
+                } else {
+                    rachaActualUp = null;
+                    rachaActualLen = 0;
+                }
+                if (failed && rachaActualLen >= 2) {
+                    rachas.push({ up: rachaActualUp, len: rachaActualLen });
+                }
+            });
+
+            if (rachas.length === 0) return; // nada que sugerir
+
+            // Nos quedamos con la racha más larga detectada (si empataron, la primera)
+            const peor = rachas.reduce((a, b) => (b.len > a.len ? b : a), rachas[0]);
+
+            const box = document.createElement('div');
+            box.id = 'assistant-suggestion-box';
+            box.style.cssText = 'margin-top:20px; padding:18px 20px; border-radius:12px; background:rgba(2,132,199,0.06); border:1px solid rgba(2,132,199,0.25); display:flex; gap:14px; align-items:flex-start;';
+            box.innerHTML = `
+                <div style="font-size:1.6rem;">🤖</div>
+                <div>
+                    <strong style="display:block; margin-bottom:4px; color:var(--nika-dark);">Sugerencia del Asistente Nika</strong>
+                    <p style="font-size:0.9rem; color:var(--text-main); margin-bottom:10px;">
+                        Fallaste ${peor.len} preguntas seguidas de <strong>UP ${peor.up}</strong>. Antes de seguir avanzando,
+                        te conviene repasar los puntos clave de esa unidad.
+                    </p>
+                    <button class="btn btn-primary" style="padding:8px 16px; font-size:0.85rem;" onclick="window.location.href='examen.html?mode=up_especifica&up=${peor.up}'">
+                        Repasar UP ${peor.up} 📘
+                    </button>
+                </div>
+            `;
+
+            const resultsHeader = document.querySelector('.results-header');
+            if (resultsHeader && resultsHeader.parentNode) {
+                resultsHeader.parentNode.insertBefore(box, resultsHeader.nextSibling);
+            } else {
+                document.getElementById('result-screen').appendChild(box);
+            }
         }
 
         // ================= ACTUALIZACIÓN DEL DASHBOARD =================

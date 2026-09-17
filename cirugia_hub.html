@@ -178,5 +178,35 @@
         <div><strong>Campus Nika</strong> — Módulo de Cirugía | Estudia, competi, aprobá.</div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Guardián de seguridad: Si no hay sesión iniciada, lo mandamos al index.
+            const rawUser = localStorage.getItem('nika_currentUser');
+            if (!rawUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // 2. Registro de visita al módulo (para que la tarjeta del Campus lo detecte si no hay un avance más específico)
+            try {
+                const activeUser = JSON.parse(rawUser);
+                const userSuffix = activeUser.username || 'invitado';
+                
+                // Leemos si el usuario ya tiene un progreso específico (ej: UP3 - 45%). Si NO tiene nada guardado...
+                const lastProgress = localStorage.getItem(`nika_last_study_progress_${userSuffix}`);
+                if (!lastProgress) {
+                    // ...le guardamos al menos que visitó el Hub general.
+                    localStorage.setItem(`nika_last_study_progress_${userSuffix}`, JSON.stringify({
+                        modulo: 'Cirugía',
+                        up: 'Menú Principal',
+                        porcentaje: 0,
+                        url: 'cirugia_hub.html'
+                    }));
+                }
+            } catch(e) {
+                console.error("Error al registrar visita al hub:", e);
+            }
+        });
+    </script>
 </body>
 </html>
