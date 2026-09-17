@@ -1095,8 +1095,12 @@
 
         // Cancelar examen con confirmación
         function confirmarCancelacionExamen() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isDemo = urlParams.get('mode') === 'demo';
+
             if (confirm("¿Estás seguro de que querés cancelar el examen? Se perderá el progreso actual y no se guardará la nota.")) {
-                window.location.href = 'campus.html'; 
+                // Si es modo demo redirige al index, de lo contrario al campus
+                window.location.href = isDemo ? 'index.html' : 'campus.html'; 
             }
         }
 
@@ -1125,6 +1129,42 @@
             selectMode, startQuiz, submitQuiz, confirmSubmit, nextQuestion, prevQuestion, goToQuestion,
             toggleFlag, toggleNotes, saveNote, openHelpModal, closeHelpModal, openReportModal,
             closeReportModal, submitReport, triggerConfetti, confirmarCancelacionExamen, toggleRevisionDetallada
+        });
+
+        // ==========================================
+        // BLINDAJE MODO DEMO: Interceptar navegación
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isDemo = urlParams.get('mode') === 'demo';
+
+            if (isDemo) {
+                document.body.addEventListener('click', (e) => {
+                    const target = e.target.closest('a, button');
+                    if (!target) return;
+
+                    const buttonText = target.textContent.trim();
+
+                    // 1. Bloquear botón "Repasar UP" con Alerta
+                    if (buttonText.includes('Repasar UP')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        alert('¡Atención! Para acceder a los repasos detallados y al material de estudio debés registrarte o iniciar sesión.');
+                        window.location.href = 'index.html';
+                        return;
+                    }
+
+                    // 2. Redirigir botones de salida directo al index
+                    if (buttonText.includes('Volver al Inicio') || 
+                        buttonText.includes('Menú Cirugía') || 
+                        buttonText.includes('Salir de la Demo')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = 'index.html';
+                        return;
+                    }
+                }, true); // Fase de captura: se ejecuta antes que cualquier otra función
+            }
         });
     </script>
 </body>
