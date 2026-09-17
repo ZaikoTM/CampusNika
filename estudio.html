@@ -3,1107 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Nika | Módulo de Estudio - Cirugía</title>
+    <title>Campus Nika | Suite de Estudio</title>
+
     <!-- Google Fonts: Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/productividad.css">
+
     <style>
         :root {
             --nika-primary: #0284c7;
             --nika-dark: #0f172a;
             --nika-accent: #38bdf8;
-            --bg-body: #f8fafc;
+            --bg-body: #f1f5f9;
+            --bg-page: #f8fafc;
             --border: #e2e8f0;
             --text-main: #0f172a;
             --text-muted: #64748b;
+            --text-dim: #94a3b8;
             --success: #16a34a;
+            --success-light: #dcfce7;
+            --warning: #ca8a04;
+            --warning-light: #fef9c3;
             --card-bg: #ffffff;
-            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
-            --pomo-bg: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
-            --pomo-border: #bae6fd;
+            --radius-card: 16px;
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+            --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
         }
 
-        /* ================= NAVBAR SUPERIOR ================= */
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; }
+
+        /* ================= NAVBAR ================= */
         .navbar {
-            background-color: var(--nika-dark);
-            padding: 15px 35px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
         }
-
-        .brand-title { font-size: 1.35rem; font-weight: 800; color: #ffffff; text-decoration: none; }
-        .brand-slogan { font-size: 0.72rem; color: var(--nika-accent); text-transform: uppercase; letter-spacing: 1px; display: block; }
-        
-        .navbar-actions { display: flex; align-items: center; gap: 12px; }
-
-        .btn-toggle-panel {
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--nika-accent);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.82rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
+        .brand-title {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 1.25rem; font-weight: 800; color: var(--nika-dark);
         }
-        .btn-toggle-panel:hover { background: var(--nika-primary); color: white; }
+        .brand-title .brand-mark {
+            width: 34px; height: 34px; border-radius: 9px;
+            background: linear-gradient(135deg, rgba(2,132,199,0.12) 0%, rgba(56,189,248,0.12) 100%);
+            border: 1px solid rgba(2,132,199,0.25);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .brand-title .brand-mark svg { width: 18px; height: 18px; color: var(--nika-primary); }
+        .brand-slogan { display: block; font-size: 0.7rem; color: var(--nika-primary); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
 
         .btn-back {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn-back:hover { background: rgba(255, 255, 255, 0.25); }
-
-        /* ================= LAYOUT CON SIDEBAR ================= */
-        .app-layout {
-            display: flex;
-            flex: 1;
-            position: relative;
-        }
-
-        /* Barra Lateral Izquierda: Tono Celeste Suave */
-        .pomodoro-sidebar {
-            width: 320px;
-            background: var(--pomo-bg);
-            color: var(--text-main);
-            position: fixed;
-            top: 65px;
-            left: 0;
-            bottom: 0;
-            z-index: 900;
-            box-shadow: 4px 0 20px rgba(2, 132, 199, 0.08);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            border-right: 1px solid var(--pomo-border);
-        }
-
-        .pomodoro-sidebar.collapsed {
-            transform: translateX(-100%);
-        }
-
-        .pomo-header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .pomo-brand { font-size: 0.85rem; font-weight: 800; color: #0369a1; text-transform: uppercase; letter-spacing: 1px; }
-
-        .btn-close-sidebar {
-            background: #ffffff;
-            border: 1px solid var(--pomo-border);
-            color: #0369a1;
-            padding: 5px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.75rem;
-        }
-        .btn-close-sidebar:hover { background: #e0f2fe; }
-
-        .pomo-tabs {
-            display: flex;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid var(--pomo-border);
-            border-radius: 8px;
-            padding: 3px;
-            margin-bottom: 12px;
-        }
-        .pomo-tab {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #64748b;
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 7px 0;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .pomo-tab.active { background: var(--nika-primary); color: white; box-shadow: 0 2px 6px rgba(2,132,199,0.2); }
-
-        .pomodoro-timer {
-            font-size: 2.8rem;
-            font-weight: 900;
-            font-family: monospace;
-            text-align: center;
-            margin: 4px 0 10px 0;
-            color: #0c4a6e;
-            letter-spacing: -1px;
-        }
-
-        .pomo-task-input {
-            width: 100%;
-            background: #ffffff;
-            border: 1px solid var(--pomo-border);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--text-main);
-            font-size: 0.82rem;
-            outline: none;
-            margin-bottom: 12px;
-            font-family: inherit;
-        }
-        .pomo-task-input::placeholder { color: #94a3b8; }
-        .pomo-task-input:focus { border-color: var(--nika-primary); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
-
-        .pomodoro-controls { display: flex; gap: 8px; justify-content: center; margin-bottom: 15px; }
-        .pomo-btn { padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 0.82rem; cursor: pointer; border: none; }
-        .btn-start { background: var(--nika-primary); color: white; }
-        .btn-reset { background: #ffffff; color: #475569; border: 1px solid var(--pomo-border); }
-        .btn-settings { background: #ffffff; color: #0284c7; border: 1px solid var(--pomo-border); padding: 4px 8px; font-size: 0.72rem; border-radius: 4px; }
-
-        .pomo-settings {
-            display: none;
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 14px;
-            font-size: 0.78rem;
-            border: 1px solid var(--pomo-border);
-        }
-        .pomo-settings.open { display: block; }
-        .settings-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .settings-row input { width: 48px; background: #f8fafc; border: 1px solid var(--border); color: var(--text-main); text-align: center; border-radius: 4px; padding: 3px; }
-
-        /* Métricas seleccionables */
-        .stats-selector-tabs {
-            display: flex;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid var(--pomo-border);
-            padding: 3px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-        }
-        .stats-tab {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #64748b;
-            font-size: 0.68rem;
-            font-weight: 700;
-            padding: 5px 0;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-        .stats-tab.active { background: #e0f2fe; color: #0369a1; }
-
-        .stat-display-box {
-            background: #ffffff;
-            border: 1px solid var(--pomo-border);
-            border-radius: 8px;
-            padding: 8px;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        .stat-display-box span { font-size: 0.68rem; text-transform: uppercase; color: #64748b; font-weight: 600; }
-        .stat-display-box strong { font-size: 1.25rem; color: #0369a1; display: block; }
-
-        /* Heatmap Dinámico de 30 días */
-        .heatmap-container { border-top: 1px solid var(--pomo-border); padding-top: 10px; margin-bottom: 15px; }
-        .heatmap-header { display: flex; justify-content: space-between; font-size: 0.68rem; color: #64748b; margin-bottom: 6px; font-weight: 600; }
-        .heatmap-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
-        .heatmap-cell { width: 100%; aspect-ratio: 1; border-radius: 3px; background: #e2e8f0; }
-        .heatmap-cell.level-green  { background: #16a34a; }
-        .heatmap-cell.level-yellow { background: #eab308; }
-        .heatmap-cell.level-orange { background: #f97316; }
-        .heatmap-cell.level-red    { background: #ef4444; }
-
-        /* Historial de Temas */
-        .topics-log-accordion {
-            background: #ffffff;
-            border: 1px solid var(--pomo-border);
-            border-radius: 8px;
-            overflow: hidden;
-            font-size: 0.78rem;
-        }
-        .topics-log-accordion summary {
-            padding: 8px 12px;
-            font-weight: 700;
-            color: #0369a1;
-            cursor: pointer;
-            user-select: none;
-            background: #f8fafc;
-        }
-        .topics-log-list {
-            padding: 10px 12px;
-            max-height: 140px;
-            overflow-y: auto;
-            list-style: none;
-        }
-        .topics-log-item {
-            padding: 5px 0;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            color: #334155;
-        }
-        .topics-log-item:last-child { border-bottom: none; }
-
-        /* ================= CONTENEDOR PRINCIPAL DERECHO ================= */
-        .main-content-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin-left: 320px;
-            min-width: 0;
-            transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .main-content-area.expanded { margin-left: 0; }
-
-        .container {
-            max-width: 1250px;
-            margin: 35px auto;
-            padding: 0 35px;
-            flex: 1;
-            width: 100%;
-        }
-
-        /* Tarjeta Introductoria */
-        .study-intro-card {
-            background: var(--card-bg);
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--card-bg); color: var(--text-main);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 25px;
+            padding: 9px 18px; border-radius: 8px;
+            font-weight: 700; font-size: 0.85rem;
+            transition: var(--transition-base);
         }
+        .btn-back:hover { border-color: var(--nika-primary); color: var(--nika-primary); box-shadow: var(--shadow); }
+        .btn-back svg { width: 16px; height: 16px; }
 
-        .study-intro-card h1 { font-size: 1.8rem; color: var(--nika-dark); margin-bottom: 8px; font-weight: 800; }
-        .study-intro-desc { color: var(--text-muted); font-size: 0.96rem; margin-bottom: 20px; line-height: 1.6; }
+        /* ================= LAYOUT GENERAL ================= */
+        .app-container { max-width: 1200px; margin: 0 auto; padding: 40px 5% 80px 5%; }
 
-        .progress-container { background: #e2e8f0; border-radius: 99px; height: 12px; width: 100%; overflow: hidden; margin-bottom: 6px; }
-        .progress-bar { background: var(--success); height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 99px; }
-        .progress-stats { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: var(--text-muted); }
-
-        /* Buscador e instrucción */
-        .search-box { margin-bottom: 25px; }
-        .search-input {
-            width: 100%;
-            padding: 14px 20px;
-            font-size: 0.95rem;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            outline: none;
-            background: var(--card-bg);
-            color: var(--text-main);
-            box-shadow: var(--shadow);
-            transition: all 0.2s;
-            font-family: inherit;
+        /* ================= HERO / ENCABEZADO CON TONALIDAD OSCURA ================= */
+        .suite-hero {
+            background: linear-gradient(135deg, #020617 0%, #0f172a 60%, #0369a1 100%);
+            border-radius: var(--radius-card);
+            padding: 36px 40px;
+            color: #fff;
+            margin-bottom: 32px;
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.2);
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
-        .search-input:focus { border-color: var(--nika-primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
-        .instruction-subtitle {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--nika-primary);
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .suite-hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 8px; color: #fff; }
+        .suite-hero p { color: #bae6fd; font-size: 0.95rem; margin-bottom: 22px; line-height: 1.5; }
 
-        /* ================= GRILLA DE UPs ================= */
-        #ups-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
-            gap: 22px;
-            align-items: start;
+        /* ================= BUSCADOR ================= */
+        .search-bar-wrap { position: relative; max-width: 100%; }
+        .search-bar-wrap svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #94a3b8; pointer-events: none; }
+        #search-up-input {
+            width: 100%; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 10px; padding: 13px 16px 13px 46px; color: #fff;
+            font-family: inherit; font-size: 0.9rem; transition: var(--transition-base);
+            backdrop-filter: blur(8px);
         }
+        #search-up-input:focus { outline: none; border-color: var(--nika-accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2); }
+        #search-up-input::placeholder { color: #94a3b8; }
 
-        @media (max-width: 900px) {
-            #ups-container { grid-template-columns: 1fr; }
-        }
+        /* ================= BENTO GRID DE UNIDADES ================= */
+        .up-bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
 
         .up-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: var(--radius-card); padding: 26px;
+            cursor: pointer; transition: var(--transition-base);
+            display: flex; flex-direction: column; gap: 14px;
+            position: relative; overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-self: start;
+        }
+        .up-card:hover { transform: translateY(-4px); border-color: var(--nika-primary); box-shadow: 0 16px 32px -10px rgba(2,132,199,0.18); }
+
+        .up-card-top { display: flex; align-items: center; justify-content: space-between; }
+        .up-card-number {
+            font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--nika-primary); background: rgba(2,132,199,0.08);
+            padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(2,132,199,0.2);
+        }
+        .up-card-icon { width: 20px; height: 20px; color: var(--text-dim); transition: var(--transition-base); }
+        .up-card:hover .up-card-icon { color: var(--nika-primary); transform: translateX(3px); }
+
+        .up-card-title { font-size: 1.02rem; font-weight: 800; color: var(--nika-dark); line-height: 1.4; }
+        .up-card-meta { display: flex; gap: 14px; font-size: 0.78rem; color: var(--text-muted); }
+        .up-card-meta span { display: inline-flex; align-items: center; gap: 5px; }
+        .up-card-meta svg { width: 13px; height: 13px; }
+
+        .up-empty-state {
+            grid-column: 1 / -1; text-align: center; padding: 60px 20px;
+            color: var(--text-muted); font-size: 0.9rem;
         }
 
-        /* Colores pasteles suaves */
-        .up-card:nth-child(1)  { border-left: 6px solid #93c5fd; }
-        .up-card:nth-child(2)  { border-left: 6px solid #86efac; }
-        .up-card:nth-child(3)  { border-left: 6px solid #fde047; }
-        .up-card:nth-child(4)  { border-left: 6px solid #fca5a5; }
-        .up-card:nth-child(5)  { border-left: 6px solid #d8b4fe; }
-        .up-card:nth-child(6)  { border-left: 6px solid #fdba74; }
-        .up-card:nth-child(7)  { border-left: 6px solid #5eead4; }
-        .up-card:nth-child(8)  { border-left: 6px solid #f472b6; }
-        .up-card:nth-child(9)  { border-left: 6px solid #cbd5e1; }
-        .up-card:nth-child(10) { border-left: 6px solid #a5f3fc; }
-        .up-card:nth-child(11) { border-left: 6px solid #fed7aa; }
-
-        .up-card:hover { transform: translateY(-2px); box-shadow: 0 12px 25px -8px rgba(0,0,0,0.1); }
-
-        .up-header {
-            padding: 18px 22px;
-            background: var(--card-bg);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-            border-bottom: 1px solid transparent;
+        /* ================= VISTA DETALLE UP ================= */
+        .up-detail-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+        .btn-back-dashboard {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted);
+            padding: 9px 16px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer;
+            transition: var(--transition-base); margin-bottom: 18px;
         }
+        .btn-back-dashboard:hover { border-color: var(--nika-primary); color: var(--nika-primary); }
+        .btn-back-dashboard svg { width: 15px; height: 15px; }
 
-        .up-card:has(.up-content.open) .up-header { border-bottom-color: var(--border); }
+        .up-detail-title-block .up-card-number { margin-bottom: 10px; display: inline-block; }
+        .up-detail-title-block h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: 900; letter-spacing: -0.5px; color: var(--nika-dark); }
 
-        .up-title-area h3 { font-size: 1.02rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 2px; }
-        .up-title-area span { font-size: 0.78rem; color: var(--text-muted); }
+        /* Layout: contenido principal + panel lateral */
+        .up-detail-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+        @media (max-width: 900px) { .up-detail-layout { grid-template-columns: 1fr; } }
 
-        .up-badge { font-size: 0.75rem; padding: 3px 10px; border-radius: 20px; font-weight: 700; background: #e2e8f0; color: var(--text-muted); }
-
-        .up-content {
-            padding: 18px 22px;
-            background: rgba(248, 250, 252, 0.6);
-            display: none;
+        /* Tabs */
+        .up-tabs-strip { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; }
+        .up-tabs-strip::-webkit-scrollbar { display: none; }
+        .up-tab-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            padding: 12px 18px; font-weight: 700; font-size: 0.88rem; cursor: pointer;
+            border-bottom: 2px solid transparent; white-space: nowrap; transition: var(--transition-base);
+            display: inline-flex; align-items: center; gap: 7px;
         }
+        .up-tab-btn svg { width: 16px; height: 16px; }
+        .up-tab-btn:hover { color: var(--nika-dark); }
+        .up-tab-btn.active { color: var(--nika-primary); border-bottom-color: var(--nika-primary); }
 
-        .up-content.open { display: block; }
-        .up-content h4 { font-size: 0.78rem; font-weight: 800; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .up-tab-panel { display: none; animation: fadeInPanel 0.3s ease; }
+        .up-tab-panel.active { display: block; }
+        @keyframes fadeInPanel { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        .checklist-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 8px 0;
-            font-size: 0.88rem;
-            cursor: pointer;
-            border-bottom: 1px dashed var(--border);
+        .content-block { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 24px; margin-bottom: 18px; box-shadow: var(--shadow); }
+        .content-block h3 { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--nika-primary); margin-bottom: 16px; }
+        .content-block ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .content-block li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--text-main); line-height: 1.5; }
+        .content-block li svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 3px; color: var(--success); }
+
+        .biblio-chip-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .biblio-chip { background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .biblio-chip svg { width: 14px; height: 14px; color: var(--text-dim); }
+
+        /* Material de estudio: lista de recursos */
+        .resource-list { display: flex; flex-direction: column; gap: 10px; }
+        .resource-item {
+            display: flex; align-items: center; gap: 14px;
+            background: var(--bg-page); border: 1px solid var(--border); border-radius: 10px;
+            padding: 14px 16px; transition: var(--transition-base);
         }
-        .checklist-item:last-child { border-bottom: none; }
-        .checklist-item input[type="checkbox"] { margin-top: 3px; transform: scale(1.1); cursor: pointer; accent-color: var(--nika-primary); }
-        .checklist-item.completed span { text-decoration: line-through; color: var(--text-muted); opacity: 0.7; }
-
-        /* Toast */
-        #toast {
-            position: fixed; bottom: 30px; right: 30px;
-            background: var(--nika-dark); color: white;
-            padding: 14px 24px; border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            font-weight: 700; font-size: 0.9rem;
-            transform: translateY(100px); opacity: 0;
-            transition: all 0.3s ease; z-index: 2000;
+        .resource-item:hover { border-color: var(--nika-primary); background: #fff; box-shadow: var(--shadow); }
+        .resource-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .resource-icon svg { width: 18px; height: 18px; }
+        .resource-icon.icon-pdf { background: rgba(220,38,38,0.1); color: #dc2626; }
+        .resource-icon.icon-resumen { background: rgba(2,132,199,0.1); color: var(--nika-primary); }
+        .resource-icon.icon-apunte { background: var(--warning-light); color: var(--warning); }
+        .resource-icon.icon-video { background: var(--success-light); color: var(--success); }
+        .resource-info { flex: 1; min-width: 0; }
+        .resource-info h5 { font-size: 0.88rem; font-weight: 700; color: var(--nika-dark); margin-bottom: 2px; }
+        .resource-info span { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+        .resource-open-btn {
+            flex-shrink: 0; background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+            width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            transition: var(--transition-base);
         }
-        #toast.show { transform: translateY(0); opacity: 1; }
+        .resource-item:hover .resource-open-btn { border-color: var(--nika-primary); color: var(--nika-primary); }
+        .resource-open-btn svg { width: 15px; height: 15px; }
 
-        .footer {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border);
-            color: var(--text-muted); padding: 20px 30px;
-            text-align: center; font-size: 0.82rem; margin-top: auto;
-        }
-        .footer span { color: var(--nika-primary); font-weight: 700; }
+        .placeholder-panel { text-align: center; padding: 50px 20px; color: var(--text-muted); font-size: 0.88rem; }
+
+        /* Panel lateral: Bloc de Notas + Pomodoro */
+        .side-panel { display: flex; flex-direction: column; gap: 18px; position: sticky; top: 90px; }
+        .side-panel-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow); }
+        .side-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .side-panel-header h4 { font-size: 0.82rem; font-weight: 800; color: var(--nika-dark); display: flex; align-items: center; gap: 8px; }
+        .side-panel-header h4 svg { width: 16px; height: 16px; color: var(--nika-primary); }
+        .side-panel-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--warning); background: var(--warning-light); border: 1px solid rgba(202,138,4,0.25); padding: 3px 9px; border-radius: 20px; }
+
+        #notas-placeholder, #pomodoro-placeholder { min-height: 120px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-muted); font-size: 0.8rem; border: 1px dashed var(--border); border-radius: 10px; padding: 16px; background: var(--bg-page); }
+
+        /* ================= UTILIDADES ================= */
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR SUPERIOR -->
     <header class="navbar">
-        <div>
-            <a href="index.html" class="brand-title">CAMPUS NIKA</a>
-            <span class="brand-slogan">Estudia, competi, aprobá</span>
-        </div>
-        <div class="navbar-actions">
-            <button class="btn-toggle-panel" onclick="togglePomodoroSidebar()">⏱️ Panel Pomodoro</button>
-            <a href="cirugia_hub.html" class="btn-back">← Volver al Menú de Cirugía</a>
-        </div>
+        <a href="campus.html" class="brand-title">
+            <span class="brand-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </span>
+            <span>
+                CAMPUS NIKA
+                <span class="brand-slogan">Suite de Estudio</span>
+            </span>
+        </a>
+        <a href="campus.html" class="btn-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Volver al Campus
+        </a>
     </header>
 
-    <div class="app-layout">
-        <!-- ================= BARRA LATERAL IZQUIERDA: TONO CELESTE SUAVE ================= -->
-        <aside class="pomodoro-sidebar" id="pomoSidebar">
-            <div>
-                <div class="pomo-header-top">
-                    <span class="pomo-brand">⏱️ Pomodoro Pro</span>
-                    <div style="display: flex; gap: 6px;">
-                        <button class="pomo-btn btn-settings" onclick="togglePomoSettings()">⚙️ Ajustes</button>
-                        <button class="btn-close-sidebar" onclick="togglePomodoroSidebar()">✖</button>
-                    </div>
-                </div>
+    <main class="app-container">
 
-                <!-- Pestañas de Modo -->
-                <div class="pomo-tabs">
-                    <button class="pomo-tab active" id="tab-work" onclick="setPomoMode('work')">Foco (60m)</button>
-                    <button class="pomo-tab" id="tab-shortBreak" onclick="setPomoMode('shortBreak')">Corto (25m)</button>
-                    <button class="pomo-tab" id="tab-longBreak" onclick="setPomoMode('longBreak')">Largo (45m)</button>
-                </div>
-
-                <!-- Tarea Activa -->
-                <input type="text" id="pomo-task" class="pomo-task-input" placeholder="Tema en estudio (ej. UP2 Abdomen Agudo)">
-
-                <!-- Reloj -->
-                <div class="pomodoro-timer" id="pomo-display">60:00</div>
-
-                <!-- Controles -->
-                <div class="pomodoro-controls">
-                    <button class="pomo-btn btn-start" id="pomo-toggle" onclick="togglePomodoro()">Iniciar</button>
-                    <button class="pomo-btn btn-reset" onclick="resetPomodoro()">Reiniciar</button>
-                </div>
-
-                <!-- Configuración desplegable -->
-                <div class="pomo-settings" id="pomo-settings-panel">
-                    <div class="settings-row">
-                        <span>Foco (min):</span>
-                        <input type="number" id="cfg-work" value="60" min="1" max="180" onchange="saveCustomTimes()">
-                    </div>
-                    <div class="settings-row">
-                        <span>Corto (min):</span>
-                        <input type="number" id="cfg-short" value="25" min="1" max="90" onchange="saveCustomTimes()">
-                    </div>
-                    <div class="settings-row">
-                        <span>Largo (min):</span>
-                        <input type="number" id="cfg-long" value="45" min="1" max="120" onchange="saveCustomTimes()">
-                    </div>
+        <!-- ================= VISTA: DASHBOARD (LISTADO DE UP) ================= -->
+        <div id="view-dashboard">
+            <div class="suite-hero">
+                <h1 id="dashboard-title">Sala de Estudio · Cirugía</h1>
+                <p>Programa completo de la cátedra — elegí una Unidad Problema para revisar objetivos, contenidos, bibliografía y material de repaso.</p>
+                <div class="search-bar-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="search-up-input" placeholder="Buscar Unidad Problema por título o palabra clave..." oninput="filterUnits(this.value)">
                 </div>
             </div>
 
-            <div>
-                <!-- Selector de Registros -->
-                <div class="stats-selector-tabs">
-                    <button class="stats-tab active" id="stat-tab-daily" onclick="switchStatsView('daily')">Diario</button>
-                    <button class="stats-tab" id="stat-tab-weekly" onclick="switchStatsView('weekly')">Semanal</button>
-                    <button class="stats-tab" id="stat-tab-monthly" onclick="switchStatsView('monthly')">30 Días</button>
-                </div>
-
-                <div class="stat-display-box">
-                    <span id="stat-label-title">Bloques Completados (Hoy)</span>
-                    <strong id="stat-main-value">0</strong>
-                </div>
-
-                <!-- Heatmap Dinámico de 30 Días -->
-                <div class="heatmap-container">
-                    <div class="heatmap-header">
-                        <span>Actividad (30d)</span>
-                        <span id="pomo-total-historical">Total: 0</span>
-                    </div>
-                    <div class="heatmap-grid" id="pomo-heatmap"></div>
-                </div>
-
-                <!-- Casilla Desplegable: Historial de Temas -->
-                <details class="topics-log-accordion" style="margin-top: 10px;">
-                    <summary>📚 Historial de Temas</summary>
-                    <ul class="topics-log-list" id="topics-log-list">
-                        <li style="color:#64748b; font-style:italic;">No hay sesiones registradas aún.</li>
-                    </ul>
-                </details>
+            <div class="up-bento-grid" id="up-bento-grid">
+                <!-- Las 11 tarjetas de UP se inyectan dinámicamente vía JS -->
+                <div class="up-empty-state">Cargando unidades de estudio...</div>
             </div>
-        </aside>
-
-        <!-- ================= CONTENEDOR PRINCIPAL DERECHO ================= -->
-        <div class="main-content-area" id="mainContentArea">
-            <main class="container">
-                
-                <!-- TARJETA INTRODUCTORIA -->
-                <div class="study-intro-card">
-                    <h1>Programa de Estudio: Cirugía</h1>
-                    <p class="study-intro-desc">
-                        Escriba o repase los núcleos conceptuales y procedimentales de la asignatura. Este espacio integra las <strong>11 Unidades Problema (UPs)</strong> oficiales de la cátedra de Cirugía General, diseñadas para fortalecer el juicio clínico, la semiología quirúrgica y la toma de decisiones basada en evidencias científicas de alto nivel para el estudiante de medicina de 5.° año (UNER)[cite: 1].
-                    </p>
-
-                    <div class="progress-container">
-                        <div class="progress-bar" id="global-progress"></div>
-                    </div>
-                    <div class="progress-stats">
-                        <span id="progress-text">Progreso global: 0% completado</span>
-                        <span id="items-count">0 / 0 ítems estudiados</span>
-                    </div>
-                </div>
-
-                <!-- BUSCADOR E INSTRUCCIÓN -->
-                <div class="search-box">
-                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar temas, patologías o contenidos en el programa (ej. Apendicitis, Heridas, Hernias)..." onkeyup="filterContent()">
-                    <div class="instruction-subtitle">📌 Marca tu progreso de estudio de cada unidad</div>
-                </div>
-
-                <!-- GRILLA DE UPs -->
-                <div id="ups-container">
-                    <!-- Inyectado por JavaScript -->
-                </div>
-
-            </main>
-
-            <div id="toast">✅ ¡Unidad completada con éxito! Excelente avance.</div>
-
-            <footer class="footer">
-                <div><strong>Campus Nika</strong> — Módulo Teórico de Estudio | <span>Estudia, competi, aprobá.</span></div>
-            </footer>
         </div>
-    </div>
 
-    <script>
-        // DATOS DE LAS 11 UNIDADES PROBLEMA DE CIRUGÍA
-        const surgicalUnits = [
-            {
-                id: "up1",
-                title: "UP 1: Trauma de miembro superior en el adulto joven",
-                subtitle: "Generalidades, Anestesia, Heridas, Quirófano y Ortopedia Básica",
-                items: [
-                    "Cirugía: Definición, nomenclatura quirúrgica y acto quirúrgico.",
-                    "Asepsis, antisepsia, normas de bioseguridad y quirófano.",
-                    "Instrumental quirúrgico básico (diéresis, prehensión, hemostasia, separación, síntesis).",
-                    "Materiales de sutura y clasificación de heridas (limpias, contaminadas, sucias).",
-                    "Anestesia: Tipos (local, regional, raquídea, general) y drogas utilizadas.",
-                    "Preoperatorio: Valoración del riesgo quirúrgico (ASA) y consentimiento informado.",
-                    "Post-operatorio: Vigilancia estricta, complicaciones frecuentes y alta.",
-                    "Biología de la herida: Cicatrización (fases) y cicatrices patológicas (queloide/hipertrófica).",
-                    "Ortopedia y Traumatología: Fracturas, luxaciones y biología de la consolidación.",
-                    "Materiales de osteosíntesis, yesos y traumatismos de miembros superiores."
-                ]
-            },
-            {
-                id: "up2",
-                title: "UP 2: Evaluación del abdomen agudo",
-                subtitle: "Claves clínicas, diagnósticas y terapéuticas",
-                items: [
-                    "Abdomen agudo: Definición y clasificación clínica (inflamatorio, perforativo, peritonítico, obstructivo, vascular).",
-                    "Fisiología y fisiopatología del dolor abdominal (visceral, somático y referido).",
-                    "Síndrome doloroso en fosa ilíaca derecha y diagnósticos diferenciales.",
-                    "Apendicitis aguda: Clínica, evolución, complicaciones (plastrón, absceso) y tumores del apéndice.",
-                    "Métodos complementarios por imágenes en el abdomen agudo.",
-                    "Estrés preoperatorio, impacto emocional, adaptación y riesgo psicológico quirúrgico."
-                ]
-            },
-            {
-                id: "up3",
-                title: "UP 3: Evaluación integral de la disfagia",
-                subtitle: "Síntomas digestivos y patología esofagogástrica",
-                items: [
-                    "Disfagia: Causas orgánicas y funcionales.",
-                    "Hemorragia digestiva alta (HDA): Causas, diagnóstico y abordaje inicial.",
-                    "Patología benigna esofágica: Esofagitis, acalasia, divertículo de Zenker y ERGE / Esófago de Barrett.",
-                    "Patología gástrica benigna: Úlcera péptica, gastritis y hernias hiatales.",
-                    "Cáncer esofágico y gástrico: Factores de riesgo, clínica y tratamiento.",
-                    "Patología del estómago operado (Síndrome de Dumping y asa aferente).",
-                    "Estudios complementarios: Endoscopia y manometría esofágica."
-                ]
-            },
-            {
-                id: "up4",
-                title: "UP 4: Enfermedad colorrectal en el adulto mayor",
-                subtitle: "Colon, recto y ano",
-                items: [
-                    "Anatomía, fisiología y semiología del colon. Hemorragia digestiva baja (HDB).",
-                    "Enfermedad diverticular: Diverticulosis, diverticulitis y complicaciones.",
-                    "Enfermedades inflamatorias intestinales (Colitis ulcerosa y Crohn).",
-                    "Patología neoplásica del colon y grupos de riesgo (screening).",
-                    "Región anorrectal: Hemorroides, fisuras, fístulas, abscesos y cáncer de recto.",
-                    "Ostomías digestivas: Tipos, cuidados postoperatorios y seguimiento."
-                ]
-            },
-            {
-                id: "up5",
-                title: "UP 5: Patología hepatobiliar en adultos",
-                subtitle: "Hígado, vías biliares y páncreas",
-                items: [
-                    "Anatomía quirúrgica y segmentación hepática. Traumatismos y abscesos hepáticos.",
-                    "Hipertensión portal y tumores hepáticos.",
-                    "Vías biliares y litiasis biliar. Colecistitis aguda y síndrome coledociano.",
-                    "Páncreas: Fisiología, traumatismos, pancreatitis aguda y crónica.",
-                    "Tumores benignos y malignos de páncreas y región periampular."
-                ]
-            },
-            {
-                id: "up6",
-                title: "UP 6: Dolor inguinal en adultos",
-                subtitle: "Pared abdominal y patología escrotal",
-                items: [
-                    "Enfermedades quirúrgicas de la pared abdominal (hernias inguinales, crurales, umbilicales, epigástricas).",
-                    "Eventraciones y evisceraciones. Complicaciones (incarceración y estrangulamiento).",
-                    "Diagnóstico diferencial del dolor inguinal (pubalgia, radiculopatías, apendicitis retrocecal).",
-                    "Patología escrotal aguda (torsión testicular, hidrocele, varicocele, epididimitis)."
-                ]
-            },
-            {
-                id: "up7",
-                title: "UP 7: Abordaje del paciente con tumoración cervical",
-                subtitle: "Cuello, tiroides, glándulas salivales y burnout",
-                items: [
-                    "Anatomía quirúrgica del cuello y estudio de masas cervicales.",
-                    "Patología tiroidea: Bocio nodular, adenomas y carcinomas tiroideos.",
-                    "Complicaciones de la cirugía tiroidea (hipoparatiroidismo y lesión del nervio laríngeo recurrente).",
-                    "Tumores laterales del cuello y patología de glándulas salivales (parótida, submaxilar).",
-                    "Traqueostomía: Indicaciones, técnica y cuidados postoperatorios.",
-                    "Estrés laboral en salud y Síndrome de Burnout."
-                ]
-            },
-            {
-                id: "up8",
-                title: "UP 8: Patología musculoesquelética en miembros inferiores",
-                subtitle: "Traumatología avanzada y discapacidad",
-                items: [
-                    "Biología ósea, consolidación de fracturas y politraumatismos.",
-                    "Lesiones traumáticas de pelvis, miembros inferiores y columna vertebral.",
-                    "Tumores óseos y de partes blandas, y metástasis óseas.",
-                    "Patología del pie y tobillo.",
-                    "Concepto de discapacidad, incapacidad, invalidez y comunicación de malas noticias al paciente."
-                ]
-            },
-            {
-                id: "up9",
-                title: "UP 9: Atención prehospitalaria al politraumatizado y procuración",
-                subtitle: "Protocolo ATLS, quemados y trasplantes",
-                items: [
-                    "Atención inicial del politraumatizado según protocolo ATLS (ABCDE).",
-                    "Manejo del shock traumático y traumatismo encéfalo-craneano.",
-                    "Evaluación y manejo del paciente quemado (Fórmula de Parkland y superficie corporal).",
-                    "Procuración y trasplante de órganos y tejidos (INCUCAI). Diagnóstico de muerte encefálica.",
-                    "Comunicación de la muerte y el duelo en el equipo de salud."
-                ]
-            },
-            {
-                id: "up10",
-                title: "UP 10: Enfermedad vascular periférica",
-                subtitle: "Riesgo cardiovascular global",
-                items: [
-                    "Enfermedades del sistema arterial periférico (isquemia arterial aguda y crónica).",
-                    "Enfermedades del sistema venoso periférico (várices, TVP, TEP).",
-                    "Aneurismas arteriales (aorta abdominal y poplíteo)."
-                ]
-            },
-            {
-                id: "up11",
-                title: "UP 11: Obstrucción urinaria baja en el adulto mayor",
-                subtitle: "Urología quirúrgica y accesos vasculares",
-                items: [
-                    "Patología general del aparato urogenital y urgencias urológicas (retención aguda de orina).",
-                    "Obstrucción urinaria alta y baja, y litiasis urinaria.",
-                    "Patología prostática benigna (HPB) y cáncer de próstata.",
-                    "Patología oncológica urogenital (riñón, vejiga, testículo).",
-                    "Accesos vasculares para hemodiálisis."
-                ]
-            }
-        ];
+        <!-- ================= VISTA: DETALLE DE UP ================= -->
+        <div id="view-up-detail" style="display: none;">
+            <button class="btn-back-dashboard" onclick="showDashboard()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                Volver al listado
+            </button>
 
-        // Leemos quién está logueado para guardar su progreso personal
-        const activeUser = JSON.parse(localStorage.getItem('nika_currentUser'));
-        const userSuffix = activeUser ? activeUser.username : 'invitado';
-        
-        // Claves únicas por usuario
-        const progressKey = `nika_surgery_progress_${userSuffix}`;
-        const pctKey = `nika_surgery_global_pct_${userSuffix}`;
+            <div class="up-detail-header">
+                <div class="up-detail-title-block">
+                    <span class="up-card-number" id="up-detail-number">UP1</span>
+                    <h2 id="up-detail-title">Título de la Unidad Problema</h2>
+                </div>
+            </div>
 
-        let progressData = JSON.parse(localStorage.getItem(progressKey)) || {};
+            <div class="up-detail-layout">
+                <!-- Contenido principal: Tabs -->
+                <div class="up-detail-main">
+                    <div class="up-tabs-strip">
+                        <button class="up-tab-btn active" onclick="showUpTab('temario', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+                            Temario y Objetivos
+                        </button>
+                        <button class="up-tab-btn" onclick="showUpTab('material', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2Z"/></svg>
+                            Material de Estudio
+                        </button>
+                        <button class="up-tab-btn" onclick="showUpTab('videos', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                            Clases y Videos
+                        </button>
+                        <button class="up-tab-btn" onclick="showUpTab('notebooklm', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.2 4.2l4.2 4.2M15.6 15.6l4.2 4.2M1 12h6M17 12h6M4.2 19.8l4.2-4.2M15.6 8.4l4.2-4.2"/></svg>
+                            🤖 Asistente Nika (NotebookLM)
+                        </button>
+                    </div>
 
-        function renderUnits() {
-            const container = document.getElementById('ups-container');
-            container.innerHTML = '';
-
-            surgicalUnits.forEach(up => {
-                if(!progressData[up.id]) progressData[up.id] = {};
-
-                let completedCount = 0;
-                const totalItems = up.items.length;
-
-                up.items.forEach((item, index) => {
-                    if(progressData[up.id][index]) completedCount++;
-                });
-
-                const percentage = Math.round((completedCount / totalItems) * 100);
-
-                let html = `
-                    <div class="up-card" data-id="${up.id}">
-                        <div class="up-header" onclick="toggleCard(event, '${up.id}')">
-                            <div class="up-title-area">
-                                <h3>${up.title}</h3>
-                                <span>${up.subtitle}</span>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <span class="up-badge" id="badge-${up.id}">${percentage}% completado</span>
-                                <span style="font-size: 1.1rem; color: var(--text-muted);" id="arrow-${up.id}">▼</span>
-                            </div>
+                    <div class="up-tab-panel active" id="tab-temario">
+                        <div class="content-block">
+                            <h3>Objetivos de la Unidad</h3>
+                            <ul id="up-objectives-list"></ul>
                         </div>
-                        <div class="up-content" id="content-${up.id}">
-                            <h4>Objetivos y Contenidos de Estudio</h4>
-                `;
+                        <div class="content-block">
+                            <h3>Contenidos</h3>
+                            <ul id="up-contents-list"></ul>
+                        </div>
+                        <div class="content-block">
+                            <h3>Bibliografía Oficial</h3>
+                            <div class="biblio-chip-list" id="up-biblio-list"></div>
+                        </div>
+                    </div>
 
-                up.items.forEach((item, index) => {
-                    const isChecked = progressData[up.id][index] ? 'checked' : '';
-                    const isCompletedClass = isChecked ? 'completed' : '';
-                    html += `
-                        <label class="checklist-item ${isCompletedClass}" id="label-${up.id}-${index}">
-                            <input type="checkbox" ${isChecked} onchange="updateProgress('${up.id}', ${index}, this)">
-                            <span>${item}</span>
-                        </label>
-                    `;
-                });
+                    <div class="up-tab-panel" id="tab-material">
+                        <div class="content-block">
+                            <h3>PDFs, Resúmenes y Apuntes</h3>
+                            <div class="resource-list" id="up-materiales-list"></div>
+                        </div>
+                    </div>
 
-                html += `</div></div>`;
-                container.innerHTML += html;
-            });
+                    <div class="up-tab-panel" id="tab-videos">
+                        <div class="content-block">
+                            <h3>Clases Teóricas y Videos</h3>
+                            <div class="resource-list" id="up-videos-list"></div>
+                        </div>
+                    </div>
 
-            updateGlobalStats();
-        }
+                    <div class="up-tab-panel" id="tab-notebooklm">
+                        <div class="content-block" id="notebooklm-panel">
+                            <!-- Se completa dinámicamente desde estudio.js (renderNotebookLmTab) -->
+                        </div>
+                    </div>
+                </div>
 
-        function toggleCard(event, id) {
-            const content = document.getElementById(`content-${id}`);
-            const arrow = document.getElementById(`arrow-${id}`);
-            const isOpen = content.classList.contains('open');
-            
-            if (isOpen) {
-                content.classList.remove('open');
-                arrow.innerText = '▼';
-            } else {
-                content.classList.add('open');
-                arrow.innerText = '▲';
-            }
-        }
+                <!-- Panel lateral: Bloc de Notas y Pomodoro -->
+                <aside class="side-panel">
+                    <div id="notas-placeholder"></div>
+                    <div id="pomodoro-placeholder"></div>
+                </aside>
+            </div>
+        </div>
 
-        function updateProgress(upId, itemIndex, checkbox) {
-            if(!progressData[upId]) progressData[upId] = {};
-            progressData[upId][itemIndex] = checkbox.checked;
+    </main>
 
-            const label = document.getElementById(`label-${upId}-${itemIndex}`);
-            if(checkbox.checked) {
-                label.classList.add('completed');
-            } else {
-                label.classList.remove('completed');
-            }
+<!-- 1. Supabase SDK (Base de Datos) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
 
-            // Guardamos usando la clave única del usuario
-            localStorage.setItem(progressKey, JSON.stringify(progressData));
+    <!-- 2. Auth Guard (CRÍTICO: Verifica quién está logueado ANTES que el resto) -->
+    <script src="js/auth-guard.js"></script>
 
-            const upObj = surgicalUnits.find(u => u.id === upId);
-            let completed = 0;
-            upObj.items.forEach((_, idx) => {
-                if(progressData[upId][idx]) completed++;
-            });
-            const pct = Math.round((completed / upObj.items.length) * 100);
-            document.getElementById(`badge-${upId}`).innerText = `${pct}% completado`;
+    <!-- 3. Módulos de Productividad (Notas y Pomodoro) -->
+    <script src="js/productivity/notas.js"></script>
+    <script src="js/productivity/pomodoro.js"></script>
 
-            if(pct === 100) {
-                showToast(`🎉 ¡Completaste el 100% de la ${upObj.title.split(':')[0]}!`);
-            }
+    <!-- 4. Lógica de Estudio -->
+    <script src="js/estudio/estudio.js"></script>
 
-            updateGlobalStats();
-        }
-
-        function updateGlobalStats() {
-            let totalItemsAll = 0;
-            let totalCompletedAll = 0;
-
-            surgicalUnits.forEach(up => {
-                up.items.forEach((_, idx) => {
-                    totalItemsAll++;
-                    if(progressData[up.id] && progressData[up.id][idx]) {
-                        totalCompletedAll++;
-                    }
-                });
-            });
-
-            const globalPct = totalItemsAll > 0 ? Math.round((totalCompletedAll / totalItemsAll) * 100) : 0;
-            
-            document.getElementById('global-progress').style.width = `${globalPct}%`;
-            document.getElementById('progress-text').innerText = `Progreso global: ${globalPct}% completado`;
-            document.getElementById('items-count').innerText = `${totalCompletedAll} / ${totalItemsAll} ítems estudiados`;
-
-            // Guardamos el porcentaje global atado al usuario para que lo lea index.html
-            localStorage.setItem(pctKey, globalPct);
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerHTML = message;
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3500);
-        }
-
-        function filterContent() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            surgicalUnits.forEach(up => {
-                const card = document.querySelector(`.up-card[data-id="${up.id}"]`);
-                const matchesTitle = up.title.toLowerCase().includes(query) || up.subtitle.toLowerCase().includes(query);
-                const matchesItem = up.items.some(item => item.toLowerCase().includes(query));
-
-                if(matchesTitle || matchesItem || query === '') {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // ================= POMODORO PRO =================
-        let workTime = 60;
-        let shortBreakTime = 25;
-        let longBreakTime = 45;
-        
-        let currentMode = 'work';
-        let pomoSeconds = workTime * 60;
-        let pomoInterval = null;
-        let isPomoRunning = false;
-        let currentStatView = 'daily';
-
-        function togglePomodoroSidebar() {
-            const sidebar = document.getElementById('pomoSidebar');
-            const mainContentArea = document.getElementById('mainContentArea');
-            sidebar.classList.toggle('collapsed');
-            mainContentArea.classList.toggle('expanded');
-        }
-
-        function togglePomoSettings() {
-            document.getElementById('pomo-settings-panel').classList.toggle('open');
-        }
-
-        function saveCustomTimes() {
-            workTime = parseInt(document.getElementById('cfg-work').value) || 60;
-            shortBreakTime = parseInt(document.getElementById('cfg-short').value) || 25;
-            longBreakTime = parseInt(document.getElementById('cfg-long').value) || 45;
-            
-            document.getElementById('tab-work').innerText = `Foco (${workTime}m)`;
-            document.getElementById('tab-shortBreak').innerText = `Corto (${shortBreakTime}m)`;
-            document.getElementById('tab-longBreak').innerText = `Largo (${longBreakTime}m)`;
-
-            if (!isPomoRunning) {
-                if (currentMode === 'work') pomoSeconds = workTime * 60;
-                if (currentMode === 'shortBreak') pomoSeconds = shortBreakTime * 60;
-                if (currentMode === 'longBreak') pomoSeconds = longBreakTime * 60;
-                updatePomoDisplay();
-            }
-        }
-
-        function setPomoMode(mode) {
-            if (isPomoRunning) {
-                if (!confirm("Hay un bloque en curso. ¿Cambiar de modo y reiniciar?")) return;
-                clearInterval(pomoInterval);
-                isPomoRunning = false;
-                document.getElementById('pomo-toggle').innerText = "Iniciar";
-                document.getElementById('pomo-toggle').style.background = "var(--nika-primary)";
-            }
-            currentMode = mode;
-            document.querySelectorAll('.pomo-tab').forEach(t => t.classList.remove('active'));
-            
-            const activeTab = document.getElementById(`tab-${mode}`);
-            if(activeTab) activeTab.classList.add('active');
-
-            if (mode === 'work') {
-                pomoSeconds = workTime * 60;
-            } else if (mode === 'shortBreak') {
-                pomoSeconds = shortBreakTime * 60;
-            } else if (mode === 'longBreak') {
-                pomoSeconds = longBreakTime * 60;
-            }
-            updatePomoDisplay();
-        }
-
-        function togglePomodoro() {
-            const btn = document.getElementById('pomo-toggle');
-            if (!isPomoRunning) {
-                isPomoRunning = true;
-                btn.innerText = "Pausar";
-                btn.style.background = "#dc2626";
-                pomoInterval = setInterval(() => {
-                    if (pomoSeconds > 0) {
-                        pomoSeconds--;
-                        updatePomoDisplay();
-                    } else {
-                        clearInterval(pomoInterval);
-                        isPomoRunning = false;
-                        btn.innerText = "Iniciar";
-                        btn.style.background = "var(--nika-primary)";
-                        
-                        if (currentMode === 'work') {
-                            const taskName = document.getElementById('pomo-task').value.trim() || "Estudio General";
-                            recordPomodoroCompletion(taskName);
-                            alert(`🍅 ¡Bloque de Foco completado! Tema registrado: ${taskName}`);
-                        } else {
-                            alert("🔔 ¡Descanso finalizado! Volvemos al estudio.");
-                        }
-                        resetPomodoro();
-                    }
-                }, 1000);
-            } else {
-                isPomoRunning = false;
-                btn.innerText = "Reanudar";
-                btn.style.background = "var(--nika-primary)";
-                clearInterval(pomoInterval);
-            }
-        }
-
-        function resetPomodoro() {
-            clearInterval(pomoInterval);
-            isPomoRunning = false;
-            if (currentMode === 'work') pomoSeconds = workTime * 60;
-            if (currentMode === 'shortBreak') pomoSeconds = shortBreakTime * 60;
-            if (currentMode === 'longBreak') pomoSeconds = longBreakTime * 60;
-            updatePomoDisplay();
-            const btn = document.getElementById('pomo-toggle');
-            btn.innerText = "Iniciar";
-            btn.style.background = "var(--nika-primary)";
-        }
-
-        function updatePomoDisplay() {
-            const mins = Math.floor(pomoSeconds / 60);
-            const secs = pomoSeconds % 60;
-            document.getElementById('pomo-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        // ================= GESTIÓN DE HISTORIAL Y HEATMAP =================
-        function getTodayKey() {
-            const d = new Date();
-            return d.toISOString().split('T')[0];
-        }
-
-        function recordPomodoroCompletion(topicName) {
-            let history = JSON.parse(localStorage.getItem('nika_pomo_history')) || {};
-            const today = getTodayKey();
-            history[today] = (history[today] || 0) + 1;
-            localStorage.setItem('nika_pomo_history', JSON.stringify(history));
-
-            let topicsLog = JSON.parse(localStorage.getItem('nika_pomo_topics')) || [];
-            const now = new Date();
-            const timeStr = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-            topicsLog.unshift({
-                date: today,
-                time: timeStr,
-                topic: topicName,
-                duration: workTime
-            });
-            localStorage.setItem('nika_pomo_topics', JSON.stringify(topicsLog));
-
-            loadPomoStats();
-            renderTopicsLog();
-        }
-
-        function switchStatsView(view) {
-            currentStatView = view;
-            document.querySelectorAll('.stats-tab').forEach(t => t.classList.remove('active'));
-            const tabBtn = document.getElementById(`stat-tab-${view}`);
-            if (tabBtn) tabBtn.classList.add('active');
-            loadPomoStats();
-        }
-
-        function loadPomoStats() {
-            let history = JSON.parse(localStorage.getItem('nika_pomo_history')) || {};
-            const todayKey = getTodayKey();
-            
-            let todayCount = history[todayKey] || 0;
-
-            let weekCount = 0;
-            for (let i = 0; i < 7; i++) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                weekCount += (history[d.toISOString().split('T')[0]] || 0);
-            }
-
-            let monthCount = 0;
-            for (let i = 0; i < 30; i++) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                monthCount += (history[d.toISOString().split('T')[0]] || 0);
-            }
-
-            let totalCount = 0;
-            Object.values(history).forEach(v => totalCount += v);
-
-            const labelEl = document.getElementById('stat-label-title');
-            const valEl = document.getElementById('stat-main-value');
-
-            if (currentStatView === 'daily') {
-                labelEl.innerText = "Bloques Completados (Hoy)";
-                valEl.innerText = todayCount;
-            } else if (currentStatView === 'weekly') {
-                labelEl.innerText = "Bloques Últimos 7 Días";
-                valEl.innerText = weekCount;
-            } else if (currentStatView === 'monthly') {
-                labelEl.innerText = "Bloques Últimos 30 Días";
-                valEl.innerText = monthCount;
-            }
-
-            document.getElementById('pomo-total-historical').innerText = `Total: ${totalCount}`;
-
-            // Renderizar Heatmap Dinámico de 30 días
-            const heatmapContainer = document.getElementById('pomo-heatmap');
-            heatmapContainer.innerHTML = '';
-            
-            for (let i = 29; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const dateKey = d.toISOString().split('T')[0];
-                const count = history[dateKey] || 0;
-
-                const cell = document.createElement('div');
-                cell.className = 'heatmap-cell';
-                cell.title = `${dateKey}: ${count} bloques (~${count * 1}h)`;
-
-                if (count >= 1 && count <= 2) cell.classList.add('level-green');
-                else if (count >= 3 && count <= 4) cell.classList.add('level-yellow');
-                else if (count >= 5 && count <= 6) cell.classList.add('level-orange');
-                else if (count >= 7) cell.classList.add('level-red');
-
-                heatmapContainer.appendChild(cell);
-            }
-        }
-
-        function renderTopicsLog() {
-            const listEl = document.getElementById('topics-log-list');
-            let topicsLog = JSON.parse(localStorage.getItem('nika_pomo_topics')) || [];
-
-            if (topicsLog.length === 0) {
-                listEl.innerHTML = '<li style="color:#64748b; font-style:italic;">No hay sesiones registradas aún.</li>';
-                return;
-            }
-
-            listEl.innerHTML = '';
-            topicsLog.slice(0, 10).forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'topics-log-item';
-                li.innerHTML = `
-                    <span><strong>${item.topic}</strong> (${item.duration}m)</span>
-                    <span style="color:#64748b; font-size:0.7rem;">${item.date.slice(5)} ${item.time}</span>
-                `;
-                listEl.appendChild(li);
-            });
-        }
-
-        window.onload = () => {
-            renderUnits();
-            loadPomoStats();
-            renderTopicsLog();
-        };
-    </script>
+    <!-- 5. Asistente IA y Módulos Sociales -->
+    <script src="js/assistant.js"></script>
+    <script src="js/social.js"></script>
 </body>
 </html>

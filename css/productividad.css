@@ -1,0 +1,129 @@
+/* ===== Productividad: Notas y Pomodoro — Campus Nika ===== */
+
+.notas-widget,
+.pomodoro-widget {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --- Notas --- */
+.notas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.notas-title {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.notas-status {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.notas-status--saving { color: #0284c7; }
+.notas-status--saved { color: #16a34a; }
+.notas-status--error { color: #dc2626; }
+
+.notas-textarea {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.notas-textarea:focus {
+  border-color: #0284c7;
+  background: #ffffff;
+}
+
+/* --- Pomodoro --- */
+.pomodoro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pomodoro-title {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.pomodoro-mode-select {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  color: #334155;
+  background: #f8fafc;
+}
+
+.pomodoro-context {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-bottom: 8px;
+  min-height: 16px;
+}
+
+.pomodoro-time {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #0284c7;
+  letter-spacing: 2px;
+  margin: 10px 0 16px;
+}
+
+.pomodoro-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.pomodoro-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.pomodoro-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pomodoro-btn--start {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.pomodoro-btn--pause {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.pomodoro-btn--reset {
+  background: #fef2f2;
+  color: #dc2626;
+}

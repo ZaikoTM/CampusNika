@@ -1,0 +1,624 @@
+{
+  "modulo": "cirugia",
+  "nombre": "Cirugía",
+  "nombreCompleto": "Introducción a las Especialidades Clínico-Quirúrgicas",
+  "booksRepository": {
+    "michans": "Michans (Ferraina & Oría) - Cirugía",
+    "gimenez": "Giménez - Fundamentos Quirúrgicos",
+    "galindo": "Galindo (SACD) - Cirugía",
+    "ramosvertiz": "Ramos Vértiz - Cirugía para el Médico General",
+    "rutherford": "Rutherford - Cirugía Vascular",
+    "schwartz": "Schwartz - Principios de Cirugía",
+    "sabiston": "Sabiston - Tratado de Cirugía",
+    "netter": "Netter - Atlas de Anatomía Humana",
+    "campbell": "Campbell-Walsh - Urología",
+    "atls": "ATLS - Advanced Trauma Life Support (Manual del Curso)"
+  },
+  "units": [
+    {
+      "id": "up1",
+      "number": 1,
+      "title": "Trauma de miembro superior en el adulto joven: Implicancias clínicas, ocupacionales y psicosociales",
+      "objectives": [
+        "Sistematizar el examen físico del miembro superior traumatizado",
+        "Reconocer los mecanismos lesionales más frecuentes en el adulto joven (laborales, deportivos, viales)",
+        "Diferenciar lesiones osteoarticulares, tendinosas, vasculares y nerviosas del miembro superior",
+        "Analizar el impacto ocupacional y psicosocial de la discapacidad transitoria o permanente",
+        "Fundamentar la conducta inicial (inmovilización, derivación, indicación quirúrgica) según el tipo de lesión"
+      ],
+      "contents": [
+        "Anatomía funcional del hombro, codo, muñeca y mano",
+        "Fracturas de clavícula, húmero, radio y cúbito",
+        "Luxaciones de hombro y codo",
+        "Lesiones tendinosas y del manguito rotador",
+        "Lesiones nerviosas periféricas (plexo braquial, nervio mediano, cubital y radial)",
+        "Rehabilitación y reinserción laboral post-trauma"
+      ],
+      "bibliography": [
+        "michans",
+        "netter",
+        "ramosvertiz"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP1",
+          "url": "https://drive.google.com/file/d/1iEVe8ppkRG7s_v0P229m48xlV0HQPcrE/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": [
+        {
+          "type": "video",
+          "title": "Heridas y suturas",
+          "url": "https://docs.google.com/presentation/d/1J3e_X_x102VgTWDVP3_ItupsSC63-bZn/edit?usp=drive_link&ouid=112463194107707929305&rtpof=true&sd=true"
+        }
+      ]
+    },
+    {
+      "id": "up2",
+      "number": 2,
+      "title": "Evaluación del abdomen agudo: claves clínicas, diagnósticas y terapéuticas para la toma de decisiones",
+      "objectives": [
+        "Sistematizar el enfoque diagnóstico del dolor abdominal agudo",
+        "Reconocer signos semiológicos clave (Blumberg, Murphy, Rovsing, Jobert)",
+        "Diferenciar etiologías de abdomen agudo inflamatorio, obstructivo, perforativo, hemorrágico y vascular",
+        "Interpretar estudios complementarios de primera línea (laboratorio, ecografía, TC)",
+        "Justificar la conducta médica o quirúrgica según el cuadro clínico"
+      ],
+      "contents": [
+        "Semiología del abdomen agudo",
+        "Apendicitis aguda y colecistitis aguda",
+        "Obstrucción intestinal mecánica y funcional",
+        "Perforación de víscera hueca y neumoperitoneo",
+        "Pancreatitis aguda",
+        "Algoritmo diagnóstico-terapéutico del abdomen agudo"
+      ],
+      "bibliography": [
+        "michans",
+        "galindo",
+        "sabiston"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP2",
+          "url": "https://docs.google.com/document/d/1ZJ3mosxi5xHwyv9bbyTM82AufgGiAKpC/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": [
+        {
+          "type": "video",
+          "title": "Abdomen agudo quirúrgico",
+          "url": "https://docs.google.com/presentation/d/1zAig5GRnZ2KNwsZQk4NnHk07pLXB7duo/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        }
+      ]
+    },
+    {
+      "id": "up3",
+      "number": 3,
+      "title": "De los síntomas digestivos a la sospecha clínica: evaluación integral de la disfagia",
+      "objectives": [
+        "Diferenciar disfagia orofaríngea de disfagia esofágica según la clínica",
+        "Reconocer signos de alarma que orienten a patología neoplásica",
+        "Interpretar el algoritmo diagnóstico de la disfagia (endoscopía, seriada esofagogastroduodenal, manometría)",
+        "Analizar las principales causas benignas y malignas de disfagia",
+        "Fundamentar el manejo terapéutico inicial según la etiología"
+      ],
+      "contents": [
+        "Anatomía y fisiología de la deglución",
+        "Disfagia orofaríngea vs. esofágica",
+        "Acalasia y trastornos motores esofágicos",
+        "Cáncer de esófago: diagnóstico y estadificación",
+        "Estenosis esofágicas benignas",
+        "Estudios complementarios: VEDA, radiología contrastada, manometría"
+      ],
+      "bibliography": [
+        "michans",
+        "schwartz"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Manometría",
+          "url": "https://drive.google.com/file/d/1O6mmumK94iaql1NLfdnVk-XeNawlYfS5/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Contenidos UP3",
+          "url": "https://docs.google.com/document/d/17Wa-QulgFX6ljfclSXc2ecmUoVgS6vgY/edit?usp=drive_link&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": []
+    },
+    {
+      "id": "up4",
+      "number": 4,
+      "title": "Enfermedad colorrectal en el adulto mayor: implicancias clínicas para la toma de decisiones",
+      "objectives": [
+        "Reconocer los signos de alarma de patología colorrectal en el adulto mayor",
+        "Diferenciar enfermedad diverticular, neoplasias colorrectales y enfermedad inflamatoria intestinal",
+        "Interpretar programas de tamizaje de cáncer colorrectal",
+        "Analizar el impacto funcional de la cirugía colorrectal (ostomías) en la calidad de vida",
+        "Fundamentar la conducta terapéutica según estadificación oncológica"
+      ],
+      "contents": [
+        "Enfermedad diverticular del colon y sus complicaciones",
+        "Cáncer colorrectal: factores de riesgo, tamizaje y estadificación (TNM)",
+        "Pólipos colónicos y su seguimiento endoscópico",
+        "Ostomías: indicaciones y cuidados",
+        "Enfermedad inflamatoria intestinal en el adulto mayor"
+      ],
+      "bibliography": [
+        "michans",
+        "sabiston",
+        "galindo"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP4",
+          "url": "https://docs.google.com/document/d/1d0DsRnvo2N76uOUaKVnaqk8Mb9sjwCfY/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": [
+        {
+          "type": "video",
+          "title": "CCR Pedroni",
+          "url": "https://drive.google.com/file/d/1EndWI7nYyp_Py_po7gf2SBTIQNNBtykE/view?usp=sharing"
+        },
+        {
+          "type": "video",
+          "title": "Divertículos",
+          "url": "https://drive.google.com/file/d/17tFVwcuGesMGz3tCs9XALRzEr6-PuU7r/view?usp=sharing"
+        },
+        {
+          "type": "video",
+          "title": "Enfermedades colon, ano y recto",
+          "url": "https://drive.google.com/file/d/1-LlcY1T6513tChgcI0QOHSbM-4b-SwO5/view?usp=sharing"
+        },
+        {
+          "type": "video",
+          "title": "Pancreatitis",
+          "url": "https://docs.google.com/presentation/d/1zvYLazSYfOeXhpAdFKADDhx_ryrpsd5_/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        }
+      ]
+    },
+    {
+      "id": "up5",
+      "number": 5,
+      "title": "Patología hepatobiliar en adultos: evaluación clínica, orientación diagnóstica y manejo terapéutico",
+      "objectives": [
+        "Sistematizar el estudio del paciente con ictericia",
+        "Diferenciar ictericia prehepática, hepática y posthepática",
+        "Reconocer la clínica y complicaciones de la litiasis biliar",
+        "Interpretar estudios de imagen hepatobiliares (ecografía, colangioresonancia, CPRE)",
+        "Analizar criterios de resolución quirúrgica vs. endoscópica en patología biliar"
+      ],
+      "contents": [
+        "Anatomía quirúrgica del hígado y la vía biliar",
+        "Litiasis vesicular y coledociana",
+        "Colecistitis aguda y colangitis",
+        "Ictericia obstructiva: diagnóstico diferencial",
+        "Tumores hepáticos primarios y secundarios (nociones generales)"
+      ],
+      "bibliography": [
+        "michans",
+        "netter",
+        "schwartz"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Comunicar malas noticias (Buckman)",
+          "url": "https://drive.google.com/file/d/1_zKKQUKcXI7j5da4BDPhILnQYy7UjG-s/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Pancreatitis (PDF)",
+          "url": "https://drive.google.com/file/d/1yatJhxdngDGOrEqzNJ_ryuD_hri04ZPe/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Contenidos UP5",
+          "url": "https://docs.google.com/document/d/104x1oESw79QW4F6aRsZx0-l1wfe11ANu/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": [
+        {
+          "type": "video",
+          "title": "Hepatobiliopancreática",
+          "url": "https://docs.google.com/presentation/d/19B3s7RO0_xJg5R39giNHjpffKQC0wQek/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        }
+      ]
+    },
+    {
+      "id": "up6",
+      "number": 6,
+      "title": "Dolor inguinal en adultos: diagnóstico diferencial y abordaje clínico-terapéutico",
+      "objectives": [
+        "Sistematizar el examen físico de la región inguinal",
+        "Diferenciar hernias inguinales, crurales y otras causas de dolor inguinal",
+        "Reconocer signos de complicación herniaria (atascamiento, estrangulación)",
+        "Analizar las técnicas quirúrgicas de reparación herniaria y sus indicaciones",
+        "Fundamentar el manejo del dolor inguinal crónico postquirúrgico"
+      ],
+      "contents": [
+        "Anatomía de la región inguinal y el conducto inguinal",
+        "Hernias inguinales directas e indirectas, hernia crural",
+        "Complicaciones herniarias: atascamiento y estrangulación",
+        "Técnicas de hernioplastia (convencional y laparoscópica)",
+        "Diagnósticos diferenciales del dolor inguinal (adenopatías, patología testicular)"
+      ],
+      "bibliography": [
+        "michans",
+        "gimenez",
+        "netter"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP6",
+          "url": "https://docs.google.com/document/d/1VliZhv981cT4aqk_P87SaW1onDcoWykn/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Síndromes clínico-quirúrgicos abdominales radiológicos",
+          "url": "https://drive.google.com/file/d/1dXDSeTypjGGGYjEicP3EBfQIUyN9-UZC/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": [
+        {
+          "type": "video",
+          "title": "Accesos venosos centrales (Clase)",
+          "url": "https://drive.google.com/file/d/1-R_knBewvd3f6hX2GYZ1SCPZKcnwpwOZ/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "id": "up7",
+      "number": 7,
+      "title": "Abordaje del paciente con tumoración cervical: enfoque clínico integral y diagnóstico temprano",
+      "objectives": [
+        "Sistematizar el examen físico de las cadenas ganglionares y la glándula tiroides",
+        "Diferenciar tumoraciones cervicales congénitas, inflamatorias, tiroideas y neoplásicas",
+        "Interpretar estudios de imagen y punción con aguja fina en nódulos tiroideos y adenopatías",
+        "Reconocer signos de alarma que orienten a malignidad",
+        "Fundamentar el algoritmo diagnóstico y la derivación oportuna"
+      ],
+      "contents": [
+        "Anatomía cervical por regiones (triángulos cervicales)",
+        "Patología tiroidea: bocio, nódulos y cáncer de tiroides",
+        "Adenopatías cervicales: diagnóstico diferencial",
+        "Quistes congénitos (tirogloso, branquial)",
+        "Punción-aspiración con aguja fina (PAAF)"
+      ],
+      "bibliography": [
+        "michans",
+        "netter",
+        "sabiston"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP7",
+          "url": "https://docs.google.com/document/d/1cGCXOh6TGGFtIaconEZqOCq60zXO7XK-/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": []
+    },
+    {
+      "id": "up8",
+      "number": 8,
+      "title": "Patología musculoesquelética en miembros inferiores: implicancias clínicas y pérdida de autonomía en el adulto mayor",
+      "objectives": [
+        "Reconocer las fracturas más frecuentes del adulto mayor (cadera, fémur proximal)",
+        "Analizar el impacto de la fractura de cadera en la autonomía y mortalidad del adulto mayor",
+        "Diferenciar patología degenerativa articular (coxartrosis, gonartrosis) de patología traumática",
+        "Fundamentar criterios de tratamiento quirúrgico vs. conservador",
+        "Sistematizar el abordaje multidisciplinario de la rehabilitación post-fractura"
+      ],
+      "contents": [
+        "Fracturas de cadera en el adulto mayor (subcapital, pertrocantérea)",
+        "Osteoporosis y riesgo de fractura",
+        "Coxartrosis y gonartrosis: diagnóstico y tratamiento",
+        "Reemplazos articulares (prótesis de cadera y rodilla)",
+        "Rehabilitación kinésica y prevención de caídas"
+      ],
+      "bibliography": [
+        "michans",
+        "netter",
+        "ramosvertiz"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Comunicación en situaciones críticas",
+          "url": "https://drive.google.com/file/d/1ry_8bt7bUBSyD1WiXiTKxgEcX7I7EH-y/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Contenidos UP8",
+          "url": "https://docs.google.com/document/d/16aetRJP5TpLg7ItguylaYFgcLLWndETB/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": []
+    },
+    {
+      "id": "up9",
+      "number": 9,
+      "title": "Enfermedad trauma desde la atención prehospitalaria hasta la procuración de tejido",
+      "objectives": [
+        "Sistematizar el algoritmo ABCDE de atención inicial al politraumatizado",
+        "Reconocer criterios de triage prehospitalario y de derivación a centro de trauma",
+        "Analizar la cadena de supervivencia del paciente politraumatizado grave",
+        "Comprender los criterios de muerte encefálica y el proceso de procuración de órganos y tejidos",
+        "Fundamentar el rol del equipo de salud en la donación y trasplante"
+      ],
+      "contents": [
+        "Evaluación primaria y secundaria del politraumatizado (ABCDE - ATLS)",
+        "Triage prehospitalario y sistemas de emergencia",
+        "Shock hemorrágico en el paciente traumatizado",
+        "Criterios de muerte encefálica",
+        "Procuración de órganos y tejidos: marco legal y proceso institucional"
+      ],
+      "bibliography": [
+        "atls",
+        "schwartz",
+        "michans"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP9",
+          "url": "https://docs.google.com/document/d/1wQ_Yh47gjuRxKEuWfWSy4EsXnD5-AM48/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": [
+        {
+          "type": "video",
+          "title": "Práctico UP9",
+          "url": "https://docs.google.com/presentation/d/1vmwnQ_u_6p-CBJ13WxnqFAhP0ho5yQY3/edit?usp=sharing&ouid=112463194107707929305&rtpof=true&sd=true"
+        }
+      ]
+    },
+    {
+      "id": "up10",
+      "number": 10,
+      "title": "Desafíos en el Abordaje de la Enfermedad Vascular Periférica como Indicador del Riesgo Cardiovascular Global",
+      "objectives": [
+        "Sistematizar el examen físico vascular periférico (pulsos, índice tobillo-brazo)",
+        "Reconocer la clínica de la enfermedad arterial periférica y sus estadios (claudicación, isquemia crítica)",
+        "Diferenciar patología arterial de patología venosa (várices, insuficiencia venosa crónica)",
+        "Interpretar la enfermedad vascular periférica como marcador de riesgo cardiovascular global",
+        "Fundamentar el manejo médico y quirúrgico según severidad"
+      ],
+      "contents": [
+        "Enfermedad arterial periférica: fisiopatología y clasificación de Fontaine",
+        "Índice tobillo-brazo y estudios Doppler",
+        "Insuficiencia venosa crónica y várices",
+        "Pie diabético y su relación con la enfermedad vascular",
+        "Factores de riesgo cardiovascular y prevención secundaria"
+      ],
+      "bibliography": [
+        "rutherford",
+        "michans",
+        "netter"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP10",
+          "url": "https://docs.google.com/document/d/1SbN6xFmVGd-jJ84VIy3VdcLaGaSr1FFs/edit?usp=drive_link&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": []
+    },
+    {
+      "id": "up11",
+      "number": 11,
+      "title": "Abordaje de la Obstrucción Urinaria Baja en el Adulto Mayor: Implicancias Funcionales y Calidad de Vida",
+      "objectives": [
+        "Sistematizar el estudio del síndrome prostático obstructivo",
+        "Diferenciar hiperplasia prostática benigna de cáncer de próstata",
+        "Interpretar el uso del PSA y el tacto rectal como herramientas de tamizaje",
+        "Reconocer complicaciones de la obstrucción urinaria baja (retención aguda, insuficiencia renal)",
+        "Analizar el impacto en la calidad de vida y las opciones terapéuticas médicas y quirúrgicas"
+      ],
+      "contents": [
+        "Anatomía prostática y fisiología miccional",
+        "Hiperplasia prostática benigna: clínica y score IPSS",
+        "Cáncer de próstata: tamizaje, diagnóstico y estadificación",
+        "Retención aguda de orina: manejo inicial",
+        "Opciones terapéuticas: manejo médico, RTU de próstata, cirugía"
+      ],
+      "bibliography": [
+        "campbell",
+        "michans",
+        "netter"
+      ],
+      "materiales": [
+        {
+          "type": "pdf",
+          "title": "Contenidos UP11",
+          "url": "https://docs.google.com/document/d/1b4B1HV8grV8gNf0P5J_n3yHZgxpKC4Or/edit?usp=drive_link&ouid=112463194107707929305&rtpof=true&sd=true"
+        },
+        {
+          "type": "pdf",
+          "title": "Enfermedades de colon, ano y recto - Parte 1",
+          "url": "https://drive.google.com/file/d/16sFGdg4xZAeO47UxIyiscHIcVnUHBUNh/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Enfermedades de colon, ano y recto - Parte 2",
+          "url": "https://drive.google.com/file/d/1AqPmW6-gpLP-JzIzSMFdavtl9HxnFPR6/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Schwartz Principios de Cirugía 10a Edición",
+          "url": "https://drive.google.com/file/d/19wd75GM2M7ycnmiJNqs1g4i3XWh6oBWm/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 1",
+          "url": "https://drive.google.com/file/d/1xgdSPsxN2XoYmiCYiDbjBWrxga8sOVuf/view?usp=sharing"
+        },
+        {
+          "type": "pdf",
+          "title": "Michans Parte 2",
+          "url": "https://drive.google.com/file/d/1RLP2myEMWxkiuOX4D3TS2CZIUwIyOaFB/view?usp=sharing"
+        }
+      ],
+      "videos": []
+    }
+  ]
+}

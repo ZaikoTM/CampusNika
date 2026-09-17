@@ -1,0 +1,31 @@
+{
+  "modulos": [
+    {
+      "id": "cirugia",
+      "nombre": "Cirugía",
+      "nombreCompleto": "Introducción a las Especialidades Clínico-Quirúrgicas",
+      "estado": "activo",
+      "año": 5,
+      "dataFile": "data/cirugia.json",
+      "hub": "cirugia_hub.html"
+    },
+    {
+      "id": "ginecologia",
+      "nombre": "Ginecología",
+      "nombreCompleto": "Salud Integral de la Mujer (Ginecología y Obstetricia)",
+      "estado": "proximamente",
+      "año": 5,
+      "dataFile": null,
+      "hub": null
+    },
+    {
+      "id": "siam",
+      "nombre": "S.I.A.M.",
+      "nombreCompleto": "Salud Integral del Adulto Mayor",
+      "estado": "proximamente",
+      "año": 5,
+      "dataFile": null,
+      "hub": null
+    }
+  ]
+}

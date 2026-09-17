@@ -1,0 +1,30 @@
+[
+  {
+    "id": "cir-up2-001",
+    "modulo": "cirugia",
+    "up": 2,
+    "enunciado": "Paciente de 45 años consulta por dolor abdominal agudo localizado en fosa ilíaca derecha, de 12 horas de evolución, con signo de Blumberg positivo y fiebre de 38.2°C. ¿Cuál es el diagnóstico presuntivo más probable?",
+    "opciones": {
+      "a": "Colecistitis aguda",
+      "b": "Apendicitis aguda",
+      "c": "Diverticulitis aguda",
+      "d": "Pancreatitis aguda"
+    },
+    "correcta": "b",
+    "justificacion": "El dolor migratorio hacia fosa ilíaca derecha, la fiebre y el signo de Blumberg positivo constituyen la tríada clásica de apendicitis aguda, la causa más frecuente de abdomen agudo quirúrgico en este grupo etario."
+  },
+  {
+    "id": "cir-up5-001",
+    "modulo": "cirugia",
+    "up": 5,
+    "enunciado": "Mujer de 52 años con antecedente de litiasis vesicular presenta ictericia progresiva, coluria y acolia, sin dolor abdominal ni fiebre. ¿Qué signo semiológico orienta hacia una etiología tumoral (vía biliar/páncreas) más que litiásica?",
+    "opciones": {
+      "a": "Signo de Murphy positivo",
+      "b": "Signo de Blumberg positivo",
+      "c": "Signo de Courvoisier-Terrier (vesícula palpable, indolora)",
+      "d": "Signo del psoas positivo"
+    },
+    "correcta": "c",
+    "justificacion": "El signo de Courvoisier-Terrier (vesícula biliar palpable e indolora en un paciente ictérico) sugiere obstrucción neoplásica de la vía biliar distal, a diferencia de la litiasis vesicular donde la vesícula suele estar fibrosada y no ser palpable."
+  }
+]

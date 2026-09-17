@@ -668,7 +668,6 @@
             <ul class="sidebar-menu" style="padding: 0;">
                 <li><button onclick="openAboutCreatorModal()" class="sidebar-link">👨‍⚕️ Sobre el Creador</button></li>
                 <li><button onclick="iniciarTourSpotlight()" class="sidebar-link">🎯 Tutorial Rápido</button></li>
-                <li><button onclick="openInfoModal('demo')" class="sidebar-link">🎮 Versión Demo</button></li>
                 <li><button onclick="openInfoModal('manual')" class="sidebar-link">📖 Manual de Usuario</button></li>
             </ul>
         </div>
@@ -2318,27 +2317,26 @@
         }
 
         const modalData = {
-            tutorial: {
-                title: "🎯 Tutorial de Alto Rendimiento",
-                content: `<p style="margin-bottom:12px;">El <strong>Campus Nika</strong> está diseñado para estudiantes que buscan la excelencia y no se conforman con la mediocridad.</p>
-                <ul style="font-size:0.9rem; padding-left:20px; color:var(--text-muted); line-height:1.6;">
-                    <li><strong>Estudio Teórico:</strong> Llevá un control estricto de tu progreso marcando las check-lists del temario oficial en cada Unidad Problema.</li>
-                    <li><strong>Foco Absoluto:</strong> Utilizá el temporizador Pomodoro integrado para evitar distracciones y generar un mapa de calor de tu actividad de estudio diaria.</li>
-                    <li><strong>Simulador Avanzado:</strong> Entrená con exámenes. Si activás el modo <em>"Estilo Residencia"</em>, cada error te descontará puntaje, emulando la presión real de los exámenes de especialidad.</li>
-                </ul>`
-            },
-            demo: {
-                title: "🎮 Versión Demo Limitada",
-                content: `<p style="margin-bottom:10px;">Probá la experiencia del simulador con <strong>10 preguntas al azar</strong> sin registrar tus estadísticas.</p><div style="text-align:center; margin-top:15px;"><button class="btn-module" style="background:var(--nika-primary); color:white; width:100%; border-radius:8px; padding:12px; font-weight:700; border:none; cursor:pointer;" onclick="location.href='examen.html?mode=demo'">Iniciar Demo Flash 🚀</button></div>`
-            },
-            manual: {
-                title: "📖 Manual de Usuario y Gamificación",
-                content: `<p style="margin-bottom:10px;"><strong>Modo Competitivo (Versus):</strong> Desafiá a tus colegas en duelos 1vs1. Cada victoria suma puntos a tu <strong>ELO</strong> (sistema de puntuación competitivo), haciéndote subir en el Ranking Global.</p>
-                <p style="margin-bottom:10px;"><strong>Sistema de Rangos:</strong> Comenzás como <em>Estudiante</em> y, a medida que aumentes tu ELO y precisión, ascenderás hasta <em>Jefe de Residentes</em>.</p>
-                <p style="margin-bottom:10px;"><strong>Atajos Rápidos (Exámenes):</strong> <br><kbd>A</kbd>, <kbd>B</kbd>, <kbd>C</kbd>, <kbd>D</kbd> para responder. Flechas <kbd>←</kbd> <kbd>→</kbd> para navegar. <kbd>Espacio</kbd> para marcar con banderita. <kbd>Enter</kbd> para entregar.</p>`
-            },
-            coming_soon: { title: "🚀 ¡Próximamente!", content: `<p>Esta función se encuentra en desarrollo activo y estará disponible muy pronto en <strong>Campus Nika</strong>.</p>` }
-        };
+    tutorial: {
+        title: "🎯 Tutorial de Alto Rendimiento",
+        content: `<p style="margin-bottom:12px;">El <strong>Campus Nika</strong> está diseñado para estudiantes que buscan la excelencia y no se conforman con la mediocridad.</p>
+        <ul style="font-size:0.9rem; padding-left:20px; color:var(--text-muted); line-height:1.6;">
+            <li><strong>Estudio Teórico:</strong> Llevá un control estricto de tu progreso marcando las check-lists del temario oficial en cada Unidad Problema.</li>
+            <li><strong>Foco Absoluto:</strong> Utilizá el temporizador Pomodoro integrado para evitar distracciones y generar un mapa de calor de tu actividad de estudio diaria.</li>
+            <li><strong>Simulador Avanzado:</strong> Entrená con exámenes. Si activás el modo <em>"Estilo Residencia"</em>, cada error te descontará puntaje, emulando la presión real de los exámenes de especialidad.</li>
+        </ul>`
+    },
+    manual: {
+        title: "📖 Manual de Usuario y Gamificación",
+        content: `<p style="margin-bottom:10px;"><strong>Modo Competitivo (Versus):</strong> Desafiá a tus colegas en duelos 1vs1. Cada victoria suma puntos a tu <strong>ELO</strong> (sistema de puntuación competitivo), haciéndote subir en el Ranking Global.</p>
+        <p style="margin-bottom:10px;"><strong>Sistema de Rangos:</strong> Comenzás como <em>Estudiante</em> y, a medida que aumentes tu ELO y precisión, ascenderás hasta <em>Jefe de Residentes</em>.</p>
+        <p style="margin-bottom:10px;"><strong>Atajos Rápidos (Exámenes):</strong> <br><kbd>A</kbd>, <kbd>B</kbd>, <kbd>C</kbd>, <kbd>D</kbd> para responder. Flechas <kbd>←</kbd> <kbd>→</kbd> para navegar. <kbd>Espacio</kbd> para marcar con banderita. <kbd>Enter</kbd> para entregar.</p>`
+    },
+    coming_soon: { 
+        title: "🚀 ¡Próximamente!", 
+        content: `<p>Esta función se encuentra en desarrollo activo y estará disponible muy pronto en <strong>Campus Nika</strong>.</p>` 
+    }
+};
 
         function openInfoModal(type) {
         const item = modalData[type] || modalData['coming_soon'];
