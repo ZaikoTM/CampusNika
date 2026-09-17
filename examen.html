@@ -1037,6 +1037,22 @@
             render();
         }
 
+        // ================= PROTECCIÓN PARA EL MODO DEMO =================
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mode') === 'demo') {
+                const logoLink = document.querySelector('.brand-title, .brand-logo, [href="campus.html"]:not(.btn-back)');
+                const menuBtn = document.querySelector('.btn-back, [href="campus.html"]');
+
+                if (logoLink) logoLink.href = 'index.html';
+                if (menuBtn) {
+                    menuBtn.href = 'index.html';
+                    menuBtn.innerHTML = "← Salir de la Demo";
+                }
+            }
+        });
+        // ================================================================
+
         // Exponer al ámbito global
         Object.assign(window, {
             selectMode, startQuiz, submitQuiz, confirmSubmit, nextQuestion, prevQuestion, goToQuestion,
