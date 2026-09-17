@@ -662,7 +662,7 @@
         <section class="hero-banner">
             <div class="hero-text">
                 <h2>Bienvenido a tu plataforma médica</h2>
-                <p>Entrená con simulacros bajo presión de tiempo, medite codo a codo con tus colegas y alcanzá la máxima nota en tus exámenes.</p>
+                <p>Entrená con simulacros bajo presión de tiempo, medite codo a codo con tus compañeros y alcanzá la máxima nota en tus exámenes.</p>
             </div>
             <div class="hero-badge-box">
                 <strong>💡 Frase Célebre del Día</strong>
@@ -1020,6 +1020,37 @@
                     <label>Cambiar Contraseña:</label>
                     <input type="password" id="prof-password" class="form-input" placeholder="Dejar en blanco para mantener la actual">
                 </div>
+
+                <hr style="border:none; border-top:1px solid var(--border); margin: 18px 0;">
+                <p style="font-size:0.78rem; color:var(--text-muted); font-weight:700; margin-bottom:10px;">🌐 Perfil público (lo ven tus compañeros)</p>
+
+                <div class="form-group">
+                    <label>Año de Cursada:</label>
+                    <select id="prof-anio-cursada" class="form-input">
+                        <option value="">Sin especificar</option>
+                        <option value="1er Año">1er Año</option>
+                        <option value="2do Año">2do Año</option>
+                        <option value="3er Año">3er Año</option>
+                        <option value="4to Año">4to Año</option>
+                        <option value="5to Año">5to Año</option>
+                        <option value="6to Año">6to Año</option>
+                        <option value="Internado">Internado</option>
+                        <option value="Egresado/a">Egresado/a</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Biografía médica:</label>
+                    <textarea id="prof-bio" class="form-input" rows="3" maxlength="280" placeholder="Contales a tus compañeros en qué te estás enfocando..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Instagram (usuario o link):</label>
+                    <input type="text" id="prof-instagram" class="form-input" placeholder="@tuusuario">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp (con código de país):</label>
+                    <input type="text" id="prof-whatsapp" class="form-input" placeholder="Ej: 5493442000000">
+                </div>
+
                 <div class="modal-footer-btns">
                     <button type="button" class="btn-module" style="background:#fee2e2; color:#dc2626; width:auto;" onclick="handleLogout()">Cerrar Sesión</button>
                     <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeProfileModal()">Cerrar</button>
@@ -1033,7 +1064,7 @@
     <div class="modal-overlay" id="friends-modal">
         <div class="modal-content" style="max-width: 500px;">
             <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">🤝 Comunidad & Amigos</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Agregá colegas a tu red para poder desafiarlos directamente en el Modo 1vs1.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Agregá amigos a tu red para poder desafiarlos directamente en el Modo 1vs1.</p>
             
             <div class="modal-tabs">
                 <button class="modal-tab-btn active" id="tab-friend-list" onclick="switchFriendsTab('list')">Mis Amigos</button>
@@ -1050,6 +1081,38 @@
 
             <div class="modal-footer-btns" style="margin-top: 25px;">
                 <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeFriendsModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL PERFIL PÚBLICO ================= -->
+    <div class="modal-overlay" id="public-profile-modal">
+        <div class="modal-content" style="max-width: 420px; text-align:center;">
+            <img id="pp-avatar" src="assets/N%20NIKA.png" alt="Avatar"
+                 style="width:90px; height:90px; border-radius:50%; object-fit:cover; margin:0 auto 14px auto; border:3px solid var(--nika-primary); display:block;">
+            <h3 id="pp-fullname" style="font-size:1.2rem; font-weight:800; color:var(--text-main); margin-bottom:2px;">—</h3>
+            <span id="pp-username" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">@usuario</span>
+
+            <div style="margin:12px 0;">
+                <span id="pp-anio-badge" style="display:none; background:var(--nika-primary); color:white; padding:4px 12px; border-radius:14px; font-size:0.75rem; font-weight:700;"></span>
+            </div>
+
+            <p id="pp-bio" style="font-size:0.85rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; text-align:left;"></p>
+
+            <div style="display:flex; justify-content:center; gap:16px; margin-bottom:16px;" id="pp-social-row">
+                <a id="pp-instagram" href="#" target="_blank" rel="noopener noreferrer" style="display:none; font-size:0.8rem; font-weight:700; color:var(--nika-primary); text-decoration:none;">📷 Instagram</a>
+                <a id="pp-whatsapp" href="#" target="_blank" rel="noopener noreferrer" style="display:none; font-size:0.8rem; font-weight:700; color:var(--nika-primary); text-decoration:none;">💬 WhatsApp</a>
+            </div>
+
+            <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:16px; text-align:left; font-size:0.75rem; color:var(--text-muted);">
+                <div>📅 Primer acceso: <strong id="pp-first-access">—</strong></div>
+                <div>🕒 Último acceso: <strong id="pp-last-access">—</strong></div>
+            </div>
+
+            <div class="modal-footer-btns" style="justify-content:center; gap:10px; flex-wrap:wrap;">
+                <button type="button" class="btn-module" id="pp-chat-btn" style="width:auto; padding:10px 16px; background:#e2e8f0; color:#334155;" onclick="openChatWithFriend(window._ppCurrentUsername)">💬 Chat</button>
+                <button type="button" class="btn-module" id="pp-friend-btn" style="width:auto; padding:10px 16px;" onclick="enviarSolicitudAmistad(window._ppCurrentUserId)">➕ Enviar Solicitud</button>
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto; padding:10px 16px;" onclick="closePublicProfileModal()">Cerrar</button>
             </div>
         </div>
     </div>
@@ -1088,11 +1151,49 @@
         </div>
     </div>
 
+    <!-- ================= MODAL CHAT PRIVADO (1 a 1) ================= -->
+    <div class="modal-overlay" id="private-chat-modal">
+        <div class="modal-content" style="max-width: 420px; display:flex; flex-direction:column; height: min(520px, 80vh); padding: 18px 18px 14px 18px;">
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 10px; display:flex; align-items:center; gap:8px;">
+                💬 Chat con <span id="pc-friend-name">@amigo</span>
+            </h3>
+
+            <div id="pc-messages-list" style="flex:1; overflow-y:auto; border:1px solid var(--border); border-radius: 10px; padding: 12px; display:flex; flex-direction:column; gap:8px; background: var(--bg-body);">
+                <p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Cargando conversación...</p>
+            </div>
+
+            <div style="display:flex; gap:8px; margin-top:12px;">
+                <input type="text" id="pc-message-input" class="form-input" placeholder="Escribí un mensaje..." style="flex:1;" onkeydown="if(event.key==='Enter'){event.preventDefault(); sendPrivateMessage();}">
+                <button class="btn-module" style="background:var(--nika-primary); color:white; width:auto; padding: 0 16px;" onclick="sendPrivateMessage()">➤</button>
+            </div>
+
+            <div class="modal-footer-btns" style="margin-top: 12px;">
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closePrivateChatModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL POMODORO SINCRONIZADO ================= -->
+    <div class="modal-overlay" id="pomodoro-sync-modal">
+        <div class="modal-content" style="max-width: 360px; text-align:center;">
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 6px;">🍅 Modo Biblioteca</h3>
+            <p id="pomo-with-label" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Sincronizado con @amigo</p>
+
+            <div style="font-size: 2.6rem; font-weight: 900; color: var(--nika-primary); margin-bottom: 6px;" id="pomo-timer-display">25:00</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight:700; margin-bottom: 20px;" id="pomo-fase-display">Enfoque</div>
+
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="btn-module" style="width:auto; padding:10px 18px;" onclick="pomodoroLocalToggle()" id="pomo-toggle-btn">▶️ Iniciar</button>
+                <button class="btn-module" style="width:auto; padding:10px 18px; background:#e2e8f0; color:#334155;" onclick="closePomodoroSyncModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ================= MODAL FORO ACADÉMICO ================= -->
     <div class="modal-overlay" id="forum-modal">
         <div class="modal-content" style="max-width: 600px;">
             <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">💬 Foro Académico - Consultas por UP</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Compartí dudas sobre justificaciones bibliográficas con tus colegas.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Compartí dudas sobre justificaciones bibliográficas con tus compañeros.</p>
 
             <div class="form-group">
                 <input type="text" id="forum-title" class="form-input" placeholder="Título de la duda (ej. Duda sobre UP2 Hemorragia)">
@@ -1477,6 +1578,7 @@
                     const adminSec = document.getElementById('admin-dashboard-section');
                     if (adminSec && adminSec.style.display === 'block') showDashboard();
                 }
+                initCommunityPresence();
             } else {
                 if (headerBtn) headerBtn.innerHTML = `👤 Iniciar sesión / Registrarse`;
                 if (sidebarName) sidebarName.innerText = "Invitado";
@@ -1714,6 +1816,14 @@
                 return;
             }
 
+            // Registra el último acceso al campus para los perfiles públicos (no bloquea el login si falla)
+            if (window.NikaSupabase.client && user?.id) {
+                window.NikaSupabase.client.from('profiles')
+                    .update({ last_login_at: new Date().toISOString() })
+                    .eq('id', user.id)
+                    .then(() => {}, (err) => console.warn('[handleLogin] No se pudo actualizar last_login_at:', err));
+            }
+
             showToast(`¡Bienvenido, ${user.fullname}!`);
             closeAuthModal();
             checkAuthState();
@@ -1782,7 +1892,7 @@
                     msg.innerHTML = "✨ <strong>Ficha médica completa.</strong> Identidad validada al 100% para simulacros y duelos 1vs1.";
                     if (bar) bar.style.background = "#16a34a";
                 } else if (!hasAvatar) {
-                    msg.textContent = "Cargá tu foto institucional para que tus colegas te reconozcan en la Arena Versus y alcanzar el 100%.";
+                    msg.textContent = "Cargá tu foto institucional para que tus compañeros te reconozcan en la Arena Versus y alcanzar el 100%.";
                     if (bar) bar.style.background = "linear-gradient(90deg, #0284c7, #38bdf8)";
                 } else {
                     msg.textContent = "Completá todos los campos para validar tu ficha institucional al 100%.";
@@ -1800,12 +1910,20 @@
             const pw = document.getElementById('prof-password');
             const fileInput = document.getElementById('prof-avatar-file');
             const previewEl = document.getElementById('prof-avatar-preview'); 
+            const anio = document.getElementById('prof-anio-cursada');
+            const bio = document.getElementById('prof-bio');
+            const ig = document.getElementById('prof-instagram');
+            const wa = document.getElementById('prof-whatsapp');
             
             if (fn) fn.value = user.fullname || ''; 
             if (un) un.value = user.username || ''; 
             if (em) em.value = user.email || ''; 
             if (pw) pw.value = '';
             if (fileInput) fileInput.value = '';
+            if (anio) anio.value = user.anio_cursada || '';
+            if (bio) bio.value = user.bio || '';
+            if (ig) ig.value = user.instagram || '';
+            if (wa) wa.value = user.whatsapp || '';
             
             if (previewEl) previewEl.src = user.avatar || DEFAULT_AVATAR;
             
@@ -1828,6 +1946,10 @@
             if (!user) return;
             user.fullname = document.getElementById('prof-fullname').value.trim(); 
             user.email = document.getElementById('prof-email').value.trim();
+            user.anio_cursada = document.getElementById('prof-anio-cursada').value;
+            user.bio = document.getElementById('prof-bio').value.trim();
+            user.instagram = document.getElementById('prof-instagram').value.trim();
+            user.whatsapp = document.getElementById('prof-whatsapp').value.trim();
             const newPass = document.getElementById('prof-password').value; 
             if (newPass.trim() !== '') user.password = newPass;
 
@@ -1845,7 +1967,14 @@
             if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Guardando...'; }
             try {
                 if (window.NikaSupabase && window.NikaSupabase.client && user.id) {
-                    const updatePayload = { fullname: user.fullname, email: user.email };
+                    const updatePayload = {
+                        fullname: user.fullname,
+                        email: user.email,
+                        anio_cursada: user.anio_cursada || null,
+                        bio: user.bio || null,
+                        instagram: user.instagram || null,
+                        whatsapp: user.whatsapp || null
+                    };
                     if (avatarChanged) updatePayload.avatar = user.avatar;
                     const { error } = await window.NikaSupabase.client
                         .from('profiles')
@@ -1877,6 +2006,8 @@
         async function handleLogout() {
             if (confirm("¿Cerrar sesión?")) {
                 try {
+                    if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
+                    if (window.ChatManager) window.ChatManager.cerrarConversacion();
                     if (window.NikaSupabase && window.NikaSupabase.cerrarSesion) {
                         await window.NikaSupabase.cerrarSesion();
                     } else if (window.NikaSupabase && window.NikaSupabase.supabase) {
@@ -1900,7 +2031,7 @@
             if (!listBox) return;
             const userJson = localStorage.getItem('nika_currentUser');
             if (!userJson) {
-                listBox.innerHTML = '<div class="community-widget-empty">Iniciá sesión para ver a tus colegas conectados.</div>';
+                listBox.innerHTML = '<div class="community-widget-empty">Iniciá sesión para ver a tus amigos conectados.</div>';
                 return;
             }
             const currentUser = JSON.parse(userJson);
@@ -1916,13 +2047,16 @@
                 const displayName = fUser ? fUser.fullname : fUsername;
                 const avatar = (fUser && fUser.avatar) ? fUser.avatar : DEFAULT_AVATAR;
                 return `
-                    <div class="online-friend-item" onclick="openFriendsModal()">
-                        <span class="online-status-dot"></span>
-                        <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
-                        <div>
-                            <div class="online-friend-name">${displayName}</div>
-                            <div class="online-friend-meta">@${fUsername} · En línea</div>
+                    <div class="online-friend-item" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                        <div style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1; min-width:0;" onclick="openFriendsModal()">
+                            <span class="online-status-dot"></span>
+                            <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
+                            <div style="min-width:0;">
+                                <div class="online-friend-name">${displayName}</div>
+                                <div class="online-friend-meta" data-presence-user="${fUsername}" data-fallback="@${fUsername} · En línea">@${fUsername} · En línea</div>
+                            </div>
                         </div>
+                        <button class="btn-module" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); unirseAlPomodoroDe('${fUsername}')" title="Unirme al Pomodoro">🍅</button>
                     </div>`;
             }).join('');
         }
@@ -2100,8 +2234,21 @@
             listBox.innerHTML = '';
             myFriends.forEach(fUsername => {
                 const u = users.find(userItem => userItem.username === fUsername);
-                if (u) { 
-                    listBox.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%;"><div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div></div><span style="font-size:0.75rem; color:var(--success); font-weight:700;">Amigo</span></div>`; 
+                if (u) {
+                    listBox.innerHTML += `
+                    <div class="user-list-item" style="display:flex; flex-direction:column; gap:2px; padding:8px 0; border-bottom:1px solid var(--border);">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
+                                <div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <button class="btn-module" style="width:auto; padding:5px 9px; font-size:0.72rem;" onclick="openChatWithFriend('${u.username}')">💬 Chat</button>
+                                <button class="btn-module" style="width:auto; padding:5px 9px; font-size:0.72rem; background:#fef3c7; color:#92400e;" onclick="unirseAlPomodoroDe('${u.username}')">🍅 Unirme</button>
+                            </div>
+                        </div>
+                        <span data-presence-user="${u.username}" style="display:none; font-size:0.7rem; color:var(--nika-primary); font-weight:600; padding-left:36px;"></span>
+                    </div>`;
                 }
             });
         }
@@ -2588,7 +2735,7 @@
             },
             manual: {
                 title: "📖 Manual de Usuario y Gamificación",
-                content: `<p style="margin-bottom:10px;"><strong>Modo Competitivo (Versus):</strong> Desafiá a tus colegas en duelos 1vs1. Cada victoria suma puntos a tu <strong>ELO</strong> (sistema de puntuación competitivo), haciéndote subir en el Ranking Global.</p>
+                content: `<p style="margin-bottom:10px;"><strong>Modo Competitivo (Versus):</strong> Desafiá a tus compañeros en duelos 1vs1. Cada victoria suma puntos a tu <strong>ELO</strong> (sistema de puntuación competitivo), haciéndote subir en el Ranking Global.</p>
                 <p style="margin-bottom:10px;"><strong>Sistema de Rangos:</strong> Comenzás como <em>Estudiante</em> y, a medida que aumentes tu ELO y precisión, ascenderás hasta <em>Jefe de Residentes</em>.</p>
                 <p style="margin-bottom:10px;"><strong>Atajos Rápidos (Exámenes):</strong> <br><kbd>A</kbd>, <kbd>B</kbd>, <kbd>C</kbd>, <kbd>D</kbd> para responder. Flechas <kbd>←</kbd> <kbd>→</kbd> para navegar. <kbd>Espacio</kbd> para marcar con banderita. <kbd>Enter</kbd> para entregar.</p>`
             },
@@ -2714,7 +2861,8 @@
                 <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${user.fullname || 'Estudiante Nika'}</h4>
                 <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 16px; font-weight: 600;">${user.faculty || 'Facultad de Ciencias de la Salud UNER'}</span>
                 
-                <div style="display: flex; gap: 8px; justify-content: center;">
+                <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="abrirPerfilPublico('${user.id}')" class="btn-module" style="padding: 8px 12px; font-size: 0.78rem; font-weight: 700; background:#e2e8f0; color:#334155;">👁️ Ver Perfil</button>
                     <button onclick="enviarSolicitudAmistad('${user.id}')" class="btn-module" style="padding: 8px 12px; font-size: 0.78rem; font-weight: 700;">➕ Agregar</button>
                     <button onclick="retarDueloUsuario('${user.id}')" class="btn-module" style="padding: 8px 12px; font-size: 0.78rem; font-weight: 700; background: var(--danger-light); color: var(--danger);">⚔️ Desafiar</button>
                 </div>
@@ -2762,7 +2910,10 @@
                         <span style="font-size:0.75rem; color:var(--text-muted);">@${u.username || 'usuario'}</span>
                     </div>
                 </div>
-                <button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
+                <div style="display:flex; gap:6px;">
+                    <button class="btn-module" style="width:auto; padding:5px 8px; font-size:0.75rem; background:#e2e8f0; color:#334155;" onclick="abrirPerfilPublico('${u.id}')">👁️</button>
+                    <button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
+                </div>
             </div>
         `).join('');
     }
@@ -2796,6 +2947,303 @@
         window.location.href = `versus.html?opponent=${destinatarioId}`;
     }
 
+    // ================= PERFIL PÚBLICO =================
+    window._ppCurrentUserId = null;
+    window._ppCurrentUsername = null;
+
+    async function abrirPerfilPublico(userId) {
+        if (!window.NikaSupabase || !window.NikaSupabase.client) return;
+        const supabase = window.NikaSupabase.client;
+
+        const modal = document.getElementById('public-profile-modal');
+        if (!modal) return;
+        modal.style.display = 'flex';
+        window._ppCurrentUserId = userId;
+        window._ppCurrentUsername = null;
+
+        document.getElementById('pp-fullname').textContent = 'Cargando...';
+        document.getElementById('pp-username').textContent = '';
+        document.getElementById('pp-bio').textContent = '';
+        document.getElementById('pp-anio-badge').style.display = 'none';
+        document.getElementById('pp-instagram').style.display = 'none';
+        document.getElementById('pp-whatsapp').style.display = 'none';
+
+        const { data: user, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', userId)
+            .single();
+
+        if (error || !user) {
+            showToast('No se pudo cargar el perfil.');
+            closePublicProfileModal();
+            return;
+        }
+
+        window._ppCurrentUsername = user.username || null;
+
+        document.getElementById('pp-avatar').src = user.avatar || 'assets/N%20NIKA.png';
+        document.getElementById('pp-fullname').textContent = user.fullname || 'Estudiante Nika';
+        document.getElementById('pp-username').textContent = `@${user.username || 'usuario'}`;
+        document.getElementById('pp-bio').textContent = user.bio || 'Este usuario todavía no cargó una biografía médica.';
+
+        const anioBadge = document.getElementById('pp-anio-badge');
+        if (user.anio_cursada) {
+            anioBadge.textContent = `🎓 ${user.anio_cursada}`;
+            anioBadge.style.display = 'inline-block';
+        }
+
+        const igLink = document.getElementById('pp-instagram');
+        if (user.instagram) {
+            const handle = user.instagram.trim();
+            igLink.href = handle.startsWith('http') ? handle : `https://instagram.com/${handle.replace(/^@/, '')}`;
+            igLink.style.display = 'inline';
+        }
+        const waLink = document.getElementById('pp-whatsapp');
+        if (user.whatsapp) {
+            waLink.href = `https://wa.me/${user.whatsapp.replace(/\D/g, '')}`;
+            waLink.style.display = 'inline';
+        }
+
+        // Primer acceso = fecha de registro (created_at de profiles)
+        document.getElementById('pp-first-access').textContent = user.created_at
+            ? new Date(user.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+            : 'Sin datos';
+
+        // Último acceso = last_login_at, actualizado en cada inicio de sesión (ver handleLogin)
+        document.getElementById('pp-last-access').textContent = user.last_login_at
+            ? new Date(user.last_login_at).toLocaleString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+            : 'Sin registrar';
+
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        const esMiPropioPerfil = !!(authUser && authUser.id === userId);
+        const friendBtn = document.getElementById('pp-friend-btn');
+        const chatBtn = document.getElementById('pp-chat-btn');
+        if (friendBtn) friendBtn.style.display = esMiPropioPerfil ? 'none' : 'inline-block';
+        if (chatBtn) chatBtn.style.display = esMiPropioPerfil ? 'none' : 'inline-block';
+    }
+
+    function closePublicProfileModal() {
+        const modal = document.getElementById('public-profile-modal');
+        if (modal) modal.style.display = 'none';
+        window._ppCurrentUserId = null;
+        window._ppCurrentUsername = null;
+    }
+
+    // ================= CHAT PRIVADO (ChatManager) =================
+    let _pcAmigoActual = null; // username del amigo con quien se está chateando
+
+    async function openChatWithFriend(friendUsername) {
+        if (!friendUsername) { showToast('No se pudo identificar al usuario.'); return; }
+        if (!window.ChatManager) { showToast('Chat privado no disponible todavía.'); return; }
+        if (!window.NikaSupabase || !window.NikaSupabase.getNikaCurrentUsername()) {
+            showToast('Iniciá sesión para chatear.'); return;
+        }
+
+        closePublicProfileModal();
+        _pcAmigoActual = friendUsername;
+        const modal = document.getElementById('private-chat-modal');
+        const listBox = document.getElementById('pc-messages-list');
+        const nameLabel = document.getElementById('pc-friend-name');
+        if (nameLabel) nameLabel.textContent = `@${friendUsername}`;
+        if (modal) modal.style.display = 'flex';
+        if (listBox) listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Cargando conversación...</p>';
+
+        try {
+            const historial = await window.ChatManager.abrirConversacion(friendUsername);
+            _renderMensajesPrivados(historial);
+            await window.ChatManager.marcarComoLeido(friendUsername);
+        } catch (err) {
+            console.error('[openChatWithFriend]', err);
+            if (listBox) listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se pudo cargar el chat.</p>';
+        }
+
+        window.ChatManager.onMensaje = (row) => {
+            if (row.from_username === _pcAmigoActual || row.to_username === _pcAmigoActual) {
+                _agregarBurbujaPrivada(row);
+                window.ChatManager.marcarComoLeido(_pcAmigoActual);
+            }
+        };
+    }
+
+    function closePrivateChatModal() {
+        const modal = document.getElementById('private-chat-modal');
+        if (modal) modal.style.display = 'none';
+        if (window.ChatManager) window.ChatManager.cerrarConversacion();
+        _pcAmigoActual = null;
+    }
+
+    function _renderMensajesPrivados(mensajes) {
+        const listBox = document.getElementById('pc-messages-list');
+        if (!listBox) return;
+        const myUsername = window.NikaSupabase.getNikaCurrentUsername();
+        if (!mensajes || mensajes.length === 0) {
+            listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Todavía no tienen mensajes. ¡Escribí el primero!</p>';
+            return;
+        }
+        listBox.innerHTML = mensajes.map(m => _bubbleHtml(m, myUsername)).join('');
+        listBox.scrollTop = listBox.scrollHeight;
+    }
+
+    function _bubbleHtml(m, myUsername) {
+        const mia = m.from_username === myUsername;
+        if (m.shared_question) {
+            const q = m.shared_question;
+            return `<div class="chat-msg ${mia ? 'mine' : 'rival'}" style="max-width:90%; ${mia ? 'align-self:flex-end;' : 'align-self:flex-start;'} background:${mia ? 'var(--nika-primary)' : 'var(--card-bg)'}; color:${mia ? 'white' : 'var(--text-main)'}; border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:0.8rem;">
+                <strong>📋 Pregunta compartida${q.up ? ' · ' + q.up : ''}</strong><br>${q.q || ''}
+            </div>`;
+        }
+        return `<div class="chat-msg ${mia ? 'mine' : 'rival'}" style="max-width:80%; ${mia ? 'align-self:flex-end;' : 'align-self:flex-start;'} background:${mia ? 'var(--nika-primary)' : 'var(--card-bg)'}; color:${mia ? 'white' : 'var(--text-main)'}; border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:0.85rem;">${m.body || ''}</div>`;
+    }
+
+    function _agregarBurbujaPrivada(m) {
+        const listBox = document.getElementById('pc-messages-list');
+        if (!listBox) return;
+        const myUsername = window.NikaSupabase.getNikaCurrentUsername();
+        if (listBox.children.length === 1 && listBox.children[0].tagName === 'P') listBox.innerHTML = '';
+        listBox.insertAdjacentHTML('beforeend', _bubbleHtml(m, myUsername));
+        listBox.scrollTop = listBox.scrollHeight;
+    }
+
+    async function sendPrivateMessage() {
+        const input = document.getElementById('pc-message-input');
+        if (!input || !_pcAmigoActual || !window.ChatManager) return;
+        const texto = input.value.trim();
+        if (!texto) return;
+        input.value = '';
+        try {
+            const row = await window.ChatManager.enviarMensaje(_pcAmigoActual, texto);
+            if (row) _agregarBurbujaPrivada(row);
+        } catch (err) {
+            console.error('[sendPrivateMessage]', err);
+            showToast('No se pudo enviar el mensaje.');
+        }
+    }
+
+    // ================= PRESENCE + POMODORO SINCRONIZADO (PomodoroSyncManager) =================
+    let _pomodoroPresenceIniciado = false;
+
+    function initCommunityPresence() {
+        if (!window.PomodoroSyncManager || !window.NikaSupabase || !window.NikaSupabase.getNikaCurrentUsername()) return;
+        if (_pomodoroPresenceIniciado) return;
+        _pomodoroPresenceIniciado = true;
+
+        window.PomodoroSyncManager.onFriendsStateChange = (estadosPorUsername) => {
+            document.querySelectorAll('[data-presence-user]').forEach(el => {
+                const username = el.getAttribute('data-presence-user');
+                const estado = estadosPorUsername[username];
+                const fallback = el.getAttribute('data-fallback');
+                if (estado && estado.up) {
+                    el.textContent = `📖 Estudiando ${estado.up}...`;
+                    el.style.display = '';
+                } else if (estado && estado.pomodoroActivo) {
+                    el.textContent = '🍅 En Pomodoro activo';
+                    el.style.display = '';
+                } else if (fallback) {
+                    el.textContent = fallback;
+                    el.style.display = '';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        };
+
+        window.PomodoroSyncManager.onInviteReceived = (payload) => {
+            showToast(`@${payload.fromUsername} te invitó a sincronizar el Pomodoro. Buscalo en tu lista de amigos para unirte.`);
+        };
+
+        window.PomodoroSyncManager.iniciar();
+    }
+
+    async function unirseAlPomodoroDe(friendUsername) {
+        if (!window.PomodoroSyncManager) { showToast('Pomodoro sincronizado no disponible todavía.'); return; }
+        if (!friendUsername) return;
+
+        const estados = window.PomodoroSyncManager.estadoDeAmigos([friendUsername]);
+        const estadoAmigo = estados[0] || null;
+
+        try { await window.PomodoroSyncManager.invitarASincronizar(friendUsername); } catch (_) {}
+
+        _iniciarPomodoroLocalSincronizado(friendUsername, estadoAmigo);
+    }
+
+    // ---- Contador local del Pomodoro (Modo Biblioteca) ----
+    const POMO_FOCUS_SEC = 25 * 60;
+    const POMO_BREAK_SEC = 5 * 60;
+    let _pomoInterval = null;
+    let _pomoRestante = POMO_FOCUS_SEC;
+    let _pomoFase = 'Enfoque';
+    let _pomoCorriendo = false;
+
+    function _iniciarPomodoroLocalSincronizado(friendUsername, estadoAmigo) {
+        const modal = document.getElementById('pomodoro-sync-modal');
+        const label = document.getElementById('pomo-with-label');
+        if (label) label.textContent = `Sincronizado con @${friendUsername}`;
+        if (modal) modal.style.display = 'flex';
+
+        clearInterval(_pomoInterval);
+        _pomoFase = (estadoAmigo && estadoAmigo.faseActual) || 'Enfoque';
+        const duracionFase = _pomoFase === 'Descanso' ? POMO_BREAK_SEC : POMO_FOCUS_SEC;
+
+        // Si tenemos el timestamp del amigo, descontamos el tiempo ya transcurrido de su ciclo
+        // para arrancar lo más sincronizado posible con su fase actual.
+        let transcurrido = 0;
+        if (estadoAmigo && estadoAmigo.updated_at) {
+            transcurrido = Math.floor((Date.now() - new Date(estadoAmigo.updated_at).getTime()) / 1000);
+        }
+        _pomoRestante = Math.max(duracionFase - Math.max(transcurrido, 0), 0);
+        _pomoCorriendo = false;
+        _actualizarDisplayPomodoro();
+
+        const toggleBtn = document.getElementById('pomo-toggle-btn');
+        if (toggleBtn) toggleBtn.textContent = '▶️ Iniciar';
+
+        window.PomodoroSyncManager.actualizarEstado({ up: null, pomodoroActivo: false, faseActual: _pomoFase });
+    }
+
+    function pomodoroLocalToggle() {
+        _pomoCorriendo = !_pomoCorriendo;
+        const toggleBtn = document.getElementById('pomo-toggle-btn');
+
+        if (_pomoCorriendo) {
+            if (toggleBtn) toggleBtn.textContent = '⏸️ Pausar';
+            _pomoInterval = setInterval(() => {
+                _pomoRestante--;
+                if (_pomoRestante <= 0) {
+                    _pomoFase = _pomoFase === 'Enfoque' ? 'Descanso' : 'Enfoque';
+                    _pomoRestante = _pomoFase === 'Descanso' ? POMO_BREAK_SEC : POMO_FOCUS_SEC;
+                    showToast(_pomoFase === 'Descanso' ? '¡Hora de un descanso! ☕' : '¡De vuelta al enfoque! 📚');
+                }
+                _actualizarDisplayPomodoro();
+                if (window.PomodoroSyncManager) {
+                    window.PomodoroSyncManager.actualizarEstado({ up: null, pomodoroActivo: true, faseActual: _pomoFase });
+                }
+            }, 1000);
+        } else {
+            if (toggleBtn) toggleBtn.textContent = '▶️ Iniciar';
+            clearInterval(_pomoInterval);
+            if (window.PomodoroSyncManager) {
+                window.PomodoroSyncManager.actualizarEstado({ up: null, pomodoroActivo: false, faseActual: _pomoFase });
+            }
+        }
+    }
+
+    function _actualizarDisplayPomodoro() {
+        const mm = String(Math.floor(_pomoRestante / 60)).padStart(2, '0');
+        const ss = String(_pomoRestante % 60).padStart(2, '0');
+        const display = document.getElementById('pomo-timer-display');
+        const faseDisplay = document.getElementById('pomo-fase-display');
+        if (display) display.textContent = `${mm}:${ss}`;
+        if (faseDisplay) faseDisplay.textContent = _pomoFase === 'Descanso' ? 'Descanso' : 'Enfoque';
+    }
+
+    function closePomodoroSyncModal() {
+        clearInterval(_pomoInterval);
+        _pomoCorriendo = false;
+        const modal = document.getElementById('pomodoro-sync-modal');
+        if (modal) modal.style.display = 'none';
+    }
+
     // Exposición global de funciones (para eventos onclick en HTML)
     Object.assign(window, {
         syncStudyProgress, toggleSidebar, showOnlyModules, showDashboard, showAdminDashboard, toggleDarkMode, showToast,
@@ -2804,7 +3252,10 @@
         handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal, copyCreatorAlias,
         NikaAudio, applySidebarResponsiveState,
         cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
-        openChatModal, closeChatModal, sendChatMessage, toggleForumThreadReplies, submitForumReply
+        openChatModal, closeChatModal, sendChatMessage, toggleForumThreadReplies, submitForumReply,
+        abrirPerfilPublico, closePublicProfileModal,
+        openChatWithFriend, closePrivateChatModal, sendPrivateMessage,
+        initCommunityPresence, unirseAlPomodoroDe, pomodoroLocalToggle, closePomodoroSyncModal
     });
 
     let resizeDebounce;
@@ -2940,6 +3391,8 @@
 <!-- Asistente IA y Módulos Sociales -->
 <script src="js/assistant.js"></script>
 <script src="js/social.js"></script>
+<script src="js/chatManager.js"></script>
+<script src="js/pomodoroSyncManager.js"></script>
 
 </body>
 </html>

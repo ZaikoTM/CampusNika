@@ -68,9 +68,19 @@ const PomodoroSyncManager = (function () {
     // ------------------------------------------------------------
     // 2. Actualizar mi propio estado (llamado desde estudio.js / pomodoro.js
     //    cada vez que cambia de UP o arranca/pausa/termina el timer)
+    //
+    //    NOTA: combina (merge) con el estado previo en vez de sobreescribirlo
+    //    entero. estudio.js reporta solo `up` al abrir/cerrar una UP, y
+    //    pomodoro.js reporta solo `pomodoroActivo`/`faseActual` al arrancar,
+    //    pausar o cambiar de fase — si uno pisara al otro, uno de los dos
+    //    campos se perdería en cada llamada.
     // ------------------------------------------------------------
-    async function actualizarEstado({ up = null, pomodoroActivo = false, faseActual = null } = {}) {
-        estadoLocal = { up, pomodoroActivo, faseActual };
+    async function actualizarEstado({ up, pomodoroActivo, faseActual } = {}) {
+        estadoLocal = {
+            up: up !== undefined ? up : estadoLocal.up,
+            pomodoroActivo: pomodoroActivo !== undefined ? pomodoroActivo : estadoLocal.pomodoroActivo,
+            faseActual: faseActual !== undefined ? faseActual : estadoLocal.faseActual,
+        };
         if (!canal) return;
 
         const username = window.NikaSupabase.getNikaCurrentUsername();

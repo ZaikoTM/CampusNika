@@ -266,6 +266,19 @@
     #challenge-toast button { flex: 1; padding: 8px; border-radius: 6px; border: none; cursor: pointer; font-weight: 700; font-size: 0.82rem; }
 
     .footer { background-color: var(--card-bg); border-top: 1px solid var(--border); color: var(--text-muted); padding: 22px; text-align: center; font-size: 0.85rem; margin-top: auto; }
+
+    /* ---------- Fix navbar sticky tapando preguntas/opciones en mobile y tablet ---------- */
+    @media (max-width: 900px) {
+        .container {
+            padding-top: 60px;
+        }
+    }
+    @media (max-width: 480px) {
+        .navbar { padding: 14px 16px; }
+        .container {
+            padding-top: 68px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -767,6 +780,13 @@
     // Verificación de sesión
     // ------------------------------------------------------------
     document.addEventListener('DOMContentLoaded', async () => {
+        // Auth Guard: restaura la sesión antes de leer el username, evita
+        // deslogueos falsos cuando la sesión de Supabase todavía no
+        // terminó de hidratarse en memoria al recargar la página.
+        if (window.NikaSupabase && typeof window.NikaSupabase.restaurarSesionSiExiste === 'function') {
+            await window.NikaSupabase.restaurarSesionSiExiste();
+        }
+
         const username = window.NikaSupabase.getNikaCurrentUsername();
         if (!username) {
             showToast('Iniciá sesión para entrar a la Arena.');

@@ -120,6 +120,9 @@ const SimuladorElo = (() => {
     function cerrar() {
         els.overlay.classList.remove('open');
         if (state && state.timerInterval) clearInterval(state.timerInterval);
+        if (window.PomodoroSyncManager) {
+            window.PomodoroSyncManager.actualizarEstado({ up: null, pomodoroActivo: false, faseActual: null });
+        }
     }
 
     // ============ Flujo del simulacro ============
@@ -166,6 +169,10 @@ const SimuladorElo = (() => {
         const total = state.preguntas.length;
         const q = state.preguntas[state.indice];
         const pct = Math.round((state.indice / total) * 100);
+
+        if (window.PomodoroSyncManager) {
+            window.PomodoroSyncManager.actualizarEstado({ up: `UP${q.up}`, pomodoroActivo: false, faseActual: null });
+        }
 
         els.body.innerHTML = `
             <div class="se-progressbar"><div class="se-progressbar-fill" style="width:${pct}%;"></div></div>
@@ -245,6 +252,10 @@ const SimuladorElo = (() => {
         const proporcionAciertos = state.aciertos / total;
         const gano = proporcionAciertos >= CONFIG.umbralVictoria;
         const eloDelta = gano ? CONFIG.eloPorVictoria : CONFIG.eloPorDerrota;
+
+        if (window.PomodoroSyncManager) {
+            window.PomodoroSyncManager.actualizarEstado({ up: null, pomodoroActivo: false, faseActual: null });
+        }
 
         els.body.innerHTML = `
             <div style="text-align:center;">

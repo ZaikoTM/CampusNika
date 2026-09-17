@@ -256,6 +256,10 @@ function showDashboard() {
     document.getElementById('view-up-detail').style.display = 'none';
     document.getElementById('view-dashboard').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (window.PomodoroSyncManager) {
+        window.PomodoroSyncManager.actualizarEstado({ up: null, pomodoroActivo: false, faseActual: null });
+    }
 }
 
 function openUP(upId) {
@@ -292,6 +296,11 @@ function openUP(upId) {
 
     if (typeof PomodoroModule !== 'undefined') {
         PomodoroModule.open(moduleId, upId, upLabel, 'pomodoro-placeholder');
+    }
+
+    // Presence: le avisa a los amigos qué UP está mirando ("Estudiando UPx...")
+    if (window.PomodoroSyncManager) {
+        window.PomodoroSyncManager.actualizarEstado({ up: `UP${unit.number}` });
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });

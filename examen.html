@@ -464,6 +464,7 @@
     <!-- SDK oficial de Supabase (requerido para inicializar el cliente) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
+    <script src="js/pomodoroSyncManager.js"></script>
     <script src="js/social.js"></script>
     <script src="js/examen.js"></script>
 
@@ -519,7 +520,24 @@
                 document.getElementById('config-screen').style.display = 'block';
                 checkAutoSave();
             }
+
+            // Presence: reporta a los amigos qué UP está viendo durante el simulacro
+            // ("Estudiando UPx..."). El demo no tiene sesión real, así que se omite.
+            if (window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername && window.NikaSupabase.getNikaCurrentUsername()) {
+                if (window.NikaSupabase.restaurarSesionSiExiste) await window.NikaSupabase.restaurarSesionSiExiste();
+                if (window.PomodoroSyncManager) await window.PomodoroSyncManager.iniciar();
+            }
         });
+
+        // ---- Presence: reporta la UP actual en cada pregunta ----
+        let _ultimaUpReportadaExamen = undefined;
+        function _reportarPresenciaUpExamen(up) {
+            if (!window.PomodoroSyncManager) return;
+            const etiqueta = up ? `UP${up}` : null;
+            if (etiqueta === _ultimaUpReportadaExamen) return;
+            _ultimaUpReportadaExamen = etiqueta;
+            window.PomodoroSyncManager.actualizarEstado({ up: etiqueta, pomodoroActivo: false, faseActual: null });
+        }
 
         // Prevención de cierre accidental
         window.addEventListener('beforeunload', (e) => {
@@ -527,6 +545,7 @@
                 saveProgressLocally();
                 e.preventDefault(); e.returnValue = '';
             }
+            if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
         });
 
         // Atajos de teclado
@@ -805,6 +824,7 @@
         function renderQuestion() {
             visitedQuestions.add(currentIndex); const q = currentExam[currentIndex]; const container = document.getElementById('question-container');
             const isFlagged = flaggedQuestions[currentIndex]; const currentNote = userNotes[currentIndex] || '';
+            _reportarPresenciaUpExamen(q.up);
             
             let optionsHtml = '';
             for (let key in q.options) {
@@ -861,6 +881,7 @@
             localStorage.removeItem('nika_active_exam');
             document.getElementById('quiz-screen').style.display = 'none'; 
             document.getElementById('result-screen').style.display = 'block';
+            _reportarPresenciaUpExamen(null);
 
             let correctCount = 0; 
             let upStats = {};

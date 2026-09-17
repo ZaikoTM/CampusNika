@@ -511,6 +511,7 @@
     <!-- 3. Módulos de Productividad (Notas y Pomodoro) -->
     <script src="js/productivity/notas.js"></script>
     <script src="js/productivity/pomodoro.js"></script>
+    <script src="js/pomodoroSyncManager.js"></script>
 
     <!-- 4. Lógica de Estudio -->
     <script src="js/estudio/estudio.js"></script>
@@ -518,5 +519,23 @@
     <!-- 5. Asistente IA y Módulos Sociales -->
     <script src="js/assistant.js"></script>
     <script src="js/social.js"></script>
+
+    <!-- 6. Presence: inicia la sesión de Supabase Presence. El reporte de
+         "qué UP está viendo" ahora lo hace estudio.js directamente
+         (openUP()/showDashboard()), y el de fase/estado del timer lo hace
+         pomodoro.js (start()/pause()/handleCycleComplete()/destroy()). -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.NikaSupabase && typeof window.NikaSupabase.restaurarSesionSiExiste === 'function') {
+                await window.NikaSupabase.restaurarSesionSiExiste();
+            }
+            if (!window.NikaSupabase || !window.NikaSupabase.getNikaCurrentUsername()) return;
+            if (window.PomodoroSyncManager) await window.PomodoroSyncManager.iniciar();
+        });
+
+        window.addEventListener('beforeunload', () => {
+            if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
+        });
+    </script>
 </body>
 </html>

@@ -256,10 +256,26 @@ const PomodoroModule = (() => {
     }
   }
 
+  // Traduce el modo interno ('work'/'break') a las etiquetas que espera
+  // PomodoroSyncManager / campus.html ('Enfoque'/'Descanso').
+  function _faseParaPresence() {
+    return mode === 'work' ? 'Enfoque' : 'Descanso';
+  }
+
+  function _reportarPresence(pomodoroActivo) {
+    if (window.PomodoroSyncManager) {
+      window.PomodoroSyncManager.actualizarEstado({
+        pomodoroActivo,
+        faseActual: _faseParaPresence()
+      });
+    }
+  }
+
   function start() {
     if (isRunning) return;
     isRunning = true;
     render();
+    _reportarPresence(true);
 
     intervalId = setInterval(() => {
       secondsLeft--;
@@ -278,6 +294,7 @@ const PomodoroModule = (() => {
     clearInterval(intervalId);
     isRunning = false;
     render();
+    _reportarPresence(false);
   }
 
   function resetTimer() {
@@ -285,6 +302,7 @@ const PomodoroModule = (() => {
     isRunning = false;
     secondsLeft = (mode === 'work' ? workMinutes : breakMinutes) * 60;
     render();
+    _reportarPresence(false);
   }
 
   function handleCycleComplete() {
@@ -298,6 +316,9 @@ const PomodoroModule = (() => {
     }
     secondsLeft = (mode === 'work' ? workMinutes : breakMinutes) * 60;
     render();
+    // El ciclo recién completado deja el timer detenido hasta que el usuario
+    // le dé Play a la fase siguiente.
+    _reportarPresence(false);
   }
 
   function open(moduleId, upId, upLabel, containerId = 'pomodoro-placeholder') {
@@ -311,12 +332,14 @@ const PomodoroModule = (() => {
     currentView = 'timer';
     secondsLeft = workMinutes * 60;
     render();
+    _reportarPresence(false);
   }
 
   function destroy() {
     clearInterval(intervalId);
     isRunning = false;
     containerEl = null;
+    _reportarPresence(false);
   }
 
   return { open, destroy };
