@@ -823,7 +823,134 @@
         </div>
     </div>
 
+    <!-- ================= MODAL DE TUTORIAL DE INSTALACIÓN PWA ================= -->
+    <div id="modalPwaTutorial" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: white; max-width: 400px; width: 100%; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); font-family: inherit; position: relative;">
+            
+            <!-- Botón de cerrar -->
+            <button type="button" onclick="cerrarTutorialPwa()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 20px; cursor: pointer; color: #666;">✕</button>
+            
+            <h3 style="margin-top: 0; color: #0b1f3b; font-size: 20px; margin-bottom: 12px;">📲 ¿Cómo instalar Campus Nika?</h3>
+            <p style="color: #555; font-size: 14px; margin-bottom: 16px;">Llevate la app a tu pantalla de inicio para estudiar sin distracciones:</p>
+            
+            <!-- Sección Android -->
+            <div style="background: #f4f7fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                <strong style="color: #0b1f3b; display: block; margin-bottom: 4px;">🤖 Si tenés Android (Chrome / Edge):</strong>
+                <ol style="margin: 0; padding-left: 20px; color: #444; font-size: 13px;">
+                    <li>Tocá el botón de instalar o los tres puntitos del navegador.</li>
+                    <li>Seleccioná <b>"Instalar aplicación"</b> o <b>"Agregar a la pantalla principal"</b>.</li>
+                </ol>
+            </div>
+
+            <!-- Sección iOS -->
+            <div style="background: #f4f7fa; padding: 12px; border-radius: 8px;">
+                <strong style="color: #0b1f3b; display: block; margin-bottom: 4px;">🍏 Si tenés iPhone / iOS (Safari):</strong>
+                <ol style="margin: 0; padding-left: 20px; color: #444; font-size: 13px;">
+                    <li>Abrí el campus obligatoriamente en <b>Safari</b>.</li>
+                    <li>Tocá el ícono de <b>Compartir</b> (cuadrado con flecha hacia arriba).</li>
+                    <li>Buscá y elegí <b>"Agregar a Inicio"</b>. ¡Listo!</li>
+                </ol>
+            </div>
+
+            <button type="button" onclick="cerrarTutorialPwa()" style="width: 100%; background: #0066cc; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 16px; cursor: pointer;">¡Entendido!</button>
+        </div>
+    </div>
+
     <div id="toast">Notificación</div>
+
+    <!-- ================= SCRIPTS FINALES ================= -->
+    <script>
+        // ================= BANNER DE EXPEDIENTE MÉDICO =================
+        function verificarExpedienteMedico() {
+            const banner = document.getElementById('profile-completion-banner');
+            if (!banner) return;
+
+            const rawUser = localStorage.getItem('nika_currentUser');
+            if (!rawUser) {
+                banner.style.display = 'none';
+                return;
+            }
+
+            let user = {};
+            try {
+                user = JSON.parse(rawUser);
+            } catch (_) {
+                banner.style.display = 'none';
+                return;
+            }
+
+            // Criterios de evaluación (25% cada uno)
+            const campos = [
+                { key: 'fullname', label: '+ Nombre Completo', ok: !!(user.fullname && user.fullname.trim() !== '') },
+                { key: 'avatar', label: '+ Foto de Perfil', ok: !!(user.avatar && user.avatar.trim() !== '') },
+                { key: 'meta', label: '+ Especialidad Objetivo', ok: !!(user.meta || user.especialidad) },
+                { key: 'bio', label: '+ Bio Clínica', ok: !!(user.bio && user.bio.trim() !== '') }
+            ];
+
+            const completados = campos.filter(c => c.ok).length;
+            const porcentaje = Math.round((completados / campos.length) * 100);
+
+            if (porcentaje >= 100) {
+                banner.style.display = 'none';
+                return;
+            }
+
+            banner.style.display = 'flex';
+            const pctText = document.getElementById('profile-pct-text');
+            const progressFill = document.getElementById('profile-progress-fill');
+            const pendingContainer = document.getElementById('profile-pending-list');
+
+            if (pctText) pctText.textContent = `${porcentaje}% Completado`;
+            if (progressFill) progressFill.style.width = `${porcentaje}%`;
+
+            if (pendingContainer) {
+                pendingContainer.innerHTML = '';
+                campos.filter(c => !c.ok).forEach(c => {
+                    const badge = document.createElement('span');
+                    badge.className = 'pending-badge';
+                    badge.textContent = c.label;
+                    pendingContainer.appendChild(badge);
+                });
+            }
+        }
+
+        // Exponer función globalmente para reutilizarla tras guardar cambios de perfil
+        window.verificarExpedienteMedico = verificarExpedienteMedico;
+
+        // Lógica del botón de instalación y apertura del tutorial PWA
+        function manejarClickInstalar() {
+            if (typeof deferredPrompt !== 'undefined' && deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('El usuario aceptó instalar la PWA');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                const modal = document.getElementById('modalPwaTutorial');
+                if (modal) {
+                    modal.style.display = 'flex';
+                }
+            }
+        }
+
+        function cerrarTutorialPwa() {
+            const modal = document.getElementById('modalPwaTutorial');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+
+    <!-- Asistente IA y Módulos Sociales -->
+    <script src="js/assistant.js"></script>
+    <script src="js/social.js"></script>
+    <script src="js/chatManager.js"></script>
+    <script src="js/pomodoroSyncManager.js"></script>
+
+</body>
+</html>
 
     <script>
         // Pestañas de Plan de Estudios (Sala de Estudio → #modulos-section)
