@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Forzar desplazamiento natural conjunto para la barra lateral (notas/pomodoro)
+// Forzar desplazamiento natural y adaptaciones responsivas para celulares y tablets
 function injectNaturalScrollingStyles() {
     if (document.getElementById('nika-natural-scroll-style')) return;
     const style = document.createElement('style');
@@ -78,6 +78,27 @@ function injectNaturalScrollingStyles() {
             border-color: #0284c7 !important;
             background-color: #f0f9ff !important;
             box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+        }
+
+        /* ==========================================
+           ADAPTACIONES PARA CELULARES Y TABLETS
+           ========================================== */
+        @media (max-width: 768px) {
+            #nika-inline-frame-wrapper {
+                height: 380px !important;
+                min-height: 350px !important;
+                max-height: 450px !important;
+            }
+            button, .up-tab-btn, .resource-item {
+                min-height: 44px;
+            }
+            header, .campus-header, .header-container, nav {
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+            }
+            textarea, input[type="text"] {
+                font-size: 16px !important;
+            }
         }
     `;
     document.head.appendChild(style);

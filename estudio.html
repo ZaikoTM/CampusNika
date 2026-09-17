@@ -66,19 +66,11 @@
         .brand-title .brand-mark svg { width: 18px; height: 18px; color: var(--nika-primary); }
         .brand-slogan { display: block; font-size: 0.7rem; color: var(--nika-primary); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
 
-        .btn-back {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--card-bg); color: var(--text-main);
-            border: 1px solid var(--border);
-            padding: 9px 18px; border-radius: 8px;
-            font-weight: 700; font-size: 0.85rem;
-            transition: var(--transition-base);
+        /* ================= LAYOUT GENERAL (RESTAURADO PARA PC) ================= */
+        .app-container, .suite-container, .container, .main-wrapper { 
+            width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; 
         }
-        .btn-back:hover { border-color: var(--nika-primary); color: var(--nika-primary); box-shadow: var(--shadow); }
-        .btn-back svg { width: 16px; height: 16px; }
-
-        /* ================= LAYOUT GENERAL ================= */
-        .app-container { max-width: 1200px; margin: 0 auto; padding: 40px 5% 80px 5%; }
+        .app-container { padding: 40px 5% 80px 5%; }
 
         /* ================= HERO / ENCABEZADO CON TONALIDAD OSCURA ================= */
         .suite-hero {
@@ -139,23 +131,33 @@
 
         /* ================= VISTA DETALLE UP ================= */
         .up-detail-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
-        .btn-back-dashboard {
+        
+        /* BOTÓN VOLVER: REDISEÑO SUAVE Y MODERNO */
+        .btn-back-dashboard, .btn-back {
             display: inline-flex; align-items: center; gap: 8px;
-            background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted);
-            padding: 9px 16px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer;
-            transition: var(--transition-base); margin-bottom: 18px;
+            background: #e0f2fe; 
+            color: #0284c7; 
+            border: none; 
+            padding: 10px 22px; 
+            border-radius: 99px; 
+            font-weight: 800; font-size: 0.9rem; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.12); 
+            transition: all 0.3s ease; margin-bottom: 18px; text-decoration: none;
         }
-        .btn-back-dashboard:hover { border-color: var(--nika-primary); color: var(--nika-primary); }
-        .btn-back-dashboard svg { width: 15px; height: 15px; }
+        .btn-back-dashboard:hover, .btn-back:hover {
+            background: #bae6fd;
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 14px rgba(2, 132, 199, 0.2);
+        }
+        .btn-back-dashboard svg, .btn-back svg { width: 18px; height: 18px; }
 
         .up-detail-title-block .up-card-number { margin-bottom: 10px; display: inline-block; }
         .up-detail-title-block h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: 900; letter-spacing: -0.5px; color: var(--nika-dark); }
 
-        /* Layout: contenido principal + panel lateral */
-        .up-detail-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
-        @media (max-width: 900px) { .up-detail-layout { grid-template-columns: 1fr; } }
+        /* RESTAURACIÓN PC: Layout principal + panel lateral */
+        .up-detail-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; width: 100%; }
 
-        /* Tabs */
+        /* Tabs (Base para PC) */
         .up-tabs-strip { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; }
         .up-tabs-strip::-webkit-scrollbar { display: none; }
         .up-tab-btn {
@@ -221,10 +223,167 @@
 
         /* ================= UTILIDADES ================= */
         .hidden { display: none !important; }
+
+        /* BLINDAJE ESTRICTO: ASISTENTE NIKA FLOTANTE (PC y Celular) */
+        #nika-floating-assistant {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            left: auto !important;
+            width: 56px !important;
+            min-width: 56px !important;
+            max-width: 56px !important;
+            height: 56px !important;
+            min-height: 56px !important;
+            max-height: 56px !important;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4) !important;
+            z-index: 9999 !important;
+            cursor: pointer !important;
+            font-size: 1.5rem !important;
+            color: white !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            transform: none !important;
+        }
+        #nika-floating-assistant:hover { transform: scale(1.1) !important; }
+
+        /* ==========================================================
+           CELULARES (MAX-WIDTH 768PX) - LA SOLUCIÓN DEFINITIVA (USANDO GRID)
+           ========================================================== */
+        @media (max-width: 768px) {
+            /* 1. SEGURO GLOBAL CONTRA ESTIRAMIENTOS HACIA LA DERECHA */
+            body, html { 
+                overflow-x: hidden !important; 
+                width: 100vw !important; 
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* 2. CONTENEDORES PRINCIPALES */
+            .app-container, .suite-container, .up-detail-layout {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                padding-left: 14px !important;
+                padding-right: 14px !important;
+                box-sizing: border-box !important;
+            }
+            .up-detail-layout { padding-left: 0 !important; padding-right: 0 !important; gap: 20px !important; }
+
+            /* 3. IGUALAMOS TAMAÑOS Y AGREGAMOS MARGEN INFERIOR PARA ESTÉTICA */
+            .content-block, .card, .side-panel-card, .material-card {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 20px !important; 
+                margin-left: 0 !important; 
+                margin-right: 0 !important;
+                margin-top: 0 !important;
+                margin-bottom: 24px !important; /* Espacio estético entre cajas */
+            }
+
+            /* 4. SOLUCIÓN MÁGICA: USAMOS CSS GRID PARA LAS LISTAS DE OBJETIVOS */
+            .content-block ul {
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+            .content-block li {
+                display: grid !important; 
+                grid-template-columns: auto 1fr !important; 
+                gap: 12px !important; 
+                align-items: start !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                margin-bottom: 12px !important;
+            }
+            .content-block li input[type="checkbox"], .content-block li svg {
+                margin: 0 !important; 
+                margin-top: 4px !important;
+            }
+            .content-block li * {
+                white-space: normal !important; 
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+
+            /* 5. BARRA DE SOLAPAS DESLIZABLE Y VISIBLE */
+            .up-tabs-strip {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important; 
+                overflow-y: hidden !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                -webkit-overflow-scrolling: touch !important;
+                padding-bottom: 12px !important;
+                border-bottom: 1px solid var(--border) !important;
+            }
+            .up-tab-btn {
+                flex: 0 0 auto !important; 
+                white-space: nowrap !important;
+            }
+            .up-tabs-strip::-webkit-scrollbar { display: block !important; height: 5px !important; }
+            .up-tabs-strip::-webkit-scrollbar-track { background: var(--border) !important; border-radius: 10px !important; }
+            .up-tabs-strip::-webkit-scrollbar-thumb { background: var(--nika-primary) !important; border-radius: 10px !important; }
+
+            /* 6. RECURSOS (CLASES, VIDEOS Y PDFS) CONTENIDOS CON GRID */
+            .resource-item {
+                display: grid !important;
+                grid-template-columns: auto 1fr auto !important; 
+                gap: 12px !important;
+                align-items: center !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 12px !important;
+            }
+            .resource-info {
+                min-width: 0 !important; 
+            }
+            .resource-info h5, .resource-info span {
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                display: block !important;
+                margin: 0 !important;
+            }
+            .resource-icon, .resource-open-btn {
+                margin: 0 !important;
+            }
+
+            /* 7. EL ASISTENTE NIKA CHICO (46px) */
+            #nika-floating-assistant {
+                width: 46px !important;
+                min-width: 46px !important;
+                max-width: 46px !important;
+                height: 46px !important;
+                min-height: 46px !important;
+                max-height: 46px !important;
+                font-size: 1.2rem !important;
+                bottom: 16px !important;
+                right: 16px !important;
+            }
+
+            /* 8. POMODORO Y NOTAS */
+            .side-panel {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                margin-top: 0 !important;
+            }
+        }
     </style>
 </head>
 <body>
-
+    
     <header class="navbar">
         <a href="campus.html" class="brand-title">
             <span class="brand-mark">

@@ -538,10 +538,20 @@
         .skeleton-line.long { width: 92%; }
         .skeleton-card { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
 
-        /* ================= RESPONSIVE PROFUNDO: MODALES < 768px ================= */
+        /* ================= RESPONSIVO PROFUNDO: MODALES Y NOTIFICACIONES < 768px ================= */
         @media (max-width: 768px) {
             .modal-content { width: 95vw; max-width: 95vw; margin: 0 auto; padding: 20px 16px; max-height: 92vh; box-sizing: border-box; overflow-x: hidden; }
             #chat-modal .modal-content { height: min(560px, 85vh); }
+
+            /* Notificaciones alineadas correctamente dentro de la pantalla en campus */
+            .notification-dropdown, .dropdown-menu, .notif-box {
+                left: 12px !important;
+                right: 12px !important;
+                width: auto !important;
+                max-width: none !important;
+                transform: none !important;
+                box-sizing: border-box !important;
+            }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
