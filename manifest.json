@@ -1,0 +1,53 @@
+{
+  "name": "Campus Nika | Simulador Médico",
+  "short_name": "Campus Nika",
+  "description": "Plataforma de simulación médica, banco de exámenes y modo competitivo 1vs1 para estudiantes de Medicina (UNER).",
+  "start_url": "/campus.html",
+  "id": "/campus.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a192f",
+  "theme_color": "#0284c7",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Modo Versus 1vs1",
+      "short_name": "Versus",
+      "url": "/versus.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Rendir Examen",
+      "short_name": "Examen",
+      "url": "/examen.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

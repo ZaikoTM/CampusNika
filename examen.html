@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Nika | Simulador de Examen - Cirugía</title>
+
+    <!-- ================= PWA: instalable + Service Worker ================= -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Campus Nika">
+
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -459,11 +467,23 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="share-chat-modal">
+        <div class="modal-content" style="max-width: 380px;">
+            <h3>📤 Compartir con un compañero</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Le vas a mandar este caso directo a su chat privado.</p>
+            <div id="share-chat-friends-list" style="max-height: 300px; overflow-y: auto;"></div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="btn btn-outline" style="flex: 1;" onclick="closeShareToChatModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <div id="toast">✅ Acción realizada</div>
 
     <!-- SDK oficial de Supabase (requerido para inicializar el cliente) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
+    <script src="js/chatManager.js"></script>
     <script src="js/pomodoroSyncManager.js"></script>
     <script src="js/social.js"></script>
     <script src="js/examen.js"></script>
@@ -841,7 +861,7 @@
                     </div>
                     <div class="q-content-col">
                         <div class="q-text">${q.q}</div><div class="options-container">${optionsHtml}</div>
-                        <div class="q-tools"><button class="btn-text-tool" onclick="toggleNotes()">📝 Notas Privadas</button><button class="btn-text-tool" style="color:var(--danger);" onclick="openReportModal()">⚠️ Reportar Error</button></div>
+                        <div class="q-tools"><button class="btn-text-tool" onclick="toggleNotes()">📝 Notas Privadas</button><button class="btn-text-tool" onclick="openShareToChatModal()">📤 Compartir al Chat</button><button class="btn-text-tool" style="color:var(--danger);" onclick="openReportModal()">⚠️ Reportar Error</button></div>
                         <div class="notes-area" id="notes-area" ${currentNote ? 'style="display:block;"' : ''}><textarea placeholder="Escribe aquí apuntes rápidos..." onkeyup="saveNote(this.value)">${currentNote}</textarea></div>
                     </div>
                 </div>
@@ -865,6 +885,60 @@
             const text = document.getElementById('report-text').value.trim();
             if (text.length < 10) return alert("Debes incluir una justificación bibliográfica válida.");
             showToast("Reporte enviado al administrador."); document.getElementById('report-text').value = ''; closeReportModal();
+        }
+
+        // ================= PWA: SERVICE WORKER =================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch((err) => {
+                    console.error('[SW] No se pudo registrar:', err);
+                });
+            });
+        }
+
+        // ================= COMPARTIR PREGUNTA AL CHAT PRIVADO =================
+        function openShareToChatModal() {
+            const currentUsername = window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername ? window.NikaSupabase.getNikaCurrentUsername() : null;
+            if (!currentUsername) { showToast("Iniciá sesión para compartir con compañeros."); return; }
+            if (!window.ChatManager) { showToast("El chat no está disponible en este momento."); return; }
+
+            const friendsMap = JSON.parse(localStorage.getItem('nika_friends')) || {};
+            const myFriends = friendsMap[currentUsername] || [];
+            const allUsers = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+            const list = document.getElementById('share-chat-friends-list');
+
+            if (myFriends.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">Todavía no tenés compañeros agregados en Campus Nika.</p>';
+            } else {
+                list.innerHTML = myFriends.map(fUsername => {
+                    const fUser = allUsers.find(u => u.username === fUsername);
+                    const displayName = fUser ? fUser.fullname : fUsername;
+                    return `<div style="display:flex; align-items:center; gap:10px; padding:10px 8px; border-radius:8px; cursor:pointer;" onmouseover="this.style.background='rgba(0,0,0,0.03)'" onmouseout="this.style.background='transparent'" onclick="compartirPreguntaActual('${fUsername}')">
+                                <span style="width:8px; height:8px; border-radius:50%; background:#22c55e; flex-shrink:0;"></span>
+                                <div style="min-width:0;">
+                                    <div style="font-weight:700; font-size:0.9rem;">${displayName}</div>
+                                    <div style="font-size:0.75rem; color:var(--text-muted);">@${fUsername}</div>
+                                </div>
+                            </div>`;
+                }).join('');
+            }
+            document.getElementById('share-chat-modal').style.display = 'flex';
+        }
+
+        function closeShareToChatModal() {
+            document.getElementById('share-chat-modal').style.display = 'none';
+        }
+
+        async function compartirPreguntaActual(toUsername) {
+            const q = currentExam[currentIndex];
+            try {
+                await window.ChatManager.compartirPregunta(toUsername, q);
+                showToast("Caso enviado al chat 📤");
+                closeShareToChatModal();
+            } catch (err) {
+                console.error('[compartirPreguntaActual]', err);
+                showToast("No se pudo enviar, revisá tu conexión.");
+            }
         }
 
         // ================= RESULTADOS Y GAMIFICACIÓN =================
