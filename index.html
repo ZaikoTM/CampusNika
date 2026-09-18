@@ -1236,19 +1236,32 @@
 
                 const user = data.user;
                 if (user) {
-                    const { data: dbProfile } = await client
+                    // Consulta completa a la tabla profiles para no sobreescribir datos personalizados
+                    const { data: dbProfile, error: dbError } = await client
                         .from('profiles')
-                        .select('nombre, bio, avatar, username')
+                        .select('*')
                         .eq('id', user.id)
                         .maybeSingle();
 
+                    if (dbError) {
+                        console.warn("[Google Identity] Error consultando perfil:", dbError.message);
+                    }
+
                     const profileData = {
+                        ...(dbProfile || {}),
                         id: user.id,
-                        username: dbProfile?.username || (user.email ? user.email.split('@')[0] : 'usuario'),
-                        nombre: dbProfile?.nombre || user.user_metadata?.full_name || user.user_metadata?.name || 'Estudiante Nika',
                         email: user.email,
+                        username: dbProfile?.username || (user.email ? user.email.split('@')[0] : 'usuario'),
+                        nombre: dbProfile?.nombre || dbProfile?.fullname || user.user_metadata?.full_name || user.user_metadata?.name || 'Estudiante Nika',
+                        fullname: dbProfile?.fullname || dbProfile?.nombre || user.user_metadata?.full_name || 'Estudiante Nika',
                         avatar: dbProfile?.avatar || user.user_metadata?.avatar_url || null,
-                        bio: dbProfile?.bio || 'Estudiante de Medicina'
+                        bio: dbProfile?.bio || '',
+                        meta: dbProfile?.meta || dbProfile?.especialidad || '',
+                        especialidad: dbProfile?.especialidad || dbProfile?.meta || '',
+                        anio_cursada: dbProfile?.anio_cursada || dbProfile?.cursada || '',
+                        cursada: dbProfile?.cursada || dbProfile?.anio_cursada || '',
+                        instagram: dbProfile?.instagram || '',
+                        whatsapp: dbProfile?.whatsapp || ''
                     };
 
                     localStorage.setItem('nika_currentUser', JSON.stringify(profileData));

@@ -519,94 +519,94 @@
     </div>
 
     <!-- ================= MODAL PERFIL ================= -->
-    <div class="modal-overlay" id="profile-modal">
-        <div class="modal-content">
-            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">⚙️ Configuración de Mi Perfil</h3>
-            
-            <!-- Barra de Progreso Integrada en el Modal -->
-            <div id="modal-profile-progress-box" class="modal-profile-status-card">
-                <div class="status-card-header">
-                    <div class="status-tag">FICHA INSTITUCIONAL</div>
-                    <span class="status-percentage" id="modal-profile-pct">0%</span>
-                </div>
-                <div class="status-bar-track">
-                    <div class="status-bar-fill" id="modal-profile-bar" style="width: 0%;"></div>
-                </div>
-                <p class="status-motivational-text" id="modal-profile-msg">
-                    Completá tus datos institucionales para validar tu identidad académica en los simulacros y en el ranking de duelos.
-                </p>
+<div class="modal-overlay" id="profile-modal" style="display: none;">
+    <div class="modal-content">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">⚙️ Configuración de Mi Perfil</h3>
+        
+        <!-- Barra de Progreso Integrada en el Modal -->
+        <div id="modal-profile-progress-box" class="modal-profile-status-card">
+            <div class="status-card-header">
+                <div class="status-tag">FICHA INSTITUCIONAL</div>
+                <span class="status-percentage" id="modal-profile-pct">0%</span>
             </div>
+            <div class="status-bar-track">
+                <div class="status-bar-fill" id="modal-profile-bar" style="width: 0%;"></div>
+            </div>
+            <p class="status-motivational-text" id="modal-profile-msg">
+                Completá tus datos institucionales para validar tu identidad académica en los simulacros y en el ranking de duelos.
+            </p>
+        </div>
 
-            <form id="form-profile" onsubmit="handleSaveProfile(event)">
-                
-                <div class="form-group" style="text-align: center; margin-bottom: 20px;">
-                    <label style="text-align: left; margin-bottom: 8px;">Foto de Perfil:</label>
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <!-- Acá se va a previsualizar la foto -->
-                        <img id="prof-avatar-preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid var(--nika-primary); background: var(--bg-body); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                        
-                        <div style="flex: 1; text-align: left;">
-                            <input type="file" id="prof-avatar-file" class="form-input" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleAvatarPreview(event)" style="padding: 6px; font-size: 0.85rem;">
-                            <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">Se auto-recortará al centro. (JPG o PNG)</span>
-                        </div>
+        <form id="form-profile" onsubmit="handleSaveProfile(event)">
+            
+            <div class="form-group" style="text-align: center; margin-bottom: 20px;">
+                <label style="text-align: left; margin-bottom: 8px; display: block;">Foto de Perfil:</label>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <!-- Previsualización -->
+                    <img id="prof-avatar-preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid var(--nika-primary, #0284c7); background: var(--bg-body, #0f172a); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    
+                    <div style="flex: 1; text-align: left;">
+                        <input type="file" id="prof-avatar-file" class="form-input" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleAvatarPreview(event)" style="padding: 6px; font-size: 0.85rem;">
+                        <span style="font-size: 0.75rem; color: var(--text-muted, #94a3b8); display: block; margin-top: 4px;">Se auto-recortará al centro. (JPG o PNG)</span>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label>Nombre y Apellido:</label>
-                    <input type="text" id="prof-fullname" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Nombre de Usuario:</label>
-                    <input type="text" id="prof-username" class="form-input" required disabled>
-                </div>
-                <div class="form-group">
-                    <label>Correo Electrónico:</label>
-                    <input type="email" id="prof-email" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label>Cambiar Contraseña:</label>
-                    <input type="password" id="prof-password" class="form-input" placeholder="Dejar en blanco para mantener la actual">
-                </div>
+            <div class="form-group">
+                <label>Nombre y Apellido:</label>
+                <input type="text" id="prof-fullname" class="form-input" required placeholder="Tu nombre completo">
+            </div>
+            <div class="form-group">
+                <label>Nombre de Usuario:</label>
+                <input type="text" id="prof-username" class="form-input" required disabled style="opacity: 0.7; cursor: not-allowed;">
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico:</label>
+                <input type="email" id="prof-email" class="form-input" required disabled style="opacity: 0.7; cursor: not-allowed;">
+            </div>
+            <div class="form-group">
+                <label>Cambiar Contraseña:</label>
+                <input type="password" id="prof-password" class="form-input" placeholder="Dejar en blanco para mantener la actual">
+            </div>
 
-                <hr style="border:none; border-top:1px solid var(--border); margin: 18px 0;">
-                <p style="font-size:0.78rem; color:var(--text-muted); font-weight:700; margin-bottom:10px;">🌐 Perfil público (lo ven tus compañeros)</p>
+            <hr style="border:none; border-top:1px solid var(--border, rgba(255,255,255,0.1)); margin: 18px 0;">
+            <p style="font-size:0.78rem; color:var(--text-muted, #94a3b8); font-weight:700; margin-bottom:10px;">🌐 Perfil público (lo ven tus compañeros)</p>
 
-                <div class="form-group">
-                    <label>Año de Cursada:</label>
-                    <select id="prof-anio-cursada" class="form-input">
-                        <option value="">Sin especificar</option>
-                        <option value="1er Año">1er Año</option>
-                        <option value="2do Año">2do Año</option>
-                        <option value="3er Año">3er Año</option>
-                        <option value="4to Año">4to Año</option>
-                        <option value="5to Año">5to Año</option>
-                        <option value="6to Año">6to Año</option>
-                        <option value="Internado">Internado</option>
-                        <option value="Egresado/a">Egresado/a</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Biografía médica:</label>
-                    <textarea id="prof-bio" class="form-input" rows="3" maxlength="280" placeholder="Contales a tus compañeros en qué te estás enfocando..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Instagram (usuario o link):</label>
-                    <input type="text" id="prof-instagram" class="form-input" placeholder="@tuusuario">
-                </div>
-                <div class="form-group">
-                    <label>WhatsApp (con código de país):</label>
-                    <input type="text" id="prof-whatsapp" class="form-input" placeholder="Ej: 5493442000000">
-                </div>
+            <div class="form-group">
+                <label>Año de Cursada:</label>
+                <select id="prof-anio-cursada" class="form-input">
+                    <option value="">Sin especificar</option>
+                    <option value="1er Año">1er Año</option>
+                    <option value="2do Año">2do Año</option>
+                    <option value="3er Año">3er Año</option>
+                    <option value="4to Año">4to Año</option>
+                    <option value="5to Año">5to Año</option>
+                    <option value="6to Año">6to Año</option>
+                    <option value="Internado">Internado</option>
+                    <option value="Egresado/a">Egresado/a</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Biografía médica:</label>
+                <textarea id="prof-bio" class="form-input" rows="3" maxlength="280" placeholder="Contales a tus compañeros en qué te estás enfocando..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Instagram (usuario o link):</label>
+                <input type="text" id="prof-instagram" class="form-input" placeholder="@tuusuario">
+            </div>
+            <div class="form-group">
+                <label>WhatsApp (con código de país):</label>
+                <input type="text" id="prof-whatsapp" class="form-input" placeholder="Ej: 5493442000000">
+            </div>
 
-                <div class="modal-footer-btns">
-                    <button type="button" class="btn-module" style="background:#fee2e2; color:#dc2626; width:auto;" onclick="handleLogout()">Cerrar Sesión</button>
-                    <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeProfileModal()">Cerrar</button>
-                    <button type="submit" class="btn-module" style="background:var(--nika-primary); color:white; width:auto;">Guardar</button>
-                </div>
-            </form>
-        </div>
+            <div class="modal-footer-btns" style="display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end;">
+                <button type="button" class="btn-module" style="background:#fee2e2; color:#dc2626; width:auto; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:600;" onclick="handleLogout()">Cerrar Sesión</button>
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:600;" onclick="closeProfileModal()">Cerrar</button>
+                <button type="submit" id="btn-save-profile" class="btn-module" style="background:var(--nika-primary, #0284c7); color:white; width:auto; border:none; padding:10px 22px; border-radius:8px; cursor:pointer; font-weight:700;">Guardar</button>
+            </div>
+        </form>
     </div>
+</div>
 
     <!-- ================= MODAL COMUNIDAD & AMIGOS ================= -->
     <div class="modal-overlay" id="friends-modal">
@@ -1358,6 +1358,7 @@
                     if (previewEl) previewEl.src = tempAvatarBase64; 
 
                     showToast("Imagen lista 🖼️");
+                    actualizarProgresoModalPerfil();
                 };
                 img.src = e.target.result;
             };
@@ -1393,9 +1394,7 @@
             if (activeForm) activeForm.style.display = 'block';
         }
 
-        // Fase A.2 — el "olvidé mi contraseña" es un sub-estado del login, no una
-        // pestaña más: oculta el selector Ingresar/Registrarse y muestra el
-        // formulario de correo para disparar resetPasswordForEmail.
+        // Fase A.2 — el "olvidé mi contraseña" es un sub-estado del login
         function openForgotPasswordForm(e) {
             if (e) e.preventDefault();
             const tabs = document.querySelector('#auth-modal .modal-tabs');
@@ -1420,8 +1419,6 @@
             switchAuthTab('login');
         }
 
-        // Dispara el mail de recuperación. redirectTo apunta a esta misma página:
-        // Supabase agrega los tokens de recovery en el hash de la URL al volver.
         async function handleForgotPassword(e) {
             e.preventDefault();
             const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -1442,8 +1439,6 @@
             closeAuthModal();
         }
 
-        // Se abre solo, cuando Supabase detecta el evento PASSWORD_RECOVERY al
-        // volver desde el link del mail (ver listener en DOMContentLoaded).
         function openResetPasswordModal() {
             closeAuthModal();
             const modal = document.getElementById('reset-password-modal');
@@ -1455,8 +1450,6 @@
             if (modal) modal.style.display = 'none';
         }
 
-        // Confirma la nueva contraseña. Requiere la sesión temporal de recovery
-        // que Supabase ya dejó activa al procesar el link (ver initRecoveryListener).
         async function handleUpdatePassword(e) {
             e.preventDefault();
             const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -1484,15 +1477,14 @@
             showToast("¡Contraseña actualizada! Ya iniciaste sesión.");
             closeResetPasswordModal();
             if (user) checkAuthState();
-            // Limpia los tokens de recovery del hash para no reprocesarlos si se recarga.
             history.replaceState(null, '', window.location.pathname + window.location.search);
         }
 
         async function handleLogin(e) {
             e.preventDefault();
             const submitBtn = e.target.querySelector('button[type="submit"]');
-            const id = document.getElementById('login-identifier').value; // NikaSupabase hace el trim/lower
-            const pass = document.getElementById('login-password').value; // sin trim: la contraseña es sensible a espacios reales, pero ya no hay bug de comparación porque Supabase Auth la valida server-side
+            const id = document.getElementById('login-identifier').value; 
+            const pass = document.getElementById('login-password').value; 
             if (submitBtn) submitBtn.disabled = true;
 
             const { data: user, error } = await window.NikaSupabase.iniciarSesion({ identifier: id, password: pass });
@@ -1506,7 +1498,6 @@
                 return;
             }
 
-            // Registra el último acceso al campus para los perfiles públicos (no bloquea el login si falla)
             if (window.NikaSupabase.client && user?.id) {
                 window.NikaSupabase.client.from('profiles')
                     .update({ last_login_at: new Date().toISOString() })
@@ -1530,7 +1521,7 @@
             if (submitBtn) submitBtn.disabled = true;
 
             const { data: user, error } = await window.NikaSupabase.registrarUsuario({
-                fullname, username, email, password, avatar: DEFAULT_AVATAR
+                fullname, username, email, password, avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
             });
 
             if (submitBtn) submitBtn.disabled = false;
@@ -1541,8 +1532,6 @@
             }
 
             if (!user) {
-                // Supabase Auth tiene "Confirm email" activado: la cuenta se creó
-                // pero no hay sesión todavía hasta que el usuario confirme el mail.
                 showToast("¡Cuenta creada! Revisá tu correo para confirmar el registro.");
                 closeAuthModal();
                 return;
@@ -1556,17 +1545,20 @@
 
         function actualizarProgresoModalPerfil() {
             const fn = document.getElementById('prof-fullname')?.value?.trim();
-            const un = document.getElementById('prof-username')?.value?.trim();
-            const em = document.getElementById('prof-email')?.value?.trim();
+            const anio = document.getElementById('prof-anio-cursada')?.value;
+            const bio = document.getElementById('prof-bio')?.value?.trim();
+            const ig = document.getElementById('prof-instagram')?.value?.trim();
+            const wa = document.getElementById('prof-whatsapp')?.value?.trim();
             const previewEl = document.getElementById('prof-avatar-preview');
 
             // Foto válida si existe previsualización y no es el placeholder genérico SVG
             const hasAvatar = !!(previewEl && previewEl.src && !previewEl.src.includes('data:image/svg+xml') && !previewEl.src.includes('default'));
             const hasName = !!(fn && fn.length > 0);
-            const hasUser = !!(un && un.length > 0);
-            const hasEmail = !!(em && em.length > 0);
+            const hasAnio = !!(anio && anio.length > 0);
+            const hasBio = !!(bio && bio.length > 0);
+            const hasSocial = !!((ig && ig.length > 0) || (wa && wa.length > 0));
 
-            const campos = [hasAvatar, hasName, hasUser, hasEmail];
+            const campos = [hasAvatar, hasName, hasAnio, hasBio, hasSocial];
             const completados = campos.filter(Boolean).length;
             const pct = Math.round((completados / campos.length) * 100);
 
@@ -1575,14 +1567,14 @@
             const msg = document.getElementById('modal-profile-msg');
 
             if (bar) bar.style.width = `${pct}%`;
-            if (textPct) textPct.textContent = `${pct}% Completado`;
+            if (textPct) textPct.textContent = `${pct}%`;
 
             if (msg) {
                 if (pct === 100) {
                     msg.innerHTML = "✨ <strong>Ficha médica completa.</strong> Identidad validada al 100% para simulacros y duelos 1vs1.";
                     if (bar) bar.style.background = "#16a34a";
                 } else if (!hasAvatar) {
-                    msg.textContent = "Cargá tu foto institucional para que tus compañeros te reconozcan en la Arena Versus y alcanzar el 100%.";
+                    msg.textContent = "Cargá tu foto institucional para que tus compañeros te reconozcan en la Arena Versus.";
                     if (bar) bar.style.background = "linear-gradient(90deg, #0284c7, #38bdf8)";
                 } else {
                     msg.textContent = "Completá todos los campos para validar tu ficha institucional al 100%.";
@@ -1591,9 +1583,11 @@
             }
         }
 
-        function openProfileModal() {
-            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
-            if (!user) return;
+        async function openProfileModal() {
+            // 1. Mostrar modal rápido con lo que haya en memoria
+            let user = {};
+            try { user = JSON.parse(localStorage.getItem('nika_currentUser')) || {}; } catch (e) {}
+            
             const fn = document.getElementById('prof-fullname');
             const un = document.getElementById('prof-username');
             const em = document.getElementById('prof-email');
@@ -1605,24 +1599,56 @@
             const ig = document.getElementById('prof-instagram');
             const wa = document.getElementById('prof-whatsapp');
             
-            if (fn) fn.value = user.fullname || ''; 
+            if (fn) fn.value = user.fullname || user.nombre || ''; 
             if (un) un.value = user.username || ''; 
             if (em) em.value = user.email || ''; 
             if (pw) pw.value = '';
             if (fileInput) fileInput.value = '';
-            if (anio) anio.value = user.anio_cursada || '';
+            if (anio) anio.value = user.anio_cursada || user.cursada || '';
             if (bio) bio.value = user.bio || '';
             if (ig) ig.value = user.instagram || '';
             if (wa) wa.value = user.whatsapp || '';
             
-            if (previewEl) previewEl.src = user.avatar || DEFAULT_AVATAR;
+            if (previewEl) previewEl.src = user.avatar || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
             
             tempAvatarBase64 = null;
             const modal = document.getElementById('profile-modal');
             if (modal) modal.style.display = 'flex';
 
-            // Ejecuta el cálculo exacto una vez que los inputs ya tienen cargados los valores
             actualizarProgresoModalPerfil();
+
+            // 2. Traer la VERDAD ABSOLUTA desde la nube (evita bugs de caché)
+            try {
+                const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+                if (!client) return;
+
+                const { data: { session } } = await client.auth.getSession();
+                if (!session) return;
+
+                const { data: dbProfile, error } = await client
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .maybeSingle();
+
+                if (!error && dbProfile) {
+                    // Actualizar inputs instantáneamente con lo real de Supabase
+                    if (fn) fn.value = dbProfile.fullname || dbProfile.nombre || fn.value;
+                    if (anio) anio.value = dbProfile.anio_cursada || dbProfile.cursada || '';
+                    if (bio) bio.value = dbProfile.bio || '';
+                    if (ig) ig.value = dbProfile.instagram || '';
+                    if (wa) wa.value = dbProfile.whatsapp || '';
+                    if (previewEl && dbProfile.avatar) previewEl.src = dbProfile.avatar;
+
+                    // Curar y reparar la memoria local para que otras funciones no fallen
+                    const updatedUser = { ...user, ...dbProfile };
+                    localStorage.setItem('nika_currentUser', JSON.stringify(updatedUser));
+                    
+                    actualizarProgresoModalPerfil();
+                }
+            } catch (err) {
+                console.error("[openProfileModal] Error consultando Supabase:", err);
+            }
         }
 
         function closeProfileModal() { 
@@ -1632,56 +1658,53 @@
         
         async function handleSaveProfile(e) {
             e.preventDefault(); 
-            let user = JSON.parse(localStorage.getItem('nika_currentUser'));
-            if (!user) return;
-            user.fullname = document.getElementById('prof-fullname').value.trim(); 
-            user.email = document.getElementById('prof-email').value.trim();
-            user.anio_cursada = document.getElementById('prof-anio-cursada').value;
-            user.bio = document.getElementById('prof-bio').value.trim();
-            user.instagram = document.getElementById('prof-instagram').value.trim();
-            user.whatsapp = document.getElementById('prof-whatsapp').value.trim();
-            const newPass = document.getElementById('prof-password').value; 
-            if (newPass.trim() !== '') user.password = newPass;
-
-            let avatarChanged = false;
-            if (tempAvatarBase64) {
-                user.avatar = tempAvatarBase64;
-                avatarChanged = true;
-            }
-
             const saveBtn = e.target.querySelector('button[type="submit"]');
             const origText = saveBtn ? saveBtn.textContent : null;
             if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Guardando...'; }
 
             try {
-                const client = window.NikaSupabase ? window.NikaSupabase.client : window.supabaseClient;
+                let user = JSON.parse(localStorage.getItem('nika_currentUser')) || {};
+                
+                const nuevoNombre = document.getElementById('prof-fullname').value.trim();
+                const nuevoAnio = document.getElementById('prof-anio-cursada').value;
+                const nuevaBio = document.getElementById('prof-bio').value.trim();
+                const nuevoIg = document.getElementById('prof-instagram').value.trim();
+                const nuevoWa = document.getElementById('prof-whatsapp').value.trim();
+                const newPass = document.getElementById('prof-password').value; 
+
+                const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
                 if (!client) throw new Error('No hay conexión con Supabase.');
 
-                // 1) Nunca confiar en el "id" cacheado en localStorage: puede haber
-                // quedado corrupto (username en vez de UUID) o desactualizado.
-                // Se pide la sesión real a Supabase Auth y se usa ese UUID siempre.
+                // 1) Obtener UUID real de la sesión
                 const { data: { session }, error: sessionError } = await client.auth.getSession();
                 if (sessionError || !session) {
                     throw new Error('Tu sesión en la nube expiró. Por favor, volvé a iniciar sesión.');
                 }
-                const realUserId = session.user.id; // UUID real e infalible
+                const realUserId = session.user.id; 
 
-                // 2) upsert en vez de update: si la fila en "profiles" todavía no
-                // existía para este usuario, un .update() no inserta nada y Supabase
-                // devuelve 400/0 filas afectadas. El upsert la crea si falta o la
-                // actualiza si ya existe, siempre contra el UUID real de Auth.
+                // 2) Actualizar contraseña si se ingresó una nueva
+                if (newPass.length >= 6) {
+                    const { error: passErr } = await client.auth.updateUser({ password: newPass });
+                    if (passErr) console.warn("No se pudo cambiar la contraseña:", passErr.message);
+                }
+
+                let avatarFinal = tempAvatarBase64 ? tempAvatarBase64 : user.avatar;
+
+                // 3) Guardar en tabla 'profiles'
                 const payload = {
                     id: realUserId,
-                    username: user.username,
-                    fullname: user.fullname,
+                    username: user.username || (user.email ? user.email.split('@')[0] : 'usuario'),
+                    nombre: nuevoNombre,
+                    fullname: nuevoNombre,
                     email: user.email,
-                    anio_cursada: user.anio_cursada || null,
-                    bio: user.bio || null,
-                    instagram: user.instagram || null,
-                    whatsapp: user.whatsapp || null,
+                    anio_cursada: nuevoAnio,
+                    cursada: nuevoAnio,
+                    bio: nuevaBio,
+                    instagram: nuevoIg,
+                    whatsapp: nuevoWa,
+                    avatar: avatarFinal,
                     updated_at: new Date().toISOString()
                 };
-                if (avatarChanged) payload.avatar = user.avatar;
 
                 const { error: dbError } = await client
                     .from('profiles')
@@ -1689,48 +1712,43 @@
 
                 if (dbError) throw dbError;
 
-                // Se corrige/confirma el id cacheado con el UUID real ya verificado.
-                user.id = realUserId;
-
-                // 3) El localStorage solo se actualiza una vez que Supabase confirmó éxito.
+                // 4) Actualizar cache local
+                const updatedUser = { ...user, ...payload };
                 tempAvatarBase64 = null;
-                localStorage.setItem('nika_currentUser', JSON.stringify(user));
-                let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
-                const idx = users.findIndex(u => u.username === user.username);
-                if (idx !== -1) {
-                    users[idx] = user;
-                    localStorage.setItem('nika_registered_users', JSON.stringify(users));
-                }
+                localStorage.setItem('nika_currentUser', JSON.stringify(updatedUser));
+                
+                // Actualizar interfaz del Campus
+                const navbarName = document.querySelector('.user-display-name') || document.getElementById('user-name');
+                if (navbarName) navbarName.innerText = nuevoNombre;
+                const navbarAvatar = document.querySelector('.user-avatar-img') || document.getElementById('user-avatar');
+                if (navbarAvatar && avatarFinal) navbarAvatar.src = avatarFinal;
 
-                showToast("¡Perfil y foto guardados y sincronizados en la nube!", "success");
+                showToast("¡Perfil guardado correctamente en la nube!", "success");
                 closeProfileModal();
-                checkAuthState();
+                if (typeof checkAuthState === 'function') checkAuthState();
+
             } catch (err) {
                 console.error('[handleSaveProfile] Error guardando en Supabase:', err);
-                showToast(err?.message || "No se pudo sincronizar el perfil con el servidor. No se guardaron los cambios.", "warning");
-                // No se toca localStorage: evitamos que el cliente crea que se guardó
-                // cuando en realidad Supabase rechazó la operación.
+                showToast(err?.message || "No se pudo sincronizar el perfil con el servidor.", "warning");
             } finally {
                 if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = origText; }
             }
         }
 
         async function handleLogout() {
-            if (confirm("¿Cerrar sesión?")) {
+            if (confirm("¿Seguro que deseás cerrar sesión?")) {
                 try {
                     if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
                     if (window.ChatManager) window.ChatManager.cerrarConversacion();
-                    if (window.NikaSupabase && window.NikaSupabase.cerrarSesion) {
-                        await window.NikaSupabase.cerrarSesion();
-                    } else if (window.NikaSupabase && window.NikaSupabase.supabase) {
-                        await window.NikaSupabase.supabase.auth.signOut();
+                    
+                    const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+                    if (client && client.auth) {
+                        await client.auth.signOut();
                     }
                 } catch (err) {
                     console.error("Error al cerrar sesión:", err);
                 } finally {
-                    // Limpia credenciales y temporales
-                    localStorage.clear();
-                    sessionStorage.clear();
+                    localStorage.removeItem('nika_currentUser');
                     // Redirige directamente a la landing pública
                     window.location.replace('index.html');
                 }
@@ -3289,33 +3307,46 @@
                 let currentLocal = null;
                 try { currentLocal = JSON.parse(rawLocal); } catch (e) {}
 
-                // Si no hay datos en localStorage o el ID es diferente, sincronizamos con la nube
-                if (!currentLocal || currentLocal.id !== u.id) {
-                    const { data: dbProfile } = await client
-                        .from('profiles')
-                        .select('nombre, bio, avatar, username')
-                        .eq('id', u.id)
-                        .maybeSingle();
+                // Consultamos TODOS los datos del perfil guardados en Supabase
+                const { data: dbProfile, error: dbError } = await client
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', u.id)
+                    .maybeSingle();
 
-                    const profileData = {
-                        id: u.id,
-                        username: dbProfile?.username || (u.email ? u.email.split('@')[0] : 'usuario'),
-                        nombre: dbProfile?.nombre || u.user_metadata?.full_name || u.user_metadata?.name || 'Estudiante Nika',
-                        email: u.email,
-                        avatar: dbProfile?.avatar || u.user_metadata?.avatar_url || null,
-                        bio: dbProfile?.bio || 'Estudiante de Medicina'
-                    };
+                if (dbError) {
+                    console.warn("[OAuth Sync] Error al obtener datos de profiles:", dbError.message);
+                }
 
-                    localStorage.setItem('nika_currentUser', JSON.stringify(profileData));
-                    console.log("✅ Sesión sincronizada con Supabase:", profileData.email);
+                // Fusionamos preservando biografía, año de cursada, especialidad y redes
+                const profileData = {
+                    ...(currentLocal || {}),
+                    ...(dbProfile || {}),
+                    id: u.id,
+                    email: u.email,
+                    username: dbProfile?.username || currentLocal?.username || (u.email ? u.email.split('@')[0] : 'usuario'),
+                    nombre: dbProfile?.nombre || dbProfile?.fullname || currentLocal?.nombre || u.user_metadata?.full_name || 'Estudiante Nika',
+                    fullname: dbProfile?.fullname || dbProfile?.nombre || currentLocal?.fullname || u.user_metadata?.full_name || 'Estudiante Nika',
+                    avatar: dbProfile?.avatar || currentLocal?.avatar || u.user_metadata?.avatar_url || null,
+                    bio: dbProfile?.bio || currentLocal?.bio || '',
+                    meta: dbProfile?.meta || dbProfile?.especialidad || currentLocal?.meta || currentLocal?.especialidad || '',
+                    especialidad: dbProfile?.especialidad || dbProfile?.meta || currentLocal?.especialidad || currentLocal?.meta || '',
+                    anio_cursada: dbProfile?.anio_cursada || dbProfile?.cursada || currentLocal?.anio_cursada || currentLocal?.cursada || '',
+                    cursada: dbProfile?.cursada || dbProfile?.anio_cursada || currentLocal?.cursada || currentLocal?.anio_cursada || '',
+                    instagram: dbProfile?.instagram || currentLocal?.instagram || '',
+                    whatsapp: dbProfile?.whatsapp || currentLocal?.whatsapp || ''
+                };
 
-                    if (typeof window.verificarExpedienteMedico === 'function') {
-                        window.verificarExpedienteMedico();
-                    }
+                localStorage.setItem('nika_currentUser', JSON.stringify(profileData));
+                console.log("✅ Sesión y perfil sincronizados con Supabase:", profileData.email);
 
-                    if (!currentLocal) {
-                        location.reload();
-                    }
+                if (typeof window.verificarExpedienteMedico === 'function') {
+                    window.verificarExpedienteMedico();
+                }
+
+                // Si no había sesión local previa, refrescamos una sola vez para pintar la interfaz
+                if (!currentLocal) {
+                    location.reload();
                 }
             }
         } catch (err) {
