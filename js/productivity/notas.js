@@ -1,5 +1,5 @@
 // js/productivity/notas.js
-// Módulo de Notas Sincronizadas — Campus Nika
+// Módulo de Notas Sincronizadas — Campus Nika (Cloud Sync Blindado)
 
 const NotasModule = (() => {
   let debounceTimer = null;
@@ -27,7 +27,7 @@ const NotasModule = (() => {
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
           <span style="font-weight: 800; color: #713f12; font-size: 0.88rem; display: flex; align-items: center; gap: 6px;">📌 Apuntes de la Unidad</span>
           <span id="notas-status" style="font-size: 0.7rem; font-weight: 700; color: #713f12; display: flex; align-items: center;">
-            <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#16a34a; margin-right:4px;"></span> Sincronizado
+            <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#16a34a; margin-right:4px;"></span> Cargando...
           </span>
         </div>
         <textarea
@@ -50,23 +50,40 @@ const NotasModule = (() => {
     localStorage.setItem(localKey(moduleId, upId), content);
   }
 
-  // Nota: esperamos siempre a window.NikaAuth.ready antes de tocar Supabase,
-  // así evitamos consultar antes de que auth-guard.js resuelva la sesión.
+  // BUSCADOR ROBUSTO DE SUPABASE
+  function getDbClient() {
+    return window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || window.supabase;
+  }
+
   async function getUserId() {
-    if (window.NikaAuth && window.NikaAuth.ready) {
-      await window.NikaAuth.ready;
-      return window.NikaAuth.userId;
+    let userId = null;
+    const rawUser = localStorage.getItem('nika_currentUser');
+    if (rawUser) {
+      try {
+        const u = JSON.parse(rawUser);
+        userId = u.id || u.uid || u.username || u.email;
+      } catch (e) {
+        userId = rawUser;
+      }
     }
-    return null;
+    try {
+      const client = getDbClient();
+      if (client && client.auth) {
+        const { data: { session } } = await client.auth.getSession();
+        if (session && session.user) userId = session.user.id;
+      }
+    } catch (e) {}
+    return userId;
   }
 
   async function fetchFromSupabase(moduleId, upId) {
     try {
-      if (typeof supabaseClient === 'undefined') return null;
+      const client = getDbClient();
+      if (!client) return null;
       const userId = await getUserId();
       if (!userId) return null;
 
-      const { data, error } = await supabaseClient
+      const { data, error } = await client
         .from('user_notes')
         .select('content, updated_at')
         .eq('user_id', userId)
@@ -74,55 +91,68 @@ const NotasModule = (() => {
         .eq('up_id', upId)
         .maybeSingle();
 
-      if (error) {
-        console.error('[Notas] Error al consultar Supabase:', error);
-        return null;
-      }
+      if (error) return null;
       return data;
     } catch (err) {
-      console.error('[Notas] Excepción al consultar Supabase:', err);
       return null;
     }
   }
 
   async function upsertToSupabase(moduleId, upId, content) {
     try {
-      if (typeof supabaseClient === 'undefined') {
-        setStatus('Sin conexión', 'error');
+      const userId = await getUserId();
+      if (!userId) {
+        setStatus('Iniciá sesión', 'error');
         return;
       }
 
-      const userId = await getUserId();
-      if (!userId) {
-        setStatus('Sin sesión', 'error');
+      const client = getDbClient();
+      if (!client) {
+        setStatus('Guardado Local', 'saved');
         return;
       }
 
       setStatus('Guardando...', 'saving');
 
-      const { error } = await supabaseClient
+      // INYECCIÓN MANUAL: Soluciona el problema de los constraints eliminados
+      const { data: existing } = await client
         .from('user_notes')
-        .upsert(
-          {
+        .select('id')
+        .eq('user_id', userId)
+        .eq('module_id', moduleId)
+        .eq('up_id', upId)
+        .maybeSingle();
+
+      let err = null;
+
+      if (existing) {
+        const { error } = await client
+          .from('user_notes')
+          .update({ content: content, updated_at: new Date().toISOString() })
+          .eq('id', existing.id);
+        err = error;
+      } else {
+        const { error } = await client
+          .from('user_notes')
+          .insert({
             user_id: userId,
             module_id: moduleId,
             up_id: upId,
             content: content,
-            updated_at: new Date().toISOString(),
-          },
-          { onConflict: 'user_id,module_id,up_id' }
-        );
+            updated_at: new Date().toISOString()
+          });
+        err = error;
+      }
 
-      if (error) {
-        console.error('[Notas] Error al guardar en Supabase:', error);
-        setStatus('Error', 'error');
+      if (err) {
+        console.warn('[Notas] Error:', err.message);
+        setStatus('Guardado Local', 'saved');
         return;
       }
 
       setStatus('Sincronizado', 'saved');
     } catch (err) {
-      console.error('[Notas] Excepción al guardar:', err);
-      setStatus('Error', 'error');
+      setStatus('Guardado Local', 'saved');
     }
   }
 
@@ -146,23 +176,25 @@ const NotasModule = (() => {
 
     renderShell(container);
 
-    // 1. Carga instantánea desde localStorage (evita parpadeo mientras responde Supabase)
     textareaEl.value = loadFromLocalStorage(moduleId, upId);
-    setStatus('Cargando...', 'idle');
-
-    // 2. SELECT real a Supabase (fuente de verdad) una vez resuelta la sesión
+    
     const userId = await getUserId();
     if (!userId) {
-      setStatus('Sin sesión', 'error');
-      return;
+        setStatus('Modo Local (Iniciá Sesión)', 'idle');
+        return;
     }
+    
+    setStatus('Conectando...', 'saving');
 
     const remote = await fetchFromSupabase(moduleId, upId);
-    // Evitamos pisar lo que el usuario ya empezó a tipear mientras esperábamos la respuesta
+    
     if (remote && typeof remote.content === 'string' && document.activeElement !== textareaEl) {
-      textareaEl.value = remote.content;
-      saveToLocalStorage(moduleId, upId, remote.content);
+      if (textareaEl.value.trim() === '' || remote.content.length > textareaEl.value.length) {
+          textareaEl.value = remote.content;
+          saveToLocalStorage(moduleId, upId, remote.content);
+      }
     }
+    
     setStatus('Sincronizado', 'saved');
   }
 

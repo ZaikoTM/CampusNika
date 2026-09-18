@@ -1,12 +1,12 @@
 // js/productivity/pomodoro.js
-// Módulo Pomodoro Profesional con Aislamiento Estricto de Métricas por Unidad y Módulo
+// Módulo Pomodoro Profesional Sincronizado en la Nube (Blindado)
 
 const PomodoroModule = (() => {
   let workMinutes = 25;
   let breakMinutes = 5;
   let secondsLeft = workMinutes * 60;
-  let mode = 'work'; // 'work' | 'break'
-  let currentView = 'timer'; // 'timer' | 'stats' | 'settings'
+  let mode = 'work';
+  let currentView = 'timer';
   let intervalId = null;
   let isRunning = false;
 
@@ -14,6 +14,57 @@ const PomodoroModule = (() => {
   let currentUpId = null;
   let currentUpLabel = null;
   let containerEl = null;
+
+  function getDbClient() {
+    return window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || window.supabase;
+  }
+
+  async function getUserId() {
+    let userId = null;
+    const rawUser = localStorage.getItem('nika_currentUser');
+    if (rawUser) {
+      try {
+        const u = JSON.parse(rawUser);
+        userId = u.id || u.uid || u.username || u.email;
+      } catch(e) { userId = rawUser; }
+    }
+    try {
+      const client = getDbClient();
+      if (client && client.auth) {
+        const { data: { session } } = await client.auth.getSession();
+        if (session && session.user) userId = session.user.id;
+      }
+    } catch (e) {}
+    return userId;
+  }
+
+  async function syncStatsFromSupabase() {
+    try {
+      const client = getDbClient();
+      if (!client) return;
+      const userId = await getUserId();
+      if (!userId) return;
+
+      const { data, error } = await client
+        .from('study_sessions')
+        .select('modulo, up_id, duration_minutes')
+        .eq('user_id', userId);
+
+      if (!error && data) {
+        let grouped = {};
+        data.forEach(row => {
+          const key = `nika_time_${row.modulo}_${row.up_id}`;
+          grouped[key] = (grouped[key] || 0) + row.duration_minutes;
+        });
+        
+        Object.keys(grouped).forEach(k => {
+          localStorage.setItem(k, grouped[k].toString());
+        });
+      }
+    } catch(err) {
+      console.error('[Pomodoro] Error sincronizando stats:', err);
+    }
+  }
 
   function playAlertSound() {
     try {
@@ -38,35 +89,24 @@ const PomodoroModule = (() => {
     } catch (e) {}
   }
 
-  // Arma las opciones del selector "Estudiando: [ UP X ▼ ]" a partir de las
-  // unidades ya cargadas por estudio.js (EstudioState global). Si por algún
-  // motivo estudio.js no está en la página, degradamos a una sola opción fija
-  // con la UP actual para no romper el render.
   function buildUpSelectorOptions() {
     const hasEstudioState = typeof EstudioState !== 'undefined' && EstudioState.data && EstudioState.data.units;
-
     if (!hasEstudioState) {
       const label = currentUpLabel || currentUpId || 'Sin UP';
       return `<option value="${currentUpId || ''}" selected>${label}</option>`;
     }
-
     return EstudioState.data.units.map(unit => {
       const selected = unit.id === currentUpId ? 'selected' : '';
       return `<option value="${unit.id}" ${selected}>UP${unit.number} · ${unit.title}</option>`;
     }).join('');
   }
 
-  // Cambia el contexto del temporizador a otra UP sin recargar la página.
-  // Reinicia el conteo para no mezclar minutos de una UP con otra.
   function switchUpContext(newUpId) {
     if (!newUpId || newUpId === currentUpId) return;
-
     const hasEstudioState = typeof EstudioState !== 'undefined' && EstudioState.unitsById;
     const unit = hasEstudioState ? EstudioState.unitsById[newUpId] : null;
-
     currentUpId = newUpId;
     currentUpLabel = unit ? unit.title : newUpId;
-
     resetTimer();
   }
 
@@ -76,15 +116,10 @@ const PomodoroModule = (() => {
     return `${m}:${s}`;
   }
 
-  // Aislamiento estricto de estadísticas: filtra únicamente por módulo y unidad actual
   function getStats() {
     if (!currentModuleId || !currentUpId) return { unit: 0, module: 0 };
-
-    // 1. Tiempo específico de ESTA unidad problema
     const unitKey = `nika_time_${currentModuleId}_${currentUpId}`;
     const unitMinutes = parseInt(localStorage.getItem(unitKey) || '0', 10);
-
-    // 2. Tiempo total acumulado de TODO el módulo actual (ej. todas las UPs de Cirugía)
     let moduleMinutes = 0;
     const modulePrefix = `nika_time_${currentModuleId}_`;
     for (let i = 0; i < localStorage.length; i++) {
@@ -94,11 +129,7 @@ const PomodoroModule = (() => {
         if (!isNaN(val)) moduleMinutes += val;
       }
     }
-
-    return {
-      unit: unitMinutes,
-      module: moduleMinutes
-    };
+    return { unit: unitMinutes, module: moduleMinutes };
   }
 
   function registerStudyTime(secondsToAdd) {
@@ -107,23 +138,17 @@ const PomodoroModule = (() => {
     const prev = parseInt(localStorage.getItem(key) || '0', 10);
     const addedMins = Math.floor(secondsToAdd / 60);
     localStorage.setItem(key, (prev + addedMins).toString());
-
-    // Persistencia real en Supabase, asociada al usuario autenticado
     registerStudySessionInSupabase(addedMins);
   }
 
   async function registerStudySessionInSupabase(durationMinutes) {
     try {
-      if (typeof supabaseClient === 'undefined') return;
-      if (!window.NikaAuth || !window.NikaAuth.ready) return;
+      const client = getDbClient();
+      if (!client) return;
+      const userId = await getUserId();
+      if (!userId) return;
 
-      const userId = await window.NikaAuth.ready;
-      if (!userId) {
-        console.warn('[Pomodoro] Sin sesión activa, el ciclo no se registra en Supabase (solo local).');
-        return;
-      }
-
-      const { error } = await supabaseClient
+      const { error } = await client
         .from('study_sessions')
         .insert({
           user_id: userId,
@@ -133,9 +158,7 @@ const PomodoroModule = (() => {
           completed_at: new Date().toISOString()
         });
 
-      if (error) {
-        console.error('[Pomodoro] Error al registrar sesión en Supabase:', error);
-      }
+      if (error) console.error('[Pomodoro] Error al guardar en Supabase:', error);
     } catch (err) {
       console.error('[Pomodoro] Excepción al registrar sesión:', err);
     }
@@ -217,7 +240,7 @@ const PomodoroModule = (() => {
               </div>
             </div>
           </div>
-          <div style="font-size: 0.68rem; color: #64748b; text-align: center;">Sin mezcla de datos entre unidades o materias.</div>
+          <div style="font-size: 0.68rem; color: #64748b; text-align: center;">Datos sincronizados con la nube.</div>
         </div>
       `;
       containerEl.querySelector('#pomo-back-from-stats').addEventListener('click', () => { currentView = 'timer'; render(); });
@@ -256,8 +279,6 @@ const PomodoroModule = (() => {
     }
   }
 
-  // Traduce el modo interno ('work'/'break') a las etiquetas que espera
-  // PomodoroSyncManager / campus.html ('Enfoque'/'Descanso').
   function _faseParaPresence() {
     return mode === 'work' ? 'Enfoque' : 'Descanso';
   }
@@ -316,8 +337,6 @@ const PomodoroModule = (() => {
     }
     secondsLeft = (mode === 'work' ? workMinutes : breakMinutes) * 60;
     render();
-    // El ciclo recién completado deja el timer detenido hasta que el usuario
-    // le dé Play a la fase siguiente.
     _reportarPresence(false);
   }
 
@@ -333,6 +352,9 @@ const PomodoroModule = (() => {
     secondsLeft = workMinutes * 60;
     render();
     _reportarPresence(false);
+    
+    // Al abrir, descarga silenciosamente las métricas de la nube
+    syncStatsFromSupabase();
   }
 
   function destroy() {

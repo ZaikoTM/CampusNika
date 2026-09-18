@@ -1646,51 +1646,73 @@
             let avatarChanged = false;
             if (tempAvatarBase64) {
                 user.avatar = tempAvatarBase64;
-                tempAvatarBase64 = null;
                 avatarChanged = true;
             }
 
-            // Persistencia real en Supabase (tabla profiles) además del caché local.
-            // Requiere sesión Auth activa (user.id viene de _cachearSesionLocal).
             const saveBtn = e.target.querySelector('button[type="submit"]');
             const origText = saveBtn ? saveBtn.textContent : null;
             if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Guardando...'; }
+
             try {
-                if (window.NikaSupabase && window.NikaSupabase.client && user.id) {
-                    const updatePayload = {
-                        fullname: user.fullname,
-                        email: user.email,
-                        anio_cursada: user.anio_cursada || null,
-                        bio: user.bio || null,
-                        instagram: user.instagram || null,
-                        whatsapp: user.whatsapp || null
-                    };
-                    if (avatarChanged) updatePayload.avatar = user.avatar;
-                    const { error } = await window.NikaSupabase.client
-                        .from('profiles')
-                        .update(updatePayload)
-                        .eq('id', user.id);
-                    if (error) {
-                        console.error('[handleSaveProfile] Error guardando en Supabase:', error);
-                        showToast("No se pudo sincronizar el perfil con el servidor. Se guardó localmente.", "warning");
-                    }
+                const client = window.NikaSupabase ? window.NikaSupabase.client : window.supabaseClient;
+                if (!client) throw new Error('No hay conexión con Supabase.');
+
+                // 1) Nunca confiar en el "id" cacheado en localStorage: puede haber
+                // quedado corrupto (username en vez de UUID) o desactualizado.
+                // Se pide la sesión real a Supabase Auth y se usa ese UUID siempre.
+                const { data: { session }, error: sessionError } = await client.auth.getSession();
+                if (sessionError || !session) {
+                    throw new Error('Tu sesión en la nube expiró. Por favor, volvé a iniciar sesión.');
                 }
+                const realUserId = session.user.id; // UUID real e infalible
+
+                // 2) upsert en vez de update: si la fila en "profiles" todavía no
+                // existía para este usuario, un .update() no inserta nada y Supabase
+                // devuelve 400/0 filas afectadas. El upsert la crea si falta o la
+                // actualiza si ya existe, siempre contra el UUID real de Auth.
+                const payload = {
+                    id: realUserId,
+                    username: user.username,
+                    fullname: user.fullname,
+                    email: user.email,
+                    anio_cursada: user.anio_cursada || null,
+                    bio: user.bio || null,
+                    instagram: user.instagram || null,
+                    whatsapp: user.whatsapp || null,
+                    updated_at: new Date().toISOString()
+                };
+                if (avatarChanged) payload.avatar = user.avatar;
+
+                const { error: dbError } = await client
+                    .from('profiles')
+                    .upsert(payload, { onConflict: 'id' });
+
+                if (dbError) throw dbError;
+
+                // Se corrige/confirma el id cacheado con el UUID real ya verificado.
+                user.id = realUserId;
+
+                // 3) El localStorage solo se actualiza una vez que Supabase confirmó éxito.
+                tempAvatarBase64 = null;
+                localStorage.setItem('nika_currentUser', JSON.stringify(user));
+                let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
+                const idx = users.findIndex(u => u.username === user.username);
+                if (idx !== -1) {
+                    users[idx] = user;
+                    localStorage.setItem('nika_registered_users', JSON.stringify(users));
+                }
+
+                showToast("¡Perfil y foto guardados y sincronizados en la nube!", "success");
+                closeProfileModal();
+                checkAuthState();
             } catch (err) {
-                console.error('[handleSaveProfile] Excepción guardando en Supabase:', err);
+                console.error('[handleSaveProfile] Error guardando en Supabase:', err);
+                showToast(err?.message || "No se pudo sincronizar el perfil con el servidor. No se guardaron los cambios.", "warning");
+                // No se toca localStorage: evitamos que el cliente crea que se guardó
+                // cuando en realidad Supabase rechazó la operación.
             } finally {
                 if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = origText; }
             }
-
-            localStorage.setItem('nika_currentUser', JSON.stringify(user));
-            let users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
-            const idx = users.findIndex(u => u.username === user.username);
-            if (idx !== -1) { 
-                users[idx] = user; 
-                localStorage.setItem('nika_registered_users', JSON.stringify(users)); 
-            }
-            showToast("Perfil actualizado.", "success"); 
-            closeProfileModal(); 
-            checkAuthState();
         }
 
         async function handleLogout() {
@@ -3248,13 +3270,59 @@
 
     // Exponer función globalmente para reutilizarla tras guardar cambios de perfil
     window.verificarExpedienteMedico = verificarExpedienteMedico;
-</script>
 
-<!-- Asistente IA y Módulos Sociales -->
-<script src="js/assistant.js"></script>
-<script src="js/social.js"></script>
-<script src="js/chatManager.js"></script>
-<script src="js/pomodoroSyncManager.js"></script>
+    // Sincronización automática de sesión de Google / Supabase en Campus
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const client = window.NikaSupabase ? window.NikaSupabase.client : (window.supabaseClient || window.supabase);
+            if (!client || !client.auth) return;
+
+            const { data: { session }, error } = await client.auth.getSession();
+            if (error) {
+                console.warn("[OAuth Sync] Error obteniendo sesión:", error.message);
+                return;
+            }
+
+            if (session && session.user) {
+                const u = session.user;
+                const rawLocal = localStorage.getItem('nika_currentUser');
+                let currentLocal = null;
+                try { currentLocal = JSON.parse(rawLocal); } catch (e) {}
+
+                // Si no hay datos en localStorage o el ID es diferente, sincronizamos con la nube
+                if (!currentLocal || currentLocal.id !== u.id) {
+                    const { data: dbProfile } = await client
+                        .from('profiles')
+                        .select('nombre, bio, avatar, username')
+                        .eq('id', u.id)
+                        .maybeSingle();
+
+                    const profileData = {
+                        id: u.id,
+                        username: dbProfile?.username || (u.email ? u.email.split('@')[0] : 'usuario'),
+                        nombre: dbProfile?.nombre || u.user_metadata?.full_name || u.user_metadata?.name || 'Estudiante Nika',
+                        email: u.email,
+                        avatar: dbProfile?.avatar || u.user_metadata?.avatar_url || null,
+                        bio: dbProfile?.bio || 'Estudiante de Medicina'
+                    };
+
+                    localStorage.setItem('nika_currentUser', JSON.stringify(profileData));
+                    console.log("✅ Sesión sincronizada con Supabase:", profileData.email);
+
+                    if (typeof window.verificarExpedienteMedico === 'function') {
+                        window.verificarExpedienteMedico();
+                    }
+
+                    if (!currentLocal) {
+                        location.reload();
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("[OAuth Sync] Error en sincronización:", err);
+        }
+    });
+</script>
 
 </body>
 </html>
