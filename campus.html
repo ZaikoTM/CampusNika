@@ -979,41 +979,72 @@
         // somos siempre los últimos en escribir esta variable.
         var supabase;
 
-        // ================= SINCRONIZACIÓN DE PROGRESO =================
-    function syncStudyProgress() {
+       // ================= SINCRONIZACIÓN DE PROGRESO =================
+    async function syncStudyProgress() {
         const activeUser = JSON.parse(localStorage.getItem('nika_currentUser'));
         const userSuffix = activeUser ? activeUser.username : 'invitado';
 
-        // 1. ACTUALIZAR WIDGET PRINCIPAL "CONTINUÁ DONDE LO DEJASTE" (Dinámico)
+        let lastProgressData = null;
+        let savedSurgeryPct = 0;
+
+        // 1. Intentar traer los datos reales de la NUBE (Supabase)
+        try {
+            const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+            if (client) {
+                const { data: { session } } = await client.auth.getSession();
+                if (session && session.user) {
+                    // Consultamos el progreso guardado en la tabla user_progress
+                    const { data: progressInfo, error } = await client
+                        .from('user_progress')
+                        .select('*')
+                        .eq('user_id', session.user.id)
+                        .maybeSingle();
+
+                    if (!error && progressInfo) {
+                        // Si existe en la nube, curamos el localStorage para este dispositivo
+                        if (progressInfo.last_study_progress) {
+                            const progStr = typeof progressInfo.last_study_progress === 'string' 
+                                ? progressInfo.last_study_progress 
+                                : JSON.stringify(progressInfo.last_study_progress);
+                            localStorage.setItem(`nika_last_study_progress_${userSuffix}`, progStr);
+                        }
+                        if (progressInfo.surgery_global_pct !== undefined && progressInfo.surgery_global_pct !== null) {
+                            localStorage.setItem(`nika_surgery_global_pct_${userSuffix}`, progressInfo.surgery_global_pct);
+                        }
+                    }
+                }
+            }
+        } catch (err) {
+            console.warn("[syncStudyProgress] Error buscando progreso en la nube:", err);
+        }
+
+        // 2. Leer desde localStorage (que ahora ya está actualizado con la verdad de la nube)
+        const rawLastProgress = localStorage.getItem(`nika_last_study_progress_${userSuffix}`);
+        if (rawLastProgress) {
+            try { lastProgressData = JSON.parse(rawLastProgress); } catch(e) {}
+        }
+        savedSurgeryPct = localStorage.getItem(`nika_surgery_global_pct_${userSuffix}`) || 0;
+
+        // 3. ACTUALIZAR WIDGET PRINCIPAL "CONTINUÁ DONDE LO DEJASTE" (Dinámico)
         const titleEl = document.getElementById('continuity-title-text');
         const continuityFill = document.querySelector('.continuity-progress-fill');
         const continuityLabel = document.getElementById('continuity-progress-label');
         const btnEl = document.querySelector('.btn-continue-action');
 
-        // Buscamos si hay un progreso detallado (con UP exacta) guardado recientemente
-        const lastProgress = localStorage.getItem(`nika_last_study_progress_${userSuffix}`);
-        
-        if (lastProgress) {
-            try {
-                const data = JSON.parse(lastProgress);
-                if (titleEl) titleEl.textContent = `${data.modulo} · ${data.up} - Seguir entrenando`;
-                if (continuityFill) continuityFill.style.width = `${data.porcentaje}%`;
-                if (continuityLabel) continuityLabel.innerText = `${data.porcentaje}% completado`;
-                if (btnEl) {
-                    btnEl.textContent = "Seguir entrenando →";
-                    btnEl.onclick = () => location.href = data.url;
-                }
-            } catch (e) {
-                console.error("Error leyendo último progreso:", e);
+        if (lastProgressData) {
+            if (titleEl) titleEl.textContent = `${lastProgressData.modulo} · ${lastProgressData.up} - Seguir entrenando`;
+            if (continuityFill) continuityFill.style.width = `${lastProgressData.porcentaje}%`;
+            if (continuityLabel) continuityLabel.innerText = `${lastProgressData.porcentaje}% completado`;
+            if (btnEl) {
+                btnEl.textContent = "Seguir entrenando →";
+                btnEl.onclick = () => location.href = lastProgressData.url;
             }
         } else {
-            // Lógica de rescate: Si no hay UP exacta, lee el global de cirugía (tu código original)
-            const savedPct = localStorage.getItem(`nika_surgery_global_pct_${userSuffix}`) || 0;
-            
-            if (savedPct > 0) {
+            // Lógica de rescate: Si no hay UP exacta, lee el global de cirugía
+            if (savedSurgeryPct > 0) {
                 if (titleEl) titleEl.textContent = `Cirugía - Seguir entrenando`;
-                if (continuityFill) continuityFill.style.width = `${savedPct}%`;
-                if (continuityLabel) continuityLabel.innerText = `${savedPct}% completado`;
+                if (continuityFill) continuityFill.style.width = `${savedSurgeryPct}%`;
+                if (continuityLabel) continuityLabel.innerText = `${savedSurgeryPct}% completado`;
                 if (btnEl) {
                     btnEl.textContent = "Seguir entrenando →";
                     btnEl.onclick = () => location.href = 'cirugia_hub.html';
@@ -1030,8 +1061,7 @@
             }
         }
 
-        // 2. ACTUALIZAR TARJETA DEL MÓDULO "CIRUGÍA" (La que está en el plan de estudios)
-        const savedSurgeryPct = localStorage.getItem(`nika_surgery_global_pct_${userSuffix}`) || 0;
+        // 4. ACTUALIZAR TARJETA DEL MÓDULO "CIRUGÍA"
         const modFill = document.querySelector('.active-module .module-progress-fill');
         const modLabel = document.querySelector('.active-module .module-progress-meta span:first-child');
         
@@ -1065,7 +1095,7 @@
                 }
                 // Reproduce un buffer silencioso de 1 frame para "despertar" la salida de audio en iOS/Safari.
                 try {
-                    const silentAudio = new Audio("data:audio/mp3;base64,//uQx AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    const silentAudio = new Audio("data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     silentAudio.volume = 0;
                     const p = silentAudio.play();
                     if (p && p.catch) p.catch(() => {});

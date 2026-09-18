@@ -84,7 +84,7 @@ const NotasModule = (() => {
       if (!userId) return null;
 
       const { data, error } = await client
-        .from('user_notes')
+        .from('study_notes') // CORREGIDO a study_notes
         .select('content, updated_at')
         .eq('user_id', userId)
         .eq('module_id', moduleId)
@@ -116,7 +116,7 @@ const NotasModule = (() => {
 
       // INYECCIÓN MANUAL: Soluciona el problema de los constraints eliminados
       const { data: existing } = await client
-        .from('user_notes')
+        .from('study_notes') // CORREGIDO a study_notes
         .select('id')
         .eq('user_id', userId)
         .eq('module_id', moduleId)
@@ -127,13 +127,13 @@ const NotasModule = (() => {
 
       if (existing) {
         const { error } = await client
-          .from('user_notes')
+          .from('study_notes') // CORREGIDO a study_notes
           .update({ content: content, updated_at: new Date().toISOString() })
           .eq('id', existing.id);
         err = error;
       } else {
         const { error } = await client
-          .from('user_notes')
+          .from('study_notes') // CORREGIDO a study_notes
           .insert({
             user_id: userId,
             module_id: moduleId,

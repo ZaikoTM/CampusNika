@@ -1,9 +1,11 @@
 // js/productivity/pomodoro.js
-// Módulo Pomodoro Profesional Sincronizado en la Nube (Blindado)
+// Módulo Pomodoro Profesional Sincronizado en la Nube (Blindado + Campana por Hardware Inbloqueable)
 
 const PomodoroModule = (() => {
-  let workMinutes = 25;
-  let breakMinutes = 5;
+  // Leemos la configuración guardada por el usuario (o usamos 25/5 por defecto)
+  let workMinutes = parseInt(localStorage.getItem('nika_pomo_w_mins') || '25', 10);
+  let breakMinutes = parseInt(localStorage.getItem('nika_pomo_b_mins') || '5', 10);
+  
   let secondsLeft = workMinutes * 60;
   let mode = 'work';
   let currentView = 'timer';
@@ -15,78 +17,121 @@ const PomodoroModule = (() => {
   let currentUpLabel = null;
   let containerEl = null;
 
-  function getDbClient() {
-    return window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || window.supabase;
+  // 1. MOTOR DE AUDIO POR HARDWARE (Anti-Bloqueo de Pestañas en Segundo Plano)
+  let audioCtx = null;
+
+  function initAudio() {
+    try {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    } catch (e) {}
   }
 
-  async function getUserId() {
-    let userId = null;
-    const rawUser = localStorage.getItem('nika_currentUser');
-    if (rawUser) {
-      try {
-        const u = JSON.parse(rawUser);
-        userId = u.id || u.uid || u.username || u.email;
-      } catch(e) { userId = rawUser; }
+  function playAlertSound() {
+    try {
+        initAudio();
+        const t = audioCtx.currentTime;
+        
+        // Frecuencias armónicas para simular una campana de escritorio/boxeo
+        const frequencies = [523.25, 659.25, 783.99, 1046.50]; 
+        
+        // PRIMER GOLPE DE CAMPANA
+        frequencies.forEach((freq, index) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = index === 0 ? 'sine' : 'triangle'; 
+            osc.frequency.setValueAtTime(freq, t);
+            
+            // Volumen: Ataque instantáneo muy fuerte y desvanecimiento progresivo (eco)
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(1.2 / frequencies.length, t + 0.02); 
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 2.5); 
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start(t);
+            osc.stop(t + 3.0);
+        });
+        
+        // SEGUNDO GOLPE RÁPIDO (Ding-Ding)
+        setTimeout(() => {
+            if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            const t2 = audioCtx.currentTime;
+            frequencies.forEach((freq, index) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = index === 0 ? 'sine' : 'triangle';
+                osc.frequency.setValueAtTime(freq, t2);
+                gain.gain.setValueAtTime(0, t2);
+                gain.gain.linearRampToValueAtTime(1.2 / frequencies.length, t2 + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, t2 + 2.5);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t2);
+                osc.stop(t2 + 3.0);
+            });
+        }, 300);
+
+    } catch (e) {
+        console.warn("Error en el audio nativo:", e);
     }
+  }
+
+  // BUSCADOR ROBUSTO DE SUPABASE
+  function getDbClient() {
+    return window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+  }
+
+  async function getSessionUser() {
     try {
       const client = getDbClient();
       if (client && client.auth) {
         const { data: { session } } = await client.auth.getSession();
-        if (session && session.user) userId = session.user.id;
+        if (session && session.user) return session.user;
       }
     } catch (e) {}
-    return userId;
+    return null;
   }
 
+  // Descarga el historial de sesiones desde la nube
   async function syncStatsFromSupabase() {
     try {
       const client = getDbClient();
       if (!client) return;
-      const userId = await getUserId();
-      if (!userId) return;
+      
+      const user = await getSessionUser();
+      if (!user) return;
 
       const { data, error } = await client
         .from('study_sessions')
         .select('modulo, up_id, duration_minutes')
-        .eq('user_id', userId);
+        .eq('user_id', user.id);
 
       if (!error && data) {
         let grouped = {};
+        
         data.forEach(row => {
           const key = `nika_time_${row.modulo}_${row.up_id}`;
-          grouped[key] = (grouped[key] || 0) + row.duration_minutes;
+          grouped[key] = (grouped[key] || 0) + (row.duration_minutes || 0);
         });
         
         Object.keys(grouped).forEach(k => {
           localStorage.setItem(k, grouped[k].toString());
         });
+
+        if (currentView === 'stats') {
+            render();
+        }
       }
     } catch(err) {
-      console.error('[Pomodoro] Error sincronizando stats:', err);
+      console.error('[Pomodoro] Error sincronizando stats desde Supabase:', err);
     }
-  }
-
-  function playAlertSound() {
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
-      const playTone = (freq, delay) => {
-        setTimeout(() => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.type = 'sine';
-          osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.15, ctx.currentTime);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.4);
-        }, delay);
-      };
-      playTone(587.33, 0);
-      playTone(880, 200);
-    } catch (e) {}
   }
 
   function buildUpSelectorOptions() {
@@ -120,6 +165,7 @@ const PomodoroModule = (() => {
     if (!currentModuleId || !currentUpId) return { unit: 0, module: 0 };
     const unitKey = `nika_time_${currentModuleId}_${currentUpId}`;
     const unitMinutes = parseInt(localStorage.getItem(unitKey) || '0', 10);
+    
     let moduleMinutes = 0;
     const modulePrefix = `nika_time_${currentModuleId}_`;
     for (let i = 0; i < localStorage.length; i++) {
@@ -137,6 +183,7 @@ const PomodoroModule = (() => {
     const key = `nika_time_${currentModuleId}_${currentUpId}`;
     const prev = parseInt(localStorage.getItem(key) || '0', 10);
     const addedMins = Math.floor(secondsToAdd / 60);
+    
     localStorage.setItem(key, (prev + addedMins).toString());
     registerStudySessionInSupabase(addedMins);
   }
@@ -145,23 +192,31 @@ const PomodoroModule = (() => {
     try {
       const client = getDbClient();
       if (!client) return;
-      const userId = await getUserId();
-      if (!userId) return;
+      
+      const user = await getSessionUser();
+      if (!user) return; 
 
       const { error } = await client
         .from('study_sessions')
         .insert({
-          user_id: userId,
+          user_id: user.id,
           modulo: currentModuleId,
           up_id: currentUpId,
           duration_minutes: durationMinutes,
           completed_at: new Date().toISOString()
         });
 
-      if (error) console.error('[Pomodoro] Error al guardar en Supabase:', error);
+      if (error) console.error('[Pomodoro] Error al subir registro a Supabase:', error);
     } catch (err) {
-      console.error('[Pomodoro] Excepción al registrar sesión:', err);
+      console.error('[Pomodoro] Excepción al registrar sesión en la nube:', err);
     }
+  }
+
+  function shouldShowNotifBanner() {
+    if (!("Notification" in window)) return false;
+    if (Notification.permission !== "default") return false;
+    if (localStorage.getItem('nika_pomo_notif_hidden') === 'true') return false;
+    return true;
   }
 
   function render() {
@@ -175,6 +230,18 @@ const PomodoroModule = (() => {
     const titleColor = isWork ? '#9f1239' : '#166534';
 
     if (currentView === 'timer') {
+      const bannerHtml = shouldShowNotifBanner() ? `
+        <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <span style="font-size: 0.72rem; color: #1e3a8a; font-weight: 700; line-height: 1.3;">
+                🔔 Activá las notificaciones para que el sistema te avise en segundo plano.
+            </span>
+            <div style="display: flex; gap: 6px; align-items: center;">
+                <button id="pomo-notif-enable" style="background: #2563eb; color: white; border: none; border-radius: 6px; padding: 5px 10px; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.2s; white-space: nowrap;">Permitir</button>
+                <button id="pomo-notif-dismiss" style="background: transparent; color: #64748b; border: none; font-size: 1.1rem; cursor: pointer; padding: 0 4px; line-height: 1;">×</button>
+            </div>
+        </div>
+      ` : '';
+
       containerEl.innerHTML = `
         <div style="background: ${cardBg}; border: 1px solid ${borderColor}; border-radius: 14px; padding: 18px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); font-family: 'Plus Jakarta Sans', sans-serif; width: 100%; box-sizing: border-box; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;">
           <div>
@@ -187,6 +254,8 @@ const PomodoroModule = (() => {
                 <button id="pomo-view-settings" style="background: rgba(0,0,0,0.06); border: none; border-radius: 6px; width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;" title="Configuración">⚙️</button>
               </div>
             </div>
+
+            ${bannerHtml}
 
             <div style="display: flex; gap: 6px; margin-bottom: 10px;">
               <button id="pomo-mode-work" style="flex: 1; padding: 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; background: ${isWork ? primaryColor : 'rgba(0,0,0,0.06)'}; color: ${isWork ? '#fff' : '#475569'}; transition: 0.2s;">Estudio</button>
@@ -210,6 +279,17 @@ const PomodoroModule = (() => {
           </div>
         </div>
       `;
+
+      if (shouldShowNotifBanner()) {
+        containerEl.querySelector('#pomo-notif-enable').addEventListener('click', async () => {
+          await Notification.requestPermission();
+          render(); 
+        });
+        containerEl.querySelector('#pomo-notif-dismiss').addEventListener('click', () => {
+          localStorage.setItem('nika_pomo_notif_hidden', 'true');
+          render();
+        });
+      }
 
       containerEl.querySelector('#pomo-up-selector').addEventListener('change', (e) => { switchUpContext(e.target.value); });
       containerEl.querySelector('#pomo-view-stats').addEventListener('click', () => { currentView = 'stats'; render(); });
@@ -268,11 +348,18 @@ const PomodoroModule = (() => {
         </div>
       `;
       containerEl.querySelector('#pomo-back-from-settings').addEventListener('click', () => { currentView = 'timer'; render(); });
+      
       containerEl.querySelector('#pomo-save-config').addEventListener('click', () => {
         const w = parseInt(containerEl.querySelector('#input-work-min').value, 10);
         const b = parseInt(containerEl.querySelector('#input-break-min').value, 10);
-        if (w > 0) workMinutes = w;
-        if (b > 0) breakMinutes = b;
+        if (w > 0) {
+            workMinutes = w;
+            localStorage.setItem('nika_pomo_w_mins', w);
+        }
+        if (b > 0) {
+            breakMinutes = b;
+            localStorage.setItem('nika_pomo_b_mins', b);
+        }
         currentView = 'timer';
         resetTimer();
       });
@@ -294,6 +381,10 @@ const PomodoroModule = (() => {
 
   function start() {
     if (isRunning) return;
+
+    // Inicializa y desbloquea el hardware de audio al hacer clic
+    initAudio();
+
     isRunning = true;
     render();
     _reportarPresence(true);
@@ -305,7 +396,6 @@ const PomodoroModule = (() => {
       if (secondsLeft <= 0) {
         clearInterval(intervalId);
         isRunning = false;
-        playAlertSound();
         handleCycleComplete();
       }
     }, 1000);
@@ -327,17 +417,34 @@ const PomodoroModule = (() => {
   }
 
   function handleCycleComplete() {
-    if (mode === 'work') {
+    const wasWork = mode === 'work';
+    
+    // Ejecuta la campana generada por la placa de sonido
+    playAlertSound();
+
+    if (wasWork) {
       registerStudyTime(workMinutes * 60);
-      alert('🔔 ¡Tiempo de estudio finalizado! Es hora de un descanso.');
+      if (typeof showToast === 'function') showToast('🔔 ¡Tiempo finalizado! Inicia tu descanso.', 'success');
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("¡Tiempo de estudio finalizado!", { body: "Buen trabajo. Es hora de tu descanso." });
+      }
       mode = 'break';
     } else {
-      alert('🔔 ¡Descanso terminado! Volvemos al estudio.');
+      if (typeof showToast === 'function') showToast('🔔 ¡Descanso terminado! Volvemos al estudio.', 'success');
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("¡Descanso terminado!", { body: "Volvé a la pestaña de Campus Nika para seguir enfocándote." });
+      }
       mode = 'work';
     }
+    
     secondsLeft = (mode === 'work' ? workMinutes : breakMinutes) * 60;
     render();
     _reportarPresence(false);
+
+    // Arranca la siguiente fase en automático después de 2 segundos
+    setTimeout(() => {
+      start();
+    }, 2000);
   }
 
   function open(moduleId, upId, upLabel, containerId = 'pomodoro-placeholder') {
@@ -353,7 +460,6 @@ const PomodoroModule = (() => {
     render();
     _reportarPresence(false);
     
-    // Al abrir, descarga silenciosamente las métricas de la nube
     syncStatsFromSupabase();
   }
 
