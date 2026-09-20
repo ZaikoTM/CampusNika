@@ -39,6 +39,7 @@ const ChatManager = (function () {
     let conversacionActual = null; // username del amigo con el que estoy chateando
     let onMensaje = null;          // callback: (row) => void, para pintar burbujas
     let onListaChanged = null;     // callback: () => void, para refrescar bandeja/badges
+    let onPresenciaCambio = null;  // callback: (enLinea: boolean) => void, para el header del chat
 
     // ------------------------------------------------------------
     // 1. Abrir/suscribirse a una conversación 1 a 1
@@ -50,7 +51,12 @@ const ChatManager = (function () {
         await cerrarConversacion(); // limpia canal previo si había otro chat abierto
 
         conversacionActual = friendUsername;
-        canalActivo = sb().channel(_canalPara(username, friendUsername));
+        // Presence habilitado en el mismo canal determinístico: cada uno de los dos
+        // extremos se "trackea" con su username como key, así el otro lado sabe si
+        // está online sin necesidad de una tabla ni polling.
+        canalActivo = sb().channel(_canalPara(username, friendUsername), {
+            config: { presence: { key: username } },
+        });
 
         canalActivo.on("broadcast", { event: "nuevo_mensaje" }, ({ payload }) => {
             // Solo me interesa si el mensaje corresponde a esta conversación
@@ -59,13 +65,29 @@ const ChatManager = (function () {
             if (onListaChanged) onListaChanged();
         });
 
-        await canalActivo.subscribe();
+        const _notificarPresencia = () => {
+            if (!onPresenciaCambio) return;
+            const estado = canalActivo.presenceState();
+            const amigoEnLinea = Object.prototype.hasOwnProperty.call(estado, friendUsername);
+            onPresenciaCambio(amigoEnLinea);
+        };
+
+        canalActivo.on("presence", { event: "sync" }, _notificarPresencia);
+        canalActivo.on("presence", { event: "join" }, _notificarPresencia);
+        canalActivo.on("presence", { event: "leave" }, _notificarPresencia);
+
+        await canalActivo.subscribe(async (status) => {
+            if (status === "SUBSCRIBED") {
+                try { await canalActivo.track({ online_at: new Date().toISOString() }); } catch (_) {}
+            }
+        });
 
         return historial(friendUsername);
     }
 
     function cerrarConversacion() {
         if (canalActivo) {
+            try { canalActivo.untrack(); } catch (_) {}
             sb().removeChannel(canalActivo);
             canalActivo = null;
         }
@@ -136,6 +158,30 @@ const ChatManager = (function () {
         return row;
     }
 
+    // Averigua por qué la política RLS rechazó el mensaje, para decírselo al usuario
+    async function _explicarRechazo(toUsername) {
+        try {
+            const { data: { session } } = await sb().auth.getSession();
+            if (!session) return 'Tu sesión venció. Iniciá sesión de nuevo.';
+            const local = window.NikaSupabase.getNikaCurrentUsername() || '';
+            const { data: perfil } = await sb().from('profiles').select('username').eq('id', session.user.id).maybeSingle();
+            const enPerfil = perfil && perfil.username;
+            if (!enPerfil) return 'Tu perfil no tiene un nombre de usuario guardado y el chat lo necesita. Completalo en Mi Perfil.';
+            if (enPerfil.toLowerCase() !== String(local).toLowerCase()) {
+                return `Tu sesión usa el usuario "${local}" pero tu perfil es "${enPerfil}". Cerrá sesión y volvé a entrar.`;
+            }
+            if (window.NikaFriends) {
+                const amigos = await window.NikaFriends.listFriends();
+                if (!amigos.some((f) => String(f.username).toLowerCase() === String(toUsername).toLowerCase())) {
+                    return 'Solo podés chatear con tus amigos confirmados.';
+                }
+            }
+        } catch (err) {
+            console.warn('[ChatManager] No se pudo diagnosticar el rechazo:', err);
+        }
+        return 'Supabase rechazó el mensaje por permisos. Revisá que se haya ejecutado sql/private_messages_rls.sql completo.';
+    }
+
     async function _insertarYNotificar(payloadInsert) {
         const { data: row, error } = await sb()
             .from("private_messages")
@@ -143,7 +189,16 @@ const ChatManager = (function () {
             .select()
             .single();
 
-        if (error) throw error;
+        if (error) {
+            console.error('[ChatManager] Supabase rechazó el mensaje:', error);
+            // 42501 = la política RLS rechazó el mensaje: se explica el motivo real
+            const motivo = error.code === '42501'
+                ? await _explicarRechazo(payloadInsert.to_username)
+                : `No se pudo enviar el mensaje (${error.message || 'error desconocido'}).`;
+            const e = new Error(motivo);
+            e.friendly = true; // el mensaje es apto para mostrarle al usuario
+            throw e;
+        }
 
         // Notifico por Realtime a ambos extremos del canal determinístico,
         // así el que tiene la conversación abierta la ve al instante.
@@ -205,6 +260,12 @@ const ChatManager = (function () {
         },
         set onListaChanged(cb) {
             onListaChanged = cb;
+        },
+        get onPresenciaCambio() {
+            return onPresenciaCambio;
+        },
+        set onPresenciaCambio(cb) {
+            onPresenciaCambio = cb;
         },
     };
 })();

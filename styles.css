@@ -529,10 +529,173 @@
         .skeleton-line.long { width: 92%; }
         .skeleton-card { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
 
+        /* ================================================================
+           CHAT PRIVADO — Bandeja (dm-inbox-modal) y Conversación 1 a 1
+           (private-chat-modal), estilo Messenger/Instagram DM.
+           Usa exclusivamente variables de la paleta Nika (--nika-primary,
+           --card-bg, --bg-body, --border, --text-main, --text-muted) para
+           heredar el dark mode automáticamente vía body.dark-mode.
+           ================================================================ */
+
+        /* ---- Bandeja de mensajes ---- */
+        .pc-inbox-content { max-width: 420px; padding: 0; overflow: hidden; display: flex; flex-direction: column; max-height: 78vh; }
+        .pc-inbox-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+        .pc-inbox-header h3 { font-size: 1.1rem; font-weight: 800; color: var(--nika-dark); margin: 0; }
+        .dm-inbox-list { overflow-y: auto; padding: 8px; flex: 1; }
+        .dm-inbox-item { display: flex; align-items: center; gap: 12px; padding: 10px 10px; border-radius: 12px; cursor: pointer; transition: background 0.18s ease; }
+        .dm-inbox-item:hover { background: var(--bg-body); }
+        .dm-inbox-item:active { background: rgba(2,132,199,0.1); }
+        .dm-inbox-avatar-wrap { position: relative; flex-shrink: 0; }
+        .dm-inbox-avatar { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--bg-body); border: 1px solid var(--border); display: block; }
+        .dm-inbox-dot { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px; border-radius: 50%; background: #94a3b8; border: 2.5px solid var(--card-bg); transition: background 0.2s; }
+        .dm-inbox-dot.is-online { background: #22c55e; }
+        .dm-inbox-body { flex: 1; min-width: 0; }
+        .dm-inbox-name { font-size: 0.92rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .dm-inbox-meta { font-size: 0.76rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+        .dm-inbox-badge { flex-shrink: 0; background: var(--nika-primary); color: #fff; font-size: 0.68rem; font-weight: 800; border-radius: 20px; padding: 2px 8px; min-width: 20px; text-align: center; box-shadow: 0 2px 6px rgba(2,132,199,0.35); }
+
+        /* ---- Ventana de conversación ---- */
+        .pc-content { max-width: 440px; padding: 0; display: flex; flex-direction: column; height: min(600px, 84vh); overflow: hidden; }
+
+        .pc-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--card-bg); }
+        .pc-icon-btn { background: transparent; border: none; cursor: pointer; color: var(--text-muted); font-size: 1rem; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; transition: background 0.15s ease, color 0.15s ease; flex-shrink: 0; }
+        .pc-icon-btn:hover { background: rgba(2,132,199,0.12); color: var(--nika-primary); }
+        .pc-back-btn { display: none; } /* solo visible en mobile, ver media query */
+        .pc-header-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; background: var(--bg-body); border: 1px solid var(--border); flex-shrink: 0; }
+        .pc-header-info { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+        .pc-header-name { font-size: 0.95rem; font-weight: 800; color: var(--nika-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .pc-header-status { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+        .pc-header-status.is-online { color: #16a34a; }
+        body.dark-mode .pc-header-status.is-online { color: #4ade80; }
+
+        .pc-messages { flex: 1; overflow-y: auto; padding: 16px 14px; display: flex; flex-direction: column; gap: 3px; background: var(--bg-body); scroll-behavior: smooth; }
+        .pc-loading-state, .pc-empty-state { text-align: center; color: var(--text-muted); font-size: 0.82rem; margin: auto; padding: 20px; }
+
+        .pc-day-divider { text-align: center; font-size: 0.68rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 14px 0 10px; position: relative; }
+
+        .chat-bubble-row { display: flex; margin: 3px 0; max-width: 100%; }
+        .chat-bubble-row.mine { justify-content: flex-end; }
+        .chat-bubble-row.theirs { justify-content: flex-start; }
+
+        .chat-bubble { max-width: 76%; padding: 9px 13px; font-size: 0.87rem; line-height: 1.4; word-wrap: break-word; box-shadow: 0 1px 2px rgba(0,0,0,0.06); position: relative; }
+        .chat-bubble.mine { background: linear-gradient(135deg, var(--nika-primary), var(--nika-accent)); color: #fff; border-radius: 16px 16px 4px 16px; }
+        .chat-bubble.theirs { background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 16px 16px 16px 4px; }
+        .chat-bubble.pending { opacity: 0.68; }
+
+        .chat-bubble-meta { display: flex; align-items: center; gap: 4px; justify-content: flex-end; margin-top: 3px; font-size: 0.62rem; opacity: 0.85; }
+        .chat-bubble.mine .chat-bubble-meta { color: rgba(255,255,255,0.85); }
+        .chat-bubble.theirs .chat-bubble-meta { color: var(--text-muted); justify-content: flex-start; }
+        .chat-bubble-tick { display: inline-flex; }
+        .chat-bubble-tick svg { width: 13px; height: 13px; }
+
+        /* Tarjeta de pregunta compartida dentro del chat */
+        .chat-question-card { max-width: 84%; border-radius: 14px; padding: 12px 14px; font-size: 0.82rem; line-height: 1.4; border: 1px solid var(--border); background: var(--card-bg); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .chat-bubble-row.mine .chat-question-card { border-color: rgba(255,255,255,0.35); background: linear-gradient(135deg, rgba(2,132,199,0.14), rgba(56,189,248,0.14)); }
+        .chat-question-card-head { display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.4px; color: var(--nika-primary); margin-bottom: 6px; }
+        .chat-question-card-body { color: var(--text-main); font-weight: 600; }
+
+        .pc-typing-indicator { display: flex; align-items: center; gap: 4px; padding: 8px 13px; }
+        .pc-typing-indicator span { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); opacity: 0.5; animation: nikaTypingDot 1.2s infinite ease-in-out; }
+        .pc-typing-indicator span:nth-child(2) { animation-delay: 0.15s; }
+        .pc-typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes nikaTypingDot { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+        .pc-composer { display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--border); background: var(--card-bg); flex-shrink: 0; }
+        .pc-composer-input { flex: 1; resize: none; max-height: 110px; min-height: 40px; padding: 10px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); font-family: inherit; font-size: 0.88rem; line-height: 1.3; outline: none; transition: border-color 0.15s ease; }
+        .pc-composer-input:focus { border-color: var(--nika-primary); }
+        .pc-send-btn { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; background: linear-gradient(135deg, var(--nika-primary), var(--nika-accent)); color: #fff; display: inline-flex; align-items: center; justify-content: center; transition: transform 0.15s ease, opacity 0.15s ease; box-shadow: 0 3px 10px rgba(2,132,199,0.35); }
+        .pc-send-btn:hover { transform: scale(1.06); }
+        .pc-send-btn:active { transform: scale(0.94); }
+        .pc-send-btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+        /* ================================================================
+           COMUNIDAD & AMIGOS + PERFIL PÚBLICO — mismo lenguaje visual
+           que el chat privado (tarjetas redondeadas, variables Nika,
+           dark mode automático vía var(--...)).
+           ================================================================ */
+
+        /* ---- Modal "Comunidad & Amigos" ---- */
+        .friends-card { max-width: 460px; padding: 0; overflow: hidden; display: flex; flex-direction: column; max-height: 82vh; }
+        .friends-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 18px 18px 12px; }
+        .friends-card-title { font-size: 1.15rem; font-weight: 800; color: var(--nika-dark); margin: 0 0 4px; }
+        .friends-card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.4; }
+
+        .friends-tabs { display: flex; gap: 6px; padding: 0 14px 12px; flex-shrink: 0; }
+        .friends-tab-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 6px; border: none; background: var(--bg-body); color: var(--text-muted); font-weight: 700; font-size: 0.78rem; border-radius: 10px; cursor: pointer; transition: all 0.18s ease; }
+        .friends-tab-btn:hover { color: var(--nika-primary); }
+        .friends-tab-btn.active { background: var(--nika-primary); color: #fff; box-shadow: 0 4px 12px rgba(2,132,199,0.3); }
+        .friends-tab-count { background: rgba(255,255,255,0.25); color: inherit; font-size: 0.68rem; font-weight: 800; border-radius: 20px; padding: 1px 7px; min-width: 18px; }
+        .friends-tab-btn:not(.active) .friends-tab-count { background: rgba(2,132,199,0.14); color: var(--nika-primary); }
+        .friends-tab-badge { background: var(--danger); color: #fff; font-size: 0.65rem; font-weight: 800; border-radius: 20px; padding: 1px 7px; min-width: 16px; display: none; }
+
+        .friends-list-scroll { overflow-y: auto; padding: 4px 12px 16px; flex: 1; }
+
+        .friend-card, .friend-request-card { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-radius: 12px; transition: background 0.15s ease; }
+        .friend-card:hover, .friend-request-card:hover { background: var(--bg-body); }
+        .friend-card-avatar-wrap { position: relative; flex-shrink: 0; }
+        .friend-card-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: var(--bg-body); border: 1px solid var(--border); display: block; }
+        .friend-card-body { flex: 1; min-width: 0; }
+        .friend-card-name { font-size: 0.87rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .friend-card-meta { font-size: 0.73rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+        .friend-card-actions, .friend-request-actions { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+
+        .friend-action-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(2,132,199,0.1); color: var(--nika-primary); font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: transform 0.15s ease, background 0.15s ease; }
+        .friend-action-btn:hover { transform: scale(1.08); background: rgba(2,132,199,0.2); }
+        .friend-action-btn.danger { background: var(--danger-light); color: var(--danger); }
+        .friend-action-btn.accept { background: #dcfce7; color: #16a34a; }
+        body.dark-mode .friend-action-btn.accept { background: rgba(34,197,94,0.18); color: #4ade80; }
+
+        .friends-add-btn { flex-shrink: 0; border: none; cursor: pointer; background: var(--nika-primary); color: #fff; font-weight: 700; font-size: 0.75rem; padding: 7px 14px; border-radius: 20px; transition: transform 0.15s ease, background 0.15s ease; }
+        .friends-add-btn:hover { background: var(--nika-dark); transform: translateY(-1px); }
+        .friends-add-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+        .friends-search-box { display: flex; align-items: center; gap: 8px; margin: 0 12px 10px; padding: 9px 12px; border-radius: 20px; background: var(--bg-body); border: 1px solid var(--border); }
+        .friends-search-icon { font-size: 0.85rem; opacity: 0.6; flex-shrink: 0; }
+        .friends-search-input { flex: 1; border: none; background: transparent; outline: none; color: var(--text-main); font-family: inherit; font-size: 0.85rem; }
+
+        .friends-empty-state { text-align: center; padding: 30px 20px; color: var(--text-muted); }
+        .friends-empty-icon { font-size: 2.2rem; margin-bottom: 10px; }
+        .friends-empty-state p { font-size: 0.85rem; margin: 0 0 14px; }
+
+        /* Pastilla de "N amigos" dentro del modal de Mi Perfil */
+        .friends-inline-pill { display: flex; align-items: center; justify-content: space-between; width: 100%; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); font-weight: 700; font-size: 0.82rem; padding: 10px 14px; border-radius: 12px; cursor: pointer; margin-bottom: 16px; transition: border-color 0.15s ease, background 0.15s ease; }
+        .friends-inline-pill:hover { border-color: var(--nika-primary); background: rgba(2,132,199,0.08); }
+        .friends-inline-pill span.arrow { color: var(--nika-primary); font-weight: 800; }
+
+        /* ---- Perfil Público ---- */
+        .pp-card { max-width: 400px; padding: 0 0 22px; overflow: hidden; text-align: center; position: relative; }
+        .pp-close-btn { position: absolute; top: 10px; right: 10px; background: rgba(15,23,42,0.35); color: #fff; z-index: 2; }
+        .pp-close-btn:hover { background: rgba(15,23,42,0.55); color: #fff; }
+        .pp-cover { height: 76px; background: linear-gradient(135deg, var(--nika-primary), var(--nika-accent)); }
+        .pp-avatar-wrap { margin-top: -46px; }
+        .pp-avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 4px solid var(--card-bg); background: var(--card-bg); box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+        .pp-fullname { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin: 12px 0 1px; }
+        .pp-username { font-size: 0.83rem; color: var(--text-muted); font-weight: 600; }
+        .pp-badges-row { margin: 10px 0 2px; }
+        .pp-badge { display: inline-block; background: rgba(2,132,199,0.12); color: var(--nika-primary); padding: 4px 13px; border-radius: 14px; font-size: 0.74rem; font-weight: 800; }
+        .pp-bio { font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; margin: 12px 22px 14px; text-align: left; }
+        .pp-social-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 14px; }
+        .pp-social-link { font-size: 0.8rem; font-weight: 700; color: var(--nika-primary); text-decoration: none; }
+        .pp-social-link:hover { text-decoration: underline; }
+        .pp-access-box { border-top: 1px solid var(--border); margin: 0 22px; padding: 12px 0; text-align: left; font-size: 0.74rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 3px; }
+        .pp-actions-row { display: flex; justify-content: center; gap: 10px; margin: 16px 22px 0; flex-wrap: wrap; }
+        .pp-btn { border: none; cursor: pointer; font-weight: 700; font-size: 0.82rem; padding: 10px 18px; border-radius: 24px; transition: transform 0.15s ease, opacity 0.15s ease; }
+        .pp-btn:hover { transform: translateY(-1px); }
+        .pp-btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+        .pp-btn-primary { background: linear-gradient(135deg, var(--nika-primary), var(--nika-accent)); color: #fff; box-shadow: 0 4px 12px rgba(2,132,199,0.3); }
+        .pp-btn-ghost { background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border); }
+
         /* ================= RESPONSIVO PROFUNDO: MODALES Y NOTIFICACIONES < 768px ================= */
         @media (max-width: 768px) {
             .modal-content { width: 95vw; max-width: 95vw; margin: 0 auto; padding: 20px 16px; max-height: 92vh; box-sizing: border-box; overflow-x: hidden; }
             #chat-modal .modal-content { height: min(560px, 85vh); }
+
+            /* Chat privado a pantalla completa en mobile, como cualquier app de mensajería */
+            .pc-content { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; margin: 0; }
+            .pc-inbox-content { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; margin: 0; }
+            .pc-back-btn { display: inline-flex; }
+            .pc-close-btn { display: none; }
+            .chat-bubble, .chat-question-card { max-width: 86%; }
 
             /* Notificaciones alineadas correctamente dentro de la pantalla en campus */
             .notification-dropdown, .dropdown-menu, .notif-box {

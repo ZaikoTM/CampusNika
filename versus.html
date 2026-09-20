@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campus Nika | Arena de Duelos 1vs1</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
+<script src="js/pomodoroEngine.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -565,6 +569,7 @@
 
 <!-- ============ Orden de carga: config → managers → lógica de página ============ -->
 <script src="supabaseClient.js"></script>
+<script src="js/friendsManager.js"></script>
 <script src="duelosManager.js"></script>
 <script src="notificacionesManager.js"></script>
 <script>
@@ -661,33 +666,36 @@
     function mostrarVistaCodigo() { mostrarVista('view-codigo'); }
 
     // ------------------------------------------------------------
-    // Selector de amigos (reutiliza nika_friends que ya arma index.html)
+    // Selector de amigos (lee la tabla friendships de Supabase, igual que campus.html)
     // ------------------------------------------------------------
-    function mostrarVistaAmigos() {
-        const username = window.NikaSupabase.getNikaCurrentUsername();
-        let friendsMap = {};
-        try {
-            friendsMap = JSON.parse(localStorage.getItem('nika_friends')) || {};
-        } catch (_) { /* queda vacío */ }
-
-        const misAmigos = friendsMap[username] || [];
+    async function mostrarVistaAmigos() {
         const container = document.getElementById('friends-list');
-        container.innerHTML = '';
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align:center;">Cargando tus amigos...</p>';
+        mostrarVista('view-amigos');
 
-        if (misAmigos.length === 0) {
-            container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align:center;">Todavía no tenés amigos agregados. Sumá compañeros desde el Dashboard.</p>';
-        } else {
-            misAmigos.forEach((friendUsername) => {
-                const card = document.createElement('div');
-                card.className = 'mode-card';
-                card.style.padding = '20px';
-                card.innerHTML = `<div class="mode-icon" style="font-size:1.8rem;">🧑‍⚕️</div><h3 style="font-size:1rem;">${friendUsername}</h3>`;
-                card.onclick = () => desafiarAmigo(friendUsername);
-                container.appendChild(card);
-            });
+        let misAmigos = [];
+        try {
+            misAmigos = await NikaFriends.listFriends();
+        } catch (err) {
+            console.warn('[versus] No se pudieron cargar los amigos:', err);
+            container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align:center;">No se pudieron cargar tus amigos. Revisá tu conexión e iniciá sesión de nuevo.</p>';
+            return;
         }
 
-        mostrarVista('view-amigos');
+        container.innerHTML = '';
+        if (misAmigos.length === 0) {
+            container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align:center;">Todavía no tenés amigos agregados. Sumá compañeros desde el Dashboard.</p>';
+            return;
+        }
+
+        misAmigos.forEach((amigo) => {
+            const card = document.createElement('div');
+            card.className = 'mode-card';
+            card.style.padding = '20px';
+            card.innerHTML = `<div class="mode-icon" style="font-size:1.8rem;">🧑‍⚕️</div><h3 style="font-size:1rem;">${NikaFriends.esc(amigo.fullname)}</h3><p style="font-size:0.78rem; color: var(--text-muted);">@${NikaFriends.esc(amigo.username)}</p>`;
+            card.onclick = () => desafiarAmigo(amigo.username);
+            container.appendChild(card);
+        });
     }
 
     async function desafiarAmigo(toUsername) {
@@ -798,7 +806,45 @@
 
         await window.NotificacionesManager.iniciar();
         window.NotificacionesManager.onChallengeReceived = mostrarToastDesafio;
+
+        // Si venís desde "⚔️ Desafiar" del Campus (versus.html?opponent=<id>)
+        await _procesarRivalDesdeURL();
     });
+
+    // ------------------------------------------------------------
+    // Desafío directo desde el Campus: versus.html?opponent=<id del perfil>
+    // ------------------------------------------------------------
+    async function _procesarRivalDesdeURL() {
+        const params = new URLSearchParams(window.location.search);
+        const opponentId = params.get('opponent');
+        if (!opponentId) return;
+
+        // Limpiamos el parámetro para no volver a desafiar si se recarga la página
+        params.delete('opponent');
+        const resto = params.toString();
+        history.replaceState(null, '', window.location.pathname + (resto ? '?' + resto : ''));
+
+        if (!/^[0-9a-fA-F-]{36}$/.test(opponentId)) { showToast('El enlace del desafío no es válido.'); return; }
+
+        try {
+            const { data, error } = await window.NikaSupabase.client
+                .from('profiles')
+                .select('id, username, fullname, full_name, nombre')
+                .eq('id', opponentId)
+                .maybeSingle();
+            if (error || !data || !data.username) { showToast('No se encontró al rival.'); return; }
+            if (data.username === window.NikaSupabase.getNikaCurrentUsername()) {
+                showToast('No podés desafiarte a vos mismo.');
+                return;
+            }
+            const nombre = data.fullname || data.full_name || data.nombre || data.username;
+            if (!confirm('¿Desafiar a ' + nombre + ' (@' + data.username + ') a un duelo 1vs1?')) return;
+            await desafiarAmigo(data.username);
+        } catch (err) {
+            console.error('[versus] Error al preparar el desafío:', err);
+            showToast('No se pudo preparar el desafío.');
+        }
+    }
 
     window.addEventListener('beforeunload', () => {
         window.DuelosManager.cancelarDueloIA();

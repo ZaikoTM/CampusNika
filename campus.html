@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Nika | Simulador Médico y Alto Rendimiento</title>
 
+    <!-- Favicon: isotipo N de Nika (reemplaza el globito por defecto) -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
+
     <!-- ================= PWA: instalable + Service Worker ================= -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0284c7">
@@ -85,6 +90,9 @@
             });
         })();
     </script>
+
+    <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
+    <script src="js/pomodoroEngine.js"></script>
 </head>
 <body>
 
@@ -273,6 +281,28 @@
                         <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
                             <div style="font-size: 2rem; font-weight: 900; color: var(--warning); margin-bottom: 4px;" id="perf-streak">0 d</div>
                             <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Racha Activa</div>
+                        </div>
+                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 900; color: #e11d48; margin-bottom: 4px;" id="perf-study-time">0 min</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Tiempo de Estudio</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;" id="perf-study-sessions">0 sesiones Pomodoro</div>
+                        </div>
+                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
+                            <div style="font-size: 1.35rem; font-weight: 900; color: var(--nika-primary); margin: 8px 0 8px 0; line-height: 1.2;" id="perf-fav-area">-</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Área Favorita</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;" id="perf-fav-sessions">Sin Pomodoros todavía</div>
+                        </div>
+                        <!-- Radar Clínico (tarjeta compacta: el detalle se abre al tocarla) -->
+                        <div id="perf-radar-card" onclick="abrirDetalleRendimiento('radar')" title="Ver el Radar Clínico completo" style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; cursor: pointer; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center;" onmouseover="this.style.borderColor='var(--nika-primary)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='none'">
+                            <div id="perf-radar-mini" style="position: relative; width: 100%; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;"><span style="font-size: 1.6rem; color: var(--text-muted);">-</span></div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Radar Clínico</div>
+                            <div id="perf-radar-sub" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Ver detalle</div>
+                        </div>
+                        <!-- Curva del Olvido (tarjeta compacta) -->
+                        <div id="perf-olvido-card" onclick="abrirDetalleRendimiento('olvido')" title="Ver la Curva del Olvido completa" style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; cursor: pointer; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center;" onmouseover="this.style.borderColor='var(--nika-primary)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='none'">
+                            <div id="perf-olvido-value" style="font-size: 2rem; font-weight: 900; color: var(--text-muted); margin-bottom: 4px;">-</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Curva del Olvido</div>
+                            <div id="perf-olvido-sub" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Sin actividad todavía</div>
                         </div>
                     </div>
                 </div>
@@ -537,6 +567,11 @@
             </p>
         </div>
 
+        <button type="button" class="friends-inline-pill" onclick="closeProfileModal(); openFriendsModal();">
+            <span>🤝 <strong id="own-friends-count">0</strong> amigos en tu red</span>
+            <span class="arrow">Ver todos →</span>
+        </button>
+
         <form id="form-profile" onsubmit="handleSaveProfile(event)">
             
             <div class="form-group" style="text-align: center; margin-bottom: 20px;">
@@ -610,57 +645,75 @@
 
     <!-- ================= MODAL COMUNIDAD & AMIGOS ================= -->
     <div class="modal-overlay" id="friends-modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">🤝 Comunidad & Amigos</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Agregá amigos a tu red para poder desafiarlos directamente en el Modo 1vs1.</p>
-            
-            <div class="modal-tabs">
-                <button class="modal-tab-btn active" id="tab-friend-list" onclick="switchFriendsTab('list')">Mis Amigos</button>
-                <button class="modal-tab-btn" id="tab-friend-search" onclick="switchFriendsTab('search')">Buscar Usuarios</button>
-                <button class="modal-tab-btn" id="tab-friend-req" onclick="switchFriendsTab('req')">Solicitudes <span id="req-badge" style="background:var(--danger);color:white;padding:2px 6px;border-radius:10px;font-size:0.6rem;display:none;">0</span></button>
+        <div class="modal-content friends-card">
+            <div class="friends-card-header">
+                <div>
+                    <h3 class="friends-card-title">🤝 Comunidad &amp; Amigos</h3>
+                    <p class="friends-card-sub">Agregá compañeros para chatear y desafiarlos en el Modo 1vs1.</p>
+                </div>
+                <button type="button" class="pc-icon-btn" onclick="closeFriendsModal()" aria-label="Cerrar">✕</button>
             </div>
 
-            <div id="friends-view-list" style="max-height: 250px; overflow-y: auto;"></div>
-            <div id="friends-view-search" style="display: none;">
-                <input type="text" id="friend-search-input" class="form-input" placeholder="Buscar por @usuario o nombre..." onkeyup="searchUsers()">
-                <div id="search-results-box" style="margin-top: 15px; max-height: 200px; overflow-y: auto;"></div>
+            <div class="friends-tabs">
+                <button class="friends-tab-btn active" id="tab-friend-list" onclick="switchFriendsTab('list')">Mis Amigos <span class="friends-tab-count" id="friends-count-pill">0</span></button>
+                <button class="friends-tab-btn" id="tab-friend-search" onclick="switchFriendsTab('search')">Buscar</button>
+                <button class="friends-tab-btn" id="tab-friend-req" onclick="switchFriendsTab('req')">Solicitudes <span class="friends-tab-badge" id="req-badge">0</span></button>
             </div>
-            <div id="friends-view-req" style="display: none; max-height: 250px; overflow-y: auto;"></div>
 
-            <div class="modal-footer-btns" style="margin-top: 25px;">
-                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeFriendsModal()">Cerrar</button>
+            <div id="friends-view-list" class="friends-list-scroll"></div>
+            <div id="friends-view-search" style="display: none; flex-direction: column; flex: 1; min-height: 0;">
+                <div class="friends-search-box">
+                    <span class="friends-search-icon">🔎</span>
+                    <input type="text" id="friend-search-input" class="friends-search-input" placeholder="Buscar por @usuario o nombre..." oninput="searchUsers()">
+                </div>
+                <div id="search-results-box" class="friends-list-scroll"></div>
             </div>
+            <div id="friends-view-req" class="friends-list-scroll" style="display: none;"></div>
         </div>
     </div>
 
     <!-- ================= MODAL PERFIL PÚBLICO ================= -->
+    <!-- ================= MODAL DETALLE DE RENDIMIENTO (Radar Clínico / Curva del Olvido) ================= -->
+    <div class="modal-overlay" id="rendimiento-detalle-modal" onclick="if (event.target === this) cerrarDetalleRendimiento()">
+        <div class="modal-content" style="max-width: 560px;">
+            <h3 id="rend-detalle-titulo" style="font-size: 1.2rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px;"></h3>
+            <p id="rend-detalle-sub" style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;"></p>
+            <div id="rend-detalle-body" style="max-height: 60vh; overflow-y: auto; padding-right: 4px;"></div>
+            <div class="modal-footer-btns" style="margin-top: 18px;">
+                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="cerrarDetalleRendimiento()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="public-profile-modal">
-        <div class="modal-content" style="max-width: 420px; text-align:center;">
-            <img id="pp-avatar" src="assets/N%20NIKA.png" alt="Avatar"
-                 style="width:90px; height:90px; border-radius:50%; object-fit:cover; margin:0 auto 14px auto; border:3px solid var(--nika-primary); display:block;">
-            <h3 id="pp-fullname" style="font-size:1.2rem; font-weight:800; color:var(--text-main); margin-bottom:2px;">—</h3>
-            <span id="pp-username" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">@usuario</span>
+        <div class="modal-content pp-card">
+            <button type="button" class="pc-icon-btn pp-close-btn" onclick="closePublicProfileModal()" aria-label="Cerrar">✕</button>
+            <div class="pp-cover"></div>
+            <div class="pp-avatar-wrap">
+                <img id="pp-avatar" src="assets/N%20NIKA.png" alt="Avatar" class="pp-avatar">
+            </div>
+            <h3 id="pp-fullname" class="pp-fullname">—</h3>
+            <span id="pp-username" class="pp-username">@usuario</span>
 
-            <div style="margin:12px 0;">
-                <span id="pp-anio-badge" style="display:none; background:var(--nika-primary); color:white; padding:4px 12px; border-radius:14px; font-size:0.75rem; font-weight:700;"></span>
+            <div class="pp-badges-row">
+                <span id="pp-anio-badge" class="pp-badge" style="display:none;"></span>
             </div>
 
-            <p id="pp-bio" style="font-size:0.85rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; text-align:left;"></p>
+            <p id="pp-bio" class="pp-bio"></p>
 
-            <div style="display:flex; justify-content:center; gap:16px; margin-bottom:16px;" id="pp-social-row">
-                <a id="pp-instagram" href="#" target="_blank" rel="noopener noreferrer" style="display:none; font-size:0.8rem; font-weight:700; color:var(--nika-primary); text-decoration:none;">📷 Instagram</a>
-                <a id="pp-whatsapp" href="#" target="_blank" rel="noopener noreferrer" style="display:none; font-size:0.8rem; font-weight:700; color:var(--nika-primary); text-decoration:none;">💬 WhatsApp</a>
+            <div class="pp-social-row" id="pp-social-row">
+                <a id="pp-instagram" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">📷 Instagram</a>
+                <a id="pp-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">💬 WhatsApp</a>
             </div>
 
-            <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:16px; text-align:left; font-size:0.75rem; color:var(--text-muted);">
+            <div class="pp-access-box">
                 <div>📅 Primer acceso: <strong id="pp-first-access">—</strong></div>
                 <div>🕒 Último acceso: <strong id="pp-last-access">—</strong></div>
             </div>
 
-            <div class="modal-footer-btns" style="justify-content:center; gap:10px; flex-wrap:wrap;">
-                <button type="button" class="btn-module" id="pp-chat-btn" style="width:auto; padding:10px 16px; background:#e2e8f0; color:#334155;" onclick="openChatWithFriend(window._ppCurrentUsername)">💬 Chat</button>
-                <button type="button" class="btn-module" id="pp-friend-btn" style="width:auto; padding:10px 16px;" onclick="enviarSolicitudAmistad(window._ppCurrentUserId)">➕ Enviar Solicitud</button>
-                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto; padding:10px 16px;" onclick="closePublicProfileModal()">Cerrar</button>
+            <div class="pp-actions-row">
+                <button type="button" class="pp-btn pp-btn-ghost" id="pp-chat-btn" onclick="openChatWithFriend(window._ppCurrentUsername)">💬 Chat</button>
+                <button type="button" class="pp-btn pp-btn-primary" id="pp-friend-btn" onclick="enviarSolicitudAmistad(window._ppCurrentUserId)">➕ Enviar Solicitud</button>
             </div>
         </div>
     </div>
@@ -699,35 +752,40 @@
         </div>
     </div>
 
-    <!-- ================= MODAL CHAT PRIVADO (1 a 1) ================= -->
     <!-- ================= MODAL BANDEJA DE MENSAJES (entrada desde sidebar) ================= -->
     <div class="modal-overlay" id="dm-inbox-modal">
-        <div class="modal-content" style="max-width: 420px;">
-            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 12px;">💬 Mensajes Privados</h3>
-            <div id="dm-inbox-list" style="max-height: 320px; overflow-y: auto;"></div>
-            <div class="modal-footer-btns" style="margin-top: 18px;">
-                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closeDmInboxModal()">Cerrar</button>
+        <div class="modal-content pc-inbox-content">
+            <div class="pc-inbox-header">
+                <h3>💬 Mensajes</h3>
+                <button type="button" class="pc-icon-btn" onclick="closeDmInboxModal()" aria-label="Cerrar">✕</button>
             </div>
+            <div id="dm-inbox-list" class="dm-inbox-list"></div>
         </div>
     </div>
 
+    <!-- ================= MODAL CHAT PRIVADO (1 a 1), estilo Messenger/Instagram DM ================= -->
     <div class="modal-overlay" id="private-chat-modal">
-        <div class="modal-content" style="max-width: 420px; display:flex; flex-direction:column; height: min(520px, 80vh); padding: 18px 18px 14px 18px;">
-            <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 10px; display:flex; align-items:center; gap:8px;">
-                💬 Chat con <span id="pc-friend-name">@amigo</span>
-            </h3>
-
-            <div id="pc-messages-list" style="flex:1; overflow-y:auto; border:1px solid var(--border); border-radius: 10px; padding: 12px; display:flex; flex-direction:column; gap:8px; background: var(--bg-body);">
-                <p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Cargando conversación...</p>
+        <div class="modal-content pc-content">
+            <div class="pc-header">
+                <button type="button" class="pc-icon-btn pc-back-btn" onclick="closePrivateChatModal()" aria-label="Volver a mensajes">←</button>
+                <img id="pc-friend-avatar" class="pc-header-avatar" src="" alt="">
+                <div class="pc-header-info">
+                    <span id="pc-friend-name" class="pc-header-name">@amigo</span>
+                    <span id="pc-friend-status" class="pc-header-status">Conectando...</span>
+                </div>
+                <button type="button" class="pc-icon-btn pc-close-btn" onclick="closePrivateChatModal()" aria-label="Cerrar">✕</button>
             </div>
 
-            <div style="display:flex; gap:8px; margin-top:12px;">
-                <input type="text" id="pc-message-input" class="form-input" placeholder="Escribí un mensaje..." style="flex:1;" onkeydown="if(event.key==='Enter'){event.preventDefault(); sendPrivateMessage();}">
-                <button class="btn-module" style="background:var(--nika-primary); color:white; width:auto; padding: 0 16px;" onclick="sendPrivateMessage()">➤</button>
+            <div id="pc-messages-list" class="pc-messages">
+                <div class="pc-loading-state">Cargando conversación...</div>
             </div>
 
-            <div class="modal-footer-btns" style="margin-top: 12px;">
-                <button type="button" class="btn-module" style="background:#e2e8f0; color:#334155; width:auto;" onclick="closePrivateChatModal()">Cerrar</button>
+            <div class="pc-composer">
+                <textarea id="pc-message-input" class="pc-composer-input" placeholder="Escribí un mensaje..." rows="1" maxlength="1000"
+                    onkeydown="handlePcComposerKeydown(event)" oninput="autoResizePcComposer(this)"></textarea>
+                <button type="button" class="pc-send-btn" id="pc-send-btn" onclick="sendPrivateMessage()" aria-label="Enviar mensaje">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+                </button>
             </div>
         </div>
     </div>
@@ -946,6 +1004,9 @@
     <!-- Asistente IA y Módulos Sociales -->
     <script src="js/assistant.js"></script>
     <script src="js/social.js"></script>
+    <script src="js/friendsManager.js"></script>
+    <script src="js/rendimiento.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="js/chatManager.js"></script>
     <script src="js/pomodoroSyncManager.js"></script>
 
@@ -1230,6 +1291,8 @@
                 examsEl.innerText = "-";
                 accEl.innerText = "-";
                 streakEl.innerText = "-";
+                const t = document.getElementById('perf-study-time'); if (t) t.innerText = "-";
+                const f = document.getElementById('perf-fav-area'); if (f) f.innerText = "-";
                 return;
             }
 
@@ -1239,6 +1302,269 @@
             examsEl.innerText = stats.exams;
             accEl.innerText = stats.accuracy + "%";
             streakEl.innerText = stats.streak + " d";
+
+            renderRendimiento();
+        }
+
+        // ---- Mi Rendimiento: KPIs, Radar Clínico y Curva del Olvido (datos de Supabase) ----
+        // Fuentes: study_sessions (Pomodoros) + exam_results (simulacros). Ver js/rendimiento.js.
+        function _escR(t) {
+            return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        function _hace(dias) {
+            if (dias <= 0) return 'hoy';
+            if (dias === 1) return 'ayer';
+            return `hace ${dias} días`;
+        }
+
+        async function renderRendimiento() {
+            const timeEl = document.getElementById('perf-study-time');
+            if (!timeEl || !window.NikaRendimiento) return;
+
+            // Se refresca solo cuando termina un Pomodoro (una única vez por página)
+            if (window.PomodoroEngine && !window._nikaPerfPomoHooked) {
+                window._nikaPerfPomoHooked = true;
+                window.PomodoroEngine.on('complete', (fin) => {
+                    if (fin.mode === 'work') setTimeout(renderRendimiento, 1500);
+                });
+            }
+
+            try {
+                const datos = await NikaRendimiento.cargarDatos();
+                const r = NikaRendimiento.analizar(datos);
+                const k = r.kpis;
+
+                // Tiempo de estudio y área favorita
+                document.getElementById('perf-study-time').innerText = NikaRendimiento.formatearTiempo(k.tiempoTotalMin);
+                document.getElementById('perf-study-sessions').innerText = `${k.pomodoros} ${k.pomodoros === 1 ? 'sesión' : 'sesiones'} Pomodoro`;
+                const favEl = document.getElementById('perf-fav-area');
+                const favSessEl = document.getElementById('perf-fav-sessions');
+                if (k.favorita) {
+                    favEl.innerText = k.favorita.label;
+                    favSessEl.innerText = `${k.favorita.pomodoros} ${k.favorita.pomodoros === 1 ? 'Pomodoro' : 'Pomodoros'} · ${NikaRendimiento.formatearTiempo(k.favorita.minutos)}`;
+                } else {
+                    favEl.innerText = '-';
+                    favSessEl.innerText = 'Sin Pomodoros todavía';
+                }
+
+                // Simulacros, efectividad y racha: si Supabase todavía no tiene actividad tuya,
+                // se dejan los valores locales que puso renderUserPerformance().
+                const hayActividad = k.simulacros > 0 || k.pomodoros > 0;
+                if (k.simulacros > 0) {
+                    document.getElementById('perf-exams-count').innerText = k.simulacros;
+                    document.getElementById('perf-accuracy').innerText = (k.efectividad ?? 0) + '%';
+                }
+                if (hayActividad) document.getElementById('perf-streak').innerText = k.racha + ' d';
+
+                window._nikaRendimientoUltimo = r;
+                renderRadarMini(r);
+                renderOlvidoMini(r);
+            } catch (err) {
+                console.warn('[renderRendimiento]', err);
+                const sub = document.getElementById('perf-radar-sub'); if (sub) sub.textContent = 'No disponible por ahora';
+                const osub = document.getElementById('perf-olvido-sub'); if (osub) osub.textContent = 'No disponible por ahora';
+            }
+        }
+
+        // ---------- Tarjetas compactas (mismo tamaño que el resto de las estadísticas) ----------
+        function _cssVar(nombre, def) {
+            const v = getComputedStyle(document.documentElement).getPropertyValue(nombre);
+            return (v && v.trim()) || def;
+        }
+
+        function renderRadarMini(r) {
+            const box = document.getElementById('perf-radar-mini');
+            const sub = document.getElementById('perf-radar-sub');
+            if (!box) return;
+            if (window._nikaRadarMini) { window._nikaRadarMini.destroy(); window._nikaRadarMini = null; }
+
+            if (!r.radar.length) {
+                box.innerHTML = '<span style="font-size: 1.6rem; color: var(--text-muted);">-</span>';
+                if (sub) sub.textContent = 'Sin datos todavía';
+                return;
+            }
+            if (sub) sub.textContent = r.radar.length === 1 ? '1 área · ver detalle' : `${r.radar.length} áreas · ver detalle`;
+
+            if (r.radar.length >= 3 && typeof Chart !== 'undefined') {
+                // Mini radar decorativo: sin ejes, textos ni tooltips (el detalle está en el modal)
+                box.innerHTML = '<canvas id="perf-radar-mini-canvas"></canvas>';
+                window._nikaRadarMini = new Chart(document.getElementById('perf-radar-mini-canvas'), {
+                    type: 'radar',
+                    data: {
+                        labels: r.radar.map(x => x.label),
+                        datasets: [
+                            { data: r.radar.map(x => x.tiempoPct), backgroundColor: 'rgba(225,29,72,0.2)', borderColor: '#e11d48', borderWidth: 1.5, pointRadius: 0 },
+                            { data: r.radar.map(x => x.aciertosPct ?? 0), backgroundColor: 'rgba(15,108,191,0.2)', borderColor: '#0f6cbf', borderWidth: 1.5, pointRadius: 0 }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false, animation: false,
+                        events: [],
+                        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                        scales: { r: { min: 0, max: 100, ticks: { display: false }, pointLabels: { display: false }, grid: { color: _cssVar('--border', '#e2e8f0') }, angleLines: { color: _cssVar('--border', '#e2e8f0') } } }
+                    }
+                });
+            } else {
+                // 1 o 2 áreas: barras finitas (rojo = tiempo, azul = aciertos)
+                box.innerHTML = '<div style="width: 100%;">' + r.radar.slice(0, 2).map(x => `
+                    <div style="display: flex; align-items: center; gap: 6px; margin: 2px 0;">
+                        <span style="width: 62px; font-size: 0.62rem; font-weight: 700; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-main);">${_escR(x.label)}</span>
+                        <div style="flex: 1;">
+                            <div style="height: 6px; border-radius: 3px; background: var(--border); overflow: hidden;"><div style="width: ${x.tiempoPct}%; height: 100%; background: #e11d48;"></div></div>
+                            <div style="height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; margin-top: 3px;"><div style="width: ${x.aciertosPct ?? 0}%; height: 100%; background: #0f6cbf;"></div></div>
+                        </div>
+                    </div>`).join('') + '</div>';
+            }
+        }
+
+        function renderOlvidoMini(r) {
+            const valEl = document.getElementById('perf-olvido-value');
+            const subEl = document.getElementById('perf-olvido-sub');
+            if (!valEl || !subEl) return;
+
+            if (!r.olvido.areas.length) {
+                valEl.textContent = '-';
+                valEl.style.color = 'var(--text-muted)';
+                subEl.textContent = 'Sin actividad todavía';
+                return;
+            }
+            const m = r.olvido.masOlvidada;
+            if (m) {
+                valEl.textContent = `${m.dias} d`;
+                valEl.style.color = m.estado.color;
+                subEl.textContent = `Sin repasar ${m.label} · ${m.up}`;
+                subEl.title = subEl.textContent;
+            } else {
+                valEl.textContent = 'Al día';
+                valEl.style.color = '#16a34a';
+                subEl.textContent = 'Memoria fresca en todas tus áreas';
+                subEl.title = '';
+            }
+        }
+
+        // ---------- Detalle completo (modal) ----------
+        function abrirDetalleRendimiento(tipo) {
+            const r = window._nikaRendimientoUltimo;
+            const modal = document.getElementById('rendimiento-detalle-modal');
+            if (!modal) return;
+            const titulo = document.getElementById('rend-detalle-titulo');
+            const sub = document.getElementById('rend-detalle-sub');
+            const body = document.getElementById('rend-detalle-body');
+            if (window._nikaRadarChart) { window._nikaRadarChart.destroy(); window._nikaRadarChart = null; }
+
+            if (!r) {
+                titulo.textContent = 'Todavía no hay datos';
+                sub.textContent = '';
+                body.innerHTML = '<p style="font-size:0.85rem; color: var(--text-muted);">Tus estadísticas se están cargando o todavía no hay actividad. Probá de nuevo en unos segundos.</p>';
+                modal.style.display = 'flex';
+                return;
+            }
+
+            if (tipo === 'radar') {
+                titulo.textContent = '🕸️ Radar Clínico';
+                sub.textContent = 'Tiempo de estudio vs. aciertos en simulacros, por área.';
+                _pintarRadarDetalle(r, body);
+            } else {
+                titulo.textContent = '🧠 Curva del Olvido';
+                sub.textContent = 'Días desde tu última actividad (Pomodoro o simulacro), por área y por Unidad Problema.';
+                body.innerHTML = _htmlCurvaOlvido(r);
+            }
+            modal.style.display = 'flex';
+            if (tipo === 'radar') _dibujarRadarDetalle(r);
+        }
+        window.abrirDetalleRendimiento = abrirDetalleRendimiento;
+
+        function cerrarDetalleRendimiento() {
+            const modal = document.getElementById('rendimiento-detalle-modal');
+            if (modal) modal.style.display = 'none';
+            if (window._nikaRadarChart) { window._nikaRadarChart.destroy(); window._nikaRadarChart = null; }
+        }
+        window.cerrarDetalleRendimiento = cerrarDetalleRendimiento;
+
+        function _pintarRadarDetalle(r, body) {
+            if (!r.radar.length) {
+                body.innerHTML = '<p style="font-size:0.85rem; color: var(--text-muted); text-align:center; padding: 20px 0;">Completá un Pomodoro y un simulacro para ver tu radar.</p>';
+                return;
+            }
+            const filas = r.radar.map(x => `
+                <div style="display:flex; justify-content:space-between; font-size:0.78rem; padding: 6px 0; border-bottom: 1px solid var(--border);">
+                    <strong>${_escR(x.label)}</strong>
+                    <span style="color: var(--text-muted);">${NikaRendimiento.formatearTiempo(x.minutos)} · ${x.aciertosPct === null ? 'sin simulacros' : x.aciertosPct + '% de aciertos'}</span>
+                </div>`).join('');
+            body.innerHTML = `
+                <div style="position: relative; height: 280px;"><canvas id="radar-clinico-canvas"></canvas></div>
+                ${r.insight ? `<div style="font-size:0.82rem; margin: 12px 0; padding: 10px 12px; background: var(--bg-body); border-left: 3px solid var(--nika-primary); border-radius: 6px;">💡 ${_escR(r.insight)}</div>` : ''}
+                <div style="margin-top: 8px;">${filas}</div>`;
+        }
+
+        function _dibujarRadarDetalle(r) {
+            const canvas = document.getElementById('radar-clinico-canvas');
+            if (!canvas || typeof Chart === 'undefined' || !r.radar.length) return;
+            const txt = _cssVar('--text-muted', '#64748b');
+            const grid = _cssVar('--border', '#e2e8f0');
+            const esRadar = r.radar.length >= 3; // con 1-2 ejes un radar no se entiende: barras
+            window._nikaRadarChart = new Chart(canvas, {
+                type: esRadar ? 'radar' : 'bar',
+                data: {
+                    labels: r.radar.map(x => x.label),
+                    datasets: [
+                        { label: 'Tiempo de estudio (% del área más estudiada)', data: r.radar.map(x => x.tiempoPct), backgroundColor: esRadar ? 'rgba(225,29,72,0.18)' : 'rgba(225,29,72,0.75)', borderColor: '#e11d48', borderWidth: 2, pointBackgroundColor: '#e11d48' },
+                        { label: 'Aciertos en simulacros (%)', data: r.radar.map(x => x.aciertosPct ?? 0), backgroundColor: esRadar ? 'rgba(15,108,191,0.18)' : 'rgba(15,108,191,0.75)', borderColor: '#0f6cbf', borderWidth: 2, pointBackgroundColor: '#0f6cbf' }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    indexAxis: esRadar ? undefined : 'y',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: txt, boxWidth: 12, font: { size: 11 } } },
+                        tooltip: { callbacks: { afterLabel: (ctx) => {
+                            const x = r.radar[ctx.dataIndex];
+                            return ctx.datasetIndex === 0 ? `${NikaRendimiento.formatearTiempo(x.minutos)} de estudio` : (x.aciertosPct === null ? 'Sin simulacros todavía' : `${x.preguntas} preguntas respondidas`);
+                        } } }
+                    },
+                    scales: esRadar
+                        ? { r: { min: 0, max: 100, ticks: { stepSize: 25, color: txt, backdropColor: 'transparent' }, grid: { color: grid }, angleLines: { color: grid }, pointLabels: { color: txt, font: { size: 11, weight: '700' } } } }
+                        : { x: { min: 0, max: 100, ticks: { color: txt }, grid: { color: grid } }, y: { ticks: { color: txt }, grid: { display: false } } }
+                }
+            });
+        }
+
+        function _htmlCurvaOlvido(r) {
+            if (!r.olvido.areas.length) {
+                return '<p style="font-size:0.85rem; color: var(--text-muted); text-align:center; padding: 20px 0;">Todavía no hay actividad para medir. Hacé un Pomodoro o un simulacro.</p>';
+            }
+            const m = r.olvido.masOlvidada;
+            let alerta;
+            if (m) {
+                const mod = encodeURIComponent(m.modulo);
+                alerta = `
+                    <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;">
+                        <div style="font-weight: 800; font-size: 0.85rem; color: #b91c1c;">⚠️ Atención a la Retención</div>
+                        <div style="font-size: 0.82rem; color: #7f1d1d; margin: 4px 0 10px;">Llevás ${m.dias} días sin repasar ${_escR(m.label)} · ${_escR(m.up)}.</div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                            <button class="btn-module" style="width:auto; padding:6px 12px; font-size:0.75rem;" onclick="window.location.href='estudio.html?modulo=${mod}'">🍅 Iniciar Pomodoro</button>
+                            <button class="btn-module" style="width:auto; padding:6px 12px; font-size:0.75rem; background:#e2e8f0; color:#334155;" onclick="window.location.href='examen.html?modulo=${mod}'">⚡ Simulacro Rápido</button>
+                        </div>
+                    </div>`;
+            } else {
+                alerta = '<div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:0.82rem; color:#166534; font-weight:700;">🟢 Tu memoria está fresca en todas las áreas. ¡Seguí así!</div>';
+            }
+            const lista = r.olvido.areas.map(a => {
+                const ups = r.olvido.ups.filter(u => u.modulo === a.modulo).slice(0, 6);
+                const barra = Math.max(8, 100 - Math.round((a.dias / 14) * 100));
+                return `
+                    <div style="margin-bottom: 14px;">
+                        <div style="display:flex; justify-content:space-between; align-items:baseline; font-size:0.82rem; gap: 8px;">
+                            <strong>${_escR(a.label)}</strong>
+                            <span style="color:${a.estado.color}; font-weight:800; text-align:right;">${a.estado.emoji} ${a.estado.texto} · ${_hace(a.dias)}</span>
+                        </div>
+                        <div style="height:6px; background:var(--border); border-radius:4px; overflow:hidden; margin:5px 0 7px;"><div style="width:${barra}%; height:100%; background:${a.estado.color};"></div></div>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                            ${ups.map(u => `<span style="font-size:0.7rem; padding:2px 8px; border-radius:20px; border:1px solid ${u.estado.color}; color:${u.estado.color}; font-weight:700;">${_escR(u.up)} · ${_hace(u.dias)}</span>`).join('')}
+                        </div>
+                    </div>`;
+            }).join('');
+            return alerta + lista;
         }
 
         function recordExamCompletion(correctAnswers, totalQuestions) {
@@ -1647,6 +1973,11 @@
 
             actualizarProgresoModalPerfil();
 
+            // Contador de amigos (pastilla "🤝 N amigos en tu red")
+            if (window.NikaFriends) {
+                NikaFriends.listFriends().then(friends => _actualizarPillAmigosPerfil(friends.length)).catch(() => {});
+            }
+
             // 2. Traer la VERDAD ABSOLUTA desde la nube (evita bugs de caché)
             try {
                 const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
@@ -1770,6 +2101,10 @@
                 try {
                     if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
                     if (window.ChatManager) window.ChatManager.cerrarConversacion();
+                    // El Pomodoro es de cada usuario: al cerrar sesión se frena y se limpia,
+                    // para que otra cuenta en el mismo navegador no herede el timer.
+                    if (window.PomodoroEngine) window.PomodoroEngine.reset('work');
+                    if (window.NikaFriends) window.NikaFriends.stopRealtime();
                     
                     const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
                     if (client && client.auth) {
@@ -1786,26 +2121,32 @@
         }
 
         // ================= COMUNIDAD Y AMIGOS =================
-        function renderDashboardOnlineFriends() {
+        async function renderDashboardOnlineFriends() {
             const listBox = document.getElementById('dashboard-online-friends-list');
             if (!listBox) return;
-            const userJson = localStorage.getItem('nika_currentUser');
-            if (!userJson) {
+            if (!localStorage.getItem('nika_currentUser')) {
                 listBox.innerHTML = '<div class="community-widget-empty">Iniciá sesión para ver a tus amigos conectados.</div>';
+                updateFriendsBadge(0);
                 return;
             }
-            const currentUser = JSON.parse(userJson);
-            const friendsMap = JSON.parse(localStorage.getItem('nika_friends')) || {};
-            const myFriends = friendsMap[currentUser.username] || [];
-            if (myFriends.length === 0) {
+            let friends;
+            try {
+                friends = await NikaFriends.listFriends();
+            } catch (err) {
+                console.warn('[renderDashboardOnlineFriends]', err);
+                listBox.innerHTML = '<div class="community-widget-empty">No se pudieron cargar tus amigos.</div>';
+                return;
+            }
+            refreshFriendsBadge();
+            if (friends.length === 0) {
                 listBox.innerHTML = '<div class="community-widget-empty">Aún no agregaste amigos a tu red.</div>';
                 return;
             }
-            const allUsers = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
-            listBox.innerHTML = myFriends.slice(0, 5).map(fUsername => {
-                const fUser = allUsers.find(u => u.username === fUsername);
-                const displayName = fUser ? fUser.fullname : fUsername;
-                const avatar = (fUser && fUser.avatar) ? fUser.avatar : DEFAULT_AVATAR;
+            const esc = NikaFriends.esc;
+            listBox.innerHTML = friends.slice(0, 5).map(f => {
+                const displayName = esc(f.fullname);
+                const avatar = esc(f.avatar || DEFAULT_AVATAR);
+                const u = esc(f.username);
                 return `
                     <div class="online-friend-item" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
                         <div style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1; min-width:0;" onclick="openFriendsModal()">
@@ -1813,10 +2154,10 @@
                             <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
                             <div style="min-width:0;">
                                 <div class="online-friend-name">${displayName}</div>
-                                <div class="online-friend-meta" data-presence-user="${fUsername}" data-fallback="@${fUsername} · En línea">@${fUsername} · En línea</div>
+                                <div class="online-friend-meta" data-presence-user="${u}" data-fallback="@${u} · En línea">@${u} · En línea</div>
                             </div>
                         </div>
-                        <button class="btn-module" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); unirseAlPomodoroDe('${fUsername}')" title="Unirme al Pomodoro">🍅</button>
+                        <button class="btn-module" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); unirseAlPomodoroDe('${u}')" title="Unirme al Pomodoro">🍅</button>
                     </div>`;
             }).join('');
         }
@@ -1848,25 +2189,31 @@
             if (tab === 'req') renderFriendRequests();
         }
 
-        function updateFriendsBadge(myUsername) {
-            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
-            let myReqs = requests[myUsername] || [];
+        function updateFriendsBadge(count) {
             const badge = document.getElementById('req-badge');
             if (!badge) return;
-            if (myReqs.length > 0) { 
-                badge.style.display = 'inline-block'; 
-                badge.innerText = myReqs.length; 
+            if (count > 0) {
+                badge.style.display = 'inline-block';
+                badge.innerText = count;
             } else { badge.style.display = 'none'; }
+        }
+
+        async function refreshFriendsBadge() {
+            try {
+                const incoming = await NikaFriends.listIncoming();
+                updateFriendsBadge(incoming.length);
+            } catch (_) { /* sin sesión o sin conexión: no mostramos nada */ }
         }
 
         let _searchUsersDebounce = null;
         let _searchUsersToken = 0;
 
+        // Búsqueda de usuarios para agregar como amigos: consulta profiles en vivo
+        // (Bug #4 resuelto: antes filtraba sobre nika_registered_users en localStorage,
+        // una foto vieja del registro que nunca se actualizaba) con debounce para no
+        // disparar una query por cada tecla, y un token para que una respuesta vieja
+        // nunca pise a una más nueva si las queries llegan fuera de orden.
         function searchUsers() {
-            // Bug #4: antes filtraba sobre nika_registered_users en localStorage
-            // (una foto vieja del registro, nunca se actualizaba). Ahora consulta
-            // la tabla profiles de Supabase en vivo, con debounce para no
-            // disparar una query por cada tecla.
             clearTimeout(_searchUsersDebounce);
             _searchUsersDebounce = setTimeout(_searchUsersSupabase, 250);
         }
@@ -1882,13 +2229,14 @@
                 return;
             }
 
-            if (typeof supabase === 'undefined') {
-                resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Buscador no disponible.</p>';
+            if (!window.NikaSupabase || !window.NikaSupabase.client) {
+                resultsBox.innerHTML = '<div class="friends-empty-state"><p>Buscador no disponible.</p></div>';
                 return;
             }
+            const supabase = window.NikaSupabase.client;
 
             const myToken = ++_searchUsersToken; // evita que una respuesta vieja pise una más nueva
-            resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Buscando…</p>';
+            resultsBox.innerHTML = '<div class="friends-empty-state"><p>Buscando…</p></div>';
 
             const { data: { user: authUser } } = await supabase.auth.getUser();
             const myId = authUser ? authUser.id : null;
@@ -1902,116 +2250,149 @@
             if (myToken !== _searchUsersToken) return; // llegó una búsqueda más nueva mientras esperábamos
 
             if (error) {
-                resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Error al buscar usuarios.</p>';
+                resultsBox.innerHTML = '<div class="friends-empty-state"><p>Error al buscar usuarios.</p></div>';
                 return;
             }
 
             const filtered = (data || []).filter(u => u.id !== myId);
 
             if (filtered.length === 0) {
-                resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se encontraron usuarios.</p>';
+                resultsBox.innerHTML = '<div class="friends-empty-state"><div class="friends-empty-icon">🔍</div><p>No se encontraron usuarios con ese nombre.</p></div>';
                 return;
             }
 
             resultsBox.innerHTML = filtered.map(u => `
-                <div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
-                        <div><strong style="font-size:0.85rem; display:block;">${u.fullname || 'Estudiante Nika'}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div>
+                <div class="friend-card">
+                    <img src="${u.avatar || DEFAULT_AVATAR}" alt="img" class="friend-card-avatar">
+                    <div class="friend-card-body">
+                        <div class="friend-card-name">${u.fullname || 'Estudiante Nika'}</div>
+                        <div class="friend-card-meta">@${u.username}</div>
                     </div>
-                    <button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
+                    <div class="friend-card-actions">
+                        <button class="friend-action-btn" title="Ver perfil" onclick="abrirPerfilPublico('${u.id}')">👁️</button>
+                        <button class="friends-add-btn" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function sendFriendRequest(targetUsername) {
-            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
-            if (!user) return;
-            const myUsername = user.username;
-            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
-            if (!requests[targetUsername]) requests[targetUsername] = [];
-            if (!requests[targetUsername].includes(myUsername)) {
-                requests[targetUsername].push(myUsername);
-                localStorage.setItem('nika_friend_requests', JSON.stringify(requests));
-                showToast(`Solicitud enviada a @${targetUsername}`); 
-                searchUsers();
-            }
+        // Compatibilidad: antes se pedía por username; ahora se resuelve el id en Supabase.
+        async function sendFriendRequest(targetUsername) {
+            try {
+                const { data } = await window.NikaSupabase.client
+                    .from('profiles').select('id').eq('username', targetUsername).maybeSingle();
+                if (!data) { showToast('No se encontró ese usuario.'); return; }
+                await enviarSolicitudAmistad(data.id);
+            } catch (err) { showToast('No se pudo enviar la solicitud.'); }
         }
 
-        function renderFriendRequests() {
-            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
-            if (!user) return;
+        async function renderFriendRequests() {
             const reqBox = document.getElementById('friends-view-req');
             if (!reqBox) return;
-            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
-            let myReqs = requests[user.username] || [];
-            if (myReqs.length === 0) { 
-                reqBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding: 20px;">No tenés solicitudes pendientes.</p>'; 
-                updateFriendsBadge(user.username); 
-                return; 
+            if (!localStorage.getItem('nika_currentUser')) return;
+            let incoming;
+            try {
+                incoming = await NikaFriends.listIncoming();
+            } catch (err) {
+                reqBox.innerHTML = '<div class="friends-empty-state"><p>No se pudieron cargar las solicitudes.</p></div>';
+                return;
             }
-            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
-            reqBox.innerHTML = '';
-            myReqs.forEach(reqUsername => {
-                const u = users.find(userItem => userItem.username === reqUsername);
-                if (u) { 
-                    reqBox.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%;"><div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div></div><button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="acceptFriend('${u.username}')">Aceptar</button></div>`; 
-                }
-            });
-            updateFriendsBadge(user.username);
+            updateFriendsBadge(incoming.length);
+            if (incoming.length === 0) {
+                reqBox.innerHTML = '<div class="friends-empty-state"><div class="friends-empty-icon">📭</div><p>No tenés solicitudes pendientes.</p></div>';
+                return;
+            }
+            const esc = NikaFriends.esc;
+            reqBox.innerHTML = incoming.map(u => `
+                <div class="friend-request-card">
+                    <img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar">
+                    <div class="friend-card-body">
+                        <div class="friend-card-name">${esc(u.fullname)}</div>
+                        <div class="friend-card-meta">@${esc(u.username)}</div>
+                    </div>
+                    <div class="friend-request-actions">
+                        <button class="friend-action-btn accept" title="Aceptar" onclick="acceptFriend('${esc(u.friendshipId)}')">✓</button>
+                        <button class="friend-action-btn danger" title="Rechazar" onclick="rejectFriend('${esc(u.friendshipId)}')">✕</button>
+                    </div>
+                </div>`).join('');
         }
 
-        function acceptFriend(friendUsername) {
-            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
-            if (!user) return;
-            const myUsername = user.username;
-            let requests = JSON.parse(localStorage.getItem('nika_friend_requests')) || {};
-            requests[myUsername] = (requests[myUsername] || []).filter(u => u !== friendUsername);
-            localStorage.setItem('nika_friend_requests', JSON.stringify(requests));
-            let friends = JSON.parse(localStorage.getItem('nika_friends')) || {};
-            if (!friends[myUsername]) friends[myUsername] = [];
-            if (!friends[friendUsername]) friends[friendUsername] = [];
-            friends[myUsername].push(friendUsername); 
-            friends[friendUsername].push(myUsername);
-            localStorage.setItem('nika_friends', JSON.stringify(friends));
-            showToast(`¡Ahora sos amigo de @${friendUsername}!`); 
-            renderFriendRequests();
-            renderDashboardOnlineFriends();
+        // friendshipId = id de la fila en la tabla friendships
+        async function acceptFriend(friendshipId) {
+            const res = await NikaFriends.acceptById(friendshipId);
+            if (!res.ok) { showToast(res.error || 'No se pudo aceptar la solicitud.'); return; }
+            showToast('¡Solicitud aceptada! Ya son amigos.');
         }
 
-        function renderFriendsList() {
-            const user = JSON.parse(localStorage.getItem('nika_currentUser'));
-            if (!user) return;
+        async function rejectFriend(friendshipId) {
+            const res = await NikaFriends.remove(friendshipId);
+            if (!res.ok) { showToast(res.error || 'No se pudo rechazar la solicitud.'); return; }
+            showToast('Solicitud rechazada.');
+        }
+
+        async function removeFriend(friendshipId, nombre) {
+            if (!confirm(`¿Eliminar a ${nombre || 'este usuario'} de tus amigos?`)) return;
+            const res = await NikaFriends.remove(friendshipId);
+            if (!res.ok) { showToast(res.error || 'No se pudo eliminar al amigo.'); return; }
+            showToast('Amigo eliminado de tu red.');
+        }
+
+        async function renderFriendsList() {
             const listBox = document.getElementById('friends-view-list');
             if (!listBox) return;
-            let friends = JSON.parse(localStorage.getItem('nika_friends')) || {};
-            let myFriends = friends[user.username] || [];
-            if (myFriends.length === 0) { 
-                listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding: 20px;">Aún no agregaste amigos a tu red.</p>'; 
-                return; 
+            if (!localStorage.getItem('nika_currentUser')) return;
+            let friends;
+            try {
+                friends = await NikaFriends.listFriends();
+            } catch (err) {
+                listBox.innerHTML = '<div class="friends-empty-state"><p>No se pudieron cargar tus amigos.</p></div>';
+                return;
             }
-            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
-            listBox.innerHTML = '';
-            myFriends.forEach(fUsername => {
-                const u = users.find(userItem => userItem.username === fUsername);
-                if (u) {
-                    listBox.innerHTML += `
-                    <div class="user-list-item" style="display:flex; flex-direction:column; gap:2px; padding:8px 0; border-bottom:1px solid var(--border);">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <img src="${u.avatar || DEFAULT_AVATAR}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
-                                <div><strong style="font-size:0.85rem; display:block;">${u.fullname}</strong><span style="font-size:0.75rem; color:var(--text-muted);">@${u.username}</span></div>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:6px;">
-                                <button class="btn-module" style="width:auto; padding:5px 9px; font-size:0.72rem;" onclick="openChatWithFriend('${u.username}')">💬 Chat</button>
-                                <button class="btn-module" style="width:auto; padding:5px 9px; font-size:0.72rem; background:#fef3c7; color:#92400e;" onclick="unirseAlPomodoroDe('${u.username}')">🍅 Unirme</button>
-                            </div>
-                        </div>
-                        <span data-presence-user="${u.username}" style="display:none; font-size:0.7rem; color:var(--nika-primary); font-weight:600; padding-left:36px;"></span>
-                    </div>`;
-                }
-            });
+            const countPill = document.getElementById('friends-count-pill');
+            if (countPill) countPill.textContent = friends.length;
+            _actualizarPillAmigosPerfil(friends.length);
+
+            if (friends.length === 0) {
+                listBox.innerHTML = `<div class="friends-empty-state">
+                    <div class="friends-empty-icon">🧑‍🤝‍🧑</div>
+                    <p>Todavía no tenés amigos agregados.<br>Buscá compañeros y mandales una solicitud.</p>
+                    <button type="button" class="btn-module" style="width:auto;" onclick="switchFriendsTab('search')">🔎 Buscar compañeros</button>
+                </div>`;
+                return;
+            }
+            const esc = NikaFriends.esc;
+            listBox.innerHTML = friends.map(u => `
+                <div class="friend-card">
+                    <div class="friend-card-avatar-wrap">
+                        <img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar">
+                    </div>
+                    <div class="friend-card-body">
+                        <div class="friend-card-name">${esc(u.fullname)}</div>
+                        <div class="friend-card-meta" data-presence-user="${esc(u.username)}" data-fallback="@${esc(u.username)}">@${esc(u.username)}</div>
+                    </div>
+                    <div class="friend-card-actions">
+                        <button class="friend-action-btn" title="Chat" onclick="openChatWithFriend('${esc(u.username)}')">💬</button>
+                        <button class="friend-action-btn" title="Unirme al Pomodoro" style="background:#fef3c7; color:#92400e;" onclick="unirseAlPomodoroDe('${esc(u.username)}')">🍅</button>
+                        <button class="friend-action-btn danger" title="Eliminar amigo" onclick="removeFriend('${esc(u.friendshipId)}', this.dataset.nombre)" data-nombre="${esc(u.fullname)}">✕</button>
+                    </div>
+                </div>`).join('');
         }
+
+        // Pastilla "🤝 N amigos" dentro del modal de Mi Perfil (ver abajo, junto a openProfileModal)
+        function _actualizarPillAmigosPerfil(count) {
+            const span = document.getElementById('own-friends-count');
+            if (span) span.textContent = count;
+        }
+
+        // Cualquier cambio en las amistades (yo o el otro, en tiempo real) redibuja todo
+        window.addEventListener('nika:friends-changed', () => {
+            renderDashboardOnlineFriends();
+            const modal = document.getElementById('friends-modal');
+            if (modal && modal.style.display === 'flex') { renderFriendsList(); renderFriendRequests(); }
+            if (window.NikaFriends) {
+                NikaFriends.listFriends().then(friends => _actualizarPillAmigosPerfil(friends.length)).catch(() => {});
+            }
+        });
 
         // ================= PANEL DE ADMIN Y ERRATAS =================
         function loadAdminData() {
@@ -2554,12 +2935,33 @@
         if (!badge || !list) return;
 
         if (data && data.length > 0) {
+            // Traemos quién envió cada notificación para mostrar su nombre
+            const senderIds = [...new Set(data.filter(n => n.sender_id).map(n => n.sender_id))];
+            const senders = {};
+            if (senderIds.length) {
+                const { data: perfiles } = await supabase
+                    .from('profiles')
+                    .select('id, username, fullname')
+                    .in('id', senderIds);
+                (perfiles || []).forEach(p => { senders[p.id] = p; });
+            }
+            const esc = (t) => String(t == null ? '' : t)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
             badge.style.display = 'inline-block';
             badge.textContent = data.length;
             
-            list.innerHTML = data.map(n => `
+            list.innerHTML = data.map(n => {
+                const s = senders[n.sender_id];
+                let textoHtml = n.message;
+                if (n.type === 'friend_request' && s) {
+                    const nombre = s.fullname || s.username || 'Un estudiante';
+                    const alias = s.username ? ` <span style="color: var(--text-muted); font-weight: 600;">@${esc(s.username)}</span>` : '';
+                    textoHtml = `<strong>${esc(nombre)}</strong>${alias} te ha enviado una solicitud de amistad.`;
+                }
+                return `
                 <div style="background: var(--bg-body); padding: 10px; border-radius: 8px; font-size: 0.8rem; border-left: 3px solid var(--nika-primary);">
-                    <p style="margin-bottom: 6px; color: var(--text-main); font-weight: 600;">${n.message}</p>
+                    <p style="margin-bottom: 6px; color: var(--text-main); font-weight: 600;">${textoHtml}</p>
                     <div style="display: flex; gap: 6px; justify-content: flex-end;">
                         ${n.type === 'friend_request' ? `
                             <button onclick="aceptarSolicitud('${n.id}', '${n.sender_id}')" style="background: var(--success); color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem; font-weight: 700;">Aceptar</button>
@@ -2567,7 +2969,8 @@
                         <button onclick="marcarLeida('${n.id}')" style="background: var(--border); color: var(--text-main); border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem;">Cerrar</button>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         } else {
             badge.style.display = 'none';
             list.innerHTML = `
@@ -2594,6 +2997,13 @@
     }
 
     async function aceptarSolicitud(notifId, senderId) {
+        const res = await NikaFriends.acceptFrom(senderId);
+        if (!res.ok) {
+            showToast(res.error || "No se pudo aceptar la solicitud.");
+            // Si la solicitud ya no existe (la cancelaron o ya la aceptaste), limpiamos la notificación igual
+            if (res.error === 'La solicitud ya no existe.') await marcarLeida(notifId);
+            return;
+        }
         showToast("¡Solicitud de amistad aceptada con éxito!");
         await marcarLeida(notifId);
     }
@@ -2630,54 +3040,6 @@
         `).join('');
     }
 
-    async function searchUsers() {
-        const query = document.getElementById('friend-search-input').value.trim().toLowerCase();
-        const resultsBox = document.getElementById('search-results-box');
-        if (!resultsBox) return;
-
-        if (query.length < 1) {
-            resultsBox.innerHTML = '';
-            return;
-        }
-
-        if (!window.NikaSupabase || !window.NikaSupabase.client) {
-            resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Error de conexión.</p>';
-            return;
-        }
-
-        const supabase = window.NikaSupabase.client; // Usar el cliente correcto
-        const { data: { user: currentUser } } = await supabase.auth.getUser();
-        if (!currentUser) return;
-
-        // Filtra por username o fullname usando ilike
-        const { data, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .neq('id', currentUser.id)
-            .or(`username.ilike.%${query}%,fullname.ilike.%${query}%`);
-
-        if (error || !data || data.length === 0) {
-            resultsBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se encontraron usuarios.</p>';
-            return;
-        }
-
-        resultsBox.innerHTML = data.map(u => `
-            <div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <img src="${u.avatar || 'assets/N%20NIKA.png'}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
-                    <div>
-                        <strong style="font-size:0.85rem; display:block;">${u.fullname || 'Estudiante'}</strong>
-                        <span style="font-size:0.75rem; color:var(--text-muted);">@${u.username || 'usuario'}</span>
-                    </div>
-                </div>
-                <div style="display:flex; gap:6px;">
-                    <button class="btn-module" style="width:auto; padding:5px 8px; font-size:0.75rem; background:#e2e8f0; color:#334155;" onclick="abrirPerfilPublico('${u.id}')">👁️</button>
-                    <button class="btn-module" style="width:auto; padding:5px 10px; font-size:0.75rem;" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
     async function enviarSolicitudAmistad(destinatarioId) {
         if (!window.NikaSupabase || !window.NikaSupabase.client) return;
         const supabase = window.NikaSupabase.client; // Usar el cliente correcto
@@ -2688,19 +3050,27 @@
             return;
         }
 
+        // La amistad vive en la tabla friendships (evita duplicados y solicitudes cruzadas)
+        const res = await NikaFriends.sendRequest(destinatarioId);
+        if (!res.ok) {
+            console.error("Error enviando solicitud:", res.error);
+            showToast("Error al enviar la solicitud.");
+            return;
+        }
+        if (res.status === 'already_friends') { showToast("Ya son amigos."); return; }
+        if (res.status === 'already_pending') { showToast("Ya le enviaste una solicitud a este usuario."); return; }
+        if (res.status === 'auto_accepted') { showToast("¡Esa persona ya te había enviado una solicitud: ahora son amigos!"); return; }
+
+        // Solicitud nueva: además avisamos en la campanita del destinatario
         const { error } = await supabase.from('notifications').insert([{
             user_id: destinatarioId,
             sender_id: user.id,
             type: 'friend_request',
             message: 'Te ha enviado una solicitud de amistad en Campus Nika.'
         }]);
+        if (error) console.warn("La solicitud se guardó, pero no se pudo crear la notificación:", error);
 
-        if (error) {
-            console.error("Error enviando solicitud:", error);
-            showToast("Error al enviar la solicitud.");
-        } else {
-            showToast("¡Solicitud de amistad enviada con éxito!");
-        }
+        showToast("¡Solicitud de amistad enviada con éxito!");
     }
 
     function retarDueloUsuario(destinatarioId) {
@@ -2781,7 +3151,40 @@
         const chatBtn = document.getElementById('pp-chat-btn');
         if (friendBtn) friendBtn.style.display = esMiPropioPerfil ? 'none' : 'inline-block';
         if (chatBtn) chatBtn.style.display = esMiPropioPerfil ? 'none' : 'inline-block';
+        if (!esMiPropioPerfil) actualizarBotonAmistadPerfil();
     }
+
+    // Ajusta el botón del perfil público según la relación real (Supabase)
+    async function actualizarBotonAmistadPerfil() {
+        const btn = document.getElementById('pp-friend-btn');
+        const targetId = window._ppCurrentUserId;
+        if (!btn || !targetId) return;
+        try {
+            const rel = await NikaFriends.relationWith(targetId);
+            if (window._ppCurrentUserId !== targetId) return; // se cerró o cambió de perfil mientras cargaba
+            btn.disabled = false;
+            // El botón de chat solo se habilita entre amigos confirmados
+            const chatBtn = document.getElementById('pp-chat-btn');
+            if (chatBtn) {
+                const puedeChatear = rel.state === 'friends';
+                chatBtn.disabled = !puedeChatear;
+                chatBtn.style.opacity = puedeChatear ? '1' : '0.5';
+                chatBtn.title = puedeChatear ? '' : 'Solo podés chatear con tus amigos confirmados';
+            }
+            if (rel.state === 'friends') {
+                btn.textContent = '✓ Amigos'; btn.disabled = true; btn.onclick = null;
+            } else if (rel.state === 'sent') {
+                btn.textContent = '⏳ Solicitud enviada'; btn.disabled = true; btn.onclick = null;
+            } else if (rel.state === 'received') {
+                btn.textContent = '✅ Aceptar solicitud';
+                btn.onclick = () => window.acceptFriend(rel.friendshipId);
+            } else {
+                btn.textContent = '➕ Enviar Solicitud';
+                btn.onclick = () => enviarSolicitudAmistad(window._ppCurrentUserId);
+            }
+        } catch (_) { /* sin sesión: dejamos el botón como está */ }
+    }
+    window.addEventListener('nika:friends-changed', () => { if (window._ppCurrentUserId) actualizarBotonAmistadPerfil(); });
 
     function closePublicProfileModal() {
         const modal = document.getElementById('public-profile-modal');
@@ -2891,35 +3294,36 @@
         const listBox = document.getElementById('dm-inbox-list');
         if (!listBox) return;
 
-        const currentUsername = window.NikaSupabase.getNikaCurrentUsername();
-        const friendsMap = JSON.parse(localStorage.getItem('nika_friends')) || {};
-        const myFriends = friendsMap[currentUsername] || [];
+        let myFriends = [];
+        try { myFriends = await NikaFriends.listFriends(); } catch (err) { console.error('[renderDmInboxList]', err); }
 
         if (myFriends.length === 0) {
             listBox.innerHTML = '<div class="community-widget-empty">Agregá amigos en "Comunidad & Amigos" para poder chatear con ellos.</div>';
             return;
         }
 
-        const allUsers = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
         let noLeidos = {};
         try { noLeidos = await window.ChatManager.contarNoLeidos(); } catch (err) { console.error('[renderDmInboxList]', err); }
 
         actualizarBadgeMensajes(noLeidos);
 
-        listBox.innerHTML = myFriends.map(fUsername => {
-            const fUser = allUsers.find(u => u.username === fUsername);
-            const displayName = fUser ? fUser.fullname : fUsername;
-            const avatar = (fUser && fUser.avatar) ? fUser.avatar : DEFAULT_AVATAR;
-            const pendientes = noLeidos[fUsername] || 0;
+        const esc = NikaFriends.esc;
+        listBox.innerHTML = myFriends.map(f => {
+            const displayName = esc(f.fullname);
+            const avatar = esc(f.avatar || DEFAULT_AVATAR);
+            const u = esc(f.username);
+            const pendientes = noLeidos[f.username] || 0;
             return `
-                <div class="online-friend-item" style="cursor:pointer;" onclick="closeDmInboxModal(); openChatWithFriend('${fUsername}')">
-                    <span class="online-status-dot"></span>
-                    <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
-                    <div style="flex:1; min-width:0;">
-                        <div class="online-friend-name">${displayName}</div>
-                        <div class="online-friend-meta">@${fUsername}</div>
+                <div class="dm-inbox-item" onclick="closeDmInboxModal(); openChatWithFriend('${u}')">
+                    <div class="dm-inbox-avatar-wrap">
+                        <img src="${avatar}" class="dm-inbox-avatar" alt="${displayName}">
+                        <span class="dm-inbox-dot" data-presence-dot-for="${u}"></span>
                     </div>
-                    ${pendientes > 0 ? `<span style="background:var(--nika-primary); color:#fff; font-size:0.7rem; font-weight:800; border-radius:20px; padding:2px 8px; flex-shrink:0;">${pendientes}</span>` : ''}
+                    <div class="dm-inbox-body">
+                        <div class="dm-inbox-name">${displayName}</div>
+                        <div class="dm-inbox-meta">@${u}</div>
+                    </div>
+                    ${pendientes > 0 ? `<span class="dm-inbox-badge">${pendientes}</span>` : ''}
                 </div>`;
         }).join('');
     }
@@ -2938,7 +3342,14 @@
     }
 
     // ================= CHAT PRIVADO (ChatManager) =================
-    let _pcAmigoActual = null; // username del amigo con quien se está chateando
+    let _pcAmigoActual = null;        // username del amigo con quien se está chateando
+    let _pcRenderedIds = new Set();   // ids de mensajes ya pintados en esta conversación (evita duplicados)
+    let _pcLastDayKey = null;         // último separador de día pintado
+
+    function _pcUuid() {
+        if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+        return 'tmp-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+    }
 
     async function openChatWithFriend(friendUsername) {
         if (!friendUsername) { showToast('No se pudo identificar al usuario.'); return; }
@@ -2947,14 +3358,35 @@
             showToast('Iniciá sesión para chatear.'); return;
         }
 
+        // El chat privado es solo entre amigos confirmados (también lo exige Supabase)
+        let amigoData = null;
+        try {
+            const amigos = await NikaFriends.listFriends();
+            amigoData = amigos.find(f => String(f.username).toLowerCase() === String(friendUsername).toLowerCase());
+            if (!amigoData) {
+                showToast('Solo podés chatear con tus amigos confirmados. Enviale una solicitud de amistad primero.');
+                return;
+            }
+        } catch (err) {
+            console.warn('[openChatWithFriend] No se pudo verificar la amistad:', err);
+        }
+
         closePublicProfileModal();
         _pcAmigoActual = friendUsername;
+        _pcRenderedIds = new Set();
+        _pcLastDayKey = null;
+
         const modal = document.getElementById('private-chat-modal');
         const listBox = document.getElementById('pc-messages-list');
         const nameLabel = document.getElementById('pc-friend-name');
-        if (nameLabel) nameLabel.textContent = `@${friendUsername}`;
+        const avatarImg = document.getElementById('pc-friend-avatar');
+        const statusLabel = document.getElementById('pc-friend-status');
+
+        if (nameLabel) nameLabel.textContent = amigoData ? (amigoData.fullname || `@${friendUsername}`) : `@${friendUsername}`;
+        if (avatarImg) avatarImg.src = NikaFriends.esc((amigoData && amigoData.avatar) || DEFAULT_AVATAR);
+        if (statusLabel) { statusLabel.textContent = 'Conectando...'; statusLabel.classList.remove('is-online'); }
         if (modal) modal.style.display = 'flex';
-        if (listBox) listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Cargando conversación...</p>';
+        if (listBox) listBox.innerHTML = '<div class="pc-loading-state">Cargando conversación...</div>';
 
         try {
             const historial = await window.ChatManager.abrirConversacion(friendUsername);
@@ -2963,15 +3395,26 @@
             actualizarBadgeMensajes();
         } catch (err) {
             console.error('[openChatWithFriend]', err);
-            if (listBox) listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">No se pudo cargar el chat.</p>';
+            if (listBox) listBox.innerHTML = '<div class="pc-empty-state">No se pudo cargar el chat.</div>';
         }
 
         window.ChatManager.onMensaje = (row) => {
             if (row.from_username === _pcAmigoActual || row.to_username === _pcAmigoActual) {
                 _agregarBurbujaPrivada(row);
-                window.ChatManager.marcarComoLeido(_pcAmigoActual).then(() => actualizarBadgeMensajes());
+                if (row.from_username === _pcAmigoActual) {
+                    window.ChatManager.marcarComoLeido(_pcAmigoActual).then(() => actualizarBadgeMensajes());
+                }
             }
         };
+
+        // Presencia: muestra "En línea" en el header mientras dure la conversación abierta
+        if (window.ChatManager.onPresenciaCambio !== undefined) {
+            window.ChatManager.onPresenciaCambio = (enLinea) => {
+                if (!statusLabel) return;
+                statusLabel.textContent = enLinea ? 'En línea' : 'Desconectado';
+                statusLabel.classList.toggle('is-online', enLinea);
+            };
+        }
     }
 
     function closePrivateChatModal() {
@@ -2979,6 +3422,23 @@
         if (modal) modal.style.display = 'none';
         if (window.ChatManager) window.ChatManager.cerrarConversacion();
         _pcAmigoActual = null;
+        _pcRenderedIds = new Set();
+    }
+
+    // Etiqueta de separador de día ("Hoy", "Ayer" o fecha corta en español)
+    function _pcDayLabel(fechaISO) {
+        const fecha = new Date(fechaISO);
+        const hoy = new Date();
+        const ayer = new Date(hoy); ayer.setDate(hoy.getDate() - 1);
+        const mismoDia = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+        if (mismoDia(fecha, hoy)) return 'Hoy';
+        if (mismoDia(fecha, ayer)) return 'Ayer';
+        return fecha.toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: fecha.getFullYear() !== hoy.getFullYear() ? 'numeric' : undefined });
+    }
+
+    function _pcHora(fechaISO) {
+        try { return new Date(fechaISO).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }); }
+        catch (_) { return ''; }
     }
 
     function _renderMensajesPrivados(mensajes) {
@@ -2986,45 +3446,125 @@
         if (!listBox) return;
         const myUsername = window.NikaSupabase.getNikaCurrentUsername();
         if (!mensajes || mensajes.length === 0) {
-            listBox.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">Todavía no tienen mensajes. ¡Escribí el primero!</p>';
+            listBox.innerHTML = '<div class="pc-empty-state">Todavía no tienen mensajes. ¡Escribí el primero! 👋</div>';
             return;
         }
-        listBox.innerHTML = mensajes.map(m => _bubbleHtml(m, myUsername)).join('');
+        listBox.innerHTML = '';
+        _pcLastDayKey = null;
+        mensajes.forEach(m => {
+            if (m.id) _pcRenderedIds.add(m.id);
+            listBox.insertAdjacentHTML('beforeend', _pcHtmlConDivisor(m, myUsername));
+        });
         listBox.scrollTop = listBox.scrollHeight;
+    }
+
+    function _pcHtmlConDivisor(m, myUsername) {
+        let divisor = '';
+        if (m.created_at) {
+            const dayKey = new Date(m.created_at).toDateString();
+            if (dayKey !== _pcLastDayKey) {
+                _pcLastDayKey = dayKey;
+                divisor = `<div class="pc-day-divider">${NikaFriends.esc(_pcDayLabel(m.created_at))}</div>`;
+            }
+        }
+        return divisor + _bubbleHtml(m, myUsername);
     }
 
     function _bubbleHtml(m, myUsername) {
         const mia = m.from_username === myUsername;
+        const idAttr = m.id ? ` data-msg-id="${NikaFriends.esc(m.id)}"` : (m._tempId ? ` data-temp-id="${NikaFriends.esc(m._tempId)}"` : '');
+        const pendingClass = m._pending ? ' pending' : '';
+        const hora = m.created_at ? _pcHora(m.created_at) : '';
+        const tick = m._pending
+            ? '<span class="chat-bubble-tick">⏳</span>'
+            : (mia ? '<span class="chat-bubble-tick">✓</span>' : '');
+
         if (m.shared_question) {
             const q = m.shared_question;
-            return `<div class="chat-msg ${mia ? 'mine' : 'rival'}" style="max-width:90%; ${mia ? 'align-self:flex-end;' : 'align-self:flex-start;'} background:${mia ? 'var(--nika-primary)' : 'var(--card-bg)'}; color:${mia ? 'white' : 'var(--text-main)'}; border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:0.8rem;">
-                <strong>📋 Pregunta compartida${q.up ? ' · ' + q.up : ''}</strong><br>${q.q || ''}
+            return `<div class="chat-bubble-row ${mia ? 'mine' : 'theirs'}"${idAttr}>
+                <div class="chat-question-card">
+                    <div class="chat-question-card-head">📋 Pregunta compartida${q.up ? ' · ' + NikaFriends.esc(q.up) : ''}</div>
+                    <div class="chat-question-card-body">${NikaFriends.esc(q.q || '')}</div>
+                    ${hora ? `<div class="chat-bubble-meta">${NikaFriends.esc(hora)} ${tick}</div>` : ''}
+                </div>
             </div>`;
         }
-        return `<div class="chat-msg ${mia ? 'mine' : 'rival'}" style="max-width:80%; ${mia ? 'align-self:flex-end;' : 'align-self:flex-start;'} background:${mia ? 'var(--nika-primary)' : 'var(--card-bg)'}; color:${mia ? 'white' : 'var(--text-main)'}; border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:0.85rem;">${m.content || ''}</div>`;
+        return `<div class="chat-bubble-row ${mia ? 'mine' : 'theirs'}"${idAttr}>
+            <div class="chat-bubble ${mia ? 'mine' : 'theirs'}${pendingClass}">
+                ${NikaFriends.esc(m.content || '')}
+                <div class="chat-bubble-meta">${hora ? NikaFriends.esc(hora) : ''} ${tick}</div>
+            </div>
+        </div>`;
     }
 
+    // Pinta un mensaje nuevo (propio confirmado o del amigo vía Realtime), evitando
+    // duplicados: si el id ya se pintó (optimista ya confirmado, o el mismo evento
+    // llegó dos veces por una reconexión de Realtime), no vuelve a insertarlo.
     function _agregarBurbujaPrivada(m) {
         const listBox = document.getElementById('pc-messages-list');
         if (!listBox) return;
+        if (m.id && _pcRenderedIds.has(m.id)) return;
+        if (m.id) _pcRenderedIds.add(m.id);
+
+        const emptyState = listBox.querySelector('.pc-empty-state, .pc-loading-state');
+        if (emptyState && listBox.children.length === 1) listBox.innerHTML = '';
+
         const myUsername = window.NikaSupabase.getNikaCurrentUsername();
-        if (listBox.children.length === 1 && listBox.children[0].tagName === 'P') listBox.innerHTML = '';
-        listBox.insertAdjacentHTML('beforeend', _bubbleHtml(m, myUsername));
+        listBox.insertAdjacentHTML('beforeend', _pcHtmlConDivisor(m, myUsername));
         listBox.scrollTop = listBox.scrollHeight;
+    }
+
+    // Reemplaza la burbuja "pendiente" (temp-id) por la definitiva ya confirmada por Supabase
+    function _confirmarBurbujaPrivada(tempId, rowConfirmada) {
+        const listBox = document.getElementById('pc-messages-list');
+        if (!listBox) return;
+        const temp = listBox.querySelector(`[data-temp-id="${tempId}"]`);
+        if (temp) temp.remove();
+        if (rowConfirmada) _agregarBurbujaPrivada(rowConfirmada);
+    }
+
+    function handlePcComposerKeydown(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            sendPrivateMessage();
+        }
+    }
+
+    function autoResizePcComposer(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 110) + 'px';
     }
 
     async function sendPrivateMessage() {
         const input = document.getElementById('pc-message-input');
+        const sendBtn = document.getElementById('pc-send-btn');
         if (!input || !_pcAmigoActual || !window.ChatManager) return;
         const texto = input.value.trim();
         if (!texto) return;
+
         input.value = '';
+        autoResizePcComposer(input);
+
+        // Estado optimista: se pinta al instante con reloj de "enviando" mientras
+        // Supabase confirma el insert; cuando confirma, se reemplaza por la real.
+        const tempId = _pcUuid();
+        const myUsername = window.NikaSupabase.getNikaCurrentUsername();
+        _agregarBurbujaPrivada({ _tempId: tempId, _pending: true, from_username: myUsername, to_username: _pcAmigoActual, content: texto, created_at: new Date().toISOString() });
+
+        if (sendBtn) sendBtn.disabled = true;
         try {
             const row = await window.ChatManager.enviarMensaje(_pcAmigoActual, texto);
-            if (row) _agregarBurbujaPrivada(row);
+            _confirmarBurbujaPrivada(tempId, row);
         } catch (err) {
             console.error('[sendPrivateMessage]', err);
-            showToast('No se pudo enviar el mensaje.');
+            const temp = document.querySelector(`[data-temp-id="${tempId}"]`);
+            if (temp) temp.remove();
+            input.value = texto; // no se pierde lo que escribiste
+            autoResizePcComposer(input);
+            showToast(err && err.friendly ? err.message : 'No se pudo enviar el mensaje.');
+        } finally {
+            if (sendBtn) sendBtn.disabled = false;
+            input.focus();
         }
     }
 
@@ -3066,6 +3606,15 @@
     async function unirseAlPomodoroDe(friendUsername) {
         if (!window.PomodoroSyncManager) { showToast('Pomodoro sincronizado no disponible todavía.'); return; }
         if (!friendUsername) return;
+
+        // Solo se puede sincronizar con amigos confirmados
+        try {
+            const amigos = await NikaFriends.listFriends();
+            if (!amigos.some(f => f.username === friendUsername)) {
+                showToast('Solo podés sincronizar el Pomodoro con tus amigos.');
+                return;
+            }
+        } catch (_) { /* si falla la consulta, no bloqueamos */ }
 
         const estados = window.PomodoroSyncManager.estadoDeAmigos([friendUsername]);
         const estadoAmigo = estados[0] || null;
@@ -3157,12 +3706,12 @@
         syncStudyProgress, toggleSidebar, showOnlyModules, showDashboard, showAdminDashboard, toggleDarkMode, showToast,
         handleProfileClick, openAuthModal, closeAuthModal, switchAuthTab, handleLogin, handleRegister,
         openForgotPasswordForm, closeForgotPasswordForm, handleForgotPassword, openResetPasswordModal, closeResetPasswordModal, handleUpdatePassword,
-        handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal, copyCreatorAlias,
+        handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal, copyCreatorAlias,
         NikaAudio, applySidebarResponsiveState,
         cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
         openChatModal, closeChatModal, sendChatMessage, toggleForumThreadReplies, submitForumReply,
         abrirPerfilPublico, closePublicProfileModal,
-        openChatWithFriend, closePrivateChatModal, sendPrivateMessage,
+        openChatWithFriend, closePrivateChatModal, sendPrivateMessage, handlePcComposerKeydown, autoResizePcComposer,
         openDmInboxModal, closeDmInboxModal, actualizarBadgeMensajes, instalarAppNika, instalarAppNikaDesdeBanner,
         initCommunityPresence, unirseAlPomodoroDe, pomodoroLocalToggle, closePomodoroSyncModal
     });
@@ -3220,6 +3769,11 @@
                 if (user) {
                     cargarNotificaciones(user.id);
                     cargarDirectorioUsuarios(user.id);
+
+                    if (window.NikaFriends) {
+                        window.NikaFriends.startRealtime();
+                        window.dispatchEvent(new CustomEvent('nika:friends-changed'));
+                    }
 
                     window.NikaSupabase.client
                         .channel('public:notifications')

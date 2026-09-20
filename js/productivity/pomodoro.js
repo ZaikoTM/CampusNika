@@ -1,87 +1,25 @@
 // js/productivity/pomodoro.js
-// Módulo Pomodoro Profesional Sincronizado en la Nube (Blindado + Campana por Hardware Inbloqueable)
+// UI del Pomodoro. El temporizador en sí vive en js/pomodoroEngine.js (motor global
+// que sigue corriendo al cambiar de pestaña o de página y muestra el tiempo en el
+// título del navegador). Este módulo solo dibuja el panel y le manda órdenes al motor.
 
 const PomodoroModule = (() => {
-  // Leemos la configuración guardada por el usuario (o usamos 25/5 por defecto)
-  let workMinutes = parseInt(localStorage.getItem('nika_pomo_w_mins') || '25', 10);
-  let breakMinutes = parseInt(localStorage.getItem('nika_pomo_b_mins') || '5', 10);
-  
-  let secondsLeft = workMinutes * 60;
-  let mode = 'work';
-  let currentView = 'timer';
-  let intervalId = null;
-  let isRunning = false;
+  const engine = () => window.PomodoroEngine;
 
+  let currentView = 'timer';
   let currentModuleId = null;
   let currentUpId = null;
   let currentUpLabel = null;
   let containerEl = null;
+  let unsubTick = null;
+  let unsubChange = null;
 
-  // 1. MOTOR DE AUDIO POR HARDWARE (Anti-Bloqueo de Pestañas en Segundo Plano)
-  let audioCtx = null;
-
-  function initAudio() {
-    try {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-    } catch (e) {}
-  }
-
-  function playAlertSound() {
-    try {
-        initAudio();
-        const t = audioCtx.currentTime;
-        
-        // Frecuencias armónicas para simular una campana de escritorio/boxeo
-        const frequencies = [523.25, 659.25, 783.99, 1046.50]; 
-        
-        // PRIMER GOLPE DE CAMPANA
-        frequencies.forEach((freq, index) => {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc.type = index === 0 ? 'sine' : 'triangle'; 
-            osc.frequency.setValueAtTime(freq, t);
-            
-            // Volumen: Ataque instantáneo muy fuerte y desvanecimiento progresivo (eco)
-            gain.gain.setValueAtTime(0, t);
-            gain.gain.linearRampToValueAtTime(1.2 / frequencies.length, t + 0.02); 
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 2.5); 
-            
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            osc.start(t);
-            osc.stop(t + 3.0);
-        });
-        
-        // SEGUNDO GOLPE RÁPIDO (Ding-Ding)
-        setTimeout(() => {
-            if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-            const t2 = audioCtx.currentTime;
-            frequencies.forEach((freq, index) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = index === 0 ? 'sine' : 'triangle';
-                osc.frequency.setValueAtTime(freq, t2);
-                gain.gain.setValueAtTime(0, t2);
-                gain.gain.linearRampToValueAtTime(1.2 / frequencies.length, t2 + 0.02);
-                gain.gain.exponentialRampToValueAtTime(0.001, t2 + 2.5);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(t2);
-                osc.stop(t2 + 3.0);
-            });
-        }, 300);
-
-    } catch (e) {
-        console.warn("Error en el audio nativo:", e);
-    }
-  }
+  // Valores derivados del motor
+  const isRunning = () => engine().getState().status === 'running';
+  const getMode = () => engine().getState().mode;          // 'work' | 'break'
+  const getSecondsLeft = () => engine().getRemainingSeconds();
+  const getWorkMinutes = () => engine().getMinutes('work');
+  const getBreakMinutes = () => engine().getMinutes('break');
 
   // BUSCADOR ROBUSTO DE SUPABASE
   function getDbClient() {
@@ -136,7 +74,8 @@ const PomodoroModule = (() => {
 
   function buildUpSelectorOptions() {
     const hasEstudioState = typeof EstudioState !== 'undefined' && EstudioState.data && EstudioState.data.units;
-    if (!hasEstudioState) {
+    const upInList = hasEstudioState && EstudioState.data.units.some(u => u.id === currentUpId);
+    if (!hasEstudioState || !upInList) {
       const label = currentUpLabel || currentUpId || 'Sin UP';
       return `<option value="${currentUpId || ''}" selected>${label}</option>`;
     }
@@ -152,7 +91,7 @@ const PomodoroModule = (() => {
     const unit = hasEstudioState ? EstudioState.unitsById[newUpId] : null;
     currentUpId = newUpId;
     currentUpLabel = unit ? unit.title : newUpId;
-    resetTimer();
+    engine().reset(undefined, { moduleId: currentModuleId, upId: currentUpId, upLabel: currentUpLabel });
   }
 
   function formatTime(totalSeconds) {
@@ -178,40 +117,6 @@ const PomodoroModule = (() => {
     return { unit: unitMinutes, module: moduleMinutes };
   }
 
-  function registerStudyTime(secondsToAdd) {
-    if (!currentModuleId || !currentUpId) return;
-    const key = `nika_time_${currentModuleId}_${currentUpId}`;
-    const prev = parseInt(localStorage.getItem(key) || '0', 10);
-    const addedMins = Math.floor(secondsToAdd / 60);
-    
-    localStorage.setItem(key, (prev + addedMins).toString());
-    registerStudySessionInSupabase(addedMins);
-  }
-
-  async function registerStudySessionInSupabase(durationMinutes) {
-    try {
-      const client = getDbClient();
-      if (!client) return;
-      
-      const user = await getSessionUser();
-      if (!user) return; 
-
-      const { error } = await client
-        .from('study_sessions')
-        .insert({
-          user_id: user.id,
-          modulo: currentModuleId,
-          up_id: currentUpId,
-          duration_minutes: durationMinutes,
-          completed_at: new Date().toISOString()
-        });
-
-      if (error) console.error('[Pomodoro] Error al subir registro a Supabase:', error);
-    } catch (err) {
-      console.error('[Pomodoro] Excepción al registrar sesión en la nube:', err);
-    }
-  }
-
   function shouldShowNotifBanner() {
     if (!("Notification" in window)) return false;
     if (Notification.permission !== "default") return false;
@@ -221,6 +126,9 @@ const PomodoroModule = (() => {
 
   function render() {
     if (!containerEl) return;
+    const mode = getMode();
+    const secondsLeft = getSecondsLeft();
+    const running = isRunning();
     const isWork = mode === 'work';
     const cardBg = isWork 
       ? 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)' 
@@ -264,17 +172,17 @@ const PomodoroModule = (() => {
 
             <div style="display:flex; align-items:center; gap:6px; margin-bottom: 6px;">
               <span style="font-size: 0.72rem; color: #475569; font-weight: 700; white-space: nowrap;">Estudiando:</span>
-              <select id="pomo-up-selector" ${isRunning ? 'disabled' : ''} style="flex:1; min-width:0; font-size: 0.72rem; font-weight: 700; color: ${titleColor}; background: rgba(255,255,255,0.7); border: 1px solid ${borderColor}; border-radius: 6px; padding: 3px 6px; cursor: ${isRunning ? 'not-allowed' : 'pointer'}; font-family: 'Plus Jakarta Sans', sans-serif;" title="${isRunning ? 'Pausá el temporizador para cambiar de UP' : ''}">
+              <select id="pomo-up-selector" ${running ? 'disabled' : ''} style="flex:1; min-width:0; font-size: 0.72rem; font-weight: 700; color: ${titleColor}; background: rgba(255,255,255,0.7); border: 1px solid ${borderColor}; border-radius: 6px; padding: 3px 6px; cursor: ${running ? 'not-allowed' : 'pointer'}; font-family: 'Plus Jakarta Sans', sans-serif;" title="${running ? 'Pausá el temporizador para cambiar de UP' : ''}">
                 ${buildUpSelectorOptions()}
               </select>
             </div>
           </div>
 
-          <div style="text-align: center; font-size: 2.6rem; font-weight: 900; color: ${primaryColor}; letter-spacing: 1px; margin: 8px 0; font-variant-numeric: tabular-nums;">${formatTime(secondsLeft)}</div>
+          <div id="pomo-time" style="text-align: center; font-size: 2.6rem; font-weight: 900; color: ${primaryColor}; letter-spacing: 1px; margin: 8px 0; font-variant-numeric: tabular-nums;">${formatTime(secondsLeft)}</div>
 
           <div style="display: flex; gap: 6px; justify-content: center;">
-            <button id="pomodoro-start" style="flex: 1; background: ${primaryColor}; color: #fff; border: none; border-radius: 8px; padding: 9px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s;" ${isRunning ? 'disabled' : ''}>${isRunning ? 'En marcha' : 'Iniciar'}</button>
-            <button id="pomodoro-pause" style="background: #ffffff; color: #334155; border: 1px solid #cbd5e1; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;" ${!isRunning ? 'disabled' : ''}>Pausar</button>
+            <button id="pomodoro-start" style="flex: 1; background: ${primaryColor}; color: #fff; border: none; border-radius: 8px; padding: 9px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s;" ${running ? 'disabled' : ''}>${running ? 'En marcha' : (engine().getState().status === 'paused' ? 'Continuar' : 'Iniciar')}</button>
+            <button id="pomodoro-pause" style="background: #ffffff; color: #334155; border: 1px solid #cbd5e1; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;" ${!running ? 'disabled' : ''}>Pausar</button>
             <button id="pomodoro-reset" style="background: rgba(255,255,255,0.7); color: ${primaryColor}; border: 1px solid ${borderColor}; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">Reiniciar</button>
           </div>
         </div>
@@ -294,8 +202,8 @@ const PomodoroModule = (() => {
       containerEl.querySelector('#pomo-up-selector').addEventListener('change', (e) => { switchUpContext(e.target.value); });
       containerEl.querySelector('#pomo-view-stats').addEventListener('click', () => { currentView = 'stats'; render(); });
       containerEl.querySelector('#pomo-view-settings').addEventListener('click', () => { currentView = 'settings'; render(); });
-      containerEl.querySelector('#pomo-mode-work').addEventListener('click', () => { mode = 'work'; resetTimer(); });
-      containerEl.querySelector('#pomo-mode-break').addEventListener('click', () => { mode = 'break'; resetTimer(); });
+      containerEl.querySelector('#pomo-mode-work').addEventListener('click', () => { engine().reset('work', { moduleId: currentModuleId, upId: currentUpId, upLabel: currentUpLabel }); });
+      containerEl.querySelector('#pomo-mode-break').addEventListener('click', () => { engine().reset('break', { moduleId: currentModuleId, upId: currentUpId, upLabel: currentUpLabel }); });
       containerEl.querySelector('#pomodoro-start').addEventListener('click', start);
       containerEl.querySelector('#pomodoro-pause').addEventListener('click', pause);
       containerEl.querySelector('#pomodoro-reset').addEventListener('click', resetTimer);
@@ -311,11 +219,11 @@ const PomodoroModule = (() => {
             </div>
             <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem; color: #334155;">
               <div style="display: flex; justify-content: space-between; background: rgba(255,255,255,0.7); padding: 9px 12px; border-radius: 8px;">
-                <span>📌 En esta Unidad (${currentUpId.toUpperCase()}):</span>
+                <span>📌 En esta Unidad (${String(currentUpId || '').toUpperCase()}):</span>
                 <strong style="color: ${primaryColor};">${stats.unit} min</strong>
               </div>
               <div style="display: flex; justify-content: space-between; background: rgba(255,255,255,0.7); padding: 9px 12px; border-radius: 8px;">
-                <span>📚 Total en ${currentModuleId.toUpperCase()}:</span>
+                <span>📚 Total en ${String(currentModuleId || '').toUpperCase()}:</span>
                 <strong>${stats.module} min</strong>
               </div>
             </div>
@@ -336,11 +244,11 @@ const PomodoroModule = (() => {
             <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem; color: #334155;">
               <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); padding: 8px 10px; border-radius: 8px;">
                 <span>Estudio (min):</span>
-                <input type="number" id="input-work-min" value="${workMinutes}" min="1" max="120" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
+                <input type="number" id="input-work-min" value="${getWorkMinutes()}" min="1" max="120" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); padding: 8px 10px; border-radius: 8px;">
                 <span>Descanso (min):</span>
-                <input type="number" id="input-break-min" value="${breakMinutes}" min="1" max="60" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
+                <input type="number" id="input-break-min" value="${getBreakMinutes()}" min="1" max="60" style="width: 55px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-weight: 700;">
               </div>
             </div>
           </div>
@@ -352,122 +260,64 @@ const PomodoroModule = (() => {
       containerEl.querySelector('#pomo-save-config').addEventListener('click', () => {
         const w = parseInt(containerEl.querySelector('#input-work-min').value, 10);
         const b = parseInt(containerEl.querySelector('#input-break-min').value, 10);
-        if (w > 0) {
-            workMinutes = w;
-            localStorage.setItem('nika_pomo_w_mins', w);
-        }
-        if (b > 0) {
-            breakMinutes = b;
-            localStorage.setItem('nika_pomo_b_mins', b);
-        }
+        if (w > 0) localStorage.setItem('nika_pomo_w_mins', w);
+        if (b > 0) localStorage.setItem('nika_pomo_b_mins', b);
         currentView = 'timer';
         resetTimer();
       });
     }
   }
 
-  function _faseParaPresence() {
-    return mode === 'work' ? 'Enfoque' : 'Descanso';
-  }
-
-  function _reportarPresence(pomodoroActivo) {
-    if (window.PomodoroSyncManager) {
-      window.PomodoroSyncManager.actualizarEstado({
-        pomodoroActivo,
-        faseActual: _faseParaPresence()
-      });
-    }
-  }
-
   function start() {
-    if (isRunning) return;
-
-    // Inicializa y desbloquea el hardware de audio al hacer clic
-    initAudio();
-
-    isRunning = true;
-    render();
-    _reportarPresence(true);
-
-    intervalId = setInterval(() => {
-      secondsLeft--;
-      render();
-
-      if (secondsLeft <= 0) {
-        clearInterval(intervalId);
-        isRunning = false;
-        handleCycleComplete();
-      }
-    }, 1000);
+    engine().start({ moduleId: currentModuleId, upId: currentUpId, upLabel: currentUpLabel });
   }
-
-  function pause() {
-    clearInterval(intervalId);
-    isRunning = false;
-    render();
-    _reportarPresence(false);
-  }
-
+  function pause() { engine().pause(); }
   function resetTimer() {
-    clearInterval(intervalId);
-    isRunning = false;
-    secondsLeft = (mode === 'work' ? workMinutes : breakMinutes) * 60;
-    render();
-    _reportarPresence(false);
+    engine().reset(undefined, { moduleId: currentModuleId, upId: currentUpId, upLabel: currentUpLabel });
   }
 
-  function handleCycleComplete() {
-    const wasWork = mode === 'work';
-    
-    // Ejecuta la campana generada por la placa de sonido
-    playAlertSound();
-
-    if (wasWork) {
-      registerStudyTime(workMinutes * 60);
-      if (typeof showToast === 'function') showToast('🔔 ¡Tiempo finalizado! Inicia tu descanso.', 'success');
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("¡Tiempo de estudio finalizado!", { body: "Buen trabajo. Es hora de tu descanso." });
-      }
-      mode = 'break';
-    } else {
-      if (typeof showToast === 'function') showToast('🔔 ¡Descanso terminado! Volvemos al estudio.', 'success');
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("¡Descanso terminado!", { body: "Volvé a la pestaña de Campus Nika para seguir enfocándote." });
-      }
-      mode = 'work';
-    }
-    
-    secondsLeft = (mode === 'work' ? workMinutes : breakMinutes) * 60;
-    render();
-    _reportarPresence(false);
-
-    // Arranca la siguiente fase en automático después de 2 segundos
-    setTimeout(() => {
-      start();
-    }, 2000);
+  // Solo refresca los números (cada segundo), sin redibujar todo el panel
+  function updateClock() {
+    if (!containerEl) return;
+    const el = containerEl.querySelector('#pomo-time');
+    if (el) el.textContent = formatTime(getSecondsLeft());
   }
 
   function open(moduleId, upId, upLabel, containerId = 'pomodoro-placeholder') {
+    containerEl = document.getElementById(containerId);
+    if (!containerEl) return;
+    if (!window.PomodoroEngine) { console.error('[Pomodoro] Falta cargar js/pomodoroEngine.js'); return; }
+
     currentModuleId = moduleId;
     currentUpId = upId;
     currentUpLabel = upLabel || upId;
-    containerEl = document.getElementById(containerId);
-    if (!containerEl) return;
-
-    mode = 'work';
     currentView = 'timer';
-    secondsLeft = workMinutes * 60;
+
+    // Si hay un Pomodoro en marcha o en pausa (por ejemplo iniciado en otra UP
+    // o en otra página), lo mostramos tal cual, sin reiniciarlo.
+    const st = engine().getState();
+    if (st.status !== 'idle' && st.upId) {
+      currentModuleId = st.moduleId || moduleId;
+      currentUpId = st.upId;
+      currentUpLabel = st.upLabel || st.upId;
+    } else {
+      engine().reset('work', { moduleId: currentModuleId, upId: currentUpId, upLabel: currentUpLabel });
+    }
+
+    if (unsubTick) unsubTick();
+    if (unsubChange) unsubChange();
+    unsubTick = engine().on('tick', updateClock);
+    unsubChange = engine().on('change', () => { if (containerEl && document.body.contains(containerEl)) render(); });
+
     render();
-    _reportarPresence(false);
-    
     syncStatsFromSupabase();
   }
 
+  // Ya NO frena el timer: solo suelta la UI. El motor sigue corriendo.
   function destroy() {
-    clearInterval(intervalId);
-    isRunning = false;
+    if (unsubTick) { unsubTick(); unsubTick = null; }
+    if (unsubChange) { unsubChange(); unsubChange = null; }
     containerEl = null;
-    _reportarPresence(false);
   }
 
   return { open, destroy };

@@ -9,15 +9,18 @@
  *
  * Estrategias:
  *  - Navegación (HTML):        Network First  -> fallback a caché -> fallback a offline.html
- *  - Estáticos mismo origen
- *    (css/js/imágenes/fuentes): Stale-While-Revalidate
+ *  - Código propio (html/js/css): Network First (siempre trae la versión nueva
+ *                                 si hay red; si no, usa la última guardada)
+ *  - Imágenes/fuentes/íconos:  Stale-While-Revalidate
  *  - Supabase / APIs externas
  *    / WebSockets / peticiones
  *    que no sean GET:           Se ignoran (pasan directo a la red, nunca se cachean)
  * ============================================================
  */
 
-const SW_VERSION = "nika-v1";
+// IMPORTANTE: subí este número cada vez que agregues archivos a PRECACHE_URLS o
+// quieras forzar que todos los usuarios descarten la caché anterior.
+const SW_VERSION = "nika-v2";
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const PAGES_CACHE = `${SW_VERSION}-pages`;
 
@@ -25,15 +28,25 @@ const PAGES_CACHE = `${SW_VERSION}-pages`;
 // Sumá acá cualquier CSS/JS externo que agregues (por ej. cuando separemos el CSS).
 const PRECACHE_URLS = [
     "campus.html",
+    "estudio.html",
     "examen.html",
+    "versus.html",
+    "cirugia_hub.html",
     "offline.html",
     "manifest.json",
     "styles.css",
+    "favicon.ico",
     "js/chatManager.js",
     "js/social.js",
     "js/pomodoroSyncManager.js",
+    "js/pomodoroEngine.js",
+    "js/friendsManager.js",
+    "js/rendimiento.js",
+    "js/productivity/pomodoro.js",
     "assets/icons/icon-192.png",
     "assets/icons/icon-512.png",
+    "assets/icons/favicon-32.png",
+    "assets/icons/favicon-192.png",
 ];
 
 // ------------------------------------------------------------
@@ -90,9 +103,32 @@ async function networkFirstParaNavegacion(request) {
         return respuestaRed;
     } catch (err) {
         const cache = await caches.open(PAGES_CACHE);
-        const cacheada = await cache.match(request);
+        // ignoreSearch: estudio.html?modulo=cirugia debe encontrar estudio.html en caché
+        const cacheada = await cache.match(request, { ignoreSearch: true })
+            || await caches.match(request, { ignoreSearch: true });
         return cacheada || caches.match("offline.html");
     }
+}
+
+// Código propio (.js / .css / .json): primero la red, así después de cada deploy
+// nadie queda con una versión vieja. Sin red, se usa la última copia guardada.
+async function networkFirstParaCodigo(request) {
+    const cache = await caches.open(STATIC_CACHE);
+    try {
+        const respuestaRed = await fetch(request);
+        if (respuestaRed && respuestaRed.status === 200) {
+            cache.put(request, respuestaRed.clone());
+        }
+        return respuestaRed;
+    } catch (err) {
+        const cacheada = await cache.match(request, { ignoreSearch: true });
+        if (cacheada) return cacheada;
+        throw err;
+    }
+}
+
+function esCodigoPropio(url) {
+    return /\.(js|css|json|html)$/i.test(url.pathname);
 }
 
 async function staleWhileRevalidate(request) {
@@ -131,6 +167,11 @@ self.addEventListener("fetch", (event) => {
 
     if (esNavegacionHTML(request)) {
         event.respondWith(networkFirstParaNavegacion(request));
+        return;
+    }
+
+    if (esCodigoPropio(url)) {
+        event.respondWith(networkFirstParaCodigo(request));
         return;
     }
 

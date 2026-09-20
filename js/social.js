@@ -31,19 +31,38 @@ const NikaSocial = (() => {
         return null;
     }
 
+    // Tu tabla profiles tiene columnas duplicadas (fullname/full_name y avatar/avatar_url).
+    // El Campus guarda en fullname/avatar, así que se priorizan esas y se devuelven ambos
+    // juegos de nombres para que cualquier pantalla los pueda leer.
+    function normProfile(p) {
+        if (!p) return null;
+        const nombre = p.fullname || p.full_name || p.nombre || p.username || null;
+        const avatar = p.avatar || p.avatar_url || null;
+        return { ...p, fullname: nombre, full_name: nombre, avatar, avatar_url: avatar };
+    }
+
+    // Aplica normProfile al join "profiles" de cada fila (soporta objeto o array)
+    function normRows(rows) {
+        return (rows || []).map((r) => {
+            if (!r || !r.profiles) return r;
+            const p = Array.isArray(r.profiles) ? r.profiles[0] : r.profiles;
+            return { ...r, profiles: normProfile(p) };
+        });
+    }
+
     async function getProfile(userId) {
         const client = getClient();
         if (!client || !userId) return null;
         const { data, error } = await client
             .from('profiles')
-            .select('id, full_name, avatar_url')
+            .select('id, username, fullname, full_name, nombre, avatar, avatar_url')
             .eq('id', userId)
             .maybeSingle();
         if (error) {
             console.warn('[NikaSocial] No se pudo leer el perfil:', error.message);
             return null;
         }
-        return data;
+        return normProfile(data);
     }
 
     // ============================================================
@@ -93,7 +112,7 @@ const NikaSocial = (() => {
 
         const { data, error } = await client
             .from('global_chat')
-            .select('id, user_id, message, created_at, profiles ( full_name, avatar_url )')
+            .select('id, user_id, message, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url )')
             .order('created_at', { ascending: false })
             .limit(limit);
 
@@ -102,7 +121,7 @@ const NikaSocial = (() => {
             return { ok: false, error: error.message, data: [] };
         }
 
-        return { ok: true, data: (data || []).reverse() };
+        return { ok: true, data: normRows(data).reverse() };
     }
 
     /**
@@ -198,7 +217,7 @@ const NikaSocial = (() => {
 
         let query = client
             .from('forum_threads')
-            .select('id, user_id, module, up_id, title, content, created_at, profiles ( full_name, avatar_url ), forum_replies ( count )')
+            .select('id, user_id, module, up_id, title, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url ), forum_replies ( count )')
             .eq('module', moduleId)
             .order('created_at', { ascending: false });
 
@@ -211,7 +230,7 @@ const NikaSocial = (() => {
             return { ok: false, error: error.message, data: [] };
         }
 
-        return { ok: true, data: data || [] };
+        return { ok: true, data: normRows(data) };
     }
 
     /**
@@ -254,7 +273,7 @@ const NikaSocial = (() => {
 
         const { data, error } = await client
             .from('forum_replies')
-            .select('id, thread_id, user_id, content, created_at, profiles ( full_name, avatar_url )')
+            .select('id, thread_id, user_id, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url )')
             .eq('thread_id', threadId)
             .order('created_at', { ascending: true });
 
@@ -263,7 +282,7 @@ const NikaSocial = (() => {
             return { ok: false, error: error.message, data: [] };
         }
 
-        return { ok: true, data: data || [] };
+        return { ok: true, data: normRows(data) };
     }
 
     // ============================================================
@@ -334,7 +353,7 @@ const NikaSocial = (() => {
 
         const { data, error } = await client
             .from('user_ranking')
-            .select('user_id, elo_score, wins, losses, current_streak, profiles ( full_name, avatar_url )')
+            .select('user_id, elo_score, wins, losses, current_streak, profiles ( username, fullname, full_name, nombre, avatar, avatar_url )')
             .order('elo_score', { ascending: false })
             .limit(limit);
 
@@ -343,7 +362,7 @@ const NikaSocial = (() => {
             return { ok: false, error: error.message, data: [] };
         }
 
-        return { ok: true, data: data || [] };
+        return { ok: true, data: normRows(data) };
     }
 
     return {

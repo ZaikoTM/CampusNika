@@ -139,7 +139,9 @@ const SimuladorElo = (() => {
             errores: 0,
             timerInterval: null,
             segundosRestantes: 0,
-            respondida: false
+            respondida: false,
+            modulo: opciones.modulo || null,
+            detalle: [] // { modulo, up, ok, blank } por pregunta, para guardar el resultado por materia y UP
         };
 
         els.body.innerHTML = `<p style="text-align:center; color:#64748b; padding: 30px 0;">Cargando preguntas…</p>`;
@@ -220,6 +222,7 @@ const SimuladorElo = (() => {
 
         if (esCorrecta) { state.puntaje += CONFIG.puntosPorAcierto; state.aciertos++; }
         else { state.puntaje += CONFIG.puntosPorError; state.errores++; }
+        state.detalle.push({ modulo: q.modulo || state.modulo || 'cirugia', up: q.up, ok: esCorrecta, blank: keyElegida === null });
 
         document.querySelectorAll('.se-option').forEach(btn => {
             btn.disabled = true;
@@ -271,6 +274,9 @@ const SimuladorElo = (() => {
 
         const eloStatusEl = document.getElementById('se-elo-status');
 
+        // Guarda el resultado por materia y por UP (Rendimiento, Radar Clínico, Curva del Olvido)
+        guardarResultadoRapido();
+
         try {
             if (typeof NikaSocial === 'undefined') throw new Error('Módulo social no disponible.');
 
@@ -293,6 +299,35 @@ const SimuladorElo = (() => {
             console.error('[SimuladorElo] Error al actualizar ELO:', err);
             eloStatusEl.textContent = 'No se pudo actualizar tu ELO en este momento.';
         }
+    }
+
+    // Un renglón en exam_results por cada materia que apareció en el simulacro
+    function guardarResultadoRapido() {
+        if (!window.NikaRendimiento || !state || !state.detalle.length) return;
+        const porModulo = {};
+        state.detalle.forEach((d) => {
+            const m = porModulo[d.modulo] = porModulo[d.modulo] || { total: 0, correct: 0, blank: 0, byUp: {} };
+            m.total++;
+            if (d.ok) m.correct++;
+            if (d.blank) m.blank++;
+            const up = String(d.up);
+            m.byUp[up] = m.byUp[up] || { total: 0, correct: 0 };
+            m.byUp[up].total++;
+            if (d.ok) m.byUp[up].correct++;
+        });
+        Object.entries(porModulo).forEach(([modulo, m]) => {
+            window.NikaRendimiento.guardarExamen({
+                modulo,
+                mode: 'rapido',
+                total: m.total,
+                correct: m.correct,
+                blank: m.blank,
+                score: m.correct,
+                scorePct: Math.round((m.correct / m.total) * 100),
+                durationSeconds: null,
+                byUp: m.byUp
+            });
+        });
     }
 
     return { iniciar, cerrar };

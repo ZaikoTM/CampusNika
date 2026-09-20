@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Nika | Simulador de Examen - Cirugía</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
+    <script src="js/pomodoroEngine.js"></script>
 
     <!-- ================= PWA: instalable + Service Worker ================= -->
     <link rel="manifest" href="manifest.json">
@@ -320,6 +324,14 @@
                             <div class="mode-icon">⚡</div>
                             <div class="mode-info"><h4>Flash</h4><p>10 preguntas al azar.</p></div>
                         </div>
+                        <div class="mode-card" data-mode="trauma">
+                            <div class="mode-icon">🦴</div>
+                            <div class="mode-info"><h4>Traumatología</h4><p>Miembro superior, inferior o completo.</p></div>
+                        </div>
+                        <div class="mode-card" data-mode="suturas">
+                            <div class="mode-icon">🪡</div>
+                            <div class="mode-info"><h4>Suturas</h4><p>Materiales, agujas, nudos y técnicas.</p></div>
+                        </div>
                     </div>
 
                     <div class="form-group" id="up-selector-group" style="display: none; background: var(--bg-body); padding: 20px; border-radius: 12px; border: 1px dashed var(--nika-primary); margin-top: 20px;">
@@ -336,6 +348,15 @@
                             <option value="9">UP 9: Atención prehospitalaria al politraumatizado y procuración</option>
                             <option value="10">UP 10: Enfermedad vascular periférica</option>
                             <option value="11">UP 11: Obstrucción urinaria baja en el adulto mayor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="trauma-selector-group" style="display: none; background: var(--bg-body); padding: 20px; border-radius: 12px; border: 1px dashed var(--nika-primary); margin-top: 20px;">
+                        <label class="form-label" style="color: var(--text-main);">🦴 Región a Evaluar:</label>
+                        <select id="trauma-region" class="form-control">
+                            <option value="superior">Miembro Superior</option>
+                            <option value="inferior">Miembro Inferior</option>
+                            <option value="completo">Completo (Superior + Inferior mezclados)</option>
                         </select>
                     </div>
 
@@ -483,10 +504,15 @@
     <!-- SDK oficial de Supabase (requerido para inicializar el cliente) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
+    <script src="js/friendsManager.js"></script>
+    <script src="js/rendimiento.js"></script>
     <script src="js/chatManager.js"></script>
     <script src="js/pomodoroSyncManager.js"></script>
     <script src="js/social.js"></script>
     <script src="js/examen.js"></script>
+    <script src="data/banco_trauma_superior.js"></script>
+    <script src="data/banco_trauma_inferior.js"></script>
+    <script src="data/banco_suturas.js"></script>
 
     <script>
         // ================= ESTADO GLOBAL =================
@@ -643,13 +669,40 @@
             element.classList.add('active');
             selectedMode = mode;
             document.getElementById('up-selector-group').style.display = (mode === 'up_especifica') ? 'block' : 'none';
+            document.getElementById('trauma-selector-group').style.display = (mode === 'trauma') ? 'block' : 'none';
 
             const qCount = document.getElementById('q-count'); const qTime = document.getElementById('q-time');
             if (mode === 'residencia' || mode === 'final') { qCount.value = 100; qTime.value = 120; }
             else if (mode === 'flash') { qCount.value = 10; qTime.value = 10; }
+            else if (mode === 'trauma' || mode === 'suturas') { qCount.value = 20; qTime.value = 30; }
             else { qCount.value = 60; qTime.value = 60; }
 
             localStorage.setItem('nika_exam_mode', mode === 'residencia' ? 'residencia' : 'normal');
+        }
+
+        // ---- Bancos locales (Traumatología / Suturas): no pasan por Supabase ----
+        function obtenerPoolBancoLocal() {
+            let fuente = [];
+            if (selectedMode === 'suturas') {
+                fuente = (typeof bancoSuturas !== 'undefined') ? bancoSuturas : [];
+            } else if (selectedMode === 'trauma') {
+                const sup = (typeof bancoTraumaSuperior !== 'undefined') ? bancoTraumaSuperior : [];
+                const inf = (typeof bancoTraumaInferior !== 'undefined') ? bancoTraumaInferior : [];
+                const region = document.getElementById('trauma-region').value;
+                if (region === 'superior') fuente = sup;
+                else if (region === 'inferior') fuente = inf;
+                else fuente = [...sup, ...inf]; // completo: mezcla ambos bancos
+            }
+            // copia profunda + orden de opciones al azar (los bancos originales tienen sesgo hacia una misma letra)
+            return fuente.map(q => {
+                const letras = ['a', 'b', 'c', 'd'];
+                const textos = letras.map(l => q.options[l]);
+                const idxCorrecta = letras.indexOf(q.correct);
+                const orden = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+                const options = {}; let correct = 'a';
+                orden.forEach((orig, pos) => { options[letras[pos]] = textos[orig]; if (orig === idxCorrecta) correct = letras[pos]; });
+                return { up: q.up, q: q.q, options, correct, feedback: q.feedback };
+            });
         }
 
         async function startQuiz(isDemoForce = false) {
@@ -667,11 +720,13 @@
             else upsToFetch = [1,2,3,4,5,6,7,8,9,10,11]; // final, residencia, flash
 
             let pool = [];
+            const isLocalBank = (selectedMode === 'trauma' || selectedMode === 'suturas');
+            if (isLocalBank) pool = obtenerPoolBancoLocal();
             const modulo = new URLSearchParams(window.location.search).get('modulo') || 'cirugia';
 
             // 1. INTENTO DE CARGA DESDE SUPABASE
             try {
-                if (window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
+                if (!isLocalBank && window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
                     const fetchPromises = upsToFetch.map(async (up) => {
                         const upStr = up.toString().padStart(2, '0');
                         try {
@@ -718,7 +773,7 @@
             }
 
             // 2. FALLBACK A JSON LOCAL (Mecanismo anti-caída por falta de internet)
-            if (pool.length === 0) {
+            if (pool.length === 0 && !isLocalBank) {
                 try {
                     const response = await fetch('db_cirugia_organizado.json');
                     const rawData = await response.json();
@@ -744,6 +799,7 @@
             }
 
             if (pool.length === 0) {
+                if (isLocalBank) { alert('Este banco todavía no tiene preguntas cargadas (revisá js/data/).'); if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; } return; }
                 alert("No se pudieron cargar las preguntas solicitadas. Verificá tu conexión a internet o asegurate de haber subido los bancos en el Panel de Administración.");
                 if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; }
                 return;
@@ -844,7 +900,7 @@
         function renderQuestion() {
             visitedQuestions.add(currentIndex); const q = currentExam[currentIndex]; const container = document.getElementById('question-container');
             const isFlagged = flaggedQuestions[currentIndex]; const currentNote = userNotes[currentIndex] || '';
-            _reportarPresenciaUpExamen(q.up);
+            _reportarPresenciaUpExamen(/^\d+$/.test(String(q.up)) ? q.up : null);
             
             let optionsHtml = '';
             for (let key in q.options) {
@@ -856,7 +912,7 @@
                 <div class="q-wrapper">
                     <div class="q-info-col">
                         <span>Pregunta</span><div class="q-number">${currentIndex + 1} / ${currentExam.length}</div>
-                        <span style="color:var(--nika-primary); font-weight:800; margin-bottom:15px;">UP ${q.up}</span>
+                        <span style="color:var(--nika-primary); font-weight:800; margin-bottom:15px;">${/^\d+$/.test(String(q.up)) ? 'UP ' + q.up : q.up}</span>
                         <button class="btn-flag ${isFlagged ? 'active' : ''}" onclick="toggleFlag()">${isFlagged ? '🚩 Desmarcar' : '⛳ Marcar'}</button>
                     </div>
                     <div class="q-content-col">
@@ -897,32 +953,39 @@
         }
 
         // ================= COMPARTIR PREGUNTA AL CHAT PRIVADO =================
-        function openShareToChatModal() {
+        async function openShareToChatModal() {
             const currentUsername = window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername ? window.NikaSupabase.getNikaCurrentUsername() : null;
             if (!currentUsername) { showToast("Iniciá sesión para compartir con compañeros."); return; }
             if (!window.ChatManager) { showToast("El chat no está disponible en este momento."); return; }
 
-            const friendsMap = JSON.parse(localStorage.getItem('nika_friends')) || {};
-            const myFriends = friendsMap[currentUsername] || [];
-            const allUsers = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
             const list = document.getElementById('share-chat-friends-list');
+            list.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">Cargando tus compañeros...</p>';
+            document.getElementById('share-chat-modal').style.display = 'flex';
+
+            // Los amigos salen de la tabla friendships de Supabase (ya no de localStorage)
+            let myFriends = [];
+            try {
+                myFriends = await NikaFriends.listFriends();
+            } catch (err) {
+                console.warn('[openShareToChatModal]', err);
+                list.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">No se pudieron cargar tus compañeros. Revisá tu conexión.</p>';
+                return;
+            }
 
             if (myFriends.length === 0) {
                 list.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">Todavía no tenés compañeros agregados en Campus Nika.</p>';
-            } else {
-                list.innerHTML = myFriends.map(fUsername => {
-                    const fUser = allUsers.find(u => u.username === fUsername);
-                    const displayName = fUser ? fUser.fullname : fUsername;
-                    return `<div style="display:flex; align-items:center; gap:10px; padding:10px 8px; border-radius:8px; cursor:pointer;" onmouseover="this.style.background='rgba(0,0,0,0.03)'" onmouseout="this.style.background='transparent'" onclick="compartirPreguntaActual('${fUsername}')">
-                                <span style="width:8px; height:8px; border-radius:50%; background:#22c55e; flex-shrink:0;"></span>
-                                <div style="min-width:0;">
-                                    <div style="font-weight:700; font-size:0.9rem;">${displayName}</div>
-                                    <div style="font-size:0.75rem; color:var(--text-muted);">@${fUsername}</div>
-                                </div>
-                            </div>`;
-                }).join('');
+                return;
             }
-            document.getElementById('share-chat-modal').style.display = 'flex';
+            list.innerHTML = myFriends.map(f => {
+                const u = NikaFriends.esc(f.username);
+                return `<div style="display:flex; align-items:center; gap:10px; padding:10px 8px; border-radius:8px; cursor:pointer;" onmouseover="this.style.background='rgba(0,0,0,0.03)'" onmouseout="this.style.background='transparent'" onclick="compartirPreguntaActual('${u}')">
+                            <span style="width:8px; height:8px; border-radius:50%; background:#22c55e; flex-shrink:0;"></span>
+                            <div style="min-width:0;">
+                                <div style="font-weight:700; font-size:0.9rem;">${NikaFriends.esc(f.fullname)}</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">@${u}</div>
+                            </div>
+                        </div>`;
+            }).join('');
         }
 
         function closeShareToChatModal() {
@@ -937,7 +1000,7 @@
                 closeShareToChatModal();
             } catch (err) {
                 console.error('[compartirPreguntaActual]', err);
-                showToast("No se pudo enviar, revisá tu conexión.");
+                showToast(err && err.message ? err.message : "No se pudo enviar, revisá tu conexión.");
             }
         }
 
@@ -1019,6 +1082,8 @@
             else if (selectedMode === 'final') modeText = "Examen Final Integral";
             else if (selectedMode === 'residencia') modeText = "Simulacro Estilo Residencia";
             else if (selectedMode === 'flash') modeText = "Examen Flash (Demo/Azar)";
+            else if (selectedMode === 'suturas') modeText = "Taller de Suturas";
+            else if (selectedMode === 'trauma') { const r = document.getElementById('trauma-region'); modeText = "Traumatología: " + r.options[r.selectedIndex].text; }
             else if (selectedMode === 'up_especifica') { modeText = "Choice Específico: " + document.getElementById('specific-up').options[document.getElementById('specific-up').selectedIndex].text; }
 
             document.getElementById('res-mode').innerText = modeText;
@@ -1027,6 +1092,22 @@
 
             renderReview('all');
             recordExamStatsLocally(finalScore, totalQuestions);
+
+            // Guarda el resultado en Supabase (por materia y por UP): alimenta Mi Rendimiento,
+            // el Radar Clínico y la Curva del Olvido. Si no hay conexión queda en cola y se reintenta.
+            if (window.NikaRendimiento) {
+                NikaRendimiento.guardarExamen({
+                    modulo: new URLSearchParams(window.location.search).get('modulo') || 'cirugia',
+                    mode: selectedMode,
+                    total: totalQuestions,
+                    correct: correctCount,
+                    blank: blankCount,
+                    score: finalScore,
+                    scorePct: scorePct,
+                    durationSeconds: totalExamTime - timeLeftSeconds,
+                    byUp: upStats
+                });
+            }
             renderAssistantSuggestion();
         }
 
@@ -1059,9 +1140,11 @@
             });
 
             if (rachas.length === 0) return; // nada que sugerir
+            if (rachas.every(r => !/^\d+$/.test(String(r.up)))) return; // bancos locales (Trauma/Suturas) no tienen UP para repasar
 
             // Nos quedamos con la racha más larga detectada (si empataron, la primera)
-            const peor = rachas.reduce((a, b) => (b.len > a.len ? b : a), rachas[0]);
+            const rachasUp = rachas.filter(r => /^\d+$/.test(String(r.up)));
+            const peor = rachasUp.reduce((a, b) => (b.len > a.len ? b : a), rachasUp[0]);
 
             const box = document.createElement('div');
             box.id = 'assistant-suggestion-box';
@@ -1130,7 +1213,7 @@
                 
                 reviewContainer.innerHTML += `
                     <div class="review-card ${isCorrect ? '' : 'incorrect'} ${isFlagged ? 'flagged-review' : ''}">
-                        <div style="margin-bottom:12px;"><strong>Pregunta ${idx + 1} (UP ${q.up}):</strong> ${q.q}</div>
+                        <div style="margin-bottom:12px;"><strong>Pregunta ${idx + 1} (${/^\d+$/.test(String(q.up)) ? 'UP ' + q.up : q.up}):</strong> ${q.q}</div>
                         <div style="font-size: 0.95rem; margin-bottom: 4px;">Tu respuesta: <strong style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}">${userAns ? userAns.toUpperCase() + ') ' + q.options[userAns] : 'Sin responder'}</strong></div>
                         <div style="font-size: 0.95rem;">Respuesta correcta: <strong style="color: var(--text-main);">${q.correct.toUpperCase()}) ${q.options[q.correct]}</strong></div>
                         <div class="feedback-box"><strong style="color: var(--text-main);">📚 Justificación Oficial:</strong><br> ${q.feedback}</div>
