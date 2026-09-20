@@ -55,25 +55,16 @@ const NotasModule = (() => {
     return window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || window.supabase;
   }
 
+  // Solo se confía en la sesión real de Supabase (no en datos editables de localStorage).
   async function getUserId() {
-    let userId = null;
-    const rawUser = localStorage.getItem('nika_currentUser');
-    if (rawUser) {
-      try {
-        const u = JSON.parse(rawUser);
-        userId = u.id || u.uid || u.username || u.email;
-      } catch (e) {
-        userId = rawUser;
-      }
-    }
     try {
       const client = getDbClient();
       if (client && client.auth) {
         const { data: { session } } = await client.auth.getSession();
-        if (session && session.user) userId = session.user.id;
+        if (session && session.user) return session.user.id;
       }
     } catch (e) {}
-    return userId;
+    return null;
   }
 
   async function fetchFromSupabase(moduleId, upId) {

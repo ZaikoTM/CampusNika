@@ -3,9 +3,14 @@
  * CAMPUS NIKA — Fase 7: Modo Versus 1vs1
  * duelosManager.js
  * ------------------------------------------------------------
- * Responsabilidad: salas numéricas, quick match, ELO,
- * sincronización de preguntas (patrón Host-Cliente vía
- * Realtime Broadcast) y manejo de Presence para timeouts.
+ * Responsabilidad: salas numéricas, quick match, sincronización de
+ * preguntas (patrón Host-Cliente vía Realtime Broadcast) y manejo de
+ * Presence para timeouts.
+ *
+ * SEGURIDAD: el ELO, el ganador, los puntajes, el historial y las medallas
+ * ya NO se calculan acá. Los define el servidor (funciones SQL
+ * versus_finalizar_duelo y versus_declarar_abandono, ver
+ * sql/04_versus_servidor.sql) a partir de las respuestas guardadas.
  *
  * Depende de: window.NikaSupabase (supabaseClient.js)
  * ============================================================
@@ -203,6 +208,8 @@ const DuelosManager = (function () {
 
         // --- Broadcast: eventos de estado del duelo (emitidos por el Host) ---
         channel.on("broadcast", { event: "duelo_estado" }, ({ payload }) => {
+            const TIPOS = ["pregunta", "resultado_pregunta", "fin_duelo"];
+            if (!payload || !TIPOS.includes(payload.tipo)) return;
             if (state.onStateChange) state.onStateChange(payload);
         });
 
@@ -345,9 +352,15 @@ const DuelosManager = (function () {
         });
     }
 
+    const REACCIONES_VALIDAS = ["🔥", "😤", "💀", "👏"];
+
     function _suscribirseAReacciones(channel) {
         channel.on("broadcast", { event: "reaccion" }, ({ payload }) => {
-            if (state.onReaction) state.onReaction(payload);
+            // Solo se aceptan las reacciones del panel: cualquier otra cosa se ignora
+            if (!payload || !REACCIONES_VALIDAS.includes(payload.emoji)) return;
+            if (state.onReaction) {
+                state.onReaction({ emoji: payload.emoji, username: String(payload.username || "").slice(0, 40) });
+            }
         });
     }
 
@@ -390,7 +403,14 @@ const DuelosManager = (function () {
 
     function _suscribirseAChat(channel) {
         channel.on("broadcast", { event: "chat_msg" }, ({ payload }) => {
-            if (state.onChatMessage) state.onChatMessage(payload);
+            if (!payload || typeof payload.texto !== "string") return;
+            if (state.onChatMessage) {
+                state.onChatMessage({
+                    username: String(payload.username || "").slice(0, 40),
+                    texto: payload.texto.slice(0, 140),
+                    enviadoAt: Number(payload.enviadoAt) || Date.now(),
+                });
+            }
         });
     }
 
@@ -505,42 +525,36 @@ const DuelosManager = (function () {
     }
 
     async function _finalizarPorPuntaje(hostScore, guestScore, totalPreguntas, modo) {
-        const { data: room } = await sb().from("versus_rooms").select("*").eq("id", state.roomId).single();
-        if (!room) return;
+        // El SERVIDOR decide ganador, puntajes y ELO a partir de las respuestas guardadas.
+        // Los puntajes locales solo se usan si el servidor no pudo cerrar el duelo.
+        const resultado = await finalizarDuelo({ modo });
 
-        let winner;
-        let winReason;
-
-        if (hostScore === guestScore) {
-            // Tie-break automático por velocidad: gana quien acumuló menor tiempo de respuesta total
-            const { data: answers } = await sb()
-                .from("versus_answers")
-                .select("username, response_time_ms")
-                .eq("room_id", state.roomId);
-
-            const tiempos = {};
-            (answers || []).forEach((a) => {
-                tiempos[a.username] = (tiempos[a.username] || 0) + (a.response_time_ms || 0);
+        if (!resultado) {
+            const { data: room } = await sb()
+                .from("versus_rooms")
+                .select("host_username, guest_username")
+                .eq("id", state.roomId)
+                .maybeSingle();
+            await emitirEstado({
+                tipo: "fin_duelo",
+                winnerUsername: null,
+                winReason: "cancelado",
+                hostScore,
+                guestScore,
+                rivalUsername: state.isHost ? room?.guest_username : room?.host_username,
             });
-
-            winner = (tiempos[room.host_username] || Infinity) <= (tiempos[room.guest_username] || Infinity)
-                ? room.host_username
-                : room.guest_username;
-            winReason = "tie_break";
-        } else {
-            winner = hostScore > guestScore ? room.host_username : room.guest_username;
-            winReason = modo === "muerte_subita" ? "muerte_subita" : "respuestas";
+            return;
         }
-
-        await finalizarDuelo({ winnerUsername: winner, winReason, hostScore, guestScore });
 
         await emitirEstado({
             tipo: "fin_duelo",
-            winnerUsername: winner,
-            winReason,
-            hostScore,
-            guestScore,
-            rivalUsername: state.isHost ? room.guest_username : room.host_username,
+            winnerUsername: resultado.winner_username,
+            winReason: resultado.win_reason,
+            hostScore: resultado.host_score,
+            guestScore: resultado.guest_score,
+            eloChangeHost: resultado.elo_change_host,
+            eloChangeGuest: resultado.elo_change_guest,
+            rivalUsername: state.isHost ? resultado.guest_username : resultado.host_username,
         });
     }
 
@@ -560,149 +574,50 @@ const DuelosManager = (function () {
     }
 
     // ------------------------------------------------------------
-    // 8. Finalizar duelo (calcula ELO, historial, medallas)
+    // 8. Finalizar duelo (lo hace el SERVIDOR: ganador, ELO, historial, medallas)
     // ------------------------------------------------------------
-    async function finalizarDuelo({ winnerUsername, winReason, hostScore, guestScore }) {
-        const { data: room } = await sb().from("versus_rooms").select("*").eq("id", state.roomId).single();
-        if (!room) return;
+    // Devuelve { winner_username, host_score, guest_score, win_reason,
+    //            elo_change_host, elo_change_guest, host_username, guest_username }
+    // o null si el servidor no pudo cerrar el duelo.
+    async function finalizarDuelo({ modo = "normal" } = {}) {
+        if (!state.roomId) return null;
 
-        await sb()
-            .from("versus_rooms")
-            .update({
-                status: "finished",
-                winner_username: winnerUsername,
-                win_reason: winReason,
-                host_score: hostScore,
-                guest_score: guestScore,
-                finished_at: new Date().toISOString(),
-            })
-            .eq("id", state.roomId);
-
-        const { eloChangeHost, eloChangeGuest } = await _actualizarElo(room.host_username, room.guest_username, winnerUsername);
-
-        await sb().from("versus_history").insert({
-            room_id: state.roomId,
-            player_a: room.host_username,
-            player_b: room.guest_username,
-            score_a: hostScore,
-            score_b: guestScore,
-            winner_username: winnerUsername,
-            win_reason: winReason,
-            elo_change_a: eloChangeHost,
-            elo_change_b: eloChangeGuest,
-            tema: room.tema,
+        const { data, error } = await sb().rpc("versus_finalizar_duelo", {
+            p_room_id: String(state.roomId),
+            p_modo: modo === "muerte_subita" ? "muerte_subita" : "normal",
         });
 
-        await _evaluarMedallas(room, { winnerUsername, hostScore, guestScore });
+        if (error) {
+            console.error("[duelosManager] El servidor no pudo cerrar el duelo:", error.message || error);
+            return null;
+        }
 
         // El duelo terminó: ya no hace falta seguir escuchando versus_answers de esta sala.
         _cerrarCanalDeRespuestas();
+        return data;
     }
 
     // ------------------------------------------------------------
-    // 9. Abandono (desconexión de Host o Guest)
+    // 9. Abandono (desconexión del rival)
     // ------------------------------------------------------------
+    // El servidor solo da la victoria si quien reclama iba ganando; si no, el duelo
+    // se cancela sin tocar el ELO de nadie.
     async function declararVictoriaPorAbandono(motivo) {
-        const { data: room } = await sb().from("versus_rooms").select("*").eq("id", state.roomId).single();
-        if (!room || room.status === "finished") return;
+        if (!state.roomId) return;
 
-        const winner = motivo === "abandono_host" ? room.guest_username : room.host_username;
-        await finalizarDuelo({
-            winnerUsername: winner,
-            winReason: motivo,
-            hostScore: room.host_score,
-            guestScore: room.guest_score,
+        const { data, error } = await sb().rpc("versus_declarar_abandono", {
+            p_room_id: String(state.roomId),
         });
 
-        if (state.onOpponentLeft) state.onOpponentLeft(motivo);
-    }
-
-    // ------------------------------------------------------------
-    // 10. Cálculo de ELO (fórmula estándar, K=32)
-    // ------------------------------------------------------------
-    async function _actualizarElo(hostUsername, guestUsername, winnerUsername) {
-        const K = 32;
-        const { data: players } = await sb()
-            .from("versus_players")
-            .select("username, elo, wins, losses, win_streak, best_streak")
-            .in("username", [hostUsername, guestUsername]);
-
-        const host = players.find((p) => p.username === hostUsername);
-        const guest = players.find((p) => p.username === guestUsername);
-        if (!host || !guest) return { eloChangeHost: 0, eloChangeGuest: 0 };
-
-        const expectedHost = 1 / (1 + Math.pow(10, (guest.elo - host.elo) / 400));
-        const expectedGuest = 1 - expectedHost;
-
-        const scoreHost = winnerUsername === hostUsername ? 1 : winnerUsername === guestUsername ? 0 : 0.5;
-        const scoreGuest = 1 - scoreHost;
-
-        const newEloHost = Math.round(host.elo + K * (scoreHost - expectedHost));
-        const newEloGuest = Math.round(guest.elo + K * (scoreGuest - expectedGuest));
-
-        const hostWon = winnerUsername === hostUsername;
-        const guestWon = winnerUsername === guestUsername;
-
-        await sb()
-            .from("versus_players")
-            .update({
-                elo: newEloHost,
-                wins: host.wins + (hostWon ? 1 : 0),
-                losses: host.losses + (hostWon ? 0 : 1),
-                win_streak: hostWon ? host.win_streak + 1 : 0,
-                best_streak: hostWon ? Math.max(host.best_streak, host.win_streak + 1) : host.best_streak,
-                rango: _calcularRango(newEloHost),
-            })
-            .eq("username", hostUsername);
-
-        await sb()
-            .from("versus_players")
-            .update({
-                elo: newEloGuest,
-                wins: guest.wins + (guestWon ? 1 : 0),
-                losses: guest.losses + (guestWon ? 0 : 1),
-                win_streak: guestWon ? guest.win_streak + 1 : 0,
-                best_streak: guestWon ? Math.max(guest.best_streak, guest.win_streak + 1) : guest.best_streak,
-                rango: _calcularRango(newEloGuest),
-            })
-            .eq("username", guestUsername);
-
-        return { eloChangeHost: newEloHost - host.elo, eloChangeGuest: newEloGuest - guest.elo };
-    }
-
-    function _calcularRango(elo) {
-        if (elo >= 1800) return "Leyenda";
-        if (elo >= 1500) return "Diamante";
-        if (elo >= 1200) return "Oro";
-        if (elo >= 1000) return "Plata";
-        return "Bronce";
-    }
-
-    // ------------------------------------------------------------
-    // 11. Medallas por hazañas
-    // ------------------------------------------------------------
-    async function _evaluarMedallas(room, { winnerUsername, hostScore, guestScore }) {
-        const badges = [];
-
-        const { data: winnerPlayer } = await sb()
-            .from("versus_players")
-            .select("win_streak")
-            .eq("username", winnerUsername)
-            .maybeSingle();
-
-        if (winnerPlayer?.win_streak > 0 && winnerPlayer.win_streak % 5 === 0) {
-            badges.push({ username: winnerUsername, badge_code: "racha_5", room_id: room.id });
+        if (error) {
+            console.warn("[duelosManager] No se pudo registrar el abandono:", error.message || error);
+            if (state.onOpponentLeft) state.onOpponentLeft("cancelado");
+            return;
         }
+        if (!data || data.ya_finalizado) return; // el duelo ya había terminado con normalidad
 
-        const winnerScore = winnerUsername === room.host_username ? hostScore : guestScore;
-        const totalPreguntas = Array.isArray(room.question_ids) ? room.question_ids.length : null;
-        if (totalPreguntas && winnerScore === totalPreguntas) {
-            badges.push({ username: winnerUsername, badge_code: "perfecto", room_id: room.id });
-        }
-
-        if (badges.length > 0) {
-            await sb().from("versus_badges").insert(badges);
-        }
+        _cerrarCanalDeRespuestas();
+        if (state.onOpponentLeft) state.onOpponentLeft(data.winner_username ? motivo : "cancelado");
     }
 
     // ------------------------------------------------------------

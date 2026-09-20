@@ -784,11 +784,20 @@ function initModuleChat() {
 
             const functionUrl = `${supabaseUrl}/functions/v1/consultar-up`;
 
+            let authToken = supabaseKey;
+            try {
+                const _c = window.NikaSupabase && window.NikaSupabase.client;
+                if (_c) {
+                    const { data: { session: _s } } = await _c.auth.getSession();
+                    if (_s && _s.access_token) authToken = _s.access_token;
+                }
+            } catch (_) {}
+
             const response = await fetch(functionUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${supabaseKey}`,
+                    'Authorization': `Bearer ${authToken}`,
                     'apikey': supabaseKey
                 },
                 body: JSON.stringify({ 

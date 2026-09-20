@@ -908,7 +908,9 @@
             if (payload?.tipo === 'fin_duelo') mostrarResultado(payload);
         };
         window.DuelosManager.onOpponentLeft = (motivo) => {
-            showToast(motivo === 'abandono_host' ? 'El anfitrión se desconectó. Ganaste por abandono.' : 'Tu rival se desconectó. Ganaste por abandono.');
+            showToast(motivo === 'cancelado'
+                ? 'Tu rival se desconectó y el duelo se canceló. Tu ELO no cambió.'
+                : (motivo === 'abandono_host' ? 'El anfitrión se desconectó. Ganaste por abandono.' : 'Tu rival se desconectó. Ganaste por abandono.'));
             mostrarVista('view-selector');
         };
         window.DuelosManager.onReaction = (payload) => {
@@ -1133,7 +1135,7 @@
         opcionesBarajadas.forEach((opt) => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerHTML = `<strong style="color:var(--nika-primary); margin-right:8px;">${opt.id.toUpperCase()})</strong> ${opt.texto}`;
+            btn.innerHTML = `<strong style="color:var(--nika-primary); margin-right:8px;">${NikaFriends.esc(String(opt.id).toUpperCase())})</strong> ${NikaFriends.esc(opt.texto)}`;
             btn.dataset.optionId = opt.id;
             btn.onclick = () => seleccionarOpcion(opt, payload, btn);
             grid.appendChild(btn);
@@ -1391,17 +1393,28 @@
         playSound(gane ? 'victory' : 'alert');
 
         const esPractica = !!payload.practice;
+        const cancelado = !esPractica && !payload.winnerUsername;
         document.getElementById('practice-badge').style.display = esPractica ? 'block' : 'none';
         document.getElementById('btn-revancha').style.display = esPractica ? 'none' : 'inline-block';
         document.getElementById('btn-jugar-ia-de-nuevo').style.display = esPractica ? 'inline-block' : 'none';
 
-        document.getElementById('result-title').textContent = gane ? '🏆 ¡Victoria!' : '💔 Derrota';
-        document.getElementById('result-title').className = 'result-title ' + (gane ? 'win' : 'lose');
-        document.getElementById('result-subtitle').textContent = esPractica
-            ? (gane ? 'Le ganaste a la IA (' + payload.hostScore + ' - ' + payload.guestScore + ')' : 'La IA te ganó esta vez (' + payload.hostScore + ' - ' + payload.guestScore + ')')
-            : (gane ? '¡Le ganaste a ' + payload.rivalUsername + '!' : payload.rivalUsername + ' te ganó esta vez.');
+        document.getElementById('result-title').textContent = cancelado ? '🤝 Duelo cancelado' : (gane ? '🏆 ¡Victoria!' : '💔 Derrota');
+        document.getElementById('result-title').className = 'result-title ' + (cancelado ? '' : (gane ? 'win' : 'lose'));
+
+        // Cambio de ELO calculado por el servidor (solo en duelos online que terminaron normal)
+        const soyHost = window.DuelosManager.state.isHost;
+        const miCambio = soyHost ? payload.eloChangeHost : payload.eloChangeGuest;
+        const textoElo = (!esPractica && !cancelado && typeof miCambio === 'number')
+            ? ' · ELO ' + (miCambio > 0 ? '+' : '') + miCambio
+            : '';
+
+        document.getElementById('result-subtitle').textContent = cancelado
+            ? 'No se pudo completar el duelo. Tu ELO no cambió.'
+            : esPractica
+                ? (gane ? 'Le ganaste a la IA (' + payload.hostScore + ' - ' + payload.guestScore + ')' : 'La IA te ganó esta vez (' + payload.hostScore + ' - ' + payload.guestScore + ')')
+                : (gane ? '¡Le ganaste a ' + payload.rivalUsername + '!' : payload.rivalUsername + ' te ganó esta vez.') + textoElo;
         document.getElementById('share-card-title').textContent = gane ? '🏆 Gané el duelo' : '⚔️ Peleé con todo';
-        document.getElementById('share-card').style.display = esPractica ? 'none' : 'block';
+        document.getElementById('share-card').style.display = (esPractica || cancelado) ? 'none' : 'block';
         mostrarVista('view-resultado');
     }
 

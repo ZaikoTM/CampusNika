@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a192f">
+<title>NikaFarma · Vademécum y decisión clínica · Campus Nika</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Tus variables (--nika-primary, --bg-body, --card-bg, --border, body.dark-mode...) viven acá -->
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* =====================================================================
+   NIKAFARMA · estilos propios. TODO va con prefijo .nf-  /  #nf...
+   para no pisar nada de styles.css. Usa TUS variables de color.
+   ===================================================================== */
+:root{
+  --nf-ok:#16a34a; --nf-ok-bg:rgba(22,163,74,.12);
+  --nf-warn:#ca8a04; --nf-warn-bg:rgba(202,138,4,.14);
+  --nf-bad:#dc2626; --nf-bad-bg:rgba(220,38,38,.12);
+  --nf-info:var(--nika-primary); --nf-info-bg:rgba(2,132,199,.10);
+  --nf-r:16px; --nf-glass:color-mix(in srgb,var(--card-bg) 82%,transparent);
+}
+body.dark-mode{ --nf-info-bg:rgba(56,189,248,.12); --nf-ok:#4ade80; --nf-warn:#facc15; --nf-bad:#f87171; }
+body{ display:block; }
+body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+   radial-gradient(900px 500px at 8% -10%, rgba(56,189,248,.16), transparent 60%),
+   radial-gradient(700px 480px at 100% 0%, rgba(2,132,199,.12), transparent 55%); }
+
+/* ---------- Barra superior ---------- */
+.nf-top{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  padding:10px 18px; background:var(--nf-glass); backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--border); }
+.nf-back{ color:var(--text-muted); text-decoration:none; font-weight:700; font-size:.85rem; padding:8px 12px; border-radius:10px; border:1px solid var(--border); transition:.2s; }
+.nf-back:hover{ color:var(--nika-primary); border-color:var(--nika-primary); transform:translateX(-2px); }
+.nf-brand{ font-weight:800; font-size:1.25rem; letter-spacing:-.4px; display:flex; align-items:baseline; gap:8px; }
+.nf-brand small{ font-size:.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1.2px; }
+.nf-switches{ margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+.nf-panic{ border:0; cursor:pointer; font:800 .85rem 'Plus Jakarta Sans',sans-serif; color:#fff; padding:10px 16px; border-radius:12px;
+  background:linear-gradient(135deg,#ef4444,#b91c1c); box-shadow:0 6px 18px -6px rgba(220,38,38,.7); transition:.2s; }
+.nf-panic:hover{ transform:translateY(-1px) scale(1.02); }
+.nf-panic[aria-pressed="true"]{ animation:nfPulse 1.6s infinite; outline:3px solid rgba(255,255,255,.25); }
+@keyframes nfPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(239,68,68,.65);} 50%{ box-shadow:0 0 0 12px rgba(239,68,68,0);} }
+
+.nf-sw{ display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-size:.78rem; font-weight:700; color:var(--text-muted);
+  padding:7px 10px; border:1px solid var(--border); border-radius:10px; background:var(--card-bg); user-select:none; transition:.2s; }
+.nf-sw:hover{ border-color:var(--nika-primary); }
+.nf-sw input{ display:none; }
+.nf-sw i{ width:30px; height:17px; border-radius:20px; background:var(--border); position:relative; transition:.25s; flex:none; }
+.nf-sw i::after{ content:""; position:absolute; top:2px; left:2px; width:13px; height:13px; border-radius:50%; background:#fff; transition:.25s; }
+.nf-sw input:checked + i{ background:var(--nika-primary); }
+.nf-sw input:checked + i::after{ transform:translateX(13px); }
+.nf-sw:has(input:checked){ color:var(--text-main); border-color:var(--nika-primary); }
+.nf-ibtn{ border:1px solid var(--border); background:var(--card-bg); color:var(--text-main); border-radius:10px; padding:7px 11px; cursor:pointer; font-size:.95rem; transition:.2s; }
+.nf-ibtn:hover{ border-color:var(--nika-primary); }
+
+/* ---------- Buscador ---------- */
+.nf-search{ max-width:1400px; margin:0 auto; padding:18px 18px 4px; width:100%; }
+.nf-sbox{ position:relative; }
+.nf-sbox input{ width:100%; font:600 1.05rem 'Plus Jakarta Sans',sans-serif; color:var(--text-main); background:var(--card-bg);
+  border:2px solid var(--border); border-radius:16px; padding:15px 46px 15px 50px; outline:none; transition:.25s; box-shadow:var(--shadow); }
+.nf-sbox input:focus{ border-color:var(--nika-primary); box-shadow:0 0 0 5px var(--nf-info-bg); }
+.nf-sbox .nf-ico{ position:absolute; left:18px; top:50%; transform:translateY(-50%); font-size:1.15rem; opacity:.7; }
+.nf-sbox .nf-clear{ position:absolute; right:12px; top:50%; transform:translateY(-50%); border:0; background:transparent; color:var(--text-muted); font-size:1.2rem; cursor:pointer; display:none; }
+.nf-hint{ font-size:.76rem; color:var(--text-muted); margin:8px 4px 0; }
+.nf-chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.nf-pill{ border:1px solid var(--border); background:var(--card-bg); color:var(--text-muted); border-radius:999px; padding:7px 14px; font:700 .78rem 'Plus Jakarta Sans',sans-serif; cursor:pointer; transition:.2s; }
+.nf-pill:hover{ color:var(--nika-primary); border-color:var(--nika-primary); transform:translateY(-1px); }
+.nf-pill.on{ background:var(--nika-primary); border-color:var(--nika-primary); color:#fff; }
+body.dark-mode .nf-pill.on{ color:#04121f; }
+
+/* ---------- Layout ---------- */
+.nf-layout{ display:block; max-width:1080px; margin:0 auto; padding:14px 18px 90px; width:100%; }
+.nf-aside{ position:fixed; top:0; right:0; bottom:0; width:min(390px,100%); z-index:120; background:var(--bg-body); border-left:1px solid var(--border);
+  box-shadow:-20px 0 50px -24px rgba(0,0,0,.45); padding:16px; overflow:auto; display:flex; flex-direction:column; gap:14px;
+  transform:translateX(105%); transition:transform .35s cubic-bezier(.4,0,.2,1); }
+.nf-aside.open{ transform:none; }
+.nf-ah{ display:flex; justify-content:space-between; align-items:center; font-size:1rem; }
+.nf-panel{ background:var(--card-bg); border:1px solid var(--border); border-radius:var(--nf-r); box-shadow:var(--shadow); padding:14px 16px; }
+.nf-panel > summary, .nf-panel > h3{ font-weight:800; font-size:.92rem; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+.nf-panel > summary::-webkit-details-marker{ display:none; }
+.nf-panel > summary::after{ content:"▾"; color:var(--text-muted); transition:.2s; }
+.nf-panel[open] > summary::after{ transform:rotate(180deg); }
+.nf-panel .nf-body{ margin-top:12px; }
+
+/* ---------- Tarjetas ---------- */
+.nf-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; }
+.nf-tile{ text-align:left; border:1px solid var(--border); background:var(--card-bg); border-radius:var(--nf-r); padding:18px; cursor:pointer;
+  transition:.25s; font-family:inherit; color:inherit; box-shadow:var(--shadow); animation:nfIn .45s both; }
+.nf-tile:hover{ transform:translateY(-3px); border-color:var(--nika-primary); }
+.nf-tile .ic{ font-size:1.7rem; }
+.nf-tile h3{ font-size:1rem; margin:6px 0 2px; }
+.nf-tile p{ font-size:.78rem; color:var(--text-muted); }
+.nf-tile b{ color:var(--nika-primary); font-size:1.4rem; float:right; }
+@keyframes nfIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none;} }
+
+.nf-list{ display:flex; flex-direction:column; gap:12px; }
+.nf-item{ text-align:left; border:1px solid var(--border); background:var(--card-bg); border-radius:var(--nf-r); padding:15px 18px; cursor:pointer; transition:.22s; font-family:inherit; color:inherit; animation:nfIn .35s both; box-shadow:var(--shadow); width:100%; }
+.nf-item:hover{ border-color:var(--nika-primary); transform:translateX(3px); }
+.nf-item .t{ font-weight:800; font-size:1.02rem; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.nf-item .s{ font-size:.76rem; color:var(--text-muted); margin:2px 0 8px; }
+.nf-item .p{ font-size:.85rem; color:var(--text-muted); margin-top:8px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.nf-row{ display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+.nf-h{ font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:1.3px; color:var(--text-muted); margin:22px 0 10px; }
+
+/* ---------- Aval / tags ---------- */
+.nf-aval{ display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:.72rem; padding:4px 10px; border-radius:999px; border:1px solid; white-space:nowrap; }
+.nf-aval.ok{ color:var(--nf-ok); background:var(--nf-ok-bg); border-color:color-mix(in srgb,var(--nf-ok) 40%,transparent); }
+.nf-aval.warn{ color:var(--nf-warn); background:var(--nf-warn-bg); border-color:color-mix(in srgb,var(--nf-warn) 40%,transparent); }
+.nf-aval.bad{ color:var(--nf-bad); background:var(--nf-bad-bg); border-color:color-mix(in srgb,var(--nf-bad) 40%,transparent); }
+.nf-aval.big{ font-size:.95rem; padding:8px 16px; }
+.nf-tag{ font-size:.7rem; font-weight:800; padding:3px 9px; border-radius:8px; background:var(--nf-info-bg); color:var(--nf-info); }
+.nf-tag.ok{ background:var(--nf-ok-bg); color:var(--nf-ok); }
+.nf-tag.warning{ background:var(--nf-warn-bg); color:var(--nf-warn); }
+.nf-tag.critical{ background:var(--nf-bad-bg); color:var(--nf-bad); }
+
+/* ---------- Detalle ---------- */
+.nf-detail{ animation:nfIn .35s both; }
+.nf-dh{ background:linear-gradient(135deg,var(--nika-deep,#0a192f),#0c3a5b); color:#fff; border-radius:22px; padding:22px 24px; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+.nf-dh::after{ content:"💊"; position:absolute; right:-6px; bottom:-26px; font-size:8rem; opacity:.07; }
+.nf-dh h1{ font-size:1.7rem; letter-spacing:-.5px; line-height:1.15; }
+.nf-dh .sub{ opacity:.8; font-size:.85rem; margin:4px 0 12px; }
+.nf-dh .nf-tag{ background:rgba(255,255,255,.14); color:#fff; }
+.nf-dh .nf-tag.critical{ background:rgba(248,113,113,.28); }
+.nf-dh .nf-tag.warning{ background:rgba(250,204,21,.22); }
+.nf-dh .nf-tag.ok{ background:rgba(74,222,128,.22); }
+.nf-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.nf-btn{ border:1px solid var(--border); background:var(--card-bg); color:var(--text-main); font:700 .82rem 'Plus Jakarta Sans',sans-serif; padding:9px 14px; border-radius:11px; cursor:pointer; transition:.2s; }
+.nf-btn:hover{ border-color:var(--nika-primary); color:var(--nika-primary); transform:translateY(-1px); }
+.nf-btn.pri{ background:var(--nika-primary); border-color:var(--nika-primary); color:#fff; }
+body.dark-mode .nf-btn.pri{ color:#04121f; }
+.nf-btn.pri:hover{ color:#fff; filter:brightness(1.08); }
+.nf-dh .nf-btn{ background:rgba(255,255,255,.1); color:#fff; border-color:rgba(255,255,255,.25); }
+.nf-sec{ margin-top:18px; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--nf-r); padding:16px 18px; box-shadow:var(--shadow); }
+.nf-sec > h2{ font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:1.3px; color:var(--text-muted); margin-bottom:10px; }
+.nf-sec p{ margin:0 0 8px; } .nf-sec ul{ margin:0 0 8px 20px; }
+.nf-sec a{ color:var(--nika-primary); }
+.nf-note{ font-size:.82rem; color:var(--text-muted); border-left:3px solid var(--nika-primary); padding-left:10px; }
+.nf-alert{ display:flex; gap:10px; align-items:flex-start; padding:11px 14px; border-radius:12px; margin-bottom:8px; font-size:.86rem; font-weight:600; border:1px solid; }
+.nf-alert.critical{ background:var(--nf-bad-bg); color:var(--nf-bad); border-color:color-mix(in srgb,var(--nf-bad) 45%,transparent); }
+.nf-alert.warning{ background:var(--nf-warn-bg); color:var(--nf-warn); border-color:color-mix(in srgb,var(--nf-warn) 45%,transparent); }
+.nf-alert.info{ background:var(--nf-info-bg); color:var(--nf-info); border-color:color-mix(in srgb,var(--nf-info) 35%,transparent); }
+.nf-alert.critical.pulse{ animation:nfShake .5s 1; }
+@keyframes nfShake{ 20%,60%{ transform:translateX(-4px);} 40%,80%{ transform:translateX(4px);} }
+
+/* dosis */
+.nf-tabs{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.nf-band{ display:grid; grid-template-columns:150px 1fr; gap:12px; padding:11px 14px; border:1px solid var(--border); border-radius:12px; margin-bottom:8px; transition:.25s; }
+.nf-band .l{ font-weight:800; font-size:.82rem; color:var(--text-muted); }
+.nf-band .v{ font-weight:600; white-space:pre-line; }
+.nf-band .c{ display:block; color:var(--nika-primary); font-weight:800; font-size:.85rem; margin-top:3px; }
+.nf-band.match{ border:2px solid var(--nf-ok); background:var(--nf-ok-bg); box-shadow:0 0 0 4px var(--nf-ok-bg); }
+.nf-band.match .l{ color:var(--nf-ok); }
+.nf-band.match .l::before{ content:"✔ "; }
+.nf-band.off{ opacity:.42; }
+.nf-band.off .v{ text-decoration:line-through; }
+.nf-hero{ border-radius:16px; padding:16px 18px; margin-bottom:12px; background:linear-gradient(135deg,var(--nf-ok-bg),transparent); border:2px solid var(--nf-ok); }
+.nf-hero .k{ font-size:.72rem; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:var(--nf-ok); }
+.nf-hero .big{ font-size:1.5rem; font-weight:800; line-height:1.3; white-space:pre-line; margin-top:4px; }
+.nf-hero .c{ font-size:1rem; font-weight:800; color:var(--nika-primary); margin-top:4px; }
+.nf-hero.neutral{ border-color:var(--border); background:transparent; }
+.nf-hero.neutral .k{ color:var(--text-muted); }
+
+/* preparación */
+.nf-kv{ display:grid; grid-template-columns:150px 1fr; gap:6px 14px; font-size:.9rem; }
+.nf-kv dt{ font-weight:800; color:var(--text-muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.8px; padding-top:2px; }
+.nf-kv dd{ margin:0; white-space:pre-line; }
+
+/* espectro */
+.nf-spec{ display:grid; gap:10px; }
+.nf-spec-row{ display:grid; grid-template-columns:130px 1fr; gap:12px; padding:11px 14px; border:1px solid var(--border); border-radius:12px; }
+.nf-spec-row .lab{ font-weight:800; font-size:.85rem; display:flex; align-items:center; gap:8px; }
+.nf-dot{ width:15px; height:15px; border-radius:50%; flex:none; box-shadow:0 0 0 3px rgba(0,0,0,.06); }
+.nf-dot.S{ background:#22c55e; } .nf-dot.I{ background:#eab308; } .nf-dot.R{ background:#ef4444; } .nf-dot.N{ background:#94a3b8; } .nf-dot.V{ background:#94a3b8; }
+.nf-spec-row .tx{ font-size:.88rem; }
+.nf-org{ display:inline-flex; gap:6px; align-items:center; font-size:.76rem; font-weight:700; padding:4px 10px; border:1px solid var(--border); border-radius:999px; margin:0 6px 6px 0; cursor:help; }
+.nf-legend{ font-size:.72rem; color:var(--text-muted); margin-top:8px; }
+
+.nf-chip{ display:inline-flex; align-items:center; gap:6px; font:700 .8rem 'Plus Jakarta Sans',sans-serif; border:1px solid var(--border); background:var(--card-bg); color:var(--text-main); border-radius:999px; padding:6px 6px 6px 12px; cursor:pointer; margin:0 6px 6px 0; }
+.nf-chip:hover{ border-color:var(--nika-primary); }
+.nf-chip.risk{ border-color:var(--nf-bad); }
+.nf-chip .plus{ border:0; background:var(--nf-info-bg); color:var(--nf-info); border-radius:50%; width:22px; height:22px; cursor:pointer; font-weight:800; }
+.nf-acc{ border:1px solid var(--border); border-radius:12px; margin-bottom:8px; overflow:hidden; }
+.nf-acc summary{ padding:11px 14px; font-weight:700; cursor:pointer; font-size:.9rem; }
+.nf-acc > div{ padding:0 14px 12px; font-size:.9rem; }
+.nf-chk{ display:flex; gap:9px; align-items:flex-start; font-size:.84rem; margin:6px 0; cursor:pointer; }
+.nf-chk input{ margin-top:4px; accent-color:var(--nika-primary); }
+.nf-study{ border:1px dashed var(--nika-primary); background:var(--nf-info-bg); }
+.nf-study ul{ margin-left:18px; } .nf-study li{ margin:5px 0; }
+.nf-study-only{ display:none; }
+body.nf-study .nf-study-only{ display:block; }
+
+/* calculadora */
+.nf-f{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.nf-f label{ font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--text-muted); display:block; }
+.nf-f input,.nf-f select{ width:100%; margin-top:4px; font:600 .95rem 'Plus Jakarta Sans',sans-serif; color:var(--text-main); background:var(--bg-body); border:1.5px solid var(--border); border-radius:10px; padding:9px 10px; outline:none; }
+.nf-f input:focus,.nf-f select:focus{ border-color:var(--nika-primary); }
+.nf-f .full{ grid-column:1/-1; }
+.nf-f label.nf-chk{ display:flex; text-transform:none; letter-spacing:0; font-size:.85rem; color:var(--text-main); }
+.nf-out{ margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.nf-m{ background:var(--bg-body); border:1px solid var(--border); border-radius:12px; padding:9px 11px; }
+.nf-m span{ font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.9px; color:var(--text-muted); display:block; }
+.nf-m b{ font-size:1.15rem; }
+.nf-m.hi{ grid-column:1/-1; border-color:var(--nika-primary); background:var(--nf-info-bg); }
+.nf-m.hi b{ font-size:1.6rem; color:var(--nika-primary); }
+.nf-tray{ display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+.nf-tray-i{ display:flex; justify-content:space-between; align-items:center; background:var(--bg-body); border:1px solid var(--border); border-radius:10px; padding:7px 11px; font-weight:700; font-size:.85rem; }
+.nf-tray-i button{ border:0; background:transparent; color:var(--nf-bad); cursor:pointer; font-size:1rem; }
+.nf-score{ margin-bottom:14px; } .nf-score h4{ font-size:.9rem; } .nf-score small{ color:var(--text-muted); font-weight:600; }
+.nf-score-res{ margin-top:8px; padding:9px 12px; border-radius:11px; font-size:.86rem; font-weight:700; border:1px solid var(--border); }
+.nf-score-res.lv-ambulatorio{ background:var(--nf-ok-bg); color:var(--nf-ok); }
+.nf-score-res.lv-sala{ background:var(--nf-warn-bg); color:var(--nf-warn); }
+.nf-score-res.lv-uti{ background:var(--nf-bad-bg); color:var(--nf-bad); }
+.nf-score-res b{ font-size:1.3rem; }
+.nf-disc{ font-size:.7rem; color:var(--text-muted); text-align:center; padding:4px 10px 0; }
+
+/* modal HCE */
+.nf-modal{ position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.65); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; padding:18px; }
+.nf-modal.on{ display:flex; }
+.nf-mbox{ width:min(720px,100%); background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:20px; box-shadow:0 30px 80px -20px rgba(0,0,0,.6); animation:nfIn .3s both; }
+.nf-mbox textarea{ width:100%; height:340px; margin:12px 0; background:var(--bg-body); color:var(--text-main); border:1.5px solid var(--border); border-radius:12px; padding:12px; font:500 .86rem ui-monospace,Menlo,Consolas,monospace; resize:vertical; }
+#nfToast{ position:fixed; left:50%; bottom:26px; transform:translate(-50%,30px); background:#0f172a; color:#fff; padding:11px 20px; border-radius:12px; font-weight:700; font-size:.85rem; opacity:0; pointer-events:none; transition:.3s; z-index:300; }
+#nfToast.on{ opacity:1; transform:translate(-50%,0); }
+.nf-fab{ display:none; position:fixed; right:16px; bottom:16px; z-index:90; width:56px; height:56px; border-radius:50%; border:0; background:var(--nika-primary); color:#fff; font-size:1.5rem; box-shadow:0 10px 25px -6px rgba(2,132,199,.7); cursor:pointer; }
+.nf-skel{ height:80px; border-radius:16px; background:linear-gradient(90deg,var(--border),transparent,var(--border)); background-size:200% 100%; animation:nfSk 1.2s infinite; margin-bottom:12px; opacity:.5; }
+@keyframes nfSk{ to{ background-position:-200% 0; } }
+
+/* =================== MODO GUARDIA =================== */
+body.nf-guardia{ --bg-body:#04060a; --card-bg:#0c1118; --text-main:#f8fafc; --text-muted:#cbd5e1; --border:#2a3646; --nika-primary:#38bdf8; }
+body.nf-guardia .nf-theory{ display:none !important; }
+body.nf-guardia .nf-top{ border-bottom:2px solid #ef4444; }
+body.nf-guardia .nf-dh{ background:#000; border:2px solid #ef4444; }
+body.nf-guardia .nf-dh h1{ font-size:2.2rem; }
+body.nf-guardia .nf-hero{ padding:22px 24px; }
+body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
+body.nf-guardia .nf-hero .c{ font-size:1.4rem; }
+body.nf-guardia .nf-band .v{ font-size:1.35rem; }
+body.nf-guardia .nf-band .l{ font-size:1rem; }
+body.nf-guardia .nf-kv{ font-size:1.25rem; grid-template-columns:190px 1fr; }
+body.nf-guardia .nf-kv dt{ font-size:.9rem; }
+body.nf-guardia .nf-alert{ font-size:1.15rem; padding:15px 18px; }
+body.nf-guardia .nf-sec p, body.nf-guardia .nf-sec li{ font-size:1.25rem; line-height:1.5; }
+body.nf-guardia .nf-item .t{ font-size:1.3rem; }
+body.nf-guardia .nf-item .p{ font-size:1.05rem; -webkit-line-clamp:4; color:var(--text-main); }
+body.nf-guardia .nf-study-only{ display:none !important; }
+body.nf-guardia .nf-tile p{ display:none; }
+
+@media (max-width:980px){ .nf-band,.nf-spec-row,.nf-kv{ grid-template-columns:1fr; } }
+@media (max-width:600px){
+  .nf-brand small{ display:none; }
+  .nf-dh h1{ font-size:1.35rem; }
+  .nf-top{ padding:8px 12px; }
+}
+@media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+@media print{ .nf-top,.nf-search,.nf-aside,.nf-fab,.nf-actions{ display:none !important; } .nf-layout{ display:block; } }
+
+/* =================== v2 · MINIMALISTA (mosaicos + desplegables) =================== */
+.nf-search{ max-width:1080px; padding-top:14px; }
+.nf-sbox input{ padding:13px 44px 13px 46px; font-size:1rem; box-shadow:none; border-width:1.5px; }
+.nf-chips{ margin-top:10px; }
+.nf-ibtn b{ font-size:.72rem; font-weight:800; color:var(--nika-primary); }
+.nf-sw{ padding:7px 11px; font-size:1rem; }
+.nf-sw:has(input:checked){ background:var(--nf-info-bg); }
+.nf-sw i{ display:none; }
+.nf-panic{ padding:9px 14px; }
+
+.nf-home{ display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; margin-top:6px; }
+.nf-dt{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; text-align:left; cursor:pointer; font-family:inherit; color:inherit;
+  background:var(--card-bg); border:1px solid var(--border); border-radius:18px; padding:16px 16px 14px; transition:.25s; animation:nfIn .4s both; position:relative; }
+.nf-dt:hover{ transform:translateY(-3px); border-color:var(--nika-primary); box-shadow:var(--shadow); }
+.nf-dt .ic{ font-size:1.55rem; line-height:1; }
+.nf-dt .tl{ font-weight:800; font-size:.9rem; line-height:1.25; }
+.nf-dt b{ position:absolute; top:14px; right:16px; font-size:.78rem; color:var(--text-muted); font-weight:700; }
+
+.nf-grp{ margin-top:12px; background:var(--card-bg); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.nf-grp > summary{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 18px; cursor:pointer; list-style:none; font-weight:800; font-size:.92rem; user-select:none; }
+.nf-grp > summary::-webkit-details-marker{ display:none; }
+.nf-grp > summary em{ font-style:normal; font-size:.72rem; color:var(--text-muted); background:var(--bg-body); border-radius:20px; padding:2px 10px; margin-left:auto; }
+.nf-grp > summary::after{ content:"›"; font-size:1.3rem; line-height:1; color:var(--text-muted); transition:transform .25s; }
+.nf-grp[open] > summary::after{ transform:rotate(90deg); }
+.nf-grp[open] > summary{ border-bottom:1px solid var(--border); }
+.nf-mos{ display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px; padding:14px; }
+.nf-mt{ display:flex; flex-direction:column; justify-content:space-between; gap:8px; text-align:left; min-height:66px; padding:11px 13px; cursor:pointer;
+  font-family:inherit; color:inherit; background:var(--bg-body); border:1px solid transparent; border-radius:13px; transition:.2s; animation:nfIn .3s both; }
+.nf-mt:hover{ border-color:var(--nika-primary); background:var(--nf-info-bg); transform:translateY(-2px); }
+.nf-mt .n{ font-weight:700; font-size:.84rem; line-height:1.25; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.nf-mt .m{ display:flex; gap:5px; align-items:center; }
+.nf-mt .pv{ display:none; font-size:.8rem; color:var(--text-muted); }
+body.nf-guardia .nf-mt .pv{ display:block; color:var(--text-main); font-size:.95rem; }
+body.nf-guardia .nf-mos{ grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); }
+body.nf-guardia .nf-mt .n{ font-size:1.1rem; }
+.nf-mb{ font-size:.62rem; font-weight:800; padding:2px 7px; border-radius:20px; background:var(--nf-info-bg); color:var(--nf-info); white-space:nowrap; }
+.nf-mb.ok{ background:var(--nf-ok-bg); color:var(--nf-ok); } .nf-mb.warn{ background:var(--nf-warn-bg); color:var(--nf-warn); } .nf-mb.bad{ background:var(--nf-bad-bg); color:var(--nf-bad); }
+.nf-count{ font-size:.74rem; color:var(--text-muted); font-weight:700; margin:14px 4px 0; }
+.nf-more{ grid-column:1/-1; font-size:.76rem; color:var(--text-muted); text-align:center; }
+
+/* secciones desplegables */
+details.nf-sec{ padding:0; margin-top:12px; }
+details.nf-sec > summary{ display:flex; align-items:center; gap:10px; padding:14px 18px; cursor:pointer; list-style:none; font-weight:800; font-size:.92rem; user-select:none; }
+details.nf-sec > summary::-webkit-details-marker{ display:none; }
+details.nf-sec > summary::after{ content:"›"; margin-left:auto; font-size:1.3rem; line-height:1; color:var(--text-muted); transition:transform .25s; }
+details.nf-sec[open] > summary::after{ transform:rotate(90deg); }
+details.nf-sec > .nf-sb{ padding:2px 18px 16px; }
+div.nf-sec{ padding:16px 18px; }
+.nf-sds{ display:inline-flex; gap:8px; margin-left:4px; font-weight:600; font-size:.74rem; }
+.nf-sds small{ font-size:.66rem; color:var(--text-muted); margin-left:2px; }
+.nf-sub{ font-size:.7rem; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--text-muted); margin:12px 0 6px; }
+details.nf-mini{ margin-top:8px; } details.nf-mini > summary{ cursor:pointer; font-size:.76rem; font-weight:800; color:var(--text-muted); }
+.nf-ac{ display:inline-flex; align-items:center; gap:6px; font-size:.76rem; font-weight:800; padding:5px 11px; border-radius:20px; background:var(--nf-bad-bg); color:var(--nf-bad); margin:0 6px 6px 0; border:1px solid color-mix(in srgb,var(--nf-bad) 40%,transparent); }
+.nf-ac.warning{ background:var(--nf-warn-bg); color:var(--nf-warn); border-color:color-mix(in srgb,var(--nf-warn) 40%,transparent); }
+.nf-alerts{ margin-top:14px; }
+.nf-dh{ padding:18px 20px; border-radius:20px; }
+.nf-dh h1{ font-size:1.5rem; }
+.nf-dh .sub{ margin-bottom:10px; }
+.nf-hero .big{ font-size:1.25rem; }
+.nf-dh .nf-aval{ background:rgba(255,255,255,.14); color:#fff; border-color:rgba(255,255,255,.32); }
+.nf-aside:not(.open){ visibility:hidden; box-shadow:none; transition:transform .35s cubic-bezier(.4,0,.2,1), visibility 0s .35s; }
+body.nf-guardia details.nf-sec > summary{ font-size:1.1rem; }
+body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
+</style>
+</head>
+
+<body>
+<!-- ============================ BARRA SUPERIOR ============================ -->
+<header class="nf-top">
+  <a class="nf-back" href="campus.html" title="Volver al Campus">← Campus</a>
+  <div class="nf-brand">💊 NikaFarma <small>Vademécum &amp; decisión clínica</small></div>
+  <div class="nf-switches">
+    <button class="nf-panic" id="btnGuardia" aria-pressed="false" title="Solo dosis, preparación IV, velocidad de infusión y alertas críticas">🚨 Guardia</button>
+    <label class="nf-sw" title="Embarazo: solo fármacos categoría A/B"><input type="checkbox" id="swPreg" aria-label="Filtro embarazo"><span>🤰</span></label>
+    <label class="nf-sw" title="Lactancia: solo fármacos compatibles"><input type="checkbox" id="swLact" aria-label="Filtro lactancia"><span>🍼</span></label>
+    <label class="nf-sw" title="Modo Estudio (high-yield)"><input type="checkbox" id="swStudy" aria-label="Modo estudio"><span>🎓</span></label>
+    <button class="nf-ibtn" id="btnTools" title="Calculadora, combinación de fármacos y scores">🧮 <b id="toolsBadge"></b></button>
+    <button class="nf-ibtn" id="btnTheme" title="Claro / oscuro" aria-label="Cambiar tema">🌙</button>
+  </div>
+</header>
+
+<!-- ============================ BUSCADOR ============================ -->
+<section class="nf-search">
+  <div class="nf-sbox">
+    <span class="nf-ico">🔎</span>
+    <input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="Buscar fármaco, bicho o síndrome…  (ceftriaxona · Acinetobacter · meningitis)" aria-label="Buscar">
+    <button class="nf-clear" id="qClear" aria-label="Borrar búsqueda">✕</button>
+  </div>
+  <div class="nf-chips" id="domainChips"></div>
+</section>
+
+<div class="nf-layout">
+  <main id="nfMain" aria-live="polite"><div class="nf-skel"></div><div class="nf-skel"></div><div class="nf-skel"></div></main>
+
+  <!-- ============================ PANEL LATERAL ============================ -->
+  <aside class="nf-aside" id="nfAside" aria-label="Herramientas clínicas">
+    <div class="nf-ah"><b>🧮 Herramientas</b><button class="nf-ibtn" id="nfAsideX" aria-label="Cerrar">✕</button></div>
+    <details class="nf-panel" open>
+      <summary>🧮 Calculadora farmacocinética</summary>
+      <div class="nf-body">
+        <div class="nf-f">
+          <div><label for="pSex">Sexo</label><select id="pSex"><option value="M">Masculino</option><option value="F">Femenino</option></select></div>
+          <div><label for="pAge">Edad (años)</label><input id="pAge" type="number" min="1" max="120" inputmode="numeric"></div>
+          <div><label for="pW">Peso (kg)</label><input id="pW" type="number" min="1" max="400" step="0.1" inputmode="decimal"></div>
+          <div><label for="pH">Altura (cm)</label><input id="pH" type="number" min="50" max="250" inputmode="numeric"></div>
+          <div><label for="pCr">Creatinina (mg/dL)</label><input id="pCr" type="number" min="0.1" max="20" step="0.01" inputmode="decimal"></div>
+          <div><label for="pMode">Peso para Cockcroft-Gault</label>
+            <select id="pMode"><option value="auto">Auto (real / ajustado si obeso)</option><option value="real">Real</option><option value="ideal">Ideal</option><option value="adj">Ajustado</option></select></div>
+          <label class="nf-chk full"><input type="checkbox" id="pHD"> Paciente en hemodiálisis</label>
+        </div>
+        <div class="nf-out" id="calcOut"></div>
+        <div class="nf-disc">Los datos del paciente NO se guardan: viven solo en esta pestaña.</div>
+      </div>
+    </details>
+
+    <details class="nf-panel" open>
+      <summary>⚠️ Combinación y alertas</summary>
+      <div class="nf-body" id="trayBox"></div>
+    </details>
+
+    <details class="nf-panel">
+      <summary>📊 Scores de gravedad</summary>
+      <div class="nf-body" id="scoresBox"></div>
+    </details>
+  </aside>
+</div>
+
+
+<div class="nf-modal" id="nfModal" role="dialog" aria-modal="true" aria-label="Exportar a historia clínica">
+  <div class="nf-mbox">
+    <h3 style="font-weight:800">📋 Exportar a Historia Clínica</h3>
+    <p style="font-size:.8rem;color:var(--text-muted)">Revisá y editá antes de pegar en la HCE. Es un apoyo: la indicación final es tuya.</p>
+    <textarea id="hceText" spellcheck="false"></textarea>
+    <div class="nf-row" style="justify-content:flex-end">
+      <button class="nf-btn" data-act="close-modal">Cerrar</button>
+      <button class="nf-btn pri" data-act="copy-hce">Copiar al portapapeles</button>
+    </div>
+  </div>
+</div>
+<div id="nfToast" role="status"></div>
+
+<script>
+/* =====================================================================
+   NIKAFARMA · Vanilla JS (sin frameworks)
+   Secciones:
+     1. Utilidades          2. Estado y carga de datos
+     3. Motor clínico       (calculadora, banda renal, peso de dosificación)
+     4. Simulador           (QT, antagonismo, duplicidad, vía en Y)
+     5. Búsqueda inversa    6. Render (lista / fármaco / ficha)
+     7. Exportador HCE      8. Eventos y arranque
+   ===================================================================== */
+'use strict';
+
+/* ---------------------------- 1. UTILIDADES ---------------------------- */
+const DATA_URLS = ['/data/nikafarma_api.json', 'data/nikafarma_api.json'];
+const $  = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+const norm = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const esc  = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const plain = t => String(t || '').replace(/\[([^\]]*)\]\(https?:[^\s)]+(?:\([^\s)]*\))?[^\s)]*\)/g, '$1')
+  .replace(/[*_`]+/g, '').replace(/^\s*>+\s?/gm, '').replace(/[ \t]+/g, ' ').trim();
+const num = v => { const n = parseFloat(v); return Number.isFinite(n) ? n : NaN; };
+const fmt = (n, d = 0) => Number.isFinite(n) ? n.toFixed(d) : '—';
+const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+
+/* Markdown mínimo y SEGURO (escapa todo antes de formatear) */
+function inl(s) {
+  return esc(s)
+    .replace(/\[([^\]]*)\]\((https?:\/\/(?:[^\s()]|\([^\s()]*\))+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[\s(¿¡])_([^_]+)_(?=[\s.,;:)?!]|$)/g, '$1<em>$2</em>');
+}
+function md(t) {
+  if (!t) return '';
+  const out = []; let list = false;
+  for (const raw of String(t).replace(/\r/g, '').split('\n')) {
+    const line = raw.trimEnd();
+    if (/^\s*```/.test(line) || /^\s*_{3,}\s*$/.test(line)) continue;
+    const li = line.match(/^\s*(?:[-•*]|\d+[.)])\s+(.*)$/);
+    if (li) { if (!list) { out.push('<ul>'); list = true; } out.push('<li>' + inl(li[1]) + '</li>'); continue; }
+    if (list) { out.push('</ul>'); list = false; }
+    if (!line.trim()) continue;
+    const q = line.match(/^\s*>+\s?(.*)$/);
+    out.push(q ? '<p class="nf-note">' + inl(q[1]) + '</p>' : '<p>' + inl(line) + '</p>');
+  }
+  if (list) out.push('</ul>');
+  return out.join('');
+}
+function toast(msg) {
+  const el = $('#nfToast'); el.textContent = msg; el.classList.add('on');
+  clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('on'), 2400);
+}
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); }
+  catch (e) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+  toast('✅ Copiado al portapapeles');
+}
+
+/* ------------------------ 2. ESTADO Y CARGA ------------------------ */
+const S = {
+  data: null, ref: null, drugs: new Map(), entries: new Map(), cards: new Map(),
+  q: '', domain: 'all', resist: null, limit: 40,
+  f: { guardia: false, preg: false, lact: false, study: false },
+  pt: { sex: 'M', age: '', weight: '', height: '', cr: '', hd: false, mode: 'auto' },
+  calc: null, combo: [], indSel: {}, score: {}
+};
+
+async function loadData() {
+  let lastErr;
+  for (const url of DATA_URLS) {
+    try {
+      const r = await fetch(url, { cache: 'no-cache' });
+      if (!r.ok) throw new Error(url + ' → HTTP ' + r.status);
+      return await r.json();
+    } catch (e) { lastErr = e; }
+  }
+  throw lastErr;
+}
+function indexData(d) {
+  S.data = d; S.ref = d.reference;
+  const tl = t => (S.ref.tag_defs[t] ? S.ref.tag_defs[t].label : t);
+  d.drugs.forEach(x => { x._s = norm(x.search + ' ' + x.tags.map(tl).join(' ') + ' ' + x.class.kind); S.drugs.set(x.id, x); });
+  d.entries.forEach(x => { S.entries.set(x.id, x); x.cards.forEach(c => S.cards.set(c.id, c)); });
+}
+
+/* ------------------------ 3. MOTOR CLÍNICO ------------------------ */
+/* Cockcroft-Gault, IMC, peso ideal (Devine), peso ajustado (C = 0,4) */
+function computeCalc() {
+  const p = S.pt, age = num(p.age), w = num(p.weight), h = num(p.height), cr = num(p.cr);
+  const o = { ok: false };
+  if (w > 0 && h > 0) {
+    o.bmi = w / Math.pow(h / 100, 2);
+    const inch = h / 2.54, base = p.sex === 'M' ? 50 : 45.5;
+    o.ibw = base + 2.3 * Math.max(0, inch - 60);
+    o.adj = o.ibw + 0.4 * (w - o.ibw);
+    o.pct = w / o.ibw * 100;
+    o.obese = o.bmi >= 30 || o.pct > 120;
+  }
+  if (age > 0 && w > 0 && cr > 0) {
+    let kg = w, lab = 'real';
+    if (p.mode === 'ideal' && o.ibw) { kg = o.ibw; lab = 'ideal'; }
+    else if (p.mode === 'adj' && o.adj) { kg = o.adj; lab = 'ajustado'; }
+    else if (p.mode === 'auto' && o.obese) { kg = o.adj; lab = 'ajustado'; }
+    o.cgKg = kg; o.cgLab = lab;
+    o.clcr = ((140 - age) * kg) / (72 * cr) * (p.sex === 'F' ? 0.85 : 1);
+    o.ok = true;
+  }
+  return o;
+}
+/* Peso con el que se dosifica un fármaco según su regla de obesidad */
+function doseWeight(d) {
+  const w = num(S.pt.weight); if (!(w > 0)) return null;
+  const c = S.calc;
+  if (!c || !c.obese || !d.obesity) return { kg: w, label: 'peso real' };
+  const r = d.obesity.rule, cf = d.obesity.c_factor ?? 0.4, adj = c.ibw + cf * (w - c.ibw);
+  if (r === 'ideal') return { kg: c.ibw, label: 'peso ideal' };
+  if (r === 'ajustado') return { kg: adj, label: 'peso ajustado' };
+  if (r === 'ideal_o_ajustado') return { kg: adj, label: 'peso ajustado (ideal o ajustado)' };
+  return { kg: w, label: 'peso real' + (r === 'total_o_ajustado' ? ' (total o ajustado)' : '') };
+}
+/* Selección de banda renal: mayor fg_min <= ClCr (fg_min excluyente si '>') */
+function pickBand(bands, clcr, hd) {
+  if (hd) { const b = bands.find(x => x.kind === 'hd'); if (b) return { band: b, why: 'Hemodiálisis' }; }
+  if (!Number.isFinite(clcr)) return null;
+  const rng = bands.filter(x => x.kind === 'range' && x.fg_min != null).sort((a, b) => b.fg_min - a.fg_min);
+  for (const b of rng) if (b.min_exclusive ? clcr > b.fg_min : clcr >= b.fg_min) return { band: b, why: 'ClCr ' + fmt(clcr) + ' mL/min' };
+  return rng.length ? { band: rng[rng.length - 1], why: 'ClCr ' + fmt(clcr) + ' mL/min' } : null;
+}
+function perKgText(band, dw) {
+  const d = band.dose; if (!d || !d.per_kg || !dw || d.unit !== 'mg' || d.amount_min == null) return '';
+  const a = d.amount_min * dw.kg, b = d.amount_max * dw.kg, r = x => Math.round(x);
+  const day = /\/kg\s*\/\s*(d[ií]a|d\b|24)/i.test(band.text) ? ' por día' : ' por dosis';
+  return '≈ ' + (r(a) === r(b) ? r(a) : r(a) + '–' + r(b)) + ' mg' + day + ' (' + dw.label + ' ' + fmt(dw.kg) + ' kg)';
+}
+
+/* ------------------------ 4. SIMULADOR DE COMBINACIONES ------------------------ */
+function analyzeCombo() {
+  const ids = S.combo, ref = S.ref, out = [];
+  const get = id => S.drugs.get(id);
+  const inSet = (arr) => ids.filter(i => arr.includes(i));
+  const nm = arr => arr.map(i => get(i)?.name || i).join(' + ');
+  // QT / Torsades
+  const qtA = new Set([...(ref.qt.from_monograph || []), ...(ref.qt.known_risk || [])]);
+  const qtHigh = ids.filter(i => qtA.has(i)), qtPos = ids.filter(i => (ref.qt.possible_risk || []).includes(i) && !qtA.has(i));
+  if (qtHigh.length >= 2) out.push({ sev: 'critical', t: '🫀 Riesgo de Torsades de pointes (QT prolongado)', m: nm(qtHigh) + '. ' + ref.qt.alert });
+  else if (qtHigh.length + qtPos.length >= 2) out.push({ sev: 'warning', t: '🫀 Posible suma de riesgo QT', m: nm([...qtHigh, ...qtPos]) + '. ' + ref.qt.alert });
+  // Antagonismo bacteriostático vs bactericida tiempo-dependiente
+  const bs = inSet(ref.antagonism.bacteriostatic), bc = inSet(ref.antagonism.bactericidal_time_dependent);
+  if (bs.length && bc.length) out.push({ sev: 'warning', t: '⚔️ Posible antagonismo (bacteriostático + bactericida)', m: nm(bc) + ' con ' + nm(bs) + '. ' + ref.antagonism.message + ' Ojo: β-lactámico + macrólido en NAC es un esquema aceptado.' });
+  // Duplicidad de clase
+  const byClass = {};
+  ids.forEach(i => { const g = get(i)?.class.class_group; if (g) (byClass[g] = byClass[g] || []).push(i); });
+  Object.entries(byClass).forEach(([g, arr]) => { if (arr.length >= 2) out.push({ sev: 'warning', t: '♊ Duplicidad de clase (' + g.replace(/_/g, ' ') + ')', m: nm(arr) + '. ' + ref.duplication.same_class_group_message + ' Verificá que sea intencional (p. ej. ampicilina + ceftriaxona en Listeria).' }); });
+  const an = inSet(ref.duplication.double_anaerobic); if (an.length >= 2) out.push({ sev: 'warning', t: '🦠 Duplicidad de cobertura anaerobia', m: nm(an) });
+  const ps = inSet(ref.duplication.double_antipseudomonal_betalactam); if (ps.length >= 2) out.push({ sev: 'warning', t: '🦠 Doble β-lactámico antipseudomónico', m: nm(ps) });
+  // Nefrotoxicidad acumulada
+  const nef = ids.filter(i => get(i)?.tags.includes('nefrotoxico')); if (nef.length >= 2) out.push({ sev: 'warning', t: '🫘 Nefrotoxicidad acumulada', m: nm(nef) + '. Controlá creatinina basal y a las 72 hs.' });
+  // Vía en Y
+  const has = f => ids.some(i => f(get(i), i));
+  ref.y_site.critical_rules.forEach(r => {
+    let hit = false;
+    if (r.drug === 'aminoglucosidos') hit = has(d => d?.class.class_group === 'aminoglucosido') && has(d => d?.class.class_group === 'betalactamico');
+    else if (r.drug === 'vancomicina') hit = ids.includes('vancomicina') && ids.some(i => /ceftazidima|cefepime|ceftriaxona/.test(i));
+    else hit = ids.includes(r.drug);
+    if (hit) out.push({ sev: r.severity === 'critical' ? 'critical' : 'warning', t: '🔀 Compatibilidad en Y · ' + r.drug, m: 'Evitar con: ' + r.avoid_with.join(', ') + '. ' + r.note });
+  });
+  ids.forEach(i => { const y = get(i)?.administration.y_site; if (y && y.has_alert && y.statements.length) out.push({ sev: 'warning', t: '🔀 Y-site · ' + get(i).name + ' (monografía)', m: y.statements.join(' ') }); });
+  if (ids.length >= 2 && !out.length) out.push({ sev: 'info', t: '✅ Sin alertas con las reglas cargadas', m: 'No reemplaza la revisión de interacciones completa (tabla de compatibilidad y farmacia hospitalaria).' });
+  return out.sort((a, b) => ({ critical: 0, warning: 1, info: 2 }[a.sev] - { critical: 0, warning: 1, info: 2 }[b.sev]));
+}
+
+/* ------------------------ 5. BÚSQUEDA INVERSA ------------------------ */
+function riskDrug(id) { const d = S.drugs.get(id); return !!d && d.safety.pregnancy.bucket === 'riesgo'; }
+function passFilters(type, o) {
+  if (type === 'e' && o.duplicate_of) return false;
+  if (S.domain !== 'all' && o.domain !== S.domain) return false;
+  if (type === 'd') {
+    if (S.f.preg && o.safety.pregnancy.bucket !== 'seguro') return false;
+    if (S.f.lact && o.safety.lactation.bucket !== 'compatible') return false;
+  } else if (S.f.preg && o.regimen) {
+    const el = o.regimen.filter(r => r.role === 'eleccion');
+    if (el.length && el.every(r => riskDrug(r.drug))) return false;
+  }
+  if (S.resist && S.domain === 'microorganismo' && !(o.tags || []).includes(S.resist)) return false;
+  return true;
+}
+function detectOrganisms(nq) {
+  if (nq.length < 4) return [];
+  const labels = S.data.indexes.organism_labels, out = [];
+  for (const [k, lab] of Object.entries(labels)) {
+    const nl = norm(lab), first = nl.split(/[\s(]/)[0];
+    if (nl.includes(nq) || (first.length >= 5 && (nq.includes(first) || first.startsWith(nq)))) out.push(k);
+  }
+  return out;
+}
+function runSearch() {
+  const nq = norm(S.q).trim(), toks = nq.split(/\s+/).filter(Boolean), map = new Map();
+  const put = (type, o, sc) => { const k = type + o.id; if (!map.has(k) || map.get(k).sc < sc) map.set(k, { type, o, sc }); };
+  const all = (s) => toks.every(t => s.includes(t));
+  if (nq) {
+    S.data.drugs.forEach(d => { const n = norm(d.name); if (n.startsWith(nq)) put('d', d, 100); else if (n.includes(nq)) put('d', d, 70); else if (all(d._s)) put('d', d, 30); });
+    S.data.entries.forEach(e => { if (all(e.search)) put('e', e, norm(e.title).includes(nq) ? 55 : 25); });
+    const al = S.data.indexes.syndrome_aliases;
+    Object.entries(al).forEach(([term, spec]) => { if (nq.length >= 3 && (nq.includes(term) || term.startsWith(nq))) spec.entries.forEach(id => { const e = S.entries.get(id); if (e) put('e', e, 48); }); });
+  } else {
+    S.data.drugs.forEach(d => put('d', d, 10));
+    S.data.entries.forEach(e => put('e', e, 5));
+  }
+  const items = [...map.values()].filter(x => passFilters(x.type, x.o))
+    .sort((a, b) => b.sc - a.sc || norm(a.o.name || plain(a.o.title)).localeCompare(norm(b.o.name || plain(b.o.title))));
+  return { items, orgs: nq ? detectOrganisms(nq) : [] };
+}
+
+/* ------------------------ 6. RENDER ------------------------ */
+const SEM = { S: '🟢', I: '🟡', R: '🔴', V: '⚪', N: '⚪' };
+const SEM_TXT = { S: 'Sensible', I: 'Intermedio / variable', R: 'Resistente', V: 'Mencionado: ver texto', N: 'Sin veredicto' };
+const T = o => plain(o.title);
+const tagDef = t => S.ref.tag_defs[t] || { label: t, severity: 'info' };
+const tagChip = t => { const d = tagDef(t); return `<span class="nf-tag ${d.severity}" title="${esc(d.help || '')}">${esc(d.label)}</span>`; };
+function avalBadge(a, big) {
+  const cls = { verificado: 'ok', parcial: 'warn', sin_fuente: 'bad' }[a.level] || 'warn';
+  return `<span class="nf-aval ${cls} ${big ? 'big' : ''}" title="${esc(a.revision || 'Sin revisión registrada')}">🛡️ ${esc(a.badge_label)}</span>`;
+}
+function pregChip(d) {
+  const p = d.safety.pregnancy, c = p.category;
+  if (p.bucket === 'sin_dato') return '<span class="nf-tag warning" title="Sin dato de embarazo">Emb.: s/d</span>';
+  return `<span class="nf-tag ${p.bucket === 'seguro' ? 'ok' : 'critical'}" title="Categoría de embarazo">Emb. ${esc(c || (p.bucket === 'riesgo' ? 'riesgo' : ''))}</span>`;
+}
+function guardiaAlerts(d) {
+  const a = [];
+  (d.guardia.alerts || []).forEach(t => a.push({ sev: 'critical', t: tagDef(t).label }));
+  const c = d.safety.pregnancy.category; if (c === 'D' || c === 'X') a.push({ sev: 'critical', t: 'Embarazo categoría ' + c });
+  if (d.administration.rapid_infusion_risk) a.push({ sev: 'warning', t: 'Infundir lento: evitar bolo / infusión rápida' });
+  return a;
+}
+const setMain = html => { const m = $('#nfMain'); m.innerHTML = html; };
+
+/* ----- Helpers de agrupación / secciones desplegables ----- */
+const CLASS_LABEL = { betalactamico: 'β-lactámicos', aminoglucosido: 'Aminoglucósidos', quinolona: 'Quinolonas', macrolido: 'Macrólidos', glucopeptido: 'Glucopéptidos',
+  tetraciclina: 'Tetraciclinas', azol: 'Azoles', equinocandina: 'Equinocandinas', polieno: 'Polienos', lincosamida: 'Lincosamidas', rifamicina: 'Rifamicinas',
+  oxazolidinona: 'Oxazolidinonas', nitroimidazol: 'Nitroimidazoles', polimixina: 'Polimixinas', lipopeptido: 'Lipopéptidos', analogo_nucleosido: 'Antivirales (análogos)',
+  sulfonamida: 'Sulfonamidas', antituberculoso: 'Antituberculosos', benzimidazol: 'Antiparasitarios (benzimidazoles)', antipaludico: 'Antipalúdicos', inhibidor_proteasa: 'Antirretrovirales' };
+const classLabel = g => CLASS_LABEL[g] || (g ? g.charAt(0).toUpperCase() + g.slice(1).replace(/[_-]+/g, ' ') : 'Otros');
+const KINGDOM = { Bacteria: 'Bacterias', Virus: 'Virus', Hongo: 'Hongos', 'Parásito': 'Parásitos', Micobacteria: 'Micobacterias' };
+const domInfo = id => S.data.meta.domains.find(d => d.id === id) || { icon: '📄', label: '' };
+const sec = (title, body, o = {}) => `<details class="nf-sec ${o.cls || ''}" ${o.open ? 'open' : ''}><summary>${title}</summary><div class="nf-sb">${body}</div></details>`;
+const grp = (title, n, body, open) => `<details class="nf-grp" ${open ? 'open' : ''}><summary><span>${title}</span><em>${n}</em></summary><div class="nf-mos">${body}</div></details>`;
+const kvl = rows => `<dl class="nf-kv">${rows.map(r => `<dt>${esc(r[0])}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>`;
+function shortAval(a) { return a.level === 'sin_fuente' ? '⚠︎ s/fuente' : a.badge.replace('AntibioticApp', 'App') + (a.year ? '·' + String(a.year).slice(2) : ''); }
+const SPEC_SHORT = { gram_pos: 'G+', gram_neg: 'G−', anaerobios: 'Anaer.', hongos: 'Hongos', virus: 'Virus', parasitos: 'Parás.', otros: 'Otros' };
+const specDots = d => d.spectrum.sections.filter(s => s.level).map(s => `<span title="${esc(s.label + ': ' + SEM_TXT[s.level])}">${SEM[s.level]}<small>${SPEC_SHORT[s.key] || ''}</small></span>`).join('');
+
+/* ----- Lista / inicio (mosaicos agrupados y desplegables) ----- */
+function tileHtml({ type, o }, i) {
+  const cls = { verificado: 'ok', parcial: 'warn', sin_fuente: 'bad' }[o.aval.level] || 'warn';
+  const mb = `<span class="nf-mb ${cls}" title="${esc(o.aval.badge_label)}">${esc(shortAval(o.aval))}</span>`;
+  const st = `style="animation-delay:${Math.min(i, 14) * 18}ms"`;
+  if (type === 'd') return `<button class="nf-mt" ${st} data-act="open-drug" data-id="${o.id}"><span class="n">${esc(o.name)}</span><span class="m">${mb}</span></button>`;
+  const risky = (o.regimen || []).some(r => r.role === 'eleccion' && riskDrug(r.drug));
+  const pv = (o.guardia && o.guardia.empiric) ? plain(o.guardia.empiric).replace(/\n+/g, ' · ').slice(0, 260) : '';
+  return `<button class="nf-mt" ${st} data-act="open-entry" data-id="${o.id}"><span class="n">${esc(T(o))}</span><span class="m">${mb}${risky ? '<span class="nf-mb bad" title="Fármaco de elección con riesgo en embarazo">🤰</span>' : ''}</span>${pv ? `<span class="pv">${esc(pv)}</span>` : ''}</button>`;
+}
+function renderList() {
+  const { items, orgs } = runSearch(), nq = norm(S.q).trim();
+  let h = '';
+  if (!nq && S.domain === 'all') {
+    h += `<div class="nf-home">` + S.data.meta.domains.map((d, i) => `<button class="nf-dt" style="animation-delay:${i * 30}ms" data-act="domain" data-d="${d.id}"><span class="ic">${d.icon}</span><span class="tl">${esc(d.label)}</span><b>${d.count}</b></button>`).join('') + '</div>';
+    const al = S.data.indexes.syndrome_aliases, quick = ['meningitis', 'neumonia', 'itu', 'sepsis', 'celulitis', 'endocarditis', 'neutropenia febril', 'dengue'].filter(k => al[k]);
+    h += `<div class="nf-chips" style="margin-top:16px">` + quick.map(k => `<button class="nf-pill" data-act="quick" data-q="${esc(k)}">${esc(k)}</button>`).join('') + '</div>';
+    setMain(h); return;
+  }
+  if (S.domain === 'microorganismo') h += `<div class="nf-chips" style="margin:0 0 6px">` + ['blee', 'ampc', 'kpc', 'sarm', 'vre', 'mdr'].map(t => `<button class="nf-pill ${S.resist === t ? 'on' : ''}" data-act="resist" data-t="${t}">${esc(tagDef(t).label)}</button>`).join('') + '</div>';
+  if (orgs.length) h += organismPanel(orgs);
+  const groups = new Map();
+  items.forEach(x => {
+    let k;
+    if (nq && S.domain === 'all') k = x.type === 'd' ? '💊 Fármacos' : domInfo(x.o.domain).icon + ' ' + domInfo(x.o.domain).label;
+    else if (x.type === 'd') k = classLabel(x.o.class.class_group);
+    else if (x.o.domain === 'microorganismo') k = KINGDOM[x.o.pathogen.kingdom] || x.o.pathogen.kingdom;
+    else k = plain(x.o.group);
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(x);
+  });
+  const arr = [...groups.entries()]; if (!nq) arr.sort((a, b) => a[0].localeCompare(b[0], 'es'));
+  const openAll = arr.length <= 2 || (nq && items.length <= 24), LIM = 60;
+  h += `<div class="nf-count">${items.length} resultado${items.length === 1 ? '' : 's'}${S.f.preg ? ' · embarazo A/B' : ''}${S.f.lact ? ' · lactancia' : ''}</div>`;
+  h += arr.map(([k, v], i) => grp(esc(k), v.length, v.slice(0, LIM).map(tileHtml).join('') + (v.length > LIM ? `<div class="nf-more">+${v.length - LIM} más · afiná la búsqueda</div>` : ''), openAll || (nq && i < 2))).join('');
+  if (!items.length) h += '<div class="nf-sec">Sin resultados. Probá con otro término o quitá filtros.</div>';
+  setMain(h);
+}
+function organismPanel(orgs) {
+  const ix = S.data.indexes, lab = ix.organism_labels;
+  return orgs.slice(0, 2).map(k => {
+    const ds = ix.organism_to_drugs[k] || [], g = st => ds.filter(x => x.status === st);
+    const chips = arr => arr.map(x => `<button class="nf-chip" title="${esc(x.evidence || '')}" data-act="open-drug" data-id="${x.drug}">${SEM[x.status]} ${esc(x.name)}</button>`).join('');
+    const sub = (t, arr) => arr.length ? `<div class="nf-sub">${t}</div>${chips(arr)}` : '';
+    const subd = (t, arr) => arr.length ? `<details class="nf-mini"><summary>${t} (${arr.length})</summary>${chips(arr)}</details>` : '';
+    const ents = (ix.organism_to_entries[k] || []).map(id => S.entries.get(id)).filter(e => e && !e.duplicate_of && passFilters('e', e)).slice(0, 10);
+    const pats = (ix.organism_to_pathogen_cards[k] || []).map(id => S.entries.get(id)).filter(e => e && !e.duplicate_of);
+    const body = (pats.length ? pats.map(p => `<button class="nf-btn" data-act="open-entry" data-id="${p.id}">Ficha: ${esc(T(p))}</button>`).join(' ') : '') +
+      sub('🟢 Actividad descripta', g('S')) + sub('🟡 Variable / parcial', g('I')) + subd('⚪ Mencionado (ver texto)', g('V')) + subd('🔴 Descripto como resistente', g('R')) +
+      (ents.length ? `<div class="nf-sub">🩺 Esquemas que lo mencionan</div>` + ents.map(e => `<button class="nf-chip" data-act="open-entry" data-id="${e.id}">${esc(T(e))}</button>`).join('') : '') +
+      `<div class="nf-legend">Semáforo inferido del texto de cada monografía; el texto original prevalece. Pasá el mouse por un fármaco para ver la frase fuente.</div>`;
+    return sec('🦠 ' + esc(lab[k]) + ' <small style="font-weight:600;color:var(--text-muted)">· búsqueda inversa</small>', body, { open: true });
+  }).join('');
+}
+
+/* ----- Dosis (se re-renderiza al cambiar la calculadora) ----- */
+function doseHtml(d) {
+  const idx = S.indSel[d.id] || 0, ind = d.indications[idx];
+  const c = S.calc, dw = doseWeight(d);
+  const pk = pickBand(ind.bands, c && c.ok ? c.clcr : NaN, S.pt.hd);
+  let h = '';
+  if (d.indications.length > 1) h += `<div class="nf-tabs">` + d.indications.map((x, i) => `<button class="nf-pill ${i === idx ? 'on' : ''}" data-act="ind" data-id="${d.id}" data-i="${i}">${esc(x.title)}</button>`).join('') + '</div>';
+  if (!ind.bands.length) return h + '<p>Sin dosis cargadas para esta indicación.</p>';
+  const rowsHtml = () => ind.bands.map(b => {
+    const cls = pk ? (b === pk.band ? 'match' : 'off') : '';
+    const ex = pk && b === pk.band ? perKgText(b, dw) : '';
+    return `<div class="nf-band ${cls}"><div class="l">${esc(b.label)}</div><div class="v">${esc(b.text)}${ex ? `<span class="c">${esc(ex)}</span>` : ''}</div></div>`;
+  }).join('');
+  if (pk) {
+    const extra = perKgText(pk.band, dw);
+    h += `<div class="nf-hero"><div class="k">Para este paciente · ${esc(pk.why)}${ind.renal_adjustment ? ' · ' + esc(pk.band.label) : ''}</div><div class="big">${esc(pk.band.text)}</div>${extra ? `<div class="c">${esc(extra)}</div>` : ''}</div>`;
+    if (c.obese && d.obesity) h += `<div class="nf-note" style="margin-bottom:8px">⚖️ Peso ${fmt(c.pct)}% del ideal (IMC ${fmt(c.bmi, 1)}) · regla del fármaco: ${esc(d.obesity.rule.replace(/_/g, ' '))}.</div>`;
+    if (ind.bands.length > 1) h += `<details class="nf-mini"><summary>Ver todas las bandas${ind.renal_adjustment ? ' renales' : ''} (${ind.bands.length})</summary>${rowsHtml()}</details>`;
+  } else if (!ind.renal_adjustment) {
+    h += `<div class="nf-hero neutral"><div class="k">Dosis · sin ajuste renal en la fuente</div><div class="big">${esc(ind.bands[0].text)}</div></div>` +
+      (ind.bands.length > 1 ? `<details class="nf-mini"><summary>Ver bandas renales (${ind.bands.length})</summary>${rowsHtml()}</details>` : '');
+  } else {
+    h += `<div class="nf-note" style="margin-bottom:8px">Abrí 🧮 e ingresá edad, peso, altura y creatinina (o hemodiálisis) para resaltar la dosis exacta.</div>` + rowsHtml();
+  }
+  return h;
+}
+
+/* ----- Monitoreo de laboratorio ----- */
+function labItems(d) {
+  const ref = S.ref.lab_checklists, list = [], seen = new Set();
+  const add = t => { const k = norm(t).slice(0, 40); if (!seen.has(k)) { seen.add(k); list.push(t); } };
+  (d.monitoring.rules || []).forEach(r => add(r.text));
+  (ref.by_class_group[d.class.class_group] || []).forEach(add);
+  if (d.tags.includes('nefrotoxico')) ref.nephrotoxic_default.forEach(add);
+  (d.monitoring.from_text || []).forEach(r => add(r.text));
+  return list;
+}
+
+/* ----- Ficha de FÁRMACO (secciones desplegables) ----- */
+function renderDrug(id) {
+  const d = S.drugs.get(id); if (!d) return renderList();
+  S.calc = computeCalc();
+  const ad = d.administration, ph = d.pharmacology, al = guardiaAlerts(d), inCombo = S.combo.includes(d.id);
+  const shown = d.tags.filter(t => !/^cat_|^embarazo/.test(t)), rest = shown.slice(3);
+  let h = `<article class="nf-detail"><div class="nf-dh">
+     <button class="nf-btn" data-act="back" style="margin-bottom:10px">← Volver</button>
+     <h1>${esc(d.name)}</h1><div class="sub">${esc(d.class.kind)} · ${esc(d.class.class)}</div>
+     <div class="nf-row">${avalBadge(d.aval, true)}${pregChip(d)}${shown.slice(0, 3).map(tagChip).join('')}${rest.length ? `<span class="nf-tag" title="${esc(rest.map(t => tagDef(t).label).join(', '))}">+${rest.length}</span>` : ''}</div>
+     <div class="nf-actions"><button class="nf-btn pri" data-act="add-combo" data-id="${d.id}">${inCombo ? '✔ En combinación' : '＋ Combinar'}</button>
+       <button class="nf-btn" data-act="hce-drug" data-id="${d.id}">📋 HCE</button></div></div>`;
+  if (d.data_quality) h += `<div class="nf-alert warning" style="margin-top:12px">🛠️ ${esc(d.data_quality[0].message)}</div>`;
+  if (al.length) h += `<div class="nf-alerts">${al.map(a => `<span class="nf-ac ${a.sev === 'warning' ? 'warning' : ''}">⚠️ ${esc(a.t)}</span>`).join('')}</div>`;
+  h += sec('💉 Dosis', `<div id="dosePanel">${doseHtml(d)}</div>`, { open: true });
+  const rows = [];
+  if (ad.reconstitution) rows.push(['Reconstitución', ad.reconstitution]);
+  if (ad.dilution) rows.push(['Dilución', ad.dilution]);
+  if (ad.concentration && (ad.concentration.recommended || ad.concentration.max)) rows.push(['Concentración', [ad.concentration.recommended && 'Recomendada: ' + ad.concentration.recommended, ad.concentration.max && 'Máxima: ' + ad.concentration.max].filter(Boolean).join('\n')]);
+  Object.entries(ad.routes || {}).forEach(([k, v]) => rows.push(['Vía · ' + k.replace(/_/g, ' '), v]));
+  if (ad.infusion_minutes) rows.push(['⏱ Infusión', ad.infusion_minutes.min === ad.infusion_minutes.max ? ad.infusion_minutes.min + ' min' : ad.infusion_minutes.min + '–' + ad.infusion_minutes.max + ' min']);
+  if (ad.stability && (ad.stability.reconstituted || ad.stability.diluted)) rows.push(['Estabilidad', [ad.stability.reconstituted && 'Reconstituido: ' + ad.stability.reconstituted, ad.stability.diluted && 'Diluido: ' + ad.stability.diluted].filter(Boolean).join('\n')]);
+  if (ad.observations) rows.push(['Observaciones', ad.observations]);
+  if (rows.length) h += sec('🧪 Preparación IV', kvl(rows), { open: true });
+  const yr = S.ref.y_site.critical_rules.filter(r => r.drug === d.id || (r.drug === 'aminoglucosidos' && d.class.class_group === 'aminoglucosido'));
+  const yHas = ad.y_site.statements.length || yr.length;
+  h += sec('🔀 Vía en «Y»' + (yHas ? ' <span class="nf-mb bad">alerta</span>' : ''), `<div class="nf-note">${esc(S.ref.y_site.definition)}</div>
+    ${ad.y_site.statements.map(x => `<div class="nf-alert warning">🔀 ${esc(x)}</div>`).join('')}
+    ${yr.map(r => `<div class="nf-alert ${r.severity === 'critical' ? 'critical' : 'warning'}">🔀 Evitar con: ${esc(r.avoid_with.join(', '))}. ${esc(r.note)}</div>`).join('')}
+    ${yHas ? '' : '<p style="font-size:.85rem;color:var(--text-muted)">Sin incompatibilidades registradas. Confirmá con la tabla de tu institución.</p>'}
+    <div class="nf-legend">${esc(S.ref.y_site.disclaimer)}</div>`, { open: !!yHas });
+  const li = labItems(d);
+  if (li.length) h += sec('🧫 Monitoreo de laboratorio', li.map(t => `<label class="nf-chk"><input type="checkbox"> ${esc(t)}</label>`).join(''));
+  h += sec('🎓 High-yield', `<ul>${d.study.high_yield.map(x => `<li>${esc(x)}</li>`).join('')}</ul>${d.resistance.length ? `<div class="nf-sub">Mecanismos de resistencia</div><ul>${d.resistance.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}<div class="nf-legend">Viñetas derivadas de la monografía.</div>`, { open: true, cls: 'nf-study nf-study-only' });
+  if (d.spectrum.sections.length) {
+    let b = `<div class="nf-spec">` + d.spectrum.sections.map(x => { const lv = x.level || 'N'; return `<div class="nf-spec-row"><div class="lab"><span class="nf-dot ${lv}" title="${SEM_TXT[lv]}"></span>${esc(x.label)}</div><div class="tx">${md(x.md)}</div></div>`; }).join('') + '</div>';
+    if (d.spectrum.organisms.length) b += `<div class="nf-sub">Por microorganismo (inferido)</div>` + d.spectrum.organisms.map(o => `<span class="nf-org" title="${esc(o.evidence || '')}">${SEM[o.status]} ${esc(o.name)}</span>`).join('');
+    b += `<div class="nf-legend">🟢 Sensible · 🟡 Intermedio/variable · 🔴 Resistente · ⚪ Sin veredicto. ${esc(d.spectrum.legend.note)}</div>`;
+    h += sec('🧬 Espectro <span class="nf-sds">' + specDots(d) + '</span>', b, { cls: 'nf-theory' });
+  }
+  const kv = [];
+  if (ph.mechanism) kv.push(['Mecanismo', ph.mechanism]);
+  if (ph.pd && (ph.pd.kill || ph.pd.pattern)) kv.push(['Farmacodinamia', [ph.pd.kill, ph.pd.pattern].filter(Boolean).map(x => x.replace(/_/g, ' ')).join(' · ')]);
+  Object.entries(ph.pk || {}).forEach(([k, v]) => kv.push([k.replace(/_/g, ' '), v]));
+  const sf = d.safety;
+  if (sf.adverse_effects) kv.push(['Efectos adversos', sf.adverse_effects]);
+  kv.push(['Embarazo', sf.pregnancy.text || 'Sin dato'], ['Lactancia', sf.lactation.text || 'Sin dato']);
+  if (sf.precautions) kv.push(['Precauciones', sf.precautions]);
+  if (sf.contraindications) kv.push(['Contraindicaciones', sf.contraindications]);
+  if (d.hepatic_adjustment) kv.push(['Insuf. hepática', d.hepatic_adjustment]);
+  if (d.obesity) kv.push(['Obesidad', d.obesity.text]);
+  if (d.critical_care_dose) kv.push(['Paciente crítico', d.critical_care_dose]);
+  h += sec('⚗️ Farmacología y seguridad', kvl(kv), { cls: 'nf-theory' });
+  const ip = [];
+  if (d.interactions.length) ip.push(`<div class="nf-sub">Interacciones descriptas</div><ul>${d.interactions.map(x => `<li>${esc(x.text)}</li>`).join('')}</ul>`);
+  if (d.presentations.length) ip.push(`<div class="nf-sub">Presentaciones en Argentina</div><ul>${d.presentations.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`);
+  if (ip.length) h += sec('📦 Interacciones y presentaciones', ip.join(''), { cls: 'nf-theory' });
+  const extra = d.indications[S.indSel[d.id] || 0].extra_cards;
+  if (extra.length) h += sec('📝 Notas de esta indicación', extra.map(c => `<details class="nf-acc"><summary>${esc(c.title)}</summary><div>${md(c.md)}</div></details>`).join(''), { cls: 'nf-theory' });
+  h += sec('📚 Aval y fuentes ' + avalBadge(d.aval), (d.aval.revision ? `<p><b>Revisión:</b> ${esc(d.aval.revision)}</p>` : '') + (d.aval.refs.length ? `<ul>${d.aval.refs.map(r => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.label)}</a></li>`).join('')}</ul>` : d.aval.notes.map(n => `<p>${esc(n)}</p>`).join('')), { cls: 'nf-theory' });
+  setMain(h + '</article>'); window.scrollTo({ top: 0 });
+}
+
+/* ----- Ficha de ENTRADA (síndrome, patógeno, vacuna, etc.) ----- */
+const ROLE_LABEL = { eleccion: '✅ Esquema de elección', alternativa: '🔁 Alternativa', duracion: '⏳ Duración', dosis_intraquirurgica: '💉 Dosis intraquirúrgica', recomendaciones: '📌 Recomendaciones', comentarios: '💬 Observaciones' };
+function renderEntry(id) {
+  const e = S.entries.get(id); if (!e) return renderList();
+  S.calc = computeCalc();
+  const dom = domInfo(e.domain), sch = e.scheme || {}, core = !e.scheme, inScheme = new Set(Object.values(sch));
+  const tags = (e.tags || []);
+  let h = `<article class="nf-detail"><div class="nf-dh">
+    <button class="nf-btn" data-act="back" style="margin-bottom:10px">← Volver</button>
+    <h1>${esc(T(e))}</h1><div class="sub">${dom.icon} ${esc(dom.label)} · ${esc(plain(e.group))}${e.subtitle ? ' · ' + esc(e.subtitle) : ''}</div>
+    <div class="nf-row">${avalBadge(e.aval, true)}${tags.slice(0, 3).map(tagChip).join('')}${tags.length > 3 ? `<span class="nf-tag" title="${esc(tags.slice(3).map(t => tagDef(t).label).join(', '))}">+${tags.length - 3}</span>` : ''}</div>
+    <div class="nf-actions"><button class="nf-btn pri" data-act="hce-entry" data-id="${e.id}">📋 HCE</button></div></div>`;
+  if (e.duplicate_of) h += `<div class="nf-alert info" style="margin-top:12px">ℹ️ Este módulo está duplicado en la base de datos.</div>`;
+  const al = e.guardia.alerts || [];
+  if (al.length) h += `<div class="nf-alerts">${al.map(a => `<span class="nf-ac">⚠️ ${esc(a)}</span>`).join('')}</div>`;
+  ['eleccion', 'alternativa', 'duracion', 'dosis_intraquirurgica', 'recomendaciones', 'comentarios'].filter(r => sch[r]).forEach(r => {
+    const c = S.cards.get(sch[r]); if (!c) return;
+    const big = r === 'eleccion' || r === 'dosis_intraquirurgica' || r === 'duracion';
+    h += sec(ROLE_LABEL[r], md(c.md), { open: big, cls: big ? '' : 'nf-theory' });
+  });
+  if (e.doses.length) h += sec('💉 Dosis', e.doses.map(x => { const dw = S.pt.weight > 0 ? { kg: num(S.pt.weight), label: 'peso real' } : null; const ex = perKgText({ dose: x.dose, text: x.text }, dw); return `<div class="nf-band"><div class="l">${esc(x.label)}</div><div class="v">${esc(x.text)}${ex ? `<span class="c">${esc(ex)}</span>` : ''}</div></div>`; }).join(''), { open: true });
+  if (e.regimen && e.regimen.length) {
+    h += sec('💊 Fármacos del esquema', `<div class="nf-legend" style="margin:0 0 8px">Tocá para ver dosis · ＋ para chequear combinación</div>` +
+      e.regimen.map(r => `<span class="nf-chip ${riskDrug(r.drug) ? 'risk' : ''}" data-act="open-drug" data-id="${r.drug}" title="${esc(r.role)}">${r.role === 'alternativa' ? '🔁' : '✅'} ${esc(r.name)}${riskDrug(r.drug) ? ' 🤰⚠️' : ''}<button class="plus" data-act="add-combo" data-id="${r.drug}" aria-label="Agregar a combinación">＋</button></span>`).join('') +
+      (e.regimen_qt_drugs ? `<div class="nf-alert warning" style="margin-top:10px">🫀 Incluye fármacos con riesgo de QT prolongado (${esc(e.regimen_qt_drugs.map(i => S.drugs.get(i)?.name || i).join(', '))}). No los asocies entre sí y controlá ECG/K/Mg.</div>` : ''), { open: true });
+  }
+  const sc = Object.values(S.ref.scores).filter(x => x && x.applies_to_groups && x.applies_to_groups.includes(e.group));
+  if (sc.length) h += sec('📊 Score de gravedad → internación', sc.map(x => `<div data-score="${x.id}">${scoreHtml(x.id)}</div>`).join('') + `<div class="nf-legend">${esc(S.ref.scores.review_note)}</div>`, { open: true });
+  if (e.pathogen) {
+    const p = e.pathogen;
+    h += sec('🦠 Atlas · ' + esc(p.kingdom), `<div class="nf-row" style="margin-bottom:8px">${p.resistance_flags.map(tagChip).join('') || '<span class="nf-tag">Sin fenotipos de resistencia destacados</span>'}</div>
+      ${p.resistance_mechanisms_text ? `<div class="nf-sub">Mecanismos de resistencia</div><p>${esc(p.resistance_mechanisms_text)}</p>` : ''}
+      ${p.therapy_drugs.length ? `<div class="nf-sub">Fármacos en opciones terapéuticas</div>${p.therapy_drugs.map(t => `<button class="nf-chip" data-act="open-drug" data-id="${t.drug}">${esc(t.name)}</button>`).join('')}` : ''}`, { open: true });
+  }
+  if (e.study.high_yield.length) h += sec('🎓 High-yield', `<ul>${e.study.high_yield.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`, { open: true, cls: 'nf-study nf-study-only' });
+  const rest = e.cards.filter(c => !inScheme.has(c.id));
+  if (rest.length) {
+    if (core) h += rest.map((c, i) => sec(esc(c.title), md(c.md), { open: i === 0 })).join('');
+    else h += sec('📖 Información complementaria', rest.map(c => `<details class="nf-acc"><summary>${esc(c.title)}</summary><div>${md(c.md)}</div></details>`).join(''), { cls: 'nf-theory' });
+  }
+  h += sec('📚 Aval y fuentes ' + avalBadge(e.aval), (e.aval.revision ? `<p><b>Revisión:</b> ${esc(e.aval.revision)}</p>` : '') + (e.aval.refs.length ? `<ul>${e.aval.refs.map(r => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.label)}</a></li>`).join('')}</ul>` : e.aval.notes.map(n => `<p>${esc(n)}</p>`).join('')), { cls: 'nf-theory' });
+  setMain(h + '</article>'); window.scrollTo({ top: 0 });
+}
+
+/* ----- Scores ----- */
+function scoreHtml(id) {
+  const sc = S.ref.scores[id], st = S.score[id] || (S.score[id] = {});
+  const pts = sc.items.reduce((a, i) => a + (st[i.id] ? i.points : 0), 0);
+  const disp = sc.disposition.find(x => pts >= x.min && pts <= x.max);
+  const NM = { ambulatorio: '🟢 AMBULATORIO', sala: '🟡 INTERNACIÓN EN SALA', uti: '🔴 EVALUAR UTI' };
+  return `<div class="nf-score"><h4>${esc(sc.name)} <small>${esc(sc.context)}</small></h4>` +
+    sc.items.map(i => `<label class="nf-chk"><input type="checkbox" data-act="score" data-s="${id}" data-i="${i.id}" ${st[i.id] ? 'checked' : ''}> ${esc(i.label)}</label>`).join('') +
+    `<div class="nf-score-res lv-${disp ? disp.level : ''}"><b>${pts}</b> pts · ${disp ? NM[disp.level] + ' — ' + esc(disp.label) : ''}</div></div>`;
+}
+function renderScoresBox() {
+  $('#scoresBox').innerHTML = ['curb65', 'qsofa'].map(id => `<div data-score="${id}">${scoreHtml(id)}</div>`).join('') + `<div class="nf-legend">${esc(S.ref.scores.review_note)}</div>`;
+}
+
+/* ----- Panel lateral: calculadora y bandeja ----- */
+function renderCalcOut() {
+  const c = S.calc = computeCalc(), m = (k, v, cls = '') => `<div class="nf-m ${cls}"><span>${k}</span><b>${v}</b></div>`;
+  $('#calcOut').innerHTML = (c.ok ? m('Clearance (Cockcroft-Gault)', fmt(c.clcr, 0) + ' mL/min', 'hi') : '') +
+    m('IMC', c.bmi ? fmt(c.bmi, 1) + (c.obese ? ' ⚠️' : '') : '—') + m('Peso ideal', c.ibw ? fmt(c.ibw, 1) + ' kg' : '—') +
+    m('Peso ajustado', c.adj ? fmt(c.adj, 1) + ' kg' : '—') + m('Peso en CG', c.ok ? fmt(c.cgKg, 1) + ' kg (' + c.cgLab + ')' : '—') +
+    (!c.ok ? '<div class="nf-m hi" style="font-size:.8rem">Completá edad, peso, altura y creatinina para calcular el clearance.</div>' : '');
+}
+function renderTray() {
+  updateBadge();
+  const box = $('#trayBox');
+  if (!S.combo.length) { box.innerHTML = '<p style="font-size:.82rem;color:var(--text-muted)">Sumá fármacos con «＋ Combinar» (o el ＋ de cada esquema) para detectar QT/Torsades, antagonismo, duplicidad e incompatibilidad en Y.</p>'; return; }
+  const al = analyzeCombo();
+  box.innerHTML = `<div class="nf-tray">${S.combo.map(i => `<div class="nf-tray-i"><span>${esc(S.drugs.get(i)?.name || i)}</span><button data-act="rm-combo" data-id="${i}" aria-label="Quitar">✕</button></div>`).join('')}</div>` +
+    al.map(a => `<div class="nf-alert ${a.sev} ${a.sev === 'critical' ? 'pulse' : ''}"><div><b>${esc(a.t)}</b><br><span style="font-weight:500">${esc(a.m)}</span></div></div>`).join('') +
+    `<div class="nf-row" style="margin-top:8px"><button class="nf-btn" data-act="hce-combo">📋 Exportar combinación</button><button class="nf-btn" data-act="clear-combo">Vaciar</button></div>`;
+}
+function renderDomainChips() {
+  const box = $('#domainChips'), d = S.domain === 'all' ? null : domInfo(S.domain);
+  box.innerHTML = d ? `<button class="nf-pill on" data-act="domain" data-d="all" title="Quitar filtro de área">${d.icon} ${esc(d.label)} ✕</button>` : '';
+}
+function updateBadge() {
+  const c = S.calc || {}, bits = [];
+  if (c.ok) bits.push('ClCr ' + fmt(c.clcr));
+  if (S.combo.length) bits.push(S.combo.length + '💊');
+  $('#toolsBadge').textContent = bits.join(' · ');
+}
+
+/* ------------------------ 7. EXPORTADOR HCE ------------------------ */
+function patientLine() {
+  const p = S.pt, c = S.calc || computeCalc(), bits = [];
+  if (num(p.age) > 0) bits.push(p.age + ' años');
+  bits.push(p.sex === 'M' ? 'masculino' : 'femenino');
+  if (num(p.weight) > 0) bits.push(p.weight + ' kg');
+  if (num(p.height) > 0) bits.push(p.height + ' cm');
+  if (num(p.cr) > 0) bits.push('Cr ' + p.cr + ' mg/dL');
+  let s = 'Paciente: ' + bits.join(', ');
+  if (c.ok) s += `\nClearance (Cockcroft-Gault, peso ${c.cgLab}): ${fmt(c.clcr)} mL/min` + (c.bmi ? ` · IMC ${fmt(c.bmi, 1)}` : '');
+  if (p.hd) s += '\nEn hemodiálisis';
+  return s;
+}
+const today = () => new Date().toLocaleDateString('es-AR');
+function drugHce(d) {
+  S.calc = computeCalc();
+  const idx = S.indSel[d.id] || 0, ind = d.indications[idx], dw = doseWeight(d);
+  const pk = pickBand(ind.bands, S.calc.ok ? S.calc.clcr : NaN, S.pt.hd);
+  const L = [`Fármaco: ${d.name}`, `Indicación: ${ind.title}`];
+  if (pk) { L.push(`Dosis (${pk.why} · ${pk.band.label}): ${plain(pk.band.text).replace(/\n+/g, ' / ')}`); const x = perKgText(pk.band, dw); if (x) L.push(`Dosis calculada: ${x}`); }
+  else L.push('Dosis: ' + ind.bands.map(b => `${b.label}: ${plain(b.text).replace(/\n+/g, ' / ')}`).join(' | '));
+  const a = d.administration;
+  if (a.reconstitution) L.push('Reconstitución: ' + a.reconstitution.replace(/\n+/g, ' '));
+  if (a.dilution) L.push('Dilución: ' + a.dilution.replace(/\n+/g, ' '));
+  if (a.infusion_minutes) L.push(`Infusión: ${a.infusion_minutes.min === a.infusion_minutes.max ? a.infusion_minutes.min : a.infusion_minutes.min + '–' + a.infusion_minutes.max} min`);
+  const al = guardiaAlerts(d).map(x => x.t); if (al.length) L.push('Alertas: ' + al.join('; '));
+  const li = labItems(d).slice(0, 5); if (li.length) L.push('Controles:\n' + li.map(x => ' - ' + x).join('\n'));
+  L.push('Fuente: ' + d.aval.badge_label);
+  return L.join('\n');
+}
+function openHce(text) { $('#hceText').value = text; $('#nfModal').classList.add('on'); }
+function buildHce(kind, id) {
+  const head = `PLAN TERAPÉUTICO — ${today()}\n${patientLine()}\n`;
+  if (kind === 'entry') { const e = S.entries.get(id); return head + '\nDiagnóstico / cuadro: ' + T(e) + '\n' + (e.hce || (e.cards.map(c => c.title + ':\n' + plain(c.md)).join('\n\n') + '\nFuente: ' + e.aval.badge_label)) + '\n\nNota: apoyo a la decisión clínica (NikaFarma · Campus Nika). Verificar con guías vigentes.'; }
+  if (kind === 'drug') return head + '\n' + drugHce(S.drugs.get(id)) + '\n\nNota: apoyo a la decisión clínica (NikaFarma · Campus Nika). Verificar con guías vigentes.';
+  const al = analyzeCombo().filter(a => a.sev !== 'info');
+  return head + '\n' + S.combo.map(i => drugHce(S.drugs.get(i))).join('\n\n---\n') + (al.length ? '\n\nAlertas de la combinación:\n' + al.map(a => ' - ' + a.t + ': ' + a.m).join('\n') : '') + '\n\nNota: apoyo a la decisión clínica (NikaFarma · Campus Nika). Verificar con guías vigentes.';
+}
+
+/* ------------------------ 8. EVENTOS Y ARRANQUE ------------------------ */
+function route() {
+  const m = location.hash.match(/^#\/(d|e)\/(.+)$/);
+  if (!S.data) return;
+  $('#domainChips').style.display = m ? 'none' : '';
+  if (m && m[1] === 'd') renderDrug(decodeURIComponent(m[2]));
+  else if (m && m[1] === 'e') renderEntry(decodeURIComponent(m[2]));
+  else renderList();
+}
+const go = (t, id) => { location.hash = '#/' + t + '/' + encodeURIComponent(id); };
+function refreshDose() {
+  const m = location.hash.match(/^#\/d\/(.+)$/);
+  if (m) { const d = S.drugs.get(decodeURIComponent(m[1])); const p = $('#dosePanel'); if (d && p) p.innerHTML = doseHtml(d); }
+  else if (/^#\/e\//.test(location.hash)) route();
+}
+function setGuardia(on) {
+  S.f.guardia = on; document.body.classList.toggle('nf-guardia', on);
+  $('#btnGuardia').setAttribute('aria-pressed', String(on));
+  $('#btnGuardia').textContent = on ? '🚨 Guardia ON' : '🚨 Guardia';
+  if (on && S.f.study) { S.f.study = false; $('#swStudy').checked = false; document.body.classList.remove('nf-study'); }
+  toast(on ? '🚨 Modo Guardia: solo dosis, preparación, infusión y alertas' : 'Modo Guardia desactivado');
+}
+function clickHandler(ev) {
+  const t = ev.target.closest('[data-act]'); if (!t) return;
+  const a = t.dataset.act, id = t.dataset.id;
+  if (a === 'score') return;                                  // se maneja en 'change'
+  if (a === 'add-combo' || a === 'open-drug' || a === 'open-entry') ev.stopPropagation();
+  switch (a) {
+    case 'open-drug': if (ev.target.closest('.plus')) break; go('d', id); break;
+    case 'open-entry': go('e', id); break;
+    case 'back': if (history.length > 1 && location.hash) history.back(); else location.hash = ''; break;
+    case 'domain': S.domain = t.dataset.d; S.resist = null; S.limit = 40; location.hash = ''; renderDomainChips(); renderList(); break;
+    case 'quick': S.q = t.dataset.q; $('#q').value = S.q; $('#qClear').style.display = 'block'; S.domain = 'all'; renderDomainChips(); location.hash = ''; renderList(); break;
+    case 'more': S.limit += 40; renderList(); break;
+    case 'resist': S.resist = S.resist === t.dataset.t ? null : t.dataset.t; renderList(); break;
+    case 'ind': S.indSel[id] = +t.dataset.i; renderDrug(id); break;
+    case 'add-combo': if (!S.combo.includes(id)) S.combo.push(id); renderTray(); toast('Agregado a la combinación'); updateBadge(); if (/^#\/d\//.test(location.hash)) { const d = S.drugs.get(id); const b = $('[data-act="add-combo"].nf-btn'); if (b && b.dataset.id === id) b.textContent = '✔ En combinación'; } break;
+    case 'rm-combo': S.combo = S.combo.filter(x => x !== id); renderTray(); break;
+    case 'clear-combo': S.combo = []; renderTray(); break;
+    case 'hce-drug': openHce(buildHce('drug', id)); break;
+    case 'hce-entry': openHce(buildHce('entry', id)); break;
+    case 'hce-combo': openHce(buildHce('combo')); break;
+    case 'copy-hce': copyText($('#hceText').value); break;
+    case 'close-modal': $('#nfModal').classList.remove('on'); break;
+  }
+}
+function bindCalc() {
+  const map = { pSex: 'sex', pAge: 'age', pW: 'weight', pH: 'height', pCr: 'cr', pMode: 'mode' };
+  const upd = debounce(() => { renderCalcOut(); refreshDose(); renderTray(); }, 120);
+  Object.entries(map).forEach(([id, k]) => { const el = $('#' + id); ['input', 'change'].forEach(evn => el.addEventListener(evn, () => { S.pt[k] = el.value; upd(); })); });
+  $('#pHD').addEventListener('change', e => { S.pt.hd = e.target.checked; renderCalcOut(); refreshDose(); updateBadge(); });
+}
+async function init() {
+  const saved = localStorage.getItem('nika_theme');
+  if (saved === 'dark') document.body.classList.add('dark-mode');
+  $('#btnTheme').textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  $('#btnTheme').onclick = () => { document.body.classList.toggle('dark-mode'); const d = document.body.classList.contains('dark-mode'); localStorage.setItem('nika_theme', d ? 'dark' : 'light'); $('#btnTheme').textContent = d ? '☀️' : '🌙'; };
+  document.addEventListener('click', clickHandler);
+  document.addEventListener('change', ev => {
+    const t = ev.target.closest('[data-act="score"]'); if (!t) return;
+    const st = S.score[t.dataset.s] || (S.score[t.dataset.s] = {}); st[t.dataset.i] = t.checked;
+    $$(`[data-score="${t.dataset.s}"]`).forEach(c => { c.innerHTML = scoreHtml(t.dataset.s); });
+  });
+  $('#btnGuardia').onclick = () => setGuardia(!S.f.guardia);
+  $('#swPreg').onchange = e => { S.f.preg = e.target.checked; if (!/^#\/[de]\//.test(location.hash)) renderList(); toast(S.f.preg ? '🤰 Solo fármacos categoría A/B' : 'Filtro de embarazo apagado'); };
+  $('#swLact').onchange = e => { S.f.lact = e.target.checked; if (!/^#\/[de]\//.test(location.hash)) renderList(); };
+  $('#swStudy').onchange = e => { S.f.study = e.target.checked; if (S.f.study && S.f.guardia) setGuardia(false); document.body.classList.toggle('nf-study', S.f.study); };
+  const qi = $('#q');
+  qi.addEventListener('input', debounce(() => { S.q = qi.value; S.limit = 40; $('#qClear').style.display = S.q ? 'block' : 'none'; if (location.hash) history.replaceState(null, '', location.pathname + location.search); renderList(); }, 160));
+  $('#qClear').onclick = () => { qi.value = ''; S.q = ''; $('#qClear').style.display = 'none'; renderList(); qi.focus(); };
+  $('#btnTools').onclick = ev => { ev.stopPropagation(); $('#nfAside').classList.toggle('open'); };
+  $('#nfAsideX').onclick = () => $('#nfAside').classList.remove('open');
+  document.addEventListener('click', ev => { const a = $('#nfAside'); if (a.classList.contains('open') && !ev.target.closest('#nfAside') && !ev.target.closest('#btnTools') && !ev.target.closest('[data-act="add-combo"]')) a.classList.remove('open'); });
+  $('#nfModal').addEventListener('click', e => { if (e.target.id === 'nfModal') e.target.classList.remove('on'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { $('#nfModal').classList.remove('on'); $('#nfAside').classList.remove('open'); } if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') { e.preventDefault(); qi.focus(); } });
+  window.addEventListener('hashchange', route);
+  bindCalc();
+  try {
+    indexData(await loadData());
+  } catch (err) {
+    console.error(err);
+    setMain(`<div class="nf-sec"><h2>No pude cargar el vademécum</h2><p>Verificá que <code>/data/nikafarma_api.json</code> exista y esté publicado.</p><p style="color:var(--text-muted);font-size:.8rem">${esc(err.message)}</p><button class="nf-btn pri" onclick="location.reload()">Reintentar</button></div>`);
+    return;
+  }
+  renderDomainChips(); renderCalcOut(); renderTray(); renderScoresBox(); route();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

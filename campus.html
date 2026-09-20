@@ -121,6 +121,7 @@
 
             <div class="sidebar-category">Mi Cuenta</div>
             <li><button onclick="handleProfileClick()" class="sidebar-link">👤 Mi Perfil</button></li>
+            <li><button onclick="NikaModeracion.abrirBloqueados()" class="sidebar-link">🚫 Usuarios bloqueados</button></li>
 
             <div class="sidebar-category">Navegación</div>
             <li><button onclick="showDashboard()" class="sidebar-link">🏠 Inicio / Dashboard</button></li>
@@ -136,6 +137,7 @@
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
 
             <div class="sidebar-category">Herramientas</div>
+            <li><button onclick="window.location.href='nikafarma.html'" class="sidebar-link">💊 NikaFarma</button></li>
             <li><button onclick="toggleDarkMode()" id="dark-mode-btn" class="sidebar-link">🌙 Modo Oscuro</button></li>
             <li id="pwa-install-item" style="display:none;"><button onclick="instalarAppNika()" class="sidebar-link">📲 Instalar App</button></li>
         </ul>
@@ -432,9 +434,9 @@
                 </div>
 
                 <div class="admin-stats-grid">
-                    <div class="admin-stat-card"><h4>👥 Usuarios Registrados</h4><div class="stat-val" id="admin-stat-users">0</div></div>
-                    <div class="admin-stat-card"><h4>📝 Simulacros Completados</h4><div class="stat-val">342</div><span style="font-size:0.75rem; color:var(--success);">+12 esta semana</span></div>
-                    <div class="admin-stat-card"><h4>📊 Nota Promedio Global</h4><div class="stat-val" style="color:var(--warning);">7.8</div><span style="font-size:0.75rem; color:var(--text-muted);">Objetivo: 9.0</span></div>
+                    <div class="admin-stat-card"><h4>👥 Usuarios Registrados</h4><div class="stat-val" id="admin-stat-users">–</div><span id="admin-stat-users-sub" style="font-size:0.75rem; color:var(--success);"></span></div>
+                    <div class="admin-stat-card"><h4>📝 Simulacros Completados</h4><div class="stat-val" id="admin-stat-exams">–</div><span id="admin-stat-exams-sub" style="font-size:0.75rem; color:var(--success);"></span></div>
+                    <div class="admin-stat-card"><h4>📊 Efectividad Promedio</h4><div class="stat-val" id="admin-stat-avg" style="color:var(--warning);">–</div><span style="font-size:0.75rem; color:var(--text-muted);">% de aciertos en simulacros</span></div>
                 </div>
 
                 <div class="admin-panels-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
@@ -463,23 +465,18 @@
 
                     <div class="admin-panel-card">
                         <div class="admin-panel-header">
-                            <span>🔥 Ranking Global de Pain Points</span>
-                            <span style="font-size:0.8rem; color:var(--text-muted);">Top 3 más falladas</span>
+                            <span>🔥 Unidades con más fallos</span>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">Top 5 (datos reales)</span>
                         </div>
-                        <div class="admin-panel-body">
-                            <div class="admin-list-item">
-                                <div class="errata-meta"><span>UP 2: Abdomen Agudo</span><span style="color:var(--danger);">82% de fallos</span></div>
-                                <div class="errata-q">¿Cuál es el estudio por imágenes angiográfico no invasivo de elección para confirmar isquemia mesentérica?</div>
-                            </div>
-                            <div class="admin-list-item">
-                                <div class="errata-meta"><span>UP 7: Patología Tiroidea</span><span style="color:var(--danger);">75% de fallos</span></div>
-                                <div class="errata-q">En un paciente con bocio multinodular y TSH suprimida, ¿cuál es el paso diagnóstico siguiente?</div>
-                            </div>
-                            <div class="admin-list-item">
-                                <div class="errata-meta"><span>UP 1: Trauma y Heridas</span><span style="color:var(--warning);">68% de fallos</span></div>
-                                <div class="errata-q">Respecto a la profilaxis antitetánica en herida sucia de un paciente con esquema incompleto...</div>
-                            </div>
+                        <div class="admin-panel-body" id="admin-up-stats"></div>
+                    </div>
+
+                    <div class="admin-panel-card">
+                        <div class="admin-panel-header">
+                            <span>🚩 Reportes de la comunidad <span id="admin-reports-count"></span></span>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">Chat, foro</span>
                         </div>
+                        <div class="admin-panel-body" id="admin-reports-list"></div>
                     </div>
 
                     <div class="admin-panel-card" style="grid-column: 1 / -1;">
@@ -504,7 +501,7 @@
             </div>
         </main>
         
-        <footer class="footer"><div><strong>Campus Nika</strong> — Plataforma de Evaluación Médica Independiente | <span>Estudia, competi, aprobá.</span></div></footer>
+        <footer class="footer"><div><strong>Campus Nika</strong> — Plataforma de Evaluación Médica Independiente | <span>Estudia, competi, aprobá.</span><div style="margin-top:6px; font-size:0.78rem;"><a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> · <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a></div></div></footer>
     </div>
 
     <!-- ================= MODALES DE AUTENTICACIÓN ================= -->
@@ -1005,6 +1002,7 @@
     <script src="js/assistant.js"></script>
     <script src="js/social.js"></script>
     <script src="js/friendsManager.js"></script>
+    <script src="js/moderacion.js"></script>
     <script src="js/rendimiento.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="js/chatManager.js"></script>
@@ -1611,7 +1609,7 @@
 
             if (userJson) {
                 const user = JSON.parse(userJson);
-                if (headerBtn) headerBtn.innerHTML = `👤 ${user.fullname}`;
+                if (headerBtn) headerBtn.innerHTML = `👤 ${nikaEsc(user.fullname)}`;
                 if (sidebarName) sidebarName.innerText = user.fullname;
                 if (sidebarRole) sidebarRole.innerText = `@${user.username}`;
                 if (sidebarAvatar && user.avatar) sidebarAvatar.src = user.avatar;
@@ -1637,488 +1635,655 @@
             actualizarBadgeMensajes();
         }
 
-        // Trae el ELO actual desde versus_players y lo muestra como badge en la
-        // tarjeta del usuario en la sidebar. No bloquea el resto de checkAuthState.
-        async function updateSidebarElo(username) {
-            const badge = document.getElementById('sidebar-user-elo');
-            if (!badge) return;
-            if (!username || !window.NikaSupabase || !window.NikaSupabase.client) {
-                badge.style.display = 'none';
-                return;
-            }
-            try {
-                const { data, error } = await window.NikaSupabase.client
-                    .from('versus_players')
-                    .select('elo')
-                    .eq('username', username)
-                    .maybeSingle();
-                if (error || !data) {
-                    badge.style.display = 'none';
-                    return;
-                }
-                badge.innerText = `${data.elo} ELO`;
-                badge.style.display = 'inline-block';
-            } catch (err) {
-                console.error('[updateSidebarElo] Error:', err);
-                badge.style.display = 'none';
-            }
+        // ================= AUTENTICACIÓN & RECUPERACIÓN =================
+        function openAuthModal(tab) {
+            document.getElementById('auth-modal').style.display = 'flex';
+            backToLogin(); // Asegura que las pestañas sean visibles y no quede trabado en "olvidé contraseña"
+            switchAuthTab(tab);
+            setTimeout(renderGoogleIdentityButtons, 50);
         }
 
-        let tempAvatarBase64 = null;
-
-        function handleAvatarPreview(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            if (!file.type.match('image.*')) {
-                showToast("⚠️ Por favor seleccioná una imagen válida.");
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    // Tamaño cuadrado ideal para avatares
-                    const SIZE = 200; 
-                    canvas.width = SIZE;
-                    canvas.height = SIZE;
-                    const ctx = canvas.getContext('2d');
-
-                    // Lógica para auto-recortar al centro
-                    let offsetX = 0;
-                    let offsetY = 0;
-                    let drawWidth = img.width;
-                    let drawHeight = img.height;
-
-                    if (img.width > img.height) {
-                        drawWidth = (img.width / img.height) * SIZE;
-                        drawHeight = SIZE;
-                        offsetX = -(drawWidth - SIZE) / 2;
-                    } else {
-                        drawHeight = (img.height / img.width) * SIZE;
-                        drawWidth = SIZE;
-                        offsetY = -(drawHeight - SIZE) / 2;
-                    }
-
-                    // Fondo blanco por si acaso y dibujado de imagen
-                    ctx.fillStyle = "#ffffff";
-                    ctx.fillRect(0, 0, SIZE, SIZE);
-                    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-
-                    // Convertir y mostrar en el visor
-                    tempAvatarBase64 = canvas.toDataURL('image/jpeg', 0.8);
-                    
-                    const previewEl = document.getElementById('prof-avatar-preview');
-                    if (previewEl) previewEl.src = tempAvatarBase64; 
-
-                    showToast("Imagen lista 🖼️");
-                    actualizarProgresoModalPerfil();
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function handleProfileClick() { 
-            localStorage.getItem('nika_currentUser') ? openProfileModal() : openAuthModal('login'); 
-        }
-
-        function openAuthModal(tab) { 
-            const modal = document.getElementById('auth-modal');
-            if (modal) modal.style.display = 'flex'; 
-            switchAuthTab(tab); 
-        }
-
-        function closeAuthModal() { 
-            const modal = document.getElementById('auth-modal');
-            if (modal) modal.style.display = 'none'; 
-            closeForgotPasswordForm();
+        function closeAuthModal() {
+            document.getElementById('auth-modal').style.display = 'none';
         }
 
         function switchAuthTab(tab) {
-            ['login', 'register'].forEach(t => { 
-                const btn = document.getElementById(`tab-${t}-btn`);
-                const form = document.getElementById(`form-${t}`);
-                if (btn) btn.classList.remove('active'); 
-                if (form) form.style.display = 'none'; 
-            });
-            const activeBtn = document.getElementById(`tab-${tab}-btn`);
-            const activeForm = document.getElementById(`form-${tab}`);
-            if (activeBtn) activeBtn.classList.add('active'); 
-            if (activeForm) activeForm.style.display = 'block';
+            const tabsStrip = document.getElementById('auth-tabs-strip');
+            if (tabsStrip) tabsStrip.style.display = 'flex';
+
+            const formForgot = document.getElementById('form-forgot');
+            if (formForgot) formForgot.style.display = 'none';
+
+            document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+            document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+            document.getElementById('form-login').style.display = (tab === 'login') ? 'block' : 'none';
+            document.getElementById('form-register').style.display = (tab === 'register') ? 'block' : 'none';
+
+            setTimeout(renderGoogleIdentityButtons, 50);
         }
 
-        // Fase A.2 — el "olvidé mi contraseña" es un sub-estado del login
         function openForgotPasswordForm(e) {
             if (e) e.preventDefault();
-            const tabs = document.querySelector('#auth-modal .modal-tabs');
-            const formLogin = document.getElementById('form-login');
-            const formRegister = document.getElementById('form-register');
-            const formForgot = document.getElementById('form-forgot');
-            if (tabs) tabs.style.display = 'none';
-            if (formLogin) formLogin.style.display = 'none';
-            if (formRegister) formRegister.style.display = 'none';
-            if (formForgot) formForgot.style.display = 'block';
+            const tabsStrip = document.getElementById('auth-tabs-strip');
+            if (tabsStrip) tabsStrip.style.display = 'none';
 
-            const identifier = document.getElementById('login-identifier')?.value?.trim() || '';
-            const forgotEmail = document.getElementById('forgot-email');
-            if (forgotEmail && identifier.includes('@')) forgotEmail.value = identifier;
+            document.getElementById('form-login').style.display = 'none';
+            document.getElementById('form-register').style.display = 'none';
+
+            const formForgot = document.getElementById('form-forgot');
+            if (formForgot) formForgot.style.display = 'block';
         }
 
-        function closeForgotPasswordForm() {
-            const tabs = document.querySelector('#auth-modal .modal-tabs');
+        function backToLogin() {
+            const tabsStrip = document.getElementById('auth-tabs-strip');
+            if (tabsStrip) tabsStrip.style.display = 'flex';
+
             const formForgot = document.getElementById('form-forgot');
-            if (tabs) tabs.style.display = 'flex';
             if (formForgot) formForgot.style.display = 'none';
+
             switchAuthTab('login');
         }
 
         async function handleForgotPassword(e) {
             e.preventDefault();
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const email = document.getElementById('forgot-email').value.trim().toLowerCase();
-            if (submitBtn) submitBtn.disabled = true;
+            const email = document.getElementById('forgot-email').value.trim();
+            if (!email) return alert("Por favor, ingresá un correo válido.");
 
-            const { error } = await window.NikaSupabase.solicitarResetPassword(email);
-
-            if (submitBtn) submitBtn.disabled = false;
-
-            if (error) {
-                alert(error.message || "No se pudo enviar el enlace. Intentá de nuevo.");
-                return;
-            }
-
-            showToast("Si el correo existe, te enviamos un enlace para restablecer tu contraseña.");
-            closeForgotPasswordForm();
-            closeAuthModal();
-        }
-
-        function openResetPasswordModal() {
-            closeAuthModal();
-            const modal = document.getElementById('reset-password-modal');
-            if (modal) modal.style.display = 'flex';
-        }
-
-        function closeResetPasswordModal() {
-            const modal = document.getElementById('reset-password-modal');
-            if (modal) modal.style.display = 'none';
-        }
-
-        async function handleUpdatePassword(e) {
-            e.preventDefault();
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const pass = document.getElementById('reset-new-password').value;
-            const confirm = document.getElementById('reset-confirm-password').value;
-
-            if (pass !== confirm) {
-                alert("Las contraseñas no coinciden.");
-                return;
-            }
-            if (pass.length < 6) {
-                alert("La contraseña debe tener al menos 6 caracteres.");
-                return;
-            }
-
-            if (submitBtn) submitBtn.disabled = true;
-            const { data: user, error } = await window.NikaSupabase.actualizarPassword(pass);
-            if (submitBtn) submitBtn.disabled = false;
-
-            if (error) {
-                alert(error.message || "No se pudo actualizar la contraseña. Pedí un nuevo enlace e intentá de nuevo.");
-                return;
-            }
-
-            showToast("¡Contraseña actualizada! Ya iniciaste sesión.");
-            closeResetPasswordModal();
-            if (user) checkAuthState();
-            history.replaceState(null, '', window.location.pathname + window.location.search);
-        }
-
-        async function handleLogin(e) {
-            e.preventDefault();
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const id = document.getElementById('login-identifier').value; 
-            const pass = document.getElementById('login-password').value; 
-            if (submitBtn) submitBtn.disabled = true;
-
-            const { data: user, error } = await window.NikaSupabase.iniciarSesion({ identifier: id, password: pass });
-
-            if (submitBtn) submitBtn.disabled = false;
-
-            if (error) {
-                alert(error.message === "Usuario no encontrado."
-                    ? "No encontramos esa cuenta. Verificá el usuario/email, o registrate si es la primera vez que entrás desde este dispositivo."
-                    : "Datos incorrectos.");
-                return;
-            }
-
-            if (window.NikaSupabase.client && user?.id) {
-                window.NikaSupabase.client.from('profiles')
-                    .update({ last_login_at: new Date().toISOString() })
-                    .eq('id', user.id)
-                    .then(() => {}, (err) => console.warn('[handleLogin] No se pudo actualizar last_login_at:', err));
-            }
-
-            showToast(`¡Bienvenido, ${user.fullname}!`);
-            closeAuthModal();
-            checkAuthState();
-            syncStudyProgress();
-        }
-
-        async function handleRegister(e) {
-            e.preventDefault();
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const fullname = document.getElementById('reg-fullname').value.trim();
-            const username = document.getElementById('reg-username').value.trim();
-            const email = document.getElementById('reg-email').value.trim().toLowerCase();
-            const password = document.getElementById('reg-password').value;
-            if (submitBtn) submitBtn.disabled = true;
-
-            const { data: user, error } = await window.NikaSupabase.registrarUsuario({
-                fullname, username, email, password, avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
-            });
-
-            if (submitBtn) submitBtn.disabled = false;
-
-            if (error) {
-                alert(error.message || "No se pudo crear la cuenta.");
-                return;
-            }
-
-            if (!user) {
-                showToast("¡Cuenta creada! Revisá tu correo para confirmar el registro.");
-                closeAuthModal();
-                return;
-            }
-
-            showToast("¡Cuenta creada!");
-            closeAuthModal();
-            checkAuthState();
-            syncStudyProgress();
-        }
-
-        function actualizarProgresoModalPerfil() {
-            const fn = document.getElementById('prof-fullname')?.value?.trim();
-            const anio = document.getElementById('prof-anio-cursada')?.value;
-            const bio = document.getElementById('prof-bio')?.value?.trim();
-            const ig = document.getElementById('prof-instagram')?.value?.trim();
-            const wa = document.getElementById('prof-whatsapp')?.value?.trim();
-            const previewEl = document.getElementById('prof-avatar-preview');
-
-            // Foto válida si existe previsualización y no es el placeholder genérico SVG
-            const hasAvatar = !!(previewEl && previewEl.src && !previewEl.src.includes('data:image/svg+xml') && !previewEl.src.includes('default'));
-            const hasName = !!(fn && fn.length > 0);
-            const hasAnio = !!(anio && anio.length > 0);
-            const hasBio = !!(bio && bio.length > 0);
-            const hasSocial = !!((ig && ig.length > 0) || (wa && wa.length > 0));
-
-            const campos = [hasAvatar, hasName, hasAnio, hasBio, hasSocial];
-            const completados = campos.filter(Boolean).length;
-            const pct = Math.round((completados / campos.length) * 100);
-
-            const bar = document.getElementById('modal-profile-bar');
-            const textPct = document.getElementById('modal-profile-pct');
-            const msg = document.getElementById('modal-profile-msg');
-
-            if (bar) bar.style.width = `${pct}%`;
-            if (textPct) textPct.textContent = `${pct}%`;
-
-            if (msg) {
-                if (pct === 100) {
-                    msg.innerHTML = "✨ <strong>Ficha médica completa.</strong> Identidad validada al 100% para simulacros y duelos 1vs1.";
-                    if (bar) bar.style.background = "#16a34a";
-                } else if (!hasAvatar) {
-                    msg.textContent = "Cargá tu foto institucional para que tus compañeros te reconozcan en la Arena Versus.";
-                    if (bar) bar.style.background = "linear-gradient(90deg, #0284c7, #38bdf8)";
-                } else {
-                    msg.textContent = "Completá todos los campos para validar tu ficha institucional al 100%.";
-                    if (bar) bar.style.background = "linear-gradient(90deg, #0284c7, #38bdf8)";
-                }
-            }
-        }
-
-        async function openProfileModal() {
-            // 1. Mostrar modal rápido con lo que haya en memoria
-            let user = {};
-            try { user = JSON.parse(localStorage.getItem('nika_currentUser')) || {}; } catch (e) {}
-            
-            const fn = document.getElementById('prof-fullname');
-            const un = document.getElementById('prof-username');
-            const em = document.getElementById('prof-email');
-            const pw = document.getElementById('prof-password');
-            const fileInput = document.getElementById('prof-avatar-file');
-            const previewEl = document.getElementById('prof-avatar-preview'); 
-            const anio = document.getElementById('prof-anio-cursada');
-            const bio = document.getElementById('prof-bio');
-            const ig = document.getElementById('prof-instagram');
-            const wa = document.getElementById('prof-whatsapp');
-            
-            if (fn) fn.value = user.fullname || user.nombre || ''; 
-            if (un) un.value = user.username || ''; 
-            if (em) em.value = user.email || ''; 
-            if (pw) pw.value = '';
-            if (fileInput) fileInput.value = '';
-            if (anio) anio.value = user.anio_cursada || user.cursada || '';
-            if (bio) bio.value = user.bio || '';
-            if (ig) ig.value = user.instagram || '';
-            if (wa) wa.value = user.whatsapp || '';
-            
-            if (previewEl) previewEl.src = user.avatar || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
-            
-            tempAvatarBase64 = null;
-            const modal = document.getElementById('profile-modal');
-            if (modal) modal.style.display = 'flex';
-
-            actualizarProgresoModalPerfil();
-
-            // Contador de amigos (pastilla "🤝 N amigos en tu red")
-            if (window.NikaFriends) {
-                NikaFriends.listFriends().then(friends => _actualizarPillAmigosPerfil(friends.length)).catch(() => {});
-            }
-
-            // 2. Traer la VERDAD ABSOLUTA desde la nube (evita bugs de caché)
             try {
-                const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
-                if (!client) return;
-
-                const { data: { session } } = await client.auth.getSession();
-                if (!session) return;
-
-                const { data: dbProfile, error } = await client
-                    .from('profiles')
-                    .select('*')
-                    .eq('id', session.user.id)
-                    .maybeSingle();
-
-                if (!error && dbProfile) {
-                    // Actualizar inputs instantáneamente con lo real de Supabase
-                    if (fn) fn.value = dbProfile.fullname || dbProfile.nombre || fn.value;
-                    if (anio) anio.value = dbProfile.anio_cursada || dbProfile.cursada || '';
-                    if (bio) bio.value = dbProfile.bio || '';
-                    if (ig) ig.value = dbProfile.instagram || '';
-                    if (wa) wa.value = dbProfile.whatsapp || '';
-                    if (previewEl && dbProfile.avatar) previewEl.src = dbProfile.avatar;
-
-                    // Curar y reparar la memoria local para que otras funciones no fallen
-                    const updatedUser = { ...user, ...dbProfile };
-                    localStorage.setItem('nika_currentUser', JSON.stringify(updatedUser));
-                    
-                    actualizarProgresoModalPerfil();
+                if (window.NikaSupabase && typeof window.NikaSupabase.solicitarResetPassword === 'function') {
+                    const { error } = await window.NikaSupabase.solicitarResetPassword(email);
+                    if (error) throw error;
+                } else if (window.NikaSupabase && window.NikaSupabase.supabase) {
+                    const { error } = await window.NikaSupabase.supabase.auth.resetPasswordForEmail(email);
+                    if (error) throw error;
+                } else {
+                    throw new Error("Cliente de Supabase no disponible.");
                 }
+
+                alert("Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.");
+                backToLogin();
             } catch (err) {
-                console.error("[openProfileModal] Error consultando Supabase:", err);
+                alert("No pudimos procesar la solicitud: " + (err.message || "Error de conexión."));
             }
         }
 
-        function closeProfileModal() { 
-            const modal = document.getElementById('profile-modal');
-            if (modal) modal.style.display = 'none'; 
+        async function handlePublicLogin(e) {
+            e.preventDefault();
+            const identifier = document.getElementById('login-id').value.trim();
+            const password = document.getElementById('login-pass').value;
+            
+            if (!window.NikaSupabase) return alert("Supabase no disponible.");
+            
+            const { data, error } = await window.NikaSupabase.iniciarSesion({ identifier, password });
+            
+            if (error) {
+                console.warn("[Login] Falló el inicio de sesión:", error);
+                return alert(error.message || "Datos incorrectos.");
+            }
+            
+            window.location.href = 'campus.html';
+        }
+
+        async function handlePublicRegister(e) {
+            e.preventDefault();
+            const fullname = document.getElementById('reg-name').value.trim();
+            const username = document.getElementById('reg-user').value.trim();
+            const email = document.getElementById('reg-email').value.trim().toLowerCase();
+            const password = document.getElementById('reg-pass').value;
+            
+            if (!window.NikaSupabase) return alert("Supabase no disponible.");
+            
+            // Extraemos 'data' para poder validar el estado de la sesión
+            const { data, error } = await window.NikaSupabase.registrarUsuario({
+                fullname, 
+                username, 
+                email, 
+                password, 
+                avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
+            });
+            
+            if (error) return alert("Error al registrarse: " + error.message);
+            
+            // Si Supabase pide confirmar email, la sesión viene nula. Frenamos acá.
+            if (!data || !data.session) {
+                alert("Cuenta creada. Revisá tu correo para confirmarla y después iniciá sesión.");
+                return;
+            }
+
+            alert("Cuenta creada con éxito.");
+            window.location.href = 'campus.html';
+        }
+
+// (Aquí continuaba el código de campus.html)
+
+        // Trae el ELO actual desde versus_players y lo muestra como badge en la
+// tarjeta del usuario en la sidebar. No bloquea el resto de checkAuthState.
+async function updateSidebarElo(username) {
+    const badge = document.getElementById('sidebar-user-elo');
+    if (!badge) return;
+    if (!username || !window.NikaSupabase || !window.NikaSupabase.client) {
+        badge.style.display = 'none';
+        return;
+    }
+    try {
+        const { data, error } = await window.NikaSupabase.client
+            .from('versus_players')
+            .select('elo')
+            .eq('username', username)
+            .maybeSingle();
+        if (error || !data) {
+            badge.style.display = 'none';
+            return;
+        }
+        badge.innerText = `${data.elo} ELO`;
+        badge.style.display = 'inline-block';
+    } catch (err) {
+        console.error('[updateSidebarElo] Error:', err);
+        badge.style.display = 'none';
+    }
+}
+
+let tempAvatarBase64 = null;
+let tempAvatarBlob = null; // Guardamos el blob real para poder subirlo como archivo
+
+function handleAvatarPreview(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.type.match('image.*')) {
+        showToast("⚠️ Por favor seleccioná una imagen válida.");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            // Tamaño cuadrado ideal para avatares
+            const SIZE = 200; 
+            canvas.width = SIZE;
+            canvas.height = SIZE;
+            const ctx = canvas.getContext('2d');
+
+            // Lógica para auto-recortar al centro
+            let offsetX = 0;
+            let offsetY = 0;
+            let drawWidth = img.width;
+            let drawHeight = img.height;
+
+            if (img.width > img.height) {
+                drawWidth = (img.width / img.height) * SIZE;
+                drawHeight = SIZE;
+                offsetX = -(drawWidth - SIZE) / 2;
+            } else {
+                drawHeight = (img.height / img.width) * SIZE;
+                drawWidth = SIZE;
+                offsetY = -(drawHeight - SIZE) / 2;
+            }
+
+            // Fondo blanco por si acaso y dibujado de imagen
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, SIZE, SIZE);
+            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+            // Convertir y mostrar en el visor
+            tempAvatarBase64 = canvas.toDataURL('image/jpeg', 0.8);
+            
+            // CORRECCIÓN: Convertir el canvas a un Blob real para enviarlo a Supabase Storage
+            canvas.toBlob((blob) => {
+                tempAvatarBlob = blob;
+            }, 'image/jpeg', 0.8);
+            
+            const previewEl = document.getElementById('prof-avatar-preview');
+            if (previewEl) previewEl.src = tempAvatarBase64; 
+
+            showToast("Imagen lista 🖼️");
+            actualizarProgresoModalPerfil();
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function handleProfileClick() { 
+    localStorage.getItem('nika_currentUser') ? openProfileModal() : openAuthModal('login'); 
+}
+
+function openAuthModal(tab) { 
+    const modal = document.getElementById('auth-modal');
+    if (modal) modal.style.display = 'flex'; 
+    switchAuthTab(tab); 
+}
+
+function closeAuthModal() { 
+    const modal = document.getElementById('auth-modal');
+    if (modal) modal.style.display = 'none'; 
+    closeForgotPasswordForm();
+}
+
+function switchAuthTab(tab) {
+    ['login', 'register'].forEach(t => { 
+        const btn = document.getElementById(`tab-${t}-btn`);
+        const form = document.getElementById(`form-${t}`);
+        if (btn) btn.classList.remove('active'); 
+        if (form) form.style.display = 'none'; 
+    });
+    const activeBtn = document.getElementById(`tab-${tab}-btn`);
+    const activeForm = document.getElementById(`form-${tab}`);
+    if (activeBtn) activeBtn.classList.add('active'); 
+    if (activeForm) activeForm.style.display = 'block';
+}
+
+// Fase A.2 — el "olvidé mi contraseña" es un sub-estado del login
+function openForgotPasswordForm(e) {
+    if (e) e.preventDefault();
+    const tabs = document.querySelector('#auth-modal .modal-tabs');
+    const formLogin = document.getElementById('form-login');
+    const formRegister = document.getElementById('form-register');
+    const formForgot = document.getElementById('form-forgot');
+    if (tabs) tabs.style.display = 'none';
+    if (formLogin) formLogin.style.display = 'none';
+    if (formRegister) formRegister.style.display = 'none';
+    if (formForgot) formForgot.style.display = 'block';
+
+    const identifier = document.getElementById('login-identifier')?.value?.trim() || '';
+    const forgotEmail = document.getElementById('forgot-email');
+    if (forgotEmail && identifier.includes('@')) forgotEmail.value = identifier;
+}
+
+function closeForgotPasswordForm() {
+    const tabs = document.querySelector('#auth-modal .modal-tabs');
+    const formForgot = document.getElementById('form-forgot');
+    if (tabs) tabs.style.display = 'flex';
+    if (formForgot) formForgot.style.display = 'none';
+    switchAuthTab('login');
+}
+
+async function handleForgotPassword(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const email = document.getElementById('forgot-email').value.trim().toLowerCase();
+    if (submitBtn) submitBtn.disabled = true;
+
+    const { error } = await window.NikaSupabase.solicitarResetPassword(email);
+
+    if (submitBtn) submitBtn.disabled = false;
+
+    if (error) {
+        alert(error.message || "No se pudo enviar el enlace. Intentá de nuevo.");
+        return;
+    }
+
+    showToast("Si el correo existe, te enviamos un enlace para restablecer tu contraseña.");
+    closeForgotPasswordForm();
+    closeAuthModal();
+}
+
+function openResetPasswordModal() {
+    closeAuthModal();
+    const modal = document.getElementById('reset-password-modal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeResetPasswordModal() {
+    const modal = document.getElementById('reset-password-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+async function handleUpdatePassword(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const pass = document.getElementById('reset-new-password').value;
+    const confirm = document.getElementById('reset-confirm-password').value;
+
+    if (pass !== confirm) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
+    if (pass.length < 6) {
+        alert("La contraseña debe tener al menos 6 caracteres.");
+        return;
+    }
+
+    if (submitBtn) submitBtn.disabled = true;
+    const { data: user, error } = await window.NikaSupabase.actualizarPassword(pass);
+    if (submitBtn) submitBtn.disabled = false;
+
+    if (error) {
+        alert(error.message || "No se pudo actualizar la contraseña. Pedí un nuevo enlace e intentá de nuevo.");
+        return;
+    }
+
+    showToast("¡Contraseña actualizada! Ya iniciaste sesión.");
+    closeResetPasswordModal();
+    if (user) checkAuthState();
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const id = document.getElementById('login-identifier').value; 
+    const pass = document.getElementById('login-password').value; 
+    if (submitBtn) submitBtn.disabled = true;
+
+    const { data: user, error } = await window.NikaSupabase.iniciarSesion({ identifier: id, password: pass });
+
+    if (submitBtn) submitBtn.disabled = false;
+
+    if (error) {
+        let mensajeAMostrar = error.message;
+        if (mensajeAMostrar === "Usuario no encontrado.") {
+            mensajeAMostrar = "No encontramos esa cuenta. Verificá el usuario/email, o registrate si es la primera vez que entrás desde este dispositivo.";
+        } else if (!mensajeAMostrar || mensajeAMostrar === "Invalid login credentials") {
+            mensajeAMostrar = "El correo/usuario o la contraseña son incorrectos.";
+        }
+        alert(mensajeAMostrar);
+        return;
+    }
+
+    if (window.NikaSupabase.client && user?.id) {
+        window.NikaSupabase.client.from('profiles')
+            .update({ last_login_at: new Date().toISOString() })
+            .eq('id', user.id)
+            .then(() => {}, (err) => console.warn('[handleLogin] No se pudo actualizar last_login_at:', err));
+    }
+
+    showToast(`¡Bienvenido, ${user.fullname}!`);
+    closeAuthModal();
+    checkAuthState();
+    syncStudyProgress();
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const fullname = document.getElementById('reg-fullname').value.trim();
+    const username = document.getElementById('reg-username').value.trim();
+    const email = document.getElementById('reg-email').value.trim().toLowerCase();
+    const password = document.getElementById('reg-password').value;
+    if (submitBtn) submitBtn.disabled = true;
+
+    const { data: user, error } = await window.NikaSupabase.registrarUsuario({
+        fullname, username, email, password, avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"
+    });
+
+    if (submitBtn) submitBtn.disabled = false;
+
+    if (error) {
+        alert(error.message || "No se pudo crear la cuenta.");
+        return;
+    }
+
+    if (!user) {
+        showToast("¡Cuenta creada! Revisá tu correo para confirmar el registro.");
+        closeAuthModal();
+        return;
+    }
+
+    showToast("¡Cuenta creada!");
+    closeAuthModal();
+    checkAuthState();
+    syncStudyProgress();
+}
+
+function actualizarProgresoModalPerfil() {
+    const fn = document.getElementById('prof-fullname')?.value?.trim();
+    const anio = document.getElementById('prof-anio-cursada')?.value;
+    const bio = document.getElementById('prof-bio')?.value?.trim();
+    const ig = document.getElementById('prof-instagram')?.value?.trim();
+    const wa = document.getElementById('prof-whatsapp')?.value?.trim();
+    const previewEl = document.getElementById('prof-avatar-preview');
+    // Foto válida si existe previsualización y no es el placeholder genérico SVG
+    const hasAvatar = !!(previewEl && previewEl.src && !previewEl.src.includes('data:image/svg+xml') && !previewEl.src.includes('default'));
+    const hasName = !!(fn && fn.length > 0);
+    const hasAnio = !!(anio && anio.length > 0);
+    const hasBio = !!(bio && bio.length > 0);
+    const hasSocial = !!((ig && ig.length > 0) || (wa && wa.length > 0));
+
+    const campos = [hasAvatar, hasName, hasAnio, hasBio, hasSocial];
+    const completados = campos.filter(Boolean).length;
+    const pct = Math.round((completados / campos.length) * 100);
+
+    const bar = document.getElementById('modal-profile-bar');
+    const textPct = document.getElementById('modal-profile-pct');
+    const msg = document.getElementById('modal-profile-msg');
+
+    if (bar) bar.style.width = `${pct}%`;
+    if (textPct) textPct.textContent = `${pct}%`;
+
+    if (msg) {
+        if (pct === 100) {
+            msg.innerHTML = "✨ <strong>Ficha médica completa.</strong> Identidad validada al 100% para simulacros y duelos 1vs1.";
+            if (bar) bar.style.background = "#16a34a";
+        } else if (!hasAvatar) {
+            msg.textContent = "Cargá tu foto institucional para que tus compañeros te reconozcan en la Arena Versus.";
+            if (bar) bar.style.background = "linear-gradient(90deg, #0284c7, #38bdf8)";
+        } else {
+            msg.textContent = "Completá todos los campos para validar tu ficha institucional al 100%.";
+            if (bar) bar.style.background = "linear-gradient(90deg, #0284c7, #38bdf8)";
+        }
+    }
+}
+
+async function openProfileModal() {
+    // 1. Mostrar modal rápido con lo que haya en memoria
+    let user = {};
+    try { user = JSON.parse(localStorage.getItem('nika_currentUser')) || {}; } catch (e) {}
+    
+    const fn = document.getElementById('prof-fullname');
+    const un = document.getElementById('prof-username');
+    const em = document.getElementById('prof-email');
+    const pw = document.getElementById('prof-password');
+    const fileInput = document.getElementById('prof-avatar-file');
+    const previewEl = document.getElementById('prof-avatar-preview'); 
+    const anio = document.getElementById('prof-anio-cursada');
+    const bio = document.getElementById('prof-bio');
+    const ig = document.getElementById('prof-instagram');
+    const wa = document.getElementById('prof-whatsapp');
+    
+    if (fn) fn.value = user.fullname || user.nombre || ''; 
+    if (un) un.value = user.username || ''; 
+    if (em) em.value = user.email || ''; 
+    if (pw) pw.value = '';
+    if (fileInput) fileInput.value = '';
+    if (anio) anio.value = user.anio_cursada || user.cursada || '';
+    if (bio) bio.value = user.bio || '';
+    if (ig) ig.value = user.instagram || '';
+    if (wa) wa.value = user.whatsapp || '';
+    
+    if (previewEl) previewEl.src = user.avatar || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+    
+    tempAvatarBase64 = null;
+    tempAvatarBlob = null;
+    const modal = document.getElementById('profile-modal');
+    if (modal) modal.style.display = 'flex';
+
+    actualizarProgresoModalPerfil();
+
+    // Contador de amigos (pastilla "🤝 N amigos en tu red")
+    if (window.NikaFriends) {
+        NikaFriends.listFriends().then(friends => _actualizarPillAmigosPerfil(friends.length)).catch(() => {});
+    }
+
+    // 2. Traer la VERDAD ABSOLUTA desde la nube (evita bugs de caché)
+    try {
+        const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+        if (!client) return;
+
+        const { data: { session } } = await client.auth.getSession();
+        if (!session) return;
+
+        const { data: dbProfile, error } = await client
+            .from('profiles')
+            .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at') .eq('id', session.user.id)
+            .maybeSingle();
+
+        if (!error && dbProfile) {
+            // Actualizar inputs instantáneamente con lo real de Supabase
+            if (fn) fn.value = dbProfile.fullname || dbProfile.nombre || fn.value;
+            if (anio) anio.value = dbProfile.anio_cursada || dbProfile.cursada || '';
+            if (bio) bio.value = dbProfile.bio || '';
+            if (ig) ig.value = dbProfile.instagram || '';
+            if (wa) wa.value = dbProfile.whatsapp || '';
+            if (previewEl && dbProfile.avatar) previewEl.src = dbProfile.avatar;
+
+            // Curar y reparar la memoria local para que otras funciones no fallen
+            const updatedUser = { ...user, ...dbProfile };
+            localStorage.setItem('nika_currentUser', JSON.stringify(updatedUser));
+            
+            actualizarProgresoModalPerfil();
+        }
+    } catch (err) {
+        console.error("[openProfileModal] Error consultando Supabase:", err);
+    }
+}
+
+function closeProfileModal() { 
+    const modal = document.getElementById('profile-modal');
+    if (modal) modal.style.display = 'none'; 
+}
+
+async function handleSaveProfile(e) {
+    e.preventDefault(); 
+    const saveBtn = e.target.querySelector('button[type="submit"]');
+    const origText = saveBtn ? saveBtn.textContent : null;
+    if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Guardando...'; }
+
+    try {
+        let user = JSON.parse(localStorage.getItem('nika_currentUser')) || {};
+        
+        const nuevoNombre = document.getElementById('prof-fullname').value.trim();
+        const nuevoAnio = document.getElementById('prof-anio-cursada').value;
+        const nuevaBio = document.getElementById('prof-bio').value.trim();
+        const nuevoIg = document.getElementById('prof-instagram').value.trim();
+        const nuevoWa = document.getElementById('prof-whatsapp').value.trim();
+        const newPass = document.getElementById('prof-password').value; 
+
+        const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+        if (!client) throw new Error('No hay conexión con Supabase.');
+
+        // 1) Obtener UUID real de la sesión
+        const { data: { session }, error: sessionError } = await client.auth.getSession();
+        if (sessionError || !session) {
+            throw new Error('Tu sesión en la nube expiró. Por favor, volvé a iniciar sesión.');
+        }
+        const realUserId = session.user.id; 
+
+        // 2) Actualizar contraseña si se ingresó una nueva
+        if (newPass.length >= 6) {
+            const { error: passErr } = await client.auth.updateUser({ password: newPass });
+            if (passErr) console.warn("No se pudo cambiar la contraseña:", passErr.message);
+        }
+
+        let avatarFinal = user.avatar;
+
+        // 3) CORRECCIÓN: Si hay una imagen nueva en memoria, subirla al Storage "avatars"
+        if (tempAvatarBlob) {
+            if (saveBtn) saveBtn.textContent = 'Subiendo imagen...';
+            
+            const fileExt = 'jpg';
+            const fileName = `${realUserId}-${Date.now()}.${fileExt}`;
+            const filePath = `${fileName}`;
+
+            const { error: uploadError } = await client.storage
+                .from('avatars')
+                .upload(filePath, tempAvatarBlob, {
+                    cacheControl: '3600',
+                    upsert: false // False crea uno nuevo cada vez (previene bugs de caché de imagen)
+                });
+
+            if (uploadError) {
+                console.error("Error subiendo avatar:", uploadError);
+                throw new Error("No se pudo subir la foto de perfil.");
+            }
+
+            // Obtener la URL pública de la imagen que acabamos de subir
+            const { data: publicUrlData } = client.storage
+                .from('avatars')
+                .getPublicUrl(filePath);
+
+            if (publicUrlData && publicUrlData.publicUrl) {
+                avatarFinal = publicUrlData.publicUrl;
+            }
+        } else if (tempAvatarBase64) {
+            // Plan C: Si por alguna razón técnica falló el blob, lo mandamos en base64
+            // No es lo ideal, pero evita que el usuario se quede sin poder guardar
+             avatarFinal = tempAvatarBase64;
         }
         
-        async function handleSaveProfile(e) {
-            e.preventDefault(); 
-            const saveBtn = e.target.querySelector('button[type="submit"]');
-            const origText = saveBtn ? saveBtn.textContent : null;
-            if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Guardando...'; }
+        if (saveBtn) saveBtn.textContent = 'Guardando perfil...';
 
-            try {
-                let user = JSON.parse(localStorage.getItem('nika_currentUser')) || {};
-                
-                const nuevoNombre = document.getElementById('prof-fullname').value.trim();
-                const nuevoAnio = document.getElementById('prof-anio-cursada').value;
-                const nuevaBio = document.getElementById('prof-bio').value.trim();
-                const nuevoIg = document.getElementById('prof-instagram').value.trim();
-                const nuevoWa = document.getElementById('prof-whatsapp').value.trim();
-                const newPass = document.getElementById('prof-password').value; 
+        // 4) Guardar en tabla 'profiles'
+        const payload = {
+            id: realUserId,
+            username: user.username || (user.email ? user.email.split('@')[0] : 'usuario'),
+            nombre: nuevoNombre,
+            fullname: nuevoNombre,
+            email: user.email,
+            anio_cursada: nuevoAnio,
+            cursada: nuevoAnio,
+            bio: nuevaBio,
+            instagram: nuevoIg,
+            whatsapp: nuevoWa,
+            avatar: avatarFinal,
+            updated_at: new Date().toISOString()
+        };
 
-                const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
-                if (!client) throw new Error('No hay conexión con Supabase.');
+        const { error: dbError } = await client
+            .from('profiles')
+            .upsert(payload, { onConflict: 'id' });
 
-                // 1) Obtener UUID real de la sesión
-                const { data: { session }, error: sessionError } = await client.auth.getSession();
-                if (sessionError || !session) {
-                    throw new Error('Tu sesión en la nube expiró. Por favor, volvé a iniciar sesión.');
-                }
-                const realUserId = session.user.id; 
+        if (dbError) throw dbError;
 
-                // 2) Actualizar contraseña si se ingresó una nueva
-                if (newPass.length >= 6) {
-                    const { error: passErr } = await client.auth.updateUser({ password: newPass });
-                    if (passErr) console.warn("No se pudo cambiar la contraseña:", passErr.message);
-                }
+        // 5) Actualizar cache local
+        const updatedUser = { ...user, ...payload };
+        tempAvatarBase64 = null;
+        tempAvatarBlob = null;
+        localStorage.setItem('nika_currentUser', JSON.stringify(updatedUser));
+        
+        // Actualizar interfaz del Campus
+        const navbarName = document.querySelector('.user-display-name') || document.getElementById('user-name');
+        if (navbarName) navbarName.innerText = nuevoNombre;
+        const navbarAvatar = document.querySelector('.user-avatar-img') || document.getElementById('user-avatar');
+        if (navbarAvatar && avatarFinal) navbarAvatar.src = avatarFinal;
 
-                let avatarFinal = tempAvatarBase64 ? tempAvatarBase64 : user.avatar;
+        showToast("¡Perfil guardado correctamente en la nube!", "success");
+        closeProfileModal();
+        if (typeof checkAuthState === 'function') checkAuthState();
 
-                // 3) Guardar en tabla 'profiles'
-                const payload = {
-                    id: realUserId,
-                    username: user.username || (user.email ? user.email.split('@')[0] : 'usuario'),
-                    nombre: nuevoNombre,
-                    fullname: nuevoNombre,
-                    email: user.email,
-                    anio_cursada: nuevoAnio,
-                    cursada: nuevoAnio,
-                    bio: nuevaBio,
-                    instagram: nuevoIg,
-                    whatsapp: nuevoWa,
-                    avatar: avatarFinal,
-                    updated_at: new Date().toISOString()
-                };
+    } catch (err) {
+        console.error('[handleSaveProfile] Error guardando en Supabase:', err);
+        showToast(err?.message || "No se pudo sincronizar el perfil con el servidor.", "warning");
+    } finally {
+        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = origText; }
+    }
+}
 
-                const { error: dbError } = await client
-                    .from('profiles')
-                    .upsert(payload, { onConflict: 'id' });
-
-                if (dbError) throw dbError;
-
-                // 4) Actualizar cache local
-                const updatedUser = { ...user, ...payload };
-                tempAvatarBase64 = null;
-                localStorage.setItem('nika_currentUser', JSON.stringify(updatedUser));
-                
-                // Actualizar interfaz del Campus
-                const navbarName = document.querySelector('.user-display-name') || document.getElementById('user-name');
-                if (navbarName) navbarName.innerText = nuevoNombre;
-                const navbarAvatar = document.querySelector('.user-avatar-img') || document.getElementById('user-avatar');
-                if (navbarAvatar && avatarFinal) navbarAvatar.src = avatarFinal;
-
-                showToast("¡Perfil guardado correctamente en la nube!", "success");
-                closeProfileModal();
-                if (typeof checkAuthState === 'function') checkAuthState();
-
-            } catch (err) {
-                console.error('[handleSaveProfile] Error guardando en Supabase:', err);
-                showToast(err?.message || "No se pudo sincronizar el perfil con el servidor.", "warning");
-            } finally {
-                if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = origText; }
+async function handleLogout() {
+    if (confirm("¿Seguro que deseás cerrar sesión?")) {
+        try {
+            if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
+            if (window.ChatManager) window.ChatManager.cerrarConversacion();
+            // El Pomodoro es de cada usuario: al cerrar sesión se frena y se limpia,
+            // para que otra cuenta en el mismo navegador no herede el timer.
+            if (window.PomodoroEngine) window.PomodoroEngine.reset('work');
+            if (window.NikaFriends) window.NikaFriends.stopRealtime();
+            
+            const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+            if (client && client.auth) {
+                await client.auth.signOut();
             }
+        } catch (err) {
+            console.error("Error al cerrar sesión:", err);
+        } finally {
+            localStorage.removeItem('nika_currentUser');
+            // Redirige directamente a la landing pública
+            window.location.replace('index.html');
         }
-
-        async function handleLogout() {
-            if (confirm("¿Seguro que deseás cerrar sesión?")) {
-                try {
-                    if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
-                    if (window.ChatManager) window.ChatManager.cerrarConversacion();
-                    // El Pomodoro es de cada usuario: al cerrar sesión se frena y se limpia,
-                    // para que otra cuenta en el mismo navegador no herede el timer.
-                    if (window.PomodoroEngine) window.PomodoroEngine.reset('work');
-                    if (window.NikaFriends) window.NikaFriends.stopRealtime();
-                    
-                    const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
-                    if (client && client.auth) {
-                        await client.auth.signOut();
-                    }
-                } catch (err) {
-                    console.error("Error al cerrar sesión:", err);
-                } finally {
-                    localStorage.removeItem('nika_currentUser');
-                    // Redirige directamente a la landing pública
-                    window.location.replace('index.html');
-                }
-            }
-        }
+    }
+}
 
         // ================= COMUNIDAD Y AMIGOS =================
         async function renderDashboardOnlineFriends() {
@@ -2263,10 +2428,10 @@
 
             resultsBox.innerHTML = filtered.map(u => `
                 <div class="friend-card">
-                    <img src="${u.avatar || DEFAULT_AVATAR}" alt="img" class="friend-card-avatar">
+                    <img src="${nikaEsc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar">
                     <div class="friend-card-body">
-                        <div class="friend-card-name">${u.fullname || 'Estudiante Nika'}</div>
-                        <div class="friend-card-meta">@${u.username}</div>
+                        <div class="friend-card-name">${nikaEsc(u.fullname || 'Estudiante Nika')}</div>
+                        <div class="friend-card-meta">@${nikaEsc(u.username)}</div>
                     </div>
                     <div class="friend-card-actions">
                         <button class="friend-action-btn" title="Ver perfil" onclick="abrirPerfilPublico('${u.id}')">👁️</button>
@@ -2396,10 +2561,8 @@
 
         // ================= PANEL DE ADMIN Y ERRATAS =================
         function loadAdminData() {
-            const users = JSON.parse(localStorage.getItem('nika_registered_users')) || [];
-            const statUsers = document.getElementById('admin-stat-users');
-            if (statUsers) statUsers.innerText = users.length;
             renderErratas();
+            if (window.NikaModeracion) NikaModeracion.actualizarPanelAdmin();
             populateAdminAreaSelector(); // dispara onAdminAreaChange() -> renderLoadedBanksStatus()
         }
 
@@ -2682,6 +2845,7 @@
         function appendChatMessageToDOM(row) {
             const list = document.getElementById('chat-messages-list');
             if (!list) return;
+            if (window.NikaModeracion && NikaModeracion.estaBloqueado(row.user_id)) return;
             // Si estaba el placeholder de "no hay mensajes"/carga, lo limpiamos
             if (list.dataset.empty !== 'false') { list.innerHTML = ''; list.dataset.empty = 'false'; }
 
@@ -2691,10 +2855,11 @@
 
             const msgEl = document.createElement('div');
             msgEl.style.cssText = 'display:flex; gap:8px; align-items:flex-start;';
+            msgEl.setAttribute('data-nika-item', '1');
             msgEl.innerHTML = `
-                <img src="${avatar}" alt="" style="width:28px; height:28px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+                <img src="${nikaEsc(avatar)}" alt="" style="width:28px; height:28px; border-radius:50%; object-fit:cover; flex-shrink:0;">
                 <div style="background: var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:6px 10px; font-size:0.82rem; max-width: 80%;">
-                    <strong style="display:block; font-size:0.72rem; color: var(--nika-primary);">${nombre} <span style="color:var(--text-muted); font-weight:500;">${hora}</span></strong>
+                    <strong style="display:block; font-size:0.72rem; color: var(--nika-primary);">${nikaEsc(nombre)} <span style="color:var(--text-muted); font-weight:500;">${hora}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('chat', row.id, row.user_id, nombre, row.message) : ''}</strong>
                     <span></span>
                 </div>
             `;
@@ -2769,15 +2934,15 @@
                 return;
             }
 
-            list.innerHTML = res.data.map(t => {
+            list.innerHTML = res.data.filter(t => !(window.NikaModeracion && NikaModeracion.estaBloqueado(t.user_id))).map(t => {
                 const autor = t.profiles?.fullname || 'Estudiante Nika';
                 const fecha = t.created_at ? new Date(t.created_at).toLocaleDateString('es-AR') : '';
                 const cantRespuestas = Array.isArray(t.forum_replies) && t.forum_replies[0] ? t.forum_replies[0].count : 0;
                 return `
-                <div style="background:var(--bg-body); padding:12px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);">
-                    <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">${autor} • ${fecha} • UP: ${t.up_id}</div>
-                    <div style="font-size:0.95rem; font-weight:800; color:var(--text-main); margin:4px 0;">${t.title}</div>
-                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">${t.content}</div>
+                <div data-nika-item="1" style="background:var(--bg-body); padding:12px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);">
+                    <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">${nikaEsc(autor)} • ${fecha} • UP: ${nikaEsc(t.up_id)} ${window.NikaModeracion ? NikaModeracion.botonReporte('forum_thread', t.id, t.user_id, autor, t.title + ' — ' + t.content) : ''}</div>
+                    <div style="font-size:0.95rem; font-weight:800; color:var(--text-main); margin:4px 0;">${nikaEsc(t.title)}</div>
+                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">${nikaEsc(t.content)}</div>
                     <button type="button" class="btn-module" style="padding:4px 10px; font-size:0.75rem; width:auto; background:rgba(2,132,199,0.1); color:var(--nika-primary);" onclick="toggleForumThreadReplies(${t.id}, this)">💬 ${cantRespuestas} respuesta${cantRespuestas === 1 ? '' : 's'} — ver/responder</button>
                     <div id="forum-replies-${t.id}" style="display:none; margin-top:10px; padding-top:10px; border-top:1px dashed var(--border);"></div>
                 </div>`;
@@ -2796,10 +2961,10 @@
 
             const res = await NikaSocial.cargarRespuestasHilo(threadId);
             const repliesHtml = res.ok && res.data.length
-                ? res.data.map(r => {
+                ? res.data.filter(r => !(window.NikaModeracion && NikaModeracion.estaBloqueado(r.user_id))).map(r => {
                     const autor = r.profiles?.fullname || 'Estudiante Nika';
                     const fecha = r.created_at ? new Date(r.created_at).toLocaleDateString('es-AR') : '';
-                    return `<div style="font-size:0.82rem; padding:6px 0; border-bottom:1px solid var(--border);"><strong style="color:var(--nika-primary);">${autor}</strong> <span style="color:var(--text-muted); font-size:0.72rem;">${fecha}</span><div>${r.content}</div></div>`;
+                    return `<div data-nika-item="1" style="font-size:0.82rem; padding:6px 0; border-bottom:1px solid var(--border);"><strong style="color:var(--nika-primary);">${nikaEsc(autor)}</strong> <span style="color:var(--text-muted); font-size:0.72rem;">${fecha}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('forum_reply', r.id, r.user_id, autor, r.content) : ''}<div>${nikaEsc(r.content)}</div></div>`;
                 }).join('')
                 : '<p style="font-size:0.8rem; color:var(--text-muted);">Sin respuestas todavía. ¡Sé el primero!</p>';
 
@@ -2860,7 +3025,7 @@
                 const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : '🏅'));
                 const nombre = u.profiles?.fullname || 'Estudiante Nika';
                 const avatar = u.profiles?.avatar || NikaSocial.DEFAULT_AVATAR;
-                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${avatar}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong style="font-size:0.85rem; display:block;">${nombre}</strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo} ELO</span></div>`;
+                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${nikaEsc(avatar)}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong style="font-size:0.85rem; display:block;">${nikaEsc(nombre)}</strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo} ELO</span></div>`;
             });
         }
 
@@ -3014,8 +3179,9 @@
 
         const { data, error } = await supabase
             .from('profiles')
-            .select('*')
-            .neq('id', currentUserId);
+            .select('id, username, fullname, avatar, faculty')
+            .neq('id', currentUserId)
+            .limit(100);
 
         const grid = document.getElementById('global-users-grid');
         if (!grid) return;
@@ -3027,9 +3193,9 @@
 
         grid.innerHTML = data.map(user => `
             <div class="module-card" style="padding: 24px; text-align: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;">
-                <img src="${user.avatar || 'assets/N%20NIKA.png'}" alt="Avatar" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 0 auto 12px auto; border: 2px solid var(--nika-primary); background: var(--bg-body);">
-                <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${user.fullname || 'Estudiante Nika'}</h4>
-                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 16px; font-weight: 600;">${user.faculty || 'Facultad de Ciencias de la Salud UNER'}</span>
+                <img src="${nikaEsc(user.avatar || 'assets/N%20NIKA.png')}" alt="Avatar" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 0 auto 12px auto; border: 2px solid var(--nika-primary); background: var(--bg-body);">
+                <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${nikaEsc(user.fullname || 'Estudiante Nika')}</h4>
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 16px; font-weight: 600;">${nikaEsc(user.faculty || 'Facultad de Ciencias de la Salud UNER')}</span>
                 
                 <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <button onclick="abrirPerfilPublico('${user.id}')" class="btn-module" style="padding: 8px 12px; font-size: 0.78rem; font-weight: 700; background:#e2e8f0; color:#334155;">👁️ Ver Perfil</button>
@@ -3100,7 +3266,7 @@
 
         const { data: user, error } = await supabase
             .from('profiles')
-            .select('*')
+            .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at')
             .eq('id', userId)
             .single();
 
@@ -3203,6 +3369,15 @@
                 console.error("[SW] No se pudo registrar:", err);
             });
         });
+        // Si ya había una versión controlando la página y se activa una nueva, avisamos una sola vez.
+        if (navigator.serviceWorker.controller) {
+            let _avisoSW = false;
+            navigator.serviceWorker.addEventListener("controllerchange", () => {
+                if (_avisoSW) return;
+                _avisoSW = true;
+                if (typeof showToast === "function") showToast("✨ Campus Nika se actualizó. Recargá la página para ver la versión nueva.");
+            });
+        }
     }
 
     function _esMobilPWA() {
@@ -3760,7 +3935,6 @@
             await window.NikaSupabase.restaurarSesionSiExiste();
         }
         checkAuthState();
-        initMockErratas();
         syncStudyProgress();
 
         if (window.NikaSupabase && window.NikaSupabase.client) {
@@ -3894,7 +4068,7 @@
                 // Consultamos TODOS los datos del perfil guardados en Supabase
                 const { data: dbProfile, error: dbError } = await client
                     .from('profiles')
-                    .select('*')
+                    .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at')
                     .eq('id', u.id)
                     .maybeSingle();
 
@@ -3922,7 +4096,7 @@
                 };
 
                 localStorage.setItem('nika_currentUser', JSON.stringify(profileData));
-                console.log("✅ Sesión y perfil sincronizados con Supabase:", profileData.email);
+                console.log("✅ Sesión y perfil sincronizados con Supabase");
 
                 if (typeof window.verificarExpedienteMedico === 'function') {
                     window.verificarExpedienteMedico();

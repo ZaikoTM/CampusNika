@@ -142,11 +142,20 @@ const NikaAssistant = (() => {
             const proxyEndpoint = GEMINI_CONFIG.getProxyEndpoint();
             const proxyKey = GEMINI_CONFIG.getProxyKey();
 
+            let authToken = proxyKey;
+            try {
+                const _c = window.NikaSupabase && window.NikaSupabase.client;
+                if (_c) {
+                    const { data: { session: _s } } = await _c.auth.getSession();
+                    if (_s && _s.access_token) authToken = _s.access_token;
+                }
+            } catch (_) {}
+
             const response = await fetch(proxyEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${proxyKey}`,
+                    'Authorization': `Bearer ${authToken}`,
                     'apikey': proxyKey
                 },
                 body: JSON.stringify({
