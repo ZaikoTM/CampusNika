@@ -139,6 +139,7 @@
 
             <div class="sidebar-category">Herramientas</div>
             <li><button onclick="window.location.href='nikafarma.html'" class="sidebar-link">💊 NikaFarma</button></li>
+            <li><button data-guardia-open class="sidebar-link">🛡️ Modo Guardia Offline</button></li>
             <li><button onclick="toggleDarkMode()" id="dark-mode-btn" class="sidebar-link">🌙 Modo Oscuro</button></li>
             <li id="pwa-install-item" style="display:none;"><button onclick="instalarAppNika()" class="sidebar-link">📲 Instalar App</button></li>
         </ul>
@@ -164,6 +165,8 @@
 
             <!-- ZONA DERECHA DEL HEADER: Campanita de Notificaciones + Botón de Cuenta -->
             <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+                <!-- Badge de conexión (Modo Guardia): 🟢 Online · 🟡 Offline · 🔄 Sincronizando -->
+                <span data-nika-net-slot></span>
                 <!-- Widget de Notificaciones con Campanita -->
                 <div class="notifications-wrapper" style="position: relative; display: inline-flex; align-items: center;">
                     <button id="notification-bell" onclick="toggleNotificationsPanel()" class="toggle-sidebar-btn" style="position: relative; padding: 8px 12px; background: rgba(2, 132, 199, 0.1); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 1rem;">
@@ -266,6 +269,11 @@
                     <div class="action-icon">💊</div>
                     <h4>NikaFarma</h4>
                     <span>Vademécum y decisión clínica</span>
+                </div>
+                <div class="action-btn-card" data-guardia-open>
+                    <div class="action-icon">🛡️</div>
+                    <h4>Modo Guardia</h4>
+                    <span>Descargá bancos y vademécum para usar sin señal</span>
                 </div>
             </div>
         </div>
@@ -1009,6 +1017,10 @@
     <script src="js/social.js"></script>
     <script src="js/friendsManager.js"></script>
     <script src="js/moderacion.js"></script>
+    <!-- Modo Guardia Offline-First: IndexedDB + cola de sincronización + descarga por lotes -->
+    <script src="js/offlineStorage.js"></script>
+    <script src="js/syncManager.js"></script>
+    <script src="js/guardiaModal.js"></script>
     <script src="js/rendimiento.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="js/chatManager.js"></script>

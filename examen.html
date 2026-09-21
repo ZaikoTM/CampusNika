@@ -285,6 +285,8 @@
             <span class="brand-slogan">Estudia, competi, aprobá</span>
         </div>
         <div class="navbar-actions">
+            <span data-nika-net-slot></span>
+            <button class="nav-tool-btn" data-guardia-open title="Descargar bancos y vademécum para usar sin conexión">🛡️ Guardia</button>
             <button onclick="confirmarCancelacionExamen()" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">✕ Cancelar Examen</button>
             <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
             <button class="nav-tool-btn" onclick="toggleFocusMode()" title="Modo Enfoque (Pantalla Completa)">🔍 Enfoque</button>
@@ -409,6 +411,7 @@
                     <div class="score-huge" id="final-score">0%</div>
                     <div style="color: var(--text-muted); font-size: 1.2rem; font-weight: 700; margin-bottom: 20px;" id="final-grade-text">Calificación: 0 / 10</div>
                     <div id="motivational-feedback"></div>
+                    <div id="offline-result-notice" role="status" style="display:none; margin: 14px auto 0; max-width: 560px; padding: 12px 16px; border-radius: 12px; background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.5); color: #a16207; font-size: 0.9rem; font-weight: 600; line-height: 1.5;"></div>
                 </div>
                 
                 <table class="stats-table" style="margin-bottom: 30px;">
@@ -504,6 +507,9 @@
     <!-- SDK oficial de Supabase (requerido para inicializar el cliente) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
+    <script src="js/offlineStorage.js"></script>
+    <script src="js/syncManager.js"></script>
+    <script src="js/guardiaModal.js"></script>
     <script src="js/friendsManager.js"></script>
     <script src="js/rendimiento.js"></script>
     <script src="js/chatManager.js"></script>
@@ -800,7 +806,9 @@
 
             if (pool.length === 0) {
                 if (isLocalBank) { alert('Este banco todavía no tiene preguntas cargadas (revisá js/data/).'); if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; } return; }
-                alert("No se pudieron cargar las preguntas solicitadas. Verificá tu conexión a internet o asegurate de haber subido los bancos en el Panel de Administración.");
+                const msgSinPreguntas = "No se pudieron cargar las preguntas solicitadas. Si estás sin señal, primero tenés que descargarlas con «Descargar para Guardia». Si estás online, verificá que los bancos estén subidos en el Panel de Administración.";
+                if (window.GuardiaModal && confirm(msgSinPreguntas + "\n\n¿Abrir «Descargar para Guardia» ahora?")) GuardiaModal.abrir();
+                else if (!window.GuardiaModal) alert(msgSinPreguntas);
                 if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; }
                 return;
             }
@@ -808,6 +816,7 @@
             if (btn) { btn.innerText = "Comenzar Evaluación 🚀"; btn.disabled = false; }
 
             // 3. Mezclamos y preparamos el Examen
+            if (window.SyncManager && SyncManager.estaOffline()) showToast("📴 Modo Guardia: rindiendo con las preguntas descargadas");
             pool.sort(() => Math.random() - 0.5);
             const finalCount = (selectedMode === 'flash') ? 10 : Math.min(countInput, pool.length);
             currentExam = pool.slice(0, finalCount);
@@ -1096,7 +1105,7 @@
             // Guarda el resultado en Supabase (por materia y por UP): alimenta Mi Rendimiento,
             // el Radar Clínico y la Curva del Olvido. Si no hay conexión queda en cola y se reintenta.
             if (window.NikaRendimiento) {
-                NikaRendimiento.guardarExamen({
+                Promise.resolve(NikaRendimiento.guardarExamen({
                     modulo: new URLSearchParams(window.location.search).get('modulo') || 'cirugia',
                     mode: selectedMode,
                     total: totalQuestions,
@@ -1106,7 +1115,7 @@
                     scorePct: scorePct,
                     durationSeconds: totalExamTime - timeLeftSeconds,
                     byUp: upStats
-                });
+                })).then(mostrarAvisoOffline).catch((e) => console.warn('No se pudo guardar el resultado:', e));
             }
             renderAssistantSuggestion();
         }
@@ -1205,6 +1214,60 @@
             renderReview(filter);
         }
 
+        // ================= MODO GUARDIA: aviso offline + reporte de erratas en cola =================
+        function mostrarAvisoOffline(r) {
+            const box = document.getElementById('offline-result-notice');
+            if (!box || !r) return;
+            if (r.queued) {
+                box.style.display = 'block';
+                box.innerHTML = r.offline
+                    ? '📴 <strong>Examen completado offline.</strong> Tu progreso se subirá automáticamente al recuperar señal.'
+                    : '⏳ <strong>No pudimos subir tu resultado ahora.</strong> Quedó guardado en tu dispositivo y se subirá automáticamente.';
+            } else if (r.ok === false && r.error) {
+                box.style.display = 'block';
+                box.textContent = '⚠️ ' + r.error;
+            }
+        }
+        // Cuando la cola se vacía, se actualiza el aviso
+        window.addEventListener('nika:sync-done', () => {
+            const box = document.getElementById('offline-result-notice');
+            if (box && box.style.display === 'block') box.innerHTML = '✅ <strong>Tu resultado ya se sincronizó.</strong>';
+        });
+
+        function abrirReporteErrata(idx) {
+            const q = currentExam[idx]; if (!q) return;
+            let ov = document.getElementById('errata-overlay');
+            if (!ov) {
+                ov = document.createElement('div');
+                ov.id = 'errata-overlay';
+                ov.style.cssText = 'position:fixed;inset:0;z-index:9600;background:rgba(2,6,23,.66);display:flex;align-items:center;justify-content:center;padding:16px;';
+                ov.innerHTML = `<div style="background:var(--card-bg,#fff);color:var(--text-main);border:1px solid var(--border);border-radius:16px;padding:20px;width:min(520px,100%);box-shadow:0 30px 60px -20px rgba(0,0,0,.5);">
+                    <h3 style="margin:0 0 6px;font-size:1.05rem;font-weight:800;">🚩 Reportar errata</h3>
+                    <p id="errata-q" style="margin:0 0 10px;font-size:.82rem;color:var(--text-muted);line-height:1.4;max-height:90px;overflow:auto;"></p>
+                    <textarea id="errata-just" rows="4" maxlength="800" placeholder="Explicá qué error encontraste y con qué fuente lo fundamentás (mín. 10 caracteres)…" style="width:100%;box-sizing:border-box;padding:10px;border:1.5px solid var(--border);border-radius:10px;background:var(--bg-body);color:var(--text-main);font:inherit;resize:vertical;"></textarea>
+                    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
+                        <button id="errata-cancel" style="padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text-main);font-weight:700;cursor:pointer;">Cancelar</button>
+                        <button id="errata-send" style="padding:10px 14px;border-radius:10px;border:0;background:var(--nika-primary);color:#fff;font-weight:800;cursor:pointer;">Enviar</button>
+                    </div></div>`;
+                document.body.appendChild(ov);
+                ov.addEventListener('click', (e) => { if (e.target === ov) ov.style.display = 'none'; });
+                document.getElementById('errata-cancel').onclick = () => { ov.style.display = 'none'; };
+            }
+            ov.style.display = 'flex';
+            document.getElementById('errata-q').textContent = `Pregunta ${idx + 1} (UP ${q.up}): ${q.q}`;
+            const ta = document.getElementById('errata-just'); ta.value = ''; ta.focus();
+            document.getElementById('errata-send').onclick = async () => {
+                const just = ta.value.trim();
+                if (just.length < 10) { showToast('Contanos un poco más el error (mínimo 10 caracteres).'); return; }
+                if (!window.SyncManager || !SyncManager.userIdCacheado()) { showToast('Iniciá sesión para reportar una errata.'); return; }
+                try {
+                    await SyncManager.encolar('errata', { preguntaTexto: `[UP ${q.up}] ${q.q}`, justificacion: just });
+                    ov.style.display = 'none';
+                    showToast(SyncManager.estaOffline() ? '🚩 Errata guardada. Se enviará al volver la señal.' : '🚩 ¡Gracias! Errata enviada.');
+                } catch (e) { showToast('No se pudo registrar la errata: ' + e.message); }
+            };
+        }
+
         function renderReview(filter) {
             const reviewContainer = document.getElementById('review-container'); reviewContainer.innerHTML = '';
             currentExam.forEach((q, idx) => {
@@ -1217,6 +1280,7 @@
                         <div style="font-size: 0.95rem; margin-bottom: 4px;">Tu respuesta: <strong style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}">${userAns ? userAns.toUpperCase() + ') ' + q.options[userAns] : 'Sin responder'}</strong></div>
                         <div style="font-size: 0.95rem;">Respuesta correcta: <strong style="color: var(--text-main);">${q.correct.toUpperCase()}) ${q.options[q.correct]}</strong></div>
                         <div class="feedback-box"><strong style="color: var(--text-main);">📚 Justificación Oficial:</strong><br> ${q.feedback}</div>
+                        <div style="margin-top: 12px; text-align: right;"><button onclick="abrirReporteErrata(${idx})" style="background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 7px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer;" title="¿Encontraste un error en esta pregunta?">🚩 Reportar errata</button></div>
                     </div>`;
             });
             if (reviewContainer.innerHTML === '') reviewContainer.innerHTML = '<p style="text-align:center; color:var(--text-muted);">No hay preguntas para este filtro.</p>';

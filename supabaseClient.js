@@ -407,18 +407,47 @@ async function listarBancosJSON(modulo) {
 }
 
 async function cargarPreguntasUP({ modulo, upId }) {
-    try {
-        const { data, error } = await obtenerBancoJSON({ modulo, upId });
-        if (!error && data && Array.isArray(data.data) && data.data.length) {
-            localStorage.setItem(`nika_banco_${modulo}_${upId}`, JSON.stringify(data.data));
-            return { questions: data.data, source: "supabase" };
+    // Modo Guardia: 1) online -> Supabase; 2) sin señal o falla -> IndexedDB (descargado desde el modal);
+    // 3) último recurso -> copia vieja en localStorage.
+    const OS = window.OfflineStorage;
+    const SM = window.SyncManager;
+    const hayRed = navigator.onLine && !(SM && SM.estaOffline && SM.estaOffline());
+
+    if (hayRed) {
+        try {
+            const res = await Promise.race([
+                obtenerBancoJSON({ modulo, upId }),
+                new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 8000)),
+            ]);
+            if (!res.error && res.data && Array.isArray(res.data.data) && res.data.data.length) {
+                const preguntas = res.data.data;
+                // Si el alumno ya la había descargado para la guardia, se refresca esa copia
+                try { if (OS && await OS.obtenerUPLocal(modulo, upId)) await OS.guardarUPLocal(modulo, upId, preguntas); } catch (_) {}
+                try { localStorage.setItem(`nika_banco_${modulo}_${upId}`, JSON.stringify(preguntas)); } catch (_) { /* cuota de 5 MB */ }
+                return { questions: preguntas, source: "supabase" };
+            }
+            if (res.error && /failed to fetch|network|load failed/i.test(String(res.error.message || ""))) {
+                if (SM && SM.marcarRedCaida) SM.marcarRedCaida();
+            }
+        } catch (err) {
+            console.warn("[supabaseClient] Falla de red consultando bancos_json, se usa la copia offline:", err);
+            if (SM && SM.marcarRedCaida && /timeout|failed to fetch/i.test(String(err && err.message))) SM.marcarRedCaida();
         }
-    } catch (err) {
-        console.warn("[supabaseClient] Falla de red consultando bancos_json, se usa caché local:", err);
     }
 
-    const local = localStorage.getItem(`nika_banco_${modulo}_${upId}`);
-    if (local) return { questions: JSON.parse(local), source: "local" };
+    try {
+        if (OS) {
+            const guardadas = await OS.obtenerUPLocal(modulo, upId);
+            if (guardadas && guardadas.length) return { questions: guardadas, source: "offline-db" };
+        }
+    } catch (err) {
+        console.warn("[supabaseClient] IndexedDB no disponible:", err);
+    }
+
+    try {
+        const local = localStorage.getItem(`nika_banco_${modulo}_${upId}`);
+        if (local) return { questions: JSON.parse(local), source: "local" };
+    } catch (_) {}
     return { questions: [], source: "none" };
 }
 

@@ -141,6 +141,39 @@ const PomodoroEngine = (() => {
     return window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || null;
   }
 
+  // Usuario cacheado en el dispositivo (sirve para registrar sesiones estando sin señal)
+  function getCachedUserId() {
+    try { return JSON.parse(localStorage.getItem('nika_currentUser') || '{}').id || null; } catch (_) { return null; }
+  }
+
+  async function resolveUserId() {
+    const client = getDbClient();
+    if (client && client.auth && navigator.onLine) {
+      try {
+        const res = await Promise.race([client.auth.getSession(), new Promise((r) => setTimeout(() => r(null), 3000))]);
+        if (res && res.data && res.data.session && res.data.session.user) return res.data.session.user.id;
+      } catch (_) {}
+    }
+    return getCachedUserId();
+  }
+
+  function isOfflineNow() {
+    return window.SyncManager ? window.SyncManager.estaOffline() : !navigator.onLine;
+  }
+
+  // Modo Guardia: si no se puede subir ahora, la sesión queda en sync_queue (IndexedDB) y se sube sola.
+  async function queueStudySession(row) {
+    if (!window.SyncManager) return false;
+    try {
+      await window.SyncManager.encolar('progreso_estudio', { row });
+      if (typeof showToast === 'function') showToast('📴 Sesión guardada en el dispositivo. Se sube sola al volver la señal.', 'success');
+      return true;
+    } catch (e) {
+      console.warn('[PomodoroEngine] No se pudo encolar la sesión:', e && e.message);
+      return false;
+    }
+  }
+
   // completed = false -> bloque interrumpido (Pomodoro parcial)
   async function registerStudySession(moduleId, upId, minutes, completed = true) {
     if (!moduleId || !upId || !minutes) return;
@@ -151,18 +184,23 @@ const PomodoroEngine = (() => {
     localStorage.setItem(key, String(prev + minutes));
 
     try {
-      const client = getDbClient();
-      if (!client || !client.auth) return;
-      const { data: { session } } = await client.auth.getSession();
-      if (!session || !session.user) return;
+      const userId = await resolveUserId();
+      if (!userId) return;                                   // sin sesión ni usuario en el dispositivo
       const row = {
-        user_id: session.user.id,
+        user_id: userId,
         modulo: moduleId,
         up_id: upId,
         duration_minutes: minutes,
         completed,
         completed_at: new Date().toISOString(),
       };
+
+      // Sin conexión: directo a la cola
+      if (isOfflineNow()) { await queueStudySession(row); return; }
+
+      const client = getDbClient();
+      if (!client || !client.auth) { await queueStudySession(row); return; }
+
       let { error } = await client.from('study_sessions').insert(row);
       if (error && /completed/i.test(error.message || '')) {
         // La columna 'completed' todavía no existe (falta correr sql/rendimiento.sql):
@@ -171,9 +209,17 @@ const PomodoroEngine = (() => {
         const { completed: _omitida, ...sinFlag } = row;
         ({ error } = await client.from('study_sessions').insert(sinFlag));
       }
-      if (error) console.error('[PomodoroEngine] Error al guardar la sesión:', error);
+      if (error) {
+        console.error('[PomodoroEngine] Error al guardar la sesión, queda en cola:', error);
+        await queueStudySession(row);
+      }
     } catch (err) {
       console.error('[PomodoroEngine] Excepción al guardar la sesión:', err);
+      // Falla de red típica: intentamos dejarla en cola con el usuario cacheado
+      const uid = getCachedUserId();
+      if (uid) {
+        await queueStudySession({ user_id: uid, modulo: moduleId, up_id: upId, duration_minutes: minutes, completed, completed_at: new Date().toISOString() });
+      }
     }
   }
 

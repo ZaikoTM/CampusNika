@@ -2,8 +2,9 @@
 // CAMPUS NIKA — Resultados de simulacros y analítica de rendimiento (Supabase).
 //
 //  - guardarExamen(): guarda cada simulacro en la tabla exam_results (con el
-//    desglose por Unidad Problema). Si no hay conexión, lo deja en una cola
-//    local y lo reintenta la próxima vez.
+//    desglose por Unidad Problema). Si no hay conexión (Modo Guardia), lo encola en
+//    IndexedDB (sync_queue, ver js/syncManager.js) y se sube solo al volver la señal.
+//    Devuelve { ok, queued, offline }.
 //  - cargarDatos(): trae tus sesiones Pomodoro (study_sessions) y tus
 //    simulacros (exam_results).
 //  - analizar(): calcula todo lo que muestra "Mi Rendimiento Académico":
@@ -60,6 +61,19 @@ const NikaRendimiento = (() => {
     return session && session.user ? session.user.id : null;
   }
 
+  // Sin señal el SDK puede tardar o fallar al leer la sesión: usamos el usuario cacheado en el dispositivo.
+  function _userIdCacheado() {
+    try { return JSON.parse(localStorage.getItem('nika_currentUser') || '{}').id || null; } catch (_) { return null; }
+  }
+  async function _getUserIdRapido(ms) {
+    try {
+      return await Promise.race([getUserId(), new Promise((res) => setTimeout(() => res(null), ms))]);
+    } catch (_) { return null; }
+  }
+  function _estaOffline() {
+    return window.SyncManager ? window.SyncManager.estaOffline() : !navigator.onLine;
+  }
+
   // ------------------------------------------------------------
   // Guardar un simulacro
   // payload: { modulo, mode, total, correct, incorrect, blank, score, scorePct,
@@ -105,26 +119,55 @@ const NikaRendimiento = (() => {
     if (error) throw error;
   }
 
+  // Encola en IndexedDB (sync_queue). Si el módulo offline no está cargado, usa la cola vieja de localStorage.
+  async function _encolar(fila) {
+    if (window.SyncManager) {
+      try { await window.SyncManager.encolar('resultado_examen', { fila }); return true; }
+      catch (e) { console.warn('[NikaRendimiento] No se pudo encolar en IndexedDB:', e && e.message); }
+    }
+    const cola = _colaLeer();
+    cola.push(fila);
+    _colaEscribir(cola);
+    return true;
+  }
+
   async function guardarExamen(payload) {
-    let userId = null;
-    try { userId = await getUserId(); } catch (_) {}
+    const offline = _estaOffline();
+    // Online: sesión real. Offline: usuario cacheado (no esperamos a la red).
+    let userId = await _getUserIdRapido(offline ? 1500 : 6000);
+    if (!userId) userId = _userIdCacheado();
     if (!userId) return { ok: false, error: 'Sin sesión iniciada.' };
 
     const fila = _filaDesdePayload(payload, userId);
-    try {
-      await _insertar(fila);
-      return { ok: true };
-    } catch (err) {
-      // Sin red o error temporal: queda en cola local y se reintenta después
-      console.warn('[NikaRendimiento] No se pudo guardar el simulacro, queda en cola:', err && err.message);
-      const cola = _colaLeer();
-      cola.push(fila);
-      _colaEscribir(cola);
-      return { ok: false, queued: true, error: err && err.message };
+
+    if (!offline) {
+      try {
+        await _insertar(fila);
+        return { ok: true };
+      } catch (err) {
+        console.warn('[NikaRendimiento] No se pudo guardar el simulacro, queda en cola:', err && err.message);
+        if (window.SyncManager && /failed to fetch|network|load failed|timeout/i.test(String(err && err.message))) {
+          window.SyncManager.marcarRedCaida();
+        }
+      }
     }
+
+    await _encolar(fila);
+    return { ok: false, queued: true, offline: offline || _estaOffline() };
   }
 
+  // Vacía la cola: primero migra la vieja de localStorage y luego delega en SyncManager.
   async function reintentarPendientes() {
+    if (window.SyncManager) {
+      try {
+        await window.SyncManager.migrarColaLegacy();
+        return await window.SyncManager.sincronizarAhora();
+      } catch (_) { return; }
+    }
+    return _reintentarLegacy();
+  }
+
+  async function _reintentarLegacy() {
     const cola = _colaLeer();
     if (!cola.length) return;
     let userId = null;
@@ -147,7 +190,8 @@ const NikaRendimiento = (() => {
     const userId = await getUserId();
     if (!userId) throw new Error('Sin sesión iniciada.');
 
-    await reintentarPendientes();
+    // No bloqueamos la pantalla más de 4 s si la cola tarda (señal floja)
+    await Promise.race([reintentarPendientes(), new Promise((res) => setTimeout(res, 4000))]);
 
     // 'completed' puede no existir si todavía no corriste sql/rendimiento.sql
     let sesiones = [];

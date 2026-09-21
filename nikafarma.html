@@ -393,6 +393,8 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
   .nf-ibtn b{ font-size:.66rem; }
 }
 @media (max-width:600px){ .nf-home{ grid-template-columns:1fr 1fr; gap:10px; } .nf-dt{ padding:14px; min-height:98px; } .nf-dt .tl{ font-size:.82rem; } .nf-sc{ grid-template-columns:1fr 1fr; } .nf-sk .go{ display:none; } .nf-sk .tx b{ font-size:.8rem; } }
+[data-nika-net-slot]{ display:inline-flex; align-items:center; }
+@media (max-width:600px){ .nf-top [data-nika-net-slot]{ order:2; } }
 </style>
 </head>
 
@@ -401,6 +403,7 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
 <header class="nf-top">
   <a class="nf-back" href="campus.html" title="Volver al Campus" aria-label="Volver al Campus">←<span class="bt">&nbsp;Campus</span></a>
   <div class="nf-brand">💊 NikaFarma <small>Vademécum &amp; decisión clínica</small></div>
+  <span data-nika-net-slot></span>
   <span class="nf-brk"></span>
   <div class="nf-switches">
     <button class="nf-panic" id="btnGuardia" aria-pressed="false" title="Solo dosis, preparación IV, velocidad de infusión y alertas críticas">🚨 Guardia</button>
@@ -479,6 +482,10 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
 </div>
 <div id="nfToast" role="status"></div>
 
+<!-- Modo Guardia Offline-First -->
+<script src="js/offlineStorage.js"></script>
+<script src="js/syncManager.js"></script>
+<script src="js/guardiaModal.js"></script>
 <script>
 /* =====================================================================
    NIKAFARMA · Vanilla JS (sin frameworks)
@@ -549,11 +556,23 @@ async function loadData() {
   let lastErr;
   for (const url of DATA_URLS) {
     try {
-      const r = await fetch(url, { cache: 'no-cache' });
+      const r = await fetch(url, { cache: 'no-cache' });      // el Service Worker: red primero, caché si falla
       if (!r.ok) throw new Error(url + ' → HTTP ' + r.status);
-      return await r.json();
+      const json = await r.json();
+      // Si el alumno ya lo descargó para la guardia, se refresca esa copia en segundo plano
+      if (window.OfflineStorage) {
+        OfflineStorage.infoNikaFarmaLocal().then((m) => { if (m) OfflineStorage.guardarNikaFarmaLocal(json); }).catch(() => {});
+      }
+      return json;
     } catch (e) { lastErr = e; }
   }
+  // Sin red ni caché del navegador: copia descargada en IndexedDB (Modo Guardia)
+  try {
+    if (window.OfflineStorage) {
+      const local = await OfflineStorage.obtenerNikaFarmaLocal();
+      if (local) { setTimeout(() => toast('📴 Modo Guardia: usando el vademécum descargado'), 600); return local; }
+    }
+  } catch (_) {}
   throw lastErr;
 }
 function indexData(d) {
@@ -1155,7 +1174,7 @@ async function init() {
     indexData(await loadData());
   } catch (err) {
     console.error(err);
-    setMain(`<div class="nf-sec"><h2>No pude cargar el vademécum</h2><p>Verificá que <code>/data/nikafarma_api.json</code> exista y esté publicado.</p><p style="color:var(--text-muted);font-size:.8rem">${esc(err.message)}</p><button class="nf-btn pri" onclick="location.reload()">Reintentar</button></div>`);
+    setMain(`<div class="nf-sec"><h2>No pude cargar el vademécum</h2><p>Verificá tu conexión y que <code>/data/nikafarma_api.json</code> esté publicado. Si estás sin señal, necesitás haber usado antes «🛡️ Descargar para Guardia».</p><p style="color:var(--text-muted);font-size:.8rem">${esc(err.message)}</p><div class="nf-row"><button class="nf-btn pri" onclick="location.reload()">Reintentar</button><button class="nf-btn" data-guardia-open>🛡️ Descargar para Guardia</button></div></div>`);
     return;
   }
   renderDomainChips(); renderCalcOut(); renderTray(); renderScoresBox(); route();
