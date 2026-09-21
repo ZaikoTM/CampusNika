@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a192f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NikaFarma">
 <title>NikaFarma · Vademécum y decisión clínica · Campus Nika</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
@@ -322,20 +326,89 @@ details.nf-mini{ margin-top:8px; } details.nf-mini > summary{ cursor:pointer; fo
 .nf-aside:not(.open){ visibility:hidden; box-shadow:none; transition:transform .35s cubic-bezier(.4,0,.2,1), visibility 0s .35s; }
 body.nf-guardia details.nf-sec > summary{ font-size:1.1rem; }
 body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
+
+/* ---------- Atajos clínicos ---------- */
+.nf-sc-h{ display:flex; align-items:center; gap:10px; margin:22px 4px 10px; font-size:.72rem; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; color:var(--text-muted); }
+.nf-sc-h::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent); }
+.nf-sc{ display:grid; grid-template-columns:repeat(auto-fill,minmax(168px,1fr)); gap:10px; }
+.nf-sk{ --c:var(--nika-primary); display:flex; align-items:center; gap:11px; text-align:left; cursor:pointer; font-family:inherit; color:inherit;
+  background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:10px 12px; transition:.25s; animation:nfIn .4s both; position:relative; overflow:hidden; }
+.nf-sk::before{ content:""; position:absolute; inset:0; background:linear-gradient(120deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 65%); opacity:0; transition:.25s; }
+.nf-sk:hover{ transform:translateY(-3px); border-color:var(--c); box-shadow:0 12px 24px -14px var(--c); }
+.nf-sk:hover::before{ opacity:1; }
+.nf-sk .ib{ position:relative; flex:none; width:40px; height:40px; border-radius:13px; display:grid; place-items:center; font-size:1.3rem;
+  background:color-mix(in srgb,var(--c) 16%,transparent); border:1px solid color-mix(in srgb,var(--c) 30%,transparent); }
+.nf-sk .tx{ position:relative; display:flex; flex-direction:column; line-height:1.2; min-width:0; }
+.nf-sk .tx b{ font-size:.86rem; font-weight:800; }
+.nf-sk .tx small{ font-size:.68rem; color:var(--text-muted); font-weight:600; }
+.nf-sk .go{ position:relative; margin-left:auto; color:var(--text-muted); opacity:0; transform:translateX(-4px); transition:.25s; }
+.nf-sk:hover .go{ opacity:1; transform:none; color:var(--c); }
+
+/* ---------- Recorrido guiado ---------- */
+#nfTour{ position:fixed; inset:0; z-index:500; display:none; }
+#nfTour.on{ display:block; }
+#nfTour .hole{ position:fixed; border-radius:16px; pointer-events:none; transition:all .38s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 0 0 9999px rgba(2,6,23,.74), 0 0 0 3px var(--nika-primary), 0 0 28px 4px color-mix(in srgb,var(--nika-primary) 55%,transparent); }
+#nfTour .tc{ position:fixed; width:min(370px,calc(100vw - 24px)); background:var(--card-bg); color:var(--text-main); border:1px solid var(--border); border-radius:20px; padding:16px 18px 14px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.65); transition:top .38s cubic-bezier(.4,0,.2,1), left .38s cubic-bezier(.4,0,.2,1); }
+#nfTour .tk{ font-size:.68rem; font-weight:800; letter-spacing:1.3px; text-transform:uppercase; color:var(--nika-primary); }
+#nfTour h3{ font-size:1.05rem; margin:4px 0 6px; font-weight:800; }
+#nfTour p{ font-size:.86rem; line-height:1.5; color:var(--text-muted); }
+#nfTour .tf{ display:flex; align-items:center; justify-content:space-between; margin-top:14px; gap:10px; }
+#nfTour .dots{ display:flex; gap:5px; flex-wrap:wrap; max-width:110px; }
+#nfTour .dots i{ width:7px; height:7px; border-radius:50%; background:var(--border); transition:.25s; }
+#nfTour .dots i.on{ background:var(--nika-primary); width:18px; border-radius:6px; }
+#nfTour .tb{ display:flex; gap:6px; }
+#nfTour .tb .nf-btn{ padding:7px 12px; }
+@media (max-width:600px){ #nfTour .tc{ left:12px !important; right:12px; top:auto !important; bottom:12px; width:auto; } }
+
+/* ---------- Móvil / PWA: zona segura y botones tocables ---------- */
+.nf-top{ padding-top:calc(10px + env(safe-area-inset-top,0px)); padding-left:calc(14px + env(safe-area-inset-left,0px)); padding-right:calc(14px + env(safe-area-inset-right,0px)); }
+.nf-back,.nf-ibtn,.nf-sw,.nf-panic{ min-height:44px; display:inline-flex; align-items:center; justify-content:center; }
+.nf-aside{ padding-top:calc(16px + env(safe-area-inset-top,0px)); padding-bottom:calc(16px + env(safe-area-inset-bottom,0px)); }
+.nf-layout{ padding-bottom:calc(90px + env(safe-area-inset-bottom,0px)); }
+@media (max-width:600px){
+  .nf-top{ gap:8px 10px; }
+  .nf-back{ order:1; padding:0 18px; font-size:.95rem; }
+  .nf-brand{ order:2; }
+  .nf-switches{ order:3; width:100%; margin-left:0; gap:6px; }
+  .nf-switches > *{ flex:1; }
+  .nf-panic{ flex:2; }
+  .nf-btn{ min-height:42px; }
+  #nfTour .tc{ bottom:calc(12px + env(safe-area-inset-bottom,0px)); }
+}
+
+.nf-brk{ display:none; }
+@media (max-width:600px){
+  .nf-top{ flex-wrap:wrap; align-items:center; }
+  .nf-switches{ display:contents; }
+  .nf-back{ order:1; padding:0 14px; min-width:48px; }
+  .nf-back .bt{ display:none; }
+  .nf-brand{ order:2; flex:1; font-size:1.1rem; min-width:0; }
+  #btnHelp{ order:3; flex:0 0 44px; } #btnTheme{ order:4; flex:0 0 44px; }
+  .nf-brk{ display:block; order:5; flex-basis:100%; height:0; }
+  .nf-panic{ order:6; flex:2.3 1 0; white-space:nowrap; padding:0 10px; }
+  .nf-sw{ order:7; flex:1 1 0; min-width:0; padding:0; }
+  #btnTools{ order:8; flex:1.6 1 0; min-width:0; padding:0 6px; white-space:nowrap; }
+  .nf-ibtn b{ font-size:.66rem; }
+}
+@media (max-width:600px){ .nf-home{ grid-template-columns:1fr 1fr; gap:10px; } .nf-dt{ padding:14px; min-height:98px; } .nf-dt .tl{ font-size:.82rem; } .nf-sc{ grid-template-columns:1fr 1fr; } .nf-sk .go{ display:none; } .nf-sk .tx b{ font-size:.8rem; } }
 </style>
 </head>
 
 <body>
 <!-- ============================ BARRA SUPERIOR ============================ -->
 <header class="nf-top">
-  <a class="nf-back" href="campus.html" title="Volver al Campus">← Campus</a>
+  <a class="nf-back" href="campus.html" title="Volver al Campus" aria-label="Volver al Campus">←<span class="bt">&nbsp;Campus</span></a>
   <div class="nf-brand">💊 NikaFarma <small>Vademécum &amp; decisión clínica</small></div>
+  <span class="nf-brk"></span>
   <div class="nf-switches">
     <button class="nf-panic" id="btnGuardia" aria-pressed="false" title="Solo dosis, preparación IV, velocidad de infusión y alertas críticas">🚨 Guardia</button>
     <label class="nf-sw" title="Embarazo: solo fármacos categoría A/B"><input type="checkbox" id="swPreg" aria-label="Filtro embarazo"><span>🤰</span></label>
     <label class="nf-sw" title="Lactancia: solo fármacos compatibles"><input type="checkbox" id="swLact" aria-label="Filtro lactancia"><span>🍼</span></label>
     <label class="nf-sw" title="Modo Estudio (high-yield)"><input type="checkbox" id="swStudy" aria-label="Modo estudio"><span>🎓</span></label>
     <button class="nf-ibtn" id="btnTools" title="Calculadora, combinación de fármacos y scores">🧮 <b id="toolsBadge"></b></button>
+    <button class="nf-ibtn" id="btnHelp" title="Recorrido guiado: cómo usar NikaFarma" aria-label="Ayuda">❓</button>
     <button class="nf-ibtn" id="btnTheme" title="Claro / oscuro" aria-label="Cambiar tema">🌙</button>
   </div>
 </header>
@@ -397,6 +470,12 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
       <button class="nf-btn pri" data-act="copy-hce">Copiar al portapapeles</button>
     </div>
   </div>
+</div>
+<div id="nfTour" role="dialog" aria-modal="true" aria-label="Recorrido guiado">
+  <div class="hole"></div>
+  <div class="tc"><div class="tk"></div><h3></h3><p></p>
+    <div class="tf"><div class="dots"></div><div class="tb">
+      <button class="nf-btn" data-tour="skip">Saltar</button><button class="nf-btn" data-tour="prev">←</button><button class="nf-btn pri" data-tour="next">Siguiente</button></div></div></div>
 </div>
 <div id="nfToast" role="status"></div>
 
@@ -666,8 +745,12 @@ function renderList() {
   let h = '';
   if (!nq && S.domain === 'all') {
     h += `<div class="nf-home">` + S.data.meta.domains.map((d, i) => `<button class="nf-dt" style="animation-delay:${i * 30}ms" data-act="domain" data-d="${d.id}"><span class="ic">${d.icon}</span><span class="tl">${esc(d.label)}</span><b>${d.count}</b></button>`).join('') + '</div>';
-    const al = S.data.indexes.syndrome_aliases, quick = ['meningitis', 'neumonia', 'itu', 'sepsis', 'celulitis', 'endocarditis', 'neutropenia febril', 'dengue'].filter(k => al[k]);
-    h += `<div class="nf-chips" style="margin-top:16px">` + quick.map(k => `<button class="nf-pill" data-act="quick" data-q="${esc(k)}">${esc(k)}</button>`).join('') + '</div>';
+    const al = S.data.indexes.syndrome_aliases;
+    const SC = [['meningitis', '🧠', 'Meningitis', '#8b5cf6'], ['neumonia', '🫁', 'Neumonía', '#0ea5e9'], ['itu', '💧', 'Infección urinaria', '#14b8a6'],
+      ['sepsis', '🩸', 'Sepsis', '#ef4444'], ['celulitis', '🦵', 'Celulitis', '#f97316'], ['endocarditis', '🫀', 'Endocarditis', '#ec4899'],
+      ['neutropenia febril', '🌡️', 'Neutropenia febril', '#eab308'], ['dengue', '🦟', 'Dengue', '#22c55e']].filter(x => al[x[0]]);
+    h += `<div class="nf-sc-h" id="nfShortcuts">⚡ Atajos clínicos</div><div class="nf-sc">` + SC.map((x, i) =>
+      `<button class="nf-sk" style="--c:${x[3]};animation-delay:${i * 35}ms" data-act="quick" data-q="${esc(x[0])}"><span class="ib">${x[1]}</span><span class="tx"><b>${esc(x[2])}</b><small>Ver esquemas</small></span><span class="go">→</span></button>`).join('') + '</div>';
     setMain(h); return;
   }
   if (S.domain === 'microorganismo') h += `<div class="nf-chips" style="margin:0 0 6px">` + ['blee', 'ampc', 'kpc', 'sarm', 'vre', 'mdr'].map(t => `<button class="nf-pill ${S.resist === t ? 'on' : ''}" data-act="resist" data-t="${t}">${esc(tagDef(t).label)}</button>`).join('') + '</div>';
@@ -932,6 +1015,64 @@ function buildHce(kind, id) {
   return head + '\n' + S.combo.map(i => drugHce(S.drugs.get(i))).join('\n\n---\n') + (al.length ? '\n\nAlertas de la combinación:\n' + al.map(a => ' - ' + a.t + ': ' + a.m).join('\n') : '') + '\n\nNota: apoyo a la decisión clínica (NikaFarma · Campus Nika). Verificar con guías vigentes.';
 }
 
+/* ------------------------ 9. RECORRIDO GUIADO ------------------------ */
+const TOUR_KEY = 'nf_tour_v1';
+const TOUR = [
+  { t: '¡Bienvenido a NikaFarma! 💊', x: 'Tu vademécum y guía de decisión clínica dentro del Campus. En un minuto te muestro para qué sirve cada botón.' },
+  { el: () => $('.nf-sbox'), t: '🔎 Buscador inteligente', x: 'Escribí un fármaco (ceftriaxona), un microorganismo (Acinetobacter) o un cuadro clínico (meningitis, ITU). Te devuelve esquemas empíricos y los fármacos con actividad descripta. Atajo: tecla «/».' },
+  { el: () => $('.nf-home'), t: '🗂️ Áreas', x: 'Explorá por categoría: fármacos, síndromes, patógenos, vacunas, profilaxis… Cada una se ordena en grupos desplegables.' },
+  { el: () => $('#nfShortcuts') && $('#nfShortcuts').nextElementSibling, t: '⚡ Atajos clínicos', x: 'Un toque y ves directo los esquemas empíricos de ese síndrome.' },
+  { el: () => $('#btnGuardia'), t: '🚨 Modo Guardia', x: 'Pensado para la urgencia: oscurece la pantalla, esconde la teoría y agranda solo dosis, preparación IV, velocidad de infusión y alertas críticas. Tocalo de nuevo para salir.' },
+  { el: () => $('#swPreg').closest('label'), t: '🤰 Embarazo', x: 'Muestra solo fármacos categoría A/B. Los de riesgo C/D/X o sin dato se ocultan, y en los esquemas empíricos se marcan los de riesgo.' },
+  { el: () => $('#swLact').closest('label'), t: '🍼 Lactancia', x: 'Deja únicamente los fármacos compatibles con lactancia.' },
+  { el: () => $('#swStudy').closest('label'), t: '🎓 Modo Estudio', x: 'Suma viñetas high-yield, mecanismos de resistencia y perlas para el final. No convive con el Modo Guardia.' },
+  { el: () => $('#btnTools'), t: '🧮 Calculadora, combinación y scores', x: 'Cargá edad, peso, altura y creatinina: calcula Cockcroft-Gault, IMC y peso ideal/ajustado, resalta la dosis exacta y tacha las que no corresponden. También chequea combinaciones (QT/Torsades, antagonismo, duplicidad, vía en Y) y trae CURB-65 y qSOFA. Los datos del paciente no se guardan.' },
+  { el: () => $('#btnTheme'), t: '🌙 Claro / oscuro', x: 'Cambia el tema y queda sincronizado con el resto del Campus.' },
+  { el: () => $('#btnHelp'), t: '❓ Ayuda', x: 'Podés repetir este recorrido cuando quieras. Y dentro de cada ficha vas a ver «＋ Combinar» y «📋 HCE» para copiar el plan a la historia clínica. ¡A estudiar y a guardiar! 🩺' }
+];
+const tour = { i: 0, on: false };
+function startTour() {
+  S.domain = 'all'; S.q = ''; $('#q').value = ''; $('#qClear').style.display = 'none'; $('#nfAside').classList.remove('open');
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  renderDomainChips(); $('#domainChips').style.display = ''; renderList();
+  tour.i = 0; tour.on = true; $('#nfTour').classList.add('on'); setTimeout(showTour, 350);
+}
+function endTour() { tour.on = false; $('#nfTour').classList.remove('on'); try { localStorage.setItem(TOUR_KEY, '1'); } catch (e) {} }
+function showTour() {
+  if (!tour.on) return;
+  const st = TOUR[tour.i], root = $('#nfTour'), hole = $('.hole', root), card = $('.tc', root);
+  $('.tk', root).textContent = 'Paso ' + (tour.i + 1) + ' de ' + TOUR.length;
+  $('h3', root).textContent = st.t; $('p', root).textContent = st.x;
+  $('.dots', root).innerHTML = TOUR.map((_, k) => `<i class="${k === tour.i ? 'on' : ''}"></i>`).join('');
+  $('[data-tour=prev]', root).style.visibility = tour.i ? 'visible' : 'hidden';
+  $('[data-tour=next]', root).textContent = tour.i === TOUR.length - 1 ? '¡Listo!' : 'Siguiente';
+  const el = st.el && st.el();
+  if (el) el.scrollIntoView({ block: 'center', behavior: 'instant' in window ? 'auto' : 'auto' });
+  requestAnimationFrame(() => {
+    const W = window.innerWidth, H = window.innerHeight, cw = card.offsetWidth, ch = card.offsetHeight;
+    if (el) {
+      const r = el.getBoundingClientRect(), pad = 7;
+      Object.assign(hole.style, { left: r.left - pad + 'px', top: r.top - pad + 'px', width: r.width + pad * 2 + 'px', height: r.height + pad * 2 + 'px' });
+      let top = r.bottom + 16; if (top + ch > H - 12) top = Math.max(12, r.top - ch - 16);
+      let left = Math.min(Math.max(12, r.left + r.width / 2 - cw / 2), W - cw - 12);
+      card.style.top = top + 'px'; card.style.left = left + 'px';
+    } else {
+      Object.assign(hole.style, { left: W / 2 + 'px', top: H / 2 + 'px', width: '0px', height: '0px' });
+      card.style.top = Math.max(12, H / 2 - ch / 2) + 'px'; card.style.left = Math.max(12, W / 2 - cw / 2) + 'px';
+    }
+  });
+}
+function tourNav(dir) {
+  if (dir === 'skip') return endTour();
+  const n = tour.i + (dir === 'next' ? 1 : -1);
+  if (n >= TOUR.length) return endTour();
+  if (n < 0) return;
+  tour.i = n; showTour();
+}
+document.addEventListener('click', ev => { const b = ev.target.closest('[data-tour]'); if (b) { ev.stopPropagation(); tourNav(b.dataset.tour); } }, true);
+document.addEventListener('keydown', ev => { if (!tour.on) return; if (ev.key === 'Escape') endTour(); if (ev.key === 'ArrowRight' || ev.key === 'Enter') tourNav('next'); if (ev.key === 'ArrowLeft') tourNav('prev'); });
+window.addEventListener('resize', debounce(showTour, 120));
+
 /* ------------------------ 8. EVENTOS Y ARRANQUE ------------------------ */
 function route() {
   const m = location.hash.match(/^#\/(d|e)\/(.+)$/);
@@ -996,6 +1137,7 @@ async function init() {
     $$(`[data-score="${t.dataset.s}"]`).forEach(c => { c.innerHTML = scoreHtml(t.dataset.s); });
   });
   $('#btnGuardia').onclick = () => setGuardia(!S.f.guardia);
+  $('#btnHelp').onclick = startTour;
   $('#swPreg').onchange = e => { S.f.preg = e.target.checked; if (!/^#\/[de]\//.test(location.hash)) renderList(); toast(S.f.preg ? '🤰 Solo fármacos categoría A/B' : 'Filtro de embarazo apagado'); };
   $('#swLact').onchange = e => { S.f.lact = e.target.checked; if (!/^#\/[de]\//.test(location.hash)) renderList(); };
   $('#swStudy').onchange = e => { S.f.study = e.target.checked; if (S.f.study && S.f.guardia) setGuardia(false); document.body.classList.toggle('nf-study', S.f.study); };
@@ -1017,6 +1159,8 @@ async function init() {
     return;
   }
   renderDomainChips(); renderCalcOut(); renderTray(); renderScoresBox(); route();
+  let seen = false; try { seen = !!localStorage.getItem(TOUR_KEY); } catch (e) {}
+  if (!seen && !location.hash) setTimeout(startTour, 900);
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
