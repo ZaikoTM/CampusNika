@@ -1,10 +1,11 @@
 /**
- * CAMPUS NIKA — Service Worker (v4 · Modo Guardia Offline-First)
+ * CAMPUS NIKA — Service Worker (v5 · Modo Guardia Offline-First)
  * ------------------------------------------------------------------
  * Estrategias:
- *  • App Shell (HTML, CSS, JS, íconos, manifest)  -> Cache-First con revalidación en
- *    segundo plano (Stale-While-Revalidate). Abre al instante aunque la señal sea mala.
- *    Si la copia nueva difiere de la guardada, se avisa a la pestaña (NIKA_UPDATE_AVAILABLE).
+ *  • App Shell (HTML, CSS, JS, íconos, manifest)  -> Network-First con tiempo límite (3 s)
+ *    y fallback a la copia guardada. Con señal siempre abre la versión NUEVA; sin señal o con
+ *    señal muy mala cae a la copia guardada (Modo Guardia). [v5: antes era Cache-First y la
+ *    PWA instalada abría la versión vieja hasta la apertura siguiente]
  *  • Vademécum /data/nikafarma_api.json           -> Network-First con tiempo límite y
  *    fallback a la Cache API (la página además cae a IndexedDB si todo falla).
  *  • Datos JSON (data/*.json, preguntas.json, db_cirugia_organizado.json)
@@ -18,10 +19,11 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v4";
+const SW_VERSION = "nika-v5";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
+const TIMEOUT_SHELL_MS = 3000;      // HTML/JS/CSS: si la red tarda más, se usa la copia guardada
 const TIMEOUT_DATOS_MS = 5000;
 const TIMEOUT_VADEMECUM_MS = 9000;      // ~4 MB: más margen con señal floja
 
@@ -33,7 +35,7 @@ const PRECACHE_URLS = [
     "js/chatManager.js", "js/friendsManager.js", "js/rendimiento.js", "js/examen.js",
     "js/pomodoroEngine.js", "js/pomodoroSyncManager.js",
     "js/notificacionesManager.js", "js/duelosManager.js",
-    "js/offlineStorage.js", "js/syncManager.js", "js/guardiaModal.js",
+    "js/offlineStorage.js", "js/syncManager.js", "js/guardiaModal.js", "js/pwa-update.js",
     "js/productivity/pomodoro.js", "js/productivity/notas.js",
     "js/estudio/estudio.js",
     // Bancos locales y datos de respaldo del simulador
@@ -114,30 +116,27 @@ function avisarActualizacion() {
 
 // ---------------- Estrategias ----------------
 
-// App Shell: Cache-First + revalidación en segundo plano
-async function shellSWR(event, request, key, fallbackFinal) {
+// App Shell: red primero (3 s) y, si falla o tarda, la copia guardada
+async function shellRedPrimero(event, request, key, fallbackFinal) {
     const cache = await caches.open(STATIC_CACHE);
-    let cacheada = await cache.match(key);
-    if (!cacheada && esNavegacionHTML(request)) {
-        // URLs "limpias" (/campus en vez de /campus.html)
-        const u = new URL(request.url);
-        if (!/\.\w+$/.test(u.pathname)) cacheada = await cache.match(new Request(u.origin + u.pathname + ".html"));
-    }
     const red = fetch(request).then(async (resp) => {
-        if (esRespuestaCacheable(resp)) {
-            if (cacheada && huboCambio(cacheada, resp)) avisarActualizacion();
-            await cache.put(key, resp.clone());
-        }
+        if (esRespuestaCacheable(resp)) await cache.put(key, resp.clone());
         return resp;
     });
-    if (cacheada) {
-        event.waitUntil(red.catch(() => {}));
-        return cacheada;
-    }
     try {
-        return await red;
+        return await conTimeout(red, TIMEOUT_SHELL_MS);
     } catch (_) {
-        return fallbackFinal ? fallbackFinal() : Response.error();
+        let cacheada = await cache.match(key);
+        if (!cacheada && esNavegacionHTML(request)) {
+            // URLs "limpias" (/campus en vez de /campus.html)
+            const u = new URL(request.url);
+            if (!/\.\w+$/.test(u.pathname)) cacheada = await cache.match(new Request(u.origin + u.pathname + ".html"));
+        }
+        if (cacheada) {
+            event.waitUntil(red.catch(() => {}));   // la descarga sigue y deja la caché al día
+            return cacheada;
+        }
+        try { return await red; } catch (_) { return fallbackFinal ? fallbackFinal() : Response.error(); }
     }
 }
 
@@ -198,11 +197,11 @@ self.addEventListener("fetch", (event) => {
         return;
     }
     if (esNavegacionHTML(request)) {
-        event.respondWith(shellSWR(event, request, claveNavegacion(url), () => caches.match("offline.html")));
+        event.respondWith(shellRedPrimero(event, request, claveNavegacion(url), () => caches.match("offline.html")));
         return;
     }
     // Resto del App Shell (JS, CSS, íconos, manifest, fuentes propias)
-    event.respondWith(shellSWR(event, request, request));
+    event.respondWith(shellRedPrimero(event, request, request));
 });
 
 // ---------------- Background Sync ----------------

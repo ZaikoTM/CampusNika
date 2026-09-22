@@ -274,6 +274,70 @@
                 padding: 6px 12px !important;
             }
         }
+
+        /* ==========================================================
+           EMBUDO (Pasos 1 y 2) + SIMULADOR ESCRITO
+           ========================================================== */
+        .funnel-crumbs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-muted); }
+        .funnel-crumbs .crumb { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; color: var(--text-main); transition: 0.15s; font-family: inherit; font-size: inherit; font-weight: 700; }
+        .funnel-crumbs .crumb:hover:not(:disabled) { border-color: var(--nika-primary); color: var(--nika-primary); }
+        .funnel-crumbs .crumb.current { background: var(--nika-primary); border-color: var(--nika-primary); color: #fff; cursor: default; }
+        .funnel-crumbs .sep { opacity: 0.5; }
+        .funnel-section-title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 12px; }
+        .year-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+        .year-chip { padding: 12px 24px; border: 2px solid var(--border); border-radius: 10px; background: var(--card-bg); font-weight: 800; font-size: 1rem; color: var(--text-main); cursor: pointer; transition: 0.2s; font-family: inherit; }
+        .year-chip:hover { border-color: #bae6fd; transform: translateY(-2px); }
+        .year-chip.active { border-color: var(--nika-primary); background: rgba(2, 132, 199, 0.06); box-shadow: 0 0 0 1px var(--nika-primary); color: var(--nika-primary); }
+        .funnel-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 10px; padding: 18px; cursor: pointer; transition: all 0.2s; display: flex; align-items: flex-start; gap: 14px; }
+        .funnel-card:hover { border-color: var(--nika-primary); transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.15); }
+        .funnel-card.disabled { opacity: 0.55; cursor: not-allowed; }
+        .funnel-card.disabled:hover { transform: none; box-shadow: none; border-color: var(--border); }
+        .funnel-card.big { padding: 26px; }
+        .funnel-card.big .mode-icon { font-size: 2.4rem; }
+        .funnel-card.big .mode-info h4 { font-size: 1.15rem; }
+        .funnel-card.big .mode-info p { font-size: 0.88rem; }
+        .badge-soon, .badge-ia { display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 20px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; }
+        .badge-soon { background: var(--warning-light); color: var(--warning); }
+        .badge-ia { background: rgba(2, 132, 199, 0.12); color: var(--nika-primary); }
+        .escrito-aviso { display: none; margin-top: 4px; margin-bottom: 4px; padding: 12px 16px; border-radius: 10px; background: rgba(2, 132, 199, 0.06); border: 1px dashed var(--nika-primary); font-size: 0.85rem; line-height: 1.5; color: var(--text-main); }
+
+        /* --- Examen escrito en vivo --- */
+        .escrito-wrap { display: flex; flex-direction: column; gap: 10px; }
+        .escrito-label { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
+        .escrito-textarea { width: 100%; min-height: 320px; padding: 18px 20px; border: 2px solid var(--border); border-radius: 12px; background: var(--card-bg); color: var(--text-main); font-family: inherit; font-size: 1rem; line-height: 1.7; resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+        .escrito-textarea:focus { border-color: var(--nika-primary); box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12); }
+        .escrito-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.8rem; color: var(--text-muted); font-weight: 700; }
+        .btn-mic { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; font-family: inherit; transition: 0.15s; }
+        .btn-mic:hover { border-color: var(--nika-primary); color: var(--nika-primary); }
+        .btn-mic.grabando { background: var(--danger-light); color: var(--danger); border-color: #fca5a5; animation: pulsoMic 1.2s infinite; }
+        @keyframes pulsoMic { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35); } 50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); } }
+
+        /* --- Resultados del examen escrito --- */
+        #result-escrito-screen { display: none; }
+        .ia-loading { text-align: center; padding: 60px 20px; }
+        .ia-spinner { width: 54px; height: 54px; border-radius: 50%; border: 5px solid var(--border); border-top-color: var(--nika-primary); margin: 0 auto 22px; animation: girarIA 1s linear infinite; }
+        @keyframes girarIA { to { transform: rotate(360deg); } }
+        .pilares-panel { display: grid; grid-template-columns: minmax(200px, 260px) 1fr; gap: 24px; align-items: center; margin: 8px 0 28px; }
+        .pilar-row { margin-bottom: 12px; }
+        .pilar-head { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+        .pilar-track { height: 10px; background: var(--border); border-radius: 6px; overflow: hidden; }
+        .pilar-fill { height: 100%; border-radius: 6px; }
+        .esc-card { border: 1px solid var(--border); border-left: 6px solid var(--success); background: var(--card-bg); border-radius: 10px; padding: 20px; margin-bottom: 18px; box-shadow: var(--shadow); word-break: break-word; }
+        .esc-card.mid { border-left-color: var(--warning); }
+        .esc-card.low { border-left-color: var(--danger); }
+        .esc-card.na { border-left-color: var(--text-muted); }
+        .esc-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+        .nota-pill { min-width: 64px; text-align: center; padding: 6px 12px; border-radius: 10px; font-weight: 900; font-size: 1.15rem; color: #fff; flex-shrink: 0; }
+        .esc-resp { white-space: pre-wrap; background: var(--bg-body); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 0.92rem; max-height: 240px; overflow: auto; margin: 6px 0 12px; color: var(--text-main); }
+        .esc-lista { margin: 6px 0 0 18px; font-size: 0.88rem; color: var(--text-main); }
+        .esc-lista li { margin-bottom: 3px; }
+        .esc-sub { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 12px; }
+        .chip-pilar { display: inline-block; margin: 10px 6px 0 0; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-muted); }
+        .esc-alerta { background: var(--danger-light); color: var(--danger); border: 1px solid #fecaca; border-radius: 8px; padding: 10px 14px; font-weight: 700; font-size: 0.88rem; margin-bottom: 12px; }
+        @media (max-width: 768px) {
+            .pilares-panel { grid-template-columns: 1fr; }
+            .escrito-textarea { min-height: 260px; }
+        }
     </style>
 </head>
 <body>
@@ -297,40 +361,78 @@
 
     <main class="container">
         
-        <!-- ================= CONFIGURACIÓN ================= -->
-            <div class="card" id="config-screen">
-                <div class="card-header">Configuración del Simulacro</div>
+        <!-- ================= EMBUDO · PASO 1: AÑO Y ÁREA ================= -->
+        <div class="card" id="funnel-step-1" style="display: none;">
+            <div class="card-header">Paso 1 · ¿Qué querés rendir?</div>
+            <div class="card-body">
+                <p class="funnel-section-title">Año de cursada</p>
+                <div class="year-row" id="year-row"></div>
+                <div id="area-block" style="display: none;">
+                    <p class="funnel-section-title">Área / Materia</p>
+                    <div class="mode-grid" id="area-grid" style="margin-bottom: 0;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= EMBUDO · PASO 2: MODALIDAD ================= -->
+        <div class="card" id="funnel-step-2" style="display: none;">
+            <div class="card-header">Paso 2 · Elegí la modalidad</div>
+            <div class="card-body">
+                <div class="funnel-crumbs" data-crumbs></div>
+                <div class="mode-grid" style="margin-bottom: 0;">
+                    <div class="funnel-card big" onclick="elegirModalidad('choice')">
+                        <div class="mode-icon">📝</div>
+                        <div class="mode-info">
+                            <h4>Simulador Choice</h4>
+                            <p>Opción múltiple con reloj, ranking y revisión con justificación oficial. El clásico.</p>
+                        </div>
+                    </div>
+                    <div class="funnel-card big" onclick="elegirModalidad('escrito')">
+                        <div class="mode-icon">✍️</div>
+                        <div class="mode-info">
+                            <h4>Simulador Escrito a Desarrollar <span class="badge-ia">IA</span></h4>
+                            <p>Desarrollás cada respuesta (tipeando o dictando) y un tribunal de IA te corrige: nota por pregunta, rúbrica y feedback detallado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PASO 3: CONFIGURACIÓN ================= -->
+            <div class="card" id="config-screen" style="display: none;">
+                <div class="card-header" id="config-title">Configuración del Simulacro</div>
                 <div class="card-body">
+                    <div class="funnel-crumbs" data-crumbs></div>
                     <div class="mode-grid">
-                        <div class="mode-card active" data-mode="parcial_1">
+                        <div class="mode-card active" data-mode="parcial_1" data-modes="choice,escrito">
                             <div class="mode-icon">📝</div>
                             <div class="mode-info"><h4>Primer Parcial</h4><p>UP 1 a la 5.</p></div>
                         </div>
-                        <div class="mode-card" data-mode="parcial_2">
+                        <div class="mode-card" data-mode="parcial_2" data-modes="choice,escrito">
                             <div class="mode-icon">📚</div>
                             <div class="mode-info"><h4>Segundo Parcial</h4><p>UP 6 a la 11.</p></div>
                         </div>
-                        <div class="mode-card" data-mode="final">
+                        <div class="mode-card" data-mode="final" data-modes="choice">
                             <div class="mode-icon">🎓</div>
                             <div class="mode-info"><h4>Examen Final</h4><p>Integral 11 UPs.</p></div>
                         </div>
-                        <div class="mode-card" data-mode="residencia">
+                        <div class="mode-card" data-mode="residencia" data-modes="choice">
                             <div class="mode-icon">🏥</div>
                             <div class="mode-info"><h4>Estilo Residencia</h4><p>100 preg / 120 min.</p></div>
                         </div>
-                        <div class="mode-card" data-mode="up_especifica">
+                        <div class="mode-card" data-mode="up_especifica" data-modes="choice,escrito">
                             <div class="mode-icon">🎯</div>
                             <div class="mode-info"><h4>UP Específica</h4><p>Entrenamiento focalizado.</p></div>
                         </div>
-                        <div class="mode-card" data-mode="flash">
+                        <div class="mode-card" data-mode="flash" data-modes="choice">
                             <div class="mode-icon">⚡</div>
                             <div class="mode-info"><h4>Flash</h4><p>10 preguntas al azar.</p></div>
                         </div>
-                        <div class="mode-card" data-mode="trauma">
+                        <div class="mode-card" data-mode="trauma" data-modes="choice">
                             <div class="mode-icon">🦴</div>
                             <div class="mode-info"><h4>Traumatología</h4><p>Miembro superior, inferior o completo.</p></div>
                         </div>
-                        <div class="mode-card" data-mode="suturas">
+                        <div class="mode-card" data-mode="suturas" data-modes="choice">
                             <div class="mode-icon">🪡</div>
                             <div class="mode-info"><h4>Suturas</h4><p>Materiales, agujas, nudos y técnicas.</p></div>
                         </div>
@@ -362,14 +464,16 @@
                         </select>
                     </div>
 
+                    <div class="escrito-aviso" id="escrito-aviso">✍️ <strong>Modo escrito:</strong> vas a desarrollar cada respuesta (tipeando o dictando con el micrófono) y, al entregar, un tribunal de IA la corrige punto por punto contra los puntos clave de la cátedra. Necesitás conexión al entregar. La corrección es orientativa.</div>
+
                     <div style="display: flex; gap: 20px; margin-top: 20px; margin-bottom: 24px;">
                         <div class="form-group" style="flex: 1;"><label class="form-label">Cantidad de Preguntas:</label><input type="number" id="q-count" class="form-control" value="60" min="5" max="400"></div>
                         <div class="form-group" style="flex: 1;"><label class="form-label">Tiempo Límite (Minutos):</label><input type="number" id="q-time" class="form-control" value="60" min="5" max="180"></div>
                     </div>
 
-                    <button class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.15rem;" onclick="startQuiz()">Comenzar Evaluación 🚀</button>
+                    <button id="btn-comenzar" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.15rem;" onclick="startQuiz()">Comenzar Evaluación 🚀</button>
 
-                    <button class="btn" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 12px; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-weight: 800;" onclick="SimuladorElo.iniciar({ modulo: 'cirugia' })">
+                    <button id="btn-rapido" class="btn" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 12px; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-weight: 800;" onclick="SimuladorElo.iniciar({ modulo: 'cirugia' })">
                         ⚡ Simulacro Rápido (10 preguntas, afecta tu ELO)
                     </button>
                 </div>
@@ -456,6 +560,11 @@
             </div>
         </div>
 
+        <!-- ================= RESULTADOS · EXAMEN ESCRITO (IA) ================= -->
+        <div class="card" id="result-escrito-screen">
+            <div class="card-body" id="result-escrito-body" style="padding: 40px;"></div>
+        </div>
+
     </main>
 
    <!-- MODALES -->
@@ -516,6 +625,7 @@
     <script src="js/pomodoroSyncManager.js"></script>
     <script src="js/social.js"></script>
     <script src="js/examen.js"></script>
+    <script src="js/pwa-update.js"></script>
     <script src="data/banco_trauma_superior.js"></script>
     <script src="data/banco_trauma_inferior.js"></script>
     <script src="data/banco_suturas.js"></script>
@@ -537,6 +647,10 @@
         let isAudioMuted = localStorage.getItem('nika_audio_muted') === 'true';
         let isTimerHidden = false;
         let selectedMode = 'parcial_1';
+        let examMode = 'choice';                                   // 'choice' | 'escrito'
+        let funnelCtx = { anio: null, modulo: null, moduloNombre: '' };
+        let funnelPaso = 1;
+        let _modulosCache = null;
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -569,7 +683,7 @@
                 selectedMode = 'flash'; 
                 setTimeout(() => { startQuiz(true); }, 500); 
             } else {
-                document.getElementById('config-screen').style.display = 'block';
+                await iniciarEmbudo();
                 checkAutoSave();
             }
 
@@ -678,7 +792,8 @@
             document.getElementById('trauma-selector-group').style.display = (mode === 'trauma') ? 'block' : 'none';
 
             const qCount = document.getElementById('q-count'); const qTime = document.getElementById('q-time');
-            if (mode === 'residencia' || mode === 'final') { qCount.value = 100; qTime.value = 120; }
+            if (examMode === 'escrito') { qCount.value = 10; qTime.value = 60; }
+            else if (mode === 'residencia' || mode === 'final') { qCount.value = 100; qTime.value = 120; }
             else if (mode === 'flash') { qCount.value = 10; qTime.value = 10; }
             else if (mode === 'trauma' || mode === 'suturas') { qCount.value = 20; qTime.value = 30; }
             else { qCount.value = 60; qTime.value = 60; }
@@ -712,6 +827,7 @@
         }
 
         async function startQuiz(isDemoForce = false) {
+            if (examMode === 'escrito' && !isDemoForce) return startEscrito();
             const btn = document.querySelector('button[onclick="startQuiz()"]');
             if (btn) { btn.innerText = "Cargando preguntas de la Base de Datos..."; btn.disabled = true; }
             if (!isDemoForce) playSound('click');
@@ -728,7 +844,7 @@
             let pool = [];
             const isLocalBank = (selectedMode === 'trauma' || selectedMode === 'suturas');
             if (isLocalBank) pool = obtenerPoolBancoLocal();
-            const modulo = new URLSearchParams(window.location.search).get('modulo') || 'cirugia';
+            const modulo = getModuloActual();
 
             // 1. INTENTO DE CARGA DESDE SUPABASE
             try {
@@ -834,7 +950,7 @@
 
         function saveProgressLocally() {
             if (!isExamActive) return;
-            const state = { exam: currentExam, answers: userAnswers, flags: flaggedQuestions, visited: Array.from(visitedQuestions), notes: userNotes, time: timeLeftSeconds, total: totalExamTime, idx: currentIndex, mode: selectedMode };
+            const state = { exam: currentExam, answers: userAnswers, flags: flaggedQuestions, visited: Array.from(visitedQuestions), notes: userNotes, time: timeLeftSeconds, total: totalExamTime, idx: currentIndex, mode: selectedMode, examMode: examMode, funnelCtx: funnelCtx };
             localStorage.setItem('nika_active_exam', JSON.stringify(state));
         }
 
@@ -846,6 +962,8 @@
                     currentExam = state.exam; userAnswers = state.answers; flaggedQuestions = state.flags;
                     visitedQuestions = new Set(state.visited); userNotes = state.notes;
                     timeLeftSeconds = state.time; totalExamTime = state.total; currentIndex = state.idx; selectedMode = state.mode;
+                    examMode = state.examMode || 'choice'; funnelCtx = state.funnelCtx || funnelCtx;
+                    ocultarEmbudo();
                     
                     isExamActive = true;
                     document.getElementById('config-screen').style.display = 'none';
@@ -907,12 +1025,19 @@
         function saveNote(val) { userNotes[currentIndex] = val; saveProgressLocally(); }
 
         function renderQuestion() {
+            EscritoMic.detener(true);
+            renderQuestionBase();
+            if (currentExam[currentIndex] && currentExam[currentIndex].tipo === 'escrito') postRenderEscrito();
+        }
+        function renderQuestionBase() {
             visitedQuestions.add(currentIndex); const q = currentExam[currentIndex]; const container = document.getElementById('question-container');
             const isFlagged = flaggedQuestions[currentIndex]; const currentNote = userNotes[currentIndex] || '';
             _reportarPresenciaUpExamen(/^\d+$/.test(String(q.up)) ? q.up : null);
             
+            const esEscrito = q.tipo === 'escrito';
             let optionsHtml = '';
-            for (let key in q.options) {
+            if (esEscrito) { optionsHtml = htmlEscritoTextarea(currentIndex); }
+            else for (let key in q.options) {
                 const checked = userAnswers[currentIndex] === key ? 'checked' : '';
                 optionsHtml += `<label class="option-wrap" onclick="playSound('click')"><input type="radio" name="q-option" value="${key}" ${checked} onchange="selectOption('${key}')"><span class="option-text"><strong>${key.toUpperCase()})</strong> ${q.options[key]}</span></label>`;
             }
@@ -925,8 +1050,8 @@
                         <button class="btn-flag ${isFlagged ? 'active' : ''}" onclick="toggleFlag()">${isFlagged ? '🚩 Desmarcar' : '⛳ Marcar'}</button>
                     </div>
                     <div class="q-content-col">
-                        <div class="q-text">${q.q}</div><div class="options-container">${optionsHtml}</div>
-                        <div class="q-tools"><button class="btn-text-tool" onclick="toggleNotes()">📝 Notas Privadas</button><button class="btn-text-tool" onclick="openShareToChatModal()">📤 Compartir al Chat</button><button class="btn-text-tool" style="color:var(--danger);" onclick="openReportModal()">⚠️ Reportar Error</button></div>
+                        <div class="q-text">${esEscrito ? escaparHtml(q.q) : q.q}</div><div class="options-container">${optionsHtml}</div>
+                        <div class="q-tools"${esEscrito ? ' style="display:none"' : ''}><button class="btn-text-tool" onclick="toggleNotes()">📝 Notas Privadas</button><button class="btn-text-tool" onclick="openShareToChatModal()">📤 Compartir al Chat</button><button class="btn-text-tool" style="color:var(--danger);" onclick="openReportModal()">⚠️ Reportar Error</button></div>
                         <div class="notes-area" id="notes-area" ${currentNote ? 'style="display:block;"' : ''}><textarea placeholder="Escribe aquí apuntes rápidos..." onkeyup="saveNote(this.value)">${currentNote}</textarea></div>
                     </div>
                 </div>
@@ -936,7 +1061,7 @@
             updateNavGridStyles();
         }
 
-        function selectOption(opt) { userAnswers[currentIndex] = opt; saveProgressLocally(); updateNavGridStyles(); }
+        function selectOption(opt) { if (examMode === 'escrito') return; userAnswers[currentIndex] = opt; saveProgressLocally(); updateNavGridStyles(); }
         function nextQuestion() { if (currentIndex < currentExam.length - 1) { currentIndex++; renderQuestion(); } }
         function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderQuestion(); } }
         function goToQuestion(idx) { currentIndex = idx; renderQuestion(); }
@@ -952,14 +1077,634 @@
             showToast("Reporte enviado al administrador."); document.getElementById('report-text').value = ''; closeReportModal();
         }
 
-        // ================= PWA: SERVICE WORKER =================
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch((err) => {
-                    console.error('[SW] No se pudo registrar:', err);
+        // ============================================================================
+        // EMBUDO (Pasos 1-2-3) + SIMULADOR ESCRITO A DESARROLLAR (corrección con IA)
+        // ----------------------------------------------------------------------------
+        // Diseño: NO se duplica el motor. El examen escrito reutiliza currentExam,
+        // currentIndex, userAnswers, flaggedQuestions, el reloj (startTimer), la grilla de
+        // navegación y el guardado automático. Lo único que cambia es:
+        //   • examMode === 'escrito'  → renderQuestion() dibuja un <textarea> (htmlEscritoTextarea)
+        //   • submitQuiz()            → deriva a submitEscrito() (corrección con IA)
+        //   • los resultados          → renderResultadosEscritos()
+        // La nota la calcula la Edge Function por checklist de puntos_clave (ver index.ts).
+        // Para sumar modalidades futuras (Pase de Sala, Shock Room, Consultorio…) alcanza con
+        // registrar una entrada en MODALIDADES y su renderer/evaluador (ver más abajo).
+        // ============================================================================
+
+        const ESCRITO_CFG = {
+            endpointFn: 'evaluar-examen-escrito',        // Edge Function de Supabase (usa Gemini del lado servidor)
+            timeoutMs: 120000,
+            maxChars: 6000,                              // tope por respuesta (coincide con la Edge Function)
+            aprobacion: 6,                               // nota mínima para contar una pregunta como "aprobada" en estadísticas
+            umbralRefuerzo: 8,                           // por debajo de esta nota, la pregunta va a "para reforzar"
+            minutosPorPreguntaReintento: 6,
+            modosPermitidos: ['parcial_1', 'parcial_2', 'up_especifica'],
+            bancoUrl: (modulo) => `data/escrito_${modulo}.json`
+        };
+
+        // Registro de modalidades del Paso 2 (hoy: choice y escrito; el resto se agrega acá).
+        const MODALIDADES = {
+            choice: { etiqueta: 'Choice' },
+            escrito: { etiqueta: 'Escrito a desarrollar' }
+        };
+
+        const MODULOS_FALLBACK = [
+            { id: 'cirugia', nombre: 'Cirugía', nombreCompleto: 'Introducción a las Especialidades Clínico-Quirúrgicas', estado: 'activo', 'año': 5 }
+        ];
+        const ICONOS_AREA = { cirugia: '🔪', ginecologia: '🤰', siam: '🧓' };
+        const MODOS_CHOICE_DEEPLINK = ['parcial_1', 'parcial_2', 'final', 'residencia', 'up_especifica', 'flash', 'trauma', 'suturas'];
+
+        const PILARES_UI = [
+            { k: 'semiologia_anamnesis', nombre: 'Semiología y anamnesis', corto: 'Semiología' },
+            { k: 'criterio_diagnostico', nombre: 'Criterio diagnóstico', corto: 'Diagnóstico' },
+            { k: 'conducta_terapeutica', nombre: 'Conducta terapéutica', corto: 'Terapéutica' },
+            { k: 'vocabulario_tecnico', nombre: 'Vocabulario técnico', corto: 'Vocabulario' }
+        ];
+
+        // ------------------------------- utilidades -------------------------------
+        function escaparHtml(s) {
+            return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+        function contarPalabras(s) { const t = String(s || '').trim(); return t ? t.split(/\s+/).length : 0; }
+        function getModuloActual() {
+            return funnelCtx.modulo || new URLSearchParams(window.location.search).get('modulo') || 'cirugia';
+        }
+        function getSupabaseUrl() {
+            return (typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL) || 'https://pswjmouuyaxueaqqglko.supabase.co';
+        }
+        function getSupabaseAnonKey() {
+            return (typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY) || '';
+        }
+        function barajar(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+            return a;
+        }
+
+        // =============================== EMBUDO ===============================
+        async function cargarModulos() {
+            if (_modulosCache) return _modulosCache;
+            try {
+                const r = await fetch('data/modulos.json');
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                const d = await r.json();
+                _modulosCache = (Array.isArray(d.modulos) && d.modulos.length) ? d.modulos : MODULOS_FALLBACK;
+            } catch (e) {
+                console.warn('[embudo] modulos.json no disponible, uso valores por defecto:', e);
+                _modulosCache = MODULOS_FALLBACK;
+            }
+            return _modulosCache;
+        }
+
+        function fijarContexto(m) {
+            funnelCtx = { anio: m['año'], modulo: m.id, moduloNombre: m.nombre };
+        }
+
+        function mostrarPaso(paso, opciones) {
+            funnelPaso = paso;
+            document.getElementById('funnel-step-1').style.display = paso === 1 ? 'block' : 'none';
+            document.getElementById('funnel-step-2').style.display = paso === 2 ? 'block' : 'none';
+            document.getElementById('config-screen').style.display = paso === 3 ? 'block' : 'none';
+            renderMigas();
+            if (!opciones || opciones.scroll !== false) window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function ocultarEmbudo() {
+            ['funnel-step-1', 'funnel-step-2', 'config-screen'].forEach((id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+        }
+
+        function renderMigas() {
+            const partes = [{ txt: `${funnelCtx.anio ? funnelCtx.anio + '.º Año · ' : ''}${funnelCtx.moduloNombre || 'Año y área'}`, paso: 1 }];
+            if (funnelPaso >= 2) partes.push({ txt: funnelPaso >= 3 ? MODALIDADES[examMode].etiqueta : 'Modalidad', paso: 2 });
+            if (funnelPaso >= 3) partes.push({ txt: 'Configuración', paso: 3 });
+            const html = partes.map((p, i) =>
+                `${i ? '<span class="sep">›</span>' : ''}<button type="button" class="crumb ${p.paso === funnelPaso ? 'current' : ''}" ${p.paso === funnelPaso ? 'disabled' : ''} onclick="mostrarPaso(${p.paso})">${escaparHtml(p.txt)}</button>`
+            ).join('');
+            document.querySelectorAll('[data-crumbs]').forEach((el) => { el.innerHTML = html; });
+        }
+
+        function renderAnios(modulos) {
+            const anios = [...new Set(modulos.map((m) => m['año']))].sort((a, b) => a - b);
+            const fila = document.getElementById('year-row');
+            fila.innerHTML = anios.map((a) =>
+                `<button type="button" class="year-chip ${funnelCtx.anio === a ? 'active' : ''}" data-anio="${a}" onclick="elegirAnio(${a})">${a}.º Año</button>`
+            ).join('');
+            if (funnelCtx.anio) elegirAnio(funnelCtx.anio);
+            else if (anios.length === 1) elegirAnio(anios[0]);   // un solo año disponible: se preselecciona
+        }
+
+        function elegirAnio(anio) {
+            document.querySelectorAll('#year-row .year-chip').forEach((b) => b.classList.toggle('active', Number(b.dataset.anio) === Number(anio)));
+            const areas = (_modulosCache || []).filter((m) => Number(m['año']) === Number(anio));
+            document.getElementById('area-block').style.display = 'block';
+            document.getElementById('area-grid').innerHTML = areas.map((m) => {
+                const activo = m.estado === 'activo';
+                return `<div class="funnel-card ${activo ? '' : 'disabled'}" ${activo ? `onclick="elegirArea('${escaparHtml(m.id)}')"` : ''}>
+                    <div class="mode-icon">${ICONOS_AREA[m.id] || '📚'}</div>
+                    <div class="mode-info"><h4>${escaparHtml(m.nombre)}${activo ? '' : ' <span class="badge-soon">Próximamente</span>'}</h4><p>${escaparHtml(m.nombreCompleto || '')}</p></div>
+                </div>`;
+            }).join('');
+        }
+
+        function elegirArea(id) {
+            const m = (_modulosCache || []).find((x) => x.id === id && x.estado === 'activo');
+            if (!m) return;
+            playSound('click');
+            fijarContexto(m);
+            mostrarPaso(2);
+        }
+
+        function elegirModalidad(modo) {
+            if (!MODALIDADES[modo]) return;
+            playSound('click');
+            examMode = modo;
+            aplicarModalidad();
+            mostrarPaso(3);
+        }
+
+        // Adapta el configurador (Paso 3) a la modalidad elegida
+        function aplicarModalidad() {
+            const esc = examMode === 'escrito';
+            document.getElementById('config-title').textContent = esc ? 'Configuración del Simulacro Escrito ✍️' : 'Configuración del Simulacro';
+            document.querySelectorAll('#config-screen .mode-card').forEach((card) => {
+                card.style.display = (!esc || ESCRITO_CFG.modosPermitidos.includes(card.dataset.mode)) ? '' : 'none';
+            });
+            const rapido = document.getElementById('btn-rapido'); if (rapido) rapido.style.display = esc ? 'none' : '';
+            const aviso = document.getElementById('escrito-aviso'); if (aviso) aviso.style.display = esc ? 'block' : 'none';
+            const btn = document.getElementById('btn-comenzar'); if (btn) btn.textContent = esc ? 'Comenzar Examen Escrito ✍️' : 'Comenzar Evaluación 🚀';
+            const qCount = document.getElementById('q-count');
+            qCount.min = esc ? 1 : 5; qCount.max = esc ? 30 : 400;
+            const modo = (esc && !ESCRITO_CFG.modosPermitidos.includes(selectedMode)) ? 'parcial_1' : selectedMode;
+            selectMode(modo, document.querySelector(`#config-screen .mode-card[data-mode="${modo}"]`));   // re-aplica cantidad y tiempo por defecto
+        }
+
+        // Punto de entrada: decide qué paso mostrar según la URL
+        //   examen.html                          → Paso 1
+        //   examen.html?modulo=cirugia           → Paso 2 (viene del menú de la materia)
+        //   examen.html?mode=up_especifica&up=5  → Paso 3 Choice (sugerencia del asistente post-simulacro)
+        async function iniciarEmbudo() {
+            const params = new URLSearchParams(window.location.search);
+            const modulos = await cargarModulos();
+            const modParam = params.get('modulo');
+            const modeParam = params.get('mode');
+            const activos = modulos.filter((m) => m.estado === 'activo');
+            const deLaUrl = modParam ? activos.find((m) => m.id === modParam) : null;
+
+            if (deLaUrl) fijarContexto(deLaUrl);
+            renderAnios(modulos);
+
+            if (modeParam && MODOS_CHOICE_DEEPLINK.includes(modeParam)) {
+                if (!funnelCtx.modulo && activos[0]) { fijarContexto(activos[0]); renderAnios(modulos); }
+                examMode = 'choice';
+                aplicarModalidad();
+                selectMode(modeParam, document.querySelector(`#config-screen .mode-card[data-mode="${modeParam}"]`));
+                const upParam = params.get('up');
+                if (upParam && document.querySelector(`#specific-up option[value="${upParam}"]`)) document.getElementById('specific-up').value = upParam;
+                mostrarPaso(3, { scroll: false });
+            } else if (deLaUrl) {
+                mostrarPaso(2, { scroll: false });
+            } else {
+                mostrarPaso(1, { scroll: false });
+            }
+        }
+
+        // ============================ EXAMEN ESCRITO ============================
+        async function cargarBancoEscrito(modulo) {
+            const r = await fetch(ESCRITO_CFG.bancoUrl(modulo), { cache: 'no-cache' });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const d = await r.json();
+            return Array.isArray(d) ? d : (d.preguntas || []);
+        }
+
+        async function startEscrito() {
+            const btn = document.getElementById('btn-comenzar');
+            const restaurar = () => { if (btn) { btn.textContent = 'Comenzar Examen Escrito ✍️'; btn.disabled = false; } };
+            if (btn) { btn.textContent = 'Cargando preguntas de desarrollo…'; btn.disabled = true; }
+            playSound('click');
+
+            const countInput = parseInt(document.getElementById('q-count').value, 10);
+            const timeInput = parseInt(document.getElementById('q-time').value, 10);
+            if (!(countInput >= 1) || !(timeInput >= 1)) { alert('Indicá una cantidad de preguntas y un tiempo válidos.'); restaurar(); return; }
+
+            let ups;
+            if (selectedMode === 'parcial_1') ups = [1, 2, 3, 4, 5];
+            else if (selectedMode === 'parcial_2') ups = [6, 7, 8, 9, 10, 11];
+            else ups = [parseInt(document.getElementById('specific-up').value, 10)];
+
+            let banco;
+            try { banco = await cargarBancoEscrito(getModuloActual()); }
+            catch (e) {
+                console.error('[escrito] No se pudo cargar el banco:', e);
+                alert('No se pudo cargar el banco de preguntas de desarrollo. Revisá tu conexión e intentá de nuevo.');
+                restaurar(); return;
+            }
+
+            // Solo se sirven preguntas con puntos clave reales (las que dicen PENDIENTE no se pueden corregir)
+            const tienePuntos = (p) => Array.isArray(p.puntos_clave) && p.puntos_clave.some((x) => typeof x === 'string' && x.trim() !== '' && !/^pendiente\b/i.test(x.trim()));
+            const pool = banco.filter((p) => !p.descartada && tienePuntos(p) && ups.includes(Number(p.up)));
+            if (pool.length === 0) {
+                alert('Todavía no hay preguntas de desarrollo cargadas para esta selección. Probá con otro parcial o unidad.');
+                restaurar(); return;
+            }
+            const cantidad = Math.min(countInput, pool.length, 30);
+            if (cantidad < countInput) showToast(`Solo hay ${pool.length} preguntas disponibles para esta selección`);
+
+            // El cliente NO guarda puntos clave ni error peligroso: la corrección los lee del servidor
+            currentExam = barajar(pool).slice(0, cantidad).map((p) => ({ tipo: 'escrito', id: p.id, up: Number(p.up), q: p.pregunta }));
+            iniciarExamenEscrito(timeInput * 60);
+            restaurar();
+        }
+
+        // Arranque común (examen nuevo y "reintentar flojas")
+        function iniciarExamenEscrito(segundos) {
+            userAnswers = {}; flaggedQuestions = {}; visitedQuestions = new Set(); userNotes = {};
+            currentIndex = 0; timeLeftSeconds = segundos; totalExamTime = segundos; isExamActive = true;
+            clearInterval(timerInterval);
+            const reloj = document.getElementById('time-left'); if (reloj) reloj.style.color = '';
+            ocultarEmbudo();
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('result-escrito-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+            buildNavGrid(); renderQuestion(); startTimer();
+            if (localStorage.getItem('nika_currentUser')) saveProgressLocally();
+        }
+
+        function htmlEscritoTextarea(idx) {
+            const valor = userAnswers[idx] || '';
+            const mic = EscritoMic.soportado()
+                ? `<button type="button" class="btn-mic" id="btn-mic" onclick="EscritoMic.alternar()" title="Dictá tu respuesta con el micrófono">🎤 Dictar</button>`
+                : '';
+            return `<div class="escrito-wrap">
+                <label class="escrito-label" for="respuesta-escrita">Tu desarrollo</label>
+                <textarea id="respuesta-escrita" class="escrito-textarea" maxlength="${ESCRITO_CFG.maxChars}" spellcheck="true" lang="es" oninput="onEscritoInput(this)" placeholder="Desarrollá la respuesta como lo harías ante el tribunal: definición, clínica, diagnóstico, conducta…">\n${escaparHtml(valor)}</textarea>
+                <div class="escrito-meta"><span id="escrito-contador">${contarPalabras(valor)} palabras</span>${mic}</div>
+            </div>`;
+        }
+
+        // Guarda lo escrito en el estado (sobrevive a navegar entre preguntas y a recargar la página)
+        let _guardadoEscritoTimer = null;
+        function persistirTextoEscrito(ta) {
+            const v = ta.value;
+            if (v.trim() === '') delete userAnswers[currentIndex]; else userAnswers[currentIndex] = v;
+            const c = document.getElementById('escrito-contador'); if (c) c.textContent = contarPalabras(v) + ' palabras';
+            updateNavGridStyles();
+            clearTimeout(_guardadoEscritoTimer);
+            _guardadoEscritoTimer = setTimeout(() => { if (localStorage.getItem('nika_currentUser')) saveProgressLocally(); }, 600);
+        }
+        function onEscritoInput(ta) { EscritoMic.alEditarManual(); persistirTextoEscrito(ta); }
+
+        function postRenderEscrito() {
+            const ta = document.getElementById('respuesta-escrita');
+            if (!ta) return;
+            if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+                ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+            }
+        }
+
+        // --------------------- Dictado por voz (Web Speech API) ---------------------
+        const EscritoMic = (() => {
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            let rec = null, activo = false, base = '', acumulado = '';
+            const ta = () => document.getElementById('respuesta-escrita');
+            function ui(on) {
+                const b = document.getElementById('btn-mic'); if (!b) return;
+                b.classList.toggle('grabando', on);
+                b.textContent = on ? '⏹ Detener dictado' : '🎤 Dictar';
+            }
+            function pintar(interino) {
+                const t = ta(); if (!t) return;
+                const sep = base && !/\s$/.test(base) ? ' ' : '';
+                t.value = (base + sep + acumulado + (interino ? ' ' + interino : '')).slice(0, ESCRITO_CFG.maxChars);
+                persistirTextoEscrito(t);
+            }
+            function iniciar() {
+                const t = ta(); if (!t || !SR) return;
+                base = t.value; acumulado = '';
+                rec = new SR();
+                rec.lang = 'es-AR'; rec.continuous = true; rec.interimResults = true;
+                rec.onresult = (e) => {
+                    let interino = '';
+                    for (let i = e.resultIndex; i < e.results.length; i++) {
+                        const txt = e.results[i][0].transcript;
+                        if (e.results[i].isFinal) acumulado += (acumulado ? ' ' : '') + txt.trim(); else interino += txt;
+                    }
+                    pintar(interino.trim());
+                };
+                rec.onerror = (e) => {
+                    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { activo = false; ui(false); showToast('Permiso de micrófono denegado.'); }
+                };
+                // Chrome corta el dictado continuo tras un silencio: se reanuda solo mientras el usuario no lo detenga
+                rec.onend = () => { if (activo) { try { rec.start(); } catch (_) { activo = false; ui(false); } } else ui(false); };
+                try { rec.start(); activo = true; ui(true); } catch (_) { showToast('No se pudo iniciar el micrófono.'); }
+            }
+            function detener(descartar) {
+                activo = false;
+                if (rec) {
+                    try { if (descartar) { rec.onresult = null; rec.abort(); } else rec.stop(); } catch (_) {}
+                }
+                ui(false);
+            }
+            return {
+                soportado: () => !!SR,
+                alternar: () => (activo ? detener(false) : iniciar()),
+                detener,
+                alEditarManual: () => { if (activo) detener(false); }   // si tipeás mientras dictás, se corta el dictado
+            };
+        })();
+
+        // ------------------------- Entrega y corrección con IA -------------------------
+        let _envioEscrito = null;      // { respuestas, segundos, marcadas }
+        let _resultadoEscrito = null;  // resultado fusionado (para filtros / reintentos)
+
+        async function submitEscrito() {
+            EscritoMic.detener(true);
+            playSound('success');
+            clearInterval(timerInterval);
+            saveProgressLocally();                 // primero se guardan las respuestas (si la IA falla no se pierde nada)
+            isExamActive = false;
+            _reportarPresenciaUpExamen(null);
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('result-escrito-screen').style.display = 'block';
+
+            _envioEscrito = {
+                respuestas: currentExam.map((q, i) => ({
+                    id: q.id, up: q.up, pregunta: q.q,
+                    respuesta_alumno: (userAnswers[i] || '').trim()
+                })),
+                segundos: totalExamTime - timeLeftSeconds,
+                marcadas: { ...flaggedQuestions }
+            };
+            await corregirEscrito();
+        }
+
+        // Payload → Edge Function → Gemini. Recibe [{ id, up, pregunta, respuesta_alumno }].
+        // Al servidor viajan SOLO { id, respuesta_alumno }: la pregunta, los puntos_clave y el error_peligroso
+        // los toma la Edge Function de data/escrito_<modulo>.json, así que no se pueden alterar desde el navegador.
+        async function evaluarExamenEscritoConIA(respuestas) {
+            if (navigator.onLine === false) {
+                throw new Error('Sin conexión: la corrección con IA necesita internet. Tus respuestas están guardadas en este dispositivo; reintentá cuando tengas señal.');
+            }
+            const sb = window.NikaSupabase;
+            const getToken = async () => {
+                try { const c = sb && sb.client; if (!c) return null; const { data: { session } } = await c.auth.getSession(); return session && session.access_token; }
+                catch (_) { return null; }
+            };
+            let token = await getToken();
+            if (!token && sb && sb.restaurarSesionSiExiste) { try { await sb.restaurarSesionSiExiste(); } catch (_) {} token = await getToken(); }
+            if (!token) throw new Error('Tu sesión no está activa. Volvé a iniciar sesión y reintentá: tus respuestas siguen guardadas en este dispositivo.');
+
+            const ctrl = new AbortController();
+            const to = setTimeout(() => ctrl.abort(), ESCRITO_CFG.timeoutMs);
+            try {
+                const resp = await fetch(`${getSupabaseUrl()}/functions/v1/${ESCRITO_CFG.endpointFn}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, 'apikey': getSupabaseAnonKey() },
+                    body: JSON.stringify({ modulo: getModuloActual(), respuestas: respuestas.map((r) => ({ id: r.id, respuesta_alumno: r.respuesta_alumno })) }),
+                    signal: ctrl.signal
                 });
+                const data = await resp.json().catch(() => ({}));
+                if (!resp.ok || data.error) throw new Error(data.error || `El corrector respondió con error HTTP ${resp.status}.`);
+                if (!Array.isArray(data.evaluaciones)) throw new Error('Respuesta inesperada del corrector.');
+                return data;
+            } catch (err) {
+                if (err && err.name === 'AbortError') throw new Error('La corrección tardó demasiado. Reintentá en un momento.');
+                throw err;
+            } finally { clearTimeout(to); }
+        }
+
+        async function corregirEscrito() {
+            const cuerpo = document.getElementById('result-escrito-body');
+            cuerpo.innerHTML = `<div class="ia-loading"><div class="ia-spinner"></div>
+                <h3 style="color: var(--text-main); margin-bottom: 8px;">El tribunal está corrigiendo tu examen…</h3>
+                <p style="color: var(--text-muted);">Analiza cada respuesta contra los puntos clave de la cátedra. Puede tardar hasta un minuto; no cierres esta pestaña.</p></div>`;
+            try {
+                const paraIA = _envioEscrito.respuestas.filter((r) => r.respuesta_alumno.length > 0);
+                const ia = paraIA.length ? await evaluarExamenEscritoConIA(paraIA) : { evaluaciones: [], resumen_general: {} };
+                _resultadoEscrito = combinarEvaluaciones(_envioEscrito.respuestas, ia);
+                localStorage.removeItem('nika_active_exam');
+                renderResultadosEscritos(_resultadoEscrito);
+                guardarResultadoEscrito(_resultadoEscrito);
+            } catch (err) {
+                console.error('[escrito] Falló la corrección:', err);
+                cuerpo.innerHTML = `<div class="ia-loading">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">⚠️</div>
+                    <h3 style="color: var(--text-main); margin-bottom: 8px;">No pudimos corregir tu examen</h3>
+                    <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto 20px;">${escaparHtml(err.message || 'Error desconocido.')}</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 22px;">Tus respuestas siguen guardadas en este dispositivo.</p>
+                    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="corregirEscrito()">🔄 Reintentar corrección</button>
+                        <button class="btn btn-outline" onclick="copiarRespuestasEscrito()">📋 Copiar mis respuestas</button>
+                    </div></div>`;
+            }
+        }
+
+        function copiarRespuestasEscrito() {
+            if (!_envioEscrito) return;
+            const txt = _envioEscrito.respuestas.map((r, i) => `Pregunta ${i + 1} (UP ${r.up}): ${r.pregunta}\n\n${r.respuesta_alumno || '(sin respuesta)'}`).join('\n\n----------\n\n');
+            navigator.clipboard.writeText(txt).then(() => showToast('Respuestas copiadas.')).catch(() => showToast('No se pudo copiar.'));
+        }
+
+        // Une la corrección de la IA con lo que respondió el alumno. Las notas y promedios finales se recalculan acá.
+        function combinarEvaluaciones(respuestas, ia) {
+            const porId = new Map((ia.evaluaciones || []).map((e) => [String(e.id), e]));
+            const vacios = { semiologia_anamnesis: null, criterio_diagnostico: null, conducta_terapeutica: null, vocabulario_tecnico: null };
+            const items = respuestas.map((r, idx) => {
+                const base = { idx, id: r.id, up: r.up, pregunta: r.pregunta, respuesta: r.respuesta_alumno, marcada: !!(_envioEscrito && _envioEscrito.marcadas[idx]) };
+                if (!r.respuesta_alumno) {
+                    return { ...base, nota: 1, sinRespuesta: true, pilares: { ...vacios }, puntos_logrados: [], puntos_faltantes: [], errores: [], error_critico: false, intento_de_manipulacion: false,
+                        feedback: 'No respondiste esta pregunta. Sin respuesta no hay nota: aunque no la recuerdes completa, escribí el esqueleto (definición, clínica, diagnóstico, conducta) para sumar.' };
+                }
+                const ev = porId.get(String(r.id));
+                if (!ev || ev.nota === null || ev.nota === undefined) {
+                    return { ...base, nota: null, pilares: { ...vacios }, puntos_logrados: [], puntos_faltantes: [], errores: [], error_critico: false, intento_de_manipulacion: false,
+                        feedback: 'No se pudo corregir esta pregunta en este intento. Reintentá la corrección.' };
+                }
+                return { ...base, nota: ev.nota, cobertura: (typeof ev.cobertura === 'number' ? ev.cobertura : null), pilares: ev.pilares || { ...vacios },
+                    puntos_logrados: ev.puntos_logrados || [], puntos_faltantes: ev.puntos_faltantes || [], errores: ev.errores || [], feedback: ev.feedback || '',
+                    error_critico: !!ev.error_critico, error_peligroso_texto: ev.error_peligroso_texto || '', motivo_error_critico: ev.motivo_error_critico || '',
+                    intento_de_manipulacion: !!ev.intento_de_manipulacion };
+            });
+            const notas = items.map((i) => i.nota).filter((n) => n !== null);
+            const prom = (a) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : null);
+            const promPilares = {};
+            PILARES_UI.forEach((p) => { promPilares[p.k] = prom(items.map((i) => i.pilares[p.k]).filter((v) => v !== null && v !== undefined)); });
+            return {
+                items,
+                notaFinal: prom(notas),
+                sinCorregir: items.filter((i) => i.nota === null).length,
+                promPilares,
+                resumen: ia.resumen_general || {}
+            };
+        }
+
+        // ------------------------------ Resultados ------------------------------
+        function colorNota(n) { return n === null ? 'var(--text-muted)' : n >= 8 ? 'var(--success)' : n >= 6 ? 'var(--warning)' : 'var(--danger)'; }
+        function claseNota(n) { return n === null ? 'na' : n >= 8 ? '' : n >= 6 ? 'mid' : 'low'; }
+        function fmtNota(n) { return n === null ? '—' : (Number.isInteger(n) ? String(n) : n.toFixed(1)); }
+
+        function radarSvg(valores) {
+            const cx = 120, cy = 120, R = 86;
+            const ang = [-90, 0, 90, 180].map((a) => a * Math.PI / 180);
+            const pt = (i, v) => `${(cx + R * (v / 10) * Math.cos(ang[i])).toFixed(1)},${(cy + R * (v / 10) * Math.sin(ang[i])).toFixed(1)}`;
+            const anillos = [2.5, 5, 7.5, 10].map((v) => `<polygon points="${[0, 1, 2, 3].map((i) => pt(i, v)).join(' ')}" style="fill:none;stroke:var(--border);stroke-width:1;"/>`).join('');
+            const ejes = [0, 1, 2, 3].map((i) => `<line x1="${cx}" y1="${cy}" x2="${pt(i, 10).split(',')[0]}" y2="${pt(i, 10).split(',')[1]}" style="stroke:var(--border);stroke-width:1;"/>`).join('');
+            const datos = valores.map((v) => (v === null || v === undefined ? 0 : v));
+            const poligono = `<polygon points="${[0, 1, 2, 3].map((i) => pt(i, datos[i])).join(' ')}" style="fill:var(--nika-primary);fill-opacity:0.22;stroke:var(--nika-primary);stroke-width:2.5;"/>`;
+            const etiquetas = [
+                { x: cx, y: 16, a: 'middle' }, { x: 232, y: cy + 4, a: 'end' }, { x: cx, y: 236, a: 'middle' }, { x: 8, y: cy + 4, a: 'start' }
+            ].map((p, i) => `<text x="${p.x}" y="${p.y}" text-anchor="${p.a}" style="font-size:11px;font-weight:700;fill:var(--text-muted);">${PILARES_UI[i].corto}</text>`).join('');
+            return `<svg viewBox="0 0 240 244" style="width:100%;max-width:260px;display:block;margin:0 auto;" role="img" aria-label="Gráfico de araña de los cuatro pilares">${anillos}${ejes}${poligono}${etiquetas}</svg>`;
+        }
+
+        function etiquetaNivel(n) {
+            if (n === null) return { rank: 'Sin datos', cls: 'feedback-warning', msg: 'No se pudo calcular una nota. Reintentá la corrección.' };
+            if (n >= 9.5) return { rank: '🌟 Nivel 10', cls: 'feedback-perfect', msg: '🏆 Desarrollo de excelencia. Así se defiende un 10 ante el tribunal: seguí sosteniendo esa precisión.' };
+            if (n >= 8) return { rank: '🥇 Muy sólido', cls: 'feedback-success', msg: '✅ Muy buen nivel, pero un 9 no es la meta. Revisá los puntos que te faltaron en cada pregunta: ahí está la diferencia hasta el 10.' };
+            if (n >= 6) return { rank: '🥈 Aprobado justo', cls: 'feedback-warning', msg: '⚠️ Aprobás, pero con lo justo. Tenés la idea central; falta precisión, justificación fisiopatológica y vocabulario técnico.' };
+            return { rank: '🛑 A reforzar', cls: 'feedback-danger', msg: '❌ Todavía no alcanza. Usá el feedback de cada pregunta como guía de estudio y volvé a intentarlo.' };
+        }
+
+        function listaHtml(titulo, color, icono, arr) {
+            if (!arr || !arr.length) return '';
+            return `<div class="esc-sub" style="color:${color};">${titulo}</div><ul class="esc-lista" style="list-style:none; margin-left:2px;">${arr.map((x) => `<li>${icono} ${escaparHtml(x)}</li>`).join('')}</ul>`;
+        }
+
+        function renderResultadosEscritos(res) {
+            const nivel = etiquetaNivel(res.notaFinal);
+            const r = res.resumen || {};
+            const segundos = _envioEscrito ? _envioEscrito.segundos : 0;
+            const aRefuerzo = res.items.filter((i) => i.nota === null || i.nota < ESCRITO_CFG.umbralRefuerzo);
+
+            const barras = PILARES_UI.map((p) => {
+                const v = res.promPilares[p.k];
+                return `<div class="pilar-row"><div class="pilar-head"><span>${p.nombre}</span><span style="color:${colorNota(v)};">${v === null ? 'No aplicó' : fmtNota(Math.round(v * 10) / 10) + ' / 10'}</span></div>
+                    <div class="pilar-track"><div class="pilar-fill" style="width:${v === null ? 0 : v * 10}%; background:${colorNota(v)};"></div></div></div>`;
+            }).join('');
+
+            const bloquesResumen = (r.fortalezas && r.fortalezas.length ? listaHtml('💪 Fortalezas', 'var(--success)', '✓', r.fortalezas) : '')
+                + (r.a_reforzar && r.a_reforzar.length ? listaHtml('🎯 Para reforzar', 'var(--danger)', '→', r.a_reforzar) : '');
+
+            const tarjetas = res.items.map((it, n) => {
+                const chips = PILARES_UI.filter((p) => it.pilares[p.k] !== null && it.pilares[p.k] !== undefined)
+                    .map((p) => `<span class="chip-pilar">${p.corto}: <strong style="color:${colorNota(it.pilares[p.k])};">${fmtNota(it.pilares[p.k])}</strong></span>`).join('');
+                return `<div class="esc-card ${claseNota(it.nota)}" data-nota="${it.nota === null ? '' : it.nota}" data-marcada="${it.marcada ? 1 : 0}">
+                    <div class="esc-card-head">
+                        <div style="min-width:0;">
+                            <strong>Pregunta ${n + 1}</strong> · <span style="color:var(--nika-primary); font-weight:800;">UP ${escaparHtml(it.up)}</span>${it.marcada ? ' · 🚩' : ''}
+                            <div class="q-text" style="margin: 8px 0 0; font-size: 1rem;">${escaparHtml(it.pregunta)}</div>
+                        </div>
+                        <div class="nota-pill" style="background:${colorNota(it.nota)};">${fmtNota(it.nota)}</div>
+                    </div>
+                    ${it.error_critico ? `<div class="esc-alerta">⛔ Caíste en el error peligroso de esta pregunta (la nota queda limitada a 5).${it.error_peligroso_texto ? `<br><span style="font-weight:600;">Riesgo: ${escaparHtml(it.error_peligroso_texto)}</span>` : ''}${it.motivo_error_critico ? `<br><span style="font-weight:600;">Tu respuesta: ${escaparHtml(it.motivo_error_critico)}</span>` : ''}</div>` : ''}
+                    ${it.intento_de_manipulacion ? '<div class="esc-alerta">🚫 Se detectó texto dirigido al corrector en tu respuesta; se evaluó solo el contenido médico.</div>' : ''}
+                    <div class="escrito-label">Tu respuesta</div>
+                    <div class="esc-resp">${it.respuesta ? escaparHtml(it.respuesta) : '<em>Sin responder</em>'}</div>
+                    <div class="feedback-box" style="margin-top:0;"><strong style="color: var(--text-main);">🧑‍⚖️ Devolución del tribunal:</strong><br>${escaparHtml(it.feedback)}</div>
+                    ${listaHtml('✅ Lo que estuvo bien', 'var(--success)', '✓', it.puntos_logrados)}
+                    ${listaHtml('❌ Lo que faltó', 'var(--danger)', '✗', it.puntos_faltantes)}
+                    ${listaHtml('⚠️ Errores', 'var(--danger)', '!', it.errores)}
+                    ${(chips || typeof it.cobertura === 'number') ? `<div>${typeof it.cobertura === 'number' ? `<span class="chip-pilar">Puntos clave cubiertos: <strong style="color:${colorNota(it.cobertura * 10)};">${Math.round(it.cobertura * 100)}%</strong></span>` : ''}${chips}</div>` : ''}
+                </div>`;
+            }).join('');
+
+            document.getElementById('result-escrito-body').innerHTML = `
+                <div class="results-header">
+                    <div class="rank-badge">${nivel.rank}</div>
+                    <div class="score-huge">${fmtNota(res.notaFinal === null ? null : Math.round(res.notaFinal * 10) / 10)}<span style="font-size: 0.35em; color: var(--text-muted);"> / 10</span></div>
+                    <div style="color: var(--text-muted); font-size: 1.05rem; font-weight: 700; margin-bottom: 20px;">Nota promedio · corrección por IA</div>
+                    <div class="feedback-msg ${nivel.cls}">${nivel.msg}</div>
+                    ${r.comentario ? `<p style="max-width: 640px; margin: 0 auto 10px; color: var(--text-main); line-height: 1.6;">${escaparHtml(r.comentario)}</p>` : ''}
+                    ${res.sinCorregir ? `<div class="esc-alerta" style="max-width:640px; margin: 10px auto;">⚠️ ${res.sinCorregir} pregunta(s) no se pudieron corregir. Volvé a entregar para reintentar.</div>` : ''}
+                </div>
+
+                <table class="stats-table" style="margin-bottom: 30px;">
+                    <tbody>
+                        <tr><th>Modalidad</th><td>Escrito a desarrollar · ${selectedMode === 'up_especifica' ? 'UP específica' : selectedMode === 'parcial_2' ? 'Segundo Parcial' : 'Primer Parcial'}</td></tr>
+                        <tr><th>Tiempo empleado</th><td>${Math.floor(segundos / 60)} min</td></tr>
+                        <tr><th>Preguntas</th><td>${res.items.filter((i) => !i.sinRespuesta).length} respondidas de ${res.items.length}</td></tr>
+                    </tbody>
+                </table>
+
+                <h4 style="margin-bottom: 4px; color: var(--text-main);">El camino al 10: tus 4 pilares</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Promedio de los pilares que aplicaron en cada pregunta.</p>
+                <div class="pilares-panel"><div>${radarSvg(PILARES_UI.map((p) => res.promPilares[p.k]))}</div><div>${barras}${bloquesResumen}</div></div>
+
+                <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                        <h3 style="color: var(--text-main); font-weight: 900; font-size: 1.3rem;">Corrección detallada</h3>
+                        <div class="review-filters" id="filtros-escrito" style="margin-bottom: 0;">
+                            <button class="filter-btn active" onclick="filtrarResultadosEscritos('all', this)">Todas</button>
+                            <button class="filter-btn" onclick="filtrarResultadosEscritos('refuerzo', this)">Para reforzar (${aRefuerzo.length})</button>
+                            <button class="filter-btn" onclick="filtrarResultadosEscritos('marcadas', this)">🚩 Marcadas</button>
+                        </div>
+                    </div>
+                    <div id="tarjetas-escrito">${tarjetas}</div>
+                </div>
+
+                <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 10px;">La corrección la hace una IA y es orientativa: puede equivocarse. Ante cualquier duda, contrastala con la bibliografía de la cátedra.</p>
+
+                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                    <button class="btn btn-outline" onclick="compartirNotaEscrito()">📱 Compartir Nota</button>
+                    ${aRefuerzo.length ? `<button class="btn btn-outline" style="color: var(--warning); border-color: var(--warning);" onclick="reintentarFlojasEscrito()">🔄 Reintentar las flojas (${aRefuerzo.length})</button>` : ''}
+                    <button class="btn btn-outline" onclick="location.href='examen.html?modulo=' + encodeURIComponent(getModuloActual())">🔁 Nuevo simulacro</button>
+                    <button class="btn btn-primary" onclick="location.href='campus.html'">Volver al Inicio</button>
+                </div>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (res.notaFinal !== null && res.notaFinal >= 9.5) triggerConfetti();
+        }
+
+        function filtrarResultadosEscritos(tipo, btn) {
+            document.querySelectorAll('#filtros-escrito .filter-btn').forEach((b) => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            document.querySelectorAll('#tarjetas-escrito .esc-card').forEach((card) => {
+                const nota = card.dataset.nota === '' ? null : Number(card.dataset.nota);
+                const ver = tipo === 'all' || (tipo === 'refuerzo' && (nota === null || nota < ESCRITO_CFG.umbralRefuerzo)) || (tipo === 'marcadas' && card.dataset.marcada === '1');
+                card.style.display = ver ? '' : 'none';
             });
         }
+
+        function compartirNotaEscrito() {
+            if (!_resultadoEscrito || _resultadoEscrito.notaFinal === null) return;
+            const nota = (Math.round(_resultadoEscrito.notaFinal * 10) / 10).toFixed(1);
+            const msg = `*Resultados Campus Nika ⚕️*\n\n✍️ *Examen escrito (corrección IA)*\n📊 *Nota promedio:* ${nota}/10\n⏱️ *Tiempo:* ${Math.floor((_envioEscrito ? _envioEscrito.segundos : 0) / 60)} min\n🧾 *Preguntas:* ${_resultadoEscrito.items.length}\n\n_Simulador Médico de Alto Rendimiento_`;
+            navigator.clipboard.writeText(msg).then(() => { showToast('Resultados copiados.'); setTimeout(() => { window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank'); }, 1000); });
+        }
+
+        // Vuelve a rendir solo las preguntas con nota baja (mismo motor, examen nuevo)
+        function reintentarFlojasEscrito() {
+            if (!_resultadoEscrito) return;
+            const flojas = _resultadoEscrito.items.filter((i) => i.nota === null || i.nota < ESCRITO_CFG.umbralRefuerzo).map((i) => currentExam[i.idx]).filter(Boolean);
+            if (!flojas.length) return;
+            currentExam = flojas;
+            iniciarExamenEscrito(flojas.length * ESCRITO_CFG.minutosPorPreguntaReintento * 60);
+            showToast('Reintentando solo las preguntas con nota baja');
+        }
+
+        // Estadísticas: "correctas" = preguntas con nota >= aprobacion. Alimenta Mi Rendimiento igual que el choice.
+        function guardarResultadoEscrito(res) {
+            const total = res.items.length;
+            const aprobadas = res.items.filter((i) => i.nota !== null && i.nota >= ESCRITO_CFG.aprobacion).length;
+            const sinResp = res.items.filter((i) => i.sinRespuesta).length;
+            const byUp = {};
+            res.items.forEach((i) => {
+                const k = String(i.up);
+                byUp[k] = byUp[k] || { total: 0, correct: 0 };
+                byUp[k].total++;
+                if (i.nota !== null && i.nota >= ESCRITO_CFG.aprobacion) byUp[k].correct++;
+            });
+            recordExamStatsLocally(aprobadas, total);
+            if (window.NikaRendimiento) {
+                Promise.resolve(NikaRendimiento.guardarExamen({
+                    modulo: getModuloActual(), mode: 'escrito', total, correct: aprobadas, blank: sinResp, score: aprobadas,
+                    scorePct: res.notaFinal === null ? 0 : Math.round(res.notaFinal * 10),
+                    durationSeconds: _envioEscrito ? _envioEscrito.segundos : null, byUp
+                })).then((r) => { if (r && r.queued) showToast('Resultado guardado: se subirá al recuperar señal.'); })
+                   .catch((e) => console.warn('No se pudo guardar el resultado escrito:', e));
+            }
+            // FASE 2 (Purgatorio de errores): acá se recorre res.items con nota < 10 y se insertan en error_bank + flashcards.
+        }
+
 
         // ================= COMPARTIR PREGUNTA AL CHAT PRIVADO =================
         async function openShareToChatModal() {
@@ -1021,6 +1766,7 @@
         }
 
         function submitQuiz() {
+            if (examMode === 'escrito') { submitEscrito(); return; }
             playSound('success'); 
             clearInterval(timerInterval); 
             isExamActive = false; 
@@ -1106,7 +1852,7 @@
             // el Radar Clínico y la Curva del Olvido. Si no hay conexión queda en cola y se reintenta.
             if (window.NikaRendimiento) {
                 Promise.resolve(NikaRendimiento.guardarExamen({
-                    modulo: new URLSearchParams(window.location.search).get('modulo') || 'cirugia',
+                    modulo: getModuloActual(),
                     mode: selectedMode,
                     total: totalQuestions,
                     correct: correctCount,
