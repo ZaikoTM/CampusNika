@@ -242,6 +242,9 @@ const NikaRendimiento = (() => {
     const porModulo = {};
     const porUp = {};
     const dias = new Set();
+    const hoyStr = _diaLocal(ahora);
+    let tiempoHoyMin = 0;
+    let pomodorosHoy = 0;
 
     const mod = (m) => (porModulo[m] = porModulo[m] || {
       modulo: m, label: labelModulo(m), minutos: 0, pomodoros: 0, examenes: 0,
@@ -264,6 +267,10 @@ const NikaRendimiento = (() => {
       if (s.completed !== false) {
         o.pomodoros += 1;
         dias.add(_diaLocal(f)); // la racha solo cuenta sesiones terminadas
+        if (_diaLocal(f) === hoyStr) {
+          tiempoHoyMin += s.duration_minutes || 0;
+          pomodorosHoy += 1;
+        }
       }
       tocarUltima(o, f);
       tocarUp(m, normUp(s.up_id), f);
@@ -350,6 +357,8 @@ const NikaRendimiento = (() => {
         racha,
         tiempoTotalMin: totalMin,
         pomodoros: completas.length,
+        tiempoHoyMin,
+        pomodorosHoy,
         favorita: favorita ? { modulo: favorita.modulo, label: favorita.label, pomodoros: favorita.pomodoros, minutos: favorita.minutos } : null,
       },
       radar,

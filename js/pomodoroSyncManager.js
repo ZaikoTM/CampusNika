@@ -23,7 +23,7 @@ const PomodoroSyncManager = (function () {
     let canal = null;
     let onFriendsStateChange = null; // callback: (estadosPorUsername) => void
     let onInviteReceived = null;     // callback: (payload) => void ("Fulano te invitó a su Pomodoro")
-    let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null };
+    let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null, tiempoTotal: null, tiempoRestante: null };
 
     // ------------------------------------------------------------
     // 1. Conectarse al canal de presence al entrar a la plataforma
@@ -34,6 +34,8 @@ const PomodoroSyncManager = (function () {
             console.warn("[pomodoroSyncManager] No hay usuario logueado, no se inicia presence.");
             return;
         }
+
+        _configurarLimpiezaAlSalir();
 
         canal = sb().channel(SALA_BIBLIOTECA, {
             config: { presence: { key: username } },
@@ -53,6 +55,15 @@ const PomodoroSyncManager = (function () {
                 await canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() });
             }
         });
+    }
+
+    // El cierre de pestaña/navegador no siempre da tiempo a un ciclo completo del
+    // SDK; canal.untrack() es un envío best-effort (no espera respuesta), así que
+    // se dispara en ambos eventos para maximizar las chances de que llegue a tiempo.
+    function _configurarLimpiezaAlSalir() {
+        const limpiar = () => { try { if (canal) canal.untrack(); } catch (_) {} };
+        window.addEventListener('beforeunload', limpiar);
+        window.addEventListener('pagehide', limpiar);
     }
 
     function _snapshotPorUsuario() {
@@ -75,11 +86,13 @@ const PomodoroSyncManager = (function () {
     //    pausar o cambiar de fase — si uno pisara al otro, uno de los dos
     //    campos se perdería en cada llamada.
     // ------------------------------------------------------------
-    async function actualizarEstado({ up, pomodoroActivo, faseActual } = {}) {
+    async function actualizarEstado({ up, pomodoroActivo, faseActual, tiempoTotal, tiempoRestante } = {}) {
         estadoLocal = {
             up: up !== undefined ? up : estadoLocal.up,
             pomodoroActivo: pomodoroActivo !== undefined ? pomodoroActivo : estadoLocal.pomodoroActivo,
             faseActual: faseActual !== undefined ? faseActual : estadoLocal.faseActual,
+            tiempoTotal: tiempoTotal !== undefined ? tiempoTotal : estadoLocal.tiempoTotal,           // minutos configurados de la fase
+            tiempoRestante: tiempoRestante !== undefined ? tiempoRestante : estadoLocal.tiempoRestante, // segundos restantes al momento del reporte
         };
         if (!canal) return;
 
@@ -123,6 +136,7 @@ const PomodoroSyncManager = (function () {
     // ------------------------------------------------------------
     function detener() {
         if (canal) {
+            try { canal.untrack(); } catch (_) {}
             sb().removeChannel(canal);
             canal = null;
         }

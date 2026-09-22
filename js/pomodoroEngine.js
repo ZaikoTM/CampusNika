@@ -231,6 +231,8 @@ const PomodoroEngine = (() => {
     window.PomodoroSyncManager.actualizarEstado({
       pomodoroActivo: state.status === 'running',
       faseActual: state.mode === 'work' ? 'Enfoque' : 'Descanso',
+      tiempoTotal: state.durationMin,          // minutos configurados por el host para esta fase
+      tiempoRestante: getRemainingSeconds(),   // segundos que le quedan AHORA MISMO
     });
   }
 
@@ -347,6 +349,32 @@ const PomodoroEngine = (() => {
     reportPresence();
   }
 
+  // Arranca el motor ya en curso, con la duración y el tiempo restante que
+  // reportó el host (Modo Biblioteca). A diferencia de start(), no recalcula
+  // los minutos desde configuración: usa los valores reales que le pasan.
+  function startSynced(totalMin, restanteSec, ctx) {
+    if (state.status === 'running') return;
+    initAudio();
+
+    if (ctx) {
+      state.moduleId = ctx.moduleId || state.moduleId;
+      state.upId = ctx.upId || state.upId;
+      state.upLabel = ctx.upLabel || state.upLabel;
+    }
+
+    const mins = Number.isFinite(totalMin) && totalMin > 0 ? totalMin : getMinutes('work');
+    const remainingSec = Number.isFinite(restanteSec) && restanteSec >= 0 ? restanteSec : mins * 60;
+
+    state.mode = 'work';
+    state.durationMin = mins;
+    state.targetEnd = Date.now() + remainingSec * 1000;
+    state.status = 'running';
+    saveState();
+    updateTitle();
+    startTicking();
+    reportPresence();
+  }
+
   function pause() {
     if (state.status !== 'running') return;
     state.remainingMs = Math.max(0, state.targetEnd - Date.now());
@@ -429,7 +457,7 @@ const PomodoroEngine = (() => {
     updateTitle();
   })();
 
-  return { start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt };
+  return { start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced };
 })();
 
 window.PomodoroEngine = PomodoroEngine;

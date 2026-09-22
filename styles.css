@@ -230,6 +230,66 @@
         .online-friend-name { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
         .online-friend-meta { font-size: 0.72rem; color: var(--text-muted); }
         .community-widget-empty { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 12px 0; }
+
+        /* ===== Mosaicos de tiempo de estudio (Mi Rendimiento Académico) ===== */
+        .perf-time-tile { position: relative; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px 18px 16px; display: flex; gap: 14px; align-items: flex-start; box-shadow: var(--shadow); text-align: left; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+        .perf-time-tile:hover { transform: translateY(-3px); }
+        .perf-time-tile-icon { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; color: #fff; }
+        .perf-time-tile--total .perf-time-tile-icon { background: linear-gradient(135deg, #e11d48, #fb7185); box-shadow: 0 6px 14px -4px rgba(225,29,72,0.55); }
+        .perf-time-tile--hoy .perf-time-tile-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); box-shadow: 0 6px 14px -4px rgba(245,158,11,0.55); }
+        .perf-time-tile--total:hover { border-color: #e11d48; box-shadow: 0 14px 30px -12px rgba(225,29,72,0.35); }
+        .perf-time-tile--hoy:hover { border-color: #f59e0b; box-shadow: 0 14px 30px -12px rgba(245,158,11,0.35); }
+        .perf-time-tile-body { flex: 1; min-width: 0; }
+        .perf-time-tile-value { font-size: 1.5rem; font-weight: 900; color: var(--text-main); line-height: 1.15; }
+        .perf-time-tile-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+        .perf-time-tile-progress-track { width: 100%; height: 6px; border-radius: 10px; background: var(--bg-body); margin-top: 10px; overflow: hidden; }
+        .perf-time-tile-progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #e11d48, #fb7185); transition: width .6s ease; }
+        .perf-time-tile--hoy .perf-time-tile-progress-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .perf-time-tile-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
+
+        /* ===== Tarjeta "Sobre el Creador" ===== */
+        #about-creator-modal.modal-overlay { padding: 20px; box-sizing: border-box; }
+        .creator-card { position: relative; width: min(420px, 100%); background: var(--card-bg); border-radius: 22px; overflow: hidden; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4); border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
+        .creator-card-close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(255,255,255,0.18); color: #fff; font-size: 0.85rem; cursor: pointer; backdrop-filter: blur(4px); }
+        .creator-card-hero { height: 108px; background: linear-gradient(135deg, #0a192f 0%, #0f172a 45%, #0284c7 100%); position: relative; }
+        .creator-card-hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 20%, rgba(56,189,248,0.35), transparent 55%); }
+        .creator-card-avatar { position: absolute; left: 24px; bottom: -34px; width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #0284c7, #0369a1); display: flex; align-items: center; justify-content: center; font-size: 34px; border: 4px solid var(--card-bg); box-shadow: 0 10px 24px rgba(2,132,199,0.35); }
+        .creator-card-verified { position: absolute; bottom: -2px; right: -2px; width: 22px; height: 22px; background: #16a34a; border: 3px solid var(--card-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 900; }
+        .creator-card-body { padding: 46px 26px 26px; text-align: left; }
+        .creator-card-name { font-size: 1.3rem; font-weight: 900; color: var(--text-main); margin-bottom: 2px; }
+        .creator-card-role { font-size: 0.78rem; font-weight: 800; color: var(--nika-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .creator-card-bio { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 18px; }
+        .creator-card-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px; }
+        .creator-stat { background: var(--bg-body); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; text-align: center; }
+        .creator-stat strong { display: block; font-size: 0.85rem; color: var(--text-main); font-weight: 800; }
+        .creator-stat span { font-size: 0.63rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+        .creator-card-socials { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+        .creator-social { display: flex; align-items: center; justify-content: center; padding: 11px 14px; border-radius: 10px; color: #fff; text-decoration: none; font-size: 0.82rem; font-weight: 700; transition: transform 0.2s; }
+        .creator-social:hover { transform: translateY(-2px); }
+        .creator-social--ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 4px 12px rgba(220,39,67,0.25); }
+        .creator-social--tt { background: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+        .creator-card-support { background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+        .creator-card-support-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 0.74rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .creator-card-support-tag { background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 6px; font-weight: 700; text-transform: none; letter-spacing: 0; }
+        .creator-card-support-row { display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; }
+        .creator-card-support-row strong { font-family: monospace; letter-spacing: 1px; color: var(--text-main); }
+        .creator-card-support-row button { background: var(--nika-primary); color: #fff; border: none; padding: 7px 12px; border-radius: 7px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+
+        /* ===== Recorrido Guiado (Onboarding Tour) ===== */
+        .nika-tour-overlay { position: fixed; inset: 0; background: rgba(6,10,20,0.55); z-index: 9998; }
+        .nika-tour-spotlight { position: fixed; border-radius: 14px; box-shadow: 0 0 0 9999px rgba(6,10,20,0.72); z-index: 9999; pointer-events: none; transition: top .35s ease, left .35s ease, width .35s ease, height .35s ease; border: 2px solid var(--nika-primary); }
+        .nika-tour-tooltip { position: fixed; z-index: 10000; width: min(320px, calc(100vw - 32px)); background: var(--card-bg); color: var(--text-main); border-radius: 14px; padding: 18px 20px; box-shadow: 0 20px 45px -10px rgba(0,0,0,0.45); border: 1px solid var(--border); transition: top .35s ease, left .35s ease; }
+        .nika-tour-progress { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--nika-primary); margin-bottom: 6px; }
+        .nika-tour-tooltip h4 { font-size: 1.02rem; font-weight: 800; margin-bottom: 6px; color: var(--text-main); }
+        .nika-tour-tooltip p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
+        .nika-tour-dots { display: flex; gap: 5px; margin-bottom: 14px; }
+        .nika-tour-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: all .2s ease; }
+        .nika-tour-dot.active { background: var(--nika-primary); width: 16px; border-radius: 4px; }
+        .nika-tour-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .nika-tour-skip { background: none; border: none; color: var(--text-muted); font-size: 0.78rem; font-weight: 700; cursor: pointer; padding: 6px 2px; }
+        .nika-tour-prev { background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+        .nika-tour-next { background: var(--nika-primary); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; box-shadow: 0 6px 14px -4px rgba(2,132,199,0.5); }
+        @media (max-width: 640px) { .nika-tour-tooltip { padding: 16px; } .creator-card-stats { grid-template-columns: 1fr 1fr 1fr; } }
         .module-icon { font-size: 2.3rem; margin-bottom: 14px; }
         .module-title { font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
         .module-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px; }
