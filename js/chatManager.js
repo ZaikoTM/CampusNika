@@ -35,11 +35,56 @@ const ChatManager = (function () {
         return `dm_${a}__${b}`;
     }
 
+    // ------------------------------------------------------------
+    // 0. Alerta sonora estilo MSN (Web Audio API, sin archivos mp3)
+    //    Dos tonos cortos ascendentes ("bip-BIP") al recibir un mensaje
+    //    de otra persona. Se crea un AudioContext por reproducción (más
+    //    simple y evita quedarse con un contexto "suspended" por las
+    //    políticas de autoplay del navegador).
+    // ------------------------------------------------------------
+    let _audioCtx = null;
+    function _getAudioCtx() {
+        try {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return null;
+            if (!_audioCtx || _audioCtx.state === 'closed') _audioCtx = new Ctx();
+            if (_audioCtx.state === 'suspended') _audioCtx.resume().catch(() => {});
+            return _audioCtx;
+        } catch (_) { return null; }
+    }
+
+    function _tono(ctx, freq, inicio, duracion, volumen) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + inicio);
+        // Ataque/decaimiento rápidos para que suene a "bip", no a un pitido plano
+        gain.gain.setValueAtTime(0, ctx.currentTime + inicio);
+        gain.gain.linearRampToValueAtTime(volumen, ctx.currentTime + inicio + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + inicio + duracion);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + inicio);
+        osc.stop(ctx.currentTime + inicio + duracion + 0.02);
+    }
+
+    function _reproducirSonidoMensaje() {
+        const ctx = _getAudioCtx();
+        if (!ctx) return;
+        try {
+            // Dos tonos cortos ascendentes, tipo notificación clásica de MSN Messenger
+            _tono(ctx, 660, 0, 0.11, 0.16);   // primer bip (más grave)
+            _tono(ctx, 880, 0.1, 0.14, 0.16); // segundo bip (más agudo)
+        } catch (_) {}
+    }
+
     let canalActivo = null;
     let conversacionActual = null; // username del amigo con el que estoy chateando
     let onMensaje = null;          // callback: (row) => void, para pintar burbujas
     let onListaChanged = null;     // callback: () => void, para refrescar bandeja/badges
     let onPresenciaCambio = null;  // callback: (enLinea: boolean) => void, para el header del chat
+    let onLecturaCambio = null;    // callback: (friendUsername) => void, cuando el otro extremo lee mis mensajes
+    let sonidoActivado = true;     // permite silenciar la alerta sonora desde afuera
 
     // ------------------------------------------------------------
     // 1. Abrir/suscribirse a una conversación 1 a 1
@@ -62,7 +107,20 @@ const ChatManager = (function () {
             // Solo me interesa si el mensaje corresponde a esta conversación
             const esMio = payload.from_username === username || payload.to_username === username;
             if (esMio && onMensaje) onMensaje(payload);
+            // Sonido tipo MSN solo cuando el mensaje lo mandó la otra persona
+            // (nunca cuando el eco del broadcast es de mi propio mensaje).
+            if (esMio && payload.from_username !== username && sonidoActivado) {
+                _reproducirSonidoMensaje();
+            }
             if (onListaChanged) onListaChanged();
+        });
+
+        canalActivo.on("broadcast", { event: "mensajes_leidos" }, ({ payload }) => {
+            // El otro extremo marcó como leídos los mensajes que yo le mandé.
+            // payload: { reader: username_que_leyo, owner: a_quien_le_leyeron }
+            if (!payload) return;
+            const esMiConversacion = payload.reader === friendUsername && payload.owner === username;
+            if (esMiConversacion && onLecturaCambio) onLecturaCambio(friendUsername);
         });
 
         const _notificarPresencia = () => {
@@ -234,12 +292,27 @@ const ChatManager = (function () {
         const username = window.NikaSupabase.getNikaCurrentUsername();
         if (!username) return;
 
-        await sb()
+        const { data } = await sb()
             .from("private_messages")
             .update({ read_at: new Date().toISOString() })
             .eq("from_username", friendUsername)
             .eq("to_username", username)
-            .is("read_at", null);
+            .is("read_at", null)
+            .select("id");
+
+        // Solo avisamos por Realtime si realmente había algo para marcar como
+        // leído, así el otro extremo actualiza sus ticks a "✓✓ azul" al toque.
+        if (data && data.length) {
+            try {
+                await sb().channel(_canalPara(username, friendUsername)).send({
+                    type: "broadcast",
+                    event: "mensajes_leidos",
+                    payload: { reader: username, owner: friendUsername },
+                });
+            } catch (err) {
+                console.warn('[ChatManager] No se pudo notificar la lectura:', err);
+            }
+        }
 
         if (onListaChanged) onListaChanged();
     }
@@ -266,6 +339,18 @@ const ChatManager = (function () {
         },
         set onPresenciaCambio(cb) {
             onPresenciaCambio = cb;
+        },
+        get onLecturaCambio() {
+            return onLecturaCambio;
+        },
+        set onLecturaCambio(cb) {
+            onLecturaCambio = cb;
+        },
+        get sonidoActivado() {
+            return sonidoActivado;
+        },
+        set sonidoActivado(v) {
+            sonidoActivado = !!v;
         },
     };
 })();

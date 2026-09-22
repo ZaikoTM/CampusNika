@@ -206,6 +206,19 @@ const NikaRendimiento = (() => {
     }
     sesiones = r.data || [];
 
+    // DIAGNÓSTICO: para confirmar en la consola de Chrome cuántas filas trae
+    // realmente esta consulta (y con qué user_id), y así descartar que algún
+    // filtro (.eq('user_id', ...), el .order por completed_at, o un RLS raro)
+    // esté dejando sesiones afuera antes de que lleguen a analizar(). Si acá
+    // ya aparecen menos de las esperadas, el problema está en Supabase/RLS,
+    // no en el cálculo de rendimiento.js.
+    console.log('[Rendimiento] Sesiones recuperadas:', sesiones);
+    console.log(
+      `[Rendimiento] user_id consultado: ${userId} · total filas: ${sesiones.length} · ` +
+      `con completed_at nulo: ${sesiones.filter((s) => !s.completed_at).length} · ` +
+      `minutos sumados: ${sesiones.reduce((a, s) => a + (Number(s.duration_minutes) || 0), 0)}`
+    );
+
     let examenes = [];
     const e = await c.from('exam_results')
       .select('modulo, mode, total_questions, correct_count, score, score_pct, by_up, created_at')
@@ -237,7 +250,14 @@ const NikaRendimiento = (() => {
     const examenes = (datos && datos.examenes) || [];
 
     const completas = sesiones.filter((s) => s.completed !== false);
-    const totalMin = sesiones.reduce((a, s) => a + (s.duration_minutes || 0), 0);
+    // BUGFIX: el "Tiempo de Estudio Total" debe sumar TODOS los minutos de
+    // study_sessions, tengan o no completed_at cargado. Antes esta suma vivía
+    // "protegida" por el mismo filtro de fecha que usa el desglose por área
+    // (ver forEach más abajo), así que una sesión con completed_at nulo
+    // (por ejemplo, una sesión vieja migrada, o un pomodoro que se cerró mal)
+    // terminaba restando del total aunque tuviera duration_minutes válido.
+    // Acá se calcula de forma independiente y explícita, sin tocar fechas.
+    const totalMin = sesiones.reduce((a, s) => a + (Number(s.duration_minutes) || 0), 0);
 
     const porModulo = {};
     const porUp = {};
@@ -261,19 +281,26 @@ const NikaRendimiento = (() => {
     sesiones.forEach((s) => {
       const m = s.modulo || 'otros';
       const f = new Date(s.completed_at);
-      if (isNaN(f)) return;
+      const fechaValida = !isNaN(f);
       const o = mod(m);
-      o.minutos += s.duration_minutes || 0;
+      // Los minutos del área SIEMPRE se suman, tenga o no completed_at válido
+      // (mismo criterio que totalMin). Solo lo que depende de una fecha
+      // concreta (racha, "hoy", última actividad) se salta si no hay fecha.
+      o.minutos += Number(s.duration_minutes) || 0;
       if (s.completed !== false) {
         o.pomodoros += 1;
-        dias.add(_diaLocal(f)); // la racha solo cuenta sesiones terminadas
-        if (_diaLocal(f) === hoyStr) {
-          tiempoHoyMin += s.duration_minutes || 0;
-          pomodorosHoy += 1;
+        if (fechaValida) {
+          dias.add(_diaLocal(f)); // la racha solo cuenta sesiones terminadas con fecha
+          if (_diaLocal(f) === hoyStr) {
+            tiempoHoyMin += Number(s.duration_minutes) || 0;
+            pomodorosHoy += 1;
+          }
         }
       }
-      tocarUltima(o, f);
-      tocarUp(m, normUp(s.up_id), f);
+      if (fechaValida) {
+        tocarUltima(o, f);
+        tocarUp(m, normUp(s.up_id), f);
+      }
     });
 
     let puntajeTotal = 0;

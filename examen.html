@@ -376,14 +376,17 @@
 
         /* ================= SHOCK ROOM — MOTOR INMERSIVO ================= */
         .shock-room-screen {
-            background: #05070d;
+            background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
             color: #e2e8f0;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
             box-shadow: 0 20px 45px -10px rgba(0,0,0,0.6);
+            width: 100%;
+            max-width: 1200px; /* mismo ancho que .container / la grilla principal */
+            margin: 0 auto;
         }
-        .shock-room-inner { position: relative; padding: 26px 28px 30px; z-index: 2; }
+        .shock-room-inner { position: relative; padding: 26px 34px 34px; z-index: 2; width: 100%; box-sizing: border-box; }
         .shock-room-topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
         .shock-room-title { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.3px; }
         .shock-room-title .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 0 rgba(239,68,68,0.5); animation: shockDotPulse 1.4s infinite; }
@@ -485,6 +488,87 @@
             border-radius: 10px; font-weight: 700; font-size: 0.88rem; margin-bottom: 14px;
         }
         .shock-room-screen.estado-plano .shock-flatline-banner { display: flex; }
+
+        /* ================= PANTALLA CLÍNICA — PASE DE SALA / CONSULTORIO ================= */
+        /* Estética sobria y clínica (historia clínica / consultorio hospitalario):
+           fondo claro, textos grafito de alta legibilidad, tarjeta centrada a 1200px.
+           Deliberadamente distinta del Shock Room, que mantiene su tema oscuro. */
+        .clinica-screen {
+            background: #f8fafc;
+            color: #1e293b;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 12px 32px -16px rgba(15, 23, 42, 0.18);
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .clinica-inner { position: relative; padding: 26px 34px 34px; z-index: 2; width: 100%; box-sizing: border-box; background: #ffffff; }
+        .clinica-topbar {
+            display: flex; align-items: center; gap: 16px; margin-bottom: 18px; flex-wrap: wrap;
+            padding-bottom: 16px; border-bottom: 1px solid #e2e8f0;
+        }
+        .clinica-title { font-weight: 800; font-size: 1.1rem; letter-spacing: 0.3px; color: #0f172a; }
+        .clinica-btn-volver {
+            border: 1px solid #cbd5e1; color: #475569; background: #f8fafc;
+            padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s ease;
+        }
+        .clinica-btn-volver:hover { border-color: #0284c7; color: #0284c7; background: rgba(2,132,199,0.06); }
+
+        .clinica-chat-log {
+            max-height: 420px;
+            min-height: 160px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding-right: 4px;
+        }
+        .clinica-bubble {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-width: 92%;
+        }
+        .clinica-bubble.rol-usuario { align-self: flex-end; background: #e0f2fe; border: 1px solid #bae6fd; color: #0c4a6e; }
+        .clinica-bubble.rol-ia { align-self: flex-start; background: #fff7ed; border: 1px solid #fed7aa; color: #7c2d12; }
+        .clinica-bubble.rol-sistema { align-self: center; background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b; font-size: 0.85rem; text-align: center; }
+
+        .clinica-input-row { display: flex; flex-direction: column; gap: 12px; }
+        .clinica-textarea {
+            width: 100%;
+            resize: vertical;
+            min-height: 90px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            color: #0f172a;
+            padding: 12px 14px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .clinica-textarea::placeholder { color: #94a3b8; }
+        .clinica-textarea:focus { outline: none; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2,132,199,0.12); }
+        .clinica-textarea:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .clinica-input-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .clinica-mic-slot { display: flex; align-items: center; }
+        .clinica-btn-enviar {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #fff; border: none; padding: 12px 26px; border-radius: 10px;
+            font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: transform 0.15s ease;
+            margin-left: auto;
+        }
+        .clinica-btn-enviar:hover { transform: translateY(-2px); }
+        .clinica-btn-enviar:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
     </style>
 </head>
 <body>
@@ -655,6 +739,29 @@
                     <div style="display:flex; align-items:center; gap:16px;">
                         <button type="button" class="shock-abandonar" onclick="ShockRoomEngine.abandonar()">Abandonar simulacro</button>
                         <button type="button" class="shock-btn-enviar" id="shock-btn-enviar" onclick="ShockRoomEngine.enviarTurno()">Enviar orden 🚑</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PANTALLA CLÍNICA — PASE DE SALA Y CONSULTORIO ================= -->
+        <!-- Chat multi-turno sin reloj visible, para submodos 'clasico' de pase_sala y
+             consultorio_legales. Shock Room NO usa esta pantalla: conserva su propio
+             motor inmersivo (#shock-room-screen / ShockRoomEngine) intacto. -->
+        <div class="clinica-screen" id="pantalla-clinica" style="display: none;">
+            <div class="clinica-inner">
+                <div class="clinica-topbar">
+                    <button type="button" class="clinica-btn-volver" onclick="ClinicaEngine.volver()"><span class="arrow">←</span> Volver al Menú</button>
+                    <div class="clinica-title" id="clinica-titulo">Simulación Clínica</div>
+                </div>
+
+                <div class="clinica-chat-log" id="clinica-chat-log"></div>
+
+                <div class="clinica-input-row">
+                    <textarea id="clinica-textarea" class="clinica-textarea" placeholder="Escribí tu respuesta…" maxlength="3000"></textarea>
+                    <div class="clinica-input-actions">
+                        <div class="clinica-mic-slot" id="clinica-mic-slot"></div>
+                        <button type="button" class="clinica-btn-enviar" id="clinica-btn-enviar" onclick="ClinicaEngine.enviar()">Enviar ➤</button>
                     </div>
                 </div>
             </div>
@@ -1400,7 +1507,7 @@
                     <div class="mode-icon">${modo.icono}</div>
                     <div class="mode-info">
                         <h4>${escaparHtml(sub.nombre)}</h4>
-                        <p>${escaparHtml(modo.nombre)} <span class="badge-soon">Próximamente</span></p>
+                        <p>${escaparHtml(modo.nombre)}</p>
                     </div>
                 </div>`).join('');
             panel.style.display = 'block';
@@ -1427,6 +1534,15 @@
                 return;
             }
 
+            // Pase de Sala y Consultorio y Legales: pantalla de chat multi-turno sin
+            // reloj visible (#pantalla-clinica / ClinicaEngine). La lógica de IA
+            // (systemPrompt) todavía no está conectada al backend.
+            if (modo && (modo.id === 'pase_sala' || modo.id === 'consultorio_legales')) {
+                examMode = modo.id;
+                ClinicaEngine.iniciar(modo, sub);
+                return;
+            }
+
             alert(`🚧 ${modo ? modo.nombre : ''} · ${sub ? sub.nombre : ''}\n\nEsta modalidad está en construcción. Todavía no tiene la lógica de IA conectada.`);
         }
 
@@ -1448,39 +1564,97 @@
             let turnoActual = 1;
             let interval = null;
             let micCtrl = null;
-            let sonido = { heartbeat: null, flatline: null };
+            let sonido = { heartbeatInterval: null, heartbeatMs: null, heartbeatVolumen: 0.15, flatlineOsc: null, flatlineGain: null };
 
             function elScreen() { return document.getElementById('shock-room-screen'); }
 
-            // --- Audio: monitor de signos vitales que acelera y sube de volumen -----
-            function asegurarAudio() {
-                if (!sonido.heartbeat) {
-                    sonido.heartbeat = new Audio('assets/sounds/heartbeat.mp3');
-                    sonido.heartbeat.loop = true;
-                }
-                if (!sonido.flatline) {
-                    sonido.flatline = new Audio('assets/sounds/flatline.mp3');
+            // --- Audio: monitor de signos vitales sintetizado 100% con Web Audio API -----
+            // Sin archivos .mp3: todo el sonido se genera matemáticamente en el navegador
+            // con osciladores, reutilizando el `audioCtx` global ya creado en esta página.
+            function asegurarAudioContext() {
+                if (audioCtx.state === 'suspended') {
+                    // Se reanuda con el primer gesto del usuario (click) para que el
+                    // navegador no bloquee el audio por autoplay.
+                    audioCtx.resume().catch((err) => console.warn('[ShockRoom] No se pudo reanudar el AudioContext:', err));
                 }
             }
+
+            // Bip agudo de monitor multiparamétrico de guardia: oscilador senoidal
+            // ~900Hz (rango 800-1000Hz), ~90ms de duración, con decaimiento exponencial.
+            function reproducirBip(volumen) {
+                asegurarAudioContext();
+                const ahora = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(900, ahora);
+                gain.gain.setValueAtTime(0.0001, ahora);
+                gain.gain.exponentialRampToValueAtTime(Math.max(0.02, volumen), ahora + 0.005);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ahora + 0.09); // decaimiento exponencial de volumen
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(ahora);
+                osc.stop(ahora + 0.1);
+            }
+
             function actualizarAudioSegunTiempo() {
                 if (isAudioMuted) { pausarHeartbeat(); return; }
-                asegurarAudio();
-                const hb = sonido.heartbeat;
-                // Volumen y "frecuencia de latido" (playbackRate) escalan a medida que baja el reloj.
+                asegurarAudioContext();
+                // Volumen y ritmo del bip escalan a medida que baja el reloj (más estrés = más rápido y más fuerte).
                 const progresoEstres = 1 - Math.min(1, Math.max(0, segundosRestantes / SEGUNDOS_POR_TURNO));
-                hb.volume = Math.min(1, 0.25 + progresoEstres * 0.75);
-                hb.playbackRate = Math.min(2.2, 1 + progresoEstres * 1.2);
-                if (hb.paused) hb.play().catch(() => { /* requiere gesto del usuario; se reintenta en el próximo tick */ });
+                const volumen = Math.min(0.4, 0.1 + progresoEstres * 0.3);
+                const intervaloMs = Math.max(300, 950 - progresoEstres * 650);
+                sonido.heartbeatVolumen = volumen;
+                if (sonido.heartbeatMs !== intervaloMs) {
+                    // El ritmo cambió: reprogramamos el intervalo del bip (setInterval no
+                    // admite cambiar su período sin recrearlo).
+                    if (sonido.heartbeatInterval) clearInterval(sonido.heartbeatInterval);
+                    sonido.heartbeatMs = intervaloMs;
+                    reproducirBip(volumen);
+                    sonido.heartbeatInterval = setInterval(() => reproducirBip(sonido.heartbeatVolumen), intervaloMs);
+                } else if (!sonido.heartbeatInterval) {
+                    reproducirBip(volumen);
+                    sonido.heartbeatInterval = setInterval(() => reproducirBip(sonido.heartbeatVolumen), intervaloMs);
+                }
             }
             function pausarHeartbeat() {
-                if (sonido.heartbeat && !sonido.heartbeat.paused) sonido.heartbeat.pause();
+                if (sonido.heartbeatInterval) {
+                    clearInterval(sonido.heartbeatInterval);
+                    sonido.heartbeatInterval = null;
+                    sonido.heartbeatMs = null;
+                }
             }
+
+            // Tono continuo e ininterrumpido de asistolia/flatline: ~780Hz (rango
+            // 750-800Hz) sostenido hasta que se detiene explícitamente.
             function reproducirFlatline() {
                 pausarHeartbeat();
+                detenerFlatline();
                 if (isAudioMuted) return;
-                asegurarAudio();
-                sonido.flatline.currentTime = 0;
-                sonido.flatline.play().catch(() => {});
+                asegurarAudioContext();
+                const ahora = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(780, ahora);
+                gain.gain.setValueAtTime(0.0001, ahora);
+                gain.gain.exponentialRampToValueAtTime(0.22, ahora + 0.15); // entrada suave y luego tono sostenido
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(ahora);
+                sonido.flatlineOsc = osc;
+                sonido.flatlineGain = gain;
+            }
+            function detenerFlatline() {
+                if (sonido.flatlineOsc) {
+                    try {
+                        const ahora = audioCtx.currentTime;
+                        sonido.flatlineGain.gain.exponentialRampToValueAtTime(0.0001, ahora + 0.05);
+                        sonido.flatlineOsc.stop(ahora + 0.06);
+                    } catch (err) { /* el oscilador ya pudo haberse detenido */ }
+                    sonido.flatlineOsc = null;
+                    sonido.flatlineGain = null;
+                }
             }
 
             // --- Render del reloj + estrés visual -----------------------------------
@@ -1536,6 +1710,7 @@
                 clearInterval(interval);
                 segundosRestantes = SEGUNDOS_POR_TURNO;
                 elScreen().classList.remove('estado-plano');
+                detenerFlatline();
                 bloquearCampo(false);
                 pintarReloj();
                 actualizarAudioSegunTiempo();
@@ -1587,6 +1762,10 @@
             function enviarTurno() {
                 const ta = document.getElementById('shock-respuesta');
                 if (!ta || !ta.value.trim() || segundosRestantes <= 0) return;
+                // Re-aseguramos el audio en cada click: si el navegador lo había
+                // pausado (pérdida de foco de pestaña, etc.) o si el primer intento
+                // automático falló, este gesto del usuario lo puede reactivar.
+                actualizarAudioSegunTiempo();
                 agregarAlLog('usuario', ta.value.trim());
                 ta.value = '';
                 turnoActual++;
@@ -1598,6 +1777,7 @@
             function abandonar() {
                 clearInterval(interval);
                 pausarHeartbeat();
+                detenerFlatline();
                 if (micCtrl) { micCtrl.destroy(); micCtrl = null; }
                 const pantalla = elScreen();
                 if (pantalla) { pantalla.style.display = 'none'; pantalla.classList.remove('estres-alto', 'estado-plano'); }
@@ -1607,8 +1787,85 @@
             return { iniciar, enviarTurno, abandonar };
         })();
 
+        // ============================================================================
+        // PANTALLA CLÍNICA — Motor de chat multi-turno (Pase de Sala / Consultorio)
+        // ----------------------------------------------------------------------------
+        // A diferencia de ShockRoomEngine, esta pantalla NO tiene reloj ni temporizador
+        // visible: es un historial de chat abierto entre el usuario y la IA. La lógica
+        // de IA (systemPrompt/backend) queda pendiente: por ahora cada envío solo pinta
+        // el mensaje del usuario en el log y deja un placeholder de "IA pensando".
+        // ============================================================================
+        const ClinicaEngine = (() => {
+            let modoActual = null, submodoActual = null;
+            let micCtrl = null;
+
+            function elScreen() { return document.getElementById('pantalla-clinica'); }
+
+            function agregarAlLog(rol, texto) {
+                const log = document.getElementById('clinica-chat-log');
+                if (!log) return;
+                const item = document.createElement('div');
+                item.className = 'clinica-bubble rol-' + rol;
+                item.textContent = texto;
+                log.appendChild(item);
+                log.scrollTop = log.scrollHeight;
+            }
+
+            function montarMic() {
+                if (micCtrl) { micCtrl.destroy(); micCtrl = null; }
+                if (typeof SpeechManager === 'undefined' || !SpeechManager.soportado()) return;
+                micCtrl = SpeechManager.attach({
+                    textareaId: 'clinica-textarea',
+                    mountId: 'clinica-mic-slot',
+                    lang: 'es-AR',
+                    maxChars: 3000
+                });
+            }
+
+            function iniciar(modo, sub) {
+                modoActual = modo; submodoActual = sub;
+                ocultarEmbudo();
+                const pantalla = elScreen();
+                pantalla.style.display = 'block';
+
+                document.getElementById('clinica-titulo').textContent = modo ? modo.nombre : 'Simulación Clínica';
+                document.getElementById('clinica-chat-log').innerHTML = '';
+                const ta = document.getElementById('clinica-textarea');
+                if (ta) ta.value = '';
+
+                agregarAlLog('sistema', 'Escenario en preparación — la lógica de IA de "' + (sub ? sub.nombre : '') + '" todavía no está conectada. El chat y el dictado por voz ya funcionan.');
+
+                montarMic();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function enviar() {
+                const ta = document.getElementById('clinica-textarea');
+                if (!ta || !ta.value.trim()) return;
+                agregarAlLog('usuario', ta.value.trim());
+                ta.value = '';
+
+                // ---------------------------------------------------------------
+                // TODO: acá va el fetch real a la IA (usar submodoActual.systemPrompt
+                // como system prompt, más el historial de #clinica-chat-log como
+                // contexto de la conversación). Reemplazar el bloque de abajo por
+                // la llamada real y pintar la respuesta con agregarAlLog('ia', texto).
+                // ---------------------------------------------------------------
+                agregarAlLog('ia', '⏳ (placeholder) Acá se pinta la respuesta de la IA cuando se conecte el backend.');
+            }
+
+            function volver() {
+                if (micCtrl) { micCtrl.destroy(); micCtrl = null; }
+                const pantalla = elScreen();
+                if (pantalla) pantalla.style.display = 'none';
+                mostrarPaso(2);
+            }
+
+            return { iniciar, enviar, volver };
+        })();
+
         function ocultarEmbudo() {
-            ['funnel-step-1', 'funnel-step-2', 'config-screen', 'shock-room-screen'].forEach((id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+            ['funnel-step-1', 'funnel-step-2', 'config-screen', 'shock-room-screen', 'pantalla-clinica'].forEach((id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
         }
 
         // Botón "Volver" del Paso 3 (Choice/Escrito): vuelve al Paso 2 conservando año/área.

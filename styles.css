@@ -649,6 +649,10 @@
         .skeleton-line.long { width: 92%; }
         .skeleton-card { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
 
+        /* Barra superior del Pomodoro (pomodoroBar.js): contenedor centrado
+           del texto (logo, fase, tiempo, compañero), con los controles afuera. */
+        .barra-enfoque { display: flex; justify-content: center; align-items: center; width: 100%; gap: 10px; min-width: 0; }
+
         /* ================================================================
            CHAT PRIVADO — Bandeja (dm-inbox-modal) y Conversación 1 a 1
            (private-chat-modal), estilo Messenger/Instagram DM.
@@ -728,6 +732,125 @@
         .pc-send-btn:active { transform: scale(0.94); }
         .pc-send-btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
 
+        /* ---- Ticks de estado de lectura (estilo WhatsApp) ---- */
+        .chat-bubble-tick { display: inline-flex; align-items: center; }
+        .chat-bubble-tick svg { width: 13px; height: 13px; display: block; }
+        .tick-sent { color: rgba(255,255,255,0.75); }
+        .chat-bubble.theirs .tick-sent { color: var(--text-muted); }
+        .tick-delivered { color: rgba(255,255,255,0.75); }
+        .chat-bubble.theirs .tick-delivered { color: var(--text-muted); }
+        .tick-read { color: #34B7F1; }
+        .chat-bubble.mine .tick-read { color: #cdeeff; }
+
+        /* ================================================================
+           CHAT PRIVADO — ventana flotante (estilo Messenger web) + FAB
+           #private-chat-modal deja de ser un modal "bloqueante": el overlay
+           se vuelve transparente y sin backdrop, y .chat-container (el
+           .pc-content de adentro) se ancla fija en la esquina inferior
+           derecha, para poder seguir navegando el resto del Campus con el
+           chat abierto al costado.
+           ================================================================ */
+        #private-chat-modal.modal-overlay {
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            pointer-events: none; /* el fondo no bloquea clicks; solo bloquea el chat-container de adentro */
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 0;
+        }
+        #private-chat-modal.modal-overlay .chat-container {
+            pointer-events: auto;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 90px; /* justo por encima del botón del asistente/robot (bottom:20px;right:20px) */
+            right: 20px;
+            width: 320px;
+            height: 420px;
+            z-index: 9999;
+            max-width: calc(100vw - 24px);
+            max-height: calc(100vh - 24px);
+            margin: 0;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+            overflow: hidden;
+        }
+
+        /* Estado MINIMIZADO: ni el modal-overlay ni el chat-container pueden
+           dejar ninguna capa (ni siquiera transparente) tapando al FAB. Se
+           fuerza display:none + pointer-events:none con !important porque
+           este estado se togglea por JS agregando/quitando esta clase, y
+           necesita ganarle a los estilos inline y de layout de arriba. */
+        #private-chat-modal.modal-overlay.pc-minimizado {
+            display: none !important;
+            pointer-events: none !important;
+        }
+        #private-chat-modal.modal-overlay.pc-minimizado .chat-container {
+            display: none !important;
+            pointer-events: none !important;
+        }
+        @media (max-width: 480px) {
+            .chat-container { right: 8px; bottom: 90px; width: calc(100vw - 16px); height: min(70vh, 520px); }
+        }
+
+        /* ---- Botón de Acción Flotante (FAB) del chat ----
+           bottom:90px lo deja apilado justo arriba del botón del asistente/
+           robot (bottom:20px;right:20px), sin superponerse ni taparlo. */
+        .chat-fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--nika-primary), var(--nika-accent));
+            color: #fff;
+            font-size: 25px; /* ícono/emoji entre 24px y 26px */
+            line-height: 1;
+            display: none; /* se muestra por JS solo si hay sesión iniciada */
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+            z-index: 9998;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .chat-fab svg { width: 25px; height: 25px; display: block; }
+        .chat-fab:hover { transform: scale(1.07); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.38); }
+        .chat-fab:active { transform: scale(0.95); }
+        /* Estado ABIERTO: el chat está a la vista, así que el FAB se apaga
+           por completo (si no, quedan los dos superpuestos en la misma
+           esquina). Se fuerza con !important porque JS togglea esta clase
+           encima del display:flex que pone actualizarVisibilidadChatFab(). */
+        .chat-fab.pc-fab-oculto {
+            display: none !important;
+            pointer-events: none !important;
+        }
+        /* Estado MINIMIZADO: el FAB vuelve a estar activo y clickeable. */
+        .chat-fab.pc-fab-visible {
+            display: flex !important;
+            pointer-events: auto !important;
+        }
+        .chat-fab .chat-fab-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--danger, #dc2626);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            border-radius: 20px;
+            padding: 1px 6px;
+            min-width: 18px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            display: none;
+        }
+        .chat-fab.has-minimized .chat-fab-badge { display: block; }
+
         /* ================================================================
            COMUNIDAD & AMIGOS + PERFIL PÚBLICO — mismo lenguaje visual
            que el chat privado (tarjetas redondeadas, variables Nika,
@@ -776,6 +899,29 @@
         .friends-empty-state { text-align: center; padding: 30px 20px; color: var(--text-muted); }
         .friends-empty-icon { font-size: 2.2rem; margin-bottom: 10px; }
         .friends-empty-state p { font-size: 0.85rem; margin: 0 0 14px; }
+
+        /* ================================================================
+           MODAL ADMIN — Búsqueda de usuarios registrados (#admin-users-modal)
+           Mismo lenguaje visual que .friends-card / .friends-search-box.
+           ================================================================ */
+        .admin-users-card { max-width: 460px; padding: 0; overflow: hidden; display: flex; flex-direction: column; max-height: 82vh; }
+        .admin-users-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 18px 18px 12px; }
+        .admin-users-card-title { font-size: 1.1rem; font-weight: 800; color: var(--nika-dark); margin: 0 0 4px; }
+        .admin-users-card-sub { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+
+        .admin-users-search-box { display: flex; align-items: center; gap: 8px; margin: 0 18px 12px; padding: 9px 12px; border-radius: 20px; background: var(--bg-body); border: 1px solid var(--border); }
+        .admin-users-search-icon { font-size: 0.85rem; opacity: 0.6; flex-shrink: 0; }
+        .admin-users-search-input { flex: 1; border: none; background: transparent; outline: none; color: var(--text-main); font-family: inherit; font-size: 0.85rem; }
+
+        .admin-users-list { overflow-y: auto; padding: 4px 12px 16px; flex: 1; }
+        .admin-user-row { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-radius: 12px; transition: background 0.15s ease; }
+        .admin-user-row:hover { background: var(--bg-body); }
+        .admin-user-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: var(--bg-body); border: 1px solid var(--border); flex-shrink: 0; }
+        .admin-user-body { flex: 1; min-width: 0; }
+        .admin-user-name { font-size: 0.87rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .admin-user-meta { font-size: 0.73rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+        .admin-user-role-badge { flex-shrink: 0; font-size: 0.65rem; font-weight: 800; border-radius: 20px; padding: 2px 9px; background: rgba(2,132,199,0.12); color: var(--nika-primary); }
+        .admin-user-role-badge.is-admin { background: rgba(220,38,38,0.12); color: var(--danger, #dc2626); }
 
         /* Pastilla de "N amigos" dentro del modal de Mi Perfil */
         .friends-inline-pill { display: flex; align-items: center; justify-content: space-between; width: 100%; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); font-weight: 700; font-size: 0.82rem; padding: 10px 14px; border-radius: 12px; cursor: pointer; margin-bottom: 16px; transition: border-color 0.15s ease, background 0.15s ease; }
@@ -827,3 +973,138 @@
                 box-sizing: border-box !important;
             }
         }
+
+/* =====================================================================
+   PANTALLA CLÍNICA — Chat multi-turno (Pase de Sala / Consultorio)
+   Estética inmersiva y oscura fija (no depende de body.dark-mode), en
+   línea con el motor de Shock Room. Sin reloj ni temporizador visible.
+   ==================================================================== */
+.clinica-screen {
+    background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
+    color: #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 1200px; /* mismo ancho que .container / la grilla principal */
+    margin: 0 auto;
+}
+.clinica-inner {
+    display: flex;
+    flex-direction: column;
+    height: min(78vh, 780px);
+    padding: 22px 30px 26px;
+    box-sizing: border-box;
+}
+
+.clinica-topbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+.clinica-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+    color: #f1f5f9;
+}
+
+/* Área central: historial de chat, ocupa todo el espacio disponible */
+.clinica-chat-log {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 6px 4px 12px 2px;
+    margin-bottom: 16px;
+}
+
+.clinica-bubble {
+    max-width: 78%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+/* Usuario: tono azul, alineado a la derecha */
+.clinica-bubble.rol-usuario {
+    align-self: flex-end;
+    background: rgba(56, 189, 248, 0.18);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #e0f2fe;
+    border-bottom-right-radius: 4px;
+}
+/* IA: tono rojo/naranja cálido, alineado a la izquierda */
+.clinica-bubble.rol-ia {
+    align-self: flex-start;
+    background: rgba(249, 115, 22, 0.14);
+    border: 1px solid rgba(249, 115, 22, 0.35);
+    color: #fed7aa;
+    border-bottom-left-radius: 4px;
+}
+/* Sistema (avisos internos, placeholders): gris oscuro discreto */
+.clinica-bubble.rol-sistema {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.88rem;
+}
+
+/* Área inferior: input amplio + acciones */
+.clinica-input-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.clinica-textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 110px;
+    background: #0b0f19;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    color: #f1f5f9;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+.clinica-textarea:focus { outline: none; border-color: #38bdf8; }
+
+.clinica-input-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+.clinica-mic-slot { display: flex; align-items: center; }
+
+.clinica-btn-enviar {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    margin-left: auto;
+}
+.clinica-btn-enviar:hover { transform: translateY(-2px); }
+.clinica-btn-enviar:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+@media (max-width: 640px) {
+    .clinica-inner { height: min(85vh, 720px); padding: 16px 16px 18px; }
+    .clinica-bubble { max-width: 92%; }
+}

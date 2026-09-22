@@ -479,7 +479,7 @@
                 </div>
 
                 <div class="admin-stats-grid">
-                    <div class="admin-stat-card"><h4>👥 Usuarios Registrados</h4><div class="stat-val" id="admin-stat-users">–</div><span id="admin-stat-users-sub" style="font-size:0.75rem; color:var(--success);"></span></div>
+                    <div class="admin-stat-card" style="cursor:pointer;" onclick="openAdminUsersModal()" title="Ver / buscar usuarios registrados"><h4>👥 Usuarios Registrados</h4><div class="stat-val" id="admin-stat-users">–</div><span id="admin-stat-users-sub" style="font-size:0.75rem; color:var(--success);"></span></div>
                     <div class="admin-stat-card"><h4>📝 Simulacros Completados</h4><div class="stat-val" id="admin-stat-exams">–</div><span id="admin-stat-exams-sub" style="font-size:0.75rem; color:var(--success);"></span></div>
                     <div class="admin-stat-card"><h4>📊 Efectividad Promedio</h4><div class="stat-val" id="admin-stat-avg" style="color:var(--warning);">–</div><span style="font-size:0.75rem; color:var(--text-muted);">% de aciertos en simulacros</span></div>
                 </div>
@@ -643,7 +643,7 @@
             </div>
             <div class="form-group">
                 <label>Cambiar Contraseña:</label>
-                <input type="password" id="prof-password" class="form-input" placeholder="Dejar en blanco para mantener la actual">
+                <input type="password" id="prof-password" class="form-input" placeholder="Dejar en blanco para mantener la actual" autocomplete="new-password" name="prof-new-password">
             </div>
 
             <hr style="border:none; border-top:1px solid var(--border, rgba(255,255,255,0.1)); margin: 18px 0;">
@@ -807,7 +807,7 @@
 
     <!-- ================= MODAL CHAT PRIVADO (1 a 1), estilo Messenger/Instagram DM ================= -->
     <div class="modal-overlay" id="private-chat-modal">
-        <div class="modal-content pc-content">
+        <div class="modal-content pc-content chat-container">
             <div class="pc-header">
                 <button type="button" class="pc-icon-btn pc-back-btn" onclick="closePrivateChatModal()" aria-label="Volver a mensajes">←</button>
                 <img id="pc-friend-avatar" class="pc-header-avatar" src="" alt="">
@@ -815,6 +815,7 @@
                     <span id="pc-friend-name" class="pc-header-name">@amigo</span>
                     <span id="pc-friend-status" class="pc-header-status">Conectando...</span>
                 </div>
+                <button type="button" class="pc-icon-btn pc-min-btn" onclick="minimizePrivateChat()" aria-label="Minimizar">−</button>
                 <button type="button" class="pc-icon-btn pc-close-btn" onclick="closePrivateChatModal()" aria-label="Cerrar">✕</button>
             </div>
 
@@ -828,6 +829,33 @@
                 <button type="button" class="pc-send-btn" id="pc-send-btn" onclick="sendPrivateMessage()" aria-label="Enviar mensaje">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FAB FLOTANTE DEL CHAT PRIVADO ================= -->
+    <button type="button" class="chat-fab" id="chat-fab-btn" onclick="handleChatFabClick()" aria-label="Abrir chat">
+        💬
+        <span class="chat-fab-badge" id="chat-fab-badge"></span>
+    </button>
+
+    <!-- ================= MODAL ADMIN — BÚSQUEDA DE USUARIOS REGISTRADOS ================= -->
+    <div class="modal-overlay" id="admin-users-modal">
+        <div class="modal-content admin-users-card">
+            <div class="admin-users-card-header">
+                <div>
+                    <h3 class="admin-users-card-title">👥 Usuarios Registrados</h3>
+                    <p class="admin-users-card-sub">Buscá por nombre de usuario o nombre completo.</p>
+                </div>
+                <button type="button" class="pc-icon-btn" onclick="closeAdminUsersModal()" aria-label="Cerrar">✕</button>
+            </div>
+            <div class="admin-users-search-box">
+                <span class="admin-users-search-icon">🔍</span>
+                <input type="search" id="admin-users-search-input" class="admin-users-search-input"
+                    placeholder="Buscar usuario..." oninput="filterAdminUsersList()" autocomplete="off">
+            </div>
+            <div id="admin-users-list" class="admin-users-list">
+                <div class="friends-empty-state"><p>Cargando usuarios...</p></div>
             </div>
         </div>
     </div>
@@ -1591,6 +1619,7 @@
             renderUserPerformance();
             updateSidebarElo(userJson ? JSON.parse(userJson).username : null);
             actualizarBadgeMensajes();
+            actualizarVisibilidadChatFab();
         }
 
         // ================= AUTENTICACIÓN & RECUPERACIÓN =================
@@ -2044,7 +2073,16 @@ async function openProfileModal() {
     if (fn) fn.value = user.fullname || user.nombre || ''; 
     if (un) un.value = user.username || ''; 
     if (em) em.value = user.email || ''; 
-    if (pw) pw.value = '';
+    if (pw) {
+        pw.value = '';
+        // Chrome autocompleta este campo con la contraseña guardada del sitio
+        // un instante después de abrir el modal (a pesar de autocomplete="new-password"),
+        // y eso dispara sin que el usuario lo pida un intento de "cambiar" la
+        // contraseña por la misma que ya tiene -> Supabase responde 422
+        // "New password should be different from the old password". Se vuelve
+        // a vaciar en el siguiente tick para ganarle a ese autofill tardío.
+        setTimeout(() => { if (pw.value) pw.value = ''; }, 50);
+    }
     if (fileInput) fileInput.value = '';
     if (anio) anio.value = user.anio_cursada || user.cursada || '';
     if (bio) bio.value = user.bio || '';
@@ -2142,8 +2180,16 @@ async function handleSaveProfile(e) {
             if (saveBtn) saveBtn.textContent = 'Subiendo imagen...';
             
             const fileExt = 'jpg';
-            const fileName = `${realUserId}-${Date.now()}.${fileExt}`;
-            const filePath = `${fileName}`;
+            // CORRECCIÓN: la política RLS típica de un bucket "avatars" exige que
+            // el primer segmento de carpeta del path sea el UID del usuario
+            // (storage.foldername(name))[1] = auth.uid()::text). Antes se armaba
+            // "<uid>-<timestamp>.jpg" como archivo suelto (sin carpeta), así que
+            // storage.foldername(name) devolvía vacío y la política rechazaba
+            // el insert con "new row violates row-level security policy" (400).
+            // Subiendo dentro de una carpeta con el UID como nombre, coincide con
+            // esa política y el upload pasa.
+            const fileName = `${Date.now()}.${fileExt}`;
+            const filePath = `${realUserId}/${fileName}`;
 
             const { error: uploadError } = await client.storage
                 .from('avatars')
@@ -2552,6 +2598,102 @@ async function handleLogout() {
             renderErratas();
             if (window.NikaModeracion) NikaModeracion.actualizarPanelAdmin();
             populateAdminAreaSelector(); // dispara onAdminAreaChange() -> renderLoadedBanksStatus()
+            refrescarStatUsuarios();
+        }
+
+        // ================= ADMIN — Usuarios registrados (búsqueda) =================
+        let _adminUsersCache = [];       // último listado traído de Supabase (para filtrar sin re-consultar)
+        let _adminUsersSearchDebounce = null;
+
+        // Actualiza la tarjeta "👥 Usuarios Registrados" del dashboard admin con el
+        // total real de la tabla `profiles` (antes quedaba siempre en "–").
+        async function refrescarStatUsuarios() {
+            const statEl = document.getElementById('admin-stat-users');
+            if (!statEl || !window.NikaSupabase || !window.NikaSupabase.client) return;
+            try {
+                const { count, error } = await window.NikaSupabase.client
+                    .from('profiles')
+                    .select('id', { count: 'exact', head: true });
+                if (error) throw error;
+                statEl.textContent = (count ?? 0).toLocaleString('es-AR');
+            } catch (err) {
+                console.warn('[refrescarStatUsuarios]', err);
+                statEl.textContent = '–';
+            }
+        }
+
+        function openAdminUsersModal() {
+            const modal = document.getElementById('admin-users-modal');
+            if (modal) modal.style.display = 'flex';
+            const input = document.getElementById('admin-users-search-input');
+            if (input) input.value = '';
+            cargarAdminUsuarios();
+        }
+
+        function closeAdminUsersModal() {
+            const modal = document.getElementById('admin-users-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // Trae los usuarios registrados desde Supabase (tabla profiles) y los
+        // deja pintados; filterAdminUsersList() después filtra en memoria,
+        // sin volver a pegarle a la red por cada tecla.
+        async function cargarAdminUsuarios() {
+            const listBox = document.getElementById('admin-users-list');
+            if (!listBox) return;
+            if (!window.NikaSupabase || !window.NikaSupabase.client) {
+                listBox.innerHTML = '<div class="friends-empty-state"><p>Buscador no disponible.</p></div>';
+                return;
+            }
+            listBox.innerHTML = '<div class="friends-empty-state"><p>Cargando usuarios...</p></div>';
+            try {
+                const { data, error } = await window.NikaSupabase.client
+                    .from('profiles')
+                    .select('id, username, fullname, avatar, role')
+                    .order('fullname', { ascending: true })
+                    .limit(500);
+                if (error) throw error;
+                _adminUsersCache = data || [];
+                _renderAdminUsersList(_adminUsersCache);
+            } catch (err) {
+                console.error('[cargarAdminUsuarios]', err);
+                listBox.innerHTML = '<div class="friends-empty-state"><p>No se pudo cargar la lista de usuarios.</p></div>';
+            }
+        }
+
+        // Filtrado en tiempo real (oninput) sobre el listado ya cargado en memoria,
+        // por username o nombre completo, sin distinguir mayúsculas/acentos exactos.
+        function filterAdminUsersList() {
+            clearTimeout(_adminUsersSearchDebounce);
+            _adminUsersSearchDebounce = setTimeout(() => {
+                const input = document.getElementById('admin-users-search-input');
+                const raw = (input ? input.value : '').trim().toLowerCase();
+                if (!raw) { _renderAdminUsersList(_adminUsersCache); return; }
+                const filtrados = _adminUsersCache.filter(u =>
+                    String(u.username || '').toLowerCase().includes(raw) ||
+                    String(u.fullname || '').toLowerCase().includes(raw)
+                );
+                _renderAdminUsersList(filtrados);
+            }, 120);
+        }
+
+        function _renderAdminUsersList(usuarios) {
+            const listBox = document.getElementById('admin-users-list');
+            if (!listBox) return;
+            if (!usuarios || usuarios.length === 0) {
+                listBox.innerHTML = '<div class="friends-empty-state"><div class="friends-empty-icon">🔍</div><p>No se encontraron usuarios.</p></div>';
+                return;
+            }
+            listBox.innerHTML = usuarios.map(u => `
+                <div class="admin-user-row">
+                    <img src="${nikaEsc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="admin-user-avatar">
+                    <div class="admin-user-body">
+                        <div class="admin-user-name">${nikaEsc(u.fullname || 'Estudiante Nika')}</div>
+                        <div class="admin-user-meta">@${nikaEsc(u.username || '')}</div>
+                    </div>
+                    <span class="admin-user-role-badge${u.role === 'admin' ? ' is-admin' : ''}">${u.role === 'admin' ? 'Admin' : 'Usuario'}</span>
+                </div>
+            `).join('');
         }
 
         function initMockErratas() {
@@ -3527,7 +3669,7 @@ async function handleLogout() {
         if (nameLabel) nameLabel.textContent = amigoData ? (amigoData.fullname || `@${friendUsername}`) : `@${friendUsername}`;
         if (avatarImg) avatarImg.src = NikaFriends.esc((amigoData && amigoData.avatar) || DEFAULT_AVATAR);
         if (statusLabel) { statusLabel.textContent = 'Conectando...'; statusLabel.classList.remove('is-online'); }
-        if (modal) modal.style.display = 'flex';
+        if (modal) { modal.style.display = 'flex'; modal.classList.remove('pc-minimizado'); }
         if (listBox) listBox.innerHTML = '<div class="pc-loading-state">Cargando conversación...</div>';
 
         try {
@@ -3557,14 +3699,100 @@ async function handleLogout() {
                 statusLabel.classList.toggle('is-online', enLinea);
             };
         }
+
+        // Lectura: cuando el amigo abre la conversación y marca mis mensajes como
+        // leídos, sus ticks pasan de "✓✓ gris" (entregado) a "✓✓ azul" (leído).
+        if (window.ChatManager.onLecturaCambio !== undefined) {
+            window.ChatManager.onLecturaCambio = () => _marcarBurbujasPropiasComoLeidas();
+        }
+
+        _pcMinimized = false;
+        actualizarVisibilidadChatFab();
+    }
+
+    // Pasa todas mis burbujas ya entregadas (✓✓ gris) a leídas (✓✓ azul),
+    // sin tener que repintar toda la conversación.
+    function _marcarBurbujasPropiasComoLeidas() {
+        document.querySelectorAll('#pc-messages-list .chat-bubble-row.mine .tick-delivered').forEach(el => {
+            el.classList.remove('tick-delivered');
+            el.classList.add('tick-read');
+        });
     }
 
     function closePrivateChatModal() {
         const modal = document.getElementById('private-chat-modal');
-        if (modal) modal.style.display = 'none';
+        if (modal) { modal.style.display = 'none'; modal.classList.remove('pc-minimizado'); }
         if (window.ChatManager) window.ChatManager.cerrarConversacion();
         _pcAmigoActual = null;
         _pcRenderedIds = new Set();
+        _pcMinimized = false;
+        actualizarVisibilidadChatFab();
+    }
+
+    // ================= FAB FLOTANTE DEL CHAT + MINIMIZADO =================
+    // true = la conversación sigue abierta (socket vivo, sonido de mensajes activo)
+    // pero la ventana está oculta y reemplazada por el FAB.
+    let _pcMinimized = false;
+
+    // Oculta la ventana del chat sin cerrar la conversación (el canal Realtime
+    // sigue vivo, así que los mensajes nuevos se siguen recibiendo y sonando).
+    // Clave del fix: se agrega la clase .pc-minimizado, que en styles.css fuerza
+    // display:none + pointer-events:none tanto en el overlay como en
+    // .chat-container con !important — así no queda ninguna capa invisible
+    // (ni siquiera transparente) tapando los clics hacia el FAB.
+    function minimizePrivateChat() {
+        const modal = document.getElementById('private-chat-modal');
+        if (modal) {
+            modal.classList.add('pc-minimizado');
+            modal.style.display = 'none';
+        }
+        _pcMinimized = !!_pcAmigoActual;
+        actualizarVisibilidadChatFab();
+    }
+
+    // Click en el FAB: si había una conversación minimizada la vuelve a mostrar
+    // (y "limpia" el flag de minimizado / bloqueo); si no, abre la bandeja de
+    // mensajes para elegir con quién chatear.
+    function handleChatFabClick() {
+        if (_pcMinimized && _pcAmigoActual) {
+            const modal = document.getElementById('private-chat-modal');
+            if (modal) {
+                modal.classList.remove('pc-minimizado'); // limpia el flag de bloqueo
+                modal.style.display = 'flex';
+            }
+            _pcMinimized = false;
+            actualizarVisibilidadChatFab();
+            const listBox = document.getElementById('pc-messages-list');
+            if (listBox) listBox.scrollTop = listBox.scrollHeight;
+            if (window.ChatManager && _pcAmigoActual) {
+                window.ChatManager.marcarComoLeido(_pcAmigoActual).then(() => actualizarBadgeMensajes());
+            }
+        } else {
+            openDmInboxModal();
+        }
+    }
+
+    // Controla la visibilidad del FAB con clases (no solo style.display), para
+    // poder ganarle con !important a que ambos elementos queden visibles a la
+    // vez: mientras el chat está ABIERTO el FAB se apaga por completo
+    // (.pc-fab-oculto); al MINIMIZAR vuelve a mostrarse y a ser clickeable
+    // (.pc-fab-visible). Sin sesión iniciada, no se muestra en ningún caso.
+    function actualizarVisibilidadChatFab() {
+        const fab = document.getElementById('chat-fab-btn');
+        if (!fab) return;
+        const logueado = !!(window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername());
+        const chatAbierto = !!_pcAmigoActual && !_pcMinimized;
+
+        fab.classList.remove('pc-fab-oculto', 'pc-fab-visible');
+        if (!logueado || chatAbierto) {
+            fab.classList.add('pc-fab-oculto');
+        } else {
+            fab.classList.add('pc-fab-visible');
+        }
+
+        fab.classList.toggle('has-minimized', _pcMinimized && !!_pcAmigoActual);
+        const badge = document.getElementById('chat-fab-badge');
+        if (badge) badge.textContent = '';
     }
 
     // Etiqueta de separador de día ("Hoy", "Ayer" o fecha corta en español)
@@ -3612,14 +3840,30 @@ async function handleLogout() {
         return divisor + _bubbleHtml(m, myUsername);
     }
 
+    // Ícono SVG de un solo check (✓, "enviado") o doble check (✓✓, "entregado"/"leído").
+    // Se dibuja con currentColor para heredar el color según el estado (gris o azul #34B7F1).
+    const PC_TICK_SVG_SINGLE = '<svg viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 3.5L5.6 12.9 1 8.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const PC_TICK_SVG_DOUBLE = '<svg viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 3.5L4.1 12.9 -0.5 8.3" transform="translate(4.5,0)" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 3.5L9.1 12.9 4.5 8.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
     function _bubbleHtml(m, myUsername) {
         const mia = m.from_username === myUsername;
         const idAttr = m.id ? ` data-msg-id="${NikaFriends.esc(m.id)}"` : (m._tempId ? ` data-temp-id="${NikaFriends.esc(m._tempId)}"` : '');
         const pendingClass = m._pending ? ' pending' : '';
         const hora = m.created_at ? _pcHora(m.created_at) : '';
-        const tick = m._pending
-            ? '<span class="chat-bubble-tick">⏳</span>'
-            : (mia ? '<span class="chat-bubble-tick">✓</span>' : '');
+        // Estados de lectura, solo para mis propios mensajes (el amigo no ve ticks de lo que él mismo escribió):
+        //  - tick-sent (✓ simple): recién saliendo del composer, todavía optimista/sin confirmar en Supabase.
+        //  - tick-delivered (✓✓ gris): ya insertado en la base y empujado por Realtime al amigo, pero sin leer.
+        //  - tick-read (✓✓ azul #34B7F1): el amigo abrió la conversación y marcó el mensaje como leído.
+        let tick = '';
+        if (mia) {
+            if (m._pending) {
+                tick = `<span class="chat-bubble-tick tick-sent">${PC_TICK_SVG_SINGLE}</span>`;
+            } else if (m.read_at) {
+                tick = `<span class="chat-bubble-tick tick-read">${PC_TICK_SVG_DOUBLE}</span>`;
+            } else {
+                tick = `<span class="chat-bubble-tick tick-delivered">${PC_TICK_SVG_DOUBLE}</span>`;
+            }
+        }
 
         if (m.shared_question) {
             const q = m.shared_question;
@@ -3924,7 +4168,9 @@ async function handleLogout() {
         abrirPerfilPublico, closePublicProfileModal,
         openChatWithFriend, closePrivateChatModal, sendPrivateMessage, handlePcComposerKeydown, autoResizePcComposer,
         openDmInboxModal, closeDmInboxModal, actualizarBadgeMensajes, instalarAppNika, instalarAppNikaDesdeBanner,
-        initCommunityPresence, unirseAlPomodoroDe, closePomodoroSyncModal, NikaOnboarding
+        initCommunityPresence, unirseAlPomodoroDe, closePomodoroSyncModal, NikaOnboarding,
+        minimizePrivateChat, handleChatFabClick, actualizarVisibilidadChatFab,
+        openAdminUsersModal, closeAdminUsersModal, filterAdminUsersList, cargarAdminUsuarios, refrescarStatUsuarios
     });
 
     let resizeDebounce;
