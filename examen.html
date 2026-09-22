@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
     <script src="js/pomodoroEngine.js"></script>
+    <script src="js/speechManager.js"></script>
 
     <!-- ================= PWA: instalable + Service Worker ================= -->
     <link rel="manifest" href="manifest.json">
@@ -338,6 +339,152 @@
             .pilares-panel { grid-template-columns: 1fr; }
             .escrito-textarea { min-height: 260px; }
         }
+
+        /* ================= BOTÓN "VOLVER" REDISEÑADO (Paso 2 y Paso 3) ================= */
+        .btn-volver-modalidades {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 9px 16px 9px 12px;
+            border-radius: 24px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+        }
+        .btn-volver-modalidades .arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--bg-body);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .btn-volver-modalidades:hover {
+            border-color: var(--nika-primary);
+            color: var(--nika-primary);
+            background: rgba(2, 132, 199, 0.06);
+        }
+        .btn-volver-modalidades:hover .arrow { transform: translateX(-3px); background: var(--nika-primary); color: #fff; }
+
+        /* ================= SHOCK ROOM — MOTOR INMERSIVO ================= */
+        .shock-room-screen {
+            background: #05070d;
+            color: #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 45px -10px rgba(0,0,0,0.6);
+        }
+        .shock-room-inner { position: relative; padding: 26px 28px 30px; z-index: 2; }
+        .shock-room-topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+        .shock-room-title { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.3px; }
+        .shock-room-title .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 0 rgba(239,68,68,0.5); animation: shockDotPulse 1.4s infinite; }
+        @keyframes shockDotPulse { 0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.55);} 70% { box-shadow: 0 0 0 10px rgba(239,68,68,0);} 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0);} }
+        .shock-room-turno { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; font-weight: 700; }
+
+        .shock-timer-ring { display: flex; align-items: center; gap: 12px; }
+        .shock-timer-display {
+            font-variant-numeric: tabular-nums;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #4ade80;
+            min-width: 92px;
+            text-align: center;
+            transition: color 0.25s ease;
+        }
+        .shock-timer-display.warn { color: #fbbf24; }
+        .shock-timer-display.critico { color: #ef4444; animation: shockNumFlicker 0.8s infinite; }
+        .shock-timer-display.plano { color: #64748b; }
+        @keyframes shockNumFlicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+        .shock-monitor-bar { width: 100%; height: 6px; border-radius: 4px; background: #111827; overflow: hidden; margin-bottom: 20px; }
+        .shock-monitor-bar-fill { height: 100%; background: linear-gradient(90deg, #4ade80, #22c55e); width: 100%; transition: width 1s linear, background 0.3s ease; }
+        .shock-monitor-bar-fill.warn { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+        .shock-monitor-bar-fill.critico { background: linear-gradient(90deg, #ef4444, #b91c1c); }
+
+        .shock-caso-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            line-height: 1.65;
+            font-size: 0.98rem;
+        }
+        .shock-caso-box .etiqueta { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px; color: #38bdf8; font-weight: 800; margin-bottom: 6px; }
+
+        .shock-log { max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; padding-right: 4px; }
+        .shock-log-item { padding: 10px 14px; border-radius: 10px; font-size: 0.9rem; line-height: 1.5; max-width: 92%; }
+        .shock-log-item.rol-usuario { align-self: flex-end; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); }
+        .shock-log-item.rol-sistema { align-self: flex-start; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #cbd5e1; }
+
+        .shock-input-row { display: flex; gap: 12px; align-items: flex-end; }
+        .shock-textarea {
+            flex: 1;
+            resize: vertical;
+            min-height: 90px;
+            background: #0b0f19;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            color: #f1f5f9;
+            padding: 12px 14px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            transition: border-color 0.2s ease;
+        }
+        .shock-textarea:focus { outline: none; border-color: #38bdf8; }
+        .shock-textarea:disabled { opacity: 0.4; cursor: not-allowed; }
+        .shock-mic-slot { display: flex; align-items: center; }
+
+        .shock-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 12px; flex-wrap: wrap; }
+        .shock-btn-enviar {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #fff; border: none; padding: 12px 26px; border-radius: 10px;
+            font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: transform 0.15s ease;
+        }
+        .shock-btn-enviar:hover { transform: translateY(-2px); }
+        .shock-btn-enviar:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .shock-abandonar { background: none; border: none; color: #64748b; font-size: 0.82rem; font-weight: 700; cursor: pointer; text-decoration: underline; }
+        .shock-abandonar:hover { color: #ef4444; }
+
+        /* Viñeta de estrés: bordes de pantalla pulsando en rojo cuando quedan <20s */
+        .shock-vignette {
+            position: absolute; inset: 0; pointer-events: none; z-index: 1;
+            box-shadow: inset 0 0 0px rgba(239, 68, 68, 0);
+            transition: box-shadow 0.3s ease;
+        }
+        .shock-room-screen.estres-alto .shock-vignette {
+            animation: shockVignettePulse 1.1s ease-in-out infinite;
+        }
+        .shock-room-screen.estado-plano .shock-vignette {
+            box-shadow: inset 0 0 140px 20px rgba(100,116,139,0.35);
+            animation: none;
+        }
+        @keyframes shockVignettePulse {
+            0%, 100% { box-shadow: inset 0 0 60px 10px rgba(239, 68, 68, 0.15); }
+            50% { box-shadow: inset 0 0 140px 30px rgba(239, 68, 68, 0.55); }
+        }
+        .shock-room-screen.estres-alto { animation: shockScreenShake 1.1s ease-in-out infinite; }
+        @keyframes shockScreenShake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(1px, 0); }
+            75% { transform: translate(-1px, 0); }
+        }
+        .shock-flatline-banner {
+            display: none; align-items: center; gap: 10px; background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.4); color: #fca5a5; padding: 10px 16px;
+            border-radius: 10px; font-weight: 700; font-size: 0.88rem; margin-bottom: 14px;
+        }
+        .shock-room-screen.estado-plano .shock-flatline-banner { display: flex; }
     </style>
 </head>
 <body>
@@ -379,21 +526,12 @@
             <div class="card-header">Paso 2 · Elegí la modalidad</div>
             <div class="card-body">
                 <div class="funnel-crumbs" data-crumbs></div>
-                <div class="mode-grid" style="margin-bottom: 0;">
-                    <div class="funnel-card big" onclick="elegirModalidad('choice')">
-                        <div class="mode-icon">📝</div>
-                        <div class="mode-info">
-                            <h4>Simulador Choice</h4>
-                            <p>Opción múltiple con reloj, ranking y revisión con justificación oficial. El clásico.</p>
-                        </div>
-                    </div>
-                    <div class="funnel-card big" onclick="elegirModalidad('escrito')">
-                        <div class="mode-icon">✍️</div>
-                        <div class="mode-info">
-                            <h4>Simulador Escrito a Desarrollar <span class="badge-ia">IA</span></h4>
-                            <p>Desarrollás cada respuesta (tipeando o dictando) y un tribunal de IA te corrige: nota por pregunta, rúbrica y feedback detallado.</p>
-                        </div>
-                    </div>
+                <!-- Grilla principal: se renderiza dinámicamente desde EXAM_MODES_CONFIG (js/examModesConfig.js) -->
+                <div class="mode-grid" id="modalidad-grid" style="margin-bottom: 0;"></div>
+                <!-- Panel de submodos: aparece al elegir un modo con más de un submodo (Pase de Sala, Shock Room, Consultorio y Legales) -->
+                <div id="submodo-panel" style="display: none;">
+                    <button type="button" class="btn-volver-modalidades" onclick="volverAModalidades()"><span class="arrow">←</span> Volver a modalidades</button>
+                    <div class="mode-grid" id="submodo-grid" style="margin-bottom: 0;"></div>
                 </div>
             </div>
         </div>
@@ -403,6 +541,7 @@
                 <div class="card-header" id="config-title">Configuración del Simulacro</div>
                 <div class="card-body">
                     <div class="funnel-crumbs" data-crumbs></div>
+                    <button type="button" class="btn-volver-modalidades" onclick="volverAlPaso2DesdeConfig()"><span class="arrow">←</span> Volver a modalidades</button>
                     <div class="mode-grid">
                         <div class="mode-card active" data-mode="parcial_1" data-modes="choice,escrito">
                             <div class="mode-icon">📝</div>
@@ -478,6 +617,48 @@
                     </button>
                 </div>
             </div>
+
+        <!-- ================= SHOCK ROOM — PASO 3 INMERSIVO ================= -->
+        <div class="shock-room-screen" id="shock-room-screen" style="display: none;">
+            <div class="shock-vignette"></div>
+            <div class="shock-room-inner">
+                <button type="button" class="btn-volver-modalidades" onclick="ShockRoomEngine.abandonar()" style="border-color: rgba(255,255,255,0.15); color: #94a3b8;"><span class="arrow">←</span> Volver a modalidades</button>
+
+                <div class="shock-room-topbar">
+                    <div class="shock-room-title">
+                        <span class="pulse-dot"></span>
+                        🚨 Shock Room
+                        <span class="shock-room-turno" id="shock-submodo-nombre"></span>
+                    </div>
+                    <div class="shock-timer-ring">
+                        <span class="shock-room-turno" id="shock-turno-contador">Turno 1</span>
+                        <div class="shock-timer-display" id="shock-timer-display">60</div>
+                    </div>
+                </div>
+
+                <div class="shock-monitor-bar"><div class="shock-monitor-bar-fill" id="shock-monitor-fill"></div></div>
+
+                <div class="shock-flatline-banner">💀 Asistolia — se acabó el tiempo. El campo de respuesta quedó bloqueado para este turno.</div>
+
+                <div class="shock-caso-box" id="shock-caso-box">
+                    <span class="etiqueta">Situación</span>
+                    <div id="shock-caso-texto">Preparando el escenario…</div>
+                </div>
+
+                <div class="shock-log" id="shock-log"></div>
+
+                <div class="shock-input-row">
+                    <textarea id="shock-respuesta" class="shock-textarea" placeholder="Escribí tu conducta / orden médica para este turno…" maxlength="1500"></textarea>
+                </div>
+                <div class="shock-actions">
+                    <div class="shock-mic-slot" id="shock-mic-slot"></div>
+                    <div style="display:flex; align-items:center; gap:16px;">
+                        <button type="button" class="shock-abandonar" onclick="ShockRoomEngine.abandonar()">Abandonar simulacro</button>
+                        <button type="button" class="shock-btn-enviar" id="shock-btn-enviar" onclick="ShockRoomEngine.enviarTurno()">Enviar orden 🚑</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- ================= EXAMEN EN VIVO ================= -->
         <div id="quiz-screen">
@@ -623,12 +804,14 @@
     <script src="js/rendimiento.js"></script>
     <script src="js/chatManager.js"></script>
     <script src="js/pomodoroSyncManager.js"></script>
+    <script src="js/pomodoroBar.js"></script>
     <script src="js/social.js"></script>
     <script src="js/examen.js"></script>
     <script src="js/pwa-update.js"></script>
     <script src="data/banco_trauma_superior.js"></script>
     <script src="data/banco_trauma_inferior.js"></script>
     <script src="data/banco_suturas.js"></script>
+    <script src="js/examModesConfig.js"></script>
 
     <script>
         // ================= ESTADO GLOBAL =================
@@ -1165,12 +1348,273 @@
             document.getElementById('funnel-step-1').style.display = paso === 1 ? 'block' : 'none';
             document.getElementById('funnel-step-2').style.display = paso === 2 ? 'block' : 'none';
             document.getElementById('config-screen').style.display = paso === 3 ? 'block' : 'none';
+            if (paso === 2) renderModalidadesPrincipales();
             renderMigas();
             if (!opciones || opciones.scroll !== false) window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // ---------------------------------------------------------------------------
+        // Paso 2 dinámico (Sprint 2): lee EXAM_MODES_CONFIG (js/examModesConfig.js) y
+        // arma las 5 tarjetas grandes. 'Choice Clásico' y 'Desarrollo Escrito Base'
+        // rutean exactamente igual que antes (elegirModalidad → Paso 3). El resto
+        // (Pase de Sala, Shock Room, Consultorio y Legales) todavía no tiene motor de
+        // IA conectado: al elegir un submodo solo se muestra un aviso "En construcción".
+        // ---------------------------------------------------------------------------
+        function renderModalidadesPrincipales() {
+            const cont = document.getElementById('modalidad-grid');
+            if (!cont || typeof EXAM_MODES_CONFIG === 'undefined') return;
+            cont.innerHTML = EXAM_MODES_CONFIG.map((modo) => `
+                <div class="funnel-card big" onclick="seleccionarModoPrincipal('${modo.id}')">
+                    <div class="mode-icon">${modo.icono}</div>
+                    <div class="mode-info">
+                        <h4>${escaparHtml(modo.nombre)}${modo.id === 'escrito' ? ' <span class="badge-ia">IA</span>' : ''}</h4>
+                        <p>${escaparHtml(modo.descripcion)}</p>
+                    </div>
+                </div>`).join('');
+            cont.style.display = 'grid';
+            const panel = document.getElementById('submodo-panel');
+            if (panel) panel.style.display = 'none';
+        }
+
+        function seleccionarModoPrincipal(modoId) {
+            const modo = (typeof EXAM_MODES_CONFIG !== 'undefined') ? EXAM_MODES_CONFIG.find((m) => m.id === modoId) : null;
+            if (!modo) return;
+            playSound('click');
+            // Choice y Escrito: mismo comportamiento de siempre, directo al Paso 3.
+            if (modo.id === 'choice' || modo.id === 'escrito') {
+                elegirModalidad(modo.id);
+                return;
+            }
+            // Resto de modalidades: todavía en construcción, se elige el submodo primero.
+            renderSubmodos(modo);
+        }
+
+        function renderSubmodos(modo) {
+            const contPrincipal = document.getElementById('modalidad-grid');
+            const panel = document.getElementById('submodo-panel');
+            const grid = document.getElementById('submodo-grid');
+            if (!contPrincipal || !panel || !grid) return;
+            contPrincipal.style.display = 'none';
+            grid.innerHTML = (modo.submodos || []).map((sub) => `
+                <div class="funnel-card" onclick="seleccionarSubmodo('${modo.id}', '${sub.id}')">
+                    <div class="mode-icon">${modo.icono}</div>
+                    <div class="mode-info">
+                        <h4>${escaparHtml(sub.nombre)}</h4>
+                        <p>${escaparHtml(modo.nombre)} <span class="badge-soon">Próximamente</span></p>
+                    </div>
+                </div>`).join('');
+            panel.style.display = 'block';
+        }
+
+        function volverAModalidades() {
+            const contPrincipal = document.getElementById('modalidad-grid');
+            const panel = document.getElementById('submodo-panel');
+            if (panel) panel.style.display = 'none';
+            if (contPrincipal) contPrincipal.style.display = 'grid';
+        }
+
+        function seleccionarSubmodo(modoId, submodoId) {
+            const modo = (typeof EXAM_MODES_CONFIG !== 'undefined') ? EXAM_MODES_CONFIG.find((m) => m.id === modoId) : null;
+            const sub = modo ? (modo.submodos || []).find((s) => s.id === submodoId) : null;
+            playSound('click');
+
+            // Shock Room ya tiene el motor inmersivo conectado (UI/UX). La lógica de IA
+            // (systemPrompt) todavía no está — por ahora arma el escenario con un texto
+            // de marcador de posición, pero el reloj, el audio y el estrés visual son reales.
+            if (modo && modo.id === 'shock_room') {
+                examMode = 'shock_room';
+                ShockRoomEngine.iniciar(modo, sub);
+                return;
+            }
+
+            alert(`🚧 ${modo ? modo.nombre : ''} · ${sub ? sub.nombre : ''}\n\nEsta modalidad está en construcción. Todavía no tiene la lógica de IA conectada.`);
+        }
+
+        // ============================================================================
+        // SHOCK ROOM — Motor inmersivo (Sprint 2)
+        // ----------------------------------------------------------------------------
+        // Maneja el temporizador agresivo de 60s por turno, el estrés visual (viñeta y
+        // shake cuando quedan <20s), el audio de monitor de signos vitales (acelera al
+        // bajar el tiempo y hace "flatline" al llegar a 0) y el dictado por voz del
+        // campo de respuesta. La lógica de IA (systemPrompt/backend) queda pendiente:
+        // por ahora cada turno solo registra la respuesta del usuario en el log local.
+        // ============================================================================
+        const ShockRoomEngine = (() => {
+            const SEGUNDOS_POR_TURNO = 60;
+            const UMBRAL_ESTRES = 20; // segundos restantes a partir de los cuales sube la tensión
+
+            let modoActual = null, submodoActual = null;
+            let segundosRestantes = SEGUNDOS_POR_TURNO;
+            let turnoActual = 1;
+            let interval = null;
+            let micCtrl = null;
+            let sonido = { heartbeat: null, flatline: null };
+
+            function elScreen() { return document.getElementById('shock-room-screen'); }
+
+            // --- Audio: monitor de signos vitales que acelera y sube de volumen -----
+            function asegurarAudio() {
+                if (!sonido.heartbeat) {
+                    sonido.heartbeat = new Audio('assets/sounds/heartbeat.mp3');
+                    sonido.heartbeat.loop = true;
+                }
+                if (!sonido.flatline) {
+                    sonido.flatline = new Audio('assets/sounds/flatline.mp3');
+                }
+            }
+            function actualizarAudioSegunTiempo() {
+                if (isAudioMuted) { pausarHeartbeat(); return; }
+                asegurarAudio();
+                const hb = sonido.heartbeat;
+                // Volumen y "frecuencia de latido" (playbackRate) escalan a medida que baja el reloj.
+                const progresoEstres = 1 - Math.min(1, Math.max(0, segundosRestantes / SEGUNDOS_POR_TURNO));
+                hb.volume = Math.min(1, 0.25 + progresoEstres * 0.75);
+                hb.playbackRate = Math.min(2.2, 1 + progresoEstres * 1.2);
+                if (hb.paused) hb.play().catch(() => { /* requiere gesto del usuario; se reintenta en el próximo tick */ });
+            }
+            function pausarHeartbeat() {
+                if (sonido.heartbeat && !sonido.heartbeat.paused) sonido.heartbeat.pause();
+            }
+            function reproducirFlatline() {
+                pausarHeartbeat();
+                if (isAudioMuted) return;
+                asegurarAudio();
+                sonido.flatline.currentTime = 0;
+                sonido.flatline.play().catch(() => {});
+            }
+
+            // --- Render del reloj + estrés visual -----------------------------------
+            function pintarReloj() {
+                const display = document.getElementById('shock-timer-display');
+                const fill = document.getElementById('shock-monitor-fill');
+                const pantalla = elScreen();
+                if (!display || !fill || !pantalla) return;
+
+                display.textContent = String(segundosRestantes).padStart(2, '0');
+                const pct = Math.max(0, (segundosRestantes / SEGUNDOS_POR_TURNO) * 100);
+                fill.style.width = pct + '%';
+
+                display.classList.remove('warn', 'critico', 'plano');
+                fill.classList.remove('warn', 'critico');
+                pantalla.classList.remove('estres-alto');
+
+                if (segundosRestantes <= 0) {
+                    display.classList.add('plano');
+                } else if (segundosRestantes <= UMBRAL_ESTRES) {
+                    display.classList.add('critico');
+                    fill.classList.add('critico');
+                    pantalla.classList.add('estres-alto'); // dispara el pulso rojo en los bordes de la pantalla
+                } else if (segundosRestantes <= 35) {
+                    display.classList.add('warn');
+                    fill.classList.add('warn');
+                }
+            }
+
+            function bloquearCampo(bloquear) {
+                const ta = document.getElementById('shock-respuesta');
+                const btn = document.getElementById('shock-btn-enviar');
+                if (ta) ta.disabled = bloquear;
+                if (btn) btn.disabled = bloquear;
+                if (micCtrl) { bloquear ? micCtrl.disable('Turno cerrado') : micCtrl.enable(); }
+            }
+
+            function tick() {
+                segundosRestantes--;
+                if (segundosRestantes < 0) segundosRestantes = 0;
+                pintarReloj();
+                actualizarAudioSegunTiempo();
+                if (segundosRestantes === 0) {
+                    clearInterval(interval);
+                    elScreen().classList.remove('estres-alto');
+                    elScreen().classList.add('estado-plano');
+                    reproducirFlatline();
+                    bloquearCampo(true);
+                }
+            }
+
+            function iniciarTemporizadorTurno() {
+                clearInterval(interval);
+                segundosRestantes = SEGUNDOS_POR_TURNO;
+                elScreen().classList.remove('estado-plano');
+                bloquearCampo(false);
+                pintarReloj();
+                actualizarAudioSegunTiempo();
+                interval = setInterval(tick, 1000);
+            }
+
+            function agregarAlLog(rol, texto) {
+                const log = document.getElementById('shock-log');
+                if (!log) return;
+                const item = document.createElement('div');
+                item.className = 'shock-log-item rol-' + rol;
+                item.textContent = texto;
+                log.appendChild(item);
+                log.scrollTop = log.scrollHeight;
+            }
+
+            function montarMic() {
+                if (micCtrl) { micCtrl.destroy(); micCtrl = null; }
+                if (typeof SpeechManager === 'undefined' || !SpeechManager.soportado()) return;
+                micCtrl = SpeechManager.attach({
+                    textareaId: 'shock-respuesta',
+                    mountId: 'shock-mic-slot',
+                    lang: 'es-AR',
+                    maxChars: 1500
+                });
+            }
+
+            function iniciar(modo, sub) {
+                modoActual = modo; submodoActual = sub; turnoActual = 1;
+                ocultarEmbudo();
+                const pantalla = elScreen();
+                pantalla.style.display = 'block';
+                pantalla.classList.remove('estres-alto', 'estado-plano');
+
+                document.getElementById('shock-submodo-nombre').textContent = sub ? sub.nombre : '';
+                document.getElementById('shock-turno-contador').textContent = 'Turno ' + turnoActual;
+                document.getElementById('shock-caso-texto').textContent =
+                    'Escenario en preparación — la lógica de IA de "' + (sub ? sub.nombre : '') + '" todavía no está conectada. ' +
+                    'Por ahora, esta pantalla ya simula la presión real del turno: reloj, audio de monitor y dictado por voz funcionando.';
+                document.getElementById('shock-log').innerHTML = '';
+                const ta = document.getElementById('shock-respuesta');
+                if (ta) ta.value = '';
+
+                montarMic();
+                iniciarTemporizadorTurno();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function enviarTurno() {
+                const ta = document.getElementById('shock-respuesta');
+                if (!ta || !ta.value.trim() || segundosRestantes <= 0) return;
+                agregarAlLog('usuario', ta.value.trim());
+                ta.value = '';
+                turnoActual++;
+                document.getElementById('shock-turno-contador').textContent = 'Turno ' + turnoActual;
+                agregarAlLog('sistema', '⏳ Turno registrado. (La respuesta clínica de IA se conecta en el próximo sprint.)');
+                iniciarTemporizadorTurno();
+            }
+
+            function abandonar() {
+                clearInterval(interval);
+                pausarHeartbeat();
+                if (micCtrl) { micCtrl.destroy(); micCtrl = null; }
+                const pantalla = elScreen();
+                if (pantalla) { pantalla.style.display = 'none'; pantalla.classList.remove('estres-alto', 'estado-plano'); }
+                mostrarPaso(2);
+            }
+
+            return { iniciar, enviarTurno, abandonar };
+        })();
+
         function ocultarEmbudo() {
-            ['funnel-step-1', 'funnel-step-2', 'config-screen'].forEach((id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+            ['funnel-step-1', 'funnel-step-2', 'config-screen', 'shock-room-screen'].forEach((id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+        }
+
+        // Botón "Volver" del Paso 3 (Choice/Escrito): vuelve al Paso 2 conservando año/área.
+        function volverAlPaso2DesdeConfig() {
+            playSound('click');
+            mostrarPaso(2);
         }
 
         function renderMigas() {
@@ -1247,6 +1691,7 @@
             const modulos = await cargarModulos();
             const modParam = params.get('modulo');
             const modeParam = params.get('mode');
+            const modalidadParam = params.get('modalidad'); // 'choice' | 'escrito' — accesos rápidos del sidebar
             const activos = modulos.filter((m) => m.estado === 'activo');
             const deLaUrl = modParam ? activos.find((m) => m.id === modParam) : null;
 
@@ -1260,6 +1705,14 @@
                 selectMode(modeParam, document.querySelector(`#config-screen .mode-card[data-mode="${modeParam}"]`));
                 const upParam = params.get('up');
                 if (upParam && document.querySelector(`#specific-up option[value="${upParam}"]`)) document.getElementById('specific-up').value = upParam;
+                mostrarPaso(3, { scroll: false });
+            } else if (modalidadParam === 'choice' || modalidadParam === 'escrito') {
+                // Acceso directo desde el sidebar: salta Paso 1/2 y va directo a la
+                // configuración con la modalidad ya elegida (usa el último módulo
+                // fijado, o Cirugía por defecto si todavía no hay ninguno).
+                if (!funnelCtx.modulo) fijarContexto(deLaUrl || activos.find((m) => m.id === 'cirugia') || activos[0]);
+                examMode = modalidadParam;
+                aplicarModalidad();
                 mostrarPaso(3, { scroll: false });
             } else if (deLaUrl) {
                 mostrarPaso(2, { scroll: false });
@@ -1630,29 +2083,46 @@
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Promedio de los pilares que aplicaron en cada pregunta.</p>
                 <div class="pilares-panel"><div>${radarSvg(PILARES_UI.map((p) => res.promPilares[p.k]))}</div><div>${barras}${bloquesResumen}</div></div>
 
-                <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 30px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                        <h3 style="color: var(--text-main); font-weight: 900; font-size: 1.3rem;">Corrección detallada</h3>
-                        <div class="review-filters" id="filtros-escrito" style="margin-bottom: 0;">
-                            <button class="filter-btn active" onclick="filtrarResultadosEscritos('all', this)">Todas</button>
-                            <button class="filter-btn" onclick="filtrarResultadosEscritos('refuerzo', this)">Para reforzar (${aRefuerzo.length})</button>
-                            <button class="filter-btn" onclick="filtrarResultadosEscritos('marcadas', this)">🚩 Marcadas</button>
-                        </div>
-                    </div>
-                    <div id="tarjetas-escrito">${tarjetas}</div>
-                </div>
-
-                <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 10px;">La corrección la hace una IA y es orientativa: puede equivocarse. Ante cualquier duda, contrastala con la bibliografía de la cátedra.</p>
-
-                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                <!-- Salida rápida: no hace falta bajar por toda la corrección para volver -->
+                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px; flex-wrap: wrap;">
                     <button class="btn btn-outline" onclick="compartirNotaEscrito()">📱 Compartir Nota</button>
                     ${aRefuerzo.length ? `<button class="btn btn-outline" style="color: var(--warning); border-color: var(--warning);" onclick="reintentarFlojasEscrito()">🔄 Reintentar las flojas (${aRefuerzo.length})</button>` : ''}
                     <button class="btn btn-outline" onclick="location.href='examen.html?modulo=' + encodeURIComponent(getModuloActual())">🔁 Nuevo simulacro</button>
                     <button class="btn btn-primary" onclick="location.href='campus.html'">Volver al Inicio</button>
+                </div>
+
+                <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 24px;">
+                    <button type="button" id="toggle-correccion-escrito" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px;" onclick="toggleCorreccionEscrita()">
+                        <span style="font-weight: 900; font-size: 1.05rem;">📋 Corrección detallada, pregunta por pregunta (${res.items.length})</span>
+                        <span id="toggle-correccion-escrito-icon">▾ Ver</span>
+                    </button>
+
+                    <div id="correccion-escrito-panel" style="display: none; margin-top: 20px;">
+                        <div class="review-filters" id="filtros-escrito" style="margin-bottom: 18px;">
+                            <button class="filter-btn active" onclick="filtrarResultadosEscritos('all', this)">Todas</button>
+                            <button class="filter-btn" onclick="filtrarResultadosEscritos('refuerzo', this)">Para reforzar (${aRefuerzo.length})</button>
+                            <button class="filter-btn" onclick="filtrarResultadosEscritos('marcadas', this)">🚩 Marcadas</button>
+                        </div>
+                        <div id="tarjetas-escrito">${tarjetas}</div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 16px;">La corrección la hace una IA y es orientativa: puede equivocarse. Ante cualquier duda, contrastala con la bibliografía de la cátedra.</p>
+                    </div>
                 </div>`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (res.notaFinal !== null && res.notaFinal >= 9.5) triggerConfetti();
         }
+
+        // La corrección detallada arranca colapsada: el resumen y los botones de
+        // salida son lo primero que se ve, sin forzar a bajar por 10+ tarjetas.
+        function toggleCorreccionEscrita() {
+            const panel = document.getElementById('correccion-escrito-panel');
+            const icon = document.getElementById('toggle-correccion-escrito-icon');
+            if (!panel) return;
+            const abierto = panel.style.display !== 'none';
+            panel.style.display = abierto ? 'none' : 'block';
+            if (icon) icon.textContent = abierto ? '▾ Ver' : '▴ Ocultar';
+            if (!abierto) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        window.toggleCorreccionEscrita = toggleCorreccionEscrita;
 
         function filtrarResultadosEscritos(tipo, btn) {
             document.querySelectorAll('#filtros-escrito .filter-btn').forEach((b) => b.classList.remove('active'));

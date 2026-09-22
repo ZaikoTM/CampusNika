@@ -231,6 +231,33 @@
         .online-friend-meta { font-size: 0.72rem; color: var(--text-muted); }
         .community-widget-empty { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 12px 0; }
 
+        /* ===== Mi Rendimiento Académico: grilla unificada ===== */
+        .perf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 16px; margin-top: 14px; }
+        .perf-tile { position: relative; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: flex; gap: 14px; align-items: flex-start; box-shadow: var(--shadow); text-align: left; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+        .perf-tile:hover { transform: translateY(-3px); }
+        .perf-tile--olvido { cursor: pointer; flex-direction: column; align-items: center; text-align: center; }
+        .perf-tile--olvido .perf-tile-icon { margin-bottom: 4px; }
+        .perf-tile-icon { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; color: #fff; }
+        .perf-tile-body { flex: 1; min-width: 0; }
+        .perf-tile-body--wide { width: 100%; }
+        .perf-tile-value { font-size: 1.5rem; font-weight: 900; color: var(--text-main); line-height: 1.15; }
+        .perf-tile-value--sm { font-size: 1.05rem; line-height: 1.25; }
+        .perf-tile-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+        .perf-tile-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
+        .perf-tile-meta--ellipsis { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .perf-tile-placeholder { font-size: 1.4rem; color: var(--text-muted); }
+
+        .perf-tile--exams .perf-tile-icon { background: linear-gradient(135deg, #0284c7, #38bdf8); box-shadow: 0 6px 14px -4px rgba(2,132,199,0.55); }
+        .perf-tile--exams:hover { border-color: #0284c7; box-shadow: 0 14px 30px -12px rgba(2,132,199,0.35); }
+        .perf-tile--accuracy .perf-tile-icon { background: linear-gradient(135deg, #16a34a, #4ade80); box-shadow: 0 6px 14px -4px rgba(22,163,74,0.55); }
+        .perf-tile--accuracy:hover { border-color: #16a34a; box-shadow: 0 14px 30px -12px rgba(22,163,74,0.35); }
+        .perf-tile--streak .perf-tile-icon { background: linear-gradient(135deg, #f97316, #fbbf24); box-shadow: 0 6px 14px -4px rgba(249,115,22,0.55); }
+        .perf-tile--streak:hover { border-color: #f97316; box-shadow: 0 14px 30px -12px rgba(249,115,22,0.35); }
+        .perf-tile--fav .perf-tile-icon { background: linear-gradient(135deg, #7c3aed, #a78bfa); box-shadow: 0 6px 14px -4px rgba(124,58,237,0.55); }
+        .perf-tile--fav:hover { border-color: #7c3aed; box-shadow: 0 14px 30px -12px rgba(124,58,237,0.35); }
+        .perf-tile--olvido .perf-tile-icon { background: linear-gradient(135deg, #64748b, #94a3b8); box-shadow: 0 6px 14px -4px rgba(100,116,139,0.55); }
+        .perf-tile--olvido:hover { border-color: #64748b; box-shadow: 0 14px 30px -12px rgba(100,116,139,0.35); }
+
         /* ===== Mosaicos de tiempo de estudio (Mi Rendimiento Académico) ===== */
         .perf-time-tile { position: relative; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px 18px 16px; display: flex; gap: 14px; align-items: flex-start; box-shadow: var(--shadow); text-align: left; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
         .perf-time-tile:hover { transform: translateY(-3px); }
@@ -243,7 +270,7 @@
         .perf-time-tile-value { font-size: 1.5rem; font-weight: 900; color: var(--text-main); line-height: 1.15; }
         .perf-time-tile-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
         .perf-time-tile-progress-track { width: 100%; height: 6px; border-radius: 10px; background: var(--bg-body); margin-top: 10px; overflow: hidden; }
-        .perf-time-tile-progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #e11d48, #fb7185); transition: width .6s ease; }
+        .perf-time-tile-progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #e11d48, #fb7185); transition: width .8s cubic-bezier(0.22, 1, 0.36, 1); }
         .perf-time-tile--hoy .perf-time-tile-progress-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
         .perf-time-tile-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
 
@@ -253,13 +280,15 @@
         .creator-card-close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(255,255,255,0.18); color: #fff; font-size: 0.85rem; cursor: pointer; backdrop-filter: blur(4px); }
         .creator-card-hero { height: 108px; background: linear-gradient(135deg, #0a192f 0%, #0f172a 45%, #0284c7 100%); position: relative; }
         .creator-card-hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 20%, rgba(56,189,248,0.35), transparent 55%); }
-        .creator-card-avatar { position: absolute; left: 24px; bottom: -34px; width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #0284c7, #0369a1); display: flex; align-items: center; justify-content: center; font-size: 34px; border: 4px solid var(--card-bg); box-shadow: 0 10px 24px rgba(2,132,199,0.35); }
+        .creator-card-avatar { position: absolute; left: 24px; bottom: -34px; width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #0284c7, #0369a1); display: flex; align-items: center; justify-content: center; font-size: 34px; border: 4px solid var(--card-bg); box-shadow: 0 10px 24px rgba(2,132,199,0.35); overflow: hidden; }
+        .creator-card-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+        .creator-card-avatar-fallback { display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 34px; }
         .creator-card-verified { position: absolute; bottom: -2px; right: -2px; width: 22px; height: 22px; background: #16a34a; border: 3px solid var(--card-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 900; }
         .creator-card-body { padding: 46px 26px 26px; text-align: left; }
         .creator-card-name { font-size: 1.3rem; font-weight: 900; color: var(--text-main); margin-bottom: 2px; }
         .creator-card-role { font-size: 0.78rem; font-weight: 800; color: var(--nika-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
         .creator-card-bio { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 18px; }
-        .creator-card-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px; }
+        .creator-card-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-bottom: 18px; }
         .creator-stat { background: var(--bg-body); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; text-align: center; }
         .creator-stat strong { display: block; font-size: 0.85rem; color: var(--text-main); font-weight: 800; }
         .creator-stat span { font-size: 0.63rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
@@ -274,6 +303,37 @@
         .creator-card-support-row { display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; }
         .creator-card-support-row strong { font-family: monospace; letter-spacing: 1px; color: var(--text-main); }
         .creator-card-support-row button { background: var(--nika-primary); color: #fff; border: none; padding: 7px 12px; border-radius: 7px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+        .creator-card-cafecito { display: flex; justify-content: center; align-items: center; padding: 4px 0 2px; }
+        .creator-card-donate-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 16px; border-radius: 11px; background: #009ee3; color: #fff; text-decoration: none; font-size: 0.88rem; font-weight: 800; box-shadow: 0 8px 18px -6px rgba(0,158,227,0.55); transition: transform .2s ease, box-shadow .2s ease; }
+        .creator-card-donate-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 22px -6px rgba(0,158,227,0.65); }
+
+        .sidebar-link--donar { color: #009ee3 !important; }
+
+        /* Nota: el CSS de .nika-pomo-bar ya no vive acá — pomodoroBar.js lo
+           inyecta en runtime para que la barra funcione igual en campus.html
+           y en examen.html (que no enlaza este archivo). */
+
+        /* ===== Invitación de Pomodoro sincronizado (tarjeta flotante) ===== */
+        .nika-pomo-invite { position: fixed; bottom: 20px; right: 20px; z-index: 4000; width: min(300px, calc(100vw - 32px)); background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 20px 45px -10px rgba(0,0,0,0.4); padding: 16px 18px; animation: nikaInviteIn .3s ease; }
+        @keyframes nikaInviteIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .nika-pomo-invite-title { font-size: 0.9rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+        .nika-pomo-invite-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; }
+        .nika-pomo-invite-actions { display: flex; gap: 8px; }
+        .nika-pomo-invite-actions button { flex: 1; border: none; border-radius: 8px; padding: 8px 10px; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+        .nika-pomo-invite-accept { background: var(--nika-primary); color: #fff; }
+        .nika-pomo-invite-reject { background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border) !important; }
+
+
+        /* ===== Elección de Pomodoro: Unirme / Invitarlo al mío ===== */
+        .nika-pomo-choice-overlay { position: fixed; inset: 0; background: rgba(6,10,20,0.6); z-index: 4100; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(2px); }
+        .nika-pomo-choice-card { width: min(340px, 100%); background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 24px 22px; text-align: center; box-shadow: 0 25px 55px -12px rgba(0,0,0,0.4); animation: nikaInviteIn .25s ease; }
+        .nika-pomo-choice-icon { font-size: 2rem; margin-bottom: 8px; }
+        .nika-pomo-choice-title { font-size: 1.02rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+        .nika-pomo-choice-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 18px; }
+        .nika-pomo-choice-actions { display: flex; flex-direction: column; gap: 8px; }
+        .nika-pomo-choice-btn { border: none; border-radius: 10px; padding: 11px 14px; font-size: 0.85rem; font-weight: 700; cursor: pointer; background: var(--bg-body); color: var(--text-main); }
+        .nika-pomo-choice-btn--primary { background: var(--nika-primary); color: #fff; }
+        .nika-pomo-choice-btn--ghost { background: transparent; color: var(--text-muted); }
 
         /* ===== Recorrido Guiado (Onboarding Tour) ===== */
         .nika-tour-overlay { position: fixed; inset: 0; background: rgba(6,10,20,0.55); z-index: 9998; }

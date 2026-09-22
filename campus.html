@@ -138,8 +138,8 @@
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
 
             <div class="sidebar-category">Exámenes</div>
-            <li><button onclick="location.href='examen.html'" class="sidebar-link">🩺 Simulador Choice</button></li>
-            <li><button onclick="location.href='examen.html'" class="sidebar-link">✍️ Simulador Escrito</button></li>
+            <li><button onclick="location.href='examen.html?modalidad=choice'" class="sidebar-link">🩺 Simulador Choice</button></li>
+            <li><button onclick="location.href='examen.html?modalidad=escrito'" class="sidebar-link">✍️ Simulador Escrito</button></li>
 
             <div class="sidebar-category">Herramientas</div>
             <li><button onclick="window.location.href='nikafarma.html'" class="sidebar-link">💊 NikaFarma</button></li>
@@ -152,6 +152,7 @@
             <div class="sidebar-category">Ayuda & Recursos</div>
             <ul class="sidebar-menu" style="padding: 0;">
                 <li><button onclick="openAboutCreatorModal()" class="sidebar-link">👨‍⚕️ Sobre el Creador</button></li>
+                <li><button onclick="window.open('https://cafecito.app/nikamed', '_blank', 'noopener')" class="sidebar-link sidebar-link--donar">🧉 Bancá el proyecto</button></li>
                 <li><button onclick="NikaOnboarding.iniciar()" class="sidebar-link">🧭 Recorrido Guiado</button></li>
             </ul>
         </div>
@@ -268,7 +269,7 @@
                     <h4>Hacer simulacro</h4>
                     <span>Examen cronometrado</span>
                 </div>
-                <div class="action-btn-card" onclick="location.href='examen.html'">
+                <div class="action-btn-card" onclick="location.href='examen.html?modalidad=escrito'">
                     <div class="action-icon">✍️</div>
                     <h4>Simulador Escrito</h4>
                     <span>Desarrollá respuestas evaluadas por IA</span>
@@ -293,18 +294,27 @@
                         <h4>📊 Mi Rendimiento Académico</h4>
                         <span style="font-size: 0.78rem; color: var(--nika-primary); font-weight: 700;">Estadísticas en vivo</span>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 16px; margin-top: 14px;">
-                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 900; color: var(--nika-primary); margin-bottom: 4px;" id="perf-exams-count">0</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Simulacros Realizados</div>
+                    <div class="perf-grid">
+                        <div class="perf-tile perf-tile--exams">
+                            <div class="perf-tile-icon">📝</div>
+                            <div class="perf-tile-body">
+                                <div class="perf-tile-value" id="perf-exams-count">0</div>
+                                <div class="perf-tile-label">Simulacros Realizados</div>
+                            </div>
                         </div>
-                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 900; color: var(--success); margin-bottom: 4px;" id="perf-accuracy">0%</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Efectividad Global</div>
+                        <div class="perf-tile perf-tile--accuracy">
+                            <div class="perf-tile-icon">🎯</div>
+                            <div class="perf-tile-body">
+                                <div class="perf-tile-value" id="perf-accuracy">0%</div>
+                                <div class="perf-tile-label">Efectividad Global</div>
+                            </div>
                         </div>
-                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 900; color: var(--warning); margin-bottom: 4px;" id="perf-streak">0 d</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Racha Activa</div>
+                        <div class="perf-tile perf-tile--streak">
+                            <div class="perf-tile-icon">🔥</div>
+                            <div class="perf-tile-body">
+                                <div class="perf-tile-value" id="perf-streak">0 d</div>
+                                <div class="perf-tile-label">Racha Activa</div>
+                            </div>
                         </div>
                         <div class="perf-time-tile perf-time-tile--total">
                             <div class="perf-time-tile-icon">⏱️</div>
@@ -316,7 +326,7 @@
                             </div>
                         </div>
                         <div class="perf-time-tile perf-time-tile--hoy">
-                            <div class="perf-time-tile-icon">🔥</div>
+                            <div class="perf-time-tile-icon">⚡</div>
                             <div class="perf-time-tile-body">
                                 <div class="perf-time-tile-value" id="perf-study-time-hoy">0 min</div>
                                 <div class="perf-time-tile-label">Tiempo de Estudio Diario</div>
@@ -324,22 +334,22 @@
                                 <div class="perf-time-tile-meta" id="perf-study-sessions-hoy">0 sesiones hoy</div>
                             </div>
                         </div>
-                        <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center;">
-                            <div style="font-size: 1.35rem; font-weight: 900; color: var(--nika-primary); margin: 8px 0 8px 0; line-height: 1.2;" id="perf-fav-area">-</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Área Favorita</div>
-                            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;" id="perf-fav-sessions">Sin Pomodoros todavía</div>
-                        </div>
-                        <!-- Radar Clínico (tarjeta compacta: el detalle se abre al tocarla) -->
-                        <div id="perf-radar-card" onclick="abrirDetalleRendimiento('radar')" title="Ver el Radar Clínico completo" style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; cursor: pointer; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center;" onmouseover="this.style.borderColor='var(--nika-primary)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='none'">
-                            <div id="perf-radar-mini" style="position: relative; width: 100%; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;"><span style="font-size: 1.6rem; color: var(--text-muted);">-</span></div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Radar Clínico</div>
-                            <div id="perf-radar-sub" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Ver detalle</div>
+                        <div class="perf-tile perf-tile--fav">
+                            <div class="perf-tile-icon">⭐</div>
+                            <div class="perf-tile-body">
+                                <div class="perf-tile-value perf-tile-value--sm" id="perf-fav-area">-</div>
+                                <div class="perf-tile-label">Área Favorita</div>
+                                <div class="perf-tile-meta" id="perf-fav-sessions">Sin Pomodoros todavía</div>
+                            </div>
                         </div>
                         <!-- Curva del Olvido (tarjeta compacta) -->
-                        <div id="perf-olvido-card" onclick="abrirDetalleRendimiento('olvido')" title="Ver la Curva del Olvido completa" style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; cursor: pointer; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center;" onmouseover="this.style.borderColor='var(--nika-primary)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='none'">
-                            <div id="perf-olvido-value" style="font-size: 2rem; font-weight: 900; color: var(--text-muted); margin-bottom: 4px;">-</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Curva del Olvido</div>
-                            <div id="perf-olvido-sub" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Sin actividad todavía</div>
+                        <div class="perf-tile perf-tile--olvido" id="perf-olvido-card" onclick="abrirDetalleRendimiento('olvido')" title="Ver la Curva del Olvido completa">
+                            <div class="perf-tile-icon">🧠</div>
+                            <div class="perf-tile-body">
+                                <div class="perf-tile-value" id="perf-olvido-value">-</div>
+                                <div class="perf-tile-label">Curva del Olvido</div>
+                                <div class="perf-tile-meta perf-tile-meta--ellipsis" id="perf-olvido-sub">Sin actividad todavía</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -705,7 +715,7 @@
     </div>
 
     <!-- ================= MODAL PERFIL PÚBLICO ================= -->
-    <!-- ================= MODAL DETALLE DE RENDIMIENTO (Radar Clínico / Curva del Olvido) ================= -->
+    <!-- ================= MODAL DETALLE DE RENDIMIENTO (Curva del Olvido) ================= -->
     <div class="modal-overlay" id="rendimiento-detalle-modal" onclick="if (event.target === this) cerrarDetalleRendimiento()">
         <div class="modal-content" style="max-width: 560px;">
             <h3 id="rend-detalle-titulo" style="font-size: 1.2rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px;"></h3>
@@ -890,19 +900,19 @@
             <button type="button" class="creator-card-close" onclick="closeAboutCreatorModal()" aria-label="Cerrar">✕</button>
             <div class="creator-card-hero">
                 <div class="creator-card-avatar">
-                    <span>👨‍⚕️</span>
+                    <img src="assets/IMG_1926.JPG" alt="Augusto Blanc Weigandt" class="creator-card-avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <span class="creator-card-avatar-fallback">👨‍⚕️</span>
                     <span class="creator-card-verified">✓</span>
                 </div>
             </div>
             <div class="creator-card-body">
                 <h3 class="creator-card-name">Augusto Blanc Weigandt</h3>
                 <div class="creator-card-role">Creador &amp; Desarrollador · Campus Nika</div>
-                <p class="creator-card-bio">Estudiante de 5.º año de Medicina en la <strong>Facultad de Ciencias de la Salud (UNER)</strong>, Villaguay, Entre Ríos. Diseña y desarrolla Campus Nika para potenciar el entrenamiento clínico de la comunidad académica.</p>
+                <p class="creator-card-bio">Estudiante de 5.º año de Medicina en la <strong>Facultad de Ciencias de la Salud (UNER)</strong> en Concepción del Uruguay.</p>
 
                 <div class="creator-card-stats">
                     <div class="creator-stat"><strong>5.º año</strong><span>Medicina</span></div>
-                    <div class="creator-stat"><strong>UNER</strong><span>Villaguay, ER</span></div>
-                    <div class="creator-stat"><strong>Full-Stack</strong><span>Dev &amp; Diseño</span></div>
+                    <div class="creator-stat"><strong>UNER</strong><span>C. del Uruguay</span></div>
                 </div>
 
                 <div class="creator-card-socials">
@@ -912,12 +922,10 @@
 
                 <div class="creator-card-support">
                     <div class="creator-card-support-head">
-                        <span>Apoyá el proyecto (Alias MP)</span>
-                        <span class="creator-card-support-tag">Transferencia</span>
+                        <span>Apoyá el proyecto</span>
                     </div>
-                    <div class="creator-card-support-row">
-                        <strong>aguswei7</strong>
-                        <button type="button" onclick="copyCreatorAlias()">📋 Copiar</button>
+                    <div class="creator-card-cafecito">
+                        <a href='https://cafecito.app/nikamed' rel='noopener' target='_blank' class="creator-card-donate-btn">🧉 Bancá el proyecto</a>
                     </div>
                 </div>
             </div>
@@ -1058,6 +1066,7 @@
     <script src="js/chatManager.js"></script>
     <script src="js/pomodoroSyncManager.js"></script>
     <script src="js/onboardingTour.js"></script>
+    <script src="js/pomodoroBar.js"></script>
 
 </body>
 </html>
@@ -1356,7 +1365,7 @@
             renderRendimiento();
         }
 
-        // ---- Mi Rendimiento: KPIs, Radar Clínico y Curva del Olvido (datos de Supabase) ----
+        // ---- Mi Rendimiento: KPIs y Curva del Olvido (datos de Supabase) ----
         // Fuentes: study_sessions (Pomodoros) + exam_results (simulacros). Ver js/rendimiento.js.
         function _escR(t) {
             return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -1412,65 +1421,14 @@
                 if (hayActividad) document.getElementById('perf-streak').innerText = k.racha + ' d';
 
                 window._nikaRendimientoUltimo = r;
-                renderRadarMini(r);
                 renderOlvidoMini(r);
             } catch (err) {
                 console.warn('[renderRendimiento]', err);
-                const sub = document.getElementById('perf-radar-sub'); if (sub) sub.textContent = 'No disponible por ahora';
                 const osub = document.getElementById('perf-olvido-sub'); if (osub) osub.textContent = 'No disponible por ahora';
             }
         }
 
-        // ---------- Tarjetas compactas (mismo tamaño que el resto de las estadísticas) ----------
-        function _cssVar(nombre, def) {
-            const v = getComputedStyle(document.documentElement).getPropertyValue(nombre);
-            return (v && v.trim()) || def;
-        }
 
-        function renderRadarMini(r) {
-            const box = document.getElementById('perf-radar-mini');
-            const sub = document.getElementById('perf-radar-sub');
-            if (!box) return;
-            if (window._nikaRadarMini) { window._nikaRadarMini.destroy(); window._nikaRadarMini = null; }
-
-            if (!r.radar.length) {
-                box.innerHTML = '<span style="font-size: 1.6rem; color: var(--text-muted);">-</span>';
-                if (sub) sub.textContent = 'Sin datos todavía';
-                return;
-            }
-            if (sub) sub.textContent = r.radar.length === 1 ? '1 área · ver detalle' : `${r.radar.length} áreas · ver detalle`;
-
-            if (r.radar.length >= 3 && typeof Chart !== 'undefined') {
-                // Mini radar decorativo: sin ejes, textos ni tooltips (el detalle está en el modal)
-                box.innerHTML = '<canvas id="perf-radar-mini-canvas"></canvas>';
-                window._nikaRadarMini = new Chart(document.getElementById('perf-radar-mini-canvas'), {
-                    type: 'radar',
-                    data: {
-                        labels: r.radar.map(x => x.label),
-                        datasets: [
-                            { data: r.radar.map(x => x.tiempoPct), backgroundColor: 'rgba(225,29,72,0.2)', borderColor: '#e11d48', borderWidth: 1.5, pointRadius: 0 },
-                            { data: r.radar.map(x => x.aciertosPct ?? 0), backgroundColor: 'rgba(15,108,191,0.2)', borderColor: '#0f6cbf', borderWidth: 1.5, pointRadius: 0 }
-                        ]
-                    },
-                    options: {
-                        responsive: true, maintainAspectRatio: false, animation: false,
-                        events: [],
-                        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                        scales: { r: { min: 0, max: 100, ticks: { display: false }, pointLabels: { display: false }, grid: { color: _cssVar('--border', '#e2e8f0') }, angleLines: { color: _cssVar('--border', '#e2e8f0') } } }
-                    }
-                });
-            } else {
-                // 1 o 2 áreas: barras finitas (rojo = tiempo, azul = aciertos)
-                box.innerHTML = '<div style="width: 100%;">' + r.radar.slice(0, 2).map(x => `
-                    <div style="display: flex; align-items: center; gap: 6px; margin: 2px 0;">
-                        <span style="width: 62px; font-size: 0.62rem; font-weight: 700; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-main);">${_escR(x.label)}</span>
-                        <div style="flex: 1;">
-                            <div style="height: 6px; border-radius: 3px; background: var(--border); overflow: hidden;"><div style="width: ${x.tiempoPct}%; height: 100%; background: #e11d48;"></div></div>
-                            <div style="height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; margin-top: 3px;"><div style="width: ${x.aciertosPct ?? 0}%; height: 100%; background: #0f6cbf;"></div></div>
-                        </div>
-                    </div>`).join('') + '</div>';
-            }
-        }
 
         function renderOlvidoMini(r) {
             const valEl = document.getElementById('perf-olvido-value');
@@ -1505,7 +1463,6 @@
             const titulo = document.getElementById('rend-detalle-titulo');
             const sub = document.getElementById('rend-detalle-sub');
             const body = document.getElementById('rend-detalle-body');
-            if (window._nikaRadarChart) { window._nikaRadarChart.destroy(); window._nikaRadarChart = null; }
 
             if (!r) {
                 titulo.textContent = 'Todavía no hay datos';
@@ -1515,74 +1472,18 @@
                 return;
             }
 
-            if (tipo === 'radar') {
-                titulo.textContent = '🕸️ Radar Clínico';
-                sub.textContent = 'Tiempo de estudio vs. aciertos en simulacros, por área.';
-                _pintarRadarDetalle(r, body);
-            } else {
-                titulo.textContent = '🧠 Curva del Olvido';
-                sub.textContent = 'Días desde tu última actividad (Pomodoro o simulacro), por área y por Unidad Problema.';
-                body.innerHTML = _htmlCurvaOlvido(r);
-            }
+            titulo.textContent = '🧠 Curva del Olvido';
+            sub.textContent = 'Días desde tu última actividad (Pomodoro o simulacro), por área y por Unidad Problema.';
+            body.innerHTML = _htmlCurvaOlvido(r);
             modal.style.display = 'flex';
-            if (tipo === 'radar') _dibujarRadarDetalle(r);
         }
         window.abrirDetalleRendimiento = abrirDetalleRendimiento;
 
         function cerrarDetalleRendimiento() {
             const modal = document.getElementById('rendimiento-detalle-modal');
             if (modal) modal.style.display = 'none';
-            if (window._nikaRadarChart) { window._nikaRadarChart.destroy(); window._nikaRadarChart = null; }
         }
         window.cerrarDetalleRendimiento = cerrarDetalleRendimiento;
-
-        function _pintarRadarDetalle(r, body) {
-            if (!r.radar.length) {
-                body.innerHTML = '<p style="font-size:0.85rem; color: var(--text-muted); text-align:center; padding: 20px 0;">Completá un Pomodoro y un simulacro para ver tu radar.</p>';
-                return;
-            }
-            const filas = r.radar.map(x => `
-                <div style="display:flex; justify-content:space-between; font-size:0.78rem; padding: 6px 0; border-bottom: 1px solid var(--border);">
-                    <strong>${_escR(x.label)}</strong>
-                    <span style="color: var(--text-muted);">${NikaRendimiento.formatearTiempo(x.minutos)} · ${x.aciertosPct === null ? 'sin simulacros' : x.aciertosPct + '% de aciertos'}</span>
-                </div>`).join('');
-            body.innerHTML = `
-                <div style="position: relative; height: 280px;"><canvas id="radar-clinico-canvas"></canvas></div>
-                ${r.insight ? `<div style="font-size:0.82rem; margin: 12px 0; padding: 10px 12px; background: var(--bg-body); border-left: 3px solid var(--nika-primary); border-radius: 6px;">💡 ${_escR(r.insight)}</div>` : ''}
-                <div style="margin-top: 8px;">${filas}</div>`;
-        }
-
-        function _dibujarRadarDetalle(r) {
-            const canvas = document.getElementById('radar-clinico-canvas');
-            if (!canvas || typeof Chart === 'undefined' || !r.radar.length) return;
-            const txt = _cssVar('--text-muted', '#64748b');
-            const grid = _cssVar('--border', '#e2e8f0');
-            const esRadar = r.radar.length >= 3; // con 1-2 ejes un radar no se entiende: barras
-            window._nikaRadarChart = new Chart(canvas, {
-                type: esRadar ? 'radar' : 'bar',
-                data: {
-                    labels: r.radar.map(x => x.label),
-                    datasets: [
-                        { label: 'Tiempo de estudio (% del área más estudiada)', data: r.radar.map(x => x.tiempoPct), backgroundColor: esRadar ? 'rgba(225,29,72,0.18)' : 'rgba(225,29,72,0.75)', borderColor: '#e11d48', borderWidth: 2, pointBackgroundColor: '#e11d48' },
-                        { label: 'Aciertos en simulacros (%)', data: r.radar.map(x => x.aciertosPct ?? 0), backgroundColor: esRadar ? 'rgba(15,108,191,0.18)' : 'rgba(15,108,191,0.75)', borderColor: '#0f6cbf', borderWidth: 2, pointBackgroundColor: '#0f6cbf' }
-                    ]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    indexAxis: esRadar ? undefined : 'y',
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: txt, boxWidth: 12, font: { size: 11 } } },
-                        tooltip: { callbacks: { afterLabel: (ctx) => {
-                            const x = r.radar[ctx.dataIndex];
-                            return ctx.datasetIndex === 0 ? `${NikaRendimiento.formatearTiempo(x.minutos)} de estudio` : (x.aciertosPct === null ? 'Sin simulacros todavía' : `${x.preguntas} preguntas respondidas`);
-                        } } }
-                    },
-                    scales: esRadar
-                        ? { r: { min: 0, max: 100, ticks: { stepSize: 25, color: txt, backdropColor: 'transparent' }, grid: { color: grid }, angleLines: { color: grid }, pointLabels: { color: txt, font: { size: 11, weight: '700' } } } }
-                        : { x: { min: 0, max: 100, ticks: { color: txt }, grid: { color: grid } }, y: { ticks: { color: txt }, grid: { display: false } } }
-                }
-            });
-        }
 
         function _htmlCurvaOlvido(r) {
             if (!r.olvido.areas.length) {
@@ -2343,6 +2244,14 @@ async function handleLogout() {
 }
 
         // ================= COMUNIDAD Y AMIGOS =================
+        // BUG CORREGIDO: antes esta función pintaba los primeros 5 amigos SIEMPRE,
+        // con el texto "En línea" puesto fijo como fallback — por eso alguien que
+        // ya había cerrado la pestaña seguía apareciendo "conectado" para siempre.
+        // Ahora solo se listan los amigos que están de verdad en el snapshot de
+        // Presence (ya filtrado por heartbeat/staleness en pomodoroSyncManager.js),
+        // y se repinta cada vez que cambia la presencia, no solo al abrir la página.
+        let _dashboardFriendsCache = null;
+
         async function renderDashboardOnlineFriends() {
             const listBox = document.getElementById('dashboard-online-friends-list');
             if (!listBox) return;
@@ -2351,24 +2260,46 @@ async function handleLogout() {
                 updateFriendsBadge(0);
                 return;
             }
-            let friends;
             try {
-                friends = await NikaFriends.listFriends();
+                _dashboardFriendsCache = await NikaFriends.listFriends();
             } catch (err) {
                 console.warn('[renderDashboardOnlineFriends]', err);
                 listBox.innerHTML = '<div class="community-widget-empty">No se pudieron cargar tus amigos.</div>';
                 return;
             }
             refreshFriendsBadge();
-            if (friends.length === 0) {
+            _pintarOnlineFriendsDashboard();
+        }
+
+        // Repinta el widget SOLO con quien está realmente online ahora mismo.
+        // Se llama al cargar la lista y cada vez que cambia la presencia (ver
+        // initCommunityPresence), así un amigo que se desconecta desaparece solo,
+        // sin esperar a que alguien recargue la página.
+        function _pintarOnlineFriendsDashboard() {
+            const listBox = document.getElementById('dashboard-online-friends-list');
+            if (!listBox || !_dashboardFriendsCache) return;
+            if (_dashboardFriendsCache.length === 0) {
                 listBox.innerHTML = '<div class="community-widget-empty">Aún no agregaste amigos a tu red.</div>';
                 return;
             }
+            const usernames = _dashboardFriendsCache.map(f => f.username);
+            const online = window.PomodoroSyncManager ? window.PomodoroSyncManager.estadoDeAmigos(usernames) : [];
+            const estadoPorUsername = new Map(online.map(o => [o.username, o]));
+            const conectados = _dashboardFriendsCache.filter(f => estadoPorUsername.has(f.username)).slice(0, 5);
+
+            if (!conectados.length) {
+                listBox.innerHTML = '<div class="community-widget-empty">Nadie de tu red está conectado ahora.</div>';
+                return;
+            }
+
             const esc = NikaFriends.esc;
-            listBox.innerHTML = friends.slice(0, 5).map(f => {
+            listBox.innerHTML = conectados.map(f => {
                 const displayName = esc(f.fullname);
                 const avatar = esc(f.avatar || DEFAULT_AVATAR);
                 const u = esc(f.username);
+                const estado = estadoPorUsername.get(f.username);
+                const enPomodoro = estado && estado.pomodoroActivo;
+                const meta = enPomodoro ? '🍅 En Pomodoro activo' : (estado && estado.up ? `📖 Estudiando ${esc(estado.up)}...` : `@${u} · En línea`);
                 return `
                     <div class="online-friend-item" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
                         <div style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1; min-width:0;" onclick="openFriendsModal()">
@@ -2376,10 +2307,10 @@ async function handleLogout() {
                             <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
                             <div style="min-width:0;">
                                 <div class="online-friend-name">${displayName}</div>
-                                <div class="online-friend-meta" data-presence-user="${u}" data-fallback="@${u} · En línea">@${u} · En línea</div>
+                                <div class="online-friend-meta">${meta}</div>
                             </div>
                         </div>
-                        <button class="btn-module" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); unirseAlPomodoroDe('${u}')" title="Unirme al Pomodoro">🍅</button>
+                        ${enPomodoro ? `<button class="btn-module" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); unirseAlPomodoroDe('${u}')" title="Opciones de Pomodoro">🍅</button>` : ''}
                     </div>`;
             }).join('');
         }
@@ -3117,14 +3048,6 @@ async function handleLogout() {
         if (modal) modal.style.display = 'none';
     }
 
-    function copyCreatorAlias() {
-         navigator.clipboard.writeText('aguswei7').then(() => {
-            showToast("¡Alias 'aguswei7' copiado al portapapeles! 📋", "success");
-        }).catch(() => {
-            showToast("No se pudo copiar automáticamente. Alias: aguswei7", "warning");
-        });
-    }
-
     // ==========================================
     // NOTIFICACIONES Y DIRECTORIO (SUPABASE)
     // ==========================================
@@ -3789,6 +3712,7 @@ async function handleLogout() {
 
     // ================= PRESENCE + POMODORO SINCRONIZADO (PomodoroSyncManager) =================
     let _pomodoroPresenceIniciado = false;
+    let _pomodoroPresenceRefreshInterval = null;
 
     function initCommunityPresence() {
         if (!window.PomodoroSyncManager || !window.NikaSupabase || !window.NikaSupabase.getNikaCurrentUsername()) return;
@@ -3813,13 +3737,55 @@ async function handleLogout() {
                     el.style.display = 'none';
                 }
             });
+            _pintarOnlineFriendsDashboard();
         };
 
+        // Red de seguridad: si nadie más en la red hace un heartbeat por un rato
+        // (poca gente conectada), igual repintamos cada 30s para que un amigo sin
+        // heartbeat reciente desaparezca de la lista sin depender de un evento.
+        if (_pomodoroPresenceRefreshInterval) clearInterval(_pomodoroPresenceRefreshInterval);
+        _pomodoroPresenceRefreshInterval = setInterval(_pintarOnlineFriendsDashboard, 30000);
+
         window.PomodoroSyncManager.onInviteReceived = (payload) => {
-            showToast(`@${payload.fromUsername} te invitó a sincronizar el Pomodoro. Buscalo en tu lista de amigos para unirte.`);
+            _mostrarInvitacionPomodoro(payload);
+        };
+
+        // El host se entera de que su invitado ya está corriendo: sincroniza
+        // su propia barra y avisa con un toast.
+        window.PomodoroSyncManager.onJoinConfirmed = (payload) => {
+            if (window.NikaPomoBar) window.NikaPomoBar.setSyncPartner(payload.fromUsername);
+            showToast(`🍅 @${payload.fromUsername} se unió a tu Pomodoro. ¡Están sincronizados!`, 'success');
         };
 
         window.PomodoroSyncManager.iniciar();
+    }
+
+    // Tarjeta flotante de invitación a Pomodoro sincronizado (no se autocierra:
+    // el invitado decide con calma, a diferencia del toast de 3 segundos).
+    function _mostrarInvitacionPomodoro(payload) {
+        const existente = document.getElementById('nika-pomo-invite');
+        if (existente) existente.remove();
+
+        const card = document.createElement('div');
+        card.className = 'nika-pomo-invite';
+        card.id = 'nika-pomo-invite';
+        card.innerHTML = `
+            <div class="nika-pomo-invite-title">🍅 @${payload.fromUsername} te invitó a estudiar</div>
+            <div class="nika-pomo-invite-sub">Modo Biblioteca sincronizado — ambos van a ver el mismo reloj.</div>
+            <div class="nika-pomo-invite-actions">
+                <button type="button" class="nika-pomo-invite-reject">Ahora no</button>
+                <button type="button" class="nika-pomo-invite-accept">Unirme</button>
+            </div>
+        `;
+        document.body.appendChild(card);
+        card.querySelector('.nika-pomo-invite-reject').addEventListener('click', () => card.remove());
+        card.querySelector('.nika-pomo-invite-accept').addEventListener('click', () => {
+            card.remove();
+            _iniciarPomodoroLocalSincronizado(payload.fromUsername, payload.estadoActual);
+        });
+
+        // No se queda para siempre en pantalla si el invitado no reacciona.
+        setTimeout(() => { if (document.getElementById('nika-pomo-invite') === card) card.remove(); }, 45000);
     }
 
     async function unirseAlPomodoroDe(friendUsername) {
@@ -3838,9 +3804,59 @@ async function handleLogout() {
         const estados = window.PomodoroSyncManager.estadoDeAmigos([friendUsername]);
         const estadoAmigo = estados[0] || null;
 
-        try { await window.PomodoroSyncManager.invitarASincronizar(friendUsername); } catch (_) {}
+        if (estadoAmigo && estadoAmigo.pomodoroActivo) {
+            // Ya está corriendo un Pomodoro: pregunto qué querés hacer en vez de
+            // decidir por vos (antes se unía directo, sin dar la opción de invitarlo al mío).
+            _mostrarEleccionPomodoro(friendUsername, estadoAmigo);
+        } else {
+            // No tiene nada activo todavía: no hay ambigüedad posible, solo invito.
+            try {
+                await window.PomodoroSyncManager.invitarASincronizar(friendUsername);
+                showToast(`Invitación enviada a @${friendUsername}. Esperando que se una…`);
+            } catch (_) {
+                showToast('No se pudo enviar la invitación. Probá de nuevo.');
+            }
+        }
+    }
 
-        _iniciarPomodoroLocalSincronizado(friendUsername, estadoAmigo);
+    // "La manzana roja": el amigo ya está en un Pomodoro activo. Antes tocarla
+    // siempre te unía al de él sin preguntar — ahora deja elegir.
+    function _mostrarEleccionPomodoro(friendUsername, estadoAmigo) {
+        const existente = document.getElementById('nika-pomo-choice');
+        if (existente) existente.remove();
+
+        const overlay = document.createElement('div');
+        overlay.className = 'nika-pomo-choice-overlay';
+        overlay.id = 'nika-pomo-choice';
+        overlay.innerHTML = `
+            <div class="nika-pomo-choice-card">
+                <div class="nika-pomo-choice-icon">🍅</div>
+                <h3 class="nika-pomo-choice-title">@${friendUsername} ya está en un Pomodoro</h3>
+                <p class="nika-pomo-choice-sub">¿Qué querés hacer?</p>
+                <div class="nika-pomo-choice-actions">
+                    <button type="button" class="nika-pomo-choice-btn nika-pomo-choice-btn--primary" id="nika-pomo-choice-join">🤝 Unirme a su Pomodoro</button>
+                    <button type="button" class="nika-pomo-choice-btn" id="nika-pomo-choice-invite">📨 Invitarlo al mío</button>
+                    <button type="button" class="nika-pomo-choice-btn nika-pomo-choice-btn--ghost" id="nika-pomo-choice-cancel">Cancelar</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        overlay.querySelector('#nika-pomo-choice-join').addEventListener('click', () => {
+            overlay.remove();
+            _iniciarPomodoroLocalSincronizado(friendUsername, estadoAmigo);
+        });
+        overlay.querySelector('#nika-pomo-choice-invite').addEventListener('click', async () => {
+            overlay.remove();
+            try {
+                await window.PomodoroSyncManager.invitarASincronizar(friendUsername);
+                showToast(`Invitación enviada a @${friendUsername}.`);
+            } catch (_) {
+                showToast('No se pudo enviar la invitación. Probá de nuevo.');
+            }
+        });
+        overlay.querySelector('#nika-pomo-choice-cancel').addEventListener('click', () => overlay.remove());
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
     }
 
     // ---- Pomodoro sincronizado (Modo Biblioteca): usa el motor real, no un timer de juguete ----
@@ -3879,6 +3895,8 @@ async function handleLogout() {
 
         PomodoroEngine.startSynced(duracionMin, restanteSeg, ctx);
         window.PomodoroSyncManager.actualizarEstado({ pomodoroActivo: true, faseActual: 'Enfoque', tiempoTotal: duracionMin, tiempoRestante: restanteSeg });
+        if (window.NikaPomoBar) window.NikaPomoBar.setSyncPartner(friendUsername);
+        try { window.PomodoroSyncManager.confirmarUnion(friendUsername); } catch (_) {}
 
         // Confirmación breve y cierre automático: el invitado puede seguir navegando,
         // el reloj sigue corriendo de fondo (título de la pestaña + notificación al terminar).
@@ -3899,7 +3917,7 @@ async function handleLogout() {
         syncStudyProgress, toggleSidebar, showOnlyModules, showDashboard, showAdminDashboard, toggleDarkMode, showToast,
         handleProfileClick, openAuthModal, closeAuthModal, switchAuthTab, handleLogin, handleRegister,
         openForgotPasswordForm, closeForgotPasswordForm, handleForgotPassword, openResetPasswordModal, closeResetPasswordModal, handleUpdatePassword,
-        handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal, copyCreatorAlias,
+        handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
         NikaAudio, applySidebarResponsiveState,
         cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
         openChatModal, closeChatModal, sendChatMessage, toggleForumThreadReplies, submitForumReply,
@@ -3998,7 +4016,13 @@ async function handleLogout() {
             "\"El mejor médico es el que conoce la inutilidad de la mayoría de los medicamentos.\" — Sir William Osler",
             "\"Curar a veces, aliviar a menudo, consolar siempre.\" — Ambroise Paré",
             "\"La principal meta de la medicina no es sólo prolongar la vida, sino enriquecerla.\" — William Osler",
-            "\"El estudio de la enfermedad sin libros es como navegar en un mar inexplorado, mientras que no ir a los pacientes es no echar jamás al mar.\" — William Osler"
+            "\"El estudio de la enfermedad sin libros es como navegar en un mar inexplorado, mientras que no ir a los pacientes es no echar jamás al mar.\" — William Osler",
+            "\"Ser médico no es recetar ni operar: es estar, escuchar, comprender.\" — René Favaloro",
+            "\"El hospital de pueblo enseña a ser sencillo, austero, fraterno.\" — René Favaloro",
+            "\"Los progresos de la medicina podrán considerarse verdaderos logros para la humanidad cuando todas las personas tengan acceso a sus beneficios.\" — René Favaloro",
+            "\"Frente a las enfermedades que genera la miseria, los microbios, como causas de enfermedad, son unas pobres causas.\" — Ramón Carrillo",
+            "\"La caridad es una virtud cristiana admirable, pero no puede ser la base de una doctrina para el gobierno de la salud pública.\" — Ramón Carrillo",
+            "\"Solo sirven las conquistas científicas sobre la salud si éstas son accesibles al pueblo.\" — Ramón Carrillo"
         ];
         
         const quoteElement = document.getElementById('daily-quote');
@@ -4086,7 +4110,7 @@ async function handleLogout() {
                 // Consultamos TODOS los datos del perfil guardados en Supabase
                 const { data: dbProfile, error: dbError } = await client
                     .from('profiles')
-                    .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at')
+                    .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at, onboarding_completado')
                     .eq('id', u.id)
                     .maybeSingle();
 
@@ -4123,6 +4147,29 @@ async function handleLogout() {
                 // Si no había sesión local previa, refrescamos una sola vez para pintar la interfaz
                 if (!currentLocal) {
                     location.reload();
+                } else {
+                    // ================= Recorrido Guiado: disparo automático en el primer ingreso =================
+                    // Solo cuando el dashboard ya está pintado (currentLocal existía, no venimos de
+                    // recargar) y profiles.onboarding_completado todavía es false/null para este usuario.
+                    // Al terminar o saltear el tour, lo marcamos como completado en Supabase. El botón
+                    // manual "🧭 Recorrido Guiado" del sidebar sigue llamando a NikaOnboarding.iniciar()
+                    // sin argumentos y sin leer esta columna, así que reabrir el tour nunca depende de ella.
+                    if (dbProfile && !dbProfile.onboarding_completado && typeof window.NikaOnboarding !== 'undefined') {
+                        const marcarOnboardingCompletado = async () => {
+                            try {
+                                const { error: errOnboarding } = await client
+                                    .from('profiles')
+                                    .update({ onboarding_completado: true })
+                                    .eq('id', u.id);
+                                if (errOnboarding) console.warn('[Onboarding] No se pudo guardar onboarding_completado:', errOnboarding.message);
+                            } catch (e) {
+                                console.warn('[Onboarding] Error guardando onboarding_completado:', e.message);
+                            }
+                        };
+                        // Pequeño delay para que el resto del dashboard (sidebar, widgets, módulos)
+                        // termine de pintarse antes de arrancar el spotlight del recorrido.
+                        setTimeout(() => window.NikaOnboarding.iniciar(marcarOnboardingCompletado), 900);
+                    }
                 }
             }
         } catch (err) {

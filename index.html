@@ -194,6 +194,23 @@
         .sim-action-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; gap: 16px; flex-wrap: wrap; }
         .feedback-msg { font-size: 0.85rem; font-weight: 700; padding: 12px 16px; border-radius: 10px; display: none; line-height: 1.5; flex: 1; min-width: 200px; }
 
+        /* Selector de modalidad: Choice / Escrito IA / Traumatología / Suturas.
+           El Modo Versus (5to simulador) tiene su propia tarjeta dedicada más
+           abajo en el bento (box-versus), así que no se repite acá. */
+        .sim-modes-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+        .sim-mode-btn { display: inline-flex; align-items: center; gap: 6px; background: #1e293b; border: 1px solid transparent; color: var(--text-body); padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+        .sim-mode-btn:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+        .sim-mode-btn.active { background: rgba(14, 165, 233, 0.2); border-color: var(--primary-glow); color: #fff; }
+        .sim-mode-sub { font-size: 0.75rem; color: var(--primary-glow); font-weight: 800; margin: 14px 0 -6px; }
+
+        /* Tarjeta de la modalidad Escrito IA: respuesta abierta + corrección */
+        .escrito-card { background: #020617; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 24px; margin-top: 10px; }
+        .escrito-prompt { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 16px; line-height: 1.6; }
+        .escrito-answer-box { background: #1e293b; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 16px; font-style: italic; }
+        .escrito-correction { background: rgba(16,185,129,0.12); border: 1px solid var(--success); border-radius: 10px; padding: 14px 16px; font-size: 0.83rem; color: #a7f3d0; line-height: 1.6; display: none; }
+        .escrito-correction.visible { display: block; }
+        .escrito-correction strong { color: #6ee7b7; }
+
         /* ================= 5. MODO VERSUS ================= */
         .box-versus { grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; }
         @media(max-width: 1024px) { .box-versus { grid-column: span 6; } }
@@ -431,7 +448,7 @@
 
             <!-- ENTORNO DE ESTUDIO -->
             <div class="bento-box box-study">
-                <span class="box-title-clean">Entorno de Estudio</span>
+                <span class="box-title-clean">Suite de Estudio</span>
                 <h3 class="box-heading">Organización por Unidades Temáticas</h3>
                 <p class="box-desc">La estructura oficial de cátedra con la bibliografía indexada a cada Unidad Problema.</p>
 
@@ -481,25 +498,34 @@
                 </div>
             </div>
 
-            <!-- SIMULADOR CLÍNICO INTERACTIVO -->
+            <!-- SIMULADORES (4 modalidades acá + Modo Versus como 5to simulador en su propia tarjeta) -->
             <div class="bento-box box-sim">
-                <span class="box-title-clean">Simulador de Exámenes</span>
-                <h3 class="box-heading">Evaluación bajo Presión</h3>
-                <p class="box-desc">Resolvé este caso clínico en vivo. Seleccioná tu conducta y confirmá.</p>
+                <span class="box-title-clean">Simuladores</span>
+                <h3 class="box-heading" id="sim-mode-heading">Evaluación bajo Presión</h3>
+                <p class="box-desc" id="sim-mode-desc">Elegí una modalidad y probá una pregunta real, tal como la vas a rendir dentro del campus.</p>
 
-                <div class="case-card">
-                    <div class="case-statement">Varón de 24 años con herida profunda por vidrio en cara anterior de antebrazo derecho. Imposibilidad de flexión activa distal y anestesia en territorio mediano. ¿Conducta inicial prioritaria?</div>
-                    
-                    <div class="case-options" id="sim-options-container">
-                        <button class="case-btn" onclick="selectSimOption(this, false)">A) Sutura simple en guardia y alta domiciliaria con profilaxis.</button>
-                        <button class="case-btn" onclick="selectSimOption(this, true)">B) Exploración quirúrgica reglada bajo anestesia y hemostasia.</button>
-                        <button class="case-btn" onclick="selectSimOption(this, false)">C) Inmovilización enyesada por 21 días sin exploración de la herida.</button>
-                    </div>
-                    
-                    <div class="sim-action-bar">
-                        <div class="feedback-msg" id="sim-live-feedback"></div>
-                        <button class="btn-primary" id="btn-eval-sim" style="font-size: 0.85rem; padding: 10px 20px;" onclick="evaluateSimSelection()">Confirmar Conducta</button>
-                        <button class="btn-ghost" id="btn-reset-sim" style="font-size: 0.85rem; padding: 10px 20px; display: none;" onclick="resetSimulator()">↻ Reintentar</button>
+                <div class="sim-modes-nav" id="sim-modes-nav">
+                    <button class="sim-mode-btn active" onclick="selectSimMode(this, 'choice')">🩺 Choice</button>
+                    <button class="sim-mode-btn" onclick="selectSimMode(this, 'escrito')">✍️ Escrito IA</button>
+                    <button class="sim-mode-btn" onclick="selectSimMode(this, 'trauma')">🦴 Traumatología</button>
+                    <button class="sim-mode-btn" onclick="selectSimMode(this, 'suturas')">🧵 Suturas</button>
+                </div>
+
+                <div id="sim-mode-body">
+                    <div class="case-card">
+                        <div class="case-statement" id="sim-mode-statement">Varón de 24 años con herida profunda por vidrio en cara anterior de antebrazo derecho. Imposibilidad de flexión activa distal y anestesia en territorio mediano. ¿Conducta inicial prioritaria?</div>
+
+                        <div class="case-options" id="sim-options-container">
+                            <button class="case-btn" onclick="selectSimOption(this, false)">A) Sutura simple en guardia y alta domiciliaria con profilaxis.</button>
+                            <button class="case-btn" onclick="selectSimOption(this, true)">B) Exploración quirúrgica reglada bajo anestesia y hemostasia.</button>
+                            <button class="case-btn" onclick="selectSimOption(this, false)">C) Inmovilización enyesada por 21 días sin exploración de la herida.</button>
+                        </div>
+
+                        <div class="sim-action-bar">
+                            <div class="feedback-msg" id="sim-live-feedback"></div>
+                            <button class="btn-primary" id="btn-eval-sim" style="font-size: 0.85rem; padding: 10px 20px;" onclick="evaluateSimSelection()">Confirmar Conducta</button>
+                            <button class="btn-ghost" id="btn-reset-sim" style="font-size: 0.85rem; padding: 10px 20px; display: none;" onclick="resetSimulator()">↻ Reintentar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -812,7 +838,112 @@
             if(ring) ring.style.strokeDashoffset = 0;
         }
 
-        // Simulador Clínico
+        // ================= Simuladores: selector de modalidad =================
+        // 4 modalidades acá (Choice, Escrito IA, Traumatología, Suturas). El 5to
+        // simulador, Modo Versus, tiene su propia tarjeta dedicada (box-versus)
+        // más abajo en el bento, con su propio preview — no se repite acá.
+        const simModesData = {
+            choice: {
+                kind: 'choice',
+                heading: 'Evaluación bajo Presión',
+                desc: 'Resolvé este caso clínico en vivo. Seleccioná tu conducta y confirmá.',
+                statement: 'Varón de 24 años con herida profunda por vidrio en cara anterior de antebrazo derecho. Imposibilidad de flexión activa distal y anestesia en territorio mediano. ¿Conducta inicial prioritaria?',
+                options: [
+                    { label: 'A) Sutura simple en guardia y alta domiciliaria con profilaxis.', correct: false },
+                    { label: 'B) Exploración quirúrgica reglada bajo anestesia y hemostasia.', correct: true },
+                    { label: 'C) Inmovilización enyesada por 21 días sin exploración de la herida.', correct: false }
+                ],
+                correctFeedback: '✨ <strong>¡Excelente deducción clínica!</strong> Ante signos de compromiso profundo, la exploración quirúrgica reglada es mandatoria para evitar secuelas funcionales.',
+                incorrectFeedback: '⚠️ <strong>Manejo insuficiente.</strong> Suturar o inmovilizar sin descartar lesión de vasos o nervios es negligente en este escenario. La conducta correcta es la B.'
+            },
+            trauma: {
+                kind: 'choice',
+                heading: 'Mosaico de Traumatología',
+                desc: 'Miembro Superior, Miembro Inferior o Completo (mezcla ambos). Elegí la conducta ante la fractura.',
+                statement: 'Paciente de 19 años, caída de altura sobre mano en extensión. Dolor selectivo en tabaquera anatómica, sin deformidad evidente y con Rx inicial normal. ¿Conducta más adecuada?',
+                options: [
+                    { label: 'A) Se descarta fractura por Rx normal y se otorga el alta sin más estudios.', correct: false },
+                    { label: 'B) Inmovilización con férula + Rx de control en 10-14 días (sospecha de escafoides).', correct: true },
+                    { label: 'C) Antiinflamatorios y control ambulatorio en 30 días sin inmovilizar.', correct: false }
+                ],
+                correctFeedback: '✨ <strong>Correcto.</strong> La fractura de escafoides es la gran simuladora: con clínica compatible y Rx inicial negativa, se inmoviliza y se repite la placa a los 10-14 días.',
+                incorrectFeedback: '⚠️ <strong>Riesgo de necrosis avascular.</strong> Una Rx inicial normal no descarta la fractura de escafoides; sin inmovilización se compromete la vascularización del hueso.'
+            },
+            suturas: {
+                kind: 'choice',
+                heading: 'Banco de Suturas',
+                desc: 'Elegí la técnica y el material adecuados para cada tipo de herida.',
+                statement: 'Herida cortante de 4 cm en cara, borde limpio, sin tensión, en paciente sin antecedentes. ¿Técnica y material de elección?',
+                options: [
+                    { label: 'A) Puntos separados con material no reabsorbible grueso (seda 2-0).', correct: false },
+                    { label: 'B) Sutura intradérmica continua con monofilamento fino (nylon/prolene 5-0 o 6-0).', correct: true },
+                    { label: 'C) Cierre por segunda intención sin afrontar los bordes.', correct: false }
+                ],
+                correctFeedback: '✨ <strong>Muy bien.</strong> En rostro, sin tensión y con buen resultado estético en juego, la intradérmica con monofilamento fino minimiza cicatriz y marcas de punto.',
+                incorrectFeedback: '⚠️ <strong>No es la mejor opción estética.</strong> Un hilo grueso con puntos separados en cara deja marcas visibles y no es el estándar cuando no hay tensión en la herida.'
+            }
+        };
+
+        let currentSimModeKey = 'choice';
+
+        function selectSimMode(btn, key) {
+            document.querySelectorAll('#sim-modes-nav .sim-mode-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSimModeKey = key;
+
+            const body = document.getElementById('sim-mode-body');
+            const headingEl = document.getElementById('sim-mode-heading');
+            const descEl = document.getElementById('sim-mode-desc');
+
+            if (key === 'escrito') {
+                headingEl.innerText = 'Corrección Escrita con IA';
+                descEl.innerText = 'Respondé con tus propias palabras. La IA corrige contra puntos clave y errores peligrosos de la bibliografía oficial.';
+                body.innerHTML = `
+                    <div class="escrito-card">
+                        <div class="escrito-prompt">Paciente con diverticulitis aguda. Describí brevemente los criterios de Hinchey y su implicancia en la decisión quirúrgica.</div>
+                        <div class="escrito-answer-box" id="escrito-respuesta">"Los criterios de Hinchey clasifican la diverticulitis complicada en 4 estadios según la extensión de la perforación (absceso pericólico, absceso pélvico, peritonitis purulenta y peritonitis fecal), y a partir del estadio III suele requerirse cirugía..."</div>
+                        <div class="sim-action-bar">
+                            <div class="feedback-msg" id="escrito-live-feedback" style="display:none;"></div>
+                            <button class="btn-primary" id="btn-eval-escrito" style="font-size: 0.85rem; padding: 10px 20px;" onclick="evaluateEscritoDemo()">Corregir con IA</button>
+                            <button class="btn-ghost" id="btn-reset-escrito" style="font-size: 0.85rem; padding: 10px 20px; display: none;" onclick="resetEscritoDemo()">↻ Reintentar</button>
+                        </div>
+                        <div class="escrito-correction" id="escrito-correction">
+                            🤖 <strong>Nika IA (Fuente: Michans):</strong> Respuesta correcta y completa. Identificaste los 4 estadios y el punto de corte quirúrgico (Hinchey III-IV). No se detectaron errores peligrosos.
+                        </div>
+                    </div>`;
+                return;
+            }
+
+            const mode = simModesData[key];
+            headingEl.innerText = mode.heading;
+            descEl.innerText = mode.desc;
+            body.innerHTML = `
+                <div class="case-card">
+                    <div class="case-statement">${mode.statement}</div>
+                    <div class="case-options" id="sim-options-container">
+                        ${mode.options.map(o => `<button class="case-btn" onclick="selectSimOption(this, ${o.correct})">${o.label}</button>`).join('')}
+                    </div>
+                    <div class="sim-action-bar">
+                        <div class="feedback-msg" id="sim-live-feedback"></div>
+                        <button class="btn-primary" id="btn-eval-sim" style="font-size: 0.85rem; padding: 10px 20px;" onclick="evaluateSimSelection()">Confirmar Conducta</button>
+                        <button class="btn-ghost" id="btn-reset-sim" style="font-size: 0.85rem; padding: 10px 20px; display: none;" onclick="resetSimulator()">↻ Reintentar</button>
+                    </div>
+                </div>`;
+        }
+
+        function evaluateEscritoDemo() {
+            document.getElementById('btn-eval-escrito').style.display = 'none';
+            document.getElementById('btn-reset-escrito').style.display = 'inline-block';
+            document.getElementById('escrito-correction').classList.add('visible');
+        }
+
+        function resetEscritoDemo() {
+            document.getElementById('btn-eval-escrito').style.display = 'inline-block';
+            document.getElementById('btn-reset-escrito').style.display = 'none';
+            document.getElementById('escrito-correction').classList.remove('visible');
+        }
+
+        // Simulador Clínico (modalidades Choice / Traumatología / Suturas)
         let currentSimSelection = null;
         let currentSimIsCorrect = false;
 
@@ -838,20 +969,22 @@
             document.getElementById('btn-eval-sim').style.display = 'none';
             document.getElementById('btn-reset-sim').style.display = 'inline-block';
 
+            const mode = simModesData[currentSimModeKey] || simModesData.choice;
+
             if (currentSimIsCorrect) {
                 currentSimSelection.classList.remove('selected');
                 currentSimSelection.classList.add('correct');
                 feed.style.background = 'rgba(16,185,129,0.15)';
                 feed.style.border = '1px solid var(--success)';
                 feed.style.color = '#34d399';
-                feed.innerHTML = '✨ <strong>¡Excelente deducción clínica!</strong> Ante signos de compromiso profundo, la exploración quirúrgica reglada es mandatoria para evitar secuelas funcionales.';
+                feed.innerHTML = mode.correctFeedback;
             } else {
                 currentSimSelection.classList.remove('selected');
                 currentSimSelection.classList.add('incorrect');
                 feed.style.background = 'rgba(239,68,68,0.15)';
                 feed.style.border = '1px solid var(--danger)';
                 feed.style.color = '#f87171';
-                feed.innerHTML = '⚠️ <strong>Manejo insuficiente.</strong> Suturar o inmovilizar sin descartar lesión de vasos o nervios es negligente en este escenario. La conducta correcta es la B.';
+                feed.innerHTML = mode.incorrectFeedback;
             }
         }
 

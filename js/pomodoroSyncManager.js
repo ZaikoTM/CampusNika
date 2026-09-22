@@ -20,9 +20,18 @@ const PomodoroSyncManager = (function () {
     const sb = () => window.NikaSupabase.client;
     const SALA_BIBLIOTECA = "biblioteca_global"; // un único canal de presence compartido
 
+    // Heartbeat: cada cuánto reafirmamos que seguimos "vivos" y cuánto toleramos
+    // sin noticias de un usuario antes de tratarlo como Offline en la UI. Esto
+    // cubre los casos que untrack() (beforeunload/pagehide) no llega a atajar:
+    // se cuelga el navegador, se corta la luz/batería, pierde señal de golpe, etc.
+    const HEARTBEAT_MS = 45 * 1000;
+    const STALE_MS = 2 * 60 * 1000;
+
     let canal = null;
+    let heartbeatInterval = null;
     let onFriendsStateChange = null; // callback: (estadosPorUsername) => void
     let onInviteReceived = null;     // callback: (payload) => void ("Fulano te invitó a su Pomodoro")
+    let onJoinConfirmed = null;      // callback: (payload) => void ("Fulano se unió a tu Pomodoro")
     let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null, tiempoTotal: null, tiempoRestante: null };
 
     // ------------------------------------------------------------
@@ -50,11 +59,43 @@ const PomodoroSyncManager = (function () {
             if (payload.toUsername === username && onInviteReceived) onInviteReceived(payload);
         });
 
+        // El invitado avisa que efectivamente arrancó/se unió, para que el host
+        // (que no tiene forma de "ver" que el otro ya está corriendo) también
+        // refleje la sincronización en su propia barra/estado.
+        canal.on("broadcast", { event: "pomodoro_confirmado" }, ({ payload }) => {
+            if (payload.toUsername === username && onJoinConfirmed) onJoinConfirmed(payload);
+        });
+
         await canal.subscribe(async (status) => {
             if (status === "SUBSCRIBED") {
                 await canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() });
+                _iniciarHeartbeat();
             }
         });
+    }
+
+    function _latido() {
+        if (!canal) return;
+        const username = window.NikaSupabase.getNikaCurrentUsername();
+        if (!username) return;
+        try { canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() }); } catch (_) {}
+    }
+
+    function _iniciarHeartbeat() {
+        _detenerHeartbeat();
+        heartbeatInterval = setInterval(_latido, HEARTBEAT_MS);
+        // Al volver de segundo plano (laptop que "despertó", cambio de pestaña)
+        // mandamos un latido inmediato en vez de esperar hasta el próximo tick.
+        document.addEventListener('visibilitychange', _onVisibilityChange);
+    }
+
+    function _detenerHeartbeat() {
+        if (heartbeatInterval) { clearInterval(heartbeatInterval); heartbeatInterval = null; }
+        document.removeEventListener('visibilitychange', _onVisibilityChange);
+    }
+
+    function _onVisibilityChange() {
+        if (!document.hidden) _latido();
     }
 
     // El cierre de pestaña/navegador no siempre da tiempo a un ciclo completo del
@@ -69,9 +110,16 @@ const PomodoroSyncManager = (function () {
     function _snapshotPorUsuario() {
         if (!canal) return {};
         const presenceState = canal.presenceState(); // { username: [{...}] }
+        const ahora = Date.now();
         const resultado = {};
         Object.entries(presenceState).forEach(([username, metas]) => {
-            resultado[username] = metas[0]; // solo la última pestaña/instancia
+            const meta = metas[0]; // solo la última pestaña/instancia
+            if (!meta) return;
+            const ts = meta.updated_at ? new Date(meta.updated_at).getTime() : 0;
+            // Sin heartbeat reciente: lo tratamos como Offline aunque Supabase
+            // todavía no haya limpiado su presencia (conexión cortada de golpe).
+            if (ahora - ts > STALE_MS) return;
+            resultado[username] = meta;
         });
         return resultado;
     }
@@ -132,9 +180,26 @@ const PomodoroSyncManager = (function () {
     }
 
     // ------------------------------------------------------------
+    // 4.b Confirmar al host que ya estoy sincronizado con su Pomodoro
+    //     (así su barra también muestra "Sincronizado con @vos")
+    // ------------------------------------------------------------
+    async function confirmarUnion(toUsername) {
+        const username = window.NikaSupabase.getNikaCurrentUsername();
+        if (!username || !canal || !toUsername) return;
+        try {
+            await canal.send({
+                type: "broadcast",
+                event: "pomodoro_confirmado",
+                payload: { fromUsername: username, toUsername, confirmedAt: new Date().toISOString() },
+            });
+        } catch (_) {}
+    }
+
+    // ------------------------------------------------------------
     // 5. Salir (al cerrar sesión o navegar fuera de la plataforma)
     // ------------------------------------------------------------
     function detener() {
+        _detenerHeartbeat();
         if (canal) {
             try { canal.untrack(); } catch (_) {}
             sb().removeChannel(canal);
@@ -148,11 +213,15 @@ const PomodoroSyncManager = (function () {
         actualizarEstado,
         estadoDeAmigos,
         invitarASincronizar,
+        confirmarUnion,
         set onFriendsStateChange(cb) {
             onFriendsStateChange = cb;
         },
         set onInviteReceived(cb) {
             onInviteReceived = cb;
+        },
+        set onJoinConfirmed(cb) {
+            onJoinConfirmed = cb;
         },
     };
 })();

@@ -64,6 +64,11 @@ const NikaOnboarding = (() => {
   let overlay = null, spot = null, tooltip = null;
   let onResizeHandler = null;
   let onKeyHandler = null;
+  // Callback opcional pasado a iniciar(): se dispara una sola vez, al terminar
+  // o saltear el tour (por cualquier vía). Lo usa el disparo automático del
+  // primer ingreso para persistir profiles.onboarding_completado en Supabase;
+  // el botón manual del sidebar simplemente no pasa callback.
+  let _alFinalizarCallback = null;
 
   function _crearDom() {
     overlay = document.createElement('div');
@@ -140,14 +145,26 @@ const NikaOnboarding = (() => {
     }, 320);
   }
 
-  function iniciar() {
+  function iniciar(onFinalizar) {
+    // onFinalizar (opcional): función invocada una única vez cuando el tour
+    // termina o se saltea. La usa el disparo automático del primer ingreso;
+    // el botón manual del sidebar la deja indefinida.
+    _alFinalizarCallback = typeof onFinalizar === 'function' ? onFinalizar : null;
+
     // En mobile el sidebar suele estar oculto por transform; lo abrimos para
     // que el primer paso (el propio sidebar) sea visible.
     const sidebar = document.getElementById('appSidebar');
     if (sidebar && window.innerWidth < 900) sidebar.classList.add('sidebar-open');
 
     pasosActivos = PASOS.filter((p) => document.querySelector(p.selector));
-    if (!pasosActivos.length) { if (typeof showToast === 'function') showToast('No hay nada para recorrer en esta pantalla todavía.'); return; }
+    if (!pasosActivos.length) {
+        if (typeof showToast === 'function') showToast('No hay nada para recorrer en esta pantalla todavía.');
+        // Si no hay nada que recorrer todavía igual avisamos al llamador (por
+        // ejemplo, para no dejar profiles.onboarding_completado en false para
+        // siempre si el usuario entra a una pantalla sin pasos válidos).
+        if (_alFinalizarCallback) { const cb = _alFinalizarCallback; _alFinalizarCallback = null; cb(); }
+        return;
+    }
 
     pasoActual = 0;
     _crearDom();
@@ -172,6 +189,11 @@ const NikaOnboarding = (() => {
   function finalizar() {
     try { localStorage.setItem(STORAGE_KEY, '1'); } catch (_) {}
     _destruirDom();
+    if (_alFinalizarCallback) {
+      const cb = _alFinalizarCallback;
+      _alFinalizarCallback = null;
+      cb();
+    }
   }
 
   function yaVisto() {
