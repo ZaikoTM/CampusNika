@@ -428,6 +428,7 @@
         .shock-log-item { padding: 10px 14px; border-radius: 10px; font-size: 0.9rem; line-height: 1.5; max-width: 92%; }
         .shock-log-item.rol-usuario { align-self: flex-end; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); }
         .shock-log-item.rol-sistema { align-self: flex-start; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #cbd5e1; }
+        .shock-log-item.rol-ia { align-self: flex-start; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); color: #fecaca; }
 
         .shock-input-row { display: flex; gap: 12px; align-items: flex-end; }
         .shock-textarea {
@@ -569,6 +570,8 @@
         }
         .clinica-btn-enviar:hover { transform: translateY(-2px); }
         .clinica-btn-enviar:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .clinica-resultado { padding-top: 4px; }
+        .clinica-bubble-error { align-self: center; background: var(--danger-light, #fef2f2); border: 1px solid #fecaca; color: var(--danger, #dc2626); text-align: center; }
     </style>
 </head>
 <body>
@@ -756,6 +759,8 @@
                 </div>
 
                 <div class="clinica-chat-log" id="clinica-chat-log"></div>
+
+                <div class="clinica-resultado" id="clinica-resultado" style="display: none;"></div>
 
                 <div class="clinica-input-row">
                     <textarea id="clinica-textarea" class="clinica-textarea" placeholder="Escribí tu respuesta…" maxlength="3000"></textarea>
@@ -1547,13 +1552,16 @@
         }
 
         // ============================================================================
-        // SHOCK ROOM — Motor inmersivo (Sprint 2)
+        // SHOCK ROOM — Motor inmersivo (Sprint 2 UI/UX + Sprint 3 lógica de IA)
         // ----------------------------------------------------------------------------
         // Maneja el temporizador agresivo de 60s por turno, el estrés visual (viñeta y
         // shake cuando quedan <20s), el audio de monitor de signos vitales (acelera al
         // bajar el tiempo y hace "flatline" al llegar a 0) y el dictado por voz del
-        // campo de respuesta. La lógica de IA (systemPrompt/backend) queda pendiente:
-        // por ahora cada turno solo registra la respuesta del usuario en el log local.
+        // campo de respuesta. Desde Sprint 3, cada turno se manda de verdad a la Edge
+        // Function 'evaluar-simulacion' (misma que usa ClinicaEngine), reutilizando
+        // llamarEdgeFunctionSimulador / parsearEvaluacionFinalSimulador: el caso se
+        // presenta solo al entrar, y cuando el modelo devuelve el JSON de cierre se
+        // corta el reloj y se muestra la nota final.
         // ============================================================================
         const ShockRoomEngine = (() => {
             const SEGUNDOS_POR_TURNO = 60;
@@ -1565,6 +1573,10 @@
             let interval = null;
             let micCtrl = null;
             let sonido = { heartbeatInterval: null, heartbeatMs: null, heartbeatVolumen: 0.15, flatlineOsc: null, flatlineGain: null };
+            let _historial = [];       // [{ rol: 'usuario'|'ia', texto }] — igual formato que ClinicaEngine
+            let _pendiente = false;    // true mientras hay un fetch en curso
+            let _ultimoIntento = null; // último mensaje del alumno, para reintentar sin retipear
+            let _resultadoFinal = null;
 
             function elScreen() { return document.getElementById('shock-room-screen'); }
 
@@ -1725,6 +1737,33 @@
                 item.textContent = texto;
                 log.appendChild(item);
                 log.scrollTop = log.scrollHeight;
+                if (rol === 'usuario' || rol === 'ia') _historial.push({ rol, texto });
+            }
+
+            function mostrarPensando() {
+                quitarPensando();
+                const log = document.getElementById('shock-log');
+                if (!log) return;
+                const item = document.createElement('div');
+                item.className = 'shock-log-item rol-ia';
+                item.id = 'shock-pensando-item';
+                item.textContent = '🤔 Evaluando la conducta…';
+                log.appendChild(item);
+                log.scrollTop = log.scrollHeight;
+            }
+            function quitarPensando() {
+                const el = document.getElementById('shock-pensando-item');
+                if (el) el.remove();
+            }
+
+            function mostrarErrorTurno(mensajeError) {
+                const log = document.getElementById('shock-log');
+                if (!log) return;
+                const item = document.createElement('div');
+                item.className = 'shock-log-item rol-sistema';
+                item.innerHTML = `⚠️ ${escaparHtml(mensajeError)} <button type="button" class="btn btn-outline" style="margin-left:8px; padding:4px 12px; font-size:0.78rem;" onclick="ShockRoomEngine.reintentar()">🔄 Reintentar</button>`;
+                log.appendChild(item);
+                log.scrollTop = log.scrollHeight;
             }
 
             function montarMic() {
@@ -1740,6 +1779,7 @@
 
             function iniciar(modo, sub) {
                 modoActual = modo; submodoActual = sub; turnoActual = 1;
+                _historial = []; _pendiente = false; _ultimoIntento = null; _resultadoFinal = null;
                 ocultarEmbudo();
                 const pantalla = elScreen();
                 pantalla.style.display = 'block';
@@ -1747,31 +1787,143 @@
 
                 document.getElementById('shock-submodo-nombre').textContent = sub ? sub.nombre : '';
                 document.getElementById('shock-turno-contador').textContent = 'Turno ' + turnoActual;
-                document.getElementById('shock-caso-texto').textContent =
-                    'Escenario en preparación — la lógica de IA de "' + (sub ? sub.nombre : '') + '" todavía no está conectada. ' +
-                    'Por ahora, esta pantalla ya simula la presión real del turno: reloj, audio de monitor y dictado por voz funcionando.';
                 document.getElementById('shock-log').innerHTML = '';
                 const ta = document.getElementById('shock-respuesta');
                 if (ta) ta.value = '';
 
                 montarMic();
-                iniciarTemporizadorTurno();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                const tienePrompt = !!(sub && sub.systemPrompt);
+                bloquearCampo(true); // el campo queda bloqueado hasta que llegue el caso inicial
+                if (tienePrompt) {
+                    document.getElementById('shock-caso-texto').textContent = 'Cargando escenario…';
+                    iniciarPrimerTurno();
+                } else {
+                    document.getElementById('shock-caso-texto').textContent =
+                        'Este submodo todavía no tiene su lógica de IA conectada (falta el systemPrompt en examModesConfig.js).';
+                }
+            }
+
+            // Le pide a la IA que presente el caso crítico inicial (sin pintar
+            // ninguna burbuja de "usuario") y recién ahí arranca el reloj de 60s.
+            async function iniciarPrimerTurno() {
+                _pendiente = true;
+                mostrarPensando();
+                try {
+                    const promptCompleto = ((submodoActual && submodoActual.systemPrompt) || '') + '\n\n' + FORMATO_EVALUACION_FINAL;
+                    const data = await llamarEdgeFunctionSimulador({
+                        modo: modoActual ? modoActual.id : null,
+                        submodo: submodoActual ? submodoActual.id : null,
+                        system_prompt: promptCompleto,
+                        historial: [],
+                        mensaje: MENSAJE_INICIO_SIMULACION,
+                    });
+                    quitarPensando();
+                    document.getElementById('shock-caso-texto').textContent = data.texto || '(el modelo no devolvió el caso)';
+                    agregarAlLog('ia', data.texto || '');
+                    _historial = [{ rol: 'ia', texto: data.texto || '' }]; // evita duplicar (agregarAlLog ya lo empujó)
+                    iniciarTemporizadorTurno();
+                } catch (err) {
+                    console.error('[ShockRoomEngine] Falló la apertura del caso:', err);
+                    quitarPensando();
+                    document.getElementById('shock-caso-texto').textContent = '⚠️ No se pudo cargar el escenario.';
+                    mostrarErrorTurno(err && err.message ? err.message : 'No se pudo contactar al simulador.');
+                }
+                _pendiente = false;
+            }
+
+            async function procesarTurnoShock(mensaje) {
+                _pendiente = true; _ultimoIntento = mensaje;
+                bloquearCampo(true);
+                mostrarPensando();
+                try {
+                    const promptCompleto = ((submodoActual && submodoActual.systemPrompt) || '') + '\n\n' + FORMATO_EVALUACION_FINAL;
+                    const historialPrevio = _historial.slice(0, -1);
+                    const data = await llamarEdgeFunctionSimulador({
+                        modo: modoActual ? modoActual.id : null,
+                        submodo: submodoActual ? submodoActual.id : null,
+                        system_prompt: promptCompleto,
+                        historial: historialPrevio,
+                        mensaje,
+                    });
+                    quitarPensando();
+                    const evaluacion = parsearEvaluacionFinalSimulador(data.texto);
+                    if (evaluacion) {
+                        _resultadoFinal = evaluacion;
+                        finalizarConEvaluacion(evaluacion);
+                    } else {
+                        agregarAlLog('ia', data.texto || '(el modelo no devolvió texto)');
+                        turnoActual++;
+                        document.getElementById('shock-turno-contador').textContent = 'Turno ' + turnoActual;
+                        iniciarTemporizadorTurno();
+                    }
+                    _ultimoIntento = null;
+                } catch (err) {
+                    console.error('[ShockRoomEngine] Falló el turno:', err);
+                    quitarPensando();
+                    mostrarErrorTurno(err && err.message ? err.message : 'No se pudo contactar al simulador.');
+                    bloquearCampo(false);
+                } finally {
+                    _pendiente = false;
+                }
+            }
+
+            function finalizarConEvaluacion(data) {
+                clearInterval(interval);
+                pausarHeartbeat();
+                detenerFlatline();
+                bloquearCampo(true);
+                const PILARES = [
+                    { k: 'semiologia', nombre: 'Semiología' },
+                    { k: 'diagnostico', nombre: 'Diagnóstico' },
+                    { k: 'terapeutica', nombre: 'Terapéutica' },
+                    { k: 'vocabulario', nombre: 'Vocabulario Técnico' },
+                ];
+                const filas = PILARES.map((p) => {
+                    const v = Math.max(0, Math.min(2.5, Number(data.pilares[p.k]) || 0));
+                    const notaSobre10 = v * 4;
+                    const pct = (v / 2.5) * 100;
+                    return `<div class="pilar-row"><div class="pilar-head"><span>${p.nombre}</span><span style="color:${colorNota(notaSobre10)};">${fmtNota(Math.round(v * 10) / 10)} / 2.5</span></div>
+                        <div class="pilar-track"><div class="pilar-fill" style="width:${pct}%; background:${colorNota(notaSobre10)};"></div></div></div>`;
+                }).join('');
+                const nota = Math.max(0, Math.min(10, Math.round(Number(data.nota_final) * 10) / 10));
+                document.getElementById('shock-caso-texto').innerHTML = `
+                    <div style="text-align:center; margin-bottom: 14px;">
+                        <div class="score-huge" style="color:${colorNota(nota)};">${fmtNota(nota)}<span style="font-size:0.35em; color:var(--text-muted);"> / 10</span></div>
+                        <div style="color:var(--text-muted); font-weight:700;">Caso cerrado${submodoActual ? ' — ' + escaparHtml(submodoActual.nombre) : ''}</div>
+                    </div>
+                    ${filas}
+                    ${data.concepto_fallado ? `<div class="esc-alerta">📌 Concepto a repasar: ${escaparHtml(data.concepto_fallado)}</div>` : ''}
+                    <div class="feedback-box"><strong style="color: var(--text-main);">🧑‍⚖️ Devolución:</strong><br>${escaparHtml(data.feedback_general || '')}</div>
+                    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:18px;">
+                        <button type="button" class="btn btn-primary" onclick="ShockRoomEngine.reiniciar()">🔁 Nuevo caso</button>
+                        <button type="button" class="btn btn-outline" onclick="ShockRoomEngine.abandonar()">← Volver al menú</button>
+                    </div>`;
+                const log = document.getElementById('shock-log'); if (log) log.style.display = 'none';
             }
 
             function enviarTurno() {
                 const ta = document.getElementById('shock-respuesta');
-                if (!ta || !ta.value.trim() || segundosRestantes <= 0) return;
+                if (!ta || !ta.value.trim() || segundosRestantes <= 0 || _pendiente) return;
                 // Re-aseguramos el audio en cada click: si el navegador lo había
                 // pausado (pérdida de foco de pestaña, etc.) o si el primer intento
                 // automático falló, este gesto del usuario lo puede reactivar.
                 actualizarAudioSegunTiempo();
-                agregarAlLog('usuario', ta.value.trim());
+                const texto = ta.value.trim();
+                agregarAlLog('usuario', texto);
                 ta.value = '';
-                turnoActual++;
-                document.getElementById('shock-turno-contador').textContent = 'Turno ' + turnoActual;
-                agregarAlLog('sistema', '⏳ Turno registrado. (La respuesta clínica de IA se conecta en el próximo sprint.)');
-                iniciarTemporizadorTurno();
+                clearInterval(interval); // el reloj de ESTE turno ya cumplió su función al enviar
+                procesarTurnoShock(texto);
+            }
+
+            async function reintentar() {
+                if (_pendiente || !_ultimoIntento) return;
+                await procesarTurnoShock(_ultimoIntento);
+            }
+
+            function reiniciar() {
+                if (modoActual) iniciar(modoActual, submodoActual);
             }
 
             function abandonar() {
@@ -1784,7 +1936,7 @@
                 mostrarPaso(2);
             }
 
-            return { iniciar, enviarTurno, abandonar };
+            return { iniciar, enviarTurno, reintentar, reiniciar, abandonar };
         })();
 
         // ============================================================================
@@ -1795,20 +1947,143 @@
         // de IA (systemPrompt/backend) queda pendiente: por ahora cada envío solo pinta
         // el mensaje del usuario en el log y deja un placeholder de "IA pensando".
         // ============================================================================
+        const CLINICA_CFG = {
+            endpointFn: 'evaluar-simulacion',   // Edge Function de Supabase (usa el modelo del lado servidor)
+            timeoutMs: 45000,                   // por turno de chat (no es la corrección de un examen entero)
+        };
+
+        // Se agrega SIEMPRE al final del systemPrompt de examModesConfig.js. Los
+        // prompts de cada submodo ya definen la persona y CUÁNDO cerrar la
+        // simulación (algunos, como pase_sala/clasico, incluso traen su propia
+        // descripción del JSON de cierre con el formato viejo de 4 campos de
+        // texto) — este bloque es la única fuente de verdad sobre el FORMATO
+        // exacto que tiene que devolver esa evaluación final, y le pide
+        // explícitamente ignorar cualquier otro formato descripto antes.
+        const FORMATO_EVALUACION_FINAL = `Cuando, según las reglas de arriba, decidas dar por terminada la simulación, tu ÚNICA respuesta debe ser un objeto JSON válido —sin texto adicional antes ni después, sin bloques de código Markdown— con EXACTAMENTE esta forma (ignorá cualquier otro formato de evaluación que se haya descripto antes en este prompt; usá siempre este):
+{
+  "pilares": { "semiologia": 0, "diagnostico": 0, "terapeutica": 0, "vocabulario": 0 },
+  "nota_final": 0,
+  "feedback_general": "",
+  "concepto_fallado": ""
+}
+Cada pilar vale de 0 a 2.5 puntos. "nota_final" es la suma de los 4 pilares, de 0 a 10. "concepto_fallado" es el nombre corto del concepto clave que el alumno no manejó bien si la nota es baja; dejalo como cadena vacía si no aplica. Mientras la simulación siga en curso, respondé SOLO con el texto de diálogo correspondiente a tu personaje (nunca JSON).`;
+
+        // Mensaje "de arranque": se manda como primer turno apenas se entra a un
+        // submodo con systemPrompt cargado, para que la IA presente el caso
+        // clínico sola en lugar de esperar a que el alumno escriba primero. Nunca
+        // se pinta como burbuja de "usuario" en el chat (ver iniciarPrimerTurno*).
+        const MENSAJE_INICIO_SIMULACION = '[Instrucción de sistema — no la muestres ni la menciones al alumno] Arrancá la simulación ahora mismo: presentá el caso clínico inicial (nivel avanzado, Cirugía) siguiendo tu rol y las reglas indicadas arriba. No esperes a que el alumno hable primero ni le pidas que "empiece" — directamente narrá o mostrá el caso.';
+
+        // Intenta interpretar la respuesta cruda de la IA como el JSON de cierre
+        // (pilares + nota_final). Devuelve null si es un turno de diálogo normal
+        // (no evaluación). Se usa tanto en ClinicaEngine como en ShockRoomEngine.
+        function parsearEvaluacionFinalSimulador(texto) {
+            if (typeof texto !== 'string') return null;
+            let limpio = texto.trim();
+            const fence = limpio.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
+            if (fence) limpio = fence[1].trim();
+            if (!limpio.startsWith('{')) return null;
+            let obj;
+            try { obj = JSON.parse(limpio); } catch (_) { return null; }
+            const p = obj && obj.pilares;
+            const pilaresOk = p && ['semiologia', 'diagnostico', 'terapeutica', 'vocabulario']
+                .every((k) => typeof p[k] === 'number' && !isNaN(p[k]));
+            if (!pilaresOk || typeof obj.nota_final !== 'number' || isNaN(obj.nota_final)) return null;
+            return obj;
+        }
+
+        // Llama a la Edge Function de Supabase ('evaluar-simulacion'). Se espera
+        // que devuelva { texto: "<respuesta cruda del modelo>" }: puede ser un
+        // turno de diálogo en texto plano o el JSON de cierre — quien decide cuál
+        // de los dos es esta función del lado cliente (parsearEvaluacionFinalSimulador).
+        // Compartida por ClinicaEngine (Pase de Sala / Consultorio) y ShockRoomEngine.
+        async function llamarEdgeFunctionSimulador(payload) {
+            if (navigator.onLine === false) {
+                throw new Error('Sin conexión: la simulación necesita internet. Reintentá cuando vuelva la señal.');
+            }
+            const sb = window.NikaSupabase;
+            const getToken = async () => {
+                try { const c = sb && sb.client; if (!c) return null; const { data: { session } } = await c.auth.getSession(); return session && session.access_token; }
+                catch (_) { return null; }
+            };
+            let token = await getToken();
+            if (!token && sb && sb.restaurarSesionSiExiste) { try { await sb.restaurarSesionSiExiste(); } catch (_) {} token = await getToken(); }
+            if (!token) throw new Error('Tu sesión no está activa. Volvé a iniciar sesión y reintentá.');
+
+            const ctrl = new AbortController();
+            const to = setTimeout(() => ctrl.abort(), CLINICA_CFG.timeoutMs);
+            try {
+                const resp = await fetch(`${getSupabaseUrl()}/functions/v1/${CLINICA_CFG.endpointFn}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, 'apikey': getSupabaseAnonKey() },
+                    body: JSON.stringify(payload),
+                    signal: ctrl.signal
+                });
+                const data = await resp.json().catch(() => ({}));
+                if (!resp.ok || data.error) throw new Error(data.error || `El simulador respondió con error HTTP ${resp.status}.`);
+                if (typeof data.texto !== 'string') throw new Error('Respuesta inesperada del simulador.');
+                return data;
+            } catch (err) {
+                if (err && err.name === 'AbortError') throw new Error('La IA tardó demasiado en responder. Reintentá en un momento.');
+                throw err;
+            } finally { clearTimeout(to); }
+        }
+
         const ClinicaEngine = (() => {
             let modoActual = null, submodoActual = null;
             let micCtrl = null;
+            let _historial = [];          // [{ rol: 'usuario'|'ia', texto }] — se manda entero en cada turno
+            let _pendiente = false;       // true mientras hay un fetch en curso (evita doble envío)
+            let _ultimoIntento = null;    // texto del último mensaje del alumno, para "Reintentar" sin retipear
+            let _resultadoFinal = null;
 
             function elScreen() { return document.getElementById('pantalla-clinica'); }
 
-            function agregarAlLog(rol, texto) {
+            function crearBubble(rol, { texto, html, id } = {}) {
                 const log = document.getElementById('clinica-chat-log');
-                if (!log) return;
+                if (!log) return null;
                 const item = document.createElement('div');
                 item.className = 'clinica-bubble rol-' + rol;
-                item.textContent = texto;
+                if (id) item.id = id;
+                if (html !== undefined) item.innerHTML = html; else item.textContent = texto || '';
                 log.appendChild(item);
                 log.scrollTop = log.scrollHeight;
+                return item;
+            }
+
+            function agregarAlLog(rol, texto) {
+                crearBubble(rol, { texto });
+                if (rol === 'usuario' || rol === 'ia') _historial.push({ rol, texto });
+            }
+
+            function mostrarPensando() {
+                quitarPensando();
+                crearBubble('ia', { texto: '🤔 Pensando…', id: 'clinica-pensando-bubble' });
+            }
+            function quitarPensando() {
+                const el = document.getElementById('clinica-pensando-bubble');
+                if (el) el.remove();
+            }
+
+            function mostrarErrorEnvio(mensajeError) {
+                quitarErrorPrevio();
+                crearBubble('sistema', {
+                    id: 'clinica-error-bubble',
+                    html: `⚠️ ${escaparHtml(mensajeError)}<br><button type="button" class="btn btn-primary" style="margin-top:10px; padding:6px 16px; font-size:0.82rem;" onclick="ClinicaEngine.reintentar()">🔄 Reintentar</button>`,
+                });
+                const item = document.getElementById('clinica-error-bubble');
+                if (item) item.classList.add('clinica-bubble-error');
+            }
+            function quitarErrorPrevio() {
+                const el = document.getElementById('clinica-error-bubble');
+                if (el) el.remove();
+            }
+
+            function fijarControles(activo) {
+                const ta = document.getElementById('clinica-textarea');
+                const btn = document.getElementById('clinica-btn-enviar');
+                if (ta) ta.disabled = !activo;
+                if (btn) btn.disabled = !activo;
             }
 
             function montarMic() {
@@ -1822,46 +2097,146 @@
                 });
             }
 
+            async function procesarTurno(mensaje) {
+                _pendiente = true; _ultimoIntento = mensaje;
+                fijarControles(false);
+                mostrarPensando();
+                try {
+                    const promptCompleto = ((submodoActual && submodoActual.systemPrompt) || '') + '\n\n' + FORMATO_EVALUACION_FINAL;
+                    // El historial que se manda es todo lo previo a este mensaje
+                    // (que ya quedó agregado al final de _historial en enviar()).
+                    const historialPrevio = _historial.slice(0, -1);
+                    const data = await llamarEdgeFunctionSimulador({
+                        modo: modoActual ? modoActual.id : null,
+                        submodo: submodoActual ? submodoActual.id : null,
+                        system_prompt: promptCompleto,
+                        historial: historialPrevio,
+                        mensaje,
+                    });
+                    quitarPensando();
+                    const evaluacion = parsearEvaluacionFinalSimulador(data.texto);
+                    if (evaluacion) {
+                        _resultadoFinal = evaluacion;
+                        renderResultadoClinica(evaluacion);
+                    } else {
+                        agregarAlLog('ia', data.texto || '(el modelo no devolvió texto)');
+                        fijarControles(true);
+                        const ta = document.getElementById('clinica-textarea'); if (ta) ta.focus();
+                    }
+                    _ultimoIntento = null;
+                } catch (err) {
+                    console.error('[ClinicaEngine] Falló el turno:', err);
+                    quitarPensando();
+                    mostrarErrorEnvio(err && err.message ? err.message : 'No se pudo contactar al simulador.');
+                    fijarControles(true);
+                } finally {
+                    _pendiente = false;
+                }
+            }
+
+            function renderResultadoClinica(data) {
+                const panel = document.getElementById('clinica-resultado');
+                if (!panel) return;
+                const PILARES = [
+                    { k: 'semiologia', nombre: 'Semiología' },
+                    { k: 'diagnostico', nombre: 'Diagnóstico' },
+                    { k: 'terapeutica', nombre: 'Terapéutica' },
+                    { k: 'vocabulario', nombre: 'Vocabulario Técnico' },
+                ];
+                const filas = PILARES.map((p) => {
+                    const v = Math.max(0, Math.min(2.5, Number(data.pilares[p.k]) || 0));
+                    const notaSobre10 = v * 4; // 2.5 -> 10, para reusar la misma escala de colorNota()
+                    const pct = (v / 2.5) * 100;
+                    return `<div class="pilar-row"><div class="pilar-head"><span>${p.nombre}</span><span style="color:${colorNota(notaSobre10)};">${fmtNota(Math.round(v * 10) / 10)} / 2.5</span></div>
+                        <div class="pilar-track"><div class="pilar-fill" style="width:${pct}%; background:${colorNota(notaSobre10)};"></div></div></div>`;
+                }).join('');
+                const nota = Math.max(0, Math.min(10, Math.round(Number(data.nota_final) * 10) / 10));
+                panel.innerHTML = `
+                    <div style="text-align:center; margin-bottom: 18px;">
+                        <div class="score-huge" style="color:${colorNota(nota)};">${fmtNota(nota)}<span style="font-size:0.35em; color:var(--text-muted);"> / 10</span></div>
+                        <div style="color:var(--text-muted); font-weight:700;">Evaluación final${submodoActual ? ' — ' + escaparHtml(submodoActual.nombre) : ''}</div>
+                    </div>
+                    ${filas}
+                    ${data.concepto_fallado ? `<div class="esc-alerta">📌 Concepto a repasar: ${escaparHtml(data.concepto_fallado)}</div>` : ''}
+                    <div class="feedback-box"><strong style="color: var(--text-main);">🧑‍⚖️ Devolución:</strong><br>${escaparHtml(data.feedback_general || '')}</div>
+                    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:22px;">
+                        <button type="button" class="btn btn-primary" onclick="ClinicaEngine.reiniciar()">🔁 Nueva simulación</button>
+                        <button type="button" class="btn btn-outline" onclick="ClinicaEngine.volver()">← Volver al menú</button>
+                    </div>`;
+                panel.style.display = 'block';
+                const log = document.getElementById('clinica-chat-log'); if (log) log.style.display = 'none';
+                const filaInput = document.querySelector('#pantalla-clinica .clinica-input-row'); if (filaInput) filaInput.style.display = 'none';
+            }
+
             function iniciar(modo, sub) {
                 modoActual = modo; submodoActual = sub;
+                _historial = []; _pendiente = false; _ultimoIntento = null; _resultadoFinal = null;
                 ocultarEmbudo();
                 const pantalla = elScreen();
                 pantalla.style.display = 'block';
 
                 document.getElementById('clinica-titulo').textContent = modo ? modo.nombre : 'Simulación Clínica';
-                document.getElementById('clinica-chat-log').innerHTML = '';
+                const log = document.getElementById('clinica-chat-log');
+                log.innerHTML = ''; log.style.display = '';
+                const filaInput = document.querySelector('#pantalla-clinica .clinica-input-row');
+                if (filaInput) filaInput.style.display = '';
+                const panelResultado = document.getElementById('clinica-resultado');
+                if (panelResultado) { panelResultado.style.display = 'none'; panelResultado.innerHTML = ''; }
                 const ta = document.getElementById('clinica-textarea');
                 if (ta) ta.value = '';
 
-                agregarAlLog('sistema', 'Escenario en preparación — la lógica de IA de "' + (sub ? sub.nombre : '') + '" todavía no está conectada. El chat y el dictado por voz ya funcionan.');
-
+                const tienePrompt = !!(sub && sub.systemPrompt);
+                fijarControles(false);
                 montarMic();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                if (tienePrompt) {
+                    // Primer turno automático: le pedimos a la IA que presente el
+                    // caso clínico sola, sin esperar a que el alumno escriba primero.
+                    iniciarPrimerTurno();
+                } else {
+                    agregarAlLog('sistema', 'Este submodo todavía no tiene su lógica de IA conectada (falta el systemPrompt en examModesConfig.js). El chat queda deshabilitado por ahora.');
+                }
             }
 
-            function enviar() {
+            // Dispara el turno de apertura contra la Edge Function, sin pintar
+            // ninguna burbuja de "usuario": el alumno nunca ve MENSAJE_INICIO_SIMULACION,
+            // solo el caso clínico que la IA devuelve como primera respuesta.
+            async function iniciarPrimerTurno() {
+                await procesarTurno(MENSAJE_INICIO_SIMULACION);
+            }
+
+            async function enviar() {
+                if (_pendiente) return;
+                if (!submodoActual || !submodoActual.systemPrompt) return;
                 const ta = document.getElementById('clinica-textarea');
                 if (!ta || !ta.value.trim()) return;
-                agregarAlLog('usuario', ta.value.trim());
+                quitarErrorPrevio();
+                const texto = ta.value.trim();
+                agregarAlLog('usuario', texto);
                 ta.value = '';
+                await procesarTurno(texto);
+            }
 
-                // ---------------------------------------------------------------
-                // TODO: acá va el fetch real a la IA (usar submodoActual.systemPrompt
-                // como system prompt, más el historial de #clinica-chat-log como
-                // contexto de la conversación). Reemplazar el bloque de abajo por
-                // la llamada real y pintar la respuesta con agregarAlLog('ia', texto).
-                // ---------------------------------------------------------------
-                agregarAlLog('ia', '⏳ (placeholder) Acá se pinta la respuesta de la IA cuando se conecte el backend.');
+            async function reintentar() {
+                if (_pendiente || !_ultimoIntento) return;
+                quitarErrorPrevio();
+                await procesarTurno(_ultimoIntento);
+            }
+
+            function reiniciar() {
+                if (modoActual) iniciar(modoActual, submodoActual);
             }
 
             function volver() {
                 if (micCtrl) { micCtrl.destroy(); micCtrl = null; }
                 const pantalla = elScreen();
                 if (pantalla) pantalla.style.display = 'none';
+                _historial = []; _pendiente = false; _ultimoIntento = null; _resultadoFinal = null;
                 mostrarPaso(2);
             }
 
-            return { iniciar, enviar, volver };
+            return { iniciar, enviar, reintentar, reiniciar, volver };
         })();
 
         function ocultarEmbudo() {
