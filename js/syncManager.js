@@ -110,7 +110,20 @@ const SyncManager = (() => {
     if (code === '23505') return 'ok';                                   // ya estaba guardado (duplicado)
     if (error instanceof TypeError || status === 0 || /failed to fetch|networkerror|network request|load failed|fetch failed|timeout/i.test(msg)) return 'red';
     if (status >= 500 || /^5\d\d$/.test(code)) return '5xx';
-    if (status === 401 || status === 403 || /jwt|iniciar sesi[oó]n|not authenticated/i.test(msg)) return 'auth';
+    // RLS / permisos (ej. "new row violates row-level security policy",
+    // code 42501): la sesión SÍ es válida, lo que bloquea es la policy de
+    // Postgres. Antes esto caía en la rama 'auth' de más abajo porque
+    // Postgres/PostgREST también devuelve status 403 para RLS, así que
+    // quedaba clasificado como "sin sesión" -> no consumía intentos, nunca
+    // pasaba a 'fallido' y el badge no mostraba nada: la fila quedaba
+    // encolada para siempre, reintentando en silencio un insert que jamás
+    // iba a pasar. Ahora cuenta como un 4xx normal: agota los 3 intentos y
+    // termina visible como "⚠️ N sin subir" en vez de desaparecer.
+    if (code === '42501' || /row-level security|permission denied for|rls/i.test(msg)) return '4xx';
+    // 'auth' de verdad: JWT vencido/ inválido o sesión cerrada. Acá sí tiene
+    // sentido esperar en vez de gastar intentos, porque nada de lo que
+    // reintentemos ahora va a funcionar hasta que vuelva a haber sesión.
+    if (status === 401 || /jwt|expired|invalid.*token|not authenticated|iniciar sesi[oó]n/i.test(msg)) return 'auth';
     return '4xx';
   }
 
@@ -121,20 +134,29 @@ const SyncManager = (() => {
     async resultado_examen(item, ctx) {
       const fila = item.payload && item.payload.fila;
       if (!fila) return { descartar: true };
-      if (fila.user_id && fila.user_id !== ctx.userId) return { omitir: true };   // es de otra cuenta
-      const { error, status } = await ctx.client.from('exam_results').insert(fila);
+      // Guarda anti-mezcla de cuentas: se compara contra el dueño de la
+      // fila EN LA COLA (item.userId, fijado en encolar()), no contra
+      // fila.user_id — ambos salían del mismo localStorage cacheado en el
+      // momento de encolar, así que compararlos entre sí no agregaba
+      // protección real y de paso dejaba la fila trabada para siempre si
+      // fila.user_id había quedado desactualizado respecto a la sesión.
+      if (item.userId && item.userId !== ctx.userId) return { omitir: true };
+      // El user_id que se manda es siempre el de la sesión viva: es el que
+      // la política RLS de exam_results necesita ver (auth.uid() = user_id).
+      const { error, status } = await ctx.client.from('exam_results').insert({ ...fila, user_id: ctx.userId });
       return { error, status };
     },
 
     async progreso_estudio(item, ctx) {
       const row = item.payload && item.payload.row;
       if (!row) return { descartar: true };
-      if (row.user_id && row.user_id !== ctx.userId) return { omitir: true };
-      let r = await ctx.client.from('study_sessions').insert(row);
+      if (item.userId && item.userId !== ctx.userId) return { omitir: true };
+      const fila = { ...row, user_id: ctx.userId };
+      let r = await ctx.client.from('study_sessions').insert(fila);
       if (r.error && /completed/i.test(r.error.message || '')) {
         // La columna 'completed' todavía no existe (falta sql/rendimiento.sql)
-        if (row.completed === false) return {};                     // parcial: no se puede distinguir, se omite
-        const { completed: _omitida, ...sinFlag } = row;
+        if (fila.completed === false) return {};                     // parcial: no se puede distinguir, se omite
+        const { completed: _omitida, ...sinFlag } = fila;
         r = await ctx.client.from('study_sessions').insert(sinFlag);
       }
       return { error: r.error, status: r.status };
@@ -244,6 +266,14 @@ const SyncManager = (() => {
       if (resumen.fallidos > 0) _toast(`⚠️ ${resumen.fallidos} elemento(s) no se pudieron subir. Tocá el badge para reintentar.`);
     }
   }
+
+  // Los ítems que agotaron los 3 intentos quedan en estado 'fallido' y
+  // `obtenerColaPendiente()` no los vuelve a traer solos: hace falta pasar
+  // manual:true (ver el bloque de arriba) para reencolarlos como
+  // 'pendiente' antes de reintentar. Se expone aparte para que otros
+  // módulos (ej. rendimiento.js al abrir el Dashboard) puedan forzar este
+  // reintento sin tener que conocer el detalle de la bandera `manual`.
+  function reintentarFallidos() { return sincronizarAhora({ manual: true }); }
 
   // ------------------------------------------------------------
   // Conectividad real
@@ -432,6 +462,7 @@ const SyncManager = (() => {
   return {
     init, estado, on, estaOffline, encolar, sincronizarAhora, refrescarConteo,
     marcarRedCaida, montarBadge, migrarColaLegacy, userIdCacheado,
+    reintentarFallidos,
     MAX_INTENTOS,
   };
 })();

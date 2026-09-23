@@ -183,6 +183,62 @@ const NikaRendimiento = (() => {
   }
 
   // ------------------------------------------------------------
+  // Copia local (localStorage `nika_time_<modulo>_<upId>`) que escribe
+  // pomodoroEngine.js CADA VEZ que termina un Pomodoro, sin importar si el
+  // insert a Supabase salió bien, quedó encolado en SyncManager (Modo
+  // Guardia) o directamente falló. Es la misma fuente que lee
+  // js/productivity/pomodoro.js -> getStats() para pintar "Total en
+  // CIRUGÍA" en estudio.html, así que si Supabase se quedó corto respecto
+  // a esta copia, la diferencia es minutos que nunca llegaron a la tabla
+  // study_sessions (sesiones offline/erróneas que se quedaron en el
+  // sync_queue de IndexedDB, o un insert que falló silenciosamente).
+  // ------------------------------------------------------------
+  function _minutosLocalesPorModulo() {
+    const porModulo = {};
+    let total = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key || !key.startsWith('nika_time_')) continue;
+        const resto = key.slice('nika_time_'.length);
+        const idx = resto.indexOf('_');
+        if (idx === -1) continue; // clave sin up_id, no debería pasar
+        const modulo = resto.slice(0, idx);
+        const val = parseInt(localStorage.getItem(key) || '0', 10);
+        if (isNaN(val) || val <= 0) continue;
+        porModulo[modulo] = (porModulo[modulo] || 0) + val;
+        total += val;
+      }
+    } catch (_) {}
+    return { porModulo, total };
+  }
+
+  // Fuerza el volcado de lo que haya quedado pendiente en el sync_queue de
+  // IndexedDB (SyncManager) antes de leer Supabase. Si SyncManager no existe
+  // o no tiene el método, no rompe: simplemente no hay nada que forzar acá.
+  async function forzarSincronizacion() {
+    if (window.SyncManager) {
+      try {
+        if (typeof window.SyncManager.migrarColaLegacy === 'function') {
+          await window.SyncManager.migrarColaLegacy();
+        }
+        // reintentarFallidos() reencola como 'pendiente' los ítems que ya
+        // habían agotado sus 3 intentos (quedaban invisibles para
+        // sincronizarAhora() normal) y los vuelve a intentar.
+        if (typeof window.SyncManager.reintentarFallidos === 'function') {
+          return await window.SyncManager.reintentarFallidos();
+        }
+        if (typeof window.SyncManager.sincronizarAhora === 'function') {
+          return await window.SyncManager.sincronizarAhora();
+        }
+      } catch (err) {
+        console.warn('[NikaRendimiento] No se pudo forzar la sincronización del sync_queue:', err && err.message);
+      }
+    }
+    return null;
+  }
+
+  // ------------------------------------------------------------
   // Cargar datos del usuario
   // ------------------------------------------------------------
   async function cargarDatos() {
@@ -190,7 +246,11 @@ const NikaRendimiento = (() => {
     const userId = await getUserId();
     if (!userId) throw new Error('Sin sesión iniciada.');
 
-    // No bloqueamos la pantalla más de 4 s si la cola tarda (señal floja)
+    // No bloqueamos la pantalla más de 4 s si la cola tarda (señal floja).
+    // Esto ya debería drenar 'progreso_estudio' (pomodoroEngine.js) y
+    // 'resultado_examen' (este archivo) si SyncManager los procesa en el
+    // mismo sync_queue genérico.
+    await Promise.race([forzarSincronizacion(), new Promise((res) => setTimeout(res, 4000))]);
     await Promise.race([reintentarPendientes(), new Promise((res) => setTimeout(res, 4000))]);
 
     // 'completed' puede no existir si todavía no corriste sql/rendimiento.sql
@@ -226,7 +286,35 @@ const NikaRendimiento = (() => {
     if (!e.error) examenes = e.data || [];
     else console.warn('[NikaRendimiento] exam_results no disponible (¿corriste sql/rendimiento.sql?):', e.error.message);
 
-    return { sesiones, examenes };
+    // Diferencia entre la copia local (misma fuente que "Total en CIRUGÍA"
+    // en estudio.html) y lo que Supabase confirma para ese módulo. Esto son
+    // minutos reales de Pomodoros que corrió el usuario EN ESTE dispositivo
+    // pero que nunca llegaron a study_sessions (se quedaron en el sync_queue
+    // o el insert falló). Se etiqueman aparte como "pendientesMin" en vez de
+    // mezclarse silenciosamente con los minutos ya confirmados.
+    const confirmadoPorModulo = {};
+    sesiones.forEach((s) => {
+      const m = s.modulo || 'otros';
+      confirmadoPorModulo[m] = (confirmadoPorModulo[m] || 0) + (Number(s.duration_minutes) || 0);
+    });
+    const local = _minutosLocalesPorModulo();
+    const pendientesPorModulo = {};
+    let pendientesTotal = 0;
+    Object.keys(local.porModulo).forEach((m) => {
+      const diff = local.porModulo[m] - (confirmadoPorModulo[m] || 0);
+      if (diff > 0) {
+        pendientesPorModulo[m] = diff;
+        pendientesTotal += diff;
+      }
+    });
+    if (pendientesTotal > 0) {
+      console.warn(
+        `[Rendimiento] Hay ${pendientesTotal} min registrados en este dispositivo (localStorage) que no están ` +
+        `en study_sessions todavía. Desglose por módulo:`, pendientesPorModulo
+      );
+    }
+
+    return { sesiones, examenes, pendientesPorModulo, pendientesTotal };
   }
 
   // ------------------------------------------------------------
@@ -248,6 +336,8 @@ const NikaRendimiento = (() => {
   function analizar(datos, ahora = new Date()) {
     const sesiones = (datos && datos.sesiones) || [];
     const examenes = (datos && datos.examenes) || [];
+    const pendientesPorModulo = (datos && datos.pendientesPorModulo) || {};
+    const pendientesTotal = (datos && datos.pendientesTotal) || 0;
 
     const completas = sesiones.filter((s) => s.completed !== false);
     // BUGFIX: el "Tiempo de Estudio Total" debe sumar TODOS los minutos de
@@ -257,7 +347,11 @@ const NikaRendimiento = (() => {
     // (por ejemplo, una sesión vieja migrada, o un pomodoro que se cerró mal)
     // terminaba restando del total aunque tuviera duration_minutes válido.
     // Acá se calcula de forma independiente y explícita, sin tocar fechas.
-    const totalMin = sesiones.reduce((a, s) => a + (Number(s.duration_minutes) || 0), 0);
+    // Además del total confirmado en Supabase, se suma lo que quedó pendiente
+    // en la copia local del dispositivo (ver _minutosLocalesPorModulo) para
+    // que el KPI coincida con "Total en CIRUGÍA" de estudio.html.
+    const totalMinConfirmado = sesiones.reduce((a, s) => a + (Number(s.duration_minutes) || 0), 0);
+    const totalMin = totalMinConfirmado + pendientesTotal;
 
     const porModulo = {};
     const porUp = {};
@@ -301,6 +395,14 @@ const NikaRendimiento = (() => {
         tocarUltima(o, f);
         tocarUp(m, normUp(s.up_id), f);
       }
+    });
+
+    // Suma el pendiente local a cada área (así el mosaico por módulo y el
+    // Radar Clínico también coinciden con "Total en CIRUGÍA").
+    Object.entries(pendientesPorModulo).forEach(([m, min]) => {
+      const o = mod(m);
+      o.minutos += min;
+      o.pendienteMin = min;
     });
 
     let puntajeTotal = 0;
@@ -383,6 +485,8 @@ const NikaRendimiento = (() => {
         efectividad: preguntasTotal > 0 ? Math.round((puntajeTotal / preguntasTotal) * 100) : null,
         racha,
         tiempoTotalMin: totalMin,
+        tiempoTotalMinConfirmado: totalMinConfirmado,
+        tiempoTotalMinPendiente: pendientesTotal,
         pomodoros: completas.length,
         tiempoHoyMin,
         pomodorosHoy,
@@ -402,6 +506,7 @@ const NikaRendimiento = (() => {
 
   return {
     guardarExamen, cargarDatos, analizar, reintentarPendientes,
+    forzarSincronizacion,
     formatearTiempo, labelModulo, normUp,
     UMBRALES: { FRESCO_MAX, DECAIMIENTO_MAX },
   };
