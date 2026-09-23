@@ -1,0 +1,1402 @@
+[
+  {
+    "id": 1,
+    "pregunta": "Durante la evaluación de la cinemática e historia natural del traumatismo grave, se analiza la distribución trimodal de la mortalidad descrita por Donald Trunkey. Un paciente víctima de colisión vehicular fallece a los 45 minutos de su ingreso al shockroom a causa de un neumotórax a tensión no diagnosticado e hemorragia masiva por ruptura esplénica. ¿A qué fase de la distribución trimodal corresponde este deceso e cuál es su característica principal?",
+    "opciones": [
+      "A) Fase 1 (Inmediata); corresponde a lesiones incompatibles con la vida que solo se previenen con educación vial.",
+      "B) Fase 2 (Temprana / Golden Hour); corresponde a muertes por lesiones potencialmente tratables si se interviene rápido.",
+      "C) Fase 3 (Tardía); corresponde a fallecimientos por sepsis y falla multiorgánica a las 3 semanas.",
+      "D) Fase 4 (Crónica); corresponde a complicaciones tardías derivadas del decúbito prolongado en sala general."
+    ],
+    "correcta": "B",
+    "justificacion": "La distribución trimodal de la mortalidad en trauma de Trunkey establece tres picos temporales: Fase 1 (Inmediata - segundos a minutos): 50% de las muertes (aplastamiento cerebral, sección medular alta C1-C3, ruptura de aorta). Incurables, prevenibles solo por prevención primaria. Fase 2 (Temprana / \"Golden Hour\" - minutos a pocas horas): 30% de las muertes (neumotórax a tensión, hematoma epidural/subdural, ruptura esplénica/hepática, fractura inestable de pelvis). Son las muertes potencialmente evitables mediante la aplicación sistemática e inmediata del protocolo ATLS. Fase 3 (Tardía - días a semanas): 20% de las muertes (sepsis, falla multiorgánica).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 2,
+    "pregunta": "Un equipo de emergencias prehospitalarias acude al rescate de un transeúnte arrollado por un camión. Al llegar a la escena, constatan ampolla de amputación traumática en el muslo derecho con sangrado arterial cataclístico a chorro e hipotensión severa. Siguiendo las directrices actualizadas de la 10ª Edición del ATLS para el manejo de lesiones con sangrado exanguinante masivo, ¿cuál es la primera maniobra que debe anteceder a la evaluación de la vía aérea en el algoritmo xABCDE?",
+    "opciones": [
+      "A) Control inmediato de la hemorragia exanguinante mediante presión directa o torniquete en la extremidad (\"x\").",
+      "B) Realizar la intubación orotraqueal de secuencia rápida e ventilación con presión positiva.",
+      "C) Solicitar una tomografía computada multislice de cuerpo entero antes de detener el sangrado.",
+      "D) Canalizar dos vías venosas periféricas e infundir 3 litros de solución fisiológica al 0.9% caliente."
+    ],
+    "correcta": "A",
+    "justificacion": "El ATLS en su 10ª edición incorpora el prefijo \"x\" (xABCDE) para señalar que el control de la hemorragia exanguinante externa masiva (eXsanguination) antecede a cualquier otra medida, incluida la vía aérea. Una hemorragia arterial cataclística en una extremidad puede causar la exanguinación completa y la muerte por paro en AMD en menos de 2 minutos. La aplicación inmediata de un torniquete de rescate o compresión directa es la prioridad absoluta (\"x\") antes de proceder a la A (Airway).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 3,
+    "pregunta": "Ingresa al centro de emergencias una llamada de alerta por una colisión múltiple de un autobús de pasajeros en la ruta nacional. El médico coordinador debe implementar el protocolo de Triage en la escena del desastre para categorizar a las víctimas. Según la definición estandarizada por el ATLS y la Sociedad Argentina de Cirugía, ¿qué se entiende por Triage?",
+    "opciones": [
+      "A) La evacuación apresurada de todos los heridos al hospital más cercano sin realizar evaluación alguna.",
+      "B) El traslado prioritario de las víctimas según su cobertura médica privada o estatus social.",
+      "C) El método de selección y clasificación de pacientes basado en sus necesidades terapéuticas e recursos disponibles.",
+      "D) La atención exclusiva e prolongada de la víctima más gravemente traumatizada abandonando al resto."
+    ],
+    "correcta": "C",
+    "justificacion": "El Triage es el método sistemático de selección y clasificación de heridos basado en la evaluación de sus necesidades terapéuticas y la disponibilidad de recursos asistenciales. Cuando la cantidad de víctimas NO supera la capacidad del centro (incidentes con múltiples víctimas), la prioridad son los pacientes con lesiones graves con riesgo vital inminente. Cuando las víctimas superan la capacidad prestacional (desastres masivos), la prioridad se desplaza a los pacientes con mayor probabilidad de supervivencia con menor gasto de tiempo e insumos.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 4,
+    "pregunta": "Paciente varón de 28 años ingresa al shockroom tras sufrir un traumatismo craneoencefálico cerrado en accidente de motocicleta. A la evaluación neurológica se constata: apertura ocular únicamente ante el estímulo doloroso (2 pts), emisión de sonidos incomprensibles (2 pts) y localización del dolor con respuesta motora (5 pts), totalizando una Escala de Coma de Glasgow (GCS) de 9 puntos, observándose además episodios de agitación e hipoxemia con SatO2 del 88%. ¿Cuál es la indicación de manejo de la vía aérea de elección?",
+    "opciones": [
+      "A) Mantener máscara de reservorio de O2 a 15 L/min observando la evolución neurológica durante 4 horas.",
+      "B) Colocación de cánula de Mayo orofaríngea sin intubación permitiendo el alta ambulatoria inmediata.",
+      "C) Realizar traqueostomía quirúrgica de urgencia en la cama de la guardia como primera medida.",
+      "D) Asegurar la vía aérea mediante intubación orotraqueal (vía aérea definitiva) con protección cervical sostenida."
+    ],
+    "correcta": "D",
+    "justificacion": "La indicación clásica y fundamental del ATLS para establecer una vía aérea definitiva (intubación orotraqueal con tubo con balón) incluye: Incapacidad para mantener permeabilidad por depresión neurológica con Glasgow ≤ 8 o deterioro progresivo (p. ej. GCS 9 con agitación/hipoxia). Falla en la oxigenación/ventilación. Trauma facial masivo o riesgo de broncoaspiración por sangre/vómitos. La intubación orotraqueal bajo alineación e inmovilización manual en eje de la columna cervical es la conducta indicada.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 5,
+    "pregunta": "Durante la evaluación de la \"B\" (Breathing / Ventilación) en un politraumatizado que presenta taquipnea severa, ingurgitación yugular, ausencia de murmullo vesicular en el hemitórax derecho y timpanismo a la percusión, asociado a hipotensión arterial (TA 70/40 mmHg) y desviación traqueal hacia la izquierda, el equipo de trauma diagnostica un Neumotórax a Tensión. ¿Por qué esta entidad es considerada la causa de muerte evitable más frecuente en la fase inicial del trauma?",
+    "opciones": [
+      "A) Porque provoca el colapso de la vena cava inferior y disminución del retorno venoso con paro en actividad eléctrica sin pulso si no se desprime.",
+      "B) Porque desencadena inmediatamente una infección bacteriana masiva por anaerobios en el mediastino.",
+      "C) Porque produce la necrosis avascular de la pared del ventrículo izquierdo por isquemia coronaria directa.",
+      "D) Porque genera una fístula traqueoesofágica irreversible que impide la alimentación oral."
+    ],
+    "correcta": "A",
+    "justificacion": "El neumotórax a tensión es una emergencia estrictamente clínica (su diagnóstico NO debe demorarse por placas de rayos X). El mecanismo de válvula unidireccional acumula aire en la cavidad pleural a presión positiva, colapsando el pulmón ipsilateral, desplazando el mediastino y comprimiendo las venas cavas. Esto anula el retorno venoso al corazón, provocando caída del gasto cardíaco, shock obstructivo y paro cardiorrespiratorio en Actividad Eléctrica Sin Pulso (AESP). Es la causa de muerte evitable más frecuente porque su alivio mediante descompresión con aguja gruesa (en el 5º espacio intercostal línea medioaxilar o 2º EIC LMC) o tubo de tórax es instantáneo y salva la vida.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 6,
+    "pregunta": "Varón de 45 años politraumatizado presenta dolor torácico intenso e inspección de la pared torácica con movimiento paradójico de un segmento anterolateral izquierdo (el segmento se hunde en la inspiración y sobresale en la espiración). Se diagnostica Volet Costal (Tórax Inestable). A pesar de la deformidad mecánica, el paciente desarrolla hipoxemia severa (PaO2 < 60 mmHg) progresiva. ¿Cuál es la causa principal de la hipoxemia en el volet costal de acuerdo a la evidencia del ATLS?",
+    "opciones": [
+      "A) El movimiento pendular del aire que pasa de un pulmón a otro sin intercambiar oxígeno.",
+      "B) La alcalosis metabólica severa provocada por la hiperventilación antálgica.",
+      "C) La contensión y contusión pulmonar subyacente (edema alveolar, hematoma e shunt intrapulmonar).",
+      "D) La ruptura simultánea del diafragma con herniación del estómago hacia el pericardio."
+    ],
+    "correcta": "C",
+    "justificacion": "En el Volet Costal (Tórax Inestable), producido por la fractura de ≥3 costillas consecutivas en dos o más lugares, la causa determinante primaria de la hipoxemia grave e insuficiencia respiratoria NO es el movimiento paradójico de la pared ni el movimiento de aire pendular, sino la contusión pulmonar subyacente. El traumatismo contuso sobre el parénquima pulmonar desencadena edema alveolar, hemorragia, atelectasias e alteración de la relación ventilación/perfusión (shunt intrapulmonar de derecha a izquierda), lo que requiere oxigenoterapia, analgesia epidural/sistémica e ventilación mecánica si la PaO2 cae.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 7,
+    "pregunta": "Paciente femenina de 30 años ingresa a la urgencia tras sufrir un accidente doméstico con fuego directo. Al examen físico presenta quemaduras de 2º grado profundo y 3º grado que comprometen la totalidad del tronco anterior (tórax y abdomen) y la cara anterior de ambos miembros inferiores de forma completa. Utilizando la Regla de los 9 de Wallace para adultos, ¿cuál es el porcentaje de Superficie Corporal Quemada (%SCQ) estimado?",
+    "opciones": [
+      "A) 27% SCQ.",
+      "B) 36% SCQ.",
+      "C) 45% SCQ.",
+      "D) 54% SCQ."
+    ],
+    "correcta": "B",
+    "justificacion": "La Regla de los 9 de Wallace en adultos asigna los siguientes porcentajes: Cabeza y cuello: 9% Tronco anterior (tórax 9% + abdomen 9%): 18% Tronco posterior: 18% Cada miembro superior completo: 9% Cada miembro inferior anterior (cara anterior de una pierna = 9%): 9% + 9% = 18% Periné: 1% Sumando: Tronco anterior (18%) + Cara anterior de ambos MMII (9% + 9% = 18%) = 36% SCQ.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 8,
+    "pregunta": "Varón de 40 años que pesa 70 kg sufre quemaduras de 2º y 3º grado en el 40% de su superficie corporal total (SCQ) tras la explosión de una garrafa a las 10:00 AM. Ingresa al hospital a las 11:00 AM. Se decide iniciar la reposición hidroelectrolítica de reanimación mediante la Fórmula de Parkland. ¿Cuál es el volumen total de Ringer Lactato a administrar en las primeras 24 horas y cómo debe distribuirse el goteo?",
+    "opciones": [
+      "A) 5.600 ml totales; infundiendo 2.800 ml en las primeras 12 horas desde el ingreso y 2.800 ml en las siguientes 12 horas.",
+      "B) 8.400 ml totales; infundiendo 4.200 ml con solución fisiológica al 0.9% helada en las primeras 4 horas.",
+      "C) 14.000 ml totales; infundiendo la mitad en 2 horas e administrando albúmina al 20% en bolo.",
+      "D) 11.200 ml totales; infundiendo 5.600 ml en las primeras 8 horas (calculadas desde las 10:00 AM) y 5.600 ml en las 16 horas restantes."
+    ],
+    "correcta": "D",
+    "justificacion": "La Fórmula de Parkland es la pauta estándar del ATLS para la fluidoterapia del gran quemado (SCQ >15-20%): $$\\text{Volumen (24h)} = 4\\,\\text{ml} \\times \\text{Peso (kg)} \\times \\% \\text{SCQ}$$ Para este paciente: $4\\,\\text{ml} \\times 70\\,\\text{kg} \\times 40 = 11.200\\,\\text{ml}$ de Ringer Lactato. Distribución temporal estricta: 50% del volumen (5.600 ml) en las primeras 8 horas CONTADAS DESDE EL MOMENTO EN QUE OCURRIÓ LA QUEMADURA (10:00 AM), no desde la llegada al hospital. 50% restante (5.600 ml) a pasar en las 16 horas siguientes.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 9,
+    "pregunta": "Paciente de 55 años sufre una quemadura por llama que afecta la cara, ambas manos y el periné, alcanzando un 12% de SCQ con áreas de espesor total (3º grado). ¿Cómo se clasifica este paciente según la severidad e cuál es la indicación de derivación?",
+    "opciones": [
+      "A) Gran Quemado / Quemadura Grave; requiere internación e derivación oportuna a una Unidad de Quemados especializada.",
+      "B) Quemadura Leve; requiere curaciones ambulatorias con crema hidratante de manzanilla cada 3 días.",
+      "C) Quemadura Moderada no crítica; se trata en sala general de traumatología sin requerir aislamiento.",
+      "D) Quemadura Fisiológica; no requiere profilaxis antitetánica ni monitoreo de diuresis."
+    ],
+    "correcta": "A",
+    "justificacion": "La clasificación de severidad de la American Burn Association (ABA) e del Consenso Argentino define como Quemadura Grave / Gran Quemado (con indicación de derivación a Centro Especializado de Quemados) a todo paciente con: Quemaduras de 2º o 3º grado que afecten áreas críticas o funcionales: cara, manos, pies, periné, genitales o articulaciones mayores. SCQ > 20% en adultos (>10% en niños/ancianos). Quemaduras de 3º grado > 10%. Lesión por inhalación de humo, quemaduras eléctricas de alto voltaje o químicas.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 10,
+    "pregunta": "Paciente de 32 años presenta una quemadura de 3º grado profunda, de aspecto blanquecino, acartonado e indoloro, que rodea de forma circunferencial la totalidad del tórax y abdomen. A las pocas horas de su ingreso, el paciente desarrolla taquipnea, disminución marcada de la expansión torácica con hipoventilación e elevación extrema de la presión de vía aérea en el respirador. ¿Cuál es el procedimiento quirúrgico indicado de urgencia para liberar la restricción respiratoria?",
+    "opciones": [
+      "A) Drenaje pleural bilateral con tubo de avenamiento en el 8º espacio intercostal.",
+      "B) Fasciotomía del compartimento anterior del muslo con anestesia local.",
+      "C) Escarotomía descompresiva longitudinal del tórax y abdomen hasta llegar a tejido sano sangrante.",
+      "D) Toraquetomía de resucitación anterolateral izquierda con clampeo aórtico."
+    ],
+    "correcta": "C",
+    "justificacion": "Las quemaduras de 3º grado circunferenciales en el tórax y abdomen forman una escara inelástica e rígida que actúa como un \"torniquete\" torácico. Al aumentar el edema del tercer espacio, la escara impide la expansión de la caja torácica durante la inspiración, provocando restricción ventilatoria e insuficiencia respiratoria aguda. La conducta quirúrgica de emergencia (realizada en la cama del paciente sin anestesia general por ser una zona insensible) es la escarotomía descompresiva: incidir longitudinalmente la escara rígida en las líneas axilares e uniones transversas hasta llegar al tejido subcutáneo sano e sangrante para liberar la presión.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 11,
+    "pregunta": "Un médico intensivista supervisa la reanimación hídrica mediante Ringer Lactato en un paciente de 70 kg con 35% de SCQ golpeado por la fórmula de Parkland. ¿Cuál es el parámetro clínico e fisiológico individualizado más confiable para evaluar la adecuación de la perfusión tisular e la respuesta a la fluidoterapia en las primeras 24 horas?",
+    "opciones": [
+      "A) La medición de la presión arterial sistólica cada 12 horas.",
+      "B) La diuresis horaria medida por sonda vesical, buscando un objetivo de ≥ 0.5 ml/kg/hora en adultos.",
+      "C) La persistencia de eritema perilesional e la cifra de hematocrito aislado a las 48 horas.",
+      "D) El recuento total de leucocitos e la concentración de fibrinógeno plasmático."
+    ],
+    "correcta": "B",
+    "justificacion": "La reposición hídrica en quemados debe ajustarse de forma dinámica para evitar tanto la sub-reanimación (shock por quemadura, fallo renal) como la sobre-reanimación (edema pulmonar, síndrome compartimental abdominal). El indicador clínico gold standard e más sensible para monitorizar la perfusión de órganos diana e la volemia es la diuresis horaria: Adultos: Objetivo de 0.5 ml/kg/hora (aprox. 30 a 50 ml/h). Niños (<30 kg): Objetivo de 1.0 ml/kg/hora. Si la diuresis cae por debajo de 0.5 ml/kg/h, se incrementa el goteo de cristaloides; si supera 1 ml/kg/h, se reduce.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 12,
+    "pregunta": "Paciente de 45 años en la UTI con diagnóstico de traumatismo craneoencefálico grave presenta signos clínicos compatibles con Muerte Encefálica. El equipo médico se dispone a iniciar el protocolo diagnóstico legal en Argentina (Ley 24.193 / 27.447). Antes de realizar la evaluación neurológica de los reflejos de tronco, ¿cuáles son los prerrequisitos hemodinámicos y metabólicos indispensables que deben cumplirse para garantizar la validez del examen?",
+    "opciones": [
+      "A) Glucemia mayor a 300 mg/dL, alcalosis respiratoria pura y ritmo de marcapasos epicárdico.",
+      "B) Temperatura corporal central menor a 28 ºC y presencia de fármacos sedantes en infusión continua.",
+      "C) Hipotensión arterial severa con PAS <60 mmHg e intoxicación alcohólica aguda no resuelta.",
+      "D) Temperatura corporal central ≥ 32 ºC (idealmente ≥35 ºC), PAS ≥ 90 mmHg, descarte de drogas depresoras del SNC e ausencia de severas alteraciones metabólicas."
+    ],
+    "correcta": "D",
+    "justificacion": "Para iniciar el protocolo de Muerte Encefálica (ME) e evitar falsos positivos por estados reversibles que simulan el coma, el marco legal e médico exige el cumplimiento estricto de prerrequisitos: Estabilidad hemodinámica: Presión Arterial Sistólica (PAS) ≥ 90 mmHg (con o sin inotrópicos). Normotermia: Temperatura corporal central ≥ 32 ºC (la hipotermia abole reflejos de tronco). Ausencia de fármacos depresores del SNC o bloqueantes neuromusculares: Haber transcurrido al menos 4 a 5 vidas medias de la suspensión de sedantes (p. ej. propofol, midazolam, fentanilo). Exclusión de coma metabólico/endocrino reversible (hipoglucemia severa, encefalopatía urémica/hepática grave).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 13,
+    "pregunta": "Durante la ejecución del protocolo de Muerte Encefálica en un paciente de 50 años que cumple los prerrequisitos, se realiza el Test de Apnea (prueba de oxigenación apneica). Tras estabilizar al paciente con normocapnia (PaCO2 inicial de 40 mmHg), se preoxigena al 100%, se desconecta del respirador e se coloca una cánula intratraqueal con flujo de O2 a 6 L/min durante 10 minutos. ¿Qué resultado del análisis de gases en sangre confirma la positividad del test para Muerte Encefálica?",
+    "opciones": [
+      "A) Ausencia total de movimientos respiratorios espontáneos junto con una PaCO2 final ≥ 60 mmHg (o un incremento de ≥ 20 mmHg sobre el valor basal).",
+      "B) Presencia de 3 respiraciones profundas e una PaCO2 final de 30 mmHg con pH alcalino.",
+      "C) Descenso de la PaCO2 a 15 mmHg e elevación de la saturación de O2 al 100% sin ácidosis.",
+      "D) Presencia de tos intensa e movimiento de extremidades superiores al desconectar el tubo."
+    ],
+    "correcta": "A",
+    "justificacion": "El Test de Apnea evalúa la respuesta del centro respiratorio bulbar ante el estímulo hipercápnico. Si el centro bulbar está muerto, no se generará ningún esfuerzo inspiratorio a pesar de la elevación extrema del CO2. La prueba se considera POSITIVA (confirmatoria de Muerte Encefálica) cuando, tras la desconexión del ventilador en ausencia de movimientos respiratorios, la gasometría arterial demuestra una PaCO2 ≥ 60 mmHg (o un aumento de al menos 20 mmHg por encima del valor hipercápnico basal) con un pH acidótico (< 7.28).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 14,
+    "pregunta": "Un paciente de 38 años en protocolo de Muerte Encefálica presenta opacidad de medios oculares por trauma facial severo que impide la evaluación pupilar y corneal, o se sospecha presencia de fármacos sedantes residuales. Para certificar el diagnóstico de forma rápida e objetiva en Argentina, se solicita un estudio complementario que evalúe el flujo sanguíneo cerebral. ¿Cuál de los siguientes métodos demuestra el paro circulatorio cerebral bilateral?",
+    "opciones": [
+      "A) Resonancia magnética funcional con estimulación auditiva.",
+      "B) Electroencefalograma aislado con trazado de ondas delta lentas continuas.",
+      "C) Doppler Transcraneano (TC",
+      "D) que demuestre ausencia de flujo o espigas sistólicas con flujo reverberante en ambas arterias cerebrales. D) Radiografía simple de cráneo de frente y perfil con contraste baritado."
+    ],
+    "correcta": "C",
+    "justificacion": "Los métodos complementarios para el diagnóstico de Muerte Encefálica se dividen en electrofisiológicos (EEG, potenciales evocados) e de flujo sanguíneo cerebral. Cuando existen dudas o interferencia por fármacos, los estudios de flujo son altamente confiables porque la Muerte Encefálica cursa con hipertensión endocraneana extrema que iguala la PAM, deteniendo la perfusión cerebral (Paro Circulatorio Cerebral). El Doppler Transcraneano (TCD) es un método no invasivo e válido en Argentina que confirma la ME al evidenciar el patrón patognomónico de espigas sistólicas cortas o flujo reverberante (oscilante) en el territorio carotídeo e vertebrobasilar bilateral.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 15,
+    "pregunta": "Paciente femenina de 24 años, con embarazo de 20 semanas de gestación, ingresa a la UTI por un traumatismo encéfalocraneano catastrófico, evolucionando a Muerte Encefálica certificada según todos los criterios legales. Se plantea la posibilidad de procuración de órganos para trasplante. Según la bioética e el consenso de INCUCAI para el manejo de la donante embarazada, ¿cuál es la conducta médica e legal correcta respecto al feto e a la procuración?",
+    "opciones": [
+      "A) Realizar la ablación inmediata de todos los órganos abdominales y torácicos ignorando el embarazo.",
+      "B) Considerar el embarazo una contraindicación relativa/temporal, priorizando la vida fetal e manteniendo el soporte vital somático de la madre fallecida hasta alcanzar la viabilidad/madurez fetal.",
+      "C) Interrumpir la gestación mediante legrado uterino antes de certificar la muerte encefálica.",
+      "D) Proceder a la cremación inmediata de la madre fallecida rechazando cualquier intervención médica."
+    ],
+    "correcta": "B",
+    "justificacion": "Ante una paciente gestante con Muerte Encefálica certificada (legalmente fallecida) pero con un feto potencialmente viable en desarrollo, la conducta médica e bioética estándar (INCUCAI) establece que el embarazo constituye una contraindicación relativa e temporal para la procuración inmediata. Se debe priorizar la vida del feto, manteniendo el soporte vital somático e la estabilidad hemodinámica/hormonal de la madre fallecida en la UTI hasta alcanzar la madurez fetal (generalmente ≥28-32 semanas para realizar la cesárea), evaluando la procuración de órganos de la madre posteriormente.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 16,
+    "pregunta": "Durante el proceso de selección e evaluación médica de un potencial donante cadavérico de órganos por el equipo de procuración del INCUCAI, se analizan los antecedentes patológicos del fallecido. ¿Cuál de las siguientes condiciones clínicas constituye una contraindicación absoluta para la donación e ablación de órganos sólidos?",
+    "opciones": [
+      "A) Antecedente de hipertensión arterial primaria de 10 años de evolución controlada.",
+      "B) Hábito de consumo crónico de alcohol sin cirrosis ni falla hepática aguda.",
+      "C) Infección latente por Citomegalovirus (CMV) con IgG positiva.",
+      "D) Presencia de un adenocarcinoma de pulmón o melanoma maligno activo con metástasis."
+    ],
+    "correcta": "D",
+    "justificacion": "La selección de donantes exige garantizar la seguridad del receptor evitando la transmisión de patologías letales. Constituye una contraindicación absoluta para la donación de órganos la presencia de neoplasias malignas activas o con alto riesgo de transmisión (p. ej. cáncer de pulmón, mama, melanoma o tumores hematológicos), debido al riesgo de desarrollar metástasis neoplásicas en el receptor inmunosuprimido. En cambio, la HTA (opción A), el alcoholismo sin cirrosis (opción B) o la serología IgG positiva para CMV (opción C) NO contraindican la donación, manejándose con profilaxis post-trasplante.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 17,
+    "pregunta": "En la República Argentina, el sistema de procuración e trasplante de órganos e tejidos está regulado por la Ley 27.447 (Ley Justa). Toda la gestión de listas de espera, registro de donantes, estudios de histocompatibilidad (HLA/ABO) e asignación de órganos se realiza mediante un sistema informático centralizado y transparente. ¿Cómo se denomina este sistema oficial administrado por el INCUCAI?",
+    "opciones": [
+      "A) SINTRA (Sistema Nacional de Información de Procuración y Trasplante de la República Argentina).",
+      "B) RISA (Registro Internacional de Selecciones Sanitarias de la República Argentina).",
+      "C) PAMI (Programa de Asistencia Médica Integral de Donantes).",
+      "D) AACT (Asociación Argentina de Cirujanos Traumatológicos)."
+    ],
+    "correcta": "A",
+    "justificacion": "El SINTRA (Sistema Nacional de Información de Procuración y Trasplante de la República Argentina) es la plataforma informática pública e oficial del INCUCAI. Centraliza en tiempo real toda la información Sanitaria del país: el registro de pacientes en lista de espera, la notificación obligatoria de donantes, la carga de datos genéticos e de histocompatibilidad, la asignación automatizada de órganos según criterios técnico-médicos e el seguimiento de los pacientes trasplantados, garantizando la equidad e transparencia del proceso.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 18,
+    "pregunta": "Un médico cirujano del equipo de trauma debe comunicar el fallecimiento de un paciente joven a sus familiares en la sala de espera. Para llevar a cabo la comunicación de malas noticias en situaciones críticas de forma profesional e empática de acuerdo al Protocolo SPIKES (o protocolo de Lillo), ¿cuál de las siguientes recomendaciones metodológicas debe aplicarse?",
+    "opciones": [
+      "A) Comunicar la noticia de pie en el pasillo concurrido en menos de 30 segundos para evitar escenas de llanto.",
+      "B) Utilizar tecnicismos médicos complejos como \"paro cardiorrespiratorio en AESP refractario a 5 ciclos de Adrenalina\".",
+      "C) Preparar un entorno privado (Setting), explorar la percepción previa de la familia, e comunicar la noticia con lenguaje claro, en dosis progresivas e con pausas empáticas.",
+      "D) Prometer a los familiares que el paciente despertará en unos días si rezan con devoción."
+    ],
+    "correcta": "C",
+    "justificacion": "La comunicación de malas noticias es una competencia clínica estructurada. El Protocolo SPIKES (Lillo) establece 6 pasos fundamentales: Setting (Entorno): Reunión en un lugar privado, sentados, sin interrupciones. Perception (Percepción): Evaluar qué sabe la familia (\"¿Qué les informaron sobre el accidente?\"). Invitation (Invitación): Ajustar la cantidad de detalle deseada. Knowledge (Conocimiento): Entregar la mala noticia con lenguaje claro, sin jerga médica inaccesible, en pequeñas dosis progresivas e sin mentiras ni falsas esperanzas. Emotions (Emociones): Dar espacio al desahogo e responder con empatía. Strategy/Summary (Estrategia): Explicar los pasos a seguir.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 19,
+    "pregunta": "Durante la asignación de un injerto renal de donante cadavérico a través del sistema SINTRA / INCUCAI, se evalúan dos candidatos en lista de espera. El sistema pondera la urgencia médica, la compatibilidad inmunológica de antígenos (HLA y grupo sanguíneo ABO) e la antigüedad en la lista. ¿A qué principio bioético fundamental responde este sistema automatizado e equitativo de distribución de órganos?",
+    "opciones": [
+      "A) Principio de Paternalismo Médico Absoluto.",
+      "B) Principio de Justicia Distributiva y Equidad.",
+      "C) Principio de Beneficencia Económica del Centro Privado.",
+      "D) Principio de Utilitarismo Político."
+    ],
+    "correcta": "B",
+    "justificacion": "La asignación de órganos para trasplante plantea un dilema ético mayor debido a la escasez de órganos e la alta demanda. El sistema del INCUCAI se rige bajo el Principio Bioético de Justicia Distributiva y Equidad. Este principio exige que los recursos escasos de salud se distribuyan de forma transparente, objetiva e justa, sin discriminación social, económica ni geográfica, aplicando criterios estrictamente médicos e inmunológicos (urgencia nacional, compatibilidad HLA/ABO, edad e tiempo de espera) para maximizar la supervivencia del injerto e del receptor.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 20,
+    "pregunta": "Tras la reanimación infructuosa de una víctima de traumatismo severo en el shockroom, los integrantes del equipo de salud (médicos, enfermeros, kinesiólogos) manifiestan signos de agotamiento físico, frustración e angustia por la pérdida del paciente. ¿Qué estrategia de contención e apoyo institucional se recomienda realizar al finalizar el procedimiento para proteger la salud mental del equipo de emergencias e prevenir el Síndrome de Burnout?",
+    "opciones": [
+      "A) Exigir que el personal continúe trabajando sin descanso ni pausas durante las siguientes 24 horas.",
+      "B) Sancionar económicamente a los profesionales por no haber logrado salvar la vida del herido.",
+      "C) Prohibir que los profesionales hablen del evento o expresen emociones dentro del hospital.",
+      "D) Realizar una sesión de Debriefing (descompresión emocional e revisión técnica estructurada) en un ambiente de apoyo."
+    ],
+    "correcta": "D",
+    "justificacion": "La atención de pacientes traumáticos críticos e la vivencia recurrente de la muerte genera un alto impacto emocional en los profesionales de emergencias, favoreciendo el desarrollo de Síndrome de Burnout, fatiga por compasión e estrés postraumático. La recomendación institucional es realizar una sesión de Debriefing (descompresión psicológica e revisión técnica en equipo) poco después del evento. Esta herramienta permite procesar las emociones, analizar el desempeño técnico en un clima de respeto mutuo, validar el duelo e fortalecer la cohesión del equipo de salud.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 21,
+    "pregunta": "Paciente varón de 32 años, víctima de un accidente automovilístico, ingresa al shockroom con palidez cutáneo-mucosa, sudoración fría, ansiedad, taquicardia de 125 lat/min, tensión arterial de 85/55 mmHg (presión de pulso reducida), taquipnea de 28 rpm y diuresis disminuida de 15 ml/hora. No se observan sangrados externos masivos. Según la clasificación del shock hipovolémico del ATLS (10ª Edición), ¿a qué clase de hemorragia corresponde el cuadro e cuál es la estrategia de reposición hidroelectrolítica e de hemoderivados inicial?",
+    "opciones": [
+      "A) Clase III (pérdida del 30% al 40% de la volemia); requiere infusión limitada de cristaloides e transfusión precoz de hemoderivados (glóbulos rojos, plasma y plaquetas 1:1:1).",
+      "B) Clase I (pérdida menor al 15% de la volemia); requiere únicamente observación e rehidratación oral con sales de rehidratación.",
+      "C) Clase IV (pérdida mayor al 50% de la volemia); requiere toracotomía exanguinante inmediata sin administración de cristaloides ni sangre.",
+      "D) Clase II (pérdida del 15% al 30% de la volemia); requiere administración de 5 litros de solución glucosada al 5% en bolo rápido."
+    ],
+    "correcta": "A",
+    "justificacion": "De acuerdo con la clasificación hemodinámica del shock hipovolémico hemorrágico del ATLS (10ª Edición): Clase I (<15% de pérdida): Signos vitales normales o taquicardia mínima. Clase II (15-30% de pérdida): Taquicardia (100-120 lpm), taquipnea leve, presión de pulso normal o reducida. Clase III (30-40% de pérdida - aprox. 1500-2000 ml en adultos): Hipotensión franca (PAS <90 mmHg), taquicardia marcadas (>120 lpm), oliguria (15-20 ml/h) y alteración del sensorio (ansiedad/confusión). Clase IV (>40% de pérdida): Hipotensión severa, taquicardia extrema (>140 lpm), anuria y coma. El manejo moderno del shock Clase III y IV exige la resucitación permisiva con cristaloides isotónicos limitados (≤1 litro) e la activación inmediata del Protocolo de Transfusión Masiva (PTM) con relación balancada 1:1:1 (Glóbulos Rojos Concentrados : Plasma Fresco Congelado : Plaquetas) para prevenir la coagulopatía dilucional[1][2].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 22,
+    "pregunta": "Paciente de 25 años ingresa al departamento de urgencias tras sufrir una herida por arma blanca en el 4º espacio intercostal izquierdo, inmediatamente por dentro de la línea mamilar (caja cardíaca). Al ingreso se halla estuporoso, hipotenso (TA 70/40 mmHg), con ruidos cardíacos muy apagados/distantes a la auscultación e ingurgitación de las venas del cuello que se acentúa durante la inspiración (Signo de Kussmaul). La ecografía FAST realizada en el shockroom confirma la presencia de líquido en la ventana pericárdica. ¿Cuál es el diagnóstico de este shock e su tratamiento quirúrgico definitivo?",
+    "opciones": [
+      "A) Neumotórax a tensión izquierdo; requiere tubo de drenaje pleural en el 5º espacio intercostal línea axilar media.",
+      "B) Taponamiento cardíaco (Tríada de Beck); requiere pericardiocentesis/ventana pericárdica de rescate e toracotomía/esternotomía de urgencia.",
+      "C) Hemotórax masivo derecho; requiere toracocentesis con aguja fina e expansión con solución salina.",
+      "D) Shock neurogénico cervical; requiere administración de atropina e infusión continua de noradrenalina."
+    ],
+    "correcta": "B",
+    "justificacion": "El taponamiento cardíaco se produce frecuentemente por lesiones penetrantes en la \"caja cardíaca\" (delimitada por las clavículas, los bordes costales e las líneas mamilares/axilares)[3]. La acumulación de tan solo 100-150 ml de sangre en el saco pericárdico no distensible restringe el llenado diastólico ventricular. Se manifiesta por la Tríada clásica de Beck: 1) Hipotensión arterial, 2) Ingurgitación venosa yugular, e 3) Ruidos cardíacos hipofonéticos o apagados[3]. La ecografía FAST (ventana pericárdica) confirma el hemopericardio. Mientras se prepara el quirófano para la toracotomía de emergencia e sutura miocárdica (cardiorrafia), la pericardiocentesis o ventana pericárdica subxifoidea puede aliviar temporalmente la descompensación hemodinámica.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 23,
+    "pregunta": "Poltraumatizado de 40 años, víctima de traumatismo torácico cerrado, ingresa disneico e hipotenso (TA 80/50 mmHg). A la auscultación se constata abolición completa del murmullo vesicular en todo el hemitórax derecho e matidez franca a la percusión ipsilateral. Se coloca de inmediato un tubo de drenaje torácico (avenamiento pleural) en el 5º espacio intercostal línea axilar media, con salida inmediata e brinco inicial de 1.600 ml de sangre rutilante, manteniéndose un débito posterior de 250 ml/hora durante las siguientes 2 horas. ¿A qué entidad corresponde e cuál es la conducta quirúrgica obligatoria?",
+    "opciones": [
+      "A) Neumotórax simple grado I; requiere retiro del tubo de tórax e alta ambulatoria.",
+      "B) Ruptura del conducto torácico; requiere dieta libre de grasas e somatostatina endovenosa.",
+      "C) Hemotórax masivo; requiere indicación formal de toracotomía de urgencia.",
+      "D) Contusión pulmonar aislada; requiere únicamente micronebulizaciones con fisiológico."
+    ],
+    "correcta": "C",
+    "justificacion": "Se define como Hemotórax Masivo a la acumulación rápida de más de 1.500 ml de sangre en la cavidad pleural o un sangrado continuo superior a 200 ml/hora durante 2 a 4 horas consecutivas a través del tubo de drenaje torácico. Se debe habitualmente a la laceración de vasos sistémicos mayores (arterias intercostales, mamaria interna o vasos hiliares). Constituye una indicación formal e absoluta de Toracotomía de Urgencia para lograr el control directo de la fuente de sangrado e evacuated los coágulos, evitando la exanguinación o el hemotórax coagulado tardío[4].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 24,
+    "pregunta": "Paciente de 28 años ingresa politraumatizado tras una colisión frontal a alta velocidad. Presenta un traumatismo facial masivo con fractura conminuta del tercio medio facial e mandíbula, con hemorragia incoercible e edema severo de la cavidad oral e orofaringe que impide la visualización de las cuerdas vocales e la glotis. La saturación de O2 cae a 65% a pesar de los intentos de intubación orotraqueal e videolaringoscopia (escenario de \"no intubable, no oxigenable\"). ¿Cuál es el procedimiento quirúrgico de elección para establecer una vía aérea quirúrgica de emergencia en el adulto?",
+    "opciones": [
+      "A) Colocación de una cánula de Mayo orofaríngea sin intubación.",
+      "B) Intubación nasotraqueal a ciegas con pinza de Magill.",
+      "C) Traqueostomía percutánea con dilata dores de Griggs en sala de tomografía.",
+      "D) Cricotiroidotomía por punción o quirúrgica (quirúrgica con bisturí en la membrana cricotiroidea)."
+    ],
+    "correcta": "D",
+    "justificacion": "Ante el fracaso de la intubación orotraqueal e la imposibilidad de mantener una oxigenación adecuada en presencia de traumatismo facial grave, distorsión anatómica o hemorragia masiva de la vía aérea superior (escenario crítico \"imposible intubar, imposible oxigenar\"), el algoritmo del ATLS indica realizar una vía aérea quirúrgica de emergencia. La técnica de elección inmediata en el adulto es la Cricotiroidotomía quirúrgica (incisión de la piel e la membrana cricotiroidea e inserción de un tubo endotraqueal o cánula pequeña)[5]. La traqueostomía (opción C) es un procedimiento electivo o reglado más complejo e prolongado que no debe intentarse como primera maniobra en el shockroom de emergencia.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 25,
+    "pregunta": "Un varón de 30 años ingresa a la guardia tras sufrir un traumatismo cerrado de abdomen en un accidente automovilístico. Se halla hemodinámicamente inestable (TA 75/40 mmHg, FC 135 lpm) a pesar de la administración rápida de 1 litro de Ringer Lactato calentado. Al examen abdominal presenta defensa muscular generalizada e signos de peritonitis difusa. La ecografía eFAST revela líquido libre abundante en las tres ventanas abdominales (hepatorrenal, esplenorrenal e pelvis). ¿Cuál es la conducta médica e quirúrgica ineludible?",
+    "opciones": [
+      "A) Laparotomía exploradora de urgencia en quirófano.",
+      "B) Realización de una Tomografía Computada de abdomen con triple contraste.",
+      "C) Paracentesis evacuadora diagnóstica e internación en sala general.",
+      "D) Reposo absoluto e repetició de la ecografía eFAST en 6 horas."
+    ],
+    "correcta": "A",
+    "justificacion": "En el abordaje del traumatismo abdominal según las guías del ATLS, las indicaciones absolutas de Laparotomía Exploradora Urgente incluyen: Inestabilidad hemodinámica persistente con evidencia de líquido libre en la ecografía eFAST[4][6]. Signos clínicos de peritonitis o irritación peritoneal difusa[7]. Evisceración o neumoperitoneo en radiografía/TC[7]. Traumatismo penetrante con hipotensión o herida por arma de fuego transabdominal[7]. Realizar una tomografía en un paciente inestable (opción B) es un error grave que retrasa el tratamiento e conduce al paro cardiorrespiratorio en la sala de rayos X[8].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 26,
+    "pregunta": "Durante el manejo de un paciente con Traumatismo Craneoencefálico (TCE) severo (GCS 6/15) en la UTI, el equipo neurointensivista aplica medidas orientadas a prevenir la \"Lesión Cerebral Secundaria\". En contraste con la \"Lesión Cerebral Primaria\" (que ocurre en el instante del impacto e no es modificable biológicamente), ¿cuáles son los dos factores sistémicos e insultos secundarios más devastadores que incrementan drásticamente la mortalidad e deben evitarse a toda costa según el ATLS?",
+    "opciones": [
+      "A) La hiperoxemia sostenida (PaO2 > 300 mmHg) e la hipoglucemia leve.",
+      "B) La hipotensión arterial (PAS < 100 mmHg) e la hipoxia (SpO2 < 94% / PaO2 < 60 mmHg).",
+      "C) La bradicardia sinusal leve e la hipotermia terapéutica controlada (35 ºC).",
+      "D) La hipercapnia transitoria (PaCO2 de 42 mmHg) e el uso de solución salina isotónica."
+    ],
+    "correcta": "B",
+    "justificacion": "En la fisiopatología del TCE, la Lesión Primaria (contusión, laceración, daño axonal difuso) ocurre mecánicamente en el momento del evento[9]. La Lesión Secundaria es el daño neuronal adicional e progresivo provocado por complicaciones sistémicas o intracraneales posteriores[9][10]. De acuerdo a la evidencia del ATLS e la Brain Trauma Foundation, un solo episodio breve de hipotensión arterial (PAS <100 mmHg) o de hipoxia (SpO2 <94%) duplica la tasa de mortalidad e empeora el pronóstico funcional del paciente[10]. Por ello, las metas terapéuticas centrales son mantener la PAS ≥ 100 mmHg, la SpO2 ≥ 94% e la euncapnia (PaCO2 35-45 mmHg)[11][13].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 27,
+    "pregunta": "Paciente de 40 años, conductor sin cinturón de seguridad que impactó su tórax anterior contra el volante de su vehículo, ingresa a la urgencia refiriendo dolor retroesternal agudo e disnea. Al examen físico presenta excoriaciones sobre el esternón e taquicardia sinusal de 120 lpm. El Electrocardiograma (ECG) de 12 derivaciones muestra extrasístoles ventriculares frecuentes e desnivel del segmento ST, con elevación de troponina I sérica. La radiografía de tórax descarta neumotórax e la ecografía no muestra líquido pericárdico. ¿A qué lesión del trauma torácico cerrado corresponde e cuál es su manejo?",
+    "opciones": [
+      "A) Taponamiento cardíaco purulento; requiere pericardiocentesis inmediata.",
+      "B) Disección aguda de la aorta torácica ascendente; requiere cirugía endovascular con stent.",
+      "C) Contusión cardíaca (miocárdica); requiere monitorización electrocardiográfica continua en UTI por riesgo de arritmias severas.",
+      "D) Embolia pulmonar masiva por aire; requiere colocación de filtro en la vena cava inferior."
+    ],
+    "correcta": "C",
+    "justificacion": "La contusión cardíaca (o contusión miocárdica) es una lesión provocada por traumatismos contusos de alta energía sobre el tórax anterior (frecuentemente asociada a impacto del volante o fractura esternal)[14]. Se manifiesta por dolor retroesternal, taquicardia e alteraciones electrocardiográficas (arritmias ventriculares, bloqueo de rama, cambios en el segmento ST e T) e marcadores miocárdicos elevados (troponina I/T)[14]. La principal complicación es el desarrollo de arritmias ventriculares letales durante las primeras 24 horas[14]. El manejo consiste en el ingreso e monitorización electrocardiográfica e hemodinámica continua en UTI[14].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 28,
+    "pregunta": "Paciente varón de 30 años es rescatado de un incendio en un ambiente cerrado (habitación confinada). Ingresa consciente pero agitado, con tos persistente, esputo carbonáceo (con hollín), vibrisas nasales chamuscadas, ronquera, estridor laringeo e eritema con ampollas en la cara e cuello. La saturación de O2 es del 92% con máscara de reservorio. ¿Cuál es la conducta de manejo de la vía aérea prioritaria e ineludible?",
+    "opciones": [
+      "A) Administrar nebulizaciones con salbutamol e esperar los resultados de la carboxihemoglobina.",
+      "B) Indicar antibioticoterapia empírica parenteral con vancomicina e alta ambulatoria.",
+      "C) Realizar traqueostomía por punción a las 48 horas si desarrolla fiebre.",
+      "D) Asegurar la vía aérea mediante intubación orotraqueal temprana e inmediata."
+    ],
+    "correcta": "D",
+    "justificacion": "En los pacientes quemados expuestos a humo o llamas en espacios cerrados, la presencia de signos de lesión por inhalación de la vía aérea (estridor, ronquera, esputo carbonáceo, vibrisas nasales quemadas o quemaduras faciales profundas) representa una indicación absoluta de Intubación Orotraqueal Temprana e Inmediata[15]. El edema de la glotis e tejido subglótico progresa de manera fulminante e impredecible durante las primeras horas de la reanimación hídrica; demorar la intubación hasta que aparezca insuficiencia respiratoria grave o anoxia imposibilita la intubación posterior por cierre glótico, obligando a una vía aérea quirúrgica de urgencia[16].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 29,
+    "pregunta": "Electricista de 35 años sufre una descarga eléctrica accidental de alto voltaje (13.800 voltios) en su lugar de trabajo. Ingresa consciente pero desorientado, con una quemadura profunda de entrada en la palma de la mano derecha e una quemadura explosiva de salida en el pie izquierdo, observándose además la pierna izquierda tensa, pálida e con ausencia de pulsos pedios. La orina emitida es de color rojo-amarronada oscura. Los laboratorios muestran una CPK de 35.000 U/L, K+ de 6.2 mEq/L e Creatinina de 2.2 mg/dL. ¿Cuáles son las complicaciones sistémicas e locales mayores e su manejo?",
+    "opciones": [
+      "A) Rabdomiólisis masiva con riesgo de insuficiencia renal aguda, hiperpotasemia e síndrome compartimental; requiere fluidoterapia agresiva e fasciotomías quirúrgicas.",
+      "B) Neumotórax hipertensivo bilateral purulento; requiere drenaje pleural e penicilina benzatínica.",
+      "C) Lesión corneal por radiación UV; requiere lavado ocular con solución fisiológica exclusivamente.",
+      "D) Apendicitis aguda congestiva sintomática; requiere apendicectomía laparoscópica."
+    ],
+    "correcta": "A",
+    "justificacion": "Las quemaduras eléctricas de alto voltaje (>1000 V) funcionan como un \"iceberg\": el daño tisular verdadero es masivo en los tejidos profundos (músculo, hueso) a lo largo del trayecto de la corriente entre los puntos de entrada e salida, a pesar de que las lesiones cutáneas parezcan limitadas[19][20]. Provocan rabdomiólisis severa con liberación de mioglobina (mioglobinuria e orinas oscuras), hiperpotasemia e riesgo de falla renal aguda, exigiendo una reanimación hídrica más agresiva que en quemaduras térmicas (buscando diuresis de 1 a 1.5 ml/kg/h)[19]. Además, el edema muscular masivo dentro de las fascias genera síndrome compartimental profundo, requiriendo fasciotomías quirúrgicas de urgencia en las extremidades afectadas[19][21].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 30,
+    "pregunta": "En la UTI se atiende a un paciente de 45 años con quemaduras profundas de 2º y 3º grado en el 40% de la superficie corporal, que lleva 72 horas de evolución. El paciente requiere ser trasladado al quirófano para una limpieza quirúrgica e escartectomía bajo anestesia general. Durante la inducción de la secuencia rápida de intubación, el médico anestesiólogo analiza la selección de los fármacos relajantes musculares. ¿Qué fármaco relajante neuromuscular está estrictamente CONTRAINDICADO en este paciente quemado tras las 48-72 horas del trauma?",
+    "opciones": [
+      "A) Rocuronio.",
+      "B) Succinilcolina (Suxametonio).",
+      "C) Veuronio.",
+      "D) Cisatracurio."
+    ],
+    "correcta": "B",
+    "justificacion": "La Succinilcolina (relajante neuromuscular despolarizante) está estrictamente contraindicada en pacientes quemados a partir de las 48 a 72 horas posteriores a la quemadura (e hasta 1 a 2 años después de la cicatrización)[21]. El daño tisular e la denervación parcial producen un fenómeno de proliferación masiva e hipersensibilización de los receptores de acetilcolina extra-junctionales en la membrana del sarcolema (up-regulation)[22][23]. La administración de succinilcolina desencadena una salida masiva e incontrolada de potasio intracelular hacia el torrente sanguíneo, provocando una hiperpotasemia fulminante e paro cardíaco en fibrilación ventricular refractaria[22][23]. Para la intubación se deben utilizar relajantes no despolarizantes como el Rocuronio (opción A)[21][22].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 31,
+    "pregunta": "Paciente de 24 años consulta en el centro de salud por una quemadura de 2º grado superficial en el antebrazo derecho provocada por agua hirviendo hace 6 horas. Al examen físico presenta eritema, conservación de la sensibilidad e flictenas (ampollas) tensas e inactivas de 3 cm de diámetro. En el contexto de los cuidados locales e la analgesia del paciente quemado, ¿cuál es la conducta recomendada respecto a las ampollas e al manejo del dolor?",
+    "opciones": [
+      "A) Romper e remover agresivamente todas las ampollas intactas e no administrar ningún analgésico por riesgo de adicción.",
+      "B) Aplicar hielo directo sobre la herida e prescribir antibióticos empíricos orales como amoxicilina por 14 días.",
+      "C) Realizar limpieza antiséptica suave, conservar las flictenas tensas intactas (o drenar el contenido asépticamente) e administrar analgesia de forma escalonada (AINEs/Opioides).",
+      "D) Cubrir la lesión con sulfadiazina de plata en polvo e realizar curación expuesta al aire libre sin vendajes."
+    ],
+    "correcta": "C",
+    "justificacion": "En las quemaduras de 2º grado superficiales, las ampollas o flictenas tensas e intactas actúan como un apósito biológico estéril que protege la dermis expuesta de la colonización bacteriana e del dolor por aire ambiente; por ello, la indicación del ATLS e de los consensos de quemados es conservarlas intactas (o aspirar/drenar el líquido con aguja estéril manteniendo el techo epidérmico), removiendo únicamente las ampollas rotas, contaminadas o purulentas[15][25]. El manejo del dolor debe ser proactivo e escalonado, utilizando AINEs o paracetamol para dolor leve, e opioides intravenosos (tramadol, morfina) para dolor moderado a severo o previo a las curaciones[15]. No se indican antibióticos profilácticos sistémicos de rutina[28][29].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 32,
+    "pregunta": "Durante la ejecución del protocolo para el diagnóstico de Muerte Encefálica según la normativa legal en Argentina (Ley 27.447), el médico neurólogo e el intensivista evalúan de forma seriada los reflejos de tronco encefálico. Para explorar la integridad de la formación reticular e los núcleos de los pares craneales V y VII a nivel protuberancial, ¿qué estímulo físico se aplica e cuál es la respuesta refleja que confirma la presencia o ausencia de función?",
+    "opciones": [
+      "A) Insuflación de aire frío en el conducto auditivo externo buscando nistagmo (Reflejo Oculovestibular).",
+      "B) Compresión del lecho ungueal con un bolígrafo buscando flexión de la extremidad.",
+      "C) Estimulación fotica directa con linterna sobre la pupila buscando miosis (Reflejo Fotomotor).",
+      "D) Contacto suave de la córnea con una mecha de algodón estéril buscando el parpadeo reflejo (Reflejo Corneano)."
+    ],
+    "correcta": "D",
+    "justificacion": "La evaluación clínica de la Muerte Encefálica exige la demostración del coma arreflexico e la ausencia completa e irreversible de todos los reflejos del tronco encefálico: Reflejo Fotomotor (Pares II-III): Pupilas intermedias o arreactivas a la luz. Reflejo Corneano (Pares V-VII): El contacto de la córnea con algodón estéril no produce el parpadeo involuntario (falla del trigémino en vía aferente e eferente del facial). Reflejo Oculocefálico (\"ojos de muñeca\" - Pares III, VI, VIII): Al girar la cabeza rápido, los ojos se mueven con la cabeza sin fijar la mirada. Reflejo Oculovestibular (Pares VIII, III, VI): La prueba calórica con agua fría no produce movimientos oculares. Reflejo Nauseoso y Tusígeno (Pares IX, X): La estimulación faríngea o traqueal con la sonda de aspiración no desencadena tos ni arcadas.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 33,
+    "pregunta": "Un paciente de 42 años en protocolo de Muerte Encefálica es sometido al Test de Apnea. La PaCO2 basal del paciente es de 38 mmHg. Se desconecta del respirador e se administra O2 al 100% por cánula traqueal a 6 L/min. A los 8 minutos de desconexión, el paciente no presenta ningún movimiento inspiratorio espontáneo e los gases arteriales informan: pH 7.22, PaO2 180 mmHg e PaCO2 de 62 mmHg. ¿Cuál es la interpretación médica e legal de este resultado?",
+    "opciones": [
+      "A) Test de Apnea POSITIVO; confirma la ausencia de función del centro respiratorio bulbar e respalda el diagnóstico de Muerte Encefálica.",
+      "B) Test de Apnea NEGATIVO; demuestra que el paciente conserva la capacidad de ventilar por sí solo.",
+      "C) Test de Apnea DUDOSO; requiere repetir la prueba manteniendo al paciente sin oxígeno durante 30 minutos.",
+      "D) Test de Apnea INVÁLIDO; debido a que la PaO2 superó los 100 mmHg."
+    ],
+    "correcta": "A",
+    "justificacion": "El Test de Apnea es la prueba clínica determinante para evaluar la viabilidad del centro respiratorio localizado en el bulbo raquídeo. Para que el Test de Apnea sea POSITIVO (confirmatorio de la pérdida del centro respiratorio e Muerte Encefálica) se exigen dos criterios simultáneos: Ausencia absoluta de cualquier esfuerzo respiratorio o movimiento toracoabdominal espontáneo durante todo el tiempo de desconexión. Gasometría arterial que demuestre una PaCO2 final ≥ 60 mmHg (o una elevación ≥ 20 mmHg sobre el nivel basal) junto con pH acidótico (< 7.28). Al no haber respiración e alcanzar una PaCO2 de 62 mmHg (incremento >20 mmHg sobre 38), la prueba es positiva e confirma la Muerte Encefálica.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 34,
+    "pregunta": "Paciente de 35 años con diagnóstico certificado de Muerte Encefálica se encuentra en la UTI como potencial donante de órganos. A las pocas horas comienza con un ritmo diurético masivo e desproporcionado de 500 ml/hora de orina diluida, hipotensión arterial (TA 80/40 mmHg), hipernatremia de 158 mEq/L e osmolaridad urinaria muy baja. ¿A qué complicación neuroendocrina por pérdida de función hipotalámica corresponde e cuál es su tratamiento para preservar la viabilidad de los órganos?",
+    "opciones": [
+      "A) Insuficiencia corticoadrenal aguda; tratamiento con altas dosis de espironolactona oral.",
+      "B) Diabetes Insípida Neurogénica (Central); tratamiento con reposición hídrica e administración de Desmopresina (DDAVP) o Vasopresina.",
+      "C) Síndrome de Secreción Inadecuada de Hormona Antidiurética (SIADH); tratamiento con restricción hídrica severa a 200 ml/día.",
+      "D) Cetoacidosis diabética grave; tratamiento con bolo de insulina NPH e furosemida."
+    ],
+    "correcta": "B",
+    "justificacion": "En el paciente con Muerte Encefálica, la necrosis del eje hipotálamo-hipofisario provoca la cesación de la síntesis e liberación de Hormona Antidiurética (ADH o Vasopresina), desencadenando la Diabetes Insípida Central/Neurogénica en hasta un 80% de los donantes cadavéricos. Se caracteriza por poliuria acuosa masiva (>300 ml/h), hipernatremia, hipovolemia e colapso hemodinámico, comprometiendo la perfusión de los órganos a transplantar. El tratamiento consiste en la reposición hídrica e la administración de Desmopresina (DDAVP) o Vasopresina en infusión continua, restaurando la reabsorción renal e estabilizando la presión arterial.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 35,
+    "pregunta": "En la República Argentina, la Ley 27.447 (conocida como Ley Justa) regula el régimen de procuración e trasplante de órganos, tejidos e células. ¿Cuál es el postulado legal fundamental respecto a la condición de donante de órganos en los ciudadanos mayores de 18 años?",
+    "opciones": [
+      "A) Toda persona debe contar con la autorización firmada e presencial de un juez de garantías antes de fallecer para ser donante.",
+      "B) La donación solo es válida si la familia directa acepta la ablación firmando un consentimiento posterior al fallecimiento.",
+      "C) Toda persona mayor de 18 años es considerada donante de órganos e tejidos salvo que haya manifestado expresamente su oposición en vida.",
+      "D) Se requiere el pago de una tasa arancelada e seguro privado para ser incluido en el registro de donantes."
+    ],
+    "correcta": "C",
+    "justificacion": "La Ley 27.447 (Ley de Trasplante de Órganos, Tejidos e Células / Ley Justa) establece en la República Argentina el principio del Donante Presunto: toda persona capaz mayor de 18 años es considerada donante de órganos e tejidos manifestada la muerte encefálica, excepto que haya dejado constancia expresa de su oposición en vida en el registro del INCUCAI, Renaper o Registro Civil. De esta manera, se respeta la autonomía del sujeto manifestada en vida e se elimina el requerimiento de que la familia tome la decisión o autorice la donación en el momento del duelo.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 36,
+    "pregunta": "Durante la ablación multiorgánica de un donante cadavérico en el quirófano, los equipos quirúrgicos de procuración coordinan la extracción, perfusión con solución de preservación (p. ej. Celsior o UW) e empaquetado en frío de los órganos sólidos. Considerando la tolerancia celular a la Isquemia Fría (tiempo desde la interrupción del flujo sanguíneo e enfriamiento del órgano hasta su revascularización en el receptor), ¿cuál de las siguientes opciones ordena correctamente los órganos de MENOR a MAYOR tolerancia al tiempo de isquemia fría?",
+    "opciones": [
+      "A) Riñón (36 h) → Hígado (12 h) → Corazón (4-6 h).",
+      "B) Hígado (24 h) → Riñón (12 h) → Corazón (12 h).",
+      "C) Pulmón (48 h) → Corazón (24 h) → Páncreas (12 h).",
+      "D) Corazón (4-6 h) → Hígado (8-12 h) → Riñón (24-36 h)."
+    ],
+    "correcta": "D",
+    "justificacion": "El tiempo de isquemia fría tolerable varía críticamente según el metabolismo e resistencia celular de cada órgano sólido: Corazón y Pulmón: Tienen la menor tolerancia a la isquemia fría (4 a 6 horas), requiriendo un traslado e implante ultra-rápido. Hígado y Páncreas: Tolerancia intermedia a la isquemia fría (8 a 12 horas). Riñón: Presenta la mayor tolerancia a la isquemia fría (24 a 36 horas) (pudiendo extenderse con máquinas de perfusión pulsátil), lo que permite traslados a mayores distancias e tipificación inmunológica exhaustiva.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 37,
+    "pregunta": "Paciente de 22 años ingresa inconsciente al shockroom tras sufrir una herida por arma de fuego en el abdomen con shock hemorrágico severo e evisceración. No hay familiares ni allegados presentes e el paciente carece de identificación. El cirujano de guardia decide ingresar inmediatamente al quirófano para realizar una Laparotomía de urgencia e controlar el sangrado. Desde la perspectiva de la bioética médica e el derecho sanitario, ¿cómo se justifica éticamente operar sin un Consentimiento Informado firmado previo?",
+    "opciones": [
+      "A) Por la Doctrina del Privilegio Terapéutico en Emergencia (o Excepción de Emergencia), donde la preservación de la vida prevalece sobre la formalidad documental.",
+      "B) Porque los médicos tienen la potestad absoluta de operar a cualquier ciudadano sin su consentimiento en cualquier contexto.",
+      "C) Porque la ley exige la firma obligatoria del director administrativo del hospital antes de iniciar la anestesia.",
+      "D) Por la presunción de que el paciente ha renunciado a todos sus derechos individuales al ingresar al hospital público."
+    ],
+    "correcta": "A",
+    "justificacion": "En situaciones de emergencia médica o trauma agudo de riesgo vital inminente donde el paciente se encuentra inconsciente o incapacitado e no existen familiares que puedan otorgar la representación, se aplica la Excepción de Emergencia / Privilegio Terapéutico de Urgencia[30][31]. El principio de Beneficencia e la obligación legal de auxilio (salvar la vida o evitar secuelas graves) prevalecen sobre el requisito formal del Consentimiento Informado previo. El equipo médico debe actuar de inmediato, registrando detalladamente las circunstancias en la historia clínica e informando a la familia tan pronto como sea posible[30][31].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 38,
+    "pregunta": "Un médico cirujano se dispone a comunicar a la esposa e padres de un paciente de 25 años que este ha fallecido durante la cirugía de control de daños tras un accidente vial devastador. Para aplicar el Protocolo SPIKES (o Lillo) de entrega de malas noticias en trauma, el profesional reúne a la familia en una sala privada e inicia la entrevista explorando qué les han informado previamente los paramédicos o el personal de la guardia. ¿A qué paso específico del acrónimo SPIKES corresponde esta intervención inicial?",
+    "opciones": [
+      "A) Paso \"E\" (Emotions / Respuesta empática a las emociones).",
+      "B) Paso \"P\" (Perception / Exploración de la percepción previa del paciente o familia).",
+      "C) Paso \"S\" (Setting / Preparación del entorno e privacidad).",
+      "D) Paso \"K\" (Knowledge / Entrega del conocimiento o mala noticia)."
+    ],
+    "correcta": "B",
+    "justificacion": "El acrónimo SPIKES (adaptado por Lillo) estructura la comunicación de malas noticias en 6 pasos metodológicos: S - Setting (Entorno): Preparar un espacio privado, libre de interrupciones e sentarse a la altura de los ojos. P - Perception (Percepción): Explorar la percepción previa e comprensión de la familia sobre la gravedad del cuadro (\"¿Qué les han dicho hasta ahora sobre cómo llegó su familiar?\"), lo que permite identificar errores conceptuales e ajustar el punto de partida del mensaje. I - Invitation (Invitación): Evaluar cuánto detalle desean conocer. K - Knowledge (Conocimiento): Transmitir la mala noticia con lenguaje claro e en pequeñas dosis. E - Emotions (Emociones): Validar e responder con empatía al impacto emocional. S - Strategy/Summary (Estrategia): Resumir e planificar los pasos siguientes.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 39,
+    "pregunta": "Paciente de 30 años con traumatismo craneoencefálico e torácico es derivado desde un hospital zonal tras haber sido intubado con un tubo orotraqueal. A su llegada al shockroom se observa saturación de O2 del 82% e la auscultación demuestra buena entrada de aire e murmullo vesicular presente en el hemitórax derecho, pero ausencia casi completa de ruidos respiratorios en el hemitórax izquierdo, sin desviación traqueal ni timpanismo a la percusión[32]. ¿Cuál es la causa más probable de esta asimetría respiratoria e la conducta inmediata?",
+    "opciones": [
+      "A) Neumotórax a tensión izquierdo; realizar punción inmediata con aguja gruesa.",
+      "B) Taponamiento cardíaco; realizar pericardiocentesis subxifoidea.",
+      "C) Intubación selectiva del bronquio fuente derecho; desinflar el balón e retirar el tubo orotraqueal 2 a 3 cm bajo auscultación continua.",
+      "D) Ruptura completa del hemidiafragma derecho; realizar laparotomía exploradora de urgencia."
+    ],
+    "correcta": "C",
+    "justificacion": "En los pacientes intubados en la emergencia o durante el traslado que presentan hipotermia o desaturación brusca con asimetría en la auscultación torácica (ausencia de murmullo a la izquierda), la causa más frecuente e corregible es la Intubación Selectiva del Bronquio Fuente Derecho[35]. Debido a que el bronquio fuente derecho es más ancho, corto e vertical que el izquierdo, el tubo orotraqueal introducido en exceso se aloja en el bronquio derecho, hipoventilando e atelectasiando el pulmón izquierdo. La conducta inmediata es desinflar el manguito/balón, retirar el tubo 2 a 3 cm e re-auscultar ambos campos pulmonares hasta constatar murmullo simétrico bilateral[35].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 40,
+    "pregunta": "Politraumatizado de 45 años ingresa a la UTI tras sobrevivir a una cirugía de control de daños por choque hemorrágico e aplastamiento abdominal. A los 10 días de evolución, a pesar del control infeccioso, el paciente presenta taquicardia sostenida, fiebre de 38.8 ºC, leucocitosis de 22.000/mm3, aumento de la permeabilidad capilar con edema anasarca e disfunción progresiva respiratoria, renal e hepática. ¿A qué fase de la mortalidad por trauma (Trunkey) e respuesta inflamatoria corresponde esta complicación sistémica tardía?",
+    "opciones": [
+      "A) Fase 1 de Trunkey (Inmediata); por sección del tallo encefálico.",
+      "B) Fase 2 de Trunkey (Temprana); por hematoma epidural agudo.",
+      "C) Paro cardíaco por hiperpotasemia iatrogénica por succinilcolina.",
+      "D) Fase 3 de Trunkey (Tardía); por Síndrome de Respuesta Inflamatoria Sistémica (SIRS) masivo e Falla Multiorgánica (FMO)."
+    ],
+    "correcta": "D",
+    "justificacion": "La Fase 3 o Tardía de la distribución trimodal de la mortalidad en trauma de Trunkey ocurre días a semanas después del evento primario (representando el 20% de las muertes en trauma)[1][38]. Está provocada por la respuesta inflamatoria sistémica desregulada (SIRS masivo / \"tormenta de citoquinas\"), sepsis secundaria, distrés respiratorio agudo (SDRA) e Falla Multiorgánica (FMO) / Disfunción Multiorgánica Progresiva[1][38]. Su prevención e manejo requieren cuidados intensivos de soporte avanzado, nutrición enteral precoz, control de focos sépticos e optimización de la perfusión tisular[1][38].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 41,
+    "pregunta": "Paciente politraumatizado de 35 años por accidente de motocicleta presenta choque hemorrágico e hipotensión severa. Tras la infusión de 1 litro de cristaloides calentados, mantiene una PAM < 65 mmHg y un sangrado pelviano retroperitoneal inestable. Según las directrices del ATLS y los principios de la Cirugía de Control de Daños, ¿cuál es la meta de presión arterial recomendada en la Resucitación Permisiva (Hipotensión Controlada) antes de lograr el control quirúrgico o angioembolográfico definitivo de la hemorragia?",
+    "opciones": [
+      "A) Mantener una PAS entre 80 y 90 mmHg (PAM ~50–60 mmHg) para prevenir la disrupción del coágulo inicial y reducir el sangrado.",
+      "B) Infundir cristaloides a goteo libre hasta alcanzar una PAS > 140 mmHg para hiperfundir los riñones antes de la cirugía.",
+      "C) Mantener una PAS < 50 mmHg de forma indefinida durante 48 horas sin administrar ningún tipo de hemoderivados.",
+      "D) Administrar vasopresores en altas dosis con el objetivo de elevar la PAS a 160 mmHg con noradrenalina antes de transfundir."
+    ],
+    "correcta": "A",
+    "justificacion": "En la fase inicial de la reanimación del paciente politraumatizado con choque hemorrágico activo (sin lesión cerebral grave concomitante), el ATLS y los protocolos de resucitación de control de daños respaldan el concepto de Hipotensión Permisiva o Controlada. Buscar cifras de presión arterial normales o elevadas (PAS >100–120 mmHg) mediante la infusión masiva de cristaloides diluye los factores de coagulación, enfrió al paciente y \"rompe\" el coágulo blando inestable (pop the clot), empeorando el sangrado [25, 35]. La meta de la resucitación permisiva es mantener una PAS de 80 a 90 mmHg (PAM de 50–60 mmHg) para asegurar la perfusión de órganos vitales hasta lograr la hemostasia quirúrgica [25, 35].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 42,
+    "pregunta": "En un paciente politraumatizado que sufre un traumatismo abdominal cerrado con choque hemorrágico, se realiza un estudio eFAST (Extended Focused Assessment with Sonography for Trauma) en la sala de reanimación. ¿Cuáles son las ventanas anatómicas clásicas que explora el eFAST abdominal y torácico para detectar líquido libre intraabdominal, hemopericardio y neumotórax?",
+    "opciones": [
+      "A) Ventana carotídea, ventana femoral, ventana inguinal e ventana poplítea.",
+      "B) Ventana hepatorrenal (Espacio de Morison), ventana esplenorrenal, ventana pélvica (Saco de Douglas), ventana pericárdica y ventanas pleurales bilaterales.",
+      "C) Ventana gástrica anterior, ventana duodenal retroperitoneal, ventana pancreática y ventana tiroidea.",
+      "D) Ventana vesical exclusiva, ventana cística, ventana retroperitoneal pura y ventana glútea."
+    ],
+    "correcta": "B",
+    "justificacion": "El estudio eFAST (Ultrasonografía Focalizada Extendida para Trauma) es una herramienta diagnóstica rápida, no invasiva y repetible en el shockroom [112]. Sus ventanas estándar son: Hepatorrenal (Espacio de Morison): Detecta líquido libre entre hígado y riñón derecho [112]. Esplenorrenal: Detecta líquido entre bazo y riñón izquierdo [112]. Pélvica (Saco de Douglas / retrovesical): Evalúa líquido en pelvis [112]. Pericárdica (Subxifoidea): Detecta hemopericardio [112]. Pleurales (Anteriores y laterales bilaterales): Detecta hemotórax y neumotórax (ausencia de deslizamiento pleural) [112].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 43,
+    "pregunta": "Paciente quemado de 30 años presenta una quemadura de 3º grado en el cuello y tórax superior tras la explosión de un solvente industrial en espacio cerrado. A las 6 horas de evolución comienza con disnea progresiva, estridor inspiratorio y voz ronca/apagada. Se realiza una fibrolaringoscopia que confirma edema eritematoso severo de las cuerdas vocales e insuflación subglótica. ¿Cuál es la conducta de manejo de la vía aérea y oxigenoterapia recomendada?",
+    "opciones": [
+      "A) Indicar kinesiterapia respiratoria y micronebulizaciones con solución fisiológica sin intubación.",
+      "B) Administrar corticoides inhalatorios en altas dosis y dar de alta con pauta de alarma.",
+      "C) Proceder a la intubación orotraqueal temprana (vía aérea definitiva) e administrar O2 al 100% humedecido para acelerar la eliminación de monóxido de carbono.",
+      "D) Practicar una toracostomía de descompresión con aguja gruesa en el 2º espacio intercostal línea medioclavicular."
+    ],
+    "correcta": "C",
+    "justificacion": "La lesión por inhalación de la vía aérea superior se caracteriza por un edema fulminante y progresivo del tejido supraglótico y subglótico que puede ocluir la vía aérea en pocas horas [10, 54]. Ante la presencia de signos de compromiso inminente (estridor, ronquera, disnea, edema de cuerdas vocales), la indicación prioritaria del ATLS y consensos de quemados es la Intubación Orotraqueal Temprana con un tubo de calibre adecuado antes de que el cierre glótico lo imposibilite [36, 54]. Asimismo, se administra O2 al 100% humedecido para tratar la hipoxia y desplazar aceleradamente la carboxihemoglobina si hubo inhalación de CO [10, 54].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 44,
+    "pregunta": "Durante el cálculo de las necesidades hídricas en un paciente gran quemado de 80 kg con 50% de Superficie Corporal Quemada (SCQ) atendido según las pautas actualizadas del Consenso de Quemaduras y ATLS (fórmula de Parkland de 2 a 4 ml/kg/%SCQ), ¿qué tipo de fluido es el cristaloide de elección para la reanimación inicial durante las primeras 24 horas y por qué se desaconseja el uso de Solución Fisiológica al 0.9% en grandes volúmenes?",
+    "opciones": [
+      "A) Solución Glucosada al 5%; para aportar calorías e prevenir la hipoglucemia precoz.",
+      "B) Albúmina humana al 20%; porque no produce edema en el espacio intersticial durante las primeras 6 horas.",
+      "C) Solución Hipertónica de Cloruro de Sodio al 3%; para reducir la diuresis a cero e mantener el sodio plasmático.",
+      "D) Ringer Lactato (o Solución Fisiológica Balanceada); la Solución Fisiológica al 0.9% en grandes volúmenes produce acidosis metabólica hiperclorémica."
+    ],
+    "correcta": "D",
+    "justificacion": "El fluido de elección universal para la reanimación hídrica en las primeras 24 horas del gran quemado es el Ringer Lactato (solución cristalina balanceada e isotónica) [10, 54]. Su composición de electrolitos y tampón lactato asemeja al plasma [10]. El uso masivo de Solución Fisiológica al 0.9% (que contiene 154 mEq/L de Na y 154 mEq/L de Cl) está formalmente desaconsejado en grandes volúmenes porque provoca acidosis metabólica hiperclorémica y vasodilatación renal, agravando la inestabilidad hemodinámica [10, 35].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 45,
+    "pregunta": "Paciente de 28 años en estado de Muerte Encefálica certificada según la Ley 27.447 de la República Argentina es mantenido en la UTI como potencial donante de órganos. Durante el mantenimiento del donante cadavérico, se monitorizan las metas hemodinámicas e respiratorias para garantizar la viabilidad de los injertos. De acuerdo con las guías del INCUCAI, ¿cuáles son las metas paramétricas estándar de Presión Arterial Media (PAM), diuresis horaria y saturación de O2?",
+    "opciones": [
+      "A) PAM ≥ 65–70 mmHg (con o sin inotrópicos a dosis bajas), Diuresis horaria entre 1 y 3 ml/kg/hora y SatO2 ≥ 95% (PaO2 ≥ 100 mmHg).",
+      "B) PAM < 40 mmHg, Diuresis anúrica (0 ml/h) y PaO2 de 50 mmHg con acidemia severa.",
+      "C) PAM > 130 mmHg con crisis hipertensiva, Diuresis > 15 ml/kg/h sostenida e hipercapnia con PaCO2 > 90 mmHg.",
+      "D) PAM independiente, sin necesidad de medir la diuresis ni monitorear la presión venosa central."
+    ],
+    "correcta": "A",
+    "justificacion": "El mantenimiento del donante cadavérico en la UTI exige un soporte de terapia intensiva estricto para evitar el paro cardíaco por inestabilidad autonómica y perfundir adecuadamente los órganos sólidos a trasplantar [34, 97]. Las metas fisiológicas óptimas recomendadas por el INCUCAI son: PAM ≥ 65–70 mmHg (recurriendo a noradrenalina/vasopresina si es necesario), Diuresis horaria entre 1 y 3 ml/kg/h (evitando la oligoanuria y la poliuria no tratada de la diabetes insípida), y PaO2 ≥ 100 mmHg con SatO2 ≥ 95% mediante ventilación protectora [28, 34, 97].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 46,
+    "pregunta": "Se realiza la evaluación de reflejos de tronco en un paciente de 48 años con sospecha de Muerte Encefálica. Para explorar el Reflejo Oculovestibular (Prueba Calórica), el médico verifica primero la permeabilidad del conducto auditivo externo e la integridad de la membrana timpánica. A continuación, instila 50 ml de agua helada (a 4 ºC) en el conducto auditivo externo e observa los ojos durante 1 a 2 minutos. ¿Qué respuesta ocular confirma la ausencia de función del tronco encefálico (Reflejo Oculovestibular NEGATIVO)?",
+    "opciones": [
+      "A) La presencia de nistagmo horizontal rápido con fase lenta hacia el oído irrigado e fase rápida opuesta.",
+      "B) La ausencia total de desviación o movimiento ocular (ojos inmóviles en posición central).",
+      "C) La desviación tónica lenta e sostenida de ambos globos oculares hacia el lado del oído irrigado.",
+      "D) La miosis pupilar bilateral extrema e inmediata con parpadeo corneal reflejo."
+    ],
+    "correcta": "B",
+    "justificacion": "La prueba calórica explora las vías vestibular e oculomotoras del tronco cerebral (núcleos de los pares VIII, VI y III) [28, 99]. En un individuo consciente o en coma metabólico con tronco intacto, la irrigación con agua helada produce una desviación tónica de la mirada hacia el oído irrigado (o nistagmo) [28]. En la Muerte Encefálica (Reflejo Oculovestibular ausente/negativo), la pérdida completa de los núcleos del tronco encefálico se manifiesta por la ausencia total de movimiento ocular, permaneciendo los ojos fijos e inmóviles en posición central a pesar del estímulo térmico frío [28, 99].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 47,
+    "pregunta": "Un paciente de 50 años que sufrió un traumatismo encéfalocraneano grave evoluciona a Muerte Encefálica certificada. En la entrevista familiar para informar el fallecimiento e coordinar el proceso de procuración de acuerdo con la Ley Justa (27.447) en Argentina, la familia pregunta quién decide legalmente la donación si el fallecido no dejó manifestación en contrario en vida. ¿Cuál es la respuesta médica e legal correcta?",
+    "opciones": [
+      "A) La decisión recae exclusivamente en el director administrativo del hospital sin importar la ley.",
+      "B) La familia debe votar e firmar un contrato comercial de venta de los órganos en un plazo de 24 horas.",
+      "C) Al ser mayor de 18 años e no haber manifestado oposición expresa en vida, la ley lo considera Donante Presunto, por lo que la familia es informada del proceso de procuración con contención y apoyo.",
+      "D) El Juez de Paz local debe ordenar la donación mediante un juicio sumario obligatorio."
+    ],
+    "correcta": "C",
+    "justificacion": "La Ley 27.447 (Ley de Trasplante de Órganos, Tejidos y Células / Ley Justa) establece la figura del Donante Presunto: todo ciudadano argentino mayor de 18 años capaz es considerado donante de órganos al momento de su fallecimiento, a menos que haya dejado constancia expresa de su oposición en vida [34, 97]. En el momento de comunicar la muerte encefálica, el equipo de procuración no pide \"autorización o permiso\" a la familia para decidir, sino que le informa que se cumplirá la voluntad presunta del fallecido bajo la ley, brindándole contención psicológica, acompañamiento en el duelo y transparencia [23, 24, 34, 97].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 48,
+    "pregunta": "En la atención inicial del politraumatizado según el protocolo ATLS, se evalúa la \"D\" (Disability / Evaluación Neurológica). Además de determinar el puntaje en la Escala de Coma de Glasgow y la respuesta pupilar (tamaño y reactividad), ¿cuál es el objetivo primario de identificar signos de focalización o anisocoria (p. ej., pupila midriática arreactiva unilateral) en un paciente con TCE?",
+    "opciones": [
+      "A) Diagnosticar una infección micótica aguda del nervio óptico.",
+      "B) Confirmar la presencia de una fractura expuesta del hueso calcáneo.",
+      "C) Indicar la necesidad de realizar un lavado peritoneal diagnóstico de urgencia.",
+      "D) Detectar hipertensión endocraneana con herniación uncal inminente (compresión del III par craneal) que requiere medidas de descompresión."
+    ],
+    "correcta": "D",
+    "justificacion": "En la evaluación neurológica inicial (D del ATLS), la presencia de una pupila midriática, fija e arreactiva unilateral (anisocoria) en un paciente traumatizado es un signo de alarma neurológica crítica [99, 127]. Indica hipertensión endocraneana severa con herniación uncal del lóbulo temporal a través del hendidura de Bichat, la cual comprime de forma directa el III par craneal (nervio oculomotor) ipsilateral y el tronco encefálico [99, 127]. Constituye una emergencia neuroquirúrgica que exige terapia hiperosmolar (Manitol o Salino Hipertónico), hiperventilación transitoria y evacuación quirúrgica del hematoma (epidural/subdural) [99, 127].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 49,
+    "pregunta": "Paciente de 40 años sufre un aplastamiento torácico en un accidente laboral por caída de una maquinaria pesada. Presenta cianosis intensa en cabeza, cuello e tórax superior, edematización facial, hemorragias conjuntivales masivas y petequias en la parte superior del cuerpo, conservando murmullo vesicular bilateral e estabilidad hemodinámica. ¿A qué cuadro clínico por hiperpresión venosa súbita corresponde e cuál es su manejo?",
+    "opciones": [
+      "A) Asfixia Traumática (Síndrome de Perthes); requiere manejo sintomático, oxigenoterapia e soporte de las lesiones asociadas.",
+      "B) Neumotórax a tensión bilateral; requiere bilobectomía pulmonar de urgencia.",
+      "C) Taponamiento cardíaco fulminante; requiere pericardiocentesis con aguja de trocar.",
+      "D) Síndrome de Embolia Grasa; requiere embolectomía quirúrgica transaórtica."
+    ],
+    "correcta": "A",
+    "justificacion": "La Asfixia Traumática (Síndrome de Perthes) se produce por una compresión violenta y repentina de la pared torácica y abdomen superior (aplastamiento). Esto transmite un aumento agudo e masivo de la presión venosa retrógrada a través del sistema de la vena cava superior (que carece de válvulas) hacia los capilares de la cabeza, cuello y conjuntivas [35, 98]. Provoca la clásica apariencia de cianosis cérvico-facial, edema, petequias y hemorragias subconjuntivales \"en ojos de conejo\" [35, 98]. Pese a su llamativa presentación clínica, el manejo es conservador e de soporte (oxígeno, elevación de la cabeza a 30º), descartando lesiones asociadas intratorácicas [35, 98].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 50,
+    "pregunta": "Un cirujano de guardia atiende a un paciente de 22 años que ingresa con una herida penetrante por arma blanca en el cuello (Zona II del cuello, entre el cartílago cricoides e el ángulo de la mandíbula). El paciente presenta hematoma expansivo en el cuello, soplo vascular audible, estridor respiratorio e hemoptisis abundante. ¿Cuál es la conducta médica e quirúrgica de elección?",
+    "opciones": [
+      "A) Realizar una ecografía Doppler cervical ambulatoria e dar el alta con analgésicos.",
+      "B) Exploración quirúrgica urgente en quirófano (Cervicotomía exploradora) con control de la vía aérea.",
+      "C) Colocación de una faja compresiva de cuello e mantener en observación durante 72 horas.",
+      "D) Administrar penicilina G benzatínica endovenosa e solicitar resonancia magnética en 30 días."
+    ],
+    "correcta": "B",
+    "justificacion": "El manejo del trauma penetrante de cuello (Zona II) se basa en la presencia de \"signos duros\" o de certeza de lesión vascular o aero-digestiva mayor [120, 143]: Signos duros vasculares: Hematoma expansivo o pulsátil, shock no explicado, soplo/fremito, sangrado pulsátil activo, ausencia de pulso carotídeo [120, 143]. Signos duros aero-digestivos: Hemoptisis, hematemesis, aire esofágico, estridor, enfisema subcutáneo masivo [120, 143]. La presencia de cualquier signo duro es indicación absoluta de Cervicotomía Exploradora Quirúrgica Inmediata previa estabilización de la vía aérea en quirófano [120, 143].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 51,
+    "pregunta": "Paciente de 60 años con antecedente de tabaquismo severo sufre un accidente de tránsito. En la evaluación inicial se detecta una masa pulsátil expansiva e indolora en la región supraumbilical. Se realiza una Angio-TC de tórax e abdomen que confirma un Aneurisma de Aorta Abdominal (AA",
+    "opciones": [
+      "A) de 6.5 cm de diámetro con ruptura contenida retroperitoneal e hematoma periaórtico. ¿Cuál es el tratamiento definitivo de elección e su indicación? A) Manejo conservador con reposo en cama e betabloqueantes orales durante 1 año.",
+      "B) Infiltración local con esclerosantes vasculares e aspiración del hematoma.",
+      "C) Reparación quirúrgica urgente (abierta con injerto sintético o endovascular con endoprótesis EVAR).",
+      "D) Toracotomía de resucitación con clampeo de la vena cava superior."
+    ],
+    "correcta": "C",
+    "justificacion": "Un Aneurisma de Aorta Abdominal (AAA) asintomático tiene indicación quirúrgica cuando su diámetro supera los 5.5 cm en hombres (o 5.0 cm en mujeres) debido a que el riesgo de ruptura anual se eleva exponencialmente [32, 107, 113]. Ante la presencia de ruptura (incluso contenida retroperitoneal) o sintomatología aguda, constituye una emergencia quirúrgica vascular absoluta que requiere la reparación abierta (reemplazo protésico de Dacron/PTFE) o el tratamiento endovascular (EVAR con endoprótesis) para evitar la exanguinación y la muerte [32, 107, 113].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 52,
+    "pregunta": "En el manejo del paciente quemado, se analiza la profundidad de las lesiones cutáneas y su capacidad de regeneración. Una quemadura que afecta la epidermis y la capa papilar superficial de la dermis, caracterizada por la presencia de ampollas o flictenas de fondo rosado húmedo, marcadamente dolorosa al tacto e al aire ambiente, con llenado capilar conservado, corresponde a:",
+    "opciones": [
+      "A) Quemadura de 1º grado (Eritema).",
+      "B) Quemadura de 3º grado (Espesor total o B).",
+      "C) Quemadura de 4º grado (Carbonización).",
+      "D) Quemadura de 2º grado superficial (Dérmica A)."
+    ],
+    "correcta": "D",
+    "justificacion": "Las quemaduras se clasifican según su profundidad histológica en [10, 54]: 1º Grado (Epidérmica): Eritema, dolor, sin flictenas (p. ej., solar) [10, 54]. 2º Grado Superficial (Dérmica A): Afecta epidermis y dermis papilar [10, 54]. Presenta flictenas o ampollas intactas, lecho rosado e húmedo, sensibilidad al dolor muy aumentada (hiperalgesia) y llenado capilar rápido [10, 54]. Epiteliza en 7 a 14 días sin cicatriz quirúrgica. 2º Grado Profundo (Dérmica AB): Dermis reticular afectación, lecho pálido/moteado, hipoalgesia [10, 54]. 3º Grado (Espesor Total o B): Destrucción completa de dermis y anexos. Aspecto acartonado, blanco o indurado, totalmente indolora (analgesia por destrucción nerviosa) [10, 54].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 53,
+    "pregunta": "Paciente de 32 años en la UTI con Muerte Encefálica certificada es evaluado para procuración de órganos. Durante el mantenimiento se instala una hipotermia progresiva con temperatura central de 31.5 ºC, la cual provoca bradicardia e vasodilatación. ¿Por qué es crítico corregir la hipotermia mediante sistemas de calentamiento activo e mantener la temperatura del donante ≥ 35–36 ºC?",
+    "opciones": [
+      "A) Porque la hipotermia produce arritmias ventriculares, coagulopatía, disfunción miocárdica e disminución de la perfusión de los órganos a transplantar.",
+      "B) Porque la hipotermia acelera la aparición de rigidez cadavérica impidiendo la incisión quirúrgica.",
+      "C) Porque la elevación de la temperatura destruye los antígenos HLA impidiendo la tipificación de histocompatibilidad.",
+      "D) Porque el calor evita la transmisión del virus de la hepatitis B y VIH al receptor."
+    ],
+    "correcta": "A",
+    "justificacion": "La Muerte Encefálica produce la abolición del centro termorregulador hipotalámico, llevando al donante a la poiquilotermia (tendencia a enfriarse a la temperatura ambiente) [28, 34, 97]. La hipotermia no tratada (<35 ºC) provoca alteraciones fisiológicas severas: arritmias cardíacas refractarias, coagulopatía de consumo, diuresis fría, vasoconstricción/vasodilatación aberrante y disfunción miocárdica, comprometiendo la viabilidad y perfusión de los órganos sólidos a procurarse [28, 34, 97]. Por ello, es obligatorio el uso de calentadores de aire forzado y cristaloides tibios para mantener la temperatura central entre 35.5 ºC y 37 ºC [34, 97].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 54,
+    "pregunta": "En el marco del proceso de procuración de órganos del INCUCAI, se evalúa la compatibilidad inmunológica entre el donante cadavérico y los receptores en lista de espera. ¿Qué prueba inmunológica de laboratorio en suero (crucial en el trasplante renal) evalúa la presencia de anticuerpos preformados en el receptor contra los linfocitos del donante para prevenir el rechazo hiperagudo?",
+    "opciones": [
+      "A) Dosaje de eritrosedimentación y proteína C reactiva ultrasensible.",
+      "B) Crossmatch (Prueba cruzada serológica entre linfocitos del donante y suero del receptor).",
+      "C) Prueba de VDRL y aglutinación de Widal.",
+      "D) Tasa de filtrado glomerular medida por aclaramiento de inulina."
+    ],
+    "correcta": "B",
+    "justificacion": "El Crossmatch (Prueba Cruzada Serológica) es la prueba inmunológica indispensable pre-trasplante (especialmente en trasplante renal y cardíaco) [34, 97]. Consiste en enfrentar en el laboratorio los linfocitos T y B del donante contra el suero sanguíneo del receptor [34, 97]. Si el receptor posee anticuerpos preformados donor-específicos (anti-HLA), se produce lisis celular (Crossmatch POSITIVO), lo que contraindica categóricamente el trasplante por el riesgo de rechazo hiperagudo irreversible e inmediato en la mesa de operaciones [34, 97]. El trasplante solo puede realizarse con un Crossmatch NEGATIVO [34, 97].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 55,
+    "pregunta": "Durante la comunicación de la noticia del fallecimiento de una víctima de traumatismo agudo a sus familiares mediante el Protocolo SPIKES (Lillo), los allegados reaccionan con un estallido de ira y culpa hacia el equipo médico (\"¡Ustedes tardaron mucho y lo dejaron morir!\"). ¿Cuál es la respuesta comunicacional y empática adecuada por parte del médico?",
+    "opciones": [
+      "A) Responder con el mismo tono agresivo ordenando que se retiren de la sala de inmediato.",
+      "B) Culpar a los paramédicos del traslado por la demora para deslindar responsabilidad personal.",
+      "C) Mantener la calma, validar la emoción de dolor e frustración sin entrar en discusiones defensivas, e ofrecer un espacio de escucha y aclaración de dudas.",
+      "D) Abandonar la sala y llamar al personal de seguridad privada para que los desaloje del hospital."
+    ],
+    "correcta": "C",
+    "justificacion": "En el paso \"E\" (Emotions / Respuesta empática) del protocolo SPIKES/Lillo para comunicación de malas noticias, es frecuente que las familias reaccionen ante la noticia trágica con negación, llanto o ira [23, 24]. La actitud profesional adecuada exige validar la emoción (\"entiendo su enojo y el dolor devastador de este momento\"), evitar respuestas defensivas, justificativas o agresivas, mantener la calma e un tono de voz sereno, y ofrecer silencio empático e disponibilidad para responder preguntas cuando la familia esté en condiciones de escuchar [23, 24].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 56,
+    "pregunta": "En el abordaje del paciente politraumatizado según el ATLS, la \"E\" (Exposure / Exposure and Environmental Control) exige desvestir completamente al paciente para examinar minuciosamente el dorso, periné y pliegues en busca de lesiones ocultas. Sin embargo, ¿cuál es la complicación iatrogénica sistémica grave asociada a la exposición prolongada que debe prevenirse activamente mediante mantas térmicas e fluidos calientes?",
+    "opciones": [
+      "A) Hipertermia maligna por anestésicos inhalatorios.",
+      "B) Acidosis respiratoria pura por atrapamiento aéreo.",
+      "C) Alcalosis metabólica por hiperventilación antálgica.",
+      "D) Hipotermia iatrogénica (que desencadena coagulopatía, arritmias y empeora la triada de la muerte)."
+    ],
+    "correcta": "D",
+    "justificacion": "La desnudación completa del paciente en la fase E del ATLS es imprescindible para el examen físico integral (revisión de la espalda mediante maniobra de rodamiento en bloque e tacto rectal/perineal) [66, 127]. No obstante, la exposición al aire ambiente del shockroom desencadena rápidamente Hipotermia Iatrogénica [66, 127]. La hipotermia (<35 ºC) altera la cascada de la coagulación, inhibe la función plaquetaria, genera arritmias y deprime la función miocárdica, integrando la temida Tríada de la Muerte (Hipotermia, Acidosis, Coagulopatía) [25, 49, 127]. Por ello, se debe re-cubrir al paciente inmediatamente tras el examen e utilizar mantas radiantes y soluciones IV calentadas a 37–40 ºC [25, 49].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 57,
+    "pregunta": "Paciente de 25 años sufre una herida penetrante por arma de fuego en el hemitorax derecho a nivel de la línea axilar media. Ingresa con hipotensión (TA 80/50 mmHg), disnea e matidez a la percusión ipsilateral. Se coloca tubo de tórax con débito inicial de 800 ml de sangre. La radiografía post-drenaje muestra reexpansión pulmonar completa y el débito se reduce a 30 ml/hora durante las siguientes 4 horas. ¿Cuál es el manejo quirúrgico recomendado?",
+    "opciones": [
+      "A) Conservador con monitoreo de drenaje pleural, analgesia e reposición volémica sin requerir toracotomía.",
+      "B) Toracotomía de urgencia inmediata en quirófano.",
+      "C) Lobectomía pulmonar inferior derecha de emergencia.",
+      "D) Clampeo inmediato del tubo de tórax durante 48 horas."
+    ],
+    "correcta": "A",
+    "justificacion": "Pese a tratarse de una herida penetrante, más del 80-85% de los traumatismos torácicos (cerrados y penetrantes) se resuelven de forma definitiva mediante maniobras no quirúrgicas complejas: colocación de un tubo de drenaje pleural (avenamiento) e reanimación hídrica [98, 143]. Debido a que el débito inicial fue de 800 ml (menor al criterio de hemotórax masivo de >1500 ml) y el sangrado posterior fue mínimo (30 ml/h, lejos del límite de 200 ml/h), sumado a la reexpansión pulmonar completa en la placa, la indicación es el manejo conservador con tubo pleural a tracción/trampa de agua sin necesidad de toracotomía [98, 143].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 58,
+    "pregunta": "Un paciente quemado por llama presenta quemaduras de 3º grado circunscritas e indoloras en la totalidad de la circunferencia del antebrazo y mano derecha. A las 4 horas de evolución, el paciente refiere parestesias en los dedos, los pulsos radial e cubital se vuelven impalpables y el llenado capilar es mayor a 4 segundos. ¿Cuál es la indicación quirúrgica inmediata para salvar la extremidad?",
+    "opciones": [
+      "A) Amputación transhumeral de urgencia.",
+      "B) Escarotomía descompresiva longitudinal del antebrazo y mano.",
+      "C) Inmovilización rígida con yeso cerrado.",
+      "D) Aplicación de compresas frías e elevación del miembro sin cirugía."
+    ],
+    "correcta": "B",
+    "justificacion": "Las quemaduras de 3º grado circunferenciales en extremidades forman un anillo de escara inelástica que, al sumarse al edema progresivo por fuga capilar en el tejido subcutáneo, actúa como un torniquete continuo que compromete la perfusión tisular y produce un síndrome compartimental secundario [10, 54]. La presencia de signos de isquemia (ausencia de pulsos, llenado capilar lento, parestesias, dolor a la extensión pasiva) exige la Escarotomía Descompresiva Inmediata: realizar incisiones longitudinales en las caras medial y lateral de la extremidad a través de la escara insensible hasta alcanzar tejido subcutáneo viables, liberando la presión e restaurando el flujo vascular [10, 54].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 59,
+    "pregunta": "En la evaluación neurológica de la Muerte Encefálica, se realiza la exploración del Reflejo Oculocefálico (\"Ojos de muñeca\"). Para ejecutar la maniobra, el médico fija los párpados e rota rápidamente la cabeza del paciente de un lado a otro en el plano horizontal. ¿Qué respuesta ocular confirma la presencia de Muerte Encefálica (Reflejo Oculocefálico AUSENTE)?",
+    "opciones": [
+      "A) Los ojos se mueven en dirección opuesta a la rotación de la cabeza, fijando la mirada en el techo.",
+      "B) Los ojos presentan un nistagmo vertical espontáneo de alta frecuencia.",
+      "C) Los ojos se mueven solidariamente con la cabeza (permanecen fijos en la órbita como los de una muñeca de porcelana).",
+      "D) Se produce una miosis pupilar extrema bilateral con lagrimeo."
+    ],
+    "correcta": "C",
+    "justificacion": "El reflejo oculocefálico explora la conexión del tronco encefálico entre los núcleos vestibulares (VIII par) y los núcleos oculotores (III y VI pares) [28, 99]. En un paciente con tronco cerebral intacto, al girar la cabeza rápidamente hacia la derecha, los globos oculares se devían automáticamente hacia la izquierda (dirección opuesta) para mantener la fijación [28]. En la Muerte Encefálica (Reflejo Oculocefálico ausente), al haberse perdido los núcleos integradores del tronco, los ojos se mueven pasivamente en la misma dirección en que se gira la cabeza (como si estuvieran congelados o dibujados en la órbita, fenómeno denominado \"ojos de muñeca\") [28, 99].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 60,
+    "pregunta": "En el marco de la ética de la investigación e la práctica médica en emergencias y trasplantes, la Ley Justa (27.447) en Argentina prohíbe taxativamente y sanciona penalmente cualquier transacción económica, compensación financiera o beneficio comercial a cambio de la donación de órganos o tejidos. ¿A qué principio bioético fundamental resguarda esta prohibición estricta?",
+    "opciones": [
+      "A) Principio de Eficiencia Comercial Privada.",
+      "B) Principio de Paternalismo Quirúrgico.",
+      "C) Principio de Beneficencia del Mercado.",
+      "D) Principio de No Comercialización (Inalienabilidad del cuerpo humano) y Dignidad Humana."
+    ],
+    "correcta": "D",
+    "justificacion": "La legislación sobre trasplantes en Argentina (Ley 27.447) y las declaraciones internacionales de bioética (Declaración de Estambul) establecen de forma tajante el Principio de No Comercialización y Gratitud de la Donación [34, 97]. El cuerpo humano y sus componentes son extra-comercialia (están fuera del comercio) [34, 97]. La prohibición absoluta de la compra-venta o tráfico de órganos resguarda la Dignidad Humana, el Principio de Justicia Distributiva y la equidad, evitando la explotación de poblaciones vulnerables e garantizando que la donación sea un acto altruista, solidario e voluntario [34, 97].",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 61,
+    "pregunta": "Niño de 6 años es llevado al shockroom tras sufrir un traumatismo facial e cervical severo al impactar contra el manubrio de una bicicleta. Presenta obstrucción completa de la vía aérea superior por hematoma e edema masivo, fracasando los intentos de intubación orotraqueal e ventilación con mascarilla (\"no intubable, no oxigenable\"). El equipo médico evalúa la realización de una vía aérea quirúrgica de emergencia. ¿Cuál es la conducta de manejo de la vía aérea quirúrgica de elección e la contraindicación en este grupo etario pediátrico?",
+    "opciones": [
+      "A) Cricotiroidotomía por punción con aguja e ventilación jet transcutánea; la cricotiroidotomía quirúrgica con bisturí está contraindicada en menores de 12 años por riesgo de estenosis subglótica.",
+      "B) Traqueostomía percutánea con dilatadores de Griggs; la cricotiroidotomía por aguja está contraindicada en niños por riesgo de embolia gaseosa.",
+      "C) Cricotiroidotomía quirúrgica con hoja de bisturí Nº 11; la intubación retrógrada está contraindicada en menores de 18 años por inmadurez laríngea.",
+      "D) Intubación nasotraqueal a ciegas con pinza de Magill; la cricotiroidotomía por punción está contraindicada por peligro de desgarro carotídeo."
+    ],
+    "correcta": "A",
+    "justificacion": "En pacientes pediátricos menores de 12 años, la anatomía de la laringe es pequeña, móvil e con un cartílago cricoides flexible que representa el punto más estrecho de la vía aérea. La realización de una cricotiroidotomía quirúrgica con bisturí en niños menores de 12 años está estrictamente contraindicada debido al elevado riesgo de trisección del cartílago cricoides, colapso laríngeo e estenosis subglótica irreversible. Ante la imposibilidad de intubar e oxigenar, el procedimiento quirúrgico de elección es la Cricotiroidotomía por Punción (con aguja/catéter sobre aguja de calibre 12-14G) conectada a un sistema de insuflación jet con oxígeno a alta presión o conector de tubo endotraqueal.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 62,
+    "pregunta": "Paciente varón de 28 años ingresa al shockroom tras sufrir una herida por arma de fuego en el hemitórax derecho. Al examen físico se observa una herida soplante e succionante en la pared torácica de 4 cm de diámetro (superior a los 2/3 del diámetro de la tráquea) con disnea extrema, cianosis e disminución del murmullo vesicular ipsilateral. Según las directrices del ATLS, ¿cuál es la primera maniobra de manejo local de la herida antes de colocar el tubo de drenaje pleural?",
+    "opciones": [
+      "A) Realizar la sutura hermética continua de la piel de la herida en tres planos bajo anestesia general.",
+      "B) Ocluir la herida con un apósito estéril sellado en tres de sus bordes (fijación en tres lados) creando una válvula unidireccional.",
+      "C) Inserción de una aguja de punción lumbar de calibre 22G en el interior de la herida penetrante.",
+      "D) Empaquetamiento de la herida con gasas furacinadas apretadas sin colocar ningún drenaje posterior."
+    ],
+    "correcta": "B",
+    "justificacion": "Un Neumotórax Abierto (o herida soplante de tórax) ocurre cuando un defecto en la pared torácica supera los 2/3 del diámetro de la tráquea; la resistencia al flujo de aire es menor a través de la herida que por la vía aérea superior, acumulando aire en la cavidad pleural con cada inspiración e colapsando el pulmón. El manejo inicial e inmediato del ATLS en la escena o shockroom consiste en colocar un apósito o gasa vaselinada estéril fijado/sellado con cinta adhesiva en SOLO TRES DE SUS BORDES. Esto crea un mecanismo de válvula unidireccional: durante la inspiración el apósito se ocluye sobre la herida evitando la entrada de aire, e durante la espiración se despega permitiendo la salida del aire atrapado. Posteriormente se coloca un tubo de drenaje pleural en un sitio distante.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 63,
+    "pregunta": "En el estudio de la fisiopatología e resucitación del paciente con quemaduras graves (Gran Quemado), se analiza la instauración del \"Shock por Quemadura\" durante las primeras horas posteriores al trauma térmico. ¿Cuál es el mecanismo fisiopatológico primario responsable de la hipovolemia e del edema masivo en tejidos no quemados?",
+    "opciones": [
+      "A) La vasoconstricción coronaria e renal por liberación de hormona antidiurética en la hipófisis posterior.",
+      "B) La destrucción exclusiva del tejido óseo esponjoso con secuestro de calcio e sodio en la médula.",
+      "C) El aumento masivo de la permeabilidad capilar e fuga endotelial de agua, sodio e proteínas hacia el espacio intersticial.",
+      "D) La hemólisis intravascular pura por toxinas bacterianas con destrucción completa de leucocitos."
+    ],
+    "correcta": "C",
+    "justificacion": "El Shock por Quemadura es un shock de etiología mixta (hipovolémico e distributivo). La quemadura extensa gatilla una respuesta inflamatoria sistémica masiva con liberación masiva de mediadores (histamina, bradicinina, prostaglandinas, tromboxanos, citoquinas e radicales libres). Esto desencadena una pérdida de la integridad del endotelio microvascular con aumento masivo de la permeabilidad capilar e fuga de plasma, sodio e albúmina hacia el espacio intersticial (\"fuga capilar\" o tercer espacio), tanto en la zona quemada como en tejidos no quemados. La extravasación alcanza su pico máximo entre las 8 e 24 horas del trauma, justificando la reanimación hídrica agresiva con Ringer Lactato.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 64,
+    "pregunta": "Un operario de la industria química sufre la caída accidental de un recipiente con una solución concentrada de Hidróxido de Sodio (Sosa Cáustica) sobre ambos miembros inferiores. Ingresa a la guardia a los 20 minutos del evento con dolor insoportable e eritema. ¿Cuál es el mecanismo de lesión tisular característico de las quemaduras por álcalis e la medida de descontaminación de urgencia?",
+    "opciones": [
+      "A) Necrosis por coagulación con formación de escara seca; requiere aplicación de vinagre diluido sin usar agua.",
+      "B) Necrosis por carbonización ósea; requiere desbridamiento quirúrgico inmediato con hoja de bisturí.",
+      "C) Necrosis por desecación proteica superficial; requiere aplicación de pomadas con corticoides e vendaje expuesto.",
+      "D) Necrosis por licuefacción con saponificación de grasas e penetración profunda; requiere lavado continuo con agua a baja presión por 20 a 30 minutos."
+    ],
+    "correcta": "D",
+    "justificacion": "Las quemaduras químicas por álcalis (como el hidróxido de sodio, potasa o lejía) son sustancialmente más graves e penetrantes que las producidas por ácidos. Los álcalis reaccionan con los lípidos tisulares provocando saponificación de las grasas e necrosis por licuefacción, lo que disuelve las membranas celulares e permite una penetración profunda e continuada en los tejidos. El manejo de urgencia inmediato e ineludible es el lavado o irrigación continua con abundante agua corriente a baja presión durante al menos 20 a 30 minutos (o hasta neutralizar el pH en superficie). Está estrictamente contraindicado intentar neutralizar la sustancia con agentes químicos opuestos (p. ej., ácidos), ya que la reacción exotérmica empeora la quemadura.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 65,
+    "pregunta": "En la exploración clínica estandarizada para la certificación de Muerte Encefálica según la normativa de Argentina (Ley 27.447 e protocolos del INCUCAI), se investiga la presencia o ausencia de los reflejos eferentes del tronco encefálico bajo. ¿Cómo se explora clínicamente el Reflejo Tusígeno (Reflejo Traqueal) e cuál es la respuesta que confirma la Muerte Encefálica?",
+    "opciones": [
+      "A) Introducción de una sonda de aspiración a través del tubo endotraqueal estimulando la carina; la Muerte Encefálica se confirma por la ausencia total de tos o esfuerzo respiratorio.",
+      "B) Compresión del globo ocular a través de los párpados cerrados; la Muerte Encefálica se confirma por la presencia de bradicardia severa.",
+      "C) Irrigación del conducto auditivo con 50 ml de agua caliente a 45 ºC; la Muerte Encefálica se confirma por miosis unilateral.",
+      "D) Estimulación táctil de la pared posterior de la orofaringe con un bajalenguas; la Muerte Encefálica se confirma por salivación profusa."
+    ],
+    "correcta": "A",
+    "justificacion": "La demostración de la pérdida irreversible de las funciones del tronco encefálico exige la comprobación de la arreflexia completa en todos sus niveles (mesencéfalo, protuberancia e bulbo). El Reflejo Tusígeno (dependiente de los pares craneales IX y X a nivel bulbar) se explora mediante la introducción e avance de una sonda de aspiración blanda a través del tubo endotraqueal hasta alcanzar e estimular la carina traqueal. En la Muerte Encefálica, el reflejo está ausente, evidenciándose la inmovilidad glótica e la ausencia total de tos, arcadas o movimientos respiratorios reflexógenos.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 66,
+    "pregunta": "Un paciente con traumatismo craneoencefálico grave en la UTI es evaluado para Muerte Encefálica. Como método complementario de diagnóstico electrofisiológico, se solicita un Electroencefalograma (EEG). De acuerdo con las normas técnicas del INCUCAI y la Sociedad Argentina de Neurología, ¿cuál es el criterio electroencefalográfico requerido para certificar el paro de la actividad eléctrica cerebral?",
+    "opciones": [
+      "A) Presencia de complejas espiga-onda lentas de 5 Hz localizadas en el lóbulo occipital izquierdo.",
+      "B) Inactividad electrocortical (silencio eléctrico cerebral o trazado isoeléctrico) sin actividad mayor a 2 microvoltios durante 30 minutos de registro continuo.",
+      "C) Trazado discontinuo con bursts de supresión intermitentes cada 10 segundos ante estímulo doloroso.",
+      "D) Registro de ondas beta rápidas simétricas de alta amplitud en todas las derivaciones frontales."
+    ],
+    "correcta": "B",
+    "justificacion": "El Electroencefalograma (EEG) es un método complementario electrofisiológico reconocido legalmente en Argentina para confirmar Muerte Encefálica. Para que un EEG valide el diagnóstico, debe demostrar Inactividad Electrocortical (Silencio Eléctrico Cerebral o EEG isoeléctrico / plano), definido como la ausencia de actividad bioeléctrica cerebral electroencefalográfica superior a 2 microvoltios (2 µV) en un registro continuo de al menos 30 minutos de duración, realizado con técnicas de alta sensibilidad (ganancia de 2 µV/mm) e electrodos de montaje estándar (10-20 system).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 67,
+    "pregunta": "En el sistema de procuración de órganos e tejidos regulado por el INCUCAI (Ley 27.447), además de los donantes fallecidos bajo criterios neurológicos (Muerte Encefálica), existe la modalidad de Donación en Asistolia (Donación tras la determinación de la muerte por criterios circulatorios e respiratorios). ¿Qué criterio clínico e temporal estricto se exige para certificar la muerte por paro cardiorrespiratorio irreversible previo a la extracción de tejidos u órganos?",
+    "opciones": [
+      "A) La presencia de fibrilación ventricular sostenida durante 20 segundos sin realizar maniobras de reanimación.",
+      "B) La ausencia de pulso carotídeo en un paciente despierto que mantiene ventilación espontánea.",
+      "C) La constatación del cese irreversible de las funciones circulatorias e respiratorias tras maniobras de RCP infructuosas, con un período de observación continua de asistolia de al menos 5 minutos.",
+      "D) La suspensión voluntaria del tratamiento farmacológico hipertensivo en un paciente afebril durante 12 horas."
+    ],
+    "correcta": "C",
+    "justificacion": "La Donación tras la determinación de la muerte por Criterios Circulatorios y Respiratorios (Donación en Asistolia) se rige bajo protocolos éticos e legales rigurosos (Clasificación de Maastricht). Para certificar el fallecimiento e autorizar el inicio del procedimiento de procuración, se exige la constatación de la ausencia completa e irreversible de circulación e respiración espontánea (asistolia en ECG e ausencia de pulso/presión) tras el cese de las maniobras de reanimación cardiopulmonar avanzadas o retiro del soporte vital, seguido de un período obligatorio de observación continua e ininterrumpida de asistolia (\"período de no-toca\" o no-touch period ) de al menos 5 minutos para descartar la autorresucitación espontánea (Lazarus phenomenon).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 68,
+    "pregunta": "Durante el mantenimiento intensivo de un donante cadavérico con Muerte Encefálica en la UTI, se detecta en los controles de laboratorio un nivel de sodio plasmático de 168 mEq/L (hipernatremia severa) derivado de la diabetes insípida no tratada. ¿Cuál es el impacto de la hipernatremia severa no corregida en el donante sobre el injerto e cuál es la conducta médica del equipo de procuración?",
+    "opciones": [
+      "A) Se asocia a una elevada tasa de disfunción primaria del injerto hepático en el receptor; requiere corrección activa con líquidos hipotónicos e vasopresina.",
+      "B) Produce la curación espontánea de la lesión cerebral; requiere suspensión inmediata de todos los sueros intravenosos.",
+      "C) Es un hallazgo beneficioso que previene el rechazo hiperagudo renal; requiere infusión de solución salina al 3%.",
+      "D) Contraindica de forma absoluta e definitiva la donación de todos los tejidos e huesos."
+    ],
+    "correcta": "A",
+    "justificacion": "En el mantenimiento del donante cadavérico, la hipernatremia severa (Na+ > 155–160 mEq/L) provocada por la diabetes insípida central provoca deshidratación celular e edema hepatocitario agudo. Múltiples estudios de trasplante demuestran que la hipernatremia no corregida en el donante es un factor de riesgo independiente mayor de Disfunción Primaria del Injerto Hepático (falla aguda del trasplante de hígado) e pérdida del injerto renal. La conducta médica en la UTI exige la corrección progresiva e activa del sodio plasmático (meta Na+ <150 mEq/L) mediante la infusión de líquidos hipotónicos (Dextrosa al 5% o Salino al 0.45%) e el control de la poliuria con Desmopresina (DDAVP) o Vasopresina.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 69,
+    "pregunta": "Un médico cirujano se reúne con los familiares de un joven de 20 años politraumatizado para informar que, tras 4 horas de intervenciones e reanimación avanzada, el paciente ha fallecido por choque hemorrágico exanguinante. Al escuchar la noticia, la madre reacciona gritando: \"¡No puede ser verdad, esto es una pesadilla, mi hijo estaba sano esta mañana, busquen a otro médico porque se equivocaron de persona!\". De acuerdo con la psicología del trauma e las fases del duelo descritas por Elisabeth Kübler-Ross, ¿a qué fase corresponde esta respuesta e cuál es la conducta médica adecuada?",
+    "opciones": [
+      "A) Fase de Negación; requiere mantener una actitud de empatía, serenidad e presencia, permitiendo la asimilación gradual sin discutir ni confrontar.",
+      "B) Fase de Aceptación; requiere solicitar la firma inmediata de la autorización de cremación en menos de 1 minuto.",
+      "C) Fase de Depresión clínica; requiere la administración forzada de sedantes orales a la madre sin su consentimiento.",
+      "D) Fase de Negociación; requiere llamar al personal policial para que proceda al arresto de los familiares."
+    ],
+    "correcta": "A",
+    "justificacion": "Ante la comunicación de una noticia crítica o la muerte repentina e inesperada de un ser querido en un contexto de trauma agudo, la primera etapa del proceso de duelo (según el modelo de Kübler-Ross) es la Fase de Negación e Shock. Funciona como un mecanismo de defensa psíquico transitorio para amortiguar el impacto emocional insoportable. La conducta médica profesional debe ser de escucha empática, serenidad e validación emocional, evitando confrontar o discutir agresivamente, pero manteniendo la veracidad del mensaje e ofreciendo contención, tiempo e espacio para que la familia asimile la realidad en \"pequeñas dosis\".",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 70,
+    "pregunta": "En el manejo del traumatismo abdominal cerrado en un paciente politraumatizado hemodinámicamente inestable en el que no se dispone de equipo de ecografía eFAST, el equipo de cirugía realiza un Lavado Peritoneal Diagnóstico (LPD) en la sala de reanimación. ¿Cuáles son los criterios cuantitativos de laboratorio en el líquido aspirado que confirman un LPD POSITIVO para hemoperitoneo o lesión de víscera hueca e indican la realización de una laparotomía exploradora?",
+    "opciones": [
+      "A) Recuento de glóbulos rojos < 1.000/mm3, leucocitos < 50/mm3 e ausencia de bacterias.",
+      "B) Recuento de glóbulos rojos ≥ 100.000/mm3, leucocitos ≥ 500/mm3, o presencia de bacterias, fibras alimentarias o bilis.",
+      "C) Presencia de plaquetas > 500.000/mm3 e pH alcalino mayor a 8.5 sin eritrocitos.",
+      "D) Presencia de amilasa urinaria menor a 5 U/L e líquido claro transparente sin glóbulos rojos."
+    ],
+    "correcta": "B",
+    "justificacion": "El Lavado Peritoneal Diagnóstico (LPD) es una técnica invasiva e altamente sensible para detectar sangrado intraperitoneal o perforación de víscera hueca en trauma abdominal cerrado. Tras la aspiración inicial (donde la salida de >10 ml de sangre franca es positiva), si no sale sangre macroscópica se infunde 1.000 ml de solución fisiológica e se envía muestra al laboratorio. Se define como LPD POSITIVO (indicación de Laparotomía) a: Recuento de Glóbulos Rojos ≥ 100.000/mm3. Recuento de Leucocitos ≥ 500/mm3. Presencia de bacterias (tinción de Gram), fibras vegetales/alimentarias, restos fecales o bilis.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 71,
+    "pregunta": "Paciente de 35 años, motociclista impactado lateralmente por un automóvil, ingresa politraumatizado al shockroom en estado de shock hipovolémico severo (TA 70/40 mmHg, FC 140 lpm). Al examen físico destaca inestabilidad e dolor a la palpación suave de las espinas ilíacas. La radiografía de pelvis muestra una fractura inestable del anillo pélvico por compresión anteroposterior con separación de la sínfisis pubiana mayor a 3 cm (\"Pelvis en Libro Abierto\" / APC II). ¿Cuál es el origen de la hemorragia masiva en este tipo de lesión e la primera medida de contención biomecánica?",
+    "opciones": [
+      "A) Sangrado arterial exclusivo de la arteria aorta abdominal; requiere toracotomía izquierda en el 3º espacio.",
+      "B) Sangrado venoso de la vena cava superior; requiere colocación de un tubo de drenaje pleural bilateral.",
+      "C) Sangrado del plexo venoso presacro retroperitoneal e ramas de la arteria ilíaca interna; requiere colocación inmediata de una faja/sábana pélvica a nivel de trocánteres mayores.",
+      "D) Sangrado de la arteria femoral profunda en el muslo; requiere compresión con torniquete en la rodilla."
+    ],
+    "correcta": "C",
+    "justificacion": "Las fracturas inestables de pelvis en \"libro abierto\" (mecanismo de compresión anteroposterior) provocan la disrupción de la sínfisis pubiana e de los ligamentos sacroilíacos anteriores. Al abrirse el anillo pélvico, se incrementa drásticamente el volumen de la cavidad pélvica, desgarrando el plexo venoso presacro retroperitoneal (responsable de >85% de los sangrados) e ramas de la arteria ilíaca interna. La medida inicial e prioritaria en el shockroom para salvar la vida es el cierre e contención biomecánica mediante la aplicación de una faja pélvica ( pelvic binder ) o sábana ajustada a la altura de los trocánteres mayores, lo que reduce el volumen pélvico, tampona el sangrado venoso e estabiliza la fractura.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 72,
+    "pregunta": "En la evaluación quirúrgica de un paciente que sufrió quemaduras profundas e traumatismo por aplastamiento en el miembro inferior derecho, el cirujano diferencia las indicaciones entre una Escarotomía e una Fasciotomía. ¿Cuál es la diferencia anatómica e técnica fundamental entre ambos procedimientos quirúrgicos de descompresión?",
+    "opciones": [
+      "A) La escarotomía se realiza con anestesia general e la fasciotomía con anestesia local en la piel.",
+      "B) La escarotomía se incide exclusivamente en el tejido óseo esponjoso e la fasciotomía en la piel sana.",
+      "C) La escarotomía está indicada únicamente en quemaduras por agua hirviendo e la fasciotomía en quemaduras solares.",
+      "D) La escarotomía incide la escara dérmica inelástica e el tejido subcutáneo, mientras que la fasciotomía incide las fascias aponeuróticas musculares profundas para liberar los compartimentos musculares."
+    ],
+    "correcta": "D",
+    "justificacion": "La diferencia técnico-anatómica radica en la profundidad del plano tisular incidido: Escarotomía: Indicada en quemaduras de 3º grado (espesor total) circunferenciales. Se incide únicamente la escara dérmica rígida e insensible hasta llegar al tejido subcutáneo superficial, liberando la restricción cutánea sin necesidad de anestesia general. Fasciotomía: Indicada en el Síndrome Compartimental Muscular Profundo (frecuente en quemaduras eléctricas de alto voltaje, traumatismos por aplastamiento o isquemia/revascularización). Exige incidir la piel, el tejido subcutáneo e incidir longitudinalmente la fascia aponeurótica muscular profunda para abrir e descomprimir los compartimentos musculares e preservar la viabilidad miocítica e nerviosa.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 73,
+    "pregunta": "En la certificación de Muerte Encefálica en pacientes de la edad pediátrica (lactantes e niños pequeños), se aplican consideraciones especiales debido a la mayor resistencia e plasticidad de la vasculatura cerebral inmadura. De acuerdo con los consensos e normativas vigentes, ¿cuál es el requisito temporal e de estudios respecto al período de observación e número de evaluaciones en un lactante de 6 meses de vida?",
+    "opciones": [
+      "A) Requiere un solo examen clínico realizado por el médico pediatra general e no requiere estudios de flujo ni EEG.",
+      "B) Requiere un período de observación de 5 minutos e un electrocardiograma plano.",
+      "C) Requiere dos exámenes clínicos neurológicos minuciosos e dos EEG planos (o estudios de flujo) separados por un período de observación obligatorio de al menos 24 horas.",
+      "D) El diagnóstico de Muerte Encefálica está legalmente prohibido en menores de 18 años."
+    ],
+    "correcta": "C",
+    "justificacion": "El diagnóstico de Muerte Encefálica en pediatría exige mayor rigor temporal e confirmatorio debido a la capacidad de recuperación del cerebro inmaduro e a la resistencia a la isquemia: Lactantes de 2 meses a 1 año: Se exigen dos exámenes clínicos neurológicos completos e dos Electroencefalogramas (EEG) isoeléctricos (o estudios de flujo sanguíneo cerebral) separados por un período de observación de al menos 24 horas. Niños de 1 a 18 años: Período de observación de al menos 12 horas entre ambas evaluaciones clínicas e EEG.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 74,
+    "pregunta": "Durante la procuración de un donante cadavérico, los órganos sólidos extirpados (corazón, hígado, riñones) son perfundidos e empaquetados en recipientes estériles a 4 ºC utilizando soluciones de preservación e conservación de órganos (tales como la solución de la Universidad de Wisconsin - UW, Celsior o HTK). ¿Cuál es la composición e el principio biológico de estas soluciones para prevenir el edema e la muerte celular durante la isquemia fría?",
+    "opciones": [
+      "A) Son soluciones hipotónicas libres de sodio que aceleran la lisis celular para ablandar los tejidos.",
+      "B) Son soluciones hiperpotásicas e isoosmóticas con agentes impermeantes (rafinosa, lactobionato) e antioxidantes que evitan el edema celular e la depleción de ATP.",
+      "C) Son soluciones alcohólicas concentradas que fijan las proteínas de la membrana plasmática.",
+      "D) Son soluciones glucosadas al 50% con antibióticos betalactámicos en bolo masivo."
+    ],
+    "correcta": "B",
+    "justificacion": "Las soluciones de preservación de órganos (como la solución UW o Celsior) están diseñadas para proteger las células parenquimatosas durante el período de hipotermia e isquemia fría. Al detenerse la bomba Na+/K+ ATPase por falta de ATP, el sodio e el agua tienden a entrar a la célula provocando edema intracelular e lisis. Las soluciones de preservación son hiperpotásicas (imitan la composición intracelular), contienen agentes impermeantes de alto peso molecular (lactobionato, rafinosa, hidroxietilalmidón) que retienen el agua fuera de la célula, y poseen tampón (fosfato/citrato) e antioxidantes (alopurinol, glutatión) para neutralizar las especies reactivas de oxígeno e preservar la viabilidad celular.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 75,
+    "pregunta": "En el estudio de los Determinantes Sociales de la Salud e de la Atención Informada sobre el Trauma en pacientes víctimas de traumatismos e quemaduras graves, se analiza la influencia del contexto socioeconómico e habitacional sobre la incidencia e recuperación de las lesiones. ¿De qué manera impacta la vulnerabilidad social e la precariedad habitacional en la epidemiología del paciente quemado?",
+    "opciones": [
+      "A) No posee ningún impacto, ya que las quemaduras ocurren con idéntica frecuencia en todos los estratos sociales.",
+      "B) La vulnerabilidad social reduce a cero la probabilidad de sufrir infecciones o complicaciones en el tratamiento.",
+      "C) La precariedad habitacional (hacinamiento, uso de braseros/garrafas e instalaciones eléctricas precarias) incrementa drásticamente el riesgo de quemaduras graves e dificulta los cuidados post-alta.",
+      "D) Los determinantes sociales son factores puramente biológicos genéticos que contraindican la vacunación."
+    ],
+    "correcta": "C",
+    "justificacion": "De acuerdo con el marco de los Determinantes Sociales de la Salud (OMS) e el enfoque de Atención Informada sobre el Trauma, las quemaduras graves son consideradas en gran medida una \"enfermedad de la pobreza\". La precariedad de la vivienda (construcciones de madera, falta de red de gas natural con uso de braseros, garrafas o velas, e conexiones eléctricas clandestinas), el hacinamiento e la falta de recursos económicos son factores de riesgo determinantes que elevan la incidencia de accidentes térmicos e químicos severos. Asimismo, condicionan negativamente la etapa de rehabilitación e curaciones ambulatorias post-alta por falta de agua potable o insumos.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 76,
+    "pregunta": "Un trabajador de un laboratorio de galvanoplastia sufre una quemadura química por exposición cutánea a Ácido Fluorhídrico (HF) en el tórax e brazo. A los pocos minutos presenta dolor insoportable e desproporcionado a la lesión visible, y en el monitor electrocardiográfico de la guardia se observan extrasístoles ventriculares e prolongación del intervalo QT. ¿Cuál es la toxicidad sistémica característica e el tratamiento antídoto específico por vía local e sistémica?",
+    "opciones": [
+      "A) Intoxicación por plomo; tratamiento con EDTA e dimercaprol por vía oral.",
+      "B) Acidosis láctica pura; tratamiento con furosemida en infusión continua.",
+      "C) Hipercalcemia extrema; tratamiento con pamidronato e diálisis peritoneal.",
+      "D) Quelación masiva del Calcio e Magnesio plasmático (hipocalcemia e hipomagnesemia graves); tratamiento con irrigación e infiltración local o intravenosa de Gluconato de Calcio al 10%."
+    ],
+    "correcta": "D",
+    "justificacion": "El Ácido Fluorhídrico (HF) produce una quemadura química extremadamente peligrosa e engañosa. El ion fluoruro (F-) penetra rápidamente la piel e los tejidos profundos, uniéndose de forma ávida e quelando los cationes bivalentes libres de Calcio (Ca++) e Magnesio (Mg++). Esto desencadena una hipocalcemia e hipomagnesemia sistémica severa e fulminante que provoca dolor neurógeno insoportable, parestesias, tetania e arritmias cardíacas letales (fibrilación ventricular e paro en sístole). El tratamiento antídoto específico es la aplicación tópica, infiltración subcutánea o infusión intravenosa/intraarterial de Gluconato de Calcio al 10%, el cual neutraliza los iones fluoruro libres e restaura el calcio sérico.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 77,
+    "pregunta": "Politraumatizado de 30 años en shock hemorrágico por fractura de pelvis e contusión hepática es atendido en el shockroom. En el marco del Protocolo de Transfusión Masiva (PTM) e según los hallazgos del ensayo clínico internacional CRASH-2 incorporados al ATLS, se administra un fármaco antifibrinolítico para reducir la mortalidad por sangrado. ¿Cuál es la indicación, dosis e ventana temporal estricta para la administración del Ácido Tranexámico (TX",
+    "opciones": [
+      "A) en el trauma agudo? A) Administrar 1 gramo IV en bolo en 10 minutos seguido de 1 gramo IV a pasar en 8 horas, administrado dentro de las primeras 3 horas del trauma.",
+      "B) Administrar 10 gramos IV en bolo único únicamente si transcurrieron más de 12 horas desde el accidente.",
+      "C) Administrar 500 mg por vía intramuscular cada 24 horas durante 30 días seguidos.",
+      "D) Administrar Ácido Tranexámico únicamente si el fibrinógeno plasmático es mayor a 800 mg/dL."
+    ],
+    "correcta": "A",
+    "justificacion": "El ensayo clínico aleatorizado CRASH-2 demostró de forma concluyente que la administración precoz de Ácido Tranexámico (antifibrinolítico que inhibe el plasminógeno) en pacientes politraumatizados con o en riesgo de hemorragia significativa reduce de forma demostrada la mortalidad por sangrado e la mortalidad global. El esquema estándar del ATLS establece: dosis de carga de 1 gramo de Ácido Tranexámico IV a pasar en 10 minutos, seguida de una infusión de mantenimiento de 1 gramo IV a pasar en 8 horas. Es condición crítica e ineludible que la primera dosis se administre LO ANTES POSIBLE Y DENTRO DE LAS PRIMERAS 3 HORAS DEL TRAUMA (administrarlo pasadas las 3 horas carece de beneficio e puede incrementar el riesgo de mortalidad).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 78,
+    "pregunta": "Durante la evaluación de un paciente en coma profundo e arreflexia en la UTI con sospecha de Muerte Encefálica, el equipo médico descarta cuidadosamente los cuadros clínicos o farmacológicos que pueden simular o imitar el estado de muerte encefálica (mimics o falsos positivos). ¿Cuál de las siguientes condiciones clínicas o farmacológicas es un imitador clásico de Muerte Encefálica que debe ser excluido antes de certificar el fallecimiento?",
+    "opciones": [
+      "A) Fractura expuesta de tibia e peroné inmovilizada con fijador externo.",
+      "B) Intoxicación agudísima por sedantes/barbitúricos, hipotermia profunda (<28 º",
+      "C) o síndrome de Guillain-Barré fulminante. C) Hipertensión arterial primaria estadio I bajo tratamiento con enalapril.",
+      "D) Presencia de un quiste simple en el corteza del riñón izquierdo."
+    ],
+    "correcta": "B",
+    "justificacion": "Existen cuadros médicos e farmacológicos denominados falsos positivos o imitadores de la Muerte Encefálica ( mimics ) que provocan un estado de coma profundo con abolición transitoria de los reflejos de tronco e apnea, pero que son potencialmente reversibles. Entre ellos destacan: 1) Intoxicación o sobredosis por fármacos depresores del SNC (barbitúricos, benzodiazepinas, propofol, opioides, bloqueantes neuromusculares), 2) Hipotermia profunda (<28–32 ºC), 3) Alteraciones metabólicas/endocrinas severas (coma hipoglucémico, encefalopatía hepática grave), e 4) Neuropatías periféricas agudas fulminantes (síndrome de Guillain-Barré grave, botulismo o envenenamiento por serpientes). Todos deben descartarse categóricamente.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 79,
+    "pregunta": "Un médico coordinador del equipo de procuración del INCUCAI se reúne con la familia de un paciente con Muerte Encefálica para explicar el proceso de donación de órganos e tejidos. Desde la perspectiva bioética e legal en Argentina, ¿cuál es el rol del profesional de la salud e qué aspecto económico debe aclararse explícitamente a los familiares?",
+    "opciones": [
+      "A) Exigir que la familia pague en efectivo los honorarios del equipo quirúrgico de procuración antes de la ablación.",
+      "B) Forzar e amenazar a los familiares si expresan dudas sobre la religión o creencias del fallecido.",
+      "C) Brindar información clara, transparente e empática, aclarando explícitamente que la donación es un acto gratuito e que la familia no asume ningún costo económico por la procuración.",
+      "D) Prometer que los órganos serán subastados al mejor postor para entregar el dinero a la familia."
+    ],
+    "correcta": "C",
+    "justificacion": "La entrevista e acompañamiento a la familia durante el proceso de procuración de órganos exige el cumplimiento de principios éticos e legales de la Ley 27.447 (Ley Justa). El rol del profesional de salud o coordinador de procuración es informar con máxima transparencia, veracidad e empatía sobre la condición de donante e el procedimiento, responder todas las dudas e brindar contención en el duelo. Es obligatorio aclarar formalmente que el proceso de procuración, ablación e trasplante es absolutamente gratuito para la familia del donante, corriendo todos los gastos a cargo del sistema de salud público o de la obra social/prepaga del receptor, sin ningún costo para los deudos.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 80,
+    "pregunta": "En el ámbito de la medicina de emergencias e terapia intensiva, los profesionales de la salud expuestos de forma continua al cuidado de pacientes politraumatizados graves, reanimaciones frustras e comunicación de noticias trágicas pueden desarrollar el Síndrome de Desgaste Profesional (Síndrome de Burnout o Estrés Laboral Asistencial). ¿Cuáles son los tres componentes e manifestaciones patognomónicas que definen este síndrome según Maslach?",
+    "opciones": [
+      "A) Fiebre vespertina, hepatomegalia dolorosa e ictericia franca.",
+      "B) Hiperactividad física, euforia desmedida e insomnio de conciliación.",
+      "C) Bradicardia sinusal, aumento del apetito e hipertrofia muscular.",
+      "D) Agotamiento emocional, despersonalización (cinismo e frialdad relacional) e baja realización personal en el trabajo."
+    ],
+    "correcta": "D",
+    "justificacion": "El Síndrome de Burnout (o Síndrome de Desgaste Profesional) es una entidad reconocida por la OMS e la bibliografía médica (Maslach Burnout Inventory) que afecta con elevada frecuencia a médicos cirujanos, anestesiólogos, intensivistas e emergentólogos. Se define por la presencia de tres dimensiones distintivas: Agotamiento Emocional: Vivencia de pérdida de energía e agotamiento de los recursos emocionales. Despersonalización: Desarrollo de actitudes de cinismo, frialdad, distanciamiento e insensibilidad hacia los pacientes e el equipo de trabajo. Baja Realización Personal: Sentimiento de inadecuación, ineficacia profesional e frustración laboral. Su prevención exige estrategias individuales e medidas de autocuidado institucional (debriefing, turnos rotativos, apoyo psicológico).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 81,
+    "pregunta": "Paciente varón de 30 años, conductor de automóvil involucrado en una colisión frontal a alta velocidad, ingresa al shockroom con disnea severa, cianosis y taquipnea de 34 rpm. Al examen físico del tórax se auscultan ruidos hidroaéreos en la base del hemitórax izquierdo y matidez a la percusión, con desplazamiento del latido cardíaco e ingreso de aire disminuido. La radiografía de tórax y la ecografía eFAST confirman la presencia del estómago e asas intestinales dentro de la cavidad pleural izquierda. ¿Cuál es el diagnóstico de esta lesión traumática y el abordaje quirúrgico de elección en la fase aguda?",
+    "opciones": [
+      "A) Ruptura diafragmática traumática izquierda; requiere abordaje abdominal mediante laparotomía exploradora para reducción visceral y sutura primaria del diafragma.",
+      "B) Hernia hiatal por deslizamiento crónica; requiere tratamiento médico conservador con omeprazol oral y procinéticos.",
+      "C) Eventración abdominal retroperitoneal; requiere abordaje exclusivo por toracotomía derecha con colocación de malla sintética.",
+      "D) Neumotórax espontáneo catamenial; requiere pleurodesis química con talco en la cama del paciente."
+    ],
+    "correcta": "A",
+    "justificacion": "La ruptura diafragmática traumática se produce por un aumento brusco e masivo de la presión intraabdominal (traumatismo cerrado por impacto vehicular o cinturón de seguridad). Ocurre en más del 75–80% de los casos en el hemidiafragma izquierdo debido a la protección anatómica que ejerce el hígado sobre el lado derecho. En la fase aguda, la presión negativa intratorácica favorece la herniación de vísceras huecas (estómago, colon, intestino delgado) hacia el tórax, provocando insuficiencia respiratoria e colapso circulatorio. En el trauma agudo, la vía de elección es la Laparotomía Exploradora, ya que permite reducir las vísceras herniadas, evaluar e tratar lesiones intraabdominales asociadas (frecuentemente esplénicas) y realizar la sutura primaria no reabsorbible (arrafia diafragmática).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 82,
+    "pregunta": "Paciente de 35 años es rescatado por los bomberos de un incendio en un recinto cerrado. Ingresa al shockroom consciente pero confundido, con cefalea intensa, náuseas e taquicardia de 115 lpm. Al examen físico llama la atención la presencia de piel y mucosas de coloración rosada/cereza. La pulsioximetría por fotopletismografía convencional marca una Saturación de O2 del 98%, pero la gasometría arterial con co-oximetría revela un nivel de Carboxihemoglobina (COHb) del 32%. ¿Por qué la pulsioximetría estándar resulta engañosa e cuál es el tratamiento específico?",
+    "opciones": [
+      "A) La pulsioximetría falla por hipotermia central; requiere infusión de cristaloides a 45 ºC sin administrar oxígeno.",
+      "B) La pulsioximetría no distingue entre oxihemoglobina y carboxihemoglobina (mide ambas como saturadas); requiere O2 al 100% por máscara con reservorio o cámara hiperbárica para acelerar la aclaración de CO.",
+      "C) El monóxido de carbono destruye las plaquetas; requiere transfusión masiva de concentrados plaquetarios.",
+      "D) La carboxihemoglobina se elimina exclusivamente por vía renal; requiere diálisis de urgencia con furosemida."
+    ],
+    "correcta": "B",
+    "justificacion": "La intoxicación por Monóxido de Carbono (CO) es la causa principal de muerte inmediata en incendios en espacios cerrados. El CO posee una afinidad por la hemoglobina 200 a 250 veces superior a la del oxígeno, formando Carboxihemoglobina (COHb) e desplazando la curva de disociación a la izquierda (Efecto Haldane), impidiendo la entrega de O2 a los tejidos. El pulsioxímetro estándar de dos longitudes de onda es incapaz de diferenciar la oxihemoglobina de la carboxihemoglobina, marcando falsamente una SatO2 \"normal\" del 98–100%. El diagnóstico exige co-oximetría en sangre arterial. El tratamiento específico es la oxigenoterapia con O2 al 100% mediante máscara con reservorio (reducido la vida media de la COHb de 320 minutos a 80 minutos) o oxígeno hiperbárico si la COHb es >25% o hay compromiso neurológico/cardíaco.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 83,
+    "pregunta": "Durante la evaluación neurológica para la certificación de Muerte Encefálica según la normativa del INCUCAI (Ley 27.447), se explora la integridad del tronco encefálico alto (mesencéfalo). Para evaluar los Reflejos Fotomotor y Consensual (Pares II y III), el médico ilumina secuencialmente cada ojo con una linterna clínica de luz blanca concentrada. ¿Qué hallazgo pupilar confirma la presencia de Muerte Encefálica?",
+    "opciones": [
+      "A) Pupilas mióticas puntiformes de 1 mm con fotorreactividad rápida a la luz directa.",
+      "B) Pupila derecha en miosis y pupila izquierda en midriasis con conservación del reflejo consensual.",
+      "C) Pupilas fijas, en posición intermedia (4 a 6 mm) o midriáticas paralíticas, completamente arreactivas a la luz directa y consensual bilateralmente.",
+      "D) Hippus pupilar espontáneo con parpadeo corneal bilateral involuntario."
+    ],
+    "correcta": "C",
+    "justificacion": "La demostración de la Muerte Encefálica requiere la pérdida irreversible de las funciones de todo el encéfalo, incluido el tronco cerebral. La exploración del Reflejo Fotomotor y Consensual (dependiente de la vía aferente del óptico - II par y eferente parasimpática del oculomotor - III par a nivel mesencefálico) demuestra la ausencia de función cuando ambas pupilas se encuentran fijas, en posición intermedia (4–6 mm) o midriáticas, e no presentan ninguna respuesta de miosis ni constricción ante el estímulo luminoso directo ni consensual. La miosis puntiforme (opción A) sugiere lesión pontina o efecto de opioides.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 84,
+    "pregunta": "En el proceso de procuración de órganos de un donante cadavérico tras la determinación de la muerte por criterios circulatorios (Donación en Asistolia), el equipo quirúrgico monitorea los tiempos de isquemia para prevenir la falla primaria del injerto. ¿A qué se define específicamente como Isquemia Caliente e cuál es el límite límite tolerado para los órganos sólidos?",
+    "opciones": [
+      "A) Al tiempo que permanece el órgano empaquetado en hielo a 4 ºC durante su transporte en ambulancia.",
+      "B) Al período de tiempo en que el donante permanece con fiebre >38 ºC antes de la muerte encefálica.",
+      "C) Al tiempo transcurrido desde que el receptor ingresa a quirófano hasta que recibe la anestesia general.",
+      "D) Al intervalo transcurrido desde el cese de la perfusión arterial y oxigenación tisular a temperatura corporal hasta la perfusión e enfriamiento con solución de preservación."
+    ],
+    "correcta": "D",
+    "justificacion": "En el proceso de procuración y trasplante de órganos, se distinguen dos períodos de isquemia: Isquemia Caliente ( Warm Ischemia ): Es el tiempo transcurrido desde que se interrumpe la perfusión sanguínea nutricia y la oxigenación del órgano a temperatura corporal (37 ºC) —ya sea por asistolia/paro cardiorrespiratorio o por clampeo vascular— hasta que se inicia la perfusión in situ con solución de preservación fría (a 4 ºC). Isquemia Fría ( Cold Ischemia ): Es el período de conservación en frío a 4 ºC desde la perfusión inicial hasta el desclampeo e revascularización en el receptor. Debido a que las células a 37 ºC agotan sus reservas de ATP en minutos desencadenando necrosis, la isquemia caliente debe minimizarse al máximo (idealmente <20 a 30 minutos) para evitar la falla primaria e irreversible del injerto.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 85,
+    "pregunta": "En la atención inicial del politraumatizado según las guías del ATLS, durante la secuencia rápida de intubación (SRI) en un paciente inconsciente con estómago lleno e riesgo de broncoaspiración masiva, el asistente realiza la Maniobra de Sellick (Presión Cricoidea). ¿Cómo se ejecuta técnicamente esta maniobra y cuál es su objetivo anatómico e fisiológico?",
+    "opciones": [
+      "A) Aplicación de presión firme hacia posterior sobre el cartílago cricoides para ocluir el esófago contra la columna vertebral C6 y prevenir la regurgitación pasiva.",
+      "B) Tracción anterior del hueso hioides para abrir las cuerdas vocales e facilitar el paso del tubo endotraqueal.",
+      "C) Presión lateral sobre la apófisis transversa de C3 para comprimir la vena yugular interna y reducir la PIC.",
+      "D) Masaje circular sobre la glándula tiroides para estimular la secreción de calcitonina."
+    ],
+    "correcta": "A",
+    "justificacion": "La Maniobra de Sellick (Presión Cricoidea) es una técnica utilizada durante la inducción e intubación de secuencia rápida en la emergencia. Consiste en aplicar una presión firme con el pulgar e el índice hacia posterior (atrás y arriba) sobre el anillo del cartílago cricoides. Como el cartílago cricoides es el único anillo cartilaginoso completo de la vía aérea, esta presión desplaza la laringe hacia atrás e comprime e ocluye el lumen del esófago cervical contra la cara anterior del cuerpo vertebral de C6, evitando la regurgitación pasiva del contenido gástrico hacia la orofaringe e la broncoaspiración pulmonar durante la parálisis neuromuscular.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 86,
+    "pregunta": "Paciente con quemaduras de 2º grado profundo e 3º grado en el 45% de la superficie corporal cumple 8 días de internación en la Unidad de Quemados. Comienza con picos febriles de 39 ºC, hipotensión, trombocitopenia e deterioro del sensorio. Al examinar las heridas se observa una escara que previamente era blanquecina y que ahora presenta una decoloración violácea/negruzca, ablandamiento con separación precoz del tejido, olor dulzón característico e presencia de ampollas hemorrágicas perilesionales (Ectima Gangrenoso). ¿Cuál es el patógeno bacteriano invasivo más frecuente y la conducta infectológica/quirúrgica?",
+    "opciones": [
+      "A) Streptococcus pyogenes; requiere aplicación de alcohol y alta ambulatoria.",
+      "B) Pseudomonas aeruginosa; requiere hemocultivos, cultivo/biopsia de la escara, antibioticoterapia parenteral antipseudomónica y escartectomía quirúrgica.",
+      "C) Mycobacterium tuberculosis; requiere triple asociación con rifampicina por 12 meses.",
+      "D) Clostridium tetani; requiere únicamente administración de toxoide tetánico IM."
+    ],
+    "correcta": "B",
+    "justificacion": "La infección invasiva de la herida por quemadura es la principal causa de morbimortalidad tardía en el gran quemado. Pseudomonas aeruginosa (bacilo Gram negativo oportunista) es el germen clásico e más temido. Los signos locales de sepsis por Pseudomonas incluyen: conversión de una quemadura parcial en espesor total, decoloración negra o violácea de la escara, ablandamiento e desprendimiento precoz, exudado verdoso con olor dulce e la presencia de Ectima Gangrenoso (lesiones vasculíticas eritemato-ampollosas hemorrágicas). El tratamiento exige biopsia/cultivo de tejido, antibioticoterapia IV antipseudomónica de amplio espectro (p. ej. Piperacilina-Tazobactam, Ceftazidima, Cefepime o Meropenem) y debridamiento/escartectomía quirúrgica urgente.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 87,
+    "pregunta": "Paciente politraumatizado con TCE grave e hipoxia presenta inestabilidad hemodinámica e neumotórax severo, lo que imposibilita la realización del Test de Apnea para el diagnóstico de Muerte Encefálica. El equipo intensivista solicita un estudio de flujo sanguíneo cerebral mediante Arteriografía Cerebral de 4 vasos (Panangiografía Cerebral). ¿Qué hallazgo angiográfico patognomónico confirma el Paro Circulatorio Cerebral y valida legalmente el fallecimiento?",
+    "opciones": [
+      "A) Retardo del llenado venoso menor a 1 segundo en el seno sagital superior.",
+      "B) Hiperflujo e vasodilatación masiva de las arterias cerebrales medias e anteriores.",
+      "C) Ausencia completa de contraste dentro de las arterias carótidas internas e vertebrales al nivel de su entrada al cráneo (bloqueo circulatorio cerebral bilateral).",
+      "D) Presencia de un aneurisma sacular en la arteria comunicante anterior con flujo conservado."
+    ],
+    "correcta": "C",
+    "justificacion": "La Arteriografía Cerebral de 4 vasos es el estudio de contraste considerado \"patrón de oro\" (gold standard) para la evaluación del flujo sanguíneo cerebral en Muerte Encefálica. Cuando la Presión Intracraneal (PIC) supera la Presión Arterial Media (PAM), la presión de perfusión cerebral cae a cero, deteniéndose el flujo sanguíneo intracraneal. La angiografía confirma la Muerte Encefálica al demostrar la ausencia completa e irreversible de opacificación o relleno de contraste en las arterias carótidas internas e vertebrales a nivel de la base del cráneo (bloqueo circulatorio cerebral a nivel del agujero magno e conductos carotídeos), mientras que las arterias carótidas externas extracraneales se opacifican normalmente.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 88,
+    "pregunta": "Un ciudadano de 40 años manifiesta a su médico de cabecera que no desea ser donante de órganos tras su fallecimiento por razones personales y filosóficas. De acuerdo con el marco de la Ley 27.447 (Ley Justa) en la República Argentina, ¿cuáles son los canales formales y legales establecidos mediante los cuales cualquier ciudadano puede registrar válidamente su manifestación de voluntad negativa a la donación?",
+    "opciones": [
+      "A) Verbalmente ante el médico de guardia en el momento de ingresar al hospital únicamente.",
+      "B) Mediante un mensaje de texto no verificado enviado a un número celular particular.",
+      "C) Firmando un acta privada sin testigos depositada en una entidad bancaria comercial.",
+      "D) Mediante registro formal en la plataforma del INCUCAI/SINTRA, en el RENAPER/Registro Civil al renovar el DNI, o por telegrama postal oficial gratuito."
+    ],
+    "correcta": "D",
+    "justificacion": "La Ley 27.447 (Ley Justa) garantiza el derecho de todo ciudadano a expresar libremente su voluntad respecto a la donación de sus órganos post-mortem. Para garantizar la validez legal y el registro oficial en el sistema SINTRA de una manifestación de oposición o de afirmación a la donación, la ley dispone de canales accesibles y gratuitos: Sitio web del INCUCAI / Aplicación Mi Argentina (SINTRA). Registro Civil / RENAPER (al tramitar o renovar el Documento Nacional de Identidad - DNI). Correo Oficial / Telegrama gratuito enviado al INCUCAI. Jurisdicciones provinciales de procuración (CUCAIER en Entre Ríos).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 89,
+    "pregunta": "Politraumatizado de 35 años ingresa al shockroom tras sufrir un accidente laboral con aplastamiento pélvico e hipotensión severa. Tras recibir 4 litros de cristaloides fríos y 2 unidades de glóbulos rojos, el paciente persiste hipotenso (TA 75/40 mmHg) y los laboratorios informan: Temperatura central 33.5 ºC, pH 7.12, Lactato 9.5 mmol/L y Calcio iónico 0.75 mmol/L (hipocalcemia), observándose sangrado difuso e incoercible en napa en los sitios de punción venosa e heridas. ¿Cuáles son los componentes de la Tríada e \"Tétrada de la Muerte\" en trauma y cuál es el mecanismo de la hipocalcemia?",
+    "opciones": [
+      "A) Hipotermia, Acidosis metabólica y Coagulopatía (Tríada), sumándose la Hipocalcemia (Tétrada); producida por la quelación del calcio por el citrato de los hemoderivados.",
+      "B) Hipertermia, Alcalosis respiratoria e Hipercoagulabilidad; producida por la destrucción renal de vitamina D.",
+      "C) Hipoglucemia, Hiponatremia e Hipopotasemia; producida por el exceso de insulina endógena.",
+      "D) Hipertensión endocraniana, Bradicardia e Bradipnea; producida por la hernia del uncus."
+    ],
+    "correcta": "A",
+    "justificacion": "La Tríada de la Muerte en Trauma es una espiral fisiopatológica letal compuesta por 1) Hipotermia (<35 ºC), 2) Acidosis metabólica (pH <7.20 / lactato elevado) e 3) Coagulopatía del trauma. Recientemente se ha incorporado la Hipocalcemia (Calcio iónico <0.9–1.0 mmol/L) constituyendo la Tétrada de la Muerte. El ion calcio es el Factor IV de la cascada de la coagulación e su déficit anula la función plaquetaria y la generación de trombina. En el trauma agudo, la hipocalcemia se agrava rápidamente debido a la quelación del calcio sérico por el citrato utilizado como anticoagulante en las bolsas de glóbulos rojos y plasma transfundidos masivamente. Requiere administración IV de Gluconato o Cloruro de Calcio.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 90,
+    "pregunta": "En el estudio de las quemaduras químicas en el departamento de urgencias, se compara el comportamiento fisiopatológico de las lesiones producidas por ácidos fuertes (p. ej. Ácido Sulfúrico, Ácido Nítrico) con las producidas por álcalis. ¿Cuál es el mecanismo de lesión tisular característico de las quemaduras por ácidos y cuál es el efecto protector de su escara?",
+    "opciones": [
+      "A) Necrosis por licuefacción profunda con saponificación de grasas que penetra hasta el hueso.",
+      "B) Necrosis por coagulación con desnaturalización de proteínas, formando una escara seca y firme que limita la penetración profunda del ácido.",
+      "C) Cristalización de carbohidratos con hiperosmolaridad que destruye los leucocitos.",
+      "D) Ausencia de lesión cutánea con toxicidad renal pura por inhalación de vapores."
+    ],
+    "correcta": "B",
+    "justificacion": "A diferencia de las quemaduras por álcalis (que provocan necrosis por licuefacción penetrante), las quemaduras por ácidos fuertes (a excepción del ácido fluorhídrico) desencadenan una necrosis por coagulación. El ácido desnaturaliza e precipita rápidamente las proteínas estructurales de la piel y células epiteliales, formando una escara seca, dura, firme e de coloración oscura/marrón. Esta escara o costra coagulada actúa como una \"barrera de contención\" física que limita y dificulta la penetración continua del químico hacia los planos musculares e vasculares profundos. La medida inicial sigue siendo el lavado abundante con agua.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 91,
+    "pregunta": "Paciente de 45 años en coma profundo en la UTI bajo tratamiento con altas dosis de tiopental/barbitúricos por hipertensión endocraneana refractaria. Para confirmar el diagnóstico de Muerte Encefálica sin esperar la depuración farmacológica del sedante, se solicita un estudio de Potenciales Evocados Somatosensoriales (PESS) del nervio mediano. ¿Qué ventaja neurofisiológica ofrecen los PESS y qué hallazgo confirma la Muerte Encefálica?",
+    "opciones": [
+      "A) Son alterados fácilmente por los barbitúricos; la Muerte Encefálica se confirma por la presencia de ondas de alta amplitud.",
+      "B) Requieren que el paciente esté despierto; la Muerte Encefálica se confirma por parpadeo corneal.",
+      "C) Son resistentes e insensibles a los fármacos sedantes y barbitúricos; la Muerte Encefálica se confirma por la ausencia de la onda N20 cortical bilateral manteniendo la onda N9 cervical.",
+      "D) Evalúan exclusivamente el nervio óptico; la Muerte Encefálica se confirma por miosis fotosensible."
+    ],
+    "correcta": "C",
+    "justificacion": "La evaluación neurofisiológica mediante Potenciales Evocados Somatosensoriales (PESS) del nervio mediano es un estudio complementario de gran valor en pacientes en los que se sospecha Muerte Encefálica pero que reciben fármacos sedantes o barbitúricos en dosis terapéuticas, ya que las respuestas de los PESS de tronco y corteza son resistentes e insensibles a los niveles plasmáticos de depresores del SNC. El diagnóstico de Muerte Encefálica por PESS se confirma al demostrar la preservación del potencial periférico/cervical (onda N9 e N13) junto con la ausencia completa e irreversible de la respuesta cortical (onda N20/P25) de forma bilateral.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 92,
+    "pregunta": "Durante la selección de receptores en lista de espera para un trasplante cardíaco de donante cadavérico a través del SINTRA / INCUCAI, se analizan los criterios de compatibilidad. ¿Cuáles son los requisitos de compatibilidad primaria e indispensables exigidos entre el donante e el receptor en el trasplante de corazón?",
+    "opciones": [
+      "A) Compatibilidad HLA-A, B y DR absoluta del 100% únicamente.",
+      "B) Mismo color de ojos, misma estatura e misma nacionalidad.",
+      "C) Igualdad de niveles de glucemia e PCR en ayunas.",
+      "D) Compatibilidad de grupo sanguíneo ABO (idéntico o compatible) e concordancia de tamaño/peso corporal (diferencia < 20%), junto con Crossmatch negativo."
+    ],
+    "correcta": "D",
+    "justificacion": "A diferencia del trasplante renal (donde se busca la máxima histocompatibilidad HLA debido a la mayor disponibilidad de tiempo e diálisis), en el trasplante cardíaco el tiempo de isquemia fría tolerable es extremadamente corto (4 a 6 horas). Por ello, no se exige una tipificación e compatibilidad HLA completa pre-trasplante de rutina. Los criterios de selección e asignación primaria ineludibles son: Compatibilidad de grupo sanguíneo ABO (idéntico o compatible). Concordancia o adecuación del tamaño/peso corporal (la diferencia de peso entre donante e receptor no debe superar el 20–30% para evitar la falla del injerto por desacople hemodinámico). Crossmatch negativo (en receptores sensibilizados). Urgencia médica nacional.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 93,
+    "pregunta": "Paciente de 28 años ingresa al shockroom tras sufrir una herida por arma blanca en la base del cuello, por encima de las clavículas e horquilla esternal (Zona I de Monson). Presenta disnea, enfisema subcutáneo e hipotensión moderada. ¿Qué estructuras vasculares mayores e mediastínicas están en riesgo anatómico en la Zona I del cuello y qué estudio o abordaje se requiere en un paciente hemodinámicamente estable?",
+    "opciones": [
+      "A) Vasos subclavios, tronco braquiocefálico, carótidas proximales, tráquea, esófago y cúpula pleural; requiere Angio-TC/arteriografía y eventual esternotomía/toracotomía.",
+      "B) Arteria facial y glándula parótida únicamente; requiere anestesia local y sutura de piel.",
+      "C) Arteria temporal superficial; requiere bota de yeso y analgesia oral.",
+      "D) Vena safena magna; requiere compresión con medias elásticas."
+    ],
+    "correcta": "A",
+    "justificacion": "Las heridas penetrantes de cuello se clasifican según las Zonas de Monson: Zona I (Inferior): Desde la horquilla esternal/clavículas hasta el borde inferior del cartílago cricoides. Zona II (Media): Entre el cricoides y el ángulo de la mandíbula. Zona III (Superior): Entre el ángulo de la mandíbula y la base del cráneo. La Zona I es la de mayor complejidad técnica e quirúrgica debido a que contiene las estructuras del estrecho torácico superior: vasos subclavios, tronco braquiocefálico, carótidas e yugulares proximales, cúpula pleural, tráquea e esófago cervical. En pacientes estables se requiere Angio-TC o arteriografía/endoscopía para mapear la lesión; si requiere cirugía, el abordaje suele requerir una Esternotomía Media o Toracotomía Anterior agregada a la cervicotomía.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 94,
+    "pregunta": "Durante la reanimación hídrica inicial de un paciente pediátrico de 4 años (peso 16 kg) con quemaduras de 2º y 3º grado en el 35% de la superficie corporal, el médico pediatra aplica la fórmula de Parkland modificada. Además del Ringer Lactato de reanimación, se indica la infusión continua de Solución Glucosada al 5% con electrolitos como fluido de mantenimiento. ¿Cuál es la razón fisiológica obligatoria por la que los niños requieren aporte de glucosa en el esquema de fluidos?",
+    "opciones": [
+      "A) Para evitar la hipertensión endocraneana provocada por el Ringer Lactato.",
+      "B) Debido a sus escasas reservas de glucógeno hepático y elevado gasto metabólico, lo que genera un alto riesgo de hipoglucemia severa e convulsiones si no se aporta glucosa.",
+      "C) Para suprimir la diuresis y evitar la pérdida de sodio por la orina.",
+      "D) Porque los niños no pueden metabolizar el agua sin glucosa en la sangre."
+    ],
+    "correcta": "B",
+    "justificacion": "A diferencia de los adultos, los pacientes pediátricos (especialmente lactantes e niños <20 kg) poseen una masa muscular reducida y reservas limitadas de glucógeno hepático, asociadas a un gasto metabólico e consumo de glucosa proporcionalmente mucho más elevado. Durante la fase de shock por quemadura, la respuesta de estrés catabólico agota las reservas de glucógeno en pocas horas. Si la reanimación hídrica masiva se realiza exclusivamente con Ringer Lactato (sin glucosa), el niño desarrolla rápidamente una hipoglucemia severa, la cual puede provocar daño cerebral, convulsiones e paro cardiorrespiratorio. Por ello, en pediatría es obligatorio agregar mantenimiento con Dextrosa al 5% en Solución Salina paralelo al Ringer Lactato.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 95,
+    "pregunta": "En la evaluación clínica completa de los reflejos de tronco encefálico para certificar Muerte Encefálica en la UTI, se explora el Reflejo Nauseoso (Reflejo Faríngeo). ¿Cómo se realiza técnicamente la prueba clínica e qué respuesta confirma la pérdida completa de la función bulbar?",
+    "opciones": [
+      "A) Compresión del músculo trapecio con una pinza hemostática buscando flexión de la cadera.",
+      "B) Insuflación de O2 al 100% a través de un catéter nasofaríngeo buscando sudoración facial.",
+      "C) Estimulación directa de la pared posterior de la orofaringe, paladar blando o úvula con un bajalenguas o sonda de aspiración; la Muerte Encefálica se confirma por la ausencia total de contracción faríngea o náusea.",
+      "D) Roce de la superficie cutánea del tórax buscando la elevación del pezón."
+    ],
+    "correcta": "C",
+    "justificacion": "El Reflejo Nauseoso (Faríngeo) explora la integración neurológica del tronco encefálico a nivel del bulbo raquídeo e protuberancia baja. La vía aferente se desplaza a través del nervio Glosofaríngeo (IX par) e la respuesta eferente motora a través del nervio Vago (X par). La prueba se realiza mediante la estimulación táctil directa de la mucosa de la pared posterior de la orofaringe, los pilares amigdalinos o la úvula utilizando un bajalenguas o una sonda de aspiración estéril. En la Muerte Encefálica, el reflejo está ausente, demostrándose la inmovilidad del velo del paladar e la ausencia completa de náusea, arcada o contracción faríngea.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 96,
+    "pregunta": "Paciente de 38 años en lista de espera para trasplante hepático debido a una hepatitis fulminante aguda por virus B. Presenta encefalopatía hepática Grado IV, edema cerebral e se halla en asistencia respiratoria mecánica en la UTI. ¿Cómo categoriza el SINTRA / INCUCAI esta situación clínica e qué prioridad de asignación le otorga ante la aparición de un donante cadavérico compatible?",
+    "opciones": [
+      "A) Categoría de Trasplante Electivo Secundario; prioridad baja después de los pacientes estables de sala general.",
+      "B) Categoría de Suspensión Temporal; prohibición de recibir órganos durante 6 meses.",
+      "C) Categoría de Donación Cruzada Ficticia; prioridad para trasplante de córneas únicamente.",
+      "D) Categoría de Urgencia Nacional (o Emergencia); prioridad absoluta e primaria en todo el territorio nacional por encima de la antigüedad en lista."
+    ],
+    "correcta": "D",
+    "justificacion": "El sistema SINTRA del INCUCAI clasifica a los pacientes en lista de espera según la gravedad e el riesgo inminente de muerte en tres categorías: Electivo (o Inscripto): Pacientes estables sin riesgo vital inminente. Urgencia: Pacientes con descompensación grave que requieren internación. Urgencia Nacional (o Emergencia): Pacientes con riesgo de muerte inminente en las siguientes 24 a 72 horas si no reciben un trasplante (p. ej., falla hepática fulminante con coma/encefalopatía IV, shock cardiogénico en asistencia ventricular o falla aguda del injerto). La categoría de Urgencia Nacional otorga prioridad absoluta e primaria en todo el país para recibir el primer órgano de donante cadavérico compatible que aparezca, independientemente del tiempo que lleve en la lista.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 97,
+    "pregunta": "Paciente varón de 25 años ingresa al shockroom tras sufrir un traumatismo abdominal cerrado en un accidente de tránsito. Se halla hemodinámicamente estable (TA 125/80 mmHg, FC 76 lpm), sin dolor severo ni signos de irritación peritoneal. La Tomografía Computada de abdomen con contraste ev muestra una laceración esplénica de 4 cm de profundidad con hematoma subcapsular que compromete el 30% de la superficie (Trauma Esplénico Grado III), sin extravasación activa de contraste (no blush arterial). ¿Cuál es la estrategia de manejo de elección respaldada por el ATLS e la WSES?",
+    "opciones": [
+      "A) Manejo No Operatorio (MNO) con internación, reposo en cama, monitoreo hemodinámico e controles hematimétricos seriados en UTI/cuidados intermedios.",
+      "B) Laparotomía exploradora de urgencia con esplenectomía total inmediata en las primeras 2 horas.",
+      "C) Embolización de la arteria aorta abdominal e alta ambulatoria inmediata.",
+      "D) Lavado peritoneal diagnóstico repetido cada 30 minutos sin realizar tomografía."
+    ],
+    "correcta": "A",
+    "justificacion": "En el tratamiento moderno del traumatismo abdominal cerrado con lesión de víscera sólida (bazo, hígado o riñón), la tendencia estándar es la preservación del órgano mediante el Manejo No Operatorio (MNO). Las condiciones ineludibles para indicar el MNO son: Estabilidad hemodinámica del paciente (o respuesta completa a la reanimación inicial). Ausencia de signos de peritonitis o irritación peritoneal (que indicarían perforación de víscera hueca). Disponibilidad de monitoreo intensivo, tomografía, laboratorio e quirófano/angiógrafo de urgencia. Más del 80–90% de los traumas esplénicos en pacientes estables (incluso Grados III) se salvan con MNO, evitando las complicaciones infecciosas de la asplenia (sepsis fulminante post-esplenectomía).",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 98,
+    "pregunta": "En el tratamiento tópico farmacológico del paciente quemado en la sala de internación o curaciones, se utiliza ampliamente la crema de Sulfadiazina de Plata al 1%. ¿Cuál es el espectro antimicrobiano de este agente tópico y qué efecto adverso hematológico transitorio e característico debe monitorizarse en el hemograma?",
+    "opciones": [
+      "A) Cobertura exclusiva contra virus del herpes; produce trombocitosis extrema > 1.000.000/mm3.",
+      "B) Cobertura de amplio espectro (Gram positivos, Gram negativos como Pseudomonas aeruginosa y hongos/Cándida); su efecto adverso característico es la leucopenia/neutropenia transitoria benigna.",
+      "C) Cobertura contra bacilos ácido-alcohol resistentes exclusivamente; produce anemia falciforme irreversible.",
+      "D) Sin efecto antimicrobiano; produce eosinofilia idiopática con hipercalcemia."
+    ],
+    "correcta": "B",
+    "justificacion": "La Sulfadiazina de Plata al 1% es el quimioterápico tópico estándar e de mayor uso en quemaduras de 2º e 3º grado. Combina el efecto antibacteriano de la sulfonamida con la acción bactericida e fungicida del ion plata, ofreciendo un amplio espectro contra gérmenes Gram positivos (Staphylococcus aureus), Gram negativos (Pseudomonas aeruginosa, E. coli) e levaduras (Candida albicans). Su efecto adverso más característico e conocido es la leucopenia transitoria (neutropenia secundaria a la supresión medular inducida por la sulfadiazina), que suele aparecer entre el 2º e 4º día de aplicación e revierte espontáneamente sin necesidad de suspender el tratamiento.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 99,
+    "pregunta": "Durante la comunicación de noticias críticas en situaciones de trauma agudo utilizando el Protocolo SPIKES (Lillo), el cirujano completa los pasos de preparación (Setting), exploración (Perception), invitación (Invitation), entrega de la noticia (Knowledge) e respuesta empática a las emociones (Emotions). ¿Qué acciones e objetivos deben cumplirse en el sexto e último paso \"S\" (Strategy and Summary / Estrategia y Resumen)?",
+    "opciones": [
+      "A) Abandonar la sala de forma abrupta sin responder ninguna pregunta para evitar el cansancio.",
+      "B) Exigir el pago de una fianza en efectivo antes de trasladar el cuerpo a la morgue.",
+      "C) Sintetizar la información transmitida, acordar un plan claro de los pasos inmediatos a seguir (trámites legales, opción de procuración, autopsia o pautas de cuidado), responder dudas e garantizar disponibilidad continua.",
+      "D) Negar que el paciente haya fallecido e solicitar que regresen al día siguiente."
+    ],
+    "correcta": "C",
+    "justificacion": "El sexto paso del protocolo SPIKES/Lillo es \"S\" - Strategy and Summary (Estrategia y Resumen). Una vez que el impacto emocional inicial ha sido contenido, la familia requiere orientación e claridad sobre lo que sucederá a continuación. El médico debe: Hacer un resumen claro e breve de lo comunicado para confirmar la comprensión. Trazar una estrategia o plan de acción paso a paso (explicar los trámites de certificado de defunción, intervención de la fiscalía/medicina legal si es un hecho violento, proceso de procuración de órganos si corresponde, o entrega del cuerpo a la empresa fúnebre). Responder todas las preguntas e reiterar la disposición del equipo para acompañarlos.",
+    "up": 9,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 100,
+    "pregunta": "En el análisis del estrés laboral, la fatiga por compasión e el Síndrome de Burnout en los equipos de salud de emergencias e cirugía (UNER / Ley de Riesgos del Trabajo), se evalúan las estrategias de prevención e intervención institucional. ¿Cuál de las siguientes medidas institucionales e personales ha demostrado mayor eficacia para reducir el impacto psicológico e prevenir el desgaste profesional en el personal expuesto al trauma?",
+    "opciones": [
+      "A) Aumentar la duración de las guardias médicas de 24 a 72 horas continuas sin descanso.",
+      "B) Prohibir las reuniones de equipo e sancionar a quienes manifiesten cansancio o tristeza.",
+      "C) Eliminar los francos compensatorios e las vacaciones anuales del personal de UTI e shockroom.",
+      "D) La implementación de sesiones de debriefing estructurado tras eventos críticos, la rotación periódica de tareas de alta exigencia, el fomento del trabajo en equipo e el acceso a espacios de autocuidado e salud mental."
+    ],
+    "correcta": "D",
+    "justificacion": "La prevención e manejo del Síndrome de Burnout e del Estrés Laboral en profesionales de la salud que atienden emergencias trauma exige un abordaje multidimensional (institucional e individual). Las estrategias con mayor evidencia e recomendadas en la literatura son: Debriefing emocional e técnico tras reanimaciones complejas o fallecimientos traumáticos para procesar las vivencias en equipo. Medidas organizativas: Rotación periódica de puestos de alta demanda (shockroom/UTI), respeto estricto de descansos e francos compensatorios, e limitación de horas extras excesivas. Promoción del autocuidado: Estilos de vida saludables, apoyo psicológico institucional desestigmatizado e fortalecimiento del clima de equipo e colaboración.",
+    "up": 9,
+    "modulo": "cirugia"
+  }
+]

@@ -1,0 +1,1402 @@
+[
+  {
+    "id": 1,
+    "pregunta": "Paciente varón de 68 años con antecedente de Fibrilación Auricular (F",
+    "opciones": [
+      "A) no anticoagulada consulta en el servicio de urgencias por dolor súbito e intenso de 4 horas de evolución en el miembro inferior derecho, acompañado de palidez e hipotermia distal. Al examen físico se constata pulso femoral presente, pero con ausencia completa de pulsos poplíteo, tibial posterior y pedio. ¿Cuál es la etiología más frecuente de la oclusión arterial aguda de una extremidad e el sitio anatómico de mayor impacto embólico? A) Embolia arterial de origen cardíaco (80% de los casos); con sitio de impacto más frecuente en la bifurcación femoral o femoropoplítea.",
+      "B) Trombosis arterial in situ sobre placa aterosclerótica previa; con localización más común en las arterias tibiales distales del pie.",
+      "C) Trauma vascular cerrado con íntimo-disección; afectando predominantemente a la arteria ilíaca externa e hipogástrica.",
+      "D) Aneurisma micótico infectado por Staphylococcus aureus; con compromiso exclusivo de la arteria subclavia izquierda e axilar."
+    ],
+    "correcta": "A",
+    "justificacion": "La isquemia arterial aguda es la supresión brusca del aporte sanguíneo a un territorio arterial (<2 semanas de evolución)[1]. La etiología más frecuente (80%) es la embolia de origen cardíaco, secundaria principalmente a Fibrilación Auricular (FA), infarto agudo de miocardio reciente o miocardiopatías[1]. Debido al calibre y a las bifurcaciones arteriales, el sitio de impacto más frecuente de los émbolos en miembros inferiores es la **bifurcación femoral (femoropoplítea)**[1]. La trombosis in situ ocurre sobre arterias enfermas con aterosclerosis previa e desarrollo de circulación colateral[1][2].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 2,
+    "pregunta": "Paciente de 65 años es evaluado en la guardia por un cuadro de isquemia arterial aguda de miembro inferior derecho de 3 horas de evolución. Al examen físico, el cirujano busca constatar la presencia de los signos y síntomas patognomónicos clásicos descritos en la literatura angiológica como las \"5 P\" (por su mnemotecnia en inglés). ¿Cuáles son los hallazgos semiológicos que integran esta pentada clínica característica?",
+    "opciones": [
+      "A) Pyrexia (fiebre), Purpura (púrpura), Pain (dolor), Pitting (fóvea) y Paresthesia (parestesias).",
+      "B) Pain (dolor súbito), Pallor (palidez), Pulselessness (ausencia de pulsos), Paresthesia (parestesias) y Paralysis (parálisis).",
+      "C) Paresis (paresia facial), Pruritus (prurito), Polyuria (poliuria), Papules (pápulas) y Pain (dolor).",
+      "D) Pulsatilidad (masa pulsátil), Plethora (plétora), Petechiae (petequias), Poikilothermia (frialdad) y Phlebitis (flebitis)."
+    ],
+    "correcta": "B",
+    "justificacion": "El cuadro clínico patognomónico de la isquemia arterial aguda de los miembros está constituido por los \"5 P\" clásicos[1][2]: Pain (dolor súbito e intenso)[1][2]. Pallor (palidez y frialdad)[1][2]. Pulselessness (ausencia de pulsos distales)[1][2]. Paresthesia (parestesias / alteración sensitiva)[1][2]. Paralysis (parálisis o déficit motor)[1][2]. La aparición de parestesias y parálisis indica sufrimiento neuromuscular avanzado y condiciona la viabilidad de la extremidad[1][2].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 3,
+    "pregunta": "Paciente de 60 años ingresa en la guardia por dolor intenso de inicio agudo en el miembro inferior izquierdo de 4 horas de evolución. Al examen físico se presenta pálido, frío, con parestesias leves e incapacidad para la palpación de pulsos poplíteo, tibial posterior y pedio, pero conservando la motilidad digital y la señal arterial/venosa al Doppler. Se interpreta el cuadro como isquemia arterial aguda embólica en miembro viable con amenaza marginal (Rutherford IIa). ¿Cuál es el tratamiento médico e quirúrgico de elección e inmediato?",
+    "opciones": [
+      "A) Bypass femoropoplíteo infrapatelar con vena safena autóloga en forma electiva a las 72 horas.",
+      "B) Amputación supracondílea primaria de urgencia con ligadura vascular proximal de la arteria femoral.",
+      "C) Heparinización sistémica inmediata e embolectomía arterial directa con catéter de Fogarty.",
+      "D) Fibrinólisis intraarterial por catéter exclusivamente mantenida durante 14 días en sala general."
+    ],
+    "correcta": "C",
+    "justificacion": "Ante el diagnóstico de isquemia arterial aguda en un miembro viable o amenazado (Rutherford I o IIa/IIb), la conducta inmediata es iniciar anticoagulación con Heparina sódica en bolo IV continuo para prevenir la propagación del trombo[1][3]. El tratamiento quirúrgico de elección e inmediato para la causa embólica es la revascularización mediante tromboembolectomía directa con catéter de Fogarty[1]. El bypass (opción A) se reserva para oclusiones trombóticas extensas sobre arterias enfermas, y la amputación (opción B) se indica únicamente en miembros irreversibles/no viables (Rutherford III)[1][3].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 4,
+    "pregunta": "Paciente de 72 años con isquemia arterial aguda de 18 horas de evolución presenta anestesia profunda en pie y pierna derecha, parálisis muscular completa con rigidez cadavérica (rigor mortis) de los gemelos e inaudibilidad de señales arteriales y venosas al estudio con Doppler acústico. Según la clasificación de Rutherford de la SVS/ISCVS para la viabilidad en isquemia aguda de miembros, ¿a qué categoría corresponde e cuál es la conducta quirúrgica indicada?",
+    "opciones": [
+      "A) Categoría I (Viable); requiere angioplastia transluminal percutánea con colocación de stent.",
+      "B) Categoría IIa (Amenaza marginal); requiere fibrinólisis sistémica e vasodilatadores endovenosos.",
+      "C) Categoría IIb (Amenaza inmediata); requiere embolectomía de urgencia con catéter de Fogarty.",
+      "D) Categoría III (Irreversible / No viable); requiere amputación mayor primaria del miembro afectado."
+    ],
+    "correcta": "D",
+    "justificacion": "La clasificación de la SVS/ISCVS / Rutherford para isquemia arterial aguda estratifica la viabilidad de la extremidad[1][3]: Categoría I (Viable): Sin déficit sensitivo ni motor[1][3]. Categoría IIa (Amenaza leve/marginal): Parestesias leves, sin déficit motor[1][3]. Categoría IIb (Amenaza inmediata): Déficit motor (paresia), parestesias[1][3]. Categoría III (Irreversible / No viable): Anestesia profunda, parálisis rígida (rigor mortis), pérdida de tejido y ausencia de señal Doppler arterial y venosa[1][3]. En la Categoría III, la revascularización está contraindicada por el riesgo de síndrome de reperfusión letal, siendo la indicación la amputación mayor primaria[1][3].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 5,
+    "pregunta": "Paciente de 62 años con isquemia aguda del miembro inferior derecho de 10 horas de evolución es sometido a una embolectomía exitosa con catéter de Fogarty, logrando el restablecimiento del flujo arterial distal. A las 2 horas de la cirugía comienza con dolor muscular severo en la pantorrilla, edema a tensión e inestabilidad hemodinámica. Los laboratorios informan K+ de 6.8 mEq/L, mioglobinuria y creatinina de 3.2 mg/dL. ¿A qué complicación sistémica post-revascularización corresponde e cuál es la tríada metabólica característica?",
+    "opciones": [
+      "A) Síndrome de Reperfusión (o de Haimovici); caracterizado por acidosis metabólica severa, hiperpotasemia e insuficiencia renal aguda mioglobinúrica.",
+      "B) Trombosis venosa profunda aguda de la vena cava inferior; caracterizada por hipopotasemia, alcalosis respiratoria e hipernatremia.",
+      "C) Síndrome posflebítico crónico ulcerado; caracterizado por hipercalcemia, alcalosis metabólica e hiperglucemia.",
+      "D) Infección estreptocócica necrotizante de herida quirúrgica; caracterizada por trombocitosis, hiponatremia e hipoglucemia."
+    ],
+    "correcta": "A",
+    "justificacion": "El Síndrome de Reperfusión post-revascularización (o Síndrome de Haimovici) se produce tras la restauración del flujo sanguíneo a un territorio muscular isquémico[1][6]. La reperfusión vuelca a la circulación sistémica metabolitos tóxicos acumulados por la rabdomiólisis: potasio, ácido láctico, mioglobina y CPK[1][6]. Se manifiesta por la tríada de acidosis metabólica severa, hiperpotasemia (con riesgo de arritmias ventriculares) e insuficiencia renal aguda secundaria a necrosis tubular por mioglobinuria[1][6]. Se trata con fluidoterapia masiva, alcalinización urinaria y manejo del potasio/diálisis[6]. Además, el edema muscular local desencadena un síndrome compartimental que requiere fasciotomías[1][7].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 6,
+    "pregunta": "Varón de 58 años consulta por dolor en la pantorrilla derecha que aparece al caminar dos cuadras y cede a los pocos minutos del reposo. Presenta como antecedentes tabaquismo de 30 paquetes/año, hipertensión arterial e dislipemia. Al examen físico se palpa disminución del pulso poplíteo e ausencia de pulsos pedio y tibial posterior en el miembro derecho. ¿Cuál es el sustrato etiopatogénico responsable en más del 95% de los casos de arteriopatía periférica crónica y cuál es el factor de riesgo modificable más determinante para su progresión a isquemia crítica?",
+    "opciones": [
+      "A) Vasculitis idiopática por inmunocomplejos; siendo el consumo de café el factor de riesgo más determinante.",
+      "B) Aterosclerosis obliterante sistémica; siendo el tabaquismo el factor de riesgo modificable más determinante.",
+      "C) Displasia fibromuscular de la capa media; siendo la ingesta de sodio el factor de riesgo más determinante.",
+      "D) Degeneración quística adventicial; siendo la hiperuricemia el factor de riesgo más determinante."
+    ],
+    "correcta": "B",
+    "justificacion": "La enfermedad arterial periférica crónica (EAP) de miembros inferiores se debe en más del 95% de los casos a la aterosclerosis obliterante, un proceso inflamatorio e degenerativo sistémico e multifocal de la pared arterial[8]. Entre los factores de riesgo cardiovascular clásicos (edad, sexo masculino, HTA, diabetes, dislipemia), el tabaquismo es el factor de riesgo modificable más importante y determinante para la progresión hacia la isquemia crítica y la amputación[7][8].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 7,
+    "pregunta": "Paciente de 65 años consulta por dolor muscular severo en la pantorrilla izquierda que se desencadena sistemáticamente tras caminar 80 metros en terreno plano, obligándolo a detener la marcha de forma imperiosa. Al descansar 3 minutos el dolor desaparece por completo, permitiéndole reanudar la caminata. No refiere dolor durante la noche en la cama ni presenta lesiones cutáneas. Según la clasificación clínica de Fontaine para la arteriopatía obliterante crónica, ¿a qué estadio corresponde?",
+    "opciones": [
+      "A) Fontaine Estadio I.",
+      "B) Fontaine Estadio IIa.",
+      "C) Fontaine Estadio IIb.",
+      "D) Fontaine Estadio III."
+    ],
+    "correcta": "C",
+    "justificacion": "La Clasificación de Fontaine estratifica clínicamente la isquemia arterial crónica[1][11]: Estadio I: Asintomático[1][11]. Estadio IIa: Claudicación intermitente no incapacitante (distancia de caminata &gt; 150 metros)[1][11]. Estadio IIb: Claudicación intermitente moderada a severa o incapacitante (distancia de caminata < 150 metros)[1][11]. Estadio III: Dolor isquémico en reposo (típicamente nocturno, al elevar la pierna)[1][11]. Estadio IV: Lesiones tróficas (úlceras isquémicas o gangrena)[1][11]. Al presentar claudicación a los 80 metros (<150 m), el paciente se clasifica como Fontaine IIb[1][11].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 8,
+    "pregunta": "En el ateneo de cirugía vascular se discute el manejo de dos pacientes con arteriopatía obliterante crónica de miembros inferiores. El primer paciente presenta claudicación intermitente leve a los 300 metros (Fontaine IIa) y el segundo presenta claudicación invalidante a los 50 metros (Fontaine IIb). De acuerdo a las guías de práctica clínica e al consenso de la cátedra, ¿cuál es la conducta terapéutica de elección para cada uno de estos estadios?",
+    "opciones": [
+      "A) Fontaine IIa requiere bypass aortobifemoral inmediato; Fontaine IIb requiere amputación infracondílea primaria.",
+      "B) Fontaine IIa requiere simpatectomía lumbar; Fontaine IIb requiere analgesia oral exclusivamente sin control de factores.",
+      "C) Fontaine IIa requiere vasodilatadores a altas dosis; Fontaine IIb requiere trombectomía con catéter de Fogarty.",
+      "D) Fontaine IIa requiere tratamiento médico e programa de ejercicio supervisado; Fontaine IIb requiere indicación de revascularización (quirúrgica o endovascular)."
+    ],
+    "correcta": "D",
+    "justificacion": "El manejo de la EAP crónica depende del estadio[1][11]: Fontaine IIa (Claudicación leve >150 m): Tratamiento conservador/médico (cesación estricta del tabaquismo, estatinas, antiagregación con AAS/clopidogrel, cilostazol) e ejercicio físico supervisado[1][11]. Fontaine IIb (Claudicación moderada-severa/invalidante <150 m) y estadios III/IV (Isquemia crítica): Tienen indicación de revascularización, ya sea endovascular (angioplastia con balón/stent) o quirúrgica abierta (bypass femoropoplíteo o femorodistal)[1].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 9,
+    "pregunta": "Paciente de 60 años con diabetes mellitus y tabaquismo es evaluado en el consultorio externo por sospecha de enfermedad arterial periférica. Se realiza la medición del Índice Tobillo-Brazo (ITB o IPBT) mediante ecografía Doppler manual. Se obtiene una presión arterial sistólica de 60 mmHg en la arteria tibial posterior del tobillo y de 150 mmHg en la arteria braquial del brazo, arrojando un resultado de ITB = 0.40. ¿Cómo se interpreta este valor hemodinámico e cuál es el rango considerado normal?",
+    "opciones": [
+      "A) Isquemia severa / crítica con alto riesgo de úlceras o pérdida de miembro; el rango normal del ITB es de 1.0 a 1.4.",
+      "B) Arteria no comprimible por calcificación de la túnica media; el rango normal del ITB es de 0.1 a 0.3.",
+      "C) Flujo arterial hiperémico compensado; el rango normal del ITB es de 1.8 a 2.5.",
+      "D) Estenosis fémoro-poplítea hemodinámicamente irrelevante; el rango normal del ITB es de 0.5 a 0.8."
+    ],
+    "correcta": "A",
+    "justificacion": "El Índice Tobillo-Brazo (ITB) es el estudio inicial e fundamental para el diagnóstico de EAP[1]. Se calcula dividiendo la PAS del tobillo sobre la PAS braquial más alta[14]. Normal: 1.0 a 1.4[1]. EAP (Anormal): < 0.90[1]. Claudicación leve-moderada: 0.70 a 0.90[14]. Isquemia Severa / Crítica: < 0.40 (alto riesgo de lesiones tróficas y amputación)[1]. &gt; 1.40: Indica calcificación vascular (arterias rígidas no comprimibles), típico en diabéticos e insuficiencia renal[1][14].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 10,
+    "pregunta": "Paciente masculino de 52 años, tabaquista severo, consulta por claudicación intermitente glútea e de ambos muslos al caminar media cuadra. Al examen físico se constata ausencia bilateral de pulsos femorales, poplíteos y distales. Durante la anamnesis refiere además imposibilidad para lograr e mantener la erección (disfunción eréctil). ¿A qué entidad clínico-angiológica corresponde esta tríada sintomática e cuál es la cirugía de derivación vascular de elección?",
+    "opciones": [
+      "A) Enfermedad de Takayasu; requiere bypass femorofemoral cruzado subcutáneo.",
+      "B) Síndrome de Leriche (Oclusión Aorto-Ilíaca Crónica); requiere bypass o derivación aortobifemoral.",
+      "C) Síndrome del atrapamiento de la arteria poplítea; requiere fasciotomía descompresiva de muslo.",
+      "D) Coartación de aorta torácica congénita; requiere endarterectomía carotídea bilateral."
+    ],
+    "correcta": "B",
+    "justificacion": "El Síndrome de Leriche es la oclusión aterosclerótica crónica de la bifurcación aórtica e de ambas arterias ilíacas comunes[15]. Se caracteriza por la tríada patognomónica: Ausencia o disminución marcada de pulsos femorales bilaterales[15]. Claudicación intermitente de glúteos, caderas y muslos[15]. Disfunción eréctil / impotencia sexual en hombres (por falta de flujo en las arterias pudendas e hipogástricas)[15]. El tratamiento de elección en pacientes sintomáticos es el bypass o derivación aortobifemoral con prótesis sintética de Dacron o PTFE[15].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 11,
+    "pregunta": "Varón de 28 años, tabaquista pesado (30 cigarrillos/día desde los 15 años), consulta por lesiones ulceradas dolorosas en los pulpejos de los dedos de ambas manos y pies, asociadas a antecedentes de episodios repetidos de cordones venosos eritematosos dolorosos e migratorios en las piernas (tromboflebitis superficial migratoria). La arteriografía muestra arterias de mediano y pequeño calibre con oclusiones segmentarias e imagen de \"arterias en tirabuzón / sacacorchos\", sin placas de ateroma en vasos proximales. ¿Cuál es el diagnóstico e la medida terapéutica indispensable para detener la progresión de la enfermedad?",
+    "opciones": [
+      "A) Arteriosclerosis obliterante juvenil; requiere angioplastia transluminal de la aorta abdominal.",
+      "B) Síndrome de Klippel-Trénaunay; requiere ligadura del cayado de la safena magna.",
+      "C) Enfermedad de Buerger (Tromboangeítis Obliterante); requiere la cesación absoluta e permanente del tabaquismo.",
+      "D) Granulomatosis de Wegener; requiere corticoterapia en altas dosis e metotrexato sin suspender el cigarrillo."
+    ],
+    "correcta": "C",
+    "justificacion": "La Enfermedad de Buerger (Tromboangeítis Obliterante) es una panangeítis inflamatoria e oclusiva no aterosclerótica que afecta a arterias e venas de pequeño e mediano calibre en las extremidades de hombres jóvenes (<40-45 años) fuertemente tabaquistas[16]. Cursa con isquemia distal (úlceras digitales), fenómeno de Raynaud y **tromboflebitis superficial migratoria (en el 20-40% de los casos)**[16][19]. La arteriografía muestra afectación segmentaria distal con **\"arterias en tirabuzón / sacacorchos\"**[16][20]. La única medida terapéutica efectiva que detiene la progresión y evita amputaciones es la cesación absoluta e inmediata del consumo de tabaco[21].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 12,
+    "pregunta": "Mujer de 24 años consulta por episodios paroxísticos de palidez marcada en los dedos de ambas manos cuando se expone al agua fría o ante situaciones de estrés emocional, seguido a los pocos minutos por cianosis (coloración azulada) y posteriormente por rubor/eritema doloroso con sensación de latido al retornar el flujo sanguíneo. No presenta lesiones tróficas ni antecedentes de enfermedades autoinmunes. ¿A qué entidad vasoespástica corresponde esta tríada cromática e cuál es el tratamiento farmacológico de primera línea?",
+    "opciones": [
+      "A) Eritromelalgia primaria; requiere tratamiento con anticoagulantes orales e profilaxis con heparina.",
+      "B) Acrociosis idiopática; requiere simpatectomía lumbar bilateral de urgencia.",
+      "C) Síndrome del martillo hipotenar; requiere ligadura de la arteria cubital e aspirina.",
+      "D) Fenómeno / Enfermedad de Raynaud; requiere higiene térmica e vasodilatadores antagonistas del calcio (Nifedipina)."
+    ],
+    "correcta": "D",
+    "justificacion": "El Fenómeno / Enfermedad de Raynaud es un trastorno vasomotor paroxístico e episódico de las arteriolas digitales gatillado por el frío o el estrés[5]. Cursa con la clásica tríada tricolor secuencial: **Blanco (fase isquémica / vasoespasmo)**[5]. **Azul (fase de cianosis por estasis)**[5]. **Rojo (fase de hiperemia reactiva e reperfusión)**[5]. Es primario (enfermedad de Raynaud) en mujeres jóvenes de curso benigno, o secundario a colagenopatías (esclerodermia)[5]. El manejo incluye evitar el frío e el uso de bloqueantes de los canales de calcio (Nifedipina) como tratamiento de primera línea[16].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 13,
+    "pregunta": "Durante un estudio ecográfico abdominal de rutina en un varón de 68 años ex-fumador, se detecta de forma incidental una dilatación permanente de la aorta abdominal que mide 4.2 cm de diámetro transversal máximo. De acuerdo a la definición anatómica e histológica de aneurisma arterial, ¿a partir de qué diámetro se considera aneurismática la aorta abdominal y cuál es la localización topográfica más frecuente de estas dilataciones?",
+    "opciones": [
+      "A) Diámetro máximo ≥ 3.0 cm (o aumento >50% del diámetro normal); con localización más frecuente en el segmento infrarrenal (>90%).",
+      "B) Diámetro máximo ≥ 1.5 cm; con localización más frecuente en el segmento suprarrenal yuxtaductal.",
+      "C) Diámetro máximo ≥ 6.0 cm; con localización más frecuente en la bifurcación de las arterias ilíacas comunes.",
+      "D) Diámetro máximo ≥ 8.0 cm; con localización más frecuente en el arco aórtico e aorta ascendente."
+    ],
+    "correcta": "A",
+    "justificacion": "Un aneurisma es la dilatación permanente e localizada de una arteria con un incremento de al menos el 50% respecto al diámetro normal del vaso[1][22]. En la aorta abdominal, la arteria infrarrenal normal mide 1.4-2.1 cm[1]; por tanto, se define como **Aneurisma de Aorta Abdominal (AAA) a toda dilatación con un diámetro máximo mayor o igual a 3.0 cm (≥30 mm)**[1]. La localización más frecuente con diferencia es el **segmento infrarrenal (>90% de los casos)**[1].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 14,
+    "pregunta": "Paciente de 66 años, asintomático, con antecedentes de hipertensión arterial y diabetes mellitus, acude al consultorio con una ecografía que informa un Aneurisma de Aorta Abdominal infrarrenal fusiforme de 4.2 cm de diámetro. El paciente consulta preocupado si debe operarse de urgencia debido a sus múltiples factores de riesgo cardiovascular. Según las pautas consensuadas en la bibliografía oficial de la materia, ¿cuál es la conducta recomendada e los umbrales de indicación quirúrgica?",
+    "opciones": [
+      "A) Indicar reparación quirúrgica abierta o EVAR inmediata debido a que la diabetes duplica el riesgo de ruptura en aneurismas pequeños.",
+      "B) Control periódico con ecografía seriada (cada 6 a 12 meses) y tratamiento de factores de riesgo; la indicación quirúrgica en asintomáticos inicia a partir de los 5.5 cm (o 5.0 cm en mujeres).",
+      "C) Indicar anticoagulación oral con acenocumarol para disolver el trombo mural e reducir el diámetro.",
+      "D) Realizar tomografía computada de urgencia e ingresar a quirófano dentro de las 24 horas independientemente del diámetro."
+    ],
+    "correcta": "B",
+    "justificacion": "El manejo del AAA asintomático se basa en el diámetro[1]. Para aneurismas < 5.0 - 5.5 cm, el riesgo de ruptura anual es bajo (<1%), siendo menor que la morbimortalidad operatoria[1][25]. Por ello, la conducta en un AAA de 4.2 cm es el **seguimiento ecográfico periódico (cada 6-12 meses) y control de factores de riesgo CV (HTA, tabaquismo, estatinas)**[1]. Los factores de riesgo CV NO cambian el umbral quirúrgico[25]. La indicación quirúrgica (abierta o EVAR) en asintomáticos inicia a los ≥ 5.5 cm en hombres (o ≥ 5.0 cm en mujeres), o ante crecimiento rápido (>0.5 cm en 6 meses o >1 cm en 1 año) o aparición de síntomas[1].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 15,
+    "pregunta": "Varón de 70 años es trasladado en ambulancia al shockroom por presentar dolor lumbar agudo e intenso e hipotensión arterial (TA 70/40 mmHg) de inicio súbito hace 1 hora. Al examen físico, el cirujano de guardia palpa una masa tumoral pulsátil e expansiva en la región supraumbilical. Se diagnostica un Aneurisma de Aorta Abdominal Roto hacia el retroperitoneo. ¿Cuál es la tríada clínica patognomónica e la conducta quirúrgica ineludible?",
+    "opciones": [
+      "A) Tríada de Charcot (fiebre, ictericia, dolor en hipocondrio derecho); requiere colangiopancreatografía retrógrada endoscópica (CPRE).",
+      "B) Tríada de Virchow (estasis, hipercoagulabilidad, daño endotelial); requiere colocar filtro de vena cava inferior.",
+      "C) Tríada de Ruptura (dolor lumbar/abdominal agudo, masa pulsátil e hipotensión/shock); requiere laparotomía o abordaje endovascular (EVAR) de emergencia.",
+      "D) Tríada de Beck (hipotensión, ingurgitación yugular, ruidos apagados); requiere pericardiocentesis subxifoidea inmediata."
+    ],
+    "correcta": "C",
+    "justificacion": "El AAA Roto es una catástrofe vascular con altísima mortalidad[23][29]. La presentación clínica clásica se caracteriza por la Tríada de Ruptura: Dolor abdominal o lumbar agudo e intenso (irradiado a ingle/genitales)[1][23]. Masa abdominal pulsátil e expansiva a la palpación[1][23]. Hipotensión arterial o colapso circulatorio / shock hipovolémico[1][23]. Constituye una emergencia quirúrgica absoluta que requiere laparotomía exploradora de urgencia con clampeo aórtico e injerto protésico (o exclusión endovascular EVAR)[1][23].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 16,
+    "pregunta": "Paciente de 65 años consulta por dolor e frialdad súbita en el pie derecho con pérdida de pulsos pedio y tibial posterior. Al examen físico de la fosa poplítea se palpa una masa pulsátil expansiva bilateral. El eco-Doppler confirma un Aneurisma de la Arteria Poplítea derecha de 2.8 cm de diámetro con trombo mural y oclusión embólica de las arterias distales de la pierna. ¿Cuál es la complicación clínica más frecuente de los aneurismas poplíteos e cuál es su indicación quirúrgica?",
+    "opciones": [
+      "A) Ruptura masiva hacia la cavidad articular de la rodilla; requiere artrodesis primaria.",
+      "B) Transformación maligna a angiosarcoma; requiere amputación supracondílea.",
+      "C) Fístula aortoentérica espontánea; requiere colectomía total.",
+      "D) Embolización distal con isquemia arterial aguda o trombosis local; requiere reparación quirúrgica (bypass) al superar los 2.0 cm o ser sintomático."
+    ],
+    "correcta": "D",
+    "justificacion": "El Aneurisma Poplíteo es el aneurisma periférico más frecuente (asociado a AAA en más del 30-50% de los casos y bilateral en >50%)[1]. A diferencia del AAA (que se rompe), la complicación principal del aneurisma poplíteo NO es la ruptura, sino la embolización distal del trombo mural o la trombosis aguda del saco, desencadenando isquemia arterial aguda grave de la pierna[1][23]. La indicación quirúrgica (bypass de exclusión con vena safena o stent endovascular) se establece cuando el aneurisma es **sintomático o cuando su diámetro supera los 2.0 cm (≥20 mm)**[1][23].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 17,
+    "pregunta": "Paciente de 58 años, hipertenso no controlado, ingresa a la urgencia refiriendo dolor torácico retroesternal e interescapular de inicio súbito, \"desgarrante\", migratorio hacia el abdomen. Al examen físico se constata una diferencia de presión arterial sistólica de 25 mmHg entre el brazo derecho (180/100 mmHg) y el izquierdo (155/90 mmHg), con asimetría de pulsos periféricos. La radiografía de tórax muestra ensanchamiento mediastínico. ¿Cuál es la sospecha diagnóstica e el estudio de imágenes de elección (gold standard) para confirmar la presencia del falso lumen?",
+    "opciones": [
+      "A) Disección Aórtica Aguda; el estudio de elección es la Angiotomografía Computada (Angio-TC) de tórax y abdomen con contraste IV.",
+      "B) Tromboembolismo Pulmonar masivo; el estudio de elección es la gammagrafía de ventilación-perfusión V/Q.",
+      "C) Infarto agudo de miocardio transmural; el estudio de elección es la coronariografía por cateterismo venoso central.",
+      "D) Neumotórax espontáneo a tensión; el estudio de elección es la ecografía de pared torácica con transductor lineal."
+    ],
+    "correcta": "A",
+    "justificacion": "La Disección Aórtica es la ruptura de la túnica íntima con ingreso de sangre e formación de un falso lumen en la capa media[22]. Se manifiesta por dolor torácico o interescapular súbito, \"desgarrante\" o punzante, migratorio, acompañado de asimetría de pulsos e diferencia de TA >20 mmHg entre miembros[24]. En la radiografía se observa ensanchamiento mediastínico[30][32]. El estudio diagnóstico confirmatorio de elección (gold standard) es la Angiotomografía Computada (Angio-TC) de tórax y abdomen con contraste IV[30].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 18,
+    "pregunta": "Se confirma mediante Angio-TC una Disección Aórtica Aguda cuyo flap intimal se origina inmediatamente distal al nacimiento de la arteria subclavia izquierda, extendiéndose por la aorta torácica descendente hacia la aorta abdominal, sin comprometer en ningún segmento a la aorta ascendente ni al arco aórtico. Según la clasificación de Stanford, ¿a qué tipo corresponde e cuál es el tratamiento inicial de elección en ausencia de complicaciones?",
+    "opciones": [
+      "A) Stanford Tipo A; requiere cirugía cardiovascular urgente con reemplazo de aorta ascendente e válvula aórtica.",
+      "B) Stanford Tipo B; requiere tratamiento médico inicial en UTI con control estricto de la presión arterial (betabloqueantes) e analgesia.",
+      "C) Stanford Tipo C; requiere colocar drenaje pleural bilateral e profilaxis antibiótica endovenosa.",
+      "D) Stanford Tipo Infrarrenal; requiere ligadura de la arteria mesentérica superior e anticoagulación plena."
+    ],
+    "correcta": "B",
+    "justificacion": "La Clasificación de Stanford para disección aórtica es la más utilizada e determina la conducta[30]: Stanford Tipo A: Compromete la aorta ascendente (independientemente del sitio de origen o extensión)[30]. Constituye una emergencia quirúrgica e requiere cirugía cardiovascular urgente[30]. Stanford Tipo B: Afecta exclusivamente la **aorta descendente (distal a la arteria subclavia izquierda)**[30]. En ausencia de complicaciones (rotura, isquemia visceral/renal/miembro), el manejo inicial es **médico conservador en UTI con control estricto de la PA (betabloqueantes como labetalol/metoprolol + vasodilatadores)**[30]. Si se complica, se realiza tratamiento endovascular (endoprótesis TEVAR)[33].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 19,
+    "pregunta": "Durante la evaluación anatómica angiográfica de una disección de aorta, el cirujano vascular clasifica la lesión según el sistema de DeBakey. Se observa que la puerta de entrada e la separación de las capas (falso lumen) se originan en la aorta ascendente e se extienden progresivamente a través del arco aórtico e de la totalidad de la aorta descendente hasta las arterias ilíacas. ¿A qué Tipo de DeBakey e a qué equivalente de la clasificación de Stanford corresponde?",
+    "opciones": [
+      "A) DeBakey Tipo II; equivalente a Stanford B.",
+      "B) DeBakey Tipo III; equivalente a Stanford B.",
+      "C) DeBakey Tipo I; equivalente a Stanford A.",
+      "D) DeBakey Tipo IV; equivalente a Stanford Infrarrenal."
+    ],
+    "correcta": "C",
+    "justificacion": "La Clasificación de DeBakey para disección aórtica se relaciona con Stanford[35]: DeBakey Tipo I: Se origina en la aorta ascendente y se extiende a la aorta descendente (equivale a Stanford A)[35][36]. DeBakey Tipo II: Involucra exclusivamente la aorta ascendente (equivale a Stanford A)[31][35]. DeBakey Tipo III: Se origina e involucra únicamente la aorta descendente distal a la subclavia (equivale a Stanford B)[31][35]. Al comprometer la aorta ascendente y extenderse a la descendente, la lesión corresponde a DeBakey I / Stanford A[35][36]. Cabe destacar que \"Infrarrenal\" NO es una clasificación válida para disección[39][40].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 20,
+    "pregunta": "Paciente de 25 años, politraumatizado tras una colisión automovilística de alta energía con desaceleración brusca, ingresa al shockroom. La radiografía de tórax muestra ensanchamiento del mediastino superior (>8 cm), borramiento del botón aórtico e desviación de la sonda nasogástrica hacia la derecha. Se sospecha una Lesión Aórtica Cerrada (Ruptura Traumática de la Aorta). De acuerdo con la anatomía quirúrgica e la evidencia del ATLS, ¿en qué sitio anatómico específico se produce más del 60% de estas lesiones e cuál es el estudio confirmatorio de elección?",
+    "opciones": [
+      "A) Aorta ascendente inmediatamente por encima de la válvula aórtica; confirmada mediante ecografía abdominal eFAST.",
+      "B) Cayado aórtico entre el tronco braquiocefálico y la carótida común izquierda; confirmada por broncoscopía rígida.",
+      "C) Aorta abdominal infrarrenal inmediatamente proximal a la bifurcación ilíaca; confirmada por radiografía de columna lumbar.",
+      "D) Istmo aórtico a nivel del ligamento arterioso (transición entre aorta fija y móvil); confirmada por Angio-TC de tórax."
+    ],
+    "correcta": "D",
+    "justificacion": "La ruptura traumática de la aorta (o lesión aórtica cerrada) se produce por mecanismos de desaceleración rápida o aplastamiento[32]. Anatómicamente, más del 60% de estas lesiones ocurren en el istmo aórtico, a nivel del ligamento arterioso, punto de unión entre la aorta descendente (relativamente fija a la columna) y el arco aórtico (más móvil)[32]. En la radiografía de tórax genera ensanchamiento mediastínico, desviación traqueal/esofágica e borramiento del botón aórtico[32]. El estudio diagnóstico de elección e confirmatorio es la Angiotomografía Computada (Angio-TC) de tórax con contraste IV[32].",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 21,
+    "pregunta": "Mujer de 48 años, multípara, consulta por pesadez, sensación de quemazón e edema vespertino en ambos miembros inferiores que empeora tras la bipedestación prolongada. Al examen físico se observan venas dilatadas e tortuosas en la cara interna de la pierna y muslo derecho. El cirujano vascular repasa la anatomía del Sistema Venoso Superficial (SVS) para planificar el estudio ecográfico. ¿Cuál es el origen, trayecto e sitio de desembocadura anatómica característico de la Vena Safena Magna (Safena Interna)?",
+    "opciones": [
+      "A) Nace en la vena marginal interna a nivel premaleolar interno, asciende por la cara interna de la pierna y muslo, y desemboca en la vena femoral común (formando el cayado safenofemoral) 2 cm por encima del pliegue inguinal.",
+      "B) Nace en la vena marginal externa a nivel retromaleolar externo, asciende por la cara posterior de la pierna e ingresa directamente en la vena cava inferior a nivel lumbar.",
+      "C) Nace en el arco venoso plantar profundo, perfora la fascia del músculo recto anterior del muslo y desemboca en la vena ilíaca interna.",
+      "D) Nace en el plexo poplíteo profundo, asciende por el conducto de Hunter y termina uniéndose a la vena safena parva a nivel de la rodilla."
+    ],
+    "correcta": "A",
+    "justificacion": "El sistema venoso superficial de los miembros inferiores está constituido por dos troncos colectores principales: Vena Safena Magna (o Safena Interna): Nace como continuación de la vena marginal interna a nivel premaleolar interno, asciende por la cara anterointerna de la pierna y muslo, y desemboca en la vena femoral común formando el Cayado Safenofemoral (aproximadamente 2 cm por debajo del ligamento inguinal en la fosa oval). Recibe tributarias como la epigástrica superficial, pudenda externa y circunfleja ilíaca superficial. Vena Safena Parva (o Safena Externa): Nace a nivel retromaleolar externo, asciende por la línea media posterior de la pierna (intergemelar) y perfora la aponeurosis en el hueco poplíteo para desembocar en la vena poplítea (Cayado Safenopoplíteo).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 22,
+    "pregunta": "Paciente de 62 años, obeso, con antecedente de varices de larga evolución sin tratamiento, consulta por dolor e induración en el tercio inferior de la pierna izquierda. Al examen físico se constata hiperpigmentación pardo-oscura (dermatitis ocre), lipodermatoesclerosis (\"pierna en copa de champagne invertida\") e una solución de continuidad trófica activa de 4 cm de diámetro sobre el maléolo interno, con lecho fibrinoso e exudado moderado. Según el componente C de la Clasificación CEAP para la Insuficiencia Venosa Crónica (IVC), ¿a qué estadio corresponde?",
+    "opciones": [
+      "A) Estadio C3 (Edema sin cambios tróficos cutáneos).",
+      "B) Estadio C6 (Insuficiencia Venosa Crónica con úlcera venosa activa).",
+      "C) Estadio C4b (Lipodermatoesclerosis o atrofia blanca sin úlcera).",
+      "D) Estadio C5 (Úlcera venosa cicatrizada)."
+    ],
+    "correcta": "B",
+    "justificacion": "La clasificación internacional CEAP (Clínica, Etiológica, Anatómica, Fisiopatológica) utiliza la categoría C (Clínica) como pilar fundamental: C0: Sin signos visibles o palpables de enfermedad venosa. C1: Telangiectasias (\"arañitas\") o venas reticulares. C2: Venas varicosas (diámetro > 3 mm). C3: Edema venoso sin cambios cutáneos. C4a: Cambios tróficos pigmentarios (dermatitis ocre, eccema varicoso). C4b: Lipodermatoesclerosis (induración lipídica) o Atrofia Blanca. C5: Cambios cutáneos tróficos con Úlcera Venosa Cicatrizada. C6: Cambios cutáneos tróficos con Úlcera Venosa ACTIVA (presente en el lecho del paciente).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 23,
+    "pregunta": "Mujer de 70 años con antecedentes de varices tronculares severas y piel atrófica en miembros inferiores sufre un traumatismo mínimo en el tercio inferior de la pierna derecha al rozar con un mueble. Presenta un sangrado venoso profuso, continuo e en napa que no cede espontáneamente, provocándole marcada ansiedad. ¿Cómo se denomina esta complicación aguda de las varices e cuál es la primera medida terapéutica e inmediata de control?",
+    "opciones": [
+      "A) Varicoflebitis supurada; requiere torniquete arterial ajustado en el muslo e infiltración local con adrenalina.",
+      "B) Fístula arteriovenosa compleja; requiere laparotomía exploradora de urgencia e ligadura aórtica.",
+      "C) Varicorragia; requiere elevación del miembro afectado a 45° (posición de Trendelenburg), compresión directa sobre el punto sangrante e vendaje elástico progresivo.",
+      "D) Trombosis venosa profunda obstructiva; requiere cauterización inmediata con nitrato de plata e deambulación sin vendajes."
+    ],
+    "correcta": "C",
+    "justificacion": "La Varicorragia es la ruptura traumática o espontánea de una vena varicosa superficial cubierta por piel atrófica e fibrosada. Es una urgencia vascular relativa que puede provocar pérdidas hemáticas significativas si el paciente permanece de pie o en pánico. El tratamiento de urgencia es sumamente efectivo e consiste en: Elevar el miembro afectado por encima del nivel del corazón a 45° (Posición de Trendelenburg) para anular la presión hidrostática de la columna venosa. Compresión directa con gasa estéril sobre el sitio de sangrado. Vendaje elástico de compresión progresiva desde el pie hasta el hueco poplíteo.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 24,
+    "pregunta": "Paciente de 55 años con varices en miembros inferiores consulta por dolor agudo e calor en la cara interna del muslo derecho. Al examen físico se palpa un cordón venoso eritematoso, indurado e muy doloroso sobre el trayecto de la vena safena magna. El Eco-Doppler venoso confirma una Tromboflebitis Superficial (Varicoflebitis) e demuestra que la cabeza del trombo se encuentra a 1.5 cm de la unión safenofemoral (cayado de la safena magna), sin comprometer la vena femoral común. ¿Cuál es la conducta terapéutica indicada?",
+    "opciones": [
+      "A) Diagnosticar Enfermedad de Mondor e indicar únicamente amoxicilina oral por 10 días.",
+      "B) Indicar reposo absoluto en cama e corticoterapia oral en altas dosis sin realizar anticoagulación.",
+      "C) Indicar fibrinólisis sistémica con rtPA e colocación inmediata de un filtro de vena cava inferior.",
+      "D) Iniciar anticoagulación a dosis terapéuticas (p. ej. HBPM o Rivaroxabán) debido al elevado riesgo de propagación al sistema venoso profundo y TEP."
+    ],
+    "correcta": "D",
+    "justificacion": "La Tromboflebitis Superficial (TVS / Varicoflebitis) no complicada suele tratarse con AINEs, calor local e elastocompresión. Sin embargo, cuando el trombo se localiza en el tronco de la safena magna e se aproxima a menos de 2 a 3 cm de la unión safenofemoral (o safenopoplítea), se considera una tromboflebitis de alto riesgo o con amenaza de progresión al sistema venoso profundo (SVP). En estos casos, la conducta estándar recomendada por las guías es iniciar anticoagulación a dosis terapéuticas o profilácticas intermedias (durante al menos 45 días) o realizar la ligadura quirúrgica del cayado (safenectomía de urgencia) para prevenir el Tromboembolismo Pulmonar (TEP).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 25,
+    "pregunta": "Paciente varón de 68 años en el 5º día postoperatorio de un reemplazo total de cadera derecha consulta por dolor espontáneo e a la palpación muscular en la pantorrilla, edema unilateral duro de la pierna derecha (diferencia de perímetro de 4 cm respecto a la izquierda) e ingurgitación de venas superficiales. ¿Cuáles son los tres factores etiopatogénicos de la Tríada de Virchow que explican el desarrollo de la Trombosis Venosa Profunda (TVP)?",
+    "opciones": [
+      "A) Estasis venosa (por inmovilización), hipercoagulabilidad (activación de la cascada por el trauma quirúrgico) e lesión endotelial (daño vascular transoperatorio).",
+      "B) Vasoespasmo arterial paroxístico, aumento de la resistencia arteriolar e trombocitopenia autoinmune.",
+      "C) Destrucción inmunológica de las cúspides valvulares venosas por anticuerpos antinucleares.",
+      "D) Infección bacteriana primaria de la túnica media por Staphylococcus epidermidis."
+    ],
+    "correcta": "A",
+    "justificacion": "La etiología de la Trombosis Venosa Profunda (TVP) responde a la clásica Tríada de Virchow: Estasis Venosa: Favorecida por la inmovilización prolongada en cama, reposo postquirúrgico, viajes largos o paresia de extremidades. Hipercoagulabilidad (Hipercoagulopatía): Gatillada por cirugías mayores (ortopédicas, oncológicas), neoplasias, anticonceptivos orales, embarazo o trombofilias hereditarias/adquiridas. Lesión Endotelial: Producida por traumatismos directos, manipulación quirúrgica, Catéteres Venosos Centrales o procesos inflamatorios.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 26,
+    "pregunta": "Paciente de 60 años con diagnóstico de adenocarcinoma de colon activo en tratamiento con quimioterapia presenta edema e dolor unilateral en el miembro inferior izquierdo, de 3 días de evolución. El examen físico revela empastamiento doloroso de la pantorrilla, edema que deja fóvea e ausencia de un diagnóstico alternativo más probable. El cirujano calcula los Criterios de Wells para TVP, obteniendo un puntaje de 3 puntos (Alta probabilidad clínica). ¿Cuál es el estudio complementario de elección (Gold Standard práctico) para confirmar el diagnóstico?",
+    "opciones": [
+      "A) Determinación de PCR ultrasensible e radiografía simple de fémur.",
+      "B) Ecografía Doppler venosa de miembros inferiores (Eco-Doppler color).",
+      "C) Tomografía computada de tórax sin contraste.",
+      "D) Angiografía digital arterial por punción de la arteria humeral."
+    ],
+    "correcta": "B",
+    "justificacion": "Ante la sospecha clínica de TVP, la probabilidad se estratifica mediante la Escala / Criterios de Wells para TVP (presencia de cáncer activo, parálisis/inmovilización, reposo en cama >3 días o cirugía mayor, dolor a lo largo del sistema venoso profundo, tumefacción de toda la pierna, diferencia de perímetro de pantorrilla >3 cm, edema con fóvea, venas superficiales colaterales no varicosas, e antecedente de TVP; restando 2 puntos si hay un diagnóstico alternativo). Probabilidad Alta (≥2 puntos): Se indica de primera línea la Ecografía Doppler venosa de miembros inferiores (demuestra incompresibilidad venosa, ausencia de flujo o presencia del trombo). Probabilidad Baja (<1 punto): Se solicita Dímero D; si es negativo descarta TVP.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 27,
+    "pregunta": "Paciente de 50 años con neoplasia ginecológica avanzada ingresa por dolor insoportable e hinchazón masiva en todo el miembro inferior izquierdo. Al examen físico, la pierna y muslo se presentan extremadamente edematizados, fríos, con flictenas y una coloración cianótica/violácea profunda (azulada), observándose disminución de los pulsos pedio y tibial posterior por colapso secundario a la elevada presión tisular. ¿A qué complicación venosa obstructiva masiva corresponde e cuál es su riesgo inminente?",
+    "opciones": [
+      "A) Phlegmasia Alba Dolens (pierna blanca dolorosa por espasmo arterial reflejo leve).",
+      "B) Isquemia arterial aguda pura por embolia de origen cardíaco.",
+      "C) Phlegmasia Cerulea Dolens (trombosis venosa profunda masiva e iliofemoral con isquemia venosa e riesgo de gangrena/amputación).",
+      "D) Erisipela bullosa estreptocócica del compartimento subcutáneo."
+    ],
+    "correcta": "C",
+    "justificacion": "La Phlegmasia Cerulea Dolens (pierna azul dolorosa) es la forma más grave e fulminante de Trombosis Venosa Profunda. Se produce por la oclusión trombótica masiva e total de todo el sistema venoso de drenaje de la extremidad (sector iliofemoral e colaterales). El bloqueo del retorno venoso genera una hipertensión capilar extrema con extravasación de fluido al intersticio, lo que compromete la presión de perfusión arterial, desencadenando isquemia venosa, cianosis marcada (color cerúleo/azul), dolor insoportable, flictenas e riesgo inminente de gangrena e amputación del miembro. Requiere anticoagulación intensiva, trombolisis o trombectomía de emergencia.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 28,
+    "pregunta": "Paciente de 64 años ingresa por TVP iliofemoral derecha confirmada por Doppler e inicia tratamiento con Heparina de Bajo Peso Molecular (HBPM). A las 12 horas presenta un cuadro de Hemorragia Digestiva Alta masiva por úlcera gástrica sangrante con caída del hematocrito que requiere transfusión de glóbulos rojos e hemostasia endoscópica, lo que obliga a la suspensión definitiva e inmediata de la anticoagulación. ¿Cuál es la conducta de elección para prevenir un Tromboembolismo Pulmonar (TEP)?",
+    "opciones": [
+      "A) Reiniciar Heparina no fraccionada en bolo continuo al doble de la dosis previa.",
+      "B) Iniciar tratamiento oral con ácido acetilsalicílico e clopidogrel.",
+      "C) Administrar fibrinolíticos sistémicos con Alteplasa (rTPA) por vía periférica.",
+      "D) Indicación e colocación percutánea de un Filtro de Vena Cava Inferior (FVCI) temporal o recuperable."
+    ],
+    "correcta": "D",
+    "justificacion": "El pilar del tratamiento de la TVP es la anticoagulación plena (HBPM, DOACs o Antagonistas de Vitamina K). Sin embargo, en presencia de una contraindicación absoluta para la anticoagulación (p. ej., sangrado activo mayor SNC o digestivo, cirugía reciente neuroquirúrgica o trombocitopenia severa por heparina) o ante la recurrencia de TEP a pesar de una anticoagulación adecuada, la indicación formal e de elección es la colocación percutánea de un Filtro de Vena Cava Inferior (FVCI) infrarrenal para atrapar los émbolos provenientes de las extremidades inferiores antes de que lleguen a la circulación pulmonar.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 29,
+    "pregunta": "Paciente de 58 años en el 6º día de posoperatorio de una hemicolectomía izquierda por cáncer consulta por disnea de aparición súbita, dolor torácico de tipo pleurítico, taquipnea de 32 rpm, taquicardia de 118 lpm y saturación de O2 del 88% a aire ambiente. Los Criterios de Wells para TEP indican una alta probabilidad clínica. ¿Cuál es el método de imágenes confirmatorio de elección (Gold Standard actual)?",
+    "opciones": [
+      "A) Angiotomografía Computada Multislice de Tórax (Angio-TC pulmonar) con protocolo para TEP.",
+      "B) Radiografía simple de tórax de frente y perfil con contraste baritado.",
+      "C) Ecografía de partes blandas de tórax anterior con transductor lineal.",
+      "D) Cinecoronariografía por acceso retrógrado femoral."
+    ],
+    "correcta": "A",
+    "justificacion": "El Tromboembolismo Pulmonar (TEP) es la complicación aguda más grave de la TVP. Ante la sospecha clínica respaldada por la Escala de Wells para TEP (síntomas de TVP, TEP como diagnóstico más probable, FC >100 lpm, inmovilización/cirugía reciente, TEP/TVP previo, hemoptisis, cáncer), el método diagnóstico confirmatorio e de imágenes de primera elección en la actualidad es la Angiotomografía Computada de Tórax (Angio-TC de arterias pulmonares), la cual permite visualizar directamente los defectos de rellenado trombóticos en el árbol arterial pulmonar con alta sensibilidad y especificidad.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 30,
+    "pregunta": "Paciente con sospecha de TEP ingresa al shockroom con hipotensión arterial severa y persistente (TA 70/40 mmHg), shock cardiogénico, síncope e taquicardia extrema de 135 lpm. El ecocardiograma al pie de la cama demuestra dilatación e sobrecarga aguda del ventrículo derecho (Cor Pulmonale agudo). ¿A qué categoría de severidad corresponde este TEP e cuál es el tratamiento farmacológico de urgencia?",
+    "opciones": [
+      "A) TEP de Bajo Riesgo / No masivo; requiere profilaxis con aspirina oral e alta a domicilio.",
+      "B) TEP Masivo con Inestabilidad Hemodinámica / Alto Riesgo; requiere reanimación hemodinámica e Trombólisis Sistémica (p. ej. rTPA / Alteplasa) o embolectomía.",
+      "C) TEP Crónico Cursante; requiere tratamiento exclusivo con medias de compresión elástica.",
+      "D) TEP Recidivante Leve; requiere neumonectomía total derecha electiva en 6 meses."
+    ],
+    "correcta": "B",
+    "justificacion": "El TEP se estratifica clínicamente según el riesgo de mortalidad precoz: TEP Masivo (Alto Riesgo): Se define por la presencia de Inestabilidad Hemodinámica (hipotensión arterial sostenida con PAS <90 mmHg o caída de PAS ≥40 mmHg durante más de 15 minutos, o shock cardiogénico). El TEP masivo constituye una emergencia médica con alta mortalidad por fallo ventricular derecho agudo. La indicación terapéutica de primera línea es la Trombólisis Sistémica con fibrinolíticos (Alteplasa / rTPA o Estreptoquinasa) para disolver rápidamente la carga trombótica en la arteria pulmonar; si la trombólisis está contraindicada, se indica la embolectomía quirúrgica o percutánea guiada por catéter.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 31,
+    "pregunta": "En el departamento de emergencias, se atiende a un paciente politraumatizado en estado de shock hipovolémico severo con colapso venoso periférico generalizado en quien han fracasado reiterados intentos de punción venosa percutánea. El equipo médico decide realizar una Flebotomía (Disisección Venosa Quirúrgica) para establecer un acceso vascular de infusión rápida. ¿En qué sitio anatómico clásico de la extremidad inferior se realiza habitualmente este procedimiento?",
+    "opciones": [
+      "A) Disisección de la vena poplítea en el centro de la fosa poplítea.",
+      "B) Disisección de la vena femoral profunda por debajo del ligamento inguinal.",
+      "C) Disisección quirúrgica de la Vena Safena Magna a nivel premaleolar interno (1 a 2 cm por delante e por arriba del maléolo tibial).",
+      "D) Disisección de la arteria pedia en el dorso del pie."
+    ],
+    "correcta": "C",
+    "justificacion": "La Flebotomía (o Disisección Venosa Quirúrgica) es un procedimiento quirúrgico mediante el cual se expone e canula una vena bajo visión directa. El sitio anatómico clásico, constante e de elección en extremidades inferiores es la Vena Safena Magna a nivel premaleolar interno (localizada aproximadamente 1 a 2 cm por delante e por arriba del maléolo interno o medial de la tibia). Es una vena de calibre constante e predecible que permite la introducción de una cánula o catéter intraluminal de gran diámetro para la infusión rápida de cristaloides e hemoderivados en situaciones de reanimación crítica donde la punción percutánea no es factible.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 32,
+    "pregunta": "Un paciente de 52 años ingresa a la UTI por sepsis abdominal grave y shock séptico. Requiere monitoreo hemodinámico de la Presión Venosa Central (PVC), administración de drogas vasoactivas (noradrenalina en infusión continua) e inicio de Nutrición Parenteral Total (NPT) por ayuno prolongado. ¿Cuáles son las indicaciones formales para la colocación de un Catéter Venoso Central (CVC)?",
+    "opciones": [
+      "A) Tratamiento ambulatorio de la hipertensión arterial sistémica leve.",
+      "B) Medición de la presión arterial media sistémica sin necesidad de catéter arterial.",
+      "C) Extracción de muestras de sangre de rutina en un paciente joven sin complicaciones.",
+      "D) Monitoreo de la PVC, infusión de fármacos vasoactivos, administración de soluciones hiperosmolares/irritantes (NPT, quimioterapia), e imposibilidad de acceso venoso periférico."
+    ],
+    "correcta": "D",
+    "justificacion": "De acuerdo con la bibliografía de la cátedra e consensos de cuidado intensivo, la canalización de un Acceso Venoso Central (CVC) está indicada ante: Monitoreo hemodinámico: Medición de la Presión Venosa Central (PVC). Administración de fármacos vasoactivos o inotrópicos (noradrenalina, adrenalina, dopamina) que producen flebitis e necrosis en venas periféricas. Infusión de soluciones hiperosmolares o irritantes: Nutrición Parenteral Total (NPT), quimioterapia, KCl concentrado. Imposibilidad de accesos venosos periféricos o necesidad de infusiones múltiples simultáneas/tratamientos prolongados. Procedimientos especiales: hemodiálisis, colocación de marcapasos transitorio.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 33,
+    "pregunta": "Se planifica la colocación de un CVC por vía Yugular Interna Derecha en un paciente crítico en la UTI. Para guiar la punción percutánea mediante referencias anatómicas de superficie, el cirujano localiza el Triángulo de Sedillot en la región anterolateral del cuello. ¿Cuáles son los límites anatómicos que conforman este triángulo clave?",
+    "opciones": [
+      "A) Base: Borde superior de la clavícula; Lado Medial: Haz/cabeza esternal del músculo esternocleidomastoideo (ECM); Lado Lateral: Haz/cabeza clavicular del músculo ECM.",
+      "B) Base: Borde inferior de la mandíbula; Lado Medial: Músculo trapecio; Lado Lateral: Vientre anterior del digástrico.",
+      "C) Base: Primera costilla; Lado Medial: Músculo omohioideo; Lado Lateral: Apófisis mastoides.",
+      "D) Base: Cartílago tiroides; Lado Medial: Arteria carótida primitiva; Lado Lateral: Músculo escaleno anterior."
+    ],
+    "correcta": "A",
+    "justificacion": "La vena yugular interna desciende por el cuello dentro del paquete vasculonervioso junto con la arteria carótida e el nervio vago. Su referencia anatómica de superficie clásica para la punción en el abordaje anterior es el Triángulo de Sedillot, delimitado por: Base (inferior): Borde superior de la clavícula. Lado Medial: Cabeza o haz esternal del músculo esternocleidomastoideo (ECM). Lado Lateral: Cabeza o haz clavicular del músculo ECM. El vértice superior de este triángulo señala el punto de punción (dirigiendo la aguja a 30-45° hacia la tetilla ipsilateral), donde la vena yugular interna se ubica anterolateral a la arteria carótida.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 34,
+    "pregunta": "Durante la canalización de una vía venosa central (yugular o subclavia), el operador utiliza el método estándar universalmente aceptado denominado Técnica de Seldinger. ¿Cuál es la secuencia de pasos técnicos estandarizados que caracteriza a este procedimiento de \"catéter sobre guía\"?",
+    "opciones": [
+      "A) Inserción del catéter final directamente con bisturí → paso de la guía metálica por el catéter → dilatación de la piel.",
+      "B) Punción venosa con aguja/trócar e aspiración de sangre venosa → avance de la guía metálica flexible en \"J\" a través de la aguja → retiro de la aguja conservando la guía → incisión cutánea e paso del dilatador sobre la guía → paso del catéter sobre la guía → retiro de la guía metálica.",
+      "C) Incisión quirúrgica de 5 cm en la piel → ligadura venosa distal → punción rígida con catéter de plástico sin guía metálica.",
+      "D) Inserción de la guía metálica a través de la arteria carótida → avance del dilatador hacia el ventrículo izquierdo."
+    ],
+    "correcta": "B",
+    "justificacion": "La Técnica de Seldinger es el método percutáneo universal para colocar accesos vasculares centrales. Su secuencia metodológica estricta comprende: Punción de la vena con aguja/trócar (18-20G) conectada a jeringa e aspiración de sangre venosa oscura. Introducción de la guía metálica flexible (con punta suave en \"J\") a través de la aguja. Retiro de la aguja de punción, manteniendo fija la guía metálica en el vaso. Incisión puntual en la piel con bisturí N° 11 e introducción del dilatador vascular sobre la guía para labrar el trayecto subcutáneo. Retiro del dilatador e inserción del catéter venoso central sobre la guía metálica. Retiro definitivo de la guía metálica, verificación de retorno venoso por las luces del catéter e fijación a la piel.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 35,
+    "pregunta": "En la selección del sitio de inserción para un Catéter Venoso Central en un paciente que requiere terapia por más de 10 a 14 días, el equipo médico compara la Vena Subclavia (abordaje infraclavicular) con la Vena Yugular Interna y la Vena Femoral. ¿Cuáles son las ventajas e riesgos anatómicos característicos de la vía subclavia?",
+    "opciones": [
+      "A) Presenta la mayor tasa de infecciones bacterianas e trombosis de todas las vías (hasta un 21.5%).",
+      "B) No puede punzarse percutáneamente e requiere toracotomía exploradora obligatoria.",
+      "C) Es confortable para el paciente, fácil de mantener y presenta menor tasa de infecciones, pero tiene un riesgo inherente de neumotórax mecánico y es difícil de comprimir en caso de hematoma.",
+      "D) Se punza en el triángulo de Scarpa por debajo del ligamento inguinal."
+    ],
+    "correcta": "C",
+    "justificacion": "La elección del sitio para un CVC pondera ventajas e complicaciones: Vena Subclavia: Ventajas: Alta comodidad para el paciente, fácil mantenimiento del apósito estéril e menor tasa de complicaciones infecciosas y trombóticas. Desventajas/Riesgos: Mayor riesgo de Neumotórax mecánico (por contigüidad con el ápice pleural), hemotórax e imposibilidad de compresión directa efectiva si se produce un hematoma por punción arterial accidental. Vena Yugular Interna: Fácil acceso e menor riesgo de neumotórax, pero mayor incomodidad e riesgo de punción carotídea. Vena Femoral: Rápida e de alto éxito, pero con la mayor tasa de infección e trombosis (21.5%), reservada para emergencias transitorias.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 36,
+    "pregunta": "Inmediatamente después de colocar un Catéter Venoso Central no tunelizado por vía subclavia o yugular interna e antes de iniciar la infusión de soluciones hiperosmolares o inotrópicos, ¿cuál es el estudio de control obligatorio que debe solicitarse e cuál es la ubicación anatómica idónea de la punta del catéter?",
+    "opciones": [
+      "A) Angiografía cerebral de 4 vasos; la punta debe quedar en la arteria cerebral media.",
+      "B) Ecografía renal bilateral; la punta debe quedar en la vena renal izquierda.",
+      "C) Tomografía computada de cuello sin contraste; la punta debe quedar dentro del músculo esternocleidomastoideo.",
+      "D) Radiografía de tórax de frente; la punta debe quedar en la Vena Cava Superior (VCS) justo por arriba de la unión cavoauricular, descartando neumotórax."
+    ],
+    "correcta": "D",
+    "justificacion": "Tras la colocación de un CVC de abordaje torácico/cervical (yugular o subclavia), es una norma de buena práctica e seguridad médica ineludible realizar una Radiografía de Tórax de frente (posteroanterior o anteroposterior en cama) para cumplir dos objetivos fundamentales: Verificar la posición correcta de la punta del catéter: Debe alojarse en el tercio inferior de la Vena Cava Superior (VCS), inmediatamente por arriba de la confluencia con la aurícula derecha (a nivel del bronquio fuente derecho o 3º-4º espacio intercostal posterior). Descartar complicaciones mecánicas iatrogénicas: Descartar la presencia de Neumotórax puncional o Hemotórax.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 37,
+    "pregunta": "Paciente a quien se le realizó la colocación de un CVC por vía subclavia izquierda comienza a los 15 minutos de finalizado el procedimiento con dolor torácico agudo ipsilateral, tos, disnea progresiva, taquipnea e disminución de la entrada de aire (murmullo vesicular abolido) en el hemitórax izquierdo. La radiografía de tórax confirma un Neumotórax puncional del 35% con colapso pulmonar. ¿Cuál es el manejo de esta complicación mecánica?",
+    "opciones": [
+      "A) Neumotórax puncional por punción pleural accidental; requiere colocación de un tubo de drenaje pleural (avenamiento pleural) en el 5º espacio intercostal línea axilar media.",
+      "B) Embolia gaseosa masiva; requiere toracotomía exanguinante inmediata con desbridamiento miocárdico.",
+      "C) Perforación esofágica iatrogénica; requiere dieta libre de grasas e somatostatina endovenosa.",
+      "D) Hematoma retroperitoneal expansivo; requiere paracentesis evacuadora diagnóstica."
+    ],
+    "correcta": "A",
+    "justificacion": "El Neumotórax es la complicación mecánica iatrogénica más frecuente de la punción venosa central subclavia (e en menor medida yugular), provocada por la penetración accidental de la aguja en la pleura visceral e ápice pulmonar. Se manifiesta por disnea, dolor pleurítico e disminución del murmullo vesicular post-punción. Si el neumotórax es sintomático o mayor al 15-20%, el tratamiento de elección es la colocación de un tubo de drenaje pleural (avenamiento) con trampa de agua en el 5º espacio intercostal, línea axilar media.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 38,
+    "pregunta": "Paciente femenina de 48 años con adenocarcinoma de mama requiere iniciar un esquema de quimioterapia endovenosa ambulatoria con drogas vesicantes durante 12 meses. Presenta un árbol venoso periférico sumamente frágil con antecedentes de flebitis. Se decide la colocación de un acceso venoso central permanente e totalmente implantable. ¿Cómo se denomina este dispositivo e cuál es su característica técnica?",
+    "opciones": [
+      "A) Catéter venoso central no tunelizado corto de tres lúmenes de inserción femoral.",
+      "B) Catéter totalmente implantable con reservorio subcutáneo (Port-a-Cath / RVS), colocado mediante tunelización subcutánea.",
+      "C) Cánula arterial de teflón 20G colocada en la arteria pedia distal.",
+      "D) Catéter de Swan-Ganz introducido por la vena safena menor."
+    ],
+    "correcta": "B",
+    "justificacion": "Para tratamientos quimioterápicos, infusiones de larga duración o accesos venosos ambulatorios prolongados (meses a años), el dispositivo venoso de elección es el Catéter totalmente implantable con reservorio subcutáneo (Port-a-Cath / RVS). Consiste en un catéter de silicona o poliuretano introducido en la vena subclavia o yugular interna cuya punta llega a la VCS, e cuyo extremo proximal se conecta a una cúpula o reservorio de titanio/plástico implantado quirúrgicamente en un bolsillo subcutáneo en la pared torácica anterior. Se punza a través de la piel con agujas especiales no carunculantes (Agujas de Huber), ofreciendo baja tasa de infección e excelente calidad de vida.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 39,
+    "pregunta": "Durante la evaluación previa a la canalización de una Vena Venosa Central por vía percutánea, el equipo de cirugía analiza las contraindicaciones absolutas e relativas del procedimiento. ¿Cuál de las siguientes situaciones clínicas constituye una contraindicación absoluta para la punción de un vaso venoso específico?",
+    "opciones": [
+      "A) Presencia de coagulopatía moderada con RIN de 1.8.",
+      "B) Paciente no cooperador o inquieto.",
+      "C) Infección activa o celulitis en el sitio de inserción cutánea o trombosis venosa demostrada del vaso a punzar.",
+      "D) Presencia de obesidad mórbida con cuello corto."
+    ],
+    "correcta": "C",
+    "justificacion": "La canalización venosa central tiene contraindicaciones precisas: Contraindicaciones ABSOLUTAS: Infección activa, eritema o celulitis en el sitio cutáneo de inserción (riesgo de bacteriemia e sepsis). Trombosis venosa profunda demostrada del vaso a punzar (imposibilidad de avance de la guía e riesgo de embolización). Contraindicaciones RELATIVAS: Coagulopatía o trombocitopenia, alteración anatómica/traumatismos de la zona, tratamiento trombolítico reciente, pacientes no cooperadores o bulas pulmonares (para vía subclavia). En contraindicaciones relativas se prefiere el abordaje guiado por ecografía o la vía femoral/pICC.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 40,
+    "pregunta": "En el protocolo de mantenimiento e vigilancia de los Accesos Venosos Centrales en la UTI para la prevención de Bacteriemias Asociadas a Catéter (BAC), ¿cuáles son las pautas recomendadas de antisepsia e cuidado del sitio de punción?",
+    "opciones": [
+      "A) Cambiar la vía central de lugar cada 12 horas e limpiar el sitio con agua de canilla sin guantes.",
+      "B) Retirar el catéter únicamente cuando el paciente presente fiebre de 41 ºC sin realizar hemocultivos.",
+      "C) Infiltrar ampicilina en crema alrededor del catéter e cubrir con gasas húmedas abiertas.",
+      "D) Evaluación del sitio de inserción cada 24 horas buscando eritema/secreción, higiene de manos e antisepsia rigurosa con Clorhexidina al 2% (o Povidona iodada) e uso de apósito transparente semipermeable estéril."
+    ],
+    "correcta": "D",
+    "justificacion": "La infección relacionada con el catéter venoso central es una de las principales complicaciones intrahospitalarias. Las medidas del paquete de prevención (bundle) respaldadas por la cátedra comprenden: Higiene de manos estricta antes de cualquier manipulación. Antisepsia cutánea con Clorhexidina al 2% en base alcohólica (de preferencia sobre povidona iodada) durante la inserción e curaciones. Uso de máximas barreras de precaución estéril durante la inserción (barbijo, gorro, camisolín estéril, guantes e campo estéril amplio). Cubrimiento con apósito transparente semipermeable estéril. Evaluación diaria del sitio de inserción (cada 24 horas) e retiro inmediato del catéter tan pronto como deje de ser indispensable.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 41,
+    "pregunta": "Paciente de 64 años con claudicación intermitente severa e invalidante del miembro inferior derecho (Fontaine IIb) es sometido a una Angio-TC que demuestra una estenosis focal única de 2 cm en la arteria femoral superficial, sin oclusión completa ni calcificación masiva. Según el consenso internacional TASC II (Trans-Atlantic Inter-Society Consensus) para la toma de decisiones en el tratamiento de la enfermedad arterial oclusiva infrainguinal, ¿a qué categoría de lesión corresponde e cuál es la estrategia de revascularización de primera elección?",
+    "opciones": [
+      "A) Lesión TASC A; requiere estrategia de revascularización de primera línea mediante angioplastia transluminal percutánea (ATP) con o sin stent.",
+      "B) Lesión TASC D; requiere bypass femoropoplíteo infrapatelar con vena safena magna en forma obligatoria.",
+      "C) Lesión TASC C; requiere endarterectomía abierta extensa e colocación de parche de Dacron.",
+      "D) Lesión TASC B; requiere amputación infracondílea primaria e anticoagulación oral exclusiva."
+    ],
+    "correcta": "A",
+    "justificacion": "La clasificación del consenso TASC II guía la elección terapéutica entre tratamiento endovascular e quirúrgico abierto: Lesiones TASC A (Lesiones simples focalizadas): Estenosis únicas ≤ 5 cm o oclusiones únicas ≤ 3 cm. La revascularización ENDOVASCULAR (angioplastia percutánea ATP con/sin stent) es la opción de primera elección debido a su alta tasa de éxito técnico e baja morbilidad. Lesiones TASC B: Lesiones múltiples o estenosis/oclusiones de 5 a 10 cm. Abordaje predominantemente endovascular. Lesiones TASC C: Oclusiones de 10 a 15 cm. Se prefiere la cirugía abierta en pacientes con bajo riesgo quirúrgico. Lesiones TASC D (Lesiones complejas extensas): Oclusiones crónicas de más de 20 cm o compromiso difuso. La cirugía abierta de Bypass es el tratamiento de primera elección.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 42,
+    "pregunta": "Paciente de 62 años con diabetes mellitus tipo 2 de 20 años de evolución consulta por una lesión ulcerada en el talón e dorso del primer dedo del pie derecho de 3 semanas de evolución. Al examen físico presenta pie tibio, disminución de la sensibilidad táctil/vibratoria en calcetín (neuropatía), ausencia de pulsos pedio y tibial posterior, e un Índice Tobillo-Brazo (ITB) de 1.45 por calcificación arterial de la media (arteria incompresible). ¿Qué prueba no invasiva alternativa debe solicitarse para evaluar la perfusión tisular microvascular real del pie e qué grado de Wagner presenta si la úlcera compromete fascia y tendón sin osteomielitis?",
+    "opciones": [
+      "A) Ph-metría esofágica; Grado 0 de Wagner.",
+      "B) Presión Sistólica del Hueso del Dedo / Presión de Dedo (ITD) o Tensión de Oxígeno Transcutánea (TcPO2); Grado 2 de Wagner.",
+      "C) Resonancia magnética nuclear cerebral; Grado 5 de Wagner.",
+      "D) Capilaroscopía ungueal pura; Grado 4 de Wagner."
+    ],
+    "correcta": "B",
+    "justificacion": "En pacientes diabéticos, la esclerosis de Monckeberg (calcificación de la túnica media) torna las arterias incompresibles, arrojando falsamente un ITB > 1.40. En estos casos, para evaluar la isquemia real se debe medir la Presión Sistólica en el Hueso del Dedo del Pie (ITD / Presión de Hálux <30-50 mmHg indica isquemia) o la Tensión de Oxígeno Transcutánea (TcPO2 <30 mmHg indica mala cicatrización), ya que las arterias digitales raramente sufren calcificación media. Según la Clasificación de Wagner para Pie Diabético: Grado 0: Sin lesión abierta. Grado 1: Úlcera superficial sin compromiso de tejidos profundos. Grado 2: Úlcera profunda que afecta tendones, articulaciones o fascia sin absceso ni osteomielitis. Grado 3: Úlcera profunda con absceso, celulitis o osteomielitis. Grado 4: Gangrena limitada a los dedos o antepié. Grado 5: Gangrena extensa de todo el pie.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 43,
+    "pregunta": "Paciente femenina de 72 años con antecedente de fibrilación auricular e insuficiencia cardíaca consulta en la urgencia por dolor abdominal agudo, difuso e insoportable de inicio súbito (\"dolor desproporcionado al examen físico\"), acompañado de deposiciones diarréicas e vómitos. Al examen físico inicial el abdomen se presenta blando, depresible, sin signos de irritación peritoneal. Los laboratorios muestran acidosis metabólica severa con hiperlactatemia (Lactato 6.2 mmol/L) e leucocitosis de 22.000/mm3. ¿Cuál es el diagnóstico de esta emergencia vascular e la prueba de imágenes confirmatoria de elección?",
+    "opciones": [
+      "A) Apendicitis aguda congestiva; confirmada por ecografía renovesical.",
+      "B) Colecistitis aguda alitiásica; confirmada por colangiografía retrógrada.",
+      "C) Isquemia Mesentérica Aguda por embolia de la Arteria Mesentérica Superior (AMS); confirmada por Angiotomografía Computada (Angio-TC) multislice de abdomen.",
+      "D) Volvulo de sigmoides complicado; confirmado por colonoscopía izquierda con enema baritado."
+    ],
+    "correcta": "C",
+    "justificacion": "La Isquemia Mesentérica Aguda es una catástrofe vascular con alta mortalidad (>60-80%). Su causa más frecuente (50%) es la embolia de origen cardíaco en la Arteria Mesentérica Superior (AMS) (debido a su ángulo de salida oblicuo e elevado flujo). La presentación patognomónica precoz es la disociación entre un dolor abdominal agudo e insoportable y un examen físico abdominal inicial sorprendentemente paucináutico (abdomen blando sin peritonitis). La acidosis metabólica con elevación de lactato e leucocitosis indican sufrimiento intestinal. El estudio diagnóstico confirmatorio de elección es la Angiotomografía Computada (Angio-TC) de abdomen con contraste arterial.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 44,
+    "pregunta": "Paciente varón de 68 años con aterosclerosis sistémica consulta por dolor sordo e cólico en el mesogastrio que aparece sistemáticamente entre 30 e 45 minutos después de ingerir alimentos (\"angina abdominal\"), durando aproximadamente 2 horas. Debido al dolor posprandial, el paciente ha desarrollado miedo a comer (sitofobia) e ha perdido 12 kg de peso en los últimos 4 meses. La Angio-TC demuestra estenosis crítica severa (>70%) en el Tronco Celíaco e en la Arteria Mesentérica Superior. ¿A qué entidad vascular corresponde e cuál es el pilar de su tratamiento?",
+    "opciones": [
+      "A) Gastritis erosiva antral por Helicobacter pylori; requiere esquema triple antibiótico con claritromicina.",
+      "B) Síndrome de la arteria renal izquierda; requiere nefrectomía radical primaria.",
+      "C) Adenocarcinoma ductal de cabeza de páncreas; requiere pancreatoduodenectomía (operación de Whipple).",
+      "D) Isquemia Mesentérica Crónica; requiere revascularización mesentérica (endovascular mediante angioplastia/stent o bypass quirúrgico)."
+    ],
+    "correcta": "D",
+    "justificacion": "La Isquemia Mesentérica Crónica (o Angina Abdominal) se debe a la oclusión aterosclerótica progresiva de al menos dos de los tres troncos digestivos principales (Tronco Celíaco, Arteria Mesentérica Superior e Arteria Mesentérica Inferior). Se caracteriza por la tríada clásica: Dolor posprandial constante (\"angina abdominal\") desencadenado por la mayor demanda metabólica e sanguínea intestinal durante la digestión. Miedo a comer (sitofobia). Pérdida de peso progresiva e marcada. El tratamiento de elección en pacientes sintomáticos es la revascularización mesentérica, actualmente con preferencia por la vía endovascular (angioplastia e colocación de stent en el origen de la AMS/Tronco Celíaco).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 45,
+    "pregunta": "En la evaluación de los Aneurismas de Aorta Torácica e Toracoabdominales (AAT",
+    "opciones": [
+      "A) , se aplica la Clasificación de Crawford para delimitar la extensión anatómica e planificar el abordaje quirúrgico o endovascular. ¿Qué extensión anatómica específica define al Aneurisma Toracoabdominal Crawford Tipo I? A) Se origina en la aorta torácica descendente alta (distal a la subclavia izquierda) e se extiende hasta la aorta abdominal por arriba de las arterias renales.",
+      "B) Se origina en la aorta ascendente e se extiende hasta la bifurcación de las arterias ilíacas comunes.",
+      "C) Se origina en la aorta abdominal infrarrenal e se extiende hasta el arco aórtico.",
+      "D) Se origina exclusivamente en el cuello e se extiende hasta la vena cava superior."
+    ],
+    "correcta": "A",
+    "justificacion": "La Clasificación de Crawford para Aneurismas Toracoabdominales los divide en 5 tipos según la extensión: Crawford Tipo I: Se origina en la aorta torácica descendente alta (distal a la subclavia) e se extiende hasta la aorta abdominal por arriba de las arterias renales (suprarenal). Crawford Tipo II: El de mayor riesgo de paraplejía/isquemia medular; va desde la subclavia izquierda hasta la bifurcación aórtica infrarenal completa. Crawford Tipo III: Desde la aorta torácica descendente distal (mitad inferior) hasta la aorta abdominal. Crawford Tipo IV: Involucra la totalidad de la aorta abdominal (incluyendo el origen de las arterias viscerales e renales). Crawford Tipo V: Desde la aorta torácica inferior hasta la zona pararrenal.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 46,
+    "pregunta": "Paciente de 70 años con antecedente de reparación quirúrgica abierta de Aneurisma de Aorta Abdominal con prótesis de Dacron hace 5 años consulta por un episodio de hemorragia digestiva alta masiva \"centinela\" (melena e hematemesis) que se autolimita espontáneamente, acompañado de fiebre de origen desconocido e bacteriemia recurrente. La Angio-TC de abdomen demuestra gas periprofético, borramiento de la tercera porción del duodeno e comunicación con el injerto aórtico. ¿A qué complicación quirúrgica tardía catastrófica corresponde e cuál es la conducta médica/quirúrgica?",
+    "opciones": [
+      "A) Diverticulitis aguda complicada; requiere hemicolectomía derecha con ileostomía.",
+      "B) Fístula Aortoentérica Secundaria; requiere laparotomía urgente, retirada e explantación de la prótesis infectada, debridamiento, cierre duodenal e bypass extraanatómico (axilobifemoral).",
+      "C) Ulcus péptico duodenal por AINEs; requiere omeprazol intravenoso e alta a domicilio.",
+      "D) Síndrome de Mallory-Weiss; requiere observación en sala general durante 24 horas."
+    ],
+    "correcta": "B",
+    "justificacion": "La Fístula Aortoentérica Secundaria es una complicación tardía grave (1-2% de las cirugías aórticas abiertas) provocada por la erosión e infección de la prótesis sobre el tubo digestivo (frecuentemente la tercera porción del duodeno). Se manifiesta por la clásica \"Hemorragia Centinela\" (sangrado digestivo masivo inicial que se frena por la formación de un coágulo temporal, precediendo al sangrado cataclísmico exanguinante) e signos de infección de prótesis (fiebre, bacteriemia por Gram negativos). Requiere Laparotomía urgente con explantación e retiro completo de la prótesis sintética infectada, reparación/sutura del defecto duodenal e revascularización mediante bypass extraanatómico (Axilobifemoral) en terreno limpio.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 47,
+    "pregunta": "Paciente de 58 años con antecedente de carcinoma broncogénico de pulmón derecho consulta por edema facial \"en esclavina\" (cara, cuello e parte superior del tórax), ingurgitación de las venas yugulares e circulación colateral venosa prominente en el tórax superior, acompañado de cefalea e disnea que empeora al inclinarse hacia adelante (Signo de Pemberton). ¿A qué síndrome venoso por compresión extrínseca o trombosis corresponde e cuál es su causa no neoplásica en aumento?",
+    "opciones": [
+      "A) Síndrome de Leriche aórtico; causado por uso de medias elásticas.",
+      "B) Síndrome de la vena cava inferior; causado por trombosis venosa profunda de pie.",
+      "C) Síndrome de la Vena Cava Superior (SVCS); su causa no neoplásica en aumento es la trombosis asociada a Catéteres Venosos Centrales o marcapasos.",
+      "D) Síndrome de Budd-Chiari; causado por quiste hidatídico hepático."
+    ],
+    "correcta": "C",
+    "justificacion": "El Síndrome de la Vena Cava Superior (SVCS) se produce por la obstrucción del flujo sanguíneo a través de la VCS hacia la aurícula derecha. Se caracteriza por la clásica tríada clínico-semiológica: Edema facial, cervical e en extremidades superiores (\"en esclavina\"). Cianosis facial e ingurgitación yugular. Circulación colateral venosa prominente en la pared anterior del tórax. Aunque la causa más frecuente general es maligna (>80-90%, cáncer de pulmón e linfoma), la causa benigna / no neoplásica en aumento es la trombosis iatrogénica por Catéteres Venosos Centrales (CVC) prolongados o cables de marcapasos.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 48,
+    "pregunta": "Varón de 22 años, atleta e lanzador de béisbol, consulta por dolor, edema e cianosis de aparición repentina en el miembro superior derecho tras un entrenamiento intenso. Al examen físico se palpa induración e cordón venoso doloroso en la región axilar e subclavia. La ecografía Doppler confirma una Trombosis Venosa Profunda de la Vena Subclavia-Axilar. Se descarta trombofilia o cáncer. ¿A qué síndrome de atrapamiento e trombosis por esfuerzo en el estrecho torácico corresponde e cuál es el abordaje de manejo moderno?",
+    "opciones": [
+      "A) Síndrome de Klippel-Trenaunay; tratamiento con escleroterapia con espuma e reposo.",
+      "B) Tromboflebitis de Mondor; tratamiento con calor local e antibióticos orales.",
+      "C) Síndrome de Raynaud secundario; tratamiento con nifedipina e guantes de lana.",
+      "D) Síndrome de Paget-Schroetter (Trombosis por Esfuerzo del Estrecho Torácico); tratamiento con anticoagulación/trombolisis seguida de resección quirúrgica de la primera costilla."
+    ],
+    "correcta": "D",
+    "justificacion": "El Síndrome de Paget-Schroetter (o Trombosis Venosa Profunda por Esfuerzo) es la TVP primaria del miembro superior (vena axilo-subclavia) que afecta a jóvenes deportistas o trabajadores que realizan movimientos repetitivos de hiperabducción del brazo. Se debe a la compresión anatómica microtraumática de la vena subclavia en el espacio costoclavicular (entre la primera costilla, el clavícula e el músculo subclavio/escaleno anterior). El tratamiento moderno comprende la anticoagulación inicial (con o sin trombolisis dirigida por catéter) seguida de la descompresión quirúrgica del estrecho torácico (resección de la primera costilla) para prevenir recidivas e el síndrome posflebítico.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 49,
+    "pregunta": "Paciente de 55 años con antecedente de Trombosis Venosa Profunda iliofemoral izquierda hace 3 años consulta por pesadez e edema crónico de la pierna izquierda, hiperpigmentación pardo-oscura (dermatitis ocre) e induración cutánea que no cede con el reposo nocturno. El Eco-Doppler demuestra la presencia de recanalización trombótica incompleta e incompetencia valvular venosa profunda masiva por destrucción de las cúspides valvulares. ¿A qué complicación crónica de la TVP corresponde e cuál es la medida no farmacológica pilar en su tratamiento?",
+    "opciones": [
+      "A) Síndrome Posflebítico (o Síndrome Poscomprobal / Insuficiencia Venosa Crónica Secundaria); la medida pilar es la elastocompresión graduada mediante medias de compresión elástica (30-40 mmHg).",
+      "B) Isquemia arterial aguda embólica; la medida pilar es la embolectomía de urgencia.",
+      "C) Lipedema hereditario tipo I; la medida pilar es la liposucción de muslo.",
+      "D) Linfoedema congénito de Meige; la medida pilar es la restricción estricta de sodio e diuréticos."
+    ],
+    "correcta": "A",
+    "justificacion": "El Síndrome Posflebítico (o Poscomprobal) es la complicación crónica más frecuente de la Trombosis Venosa Profunda (ocurre en el 20-50% de los pacientes a los 1-2 años de la TVP). Se produce por la combinación de obstrucción venosa persistente (recanalización incompleta del trombo) e incompetencia valvular profunda secundarias a la destrucción cicatrizal de las válvulas venosas. Esto genera hipertensión venosa ambulatoria crónica, edema duro, cambios tróficos (dermatitis ocre, lipodermatoesclerosis) e úlceras venosas de difícil manejo (CEAP C4-C6). El pilar fundamental no quirúrgico e preventivo es la elastocompresión graduada con medias elásticas de alta presión (30-40 mmHg) y el ejercicio de la bomba muscular de la pantorrilla.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 50,
+    "pregunta": "Paciente de 58 años con Insuficiencia Renal Crónica Terminal en programa de hemodiálisis crónica ingresa para la confección quirúrgica de un acceso vascular permanente para hemodiálisis. El cirujano vascular selecciona la realización de una Fístula Arteriovenosa (FAV) Autóloga Autógena de Cimino-Brescia. ¿Cuáles son las arterias e venas utilizadas en esta fístula clásica e en qué región anatómica se confecciona?",
+    "opciones": [
+      "A) Anastomosis entre la arteria femoral común e la vena safena magna en el triángulo de Scarpa.",
+      "B) Anastomosis directa end-to-side entre la arteria radial y la vena cefálica a nivel de la muñeca (antebrazo distal).",
+      "C) Anastomosis con prótesis de PTFE entre la arteria subclavia e la vena yugular externa.",
+      "D) Anastomosis entre la arteria humeral e la vena cava inferior en el abdomen."
+    ],
+    "correcta": "B",
+    "justificacion": "La Fístula Arteriovenosa (FAV) autóloga de Cimino-Brescia (Radial-Cefálica a nivel de la muñeca) es el acceso vascular de primera elección e \"gold standard\" para hemodiálisis crónica de largo plazo. Consiste en la anastomosis quirúrgica directa entre la Arteria Radial e la Vena Cefálica del antebrazo distal (no dominante). Ofrece la mayor permeabilidad a largo plazo (>5 años) e la menor tasa de infecciones en comparación con las prótesis sintéticas (PTFE). Requiere un tiempo de maduración de al menos 6 a 8 semanas antes de ser punzada para hemodiálisis (para que la vena se arterialice, engrose su pared e supere los 6 mm de diámetro e 600 ml/min de flujo).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 51,
+    "pregunta": "Paciente de 60 años con una Fístula Arteriovenosa autóloga braquiocefálica izquierda para hemodiálisis de 2 años de evolución consulta por dolor isquémico, frialdad e palidez en los dedos de la mano izquierda durante las sesiones de hemodiálisis. Al examen físico la mano se presenta pálida e fría, los pulsos radial e cubital son débiles pero se intensifican e reaparecen de inmediato al comprimir e ocluir temporalmente el trayecto de la fístula arteriovenosa. ¿A qué complicación hemodinámica del acceso vascular corresponde e cuál es la conducta quirúrgica?",
+    "opciones": [
+      "A) Trombosis aguda del acceso vascular; requiere infusión de estreptoquinasa sistémica.",
+      "B) Infección estafilocócica de la prótesis; requiere tratamiento exclusivo con vancomicina oral.",
+      "C) Síndrome de Robo Arterial (Steal Syndrome) Isquémico Distal secundario a la FAV; requiere corrección quirúrgica (procedimiento DRIL - Ligadura e Revascularización Distal o plicatura).",
+      "D) Aneurisma venoso benigno no complicado; requiere aplicación de compresas calientes e elevación de la mano."
+    ],
+    "correcta": "C",
+    "justificacion": "El Síndrome de Robo Arterial (Steal Syndrome) es una complicación hemodinámica de las fístulas arteriovenosas para hemodiálisis (más frecuente en fístulas proximales braquiales). La FAV crea un circuito de baja resistencia que \"roba\" e retrograda el flujo sanguíneo de la arteria distal a la anastomosis hacia la vena de la fístula, provocando isquemia tisular en la mano e dedos (dolor, frialdad, cianosis e parestesias), típicamente desencadenado o empeorado durante la hemodiálisis. La prueba clínica diagnóstica es la mejora de los pulsos e de la perfusión al ocluir la fístula. Si la isquemia es severa (grados III-IV), requiere intervención quirúrgica mediante el procedimiento DRIL ( Distal Revascularization Interval Ligation ), plicatura del vaso o ligadura del acceso.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 52,
+    "pregunta": "Durante la colocación de un Catéter Venoso Central por vía subclavia en un paciente en ventilación mecánica, el operador olvida ocluir el pabellón/luz del catéter mientras el paciente realiza una inspiración profunda o en presencia de hipovolemia. El paciente presenta de forma brusca hipotensión arterial, cianosis, taquicardia e se ausculta un soplo en la región precordial con chasquido de \"rueda de molino\" ( mill-wheel murmur ), seguido de paro cardiorrespiratorio en actividad eléctrica sin pulso. ¿A qué complicación iatrogénica inmediata corresponde e cuál es la maniobra de reanimación e posicionamiento de urgencia?",
+    "opciones": [
+      "A) Neumotórax a tensión; requiere drenaje con pleurostomía inmediata.",
+      "B) Tamponamiento cardíaco por perforación; requiere pericardiocentesis.",
+      "C) Shock anafiláctico por antiséptico; requiere adrenalina intramuscular.",
+      "D) Embolia Gaseosa Masiva por CVC; requiere colocar al paciente en Posición de Durant / Trendelenburg e Decúbito Lateral Izquierdo (para atrapar el aire en el cérvix del ventrículo derecho) e aspiración de aire por el CVC."
+    ],
+    "correcta": "D",
+    "justificacion": "La Embolia Gaseosa es una complicación iatrogénica potencialmente letal de los CVC. Se produce cuando se genera una gradiente de presión negativa entre la atmósfera e la vena central (durante la inspiración o en hipovolemia) dejando el catéter abierto al aire. El ingreso de más de 50-100 ml de aire forma una \"burbuja o tapón de aire\" en el ventrículo derecho que bloquea el flujo hacia la arteria pulmonar. Se caracteriza por el soplo en \"rueda de molino\" precordial. El manejo de urgencia ineludible consiste en: Ocluir de inmediato la luz del catéter e administrar O2 al 100%. Colocar al paciente en Posición de Durant (Trendelenburg + Decúbito Lateral Izquierdo): esto desplaza el aire hacia el ápex del ventrículo derecho, alejándolo del infundíbulos de la arteria pulmonar e restaurando el gasto cardíaco. Aspirar el aire a través del catéter venoso central.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 53,
+    "pregunta": "Paciente varón de 62 años con diagnóstico de Carcinoma de Células Renales (Tumor Renal) en el riñón derecho de 8 cm de diámetro es evaluado mediante Angio-TC e Eco-Doppler. Se demuestra la presencia de una extensión tumoral sólida intraluminal que asciende por la Vena Renal Derecha e ocupa la Vena Cava Inferior (VCI), extendiéndose por arriba del nivel de las venas hepáticas e ingresando dentro de la Aurícula Derecha (Trombo tumoral VCI Nivel IV de Neves-Zincke). ¿Cuál es la estrategia quirúrgica de elección para lograr la resección R0?",
+    "opciones": [
+      "A) Nefrectomía radical combinada con trombectomía de VCI e resección mediante bypass cardiopulmonar con paro circulatorio hipotérmico en equipo multidisciplinario.",
+      "B) Quimioterapia sistémica con fluorouracilo como único tratamiento e suspensión de cirugía.",
+      "C) Radioterapia holocraneal e embolectomía percutánea de arteria pedia.",
+      "D) Colocación de filtro de vena cava superior e alta ambulatoria."
+    ],
+    "correcta": "A",
+    "justificacion": "El Carcinoma de Células Renales posee una marcada tendencia al angioinvasión con formación de un Trombo Tumoral en la Vena Cava Inferior (VCI) (ocurre en el 4-10% de los casos). Según la Clasificación de Neves-Zincke: Nivel I: Trombo en vena renal o VCI infrarrenal. Nivel II: Trombo en VCI retrohepática infrahepática. Nivel III: Trombo en VCI suprahepática pero infra-diafragmática. Nivel IV: Trombo tumoral que atraviesa el diafragma e ingresa en la Aurícula Derecha. A pesar de la extensión auricular (Nivel IV), si no hay metástasis distales, la cirugía ofrece sobrevida a largo plazo. La estrategia quirúrgica requiere la Nefrectomía Radical con Cava-trombectomía bajo Bypass Cardiopulmonar (CEC) e Paro Circulatorio Hipotérmico coordinada por cirujanos urólogos, vasculares e cardiovasculares.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 54,
+    "pregunta": "Mujer de 28 años, previamente sana, sin antecedentes de traumatismos ni uso de anticonceptivos, consulta por dolor, pesadez e edema unilateral marcado de todo el miembro inferior izquierdo de 48 horas de evolución. El Eco-Doppler venoso confirma una Trombosis Venosa Profunda Aguda que involucra a la Vena Ilíaca Común Izquierda e Vena Femoral. La Angio-TC pélvica demuestra la compresión anatómica extrínseca de la Vena Ilíaca Común Izquierda por la Arteria Ilíaca Común Derecha que la cruza por encima sobre el cuerpo vertebral L5. ¿A qué síndrome venoso por compresión anatómica corresponde e cuál es su tratamiento?",
+    "opciones": [
+      "A) Síndrome de Nutcracker (Cascanueces renal); tratamiento con nefrectomía izquierda.",
+      "B) Síndrome de May-Thurner (o Síndrome de Cockett); tratamiento con anticoagulación inicial e angioplastia con colocación de stent venoso en la vena ilíaca izquierda.",
+      "C) Síndrome de Leriche venoso; tratamiento con bypass aortobifemoral.",
+      "D) Síndrome de Wilkie; tratamiento con gastroyeyunoanastomosis."
+    ],
+    "correcta": "B",
+    "justificacion": "El Síndrome de May-Thurner (o Síndrome de Cockett) es una anomalía anatómica en la cual la Vena Ilíaca Común Izquierda es comprimida de forma crónica por la Arteria Ilíaca Común Derecha contra el cuerpo vertebral de L5. Esta pulsación e compresión mecánica continua genera microtrauma endotelial, hiperplasia de la íntima e estasis venoso en el miembro inferior izquierdo. Es una causa muy frecuente e poco diagnosticada de TVP iliofemoral izquierda recurrente en mujeres jóvenes. El tratamiento moderno comprende la anticoagulación inicial (con o sin trombolisis farmacomecánica) seguida de angioplastia e colocación de un stent venoso endovascular en la vena ilíaca común izquierda para reestablecer la luz vascular e prevenir la re-trombosis.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 55,
+    "pregunta": "Varón de 25 años, deportista corredor de maratón, consulta por claudicación intermitente dolorosa en la pantorrilla derecha que aparece al correr 200 metros. No presenta factores de riesgo cardiovascular e los pulsos periféricos en reposo son normales. Sin embargo, al solicitarle que realice la maniobra de plantarflexión activa o dorsiflexión pasiva forzada del pie, los pulsos pedio y tibial posterior desaparecen por completo. El eco-Doppler dinámico confirma la compresión de la arteria poplítea por una inserción anómala de la cabeza medial del músculo gemelo (gastrocnemio). ¿A qué síndrome corresponde e cuál es su tratamiento?",
+    "opciones": [
+      "A) Enfermedad de Buerger distal; tratamiento con simpatectomía lumbar exclusivamente.",
+      "B) Quiste adventicial poplíteo; tratamiento con aspiración ecoguiada de la articulación.",
+      "C) Síndrome del Atrapamiento de la Arteria Poplítea (SAAP); tratamiento con sección quirúrgica de la brida o cabeza anómala del gemelo (miectomía/liberación).",
+      "D) Trombosis venosa profunda muscular; tratamiento con anticoagulación por 10 años."
+    ],
+    "correcta": "C",
+    "justificacion": "El Síndrome del Atrapamiento de la Arteria Poplítea (SAAP) es una causa infrecuente de claudicación intermitente en jóvenes o deportistas sin aterosclerosis. Se debe a una relación anatómica congénita embrionaria anómala entre la arteria poplítea e las estructuras musculotendinosas de la fosa poplítea (frecuentemente la cabeza medial del músculo gastrocnemio/gemelo). Anatómicamente, la arteria es comprimida durante la contracción muscular. La clave diagnóstica semiológica es la desaparición o atenuación de los pulsos distales al realizar la maniobra dinámica de flexión plantar activa o dorsiflexión del pie. El tratamiento es quirúrgico (liberación miofascial / miectomía de la cabeza anómala del gemelo) para evitar la degeneración de la pared arterial, aneurismas o trombosis secundaria.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 56,
+    "pregunta": "Paciente de 30 años politraumatizado sufre una fractura expuesta de tibia e peroné derecho con aplastamiento muscular. Es sometido a osteosíntesis. A las 6 horas de la cirugía consulta por dolor insoportable e progresivo en la pierna que no cede con opioides, parestesias en el dorso del pie e dolor intenso desencadenado al estiramiento pasivo de los dedos. Los compartimentos de la pierna se palpan duros e a tensión. La medición de la presión intracompartimental demuestra una Presión Tisular de 45 mmHg (diferencial Delta P <20 mmHg respecto a la PAD). ¿A qué emergencia ortopédico-vascular corresponde e cuál es la conducta quirúrgica urgente?",
+    "opciones": [
+      "A) Trombosis venosa profunda sural; requiere inicio de acenocumarol oral.",
+      "B) Celulitis estreptocócica; requiere antibioticoterapia intravenosa e vendaje elástico.",
+      "C) Osteomielitis aguda fulminante; requiere amputación supracondílea primaria.",
+      "D) Síndrome Compartimental Agudo de la pierna; requiere fasciotomía quirúrgica descompresiva de los cuatro compartimentos de la pierna."
+    ],
+    "correcta": "D",
+    "justificacion": "El Síndrome Compartimental Agudo es una emergencia quirúrgica producida por el aumento de la presión intersticial dentro de un compartimento osteofascial cerrado, superando la presión de perfusión capilar e provocando isquemia muscular e nerviosa. Se manifiesta por las \"6 P\" (Pain/dolor severo al estiramiento pasivo, Paresthesias, Pressure/tensión, Pallor, Paralysis, Pulselessness). Una Presión Intracompartimental >30 mmHg o una diferencia con la presión arterial diastólica (Delta P = PAD - PIC) < 30 mmHg confirma el diagnóstico e constituye una indicación absoluta de Fasciotomía Quirúrgica Descompresiva Inmediata (incisión de la fascia de los 4 compartimentos de la pierna: anterior, lateral, posterior superficial e posterior profundo) para evitar la necrosis muscular e la contractura isquémica de Volkmann.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 57,
+    "pregunta": "Un médico cirujano evalúa en el consultorio externo a dos pacientes con lesiones ulceradas en los miembros inferiores para realizar el diagnóstico diferencial entre una Úlcera de Origen Venoso y una Úlcera de Origen Arterial (Isquémica). De acuerdo a la semiología quirúrgica clásica, ¿cuáles son las características topográficas, morfológicas e sintomáticas que distinguen a una Úlcera Venosa típica?",
+    "opciones": [
+      "A) Localización perimaleolar interna (área de la polaina), bordes irregulares, lecho rojo fibrinoso/exudativo, piel perilesional con dermatitis ocre e indolora o alivio al elevar la pierna.",
+      "B) Localización en los pulpejos de los dedos e talón, bordes \"saca-bocado\" profundos, lecho pálido/necrótico seco e dolor extremadamente intenso que empeora al elevar la pierna.",
+      "C) Localización exclusiva en el dorso de la mano e cuello sin edema perilesional.",
+      "D) Localización en la planta del pie en puntos de apoyo (mal perforante) totalmente indolora con sensibilidad conservada."
+    ],
+    "correcta": "A",
+    "justificacion": "El diagnóstico diferencial de las úlceras de extremidades es clave: Úlcera Venosa (por IVC): Localización en el tercio inferior de la pierna, región perimaleolar interna (\"zona de la polaina\"). Son irregulares, superficiales, con lecho rojo/fibrinoso e abundante exudado. La piel perilesional presenta dermatitis ocre, eccema o lipodermatoesclerosis. El dolor es leve a moderado e MEJORA AL ELEVAR LA PIERNA (reduce la presión venosa). Pulsos arteriales presentes. Úlcera Arterial (Isquémica): Localización distal en dedos, talón o prominencias óseas. Son profundas, con bordes definidos \"en saca-bocado\", lecho pálido o necrótico seco. DOLOR ISQUÉMICO MUY INTENSO QUE EMPEORA AL ELEVAR LA PIERNA. Pulsos arteriales ausentes. Úlcera Neuropática (Mal Perforante Plantar): En puntos de apoyo plantar, indolora, rodeada de hiperqueratosis.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 58,
+    "pregunta": "Paciente de 65 años a quien se le realizó una angioplastia coronaria por acceso transfemoral derecho hace 48 horas consulta por dolor e aparición de un bulto en la región inguinal derecha. Al examen físico se palpa una masa pulsátil e expansiva de 4 cm por debajo del ligamento inguinal, sobre la cual se ausculta un soplo sistólico-diastólico continuo e fremito. El eco-Doppler color demuestra una cavidad sacular extravascular conectada con la arteria femoral común mediante un cuello estrecho, con el signo patognomónico del \"Yin-Yang\" (flujo turbulento bidireccional). ¿A qué complicación vascular iatrogénica corresponde e cuál es su tratamiento?",
+    "opciones": [
+      "A) Hematoma subcutáneo simple resuelto; requiere conducta expectante e calor local.",
+      "B) Pseudoaneurisma (o Falso Aneurisma) de la Arteria Femoral Común; requiere compresión guiada por ultrasonido, inyección de trombina ecoguiada o reparación quirúrgica abierta del cuello.",
+      "C) Aneurisma verdadero congénito de la arteria femoral; requiere derivación a oncología.",
+      "D) Trombosis venosa profunda femoral; requiere fibrinólisis sistémica inmediata."
+    ],
+    "correcta": "B",
+    "justificacion": "El Pseudoaneurisma (o Falso Aneurisma) es un hematoma pulsátil pulsante extravascular que se comunica con la luz arterial a través de un defecto en la pared (ruptura de la íntima/media), delimitado únicamente por el tejido fibroso perivascular (a diferencia del aneurisma verdadero que conserva las 3 capas). Es la complicación vascular más frecuente de los procedimientos hemodinámicos por punción femoral. Se presenta como una masa pulsátil con soplo/fremito. En el Eco-Doppler se observa la imagen patognomónica en \"Yin-Yang\" (por el flujo sanguíneo que entra en sístole e sale en diástole dentro de la cavidad). El tratamiento comprende la compresión ecoguiada, inyección de trombina ecoguiada dentro del saco o la sutura quirúrgica del defecto arterial.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 59,
+    "pregunta": "Durante el rastreo tomográfico de un paciente de 62 años por dolor lumbar, se detecta de forma incidental un Aneurisma Aislado de la Arteria Ilíaca Común Derecha de 3.8 cm de diámetro, sin evidencias de aneurisma de aorta abdominal. De acuerdo a la historia natural de los aneurismas de la arteria ilíaca e los consensos de cirugía vascular, ¿cuál es el diámetro límite a partir del cual se indica la intervención de reparación (endovascular o abierta) para prevenir la ruptura?",
+    "opciones": [
+      "A) Diámetro máximo ≥ 1.0 cm.",
+      "B) Diámetro máximo ≥ 2.0 cm.",
+      "C) Diámetro máximo ≥ 3.5 cm (o sintomático).",
+      "D) Diámetro máximo ≥ 7.0 cm."
+    ],
+    "correcta": "C",
+    "justificacion": "Los Aneurismas de la Arteria Ilíaca aislados (sin AAA concomitante) representan el 2% de los aneurismas intraabdominales. La arteria ilíaca común normal mide aproximadamente 1.0-1.2 cm. Se consideran aneurismáticos cuando superan los 1.5 cm. Debido a que se ubican profundamente en la pelvis, suelen ser asintomáticos hasta su ruptura (con alta mortalidad). Las guías del consenso de la SVS establecen que la indicación quirúrgica o endovascular (colocación de endoprótesis ilíaca / embolización de la ilíaca interna) se determina cuando el aneurisma es sintomático o cuando su diámetro alcanza o supera los 3.5 cm (≥35 mm).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 60,
+    "pregunta": "Paciente de 68 años a quien se le realizó un bypass aortobifemoral con prótesis de Dacron hace 3 años por enfermedad oclusiva aórtica reingresa por presentar eritema, edema e una fístula subcutánea con débito purulento en la herida operatoria inguinal derecha, con cultivos positivos para Staphylococcus aureus meticilino-resistente (SAMR). La TC confirma una Infección de Prótesis Vascular Grado III de Samson / Bunt con colección periprotésica completa. ¿Cuál es el tratamiento quirúrgico definitivo estándar para resolver la infección e preservar la viabilidad de los miembros?",
+    "opciones": [
+      "A) Aplicación de cremas con sulfadiazina de plata en la fístula sin operar.",
+      "B) Lavado con solución fisiológica e conservación de la prótesis infectada de forma indefinida.",
+      "C) Terapia de aspiración continua sin administración de antibióticos.",
+      "D) Explantación e retiro completo de la prótesis sintética infectada, debridamiento del lecho e revascularización mediante bypass extraanatómico (Axilobifemoral) en tejido no infectado."
+    ],
+    "correcta": "D",
+    "justificacion": "La Infección de Prótesis Vascular es una de las complicaciones más temidas de la cirugía vascular sintética (mortalidad del 15-30% e tasa de amputación >20%). El germen más frecuente es Staphylococcus aureus o S. epidermidis. La presencia de infección madura con pus o fístula sobre la prótesis sintética (Dacron o PTFE) impide la erradicación del microorganismo únicamente con antibióticos debido a la formación de biofilm. El tratamiento quirúrgico estándar e definitivo comprende 1) Explantación e retiro completo de todo el material sintético infectado, 2) Debridamiento quirúrgico agresivo del tejido infectado, e 3) Revascularización del territorio distal mediante un Bypass Extraanatómico (ej., Bypass Axilobifemoral) a través de trayectos subcutáneos anatómicamente limpios e alejados del foco infeccioso (o reconstrucción in situ con aloinjerto criopreservado / vena autóloga).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 61,
+    "pregunta": "Paciente de 66 años con claudicación intermitente severa de miembro inferior derecho (Fontaine IIb) por oclusión corta de 4 cm en la arteria femoral superficial. Se realiza tratamiento endovascular mediante angioplastia con balón. ¿Qué ventaja ofrece el uso de Balones Liberadores de Fármaco (DEB / Paclitaxel) o Stents Liberadores de Fármaco (DES) en comparación con los balones no recubiertos convencionales?",
+    "opciones": [
+      "A) Inhiben la hiperplasia intimal e la reestenosis del vaso revascularizado a mediano y largo plazo mediante la antiproliferación celular.",
+      "B) Disuelven inmediatamente los trombos crónicos calcificados sin necesidad de insuflar el balón.",
+      "C) Producen la ligadura automática de las venas colaterales profundas.",
+      "D) Elevan la presión arterial sistémica a más de 200 mmHg sin riesgo de hematoma."
+    ],
+    "correcta": "A",
+    "justificacion": "En la cirugía endovascular del sector femoropoplíteo, la principal causa de falla tardía del procedimiento es la reestenosis por hiperplasia de la capa íntima (proliferación e migración de células musculares lisas estimuladas por el trauma mecánico del balón). Los balones recubiertos o liberadores de fármaco (DEB - Drug-Eluting Balloons ) e los stents liberadores de fármaco (DES) transfieren fármacos citostáticos/antiproliferativos (principalmente Paclitaxel) a la pared arterial durante la angioplastia, lo que inhibe la proliferación de la íntima e reduce de forma estadísticamente significativa las tasas de reestenosis e de reintervención del vaso diana.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 62,
+    "pregunta": "Paciente de 52 años con sospecha de Insuficiencia Venosa Crónica e varices tronculares en el territorio de la vena safena magna. Se realiza un Eco-Doppler venoso de miembros inferiores en bipedestación con maniobras de descompresión manual e Valsalva. ¿A partir de qué valor temporal de duración del reflujo venoso inverso se considera patológico (incompetencia valvular) en el sistema venoso superficial e en las venas perforantes?",
+    "opciones": [
+      "A) Reflujo inverso de duración > 10 milisegundos en todas las venas.",
+      "B) Reflujo inverso de duración > 0.5 segundos (500 ms) en el sistema superficial e venas perforantes, y > 1.0 segundo en el sistema venoso profundo.",
+      "C) Reflujo inverso de duración mayor a 15 minutos continuos sin detenerse.",
+      "D) Ausencia total de flujo anterógrado e retrógrado en el sistema profundo."
+    ],
+    "correcta": "B",
+    "justificacion": "El Eco-Doppler Venoso Color es el estudio de elección (gold standard) para el diagnóstico e mapeo hemodinámico de la Insuficiencia Venosa Crónica. Evalúa la permeabilidad y la competencia valvular midiendo la duración del flujo retrógrado o inverso (reflujo) gatillado tras la maniobra de compresión/descompresión o Valsalva: Sistema Venoso Superficial (Safena Magna/Parva) y Venas Perforantes: Un reflujo retrógrado con una duración &gt; 0.5 segundos (500 ms) se define formalmente como reflujo patológico / incompetencia valvular. Sistema Venoso Profundo (Femoral/Poplítea): El umbral para definir incompetencia profunda es un reflujo &gt; 1.0 segundo (1000 ms).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 63,
+    "pregunta": "Paciente diabético de 60 años presenta una úlcera isquémica en el primer dedo del pie izquierdo con presión del hálux de 38 mmHg e eritema perilesional de 1 cm sin secreción purulenta ni afectación ósea. Para estimar el riesgo de amputación a 1 año e el beneficio de la revascularización, el cirujano vascular utiliza la Clasificación WIfI de la Society for Vascular Surgery (SVS). ¿Cuáles son los tres parámetros constitutivos que evalúa este sistema de estratificación?",
+    "opciones": [
+      "A) Wagner, ITB e Infarto previo.",
+      "B) Walk (Caminata), Injury (Lesión) e Inflammation (Inflamación).",
+      "C) Wound (Extensión de la herida/úlcera), Ischemia (Grado de isquemia/ITB/Presión de hálux) e foot Infection (Presencia e severidad de la infección del pie).",
+      "D) Weight (Peso), Insulinemia e Internacional Normalized Ratio (RIN)."
+    ],
+    "correcta": "C",
+    "justificacion": "La Clasificación WIfI (Wound, Ischemia, foot Infection) de la Society for Vascular Surgery (SVS) reemplazó a los esquemas antiguos para estadificar el pie diabético e la isquemia crítica. Evalúa tres dimensiones independientes puntuadas de 0 a 3: W (Wound / Herida): Valora la profundidad e extensión de la úlcera o gangrena. I (Ischemia / Isquemia): Valora la perfusión arterial mediante el ITB, la presión del tobillo o la Presión del Hálux / Dedo (ITD). fI (foot Infection / Infección del pie): Valora la presencia e gravedad de la infección (desde celulitis leve hasta sepsis/osteomielitis). La combinación de estos tres componentes determina el riesgo de amputación mayor a 1 año e predice la probabilidad de beneficio clínico tras la revascularización.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 64,
+    "pregunta": "Paciente varón de 50 años presenta un primer episodio de Trombosis Venosa Profunda femoropoplítea en el miembro inferior derecho, gatillado por una inmovilización prolongada tras una cirugía de reemplazo total de rodilla realizada 2 semanas atrás (factor de riesgo transitorio/provocado mayor). De acuerdo a las guías de práctica clínica de la CHEST e la SVS, ¿cuál es la duración estandarizada recomendada para el tratamiento anticoagulante pleno?",
+    "opciones": [
+      "A) Anticoagulación continua e indefinida de por vida.",
+      "B) Anticoagulación por un período de 24 horas exclusivamente.",
+      "C) Anticoagulación por 10 años en combinación con ácido acetilsalicílico.",
+      "D) Anticoagulación por un período determinado de 3 meses (90 días)."
+    ],
+    "correcta": "D",
+    "justificacion": "La duración del tratamiento anticoagulante tras un episodio de Trombosis Venosa Profunda (TVP) se determina en función del riesgo de recurrencia: TVP provocado por un factor de riesgo transitorio mayor (p. ej., cirugía mayor, trauma o inmovilización): El riesgo de recurrencia al retirar la anticoagulación es muy bajo. Las guías de la CHEST indican un duración fija de 3 meses (90 días) de anticoagulación plena (HBPM, DOACs o Antagonistas de Vitamina K). TVP no provocado (idiopático) o asociado a cáncer activo o trombofilia mayor: Se considera la anticoagulación extendida o indefinida evaluando periódicamente el riesgo de sangrado.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 65,
+    "pregunta": "Paciente de 72 años sometido a la reparación endovascular de un Aneurisma de Aorta Abdominal (EVAR) mediante una endoprótesis bifurcada. En el control de seguimiento con Angio-TC al mes de la cirugía, se detecta el reflujo retrógrado de sangre hacia el saco aneurismático proveniente de una arteria lumbar patente e de la arteria mesentérica inferior (Endofuga o Endoleak Tipo II). ¿Cómo se definen e clasifican las Endofugas Tipo I e Tipo II post-EVAR?",
+    "opciones": [
+      "A) Endofuga Tipo I: Fuga por sellado inadecuado en los sitios de anclaje proximal o distal del stent; Endofuga Tipo II: Flujo retrógrado hacia el saco desde ramas colaterales (lumbales o mesentérica inferior).",
+      "B) Endofuga Tipo I: Infección bacteriana primaria de la tela de Dacron; Endofuga Tipo II: Ruptura espontánea de la vena cava inferior.",
+      "C) Endofuga Tipo I: Oclusión completa de ambas ramas ilíacas; Endofuga Tipo II: Fuga de líquido cefalorraquídeo hacia la pelvis.",
+      "D) Endofuga Tipo I: Sangrado por la herida de punción femoral; Endofuga Tipo II: Disposición anómala del catéter vesical."
+    ],
+    "correcta": "A",
+    "justificacion": "Las Endofugas (Endoleaks) son la complicación específica de la reparación endovascular aórtica (EVAR), definidas como la presencia de flujo sanguíneo persistente dentro del saco aneurismático fuera de la endoprótesis: Tipo I: Fuga por fallo de sellado en los sitios de anclaje (Ia: anclaje proximal; Ib: anclaje distal). Es una falla de alto riesgo que requiere corrección quirúrgica o endovascular inmediata. Tipo II: Flujo retrógrado desde colaterales permeables (arterias lumbares o mesentérica inferior). Es la más frecuente e suele manejarse de forma conservadora a menos que expanda el saco. Tipo III: Falla estructural de la prótesis (desacople de módulos o rotura de tela). Tipo IV: Por porosidad del injerto. Tipo V: Endotensión.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 66,
+    "pregunta": "Paciente de 58 años con Insuficiencia Renal Crónica Terminal ingresa a la urgencia por hiperpotasemia severa e edema agudo de pulmón, requiriendo hemodiálisis de emergencia. No posee fístula arteriovenosa previa. Se decide la colocación de un Catéter Venoso Central Temporal No Tunelizado para Hemodiálisis (tipo Shiley). ¿Cuáles son las diferencias técnicas de diseño e uso entre un catéter temporal no tunelizado y un catéter permanente tunelizado (tipo Permcath)?",
+    "opciones": [
+      "A) El catéter no tunelizado es de silicona con manguito de Dacron subcutáneo; el tunelizado es de teflón rígido sin luces.",
+      "B) El catéter no tunelizado se inserta directamente en la vena sin trayecto subcutáneo e es de uso temporal (<2-3 semanas); el tunelizado posee un manguito o dacron cuff que se ancla en el tejido subcutáneo reduciendo el riesgo de bacteriemia en usos prolongados.",
+      "C) El catéter no tunelizado se coloca exclusivamente en la arteria radial; el tunelizado se coloca en la arteria carótida.",
+      "D) El catéter no tunelizado requiere toracotomía abierta; el tunelizado se aplica en la vena safena menor."
+    ],
+    "correcta": "B",
+    "justificacion": "Los accesos venosos centrales para hemodiálisis se clasifican en: Catéteres Temporales No Tunelizados (tipo Shiley / Mahurkar): Son rígidos (poliuretano), de doble luz e calibre grueso (11.5 a 13.5 Fr). Se insertan por punción directa (vía yugular o femoral) sin trayecto subcutáneo. Su uso se limita a emergencias o períodos cortos (<2 a 3 semanas) debido a su elevada tasa de infección e estenosis. Catéteres Permanentes Tunelizados (tipo Permcath / Hickmann): Son de material flexible (silicona) e poseen un manguito o anillo de poliéster/Dacron ( cuff ) que se posiciona dentro de un túnel subcutáneo. El manguito genera fibrosis e sellado biológico, impidiendo la migración bacteriana e reduciendo drásticamente la tasa de bacteriemia, lo que permite su uso durante meses mientras madura la FAV.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 67,
+    "pregunta": "Paciente de 62 años con enfermedad arterial periférica en estadio de claudicación intermitente a los 100 metros (Fontaine IIb) recibe tratamiento médico optimizado con estatinas e aspirina. Para incrementar la distancia de caminata libre de dolor, el médico cirujano agrega Cilostazol (100 mg cada 12 horas). ¿Cuál es el mecanismo de acción de este fármaco vasodilatador e antiagregante e cuál es su contraindicación absoluta?",
+    "opciones": [
+      "A) Activador de los receptores alfa-1 adrenérgicos; contraindicado en pacientes con asma bronquial.",
+      "B) Agonista de la vitamina K; contraindicado en pacientes con colelitiasis.",
+      "C) Inhibidor selectivo de la fosfodiesterasa III (aumenta el AMPc plaquetario e vascular); contraindicado en pacientes con Insuficiencia Cardíaca Congestiva (de cualquier grado de severidad).",
+      "D) Bloqueante del receptor de angiotensina II; contraindicado en pacientes con gota tofácea."
+    ],
+    "correcta": "C",
+    "justificacion": "El Cilostazol es el fármaco de primera línea con indicación de grado A para aumentar la distancia de caminata sin dolor en pacientes con claudicación intermitente (Fontaine IIb / TASC). Su mecanismo de acción es la inhibición selectiva de la fosfodiesterasa III (PDE-III), lo que eleva los niveles intracelulares de AMP cíclico (AMPc), produciendo antiagregación plaquetaria e vasodilatación arterial. Su CONTRAINDICACIÓN ABSOLUTA es la Insuficiencia Cardíaca Congestiva (de cualquier clase funcional), debido a que los inhibidores de la PDE-III se han asociado a un incremento de la mortalidad por arritmias en pacientes con disfunción sistólica ventricular.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 68,
+    "pregunta": "Paciente femenina de 45 años con insuficiencia valvular de la Vena Safena Magna derecha e varices sintomáticas es evaluada para tratamiento quirúrgico. El equipo de cirugía vascular le propone realizar una Ablación Térmica Endovenosa (Láser Endovenoso EVLT o Radiofrecuencia RF",
+    "opciones": [
+      "A) en lugar de la Safenectomía Tradicional por Stripping. ¿Cuál es el principio técnico e las ventajas de los procedimientos térmicos endovenosos? A) Consiste en la avulsión mecánica brusca de la vena mediante un fleboextractor de acero; requiere hospitalización prolongada de 14 días.",
+      "B) Consiste en la ligadura e sutura abierta de la aorta abdominal; provoca la desaparición inmediata de los hematomas.",
+      "C) Consiste en la congelación con nitrógeno líquido de la arteria femoral; requiere yeso inguinal por 3 meses.",
+      "D) Consiste en la entrega de energía térmica intraluminal guiada por Eco-Doppler que produce la desnaturalización del colágeno, espasmo e oclusión fibrótica de la vena, ofreciendo menor dolor postoperatorio e rápida reincorporación laboral."
+    ],
+    "correcta": "D",
+    "justificacion": "El tratamiento quirúrgico de las varices ha evolucionado desde la safenectomía abierta convencional (extracción mecánica por stripping) hacia las técnicas endovenosas mínimamente invasivas. La Ablación Térmica Endovenosa (Láser EVLT o Radiofrecuencia RFA) se realiza introduciendo una fibra óptica o catéter percutáneo dentro del lumen safeno bajo guía ecográfica. La entrega de energía térmica (calor a 80-120 ºC) produce la desnaturalización del colágeno de la pared venosa, espasmo vascular e oclusión fibrótica/trombótica permanente del vaso in situ. Sus ventajas sobre la cirugía abierta incluyen anestesia tumescente local, ausencia de incisiones inguinales, menor equimosis e dolor, y una rápida reincorporación laboral (24-48 horas).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 69,
+    "pregunta": "Paciente internada por neoplasia ginecológica presenta dolor e edema agudo en el miembro inferior izquierdo. Durante el ateneo clínico, el médico residente repasa las diferencias entre Phlegmasia Alba Dolens e Phlegmasia Cerulea Dolens. ¿Cuál es el hallazgo fisiopatológico e de coloración cutánea que caracteriza a la Phlegmasia Alba Dolens (\"pierna blanca dolorosa\")?",
+    "opciones": [
+      "A) Trombosis venosa profunda masiva que respeta parcialmente la circulación colateral venosa, produciendo edema e palidez por espasmo arterial reflejo compensatorio, sin cianosis ni gangrena venosa inminente.",
+      "B) Trombosis arterial aguda pura por embolia cardiogénica con gangrena seca de los dedos.",
+      "C) Trombosis venosa superficial de la vena safena menor con enrojecimiento e eritema localizado.",
+      "D) Oclusión total de todas las venas e arterias con hipotermia e rigidez cadavérica."
+    ],
+    "correcta": "A",
+    "justificacion": "Las phlegmasias representan formas severas de Trombosis Venosa Profunda de los sectores iliofemorales: Phlegmasia Alba Dolens (\"Pierna Blanca Dolorosa\"): Ocurre por oclusión trombótica profunda extensa (frecuente en el periparto o neoplasias), pero que mantiene permeables algunas venas colaterales de drenaje. El edema tisular brusco desencadena un arterioespasmo reflejo compensatorio en el lecho arterial, lo que otorga a la extremidad un aspecto pálido, blanquecino, edematoso e doloroso, pero SIN llegar a la isquemia crítica cianótica. Phlegmasia Cerulea Dolens (\"Pierna Azul\"): Oclusión total e masiva de todo el drenaje (venas profundas e colaterales), causando cianosis, flictenas e riesgo de gangrena venosa.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 70,
+    "pregunta": "Paciente revascularizado quirúrgicamente tras 12 horas de isquemia arterial aguda de miembro inferior desarrolla rabdomiólisis e síndrome de reperfusión con orinas de color pardo-oscuro (\"color té o bebida de cola\") e CPK >30.000 U/L. Para prevenir el depósito e precipitación de la mioglobina en los túbulos renales e evitar la Insuficiencia Renal Aguda, ¿cuáles son las medidas farmacológicas e de fluidoterapia prioritarias?",
+    "opciones": [
+      "A) Restricción hídrica a 200 ml/día e administración de suplementos de potasio oral.",
+      "B) Reanimación hídrica agresiva con cristaloides para mantener una diuresis > 100-200 ml/hora e alcalinización urinaria con Bicarbonato de Sodio (para mantener un pH urinario > 6.5).",
+      "C) Acidificación de la orina mediante infusión de Cloruro de Amonio e furosemida a altas dosis.",
+      "D) Indicar profilaxis con ceftriaxona e reposo absoluto sin administrar sueros."
+    ],
+    "correcta": "B",
+    "justificacion": "La mioglobinuria masiva secundaria a la rabdomiólisis del síndrome de reperfusión provoca Necrosis Tubular Aguda (NTA) por toxicidad directa e formación de cilindros intraluminales mioglobínicos que obstruyen los túbulos renales. La precipitación de la mioglobina ocurre de forma predominante en medios urinarios ácidos (pH < 5.6). La prevención de la insuficiencia renal exige dos pilares fundamentales: Hiperhidratación / Expansión de volumen agresiva: Infusión de cristaloides para lograr un flujo urinario elevado (diuresis meta de 100 a 200 ml/hora en adultos) que \"lave\" los túbulos renales. Alcalinización Urinaria: Infusión de Bicarbonato de Sodio al 1.4% / 8.4% para elevar el pH urinario a cifras > 6.5 - 7.0, lo que solubiliza la mioglobina e impide la formación de cilindros tóxicos de hematina.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 71,
+    "pregunta": "Paciente de 64 años sometido a un cateterismo cardíaco por punción femoral derecha presenta a las 24 horas edema moderado del muslo, aumento de la temperatura local e un soplo continuo \"en maquinaria\" con soplo e frémito en sístole e diástole en la región inguinal. El eco-Doppler color demuestra una comunicación directa de alto flujo entre la arteria femoral profunda e la vena femoral. ¿A qué complicación iatrogénica del acceso vascular corresponde e cuál es su impacto hemodinámico?",
+    "opciones": [
+      "A) Pseudoaneurisma femoral simple con cuello estrecho; sin repercusión sistémica.",
+      "B) Trombosis venosa profunda de la vena poplítea; produce edema frío e palidez.",
+      "C) Fístula Arteriovenosa Femoral Iatrogénica; puede producir sobrecarga de volumen al ventrículo derecho e Insuficiencia Cardíaca de Alto Gasto e isquemia distal.",
+      "D) Infección bacteriana del sitio quirúrgico por Staphylococcus epidermidis."
+    ],
+    "correcta": "C",
+    "justificacion": "La Fístula Arteriovenosa (FAV) Iatrogénica es una complicación mecánica de los abordajes vasculares percutáneos (punción femoral), originada cuando la aguja atraviesa simultáneamente la pared de una arteria e de una vena adyacente (ej. arteria femoral profunda e vena femoral), estableciendo un trayecto fistuloso persistente. Se caracteriza por la presencia de frémito palpable e un soplo continuo \"en maquinaria\" (sistodiastólico). Hemodinámicamente, el corto circuito de sangre oxigenada de alta presión hacia el sistema venoso reduce la resistencia periférica total e incrementa el retorno venoso, pudiendo causar isquemia distal en la pierna (\"síndrome de robo\") e Insuficiencia Cardíaca Congestiva de Alto Gasto. Si no se cierra espontáneamente, requiere tratamiento endovascular (stent cubierto) o quirúrgico.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 72,
+    "pregunta": "Paciente de 60 años presenta oclusión completa de la aorta abdominal distal e de ambas arterias ilíacas comunes (Síndrome de Leriche), de 8 cm de extensión. Según la Clasificación TASC II para lesiones oclusivas del sector aorto-ilíaco, esta afectación extensa e compleja se categoriza como Lesión TASC D. ¿Cuál es el tratamiento quirúrgico tradicional e de primera elección para esta categoría de lesión en un paciente apto para cirugía?",
+    "opciones": [
+      "A) Angioplastia simple con balón sin colocar stent.",
+      "B) Flebotomía de la vena safena magna e vendaje elástico.",
+      "C) Simpatectomía lumbar bilateral percutánea.",
+      "D) Revascularización mediante Bypass Aortobifemoral abierto."
+    ],
+    "correcta": "D",
+    "justificacion": "El consenso TASC II para el sector aorto-ilíaco clasifica la severidad anatómica de las lesiones: Lesiones TASC A y B: Estenosis o oclusiones cortas e unifocales. El tratamiento de primera elección es ENDOVASCULAR (angioplastia con stent). Lesiones TASC D: Incluyen la oclusión completa infrarenal de la aorta abdominal, la oclusión de la bifurcación aórtica e de ambas arterias ilíacas comunes (Síndrome de Leriche) o lesiones ilíacas extensas difusas. En pacientes quirúrgicamente aptos, el tratamiento de primera elección con mejores tasas de permeabilidad a largo plazo (>85-90% a 5-10 años) es la Cirugía Abierta de Revascularización mediante Bypass Aortobifemoral con prótesis de Dacron o PTFE.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 73,
+    "pregunta": "Paciente masculino de 35 años con diagnóstico de Síndrome de Marfan (conectivopatía por mutación en el gen de la fibrilina-1) es evaluado en el consultorio de cirugía cardiovascular. Presenta un Aneurisma de la Aorta Torácica Ascendente fusiforme de 4.8 cm de diámetro en la Angio-TC. ¿Por qué el umbral de indicación quirúrgica para la reparación de la aorta ascendente es menor en pacientes con Síndrome de Marfan en comparación con aneurismas degenerativos/ateroscleróticos habituales?",
+    "opciones": [
+      "A) Porque presentan una debilidad estructural intrínseca de la capa media (necrosis quística de la media) con un riesgo significativamente más elevado de disección e ruptura a diámetros menores (indicación a partir de ≥4.5 - 5.0 cm).",
+      "B) Porque en el Síndrome de Marfan los aneurismas degeneran espontáneamente a tumores malignos antes de alcanzar los 3 cm.",
+      "C) Porque la cirugía aórtica cura definitivamente la alteración genética subyacente.",
+      "D) Porque el Síndrome de Marfan impide la realización de tomografías de control."
+    ],
+    "correcta": "A",
+    "justificacion": "En los aneurismas ateroscleróticos/degenerativos habituales de la aorta torácica ascendente, el umbral para indicación de reparación quirúrgica profiláctica inicia en los ≥ 5.5 cm. Sin embargo, en pacientes con conectivopatías hereditarias como el Síndrome de Marfan, Síndrome de Loeys-Dietz o Ehlers-Danlos, la alteración en la fibrilina-1 produce una marcada necrosis quística de la capa media aórtica, lo que fragiliza la pared e genera una elevada incidencia de disección aórtica aguda tipo A e ruptura a diámetros aórticos menores. Por ello, las guías de la AHA/ACC fijan un umbral quirúrgico más precoz (≥ 4.5 a 5.0 cm) en pacientes con Marfan (o incluso ≥ 4.0-4.5 cm si hay factores de riesgo agregados como antecedentes familiares de disección o crecimiento rápido).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 74,
+    "pregunta": "Paciente femenina de 32 años con antecedente de Trombosis Venosa Profunda de la vena ilíaca común izquierda tratada con anticoagulación e fibrinolíticos. El eco-Doppler e la flebografía confirman la persistencia de una estenosis severa del 80% en la vena ilíaca común izquierda secundaria a la compresión extrínseca de la arteria ilíaca común derecha (Síndrome de May-Thurner). ¿Cuál es la terapia endovascular indicada para reestablecer la luz venosa e prevenir la re-trombosis a largo plazo?",
+    "opciones": [
+      "A) Ligadura permanente de la vena cava inferior por vía laparoscópica.",
+      "B) Angioplastia transluminal con colocación de un Stent Venoso autoexpandible de gran calibre (p. ej. Stent Nitinol) en la vena ilíaca común izquierda.",
+      "C) Bypass aortofemoral sintético con prótesis de Dacron.",
+      "D) Colocación de un filtro de vena cava superior en la vena yugular interna."
+    ],
+    "correcta": "B",
+    "justificacion": "En el Síndrome de May-Thurner (compresión de la vena ilíaca común izquierda por la arteria ilíaca común derecha), la lesión endotelial crónica e la formación de \"espuelas o bandas intraluminales\" generan una estenosis venosa fija que no responde únicamente a la anticoagulación ni a la angioplastia simple con balón (debido al retroceso elástico de la arteria que la comprime desde afuera). La terapia endovascular estándar e de elección consiste en la angioplastia e colocación de un Stent Venoso dedicado (de Nitinol autoexpandible de gran diámetro, 14-16 mm) dentro de la vena ilíaca común izquierda, el cual vence la fuerza de compresión arterial, restituye el calibre venoso normal e previene la recurrencia de la TVP.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 75,
+    "pregunta": "Paciente en la UTI con Catéter Venoso Central (CVC) en subclavia derecha presenta picos febriles de 38.8 ºC, escalofríos e eritema en el sitio de inserción del catéter. Se toman hemocultivos pareados (a través del catéter e por venopunción periférica). El laboratorio informa un tiempo de positivización diferencial >2 horas a favor del catéter, aislando Staphylococcus aureus meticilino-resistente (SAMR). De acuerdo a las guías de la IDSA e de la cátedra, ¿cuál es la conducta terapéutica ineludible?",
+    "opciones": [
+      "A) Conservar el catéter e administrar cefalexina por vía oral durante 3 días.",
+      "B) Rotar el catéter sobre guía metálica e mantener la misma vía de acceso.",
+      "C) Retiro inmediato del Catéter Venoso Central, cultivo de la punta del catéter (técnica de Maki) e inicio de antibioticoterapia parenteral dirigida (Vancomicina o Daptomicina).",
+      "D) Aplicar crema con corticoide en el sitio de inserción e suspender la toma de temperatura."
+    ],
+    "correcta": "C",
+    "justificacion": "La Bacteriemia Relacionada con Catéter (BRC) por Staphylococcus aureus (especialmente SAMR), Pseudomonas aeruginosa o Candida spp. es una complicación infecciosa grave. Ante el diagnóstico de BRC por estos patógenos virulentos o la presencia de pus/eritema en el punto de entrada, la norma de manejo estricta comprende: 1) Retiro e remoción inmediata del Catéter Venoso Central, 2) Envío del segmento distal de la punta del catéter (5 cm) a bacteriología para cultivo semi-cuantitativo (Técnica de Maki, positivo con ≥15 UFC), e 3) Inicio de antibioticoterapia sistémica empírica/dirigida (Vancomicina IV) durante al menos 14 días. Está formalmente contraindicado el recambio de catéter sobre guía en presencia de infección activa.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 76,
+    "pregunta": "Paciente de 65 años con isquemia crítica de miembro inferior derecho (dolor en reposo e úlcera en hálux, Fontaine III-IV) es programado para revascularización. Para mapear la anatomía vascular desde la aorta abdominal hasta las arterias del pie, el cirujano compara la Angiotomografía Computada (Angio-TC) con la Arteriografía por Sustracción Digital (DS",
+    "opciones": [
+      "A) . ¿Cuál es el rol e indicación de la Arteriografía por Sustracción Digital (DSA / Cateterismo percutáneo) en la actualidad? A) Se utiliza únicamente como método de tamizaje inicial en pacientes asintomáticos.",
+      "B) Se utiliza para medir la temperatura de la piel en reposo.",
+      "C) Es un método no invasivo que no requiere uso de contraste ni radiación.",
+      "D) Es el método diagnóstico invasivo \"gold standard\" e se reserva para el momento del procedimiento de revascularización endovascular o cuando los estudios no invasivos (Angio-TC / Angio-RM) no son conclusivos."
+    ],
+    "correcta": "D",
+    "justificacion": "Históricamente, la Arteriografía directa por punción percutánea era el estudio diagnóstico de rutina. En la actualidad, debido al avance de métodos no invasivos de alta resolución (Angiotomografía Computada - Angio-TC e Angiorresonancia Magnética - Angio-RM), la Arteriografía por Sustracción Digital (DSA) ha desplazado su rol puramente diagnóstico para convertirse en un estudio diagnóstico-terapéutico invasivo reservado para el momento de la revascularización endovascular (angioplastia/stent en la misma sesión) o cuando existe duda diagnóstica no resuelta en vaso distal de fino calibre.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 77,
+    "pregunta": "Paciente de 58 años con Insuficiencia Venosa Crónica grave (CEAP C6) presenta una úlcera venosa perimaleolar interna recidivante. El Eco-Doppler demuestra incompetencia severa de las Venas Perforantes del grupo de Cockett en el tercio inferior de la pierna (con flujo retrógrado de alta presión del sistema profundo al superficial). ¿Cómo se denominan e qué función anatómica cumplen las venas perforantes en miembros inferiores?",
+    "opciones": [
+      "A) Venas que atraviesan la fascia aponeurótica profunda conectando el sistema venoso superficial con el profundo (con válvulas que orientan el flujo de superficial a profundo).",
+      "B) Venas que unen la arteria aorta con la vena cava inferior de forma congénita.",
+      "C) Venas superficiales que discurren exclusivamente dentro del tejido adiposo subcutáneo sin atravesar fascias.",
+      "D) Venas linfáticas que transportan linfa pura hacia los ganglios axilares."
+    ],
+    "correcta": "A",
+    "justificacion": "La circulación venosa de las extremidades inferiores comprende tres sistemas: Superficial, Profundo e Perforante. Las Venas Perforantes son vasos que atraviesan o perforan la fascia muscular profunda, comunicando e conectando el Sistema Venoso Superficial con el Sistema Venoso Profundo. En condiciones fisiológicas normales, sus válvulas unidireccionales obligan a que la sangre fluya en un solo sentido: DESDE EL SISTEMA SUPERFICIAL HACIA EL SISTEMA PROFUNDO. Cuando las válvulas perforantes se vuelven incompetentes (incompetencia de perforantes de Cockett, Boyd o Dodd), la alta presión del sistema profundo se transmite directamente al tejido subcutáneo superficial, gatillando hipertensión venosa, dermatitis ocre e úlceras venosas (CEAP C5-C6).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 78,
+    "pregunta": "Un cirujano vascular examina en la urgencia a dos pacientes con isquemia arterial aguda de miembro inferior. El primer paciente presenta historia de fibrilación auricular no tratada, comienzo brusco de dolor en 1 minuto, pulsos normales en el miembro contralateral e ausencia de antecedentes de claudicación. El segundo paciente presenta historia de claudicación intermitente de 5 años, comienzo progresivo e ausencia de pulsos en todas las extremidades. ¿Cuál es el diagnóstico etiológico respectivo para cada paciente?",
+    "opciones": [
+      "A) El primer paciente presenta trombosis in situ; el segundo presenta embolia cardíaca.",
+      "B) El primer paciente presenta Embolia Arterial de origen cardíaco; el segundo paciente presenta Trombosis Arterial In Situ sobre placa aterosclerótica previa.",
+      "C) Ambos pacientes presentan aneurisma poplíteo roto.",
+      "D) Ambos pacientes presentan síndrome de Raynaud primario."
+    ],
+    "correcta": "B",
+    "justificacion": "El diagnóstico diferencial semiológico en la isquemia arterial aguda es clave: Embolia Arterial (Paciente 1): Inicio hiperagudo/súbito (en segundos o minutos) en un paciente sin antecedentes de enfermedad arterial previa (pulsos contralaterales presentes), con presencia de una fuente embolígena clara (Fibrilación Auricular, infarto reciente) e sin circulación colateral desarrollada. Trombosis Arterial In Situ (Paciente 2): Inicio gradual o insidioso (en horas o días) sobre un lecho vascular previamente enfermo e aterosclerótico (antecedentes de claudicación previa, ausencia de pulsos contralaterales e distales), con presencia de colaterales previamente desarrolladas.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 79,
+    "pregunta": "Durante la deambulación normal en un individuo sano, la presión venosa ambulatoria en las venas del tobillo disminuye drásticamente desde 90 mmHg (en bipedestación quieta) hasta menos de 20-30 mmHg. ¿Cuál es el mecanismo fisiológico principal responsable de esta reducción de la presión venosa e facilitación del retorno venoso contra la gravedad?",
+    "opciones": [
+      "A) La vasoconstricción de las arterias femorales por el sistema simpático.",
+      "B) El aumento del gasto cardíaco izquierdo con dilatación aórtica.",
+      "C) La contracción de los músculos de la pantorrilla (músculo sóleo e gemelos) que comprime las venas profundas impulsando la sangre hacia arriba, coordinado con la competencia valvular que impide el reflujo.",
+      "D) La respiración en apnea que incrementa la presión intratorácica."
+    ],
+    "correcta": "C",
+    "justificacion": "El retorno venoso desde los miembros inferiores hacia el corazón en bipedestación debe vencer la fuerza de la gravedad. El mecanismo hemodinámico principal es la Bomba Muscular de la Pantorrilla (o \"Corazón Venoso Periférico\"). Durante la marcha, la contracción de los músculos gastrocnemios e sóleo comprime los grandes senos venosos profundos e venas intermusculares, generando presiones estistólicas altas (>100-200 mmHg) que impulsan la columna sanguínea hacia el corazón. La competencia de las válvulas venosas impide que la sangre regrese hacia abajo durante la relajación muscular, reduciendo la presión venosa ambulatoria del tobillo de 90 mmHg a <25 mmHg. La falla de esta bomba o valvular produce Insuficiencia Venosa Crónica.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 80,
+    "pregunta": "Durante la punción percutánea para la colocación de un CVC por vía Yugular Interna, el operador observa la salida brusca e pulsátil de sangre de color rojo brillante por la aguja de punción, llenando rápidamente la jeringa. Se diagnostica una punción arterial accidental de la Arteria Carótida Primitiva. ¿Cuál es la conducta médica e inmediata si la aguja de punción no ha sido dilatada e no se ha avanzado el catéter?",
+    "opciones": [
+      "A) Realizar una incisión quirúrgica inmediata en la tráquea e colocar un tubo endotraqueal.",
+      "B) Avanzar el dilatador de plástico e administrar fibrinolíticos por la arteria.",
+      "C) Inyectar 50 ml de aire para comprimir el vaso desde el interior.",
+      "D) Retirar inmediatamente la aguja e realizar compresión manual firme e directa sobre el sitio de punción durante al menos 10 a 15 minutos (verificando la ausencia de hematoma expansivo o compromiso respiratorio)."
+    ],
+    "correcta": "D",
+    "justificacion": "La punción arterial accidental de la arteria carótida es una complicación mecánica bien conocida durante el abordaje de la vena yugular interna (frecuencia 2-6%). Se reconoce por la salida de sangre pulsátil e roja rutilante. Si se advierte el error en la fase de punción inicial (con aguja fina/trócar e sin haber introducido el dilatador de gran calibre ni el catéter): la conducta inmediata e ineludible es retirar la aguja sin dilatar e realizar compresión manual directa e continua sobre el sitio de punción durante un mínimo de 10 a 15 minutos, vigilando estrechamente que no se desarrolle un hematoma cervical sofocante o falso aneurisma. Si se colocó el dilatador o catéter grueso en la carótida, NO se debe retirar en la sala e requiere reparación por cirugía vascular.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 81,
+    "pregunta": "Paciente de 66 años con claudicación intermitente severa e invalidante del miembro inferior derecho (Fontaine IIb) presenta en la Angio-TC oclusiones múltiples e estenosis de la arteria femoral superficial de 4 cm de extensión. Según la clasificación e recomendaciones del consenso internacional TASC II (Trans-Atlantic Inter-Society Consensus) para el sector femoropoplíteo, ¿a qué categoría de lesión corresponde e cuál es la estrategia de revascularización recomendada?",
+    "opciones": [
+      "A) Lesión TASC B (estenosis/oclusiones múltiples < 5 cm); requiere abordaje de primera elección mediante terapia endovascular (angioplastia percutánea con o sin stent).",
+      "B) Lesión TASC D; requiere amputación infracondílea primaria de urgencia sin intento de revascularización.",
+      "C) Lesión TASC A; requiere bypass femoropoplíteo infrapatelar obligatorio con prótesis sintética de Dacron.",
+      "D) Lesión TASC C; requiere simpatectomía lumbar percutánea exclusiva con administración de corticoides."
+    ],
+    "correcta": "A",
+    "justificacion": "La clasificación TASC II para el sector femoropoplíteo estratifica las lesiones e guía la estrategia de tratamiento: TASC A: Lesiones únicas < 5 cm (estenosis) o < 3 cm (oclusión). Tratamiento endovascular de elección. TASC B: Lesiones múltiples de hasta 5 cm, o estenosis/oclusiones de 5 a 10 cm. Tratamiento predominantemente ENDOVASCULAR debido a sus elevadas tasas de éxito e menor morbilidad. TASC C: Oclusiones de 10 a 15 cm. Se prefiere cirugía abierta en pacientes con bajo riesgo quirúrgico. TASC D: Oclusiones crónicas extensas > 20 cm o compromiso difuso. Cirugía abierta (Bypass) de primera elección.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 82,
+    "pregunta": "Durante la canalización de una vía venosa central por vía Yugular Interna Derecha mediante técnica de Seldinger, en el momento de introducir e avanzar la guía metálica flexible a través de la aguja de punción, el paciente presenta de forma repentina en el monitor electrocardiográfico extrasístoles ventriculares frecuentes e un salvas de taquicardia ventricular no sostenida. ¿A qué complicación mecánica de procedimiento corresponde e cuál es la conducta inmediata?",
+    "opciones": [
+      "A) Rotura traqueal iatrogénica por compresión de la aguja; se maneja con traqueostomía de urgencia en quirófano.",
+      "B) Arritmia cardíaca por irritación mecánica del endocardio del ventrículo derecho por la guía; se maneja con el retiro e retracción inmediata de la guía metálica unos centímetros.",
+      "C) Trombosis masiva de la arteria aorta ascendente; se maneja con anticoagulación oral prolongada por 5 años.",
+      "D) Isquemia aguda de la glándula tiroides; se maneja con tiroidectomía subtotal inmediata."
+    ],
+    "correcta": "B",
+    "justificacion": "La aparición de arritmias cardíacas (extrasístoles o taquicardias ventriculares) durante la colocación de un CVC es una complicación mecánica frecuente provocada por la introducción excesiva e profunda de la guía metálica flexible (o del catéter), la cual atraviesa la vena cava superior e la aurícula derecha e estimula/irrita mecánicamente el endocardio del ventrículo derecho o el tejido de conducción. La conducta inmediata es retirar e traccionar la guía metálica unos centímetros hacia atrás (hasta la marca de 15-20 cm), observándose la normalización instantánea del trazado en el monitor.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 83,
+    "pregunta": "Paciente femenina de 30 años consulta por episodios paroxísticos de palidez, cianosis e rubor en los dedos de las manos gatillados por el frío (Fenómeno de Raynaud). El cirujano vascular realiza una Capilaroscopía del Lecho Ungueal e solicita un perfil de anticuerpos antinucleares (FAN) para diferenciar entre la Enfermedad de Raynaud (primaria) e el Fenómeno de Raynaud Secundario a Esclerosis Sistémica (Esclerodermia). ¿Cuáles son los hallazgos patognomónicos en la capilaroscopía e laboratorio que confirman el origen secundario?",
+    "opciones": [
+      "A) El Raynaud primario presenta megacapilares, áreas de avascularidad e FAN positivo a títulos elevados.",
+      "B) El Raynaud secundario no requiere evaluación analítica e se cura espontáneamente con reposo nocturno.",
+      "C) El Raynaud secundario a Esclerodermia presenta patrón capilaroscópico alterado (megacapilares, zonas de avascularidad/pérdida e microhemorragias) e FAN positivo; el primario presenta capilaroscopía e laboratorio normales.",
+      "D) El Raynaud primario se produce por necrosis bacteriana de las arterias distales e requiere amputación."
+    ],
+    "correcta": "C",
+    "justificacion": "La Capilaroscopía del lecho ungueal es la herramienta clave para el diagnóstico diferencial del Fenómeno de Raynaud: Raynaud Primario (Enfermedad de Raynaud): Idiopático, funcional, benigno, más frecuente en mujeres jóvenes. Presenta capilaroscopía ungueal completamente NORMAL (asas capilares regulares sin zonas avasculares) e marcadores inmunológicos (FAN) negativos. Raynaud Secundario (asociado a colagenopatías / Esclerodermia): Orgánico e progresivo. Muestra el Patrón SD (Scleroderma Pattern) en la capilaroscopía: dilataciones capilares giantescas (megacapilares), áreas de desvascularización/pérdida capilar, microhemorragias e arborización vascular anómala, acompañado de FAN positivo (anticuerpos anti-Scl-70 o anticentrómero).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 84,
+    "pregunta": "Paciente de 62 años con antecedentes de diabetes e bacteriemia reciente por Salmonella enteritidis ingresa por dolor lumbar sordo continuo e fiebre. La Angio-TC de abdomen revela una dilatación aórtica de 4.5 cm en la aorta infrarrenal de morfología sacular, con bordes lobulados, gas e engrosamiento de los tejidos periaórticos, observándose un crecimiento de 1 cm en 2 semanas. ¿A qué entidad aneurismática infrecuente e de alto riesgo corresponde e cuál es su etiología?",
+    "opciones": [
+      "A) Aneurisma congénito por déficit de vitamina B12 sin inflamación.",
+      "B) Aneurisma venoso poplíteo curado con medias elásticas.",
+      "C) Aneurisma aterosclerótico fusiforme simple de lenta evolución.",
+      "D) Aneurisma Aórtico Micótico (o Infectado); producido por siembra bacteriana hematógena (Salmonella o Staphylococcus) en la pared aórtica con destrucción e alto riesgo de ruptura precoz."
+    ],
+    "correcta": "D",
+    "justificacion": "Los Aneurismas Micóticos (o Infectados) son dilataciones arteriales producidas por la colonización e infección de la pared vascular por microorganismos (la causa más frecuente en aorta es Salmonella spp. e Staphylococcus aureus), originados por siembra hematógena sobre una placa de ateroma o émbolo séptico. Se caracterizan por tener morfología sacular, crecimiento extremadamente rápido, dolor localizado, fiebre e signos inflamatorios/gas periaórtico en la Angio-TC. Presentan un riesgo de ruptura precoz muy superior al de los aneurismas degenerativos del mismo tamaño, requiriendo antibioticoterapia intensiva e reparación quirúrgica urgente (con debridamiento e bypass).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 85,
+    "pregunta": "Paciente de 55 años en programa de hemodiálisis crónica es evaluado para la maduración quirúrgica de su Fístula Arteriovenosa (FAV) autóloga braquiocefálica izquierda confeccionada hace 6 semanas. Para autorizar la primera punción del acceso vascular con las agujas de hemodiálisis de gran calibre, el equipo de nefrología e cirugía aplica la \"Regla de los 6\" ( Rule of 6s ). ¿Cuáles son los criterios clínicos e ecográficos constitutivos de esta regla de maduración?",
+    "opciones": [
+      "A) Flujo sanguíneo del acceso ≥ 600 ml/min, Diámetro venoso ≥ 6 mm, Profundidad del vaso < 6 mm e Longitud canulable de al menos 6 cm (evaluados a las 6 semanas de la cirugía).",
+      "B) Flujo sanguíneo de 10 ml/min, Diámetro de 1 mm, Profundidad de 5 cm e Longitud de 1 cm.",
+      "C) Presión sistólica de 200 mmHg, Diámetro de 20 cm, Profundidad de 15 mm e Longitud de 50 cm.",
+      "D) Ausencia de frémito o soplo al examen físico con colapso completo del vaso."
+    ],
+    "correcta": "A",
+    "justificacion": "Una Fístula Arteriovenosa (FAV) autóloga requiere un proceso de \"maduración\" (arterialización e engrosamiento venoso por la alta presión) antes de poder ser utilizada para hemodiálisis. La Kidney Disease Outcomes Quality Initiative (KDOQI) e las guías quirúrgicas definen un acceso maduro e apto según la \"Regla de los 6\" ( Rule of 6s ): Flujo Sanguíneo del acceso ≥ 600 ml/min (medido por Doppler). Diámetro interno de la vena ≥ 6 mm. Profundidad del vaso < 6 mm de la superficie de la piel. Longitud del segmento venoso recto canulable de al menos 6 cm. Evaluado idealmente a las 6 semanas de su confección.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 86,
+    "pregunta": "Mujer de 58 años con Insuficiencia Venosa Crónica de larga evolución es evaluada en el consultorio. Presenta en la cara medial de la pierna izquierda hiperpigmentación pardo-oscura (dermatitis ocre) e induración fibrosa e dura de la piel e tejido subcutáneo con atrofia e estrangulación del tercio distal (\"pierna en botella de champagne invertida\"), sin soluciones de continuidad en la piel. Según la categoría C de la Clasificación CEAP, ¿a qué subestadio de cambios tróficos cutáneos corresponde?",
+    "opciones": [
+      "A) C4a corresponde a la presencia de úlcera venosa activa infectada; C4b a úlcera cicatrizada.",
+      "B) C4a corresponde a cambios pigmentarios o eccema (dermatitis ocre); C4b corresponde a la presencia de Lipodermatoesclerosis o Atrofia Blanca.",
+      "C) C4a corresponde a ausencia total de signos visibles; C4b a telangiectasias e venas reticulares.",
+      "D) C4a corresponde a edema blando sin pigmentación; C4b a amputación traumática de la pierna."
+    ],
+    "correcta": "B",
+    "justificacion": "La clasificación CEAP subdivide la categoría C4 (Cambios cutáneos tróficos secundarios a IVC) en dos subgrupos clínicos e pronósticos distintos: C4a: Cambios tróficos pigmentarios e inflamatorios superficiales: Dermatitis Ocre (pigmentación hemosiderínica), eccema venoso o púrpura pigmentosa. C4b: Cambios tróficos crónicos avanzados de la dermis e hipodermis: Lipodermatoesclerosis (induración e fibrosis pannicular con deformidad en \"botella de champagne invertida\") o Atrofia Blanca (placas cicatrizales avasculares). Indican un alto riesgo inmimente de progresión a úlcera activa (C6).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 87,
+    "pregunta": "Paciente embarazada de 28 semanas de gestación ingresa con dolor e edema difuso en el miembro inferior izquierdo. El Eco-Doppler venoso confirma una Trombosis Venosa Profunda (TVP) de la vena ilíaca común e femoral. ¿Cuál es el tratamiento anticoagulante de elección recomendado durante todo el embarazo e cuál es la razón farmacológica para contraindicar los Antagonistas de la Vitamina K e los DOACs?",
+    "opciones": [
+      "A) Antagonistas de Vitamina K (Acenocumarol) en el primer trimestre por no cruzar la placenta.",
+      "B) Anticoagulantes orales directos (Rivaroxabán / Apixabán) por seguridad fetal demostrada.",
+      "C) Heparinas de Bajo Peso Molecular (HBPM / Enoxaparina) a dosis terapéuticas ajustadas al peso; debido a que no atraviesan la barrera placentaria e son seguras para el feto.",
+      "D) Aspirina oral a dosis bajas de 50 mg como único agente anticoagulante sin heparina."
+    ],
+    "correcta": "C",
+    "justificacion": "El manejo del tromboembolismo venoso en la embarazada requiere consideraciones de seguridad materno-fetal: Heparinas de Bajo Peso Molecular (HBPM - Enoxaparina / Nadroparina): Son el tratamiento de elección de primera línea durante todo el embarazo e puerperio. Debido a su elevado peso molecular, NO atraviesan la barrera placentaria, no producen efectos teratogénicos ni sangrado fetal, e poseen una farmacocinética predecible. Antagonistas de la Vitamina K (Acenocumarol / Warfarina): CONTRAINDICADOS en el 1º trimestre por teratogenicidad (embriopatía cumarínica: hipoplasia nasal e condrodisplasia) e en el 3º trimestre por riesgo de hemorragia fetal e retroplacentaria. DOACs (Rivaroxabán, Apixabán): Contraindicados por cruzar la placenta e falta de evidencia de seguridad.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 88,
+    "pregunta": "En el protocolo de rastreo e evaluación sistémica de los pacientes con patología aneurismática en cirugía vascular, se analiza la coexistencia entre diferentes territorios arteriales. ¿Cuál es la prevalencia de bilateralidad e la tasa de asociación con Aneurisma de Aorta Abdominal (AA",
+    "opciones": [
+      "A) en los pacientes diagnosticados de Aneurisma de la Arteria Poplítea? A) Los aneurismas poplíteos nunca se asocian con aneurismas aórticos ni se presentan de forma bilateral.",
+      "B) Se asocian en el 100% de los casos a disecación traumática de la arteria carótida interna.",
+      "C) Se producen por el uso excesivo de calzado con taco alto en pacientes jóvenes sin factores de riesgo.",
+      "D) Presentan una elevada frecuencia de bilateralidad (50%) e se asocian con Aneurisma de Aorta Abdominal (AAA) en el 40 a 50% de los pacientes."
+    ],
+    "correcta": "D",
+    "justificacion": "El Aneurisma Poplíteo es el aneurisma periférico más frecuente (representa el 70% de todos los aneurismas periféricos). Posee dos características epidemiológicas e clínicas fundamentales: Alta Bilateralidad: En el 50% de los pacientes el aneurisma poplíteo se presenta de forma bilateral (afectando a ambas fosas poplíteas). Alta Asociación con AAA: Entre el 40% e el 50% de los pacientes con un aneurisma poplíteo presentan de forma concomitante un Aneurisma de Aorta Abdominal (AAA). Por ello, ante el hallazgo de un aneurisma poplíteo es una norma médica ineludible realizar la palpación e ecografía de la aorta abdominal e de la extremidad contralateral.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 89,
+    "pregunta": "Paciente femenina de 40 años con antecedente de trombofilia (Síndrome Antifosfolipídico) consulta por dolor en hipocondrio derecho, distensión abdominal progresiva e ictericia leve. Al examen físico se constata hepatomegalia dolorosa e ascitis moderada a severa. El Eco-Doppler hepático demuestra la ausencia de flujo e oclusión trombótica de las tres venas suprahepáticas. ¿A qué síndrome venoso eferente del hígado corresponde e cuál es su pilar terapéutico inicial?",
+    "opciones": [
+      "A) Síndrome de Budd-Chiari (Obstrucción del flujo venoso eferente hepático); el pilar inicial es la anticoagulación plena e el manejo de la hipertensión portal.",
+      "B) Oclusión aguda de la arteria mesentérica inferior sin afectación del hígado.",
+      "C) Infección bacteriana de la vena safena magna por Staphylococcus aureus.",
+      "D) Espasmo arterial secundario al uso de medicamentos antihipertensivos."
+    ],
+    "correcta": "A",
+    "justificacion": "El Síndrome de Budd-Chiari se define como la obstrucción e interrupción del flujo sanguíneo venoso eferente del hígado, localizada en cualquier nivel desde las pequeñas venas suprahepáticas hasta la desembocadura de la Vena Cava Inferior (VCI) en la aurícula derecha. Su etiología más frecuente en adultos es la trombosis primaria asociada a estados de hipercoagulabilidad (Síndrome Antifosfolipídico, síndromes mieloproliferativos). Se manifiesta por la clásica tríada de 1) Hepatomegalia congestiva dolorosa, 2) Ascitis de rápida evolución e 3) Ictericia / insuficiencia hepática. El pilar inicial comprende la anticoagulación inmediata e la descompresión venosa (mediante TIPS o angioplastia) en casos progresivos.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 90,
+    "pregunta": "Un cirujano vascular evalúa a un paciente con isquemia aguda del miembro inferior derecho tras sufrir un traumatismo arterial. Al examen físico el paciente refiere dolor severo en reposo, parestesias en el pie e paresia muscular leve (dificultad para la dorsiflexión de los dedos). El Doppler acústico muestra señal arterial inaudible en arteria pedia e tibial posterior, pero conserva señal venosa audible. De acuerdo a la Clasificación de Rutherford para Isquemia Aguda, ¿a qué categoría corresponde e cuál es la indicación de tratamiento?",
+    "opciones": [
+      "A) Estadio I: Anestesia profunda, rigidez muscular e ausencia de señales Doppler venosas e arteriales.",
+      "B) Categoría IIb (Amenaza inmediata); requiere revascularización quirúrgica o endovascular urgente para salvar el miembro.",
+      "C) Estadio III: Miembro completamente viable sin dolor, motilidad e sensibilidad normales.",
+      "D) Estadio IIa: Parálisis muscular completa con rigidez cadavérica de los gemelos e gangrena."
+    ],
+    "correcta": "B",
+    "justificacion": "La clasificación de Rutherford para Isquemia Aguda de Miembros estratifica la severidad e urgencia: Categoría I (Viable): Sin pérdida sensitiva ni motora. Señales Doppler audibles. Categoría IIa (Amenaza leve/marginal): Pérdida sensitiva leve (dedos). Sin paresia motora. Categoría IIb (Amenaza Inmediata): Pérdida sensitiva mayor (más allá de los dedos) e déficit motor leve a moderado (paresia de dedos/pie). Señal arterial inaudible, señal venosa audible. Requiere REVASCULARIZACIÓN URGENTE. Categoría III (Irreversible): Parálisis rígida, anestesia profunda, Doppler arterial e venoso inaudibles. Requiere amputación.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 91,
+    "pregunta": "Paciente de 62 años con diabetes mellitus e tabaquismo refiere dolor insoportable en el antepié derecho que aparece por las noches e lo obliga a colgar la pierna fuera de la cama para sentir alivio. Presenta una úlcera isquémica de 1.5 cm en el pulpejo del primer dedo. El examen físico demuestra ausencia de pulsos distales, un Índice Tobillo-Brazo (ITB) de 0.32 e una Presión Sistólica en el Tobillo de 40 mmHg. ¿A qué entidad clínico-hemodinámica de alto riesgo corresponde e cuáles son los criterios que la definen?",
+    "opciones": [
+      "A) Dolor claudicante al caminar más de 500 metros sin lesiones tróficas ni alteraciones del pulso.",
+      "B) Presencia de hipertensión venosa con edema blando e dermatitis ocre en perimaleolar.",
+      "C) Isquemia Crítica de Miembro / Isquemia Amenazante de Extremidad (CLTI); definida por dolor en reposo persistentemente >2 semanas o necrosis/úlceras, con ITB <0.40 o PAS en tobillo <50 mmHg.",
+      "D) Aumento de la temperatura local e pulsos saltones en todas las arterias distales."
+    ],
+    "correcta": "C",
+    "justificacion": "La Isquemia Crítica de los Miembros Inferiores (CLTI - Chronic Limb-Threatening Ischemia / Fontaine III-IV / Rutherford 4-6) representa el estadio terminal de la arteriopatía periférica e se define por: Criterios Clínicos: Dolor isquémico en reposo persistente e recurrente que requiere analgesia (durante más de 2 semanas) o presencia de lesiones tróficas (úlceras isquémicas o gangrena) en pie o pierna. Criterios Hemodinámicos: ITB < 0.40, Presión Arterial Sistólica en el Tobillo < 50 mmHg, o Presión Sistólica en el Hálux (Dedo) < 30 mmHg. Presenta un alto riesgo de amputación mayor e mortalidad si no se revasculariza.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 92,
+    "pregunta": "Paciente de 52 años presenta un primer episodio de Tromboflebitis Superficial (Varicoflebitis) no complicada en el tronco de la vena safena magna del muslo izquierdo, de 7 cm de longitud, localizada a 8 cm de la unión safenofemoral (confirmada por Eco-Doppler sin compromiso del sistema venoso profundo). De acuerdo con los hallazgos del ensayo clínico internacional CALISTO e las guías de la SVS, ¿cuál es el tratamiento farmacológico indicado para prevenir la extensión trombótica e el TEP?",
+    "opciones": [
+      "A) Reposo en cama e aplicación de pomadas con nitrato de plata sin anticoagulación.",
+      "B) Amputación de la pierna para evitar la propagación bacteriana al cerebro.",
+      "C) Fibrinólisis sistémica con Alteplasa e colocación de filtro de vena cava superior.",
+      "D) Tratamiento con Fondaparinux (2.5 mg/día SC) o HBPM en dosis profilácticas/intermedias durante 45 días."
+    ],
+    "correcta": "D",
+    "justificacion": "El hito del ensayo CALISTO demostró que en pacientes con Tromboflebitis Superficial (TVS) sintomática de miembros inferiores de al menos 5 cm de longitud (incluso alejada del cayado), el tratamiento anticoagulante con Fondaparinux a dosis bajas (2.5 mg/día vía subcutánea) administrado durante 45 días (o alternativamente HBPM a dosis profilácticas/intermedias) reduce de forma drástica e estadísticamente significativa el riesgo de complicación e extensión al sistema venoso profundo (TVP), el riesgo de Tromboembolismo Pulmonar (TEP) e la recurrencia local en comparación con placebo.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 93,
+    "pregunta": "Un cirujano de guardia atiende a un paciente de 25 años que sufrió una herida penetrante por arma blanca en el tercio medio del muslo derecho. Al examen físico el paciente se presenta pálido e hipotenso (TA 80/50 mmHg), observándose un sangrado rojo rutilante pulsátil e activo a chorro a través de la herida, con un hematoma expansivo e ausencia completa de pulso poplíteo e pedio. ¿Cómo se clasifican estos hallazgos según la semiología del trauma vascular e cuál es la conducta quirúrgica?",
+    "opciones": [
+      "A) Signos Duros (o Mayores) de lesión vascular; indican la necesidad de exploración quirúrgica inmediata en quirófano sin demoras.",
+      "B) Presencia de dolor leve en la piel sin alteración de pulsos ni hematoma; indicación de alta ambulatoria.",
+      "C) Presencia de equimosis leve e raspón superficial; indicación de colocar férula de yeso.",
+      "D) Presencia de edema maleolar bilateral sin antecedente de trauma; indicación de diuréticos orales."
+    ],
+    "correcta": "A",
+    "justificacion": "En la evaluación de los traumatismos vasculares de extremidades, los hallazgos clínicos se dividen en: Signos Duros / Mayores de Lesión Vascular: Hemorragia pulsátil activa e profusa. Hematoma expansivo o pulsátil. Frémito palpable o soplo auscultable. Ausencia de pulsos distales. Signos de isquemia aguda del miembro (5 P). La presencia de al menos un Signo Duro es indicación directa e ineludible de EXPLORACIÓN QUIRÚRGICA INMEDIATA (o angio-TC si está estable). Los signos blandos (mínimo sangrado, déficit neurológico contiguo) justifican estudios por imágenes.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 94,
+    "pregunta": "Paciente femenina de 34 años, multípara, consulta por dolor pélvico crónico e sordo que empeora al final del día e tras el coito (dispareunia poscoital), acompañado de sensación de pesantez en la vulva. Al examen físico ginecológico e vascular se observan varices vulvares e varicosidades atípicas en la cara posterior del muslo. El Eco-Doppler e la Angio-TC pélvica demuestran incompetencia e dilatación aneurismática de la Vena Gonadal / Ovárica Izquierda con reflujo venoso pélvico. ¿A qué entidad vascular corresponde e cuál es el tratamiento endovascular de elección?",
+    "opciones": [
+      "A) Infección bacteriana de la arteria aorta por Neisseria gonorrhoeae.",
+      "B) Síndrome de Congestión Pélvica / Várices Pelvianas; el tratamiento de elección es la embolización endovascular percutánea con coils / agentes esclerosantes de la vena gonadal incompetente.",
+      "C) Oclusión aguda de la vena cava superior por carcinoma epidermoide.",
+      "D) Ruptura del ligamento redondo de la articulación coxofemoral."
+    ],
+    "correcta": "B",
+    "justificacion": "El Síndrome de Congestión Pélvica es una causa importante e subdiagnosticada de dolor pélvico crónico en mujeres jóvenes multíparas. Su fisiopatología se debe a la incompetencia valvular e reflujo retrógrado en las venas gonadales (principalmente la Vena Ovárica Izquierda, que desemboca en ángulo recto en la vena renal izquierda) e venas ilíacas internas, lo que genera varices pélvicas e vulvares. Se manifiesta por dolor pélvico sordo, dispareunia e pesadez. El tratamiento mínimamente invasivo e de primera línea con alta tasa de éxito es la Embolización Endovascular de la vena gonadal incompetente utilizando micro-coils mecánicos e agentes esclerosantes.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 95,
+    "pregunta": "En la fisiopatología de la Úlcera Venosa por Insuficiencia Venosa Crónica, se analiza la secuencia de cambios microcirculatorios e tisulares desencadenados por la hipertensión venosa ambulatoria no corregida. ¿Cuáles son los fenómenos histopatológicos que explican la mala cicatrización, la dermatitis ocre e la necrosis epidérmica en estos pacientes?",
+    "opciones": [
+      "A) Destrucción pura de la capa elástica interna por arteritis de células gigantes.",
+      "B) Depósito de cristales de urato monosódico en la membrana sinovial por hiperuricemia.",
+      "C) La hipertensión venosa produce distensión capilar, extravasación de hematíes (con depósito de hemosiderina e dermatitis ocre) e extravasación de fibrinógeno con formación de un manguito de fibrina pericapilar e marginación de leucocitos que liberan metaloproteinasas, inhibiendo la cicatrización.",
+      "D) Proliferación tumoral de células plasmáticas malignas con secreción de inmunoglobulina M."
+    ],
+    "correcta": "C",
+    "justificacion": "La patogenia de la úlcera venosa es compleja: la Hipertensión Venosa Ambulatoria (por reflujo o reconstrucción incompleta) se transmite a la microcirculación capilar de la dermis, provocando: Extravasación de glóbulos rojos al intersticio; la degradación del grupo hemo por los macrófagos libera hemosiderina, responsable de la dermatitis ocre (hiperpigmentación). Extravasación de fibrinógeno e macromoléculas, formando un \"manguito de fibrina pericapilar\" que dificulta el intercambio de oxígeno. Marginación e atrapamiento de leucocitos en los capilares cutáneos, los cuales se activan e liberan radicales libres e metaloproteinasas (MMP-2 e MMP-9) que destruyen la matriz extracelular, impidiendo la reepitelización e formando la úlcera.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 96,
+    "pregunta": "Durante la preparación para la colocación de un Catéter Venoso Central por Vía Femoral en un paciente en paro cardiorrespiratorio en el shockroom, el operador repasa las referencias anatómicas topográficas del Triángulo de Scarpa. ¿Cuál es la relación anatómica espacial de las estructuras del paquete vasculonervioso en la ingle e cuál es la principal desventaja de esta vía?",
+    "opciones": [
+      "A) Se punza en el espacio poplíteo; la relación anatómica de medial a lateral es Vena - Nervio - Arteria.",
+      "B) Se punza en la fosa ilíaca izquierda; con menor tasa de infección que la vía subclavia.",
+      "C) Se punza en la fosa axilar; la relación anatómica de medial a lateral es Arteria - Vena - Nervio.",
+      "D) Se punza en el triángulo de Scarpa por debajo del ligamento inguinal; la relación anatómica en la vaina femoral de MEDIAL a LATERAL es Vena - Arteria - Nervio (VAN), e presenta la mayor tasa de infecciones e trombosis de todas las vías."
+    ],
+    "correcta": "D",
+    "justificacion": "El acceso venoso central por Vía Femoral se canaliza en el triángulo de Scarpa (1 a 2 cm por debajo del ligamento inguinal e 1 cm por dentro del pulso arterial femoral). Su mnemotecnia anatómica de MEDIAL a LATERAL es V-A-N (Vena femoral - Arteria femoral - Nervio crural). Ventajas: Rápido acceso, no interrumpe las maniobras de RCP e no presenta riesgo de neumotórax. Desventajas/Riesgos: Presenta la mayor tasa de complicaciones infecciosas (Bacteriemias) e de Trombosis Venosa Profunda (hasta un 21.5%) de todas las vías de abordaje central, por lo que debe retirarse o cambiarse a la brevedad (<48 horas).",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 97,
+    "pregunta": "Paciente de 58 años con diagnóstico de Disección Aórtica Aguda de Aorta Descendente (Stanford Tipo B) ingresa a la Unidad de Terapia Intensiva. No presenta signos de isquemia visceral ni ruptura. ¿Cuál es el objetivo hemodinámico prioritario e el tratamiento farmacológico \"Anti-Impulso\" ( dp/dt ) de primera línea para prevenir la progresión e propagación del falso lumen?",
+    "opciones": [
+      "A) Control estricto de la frecuencia cardíaca y presión arterial mediante betabloqueantes intravenosos (Labetalol / Esmolol) para lograr FC < 60 lpm e PAS 100-120 mmHg, reduciendo la fuerza de eyección ventricular (dp/dt).",
+      "B) Administración de dopamina e noradrenalina para elevar la frecuencia cardíaca a 140 lpm e la PAS a 220 mmHg.",
+      "C) Infusión de citrato de sodio sin medir la frecuencia cardíaca ni la presión arterial.",
+      "D) Administración de atropina intravenosa en bolo directo para producir taquicardia severa."
+    ],
+    "correcta": "A",
+    "justificacion": "En la Disección Aórtica Aguda (especialmente Stanford B no complicada), la fuerza de cizallamiento e la velocidad de elevación de la presión sistólica ventricular con cada latido cardiaco (fuerza dp/dt) son los determinantes principales del avance e ruptura del flap intimal. El tratamiento médico farmacológico inicial e ineludible es la Terapia Anti-impulso en UTI: Betabloqueantes IV de acción corta (Labetalol, Esmolol o Metoprolol): Se administran de primera línea para reducir la Frecuencia Cardíaca a una meta de < 60 latidos por minuto. Control de la Presión Arterial: Una vez controlada la FC, se agregan vasodilatadores (Nitroprusiato de Sodio) para mantener la Presión Arterial Sistólica (PAS) entre 100 e 120 mmHg.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 98,
+    "pregunta": "Paciente de 70 años con isquemia arterial irreversible de miembro inferior derecho (Rutherford III) por oclusión completa de largo tiempo. Se decide la realización de una amputación mayor. En la evaluación quirúrgica preoperatoria, el equipo de traumatología e cirugía vascular debate entre realizar una Amputación Infracondílea (Transtibial / Por debajo de la rodilla) o una Amputación Supracondílea (Transfemoral / Por encima de la rodilla). ¿Cuáles son las ventajas e criterios quirúrgicos para preservar la articulación de la rodilla?",
+    "opciones": [
+      "A) La amputación supracondílea se prefiere siempre sobre la infracondílea debido a que no requiere prótesis.",
+      "B) La amputación infracondílea (transtibial) se prefiere sobre la supracondílea cuando existe perfusión tisular suficiente en la pierna, ya que conserva la articulación de la rodilla, reduciendo drásticamente el gasto energético para la rehabilitación e protetización.",
+      "C) La amputación de la cadera es obligatoria en todos los casos de isquemia digital.",
+      "D) La amputación debe realizarse exclusivamente a nivel del cuello sin tocar los miembros inferiores."
+    ],
+    "correcta": "B",
+    "justificacion": "En la selección del nivel de una amputación mayor de extremidades inferiores por enfermedad vascular irreversible, el principio quirúrgico fundamental es preservar la mayor cantidad de longitud de palanca e articulaciones viables, siempre que exista sangrado e perfusión tisular adecuada en el sitio de corte para garantizar la cicatrización del muñón. La Amputación Infracondílea (Transtibial) es inmensamente superior a la Supracondílea debido a que CONSERVA LA ARTICULACIÓN DE LA RODILLA. La presencia de la rodilla reduce el consumo energético adicional durante la marcha con prótesis desde un 65-100% (en amputados transfemorales) a solo un 10-40% (en transtibiales), incrementando de forma masiva la tasa de éxito de la protetización e marcha autónoma.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 99,
+    "pregunta": "En el protocolo de prevención de complicaciones vasculares embólicas en pacientes sometidos a cirugías mayores quirúrgicas e traumatológicas, el equipo médico aplica la Escala de Riesgo de Caprini para Tromboembolismo Venoso (TEP/TVP). De acuerdo a las pautas de tromboprofilaxis de la CHEST e de la cátedra, ¿cuál es la conducta recomendada en un paciente clasificado en la categoría de Riesgo Alto o Muy Alto (Score de Caprini ≥ 5 puntos)?",
+    "opciones": [
+      "A) La escala de Caprini evalúa exclusivamente la presión de la arteria pulmonar sin considerar antecedentes.",
+      "B) La tromboprofilaxis farmacológica está contraindicada en todos los pacientes sometidos a cirugía abdominal oncológica.",
+      "C) La Escala de Caprini estratifica el riesgo de TVP/TEP postquirúrgico; indicando en riesgo alto o muy alto tromboprofilaxis combinada (mecánica con compresión neumática e farmacológica con HBPM/Enoxaparina) iniciada en el posoperatorio.",
+      "D) Las medias de compresión elástica eliminan el riesgo de sangrado digestivo."
+    ],
+    "correcta": "C",
+    "justificacion": "La Escala de Caprini es el modelo de estratificación de riesgo de Tromboembolismo Venoso (TEV) más validado en pacientes quirúrgicos. Asigna puntos según la edad, tipo de cirugía, obesidad, inmovilización, cáncer e antecedentes de TVP/trombofilia. Riesgo Bajo (Caprini 1-2): Tromboprofilaxis mecánica (deambulación precoz / medias). Riesgo Moderado (Caprini 3-4): Tromboprofilaxis farmacológica con HBPM (Enoxaparina 40 mg/día) o HBPM + mecánica. Riesgo Alto / Muy Alto (Caprini ≥ 5 puntos - ej., cirugía mayor por cáncer o reemplazo articular): Se recomienda TROMBOPROFILAXIS COMBINADA: profilaxis farmacológica con HBPM a dosis ajustadas asociada a profilaxis mecánica (Medias de compresión neumática intermitente), mantenida durante 14 a 28 días en cirugía oncológica o traumatológica.",
+    "up": 10,
+    "modulo": "cirugia"
+  },
+  {
+    "id": 100,
+    "pregunta": "En el cierre e integración conceptual de la Unidad Problema 10 (Enfermedad Vascular Periférica) para la evaluación mixta (Múltiple Choice e Examen Oral frente al Tribunal), el tutor académico resume las competencias quirúrgicas e terapéuticas fundamentales que debe dominar un médico cirujano. ¿Cuál es el postulado integrador que sintetiza el abordaje moderno de las emergencias e patologías vasculares periféricas?",
+    "opciones": [
+      "A) Diagnosticar todos los síndromes vasculares únicamente con radiografía simple de pie sin tocar al paciente.",
+      "B) Revascularizar a todos los pacientes con isquemia irreversible sin realizar fasciotomía ni amputación.",
+      "C) Suspender el tratamiento anticoagulante en pacientes con TEP masivo inestable.",
+      "D) El manejo integral de la patología vascular requiere el reconocimiento precoz de los signos de alarma (isquemia aguda, AAA roto, TEP masivo), el uso racional de métodos no invasivos (Eco-Doppler, Angio-TC) e la elección individualizada entre tratamiento médico, endovascular e quirúrgico abierto."
+    ],
+    "correcta": "D",
+    "justificacion": "El éxito e dominio de la Unidad Problema 10 (Enfermedad Vascular Periférica) para el examen final exige integrar sistemáticamente: Reconocimiento precoz e inmediato de las emergencias quirúrgicas con riesgo vital o de miembro: Isquemia Arterial Aguda (5 P / Rutherford), Aneurisma de Aorta Abdominal Roto (Tríada de Ruptura), TEP Masivo inestable e Phlegmasia Cerulea Dolens. Manejo racional de la tecnología e métodos complementarios: Eco-Doppler color como pilar inicial en IVC e TVP, e Angio-TC / Arteriografía por sustracción digital para el mapeo arterial pre-revascularización. Criterio quirúrgico e endovascular individualizado: Aplicación de consensos internacionales (TASC II, WIfI, CEAP, Stanford/DeBakey, Caprini) para seleccionar de forma óptima entre tratamiento conservador, terapias endovascular mínimamente invasivas (ATP, stent, EVLT, TEVAR) e cirugía reconstructiva abierta (bypass, embolectomía, amputación).",
+    "up": 10,
+    "modulo": "cirugia"
+  }
+]
