@@ -1681,7 +1681,9 @@
             
             <!-- FORMULARIO 1: INICIAR SESIÓN -->
             <form id="form-login" onsubmit="handlePublicLogin(event)">
+                <label for="login-id" class="visually-hidden">Usuario o correo electrónico</label>
                 <input type="text" id="login-id" class="input-text" placeholder="Usuario o Correo" required>
+                <label for="login-pass" class="visually-hidden">Contraseña</label>
                 <input type="password" id="login-pass" class="input-text" placeholder="Contraseña" required>
                 
                 <div style="text-align: right; margin: -6px 0 16px 0;">
@@ -1711,6 +1713,7 @@
                 <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 16px; line-height: 1.5; text-align: center;">
                     Ingresá tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
                 </p>
+                <label for="forgot-email" class="visually-hidden">Correo electrónico</label>
                 <input type="email" id="forgot-email" class="input-text" placeholder="Correo Electrónico" required>
                 <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.9rem;">Enviar enlace</button>
                 <button type="button" class="btn-ghost" style="width: 100%; margin-top: 10px; border: none;" onclick="backToLogin()">← Volver a Ingresar</button>
@@ -1718,9 +1721,13 @@
 
             <!-- FORMULARIO 3: REGISTRO -->
             <form id="form-register" style="display: none;" onsubmit="handlePublicRegister(event)">
+                <label for="reg-name" class="visually-hidden">Nombre y apellido</label>
                 <input type="text" id="reg-name" class="input-text" placeholder="Nombre y Apellido" required>
+                <label for="reg-user" class="visually-hidden">Nombre de usuario</label>
                 <input type="text" id="reg-user" class="input-text" placeholder="Nombre de Usuario (@)" required>
+                <label for="reg-email" class="visually-hidden">Correo electrónico</label>
                 <input type="email" id="reg-email" class="input-text" placeholder="Correo Electrónico" required>
+                <label for="reg-pass" class="visually-hidden">Contraseña, mínimo 6 caracteres</label>
                 <input type="password" id="reg-pass" class="input-text" placeholder="Contraseña (mínimo 6 caracteres)" minlength="6" required>
                 <label style="display:flex; gap:8px; align-items:flex-start; font-size:0.78rem; color:var(--text-dim, #94a3b8); margin:2px 0 12px; cursor:pointer; text-align:left; line-height:1.4;"><input type="checkbox" id="reg-terms" required style="margin-top:3px; flex-shrink:0;"><span>Soy mayor de 18 años y acepto los <a href="terminos.html" target="_blank" rel="noopener" style="color:#38bdf8;">Términos y Condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener" style="color:#38bdf8;">Política de Privacidad</a>.</span></label>
                 <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.9rem;">Crear Cuenta Gratis</button>
@@ -1775,6 +1782,7 @@
                     <li><a href="mailto:CampusNika@outlook.com">Reportar un problema</a></li>
                     <li><a href="terminos.html">Términos y Condiciones</a></li>
                     <li><a href="privacidad.html">Política de Privacidad</a></li>
+                    <li><a href="reembolsos.html">Política de Reembolsos</a></li>
                 </ul>
             </div>
         </div>
@@ -1799,6 +1807,9 @@
             <button class="nika-float-chip" onclick="askNikaFloat('¿Qué diferencia hay entre los planes?')">¿Diferencia entre planes?</button>
             <button class="nika-float-chip" onclick="askNikaFloat('¿Cómo funcionan los simuladores?')">¿Cómo son los simuladores?</button>
             <button class="nika-float-chip" onclick="askNikaFloat('¿Puedo probar sin registrarme?')">¿Puedo probar sin cuenta?</button>
+        </div>
+        <div class="nika-float-disclaimer" role="note">
+            ⚠️ No incluyas nombres, DNI ni datos de pacientes reales en tus consultas. El Asistente Nika es solo para fines de estudio.
         </div>
         <div class="nika-float-foot">
             <input type="text" class="nika-float-input" id="nika-float-input" placeholder="Escribí tu duda..." onkeydown="if(event.key==='Enter'){handleNikaFloatSend();}">
