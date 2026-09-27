@@ -2128,6 +2128,29 @@
             const delModo = deLaMateria && deLaMateria[modoId];
             return (delModo && submodoId && delModo[submodoId]) || null;
         }
+        // Contenido fijo del modal informativo de "Choice Clásico" (abrirModalPreExamen)
+        // por materia. Choice no tiene submodo (sub === null), así que
+        // getDescripcionPropiaMateria() nunca aplica acá y el fallback normal caía
+        // siempre en modo.descripcion_larga de EXAM_MODES_CONFIG, hardcodeado
+        // pensando en Cirugía (Unidades/temas fijos aunque ?modulo=ginecologia).
+        // Este catálogo cubre ese caso puntual sin tocar el bloque de Cirugía.
+        const DESCRIPCION_CHOICE_POR_MATERIA = {
+            ginecologia: `## 🎯 De qué se trata
+Preguntas de opción múltiple de Salud Integral de la Mujer (Ginecología y Obstetricia) con reloj, simulando un parcial o final de cátedra. Al terminar recibís tu nota, rango de aprobación y la justificación de cada respuesta.
+
+## 📚 Qué temas entran (los elegís en el próximo paso)
+- **Primer Parcial (Ginecología e Infanto-Juvenil):** Unidades 1 a 3 (control ginecológico, desarrollo y Tanner, anticoncepción OMS, ITS/EPI, SUA, miomas, SOP, patología mamaria benigna, endometriosis, IVE/ILE y urgencias: ectópico, aborto, abdomen agudo).
+- **Segundo Parcial (Obstetricia y Adulta Mayor):** Unidades 3 y 4 (control prenatal, preeclampsia, hemorragias del embarazo, diabetes gestacional, colestasis, mecanismos de parto, puerperio y hemorragia postparto, climaterio, prolapso/incontinencia y cáncer de cuello, endometrio y mama).
+- **Examen Final:** Integración completa de las 4 Unidades temáticas (Ginecología y Obstetricia), 100 preguntas en 120 minutos.
+- **Estilo Residencia:** 100 preguntas en 120 minutos con formato de examen de residencias médicas en Tocoginecología.
+- **Unidad Específica:** Entrenamiento focalizado en la Unidad Problema o temática que elijas.
+- **Flash:** 10 preguntas al azar en 10 minutos.
+- **Obstetricia y Urgencias:** Módulo intensivo de control prenatal, preeclampsia, hemorragias y parto: 20 preguntas en 30 minutos.`
+        };
+        function getDescripcionChoiceMateria(modoId) {
+            if (modoId !== 'choice') return null; // solo pisa el modal de Choice Clásico
+            return DESCRIPCION_CHOICE_POR_MATERIA[getModuloActual()] || null;
+        }
         // Caso semilla fijo por materia (js/examModesConfig.js → CASOS_SEMILLA_POR_MATERIA).
         // Si existe, el modo arranca mostrando este texto directo en vez de pedirle a
         // la IA que invente el caso de apertura (que sin esto tiende a repetir siempre
@@ -2435,7 +2458,7 @@
             // descripcion_larga del modo → descripcion corta del modo. Si terminó
             // cayendo en un texto genérico de Cirugía (porque esta materia no tiene
             // override puntual), conMateriaActiva() pisa igual la palabra "Cirugía".
-            const texto = conMateriaActiva(getDescripcionPropiaMateria(modo.id, sub && sub.id) || (sub && sub.descripcion_larga) || modo.descripcion_larga || modo.descripcion || '');
+            const texto = conMateriaActiva(getDescripcionPropiaMateria(modo.id, sub && sub.id) || getDescripcionChoiceMateria(modo.id) || (sub && sub.descripcion_larga) || modo.descripcion_larga || modo.descripcion || '');
             let html = renderDescripcionModal(texto);
             const NOTA = 'font-size:12.5px; color:#64748b; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:10px; padding:10px 12px; line-height:1.5;';
             if (esSubmodoGenerativo(modo, sub)) {
@@ -4426,11 +4449,29 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                     }
                     pintar(interino.trim());
                 };
+                // 'no-speech' (silencio) y 'aborted' (lo generamos nosotros al detener/reiniciar)
+                // NO son errores reales: se dejan pasar para que onend reintente en silencio,
+                // como antes. Cualquier otro error (en particular 'network', que Chrome tira
+                // cada vez más seguido porque el reconocimiento depende de un servicio remoto
+                // de Google) antes quedaba sin manejar: onend igual reintentaba en loop y el
+                // alumno veía el micrófono "escuchando" para siempre sin que nada se escribiera.
+                // Ahora se corta el loop y se avisa.
+                let huboErrorReal = false;
                 rec.onerror = (e) => {
-                    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { activo = false; ui(false); showToast('Permiso de micrófono denegado.'); }
+                    if (e.error === 'no-speech' || e.error === 'aborted') return;
+                    huboErrorReal = true;
+                    activo = false; ui(false);
+                    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') showToast('Permiso de micrófono denegado.');
+                    else if (e.error === 'network') showToast('Fallo de red del reconocimiento de voz. Probá dictar de nuevo.');
+                    else showToast('El micrófono se cortó (' + e.error + '). Probá dictar de nuevo.');
                 };
-                // Chrome corta el dictado continuo tras un silencio: se reanuda solo mientras el usuario no lo detenga
-                rec.onend = () => { if (activo) { try { rec.start(); } catch (_) { activo = false; ui(false); } } else ui(false); };
+                // Chrome corta el dictado continuo tras un silencio: se reanuda solo mientras el
+                // usuario no lo haya detenido Y no haya habido un error real (si hubo, ya se avisó
+                // arriba y no tiene sentido reintentar en loop).
+                rec.onend = () => {
+                    if (activo && !huboErrorReal) { try { rec.start(); } catch (_) { activo = false; ui(false); } }
+                    else ui(false);
+                };
                 try { rec.start(); activo = true; ui(true); } catch (_) { showToast('No se pudo iniciar el micrófono.'); }
             }
             function detener(descartar) {
