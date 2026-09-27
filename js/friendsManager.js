@@ -53,7 +53,7 @@ const NikaFriends = (() => {
     const c = await getClient();
     const { data, error } = await c
       .from('profiles')
-      .select('id, username, fullname, full_name, nombre, avatar, avatar_url')
+      .select('id, username, fullname, full_name, nombre, avatar, avatar_url, role')
       .in('id', ids);
     if (error) throw error;
     const map = {};
@@ -63,6 +63,7 @@ const NikaFriends = (() => {
         username: p.username || '',
         fullname: p.fullname || p.full_name || p.nombre || p.username || 'Estudiante Nika',
         avatar: p.avatar || p.avatar_url || null,
+        role: p.role || 'free',
       };
     });
     return map;
@@ -73,7 +74,7 @@ const NikaFriends = (() => {
     const profiles = await fetchProfiles(otherIds);
     return rows.map((r) => {
       const otherId = r.requester_id === me ? r.addressee_id : r.requester_id;
-      const p = profiles[otherId] || { id: otherId, username: '', fullname: 'Estudiante Nika', avatar: null };
+      const p = profiles[otherId] || { id: otherId, username: '', fullname: 'Estudiante Nika', avatar: null, role: 'free' };
       return { friendshipId: r.id, ...p };
     }).sort((a, b) => a.fullname.localeCompare(b.fullname, 'es'));
   }

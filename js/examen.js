@@ -34,6 +34,44 @@ const SimuladorElo = (() => {
     let state = null; // se reinicia en cada iniciar()
     let els = {};
 
+    // ============ Paywall de Resultados (NikaMed+) ============
+    // Rol simulado para poder probar el paywall localmente: cambiar a
+    // 'premium' a mano para ver el resultado completo sin restricciones.
+    // En producción, obtenerRolExamen() siempre prioriza NikaAcceso real.
+    const userRole = 'free'; // 'free' | 'premium'
+
+    function obtenerRolExamen() {
+        if (window.NikaAcceso && typeof window.NikaAcceso.tieneAccesoCompleto === 'function') {
+            return window.NikaAcceso.tieneAccesoCompleto() ? 'premium' : 'free';
+        }
+        return userRole;
+    }
+
+    // Reutiliza el modal VIP real de NikaAcceso si está disponible; si no,
+    // redirige directo a la página de suscripción.
+    function abrirUpsellResultado() {
+        if (window.NikaAcceso && typeof window.NikaAcceso.mostrarModalSoloVip === 'function') {
+            window.NikaAcceso.mostrarModalSoloVip('resultados_examen');
+            return;
+        }
+        window.location.href = 'nikamed-plus.html';
+    }
+
+    // Tarjeta de Paywall que reemplaza el detalle de justificaciones para
+    // usuarios free, mostrada debajo del puntaje en la pantalla final.
+    function renderPaywallResultadosHTML() {
+        return `
+            <div class="se-result-paywall">
+                <div class="se-result-paywall-lock">🔒</div>
+                <p class="se-result-paywall-text">
+                    <strong>¿Querés saber por qué fallaste?</strong><br>
+                    Desbloqueá el análisis detallado y las justificaciones con bibliografía oficial en NikaMed+.
+                </p>
+                <button type="button" class="se-result-paywall-btn" id="se-btn-upsell-resultado">Pasate a Premium →</button>
+            </div>
+        `;
+    }
+
     // ============ Carga y muestreo del banco de preguntas ============
 
     async function cargarBancoPreguntas() {
@@ -85,12 +123,45 @@ const SimuladorElo = (() => {
             .se-option[disabled] { cursor: default; }
             .se-footer-note { font-size:0.78rem; color:#64748b; text-align:center; }
             .se-result-score { font-size:2.4rem; font-weight:900; text-align:center; margin: 6px 0; }
+            .se-result-aprobado { text-align:center; font-size:0.95rem; font-weight:800; margin-bottom:8px; }
+            .se-result-aprobado.ok { color:#16a34a; }
+            .se-result-aprobado.no { color:#dc2626; }
             .se-result-elo { text-align:center; font-size:0.95rem; font-weight:800; margin-bottom:18px; }
             .se-result-elo.up { color:#16a34a; }
             .se-result-elo.down { color:#dc2626; }
             .se-btn { width:100%; padding:12px; border:none; border-radius:10px; font-weight:800; font-size:0.92rem; cursor:pointer; }
             .se-btn.primary { background:#0284c7; color:#fff; }
             .se-btn.secondary { background:#e2e8f0; color:#334155; margin-top:8px; }
+
+            /* ===== Paywall de Resultados (NikaMed+) — usuarios 'free' ===== */
+            .se-result-paywall {
+                margin: 14px 0 20px 0;
+                padding: 22px 18px;
+                text-align: center;
+                border-radius: 16px;
+                background: linear-gradient(160deg, rgba(15,23,42,0.94), rgba(30,41,59,0.94));
+                border: 1px solid rgba(255,255,255,0.08);
+                box-shadow: 0 20px 40px -14px rgba(15,23,42,0.35);
+            }
+            .se-result-paywall-lock {
+                width: 46px; height: 46px; margin: 0 auto 12px auto;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1.4rem; border-radius: 50%;
+                background: rgba(255,255,255,0.08); color: #e2e8f0;
+            }
+            .se-result-paywall-text {
+                font-size: 0.85rem; line-height: 1.5; color: #cbd5e1;
+                margin: 0 0 16px 0;
+            }
+            .se-result-paywall-text strong { color: #ffffff; }
+            .se-result-paywall-btn {
+                width: 100%; padding: 12px; border: none; border-radius: 10px;
+                font-weight: 800; font-size: 0.88rem; cursor: pointer; color: #0b1329;
+                background: linear-gradient(120deg, var(--nika-accent, #38bdf8), var(--nika-primary, #0284c7));
+                transition: opacity 0.2s ease, transform 0.15s ease;
+            }
+            .se-result-paywall-btn:hover { opacity: 0.9; }
+            .se-result-paywall-btn:active { transform: scale(0.98); }
         `;
         document.head.appendChild(style);
     }
@@ -153,6 +224,13 @@ const SimuladorElo = (() => {
             if (opciones.modulo) pool = pool.filter(p => p.modulo === opciones.modulo);
             if (opciones.up) pool = pool.filter(p => String(p.up) === String(opciones.up));
 
+            // Filtro defensivo: descarta cualquier entrada del banco que venga
+            // incompleta (sin enunciado, sin opciones o sin clave correcta).
+            // Sin este filtro, si una entrada así cae en la posición 0 después
+            // de barajar(), la Pregunta 1 se renderiza con "undefined" aunque
+            // el resto del banco esté perfecto — que es justo el bug reportado.
+            pool = pool.filter(p => p && typeof p.enunciado === 'string' && p.enunciado.trim() !== '' && p.opciones && p.correcta);
+
             if (pool.length === 0) throw new Error('No hay preguntas disponibles para ese filtro.');
 
             state.preguntas = barajar(pool).slice(0, Math.min(CONFIG.cantidadPreguntas, pool.length));
@@ -170,6 +248,20 @@ const SimuladorElo = (() => {
 
         const total = state.preguntas.length;
         const q = state.preguntas[state.indice];
+
+        // Red de seguridad: si por algún motivo la pregunta en esta posición
+        // no es válida, la saltamos en vez de renderizar "undefined".
+        if (!q || typeof q.enunciado !== 'string' || !q.enunciado.trim()) {
+            console.warn('[SimuladorElo] Pregunta inválida en el índice', state.indice, q);
+            if (state.indice < state.preguntas.length - 1) {
+                state.indice++;
+                renderPregunta();
+            } else {
+                finalizar();
+            }
+            return;
+        }
+
         const pct = Math.round((state.indice / total) * 100);
 
         if (window.PomodoroSyncManager) {
@@ -234,9 +326,18 @@ const SimuladorElo = (() => {
         if (puntajeEl) puntajeEl.textContent = `Puntaje: ${state.puntaje}`;
 
         if (q.justificacion) {
+            const esPremium = obtenerRolExamen() === 'premium';
             const nota = document.createElement('div');
-            nota.style.cssText = 'margin-top:14px; padding:10px 12px; background:#f8fafc; border-left:3px solid #0284c7; border-radius:6px; font-size:0.82rem; color:#334155;';
-            nota.textContent = q.justificacion;
+            if (esPremium) {
+                // Usuario Premium: justificación completa con bibliografía oficial.
+                nota.style.cssText = 'margin-top:14px; padding:10px 12px; background:#f8fafc; border-left:3px solid #0284c7; border-radius:6px; font-size:0.82rem; color:#334155;';
+                nota.textContent = q.justificacion;
+            } else {
+                // Usuario Free: se oculta por completo el texto de justificación,
+                // solo se insinúa que existe y está disponible en NikaMed+.
+                nota.style.cssText = 'margin-top:14px; padding:8px 12px; background:#f8fafc; border-left:3px solid #cbd5e1; border-radius:6px; font-size:0.78rem; color:#94a3b8; font-style:italic;';
+                nota.textContent = '🔒 Justificación disponible en NikaMed+';
+            }
             document.getElementById('se-options').insertAdjacentElement('afterend', nota);
         }
 
@@ -260,10 +361,14 @@ const SimuladorElo = (() => {
             window.PomodoroSyncManager.actualizarEstado({ up: null, pomodoroActivo: false, faseActual: null });
         }
 
+        const rolActual = obtenerRolExamen();
+
         els.body.innerHTML = `
             <div style="text-align:center;">
                 <div class="se-result-score">${state.puntaje} pts</div>
+                <div class="se-result-aprobado ${gano ? 'ok' : 'no'}">${gano ? '✅ Aprobado' : '❌ No aprobado'}</div>
                 <p style="color:#64748b; font-size:0.9rem; margin-bottom:16px;">${state.aciertos} aciertos / ${state.errores} errores de ${total} preguntas</p>
+                ${rolActual === 'free' ? renderPaywallResultadosHTML() : ''}
                 <div id="se-elo-status" class="se-result-elo">Actualizando tu ELO…</div>
                 <button class="se-btn primary" id="se-btn-repetir">Otro Simulacro Rápido 🔁</button>
                 <button class="se-btn secondary" id="se-btn-cerrar-final">Cerrar</button>
@@ -271,6 +376,8 @@ const SimuladorElo = (() => {
         `;
         document.getElementById('se-btn-repetir').addEventListener('click', () => iniciar());
         document.getElementById('se-btn-cerrar-final').addEventListener('click', cerrar);
+        const btnUpsellResultado = document.getElementById('se-btn-upsell-resultado');
+        if (btnUpsellResultado) btnUpsellResultado.addEventListener('click', abrirUpsellResultado);
 
         const eloStatusEl = document.getElementById('se-elo-status');
 

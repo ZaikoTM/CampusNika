@@ -1,0 +1,1208 @@
+{
+  "modulo": "ginecologia",
+  "unidad": "UP3",
+  "seccion": "sec_2",
+  "titulo": "Salud Integral de la Adulta Joven",
+  "preguntas": [
+    {
+      "id": 1,
+      "pregunta": "Una paciente de 34 años acude al control ginecológico para presentar el informe de una ecografía mamaria solicitada en la consulta previa. El informe ecográfico concluye: \"Imagen nodular anecogénica de bordes netos, reforzamiento acústico posterior, de 12 mm en cuadrante superoexterno de mama derecha, compatible con quiste simple. Categoriación BI-RADS 3 por presencia de microquistes agrupados contralaterales\". ¿Cuál es la conducta médica de seguimiento adecuada según las pautas de diagnóstico mamario?",
+      "opciones": {
+        "a": "Solicitar de forma inmediata una punción bióptica con aguja gruesa (Core-biopsy) bajo guía ecográfica.",
+        "b": "Solicitar una nueva ecografía mamaria de control en 6 meses junto con el examen clínico mamario.",
+        "c": "Indicar la resección quirúrgica programada del nódulo mediante cuadrantectomía diagnóstica.",
+        "d": "Otorgar el alta definitiva del control mamario por tratarse de una patología exclusivamente senil."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La categorización BI-RADS 3 corresponde a hallazgos con una probabilidad de malignidad extremadamente baja (< 2%), clasificados como probablemente benignos. De acuerdo con el Manual de Evaluación Clínica Mamaria del Ministerio de Salud y las guías de la Sociedad Argentina de Mastología (SAM), la conducta estandarizada ante un BI-RADS 3 ecográfico o mamográfico consiste en el seguimiento periódico mediante examen clínico y repetición del estudio por imágenes a los 6 meses para evaluar la estabilidad de la lesión, evitando procedimientos invasivos innecesarios."
+    },
+    {
+      "id": 2,
+      "pregunta": "Una paciente de 24 años acude por ciclos menstruales irregulares (oligomenorrea con intervalos de 50 a 60 días) desde la menarca. Al examen físico presenta un índice de Ferriman-Gallwey de 9 puntos (hirsutismo moderado) y acantosis nigricans en cuello. La ecografía transvaginal muestra un útero de 68 mm y ovarios de volumen normal (6 cm³ y 7 cm³) con 6 folículos antrales por ovario. Los estudios de laboratorio descartan hiperprolactinemia y patología tiroidea. ¿Cuál es el diagnóstico correcto según los Criterios de Rotterdam / Consenso FASGO 2025?",
+      "opciones": {
+        "a": "Presenta criterio diagnóstico confirmado de Síndrome de Ovario Poliquístico (SOP) por cumplir 2 de los 3 criterios de Rotterdam (disfunción ovulatoria e hiperandrogenismo clínico).",
+        "b": "Se descarta el diagnóstico de Síndrome de Ovario Poliquístico debido a que la ecografía transvaginal no demuestra la presencia de morfología de ovarios poliquísticos.",
+        "c": "Corresponde a un cuadro de Hiperplasia Suprarrenal Congénita Clásica con pérdida de sal que requiere corticoterapia endovenosa.",
+        "d": "Se diagnostica Falla Ovárica Precoz autoinmune al presentar oligomenorrea en una paciente menor de 30 años."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Según el Consenso sobre Síndrome de Ovario Poliquístico (FASGO 2025) y los Criterios de Rotterdam, el diagnóstico de SOP exige la presencia de al menos 2 de los 3 criterios siguientes, tras la exclusión de otras etiologías: 1) Oligo u anovulación; 2) Hiperandrogenismo clínico (hirsutismo con Ferriman-Gallwey ≥ 8) y/o bioquímico; y 3) Morfología de ovarios poliquísticos por ecografía (≥ 12-20 folículos de 2 a 9 mm y/o volumen ≥ 10 cm³). Esta paciente cumple los criterios 1 y 2, lo que confirma el diagnóstico de SOP (Subfenotipo B) sin requerir obligatoriamente el hallazgo ecográfico."
+    },
+    {
+      "id": 3,
+      "pregunta": "Una paciente de 28 años consulta por episodios de Sangrado Uterino Abundante (SUA) de 8 meses de evolución que le generan fatiga. Sus ciclos son irregulares (cada 45 a 90 días). La ecografía transvaginal demuestra un útero de forma y tamaño conservados, miometrio homogéneo y endometrio de 6 mm, sin pólipos ni miomas. Las pruebas de coagulación, recuento plaquetario y TSH son normales. Según el sistema de clasificación PALM-COEIN de la FIGO/FASGO, ¿cómo se clasifica esta hemorragia?",
+      "opciones": {
+        "a": "Etiología estructural del grupo PALM bajo la categoría de Adenomiosis (SUA-A).",
+        "b": "Etiología no estructural del grupo COEIN bajo la categoría de Coagulopatía (SUA-C).",
+        "c": "Etiología no estructural del grupo COEIN bajo la categoría de Disfunción Ovulatoria (SUA-O).",
+        "d": "Etiología estructural del grupo PALM bajo la categoría de Leiomioma submucoso (SUA-L)."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "El sistema PALM-COEIN de la FIGO (Consenso SUA FASGO 2022) divide las causas de Sangrado Uterino Anormal en estructurales (PALM: Pólipo, Adenomiosis, Leiomioma, Malignidad/hiperplasia) y no estructurales (COEIN: Coagulopatía, Disfunción Ovulatoria, Endometrial, Iatrogénica, No clasificada). En esta paciente, los ciclos prolongados e irregulares asociados a un útero anatómicamente normal responden a una anovulación crónica con estimulación estrogénica no contrapesada, clasificándose como SUA-O (Disfunción Ovulatoria)."
+    },
+    {
+      "id": 4,
+      "pregunta": "Paciente de 27 años con antecedentes de dismenorrea secundaria progresiva severa y dispareunia profunda consulta por incapacidad para lograr un embarazo tras 14 meses de búsqueda. La ecografía transvaginal identifica en el ovario derecho una formación quística de 6,5 cm de diámetro, de pared gruesa, con contenido líquido homogéneo con ecos de baja amplitud en su interior (\"aspecto en vidrio esmerilado\"), sin vegetaciones endoquísticas. ¿Cuál es el tratamiento de elección recomendado?",
+      "opciones": {
+        "a": "Manejo conservador exclusivo con antiinflamatorios no esteroideos durante los días de menstruación.",
+        "b": "Prescripción de anticonceptivos orales combinados por 3 meses para lograr la disolución del quiste.",
+        "c": "Tratamiento farmacológico continuo con análogos de GnRH durante 2 años como monoterapia.",
+        "d": "Quistectomía ovárica laparoscópica con quistectomía atraumática y preservación de la corteza ovárica sana."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "De acuerdo con el Consenso de Endometriosis (FASGO) y la bibliografía de la materia (Testa / Gori), la imagen de ecogenicidad homogénea en \"vidrio esmerilado\" es patognomónica de un Endometrioma Ovárico. Ante la presencia de un endometrioma sintomático mayor a 4-5 cm de diámetro y asociado a infertilidad primaria, el tratamiento de elección es la enucleación quirúrgica o quistectomía por vía laparoscópica, resecando la cápsula del endometrioma y preservando el parénquima ovárico sano para restaurar la anatomía pélvica y mejorar la fertilidad."
+    },
+    {
+      "id": 5,
+      "pregunta": "Paciente multipar de 38 años consulta por menorragia progresiva y dismenorrea severa que no cede con analgésicos comunes. Al examen físico bimanual se palpa un útero aumentado de tamaño en forma difusa, de consistencia blanda-elástica y doloroso a la movilización. La ecografía transvaginal reporta un miometrio heterogéneo con focos miometriales ecogénicos, asimetría de las paredes uterinas y un grosor de la zona de unión miometrio-endometrial mayor a 12 mm. ¿Cuál es el diagnóstico clínico más probable?",
+      "opciones": {
+        "a": "Carcinoma epidermoide de cérvix uterino estadio IIB.",
+        "b": "Adenomiosis uterina difusa.",
+        "c": "Sarcoma botrioide de la pared vaginal posterior.",
+        "d": "Quiste dermoide del ligamento ancho."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La Adenomiosis se define por la presencia de glándulas y estroma endometrial ectópico en el espesor del miometrio, acompañado de hipertrofia reactiva de las fibras musculares lisas. La tríada clínica clásica comprende útero aumentado de tamaño difusamente, menorragia y dismenorrea secundaria en mujeres de 35 a 50 años (Gori, cap. 27 / Guía de Adenomiosis). Los hallazgos ecográficos característicos incluyen la heterogeneidad miometrial, la presencia de focos o quistes miometriales ecogénicos y el engrosamiento de la zona de unión (≥ 12 mm)."
+    },
+    {
+      "id": 6,
+      "pregunta": "En el algoritmo de evaluación diagnóstica de las amenorreas secundarias en una mujer en edad fértil, tras haber descartado primeramente el embarazo mediante la prueba de subunidad beta-hCG sérica o urinaria y verificar niveles normales de TSH y Prolactina, ¿cuál es el paso fisiológico subsiguiente?",
+      "opciones": {
+        "a": "Realizar la Prueba de la Progesterona (administración de un progestágeno oral durante 5 a 10 días) para evaluar el estatus estrogénico endógeno y la permeabilidad del tracto de salida.",
+        "b": "Solicitar de forma inmediata una tomografía computada de tórax con contraste endovenoso para evaluar metástasis pulmonares.",
+        "c": "Indicar una histerectomía exploradora por laparotomía para evaluar el endometrio.",
+        "d": "Prescribir dosis altas de andrógenos por vía parenteral durante 6 meses continuos."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "En el protocolo sistemático de las amenorreas secundarias (Gori, capítulo de Amenorreas / Parcial 1 Gineco), una vez descartado el embarazo y las alteraciones de TSH y Prolactina, la primera prueba funcional es la Prueba de Desafío con Progesterona (ej. Medroxiprogesterona o Progesterona micronizada por 5-10 días). Si se produce sangrado por deprivación (prueba positiva), demuestra que la paciente posee un endometrio normoestrogenizado y un tracto genital permeable, confirmando que la causa es un estado de anovulación."
+    },
+    {
+      "id": 7,
+      "pregunta": "Paciente de 36 años, con antecedente de un parto normal hace 3 años, consulta por amenorrea secundaria de 6 meses de evolución acompañada de sofocos nocturnos y sequedad vaginal. El examen físico y ginecológico es normal. La prueba de embarazo es negativa. La prueba de progesterona es negativa y la prueba combinada de estrógenos más progestágenos es positiva. El perfil hormonal reporta: FSH 68 UI/L (elevada), LH 42 UI/L (elevada), Estradiol < 10 pg/ml (indetectable), TSH normal y Prolactina normal. La ecografía transvaginal muestra útero normal y ovarios pequeños. ¿Cuál es el diagnóstico definitivo?",
+      "opciones": {
+        "a": "Síndrome de Ovario Poliquístico normogonadotrófico.",
+        "b": "Amenorrea hipotalámica funcional por ejercicio severo.",
+        "c": "Insuficiencia Ovárica Primaria (Falla Ovárica Precoz / Temprana).",
+        "d": "Microprolactinoma hipofisario secretor."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La presencia de amenorrea secundaria en una mujer menor de 40 años, asociada a síntomas de hipoestrogenismo, con una prueba de estrógenos+progestágenos positiva (tracto de salida y endometrio funcionales) y niveles de gonadotrofinas marcadamente elevados en rango castrato (FSH > 40 UI/L en dos determinaciones) configura el cuadro de Insuficiencia Ovárica Primaria (Falla Ovárica Precoz/Temprana) por agotamiento o disfunción folicular ovárica."
+    },
+    {
+      "id": 8,
+      "pregunta": "Paciente de 26 años acude a la consulta ginecológica por presentar secreción láctea bilateral por ambos pezones al expresar la mama (galactorrea) y amenorrea de 4 meses de evolución. El test de embarazo es negativo. La determinación de Prolactina sérica cuantitativa confirma valores de 145 ng/ml (normal < 25 ng/ml). La Resonancia Magnética de cerebro y silla turca identifica una imagen nodular hipodensa de 7 mm en la adenohipófisis. ¿Cuál es el tratamiento médico de primera línea indicado?",
+      "opciones": {
+        "a": "Radioterapia holocraneal de haz externo a dosis altas.",
+        "b": "Resección quirúrgica por vía transesfenoidal urgente.",
+        "c": "Quimioterapia sistémica con esquemas basados en platino.",
+        "d": "Tratamiento médico farmacológico con agonistas dopaminérgicos (Cabergolina o Bromocriptina)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "De acuerdo con la bibliografía de la materia (Gori, capítulo Prolactina e Hiperprolactinemia), los microprolactinomas (tumores secretores de prolactina menores a 10 mm) con hiperprolactinemia sintomática se manejan de primera línea mediante tratamiento médico farmacológico con agonistas dopaminérgicos (Cabergolina 0,25 a 0,5 mg/semana o Bromocriptina). Estos fármacos inhiben la síntesis y secreción de prolactina, restauran los ciclos menstruales ovulatorios y reducen efectivamente el tamaño tumoral en más del 80-90% de los casos, reservándose la cirugía solo ante intolerancia o resistencia farmacológica."
+    },
+    {
+      "id": 9,
+      "pregunta": "Paciente de 43 años, G2P2 (dos partos normales), acude a control ginecológico con el informe de una ecografía pélvica realizada por chequeo de rutina, la cual revela la presencia de un mioma uterino intramural de 4 cm de diámetro. La paciente se encuentra totalmente asintomática, sus menstruaciones son de frecuencia y cantidad normales (4/28), no refiere dolor pélvico ni pesadez. El hemograma muestra Hemoglobina de 13,8 g/dl. ¿Cuál es la recomendación médica adecuada?",
+      "opciones": {
+        "a": "Conducta expectante y repetir el examen clínico y la ecografía de control en 6 a 12 meses.",
+        "b": "Indicar miomectomía uterina por laparotomía de urgencia.",
+        "c": "Realizar histerectomía total con anexectomía bilateral inmediata.",
+        "d": "Prescribir tratamiento continuo con análogos de GnRH durante 3 años."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Los miomas uterinos asintomáticos hallados incidentalmente (especialmente intramurales o subserosos de tamaño moderado) en mujeres perimenopáusicas sin sangrado anormal, dolor o compromiso de órganos vecinos no requieren intervención quirúrgica ni tratamiento farmacológico agresivo. La conducta médica estandarizada es el control clínico y ecográfico periódico cada 6 a 12 meses."
+    },
+    {
+      "id": 10,
+      "pregunta": "En la evaluación protocolizada de la pareja infértil (definida por la incapacidad de lograr un embarazo clínico tras 12 meses de relaciones sexuales regulares no protegidas), de acuerdo con el Consenso en Reproducción Humana (FASGO / SAMeR), ¿cuál de los siguientes conjuntos de estudios constituye el protocolo de evaluación básica inicial indispensable?",
+      "opciones": {
+        "a": "Biopsia de endometrio con fechado, test postcoital de Sims-Huhner y cariotipo genético parental.",
+        "b": "Anamnesis de la pareja, espermograma con cultivo de semen, ecografía transvaginal, histerosalpingografía (HSG) con prueba de Cotte y cultivos cervicovaginales.",
+        "c": "Densitometría ósea lumbar, videolaparoscopía diagnóstica y dosaje de anticuerpos antifosfolipídicos.",
+        "d": "Tomografía de cerebro con emisión de positrones y marcadores tumorales CA-125 mensuales."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Según el Consenso en Reproducción Humana (FASGO/SAMeR) y el libro Pontelli SIM 2026, el estudio inicial básico de la pareja infértil debe evaluar los factores masculino, ovárico, tuboperitoneal y uterino mediante: 1) Análisis del semen (espermograma y cultivo); 2) Evaluación de la ovulación y reserva ovárica (ecografía TV, hormonas); 3) Evaluación de la cavidad uterina y permeabilidad tubaria (Histerosalpingografía con prueba de Cotte); y 4) Diagnóstico de infecciones (cultivos de flujo). Estudios como la laparoscopía, el test postcoital y la biopsia endometrial no forman parte del rastreo inicial básico."
+    },
+    {
+      "id": 11,
+      "pregunta": "En el marco de la Ley Nacional 27.610 de Interrupción Voluntaria del Embarazo (IVE) y Legal del Embarazo (ILE) en Argentina, ¿cuáles son los plazos y condiciones legales estipulados para el acceso a la práctica en el sistema de salud?",
+      "opciones": {
+        "a": "Acceso a la IVE exclusivo mediante autorización judicial en todas las semanas de gestación.",
+        "b": "Acceso a la IVE hasta la semana 8 de gestación; después de la semana 8 la práctica está estrictamente prohibida.",
+        "c": "Acceso a la Interrupción Voluntaria del Embarazo (IVE) hasta la semana 14 inclusive del proceso gestacional sin necesidad de alegar causales, y acceso a la Interrupción Legal (ILE) a partir de la semana 15 si el embarazo es resultado de una violación o si peligra la vida o la salud integral de la persona gestante.",
+        "d": "Acceso permitido únicamente en hospitales privados mediante abono previo de coseguro de alta complejidad."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La Ley 27.610 sancionada en Argentina en diciembre de 2020 consagra el derecho a la IVE hasta la semana 14 inclusive del proceso gestacional con la sola solicitud consciente de la persona gestante (sin requerir causales). A partir de la semana 15 de gestación, rige el derecho a la ILE bajo las causales establecidas en el Código Penal: a) Si el embarazo fuera resultado de una violación; o b) Si estuviera en riesgo la vida o la salud integral (física, mental o social) de la persona gestante. Asimismo, la ley fija un plazo máximo de 10 días corridos desde la solicitud para garantizar la prestación."
+    },
+    {
+      "id": 12,
+      "pregunta": "¿cuál es el esquema farmacológico de primera línea más eficaz y seguro recomendado para el tratamiento ambulatorio de la IVE/ILE durante el primer trimestre?",
+      "opciones": {
+        "a": "Metotrexato 50 mg por vía intramuscular administrado en dosis única sin ningún otro fármaco.",
+        "b": "Oxitocina 20 UI en infusión endovenosa continua administrada en el consultorio.",
+        "c": "Amoxicilina 1 g por vía oral cada 8 horas durante 14 días consecutivos.",
+        "d": "Esquema combinado de Mifepristona 200 mg por vía oral (dosis única), seguida a las 24 a 48 horas por Misoprostol 800 mcg por vía sublingual, vaginal o bucal."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "De acuerdo con las directrices de la OMS y el Protocolo de IVE/ILE del Ministerio de Salud de la Nación, el régimen farmacológico de elección por su máxima eficacia (superior al 95-98%) y perfil de seguridad es la combinación de Mifepristona (antiprogestágeno que sensibiliza el miometrio y detiene la gestación) 200 mg por vía oral en dosis única, seguida a las 24-48 horas por Misoprostol (análogo de PGE1 que induce dinámica uterina y borramiento cervical) 800 mcg por vía sublingual, vaginal o bucal. (Referencia: el Protocolo para la Atención Integral de las personas con derecho a la Interrupción Voluntaria y Legal del Embarazo (Ministerio de Salud de la Nación / Ley 27.610))."
+    },
+    {
+      "id": 13,
+      "pregunta": "Paciente de 22 años acude a la guardia del hospital tras haber sufrido un hecho de violencia sexual (abuso sexual con acceso carnal) ocurrido hace 14 horas. Se encuentra lúcida, hemodinómicamente estable y sin lesiones traumáticas graves que requieran cirugía. ¿Cuál es el protocolo de atención médica e inmunoprofilaxis que debe iniciarse de forma inmediata?",
+      "opciones": {
+        "a": "Administración inmediata de Anticoncepción Hormonal de Emergencia (AHE), profilaxis antibiótica para ITS no virales (Ceftriaxona + Doxiciclina/Azitromicina + Metronidazol), inicio de Profilaxis Post-Exposición (PEP) para VIH antes de las 72 horas, vacunación contra Hepatitis B y VPH si corresponde, brindando contención y garantizando la confidencialidad.",
+        "b": "Exigir la radicación previa de la denuncia policial antes de brindar cualquier atención médica o prescripción de medicamentos.",
+        "c": "Indicar únicamente lavado vaginal con solución antiséptica y dar el alta a su domicilio sin medicación profiláctica.",
+        "d": "Indicar internación en terapia intensiva para realizar legrado uterino bajo anestesia general."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Ante una situación de abuso sexual o violencia de género, el equipo de salud debe brindar atención médica de emergencia inmediata sin supeditarla a la denuncia policial ni judicial. El protocolo del Ministerio de Salud exige: 1) Contención psicológica y trato digno; 2) Anticoncepción Hormonal de Emergencia de inmediato; 3) Profilaxis de ITS (Ceftriaxona 500 mg IM + Azitromicina 1 g VO o Doxiciclina + Metronidazol 2 g VO); 4) Profilaxis Post-Exposición (PEP) para VIH con triple antiretroviral iniciado idealmente dentro de las 4 horas y hasta un límite de 72 horas; 5) Vacunación (Hepatitis B y Tétanos); y 6) Asesoramiento sobre IVE/ILE."
+    },
+    {
+      "id": 14,
+      "pregunta": "Paciente de 42 años con antecedente de obesidad (IMC 34 kg/m²) y ciclos anovulatorios consulta por Sangrado Uterino Abundante. Se realiza una biopsia de endometrio por aspiración (Pipelle), cuyo informe anatomopatológico reporta \"Neoplasia Intraepitelial Endometrial / Hiperplasia Endometrial Acelular Compleja con Atipia Citológica\". ¿Cuál es el riesgo oncogénico asociado y la conducta terapéutica de elección en esta paciente?",
+      "opciones": {
+        "a": "Corresponde a una lesión completamente benigna sin riesgo de malignización que se resuelve con duchas de bicarbonato.",
+        "b": "Presenta un riesgo de progresión a adenocarcinoma menor al 0,1%, indicándose control ecográfico anual.",
+        "c": "Presenta un riesgo de coexistencia o progresión a Adenocarcinoma de Endometrio superior al 30-40%, estando indicada la Histerectomía Total como tratamiento quirúrgico definitivo si no desea fertilidad futura.",
+        "d": "Requiere la aplicación de radioterapia pélvica total en dosis de 100 Gy sin cirugía."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con el Consenso de Cáncer de Endometrio / Gori (cap. Hiperplasia Endometrial), las hiperplasias endometriales se clasifican en hiperplasia sin atipia y Neoplasia Intraepitelial Endometrial (EIN / Hiperplasia atípica). La presencia de atipias nucleares en el epitelio endometrial estimulado por estrógenos no contrapesados se asocia a un riesgo de progresión a adenocarcinoma invasor de endometrio de hasta un 30-40% y a una alta tasa de carcinoma invasor coexistente no diagnosticado. En mujeres con paridad cumplida o sin deseo gestacional, el tratamiento de elección es la Histerectomía Total."
+    },
+    {
+      "id": 15,
+      "pregunta": "Una paciente de 32 años consulta por dolor mamario bilateral (mastalgia) que se intensifica marcadamente durante la fase lútea (días previos a la menstruación) y cede casi por completo al iniciar el sangrado menstrual. Al examen físico se constata congestión mamaria difusa simétrica, con áreas nodulares blandas móviles sin tumoraciones dominantes ni adenopatías axilares. La ecografía mamaria es normal. ¿Cuál es la orientación diagnóstica y la conducta recomendada?",
+      "opciones": {
+        "a": "Mastitis bacteriana aguda purulenta que requiere drenaje quirúrgico con anestesia general.",
+        "b": "Mastalgia cíclica fisiológica (asociada a cambios fibroquísticos) / Tranquilizar a la paciente, recomendar uso de sostén deportivo adecuado y AINES tópicos u orales durante la fase lútea.",
+        "c": "Carcinoma ductal infiltrante de mama izquierda que exige mastectomía radical inmediata.",
+        "d": "Necrosis grasa de la mama que requiere radioterapia paliativa."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La mastalgia cíclica es la causa más frecuente de consulta por dolor mamario en la mujer joven. Se debe a la respuesta fisiológica y congestión del estroma y epitelio mamario ante las fluctuaciones hormonales del ciclo menstrual (estrógenos y progesterona en la fase lútea). Al no existir nódulos dominantes ni signos de sospecha en las imágenes (ecografía normal BI-RADS 1 o 2), el pilar del tratamiento es la contención, educación sobre la benignidad del Cuadro, soporte mamario adecuado y analgésicos/AINES en la fase sintomática (Patología Mamaria Benigna / MSAL)."
+    },
+    {
+      "id": 16,
+      "pregunta": "Paciente de 26 años acude a la guardia de ginecología por presentar dolor abdominal agudo e intenso localizado en fosa ilíaca derecha de 6 horas de evolución, acompañado de náuseas y escaso manchado vaginal oscuro. Refiere retraso menstrual de 2 semanas. Al examen físico presenta TA 110/70 mmHg, FC 88 lpm, dolor a la palpación en hipogasto y FID con signo de Blumberg leve (+). El tacto bimanual despierta dolor a la movilización del cérvix y en anexo derecho. El laboratorio reporta Hemoglobina 12,2 g/dl, leucocitos 8.500/mm³ y prueba de subunidad beta-hCG cuantitativa de 1.900 UI/L. La ecografía transvaginal muestra cavidad uterina vacía con endometrio de 13 mm, y en anexo derecho una imagen tumoral heterogénea de 32 mm fuera del ovario con líquido libre escaso en fondo de saco de Douglas. ¿Cuál es la sospecha clínica prioritaria?",
+      "opciones": {
+        "a": "Apendicitis flegmonosa no complicada sin compromiso ginecológico.",
+        "b": "Vaginosis bacteriana recurrente por Gardnerella.",
+        "c": "Quiste folicular luteinizado simple de ovario izquierdo.",
+        "d": "Embarazo Ectópico Tubario derecho no roto."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Esta pregunta evalúa un caso clínico clásico de abdomen agudo ginecológico (EMBARAZO ECTOPICO / Consenso FASGO 2025). La combinación de amenorrea secundaria, metrorragia oscura, dolor pélvico lateralizado, beta-hCG positiva mayor al zona de discriminación ecográfica (1.500-2.000 UI/L) y ecografía transvaginal que demuestra cavidad uterina vacía junto con una masa anexial extraovárica y líquido libre pélvico configura el diagnóstico de Embarazo Ectópico Tubario."
+    },
+    {
+      "id": 17,
+      "pregunta": "En la fisiopatología del Síndrome de Ovario Poliquístico (SOP) e hiperandrogenismo, ¿cuál es el mecanismo endocrino-metabólico por el cual la Hiperinsulinemia secundaria a la Resistencia a la Insulina incrementa la fracción activa de testosterona en sangre?",
+      "opciones": {
+        "a": "La hiperinsulinemia estimula directamente la producción de andrógenos por las células de la teca ovárica e inhibe en el hígado la síntesis de la Globulina Transportadora de Hormonas Sexuales (SHBG), aumentando la testosterona libre.",
+        "b": "La hiperinsulinemia induce la destrucción completa de la capa granulosa del ovario impidiendo la producción de estradiol.",
+        "c": "La hiperinsulinemia bloquea los receptores de LH en la adenohipófisis suprimiendo la esteroidogénesis.",
+        "d": "La hiperinsulinemia estimula la conversión periférica de testosterona en corticosterona en el tejido muscular."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con la bibliografía de la materia (Síndromes Hiperandrogénicos y SOP / Consenso FASGO 2025 / Gori cap. 17), la insulina actúa de forma sinérgica con la LH sobre las células tecales del ovario estimulando la expresión de enzimas esteroidogénicas (como la CYP17) e incrementando la síntesis de andrógenos (androstenediona y testosterona). Simultáneamente, la hiperinsulinemia actúa a nivel hepático reduciendo drásticamente la síntesis de la proteína transportadora de esteroides sexuales (SHBG). La disminución de SHBG provoca un aumento proporcional en la fracción de testosterona libre (biológicamente activa), agravando el hirsutismo y el acné."
+    },
+    {
+      "id": 18,
+      "pregunta": "En la patogenia de la Endometriosis, la teoría de la menstruación retrógrada de Sampson propone que el flujo menstrual fluye a través de las trompas hacia la cavidad peritoneal. ¿Qué alteración inmunológica peritoneal favorece que estos fragmentos endometriales ectópicos se implanten, sobrevivan y proliferen?",
+      "opciones": {
+        "a": "La ausencia absoluta de macrófagos y linfocitos en el fluido peritoneal de las pacientes sanas.",
+        "b": "Una alteración en la respuesta inflamatoria local con macrófagos peritoneales hiperactivados que secretan citocinas proinflamatorias, factores angiogénicos (VEGF) y factores de crecimiento que promueven la adherencia, neovascularización e invasión del tejido endometrial ectópico.",
+        "c": "La inactivación total de la cascada del complemento con falta de síntesis de anticuerpos IgG.",
+        "d": "El bloqueo genético irreversible de los receptores de progesterona B en las células del estroma endometrial."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Aunque la menstruación retrógrada ocurre en más del 90% de las mujeres con trompas permeables, solo un 10% desarrolla endometriosis. En las mujeres afectadas existe un defecto en la aclaración inmunológica peritoneal: los macrófagos peritoneales reaccionan produciendo citocinas (TNF-alfa, IL-6, IL-8) y factores angiogénicos (VEGF) que, en lugar de destruir las células endometriales descamadas, facilitan su adhesión al mesotelio peritoneal, la formación de neovasos y la implantación ectópica."
+    },
+    {
+      "id": 19,
+      "pregunta": "Una paciente de 21 años, atleta maratonista de alto rendimiento, con un Índice de Masa Corporal (IMC) de 17,2 kg/m², acude por amenorrea secundaria de 8 meses de evolución. Niega relaciones sexuales. La prueba de subunidad beta-hCG es negativa. La prueba de desafió con progesterona resulta negativa (sin sangrado), mientras que la prueba combinada de estrógenos más progestágenos es positiva (produce sangrado por deprivación). El dosaje hormonal muestra FSH 2,1 UI/L (baja/normal), LH 1,5 UI/L (baja) y Estradiol 12 pg/ml (bajo). TSH y Prolactina son normales. ¿Cuál es el diagnóstico más probable?",
+      "opciones": {
+        "a": "Insuficiencia Ovárica Precoz autoinmune con hipergonadotrofismo.",
+        "b": "Síndrome de Ovario Poliquístico hipergonadotrófico.",
+        "c": "Amenorrea Hipotalámica Funcional (por déficit energético / ejercicio extremo).",
+        "d": "Tumores secretores de gonadotrofinas del ovario."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La paciente presenta la constelación clásica de la Amenorrea Hipotalámica Funcional (Gori / Parcial 1 Gineco): amenorrea en una atleta con bajo IMC, prueba de progesterona negativa (por endometrio atrófico hipoestrogénico), prueba de estrógenos+progestágenos positiva (tracto e endometrio capaces de responder) y un perfil hormonal hipogonadotrófico (FSH, LH y Estradiol bajos). El déficit energético relativo suprime la secreción pulsátil de GnRH en el hipotálamo, silenciando el eje gonadotrófico."
+    },
+    {
+      "id": 20,
+      "pregunta": "Un médico ginecólogo que se desempeña en un centro de salud público es consultado por una paciente de 22 años que solicita la realización de una Interrupción Voluntaria del Embarazo (IVE) de 9 semanas de gestación. El profesional es objetor de conciencia previamente inscripto. De acuerdo con la Ley 27.610 (Artículo 10), ¿cuál es la conducta legal e institucional obligatoria que debe adoptar el profesional?",
+      "opciones": {
+        "a": "Negar la atención, negarse a derivar a la paciente y expulsarla del centro asistencial.",
+        "b": "Notificar a la policía para que detenga a la paciente de forma preventiva.",
+        "c": "Exigir que la paciente presente una autorización firmada por un juez de paz en un plazo no mayor a 24 horas.",
+        "d": "Mantenimiento de sus convicciones objetoras derivadas del deber de informar sobre los derechos, debiendo derivar de buena fe y en forma transparente a la paciente para que sea atendida por otro profesional no objetor, sin dilaciones y respetando los plazos legales."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El Artículo 10 de la Ley 27.610 de Interrupción Voluntaria del Embarazo regula el ejercicio de la objeción de conciencia. El profesional de la salud tiene el derecho individual a ejercer la objeción de conciencia, pero la ley le impone deberes estrictos: 1) Mantener su decisión en todos los ámbitos (público y privado); 2) Orientar e informar a la paciente sobre sus derechos; y 3) Derivar de buena fe y de forma expedita a la paciente a un profesional no objetor para que la práctica se garantice dentro del plazo legal de 10 días corridos, sin interponer maniobras dilatorias o de obstaculización."
+    },
+    {
+      "id": 21,
+      "pregunta": "Paciente de 22 años acude a la consulta tras palparse un nódulo indoloro en el cuadrante superoexterno de la mama izquierda. Al examen físico se constata una formación tumoral de 2 cm, móvil, de consistencia duro-elástica y límites netos. La ecografía mamaria informa una imagen sólida, ovoide, de bordes bien definidos, isoecoica, con su eje mayor paralelo a la piel y sin sombra acústica posterior, categorizada como BI-RADS 3. ¿Cuál es la conducta médica de elección recomendada?",
+      "opciones": {
+        "a": "Prescribir tratamiento antibiótico por vía oral con cefalexina durante 10 días y reevaluar en 48 horas.",
+        "b": "Indicar la ablación por radioterapia externa acelerada con intención curativa primaria.",
+        "c": "Indicar conducta conservadora con seguimiento mediante examen clínico y ecografía mamaria en 6 meses.",
+        "d": "Realizar mastectomía radical modificada con vaciamiento ganglionar axilar de niveles I y II."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "El fibroadenoma es el tumor benigno más frecuente de la mama en mujeres menores de 30 años. Ante el hallazgo ecográfico de una lesión sólida con criterios de benignidad (BI-RADS 3) en una paciente joven, asintomática y con tamaño menor a 3 cm, las guías de la Sociedad Argentina de Mastología (SAM) y el Manual del Ministerio de Salud recomiendan la conducta conservadora mediante el seguimiento clínico y ecográfico periódico a los 6 meses para evaluar la estabilidad dimensional de la lesión."
+    },
+    {
+      "id": 22,
+      "pregunta": "Una paciente de 25 años acude a la consulta para el control de un fibroadenoma mamario de 15 mm de diámetro diagnosticado hace 6 meses. La paciente refiere notarlo significativamente más grande. Al examen físico se constata un tumor sólido, indoloro y móvil que mide 32 mm de diámetro y deforma la superficie de la mama. La ecografía confirma el crecimiento rápido de la lesión sin signos de atipia. ¿Cuál es la conducta médica indicada?",
+      "opciones": {
+        "a": "Indicar la exéresis quirúrgica del nódulo (tumorectomía/enucleación) con estudio anatomopatológico.",
+        "b": "Indicar tratamiento farmacológico con análogos de GnRH de depósito durante 12 meses continuos.",
+        "c": "Realizar punción evacuadora de líquidos con aguja fina e infusión de corticoides locales.",
+        "d": "Otorgar el alta médica definitiva sin necesidad de realizar nuevos controles por ser benigno."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Ante un fibroadenoma mamario que presenta un crecimiento veloz (duplicación de tamaño en poco tiempo), supera los 3 cm de diámetro o genera distorsión estética o molestia sintomática, la indicación médica estandarizada es la exéresis quirúrgica (tumorectomía o enucleación). Este procedimiento permite confirmar el diagnóstico histopatológico y realizar el diagnóstico diferencial con el tumor phyllodes."
+    },
+    {
+      "id": 23,
+      "pregunta": "Una paciente de 32 años consulta por la presencia de una tumoración mamaria unilateral de 6 cm de diámetro, lobulada, de crecimiento muy rápido en los últimos 4 meses. La mamografía muestra una masa grande e intensa de bordes definidos, y la ecografía reporta una lesión sólida heterogénea con hendiduras quísticas internas llenas de fluido. ¿Cuál es el diagnóstico presuntivo de primera línea y su tratamiento?",
+      "opciones": {
+        "a": "Mastitis granulomatosa idiopática / Tratamiento inmunosupresor con azatioprina por vía oral.",
+        "b": "Quiste simple inflamado / Punción aspiración con aguja fina en el consultorio y drenaje.",
+        "c": "Galactocele retenido / Compresas tibias y vaciamiento manual de la glándula mamaria.",
+        "d": "Tumor Phyllodes (Filodes) / Exéresis quirúrgica amplia con margen de tejido sano (1 a 2 cm)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El tumor phyllodes es una neoplasia fibroepitelial poco frecuente caracterizada por una rápida tasa de crecimiento, gran tamaño (habitualmente mayor a 4-5 cm) y presencia de espacios quísticos y proliferación estromal. Por su potencial de recurrencia local y riesgo de comportamiento maligno (sarcomatoso), el tratamiento quirúrgico exige la exéresis completa con márgenes de tejido sano de 1 a 2 cm."
+    },
+    {
+      "id": 24,
+      "pregunta": "Paciente de 28 años con diagnóstico de Síndrome de Ovario Poliquístico (SOP) e infertilidad anovulatoria de 18 meses de evolución consulta para iniciar tratamiento inductor de la ovulación. Presenta un IMC de 26 kg/m² y el estudio de la pareja muestra un espermograma normal con trompas permeables en la histerosalpingografía. De acuerdo con el Consenso FASGO 2025 y las guías internacionales, ¿cuál es el farmacoterapéutico de primera línea recomendado para la inducción de la ovulación?",
+      "opciones": {
+        "a": "Metformina 1.700 mg/día en monoterapia exclusiva como único fármaco inductor de la ovulación.",
+        "b": "Letrozol 2,5 mg/día por vía oral durante 5 días (del día 2-3 al 6-7 del ciclo menstrual).",
+        "c": "Gonadotrofinas recombinantes a altas dosis en esquema de superovulación inmediata.",
+        "d": "Acetato de Ciproterona combinado con etinilestradiol durante 12 meses consecutivos."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Según las actualizaciones del Consenso SOP FASGO 2025 y las guías internacionales (ESHRE/ASRM), el Letrozol (inhibidor de la aromatasa) es la droga de primera línea para la inducción de la ovulación en mujeres con SOP e infertilidad, al haber demostrado mayores tasas de ovulación, embarazo y nacidos vivos en comparación con el citrato de clomifeno."
+    },
+    {
+      "id": 25,
+      "pregunta": "Una paciente de 25 años acude por amenorrea secundaria de 5 meses de evolución. El test de embarazo en subunidad beta-hCG es negativo, y las determinaciones de TSH y Prolactina son normales. Se realiza la Prueba de la Progesterona (progesterona micronizada 200 mg/día por 7 días), presentando un sangrado por deprivación a los 5 días de suspenderla (prueba positiva). ¿Qué conclusión diagnóstica y fisiopatológica se extrae de este resultado?",
+      "opciones": {
+        "a": "Confirma que la paciente presenta un tracto genital permeable, endometrio normoestrogenizado y anovulación.",
+        "b": "Confirma la presencia de un Síndrome de Asherman con obliteración completa de la cavidad uterina.",
+        "c": "Diagnostica una Insuficiencia Ovárica Primaria por agotamiento folicular con hipoestrogenismo severo.",
+        "d": "Demuestra la presencia de un prolactinoma hipofisario invasor con compromiso del quiasma óptico."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La positividad de la prueba de progesterona (aparición de sangrado por deprivación) demuestra que la paciente posee niveles de estrógenos endógenos suficientes para proliferar el endometrio (estradiol > 40 pg/ml), que el tracto de salida es permeable y que la causa de la amenorrea es la anovulación crónica con falta de producción de progesterona por el cuerpo lúteo."
+    },
+    {
+      "id": 26,
+      "pregunta": "Paciente de 30 años acude por amenorrea secundaria de 6 meses. Las determinaciones de beta-hCG, TSH y Prolactina son normales. La prueba de progesterona es negativa. Posteriormente se realiza la Prueba de Estrógenos + Progestágenos (valerato de estradiol 2 mg/día por 21 días asociando levonorgestrel los últimos 10 días), resultando POSITIVA (sangrado presente a los 5 días de finalizada). El laboratorio reporta FSH 65 UI/L y LH 38 UI/L. ¿Cuál es el diagnóstico definitivo?",
+      "opciones": {
+        "a": "Síndrome de Asherman secundario a legrados uterinos previos.",
+        "b": "Amenorrea hipotalámica funcional por pérdida ponderal severa.",
+        "c": "Insuficiencia Ovárica Primaria (Falla Ovárica Precoz).",
+        "d": "Agenesia de conductos de Müller (Síndrome de Rokitansky)."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Una prueba de Estrógenos + Progestágenos positiva confirma que la cavidad uterina y el canal endocervical son funcionales y permeables, orientando el diagnóstico hacia un déficit estrogénico. El hallazgo posterior de gonadotrofinas marcadamente elevadas (FSH > 40 UI/L) confirma un hipogonadismo hipergonadotrófico, que en mujeres menores de 40 años corresponde a la Insuficiencia Ovárica Primaria (Falla Ovárica Precoz)."
+    },
+    {
+      "id": 27,
+      "pregunta": "Una paciente de 27 años consulta por galactorrea bilateral a la presión y oligomenorrea de 6 meses. Niega ingesta de fármacos. Se confirma Prolactina en 85 ng/ml. ¿Cuál es el mecanismo fisiopatológico por el cual la hiperprolactinemia produce la alteración del ciclo menstrual y amenorrea?",
+      "opciones": {
+        "a": "Estimula directamente la secreción suprarrenal de cortisol bloqueando la acción de la insulina.",
+        "b": "Induce la destrucción inmune de los receptores de LH en las células de la teca ovárica.",
+        "c": "Provoca una disminución en la síntesis de hormona tiroidea con aumento secundario de GH.",
+        "d": "Inhibe la secreción pulsátil de GnRH en el hipotálamo, disminuyendo la liberación de LH y FSH."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La hiperprolactinemia inhibe la secreción pulsátil de la hormona liberadora de gonadotrofinas (GnRH) a nivel hipotalámico mediante el aumento del tono dopaminérgico y opioide central. Esta supresión de la pulsatilidad de GnRH bloquea la liberación de LH y FSH en la hipófisis, impidiendo el desarrollo folicular, la ovulación y la síntesis estrogénica."
+    },
+    {
+      "id": 28,
+      "pregunta": "Paciente de 32 años, nuligesta, consulta por menorragia e infertilidad secundaria de 1 año de evolución. La ecografía transvaginal e histeroscopía diagnóstica identifican la presencia de un mioma submucoso de 3 cm de diámetro que protruye completamente en la cavidad uterina, clasificado como Tipo 0 de la FIGO. ¿Cuál es la conducta quirúrgica de elección?",
+      "opciones": {
+        "a": "Anexohisterectomía total por laparotomía mediana infraumbilical.",
+        "b": "Resección del mioma mediante miomectomía transhisteroscópica ambulatoria.",
+        "c": "Embolización de arterias uterinas con microesferas de alcohol polivinílico.",
+        "d": "Tratamiento exclusivo con duchas vaginales de vinagre diluido por 6 meses."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Para los miomas submucosos sintomáticos (asociados a Sangrado Uterino Abundante o infertilidad) clasificados como Tipo 0 y Tipo 1 de la FIGO, la miomectomía por vía histeroscópica constituye el tratamiento quirúrgico conservador de primera elección. Permite la exéresis completa de la lesión preservando la fertilidad y con una rápida recuperación de la paciente."
+    },
+    {
+      "id": 29,
+      "pregunta": "¿cómo se define un mioma Tipo 2 y un mioma Tipo 5?",
+      "opciones": {
+        "a": "Tipo 2 es un mioma subseroso pediculado y Tipo 5 es un mioma intracavitario puro.",
+        "b": "Tipo 2 es un mioma cervical aislado y Tipo 5 es un mioma del ligamento ancho.",
+        "c": "Tipo 2 es un mioma submucoso con componente intramural mayor o igual al 50% y Tipo 5 es un mioma subseroso con componente intramural mayor o igual al 50%.",
+        "d": "Tipo 2 es un mioma completamente intramural sin contacto mucoso y Tipo 5 es un pólipo."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "El sistema de subclasificación de la FIGO para miomas establece que los miomas submucosos Tipo 2 son aquellos que presentan una extensión intramural igual o mayor al 50% de su volumen. Por su parte, los miomas subserosos Tipo 5 son aquellos con una extensión o componente intramural igual o mayor al 50%. (Referencia: la clasificación de la FIGO para la localización de los leiomiomas uterinos en el sistema PALM-COEIN)."
+    },
+    {
+      "id": 30,
+      "pregunta": "Paciente de 29 años presenta dismenorrea severa progresiva, dolor pélvico crónico, dispareunia profunda y rectorragia catamenial durante la menstruación. La ecografía transvaginal y RMN sugieren implantes endometriósicos en fondo de saco posterior y ligamentos uterosacros. ¿Cuál es el estudio que otorga el diagnóstico de certeza definitivo de Endometriosis?",
+      "opciones": {
+        "a": "Videolaparoscopía diagnóstica con inspección directa de lesiones y toma de biopsia para confirmación histopatológica.",
+        "b": "Determinación sérica cuantitativa aislada del marcador tumoral CA-125 en fase folicular.",
+        "c": "Histerosalpingografía con prueba de Cotte bilateral positiva en fase lútea.",
+        "d": "Marcaje mamográfico previo con arpón metálico y ecografía mamaria bilateral."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El estándar de oro (Gold Standard) para el diagnóstico definitivo de la endometriosis es la visualización directa de las lesiones (focos en pólvora, quemadura de pólvora o vesículas) mediante laparoscopía diagnóstica, junto con la confirmación histopatológica de las biopsias tomadas (demostrando glándulas y estroma endometrial en sitios ectópicos)."
+    },
+    {
+      "id": 31,
+      "pregunta": "Paciente de 39 años consulta por hipermenorrea y dismenorrea secundaria. La ecografía transvaginal muestra un útero de aspecto globoso asimétrico, con engrosamiento heterogéneo de la pared posterior miometrial, pequeñas imágenes anecogénicas miometriales de 2 mm y mala definición de la zona de unión endometrio-miometrial. El Doppler color muestra vascularización dispersa miometrial. ¿Cuál es el diagnóstico más probable?",
+      "opciones": {
+        "a": "Sarcoma uterino de células claras de alto grado.",
+        "b": "Leiomioma subseroso pediculado Tipo 7 de la FIGO.",
+        "c": "Embarazo molar completo hidatidiforme.",
+        "d": "Adenomiosis uterina focal o difusa."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Los hallazgos ecográficos caracterizados por útero de contorno globoso y asimétrico, heterogeneidad miometrial, presencia de quistes o focos ecogénicos miometriales y un grosor de la zona de unión miometrio-endometrial mayor a 12 mm son indicativos del diagnóstico de Adenomiosis uterina."
+    },
+    {
+      "id": 32,
+      "pregunta": "Paciente de 28 años acude por amenorrea secundaria de 8 meses de evolución iniciada tras haberse realizado un legrado uterino instrumental por un aborto incompleto complicado con endometritis. El test de embarazo es negativo. La prueba de progesterona es negativa y la prueba de estrógenos + progestágenos es NEGATIVA (no produce sangrado). TSH y Prolactina son normales. ¿Cuál es el diagnóstico de primera línea?",
+      "opciones": {
+        "a": "Insuficiencia Ovárica Primaria autoinmune.",
+        "b": "Síndrome de Asherman (sinequias o adherencias intrauterinas).",
+        "c": "Craneofaringioma supraselar con déficit de gonadotrofinas.",
+        "d": "Síndrome de Ovario Poliquístico fenotipo A."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La falta de respuesta hemorrágica (prueba negativa) tras la administración combinada de estrógenos y progestágenos confirma la presencia de una causa uterina irresponsiva. En una paciente con antecedente de legrado uterino e infección endometrial previa, este cuadro es patognomónico del Síndrome de Asherman (sinequias o cicatrización de la cavidad endometrial)."
+    },
+    {
+      "id": 33,
+      "pregunta": "En el protocolo de estudio de la pareja infértil, se realiza a la mujer una Histerosalpingografía (HSG). El informe detalla: cavidad uterina triangular normal, ambas trompas de Falopio permeables en toda su extensión y pasaje libre del contraste a la cavidad peritoneal en la placa de control tardío. ¿Cómo se interpreta este hallazgo respecto a la prueba de Cotte?",
+      "opciones": {
+        "a": "Prueba de Cotte positiva bilateral, lo que indica permeabilidad tubaria conservada.",
+        "b": "Prueba de Cotte negativa, lo que diagnostica obstrucción tubaria proximal bilateral.",
+        "c": "Presencia de hidrosálpinx gigante con indicación de salpingectomía quirúrgica.",
+        "d": "Diagnóstico definitivo de agenesia uterina de Rokitansky."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La difusión y derrame libre del medio de contraste radiopaco en la cavidad peritoneal durante la fase tardía de la Histerosalpingografía constituye la \"Prueba de Cotte positiva\", lo que confirma la permeabilidad de las trompas de Falopio y la ausencia de oclusión tubaria distal."
+    },
+    {
+      "id": 34,
+      "pregunta": "En la evaluación inicial del factor masculino de la pareja infértil, el espermograma reporta: Volumen 3,2 ml, pH 7,5, Concentración de espermatozoides 8 millones/ml (normal >= 16 M/ml), Motilidad progresiva 18% (normal >= 30%) y Morfología normal 2% (normal >= 4%). ¿Cómo se clasifica este patrón seminal según los valores de la OMS?",
+      "opciones": {
+        "a": "Azoospermia obstructiva con teratozoospermia aislada.",
+        "b": "Normozoospermia fisiológica con hipervolumen seminal.",
+        "c": "Oligo-Astenos-Teratozoospermia (OAT) combinada.",
+        "d": "Necrozoospermia completa con pH ácido patológico."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con los valores de referencia de la OMS para el análisis de semen, la coexistencia de disminución en la concentración espermática (Oligozoospermia), reducción en el porcentaje de motilidad progresiva (Astenozoospermia) y bajo porcentaje de formas morfológicamente normales (Teratozoospermia) se clasifica como Oligoastenoteratozoospermia (OAT)."
+    },
+    {
+      "id": 35,
+      "pregunta": "Paciente de 21 años cursa un embarazo de 8 semanas y solicita la Interrupción Voluntaria del Embarazo (IVE) amparada en la Ley 27.610. Se le indica el esquema combinado de Mifepristona y Misoprostol. ¿Cuál es el mecanismo de acción farmacológico del Misoprostol en el útero y cérvix?",
+      "opciones": {
+        "a": "Es un antibiótico bactericida de la familia de las fluoroquinolonas que inhibe la ADN girasa.",
+        "b": "Es un análogo sintético de la Prostaglandina E1 (PGE1) que induce ablandamiento y maduración cervical junto con contracciones del miometrio.",
+        "c": "Es un estrógeno sintético de alta potencia que bloquea la biosíntesis de adrenalina en el ovario.",
+        "d": "Es un antagonista dopaminérgico que estimula la secreción de prolactina por la hipófisis."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Misoprostol es un análogo sintético de la Prostaglandina E1 (PGE1) que se une a receptores específicos en el tejido uterino y cervical, provocando el ablandamiento, borramiento y dilución del cérvix, e induciendo contracciones miometriales rítmicas que facilitan la expulsión del contenido uterino."
+    },
+    {
+      "id": 36,
+      "pregunta": "Paciente de 24 años, con factor sanguíneo Rh negativo no sensibilizada (prueba de Coombs indirecta negativa), realiza una Interrupción Voluntaria del Embarazo (IVE) con tratamiento farmacológico a las 9 semanas de gestación. De acuerdo con el protocolo oficial, ¿cuál es la indicación referente a la prevención de la aloinmunización Rh?",
+      "opciones": {
+        "a": "No requiere ningún tratamiento inmunológico por tratarse de un procedimiento farmacológico.",
+        "b": "Indicar transfusión de glóbulos rojos concentrados Rh positivos para generar tolerancia.",
+        "c": "Prescribir gammaglobulina anti-Rh exclusivamente si la paciente presenta fiebre mayor a 40 ºC.",
+        "d": "Administrar Gammaglobulina Anti-D (anti-Rh) por vía intramuscular dentro de las 72 horas del procedimiento."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "En toda persona gestante con factor Rh negativo no sensibilizada que se someta a un aborto o procedimiento de IVE/ILE (ya sea farmacológico o instrumental), se debe administrar profilácticamente la Gammaglobulina Anti-D por vía intramuscular dentro de las 72 horas posteriores a la evacuación para prevenir la inmunización Rh."
+    },
+    {
+      "id": 37,
+      "pregunta": "Una paciente de 20 años acude al centro de salud 18 horas después de haber sufrido una agresión sexual con acceso carnal. ¿Cuál es la conducta médica inmediata prioritaria referente a la prevención del embarazo no intencionado y la profilaxis de Infecciones de Transmisión Sexual (ITS)?",
+      "opciones": {
+        "a": "Administrar Anticoncepción Hormonal de Emergencia de inmediato e iniciar la profilaxis antibiótica empírica y la profilaxis post-exposición (PEP) para VIH.",
+        "b": "Solicitar una ecografía pélvica transvaginal y postergar la AHE hasta visualizar la vesícula vitelina.",
+        "c": "Exigir que la paciente presente primero la copia de la denuncia policial realizada en la comisaría.",
+        "d": "Indicar únicamente lavado vaginal con yodopovidona y cita de control en 6 meses."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La atención médica tras una agresión sexual es una urgencia de salud. Se debe brindar inmediatamente la Anticoncepción Hormonal de Emergencia (AHE) para prevenir el embarazo, junto con el inicio precoz de la profilaxis antibiótica empírica para ITS y la Profilaxis Post-Exposición (PEP) para VIH con antirretrovirales dentro de las 72 horas. La atención no puede supeditarse a denuncias policiales previa ni a trámites judiciales."
+    },
+    {
+      "id": 38,
+      "pregunta": "Paciente de 26 años con diagnóstico de Embarazo Ectópico Tubario no roto en trompa derecha. Se encuentra hemodinómicamente estable, afebril y paucisintomática. La ecografía TV muestra una masa anexial de 28 mm sin actividad cardíaca embrionaria y líquido libre en Douglas menor a 100 ml. La subunidad beta-hCG cuantitativa inicial es de 2.200 UI/L. Las pruebas de función hepática y renal son normales. ¿Cuál es el tratamiento conservador de primera línea indicado?",
+      "opciones": {
+        "a": "Histerectomía abdominal total con salpingectomía bilateral.",
+        "b": "Conducta expectante sin controles ni medicación.",
+        "c": "Tratamiento farmacológico con Metotrexato (50 mg/m² IM en dosis única) con seguimiento serológico de beta-hCG los días 4 y 7.",
+        "d": "Legrado uterino fraccionado bajo anestesia general en quirófano."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "En pacientes con embarazo ectópico tubario no roto que cumplen los criterios de estabilidad hemodinámica, dolor escaso, masa anexial < 3,5 cm, ausencia de latido cardíaco fetal, beta-hCG < 5.000 UI/L y función hepato-renal normal, el tratamiento farmacológico conservador de primera línea es el Metotrexato por vía intramuscular en dosis única de 50 mg/m², monitoreando el descenso de la beta-hCG los días 4 y 7."
+    },
+    {
+      "id": 39,
+      "pregunta": "Paciente de 38 años consulta por dolor mamario constante localizado en el cuadrante superoexterno de la mama izquierda de 3 meses de evolución, que no guarda relación con el ciclo menstrual ni empeora en la fase premenstrual (mastalgia no cíclica). La palpación revela una zona de induración focal. ¿Cuál es la conducta médica inicial recomendada?",
+      "opciones": {
+        "a": "Prescribir amoxicilina oral por 14 días y dar de alta sin imágenes.",
+        "b": "Realizar evaluación mediante ecografía mamaria (y mamografía según edad/hallazgos) para descartar patología focal o tumoral.",
+        "c": "Indicar histerectomía total con doble anexectomía por vía vaginal.",
+        "d": "Recomendar la suspensión completa de la ingesta de agua potable."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "A diferencia de la mastalgia cíclica bilateral difusa, la mastalgia no cíclica (focal, unilateral e independiente del ciclo menstrual) exige una evaluación diagnóstica mediante estudios por imágenes (ecografía y/o mamografía según la edad) para descartar patología focal o estructural subyacente."
+    },
+    {
+      "id": 40,
+      "pregunta": "Paciente de 41 años con Sangrado Uterino Abundante. Se realiza biopsia endometrial por aspiración que reporta \"Hiperplasia Endometrial Benigna Sin Atipia Citológica\". Desea conservar su fertilidad y estructura uterina. ¿Cuál es el tratamiento médico de primera línea indicado según los consensos de patología endometrial?",
+      "opciones": {
+        "a": "Quimioterapia sistémica intravenosa con ciclos de doxorrubicina.",
+        "b": "Radioterapia holopélvica paliativa en dosis fraccionadas.",
+        "c": "Histerectomía radical modificada con linfadenectomía pélvica bilateral.",
+        "d": "Tratamiento hormonal con Progestágenos (oral continuo o Sistema Intrauterino de Levonorgestrel 52 mg) durante 6 meses con reevaluación bióptica."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "En la hiperplasia endometrial sin atipias, el riesgo de progresión a cáncer invasor es muy bajo (< 1-3%). El tratamiento médico de primera línea para revertir la hiperplasia y controlar el sangrado es la terapia hormonal con progestágenos (SIU liberador de levonorgestrel 52 mg o progestágenos orales continuos por 6 meses), reevaluando el endometrio mediante nueva biopsia al finalizar el tratamiento."
+    },
+    {
+      "id": 41,
+      "pregunta": "Paciente de 38 años consulta por secreción espontánea por el pezón izquierdo de 2 meses de evolución. Al examen físico se constata la salida de un líquido serosanguinolento (telorragia) a través de un único poro del pezón izquierdo (uniductal), sin palparse masas ni adenopatías axilares. La mamografía y ecografía mamaria no muestran lesiones nodulares ni distorsión de la arquitectura. ¿Cuál es la sospecha diagnóstica de primera línea y la conducta indicada?",
+      "opciones": {
+        "a": "Papiloma intraductal solitario / Indicar microdochectomía (resección del ducto galactóforo afectado) con estudio anatomopatológico.",
+        "b": "Ectasia ductal mamaria severa / Prescribir antibioticoterapia parenteral con vancomicina durante 21 días.",
+        "c": "Carcinoma inflamatorio invasor de mama / Indicar quimioterapia neoadyuvante con esquemas basados en antraciclinas.",
+        "d": "Mastitis purulenta puerperal / Indicar drenaje quirúrgico con colocación de mecha y suspensión de la lactancia."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La presencia de telorragia (secreción serosanguinolenta o hemática) espontánea, unilateral, uniporosa y uniductal en una mujer premenopáusica, en ausencia de tumores palpables o hallazgos radiológicos sospechosos, es altamente sugerente de un Papiloma Intraductal Solitario (la causa tumoral benigna más frecuente de telorragia). La conducta de elección es la exéresis quirúrgica del conducto galactóforo dilatado causante de la secreción (microdochectomía o resección ductal selectiva) para confirmar la benignidad histológica."
+    },
+    {
+      "id": 42,
+      "pregunta": "Una paciente de 26 años con diagnóstico de Síndrome de Ovario Poliquístico (SOP) e Índice de Masa Corporal de 31 kg/m² consulta para evaluación metabólica de rutina. Presenta ciclos oligo-amenorreicos e hirsutismo moderado. La glucemia en ayunas es de 94 mg/dl. ¿Cuál es el estudio screening de primera línea recomendado por las guías internacionales y el Consenso FASGO 2025 para evaluar el estado metabólico hidrocarbonado en pacientes con SOP?",
+      "opciones": {
+        "a": "Determinación semanal de la hemoglobina glicosilada A1c por método de inmunocromatografía capilar.",
+        "b": "Prueba de Tolerancia Oral a la Glucosa (PTOG) con carga de 75 g de glucosa anhidra y medición a las 2 horas.",
+        "c": "Medición del péptido C en orina de 24 horas tras dieta hipercalórica estricta durante 7 días.",
+        "d": "Tomografía computada multicorte de abdomen para medición de la masa celular del páncreas endocrino."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Consenso SOP FASGO 2025 y las directrices internacionales (ESHRE/ASRM) establecen que toda paciente con diagnóstico de SOP, independientemente de su IMC (y de forma prioritaria si presenta sobrepeso u obesidad), debe ser evaluada para intolerancia a la glucosa y diabetes tipo 2 mediante una Prueba de Tolerancia Oral a la Glucosa (PTOG) con 75 g de glucosa (midiendo glucemia basal y a las 2 horas). La glucemia en ayunas aislada presenta una baja sensibilidad para detectar la intolerancia a la glucosa en estas pacientes."
+    },
+    {
+      "id": 43,
+      "pregunta": "Paciente de 35 años consulta por sangrado uterino intermenstrual (spotting) y menorragia de 6 meses de evolución. En la ecografía transvaginal se observa una imagen hiperecoica bien delimitada de 18 mm en el interior de la cavidad endometrial. Para confirmar el diagnóstico y posibilitar el tratamiento definitivo en un solo tiempo, ¿cuál es el procedimiento Gold Standard de elección?",
+      "opciones": {
+        "a": "Legrado uterino instrumental a ciegas con legra de Recamier bajo anestesia general.",
+        "b": "Biopsia de endometrio por aspiración con cánula de Pipelle realizada en el consultorio.",
+        "c": "Histeroscopía diagnóstica y terapéutica con resección con asa electroquirúrgica.",
+        "d": "Histerectomía subtotal por vía laparoscópica con conservación del cuello uterino."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Ante la sospecha ecográfica de un pólipo endometrial (SUA-P del sistema PALM-COEIN), la histeroscopía representa el estándar de oro. Permite la visualización directa de la cavidad uterina, la confirmación morfológica, la evaluación del pedículo y la exéresis completa (polipectomía histeroscópica) mediante asa de resección o tijera bajo visión directa, superando al legrado a ciegas que presenta una elevada tasa de exéresis incompleta."
+    },
+    {
+      "id": 44,
+      "pregunta": "Paciente de 31 años con diagnóstico presuntivo de Endometriosis Profunda por presentar disquecia catamenial (dolor al defecar durante la menstruación), dispareunia profunda y dolor pélvico crónico. Se programa una evaluación por imágenes para el mapeo prequirúrgico de las lesiones. ¿Cuál es el método de elección recomendado por su alta resolución tisular para delimitar el compromiso del tabique rectovaginal y de la pared rectosigmoidea?",
+      "opciones": {
+        "a": "Ecografía ginecológica transabdominal con vejiga hiperllena sin preparación intestinal.",
+        "b": "Histerosalpingografía contrastada con fluoroscopía digital en fase secretora tardía.",
+        "c": "Radiografía de colon por enema con doble contraste de bario y aire ambiente.",
+        "d": "Resonancia Magnética (RMN) pélvica con protocolo específico o Ecografía Transvaginal con preparación intestinal."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Para el mapeo preoperatorio de la endometriosis pélvica profunda infiltrante (especialmente cuando hay sospecha de compromiso del tabique rectovaginal, retrocérvix, ligamentos uterosacros o pared del rectosigma), los métodos de imágenes de primera línea son la Resonancia Magnética pélvica de alta resolución y la Ecografía Transvaginal realizada por operadores entrenados con preparación intestinal previa. Permiten delimitar con precisión la profundidad de la invasión nodular y orientar la estrategia quirúrgica multidisciplinaria."
+    },
+    {
+      "id": 45,
+      "pregunta": "Una paciente de 30 años presenta amenorrea secundaria, agalactia y astenia marcada que se iniciaron tras su último parto hace 8 meses, el cual se complicó con una hemorragia posparto severa por atonía uterina que requirió transfusión masiva de hemoderivados. El perfil hormonal muestra niveles bajos de FSH, LH, TSH y ACTH. ¿Cuál es el diagnóstico más probable?",
+      "opciones": {
+        "a": "Síndrome de Sheehan (necrosis isquémica hipofisaria posparto).",
+        "b": "Síndrome de Asherman por sinequias uterinas posparto.",
+        "c": "Insuficiencia Ovárica Primaria autoinmune post-transfusional.",
+        "d": "Tumor secretor de gonadotrofinas de la glándula pineal."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El Síndrome de Sheehan es la necrosis isquémica de la glándula adenohipófisis secundaria a un colapso circulatorio o shock hipovolémico por hemorragia grave durante el parto o posparto inmediato. Durante la gestación, la hipófisis sufre una hipertrofia fisiológica que la vuelve altamente susceptible a la isquemia. La destrucción tisular provoca un panhipopituitarismo progresivo caracterizado por agalactia (déficit de prolactina), amenorrea (déficit de LH/FSH), hipotiroidismo secundario (déficit de TSH) e insuficiencia suprarrenal secundaria (déficit de ACTH)."
+    },
+    {
+      "id": 46,
+      "pregunta": "En la evaluación de la reserva ovárica de una paciente de 36 años que consulta por infertilidad primaria, ¿cuál de los siguientes marcadores séricos presenta menor variabilidad interciclo y refleja directamente la masa de folículos antrales tempranos?",
+      "opciones": {
+        "a": "Niveles de progesterona plasmática medidos en el día 21 del ciclo menstrual.",
+        "b": "Hormona Antimülleriana (HAM) secretada por las células de la granulosa de los folículos antrales pequeños.",
+        "c": "Niveles de androstenodiona sérica medidos durante el pico preovulatorio de LH.",
+        "d": "Prolactina sérica basal medida en la fase lútea tardía."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La Hormona Antimülleriana (HAM) es producida por las células de la granulosa de los folículos preantrales y antrales pequeños (2 a 9 mm). Es el marcador endocrino de mayor precisión para evaluar la reserva ovárica cuantitativa, ya que sus concentraciones plasmáticas permanecen relativamente estables a lo largo de todo el ciclo menstrual (mínima variabilidad inter e intraciclo), correlacionándose directamente con el recuento de folículos antrales por ecografía transvaginal."
+    },
+    {
+      "id": 47,
+      "pregunta": "Una adolescente de 14 años consulta para solicitar la realización de una IVE de 8 semanas de gestación. ¿Cuál es el marco legal respecto al consentimiento informado en esta franja etaria (13 a 15 años)?",
+      "opciones": {
+        "a": "Requiere la aprobación exclusiva y por escrito de un juez de menores del fuero penal.",
+        "b": "Está estrictamente prohibida la realización de la IVE hasta que la paciente cumpla los 18 años.",
+        "c": "Prevalece su autonomía progresiva para brindar el consentimiento informado, debiendo contar con la asistencia de al menos uno de sus progenitores o representantes legales solo si el procedimiento implica un riesgo grave para su salud.",
+        "d": "Requiere la firma obligatoria de un comité de ética hospitalario compuesto por tres médicos titulares."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Según el Artículo 26 del Código Civil y Comercial y las directrices de la Ley 27.610, los adolescentes entre 13 y 16 años se presumen con aptitud para tomar decisiones autónomas sobre tratamientos no invasivos. Para la realización de una IVE en el primer trimestre (procedimiento seguro no invasivo), la persona de 14 años presta su consentimiento informado. La asistencia de un progenitor o representante legal se requiere solo cuando la intervención entrañe un riesgo grave para su vida o integridad física. A partir de los 16 años, es considerada un adulto a todos los efectos del cuidado de su propio cuerpo. (Referencia: la Ley 27.610 de Interrupción Voluntaria del Embarazo y el Código Civil y Comercial de la Nación (Art. 26) en Argentina)."
+    },
+    {
+      "id": 48,
+      "pregunta": "¿cuál es la definición de un mioma Tipo 3 y cuál es su impacto sobre la cavidad endometrial?",
+      "opciones": {
+        "a": "Es un mioma subseroso pediculado que flota libremente en la cavidad peritoneal.",
+        "b": "Es un mioma submucoso que protruye en más del 80% dentro del canal endocervical.",
+        "c": "Es un mioma intracavitario puro que se adhiere a la pared vaginal posterior.",
+        "d": "Es un mioma 100% intramural pero que contacta directamente con el endometrio sin protruir en la cavidad."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La clasificación de la FIGO define al mioma Tipo 3 como aquel leiomioma de localización intramural que no protruye hacia la cavidad uterina (0% de componente intraluminal), pero que se encuentra en contacto directo (100% contiguo) con la capa basal del endometrio. Los miomas Tipo 4, por el contrario, son totalmente intramurales sin contacto con el endometrio ni con la serosa. (Referencia: la clasificación de la FIGO para la localización de los leiomiomas uterinos)."
+    },
+    {
+      "id": 49,
+      "pregunta": "Una paciente lactante de 26 años, en su 4ª semana posparto, consulta por fiebre de 38,8 ºC, chuchos de frío y dolor severo en la mama derecha. Al examen físico se observa un área eritematosa, indurada, caliente y muy dolorosa a la palpación en el cuadrante superoexterno de la mama derecha. No se palpan fluctuaciones ni colecciones purulentas. ¿Cuál es el agente etiológico más frecuente y la pauta de tratamiento adecuada?",
+      "opciones": {
+        "a": "Staphylococcus aureus / Antibioticoterapia oral con Cefalexina (500 mg c/6h por 10 días), AINES, vaciamiento frecuente de la mama y MANTENIMIENTO de la lactancia materna.",
+        "b": "Streptococcus agalactiae / Suspensión definitiva e irreversible de la lactancia materna y ablación quirúrgica de la glándula.",
+        "c": "Pseudomonas aeruginosa / Prescripción de fluconazol oral en dosis única y vendaje compresivo mama.",
+        "d": "Mycobacterium tuberculosis / Tratamiento tuberculostático por 12 meses e internación en aislamiento estricto."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La mastitis puerperal aguda es una infección parenquimatosa de la glándula mamaria provocada en más del 80-90% de los casos por Staphylococcus aureus procedente de la nasofaringe del lactante o de la piel materna a través de grietas en el pezón. El tratamiento de primera línea consiste en antibioticoterapia oral efectiva contra estafilococo (Cefalexina 500 mg c/6h o Amoxicilina/Clavulánico por 10-14 días), analgésicos/antiinflamatorios, y la medida fundamental de asegurar el vaciamiento continuo y eficaz de la mama, siendo seguro y recomendado CONTINUAR con la lactancia materna (salvo que exista secreción purulenta directa por el pezón o absceso abierto)."
+    },
+    {
+      "id": 50,
+      "pregunta": "En el protocolo de atención médica integral de una persona sobreviviente de violencia o agresión sexual, ¿cuál es la ventana temporal máxima de eficacia recomendada para el inicio de la Profilaxis Post-Exposición (PEP) para el Virus de la Inmunodeficiencia Humana (VIH)?",
+      "opciones": {
+        "a": "Debe iniciarse antes de los 15 minutos del evento sin poder administrarse después.",
+        "b": "Idealmente dentro de las primeras 4 a 6 horas y hasta un límite máximo de 72 horas posteriores a la exposición.",
+        "c": "Entre los 7 y los 14 días posteriores a la agresión sexual.",
+        "d": "Únicamente pasados los 30 días tras confirmar la seroconversión de la VDRL."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con los protocolos del Ministerio de Salud y la evidencia clínica sobre transmisión viral, la Profilaxis Post-Exposición (PEP) antirretroviral para VIH debe iniciarse lo antes posible tras la agresión sexual (idealmente dentro de las primeras 2 a 4 horas). La eficacia profiláctica disminuye progresivamente con el tiempo, situándose el límite temporal máximo de efectividad en las 72 horas (3 días) posteriores al evento no protegido. Pasadas las 72 horas no está indicada la PEP."
+    },
+    {
+      "id": 51,
+      "pregunta": "Paciente de 29 años acude por oligomenorrea y galactorrea intermitente. Niega embarazos. En el interrogatorio refiere encontrarse en tratamiento psicofarmacológico con Risperidona (antipsicótico atípico) desde hace 6 meses. La Prolactina sérica reporta 68 ng/ml. Las imágenes por RMN de silla turca son normales. ¿Cuál es la causa fisiopatológica de esta hiperprolactinemia?",
+      "opciones": {
+        "a": "Estimulación directa de la glándula tiroides con secreción masiva de calcitonina.",
+        "b": "Destrucción inmune de las células somatotropas del lóbulo posterior de la hipófisis.",
+        "c": "Bloqueo de los receptores dopaminérgicos D2 en los lactotropos hipofisarios ejercido por el psicofármaco, interrumpiendo la inhibición tónica de la dopamina.",
+        "d": "Aumento primario de la producción de oxitocina en los núcleos supraóptico y paraventricular."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La dopamina producida por el hipotálamo es el principal factor inhibidor fisiológico de la secreción de prolactina por las células lactotropas de la adenohipófisis. Fármacos como los antipsicóticos (risperidona, haloperidol) y procinéticos (metoclopramida) actúan como antagonistas de los receptores dopaminérgicos D2, bloqueando esta inhibición tónica y provocando hiperprolactinemia secundaria de origen farmacológico."
+    },
+    {
+      "id": 52,
+      "pregunta": "Paciente de 44 años con Sangrado Uterino Abundante. La biopsia de endometrio informa \"Hiperplasia Endometrial Benigna Sin Atipia Citológica\". Desea tratamiento conservador no quirúrgico. Según los consensos de patología endometrial, ¿cuál es el esquema médico de primera línea recomendado para lograr la regresión de la lesión y controlar el sangrado?",
+      "opciones": {
+        "a": "Resección en cuña de ambos ovarios por vía laparoscópica.",
+        "b": "Radioterapia paliativa pélvica a dosis fraccionadas de 50 Gy.",
+        "c": "Estrógenos conjugados a altas dosis en monoterapia continua por 12 meses.",
+        "d": "Terapia hormonal con progestágenos (Sistema Intrauterino de Levonorgestrel 52 mg o progestágenos orales) durante un período mínimo de 6 meses."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La hiperplasia endometrial sin atipias presenta un riesgo de progresión a adenocarcinoma muy bajo (< 1-3%). El tratamiento médico de elección para revertir los cambios hiperplásicos causados por la estimulación estrogénica no contrapesada es la terapia con progestágenos (siendo el SIU de levonorgestrel de 52 mg el método más eficaz, o alternativamente progestágenos orales como el acetato de medroxiprogesterona o noretisterona) durante al menos 6 meses, seguido de una nueva biopsia de control."
+    },
+    {
+      "id": 53,
+      "pregunta": "Paciente de 38 años consulta por menorragia e intenso dolor pélvico menstrual. La ecografía transvaginal sugiere Adenomiosis Uterina difusa. Desea conservar el útero y solicita tratamiento farmacológico para el control del dolor y del sangrado. ¿Cuál es el tratamiento de primera línea respaldado por la evidencia clínica?",
+      "opciones": {
+        "a": "Sistema Intrauterino Liberador de Levonorgestrel (SIU-LNG 52 mg) o progestágenos continuos (Dienogest / AMPD).",
+        "b": "Ciprofloxacina 500 mg cada 12 horas por vía oral durante 3 meses continuos.",
+        "c": "Estrógenos sintéticos a dosis elevadas en esquema monofásico sin pausas.",
+        "d": "Cauterización química del endometrio con nitrato de plata en el consultorio."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Para las pacientes con adenomiosis sintomática que desean tratamiento conservador (preservación uterina), la primera línea terapéutica médica la constituyen las terapias progestacionales. El SIU de levonorgestrel (52 mg) o los progestágenos orales continuos (como el Dienogest 2 mg/día) inducen la decidualización y atrofia del tejido endometrial ectópico intramiometrial, reduciendo significativamente la dismenorrea y el volumen del sangrado menstrual."
+    },
+    {
+      "id": 54,
+      "pregunta": "En el diagnóstico diferencial de las amenorreas secundarias hipogonadotróficas (FSH y LH bajas o normales-bajas con Estradiol bajo), ¿cuál de las siguientes situaciones representa la causa más frecuente de Amenorrea Hipotalámica Funcional en mujeres jóvenes?",
+      "opciones": {
+        "a": "Presencia de un macroadenoma hipofisario no secretor con compresión del tallo.",
+        "b": "Estrés crónico, pérdida ponderal marcada, trastornos de la conducta alimentaria (anorexia nerviosa) o ejercicio físico de alto rendimiento.",
+        "c": "Destrucción autoinmune completa de los folículos primordiales del ovario.",
+        "d": "Trombosis de la arteria uterina izquierda secundario a uso de DIU de cobre."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La Amenorrea Hipotalámica Funcional es la causa más común de amenorrea secundaria hipogonadotrófica en la mujer joven. Es gatillada por condiciones de estrés metabólico, psíquico o físico (déficit energético, pérdida de peso acentuada, anorexia nerviosa, entrenamiento deportivo intenso). Este estado altera la pulsatilidad del generador de pulsos de GnRH en el núcleo arcuato del hipotálamo, suprimiendo la liberación de LH y FSH y causando anovulación e hipoestrogenismo."
+    },
+    {
+      "id": 55,
+      "pregunta": "Durante la evaluación del factor masculino en una pareja con infertilidad primaria de 2 años de evolución, el examen físico del varón detecta una dilatación varicosa palpable y visible del plexo pampiniforme en el testículo izquierdo que se acentúa con la maniobra de Valsalva (Varicocele Grado III). El espermograma muestra oligoastenoteratozoospermia. ¿Cuál es el mecanismo fisiopatológico por el cual el varicocele deteriora la calidad seminal?",
+      "opciones": {
+        "a": "Provoca la hipertrofia de las vesículas seminales aumentando la viscosidad en un 500%.",
+        "b": "Induce la secreción de anticuerpos antiesperma por las células de Leydig.",
+        "c": "Produce estasis venoso e hipertermia testicular local, alterando la espermatogénesis y aumentando el estrés oxidativo y el daño al ADN espermático.",
+        "d": "Bloquea la síntesis de hormona tiroidea a nivel del epidídimo distal."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "El varicocele (dilatación anómala del plexo venoso pampiniforme, más frecuente del lado izquierdo) ocasiona reflujo venoso, estasis sanguínea e incremento de la temperatura intratesticular (pérdida del mecanismo contracorriente de refrigeración). Esta hipertermia constante, sumada a la hipoxia tisular y al reflujo de metabolitos suprarrenales, altera la espermatogénesis en los tubos seminíferos, derivando en oligoastenoteratozoospermia, aumento del estrés oxidativo y fragmentación del ADN espermático."
+    },
+    {
+      "id": 56,
+      "pregunta": "Una paciente de 24 años realiza una Interrupción Voluntaria del Embarazo (IVE) farmacológica con Mifepristona y Misoprostol a las 7 semanas de gestación. A los 10 días acude a control, refiriéndose afebril pero con sangrado persistente superior a una menstruación normal y cólicos. La ecografía transvaginal demuestra restos ovulares retenidos en cavidad uterina con un grosor endometrial de 24 mm y Doppler positivo. ¿Cuál es el procedimiento quirúrgico/instrumental de elección para la evacuación completa de la cavidad?",
+      "opciones": {
+        "a": "Histerectomía abdominal total con conservación anexial.",
+        "b": "Legrado uterino instrumental a ciegas con legra cortante metálica pesada.",
+        "c": "Laparotomía exploradora con cisotomía anterior.",
+        "d": "Aspiración Manual Endouterina (AMEU) bajo analgesia o anestesia local/sedación."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Según las directrices de la OMS y los protocolos de IVE/ILE del Ministerio de Salud, ante la presencia de un aborto incompleto o restos placentarios/ovulares retenidos post-tratamiento farmacológico en el primer trimestre, el método quirúrgico/instrumental de elección por ser más seguro, menos invasivo y asociarse a menor tasa de complicaciones (perforación, sinequias) que el legrado tradicional es la Aspiración Manual Endouterina (AMEU)."
+    },
+    {
+      "id": 57,
+      "pregunta": "Para la evaluación histológica de un nódulo mamario sólido de 22 mm, sospechoso en la mamografía (BI-RADS 4b), ¿cuál es el procedimiento bióptico ambulatorio de primera línea recomendado por las guías de mastología para obtener cilindros de tejido tisular y distinguir entre carcinoma in situ e invasor?",
+      "opciones": {
+        "a": "Punción Bióptica con Aguja Gruesa (BAAG / Core Biopsy) con aguja trucut de 14G bajo guía ecográfica.",
+        "b": "Punción Aspiración con Aguja Fina (PAAF) con aguja de 25G para citología de líquido quístico.",
+        "c": "Biopsia por congelación intraoperatoria con mastectomía en el mismo acto sin imágenes.",
+        "d": "Excéresis quirúrgica por toracotomía anterolateral izquierda."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Ante una lesión mamaria sólida sospechosa de malignidad (BI-RADS 4 o 5), la técnica de primera línea para el diagnóstico histológico preoperatorio es la Biopsia con Aguja Gruesa (BAAG o Core-Biopsy) guiada por ecografía. Permite obtener cilindros de tejido que conservan la arquitectura histológica, diferenciando el carcinoma in situ del invasor e identificando marcadores inmunohistoquímicos (RE, RP, HER2, Ki67), a diferencia de la PAAF que solo brinda material citológico celular."
+    },
+    {
+      "id": 58,
+      "pregunta": "En el seguimiento a largo plazo de las pacientes con Síndrome de Ovario Poliquístico (SOP) que cursan con anovulación crónica no tratada, ¿cuál es el riesgo neoplásico ginecológico que se incrementa significativamente debido a la estimulación estrogénica no contrapesada por progesterona?",
+      "opciones": {
+        "a": "Sarcoma de Botrioides de la pared vaginal anterior.",
+        "b": "Adenocarcinoma de Endometrio (Cáncer de Endometrio).",
+        "c": "Carcinoma epidermoide invasor de vagina distal.",
+        "d": "Teratoma maduro quístico del ligamento ancho."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En las pacientes con SOP y anovulación crónica, la producción ovárica continua de estrógenos (estrona y estradiol) no es contrarrestada por la secreción cíclica de progesterona (al no formarse cuerpo lúteo). Esta estimulación estrogénica constante (\"estrógenos sin oposición\") provoca la proliferación e hiperplasia del endometrio, incrementando hasta 3 a 5 veces el riesgo relativo de desarrollar Neoplasia Intraepitelial Endometrial y Adenocarcinoma de Endometrio."
+    },
+    {
+      "id": 59,
+      "pregunta": "Una paciente de 28 años presenta un Embarazo Ectópico Tubario derecho accidentado con hemoperitoneo moderado y dolor pélvico severo. Se decide el abordaje quirúrgico por laparoscopía. La trompa derecha se encuentra marcadamente distendida, hematosalpinx con rotura en el borde antimesentérico y sangrado activo. La trompa izquierda es de aspecto completamente normal. ¿Cuál es el procedimiento quirúrgico de elección?",
+      "opciones": {
+        "a": "Salpingostomía lineal con sutura continua de la ampolla tubaria.",
+        "b": "Histerectomía total con ooforectomía bilateral.",
+        "c": "Salpingectomía derecha laparoscópica (exéresis completa de la trompa afectada).",
+        "d": "Cauterización química de la serosa uterina con ácido tricloroacético."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Ante un embarazo ectópico tubario roto o accidentado con sangrado activo y daño estructural severo de la trompa, habiéndose verificado la presencia de una trompa contralateral sana, el tratamiento quirúrgico de elección es la Salpingectomía laparoscópica (extracción de la trompa afectada). La salpingostomía conservadora se reserva para trompas no rotas en pacientes que desean fertilidad y presentan trompa única o patología contralateral."
+    },
+    {
+      "id": 60,
+      "pregunta": "En el esquema profiláctico de Infecciones de Transmisión Sexual (ITS) para una persona sobreviviente de agresión sexual, ¿cuál es la combinación de antimicrobianos empíricos de primera línea recomendada por las guías del Ministerio de Salud para cubrir Gonococo, Chlamydia, Trichomonas y Vaginosis?",
+      "opciones": {
+        "a": "Amoxicilina 500 mg VO cada 8 horas por 3 días como monoterapia.",
+        "b": "Fluconazol 150 mg VO en dosis única asociado a eritromicina.",
+        "c": "Penicilina G Benzatínica 2.400.000 UI IM semanal por 4 semanas.",
+        "d": "Ceftriaxona 500 mg IM (dosis única) MÁS Azitromicina 1 g VO (dosis única) o Doxiciclina 100 mg c/12h por 7 días MÁS Metronidazol 2 g VO (dosis única)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El protocolo oficial de atención ante abuso sexual exige brindar profilaxis antibacteriana y antiparasitaria empírica inmediata de amplio espectro. El esquema estándar comprende: Ceftriaxona 500 mg IM en dosis única (para N. gonorrhoeae), Azitromicina 1 g VO dosis única o Doxiciclina 100 mg c/12h por 7 días (para C. trachomatis), y Metronidazol 2 g VO en dosis única (para T. vaginalis y bacterias anaerobias/vaginosis)."
+    },
+    {
+      "id": 61,
+      "pregunta": "Paciente de 23 años con oligoamenorrea e hirsutismo. Al realizar el perfil hormonal se evalúa el Índice de Andrógenos Libres (IAL). ¿Cómo se calcula el IAL y cuál es la proteína plasmática cuya disminución por efecto de la hiperinsulinemia incrementa la biodisponibilidad de testosterona?",
+      "opciones": {
+        "a": "IAL = Testosterona Total x 100 / Estradiol; proteína albúmina sérica.",
+        "b": "IAL = Testosterona Total x 100 / SHBG (Globulina Transportadora de Hormonas Sexuales); proteína SHBG.",
+        "c": "IAL = Androstenediona x 100 / DHEA-S; proteína transcortina (CBG).",
+        "d": "IAL = DHEA-S x 100 / Progesterona; proteína transferrina."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En el Síndrome de Ovario Poliquístico (SOP), el Índice de Andrógenos Libres (IAL) se calcula mediante la fórmula: [Testosterona Total (ng/ml) / SHBG (nmol/l)] x 100. La hiperinsulinemia compensatoria secundaria a la resistencia a la insulina actúa sobre el hígado inhibiendo la síntesis de SHBG. La reducción de los niveles circulantes de SHBG incrementa la fracción libre no unida (biológicamente activa) de la testosterona, exacerbando el hiperandrogenismo cutáneo (hirsutismo, acné, alopecia)."
+    },
+    {
+      "id": 62,
+      "pregunta": "Paciente de 31 años con endometriosis pélvica sometida a laparoscopía quirúrgica. Se observan implantes peritoneales superficiales de 2 cm en fondo de saco, adherencias filamentosas laxas en ovario derecho y sin compromiso del fondo de saco de Douglas ni endometriomas. Según la clasificación revisada de la American Society for Reproductive Medicine (rASRM), ¿a qué estadio de endometriosis corresponde este hallazgo?",
+      "opciones": {
+        "a": "Estadio IV (Severa) por comprometer la serosa del ovario.",
+        "b": "Estadio III (Moderada) por presentar adhesiolisis espontánea.",
+        "c": "Estadio II (Moderada) por superar 1 cm de extensión.",
+        "d": "Estadio I (Mínima) por presentar implantes aislados y adherencias laxas superficiales."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La clasificación revisada de la ASRM (rASRM) asigna puntajes numéricos según el tamaño, profundidad y localización de los implantes y la presencia de adherencias en ovarios y trompas. El Estadio I (Mínima, 1-5 puntos) se caracteriza por implantes aislados, superficiales y sin adherencias densas. El Estadio II (Leve, 6-15 puntos) presenta implantes más profundos; el Estadio III (Moderada, 16-40 puntos) incluye endometriomas y adherencias densas; y el Estadio IV (Severa, > 40 puntos) implica endometriomas grandes y obliteración completa del fondo de saco de Douglas."
+    },
+    {
+      "id": 63,
+      "pregunta": "Paciente gestante de 18 semanas que acude a la guardia por dolor pélvico agudo, localizado sobre un mioma intramural previo de 6 cm, acompañado de febrícula (37,7 ºC) y leucocitosis leve. La ecografía evidencia cambios ecogénicos heterogéneos y zonas anecoicas en el centro del tumor, sin alteraciones en la vitalidad fetal. ¿Cuál es el tipo de degeneración miomatosa más frecuente en el embarazo y su manejo?",
+      "opciones": {
+        "a": "Degeneración roja (hemorrágica) / Manejo conservador con reposo, hidratación y analgésicos/AINES.",
+        "b": "Degeneración hialina / Miomectomía uterina laparoscópica de urgencia en el segundo trimestre.",
+        "c": "Degeneración sarcomatosa / Histerectomía obstétrica inmediata por riesgo de metástasis.",
+        "d": "Degeneración quística / Punción guiada por ecografía e infusión de metotrexato intrauterino."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La degeneración roja (o necrobiosis hemorrágica) es la complicación degenerativa de los miomas uterinos más característica del embarazo. Se produce por el rápido crecimiento tumoral estimulado por los estrógenos, que supera el aporte vascular, provocando isquemia, trombosis venosa y extravasación hemorrágica intratumoral. Cursa con dolor agudo focalizado, fiebre e irritación peritoneal leve. El tratamiento de elección es conservador mediante analgesia, antiespasmódicos, hidratación y reposo, reservándose la cirugía solo ante cuadros no controlados o abdomen agudo."
+    },
+    {
+      "id": 64,
+      "pregunta": "Una paciente de 29 años acude por galactorrea y amenorrea. Presenta Prolactina de 52 ng/ml. En la anamnesis no refiere psicofármacos pero sí hipotiroidismo primario de reciente diagnóstico no tratado. ¿Cuál es el mecanismo neuroendocrino por el cual el hipotiroidismo primario no tratado genera hiperprolactinemia?",
+      "opciones": {
+        "a": "La disminución de T3/T4 destruye las neuronas dopaminérgicas del núcleo arcuato.",
+        "b": "El descenso de TSH estimula directamente la proteólisis en las células somatotropas.",
+        "c": "El aumento compensatorio de la TRH hipotalámica estimula la síntesis y liberación de prolactina en los lactotropos hipofisarios.",
+        "d": "La hormona tiroidea actúa bloqueando los receptores estrogénicos en la glándula mamaria."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "En el hipotiroidismo primario no tratado, la caída de las hormonas tiroideas periféricas (T3 y T4) elimina el feedback negativo sobre el hipotálamo, produciendo un incremento en la síntesis y secreción de la Hormona Liberadora de Tirotrofina (TRH). La TRH actúa sobre la adenohipófisis no solo estimulando la liberación de TSH, sino actuando como un potente secretagogo sobre las células lactotropas, induciendo hiperprolactinemia funcional secundaria. La restitución con levotiroxina normaliza los niveles de prolactina y corrige la amenorrea-galactorrea."
+    },
+    {
+      "id": 65,
+      "pregunta": "Paciente de 17 años consulta por amenorrea primaria. Al examen físico presenta un desarrollo de caracteres sexuales secundarios normal (Tanner M4, V4). Al examen ginecológico se constata ciego vaginal de 2 cm. La ecografía y RMN pélvica confirman la presencia de ovarios normales bilateriales pero ausencia total de útero y de los dos tercios superiores de vagina. El cariotipo reporta 46,XX. ¿Cuál es el diagnóstico de primera línea?",
+      "opciones": {
+        "a": "Síndrome de Insensibilidad Completa a los Andrógenos (Síndrome de Morris 46,XY).",
+        "b": "Disgenesia Gonadal Pura (Síndrome de Swyer 46,XY).",
+        "c": "Himen imperforado con hematocolpos secundario.",
+        "d": "Agenesia uterovaginal (Síndrome de Mayer-Rokitansky-Küster-Hauser)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El Síndrome de Mayer-Rokitansky-Küster-Hauser (MRKH) se caracteriza por la agenesia o aplasia congénita de los conductos de Müller, lo que deriva en la ausencia de útero, cérvix y los dos tercios superiores de la vagina. Dado que la función ovárica es completamente normal (ovarios funcionales), la paciente desarrolla caracteres sexuales secundarios normales (telarca y pubarca), pero presenta amenorrea primaria. El cariotipo es femenino normal (46,XX). Se diferencia del Síndrome de Morris (46,XY) por la presencia de vello púbico/axilar normal y cariotipo 46,XX."
+    },
+    {
+      "id": 66,
+      "pregunta": "Paciente de 42 años, fumadora intensa, consulta por retracción del pezón izquierdo de aparición paulatina y secreción por el pezón espesa, cremosa, verdosa/grisácea, multiporosa. A la palpación no se perciben nódulos dominantes sólidos. La mamografía muestra calcificaciones tubulares gruesas, en \"enchufe\" o \"bastoncillo\" bilaterales, con dilatación de conductos subareolares. ¿Cuál es el diagnóstico clínico más probable?",
+      "opciones": {
+        "a": "Carcinoma ductal infiltrante multifocal con compromiso cutáneo.",
+        "b": "Ectasia ductal mamaria (o mastitis periductal).",
+        "c": "Enfermedad de Paget del pezón asociada a carcinoma in situ.",
+        "d": "Mastitis purulenta aguda estafilocócica con absceso retroareolar."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La ectasia ductal mamaria (o mastitis periductal/enfermedad comedo) es una entidad benigna caracterizada por la dilatación de los conductos galactóforos subareolares e inflamación periductal, muy asociada al tabaquismo. Cursa típicamente con secreción por el pezón multiconductal de aspecto espeso, cremoso, verdoso o pardusco, retracción central del pezón y fibrosis subareolar. En las imágenes mamográficas se identifican las calcificaciones benignas secretoras tubulares gruesas en \"bastoncillo\" o en \"enchufe de pared\"."
+    },
+    {
+      "id": 67,
+      "pregunta": "Una paciente de 23 años realiza una IVE farmacológica exitosa a las 8 semanas de gestación. En la consulta de seguimiento post-aborto solicita iniciar inmediatamente un método anticonceptivo de alta eficacia. Según las pautas del Ministerio de Salud y la OMS, ¿cuándo se pueden iniciar los anticonceptivos hormonales o colocar un LARC (Implante / DIU) tras una IVE/ILE?",
+      "opciones": {
+        "a": "De forma inmediata el mismo día de la toma del misoprostol o en la consulta de confirmación del aborto, si se descartan complicaciones.",
+        "b": "Obligatoriamente pasados 6 meses del evento tras comprobar la negativización de la beta-hCG.",
+        "c": "Únicamente tras la reaparición de al menos tres ciclos menstruales espontáneos consecutivos.",
+        "d": "Está contraindicado el uso de cualquier hormona durante los 2 años posteriores a un aborto."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con los Criterios Médicos de Elegibilidad de la OMS y los protocolos de IVE/ILE del Ministerio de Salud, la anticoncepción post-aborto del primer trimestre debe ofrecerse e iniciarse de forma inmediata. Los métodos hormonales (AOC, inyectables, implantes subdérmicos) pueden iniciarse el mismo día de la toma del misoprostol o la realización del AMEU. La colocación de dispositivos intrauterinos (DIU de Cobre o SIU de Levonorgestrel) se realiza inmediatamente post-evacuación o en la consulta de seguimiento a los 7-14 días, una vez descartada la infección activa o la retención de restos."
+    },
+    {
+      "id": 68,
+      "pregunta": "Paciente de 27 años acude a la guardia por intenso dolor vulvar unilateral que le impide deambular o sentarse, acompañado de febrícula. Al examen físico se observa una tumoración de 4 cm en el tercio posterior del labio mayor derecho, extremadamente eritrodolorosa, caliente y fluctuante al tacto. ¿Cuál es el diagnóstico y el tratamiento de elección?",
+      "opciones": {
+        "a": "Quiste de inclusión epidérmico / Cauterización química con ácido tricloroacético al 80%.",
+        "b": "Condiloma acuminado gigante / Prescripción de imiquimod al 5% en crema por 12 semanas.",
+        "c": "Absceso de la glándula de Bartholin / Drenaje quirúrgico por marsupialización o incisión con colocación de catéter de Word o mecha, más antibióticos.",
+        "d": "Carcinoma epidermoide de vulva / Vulvectomía radical con linfadenectomía inguinofemoral bilateral."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La bartolinitis aguda abscedada (absceso de la glándula de Bartholin) se produce por la oclusión del conducto excretor de la glándula seguido de una infección polimicrobiana (N. gonorrhoeae, C. trachomatis, anaerobios o E. coli). Se manifiesta como una tumoración fluctuante, muy dolorosa y eritematosa en el tercio posterior del labio mayor. El tratamiento de elección en la fase aguda fluctuante es el drenaje quirúrgico mediante incisión amplia y marsupialización (fijación de los bordes de la cápsula a la piel para permitir el drenaje continuo) o colocación de catéter de Word/mecha, acompañado de tratamiento antibiótico."
+    },
+    {
+      "id": 69,
+      "pregunta": "Paciente de 38 años consulta por metrorragia de escasa cantidad intermenstrual (spotting) de 4 meses de evolución. En el examen ecográfico se evidencia una formación focal intraluminal endometrial de 15 mm con pedículo vascular único al Doppler color. Se clasifica como SUA-P. ¿Cuál es el factor histológico característico que compone a los pólipos endometriales?",
+      "opciones": {
+        "a": "Proliferación exclusiva de células musculares lisas atípicas con necrosis geográfica.",
+        "b": "Estroma fibroso hiperplásico, vasos sanguíneos de paredes gruesas e hialinizadas y glándulas endometriales no responsivas a progesterona.",
+        "c": "Nidos epiteliales malignos con perlas córneas e invasión vascular.",
+        "d": "Vellosidades coriales hidrópicas con ausencia de vasos fetales."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Los pólipos endometriales (SUA-P) son proyecciones exofíticas benignas de la mucosa endometrial compuestas histológicamente por tres elementos: 1) Estroma denso y fibroso hiperplásico; 2) Vasos sanguíneos de paredes gruesas e hialinizadas (eje vascular pediculado); y 3) Glándulas endometriales atípicas o dilatadas que suelen mostrar insensibilidad o respuesta incompleta a la progesterona en la fase lútea, permaneciendo proliferativas de forma persistente."
+    },
+    {
+      "id": 70,
+      "pregunta": "Paciente de 33 años con antecedente de EPI recurrente consulta por infertilidad primaria de 2 años. La Histerosalpingografía y la ecografía transvaginal muestran una dilatación marcada de la trompa de Falopio izquierda de 4 cm de diámetro, rellena de fluido anecoico, con pliegues ausentes (Hidrosálpinx). Antes de realizar una fertilización in vitro (FIV), ¿cuál es la conducta quirúrgica recomendada sobre la trompa afectada debido al efecto tóxico del fluido tubario sobre el embrión?",
+      "opciones": {
+        "a": "Inyección intratubaria de progesterona natural para disolver el líquido.",
+        "b": "Drenaje aspirativo simple por vía transvaginal sin cirugía.",
+        "c": "Conización quirúrgica LEEP del cuello uterino.",
+        "d": "Salpingectomía izquierda laparoscópica (o oclusión tubaria proximal) previa a la transferencia embrionaria en FIV."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El hidrosálpinx es una dilatación quística de la trompa de Falopio secundaria a la oclusión tubaria distal (habitualmente post-EPI). El fluido acumulado en la trompa fluye retrógradamente hacia la cavidad uterina ejerciciendo un efecto embriotóxico mecánico y bioquímico (alteración de moléculas de adhesión e inflamación) que reduce las tasas de implantación en la Fertilización In Vitro (FIV) a la mitad. Por este motivo, el consenso en reproduccion humana exige realizar la salpingectomía laparoscópica (o la oclusión tubaria proximal) del hidrosálpinx antes de someter a la paciente a la transferencia embrionaria en FIV."
+    },
+    {
+      "id": 71,
+      "pregunta": "En la evaluación ultrasonográfica transvaginal de una paciente con sospecha de Adenomiosis Uterina, los consensos internacionales (MUSA) definen diversos signos ecográficos directos e indirectos. ¿Cuál de las siguientes opciones describe un signo ecográfico DIRECTO de adenomiosis?",
+      "opciones": {
+        "a": "Presencia de quistes miometriales anecoicos o focos ecogénicos miometriales subendometriales.",
+        "b": "Asimetría de las paredes uterinas anterior y posterior.",
+        "c": "Forma globosa u ovoide del cuerpo uterino.",
+        "d": "Sombra acústica posterior en \"abanico\" o \"en persiana\"."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El consenso MUSA (Morphological Uterus Sonographic Assessment) clasifica los hallazgos ecográficos de adenomiosis en signos directos (que reflejan la presencia de tejido endometrial ectópico en el miometrio) e indirectos (que reflejan la hipertrofia miometrial reactiva). Los signos directos incluyen: quistes miometriales (islas anecoicas), focos subendometriales hipererecoicos y líneas/bandas hiperecoicas subendometriales. La asimetría de paredes, la forma globosa y las sombras en abanico son signos indirectos."
+    },
+    {
+      "id": 72,
+      "pregunta": "Paciente de 16 años acude por amenorrea primaria y baja talla (1,42 m). Al examen físico presenta cuello alado (pterygium colli), tórax en escudo con teletelia (pezones separados), cúbito valgo y ausencia de desarrollo mamario (Tanner M1, V1). El perfil hormonal arroja FSH 82 UI/L y Estradiol indetectable. ¿Cuál es el cariotipo genético característico de esta entidad?",
+      "opciones": {
+        "a": "Cariotipo 46,XX con deleción del brazo largo del cromosoma 21.",
+        "b": "Cariotipo 45,X0 (o mosaicismos como 45,X/46,XX).",
+        "c": "Cariotipo 47,XXY (Síndrome de Klinefelter).",
+        "d": "Cariotipo 46,XY con mutación del receptor de andrógenos."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Síndrome de Turner es la causa cromosómica más frecuente de amenorrea primaria e insuficiencia ovárica primaria (hipogonadismo hipergonadotrófico). El cariotipo clásico es 45,X0 (ausencia completa de un cromosoma X) o mosaicismos (45,X/46,XX). Cursa con estigmas somáticos característicos: baja talla, pterygium colli, tórax ancho con pezones distanciados, coartación de aorta y disgenesia gonadal en \"cintillas\" (streak gonads), lo que genera falta de estrógenos y ausencia de caracteres sexuales secundarios."
+    },
+    {
+      "id": 73,
+      "pregunta": "Una paciente de 41 años sometida a tumorectomía por un carcinoma ductal infiltrante de mama de 18 mm presenta el siguiente reporte de inmunohistoquímica: Receptores de Estrógeno (RE) 90% positivos, Receptores de Progesterona (RP) 80% positivos, HER2 negativo (0) e Índice de Proliferación Ki-67 de 8%. ¿A qué subtipo molecular de carcinoma mamario corresponde y cuál es su pauta de tratamiento adyuvante sistémico principal?",
+      "opciones": {
+        "a": "Subtipo HER2 enriquecido / Tratamiento con Trastuzumab e inmunoterapia exclusiva.",
+        "b": "Subtipo Triple Negativo / Tratamiento exclusivo con hormonoterapia sin quimioterapia.",
+        "c": "Subtipo Luminal A / Tratamiento adyuvante sistémico principal con Hormonoterapia (Tamoxifeno).",
+        "d": "Subtipo Basal-like / Tratamiento exclusivo con corticoides sistémicos a dosis inmunosupresoras."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La clasificación molecular del cáncer de mama divide los tumores en: Luminal A, Luminal B, HER2 enriquecido y Triple Negativo (Basal-like). El subtipo Luminal A se caracteriza por receptores hormonales (RE/RP) fuertemente positivos, HER2 negativo y bajo índice de proliferación celular (Ki-67 < 14-20%). Es un tumor de buen pronóstico cuyo pilar fundamental de tratamiento adyuvante sistémico es la Terapia Hormonal (Tamoxifeno en premenopáusicas o Inhibidores de la Aromatasa en posmenopáusicas) durante 5 a 10 años, respondiendo de forma muy limitada a la quimioterapia."
+    },
+    {
+      "id": 74,
+      "pregunta": "Paciente de 25 años acude a la guardia 4 días después de una maniobra abortiva clandestina e incompleta. Presenta fiebre de 39,2 ºC, taquicardia, dolor abdominal difuso con defensa, y flujo vaginal fetidopurulento. Al tacto bimanual el útero está reblandecido, aumentado de tamaño y doloroso a la movilización. Se diagnostica Aborto Incompleto Complicado con Infección / Aborto Séptico. ¿Cuál es el esquema de manejo médico-quirúrgico inmediato?",
+      "opciones": {
+        "a": "Alta a domicilio con indicación de paracetamol e higiene vulvar.",
+        "b": "Tratamiento exclusivamente hormonal con estrógenos sintéticos por 30 días sin antibióticos.",
+        "c": "Legrado uterino a ciegas inmediato sin haber administrado antibioticoterapia previa.",
+        "d": "Internación, antibioticoterapia parenteral de amplio espectro (ej. Ampicilina + Gentamicina + Metronidazol / Clindamicina) e inicio de evacuación uterina mediante AMEU/legrado una vez impregnada de antibióticos."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El aborto séptico es una urgencia gineco-obstétrica con elevado riesgo de peritonitis, sepsis y shock séptico. El protocolo de manejo inmediato exige la internación urgente, estabilización hemodinámica y el inicio de antibioticoterapia parenteral de triple esquema de amplio espectro para cubrir anaerobios, Gram negativos y enterococos (ej. Ampicilina + Gentamicina + Metronidazol/Clindamicina). Una vez iniciada la impregnación antibiótica (idealmente 2 a 4 horas post-inicio), se debe proceder a la evacuación quirúrgica de los restos infectados mediante AMEU o legrado instrumental."
+    },
+    {
+      "id": 75,
+      "pregunta": "Paciente de 24 años con diagnóstico de SOP acude por hirsutismo moderado-severo y acné que no responde a tratamientos dermatológicos tópicos. No desea embarazo en el corto plazo. Según el Consenso FASGO 2025, ¿cuál es el tratamiento farmacológico de primera línea para el manejo del hiperandrogenismo cutáneo?",
+      "opciones": {
+        "a": "Anticonceptivos Orales Combinados (AOC) con progestágenos de bajo efecto androgénico o antiandrogénicos (ej. Ciproterona, Drospirenona o Dienogest).",
+        "b": "Monoterapia con Dexametasona 8 mg/día por vía oral durante 2 años.",
+        "c": "Estrógenos conjugados equinos por vía intramuscular semanal.",
+        "d": "Testosterona en gel aplicada localmente sobre las zonas con vello."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Según el Consenso SOP FASGO 2025, en pacientes con hiperandrogenismo clínico (hirsutismo, acné) que no buscan fertilidad, la primera línea farmacológica son los Anticonceptivos Orales Combinados (AOC). El componente estrogénico estimula la síntesis hepática de SHBG (reduciendo la testosterona libre) e inhibe la secreción de LH, mientras que el progestágeno antiandrogénico (Acetato de Ciproterona, Drospirenona, Dienogest) bloquea directamente el receptor androgenético e inhibe a la 5-alfa-reductasa cutánea."
+    },
+    {
+      "id": 76,
+      "pregunta": "Paciente de 32 años diagnosticada de Insuficiencia Ovárica Primaria (Falla Ovárica Precoz) con útero conservado. Presenta amenorrea y sofocos severos. ¿Por qué motivo las guías de la IMS y FASGO exigen prescribir Terapia de Reemplazo Hormonal (TRH) combinada (Estrógenos + Progestágeno) hasta la edad promedio de la menopausia natural (50-51 años)?",
+      "opciones": {
+        "a": "Para prevenir la aparición de hipertensión pulmonar primaria y glaucoma.",
+        "b": "Para inducir la regresión de miomas subserosos pediculados.",
+        "c": "Para prevenir la pérdida acelerada de masa ósea (osteoporosis precoz), el riesgo cardiovascular y la atrofia urogenital, protegiendo el endometrio con el progestágeno.",
+        "d": "Para estimular la regeneración folicular ovárica con maduración de nuevos ovocitos."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "En mujeres con Insuficiencia Ovárica Primaria (hipoestrogenismo antes de los 40 años), el déficit estrogénico prolongado incrementa drásticamente el riesgo de osteoporosis precoz, eventos cardiovasculares prematuros, deterioro cognitivo y atrofia urogenital. Por ello, la TRH con estrógenos está indicada de forma mandatoria hasta los 50-51 años (edad teórica de menopausia). La adición del progestágeno es obligatoria en mujeres con útero conservado para prevenir la hiperplasia y el cáncer de endometrio provocado por los estrógenos sin oposición."
+    },
+    {
+      "id": 77,
+      "pregunta": "En el manejo del Embarazo Ectópico Tubario no roto mediante Metotrexato, ¿cuál de las siguientes situaciones constituye una CONTRAINDICACIÓN ABSOLUTA para el uso de este fármaco citostático?",
+      "opciones": {
+        "a": "Nivel de beta-hCG cuantitativa inicial de 1.800 UI/L.",
+        "b": "Presencia de inmunodeficiencia grave, leucopenia (< 3.000/mm³), trombocitopenia (< 100.000/mm³), disfunción hepática o renal severa, o úlcera péptica activa.",
+        "c": "Tamaño del saco gestacional extrauterino ecográfico de 22 mm.",
+        "d": "Paciente hemodinómicamente estable con dolor pélvico leve."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Metotrexato es un antagonista del ácido fólico que inhibe la dihydrofolato reductasa, bloqueando la síntesis de ADN celular. Sus contraindicaciones absolutas incluyen: 1) Inestabilidad hemodinámica o signo de rotura tubaria/hemoperitoneo; 2) Disfunción renal o hepática moderada/severa; 3) Discrasias sanguíneas (anemia severa, leucopenia < 3.000, trombocitopenia < 100.000); 4) Enfermedad pulmonar activa; 5) Úlcera péptica activa; y 6) Inmunodeficiencia. La presencia de trombocitopenia o falla renal impide la eliminación del fármaco desencadenando toxicidad masiva."
+    },
+    {
+      "id": 78,
+      "pregunta": "Paciente de 32 años, con antecedente de lactancia materna finalizada hace 1 año, consulta por una masa mamaria inflamatoria dura, dolorosa, de 4 cm en mama izquierda, con presencia de abscesos estériles recurrentes y fístulas cutáneas que no responden a múltiples ciclos de antibióticos. El estudio histopatológico por biopsia con aguja gruesa muestra granulomas no necrotizantes con lobulitis granulomatosa rica en neutrófilos, sin gérmenes ni bacilos ácido-alcohol resistentes. ¿Cuál es el diagnóstico y su tratamiento?",
+      "opciones": {
+        "a": "Mastitis Granulomatosa Idiopática / Corticoterapia sistémica (Prednisona) a dosis altas e inmunomoduladores.",
+        "b": "Carcinoma inflamatorio de mama estadio IV / Mastectomía radical de urgencia.",
+        "c": "Tuberculosis mamaria / Tratamiento tuberculostático tetraasociado por 6 meses.",
+        "d": "Galactocele retenido / Drenaje aspirativo con aguja fina e infusión de oxitocina."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La Mastitis Granulomatosa Idiopática es una enfermedad inflamatoria benigna crónica poco frecuente que afecta a mujeres jóvenes con antecedentes de lactancia reciente. Cursa con masas mamarias duras que simulan un carcinoma, abscessos recurrentes estériles y fístulas cutáneas. Histológicamente se caracteriza por granulomas lobulillares no necrotizantes (sin caseosis). Dado su origen inmune/inflamatorio, no responde a antibióticos, siendo el tratamiento de elección la corticoterapia sistémica con prednisona a dosis inmunosupresoras (o metotrexato) y seguimiento conservador."
+    },
+    {
+      "id": 79,
+      "pregunta": "Paciente de 28 años consulta por manchado irregular intermenstrual (spotting) continuo de 3 meses de evolución tras haber iniciado el uso de un Implante Subdérmico de Etonogestrel. Al examen físico y ecográfico el aparato genital es completamente normal. Según el sistema PALM-COEIN de la FIGO, ¿en qué categoría se clasifica este Sangrado Uterino Anormal?",
+      "opciones": {
+        "a": "SUA-L (Leiomioma submucoso).",
+        "b": "SUA-M (Malignidad e hiperplasia).",
+        "c": "SUA-E (Endometrial primario).",
+        "d": "SUA-I (Iatrogénica)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La categoría SUA-I (Iatrogénica) del sistema PALM-COEIN abarca aquellos sangrados uterinos anormales secundarios al uso de intervenciones médicas o fármacos. Incluye de forma destacada los sangrados no previstos o spotting provocados por el inicio de anticonceptivos hormonales (especialmente los de solo progestágeno como implantes subdérmicos, AOPS o SIU de levonorgestrel), anticoagulantes orales o psicofármacos que interfieren con la coagulación o la pulsatilidad hormonal."
+    },
+    {
+      "id": 80,
+      "pregunta": "Una paciente de 19 años acude al centro de salud solicitando la Interrupción Legal del Embarazo (ILE) a las 16 semanas de gestación, manifestando que el embarazo es producto de un abuso sexual con acceso carnal (violación). Según la Ley 27.610 y el Código Penal en Argentina, ¿cuál es el requisito legal exigido para acceder a la ILE por causal violación en esta edad gestacional?",
+      "opciones": {
+        "a": "Presentar copia certificada de la sentencia judicial firme emitida por un juez de garantías.",
+        "b": "Presentar informe de autopsia psicológica expedido por peritos forenses de la policía.",
+        "c": "Suscribir la correspondiente Declaración Jurada requerida para el caso, sin necesidad de denuncia policial ni autorización judicial.",
+        "d": "Presentar la autorización por escrito firmada por un comité de bioética de tres hospitales distintos."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con el Artículo 4º de la Ley 27.610 y el Artículo 86 del Código Penal (ratificado por el fallo \"F.A.L.\" de la Corte Suprema de Justicia de la Nación), a partir de la semana 15 de gestación las personas tienen derecho a la ILE si el embarazo es resultado de una violación. Para acceder a la práctica en los servicios de salud, el único requisito legal exigido a la persona es completar y firmar la correspondiente Declaración Jurada donde manifieste haber sido víctima de violencia sexual. Ningún efector de salud puede exigir la realización previa de denuncia policial ni autorización judicial."
+    },
+    {
+      "id": 81,
+      "pregunta": "Una paciente de 33 años acude a la consulta con el informe de una ecografía mamaria de control. Se describe en el cuadrante superoexterno de la mama derecha una lesión quística de 14 mm que presenta en su interior ecos de baja intensidad en suspensión y un tabique fino interno, sin vegetaciones ni flujo Doppler, categorizada como BI-RADS 3 (quiste complicado). ¿Cuál es la conducta médica de seguimiento adecuada?",
+      "opciones": {
+        "a": "Realizar control clínico y ecográfico mamario en 6 meses para evaluar la evolución y estabilidad del quiste.",
+        "b": "Indicar mastectomía parcial inmediata con ampliación de márgenes quirúrgicos en quirófano.",
+        "c": "Prescribir tratamiento antibiótico parenteral por 14 días con cobertura para anaerobios estricto.",
+        "d": "Solicitar radioterapia holomamaria de haz externo a dosis altas sin estudios por imágenes previos."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con el Manual de Evaluación Clínica Mamaria del Ministerio de Salud de la Nación y los consensos de la Sociedad Argentina de Mastología (SAM), los quistes mamarios complicados (lesiones quísticas con ecos internos homogéneos o tabiques finos sin vegetaciones sólidas ni flujo vascular) se categorizan habitualmente como BI-RADS 3 (probablemente benignos, riesgo de malignidad < 2%). La conducta médica indicada es el seguimiento conservador mediante examen físico y ecografía mamaria a los 6 meses, reservándose la punción aspiración con aguja fina (PAAF) solo en caso de dolor persistente o crecimiento acelerado."
+    },
+    {
+      "id": 82,
+      "pregunta": "Una paciente de 22 años es evaluada por hirsutismo moderado (score de Ferriman-Gallwey de 10) y oligomenorrea desde la menarca. Para realizar el diagnóstico diferencial estandarizado entre el Síndrome de Ovario Poliquístico (SOP) y la Hiperplasia Suprarrenal Congénita No Clásica (deficiencia parcial de 21-hidroxilasa), ¿cuál es la determinación hormono-analítica de primera línea que debe solicitarse en la fase folicular temprana?",
+      "opciones": {
+        "a": "Dosaje de gonadotrofinas séricas (FSH y LH) en la fase lútea tardía tras sobrecarga glucosada.",
+        "b": "Medición de 17-Hidroxiprogesterona (17-OHP) sérica en ayunas por la mañana (fase folicular temprana).",
+        "c": "Determinación de cortisol libre urinario en recolección de orina de 72 horas continuas.",
+        "d": "Dosaje de hormona adrenocorticotrófica (ACTH) inmediatamente posterior a una prueba de esfuerzo."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Consenso SOP FASGO 2025 y el capítulo de Síndromes Hiperandrogénicos de Gori establecen que toda paciente con sospecha de SOP debe ser tamizada para descartar una Hiperplasia Suprarrenal Congénita No Clásica (déficit de 21-hidroxilasa). El estudio de elección es la determinación de 17-Hidroxiprogesterona (17-OHP) sérica basal, obtenida por la mañana a primera hora en la fase folicular temprana (días 2 a 5 del ciclo). Un valor basal < 2 ng/ml descarta la patología; si los valores se ubican entre 2 y 10 ng/ml, se exige realizar la prueba de estimulación con ACTH sintética (Cosyntropin)."
+    },
+    {
+      "id": 83,
+      "pregunta": "Paciente de 28 años, con deseo de gestación inmediata, consulta por episodios de Sangrado Uterino Abundante (SUA) de causa funcional (SUA-E / disfunción endometrial). La ecografía transvaginal demuestra cavidad uterina y miometrio normales. Desea un tratamiento farmacológico no hormonal ni anticonceptivo para reducir el volumen menstrual mientras intenta concebir. ¿Cuál es la opción terapéutica de primera línea?",
+      "opciones": {
+        "a": "Prescripción de anticonceptivos orales combinados en esquema continuo por 12 meses.",
+        "b": "Colocación de un Sistema Intrauterino Liberador de Levonorgestrel (SIU-LNG 52 mg).",
+        "c": "Ácido Tranexámico (antifibrinolítico) 1 a 1,5 g cada 8 horas por vía oral administrado exclusivamente durante los días de sangrado abundante.",
+        "d": "Resección histeroscópica completa de la capa basal endometrial bajo anestesia general."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con el Consenso de Sangrado Uterino Anormal (SUA FASGO 2022), en pacientes con SUA no estructural que buscan lograr un embarazo en el corto plazo, los tratamientos hormonales con efecto anticonceptivo (como los AOC, progestágenos continuos o SIU-LNG) están contraindicados. La primera línea no hormonal la constituye el Ácido Tranexámico (antifibrinolítico que inhibe la degradación de los coágulos en el endometrio), el cual reduce la pérdida hemática menstrual entre un 40 y 50% al administrarlo únicamente durante los días de menstruación abundante, sin interferir con la ovulación ni con la fertilidad."
+    },
+    {
+      "id": 84,
+      "pregunta": "Una paciente de 30 años con sospecha clínica de Endometriosis pélvica presenta en los análisis de laboratorio un valor de glucoproteína CA-125 sérica de 58 U/ml (valor de referencia < 35 U/ml). ¿Cuál es la utilidad clínica y la limitación real del marcador tumoral CA-125 en el manejo de la endometriosis según la evidencia médica?",
+      "opciones": {
+        "a": "Es una prueba con sensibilidad y especificidad del 100% que reemplaza a la laparoscopía diagnóstica.",
+        "b": "Su elevación confirma de forma patognomónica el diagnóstico de adenocarcinoma de cuello uterino.",
+        "c": "Es un test de tamizaje poblacional que debe solicitarse a todas las adolescentes sanas en la menarca.",
+        "d": "Presenta baja sensibilidad en estadios iniciales (I-II) y baja especificidad, siendo útil principalmente para el monitoreo de la respuesta al tratamiento o recurrencia en estadios avanzados (III-IV)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Según el Consenso de Endometriosis FASGO y el texto de Testa, la glucoproteína CA-125 se eleva en respuesta a la irritación peritoneal. Su utilidad diagnóstica es limitada debido a su baja sensibilidad en formas leves o moderadas de endometriosis (estadios I y II) y su baja especificidad (se eleva también en miomas, EPI, embarazo, menstruación y cáncer de ovario). Por ello, no se recomienda como prueba aislada de screening o diagnóstico de certeza, reservándose su uso para el seguimiento postoperatorio y evaluación de recurrencias en pacientes con endometriosis severa o endometriomas."
+    },
+    {
+      "id": 85,
+      "pregunta": "Una adolescente de 16 años acude por amenorrea primaria. Al examen físico presenta caracteres sexuales secundarios ausentes (Tanner M1, V1), infantilismo genital, baja talla y anosmia (incapacidad para percibir olores). Las determinaciones hormonales reportan FSH 1,2 UI/L (baja), LH 0,8 UI/L (baja) y Estradiol < 10 pg/ml. La RMN no muestra tumores sellares. ¿Cuál es la entidad clínica causante de este cuadro y su patogenia?",
+      "opciones": {
+        "a": "Síndrome de Kallmann (deficiencia congénita aislada de GnRH por falla en la migración neuronal embrionaria desde la placoda olfatoria).",
+        "b": "Insuficiencia Ovárica Primaria por disgenesia gonadal pura 45,X0.",
+        "c": "Síndrome de Insensibilidad Completa a los Andrógenos (Morris 46,XY).",
+        "d": "Hiperprolactinemia tumoral por macroadenoma invasor de la hipófisis posterior."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El Síndrome de Kallmann es una forma genérica de hipogonadismo hipogonadotrófico congénito caracterizado por la combinación de amenorrea primaria (por ausencia de estimulación gonadotrófica al ovario) e hiposmia o anosmia. Su etiopatogenia responde a un defecto genético en la migración embrionaria de las neuronas sintetizadoras de GnRH y de los axones olfatorios desde la placoda olfatoria hacia el núcleo arcuato del hipotálamo. Cursa con FSH, LH y Estradiol bajos, sin lesiones tumorales en la neuroimagen."
+    },
+    {
+      "id": 86,
+      "pregunta": "Una paciente asintomática de 29 años, que menstrua con regularidad de 28 días y no presenta galactorrea, acude con una determinación de Prolactina sérica cuantitativa de 72 ng/ml solicitada en un chequeo laboral. No consume medicamentos. Para descartar la presencia de una forma molecular inmunológicamente inactiva de alto peso molecular que no requiere tratamiento, ¿qué técnica de laboratorio se debe solicitar?",
+      "opciones": {
+        "a": "Electroforesis en gel de poliacrilamida para detección de somatotropina atípica.",
+        "b": "Precipitación del suero con Polietilenglicol (PEG) para la medición de Macroprolactina (Big-Big Prolactin).",
+        "c": "Prueba de estimulación con hormona liberadora de tirotrofina (TRH) en infusión EV continua.",
+        "d": "Determinación de anticuerpos antitiroideos peroxidasa (TPO) por radioinmunoanálisis."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la bibliografía oficial (Prolactina e Hiperprolactinemia Gori), en pacientes con hiperprolactinemia laboratorio-detectada pero asintomáticas y con ciclos ovulatorios conservados, debe descartarse la presencia de Macroprolactinemia. La prolactina circula en tres formas: monomérica (23 kDa, biológicamente activa), \"Big\" (50 kDa) y \"Big-Big\" o Macroprolactina (> 150 kDa, compleja con IgG). La macroprolactina posee alta inmunoreactividad en el ensayo pero nula actividad biológica. La técnica de precipitación con Polietilenglicol (PEG) permite precipitar las inmunoglobulinas y medir la verdadera prolactina monomérica libre, evitando tratamientos innecesarios."
+    },
+    {
+      "id": 87,
+      "pregunta": "Una paciente de 27 años consulta por infertilidad primaria de 2 años y abortos recurrentes del primer trimestre (2 pérdidas gestacionales tempranas). La ecografía transvaginal 3D y la histeroscopía diagnóstica demuestran una cavidad uterina dividida centralmente por un tabique fibroso avascular que se extiende desde el fondo uterino hasta el tercio medio de la cavidad, con contorno uterino externo normal. ¿Cuál es el diagnóstico de la malformación mülleriana y su tratamiento quirúrgico de elección?",
+      "opciones": {
+        "a": "Útero bicorne unicollis / Resección de la pared miometrial posterior por laparotomía.",
+        "b": "Útero didelfo / Histerectomía total con reconstrucción de la vagina doble.",
+        "c": "Útero tabicado (septado) / Metroplastia histeroscópica con sección del tabique (septoplastia).",
+        "d": "Agenesia de conductos de Müller / Neovagina mediante injerto de piel completa."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "El útero tabicado o septado (defecto de reabsorción del tabique intermülleriano medio) es la malformación congénita uterina más frecuente y la que mayor asociación presenta con aborto recurrente del primer y segundo trimestre e infertilidad. A diferencia del útero bicorne (que presenta una hendidura en la serosa del fondo uterino), el útero tabicado mantiene una serosa fundida normal. El tratamiento de elección para restaurar la cavidad endometrial es la metroplastia histeroscópica (sección del septo mediante tijera o microelectrodo bajo visión directa), reduciendo drásticamente la tasa de abortos."
+    },
+    {
+      "id": 88,
+      "pregunta": "Paciente de 22 años cursa un procedimiento de Interrupción Voluntaria del Embarazo (IVE) por método farmacológico con Mifepristona y Misoprostol a las 8 semanas de gestación. En la consejería previa sobre la analgesia para el manejo de los cólicos uterinos provocados por las contracciones que induce el misoprostol, ¿cuál es el analgésico de primera línea recomendado por las guías del Ministerio de Salud y la OMS?",
+      "opciones": {
+        "a": "Ácido acetilsalicílico a dosis altas por su efecto irreversible sobre las plaquetas.",
+        "b": "Morfina por vía intratecal administrada en la guardia hospitalaria.",
+        "c": "Paracetamol a dosis bajas por ser el único fármaco que inhibe la proliferación celular.",
+        "d": "Antiinflamatorios No Esteroideos (AINES) como el Ibuprofeno (600 a 800 mg por vía oral)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Según el Protocolo de IVE/ILE del Ministerio de Salud de la Nación y las directrices de la OMS, los Antiinflamatorios No Esteroideos (AINES), específicamente el Ibuprofeno a dosis de 600 a 800 mg por vía oral administrado previo o simultáneamente con el Misoprostol (y repetido cada 6 a 8 horas según necesidad), constituyen la primera línea para el manejo del dolor cólico durante el aborto farmacológico. Estudios clínicos han demostrado que los AINES reducen eficazmente el dolor sin interferir ni disminuir la efectividad abortiva del Misoprostol."
+    },
+    {
+      "id": 89,
+      "pregunta": "Una paciente de 25 años es asistida en la guardia médica tras sufrir una agresión sexual hace 12 horas. Revisa su carnet de vacunación y se constata que no cuenta con vacunas registradas en los últimos 10 años. Respecto a la inmunoprofilaxis para Tétanos y Hepatitis B de acuerdo con el protocolo oficial, ¿cuál es la conducta médica indicada?",
+      "opciones": {
+        "a": "Administrar la vacuna contra Tétanos/Difteria (doble adultos), la vacuna contra Hepatitis B y la Gammaglobulinemia Específica Anti-Hepatitis B e Inmunoglobulina Antitetánica.",
+        "b": "Contraindicar la vacunación por riesgo de reacción autoinmune sistémica post-trauma.",
+        "c": "Indicar únicamente vacuna antirrábica y dar el alta sin aplicar gammaglobulinas.",
+        "d": "Esperar 30 días a obtener las serologías virales para decidir la aplicación de vacunas."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "En el protocolo de atención médica integral a víctimas de agresión sexual (La Atención Integral de la Mujer / MSAL), se debe evaluar inmediatamente el estado de inmunización. Si la persona no está vacunada o tiene el esquema incompleto, se debe administrar: 1) Vacuna contra Hepatitis B (iniciando esquema 0, 1 y 6 meses) junto con la Gammaglobulina Específica Anti-Hepatitis B (IGHB) dentro de los primeros 7 días; y 2) Vacuna Doble Adultos (dT) asociada a la Inmunoglobulina Antitetánica (IGHAT) si sufrió heridas potencialmente contaminadas."
+    },
+    {
+      "id": 90,
+      "pregunta": "Paciente de 31 años en tratamiento con Sertralina (Inhibidor Selectivo de la Recaptación de Serotonina - ISRS) por trastorno de ansiedad consulta por secreción por ambos pezones al apretar la mama. El examen físico confirma la salida de líquido lechoso por múltiples poros en ambas mamas (galactorrea bilateral multiconductal). La ecografía mamaria es normal y el test de embarazo es negativo. La Prolactina sérica reporta 42 ng/ml. ¿A qué categoría etiológica corresponde este cuadro?",
+      "opciones": {
+        "a": "Carcinoma ductal in situ de mama izquierda con extensión papilar.",
+        "b": "Hiperprolactinemia funcional iatrogénica de origen farmacológico.",
+        "c": "Mastitis crónica granulomatosa idiopática supurada.",
+        "d": "Papiloma intraductal solitario con atipias de alto grado."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La galactorrea bilateral, multiporosa, no espontánea o provocada, asociada a elevaciones moderadas de prolactina (usualmente < 100 ng/ml) en una paciente que consume psicofármacos (ISRS, antipsicóticos, tricíclicos, metoclopramida) responde a una hiperprolactinemia secundaria iatrogénica o farmacológica. La serotonina actúa estimulando la secreción de prolactina a nivel central. Descartadas la gestación y las causas orgánicas, la conducta se basa en la evaluación multidisciplinaria para ajustar la medicación o realizar seguimiento conservador."
+    },
+    {
+      "id": 91,
+      "pregunta": "Una paciente de 17 años es derivada a la consulta por amenorrea primaria. Al examen físico presenta una talla normal para la edad, desarrollo mamario completo (Tanner M4) pero con ausencia casi total de vello púbico y axilar (Tanner V1). Al examen ginecológico se constata una vagina corta de fondo ciego. La ecografía pélvica no visualiza útero ni ovarios. Las pruebas de laboratorio muestran niveles elevados de Testosterona total en rango masculino. El cariotipo citogenético reporta 46,XY. ¿Cuál es el diagnóstico y la conducta quirúrgica recomendada respecto a las gónadas?",
+      "opciones": {
+        "a": "Disgenesia Gonadal Mixta / Mantenimiento de gónadas in situ de forma indefinida.",
+        "b": "Síndrome de Turner variante 46,XY / Histerectomía abdominal de urgencia.",
+        "c": "Síndrome de Insensibilidad Completa a los Andrógenos (Síndrome de Morris) / Gonadectomía bilateral profiláctica post-pubertad por riesgo de gonadoblastoma/seminoma.",
+        "d": "Síndrome de Mayer-Rokitansky-Küster-Hauser / Administración de testosterona en gel."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "El Síndrome de Insensibilidad Completa a los Andrógenos (SICA o Síndrome de Morris) es una condición 46,XY caracterizada por la mutación inactivante del gen del receptor de andrógenos. Las gónadas masculinas (testículos intraabdominales e inguinales) producen testosterona y hormona antimülleriana (AMH), por lo que hay regresión mülleriana (sin útero ni vagina superior). La falta de acción androgenética impide el desarrollo de vello y virilización, provocando que la testosterona se aromatice periféricamente a estrógenos, generando un desarrollo mamario femenino normal. Debido al riesgo de malignización gonadal (gonadoblastoma o seminoma, 5-10%), se indica la gonadectomía bilateral profiláctica, la cual se difiere estratégicamente hasta finalizar la pubertad y completar el desarrollo mamario y óseo espontáneo."
+    },
+    {
+      "id": 92,
+      "pregunta": "Paciente de 38 años acude a la guardia por dolor pélvico agudo de tipo cólico y metrorragia abundante. Al examen especulocópico se visualiza una masa tumoral esfácelada, de aspecto carnoso y fibroso de 4 cm de diámetro que emerge a través del orificio cervical externo (OCE) ocupando el cérvix y la vagina superior (\"mioma nacido o parido\"). ¿Cuál es la clasificación según la FIGO de este mioma y su abordaje quirúrgico de elección?",
+      "opciones": {
+        "a": "Mioma subseroso pediculado Tipo 7 de la FIGO / Histerectomía total por laparotomía.",
+        "b": "Mioma intramural puro Tipo 4 de la FIGO / Embolización de arterias uterinas.",
+        "c": "Mioma submucoso Tipo 8 de la FIGO / Radioterapia paliativa local en dosis única.",
+        "d": "Mioma submucoso pediculado Tipo 0 / Resección del pedículo por vía vaginal (miomectomía vaginal o histeroscópica)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Un \"mioma nacido o parido\" es un leiomioma submucoso pediculado (Tipo 0 de la FIGO) que se ha desprendido parcialmente de la cavidad endometrial y, impulsado por las contracciones miometriales, ha dilado el canal endocervical hasta protruir a través del orificio cervical externo hacia la vagina. El tratamiento quirúrgico de elección por su sencillez y mínimo acceso es la miomectomía por vía vaginal, procediéndose a la aprehensión de la masa con pinza de Museo y a la torsión o tracción e incisión de su pedículo fibrovascular, con posterior legrado del lecho."
+    },
+    {
+      "id": 93,
+      "pregunta": "En el manejo de las pacientes con Síndrome de Ovario Poliquístico (SOP) que presentan sobrepeso u obesidad y alteración en la prueba de tolerancia oral a la glucosa (intolerancia a la glucosa / glucemia de 2 horas entre 140 y 199 mg/dl), ¿cuál es el fármaco insulinosensibilizador de primera línea indicado según el Consenso FASGO 2025?",
+      "opciones": {
+        "a": "Metformina 1.500 a 2.000 mg/día por vía oral, asociada a cambios en el estilo de vida (dieta y ejercicio).",
+        "b": "Glibenclamida 10 mg/día por vía oral en monoterapia exclusiva.",
+        "c": "Insulina NPH subcutánea a dosis de 1 UI/kg/día administrada en ayunas.",
+        "d": "Dexametasona 4 mg/día por vía oral durante 6 meses continuos."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Según el Consenso SOP FASGO 2025, la Metformina (biguanida insulinosensibilizadora que reduce la gluconeogénesis hepática e incrementa la captación periférica de glucosa en el músculo) es el fármaco de primera elección en pacientes con SOP que presentan alteraciones metabólicas (intolerancia a la glucosa, resistencia a la insulina severa o diabetes tipo 2) o que no logran metas metabólicas únicamente con cambios en el estilo de vida. Se administra a dosis de 1.500 a 2.000 mg/día por vía oral en dosis divididas, mejorando el perfil hidrocarbonado y favoreciendo la restauración de los ciclos ovulatorios."
+    },
+    {
+      "id": 94,
+      "pregunta": "En la evaluación por Resonancia Magnética (RMN) pélvica de una masa uterina focal en una paciente de 36 años con metrorragia, ¿cuál es el hallazgo anatómico característico que permite diferenciar un Adenomioma (adenomiosis focal) de un Leiomioma Intramural?",
+      "opciones": {
+        "a": "El adenomioma presenta bordes netos con pseudocápsula periférica y vasos periféricos organizados al Doppler.",
+        "b": "El adenomioma presenta bordes mal definidos, ausencia de pseudocápsula, engrosamiento de la zona de unión miometrial y pequeños focos hiperintensos en T2 dentro de la lesión.",
+        "c": "El leiomioma borra por completo la grasa del espacio retrorectal con calcificaciones mamarias.",
+        "d": "El leiomioma cursa con ausencia total de fibras musculares lisas en su estroma histológico."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En los estudios de imágenes (RMN o Ecografía TV), la diferenciación entre un adenomioma (adenomiosis focal) y un mioma uterino es crítica para la planificación quirúrgica. El mioma presenta límites netos, delimitados por una pseudocápsula formada por fibras musculares comprimidas y vasos periféricos (patrón en \"anillo\"). Por el contrario, la adenomiosis focal (adenomioma) presenta bordes mal definidos e imprecisos, carece de pseudocápsula, muestra engrosamiento contiguo de la zona de unión miometrio-endometrial (> 12 mm) y contiene pequeñas imágenes quísticas o focos hiperintensos en secuencias T2 (que representan glándulas endometriales ectópicas con microhemorragias)."
+    },
+    {
+      "id": 95,
+      "pregunta": "En la evaluación de la reserva ovárica por ecografía transvaginal realizada en la fase folicular temprana (días 2 a 5 del ciclo), ¿cuál es el valor límite del Recuento de Folículos Antrales (RFA, folículos de 2 a 10 mm por ambos ovarios) que define una Reserva Ovárica Disminuida según los consensos de reproducción?",
+      "opciones": {
+        "a": "RFA mayor a 30 folículos antrales totales por ovario.",
+        "b": "RFA de exactamente 20 folículos antrales en un solo ovario.",
+        "c": "RFA menor a 5 a 7 folículos antrales totales entre ambos ovarios.",
+        "d": "RFA de 100 folículos antrales asociados a flujo en onda sinusoidal."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con el Consenso en Reproducción Humana (FASGO/SAMeR) y el libro Pontelli SIM 2026, el Recuento de Folículos Antrales (RFA) por ecografía transvaginal en fase folicular inicial (evaluando los folículos de 2 a 9-10 mm en ambos ovarios) es uno de los mejores marcadores ultrasonográficos de reserva ovárica. Un RFA < 5 a 7 folículos antrales totales (o menos de 3 a 4 por ovario) es diagnóstico de Reserva Ovárica Disminuida, prediciendo una baja respuesta a la estimulación ovárica en tratamientos de reproducción asistida."
+    },
+    {
+      "id": 96,
+      "pregunta": "¿cómo se regula el acceso a la IVE/ILE en personas con discapacidad respecto al consentimiento informado?",
+      "opciones": {
+        "a": "Se exige la firma sustitutiva e inconsulta del director médico del hospital en todos los casos.",
+        "b": "Prevalece el consentimiento informado de la persona con discapacidad, debiendo el sistema de salud proveer los apoyos y ajustes razonables necesarios para que tome su propia decisión de forma libre e informada.",
+        "c": "Está estrictamente prohibida la realización de la IVE en personas con cualquier tipo de discapacidad.",
+        "d": "Se requiere la aprobación previa de una comisión judicial del fuero de familia y trabajo."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Artículo 8º de la Ley 27.610, en consonancia con la Convención sobre los Derechos de las Personas con Discapacidad, establece que el consentimiento informado para la IVE/ILE debe ser expresado por la propia persona. Las personas con discapacidad tienen derecho a recibir la información en formatos accesibles y con los ajustes razonables que requieran. El modelo de apoyos sustituye al antiguo modelo de incapacitación: los apoyos o representantes no deciden por la persona, sino que facilitan el ejercicio de su autonomía para que exprese su propia voluntad. (Referencia: la Ley 27.610 de Interrupción Voluntaria del Embarazo (Artículo 8º) y las pautas de derechos humanos en salud)."
+    },
+    {
+      "id": 97,
+      "pregunta": "Una paciente de 35 años acude por haberse palpado un nódulo mamario duro e indoloro de 2 cm en la mama derecha. En la anamnesis refiere haber sufrido un traumatismo cerrado moderado sobre dicha mama (golpe con el volante en un accidente automovilístico) hace 2 meses. La mamografía muestra una lesión espiculada con halo radiotransparente y calcificaciones en cáscara de huevo. La biopsia con aguja gruesa confirma macrófagos espumosos cargados de lípidos, células gigantes multinucleadas y fibrosis sin atipias. ¿Cuál es el diagnóstico?",
+      "opciones": {
+        "a": "Necrosis grasa de la mama (esteatonecrofagia).",
+        "b": "Carcinoma lobulillar infiltrante de mama estadio II.",
+        "c": "Encondroma trabecular de la pared torácica.",
+        "d": "Sarcoma estromal mamario de alto grado."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La necrosis grasa es una lesión mamaria benigna no tumoral provocada característicamente por un traumatismo previo (accidental, quirúrgico o post-radioterapia) que produce saponificación de los adipocitos e inflamación granulomatosa. Clínicamente puede simular un cáncer al presentarse como un nódulo duro e indurado. Las imágenes pueden mostrar quistes oleosos o calcificaciones periféricas. La confirmación bióptica mediante el hallazgo de detritos lipídicos, histiocitos espumosos y células gigantes confirma la benignidad y evita cirugías mutilantes."
+    },
+    {
+      "id": 98,
+      "pregunta": "Paciente de 26 años con ciclos menstruales ovulatorios regulares (4/28) consulta por menorragia severa que le produce anemia ferropénica. La ecografía TV, histeroscopía y estudios de coagulación son completamente normales. Se diagnostica Disfunción Endometrial Primaria (SUA-E). ¿Cuál es la alteración fisiopatológica endometrial responsable de esta menorragia en mujeres con ciclos ovulatorios?",
+      "opciones": {
+        "a": "Aumento del recuento de bacterias gramnegativas en las criptas endocervicales.",
+        "b": "Defecto local en la vasoconstricción endometrial por desequilibrio entre prostaglandinas (aumento de PGE2/PGI2 vasodilatadoras) e hiperfibrinolisis endometrial.",
+        "c": "Destrucción masiva del sistema miometrial por trombosis venosa profunda.",
+        "d": "Presencia de un sarcoma estromal con diferenciación cartilaginosa."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En la clasificación PALM-COEIN de la FIGO, la categoría SUA-E (Endometrial) engloba a aquellas pacientes que presentan Sangrado Uterino Abundante en presencia de ciclos ovulatorios regulares y sin lesiones anatómicas o coagulopatías sistémicas. La fisiopatología responde a un defecto primario en los mecanismos locales de hemostasia endometrial: 1) Deficiencia en la producción local de vasoconstrictores (Endotelina-1 y PGF2-alfa); 2) Exceso de vasodilatadores locales (PGE2 y Prostaciclina PGI2); y 3) Aumento de la actividad del activador del plasminógeno tisular, causando lisis precoz de los coágulos endometriales."
+    },
+    {
+      "id": 99,
+      "pregunta": "En el diagnóstico diferencial de las amenorreas secundarias hipogonadotróficas (FSH y LH bajas con Estradiol bajo), ¿cuál es el objetivo de realizar la Prueba de la GnRH (dosaje de LH y FSH basal y a los 30-60 minutos post-inyección de 100 mcg de GnRH/LHRH synthética)?",
+      "opciones": {
+        "a": "Para inducir la maduración pulmonar fetal en la gestante.",
+        "b": "Para diagnosticar la presencia de una hiperplasia endometrial compleja con atipias.",
+        "c": "Para diferenciar una causa de origen Hipotalámico (la hipófisis responde liberando LH/FSH) de una causa de origen Hipofisario (la hipófisis no responde por destrucción de lactotropos/gonadotropos).",
+        "d": "Para evaluar la sensibilidad del receptor de estrógenos en el miometrio."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con el protocolo de amenorreas (AMENORREAS Gori), ante un hipogonadismo hipogonadotrófico (FSH/LH bajas), la Prueba de estimulación con GnRH (LHRH) permite localizar el nivel anatómico de la lesión. Si tras administrar GnRH sintética se observa un incremento significativo en los niveles de LH y FSH (prueba positiva), demuestra que la hipófisis está indemne y que la falla se ubica en el hipotálamo (falta de estimulación endógena). Si no hay respuesta gonadotrófica (prueba negativa), se confirma una falla primaria hipofisaria (ej. adenoma, síndrome de Sheehan, hipofisitis)."
+    },
+    {
+      "id": 100,
+      "pregunta": "En la atención médica inicial de una persona que acude al centro de salud tras haber sido víctima de violencia o agresión sexual, respecto a la recolección de muestras forenses para la investigación judicial (kit de agresión sexual), ¿cuál es la pauta médica y legal que rige el procedimiento?",
+      "opciones": {
+        "a": "La toma de muestras forenses es obligatoria y debe realizarse aun en contra de la voluntad expresa de la paciente.",
+        "b": "Se debe exigir a la paciente que realice primero un lavado vaginal profundo antes de tomar las muestras.",
+        "c": "Las muestras forenses deben descartarse en la bolsa de residuos biológicos sin rotular.",
+        "d": "La toma de muestras forenses se realiza previo consentimiento informado de la paciente, preservando estrictamente la cadena de custodia y sin que este procedimiento retrase la administración de la medicación profiláctica (AHE, PEP VIH y profilaxis ITS)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Según el Protocolo de Atención a Víctimas de Violencia Sexual del Ministerio de Salud, la obtención de muestras biológicas/forenses (hisopados, rastros de ADN) se realiza únicamente si la paciente brinda su consentimiento informado para ello. Es responsabilidad del equipo médico rotular adecuadamente las muestras y garantizar la preservación de la cadena de custodia para su validez judicial. Sin embargo, la toma de muestras nunca debe retrasar ni supeditar la prioridad asistencial absoluta: la administración inmediata de la Anticoncepción Hormonal de Emergencia, la profilaxis de ITS y la Profilaxis Post-Exposición para VIH."
+    }
+  ]
+}

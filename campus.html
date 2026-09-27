@@ -22,6 +22,40 @@
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ---- Tarjeta Upsell NikaMed+ (sidebar, solo usuarios free) ----
+           No la metemos en styles.css porque ese archivo lo comparten
+           varias páginas del Campus; la scopeamos acá con su propio id
+           para no arrastrar el estilo a otras vistas por accidente. */
+        #sidebar-upsell-card.upsell-card {
+            margin: 16px 14px;
+            padding: 16px 14px;
+            border-radius: 14px;
+            text-align: center;
+            background: var(--bg-card, #0f172a);
+            border: 1px solid var(--violet, #a855f7);
+            box-shadow: 0 0 0 1px rgba(168,85,247,0.15), 0 8px 24px -10px rgba(168,85,247,0.45);
+        }
+        #sidebar-upsell-card .upsell-card-icon { font-size: 1.3rem; display: block; margin-bottom: 6px; }
+        #sidebar-upsell-card .upsell-card-title { margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 800; color: #e9d5ff; }
+        #sidebar-upsell-card .upsell-card-text { margin: 0 0 12px 0; font-size: 0.76rem; line-height: 1.45; color: #cbd5e1; }
+        #sidebar-upsell-card .upsell-card-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 9px 10px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #a855f7, #c084fc);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.78rem;
+            cursor: pointer;
+            box-shadow: 0 4px 14px -4px rgba(168,85,247,0.55);
+            transition: transform 0.15s ease, opacity 0.2s ease;
+        }
+        #sidebar-upsell-card .upsell-card-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+        #sidebar-upsell-card .upsell-card-btn:active { transform: scale(0.97); }
+    </style>
     <!-- ================================================================
          Carga del SDK de Supabase con RESPALDO automático.
          ------------------------------------------------------------
@@ -94,6 +128,8 @@
 
     <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
     <script src="js/pomodoroEngine.js"></script>
+    <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
+    <script src="js/nikaAcceso.js"></script>
 </head>
 <body>
 
@@ -102,7 +138,7 @@
             <div class="sidebar-brand-logo">
                 <img src="assets/N%20NIKA.png" alt="NIKA" class="nika-asset-img nika-isotipo">
             </div>
-            <span>Estudia, competi, aprobá</span>
+            <h2 id="sidebar-brand-name" class="sidebar-brand-name">Campus Nika</h2>
         </div>
 
         <div id="sidebar-user-section" class="sidebar-user-card" onclick="handleProfileClick()">
@@ -110,6 +146,7 @@
             <div class="sidebar-user-info">
                 <h4 id="sidebar-user-name">Invitado</h4>
                 <span id="sidebar-user-role">Sin cuenta</span>
+                <span id="sidebar-user-rank" class="sidebar-user-rank" style="display:none;"></span>
                 <span id="sidebar-user-elo" class="sidebar-elo-badge" style="display:none; font-size:0.72rem; font-weight:800; color:var(--nika-primary); background:rgba(2,132,199,0.12); border-radius:6px; padding:1px 6px; margin-left:4px;"></span>
             </div>
         </div>
@@ -138,8 +175,12 @@
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
 
             <div class="sidebar-category">Exámenes</div>
-            <li><button onclick="location.href='examen.html?modalidad=choice'" class="sidebar-link">🩺 Simulador Choice</button></li>
-            <li><button onclick="location.href='examen.html?modalidad=escrito'" class="sidebar-link">✍️ Simulador Escrito</button></li>
+            <li><button onclick="NikaAcceso.abrirSimulador('choice')" class="sidebar-link">🩺 Simulador Choice</button></li>
+            <li><button onclick="NikaAcceso.abrirSimulador('escrito')" class="sidebar-link">✍️ Simulador Escrito</button></li>
+            <li><button onclick="NikaAcceso.abrirSimulador('pase_sala')" class="sidebar-link">🛏️ Pase de Sala</button></li>
+            <li><button onclick="NikaAcceso.abrirSimulador('shock_room')" class="sidebar-link">🚨 Shock Room</button></li>
+            <li><button onclick="NikaAcceso.abrirSimulador('consultorio_legales')" class="sidebar-link">🗣️ Consultorios y Legales</button></li>
+            <li><button onclick="NikaAcceso.abrirSimulador('ecoe_final')" class="sidebar-link">👨‍⚕️ Examen Final ECOE</button></li>
 
             <div class="sidebar-category">Herramientas</div>
             <li><button onclick="window.location.href='nikafarma.html'" class="sidebar-link">💊 NikaFarma</button></li>
@@ -147,6 +188,14 @@
             <li><button onclick="toggleDarkMode()" id="dark-mode-btn" class="sidebar-link">🌙 Modo Oscuro</button></li>
             <li id="pwa-install-item" style="display:none;"><button onclick="instalarAppNika()" class="sidebar-link">📲 Instalar App</button></li>
         </ul>
+
+        <!-- ================= UPSELL NikaMed+ (solo usuarios free) ================= -->
+        <div id="sidebar-upsell-card" class="upsell-card" style="display:none;">
+            <span class="upsell-card-icon">✨</span>
+            <h4 class="upsell-card-title">Avanzá al siguiente nivel</h4>
+            <p class="upsell-card-text">Desbloqueá los simuladores de IA sin límite de usos y las justificaciones completas de cada examen.</p>
+            <button type="button" class="upsell-card-btn" onclick="window.location.href='nikamed-plus.html'">Quiero NikaMed+</button>
+        </div>
 
         <div class="sidebar-secondary-links">
             <div class="sidebar-category">Ayuda & Recursos</div>
@@ -236,6 +285,13 @@
             </div>
         </section>
 
+        <div id="exam-countdown-banner" style="display:none; align-items:center; gap:12px; background:linear-gradient(120deg, rgba(244,114,182,0.10), rgba(192,132,252,0.06)); border:1px solid rgba(244,114,182,0.3); color:#f1f5f9; font-weight:600; font-size:0.88rem; padding:13px 16px; border-radius:10px; margin-bottom:18px;">
+            <span style="font-size:1.15rem;">🔔</span>
+            <span id="exam-countdown-text" style="flex:1;"></span>
+            <button type="button" onclick="descartarBannerExamen()" title="Descartar"
+                    style="background:none; border:none; color:#94a3b8; font-size:1rem; cursor:pointer; line-height:1; padding:2px 6px;">✕</button>
+        </div>
+
         <div class="action-hub">
             <div class="continuity-card">
                 <div class="continuity-info">
@@ -249,7 +305,7 @@
                 <button class="btn-continue-action" onclick="location.href='cirugia_hub.html'">Seguir entrenando →</button>
             </div>
 
-            <div class="action-buttons-grid">
+            <div class="action-buttons-grid action-buttons-grid--4">
                 <div class="action-btn-card" onclick="document.getElementById('modulos-section').scrollIntoView({behavior:'smooth'})">
                     <div class="action-icon">
                         <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -264,25 +320,18 @@
                     <h4>Desafiar compañero</h4>
                     <span>Abrí la sala de duelos 1vs1</span>
                 </div>
-                <div class="action-btn-card" onclick="location.href='examen.html'">
+                <!-- 3) Simuladores: un único mosaico que abre el hub con las 6 modalidades -->
+                <div class="action-btn-card action-btn-card--sim" id="card-simuladores" role="button" tabindex="0"
+                     onclick="openSimuladoresHub()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSimuladoresHub();}">
                     <div class="action-icon">🩺</div>
-                    <h4>Hacer simulacro</h4>
-                    <span>Examen cronometrado</span>
+                    <h4>Simuladores</h4>
+                    <span>6 modalidades: Choice, Escrito, Pase de Sala, Shock Room y más</span>
                 </div>
-                <div class="action-btn-card" onclick="location.href='examen.html?modalidad=escrito'">
-                    <div class="action-icon">✍️</div>
-                    <h4>Simulador Escrito</h4>
-                    <span>Desarrollá respuestas evaluadas por IA</span>
-                </div>
+                <!-- 4) NikaFarma -->
                 <div class="action-btn-card" onclick="location.href='nikafarma.html'">
                     <div class="action-icon">💊</div>
                     <h4>NikaFarma</h4>
                     <span>Vademécum y decisión clínica</span>
-                </div>
-                <div class="action-btn-card" data-guardia-open>
-                    <div class="action-icon">🛡️</div>
-                    <h4>Modo Guardia</h4>
-                    <span>Descargá bancos y vademécum para usar sin señal</span>
                 </div>
             </div>
         </div>
@@ -455,10 +504,10 @@
                         <div class="subject-tile-name">Salud Integral del Adulto Mayor (S.I.A.M.)</div>
                         <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
                     </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
+                    <div class="subject-tile tile-active">
+                        <span class="subject-tile-tag tag-active">Activo</span>
                         <div class="subject-tile-name">Salud Integral de la Mujer (Ginecología y Obstetricia)</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
+                        <button class="subject-tile-btn btn-enter" onclick="location.href='gineco_hub.html'" style="background: linear-gradient(90deg, #ec4899, #a855f7); color: white; border: none;">Ingresar al Módulo →</button>
                     </div>
                     <div class="subject-tile tile-active">
                         <span class="subject-tile-tag tag-active">Activo</span>
@@ -729,29 +778,55 @@
 
     <div class="modal-overlay" id="public-profile-modal">
         <div class="modal-content pp-card">
+            <button type="button" class="pc-icon-btn pp-back-btn" onclick="volverDesdePerfilPublico()" aria-label="Volver">←</button>
             <button type="button" class="pc-icon-btn pp-close-btn" onclick="closePublicProfileModal()" aria-label="Cerrar">✕</button>
-            <div class="pp-cover"></div>
-            <div class="pp-avatar-wrap">
-                <img id="pp-avatar" src="assets/N%20NIKA.png" alt="Avatar" class="pp-avatar">
-            </div>
-            <h3 id="pp-fullname" class="pp-fullname">—</h3>
-            <span id="pp-username" class="pp-username">@usuario</span>
 
-            <div class="pp-badges-row">
-                <span id="pp-anio-badge" class="pp-badge" style="display:none;"></span>
+            <div class="pp-header" id="pp-header">
+                <div class="pp-avatar-wrap">
+                    <img id="pp-avatar" src="assets/N%20NIKA.png" alt="Avatar" class="pp-avatar">
+                </div>
+                <h3 id="pp-fullname" class="pp-fullname">—</h3>
+                <span id="pp-username" class="pp-username">@usuario</span>
+
+                <div class="pp-badges-row">
+                    <span id="pp-rank-badge" class="pp-badge pp-rank-badge"></span>
+                </div>
             </div>
 
             <p id="pp-bio" class="pp-bio"></p>
 
-            <div class="pp-social-row" id="pp-social-row">
-                <a id="pp-instagram" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">📷 Instagram</a>
-                <a id="pp-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">💬 WhatsApp</a>
+            <div class="pp-stats-grid">
+                <div class="pp-stat-card">
+                    <span class="pp-stat-label">🎓 Año que cursa</span>
+                    <span class="pp-stat-value" id="pp-anio-value">—</span>
+                </div>
+                <div class="pp-stat-card">
+                    <span class="pp-stat-label">⚡ ELO</span>
+                    <span class="pp-stat-value" id="pp-elo-value">—</span>
+                </div>
+                <div class="pp-stat-card">
+                    <span class="pp-stat-label">🕒 Último acceso</span>
+                    <span class="pp-stat-value" id="pp-last-access">—</span>
+                </div>
+                <div class="pp-stat-card pp-stat-card--clickable" id="pp-friends-card" onclick="togglePpFriendsList()">
+                    <span class="pp-stat-label">🤝 Amigos <span class="pp-stat-chevron">▾</span></span>
+                    <span class="pp-stat-value" id="pp-friends-count">—</span>
+                </div>
+                <div class="pp-stat-card">
+                    <span class="pp-stat-label">📅 Primer acceso</span>
+                    <span class="pp-stat-value" id="pp-first-access">—</span>
+                </div>
+                <div class="pp-stat-card pp-stat-card--wide">
+                    <span class="pp-stat-label">🌐 Redes Sociales</span>
+                    <span class="pp-stat-value pp-social-row" id="pp-social-row">
+                        <a id="pp-instagram" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">📷 Instagram</a>
+                        <a id="pp-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">💬 WhatsApp</a>
+                        <span id="pp-redes-empty" style="display:none;">No especificadas</span>
+                    </span>
+                </div>
             </div>
 
-            <div class="pp-access-box">
-                <div>📅 Primer acceso: <strong id="pp-first-access">—</strong></div>
-                <div>🕒 Último acceso: <strong id="pp-last-access">—</strong></div>
-            </div>
+            <div class="pp-friends-list" id="pp-friends-list" style="display:none;"></div>
 
             <div class="pp-actions-row">
                 <button type="button" class="pp-btn pp-btn-ghost" id="pp-chat-btn" onclick="openChatWithFriend(window._ppCurrentUsername)">💬 Chat</button>
@@ -761,6 +836,73 @@
     </div>
 
     <!-- ================= MODAL NOVEDADES ================= -->
+    <!-- ================= HUB DE SIMULADORES ================= -->
+    <div class="modal-overlay" id="simuladores-hub-modal" onclick="if(event.target===this) closeSimuladoresHub()">
+        <div class="modal-content sim-hub-content" role="dialog" aria-modal="true" aria-labelledby="sim-hub-title">
+            <div class="sim-hub-head">
+                <div>
+                    <h3 id="sim-hub-title">🩺 Simuladores</h3>
+                    <p>Elegí cómo querés entrenar. Los simuladores con IA evalúan tu desempeño en tiempo real.</p>
+                </div>
+                <button type="button" class="sim-hub-close" onclick="closeSimuladoresHub()" aria-label="Cerrar">✕</button>
+            </div>
+            <div class="sim-hub-plan" data-sim-plan>
+                <span>🎁 Plan gratuito: <b>2 usos</b> por cada simulador con IA.</span>
+                <a href="nikamed-plus.html" class="sim-hub-plan-cta">Ver NikaMed+</a>
+            </div>
+            <div class="sim-hub-grid">
+                <button type="button" class="sim-hub-item sim-hub-item--wide" data-sim="choice" onclick="NikaAcceso.abrirSimulador('choice')">
+                    <span class="sim-hub-ico">🩺</span>
+                    <span class="sim-hub-body">
+                        <span class="sim-hub-title">Simulador Choice</span>
+                        <span class="sim-hub-desc">Examen cronometrado de opción múltiple. Acceso libre e ilimitado.</span>
+                        <span class="sim-hub-badge is-free">Gratis · ilimitado</span>
+                    </span>
+                </button>
+                <button type="button" class="sim-hub-item" data-sim="escrito" onclick="NikaAcceso.abrirSimulador('escrito')">
+                    <span class="sim-hub-ico">✍️</span>
+                    <span class="sim-hub-body">
+                        <span class="sim-hub-title">Simulador Escrito <em class="sim-hub-ai">IA</em></span>
+                        <span class="sim-hub-desc">Desarrollá respuestas evaluadas por IA</span>
+                        <span class="sim-hub-badge is-free">2 usos gratis</span>
+                    </span>
+                </button>
+                <button type="button" class="sim-hub-item" data-sim="pase_sala" onclick="NikaAcceso.abrirSimulador('pase_sala')">
+                    <span class="sim-hub-ico">🛏️</span>
+                    <span class="sim-hub-body">
+                        <span class="sim-hub-title">Pase de Sala <em class="sim-hub-ai">IA</em></span>
+                        <span class="sim-hub-desc">Recorrida clínica con paciente IA</span>
+                        <span class="sim-hub-badge is-free">2 usos gratis</span>
+                    </span>
+                </button>
+                <button type="button" class="sim-hub-item" data-sim="shock_room" onclick="NikaAcceso.abrirSimulador('shock_room')">
+                    <span class="sim-hub-ico">🚨</span>
+                    <span class="sim-hub-body">
+                        <span class="sim-hub-title">Shock Room <em class="sim-hub-ai">IA</em></span>
+                        <span class="sim-hub-desc">Urgencias contra reloj</span>
+                        <span class="sim-hub-badge is-free">2 usos gratis</span>
+                    </span>
+                </button>
+                <button type="button" class="sim-hub-item" data-sim="consultorio_legales" onclick="NikaAcceso.abrirSimulador('consultorio_legales')">
+                    <span class="sim-hub-ico">🗣️</span>
+                    <span class="sim-hub-body">
+                        <span class="sim-hub-title">Consultorios y Legales <em class="sim-hub-ai">IA</em></span>
+                        <span class="sim-hub-desc">Comunicación clínica y medicolegal</span>
+                        <span class="sim-hub-badge is-free">2 usos gratis</span>
+                    </span>
+                </button>
+                <button type="button" class="sim-hub-item" data-sim="ecoe_final" onclick="NikaAcceso.abrirSimulador('ecoe_final')">
+                    <span class="sim-hub-ico">👨‍⚕️</span>
+                    <span class="sim-hub-body">
+                        <span class="sim-hub-title">Examen Final ECOE <em class="sim-hub-ai">IA</em></span>
+                        <span class="sim-hub-desc">Estación de Cirugía a ciegas</span>
+                        <span class="sim-hub-badge is-free">2 usos gratis</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="news-modal">
         <div class="modal-content" style="max-width: 550px;">
             <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">📢 Novedades del Campus</h3>
@@ -1214,6 +1356,81 @@
         
         if (modFill) modFill.style.width = `${savedSurgeryPct}%`;
         if (modLabel) modLabel.innerText = `${savedSurgeryPct}% de avance`;
+
+        // 5. Banner de cuenta regresiva de mesa de examen (Parte 3 del Calendario)
+        actualizarBannerExamen();
+    }
+
+    // Consulta la próxima "Mesa de examen" (parcial o final) agendada en
+    // calendario_eventos y, si faltan 10 días o menos, muestra el banner sobre
+    // "Continuá donde lo dejaste". Se puede descartar con la "X"; queda oculto
+    // en localStorage hasta que aparezca un examen distinto (otro id o fecha).
+    async function actualizarBannerExamen() {
+        const banner = document.getElementById('exam-countdown-banner');
+        const textEl = document.getElementById('exam-countdown-text');
+        if (!banner || !textEl) return;
+
+        try {
+            const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+            if (!client) { banner.style.display = 'none'; return; }
+
+            const { data: { user } } = await client.auth.getUser();
+            if (!user) { banner.style.display = 'none'; return; }
+
+            const hoy = new Date().toISOString().slice(0, 10);
+            const { data, error } = await client
+                .from('calendario_eventos')
+                .select('id, titulo, tipo, modulo, fecha')
+                .eq('user_id', user.id)
+                .in('tipo', ['examen_parcial', 'examen_final'])
+                .gte('fecha', hoy)
+                .order('fecha', { ascending: true })
+                .limit(1);
+
+            if (error || !data || data.length === 0) {
+                banner.style.display = 'none';
+                return;
+            }
+
+            const evento = data[0];
+            const dias = Math.ceil((new Date(evento.fecha) - new Date(hoy)) / 86400000);
+
+            if (dias > 10) {
+                banner.style.display = 'none';
+                return;
+            }
+
+            // Si el usuario ya descartó ESTE evento puntual, no lo mostramos de nuevo.
+            const dismissKey = `nika_exam_banner_dismissed_${evento.id}`;
+            if (localStorage.getItem(dismissKey)) {
+                banner.style.display = 'none';
+                return;
+            }
+
+            const etiquetasTipo = { examen_parcial: 'Examen Parcial', examen_final: 'Examen Final' };
+            const nombresModulo = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
+            const tipoLabel = etiquetasTipo[evento.tipo] || 'Examen';
+            const moduloLabel = nombresModulo[evento.modulo] || evento.modulo || '';
+            const fechaLegible = new Date(evento.fecha + 'T00:00:00').toLocaleDateString('es-AR', { day: 'numeric', month: 'long' });
+            const cuando = dias === 0 ? 'hoy' : dias === 1 ? 'mañana' : `en ${dias} días`;
+
+            textEl.innerHTML = `⏳ Recordatorio: tenés un <strong>${tipoLabel}</strong>${moduloLabel ? ` de <strong>${moduloLabel}</strong>` : ''} el ${fechaLegible} (${cuando})`;
+            banner.dataset.eventId = evento.id;
+            banner.style.display = 'flex';
+        } catch (err) {
+            console.warn('[Banner Examen] No se pudo actualizar:', err);
+            banner.style.display = 'none';
+        }
+    }
+
+    // Descarta el banner actual: lo oculta y recuerda en localStorage que
+    // este evento puntual (por id) ya fue visto, para no repetirlo en cada recarga.
+    function descartarBannerExamen() {
+        const banner = document.getElementById('exam-countdown-banner');
+        if (!banner) return;
+        const eventId = banner.dataset.eventId;
+        if (eventId) localStorage.setItem(`nika_exam_banner_dismissed_${eventId}`, '1');
+        banner.style.display = 'none';
     }
 
         // ================= AUDIO: DESBLOQUEO PARA MÓVILES =================
@@ -1415,6 +1632,11 @@
                     if (fin.mode === 'work') setTimeout(renderRendimiento, 1500);
                 });
             }
+            // Sesión compartida guardada (Host o Invitado): se refrescan "Tiempo total" y "Tiempo de hoy"
+            if (!window._nikaPerfEstudioHooked) {
+                window._nikaPerfEstudioHooked = true;
+                window.addEventListener('nika:estudio-guardado', () => setTimeout(renderRendimiento, 800));
+            }
 
             try {
                 const datos = await NikaRendimiento.cargarDatos();
@@ -1584,6 +1806,53 @@
             if (typeof renderUserPerformance === 'function') renderUserPerformance();
         }
         
+        // ================= JERARQUÍA VISUAL / RANGOS DE USUARIO =================
+        // Traduce el rol de la cuenta a lo que se muestra en el sidebar:
+        // etiqueta de rango, color del nombre/rango, glow del avatar y logo.
+        function obtenerRangoUsuario(role) {
+            const esVip = role === 'premium' || role === 'vip' || (window.NikaAcceso && window.NikaAcceso.esVip());
+            if (role === 'admin') return { label: '👑 Admin', clase: 'profile-admin' };
+            if (esVip) return { label: '✨ NikaMed+', clase: 'profile-premium' };
+            return { label: '📚 Estudiante', clase: 'profile-free' };
+        }
+
+        // Puente entre obtenerRangoUsuario() (ya existente, usada en el sidebar) y las
+        // clases visuales .rank-admin/.rank-premium/.rank-free que usan las tarjetas
+        // de "Comunidad & Amigos" y el modal de perfil público.
+        function _rangoTarjetaAmigo(role) {
+            const r = obtenerRangoUsuario(role);
+            const mapa = { 'profile-admin': 'rank-admin', 'profile-premium': 'rank-premium', 'profile-free': 'rank-free' };
+            return { label: r.label, clase: mapa[r.clase] || 'rank-free' };
+        }
+
+        function aplicarRangoUsuario(role) {
+            const rango = obtenerRangoUsuario(role);
+            const sidebarName = document.getElementById('sidebar-user-name');
+            const sidebarRankEl = document.getElementById('sidebar-user-rank');
+            const sidebarAvatar = document.getElementById('sidebar-avatar-img');
+            const brandNameEl = document.getElementById('sidebar-brand-name');
+
+            if (sidebarName) {
+                sidebarName.classList.remove('profile-admin', 'profile-premium', 'profile-free');
+                sidebarName.classList.add(rango.clase);
+            }
+            if (sidebarRankEl) {
+                sidebarRankEl.textContent = rango.label;
+                sidebarRankEl.className = `sidebar-user-rank ${rango.clase}`;
+                sidebarRankEl.style.display = 'inline-block';
+            }
+            if (sidebarAvatar) {
+                sidebarAvatar.classList.remove('profile-admin', 'profile-premium', 'profile-free');
+                sidebarAvatar.classList.add(rango.clase);
+            }
+            // Logo dinámico: gradiente violeta y texto "Campus NikaMed" para admin/premium.
+            if (brandNameEl) {
+                const esDestacado = rango.clase === 'profile-admin' || rango.clase === 'profile-premium';
+                brandNameEl.textContent = esDestacado ? 'Campus NikaMed' : 'Campus Nika';
+                brandNameEl.classList.toggle('sidebar-brand-name--premium', esDestacado);
+            }
+        }
+
         // ================= AUTENTICACIÓN =================
         function checkAuthState() {
             const userJson = localStorage.getItem('nika_currentUser');
@@ -1595,10 +1864,13 @@
 
             if (userJson) {
                 const user = JSON.parse(userJson);
-                if (headerBtn) headerBtn.innerHTML = `👤 ${nikaEsc(user.fullname)}`;
-                if (sidebarName) sidebarName.innerText = user.fullname;
+                // NikaMed+: insignia junto al nombre (solo cuentas vip / premium)
+                const vipBadge = (window.NikaAcceso && window.NikaAcceso.esVip()) ? window.NikaAcceso.badgeHTML() : '';
+                if (headerBtn) headerBtn.innerHTML = `👤 <span class="account-btn-name">${nikaEsc(user.fullname)}</span>${vipBadge}`;
+                if (sidebarName) sidebarName.innerHTML = `${nikaEsc(user.fullname)}${vipBadge}`;
                 if (sidebarRole) sidebarRole.innerText = `@${user.username}`;
                 if (sidebarAvatar && user.avatar) sidebarAvatar.src = user.avatar;
+                aplicarRangoUsuario(user.role);
                 
                 if (user.role === 'admin') {
                     if (sidebarAdmin) sidebarAdmin.style.display = 'block';
@@ -1607,14 +1879,35 @@
                     const adminSec = document.getElementById('admin-dashboard-section');
                     if (adminSec && adminSec.style.display === 'block') showDashboard();
                 }
+
+                // Upsell NikaMed+: solo para usuarios free. Premium/vip/admin no la ven.
+                const userRole = user.role;
+                const esPremiumOAdmin = userRole === 'admin' || userRole === 'premium' || (window.NikaAcceso && window.NikaAcceso.esVip());
+                const upsellCard = document.getElementById('sidebar-upsell-card');
+                if (upsellCard) upsellCard.style.display = esPremiumOAdmin ? 'none' : 'block';
+
                 initCommunityPresence();
+                // Presencia global del chat: sin esto los amigos figuran "Desconectado" salvo que tengan abierto ESE mismo chat
+                if (window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().catch(console.error);
             } else {
                 if (headerBtn) headerBtn.innerHTML = `👤 Iniciar sesión / Registrarse`;
                 if (sidebarName) sidebarName.innerText = "Invitado";
                 if (sidebarRole) sidebarRole.innerText = "Sin cuenta";
                 if (sidebarAdmin) sidebarAdmin.style.display = 'none';
                 if (sidebarAvatar) sidebarAvatar.src = DEFAULT_AVATAR;
+                // Sin sesión: sacamos clases de rango y ocultamos la etiqueta.
+                sidebarName.classList.remove('profile-admin', 'profile-premium', 'profile-free');
+                sidebarAvatar.classList.remove('profile-admin', 'profile-premium', 'profile-free');
+                const sidebarRankElGuest = document.getElementById('sidebar-user-rank');
+                if (sidebarRankElGuest) sidebarRankElGuest.style.display = 'none';
+                const brandNameElGuest = document.getElementById('sidebar-brand-name');
+                if (brandNameElGuest) { brandNameElGuest.textContent = 'Campus Nika'; brandNameElGuest.classList.remove('sidebar-brand-name--premium'); }
+                // Sin sesión = trato como free: mostramos el upsell.
+                const upsellCardGuest = document.getElementById('sidebar-upsell-card');
+                if (upsellCardGuest) upsellCardGuest.style.display = 'block';
             }
+            // Acentos violetas de NikaMed+ (clase nika-vip en <body>); sin sesión se quita sola
+            if (window.NikaAcceso) window.NikaAcceso.aplicarEstadoVip();
             renderDashboardOnlineFriends();
             renderUserPerformance();
             updateSidebarElo(userJson ? JSON.parse(userJson).username : null);
@@ -1970,12 +2263,9 @@ async function handleLogin(e) {
         return;
     }
 
-    if (window.NikaSupabase.client && user?.id) {
-        window.NikaSupabase.client.from('profiles')
-            .update({ last_login_at: new Date().toISOString() })
-            .eq('id', user.id)
-            .then(() => {}, (err) => console.warn('[handleLogin] No se pudo actualizar last_login_at:', err));
-    }
+    // El registro de "último acceso" (last_login_at) es responsabilidad exclusiva
+    // de auth-guard.js: se actualiza ahí en cada sesión válida (carga de página
+    // o login en caliente), así que no lo duplicamos acá.
 
     showToast(`¡Bienvenido, ${user.fullname}!`);
     closeAuthModal();
@@ -2268,8 +2558,13 @@ async function handleSaveProfile(e) {
 async function handleLogout() {
     if (confirm("¿Seguro que deseás cerrar sesión?")) {
         try {
+            // Sesión compartida: primero se sale (avisa al otro y guarda el tiempo), después se corta el canal
+            if (window.PomodoroEngine && window.PomodoroEngine.leaveShared) window.PomodoroEngine.leaveShared({ reason: 'logout' });
             if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
-            if (window.ChatManager) window.ChatManager.cerrarConversacion();
+            if (window.ChatManager) {
+                window.ChatManager.cerrarConversacion();
+                if (window.ChatManager.detenerPresenciaGlobal) window.ChatManager.detenerPresenciaGlobal();
+            }
             // El Pomodoro es de cada usuario: al cerrar sesión se frena y se limpia,
             // para que otra cuenta en el mismo navegador no herede el timer.
             if (window.PomodoroEngine) window.PomodoroEngine.reset('work');
@@ -2345,7 +2640,7 @@ async function handleLogout() {
                 const u = esc(f.username);
                 const estado = estadoPorUsername.get(f.username);
                 const enPomodoro = estado && estado.pomodoroActivo;
-                const meta = enPomodoro ? '🍅 En Pomodoro activo' : (estado && estado.up ? `📖 Estudiando ${esc(estado.up)}...` : `@${u} · En línea`);
+                const meta = enPomodoro ? (estado.tema ? `🍅 Estudiando: ${esc(estado.tema)}` : '🍅 En Pomodoro activo') : (estado && estado.up ? `📖 Estudiando ${esc(estado.up)}...` : `@${u} · En línea`);
                 return `
                     <div class="online-friend-item" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
                         <div style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1; min-width:0;" onclick="openFriendsModal()">
@@ -2356,7 +2651,7 @@ async function handleLogout() {
                                 <div class="online-friend-meta">${meta}</div>
                             </div>
                         </div>
-                        ${enPomodoro ? `<button class="btn-module" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); unirseAlPomodoroDe('${u}')" title="Opciones de Pomodoro">🍅</button>` : ''}
+                        <button class="btn-module nika-pomo-btn" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="abrirMenuPomodoro(event, '${u}')" title="Pomodoro compartido" aria-haspopup="menu">🍅</button>
                     </div>`;
             }).join('');
         }
@@ -2442,7 +2737,7 @@ async function handleLogout() {
 
             const { data, error } = await supabase
                 .from('profiles')
-                .select('id, username, fullname, avatar')
+                .select('id, username, fullname, avatar, role')
                 .or(`username.ilike.%${rawQuery}%,fullname.ilike.%${rawQuery}%`)
                 .limit(20);
 
@@ -2460,19 +2755,24 @@ async function handleLogout() {
                 return;
             }
 
-            resultsBox.innerHTML = filtered.map(u => `
+            resultsBox.innerHTML = filtered.map(u => {
+                const rango = _rangoTarjetaAmigo(u.role);
+                return `
                 <div class="friend-card">
-                    <img src="${nikaEsc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar">
+                    <div class="friend-card-avatar-wrap">
+                        <img src="${nikaEsc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar ${rango.clase}">
+                    </div>
                     <div class="friend-card-body">
-                        <div class="friend-card-name">${nikaEsc(u.fullname || 'Estudiante Nika')}</div>
+                        <div class="friend-card-name ${rango.clase}">${nikaEsc(u.fullname || 'Estudiante Nika')}</div>
                         <div class="friend-card-meta">@${nikaEsc(u.username)}</div>
+                        <span class="friend-card-rank-badge ${rango.clase}">${rango.label}</span>
                     </div>
                     <div class="friend-card-actions">
                         <button class="friend-action-btn" title="Ver perfil" onclick="abrirPerfilPublico('${u.id}')">👁️</button>
                         <button class="friends-add-btn" onclick="enviarSolicitudAmistad('${u.id}')">Añadir</button>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
         }
 
         // Compatibilidad: antes se pedía por username; ahora se resuelve el id en Supabase.
@@ -2560,21 +2860,26 @@ async function handleLogout() {
                 return;
             }
             const esc = NikaFriends.esc;
-            listBox.innerHTML = friends.map(u => `
+            listBox.innerHTML = friends.map(u => {
+                const rango = _rangoTarjetaAmigo(u.role);
+                return `
                 <div class="friend-card">
                     <div class="friend-card-avatar-wrap">
-                        <img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar">
+                        <img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar ${rango.clase}">
                     </div>
                     <div class="friend-card-body">
-                        <div class="friend-card-name">${esc(u.fullname)}</div>
+                        <div class="friend-card-name ${rango.clase}">${esc(u.fullname)}</div>
                         <div class="friend-card-meta" data-presence-user="${esc(u.username)}" data-fallback="@${esc(u.username)}">@${esc(u.username)}</div>
+                        <span class="friend-card-rank-badge ${rango.clase}">${rango.label}</span>
                     </div>
                     <div class="friend-card-actions">
+                        <button class="friend-action-btn" title="Ver perfil" onclick="abrirPerfilPublico('${esc(u.id)}')">👁️</button>
                         <button class="friend-action-btn" title="Chat" onclick="openChatWithFriend('${esc(u.username)}')">💬</button>
-                        <button class="friend-action-btn" title="Unirme al Pomodoro" style="background:#fef3c7; color:#92400e;" onclick="unirseAlPomodoroDe('${esc(u.username)}')">🍅</button>
+                        <button class="friend-action-btn nika-pomo-btn" title="Pomodoro compartido" aria-haspopup="menu" style="background:#fef3c7; color:#92400e;" onclick="abrirMenuPomodoro(event, '${esc(u.username)}')">🍅</button>
                         <button class="friend-action-btn danger" title="Eliminar amigo" onclick="removeFriend('${esc(u.friendshipId)}', this.dataset.nombre)" data-nombre="${esc(u.fullname)}">✕</button>
                     </div>
-                </div>`).join('');
+                </div>`;
+            }).join('');
         }
 
         // Pastilla "🤝 N amigos" dentro del modal de Mi Perfil (ver abajo, junto a openProfileModal)
@@ -2893,6 +3198,29 @@ async function handleLogout() {
             container.innerHTML = html;
         }
 
+        // ================= HUB DE SIMULADORES =================
+        // El control de los 2 usos gratuitos vive en NikaAcceso.abrirSimulador() (js/nikaAcceso.js),
+        // que consulta al servidor. Acá solo se abre/cierra el modal y se pintan los cupos.
+        async function openSimuladoresHub() {
+            const modal = document.getElementById('simuladores-hub-modal');
+            if (!modal) return;
+            modal.style.display = 'flex';
+            const root = modal.querySelector('.sim-hub-content');
+            if (!window.NikaAcceso) return;
+            window.NikaAcceso.pintarHub(root, null); // primero lo que ya se sabe, sin esperar la red
+            if (window.NikaAcceso.estaLogueado()) {
+                const info = await window.NikaAcceso.obtenerUsos(); // cupos reales desde el servidor
+                if (info && modal.style.display === 'flex') window.NikaAcceso.pintarHub(root, info);
+            }
+        }
+
+        function closeSimuladoresHub() {
+            const modal = document.getElementById('simuladores-hub-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSimuladoresHub(); });
+
         function openNewsModal() {
             const modal = document.getElementById('news-modal');
             if (modal) modal.style.display = 'flex';
@@ -2982,14 +3310,15 @@ async function handleLogout() {
             const nombre = row.profiles?.fullname || 'Estudiante Nika';
             const avatar = row.profiles?.avatar || (typeof NikaSocial !== 'undefined' ? NikaSocial.DEFAULT_AVATAR : '');
             const hora = row.created_at ? new Date(row.created_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) : '';
+            const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(row.profiles?.role) : { label: '', clase: 'rank-free' };
 
             const msgEl = document.createElement('div');
             msgEl.style.cssText = 'display:flex; gap:8px; align-items:flex-start;';
             msgEl.setAttribute('data-nika-item', '1');
             msgEl.innerHTML = `
-                <img src="${nikaEsc(avatar)}" alt="" style="width:28px; height:28px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+                <img src="${nikaEsc(avatar)}" alt="" class="social-avatar-sm ${rango.clase}" style="width:28px; height:28px; border-radius:50%; object-fit:cover; flex-shrink:0;">
                 <div style="background: var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:6px 10px; font-size:0.82rem; max-width: 80%;">
-                    <strong style="display:block; font-size:0.72rem; color: var(--nika-primary);">${nikaEsc(nombre)} <span style="color:var(--text-muted); font-weight:500;">${hora}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('chat', row.id, row.user_id, nombre, row.message) : ''}</strong>
+                    <strong style="display:block; font-size:0.72rem;"><span class="social-name ${rango.clase}">${nikaEsc(nombre)}</span><span class="social-rank-badge ${rango.clase}">${rango.label}</span> <span style="color:var(--text-muted); font-weight:500;">${hora}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('chat', row.id, row.user_id, nombre, row.message) : ''}</strong>
                     <span></span>
                 </div>
             `;
@@ -3066,11 +3395,12 @@ async function handleLogout() {
 
             list.innerHTML = res.data.filter(t => !(window.NikaModeracion && NikaModeracion.estaBloqueado(t.user_id))).map(t => {
                 const autor = t.profiles?.fullname || 'Estudiante Nika';
+                const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(t.profiles?.role) : { label: '', clase: 'rank-free' };
                 const fecha = t.created_at ? new Date(t.created_at).toLocaleDateString('es-AR') : '';
                 const cantRespuestas = Array.isArray(t.forum_replies) && t.forum_replies[0] ? t.forum_replies[0].count : 0;
                 return `
                 <div data-nika-item="1" style="background:var(--bg-body); padding:12px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);">
-                    <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">${nikaEsc(autor)} • ${fecha} • UP: ${nikaEsc(t.up_id)} ${window.NikaModeracion ? NikaModeracion.botonReporte('forum_thread', t.id, t.user_id, autor, t.title + ' — ' + t.content) : ''}</div>
+                    <div style="font-size:0.75rem; font-weight:700;"><span class="social-name ${rango.clase}">${nikaEsc(autor)}</span><span class="social-rank-badge ${rango.clase}">${rango.label}</span> <span style="color:var(--text-muted);">• ${fecha} • UP: ${nikaEsc(t.up_id)}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('forum_thread', t.id, t.user_id, autor, t.title + ' — ' + t.content) : ''}</div>
                     <div style="font-size:0.95rem; font-weight:800; color:var(--text-main); margin:4px 0;">${nikaEsc(t.title)}</div>
                     <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">${nikaEsc(t.content)}</div>
                     <button type="button" class="btn-module" style="padding:4px 10px; font-size:0.75rem; width:auto; background:rgba(2,132,199,0.1); color:var(--nika-primary);" onclick="toggleForumThreadReplies(${t.id}, this)">💬 ${cantRespuestas} respuesta${cantRespuestas === 1 ? '' : 's'} — ver/responder</button>
@@ -3093,8 +3423,9 @@ async function handleLogout() {
             const repliesHtml = res.ok && res.data.length
                 ? res.data.filter(r => !(window.NikaModeracion && NikaModeracion.estaBloqueado(r.user_id))).map(r => {
                     const autor = r.profiles?.fullname || 'Estudiante Nika';
+                    const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(r.profiles?.role) : { label: '', clase: 'rank-free' };
                     const fecha = r.created_at ? new Date(r.created_at).toLocaleDateString('es-AR') : '';
-                    return `<div data-nika-item="1" style="font-size:0.82rem; padding:6px 0; border-bottom:1px solid var(--border);"><strong style="color:var(--nika-primary);">${nikaEsc(autor)}</strong> <span style="color:var(--text-muted); font-size:0.72rem;">${fecha}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('forum_reply', r.id, r.user_id, autor, r.content) : ''}<div>${nikaEsc(r.content)}</div></div>`;
+                    return `<div data-nika-item="1" style="font-size:0.82rem; padding:6px 0; border-bottom:1px solid var(--border);"><span class="social-name ${rango.clase}">${nikaEsc(autor)}</span><span class="social-rank-badge ${rango.clase}">${rango.label}</span> <span style="color:var(--text-muted); font-size:0.72rem;">${fecha}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('forum_reply', r.id, r.user_id, autor, r.content) : ''}<div>${nikaEsc(r.content)}</div></div>`;
                 }).join('')
                 : '<p style="font-size:0.8rem; color:var(--text-muted);">Sin respuestas todavía. ¡Sé el primero!</p>';
 
@@ -3155,7 +3486,8 @@ async function handleLogout() {
                 const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : '🏅'));
                 const nombre = u.profiles?.fullname || 'Estudiante Nika';
                 const avatar = u.profiles?.avatar || NikaSocial.DEFAULT_AVATAR;
-                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${nikaEsc(avatar)}" alt="img" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong style="font-size:0.85rem; display:block;">${nikaEsc(nombre)}</strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo} ELO</span></div>`;
+                const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(u.profiles?.role) : { label: '', clase: 'rank-free' };
+                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${nikaEsc(avatar)}" alt="img" class="social-avatar-sm ${rango.clase}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong class="social-name ${rango.clase}" style="font-size:0.85rem; display:block;">${nikaEsc(nombre)}<span class="social-rank-badge ${rango.clase}">${rango.label}</span></strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo_score || 0} ELO</span></div>`;
             });
         }
 
@@ -3356,28 +3688,76 @@ async function handleLogout() {
     window._ppCurrentUserId = null;
     window._ppCurrentUsername = null;
 
+    // Formatea last_login_at como "Hoy", "Ayer" o "Hace X días", + fecha corta.
+    // Compara por día calendario (no por horas) para que "Hoy" sea intuitivo
+    // aunque hayan pasado pocas horas desde la medianoche.
+    function _formatearUltimoAcceso(fechaIso) {
+        if (!fechaIso) return 'Sin registrar';
+        const fecha = new Date(fechaIso);
+        const hoy = new Date();
+        const inicioHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+        const inicioFecha = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+        const diffDias = Math.round((inicioHoy - inicioFecha) / 86400000);
+        const fechaCorta = fecha.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        if (diffDias <= 0) return `Hoy · ${fechaCorta}`;
+        if (diffDias === 1) return `Ayer · ${fechaCorta}`;
+        return `Hace ${diffDias} días · ${fechaCorta}`;
+    }
+
     async function abrirPerfilPublico(userId) {
         if (!window.NikaSupabase || !window.NikaSupabase.client) return;
         const supabase = window.NikaSupabase.client;
 
         const modal = document.getElementById('public-profile-modal');
         if (!modal) return;
+
+        // Guardamos qué modal (si lo hay) estaba abierto detrás del perfil
+        // público para poder volver a él con el botón "← Volver".
+        const modalPrevioAbierto = Array.from(document.querySelectorAll('.modal-overlay'))
+            .find(m => m.id !== 'public-profile-modal' && getComputedStyle(m).display !== 'none');
+        window._ppOrigenModalId = modalPrevioAbierto ? modalPrevioAbierto.id : null;
+
         modal.style.display = 'flex';
         window._ppCurrentUserId = userId;
         window._ppCurrentUsername = null;
 
+        // Estado de carga: limpiamos rango/glow previos para no arrastrar
+        // el color/badge de un perfil anterior mientras llega el nuevo.
         document.getElementById('pp-fullname').textContent = 'Cargando...';
+        document.getElementById('pp-fullname').className = 'pp-fullname';
+        document.getElementById('pp-avatar').className = 'pp-avatar';
+        document.getElementById('pp-header').className = 'pp-header';
         document.getElementById('pp-username').textContent = '';
         document.getElementById('pp-bio').textContent = '';
-        document.getElementById('pp-anio-badge').style.display = 'none';
+        document.getElementById('pp-rank-badge').textContent = '';
+        document.getElementById('pp-rank-badge').className = 'pp-badge pp-rank-badge';
+        document.getElementById('pp-elo-value').textContent = '—';
+        document.getElementById('pp-friends-count').textContent = '—';
+        document.getElementById('pp-anio-value').textContent = '—';
+        _resetPpFriendsList();
         document.getElementById('pp-instagram').style.display = 'none';
         document.getElementById('pp-whatsapp').style.display = 'none';
+        document.getElementById('pp-redes-empty').style.display = 'none';
 
-        const { data: user, error } = await supabase
-            .from('profiles')
-            .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at')
-            .eq('id', userId)
-            .single();
+        // Perfil + ELO + cantidad de amigos, en paralelo: son tablas distintas
+        // (profiles / user_ranking / friendships) sin FK directa para un solo select.
+        const [{ data: user, error }, rankingRes, amigosRes] = await Promise.all([
+            supabase
+                .from('profiles')
+                .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at')
+                .eq('id', userId)
+                .single(),
+            supabase
+                .from('user_ranking')
+                .select('elo_score')
+                .eq('user_id', userId)
+                .maybeSingle(),
+            supabase
+                .from('friendships')
+                .select('id', { count: 'exact', head: true })
+                .eq('status', 'accepted')
+                .or(`requester_id.eq.${userId},addressee_id.eq.${userId}`)
+        ]);
 
         if (error || !user) {
             showToast('No se pudo cargar el perfil.');
@@ -3387,38 +3767,52 @@ async function handleLogout() {
 
         window._ppCurrentUsername = user.username || null;
 
-        document.getElementById('pp-avatar').src = user.avatar || 'assets/N%20NIKA.png';
-        document.getElementById('pp-fullname').textContent = user.fullname || 'Estudiante Nika';
+        // Rango visual: mismo mapeo que usan las tarjetas de "Comunidad & Amigos".
+        const rango = _rangoTarjetaAmigo(user.role);
+        document.getElementById('pp-avatar').src = user.avatar || user.avatar_url || 'assets/N%20NIKA.png';
+        document.getElementById('pp-avatar').className = `pp-avatar ${rango.clase}`;
+        document.getElementById('pp-header').className = `pp-header ${rango.clase}`;
+        document.getElementById('pp-fullname').textContent = user.fullname || user.full_name || user.nombre || 'Estudiante Nika';
+        document.getElementById('pp-fullname').className = `pp-fullname ${rango.clase}`;
         document.getElementById('pp-username').textContent = `@${user.username || 'usuario'}`;
         document.getElementById('pp-bio').textContent = user.bio || 'Este usuario todavía no cargó una biografía médica.';
 
-        const anioBadge = document.getElementById('pp-anio-badge');
-        if (user.anio_cursada) {
-            anioBadge.textContent = `🎓 ${user.anio_cursada}`;
-            anioBadge.style.display = 'inline-block';
-        }
+        const rankBadge = document.getElementById('pp-rank-badge');
+        rankBadge.textContent = rango.label;
+        rankBadge.className = `pp-badge pp-rank-badge ${rango.clase}`;
+
+        const eloScore = rankingRes && rankingRes.data ? rankingRes.data.elo_score : null;
+        document.getElementById('pp-elo-value').textContent = typeof eloScore === 'number' ? `⚡ ${eloScore}` : 'Sin duelos aún';
+
+        const cantidadAmigos = amigosRes && typeof amigosRes.count === 'number' ? amigosRes.count : null;
+        document.getElementById('pp-friends-count').textContent = cantidadAmigos !== null ? cantidadAmigos : '—';
+
+        document.getElementById('pp-anio-value').textContent = user.anio_cursada || user.cursada || 'No especificado';
 
         const igLink = document.getElementById('pp-instagram');
+        const waLink = document.getElementById('pp-whatsapp');
+        let hayRedes = false;
         if (user.instagram) {
             const handle = user.instagram.trim();
             igLink.href = handle.startsWith('http') ? handle : `https://instagram.com/${handle.replace(/^@/, '')}`;
-            igLink.style.display = 'inline';
+            igLink.style.display = 'inline-flex';
+            hayRedes = true;
         }
-        const waLink = document.getElementById('pp-whatsapp');
         if (user.whatsapp) {
             waLink.href = `https://wa.me/${user.whatsapp.replace(/\D/g, '')}`;
-            waLink.style.display = 'inline';
+            waLink.style.display = 'inline-flex';
+            hayRedes = true;
         }
+        document.getElementById('pp-redes-empty').style.display = hayRedes ? 'none' : 'inline';
 
         // Primer acceso = fecha de registro (created_at de profiles)
         document.getElementById('pp-first-access').textContent = user.created_at
             ? new Date(user.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })
             : 'Sin datos';
 
-        // Último acceso = last_login_at, actualizado en cada inicio de sesión (ver handleLogin)
-        document.getElementById('pp-last-access').textContent = user.last_login_at
-            ? new Date(user.last_login_at).toLocaleString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
-            : 'Sin registrar';
+        // Último acceso = last_login_at, actualizado en cada inicio de sesión
+        // (ver handleLogin y, ahora, auth-guard.js al restaurar la sesión).
+        document.getElementById('pp-last-access').textContent = _formatearUltimoAcceso(user.last_login_at);
 
         const { data: { user: authUser } } = await supabase.auth.getUser();
         const esMiPropioPerfil = !!(authUser && authUser.id === userId);
@@ -3461,11 +3855,83 @@ async function handleLogout() {
     }
     window.addEventListener('nika:friends-changed', () => { if (window._ppCurrentUserId) actualizarBotonAmistadPerfil(); });
 
+    // Lista desplegable de "Amigos" dentro del perfil público. Se carga on-demand
+    // (recién al primer click) y se cachea en el propio DOM (data-loaded) mientras
+    // el modal siga mostrando el mismo perfil, para no repetir la consulta si el
+    // usuario abre y cierra el desplegable varias veces.
+    async function togglePpFriendsList() {
+        const box = document.getElementById('pp-friends-list');
+        const card = document.getElementById('pp-friends-card');
+        if (!box || !card) return;
+
+        const abierto = box.style.display !== 'none';
+        if (abierto) {
+            box.style.display = 'none';
+            card.classList.remove('pp-stat-card--open');
+            return;
+        }
+
+        box.style.display = 'block';
+        card.classList.add('pp-stat-card--open');
+        if (box.dataset.loaded === 'true') return; // ya se había cargado para este perfil
+
+        const userId = window._ppCurrentUserId;
+        if (!userId || !window.NikaSocial) return;
+
+        box.innerHTML = '<div class="pp-friends-list-empty">Cargando...</div>';
+        const res = await window.NikaSocial.cargarAmigosDeUsuario(userId);
+
+        // Si mientras esperábamos la respuesta el usuario cerró el modal o abrió
+        // otro perfil, descartamos el resultado para no pintar datos viejos.
+        if (userId !== window._ppCurrentUserId) return;
+
+        if (!res.ok) {
+            box.innerHTML = '<div class="pp-friends-list-empty">No se pudo cargar la lista de amigos.</div>';
+            return;
+        }
+        if (res.data.length === 0) {
+            box.innerHTML = '<div class="pp-friends-list-empty">Todavía no tiene amigos agregados.</div>';
+            box.dataset.loaded = 'true';
+            return;
+        }
+
+        const miId = window.NikaAuth ? window.NikaAuth.userId : null;
+        box.innerHTML = res.data.map((f) => `
+            <div class="pp-friend-row">
+                <img src="${nikaEsc(f.avatar || DEFAULT_AVATAR)}" alt="img" class="pp-friend-row-avatar">
+                <span class="pp-friend-row-name">${nikaEsc(f.fullname || 'Estudiante Nika')}</span>
+                ${f.id === miId ? '' : `<button type="button" class="pp-friend-row-add" onclick="enviarSolicitudAmistad('${f.id}')">➕ Añadir</button>`}
+            </div>
+        `).join('');
+        box.dataset.loaded = 'true';
+    }
+
+    function _resetPpFriendsList() {
+        const box = document.getElementById('pp-friends-list');
+        const card = document.getElementById('pp-friends-card');
+        if (box) { box.style.display = 'none'; box.innerHTML = ''; box.dataset.loaded = 'false'; }
+        if (card) card.classList.remove('pp-stat-card--open');
+    }
+
     function closePublicProfileModal() {
         const modal = document.getElementById('public-profile-modal');
         if (modal) modal.style.display = 'none';
         window._ppCurrentUserId = null;
         window._ppCurrentUsername = null;
+        _resetPpFriendsList();
+    }
+
+    // Cierra el perfil público y vuelve a mostrar el modal desde el que se
+    // abrió (por ej. "Comunidad & Amigos"), en vez de dejar al usuario
+    // atrapado en el perfil sin forma de retroceder.
+    function volverDesdePerfilPublico() {
+        const origenId = window._ppOrigenModalId;
+        closePublicProfileModal();
+        if (origenId) {
+            const origenModal = document.getElementById(origenId);
+            if (origenModal) origenModal.style.display = 'flex';
+        }
+        window._ppOrigenModalId = null;
     }
 
     // ================= PWA: SERVICE WORKER + INSTALACIÓN =================
@@ -3629,6 +4095,8 @@ async function handleLogout() {
     let _pcAmigoActual = null;        // username del amigo con quien se está chateando
     let _pcRenderedIds = new Set();   // ids de mensajes ya pintados en esta conversación (evita duplicados)
     let _pcLastDayKey = null;         // último separador de día pintado
+    let _pcCargando = false;          // true mientras se baja el historial (los mensajes que lleguen se bufferean)
+    let _pcBufferMensajes = [];
 
     function _pcUuid() {
         if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
@@ -3672,59 +4140,71 @@ async function handleLogout() {
         if (modal) { modal.style.display = 'flex'; modal.classList.remove('pc-minimizado'); }
         if (listBox) listBox.innerHTML = '<div class="pc-loading-state">Cargando conversación...</div>';
 
+        // Los callbacks se registran ANTES de abrir la conversación: ChatManager los usa
+        // apenas se suscribe (presencia inicial, mensajes que llegan mientras carga el historial).
+        window.ChatManager.lecturaAutomatica = true;
+        window.ChatManager.onMensaje = (row) => {
+            if (row.from_username !== _pcAmigoActual && row.to_username !== _pcAmigoActual) return;
+            if (_pcCargando) { _pcBufferMensajes.push(row); return; }
+            _agregarBurbujaPrivada(row);
+            if (row.from_username === _pcAmigoActual && !_pcMinimized && !document.hidden) {
+                window.ChatManager.marcarComoLeido(_pcAmigoActual).then(() => actualizarBadgeMensajes());
+            }
+        };
+        // Presencia: "En línea" / "Desconectado" (ahora incluye la presencia global, no solo este chat)
+        window.ChatManager.onPresenciaCambio = (enLinea) => _pcPintarPresencia(enLinea);
+        // Lectura: cuando el amigo marca mis mensajes como leídos, sus ticks pasan a "✓✓ azul"
+        window.ChatManager.onLecturaCambio = () => _marcarBurbujasPropiasComoLeidas();
+
+        _pcCargando = true;
+        _pcBufferMensajes = [];
         try {
             const historial = await window.ChatManager.abrirConversacion(friendUsername);
             _renderMensajesPrivados(historial);
+            _pcCargando = false;
+            _pcBufferMensajes.splice(0).forEach(_agregarBurbujaPrivada); // los que llegaron durante la carga (dedupe por id)
             await window.ChatManager.marcarComoLeido(friendUsername);
             actualizarBadgeMensajes();
         } catch (err) {
             console.error('[openChatWithFriend]', err);
+            _pcCargando = false;
             if (listBox) listBox.innerHTML = '<div class="pc-empty-state">No se pudo cargar el chat.</div>';
         }
-
-        window.ChatManager.onMensaje = (row) => {
-            if (row.from_username === _pcAmigoActual || row.to_username === _pcAmigoActual) {
-                _agregarBurbujaPrivada(row);
-                if (row.from_username === _pcAmigoActual) {
-                    window.ChatManager.marcarComoLeido(_pcAmigoActual).then(() => actualizarBadgeMensajes());
-                }
-            }
-        };
-
-        // Presencia: muestra "En línea" en el header mientras dure la conversación abierta
-        if (window.ChatManager.onPresenciaCambio !== undefined) {
-            window.ChatManager.onPresenciaCambio = (enLinea) => {
-                if (!statusLabel) return;
-                statusLabel.textContent = enLinea ? 'En línea' : 'Desconectado';
-                statusLabel.classList.toggle('is-online', enLinea);
-            };
-        }
-
-        // Lectura: cuando el amigo abre la conversación y marca mis mensajes como
-        // leídos, sus ticks pasan de "✓✓ gris" (entregado) a "✓✓ azul" (leído).
-        if (window.ChatManager.onLecturaCambio !== undefined) {
-            window.ChatManager.onLecturaCambio = () => _marcarBurbujasPropiasComoLeidas();
-        }
+        _pcPintarPresencia(typeof window.ChatManager.estaEnLinea === 'function' ? window.ChatManager.estaEnLinea(friendUsername) : false);
 
         _pcMinimized = false;
         actualizarVisibilidadChatFab();
     }
 
-    // Pasa todas mis burbujas ya entregadas (✓✓ gris) a leídas (✓✓ azul),
-    // sin tener que repintar toda la conversación.
+    function _pcPintarPresencia(enLinea) {
+        const statusLabel = document.getElementById('pc-friend-status');
+        if (!statusLabel) return;
+        statusLabel.textContent = enLinea ? 'En línea' : 'Desconectado';
+        statusLabel.classList.toggle('is-online', !!enLinea);
+    }
+
+    // Pasa mis ticks a "✓✓ azul" (leído). ChatManager ya lo hace por id; esto es el respaldo visual.
+    // No toca burbujas todavía pendientes de confirmar (data-temp-id).
     function _marcarBurbujasPropiasComoLeidas() {
-        document.querySelectorAll('#pc-messages-list .chat-bubble-row.mine .tick-delivered').forEach(el => {
-            el.classList.remove('tick-delivered');
-            el.classList.add('tick-read');
+        if (!window.ChatManager || typeof window.ChatManager.tickHTML !== 'function') return;
+        document.querySelectorAll('#pc-messages-list .chat-bubble-row.mine:not([data-temp-id]) .chat-bubble-tick').forEach(el => {
+            if (el.dataset.estado === 'read') return;
+            const tpl = document.createElement('template');
+            tpl.innerHTML = window.ChatManager.tickHTML('read').trim();
+            const nuevo = tpl.content.firstElementChild;
+            nuevo.classList.add('tick-anim');
+            el.replaceWith(nuevo);
         });
     }
 
     function closePrivateChatModal() {
         const modal = document.getElementById('private-chat-modal');
         if (modal) { modal.style.display = 'none'; modal.classList.remove('pc-minimizado'); }
-        if (window.ChatManager) window.ChatManager.cerrarConversacion();
+        if (window.ChatManager) { window.ChatManager.cerrarConversacion(); window.ChatManager.lecturaAutomatica = true; }
         _pcAmigoActual = null;
         _pcRenderedIds = new Set();
+        _pcCargando = false;
+        _pcBufferMensajes = [];
         _pcMinimized = false;
         actualizarVisibilidadChatFab();
     }
@@ -3747,6 +4227,8 @@ async function handleLogout() {
             modal.style.display = 'none';
         }
         _pcMinimized = !!_pcAmigoActual;
+        // Minimizado = no lo estás viendo: los mensajes nuevos NO se marcan como leídos (✓✓ azul) hasta que lo reabras
+        if (window.ChatManager) window.ChatManager.lecturaAutomatica = !_pcMinimized;
         actualizarVisibilidadChatFab();
     }
 
@@ -3761,6 +4243,7 @@ async function handleLogout() {
                 modal.style.display = 'flex';
             }
             _pcMinimized = false;
+            if (window.ChatManager) window.ChatManager.lecturaAutomatica = true;
             actualizarVisibilidadChatFab();
             const listBox = document.getElementById('pc-messages-list');
             if (listBox) listBox.scrollTop = listBox.scrollHeight;
@@ -3840,35 +4323,27 @@ async function handleLogout() {
         return divisor + _bubbleHtml(m, myUsername);
     }
 
-    // Ícono SVG de un solo check (✓, "enviado") o doble check (✓✓, "entregado"/"leído").
-    // Se dibuja con currentColor para heredar el color según el estado (gris o azul #34B7F1).
-    const PC_TICK_SVG_SINGLE = '<svg viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 3.5L5.6 12.9 1 8.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    const PC_TICK_SVG_DOUBLE = '<svg viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 3.5L4.1 12.9 -0.5 8.3" transform="translate(4.5,0)" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 3.5L9.1 12.9 4.5 8.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    // Tick de estado, solo en mis mensajes: ✓ gris (enviado) · ✓✓ gris (recibido) · ✓✓ azul (leído).
+    // La lógica y el SVG viven en ChatManager (tickHTML / estadoDeEntrega); los estilos en styles.css.
+    function _pcTick(m, mia) {
+        if (!mia || !window.ChatManager || typeof window.ChatManager.tickHTML !== 'function') return '';
+        const estado = m._pending ? 'sent' : window.ChatManager.estadoDeEntrega(m);
+        return window.ChatManager.tickHTML(estado);
+    }
 
     function _bubbleHtml(m, myUsername) {
         const mia = m.from_username === myUsername;
         const idAttr = m.id ? ` data-msg-id="${NikaFriends.esc(m.id)}"` : (m._tempId ? ` data-temp-id="${NikaFriends.esc(m._tempId)}"` : '');
+        // data-msg-id también en la burbuja: es lo que usa ChatManager para repintar los ticks en vivo
+        const bubbleIdAttr = m.id ? ` data-msg-id="${NikaFriends.esc(m.id)}"` : '';
         const pendingClass = m._pending ? ' pending' : '';
         const hora = m.created_at ? _pcHora(m.created_at) : '';
-        // Estados de lectura, solo para mis propios mensajes (el amigo no ve ticks de lo que él mismo escribió):
-        //  - tick-sent (✓ simple): recién saliendo del composer, todavía optimista/sin confirmar en Supabase.
-        //  - tick-delivered (✓✓ gris): ya insertado en la base y empujado por Realtime al amigo, pero sin leer.
-        //  - tick-read (✓✓ azul #34B7F1): el amigo abrió la conversación y marcó el mensaje como leído.
-        let tick = '';
-        if (mia) {
-            if (m._pending) {
-                tick = `<span class="chat-bubble-tick tick-sent">${PC_TICK_SVG_SINGLE}</span>`;
-            } else if (m.read_at) {
-                tick = `<span class="chat-bubble-tick tick-read">${PC_TICK_SVG_DOUBLE}</span>`;
-            } else {
-                tick = `<span class="chat-bubble-tick tick-delivered">${PC_TICK_SVG_DOUBLE}</span>`;
-            }
-        }
+        const tick = _pcTick(m, mia);
 
         if (m.shared_question) {
             const q = m.shared_question;
             return `<div class="chat-bubble-row ${mia ? 'mine' : 'theirs'}"${idAttr}>
-                <div class="chat-question-card">
+                <div class="chat-question-card"${bubbleIdAttr}>
                     <div class="chat-question-card-head">📋 Pregunta compartida${q.up ? ' · ' + NikaFriends.esc(q.up) : ''}</div>
                     <div class="chat-question-card-body">${NikaFriends.esc(q.q || '')}</div>
                     ${hora ? `<div class="chat-bubble-meta">${NikaFriends.esc(hora)} ${tick}</div>` : ''}
@@ -3876,7 +4351,7 @@ async function handleLogout() {
             </div>`;
         }
         return `<div class="chat-bubble-row ${mia ? 'mine' : 'theirs'}"${idAttr}>
-            <div class="chat-bubble ${mia ? 'mine' : 'theirs'}${pendingClass}">
+            <div class="chat-bubble ${mia ? 'mine' : 'theirs'}${pendingClass}"${bubbleIdAttr}>
                 ${NikaFriends.esc(m.content || '')}
                 <div class="chat-bubble-meta">${hora ? NikaFriends.esc(hora) : ''} ${tick}</div>
             </div>
@@ -3900,13 +4375,30 @@ async function handleLogout() {
         listBox.scrollTop = listBox.scrollHeight;
     }
 
-    // Reemplaza la burbuja "pendiente" (temp-id) por la definitiva ya confirmada por Supabase
+    // Confirma la burbuja optimista "en el lugar" (sin borrarla y volver a pintarla):
+    // le quita .pending, le pone el id real (data-msg-id) y renderiza el tick real, que
+    // arranca en 'sent' (✓). Si el amigo ya confirmó la recepción, estadoDeEntrega() lo refleja.
     function _confirmarBurbujaPrivada(tempId, rowConfirmada) {
         const listBox = document.getElementById('pc-messages-list');
         if (!listBox) return;
-        const temp = listBox.querySelector(`[data-temp-id="${tempId}"]`);
-        if (temp) temp.remove();
-        if (rowConfirmada) _agregarBurbujaPrivada(rowConfirmada);
+        const rowEl = listBox.querySelector(`[data-temp-id="${tempId}"]`);
+        if (!rowEl) { if (rowConfirmada) _agregarBurbujaPrivada(rowConfirmada); return; } // la lista se recargó mientras tanto
+        if (!rowConfirmada || !rowConfirmada.id) { rowEl.remove(); return; }
+        if (_pcRenderedIds.has(rowConfirmada.id)) { rowEl.remove(); return; }             // otro camino ya la pintó
+        _pcRenderedIds.add(rowConfirmada.id);
+
+        const id = String(rowConfirmada.id);
+        rowEl.removeAttribute('data-temp-id');
+        rowEl.setAttribute('data-msg-id', id);
+        const burbuja = rowEl.querySelector('.chat-bubble, .chat-question-card');
+        if (!burbuja) return;
+        burbuja.classList.remove('pending');
+        burbuja.setAttribute('data-msg-id', id);
+        const meta = burbuja.querySelector('.chat-bubble-meta');
+        if (meta) {
+            const hora = rowConfirmada.created_at ? _pcHora(rowConfirmada.created_at) : '';
+            meta.innerHTML = `${NikaFriends.esc(hora)} ${_pcTick(rowConfirmada, true)}`;
+        }
     }
 
     function handlePcComposerKeydown(event) {
@@ -3968,11 +4460,11 @@ async function handleLogout() {
                 const username = el.getAttribute('data-presence-user');
                 const estado = estadosPorUsername[username];
                 const fallback = el.getAttribute('data-fallback');
-                if (estado && estado.up) {
-                    el.textContent = `📖 Estudiando ${estado.up}...`;
+                if (estado && estado.pomodoroActivo) {
+                    el.textContent = estado.tema ? `🍅 Estudiando: ${estado.tema}` : '🍅 En Pomodoro activo';
                     el.style.display = '';
-                } else if (estado && estado.pomodoroActivo) {
-                    el.textContent = '🍅 En Pomodoro activo';
+                } else if (estado && estado.up) {
+                    el.textContent = `📖 Estudiando ${estado.up}...`;
                     el.style.display = '';
                 } else if (fallback) {
                     el.textContent = fallback;
@@ -3994,161 +4486,250 @@ async function handleLogout() {
             _mostrarInvitacionPomodoro(payload);
         };
 
-        // El host se entera de que su invitado ya está corriendo: sincroniza
-        // su propia barra y avisa con un toast.
-        window.PomodoroSyncManager.onJoinConfirmed = (payload) => {
-            if (window.NikaPomoBar) window.NikaPomoBar.setSyncPartner(payload.fromUsername);
-            showToast(`🍅 @${payload.fromUsername} se unió a tu Pomodoro. ¡Están sincronizados!`, 'success');
+        // Un amigo pide "Acompañar en el estudio": el Host valida y responde con la invitación a la sala.
+        window.PomodoroSyncManager.onJoinRequest = async (payload) => {
+            const from = payload && payload.fromUsername;
+            if (!from || !window.PomodoroEngine) return;
+            const rechazar = (motivo) => window.PomodoroSyncManager.rechazarSolicitud(from, motivo);
+            if (!(await _esAmigoConfirmado(from, { avisar: false, siFalla: false }))) { rechazar('no_amigo'); return; }
+            const st = window.PomodoroEngine.getState();
+            if (st.shared && st.shared.role === 'guest') { rechazar('es_invitado'); return; }
+            if (st.status === 'idle' && !st.shared) { rechazar('sin_pomodoro'); return; }
+            const r = await window.PomodoroSyncManager.aceptarSolicitud(from);
+            if (r && r.ok) showToast(`🧉 @${from} se está uniendo a tu sesión…`);
         };
+
+        // Avisos de la sesión compartida (entró / salió alguien, se cortó el Host, pedido rechazado…)
+        if (window.PomodoroEngine && !window._nikaPomoSharedHooked) {
+            window._nikaPomoSharedHooked = true;
+            window.PomodoroEngine.on('shared', (e) => {
+                if (!e) return;
+                const u = e.username ? '@' + e.username : 'tu compañero';
+                switch (e.tipo) {
+                    case 'guest_joined': showToast(`🧉 ${u} se unió a tu sesión de estudio.`, 'success'); break;
+                    case 'guest_left': showToast(`${u} salió de la sesión.`); break;
+                    case 'host_ended': showToast(`${u} terminó la sesión compartida. Tu tiempo quedó guardado.`); break;
+                    case 'host_offline': showToast(`Se perdió la conexión con ${u}. Tu tiempo quedó guardado.`); break;
+                    case 'sala_llena': showToast(`${u} ya está estudiando con otra persona.`); break;
+                    case 'rechazada': {
+                        const motivos = {
+                            sin_pomodoro: `${u} no tiene un Pomodoro activo ahora.`,
+                            occupied: `${u} ya estudia con otra persona.`,
+                            sala_llena: `${u} ya estudia con otra persona.`,
+                            es_invitado: `${u} está como invitado en otra sesión.`,
+                            no_amigo: 'Solo podés sincronizar con tus amigos.',
+                        };
+                        showToast(motivos[e.motivo] || `${u} no pudo aceptar tu pedido.`);
+                        break;
+                    }
+                }
+            });
+        }
 
         window.PomodoroSyncManager.iniciar();
     }
 
-    // Tarjeta flotante de invitación a Pomodoro sincronizado (no se autocierra:
-    // el invitado decide con calma, a diferencia del toast de 3 segundos).
+    // ================= POMODORO COMPARTIDO: menú de la manzana, roles e invitaciones =================
+    // Host = único dueño del reloj (Start / Pause / Stop). Invitado = solo escucha, con los controles bloqueados.
+    // Todo el estado vive en PomodoroEngine; el canal de la sala, en PomodoroSyncManager.
+
+    function _inyectarCssMenuPomodoro() {
+        if (document.getElementById('nika-pomo-menu-css')) return;
+        const style = document.createElement('style');
+        style.id = 'nika-pomo-menu-css';
+        style.textContent = `
+            .nika-pomo-menu { position: fixed; z-index: 4200; width: min(272px, calc(100vw - 16px)); background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 18px 40px -8px rgba(0,0,0,0.35); padding: 6px; animation: nikaPomoMenuIn .16s ease; }
+            .nika-pomo-menu-head { font-size: 0.74rem; color: var(--text-muted); padding: 8px 10px 6px; }
+            .nika-pomo-menu-head b { color: var(--text-main); }
+            .nika-pomo-menu-item { display: flex; flex-direction: column; gap: 2px; width: 100%; text-align: left; border: none; background: transparent; border-radius: 10px; padding: 9px 10px; cursor: pointer; color: var(--text-main); font-family: inherit; }
+            .nika-pomo-menu-item:hover:not(:disabled), .nika-pomo-menu-item:focus-visible { background: rgba(2,132,199,0.10); outline: none; }
+            .nika-pomo-menu-item:disabled { opacity: 0.5; cursor: not-allowed; }
+            .nika-pomo-menu-title { font-size: 0.84rem; font-weight: 800; }
+            .nika-pomo-menu-sub { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; line-height: 1.25; }
+            @keyframes nikaPomoMenuIn { from { opacity: 0; transform: translateY(-4px) scale(0.98); } to { opacity: 1; transform: none; } }
+        `;
+        document.head.appendChild(style);
+    }
+
+    let _pomoMenuEl = null;
+    let _pomoMenuCleanup = null;
+
+    function _cerrarMenuPomodoro() {
+        if (_pomoMenuEl) { _pomoMenuEl.remove(); _pomoMenuEl = null; }
+        if (_pomoMenuCleanup) { _pomoMenuCleanup(); _pomoMenuCleanup = null; }
+    }
+
+    // Reemplaza la acción por defecto de la manzana: en vez de mandar una invitación genérica, deja elegir el rol.
+    function abrirMenuPomodoro(ev, friendUsername) {
+        if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+        if (!friendUsername) return;
+        const yaAbierto = !!(_pomoMenuEl && _pomoMenuEl.dataset.user === friendUsername);
+        _cerrarMenuPomodoro();
+        if (yaAbierto) return; // segundo toque sobre la misma manzana = cerrar
+        _inyectarCssMenuPomodoro();
+
+        const esc = NikaFriends.esc;
+        const st = window.PomodoroEngine ? window.PomodoroEngine.getState() : null;
+        const compartida = st && st.shared;
+        const estadoAmigo = window.PomodoroSyncManager ? (window.PomodoroSyncManager.estadoDeAmigos([friendUsername])[0] || null) : null;
+        const amigoActivo = !!(estadoAmigo && estadoAmigo.pomodoroActivo);
+
+        let motivoA = '';
+        let motivoB = '';
+        if (compartida && compartida.role === 'guest') motivoA = 'Estás como invitado: salí de esa sesión primero';
+        if (compartida) motivoB = 'Ya estás en una sesión compartida';
+        else if (!amigoActivo) motivoB = `@${friendUsername} no tiene un Pomodoro activo`;
+
+        const menu = document.createElement('div');
+        menu.className = 'nika-pomo-menu';
+        menu.setAttribute('role', 'menu');
+        menu.dataset.user = friendUsername;
+        menu.innerHTML = `
+            <div class="nika-pomo-menu-head">🍅 Pomodoro con <b>@${esc(friendUsername)}</b></div>
+            <button type="button" role="menuitem" class="nika-pomo-menu-item" data-act="host" ${motivoA ? 'disabled' : ''}>
+                <span class="nika-pomo-menu-title">Invitar a estudiar (Host) 🧉</span>
+                <span class="nika-pomo-menu-sub">${esc(motivoA || 'Vos controlás el reloj y @' + friendUsername + ' lo ve sincronizado')}</span>
+            </button>
+            <button type="button" role="menuitem" class="nika-pomo-menu-item" data-act="guest" ${motivoB ? 'disabled' : ''}>
+                <span class="nika-pomo-menu-title">Acompañar en el estudio (Invitado) 🧉</span>
+                <span class="nika-pomo-menu-sub">${esc(motivoB || (estadoAmigo && estadoAmigo.tema ? 'Te unís a: ' + estadoAmigo.tema : 'Ves su reloj; solo @' + friendUsername + ' lo controla'))}</span>
+            </button>`;
+        document.body.appendChild(menu);
+        _pomoMenuEl = menu;
+
+        // Posición: pegado al botón, sin salirse de la pantalla
+        const boton = ev && ((ev.currentTarget && ev.currentTarget.getBoundingClientRect) ? ev.currentTarget : (ev.target && ev.target.closest ? ev.target.closest('button') : null));
+        const r = boton ? boton.getBoundingClientRect() : { left: window.innerWidth / 2, right: window.innerWidth / 2, top: 80, bottom: 80 };
+        const mw = menu.offsetWidth, mh = menu.offsetHeight, margen = 8;
+        const left = Math.max(margen, Math.min(r.right - mw, window.innerWidth - mw - margen));
+        let top = r.bottom + 6;
+        if (top + mh > window.innerHeight - margen) top = Math.max(margen, r.top - mh - 6);
+        menu.style.left = left + 'px';
+        menu.style.top = top + 'px';
+
+        menu.querySelectorAll('.nika-pomo-menu-item').forEach(item => item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (item.disabled) return;
+            const act = item.dataset.act;
+            _cerrarMenuPomodoro();
+            if (act === 'host') pomodoroInvitarComoHost(friendUsername);
+            else pomodoroAcompanarComoInvitado(friendUsername);
+        }));
+
+        const alClickAfuera = (e) => {
+            if (!_pomoMenuEl || _pomoMenuEl.contains(e.target)) return;
+            if (e.target.closest && e.target.closest('.nika-pomo-btn')) return; // la manzana misma alterna abrir/cerrar
+            _cerrarMenuPomodoro();
+        };
+        const alTecla = (e) => { if (e.key === 'Escape') _cerrarMenuPomodoro(); };
+        const alMoverse = () => _cerrarMenuPomodoro();
+        const timer = setTimeout(() => document.addEventListener('click', alClickAfuera, true), 0);
+        document.addEventListener('keydown', alTecla);
+        window.addEventListener('resize', alMoverse);
+        window.addEventListener('scroll', alMoverse, true);
+        _pomoMenuCleanup = () => {
+            clearTimeout(timer);
+            document.removeEventListener('click', alClickAfuera, true);
+            document.removeEventListener('keydown', alTecla);
+            window.removeEventListener('resize', alMoverse);
+            window.removeEventListener('scroll', alMoverse, true);
+        };
+        const primero = menu.querySelector('.nika-pomo-menu-item:not(:disabled)');
+        if (primero) primero.focus();
+    }
+
+    // Solo se puede sincronizar con amigos confirmados.
+    // siFalla: qué devolver si no se pudo consultar la lista (true = no bloquear, como antes).
+    async function _esAmigoConfirmado(username, opts) {
+        const avisar = !opts || opts.avisar !== false;
+        const siFalla = opts && opts.siFalla !== undefined ? opts.siFalla : true;
+        try {
+            const amigos = await NikaFriends.listFriends();
+            if (amigos.some(f => f.username === username)) return true;
+            if (avisar) showToast('Solo podés sincronizar el Pomodoro con tus amigos.');
+            return false;
+        } catch (_) { return siFalla; }
+    }
+
+    // Opción A — "Invitar a estudiar (Host)": vos mandás el reloj; si no tenés uno en marcha, arranca ahora.
+    async function pomodoroInvitarComoHost(friendUsername) {
+        if (!window.PomodoroEngine || !window.PomodoroSyncManager) { showToast('Pomodoro sincronizado no disponible todavía.'); return; }
+        if (!friendUsername || !(await _esAmigoConfirmado(friendUsername))) return;
+        const r = window.PomodoroEngine.hostSharedSession(friendUsername);
+        if (!r.ok) {
+            showToast(r.reason === 'occupied' ? `Ya estás estudiando con @${r.partner}.`
+                : r.reason === 'guest' ? 'Estás como invitado en otra sesión: salí primero.'
+                : 'No se pudo iniciar la sesión compartida.');
+            return;
+        }
+        try {
+            await window.PomodoroSyncManager.invitarASincronizar(friendUsername, { sessionId: r.sessionId, tema: r.tema });
+            showToast(`🧉 Invitación enviada a @${friendUsername}. Tu reloj ya está en marcha.`);
+        } catch (_) {
+            showToast('La sesión quedó abierta, pero no se pudo enviar la invitación. Probá de nuevo.');
+        }
+    }
+
+    // Opción B — "Acompañar en el estudio (Invitado)": pedís entrar a la sesión del amigo (él es el Host).
+    async function pomodoroAcompanarComoInvitado(friendUsername) {
+        if (!window.PomodoroEngine || !window.PomodoroSyncManager) { showToast('Pomodoro sincronizado no disponible todavía.'); return; }
+        if (!friendUsername || !(await _esAmigoConfirmado(friendUsername))) return;
+        if (window.PomodoroEngine.getState().shared) { showToast('Ya estás en una sesión compartida.'); return; }
+        const estado = window.PomodoroSyncManager.estadoDeAmigos([friendUsername])[0];
+        if (!estado || !estado.pomodoroActivo) { showToast(`@${friendUsername} no tiene un Pomodoro activo. Pedile que te invite (opción Host).`); return; }
+        try {
+            await window.PomodoroSyncManager.solicitarUnirse(friendUsername);
+            showToast(`🧉 Pedido enviado a @${friendUsername}. Te sumás apenas te acepte.`);
+        } catch (_) {
+            showToast('No se pudo enviar el pedido. Probá de nuevo.');
+        }
+    }
+
+    // Compatibilidad con llamadas viejas: "unirse al Pomodoro de" = acompañar como invitado.
+    function unirseAlPomodoroDe(friendUsername) { return pomodoroAcompanarComoInvitado(friendUsername); }
+
+    // Tarjeta flotante de invitación (no se autocierra: el invitado decide con calma).
+    // Si la invitación es la respuesta a un pedido mío ("Acompañar"), me uno directo.
     function _mostrarInvitacionPomodoro(payload) {
+        if (!payload || !payload.fromUsername) return;
+        if (payload.autoAceptar) { _unirseComoInvitado(payload); return; }
+
         const existente = document.getElementById('nika-pomo-invite');
         if (existente) existente.remove();
 
+        const esc = NikaFriends.esc;
         const card = document.createElement('div');
         card.className = 'nika-pomo-invite';
         card.id = 'nika-pomo-invite';
         card.innerHTML = `
-            <div class="nika-pomo-invite-title">🍅 @${payload.fromUsername} te invitó a estudiar</div>
-            <div class="nika-pomo-invite-sub">Modo Biblioteca sincronizado — ambos van a ver el mismo reloj.</div>
+            <div class="nika-pomo-invite-title">🧉 @${esc(payload.fromUsername)} te invitó a estudiar</div>
+            <div class="nika-pomo-invite-sub">${payload.tema ? '<b>' + esc(payload.tema) + '</b><br>' : ''}Vas a ver su mismo reloj. Solo @${esc(payload.fromUsername)} controla iniciar, pausar y frenar.</div>
             <div class="nika-pomo-invite-actions">
                 <button type="button" class="nika-pomo-invite-reject">Ahora no</button>
-                <button type="button" class="nika-pomo-invite-accept">Unirme</button>
+                <button type="button" class="nika-pomo-invite-accept">Unirme como invitado</button>
             </div>
         `;
         document.body.appendChild(card);
         card.querySelector('.nika-pomo-invite-reject').addEventListener('click', () => card.remove());
         card.querySelector('.nika-pomo-invite-accept').addEventListener('click', () => {
             card.remove();
-            _iniciarPomodoroLocalSincronizado(payload.fromUsername, payload.estadoActual);
+            _unirseComoInvitado(payload);
         });
 
         // No se queda para siempre en pantalla si el invitado no reacciona.
         setTimeout(() => { if (document.getElementById('nika-pomo-invite') === card) card.remove(); }, 45000);
     }
 
-    async function unirseAlPomodoroDe(friendUsername) {
-        if (!window.PomodoroSyncManager) { showToast('Pomodoro sincronizado no disponible todavía.'); return; }
-        if (!friendUsername) return;
-
-        // Solo se puede sincronizar con amigos confirmados
-        try {
-            const amigos = await NikaFriends.listFriends();
-            if (!amigos.some(f => f.username === friendUsername)) {
-                showToast('Solo podés sincronizar el Pomodoro con tus amigos.');
-                return;
-            }
-        } catch (_) { /* si falla la consulta, no bloqueamos */ }
-
-        const estados = window.PomodoroSyncManager.estadoDeAmigos([friendUsername]);
-        const estadoAmigo = estados[0] || null;
-
-        if (estadoAmigo && estadoAmigo.pomodoroActivo) {
-            // Ya está corriendo un Pomodoro: pregunto qué querés hacer en vez de
-            // decidir por vos (antes se unía directo, sin dar la opción de invitarlo al mío).
-            _mostrarEleccionPomodoro(friendUsername, estadoAmigo);
-        } else {
-            // No tiene nada activo todavía: no hay ambigüedad posible, solo invito.
-            try {
-                await window.PomodoroSyncManager.invitarASincronizar(friendUsername);
-                showToast(`Invitación enviada a @${friendUsername}. Esperando que se una…`);
-            } catch (_) {
-                showToast('No se pudo enviar la invitación. Probá de nuevo.');
-            }
-        }
-    }
-
-    // "La manzana roja": el amigo ya está en un Pomodoro activo. Antes tocarla
-    // siempre te unía al de él sin preguntar — ahora deja elegir.
-    function _mostrarEleccionPomodoro(friendUsername, estadoAmigo) {
-        const existente = document.getElementById('nika-pomo-choice');
-        if (existente) existente.remove();
-
-        const overlay = document.createElement('div');
-        overlay.className = 'nika-pomo-choice-overlay';
-        overlay.id = 'nika-pomo-choice';
-        overlay.innerHTML = `
-            <div class="nika-pomo-choice-card">
-                <div class="nika-pomo-choice-icon">🍅</div>
-                <h3 class="nika-pomo-choice-title">@${friendUsername} ya está en un Pomodoro</h3>
-                <p class="nika-pomo-choice-sub">¿Qué querés hacer?</p>
-                <div class="nika-pomo-choice-actions">
-                    <button type="button" class="nika-pomo-choice-btn nika-pomo-choice-btn--primary" id="nika-pomo-choice-join">🤝 Unirme a su Pomodoro</button>
-                    <button type="button" class="nika-pomo-choice-btn" id="nika-pomo-choice-invite">📨 Invitarlo al mío</button>
-                    <button type="button" class="nika-pomo-choice-btn nika-pomo-choice-btn--ghost" id="nika-pomo-choice-cancel">Cancelar</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-
-        overlay.querySelector('#nika-pomo-choice-join').addEventListener('click', () => {
-            overlay.remove();
-            _iniciarPomodoroLocalSincronizado(friendUsername, estadoAmigo);
-        });
-        overlay.querySelector('#nika-pomo-choice-invite').addEventListener('click', async () => {
-            overlay.remove();
-            try {
-                await window.PomodoroSyncManager.invitarASincronizar(friendUsername);
-                showToast(`Invitación enviada a @${friendUsername}.`);
-            } catch (_) {
-                showToast('No se pudo enviar la invitación. Probá de nuevo.');
-            }
-        });
-        overlay.querySelector('#nika-pomo-choice-cancel').addEventListener('click', () => overlay.remove());
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
-    }
-
-    // ---- Pomodoro sincronizado (Modo Biblioteca): usa el motor real, no un timer de juguete ----
-    function _iniciarPomodoroLocalSincronizado(friendUsername, estadoAmigo) {
+    async function _unirseComoInvitado(payload) {
         if (!window.PomodoroEngine) { showToast('El motor de Pomodoro no está disponible.'); return; }
-
-        const modal = document.getElementById('pomodoro-sync-modal');
-        const label = document.getElementById('pomo-with-label');
-        if (label) label.textContent = `Sincronizado con @${friendUsername}`;
-        if (modal) modal.style.display = 'flex';
-
-        // Duración REAL configurada por el host (minutos -> segundos). Si por algún
-        // motivo todavía no llegó (amigo recién conectado, versión vieja en caché),
-        // usamos el default configurado del motor como último recurso.
-        const tieneDuracionReal = estadoAmigo && Number.isFinite(estadoAmigo.tiempoTotal) && estadoAmigo.tiempoTotal > 0;
-        const duracionMin = tieneDuracionReal ? estadoAmigo.tiempoTotal : PomodoroEngine.getMinutes('work');
-
-        // Tiempo restante que el host reportó la última vez que cambió de estado,
-        // menos lo que pasó desde ese reporte hasta que me uní.
-        const restanteReportado = (estadoAmigo && Number.isFinite(estadoAmigo.tiempoRestante))
-            ? estadoAmigo.tiempoRestante
-            : duracionMin * 60;
-        let transcurrido = 0;
-        if (estadoAmigo && estadoAmigo.pomodoroActivo && estadoAmigo.updated_at) {
-            transcurrido = Math.floor((Date.now() - new Date(estadoAmigo.updated_at).getTime()) / 1000);
+        if (!payload.sessionId) { showToast('Esa invitación es de una versión vieja. Pedile que la reenvíe.'); return; }
+        if (!(await _esAmigoConfirmado(payload.fromUsername))) return;
+        const r = window.PomodoroEngine.joinShared({ sessionId: payload.sessionId, hostUsername: payload.fromUsername });
+        if (!r.ok) {
+            showToast(r.reason === 'is_host' ? 'Ya sos Host de una sesión con otra persona.' : 'No se pudo unir a la sesión.');
+            return;
         }
-        const restanteSeg = Math.max(restanteReportado - Math.max(transcurrido, 0), 0);
-
-        // Si el invitado no tenía ya una UP propia seleccionada en el motor, le damos
-        // un contexto genérico: si no, registerStudySession() descarta la sesión por
-        // no tener moduleId/upId y el tiempo sincronizado nunca queda guardado.
-        const estadoActual = PomodoroEngine.getState();
-        const ctx = (estadoActual.moduleId && estadoActual.upId)
-            ? null
-            : { moduleId: 'biblioteca', upId: 'Sincronizado', upLabel: `Con @${friendUsername}` };
-
-        PomodoroEngine.startSynced(duracionMin, restanteSeg, ctx);
-        window.PomodoroSyncManager.actualizarEstado({ pomodoroActivo: true, faseActual: 'Enfoque', tiempoTotal: duracionMin, tiempoRestante: restanteSeg });
-        if (window.NikaPomoBar) window.NikaPomoBar.setSyncPartner(friendUsername);
-        try { window.PomodoroSyncManager.confirmarUnion(friendUsername); } catch (_) {}
-
-        // Confirmación breve y cierre automático: el invitado puede seguir navegando,
-        // el reloj sigue corriendo de fondo (título de la pestaña + notificación al terminar).
-        const display = document.getElementById('pomo-timer-display');
-        const faseDisplay = document.getElementById('pomo-fase-display');
-        if (display) display.textContent = PomodoroEngine.formatTime(restanteSeg);
-        if (faseDisplay) faseDisplay.textContent = '🍅 Sincronizado — podés seguir navegando';
-        setTimeout(closePomodoroSyncModal, 1600);
+        showToast(`🧉 Te uniste a la sesión de @${payload.fromUsername}. Solo el Host controla el reloj.`, 'success');
     }
 
     function closePomodoroSyncModal() {
@@ -4164,11 +4745,12 @@ async function handleLogout() {
         handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
         NikaAudio, applySidebarResponsiveState,
         cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
+        openSimuladoresHub, closeSimuladoresHub,
         openChatModal, closeChatModal, sendChatMessage, toggleForumThreadReplies, submitForumReply,
-        abrirPerfilPublico, closePublicProfileModal,
+        abrirPerfilPublico, closePublicProfileModal, volverDesdePerfilPublico,
         openChatWithFriend, closePrivateChatModal, sendPrivateMessage, handlePcComposerKeydown, autoResizePcComposer,
         openDmInboxModal, closeDmInboxModal, actualizarBadgeMensajes, instalarAppNika, instalarAppNikaDesdeBanner,
-        initCommunityPresence, unirseAlPomodoroDe, closePomodoroSyncModal, NikaOnboarding,
+        initCommunityPresence, unirseAlPomodoroDe, abrirMenuPomodoro, pomodoroInvitarComoHost, pomodoroAcompanarComoInvitado, closePomodoroSyncModal, NikaOnboarding,
         minimizePrivateChat, handleChatFabClick, actualizarVisibilidadChatFab,
         openAdminUsersModal, closeAdminUsersModal, filterAdminUsersList, cargarAdminUsuarios, refrescarStatUsuarios
     });

@@ -74,11 +74,32 @@ window.NikaAuth.ready = new Promise((resolve) => {
             window.NikaAuth.session = session;
             window.NikaAuth.userId = session ? session.user.id : null;
 
+            // Registramos "último acceso" cada vez que hay una sesión válida al
+            // cargar la página (login manual, sesión persistida, refresh, etc.).
+            // Usamos la misma columna que ya lee el resto del Campus
+            // (profiles.last_login_at) para no duplicar datos. Es "fire and
+            // forget": si falla (ej. RLS, sin red) no debe romper el login.
+            if (session && session.user && session.user.id) {
+                supabaseClient.from('profiles')
+                    .update({ last_login_at: new Date().toISOString() })
+                    .eq('id', session.user.id)
+                    .then(() => {}, (err) => console.warn('[AuthGuard] No se pudo actualizar last_login_at:', err));
+            }
+
             // Mantenemos el user_id sincronizado si la sesión cambia en caliente
             // (ej. el usuario cierra sesión desde otra pestaña)
             supabaseClient.auth.onAuthStateChange((_event, newSession) => {
                 window.NikaAuth.session = newSession;
                 window.NikaAuth.userId = newSession ? newSession.user.id : null;
+
+                // Un inicio de sesión "en caliente" (login, magic link, OAuth) también
+                // cuenta como acceso, aunque no haya recargado la página.
+                if (_event === 'SIGNED_IN' && newSession && newSession.user && newSession.user.id) {
+                    supabaseClient.from('profiles')
+                        .update({ last_login_at: new Date().toISOString() })
+                        .eq('id', newSession.user.id)
+                        .then(() => {}, (err) => console.warn('[AuthGuard] No se pudo actualizar last_login_at:', err));
+                }
 
                 if (!newSession && !isPublicPage) {
                     window.location.href = 'index.html';

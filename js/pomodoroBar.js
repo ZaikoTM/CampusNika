@@ -7,12 +7,16 @@
 // (targetEnd) persistida en localStorage, esta barra sigue mostrando el tiempo
 // correcto aunque se pierda la conexión, se recargue la página o se navegue
 // a otra sección — nunca depende de que el socket de Supabase siga vivo.
+//
+// Sesión compartida: muestra "Estudiando: <Unidad/Tema> con @usuario" y el rol
+// (🧉 Host / 🔒 Invitado). El Invitado no puede pausar/reanudar: solo el Host.
 
 const NikaPomoBar = (() => {
     const PARTNER_KEY = 'nika_pomo_sync_partner';
     let bar = null;
     let collapsed = false;
 
+    // (Legado) El compañero ahora vive en el estado del motor (PomodoroEngine.getState().shared).
     function setSyncPartner(username) {
         try {
             if (username) localStorage.setItem(PARTNER_KEY, username);
@@ -40,6 +44,8 @@ const NikaPomoBar = (() => {
             .nika-pomo-bar-time { font-variant-numeric: tabular-nums; font-size: 0.92rem; }
             .nika-pomo-bar-partner { opacity: 0.92; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
             .nika-pomo-bar-spacer { flex: 1; }
+            .nika-pomo-bar-role { background: rgba(255,255,255,0.22); border-radius: 999px; padding: 2px 9px; font-size: 0.7rem; font-weight: 800; white-space: nowrap; flex-shrink: 0; }
+            .nika-pomo-bar-btn:disabled { opacity: 0.45; cursor: not-allowed; }
             .nika-pomo-bar-btn { background: rgba(255,255,255,0.22); border: none; color: #fff; width: 26px; height: 26px; border-radius: 7px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
             .nika-pomo-bar-btn:hover { background: rgba(255,255,255,0.35); }
             @media (max-width: 640px) { .nika-pomo-bar-inner { font-size: 0.74rem; padding: 6px 10px; gap: 7px; } }
@@ -102,9 +108,11 @@ const NikaPomoBar = (() => {
                     <span class="nika-pomo-bar-logo">🍅</span>
                     <span class="nika-pomo-bar-phase" id="nika-pomo-bar-phase">Enfoque</span>
                     <span class="nika-pomo-bar-time" id="nika-pomo-bar-time">25:00</span>
+                    <span class="nika-pomo-bar-role" id="nika-pomo-bar-role" style="display:none;"></span>
                     <span class="nika-pomo-bar-partner" id="nika-pomo-bar-partner"></span>
                 </div>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-toggle" title="Pausar / reanudar">⏸️</button>
+                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-leave" title="Salir de la sesión compartida" style="display:none;">🚪</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-min" title="Minimizar">—</button>
             </div>
             <button type="button" class="nika-pomo-bar-pill" id="nika-pomo-bar-pill" title="Click para volver a mostrar la barra completa">
@@ -115,9 +123,13 @@ const NikaPomoBar = (() => {
         `;
         document.body.prepend(bar);
 
+        document.getElementById('nika-pomo-bar-leave').addEventListener('click', () => {
+            if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: 'manual' });
+        });
         document.getElementById('nika-pomo-bar-toggle').addEventListener('click', () => {
             if (!window.PomodoroEngine) return;
             const st = window.PomodoroEngine.getState();
+            if (st.shared && st.shared.role === 'guest') return; // solo el Host controla el reloj
             if (st.status === 'running') window.PomodoroEngine.pause();
             else window.PomodoroEngine.start();
         });
@@ -147,44 +159,87 @@ const NikaPomoBar = (() => {
     function _render() {
         if (!window.PomodoroEngine) return;
         const st = window.PomodoroEngine.getState();
+        const sh = st.shared;
 
-        if (st.status === 'idle') {
+        // Con una sesión compartida la barra queda visible aunque el reloj esté en espera
+        // (el Invitado tiene que ver a qué sesión está atado y poder salir).
+        if (st.status === 'idle' && !sh) {
             if (bar) { bar.remove(); bar = null; document.body.classList.remove('nika-has-pomo-bar'); }
             return;
         }
         if (!bar) _crear();
 
         const esDescanso = st.mode === 'break';
+        const enEspera = st.status === 'idle';
+        const esInvitado = !!(sh && sh.role === 'guest');
         const tiempoFormateado = window.PomodoroEngine.formatTime(st.remainingSeconds);
+        const tema = window.PomodoroEngine.formatTema ? window.PomodoroEngine.formatTema(st) : (st.upLabel || '');
 
-        document.getElementById('nika-pomo-bar-phase').textContent = esDescanso ? '☕ Descanso' : '📚 Enfoque';
+        document.getElementById('nika-pomo-bar-phase').textContent = enEspera
+            ? (esInvitado ? '⏳ En espera' : (esDescanso ? '☕ Descanso' : '📚 Enfoque'))
+            : (esDescanso ? '☕ Descanso' : '📚 Enfoque');
         document.getElementById('nika-pomo-bar-time').textContent = tiempoFormateado;
-        const partner = getSyncPartner();
+
+        // Rol dentro de la sesión compartida
+        const roleEl = document.getElementById('nika-pomo-bar-role');
+        if (sh) {
+            roleEl.style.display = '';
+            roleEl.textContent = esInvitado ? '🔒 Invitado' : '🧉 Host';
+            roleEl.title = esInvitado ? 'Solo el Host controla el reloj' : 'Vos controlás el reloj de la sesión';
+        } else {
+            roleEl.style.display = 'none';
+        }
+
+        // Banner: "Estudiando: <Unidad/Tema> con @usuario"
         const partnerEl = document.getElementById('nika-pomo-bar-partner');
-        partnerEl.textContent = partner ? `· Sincronizado con @${partner}` : (st.upLabel ? `· ${st.upLabel}` : '');
-        document.getElementById('nika-pomo-bar-toggle').textContent = st.status === 'running' ? '⏸️' : '▶️';
+        if (sh) {
+            const otro = sh.partner;
+            let txt;
+            if (otro) {
+                txt = tema ? `Estudiando: ${tema} con @${otro}` : `Estudiando con @${otro}`;
+                if (!sh.partnerOnline) txt += ' (sin conexión)';
+                if (esInvitado && enEspera) txt = `Esperando que @${otro} inicie el reloj` + (tema ? ` · ${tema}` : '');
+            } else {
+                txt = tema ? `Estudiando: ${tema} · esperando invitado…` : 'Esperando invitado…';
+            }
+            partnerEl.textContent = txt;
+            partnerEl.title = txt;
+        } else {
+            const legado = getSyncPartner();
+            partnerEl.textContent = legado ? `· Sincronizado con @${legado}` : (tema ? `· ${tema}` : '');
+            partnerEl.title = '';
+        }
+
+        const toggle = document.getElementById('nika-pomo-bar-toggle');
+        toggle.textContent = st.status === 'running' ? '⏸️' : '▶️';
+        toggle.disabled = esInvitado;
+        toggle.style.display = (esInvitado && enEspera) ? 'none' : '';
+        toggle.title = esInvitado ? `Controlado por @${sh.partner || 'el Host'}` : 'Pausar / reanudar';
+        document.getElementById('nika-pomo-bar-leave').style.display = sh ? '' : 'none';
         bar.classList.toggle('nika-pomo-bar--paused', st.status !== 'running');
         document.body.classList.add('nika-has-pomo-bar');
 
         // Píldora minimizada: mismo dato que la barra completa, en formato corto
-        // ("⏱️ Enfoque activo: mm:ss" / "☕ Descanso: mm:ss"), para que se pueda
-        // seguir el tiempo sin necesidad de desplegar la barra.
         const pillIcon = document.getElementById('nika-pomo-bar-pill-icon');
         const pillLabel = document.getElementById('nika-pomo-bar-pill-label');
         const pillTime = document.getElementById('nika-pomo-bar-pill-time');
         if (pillIcon) pillIcon.textContent = esDescanso ? '☕' : '⏱️';
-        if (pillLabel) pillLabel.textContent = st.status === 'running'
-            ? (esDescanso ? 'Descanso activo' : 'Enfoque activo')
-            : (esDescanso ? 'Descanso en pausa' : 'Enfoque en pausa');
+        if (pillLabel) pillLabel.textContent = enEspera
+            ? 'En espera'
+            : (st.status === 'running'
+                ? (esDescanso ? 'Descanso activo' : 'Enfoque activo')
+                : (esDescanso ? 'Descanso en pausa' : 'Enfoque en pausa'));
         if (pillTime) pillTime.textContent = tiempoFormateado;
     }
 
     function _init() {
         if (!window.PomodoroEngine) { setTimeout(_init, 300); return; }
+        try { localStorage.removeItem(PARTNER_KEY); } catch (_) {} // clave vieja: evita un "Sincronizado con" fantasma
         _render();
         window.PomodoroEngine.on('tick', _render);
         window.PomodoroEngine.on('change', _render);
-        window.PomodoroEngine.on('complete', () => { setSyncPartner(null); _render(); });
+        // El compañero de sesión vive ahora en el motor y sobrevive entre fases: ya no se borra al completar.
+        window.PomodoroEngine.on('complete', _render);
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', _init);

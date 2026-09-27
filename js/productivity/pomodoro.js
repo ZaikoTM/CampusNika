@@ -130,6 +130,18 @@ const PomodoroModule = (() => {
     const secondsLeft = getSecondsLeft();
     const running = isRunning();
     const isWork = mode === 'work';
+
+    // Sesión compartida: el Invitado ve el reloj pero NO tiene controles (solo el Host manda).
+    const stShared = engine().getState().shared;
+    const bloqueado = !!(stShared && stShared.role === 'guest');
+    const escHtml = (t) => String(t == null ? '' : t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const sharedNoteHtml = stShared ? `
+        <div style="background: rgba(255,255,255,0.7); border: 1px dashed ${borderColor}; border-radius: 8px; padding: 7px 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+            <span style="font-size: 0.72rem; font-weight: 700; color: ${titleColor}; line-height: 1.3;">
+                ${bloqueado ? '🔒' : '🧉'} Sesión compartida ${stShared.partner ? 'con @' + escHtml(stShared.partner) : '(esperando invitado)'}${bloqueado ? ' · el Host controla el reloj' : ''}
+            </span>
+            <button id="pomo-shared-leave" style="background: transparent; border: 1px solid ${borderColor}; color: ${titleColor}; border-radius: 6px; padding: 3px 8px; font-size: 0.68rem; font-weight: 700; cursor: pointer; white-space: nowrap;">Salir</button>
+        </div>` : '';
     const cardBg = isWork 
       ? 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)' 
       : 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)';
@@ -164,15 +176,16 @@ const PomodoroModule = (() => {
             </div>
 
             ${bannerHtml}
+            ${sharedNoteHtml}
 
             <div style="display: flex; gap: 6px; margin-bottom: 10px;">
-              <button id="pomo-mode-work" style="flex: 1; padding: 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; background: ${isWork ? primaryColor : 'rgba(0,0,0,0.06)'}; color: ${isWork ? '#fff' : '#475569'}; transition: 0.2s;">Estudio</button>
-              <button id="pomo-mode-break" style="flex: 1; padding: 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; background: ${!isWork ? primaryColor : 'rgba(0,0,0,0.06)'}; color: ${!isWork ? '#fff' : '#475569'}; transition: 0.2s;">Descanso</button>
+              <button id="pomo-mode-work" ${bloqueado ? 'disabled' : ''} style="flex: 1; padding: 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; background: ${isWork ? primaryColor : 'rgba(0,0,0,0.06)'}; color: ${isWork ? '#fff' : '#475569'}; transition: 0.2s;">Estudio</button>
+              <button id="pomo-mode-break" ${bloqueado ? 'disabled' : ''} style="flex: 1; padding: 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; background: ${!isWork ? primaryColor : 'rgba(0,0,0,0.06)'}; color: ${!isWork ? '#fff' : '#475569'}; transition: 0.2s;">Descanso</button>
             </div>
 
             <div style="display:flex; align-items:center; gap:6px; margin-bottom: 6px;">
               <span style="font-size: 0.72rem; color: #475569; font-weight: 700; white-space: nowrap;">Estudiando:</span>
-              <select id="pomo-up-selector" ${running ? 'disabled' : ''} style="flex:1; min-width:0; font-size: 0.72rem; font-weight: 700; color: ${titleColor}; background: rgba(255,255,255,0.7); border: 1px solid ${borderColor}; border-radius: 6px; padding: 3px 6px; cursor: ${running ? 'not-allowed' : 'pointer'}; font-family: 'Plus Jakarta Sans', sans-serif;" title="${running ? 'Pausá el temporizador para cambiar de UP' : ''}">
+              <select id="pomo-up-selector" ${(running || bloqueado) ? 'disabled' : ''} style="flex:1; min-width:0; font-size: 0.72rem; font-weight: 700; color: ${titleColor}; background: rgba(255,255,255,0.7); border: 1px solid ${borderColor}; border-radius: 6px; padding: 3px 6px; cursor: ${(running || bloqueado) ? 'not-allowed' : 'pointer'}; font-family: 'Plus Jakarta Sans', sans-serif;" title="${bloqueado ? 'El tema lo define el Host' : (running ? 'Pausá el temporizador para cambiar de UP' : '')}">
                 ${buildUpSelectorOptions()}
               </select>
             </div>
@@ -181,9 +194,9 @@ const PomodoroModule = (() => {
           <div id="pomo-time" style="text-align: center; font-size: 2.6rem; font-weight: 900; color: ${primaryColor}; letter-spacing: 1px; margin: 8px 0; font-variant-numeric: tabular-nums;">${formatTime(secondsLeft)}</div>
 
           <div style="display: flex; gap: 6px; justify-content: center;">
-            <button id="pomodoro-start" style="flex: 1; background: ${primaryColor}; color: #fff; border: none; border-radius: 8px; padding: 9px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s;" ${running ? 'disabled' : ''}>${running ? 'En marcha' : (engine().getState().status === 'paused' ? 'Continuar' : 'Iniciar')}</button>
-            <button id="pomodoro-pause" style="background: #ffffff; color: #334155; border: 1px solid #cbd5e1; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;" ${!running ? 'disabled' : ''}>Pausar</button>
-            <button id="pomodoro-reset" style="background: rgba(255,255,255,0.7); color: ${primaryColor}; border: 1px solid ${borderColor}; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">Reiniciar</button>
+            <button id="pomodoro-start" style="flex: 1; background: ${primaryColor}; color: #fff; border: none; border-radius: 8px; padding: 9px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s;" ${(running || bloqueado) ? 'disabled' : ''}>${running ? 'En marcha' : (engine().getState().status === 'paused' ? 'Continuar' : 'Iniciar')}</button>
+            <button id="pomodoro-pause" style="background: #ffffff; color: #334155; border: 1px solid #cbd5e1; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;" ${(!running || bloqueado) ? 'disabled' : ''}>Pausar</button>
+            <button id="pomodoro-reset" ${bloqueado ? 'disabled' : ''} style="background: rgba(255,255,255,0.7); color: ${primaryColor}; border: 1px solid ${borderColor}; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">Reiniciar</button>
           </div>
         </div>
       `;
@@ -207,6 +220,8 @@ const PomodoroModule = (() => {
       containerEl.querySelector('#pomodoro-start').addEventListener('click', start);
       containerEl.querySelector('#pomodoro-pause').addEventListener('click', pause);
       containerEl.querySelector('#pomodoro-reset').addEventListener('click', resetTimer);
+      const leaveBtn = containerEl.querySelector('#pomo-shared-leave');
+      if (leaveBtn) leaveBtn.addEventListener('click', () => engine().leaveShared({ reason: 'manual' }));
 
     } else if (currentView === 'stats') {
       const stats = getStats();

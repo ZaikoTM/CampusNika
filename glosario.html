@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario médico | Campus Nika</title>
+<meta name="description" content="Mnemotecnias, escalas clínicas, abreviaciones de guardia y términos de la carrera de Medicina y residencias en Argentina.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020617;--card:#0f172a;--cy:#38bdf8;--vi:#a855f7;--vg:#c084fc;--ok:#10b981;--t:#f8fafc;--b:#cbd5e1;--d:#94a3b8;--line:rgba(148,163,184,.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.6;min-height:100vh;background-image:radial-gradient(900px 500px at 15% -5%,rgba(168,85,247,.16),transparent 60%),radial-gradient(800px 500px at 90% 0%,rgba(56,189,248,.13),transparent 60%)}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 5%;background:rgba(2,6,23,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:900;letter-spacing:-.3px}
+.brand img{height:34px;width:auto}
+.brand span{color:var(--cy)}
+.back{color:#fff;text-decoration:none;font-weight:700;font-size:.86rem;padding:9px 18px;border-radius:99px;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.08);transition:background .2s,box-shadow .2s}
+.back:hover{background:rgba(56,189,248,.2);box-shadow:0 0 18px rgba(56,189,248,.3)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+main{max-width:1100px;margin:0 auto;padding:44px 5% 70px}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:900;letter-spacing:-1.4px;line-height:1.1}
+.lead{color:var(--b);max-width:640px;margin:14px 0 28px}
+.search{position:relative;max-width:640px}
+.search input{width:100%;font:inherit;font-size:1rem;color:#fff;background:rgba(15,23,42,.9);border:1px solid rgba(56,189,248,.35);border-radius:14px;padding:15px 18px 15px 48px;transition:border-color .2s,box-shadow .2s}
+.search input::placeholder{color:var(--d)}
+.search input:focus{outline:none;border-color:var(--cy);box-shadow:0 0 0 4px rgba(56,189,248,.15)}
+.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--d);fill:none;stroke-width:2}
+.pillwrap{position:relative;margin:18px 0 8px}
+.pills{--ml:0px;--mr:0px;position:relative;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;padding:4px 2px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--ml),#000 calc(100% - var(--mr)),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 var(--ml),#000 calc(100% - var(--mr)),transparent 100%)}
+.pills::-webkit-scrollbar{display:none}
+.pills.drag{cursor:grabbing;user-select:none;-webkit-user-select:none}
+.pa{display:none;position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;place-items:center;border-radius:50%;font:inherit;font-size:1.3rem;line-height:1;color:#fff;cursor:pointer;background:rgba(15,23,42,.92);border:1px solid rgba(56,189,248,.5);box-shadow:0 0 14px rgba(56,189,248,.25);transition:opacity .2s,background .2s}
+.pa:hover{background:rgba(56,189,248,.25)}
+.pa-l{left:-6px}.pa-r{right:-6px}
+.pa.off{opacity:0;pointer-events:none}
+@media(hover:hover) and (pointer:fine){.pa{display:grid}.pills{cursor:grab}.pills .pill{cursor:pointer}}
+@media(pointer:coarse){.pill{padding:11px 18px}}
+@media(max-width:700px){.pillwrap{margin-left:-5vw;margin-right:-5vw}.pills{padding-left:5vw;padding-right:5vw}}
+.pill{flex:0 0 auto;white-space:nowrap;font:inherit;font-size:.82rem;font-weight:800;color:var(--d);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:8px 16px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+.pill:hover{color:#fff;border-color:rgba(168,85,247,.6)}
+.pill.on{color:#fff;background:linear-gradient(135deg,rgba(168,85,247,.5),rgba(56,189,248,.35));border-color:rgba(255,255,255,.35)}
+.count{font-size:.8rem;color:var(--d);font-weight:600;margin:6px 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:border-color .25s,box-shadow .25s,transform .25s}
+.card:hover{border-color:rgba(168,85,247,.55);box-shadow:0 0 26px rgba(56,189,248,.12);transform:translateY(-2px)}
+.card.wide{grid-column:1/-1}
+.tag{display:inline-block;font-size:.72rem;font-weight:800;border-radius:99px;padding:3px 11px;margin-bottom:10px;border:1px solid currentColor}
+.c-ing{color:#fbbf24}.c-sem{color:var(--cy)}.c-cli{color:var(--vg)}.c-gin{color:#f472b6}.c-ped{color:#34d399}
+.c-leg{color:#f87171}.c-inj{color:#fb923c}.c-far{color:#2dd4bf}.c-sex{color:#e879f9}.c-tra{color:#a3e635}.c-hum{color:#60a5fa}.c-nut{color:#fda4af}.c-cyd{color:#67e8f9}.c-sin{color:#a5b4fc}.c-sco{color:#fde047}
+.card h2{font-size:1.2rem;font-weight:800;letter-spacing:-.3px;line-height:1.25}
+.card .sub{font-size:.85rem;color:var(--d);margin:2px 0 10px}
+.card p,.card li{font-size:.88rem;color:var(--b)}
+.card p{margin-top:8px}
+.card ul{list-style:none;display:grid;gap:5px;margin-top:8px}
+.card li b{color:#fff}
+.card li.k{display:flex;gap:10px}.card li.k i{flex:0 0 22px;font-style:normal;font-weight:900;color:var(--cy)}
+.card .cut{margin-top:10px;padding:9px 12px;border-radius:10px;font-size:.82rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.4);color:#a7f3d0}
+.card .warn{margin-top:10px;padding:9px 12px;border-radius:10px;font-size:.8rem;background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.4);color:#fde68a}
+mark{background:rgba(250,204,21,.28);color:#fff;border-radius:3px;padding:0 2px}
+.empty{display:none;text-align:center;padding:50px 10px;color:var(--d)}
+.empty strong{display:block;color:#fff;font-size:1.1rem;margin-bottom:6px}
+.note{margin-top:36px;font-size:.78rem;color:var(--d);border-top:1px solid var(--line);padding-top:16px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.brand span.n{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html" aria-label="Campus Nika"><img src="assets/N%20NIKA.png" alt="" onerror="this.style.display='none'">CAMPUS NIKA<span class="n">MED</span></a>
+  <a class="back" href="index.html">← Volver al Inicio</a>
+</header>
+<main>
+  <h1>Glosario médico</h1>
+  <p class="lead">Mnemotecnias, escalas con sus puntos de corte, abreviaciones de guardia y términos de la carrera y las residencias en Argentina.</p>
+  <div class="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input type="text" id="q" placeholder="Buscá: Glasgow, HGT, Wells, ECOE…" autocomplete="off" aria-label="Buscar en el glosario">
+  </div>
+  <div class="pillwrap">
+    <button type="button" class="pa pa-l off" id="pa-l" aria-label="Ver categorías anteriores" tabindex="-1">‹</button>
+    <div class="pills" id="pills" role="group" aria-label="Filtrar por categoría"></div>
+    <button type="button" class="pa pa-r" id="pa-r" aria-label="Ver más categorías" tabindex="-1">›</button>
+  </div>
+  <div class="count" id="count" aria-live="polite"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty"><strong>No encontramos ese término</strong>Probá con otra palabra o elegí “Todos” en las categorías.</div>
+  <p class="note">Material educativo para estudiantes. Los puntos de corte y las versiones de cada escala pueden variar según la cátedra y las guías vigentes: confirmalos con tu bibliografía oficial. No reemplaza el criterio clínico ni constituye consejo médico.</p>
+</main>
+<script>
+var CATS=[['all','Todos'],['ing','Ingreso & Carrera'],['sem','Semiología & Mnemotecnias'],['cli','Clínica & Quirúrgica'],['gin','Ginecología & Obstetricia'],['ped','Pediatría & Urgencias'],['leg','Legal'],['inj','Injuria y Defensa'],['far','Farmacología'],['sex','Sexualidad'],['tra','Trabajo y Tiempo Libre'],['hum','El Ser Humano y su Medio'],['nut','Nutrición'],['cyd','Crecimiento y Desarrollo'],['sin','Salud Individual'],['sco','Salud Colectiva']];
+var K=function(l){return '<ul>'+l.map(function(x){return '<li class="k"><i>'+x[0]+'</i><span>'+x[1]+'</span></li>'}).join('')+'</ul>'};
+var U=function(l){return '<ul>'+l.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'};
+var G=[
+/* ---- Mnemotecnias ---- */
+{t:'ALICIA FREDUSA',c:'sem',s:'Semiología del dolor',w:true,k:'dolor mnemotecnia semiologia',b:K([['A','<b>Aparición:</b> cómo y cuándo comenzó (brusca, gradual, desencadenante).'],['L','<b>Localización:</b> dónde se siente y si es puntual o difuso.'],['I','<b>Irradiación:</b> hacia dónde se propaga.'],['C','<b>Carácter:</b> cólico, urente, opresivo, punzante, sordo.'],['I','<b>Intensidad:</b> escala de 0 a 10 (EVA).'],['A','<b>Alivio:</b> qué lo calma y qué lo agrava.'],['F','<b>Frecuencia:</b> continuo, intermitente, episodios por día.'],['D','<b>Duración:</b> cuánto dura cada episodio y desde cuándo.'],['S','<b>Síntomas y signos acompañantes:</b> náuseas, fiebre, disnea, sudoración, etc.']])+'<div class="warn">La asignación exacta de las letras de FREDUSA varía entre cátedras. Confirmá la versión que te piden en tu materia.</div>'},
+{t:'OPQRST',c:'sem',s:'Mnemotecnia anglosajona de guardia',k:'dolor onset provocation quality radiation severity time',b:K([['O','<b>Onset:</b> inicio.'],['P','<b>Provocation / Palliation:</b> qué lo provoca o lo alivia.'],['Q','<b>Quality:</b> carácter del dolor.'],['R','<b>Radiation:</b> irradiación.'],['S','<b>Severity:</b> intensidad (0–10).'],['T','<b>Time:</b> evolución y duración.']])},
+{t:'ABCDE del Trauma',c:'ped',s:'Evaluación primaria (ATLS)',k:'trauma urgencias via aerea abcde',b:K([['A','<b>Vía aérea</b> con control de la columna cervical.'],['B','<b>Ventilación:</b> respiración y oxigenación.'],['C','<b>Circulación</b> y control de hemorragias.'],['D','<b>Déficit neurológico:</b> Glasgow, pupilas, glucemia.'],['E','<b>Exposición</b> del paciente con prevención de hipotermia.']])+'<div class="cut">Se resuelve en orden: no se pasa a la letra siguiente sin haber tratado la amenaza vital de la anterior.</div>'},
+/* ---- Escalas ---- */
+{t:'Glasgow (adultos y pediátrica modificada)',c:'ped',s:'Nivel de conciencia · 3 a 15 puntos',w:true,k:'glasgow gcs iot coma neurologico',b:U(['<b>Apertura ocular (1–4):</b> espontánea 4, al habla 3, al dolor 2, ninguna 1.','<b>Respuesta verbal (1–5):</b> orientada 5, confusa 4, palabras inapropiadas 3, sonidos 2, ninguna 1.','<b>Respuesta motora (1–6):</b> obedece 6, localiza 5, retira 4, flexión anormal 3, extensión 2, ninguna 1.','<b>Pediátrica (menores de 2 años):</b> se adapta la respuesta verbal: sonríe y balbucea 5, llanto consolable 4, llanto persistente o irritable 3, quejidos 2, ninguna 1.'])+'<div class="cut">Leve 13–15 · Moderado 9–12 · Grave ≤ 8 → asegurar la vía aérea con intubación orotraqueal (IOT).</div>'},
+{t:'Silverman-Andersen',c:'ped',s:'Dificultad respiratoria neonatal',k:'silverman neonato respiratorio apgar',b:U(['5 parámetros, de 0 a 2 puntos cada uno: aleteo nasal, tiraje intercostal, retracción xifoidea, quejido espiratorio y disociación toracoabdominal.'])+'<div class="cut">0 sin dificultad · 1–3 leve · 4–6 moderada · ≥ 7 grave. A mayor puntaje, mayor gravedad (inverso al Apgar).</div>'},
+{t:'Apgar',c:'ped',s:'Vitalidad neonatal al minuto y a los 5 minutos',k:'apgar recien nacido neonato',b:U(['5 parámetros, de 0 a 2 puntos: frecuencia cardíaca, esfuerzo respiratorio, tono muscular, irritabilidad refleja y color.'])+'<div class="cut">7–10 normal · 4–6 depresión moderada · 0–3 depresión severa. El puntaje a los 5 min orienta mejor el pronóstico.</div>'},
+{t:'Hinchey',c:'cli',s:'Diverticulitis aguda complicada',k:'hinchey diverticulitis peritonitis absceso sigmoides',b:U(['<b>I:</b> absceso pericólico o mesocólico pequeño.','<b>II:</b> absceso pélvico, intraabdominal a distancia o retroperitoneal.','<b>III:</b> peritonitis purulenta generalizada.','<b>IV:</b> peritonitis fecal generalizada.'])+'<div class="cut">I y II: antibióticos ± drenaje percutáneo · III y IV: cirugía de urgencia.</div>'},
+{t:'Child-Pugh y MELD',c:'cli',s:'Cirrosis e insuficiencia hepática',k:'child pugh meld cirrosis higado trasplante hepatica',b:U(['<b>Child-Pugh (1–3 puntos c/u):</b> bilirrubina, albúmina, INR o tiempo de protrombina, ascitis y encefalopatía.','<b>MELD:</b> combina bilirrubina, creatinina e INR (la versión MELD-Na suma el sodio). Prioriza la lista de trasplante hepático.'])+'<div class="cut">Child-Pugh A 5–6 · B 7–9 · C 10–15 puntos. Se usa también para ajustar dosis de fármacos.</div>'},
+{t:'Alvarado (MANTRELS)',c:'cli',s:'Apendicitis aguda · 10 puntos',k:'alvarado apendicitis fosa iliaca derecha mantrels',b:U(['<b>1 punto:</b> migración del dolor, anorexia, náuseas/vómitos, rebote, fiebre ≥ 37,3 °C, desviación a la izquierda.','<b>2 puntos:</b> dolor a la palpación en fosa ilíaca derecha y leucocitosis &gt; 10.000/mm³.'])+'<div class="cut">≥ 7 apendicitis probable (cirugía) · 5–6 dudosa (observación o imágenes) · ≤ 4 improbable.</div>'},
+{t:'Wells (TEP y TVP)',c:'cli',s:'Probabilidad clínica de tromboembolismo',k:'wells tep tvp trombosis embolia pulmonar dimero',b:U(['<b>TEP:</b> signos de TVP 3, TEP como diagnóstico más probable 3, FC &gt; 100 1,5, inmovilización o cirugía reciente 1,5, TEP/TVP previos 1,5, hemoptisis 1, cáncer activo 1.','<b>TVP:</b> suma cáncer activo, inmovilización, edema, dolor en el trayecto venoso y otros signos locales; resta 2 si hay un diagnóstico alternativo igual o más probable.'])+'<div class="cut">TEP (dos niveles): &gt; 4 probable → angio-TC · ≤ 4 improbable → dímero D.</div>'},
+{t:'CURB-65',c:'cli',s:'Gravedad de la neumonía de la comunidad',k:'curb neumonia nac internacion',b:U(['<b>C</b>onfusión · <b>U</b>rea &gt; 43 mg/dl · <b>R</b>espiratoria: FR ≥ 30 · <b>B</b>lood pressure: PAS &lt; 90 o PAD ≤ 60 · edad ≥ <b>65</b>. 1 punto cada uno.'])+'<div class="cut">0–1 ambulatorio · 2 considerar internación · ≥ 3 neumonía grave, evaluar unidad de cuidados intensivos.</div>'},
+/* ---- Carrera ---- */
+{t:'Unidad Problema (UP)',c:'ing',s:'Aprendizaje basado en problemas (ABP)',k:'up abp problema caso clinico cursada',b:'<p>Unidad de estudio centrada en un caso clínico disparador. Se trabaja en grupos para identificar problemas, plantear hipótesis y definir objetivos de aprendizaje.</p>'},
+{t:'PFO · Práctica Final Obligatoria',c:'ing',s:'Internado rotatorio previo a la graduación',k:'pfo practica final obligatoria internado rotatorio hospital',b:'<p>Rotaciones hospitalarias supervisadas que se realizan al final de la carrera y completan la formación de grado.</p>'},
+{t:'Examen Final ECOE',c:'ing',s:'Evaluación Clínica Objetiva Estructurada',k:'ecoe estaciones simulada examen final',b:'<p>Circuito de estaciones cronometradas con casos simulados (anamnesis, examen físico, comunicación, procedimientos). Cada estación se califica con una grilla de criterios idéntica para todos.</p>'},
+{t:'Examen Integrado de Residencias',c:'ing',s:'Res. 555/2026 · opción múltiple nacional',k:'residencias examen integrado 555 posgrado multiple choice',b:'<p>Evaluación de opción múltiple de alcance nacional para el acceso a residencias médicas. Consultá siempre las bases y fechas en el organismo convocante.</p>'},
+{t:'Orden de Mérito',c:'ing',s:'Ranking de asignación de vacantes',k:'orden merito residencias vacantes antecedentes ranking',b:'<p>Ranking que combina la nota del examen y los antecedentes académicos. Define el orden en que cada postulante elige entre las vacantes disponibles.</p>'},
+{t:'Actitud, Situación y Presentación fetal',c:'gin',s:'Tres conceptos que se confunden',k:'obstetricia fetal presentacion situacion actitud parto',b:U(['<b>Actitud:</b> relación de las partes fetales entre sí (flexión generalizada normal).','<b>Situación:</b> relación entre el eje longitudinal del feto y el de la madre (longitudinal, transversa u oblicua).','<b>Presentación:</b> parte fetal que ocupa el estrecho superior de la pelvis (cefálica, podálica).'])},
+{t:'Aseo de Friedrich',c:'cli',s:'Desbridamiento quirúrgico reglado',k:'friedrich herida cirugia desbridamiento aguda',b:'<p>Escisión de los bordes y del tejido desvitalizado de una herida aguda, con lavado abundante, para convertirla en una herida limpia que pueda cerrarse. Rinde mejor en las primeras horas tras la lesión.</p>'},
+{t:'Shock neurogénico vs. Shock medular',c:'cli',s:'Lesión medular alta',k:'shock neurogenico medular bradicardia hipotension trauma columna',b:U(['<b>Neurogénico:</b> hipotensión con bradicardia paradójica por pérdida del tono simpático; piel tibia y seca.','<b>Medular:</b> abolición refleja y flaccidez por debajo de la lesión, transitoria (horas a semanas).'])+'<div class="warn">En un politraumatizado hipotenso, descartá primero el shock hemorrágico antes de atribuirlo a lo neurogénico.</div>'},
+/* ---- Abreviaciones ---- */
+{t:'TA',c:'sem',s:'Tensión arterial',k:'ta presion arterial',b:'<p>Valores en mmHg (sistólica/diastólica). Se toma en ambos brazos en la primera evaluación.</p>'},
+{t:'FC',c:'sem',s:'Frecuencia cardíaca',k:'fc pulso latidos taquicardia bradicardia',b:'<p>Latidos por minuto. Adultos: taquicardia &gt; 100 · bradicardia &lt; 60.</p>'},
+{t:'FR',c:'sem',s:'Frecuencia respiratoria',k:'fr respiraciones taquipnea',b:'<p>Respiraciones por minuto. Adultos: normal 12–20 · taquipnea &gt; 20.</p>'},
+{t:'SatO2',c:'sem',s:'Saturación de oxígeno',k:'sat saturacion oximetria hipoxemia',b:'<p>Medida por oximetría de pulso. Valores por debajo de 94 % en aire ambiente suelen requerir evaluación.</p>'},
+{t:'HGT / HGTx',c:'sem',s:'Hemoglucotest (glucemia capilar)',k:'hgt hgtx glucemia glucosa hipoglucemia',b:'<p>Glucemia capilar rápida. Se controla en todo paciente con alteración de la conciencia. HGTx (o HGT/x) indica que se repite cada cierto tiempo.</p>'},
+{t:'IOT',c:'ped',s:'Intubación orotraqueal',k:'iot intubacion via aerea',b:'<p>Colocación de un tubo endotraqueal por vía oral para asegurar la vía aérea. Indicación clásica: Glasgow ≤ 8.</p>'},
+{t:'ARM',c:'ped',s:'Asistencia respiratoria mecánica',k:'arm ventilacion mecanica respirador',b:'<p>Soporte ventilatorio invasivo mediante respirador, luego de la IOT.</p>'},
+{t:'PHP',c:'ped',s:'Plan de hidratación parenteral',k:'php hidratacion parenteral pediatria deshidratacion',b:'<p>Reposición de líquidos y electrolitos por vía intravenosa en pediatría (por ejemplo, en la deshidratación grave o cuando falla la vía oral).</p>'},
+{t:'SNG',c:'cli',s:'Sonda nasogástrica',k:'sng sonda nasogastrica descompresion',b:'<p>Sonda desde la nariz al estómago para descompresión, alimentación o administración de medicación.</p>'},
+{t:'SV',c:'cli',s:'Sonda vesical',k:'sv sonda vesical diuresis foley',b:'<p>Sonda uretral para medir diuresis horaria o drenar la vejiga. Usar solo con indicación clara por el riesgo de infección.</p>'},
+{t:'RNT-PAEG',c:'ped',s:'Recién nacido de término, peso adecuado para la edad gestacional',k:'rnt paeg neonato recien nacido termino peso',b:'<p>Neonato de 37 a 41 semanas con peso entre los percentilos 10 y 90 para su edad gestacional.</p>'},
+{t:'RCIU',c:'gin',s:'Restricción del crecimiento intrauterino',k:'rciu restriccion crecimiento fetal feto',b:'<p>El feto no alcanza su potencial de crecimiento (peso estimado por debajo del percentilo 10). Se estudia con ecografía y Doppler.</p>'},
+{t:'RPM',c:'gin',s:'Rotura prematura de membranas',k:'rpm rotura membranas embarazo liquido amniotico',b:'<p>Rotura de las membranas ovulares antes del inicio del trabajo de parto. Se clasifica según la edad gestacional (pretérmino o de término).</p>'},
+{t:'HUA',c:'gin',s:'Hemorragia uterina anormal',k:'hua hemorragia uterina anormal sangrado menstrual',b:'<p>Sangrado uterino que altera la cantidad, la frecuencia o la duración normales. Se orienta con la clasificación PALM-COEIN.</p>'},
+{t:'EPI',c:'gin',s:'Enfermedad pélvica inflamatoria',k:'epi enfermedad pelvica inflamatoria genital',b:'<p>Infección del tracto genital superior (endometrio, trompas, ovarios), habitualmente ascendente y asociada a infecciones de transmisión sexual.</p>'},
+{t:'ITS',c:'gin',s:'Infección de transmisión sexual',k:'its infeccion transmision sexual sifilis clamidia',b:'<p>Infecciones que se adquieren por contacto sexual: sífilis, clamidia, gonorrea, VIH, VPH, entre otras.</p>'}
+];
+/* ---- Áreas curriculares (1° a 6° año) ---- */
+[
+['Triada de Beck','cli','Taponamiento cardíaco','<p>Hipotensión, ingurgitación yugular y ruidos cardíacos apagados. Tratamiento urgente: pericardiocentesis.</p>','taponamiento pericardio beck yugular'],
+['Triada de Charcot y Pentada de Reynolds','cli','Colangitis aguda','<p><b>Charcot:</b> fiebre, ictericia y dolor en hipocondrio derecho. <b>Reynolds:</b> suma hipotensión y alteración del sensorio (colangitis grave).</p>','charcot reynolds colangitis ictericia biliar'],
+['Criterios de Light','cli','Derrame pleural: trasudado vs exudado','<p>Exudado si cumple al menos uno: proteínas pleura/suero &gt; 0,5, LDH pleura/suero &gt; 0,6, o LDH pleural mayor a 2/3 del límite superior normal sérico.</p>','light derrame pleural exudado trasudado'],
+['Triada de Cushing','cli','Hipertensión endocraneana','<p>Hipertensión arterial, bradicardia y respiración irregular. Indica herniación inminente.</p>','cushing hipertension endocraneana hec'],
+['Planes de hidratación A, B y C','ped','Diarrea aguda y deshidratación','<p><b>A:</b> sales de rehidratación oral (SRO) tras cada deposición y continuar alimentación. <b>B:</b> SRO supervisada durante 4 h. <b>C:</b> deshidratación grave, reposición endovenosa.</p>','deshidratacion diarrea sro plan hidratacion pediatria'],
+['Consentimiento informado','leg','Ley 26.529 de Derechos del Paciente','<p>Decisión libre del paciente tras recibir información clara sobre diagnóstico, alternativas y riesgos. Excepción: urgencia con riesgo cierto e inminente.</p>','consentimiento ley 26529 derechos paciente autonomia'],
+['Historia clínica','leg','Documento médico-legal','<p>Registro cronológico, completo y legible de la atención. El paciente es titular de los datos; la institución la custodia (Ley 26.529).</p>','historia clinica registro legal custodia'],
+['Secreto médico','leg','Confidencialidad profesional','<p>Obligación de no revelar lo conocido en la atención. Se puede levantar con consentimiento del paciente o por justa causa prevista en la ley.</p>','secreto medico confidencialidad reserva'],
+['Mala praxis','leg','Responsabilidad profesional','<p>Daño al paciente por impericia, imprudencia, negligencia o inobservancia de normas. Se analiza el nexo causal entre la conducta y el daño.</p>','mala praxis impericia negligencia imprudencia responsabilidad'],
+['Lesiones: leves, graves y gravísimas','leg','Medicina legal · Código Penal','<p>Clasificación legal según secuelas y tiempo de curación: leves, graves (por ejemplo, debilitación permanente de un órgano) y gravísimas (por ejemplo, pérdida de un sentido o de un miembro).</p>','lesiones codigo penal forense peritaje'],
+['Ley de Salud Mental 26.657','leg','Derechos en salud mental','<p>Establece un abordaje interdisciplinario y de base comunitaria. La internación involuntaria es un recurso excepcional, con control judicial.</p>','salud mental ley 26657 internacion involuntaria'],
+['Inflamación aguda','inj','Respuesta a la injuria','<p>Signos cardinales: rubor, calor, tumor, dolor y pérdida de función. Mediadores: histamina, prostaglandinas, citocinas. Eventos: vasodilatación, aumento de permeabilidad y migración de neutrófilos.</p>','inflamacion rubor calor tumor dolor neutrofilos'],
+['Necrosis vs. Apoptosis','inj','Tipos de muerte celular','<p><b>Necrosis:</b> patológica, con inflamación y ruptura de membrana. <b>Apoptosis:</b> programada, ordenada, sin inflamación (caspasas).</p>','necrosis apoptosis muerte celular caspasas'],
+['Hipersensibilidad (Gell y Coombs)','inj','Cuatro tipos','<p><b>I:</b> inmediata por IgE (anafilaxia). <b>II:</b> citotóxica por anticuerpos. <b>III:</b> por inmunocomplejos. <b>IV:</b> retardada mediada por linfocitos T.</p>','hipersensibilidad alergia anafilaxia ige inmunocomplejos'],
+['Inmunidad innata vs. adaptativa','inj','Líneas de defensa','<p><b>Innata:</b> rápida e inespecífica (barreras, fagocitos, complemento, NK). <b>Adaptativa:</b> específica, con memoria (linfocitos B y T).</p>','inmunidad innata adaptativa linfocitos complemento'],
+['Sepsis y qSOFA','inj','Sepsis-3','<p>Disfunción orgánica potencialmente mortal por una respuesta desregulada a la infección (aumento de SOFA ≥ 2). qSOFA: FR ≥ 22, alteración del estado mental y PAS ≤ 100; con 2 o más se sospecha mal pronóstico.</p>','sepsis qsofa sofa infeccion shock septico'],
+['Metaplasia, displasia y neoplasia','inj','Adaptación y transformación celular','<p><b>Metaplasia:</b> cambio reversible de un tipo celular por otro. <b>Displasia:</b> alteración de la maduración y arquitectura. <b>Neoplasia:</b> proliferación autónoma, benigna o maligna.</p>','metaplasia displasia neoplasia cancer benigno maligno'],
+['Farmacocinética (ADME)','far','Lo que el cuerpo le hace al fármaco','<p>Absorción, Distribución, Metabolismo y Excreción. Determina cuánto fármaco llega al sitio de acción y por cuánto tiempo.</p>','farmacocinetica adme absorcion distribucion metabolismo excrecion'],
+['Farmacodinamia','far','Lo que el fármaco le hace al cuerpo','<p>Mecanismo de acción y relación dosis-respuesta. <b>Afinidad:</b> unión al receptor. <b>Eficacia:</b> capacidad de generar respuesta. Agonista activa; antagonista bloquea.</p>','farmacodinamia agonista antagonista receptor afinidad eficacia'],
+['Biodisponibilidad y primer paso hepático','far','Fracción que llega a circulación sistémica','<p>Por vía endovenosa es del 100 %. En la vía oral se reduce por absorción incompleta y por el metabolismo hepático previo (efecto de primer paso).</p>','biodisponibilidad primer paso hepatico via oral'],
+['Vida media y estado estable','far','t½','<p>Tiempo en que la concentración plasmática cae a la mitad. El estado estable con dosis repetidas se alcanza tras 4 a 5 vidas medias.</p>','vida media semivida estado estable t1/2'],
+['Índice terapéutico','far','Margen de seguridad','<p>Relación entre la dosis tóxica y la dosis eficaz. Un índice bajo exige monitoreo (por ejemplo, digoxina, litio, warfarina).</p>','indice terapeutico margen seguridad toxicidad digoxina litio'],
+['Inductores e inhibidores del CYP450','far','Interacciones farmacológicas','<p><b>Inductores</b> (rifampicina, carbamazepina, fenitoína) bajan los niveles de otros fármacos. <b>Inhibidores</b> (ketoconazol, macrólidos, jugo de pomelo) los aumentan.</p>','cyp450 inductor inhibidor interaccion rifampicina'],
+['Clearance de creatinina (Cockcroft-Gault)','far','Ajuste de dosis por función renal','<p>(140 − edad) × peso en kg ÷ (72 × creatinina sérica). En mujeres se multiplica por 0,85. Se usa para ajustar fármacos de eliminación renal.</p>','clearance creatinina cockcroft gault renal ajuste dosis'],
+['Cálculo de goteo','far','Infusión endovenosa','<p><b>ml/h</b> = volumen ÷ horas. <b>Macrogotas/min</b> = volumen (ml) ÷ (horas × 3). <b>Microgotas/min</b> = ml/h.</p>','goteo gotas macrogotas microgotas infusion calculo dilucion'],
+['Ciclo de respuesta sexual','sex','Masters y Johnson','<p>Excitación, meseta, orgasmo y resolución. Kaplan agregó la fase de deseo al comienzo.</p>','respuesta sexual masters johnson kaplan deseo'],
+['Sexo, identidad de género y orientación sexual','sex','Tres dimensiones distintas','<p><b>Sexo:</b> características biológicas. <b>Identidad de género:</b> vivencia interna (Ley 26.743). <b>Orientación sexual:</b> atracción afectiva y sexual hacia otras personas.</p>','sexo genero identidad orientacion ley 26743 diversidad'],
+['ESI · Educación Sexual Integral','sex','Ley 26.150','<p>Programa nacional que garantiza la educación sexual integral en todos los niveles educativos, con enfoque de derechos, cuidado del cuerpo y prevención.</p>','esi educacion sexual integral ley 26150'],
+['IVE · Interrupción Voluntaria del Embarazo','sex','Ley 27.610','<p>Garantiza el acceso a la interrupción hasta la semana 14 inclusive. Luego rigen las causales de riesgo para la salud o la vida y de violación.</p>','ive aborto interrupcion embarazo ley 27610'],
+['Anticoncepción de emergencia','sex','Prevención tras una relación sin protección','<p>Levonorgestrel: cuanto antes, idealmente dentro de las 72 h. El DIU de cobre es más eficaz y puede colocarse hasta los 5 días.</p>','anticoncepcion emergencia levonorgestrel diu pastilla'],
+['Accidente de trabajo y enfermedad profesional','tra','Ley 24.557 de Riesgos del Trabajo','<p><b>Accidente de trabajo:</b> hecho súbito por el trabajo o en ocasión de él, incluido el trayecto (in itinere). <b>Enfermedad profesional:</b> la incluida en el listado oficial. La cobertura corre por la ART.</p>','accidente trabajo enfermedad profesional art in itinere ley 24557'],
+['Riesgos laborales','tra','Clasificación','<p>Físicos (ruido, radiación), químicos, biológicos, ergonómicos y psicosociales. La prevención prioriza eliminar el riesgo en su origen.</p>','riesgo laboral higiene seguridad ergonomia ocupacional'],
+['Ergonomía','tra','Adaptar el trabajo a la persona','<p>Diseño de puestos, herramientas y posturas para prevenir trastornos musculoesqueléticos y fatiga.</p>','ergonomia postura musculoesqueletico puesto trabajo'],
+['Síndrome de burnout','tra','Desgaste profesional','<p>Fenómeno ocupacional por estrés crónico no resuelto: agotamiento, cinismo o distancia mental del trabajo y menor eficacia. Frecuente en el personal de salud.</p>','burnout desgaste estres laboral profesional'],
+['Tiempo libre y recreación','tra','Determinante de salud','<p>El descanso, el ocio y la recreación protegen la salud física y mental y equilibran la carga del trabajo.</p>','tiempo libre ocio recreacion descanso'],
+['Modelo biopsicosocial','hum','Engel','<p>La salud y la enfermedad resultan de factores biológicos, psicológicos y sociales, no solo de una lesión orgánica. Se contrapone al modelo biomédico.</p>','biopsicosocial engel modelo biomedico'],
+['Determinantes sociales de la salud','hum','OMS','<p>Condiciones en que las personas nacen, viven, trabajan y envejecen: ingreso, educación, vivienda, empleo y acceso a servicios. Explican las inequidades en salud.</p>','determinantes sociales salud inequidad oms'],
+['Genograma y ecomapa','hum','Herramientas de abordaje familiar','<p><b>Genograma:</b> árbol familiar con antecedentes y vínculos. <b>Ecomapa:</b> relaciones de la familia con su entorno (escuela, trabajo, servicios).</p>','genograma ecomapa familia apgar familiar'],
+['Ciclo vital familiar','hum','Etapas de la familia','<p>Formación de la pareja, familia con hijos pequeños, con adolescentes, plataforma de lanzamiento, nido vacío y vejez. Cada etapa tiene crisis normativas esperables.</p>','ciclo vital familiar crisis nido vacio'],
+['Salud ambiental','hum','Ambiente y salud','<p>Estudia cómo el agua, el saneamiento, el aire, los residuos y la vivienda influyen en la salud de las poblaciones.</p>','salud ambiental agua saneamiento contaminacion'],
+['Interculturalidad en salud','hum','Cultura y atención','<p>Reconocer las creencias y prácticas de cada comunidad y dialogar con ellas para lograr una atención respetuosa y efectiva.</p>','cultura intercultural pueblos originarios creencias'],
+['IMC · Índice de masa corporal','nut','Peso (kg) ÷ talla² (m)','<p>Adultos: &lt; 18,5 bajo peso · 18,5–24,9 normal · 25–29,9 sobrepeso · ≥ 30 obesidad. No distingue masa grasa de masa magra.</p>','imc indice masa corporal obesidad sobrepeso'],
+['Macronutrientes y valor calórico','nut','Kcal por gramo','<p>Hidratos de carbono 4 · Proteínas 4 · Grasas 9 · Alcohol 7.</p>','macronutrientes calorias hidratos proteinas grasas kcal'],
+['Kwashiorkor vs. Marasmo','nut','Desnutrición grave','<p><b>Kwashiorkor:</b> déficit proteico predominante, con edema e hígado graso. <b>Marasmo:</b> déficit calórico global, con emaciación extrema y sin edema.</p>','kwashiorkor marasmo desnutricion edema emaciacion'],
+['Desnutrición aguda vs. crónica','nut','Indicadores antropométricos infantiles','<p><b>Aguda:</b> bajo peso para la talla. <b>Crónica:</b> baja talla para la edad. Se evalúan con las curvas OMS y puntajes Z.</p>','desnutricion aguda cronica talla peso z score'],
+['Guías Alimentarias para la Población Argentina','nut','GAPA','<p>Mensajes y gráfica en forma de óvalo que orientan una alimentación saludable: priorizar frutas, verduras, legumbres y agua, y limitar los ultraprocesados.</p>','gapa guias alimentarias argentina ovalo alimentacion saludable'],
+['Lactancia materna exclusiva','nut','Recomendación OMS','<p>Solo leche materna durante los primeros 6 meses, y luego continuar junto con alimentación complementaria hasta los 2 años o más.</p>','lactancia materna exclusiva alimentacion complementaria'],
+['Crecimiento vs. Desarrollo','cyd','Dos procesos distintos','<p><b>Crecimiento:</b> aumento de tamaño (peso, talla, perímetro cefálico). <b>Desarrollo:</b> adquisición de funciones (motora, lenguaje, social, cognitiva).</p>','crecimiento desarrollo infantil peso talla'],
+['Percentilos y puntaje Z','cyd','Curvas de la OMS','<p>Un valor por debajo del P3 o por encima del P97 (Z &lt; −2 o &gt; +2) requiere evaluación. Importa más la tendencia en controles sucesivos que un valor aislado.</p>','percentilos percentil z score curvas oms crecimiento'],
+['Hitos del desarrollo psicomotor','cyd','Referencias aproximadas','<p>Sostén cefálico: 2–3 meses · sedestación: 6 meses · gateo: 8–9 meses · marcha: 12–15 meses · primeras frases: cerca de los 2 años. Un retraso persistente amerita estudio.</p>','hitos desarrollo psicomotor sosten cefalico marcha lenguaje'],
+['Etapas de Piaget','cyd','Desarrollo cognitivo','<p>Sensoriomotor (0–2 años) · preoperatorio (2–7) · operaciones concretas (7–11) · operaciones formales (desde los 11–12).</p>','piaget cognitivo sensoriomotor preoperatorio operaciones'],
+['Estadios de Tanner','cyd','Desarrollo puberal','<p>Cinco estadios (1 a 5) para mamas y vello pubiano en mujeres, y genitales y vello pubiano en varones. En niñas, la telarca suele ser el primer signo.</p>','tanner pubertad telarca pubarca menarca'],
+['Teoría del apego','cyd','Bowlby','<p>Vínculo temprano con la figura de cuidado que da seguridad emocional. Sus patrones (seguro, evitativo, ambivalente) influyen en el desarrollo posterior.</p>','apego bowlby vinculo desarrollo emocional'],
+['Niveles de prevención','sin','Leavell y Clark','<p><b>Primaria:</b> evita la aparición de la enfermedad (vacunas). <b>Secundaria:</b> detección precoz (screening). <b>Terciaria:</b> limita secuelas (rehabilitación).</p>','prevencion primaria secundaria terciaria leavell clark'],
+['Prevención cuaternaria','sin','Evitar el daño médico','<p>Protege al paciente de intervenciones innecesarias o excesivas (sobrediagnóstico, sobretratamiento).</p>','prevencion cuaternaria sobrediagnostico sobretratamiento'],
+['Factor de riesgo y factor protector','sin','Concepto clave','<p>El factor de riesgo aumenta la probabilidad de enfermar (tabaquismo). El protector la disminuye (actividad física). Asociación no implica causalidad.</p>','factor riesgo protector causalidad'],
+['Screening (tamizaje)','sin','Detección en personas asintomáticas','<p>Busca la enfermedad antes de los síntomas. Debe ser sobre una condición frecuente y grave, con test aceptable y tratamiento eficaz (por ejemplo, Papanicolaou).</p>','screening tamizaje deteccion precoz papanicolaou'],
+['Adherencia terapéutica','sin','Cumplimiento del tratamiento','<p>Grado en que el paciente sigue las indicaciones acordadas. Mejora con una buena relación médico-paciente y con explicaciones claras.</p>','adherencia cumplimiento tratamiento relacion medico paciente'],
+['Promoción de la salud','sin','Carta de Ottawa (1986)','<p>Proceso que permite a las personas aumentar el control sobre su salud y mejorarla. Va más allá de la atención de la enfermedad.</p>','promocion salud ottawa 1986'],
+['Incidencia y prevalencia','sco','Medidas de frecuencia','<p><b>Incidencia:</b> casos nuevos en un período. <b>Prevalencia:</b> total de casos (nuevos y antiguos) en un momento dado.</p>','incidencia prevalencia epidemiologia frecuencia'],
+['Sensibilidad y especificidad','sco','Validez de una prueba','<p><b>Sensibilidad:</b> detecta a los enfermos (pocos falsos negativos). <b>Especificidad:</b> descarta a los sanos (pocos falsos positivos).</p>','sensibilidad especificidad vpp vpn prueba diagnostica'],
+['Riesgo relativo y odds ratio','sco','Medidas de asociación','<p>Un valor de 1 indica ausencia de asociación; mayor a 1, factor de riesgo; menor a 1, factor protector. El RR se usa en cohortes y el OR en casos y controles.</p>','riesgo relativo odds ratio rr or cohorte casos controles'],
+['Tasa de mortalidad infantil','sco','Indicador sanitario','<p>Muertes de menores de 1 año cada 1.000 nacidos vivos. Refleja el estado de salud y las condiciones de vida de una población.</p>','mortalidad infantil tasa indicador nacidos vivos'],
+['Atención Primaria de la Salud (APS)','sco','Declaración de Alma-Ata (1978)','<p>Estrategia de atención esencial, accesible y participativa, en el primer nivel, con énfasis en la promoción y la prevención.</p>','aps atencion primaria alma ata primer nivel'],
+['Vigilancia epidemiológica','sco','Sistema Nacional de Vigilancia (SNVS)','<p>Recolección y análisis continuos de datos para actuar. Las enfermedades de notificación obligatoria deben informarse al sistema.</p>','vigilancia epidemiologica snvs notificacion obligatoria'],
+['Endemia, epidemia y pandemia','sco','Extensión de una enfermedad','<p><b>Endemia:</b> presencia habitual en una zona. <b>Epidemia:</b> aumento inusual de casos. <b>Pandemia:</b> epidemia con extensión mundial.</p>','endemia epidemia pandemia brote'],
+['Sistema de salud argentino','sco','Tres subsectores','<p>Público (hospitales y centros de salud), obras sociales (seguridad social) y privado (prepagas). Está fragmentado entre nación, provincias y municipios.</p>','sistema salud argentino publico obras sociales prepagas']
+].forEach(function(r){G.push({t:r[0],c:r[1],s:r[2],b:r[3],k:r[4]})});
+var CL={ing:'Ingreso & Carrera',sem:'Semiología & Mnemotecnias',cli:'Clínica & Quirúrgica',gin:'Ginecología & Obstetricia',ped:'Pediatría & Urgencias',leg:'Legal',inj:'Injuria y Defensa',far:'Farmacología',sex:'Sexualidad',tra:'Trabajo y Tiempo Libre',hum:'El Ser Humano y su Medio',nut:'Nutrición',cyd:'Crecimiento y Desarrollo',sin:'Salud Individual',sco:'Salud Colectiva'};
+var norm=function(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')};
+var cat='all',$=function(i){return document.getElementById(i)};
+var pills=$('pills'),grid=$('grid');
+CATS.forEach(function(c){var b=document.createElement('button');b.type='button';b.className='pill'+(c[0]==='all'?' on':'');b.textContent=c[1];b.dataset.c=c[0];b.onclick=function(){cat=c[0];[].forEach.call(pills.children,function(x){x.classList.toggle('on',x===b)});center(b);render()};pills.appendChild(b)});
+var pl=$('pa-l'),pr=$('pa-r'),calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function upd(){var m=pills.scrollWidth-pills.clientWidth,x=pills.scrollLeft;pills.style.setProperty('--ml',x>2?'34px':'0px');pills.style.setProperty('--mr',x<m-2?'34px':'0px');pl.classList.toggle('off',x<=2);pr.classList.toggle('off',x>=m-2)}
+function go(l){pills.scrollTo({left:l,behavior:calm?'auto':'smooth'})}
+function center(b){go(Math.max(0,b.offsetLeft-(pills.clientWidth-b.offsetWidth)/2))}
+pl.onclick=function(){go(pills.scrollLeft-pills.clientWidth*.7)};
+pr.onclick=function(){go(pills.scrollLeft+pills.clientWidth*.7)};
+pills.addEventListener('scroll',upd,{passive:true});
+window.addEventListener('resize',upd);window.addEventListener('load',upd);
+var drag=null,moved=false;
+pills.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;drag={x:e.clientX,l:pills.scrollLeft};moved=false});
+window.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-drag.x;if(Math.abs(dx)>4){moved=true;pills.classList.add('drag')}if(moved)pills.scrollLeft=drag.l-dx});
+window.addEventListener('pointerup',function(){drag=null;pills.classList.remove('drag')});
+pills.addEventListener('click',function(e){if(moved){e.stopPropagation();e.preventDefault();moved=false}},true);
+upd();
+grid.innerHTML=G.map(function(g,i){return '<article class="card'+(g.w?' wide':'')+'" data-i="'+i+'"><span class="tag c-'+g.c+'">'+CL[g.c]+'</span><h2>'+g.t+'</h2><div class="sub">'+g.s+'</div>'+g.b+'</article>'}).join('');
+var cards=[].slice.call(grid.children);
+G.forEach(function(g,i){g._n=norm(g.t+' '+g.s+' '+g.k+' '+g.b.replace(/<[^>]+>/g,' '))});
+function render(){
+  var q=norm($('q').value.trim()),n=0;
+  cards.forEach(function(el,i){var g=G[i],ok=(cat==='all'||g.c===cat)&&(!q||q.split(/\s+/).every(function(w){return g._n.indexOf(w)>-1}));el.style.display=ok?'':'none';if(ok)n++});
+  $('count').textContent=n+(n===1?' término':' términos');
+  $('empty').style.display=n?'none':'block';
+}
+$('q').addEventListener('input',render);
+render();
+</script>
+</body>
+</html>

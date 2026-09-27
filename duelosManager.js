@@ -38,6 +38,13 @@ const DuelosManager = (function () {
         onRivalAnswered: null, // callback cuando el rival ya contestó la pregunta actual
         onChatMessage: null,   // callback ante un mensaje de chat entrante
         graceTimer: null,
+        presentes: new Set(),     // usernames (normalizados) presentes en el canal de la sala
+        presenceWaiters: [],      // promesas esperando presencia de ambos
+        ultimaPregunta: null,     // último payload "pregunta" emitido (para reenviar)
+        ultimoEstado: null,       // último payload emitido de cualquier tipo
+        estadosPendientes: [],    // estados recibidos antes de que exista onStateChange
+        estadosVistos: new Set(), // deduplicación de estados repetidos
+        watchdogTimer: null,
     };
 
     // ------------------------------------------------------------
@@ -97,6 +104,7 @@ const DuelosManager = (function () {
         state.roomId = data.id;
         state.roomCode = data.room_code;
         state.isHost = true;
+        state.rivalUsername = null;
         state.username = username;
 
         await _suscribirseASala(data.id);
@@ -179,6 +187,7 @@ const DuelosManager = (function () {
             await sb().from("versus_queue").delete().eq("username", rival.username);
 
             const sala = await crearSala({ tema, roomType: "quick_match" });
+            state.rivalUsername = rival.username;
             await sb()
                 .from("versus_rooms")
                 .update({ guest_username: rival.username, status: "in_progress", started_at: new Date().toISOString() })
@@ -200,52 +209,179 @@ const DuelosManager = (function () {
     // ------------------------------------------------------------
     // 4. Suscripción a la sala (Broadcast + Presence)
     // ------------------------------------------------------------
+    const _norm = (u) => String(u || "").trim().toLowerCase();
+
     async function _suscribirseASala(roomId) {
         const channelName = `versus_room_${roomId}`;
+
+        // Limpieza defensiva: si quedó un canal viejo con el mismo topic, .on() falla o se duplica
+        try {
+            const previo = sb().getChannels().find((c) => c.topic === `realtime:${channelName}`);
+            if (previo) await sb().removeChannel(previo);
+        } catch (_) {}
+
+        state.presentes = new Set();
+        state.estadosVistos = new Set();
+        state.estadosPendientes = [];
+        state.ultimaPregunta = null;
+        state.ultimoEstado = null;
+
         const channel = sb().channel(channelName, {
-            config: { presence: { key: state.username } },
+            config: {
+                broadcast: { self: false, ack: true }, // ack: send() confirma que el server lo recibió
+                presence: { key: state.username },
+            },
         });
 
-        // --- Broadcast: eventos de estado del duelo (emitidos por el Host) ---
+        // --- Estado del duelo (emite el Host, recibe el Invitado) ---
         channel.on("broadcast", { event: "duelo_estado" }, ({ payload }) => {
             const TIPOS = ["pregunta", "resultado_pregunta", "fin_duelo"];
             if (!payload || !TIPOS.includes(payload.tipo)) return;
-            if (state.onStateChange) state.onStateChange(payload);
+            const clave = `${payload.tipo}:${payload.index ?? ""}`;
+            if (state.estadosVistos.has(clave)) return; // replay idempotente
+            state.estadosVistos.add(clave);
+            if (payload.tipo === "pregunta") _detenerWatchdogInvitado();
+            _entregarEstado(payload);
         });
 
-        // --- Broadcast: reacciones rápidas (cualquiera de los dos) ---
+        // --- Handshake: el Invitado pide el estado actual; el Host lo reenvía ---
+        channel.on("broadcast", { event: "solicitar_estado" }, ({ payload }) => {
+            if (!state.isHost) return;
+            if (payload?.username && !state.rivalUsername) state.rivalUsername = String(payload.username).slice(0, 40);
+            _reenviarEstadoActual().catch(() => {});
+        });
+
         _suscribirseAReacciones(channel);
-
-        // --- Broadcast: "ya respondí esta pregunta" (indicador de progreso del rival) ---
         _suscribirseARespuestaParcial(channel);
-
-        // --- Broadcast: chat rápido del duelo ---
         _suscribirseAChat(channel);
 
-        // --- Presence: detectar caída del Host ---
+        // --- Presence ---
         channel.on("presence", { event: "sync" }, () => {
-            const presentUsers = Object.keys(channel.presenceState());
-            if (!state.isHost && state.rivalUsername && !presentUsers.includes(state.rivalUsername)) {
-                _iniciarGraciaPorDesconexion();
+            _refrescarPresentes(channel);
+            if (!state.isHost && state.rivalUsername) {
+                if (state.presentes.has(_norm(state.rivalUsername))) cancelarGraciaPorDesconexion();
+                else _iniciarGraciaPorDesconexion();
             }
         });
-
+        channel.on("presence", { event: "join" }, ({ key }) => {
+            _refrescarPresentes(channel);
+            if (_norm(key) === _norm(state.username)) return;
+            cancelarGraciaPorDesconexion(); // el rival volvió
+            if (state.isHost) _reenviarEstadoActual().catch(() => {});
+        });
         channel.on("presence", { event: "leave" }, ({ key }) => {
-            if (!state.isHost && key === state.rivalUsername) {
-                _iniciarGraciaPorDesconexion();
-            }
+            _refrescarPresentes(channel);
+            if (!state.isHost && _norm(key) === _norm(state.rivalUsername)) _iniciarGraciaPorDesconexion();
         });
 
-        await channel.subscribe(async (status) => {
-            if (status === "SUBSCRIBED") {
-                await channel.track({ username: state.username, online_at: new Date().toISOString() });
-            }
+        // --- Suscripción: ESPERAR a SUBSCRIBED + track antes de devolver el control ---
+        await new Promise((resolve, reject) => {
+            const t = setTimeout(() => reject(new Error("No se pudo conectar a la sala (timeout de Realtime).")), 10000);
+            channel.subscribe(async (status, err) => {
+                if (status === "SUBSCRIBED") {
+                    try {
+                        await channel.track({
+                            username: state.username,
+                            role: state.isHost ? "host" : "guest",
+                            online_at: new Date().toISOString(),
+                        });
+                    } catch (e) { console.warn("[duelosManager] track falló:", e); }
+                    clearTimeout(t);
+                    resolve();
+                } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+                    clearTimeout(t);
+                    reject(err || new Error(`Realtime: ${status}`));
+                }
+            });
+        }).catch(async (e) => {
+            try { await sb().removeChannel(channel); } catch (_) {}
+            throw e;
         });
 
         state.channel = channel;
-
-        // --- Postgres Changes: respuestas del duelo en tiempo real (reemplaza el polling) ---
         _suscribirseARespuestas(roomId);
+
+        // El Invitado pide el estado hasta recibir la primera pregunta
+        if (!state.isHost) _iniciarWatchdogInvitado();
+    }
+
+    function _entregarEstado(payload) {
+        if (state.onStateChange) state.onStateChange(payload);
+        else state.estadosPendientes.push(payload); // se vacía al asignar onStateChange
+    }
+
+    function _refrescarPresentes(ch = state.channel) {
+        if (!ch) return;
+        const claves = Object.keys(ch.presenceState());
+        state.presentes = new Set(claves.map(_norm));
+        // El Host descubre a su rival por presencia
+        if (state.isHost && !state.rivalUsername) {
+            const otro = claves.find((k) => _norm(k) !== _norm(state.username));
+            if (otro) state.rivalUsername = otro;
+        }
+        state.presenceWaiters = state.presenceWaiters.filter((w) => {
+            if (w.check()) { w.resolve(true); return false; }
+            return true;
+        });
+    }
+
+    function _ambosPresentes() {
+        const yo = _norm(state.username);
+        if (!state.presentes.has(yo)) return false;
+        if (state.rivalUsername) return state.presentes.has(_norm(state.rivalUsername));
+        return [...state.presentes].some((u) => u !== yo);
+    }
+
+    // Barrera: resuelve true cuando AMBOS figuran en presenceState de la misma sala
+    function _esperarAmbosPresentes(timeoutMs = 20000) {
+        return new Promise((resolve) => {
+            _refrescarPresentes();
+            if (_ambosPresentes()) return resolve(true);
+            const w = { check: _ambosPresentes, resolve };
+            state.presenceWaiters.push(w);
+            setTimeout(() => {
+                const i = state.presenceWaiters.indexOf(w);
+                if (i !== -1) { state.presenceWaiters.splice(i, 1); resolve(false); }
+            }, timeoutMs);
+        });
+    }
+
+    async function _reenviarEstadoActual() {
+        if (state.ultimaPregunta) await _enviar("duelo_estado", state.ultimaPregunta);
+        if (state.ultimoEstado && state.ultimoEstado !== state.ultimaPregunta) {
+            await _enviar("duelo_estado", state.ultimoEstado);
+        }
+    }
+
+    function _iniciarWatchdogInvitado() {
+        _detenerWatchdogInvitado();
+        let intentos = 0;
+        const pedir = () => {
+            if (state.isHost || !state.channel) return _detenerWatchdogInvitado();
+            _enviar("solicitar_estado", { username: state.username }, 0).catch(() => {});
+            if (++intentos >= 30) _detenerWatchdogInvitado(); // ~60s
+        };
+        pedir();
+        state.watchdogTimer = setInterval(pedir, 2000);
+    }
+
+    function _detenerWatchdogInvitado() {
+        if (state.watchdogTimer) { clearInterval(state.watchdogTimer); state.watchdogTimer = null; }
+    }
+
+    // Único punto de salida de broadcasts. NUNCA envía si el canal no está "joined"
+    // (así no cae al fallback REST, que era lo que hacía asimétrico el chat).
+    async function _enviar(event, payload, reintentos = 2) {
+        for (let i = 0; i <= reintentos; i++) {
+            const ch = state.channel;
+            if (!ch) return "sin_canal";
+            if (ch.state !== "joined") { await _esperar(300); continue; }
+            const res = await ch.send({ type: "broadcast", event, payload });
+            if (res === "ok") return "ok";
+            await _esperar(300 * (i + 1));
+        }
+        console.warn(`[duelosManager] No se pudo enviar "${event}".`);
+        return "error";
     }
 
     // ------------------------------------------------------------
@@ -337,19 +473,16 @@ const DuelosManager = (function () {
             console.warn("[duelosManager] Solo el Host puede emitir el estado del duelo.");
             return;
         }
-        await state.channel.send({ type: "broadcast", event: "duelo_estado", payload });
+        if (payload.tipo === "pregunta") state.ultimaPregunta = payload;
+        state.ultimoEstado = payload;
+        return _enviar("duelo_estado", payload);
     }
 
     // ------------------------------------------------------------
     // 6b. Reacciones rápidas (🔥😤💀👏) — cualquiera de los dos las emite
     // ------------------------------------------------------------
     async function emitirReaccion(emoji) {
-        if (!state.channel) return;
-        await state.channel.send({
-            type: "broadcast",
-            event: "reaccion",
-            payload: { emoji, username: state.username },
-        });
+        return _enviar("reaccion", { emoji, username: state.username });
     }
 
     const REACCIONES_VALIDAS = ["🔥", "😤", "💀", "👏"];
@@ -375,12 +508,7 @@ const DuelosManager = (function () {
     // mostrar un indicador tipo "⚡ Tu rival ya respondió" mientras el
     // jugador sigue pensando.
     async function emitirRespuestaParcial() {
-        if (!state.channel) return;
-        await state.channel.send({
-            type: "broadcast",
-            event: "jugador_respondio",
-            payload: { username: state.username },
-        });
+        return _enviar("jugador_respondio", { username: state.username });
     }
 
     function _suscribirseARespuestaParcial(channel) {
@@ -393,11 +521,11 @@ const DuelosManager = (function () {
     // 6c-ter. Chat rápido del duelo
     // ------------------------------------------------------------
     async function emitirMensajeChat(texto) {
-        if (!state.channel || !texto) return;
-        await state.channel.send({
-            type: "broadcast",
-            event: "chat_msg",
-            payload: { username: state.username, texto: String(texto).slice(0, 140), enviadoAt: Date.now() },
+        if (!texto) return;
+        return _enviar("chat_msg", {
+            username: state.username,
+            texto: String(texto).slice(0, 140),
+            enviadoAt: Date.now(),
         });
     }
 
@@ -427,6 +555,14 @@ const DuelosManager = (function () {
         }
 
         await sb().from("versus_rooms").update({ question_ids: preguntas.map((p) => p.id) }).eq("id", state.roomId);
+
+        // BARRERA: ambos clientes deben figurar en presenceState antes de emitir la 1ra pregunta
+        const ambosListos = await _esperarAmbosPresentes(20000);
+        if (!ambosListos) {
+            console.warn("[duelosManager] El rival no confirmó presencia. Se cancela el duelo.");
+            await declararVictoriaPorAbandono("abandono_invitado"); // 0-0: el server cancela sin tocar ELO
+            return;
+        }
 
         const respuestasHost = {};
         const respuestasGuest = {};
@@ -625,12 +761,20 @@ const DuelosManager = (function () {
     // ------------------------------------------------------------
     async function salirDeSala() {
         cancelarGraciaPorDesconexion();
+        _detenerWatchdogInvitado();
+        state.presenceWaiters.forEach((w) => w.resolve(false));
+        state.presenceWaiters = [];
         if (state.channel) {
-            await state.channel.untrack();
-            sb().removeChannel(state.channel);
+            try { await state.channel.untrack(); } catch (_) {}
+            try { await sb().removeChannel(state.channel); } catch (_) {}
         }
         _cerrarCanalDeRespuestas();
-        state = { ...state, roomId: null, roomCode: null, channel: null };
+        state = {
+            ...state,
+            roomId: null, roomCode: null, channel: null,
+            presentes: new Set(), estadosVistos: new Set(), estadosPendientes: [],
+            ultimaPregunta: null, ultimoEstado: null,
+        };
     }
 
     // ==============================================================
@@ -834,6 +978,11 @@ const DuelosManager = (function () {
         },
         set onStateChange(cb) {
             state.onStateChange = cb;
+            if (cb && state.estadosPendientes.length) {
+                const pendientes = state.estadosPendientes;
+                state.estadosPendientes = [];
+                pendientes.forEach((e) => cb(e));
+            }
         },
         set onOpponentLeft(cb) {
             state.onOpponentLeft = cb;

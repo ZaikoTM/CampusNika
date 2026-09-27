@@ -318,6 +318,9 @@ const NikaAssistant = (() => {
             }
             
             .nika-msg.bot { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; align-self: flex-start; border-bottom-left-radius: 4px; }
+            .nika-msg.bot h4 { margin: 8px 0 4px; font-size: 0.88rem; font-weight: 800; color: #0284c7; }
+            .nika-msg.bot h4:first-child { margin-top: 0; }
+            .nika-msg.bot strong { font-weight: 800; }
             .nika-msg.user { background: #0284c7; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
             .nika-msg.pending { background: #fef9c3; border: 1px solid rgba(202,138,4,0.3); color: #713f12; align-self: flex-start; font-style: italic; }
 
@@ -343,10 +346,45 @@ const NikaAssistant = (() => {
         document.head.appendChild(style);
     }
 
+    // ---- Parseador Markdown ligero (Asistente Nika) ----
+    // Gemini a veces ignora la instrucción de "texto plano" y manda
+    // **negritas** / ### títulos. En vez de pelear con el prompt,
+    // lo convertimos acá a HTML real antes de inyectarlo en el chat.
+    // Primero escapamos HTML (para no abrir una inyección si la IA
+    // repite algo que el usuario mandó) y recién después aplicamos
+    // los reemplazos de Markdown -> HTML.
+    function escaparHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    function parsearMarkdown(texto) {
+        let html = escaparHtml(texto);
+
+        // ### Título / #### Título  ->  <h4>Título</h4>  (uno o más '#')
+        html = html.replace(/^#{1,6}\s*(.+)$/gm, '<h4>$1</h4>');
+
+        // **texto**  ->  <strong>texto</strong>
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+        // saltos de línea -> <br>
+        html = html.replace(/\n/g, '<br>');
+
+        return html;
+    }
+
     function appendMessage(text, role) {
         const msg = document.createElement('div');
         msg.className = `nika-msg ${role}`;
-        msg.textContent = text;
+        // Las respuestas de la IA ('bot') se parsean para convertir el
+        // Markdown residual en HTML real; lo que escribe el usuario y los
+        // mensajes de estado ('pending') se muestran como texto plano.
+        if (role === 'bot') {
+            msg.innerHTML = parsearMarkdown(text);
+        } else {
+            msg.textContent = text;
+        }
         messagesEl.appendChild(msg);
         messagesEl.scrollTop = messagesEl.scrollHeight;
         return msg;

@@ -43,15 +43,36 @@ const ChatManager = (function () {
     //    políticas de autoplay del navegador).
     // ------------------------------------------------------------
     let _audioCtx = null;
+    let _audioDesbloqueado = false;
+
     function _getAudioCtx() {
         try {
             const Ctx = window.AudioContext || window.webkitAudioContext;
             if (!Ctx) return null;
             if (!_audioCtx || _audioCtx.state === 'closed') _audioCtx = new Ctx();
-            if (_audioCtx.state === 'suspended') _audioCtx.resume().catch(() => {});
             return _audioCtx;
         } catch (_) { return null; }
     }
+
+    // Los navegadores (sobre todo iOS/Chrome mobile) bloquean el audio hasta el primer gesto
+    // del usuario: se crea/resume el contexto en el primer toque o tecla.
+    function _desbloquearAudio() {
+        if (_audioDesbloqueado) return;
+        const ctx = _getAudioCtx();
+        if (!ctx) return;
+        ctx.resume().then(() => {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            g.gain.value = 0.0001;
+            osc.connect(g); g.connect(ctx.destination);
+            osc.start(); osc.stop(ctx.currentTime + 0.01); // "abre" el contexto en iOS
+            _audioDesbloqueado = true;
+            ['pointerdown', 'keydown', 'touchstart'].forEach((ev) =>
+                document.removeEventListener(ev, _desbloquearAudio, true));
+        }).catch(() => {});
+    }
+    ['pointerdown', 'keydown', 'touchstart'].forEach((ev) =>
+        document.addEventListener(ev, _desbloquearAudio, { capture: true, passive: true }));
 
     function _tono(ctx, freq, inicio, duracion, volumen) {
         const osc = ctx.createOscillator();
@@ -71,11 +92,16 @@ const ChatManager = (function () {
     function _reproducirSonidoMensaje() {
         const ctx = _getAudioCtx();
         if (!ctx) return;
-        try {
-            // Dos tonos cortos ascendentes, tipo notificación clásica de MSN Messenger
-            _tono(ctx, 660, 0, 0.11, 0.16);   // primer bip (más grave)
-            _tono(ctx, 880, 0.1, 0.14, 0.16); // segundo bip (más agudo)
-        } catch (_) {}
+        const tocar = () => {
+            try {
+                // Dos tonos cortos ascendentes, tipo notificación clásica de MSN Messenger
+                _tono(ctx, 660, 0, 0.11, 0.16);   // primer bip (más grave)
+                _tono(ctx, 880, 0.1, 0.14, 0.16); // segundo bip (más agudo)
+                if (navigator.vibrate) navigator.vibrate(120); // "zumbido" físico en celular
+            } catch (_) {}
+        };
+        if (ctx.state === 'running') tocar();
+        else ctx.resume().then(tocar).catch(() => {});
     }
 
     let canalActivo = null;
@@ -87,70 +113,304 @@ const ChatManager = (function () {
     let sonidoActivado = true;     // permite silenciar la alerta sonora desde afuera
 
     // ------------------------------------------------------------
+    // 0b. Estado nuevo: presencia global, ticks y confirmaciones
+    // ------------------------------------------------------------
+    const CANAL_GLOBAL = "nika_global";
+    const _norm = (u) => String(u || "").trim().toLowerCase();
+    const _yo = () => window.NikaSupabase.getNikaCurrentUsername();
+
+    let canalGlobal = null;
+    let _promesaGlobal = null;
+    let presenciaGlobal = new Set();
+    let onPresenciaGlobal = null;
+    let onEntregaCambio = null;     // (friendUsername, ids[]) => void
+    let lecturaAutomatica = true;   // poné false desde la UI si el chat está minimizado
+    let _visibilidadRegistrada = false;
+
+    const RANGO = { sent: 1, delivered: 2, read: 3 };
+    const estadosEntrega = new Map();  // id -> 'sent' | 'delivered' | 'read'
+    const idsPorAmigo = new Map();     // amigo(norm) -> Set(ids de mis mensajes)
+    const _idsEntrantes = new Set();
+    const _idsPintados = new Set();
+
+    function _suscribirYEsperar(canal, alSuscribir, ms = 8000) {
+        return new Promise((resolve) => {
+            const t = setTimeout(() => { console.warn('[ChatManager] Timeout suscribiendo', canal.topic); resolve(false); }, ms);
+            canal.subscribe(async (status) => {
+                if (status === 'SUBSCRIBED') {
+                    try { await alSuscribir(); } catch (_) {}
+                    clearTimeout(t); resolve(true);
+                } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+                    clearTimeout(t); resolve(false);
+                }
+            });
+        });
+    }
+
+    function _limpiarTopic(nombre) {
+        try {
+            const previo = sb().getChannels().find((c) => c.topic === `realtime:${nombre}`);
+            if (previo) return sb().removeChannel(previo);
+        } catch (_) {}
+        return Promise.resolve();
+    }
+
+    // ---------- Presencia global (la que faltaba: el DM solo veía a quien tenía ESE chat abierto) ----------
+    function _amigoEnLinea(friend) {
+        const f = _norm(friend);
+        if (presenciaGlobal.has(f)) return true;
+        if (canalActivo && _norm(conversacionActual) === f) {
+            return Object.keys(canalActivo.presenceState()).some((k) => _norm(k) === f);
+        }
+        return false;
+    }
+
+    function iniciarPresenciaGlobal() {
+        if (!_yo()) return Promise.resolve();
+        if (!_promesaGlobal) {
+            _promesaGlobal = _iniciarPresenciaGlobal().catch((e) => {
+                console.warn('[ChatManager] No se pudo iniciar la presencia global:', e);
+                _promesaGlobal = null;
+            });
+        }
+        return _promesaGlobal;
+    }
+
+    async function _iniciarPresenciaGlobal() {
+        const username = _yo();
+        await _limpiarTopic(CANAL_GLOBAL);
+
+        const canal = sb().channel(CANAL_GLOBAL, {
+            config: { broadcast: { self: false }, presence: { key: username } },
+        });
+        canalGlobal = canal;
+
+        const refrescar = () => {
+            presenciaGlobal = new Set(Object.keys(canal.presenceState()).map(_norm));
+            if (onPresenciaGlobal) onPresenciaGlobal(new Set(presenciaGlobal));
+            if (conversacionActual && onPresenciaCambio) onPresenciaCambio(_amigoEnLinea(conversacionActual));
+        };
+        canal.on('presence', { event: 'sync' }, refrescar);
+        canal.on('presence', { event: 'join' }, refrescar);
+        canal.on('presence', { event: 'leave' }, refrescar);
+
+        // Ping SIN contenido (solo ids): sonido/badge aunque el chat esté cerrado
+        canal.on('broadcast', { event: 'dm_ping' }, ({ payload }) => _alRecibirMensaje(payload, 'ping'));
+        canal.on('broadcast', { event: 'mensaje_recibido' }, ({ payload }) => _alRecibirEntrega(payload));
+        canal.on('broadcast', { event: 'mensajes_leidos' }, ({ payload }) => _alRecibirLectura(payload));
+
+        await _suscribirYEsperar(canal, async () => {
+            await canal.track({ username, online_at: new Date().toISOString() });
+            _confirmarPendientes(); // todo lo que llegó mientras estaba offline pasa a "recibido"
+        });
+
+        if (!_visibilidadRegistrada) {
+            _visibilidadRegistrada = true;
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) return;
+                if (canalGlobal && canalGlobal.state === 'joined') {
+                    canalGlobal.track({ username: _yo(), online_at: new Date().toISOString() }).catch(() => {});
+                }
+                _confirmarPendientes();
+                if (conversacionActual && lecturaAutomatica) marcarComoLeido(conversacionActual);
+            });
+        }
+    }
+
+    async function detenerPresenciaGlobal() {
+        if (canalGlobal) {
+            try { await canalGlobal.untrack(); } catch (_) {}
+            try { await sb().removeChannel(canalGlobal); } catch (_) {}
+        }
+        canalGlobal = null; _promesaGlobal = null; presenciaGlobal = new Set();
+    }
+
+    function estaEnLinea(friend) { return _amigoEnLinea(friend); }
+
+    // ---------- Ticks ----------
+    const _SVG_1 = '<svg viewBox="0 0 18 12" aria-hidden="true"><path d="M1.5 6.5 5 10 12 2"/></svg>';
+    const _SVG_2 = '<svg viewBox="0 0 18 12" aria-hidden="true"><path d="M1.5 6.5 5 10 12 2"/><path d="M6 6.5 9.5 10 16.5 2"/></svg>';
+
+    function tickHTML(estado) {
+        const e = RANGO[estado] ? estado : 'sent';
+        const etiqueta = { sent: 'Enviado', delivered: 'Recibido', read: 'Leído' }[e];
+        return `<span class="chat-bubble-tick tick-${e}" data-estado="${e}" title="${etiqueta}" aria-label="${etiqueta}">${e === 'sent' ? _SVG_1 : _SVG_2}</span>`;
+    }
+
+    function _subirEstado(id, nuevo) {
+        const actual = estadosEntrega.get(id);
+        if (!actual || RANGO[nuevo] > RANGO[actual]) { estadosEntrega.set(id, nuevo); return true; }
+        return false;
+    }
+
+    function estadoDeEntrega(row) {
+        let e = row.read_at ? 'read' : row.delivered_at ? 'delivered' : 'sent';
+        const mem = estadosEntrega.get(row.id);
+        if (mem && RANGO[mem] > RANGO[e]) e = mem;
+        return e;
+    }
+
+    function _registrarEnviado(row) {
+        if (!row || !row.id) return;
+        const k = _norm(row.to_username);
+        if (!idsPorAmigo.has(k)) idsPorAmigo.set(k, new Set());
+        idsPorAmigo.get(k).add(row.id);
+        _subirEstado(row.id, row.read_at ? 'read' : row.delivered_at ? 'delivered' : 'sent');
+    }
+
+    // Repinta el tick de una burbuja: requiere data-msg-id en el .chat-bubble
+    function _pintarTick(id, estado) {
+        let sel;
+        try { sel = `[data-msg-id="${CSS.escape(String(id))}"] .chat-bubble-tick`; } catch (_) { return; }
+        document.querySelectorAll(sel).forEach((el) => {
+            if (el.dataset.estado === estado) return;
+            const tpl = document.createElement('template');
+            tpl.innerHTML = tickHTML(estado).trim();
+            const nuevo = tpl.content.firstElementChild;
+            nuevo.classList.add('tick-anim');
+            el.replaceWith(nuevo);
+        });
+    }
+
+    // Evento hacia el otro extremo: por el canal global y, si está abierto, por el DM
+    async function _emitirEvento(friend, event, payload) {
+        const envios = [];
+        if (canalGlobal && canalGlobal.state === 'joined') {
+            envios.push(canalGlobal.send({ type: 'broadcast', event, payload }));
+        }
+        if (canalActivo && canalActivo.state === 'joined' && _norm(conversacionActual) === _norm(friend)) {
+            envios.push(canalActivo.send({ type: 'broadcast', event, payload }));
+        }
+        await Promise.allSettled(envios);
+    }
+
+    // ---------- Recepción (sonido + ✓✓ + lectura automática) ----------
+    // ref: fila completa (canal DM) o { id, from_username, to_username } (ping global)
+    async function _alRecibirMensaje(ref, origen) {
+        const yo = _yo();
+        if (!yo || !ref || !ref.id) return;
+        // Solo mensajes ENTRANTES: nunca suena ni confirma si el remitente soy yo
+        if (_norm(ref.to_username) !== _norm(yo) || _norm(ref.from_username) === _norm(yo)) return;
+
+        if (!_idsEntrantes.has(ref.id)) {
+            _idsEntrantes.add(ref.id);
+            if (sonidoActivado) _reproducirSonidoMensaje();
+            _confirmarRecepcion(ref);
+        }
+
+        if (_norm(conversacionActual) === _norm(ref.from_username) && !_idsPintados.has(ref.id)) {
+            let fila = origen === 'dm' ? ref : null;
+            if (!fila) {
+                const { data } = await sb().from('private_messages').select('*').eq('id', ref.id).maybeSingle();
+                fila = data;
+            }
+            if (fila && !_idsPintados.has(ref.id)) {
+                _idsPintados.add(ref.id);
+                if (onMensaje) { try { onMensaje(fila); } catch (e) { console.error(e); } }
+            }
+            if (lecturaAutomatica && !document.hidden) marcarComoLeido(ref.from_username);
+        }
+        if (onListaChanged) onListaChanged();
+    }
+
+    async function _confirmarRecepcion(ref) {
+        const yo = _yo();
+        _emitirEvento(ref.from_username, 'mensaje_recibido', { receiver: yo, owner: ref.from_username, ids: [ref.id] });
+        try {
+            await sb().from('private_messages')
+                .update({ delivered_at: new Date().toISOString() })
+                .eq('id', ref.id).is('delivered_at', null);
+        } catch (_) {}
+    }
+
+    async function _confirmarPendientes() {
+        const yo = _yo();
+        if (!yo) return;
+        const { data, error } = await sb().from('private_messages')
+            .update({ delivered_at: new Date().toISOString() })
+            .eq('to_username', yo).is('delivered_at', null)
+            .select('id, from_username');
+        if (error || !data || !data.length) return;
+        const porEmisor = {};
+        data.forEach((m) => { (porEmisor[m.from_username] = porEmisor[m.from_username] || []).push(m.id); });
+        Object.entries(porEmisor).forEach(([emisor, ids]) =>
+            _emitirEvento(emisor, 'mensaje_recibido', { receiver: yo, owner: emisor, ids }));
+    }
+
+    // El OTRO recibió mis mensajes -> ✓✓ gris
+    function _alRecibirEntrega(payload) {
+        if (!payload || _norm(payload.owner) !== _norm(_yo())) return;
+        (payload.ids || []).forEach((id) => { if (_subirEstado(id, 'delivered')) _pintarTick(id, 'delivered'); });
+        if (onEntregaCambio) onEntregaCambio(payload.receiver, payload.ids || []);
+    }
+
+    // El OTRO leyó mis mensajes -> ✓✓ azul
+    function _alRecibirLectura(payload) {
+        if (!payload || _norm(payload.owner) !== _norm(_yo())) return;
+        const friend = payload.reader;
+        (idsPorAmigo.get(_norm(friend)) || new Set()).forEach((id) => {
+            if (_subirEstado(id, 'read')) _pintarTick(id, 'read');
+        });
+        if (_norm(friend) === _norm(conversacionActual)) { // respaldo por DOM (historial recién cargado)
+            document.querySelectorAll('.chat-bubble.mine[data-msg-id]').forEach((el) => {
+                const id = el.getAttribute('data-msg-id');
+                if (_subirEstado(id, 'read')) _pintarTick(id, 'read');
+            });
+        }
+        if (onLecturaCambio) onLecturaCambio(friend);
+    }
+
+    // ------------------------------------------------------------
     // 1. Abrir/suscribirse a una conversación 1 a 1
     // ------------------------------------------------------------
     async function abrirConversacion(friendUsername) {
-        const username = window.NikaSupabase.getNikaCurrentUsername();
+        const username = _yo();
         if (!username) throw new Error("No hay usuario logueado.");
 
         await cerrarConversacion(); // limpia canal previo si había otro chat abierto
+        iniciarPresenciaGlobal().catch(() => {}); // idempotente
+
+        const nombre = _canalPara(username, friendUsername);
+        await _limpiarTopic(nombre);
 
         conversacionActual = friendUsername;
-        // Presence habilitado en el mismo canal determinístico: cada uno de los dos
-        // extremos se "trackea" con su username como key, así el otro lado sabe si
-        // está online sin necesidad de una tabla ni polling.
-        canalActivo = sb().channel(_canalPara(username, friendUsername), {
-            config: { presence: { key: username } },
+        // Presence en el mismo canal determinístico + presencia global (ver iniciarPresenciaGlobal)
+        const canal = sb().channel(nombre, {
+            config: { broadcast: { self: false }, presence: { key: username } },
         });
+        canalActivo = canal;
 
-        canalActivo.on("broadcast", { event: "nuevo_mensaje" }, ({ payload }) => {
-            // Solo me interesa si el mensaje corresponde a esta conversación
-            const esMio = payload.from_username === username || payload.to_username === username;
-            if (esMio && onMensaje) onMensaje(payload);
-            // Sonido tipo MSN solo cuando el mensaje lo mandó la otra persona
-            // (nunca cuando el eco del broadcast es de mi propio mensaje).
-            if (esMio && payload.from_username !== username && sonidoActivado) {
-                _reproducirSonidoMensaje();
-            }
-            if (onListaChanged) onListaChanged();
-        });
-
-        canalActivo.on("broadcast", { event: "mensajes_leidos" }, ({ payload }) => {
-            // El otro extremo marcó como leídos los mensajes que yo le mandé.
-            // payload: { reader: username_que_leyo, owner: a_quien_le_leyeron }
+        canal.on("broadcast", { event: "nuevo_mensaje" }, ({ payload }) => {
             if (!payload) return;
-            const esMiConversacion = payload.reader === friendUsername && payload.owner === username;
-            if (esMiConversacion && onLecturaCambio) onLecturaCambio(friendUsername);
+            const involucrado = _norm(payload.from_username) === _norm(username) || _norm(payload.to_username) === _norm(username);
+            if (involucrado) _alRecibirMensaje(payload, 'dm'); // pinta, suena (solo si es ajeno) y confirma
         });
+        canal.on("broadcast", { event: "mensaje_recibido" }, ({ payload }) => _alRecibirEntrega(payload));
+        canal.on("broadcast", { event: "mensajes_leidos" }, ({ payload }) => _alRecibirLectura(payload));
 
         const _notificarPresencia = () => {
-            if (!onPresenciaCambio) return;
-            const estado = canalActivo.presenceState();
-            const amigoEnLinea = Object.prototype.hasOwnProperty.call(estado, friendUsername);
-            onPresenciaCambio(amigoEnLinea);
+            if (onPresenciaCambio) onPresenciaCambio(_amigoEnLinea(friendUsername));
         };
+        canal.on("presence", { event: "sync" }, _notificarPresencia);
+        canal.on("presence", { event: "join" }, _notificarPresencia);
+        canal.on("presence", { event: "leave" }, _notificarPresencia);
 
-        canalActivo.on("presence", { event: "sync" }, _notificarPresencia);
-        canalActivo.on("presence", { event: "join" }, _notificarPresencia);
-        canalActivo.on("presence", { event: "leave" }, _notificarPresencia);
-
-        await canalActivo.subscribe(async (status) => {
-            if (status === "SUBSCRIBED") {
-                try { await canalActivo.track({ online_at: new Date().toISOString() }); } catch (_) {}
-            }
+        await _suscribirYEsperar(canal, async () => {
+            await canal.track({ username, online_at: new Date().toISOString() });
         });
+        _notificarPresencia();
 
         return historial(friendUsername);
     }
 
-    function cerrarConversacion() {
+    async function cerrarConversacion() {
         if (canalActivo) {
-            try { canalActivo.untrack(); } catch (_) {}
-            sb().removeChannel(canalActivo);
+            const c = canalActivo;
             canalActivo = null;
+            try { await c.untrack(); } catch (_) {}
+            try { await sb().removeChannel(c); } catch (_) {}
         }
         conversacionActual = null;
-        return Promise.resolve();
     }
 
     // ------------------------------------------------------------
@@ -171,6 +431,7 @@ const ChatManager = (function () {
             .limit(100);
 
         if (error) throw error;
+        (data || []).forEach((m) => { if (_norm(m.from_username) === _norm(username)) _registrarEnviado(m); });
         return data || [];
     }
 
@@ -258,10 +519,23 @@ const ChatManager = (function () {
             throw e;
         }
 
-        // Notifico por Realtime a ambos extremos del canal determinístico,
-        // así el que tiene la conversación abierta la ve al instante.
-        const canalNombre = _canalPara(payloadInsert.from_username, payloadInsert.to_username);
-        await sb().channel(canalNombre).send({ type: "broadcast", event: "nuevo_mensaje", payload: row });
+        _registrarEnviado(row);
+        if (!canalGlobal) await iniciarPresenciaGlobal();
+
+        // (a) DM: por el canal YA suscripto (nunca crear otro con el mismo nombre)
+        if (canalActivo && canalActivo.state === "joined" && _norm(conversacionActual) === _norm(payloadInsert.to_username)) {
+            try { await canalActivo.send({ type: "broadcast", event: "nuevo_mensaje", payload: row }); }
+            catch (err) { console.warn('[ChatManager] Falló el broadcast al DM:', err); }
+        }
+        // (b) Ping global sin contenido: sonido/badge en el otro aunque tenga el chat cerrado
+        if (canalGlobal && canalGlobal.state === "joined") {
+            try {
+                await canalGlobal.send({
+                    type: "broadcast", event: "dm_ping",
+                    payload: { id: row.id, from_username: row.from_username, to_username: row.to_username },
+                });
+            } catch (err) { console.warn('[ChatManager] Falló el ping global:', err); }
+        }
 
         return row;
     }
@@ -289,7 +563,7 @@ const ChatManager = (function () {
     }
 
     async function marcarComoLeido(friendUsername) {
-        const username = window.NikaSupabase.getNikaCurrentUsername();
+        const username = _yo();
         if (!username) return;
 
         const { data } = await sb()
@@ -300,18 +574,10 @@ const ChatManager = (function () {
             .is("read_at", null)
             .select("id");
 
-        // Solo avisamos por Realtime si realmente había algo para marcar como
-        // leído, así el otro extremo actualiza sus ticks a "✓✓ azul" al toque.
+        // Solo avisamos si realmente había algo para marcar como leído:
+        // el otro extremo pasa sus ticks a "✓✓ azul" al toque.
         if (data && data.length) {
-            try {
-                await sb().channel(_canalPara(username, friendUsername)).send({
-                    type: "broadcast",
-                    event: "mensajes_leidos",
-                    payload: { reader: username, owner: friendUsername },
-                });
-            } catch (err) {
-                console.warn('[ChatManager] No se pudo notificar la lectura:', err);
-            }
+            _emitirEvento(friendUsername, "mensajes_leidos", { reader: username, owner: friendUsername });
         }
 
         if (onListaChanged) onListaChanged();
@@ -320,6 +586,16 @@ const ChatManager = (function () {
     return {
         abrirConversacion,
         cerrarConversacion,
+        iniciarPresenciaGlobal,
+        detenerPresenciaGlobal,
+        estaEnLinea,
+        tickHTML,
+        estadoDeEntrega,
+        sonarMensaje: _reproducirSonidoMensaje, // para el chat global
+        get lecturaAutomatica() { return lecturaAutomatica; },
+        set lecturaAutomatica(v) { lecturaAutomatica = !!v; },
+        set onEntregaCambio(cb) { onEntregaCambio = cb; },
+        set onPresenciaGlobal(cb) { onPresenciaGlobal = cb; },
         historial,
         enviarMensaje,
         compartirPregunta,

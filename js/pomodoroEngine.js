@@ -17,6 +17,14 @@
 //     (como sesión parcial, completed = false).
 //  5. El tick corre en un Web Worker: Chrome/Brave/Edge reducen los timers de
 //     las pestañas ocultas (hasta 1 vez por minuto), los workers no.
+//  6. POMODORO COMPARTIDO (Host / Invitado). El Host es el único dueño del reloj:
+//     cada Start / Pause / Stop / fin de fase se publica como un "snapshot" por el
+//     canal de la sala (ver pomodoroSyncManager.js) y se repite cada 5 s (latido)
+//     para autocorregir mensajes perdidos. El Invitado NO tiene controles: aplica
+//     los snapshots del Host (con el tiempo restante RELATIVO, así no depende de
+//     que los relojes de los dos dispositivos coincidan). Al cerrar una fase el
+//     Host decide los minutos y AMBOS guardan su propia fila en study_sessions
+//     (ver NikaRendimiento.registrarSesionCompartida).
 
 const PomodoroEngine = (() => {
   const STATE_KEY = 'nika_pomo_state';
@@ -24,13 +32,17 @@ const PomodoroEngine = (() => {
   const GRACE_MS = 2 * 60 * 1000;           // si al volver pasaron >2 min del fin, se descarta
   const AUTO_NEXT_DELAY_MS = 2000;
   const MIN_PARTIAL_MIN = 5;                // un bloque de estudio interrumpido se guarda si llegó a >= 5 min
+  const SHARED_SYNC_MS = 5000;              // latido del Host hacia el Invitado
+  const SHARED_DRIFT_MS = 1500;             // el Invitado solo se reajusta si se desvía más que esto
+  const SHARED_DONE_KEY = 'nika_pomo_shared_done'; // sesiones compartidas ya guardadas (anti-duplicado)
 
   const baseTitle = document.title;
-  const listeners = { tick: [], change: [], complete: [] };
+  const listeners = { tick: [], change: [], complete: [], shared: [] };
 
   let worker = null;
   let fallbackInterval = null;
   let audioCtx = null;
+  let lastSharedSync = 0;
 
   // ------------------------------------------------------------
   // Configuración de minutos (la edita el usuario en ⚙️)
@@ -61,6 +73,7 @@ const PomodoroEngine = (() => {
       moduleId: (ctx && ctx.moduleId) || null,
       upId: (ctx && ctx.upId) || null,
       upLabel: (ctx && ctx.upLabel) || null,
+      shared: (ctx && ctx.shared) || null,   // sesión compartida: sobrevive entre fases
     };
   }
 
@@ -69,7 +82,7 @@ const PomodoroEngine = (() => {
       const raw = localStorage.getItem(STATE_KEY);
       if (raw) {
         const s = JSON.parse(raw);
-        if (s && s.mode && s.status) return s;
+        if (s && s.mode && s.status) { if (!s.shared) s.shared = null; return s; }
       }
     } catch (_) {}
     return idleState('work');
@@ -224,16 +237,125 @@ const PomodoroEngine = (() => {
   }
 
   // ------------------------------------------------------------
-  // Presence (Modo Biblioteca)
+  // Pomodoro compartido: helpers
   // ------------------------------------------------------------
-  function reportPresence() {
-    if (!window.PomodoroSyncManager) return;
-    window.PomodoroSyncManager.actualizarEstado({
-      pomodoroActivo: state.status === 'running',
-      faseActual: state.mode === 'work' ? 'Enfoque' : 'Descanso',
-      tiempoTotal: state.durationMin,          // minutos configurados por el host para esta fase
-      tiempoRestante: getRemainingSeconds(),   // segundos que le quedan AHORA MISMO
+  const isGuest = () => !!(state.shared && state.shared.role === 'guest');
+  const isHost = () => !!(state.shared && state.shared.role === 'host');
+  const sm = () => window.PomodoroSyncManager || null;
+  const myUsername = () => (window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername && window.NikaSupabase.getNikaCurrentUsername()) || null;
+
+  function newSessionId() {
+    try { if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID(); } catch (_) {}
+    return 'ps-' + Date.now().toString(36) + '-' + Math.random().toString(16).slice(2, 10);
+  }
+
+  // "UP6 · Hemorragias digestivas" — el tema que se muestra en el banner y en Presence.
+  // El texto sale de lo que la UI de estudio cargó desde la base (upId + upLabel).
+  function formatTema(st) {
+    const s = st || state;
+    const m = s.upId ? String(s.upId).trim().match(/^(?:up)?\s*0*(\d+)$/i) : null;
+    const upCorto = m ? `UP${parseInt(m[1], 10)}` : (s.upId ? String(s.upId) : '');
+    const label = s.upLabel && String(s.upLabel) !== String(s.upId) ? String(s.upLabel) : '';
+    if (m && label) return `${upCorto} · ${label}`;
+    return label || upCorto || '';
+  }
+
+  // Anti-duplicado: una sesión compartida (sala + fase + rol) se guarda una sola vez por dispositivo.
+  function claimSharedKey(key) {
+    if (!key) return true;
+    let map = {};
+    try { map = JSON.parse(localStorage.getItem(SHARED_DONE_KEY) || '{}') || {}; } catch (_) {}
+    if (map[key]) return false;
+    map[key] = Date.now();
+    const limite = Date.now() - 14 * 24 * 60 * 60 * 1000;
+    Object.keys(map).forEach((k) => { if (map[k] < limite) delete map[k]; });
+    try { localStorage.setItem(SHARED_DONE_KEY, JSON.stringify(map)); } catch (_) {}
+    return true;
+  }
+
+  // Delegado en rendimiento.js (dueño de las métricas). Si esa página no lo carga,
+  // cae al guardado normal del motor con el mismo anti-duplicado.
+  function registerSharedSession(p) {
+    if (window.NikaRendimiento && typeof window.NikaRendimiento.registrarSesionCompartida === 'function') {
+      return window.NikaRendimiento.registrarSesionCompartida(p).catch((e) => console.error('[PomodoroEngine] Sesión compartida:', e));
+    }
+    if (!claimSharedKey(p.sharedKey)) return Promise.resolve();
+    return registerStudySession(p.moduleId, p.upId, p.minutes, p.completed);
+  }
+
+  // Guarda ESTA fase para el usuario local, con las reglas de la sesión compartida:
+  //  - Host: minutos reales de la fase.
+  //  - Invitado: los mismos minutos, menos lo que llegó tarde (lateMin), para no
+  //    acreditarle tiempo que no estudió. Si entró en el primer minuto lateMin = 0
+  //    y los dos quedan con EXACTAMENTE los mismos números.
+  // Devuelve los minutos que efectivamente se acreditaron (0 = nada).
+  function registerSharedPhase(sh, p) {
+    if (!p.moduleId || !p.upId || !(p.minutes > 0)) return 0;
+    let mins = p.minutes;
+    let done = !!p.completed;
+    if (sh.role === 'guest' && sh.lateMin > 0) { mins = Math.max(0, mins - sh.lateMin); done = false; }
+    if (mins <= 0) return 0;
+    if (!done && mins < MIN_PARTIAL_MIN) return 0;
+    const phaseSeq = p.phaseSeq != null ? p.phaseSeq : sh.phaseSeq;
+    registerSharedSession({
+      sharedKey: `${sh.sessionId}:${phaseSeq}:${sh.role}`,
+      moduleId: p.moduleId, upId: p.upId, minutes: mins, completed: done,
+      role: sh.role, hostUsername: sh.hostUsername, partner: sh.partner,
     });
+    return mins;
+  }
+
+  // ------------------------------------------------------------
+  // Presence (Modo Biblioteca) + publicación a la sala compartida
+  // ------------------------------------------------------------
+  function currentRemainingMs() {
+    return state.status === 'running' ? Math.max(0, state.targetEnd - Date.now()) : Math.max(0, state.remainingMs || 0);
+  }
+
+  function buildSnapshot(type, extra) {
+    const sh = state.shared;
+    return Object.assign({
+      sessionId: sh.sessionId,
+      seq: Date.now(),                       // orden de mensajes (reloj del Host, siempre creciente)
+      phaseSeq: sh.phaseSeq || 0,            // n° de fase: identifica la sesión al guardar
+      type,                                  // start | pause | stop | complete | sync
+      status: state.status,
+      mode: state.mode,
+      remainingMs: currentRemainingMs(),     // tiempo RELATIVO: no depende de relojes sincronizados
+      durationMin: state.durationMin,
+      moduleId: state.moduleId,
+      upId: state.upId,
+      upLabel: state.upLabel,
+      tema: formatTema(),
+      hostUsername: sh.hostUsername,
+    }, extra || {});
+  }
+
+  function publishShared(type, extra) {
+    if (!isHost()) return;
+    const m = sm();
+    if (!m || typeof m.emitirComando !== 'function') return;
+    lastSharedSync = Date.now();
+    try {
+      const p = m.emitirComando(buildSnapshot(type, extra));
+      if (p && p.catch) p.catch(() => {});
+    } catch (_) {}
+  }
+
+  function reportPresence(type, extra) {
+    if (window.PomodoroSyncManager) {
+      const p = window.PomodoroSyncManager.actualizarEstado({
+        pomodoroActivo: state.status === 'running',
+        faseActual: state.mode === 'work' ? 'Enfoque' : 'Descanso',
+        tiempoTotal: state.durationMin,          // minutos configurados por el host para esta fase
+        tiempoRestante: getRemainingSeconds(),   // segundos que le quedan AHORA MISMO
+        tema: formatTema(),
+        salaCompartida: state.shared ? state.shared.sessionId : null,
+        rolPomodoro: state.shared ? state.shared.role : null,
+      });
+      if (p && p.catch) p.catch(() => {});
+    }
+    if (type) publishShared(type, extra);
   }
 
   // ------------------------------------------------------------
@@ -277,6 +399,7 @@ const PomodoroEngine = (() => {
     const remaining = getRemainingSeconds();
     updateTitle();
     emit('tick', remaining);
+    if (isHost() && Date.now() - lastSharedSync >= SHARED_SYNC_MS) publishShared('sync'); // latido: repara mensajes perdidos
     if (state.targetEnd - Date.now() <= 0) completePhase();
   }
 
@@ -291,12 +414,14 @@ const PomodoroEngine = (() => {
     localStorage.setItem(DONE_KEY, String(finishedEnd));
 
     const wasWork = state.mode === 'work';
+    const sh = state.shared ? { ...state.shared } : null;
     const finished = { mode: state.mode, minutes: state.durationMin, moduleId: state.moduleId, upId: state.upId };
 
     playAlertSound();
 
     if (wasWork) {
-      registerStudySession(finished.moduleId, finished.upId, finished.minutes);
+      if (sh) registerSharedPhase(sh, { moduleId: finished.moduleId, upId: finished.upId, minutes: finished.minutes, completed: true });
+      else registerStudySession(finished.moduleId, finished.upId, finished.minutes);
       if (typeof showToast === 'function') showToast('🔔 ¡Tiempo finalizado! Inicia tu descanso.', 'success');
       notify('¡Tiempo de estudio finalizado!', 'Buen trabajo. Es hora de tu descanso.');
     } else {
@@ -309,14 +434,19 @@ const PomodoroEngine = (() => {
     saveState();
     updateTitle();
     stopTicking();
-    reportPresence();
+    // El Host informa el cierre con los minutos oficiales: el Invitado guarda contra ese mismo dato.
+    reportPresence('complete', {
+      finishedMode: finished.mode, minutes: finished.minutes, completed: true,
+      phaseSeq: sh ? sh.phaseSeq : 0, finishedModuleId: finished.moduleId, finishedUpId: finished.upId,
+    });
     emit('complete', finished);
 
-    // Estudio -> Descanso: arranca solo a los 2 segundos.
+    // Estudio -> Descanso: arranca solo a los 2 segundos (lo dispara SOLO el Host o un usuario en solitario;
+    // el Invitado recibe ese 'start' por la sala).
     // Descanso -> Estudio: NO arranca solo; el usuario lo inicia manualmente.
-    if (wasWork) {
+    if (wasWork && !isGuest()) {
       setTimeout(() => {
-        if (state.status === 'idle' && state.mode === nextMode) start();
+        if (state.status === 'idle' && state.mode === nextMode && !isGuest()) start();
       }, AUTO_NEXT_DELAY_MS);
     }
   }
@@ -331,6 +461,7 @@ const PomodoroEngine = (() => {
   // API pública
   // ------------------------------------------------------------
   function start(ctx) {
+    if (isGuest()) return;                 // el Invitado no controla el reloj: solo escucha al Host
     if (state.status === 'running') return;
     initAudio();
 
@@ -339,20 +470,24 @@ const PomodoroEngine = (() => {
       state.upId = ctx.upId || state.upId;
       state.upLabel = ctx.upLabel || state.upLabel;
     }
+    const wasIdle = state.status === 'idle';
     const remainingMs = state.status === 'paused' ? state.remainingMs : getMinutes(state.mode) * 60 * 1000;
     state.durationMin = getMinutes(state.mode);
     state.targetEnd = Date.now() + remainingMs;
     state.status = 'running';
+    if (isHost() && wasIdle) state.shared.phaseSeq = (state.shared.phaseSeq || 0) + 1; // fase nueva
     saveState();
     updateTitle();
     startTicking();
-    reportPresence();
+    reportPresence('start');
   }
 
   // Arranca el motor ya en curso, con la duración y el tiempo restante que
   // reportó el host (Modo Biblioteca). A diferencia de start(), no recalcula
   // los minutos desde configuración: usa los valores reales que le pasan.
+  // (Legado: el flujo nuevo usa joinShared()).
   function startSynced(totalMin, restanteSec, ctx) {
+    if (isGuest()) return;
     if (state.status === 'running') return;
     initAudio();
 
@@ -372,10 +507,11 @@ const PomodoroEngine = (() => {
     saveState();
     updateTitle();
     startTicking();
-    reportPresence();
+    reportPresence('start');
   }
 
   function pause() {
+    if (isGuest()) return;
     if (state.status !== 'running') return;
     state.remainingMs = Math.max(0, state.targetEnd - Date.now());
     state.targetEnd = null;
@@ -383,40 +519,252 @@ const PomodoroEngine = (() => {
     saveState();
     updateTitle();
     stopTicking();
-    reportPresence();
+    reportPresence('pause');
   }
 
   // Si se interrumpe un bloque de ESTUDIO (reiniciar, cambiar de fase o de UP, cerrar
-  // sesión) con al menos MIN_PARTIAL_MIN minutos cumplidos, ese tiempo se guarda igual.
+  // sesión, salir de una sesión compartida) con al menos MIN_PARTIAL_MIN minutos cumplidos,
+  // ese tiempo se guarda igual. Devuelve los minutos acreditados (0 = nada).
   function savePartialIfNeeded() {
-    if (state.mode !== 'work' || (state.status !== 'running' && state.status !== 'paused')) return;
-    if (!state.moduleId || !state.upId) return;
+    if (state.mode !== 'work' || (state.status !== 'running' && state.status !== 'paused')) return 0;
+    if (!state.moduleId || !state.upId) return 0;
     const totalMs = (state.durationMin || getMinutes('work')) * 60 * 1000;
     const remainingMs = state.status === 'running'
       ? Math.max(0, state.targetEnd - Date.now())
       : Math.max(0, state.remainingMs || 0);
     const minutes = Math.floor((totalMs - remainingMs) / 60000);
-    if (minutes < MIN_PARTIAL_MIN) return;
-    registerStudySession(state.moduleId, state.upId, minutes, false);
-    if (typeof showToast === 'function') showToast(`⏱ Se guardaron ${minutes} min de estudio.`, 'success');
+    if (minutes < MIN_PARTIAL_MIN) return 0;
+
+    let credited = minutes;
+    if (state.shared) credited = registerSharedPhase(state.shared, { moduleId: state.moduleId, upId: state.upId, minutes, completed: false });
+    else registerStudySession(state.moduleId, state.upId, minutes, false);
+    if (credited > 0 && typeof showToast === 'function') showToast(`⏱ Se guardaron ${credited} min de estudio.`, 'success');
+    return credited;
   }
 
   // Reinicia la fase actual. `mode` opcional para cambiar Estudio/Descanso.
   function reset(mode, ctx) {
-    savePartialIfNeeded();
+    if (isGuest()) return;                 // el Invitado no puede frenar ni reiniciar el reloj
+    const prev = { mode: state.mode, moduleId: state.moduleId, upId: state.upId, phaseSeq: state.shared ? state.shared.phaseSeq : 0 };
+    const savedMin = savePartialIfNeeded();
     const nextMode = mode || state.mode;
     state = idleState(nextMode, { ...state, ...(ctx || {}) });
     saveState();
     updateTitle();
     stopTicking();
-    reportPresence();
+    reportPresence('stop', {
+      finishedMode: prev.mode, minutes: savedMin, completed: false,
+      phaseSeq: prev.phaseSeq, finishedModuleId: prev.moduleId, finishedUpId: prev.upId,
+    });
   }
 
   function setContext(ctx) {
+    if (isGuest()) return;                 // el tema lo dicta el Host
     state.moduleId = ctx.moduleId || state.moduleId;
     state.upId = ctx.upId || state.upId;
     state.upLabel = ctx.upLabel || state.upLabel;
     saveState(true);
+  }
+
+  // ------------------------------------------------------------
+  // Sesión compartida: alta / baja de roles
+  // ------------------------------------------------------------
+
+  // Convierte este cliente en HOST de una sala (sin arrancar el reloj).
+  function becomeHost(partner) {
+    if (isGuest()) return { ok: false, reason: 'guest' };
+    if (isHost() && state.shared.partner && state.shared.partner !== partner && state.shared.partnerOnline) {
+      return { ok: false, reason: 'occupied', partner: state.shared.partner };
+    }
+    if (!isHost()) {
+      state.shared = {
+        sessionId: newSessionId(), role: 'host', partner: partner || null,
+        hostUsername: myUsername(), phaseSeq: 0, lateMin: 0, partnerOnline: false,
+      };
+    } else {
+      state.shared.partner = partner || state.shared.partner;
+    }
+    // Sin UP elegida la sesión igual se guarda, bajo un contexto genérico.
+    if (!state.moduleId || !state.upId) {
+      state.moduleId = 'biblioteca';
+      state.upId = 'General';
+      state.upLabel = state.upLabel || 'Estudio libre';
+    }
+    saveState();
+    const m = sm();
+    if (m && typeof m.abrirSala === 'function') { const p = m.abrirSala(state.shared); if (p && p.catch) p.catch(() => {}); }
+    reportPresence('sync');
+    return { ok: true, sessionId: state.shared.sessionId, tema: formatTema() };
+  }
+
+  // Opción A del menú: "Invitar a estudiar (Host)". Si no hay Pomodoro en marcha, arranca uno.
+  function hostSharedSession(partner) {
+    const r = becomeHost(partner);
+    if (!r.ok) return r;
+    if (state.status === 'idle') {
+      if (state.mode !== 'work') state = idleState('work', state);
+      start();
+    }
+    return { ok: true, sessionId: state.shared.sessionId, tema: formatTema() };
+  }
+
+  // Opción B del menú / aceptar una invitación: entra como INVITADO a la sala de un Host.
+  function joinShared(info) {
+    const sessionId = info && info.sessionId;
+    const hostUsername = info && info.hostUsername;
+    if (!sessionId || !hostUsername) return { ok: false, reason: 'datos' };
+    if (isHost() && state.shared.partnerOnline) return { ok: false, reason: 'is_host' };
+    if (isGuest() && state.shared.sessionId === sessionId) return { ok: true, ya: true };
+
+    if (state.shared) leaveShared({ notify: true });
+    savePartialIfNeeded(); // si estaba estudiando por su cuenta, ese tiempo se guarda antes de seguir al Host
+
+    state = idleState('work', {
+      ...state,
+      shared: {
+        sessionId, role: 'guest', partner: hostUsername, hostUsername,
+        phaseSeq: 0, lastSeq: 0, lateMin: 0, partnerOnline: false,
+      },
+    });
+    saveState();
+    updateTitle();
+    stopTicking();
+    reportPresence();
+    const m = sm();
+    if (m && typeof m.abrirSala === 'function') { const p = m.abrirSala(state.shared); if (p && p.catch) p.catch(() => {}); }
+    return { ok: true };
+  }
+
+  // Sale de la sesión compartida (cualquiera de los dos roles).
+  //  - Host: el reloj sigue corriendo en solitario; el Invitado se desvincula.
+  //  - Invitado: se guarda lo que estudió y su reloj se libera (idle).
+  function leaveShared(opts) {
+    opts = opts || {};
+    const sh = state.shared;
+    if (!sh) return;
+
+    if (sh.role === 'guest') savePartialIfNeeded(); // todavía con state.shared: aplica la regla de "llegó tarde"
+
+    const m = sm();
+    if (m && typeof m.salirDeSala === 'function') {
+      try { const p = m.salirDeSala(opts.notify !== false); if (p && p.catch) p.catch(() => {}); } catch (_) {}
+    }
+
+    state.shared = null;
+    if (sh.role === 'guest') state = idleState('work', state);
+    saveState();
+    updateTitle();
+    if (state.status !== 'running') stopTicking();
+    reportPresence();
+    emit('shared', { tipo: 'left', reason: opts.reason || 'manual', role: sh.role, username: sh.partner });
+  }
+
+  // El manager avisa si el otro extremo está conectado a la sala.
+  function setPartnerOnline(online, username) {
+    const sh = state.shared;
+    if (!sh) return;
+    const prevOnline = sh.partnerOnline;
+    const prevPartner = sh.partner;
+    sh.partnerOnline = !!online;
+    if (sh.role === 'host' && online && username) sh.partner = username;
+    if (prevOnline !== sh.partnerOnline || prevPartner !== sh.partner) saveState();
+  }
+
+  // El Invitado avisó que se fue (bye): el Host queda libre para invitar a otra persona.
+  function partnerLeft(username) {
+    const sh = state.shared;
+    if (!sh || sh.role !== 'host') return;
+    sh.partner = null;
+    sh.partnerOnline = false;
+    saveState();
+    emit('shared', { tipo: 'guest_left', username });
+  }
+
+  function notifyShared(evt) { emit('shared', evt); }
+
+  function getSharedInfo() { return state.shared ? { ...state.shared } : null; }
+  function getSharedSnapshot(type) { return isHost() ? buildSnapshot(type || 'sync') : null; }
+
+  // Aplica un snapshot publicado por el Host (solo Invitado).
+  function applyRemoteCommand(snap) {
+    if (!isGuest() || !snap || snap.sessionId !== state.shared.sessionId) return;
+
+    if (snap.type === 'end') { // el Host terminó la sesión compartida
+      const host = state.shared.hostUsername;
+      leaveShared({ reason: 'host_ended', notify: false });
+      emit('shared', { tipo: 'host_ended', username: host });
+      return;
+    }
+
+    if (!(snap.seq > (state.shared.lastSeq || 0))) return; // mensaje viejo o repetido
+    state.shared.lastSeq = snap.seq;
+    if (snap.hostUsername) { state.shared.hostUsername = snap.hostUsername; state.shared.partner = snap.hostUsername; }
+    state.shared.partnerOnline = true;
+
+    const adoptCtx = () => {
+      if (snap.moduleId) state.moduleId = snap.moduleId;
+      if (snap.upId) state.upId = snap.upId;
+      if (snap.upLabel !== undefined && snap.upLabel !== null) state.upLabel = snap.upLabel;
+    };
+
+    // ---- Cierre de fase: fin natural o Stop del Host ----
+    if (snap.type === 'complete' || snap.type === 'stop') {
+      const hayFase = state.status === 'running' || state.status === 'paused';
+      if (snap.type === 'complete' && state.status === 'running') {
+        state.targetEnd = Date.now(); // cierre normal: campana + guardado + evento 'complete' (una sola vez)
+        completePhase();
+      } else if (hayFase && (snap.finishedMode || state.mode) === 'work' && snap.minutes > 0) {
+        registerSharedPhase(state.shared, {
+          moduleId: snap.finishedModuleId || state.moduleId, upId: snap.finishedUpId || state.upId,
+          minutes: snap.minutes, completed: snap.type === 'complete', phaseSeq: snap.phaseSeq,
+        });
+      }
+      adoptCtx();
+      state = idleState(snap.mode || state.mode, state);
+      saveState();
+      updateTitle();
+      stopTicking();
+      reportPresence();
+      return;
+    }
+
+    // Un 'running' casi terminado que llega con el Invitado ya en idle es un latido viejo: se ignora.
+    if (snap.status === 'running' && state.status === 'idle' && snap.remainingMs < 1500) { saveState(true); return; }
+
+    const antes = JSON.stringify([state.status, state.mode, state.durationMin, state.moduleId, state.upId, state.upLabel]);
+    const dur = snap.durationMin || state.durationMin;
+
+    // Primera vez que veo esta fase: cuánto llegó tarde (para acreditar solo lo que estudió).
+    if ((snap.status === 'running' || snap.status === 'paused') && (snap.phaseSeq !== state.shared.phaseSeq || state.status === 'idle')) {
+      state.shared.phaseSeq = snap.phaseSeq;
+      state.shared.lateMin = snap.mode === 'work' ? Math.max(0, Math.floor((dur * 60000 - snap.remainingMs) / 60000)) : 0;
+    }
+
+    adoptCtx();
+    state.mode = snap.mode || state.mode;
+    state.durationMin = dur;
+
+    if (snap.status === 'running') {
+      const objetivo = Date.now() + snap.remainingMs;
+      if (state.status !== 'running' || Math.abs(objetivo - state.targetEnd) > SHARED_DRIFT_MS) state.targetEnd = objetivo;
+      state.status = 'running';
+      state.remainingMs = snap.remainingMs;
+    } else if (snap.status === 'paused') {
+      state.targetEnd = null;
+      state.remainingMs = snap.remainingMs;
+      state.status = 'paused';
+    } else if (state.status !== 'idle') { // el Host está en idle y este cliente se perdió el Stop
+      savePartialIfNeeded();
+      state = idleState(snap.mode || state.mode, state);
+    } else {
+      state = idleState(snap.mode || state.mode, state);
+    }
+
+    const despues = JSON.stringify([state.status, state.mode, state.durationMin, state.moduleId, state.upId, state.upLabel]);
+    saveState(antes === despues); // el latido sin cambios no repinta la UI
+    updateTitle();
+    if (state.status === 'running') startTicking(); else stopTicking();
+    if (antes !== despues) reportPresence();
   }
 
   function on(evt, cb) {
@@ -457,7 +805,12 @@ const PomodoroEngine = (() => {
     updateTitle();
   })();
 
-  return { start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced };
+  return {
+    start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
+    // Pomodoro compartido
+    formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
+    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, partnerLeft, notifyShared,
+  };
 })();
 
 window.PomodoroEngine = PomodoroEngine;

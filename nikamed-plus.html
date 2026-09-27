@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NikaMed+ | Campus Nika MED</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- SDK oficial de Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+    :root {
+        --primary: #0ea5e9; --primary-glow: #38bdf8;
+        --violet: #a855f7; --violet-glow: #c084fc;
+        --bg-base: #020617; --bg-card: #0f172a;
+        --border-subtle: rgba(56,189,248,0.25); --border-bright: rgba(168,85,247,0.5);
+        --text-title: #f8fafc; --text-body: #cbd5e1; --text-dim: #94a3b8;
+        --success: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-base); color: var(--text-title);
+        line-height: 1.6;
+        background-image: radial-gradient(circle at 50% 0%, rgba(168,85,247,0.16) 0%, transparent 60%);
+    }
+    .nav { position: fixed; top:0; left:0; width:100%; background: rgba(2,6,23,0.9); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-subtle); z-index: 100; display:flex; justify-content:space-between;
+        align-items:center; padding: 14px 5%; }
+    .nav a.logo { color:#fff; text-decoration:none; font-weight:900; font-size:1.1rem; }
+    .nav a.logo span { color: var(--violet-glow); }
+    .nav a.back { color: var(--text-dim); text-decoration:none; font-weight:700; font-size:0.85rem; }
+    .nav a.back:hover { color:#fff; }
+
+    .hero { padding: 150px 5% 40px; text-align:center; max-width: 760px; margin:0 auto; }
+    .hero .badge { display:inline-block; font-size:0.72rem; font-weight:900; text-transform:uppercase; letter-spacing:1.5px;
+        color: var(--violet-glow); background: rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.3);
+        padding:6px 16px; border-radius:20px; margin-bottom:18px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight:900; letter-spacing:-1.5px; margin-bottom:16px; }
+    .hero h1 span { background: linear-gradient(90deg, var(--primary), var(--violet-glow)); -webkit-background-clip:text;
+        background-clip:text; color:transparent; }
+    .hero p { color: var(--text-body); font-size:1rem; max-width:620px; margin:0 auto; }
+
+    .features { max-width: 1100px; margin: 50px auto; padding: 0 5%; display:grid; grid-template-columns: repeat(3,1fr);
+        gap:18px; }
+    @media(max-width:800px){ .features{ grid-template-columns: 1fr 1fr; } }
+    @media(max-width:520px){ .features{ grid-template-columns: 1fr; } }
+    .feature-card { background: var(--bg-card); border:1px solid var(--border-subtle); border-radius:16px; padding:22px; }
+    .feature-card .icon { font-size:1.6rem; margin-bottom:10px; }
+    .feature-card h3 { font-size:0.95rem; font-weight:800; margin-bottom:6px; }
+    .feature-card p { font-size:0.82rem; color: var(--text-dim); }
+
+    .plans-wrap { max-width: 1100px; margin: 60px auto; padding: 0 5%; }
+    .plans-wrap h2 { text-align:center; font-size: clamp(1.5rem,3vw,2rem); font-weight:900; margin-bottom:8px; }
+    .plans-wrap .sub { text-align:center; color: var(--text-dim); font-size:0.9rem; margin-bottom:40px; }
+
+    .plans-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:22px; align-items:stretch; }
+    @media(max-width:900px){ .plans-grid{ grid-template-columns: 1fr; max-width:420px; margin:0 auto; } }
+
+    .plan { background: var(--bg-card); border:1px solid var(--border-subtle); border-radius:20px; padding:30px;
+        display:flex; flex-direction:column; position:relative; transition: transform 0.25s, border-color 0.25s; }
+    .plan:hover { transform: translateY(-4px); border-color: var(--border-bright); }
+    .plan.featured { border: 1px solid var(--violet); box-shadow: 0 0 0 1px var(--violet), 0 25px 60px rgba(168,85,247,0.2);
+        background: linear-gradient(160deg, rgba(168,85,247,0.1), var(--bg-card) 55%); transform: scale(1.03); }
+    @media(max-width:900px){ .plan.featured{ transform:none; } }
+    .plan-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); font-size:0.7rem; font-weight:900;
+        padding:6px 18px; border-radius:20px; white-space:nowrap; }
+    .plan-badge.violet { background: linear-gradient(90deg, var(--violet), var(--violet-glow)); color:#fff;
+        box-shadow: 0 4px 14px rgba(168,85,247,0.5); }
+    .plan-badge.fire { background: linear-gradient(90deg, #f97316, #ef4444); color:#fff;
+        box-shadow: 0 4px 14px rgba(239,68,68,0.4); }
+
+    .plan .plan-name { font-size:1.05rem; font-weight:800; color: var(--text-dim); text-transform:uppercase;
+        letter-spacing:0.5px; margin-bottom:6px; }
+    .plan .plan-tag { font-size:0.8rem; color: var(--violet-glow); font-weight:700; margin-bottom:18px; }
+    .price-row { display:flex; align-items:baseline; gap:8px; margin-bottom:4px; }
+    .plan .price { font-size:2.2rem; font-weight:900; color:#fff; }
+    .plan .price-old { font-size:0.95rem; color: var(--text-dim); text-decoration:line-through; }
+    .plan .discount { display:inline-block; background: rgba(16,185,129,0.15); color:#6ee7b7; font-size:0.72rem;
+        font-weight:800; padding:3px 10px; border-radius:12px; margin-bottom:20px; }
+    .plan .desc { font-size:0.85rem; color: var(--text-body); margin-bottom:24px; flex:1; }
+    .plan-cta { text-align:center; padding:13px; border-radius:10px; font-weight:800; font-size:0.9rem; cursor:pointer;
+        border:none; width:100%; }
+    .plan-cta.ghost { background:transparent; border:1px solid var(--border-subtle); color:#fff; }
+    .plan-cta.filled { background: linear-gradient(90deg, var(--primary), var(--violet)); color:#fff;
+        box-shadow: 0 8px 24px rgba(168,85,247,0.35); }
+    .plan-cta:disabled { opacity:0.6; cursor:wait; }
+
+    .trust { text-align:center; margin: 40px auto 80px; color: var(--text-dim); font-size:0.82rem; display:flex;
+        justify-content:center; gap:26px; flex-wrap:wrap; }
+
+    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:#1e293b;
+        border:1px solid var(--border-bright); color:#fff; padding:14px 22px; border-radius:12px; font-size:0.85rem;
+        font-weight:700; opacity:0; pointer-events:none; transition: all 0.3s; z-index:999; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html" class="logo">CAMPUS NIKA<span>MED</span></a>
+    <a href="index.html" class="back">← Volver al inicio</a>
+</nav>
+
+<header class="hero">
+    <span class="badge">NikaMed+</span>
+    <h1>Llevá tu preparación al <span>siguiente nivel</span></h1>
+    <p>Desbloqueá los simuladores con Inteligencia Artificial, el Asistente Nika completo y todas las funciones avanzadas que se van sumando primero acá — vas a tener <strong>acceso anticipado</strong> a cada mejora antes que la versión gratuita.</p>
+</header>
+
+<section class="features">
+    <div class="feature-card">
+        <div class="icon">🧠</div>
+        <h3>Funciones avanzadas de IA</h3>
+        <p>Simulador Escrito, Pase de Sala, Shock Room, Consultorios y Legales, y el Examen Final ECOE.</p>
+    </div>
+    <div class="feature-card">
+        <div class="icon">🚀</div>
+        <h3>Acceso anticipado</h3>
+        <p>Probás cada actualización y módulo nuevo antes que se libere para el resto de la plataforma.</p>
+    </div>
+    <div class="feature-card">
+        <div class="icon">🔄</div>
+        <h3>Mejora continua</h3>
+        <p>El plan se sigue actualizando todo el tiempo con más casos clínicos y modalidades de simulación.</p>
+    </div>
+</section>
+
+<section class="plans-wrap" id="planes">
+    <h2>Elegí tu plan NikaMed+</h2>
+    <p class="sub">Pago 100% seguro procesado por Mercado Pago. Cancelás cuando quieras.</p>
+
+    <div class="plans-grid">
+        <!-- MENSUAL -->
+        <div class="plan">
+            <div class="plan-name">Mensual</div>
+            <div class="plan-tag">Ideal para probar NikaMed</div>
+            <div class="price-row"><span class="price">$5.000</span></div>
+            <div class="discount" style="opacity:0; visibility:hidden;">placeholder</div>
+            <p class="desc">Acceso completo a NikaMed+ durante 1 mes. Perfecto para conocer la plataforma sin compromiso.</p>
+            <button class="plan-cta ghost" onclick="iniciarPago('mensual', this)">Elegir Mensual</button>
+        </div>
+
+        <!-- SEMESTRAL (destacado) -->
+        <div class="plan featured">
+            <span class="plan-badge violet">⭐ Más elegido</span>
+            <div class="plan-name">6 Meses</div>
+            <div class="plan-tag">Ideal para todo el semestre</div>
+            <div class="price-row">
+                <span class="price">$25.000</span>
+                <span class="price-old">$30.000</span>
+            </div>
+            <div class="discount">16,7% OFF</div>
+            <p class="desc">Cubrís un semestre académico completo con acceso ininterrumpido a todos los simuladores de IA.</p>
+            <button class="plan-cta filled" onclick="iniciarPago('semestral', this)">Elegir 6 Meses</button>
+        </div>
+
+        <!-- ANUAL -->
+        <div class="plan">
+            <span class="plan-badge fire">🔥 Mayor ahorro</span>
+            <div class="plan-name">Anual</div>
+            <div class="plan-tag">Asegurate todo el año</div>
+            <div class="price-row">
+                <span class="price">$45.000</span>
+                <span class="price-old">$60.000</span>
+            </div>
+            <div class="discount">25% OFF</div>
+            <p class="desc">El mayor descuento: 12 meses de NikaMed+ para acompañarte en toda la cursada del año.</p>
+            <button class="plan-cta ghost" onclick="iniciarPago('anual', this)">Elegir Anual</button>
+        </div>
+    </div>
+</section>
+
+<div class="trust">
+    <span>💳 Pago seguro con Mercado Pago</span>
+    <span>🔄 Cancelá cuando quieras</span>
+    <span>🔒 Nunca vendemos tus datos</span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    // ------------------------------------------------------------------
+    // Configuración del cliente Supabase
+    // ------------------------------------------------------------------
+    const SUPABASE_URL = 'https://pswjmouuyaxueaqqglko.supabase.co';
+    // URL de la Edge Function que crea la preferencia de Checkout Pro (reemplaza al backend Python).
+    const CREAR_PREFERENCIA_URL = `${SUPABASE_URL}/functions/v1/crear-preferencia`;
+    // Misma anon key pública que usa supabaseClient.js (es pública por diseño,
+    // protegida por RLS en la base — no es un secreto).
+    const SUPABASE_ANON_KEY = 'sb_publishable_DPSe7yJoTpBCFFKZdKI9pg_v40eqnvr';
+
+    let sbClient = null;
+    if (window.supabase && SUPABASE_ANON_KEY !== 'TU_ANON_KEY_DE_SUPABASECLIENT_JS') {
+        sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+
+    // ------------------------------------------------------------------
+    // Resuelve el token JWT de la sesión activa
+    // ------------------------------------------------------------------
+    async function obtenerTokenSesion() {
+        // 1. Intento por SDK oficial si tiene la anon key configurada
+        try {
+            if (sbClient && sbClient.auth) {
+                const { data } = await sbClient.auth.getSession();
+                if (data?.session?.access_token) {
+                    return data.session.access_token;
+                }
+            }
+        } catch (err) {}
+
+        // 2. Respaldo infalible: lee el token directo guardado en localStorage por Supabase
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('sb-') && key.endsWith('-auth-token')) {
+                try {
+                    const parsed = JSON.parse(localStorage.getItem(key));
+                    if (parsed?.access_token) {
+                        return parsed.access_token;
+                    }
+                } catch (e) {}
+            }
+        }
+        return null;
+    }
+
+    // ------------------------------------------------------------------
+    // Llama al backend en Python para crear la preferencia con Mercado Pago
+    // ------------------------------------------------------------------
+    async function iniciarPago(plan, btn) {
+        const original = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Redirigiendo a Mercado Pago...';
+
+        try {
+            const token = await obtenerTokenSesion();
+            if (!token) {
+                showToast('Iniciá sesión para contratar NikaMed+.');
+                setTimeout(() => {
+                    window.location.href = 'index.html?redirect=nikamed-plus.html';
+                }, 1500);
+                btn.disabled = false;
+                btn.textContent = original;
+                return;
+            }
+
+            // Ya no hay distinción local/producción: la Edge Function vive en
+            // Supabase, no en tu servidor, así que la URL es siempre la misma.
+            const resp = await fetch(CREAR_PREFERENCIA_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ plan })
+            });
+
+            if (resp.status === 401) {
+                showToast('Sesión no válida o vencida. Iniciá sesión de nuevo.');
+                setTimeout(() => {
+                    window.location.href = 'index.html?redirect=nikamed-plus.html';
+                }, 1500);
+                btn.disabled = false;
+                btn.textContent = original;
+                return;
+            }
+
+            const data = await resp.json();
+            if (!resp.ok || !data.init_point) {
+                throw new Error(data.error || 'No se pudo iniciar el pago.');
+            }
+
+            // Redirige a la pasarela oficial de Mercado Pago
+            window.location.href = data.init_point;
+
+        } catch (err) {
+            console.error(err);
+            showToast('Error al conectar con el servidor de pagos. Verificá que esté activo.');
+            btn.disabled = false;
+            btn.textContent = original;
+        }
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    // Comprobar retorno de MP
+    (function checkReturnStatus() {
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get('status');
+        if (status === 'approved') showToast('¡Pago aprobado! Activando tu NikaMed+...');
+        else if (status === 'pending') showToast('Tu pago está pendiente de aprobación.');
+        else if (status === 'failure') showToast('El pago no se pudo procesar. Probá nuevamente.');
+    })();
+</script>
+
+</body>
+</html>

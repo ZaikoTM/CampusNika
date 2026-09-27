@@ -12,7 +12,14 @@
  * si el usuario cierra la pestaña, Supabase limpia la presencia
  * sola. No necesitamos histórico ni persistencia en DB.
  *
- * Depende de: window.NikaSupabase (supabaseClient.js)
+ * POMODORO COMPARTIDO (Host / Invitado): además del canal global de presence,
+ * cada sesión compartida usa su PROPIO canal `pomo_sala_<sessionId>`:
+ *   Host -> Invitado : 'cmd'   (snapshots de Start/Pause/Stop/fin + latido cada 5 s)
+ *   Invitado -> Host : 'hello' (al entrar, y cada 2 s hasta recibir el primer 'cmd')
+ *                      'bye'   (al salir)
+ * Presence de la sala detecta si el otro extremo se cayó.
+ *
+ * Depende de: window.NikaSupabase (supabaseClient.js) y window.PomodoroEngine
  * ============================================================
  */
 
@@ -26,13 +33,18 @@ const PomodoroSyncManager = (function () {
     // se cuelga el navegador, se corta la luz/batería, pierde señal de golpe, etc.
     const HEARTBEAT_MS = 45 * 1000;
     const STALE_MS = 2 * 60 * 1000;
+    const HOST_GRACE_MS = 60 * 1000;      // el Invitado espera 1 min a un Host desconectado antes de soltarse
+    const SOLICITUD_TTL_MS = 60 * 1000;   // validez de un pedido "Acompañar en el estudio"
 
     let canal = null;
     let heartbeatInterval = null;
     let onFriendsStateChange = null; // callback: (estadosPorUsername) => void
     let onInviteReceived = null;     // callback: (payload) => void ("Fulano te invitó a su Pomodoro")
     let onJoinConfirmed = null;      // callback: (payload) => void ("Fulano se unió a tu Pomodoro")
-    let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null, tiempoTotal: null, tiempoRestante: null };
+    let onJoinRequest = null;        // callback: (payload) => void ("Fulano pide acompañarte")
+    let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null, tiempoTotal: null, tiempoRestante: null, tema: null, salaCompartida: null, rolPomodoro: null };
+    let sala = null;                 // sala compartida activa (ver abrirSala)
+    let solicitudPendiente = null;   // { to, at }: pedí unirme a ese usuario y espero su invitación
 
     // ------------------------------------------------------------
     // 1. Conectarse al canal de presence al entrar a la plataforma
@@ -55,21 +67,38 @@ const PomodoroSyncManager = (function () {
         });
 
         // Invitación directa a sincronizar Pomodoro con un amigo
+        // `autoAceptar` NO viene del payload (se podría falsificar): se calcula acá,
+        // solo si yo mismo había pedido acompañar a ese usuario hace menos de 1 minuto.
         canal.on("broadcast", { event: "invitacion_pomodoro" }, ({ payload }) => {
-            if (payload.toUsername === username && onInviteReceived) onInviteReceived(payload);
+            if (!payload || payload.toUsername !== username) return;
+            const esperada = !!(solicitudPendiente && solicitudPendiente.to === payload.fromUsername
+                && (Date.now() - solicitudPendiente.at) < SOLICITUD_TTL_MS);
+            if (esperada) solicitudPendiente = null;
+            if (onInviteReceived) onInviteReceived({ ...payload, autoAceptar: esperada });
+        });
+
+        // Un amigo pide acompañar mi sesión ("Acompañar en el estudio (Invitado)")
+        canal.on("broadcast", { event: "solicitud_union" }, ({ payload }) => {
+            if (payload && payload.toUsername === username && onJoinRequest) onJoinRequest(payload);
+        });
+        canal.on("broadcast", { event: "union_rechazada" }, ({ payload }) => {
+            if (!payload || payload.toUsername !== username) return;
+            solicitudPendiente = null;
+            _notificar({ tipo: "rechazada", username: payload.fromUsername, motivo: payload.motivo });
         });
 
         // El invitado avisa que efectivamente arrancó/se unió, para que el host
         // (que no tiene forma de "ver" que el otro ya está corriendo) también
         // refleje la sincronización en su propia barra/estado.
         canal.on("broadcast", { event: "pomodoro_confirmado" }, ({ payload }) => {
-            if (payload.toUsername === username && onJoinConfirmed) onJoinConfirmed(payload);
+            if (payload && payload.toUsername === username && onJoinConfirmed) onJoinConfirmed(payload);
         });
 
         await canal.subscribe(async (status) => {
             if (status === "SUBSCRIBED") {
                 await canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() });
                 _iniciarHeartbeat();
+                _reabrirSalaSiCorresponde(); // recargué la página en medio de una sesión compartida
             }
         });
     }
@@ -134,13 +163,16 @@ const PomodoroSyncManager = (function () {
     //    pausar o cambiar de fase — si uno pisara al otro, uno de los dos
     //    campos se perdería en cada llamada.
     // ------------------------------------------------------------
-    async function actualizarEstado({ up, pomodoroActivo, faseActual, tiempoTotal, tiempoRestante } = {}) {
+    async function actualizarEstado({ up, pomodoroActivo, faseActual, tiempoTotal, tiempoRestante, tema, salaCompartida, rolPomodoro } = {}) {
         estadoLocal = {
             up: up !== undefined ? up : estadoLocal.up,
             pomodoroActivo: pomodoroActivo !== undefined ? pomodoroActivo : estadoLocal.pomodoroActivo,
             faseActual: faseActual !== undefined ? faseActual : estadoLocal.faseActual,
             tiempoTotal: tiempoTotal !== undefined ? tiempoTotal : estadoLocal.tiempoTotal,           // minutos configurados de la fase
             tiempoRestante: tiempoRestante !== undefined ? tiempoRestante : estadoLocal.tiempoRestante, // segundos restantes al momento del reporte
+            tema: tema !== undefined ? tema : estadoLocal.tema,                                         // "UP6 · Título" que se está estudiando
+            salaCompartida: salaCompartida !== undefined ? salaCompartida : estadoLocal.salaCompartida,
+            rolPomodoro: rolPomodoro !== undefined ? rolPomodoro : estadoLocal.rolPomodoro,             // 'host' | 'guest' | null
         };
         if (!canal) return;
 
@@ -162,7 +194,7 @@ const PomodoroSyncManager = (function () {
     // ------------------------------------------------------------
     // 4. Invitar a un amigo a sincronizar el Pomodoro ("Unirme al Pomodoro")
     // ------------------------------------------------------------
-    async function invitarASincronizar(toUsername) {
+    async function invitarASincronizar(toUsername, extra) {
         const username = window.NikaSupabase.getNikaCurrentUsername();
         if (!username) throw new Error("No hay usuario logueado.");
         if (!canal) throw new Error("Presence no iniciado.");
@@ -173,10 +205,231 @@ const PomodoroSyncManager = (function () {
             payload: {
                 fromUsername: username,
                 toUsername,
+                hostUsername: username,
+                sessionId: (extra && extra.sessionId) || null,
+                tema: (extra && extra.tema) || estadoLocal.tema || null,
                 estadoActual: estadoLocal,
                 sentAt: new Date().toISOString(),
             },
         });
+    }
+
+    // ------------------------------------------------------------
+    // 4.c "Acompañar en el estudio (Invitado)": pido unirme a la sesión de un amigo.
+    //     El amigo (Host) acepta con aceptarSolicitud() y me devuelve una invitación.
+    // ------------------------------------------------------------
+    async function solicitarUnirse(toUsername) {
+        const username = window.NikaSupabase.getNikaCurrentUsername();
+        if (!username) throw new Error("No hay usuario logueado.");
+        if (!canal) throw new Error("Presence no iniciado.");
+        solicitudPendiente = { to: toUsername, at: Date.now() };
+        await canal.send({
+            type: "broadcast",
+            event: "solicitud_union",
+            payload: { fromUsername: username, toUsername, sentAt: new Date().toISOString() },
+        });
+    }
+
+    async function aceptarSolicitud(toUsername) {
+        const eng = window.PomodoroEngine;
+        if (!eng || typeof eng.becomeHost !== "function") return { ok: false, reason: "sin_motor" };
+        const r = eng.becomeHost(toUsername);
+        if (!r.ok) { await rechazarSolicitud(toUsername, r.reason); return r; }
+        await invitarASincronizar(toUsername, { sessionId: r.sessionId, tema: r.tema });
+        return r;
+    }
+
+    async function rechazarSolicitud(toUsername, motivo) {
+        const username = window.NikaSupabase.getNikaCurrentUsername();
+        if (!username || !canal) return;
+        try {
+            await canal.send({
+                type: "broadcast",
+                event: "union_rechazada",
+                payload: { fromUsername: username, toUsername, motivo: motivo || "no_disponible" },
+            });
+        } catch (_) {}
+    }
+
+    // ------------------------------------------------------------
+    // 4.d SALA COMPARTIDA (canal propio por sesión)
+    // ------------------------------------------------------------
+    function _notificar(evt) {
+        try { if (window.PomodoroEngine && window.PomodoroEngine.notifyShared) window.PomodoroEngine.notifyShared(evt); } catch (_) {}
+    }
+
+    // Único punto de salida a la sala. NUNCA envía si el canal no está "joined"
+    // (si no, el SDK cae al fallback REST y los mensajes llegan en un solo sentido).
+    async function _enviarSala(s, event, payload, reintentos) {
+        const max = reintentos === undefined ? 2 : reintentos;
+        for (let i = 0; i <= max; i++) {
+            if (!s || s.cerrada || !s.canal) return "sin_canal";
+            if (s.canal.state !== "joined") { await new Promise((r) => setTimeout(r, 300)); continue; }
+            try {
+                const res = await s.canal.send({ type: "broadcast", event, payload });
+                if (res === "ok") return "ok";
+            } catch (_) {}
+            await new Promise((r) => setTimeout(r, 300 * (i + 1)));
+        }
+        return "error";
+    }
+
+    async function abrirSala(shared) {
+        if (!shared || !shared.sessionId) return;
+        const username = window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername();
+        if (!username) return;
+        if (sala && sala.sessionId === shared.sessionId && sala.role === shared.role) return;
+        await salirDeSala(false);
+
+        const nombre = `pomo_sala_${shared.sessionId}`;
+        try {
+            const previo = sb().getChannels().find((c) => c.topic === `realtime:${nombre}`);
+            if (previo) await sb().removeChannel(previo);
+        } catch (_) {}
+
+        const s = { sessionId: shared.sessionId, role: shared.role, hostUsername: shared.hostUsername, username,
+                    canal: null, helloTimer: null, graceTimer: null, gotCmd: false, cerrada: false };
+        sala = s;
+        const ch = sb().channel(nombre, { config: { broadcast: { self: false, ack: true }, presence: { key: username } } });
+        s.canal = ch;
+
+        // Host -> Invitado: snapshots del reloj
+        ch.on("broadcast", { event: "cmd" }, ({ payload }) => {
+            if (s.role !== "guest" || !payload || s.cerrada) return;
+            s.gotCmd = true;
+            _detenerHello(s);
+            if (window.PomodoroEngine) window.PomodoroEngine.applyRemoteCommand(payload);
+        });
+
+        // Invitado -> Host: "estoy adentro, mandame el estado"
+        ch.on("broadcast", { event: "hello" }, ({ payload }) => {
+            if (s.role !== "host" || !payload || !payload.username || s.cerrada) return;
+            const eng = window.PomodoroEngine;
+            const info = eng && eng.getSharedInfo && eng.getSharedInfo();
+            if (!info || info.role !== "host" || info.sessionId !== s.sessionId) return;
+            if (info.partner && info.partner !== payload.username) { // sala de a dos: ya hay otra persona
+                _enviarSala(s, "rechazo", { toUsername: payload.username, motivo: "sala_llena" }, 0);
+                return;
+            }
+            eng.setPartnerOnline(true, payload.username);
+            const snap = eng.getSharedSnapshot("sync");
+            if (snap) _enviarSala(s, "cmd", snap, 1);
+            _anunciarInvitado(s, payload.username);
+        });
+
+        ch.on("broadcast", { event: "bye" }, ({ payload }) => {
+            if (s.role !== "host" || !payload || s.cerrada) return;
+            s.anunciado = null; // si vuelve a entrar, se anuncia de nuevo
+            if (window.PomodoroEngine) window.PomodoroEngine.partnerLeft(payload.username);
+        });
+
+        ch.on("broadcast", { event: "rechazo" }, ({ payload }) => {
+            if (s.role !== "guest" || !payload || payload.toUsername !== s.username || s.cerrada) return;
+            _notificar({ tipo: "sala_llena", username: s.hostUsername });
+            if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: "sala_llena", notify: false });
+        });
+
+        const evaluar = () => _evaluarSocio(s);
+        ch.on("presence", { event: "sync" }, evaluar);
+        ch.on("presence", { event: "join" }, evaluar);
+        ch.on("presence", { event: "leave" }, evaluar);
+
+        await new Promise((resolve) => {
+            const t = setTimeout(() => { console.warn("[pomodoroSyncManager] Timeout abriendo la sala."); resolve(false); }, 10000);
+            ch.subscribe(async (status) => {
+                if (status === "SUBSCRIBED") {
+                    try { await ch.track({ username, role: s.role, online_at: new Date().toISOString() }); } catch (_) {}
+                    clearTimeout(t);
+                    if (s.role === "guest") { s.gotCmd = false; _iniciarHello(s); }
+                    resolve(true);
+                } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+                    clearTimeout(t);
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+    // "@x se unió": el aviso puede llegar por Presence o por el 'hello' (el primero que llegue); se anuncia UNA vez.
+    function _anunciarInvitado(s, username) {
+        if (s.anunciado === username) return;
+        s.anunciado = username;
+        _notificar({ tipo: "guest_joined", username });
+    }
+
+    function _evaluarSocio(s) {
+        if (s.cerrada || sala !== s) return;
+        const eng = window.PomodoroEngine;
+        if (!eng) return;
+        const otros = Object.keys(s.canal.presenceState()).filter((k) => k !== s.username);
+        if (s.role === "host") {
+            const info = eng.getSharedInfo && eng.getSharedInfo();
+            const partner = info && info.partner;
+            if (partner) {
+                const presente = otros.includes(partner);
+                eng.setPartnerOnline(presente, partner);
+                if (presente) _anunciarInvitado(s, partner);
+            }
+        } else {
+            const hostOnline = otros.includes(s.hostUsername);
+            eng.setPartnerOnline(hostOnline);
+            if (hostOnline) _cancelarGracia(s); else _iniciarGracia(s);
+        }
+    }
+
+    // El Invitado no queda "atrapado" si el Host desaparece: al minuto se suelta y guarda su tiempo.
+    function _iniciarGracia(s) {
+        if (s.graceTimer) return;
+        s.graceTimer = setTimeout(() => {
+            s.graceTimer = null;
+            if (sala !== s || s.cerrada) return;
+            _notificar({ tipo: "host_offline", username: s.hostUsername });
+            if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: "host_offline", notify: false });
+        }, HOST_GRACE_MS);
+    }
+    function _cancelarGracia(s) { if (s.graceTimer) { clearTimeout(s.graceTimer); s.graceTimer = null; } }
+
+    function _iniciarHello(s) {
+        _detenerHello(s);
+        let n = 0;
+        const pedir = () => {
+            if (s.cerrada || s.gotCmd || n >= 30) return _detenerHello(s);
+            n++;
+            _enviarSala(s, "hello", { username: s.username }, 0).catch(() => {});
+        };
+        pedir();
+        s.helloTimer = setInterval(pedir, 2000);
+    }
+    function _detenerHello(s) { if (s.helloTimer) { clearInterval(s.helloTimer); s.helloTimer = null; } }
+
+    // Host -> Invitado. Devuelve una promesa (el motor no la espera).
+    function emitirComando(snap) {
+        if (!sala || sala.role !== "host") return Promise.resolve("sin_sala");
+        return _enviarSala(sala, "cmd", snap, 1);
+    }
+
+    // Salir de la sala; con `notificar` avisa al otro extremo ANTES de cerrar el canal.
+    async function salirDeSala(notificar) {
+        const s = sala;
+        if (!s) return;
+        sala = null;
+        if (notificar) {
+            try {
+                if (s.role === "host") await _enviarSala(s, "cmd", { sessionId: s.sessionId, seq: Date.now(), type: "end" }, 0);
+                else await _enviarSala(s, "bye", { username: s.username }, 0);
+            } catch (_) {}
+        }
+        s.cerrada = true;
+        _detenerHello(s);
+        _cancelarGracia(s);
+        try { await s.canal.untrack(); } catch (_) {}
+        try { await sb().removeChannel(s.canal); } catch (_) {}
+    }
+
+    function _reabrirSalaSiCorresponde() {
+        const eng = window.PomodoroEngine;
+        const info = eng && eng.getSharedInfo && eng.getSharedInfo();
+        if (info) abrirSala(info).catch(() => {});
     }
 
     // ------------------------------------------------------------
@@ -200,6 +453,7 @@ const PomodoroSyncManager = (function () {
     // ------------------------------------------------------------
     function detener() {
         _detenerHeartbeat();
+        salirDeSala(false).catch(() => {});
         if (canal) {
             try { canal.untrack(); } catch (_) {}
             sb().removeChannel(canal);
@@ -213,7 +467,13 @@ const PomodoroSyncManager = (function () {
         actualizarEstado,
         estadoDeAmigos,
         invitarASincronizar,
+        solicitarUnirse,
+        aceptarSolicitud,
+        rechazarSolicitud,
         confirmarUnion,
+        abrirSala,
+        salirDeSala,
+        emitirComando,
         set onFriendsStateChange(cb) {
             onFriendsStateChange = cb;
         },
@@ -222,6 +482,9 @@ const PomodoroSyncManager = (function () {
         },
         set onJoinConfirmed(cb) {
             onJoinConfirmed = cb;
+        },
+        set onJoinRequest(cb) {
+            onJoinRequest = cb;
         },
     };
 })();

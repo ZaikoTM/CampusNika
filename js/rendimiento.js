@@ -7,6 +7,10 @@
 //    Devuelve { ok, queued, offline }.
 //  - cargarDatos(): trae tus sesiones Pomodoro (study_sessions) y tus
 //    simulacros (exam_results).
+//  - registrarSesionCompartida(): guarda una sesión de Pomodoro COMPARTIDO (Host /
+//    Invitado). Cada participante inserta SU fila en study_sessions con los mismos
+//    minutos que fijó el Host; de esa tabla salen tanto el "Tiempo de estudio total"
+//    como el "diario" (ver analizar()), así que ambos perfiles se actualizan.
 //  - analizar(): calcula todo lo que muestra "Mi Rendimiento Académico":
 //    KPIs, racha, Radar Clínico y Curva del Olvido (por área y por UP).
 //
@@ -180,6 +184,97 @@ const NikaRendimiento = (() => {
       try { await _insertar(fila); } catch (_) { restantes.push(fila); }
     }
     _colaEscribir(restantes);
+  }
+
+  // ------------------------------------------------------------
+  // Pomodoro COMPARTIDO — guardado dual de métricas
+  //
+  // Por qué cada cliente escribe SU fila y no el Host las dos: la RLS de
+  // study_sessions exige auth.uid() = user_id (y SyncManager fuerza user_id a la
+  // sesión viva), o sea que una cuenta no puede escribir filas de otra. Lo que
+  // garantiza "cero discrepancias" es que los minutos, la UP y el momento de
+  // cierre los fija el Host y viajan en el mismo mensaje: los dos insertan
+  // números idénticos (el Invitado que llegó tarde acredita solo lo que estudió).
+  // Si alguno está sin señal, su fila queda en la cola offline (SyncManager) y
+  // se sube sola. Total y diario se calculan a partir de esa misma fila.
+  // ------------------------------------------------------------
+  const SHARED_DONE_KEY = 'nika_pomo_shared_done';
+
+  // true = primera vez que se ve esta sesión (rol + fase + sala); false = ya se guardó.
+  function _reclamarSesionCompartida(clave) {
+    if (!clave) return true;
+    let mapa = {};
+    try { mapa = JSON.parse(localStorage.getItem(SHARED_DONE_KEY) || '{}') || {}; } catch (_) {}
+    if (mapa[clave]) return false;
+    mapa[clave] = Date.now();
+    const limite = Date.now() - 14 * DAY_MS;
+    Object.keys(mapa).forEach((k) => { if (mapa[k] < limite) delete mapa[k]; });
+    try { localStorage.setItem(SHARED_DONE_KEY, JSON.stringify(mapa)); } catch (_) {}
+    return true;
+  }
+
+  async function _encolarEstudio(row) {
+    if (window.SyncManager) {
+      try { await window.SyncManager.encolar('progreso_estudio', { row }); return true; }
+      catch (e) { console.warn('[NikaRendimiento] No se pudo encolar la sesión compartida:', e && e.message); }
+    }
+    return false;
+  }
+
+  // Inserta en study_sessions; si no hay red o falla, la deja en la cola offline.
+  async function _guardarFilaEstudio(row) {
+    if (_estaOffline()) return { ok: false, queued: await _encolarEstudio(row), offline: true };
+    try {
+      const c = await getClient();
+      let { error } = await c.from('study_sessions').insert(row);
+      if (error && /completed/i.test(error.message || '')) {
+        // La columna 'completed' todavía no existe (falta sql/rendimiento.sql)
+        if (row.completed === false) return { ok: false, omitida: true };
+        const { completed: _omitida, ...sinFlag } = row;
+        ({ error } = await c.from('study_sessions').insert(sinFlag));
+      }
+      if (error) throw error;
+      return { ok: true };
+    } catch (err) {
+      console.warn('[NikaRendimiento] Sesión compartida sin subir, queda en cola:', err && err.message);
+      if (window.SyncManager && /failed to fetch|network|load failed|timeout/i.test(String((err && err.message) || ''))) {
+        window.SyncManager.marcarRedCaida();
+      }
+      return { ok: false, queued: await _encolarEstudio(row) };
+    }
+  }
+
+  // p: { sharedKey, moduleId, upId, minutes, completed, role, hostUsername, partner }
+  async function registrarSesionCompartida(p) {
+    const minutes = Math.round(Number(p && p.minutes) || 0);
+    if (!p || !p.moduleId || !p.upId || minutes <= 0) return { ok: false, motivo: 'datos' };
+    if (!_reclamarSesionCompartida(p.sharedKey)) return { ok: true, duplicada: true };
+
+    // Copia local: la misma que escribe pomodoroEngine.js para las sesiones en solitario
+    // ("Total en <módulo>" de estudio.html y el cálculo de pendientes de cargarDatos()).
+    try {
+      const key = `nika_time_${p.moduleId}_${p.upId}`;
+      const prev = parseInt(localStorage.getItem(key) || '0', 10);
+      localStorage.setItem(key, String((isNaN(prev) ? 0 : prev) + minutes));
+    } catch (_) {}
+
+    let userId = await _getUserIdRapido(_estaOffline() ? 1500 : 6000);
+    if (!userId) userId = _userIdCacheado();
+    if (!userId) return { ok: false, motivo: 'sin_sesion' };
+
+    const fila = {
+      user_id: userId,
+      modulo: p.moduleId,
+      up_id: p.upId,
+      duration_minutes: minutes,
+      completed: p.completed !== false,
+      completed_at: new Date().toISOString(),
+    };
+    const res = await _guardarFilaEstudio(fila);
+
+    // Avisa a la UI para refrescar "Tiempo total" y "Tiempo de hoy" sin recargar.
+    try { window.dispatchEvent(new CustomEvent('nika:estudio-guardado', { detail: { minutes, compartida: true, ...res } })); } catch (_) {}
+    return res;
   }
 
   // ------------------------------------------------------------
@@ -505,7 +600,7 @@ const NikaRendimiento = (() => {
   }
 
   return {
-    guardarExamen, cargarDatos, analizar, reintentarPendientes,
+    guardarExamen, cargarDatos, analizar, reintentarPendientes, registrarSesionCompartida,
     forzarSincronizacion,
     formatearTiempo, labelModulo, normUp,
     UMBRALES: { FRESCO_MAX, DECAIMIENTO_MAX },

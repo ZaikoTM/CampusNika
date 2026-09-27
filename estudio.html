@@ -175,6 +175,17 @@
         .up-tab-btn:hover { color: var(--nika-dark); }
         .up-tab-btn.active { color: var(--nika-primary); border-bottom-color: var(--nika-primary); }
 
+        /* Pestaña exclusiva NikaMed+ (Asistente Nika): candado hasta que la cuenta tenga acceso */
+        .up-tab-btn--premium .tab-lock { font-size: 0.85em; margin-left: 2px; }
+        .up-tab-btn--premium.is-unlocked .tab-lock { display: none; }
+        .up-tab-btn--premium:not(.is-unlocked) { color: var(--text-dim); }
+
+        /* Acentos NikaMed+ (violeta) para cuentas vip / premium */
+        body.nika-vip .up-tab-btn.active { color: #a855f7; border-bottom-color: #a855f7; }
+        body.nika-vip .up-tab-btn:hover { color: #a855f7; }
+        body.nika-vip .up-tab-btn--premium.is-unlocked { color: #c084fc; }
+        body.nika-vip .content-block { border-color: rgba(168, 85, 247, 0.28); }
+
         .up-tab-panel { display: none; animation: fadeInPanel 0.3s ease; }
         .up-tab-panel.active { display: block; }
         @keyframes fadeInPanel { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -454,9 +465,14 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                             Clases y Videos
                         </button>
-                        <button class="up-tab-btn" onclick="showUpTab('notebooklm', this)">
+                        <!-- Exclusivo NikaMed+: los usuarios free ven el candado y, al tocarla, el aviso de suscripción.
+                             gateTab() confirma el plan contra la base (por si acaba de pagar) antes de abrir la pestaña. -->
+                        <button class="up-tab-btn up-tab-btn--premium" data-vip-tab="notebooklm"
+                                onclick="NikaAcceso.gateTab(this, 'asistente', () => showUpTab('notebooklm', this))"
+                                title="Herramienta exclusiva para miembros NikaMed+">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.2 4.2l4.2 4.2M15.6 15.6l4.2 4.2M1 12h6M17 12h6M4.2 19.8l4.2-4.2M15.6 8.4l4.2-4.2"/></svg>
                             🤖 Asistente Nika (NotebookLM)
+                            <span class="tab-lock" role="img" aria-label="Exclusivo NikaMed+">🔒</span>
                         </button>
                     </div>
 
@@ -509,6 +525,8 @@
 <!-- 1. Supabase SDK (Base de Datos) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
+    <!-- Control de acceso NikaMed+ (candado del Asistente Nika, distintivo VIP) -->
+    <script src="js/nikaAcceso.js"></script>
 
     <!-- 2. Auth Guard (CRÍTICO: Verifica quién está logueado ANTES que el resto) -->
     <script src="js/auth-guard.js"></script>
@@ -535,12 +553,28 @@
             if (window.NikaSupabase && typeof window.NikaSupabase.restaurarSesionSiExiste === 'function') {
                 await window.NikaSupabase.restaurarSesionSiExiste();
             }
+            // NikaMed+: quita el candado / pinta los acentos violetas según el plan actual
+            if (window.NikaAcceso) window.NikaAcceso.aplicarEstadoVip();
             if (!window.NikaSupabase || !window.NikaSupabase.getNikaCurrentUsername()) return;
             if (window.PomodoroSyncManager) await window.PomodoroSyncManager.iniciar();
         });
 
         window.addEventListener('beforeunload', () => {
             if (window.PomodoroSyncManager) window.PomodoroSyncManager.detener();
+        });
+
+        // Defensa extra del candado: si estudio.js (p. ej. al restaurar la última pestaña vista) o
+        // cualquier otro código activa el panel del Asistente sin pasar por el botón, un usuario
+        // free vuelve a "Temario" y ve el aviso.
+        document.addEventListener('DOMContentLoaded', () => {
+            const panel = document.getElementById('tab-notebooklm');
+            if (!panel || !window.NikaAcceso) return;
+            new MutationObserver(() => {
+                if (!panel.classList.contains('active') || window.NikaAcceso.tieneAccesoCompleto()) return;
+                const primera = document.querySelector('.up-tab-btn');
+                if (typeof showUpTab === 'function' && primera) showUpTab('temario', primera);
+                window.NikaAcceso.mostrarModalSoloVip('asistente');
+            }).observe(panel, { attributes: true, attributeFilter: ['class'] });
         });
     </script>
 </body>

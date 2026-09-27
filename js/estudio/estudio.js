@@ -8,11 +8,100 @@
 // Estado en memoria de la sesión de estudio actual
 const EstudioState = {
     modulo: 'cirugia',      // Módulo activo
-    data: null,             // contenido completo de data/cirugia.json
-    unitsById: {},          // acceso rápido por id de UP
-    currentUpId: null,      // UP abierta actualmente en el detalle
+    data: null,             // contenido completo de data/<modulo>.json
+    unitsById: {},          // acceso rápido por id de UP (incluye subsecciones sintéticas, ver openUnit)
+    currentUpId: null,      // UP (o subsección) abierta actualmente en el detalle
     activeResourceUrl: null // URL del recurso actualmente visualizándose
 };
+
+// Mapeo módulo → archivo de datos. Si un módulo no está acá, se intenta
+// data/<modulo>.json por defecto (ver initEstudio).
+const DATA_FILE_MAP = {
+    cirugia: 'data/cirugia.json',
+    ginecologia: 'data/gineco_data.json'
+};
+
+// Paleta por módulo: variables CSS que se inyectan sobre :root cuando
+// EstudioState.modulo coincide. Cirugía usa la paleta base del archivo
+// (no requiere override). Ginecología mantiene el fondo CLARO (identidad
+// original de Campus Nika) y usa el rosa/violeta (#f472b6 / #c084fc)
+// exclusivamente como acento: botones, bordes activos y detalles — nunca
+// como color de fondo de página ni de tarjetas.
+const MODULE_THEMES = {
+    ginecologia: {
+        '--nika-primary': '#f472b6',   // acento rosa (botones, tab activa, focus)
+        '--nika-accent': '#c084fc',    // acento violeta (hover, detalles)
+        '--nika-dark': '#831843',      // color de títulos: plum oscuro, elegante sobre fondo claro
+        '--bg-body': '#fdf6fa',
+        '--bg-page': '#fdf6fa',
+        '--border': '#f3ddec',
+        '--text-main': '#1e293b',
+        '--text-muted': '#64748b',
+        '--text-dim': '#94a3b8',
+        '--card-bg': '#ffffff'
+    }
+};
+
+// Lee ?modulo= de la URL ANTES de que arranque initEstudio, así todo lo
+// que sigue (fetch del JSON, theming, título) ya usa el módulo correcto.
+(function resolverModuloDesdeUrl() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const modulo = params.get('modulo');
+        if (modulo) EstudioState.modulo = modulo;
+    } catch (e) {
+        console.warn('[Estudio] No se pudo leer ?modulo= de la URL:', e);
+    }
+})();
+
+// Aplica la paleta del módulo activo como atributo + variables CSS inline
+// sobre <body>, y deja un fallback prolijo para módulos sin tema propio.
+function aplicarTemaModulo(modulo) {
+    document.body.setAttribute('data-modulo', modulo);
+    const theme = MODULE_THEMES[modulo];
+    if (!theme) return;
+    Object.entries(theme).forEach(([varName, value]) => {
+        document.documentElement.style.setProperty(varName, value);
+    });
+
+    // Ajustes finos que no son variables CSS reutilizables. Fondo claro con
+    // un fondo blanco degradado apenas rosado/violeta (muy sutil), y el
+    // rosa/violeta reservado a botones y bordes activos como acento.
+    if (!document.getElementById('nika-module-theme-style')) {
+        const style = document.createElement('style');
+        style.id = 'nika-module-theme-style';
+        style.innerHTML = `
+            body[data-modulo="ginecologia"] {
+                background:
+                    radial-gradient(circle at 12% 8%, rgba(244,114,182,0.05), transparent 40%),
+                    radial-gradient(circle at 88% 92%, rgba(192,132,252,0.05), transparent 40%),
+                    var(--bg-body);
+            }
+            body[data-modulo="ginecologia"] .up-card:hover,
+            body[data-modulo="ginecologia"] .resource-item:hover {
+                background: #fff;
+                box-shadow: 0 12px 24px -10px rgba(219,39,119,0.18);
+            }
+            /* Botones y bordes activos con degradado sutil rosa→violeta (acento, no fondo) */
+            body[data-modulo="ginecologia"] .btn-hub,
+            body[data-modulo="ginecologia"] .btn-continue-action,
+            body[data-modulo="ginecologia"] #btn-agendar-repaso {
+                background: linear-gradient(135deg, #c084fc, #f472b6) !important;
+                color: #fff !important;
+                border: none;
+            }
+            body[data-modulo="ginecologia"] .up-card:hover,
+            body[data-modulo="ginecologia"] .content-block:hover {
+                border-color: var(--nika-primary);
+            }
+            body[data-modulo="ginecologia"] .up-tab-btn.active {
+                color: var(--nika-primary);
+                border-bottom-color: var(--nika-primary);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
 
 // Metadatos e íconos dinámicos según el tipo de recurso
 function getResourceMeta(resource) {
@@ -114,7 +203,9 @@ function updateSearchPlaceholder() {
 
 async function initEstudio() {
     try {
-        const dataFile = `data/${EstudioState.modulo}.json`;
+        aplicarTemaModulo(EstudioState.modulo);
+
+        const dataFile = DATA_FILE_MAP[EstudioState.modulo] || `data/${EstudioState.modulo}.json`;
         const res = await fetch(dataFile);
         if (!res.ok) throw new Error(`No se pudo cargar ${dataFile} (HTTP ${res.status})`);
 
@@ -146,10 +237,19 @@ function renderUpBentoGrid(units) {
     }
 
     grid.innerHTML = units.map(unit => {
-        const matCount = unit.materiales ? unit.materiales.length : 0;
-        const vidCount = unit.videos ? unit.videos.length : 0;
+        // Las UPs con "secciones" (ej. UP3 de Ginecología) no tienen materiales/
+        // videos/objetivos propios: hay que sumarlos entre sus 5 secciones.
+        let matCount, vidCount, objCount;
+        if (unit.secciones && Array.isArray(unit.secciones)) {
+            matCount = unit.secciones.reduce((acc, s) => acc + (s.materiales ? s.materiales.length : 0), 0);
+            vidCount = unit.secciones.reduce((acc, s) => acc + (s.videos ? s.videos.length : 0), 0);
+            objCount = unit.secciones.reduce((acc, s) => acc + (s.objectives ? s.objectives.length : 0), 0);
+        } else {
+            matCount = unit.materiales ? unit.materiales.length : 0;
+            vidCount = unit.videos ? unit.videos.length : 0;
+            objCount = unit.objectives ? unit.objectives.length : 0;
+        }
         const totalRecursos = matCount + vidCount;
-        const objCount = unit.objectives ? unit.objectives.length : 0;
 
         return `
         <div class="up-card" onclick="openUP('${unit.id}')">
@@ -207,6 +307,21 @@ function filterResources(query) {
 
     let allResources = [];
     EstudioState.data.units.forEach(unit => {
+        // UPs con secciones (ej. UP3 Ginecología): buscar dentro de cada sección,
+        // etiquetando el resultado con "UP3: <Sección>" para que se entienda de dónde viene.
+        if (unit.secciones && Array.isArray(unit.secciones)) {
+            unit.secciones.forEach(sec => {
+                const materiales = sec.materiales || [];
+                const videos = sec.videos || [];
+                [...materiales, ...videos].forEach(res => {
+                    if (res.title.toLowerCase().includes(q) || (res.type && res.type.toLowerCase().includes(q))) {
+                        allResources.push({ ...res, unitTitle: `UP${unit.number}: ${sec.title}`, unitId: unit.id });
+                    }
+                });
+            });
+            return;
+        }
+
         const materiales = unit.materiales || [];
         const videos = unit.videos || [];
         
@@ -237,7 +352,7 @@ function filterResources(query) {
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
             </div>
             <div class="resource-info" style="flex: 1;">
-                <h5 style="font-size: 0.95rem; color: #0f172a; margin-bottom: 3px;">${res.title}</h5>
+                <h5 style="font-size: 0.95rem; color: #0f172a; margin-bottom: 3px;">${res.title}${badgeObligatorioHtml(res)}</h5>
                 <span style="font-size: 0.78rem; color: #64748b;">${meta.label} · <strong style="color: #0284c7;">${res.unitTitle}</strong></span>
             </div>
             <div class="resource-open-btn" style="color: #94a3b8;">
@@ -269,6 +384,81 @@ function openUP(upId) {
         return;
     }
 
+    // UPs con subsecciones seleccionables (ej. UP3 de Ginecología: Adolescente,
+    // Adulta Joven, Urgencias, Embarazo, Parto y Puerperio). En vez de abrir el
+    // detalle directo, mostramos un submenú y dejamos que abrirSeccionUP() haga
+    // el openUpReal() real con la subsección elegida.
+    if (unit.secciones && Array.isArray(unit.secciones) && unit.secciones.length > 0) {
+        abrirModalSeccionesUP(unit);
+        return;
+    }
+
+    openUpReal(upId, unit);
+}
+
+// Muestra el submenú (modal) de subsecciones de una UP, ej. UP3 de Ginecología.
+function abrirModalSeccionesUP(unit) {
+    let overlay = document.getElementById('modal-secciones-up');
+    if (!overlay) {
+        const html = `
+        <div id="modal-secciones-up" class="nika-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:9998; align-items:center; justify-content:center;"
+             onclick="if (event.target === this) cerrarModalSeccionesUP();">
+          <div class="nika-modal-card" style="background:#fff; border-radius:14px; padding:26px 24px; max-width:460px; width:92%; max-height:85vh; overflow-y:auto;">
+            <h3 id="secciones-up-titulo" style="margin:0 0 4px 0; font-size:19px; font-weight:800; color:#0f172a;"></h3>
+            <p style="margin:0 0 18px 0; font-size:13px; color:#64748b;">Elegí la sección que querés estudiar.</p>
+            <div id="secciones-up-lista" style="display:flex; flex-direction:column; gap:10px;"></div>
+            <button type="button" onclick="cerrarModalSeccionesUP()" style="margin-top:18px; width:100%; padding:10px; border:1px solid #e2e8f0; background:#f8fafc; border-radius:8px; font-weight:600; cursor:pointer;">Cancelar</button>
+          </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', html);
+        overlay = document.getElementById('modal-secciones-up');
+    }
+
+    document.getElementById('secciones-up-titulo').innerText = `UP${unit.number}: ${unit.title}`;
+    const lista = document.getElementById('secciones-up-lista');
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--nika-primary').trim() || '#0f6cbf';
+    lista.innerHTML = unit.secciones.map((sec, i) => `
+        <button type="button" onclick="abrirSeccionUP('${unit.id}', ${i})"
+                style="text-align:left; padding:14px 16px; border:1px solid #e2e8f0; border-radius:10px; background:#fff; cursor:pointer; font-size:0.9rem; font-weight:700; color:#0f172a; transition: all .15s;"
+                onmouseover="this.style.borderColor='${accent}'" onmouseout="this.style.borderColor='#e2e8f0'">
+            ${i + 1}. ${sec.title}
+        </button>
+    `).join('');
+
+    overlay.style.display = 'flex';
+}
+
+function cerrarModalSeccionesUP() {
+    const overlay = document.getElementById('modal-secciones-up');
+    if (overlay) overlay.style.display = 'none';
+}
+
+// Construye una "unit" sintética a partir de la UP padre + la sección elegida
+// (hereda number/id de la padre, pisa title/objectives/contents/materiales/
+// videos con los de la sección) y la abre con el flujo normal de detalle.
+function abrirSeccionUP(parentId, seccionIndex) {
+    const parent = EstudioState.unitsById[parentId];
+    if (!parent || !parent.secciones || !parent.secciones[seccionIndex]) return;
+    const sec = parent.secciones[seccionIndex];
+
+    const syntheticId = `${parentId}__sec${seccionIndex + 1}`;
+    const syntheticUnit = Object.assign({}, parent, sec, {
+        id: syntheticId,
+        number: parent.number,          // sigue mostrando "UP3"
+        parentId: parentId,
+        seccionTitle: sec.title,
+        secciones: undefined            // evita loop infinito de submenú
+    });
+    EstudioState.unitsById[syntheticId] = syntheticUnit;
+
+    cerrarModalSeccionesUP();
+    openUpReal(syntheticId, syntheticUnit);
+}
+
+// Lógica real de apertura de detalle de UP (antes vivía directo en openUP).
+// La separamos para que tanto una UP normal como una subsección sintética
+// (ver abrirSeccionUP) pasen por acá.
+function openUpReal(upId, unit) {
     EstudioState.currentUpId = upId;
     closeInlineViewer();
     renderUpDetail(unit);
@@ -302,6 +492,9 @@ function openUP(upId) {
     if (window.PomodoroSyncManager) {
         window.PomodoroSyncManager.actualizarEstado({ up: `UP${unit.number}` });
     }
+
+    // Widget "📅 Mi Cronograma de Repaso" (ver PARTE 3 del pedido)
+    initRepasoWidget(moduleId, upId, upLabel);
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -539,6 +732,13 @@ async function toggleObjective(userId, moduleId, upId, index, completed) {
     }
 }
 
+// Badge verde "Obligatorio" para recursos con resource.obligatorio === true
+// (ver gineco_data.json: bibliografía obligatoria de cada sección de UP3).
+function badgeObligatorioHtml(resource) {
+    if (!resource.obligatorio) return '';
+    return `<span style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#166534; background:#dcfce7; border-radius:999px; vertical-align:middle;">OBLIGATORIO</span>`;
+}
+
 function renderResourceItem(resource) {
     const meta = getResourceMeta(resource);
     const isActive = EstudioState.activeResourceUrl === resource.url ? 'active-resource' : '';
@@ -550,7 +750,7 @@ function renderResourceItem(resource) {
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
             </div>
             <div class="resource-info">
-                <h5>${resource.title}</h5>
+                <h5>${resource.title}${badgeObligatorioHtml(resource)}</h5>
                 <span>${meta.label}</span>
             </div>
             <div class="resource-open-btn">
@@ -700,6 +900,50 @@ function toggleViewerFullscreen() {
 
 // ================= TAREA 3: Asistente Bibliográfico Nativo (Cátedra) =================
 
+// ================= PAYWALL VISUAL: ASISTENTE NIKA (NotebookLM) =================
+
+// Valor simulado del plan del usuario — se usa como respaldo si el sistema
+// real de accesos (NikaAcceso, que ya gatea la pestaña completa vía
+// gateTab()) no está cargado en este contexto. Para probar el bloqueo
+// visual en local, cambiar 'free' por 'premium' acá.
+const userRole = 'free'; // 'free' | 'premium'
+
+// Devuelve el plan efectivo: prioriza NikaAcceso (fuente real de verdad)
+// y cae al valor simulado de arriba si no está disponible.
+function getNikaUserRole() {
+    if (window.NikaAcceso && typeof window.NikaAcceso.tieneAccesoCompleto === 'function') {
+        return window.NikaAcceso.tieneAccesoCompleto() ? 'premium' : 'free';
+    }
+    return userRole;
+}
+
+// Aplica (o quita) el blur + candado sobre el input, el botón "Enviar" y la
+// caja de respuestas del Asistente Nika, según el plan actual del usuario.
+function aplicarPaywallChat() {
+    const wrapper = document.getElementById('module-chat-body');
+    const overlay = document.getElementById('module-chat-paywall-overlay');
+    if (!wrapper || !overlay) return;
+
+    const esPremium = getNikaUserRole() === 'premium';
+    wrapper.classList.toggle('module-chat-locked', !esPremium);
+    overlay.style.display = esPremium ? 'none' : 'flex';
+
+    const chatInput = document.getElementById('module-chat-input');
+    const chatSend = document.getElementById('module-chat-send');
+    if (chatInput) chatInput.disabled = !esPremium;
+    if (chatSend) chatSend.disabled = !esPremium;
+}
+
+// Botón "Pasate a Premium" del overlay: reutiliza el modal real de
+// NikaAcceso si está disponible; si no, redirige directo a la suscripción.
+function abrirUpsellAsistente() {
+    if (window.NikaAcceso && typeof window.NikaAcceso.mostrarModalSoloVip === 'function') {
+        window.NikaAcceso.mostrarModalSoloVip('asistente');
+        return;
+    }
+    window.location.href = 'nikamed-plus.html';
+}
+
 function renderNotebookLmTab() {
     const panel = document.getElementById('notebooklm-panel');
     if (!panel) {
@@ -711,22 +955,38 @@ function renderNotebookLmTab() {
     panel.dataset.chatRendered = 'true';
 
     panel.innerHTML = `
-        <div style="display:flex; flex-direction:column; height:100%; min-height:420px;">
-            <div style="margin-bottom:10px;">
-                <h3 style="margin:0 0 2px 0;">🤖 Asistente Bibliográfico</h3>
-                <span id="module-chat-subtitle" style="font-size:0.8rem; color:#64748b;">Cirugía</span>
+        <div style="position:relative;">
+            <div id="module-chat-body" style="display:flex; flex-direction:column; height:100%; min-height:420px;">
+                <div style="margin-bottom:10px;">
+                    <h3 style="margin:0 0 2px 0;">🤖 Asistente Bibliográfico</h3>
+                    <span id="module-chat-subtitle" style="font-size:0.8rem; color:#64748b;">Cirugía</span>
+                </div>
+                <div id="module-chat-messages" style="flex:1; display:flex; flex-direction:column; gap:8px; overflow-y:auto; padding:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; min-height:260px; margin-bottom:10px;"></div>
+                <div style="display:flex; gap:8px;">
+                    <input type="text" id="module-chat-input" placeholder="Preguntale al asistente sobre esta unidad..."
+                           style="flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem;">
+                    <button id="module-chat-send" type="button"
+                            style="padding:10px 16px; background:var(--nika-primary,#0284c7); color:#fff; border:none; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer;">
+                        Enviar
+                    </button>
+                </div>
             </div>
-            <div id="module-chat-messages" style="flex:1; display:flex; flex-direction:column; gap:8px; overflow-y:auto; padding:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; min-height:260px; margin-bottom:10px;"></div>
-            <div style="display:flex; gap:8px;">
-                <input type="text" id="module-chat-input" placeholder="Preguntale al asistente sobre esta unidad..."
-                       style="flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem;">
-                <button id="module-chat-send" type="button"
-                        style="padding:10px 16px; background:#0284c7; color:#fff; border:none; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer;">
-                    Enviar
-                </button>
+
+            <!-- Paywall: se muestra/oculta desde aplicarPaywallChat() según el plan del usuario -->
+            <div id="module-chat-paywall-overlay" class="module-chat-paywall-overlay" style="display:none;">
+                <div class="module-chat-paywall-card">
+                    <div class="module-chat-paywall-lock">🔒</div>
+                    <p class="module-chat-paywall-text">
+                        <strong>Asistente IA Exclusivo NikaMed+.</strong><br>
+                        Resolvé tus dudas médicas al instante con bibliografía oficial.
+                    </p>
+                    <button type="button" class="module-chat-paywall-btn" onclick="abrirUpsellAsistente()">Pasate a Premium</button>
+                </div>
             </div>
         </div>
     `;
+
+    aplicarPaywallChat();
 }
 
 function updateModuleChatSubtitle(unit) {
@@ -751,95 +1011,745 @@ function initModuleChat() {
     if (chatSend.dataset.listenerAttached) return;
     chatSend.dataset.listenerAttached = 'true';
 
-    const FALLBACK_SUPABASE_URL = 'https://pswjmouuyaxueaqqglko.supabase.co';
-    const FALLBACK_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzd2ptb3V1eWF4dWVhcXFnbGtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0NDA2NzMsImV4cCI6MjEwNTAxNjY3M30.xZbJfZg9QR9jyT4ZcjeLi125Fzub33kajCYy2X_kwHk';
+    const NIKA_CHAT_URL = 'https://pswjmouuyaxueaqqglko.supabase.co/functions/v1/chat-nika';
+
+    // Nombre "lindo" del módulo activo para mandar al backend (Cirugia / Ginecologia).
+    function moduloActivoLabel() {
+        const m = (EstudioState.modulo || '').toLowerCase();
+        if (m.startsWith('gine')) return 'Ginecologia';
+        if (m.startsWith('cirug')) return 'Cirugia';
+        return EstudioState.modulo || '';
+    }
+
+    // UP activa en formato "UP1", "UP2", etc.
+    function unidadActivaLabel() {
+        const unit = EstudioState.currentUpId ? EstudioState.unitsById[EstudioState.currentUpId] : null;
+        if (unit && unit.number) return `UP${unit.number}`;
+        if (EstudioState.currentUpId) return EstudioState.currentUpId.toUpperCase();
+        return 'UP1';
+    }
 
     async function handleModuleChat() {
+        if (getNikaUserRole() !== 'premium') {
+            abrirUpsellAsistente();
+            return;
+        }
+
         const text = chatInput.value.trim();
         if (!text) return;
 
+        // 1. Pinta la pregunta del usuario (derecha) y limpia el input.
         appendModuleMsg(text, 'user');
         chatInput.value = '';
+        chatInput.focus();
 
-        const loadingId = 'loading-' + Date.now();
-        const loadingDiv = document.createElement('div');
-        loadingDiv.id = loadingId;
-        loadingDiv.style.cssText = "background: #fef9c3; border: 1px solid rgba(202,138,4,0.3); color: #713f12; padding: 8px 12px; border-radius: 8px; font-size: 0.82rem; font-style: italic; align-self: flex-start;";
-        loadingDiv.innerHTML = "Consultando fuentes privadas de la cátedra...";
-        chatMessages.appendChild(loadingDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        // 2. Indicador de carga estilo chat, con puntitos animados (izquierda).
+        const loadingRow = appendTypingIndicator();
 
         try {
-            const unit = EstudioState.currentUpId ? EstudioState.unitsById[EstudioState.currentUpId] : null;
-            let upActiva = 'UP1';
-            if (unit && unit.number) {
-                upActiva = `UP${unit.number}`;
-            } else if (EstudioState.currentUpId) {
-                upActiva = EstudioState.currentUpId.toUpperCase();
-            }
-
-            const client = window.supabaseClient || window.supabase || null;
-            const supabaseUrl = client?.supabaseUrl || window.SUPABASE_URL || FALLBACK_SUPABASE_URL;
-            const supabaseKey = client?.supabaseKey || window.SUPABASE_ANON_KEY || FALLBACK_SUPABASE_ANON_KEY;
-
-            const functionUrl = `${supabaseUrl}/functions/v1/consultar-up`;
-
-            let authToken = supabaseKey;
-            try {
-                const _c = window.NikaSupabase && window.NikaSupabase.client;
-                if (_c) {
-                    const { data: { session: _s } } = await _c.auth.getSession();
-                    if (_s && _s.access_token) authToken = _s.access_token;
-                }
-            } catch (_) {}
-
-            const response = await fetch(functionUrl, {
+            // 3 y 4. POST a la Edge Function con { pregunta, modulo, unidad }.
+            const response = await fetch(NIKA_CHAT_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`,
-                    'apikey': supabaseKey
-                },
-                body: JSON.stringify({ 
-                    pregunta: text, 
-                    up: upActiva 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    pregunta: text,
+                    modulo: moduloActivoLabel(),
+                    unidad: unidadActivaLabel()
                 })
             });
 
-            document.getElementById(loadingId)?.remove();
-
             if (!response.ok) {
-                const errDetail = await response.text();
-                throw new Error(`Error en la Edge Function (${response.status}): ${errDetail}`);
+                throw new Error(`HTTP ${response.status}`);
             }
 
             const data = await response.json();
-            const respuesta = data && data.respuesta ? data.respuesta : 'No se obtuvo respuesta del asistente.';
+            const respuesta = (data && data.respuesta) ? data.respuesta : 'No se obtuvo respuesta del asistente.';
+
+            // 5. Reemplaza el indicador por la respuesta real, procesando \n.
+            loadingRow.remove();
             appendModuleMsg(respuesta, 'bot');
 
         } catch (err) {
-            document.getElementById(loadingId)?.remove();
+            // 6. Error de red/timeout: mensaje elegante dentro del chat.
             console.error('[Error en Chat Bibliográfico]', err);
-            appendModuleMsg("No pude procesar la consulta en este momento. Verificá la consola para más detalles.", 'bot');
+            loadingRow.remove();
+            appendModuleMsg('⚠️ Tuvimos un problema de conexión con el Asistente Nika. Probá de nuevo en unos segundos.', 'error');
         }
     }
 
-    function appendModuleMsg(text, sender) {
-        const div = document.createElement('div');
-        if (sender === 'user') {
-            div.style.cssText = "background: #0284c7; color: #fff; padding: 10px 14px; border-radius: 10px; max-width: 85%; font-size: 0.85rem; align-self: flex-end; word-break: break-word;";
-        } else {
-            div.style.cssText = "background: #ffffff; border: 1px solid #e2e8f0; color: #1e293b; padding: 10px 14px; border-radius: 10px; max-width: 85%; font-size: 0.85rem; align-self: flex-start; word-break: break-word; line-height: 1.5;";
-        }
-        div.textContent = text;
-        chatMessages.appendChild(div);
+    function appendTypingIndicator() {
+        const row = document.createElement('div');
+        row.className = 'nika-chat-row nika-chat-row--bot';
+        row.innerHTML = `
+            <div class="nika-chat-bubble nika-chat-bubble--typing">
+                <span class="nika-chat-typing-label">Nika está analizando la bibliografía</span>
+                <span class="nika-chat-typing-dots"><span></span><span></span><span></span></span>
+            </div>`;
+        chatMessages.appendChild(row);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+        return row;
+    }
+
+    function appendModuleMsg(text, sender) {
+        const row = document.createElement('div');
+        const isUser = sender === 'user';
+        const isError = sender === 'error';
+        row.className = `nika-chat-row ${isUser ? 'nika-chat-row--user' : 'nika-chat-row--bot'}`;
+
+        const bubble = document.createElement('div');
+        bubble.className = isUser
+            ? 'nika-chat-bubble nika-chat-bubble--user'
+            : (isError ? 'nika-chat-bubble nika-chat-bubble--error' : 'nika-chat-bubble nika-chat-bubble--bot');
+
+        // Procesa los \n como saltos de línea reales usando nodos de texto
+        // (no innerHTML), para no ejecutar HTML que venga del usuario o del backend.
+        String(text).split('\n').forEach((line, idx, arr) => {
+            bubble.appendChild(document.createTextNode(line));
+            if (idx < arr.length - 1) bubble.appendChild(document.createElement('br'));
+        });
+
+        row.appendChild(bubble);
+        chatMessages.appendChild(row);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return row;
     }
 
     chatSend.addEventListener('click', handleModuleChat);
     chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleModuleChat();
     });
+}
+
+// ================= PARTE 3: CALENDARIO Y CRONOGRAMA DE REPASO =================
+
+// Estado del deep-link activo, para que "Agendar repaso de esta UP" sepa qué
+// módulo/UP/etiqueta asociar sin tener que volver a pedirlo por parámetros.
+const RepasoState = { moduloActual: null, upActual: null, upLabelActual: null };
+
+function getSupabaseClienteActivo() {
+    return window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || null;
+}
+
+async function getUsuarioActivo() {
+    const client = getSupabaseClienteActivo();
+    if (client && client.auth) {
+        try {
+            const { data: { user } } = await client.auth.getUser();
+            if (user) return user;
+        } catch (e) { /* seguimos al fallback local */ }
+    }
+    return null;
+}
+
+// Crea (si no existe) e inicializa el widget "📅 Mi Cronograma de Repaso"
+// debajo del Pomodoro, cada vez que se abre una UP. Estilo fijo oscuro
+// tipo "premium card", igual en Cirugía y en Ginecología.
+function initRepasoWidget(moduloId, upId, upLabel) {
+    RepasoState.moduloActual = moduloId;
+    RepasoState.upActual = upId;
+    RepasoState.upLabelActual = upLabel;
+
+    const pomodoroPlaceholder = document.getElementById('pomodoro-placeholder');
+    if (!pomodoroPlaceholder) return;
+
+    let widget = document.getElementById('nika-repaso-widget');
+    if (!widget) {
+        const html = `
+        <div id="nika-repaso-widget" style="border:1px solid var(--border,#e2e8f0); border-radius:14px; padding:18px; margin-top:16px; background:var(--card-bg,#fff); box-shadow:0 4px 14px -8px rgba(0,0,0,0.12);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                <h4 style="font-size:0.8rem; margin:0; color:var(--nika-dark,#0f172a); font-weight:800; letter-spacing:.02em; display:flex; align-items:center; gap:6px;">📅 Mi Cronograma de Repaso</h4>
+                <button type="button" onclick="abrirModalCalendario()" title="Ver calendario completo"
+                        style="border:none; background:rgba(244,114,182,0.1); width:26px; height:26px; border-radius:7px; cursor:pointer; font-size:0.85rem; color:var(--nika-primary,#0f6cbf);">🗓️</button>
+            </div>
+            <div id="repaso-lista" style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px; font-size:0.78rem; color:var(--text-muted,#64748b);">
+                <span style="font-style:italic;">Cargando...</span>
+            </div>
+            <button type="button" id="btn-agendar-repaso"
+                    style="width:100%; padding:11px; border:none; border-radius:9px; background:linear-gradient(135deg, #c084fc, #f472b6); color:#fff; font-weight:800; cursor:pointer; font-size:0.8rem; letter-spacing:.01em;">
+                + Agendar repaso de esta UP
+            </button>
+        </div>`;
+        pomodoroPlaceholder.insertAdjacentHTML('afterend', html);
+        widget = document.getElementById('nika-repaso-widget');
+        document.getElementById('btn-agendar-repaso').addEventListener('click', abrirModalAgendarRepaso);
+    }
+
+    cargarRepasos();
+}
+
+// ---- Modal "Agendar repaso" (glassmorphism): fecha + motivo + guardar ----
+
+function inyectarModalAgendarRepasoSiHaceFalta() {
+    if (document.getElementById('modal-agendar-repaso')) return;
+    const html = `
+    <style>
+        /* ---- CSS forzado del modal Timeboxing ----
+           Inyectado en línea junto con el propio HTML del modal para que
+           NINGUNA regla externa de styles.css (cascada, orden de carga,
+           especificidad, resets genéricos de "button"/"input") pueda
+           pisarlo. Todo con !important a propósito. */
+        #modal-agendar-repaso .nika-agendar-tabs {
+            display: flex !important;
+            gap: 4px !important;
+            background: rgba(15, 23, 42, 0.55) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 999px !important;
+            padding: 5px !important;
+            margin-bottom: 20px !important;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+        }
+        #modal-agendar-repaso .nika-agendar-tab-btn {
+            flex: 1 !important;
+            padding: 9px 10px !important;
+            border: none !important;
+            border-radius: 999px !important;
+            background: transparent !important;
+            color: #94a3b8 !important;
+            font-size: 0.76rem !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+        }
+        #modal-agendar-repaso .nika-agendar-tab-btn.active {
+            border-radius: 99px !important;
+            background: linear-gradient(120deg, var(--nika-accent, #38bdf8), var(--nika-primary, #0284c7)) !important;
+            color: #0b1329 !important;
+            box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.45) !important;
+        }
+        #modal-agendar-repaso input[type="time"] {
+            width: 100% !important;
+            padding: 9px 10px !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+            color: #ffffff !important;
+            font-size: 0.82rem !important;
+            color-scheme: dark !important;
+        }
+        #modal-agendar-repaso input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(1.4) !important;
+            cursor: pointer !important;
+        }
+    </style>
+    <div id="modal-agendar-repaso" style="display:none; position:fixed; inset:0; background:rgba(11,19,41,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); z-index:9999; align-items:center; justify-content:center;"
+         onclick="if (event.target === this) cerrarModalAgendarRepaso();">
+        <div style="background:rgba(30,41,59,0.75); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.12); border-radius:18px; padding:26px; width:92%; max-width:400px; max-height:88vh; overflow-y:auto; color:#e2e8f0; box-shadow:0 25px 50px -12px rgba(0,0,0,0.6);">
+            <h3 style="margin:0 0 4px 0; font-size:1.05rem; font-weight:800; color:#f1f5f9;">Agendar en mi calendario</h3>
+            <p id="modal-agendar-subtitulo" style="margin:0 0 16px 0; font-size:0.78rem; color:#94a3b8;"></p>
+
+            <!-- ===== Tabs: Eventos / Planificador Diario ===== -->
+            <div class="nika-agendar-tabs">
+                <button type="button" id="tab-btn-eventos" class="nika-agendar-tab-btn active" onclick="cambiarTabAgendar('eventos')">📅 Próximo Examen</button>
+                <button type="button" id="tab-btn-timeboxing" class="nika-agendar-tab-btn" onclick="cambiarTabAgendar('timeboxing')">⏱️ Organizá tu Día</button>
+            </div>
+
+            <!-- ===== Panel: Eventos (contenido original) ===== -->
+            <div id="tab-panel-eventos" class="nika-agendar-tab-panel">
+                <label style="display:block; font-size:0.72rem; font-weight:700; color:#cbd5e1; margin-bottom:6px; text-transform:uppercase; letter-spacing:.04em;">Fecha</label>
+                <input type="date" id="input-fecha-repaso"
+                       style="width:100%; padding:10px 12px; border-radius:9px; border:1px solid rgba(255,255,255,0.14); background:rgba(15,23,42,0.6); color:#e2e8f0; margin-bottom:16px; font-size:0.85rem;">
+
+                <label style="display:block; font-size:0.72rem; font-weight:700; color:#cbd5e1; margin-bottom:6px; text-transform:uppercase; letter-spacing:.04em;">Motivo</label>
+                <input type="text" id="select-motivo-repaso" placeholder="Ej: Examen Parcial, Repaso UP1..."
+                       style="width:100%; padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:#ffffff; margin-bottom:22px; font-size:0.85rem; box-sizing:border-box;">
+
+                <div style="display:flex; gap:10px; margin-bottom:22px;">
+                    <button type="button" onclick="cerrarModalAgendarRepaso()"
+                            style="flex:1; padding:11px; border-radius:9px; border:1px solid rgba(255,255,255,0.14); background:transparent; color:#cbd5e1; font-weight:700; cursor:pointer; font-size:0.82rem;">Cancelar</button>
+                    <button type="button" id="btn-guardar-repaso" onclick="guardarRepasoDesdeModal()"
+                            style="flex:1.3; padding:11px; border-radius:9px; border:none; background:linear-gradient(135deg, var(--nika-accent, #c084fc), var(--nika-primary, #f472b6)); color:#0b1329; font-weight:800; cursor:pointer; font-size:0.82rem;">Guardar en mi Calendario</button>
+                </div>
+
+                <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:14px;">
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#cbd5e1; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em;">Tus próximos eventos</label>
+                    <div id="modal-repaso-lista-existentes" style="display:flex; flex-direction:column; gap:6px; max-height:180px; overflow-y:auto;">
+                        <span style="font-style:italic; font-size:0.78rem; color:#94a3b8;">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Panel: Planificador Diario (Timeboxing) ===== -->
+            <div id="tab-panel-timeboxing" class="nika-agendar-tab-panel" style="display:none;">
+                <p id="timeboxing-fecha-label" style="margin:0 0 14px 0; font-size:0.78rem; color:#94a3b8;"></p>
+
+                <div style="display:flex; gap:10px; margin-bottom:12px;">
+                    <div style="flex:1;">
+                        <label style="display:block; font-size:0.68rem; font-weight:700; color:#cbd5e1; margin-bottom:6px; text-transform:uppercase; letter-spacing:.04em;">Inicio</label>
+                        <input type="time" id="input-hora-inicio-block">
+                    </div>
+                    <div style="flex:1;">
+                        <label style="display:block; font-size:0.68rem; font-weight:700; color:#cbd5e1; margin-bottom:6px; text-transform:uppercase; letter-spacing:.04em;">Fin</label>
+                        <input type="time" id="input-hora-fin-block">
+                    </div>
+                </div>
+
+                <label style="display:block; font-size:0.68rem; font-weight:700; color:#cbd5e1; margin-bottom:6px; text-transform:uppercase; letter-spacing:.04em;">Tarea</label>
+                <input type="text" id="input-tarea-block" placeholder="Ej: Estudiar UP1, Hacer Simulacros..."
+                       style="width:100%; padding:10px 12px; border-radius:9px; border:1px solid rgba(255,255,255,0.14); background:rgba(15,23,42,0.6); color:#e2e8f0; margin-bottom:14px; font-size:0.85rem;">
+
+                <button type="button" id="btn-agregar-bloque" onclick="agregarBloqueTimeboxing()"
+                        class="nika-agendar-tab-add-btn"
+                        style="display:block !important; width:100% !important; padding:11px !important; border:none !important; border-radius:9px !important; background:linear-gradient(135deg, var(--nika-accent, #c084fc), var(--nika-primary, #f472b6)) !important; color:#0b1329 !important; font-weight:800 !important; cursor:pointer !important; font-size:0.82rem !important; text-align:center !important; box-sizing:border-box !important;">+ Agregar Bloque</button>
+
+                <div style="border-top:1px solid rgba(255,255,255,0.1); margin-top:18px; padding-top:14px;">
+                    <label style="display:block; font-size:0.72rem; font-weight:700; color:#cbd5e1; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em;">Bloques de hoy</label>
+                    <div id="timeboxing-lista-bloques" style="display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto;">
+                        <span style="font-style:italic; font-size:0.78rem; color:#94a3b8;">Todavía no agregaste bloques para hoy.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+}
+
+// Alterna entre la pestaña "Eventos" y "Planificador Diario" dentro del modal.
+function cambiarTabAgendar(tab) {
+    const panelEventos = document.getElementById('tab-panel-eventos');
+    const panelTimeboxing = document.getElementById('tab-panel-timeboxing');
+    const btnEventos = document.getElementById('tab-btn-eventos');
+    const btnTimeboxing = document.getElementById('tab-btn-timeboxing');
+    if (!panelEventos || !panelTimeboxing || !btnEventos || !btnTimeboxing) return;
+
+    const esEventos = tab === 'eventos';
+    panelEventos.style.display = esEventos ? 'block' : 'none';
+    panelTimeboxing.style.display = esEventos ? 'none' : 'block';
+    btnEventos.classList.toggle('active', esEventos);
+    btnTimeboxing.classList.toggle('active', !esEventos);
+
+    if (!esEventos) renderBloquesTimeboxing();
+}
+
+function abrirModalAgendarRepaso() {
+    inyectarModalAgendarRepasoSiHaceFalta();
+    const overlay = document.getElementById('modal-agendar-repaso');
+    const subtitulo = document.getElementById('modal-agendar-subtitulo');
+    const fechaInput = document.getElementById('input-fecha-repaso');
+
+    subtitulo.textContent = `${RepasoState.moduloActual === 'ginecologia' ? 'Ginecología' : 'Cirugía'} · ${RepasoState.upLabelActual || RepasoState.upActual}`;
+
+    // Sugerencia por defecto: hoy + 3 días (el usuario la puede cambiar libremente).
+    const sugerida = new Date();
+    sugerida.setDate(sugerida.getDate() + 3);
+    fechaInput.value = sugerida.toISOString().slice(0, 10);
+    fechaInput.min = new Date().toISOString().slice(0, 10);
+
+    document.getElementById('select-motivo-repaso').value = '';
+    overlay.style.display = 'flex';
+    cambiarTabAgendar('eventos');
+    renderListaEventosEnModal();
+}
+
+function cerrarModalAgendarRepaso() {
+    const overlay = document.getElementById('modal-agendar-repaso');
+    if (overlay) overlay.style.display = 'none';
+}
+
+// Lista, dentro del propio modal, los próximos eventos del usuario (de
+// cualquier módulo) con un ícono de tacho para eliminarlos directamente.
+async function renderListaEventosEnModal() {
+    const cont = document.getElementById('modal-repaso-lista-existentes');
+    if (!cont) return;
+
+    const user = await getUsuarioActivo();
+    const client = getSupabaseClienteActivo();
+    if (!user || !client) {
+        cont.innerHTML = `<span style="font-style:italic; font-size:0.78rem; color:#94a3b8;">Iniciá sesión para ver tus eventos.</span>`;
+        return;
+    }
+
+    try {
+        const hoy = new Date().toISOString().slice(0, 10);
+        const { data, error } = await client
+            .from('calendario_eventos')
+            .select('id, titulo, tipo, fecha')
+            .eq('user_id', user.id)
+            .gte('fecha', hoy)
+            .order('fecha', { ascending: true })
+            .limit(10);
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            cont.innerHTML = `<span style="font-style:italic; font-size:0.78rem; color:#94a3b8;">No tenés eventos agendados todavía.</span>`;
+            return;
+        }
+
+        const iconoTipo = { repaso: '📘', examen_parcial: '📝', examen_final: '🎓' };
+        cont.innerHTML = data.map(ev => `
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; background:rgba(255,255,255,0.04); border-radius:8px;">
+                <span style="font-size:0.78rem; color:#e2e8f0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${iconoTipo[ev.tipo] || '📅'} ${ev.titulo} <span style="color:#94a3b8;">· ${ev.fecha}</span></span>
+                <button type="button" onclick="eliminarEventoCalendario('${ev.id}')" title="Eliminar evento"
+                        style="flex-shrink:0; border:none; background:rgba(239,68,68,0.15); color:#ef4444; width:26px; height:26px; border-radius:7px; cursor:pointer; font-size:0.8rem;">🗑️</button>
+            </div>
+        `).join('');
+    } catch (err) {
+        console.warn('[Calendario] No se pudo cargar la lista de eventos:', err);
+        cont.innerHTML = `<span style="font-style:italic; font-size:0.78rem; color:#94a3b8;">No se pudo cargar tu lista de eventos.</span>`;
+    }
+}
+
+// Elimina un evento de calendario_eventos por su ID (Supabase), y refresca
+// todas las vistas que puedan estar mostrando el calendario en pantalla.
+async function eliminarEventoCalendario(eventId) {
+    if (!confirm('¿Eliminar este evento del calendario? Esta acción no se puede deshacer.')) return;
+
+    const client = getSupabaseClienteActivo();
+    const user = await getUsuarioActivo();
+    if (!client || !user) {
+        alert('Iniciá sesión para eliminar eventos.');
+        return;
+    }
+
+    try {
+        const { error } = await client
+            .from('calendario_eventos')
+            .delete()
+            .eq('id', eventId)
+            .eq('user_id', user.id); // refuerzo: solo puede borrar sus propios eventos
+        if (error) throw error;
+
+        renderListaEventosEnModal();
+        cargarRepasos();
+        if (document.getElementById('modal-calendario-nika')?.style.display === 'flex') {
+            await cargarEventosDelMes();
+            renderCalendarioGrid();
+        }
+    } catch (err) {
+        console.error('[Calendario] No se pudo eliminar el evento:', err);
+        alert('No se pudo eliminar el evento. Probá de nuevo en un momento.');
+    }
+}
+
+async function guardarRepasoDesdeModal() {
+    const btn = document.getElementById('btn-guardar-repaso');
+    const fecha = document.getElementById('input-fecha-repaso').value;
+    const motivo = document.getElementById('select-motivo-repaso').value.trim();
+    if (!fecha) {
+        alert('Elegí una fecha para el evento.');
+        return;
+    }
+
+    const user = await getUsuarioActivo();
+    const client = getSupabaseClienteActivo();
+    if (!user || !client) {
+        alert('Iniciá sesión para agendar un repaso.');
+        return;
+    }
+
+    const nombreModulo = RepasoState.moduloActual === 'ginecologia' ? 'Ginecología' : 'Cirugía';
+
+    btn.disabled = true;
+    btn.textContent = 'Guardando...';
+
+    try {
+        const { error } = await client.from('calendario_eventos').insert({
+            user_id: user.id,
+            titulo: `${motivo || 'Repaso'} · ${nombreModulo} - ${RepasoState.upLabelActual || RepasoState.upActual}`,
+            tipo: motivo || 'repaso',
+            modulo: RepasoState.moduloActual,
+            up_id: RepasoState.upActual,
+            fecha: fecha
+        });
+        if (error) throw error;
+
+        cerrarModalAgendarRepaso();
+        cargarRepasos();
+        renderListaEventosEnModal();
+    } catch (err) {
+        console.error('[Repaso] No se pudo agendar:', err);
+        alert('No se pudo guardar el evento. Probá de nuevo en un momento.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Guardar en mi Calendario';
+    }
+}
+
+// ================= PLANIFICADOR DIARIO (TIMEBOXING) =================
+// Guardado 100% en localStorage (no toca Supabase). Se guarda un bloque
+// por día, así que cada usuario ve solo los bloques de "hoy" al abrir la
+// pestaña. Key base pedida: 'nika_timeboxing'.
+
+// Arma la key de localStorage combinando usuario activo + fecha de hoy,
+// para que cada estudiante tenga su propia agenda diaria.
+function getTimeboxingKey() {
+    let userSuffix = 'invitado';
+    try {
+        const rawUser = localStorage.getItem('nika_currentUser');
+        if (rawUser) userSuffix = JSON.parse(rawUser).username || 'invitado';
+    } catch (e) { /* usuario no logueado: usamos 'invitado' */ }
+
+    const hoy = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+    return `nika_timeboxing_${userSuffix}_${hoy}`;
+}
+
+function cargarBloquesTimeboxing() {
+    try {
+        const raw = localStorage.getItem(getTimeboxingKey());
+        const bloques = raw ? JSON.parse(raw) : [];
+        return Array.isArray(bloques) ? bloques : [];
+    } catch (e) {
+        console.warn('[Timeboxing] No se pudieron leer los bloques guardados:', e);
+        return [];
+    }
+}
+
+function guardarBloquesTimeboxing(bloques) {
+    try {
+        localStorage.setItem(getTimeboxingKey(), JSON.stringify(bloques));
+    } catch (e) {
+        console.warn('[Timeboxing] No se pudieron guardar los bloques:', e);
+    }
+}
+
+// Lee el formulario, valida y agrega un nuevo bloque horario, ordenando
+// la lista completa cronológicamente por hora de inicio.
+function agregarBloqueTimeboxing() {
+    const inicioInput = document.getElementById('input-hora-inicio-block');
+    const finInput = document.getElementById('input-hora-fin-block');
+    const tareaInput = document.getElementById('input-tarea-block');
+
+    const inicio = inicioInput.value;
+    const fin = finInput.value;
+    const tarea = tareaInput.value.trim();
+
+    if (!inicio || !fin) {
+        alert('Elegí una hora de inicio y una hora de fin para el bloque.');
+        return;
+    }
+    if (!tarea) {
+        alert('Contanos qué vas a hacer en ese bloque (ej: Estudiar UP1).');
+        return;
+    }
+    if (fin <= inicio) {
+        alert('La hora de fin tiene que ser posterior a la hora de inicio.');
+        return;
+    }
+
+    const bloques = cargarBloquesTimeboxing();
+    bloques.push({
+        id: 'block-' + Date.now(),
+        inicio,
+        fin,
+        tarea,
+        completado: false
+    });
+
+    guardarBloquesTimeboxing(bloques);
+
+    inicioInput.value = '';
+    finInput.value = '';
+    tareaInput.value = '';
+
+    renderBloquesTimeboxing();
+}
+
+// Marca/desmarca un bloque como completado (tacha el texto levemente).
+function toggleBloqueTimeboxing(blockId) {
+    const bloques = cargarBloquesTimeboxing();
+    const bloque = bloques.find(b => b.id === blockId);
+    if (!bloque) return;
+    bloque.completado = !bloque.completado;
+    guardarBloquesTimeboxing(bloques);
+    renderBloquesTimeboxing();
+}
+
+function eliminarBloqueTimeboxing(blockId) {
+    const bloques = cargarBloquesTimeboxing().filter(b => b.id !== blockId);
+    guardarBloquesTimeboxing(bloques);
+    renderBloquesTimeboxing();
+}
+
+// Pinta la lista de bloques del día, siempre ordenada por hora de inicio.
+function renderBloquesTimeboxing() {
+    const cont = document.getElementById('timeboxing-lista-bloques');
+    const fechaLabel = document.getElementById('timeboxing-fecha-label');
+    if (!cont) return;
+
+    if (fechaLabel) {
+        const hoyFormateado = new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+        fechaLabel.textContent = `Organizá tu ${hoyFormateado}`;
+    }
+
+    const bloques = cargarBloquesTimeboxing().sort((a, b) => a.inicio.localeCompare(b.inicio));
+
+    if (bloques.length === 0) {
+        cont.innerHTML = `<span style="font-style:italic; font-size:0.78rem; color:#94a3b8;">Todavía no agregaste bloques para hoy.</span>`;
+        return;
+    }
+
+    cont.innerHTML = bloques.map(b => `
+        <div class="nika-timeblock-row ${b.completado ? 'is-done' : ''}">
+            <input type="checkbox" class="nika-timeblock-checkbox" ${b.completado ? 'checked' : ''}
+                   onchange="toggleBloqueTimeboxing('${b.id}')" title="Marcar como completado">
+            <div class="nika-timeblock-info">
+                <span class="nika-timeblock-hora">${b.inicio} – ${b.fin}</span>
+                <span class="nika-timeblock-tarea">${escaparHtmlBasico(b.tarea)}</span>
+            </div>
+            <button type="button" class="nika-timeblock-delete" onclick="eliminarBloqueTimeboxing('${b.id}')" title="Eliminar bloque">🗑️</button>
+        </div>
+    `).join('');
+}
+
+// Escape mínimo para no inyectar HTML con lo que el usuario tipeó como tarea.
+function escaparHtmlBasico(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+async function cargarRepasos() {
+    const lista = document.getElementById('repaso-lista');
+    if (!lista) return;
+
+    const user = await getUsuarioActivo();
+    const client = getSupabaseClienteActivo();
+    if (!user || !client) {
+        lista.innerHTML = `<span style="font-style:italic;">Iniciá sesión para ver tu cronograma.</span>`;
+        return;
+    }
+
+    try {
+        const hoy = new Date().toISOString().slice(0, 10);
+        const { data, error } = await client
+            .from('calendario_eventos')
+            .select('id, titulo, tipo, fecha, completado')
+            .eq('user_id', user.id)
+            .gte('fecha', hoy)
+            .order('fecha', { ascending: true })
+            .limit(4);
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            lista.innerHTML = `<span style="font-style:italic;">Sin repasos agendados todavía.</span>`;
+            return;
+        }
+
+        const iconoTipo = { repaso: '📘', examen_parcial: '📝', examen_final: '🎓' };
+
+        lista.innerHTML = data.map(ev => {
+            const dias = Math.ceil((new Date(ev.fecha) - new Date(hoy)) / 86400000);
+            const cuando = dias === 0 ? 'Hoy' : dias === 1 ? 'Mañana' : `En ${dias} días`;
+            return `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 10px; background:rgba(244,114,182,0.05); border-radius:8px;">
+                        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--text-main,#1e293b);">${iconoTipo[ev.tipo] || '📅'} ${ev.titulo}</span>
+                        <strong style="color:#f472b6; white-space:nowrap; font-size:0.72rem;">${cuando}</strong>
+                    </div>`;
+        }).join('');
+    } catch (err) {
+        console.warn('[Repaso] No se pudo cargar el cronograma:', err);
+        lista.innerHTML = `<span style="font-style:italic;">No se pudo cargar el cronograma.</span>`;
+    }
+}
+
+// ---- Modal de calendario mensual (minimalista, oscuro, bordes sutiles) ----
+
+const CalendarioModalState = { mesVisible: new Date(), eventos: [] };
+
+function inyectarModalCalendarioSiHaceFalta() {
+    if (document.getElementById('modal-calendario-nika')) return;
+    const html = `
+    <div id="modal-calendario-nika" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;"
+         onclick="if (event.target === this) cerrarModalCalendario();">
+        <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:22px; width:92%; max-width:380px; color:#e2e8f0;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+                <button type="button" onclick="cambiarMesCalendario(-1)" style="background:none; border:none; color:#cbd5e1; font-size:1.1rem; cursor:pointer;">‹</button>
+                <span id="calendario-mes-label" style="font-weight:700; font-size:0.95rem;"></span>
+                <button type="button" onclick="cambiarMesCalendario(1)" style="background:none; border:none; color:#cbd5e1; font-size:1.1rem; cursor:pointer;">›</button>
+            </div>
+            <div id="calendario-grid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; font-size:0.72rem; text-align:center;"></div>
+            <div style="display:flex; gap:12px; margin-top:16px; font-size:0.68rem; color:#94a3b8; justify-content:center; flex-wrap:wrap;">
+                <span>🔴 Examen</span><span>🔵 Repaso</span><span>🟣 Hoy</span>
+            </div>
+            <button type="button" onclick="cerrarModalCalendario()" style="margin-top:16px; width:100%; padding:9px; border:1px solid rgba(255,255,255,0.12); background:transparent; color:#e2e8f0; border-radius:8px; cursor:pointer; font-size:0.8rem;">Cerrar</button>
+        </div>
+    </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+}
+
+async function abrirModalCalendario() {
+    inyectarModalCalendarioSiHaceFalta();
+    const overlay = document.getElementById('modal-calendario-nika');
+    overlay.style.display = 'flex';
+    await cargarEventosDelMes();
+    renderCalendarioGrid();
+}
+
+function cerrarModalCalendario() {
+    const overlay = document.getElementById('modal-calendario-nika');
+    if (overlay) overlay.style.display = 'none';
+}
+
+async function cambiarMesCalendario(delta) {
+    CalendarioModalState.mesVisible.setMonth(CalendarioModalState.mesVisible.getMonth() + delta);
+    await cargarEventosDelMes();
+    renderCalendarioGrid();
+}
+
+async function cargarEventosDelMes() {
+    const client = getSupabaseClienteActivo();
+    const user = await getUsuarioActivo();
+    CalendarioModalState.eventos = [];
+    if (!client || !user) return;
+
+    const y = CalendarioModalState.mesVisible.getFullYear();
+    const m = CalendarioModalState.mesVisible.getMonth();
+    const desde = new Date(y, m, 1).toISOString().slice(0, 10);
+    const hasta = new Date(y, m + 1, 0).toISOString().slice(0, 10);
+
+    try {
+        const { data, error } = await client
+            .from('calendario_eventos')
+            .select('id, titulo, tipo, fecha')
+            .eq('user_id', user.id)
+            .gte('fecha', desde)
+            .lte('fecha', hasta);
+        if (!error && data) CalendarioModalState.eventos = data;
+    } catch (err) {
+        console.warn('[Calendario] No se pudieron cargar los eventos del mes:', err);
+    }
+}
+
+function renderCalendarioGrid() {
+    const grid = document.getElementById('calendario-grid');
+    const label = document.getElementById('calendario-mes-label');
+    if (!grid || !label) return;
+
+    const y = CalendarioModalState.mesVisible.getFullYear();
+    const m = CalendarioModalState.mesVisible.getMonth();
+    const nombresMes = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    label.textContent = `${nombresMes[m]} ${y}`;
+
+    const hoyStr = new Date().toISOString().slice(0, 10);
+    const primerDiaSemana = new Date(y, m, 1).getDay(); // 0=domingo
+    const diasEnMes = new Date(y, m + 1, 0).getDate();
+
+    const eventosPorDia = {};
+    CalendarioModalState.eventos.forEach(ev => {
+        const dia = Number(ev.fecha.slice(8, 10));
+        if (!eventosPorDia[dia]) eventosPorDia[dia] = [];
+        eventosPorDia[dia].push(ev.tipo);
+    });
+
+    let html = ['D','L','M','M','J','V','S'].map(d => `<div style="color:#64748b; font-weight:700; padding-bottom:4px;">${d}</div>`).join('');
+    for (let i = 0; i < primerDiaSemana; i++) html += `<div></div>`;
+
+    for (let dia = 1; dia <= diasEnMes; dia++) {
+        const fechaStr = `${y}-${String(m + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+        const esHoy = fechaStr === hoyStr;
+        const tipos = eventosPorDia[dia] || [];
+        const dots = tipos.map(t => {
+            const color = (t === 'examen_parcial' || t === 'examen_final') ? '#ef4444' : t === 'repaso' ? '#22d3ee' : '#a855f7';
+            return `<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:${color}; margin:0 1px;"></span>`;
+        }).join('');
+
+        html += `
+            <div style="padding:6px 0; border-radius:8px; ${esHoy ? 'border:1px solid #a855f7;' : ''}">
+                <div>${dia}</div>
+                <div style="height:6px;">${dots}</div>
+            </div>`;
+    }
+
+    grid.innerHTML = html;
 }
 
 // ================= TABS DE LA VISTA DETALLE =================
@@ -852,4 +1762,10 @@ function showUpTab(tabName, btn) {
     document.querySelectorAll('.up-tab-panel').forEach(p => p.classList.remove('active'));
     const panel = document.getElementById(`tab-${tabName}`);
     if (panel) panel.classList.add('active');
+
+    // Recalcular el paywall cada vez que se abre el Asistente: por si el
+    // usuario se suscribió a NikaMed+ en el medio de la sesión.
+    if (tabName === 'notebooklm' && typeof aplicarPaywallChat === 'function') {
+        aplicarPaywallChat();
+    }
 }

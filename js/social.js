@@ -55,7 +55,7 @@ const NikaSocial = (() => {
         if (!client || !userId) return null;
         const { data, error } = await client
             .from('profiles')
-            .select('id, username, fullname, full_name, nombre, avatar, avatar_url')
+            .select('id, username, fullname, full_name, nombre, avatar, avatar_url, role')
             .eq('id', userId)
             .maybeSingle();
         if (error) {
@@ -63,6 +63,49 @@ const NikaSocial = (() => {
             return null;
         }
         return normProfile(data);
+    }
+
+    /**
+     * Trae los amigos confirmados de un usuario cualquiera (no necesariamente
+     * el que está logueado) — pensado para la lista desplegable "Amigos" del
+     * modal de Perfil Público. Dos consultas (friendships + profiles) porque
+     * no hay una FK directa para resolverlo en un solo select con join.
+     * @param {string} userId
+     * @returns {Promise<{ok: boolean, data: object[], error?: string}>}
+     */
+    async function cargarAmigosDeUsuario(userId) {
+        const client = getClient();
+        if (!client || !userId) return { ok: false, error: 'No hay conexión con Supabase.', data: [] };
+
+        const { data: rows, error } = await client
+            .from('friendships')
+            .select('id, requester_id, addressee_id, status')
+            .eq('status', 'accepted')
+            .or(`requester_id.eq.${userId},addressee_id.eq.${userId}`);
+
+        if (error) {
+            console.error('[NikaSocial] Error al cargar amigos del usuario:', error);
+            return { ok: false, error: error.message, data: [] };
+        }
+
+        const otherIds = [...new Set((rows || []).map((r) => (r.requester_id === userId ? r.addressee_id : r.requester_id)))];
+        if (!otherIds.length) return { ok: true, data: [] };
+
+        const { data: profiles, error: profError } = await client
+            .from('profiles')
+            .select('id, username, fullname, full_name, nombre, avatar, avatar_url, role')
+            .in('id', otherIds);
+
+        if (profError) {
+            console.error('[NikaSocial] Error al cargar perfiles de amigos:', profError);
+            return { ok: false, error: profError.message, data: [] };
+        }
+
+        const normalizados = (profiles || [])
+            .map(normProfile)
+            .sort((a, b) => (a.fullname || '').localeCompare(b.fullname || '', 'es'));
+
+        return { ok: true, data: normalizados };
     }
 
     // ============================================================
@@ -112,7 +155,7 @@ const NikaSocial = (() => {
 
         const { data, error } = await client
             .from('global_chat')
-            .select('id, user_id, message, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url )')
+            .select('id, user_id, message, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role )')
             .order('created_at', { ascending: false })
             .limit(limit);
 
@@ -217,7 +260,7 @@ const NikaSocial = (() => {
 
         let query = client
             .from('forum_threads')
-            .select('id, user_id, module, up_id, title, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url ), forum_replies ( count )')
+            .select('id, user_id, module, up_id, title, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role ), forum_replies ( count )')
             .eq('module', moduleId)
             .order('created_at', { ascending: false });
 
@@ -273,7 +316,7 @@ const NikaSocial = (() => {
 
         const { data, error } = await client
             .from('forum_replies')
-            .select('id, thread_id, user_id, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url )')
+            .select('id, thread_id, user_id, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role )')
             .eq('thread_id', threadId)
             .order('created_at', { ascending: true });
 
@@ -353,7 +396,7 @@ const NikaSocial = (() => {
 
         const { data, error } = await client
             .from('user_ranking')
-            .select('user_id, elo_score, wins, losses, current_streak, profiles ( username, fullname, full_name, nombre, avatar, avatar_url )')
+            .select('user_id, elo_score, wins, losses, current_streak, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role )')
             .order('elo_score', { ascending: false })
             .limit(limit);
 
@@ -372,6 +415,8 @@ const NikaSocial = (() => {
         // Foro
         crearHiloForo, cargarHilosForo, responderHilo, cargarRespuestasHilo,
         // Ranking
-        actualizarElo, cargarRankingGlobal
+        actualizarElo, cargarRankingGlobal,
+        // Perfil público
+        cargarAmigosDeUsuario
     };
 })();

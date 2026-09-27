@@ -1,0 +1,1208 @@
+{
+  "modulo": "ginecologia",
+  "unidad": "UP3",
+  "seccion": "sec_4",
+  "titulo": "Atención Integral de la Mujer en el Embarazo",
+  "preguntas": [
+    {
+      "id": 1,
+      "pregunta": "Una paciente primigesta de 28 años acude a su primer control prenatal. Refiere como fecha de última menstruación (FUM) confiable y segura el día 10 de mayo. Al aplicar la Regla de Wahl para la estimación de la Fecha Probable de Parto (FPP), de acuerdo con la bibliografía de la cátedra (Guía de TP 1 Cálculo de EG y FPP / Control Preconcepcional), ¿cuál es el procedimiento matemático exacto y la FPP calculada?",
+      "opciones": {
+        "a": "Se le suman 10 días al primer día de la FUM y se le restan 3 meses, obteniendo como FPP el 20 de febrero.",
+        "b": "Se le suman 7 días al primer día de la FUM y se le restan 3 meses, obteniendo como FPP el 17 de febrero.",
+        "c": "Se le suman 10 días a la fecha de finalización de la menstruación y se le restan 3 meses, obteniendo el 25 de febrero.",
+        "d": "Se le agregan 40 semanas exactas a la fecha del diagnóstico ecográfico del primer trimestre sin considerar la FUM."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con la Guía de Trabajo Práctico Nº 1 de Obstetricia (Cálculo de Edad Gestacional y FPP) y el texto de Control Preconcepcional, existen reglas clásicas para el cálculo de la FPP basadas en la FUM confiable12: • Regla de Wahl: Se le suman 10 días al primer día de la FUM y se le restan 3 meses2. (10 de mayo + 10 días = 20 de mayo; restando 3 meses = 20 de febrero). • Regla de Naegele: Se le suman 7 días al primer día de la FUM y se le restan 3 meses (17 de febrero). • Regla de Pinard: Se le suman 10 días al último día de la menstruación y se le restan 3 meses."
+    },
+    {
+      "id": 2,
+      "pregunta": "Durante la evaluación semiológica del abdomen de una persona gestante de 30 semanas de embarazo, el profesional médico ejecuta las Maniobras de Leopold. Al colocar ambas manos en los lados laterales del útero ejerciedo una presión suave pero firme, de un lado palpa una superficie plana, dura y resistente, y del lado opuesto palpa pequeñas partes irregulares y móviles. De acuerdo con la técnica semiológica obstétrica, ¿cuál es esta maniobra y qué parámetro de la estática fetal determina?",
+      "opciones": {
+        "a": "Primera Maniobra de Leopold / Determina la variedad de posición del polo cefálico.",
+        "b": "Segunda Maniobra de Leopold / Determina la posición fetal (relación del dorso fetal con el lado derecho o izquierdo de la madre).",
+        "c": "Tercera Maniobra de Leopold / Determina el grado de encajamiento de la presentación en la pelvis materna.",
+        "d": "Cuarta Maniobra de Leopold / Determina la actitud de la cabeza fetal y el diámetro occipitofrontal."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la semiología obstétrica (Guía de TP 2 Examen Obstétrico / Exploración gineco-obstétrica), la Segunda Maniobra de Leopold se realiza palpar los flancos maternos34: una mano sostiene un lado del útero mientras la otra palpa el lado opuesto4. La identificación del plano duro, continuo y resistente corresponde al dorso fetal, mientras que las nodulaciones móviles corresponden a las extremidades (partes pequeñas)4. Esta maniobra determina la Posición Fetal (dorso derecho o dorso izquierdo)45."
+    },
+    {
+      "id": 3,
+      "pregunta": "En el control prenatal de una gestante de 28 semanas, el profesional procede a la medición de la Altura Uterina (AU) para evaluar el crecimiento fetal. Coloca la cinta métrica flexible de forma estandarizada. De acuerdo con las guías de semiología prenatal y el tutorial oficial de la cátedra (Tutorial Altura Uterina - Dra. Toro Merlo / Guía TP 2), ¿cuál es la técnica correcta de medición y el valor de corte que define sospecha de Restricción del Crecimiento Intrauterino (RCIU) o Oligohidramnios?",
+      "opciones": {
+        "a": "Se coloca el cero de la cinta en la espina ilíaca anterosuperior derecha y se extiende hasta el ombligo, considerándose patológico un retraso de 1 cm.",
+        "b": "Se mide con pelvímetro de Baudelocque desde el promontorio sacro hasta el fondo del útero en posición de decúbito lateral izquierdo.",
+        "c": "Se fija el cero de la cinta en el borde superior de la sínfisis púbica con la mano derecha y se desliza entre los dedos índice y medio de la mano izquierda hasta el fondo uterino; valores de AU inferiores en 3 cm o más respecto a los percentilos normales sugieren RCIU u oligohidramnios.",
+        "d": "Se mide la distancia desde el ombligo hasta la horquilla vulvar con la paciente de pie, considerándose patológico si no aumenta 2 cm por semana."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Según el tutorial oficial (Altura Uterina - Dra. Judith Toro Merlo) y las guías de semiología (Guía de TP 2), la técnica estandarizada exige colocar a la paciente en decúbito dorsal6. Se fija el cero de la cinta métrica en el borde superior de la sínfisis del pubis con una mano y se extiende sobre la línea media del abdomen entre los dedos índice y medio hasta alcanzar el fondo uterino, delimitado de forma perpendicular con el borde cubital de la otra mano6. Una Altura Uterina que se ubica 3 cm o más por debajo de los valores esperados para la edad gestacional (o por debajo del percentil 10 de la curva) obliga a realizar una ecografía obstétrica para descartar RCIU o Oligohidramnios67."
+    },
+    {
+      "id": 4,
+      "pregunta": "Durante el embarazo normal ocurren profundas modificaciones fisiológicas cardiovasculares destinadas a suplir las demandas metabólicas del feto y de la unidad uteroplacentaria. ¿Cuál es el comportamiento característico del Volumen Minuto Cardíaco (VMC), de la Resistencia Vascular Periférica (RVP) y de la Presión Arterial (PA) durante la gestación fisiológica según los textos de obstetricia (Williams / Schwartz / Modificaciones del embarazo)?",
+      "opciones": {
+        "a": "El VMC disminuye un 30%, la RVP aumenta de forma drástica y la PA sistólica se eleva desde el primer trimestre.",
+        "b": "El VMC no se modifica, la RVP permanece constante y la PA diastólica aumenta 20 mmHg por efecto de la progesterona.",
+        "c": "El VMC aumenta un 10%, la RVP se duplica por vasoconstricción generalizada y la PA alcanza valores máximos en la semana 20.",
+        "d": "El VMC aumenta entre un 30% y 50% (máximo hacia la semana 28-32), la RVP disminuye marcadamente por acción vasodilatadora de la progesterona y óxido nítrico, y la PA disminuye en el primer y segundo trimestre (mínimo a las 20-24 semanas)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "De acuerdo con los capítulos de adaptaciones maternas al embarazo (Williams Obstetricia / Schwartz / Modificaciones generales del embarazo), el sistema cardiovascular sufre una vasodilatación sistémica profunda: 1. El Gasto Cardíaco / VMC se incrementa entre un 30% y 50%, debido a un aumento del volumen sistólico y de la frecuencia cardíaca materna. 2. La Resistencia Vascular Periférica (RVP) disminuye significativamente, condicionada por el efecto relajante del músculo liso vascular mediado por la progesterona, prostaciclinas y óxido nítrico, sumado al circuito de baja resistencia de la placenta. 3. Como consecuencia de la caída de la RVP, la Presión Arterial (especialmente la diastólica) desciende fisiológicamente, alcanzando su nadir o punto más bajo hacia las semanas 20 a 24 de gestación, para luego retornar gradualmente a sus valores preconcepcionales hacia el término."
+    },
+    {
+      "id": 5,
+      "pregunta": "Una paciente de 31 años, G3P2 (dos partos vaginales previos), que cursa un embarazo de 32 semanas, acude a la guardia obstétrica por presentar sangrado vaginal. Refiere que la metrorragia comenzó de forma repentina durante el reposo, siendo de sangre roja rutilante, líquida e e indolora, sin contracciones uterinas. Al examen físico: TA 110/70 mmHg, FC 78 lpm, el tono uterino es normal (útero blando y relajado) y los latidos cardíacos fetales (LCF) están conservados (142 lpm). Está estrictamente contraindicado realizar el tacto vaginal. ¿Cuál es el diagnóstico de sospecha y el estudio por imágenes para su confirmación?",
+      "opciones": {
+        "a": "Placenta Previa / Ecografía obstétrica (transabdominal o transvaginal) para precisar la relación del borde placentario con el OCI.",
+        "b": "Desprendimiento Prematuro de Placenta Normoinserta / Cardiotocografía intraparto de urgencia.",
+        "c": "Rotura Uterina Consumada / Laparotomía exploradora inmediata sin estudios previos.",
+        "d": "Amenaza de Aborto Tardío / Colpotomía posterior evacuadora en el shock room."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El cuadro clínico de Placenta Previa (PP) se caracteriza por ser la causa más frecuente de metrorragia indolora de la segunda mitad del embarazo8. Su síntoma cardinal es el sangrado vaginal indoloro, de sangre roja rutilante, fluida, de inicio brusco y predominantemente durante el reposo9. A la palpación, el útero presenta tono normal (blando, indoloro y sin hipertonía) y la FCF suele ser normal1011. El tacto vaginal está estrictamente contraindicado por el riesgo de entrecruzar el dedo a través del OCI y gatillar una hemorragia masiva catastrófica9. La confirmación diagnóstica se realiza mediante ecografía obstétrica810."
+    },
+    {
+      "id": 6,
+      "pregunta": "Una paciente de 29 años, G2P1, con embarazo de 35 semanas y antecedente de hipertensión arterial, ingresa a la guardia por dolor abdominal agudo, intenso, continuo y punzante en hipogasto (\"dolor en puñalada\") de 2 horas de evolución, acompañado de escasa metrorragia vaginal de color oscuro con coágulos. Al examen físico: TA 150/100 mmHg, FC 105 lpm. A la palpación abdominal el útero se presenta marcadamente leñoso, duro, tenso e involuntariamente contraído (hipertonía uterina / útero de Leathem), con aumento de la altura uterina. Los LCF revelan bradicardia fetal severa (90 lpm). ¿Cuál es la entidad patológica y cuál es la conducta de emergencia?",
+      "opciones": {
+        "a": "Placenta Previa Oclusiva Total / Indicar uteroinhibición con Nifedipina oral por 48 horas.",
+        "b": "Desprendimiento Prematuro de Placenta Normoinserta (DPPNI / Abruptio Placentae) / Finalización inmediata del embarazo (cesárea de urgencia).",
+        "c": "Incompetencia cervical silente / Colocación de cerclaje de emergencia de McDonald.",
+        "d": "Rotura de quiste tecaluteínico ovárico / Drenaje por punción guiada por ecografía."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Desprendimiento Prematuro de Placenta Normoinserta (DPPNI / Abruptio Placentae / Accidente de Baudelocque) es la separación parcial o total de la placenta de su lecho decidual antes del parto12morehoriz. Su asociación más estrecha es con la Preeclampsia y estados hipertensivos1315. La tríada clínica clásica comprende: 1) Dolor abdominal agudo, intenso y continuo1116; 2) Hipertonía uterina sostenida (\"útero de madera\" o leñoso) con aumento de la AU por el hematoma retroplacentario1116; y 3) Metrorragia escasa de sangre oscura con coágulos1112. Al existir compromiso fetal (bradicardia/sufrimiento fetal o óbito) y riesgo materno de Apoplejía Uteroplacentaria (Útero de Couvelaire) y Coagulopatía de Consumo (CID), la conducta es la finalización inmediata del embarazo (cesárea de urgencia)1117."
+    },
+    {
+      "id": 7,
+      "pregunta": "¿cuáles son los parámetros clínicos y de laboratorio que definen formalmente el diagnóstico de Preeclampsia a partir de la semana 20 de gestación?",
+      "opciones": {
+        "a": "Presión arterial ≥ 130/80 mmHg en una sola toma aislada en ayunas, sin proteinuria ni compromiso orgánico.",
+        "b": "Presión arterial sistólica ≥ 140 mmHg y/o diastólica ≥ 90 mmHg en dos tomas separadas por 4 horas, en una mujer previamente normotensa después de la semana 20, asociada a Proteinuria (≥ 300 mg en orina de 24 hs) O, en ausencia de proteinuria, acompañada de signos de disfunción de órgano blanco materno.",
+        "c": "Glucemia en ayunas ≥ 126 mg/dl en dos determinaciones confirmadas en el primer trimestre del embarazo.",
+        "d": "Presión arterial ≥ 160/110 mmHg detectada antes de la semana 20 de gestación que persiste pasadas las 12 semanas del puerperio."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Según el Consenso FASGO THE (2023/2025) y la clasificación internacional, la Preeclampsia se define como la aparición de novo de Hipertensión Arterial (PAS ≥ 140 mmHg y/o PAD ≥ 90 mmHg en al menos dos tomas separadas por 4 horas) que se presenta después de las 20 semanas de gestación en una mujer previamente normotensa1819, acompañada de Proteinuria significativa (≥ 300 mg/24 horas o cociente proteína/creatinina ≥ 0,3)20. En ausencia de proteinuria, el diagnóstico de preeclampsia se establece si la hipertensión se acompaña de criterios de gravedad o disfunción de órgano blanco materno: trombocitopenia (< 100.000/mm³), alteración de función hepática, insuficiencia renal (creatinina > 1,1 mg/dl), edema agudo de pulmón o trastornos visuales/neurológicos. (Referencia: las guías del Consenso FASGO de Trastornos Hipertensivos del Embarazo (THE FASGO 2023/2025) y los criterios del ACOG)."
+    },
+    {
+      "id": 8,
+      "pregunta": "Una paciente de 33 años, gestante de 34 semanas internada con diagnóstico de Preeclampsia Severa, comienza con dolor epigástrico intenso en cinturón y en hipocondrio derecho, náuseas, vómitos y cefalea holocraneana. Los análisis de laboratorio reportan: frotis de sangre periférica con esquizocitos (hemólisis microangiopática), Bilirrubina Total 2,4 mg/dl a predominio indirecto, LDH 920 UI/L, TGO 210 UI/L, TGP 185 UI/L y Recuento de Plaquetes en 68.000/mm³. ¿A qué complicación grave corresponde este cuadro y cuál es su acrónimo clínico?",
+      "opciones": {
+        "a": "Síndrome de Mondor secundario a Clostridium perfringens.",
+        "b": "Síndrome de Fitz-Hugh-Curtis por Chlamydia trachomatis.",
+        "c": "Síndrome de Asherman agudo post-legrado.",
+        "d": "Síndrome HELLP (Hemolysis, Elevated Liver enzymes, Low Platelets / Hemólisis, Enzimas Hepáticas Elevadas y Plaquetopenia)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El Síndrome HELLP es una variante o complicación grave e hiperaguda de la preeclampsia severa caracterizada por microangiopatía trombótica21morehoriz. Su acrónimo en inglés describe la tríada de laboratorio clásica: • H (Hemolysis): Hemólisis intravascular microangiopática (esquizocitos en frotis, LDH > 600 UI/L, hiperbilirrubinemia indirecta > 1,2 mg/dl). • EL (Elevated Liver enzymes): Transaminasas hepáticas elevadas (TGO/TGP al doble del límite superior normal). • LP (Low Platelets): Trombocitopenia / Plaquetopenia (< 100.000/mm³). Clinicamente cursa característicamente con dolor en epigastrio o hipocondrio derecho (por distensión de la cápsula de Glisson o hematoma subcapsular hepático), exigiendo la estabilización y la evaluación de la finalización del embarazo."
+    },
+    {
+      "id": 9,
+      "pregunta": "Una paciente de 28 años, que cursa un embarazo de 36 semanas con diagnóstico de Preeclampsia Severa, presenta de forma súbita una crisis convulsiva tónico-clónica generalizada seguida de un período de estupor/coma (Eclampsia). De acuerdo con las guías del Consenso FASGO THE 2023/2025 y el estudio Magpie Trial, ¿cuál es el fármaco de primera línea para el tratamiento y prevención de las recurrencias convulsivas, y cuál es su antídoto en caso de intoxicación?",
+      "opciones": {
+        "a": "Sulfato de Magnesio (MgSO4) en dosis de ataque de 4 g IV en 5-10 min, seguida de infusión de 1 g/hora; el antídoto por toxicidad es el Gluconato de Calcio al 10% IV.",
+        "b": "Diazepam 10 mg IV en bolo directo; el antídoto por toxicidad es la Naloxona.",
+        "c": "Fenitoína 1 g IV infusión rápida; el antídoto por toxicidad es la Flumazenil.",
+        "d": "Labetalol 20 mg IV bolo; el antídoto por toxicidad es la Atropina."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con la evidencia científica incontestable del Magpie Trial y los consensos oficiales (Consenso FASGO THE 2023/2025 / Guía HTA y Embarazo), el Sulfato de Magnesio (MgSO4) es el fármaco Gold Standard de elección para el tratamiento de la Eclampsia y la prevención de convulsiones en la preeclampsia severa21morehoriz. El esquema estandarizado es: Dosis de ataque: 4 g IV lentos (en 5 a 10 minutos), seguida de una Dosis de mantenimiento: infusión continua de 1 a 2 g/hora por 24 horas21morehoriz. Para el monitoreo clínico de toxicidad se evalúa la presencia del reflejo patelar (su abolición es el primer signo de hipermagnesemia), la frecuencia respiratoria (debe ser > 12/min) y la diuresis (> 30 ml/hora)2427. Ante signos de intoxicación o paro respiratorio, el antídoto inmediato es el Gluconato de Calcio al 10% (1 g IV administrado en 10 minutos)24."
+    },
+    {
+      "id": 10,
+      "pregunta": "Una paciente de 26 años, embarazada de 26 semanas, acude a la consulta para presentar los resultados de su estudio de tamizaje universal para Diabetes Gestacional mediante la Prueba de Tolerancia Oral a la Glucosa con 75 g de glucosa (PTOG 75). La glucemia en ayunas fue de 88 mg/dl y la glucemia a los 120 minutos poscarga resultó en 148 mg/dl. De acuerdo con los criterios vigentes de la Asociación Latinoamericana de Diabetes (ALAD) y el Consenso de Diabetes Gestacional FASGO 2024, ¿cómo se interpreta este resultado y cuál es la conducta inicial?",
+      "opciones": {
+        "a": "Resultado completamente normal / Reevaluar recién en la semana 38 con ecografía.",
+        "b": "Diagnóstico de Diabetes Gestacional (DG) por presentar un valor a las 2 horas ≥ 140 mg/dl / Confirmación del diagnóstico, inicio de plan de alimentación saludable, actividad física y automonitoreo glucémico.",
+        "c": "Diagnóstico de Diabetes Pregestacional Manifiesta / Inicio inmediato de insulina NPH a dosis de 1,5 UI/kg/día sin dieta.",
+        "d": "Prueba dudosa / Repetir la PTOG con 100 g de glucosa al día siguiente."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con las guías de la Asociación Latinoamericana de Diabetes (ALAD 2016) y el Consenso de Diabetes Gestacional FASGO 2024, el diagnóstico de Diabetes Gestacional (DG) se establece ante28morehoriz: 1. Dos o más glucemias en ayunas ≥ 100 mg/dl (o ≥ 92 mg/dl según criterios SOGIBA/IADPSG en algunas guías, pero ALAD 2016/FASGO sostiene ≥ 100 mg/dl o ≥ 140 mg/dl a las 2 hs)30morehoriz. 2. Un valor de glucemia plasmática a los 120 minutos (2 horas) de la PTOG 75 ≥ 140 mg/dl (7,8 mmol/L)30morehoriz. Un valor de 148 mg/dl a las 2 hs confirma el diagnóstico de DG30. El pilar terapéutico inicial se basa en la educación diabetológica, plan de alimentación normocalórico/hipocalórico y ejercicio físico adaptado, reservando la insulina si no se alcanzan las metas de glucemia (ayunas < 90-95 mg/dl y 2 hs posprandial < 120 mg/dl)."
+    },
+    {
+      "id": 11,
+      "pregunta": "Una paciente de 36 semanas de gestación acude al control prenatal. De acuerdo con las normas nacionales, la Ley 26.639 y los consensos obstétricos (Consenso Estreptococo B-Hemolítico FASGO), se debe realizar el tamizaje de rutina para la prevención de la sepsis neonatal precoz por Streptococcus agalactiae (Estreptococo Grupo B - EGB). ¿Cómo se toma la muestra de cultivo y cuál es la conducta si resulta positiva?",
+      "opciones": {
+        "a": "Cultivo de orina mediante sonda vesical; si da positivo se realiza cesárea electiva a las 38 semanas.",
+        "b": "Hisopado endocervical profundo con especuloscopía a las 20 semanas; si da positivo se administra amoxicilina oral por 14 días.",
+        "c": "Hisopado vaginal inferior y anorrectal (sin especuloscopía) entre las semanas 35 y 37 de gestación; si resulta positivo, se indica Profilaxis Antibiótica Intraparto (PAI) parenteral con Penicilina G o Ampicilina desde el inicio del trabajo de parto o RPM.",
+        "d": "Hisopado de fauces y cavidad bucal; si da positivo se contraindica la lactancia materna."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con la Ley 26.639 y el Consenso de Estreptococo B-Hemolítico (FASGO), se debe realizar a toda embarazada entre las semanas 35 y 37 de gestación un hisopado para cultivo selector (medio Todd-Hewitt) introduciendo el hisopo en el tercio inferior de la vagina y luego a través del esfínter anal (hisopado vaginorrectal), sin colocar especulo. La presencia de colonización por EGB (o el antecedente de bacteriuria por EGB en el embarazo actual o hijo previo con sepsis por EGB) exige la Profilaxis Antibiótica Intraparto (PAI) con Penicilina G Sódica (5 millones UI IV de carga seguida de 2,5 M UI c/4hs) o Ampicilina (2 g IV carga seguida de 1 g c/4hs) desde el inicio del trabajo de parto o la rotura de membranas hasta el nacimiento."
+    },
+    {
+      "id": 12,
+      "pregunta": "Una paciente de 12 semanas de gestación acude a su primer control con los análisis del primer trimestre. El tamizaje serológico para Toxoplasmosis muestra: IgG Positiva (+) e IgM Positiva (+). Para diferenciar si se trata de una infección aguda reciente adquirida durante el primer trimestre (con riesgo de transmisión vertical y daño fetal) de una infección antigua previa al embarazo con IgM persistente, ¿qué estudio serológico complementario de confirmación se debe solicitar de inmediato?",
+      "opciones": {
+        "a": "Western Blot para proteína p24.",
+        "b": "Prueba de Avidez de la IgG para Toxoplasmosis.",
+        "c": "Carga viral por PCR en plasma materno.",
+        "d": "Prueba de VDRL cuantitativa en líquido cefalorraquídeo."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el capítulo de infecciones perinatales (Guía Infecciones perinatales / Infecciones TORCH), cuando en el primer trimestre se detecta una serología para Toxoplasmosis con IgG (+) e IgM (+), se plantea la duda diagnóstica entre una toxoplasmosis aguda del embarazo (alto riesgo) o una IgM natural/persistente de una infección pasada. El test indicado de elección es el Test de Avidez de los anticuerpos IgG: • Alta Avidez (en el primer trimestre): Confirma de forma categórica que la infección fue adquirida al menos 3 a 4 meses antes (preconcepcional), descartando la infección aguda del embarazo y no requiriendo tratamiento. • Baja Avidez: Sugiere una infección reciente dentro de los últimos meses, requiriendo iniciar inmediatamente tratamiento con Espiramicina y diagnóstico prenatal por amniocentesis (PCR para Toxoplasma en líquido amniótico a partir de la semana 18)."
+    },
+    {
+      "id": 13,
+      "pregunta": "Una paciente de 31 semanas de gestación ingresa a la guardia por presentar dinámica uterina dolorosa (3 contracciones en 10 minutos de 40 segundos de duración) y la evaluación cervical revela un cérvix borrado en un 80% con 3 cm de dilatación. Se diagnostica una Amenaza de Parto Prematuro (APP) en curso. De acuerdo con la Guía de Parto Pretérmino (MSAL / Consenso FASGO), ¿cuál es el esquema farmacológico simultáneo indicado para la tocólisis y para la maduración pulmonar fetal?",
+      "opciones": {
+        "a": "Tocólisis de 1ª línea con Nifedipina (10 mg VO c/20 min por 3 dosis y luego 10-20 mg c/6-8h) MÁS Maduración Pulmonar Fetal con Betametasona (12 mg IM c/24 horas, total 2 dosis).",
+        "b": "Tocólisis con Indometacina por 14 días MÁS Dexametasona 4 mg VO c/12h por 10 días.",
+        "c": "Tocólisis con Oxitocina en infusión continua MÁS Hidrocortisona 1 g IV dosis única.",
+        "d": "Infusión de Sulfato de Atropina MÁS profilaxis con Amoxicilina oral por 30 días sin corticoides."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con las guías oficiales para el manejo de la APP (Guía Parto Pretérmino MSAL / Predicción y Prevención de Parto Prematuro FASGO), las conductas terapéuticas inmediatas en gestaciones menores a 34 semanas son: 1. Tocólisis de primera línea: Nifedipina (bloqueante de canales de calcio), administrada por vía oral (dosis de ataque de 10 mg c/20 minutos hasta 3-4 dosis, seguida de mantenimiento de 10-20 mg c/6-8 horas por 48 horas) para frenar la dinámica y permitir completar el esquema de corticoides. 2. Maduración Pulmonar Fetal: Indicada entre las semanas 24 y 34 de gestación. El esquema de elección es Betametasona 12 mg IM cada 24 horas (total 2 dosis) o Dexametasona 6 mg IM cada 12 horas (total 4 dosis)."
+    },
+    {
+      "id": 14,
+      "pregunta": "Una paciente de 33 semanas de gestación acude a la guardia por referir hidrorrea (pérdida de líquido claro y transparente por vagina \"en chorro\" que moja la ropa interior). Al examen físico especuloscópico (sin tacto vaginal) se observa salida espontánea de líquido amniótico claro con olor a lavandina a través del orificio cervical externo (signo de la maniobra de Tarnier positivo). Para confirmar el diagnóstico de Rotura Prematura de Membranas (RPM), ¿cuál es la prueba de laboratorio en cristalización de la secreción vaginal y cuál es la pauta de manejo ante la ausencia de infección (corioamnionitis)?",
+      "opciones": {
+        "a": "Prueba de Coombs directa; se indica cesárea inmediata en todos los casos sin antibióticos.",
+        "b": "Prueba de Cristalización en hoja de helecho (Fern test / arborización) y cristal de Nitrazina (viraje a azul pH alcalino); manejo conservador con profilaxis antibiótica de latencia (Ampicilina + Eritromicina), corticoides para maduración pulmonar y vigilancia de corioamnionitis.",
+        "c": "Test de Papanicolaou rápido; se indica inducto-conducción con oxitocina a dosis altas.",
+        "d": "Dosaje de fosfatasa alcalina leucocitaria; se indica alta ambulatoria sin controles."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La Rotura Prematura de Membranas (RPM) es la solución de continuidad de las membranas ovulares antes del inicio del trabajo de parto. El diagnóstico de certeza se realiza por la visualización directa de líquido amniótico por especuloscopía (Tarnier +) y se confirma mediante la Prueba de Cristalización en Hoja de Helecho (Fern test) al microscopio óptico33 y la prueba del papel de Nitrazina (viraje a azul por el pH alcalino del líquido amniótico > 6,5)33. En embarazos pretérmino lejanos al término (24 a 34 semanas) sin signos de corioamnionitis ni sufrimiento fetal, la conducta es el manejo conservador expectante: internación, profilaxis antibiótica de latencia (Ampicilina 2 g IV c/6h por 48 hs seguida de Amoxicilina 500 mg VO c/8h + Eritromicina/Azitromicina por 7 días) para prolongar el período de latencia y prevenir la infección, junto con la maduración pulmonar con Betametasona33."
+    },
+    {
+      "id": 15,
+      "pregunta": "Una paciente de 32 semanas de gestación es evaluada por presentar una Altura Uterina de 26 cm (retraso de 6 cm respecto a la edad gestacional). La ecografía obstétrica confirma una estimación de peso fetal por debajo del percentil 3 para la edad gestacional, diagnosticándose una Restricción del Crecimiento Intrauterino (RCIU / RCF). En la evaluación por eco-Doppler fetoplacentario, ¿cuál es el vaso sanguíneo cuya alteración en la onda de velocidad de flujo (ausencia o inversión del flujo diastólico) representa el indicador hemodinámico más crítico de falla de reserva miocárdica y riesgo inminente de muerte fetal?",
+      "opciones": {
+        "a": "Arteria uterina materna derecha.",
+        "b": "Arteria humeral fetal.",
+        "c": "Ductus Venoso de Arancio fetal.",
+        "d": "Arteria cerebral media fetal en la fase de compensación."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con la actualización del Consenso RCIU FASGO 2017/2023 y la clasificación por estadios de Barcelona/Gratacós, el seguimiento del feto con RCIU severo se basa en el mapa Doppler de deterioro hemodinámico progresivo: 1. Vasodilatación de la Arteria Cerebral Media (ACM) e índice cerebro-placentario (ICP) alterado (mecanismo de redistribución de flujo/sparing cerebral). 2. Ausencia o Inversión de la diástole en la Arteria Umbilical (AU) (Estadios II y III). 3. Ductus Venoso (DV) de Arancio: Es el parámetro Doppler definitivo de función cardíaca derecha fetal. La ausencia o inversión de la onda 'a' en el Ductus Venoso refleja insuficiencia cardíaca congestiva severa y acidemia fetal grave, constituyendo la indicación absoluta de finalización inmediata del embarazo por cesárea en gestaciones viables para evitar la muerte intrauterina."
+    },
+    {
+      "id": 16,
+      "pregunta": "Una paciente de 28 semanas de gestación es diagnosticada de Oligohidramnios Severo mediante ecografía obstétrica, con un Índice de Líquido Amniótico (ILA / Phelan) de 2 cm y un Bolsillo Vertical Máximo (BVM) de 1,2 cm. La paciente niega pérdida de líquido por vagina y la prueba de cristalización es negativa. De acuerdo con el diagnóstico etiológico de las alteraciones del volumen del líquido amniótico (Schwartz / Williams / Documento deOCR), ¿cuál de las siguientes malformaciones congénitas fetales se asocia patognomónicamente con la falta de producción de líquido amniótico por anuria fetal?",
+      "opciones": {
+        "a": "Anencefalia / Meroanencefalia con defecto de deglución.",
+        "b": "Atresia esofágica congénita pura.",
+        "c": "Omfalocele gigante con evisceración hepática.",
+        "d": "Agenesia Renal Bilateral (Síndrome de Potter)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "En la segunda mitad del embarazo, la fuente fisiológica primaria y casi exclusiva de producción de líquido amniótico es la orina fetal (micción fetal)3morehoriz. Cualquier anomalía congénita del aparato urinario fetal que impida la formación o excreción de orina (como la Agenesia Renal Bilateral / Síndrome de Potter, la displasia renal multiquística bilateral o la obstrucción severa de válvulas de uretra posterior) produce un Oligohidramnios Severo o Anhidramnios secundario a anuria fetal3morehoriz. Por el contrario, defectos que interfieren con la deglución fetal (atresia esofágica, anencefalia) provocan Polihidramnios3morehoriz."
+    },
+    {
+      "id": 17,
+      "pregunta": "Una paciente de 34 semanas de gestación consulta en la guardia por presentar prurito palmoplantar intenso, de predominio nocturno, que le impide conciliar el sueño y que progresivamente se extendió al resto del tronco y miembros. Al examen físico no se observan lesiones dermatológicas primarias, salvo excoriaciones por rascado. El perfil hepático revela: Transaminasas (TGO/TGP) levemente elevadas (85 UI/L) y Ácidos Biliares Totales séricos en 38 mumol/L (valor normal < 10 mumol/L). ¿Cuál es el diagnóstico de esta hepatopatía del embarazo y cuál es el fármaco de primera línea para su tratamiento?",
+      "opciones": {
+        "a": "Colestasis Intrahepática del Embarazo (CIE) / Tratamiento sintomático y específico de primera línea con Ácido Ursodesoxicólico (AUDC) a dosis de 10 a 15 mg/kg/día.",
+        "b": "Síndrome HELLP fulminante / Indicar dexametasona a dosis altas e histerectomía.",
+        "c": "Hígado Graso Agudo del Embarazo / Transfusión de plasma e inducción del parto en 1 hora.",
+        "d": "Dermatosis Polimorfa del Embarazo / Aplicación de crema con urea al 10% únicamente."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con los protocolos de patología hepática en la gestación (Trastornos hepáticos asociados a la gestación / Gori), la Colestasis Intrahepática del Embarazo (CIE) es la hepatopatía específica más frecuente del tercer trimestre. Su síntoma cardinal es el prurito palmoplantar a predominio nocturno sin exantema primario. La confirmación diagnóstica se realiza por la elevación de los Ácidos Biliares Totales séricos (≥ 10 mumol/L). Concentraciones de ácidos biliares ≥ 40 mumol/L definen la forma grave con riesgo incrementado de óbito fetal repentino y meconio. El fármaco de primera línea con máxima evidencia para reducir el prurito, normalizar el perfil bioquímico y proteger al feto es el Ácido Ursodesoxicólico (AUDC) a dosis de 10-15 mg/kg/día (600 a 1.000 mg/día)."
+    },
+    {
+      "id": 18,
+      "pregunta": "Una gestante de 10 semanas acude a su primer control prenatal. La determinación del grupo sanguíneo y factor Rh reporta que la madre es Factor Rh Negativo (d/d). Su pareja es Factor Rh Positivo (D/D). La prueba de Coombs Indirecta cuantitativa realizada a la madre resulta NEGATIVA (-). De acuerdo con las guías de manejo de la Isoinmunización Rh (Enfermedad Hemolítica Perinatal / Consenso Trombofilia), ¿cuál es la pauta de seguimiento y el momento de la administración profiláctica sistemática de la Gammaglobulina Anti-D?",
+      "opciones": {
+        "a": "Administrar Gammaglobulina Anti-D de inmediato en la semana 10 y suspender todos los controles serológicos.",
+        "b": "Repetir la prueba de Coombs Indirecta mensualmente; si persiste negativa, administrar la dosis profiláctica sistemática de Gammaglobulina Anti-D (300 mcg IM) a las 28 semanas de gestación, y una segunda dosis dentro de las 72 horas posparto si el recién nacido es Rh Positivo.",
+        "c": "Indicar transfusión intrauterina fetal profiláctica en la semana 20 de gestación.",
+        "d": "No requiere ningún tipo de prevención ni estudios si la primera prueba fue negativa."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En la persona gestante Rh Negativa no sensibilizada (Coombs Indirecta negativa), la estrategia de prevención primaria para evitar la formación de anticuerpos maternos anti-D comprende : 1. Monitoreo serológico periódico con Prueba de Coombs Indirecta mensual o bimensual hasta la semana 28 . 2. Si la Coombs Indirecta se mantiene negativa, se administra la dosis profiláctica sistemática antenatal de Gammaglobulina Anti-D (300 mcg / 1.500 UI IM) a la semana 28 de gestación . 3. Tras el nacimiento, se determina el factor Rh del recién nacido: si el neonato es Rh Positivo (y la Coombs directa del cordón es negativa), se aplica una segunda dosis de Gammaglobulina Anti-D a la madre dentro de las 72 horas posparto ."
+    },
+    {
+      "id": 19,
+      "pregunta": "¿cuál es el valor de corte de concentración de Hemoglobina (Hb) plasmática que define la presencia de Anemia durante el embarazo en el primer y tercer trimestre, y cuál es la pauta de suplementación con Hierro Elemental?",
+      "opciones": {
+        "a": "Hemoglobina menor a 14,0 g/dl / Suplementación con ácido fólico únicamente.",
+        "b": "Hemoglobina menor a 9,0 g/dl / Transfusión masiva de glóbulos rojos concentrados en todos los casos.",
+        "c": "Hemoglobina menor a 11,0 g/dl (o Hematocrito < 33%) / Profilaxis con 60 mg/día de Hierro Elemental en gestantes no anémicas y tratamiento con 120 a 200 mg/día de Hierro Elemental por vía oral en gestantes con anemia confirmada.",
+        "d": "Hemoglobina menor a 7,0 g/dl / Suspensión de la ingesta de carnes rojas y lácteos."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Debido a la hemodilución fisiológica del embarazo (aumento del volumen plasmático desproporcionado respecto a la masa eritrocitaria), la OMS y el documento oficial (Anemias en la Etapa Perinatal) definen a la Anemia en el embarazo como una concentración de Hemoglobina < 11,0 g/dl (o Hematocrito < 33%) en el primer y tercer trimestre (y Hb < 10,5 g/dl en el segundo trimestre). Para la prevención de la anemia ferropénica se recomienda la suplementación profiláctica universal con 60 mg/día de Hierro Elemental + 400 mcg/día de Ácido Fólico. Cuando se diagnostica Anemia Ferropénica leve a moderada (Hb entre 8 y 10,9 g/dl), la dosis terapéutica se eleva a 120 - 200 mg/día de Hierro Elemental por vía oral (ej. Sulfato ferroso) dividida en 2 a 3 tomas alejada de los alimentos. (Referencia: los criterios de la Organización Mundial de la Salud (OMS) y la bibliografía oficial de la cátedra (Anemias en la Etapa Perinatal / Williams Obstetricia))."
+    },
+    {
+      "id": 20,
+      "pregunta": "El modelo de Maternidades Seguras Centradas en la Familia (MSCF), promovido por la Organización Panamericana de la Salud, UNICEF y el Ministerio de Salud de la Nación Argentina, constituye una estrategia sanitaria fundamental para reducir la morbimortalidad materna y perinatal. ¿Cuál es uno de los principios rectores esenciales de este paradigma en la atención del parto y nacimiento?",
+      "opciones": {
+        "a": "La prohibición absoluta del ingreso de acompañantes elegidos por la gestante durante el trabajo de parto.",
+        "b": "El aislamiento sistemático del recién nacido sano en la servocuna de la nursería durante las primeras 24 horas.",
+        "c": "La indicación rutinaria de episiotomía, enema evacuante y rasurado pubiano a todas las parturientas.",
+        "d": "Reconocer a la madre, al recién nacido y a su familia como los verdaderos protagonistas de la atención, garantizando el parto respetado, el acompañamiento continuo por una persona de su elección, el contacto piel a piel inmediato y la lactancia materna precoz."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La iniciativa de Maternidades Seguras Centradas en la Familia (MSCF) y las Leyes de Parto Respetado (Ley 25.929) promueven un cambio de paradigma en la atención perinatal : desplazan el modelo médico hegemónico intervencionista para situar a la persona gestante, al recién nacido y a su familia como el centro y los verdaderos protagonistas del proceso asistencial . Sus pilares esenciales incluyen: 1) Respetar los tiempos biológicos y la autonomía; 2) Garantizar el derecho a estar acompañada por la persona que la gestante elija durante el trabajo de parto, parto y posparto ; 3) Fomentar el contacto piel a piel inmediato irrestricto y la ligadura oportuna del cordón umbilical; 4) Promover la lactancia materna exclusiva ; y 5) Eliminar prácticas rutinarias innecesarias (episiotomías sistemáticas, rasurado, enemas)."
+    },
+    {
+      "id": 21,
+      "pregunta": "Una paciente de 22 semanas de gestación acude al control prenatal para la revisión de su carnet perinatal e inmunizaciones. De acuerdo con el Calendario Nacional de Vacunación de la República Argentina y las recomendaciones del Consenso FASGO de Vacunas en las diferentes etapas de la Mujer, ¿cuál es el esquema de vacunas sistemáticas OBLIGATORIAS indicadas durante el embarazo y cuáles están estrictamente contraindicadas?",
+      "opciones": {
+        "a": "Indicadas: Triple bacteriana acelular (dTpa) a partir de la semana 20, Antigripal (en cualquier trimestre), COVID-19 y Virus Sincitial Respiratorio (VSR) entre las semanas 32 y 36,6; Contraindicadas: Vacunas a virus vivos atenuados (Triple Viral y Varicela).",
+        "b": "Indicadas: Vacuna Triple Viral (SRP) y Varicela en el primer trimestre; Contraindicadas: Antigripal y dTpa por riesgo de teratogenia.",
+        "c": "Indicadas: Vacuna contra el Papilomavirus Humano (VPH) y Antiamarílica sistemática; Contraindicadas: dTpa y vacuna contra la Hepatitis B.",
+        "d": "Indicadas: Únicamente la vacuna antitetánica monovalente al momento del parto; Contraindicadas: Todas las vacunas inactivadas."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con el Consenso FASGO de Vacunación en la Mujer y el Ministerio de Salud de la Nación, las vacunas sistemáticas obligatorias e indicadas en la gestación son: 1. dTpa (Triple Bacteriana Acelular): 1 dosis en cada embarazo a partir de la semana 20 (para transferir anticuerpos transplacentarios contra la tos convulsa / Bordetella pertussis al neonato). 2. Antigripal: 1 dosis en cualquier trimestre de la gestación durante la campaña invernal. 3. Virus Sincitial Respiratorio (VSR): 1 dosis entre las semanas 32 y 36,6 de gestación (para prevenir bronquiolitis grave en el lactante). 4. COVID-19: Según esquema de refuerzos. Por el contrario, las vacunas compuestas por virus o bacterias vivas atenuadas (Triple Viral - SRP, Varicela, Fiebre Amarilla) están estrictamente contraindicadas durante la gestación por el riesgo teórico de infección fetal."
+    },
+    {
+      "id": 22,
+      "pregunta": "Una gestante de 16 semanas acude a la consulta para presentar los análisis del primer trimestre. La prueba no treponémica de VDRL resulta reactiva a títulos de 1:16 dils. La paciente se encuentra totalmente asintomática, niega antecedentes de chancro o lesiones cutáneas y no tiene registros previos de tratamiento. Su pareja no ha sido evaluada. De acuerdo con las guías nacionales del Ministerio de Salud y los consensos perinatales (Guía Infecciones Perinatales / Gori / Williams), ¿cuál es el diagnóstico de sospecha y el tratamiento penicilínico indicado?",
+      "opciones": {
+        "a": "Falso positivo biológico / No requiere tratamiento ni evaluación de la pareja.",
+        "b": "Sífilis Gestacional (latente tardía o de duración incierta) / Indicar Penicilina G Benzatínica 2.400.000 UI por vía intramuscular semanalmente durante 3 semanas consecutivas (total 7.200.000 UI) y tratamiento simultáneo de la pareja.",
+        "c": "Sífilis Primaria temprana / Indicar una única dosis de Penicilina G Benzatínica 1.200.000 UI IM y dar el alta.",
+        "d": "Neurosífilis gestacional / Indicar tratamiento oral con Doxiciclina 100 mg cada 12 horas por 30 días."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Toda embarazada con una prueba de VDRL (o prueba treponémica rápida) reactiva sin tratamiento documentado previo se diagnostica y trata como Sífilis Gestacional. Ante la ausencia de lesiones clínicas y sin poder precisar el tiempo de evolución (Sífilis latente tardía o de duración incierta), el esquema terapéutico estandarizado para la madre y para prevenir la sífilis congénita es la administración de Penicilina G Benzatínica 2.400.000 UI por vía intramuscular, administrada en 3 dosis semanales consecutivas (días 1, 8 y 15), alcanzando una dosis acumulada de 7.200.000 UI. Es requisito asistencial indispensable tratar de forma simultánea a la pareja sexual con el mismo esquema para evitar la reinfección (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 23,
+      "pregunta": "Una paciente de 36 semanas de gestación, con diagnóstico de infección por VIH realizado en el segundo trimestre en tratamiento antirretroviral (TARV), presenta los resultados de sus estudios de control de la semana 34-36: la Carga Viral plasmática de VIH es de 1.400 copias/ml y su recuento de CD4 es de 420 células/mm³. De acuerdo con las guías de prevención de la transmisión vertical del VIH (Guía Infecciones Perinatales MSAL / Williams), ¿cuál es la vía de finalización del embarazo recomendada y el protocolo de profilaxis intraparto?",
+      "opciones": {
+        "a": "Parto vaginal espontáneo a la semana 41 sin medicación endovenosa.",
+        "b": "Parto vaginal instrumental con fórceps de salida y amnioctomía precoz a las 37 semanas.",
+        "c": "Cesárea electiva programada a las 38 semanas de gestación MÁS infusión intravenosa continua de Zidovudina (AZT EV) a la madre desde 3 horas antes de la cirugía hasta el clampeo del cordón, suspendiendo la lactancia materna.",
+        "d": "Inducción con oxitocina a la semana 40 asociando lactancia materna cruzada."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "En la prevención de la transmisión vertical del VIH, el umbral de Carga Viral a las 34-36 semanas determina la conducta obstétrica: • Carga Viral < 50 copias/ml (indetectable): Se permite el parto por vía vaginal si las condiciones obstétricas son favorables. • Carga Viral ≥ 1.000 copias/ml (o desconocida): La indicación absoluta es la Cesárea Electiva Programada a las 38 semanas de gestación (antes del inicio del trabajo de parto o la rotura de membranas) para reducir el riesgo de microtransfusión intraparto. En todos los casos de cesárea programada o parto, se debe administrar Zidovudina (AZT) por vía endovenosa a la madre (dosis de carga de 2 mg/kg en la primera hora, seguida de infusión continua de 1 mg/kg/hora hasta el clampeo del cordón). La lactancia materna está estrictamente contraindicada (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 24,
+      "pregunta": "Una paciente de 38 semanas de gestación ingresa en trabajo de parto espontáneo. Se realiza la rotura artificial de membranas (amniotomía) observándose la salida brusca de líquido amniótico claro e inmediatamente después una genitorragia de sangre roja rutilante de origen fetal, acompañada en forma simultánea de una bradicardia fetal severa y profunda (80 lpm) en el monitoreo cardiotocográfico. El tono uterino se mantiene totalmente normal y la paciente no refiere dolor. A la palpación no se detecta desprendimiento ni placenta previa. ¿A qué entidad patológica de causa vascular corresponde esta emergencia obstétrica cataclísmica?",
+      "opciones": {
+        "a": "Desprendimiento Prematuro de Placenta Normoinserta con hematoma disecante.",
+        "b": "Rotura de varix vulvar de la pared vaginal anterior.",
+        "c": "Atonía uterina por sobredistensión de líquido amniótico.",
+        "d": "Vasa Previa (rotura de vasos umbilicales velamentosos no protegidos por gelatina de Wharton que transcurren sobre el OCI)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La Vasa Previa es una complicación hemorrágica severa en la cual los vasos sanguíneos umbilicales (procedentes de una inserción velamentosa del cordón o de una placenta sucenturiada) transcurren por las membranas ovulares sobre el orificio cervical interno (OCI), por delante de la presentación fetal y sin la protección de la gelatina de Wharton. La tríada patognomónica ocurre durante el parto: 1) Amniotomía o rotura espontánea de membranas; 2) Metrorragia inmediata de sangre fetal (por laceración del vaso umbilical); y 3) Sufrimiento fetal agudo hiperagudo (bradicardia severa o patrón sinusoidal) por exanguinación fetal rápida. Exige una cesárea de emergencia inmediata para salvar la vida del feto (ANOMALÍAS PLACENTARIAS / Williams / Schwartz)."
+    },
+    {
+      "id": 25,
+      "pregunta": "Una paciente de 32 años, G3P2 (dos cesáreas anteriores), que cursa un embarazo de 38 semanas en trabajo de parto avanzado, refiere de forma súbita un dolor abdominal agudo, lacerante e insoportable (\"sensación de desgarro interno\"), seguido del cese abrupto de las contracciones uterinas. Al examen físico: la paciente entra en estado de shock hipovolémico (hipotensión, taquicardia), se observa metrorragia vaginal moderada, la presentación fetal que previamente estaba encajada asciende y asciende de plano (pérdida de la estación / \"feto que se escapa\"), pal pándose las partes fetales muy fáciles de precisar por debajo de la pared abdominal materna. La FCF muestra bradicardia severa. ¿Cuál es el diagnóstico de certeza y la conducta inmediata?",
+      "opciones": {
+        "a": "Rotura Uterina Consumada / Laparotomía exploradora de urgencia para extracción fetal, hemostasia y sutura uterina o histerectomía.",
+        "b": "Placenta previa marginal / Reposo absoluto en cama y fenoterol endovenoso.",
+        "c": "Inversión uterina agudísima / Maniobra de Johnson para reposición manual vaginal.",
+        "d": "Apendicitis aguda perforada / Observación en sala general por 24 horas."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La Rotura Uterina Consumada es una catástrofe obstétrica asociada principalmente al antecedente de cicatrices uterinas previas (cesáreas o miomectomías). Sus signos patognomónicos son: 1. Dolor abdominal lacerante y agudo en el acmé de una contracción. 2. Cese brusco de la dinámica uterina (el útero deja de contraerse). 3. Pérdida de la estación / retroceso de la presentación fetal al tacto vaginal. 4. Palpación fácil de las partes fetales en el abdomen materno (el feto sale hacia la cavidad peritoneal). 5. Shock materno por hemoperitoneo y sufrimiento fetal severo o muerte. La conducta es la laparotomía exploradora inmediata para la extracción fetal urgente y reparación de la brecha miometrial o histerectomía (Williams / Schwartz / Manual de Emergencias Obstétricas)."
+    },
+    {
+      "id": 26,
+      "pregunta": "Una mujer de 29 años consulta en el marco de la visita preconcepcional por planificación familiar. Dentro de sus antecedentes personales refiere haber tenido en su gestación previa un hijo nacido con Anencefalia (Defecto del Tubo Neural - DTN). De acuerdo con las guías del Ministerio de Salud y la bibliografía oficial (Control Preconcepcional original / LaAtencionIntegralALaMujer), ¿cuál es la dosis diaria de Ácido Fólico profiláctico indicada y en qué momento debe iniciarse para prevenir la recurrencia de DTN?",
+      "opciones": {
+        "a": "0,4 mg/día (400 mcg) iniciando en la semana 12 del embarazo.",
+        "b": "5,0 mg/día (5.000 mcg) por vía oral, iniciada al menos 1 a 3 meses ANTES de la concepción y mantenida de forma continua durante el primer trimestre de la gestación.",
+        "c": "100 mg/día por vía endovenosa semanal a partir de la semana 20.",
+        "d": "No se recomienda suplementación con ácido fólico en pacientes con antecedentes de DTN."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La suplementación con Ácido Fólico preconcepcional previene de forma eficaz los Defectos del Tubo Neural (anencefalia, espina bífida, encefalocele): • Población de bajo riesgo: Se indica 0,4 mg/día (400 mcg/día) desde al menos 1 mes antes de la gestación hasta la semana 12. • Población de ALTO RIESGO (antecedente de hijo previo o familiar directo con DTN, o madre en tratamiento con fármacos anticonvulsivantes como Valproato/Carbamazepina, o con diabetes pregestacional): Se debe prescribir la dosis de 5 mg/día (5.000 mcg/día) comenzando 1 a 3 meses antes de lograr el embarazo y continuando durante todo el primer trimestre (Control Preconcepcional original)."
+    },
+    {
+      "id": 27,
+      "pregunta": "Una paciente primigesta de 12 semanas de gestación acude a su primer control prenatal. Durante la anamnresis se identifican factores de alto riesgo para el desarrollo de Preeclampsia (antecedente de hipertensión arterial crónica y enfermedad renal previa). De acuerdo con el Consenso FASGO de Trastornos Hipertensivos del Embarazo (THE FASGO 2023/2025) y las pautas internacionales, ¿cuál es la medida de prevención primaria farmacológica de primera línea recomendada para reducir la incidencia de preeclampsia pretérmino?",
+      "opciones": {
+        "a": "Administración de Furosemida 40 mg/día por vía oral desde la semana 12.",
+        "b": "Prescripción de vitamina C y vitamina E en megadosis durante todo el embarazo.",
+        "c": "Indicación de Aspirina a bajas dosis (AAS 100 a 150 mg/día) por la noche, iniciada entre las semanas 12 y 16 de gestación y mantenida hasta la semana 36.",
+        "d": "Indicación de dieta estricta asódica (sin sal) y reposo absoluto en cama desde el primer trimestre."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con el Consenso FASGO THE (2023/2025) y las recomendaciones de la OMS/ACOG, la Aspirina a bajas dosis (AAS 100 a 150 mg/día) administrada preferentemente por la noche es la única intervención farmacológica con evidencia sólida para la prevención primaria de la Preeclampsia en pacientes de alto riesgo (antecedente de preeclampsia previa, HTA crónica, diabetes pregestacional, enfermedad autoinmune/SAF, insuficiencia renal). Debe iniciarse precozmente entre las semanas 12 y 16 de gestación (antes de que se complete la segunda ola de invasión trofoblástica de las arterias espiraladas) y suspenderse a la semana 36."
+    },
+    {
+      "id": 28,
+      "pregunta": "Una paciente de 10 semanas de gestación acude al control prenatal con los análisis del primer trimestre. El laboratorio reporta una Glucemia en Ayunas de 104 mg/dl. Se solicita una segunda determinación de glucemia en ayunas a las 48 horas para confirmación, la cual arroja un valor de 102 mg/dl. De acuerdo con los criterios vigentes de la Asociación Latinoamericana de Diabetes (ALAD) y el Consenso de Diabetes Gestacional FASGO 2024, ¿cuál es el diagnóstico categórico de la paciente?",
+      "opciones": {
+        "a": "Tolerancia Normal a la Glucosa / Se debe solicitar ecografía mamaria.",
+        "b": "Diabetes Pregestacional Manifiesta Tipo 1.",
+        "c": "Glucemia alterada en ayunas transitoria / Repetir análisis únicamente en el puerperio.",
+        "d": "Diabetes Gestacional (DG) por presentar dos o más glucemias en ayunas ≥ 100 mg/dl en el primer trimestre."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Según las pautas oficiales de la Asociación Latinoamericana de Diabetes (ALAD 2016) y el Consenso de Diabetes Gestacional FASGO 2024, el diagnóstico de Diabetes Gestacional en la primera mitad del embarazo (primer trimestre) no requiere esperar a la PTOG de la semana 24-28, sino que se establece formalmente cuando la paciente presenta dos o más determinaciones de glucemia plasmática en ayunas mayores o iguales a 100 mg/dl (≥ 100 mg/dl / 5,5 mmol/L). Estas pacientes deben ingresar de inmediato al protocolo de manejo diabetológico obstétrico (dieta, automonitoreo y control de crecimiento fetal)."
+    },
+    {
+      "id": 29,
+      "pregunta": "Una paciente que cursa un embarazo de 30 semanas ingresa a la guardia por presentar una Amenaza de Parto Prematuro (APP) con dinámicas uterinas persistentes y dilatación cervical de 4 cm, estimándose el nacimiento inminente dentro de las próximas horas. De acuerdo con las guías oficiales (Guía Parto Pretérmino MSAL / Predicción y Prevención de Parto Prematuro FASGO), ¿cuál es el fármaco indicado por vía endovenosa con el objetivo específico de brindar Neuroprotección Fetal y reducir la incidencia de Parálisis Cerebral y disfunción motora en el recién nacido pretérmino menor de 32 semanas?",
+      "opciones": {
+        "a": "Sulfato de Magnesio (MgSO4) en infusión endovenosa (dosis de ataque de 4 g IV en 20 minutos seguida de 1 g/hora por 12 a 24 horas o hasta el nacimiento).",
+        "b": "Atropina por vía intramuscular profunda dosis única.",
+        "c": "Betametasona 12 mg IV en bolo rápido continuo.",
+        "d": "Indometacina 100 mg por vía rectal cada 6 horas por 5 días."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con las guías de la OMS, el Ministerio de Salud y el Consenso FASGO de Parto Pretérmino, la administración antenatal de Sulfato de Magnesio (MgSO4) en gestaciones menores a 32 semanas con riesgo inminente de parto pretérmino dentro de las siguientes 24 horas ha demostrado reducir de forma significativa el riesgo de Parálisis Cerebral y disfunción motora severa en la infancia. El esquema neuroprotector consiste en una dosis de carga de 4 g IV administrada en 20 minutos, seguida de una infusión continua de 1 g/hora hasta que se produzca el nacimiento o por un máximo de 24 horas."
+    },
+    {
+      "id": 30,
+      "pregunta": "En la clasificación etiopatogénica y ultrasonográfica de la Restricción del Crecimiento Intrauterino (RCIU / RCF), ¿cuáles son las características anatómicas y antropométricas que definen al RCIU Asimétrico (o Tipo II) frente al RCIU Simétrico (o Tipo I)?",
+      "opciones": {
+        "a": "El RCIU asimétrico se inicia antes de la semana 20 de gestación por anomalías cromosómicas y presenta disminución proporcional de cabeza, abdomen y fémur.",
+        "b": "El RCIU asimétrico (Tipo II) ocurre en el tercer trimestre (tardío, > 32 semanas), de causa extrínseca por Insuficiencia Placentaria, y se caracteriza por la afectación preferencial del Perímetro Abdominal (PA) con conservación del Perímetro Cefálico (PC), generando un Índice CC/CA elevado.",
+        "c": "El RCIU asimétrico cursa con macrocefalia y líquido amniótico masivamente aumentado (polihidramnios).",
+        "d": "El RCIU asimétrico se debe exclusivamente a infecciones por parvovirus B19 y cursa con anemia sin alteración placentaria."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la clasificación clásica (Actualización consenso RCIU FASGO 2017 / Williams): • RCIU Simétrico (Tipo I / Precoz): Ocurre en el primer/segundo trimestre (< 28-32 sem) por causas intrínsecas (cromosomopatías, malformaciones, infecciones TORCH); hay afectación proporcional de todos los diámetros fetales (cabeza, abdomen, fémur). • RCIU Asimétrico (Tipo II / Tardío): Representa el 70-80% de los casos. Se produce en el tercer trimestre (> 32 sem) como consecuencia de una Insuficiencia Uteroplacentaria / Placentación deficiente tardía (asociada a HTA/preeclampsia). Debido al fenómeno de redistribución hemodinámica fetal (sparing cerebral), el flujo sanguíneo se preserva hacia el cerebro y corazón a expensas de la vísceras abdominales. Esto produce una depleción del glucógeno y grasa hepática fetal, reduciendo el Perímetro Abdominal (PA) mientras que el Perímetro Cefálico (PC) se mantiene normal (asimétrico, Índice CC/CA > 1)."
+    },
+    {
+      "id": 31,
+      "pregunta": "Una paciente de 32 semanas de gestación acude al control prenatal con una Altura Uterina de 38 cm. Se realiza ecografía obstétrica la cual confirma un Polihidramnios Severo, reportando un Índice de Líquido Amniótico (ILA / Phelan) de 28 cm y un Bolsillo Vertical Máximo (BVM) de 12 cm. De acuerdo con el análisis de las causas fetales y maternales de la sobreproducción de líquido amniótico (Schwartz / Williams / Documento deOCR), ¿cuál de los siguientes mecanismos patológicos o malformaciones se asocia directamente a la génesis del polihidramnios?",
+      "opciones": {
+        "a": "Agenesia renal bilateral por falta de excreción urinaria fetal.",
+        "b": "Secuencia de Potter por displasia renal multiquística.",
+        "c": "Anomalías gastrointestinales fetales que impiden la deglución del líquido amniótico (atresia esofágica o duodenal) o Diabetes Gestacional mal controlada (por poliuria fetal osmótica).",
+        "d": "Deshidratación materna severa por restricción hídrica."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "El volumen del líquido amniótico en el tercer trimestre depende del equilibrio entre la producción (micción fetal y fluido pulmonar) y la reabsorción (deglución fetal y vía intramembranosa). El Polihidramnios (ILA > 24 cm o BVM > 8 cm) se produce fundamentalmente por: 1. Defectos en la deglución fetal: Anomalías digestivas obstructivas como la Atresia Esofágica o Duodenal, o defectos del SNC (Anencefalia) que suprimen el reflejo de deglución. 2. Aumento de la diuresis fetal: Ocurre marcadamente en la Diabetes Gestacional o Pregestacional mal controlada, donde la hiperglucemia materna induce hiperglucemia y diuresis osmótica en el feto. Por el contrario, la agenesia renal y las uropatías obstructivas producen oligohidramnios por anuria."
+    },
+    {
+      "id": 32,
+      "pregunta": "Una paciente gestante con Factor Rh Negativo (d/d) no sensibilizada previa se detecta con una Prueba de Coombs Indirecta POSITIVA a títulos de 1:32 dils a las 26 semanas de gestación, confirmándose la presencia de isoinmunización Rh (presencia de anticuerpos maternos Anti-D). De acuerdo con las guías de manejo de la Isoinmunización Rh (Enfermedad Hemolítica Perinatal / Williams), ¿cuál es el estudio ecográfico Doppler NO INVASIVO de elección para evaluar la presencia y gravedad de la Anemia Fetal sin necesidad de puncionar el cordón umbilical?",
+      "opciones": {
+        "a": "Medición del flujo de las arterias uterinas maternas en la semana 38.",
+        "b": "Medición de la velocidad del flujo del conducto auditivo interno fetal.",
+        "c": "Medición de la presión venosa central mediante cateterismo de vena cava.",
+        "d": "Medición del Pico Máximo de Velocidad Sistólica en la Arteria Cerebral Media fetal (VMS-ACM), indicando anemia fetal severa cuando el valor supera 1,5 Múltiplos de la Mediana (1,5 MoM)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "En la paciente gestante con Isoinmunización Rh (Coombs indirecta positiva en títulos críticos ≥ 1:16), los anticuerpos maternos IgG cruzan la placenta y destruyen los hematíes fetales Rh positivos, produciendo anemia hemolítica fetal. El método Gold Standard no invasivo para el diagnóstico y seguimiento de la anemia fetal es la medición por Doppler del Pico Máximo de Velocidad Sistólica de la Arteria Cerebral Media fetal (VMS-ACM). Cuando el feto se vuelve anémico, la viscosidad sanguínea disminuye y el gasto cardíaco aumenta, elevando la velocidad sistólica en la ACM. Un valor superiores a 1,5 Múltiplos de la Mediana (1,5 MoM) para la edad gestacional predice con alta sensibilidad anemia fetal moderada a severa, indicando la necesidad de cordocentesis y transfusión intravascular intrauterina (Enfermedad Hemolítica Perinatal)."
+    },
+    {
+      "id": 33,
+      "pregunta": "Una paciente primigesta acude a su primer control prenatal a las 8 semanas de gestación. En la evaluación nutricional inicial se registra una talla de 1,62 m y un peso preconcepcional de 52 kg, lo que arroja un Índice de Masa Corporal (IMC) preconcepcional de 19,8 kg/m² (Peso Normal). De acuerdo con las guías del Instituto de Medicina (IOM) y el Ministerio de Salud de la Nación (Consenso Obesidad y embarazo 2024 / Guía TP 1), ¿cuál es el rango de ganancia de peso corporal total recomendada para esta paciente durante todo el embarazo?",
+      "opciones": {
+        "a": "Ganancia de peso total recomendada entre 11,5 kg y 16,0 kg (ritmo promedio de 0,4 kg/semana en el 2º y 3er trimestre).",
+        "b": "Ganancia de peso total recomendada menor a 5,0 kg sin importar la dieta.",
+        "c": "Ganancia de peso masiva ilimitada superior a 25,0 kg.",
+        "d": "Se debe indicar dieta hipocalórica estricta para lograr descenso de peso de 10 kg."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con las pautas del Consenso de Obesidad y Embarazo FASGO 2024 y la OMS/IOM, la recomendación de ganancia de peso materno se estratifica según el IMC preconcepcional: • Bajo Peso (IMC < 18,5 kg/m²): Ganancia recomendada de 12,5 a 18,0 kg. • Peso Normal (IMC 18,5 a 24,9 kg/m²): Ganancia recomendada de 11,5 a 16,0 kg (aprox. 400 g/semana en 2º y 3er trimestre). • Sobrepeso (IMC 25,0 a 29,9 kg/m²): Ganancia recomendada de 7,0 a 11,5 kg. • Obesidad (IMC ≥ 30,0 kg/m²): Ganancia recomendada de 5,0 a 9,0 kg."
+    },
+    {
+      "id": 34,
+      "pregunta": "Una paciente de 24 años, embarazada de 14 semanas, acude a la consulta prenatal. Reside en una zona endémica para la enfermedad de Chagas. De acuerdo con la Ley Nacional 26.281 de control de la enfermedad de Chagas y las normas de atención perinatal (Guía Infecciones Perinatales MSAL), ¿cómo se realiza el tamizaje serológico obligatorio en la gestante y cuál es la conducta farmacológica durante el embarazo si resulta positiva para Trypanosoma cruzi?",
+      "opciones": {
+        "a": "Se realiza mediante una única prueba rápida y si es positiva se administra Benznidazol a la madre durante el segundo trimestre.",
+        "b": "Se realiza el tamizaje obligatorio mediante dos pruebas serológicas con diferente principio antigénico (HAI, ELISA o IFI); si resulta positiva, el tratamiento antiparasitario (Benznidazol/Nifurtimox) está ESTRICTAMENTE CONTRAINDICADO durante el embarazo, debiendo realizarse el diagnóstico directo al recién nacido al parto para tratar al neonato.",
+        "c": "No se realiza ningún estudio serológico durante la gestación por falta de tratamiento.",
+        "d": "Se indica cesárea electiva obligatoria en todas las pacientes con serología positiva para Chagas."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la Ley Nacional 26.281 y las guías del Ministerio de Salud: 1. El tamizaje para Enfermedad de Chagas (T. cruzi) es obligatorio en todas las embarazadas. El diagnóstico de infección materna requiere la positividad de dos pruebas serológicas pareadas con diferente fundamento inmunológico (HAI, ELISA o IFI). 2. Los fármacos antiparasitarios específicos (Benznidazol y Nifurtimox) tienen potencial teratogénico y mutagénico, por lo que su administración está estrictamente contraindicada durante el embarazo y la lactancia. 3. La transmisión transplacentaria no se puede prevenir con fármacos en la gestación; por lo tanto, la conducta consiste en registrar la infección materna y realizar el diagnóstico parasitolológico directo (microhematocrito / método de Strout) al recién nacido al momento del parto. Si el neonato resulta positivo, se le administra Benznidazol logrando tasas de curación del 100% (Guía Infecciones Perinatales)."
+    },
+    {
+      "id": 35,
+      "pregunta": "Durante la gestación fisiológica se produce un cambio hemodinámico conocido como \"Anemia Fisiológica o por Dilución del Embarazo\". De acuerdo con la fisiología obstétrica (Modificaciones generales del embarazo / Williams / Anemias Perinatales), ¿cuál es el mecanismo fisiopatológico que explica la caída relativa de los valores de Hemoglobina y Hematocrito en el segundo trimestre?",
+      "opciones": {
+        "a": "Destrucción masiva de glóbulos rojos por anticuerpos maternos contra la placenta.",
+        "b": "Bloqueo total de la absorción intestinal de hierro por aumento de la hepcidina.",
+        "c": "Desproporción entre la expansión del volumen plasmático materno (que se incrementa entre un 45% y 50%) y la masa eritrocitaria (que aumenta solo un 20% a 30%), generando una hemodilución relativa con nadir hacia las semanas 28 a 32.",
+        "d": "Pérdida continua de sangre por vía renal secundaria a la filtración glomerular."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La denominada Anemia Fisiológica por Dilución es una adaptación hemodinámica normal del embarazo: • El Volumen Plasmático materno se expande marcadamente entre un 45% y 50% (aproximadamente 1.500 ml adicionales) para llenar el lecho vascular dilatado y la circulación uteroplacentaria. • La Masa de Glóbulos Rojos (eritrocitaria) también aumenta, pero en menor proporción (un 20% a 30%) estimulada por la eritropoyetina. Esta discrepancia cuantitativa causa un efecto de hemodilución fisiológica, provocando un descenso de la concentración de hemoglobina y del hematocrito que alcanza su nadir (punto más bajo) entre las semanas 28 y 32 de gestación, reduciendo la viscosidad sanguínea y optimizando la perfusión placentaria."
+    },
+    {
+      "id": 36,
+      "pregunta": "En la clasificación y diagnóstico diferencial de los Estados Hipertensivos del Embarazo (Consenso FASGO THE 2023/2025), ¿cuáles son los criterios clínicos y temporales que permiten diferenciar la Hipertensión Crónica de la Hipertensión Gestacional?",
+      "opciones": {
+        "a": "La hipertensión crónica aparece únicamente durante el trabajo de parto y desaparece a las 2 horas del alumbramiento.",
+        "b": "La hipertensión gestacional se diagnostica antes de la semana 12 y cursa siempre con convulsiones eclampsia.",
+        "c": "La hipertensión crónica requiere proteinuria masiva obligatoria en todos los casos desde la semana 4.",
+        "d": "La Hipertensión Crónica es la que está presente ANTES del embarazo o se diagnostica ANTES de la semana 20 de gestación (o persiste pasadas las 12 semanas del puerperio); mientras que la Hipertensión Gestacional es la que aparece DESPUÉS de la semana 20 de gestación en una mujer previamente normotensa, SIN proteinuria ni daño de órgano blanco, y se normaliza dentro de las 12 semanas posparto."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "Según el Consenso FASGO THE (2023/2025): • Hipertensión Crónica: Registros de PAS ≥ 140 mmHg y/o PAD ≥ 90 mmHg presentes antes de la concepción o diagnosticados antes de la semana 20 de gestación, o que persisten más allá de los 100-120 días (12 semanas) del puerperio. • Hipertensión Gestacional: Hipertensión de novo que se detecta después de las 20 semanas de gestación, en ausencia de proteinuria y sin signos de disfunción de órgano blanco materno. Es un diagnóstico confirmatorio retrospectivo cuando la presión arterial se normaliza completamente dentro de las 12 semanas posteriores al parto."
+    },
+    {
+      "id": 37,
+      "pregunta": "En el estudio de las infecciones virales perinatales del grupo TORCH (Guía Infecciones Perinatales / Infecciones TORCH y PVB19), ¿cuál es el agente infeccioso viral de transmisión vertical que constituye la causa congénita no genética más frecuente de Hipoacusia Neurosensorial y retraso en el neurodesarrollo en la infancia, cuyos hallazgos ecográficos fetales característicos incluyen microcefalia y calcificaciones periventriculares ecogénicas?",
+      "opciones": {
+        "a": "Citomegalovirus (CMV).",
+        "b": "Virus de la Hepatitis A.",
+        "c": "Virus del Papiloma Humano (VPH) tipo 6.",
+        "d": "Virus Epstein-Barr."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El Citomegalovirus (CMV) es un herpesvirus y representa la infección congénita viral más frecuente en el mundo (0,5 a 2% de los nacidos vivos). Es la primera causa no genética de Hipoacusia Neurosensorial congénita y de discapacidad cognitiva / retardo mental infantil. La primoinfección materna durante la primera mitad del embarazo conlleva el mayor riesgo de secuelas graves en el feto. Los hallazgos ecográficos neurosonográficos patognomónicos de la infección congénita por CMV incluyen: microcefalia, calcificaciones periventriculares ecogénicas, ventriculomegalia, quistes subependimarios y RCIU (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 38,
+      "pregunta": "El sistema de salud perinatal en la Argentina se organiza bajo la estrategia de Regionalización de la Atención Perinatal y el cumplimiento de las Condiciones Obstétricas y Neonatales Esenciales (CONE) definidas por la OMS y el Ministerio de Salud. ¿Cuáles son los 5 requisitos o componentes asistenciales mínimos que DEBE garantizar de forma ininterrumpida (24 horas los 365 días) un centro de salud o maternidad para estar habilitado para la atención de partos y nacimientos?",
+      "opciones": {
+        "a": "Contar con laboratorio de genética molecular, resonador magnético 3 Tesla, helipuerto, mamógrafo digital y banco de semen.",
+        "b": "Disponibilidad permanente (24 hs) de: 1) Quirófano y capacidad quirúrgica (cesárea); 2) Anestesia inmediata; 3) Transfusión de sangre segura; 4) Asistencia médica e intensiva materna y neonatal; y 5) Transporte de emergencia habilitado.",
+        "c": "Disponer exclusivamente de un consultorio externo de ginecología de atención diurna de 8 a 12 horas.",
+        "d": "Exigir que todos los partos se realicen por vía de cesárea programada sin presencia de pediatra."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Las Condiciones Obstétricas y Neonatales Esenciales (CONE) son los recursos indispensables que han demostrado reducir de forma drástica la mortalidad materna y neonatal. Ninguna maternidad o centro asistencial debe atender partos si no cumple con las 5 CONE de forma continua las 24 horas del día, los 365 días del año : 1. Capacidad quirúrgica obstétrica (quirófano disponible para cesáreas de urgencia). 2. Anestesia disponible de forma inmediata. 3. Puesto de transfusión de sangre segura y hemoderivados. 4. Capacidad de asistencia médica e intensiva materna y neonatal (resucitación y estabilización). 5. Sistema de transporte de emergencia habilitado (ambulancia equipada)."
+    },
+    {
+      "id": 39,
+      "pregunta": "Una paciente de 30 semanas de gestación, internada en manejo conservador por Rotura Prematura de Membranas (RPM), comienza con picos febriles de 38,4 ºC, taquicardia materna (115 lpm), taquicardia fetal sostenida (172 lpm), dolor a la palpación uterina y salida de líquido amniótico purulento de olor fétido por vagina. Laboratorio: Leucocitos 18.500/mm³ con desviación a la izquierda. De acuerdo con los Criterios de Gibbs para el diagnóstico de Corioamnionitis Clínica (RPM FLASGO / Consenso FASGO RPM), ¿cuál es la conducta médica inmediata e impostergable?",
+      "opciones": {
+        "a": "Continuar con el manejo conservador en cama y repetir ecografía en 14 días.",
+        "b": "Administrar Nifedipina para frenar la dinámica e indicar alta ambulatoria.",
+        "c": "Diagnóstico de Corioamnionitis Clínica / Finalización inmediata del embarazo (interrupción de la gestación) bajo cobertura de antibioticoterapia parenteral de amplio espectro, independientemente de la edad gestacional.",
+        "d": "Indicar dosis de ataque de indometacina oral y suspender los antibióticos."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La Corioamnionitis Clínica (Infección Intraamniótica) es la complicación más grave de la RPM. Su diagnóstico se establece mediante los Criterios de Gibbs: Fiebre materna (≥ 37,8 - 38,0 ºC) MÁS 2 o más de los siguientes signos: 1) Taquicardia materna (> 100 lpm); 2) Taquicardia fetal (> 160 lpm); 3) Irritabilidad o dolor a la palpación uterina; 4) Líquido amniótico purulento o fétido; y 5) Leucocitosis materna (> 15.000/mm³). La presencia de corioamnionitis es una indicación absoluta de finalización inmediata del embarazo por la vía obstétrica más oportuna (parto o cesárea) e inicio de antibioticoterapia parenteral triple (Ampicilina + Gentamicina + Clindamicina), ya que la conducta expectante conduce al shock séptico materno y muerte fetal (Consenso FASGO RPM)."
+    },
+    {
+      "id": 40,
+      "pregunta": "Una paciente de 42,1 semanas de gestación por Fecha de Última Menstruación (FUM) confiable y ecografía precoz del primer trimestre acude al control obstétrico. Se encuentra asintomática. La evaluación ultrasonográfica muestra un feto en presentación cefálica con peso estimado adecuado, pero con un Índice de Líquido Amniótico (ILA) de 4 cm (Oligohidramnios). De acuerdo con las definiciones de la obstetricia (Williams / Schwartz / Parto patológico), ¿cómo se clasifica este embarazo y cuál es la recomendación de manejo para prevenir el Síndrome de Aspiración Meconial y la mortalidad perinatal?",
+      "opciones": {
+        "a": "Embarazo de Término Temprano / Control ambulatorio dentro de 15 días.",
+        "b": "Embarazo Pretérmino / Indicar tocolíticos y corticoides para maduración pulmonar.",
+        "c": "Falso embarazo / Alta médica definitiva sin estudios.",
+        "d": "Embarazo Prolongado (Postérmino / Cronológicamente Prolongado) / Inducir el trabajo de parto o finalizar la gestación, debido al riesgo incrementado de insuficiencia placentaria, oligohidramnios y sufrimiento fetal."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El Embarazo Prolongado (o Postérmino / Cronológicamente Prolongado) se define como aquella gestación que alcanza o supera las 42,0 semanas completas (≥ 294 días desde el primer día de la FUM confiable). A partir de las 41-42 semanas, la placenta sufre un envejecimiento progresivo con depósitos de fibrina e infartos (insuficiencia placentaria), lo que provoca: Oligohidramnios, sufrimiento fetal agudo/crónico, emisión de meconio con riesgo de Síndrome de Aspiración Meconial (SAM) y dismadurez fetal (Síndrome de Clifford). De acuerdo con la evidencia científica actual, se recomienda ofrecer la Inducción del Trabajo de Parto a partir de las 41,0 a 41,6 semanas de gestación para reducir la morbimortalidad perinatal (Williams Obstetricia)."
+    },
+    {
+      "id": 41,
+      "pregunta": "Una paciente de 14 semanas de gestación, asintomática, acude a su segundo control prenatal con el resultado del Urocultivo de rutina del primer trimestre, el cual reporta el aislamiento de Escherichia coli con > 100.000 UFC/ml. De acuerdo con los consensos perinatales y las guías de la cátedra (Guía Infecciones perinatales / Williams / Gori), ¿cuál es el diagnóstico, el riesgo de no tratar esta entidad y la conducta médica indicada?",
+      "opciones": {
+        "a": "Bacteriuria Asintomática / Alto riesgo de evolución hacia Pielonefritis Aguda (20-40%) y Amenaza de Parto Prematuro / Indicar tratamiento antibiótico ambulatorio según antibiograma (ej. Cefalexina 500 mg c/6h por 7 días) y urocultivo de control a los 7-14 días de finalizado el esquema.",
+        "b": "Cistitis Aguda Complicada / Indicación de internación en UTI y cefalosporinas de 3ª generación EV por 21 días.",
+        "c": "Contaminación de la muestra / Conducta expectante sin tratamiento ni nuevos cultivos hasta el parto.",
+        "d": "Infección urinaria fisiológica / Solicitar ecografía renal y suspender la ingesta de agua."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La Bacteriuria Asintomática (BA) se define como la presencia de ≥ 100.000 UFC/ml de un único patógeno en una muestra de orina de chorro medio en una mujer sin síntomas urinarios. En la embarazada, debido a la relajación del músculo liso ureteral por efecto de la progesterona y la compresión mecánica del útero dextrorrotado (hidronefrosis fisiológica), la BA no tratada evoluciona en un 20 a 40% de los casos hacia una Pielonefritis Aguda, aumentando drásticamente el riesgo de parto pretérmino y bajo peso al nacer. Por ello, el urocultivo es de tamizaje obligatorio en el primer trimestre y su hallazgo impone tratamiento antibiótico por 7 días (Cefalexina, Nitrofurantoína o Amoxicilina) y urocultivo de control posterior (Guía Infecciones perinatales MSAL)."
+    },
+    {
+      "id": 42,
+      "pregunta": "Una paciente de 34 semanas de gestación con diagnóstico de Preeclampsia Severa ingresa a la guardia obstétrica refiriendo cefalea intensa y escotomas centellantes. Al examen físico se registran cifras de Presión Arterial de 175/115 mmHg (Crisis Hipertensiva). De acuerdo con las recomendaciones del Consenso FASGO de Trastornos Hipertensivos del Embarazo (THE FASGO 2023/2025) y las guías del Ministerio de Salud, ¿cuáles son los fármacos antihipertensivos de primera línea indicados por vía parenteral/oral rápida para el descenso controlado de la presión arterial en la emergencia?",
+      "opciones": {
+        "a": "Enalapril 20 mg IV en bolo directo o Candelartán oral a dosis altas.",
+        "b": "Labetalol por vía endovenosa (dosis inicial de 20 mg en bolo IV, pudiendo duplicarse a 40 mg y 80 mg cada 10-20 minutos hasta un máximo acumulado de 300 mg) O Nifedipina 10 mg por vía oral (cápsula/comprimido no sublingual) cada 20-30 minutos.",
+        "c": "Nitroprusiato de Sodio en infusión rápida continua como monoterapia de entrada.",
+        "d": "Atenolol 100 mg por vía oral cada 6 horas sin medicación intravenosa."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En la Crisis Hipertensiva del Embarazo (PAS ≥ 160 mmHg y/o PAD ≥ 110 mmHg), el objetivo inmediato es descender la presión arterial a rangos de seguridad (PAS 140-150 mmHg y PAD 90-100 mmHg) para prevenir el accidente cerebrovascular (ACV) y el desprendimiento placentario, evitando la hipotensión abrupta que comprometería el flujo uteroplacentario. De acuerdo con el Consenso FASGO THE (2023/2025), los esquemas de primera línea con máxima evidencia son: 1. Labetalol IV: Bolo inicial de 20 mg IV en 2 minutos, duplicando la dosis cada 10-20 min (20-40-80-80 mg) hasta controlar la PA o alcanzar un máximo de 300 mg. 2. Nifedipina VO: 10 mg por vía oral (nunca sublingual por el riesgo de caída precipitada de la PA) cada 20-30 minutos (máximo 40 mg). Los IECA (enalapril) y ARA-II están estrictamente contraindicados por fetotoxicidad (oligoamnios, anuria fetal)."
+    },
+    {
+      "id": 43,
+      "pregunta": "Durante la realización de la ecografía obstétrica de rutina entre las semanas 11 y 14 de gestación (Screening Combinado del Primer Trimestre / Scan Fetal Precoz), el especialista en imágenes evalúa los marcadores ecográficos de aneuploidías (Trisomía 21 / Síndrome de Down). De acuerdo con la bibliografía oficial (Ecografía TA y TV / Williams / Gori), ¿cuál es el marcador ecográfico nucal más sensible y cuál es el valor de corte que define un riesgo incrementado?",
+      "opciones": {
+        "a": "Medición del grosor del tabique nasal, considerándose anormal un valor menor a 0,5 mm.",
+        "b": "Diámetro Biparietal (DBP), considerándose patológico si supera los 40 mm.",
+        "c": "Medición de la Translucencia Nucal (TN), considerándose alterada cuando el espacio anecoico retrocervical alcanza o supera los 3,0 mm (o se ubica por encima del percentil 99 para la longitud cefalocaudal).",
+        "d": "Evaluación del índice de líquido amniótico mediante la técnica de Phelan de los cuatro cuadrantes."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La Translucencia Nucal (TN) es el edema o acúmulo fisiológico transitorio de fluido en la región subcutánea de la nuca del feto, medido por ecografía entre las semanas 11,0 y 13,6 de gestación (cuando la CRL mide entre 45 y 84 mm). Constituye el marcador ecográfico aislado más potente para el tamizaje de cromosomopatías (Trisomía 21, 18 y 13) y cardiopatías congénitas. Se considera un marcador de alto riesgo cuando la TN es ≥ 3,0 mm (o supera el percentil 99 para la CRL dada). La combinación de la TN con la presencia del hueso nasal, el flujo en el Ductus Venoso, la regurgitación tricuspídea y los marcadores bioquímicos séricos (PAPP-A y β-hCG libre) alcanza una sensibilidad diagnóstica superior al 90% (Ecografía TA y TV)."
+    },
+    {
+      "id": 44,
+      "pregunta": "Durante la gestación fisiológica se producen marcadas adaptaciones en el aparato urinario y renal materno. De acuerdo con la Fisiología Obstétrica (Williams Obstetricia / Schwartz / Modificaciones generales del embarazo), ¿cuáles son los cambios característicos en el Flujo Plasmático Renal (FPR), el Filtrado Glomerular (FG), los niveles séricos de urea/creatinina y la anatomía de la vía urinaria?",
+      "opciones": {
+        "a": "El FPR y el FG disminuyen un 50%, provocando la elevación patológica de creatinina a valores de 2,0 mg/dl en embarazadas sanas.",
+        "b": "El Flujo Plasmático Renal y la Tasa de Filtrado Glomerular aumentan entre un 30% y 50%, produciendo un descenso fisiológico de la urea (< 20 mg/dl) y creatinina sérica (< 0,7 mg/dl), acompañado de una hidronefrosis / dilatación ureteropielocalicial fisiológica a predominio DERECHO por efecto relajante de la progesterona y compresión del útero dextrorrotado.",
+        "c": "Se produce una anuria fisiológica transitoria por colapso completo de ambas arterias renales en el segundo trimestre.",
+        "d": "El volumen renal disminuye a la mitad y desaparece la excreción de glucosa, estando prohibida la glucosuria en todas las gestantes."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "Las modificaciones fisiológicas renales del embarazo comprenden: 1. Hemodinamia renal: El FPR y la Tasa de Filtrado Glomerular (TFG) se incrementan significativamente entre un 30% y 50% desde el primer trimestre. 2. Bioquímica sanguínea: Como consecuencia del hiperfiltrado glomerular, los niveles séricos de azoados descienden fisiológicamente: la creatinina sérica normal en la embarazada es de 0,4 a 0,7 mg/dl (valores ≥ 0,9-1,1 mg/dl indican insuficiencia renal) y la urea es < 20 mg/dl. 3. Anatomía de la vía urinaria: La progesterona produce hipotonía del músculo liso de los uréteres y la pelvis renal, lo que sumado a la compresión mecánica del útero dextrorrotado genera una dilatación ureteropielocalicial fisiológica (hidronefrosis del embarazo) con un marcado predominio DERECHO, predisponiendo a la estasis urinaria y pielonefritis (Williams / Schwartz)."
+    },
+    {
+      "id": 45,
+      "pregunta": "Una paciente primigesta de 8 semanas acude a la consulta tras haber presentado un exantema morbiliforme febril y adenopatías retroauriculares. El laboratorio confirma una primoinfección por el Virus de la Rubéola. De acuerdo con el estudio de las infecciones perinatales (Guía Infecciones Perinatales / Infecciones TORCH), ¿cuáles son las tres malformaciones congénitas clásicas que componen la Tríada de Gregg (Síndrome de Rubéola Congénita) tras la infección en el primer trimestre?",
+      "opciones": {
+        "a": "Hipoacusia Neurosensorial, Cardiopatía Congénita (Persistencia del Conducto Arterioso / Estenosis de la Arteria Pulmonar) y Cataratas Congénitas (junto a microftalmía y retinopatía en \"sal y pimienta\").",
+        "b": "Microcefalia severa, aplasia medular y agenesia renal bilateral.",
+        "c": "Espina bífida abierta, anencefalia y hernia diafragmática congénita.",
+        "d": "Exclusivamente bajo peso al nacer sin compromiso visceral u orgánico."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La infección materna por el virus de la Rubéola durante las primeras 12 semanas de gestación conlleva un riesgo de transmisión vertical y teratogénesis superior al 80-90%. El cuadro malformativo patognomónico es el Síndrome de Rubéola Congénita (Tríada de Gregg), compuesto por: 1. Hipoacusia Neurosensorial (la secuela más frecuente, 50-70%). 2. Cardiopatía Congénita (principalmente Persistencia del Ductus Arterioso [PCA] y Estenosis de la Arteria Pulmonar). 3. Oftalmopatía Congénita (Cataratas bilaterales, microftalmía, retinopatía en \"sal y pimienta\"). También cursa con púrpura trombocitopénica neonatal (bebé en \"pastel de arándanos\" / blueberry muffin) y RCIU (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 46,
+      "pregunta": "Una paciente de 20 semanas de gestación, docente de nivel inicial, acude al control tras estar expuesta a un brote de \"quinta enfermedad\" (Eritema Infeccioso) en su escuela. Los análisis confirman la primoinfección materna por Parvovirus B19. De acuerdo con la fisiopatología del virus sobre la unidad fetoplacentaria (Infecciones TORCH y PVB19 / Williams), ¿cuál es el mecanismo patogénico por el cual el Parvovirus B19 causa Hidrops Fetal No Inmune y muerte intrauterina?",
+      "opciones": {
+        "a": "Tropismo citotóxico selectivo del virus sobre los progenitores eritroides (proeritroblastos) de la médula ósea e hígado fetal, inhibiendo la eritropoyesis y provocando Anemia Fetal Grave, Insuficiencia Cardíaca de Alto Gasto e Hidrops Fetal.",
+        "b": "Formación de autoanticuerpos maternos IgG contra el antígeno Rho(D) de la membrana del hematíe fetal.",
+        "c": "Invasión directa del endotelio vascular cerebral provocando ventriculomegalia obstructiva.",
+        "d": "Necrosis pancreática masiva con cetoacidosis diabética fetal."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El Parvovirus B19 (virus ADN monocatenario) presenta un tropismo selectivo hacia las células progenitoras eritroides (al unirse al antígeno eritrocitario P de membrana) en el hígado fetal y la médula ósea. Al infectar y lisar los proeritroblastos, destruye la producción de glóbulos rojos fetales, desencadenando una Anemia Fetal Aguda y Severa. La anemia profunda conduce a hipoxia tisular, insuficiencia cardíaca congestiva fetal de alto gasto, anasarca e Hidrops Fetal No Inmune (derrame pleural, pericárdico, ascitis y edema subcutáneo). El diagnóstico de anemia fetal se realiza por Doppler del VMS-ACM > 1,5 MoM y el tratamiento es la transfusión intravascular intrauterina (Infecciones TORCH y PVB19)."
+    },
+    {
+      "id": 47,
+      "pregunta": "Una paciente de 18 semanas de gestación, asintomática, con antecedente de un parto pretérmino espontáneo a las 29 semanas en su embarazo anterior, se realiza una ecografía transvaginal de control de longitud cervical. El estudio reporta un cérvix acortado con una Longitud Cervical de 18 mm (< 25 mm) y presencia de embudización (funneling). De acuerdo con las guías oficiales para la prevención del parto prematuro (Predicción y Prevención de Parto Prematuro FASGO / Guía Parto Pretérmino MSAL), ¿cuál es la medida farmacológica de primera línea indicada?",
+      "opciones": {
+        "a": "Indicar Progesterona Micronizada por vía vaginal (200 mg/día) administrada por la noche de forma continua desde el diagnóstico hasta la semana 36 de gestación.",
+        "b": "Indicar cesárea electiva programada inmediata en la semana 18.",
+        "c": "Prescribir amoxicilina 500 mg por vía oral cada 8 horas por 30 días sin reposo ni medicación hormonal.",
+        "d": "Iniciar tocolíticos por vía endovenosa continua (Nifedipina) durante todo el segundo trimestre."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "En mujeres con antecedente de parto pretérmino espontáneo o en gestantes asintomáticas en las que se detecta un acortamiento cervical por ecografía TV (Longitud Cervical < 25 mm) entre las semanas 16 y 24 de gestación, el pilar fundamental para la prevención primaria/secundaria del parto prematuro es la Progesterona Micronizada por vía vaginal (200 mg/día en óvulos o gel) administrada por la noche hasta las 36 semanas. La progesterona mantiene la quiescencia miometrial, reduce la respuesta inflamatoria cervical y reduce en más de un 40-50% el riesgo de parto pretérmino antes de las 33 semanas (Predicción y Prevención de Parto Prematuro FASGO)."
+    },
+    {
+      "id": 48,
+      "pregunta": "Una paciente de 34 semanas de gestación, con antecedente de dos cesáreas anteriores, acude al control ecográfico. El informe ultrasonográfico y la Resonancia Magnética confirman la presencia de una Placenta Previa Oclusiva Total en la pared anterior del segmento inferior, observándose una interrupción completa de la interfaz miometrial serosa con invasión del tejido placentario que se extiende hasta la pared posterior de la vejiga. ¿A qué grado de Acretismo Placentario (Placenta Acreta / PAS) corresponde esta infiltración y cuál es su principal factor de riesgo predisponente?",
+      "opciones": {
+        "a": "Placenta Percreta / El factor de riesgo principal es la combinación de Placenta Previa sobre la cicatriz de una Cesárea Previa.",
+        "b": "Placenta Acreta Vera / El factor de riesgo principal es el consumo de ácido fólico en el primer trimestre.",
+        "c": "Placenta Increta / El factor de riesgo es el embarazo gemelar monocorial.",
+        "d": "Desprendimiento prematuro de placenta normoinserta por traumatismo abdominal."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "El Espectro de Acretismo Placentario (Placenta Accreta Spectrum - PAS / Acretismo Placentario) es la adherencia o invasión mórbida de la placenta al miometrio por la deficiencia parcial o total de la decidua basal (capa de Nitabuch). Se clasifica histopatológicamente en: 1. Placenta Acreta: Las vellosidades se adscriben directamente al miometrio sin invadirlo. 2. Placenta Increta: Las vellosidades invaden el espesor del miometrio. 3. Placenta Percreta: Las vellosidades atraviesan todo el espesor del miometrio y la serosa uterina, pudiendo invadir órganos vecinos (frecuentemente la vejiga). El factor de riesgo principal y decisivo (mayor al 60-70%) es la coexistencia de Placenta Previa sobre la cicatriz de Cesáreas Previas (ANOMALÍAS PLACENTARIAS / Williams)."
+    },
+    {
+      "id": 49,
+      "pregunta": "Una paciente puérpera de 3 días (posparto vaginal sin complicaciones) es evaluada en la sala de internación previa al alta. Al examen físico el abdomen es blando, el útero se palpa firme y contraído (\"globo de seguridad de Pinard\") ubicado a 3 cm por debajo del ombligo. Los loquios son de color rojizo-amarronado, sin grumos ni mal olor. De acuerdo con la fisiología del Puerperio Normal (Puerperio Normal / Puerperio pptx / Schwartz), ¿cuál es la evolución diaria normal de la involución uterina y las características cronológicas de los loquios?",
+      "opciones": {
+        "a": "El fondo uterino permanece a nivel del apéndice xifoides durante 30 días; los loquios son purulentos durante todo el puerperio.",
+        "b": "El fondo uterino desciende a razón de aproximadamente 1 a 2 cm (1 traves de dedo) por día, ubicándose a nivel umbilical al momento del parto, a mitad de camino entre el ombligo y el pubis al 5º día, y volviéndose intrapélvico (no palpable por vía abdominal) hacia el día 10-12; los loquios evolucionan de Rubra (sanguinolentos, días 1-3), a Serosos (rosados/amarronados, días 4-10) y Alba (blanquecinos/amarillentos, > 10-14 días).",
+        "c": "El útero se atrofia completamente al segundo día posparto y no hay secreción loquial.",
+        "d": "Los loquios normales deben ser de olor fetidopurulento y acompañarse de fiebre de 39 ºC."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La involución uterina durante el puerperio fisiológico es un proceso de autólisis miofibrilar. Inmediatamente tras el alumbramiento, el fondo uterino se ubica a nivel del ombligo (aproximadamente 12-15 cm sobre el pubis, pesando 1.000 g). Posteriormente desciende a razón de 1 a 2 cm (1 traves de dedo) por día, de modo que hacia el día 10 a 12 posparto se torna un órgano intrapélvico, no palpable por encima de la sínfisis púbica. Los loquios (exudado de la herida placentaria y cavidad endometrial) siguen una secuencia patognomónica: Loquia Rubra (rojos, días 1-3), Loquia Serosa (rosados/amarronados, días 4-10) y Loquia Alba (blancos/amarillentos, del día 10 al 21-28), debiendo ser indoloros y de olor similar al sangrado menstrual (Puerperio Normal / Schwartz)."
+    },
+    {
+      "id": 50,
+      "pregunta": "Una paciente puérpera inmediata (30 minutos posparto vaginal de un recién nacido de 4.100 g) presenta un sangrado vaginal profuso y continuo con coágulos. La pérdida hemática estimada supera los 1.200 ml. Al examen físico: TA 85/50 mmHg, FC 120 lpm. A la palpación abdominal el útero se encuentra flácido, blando, atónico y descendido por encima del ombligo, no lográndose la contracción miometrial. De acuerdo con el protocolo de manejo de la Hemorragia Postparto (HPP) (Guía Hemorragia post-parto / Consenso 2019 Hemorragia Post Parto FASGO), ¿cuál es la primera causa de HPP (Regla de las 4 T) y cuál es la secuencia del tratamiento médico inicial?",
+      "opciones": {
+        "a": "Atonía Uterina (Causa \"Tono\", responsable del 70-80% de las HPP) / Iniciar de inmediato Masaje Uterino Bimanual continuo MÁS uterotónicos parenterales de primera línea (Oxitocina 10-20 UI en infusión EV MÁS Metilergonovina 0,2 mg IM si no hay HTA, Ácido Tranexámico 1 g EV y Misoprostol 800 mcg vía rectal/sublingual).",
+        "b": "Laceración del canal del parto / Indicar únicamente hielo sobre la vulva y reposo.",
+        "c": "Inversión uterina total / Laparotomía exploradora inmediata sin masaje ni fármacos.",
+        "d": "Coagulopatía hereditaria (Enfermedad de von Willebrand) / Transfusión de plaquetas en monoterapia."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La Hemorragia Postparto (HPP) (definida como pérdida de sangre ≥ 500 ml en parto vaginal o ≥ 1.000 ml en cesárea, o cualquier sangrado con inestabilidad) se clasifica según la mnemotecnia de las 4 T: Tono (Atonía uterina, 70-80%), Trauma (desgarros del canal, 20%), Tejido (retención placentaria, 10%) y Trombina (coagulopatías, 1%). Ante una Atonía Uterina, el protocolo médico inmediato comprende: 1. Masaje uterino bimanual externo e interno continuo. 2. Uterotónicos: Oxitocina (10 UI IM o 20-40 UI en 1.000 ml de SF en infusión rápida) como droga de 1ª elección, asociada a Metilergonovina 0,2 mg IM (contraindicada en preeclampsia/HTA), Misoprostol 800 mcg rectal/sublingual y Ácido Tranexámico 1 g EV (dentro de las primeras 3 horas) (Consenso FASGO Hemorragia Post Parto)."
+    },
+    {
+      "id": 51,
+      "pregunta": "Una paciente con antecedente de Diabetes Gestacional mal controlada durante el embarazo da a luz a las 39 semanas. Durante la recepción neonatal, el pediatra evalúa al recién nacido. De acuerdo con las complicaciones metabólicas y fetales clásicas asociadas a la hiperglucemia materna hiperinsulinismo fetal (Consenso Diabetes Gestacional FASGO 2024 / ALAD 2016), ¿cuáles son los hallazgos morbimortales característicos en el recién nacido de madre diabética?",
+      "opciones": {
+        "a": "Macrosomía Fetal (peso > 4.000 g / p90), riesgo de traumatismo del parto (distocia de hombros, parálisis braquial), Hipoglucemia Neonatal precoz (por hiperplasia de células beta e hiperinsulinismo fetal), Hipocalcemia, Policitemia y Síndrome de Dificultad Respiratoria / Enfermedad de Membrana Hialina (por inhibición de la síntesis de surfactante mediada por la insulina).",
+        "b": "Bajo peso extremo para la edad gestacional con microcefalia e hipercalcemia.",
+        "c": "Anemia hemolítica masiva por destrucción de glóbulos rojos y aplasia pancreática.",
+        "d": "Agenesia de extremidades inferiores y sordera congénita en el 100% de los casos."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La hiperglucemia materna no controlada cruza la placenta (difusión facilitada) y estimula el páncreas fetal, desencadenando hiperplasia de los islotes de Langerhans e hiperinsulinismo fetal. El exceso de insulina (principal hormona anabólica fetal) produce: 1. Macrosomía Fetal (peso > 4.000 g) con visceromegalia y depósito de grasa en cintura escapular, predisponiendo a la Distocia de Hombros. 2. Hipoglucemia Neonatal Precoz: Tras el parto, al cortarse el aporte materno de glucosa, el hiperinsulinismo fetal persistente consume la glucosa neonatal en las primeras horas. 3. Inmadurez Pulmonar (SDR / Membrana Hialina): El hiperinsulinismo fetal antagoniza el efecto de los corticoides e inhibe la síntesis de dipalmitoilfosfatidilcolina (surfactante) por los neumonocitos Tipo II. 4. Policitemia e hiperbilirrubinemia (Consenso Diabetes Gestacional FASGO 2024)."
+    },
+    {
+      "id": 52,
+      "pregunta": "Durante la evaluación del Monitoreo Fetal Intraparto mediante Cardiotocografía (CTG), el obstetra analiza el trazado de la Frecuencia Cardíaca Fetal (FCF). Se observa una FCF basal de 140 lpm con variabilidad moderada (6-25 lpm) y la presencia de desaceleraciones periódicas cuya forma es en \"espejo\" con la contracción uterina: el nadir o punto más bajo de la desaceleración coincide exactamente con el acmé o pico de la contracción uterina. De acuerdo con la clasificación del monitoreo fetal (Control del bienestar fetal intraparto / Monitoreo fetal.mp4 / Williams), ¿cómo se denomina esta desaceleración y cuál es su significado fisiológico?",
+      "opciones": {
+        "a": "Desaceleración Temprana (DIP I) / Producida por la compresión mecánica de la cabeza fetal durante la contracción (mecanismo reflejo vagal), siendo una desaceleración Fisiológica, Benigna y No Asociada a Hipoxia Fetal (Categoría I).",
+        "b": "Desaceleración Tardía (DIP II) / Producida por insuficiencia uteroplacentaria e hipoxia fetal severa.",
+        "c": "Desaceleración Variable (DIP III) / Producida por oclusión transitoria del cordón umbilical.",
+        "d": "Patrón Sinusoidal / Producido por anemia fetal grave que requiere cesárea en 1 minuto."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "En el análisis del monitoreo cardiotocográfico intraparto: • Desaceleración Temprana (DIP I): Es un descenso gradual y simétrico de la FCF cuyo inicio, punto más bajo (nadir) y recuperación coinciden exactamente con el inicio, acmé y final de la contracción uterina (coincidencia temporal en \"espejo\"). Su mecanismo fisiopatológico es la compresión de la cabeza fetal contra el canal de parto, lo que aumenta la presión intracraneana y estimula el nervio vago (reflejo vagal). Es una alteración fisiológica, benigna y no indica hipoxia ni acidemia fetal (Monitoreo Categoría I de la ACOG) (Control del bienestar fetal intraparto)."
+    },
+    {
+      "id": 53,
+      "pregunta": "En el monitoreo cardiotocográfico de una paciente en trabajo de parto de término, se detecta la presencia de desaceleraciones periódicas de la FCF caracterizadas por presentar un decalaje o retardo (lag time > 18-20 segundos) entre el acmé de la contracción uterina y el nadir (punto más bajo) de la desaceleración, tardando en retornar a la línea basal mucho después de que la contracción ha finalizado. La variabilidad se encuentra reducida. De acuerdo con la interpretación cardiotocográfica (Control del bienestar fetal intraparto / Monitoreo fetal.mp4), ¿qué diagnóstico representa y cuál es la conducta obstétrica?",
+      "opciones": {
+        "a": "Desaceleración Tardía (DIP II) / Refleja Hipoxia Fetal y Reserva Placentaria Agotada (Insuficiencia Uteroplacentaria); requiere reanimación intrauterina (oxígeno, decúbito lateral izquierdo, suspensión de oxitocina) y finalización inmediata del parto si persiste (Categoría III).",
+        "b": "DIP I fisiológico / Permitir deambulación e iniciar infusión de oxitocina a dosis altas.",
+        "c": "DIP III benigno / No requiere ninguna intervención médica.",
+        "d": "Artefacto de movimiento del transductor que se soluciona apagando el equipo."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La Desaceleración Tardía (DIP II) se caracteriza por un descenso gradual de la FCF cuyo nadir ocurre después del pico o acmé de la contracción uterina (decalaje > 18 segundos), recuperándose lentamente después de que la pared uterina se ha relajado. Su mecanismo etiopatogénico es la hipoxia fetal transitoria producida por Insuficiencia Uteroplacentaria: durante la contracción, la PO2 fetal cae por debajo del umbral crítico de 15-18 mmHg, estimulando quimiorreceptores fetales que desencadenan una respuesta vagal y depresión miocárdica directa. Los DIP II repetidos/persistentes son signo firme de sufrimiento fetal agudo (Categoría III) e imponen la reanimación intrauterina e interrupción inmediata del parto por la vía más rápida (Control del bienestar fetal intraparto)."
+    },
+    {
+      "id": 54,
+      "pregunta": "Una paciente de 32 semanas de gestación es diagnosticada de primoinfección por el Virus de la Hepatitis B (HBV) tras detectarse la presencia de HBsAg (Antígeno de Superficie) POSITIVO y HBeAg positivo. De acuerdo con las guías de prevención de la transmisión perinatal de la Hepatitis B (Guía Infecciones Perinatales MSAL / Williams), ¿cuál es el protocolo inmunoprofiláctico obligatorio que se debe administrar al recién nacido dentro de las primeras 12 horas de vida para prevenir la cronicidad?",
+      "opciones": {
+        "a": "Administración al recién nacido dentro de las primeras 12 horas de vida de la Vacuna contra la Hepatitis B (1ª dosis, 0,5 ml IM) MÁS la Gammaglobulina Hiperinmune Anti-Hepatitis B (IGHB 0,5 ml IM) administradas en sitios anatómicos distintos, no contraindicándose la lactancia materna tras la inmunización.",
+        "b": "Contraindicación absoluta de vacunación neonatal y cesárea electiva con suspensión de la lactancia.",
+        "c": "Administrar tratamiento oral con Tenofovir al recién nacido durante 2 años sin vacunas.",
+        "d": "No realizar ninguna intervención inmunitaria al recién nacido hasta los 6 meses de edad."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "En los hijos de madres con HBsAg Positivo, el riesgo de transmisión vertical durante el parto vaginal o cesárea supera el 70-90% si no se realiza inmunoprofilaxis, con un riesgo de cronicidad del 90% en el lactante. El protocolo estandarizado de prevención post-exposición neonatal exige administrar al recién nacido dentro de las primeras 12 horas de vida (idealmente en las primeras 2-6 horas): 1. Vacuna contra la Hepatitis B (Monovalente): 1ª dosis de 0,5 ml IM en muslo izquierdo. 2. Gammaglobulina Hiperinmune Anti-Hepatitis B (IGHB): 0,5 ml IM (100 UI) en muslo derecho. Cumplidas ambas medidas inmunoprofilácticas en las primeras 12 hs, la lactancia materna está totalmente permitida y el riesgo de transmisión se reduce a menos del 2-3% (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 55,
+      "pregunta": "Una paciente de 38 semanas de gestación ingresa a la guardia obstétrica en trabajo de parto (4 cm de dilatación, membranas íntegras). A la especuloscopía e inspección del tracto genital inferior se observan múltiples vesículas agrupadas sobre base eritematosa y úlceras dolorosas activas en la vulva, horquilla perineal y pared vaginal anterior, correspondientes a un brote primario de Herpes Simplex Virus Tipo 2 (HSV-2). De acuerdo con las guías de patología infecciosa perinatal (Guía Infecciones Perinatales MSAL / Gori), ¿cuál es la vía de finalización del embarazo recomendada?",
+      "opciones": {
+        "a": "Parto vaginal asistido con fórceps e inducción con oxitocina a dosis altas.",
+        "b": "Cesárea Electiva / de Urgencia inmediata (antes de la rotura de membranas) para evitar el contacto directo del neonato con las lesiones herpéticas activas del canal de parto y prevenir el Herpes Neonatal Diseminado / Encefalitis.",
+        "c": "Parto vaginal espontáneo previa aplicación de crema de Aciclovir al 5% en la vulva.",
+        "d": "Ruptura artificial precoz de membranas (amniotomía) a los 4 cm de dilatación."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La presencia de lesiones clínicas activas (vesículas o úlceras) o síntomas pródromos de Herpes Genital (HSV-1 o HSV-2) en el canal de parto o vulva al momento de desencadenarse el trabajo de parto o la RPM constituye una indicación absoluta de Cesárea. La finalidad es evitar la exposición y aspiración directa del virus por el feto durante su paso por la vía vaginal, previniendo el Herpes Neonatal, una entidad gravísima asociada a encefalitis herpética, compromiso multiorgánico y elevadas secuelas neurológicas o muerte (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 56,
+      "pregunta": "Durante la evaluación del estado ácido-base de una gestante sana de 32 semanas mediante gasometría arterial en reposo, se obtienen los siguientes valores: pH 7,43; pCO2 30 mmHg (disminuida); Bicarbonato (HCO3-) 20 mEq/L (disminuido). De acuerdo con la Fisiología Obstétrica (Modificaciones generales del embarazo.mp4 / Williams / Schwartz), ¿cómo se interpreta este hallazgo bioquímico en la embarazada normal?",
+      "opciones": {
+        "a": "Alcalosis Respiratoria Crónica Compensada (fisiológica del embarazo), secundaria a la hiperventilación fisiológica inducida por la acción de la progesterona sobre el centro respiratorio bulbar.",
+        "b": "Acidosis Metabólica severa por acumulación patológica de ácido láctico.",
+        "c": "Acidosis Respiratoria Aguda por retención de dióxido de carbono.",
+        "d": "Alcalosis Metabólica pura por hiperemesis gravídica."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Durante la gestación normal se produce una adaptación respiratoria característica: 1. La Progesterona actúa directamente sobre el centro respiratorio del bulbo raquídeo, aumentando la sensibilidad al CO2 e incrementando el volumen corriente (volumen de ventilación pulmonar) en un 40%, provocando una hiperventilación fisiológica. 2. Esta hiperventilación barre el CO2, reduciendo la pCO2 arterial de los valores preconcepcionales (40 mmHg) a 28-32 mmHg. 3. Para compensar esta caída de ácido carbónico y mantener un pH fisiológico normal (7,40-7,45), los riñones incrementan la excreción renal de bicarbonato, haciendo descender el HCO3- a 18-22 mEq/L. Por lo tanto, la gasometría normal de la embarazada refleja una Alcalosis Respiratoria Crónica Compensada (Modificaciones generales del embarazo)."
+    },
+    {
+      "id": 57,
+      "pregunta": "Una gestante de 22 semanas acude al control prenatal. Presenta el informe de los análisis del segundo trimestre: la prueba de VDRL resulta reactiva a 1:32 dils. La paciente refiere haber recibido tratamiento en el mes anterior en una salita de primeros auxilios. Al revisar los comprobantes, se constata que se le administró Doxiciclina 100 mg por vía oral durante 14 días (por ser erróneamente considerada alérgica a la penicilina) y su pareja sexual no recibió tratamiento. De acuerdo con los criterios del Ministerio de Salud (Guía Infecciones Perinatales MSAL / Williams), ¿por qué este antecedente se define como Tratamiento Materno Inadecuado y cuál es la conducta médica inmediata con la gestante?",
+      "opciones": {
+        "a": "Es un tratamiento adecuado y no requiere nuevas intervenciones ni controles.",
+        "b": "Se considera Tratamiento Inadecuado por haber utilizado un antibiótico no penicilínico (la Doxiciclina no cruza eficientemente la placenta y está contraindicada) y por no haber tratado a la pareja sexual; la conducta inmediata es reiniciar el tratamiento completo con Penicilina G Benzatínica (2.400.000 UI IM semanal por 3 semanas) y tratar simultáneamente a la pareja.",
+        "c": "Se debe indicar cesárea inmediata en la semana 22.",
+        "d": "Se debe indicar la suspensión del embarazo por malformaciones irreversibles."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la Guía de Infecciones Perinatales del Ministerio de Salud de la Nación, se define como Tratamiento Materno Inadecuado para Sífilis a cualquier caso que cumpla al menos una de las siguientes condiciones: 1. Tratamiento administrado con cualquier antibiótico DIFERENTE a la Penicilina G Benzatínica (los macrólidos o tetraciclinas no garantizan el curado fetal y la doxiciclina está contraindicada en la gestación). 2. Tratamiento completado menos de 30 días antes del parto. 3. Falta de documentación clínica de las dosis y fechas de penicilina. 4. Pareja sexual no tratada simultáneamente (alto riesgo de reinfección). 5. Falta de descenso esperado en los títulos de VDRL. Al considerarse inadecuado, la gestante debe reiniciar inmediatamente el esquema completo con Penicilina G Benzatínica (3 dosis semanales de 2,4 M UI) y tratar a su pareja."
+    },
+    {
+      "id": 58,
+      "pregunta": "Una paciente de 34,2 semanas de gestación ingresa a la guardia obstétrica por Rotura Prematura de Membranas (RPM) de 8 horas de evolución, confirmada por especuloscopía y prueba de cristalización positiva. La paciente no presenta dinámica uterina, la FCF es normal (142 lpm) y los parámetros clínicos y de laboratorio descartan estrictamente corioamnionitis (sin fiebre, leucocitos normales, PCR negativa). De acuerdo con las pautas vigentes del Consenso FASGO de RPM (Consenso FASGO 2018 RPM / Actualización RPM), ¿cuál es la conducta obstétrica recomendada al alcanzar las 34 semanas de gestación?",
+      "opciones": {
+        "a": "Mantener manejo conservador expectante internada en cama hasta la semana 41.",
+        "b": "Indicar la finalización del embarazo (interrupción de la gestación mediante inducción del trabajo de parto o cesárea según condiciones obstétricas) bajo profilaxis antibiótica, debido a que a partir de la semana 34 los riesgos de infección del manejo conservador superan los beneficios de prolongar la gestación.",
+        "c": "Administrar tocolíticos por vía endovenosa a dosis altas durante 3 semanas más.",
+        "d": "Indicar alta ambulatoria inmediata con indicación de baños de inmersión diarios."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso FASGO de Rotura Prematura de Membranas (2018): • RPM en gestaciones de 34,0 semanas o más (≥ 34 semanas): Se recomienda la finalización activa del embarazo (inducción del trabajo de parto o cesárea). A partir de las 34 semanas de edad gestacional, la madurez pulmonar fetal es adecuada y los riesgos de morbimortalidad infecciosa materna y neonatal (corioamnionitis, endometritis, sepsis) derivados del manejo expectante superan ampliamente los riesgos de la prematurez tardía. • RPM < 34 semanas: Se indica manejo conservador expectante con antibióticos de latencia y corticoides."
+    },
+    {
+      "id": 59,
+      "pregunta": "La fisiología de la Lactancia Materna y la síntesis y eyección láctea en el posparto inmediato dependen de una compleja interacción neuroendocrina. De acuerdo con la Fisiología Obstétrica (Puerperio Normal / Schwartz / Gori), ¿cuáles son las dos hormonas hipofisarias principales responsables de la producción y expulsión de la leche materna, y cuál es el estímulo fisiológico desencadenante de la lactogénesis tras el parto?",
+      "opciones": {
+        "a": "Estrógenos a dosis altas (estimulan la síntesis) y Progesterona (estimula la eyección); el desencadenante es el aumento de la HCG.",
+        "b": "Prolactina (secretada por la adenohipófisis, responsable de la síntesis y producción láctea en los alvéolos) y Oxitocina (secretada por la neurohipófisis, responsable de la contracción de las células mioepiteliales alveolar-ductales para la eyección láctea); el gatillo desencadenante es la caída abrupta de los niveles de Estrógenos y Progesterona tras la salida de la placenta (alumbramiento).",
+        "c": "FSH y LH exclusivamente; el desencadenante es la ingesta de té de yuyos.",
+        "d": "Cortisol e Insulina; el desencadenante es la anestesia epidural."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La fisiología de la lactancia comprende: 1. Gatillo de la Lactogénesis: Durante el embarazo, los niveles elevados de estrógenos y progesterona placentarios inhiben el efecto secretor de la prolactina sobre el epitelio mamario. La expulsión de la placenta (alumbramiento) produce la caída abrupta de estrógenos y progesterona, liberando a la mama del bloqueo esteroideo e iniciando la subida de la leche (día 2 a 4 posparto). 2. Prolactina (Hipófisis Anterior): Estimulada por la succión del pezón, actúa sobre las células acinares mamarias para la síntesis y producción continua de leche. 3. Oxitocina (Hipófisis Posterior): Estimulada por el reflejo neuroneuroendocrino de succión, produce la contracción de las células mioepiteliales que rodean los alvéolos mamarios, desencadenando la eyección o salida de la leche (Puerperio Normal / Schwartz)."
+    },
+    {
+      "id": 60,
+      "pregunta": "La Ley Nacional N.º 25.929 de Parto Humanizado / Respetado, promulgada en la República Argentina, y el modelo de Maternidades Seguras Centradas en la Familia (MSCF) establecen los derechos inalienables de las personas gestantes y sus recién nacidos durante el proceso de nacimiento. ¿Cuál de las siguientes premisas constituye un DERECHO ESTABLECIDO por dicha legislación nacional?",
+      "opciones": {
+        "a": "El derecho a ser informada sobre las distintas intervenciones médicas, a ser tratada con respeto y dignidad, a estar ACOMPAÑADA por una persona de su elección durante el trabajo de parto, parto y posparto, y a no ser sometida a prácticas invasivas o aceleraciones injustificadas del parto.",
+        "b": "La obligación institucional de realizar episiotomía mediolateral y rasurado vulvar a todas las parturientas sin excepción.",
+        "c": "La prohibición absoluta de la presencia de familiares o acompañantes en la sala de partos.",
+        "d": "El aislamiento obligatorio del recién nacido en la nursería durante los primeros 3 días de vida."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La Ley Nacional 25.929 de Parto Respetado garantiza los derechos de la persona gestante y del recién nacido en el ámbito de la salud pública y privada : 1. A ser informada sobre las distintas intervenciones médicas y participar activamente en las decisiones. 2. A ser tratada con respeto, contención y pautas culturales específicas. 3. Al acompañamiento continuo por la persona que la gestante elija durante todo el proceso: trabajo de parto, parto y puerperio . 4. A evitar prácticas rutinarias no fundamentadas en evidencia (episiotomías sistemáticas, rasurado, enemas, amnioctomía precoz rutinaria). 5. Al contacto piel a piel inmediato irrestricto con su recién nacido y al fomento de la lactancia materna ."
+    },
+    {
+      "id": 61,
+      "pregunta": "Una paciente de 29 años, G3P0A2 (antecedente de dos pérdidas gestacionales tempranas de 8 y 10 semanas), acude al control preconcepcional. Los estudios inmunológicos confirman la presencia de Síndrome Antifosfolipídico (SAF) Obstétrico mediante la positividad a títulos medios/altos de Anticuerpos Anticardiolipina IgG, Anti-β2-Glicoproteína I y Anticoagulante Lúpico en dos determinaciones separadas por 12 semanas. De acuerdo con el Consenso de Trombofilia y Embarazo FASGO 2021, ¿cuál es el esquema farmacológico de primera línea indicado desde la confirmación de la prueba de embarazo?",
+      "opciones": {
+        "a": "Monoterapia con Warfarina por vía oral a dosis de 5 mg/día durante todo el primer trimestre.",
+        "b": "Ácido Acetilsalicílico (AAS) 100 mg/día por vía oral desde la búsqueda de gestación MÁS Heparina de Bajo Peso Molecular (HBPM / Enoxaparina) a dosis profilácticas (40 mg/día SC) iniciada inmediatamente al confirmar el embarazo.",
+        "c": "Dosis altas de Corticoides (Meprednisona 60 mg/día) sin anticoagulación ni antiagregación.",
+        "d": "Transfusión preventiva mensual de plasma fresco congelado a partir de la semana 20."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso de Trombofilia y Embarazo FASGO 2021 y las guías internacionales, el estándar de oro para el tratamiento del Síndrome Antifosfolipídico (SAF) Obstétrico en gestantes con antecedentes de pérdidas recurrentes es la combinación de Ácido Acetilsalicílico (AAS 100 mg/día) a dosis bajas (iniciado en el período preconcepcional) junto con Heparina de Bajo Peso Molecular (HBPM / Enoxaparina 40 mg/24 hs SC) a dosis profilácticas, iniciada tan pronto como se confirme la gestación por subunidad β-hCG o ecografía. Esta terapia combinada reduce la trombosis en la interfaz uteroplacentaria y eleva las tasas de recién nacido vivo por encima del 80-85%."
+    },
+    {
+      "id": 62,
+      "pregunta": "Una paciente de 26 años con diagnóstico de Epilepsia idiopática generalizada en tratamiento farmacológico acude a la consulta preconcepcional manifestando su deseo de lograr un embarazo. De acuerdo con las recomendaciones del Consenso FASGO 2023 de Epilepsia y Embarazo, ¿cuáles son las dos pautas fundamentales de manejo clínico respecto a la suplementación vitamínica y la selección del fármaco antiepiléptico?",
+      "opciones": {
+        "a": "Suspender inmediatamente todos los fármacos antiepilépticos y no indicar suplementos vitamínicos.",
+        "b": "Indicar Ácido Fólico a dosis altas de 5,0 mg/día desde la etapa preconcepcional y optimizar la terapia preferentemente hacia la monoterapia a la menor dosis eficaz (utilizando fármacos de menor teratogenia como Lamotrigina o Levetiracetam), evitando el uso de Ácido Valproico por su elevado riesgo de malformaciones estructurales.",
+        "c": "Indicar únicamente Ácido Valproico a dosis de 2.000 mg/día asociado a Vitamina K oral.",
+        "d": "Permitir la politerapia con tres anticonvulsivantes y comenzar ácido fólico a 0,4 mg/día a las 20 semanas."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso FASGO 2023 de Epilepsia y Embarazo: 1. Toda paciente con epilepsia en edad fértil debe recibir Ácido Fólico en dosis de 5 mg/día comenzando al menos 3 meses antes de la concepción, debido a la depleción de folatos producida por los inductores enzimáticos y para prevenir los Defectos del Tubo Neural (DTN). 2. Se debe ajustar el esquema antiepiléptico hacia la monoterapia a la menor dosis terapéutica eficaz, utilizando fármacos con menor perfil de teratogénesis (como Lamotrigina o Levetiracetam). 3. Se debe evitar estrictamente el Ácido Valproico (Valproato) durante la gestación, ya que presenta el mayor riesgo dosis-dependiente de anomalías congénitas mayores (DTN, hendiduras orofaciales, cardiopatías) y deterioro del coeficiente intelectual postnatal."
+    },
+    {
+      "id": 63,
+      "pregunta": "Una paciente de 24 años, embarazada de 18 semanas con antecedente de Asma Bronquial, consulta por presentar exacerbación de sus síntomas respiratorios (sibilancias nocturnas y disnea de esfuerzo). Manifiesta temor a utilizar sus inhaladores por un eventual daño al feto. De acuerdo con el Consenso FASGO de Asma y Embarazo, ¿cuál es la pauta de tratamiento de mantenimiento y de rescate de elección, y la premisa fundamental sobre el riesgo materno-fetal?",
+      "opciones": {
+        "a": "El tratamiento con inhaladores está contraindicado; se indica reposo absoluto y té con miel.",
+        "b": "Se debe indicar tratamiento de mantenimiento seguro con corticoides inhalados (Budesonida) y de rescate con agonistas β2-adrenérgicos de acción corta (Salbutamol), enfatizando que el riesgo de la hipoxia materna y fetal no controlada supera ampliamente el perfil de seguridad de los fármacos inhalados.",
+        "c": "Se debe prescribir exclusivamente Teofilina por vía endovenosa continua durante todo el embarazo.",
+        "d": "Se deben administrar corticoides sistémicos orales en megadosis continuas suspendiendo el salbutamol."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso de Asma y Embarazo FASGO: 1. Durante el embarazo, el asma sigue la \"regla de los tercios\" (un tercio mejora, un tercio empeora y un tercio no se modifica). 2. La premisa clínica fundamental es que la hipoxia materna y fetal consecutiva a un mal control del asma representa un riesgo significativamente mayor (bajo peso, prematurez, preeclampsia) que cualquier efecto adverso de los medicamentos inhalados. 3. El esquema farmacológico de elección incluye Budesonida inhalada como glucocorticoide de mantenimiento de primera línea y Salbutamol inhalado como agonista β2 de acción corta para el alivio rápido de las crisis agudas."
+    },
+    {
+      "id": 64,
+      "pregunta": "Una paciente de 30 años con antecedente de Cirugía Bariátrica (Bypass gástrico en Y de Roux) realizada hace 18 meses acude a su primer control prenatal a las 10 semanas de gestación. De acuerdo con los consensos de patología metabólica y nutricional (Consenso Cirugía Bariátrica FASGO 2024 / Consenso Obesidad 2024), ¿cuál es la recomendación sobre la detección de Diabetes Gestacional (DG) en pacientes sometidas a procedimientos malabsortivos?",
+      "opciones": {
+        "a": "Realizar la Prueba de Tolerancia Oral a la Glucosa (PTOG) con 75 g de glucosa a la semana 12 sin modificaciones.",
+        "b": "Desaconsejar la realización de la PTOG convencional de 75 g debido al alto riesgo de desencadenar un Síndrome de Dumping (dumping severo con hipotensión y marea), recomendando en su lugar el automonitoreo de glucemias capilares (perfil glucémico de 1 semana) o glucemia en ayunas seriadas.",
+        "c": "Prohibir el control de la glucemia durante todo el embarazo por falta de criterios.",
+        "d": "Indicar infusión de dextrosa al 10% en ayunas para evaluar la respuesta insulínica."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso de Cirugía Bariátrica y Embarazo FASGO 2024: 1. En pacientes con antecedentes de cirugía bariátrica con componente malabsortivo o mixto (ej. Bypass gástrico), la administración de una carga oral concentrada de 75 g de glucosa está desaconsejada o contraindicada, ya que el rápido vaciamiento gástrico hacia el yeyuno provoca un Síndrome de Dumping severo (náuseas, sudoración, hipotensión, taquicardia e hipoglucemia reactiva). 2. Para el tamizaje y diagnóstico de Diabetes Gestacional en estas pacientes, se indica la sustitución de la PTOG por el automonitoreo capilar de glucemia (perfil glucémico de 7 días) en ayunas y a las 1 y 2 horas posprandiales, o determinaciones seriadas de glucemia plasmática en ayunas."
+    },
+    {
+      "id": 65,
+      "pregunta": "Una gestante de 12 semanas acude al control prenatal. Presenta un Índice de Masa Corporal (IMC) preconcepcional de 34,5 kg/m² (Obesidad Clase I). De acuerdo con el Consenso de Obesidad y Embarazo FASGO 2024, ¿cuáles son los dos pilares de manejo preventivo recomendados respecto a la ganancia de peso y la profilaxis de Preeclampsia?",
+      "opciones": {
+        "a": "Ganancia de peso recomendada de 18 a 20 kg / Iniciar Furosemida 40 mg/día desde la semana 12.",
+        "b": "Ganancia de peso total recomendada de 5,0 a 9,0 kg / Tamizaje precoz de Diabetes Gestacional en el primer trimestre e indicación de Aspirina a bajas dosis (100-150 mg/día) desde las 12-16 semanas por el riesgo incrementado de Preeclampsia.",
+        "c": "Descenso de peso obligatorio de 15 kg mediante ayuno intermitente / Suspensión de controles.",
+        "d": "Ganancia de peso ilimitada / Indicación de reposo estricto en cama en decúbito dorsal."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso de Obesidad y Embarazo FASGO 2024: 1. En mujeres con Obesidad preconcepcional (IMC ≥ 30,0 kg/m²), la ganancia de peso corporal recomendada para todo el embarazo se limita estrictamente a 5,0 a 9,0 kg (ritmo de 200 g/semana en 2º y 3er trimestre). 2. La obesidad representa un factor de riesgo proinflamatorio y endotelial independiente para el desarrollo de estados hipertensivos y trastornos metabólicos. Por ello, se impone el tamizaje temprano de Diabetes Gestacional (glucemia en ayunas en el 1er trimestre) y la prevención primaria de Preeclampsia con Aspirina a bajas dosis (AAS 100-150 mg/día) iniciada entre las semanas 12 y 16."
+    },
+    {
+      "id": 66,
+      "pregunta": "En una gestante Rh Negativa no sensibilizada previa que presenta una Prueba de Coombs Indirecta que se torna positiva durante el seguimiento prenatal, ¿cuál es el valor de Título Crítico de Anticuerpos Anti-D (segun el laboratorio de la cátedra e Inmunohematología Perinatal / Williams) a partir del cual se considera que existe riesgo significativo de Enfermedad Hemolítica Perinatal grave, indicando el inicio del monitoreo hemodinámico fetal?",
+      "opciones": {
+        "a": "Título de 1:2 dils.",
+        "b": "Título Crítico de 1:16 a 1:32 dils.",
+        "c": "Título de 1:1.024 dils únicamente.",
+        "d": "La titulación de anticuerpos no tiene valor clínico en la gestación."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con las guías de manejo de la Isoinmunización Rh (Enfermedad Hemolítica Perinatal / Williams Obstetricia), cuando la Prueba de Coombs Indirecta cuantitativa alcanza o supera el Título Crítico de 1:16 o 1:32 dils, la concentración de anticuerpos IgG maternos anti-D es lo suficientemente elevada como para provocar la destrucción masiva de hematíes fetales en el bazo. Alcanzado este umbral crítico, carece de sentido seguir repitiendo los títulos serológicos maternos, debiendo pasarse inmediatamente a la evaluación no invasiva de la anemia fetal mediante la medición por eco-Doppler del Pico Máximo de Velocidad Sistólica de la Arteria Cerebral Media (VMS-ACM)."
+    },
+    {
+      "id": 67,
+      "pregunta": "Durante la atención de un parto vaginal de una paciente con Desprendimiento Prematuro de Placenta Normoinserta (DPPNI) severo, tras el alumbramiento el cirujano constata que el útero se encuentra atónico y flácido, observándose a la inspección directa de la superficie serosa uterina una coloración equimótica violácea o en \"mármol azulado\" difusa, producida por la extravasación de sangre hacia el miometrio y debajo de la serosa uterina. De acuerdo con la patología obstétrica (Schwartz / Williams / hemorragias de la segunda mitad), ¿cómo se denomina esta anatomía patológica y cuál es la conducta de primera línea?",
+      "opciones": {
+        "a": "Síndrome de Asherman hiperagudo / Cauterización del endometrio.",
+        "b": "Útero de Couvelaire (Apoplejía Uteroplacentaria) / Tratamiento de primera línea con uterotónicos masivos y masaje bimanual; no es indicación absoluta de histerectomía si se logra la hemostasia y firmeza del tono.",
+        "c": "Mola Invasora miometrial / Quimioterapia con Metotrexato.",
+        "d": "Inversión uterina Grado IV / Histerectomía de Wertheim-Meigs."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Útero de Couvelaire (o Apoplejía Uteroplacentaria) es una complicación anatómica severa del DPPNI masivo. Ocurre cuando la sangre del hematoma retroplacentario diseca a presión las fibras musculares del miometrio y se extravasa hacia el tejido conjuntivo miometrial, alcanzando la cubierta serosa e incluso los ligamentos anchos, otorgando al útero un aspecto atigrado o violáceo característico. Aunque históricamente se consideraba indicación de histerectomía, la evidencia actual (Williams / Schwartz) establece que el Útero de Couvelaire no es por sí solo una indicación de histerectomía: se debe instaurar el tratamiento farmacológico agresivo con uterotónicos (oxitocina, misoprostol, tranexámico) y masaje; si el miometrio responde recuperando el tono y la hemostasia, se conserva el órgano."
+    },
+    {
+      "id": 68,
+      "pregunta": "La administración antenatal de Corticoides para la Maduración Pulmonar Fetal representa una de las intervenciones perinatales con mayor impacto en la reducción de la morbimortalidad en el recién nacido pretérmino. De acuerdo con la Guía de Parto Pretérmino (MSAL / Consenso FASGO), ¿cuál es la ventana de edad gestacional de indicación estandarizada, las dosis de Betametasona y el lapso óptimo entre la administración y el nacimiento?",
+      "opciones": {
+        "a": "Indicado entre las semanas 37 y 41 de gestación / Betametasona 4 mg IM semanal por 10 semanas.",
+        "b": "Indicado entre las semanas 24,0 y 34,0 de gestación (con indicación discutida hasta 36,6 en pretérmino tardío) / Betametasona 12 mg IM cada 24 horas (total 2 dosis / 24 mg) / El efecto protector máximo se alcanza entre las 24 horas y los 7 días posteriores a la finalización del esquema.",
+        "c": "Indicado entre las semanas 12 y 20 de gestación / Hidrocortisona 1 g IV en bolo cada 6 horas.",
+        "d": "Indicado únicamente al momento del clampeo del cordón umbilical en el neonato."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la Guía de Parto Pretérmino del Ministerio de Salud y los consensos perinatales (corticoides maduración pulmonar.pdf): 1. Ventana de edad gestacional: Se indica en toda embarazada con riesgo inminente de parto pretérmino entre las semanas 24,0 y 34,0 de gestación. 2. Esquema de elección: Betametasona 12 mg IM cada 24 horas (total 2 dosis) o Dexametasona 6 mg IM cada 12 horas (total 4 dosis). 3. Mecanismo y tiempo: Estimula la transcripción génica en los neumonocitos Tipo II, acelerando la síntesis de surfactante y reduciendo la incidencia de Síndrome de Dificultad Respiratoria (SDR), hemorragia intraventricular y enterocolitis necrotizante. El lapso de máxima eficacia se logra entre las 24 horas y los 7 días tras completar la última dosis."
+    },
+    {
+      "id": 69,
+      "pregunta": "Una persona gestante no tratada durante el embarazo da a luz a las 38 semanas. En la evaluación inicial del recién nacido en la sala de partos, el neonatólogo realiza la confirmación serológica y clínica de Sífilis Congénita. De acuerdo con los criterios del Ministerio de Salud (Guía Infecciones Perinatales MSAL / Williams), ¿cuál de los siguientes parámetros serológicos o clínicos establece el diagnóstico definitivo de infección congénita en el recién nacido?",
+      "opciones": {
+        "a": "Prueba de VDRL en sangre del cordón umbilical reactiva a 1:2 dils (menor que la materna).",
+        "b": "Demostración en la sangre venosa del recién nacido de un título de VDRL 4 veces mayor (o 2 diluciones superior) al título de VDRL materno simultáneo, O la presencia de signos clínicos (pénfigo palmo-plantar, hepatosplenomegalia, rinitis serohemorrágica) y lesiones radiológicas (periostitis / osteocondritis en huesos largos).",
+        "c": "Presencia de ictericia fisiológica al 5º día de vida con VDRL negativa.",
+        "d": "Test de Apgar de 9/10 sin lesiones cutáneas ni laboratorio alterado."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la Guía de Infecciones Perinatales del Ministerio de Salud de la Nación, un recién nacido se diagnostica categóricamente de Sífilis Congénita si presenta cualquiera de los siguientes criterios: 1. Criterio Serológico: Título de VDRL (o RPR) en sangre venosa periférica del neonato (nunca de cordón) que sea al menos 4 veces superior (2 diluciones mayor) al título de VDRL materno tomado al mismo tiempo (ej. madre 1:8 dils y recién nacido 1:32 dils). 2. Criterio Microbiológico: Visualización de Treponema pallidum por campo oscuro o PCR en exudado de lesiones cutáneas, rinitis o placenta. 3. Criterio Clínico/Radiológico: Presencia de estigmas clínicos (pénfigo palmo-plantar, rinitis hemorrágica, condilomas planos) o estigmas radiológicos (periostitis, osteocondritis metafisaria o signo de Wimberger en huesos largos)."
+    },
+    {
+      "id": 70,
+      "pregunta": "Una paciente de 35 semanas de gestación, con resultado del hisopado vaginorrectal de tamizaje POSITIVO para Streptococcus agalactiae (Estreptococo Grupo B - EGB), ingresa al centro obstétrico para la realización de una Cesárea Electiva Programada por presentación pelviana. La paciente se encuentra con membranas totalmente íntegras y no ha iniciado el trabajo de parto. De acuerdo con las pautas oficiales (Consenso Estreptococo B-Hemolítico FASGO / Ley 26.639), ¿cuál es la conducta respecto a la Profilaxis Antibiótica Intraparto (PAI) para EGB?",
+      "opciones": {
+        "a": "Administrar Penicilina G Sódica 5 millones UI IV de carga inmediatamente.",
+        "b": "Se exime de realizar la Profilaxis Antibiótica Intraparto (NO requiere PAI), ya que la cesárea realizada antes del inicio del trabajo de parto y con membranas íntegras no presenta riesgo de transmisión vertical de EGB hacia el feto.",
+        "c": "Realizar lavado vaginal con iodopovidona e indicar amoxicilina oral por 30 días al neonato.",
+        "d": "Cancelar la cesárea y forzar un parto vaginal bajo anestesia general."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso de Estreptococo B-Hemolítico (FASGO) y la normativa nacional, la Profilaxis Antibiótica Intraparto (PAI) tiene como único objetivo prevenir la colonización y sepsis neonatal precoz por paso del feto a través del canal de parto colonizado o por vía ascendente tras la RPM. Por este motivo, NO se indica PAI en las pacientes a las que se les realiza una Cesárea Electiva Programada antes del inicio del trabajo de parto y con membranas intactas, independientemente del resultado del cultivo de EGB o del estatus de bacteriuria, ya que no existe exposición del feto al patógeno (Consenso Estreptococo B-Hemolítico)."
+    },
+    {
+      "id": 71,
+      "pregunta": "Una paciente de 18 semanas de gestación acude al control prenatal. Durante la anamnesis nutricional se identifica que la paciente consume una dieta marcadamente deficitaria en lácteos y derivados, calculándose una ingesta de calcio dietético menor a 600 mg/día. De acuerdo con las recomendaciones del Consenso FASGO de Trastornos Hipertensivos del Embarazo (THE FASGO 2023/2025) y las guías de la OMS, ¿cuál es la pauta de suplementación nutricional preventiva indicada para reducir el riesgo de Preeclampsia?",
+      "opciones": {
+        "a": "Administrar Vitamina D3 100.000 UI por vía oral cada 12 horas desde la semana 18.",
+        "b": "Suplementación nutricional con Calcio Elemental a dosis de 1,5 a 2,0 g/día por vía oral, administrada a partir de la semana 20 de gestación en mujeres con baja ingesta de calcio dietético.",
+        "c": "Prohibir el consumo de cualquier suplemento mineral hasta el posparto.",
+        "d": "Indicar restricción hídrica y dieta rica en sodio."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el Consenso FASGO THE (2023/2025) y las directrices de la OMS, la suplementación con Calcio Elemental (1,5 a 2,0 g/día por vía oral) administrada a partir de la semana 20 de gestación es una medida de prevención primaria con alta evidencia para reducir la incidencia de Preeclampsia en poblaciones de riesgo o en gestantes con baja ingesta de calcio en la dieta (menor a 600-800 mg/día). El calcio reduce la reactividad vascular y la secreción de hormona paratiroidea y renina, promoviendo la vasorrelajación."
+    },
+    {
+      "id": 72,
+      "pregunta": "En el protocolo de evaluación de la paciente que ingresa con sospecha clínica de Amenaza de Parto Prematuro (APP) leve entre las semanas 22 y 34 de gestación, se utiliza la determinación cuantitativa de Fibronectina Fetal (fFN) en la secreción cervicovaginal. De acuerdo con las guías de predicción del parto pretérmino (Predicción y Prevención de Parto Prematuro FASGO / Guía Parto Pretérmino MSAL), ¿cuál es la principal utilidad clínica y el significado de un resultado NEGATIVO de Fibronectina Fetal?",
+      "opciones": {
+        "a": "Un resultado negativo confirma que la paciente entrará en trabajo de parto en las siguientes 2 horas indicando cesárea.",
+        "b": "Presenta un elevado Valor Predictivo Negativo (VPN > 95-99%), lo que permite descartar de forma altamente confiable la ocurrencia del parto pretérmino dentro de los siguientes 7 a 14 días, evitando internaciones innecesarias y tocolíticos.",
+        "c": "Un resultado negativo indica la presencia de coriocarcinoma e impone quimioterapia.",
+        "d": "Confirma el diagnóstico de preeclampsia severa con HELLP."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La Fibronectina Fetal (fFN) es una glucoproteína de la matriz extracelular presente en la interfaz deciduo-coriónica. Su presencia en el fórnix vaginal posterior entre las semanas 22 y 34 indica la disrupción biológica de las membranas. La máxima fortaleza diagnóstica del test de fFN radica en su elevado Valor Predictivo Negativo (VPN > 95-99%): un resultado NEGATIVO (< 50 ng/ml) garantiza con una certeza casi absoluta que la paciente NO desencadenará un parto prematuro en los siguientes 7 a 14 días, permitiendo de forma segura el alta médica ambulatoria y evitando tratamientos tocolíticos o transferencias innecesarias (Predicción y Prevención de Parto Prematuro FASGO)."
+    },
+    {
+      "id": 73,
+      "pregunta": "Una paciente de 14 semanas de gestación es diagnosticada de Toxoplasmosis Aguda del Embarazo al confirmarse la presencia de seroconversión (o IgG con baja avidez e IgM positiva a títulos altos). De acuerdo con las pautas del Ministerio de Salud y la bibliografía perinatológica (Guía Infecciones Perinatales MSAL / Williams), ¿cuál es el esquema farmacológico de primera línea indicado para prevenir la transmisión transplacentaria al feto y cuál es la conducta si se confirma infección fetal mediante PCR en líquido amniótico?",
+      "opciones": {
+        "a": "Tratamiento con Penicilina G Benzatínica 2,4 M UI IM semanal por 3 semanas.",
+        "b": "Iniciar de inmediato tratamiento materno con Espiramicina (3 g/día por vía oral en 3 tomas) para bloquear la transmisión placentaria; si a partir de la semana 18 la PCR para Toxoplasma gondii en líquido amniótico resulta POSITIVA (confirmación de infección fetal), se debe cambiar el esquema a Pirimetamina + Sulfadiazina + Ácido Folínico.",
+        "c": "Indicación de aborto terapéutico inmediato por laparotomía.",
+        "d": "Administrar Metronidazol 500 mg c/8h por 7 días sin realizar amniocentesis."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la Guía de Infecciones Perinatales del Ministerio de Salud: 1. Ante el diagnóstico de Toxoplasmosis Aguda materna en el 1er o 2º trimestre, se indica de inmediato Espiramicina (3 g/día VO). La espiramicina se concentra en el tejido placentario y reduce un 60% la transmisión vertical del parásito al feto, pero no cruza adecuadamente la placenta para tratar al feto si este ya se infectó. 2. A partir de la semana 18 de gestación se realiza amniocentesis para PCR de Toxoplasma gondii en líquido amniótico. 3. Si la PCR es POSITIVA (feto infectado) o existen signos ecográficos de neurotoxoplasmosis (calcificaciones cerebrales, ventriculomegalia), se cambia la medicación al esquema de tratamiento fetal con Pirimetamina + Sulfadiazina + Ácido Folínico (para prevenir la aplasia medular inducida por la pirimetamina) (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 74,
+      "pregunta": "Una paciente de 28 semanas de gestación, con diagnóstico reciente de infección por VIH, se encuentra recibiendo Tratamiento Antirretroviral (TARV). Al momento del parto a las 39 semanas, la Carga Viral plasmática materna resulta Indetectable (< 50 copias/ml) y se produce un parto vaginal sin complicaciones. De acuerdo con las guías de prevención de la transmisión vertical del VIH (Guía Infecciones Perinatales MSAL), ¿cuál es el esquema de profilaxis antirretroviral indicado para el recién nacido de bajo riesgo?",
+      "opciones": {
+        "a": "No se le administra ninguna medicación al recién nacido y se permite la lactancia materna.",
+        "b": "Profilaxis neonatal con Zidovudina (AZT en jarabe oral) administrada durante 4 semanas continuas comenzando dentro de las primeras 6 a 12 horas de vida, manteniendo la contraindicación absoluta de la lactancia materna.",
+        "c": "Tratamiento tripartito con Tenofovir + Lamivudina + Dolutegravir por 2 años.",
+        "d": "Administrar Gammaglobulina Anti-D al neonato cada 8 horas."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la Guía de Infecciones Perinatales del Ministerio de Salud de la Nación: 1. Todo recién nacido expuesto al VIH debe recibir profilaxis antirretroviral neonatal comenzando en las primeras 6 a 12 horas de vida. 2. Recién nacido de Bajo Riesgo (madre con TARV y Carga Viral indetectable < 50 copias/ml al término): Indicación de Zidovudina (AZT jarabe oral) en monoterapia durante 4 semanas completas. 3. Recién nacido de Alto Riesgo (madre sin TARV o Carga Viral ≥ 50 copias/ml): Indicación de profilaxis combinada con 3 drogas (AZT + Lamivudina + Nevirapina/Raltegravir) por 4 semanas. En todos los casos, la lactancia materna está estrictamente prohibida (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 75,
+      "pregunta": "Una gestante de 36 semanas presenta los resultados de sus análisis del tercer trimestre, reportándose una Hemoglobina de 7,8 g/dl (Anemia Severa Ferropénica). La paciente refiere intolerancia digestiva severa a las sales de hierro orales con vómitos persistentes. Se encuentra cercana a la fecha del parto. De acuerdo con las guías perinatales (Anemias en la Etapa Perinatal / Williams), ¿cuál es la conducta médica indicada para la reposición rápida de los depósitos de hierro?",
+      "opciones": {
+        "a": "Mantener las sales orales de sulfato ferroso duplicando la dosis a 600 mg/día.",
+        "b": "Indicación de Hierro Parenteral Endovenoso (Hierro Sacarato / Carboximaltosa Férrica IV en infusión diluida), por presentar anemia severa en el tercer trimestre cerca del término e intolerancia oral manifestada, logrando un ascenso hemático rápido sin pasar por la vía digestiva.",
+        "c": "Transfusión profiláctica de 10 unidades de plaquetas concentradas.",
+        "d": "Suspensión de todo tratamiento hasta el puerperio tardío."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con el documento oficial (Anemias en la Etapa Perinatal.pdf), el uso de Hierro Parenteral Endovenoso (Hierro Sacarato o Carboximaltosa Férrica IV) está formalmente indicado en la gestante ante: 1) Intolerancia digestiva severa o refractariedad al hierro oral; 2) Síndromes de malabsorción intestinal; y 3) Anemia moderada a severa (Hb < 8,0 - 9,0 g/dl) diagnosticada en el tercer trimestre avanzado (semana 34 a 38), donde el lapso de tiempo hasta el parto es insuficiente para corregir la anemia por vía oral y se busca evitar la transfusión homóloga de glóbulos rojos."
+    },
+    {
+      "id": 76,
+      "pregunta": "En el estudio de la patología inmunohematológica perinatal, se diferencian la Incompatibilidad por Factor Rh(D) de la Incompatibilidad de Grupo ABO. De acuerdo con la bibliografía de la cátedra (Enfermedad Hemolítica Perinatal / Williams Obstetricia), ¿cuáles son las características clínicas diferenciales de la Incompatibilidad ABO respecto a la Incompatibilidad Rh?",
+      "opciones": {
+        "a": "La incompatibilidad ABO es extremadamente grave, causa siempre hidrops fetal masivo y ocurre únicamente en el cuarto embarazo.",
+        "b": "La incompatibilidad ABO ocurre característicamente en madres de Grupo O con fetos de Grupo A o B; los anticuerpos naturales (anti-A / anti-B de tipo IgM e IgG) pueden estar presentes previamente, por lo que PUEDE AFECTAR AL PRIMER EMBARAZO; su curso clínico es habitualmente LEVE, manifestándose como ictericia neonatal precoz que responde a fototerapia, rara vez produciendo anemia severa o hidrops.",
+        "c": "La incompatibilidad ABO requiere transfusiones intrauterinas obligatorias en la semana 16.",
+        "d": "La incompatibilidad ABO no produce ictericia ni hemólisis en ningún caso."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En el diagnóstico diferencial de la enfermedad hemolítica del recién nacido (Enfermedad Hemolítica Perinatal): 1. Incompatibilidad Rh(D): Requiere sensibilización previa (no afecta al primer embarazo salvo transfusión errónea); los anticuerpos son de tipo IgG pura y pueden causar anemia fetal catastrófica, hidrops y óbito. 2. Incompatibilidad ABO: Ocurre casi exclusivamente en madres de Grupo O con fetos de Grupo A o B. Dado que los anticuerpos isoaglutininas Anti-A y Anti-B (parte de ellos de tipo IgG) existen de forma natural en el plasma materno antes de la gestación, PUEDE AFECTAR AL PRIMER EMBARAZO. Su evolución clínica es benigna y leve: no causa anemia fetal intrauterina ni hidrops, manifestándose postnatalmente como ictericia neonatal precoz que cede rápidamente con fototerapia convencional (Williams Obstetricia)."
+    },
+    {
+      "id": 77,
+      "pregunta": "El Perfil Biofísico Fetal (PBF de Manning) es una prueba de evaluación de la salud fetal que combina la ultrasonografía con el monitoreo cardiotocográfico. De acuerdo con la Fisiología Obstétrica (Control del bienestar fetal intraparto / Williams / Schwartz), ¿cuáles son las 5 variables biofísicas que evalúa el PBF y cómo se interpreta una puntuación de 8/10 o 10/10?",
+      "opciones": {
+        "a": "Evalúa la presión arterial materna, la glucemia, el peso materno, la talla y la frecuencia respiratoria; una puntuación de 10 indica parto inmediato.",
+        "b": "Evalúa 5 variables (4 ecográficas: Movimientos Respiratorios Fetales, Movimientos Corporales Fetales, Tono Fetal y Volumen de Líquido Amniótico; y 1 cardiotocográfica: Reactividad de la FCF en la Prueba No Estresante / NST); cada variable otorga 2 puntos (si está presente) o 0 (si está ausente). Una puntuación de 8/10 o 10/10 con volumen de líquido amniótico normal indica ausencia de asfixia fetal y bienestar fetal conservado.",
+        "c": "Evalúa únicamente el flujo del cordón umbilical por Doppler otorgando 100 puntos.",
+        "d": "Evalúa la dilatación cervical y el borramiento en la escala de Bishop."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Perfil Biofísico Fetal de Manning (PBF) combina la evaluación del SNC y del medio ambiente fetal: 1. Prueba No Estresante (NST): Reactividad de la FCF (2 pts). 2. Movimientos Respiratorios Fetales: Al menos 1 episodio de ≥ 30 segundos en 30 minutos (2 pts). 3. Movimientos Corporales Fetales: Al menos 3 movimientos discretos de tronco/extremidades en 30 minutos (2 pts). 4. Tono Fetal: Al menos 1 episodio de extensión activa con retorno a la flexión de extremidades o tronco (2 pts). 5. Volumen de Líquido Amniótico: Al menos un bolsillo vertical ≥ 2 cm (2 pts). Una puntuación de 8/10 o 10/10 (con ILA normal) refleja un SNC fetal bien oxigenado y ausencia de hipoxia, con un riesgo de muerte fetal en la semana siguiente menor a 1 en 1.000 (Control del bienestar fetal intraparto)."
+    },
+    {
+      "id": 78,
+      "pregunta": "Durante la evaluación cardiotocográfica del trabajo de parto, se identifican desaceleraciones de la Frecuencia Cardíaca Fetal caracterizadas por presentar una caída abrupta de la FCF (en forma de \"V\", \"U\" o \"W\") con un inicio y fondo que varían constantemente en relación con las contracciones uterinas, mostrando un rápido retorno a la línea basal. De acuerdo con la clasificación cardiotocográfica (Control del bienestar fetal intraparto / Monitoreo fetal.mp4), ¿cómo se denominan estas desaceleraciones y cuál es su mecanismo fisiopatológico?",
+      "opciones": {
+        "a": "Desaceleraciones Tempranas (DIP I) por compresión de la cabeza fetal.",
+        "b": "Desaceleraciones Tardías (DIP II) por insuficiencia uteroplacentaria.",
+        "c": "Desaceleraciones Variables (DIP III) / Producidas por la compresión u oclusión transitoria de los vasos sanguíneos del Cordón Umbilical (desencadenando una respuesta vagal por aumento de la resistencia vascular periférica fetal).",
+        "d": "Patrón Sinusoidal por hemorragia fetomaterna masiva."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Las Desaceleraciones Variables (DIP III) son las alteraciones más frecuentes del trazado intraparto. Sus características son: 1. Forma abrupta y variable (en \"V\" o \"W\"), con descenso rápido de la FCF y recuperación veloz. 2. Su relación temporal con la contracción uterina es incostante y variable. 3. Mecanismo Fisiopatológico: Ocurren por compresión o tracción del Cordón Umbilical (circulares de cordón, cordón breve o prolapso). La oclusión de la vena umbilical genera hipotensión y taquicardia compensatoria; la posterior oclusión de la arteria umbilical eleva bruscamente la presión arterial fetal, barorrecibiendo una respuesta vagal que cae la FCF. Si no son severas ni repetidas y conservan la variabilidad, no indican hipoxia (Control del bienestar fetal intraparto)."
+    },
+    {
+      "id": 79,
+      "pregunta": "Una paciente de 40 semanas de gestación ingresa en trabajo de parto activo. Al realizar la amniotomía se observa la salida de Líquido Amniótico Meconial Espeso (en \"puré de arvejas\"). En el monitoreo cardiotocográfico continuo se detecta una pérdida de la variabilidad de la FCF y desaceleraciones tardías repetidas (DIP II persistentes). De acuerdo con las normas de atención del parto patológico (Parto patológico siiiii / Williams / Control del bienestar fetal), ¿cuál es la interpretación clínica y la conducta obstétrica inmediata?",
+      "opciones": {
+        "a": "Trazado tranquilizador / Permitir el parto vaginal espontáneo sin apuro en 12 horas.",
+        "b": "Intolerancia Fetal al Trabajo de Parto / Sufrimiento Fetal Agudo (SFA) por asfixia intrauterina y riesgo de Síndrome de Aspiración Meconial (SAM) / Indicar la finalización inmediata del parto por la vía más rápida (Cesárea de Urgencia).",
+        "c": "Indicar reposo en posición supina e iniciar infusión de oxitocina a dosis máximas.",
+        "d": "Alta ambulatoria con indicación de caminata diaria."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "La presencia de Líquido Amniótico Meconial Espeso (\"puré de arvejas\") es un signo de alarma que refleja la relajación del esfínter anal fetal por estimulación vagal inducida por hipoxia o madurez extrema. Cuando el meconio espeso se acompaña de un trazado cardiotocográfico Categoría III / No Tranquilizador (DIP II persistentes o variabilidad ausente), se confirma el diagnóstico de Sufrimiento Fetal Agudo (Intolerancia Fetal al Trabajo de Parto). La falta de oxigenación adecuada asociada al riesgo inminente de Síndrome de Aspiración Meconial (SAM) grave impone la interrupción inmediata del parto por Cesárea de Urgencia (Parto patológico / Williams)."
+    },
+    {
+      "id": 80,
+      "pregunta": "Una paciente acude al primer control prenatal refiriendo como Fecha de Última Menstruación (FUM) el 1 de junio. Se realiza una ecografía transvaginal precoz en la que se mide la Longitud Cefalocaudal (CRL) embrionaria, la cual reporta una Edad Gestacional por ecografía de 9,5 semanas, existiendo una discrepancia de 14 días (2 semanas) en exceso respecto a la Edad Gestacional calculada por la FUM (que indicaba 7,5 semanas). De acuerdo con los criterios estandarizados de la ecografía obstétrica y las guías de la cátedra (Guía de TP 1 Cálculo de EG y FPP / Ecografía TA y TV), ¿cuál es la conducta correcta respecto a la asignación de la Edad Gestacional y la Fecha Probable de Parto (FPP)?",
+      "opciones": {
+        "a": "Mantener indefectiblemente la EG por FUM ignorando la ecografía durante todo el embarazo.",
+        "b": "Redeterminar la Edad Gestacional y la Fecha Probable de Parto asignando la Edad Gestacional Ecográfica derivada de la medición del CRL, debido a que en el primer trimestre la discrepancia entre la FUM y el CRL es mayor a 5-7 días, siendo el CRL ecográfico precoz el parámetro de mayor precisión para datar la gestación.",
+        "c": "Promediar ambas fechas y sumar 30 días adicionales.",
+        "d": "Solicitar una tomografía axial computada para medir el fémur."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la Guía de Trabajo Práctico Nº 1 (Cálculo de EG y FPP) y los consensos ultrasonográficos (Ecografía TA y TV / Williams): 1. La Longitud Cefalocaudal (CRL) embrionaria medida por ecografía transvaginal entre las semanas 6 y 13,6 de gestación es el parámetro más preciso de toda la obstetricia para estimar la edad gestacional (margen de error de solo pm 3 a 5 días). 2. Regla de Redeterminación de la FPP: Si la diferencia entre la EG calculada por una FUM confiable y la EG estimada por la medición del CRL en el primer trimestre es mayor a 5 a 7 días, se debe descartar la FUM y redeterminar la Fecha Probable de Parto ajustándola a la Edad Gestacional Ecográfica."
+    },
+    {
+      "id": 81,
+      "pregunta": "Una paciente de 10 semanas de gestación acude a su primer control prenatal. Presenta el informe del laboratorio de tamizaje del primer trimestre, reportándose una serología para Toxoplasmosis con IgG Negativa (-) e IgM Negativa (-). De acuerdo con las guías de control prenatal e infecciones perinatales (Guía Infecciones Perinatales MSAL / Control preconcepcional original), ¿cuál es el significado clínico de este resultado y cuál es la pauta de manejo asistencial?",
+      "opciones": {
+        "a": "Define a la gestante como Susceptible (no inmunizada) / Se deben prescribir pautas profilácticas de prevención primaria (consumo de carnes bien cocidas, lavado riguroso de frutas y verduras, evitar la manipulación de heces de gato y trabajo en tierra sin guantes) y solicitar la repetición serológica de IgG e IgM en cada trimestre del embarazo (2º y 3er trimestre) y al momento del parto.",
+        "b": "Define a la paciente como Inmune / Se le otorga el alta serológica definitiva descartando infecciones futuras.",
+        "c": "Confirma una infección crónica latente / Se indica tratamiento inmediato con Espiramicina 3 g/día por 9 meses.",
+        "d": "Sugiere un falso negativo / Se indica la realización inmediata de amniocentesis para PCR de Toxoplasma gondii."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "La negatividad simultánea de IgG (-) e IgM (-) para Toxoplasmosis al inicio de la gestación indica que la paciente nunca ha estado en contacto con el parásito (Toxoplasma gondii) y carece de anticuerpos protectores (gestante susceptible). Dado que la primoinfección materna durante el embarazo conlleva un riesgo de transmisión vertical con secuelas neonatales graves (coriorretinitis, hidrocefalia, calcificaciones cerebrales), la conducta estandarizada exige: 1) Educación en profilaxis primaria higiénico-dietética; y 2) Monitoreo serológico periódico con IgG e IgM en el 2º y 3er trimestre y al parto para detectar tempranamente una eventual seroconversión e iniciar tratamiento (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 82,
+      "pregunta": "Una paciente internada en la unidad de cuidados intensivos obstétricos con diagnóstico de Preeclampsia Severa se encuentra recibiendo infusión intravenosa continua de Sulfato de Magnesio (MgSO4) a 1 g/hora para la prevención de convulsiones eclámpticas. Durante el control clínico periódico de enfermería y obstetricia, se detecta: Abolición completa del reflejo patelar (arreflexia rotuliana), Frecuencia Respiratoria de 10 respiraciones por minuto y somnolencia. ¿A qué cuadro clínico corresponde este hallazgo y cuál es la intervención médica de emergencia?",
+      "opciones": {
+        "a": "Efecto terapéutico deseado / Aumentar la velocidad de infusión del Sulfato de Magnesio al doble.",
+        "b": "Intoxicación por Sulfato de Magnesio / Suspender de inmediato la infusión de MgSO4, administrar oxígeno suplementario por máscara y aplicar el antídoto específico: Gluconato de Calcio al 10% (1 gramo IV lento a pasar en 10 minutos).",
+        "c": "Ataque eclámptico inminente / Administrar un bolo de Diazepam 10 mg IV directo.",
+        "d": "Accidente cerebrovascular hemorrágico / Indicar trombolíticos sistémicos con Alteplase."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Sulfato de Magnesio presenta una ventana terapéutica estrecha (4 a 7 mEq/L). Por este motivo, la paciente en tratamiento requiere monitoreo clínico estricto cada 30 minutos (Manual breve Emergencia Obstétrica / Consenso THE FASGO): 1. Reflejo Patelar: Su abolición es el primer signo clínico de hipermagnesemia/toxicidad (niveles > 8-10 mEq/L). 2. Frecuencia Respiratoria: Valores < 12-16 resp/min reflejan depresión respiratoria (niveles > 12-15 mEq/L). 3. Diuresis Horaria: Debe ser > 100 ml/3 horas (> 30 ml/h), ya que el magnesio se excreta exclusivamente por vía renal. Ante cualquier signo de intoxicación, la conducta inmediata es suspender la infusión y administrar su antídoto antagónico competitivo: Gluconato de Calcio al 10% (1 g IV lento) (Consenso THE FASGO / HTA en el embarazo)."
+    },
+    {
+      "id": 83,
+      "pregunta": "En la estrategia de prevención primaria del parto pretérmino espontáneo, se realiza la medición de la Longitud Cervical mediante Ecografía Transvaginal (cervicometría) a todas las gestantes durante el examen morfológico fetal (Scan Fetal) entre las semanas 18 y 24 de gestación. De acuerdo con los consensos de medicina maternofetal (Predicción y Prevención de Parto Prematuro FASGO / Guía Parto Pretérmino MSAL), ¿cuál es el valor de corte milimétrico que define un Cérvix Corto y un riesgo elevado de parto prematuro?",
+      "opciones": {
+        "a": "Longitud Cervical menor a 50 mm.",
+        "b": "Longitud Cervical exactamente de 35 mm con cérvix posterior.",
+        "c": "Longitud Cervical menor o igual a 25 mm (o < 20 mm), especialmente cuando se acompaña de embudización o tunelización (funneling) del orificio cervical interno.",
+        "d": "Longitud Cervical mayor a 60 mm medida por ecografía transabdominal con vejiga llena."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "La cervicometría transvaginal entre las semanas 18 y 24 es el predictor ultrasonográfico aislado más sólido para el parto pretérmino espontáneo. Una Longitud Cervical (LC) ≤ 25 mm (semana 18-24) se define formalmente como Cérvix Corto, reflejando la pérdida de la capacidad mecánica de contención del cérvix. Su hallazgo en gestantes asintomáticas sin antecedente previo es una indicación precisa para iniciar tratamiento con Progesterona Micronizada Vaginal (200 mg/día) hasta la semana 36 (Predicción y Prevención de Parto Prematuro FASGO)."
+    },
+    {
+      "id": 84,
+      "pregunta": "Una paciente con diagnóstico de Diabetes Gestacional (DG) se encuentra realizando tratamiento no farmacológico con plan de alimentación normocalórico y actividad física aeróbica adaptada desde hace 2 semanas. Al revisar su planilla de automonitoreo glucémico capilar (4 controles diarios), se observa que más del 30% de los registros de glucemia en ayunas superan los 95 mg/dl y los registros posprandiales a las 2 horas superan los 120 mg/dl. De acuerdo con las guías oficiales (Consenso Diabetes Gestacional FASGO 2024 / ALAD 2016), ¿cuál es la conducta terapéutica indicada?",
+      "opciones": {
+        "a": "Continuar con la dieta por 3 meses más sin agregar medicamentos.",
+        "b": "Indicar Glibenclamida 10 mg cada 12 horas por vía oral.",
+        "c": "Solicitar una nueva Prueba de Tolerancia Oral a la Glucosa (PTOG 75).",
+        "d": "Confirmar el fracaso del tratamiento no farmacológico e iniciar Insulinoterapia (Insulina NPH basal a dosis inicial de 0,1 a 0,2 UI/kg/día), por no alcanzarse los objetivos de control glucémico en más del 20% de los controles."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "De acuerdo con las metas del Consenso de Diabetes Gestacional FASGO 2024 y ALAD 2016, las metas metabólicas estrictas son: Glucemia en ayunas entre 70 y 90-95 mg/dl y Glucemia posprandial a las 2 horas < 120 mg/dl (o a la 1 hora < 140 mg/dl). Cuando tras 1 a 2 semanas de dieta y ejercicio no se logran estos objetivos en más del 20% de las determinaciones del automonitoreo, está formalmente indicado iniciar el tratamiento farmacológico de primera línea: la Insulinoterapia (Insulina humana NPH). Los hipoglucemiantes orales convencionales no se recomiendan como terapia primaria de rutina (Consenso Diabetes Gestacional FASGO 2024)."
+    },
+    {
+      "id": 85,
+      "pregunta": "Una paciente de 14 semanas de gestación acude al control prenatal. Presenta el informe de la serología para Hepatitis C, resultando el anticuerpo Anti-HCV POSITIVO (+). Las enzimas hepáticas (TGO/TGP) están levemente elevadas. De acuerdo con las guías de manejo de las infecciones virales perinatales (Guía Infecciones Perinatales MSAL / Williams), ¿cuál es la prueba de confirmación diagnóstica, la recomendación sobre la vía de parto y la seguridad de los antivirales de acción directa durante el embarazo?",
+      "opciones": {
+        "a": "Confirmar la viremia mediante detección de ARN-HCV cuantitativo por PCR; la vía de parto vaginal no está contraindicada por el virus de la Hepatitis C de forma aislada, y el tratamiento antiviral específico está CONTRAINDICADO durante el embarazo, debiendo diferirse al puerperio/lactancia.",
+        "b": "Indicar cesárea electiva obligatoria en la semana 32 e iniciar sofosbuvir/ledipasvir inmediato.",
+        "c": "Indicar interrupción legal del embarazo por alto riesgo de teratogenia.",
+        "d": "Transfundir 4 unidades de plasma e indicar lactancia materna cruzada."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "De acuerdo con la Guía de Infecciones Perinatales del Ministerio de Salud: 1. Ante un Anti-HCV positivo, la confirmación de la infección activa y replicación viral se realiza mediante la detección del ARN del virus de la Hepatitis C (ARN-HCV) por PCR. 2. La tasa de transmisión vertical es del 4 al 8%. La vía de parto vaginal es la de elección: la cesárea electiva no ha demostrado reducir la transmisión vertical del HCV, reservándose solo para indicaciones obstétricas o coinfección por VIH. 3. Los nuevos antivirales de acción directa (AAD) no están aprobados ni recomendados durante la gestación por falta de estudios de seguridad, por lo que el tratamiento materno se postpone para después del parto (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 86,
+      "pregunta": "Una paciente de 33 semanas de gestación, con antecedente de Preeclampsia, ingresa a la guardia obstétrica con un cuadro clínico caracterizado por dolor abdominal continuo de inicio brusco en hipogasto, útero hiperfónico y marcadamente leñoso a la palpación (\"útero de madera\"), escaso sangrado vaginal oscuro y bradicardia fetal (100 lpm). Se realiza de urgencia una ecografía obstétrica en la guardia, la cual reporta \"placenta normoinserta de aspecto homogéneo sin visualización clara de colecciones retroplacentarias\". De acuerdo con la patología obstétrica (Schwartz / Williams / Hemorragias de la 2ª mitad), ¿cómo se interpreta el resultado ecográfico negativo frente a la sospecha de Desprendimiento Prematuro de Placenta Normoinserta (DPPNI)?",
+      "opciones": {
+        "a": "El resultado ecográfico normal descarta categóricamente el DPPNI, debiendo darse el alta a la paciente.",
+        "b": "El diagnóstico de DPPNI es eminentemente CLÍNICO; la ecografía obstétrica presenta una sensibilidad baja (25% a 50%) para detectar el hematoma retroplacentario agudo en las primeras horas, por lo que un informe ecográfico negativo NO descarta el desprendimiento y NO debe retrasar la decisión de realizar una cesárea de urgencia.",
+        "c": "Se debe esperar 48 horas en observación hasta que el hematoma ecográfico se calcifique.",
+        "d": "Se debe indicar legrado evacuador uterino en el shock room."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "El Desprendimiento Prematuro de Placenta Normoinserta (DPPNI / Abruptio Placentae) es una emergencia clínica. El hallazgo ultrasonográfico del hematoma retroplacentario isoecoico en la fase hiperaguda es muy difícil de visualizar, alcanzando la ecografía una sensibilidad de apenas el 25% al 50%. Por este motivo, la regla de oro perinatológica establece que el diagnóstico de DPPNI es fundamentalmente CLÍNICO (dolor agudo, hipertonía uterina leñosa y sufrimiento fetal). Retrasar la evacuación uterina de urgencia a la espera de una confirmación ecográfica conduce a la muerte fetal intrauterina, coagulopatía de consumo (CID) y colapso materno (Williams / Schwartz)."
+    },
+    {
+      "id": 87,
+      "pregunta": "Durante la ecografía Doppler de rutina realizada entre las semanas 20 y 24 de gestación (Scan Fetal / Doppler de segundo trimestre) a una paciente primigesta, el especialista en imágenes analiza el flujo de las Arterias Uterinas maternas. Se reporta la persistencia de una muesca protodiastólica profunda (notch bilateral) e Índice de Pulsatilidad (IP) medio por encima del percentil 95. De acuerdo con la fisiopatología obstétrica (ActualizacionconsensoRCIUFASGO / Consenso THE FASGO / Apuntes obstetricia), ¿qué proceso placentario subyacente refleja este hallazgo y a qué patologías predispone?",
+      "opciones": {
+        "a": "Refleja la hipertrofia fisiológica normal de la capa media de las arterias espiraladas.",
+        "b": "Refleja un flujo de ultra-baja resistencia con invasión trofoblástica completa.",
+        "c": "Refleja el fracaso o deficiencia en la segunda ola de invasión trofoblástica de las arterias espiraladas deciduo-miometriales, persistiendo vasos de alta resistencia e hipoperfusión placentaria, constituyendo un marcador de alto riesgo para el desarrollo posterior de Preeclampsia y Restricción del Crecimiento Intrauterino (RCIU) tardía.",
+        "d": "Refleja la presencia de una malformación arteriovenosa pulmonar en el feto."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Entre las semanas 16 y 20 de gestación ocurre la segunda ola de invasión trofoblástica, en la cual el citotrofoblasto destruye la capa musculoelástica de las arterias espiraladas miometriales, transformándolas en vasos capacitivos dilatados de baja resistencia. Cuando esta invasión es defectuosa, las arterias uterinas conservan su tono vascular y alta resistencia. En el eco-Doppler esto se traduce en la persistencia del notch protodiastólico e IP medio > p95 en las Arterias Uterinas, constituyendo el principal biomarcador biofísico de predicción de Preeclampsia e Insuficiencia Placentaria / RCIU (Actualización Consenso RCIU FASGO 2017 / THE FASGO)."
+    },
+    {
+      "id": 88,
+      "pregunta": "Una paciente de 38 semanas de gestación en trabajo de parto activo ingresa a la maternidad. En la revisión de su carnet perinatal consta haber presentado a las 14 semanas de gestación un urocultivo positivo para Streptococcus agalactiae (Estreptococo Grupo B - EGB) con 120.000 UFC/ml (Bacteriuria por EGB), el cual fue tratado en su momento con cefalexina. No se dispone del cultivo anogenital de las semanas 35-37. De acuerdo con las normas de prevención de la sepsis neonatal por EGB (Consenso Estreptococo B-Hemolítico FASGO / Ley 26.639 / Guía Infecciones Perinatales MSAL), ¿cuál es la conducta respecto a la Profilaxis Antibiótica Intraparto (PAI)?",
+      "opciones": {
+        "a": "Solicitar un hisopado vaginorrectal de urgencia y diferir los antibióticos hasta el resultado.",
+        "b": "No realizar ninguna profilaxis por haber completado el tratamiento en el primer trimestre.",
+        "c": "Indicar cesárea de urgencia sin antibióticos.",
+        "d": "La presencia de Bacteriuria por EGB en cualquier momento del embarazo actual es un indicador categórico de colonización materna de alto inóculo, por lo que NO REQUIERE cultivo en la semana 35-37 e INDICA DE FORMA OBLIGATORIA la Profilaxis Antibiótica Intraparto (PAI) con Penicilina G EV durante el trabajo de parto."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "De acuerdo con la Ley Nacional 26.639 y el Consenso de Estreptococo B-Hemolítico (FASGO), existen dos situaciones clínicas en las que la paciente SE CONSIDERA COLONIZADA DE ALTO RIESGO y NO requiere hisopado vaginorrectal a las 35-37 semanas, indicándose directamente la Profilaxis Antibiótica Intraparto (PAI) con Penicilina G EV desde el inicio del trabajo de parto o RPM: 1. Antecedente de un hijo anterior con enfermedad invasora/sepsis por EGB. 2. Detección de Bacteriuria por EGB (asintomática o sintomática) en cualquier momento del embarazo actual, ya que refleja un elevado grado de colonización genitourinaria y gastrointestinal materna (Consenso Estreptococo B-Hemolítico FASGO)."
+    },
+    {
+      "id": 89,
+      "pregunta": "Una paciente gestante de 34 semanas es evaluada en la guardia por hipertensión arterial. De acuerdo con los criterios diagnósticos del Consenso FASGO de Trastornos Hipertensivos del Embarazo (THE FASGO 2023/2025), ¿cuál de los siguientes hallazgos de laboratorio o examen físico define la presencia de Preeclampsia con Criterios de Gravedad (Preeclampsia Severa)?",
+      "opciones": {
+        "a": "Presión Arterial ≥ 160/110 mmHg, Recuento de Plaquetes < 100.000/mm³, Transaminasas (TGO/TGP) al doble del valor normal, Creatinina sérica > 0,9-1,1 mg/dl, o síntomas neurosensoriales (cefalea severa, escotomas).",
+        "b": "Presión arterial de 135/85 mmHg con edema leve en tobillos.",
+        "c": "Presión arterial de 140/90 mmHg con proteinuria de 350 mg en 24 horas sin otros síntomas.",
+        "d": "Glucemia en ayunas de 92 mg/dl con uricemia de 3,0 mg/dl."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Según el Consenso FASGO THE (2023/2025), la presencia de cualquiera de los siguientes parámetros en una mujer con hipertensión gestacional o preeclampsia establece la categoría de Preeclampsia Severa / con Criterios de Gravedad: 1. Hipertensión Severa: PAS ≥ 160 mmHg y/o PAD ≥ 110 mmHg en dos tomas. 2. Trombocitopenia: Plaquetas < 100.000/mm³. 3. Disfunción Hepática: Elevación de TGO/TGP al doble del límite superior O dolor severo e persistente en epigastrio/hipocondrio derecho. 4. Insuficiencia Renal Progresiva: Creatinina sérica > 1,1 mg/dl (o duplicación del valor basal). 5. Edema Agudo de Pulmón o cianosis. 6. Trastornos Neurológicos/Visuales de novo: Cefalea holocraneana refractaria, escotomas centellantes, fotopsias, hiperreflexia (Consenso THE FASGO)."
+    },
+    {
+      "id": 90,
+      "pregunta": "Una paciente con diagnóstico de Diabetes Gestacional (DG) durante el embarazo, tratada exitosamente con plan alimentario, da a luz a las 39 semanas. Durante el puerperio inmediato las glucemias en ayunas se mantienen normales (< 100 mg/dl) y se suspende la dieta estricta. De acuerdo con las pautas de la Asociación Latinoamericana de Diabetes (ALAD) y el Consenso de Diabetes Gestacional FASGO 2024, ¿cuándo y cómo se debe realizar la Reclasificación Metabólica Posparto de la paciente?",
+      "opciones": {
+        "a": "Se realiza a las 24 horas del parto mediante una prueba de HbA1c.",
+        "b": "Se realiza a la 6ª semana del posparto (o al finalizar el puerperio alejado) mediante la realización de una Prueba de Tolerancia Oral a la Glucosa con 75 g de glucosa (PTOG 75), aplicando los criterios de la OMS para población no gestante.",
+        "c": "No requiere ningún estudio de reclasificación si el bebé nació con peso normal.",
+        "d": "Se indica una biopsia pancreática a los 6 meses del nacimiento."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con los protocolos perinatológicos oficiales (Consenso Diabetes Gestacional FASGO 2024 / ALAD 2016): 1. Toda paciente diagnosticada de Diabetes Gestacional debe ser evaluada en el posparto tardío para determinar si la alteración hidrocarbonada se resolvió completamente o si persiste como una Diabetes Mellitus Tipo 2 o Tolerancia Alterada a la Glucosa (TAG). 2. La Reclasificación Metabólica Posparto se programa a la 6ª semana del posparto (finalizado el puerperio) solicitando una PTOG con 75 g de glucosa: o Glucemia en ayunas < 100 mg/dl y a las 2 hs < 140 mg/dl = Normal. o Glucemia a las 2 hs entre 140 y 199 mg/dl = Tolerancia Alterada a la Glucosa (Pre-diabetes). o Glucemia en ayunas ≥ 126 mg/dl o a las 2 hs ≥ 200 mg/dl = Diabetes Mellitus (Consenso Diabetes Gestacional FASGO 2024 / ALAD 2016)."
+    },
+    {
+      "id": 91,
+      "pregunta": "En el algoritmo de seguimiento y estadificación por Doppler del feto con Restricción del Crecimiento Intrauterino (RCIU / RCF) precoz (< 32 semanas), de acuerdo con la clasificación de Gratacós adoptada por la cátedra (ActualizacionconsensoRCIUFASGO / Apuntes obstetricia / Libro Pontelli SIM 2026), ¿cuál es la alteración en el Ductus Venoso (DV) de Arancio que define el Estadio IV (Máxima Gravedad / Riego inminente de Muerte Fetal) e impone la finalización inmediata del embarazo por Cesárea a partir de la semana 26?",
+      "opciones": {
+        "a": "Aumento del índice de pulsatilidad de la arteria umbilical con diástole presente.",
+        "b": "Vasodilatación compensatoria aislada de la Arteria Cerebral Media (ACM).",
+        "c": "Inversión o ausencia de la onda 'a' de contracción auricular en el Ductus Venoso (DVa reverso/ausente) O la presencia de desaceleraciones repetidas de la FCF en la cardiotocografía computarizada.",
+        "d": "Presencia de líquido amniótico normal con peso estimado en el percentil 8."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "En la estadificación del RCIU precoz (Actualización Consenso RCIU FASGO 2017 / Libro Pontelli SIM 2026): • Estadio I (Insuficiencia Placentaria Leve): IP AU > p95 o ICP < p5 o IP AUt > p95. • Estadio II (Insuficiencia Placentaria Severa): Flujo diastólico ausente en Arteria Umbilical (AU). • Estadio III (Baja sospecha de Acidosis): Flujo diastólico reverso en AU o IP DV > p95. • Estadio IV (ALTA SOSPECHA DE ACIDOSIS Y FALLA CARDÍACA): Se define por la ausencia o inversión de la onda 'a' de contracción auricular en el Ductus Venoso (DVa ausente/reverso) o un patrón desacelerativo/variabilidad < 3-5 ms en la CTG. Refleja la falla de la función miocárdica derecha y acidemia fetal grave, siendo la indicación de Cesárea de Urgencia inmediata a partir de las 26 semanas (Actualización Consenso RCIU FASGO)."
+    },
+    {
+      "id": 92,
+      "pregunta": "Una paciente gestante de 28 semanas con Factor Rh Negativo (d/d) no sensibilizada (Coombs Indirecta negativa) acude a la guardia por haber sufrido un traumatismo abdominal cerrado en un accidente de tránsito. No presenta sangrado ni desprendimiento al examen. De acuerdo con los protocolos de prevención de la isoinmunización Rh (Enfermedad Hemolítica Perinatal / Consenso Trombofilia), ¿cuál es la indicación referente a la profilaxis inmunitaria?",
+      "opciones": {
+        "a": "No requiere profilaxis si la ecografía materna muestra feto vivo sin hematomas.",
+        "b": "Indicar reposo absoluto por 30 días sin medicación de ningún tipo.",
+        "c": "Transfundir 2 unidades de glóbulos rojos concentrados Rh positivos a la madre.",
+        "d": "Administrar una dosis de Gammaglobulina Anti-D (300 mcg IM) dentro de las 72 horas del evento traumático, debido al riesgo de microtransfusión fetomaterna inadvertida."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "En toda persona gestante Rh Negativa no sensibilizada, además de la profilaxis sistemática de las 28 semanas y del posparto, se debe administrar una dosis suplementaria profiláctica de Gammaglobulina Anti-D (300 mcg / 1.500 UI IM) dentro de las 72 horas posteriores a cualquier evento con riesgo de microhemorragia o transfusión fetomaterna: 1. Traumatismo abdominal materno (accidente, caída). 2. Procedimientos invasivos de diagnóstico prenatal (amniocentesis, biopsia de corion, cordocentesis). 3. Metrorragia de la primera o segunda mitad del embarazo (placenta previa, DPPNI, amenaza de aborto). 4. Versión cefálica externa o muerte fetal intrauterina (Enfermedad Hemolítica Perinatal)."
+    },
+    {
+      "id": 93,
+      "pregunta": "¿cuál es la pauta estandarizada de Suplementación Profiláctica Universal con hierro y ácido fólico recomendada para toda mujer embarazada no anémica desde el primer control prenatal?",
+      "opciones": {
+        "a": "Administrar 60 mg/día de Hierro Elemental MÁS 400 mcg/día (0,4 mg) de Ácido Fólico por vía oral a partir del primer trimestre y durante toda la gestación.",
+        "b": "Administrar 300 mg/día de Hierro sacarato por vía endovenosa semanal desde la semana 4.",
+        "c": "Indicar únicamente 5 mg/día de Ácido Fólico suspendiendo el hierro hasta el parto.",
+        "d": "Prohibir la toma de suplementos minerales si la paciente consume carnes rojas una vez a la semana."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "Debido a los elevados requerimientos metabólicos del embarazo (necesidad de aproximadamente 1.000 mg de hierro acumulado para la masa eritrocitaria materna, feto y placenta), la dieta habitual resulta insuficiente. Por este motivo, el Ministerio de Salud de la Nación (Anemias en la Etapa Perinatal.pdf) establece la suplementación profiláctica universal obligatoria para toda embarazada no anémica desde la primera consulta prenatal: 60 mg/día de Hierro Elemental (ej. 200 mg de sulfato ferroso desecado) asociado a 400 mcg/día (0,4 mg) de Ácido Fólico por vía oral, continuándose hasta los 3 meses posteriores al parto durante la lactancia. (Referencia: las guías del Ministerio de Salud de la Nación y la OMS (Anemias en la Etapa Perinatal / Williams Obstetricia))."
+    },
+    {
+      "id": 94,
+      "pregunta": "Una paciente de 22 semanas de gestación acude al control prenatal. En la revisión de su carnet de vacunas se constata que recibió la vacuna Doble Adultos (dT) hace 2 años. De acuerdo con el Calendario Nacional de Vacunación de la Argentina y el Consenso FASGO de Vacunas, ¿cuál es la indicación de la vacuna dTpa (Triple Bacteriana Acelular) durante el embarazo actual?",
+      "opciones": {
+        "a": "No debe vacunarse por tener la vacuna dT vigente de hace 2 años.",
+        "b": "Se debe administrar OBLIGATORIAMENTE 1 dosis de vacuna dTpa (Triple Bacteriana Acelular: Difteria, Tétanos y Pertussis acelular) a partir de la semana 20 de gestación en CADA EMBARAZO, independientemente del estado de vacunación previo de la madre, con el objetivo de transferir anticuerpos IgG transplacentarios al feto y prevenir el Coqueluche / Tos Convulsa (Bordetella pertussis) en los primeros meses de vida del lactante.",
+        "c": "La vacuna dTpa está contraindicada en el embarazo por contener virus vivos.",
+        "d": "Se debe vacunar únicamente al padre del niño al momento del nacimiento."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "De acuerdo con la normativa del Ministerio de Salud y el Consenso FASGO de Vacunación: 1. La vacuna dTpa (Triple Bacteriana Acelular) es OBLIGATORIA a partir de la semana 20 de gestación en CADA EMBARAZO, sin importar cuántas dosis o refuerzos de dT o dTpa haya recibido la mujer en gestaciones anteriores o años previos. 2. El objetivo biológico es maximizar la transferencia pasiva de anticuerpos IgG maternos a través de la placenta hacia el feto, garantizando niveles protectores circulantes en el recién nacido para prevenir la Tos Convulsa / Coqueluche / Pertussis grave y la muerte del lactante en sus primeros 2 a 6 meses de vida (Consenso FASGO Vacunas / Libro Pontelli SIM 2026)."
+    },
+    {
+      "id": 95,
+      "pregunta": "Una paciente puérpera inmediata (1 hora posparto vaginal de un feto de 4.200 g) presenta un cuadro de Hemorragia Postparto (HPP) masiva secundaria a una Atonía Uterina. Se inició masaje uterino bimanual, infusión de Oxitocina, bolo de Metilergonovina, Misoprostol 800 mcg rectal y Ácido Tranexámico 1 g IV. Pese al tratamiento farmacológico completo, el útero no logra mantener la firmeza miometrial y persiste el sangrado activo en napa. La paciente se encuentra estable. De acuerdo con el algoritmo de manejo de la HPP (Consenso 2019 Hemorragia Post Parto FASGO / Guía Hemorragia post-parto), ¿cuál es el procedimiento conservador no quirúrgico de primera línea indicado antes de decidir la laparotomía?",
+      "opciones": {
+        "a": "Histerectomía total abdominal inmediata en la sala de partos.",
+        "b": "Infusión de vasopresina intramiometrial directa.",
+        "c": "Taponamiento endouterino mediante la colocación de un Balón Inflable Endouterino (Balón de Bakri / Balón con sonda Foley y preservativo esteril) introducido por vía vaginal e insuflado con 300 a 500 ml de solución fisiológica tibia.",
+        "d": "Ligadura por vía vaginal de las arterias femorales."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "Ante una Atonía Uterina refractaria al tratamiento médico farmacológico de primera línea, el Consenso FASGO de Hemorragia Postparto (2019) recomienda la aplicación de medidas conservadoras de segunda línea antes de proceder a la cirugía mayor o histerectomía. La intervención no quirúrgica de elección con tasas de éxito del 75 al 90% es el Taponamiento Endouterino con Balón Hidrostático (Balón de Bakri, BT-Cath o balón artesanal con condón y sonda Foley). El balón insuflado con 300-500 ml de solución fisiológica ejerce una presión hidrostática directa de adentro hacia afuera sobre el lecho placentario y la pared miometrial, comprimiendo los vasos sanguíneos sangrantes (Consenso FASGO Hemorragia Post Parto / hemorragia post-parto.pdf)."
+    },
+    {
+      "id": 96,
+      "pregunta": "Una paciente de 31 semanas de gestación acude a la guardia por referir salida de líquido por vagina. Durante la especuloscopía se observa la acumulación de líquido transparente en el fórnix vaginal posterior, el cual fluye a través del orificio cervical externo al pedirle a la paciente que tosa (Maniobra de Valsalva / Tarnier positiva). Se toma una muestra del fluido para laboratorio. De acuerdo con las pruebas diagnósticas de Rotura Prematura de Membranas (RPM) (RPM FLASGO / Consenso FASGO 2018 RPM), ¿cuáles son los dos ensayos de laboratorio simples de confirmación diagnóstica?",
+      "opciones": {
+        "a": "Prueba de PCR para Neisseria y coloración de Gram.",
+        "b": "Prueba de VDRL directa y recuento de leucocitos en orina.",
+        "c": "Medición de la alfafetoproteína materna e hisopado rectal.",
+        "d": "Prueba del papel de Nitrazina (demostrando un pH alcalino > 6,5 por el viraje del papel de amarillo a azul) MÁS la Prueba de Cristalización en Hoja de Helecho (Fern test / arborización en microscopio óptico)."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "El diagnóstico de confirmación de la RPM en casos dudosos se basa en la evaluación de las propiedades físico-químicas del líquido amniótico (Consenso FASGO RPM): 1. Prueba de Nitrazina (pH): Las secreciones vaginales normales son ácidas (pH 4,5-5,5), mientras que el líquido amniótico es alcalino (pH 7,0-7,5). El contacto del líquido amniótico produce el viraje del papel de nitrazina a color AZUL (pH > 6,5). 2. Prueba de Cristalización (Fern test): El líquido amniótico extendido sobre un portaobjetos y secado al aire cristaliza formando un patrón microscópico en \"hoja de helecho\" o arborización característico por su alto contenido de cloruro de sodio y mucopolisacáridos (Consenso FASGO RPM)."
+    },
+    {
+      "id": 97,
+      "pregunta": "Una paciente de 35 semanas de gestación, diagnosticada de Colestasis Intrahepática del Embarazo (CIE) Severa, presenta en los análisis de control de la guardia un dosaje de Ácidos Biliares Totales séricos de 55 mumol/L (valor de corte de gravedad ≥ 40 mumol/L). La paciente se encuentra en tratamiento con Ácido Ursodesoxicólico. De acuerdo con los consensos perinatales y de patología hepática (Trastornos hepáticos asociados a la gestación / Gori / Williams), ¿cuál es el riesgo perinatal principal de los niveles elevados de ácidos biliares en la CIE severa y cuál es la pauta de finalización del embarazo?",
+      "opciones": {
+        "a": "Riesgo elevado de Muerte Fetal Intrauterina repentina (óbito fetal), arritmia cardíaca fetal y presencia de meconio espeso / Programar la finalización del embarazo (interrupción) entre las semanas 36,0 y 37,0 de gestación.",
+        "b": "Desarrollo de atresia biliar congénita en el 100% de los fetos / Indicar cesárea a las 20 semanas.",
+        "c": "Riesgo de hidrocefalia felina / Mantener conducta expectante hasta la semana 42.",
+        "d": "Ausencia total de riesgos fetales / Alta ambulatoria sin monitoreo."
+      },
+      "respuesta_correcta": "a",
+      "justificacion": "En la Colestasis Intrahepática del Embarazo (CIE), los ácidos biliares maternos cruzan la placenta y se acumulan en el compartimento fetal, ejerciendo un efecto tóxico directo sobre el miocardio fetal y los vasos placentarios. Concentraciones de Ácidos Biliares Totales ≥ 40-50 mumol/L definen a la CIE Severa, asociándose a un incremento significativo del riesgo de asfixia fetal, meconio, broncoaspiración y Óbito Fetal Repentino e impredecible en el tercer trimestre avanzado. Por este motivo, en la CIE Severa con ácidos biliares ≥ 40 mumol/L se recomienda la finalización programada del embarazo entre las semanas 36 y 37 de gestación (Trastornos hepáticos asociados a la gestación)."
+    },
+    {
+      "id": 98,
+      "pregunta": "Una paciente de 28 años, primigesta con diagnóstico de infección por VIH en el segundo trimestre, acude al control prenatal. Expresa su deseo de amamantar a su futuro hijo al momento del nacimiento. De acuerdo con las normativas del Ministerio de Salud de la Nación y las guías de infectología perinatal (Guía Infecciones Perinatales MSAL / Control preconcepcional original), ¿cuál es la indicación médica sobre la Lactancia Materna en personas gestantes con VIH en la Argentina?",
+      "opciones": {
+        "a": "La lactancia materna está permitida si la madre recibe tratamiento antirretroviral y tiene Carga Viral indetectable.",
+        "b": "La lactancia materna está ESTRICTAMENTE CONTRAINDICADA en el 100% de las mujeres con infección por VIH en Argentina (independientemente de la carga viral o tratamiento), debiendo inhibirse la lactogénesis de forma farmacológica (con Cabergolina) y proveerse leche de fórmula maternizada al recién nacido.",
+        "c": "Se debe indicar lactancia materna mixta alternando con jugo de frutas.",
+        "d": "Se debe indicar lactancia directa del pecho materno previa pasteurización casera."
+      },
+      "respuesta_correcta": "b",
+      "justificacion": "En la República Argentina y en países donde se garantiza el acceso a agua potable y fórmulas infantiles seguras, la Lactancia Materna está ESTRICTAMENTE CONTRAINDICADA en mujeres con infección por VIH, constituyendo una de las pocas contraindicaciones médicas absolutas de la lactancia (Guía Infecciones Perinatales MSAL). El virus del VIH se excreta continuamente por la leche materna, añadiendo un riesgo de transmisión vertical postnatal del 15% al 20%. La conducta oficial comprende: 1) Inhibición farmacológica de la lactancia materna con Cabergolina (1 mg VO dosis única); 2) Supresión de la succión materna; y 3) Provisión estatal gratuita de leche de fórmula maternizada para el recién nacido (Guía Infecciones Perinatales MSAL)."
+    },
+    {
+      "id": 99,
+      "pregunta": "En la organización del Control Prenatal Eficiente, la Organización Mundial de la Salud (OMS) y el Ministerio de Salud de la Nación establecen los contenidos mínimos y la frecuencia de las visitas. De acuerdo con las guías de atención perinatal (Guía de TP 1 Anamnesis / LaAtencionIntegralALaMujer / Control preconcepcional), ¿cuál es el número MÍNIMO de Controles Prenatales recomendado para un embarazo de bajo riesgo sin complicaciones, y cuál es el instrumento oficial estandarizado para el registro de los datos asistenciales?",
+      "opciones": {
+        "a": "Mínimo de 1 control a las 38 semanas / Registro en recetario común sin carnet.",
+        "b": "Mínimo de 15 controles semanales desde la semana 4 / Registro en la historia clínica del hospital únicamente.",
+        "c": "Mínimo de 5 Controles Prenatales periódicos, precoces, continuos y de amplia cobertura / Registro obligatorio en el Carnet Perinatal del Sistema de Información Perinatal (CLAP / OPS / OMS).",
+        "d": "Mínimo de 20 controles con ecografía diaria / Registro en ficha digital privada."
+      },
+      "respuesta_correcta": "c",
+      "justificacion": "De acuerdo con los lineamientos del Ministerio de Salud y la OMS (LaAtencionIntegralALaMujer / Guía TP 1), un Control Prenatal eficaz debe ser Precoz (iniciado en el 1er trimestre), Periódico, Continuo y de Cuestión Integral: 1. Para una gestación de bajo riesgo, se establece un número MÍNIMO de 5 Controles Prenatales distribuido estratégicamente a lo largo de la gestación (ej. a las < 12, 20, 26, 32 y 36-38 semanas). 2. El instrumento oficial e indispensable de registro y comunicación perinatal en todo el país es el Carnet Perinatal / Historia Clínica Perinatal del CLAP (Centro Latinoamericano de Perinatología / OPS / OMS), el cual concentra todas las determinaciones clínicas, de laboratorio e inmunizaciones (Control preconcepcional original)."
+    },
+    {
+      "id": 100,
+      "pregunta": "En el marco de la estrategia de Maternidades Seguras Centradas en la Familia (MSCF) y la prevención de la anemia en el primer año de vida, ¿cuál es la conducta recomendada durante la atención del alumbramiento referente al Pinzamiento / Clampeo del Cordón Umbilical en un recién nacido de término vigoroso que no requiere reanimación inmediata?",
+      "opciones": {
+        "a": "Clampeo e interrupción inmediata del cordón umbilical en el primer segundo del nacimiento.",
+        "b": "Clampeo tardío a las 24 horas del nacimiento dejando al neonato en la servocuna.",
+        "c": "No se debe clampear el cordón en ningún momento permitiendo que se desprenda solo a los 10 días.",
+        "d": "Clampeo / Ligadura Oportuna del Cordón Umbilical, esperando entre 1 y 3 minutos tras el nacimiento (o hasta que el cordón deje de latir y se colapse), lo que permite la transfusión de la volemia placentaria (aprox. 80-100 ml de sangre adicional), incrementando las reservas de hierro neonatales y reduciendo drásticamente la anemia infantil."
+      },
+      "respuesta_correcta": "d",
+      "justificacion": "La Ligadura Oportuna o Clampeo Tardío del Cordón Umbilical (definido como la espera de 1 a 3 minutos post-nacimiento o hasta el cese fisiológico del latido del cordón) es una práctica pilar del modelo MSCF y del Parto Respetado (Guía Parto Normal / MSCF). Esta demora fisiológica permite la transfusión autóloga de aproximadamente 80 a 100 ml de sangre placentaria hacia el recién nacido, lo que aporta de 40 a 50 mg/kg de hierro adicional. Esta reserva suplementaria previene la deficiencia de hierro y la Anemia Ferropénica en el recién nacido durante los primeros 6 a 12 meses de vida, sin incrementar la hiperbilirrubinemia patológica (Consenso MSCF / Guía Infecciones Perinatales)."
+    }
+  ]
+}

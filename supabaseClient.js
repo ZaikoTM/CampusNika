@@ -273,7 +273,20 @@ async function iniciarSesion({ identifier, password }) {
 async function cerrarSesion() {
     await NikaSupabaseReady;
     await nikaSupabase.auth.signOut();
+    // Rastro de rol/tipo de cuenta que usa nikaAcceso.js para decidir acceso
+    // NikaMed+ (ver _cachearSesionLocal más arriba, que es quien lo escribe).
     localStorage.removeItem("nika_currentUser");
+    // Clave suelta que examen.html llegó a leer en paralelo en una versión
+    // vieja del paywall; se limpia igual por las dudas de que algún código
+    // legado todavía la escriba en algún lado.
+    localStorage.removeItem("tipo_cuenta");
+
+    // OJO: a propósito NO se toca acá el candado de usos gratis
+    // (nk_acc_5b1 / nk_acc_c9e / _nk_acc_dvs / _nk_acc_dvc en nikaAcceso.js,
+    // ni nk_sfx_9f2 / nk_sfx_c7d / _nk_dvs / _nk_dvc en examen.html): es
+    // cortesía POR DISPOSITIVO, no por cuenta. Borrarlo en cada logout le
+    // regalaría usos gratis infinitos a cualquiera con solo cerrar e iniciar
+    // sesión de nuevo.
 }
 
 // ------------------------------------------------------------
@@ -333,11 +346,23 @@ async function _cachearSesionLocal(authUser) {
     if (!authUser) return null;
     await NikaSupabaseReady;
 
-    const { data: perfil, error } = await nikaSupabase
+    // tipo_cuenta ('free' | 'vip' | 'premium') define el acceso NikaMed+ (ver js/nikaAcceso.js).
+    // Si la columna todavía no existe (falta correr sql/02_simuladores_limite.sql) se reintenta
+    // sin ella para no romper el login de nadie; en ese caso todos figuran como 'free'.
+    let { data: perfil, error } = await nikaSupabase
         .from("profiles")
-        .select("username, fullname, avatar, role")
+        .select("username, fullname, avatar, role, tipo_cuenta")
         .eq("id", authUser.id)
         .single();
+
+    if (error && /tipo_cuenta/i.test(error.message || "")) {
+        console.warn("[supabaseClient] profiles.tipo_cuenta no existe todavía; corré sql/02_simuladores_limite.sql.");
+        ({ data: perfil, error } = await nikaSupabase
+            .from("profiles")
+            .select("username, fullname, avatar, role")
+            .eq("id", authUser.id)
+            .single());
+    }
 
     if (error || !perfil) {
         console.error("[supabaseClient] No se pudo leer el perfil tras autenticar:", error);
@@ -351,6 +376,7 @@ async function _cachearSesionLocal(authUser) {
         email: authUser.email,
         avatar: perfil.avatar,
         role: perfil.role,
+        tipo_cuenta: String(perfil.tipo_cuenta || "free").toLowerCase(),
     };
 
     localStorage.setItem("nika_currentUser", JSON.stringify(usuarioParaCache));

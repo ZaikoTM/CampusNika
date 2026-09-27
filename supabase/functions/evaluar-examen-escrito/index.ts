@@ -169,7 +169,7 @@ const ESQUEMA_RESUMEN = {
 // ----------------------------------------------------------------------------
 // Tipos y utilidades
 // ----------------------------------------------------------------------------
-type ItemBanco = { id: string; up: number; pregunta: string; puntos: string[]; errorPeligroso: string | null };
+type ItemBanco = { id: string; up: string; pregunta: string; puntos: string[]; errorPeligroso: string | null };
 type Entrada = { id: string; respuesta: string };
 type Estado = "cubierto" | "parcial" | "ausente" | "no_evaluable";
 type Evaluacion = {
@@ -266,7 +266,15 @@ async function cargarBanco(modulo: string): Promise<Map<string, ItemBanco>> {
     throw new Error(`La respuesta de ${url} no es JSON válido (¿el servidor devolvió un HTML de error 404 en vez del archivo?).`);
   }
   const lista: any[] = Array.isArray(raw) ? raw : (raw?.preguntas ?? []);
+  const items = indexarBanco(lista);
+  cacheBanco.set(modulo, { t: Date.now(), items });
+  return items;
+}
 
+// Convierte un array crudo (mismo shape que data/escrito_<modulo>.json) en el Map
+// que usa el resto de la función. Compartido por cargarBanco() (fetch a SITE_URL)
+// y por el fallback `banco_local` del handler (ver más abajo).
+function indexarBanco(lista: any[]): Map<string, ItemBanco> {
   const items = new Map<string, ItemBanco>();
   for (const p of lista) {
     const id = texto(p?.id, 80);
@@ -277,13 +285,12 @@ async function cargarBanco(modulo: string): Promise<Map<string, ItemBanco>> {
       .slice(0, MAX_PUNTOS);
     items.set(id, {
       id,
-      up: Number(p?.up) || 0,
+      up: texto(p?.up, 40),
       pregunta: texto(p?.pregunta, 2500),
       puntos,
       errorPeligroso: esPendiente(p?.error_peligroso) ? null : compacto(p.error_peligroso, 800),
     });
   }
-  cacheBanco.set(modulo, { t: Date.now(), items });
   return items;
 }
 
@@ -292,12 +299,15 @@ async function cargarBanco(modulo: string): Promise<Map<string, ItemBanco>> {
 // ----------------------------------------------------------------------------
 function armarMensajeLote(lote: { item: ItemBanco; entrada: Entrada }[]): string {
   const bloques = lote.map(({ item, entrada }, i) => {
-    const titulo = UP_TITULOS[String(item.up)] ? ` — ${UP_TITULOS[String(item.up)]}` : "";
+    const titulo = UP_TITULOS[item.up] ? ` — ${UP_TITULOS[item.up]}` : "";
+    // item.up ya trae el prefijo "UP" para materias con ids string (ej. Ginecología:
+    // "UP1", "UP3_sec_2"); Cirugía sigue mandando solo el número ("1".."11").
+    const upLabel = /^UP/i.test(item.up) ? item.up : `UP ${item.up}`;
     const puntos = item.puntos.map((p, k) => `P${k + 1}. ${p}`).join("\n");
     const error = item.errorPeligroso
       ? item.errorPeligroso
       : "(no hay un error específico cargado: aplicá solo la regla general de conducta peligrosa)";
-    return `[${i + 1}]\nUP ${item.up}${titulo}\nPregunta: ${item.pregunta}\nPUNTOS CLAVE:\n${puntos}\nERROR PELIGROSO A VIGILAR: ${error}\n<<<RESPUESTA\n${neutralizarDelimitadores(entrada.respuesta)}\nRESPUESTA>>>`;
+    return `[${i + 1}]\n${upLabel}${titulo}\nPregunta: ${item.pregunta}\nPUNTOS CLAVE:\n${puntos}\nERROR PELIGROSO A VIGILAR: ${error}\n<<<RESPUESTA\n${neutralizarDelimitadores(entrada.respuesta)}\nRESPUESTA>>>`;
   });
   return `Corregí las siguientes ${lote.length} respuestas. Devolvé una evaluación por cada número entre corchetes, con TODOS sus puntos clave.\n\n${bloques.join("\n\n")}`;
 }
@@ -449,7 +459,8 @@ async function generarResumen(apiKey: string, evals: Evaluacion[], banco: Map<st
   try {
     const filas = evals.filter((e) => e.nota !== null).map((e) => {
       const it = banco.get(e.id);
-      return `UP ${it?.up ?? "?"} · nota ${e.nota}${e.error_critico ? " · ERROR PELIGROSO" : ""} · faltó: ${e.puntos_faltantes.slice(0, 3).join("; ") || "nada relevante"}`;
+      const upLabel = it?.up ? (/^UP/i.test(it.up) ? it.up : `UP ${it.up}`) : "UP ?";
+      return `${upLabel} · nota ${e.nota}${e.error_critico ? " · ERROR PELIGROSO" : ""} · faltó: ${e.puntos_faltantes.slice(0, 3).join("; ") || "nada relevante"}`;
     }).join("\n");
     const salida = await llamarGemini(
       apiKey, SYSTEM_PROMPT_RESUMEN,
@@ -495,16 +506,38 @@ Deno.serve(async (req: Request) => {
     const entradas: Entrada[] = crudas.map((r: any) => ({ id: texto(r?.id, 80), respuesta: texto(r?.respuesta_alumno, MAX_RESPUESTA) }));
     if (entradas.some((e) => !e.id)) return json({ error: "Hay respuestas sin id de pregunta." }, 400);
 
-    // 3. El banco se lee del servidor (el cliente no puede alterar puntos clave ni errores)
+    // 3. El banco se lee del servidor (el cliente no puede alterar puntos clave ni errores).
+    //    Fallback de emergencia: si el body trae `banco_local` (array con el mismo shape
+    //    que data/escrito_<modulo>.json), se usa SOLO cuando el fetch a SITE_URL falla —
+    //    pensado para desarrollo local (127.0.0.1), donde Supabase nunca puede alcanzar
+    //    tu máquina. Ver nota de seguridad más abajo antes de usar esto en producción.
     let banco: Map<string, ItemBanco>;
-    try { banco = await cargarBanco(modulo); }
-    catch (err) {
+    try {
+      banco = await cargarBanco(modulo);
+    } catch (err) {
       const detalle = (err as Error).message;
       console.error("[evaluar-examen-escrito] banco:", detalle);
-      // El detalle (URL exacta, status HTTP, timeout, etc.) va también en la respuesta:
-      // no es información sensible y ahorra tener que ir a mirar los logs de Supabase
-      // cada vez que falla. Sacalo del client si en algún momento te molesta exponerlo.
-      return json({ error: "No se pudo cargar el banco de preguntas para corregir.", detalle }, 502);
+
+      const bancoLocal = Array.isArray(body?.banco_local) ? body.banco_local : null;
+      if (bancoLocal && bancoLocal.length > 0) {
+        console.warn("[evaluar-examen-escrito] usando banco_local del payload (fallback) tras fallar SITE_URL.");
+        banco = indexarBanco(bancoLocal);
+      } else {
+        // 500, no 502: esto NO es un error de gateway/proxy, es un fallo controlado y
+        // atrapado por este mismo try/catch — la función respondió, solo que no pudo
+        // conseguir el banco. El detalle (URL exacta, status HTTP, timeout, etc.) viaja
+        // en la respuesta para no tener que ir a mirar los logs de Supabase cada vez:
+        // sacalo del client si en algún momento te molesta exponerlo.
+        return json({
+          error: "No se pudo cargar el banco de preguntas para corregir.",
+          detalle,
+          ayuda: `Esta función corre en la nube de Supabase, no en tu computadora: no puede hacer` +
+            ` fetch a localhost/127.0.0.1. Para producción, configurá el secreto SITE_URL con un` +
+            ` dominio público donde ${SITE_URL}/data/escrito_${modulo}.json responda 200 (probalo` +
+            ` en el navegador, sin login). Para probar en local, mandá el JSON del banco en` +
+            ` \`banco_local\` dentro del body de este mismo POST.`,
+        }, 500);
+      }
     }
 
     const evaluables: { item: ItemBanco; entrada: Entrada }[] = [];
