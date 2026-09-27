@@ -242,16 +242,26 @@
                 return;
             }
 
-            // Ya no hay distinción local/producción: la Edge Function vive en
-            // Supabase, no en tu servidor, así que la URL es siempre la misma.
-            const resp = await fetch(CREAR_PREFERENCIA_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify({ plan })
-            });
+            // El backend en Render (plan free) puede "dormir" tras inactividad:
+            // si a los 4s la respuesta no llegó, avisamos que el servidor está
+            // arrancando para que el usuario no piense que se trabó.
+            const avisoServidorLento = setTimeout(() => {
+                btn.textContent = 'Iniciando servidor seguro...';
+            }, 4000);
+
+            let resp;
+            try {
+                resp = await fetch(CREAR_PREFERENCIA_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ plan })
+                });
+            } finally {
+                clearTimeout(avisoServidorLento);
+            }
 
             if (resp.status === 401) {
                 showToast('Sesión no válida o vencida. Iniciá sesión de nuevo.');
