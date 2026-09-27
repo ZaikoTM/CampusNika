@@ -1922,6 +1922,11 @@
             const input = document.getElementById('nika-float-input');
             const value = input.value.trim();
             if (!value) return;
+            const patronDNI = /\b\d{7,8}\b/;
+            if (patronDNI.test(value)) {
+                const continuar = confirm('Tu mensaje parece incluir un número de documento. Recordá no compartir datos de pacientes reales. ¿Querés enviarlo igual?');
+                if (!continuar) return;
+            }
             nikaFloatAppendMsg(value, 'user');
             nikaFloatAnswer(value);
             input.value = '';
