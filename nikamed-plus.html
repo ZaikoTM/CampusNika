@@ -182,8 +182,8 @@
     // Configuración del cliente Supabase
     // ------------------------------------------------------------------
     const SUPABASE_URL = 'https://pswjmouuyaxueaqqglko.supabase.co';
-    // URL de la Edge Function que crea la preferencia de Checkout Pro (reemplaza al backend Python).
-    const CREAR_PREFERENCIA_URL = `${SUPABASE_URL}/functions/v1/crear-preferencia`;
+    // Backend Flask (backend_pagos) desplegado en Render — crea la Preferencia de Checkout Pro.
+    const CREAR_PREFERENCIA_URL = 'https://campusnika.onrender.com/api/suscripciones/crear-preferencia';
     // Misma anon key pública que usa supabaseClient.js (es pública por diseño,
     // protegida por RLS en la base — no es un secreto).
     const SUPABASE_ANON_KEY = 'sb_publishable_DPSe7yJoTpBCFFKZdKI9pg_v40eqnvr';
