@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v5";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v6";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
@@ -29,7 +29,7 @@ const TIMEOUT_VADEMECUM_MS = 9000;      // ~4 MB: más margen con señal floja
 
 const PRECACHE_URLS = [
     "index.html", "campus.html", "estudio.html", "examen.html", "versus.html", "cirugia_hub.html", "nikafarma.html",
-    "terminos.html", "privacidad.html", "offline.html", "manifest.json", "styles.css", "favicon.ico",
+    "terminos.html", "privacidad.html", "reembolsos.html", "offline.html", "manifest.json", "styles.css", "favicon.ico",
     "supabaseClient.js",
     "js/auth-guard.js", "js/assistant.js", "js/social.js", "js/moderacion.js",
     "js/chatManager.js", "js/friendsManager.js", "js/rendimiento.js", "js/examen.js",

@@ -1,6 +1,36 @@
-client_secret*.json
-backend_pagos/.env
+# Archivos de entorno y credenciales sensibles
 .env
+.env*
+_env
+backend_pagos/.env
+backend_pagos/_env
+client_secret*.json
+
+# Scripts de mantenimiento con claves
 upload_pdfs.mjs
-node_modules/
+
+# Python (compilados y cache)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Entornos virtuales
 .venv/
+venv/
+ENV/
+env/
+
+# Dependencias Node.js
+node_modules/
+npm-debug.log*
+
+# Archivos del sistema operativo y editores
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
