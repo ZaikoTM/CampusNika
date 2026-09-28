@@ -21,7 +21,7 @@
 //           (--no-verify-jwt: tu proyecto usa claves nuevas "sb_publishable_…"; el
 //            usuario se valida acá adentro con auth.getUser()).
 // Secretos: GEMINI_API_KEY (ya existe, la usan las otras funciones).
-//   Opcionales: SITE_URL (por defecto https://nikamed-campus.vercel.app),
+//   Opcionales: SITE_URL (por defecto https://nikamed.com.ar),
 //               GEMINI_MODEL_EVAL (por defecto gemini-3.5-flash-lite).
 // IMPORTANTE sobre SITE_URL: esta función corre en los servidores de Supabase, NO en tu
 // máquina. Tiene que ser un dominio PÚBLICO donde `${SITE_URL}/data/escrito_<modulo>.json`
@@ -34,15 +34,26 @@
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+// Orígenes permitidos: dominio oficial (con y sin www) + localhost para pruebas locales.
+const ALLOWED_ORIGINS = ["https://nikamed.com.ar", "https://www.nikamed.com.ar"];
+const LOCAL_ORIGIN_RE = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+
+function resolveOrigin(req: Request): string {
+  const origin = req.headers.get("Origin") ?? "";
+  if (ALLOWED_ORIGINS.includes(origin) || LOCAL_ORIGIN_RE.test(origin)) return origin;
+  return ALLOWED_ORIGINS[0]; // fallback: el navegador bloqueará orígenes no listados
+}
+
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Origin": ALLOWED_ORIGINS[0], // se reemplaza por request en el wrapper de Deno.serve
+  "Vary": "Origin",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 const MODEL = Deno.env.get("GEMINI_MODEL_EVAL") ?? "gemini-3.5-flash-lite";
 const GEMINI_BASE = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguage.googleapis.com/v1beta";
-const SITE_URL = (Deno.env.get("SITE_URL") ?? "https://nikamed-campus.vercel.app").replace(/\/+$/, "");
+const SITE_URL = (Deno.env.get("SITE_URL") ?? "https://nikamed.com.ar").replace(/\/+$/, "");
 
 const LOTE = 3;                        // preguntas por llamada (cada una devuelve un checklist largo)
 const MAX_PREGUNTAS = 30;
@@ -477,7 +488,7 @@ async function generarResumen(apiKey: string, evals: Evaluacion[], banco: Map<st
 // ----------------------------------------------------------------------------
 // Handler
 // ----------------------------------------------------------------------------
-Deno.serve(async (req: Request) => {
+async function handler(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return json({ error: "Método no permitido." }, 405);
 
@@ -575,4 +586,12 @@ Deno.serve(async (req: Request) => {
     console.error("[evaluar-examen-escrito] Error inesperado:", err);
     return json({ error: "Error interno." }, 500);
   }
+}
+
+Deno.serve(async (req: Request) => {
+  const res = await handler(req);
+  const headers = new Headers(res.headers);
+  headers.set("Access-Control-Allow-Origin", resolveOrigin(req));
+  headers.set("Vary", "Origin");
+  return new Response(res.body, { status: res.status, headers });
 });

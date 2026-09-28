@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Nika | Tu aliado en la carrera de Medicina</title>
+    <link rel="canonical" href="https://nikamed.com.ar/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Campus Nika">
+    <meta property="og:title" content="Campus Nika | Tu aliado en la carrera de Medicina">
+    <meta property="og:url" content="https://nikamed.com.ar/">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
@@ -1956,7 +1961,7 @@
                 const targetPage = getAuthRedirectTarget(); // ej: 'campus.html' o 'nikamed-plus.html'
                 const redirectUrl = isLocal 
                     ? `${window.location.origin}/${targetPage}` 
-                    : `https://nikamed-campus.vercel.app/${targetPage}`;
+                    : `https://nikamed.com.ar/${targetPage}`;
 
                 const { error } = await client.auth.signInWithOAuth({
                     provider: 'google',

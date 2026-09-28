@@ -38,20 +38,27 @@ MP_WEBHOOK_SECRET = os.environ["MP_WEBHOOK_SECRET"]
 # y URL pública del webhook (debe ser HTTPS en producción).
 MP_BACK_URL_SUCCESS = os.environ.get(
     "MP_BACK_URL_SUCCESS", 
-    "https://nikamed-campus.vercel.app/nikamed-plus.html?status=approved"
+    "https://nikamed.com.ar/nikamed-plus.html?status=approved"
 )
 MP_BACK_URL_PENDING = os.environ.get(
     "MP_BACK_URL_PENDING", 
-    "https://nikamed-campus.vercel.app/nikamed-plus.html?status=pending"
+    "https://nikamed.com.ar/nikamed-plus.html?status=pending"
 )
 MP_BACK_URL_FAILURE = os.environ.get(
     "MP_BACK_URL_FAILURE", 
-    "https://nikamed-campus.vercel.app/nikamed-plus.html?status=failure"
+    "https://nikamed.com.ar/nikamed-plus.html?status=failure"
 )
 MP_NOTIFICATION_URL = os.environ.get(
     "MP_NOTIFICATION_URL", 
     "https://api.campusnikamed.com/api/webhooks/mercadopago"
 )
+
+# Origen público del sitio (dominio oficial). Útil para CORS y redirecciones.
+SITE_URL = os.environ.get("SITE_URL", "https://nikamed.com.ar").rstrip("/")
+ALLOWED_ORIGINS = [
+    "https://nikamed.com.ar",
+    "https://www.nikamed.com.ar",
+]
 
 # --- Catálogo de planes ------------------------------------------------------
 # Espejo de la tabla `planes_nikamed` (SQL). Tenerlo también acá permite

@@ -1,5 +1,5 @@
 /**
- * CAMPUS NIKA — Service Worker (v5 · Modo Guardia Offline-First)
+ * CAMPUS NIKA — Service Worker (v7 · Modo Guardia Offline-First)
  * ------------------------------------------------------------------
  * Estrategias:
  *  • App Shell (HTML, CSS, JS, íconos, manifest)  -> Network-First con tiempo límite (3 s)
@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v6";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v7";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
