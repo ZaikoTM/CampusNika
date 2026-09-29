@@ -63,6 +63,7 @@ test('dos sesiones distintas se guardan por separado', async () => {
   await win.PomodoroEngine._test.registerStudySession('cirugia', 'UP7', 30);
   const [fila] = win.PomodoroEngine._test.readPending();
   assert.ok(fila);
+  await new Promise((r) => setTimeout(r, 5)); // otro instante = otra sesión
   await win.PomodoroEngine._test.registerStudySession('cirugia', 'UP7', 30);
   assert.strictEqual(win.PomodoroEngine._test.readPending().length, 2); // instantes distintos = sesiones distintas
 });
