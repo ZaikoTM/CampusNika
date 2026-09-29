@@ -216,6 +216,16 @@ async function initEstudio() {
 
         document.getElementById('dashboard-title').innerText = `Sala de Estudio · ${EstudioState.data.nombre}`;
         renderUpBentoGrid(EstudioState.data.units);
+
+        iniciarMonitorAlertas();
+        // Deep-link desde el campus: estudio.html?modulo=cirugia&up=7 (acepta "7" o "up7")
+        try {
+            const upParam = new URLSearchParams(window.location.search).get('up');
+            if (upParam) {
+                const id = /^\d+$/.test(upParam) ? 'up' + upParam : upParam;
+                if (EstudioState.unitsById[id]) openUP(id);
+            }
+        } catch (e) { console.warn('[Estudio] ?up= inválido:', e); }
     } catch (err) {
         console.error('[Estudio] Error al inicializar:', err);
         const grid = document.getElementById('up-bento-grid');
@@ -1330,8 +1340,8 @@ function abrirModalAgendarRepaso() {
     // Sugerencia por defecto: hoy + 3 días (el usuario la puede cambiar libremente).
     const sugerida = new Date();
     sugerida.setDate(sugerida.getDate() + 3);
-    fechaInput.value = sugerida.toISOString().slice(0, 10);
-    fechaInput.min = new Date().toISOString().slice(0, 10);
+    fechaInput.value = fechaLocalISO(sugerida);
+    fechaInput.min = fechaLocalISO();
 
     document.getElementById('select-motivo-repaso').value = '';
     overlay.style.display = 'flex';
@@ -1358,7 +1368,7 @@ async function renderListaEventosEnModal() {
     }
 
     try {
-        const hoy = new Date().toISOString().slice(0, 10);
+        const hoy = fechaLocalISO();
         const { data, error } = await client
             .from('calendario_eventos')
             .select('id, titulo, tipo, fecha')
@@ -1374,12 +1384,16 @@ async function renderListaEventosEnModal() {
             return;
         }
 
-        const iconoTipo = { repaso: '📘', examen_parcial: '📝', examen_final: '🎓' };
+        const iconoTipo = { repaso: '📘', examen: '📝', bloque_estudio: '⏰', otro: '📌' };
         cont.innerHTML = data.map(ev => `
             <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; background:rgba(255,255,255,0.04); border-radius:8px;">
-                <span style="font-size:0.78rem; color:#e2e8f0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${iconoTipo[ev.tipo] || '📅'} ${ev.titulo} <span style="color:#94a3b8;">· ${ev.fecha}</span></span>
-                <button type="button" onclick="eliminarEventoCalendario('${ev.id}')" title="Eliminar evento"
-                        style="flex-shrink:0; border:none; background:rgba(239,68,68,0.15); color:#ef4444; width:26px; height:26px; border-radius:7px; cursor:pointer; font-size:0.8rem;">🗑️</button>
+                <span style="font-size:0.78rem; color:#e2e8f0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer;" onclick="editarEvento('${ev.id}')" title="Editar evento">${iconoTipo[ev.tipo] || '📅'} ${escaparHtmlBasico(ev.titulo || '')} <span style="color:#94a3b8;">· ${ev.fecha}</span></span>
+                <span style="flex-shrink:0; display:flex; gap:4px;">
+                    <button type="button" onclick="editarEvento('${ev.id}')" title="Editar evento"
+                            style="border:none; background:rgba(148,163,184,0.18); width:26px; height:26px; border-radius:7px; cursor:pointer; font-size:0.8rem;">✏️</button>
+                    <button type="button" onclick="eliminarEvento('${ev.id}')" title="Eliminar evento"
+                            style="border:none; background:rgba(239,68,68,0.15); color:#ef4444; width:26px; height:26px; border-radius:7px; cursor:pointer; font-size:0.8rem;">🗑️</button>
+                </span>
             </div>
         `).join('');
     } catch (err) {
@@ -1390,8 +1404,8 @@ async function renderListaEventosEnModal() {
 
 // Elimina un evento de calendario_eventos por su ID (Supabase), y refresca
 // todas las vistas que puedan estar mostrando el calendario en pantalla.
-async function eliminarEventoCalendario(eventId) {
-    if (!confirm('¿Eliminar este evento del calendario? Esta acción no se puede deshacer.')) return;
+async function eliminarEvento(eventId) {
+    if (!confirm('¿Seguro que querés borrar este evento?')) return;
 
     const client = getSupabaseClienteActivo();
     const user = await getUsuarioActivo();
@@ -1408,16 +1422,161 @@ async function eliminarEventoCalendario(eventId) {
             .eq('user_id', user.id); // refuerzo: solo puede borrar sus propios eventos
         if (error) throw error;
 
-        renderListaEventosEnModal();
-        cargarRepasos();
-        if (document.getElementById('modal-calendario-nika')?.style.display === 'flex') {
-            await cargarEventosDelMes();
-            renderCalendarioGrid();
-        }
+        await refrescarVistasCalendario();
     } catch (err) {
         console.error('[Calendario] No se pudo eliminar el evento:', err);
         alert('No se pudo eliminar el evento. Probá de nuevo en un momento.');
     }
+}
+
+// Compatibilidad con los onclick anteriores
+function eliminarEventoCalendario(eventId) { return eliminarEvento(eventId); }
+
+// Repinta todo lo que muestre eventos: lista del modal, cronograma, bloques de hoy y calendario mensual.
+async function refrescarVistasCalendario() {
+    await cargarBloquesHoy();
+    renderListaEventosEnModal();
+    renderBloquesTimeboxing();
+    cargarRepasos();
+    const cal = document.getElementById('modal-calendario-nika');
+    if (cal && cal.style.display === 'flex') {
+        await cargarEventosDelMes();
+        renderCalendarioGrid();
+    }
+}
+
+// ---- Edición de eventos (modal precargado) ----
+const EventoEditState = { evento: null };
+
+function inyectarModalEditarEventoSiHaceFalta() {
+    if (document.getElementById('modal-editar-evento')) return;
+    const campo = 'width:100%; padding:10px 12px; border-radius:9px; border:1px solid rgba(255,255,255,0.14); background:rgba(15,23,42,0.6); color:#e2e8f0; font-size:0.85rem; box-sizing:border-box;';
+    const label = 'display:block; font-size:0.68rem; font-weight:700; color:#cbd5e1; margin:12px 0 6px; text-transform:uppercase; letter-spacing:.04em;';
+    document.body.insertAdjacentHTML('beforeend', `
+    <div id="modal-editar-evento" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center; padding:16px; box-sizing:border-box;"
+         onclick="if (event.target === this) cerrarModalEditarEvento();">
+        <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:22px; width:100%; max-width:400px; max-height:90vh; overflow-y:auto; color:#e2e8f0;">
+            <h3 style="margin:0; font-size:1.05rem; font-weight:800;">✏️ Editar evento</h3>
+            <label style="${label}">Título / motivo</label>
+            <input type="text" id="edit-ev-titulo" maxlength="120" style="${campo}">
+            <label style="${label}">Fecha</label>
+            <input type="date" id="edit-ev-fecha" style="${campo}">
+            <label style="${label}">Tipo</label>
+            <select id="edit-ev-tipo" style="${campo}">
+                <option value="examen">📝 Examen</option>
+                <option value="repaso">📘 Repaso</option>
+                <option value="bloque_estudio">⏰ Bloque de estudio</option>
+                <option value="otro">📌 Otro</option>
+            </select>
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label style="${label}">Módulo</label>
+                    <select id="edit-ev-modulo" style="${campo}">
+                        <option value="">— Sin módulo —</option>
+                        <option value="cirugia">Cirugía</option>
+                        <option value="ginecologia">Ginecología</option>
+                    </select></div>
+                <div style="flex:1;"><label style="${label}">UP (número)</label>
+                    <input type="number" id="edit-ev-up" min="1" max="99" placeholder="Ej: 7" style="${campo}"></div>
+            </div>
+            <div id="edit-ev-horas" style="display:none; gap:10px;">
+                <div style="flex:1;"><label style="${label}">Inicio</label><input type="time" id="edit-ev-hora-inicio" style="${campo}"></div>
+                <div style="flex:1;"><label style="${label}">Fin</label><input type="time" id="edit-ev-hora-fin" style="${campo}"></div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button type="button" onclick="cerrarModalEditarEvento()" style="flex:1; padding:11px; border:1px solid rgba(255,255,255,0.14); background:transparent; color:#e2e8f0; border-radius:9px; cursor:pointer; font-weight:700;">Cancelar</button>
+                <button type="button" id="btn-guardar-edicion-evento" onclick="guardarEdicionEvento()" style="flex:1.4; padding:11px; border:none; background:linear-gradient(135deg,#0284c7,#2563eb); color:#fff; border-radius:9px; cursor:pointer; font-weight:800;">Guardar cambios</button>
+            </div>
+        </div>
+    </div>`);
+    document.getElementById('edit-ev-tipo').addEventListener('change', (e) => {
+        document.getElementById('edit-ev-horas').style.display = e.target.value === 'bloque_estudio' ? 'flex' : 'none';
+    });
+}
+
+function numeroDeUp(upId) {
+    const m = String(upId || '').match(/^up(\d+)/i);
+    return m ? m[1] : '';
+}
+
+async function editarEvento(id) {
+    const client = getSupabaseClienteActivo();
+    const user = await getUsuarioActivo();
+    if (!client || !user) { alert('Iniciá sesión para editar eventos.'); return; }
+    try {
+        const { data, error } = await client.from('calendario_eventos')
+            .select('*').eq('id', id).eq('user_id', user.id).single();
+        if (error) throw error;
+        EventoEditState.evento = data;
+        inyectarModalEditarEventoSiHaceFalta();
+        document.getElementById('edit-ev-titulo').value = data.titulo || '';
+        document.getElementById('edit-ev-fecha').value = data.fecha || '';
+        document.getElementById('edit-ev-tipo').value = data.tipo || 'otro';
+        document.getElementById('edit-ev-modulo').value = data.modulo || '';
+        document.getElementById('edit-ev-up').value = numeroDeUp(data.up_id);
+        document.getElementById('edit-ev-hora-inicio').value = horaCorta(data.hora_inicio);
+        document.getElementById('edit-ev-hora-fin').value = horaCorta(data.hora_fin);
+        document.getElementById('edit-ev-horas').style.display = data.tipo === 'bloque_estudio' ? 'flex' : 'none';
+        document.getElementById('modal-editar-evento').style.display = 'flex';
+    } catch (err) {
+        console.error('[Calendario] No se pudo abrir el evento:', err);
+        alert('No se pudo cargar el evento para editarlo.');
+    }
+}
+
+function cerrarModalEditarEvento() {
+    const m = document.getElementById('modal-editar-evento');
+    if (m) m.style.display = 'none';
+    EventoEditState.evento = null;
+}
+
+async function guardarEdicionEvento() {
+    const ev = EventoEditState.evento;
+    if (!ev) return;
+    const titulo = document.getElementById('edit-ev-titulo').value.trim();
+    const fecha = document.getElementById('edit-ev-fecha').value;
+    const tipo = document.getElementById('edit-ev-tipo').value;
+    const modulo = document.getElementById('edit-ev-modulo').value || null;
+    const upNum = document.getElementById('edit-ev-up').value.trim();
+    if (!titulo) { alert('El título no puede quedar vacío.'); return; }
+    if (!fecha) { alert('Elegí una fecha.'); return; }
+
+    const cambios = { titulo, fecha, tipo, modulo };
+    // Si el número de UP no cambió se conserva el up_id original (puede ser una subsección, ej. up3__sec2).
+    cambios.up_id = upNum ? (upNum === numeroDeUp(ev.up_id) ? ev.up_id : `up${upNum}`) : null;
+    if (tipo === 'bloque_estudio') {
+        const hi = document.getElementById('edit-ev-hora-inicio').value;
+        const hf = document.getElementById('edit-ev-hora-fin').value;
+        if (!hi || !hf || hf <= hi) { alert('Indicá una hora de inicio y una de fin posterior.'); return; }
+        cambios.hora_inicio = hi; cambios.hora_fin = hf;
+    }
+
+    const client = getSupabaseClienteActivo();
+    const user = await getUsuarioActivo();
+    if (!client || !user) return;
+    const btn = document.getElementById('btn-guardar-edicion-evento');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+    try {
+        const { error } = await client.from('calendario_eventos')
+            .update(cambios).eq('id', ev.id).eq('user_id', user.id);
+        if (error) throw error;
+        cerrarModalEditarEvento();
+        await refrescarVistasCalendario();
+    } catch (err) {
+        console.error('[Calendario] No se pudo guardar la edición:', err);
+        alert('No se pudieron guardar los cambios. Probá de nuevo.');
+    } finally {
+        btn.disabled = false; btn.textContent = 'Guardar cambios';
+    }
+}
+
+// calendario_eventos_tipo_check solo admite 'examen' | 'bloque_estudio' | 'repaso' | 'otro'.
+// El motivo es texto libre: se usa en el título y aquí se traduce a un tipo válido.
+function tipoEventoDesdeMotivo(motivo) {
+    const t = String(motivo || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    if (/final|parcial|examen|recuperatorio|evaluacion|prueba/.test(t)) return 'examen';
+    if (/bloque|planific/.test(t)) return 'bloque_estudio';
+    if (/repaso|repasar|repas|estudi/.test(t) || !t) return 'repaso';
+    return 'otro';
 }
 
 async function guardarRepasoDesdeModal() {
@@ -1445,7 +1604,7 @@ async function guardarRepasoDesdeModal() {
         const { error } = await client.from('calendario_eventos').insert({
             user_id: user.id,
             titulo: `${motivo || 'Repaso'} · ${nombreModulo} - ${RepasoState.upLabelActual || RepasoState.upActual}`,
-            tipo: motivo || 'repaso',
+            tipo: tipoEventoDesdeMotivo(motivo),
             modulo: RepasoState.moduloActual,
             up_id: RepasoState.upActual,
             fecha: fecha
@@ -1464,46 +1623,98 @@ async function guardarRepasoDesdeModal() {
     }
 }
 
-// ================= PLANIFICADOR DIARIO (TIMEBOXING) =================
-// Guardado 100% en localStorage (no toca Supabase). Se guarda un bloque
-// por día, así que cada usuario ve solo los bloques de "hoy" al abrir la
-// pestaña. Key base pedida: 'nika_timeboxing'.
 
-// Arma la key de localStorage combinando usuario activo + fecha de hoy,
-// para que cada estudiante tenga su propia agenda diaria.
-function getTimeboxingKey() {
-    let userSuffix = 'invitado';
-    try {
-        const rawUser = localStorage.getItem('nika_currentUser');
-        if (rawUser) userSuffix = JSON.parse(rawUser).username || 'invitado';
-    } catch (e) { /* usuario no logueado: usamos 'invitado' */ }
+// Estilos de los bloques del planificador (estudio.html no carga styles.css).
+(function inyectarEstilosBloques() {
+    if (document.getElementById('nika-bloques-style')) return;
+    const st = document.createElement('style');
+    st.id = 'nika-bloques-style';
+    st.textContent = `
+        .nika-bloques-titulo { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; opacity: .65; margin: 4px 0 2px; }
+        .nika-bloque { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border: 1px solid rgba(148,163,184,0.35); border-left: 4px solid #94a3b8; border-radius: 10px; background: rgba(148,163,184,0.08); }
+        .nika-bloque-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+        .nika-bloque-hora { font-size: 0.72rem; font-weight: 800; opacity: .8; }
+        .nika-bloque-tarea { font-size: 0.85rem; font-weight: 700; word-break: break-word; }
+        .nika-bloque-ctx { font-size: 0.7rem; opacity: .7; }
+        .nika-bloque-estado { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+        .nika-bloque-acciones { display: flex; flex-wrap: wrap; gap: 6px; }
+        .nika-bloque-btn { border: 1px solid rgba(148,163,184,0.5); background: transparent; color: inherit; font-size: 0.72rem; font-weight: 700; padding: 5px 9px; border-radius: 7px; cursor: pointer; min-height: 0 !important; }
+        .nika-bloque-btn:hover { background: rgba(148,163,184,0.2); }
+        .nika-bloque-btn.is-muted { opacity: .7; }
+        .nika-bloque.is-en_curso { border-left-color: #22c55e; } .nika-bloque.is-en_curso .nika-bloque-estado { color: #22c55e; }
+        .nika-bloque.is-pendiente { border-left-color: #f59e0b; } .nika-bloque.is-pendiente .nika-bloque-estado { color: #f59e0b; }
+        .nika-bloque.is-expirado { border-left-color: #ef4444; } .nika-bloque.is-expirado .nika-bloque-estado { color: #ef4444; }
+        .nika-evento-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: rgba(244,114,182,0.06); border-radius: 8px; cursor: pointer; transition: background .15s; }
+        .nika-evento-item:hover { background: rgba(244,114,182,0.14); }
+        .nika-evento-titulo { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-main,#1e293b); }
+        .nika-evento-cuando { color: #f472b6; white-space: nowrap; font-size: 0.72rem; }
+        .nika-evento-acciones { display: flex; gap: 4px; flex-shrink: 0; }
+        .nika-evento-btn { border: none; background: rgba(148,163,184,0.18); width: 26px; height: 26px; border-radius: 7px; cursor: pointer; font-size: 0.78rem; padding: 0; min-height: 0 !important; }
+        .nika-evento-btn:hover { background: rgba(148,163,184,0.35); }
+        .nika-evento-btn.is-danger { background: rgba(239,68,68,0.15); }
+        .nika-evento-btn.is-danger:hover { background: rgba(239,68,68,0.3); }
+        .nika-bloque.is-completado, .nika-bloque.is-descartado { opacity: .55; }
+        .nika-bloque.is-completado .nika-bloque-tarea { text-decoration: line-through; }
+    `;
+    document.head.appendChild(st);
+})();
 
-    const hoy = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-    return `nika_timeboxing_${userSuffix}_${hoy}`;
+// ================= PLANIFICADOR DIARIO (bloques en calendario_eventos) =================
+// Cada bloque es una fila de calendario_eventos (tipo 'bloque_estudio') con hora_inicio,
+// hora_fin, modulo, up_id y estado ('pendiente' | 'en_curso' | 'completado' | 'descartado').
+// "Expirado" NO se guarda: es un estado calculado (pendiente cuya hora_fin ya pasó), para que
+// el bloque nunca se borre solo y el usuario decida si lo marca como hecho o lo descarta.
+// Requiere las columnas hora_inicio / hora_fin / estado (ver sql/calendario_bloques.sql).
+
+const BloquesState = { fecha: null, hoy: [] };
+
+// Fecha LOCAL en YYYY-MM-DD (toISOString() devuelve UTC y de noche caía en "mañana").
+function fechaLocalISO(d = new Date()) {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function horaCorta(t) { return t ? String(t).slice(0, 5) : ''; }
+function minutosDe(t) { const [h, m] = horaCorta(t).split(':').map(Number); return (h || 0) * 60 + (m || 0); }
+function ahoraEnMinutos() { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
+
+function estadoEfectivoBloque(b) {
+    if (b.estado === 'completado' || b.estado === 'descartado' || b.estado === 'en_curso') return b.estado;
+    return ahoraEnMinutos() >= minutosDe(b.hora_fin) ? 'expirado' : 'pendiente';
 }
 
-function cargarBloquesTimeboxing() {
+function toastBloque(texto, tipo) {
+    if (typeof showToast === 'function') showToast(texto, tipo || 'success');
+    else console.info('[Planificador]', texto);
+}
+
+async function cargarBloquesHoy() {
+    const user = await getUsuarioActivo();
+    const client = getSupabaseClienteActivo();
+    BloquesState.fecha = fechaLocalISO();
+    if (!user || !client) { BloquesState.hoy = []; return BloquesState.hoy; }
     try {
-        const raw = localStorage.getItem(getTimeboxingKey());
-        const bloques = raw ? JSON.parse(raw) : [];
-        return Array.isArray(bloques) ? bloques : [];
-    } catch (e) {
-        console.warn('[Timeboxing] No se pudieron leer los bloques guardados:', e);
-        return [];
+        const { data, error } = await client
+            .from('calendario_eventos')
+            .select('id, titulo, tipo, modulo, up_id, fecha, hora_inicio, hora_fin, estado')
+            .eq('user_id', user.id)
+            .eq('fecha', BloquesState.fecha)
+            .eq('tipo', 'bloque_estudio')
+            .order('hora_inicio', { ascending: true });
+        if (error) throw error;
+        BloquesState.hoy = data || [];
+    } catch (err) {
+        console.warn('[Planificador] No se pudieron leer los bloques de hoy:', err);
+        BloquesState.hoy = [];
     }
+    return BloquesState.hoy;
 }
 
-function guardarBloquesTimeboxing(bloques) {
-    try {
-        localStorage.setItem(getTimeboxingKey(), JSON.stringify(bloques));
-    } catch (e) {
-        console.warn('[Timeboxing] No se pudieron guardar los bloques:', e);
-    }
+async function refrescarBloques() {
+    await cargarBloquesHoy();
+    renderBloquesTimeboxing();
+    cargarRepasos();
 }
 
-// Lee el formulario, valida y agrega un nuevo bloque horario, ordenando
-// la lista completa cronológicamente por hora de inicio.
-function agregarBloqueTimeboxing() {
+async function agregarBloqueTimeboxing() {
     const inicioInput = document.getElementById('input-hora-inicio-block');
     const finInput = document.getElementById('input-hora-fin-block');
     const tareaInput = document.getElementById('input-tarea-block');
@@ -1512,55 +1723,125 @@ function agregarBloqueTimeboxing() {
     const fin = finInput.value;
     const tarea = tareaInput.value.trim();
 
-    if (!inicio || !fin) {
-        alert('Elegí una hora de inicio y una hora de fin para el bloque.');
-        return;
+    if (!inicio || !fin) { alert('Elegí una hora de inicio y una hora de fin para el bloque.'); return; }
+    if (!tarea) { alert('Contanos qué vas a hacer en ese bloque (ej: Estudiar UP1).'); return; }
+    if (fin <= inicio) { alert('La hora de fin tiene que ser posterior a la hora de inicio.'); return; }
+
+    const user = await getUsuarioActivo();
+    const client = getSupabaseClienteActivo();
+    if (!user || !client) { alert('Iniciá sesión para planificar tu día.'); return; }
+
+    const btn = document.getElementById('btn-agregar-bloque');
+    if (btn) btn.disabled = true;
+    try {
+        const { error } = await client.from('calendario_eventos').insert({
+            user_id: user.id,
+            titulo: tarea,
+            tipo: 'bloque_estudio',
+            modulo: RepasoState.moduloActual || EstudioState.modulo || null,
+            up_id: RepasoState.upActual || null,
+            fecha: fechaLocalISO(),
+            hora_inicio: inicio,
+            hora_fin: fin,
+            estado: 'pendiente'
+        });
+        if (error) throw error;
+
+        inicioInput.value = ''; finInput.value = ''; tareaInput.value = '';
+        // Permiso para la notificación del navegador (se pide una sola vez, al planificar)
+        try { if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission(); } catch (_) {}
+        await refrescarBloques();
+        renderListaEventosEnModal();
+    } catch (err) {
+        console.error('[Planificador] No se pudo guardar el bloque:', err);
+        alert('No se pudo guardar el bloque. Revisá que la base tenga las columnas hora_inicio, hora_fin y estado.');
+    } finally {
+        if (btn) btn.disabled = false;
     }
-    if (!tarea) {
-        alert('Contanos qué vas a hacer en ese bloque (ej: Estudiar UP1).');
-        return;
-    }
-    if (fin <= inicio) {
-        alert('La hora de fin tiene que ser posterior a la hora de inicio.');
-        return;
-    }
-
-    const bloques = cargarBloquesTimeboxing();
-    bloques.push({
-        id: 'block-' + Date.now(),
-        inicio,
-        fin,
-        tarea,
-        completado: false
-    });
-
-    guardarBloquesTimeboxing(bloques);
-
-    inicioInput.value = '';
-    finInput.value = '';
-    tareaInput.value = '';
-
-    renderBloquesTimeboxing();
 }
 
-// Marca/desmarca un bloque como completado (tacha el texto levemente).
-function toggleBloqueTimeboxing(blockId) {
-    const bloques = cargarBloquesTimeboxing();
-    const bloque = bloques.find(b => b.id === blockId);
-    if (!bloque) return;
-    bloque.completado = !bloque.completado;
-    guardarBloquesTimeboxing(bloques);
-    renderBloquesTimeboxing();
+async function cambiarEstadoBloque(id, estado) {
+    const client = getSupabaseClienteActivo();
+    if (!client) return;
+    const bloque = BloquesState.hoy.find(b => String(b.id) === String(id));
+    try {
+        const { error } = await client.from('calendario_eventos')
+            .update({ estado, completado: estado === 'completado' })
+            .eq('id', id);
+        if (error) throw error;
+        if (bloque) bloque.estado = estado;
+        if (estado === 'en_curso' && bloque) iniciarPomodoroDeBloque(bloque);
+        await refrescarBloques();
+    } catch (err) {
+        console.error('[Planificador] No se pudo cambiar el estado:', err);
+        toastBloque('No se pudo actualizar el bloque.', 'warning');
+    }
 }
 
-function eliminarBloqueTimeboxing(blockId) {
-    const bloques = cargarBloquesTimeboxing().filter(b => b.id !== blockId);
-    guardarBloquesTimeboxing(bloques);
-    renderBloquesTimeboxing();
+// "En curso" arranca el Pomodoro sobre la UP asignada al bloque.
+function iniciarPomodoroDeBloque(b) {
+    const eng = window.PomodoroEngine;
+    if (!eng) return;
+    if (!b.up_id) { toastBloque('Bloque en curso. (No tiene UP asignada, no se inició el Pomodoro.)'); return; }
+    try {
+        const st = eng.getState();
+        if (st.status === 'running') { toastBloque('Ya tenés un Pomodoro en marcha.'); return; }
+        const unit = (EstudioState.unitsById || {})[b.up_id];
+        const ctx = { moduleId: b.modulo || EstudioState.modulo, upId: b.up_id, upLabel: (unit && unit.title) || b.up_id };
+        eng.reset('work', ctx);
+        eng.start(ctx);
+        toastBloque(`▶ Pomodoro iniciado · ${ctx.upLabel}`);
+    } catch (err) {
+        console.warn('[Planificador] No se pudo iniciar el Pomodoro:', err);
+    }
 }
 
-// Pinta la lista de bloques del día, siempre ordenada por hora de inicio.
-function renderBloquesTimeboxing() {
+async function eliminarBloqueTimeboxing(id) {
+    const client = getSupabaseClienteActivo();
+    if (!client) return;
+    try {
+        const { error } = await client.from('calendario_eventos').delete().eq('id', id);
+        if (error) throw error;
+        await refrescarBloques();
+        renderListaEventosEnModal();
+    } catch (err) {
+        console.error('[Planificador] No se pudo eliminar el bloque:', err);
+    }
+}
+
+function etiquetaModuloUp(b) {
+    const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
+    const unit = (EstudioState.unitsById || {})[b.up_id];
+    const up = unit ? `UP${unit.number}` : (b.up_id ? String(b.up_id).toUpperCase() : '');
+    return [nombres[b.modulo] || b.modulo, up].filter(Boolean).join(' · ');
+}
+
+function htmlBloque(b) {
+    const est = estadoEfectivoBloque(b);
+    const etiquetas = { pendiente: 'Pendiente', en_curso: 'En curso', completado: 'Completado', expirado: 'Expirado · no completado', descartado: 'Descartado' };
+    const btn = (txt, estado, extra = '') =>
+        `<button type="button" class="nika-bloque-btn ${extra}" onclick="cambiarEstadoBloque('${b.id}','${estado}')">${txt}</button>`;
+    const acciones = [];
+    if (est === 'pendiente' || est === 'expirado') acciones.push(btn('▶ Iniciar', 'en_curso'));
+    if (est !== 'completado' && est !== 'descartado') acciones.push(btn('✔ Hecho', 'completado'));
+    if (est === 'expirado') acciones.push(btn('Descartar', 'descartado', 'is-muted'));
+    if (est === 'completado' || est === 'descartado') acciones.push(btn('↺ Reabrir', 'pendiente', 'is-muted'));
+    acciones.push(`<button type="button" class="nika-bloque-btn is-muted" onclick="eliminarBloqueTimeboxing('${b.id}')" title="Eliminar bloque">🗑️</button>`);
+    const ctx = etiquetaModuloUp(b);
+    return `
+    <div class="nika-bloque is-${est}">
+        <div class="nika-bloque-info">
+            <span class="nika-bloque-hora">${horaCorta(b.hora_inicio)} – ${horaCorta(b.hora_fin)}</span>
+            <span class="nika-bloque-tarea">${escaparHtmlBasico(b.titulo || '')}</span>
+            ${ctx ? `<span class="nika-bloque-ctx">${escaparHtmlBasico(ctx)}</span>` : ''}
+            <span class="nika-bloque-estado">${etiquetas[est]}</span>
+        </div>
+        <div class="nika-bloque-acciones">${acciones.join('')}</div>
+    </div>`;
+}
+
+// Lista completa de hoy dentro del modal "Organizá tu Día".
+async function renderBloquesTimeboxing() {
     const cont = document.getElementById('timeboxing-lista-bloques');
     const fechaLabel = document.getElementById('timeboxing-fecha-label');
     if (!cont) return;
@@ -1569,25 +1850,13 @@ function renderBloquesTimeboxing() {
         const hoyFormateado = new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
         fechaLabel.textContent = `Organizá tu ${hoyFormateado}`;
     }
+    if (BloquesState.fecha !== fechaLocalISO()) await cargarBloquesHoy();
 
-    const bloques = cargarBloquesTimeboxing().sort((a, b) => a.inicio.localeCompare(b.inicio));
-
-    if (bloques.length === 0) {
+    if (BloquesState.hoy.length === 0) {
         cont.innerHTML = `<span style="font-style:italic; font-size:0.78rem; color:#94a3b8;">Todavía no agregaste bloques para hoy.</span>`;
         return;
     }
-
-    cont.innerHTML = bloques.map(b => `
-        <div class="nika-timeblock-row ${b.completado ? 'is-done' : ''}">
-            <input type="checkbox" class="nika-timeblock-checkbox" ${b.completado ? 'checked' : ''}
-                   onchange="toggleBloqueTimeboxing('${b.id}')" title="Marcar como completado">
-            <div class="nika-timeblock-info">
-                <span class="nika-timeblock-hora">${b.inicio} – ${b.fin}</span>
-                <span class="nika-timeblock-tarea">${escaparHtmlBasico(b.tarea)}</span>
-            </div>
-            <button type="button" class="nika-timeblock-delete" onclick="eliminarBloqueTimeboxing('${b.id}')" title="Eliminar bloque">🗑️</button>
-        </div>
-    `).join('');
+    cont.innerHTML = BloquesState.hoy.map(htmlBloque).join('');
 }
 
 // Escape mínimo para no inyectar HTML con lo que el usuario tipeó como tarea.
@@ -1597,6 +1866,83 @@ function escaparHtmlBasico(str) {
     return div.innerHTML;
 }
 
+// ---- Alertas: revisión cada 30 s mientras la pestaña esté abierta ----------
+function _alertasVistas() {
+    try { return new Set(JSON.parse(localStorage.getItem('nika_alertas_bloques_' + fechaLocalISO()) || '[]')); } catch (_) { return new Set(); }
+}
+function _marcarAlerta(clave) {
+    const s = _alertasVistas(); s.add(clave);
+    try { localStorage.setItem('nika_alertas_bloques_' + fechaLocalISO(), JSON.stringify([...s])); } catch (_) {}
+}
+
+function beepAlerta(doble) {
+    try { window.dispatchEvent(new CustomEvent('nika:alerta-sonido')); } catch (_) {}
+    try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        const tono = (freq, t0, dur) => {
+            const o = ctx.createOscillator(); const g = ctx.createGain();
+            o.type = 'sine'; o.frequency.value = freq;
+            g.gain.setValueAtTime(0.0001, ctx.currentTime + t0);
+            g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + t0 + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + t0 + dur);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(ctx.currentTime + t0); o.stop(ctx.currentTime + t0 + dur + 0.02);
+        };
+        tono(880, 0, 0.18);
+        if (doble) tono(1175, 0.24, 0.24);
+        setTimeout(() => { try { ctx.close(); } catch (_) {} }, 900);
+    } catch (_) { /* audio bloqueado hasta la primera interacción */ }
+}
+
+async function revisarAlertasBloques() {
+    if (BloquesState.fecha !== fechaLocalISO()) await cargarBloquesHoy();
+    const ahora = ahoraEnMinutos();
+    const vistas = _alertasVistas();
+
+    BloquesState.hoy.forEach(b => {
+        if (b.estado === 'completado' || b.estado === 'descartado') return;
+        const ini = minutosDe(b.hora_inicio), fin = minutosDe(b.hora_fin);
+        const tarea = b.titulo || 'bloque de estudio';
+
+        // Aviso previo: faltan 5 min para empezar
+        if (b.estado !== 'en_curso' && ini - ahora > 0 && ini - ahora <= 5 && !vistas.has(b.id + ':pre-ini')) {
+            _marcarAlerta(b.id + ':pre-ini');
+            toastBloque(`⏰ En ${ini - ahora} min empieza: ${tarea}`);
+            beepAlerta(false);
+        }
+        // Inicio exacto: notificación del navegador + sonido
+        if (ahora >= ini && ahora < Math.min(fin, ini + 3) && !vistas.has(b.id + ':ini')) {
+            _marcarAlerta(b.id + ':ini');
+            toastBloque(`▶ Es hora de tu bloque: ${tarea}`);
+            beepAlerta(true);
+            try {
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    new Notification('Es hora de tu bloque de estudio', { body: `${horaCorta(b.hora_inicio)}–${horaCorta(b.hora_fin)} · ${tarea}`, tag: 'bloque-' + b.id });
+                }
+            } catch (_) {}
+        }
+        // Aviso previo: faltan 5 min para terminar (solo si ya arrancó)
+        if (ahora >= ini && fin - ahora > 0 && fin - ahora <= 5 && !vistas.has(b.id + ':pre-fin')) {
+            _marcarAlerta(b.id + ':pre-fin');
+            toastBloque(`⌛ Quedan ${fin - ahora} min de: ${tarea}`);
+            beepAlerta(false);
+        }
+    });
+    // Repinta para que un bloque pase a "Expirado" sin recargar
+    renderBloquesTimeboxing();
+    cargarRepasos();
+}
+
+function iniciarMonitorAlertas() {
+    if (window._nikaMonitorAlertas) return;
+    window._nikaMonitorAlertas = setInterval(revisarAlertasBloques, 30000);
+    setTimeout(revisarAlertasBloques, 2000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) revisarAlertasBloques(); });
+}
+
+// Cronograma de la sala: bloques de hoy (con controles de estado) + próximos eventos.
 async function cargarRepasos() {
     const lista = document.getElementById('repaso-lista');
     if (!lista) return;
@@ -1609,32 +1955,41 @@ async function cargarRepasos() {
     }
 
     try {
-        const hoy = new Date().toISOString().slice(0, 10);
+        const hoy = fechaLocalISO();
+        if (BloquesState.fecha !== hoy || !BloquesState.hoy.length) await cargarBloquesHoy();
+
         const { data, error } = await client
             .from('calendario_eventos')
-            .select('id, titulo, tipo, fecha, completado')
+            .select('id, titulo, tipo, fecha')
             .eq('user_id', user.id)
             .gte('fecha', hoy)
             .order('fecha', { ascending: true })
-            .limit(4);
-
+            .limit(12);
         if (error) throw error;
+        // Los bloques de hoy ya se muestran arriba, con sus controles de estado
+        const proximos = (data || []).filter(ev => !(ev.tipo === 'bloque_estudio' && ev.fecha === hoy)).slice(0, 5);
 
-        if (!data || data.length === 0) {
-            lista.innerHTML = `<span style="font-style:italic;">Sin repasos agendados todavía.</span>`;
-            return;
+        const iconoTipo = { repaso: '📘', examen: '📝', bloque_estudio: '⏰', otro: '📌' };
+        const partes = [];
+
+        if (BloquesState.hoy.length) {
+            partes.push(`<div class="nika-bloques-titulo">Hoy</div>` + BloquesState.hoy.map(htmlBloque).join(''));
         }
-
-        const iconoTipo = { repaso: '📘', examen_parcial: '📝', examen_final: '🎓' };
-
-        lista.innerHTML = data.map(ev => {
-            const dias = Math.ceil((new Date(ev.fecha) - new Date(hoy)) / 86400000);
-            const cuando = dias === 0 ? 'Hoy' : dias === 1 ? 'Mañana' : `En ${dias} días`;
-            return `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 10px; background:rgba(244,114,182,0.05); border-radius:8px;">
-                        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--text-main,#1e293b);">${iconoTipo[ev.tipo] || '📅'} ${ev.titulo}</span>
-                        <strong style="color:#f472b6; white-space:nowrap; font-size:0.72rem;">${cuando}</strong>
+        if (proximos.length) {
+            partes.push((BloquesState.hoy.length ? `<div class="nika-bloques-titulo">Próximos</div>` : '') + proximos.map(ev => {
+                const dias = Math.round((new Date(ev.fecha + 'T00:00:00') - new Date(hoy + 'T00:00:00')) / 86400000);
+                const cuando = dias === 0 ? 'Hoy' : dias === 1 ? 'Mañana' : `En ${dias} días`;
+                return `<div class="nika-evento-item" onclick="editarEvento('${ev.id}')" title="Editar evento">
+                        <span class="nika-evento-titulo">${iconoTipo[ev.tipo] || '📅'} ${escaparHtmlBasico(ev.titulo || '')}</span>
+                        <strong class="nika-evento-cuando">${cuando}</strong>
+                        <span class="nika-evento-acciones">
+                            <button type="button" class="nika-evento-btn" title="Editar" onclick="event.stopPropagation(); editarEvento('${ev.id}')">✏️</button>
+                            <button type="button" class="nika-evento-btn is-danger" title="Eliminar" onclick="event.stopPropagation(); eliminarEvento('${ev.id}')">🗑️</button>
+                        </span>
                     </div>`;
-        }).join('');
+            }).join(''));
+        }
+        lista.innerHTML = partes.length ? partes.join('') : `<span style="font-style:italic;">Sin repasos agendados todavía.</span>`;
     } catch (err) {
         console.warn('[Repaso] No se pudo cargar el cronograma:', err);
         lista.innerHTML = `<span style="font-style:italic;">No se pudo cargar el cronograma.</span>`;
@@ -1643,7 +1998,7 @@ async function cargarRepasos() {
 
 // ---- Modal de calendario mensual (minimalista, oscuro, bordes sutiles) ----
 
-const CalendarioModalState = { mesVisible: new Date(), eventos: [] };
+const CalendarioModalState = { mesVisible: new Date(), eventos: [], diaSel: null };
 
 function inyectarModalCalendarioSiHaceFalta() {
     if (document.getElementById('modal-calendario-nika')) return;
@@ -1658,8 +2013,9 @@ function inyectarModalCalendarioSiHaceFalta() {
             </div>
             <div id="calendario-grid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; font-size:0.72rem; text-align:center;"></div>
             <div style="display:flex; gap:12px; margin-top:16px; font-size:0.68rem; color:#94a3b8; justify-content:center; flex-wrap:wrap;">
-                <span>🔴 Examen</span><span>🔵 Repaso</span><span>🟣 Hoy</span>
+                <span>🔴 Examen</span><span>🔵 Repaso</span><span>🟠 Bloque</span><span>🟣 Otro</span>
             </div>
+            <div id="calendario-dia-detalle" style="margin-top:14px; max-height:32vh; overflow-y:auto;"></div>
             <button type="button" onclick="cerrarModalCalendario()" style="margin-top:16px; width:100%; padding:9px; border:1px solid rgba(255,255,255,0.12); background:transparent; color:#e2e8f0; border-radius:8px; cursor:pointer; font-size:0.8rem;">Cerrar</button>
         </div>
     </div>`;
@@ -1693,8 +2049,8 @@ async function cargarEventosDelMes() {
 
     const y = CalendarioModalState.mesVisible.getFullYear();
     const m = CalendarioModalState.mesVisible.getMonth();
-    const desde = new Date(y, m, 1).toISOString().slice(0, 10);
-    const hasta = new Date(y, m + 1, 0).toISOString().slice(0, 10);
+    const desde = fechaLocalISO(new Date(y, m, 1));
+    const hasta = fechaLocalISO(new Date(y, m + 1, 0));
 
     try {
         const { data, error } = await client
@@ -1719,7 +2075,7 @@ function renderCalendarioGrid() {
     const nombresMes = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
     label.textContent = `${nombresMes[m]} ${y}`;
 
-    const hoyStr = new Date().toISOString().slice(0, 10);
+    const hoyStr = fechaLocalISO();
     const primerDiaSemana = new Date(y, m, 1).getDay(); // 0=domingo
     const diasEnMes = new Date(y, m + 1, 0).getDate();
 
@@ -1729,6 +2085,10 @@ function renderCalendarioGrid() {
         if (!eventosPorDia[dia]) eventosPorDia[dia] = [];
         eventosPorDia[dia].push(ev.tipo);
     });
+    // Si el mes cambió, la selección de otro mes ya no aplica
+    if (CalendarioModalState.diaSel && CalendarioModalState.diaSel.slice(0, 7) !== `${y}-${String(m + 1).padStart(2, '0')}`) {
+        CalendarioModalState.diaSel = null;
+    }
 
     let html = ['D','L','M','M','J','V','S'].map(d => `<div style="color:#64748b; font-weight:700; padding-bottom:4px;">${d}</div>`).join('');
     for (let i = 0; i < primerDiaSemana; i++) html += `<div></div>`;
@@ -1738,18 +2098,48 @@ function renderCalendarioGrid() {
         const esHoy = fechaStr === hoyStr;
         const tipos = eventosPorDia[dia] || [];
         const dots = tipos.map(t => {
-            const color = (t === 'examen_parcial' || t === 'examen_final') ? '#ef4444' : t === 'repaso' ? '#22d3ee' : '#a855f7';
+            const color = t === 'examen' ? '#ef4444' : t === 'repaso' ? '#22d3ee' : t === 'bloque_estudio' ? '#f59e0b' : '#a855f7';
             return `<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:${color}; margin:0 1px;"></span>`;
         }).join('');
 
+        const sel = CalendarioModalState.diaSel === fechaStr;
+        const conEventos = tipos.length > 0;
         html += `
-            <div style="padding:6px 0; border-radius:8px; ${esHoy ? 'border:1px solid #a855f7;' : ''}">
+            <div ${conEventos ? `onclick="seleccionarDiaCalendario('${fechaStr}')" title="Ver eventos del día"` : ''}
+                 style="padding:6px 0; border-radius:8px; ${conEventos ? 'cursor:pointer;' : ''} ${sel ? 'background:rgba(37,99,235,0.28);' : ''} ${esHoy ? 'border:1px solid #a855f7;' : ''}">
                 <div>${dia}</div>
                 <div style="height:6px;">${dots}</div>
             </div>`;
     }
 
     grid.innerHTML = html;
+    renderDiaSeleccionado();
+}
+
+function seleccionarDiaCalendario(fechaStr) {
+    CalendarioModalState.diaSel = CalendarioModalState.diaSel === fechaStr ? null : fechaStr;
+    renderCalendarioGrid();
+}
+
+// Listado de eventos del día tocado, con Editar / Eliminar.
+function renderDiaSeleccionado() {
+    const cont = document.getElementById('calendario-dia-detalle');
+    if (!cont) return;
+    const dia = CalendarioModalState.diaSel;
+    if (!dia) { cont.innerHTML = ''; return; }
+    const evs = CalendarioModalState.eventos.filter(e => e.fecha === dia);
+    if (!evs.length) { cont.innerHTML = ''; return; }
+    const iconoTipo = { repaso: '📘', examen: '📝', bloque_estudio: '⏰', otro: '📌' };
+    const fechaLegible = new Date(dia + 'T00:00:00').toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+    cont.innerHTML = `<div style="font-size:0.72rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;">${fechaLegible}</div>` +
+        evs.map(ev => `
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; margin-bottom:6px; background:rgba(255,255,255,0.05); border-radius:8px;">
+            <span style="font-size:0.78rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer;" onclick="editarEvento('${ev.id}')">${iconoTipo[ev.tipo] || '📅'} ${escaparHtmlBasico(ev.titulo || '')}</span>
+            <span style="flex-shrink:0; display:flex; gap:4px;">
+                <button type="button" onclick="editarEvento('${ev.id}')" title="Editar" style="border:none; background:rgba(148,163,184,0.18); width:26px; height:26px; border-radius:7px; cursor:pointer;">✏️</button>
+                <button type="button" onclick="eliminarEvento('${ev.id}')" title="Eliminar" style="border:none; background:rgba(239,68,68,0.15); width:26px; height:26px; border-radius:7px; cursor:pointer;">🗑️</button>
+            </span>
+        </div>`).join('');
 }
 
 // ================= TABS DE LA VISTA DETALLE =================

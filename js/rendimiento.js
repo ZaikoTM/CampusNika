@@ -135,7 +135,29 @@ const NikaRendimiento = (() => {
     return true;
   }
 
+  // Aviso único de "cambió el rendimiento": esta pestaña (evento window) y las demás (BroadcastChannel).
+  let _bc = null;
+  try { if ('BroadcastChannel' in window) _bc = new BroadcastChannel('nika-rendimiento'); } catch (_) {}
+  let _avisoTimer = null;
+  function avisarCambio(detail) {
+    clearTimeout(_avisoTimer);
+    _avisoTimer = setTimeout(() => {
+      try { window.dispatchEvent(new CustomEvent('nika:rendimiento-changed', { detail: detail || {} })); } catch (_) {}
+      try { window.dispatchEvent(new CustomEvent('nika:estudio-guardado', { detail: detail || {} })); } catch (_) {}
+      try { if (_bc) _bc.postMessage({ t: Date.now() }); } catch (_) {}
+    }, 150);
+  }
+  // Cuando la cola offline termina de subir algo, se repinta sola (sync-done solo se emite si se envió algo).
+  window.addEventListener('nika:sync-done', (e) => {
+    if (e && e.detail && e.detail.enviados > 0) avisarCambio({ origen: 'sync' });
+  });
+
   async function guardarExamen(payload) {
+    try { return await _guardarExamenCore(payload); }
+    finally { avisarCambio({ origen: 'examen' }); }
+  }
+
+  async function _guardarExamenCore(payload) {
     const offline = _estaOffline();
     // Online: sesión real. Offline: usuario cacheado (no esperamos a la red).
     let userId = await _getUserIdRapido(offline ? 1500 : 6000);
@@ -273,7 +295,7 @@ const NikaRendimiento = (() => {
     const res = await _guardarFilaEstudio(fila);
 
     // Avisa a la UI para refrescar "Tiempo total" y "Tiempo de hoy" sin recargar.
-    try { window.dispatchEvent(new CustomEvent('nika:estudio-guardado', { detail: { minutes, compartida: true, ...res } })); } catch (_) {}
+    avisarCambio({ origen: 'compartida', minutes, compartida: true, ...res });
     return res;
   }
 
@@ -392,21 +414,34 @@ const NikaRendimiento = (() => {
       const m = s.modulo || 'otros';
       confirmadoPorModulo[m] = (confirmadoPorModulo[m] || 0) + (Number(s.duration_minutes) || 0);
     });
-    const local = _minutosLocalesPorModulo();
+    // Pendientes REALES = lo que sigue en la cola offline (IndexedDB), no la resta contra
+    // localStorage: `nika_time_*` es una caché acumulativa que nunca se limpia y generaba un
+    // "N min sin subir" fantasma que además se sumaba al KPI.
     const pendientesPorModulo = {};
     let pendientesTotal = 0;
-    Object.keys(local.porModulo).forEach((m) => {
-      const diff = local.porModulo[m] - (confirmadoPorModulo[m] || 0);
-      if (diff > 0) {
-        pendientesPorModulo[m] = diff;
-        pendientesTotal += diff;
+    try {
+      const OS = window.OfflineStorage;
+      if (OS) {
+        const items = [
+          ...(OS.obtenerColaPendiente ? await OS.obtenerColaPendiente() : []),
+          ...(OS.obtenerColaFallida ? await OS.obtenerColaFallida() : []),
+        ];
+        items.forEach((it) => {
+          const row = it && it.payload && it.payload.row;      // solo 'progreso_estudio'
+          if (!row) return;
+          if (it.userId && it.userId !== userId) return;       // cola de otra cuenta
+          const min = Number(row.duration_minutes) || 0;
+          if (min <= 0) return;
+          const m = row.modulo || 'otros';
+          pendientesPorModulo[m] = (pendientesPorModulo[m] || 0) + min;
+          pendientesTotal += min;
+        });
       }
-    });
+    } catch (err) {
+      console.warn('[Rendimiento] No se pudo leer la cola offline:', err && err.message);
+    }
     if (pendientesTotal > 0) {
-      console.warn(
-        `[Rendimiento] Hay ${pendientesTotal} min registrados en este dispositivo (localStorage) que no están ` +
-        `en study_sessions todavía. Desglose por módulo:`, pendientesPorModulo
-      );
+      console.warn(`[Rendimiento] ${pendientesTotal} min esperan en la cola offline (se suben solos al haber señal):`, pendientesPorModulo);
     }
 
     return { sesiones, examenes, pendientesPorModulo, pendientesTotal };
@@ -600,7 +635,7 @@ const NikaRendimiento = (() => {
   }
 
   return {
-    guardarExamen, cargarDatos, analizar, reintentarPendientes, registrarSesionCompartida,
+    guardarExamen, cargarDatos, analizar, reintentarPendientes, registrarSesionCompartida, avisarCambio,
     forzarSincronizacion,
     formatearTiempo, labelModulo, normUp,
     UMBRALES: { FRESCO_MAX, DECAIMIENTO_MAX },

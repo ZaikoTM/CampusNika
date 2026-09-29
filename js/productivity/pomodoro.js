@@ -131,6 +131,16 @@ const PomodoroModule = (() => {
     const running = isRunning();
     const isWork = mode === 'work';
 
+    // FIX: estas constantes se declaraban DESPUES de sharedNoteHtml, cuya plantilla las usaba antes
+    // de inicializarlas (ReferenceError) cuando habia sesion compartida: render() explotaba y el
+    // panel del Pomodoro no aparecia.
+    const cardBg = isWork 
+      ? 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)' 
+      : 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)';
+    const borderColor = isWork ? 'rgba(244, 63, 94, 0.25)' : 'rgba(34, 197, 94, 0.25)';
+    const primaryColor = isWork ? '#e11d48' : '#16a34a';
+    const titleColor = isWork ? '#9f1239' : '#166534';
+
     // Sesión compartida: el Invitado ve el reloj pero NO tiene controles (solo el Host manda).
     const stShared = engine().getState().shared;
     const bloqueado = !!(stShared && stShared.role === 'guest');
@@ -142,12 +152,6 @@ const PomodoroModule = (() => {
             </span>
             <button id="pomo-shared-leave" style="background: transparent; border: 1px solid ${borderColor}; color: ${titleColor}; border-radius: 6px; padding: 3px 8px; font-size: 0.68rem; font-weight: 700; cursor: pointer; white-space: nowrap;">Salir</button>
         </div>` : '';
-    const cardBg = isWork 
-      ? 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)' 
-      : 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)';
-    const borderColor = isWork ? 'rgba(244, 63, 94, 0.25)' : 'rgba(34, 197, 94, 0.25)';
-    const primaryColor = isWork ? '#e11d48' : '#16a34a';
-    const titleColor = isWork ? '#9f1239' : '#166534';
 
     if (currentView === 'timer') {
       const bannerHtml = shouldShowNotifBanner() ? `
@@ -322,9 +326,14 @@ const PomodoroModule = (() => {
     if (unsubTick) unsubTick();
     if (unsubChange) unsubChange();
     unsubTick = engine().on('tick', updateClock);
-    unsubChange = engine().on('change', () => { if (containerEl && document.body.contains(containerEl)) render(); });
+    unsubChange = engine().on('change', () => {
+      if (containerEl && document.body.contains(containerEl)) {
+        try { render(); } catch (e) { console.error('[Pomodoro] render:', e); }
+      }
+    });
 
-    render();
+    // Un fallo al dibujar NO debe cortar el resto de la página (notas, cronograma).
+    try { render(); } catch (e) { console.error('[Pomodoro] render inicial:', e); }
     syncStatsFromSupabase();
   }
 

@@ -118,6 +118,7 @@ const PomodoroEngine = (() => {
   }
 
   function playAlertSound() {
+    try { window.dispatchEvent(new CustomEvent('nika:alerta-sonido')); } catch (_) {} // NikaMusic baja el volumen un momento
     try {
       initAudio();
       if (!audioCtx) return;
@@ -188,7 +189,24 @@ const PomodoroEngine = (() => {
   }
 
   // completed = false -> bloque interrumpido (Pomodoro parcial)
+  // Avisa a la UI (esta pestaña y las demás) que cambió el rendimiento. Se llama SIEMPRE al
+  // terminar el guardado: si subió a Supabase, si quedó en la cola offline o si falló.
+  function avisarRendimiento(detail) {
+    try {
+      if (window.NikaRendimiento && window.NikaRendimiento.avisarCambio) { window.NikaRendimiento.avisarCambio(detail); return; }
+      window.dispatchEvent(new CustomEvent('nika:rendimiento-changed', { detail: detail || {} }));
+      window.dispatchEvent(new CustomEvent('nika:estudio-guardado', { detail: detail || {} }));
+      // Página sin rendimiento.js (p. ej. sala de estudio): igual avisamos a campus.html en otras pestañas.
+      const bc = new BroadcastChannel('nika-rendimiento'); bc.postMessage({ t: Date.now() }); bc.close();
+    } catch (_) {}
+  }
+
   async function registerStudySession(moduleId, upId, minutes, completed = true) {
+    try { await registerStudySessionCore(moduleId, upId, minutes, completed); }
+    finally { avisarRendimiento({ origen: 'pomodoro', minutes }); }
+  }
+
+  async function registerStudySessionCore(moduleId, upId, minutes, completed = true) {
     if (!moduleId || !upId || !minutes) return;
 
     // Copia local (la usa la vista de métricas del Pomodoro)
