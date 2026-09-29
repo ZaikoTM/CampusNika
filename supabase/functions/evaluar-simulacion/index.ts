@@ -44,12 +44,11 @@
 // ============================================================================
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { withCors } from "../_shared/cors.ts";
 
-const CORS_HEADERS = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
+// CORS (orígenes permitidos, preflight OPTIONS, cabeceras en todas las respuestas y captura de
+// errores no controlados) lo maneja ../_shared/cors.ts. Acá solo queda el Content-Type.
+const JSON_HEADERS = { "Content-Type": "application/json" };
 
 // ---------------------------------------------------------------------------
 // Costo por simulador, en créditos. Los submodos "simples" (sin systemPrompt
@@ -102,7 +101,7 @@ const GEMINI_MAX_INTENTOS = 2;
 function jsonResponse(status: number, body: unknown) {
     return new Response(JSON.stringify(body), {
         status,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+        headers: JSON_HEADERS,
     });
 }
 
@@ -214,8 +213,8 @@ function calcularCostoUsd(inputTokens: number, outputTokens: number): number {
     return Math.round(costo * 1_000_000) / 1_000_000; // redondeo a 6 decimales (numeric(10,6))
 }
 
-Deno.serve(async (req: Request) => {
-    if (req.method === "OPTIONS") return new Response("ok", { headers: CORS_HEADERS });
+Deno.serve(withCors(async (req: Request) => {
+    // El preflight OPTIONS ya lo respondió withCors (204) antes de llegar a este handler.
     if (req.method !== "POST") return jsonResponse(405, { error: "metodo_no_permitido" });
 
     // ---- Auth: extraer y verificar el JWT del usuario ------------------------
@@ -349,5 +348,4 @@ Deno.serve(async (req: Request) => {
                 : (err instanceof Error ? err.message : "No se pudo contactar al simulador."),
         });
     }
-});
-
+}));
