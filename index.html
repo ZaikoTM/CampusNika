@@ -2423,8 +2423,44 @@
             }
         }
 
+        // Estado del envío del formulario de login (evita doble envío mientras se espera al servidor).
+        let loginEnCurso = false;
+
+        // Traduce el error devuelto por NikaSupabase.iniciarSesion() a un mensaje claro.
+        // error.type distingue: offline / unreachable / timeout (problemas de red o servidor caído),
+        // invalid_credentials / email_not_confirmed / rate_limit / validation (problemas del usuario),
+        // server_config / server / invalid_response / profile (problemas del servidor).
+        function mensajeErrorLogin(error) {
+            if (!error) return "No se pudo iniciar sesión. Intentá de nuevo.";
+            const tipo = error.type || "";
+            const propio = error.message;
+            switch (tipo) {
+                case "offline":
+                    return propio || "No hay conexión a internet. Revisá tu red e intentá de nuevo.";
+                case "unreachable":
+                    return propio || "No pudimos comunicarnos con el servidor. Probá de nuevo en unos minutos o ingresá con tu correo.";
+                case "timeout":
+                    return propio || "El servidor tardó demasiado en responder. Intentá de nuevo.";
+                case "invalid_credentials":
+                    return propio || "Usuario o contraseña incorrectos.";
+                case "email_not_confirmed":
+                    return propio || "Confirmá tu correo electrónico antes de iniciar sesión.";
+                case "rate_limit":
+                    return propio || "Demasiados intentos. Esperá unos minutos e intentá de nuevo.";
+                case "validation":
+                    return propio || "Completá usuario y contraseña.";
+                case "server_config":
+                case "server":
+                    return propio || "El servidor tuvo un problema. Intentá de nuevo en unos minutos.";
+                default:
+                    return propio || "Datos incorrectos.";
+            }
+        }
+
         async function handlePublicLogin(e) {
             e.preventDefault();
+            if (loginEnCurso) return;
+
             const identifier = document.getElementById('login-id').value.trim();
             const password = document.getElementById('login-pass').value;
             
@@ -2435,22 +2471,41 @@
             // loguear, igual queremos tener el valor correcto ya en mano.
             const destino = getAuthRedirectTarget();
 
-            const { data, error } = await window.NikaSupabase.iniciarSesion({ identifier, password });
-            
-            if (error) {
-                console.warn("[Login] Falló el inicio de sesión:", error);
-                // Aquí usamos error.message directamente (que ahora contiene el texto sobre la verificación)
-                // Si por alguna razón error.message no existe, cae en "Datos incorrectos."
-                return alert(error.message || "Datos incorrectos.");
-            }
+            const boton = document.querySelector('#form-login button[type="submit"]');
+            const textoBoton = boton ? boton.textContent : '';
+            loginEnCurso = true;
+            if (boton) { boton.disabled = true; boton.textContent = 'Ingresando...'; }
 
-            clearAuthRedirectTarget();
-            // location.replace (no location.href): navega de inmediato y no
-            // deja el paso intermedio en el historial. Si supabaseClient.js
-            // llegara a disparar su propia redirección a campus.html desde
-            // adentro de iniciarSesion(), esta línea la sobreescribe porque
-            // corre después, en el mismo tick síncrono tras el await.
-            window.location.replace(destino);
+            try {
+                let resultado;
+                try {
+                    resultado = await window.NikaSupabase.iniciarSesion({ identifier, password });
+                } catch (err) {
+                    // iniciarSesion() no debería lanzar, pero si algo se escapa lo mostramos como error inesperado
+                    // (NO como falta de internet).
+                    console.error("[Login] Excepción inesperada:", err);
+                    alert("Ocurrió un error inesperado al iniciar sesión. Recargá la página e intentá de nuevo.");
+                    return;
+                }
+
+                if (!resultado || resultado.error) {
+                    const error = resultado && resultado.error;
+                    console.warn("[Login] Falló el inicio de sesión:", error);
+                    alert(mensajeErrorLogin(error));
+                    return;
+                }
+
+                clearAuthRedirectTarget();
+                // location.replace (no location.href): navega de inmediato y no
+                // deja el paso intermedio en el historial. Si supabaseClient.js
+                // llegara a disparar su propia redirección a campus.html desde
+                // adentro de iniciarSesion(), esta línea la sobreescribe porque
+                // corre después, en el mismo tick síncrono tras el await.
+                window.location.replace(destino);
+            } finally {
+                loginEnCurso = false;
+                if (boton) { boton.disabled = false; boton.textContent = textoBoton; }
+            }
         }
 
         async function handlePublicRegister(e) {
@@ -2489,41 +2544,79 @@
         }
 
         // ================= GOOGLE IDENTITY SERVICES (ID TOKEN) =================
+        // Banderas de control: initialize() y cada renderButton() se ejecutan EXACTAMENTE UNA VEZ.
+        // (Llamar initialize() varias veces genera "[GSI_LOGGER] initialize() is called multiple times"
+        //  y renderizar el botón repetidamente sobre el mismo contenedor rompe la librería de botones
+        //  de Google con "Cannot read properties of undefined (reading 'Ab')".)
+        let isGoogleInitialized = false;
+        let isGoogleLoginButtonRendered = false;
+        let isGoogleRegisterButtonRendered = false;
+        let googleReintentos = 0;
+        let googleReintentoTimer = null;
+        const GOOGLE_MAX_REINTENTOS = 40;      // 40 x 250 ms = 10 s esperando a que cargue la librería
+        const GOOGLE_INTERVALO_REINTENTO = 250;
+
+        function googleIdentityDisponible() {
+            return !!(window.google && window.google.accounts && window.google.accounts.id);
+        }
+
         function renderGoogleIdentityButtons() {
-            if (!window.google || !window.google.accounts || !window.google.accounts.id) return;
+            // Todo hecho: no se vuelve a tocar nada.
+            if (isGoogleInitialized && isGoogleLoginButtonRendered && isGoogleRegisterButtonRendered) return;
 
-            window.google.accounts.id.initialize({
-                client_id: "350437135489-iedu8len4ep7n103tieigsg3658b7ot8.apps.googleusercontent.com",
-                callback: handleGoogleCredentialResponse,
-                ux_mode: "popup"
-            });
-
-            const loginContainer = document.getElementById("google-btn-login-container");
-            if (loginContainer && loginContainer.offsetParent !== null) {
-                loginContainer.innerHTML = '';
-                window.google.accounts.id.renderButton(loginContainer, {
-                    theme: "outline",
-                    size: "large",
-                    type: "standard",
-                    text: "continue_with",
-                    shape: "rectangular",
-                    logo_alignment: "left",
-                    width: 320
-                });
+            // La librería (script async) todavía no cargó: reintenta unas pocas veces, sin bucles.
+            if (!googleIdentityDisponible()) {
+                if (!googleReintentoTimer && googleReintentos < GOOGLE_MAX_REINTENTOS) {
+                    googleReintentoTimer = setTimeout(() => {
+                        googleReintentoTimer = null;
+                        googleReintentos++;
+                        renderGoogleIdentityButtons();
+                    }, GOOGLE_INTERVALO_REINTENTO);
+                }
+                return;
             }
 
-            const regContainer = document.getElementById("google-btn-register-container");
-            if (regContainer && regContainer.offsetParent !== null) {
-                regContainer.innerHTML = '';
-                window.google.accounts.id.renderButton(regContainer, {
-                    theme: "outline",
-                    size: "large",
-                    type: "standard",
-                    text: "signup_with",
-                    shape: "rectangular",
-                    logo_alignment: "left",
-                    width: 320
-                });
+            try {
+                if (!isGoogleInitialized) {
+                    window.google.accounts.id.initialize({
+                        client_id: "350437135489-iedu8len4ep7n103tieigsg3658b7ot8.apps.googleusercontent.com",
+                        callback: handleGoogleCredentialResponse,
+                        ux_mode: "popup"
+                    });
+                    isGoogleInitialized = true;
+                }
+
+                // Cada botón se dibuja una sola vez, y solo cuando su pestaña está visible
+                // (un contenedor oculto tiene ancho 0 y el botón saldría mal dibujado).
+                const loginContainer = document.getElementById("google-btn-login-container");
+                if (!isGoogleLoginButtonRendered && loginContainer && loginContainer.offsetParent !== null) {
+                    window.google.accounts.id.renderButton(loginContainer, {
+                        theme: "outline",
+                        size: "large",
+                        type: "standard",
+                        text: "continue_with",
+                        shape: "rectangular",
+                        logo_alignment: "left",
+                        width: 320
+                    });
+                    isGoogleLoginButtonRendered = true;
+                }
+
+                const regContainer = document.getElementById("google-btn-register-container");
+                if (!isGoogleRegisterButtonRendered && regContainer && regContainer.offsetParent !== null) {
+                    window.google.accounts.id.renderButton(regContainer, {
+                        theme: "outline",
+                        size: "large",
+                        type: "standard",
+                        text: "signup_with",
+                        shape: "rectangular",
+                        logo_alignment: "left",
+                        width: 320
+                    });
+                    isGoogleRegisterButtonRendered = true;
+                }
+            } catch (err) {
+                console.error("[Google Identity] No se pudo inicializar el botón de Google:", err);
             }
         }
 
@@ -2746,6 +2839,6 @@
 
 
     <!-- Librería oficial de Google Identity Services -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer onload="renderGoogleIdentityButtons()"></script>
 </body>
 </html>

@@ -203,34 +203,110 @@ async function registrarUsuario({ fullname, username, email, password, avatar })
 //  - Con email: login directo contra Supabase Auth (que aplica sus propios límites).
 //  - Con username: lo resuelve el SERVIDOR (Edge Function "login-usuario"), que además
 //    limita los intentos fallidos. El navegador nunca recibe el correo de nadie.
-async function iniciarSesion({ identifier, password }) {
-    await NikaSupabaseReady;
-    const id = identifier.trim();
+//
+// Contrato de retorno (siempre un objeto, nunca lanza):
+//   éxito -> { ok: true,  data: <perfil>, error: null }
+//   error -> { ok: false, data: null, error: { type, message, status?, code? } }
+// donde error.type es uno de:
+//   "offline"              el dispositivo no tiene internet (navigator.onLine === false)
+//   "unreachable"          hay internet pero no se pudo contactar al servidor (caído, bloqueado, CORS)
+//   "timeout"              el servidor no respondió a tiempo
+//   "invalid_credentials"  usuario/correo o contraseña incorrectos
+//   "email_not_confirmed"  falta confirmar el correo
+//   "rate_limit"           demasiados intentos fallidos
+//   "validation"           faltan datos o son inválidos
+//   "server_config"        la función del servidor no está desplegada / mal configurada
+//   "server"               error interno del servidor (5xx)
+//   "invalid_response"     respuesta inesperada del servidor
+//   "profile"              se autenticó pero no se pudo leer el perfil
+//   "unknown"              cualquier otro caso
+// (error.message es siempre un texto listo para mostrarle al usuario.)
+const LOGIN_TIMEOUT_MS = 15000;
 
-    if (id.includes("@")) {
-        const { data, error } = await nikaSupabase.auth.signInWithPassword({ email: id.toLowerCase(), password });
-        
-        if (error) {
-            console.log("Error completo de Supabase:", error);
-            
-            // CORRECCIÓN ROBUSTA: Evaluamos el mensaje y también el código de estado (status)
-            const errMsg = error.message ? error.message.toLowerCase() : "";
-            
-            if (errMsg.includes("email not confirmed") || (error.status === 400 && errMsg.includes("invalid login"))) {
-                return { error: { message: "Verificá tu correo electrónico para ingresar, o revisá que tus datos sean correctos." } };
-            } else if (errMsg.includes("invalid login credentials")) {
-                return { error: { message: "El correo o la contraseña son incorrectos." } };
-            }
-            
-            return { error };
-        }
-        
-        const perfilCacheado = await _cachearSesionLocal(data.user);
-        return { data: perfilCacheado, error: null };
+function _errorLogin(type, message, extra = {}) {
+    return { ok: false, data: null, error: { type, message, ...extra } };
+}
+
+function _esErrorDeRed(err) {
+    if (!err) return false;
+    const msg = String(err.message || err).toLowerCase();
+    return (
+        err.name === "AuthRetryableFetchError" ||
+        err.status === 0 ||
+        /failed to fetch|networkerror|network request failed|load failed|fetch failed/.test(msg)
+    );
+}
+
+function _errorDeRed(err) {
+    if (typeof navigator !== "undefined" && navigator.onLine === false) {
+        return _errorLogin("offline", "No hay conexión a internet. Revisá tu red e intentá de nuevo.");
+    }
+    return _errorLogin(
+        "unreachable",
+        "No pudimos comunicarnos con el servidor de inicio de sesión. Probá de nuevo en unos minutos" +
+        " o ingresá con tu correo electrónico."
+    );
+}
+
+async function iniciarSesion({ identifier, password }) {
+    try {
+        await NikaSupabaseReady;
+    } catch (err) {
+        console.error("[supabaseClient] El SDK de Supabase no cargó:", err);
+        return _errorLogin(
+            "unreachable",
+            "No se pudo cargar el sistema de autenticación. Recargá la página y, si sigue igual, " +
+            "desactivá el bloqueador de anuncios o revisá tu conexión."
+        );
     }
 
+    const id = String(identifier || "").trim();
+    if (!id || !password) {
+        return _errorLogin("validation", "Completá usuario y contraseña.");
+    }
+
+    // ---------- Camino 1: login con correo (directo contra Supabase Auth) ----------
+    if (id.includes("@")) {
+        let resultado;
+        try {
+            resultado = await nikaSupabase.auth.signInWithPassword({ email: id.toLowerCase(), password });
+        } catch (err) {
+            console.warn("[supabaseClient] Falló signInWithPassword:", err);
+            return _esErrorDeRed(err) ? _errorDeRed(err) : _errorLogin("unknown", "No se pudo iniciar sesión. Intentá de nuevo.");
+        }
+
+        const { data, error } = resultado;
+        if (error) {
+            console.log("Error completo de Supabase:", error);
+
+            if (_esErrorDeRed(error)) return _errorDeRed(error);
+
+            const errMsg = error.message ? error.message.toLowerCase() : "";
+            const errCode = error.code ? String(error.code).toLowerCase() : "";
+
+            if (errCode === "email_not_confirmed" || errMsg.includes("email not confirmed")) {
+                return _errorLogin("email_not_confirmed", "Confirmá tu correo electrónico antes de iniciar sesión. Revisá tu bandeja de entrada (y spam).", { status: error.status, code: error.code });
+            }
+            if (errCode === "invalid_credentials" || errMsg.includes("invalid login credentials") || (error.status === 400 && errMsg.includes("invalid login"))) {
+                return _errorLogin("invalid_credentials", "Verificá tu correo electrónico para ingresar, o revisá que tus datos sean correctos.", { status: error.status, code: error.code });
+            }
+            if (error.status === 429 || errCode.includes("rate_limit")) {
+                return _errorLogin("rate_limit", "Demasiados intentos. Esperá unos minutos e intentá de nuevo.", { status: error.status, code: error.code });
+            }
+            if (error.status >= 500) {
+                return _errorLogin("server", "El servidor tuvo un problema. Intentá de nuevo en unos minutos.", { status: error.status, code: error.code });
+            }
+            return _errorLogin("unknown", error.message || "No se pudo iniciar sesión.", { status: error.status, code: error.code });
+        }
+
+        return _finalizarLogin(data && data.user);
+    }
+
+    // ---------- Camino 2: login con usuario (Edge Function "login-usuario") ----------
     let respuesta;
     let cuerpo = {};
+    const controlador = typeof AbortController !== "undefined" ? new AbortController() : null;
+    const temporizador = controlador ? setTimeout(() => controlador.abort(), LOGIN_TIMEOUT_MS) : null;
     try {
         respuesta = await fetch(`${SUPABASE_URL}/functions/v1/login-usuario`, {
             method: "POST",
@@ -240,34 +316,84 @@ async function iniciarSesion({ identifier, password }) {
                 Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
             },
             body: JSON.stringify({ identificador: id, password }),
+            signal: controlador ? controlador.signal : undefined,
         });
         cuerpo = await respuesta.json().catch(() => ({}));
     } catch (err) {
         console.warn("[supabaseClient] No se pudo contactar login-usuario:", err);
-        return { error: { message: "No hay conexión. Revisá tu internet e intentá de nuevo." } };
+        if (err && err.name === "AbortError") {
+            return _errorLogin("timeout", "El servidor tardó demasiado en responder. Intentá de nuevo.");
+        }
+        // Un fetch que falla ANTES de recibir respuesta (sin internet, servidor caído o bloqueo CORS)
+        // llega acá como TypeError. Solo se dice "sin conexión" si realmente el navegador está offline.
+        return _errorDeRed(err);
+    } finally {
+        if (temporizador) clearTimeout(temporizador);
     }
+
+    const mensajeServidor = cuerpo && typeof cuerpo.error === "string" ? cuerpo.error : "";
 
     if (!respuesta.ok || !cuerpo.access_token || !cuerpo.refresh_token) {
-        if (!cuerpo.error) console.warn("[supabaseClient] login-usuario respondió", respuesta.status, "(¿está desplegada y con 'Verify JWT' desactivado?)");
-        
-        const errorServidor = cuerpo.error ? cuerpo.error.toLowerCase() : "";
-        if (errorServidor.includes("email not confirmed")) {
-           return { error: { message: "Verificá tu correo electrónico para ingresar, o revisá que tus datos sean correctos." } };
+        const estado = respuesta.status;
+        if (!mensajeServidor) {
+            console.warn("[supabaseClient] login-usuario respondió", estado, "(¿está desplegada y con 'Verify JWT' desactivado?)", cuerpo);
         }
 
-        return { error: { message: cuerpo.error || "No se pudo iniciar sesión. Probá con tu correo." } };
+        if (estado === 429) {
+            return _errorLogin("rate_limit", mensajeServidor || "Demasiados intentos fallidos. Probá de nuevo en unos minutos.", { status: estado });
+        }
+        if (estado === 403) {
+            return _errorLogin("email_not_confirmed", mensajeServidor || "Confirmá tu correo antes de iniciar sesión.", { status: estado });
+        }
+        if (estado === 401 && mensajeServidor) {
+            return _errorLogin("invalid_credentials", mensajeServidor, { status: estado });
+        }
+        if (estado === 400) {
+            return _errorLogin("validation", mensajeServidor || "Completá usuario y contraseña.", { status: estado });
+        }
+        if (estado === 401 || estado === 404) {
+            // 401 sin nuestro mensaje = lo rechazó el gateway de Supabase ("Verify JWT" activado);
+            // 404 = la función no está desplegada.
+            return _errorLogin("server_config", "El ingreso con nombre de usuario no está disponible en este momento. Ingresá con tu correo electrónico.", { status: estado });
+        }
+        if (estado >= 500) {
+            return _errorLogin("server", mensajeServidor || "El servidor tuvo un problema. Intentá de nuevo en unos minutos o ingresá con tu correo.", { status: estado });
+        }
+        return _errorLogin("invalid_response", mensajeServidor || "Respuesta inesperada del servidor. Probá con tu correo.", { status: estado });
     }
 
-    const { data: sesion, error: sessionError } = await nikaSupabase.auth.setSession({
-        access_token: cuerpo.access_token,
-        refresh_token: cuerpo.refresh_token,
-    });
+    let sesion, sessionError;
+    try {
+        ({ data: sesion, error: sessionError } = await nikaSupabase.auth.setSession({
+            access_token: cuerpo.access_token,
+            refresh_token: cuerpo.refresh_token,
+        }));
+    } catch (err) {
+        console.warn("[supabaseClient] Falló setSession:", err);
+        return _esErrorDeRed(err) ? _errorDeRed(err) : _errorLogin("unknown", "No se pudo iniciar sesión.");
+    }
     if (sessionError || !sesion || !sesion.user) {
-        return { error: sessionError || { message: "No se pudo iniciar sesión." } };
+        if (_esErrorDeRed(sessionError)) return _errorDeRed(sessionError);
+        return _errorLogin("unknown", (sessionError && sessionError.message) || "No se pudo iniciar sesión.", { status: sessionError && sessionError.status });
     }
 
-    const perfilCacheado = await _cachearSesionLocal(sesion.user);
-    return { data: perfilCacheado, error: null };
+    return _finalizarLogin(sesion.user);
+}
+
+// Paso común a ambos caminos: cachea el perfil en localStorage y arma la respuesta de éxito.
+async function _finalizarLogin(authUser) {
+    if (!authUser) return _errorLogin("unknown", "No se pudo iniciar sesión.");
+    let perfilCacheado = null;
+    try {
+        perfilCacheado = await _cachearSesionLocal(authUser);
+    } catch (err) {
+        console.error("[supabaseClient] Error cacheando el perfil:", err);
+        if (_esErrorDeRed(err)) return _errorDeRed(err);
+    }
+    if (!perfilCacheado) {
+        return _errorLogin("profile", "Iniciaste sesión, pero no pudimos cargar tu perfil. Intentá de nuevo en unos segundos.");
+    }
+    return { ok: true, data: perfilCacheado, error: null };
 }
 
 async function cerrarSesion() {
