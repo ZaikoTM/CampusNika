@@ -1,15 +1,100 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
     <script>document.documentElement.classList.add('js');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Nika | Tu aliado en la carrera de Medicina</title>
+
+    <!-- ===== SEO BASE ===== -->
+    <title>NikaMed | Campus Nika - Plataforma de Estudio y Simulación Médica</title>
+    <meta name="description" content="NikaMed (Campus Nika): plataforma para estudiantes de Medicina en Argentina. Banco de +1.500 preguntas de cátedra, simuladores clínicos con IA, duelos 1vs1 y vademécum.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="author" content="NikaMed - Campus Nika">
     <link rel="canonical" href="https://nikamed.com.ar/">
+    <link rel="alternate" hreflang="es-AR" href="https://nikamed.com.ar/">
+    <link rel="alternate" hreflang="x-default" href="https://nikamed.com.ar/">
+
+    <!-- Idioma / región (Google usa sobre todo lang + hreflang; estas ayudan a Bing) -->
+    <meta http-equiv="content-language" content="es-AR">
+    <meta name="geo.region" content="AR">
+    <meta name="geo.placename" content="Argentina">
+
+    <!-- ===== OPEN GRAPH ===== -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Campus Nika">
-    <meta property="og:title" content="Campus Nika | Tu aliado en la carrera de Medicina">
+    <meta property="og:site_name" content="NikaMed | Campus Nika">
+    <meta property="og:locale" content="es_AR">
+    <meta property="og:title" content="NikaMed | Campus Nika - Plataforma de Estudio y Simulación Médica">
+    <meta property="og:description" content="Estudiá Medicina con simuladores clínicos con IA, +1.500 preguntas de cátedra, duelos 1vs1 y vademécum. Gratis para empezar.">
     <meta property="og:url" content="https://nikamed.com.ar/">
+    <meta property="og:image" content="https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="NikaMed - Campus Nika: plataforma de estudio y simulación médica">
+
+    <!-- ===== TWITTER / X CARDS ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NikaMed | Campus Nika - Plataforma de Estudio y Simulación Médica">
+    <meta name="twitter:description" content="Simuladores clínicos con IA, banco de preguntas de cátedra y duelos 1vs1 para estudiantes de Medicina.">
+    <meta name="twitter:image" content="https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png">
+    <meta name="twitter:image:alt" content="NikaMed - Campus Nika">
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+    <!-- ===== SCHEMA.ORG JSON-LD ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["EducationalOrganization", "Organization"],
+          "@id": "https://nikamed.com.ar/#organization",
+          "name": "NikaMed",
+          "alternateName": ["Campus Nika", "Campus NikaMed", "NikaMed Campus"],
+          "url": "https://nikamed.com.ar/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://nikamed.com.ar/assets/icons/icon-512.png",
+            "width": 512,
+            "height": 512
+          },
+          "description": "NikaMed (Campus Nika) es una plataforma argentina de estudio y simulación médica para estudiantes de Medicina: banco de preguntas de cátedra, simuladores clínicos con inteligencia artificial, duelos 1vs1 y vademécum interactivo.",
+          "areaServed": { "@type": "Country", "name": "Argentina" },
+          "knowsLanguage": "es-AR",
+          "audience": { "@type": "EducationalAudience", "educationalRole": "student", "audienceType": "Estudiantes de Medicina" },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "CampusNika@outlook.com",
+            "availableLanguage": "es"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://nikamed.com.ar/#website",
+          "url": "https://nikamed.com.ar/",
+          "name": "NikaMed",
+          "alternateName": ["Campus Nika", "NikaMed Campus"],
+          "inLanguage": "es-AR",
+          "publisher": { "@id": "https://nikamed.com.ar/#organization" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://nikamed.com.ar/#app",
+          "name": "Campus Nika",
+          "alternateName": "NikaMed",
+          "url": "https://nikamed.com.ar/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "Web, Android, iOS (PWA)",
+          "inLanguage": "es-AR",
+          "description": "Simulador médico y campus de estudio: preguntas Choice, simuladores clínicos con IA, Pase de Sala, Shock Room, examen ECOE, duelos 1vs1 y vademécum NikaFarma.",
+          "publisher": { "@id": "https://nikamed.com.ar/#organization" },
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS", "description": "Plan gratuito para empezar, sin tarjeta" }
+        }
+      ]
+    }
+    </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
@@ -100,10 +185,11 @@
         .hero-emblem-wrap img { height: 120px; width: auto; object-fit: contain; }
 
         .hero-heading { 
-            font-size: clamp(2.2rem, 5vw, 4.2rem); font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; 
+            font-size: clamp(2rem, 4.4vw, 3.6rem); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; 
             color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         
+        .hero-heading-sub { display:block; margin-top:14px; font-size:clamp(.95rem,2vw,1.25rem); font-weight:700; color:var(--violet-glow); letter-spacing:0; text-shadow:none; }
         .hero-lead { 
             font-size: clamp(0.95rem, 1.5vw, 1.05rem); color: var(--text-body); max-width: 850px; margin: 0 auto 34px auto; 
             font-weight: 500; line-height: 1.5;
@@ -869,7 +955,7 @@
     <!-- NAVBAR -->
     <nav class="public-nav">
         <a href="index.html" class="nav-brand">
-            <img src="assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png" alt="Nika Logo" onerror="this.src='assets/N%20NIKA.png'">
+            <img src="assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png" alt="NikaMed - Campus Nika" onerror="this.src='assets/N%20NIKA.png'">
             <div class="nav-brand-text">CAMPUS NIKA<span>MED</span></div>
         </a>
         <div class="nav-links">
@@ -897,9 +983,9 @@
             <i class="fx-blob b1"></i><i class="fx-blob b2"></i><i class="fx-blob b3"></i>
         </div>
         <div class="hero-emblem-wrap">
-            <img src="assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png" alt="Nika Logo" onerror="this.src='assets/N%20NIKA.png'">
+            <img src="assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png" alt="NikaMed - Campus Nika" onerror="this.src='assets/N%20NIKA.png'">
         </div>
-        <h1 class="hero-heading">Aprobá cada materia.</h1>
+        <h1 class="hero-heading">NikaMed: aprobá cada materia de Medicina<span class="hero-heading-sub">Campus Nika · simulación clínica y estudio con IA</span></h1>
         <p class="hero-lead">Tu aliado definitivo durante toda la carrera de Medicina. Organizá tus apuntes desde primer año, simulá exámenes bajo presión y resolvé casos complejos con asistencia inteligente.</p>
         
         <!-- Grupo de CTAs en línea con animaciones uniformes -->
@@ -935,7 +1021,7 @@
             <div class="feat-grid">
                 <div class="f-pitch">
                     <span class="f-tag" style="--tag: var(--success);">Simulador Choice</span>
-                    <h2 class="f-title">+1.500 preguntas oficiales de cátedra.</h2>
+                    <h2 class="f-title">Simulador Choice de Medicina: +1.500 preguntas oficiales de cátedra.</h2>
                     <p class="f-text">Clasificadas por Área, con los temas clave evaluados y casos clínicos reales. Rendís con cronómetro y, al responder, ves por qué esa opción es correcta y por qué se descartan las otras.</p>
                     <div class="choice-stats">
                         <div><strong>+1.500</strong><span>preguntas de cátedra clasificadas por Área</span></div>
@@ -996,7 +1082,7 @@
         <div class="wrap">
             <div class="f-head">
                 <span class="f-tag" style="--tag: var(--violet-glow);">6 simuladores clínicos</span>
-                <h2 class="f-title">Seis formas de entrenar para el examen real.</h2>
+                <h2 class="f-title">Seis simuladores de simulación clínica para el examen real.</h2>
                 <p class="f-text">Del choice masivo a la estación ECOE: cada simulador reproduce un formato de evaluación distinto de la carrera.</p>
             </div>
             <div class="sim-grid">
@@ -1050,7 +1136,7 @@
         <div class="wrap">
             <div class="f-head">
                 <span class="f-tag">Programa de la carrera</span>
-                <h2 class="f-title">Te resolvemos la cursada, año por año.</h2>
+                <h2 class="f-title">Campus Nika: te resolvemos la cursada de Medicina, año por año.</h2>
                 <p class="f-text">Seleccioná un año para ver los módulos académicos oficiales integrados en el campus.</p>
             </div>
             <div class="bento-box" style="padding: 32px;">
@@ -1249,7 +1335,7 @@
             <div class="feat-grid">
                 <div class="f-pitch" style="--tag: #34d399;">
                     <span class="f-tag">NikaFarma · Vademécum de guardia</span>
-                    <h2 class="f-title">Prescribí con criterio, no de memoria.</h2>
+                    <h2 class="f-title">NikaFarma, el vademécum para prescribir con criterio, no de memoria.</h2>
                     <p class="f-text">Farmacología aplicada a la guardia y la práctica clínica. Aprendé a prescribir con criterio fisiopatológico en vez de memorizar dosis aisladas.</p>
                     <ul class="f-list">
                         <li>Vademécum de guardia con vía, dosis habitual y advertencias</li>
@@ -1341,7 +1427,7 @@
     <!-- PLANES: NIKAMED VS NIKAMED+ -->
     <section class="section-wrap" id="planes">
         <span class="section-eyebrow">Planes</span>
-        <h2 class="section-title">Elegí tu nivel de entrenamiento</h2>
+        <h2 class="section-title">Planes de NikaMed: elegí tu nivel de entrenamiento</h2>
         <p class="section-sub">Empezá gratis con lo esencial, o subí a <strong style="color:#fff;">Nika<span style="color:var(--violet-glow);">Med+</span></strong> para desbloquear toda la artillería de simulación con IA.</p>
 
         <div class="plans-grid">
@@ -1507,7 +1593,7 @@
     <!-- FAQ -->
     <section class="section-wrap" id="faq">
         <span class="section-eyebrow">Dudas frecuentes</span>
-        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <h2 class="section-title">Preguntas frecuentes sobre NikaMed</h2>
         <p class="section-sub">Todo lo que necesitás saber antes de empezar a entrenar.</p>
 
         <div class="faq-list" id="faq-list">

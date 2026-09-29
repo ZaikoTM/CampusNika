@@ -1,0 +1,10 @@
+# robots.txt - https://nikamed.com.ar
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Las paginas privadas (campus, estudio, examen, versus, etc.) NO se bloquean aca:
+# llevan <meta name="robots" content="noindex"> y Google necesita poder rastrearlas para leerlo.
+
+Sitemap: https://nikamed.com.ar/sitemap.xml
