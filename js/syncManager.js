@@ -152,7 +152,21 @@ const SyncManager = (() => {
       if (!row) return { descartar: true };
       if (item.userId && item.userId !== ctx.userId) return { omitir: true };
       const fila = { ...row, user_id: ctx.userId };
+      // Idempotencia: si un intento anterior llegó a insertar pero se perdió la respuesta,
+      // el reintento no debe duplicar la sesión (misma cuenta + mismo completed_at + mismo módulo/UP).
+      try {
+        const ya = await ctx.client.from('study_sessions').select('user_id', { head: true, count: 'exact' })
+          .eq('user_id', ctx.userId).eq('completed_at', fila.completed_at)
+          .eq('modulo', fila.modulo).eq('up_id', fila.up_id);
+        if (!ya.error && (ya.count || 0) > 0) {
+          console.log('[Sync] ✅ Sesión ya estaba en Supabase, se descarta de la cola:', fila.completed_at);
+          return {};
+        }
+      } catch (_) { /* si el chequeo falla seguimos con el insert */ }
+      console.log('[Sync] ⏫ Subiendo sesión de la cola:', fila);
       let r = await ctx.client.from('study_sessions').insert(fila);
+      if (!r.error) console.log('[Sync] ✅ Confirmada en Supabase:', fila.completed_at, fila.duration_minutes + ' min');
+      else console.warn('[Sync] ❌ Falló la subida, sigue en cola (synced:false):', r.error.message);
       if (r.error && /completed/i.test(r.error.message || '')) {
         // La columna 'completed' todavía no existe (falta sql/rendimiento.sql)
         if (fila.completed === false) return {};                     // parcial: no se puede distinguir, se omite
@@ -315,7 +329,7 @@ const SyncManager = (() => {
   function _onOnline() {
     _emitir();
     _ping().then((ok) => {
-      if (ok) { _clearRedCaida(); sincronizarAhora(); }
+      if (ok) { _clearRedCaida(); sincronizarAhora({ manual: true }); }
       else { _marcarRedCaida(); }
     });
   }

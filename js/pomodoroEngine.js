@@ -178,17 +178,82 @@ const PomodoroEngine = (() => {
     return window.SyncManager ? window.SyncManager.estaOffline() : !navigator.onLine;
   }
 
-  // Modo Guardia: si no se puede subir ahora, la sesión queda en sync_queue (IndexedDB) y se sube sola.
-  async function queueStudySession(row) {
-    if (!window.SyncManager) return false;
-    try {
-      await window.SyncManager.encolar('progreso_estudio', { row });
-      if (typeof showToast === 'function') showToast('📴 Sesión guardada en el dispositivo. Se sube sola al volver la señal.', 'success');
-      return true;
-    } catch (e) {
-      console.warn('[PomodoroEngine] No se pudo encolar la sesión:', e && e.message);
-      return false;
+  // Cola de respaldo en localStorage. estudio.html (donde se usa el Pomodoro) NO carga SyncManager,
+  // así que si el insert fallaba la sesión se perdía. Esta cola es independiente y se drena sola.
+  const PENDING_KEY = 'nika_pending_sessions';
+  function readPending() { try { return JSON.parse(localStorage.getItem(PENDING_KEY) || '[]') || []; } catch (_) { return []; } }
+  function writePending(list) { try { localStorage.setItem(PENDING_KEY, JSON.stringify(list)); } catch (_) {} }
+  function addPending(row) {
+    const list = readPending();
+    if (!list.some((r) => r.completed_at === row.completed_at && r.modulo === row.modulo && r.up_id === row.up_id)) {
+      list.push({ ...row, synced: false });
+      writePending(list);
     }
+    console.log('[PomodoroEngine] 💾 Sesión guardada LOCAL (synced:false):', row.completed_at, row.duration_minutes + ' min · pendientes:', list.length);
+  }
+
+  async function insertRow(client, row) {
+    // Idempotente: si ya está en Supabase (respuesta perdida en un intento previo) no se duplica
+    try {
+      const ya = await client.from('study_sessions').select('user_id', { head: true, count: 'exact' })
+        .eq('user_id', row.user_id).eq('completed_at', row.completed_at).eq('modulo', row.modulo).eq('up_id', row.up_id);
+      if (!ya.error && (ya.count || 0) > 0) return { error: null };
+    } catch (_) {}
+    let { error } = await client.from('study_sessions').insert(row);
+    if (error && /completed/i.test(error.message || '')) {
+      if (!row.completed) return { error: null };
+      const { completed: _o, ...sinFlag } = row;
+      ({ error } = await client.from('study_sessions').insert(sinFlag));
+    }
+    return { error };
+  }
+
+  let flushing = false;
+  async function flushPending() {
+    if (flushing) return;
+    const list = readPending();
+    if (!list.length || !navigator.onLine) return;
+    const client = getDbClient();
+    if (!client || !client.auth) return;
+    flushing = true;
+    try {
+      const { data } = await client.auth.getSession();
+      const uid = data && data.session && data.session.user && data.session.user.id;
+      if (!uid) return;
+      const restantes = [];
+      let subidas = 0;
+      for (const r of list) {
+        if (r.user_id && r.user_id !== uid) { restantes.push(r); continue; }
+        const { synced: _s, ...row } = r;
+        const { error } = await insertRow(client, { ...row, user_id: uid });
+        if (error) { console.warn('[PomodoroEngine] ❌ Reintento falló, sigue synced:false:', error.message); restantes.push(r); }
+        else { subidas++; console.log('[PomodoroEngine] ✅ Confirmada en Supabase (rescatada del local):', r.completed_at, r.duration_minutes + ' min'); }
+      }
+      writePending(restantes);
+      if (subidas) avisarRendimiento({ origen: 'flush', minutes: 0 });
+    } catch (e) { console.warn('[PomodoroEngine] flushPending:', e && e.message); }
+    finally { flushing = false; }
+  }
+  window.addEventListener('online', () => flushPending());
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) flushPending(); });
+  setInterval(flushPending, 60000);
+  setTimeout(flushPending, 2500);
+
+  // Modo Guardia: si no se puede subir ahora, la sesión queda en sync_queue (IndexedDB) y se sube sola.
+  // Si SyncManager no está en la página (estudio.html) o falla, cae a la cola local de respaldo.
+  async function queueStudySession(row) {
+    if (window.SyncManager) {
+      try {
+        await window.SyncManager.encolar('progreso_estudio', { row });
+        console.log('[PomodoroEngine] 💾 Sesión en cola offline (synced:false):', row.completed_at, row.duration_minutes + ' min');
+        if (typeof showToast === 'function') showToast('📴 Sesión guardada en el dispositivo. Se sube sola al volver la señal.', 'success');
+        return true;
+      } catch (e) {
+        console.warn('[PomodoroEngine] No se pudo encolar la sesión:', e && e.message);
+      }
+    }
+    addPending(row);
+    return true;
   }
 
   // completed = false -> bloque interrumpido (Pomodoro parcial)
@@ -230,7 +295,11 @@ const PomodoroEngine = (() => {
 
     try {
       const userId = await resolveUserId();
-      if (!userId) return;                                   // sin sesión ni usuario en el dispositivo
+      if (!userId) {
+        console.warn('[PomodoroEngine] Sin user_id todavía: se guarda local y se asigna al iniciar sesión.');
+        addPending({ modulo: moduleId, up_id: upId, duration_minutes: minutes, completed, completed_at: completedAt || new Date().toISOString() });
+        return;
+      }
       const row = {
         user_id: userId,
         modulo: moduleId,
@@ -246,17 +315,12 @@ const PomodoroEngine = (() => {
       const client = getDbClient();
       if (!client || !client.auth) { await queueStudySession(row); return; }
 
-      let { error } = await client.from('study_sessions').insert(row);
-      if (error && /completed/i.test(error.message || '')) {
-        // La columna 'completed' todavía no existe (falta correr sql/rendimiento.sql):
-        // los bloques completos se guardan igual; los parciales no se pueden distinguir, se omiten.
-        if (!completed) return;
-        const { completed: _omitida, ...sinFlag } = row;
-        ({ error } = await client.from('study_sessions').insert(sinFlag));
-      }
+      const { error } = await insertRow(client, row);
       if (error) {
         console.error('[PomodoroEngine] Error al guardar la sesión, queda en cola:', error);
         await queueStudySession(row);
+      } else {
+        console.log('[PomodoroEngine] ✅ Sesión confirmada en Supabase:', row.completed_at, row.duration_minutes + ' min');
       }
     } catch (err) {
       console.error('[PomodoroEngine] Excepción al guardar la sesión:', err);
