@@ -268,6 +268,7 @@ const NikaAteneos = (() => {
     conectado = { sala, nombre, silenciosa };
     try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: !VoiceManager.yo.meta.muted })); } catch (_) {}
     dock.classList.add('on'); pip.classList.add('on'); pipVisible = true;
+    document.body.classList.add('at-en-llamada');
     $('#at-d-name').textContent = nombre;
     actualizarTiles(); actualizarDock();
     const cab = $('#at-actual'); if (cab) { cab.classList.add('on'); pintarSeccion(); }
@@ -279,6 +280,7 @@ const NikaAteneos = (() => {
     conectado = null; tiles.forEach((t) => t.remove()); tiles.clear(); ultimoPeers = [];
     try { localStorage.removeItem(K_ACTIVA); } catch (_) {}
     if (dock) dock.classList.remove('on'); if (pip) pip.classList.remove('on');
+    document.body.classList.remove('at-en-llamada');
     if ($('#ateneos-section') && $('#ateneos-section').style.display !== 'none') pintarSeccion();
   }
 
@@ -339,6 +341,8 @@ const NikaAteneos = (() => {
       </div>`;
     document.body.appendChild(dock);
     $('#at-self-img').src = metaPropia().avatar;
+    // Muchos celulares no permiten compartir pantalla: el botón solo aparece si el navegador lo soporta
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia)) $('#at-b-scr').style.display = 'none';
     $('#at-b-mic').onclick = alternarMic;
     $('#at-b-cam').onclick = async () => { const r = await VoiceManager.alternarCamara(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#at-b-scr').onclick = async () => { const r = await VoiceManager.alternarPantalla(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };

@@ -126,7 +126,11 @@ const NikaMusic = (() => {
     if (r.status === 401 && reintento) { const t = leerTokens(); if (t) { t.exp = 0; localStorage.setItem(K_TOKEN, JSON.stringify(t)); } return api(path, opts, false); }
     if (r.status === 204 || r.status === 202) return null;
     const txt = await r.text(); let json = null; try { json = txt ? JSON.parse(txt) : null; } catch (_) {}
-    if (!r.ok) throw new Error((json && json.error && (json.error.message || json.error)) || ('Spotify respondió ' + r.status));
+    if (!r.ok) {
+      const msg = (json && json.error && (json.error.message || json.error)) || ('Spotify respondió ' + r.status);
+      if (r.status === 403 && /register|whitelist|not.*allowed|user.*not/i.test(String(msg))) throw new Error('Tu cuenta de Spotify todavía no está habilitada en Campus Nika (beta). Escuchá desde “Sin login”, que funciona para todos.');
+      throw new Error(msg);
+    }
     return json;
   }
 
@@ -444,6 +448,7 @@ const NikaMusic = (() => {
       .nm-link { border: none; background: none; color: #4ade80; font-weight: 800; cursor: pointer; padding: 6px 0 0; font-family: inherit; font-size: .78rem; }
 
       .nm-now { display: flex; gap: 12px; align-items: center; }
+      .nm-cover:not([src]) { visibility: hidden; }
       .nm-cover { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #1f2630; flex-shrink: 0; box-shadow: 0 8px 18px -6px rgba(0,0,0,.7); }
       .nm-meta { min-width: 0; } .nm-meta b { display: block; font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .nm-meta small { color: #94a3b8; font-size: .76rem; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .nm-prog { display: flex; align-items: center; gap: 8px; font-size: .68rem; color: #94a3b8; font-variant-numeric: tabular-nums; } .nm-prog input { flex: 1; }
@@ -481,7 +486,7 @@ const NikaMusic = (() => {
       .nm-volrow b { min-width: 26px; text-align: right; font-size: .78rem; color: #94a3b8; font-variant-numeric: tabular-nums; }
       .nm-mute { border: none; background: rgba(255,255,255,.1); color: #f1f5f9; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1.05rem; flex-shrink: 0; }
       .nm-mute:hover { background: rgba(255,255,255,.22); }
-      .nm-scroll { flex-wrap: nowrap !important; overflow-x: auto; padding-bottom: 4px; } .nm-scroll button { flex-shrink: 0; white-space: nowrap; }
+      .nm-scroll button { white-space: nowrap; }
       #nm-panel .nm-prog input[type=range] { height: 6px !important; }
       #nm-panel .nm-prog input[type=range]::-webkit-slider-thumb { width: 14px; height: 14px; }
       .nm-sec { margin: 0 0 -6px; }
@@ -505,7 +510,16 @@ const NikaMusic = (() => {
       #nm-pill-volbox input::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #1db954; }
       #nm-pill-volbox input::-moz-range-thumb { width: 18px; height: 18px; border: none; border-radius: 50%; background: #1db954; }
       #nm-pill-volbox b { min-width: 24px; text-align: right; font-size: .78rem; color: #94a3b8; }
-      @media (max-width: 520px) { #nm-panel { right: 8px; top: 66px; } #nm-pill { right: 8px; left: 8px; bottom: 84px; max-width: none; } #nm-pill-t { min-width: 0; } }
+      @media (max-width: 640px) {
+        #nm-panel { left: 8px !important; right: 8px !important; top: auto !important; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); width: auto; max-height: 78vh; max-height: 78dvh; border-radius: 22px; }
+        .nm-h { cursor: default; }
+        .nm-body { padding: 12px; gap: 12px; }
+        .nm-bigctrl .med { width: 50px; height: 50px; } .nm-bigctrl .grande { width: 66px; height: 66px; }
+        #nm-pill { left: 10px; right: 72px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); max-width: none; }
+        #nm-pill-t { min-width: 0; } #nm-pill-x { display: none; }
+        #nm-pill-volbox { right: 0; width: min(230px, 80vw); }
+        body.at-en-llamada #nm-pill { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+      }
     `;
     document.head.appendChild(st);
   }
@@ -555,7 +569,9 @@ const NikaMusic = (() => {
   }
 
   // ---- arrastre desde la cabecera ----
+  const enCelular = () => window.matchMedia('(max-width: 640px)').matches;
   function posicionInicial() {
+    if (enCelular()) { panel.style.left = ''; panel.style.top = ''; panel.style.right = ''; return; }
     const u = ui();
     if (typeof u.x === 'number') { panel.style.left = u.x + 'px'; panel.style.top = u.y + 'px'; panel.style.right = 'auto'; acomodarPosicion(); }
   }
@@ -568,7 +584,7 @@ const NikaMusic = (() => {
   function activarArrastre() {
     const h = $('.nm-h'); if (!h) return;
     h.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('button')) return;
+      if (e.target.closest('button') || enCelular()) return;
       const r = panel.getBoundingClientRect(), dx = e.clientX - r.left, dy = e.clientY - r.top;
       h.setPointerCapture(e.pointerId);
       panel.style.right = 'auto'; panel.style.left = r.left + 'px'; panel.style.top = r.top + 'px';
@@ -654,14 +670,14 @@ const NikaMusic = (() => {
         <div class="nm-chips">${AMBIENTES.map((a2) => `<button type="button" class="nm-amb ${ambId === a2.id && sonando ? 'on' : ''}" data-id="${a2.id}">${a2.icono} ${a2.label}</button>`).join('')}</div>`;
     } else if (!conectado) {
       cuerpo = `
-        <div class="nm-conectar">Conectá tu cuenta de <b>Spotify</b> para usar tus playlists y buscar canciones.<br><small style="color:#94a3b8">Requiere Premium.</small><br>
+        <div class="nm-conectar">Conectá tu cuenta de <b>Spotify</b> para usar tus playlists y buscar canciones.<br><small style="color:#94a3b8">Requiere Spotify Premium. Por ahora las cuentas se habilitan de a poco (beta): si no podés conectar, usá “Sin login”, que funciona para todos.</small><br>
           <button type="button" class="nm-btn-spotify" id="nm-conn">${SPOTIFY_SVG(20)} Conectar con Spotify</button>
           <div id="nm-connmsg"></div></div>`;
     } else {
       const vol0 = Math.round(parseFloat(localStorage.getItem(K_VOL) || '0.5') * 100);
       cuerpo = `
         <div id="nm-msg"></div>
-        <div class="nm-now"><img id="nm-cover" class="nm-cover" alt="" src=""><div class="nm-meta"><b id="nm-t">Nada sonando</b><small id="nm-a">Elegí una playlist o buscá</small></div></div>
+        <div class="nm-now"><img id="nm-cover" class="nm-cover" alt=""><div class="nm-meta"><b id="nm-t">Nada sonando</b><small id="nm-a">Elegí una playlist o buscá</small></div></div>
         <div class="nm-prog"><span id="nm-cur">0:00</span><input type="range" id="nm-seek" min="0" max="1000" value="0" aria-label="Progreso"><span id="nm-dur">0:00</span></div>
         <div class="nm-bigctrl">
           <button type="button" id="nm-prev" class="med" aria-label="Canción anterior" title="Anterior">⏮</button>

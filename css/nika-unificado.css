@@ -64,3 +64,90 @@ body.dark-mode { background-image: radial-gradient(900px 420px at 12% -140px, rg
 @keyframes nkFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 main, .container, .app-container { animation: nkFade .35s ease both; }
 @media (prefers-reduced-motion: reduce) { main, .container, .app-container { animation: none; } * { transition-duration: .01ms !important; } }
+
+/* ============================================================================
+   RESPONSIVE — celulares, tablets y pantallas chicas
+   ============================================================================ */
+html, body { max-width: 100%; }
+body { overflow-x: clip; }
+img, video, svg { max-width: 100%; }
+* { -webkit-tap-highlight-color: rgba(56, 189, 248, .18); }
+
+/* Tablets */
+@media (max-width: 900px) {
+  .modal-content { max-height: 92vh; max-height: 92dvh; }
+  .navbar { flex-wrap: wrap; gap: 8px; }
+}
+
+/* Celulares */
+@media (max-width: 640px) {
+  /* Formularios: 16 px evita el zoom automático de iOS al tocar un campo */
+  input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea { font-size: 16px !important; }
+  .btn-module, .plan-btn-balance, .at-btn, .lg-btn, .pl-btn, .btn-back, .nf-ibtn { min-height: 40px; }
+
+  /* Encabezado del campus: todo entra en una fila */
+  .top-header { gap: 6px !important; padding: 8px 10px !important; }
+  .top-header > div[style*="margin-left"] { gap: 6px !important; min-width: 0; }
+  .top-header .account-btn { max-width: 40vw; padding: 8px 12px; }
+  #header-auth-btn { font-size: .78rem; }
+  [data-nika-net-slot] > * { transform: scale(.9); transform-origin: right center; }
+
+  /* Notificaciones: panel a lo ancho, dentro de la pantalla */
+  #notifications-panel { position: fixed !important; left: 10px !important; right: 10px !important; top: 66px !important; width: auto !important; max-height: 72vh; max-height: 72dvh; overflow-y: auto; z-index: 3500 !important; }
+
+  /* Avisos (toast): arriba, a lo ancho y sin tapar botones */
+  #toast { top: calc(66px + env(safe-area-inset-top, 0px)); bottom: auto !important; left: 12px !important; right: 12px !important; max-width: none !important; text-align: center; z-index: 30000; }
+
+  /* Botones flotantes: más chicos y en columna, sin pisarse */
+  .chat-fab { width: 48px !important; height: 48px !important; right: 12px !important; bottom: calc(74px + env(safe-area-inset-bottom, 0px)) !important; }
+  .chat-fab svg { width: 22px !important; height: 22px !important; }
+  #nika-assistant-btn { width: 48px !important; height: 48px !important; right: 12px !important; bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important; font-size: 1.3rem !important; }
+  #nika-assistant-panel { left: 8px !important; right: 8px !important; bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important; width: auto !important; }
+  body.at-en-llamada .chat-fab { bottom: calc(150px + env(safe-area-inset-bottom, 0px)) !important; }
+  body.at-en-llamada #nika-assistant-btn { bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important; }
+
+  /* Sala de Ateneos: dock a lo ancho abajo y videos más chicos */
+  #at-dock { left: 8px !important; right: 8px !important; bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important; transform: none !important; max-width: none !important; justify-content: space-between; border-radius: 22px !important; gap: 8px !important; }
+  .at-d-txt b { display: none; }
+  #at-pip { width: min(300px, 64vw) !important; right: 8px !important; top: 66px !important; }
+  .at-hero { padding: 18px !important; } .at-pasos { grid-template-columns: 1fr; }
+
+  /* Contenedores y grillas */
+  .pl-main { padding-left: 12px !important; padding-right: 12px !important; }
+  .lg-header, .fr-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .lg-fila-main { gap: 8px !important; } .lg-acciones { width: 100%; } .lg-acciones .lg-btn { flex: 1; }
+  .lg-tab { padding: 9px 12px !important; font-size: .78rem !important; }
+  .fr-post { padding: 14px !important; }
+  .fr-compose-bar select { flex: 1 1 40%; min-width: 0; }
+  .at-privada { flex-direction: column; align-items: stretch; } .at-cod { width: 100%; } .at-cod input { flex: 1; width: auto; }
+  .at-equipo { grid-template-columns: 1fr; }
+  .plan-card-header { flex-direction: column; align-items: flex-start; }
+  .plan-item { flex-wrap: wrap; } .plan-item-acciones { margin-left: 0; }
+  .balance-hero-top { flex-direction: column; gap: 6px; }
+  .avatar-crop-stage { width: min(320px, 82vw) !important; height: min(320px, 82vw) !important; }
+  .nt-tooltip { width: calc(100vw - 20px) !important; }
+
+  /* Barra superior de la sala de estudio, Versus, simuladores y hubs */
+  .navbar { padding: 10px 12px !important; }
+  .brand-slogan { display: none; }
+  .navbar-actions { gap: 6px !important; flex-wrap: wrap; justify-content: flex-end; }
+
+  /* Ventanas emergentes a casi toda la pantalla */
+  .modal-content:not(.pp-card) { width: 96vw !important; max-width: 96vw !important; padding: 26px 16px 16px !important; }
+  .pp-card { width: 96vw !important; max-width: 96vw !important; }
+  .modal-footer-btns { flex-direction: column-reverse; gap: 8px; }
+  .modal-footer-btns button { width: 100% !important; min-height: 44px; }
+}
+
+/* Celulares muy angostos */
+@media (max-width: 380px) {
+  .top-header .account-btn { max-width: 34vw; }
+  .nika-racha-btn { padding: 6px 10px !important; }
+  .lg-podio-nombre { font-size: .72rem !important; }
+}
+
+/* Celulares apaisados: alturas cortas */
+@media (max-height: 480px) and (orientation: landscape) {
+  #nm-panel { max-height: 92vh; max-height: 92dvh; }
+  .modal-content { max-height: 96vh; max-height: 96dvh; }
+}
