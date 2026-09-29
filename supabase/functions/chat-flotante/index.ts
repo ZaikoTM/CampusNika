@@ -1,10 +1,8 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { withCors } from '../_shared/cors.ts';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-};
+// CORS (preflight OPTIONS + cabeceras en todas las respuestas) lo maneja ../_shared/cors.ts
+const jsonHeaders = { 'Content-Type': 'application/json' };
 
 // Modelo solicitado: gemini-3.5-flash-lite, sin streaming.
 const GEMINI_ENDPOINT = (key: string) =>
@@ -16,18 +14,14 @@ Tu prioridad es ORIENTAR LA NAVEGACIÓN de la plataforma (dónde están las nota
 Si te preguntan algo de contenido médico puntual, podés dar una orientación general breve, pero siempre aclarando que para la bibliografía oficial de la cátedra conviene consultar el material cargado en cada Unidad Problema.
 Respondé siempre en español, en 2 a 4 oraciones como máximo, sin tecnicismos innecesarios.`;
 
-serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
-  }
-
+serve(withCors(async (req: Request): Promise<Response> => {
   try {
     const { query, modulo, upId } = await req.json();
 
     if (!query) {
       return new Response(JSON.stringify({ error: 'Falta la consulta del estudiante.' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: jsonHeaders,
       });
     }
 
@@ -66,7 +60,7 @@ serve(async (req) => {
       console.error('Error de Gemini API:', geminiResp.status, errText);
       return new Response(JSON.stringify({ error: 'Error comunicándose con el motor de IA.' }), {
         status: 502,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: jsonHeaders,
       });
     }
 
@@ -76,14 +70,14 @@ serve(async (req) => {
       'No pude generar una respuesta clara para esa consulta. Probá reformularla.';
 
     return new Response(JSON.stringify({ answer }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: jsonHeaders,
     });
 
   } catch (err) {
     console.error('Error inesperado en chat-flotante:', err);
     return new Response(JSON.stringify({ error: 'Error interno del servidor' }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: jsonHeaders,
     });
   }
-});
+}));

@@ -7,20 +7,17 @@
 // promueve profiles.role='admin' para el usuario dueño del JWT
 // que llamó a esta función (auth.uid() del token, no algo que
 // mande el cliente).
+//
+// CORS: lo maneja ../_shared/cors.ts (withCors): preflight OPTIONS,
+// cabeceras en todas las respuestas y captura de errores no controlados.
 // ============================================================
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { withCors } from "../_shared/cors.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+const jsonHeaders = { "Content-Type": "application/json" };
 
-Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
-  }
-
+Deno.serve(withCors(async (req: Request): Promise<Response> => {
   try {
     // 1. Cliente con el JWT del usuario que llama (viene en el header
     //    Authorization que el frontend manda automáticamente al invocar
@@ -29,7 +26,7 @@ Deno.serve(async (req) => {
     if (!authHeader) {
       return new Response(JSON.stringify({ error: "No autenticado." }), {
         status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: jsonHeaders,
       });
     }
 
@@ -43,7 +40,7 @@ Deno.serve(async (req) => {
     if (userError || !user) {
       return new Response(JSON.stringify({ error: "Sesión inválida." }), {
         status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: jsonHeaders,
       });
     }
 
@@ -55,7 +52,7 @@ Deno.serve(async (req) => {
       console.error("[verify-admin] Falta configurar el secreto ADMIN_MASTER_PASSWORD.");
       return new Response(JSON.stringify({ error: "Función mal configurada." }), {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: jsonHeaders,
       });
     }
 
@@ -64,7 +61,7 @@ Deno.serve(async (req) => {
       console.warn(`[verify-admin] Clave incorrecta intentada por usuario ${user.id}`);
       return new Response(JSON.stringify({ error: "Clave maestra incorrecta." }), {
         status: 403,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: jsonHeaders,
       });
     }
 
@@ -84,19 +81,19 @@ Deno.serve(async (req) => {
       console.error("[verify-admin] Error promoviendo a admin:", updateError);
       return new Response(JSON.stringify({ error: "No se pudo actualizar el rol." }), {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: jsonHeaders,
       });
     }
 
     return new Response(JSON.stringify({ success: true, role: "admin" }), {
       status: 200,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   } catch (err) {
     console.error("[verify-admin] Error inesperado:", err);
     return new Response(JSON.stringify({ error: "Error interno." }), {
       status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   }
-});
+}));

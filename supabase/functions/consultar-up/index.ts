@@ -1,27 +1,21 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { withCors } from '../_shared/cors.ts';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-};
+// CORS (preflight OPTIONS + cabeceras en todas las respuestas) lo maneja ../_shared/cors.ts
+const jsonHeaders = { 'Content-Type': 'application/json' };
 
 // Modelo solicitado: gemini-3.5-flash-lite (latencia mínima)
 const GEMINI_ENDPOINT = (key: string) =>
   `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${key}`;
 
-serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
-  }
-
+serve(withCors(async (req: Request): Promise<Response> => {
   try {
     const { pregunta, up } = await req.json();
 
     if (!pregunta) {
       return new Response(JSON.stringify({ error: 'Falta la pregunta del estudiante.' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: jsonHeaders,
       });
     }
 
@@ -66,13 +60,13 @@ TUS REGLAS ESTRICTAS:
     const respuesta = geminiData.candidates?.[0]?.content?.parts?.[0]?.text ?? 'No se pudo generar respuesta.';
 
     return new Response(JSON.stringify({ respuesta }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: jsonHeaders,
     });
 
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: jsonHeaders,
     });
   }
-});
+}));

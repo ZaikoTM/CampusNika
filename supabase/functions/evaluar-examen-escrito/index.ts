@@ -33,23 +33,11 @@
 // ============================================================================
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { withCors } from "../_shared/cors.ts";
 
-// Orígenes permitidos: dominio oficial (con y sin www) + localhost para pruebas locales.
-const ALLOWED_ORIGINS = ["https://nikamed.com.ar", "https://www.nikamed.com.ar"];
-const LOCAL_ORIGIN_RE = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
-
-function resolveOrigin(req: Request): string {
-  const origin = req.headers.get("Origin") ?? "";
-  if (ALLOWED_ORIGINS.includes(origin) || LOCAL_ORIGIN_RE.test(origin)) return origin;
-  return ALLOWED_ORIGINS[0]; // fallback: el navegador bloqueará orígenes no listados
-}
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": ALLOWED_ORIGINS[0], // se reemplaza por request en el wrapper de Deno.serve
-  "Vary": "Origin",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
+// CORS (orígenes permitidos, preflight OPTIONS, cabeceras en todas las respuestas y captura de
+// errores no controlados) lo maneja ../_shared/cors.ts. Acá solo queda el Content-Type.
+const jsonHeaders = { "Content-Type": "application/json" };
 
 const MODEL = Deno.env.get("GEMINI_MODEL_EVAL") ?? "gemini-3.5-flash-lite";
 const GEMINI_BASE = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguage.googleapis.com/v1beta";
@@ -199,7 +187,7 @@ type Evaluacion = {
 };
 
 function json(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  return new Response(JSON.stringify(body), { status, headers: jsonHeaders });
 }
 
 const texto = (v: unknown, max: number) => String(v ?? "").replace(/\r\n/g, "\n").trim().slice(0, max);
@@ -489,7 +477,7 @@ async function generarResumen(apiKey: string, evals: Evaluacion[], banco: Map<st
 // Handler
 // ----------------------------------------------------------------------------
 async function handler(req: Request): Promise<Response> {
-  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  // El preflight OPTIONS ya lo respondió withCors (204) antes de llegar a este handler.
   if (req.method !== "POST") return json({ error: "Método no permitido." }, 405);
 
   try {
@@ -588,10 +576,4 @@ async function handler(req: Request): Promise<Response> {
   }
 }
 
-Deno.serve(async (req: Request) => {
-  const res = await handler(req);
-  const headers = new Headers(res.headers);
-  headers.set("Access-Control-Allow-Origin", resolveOrigin(req));
-  headers.set("Vary", "Origin");
-  return new Response(res.body, { status: res.status, headers });
-});
+Deno.serve(withCors(handler));

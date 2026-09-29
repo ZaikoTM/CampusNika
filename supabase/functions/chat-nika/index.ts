@@ -1,17 +1,11 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { GoogleGenerativeAI } from "npm:@google/generative-ai";
+import { withCors } from "../_shared/cors.ts";
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+// CORS (preflight OPTIONS + cabeceras en todas las respuestas) lo maneja ../_shared/cors.ts
+const jsonHeaders = { 'Content-Type': 'application/json' };
 
-serve(async (req) => {
-  // Manejo de CORS para que el frontend pueda comunicarse sin bloqueos
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
-  }
-
+serve(withCors(async (req: Request): Promise<Response> => {
   try {
     const { pregunta, modulo, unidad } = await req.json();
 
@@ -47,14 +41,14 @@ Pregunta del alumno: ${pregunta}`;
     // Devolver al frontend
     return new Response(
       JSON.stringify({ respuesta: textoRespuesta }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { headers: jsonHeaders }
     );
 
   } catch (error) {
     console.error("Error en NikaMed Chat:", error);
     return new Response(
       JSON.stringify({ error: "Ocurrió un error al procesar la consulta." }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { status: 500, headers: jsonHeaders }
     );
   }
-});
+}));
