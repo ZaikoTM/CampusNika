@@ -205,10 +205,26 @@
     /* ---------- Chat rápido del duelo ---------- */
     #chat-toggle-btn {
         position: fixed; bottom: 30px; left: 30px; width: 52px; height: 52px; border-radius: 50%;
-        background: var(--nika-primary); color: white; border: none; font-size: 1.4rem; cursor: pointer;
+        background: var(--nika-primary); color: white; border: none; padding: 0; margin: 0; cursor: pointer;
         box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 4000; display: none;
+        transition: background .2s ease, transform .15s ease;
     }
-    #chat-toggle-btn.show { display: block; }
+    /* flex + line-height:1 centra el emoji (antes quedaba abajo/recortado dentro de un div) */
+    #chat-toggle-btn.show { display: flex; align-items: center; justify-content: center; }
+    #chat-toggle-btn .chat-toggle-icon { font-size: 1.45rem; line-height: 1; display: block; transform: translateY(-1px); }
+    #chat-toggle-btn:active { transform: scale(0.94); }
+    /* Mensajes sin leer: botón naranja que pulsa + contador rojo */
+    #chat-toggle-btn.has-unread { background: #f59e0b; animation: chatPulse 1.1s ease-in-out infinite; }
+    #chat-unread-badge {
+        position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box;
+        border-radius: 999px; background: #ef4444; color: #fff; font-size: 0.68rem; font-weight: 800; line-height: 20px;
+        text-align: center; border: 2px solid var(--card-bg, #fff); display: none;
+    }
+    #chat-toggle-btn.has-unread #chat-unread-badge { display: block; }
+    @keyframes chatPulse {
+        0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,0.2), 0 0 0 0 rgba(245,158,11,0.55); }
+        50% { box-shadow: 0 10px 25px rgba(0,0,0,0.2), 0 0 0 10px rgba(245,158,11,0); }
+    }
     #chat-panel {
         position: fixed; bottom: 95px; left: 30px; width: 280px; max-height: 360px; background: var(--card-bg);
         border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 15px 35px rgba(0,0,0,0.25);
@@ -285,6 +301,7 @@
         }
     }
 </style>
+    <link rel="stylesheet" href="css/nika-unificado.css">
 </head>
 <body>
 
@@ -541,7 +558,10 @@
 
 <div id="toast"></div>
 
-<div id="chat-toggle-btn" onclick="toggleChatPanel()">💬</div>
+<button type="button" id="chat-toggle-btn" onclick="toggleChatPanel()" aria-label="Chat rápido">
+    <span class="chat-toggle-icon">💬</span>
+    <span id="chat-unread-badge"></span>
+</button>
 <div id="chat-panel">
     <div id="chat-panel-header">
         <span>💬 Chat rápido</span>
@@ -573,6 +593,7 @@
 <script src="js/friendsManager.js"></script>
 <script src="duelosManager.js"></script>
 <script src="notificacionesManager.js"></script>
+<script src="js/atajos.js"></script>
 <script>
     // ------------------------------------------------------------
     // Dark mode (mismo esquema que index.html: localStorage nika_theme)
@@ -632,6 +653,20 @@
                 gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
                 osc.start(); osc.stop(audioCtx.currentTime + 0.6);
+            } else if (type === 'chat') {
+                // Zumbido breve de mensaje nuevo: dos pulsos cortos y graves
+                [0, 0.13].forEach((delay) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.type = 'triangle';
+                    o.connect(g); g.connect(audioCtx.destination);
+                    o.frequency.setValueAtTime(330, audioCtx.currentTime + delay);
+                    g.gain.setValueAtTime(0.0001, audioCtx.currentTime + delay);
+                    g.gain.exponentialRampToValueAtTime(0.14, audioCtx.currentTime + delay + 0.015);
+                    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + delay + 0.1);
+                    o.start(audioCtx.currentTime + delay);
+                    o.stop(audioCtx.currentTime + delay + 0.11);
+                });
             } else if (type === 'victory') {
                 [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
                     const o = audioCtx.createOscillator();
@@ -657,6 +692,7 @@
         document.getElementById(id).classList.add('active');
     }
     function volverASelector() {
+        clearInterval(_matchPoll);
         window.DuelosManager.cancelarDueloIA();
         clearInterval(temporizadorActual);
         document.getElementById('practice-badge').style.display = 'none';
@@ -875,7 +911,7 @@
         try {
             await window.DuelosManager.unirseASalaPorCodigo(code);
             showToast('¡Te uniste al duelo!');
-            iniciarVistaDuelo();
+            _entrarComoInvitado();
         } catch (err) {
             showToast(err.message || 'No se pudo unir a la sala.');
         }
@@ -888,21 +924,55 @@
         try {
             const res = await window.DuelosManager.unirseAQuickMatch({});
             if (res.matched) {
+                // Este jugador quedó como anfitrión de la sala: _escucharInicioDeDuelo registra
+                // los callbacks y arranca el loop de preguntas cuando la sala pasa a in_progress.
                 showToast('¡Rival encontrado!');
-                iniciarVistaDuelo();
-            } else {
                 _escucharInicioDeDuelo();
+            } else {
+                _esperarEmparejamiento();
             }
         } catch (err) {
             showToast(err.message || 'Error en el matchmaking.');
         }
     }
 
+    // Quick match, lado que esperó en la cola: el que lo emparejó creó la sala y lo puso de
+    // invitado. Se busca esa sala (reciente, de quick match) y se entra por id.
+    let _matchPoll = null;
+    function _esperarEmparejamiento() {
+        clearInterval(_matchPoll);
+        const yo = window.NikaSupabase.getNikaCurrentUsername();
+        _matchPoll = setInterval(async () => {
+            try {
+                const { data } = await window.NikaSupabase.client
+                    .from('versus_rooms')
+                    .select('id')
+                    .eq('guest_username', yo)
+                    .eq('status', 'in_progress')
+                    .eq('room_type', 'quick_match')
+                    .gte('started_at', new Date(Date.now() - 60000).toISOString())
+                    .limit(1);
+                const sala = (data || [])[0];
+                if (!sala) return;
+                clearInterval(_matchPoll);
+                await window.DuelosManager.unirseASalaPorId(sala.id);
+                showToast('¡Rival encontrado!');
+                _entrarComoInvitado();
+            } catch (err) {
+                console.warn('[versus] Esperando emparejamiento:', err);
+            }
+        }, 1500);
+    }
+
     let temporizadorActual = null;
     let bancoPreguntas = null;
     let cantidadPreguntasOnlineActual = 10;
 
-    function _escucharInicioDeDuelo() {
+    // Engancha TODOS los callbacks del duelo online. Lo necesitan los dos lados: el anfitrión
+    // (vía _escucharInicioDeDuelo) y el invitado (vía _entrarComoInvitado). Antes el invitado
+    // nunca los registraba: no recibía preguntas, ni reacciones ni chat, y quedaba en
+    // "Pregunta 1 de 5 / Cargando pregunta..." mientras el rival jugaba normal.
+    function _configurarCallbacksDuelo() {
         window.DuelosManager.onStateChange = (payload) => {
             if (payload?.tipo === 'pregunta') renderizarPregunta(payload);
             if (payload?.tipo === 'resultado_pregunta') mostrarResultadoPregunta(payload);
@@ -925,8 +995,22 @@
             }
         };
         window.DuelosManager.onChatMessage = (payload) => {
-            _pintarMensajeChat(payload, payload.username === window.NikaSupabase.getNikaCurrentUsername());
+            const esMio = payload.username === window.NikaSupabase.getNikaCurrentUsername();
+            _pintarMensajeChat(payload, esMio);
+            if (!esMio) _avisarMensajeNuevo();
         };
+    }
+
+    // Invitado: ya está dentro de la sala (por código, invitación o quick match).
+    function _entrarComoInvitado() {
+        _configurarCallbacksDuelo();
+        const st = window.DuelosManager.state;
+        document.getElementById('name-rival').textContent = st.rivalUsername || 'Rival';
+        iniciarVistaDuelo({ chatDisponible: true });
+    }
+
+    function _escucharInicioDeDuelo() {
+        _configurarCallbacksDuelo();
 
         const check = setInterval(async () => {
             const roomState = window.DuelosManager.state;
@@ -1082,6 +1166,7 @@
     }
 
     function cancelarEspera() {
+        clearInterval(_matchPoll);
         window.DuelosManager.cancelarDueloIA();
         window.DuelosManager.salirDeSala();
         window.DuelosManager.salirDeQuickMatch();
@@ -1093,7 +1178,15 @@
         _pintarEscudos('shields-me', 5);
         _pintarEscudos('shields-rival', 5);
         _resetearIndicadorRival();
+        // Estado neutro hasta que llegue la primera pregunta del anfitrión (antes quedaba
+        // el texto fijo "Pregunta 1 de 5 / Cargando pregunta..." del HTML)
+        clearInterval(temporizadorActual);
+        document.getElementById('duel-progress-text').textContent = 'Preparando duelo...';
+        document.getElementById('question-text').textContent = 'Esperando la primera pregunta...';
+        document.getElementById('options-grid').innerHTML = '';
         document.getElementById('chat-messages').innerHTML = '';
+        _chatSinLeer = 0;
+        _actualizarBadgeChat();
         document.getElementById('chat-toggle-btn').classList.toggle('show', chatDisponible);
         if (!chatDisponible) document.getElementById('chat-panel').classList.remove('show');
     }
@@ -1142,104 +1235,22 @@
             grid.appendChild(btn);
         });
 
-        const limiteSeg = payload.tiempoLimite || 20;
+        // Tiempo restante: ambos parten del mismo startedAt que fijó el anfitrión, así un
+        // reenvío tardío de la pregunta no le da al invitado más tiempo que al rival.
+        // Si los relojes difieren demasiado (fuera de 0..límite) se usa el tiempo completo.
+        const limiteTotal = payload.tiempoLimite || 20;
+        const transcurrido = payload.startedAt ? (Date.now() - payload.startedAt) / 1000 : 0;
+        const limiteSeg = Math.max(1, (transcurrido > 0 && transcurrido < limiteTotal)
+            ? Math.round(limiteTotal - transcurrido)
+            : limiteTotal);
         const fill = document.getElementById('timer-fill');
         fill.style.transition = 'none';
-        fill.style.width = '100%';
+        fill.style.width = (limiteSeg / limiteTotal * 100) + '%';
         requestAnimationFrame(() => {
             fill.style.transition = `width ${limiteSeg}s linear`;
             fill.style.width = '0%';
         });
 
-        const timerText = document.getElementById('duel-timer-text');
-        let segundosRestantes = limiteSeg;
-        timerText.textContent = '⏱️ ' + segundosRestantes + 's';
-        timerText.classList.remove('urgent');
-        temporizadorActual = setInterval(() => {
-            segundosRestantes--;
-            if (segundosRestantes <= 0) {
-                timerText.textContent = '⏱️ 0s';
-                clearInterval(temporizadorActual);
-                return;
-            }
-            timerText.textContent = '⏱️ ' + segundosRestantes + 's';
-            if (segundosRestantes <= 5) timerText.classList.add('urgent');
-        }, 1000);
-    }
-
-    // ------------------------------------------------------------
-    // Vista de duelo (esqueleto de render — la orquestación fina de
-    // preguntas/temporizador/muerte súbita se conecta acá reutilizando
-    // el motor de examen.html)
-    // ------------------------------------------------------------
-    function iniciarVistaDuelo({ chatDisponible = true } = {}) {
-        mostrarVista('view-duelo');
-        _pintarEscudos('shields-me', 5);
-        _pintarEscudos('shields-rival', 5);
-        _resetearIndicadorRival();
-        document.getElementById('chat-messages').innerHTML = '';
-        document.getElementById('chat-toggle-btn').classList.toggle('show', chatDisponible);
-        if (!chatDisponible) document.getElementById('chat-panel').classList.remove('show');
-    }
-
-    function _pintarEscudos(containerId, cantidad) {
-        const el = document.getElementById(containerId);
-        el.innerHTML = '';
-        for (let i = 0; i < cantidad; i++) {
-            const s = document.createElement('div');
-            s.className = 'shield' + (containerId === 'shields-rival' ? ' rival' : '');
-            el.appendChild(s);
-        }
-    }
-
-    // ------------------------------------------------------------
-    // Indicador de progreso del rival ("Pensando..." / "¡Respondió!")
-    // ------------------------------------------------------------
-    function _resetearIndicadorRival() {
-        const el = document.getElementById('rival-answer-status');
-        el.textContent = '🕐 Pensando...';
-        el.classList.remove('answered');
-        el.classList.add('thinking');
-    }
-
-    function _marcarRivalRespondio() {
-        const el = document.getElementById('rival-answer-status');
-        el.textContent = '⚡ ¡Respondió!';
-        el.classList.remove('thinking');
-        el.classList.add('answered');
-    }
-
-    function renderizarPregunta(payload) {
-        clearInterval(temporizadorActual);
-        _resetearIndicadorRival();
-        document.getElementById('question-text').textContent = payload.pregunta;
-        document.getElementById('duel-progress-text').textContent =
-            'Pregunta ' + ((payload.index ?? 0) + 1) + ' de ' + (payload.total || 5);
-
-        const grid = document.getElementById('options-grid');
-        grid.innerHTML = '';
-        grid.dataset.respondido = '0'; // se resetea en cada pregunta nueva
-        const opcionesBarajadas = window.DuelosManager.barajarIndependiente(payload.opciones);
-        opcionesBarajadas.forEach((opt) => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.textContent = opt.texto;
-            btn.dataset.optionId = opt.id;
-            btn.onclick = () => seleccionarOpcion(opt, payload, btn);
-            grid.appendChild(btn);
-        });
-
-        // Barra de tiempo visual, sincronizada al tiempoLimite que emitió el Host
-        const limiteSeg = payload.tiempoLimite || 20;
-        const fill = document.getElementById('timer-fill');
-        fill.style.transition = 'none';
-        fill.style.width = '100%';
-        requestAnimationFrame(() => {
-            fill.style.transition = `width ${limiteSeg}s linear`;
-            fill.style.width = '0%';
-        });
-
-        // Contador numérico en cuenta regresiva ("⏱️ 18s"), sincronizado con la barra
         const timerText = document.getElementById('duel-timer-text');
         let segundosRestantes = limiteSeg;
         timerText.textContent = '⏱️ ' + segundosRestantes + 's';
@@ -1345,8 +1356,33 @@
     // ------------------------------------------------------------
     const RESPUESTAS_ENLATADAS_IA = ['¡Vamos que se puede! 🤖', 'Analizando tu jugada...', 'Buena esa 👏', 'jaja, a full 🔥'];
 
+    let _chatSinLeer = 0;
+
+    function _actualizarBadgeChat() {
+        const btn = document.getElementById('chat-toggle-btn');
+        const badge = document.getElementById('chat-unread-badge');
+        btn.classList.toggle('has-unread', _chatSinLeer > 0);
+        badge.textContent = _chatSinLeer > 9 ? '9+' : String(_chatSinLeer);
+    }
+
+    // Mensaje del rival: sonido y, si el panel está cerrado, marca el botón como "sin leer".
+    function _avisarMensajeNuevo() {
+        playSound('chat');
+        if (!document.getElementById('chat-panel').classList.contains('show')) {
+            _chatSinLeer++;
+            _actualizarBadgeChat();
+        }
+    }
+
     function toggleChatPanel() {
-        document.getElementById('chat-panel').classList.toggle('show');
+        const panel = document.getElementById('chat-panel');
+        panel.classList.toggle('show');
+        if (panel.classList.contains('show')) {
+            _chatSinLeer = 0;
+            _actualizarBadgeChat();
+            const cont = document.getElementById('chat-messages');
+            cont.scrollTop = cont.scrollHeight;
+        }
     }
 
     function _pintarMensajeChat(payload, esMio) {
@@ -1450,7 +1486,7 @@
         try {
             if (aceptar) {
                 await window.NotificacionesManager.aceptarDesafio(activeChallengeId);
-                iniciarVistaDuelo();
+                _entrarComoInvitado();
             } else {
                 await window.NotificacionesManager.rechazarDesafio(activeChallengeId);
             }

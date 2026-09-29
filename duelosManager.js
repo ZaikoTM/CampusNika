@@ -59,6 +59,8 @@ const DuelosManager = (function () {
     let aiTimers = [];       // todos los setTimeout/setInterval del duelo IA, para poder limpiarlos
     let aiRespuestaPendiente = null; // resolver de la promesa que espera la respuesta del jugador
 
+    const _norm = (u) => String(u || "").trim().toLowerCase();
+
     // ------------------------------------------------------------
     // Utilidades
     // ------------------------------------------------------------
@@ -118,37 +120,78 @@ const DuelosManager = (function () {
         const username = await window.NikaSupabase.ensureVersusPlayer();
         if (!username) throw new Error("No hay usuario logueado.");
 
-        // Validación: sala debe existir, estar 'waiting' y no vencida
+        // Se busca SIN filtrar por estado para poder decir el motivo real del rechazo
+        const { data: salas, error: findError } = await sb()
+            .from("versus_rooms")
+            .select("*")
+            .eq("room_code", String(roomCode || "").trim())
+            .limit(10);
+
+        if (findError) throw findError;
+        // Si un código se reutilizó, se prefiere la que sigue esperando rival
+        const room = (salas || []).find((r) => r.status === "waiting") || (salas || [])[0];
+        if (!room) throw new Error("No existe una sala con ese código.");
+        return _entrarASala(room, username);
+    }
+
+    // Unirse a una sala conocida por id: invitaciones directas (esas salas no tienen
+    // room_code) y reconexión del invitado que ya figura en la sala.
+    async function unirseASalaPorId(roomId) {
+        const username = await window.NikaSupabase.ensureVersusPlayer();
+        if (!username) throw new Error("No hay usuario logueado.");
+        if (!roomId) throw new Error("La invitación no tiene sala asociada.");
+
         const { data: room, error: findError } = await sb()
             .from("versus_rooms")
             .select("*")
-            .eq("room_code", roomCode)
-            .eq("status", "waiting")
-            .gt("expires_at", new Date().toISOString())
+            .eq("id", roomId)
             .maybeSingle();
 
         if (findError) throw findError;
-        if (!room) throw new Error("Sala no encontrada, llena o vencida.");
+        if (!room) throw new Error("La sala de este desafío ya no existe.");
+        return _entrarASala(room, username);
+    }
+
+    // Valida la sala y toma el lugar de invitado. "Sala llena" solo si de verdad
+    // hay OTRO invitado; si el que entra ya es el invitado (reconexión), se lo deja pasar.
+    async function _entrarASala(room, username) {
         if (room.host_username === username) throw new Error("No podés unirte a tu propia sala.");
 
-        const { data: updated, error: updateError } = await sb()
-            .from("versus_rooms")
-            .update({ guest_username: username, status: "in_progress", started_at: new Date().toISOString() })
-            .eq("id", room.id)
-            .eq("status", "waiting") // evita condición de carrera si dos entran a la vez
-            .select()
-            .single();
+        let joined = room;
+        const yaSoyInvitado = _norm(room.guest_username) === _norm(username) && room.status === "in_progress";
 
-        if (updateError) throw updateError;
+        if (!yaSoyInvitado) {
+            if (room.guest_username && _norm(room.guest_username) !== _norm(username)) {
+                throw new Error("La sala ya tiene otro jugador.");
+            }
+            if (room.status !== "waiting") {
+                throw new Error("Ese duelo ya empezó o terminó.");
+            }
+            if (room.expires_at && new Date(room.expires_at) <= new Date()) {
+                throw new Error("La sala venció. Pedile a tu rival que cree una nueva.");
+            }
 
-        state.roomId = updated.id;
-        state.roomCode = updated.room_code;
+            const { data: updated, error: updateError } = await sb()
+                .from("versus_rooms")
+                .update({ guest_username: username, status: "in_progress", started_at: new Date().toISOString() })
+                .eq("id", room.id)
+                .eq("status", "waiting") // evita condición de carrera si dos entran a la vez
+                .select()
+                .maybeSingle();
+
+            if (updateError) throw updateError;
+            if (!updated) throw new Error("Otro jugador entró primero a la sala.");
+            joined = updated;
+        }
+
+        state.roomId = joined.id;
+        state.roomCode = joined.room_code;
         state.isHost = false;
         state.username = username;
-        state.rivalUsername = updated.host_username;
+        state.rivalUsername = joined.host_username;
 
-        await _suscribirseASala(updated.id);
-        return updated;
+        await _suscribirseASala(joined.id);
+        return joined;
     }
 
     // ------------------------------------------------------------
@@ -209,7 +252,6 @@ const DuelosManager = (function () {
     // ------------------------------------------------------------
     // 4. Suscripción a la sala (Broadcast + Presence)
     // ------------------------------------------------------------
-    const _norm = (u) => String(u || "").trim().toLowerCase();
 
     async function _suscribirseASala(roomId) {
         const channelName = `versus_room_${roomId}`;
@@ -956,6 +998,7 @@ const DuelosManager = (function () {
     return {
         crearSala,
         unirseASalaPorCodigo,
+        unirseASalaPorId,
         unirseAQuickMatch,
         salirDeQuickMatch,
         emitirEstado,

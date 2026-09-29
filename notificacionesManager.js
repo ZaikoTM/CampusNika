@@ -93,13 +93,15 @@ const NotificacionesManager = (function () {
             .eq("id", desafioId)
             .eq("status", "pending")
             .select()
-            .single();
+            .maybeSingle();
 
         if (error) throw error;
+        if (!desafio) throw new Error("Este desafío ya no está disponible (venció o ya fue respondido).");
 
-        // Une al invitado a la sala ya creada por el Host
-        const roomCode = await _obtenerCodigoSala(desafio.room_id);
-        return window.DuelosManager.unirseASalaPorCodigo(roomCode);
+        // Une al invitado a la sala ya creada por el Host. Las salas de desafío directo
+        // NO tienen room_code (es null), así que se entra por id: buscarla por código
+        // devolvía siempre "sala no encontrada / llena".
+        return window.DuelosManager.unirseASalaPorId(desafio.room_id);
     }
 
     async function rechazarDesafio(desafioId) {
