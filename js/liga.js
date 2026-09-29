@@ -245,6 +245,20 @@ const NikaLiga = (() => {
     if (typeof window.abrirPerfilPublico === 'function') window.abrirPerfilPublico(userId);
   }
 
+  // Refresco automático: termina un Pomodoro (aquí o en otra pestaña) o se vuelve a la página
+  let _tLiga = null;
+  function refrescarSiVisible() {
+    const sec = raiz();
+    if (!sec || sec.style.display === 'none' || !document.getElementById('liga-lista')) return;
+    clearTimeout(_tLiga);
+    _tLiga = setTimeout(cargar, 700);
+  }
+  window.addEventListener('nika:rendimiento-changed', refrescarSiVisible);
+  window.addEventListener('nika:estudio-guardado', refrescarSiVisible);
+  try { new BroadcastChannel('nika-rendimiento').onmessage = refrescarSiVisible; } catch (_) {}
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescarSiVisible(); });
+  setInterval(() => { if (!document.hidden) refrescarSiVisible(); }, 60000);   // respaldo cada minuto
+
   return { abrir, volver, cambiarPeriodo, alternarDetalle, verPerfil, irAMiFila, rangoDe, RANGOS, fmtMin };
 })();
 

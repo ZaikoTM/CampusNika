@@ -794,12 +794,12 @@
             <h3 id="avatar-crop-title" style="font-size: 1.15rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px;">Encuadrá tu foto</h3>
             <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;">Arrastrá para mover y usá el zoom. Lo que queda dentro del círculo es tu avatar.</p>
             <div class="avatar-crop-stage" id="avatar-crop-stage">
-                <canvas id="avatar-crop-canvas" width="260" height="260"></canvas>
+                <canvas id="avatar-crop-canvas" width="320" height="320"></canvas>
                 <div class="avatar-crop-mask"></div>
             </div>
             <div class="avatar-crop-zoom">
                 <span aria-hidden="true">🔍−</span>
-                <input type="range" id="avatar-crop-zoom" min="1" max="4" step="0.01" value="1" aria-label="Zoom">
+                <input type="range" id="avatar-crop-zoom" min="1" max="6" step="0.01" value="1" aria-label="Zoom">
                 <span aria-hidden="true">🔍+</span>
             </div>
             <div class="modal-footer-btns" style="margin-top: 16px; display: flex; gap: 10px; justify-content: flex-end;">
@@ -2650,7 +2650,7 @@ let tempAvatarBase64 = null;
 let tempAvatarBlob = null; // Guardamos el blob real para poder subirlo como archivo
 
 // ---- Recorte de avatar (canvas nativo: arrastrar, zoom con slider/rueda/pellizco) ----
-const AvatarCrop = { img: null, V: 260, base: 1, zoom: 1, x: 0, y: 0, punteros: new Map(), pinchDist: 0 };
+const AvatarCrop = { img: null, V: 320, base: 1, zoom: 1, x: 0, y: 0, punteros: new Map(), pinchDist: 0 };
 
 function handleAvatarPreview(event) {
     const file = event.target.files[0];
@@ -2675,7 +2675,7 @@ function handleAvatarPreview(event) {
 function abrirRecorteAvatar(img) {
     const c = AvatarCrop;
     c.img = img;
-    c.base = c.V / Math.min(img.width, img.height); // "cover": la imagen siempre llena el cuadro
+    c.base = c.V / Math.max(img.width, img.height); // se ve la foto ENTERA; desde ahí se hace zoom y se encuadra
     c.zoom = 1;
     c.x = (c.V - img.width * c.base) / 2;
     c.y = (c.V - img.height * c.base) / 2;
@@ -2688,8 +2688,10 @@ function abrirRecorteAvatar(img) {
 
 function _limitarRecorte() {
     const c = AvatarCrop, s = c.base * c.zoom;
-    c.x = Math.min(0, Math.max(c.V - c.img.width * s, c.x));
-    c.y = Math.min(0, Math.max(c.V - c.img.height * s, c.y));
+    const w = c.img.width * s, h = c.img.height * s;
+    // Si la foto es más chica que el cuadro en un eje queda centrada; si es más grande, no deja huecos
+    c.x = w <= c.V ? (c.V - w) / 2 : Math.min(0, Math.max(c.V - w, c.x));
+    c.y = h <= c.V ? (c.V - h) / 2 : Math.min(0, Math.max(c.V - h, c.y));
 }
 
 function _dibujarRecorte() {
@@ -2698,7 +2700,7 @@ function _dibujarRecorte() {
     _limitarRecorte();
     const ctx = document.getElementById('avatar-crop-canvas').getContext('2d');
     const s = c.base * c.zoom;
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = '#cbd5e1';
     ctx.fillRect(0, 0, c.V, c.V);
     ctx.drawImage(c.img, c.x, c.y, c.img.width * s, c.img.height * s);
 }
@@ -2707,7 +2709,7 @@ function _dibujarRecorte() {
 function _aplicarZoomRecorte(nuevoZoom) {
     const c = AvatarCrop;
     if (!c.img) return;
-    nuevoZoom = Math.min(4, Math.max(1, nuevoZoom));
+    nuevoZoom = Math.min(6, Math.max(1, nuevoZoom));
     const sViejo = c.base * c.zoom, sNuevo = c.base * nuevoZoom;
     const cx = (c.V / 2 - c.x) / sViejo, cy = (c.V / 2 - c.y) / sViejo;
     c.zoom = nuevoZoom;

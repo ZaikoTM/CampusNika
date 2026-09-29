@@ -1839,13 +1839,13 @@ body.nika-vip .sim-hub-ai { color: #a855f7; background: rgba(168, 85, 247, 0.14)
 @media (max-width: 600px) { .pp-card { max-height: 88vh; } }
 
 /* ===== Recorte de avatar (campus.html) ===== */
-.avatar-crop-card { max-width: 340px; text-align: center; }
-.avatar-crop-stage { position: relative; width: 260px; height: 260px; max-width: 100%; margin: 0 auto; border-radius: 14px; overflow: hidden; background: #0f172a; touch-action: none; user-select: none; }
+.avatar-crop-card { max-width: 400px; text-align: center; }
+.avatar-crop-stage { position: relative; width: 320px; height: 320px; max-width: 100%; margin: 0 auto; border-radius: 14px; overflow: hidden; background: #0f172a; touch-action: none; user-select: none; }
 .avatar-crop-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
 .avatar-crop-stage canvas:active { cursor: grabbing; }
 /* Máscara circular: oscurece todo lo que queda fuera del círculo de encuadre */
 .avatar-crop-mask { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 0, transparent calc(50% - 1px), rgba(255,255,255,0.95) calc(50% - 1px), rgba(255,255,255,0.95) 50%, rgba(2, 6, 23, 0.62) 50%); }
-.avatar-crop-zoom { display: flex; align-items: center; gap: 10px; margin: 16px auto 0; max-width: 260px; font-size: 0.8rem; color: var(--text-muted); }
+.avatar-crop-zoom { display: flex; align-items: center; gap: 10px; margin: 16px auto 0; max-width: 320px; font-size: 0.8rem; color: var(--text-muted); }
 .avatar-crop-zoom input[type=range] { flex: 1; accent-color: var(--nika-primary); cursor: pointer; }
 
 /* ============================================================================

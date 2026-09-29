@@ -29,7 +29,8 @@
 const PomodoroEngine = (() => {
   const STATE_KEY = 'nika_pomo_state';
   const DONE_KEY = 'nika_pomo_last_done';   // evita doble registro entre pestañas
-  const GRACE_MS = 2 * 60 * 1000;           // si al volver pasaron >2 min del fin, se descarta
+  const GRACE_MS = 2 * 60 * 1000;           // pasado este margen el fin se registra en silencio (sin campana)
+  const RESCATE_MAX_MS = 6 * 60 * 60 * 1000; // un bloque que terminó hasta 6 h antes de volver igual se contabiliza
   const AUTO_NEXT_DELAY_MS = 2000;
   const MIN_PARTIAL_MIN = 5;                // un bloque de estudio interrumpido se guarda si llegó a >= 5 min
   const SHARED_SYNC_MS = 5000;              // latido del Host hacia el Invitado
@@ -161,6 +162,8 @@ const PomodoroEngine = (() => {
   }
 
   async function resolveUserId() {
+    const cacheado = getCachedUserId();
+    if (cacheado) return cacheado;             // sin esperar a la red: el insert usa la sesión viva igualmente
     const client = getDbClient();
     if (client && client.auth && navigator.onLine) {
       try {
@@ -202,11 +205,22 @@ const PomodoroEngine = (() => {
   }
 
   async function registerStudySession(moduleId, upId, minutes, completed = true) {
-    try { await registerStudySessionCore(moduleId, upId, minutes, completed); }
-    finally { avisarRendimiento({ origen: 'pomodoro', minutes }); }
+    if (!minutes) return;
+    // Un Pomodoro iniciado sin Unidad Problema asignada igual cuenta como tiempo de estudio
+    const modulo = moduleId || 'general';
+    const up = upId || 'general';
+    const completedAt = new Date().toISOString();
+    // 1) Se suma al instante en las tarjetas; 2) se guarda; 3) se avisa con el dato real
+    let optId = null;
+    try { if (window.NikaRendimiento && window.NikaRendimiento.registrarOptimista) optId = window.NikaRendimiento.registrarOptimista({ modulo, up_id: up, duration_minutes: minutes, completed, completed_at: completedAt }); } catch (_) {}
+    try { await registerStudySessionCore(modulo, up, minutes, completed, completedAt); }
+    finally {
+      try { if (optId && window.NikaRendimiento) window.NikaRendimiento.resolverOptimista(optId); } catch (_) {}
+      avisarRendimiento({ origen: 'pomodoro', minutes });
+    }
   }
 
-  async function registerStudySessionCore(moduleId, upId, minutes, completed = true) {
+  async function registerStudySessionCore(moduleId, upId, minutes, completed = true, completedAt) {
     if (!moduleId || !upId || !minutes) return;
 
     // Copia local (la usa la vista de métricas del Pomodoro)
@@ -223,7 +237,7 @@ const PomodoroEngine = (() => {
         up_id: upId,
         duration_minutes: minutes,
         completed,
-        completed_at: new Date().toISOString(),
+        completed_at: completedAt || new Date().toISOString(),
       };
 
       // Sin conexión: directo a la cola
@@ -810,7 +824,17 @@ const PomodoroEngine = (() => {
     if (state.status === 'running') {
       const overdue = Date.now() - state.targetEnd;
       if (overdue > GRACE_MS) {
-        // El navegador estuvo cerrado mucho después del fin: no contamos esa sesión.
+        // El bloque terminó mientras la página no estaba activa (PC dormida, pestaña cerrada). Si era de estudio y
+        // terminó hace poco, se registra igual (una sola vez, con el mismo antibloqueo entre pestañas) y sin campana.
+        const eraEstudio = state.mode === 'work' && state.durationMin > 0;
+        if (eraEstudio && overdue <= RESCATE_MAX_MS && localStorage.getItem(DONE_KEY) !== String(state.targetEnd) && !state.shared) {
+          localStorage.setItem(DONE_KEY, String(state.targetEnd));
+          const previo = { moduleId: state.moduleId, upId: state.upId, minutes: state.durationMin };
+          setTimeout(() => {
+            registerStudySession(previo.moduleId, previo.upId, previo.minutes);
+            if (typeof showToast === 'function') showToast('✅ Se registró el Pomodoro que terminó mientras no estabas.', 'success');
+          }, 800);
+        }
         state = idleState(state.mode === 'work' ? 'break' : 'work', state);
         saveState(true);
       } else {

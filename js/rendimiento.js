@@ -152,6 +152,25 @@ const NikaRendimiento = (() => {
     if (e && e.detail && e.detail.enviados > 0) avisarCambio({ origen: 'sync' });
   });
 
+  // ---- Pomodoro "optimista": al terminar un bloque se suma AL INSTANTE en las tarjetas, sin esperar
+  //      a la red. Cuando el guardado termina (subido o en cola) se retira y manda lo real.
+  let _optimistas = [];
+  function registrarOptimista(row) {
+    const id = 'opt' + Date.now() + Math.random().toString(16).slice(2, 6);
+    _optimistas.push({ id, row, t: Date.now() });
+    avisarCambio({ origen: 'optimista', minutes: row.duration_minutes });
+    return id;
+  }
+  function resolverOptimista(id) { _optimistas = _optimistas.filter((o) => o.id !== id); }
+  function _mezclarOptimistas(sesiones) {
+    const ahora = Date.now();
+    _optimistas = _optimistas.filter((o) => ahora - o.t < 60000);   // seguridad: nunca queda pegada
+    _optimistas.forEach((o) => {
+      const ya = sesiones.some((s) => new Date(s.completed_at).getTime() === new Date(o.row.completed_at).getTime());
+      if (!ya) sesiones.push({ modulo: o.row.modulo, up_id: o.row.up_id, duration_minutes: o.row.duration_minutes, completed: o.row.completed !== false, completed_at: o.row.completed_at });
+    });
+  }
+
   async function guardarExamen(payload) {
     try { return await _guardarExamenCore(payload); }
     finally { avisarCambio({ origen: 'examen' }); }
@@ -389,6 +408,7 @@ const NikaRendimiento = (() => {
     // esté dejando sesiones afuera antes de que lleguen a analizar(). Si acá
     // ya aparecen menos de las esperadas, el problema está en Supabase/RLS,
     // no en el cálculo de rendimiento.js.
+    _mezclarOptimistas(sesiones);
     console.log('[Rendimiento] Sesiones recuperadas:', sesiones);
     console.log(
       `[Rendimiento] user_id consultado: ${userId} · total filas: ${sesiones.length} · ` +
@@ -635,7 +655,7 @@ const NikaRendimiento = (() => {
   }
 
   return {
-    guardarExamen, cargarDatos, analizar, reintentarPendientes, registrarSesionCompartida, avisarCambio,
+    guardarExamen, cargarDatos, analizar, reintentarPendientes, registrarSesionCompartida, avisarCambio, registrarOptimista, resolverOptimista,
     forzarSincronizacion,
     formatearTiempo, labelModulo, normUp,
     UMBRALES: { FRESCO_MAX, DECAIMIENTO_MAX },

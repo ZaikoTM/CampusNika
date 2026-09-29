@@ -13,7 +13,7 @@
 //   Redirect URI a registrar en el dashboard de Spotify:  https://<tu-dominio>/spotify-callback.html
 
 const NikaMusic = (() => {
-  const CLIENT_ID_FIJO = '';   // ⬅️ opcional: pegá acá el Client ID
+  const CLIENT_ID_FIJO = '4b803856338f4b2a94e5e095b44016f5';   // ⬅️ opcional: pegá acá el Client ID
   const SPOTIFY_CLIENT_ID = window.NIKA_SPOTIFY_CLIENT_ID
     || ((document.querySelector('meta[name="spotify-client-id"]') || {}).content || '')
     || CLIENT_ID_FIJO;
