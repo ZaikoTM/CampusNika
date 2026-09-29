@@ -90,6 +90,7 @@ const ChatManager = (function () {
     }
 
     function _reproducirSonidoMensaje() {
+        try { window.dispatchEvent(new CustomEvent('nika:alerta-sonido')); } catch (_) {}
         const ctx = _getAudioCtx();
         if (!ctx) return;
         const tocar = () => {

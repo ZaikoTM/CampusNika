@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Foro Académico | Campus Nika</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/nika-unificado.css">
+</head>
+<body class="pagina-lateral" data-pagina="foro">
+
+    <header class="pl-top">
+        <a class="pl-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span>CAMPUS NIKA<small>Foro Académico</small></span>
+        </a>
+        <div class="pl-acciones">
+            <span data-nika-racha-slot></span>
+            <button type="button" class="pl-btn music" data-nika-music-toggle title="NikaMusic (Spotify y sonidos ambientales)" aria-label="Abrir NikaMusic">
+                <svg class="nm-logo" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path fill="#04130a" d="M17.3 16.7a.75.75 0 0 1-1.03.25c-2.8-1.7-6.3-2.1-10.5-1.15a.75.75 0 1 1-.33-1.46c4.55-1.04 8.45-.6 11.6 1.33.35.22.46.68.26 1.03zm1.47-3.27a.94.94 0 0 1-1.29.31c-3.2-1.97-8.08-2.55-11.86-1.4a.94.94 0 1 1-.55-1.8c4.32-1.31 9.68-.67 13.4 1.6.44.27.58.85.3 1.29zm.13-3.4C15.02 7.7 8.7 7.5 5.03 8.62a1.13 1.13 0 1 1-.66-2.16c4.2-1.28 11.18-1.03 15.6 1.6a1.13 1.13 0 0 1-1.07 1.97z"/></svg>
+                <span class="lbl">NikaMusic</span>
+            </button>
+            <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+            <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+        </div>
+    </header>
+
+    <main class="pl-main">
+        <section id="foro-section" class="foro-section" style="display:none;">
+            <div class="fr-header">
+                <button type="button" class="lg-volver" onclick="NikaForo.volver()">← Volver al Campus</button>
+                <div class="lg-titulo">
+                    <h2>💬 Foro Académico</h2>
+                    <p>El muro de la comunidad: casos clínicos, dudas y apuntes para estudiar entre todos.</p>
+                </div>
+            </div>
+            <div class="fr-layout">
+                <div class="fr-columna">
+                    <div class="fr-compose" id="foro-compose"></div>
+                    <div class="fr-feed" id="foro-feed"></div>
+                </div>
+                <aside class="fr-aside">
+                    <div class="fr-card">
+                        <div class="fr-stat"><b id="foro-total">–</b><span id="foro-total-t">publicaciones</span></div>
+                        <h4 style="margin-top:12px">Materia</h4>
+                        <div class="fr-filtros" id="foro-filtros"></div>
+                    </div>
+                    <div class="fr-card">
+                        <h4>Cómo armar un buen caso</h4>
+                        <ul class="fr-guia">
+                            <li><span>1</span>Contá edad, sexo y motivo de consulta.</li>
+                            <li><span>2</span>Sumá antecedentes, examen físico y estudios.</li>
+                            <li><span>3</span>Terminá con tu pregunta: ¿diagnóstico? ¿conducta?</li>
+                            <li><span>4</span>Etiquetá la materia y la UP para que te encuentren.</li>
+                        </ul>
+                    </div>
+                    <div class="fr-card">
+                        <h4>Reglas de la comunidad</h4>
+                        <p class="fr-reglas">Cuidá la privacidad: nada de datos que identifiquen a pacientes. Respeto entre compañeros. Podés reportar o bloquear contenido inapropiado.</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast">Notificación</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/nikaAcceso.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/friendsManager.js"></script>
+    <script src="js/social.js"></script>
+    <script src="js/moderacion.js"></script>
+    <script src="js/chatManager.js"></script>
+    <script src="js/foro.js"></script>
+    <script src="js/rachas.js"></script>
+    <script src="js/nikaMusic.js"></script>
+    <script src="js/atajos.js"></script>
+    <script src="js/paginaLateral.js"></script>
+</body>
+</html>

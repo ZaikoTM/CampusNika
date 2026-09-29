@@ -131,6 +131,7 @@
     <script src="js/pomodoroEngine.js"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
+    <link rel="stylesheet" href="css/nika-unificado.css">
 </head>
 <body>
 
@@ -171,9 +172,11 @@
             <li><button onclick="openFriendsModal()" class="sidebar-link">🤝 Comunidad & Amigos</button></li>
             <li><button onclick="openDmInboxModal()" class="sidebar-link" style="position:relative;">🗨️ Mensajes Privados<span id="dm-unread-badge" style="display:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--danger,#ef4444); color:#fff; font-size:0.65rem; font-weight:800; border-radius:20px; padding:2px 7px; line-height:1;"></span></button></li>
             <li><button onclick="openChatModal()" class="sidebar-link">🗨️ Chat Global</button></li>
-            <li><button onclick="openForumModal()" class="sidebar-link">💬 Foro Académico</button></li>
+            <li><button onclick="window.location.href='foro.html'" class="sidebar-link" id="sidebar-foro-btn">💬 Foro Académico</button></li>
             <li><button onclick="openVersusModal()" class="sidebar-link">⚔️ Modo Versus 1vs1</button></li>
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
+            <li><button onclick="window.location.href='liga.html'" class="sidebar-link" id="sidebar-liga-btn">🍅 Liga Pomodoro</button></li>
+            <li><button onclick="window.location.href='ateneos.html'" class="sidebar-link" id="sidebar-ateneos-btn">📹 Sala de Ateneos</button></li>
 
             <div class="sidebar-category">Exámenes</div>
             <li><button onclick="NikaAcceso.abrirSimulador('choice')" class="sidebar-link">🩺 Simulador Choice</button></li>
@@ -185,6 +188,7 @@
 
             <div class="sidebar-category">Herramientas</div>
             <li><button onclick="window.location.href='nikafarma.html'" class="sidebar-link">💊 NikaFarma</button></li>
+            <li><button type="button" data-nika-music-toggle class="sidebar-link sidebar-link--music" id="sidebar-music-btn"><svg class="nm-logo" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path fill="#04130a" d="M17.3 16.7a.75.75 0 0 1-1.03.25c-2.8-1.7-6.3-2.1-10.5-1.15a.75.75 0 1 1-.33-1.46c4.55-1.04 8.45-.6 11.6 1.33.35.22.46.68.26 1.03zm1.47-3.27a.94.94 0 0 1-1.29.31c-3.2-1.97-8.08-2.55-11.86-1.4a.94.94 0 1 1-.55-1.8c4.32-1.31 9.68-.67 13.4 1.6.44.27.58.85.3 1.29zm.13-3.4C15.02 7.7 8.7 7.5 5.03 8.62a1.13 1.13 0 1 1-.66-2.16c4.2-1.28 11.18-1.03 15.6 1.6a1.13 1.13 0 0 1-1.07 1.97z"/></svg> NikaMusic</button></li>
             <li><button data-guardia-open class="sidebar-link">🛡️ Modo Guardia Offline</button></li>
             <li><button onclick="toggleDarkMode()" id="dark-mode-btn" class="sidebar-link">🌙 Modo Oscuro</button></li>
             <li id="pwa-install-item" style="display:none;"><button onclick="instalarAppNika()" class="sidebar-link">📲 Instalar App</button></li>
@@ -221,6 +225,8 @@
             <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
                 <!-- Badge de conexión (Modo Guardia): 🟢 Online · 🟡 Offline · 🔄 Sincronizando -->
                 <span data-nika-net-slot></span>
+                <!-- Racha diaria (js/rachas.js) -->
+                <span data-nika-racha-slot></span>
                 <!-- Widget de Notificaciones con Campanita -->
                 <div class="notifications-wrapper" style="position: relative; display: inline-flex; align-items: center;">
                     <button id="notification-bell" onclick="toggleNotificationsPanel()" class="toggle-sidebar-btn" style="position: relative; padding: 8px 12px; background: rgba(2, 132, 199, 0.1); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 1rem;">
@@ -306,6 +312,24 @@
                 <button class="btn-continue-action" onclick="location.href='cirugia_hub.html'">Seguir entrenando →</button>
             </div>
 
+            <!-- Próximos eventos y planificación (calendario_eventos) -->
+            <div class="plan-card" id="plan-card">
+                <div class="plan-card-header">
+                    <h4>📅 Próximos eventos y planificación</h4>
+                    <button type="button" class="plan-btn-balance" onclick="abrirBalanceDia()"><span class="plan-btn-icon">📊</span> Cierre del día</button>
+                </div>
+                <div class="plan-card-cols">
+                    <div class="plan-col">
+                        <div class="plan-col-title">Hoy</div>
+                        <div id="plan-hoy-lista" class="plan-lista"><span class="plan-vacio">Cargando...</span></div>
+                    </div>
+                    <div class="plan-col">
+                        <div class="plan-col-title">Próximos</div>
+                        <div id="plan-proximos-lista" class="plan-lista"><span class="plan-vacio">Cargando...</span></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="action-buttons-grid action-buttons-grid--4">
                 <div class="action-btn-card" onclick="document.getElementById('modulos-section').scrollIntoView({behavior:'smooth'})">
                     <div class="action-icon">
@@ -345,28 +369,28 @@
                         <span style="font-size: 0.78rem; color: var(--nika-primary); font-weight: 700;">Estadísticas en vivo</span>
                     </div>
                     <div class="perf-grid">
-                        <div class="perf-tile perf-tile--exams">
+                        <div class="perf-tile perf-tile--exams perf-clickable" role="button" tabindex="0" onclick="abrirDetalleRendimiento('simulacros')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirDetalleRendimiento('simulacros');}" title="Ver el detalle de tus simulacros">
                             <div class="perf-tile-icon">📝</div>
                             <div class="perf-tile-body">
                                 <div class="perf-tile-value" id="perf-exams-count">0</div>
                                 <div class="perf-tile-label">Simulacros Realizados</div>
                             </div>
                         </div>
-                        <div class="perf-tile perf-tile--accuracy">
+                        <div class="perf-tile perf-tile--accuracy perf-clickable" role="button" tabindex="0" onclick="abrirDetalleRendimiento('efectividad')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirDetalleRendimiento('efectividad');}" title="Ver tu efectividad por área y por UP">
                             <div class="perf-tile-icon">🎯</div>
                             <div class="perf-tile-body">
                                 <div class="perf-tile-value" id="perf-accuracy">0%</div>
                                 <div class="perf-tile-label">Efectividad Global</div>
                             </div>
                         </div>
-                        <div class="perf-tile perf-tile--streak">
+                        <div class="perf-tile perf-tile--streak perf-clickable" role="button" tabindex="0" onclick="abrirDetalleRendimiento('racha')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirDetalleRendimiento('racha');}" title="Ver tu racha de estudio">
                             <div class="perf-tile-icon">🔥</div>
                             <div class="perf-tile-body">
                                 <div class="perf-tile-value" id="perf-streak">0 d</div>
                                 <div class="perf-tile-label">Racha Activa</div>
                             </div>
                         </div>
-                        <div class="perf-time-tile perf-time-tile--total">
+                        <div class="perf-time-tile perf-time-tile--total perf-clickable" role="button" tabindex="0" onclick="abrirDetalleRendimiento('tiempo')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirDetalleRendimiento('tiempo');}" title="Ver el desglose del tiempo de estudio">
                             <div class="perf-time-tile-icon">⏱️</div>
                             <div class="perf-time-tile-body">
                                 <div class="perf-time-tile-value" id="perf-study-time">0 min</div>
@@ -375,7 +399,7 @@
                                 <div class="perf-time-tile-meta" id="perf-study-sessions">0 sesiones Pomodoro</div>
                             </div>
                         </div>
-                        <div class="perf-time-tile perf-time-tile--hoy">
+                        <div class="perf-time-tile perf-time-tile--hoy perf-clickable" role="button" tabindex="0" onclick="abrirDetalleRendimiento('hoy')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirDetalleRendimiento('hoy');}" title="Ver el estudio de hoy">
                             <div class="perf-time-tile-icon">⚡</div>
                             <div class="perf-time-tile-body">
                                 <div class="perf-time-tile-value" id="perf-study-time-hoy">0 min</div>
@@ -384,7 +408,7 @@
                                 <div class="perf-time-tile-meta" id="perf-study-sessions-hoy">0 sesiones hoy</div>
                             </div>
                         </div>
-                        <div class="perf-tile perf-tile--fav">
+                        <div class="perf-tile perf-tile--fav perf-clickable" role="button" tabindex="0" onclick="abrirDetalleRendimiento('favorita')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirDetalleRendimiento('favorita');}" title="Ver el ranking de áreas">
                             <div class="perf-tile-icon">⭐</div>
                             <div class="perf-tile-body">
                                 <div class="perf-tile-value perf-tile-value--sm" id="perf-fav-area">-</div>
@@ -393,7 +417,7 @@
                             </div>
                         </div>
                         <!-- Curva del Olvido (tarjeta compacta) -->
-                        <div class="perf-tile perf-tile--olvido" id="perf-olvido-card" onclick="abrirDetalleRendimiento('olvido')" title="Ver la Curva del Olvido completa">
+                        <div class="perf-tile perf-tile--olvido perf-clickable" id="perf-olvido-card" onclick="abrirDetalleRendimiento('olvido')" title="Ver la Curva del Olvido completa">
                             <div class="perf-tile-icon">🧠</div>
                             <div class="perf-tile-body">
                                 <div class="perf-tile-value" id="perf-olvido-value">-</div>
@@ -674,7 +698,7 @@
                     
                     <div style="flex: 1; text-align: left;">
                         <input type="file" id="prof-avatar-file" class="form-input" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleAvatarPreview(event)" style="padding: 6px; font-size: 0.85rem;">
-                        <span style="font-size: 0.75rem; color: var(--text-muted, #94a3b8); display: block; margin-top: 4px;">Se auto-recortará al centro. (JPG o PNG)</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted, #94a3b8); display: block; margin-top: 4px;">Vas a poder encuadrar y hacer zoom antes de guardar. (JPG o PNG)</span>
                     </div>
                 </div>
             </div>
@@ -764,6 +788,75 @@
         </div>
     </div>
 
+    <!-- ================= MODAL RECORTE DE AVATAR ================= -->
+    <div class="modal-overlay" id="avatar-crop-modal" style="z-index: 3500;">
+        <div class="modal-content avatar-crop-card" role="dialog" aria-modal="true" aria-labelledby="avatar-crop-title">
+            <h3 id="avatar-crop-title" style="font-size: 1.15rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px;">Encuadrá tu foto</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;">Arrastrá para mover y usá el zoom. Lo que queda dentro del círculo es tu avatar.</p>
+            <div class="avatar-crop-stage" id="avatar-crop-stage">
+                <canvas id="avatar-crop-canvas" width="260" height="260"></canvas>
+                <div class="avatar-crop-mask"></div>
+            </div>
+            <div class="avatar-crop-zoom">
+                <span aria-hidden="true">🔍−</span>
+                <input type="range" id="avatar-crop-zoom" min="1" max="4" step="0.01" value="1" aria-label="Zoom">
+                <span aria-hidden="true">🔍+</span>
+            </div>
+            <div class="modal-footer-btns" style="margin-top: 16px; display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn-balance-cerrar" onclick="cancelarRecorteAvatar()">Cancelar</button>
+                <button type="button" class="plan-btn-balance" onclick="confirmarRecorteAvatar()">Usar esta foto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL EDITAR EVENTO ================= -->
+    <div class="modal-overlay" id="editar-evento-modal" onclick="if (event.target === this) cerrarEditarEvento()">
+        <div class="modal-content" style="max-width: 440px;">
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 14px;">✏️ Editar evento</h3>
+            <label class="ev-label">Título / motivo</label>
+            <input type="text" id="ev-edit-titulo" class="ev-input" maxlength="120">
+            <label class="ev-label">Fecha</label>
+            <input type="date" id="ev-edit-fecha" class="ev-input">
+            <label class="ev-label">Tipo</label>
+            <select id="ev-edit-tipo" class="ev-input" onchange="document.getElementById('ev-edit-horas').style.display = this.value === 'bloque_estudio' ? 'flex' : 'none'">
+                <option value="examen">📝 Examen</option>
+                <option value="repaso">📘 Repaso</option>
+                <option value="bloque_estudio">⏰ Bloque de estudio</option>
+                <option value="otro">📌 Otro</option>
+            </select>
+            <div class="ev-row">
+                <div><label class="ev-label">Módulo</label>
+                    <select id="ev-edit-modulo" class="ev-input">
+                        <option value="">— Sin módulo —</option>
+                        <option value="cirugia">Cirugía</option>
+                        <option value="ginecologia">Ginecología</option>
+                    </select></div>
+                <div><label class="ev-label">UP (número)</label>
+                    <input type="number" id="ev-edit-up" class="ev-input" min="1" max="99" placeholder="Ej: 7"></div>
+            </div>
+            <div class="ev-row" id="ev-edit-horas" style="display:none;">
+                <div><label class="ev-label">Inicio</label><input type="time" id="ev-edit-hi" class="ev-input"></div>
+                <div><label class="ev-label">Fin</label><input type="time" id="ev-edit-hf" class="ev-input"></div>
+            </div>
+            <div class="modal-footer-btns" style="margin-top: 20px; display:flex; gap:10px; justify-content:flex-end;">
+                <button type="button" class="btn-balance-cerrar" onclick="cerrarEditarEvento()">Cancelar</button>
+                <button type="button" class="plan-btn-balance" id="ev-edit-guardar" onclick="guardarEdicionEvento()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL BALANCE / CIERRE DEL DÍA ================= -->
+    <div class="modal-overlay" id="balance-dia-modal" onclick="if (event.target === this) cerrarBalanceDia()">
+        <div class="modal-content" style="max-width: 560px;">
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px;">📊 Cierre del día</h3>
+            <p id="balance-dia-sub" style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;"></p>
+            <div id="balance-dia-body" style="max-height: 60vh; overflow-y: auto; padding-right: 4px;"></div>
+            <div class="modal-footer-btns" style="margin-top: 18px;">
+                <button type="button" class="btn-balance-cerrar" onclick="cerrarBalanceDia()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ================= MODAL PERFIL PÚBLICO ================= -->
     <!-- ================= MODAL DETALLE DE RENDIMIENTO (Curva del Olvido) ================= -->
     <div class="modal-overlay" id="rendimiento-detalle-modal" onclick="if (event.target === this) cerrarDetalleRendimiento()">
@@ -783,6 +876,7 @@
             <button type="button" class="pc-icon-btn pp-close-btn" onclick="closePublicProfileModal()" aria-label="Cerrar">✕</button>
 
             <div class="pp-header" id="pp-header">
+                <div class="pp-banner" aria-hidden="true"></div>
                 <div class="pp-avatar-wrap">
                     <img id="pp-avatar" src="assets/N%20NIKA.png" alt="Avatar" class="pp-avatar">
                 </div>
@@ -794,7 +888,31 @@
                 </div>
             </div>
 
-            <p id="pp-bio" class="pp-bio"></p>
+            <div class="pp-bio-card" id="pp-bio-card">
+                <span class="pp-bio-icon" aria-hidden="true">🩺</span>
+                <p id="pp-bio" class="pp-bio"></p>
+            </div>
+
+            <div class="pp-section-title">Estadísticas rápidas</div>
+            <div class="pp-quick-stats">
+                <div class="pp-quick-card pp-quick--horas">
+                    <span class="pp-quick-ico">⏱️</span>
+                    <strong id="pp-st-horas">—</strong>
+                    <span>Horas de Pomodoro</span>
+                </div>
+                <div class="pp-quick-card pp-quick--sim">
+                    <span class="pp-quick-ico">✅</span>
+                    <strong id="pp-st-aprobados">—</strong>
+                    <span>Simulacros aprobados</span>
+                </div>
+                <div class="pp-quick-card pp-quick--liga">
+                    <span class="pp-quick-ico" id="pp-st-liga-ico">🏅</span>
+                    <strong id="pp-st-liga" class="pp-quick-liga">—</strong>
+                    <span>Rango en la Liga</span>
+                </div>
+            </div>
+
+            <div class="pp-section-title">Información</div>
 
             <div class="pp-stats-grid">
                 <div class="pp-stat-card">
@@ -831,6 +949,7 @@
 
             <div class="pp-actions-row">
                 <button type="button" class="pp-btn pp-btn-ghost" id="pp-chat-btn" onclick="openChatWithFriend(window._ppCurrentUsername)">💬 Chat</button>
+                <button type="button" class="pp-btn pp-btn-versus" id="pp-versus-btn" onclick="desafiarDesdePerfil()">⚔️ Desafiar</button>
                 <button type="button" class="pp-btn pp-btn-primary" id="pp-friend-btn" onclick="enviarSolicitudAmistad(window._ppCurrentUserId)">➕ Enviar Solicitud</button>
             </div>
         </div>
@@ -1044,7 +1163,7 @@
     <div class="modal-overlay" id="leaderboard-modal">
         <div class="modal-content" style="max-width: 500px;">
             <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 15px;">🏆 Podio & Ranking Global</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Estudiantes ordenados por precisión en simulacros y duelos ganados.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Estudiantes ordenados por ELO de duelos (todos arrancan en 1000) y victorias.</p>
             
             <div id="leaderboard-list" style="max-height: 300px; overflow-y: auto;">
                 <!-- Generado dinámicamente -->
@@ -1238,6 +1357,12 @@
     <script src="js/pomodoroSyncManager.js"></script>
     <script src="js/onboardingTour.js"></script>
     <script src="js/pomodoroBar.js"></script>
+    <script src="js/liga.js"></script>
+    <script src="js/voiceManager.js"></script>
+    <script src="js/ateneos.js"></script>
+    <script src="js/nikaMusic.js"></script>
+    <script src="js/rachas.js"></script>
+    <script src="js/atajos.js"></script>
 
 </body>
 </html>
@@ -1360,7 +1485,294 @@
 
         // 5. Banner de cuenta regresiva de mesa de examen (Parte 3 del Calendario)
         actualizarBannerExamen();
+        cargarPlanificacionCampus();
     }
+
+    // ================= PRÓXIMOS EVENTOS Y PLANIFICACIÓN + CIERRE DEL DÍA =================
+    function _fechaLocalISO(d = new Date()) {
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+    function _hhmm(t) { return t ? String(t).slice(0, 5) : ''; }
+    function _esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+    function _clienteDb() { return window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase; }
+
+    // "up7" / "up3__sec2" -> 7 / 3 (para el deep-link estudio.html?modulo=..&up=..)
+    function _upNumero(upId) {
+        const m = String(upId || '').match(/^up(\d+)/i);
+        return m ? m[1] : '';
+    }
+    function _urlEstudio(ev) {
+        const modulo = ev.modulo || 'cirugia';
+        const up = _upNumero(ev.up_id);
+        return `estudio.html?modulo=${encodeURIComponent(modulo)}${up ? `&up=${up}` : ''}`;
+    }
+    function _etiquetaEv(ev) {
+        const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
+        const up = _upNumero(ev.up_id);
+        return [nombres[ev.modulo] || ev.modulo, up ? `UP${up}` : ''].filter(Boolean).join(' · ');
+    }
+    function _estadoBloque(b) {
+        if (b.estado === 'completado' || b.estado === 'descartado' || b.estado === 'en_curso') return b.estado;
+        const d = new Date();
+        const ahora = d.getHours() * 60 + d.getMinutes();
+        const [h, m] = _hhmm(b.hora_fin).split(':').map(Number);
+        return ahora >= (h || 0) * 60 + (m || 0) ? 'expirado' : 'pendiente';
+    }
+
+    async function cargarPlanificacionCampus() {
+        const hoyEl = document.getElementById('plan-hoy-lista');
+        const proxEl = document.getElementById('plan-proximos-lista');
+        if (!hoyEl || !proxEl) return;
+        try {
+            const client = _clienteDb();
+            const { data: { user } } = client ? await client.auth.getUser() : { data: {} };
+            if (!user) {
+                hoyEl.innerHTML = proxEl.innerHTML = '<span class="plan-vacio">Iniciá sesión para ver tu planificación.</span>';
+                return;
+            }
+            const hoy = _fechaLocalISO();
+            const [rHoy, rProx] = await Promise.all([
+                client.from('calendario_eventos')
+                    .select('id, titulo, tipo, modulo, up_id, fecha, hora_inicio, hora_fin, estado')
+                    .eq('user_id', user.id).eq('fecha', hoy).order('hora_inicio', { ascending: true }),
+                client.from('calendario_eventos')
+                    .select('id, titulo, tipo, modulo, up_id, fecha')
+                    .eq('user_id', user.id).gt('fecha', hoy).order('fecha', { ascending: true }).limit(6)
+            ]);
+            if (rHoy.error) throw rHoy.error;
+            if (rProx.error) throw rProx.error;
+
+            const etiquetasEstado = { pendiente: 'Pendiente', en_curso: 'En curso', completado: 'Completado', expirado: 'Expirado', descartado: 'Descartado' };
+            const bloques = (rHoy.data || []).filter(e => e.estado !== 'descartado');
+            hoyEl.innerHTML = bloques.length ? bloques.map(e => {
+                const est = e.tipo === 'bloque_estudio' ? _estadoBloque(e) : 'pendiente';
+                const horas = e.hora_inicio ? `${_hhmm(e.hora_inicio)}–${_hhmm(e.hora_fin)}` : (e.tipo === 'examen' ? '📝 Hoy' : 'Hoy');
+                const ctx = _etiquetaEv(e);
+                return `<div class="plan-item is-${est}" onclick="editarEvento('${e.id}')" title="Editar evento">
+                    <div class="plan-item-main">
+                        <span class="plan-item-title">${_esc(e.titulo)}</span>
+                        <span class="plan-item-ctx">
+                            <span class="plan-badge plan-badge--${est}">${horas}</span>
+                            <span class="plan-badge plan-badge--${est}">${etiquetasEstado[est]}</span>
+                            ${ctx ? `<span>${_esc(ctx)}</span>` : ''}
+                        </span>
+                    </div>
+                    <span class="plan-item-acciones">
+                        <button type="button" class="plan-icon-btn" title="Editar" onclick="event.stopPropagation(); editarEvento('${e.id}')">✏️</button>
+                        <button type="button" class="plan-icon-btn is-danger" title="Eliminar" onclick="event.stopPropagation(); eliminarEvento('${e.id}')">🗑️</button>
+                    </span>
+                    <a class="plan-item-go" href="${_urlEstudio(e)}" onclick="event.stopPropagation()">Ir <span class="plan-arrow">→</span></a>
+                </div>`;
+            }).join('') : '<span class="plan-vacio">No planificaste bloques para hoy. Armalos desde la Sala de Estudio.</span>';
+
+            const proximos = rProx.data || [];
+            proxEl.innerHTML = proximos.length ? proximos.map(e => {
+                const dias = Math.round((new Date(e.fecha + 'T00:00:00') - new Date(hoy + 'T00:00:00')) / 86400000);
+                const cuando = dias === 1 ? 'Mañana' : `En ${dias} días`;
+                const icono = e.tipo === 'examen' ? '📝' : e.tipo === 'repaso' ? '📘' : e.tipo === 'bloque_estudio' ? '⏰' : '📌';
+                const ctx = _etiquetaEv(e);
+                return `<div class="plan-item is-proximo" onclick="editarEvento('${e.id}')" title="Editar evento">
+                    <div class="plan-item-main">
+                        <span class="plan-item-title">${icono} ${_esc(e.titulo)}</span>
+                        <span class="plan-item-ctx">
+                            <span class="plan-badge plan-badge--proximo">${cuando}</span>
+                            ${ctx ? `<span>${_esc(ctx)}</span>` : ''}
+                        </span>
+                    </div>
+                    <span class="plan-item-acciones">
+                        <button type="button" class="plan-icon-btn" title="Editar" onclick="event.stopPropagation(); editarEvento('${e.id}')">✏️</button>
+                        <button type="button" class="plan-icon-btn is-danger" title="Eliminar" onclick="event.stopPropagation(); eliminarEvento('${e.id}')">🗑️</button>
+                    </span>
+                    <a class="plan-item-go" href="${_urlEstudio(e)}" onclick="event.stopPropagation()">Ir <span class="plan-arrow">→</span></a>
+                </div>`;
+            }).join('') : '<span class="plan-vacio">No tenés eventos futuros agendados.</span>';
+        } catch (err) {
+            console.warn('[Planificación] No se pudo cargar:', err);
+            hoyEl.innerHTML = proxEl.innerHTML = '<span class="plan-vacio">No se pudo cargar la planificación.</span>';
+        }
+    }
+    window.cargarPlanificacionCampus = cargarPlanificacionCampus;
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) cargarPlanificacionCampus(); });
+
+    // ---- Editar / eliminar eventos desde la tarjeta ----
+    let _eventoEditando = null;
+
+    async function editarEvento(id) {
+        try {
+            const client = _clienteDb();
+            const { data: { user } } = await client.auth.getUser();
+            if (!user) return;
+            const { data, error } = await client.from('calendario_eventos').select('*').eq('id', id).eq('user_id', user.id).single();
+            if (error) throw error;
+            _eventoEditando = data;
+            document.getElementById('ev-edit-titulo').value = data.titulo || '';
+            document.getElementById('ev-edit-fecha').value = data.fecha || '';
+            document.getElementById('ev-edit-tipo').value = data.tipo || 'otro';
+            document.getElementById('ev-edit-modulo').value = data.modulo || '';
+            document.getElementById('ev-edit-up').value = _upNumero(data.up_id);
+            document.getElementById('ev-edit-hi').value = _hhmm(data.hora_inicio);
+            document.getElementById('ev-edit-hf').value = _hhmm(data.hora_fin);
+            document.getElementById('ev-edit-horas').style.display = data.tipo === 'bloque_estudio' ? 'flex' : 'none';
+            document.getElementById('editar-evento-modal').style.display = 'flex';
+        } catch (err) {
+            console.warn('[Eventos] No se pudo abrir el evento:', err);
+            showToast('No se pudo cargar el evento.', 'warning');
+        }
+    }
+    function cerrarEditarEvento() {
+        const m = document.getElementById('editar-evento-modal');
+        if (m) m.style.display = 'none';
+        _eventoEditando = null;
+    }
+    async function guardarEdicionEvento() {
+        const ev = _eventoEditando;
+        if (!ev) return;
+        const titulo = document.getElementById('ev-edit-titulo').value.trim();
+        const fecha = document.getElementById('ev-edit-fecha').value;
+        const tipo = document.getElementById('ev-edit-tipo').value;
+        const upNum = document.getElementById('ev-edit-up').value.trim();
+        if (!titulo) { showToast('El título no puede quedar vacío.', 'warning'); return; }
+        if (!fecha) { showToast('Elegí una fecha.', 'warning'); return; }
+        const cambios = { titulo, fecha, tipo, modulo: document.getElementById('ev-edit-modulo').value || null };
+        cambios.up_id = upNum ? (upNum === _upNumero(ev.up_id) ? ev.up_id : `up${upNum}`) : null;
+        if (tipo === 'bloque_estudio') {
+            const hi = document.getElementById('ev-edit-hi').value, hf = document.getElementById('ev-edit-hf').value;
+            if (!hi || !hf || hf <= hi) { showToast('Indicá hora de inicio y una de fin posterior.', 'warning'); return; }
+            cambios.hora_inicio = hi; cambios.hora_fin = hf;
+        }
+        const btn = document.getElementById('ev-edit-guardar');
+        btn.disabled = true;
+        try {
+            const client = _clienteDb();
+            const { data: { user } } = await client.auth.getUser();
+            const { error } = await client.from('calendario_eventos').update(cambios).eq('id', ev.id).eq('user_id', user.id);
+            if (error) throw error;
+            cerrarEditarEvento();
+            showToast('Evento actualizado.', 'success');
+            cargarPlanificacionCampus();
+            actualizarBannerExamen();
+        } catch (err) {
+            console.warn('[Eventos] No se pudo guardar:', err);
+            showToast('No se pudieron guardar los cambios.', 'warning');
+        } finally {
+            btn.disabled = false;
+        }
+    }
+    async function eliminarEvento(id) {
+        if (!confirm('¿Seguro que querés borrar este evento?')) return;
+        try {
+            const client = _clienteDb();
+            const { data: { user } } = await client.auth.getUser();
+            const { error } = await client.from('calendario_eventos').delete().eq('id', id).eq('user_id', user.id);
+            if (error) throw error;
+            showToast('Evento eliminado.', 'success');
+            cargarPlanificacionCampus();
+            actualizarBannerExamen();
+        } catch (err) {
+            console.warn('[Eventos] No se pudo eliminar:', err);
+            showToast('No se pudo eliminar el evento.', 'warning');
+        }
+    }
+    window.editarEvento = editarEvento;
+    window.cerrarEditarEvento = cerrarEditarEvento;
+    window.guardarEdicionEvento = guardarEdicionEvento;
+    window.eliminarEvento = eliminarEvento;
+
+    async function abrirBalanceDia() {
+        const modal = document.getElementById('balance-dia-modal');
+        const body = document.getElementById('balance-dia-body');
+        const sub = document.getElementById('balance-dia-sub');
+        if (!modal || !body) return;
+        modal.style.display = 'flex';
+        body.innerHTML = '<p class="plan-vacio">Calculando...</p>';
+        sub.textContent = new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+        try {
+            const client = _clienteDb();
+            const { data: { user } } = await client.auth.getUser();
+            if (!user) { body.innerHTML = '<p class="plan-vacio">Iniciá sesión para ver tu balance.</p>'; return; }
+            const hoy = _fechaLocalISO();
+            const inicioDia = new Date(); inicioDia.setHours(0, 0, 0, 0);
+
+            const [rB, rS] = await Promise.all([
+                client.from('calendario_eventos')
+                    .select('id, titulo, modulo, up_id, hora_inicio, hora_fin, estado')
+                    .eq('user_id', user.id).eq('fecha', hoy).eq('tipo', 'bloque_estudio').order('hora_inicio', { ascending: true }),
+                client.from('study_sessions')
+                    .select('duration_minutes')
+                    .eq('user_id', user.id).gte('completed_at', inicioDia.toISOString())
+            ]);
+            if (rB.error) throw rB.error;
+
+            const bloques = (rB.data || []).filter(b => b.estado !== 'descartado');
+            const hechos = bloques.filter(b => b.estado === 'completado');
+            const pendientes = bloques.filter(b => b.estado !== 'completado');
+            const pct = bloques.length ? Math.round((hechos.length / bloques.length) * 100) : 0;
+            const _min = (t) => { const [h, m] = _hhmm(t).split(':').map(Number); return (h || 0) * 60 + (m || 0); };
+            const estimados = bloques.reduce((a, b) => a + Math.max(0, _min(b.hora_fin) - _min(b.hora_inicio)), 0);
+            const reales = (rS.data || []).reduce((a, s) => a + (Number(s.duration_minutes) || 0), 0);
+            const fmt = (m) => m >= 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${m} min`;
+
+            let html = '';
+            if (!bloques.length) {
+                html += '<p class="plan-vacio">Hoy no planificaste bloques. Igual estudiaste ' + fmt(reales) + ' con el Pomodoro.</p>';
+            } else {
+                html += `<div class="balance-hero">
+                    <div class="balance-hero-top">
+                        <span class="balance-hero-big">${pct}%</span>
+                        <span class="balance-hero-label">Completaste <strong>${hechos.length} de ${bloques.length}</strong> bloques</span>
+                    </div>
+                    <div class="balance-bar"><div class="balance-bar-fill" style="width:${pct}%;"></div></div>
+                </div>`;
+            }
+            const pctTiempo = estimados ? Math.min(100, Math.round((reales / estimados) * 100)) : 0;
+            html += `<div class="balance-time">
+                <div class="balance-time-title">⏱️ Pomodoro real: <strong>${fmt(reales)}</strong>${estimados ? ` de ${fmt(estimados)} estimados` : ''}</div>
+                ${estimados ? `<div class="balance-bar"><div class="balance-bar-fill balance-bar-fill--time" style="width:${pctTiempo}%;"></div></div>
+                <div class="balance-bar-caption"><span>0</span><span>${pctTiempo}% del tiempo planificado</span></div>` : ''}
+            </div>`;
+
+            if (pendientes.length) {
+                html += `<div class="plan-col-title" style="margin-top:18px;">Quedaron pendientes</div><div class="balance-pendientes">` + pendientes.map(b => {
+                    const ctx = _etiquetaEv(b);
+                    return `<div class="plan-item is-${_estadoBloque(b)}"><div class="plan-item-main">
+                        <span class="plan-item-title">${_esc(b.titulo)}</span>
+                        <span class="plan-item-ctx"><span class="plan-badge plan-badge--pendiente">${_hhmm(b.hora_inicio)}–${_hhmm(b.hora_fin)}</span>${ctx ? `<span>${_esc(ctx)}</span>` : ''}</span></div>
+                        <button type="button" class="plan-item-go" onclick="reprogramarBloqueManana('${b.id}')">Mañana <span class="plan-arrow">→</span></button></div>`;
+                }).join('') + `</div><button type="button" class="btn-balance-secundario" onclick="reprogramarBloqueManana('todos')">Reprogramar todos para mañana</button>`;
+                window._balancePendientes = pendientes.map(b => b.id);
+            } else if (bloques.length) {
+                html += '<p class="plan-vacio" style="margin-top:12px;">🎉 No quedó ningún bloque pendiente.</p>';
+            }
+            body.innerHTML = html;
+        } catch (err) {
+            console.warn('[Balance] No se pudo calcular:', err);
+            body.innerHTML = '<p class="plan-vacio">No se pudo calcular el balance del día.</p>';
+        }
+    }
+    function cerrarBalanceDia() {
+        const m = document.getElementById('balance-dia-modal');
+        if (m) m.style.display = 'none';
+    }
+    async function reprogramarBloqueManana(id) {
+        try {
+            const client = _clienteDb();
+            const m = new Date(); m.setDate(m.getDate() + 1);
+            const ids = id === 'todos' ? (window._balancePendientes || []) : [id];
+            if (!ids.length) return;
+            const { error } = await client.from('calendario_eventos')
+                .update({ fecha: _fechaLocalISO(m), estado: 'pendiente', completado: false }).in('id', ids);
+            if (error) throw error;
+            showToast('Bloque(s) reprogramado(s) para mañana.', 'success');
+            abrirBalanceDia();
+            cargarPlanificacionCampus();
+        } catch (err) {
+            console.warn('[Balance] No se pudo reprogramar:', err);
+            showToast('No se pudo reprogramar.', 'warning');
+        }
+    }
+    window.abrirBalanceDia = abrirBalanceDia;
+    window.cerrarBalanceDia = cerrarBalanceDia;
+    window.reprogramarBloqueManana = reprogramarBloqueManana;
 
     // Consulta la próxima "Mesa de examen" (parcial o final) agendada en
     // calendario_eventos y, si faltan 10 días o menos, muestra el banner sobre
@@ -1378,12 +1790,12 @@
             const { data: { user } } = await client.auth.getUser();
             if (!user) { banner.style.display = 'none'; return; }
 
-            const hoy = new Date().toISOString().slice(0, 10);
+            const hoy = _fechaLocalISO();
             const { data, error } = await client
                 .from('calendario_eventos')
                 .select('id, titulo, tipo, modulo, fecha')
                 .eq('user_id', user.id)
-                .in('tipo', ['examen_parcial', 'examen_final'])
+                .in('tipo', ['examen'])
                 .gte('fecha', hoy)
                 .order('fecha', { ascending: true })
                 .limit(1);
@@ -1408,7 +1820,7 @@
                 return;
             }
 
-            const etiquetasTipo = { examen_parcial: 'Examen Parcial', examen_final: 'Examen Final' };
+            const etiquetasTipo = { examen: 'Examen' };
             const nombresModulo = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
             const tipoLabel = etiquetasTipo[evento.tipo] || 'Examen';
             const moduloLabel = nombresModulo[evento.modulo] || evento.modulo || '';
@@ -1528,6 +1940,9 @@
         }
         
         function showOnlyModules() {
+            const _lg = document.getElementById('liga-section'); if (_lg) _lg.style.display = 'none';
+            const _fr = document.getElementById('foro-section'); if (_fr) _fr.style.display = 'none';
+            const _at = document.getElementById('ateneos-section'); if (_at) _at.style.display = 'none';
             const hero = document.getElementById('dashboard-hero-section');
             const admin = document.getElementById('admin-dashboard-section');
             const modulos = document.getElementById('modulos-section');
@@ -1541,6 +1956,9 @@
         }
 
         function showDashboard() {
+            const _lg = document.getElementById('liga-section'); if (_lg) _lg.style.display = 'none';
+            const _fr = document.getElementById('foro-section'); if (_fr) _fr.style.display = 'none';
+            const _at = document.getElementById('ateneos-section'); if (_at) _at.style.display = 'none';
             const hero = document.getElementById('dashboard-hero-section');
             const modulos = document.getElementById('modulos-section');
             const admin = document.getElementById('admin-dashboard-section');
@@ -1552,6 +1970,9 @@
         }
 
         function showAdminDashboard() {
+            const _lg = document.getElementById('liga-section'); if (_lg) _lg.style.display = 'none';
+            const _fr = document.getElementById('foro-section'); if (_fr) _fr.style.display = 'none';
+            const _at = document.getElementById('ateneos-section'); if (_at) _at.style.display = 'none';
             const hero = document.getElementById('dashboard-hero-section');
             const modulos = document.getElementById('modulos-section');
             const admin = document.getElementById('admin-dashboard-section');
@@ -1573,6 +1994,19 @@
                 localStorage.setItem('nika_theme', 'light'); 
             }
         }
+
+        // Enlaces que llegan desde las páginas independientes (liga.html, foro.html) o mensajes viejos
+        (function () {
+            const h = location.hash;
+            const f = h.match(/^#foro-([0-9a-zA-Z-]+)$/); if (f) { location.replace('foro.html' + h); return; }
+            const a = h.match(/^#ateneo-([A-Z2-9]{6})$/); if (a) { location.replace('ateneos.html' + h); return; }
+            const perfil = new URLSearchParams(location.search).get('perfil');
+            if (perfil && /^[0-9a-fA-F-]{36}$/.test(perfil)) {
+                history.replaceState(null, '', location.pathname);
+                const abrir = () => { if (typeof abrirPerfilPublico === 'function' && window.NikaSupabase && window.NikaSupabase.client) abrirPerfilPublico(perfil); else setTimeout(abrir, 400); };
+                window.addEventListener('load', () => setTimeout(abrir, 900));
+            }
+        })();
 
         function showToast(msg) { 
             const toast = document.getElementById('toast'); 
@@ -1638,6 +2072,16 @@
                 window._nikaPerfEstudioHooked = true;
                 window.addEventListener('nika:estudio-guardado', () => setTimeout(renderRendimiento, 800));
             }
+            // Repintado en vivo: Pomodoro, simulacros (aunque se hayan rendido en otra pestaña) y fin de sync offline
+            if (!window._nikaPerfChangeHooked) {
+                window._nikaPerfChangeHooked = true;
+                let _t = null;
+                const refrescarRend = () => { clearTimeout(_t); _t = setTimeout(renderRendimiento, 500); };
+                window.addEventListener('nika:rendimiento-changed', refrescarRend);
+                try { new BroadcastChannel('nika-rendimiento').onmessage = refrescarRend; } catch (_) {}
+                window.addEventListener('storage', (e) => { if (e.key && e.key.indexOf('nika_stats_') === 0) refrescarRend(); });
+                document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescarRend(); });
+            }
 
             try {
                 const datos = await NikaRendimiento.cargarDatos();
@@ -1672,6 +2116,7 @@
                 if (hayActividad) document.getElementById('perf-streak').innerText = k.racha + ' d';
 
                 window._nikaRendimientoUltimo = r;
+                window._nikaRendimientoDatos = datos;
                 renderOlvidoMini(r);
             } catch (err) {
                 console.warn('[renderRendimiento]', err);
@@ -1723,10 +2168,147 @@
                 return;
             }
 
-            titulo.textContent = '🧠 Curva del Olvido';
-            sub.textContent = 'Días desde tu última actividad (Pomodoro o simulacro), por área y por Unidad Problema.';
-            body.innerHTML = _htmlCurvaOlvido(r);
+            const datos = window._nikaRendimientoDatos || { sesiones: [], examenes: [] };
+            const vistas = {
+                olvido:      ['🧠 Curva del Olvido', 'Días desde tu última actividad (Pomodoro o simulacro), por área y por Unidad Problema.', () => _htmlCurvaOlvido(r)],
+                simulacros:  ['📝 Simulacros realizados', 'Tu historial de simulacros y cómo te fue en cada área.', () => _htmlDetalleSimulacros(r, datos)],
+                efectividad: ['🎯 Efectividad global', 'Porcentaje de aciertos por área y las Unidades Problema que más te cuestan.', () => _htmlDetalleEfectividad(r, datos)],
+                tiempo:      ['⏱️ Tiempo de estudio total', 'Cuánto estudiaste, en qué áreas y cómo viene tu última semana.', () => _htmlDetalleTiempo(r, datos)],
+                hoy:         ['⚡ Estudio de hoy', 'Las sesiones Pomodoro que completaste hoy.', () => _htmlDetalleHoy(r, datos)],
+                racha:       ['🔥 Racha activa', 'Días consecutivos con al menos un Pomodoro o un simulacro.', () => _htmlDetalleRacha(r, datos)],
+                favorita:    ['⭐ Área favorita', 'Ranking de áreas según tus Pomodoros completados.', () => _htmlDetalleFavorita(r, datos)],
+            };
+            const v = vistas[tipo] || vistas.olvido;
+            titulo.textContent = v[0];
+            sub.textContent = v[1];
+            body.innerHTML = v[2]();
             modal.style.display = 'flex';
+        }
+
+        // ---------- Detalles de las tarjetas de Mi Rendimiento ----------
+        const _MODOS = { rapido: 'Rápido', choice: 'Choice', escrito: 'Escrito', pase_sala: 'Pase de Sala', shock_room: 'Shock Room' };
+        function _diaKey(d) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
+        function _fmtMin(m) { return window.NikaRendimiento ? NikaRendimiento.formatearTiempo(m) : m + ' min'; }
+        function _vacioR(txt) { return `<p style="font-size:0.85rem; color: var(--text-muted); text-align:center; padding: 20px 0;">${txt}</p>`; }
+        function _tituloR(txt) { return `<div style="font-size:0.75rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin:16px 0 8px;">${txt}</div>`; }
+        function _kpiR(valor, label) {
+            return `<div style="flex:1; min-width:110px; background:var(--bg-body); border:1px solid var(--border); border-radius:12px; padding:12px; text-align:center;">
+                <div style="font-size:1.35rem; font-weight:800; color:var(--nika-primary);">${valor}</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); font-weight:700;">${label}</div></div>`;
+        }
+        function _barraR(pct, color) {
+            return `<div style="height:8px; background:var(--border); border-radius:6px; overflow:hidden;"><div style="width:${Math.max(3, Math.min(100, pct))}%; height:100%; background:${color || 'linear-gradient(90deg,#0284c7,#22d3ee)'}; border-radius:6px;"></div></div>`;
+        }
+        function _colorPct(p) { return p >= 70 ? '#16a34a' : p >= 50 ? '#d97706' : '#dc2626'; }
+
+        function _htmlDetalleSimulacros(r, datos) {
+            const ex = datos.examenes || [];
+            if (!ex.length) return _vacioR('Todavía no hiciste ningún simulacro. Probá uno desde el Campus.');
+            const porMod = {};
+            ex.forEach(x => { const m = NikaRendimiento.labelModulo(x.modulo || 'otros'); porMod[m] = (porMod[m] || 0) + 1; });
+            const reciente = ex.slice(0, 10).map(x => {
+                const correctas = x.correct_count ?? x.score ?? 0;
+                const pct = x.score_pct != null ? Math.round(x.score_pct) : (x.total_questions ? Math.round((correctas / x.total_questions) * 100) : 0);
+                const f = new Date(x.created_at).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });
+                return `<div style="display:flex; align-items:center; gap:10px; padding:9px 11px; background:var(--bg-body); border:1px solid var(--border); border-radius:10px; margin-bottom:7px;">
+                    <div style="flex:1; min-width:0;"><div style="font-size:0.85rem; font-weight:700;">${_escR(NikaRendimiento.labelModulo(x.modulo || 'otros'))} · ${_escR(_MODOS[x.mode] || x.mode || 'Simulacro')}</div>
+                    <div style="font-size:0.72rem; color:var(--text-muted);">${f} · ${correctas}/${x.total_questions || 0} correctas</div></div>
+                    <strong style="color:${_colorPct(pct)}; font-size:0.95rem;">${pct}%</strong></div>`;
+            }).join('');
+            return `<div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    ${_kpiR(ex.length, 'Simulacros')}
+                    ${_kpiR(r.kpis.efectividad != null ? r.kpis.efectividad + '%' : '-', 'Efectividad')}
+                    ${_kpiR(ex.reduce((a, x) => a + (x.total_questions || 0), 0), 'Preguntas')}</div>
+                ${_tituloR('Por área')}
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">${Object.entries(porMod).map(([m, n]) => `<span style="font-size:0.75rem; padding:3px 10px; border-radius:20px; background:rgba(2,132,199,0.1); color:var(--nika-primary); font-weight:700;">${_escR(m)} · ${n}</span>`).join('')}</div>
+                ${_tituloR('Últimos simulacros')}${reciente}`;
+        }
+
+        function _htmlDetalleEfectividad(r, datos) {
+            const ex = datos.examenes || [];
+            if (!ex.length) return _vacioR('Necesitás al menos un simulacro para medir tu efectividad.');
+            const porArea = r.radar.filter(a => a.aciertosPct !== null).map(a => `
+                <div style="margin-bottom:12px;"><div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:4px;"><strong>${_escR(a.label)}</strong>
+                <span style="font-weight:800; color:${_colorPct(a.aciertosPct)};">${a.aciertosPct}% · ${a.preguntas} preguntas</span></div>${_barraR(a.aciertosPct, _colorPct(a.aciertosPct))}</div>`).join('');
+            const ups = {};
+            ex.forEach(x => Object.entries(x.by_up || {}).forEach(([up, v]) => {
+                const nombre = NikaRendimiento.normUp(up) || up;
+                const o = ups[`${x.modulo}|${nombre}`] = ups[`${x.modulo}|${nombre}`] || { modulo: x.modulo, up: nombre, total: 0, correct: 0 };
+                o.total += v.total || 0; o.correct += v.correct || 0;
+            }));
+            const debiles = Object.values(ups).filter(u => u.total >= 3).map(u => ({ ...u, pct: Math.round((u.correct / u.total) * 100) })).sort((a, b) => a.pct - b.pct).slice(0, 5);
+            const htmlDeb = debiles.length ? debiles.map(u => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 11px; background:var(--bg-body); border:1px solid var(--border); border-radius:10px; margin-bottom:6px; font-size:0.82rem;">
+                    <span><strong>${_escR(u.up)}</strong> · ${_escR(NikaRendimiento.labelModulo(u.modulo))}</span>
+                    <strong style="color:${_colorPct(u.pct)};">${u.pct}% <span style="font-weight:600; color:var(--text-muted);">(${u.correct}/${u.total})</span></strong></div>`).join('')
+                : '<p style="font-size:0.8rem; color:var(--text-muted);">Todavía no hay suficientes respuestas por UP (mínimo 3).</p>';
+            return `<div style="text-align:center;"><div style="font-size:2.4rem; font-weight:800; color:${_colorPct(r.kpis.efectividad || 0)};">${r.kpis.efectividad ?? 0}%</div>
+                <div style="font-size:0.78rem; color:var(--text-muted);">de aciertos en ${ex.length} ${ex.length === 1 ? 'simulacro' : 'simulacros'}</div></div>
+                ${_tituloR('Por área')}${porArea || '<p style="font-size:0.8rem; color:var(--text-muted);">Sin datos por área.</p>'}
+                ${_tituloR('Unidades que más te cuestan')}${htmlDeb}`;
+        }
+
+        function _htmlDetalleTiempo(r, datos) {
+            const k = r.kpis;
+            if (!k.tiempoTotalMin) return _vacioR('Todavía no acumulaste tiempo de estudio. Iniciá un Pomodoro en la Sala de Estudio.');
+            const maxArea = Math.max(1, ...r.radar.map(a => a.minutos));
+            const areas = r.radar.filter(a => a.minutos > 0).map(a => `
+                <div style="margin-bottom:12px;"><div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:4px;"><strong>${_escR(a.label)}</strong><span style="font-weight:800;">${_fmtMin(a.minutos)}</span></div>${_barraR(Math.round(a.minutos / maxArea * 100))}</div>`).join('');
+            const dias = [];
+            for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); dias.push({ key: _diaKey(d), label: d.toLocaleDateString('es-AR', { weekday: 'short' }), min: 0 }); }
+            (datos.sesiones || []).forEach(s => { const f = new Date(s.completed_at); if (isNaN(f)) return; const d = dias.find(x => x.key === _diaKey(f)); if (d) d.min += Number(s.duration_minutes) || 0; });
+            const maxDia = Math.max(1, ...dias.map(d => d.min));
+            const semana = `<div style="display:flex; align-items:flex-end; gap:8px; height:110px;">${dias.map(d => `
+                <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:4px;">
+                <span style="font-size:0.65rem; color:var(--text-muted); font-weight:700;">${d.min ? _fmtMin(d.min) : ''}</span>
+                <div style="width:100%; height:${Math.max(4, Math.round(d.min / maxDia * 80))}px; background:linear-gradient(180deg,#22d3ee,#0284c7); border-radius:6px 6px 2px 2px; opacity:${d.min ? 1 : 0.25};"></div>
+                <span style="font-size:0.68rem; color:var(--text-muted); text-transform:capitalize;">${d.label}</span></div>`).join('')}</div>`;
+            const totalSemana = dias.reduce((a, d) => a + d.min, 0);
+            return `<div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    ${_kpiR(_fmtMin(k.tiempoTotalMin), 'Total')}${_kpiR(k.pomodoros, 'Pomodoros')}${_kpiR(k.pomodoros ? _fmtMin(Math.round(k.tiempoTotalMin / k.pomodoros)) : '-', 'Promedio')}</div>
+                ${k.tiempoTotalMinPendiente ? `<p style="font-size:0.75rem; color:var(--text-muted); margin:8px 0 0;">Incluye ${_fmtMin(k.tiempoTotalMinPendiente)} en cola, que se suben solos al volver la señal.</p>` : ''}
+                ${_tituloR('Últimos 7 días · ' + _fmtMin(totalSemana))}${semana}
+                ${_tituloR('Por área')}${areas}`;
+        }
+
+        function _htmlDetalleHoy(r, datos) {
+            const hoy = _diaKey(new Date());
+            const ses = (datos.sesiones || []).filter(s => { const f = new Date(s.completed_at); return !isNaN(f) && _diaKey(f) === hoy; })
+                .sort((a, b) => new Date(b.completed_at) - new Date(a.completed_at));
+            if (!ses.length) return _vacioR('Todavía no estudiaste hoy. ¡Un Pomodoro y arrancás la racha!');
+            const filas = ses.map(s => `<div style="display:flex; justify-content:space-between; align-items:center; padding:9px 11px; background:var(--bg-body); border:1px solid var(--border); border-radius:10px; margin-bottom:7px; font-size:0.83rem;">
+                <span><strong>${_escR(NikaRendimiento.labelModulo(s.modulo || 'otros'))}</strong>${s.up_id ? ' · ' + _escR(NikaRendimiento.normUp(s.up_id) || s.up_id) : ''}${s.completed === false ? ' <em style="color:var(--text-muted);">(parcial)</em>' : ''}</span>
+                <span style="color:var(--text-muted);">${new Date(s.completed_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })} · <strong style="color:var(--text-main);">${_fmtMin(Number(s.duration_minutes) || 0)}</strong></span></div>`).join('');
+            const pct = Math.min(100, Math.round(r.kpis.tiempoHoyMin / 120 * 100));
+            return `<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">${_kpiR(_fmtMin(r.kpis.tiempoHoyMin), 'Hoy')}${_kpiR(r.kpis.pomodorosHoy, 'Sesiones')}${_kpiR(pct + '%', 'De la meta (2 h)')}</div>
+                <div style="margin-bottom:16px;">${_barraR(pct)}</div>${filas}`;
+        }
+
+        function _htmlDetalleRacha(r, datos) {
+            const activos = new Set();
+            (datos.sesiones || []).forEach(s => { if (s.completed === false) return; const f = new Date(s.completed_at); if (!isNaN(f)) activos.add(_diaKey(f)); });
+            (datos.examenes || []).forEach(x => { const f = new Date(x.created_at); if (!isNaN(f)) activos.add(_diaKey(f)); });
+            const celdas = [];
+            for (let i = 27; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const on = activos.has(_diaKey(d));
+                celdas.push(`<div title="${d.toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}" style="aspect-ratio:1; border-radius:6px; background:${on ? 'linear-gradient(135deg,#f59e0b,#ef4444)' : 'var(--border)'}; opacity:${on ? 1 : 0.5};"></div>`);
+            }
+            return `<div style="text-align:center;"><div style="font-size:2.4rem; font-weight:800; color:#ea580c;">${r.kpis.racha} ${r.kpis.racha === 1 ? 'día' : 'días'}</div>
+                <div style="font-size:0.78rem; color:var(--text-muted);">${r.kpis.racha ? '¡No la cortes! Hacé algo hoy para mantenerla.' : 'Hacé un Pomodoro o un simulacro para empezar una racha.'}</div></div>
+                ${_tituloR('Últimos 28 días')}
+                <div style="display:grid; grid-template-columns:repeat(14, 1fr); gap:5px;">${celdas.join('')}</div>`;
+        }
+
+        function _htmlDetalleFavorita(r, datos) {
+            if (!r.kpis.favorita) return _vacioR('Todavía no completaste ningún Pomodoro, así que no hay área favorita.');
+            const conPomo = r.radar.filter(a => a.minutos > 0);
+            const maxMin = Math.max(1, ...conPomo.map(a => a.minutos));
+            const fav = r.kpis.favorita;
+            return `<div style="text-align:center;"><div style="font-size:1.6rem; font-weight:800; color:var(--nika-primary);">⭐ ${_escR(fav.label)}</div>
+                <div style="font-size:0.78rem; color:var(--text-muted);">${fav.pomodoros} ${fav.pomodoros === 1 ? 'Pomodoro' : 'Pomodoros'} · ${_fmtMin(fav.minutos)}</div></div>
+                ${_tituloR('Ranking de áreas')}
+                ${conPomo.map((a, i) => `<div style="margin-bottom:12px;"><div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:4px;"><strong>${i + 1}. ${_escR(a.label)}</strong><span style="font-weight:800;">${_fmtMin(a.minutos)}</span></div>${_barraR(Math.round(a.minutos / maxMin * 100))}</div>`).join('')}`;
         }
         window.abrirDetalleRendimiento = abrirDetalleRendimiento;
 
@@ -2067,64 +2649,148 @@ async function updateSidebarElo(username) {
 let tempAvatarBase64 = null;
 let tempAvatarBlob = null; // Guardamos el blob real para poder subirlo como archivo
 
+// ---- Recorte de avatar (canvas nativo: arrastrar, zoom con slider/rueda/pellizco) ----
+const AvatarCrop = { img: null, V: 260, base: 1, zoom: 1, x: 0, y: 0, punteros: new Map(), pinchDist: 0 };
+
 function handleAvatarPreview(event) {
     const file = event.target.files[0];
     if (!file) return;
 
-    if (!file.type.match('image.*')) {
-        showToast("⚠️ Por favor seleccioná una imagen válida.");
+    if (!/^image\/(jpeg|png)$/.test(file.type)) {
+        showToast("⚠️ Elegí una imagen JPG o PNG.");
+        event.target.value = '';
         return;
     }
 
     const reader = new FileReader();
     reader.onload = function(e) {
         const img = new Image();
-        img.onload = function() {
-            const canvas = document.createElement('canvas');
-            // Tamaño cuadrado ideal para avatares
-            const SIZE = 200; 
-            canvas.width = SIZE;
-            canvas.height = SIZE;
-            const ctx = canvas.getContext('2d');
-
-            // Lógica para auto-recortar al centro
-            let offsetX = 0;
-            let offsetY = 0;
-            let drawWidth = img.width;
-            let drawHeight = img.height;
-
-            if (img.width > img.height) {
-                drawWidth = (img.width / img.height) * SIZE;
-                drawHeight = SIZE;
-                offsetX = -(drawWidth - SIZE) / 2;
-            } else {
-                drawHeight = (img.height / img.width) * SIZE;
-                drawWidth = SIZE;
-                offsetY = -(drawHeight - SIZE) / 2;
-            }
-
-            // Fondo blanco por si acaso y dibujado de imagen
-            ctx.fillStyle = "#ffffff";
-            ctx.fillRect(0, 0, SIZE, SIZE);
-            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-
-            // Convertir y mostrar en el visor
-            tempAvatarBase64 = canvas.toDataURL('image/jpeg', 0.8);
-            
-            // CORRECCIÓN: Convertir el canvas a un Blob real para enviarlo a Supabase Storage
-            canvas.toBlob((blob) => {
-                tempAvatarBlob = blob;
-            }, 'image/jpeg', 0.8);
-            
-            const previewEl = document.getElementById('prof-avatar-preview');
-            if (previewEl) previewEl.src = tempAvatarBase64; 
-
-            showToast("Imagen lista 🖼️");
-            actualizarProgresoModalPerfil();
-        };
+        img.onload = function() { abrirRecorteAvatar(img); };
+        img.onerror = function() { showToast("⚠️ No se pudo leer esa imagen."); };
         img.src = e.target.result;
     };
     reader.readAsDataURL(file);
+}
+
+function abrirRecorteAvatar(img) {
+    const c = AvatarCrop;
+    c.img = img;
+    c.base = c.V / Math.min(img.width, img.height); // "cover": la imagen siempre llena el cuadro
+    c.zoom = 1;
+    c.x = (c.V - img.width * c.base) / 2;
+    c.y = (c.V - img.height * c.base) / 2;
+    c.punteros.clear();
+    document.getElementById('avatar-crop-zoom').value = 1;
+    document.getElementById('avatar-crop-modal').style.display = 'flex';
+    _conectarEventosRecorte();
+    _dibujarRecorte();
+}
+
+function _limitarRecorte() {
+    const c = AvatarCrop, s = c.base * c.zoom;
+    c.x = Math.min(0, Math.max(c.V - c.img.width * s, c.x));
+    c.y = Math.min(0, Math.max(c.V - c.img.height * s, c.y));
+}
+
+function _dibujarRecorte() {
+    const c = AvatarCrop;
+    if (!c.img) return;
+    _limitarRecorte();
+    const ctx = document.getElementById('avatar-crop-canvas').getContext('2d');
+    const s = c.base * c.zoom;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, c.V, c.V);
+    ctx.drawImage(c.img, c.x, c.y, c.img.width * s, c.img.height * s);
+}
+
+// Cambia el zoom manteniendo fijo el punto que está en el centro del cuadro
+function _aplicarZoomRecorte(nuevoZoom) {
+    const c = AvatarCrop;
+    if (!c.img) return;
+    nuevoZoom = Math.min(4, Math.max(1, nuevoZoom));
+    const sViejo = c.base * c.zoom, sNuevo = c.base * nuevoZoom;
+    const cx = (c.V / 2 - c.x) / sViejo, cy = (c.V / 2 - c.y) / sViejo;
+    c.zoom = nuevoZoom;
+    c.x = c.V / 2 - cx * sNuevo;
+    c.y = c.V / 2 - cy * sNuevo;
+    document.getElementById('avatar-crop-zoom').value = nuevoZoom;
+    _dibujarRecorte();
+}
+
+function _conectarEventosRecorte() {
+    const canvas = document.getElementById('avatar-crop-canvas');
+    if (canvas.dataset.listo) return;
+    canvas.dataset.listo = '1';
+    const c = AvatarCrop;
+    const escala = () => c.V / canvas.getBoundingClientRect().width; // px de canvas por px de pantalla
+
+    canvas.addEventListener('pointerdown', (e) => {
+        canvas.setPointerCapture(e.pointerId);
+        c.punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        c.pinchDist = 0;
+    });
+    canvas.addEventListener('pointermove', (e) => {
+        const previo = c.punteros.get(e.pointerId);
+        if (!previo) return;
+        const k = escala();
+        if (c.punteros.size === 1) {
+            c.x += (e.clientX - previo.x) * k;
+            c.y += (e.clientY - previo.y) * k;
+            c.punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            _dibujarRecorte();
+        } else if (c.punteros.size === 2) {
+            c.punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            const [p1, p2] = [...c.punteros.values()];
+            const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+            if (c.pinchDist) _aplicarZoomRecorte(c.zoom * (d / c.pinchDist));
+            c.pinchDist = d;
+        }
+    });
+    const soltar = (e) => { c.punteros.delete(e.pointerId); c.pinchDist = 0; };
+    canvas.addEventListener('pointerup', soltar);
+    canvas.addEventListener('pointercancel', soltar);
+    canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        _aplicarZoomRecorte(c.zoom * (e.deltaY < 0 ? 1.08 : 1 / 1.08));
+    }, { passive: false });
+    document.getElementById('avatar-crop-zoom').addEventListener('input', (e) => _aplicarZoomRecorte(parseFloat(e.target.value)));
+}
+
+function _cerrarRecorteAvatar() {
+    document.getElementById('avatar-crop-modal').style.display = 'none';
+    AvatarCrop.img = null;
+    const input = document.getElementById('prof-avatar-file');
+    if (input) input.value = ''; // permite volver a elegir el mismo archivo
+}
+
+function cancelarRecorteAvatar() { _cerrarRecorteAvatar(); }
+
+function confirmarRecorteAvatar() {
+    const c = AvatarCrop;
+    if (!c.img) return;
+    const SALIDA = 400; // px del avatar final
+    const out = document.createElement('canvas');
+    out.width = SALIDA; out.height = SALIDA;
+    const ctx = out.getContext('2d');
+    const k = SALIDA / c.V, s = c.base * c.zoom * k;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, SALIDA, SALIDA);
+    ctx.drawImage(c.img, c.x * k, c.y * k, c.img.width * s / 1, c.img.height * s / 1);
+
+    tempAvatarBase64 = out.toDataURL('image/jpeg', 0.85);
+    tempAvatarBlob = null;
+    out.toBlob((blob) => { tempAvatarBlob = blob; }, 'image/jpeg', 0.85);
+
+    const previewEl = document.getElementById('prof-avatar-preview');
+    if (previewEl) previewEl.src = tempAvatarBase64;
+    // el input se limpia (no se vuelve a leer), pero el recorte ya quedó en memoria
+    const input = document.getElementById('prof-avatar-file');
+    document.getElementById('avatar-crop-modal').style.display = 'none';
+    c.img = null;
+    if (input) input.value = '';
+
+    showToast("Foto lista 🖼️ Guardá el perfil para aplicarla.");
+    actualizarProgresoModalPerfil();
 }
 
 function handleProfileClick() { 
@@ -2643,8 +3309,8 @@ async function handleLogout() {
                 const enPomodoro = estado && estado.pomodoroActivo;
                 const meta = enPomodoro ? (estado.tema ? `🍅 Estudiando: ${esc(estado.tema)}` : '🍅 En Pomodoro activo') : (estado && estado.up ? `📖 Estudiando ${esc(estado.up)}...` : `@${u} · En línea`);
                 return `
-                    <div class="online-friend-item" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-                        <div style="display:flex; align-items:center; gap:8px; cursor:pointer; flex:1; min-width:0;" onclick="openFriendsModal()">
+                    <div class="online-friend-item online-friend-item--link" style="display:flex; align-items:center; justify-content:space-between; gap:8px; cursor:pointer;" onclick="abrirPerfilPublico('${esc(f.id)}')" title="Ver perfil de ${displayName}">
+                        <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:0;">
                             <span class="online-status-dot"></span>
                             <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
                             <div style="min-width:0;">
@@ -2652,7 +3318,7 @@ async function handleLogout() {
                                 <div class="online-friend-meta">${meta}</div>
                             </div>
                         </div>
-                        <button class="btn-module nika-pomo-btn" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="abrirMenuPomodoro(event, '${u}')" title="Pomodoro compartido" aria-haspopup="menu">🍅</button>
+                        <button class="btn-module nika-pomo-btn" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); abrirMenuPomodoro(event, '${u}')" title="Pomodoro compartido" aria-haspopup="menu">🍅</button>
                     </div>`;
             }).join('');
         }
@@ -2865,10 +3531,10 @@ async function handleLogout() {
                 const rango = _rangoTarjetaAmigo(u.role);
                 return `
                 <div class="friend-card">
-                    <div class="friend-card-avatar-wrap">
+                    <div class="friend-card-avatar-wrap" style="cursor:pointer;" onclick="abrirPerfilPublico('${esc(u.id)}')" title="Ver perfil">
                         <img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="friend-card-avatar ${rango.clase}">
                     </div>
-                    <div class="friend-card-body">
+                    <div class="friend-card-body" style="cursor:pointer;" onclick="abrirPerfilPublico('${esc(u.id)}')" title="Ver perfil">
                         <div class="friend-card-name ${rango.clase}">${esc(u.fullname)}</div>
                         <div class="friend-card-meta" data-presence-user="${esc(u.username)}" data-fallback="@${esc(u.username)}">@${esc(u.username)}</div>
                         <span class="friend-card-rank-badge ${rango.clase}">${rango.label}</span>
@@ -3460,6 +4126,12 @@ async function handleLogout() {
             location.href = 'versus.html';
         }
 
+        function closeLeaderboardAndOpenProfile(userId) {
+            if (!userId) return;
+            abrirPerfilPublico(userId);
+        }
+        window.closeLeaderboardAndOpenProfile = closeLeaderboardAndOpenProfile;
+
         async function openLeaderboardModal() {
             const modal = document.getElementById('leaderboard-modal');
             if (modal) modal.style.display = 'flex';
@@ -3472,7 +4144,7 @@ async function handleLogout() {
                 <div class="skeleton-row" style="padding:8px 0; border-bottom:1px solid var(--border);"><div class="skeleton-block skeleton-avatar"></div><div class="skeleton-lines"><div class="skeleton-block skeleton-line short"></div><div class="skeleton-block skeleton-line medium"></div></div></div>
             `;
 
-            const res = await NikaSocial.cargarRankingGlobal(20);
+            const res = await NikaSocial.cargarRankingCompleto(20);
             if (!res.ok) {
                 list.innerHTML = `<p style="text-align:center; color:var(--danger);">No se pudo cargar el ranking (${res.error || 'error desconocido'}).</p>`;
                 return;
@@ -3488,7 +4160,7 @@ async function handleLogout() {
                 const nombre = u.profiles?.fullname || 'Estudiante Nika';
                 const avatar = u.profiles?.avatar || NikaSocial.DEFAULT_AVATAR;
                 const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(u.profiles?.role) : { label: '', clase: 'rank-free' };
-                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${nikaEsc(avatar)}" alt="img" class="social-avatar-sm ${rango.clase}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong class="social-name ${rango.clase}" style="font-size:0.85rem; display:block;">${nikaEsc(nombre)}<span class="social-rank-badge ${rango.clase}">${rango.label}</span></strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo_score || 0} ELO</span></div>`;
+                list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); cursor:pointer;" onclick="closeLeaderboardAndOpenProfile('${u.user_id}')"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${nikaEsc(avatar)}" alt="img" class="social-avatar-sm ${rango.clase}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong class="social-name ${rango.clase}" style="font-size:0.85rem; display:block;">${nikaEsc(nombre)}<span class="social-rank-badge ${rango.clase}">${rango.label}</span></strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo_score ?? 1000} ELO</span></div>`;
             });
         }
 
@@ -3730,6 +4402,9 @@ async function handleLogout() {
         document.getElementById('pp-header').className = 'pp-header';
         document.getElementById('pp-username').textContent = '';
         document.getElementById('pp-bio').textContent = '';
+        document.getElementById('pp-bio-card').classList.remove('is-empty');
+        ['pp-st-horas', 'pp-st-aprobados', 'pp-st-liga'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '—'; });
+        document.getElementById('pp-st-liga-ico').textContent = '🏅';
         document.getElementById('pp-rank-badge').textContent = '';
         document.getElementById('pp-rank-badge').className = 'pp-badge pp-rank-badge';
         document.getElementById('pp-elo-value').textContent = '—';
@@ -3776,7 +4451,11 @@ async function handleLogout() {
         document.getElementById('pp-fullname').textContent = user.fullname || user.full_name || user.nombre || 'Estudiante Nika';
         document.getElementById('pp-fullname').className = `pp-fullname ${rango.clase}`;
         document.getElementById('pp-username').textContent = `@${user.username || 'usuario'}`;
-        document.getElementById('pp-bio').textContent = user.bio || 'Este usuario todavía no cargó una biografía médica.';
+        const bioCard = document.getElementById('pp-bio-card');
+        const bioTxt = (user.bio || '').trim();
+        bioCard.classList.toggle('is-empty', !bioTxt);
+        document.getElementById('pp-bio').textContent = bioTxt || 'Sin biografía médica aún';
+        _cargarStatsRapidasPerfil(userId);
 
         const rankBadge = document.getElementById('pp-rank-badge');
         rankBadge.textContent = rango.label;
@@ -3820,9 +4499,39 @@ async function handleLogout() {
         const friendBtn = document.getElementById('pp-friend-btn');
         const chatBtn = document.getElementById('pp-chat-btn');
         if (friendBtn) friendBtn.style.display = esMiPropioPerfil ? 'none' : 'inline-block';
+        const versusBtn = document.getElementById('pp-versus-btn');
+        if (versusBtn) versusBtn.style.display = esMiPropioPerfil ? 'none' : 'inline-block';
         if (chatBtn) chatBtn.style.display = esMiPropioPerfil ? 'none' : 'inline-block';
         if (!esMiPropioPerfil) actualizarBotonAmistadPerfil();
     }
+
+    // Estadísticas rápidas del perfil: horas de Pomodoro, simulacros aprobados (>= 60 %) y rango en la Liga.
+    // Salen de una función SQL (sql/liga_pomodoro.sql) porque study_sessions/exam_results tienen RLS "solo lo mío".
+    async function _cargarStatsRapidasPerfil(userId) {
+        try {
+            const { data, error } = await window.NikaSupabase.client.rpc('perfil_stats_publicos', { p_user: userId });
+            if (userId !== window._ppCurrentUserId) return;
+            if (error) throw error;
+            const st = Array.isArray(data) ? data[0] : data;
+            if (!st) return;
+            const min = st.minutos_total || 0;
+            document.getElementById('pp-st-horas').textContent = min >= 60 ? `${(min / 60).toFixed(min >= 600 ? 0 : 1)} h` : `${min} min`;
+            document.getElementById('pp-st-aprobados').textContent = `${st.simulacros_aprobados || 0}${st.simulacros_total ? ' / ' + st.simulacros_total : ''}`;
+            const r = window.NikaLiga ? NikaLiga.rangoDe(min) : null;
+            if (r) {
+                document.getElementById('pp-st-liga').textContent = r.nombre;
+                document.getElementById('pp-st-liga-ico').textContent = r.icono;
+            }
+        } catch (err) {
+            console.warn('[Perfil] Estadísticas rápidas no disponibles:', err && err.message);
+            ['pp-st-horas', 'pp-st-aprobados', 'pp-st-liga'].forEach(id => { const e = document.getElementById(id); if (e && e.textContent === '—') e.textContent = 'N/D'; });
+        }
+    }
+
+    function desafiarDesdePerfil() {
+        if (window._ppCurrentUserId) window.location.href = 'versus.html?opponent=' + encodeURIComponent(window._ppCurrentUserId);
+    }
+    window.desafiarDesdePerfil = desafiarDesdePerfil;
 
     // Ajusta el botón del perfil público según la relación real (Supabase)
     async function actualizarBotonAmistadPerfil() {
@@ -4743,7 +5452,7 @@ async function handleLogout() {
         syncStudyProgress, toggleSidebar, showOnlyModules, showDashboard, showAdminDashboard, toggleDarkMode, showToast,
         handleProfileClick, openAuthModal, closeAuthModal, switchAuthTab, handleLogin, handleRegister,
         openForgotPasswordForm, closeForgotPasswordForm, handleForgotPassword, openResetPasswordModal, closeResetPasswordModal, handleUpdatePassword,
-        handleAvatarPreview, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
+        handleAvatarPreview, cancelarRecorteAvatar, confirmarRecorteAvatar, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
         NikaAudio, applySidebarResponsiveState,
         cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
         openSimuladoresHub, closeSimuladoresHub,

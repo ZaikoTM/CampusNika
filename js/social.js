@@ -215,7 +215,7 @@ const NikaSocial = (() => {
      * @param {string} content - contenido inicial (1-5000 caracteres)
      * @returns {Promise<{ok: boolean, data?: object, error?: string}>}
      */
-    async function crearHiloForo(moduleId, upId, title, content) {
+    async function crearHiloForo(moduleId, upId, title, content, extra) {
         try {
             if (!moduleId || !upId) return { ok: false, error: 'Falta el contexto de módulo/UP.' };
             const cleanTitle = (title || '').trim();
@@ -228,17 +228,14 @@ const NikaSocial = (() => {
             const userId = await getUserId();
             if (!userId) return { ok: false, error: 'Necesitás iniciar sesión para publicar en el foro.' };
 
-            const { data, error } = await client
-                .from('forum_threads')
-                .insert({
-                    user_id: userId,
-                    module: moduleId,
-                    up_id: upId,
-                    title: cleanTitle,
-                    content: cleanContent
-                })
-                .select()
-                .single();
+            const base = { user_id: userId, module: moduleId, up_id: upId, title: cleanTitle, content: cleanContent };
+            // extra: adjuntos (attachment_url / attachment_name / attachment_type). Si la base todavía no tiene
+            // esas columnas (falta correr sql/foro_feed.sql) se reintenta sin adjunto y se avisa.
+            let { data, error } = await client.from('forum_threads').insert({ ...base, ...(extra || {}) }).select().single();
+            if (error && extra && /attachment|column|schema cache/i.test(error.message || '')) {
+                ({ data, error } = await client.from('forum_threads').insert(base).select().single());
+                if (!error) return { ok: true, data, aviso: 'Se publicó sin el adjunto: falta ejecutar sql/foro_feed.sql en Supabase.' };
+            }
 
             if (error) return { ok: false, error: error.message };
             return { ok: true, data };
@@ -260,10 +257,11 @@ const NikaSocial = (() => {
 
         let query = client
             .from('forum_threads')
-            .select('id, user_id, module, up_id, title, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role ), forum_replies ( count )')
-            .eq('module', moduleId)
-            .order('created_at', { ascending: false });
+            .select('*, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role ), forum_replies ( count )')
+            .order('created_at', { ascending: false })
+            .limit(100);
 
+        if (moduleId) query = query.eq('module', moduleId);
         if (upId) query = query.eq('up_id', upId);
 
         const { data, error } = await query;
@@ -281,7 +279,7 @@ const NikaSocial = (() => {
      * @param {string|number} threadId
      * @param {string} content
      */
-    async function responderHilo(threadId, content) {
+    async function responderHilo(threadId, content, parentId) {
         try {
             const cleanContent = (content || '').trim();
             if (!threadId) return { ok: false, error: 'Falta el hilo al que responder.' };
@@ -293,9 +291,11 @@ const NikaSocial = (() => {
             const userId = await getUserId();
             if (!userId) return { ok: false, error: 'Necesitás iniciar sesión para responder.' };
 
+            const fila = { thread_id: threadId, user_id: userId, content: cleanContent };
+            if (parentId) fila.parent_id = parentId; // comentario anidado (requiere sql/foro_feed.sql)
             const { data, error } = await client
                 .from('forum_replies')
-                .insert({ thread_id: threadId, user_id: userId, content: cleanContent })
+                .insert(fila)
                 .select()
                 .single();
 
@@ -316,7 +316,7 @@ const NikaSocial = (() => {
 
         const { data, error } = await client
             .from('forum_replies')
-            .select('id, thread_id, user_id, content, created_at, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role )')
+            .select('*, profiles ( username, fullname, full_name, nombre, avatar, avatar_url, role )')
             .eq('thread_id', threadId)
             .order('created_at', { ascending: true });
 
@@ -408,14 +408,106 @@ const NikaSocial = (() => {
         return { ok: true, data: normRows(data) };
     }
 
+    /**
+     * Ranking que NUNCA queda vacío. cargarRankingGlobal() lee solo user_ranking, que tiene
+     * filas únicamente de quienes ya jugaron un duelo: con la plataforma recién arrancada (o si
+     * la RLS de esa tabla oculta filas ajenas) el podio aparecía desierto aunque hubiera usuarios.
+     * Acá se parte de los perfiles registrados y se les suma lo que exista de:
+     *   - user_ranking   (elo_score, wins, losses, current_streak)
+     *   - versus_players (elo)
+     * Sin dato de duelos, el ELO base es 1000. Orden: ELO desc, victorias desc, nombre.
+     */
+    async function cargarRankingCompleto(limit = 20) {
+        const client = getClient();
+        if (!client) return { ok: false, error: 'No hay conexión con Supabase.', data: [] };
+
+        const [perfiles, rankings, players] = await Promise.all([
+            client.from('profiles').select('id, username, fullname, full_name, nombre, avatar, avatar_url, role').limit(500),
+            client.from('user_ranking').select('user_id, elo_score, wins, losses, current_streak').limit(1000),
+            client.from('versus_players').select('username, elo').limit(1000),
+        ]);
+
+        if (perfiles.error) {
+            console.error('[NikaSocial] No se pudieron leer los perfiles del ranking:', perfiles.error);
+            // Último recurso: al menos lo que exista en user_ranking
+            return cargarRankingGlobal(limit);
+        }
+        if (rankings.error) console.warn('[NikaSocial] user_ranking no disponible:', rankings.error.message);
+        if (players.error) console.warn('[NikaSocial] versus_players no disponible:', players.error.message);
+
+        const porUser = new Map((rankings.data || []).map((r) => [r.user_id, r]));
+        const eloPorUsername = new Map((players.data || []).map((p) => [String(p.username || '').toLowerCase(), p.elo]));
+
+        const filas = (perfiles.data || []).map((p) => {
+            const r = porUser.get(p.id) || {};
+            const eloVersus = eloPorUsername.get(String(p.username || '').toLowerCase());
+            const elo = typeof r.elo_score === 'number' ? r.elo_score : (typeof eloVersus === 'number' ? eloVersus : 1000);
+            return {
+                user_id: p.id,
+                elo_score: elo,
+                wins: r.wins || 0,
+                losses: r.losses || 0,
+                current_streak: r.current_streak || 0,
+                profiles: normProfile(p),
+            };
+        });
+
+        filas.sort((a, b) => (b.elo_score - a.elo_score) || (b.wins - a.wins)
+            || String(a.profiles?.fullname || '').localeCompare(String(b.profiles?.fullname || ''), 'es'));
+
+        return { ok: true, data: filas.slice(0, limit) };
+    }
+
+    /** Reacciones de varias publicaciones a la vez: devuelve filas { thread_id, user_id, tipo }. */
+    async function cargarReaccionesForo(threadIds) {
+        const client = getClient();
+        if (!client || !threadIds || !threadIds.length) return { ok: true, data: [] };
+        const { data, error } = await client.from('forum_reactions').select('thread_id, user_id, tipo').in('thread_id', threadIds);
+        if (error) return { ok: false, error: error.message, data: [] };
+        return { ok: true, data: data || [] };
+    }
+
+    /** Pone o saca una reacción (👍 util · ❤️ excelente · 💡 duda) del usuario en una publicación. */
+    async function alternarReaccionForo(threadId, tipo, activa) {
+        const client = getClient();
+        if (!client) return { ok: false, error: 'No hay conexión con Supabase.' };
+        const userId = await getUserId();
+        if (!userId) return { ok: false, error: 'Necesitás iniciar sesión para reaccionar.' };
+        const q = activa
+            ? client.from('forum_reactions').delete().eq('thread_id', threadId).eq('user_id', userId).eq('tipo', tipo)
+            : client.from('forum_reactions').insert({ thread_id: threadId, user_id: userId, tipo });
+        const { error } = await q;
+        if (error) return { ok: false, error: error.message };
+        return { ok: true };
+    }
+
+    /** Sube una imagen o PDF (máx. 8 MB) al bucket forum-files y devuelve { url, name, type }. */
+    async function subirAdjuntoForo(file) {
+        const client = getClient();
+        if (!client) return { ok: false, error: 'No hay conexión con Supabase.' };
+        const userId = await getUserId();
+        if (!userId) return { ok: false, error: 'Necesitás iniciar sesión para adjuntar archivos.' };
+        const esImagen = /^image\/(jpeg|png|webp|gif)$/.test(file.type);
+        const esPdf = file.type === 'application/pdf';
+        if (!esImagen && !esPdf) return { ok: false, error: 'Solo se pueden adjuntar imágenes (JPG, PNG, WEBP, GIF) o PDF.' };
+        if (file.size > 8 * 1024 * 1024) return { ok: false, error: 'El archivo supera los 8 MB.' };
+        const limpio = file.name.replace(/[^a-zA-Z0-9._-]/g, '_').slice(-80);
+        const path = `${userId}/${Date.now()}_${limpio}`;
+        const { error } = await client.storage.from('forum-files').upload(path, file, { contentType: file.type, upsert: false });
+        if (error) return { ok: false, error: /bucket|not found/i.test(error.message) ? 'Falta crear el bucket forum-files (ejecutá sql/foro_feed.sql).' : error.message };
+        const { data } = client.storage.from('forum-files').getPublicUrl(path);
+        return { ok: true, url: data.publicUrl, name: file.name, type: esImagen ? 'image' : 'pdf' };
+    }
+
     return {
         DEFAULT_AVATAR,
         // Chat global
         enviarMensajeChat, cargarMensajesChat, suscribirseAChatGlobal,
         // Foro
         crearHiloForo, cargarHilosForo, responderHilo, cargarRespuestasHilo,
+        cargarReaccionesForo, alternarReaccionForo, subirAdjuntoForo,
         // Ranking
-        actualizarElo, cargarRankingGlobal,
+        actualizarElo, cargarRankingGlobal, cargarRankingCompleto,
         // Perfil público
         cargarAmigosDeUsuario
     };

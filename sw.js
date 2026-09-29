@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v7";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v10";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
@@ -28,7 +28,7 @@ const TIMEOUT_DATOS_MS = 5000;
 const TIMEOUT_VADEMECUM_MS = 9000;      // ~4 MB: más margen con señal floja
 
 const PRECACHE_URLS = [
-    "index.html", "campus.html", "estudio.html", "examen.html", "versus.html", "cirugia_hub.html", "nikafarma.html",
+    "index.html", "campus.html", "liga.html", "foro.html", "ateneos.html", "estudio.html", "examen.html", "versus.html", "cirugia_hub.html", "nikafarma.html",
     "terminos.html", "privacidad.html", "reembolsos.html", "offline.html", "manifest.json", "styles.css", "favicon.ico",
     "supabaseClient.js",
     "js/auth-guard.js", "js/assistant.js", "js/social.js", "js/moderacion.js",
@@ -38,6 +38,7 @@ const PRECACHE_URLS = [
     "js/offlineStorage.js", "js/syncManager.js", "js/guardiaModal.js", "js/pwa-update.js",
     "js/productivity/pomodoro.js", "js/productivity/notas.js",
     "js/estudio/estudio.js",
+    "js/liga.js", "js/paginaLateral.js", "css/pagina-lateral.css", "css/nika-unificado.css", "js/rachas.js", "js/atajos.js", "js/foro.js", "js/nikaMusic.js", "js/nikafarmaPlus.js", "js/voiceManager.js", "js/ateneos.js", "js/onboardingTour.js",
     // Bancos locales y datos de respaldo del simulador
     "data/banco_trauma_superior.js", "data/banco_trauma_inferior.js", "data/banco_suturas.js",
     "data/cirugia.json", "preguntas.json", "db_cirugia_organizado.json",

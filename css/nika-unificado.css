@@ -1,0 +1,66 @@
+/* ============================================================================
+   CAMPUS NIKA — estilo unificado
+   Se carga AL FINAL del <head> de campus, estudio, versus, examen, los hubs, NikaFarma y el glosario,
+   para que compartan el lenguaje visual de la Liga, el Foro y la Sala de Ateneos:
+   barras superiores con brillo cian/violeta, tarjetas que se elevan, botones en píldora,
+   ventanas (modales) con franja de color y barra lateral con acentos.
+   Solo agrega detalles visuales: no cambia estructura ni comportamiento.
+   ============================================================================ */
+
+:root { --nk-grad: linear-gradient(90deg, #22d3ee, #0284c7, #6366f1); --nk-glow: rgba(56, 189, 248, .35); }
+
+/* ---------- Fondo con resplandor suave (deja el color base de cada página) ---------- */
+body { background-image: radial-gradient(900px 420px at 12% -140px, rgba(2, 132, 199, .11), transparent 70%), radial-gradient(800px 420px at 100% -100px, rgba(99, 102, 241, .09), transparent 70%); background-repeat: no-repeat; background-attachment: fixed; }
+body.dark-mode { background-image: radial-gradient(900px 420px at 12% -140px, rgba(56, 189, 248, .10), transparent 70%), radial-gradient(800px 420px at 100% -100px, rgba(139, 92, 246, .12), transparent 70%); }
+
+/* ---------- Barras superiores ---------- */
+.navbar, .nf-top, header.top {
+  backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--nk-glow) !important;
+  box-shadow: 0 10px 28px -20px rgba(2, 132, 199, .7) !important;
+}
+.navbar { background-image: linear-gradient(90deg, rgba(34, 211, 238, .14), rgba(99, 102, 241, .16)); }
+.brand-title, .nf-brand, header.top .brand { letter-spacing: .04em; }
+.btn-back, .nf-back, header.top .back, .btn-icon, .nf-ibtn {
+  border-radius: 999px !important; transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+.btn-back:hover, .nf-back:hover, header.top .back:hover, .btn-icon:hover, .nf-ibtn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px -10px var(--nk-glow); }
+
+/* ---------- Tarjetas ---------- */
+.mode-card, .hub-card, .module-card, .action-btn-card, .card {
+  border-radius: 20px; transition: transform .2s ease, box-shadow .25s ease, border-color .2s ease;
+}
+.mode-card:hover, .hub-card:hover, .module-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -22px rgba(2, 132, 199, .65); border-color: var(--nika-primary, #0284c7); }
+
+/* ---------- Ventanas (modales) ---------- */
+.modal-overlay, .nika-modal-overlay { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.modal-content, .nika-modal-card {
+  border-radius: 22px !important;
+  background-image: var(--nk-grad); background-size: 100% 4px; background-repeat: no-repeat; background-position: top;
+  box-shadow: 0 30px 70px -24px rgba(2, 132, 199, .55), 0 0 0 1px rgba(56, 189, 248, .12) !important;
+}
+.modal-content { padding-top: 34px; }
+.btn-module { border-radius: 999px !important; }
+
+/* ---------- Barra lateral del campus ---------- */
+.sidebar .sidebar-link {
+  border: 1px solid transparent; border-radius: 12px; padding: 10px 14px; gap: 12px; position: relative;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, transform .18s ease;
+}
+.sidebar .sidebar-link:hover {
+  background: linear-gradient(90deg, rgba(56, 189, 248, .20), rgba(56, 189, 248, .03)); border-color: rgba(56, 189, 248, .28); color: #e0f2fe; transform: translateX(3px);
+}
+.sidebar .sidebar-link:active { transform: translateX(1px) scale(.99); }
+.sidebar .sidebar-link::before { content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 3px; border-radius: 0 3px 3px 0; background: var(--nk-grad); opacity: 0; transition: opacity .2s ease; }
+.sidebar .sidebar-link:hover::before { opacity: 1; }
+.sidebar .sidebar-link .nm-logo { width: 18px; height: 18px; flex-shrink: 0; }
+.sidebar .sidebar-link--music { color: #86efac; } .sidebar .sidebar-link--music:hover { color: #bbf7d0; background: linear-gradient(90deg, rgba(29, 185, 84, .22), rgba(29, 185, 84, .03)); border-color: rgba(29, 185, 84, .35); }
+.sidebar .sidebar-category { display: flex; align-items: center; gap: 10px; color: #7c8aa5; }
+.sidebar .sidebar-category::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(148, 163, 184, .35), transparent); }
+.sidebar .sidebar-user-card { transition: box-shadow .2s ease, border-color .2s ease; }
+.sidebar .sidebar-user-card:hover { border-color: rgba(56, 189, 248, .6); box-shadow: 0 10px 24px -14px var(--nk-glow); }
+
+/* ---------- Aparición suave de página ---------- */
+@keyframes nkFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+main, .container, .app-container { animation: nkFade .35s ease both; }
+@media (prefers-reduced-motion: reduce) { main, .container, .app-container { animation: none; } * { transition-duration: .01ms !important; } }

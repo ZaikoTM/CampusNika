@@ -257,6 +257,9 @@ const NikaAssistant = (() => {
     let messagesEl = null;
     let inputEl = null;
     let btnEl = null;
+    let badgeEl = null;
+    let unread = 0;
+    let bienvenidaMostrada = false;
 
     function injectStyles() {
         if (document.getElementById('nika-assistant-styles')) return;
@@ -264,7 +267,7 @@ const NikaAssistant = (() => {
         style.id = 'nika-assistant-styles';
         style.textContent = `
             #nika-assistant-btn {
-                position: fixed; bottom: 22px; left: 22px; z-index: 9998;
+                position: fixed; bottom: 22px; right: 20px; left: auto; z-index: 9998;
                 width: 56px; height: 56px; border-radius: 50%;
                 background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
                 border: none; cursor: pointer;
@@ -276,8 +279,21 @@ const NikaAssistant = (() => {
             }
             #nika-assistant-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 14px 30px -5px rgba(2, 132, 199, 0.55); }
 
+            /* Badge rojo de mensaje sin leer, superpuesto sobre el ícono del robot */
+            #nika-assistant-badge {
+                position: absolute; top: -3px; right: -3px;
+                min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box;
+                border-radius: 999px; background: #ef4444; color: #fff;
+                font-size: 0.72rem; font-weight: 800; line-height: 18px; text-align: center;
+                border: 2px solid #fff; box-shadow: 0 2px 6px rgba(239, 68, 68, 0.5);
+                display: none; pointer-events: none;
+                animation: nikaBadgePop 0.35s cubic-bezier(.3,1.6,.5,1);
+            }
+            #nika-assistant-btn.has-unread #nika-assistant-badge { display: block; }
+            @keyframes nikaBadgePop { from { transform: scale(0); } to { transform: scale(1); } }
+
             #nika-assistant-panel {
-                position: fixed; bottom: 90px; left: 22px; z-index: 9999;
+                position: fixed; bottom: 90px; right: 20px; left: auto; z-index: 9999;
                 width: 320px; max-width: calc(100vw - 44px);
                 height: 440px; max-height: calc(100vh - 130px);
                 background: #ffffff; border-radius: 16px;
@@ -340,7 +356,7 @@ const NikaAssistant = (() => {
 
             @media (max-width: 480px) {
                 #nika-assistant-panel { left: 12px; right: 12px; width: auto; }
-                #nika-assistant-btn { left: 16px; bottom: 16px; }
+                #nika-assistant-btn { right: 16px; bottom: 16px; }
             }
         `;
         document.head.appendChild(style);
@@ -387,6 +403,8 @@ const NikaAssistant = (() => {
         }
         messagesEl.appendChild(msg);
         messagesEl.scrollTop = messagesEl.scrollHeight;
+        // Respuesta del bot con el chat cerrado -> badge rojo sobre el ícono
+        if (role === 'bot' && bienvenidaMostrada && !isOpen) marcarNoLeido();
         return msg;
     }
 
@@ -451,10 +469,22 @@ const NikaAssistant = (() => {
         }
     }
 
+    function marcarNoLeido() {
+        unread++;
+        if (!btnEl || !badgeEl) return;
+        badgeEl.textContent = unread > 9 ? '9+' : String(unread);
+        btnEl.classList.add('has-unread');
+    }
+
+    function limpiarNoLeido() {
+        unread = 0;
+        if (btnEl) btnEl.classList.remove('has-unread');
+    }
+
     function togglePanel(forceState) {
         isOpen = typeof forceState === 'boolean' ? forceState : !isOpen;
         panelEl.classList.toggle('open', isOpen);
-        if (isOpen) inputEl.focus();
+        if (isOpen) { limpiarNoLeido(); inputEl.focus(); messagesEl.scrollTop = messagesEl.scrollHeight; }
     }
 
     function buildWidget() {
@@ -462,7 +492,8 @@ const NikaAssistant = (() => {
         btnEl = document.createElement('button');
         btnEl.id = 'nika-assistant-btn';
         btnEl.setAttribute('aria-label', 'Abrir asistente Nika');
-        btnEl.textContent = '🤖';
+        btnEl.innerHTML = '<span aria-hidden="true">🤖</span><span id="nika-assistant-badge"></span>';
+        badgeEl = btnEl.querySelector('#nika-assistant-badge');
         btnEl.addEventListener('click', () => togglePanel());
         document.body.appendChild(btnEl);
 
@@ -493,6 +524,7 @@ const NikaAssistant = (() => {
 
         // Mensaje de bienvenida
         appendMessage('¡Hola! Soy el asistente de Campus Nika. Preguntame sobre notas, progreso, Pomodoro o material de estudio. Si tu duda es más médica o específica, te derivo a Nika IA Avanzada.', 'bot');
+        bienvenidaMostrada = true;
     }
 
     function init() {
@@ -504,5 +536,11 @@ const NikaAssistant = (() => {
 
     // Exponemos las funciones por si otro módulo necesita derivar consultas
     // directamente (ej. desde un botón de "preguntarle a Nika sobre esta UP").
-    return { consultarIAProfunda, callNotebookLM, callGeminiFlash };
+    // notificar(): permite que otro módulo deje un mensaje del bot (con badge si el chat está cerrado)
+    function notificar(texto) {
+        if (!messagesEl) return;
+        appendMessage(texto, 'bot');
+    }
+
+    return { consultarIAProfunda, callNotebookLM, callGeminiFlash, notificar };
 })();
