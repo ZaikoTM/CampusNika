@@ -466,6 +466,13 @@ const SyncManager = (() => {
       await migrarColaLegacy();
     } catch (e) { console.warn('[SyncManager] IndexedDB no disponible:', e && e.message); }
 
+    // Cola unificada: absorbe las sesiones guardadas por el motor en localStorage (páginas sin SyncManager)
+    try {
+      const loc = JSON.parse(localStorage.getItem('nika_pending_sessions') || '[]') || [];
+      for (const r of loc) { const { synced: _s, ...row } = r; await OS().encolarAccion('progreso_estudio', { row }, { userId: row.user_id || userIdCacheado() }); }
+      if (loc.length) { localStorage.setItem('nika_pending_sessions', '[]'); console.log('[SyncManager] ♻️ Sesiones locales absorbidas en la cola:', loc.length); }
+    } catch (e) { console.warn('[SyncManager] No se pudo absorber la cola local:', e && e.message); }
+
     await refrescarConteo();
     if (navigator.onLine) setTimeout(() => sincronizarAhora(), 1500);
   }

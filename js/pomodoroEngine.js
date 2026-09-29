@@ -30,7 +30,7 @@ const PomodoroEngine = (() => {
   const STATE_KEY = 'nika_pomo_state';
   const DONE_KEY = 'nika_pomo_last_done';   // evita doble registro entre pestañas
   const GRACE_MS = 2 * 60 * 1000;           // pasado este margen el fin se registra en silencio (sin campana)
-  const RESCATE_MAX_MS = 6 * 60 * 60 * 1000; // un bloque que terminó hasta 6 h antes de volver igual se contabiliza
+  const RESCATE_MAX_MS = 12 * 60 * 60 * 1000; // un bloque que terminó hasta 12 h antes de volver igual se contabiliza
   const AUTO_NEXT_DELAY_MS = 2000;
   const MIN_PARTIAL_MIN = 5;                // un bloque de estudio interrumpido se guarda si llegó a >= 5 min
   const SHARED_SYNC_MS = 5000;              // latido del Host hacia el Invitado
@@ -190,6 +190,7 @@ const PomodoroEngine = (() => {
       writePending(list);
     }
     console.log('[PomodoroEngine] 💾 Sesión guardada LOCAL (synced:false):', row.completed_at, row.duration_minutes + ' min · pendientes:', list.length);
+    renderPendingBadge();
   }
 
   async function insertRow(client, row) {
@@ -205,14 +206,44 @@ const PomodoroEngine = (() => {
       const { completed: _o, ...sinFlag } = row;
       ({ error } = await client.from('study_sessions').insert(sinFlag));
     }
+    if (error && String(error.code) === '23505') return { error: null };   // índice único: ya estaba guardada
     return { error };
+  }
+
+  // Aviso visible (esquina inferior izquierda) cuando hay sesiones sin subir. Click = reintentar ahora.
+  function renderPendingBadge() {
+    try {
+      const n = readPending().length;
+      let b = document.getElementById('nika-pending-badge');
+      if (!n) { if (b) b.remove(); return; }
+      if (!document.body) return;
+      if (!b) {
+        b = document.createElement('button');
+        b.id = 'nika-pending-badge';
+        b.style.cssText = 'position:fixed;left:12px;bottom:12px;z-index:99999;background:#b45309;color:#fff;border:0;border-radius:20px;padding:8px 14px;font:600 13px system-ui,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)';
+        b.onclick = () => { b.textContent = '⏳ Reintentando…'; flushPending(); };
+        document.body.appendChild(b);
+      }
+      b.textContent = `⚠️ ${n} sesión${n === 1 ? '' : 'es'} sin subir · tocá para reintentar`;
+    } catch (_) {}
   }
 
   let flushing = false;
   async function flushPending() {
     if (flushing) return;
     const list = readPending();
-    if (!list.length || !navigator.onLine) return;
+    renderPendingBadge();
+    if (!list.length) return;
+    // Cola unificada: si la página tiene el SyncManager real, le pasamos todo y él se ocupa (backoff, badge, IndexedDB).
+    if (window.SyncManager && typeof window.SyncManager.encolar === 'function') {
+      try {
+        for (const r of list) { const { synced: _s, ...row } = r; await window.SyncManager.encolar('progreso_estudio', { row }); }
+        writePending([]); renderPendingBadge();
+        console.log('[PomodoroEngine] ♻️ Sesiones locales pasadas a la cola de SyncManager:', list.length);
+        return;
+      } catch (_) { /* si falla seguimos con el flush propio */ }
+    }
+    if (!navigator.onLine) return;
     const client = getDbClient();
     if (!client || !client.auth) return;
     flushing = true;
@@ -230,6 +261,7 @@ const PomodoroEngine = (() => {
         else { subidas++; console.log('[PomodoroEngine] ✅ Confirmada en Supabase (rescatada del local):', r.completed_at, r.duration_minutes + ' min'); }
       }
       writePending(restantes);
+      renderPendingBadge();
       if (subidas) avisarRendimiento({ origen: 'flush', minutes: 0 });
     } catch (e) { console.warn('[PomodoroEngine] flushPending:', e && e.message); }
     finally { flushing = false; }
@@ -238,6 +270,9 @@ const PomodoroEngine = (() => {
   document.addEventListener('visibilitychange', () => { if (!document.hidden) flushPending(); });
   setInterval(flushPending, 60000);
   setTimeout(flushPending, 2500);
+  if (window.SyncManager && typeof window.SyncManager.encolar !== 'function') {
+    console.warn('[PomodoroEngine] window.SyncManager existe pero NO es el de syncManager.js. Claves:', Object.keys(window.SyncManager));
+  }
 
   // Modo Guardia: si no se puede subir ahora, la sesión queda en sync_queue (IndexedDB) y se sube sola.
   // Si SyncManager no está en la página (estudio.html) o falla, cae a la cola local de respaldo.
@@ -916,6 +951,8 @@ const PomodoroEngine = (() => {
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
     getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, partnerLeft, notifyShared,
+    // Solo para pruebas (tests/)
+    _test: { registerStudySession, flushPending, readPending },
   };
 })();
 

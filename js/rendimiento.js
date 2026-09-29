@@ -377,6 +377,18 @@ const NikaRendimiento = (() => {
   // ------------------------------------------------------------
   // Cargar datos del usuario
   // ------------------------------------------------------------
+  // PostgREST corta cada respuesta en ~1000 filas aunque se pida limit(5000): se pagina hasta agotar.
+  async function traerTodo(armar) {
+    const PAG = 1000; let todo = [];
+    for (let desde = 0; desde < 50000; desde += PAG) {
+      const r = await armar().range(desde, desde + PAG - 1);
+      if (r.error) return { data: null, error: r.error };
+      todo = todo.concat(r.data || []);
+      if (!r.data || r.data.length < PAG) break;
+    }
+    return { data: todo, error: null };
+  }
+
   async function cargarDatos() {
     const c = await getClient();
     const userId = await getUserId();
@@ -391,13 +403,13 @@ const NikaRendimiento = (() => {
 
     // 'completed' puede no existir si todavía no corriste sql/rendimiento.sql
     let sesiones = [];
-    let r = await c.from('study_sessions')
+    let r = await traerTodo(() => c.from('study_sessions')
       .select('modulo, up_id, duration_minutes, completed, completed_at')
-      .eq('user_id', userId).order('completed_at', { ascending: false }).limit(5000);
+      .eq('user_id', userId).order('completed_at', { ascending: false }));
     if (r.error) {
-      r = await c.from('study_sessions')
+      r = await traerTodo(() => c.from('study_sessions')
         .select('modulo, up_id, duration_minutes, completed_at')
-        .eq('user_id', userId).order('completed_at', { ascending: false }).limit(5000);
+        .eq('user_id', userId).order('completed_at', { ascending: false }));
       if (r.error) throw r.error;
     }
     sesiones = r.data || [];
@@ -417,9 +429,9 @@ const NikaRendimiento = (() => {
     );
 
     let examenes = [];
-    const e = await c.from('exam_results')
+    const e = await traerTodo(() => c.from('exam_results')
       .select('modulo, mode, total_questions, correct_count, score, score_pct, by_up, created_at')
-      .eq('user_id', userId).order('created_at', { ascending: false }).limit(5000);
+      .eq('user_id', userId).order('created_at', { ascending: false }));
     if (!e.error) examenes = e.data || [];
     else console.warn('[NikaRendimiento] exam_results no disponible (¿corriste sql/rendimiento.sql?):', e.error.message);
 
