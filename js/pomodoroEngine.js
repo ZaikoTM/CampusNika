@@ -175,7 +175,7 @@ const PomodoroEngine = (() => {
   }
 
   function isOfflineNow() {
-    return window.SyncManager ? window.SyncManager.estaOffline() : !navigator.onLine;
+    return (window.SyncManager && typeof window.SyncManager.estaOffline === 'function') ? window.SyncManager.estaOffline() : !navigator.onLine;
   }
 
   // Cola de respaldo en localStorage. estudio.html (donde se usa el Pomodoro) NO carga SyncManager,
@@ -242,7 +242,7 @@ const PomodoroEngine = (() => {
   // Modo Guardia: si no se puede subir ahora, la sesión queda en sync_queue (IndexedDB) y se sube sola.
   // Si SyncManager no está en la página (estudio.html) o falla, cae a la cola local de respaldo.
   async function queueStudySession(row) {
-    if (window.SyncManager) {
+    if (window.SyncManager && typeof window.SyncManager.encolar === 'function') {
       try {
         await window.SyncManager.encolar('progreso_estudio', { row });
         console.log('[PomodoroEngine] 💾 Sesión en cola offline (synced:false):', row.completed_at, row.duration_minutes + ' min');
