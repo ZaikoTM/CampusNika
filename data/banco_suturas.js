@@ -119,7 +119,7 @@ const bancoSuturas = [
       "d": "Aguja trocar con punta de diamante sin filo del cuerpo"
     },
     "correct": "b",
-    "feedback": "En las agujas reverso-cortantes (reverse cutting), el tercer filo cortante triangular se ubica en la curvatura convexa externa de la aguja. Esto evita que al traccionar el hilo para anudar, el borde filoso corte hacia el margen de la herida (lo que ocurriría con una aguja cortante convencional con filo interno), reduciendo el riesgo de desgarro en pieles resistentes. ⚠️ Trampa: Las agujas cónicas se deslizan en piel dura produciendo doblando de la aguja. Las espatuladas son para córnea e intrancular."
+    "feedback": "En las agujas reverso-cortantes (reverse cutting), el tercer filo cortante triangular se ubica en la curvatura convexa externa de la aguja. Esto evita que al traccionar el hilo para anudar, el borde filoso corte hacia el margen de la herida (lo que ocurriría con una aguja cortante convencional con filo interno), reduciendo el riesgo de desgarro en pieles resistentes. ⚠️ Trampa: Las agujas cónicas se deslizan en piel dura produciendo doblando de la aguja. Las espatuladas son para córnea e intraocular."
   },
   {
     "up": "Suturas",
@@ -143,7 +143,7 @@ const bancoSuturas = [
       "d": "Puntos separados en U con polipropileno grueso"
     },
     "correct": "c",
-    "feedback": "La sutura subcuticular continua pasa horizontalmente por la dermis profunda paralela a la piel, aproximando los bordes epidérmicos sin atravesar la capa córnea externa. Al utilizar un monofilamento (ej. Nylon o Monocryl), se evita la marca en \"escalera de mano\" de las punciones externas, obteniendo el mejor resultado cosmético. ⚠️ Trampa: La seda es multifilamento y genera reacción y marcas marcas si se usa en piel. Smead-Jones es para aponeurosis."
+    "feedback": "La sutura subcuticular continua pasa horizontalmente por la dermis profunda paralela a la piel, aproximando los bordes epidérmicos sin atravesar la capa córnea externa. Al utilizar un monofilamento (ej. Nylon o Monocryl), se evita la marca en \"escalera de mano\" de las punciones externas, obteniendo el mejor resultado cosmético. ⚠️ Trampa: La seda es multifilamento y genera reacción y marcas si se usa en piel. Smead-Jones es para aponeurosis."
   },
   {
     "up": "Suturas",
@@ -215,7 +215,7 @@ const bancoSuturas = [
       "d": "Pinza de Halsted mosquito y separador Farabeuf"
     },
     "correct": "c",
-    "feedback": "La técnica de síntesis exige tomar la aguja en la unión de su tercio medio y posterior con la punta del portaagujas Mayo-Hegar, mientras se estabiliza y eavierte el borde del tejido con una pinza de disección (con dientes para piel, anatómica sin dientes para mucosas/visceras). ⚠️ Trampa: La pinza de Kocher es traumática para prensión de bordes cutáneos delgados. La pinza Pean es hemostática no diseñada para agujas."
+    "feedback": "La técnica de síntesis exige tomar la aguja en la unión de su tercio medio y posterior con la punta del portaagujas Mayo-Hegar, mientras se estabiliza y eavierte el borde del tejido con una pinza de disección (con dientes para piel, anatómica sin dientes para mucosas/vísceras). ⚠️ Trampa: La pinza de Kocher es traumática para prensión de bordes cutáneos delgados. La pinza Pean es hemostática no diseñada para agujas."
   },
   {
     "up": "Suturas",
@@ -383,7 +383,7 @@ const bancoSuturas = [
       "d": "Engrapadora lineal de oclusión no cortante tipo TA"
     },
     "correct": "d",
-    "feedback": "La engrapadora TA (Thoracoabdominal) es una engrapadora lineal de oclusión que aplica una doble o triple hilera de grapas de titanio en forma de \"B\" invertida para cerrar muñones víscerales o vasculares (como el muñón duodenal o el parénquima pulmonar), sin realizar la sección del tejido (carece de cuchilla). ⚠️ Trampa: La GIA sí tiene cuchilla e integra el corte. La TA solo engrapa y requiere que el cirujano corte con bisturí por arriba de la línea de grapas."
+    "feedback": "La engrapadora TA (Thoracoabdominal) es una engrapadora lineal de oclusión que aplica una doble o triple hilera de grapas de titanio en forma de \"B\" invertida para cerrar muñones viscerales o vasculares (como el muñón duodenal o el parénquima pulmonar), sin realizar la sección del tejido (carece de cuchilla). ⚠️ Trampa: La GIA sí tiene cuchilla e integra el corte. La TA solo engrapa y requiere que el cirujano corte con bisturí por arriba de la línea de grapas."
   },
   {
     "up": "Suturas",
@@ -563,7 +563,7 @@ const bancoSuturas = [
       "d": "Cierre cutáneo en la cama con puntos simples de nylon"
     },
     "correct": "c",
-    "feedback": "La evisceración aguda (salida de vísceras abdominales a través de la dehiscencia completa de todos los planos de la pared) es una urgencia quirúrgica absoluta. Requiere cobertura inmediata con compresas embebidas en solución fisiológica estéril, estabilización e reintervención quirúrgica urgente en quirófano para lavaje, debridamiento de bordes y resíntesis de la pared (habitualmente con puntos de retención masiva de Smead-Jones). ⚠️ Trampa: Intenta solucionar una evisceración con fajas o puntos en la cama del paciente es una falta grave; expone a peritonitis secundaria y necrosis intestinal."
+    "feedback": "La evisceración aguda (salida de vísceras abdominales a través de la dehiscencia completa de todos los planos de la pared) es una urgencia quirúrgica absoluta. Requiere cobertura inmediata con compresas embebidas en solución fisiológica estéril, estabilización y reintervención quirúrgica urgente en quirófano para lavaje, debridamiento de bordes y resíntesis de la pared (habitualmente con puntos de retención masiva de Smead-Jones). ⚠️ Trampa: Intenta solucionar una evisceración con fajas o puntos en la cama del paciente es una falta grave; expone a peritonitis secundaria y necrosis intestinal."
   },
   {
     "up": "Suturas",

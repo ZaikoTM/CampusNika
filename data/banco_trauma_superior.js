@@ -87,7 +87,7 @@ const bancoTraumaSuperior = [
   },
   {
     "up": "Trauma MS",
-    "q": "Un paciente de 55 años con antecedente de una fractura supracondílea de codo mal consolidada en la infancia (cúbito valgo) consulta por parestesias progresivas en el 4° y 5° dedos de la mano e hipotrofia de la eminecia hipotenar y de la primera comisura interósea. ¿Cuál es el diagnóstico clínico y la estructura nerviosa comprometida?",
+    "q": "Un paciente de 55 años con antecedente de una fractura supracondílea de codo mal consolidada en la infancia (cúbito valgo) consulta por parestesias progresivas en el 4° y 5° dedos de la mano e hipotrofia de la eminencia hipotenar y de la primera comisura interósea. ¿Cuál es el diagnóstico clínico y la estructura nerviosa comprometida?",
     "options": {
       "a": "Atrapamiento del nervio mediano a nivel del pronador redondo",
       "b": "Parálisis del nervio radial por compresión en el supinador",
@@ -443,7 +443,7 @@ const bancoTraumaSuperior = [
       "d": "Indicación de prótesis total de codo por destrucción irreversible del aparato extensor"
     },
     "correct": "a",
-    "feedback": "El olécranon forma parte del mecanismo extensor del codo sujetado por el tríceps. En fracturas transversales desplazadas, el principio biomecánico del obenque (tension band wiring) utiliza dos clavijas paralelas intraóseas y un alambre en \"8\" que neutraliza las fuerzas de tracción muscular del tríceps en la cortical posterior y las transforma en fuerzas dinámicas de compresión en la superficie articular anterior. ⚠️ Trampa: El cerclaje en obenque convierte las fuerzas de TRACCIÓN (distracción) en fuerzas de COMPRESIÓN articular durante la flexión."
+    "feedback": "El olécranon forma parte del mecanismo extensor del codo sujetado por el tríceps. En fracturas transversales desplazadas, el principio biomecánico del obenque (tensión band wiring) utiliza dos clavijas paralelas intraóseas y un alambre en \"8\" que neutraliza las fuerzas de tracción muscular del tríceps en la cortical posterior y las transforma en fuerzas dinámicas de compresión en la superficie articular anterior. ⚠️ Trampa: El cerclaje en obenque convierte las fuerzas de TRACCIÓN (distracción) en fuerzas de COMPRESIÓN articular durante la flexión."
   },
   {
     "up": "Trauma MS",
@@ -519,7 +519,7 @@ const bancoTraumaSuperior = [
   },
   {
     "up": "Trauma MS",
-    "q": "Un joven de 26 años presenta una fractura inestable del cuello del escafoides carpiano con un desplazamiento de 2 mm y angulación del polo distal (deformidad en joroba o humpback ). ¿Cuál es la indicación terapéutica de elección para evitar el colapso carpiano en este tipo de fractura inestable?",
+    "q": "Un joven de 26 años presenta una fractura inestable del cuello del escafoides carpiano con un desplazamiento de 2 mm y angulación del polo distal (deformidad en joroba o humpback). ¿Cuál es la indicación terapéutica de elección para evitar el colapso carpiano en este tipo de fractura inestable?",
     "options": {
       "a": "Inmovilización con bota de yeso antebraquiopalmar incluyendo el primer dedo durante seis semanas",
       "b": "Colocación de una férula digital de Stack ininterrumpida hasta evidenciar el callo óseo en radiografías",
@@ -603,7 +603,7 @@ const bancoTraumaSuperior = [
   },
   {
     "up": "Trauma MS",
-    "q": "Un estudiante del taller ortopédico debe confeccionar una valva de yeso para inmovilizar un esguince severo del ligamento colateral cubital de la primera articulación metacarpofalángica ( pulgar del esquiador ). ¿Cuál es la posición funcional recomendada para la columna del pulgar durante el fraguado del molde?",
+    "q": "Un estudiante del taller ortopédico debe confeccionar una valva de yeso para inmovilizar un esguince severo del ligamento colateral cubital de la primera articulación metacarpofalángica (pulgar del esquiador). ¿Cuál es la posición funcional recomendada para la columna del pulgar durante el fraguado del molde?",
     "options": {
       "a": "Adosado completamente a la cara palmar del índice en aducción máxima fija",
       "b": "En abducción radial extrema e hiperextensión de la articulación interfalángica",
@@ -611,7 +611,7 @@ const bancoTraumaSuperior = [
       "d": "En retroposición forzada con inclinación cubital de la articulación radiocarpiana"
     },
     "correct": "c",
-    "feedback": "La inmovilización de la columna del pulgar mediante férula de Spica debe realizarse en la llamada posición funcional o neutra: la articulación trapeciometacarpiana en abducción palmar de 30-40° y oposición moderada, y la articulación metacarpofalángica en flexion ligera (10-15°). Esta posición mantiene tensionados los ligamentos colaterales previniendo su acortamiento y preservando la pinza digital. ⚠️ Trampa: Nunca inmovilizar el pulgar en aducción plana contra la palma (aducción máxima), ya que provoca contractura irreversible de la primera comisura interósea."
+    "feedback": "La inmovilización de la columna del pulgar mediante férula de Spica debe realizarse en la llamada posición funcional o neutra: la articulación trapeciometacarpiana en abducción palmar de 30-40° y oposición moderada, y la articulación metacarpofalángica en flexión ligera (10-15°). Esta posición mantiene tensionados los ligamentos colaterales previniendo su acortamiento y preservando la pinza digital. ⚠️ Trampa: Nunca inmovilizar el pulgar en aducción plana contra la palma (aducción máxima), ya que provoca contractura irreversible de la primera comisura interósea."
   },
   {
     "up": "Trauma MS",
@@ -671,7 +671,7 @@ const bancoTraumaSuperior = [
       "d": "Cortar longitudinalmente el yeso de extremo a extremo abriendo la malla y las vendas"
     },
     "correct": "d",
-    "feedback": "Ante la presencia de signos de isquemia o elevación de la presión tisular bajo un yeso rígido circular, la medida de urgencia inmediata e impostergable es bivalvar o cortar bivalvadamente el yeso de extremo a extremo en sus dos caras, abriendo además la malla tubular y la guata de algodón. Esto reduce la presión intrayeso en más del 50-80%, reestableciendo el flujo sanguíneo capilar. ⚠️ Trampa: No basta con cortar únicamente la capa de yeso exterior; se debe cortar la malla tubular y el algodón subyacente hasta ver la piel del paciente en toda la longitud del molde."
+    "feedback": "Ante la presencia de signos de isquemia o elevación de la presión tisular bajo un yeso rígido circular, la medida de urgencia inmediata e impostergable es bivalvar o cortar bivalvadamente el yeso de extremo a extremo en sus dos caras, abriendo además la malla tubular y la guata de algodón. Esto reduce la presión intrayeso en más del 50-80%, restableciendo el flujo sanguíneo capilar. ⚠️ Trampa: No basta con cortar únicamente la capa de yeso exterior; se debe cortar la malla tubular y el algodón subyacente hasta ver la piel del paciente en toda la longitud del molde."
   },
   {
     "up": "Trauma MS",

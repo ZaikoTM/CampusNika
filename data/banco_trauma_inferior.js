@@ -104,7 +104,7 @@ const bancoTraumaInferior = [
       "a": "Realizar maniobras repetidas de compresión y distracción de las espinas ilíacas para valorar la estabilidad.",
       "b": "Colocar una cincha pélvica (o sábana) bien ajustada a nivel de ambos trocánteres mayores para cerrar el volumen del anillo.",
       "c": "Colocar una férula suropédica posterior (bota corta) para estabilizar la rotación del pie.",
-      "d": "Colocar un yeso pelvipedico de forma directa en la camilla de trauma."
+      "d": "Colocar un yeso pelvipédico de forma directa en la camilla de trauma."
     },
     "correct": "b",
     "feedback": "Ante una fractura en 'libro abierto', la sínfisis pubiana se encuentra abierta anterior y rotacionalmente. Para controlar el sangrado del plexo venoso, se debe disminuir el volumen pélvico cerrando el anillo. Esto se logra colocando una cincha pélvica o sábana a la altura de los trocánteres mayores. Se prohíbe realizar maniobras repetidas de compresión, ya que pueden desplazar los coágulos formados y exacerbar la hemorragia."
@@ -140,7 +140,7 @@ const bancoTraumaInferior = [
       "a": "Colocación de tracción esquelética transtuberositaria por 6 semanas y reposo en cama.",
       "b": "Osteosíntesis rígida con tres tornillos canulados divergentes.",
       "c": "Reemplazo de la cabeza femoral mediante colocación de una prótesis (hemiartroplastia o prótesis total).",
-      "d": "Tratamiento ortopédico conservador con yeso pelvipedico por 3 meses."
+      "d": "Tratamiento ortopédico conservador con yeso pelvipédico por 3 meses."
     },
     "correct": "c",
     "feedback": "En adultos mayores con fracturas mediales de cadera (intracapsulares), la irrigación de la cabeza femoral está seriamente comprometida. El tratamiento de elección es la sustitución protésica. El objetivo principal de la prótesis en el anciano es lograr una movilización y bipedestación ultra precoz (al día siguiente de la cirugía) para evitar las complicaciones fatales de la postración (neumonías, escaras, trombosis venosa profunda)."
@@ -151,7 +151,7 @@ const bancoTraumaInferior = [
     "options": {
       "a": "Colocación de una prótesis total de cadera cementada de forma inmediata.",
       "b": "Reducción anatómica urgente y fijación interna rígida (osteosíntesis) para intentar preservar la cabeza femoral.",
-      "c": "Colocación de yeso pelvipedico con rodilla a 90° para favorecer la consolidación.",
+      "c": "Colocación de yeso pelvipédico con rodilla a 90° para favorecer la consolidación.",
       "d": "Conducta expectante y deambulación con muletas sin apoyo por 6 meses."
     },
     "correct": "b",
@@ -603,7 +603,7 @@ const bancoTraumaInferior = [
   },
   {
     "up": "Trauma MI",
-    "q": "Según el manual de la cátedra (Silberman), ¿cuáles son las indicaciones y los límites anatómicos del 'Yeso Pelvipedico' utilizado de forma reglamentaria en el manejo de fracturas femorales pediátricas?",
+    "q": "Según el manual de la cátedra (Silberman), ¿cuáles son las indicaciones y los límites anatómicos del 'Yeso Pelvipédico' utilizado de forma reglamentaria en el manejo de fracturas femorales pediátricas?",
     "options": {
       "a": "Desde la raíz del muslo hasta el tobillo, dejando el pie libre.",
       "b": "Desde las costillas hasta la rodilla, manteniendo la cadera en extensión neutra.",
@@ -611,7 +611,7 @@ const bancoTraumaInferior = [
       "d": "Desde la sínfisis pubiana hasta el talón exclusivamente, con rodilla extendida."
     },
     "correct": "c",
-    "feedback": "El Yeso Pelvipedico se extiende desde el abdomen hasta el pie inclusive, manteniendo los dedos y el dorso libres. Es mandatorio posicionar funcionalmente las articulaciones: la cadera en leve flexión y abducción (rotación indiferente), la rodilla en flexión de 10° y el tobillo estrictamente a 90°. Se indica en fracturas de fémur o contención post-luxación de cadera en niños."
+    "feedback": "El Yeso Pelvipédico se extiende desde el abdomen hasta el pie inclusive, manteniendo los dedos y el dorso libres. Es mandatorio posicionar funcionalmente las articulaciones: la cadera en leve flexión y abducción (rotación indiferente), la rodilla en flexión de 10° y el tobillo estrictamente a 90°. Se indica en fracturas de fémur o contención post-luxación de cadera en niños."
   },
   {
     "up": "Trauma MI",
@@ -702,7 +702,7 @@ const bancoTraumaInferior = [
     "q": "Usted asiste a un niño de 3 años que ingresa con una fractura diafisaria de fémur cerrado y desplazada. En el taller práctico, el docente le pide que demuestre la colocación de una tracción de partes blandas 'al Cenit' (Bryant). ¿Cómo se coloca esta tracción pediátrica clásica?",
     "options": {
       "a": "Colocando un clavo de Steinmann a través del tendón rotuliano con peso horizontal.",
-      "b": "Inmovilizando ambas caderas en extensión con yeso pelvipedico desde el primer día.",
+      "b": "Inmovilizando ambas caderas en extensión con yeso pelvipédico desde el primer día.",
       "c": "Suspendiendo ambos miembros inferiores verticalmente a 90° de flexión de cadera mediante vendajes adhesivos suaves a un sistema de poleas elevado.",
       "d": "Colocando un tracción esquelética transtuberositaria tibial directa."
     },
