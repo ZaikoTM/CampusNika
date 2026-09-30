@@ -267,19 +267,36 @@ const NikaRecetarios = (() => {
   }
 
   // ------------------------------------------------------------------ pantalla principal
-  function tarjetas() {
-    const s = stats(); const cats = {};
-    R.ORDEN.forEach((id) => { const d = R.DOCS[id]; (cats[d.cat] = cats[d.cat] || []).push(d); });
-    return Object.entries(cats).map(([cat, ds]) => `
-      <h3 class="rz-cat">${esc(cat)}</h3>
-      <div class="rz-grid">${ds.map((d, i) => {
-        const x = s[d.id];
-        return `<button type="button" class="rz-card" style="animation-delay:${i * 60}ms" onclick="NikaRecetarios.abrir('${d.id}')">
-          <span class="rz-ico">${d.icono}</span><b>${esc(d.titulo)}</b><small>${esc(d.resumen)}</small>
-          ${x ? `<span class="rz-best">Mejor: ${x.mejor}/100 · ${x.intentos} ${x.intentos === 1 ? 'intento' : 'intentos'}</span>` : '<span class="rz-best nuevo">Sin intentos</span>'}
-        </button>`;
-      }).join('')}</div>`).join('');
+  let filtro = 'Todos';
+  const CATS = ['Todos', 'Recetas', 'Solicitudes', 'Certificados por enfermedad', 'Certificados de aptitud'];
+  const COLOR_CAT = { 'Recetas': '#0ea5e9', 'Solicitudes': '#8b5cf6', 'Certificados por enfermedad': '#f59e0b', 'Certificados de aptitud': '#10b981' };
+
+  function resumenProgreso() {
+    const s = stats(); const hechos = R.ORDEN.filter((id) => s[id]).length;
+    const prom = hechos ? Math.round(R.ORDEN.filter((id) => s[id]).reduce((a, id) => a + s[id].mejor, 0) / hechos) : 0;
+    const intentos = Object.values(s).reduce((a, x) => a + (x.intentos || 0), 0);
+    const tile = (ico, val, lab, i) => `<div class="rz-stat" style="animation-delay:${i * 90}ms"><span>${ico}</span><div><b data-cuenta="${val}">${val}</b><small>${lab}</small></div></div>`;
+    return `<div class="rz-stats">${tile('📄', `${hechos}/${R.ORDEN.length}`, 'documentos practicados', 0)}${tile('🎯', `${prom}`, 'promedio de tus mejores notas', 1)}${tile('🔁', `${intentos}`, 'intentos realizados', 2)}</div>`;
   }
+  function comoFunciona() {
+    const paso = (n, ico, t, d) => `<div class="rz-paso" style="animation-delay:${n * 110}ms"><span class="rz-paso-n">${n}</span><i>${ico}</i><div><b>${t}</b><small>${d}</small></div></div>`;
+    return `<div class="rz-pasos">${paso(1, '📖', 'Leé la guía', 'Cada documento trae sus pasos y reglas de oro.')}${paso(2, '✍️', 'Completá la hoja', 'Escribí sobre el recetario: firma, sello, fecha…')}${paso(3, '✅', 'Recibí tu corrección', 'Puntaje, errores y el modelo para comparar.')}</div>`;
+  }
+  function tarjetas() {
+    const s = stats(); let n = 0;
+    const chips = `<div class="rz-filtros" role="tablist">${CATS.map((c) => `<button type="button" class="${c === filtro ? 'on' : ''}" onclick="NikaRecetarios.filtrar('${c}')">${c}</button>`).join('')}</div>`;
+    const docs = R.ORDEN.map((id) => R.DOCS[id]).filter((d) => filtro === 'Todos' || d.cat === filtro);
+    return chips + `<div class="rz-grid">${docs.map((d) => {
+      const x = s[d.id]; const col = COLOR_CAT[d.cat] || '#0284c7';
+      return `<button type="button" class="rz-card" style="--c:${col};animation-delay:${(n++) * 55}ms" onclick="NikaRecetarios.abrir('${d.id}')">
+        <span class="rz-tag">${esc(d.cat)}</span>
+        <span class="rz-ico">${d.icono}</span><b>${esc(d.titulo)}</b><small>${esc(d.resumen)}</small>
+        ${x ? `<span class="rz-best"><i style="width:${x.mejor}%"></i><em>Mejor ${x.mejor}/100 · ${x.intentos} ${x.intentos === 1 ? 'intento' : 'intentos'}</em></span>` : '<span class="rz-best nuevo"><em>Sin intentos · ¡probalo!</em></span>'}
+        <span class="rz-go">Practicar →</span>
+      </button>`;
+    }).join('')}</div>`;
+  }
+  function filtrar(c) { filtro = c; renderLista(); }
 
   function cabecera() {
     return `<section class="rz-hero">
@@ -292,7 +309,7 @@ const NikaRecetarios = (() => {
   function renderLista() {
     const root = $('#rz-root'); docId = null;
     if (vista === 'teoria') { root.innerHTML = cabecera() + teoriaHtml(); return; }
-    root.innerHTML = cabecera() + `<p class="rz-intro">Elegí qué querés practicar. Cada intento genera un paciente y un caso distintos.</p>${tarjetas()}`;
+    root.innerHTML = cabecera() + resumenProgreso() + comoFunciona() + `<p class="rz-intro">Elegí qué querés practicar. Cada intento genera un paciente y un caso distintos.</p>${tarjetas()}`;
   }
 
   function teoriaHtml() {
@@ -398,7 +415,7 @@ const NikaRecetarios = (() => {
     guardarStat(docId, pct);
     const nivel = pct >= 90 ? ['Excelente', '🏆'] : pct >= 75 ? ['Muy bien', '🥇'] : pct >= 60 ? ['Aprobado', '✅'] : ['A reforzar', '📚'];
     const mal = checks.filter((c) => !c.ok);
-    mostrarModal(`<div class="rz-res-h ${pct >= 60 ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos</small></div></div>
+    mostrarModal(`<div class="rz-res-h ${pct >= 60 ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos</small></div><span class="rz-sello-res ${pct >= 60 ? 'ok' : 'mal'}">${pct >= 60 ? 'APROBADO' : 'A REFORZAR'}</span></div>
       ${mal.length ? `<h4>Para corregir</h4><ul class="rz-checks mal">${mal.map((c) => `<li><span>✗</span><div><b>${esc(c.label)}</b><small>${esc(c.tip || '')}</small></div></li>`).join('')}</ul>` : '<p class="rz-perfecto">¡Impecable! Cumpliste todos los pasos de la guía.</p>'}
       <details class="rz-acc"><summary>✓ Criterios cumplidos (${checks.length - mal.length})</summary><ul class="rz-checks bien">${checks.filter((c) => c.ok).map((c) => `<li><span>✓</span><div><b>${esc(c.label)}</b></div></li>`).join('')}</ul></details>`,
     `<button type="button" class="rz-btn-sec" onclick="NikaRecetarios.modelo()">👁️ Ver modelo</button><button type="button" class="rz-btn-sec" onclick="document.getElementById('rz-modal-res').remove();NikaRecetarios.nuevoCaso()">🎲 Nuevo caso</button>`);
@@ -426,6 +443,6 @@ const NikaRecetarios = (() => {
     if (p.get('from') === 'examen') { const b = document.getElementById('rz-atras'); if (b) b.style.display = ''; }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  return { abrir, lista: irLista, vista: cambiarVista, nuevoCaso, corregir, modelo, digo, negarme, _test: { corregirCertificado, corregirReceta, corregirPsico, corregirExamenes, modeloDe, hojas, setCaso: (c, id) => { caso = c; docId = id; } } };
+  return { abrir, filtrar, lista: irLista, vista: cambiarVista, nuevoCaso, corregir, modelo, digo, negarme, _test: { corregirCertificado, corregirReceta, corregirPsico, corregirExamenes, modeloDe, hojas, setCaso: (c, id) => { caso = c; docId = id; } } };
 })();
 window.NikaRecetarios = NikaRecetarios;

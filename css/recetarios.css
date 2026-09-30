@@ -121,3 +121,71 @@ textarea.rz-centro, pre.rz-centro { text-align: center; height: 128px; backgroun
 @media (max-width: 640px) { .rz-hoja { padding: 22px 16px 24px 42px; } .rz-hoja::before { left: 30px; } .rz-campo { font-size: 1.35rem; } .rz-firma { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .rz-hero, .rz-card, .rz-hoja, .rz-caso, .rz-checks li { animation: none; } }
 @media print { body * { visibility: hidden; } .rz-hoja, .rz-hoja * { visibility: visible; } .rz-hoja { position: absolute; left: 0; top: 0; } }
+
+/* ===== Mejoras visuales v2 ===== */
+.rz-wrap { max-width: 1400px; }
+
+/* Encabezado animado */
+.rz-hero { position: relative; overflow: hidden; }
+.rz-hero::before, .rz-hero::after { content: ""; position: absolute; border-radius: 50%; filter: blur(40px); opacity: .55; pointer-events: none; animation: rz-flota 9s ease-in-out infinite; }
+.rz-hero::before { width: 260px; height: 260px; right: -60px; top: -90px; background: #38bdf8; }
+.rz-hero::after { width: 200px; height: 200px; left: 30%; bottom: -120px; background: #6366f1; animation-delay: -4s; }
+@keyframes rz-flota { 50% { transform: translate(-24px, 18px) scale(1.12); } }
+.rz-hero > * { position: relative; z-index: 1; }
+.rz-hero-logo { animation: rz-pulso 4s ease-in-out infinite; } @keyframes rz-pulso { 50% { transform: translateY(-3px); box-shadow: 0 18px 30px -14px rgba(56,189,248,.8); } }
+
+/* Estadísticas y "cómo funciona" */
+.rz-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px; }
+.rz-stat { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 16px; background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); animation: rz-in .5s cubic-bezier(.2,.8,.2,1) both; transition: transform .2s, box-shadow .2s; }
+.rz-stat:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -16px rgba(2,132,199,.6); }
+.rz-stat > span { width: 46px; height: 46px; display: grid; place-items: center; font-size: 1.4rem; border-radius: 14px; background: linear-gradient(135deg, rgba(2,132,199,.16), rgba(99,102,241,.14)); }
+.rz-stat b { display: block; font-size: 1.5rem; line-height: 1.1; } .rz-stat small { color: var(--text-muted, #64748b); font-size: .76rem; }
+.rz-pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.rz-paso { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; background: linear-gradient(135deg, rgba(2,132,199,.08), rgba(99,102,241,.06)); border: 1px dashed rgba(2,132,199,.4); animation: rz-in .5s cubic-bezier(.2,.8,.2,1) both; }
+.rz-paso-n { position: absolute; top: -10px; left: 14px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 800 .72rem inherit; color: #fff; background: linear-gradient(135deg, #0284c7, #2563eb); }
+.rz-paso i { font-style: normal; font-size: 1.6rem; } .rz-paso b { display: block; font-size: .9rem; } .rz-paso small { color: var(--text-muted, #64748b); font-size: .78rem; }
+
+/* Filtros + mosaicos (mejor distribución) */
+.rz-filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 16px; }
+.rz-filtros button { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border, #e2e8f0); background: var(--card-bg, #fff); color: var(--text-muted, #64748b); font: 800 .78rem inherit; font-family: inherit; cursor: pointer; transition: all .2s; }
+.rz-filtros button:hover { border-color: #0284c7; color: #0284c7; transform: translateY(-1px); }
+.rz-filtros button.on { background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; border-color: transparent; box-shadow: 0 8px 16px -8px rgba(37,99,235,.9); }
+.rz-grid { grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); }
+.rz-card { --c: #0284c7; padding: 20px 18px 16px; min-height: 210px; }
+.rz-card::before { background: var(--c); height: 5px; transform: scaleX(1); opacity: .9; }
+.rz-card::after { content: ""; position: absolute; right: -40px; top: -40px; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--c) 28%, transparent), transparent 70%); transition: transform .5s ease; }
+.rz-card:hover::after { transform: scale(1.5); } .rz-card:hover { border-color: var(--c); box-shadow: 0 20px 36px -20px var(--c); }
+.rz-ico { position: relative; z-index: 1; background: color-mix(in srgb, var(--c) 16%, transparent); animation: rz-ico 4.5s ease-in-out infinite; } @keyframes rz-ico { 50% { transform: translateY(-4px) rotate(-4deg); } }
+.rz-card:nth-child(2n) .rz-ico { animation-delay: -1.2s; } .rz-card:nth-child(3n) .rz-ico { animation-delay: -2.4s; }
+.rz-tag { position: relative; z-index: 1; align-self: flex-start; font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; padding: 3px 9px; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+.rz-card b, .rz-card small { position: relative; z-index: 1; }
+.rz-best { position: relative; z-index: 1; margin-top: auto; align-self: stretch; height: 22px; border-radius: 999px; overflow: hidden; background: rgba(148,163,184,.2); display: flex; align-items: center; }
+.rz-best i { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, #22c55e, #4ade80); border-radius: 999px; animation: rz-barra 1s ease both; } @keyframes rz-barra { from { width: 0 !important; } }
+.rz-best em { position: relative; font-style: normal; font-size: .68rem; font-weight: 800; padding: 0 10px; color: #14532d; } .rz-best.nuevo em { color: #64748b; }
+.rz-go { position: relative; z-index: 1; font-size: .78rem; font-weight: 800; color: var(--c); opacity: 0; transform: translateX(-6px); transition: all .25s; } .rz-card:hover .rz-go { opacity: 1; transform: none; }
+
+/* Hoja: sin superposiciones en el pie */
+.rz-pie { align-items: flex-start; }
+.rz-firma { margin-bottom: 30px; }
+.rz-pie-der .rz-sello { margin-top: 6px; }
+.rz-pie-der > span { display: block; margin-top: 4px; }
+.rz-hoja { transition: transform .3s ease, box-shadow .3s ease; } .rz-hoja:focus-within { transform: translateY(-3px); box-shadow: 0 1px 1px rgba(0,0,0,.08), 0 12px 18px -4px rgba(15,23,42,.22), 0 40px 60px -24px rgba(2,132,199,.45); }
+.rz-hoja.modelo { animation-delay: .1s; } .rz-hoja.modelo .rz-firma { margin-bottom: 34px; }
+.rz-hoja.modelo .rz-pie-der > span { font: 500 1.3rem 'Caveat', cursive; color: var(--tinta); text-align: right; }
+.rz-hoja.modelo .rz-pie-izq { gap: 2px; }
+pre.rz-campo { font-family: 'Caveat', cursive; }
+
+/* Guía: pasos con aparición escalonada */
+.rz-guia ol li { animation: rz-in .4s cubic-bezier(.2,.8,.2,1) both; } .rz-guia ol li:nth-child(1) { animation-delay: .05s; } .rz-guia ol li:nth-child(2) { animation-delay: .1s; } .rz-guia ol li:nth-child(3) { animation-delay: .15s; } .rz-guia ol li:nth-child(4) { animation-delay: .2s; } .rz-guia ol li:nth-child(5) { animation-delay: .25s; } .rz-guia ol li:nth-child(n+6) { animation-delay: .3s; }
+.rz-guia ol li { transition: transform .2s, color .2s; } .rz-guia ol li:hover { transform: translateX(4px); color: #0284c7; }
+.rz-acciones .rz-btn { animation: rz-latido 2.6s ease-in-out infinite; } @keyframes rz-latido { 50% { box-shadow: 0 10px 20px -10px rgba(37,99,235,.9), 0 0 0 8px rgba(37,99,235,.12); } }
+
+/* Resultados: anillo que se llena, checks en cascada y sello */
+@property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+.rz-anillo { animation: rz-llena 1.2s cubic-bezier(.2,.8,.2,1) both; } @keyframes rz-llena { from { --p: 0; } }
+.rz-checks li:nth-child(1) { animation-delay: .1s; } .rz-checks li:nth-child(2) { animation-delay: .16s; } .rz-checks li:nth-child(3) { animation-delay: .22s; } .rz-checks li:nth-child(4) { animation-delay: .28s; } .rz-checks li:nth-child(5) { animation-delay: .34s; } .rz-checks li:nth-child(n+6) { animation-delay: .4s; }
+.rz-res-h { position: relative; }
+.rz-sello-res { position: absolute; right: 14px; top: 50%; padding: 6px 14px; border: 3px solid currentColor; border-radius: 8px; font: 900 .95rem inherit; letter-spacing: 1.5px; transform: translateY(-50%) rotate(-12deg); animation: rz-sello .55s .5s cubic-bezier(.2,1.6,.4,1) both; opacity: .9; }
+.rz-sello-res.ok { color: #16a34a; } .rz-sello-res.mal { color: #dc2626; } @keyframes rz-sello { from { opacity: 0; transform: translateY(-50%) rotate(-12deg) scale(2.4); } }
+@media (max-width: 640px) { .rz-sello-res { display: none; } }
+@media (prefers-reduced-motion: reduce) { .rz-hero::before, .rz-hero::after, .rz-hero-logo, .rz-ico, .rz-acciones .rz-btn, .rz-anillo, .rz-sello-res, .rz-best i { animation: none; } }
