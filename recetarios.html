@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Recetarios y Certificados | NikaMed</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/nika-unificado.css">
+    <link rel="stylesheet" href="css/recetarios.css">
+</head>
+<body class="pagina-lateral" data-pagina="recetarios">
+
+    <header class="pl-top">
+        <a class="pl-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span>CAMPUS NIKA<small>Recetarios y Certificados</small></span>
+        </a>
+        <div class="pl-acciones">
+            <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+            <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+        </div>
+    </header>
+
+    <main class="pl-main">
+        <div class="rz-wrap" id="rz-root"></div>
+    </main>
+
+    <div id="toast">Notificación</div>
+
+    <script src="js/recetariosData.js"></script>
+    <script src="js/recetarios.js"></script>
+    <script src="js/paginaLateral.js"></script>
+</body>
+</html>

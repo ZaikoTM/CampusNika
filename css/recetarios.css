@@ -1,0 +1,123 @@
+/* CAMPUS NIKA — Simulador de Recetarios y Certificados */
+
+.rz-wrap { max-width: 1240px; margin: 0 auto; padding: 8px 16px 60px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--text-main, #0f172a); }
+
+/* ---------- Encabezado ---------- */
+.rz-hero { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; padding: 26px 28px; margin: 6px 0 18px; border-radius: 22px; color: #fff;
+  background: radial-gradient(1200px 300px at 90% -20%, rgba(56,189,248,.35), transparent 60%), linear-gradient(120deg, #0b1220 0%, #10254a 60%, #0c3a6b 100%);
+  box-shadow: 0 24px 50px -28px rgba(2,132,199,.8); animation: rz-in .6s cubic-bezier(.2,.8,.2,1) both; }
+.rz-hero-logo { display: flex; align-items: center; gap: 4px; padding: 10px 16px; border-radius: 16px; background: #fff; box-shadow: 0 10px 24px -12px rgba(0,0,0,.6); }
+.rz-hero-logo img { height: 46px; display: block; } .rz-hero-logo .v { height: 40px; }
+.rz-hero h1 { margin: 0 0 6px; font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 800; } .rz-hero h1 span { color: #38bdf8; }
+.rz-hero p { margin: 0; max-width: 60ch; font-size: .92rem; line-height: 1.5; color: #cbd5e1; }
+@keyframes rz-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.rz-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+.rz-tabs button { padding: 10px 18px; border-radius: 999px; border: 1px solid var(--border, #e2e8f0); background: var(--card-bg, #fff); color: var(--text-muted, #64748b); font: 800 .85rem inherit; font-family: inherit; cursor: pointer; transition: all .2s; }
+.rz-tabs button:hover { border-color: #0284c7; color: #0284c7; transform: translateY(-1px); }
+.rz-tabs button.on { background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; border-color: transparent; box-shadow: 0 10px 20px -10px rgba(37,99,235,.9); }
+.rz-intro { color: var(--text-muted, #64748b); margin: 0 0 6px; }
+
+/* ---------- Tarjetas de documentos ---------- */
+.rz-cat { margin: 22px 0 10px; font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .7px; color: #0284c7; }
+.rz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.rz-card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; text-align: left; padding: 18px; border-radius: 18px; cursor: pointer; font-family: inherit;
+  background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); color: inherit; box-shadow: var(--shadow, 0 6px 16px -10px rgba(15,23,42,.3));
+  animation: rz-in .5s cubic-bezier(.2,.8,.2,1) both; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+.rz-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, #0284c7, #38bdf8); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+.rz-card:hover { transform: translateY(-4px); border-color: #38bdf8; box-shadow: 0 18px 34px -18px rgba(2,132,199,.7); } .rz-card:hover::before { transform: scaleX(1); }
+.rz-ico { font-size: 1.9rem; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 15px; background: rgba(2,132,199,.1); transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+.rz-card:hover .rz-ico { transform: scale(1.12) rotate(-6deg); }
+.rz-card b { font-size: 1rem; font-weight: 800; } .rz-card small { color: var(--text-muted, #64748b); font-size: .8rem; line-height: 1.45; }
+.rz-best { margin-top: 4px; align-self: flex-start; font-size: .7rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: rgba(34,197,94,.14); color: #16a34a; } .rz-best.nuevo { background: rgba(148,163,184,.18); color: #64748b; }
+
+/* ---------- Barra del documento y caso ---------- */
+.rz-barra { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 4px 0 14px; } .rz-barra h2 { margin: 0; font-size: 1.25rem; font-weight: 800; }
+.rz-volver { border: 1px solid var(--border, #e2e8f0); background: var(--card-bg, #fff); color: #0284c7; padding: 9px 16px; border-radius: 999px; font: 800 .82rem inherit; font-family: inherit; cursor: pointer; transition: all .2s; } .rz-volver:hover { border-color: #0284c7; transform: translateX(-3px); }
+.rz-caso { padding: 18px 20px; margin-bottom: 16px; border-radius: 18px; background: linear-gradient(135deg, rgba(2,132,199,.09), rgba(37,99,235,.05)); border: 1px solid rgba(2,132,199,.3); animation: rz-in .5s both; }
+.rz-caso.trampa { }
+.rz-caso-h { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; } .rz-caso p { margin: 4px 0 8px; line-height: 1.55; font-size: .95rem; }
+.rz-corresponde { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 14px; margin: 8px 0; border-radius: 12px; background: rgba(245,158,11,.14); border: 1px dashed #f59e0b; font-size: .88rem; }
+.rz-datos summary { cursor: pointer; font-weight: 800; font-size: .85rem; color: #0284c7; } .rz-datos ul { margin: 8px 0 0; padding-left: 18px; font-size: .86rem; line-height: 1.7; }
+
+/* ---------- Botones ---------- */
+.rz-btn, .rz-btn-sec { border: none; cursor: pointer; padding: 11px 20px; border-radius: 999px; font: 800 .85rem inherit; font-family: inherit; transition: transform .2s, box-shadow .2s, background .2s; }
+.rz-btn { color: #fff; background: linear-gradient(135deg, #0284c7, #2563eb); box-shadow: 0 10px 20px -10px rgba(37,99,235,.9); } .rz-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 26px -12px rgba(37,99,235,1); } .rz-btn:active { transform: scale(.97); }
+.rz-btn-sec { background: var(--bg-body, #f1f5f9); color: var(--text-main, #0f172a); border: 1px solid var(--border, #e2e8f0); } .rz-btn-sec:hover { border-color: #0284c7; color: #0284c7; transform: translateY(-1px); }
+.rz-acciones { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+
+/* ---------- Mesa: hojas + guía ---------- */
+.rz-mesa { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
+.rz-herr { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.rz-sw { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); font-weight: 800; font-size: .8rem; cursor: pointer; } .rz-sw input { accent-color: #0284c7; }
+.rz-hojas-w { display: flex; flex-direction: column; gap: 26px; align-items: center; } .rz-hojas-w.modelo-w { gap: 18px; }
+.rz-guia { position: sticky; top: 84px; max-height: calc(100vh - 100px); overflow-y: auto; padding: 18px; border-radius: 18px; background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); box-shadow: var(--shadow, none); font-size: .84rem; line-height: 1.5; }
+.rz-guia h3 { margin: 0 0 8px; font-size: 1rem; } .rz-guia h4 { margin: 16px 0 6px; font-size: .78rem; text-transform: uppercase; letter-spacing: .6px; color: #0284c7; }
+.rz-guia ol { margin: 0; padding-left: 20px; } .rz-guia li { margin: 6px 0; }
+.rz-reglas { padding-left: 18px; } .rz-reglas li { color: #b45309; font-weight: 600; }
+.rz-check label { display: flex; gap: 8px; align-items: flex-start; margin: 5px 0; cursor: pointer; } .rz-check input { accent-color: #16a34a; margin-top: 3px; } .rz-check input:checked + span { text-decoration: line-through; opacity: .55; }
+
+/* ---------- LA HOJA DE PAPEL ---------- */
+.rz-hoja { --tinta: #1e3a8a; position: relative; width: min(760px, 100%); padding: 26px 34px 30px 66px; box-sizing: border-box; color: #1f2937; border-radius: 4px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,236,179,.35), transparent 40%), radial-gradient(circle at 92% 96%, rgba(226,232,240,.5), transparent 45%),
+    linear-gradient(#fffef9, #fffdf5);
+  box-shadow: 0 1px 1px rgba(0,0,0,.08), 0 8px 12px -4px rgba(15,23,42,.18), 0 30px 46px -22px rgba(15,23,42,.45); animation: rz-papel .6s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes rz-papel { from { opacity: 0; transform: translateY(18px) rotate(-.6deg); } to { opacity: 1; transform: none; } }
+.rz-hoja::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50px; width: 2px; background: rgba(239,68,68,.35); }             /* margen rojo */
+.rz-hoja::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 4px; box-shadow: inset 0 0 40px rgba(180,140,60,.08); }
+.rz-tit-hoja { position: absolute; top: -13px; left: 20px; padding: 4px 14px; border-radius: 999px; background: #0284c7; color: #fff; font: 800 .72rem inherit; font-family: 'Plus Jakarta Sans', sans-serif; box-shadow: 0 6px 12px -6px rgba(2,132,199,.9); }
+.rz-shake { animation: rz-shake .4s; } @keyframes rz-shake { 20%, 60% { transform: translateX(-4px); } 40%, 80% { transform: translateX(4px); } }
+
+.rz-membrete { display: flex; align-items: center; gap: 14px; padding-bottom: 12px; margin-bottom: 8px; border-bottom: 3px double #0f172a; }
+.rz-mb-logo { display: flex; align-items: center; } .rz-mb-logo .rz-n { height: 52px; } .rz-mb-logo .rz-vec { height: 44px; margin-left: -2px; }
+.rz-mb-txt { display: flex; flex-direction: column; line-height: 1.25; } .rz-mb-txt b { font: 800 1.15rem 'Plus Jakarta Sans', sans-serif; letter-spacing: .3px; color: #0b1220; }
+.rz-mb-txt span { font: 700 .78rem 'Plus Jakarta Sans', sans-serif; color: #0369a1; } .rz-mb-txt small { font: 600 .66rem 'Plus Jakarta Sans', sans-serif; color: #64748b; }
+
+.rz-rp { font: 700 1.9rem 'Times New Roman', serif; font-style: italic; margin: 2px 0 0; color: #0f172a; }
+.rz-campo { display: block; width: 100%; box-sizing: border-box; border: none; outline: none; background: transparent; color: var(--tinta); font-family: 'Caveat', 'Segoe Script', cursive; font-size: 1.6rem; line-height: 32px; padding: 0 6px; resize: none; transition: background .2s; }
+.rz-campo::placeholder { color: rgba(30,58,138,.28); }
+.rz-campo:focus { background: rgba(56,189,248,.07); }
+textarea.rz-lineas, pre.rz-lineas { min-height: 288px; height: 288px; padding: 4px 8px 0; background-image: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(59,130,246,.28) 31px 32px); background-attachment: local; overflow: hidden; white-space: pre-wrap; margin: 0; }
+textarea.rz-centro, pre.rz-centro { text-align: center; height: 128px; background-image: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(59,130,246,.28) 31px 32px); background-attachment: local; margin: 6px 0 0; overflow: hidden; white-space: pre-wrap; }
+.rz-area { position: relative; } .rz-raya { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; color: var(--tinta); }
+.rz-pie { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+.rz-pie label { display: block; font: 700 .7rem 'Plus Jakarta Sans', sans-serif; color: #64748b; text-transform: uppercase; letter-spacing: .4px; margin-top: 8px; }
+.rz-pie .rz-campo { border-bottom: 1px dashed rgba(30,58,138,.45); font-size: 1.35rem; line-height: 30px; }
+.rz-pie-izq { display: flex; flex-direction: column; min-width: 180px; } .rz-pie-der { display: flex; flex-direction: column; align-items: flex-end; min-width: 240px; }
+.rz-pie-der .rz-sello { width: 100%; text-align: right; } .rz-pie-der .rz-campo { text-align: right; }
+.rz-mini { max-width: 190px; }
+.rz-firma { position: relative; width: 300px; max-width: 100%; height: 110px; border-bottom: 2px solid #0f172a; }
+.rz-firma canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+.rz-firma span { position: absolute; right: 4px; bottom: -22px; font: 700 .68rem 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; letter-spacing: .5px; color: #64748b; }
+.rz-limpia { position: absolute; left: 4px; bottom: 4px; width: 26px; height: 26px; border-radius: 50%; border: none; background: rgba(15,23,42,.08); cursor: pointer; }
+.rz-btn-mini { margin-top: 12px; align-self: flex-start; padding: 7px 12px; border-radius: 999px; border: 1px dashed #0284c7; background: rgba(2,132,199,.06); color: #0369a1; font: 700 .74rem 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: all .2s; }
+.rz-btn-mini:hover, .rz-btn-mini.on { background: #0284c7; color: #fff; border-style: solid; }
+.rz-firma.modelo-f svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.rz-pie-izq span { font: 500 1.35rem 'Caveat', cursive; color: var(--tinta); }
+.rz-mini-t { color: var(--text-muted, #64748b); font-size: .85rem; }
+
+/* ---------- Teoría ---------- */
+.rz-teoria { display: flex; flex-direction: column; gap: 12px; }
+.rz-acc { border-radius: 16px; background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); overflow: hidden; }
+.rz-acc summary { cursor: pointer; padding: 14px 18px; font-weight: 800; font-size: .95rem; list-style: none; transition: background .2s; } .rz-acc summary:hover { background: rgba(2,132,199,.06); } .rz-acc summary::-webkit-details-marker { display: none; }
+.rz-acc summary::after { content: '▾'; float: right; transition: transform .3s; color: #0284c7; } .rz-acc[open] summary::after { transform: rotate(180deg); }
+.rz-acc > div { padding: 2px 20px 16px; font-size: .9rem; line-height: 1.6; } .rz-acc ul { padding-left: 20px; } .rz-acc li { margin: 6px 0; }
+
+/* ---------- Resultados ---------- */
+.rz-modal { position: fixed; inset: 0; z-index: 9000; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(2,6,23,.72); backdrop-filter: blur(4px); } .rz-modal.on { display: flex; animation: rz-fade .2s; } @keyframes rz-fade { from { opacity: 0; } }
+.rz-mcard { width: min(560px, 100%); max-height: 90vh; overflow-y: auto; padding: 24px; border-radius: 20px; background: var(--card-bg, #fff); color: var(--text-main, #0f172a); box-shadow: 0 30px 70px -20px rgba(0,0,0,.6); animation: rz-in .35s both; } .rz-mcard.grande { width: min(860px, 100%); }
+.rz-mcard h3 { margin: 0 0 8px; } .rz-mb { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; margin-top: 16px; }
+.rz-opc { display: flex; flex-direction: column; gap: 8px; } .rz-opc button { text-align: left; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border, #e2e8f0); background: var(--bg-body, #f8fafc); color: inherit; font: 600 .88rem inherit; font-family: inherit; cursor: pointer; transition: all .2s; } .rz-opc button:hover { border-color: #0284c7; transform: translateX(4px); }
+.rz-res-h { display: flex; align-items: center; gap: 16px; padding: 14px; border-radius: 16px; margin-bottom: 12px; } .rz-res-h.ok { background: rgba(34,197,94,.12); } .rz-res-h.mal { background: rgba(239,68,68,.1); } .rz-res-h small { display: block; opacity: .75; } .rz-res-h > span { font-size: 2rem; }
+.rz-anillo { --p: 0; width: 84px; height: 84px; border-radius: 50%; display: grid; place-content: center; text-align: center; flex-shrink: 0; background: conic-gradient(#0284c7 calc(var(--p) * 1%), rgba(148,163,184,.3) 0); position: relative; animation: rz-in .6s both; }
+.rz-anillo::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--card-bg, #fff); } .rz-anillo b, .rz-anillo small { position: relative; } .rz-anillo b { font-size: 1.5rem; line-height: 1; } .rz-anillo small { font-size: .65rem; opacity: .7; }
+.rz-checks { list-style: none; margin: 8px 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.rz-checks li { display: flex; gap: 10px; padding: 9px 12px; border-radius: 12px; font-size: .86rem; animation: rz-in .35s both; } .rz-checks li span { font-weight: 900; }
+.rz-checks.mal li { background: rgba(239,68,68,.08); } .rz-checks.mal li span { color: #dc2626; } .rz-checks.bien li { background: rgba(34,197,94,.08); } .rz-checks.bien li span { color: #16a34a; }
+.rz-checks small { display: block; opacity: .8; margin-top: 2px; } .rz-perfecto { font-weight: 800; color: #16a34a; } .rz-lista-neg { font-size: .85rem; line-height: 1.55; }
+
+@media (max-width: 1000px) { .rz-mesa { grid-template-columns: 1fr; } .rz-guia { position: static; max-height: none; } }
+@media (max-width: 640px) { .rz-hoja { padding: 22px 16px 24px 42px; } .rz-hoja::before { left: 30px; } .rz-campo { font-size: 1.35rem; } .rz-firma { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .rz-hero, .rz-card, .rz-hoja, .rz-caso, .rz-checks li { animation: none; } }
+@media print { body * { visibility: hidden; } .rz-hoja, .rz-hoja * { visibility: visible; } .rz-hoja { position: absolute; left: 0; top: 0; } }

@@ -2667,6 +2667,12 @@ Preguntas de opción múltiple de Salud Integral de la Mujer (Ginecología y Obs
         async function iniciarModoConfirmado(modo, sub) {
             if (!modo) return;
 
+            // "Simulador de Recetario": ahora es un simulador aparte, con hoja de recetario interactiva y todos los certificados
+            if (modo.id === 'pase_sala' && sub && sub.id === 'simulador_recetario') {
+                window.location.href = 'recetarios.html?doc=receta&from=examen&modulo=' + encodeURIComponent(getModuloActual());
+                return;
+            }
+
             // Choice y Escrito (sin submodos): Paso 3 de configuración.
             if (modo.id === 'choice' || modo.id === 'escrito') {
                 elegirModalidad(modo.id);
