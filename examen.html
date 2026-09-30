@@ -953,6 +953,7 @@
         }
     </style>
     <link rel="stylesheet" href="css/nika-unificado.css">
+    <link rel="stylesheet" href="css/examen-integridad.css">
 </head>
 <body>
     <canvas id="confetti-canvas"></canvas>
@@ -1076,6 +1077,12 @@
                         <div class="form-group" style="flex: 1;"><label class="form-label">Cantidad de Preguntas:</label><input type="number" id="q-count" class="form-control" value="60" min="5" max="400"></div>
                         <div class="form-group" style="flex: 1;"><label class="form-label">Tiempo Límite (Minutos):</label><input type="number" id="q-time" class="form-control" value="60" min="5" max="180"></div>
                     </div>
+
+                    <label class="ei-opcion" for="cfg-estricto">
+                        <input type="checkbox" id="cfg-estricto" class="ei-toggle-estricto">
+                        <span><b>🔒 Bloquear retroceso de preguntas (Modo Estricto / Una sola vía)</b>
+                        <small>Una vez que avanzás a la siguiente pregunta no podés volver ni cambiar lo respondido. Se elige antes de empezar y queda fijo durante el intento.</small></span>
+                    </label>
 
                     <button id="btn-comenzar" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.15rem;" onclick="startQuiz()">Comenzar Evaluación 🚀</button>
 
@@ -1441,6 +1448,7 @@
     <script src="js/social.js"></script>
 <script src="js/atajos.js"></script>
     <script src="js/examen.js"></script>
+    <script src="js/examIntegridad.js"></script>
     <script src="js/pwa-update.js"></script>
     <script src="data/banco_trauma_superior.js"></script>
     <script src="data/banco_trauma_inferior.js"></script>
@@ -1706,6 +1714,17 @@
             if (isLocalBank) pool = obtenerPoolBancoLocal();
             const modulo = getModuloActual();
 
+            // 0. INTENTO SEGURO (Supabase): el servidor sortea las preguntas, mezcla las opciones de este intento
+            //    y NO envía la respuesta correcta ni la justificación hasta la entrega (RPC examen_iniciar).
+            //    Si el banco todavía no fue importado (sql/examen_integridad.sql), sigue el camino de siempre.
+            let intentoSeguro = null;
+            const estrictoElegido = window.ExamIntegridad ? ExamIntegridad.leerEstricto() : false;
+            if (!isLocalBank && !isDemoForce && window.ExamIntegridad) {
+                const unidadesSrv = upsToFetch.map((u) => unidadesMateria ? String(u) : String(u).padStart(2, '0'));
+                const seg = await ExamIntegridad.iniciarSeguro({ modulo, unidades: unidadesSrv, cantidad: (selectedMode === 'flash') ? 10 : countInput, modo: selectedMode, estricto: estrictoElegido, limiteSeg: timeInput * 60 });
+                if (seg && seg.pool.length) { pool = seg.pool; intentoSeguro = seg; }
+            }
+
             // 1. INTENTO DE CARGA DESDE SUPABASE
             // Nunca para materias con catálogo propio (unidadesMateria, ej. Ginecología):
             // esos bancos todavía no están subidos a Supabase, así que intentar la consulta
@@ -1714,7 +1733,7 @@
             // trayendo preguntas de Cirugía (algún fallback/default del lado de Supabase).
             // Para estas materias vamos directo al punto 2 (JSON local de data/).
             try {
-                if (!isLocalBank && !unidadesMateria && window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
+                if (pool.length === 0 && !isLocalBank && !unidadesMateria && window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
                     const fetchPromises = upsToFetch.map(async (up) => {
                         const upStr = up.toString().padStart(2, '0');
                         try {
@@ -1835,6 +1854,15 @@
 
             buildNavGrid(); renderQuestion(); startTimer();
             if (!isDemoForce && localStorage.getItem('nika_currentUser')) saveProgressLocally();
+            // Anti-cheat + intento en el servidor (started_at) + Modo Estricto elegido en la configuración
+            if (!isDemoForce && window.ExamIntegridad) {
+                ExamIntegridad.iniciar({
+                    modulo, modo: selectedMode, estricto: estrictoElegido, total: currentExam.length, limiteSeg: timeInput * 60,
+                    intento: intentoSeguro ? intentoSeguro.intento : null,
+                    onForzarEntrega: () => submitQuiz(),
+                });
+                renderQuestion();   // repinta ya con el modo estricto (sin botón Anterior)
+            }
         }
 
         function saveProgressLocally() {
@@ -1857,6 +1885,7 @@
                     isExamActive = true;
                     document.getElementById('config-screen').style.display = 'none';
                     document.getElementById('quiz-screen').style.display = 'block';
+                    if (window.ExamIntegridad) ExamIntegridad.reanudar({ onForzarEntrega: () => submitQuiz() });
                     buildNavGrid(); renderQuestion(); startTimer();
                 } else { localStorage.removeItem('nika_active_exam'); }
             }
@@ -1920,6 +1949,8 @@
         }
         function renderQuestionBase() {
             visitedQuestions.add(currentIndex); const q = currentExam[currentIndex]; const container = document.getElementById('question-container');
+            if (window.ExamIntegridad && q && q.tipo !== 'escrito') ExamIntegridad.preguntaMostrada(currentIndex, String(q.q || '').length);
+            const estricto = !!(window.ExamIntegridad && ExamIntegridad.esEstricto());
             const isFlagged = flaggedQuestions[currentIndex]; const currentNote = userNotes[currentIndex] || '';
             _reportarPresenciaUpExamen(/^\d+$/.test(String(q.up)) ? q.up : null);
             
@@ -1946,14 +1977,27 @@
                 </div>
             `;
             const footer = document.getElementById('nav-footer');
-            footer.innerHTML = `<button class="btn btn-outline" ${currentIndex === 0 ? 'disabled style="opacity:0.5"' : ''} onclick="playSound('click'); prevQuestion()">← Anterior</button><button class="btn btn-primary" ${currentIndex === currentExam.length - 1 ? 'onclick="playSound(\'click\'); confirmSubmit()"' : 'onclick="playSound(\'click\'); nextQuestion()"'}>${currentIndex === currentExam.length - 1 ? 'Finalizar Examen' : 'Siguiente →'}</button>`;
+            footer.innerHTML = `${estricto ? '<span class="ei-badge-estricto">🔒 Modo Estricto: sin retroceso</span>' : `<button class="btn btn-outline" ${currentIndex === 0 ? 'disabled style="opacity:0.5"' : ''} onclick="playSound('click'); prevQuestion()">← Anterior</button>`}<button class="btn btn-primary" ${currentIndex === currentExam.length - 1 ? 'onclick="playSound(\'click\'); confirmSubmit()"' : 'onclick="playSound(\'click\'); nextQuestion()"'}>${currentIndex === currentExam.length - 1 ? 'Finalizar Examen' : (estricto ? 'Confirmar y siguiente →' : 'Siguiente →')}</button>`;
             updateNavGridStyles();
         }
 
-        function selectOption(opt) { if (examMode === 'escrito') return; userAnswers[currentIndex] = opt; saveProgressLocally(); updateNavGridStyles(); }
-        function nextQuestion() { if (currentIndex < currentExam.length - 1) { currentIndex++; renderQuestion(); } }
-        function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderQuestion(); } }
-        function goToQuestion(idx) { currentIndex = idx; renderQuestion(); }
+        function selectOption(opt) {
+            if (examMode === 'escrito') return;
+            if (window.ExamIntegridad && ExamIntegridad.estaBloqueada(currentIndex)) return;   // Modo Estricto: ya confirmada
+            userAnswers[currentIndex] = opt;
+            if (window.ExamIntegridad) ExamIntegridad.respuestaElegida(currentIndex);
+            saveProgressLocally(); updateNavGridStyles();
+        }
+        function nextQuestion() {
+            if (currentIndex >= currentExam.length - 1) return;
+            if (window.ExamIntegridad && ExamIntegridad.esEstricto()) {
+                if (userAnswers[currentIndex] === undefined && !confirm('Modo Estricto: si avanzás sin responder, no vas a poder volver a esta pregunta. ¿Continuar?')) return;
+                ExamIntegridad.bloquearPregunta(currentIndex);
+            }
+            currentIndex++; renderQuestion();
+        }
+        function prevQuestion() { if (window.ExamIntegridad && !ExamIntegridad.puedeRetroceder()) return; if (currentIndex > 0) { currentIndex--; renderQuestion(); } }
+        function goToQuestion(idx) { if (window.ExamIntegridad && !ExamIntegridad.puedeIr(idx, currentIndex)) return; currentIndex = idx; renderQuestion(); }
 
         // ================= MODALES =================
         function openHelpModal() { document.getElementById('help-modal').style.display = 'flex'; }
@@ -4904,9 +4948,35 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             submitQuiz();
         }
 
-        function submitQuiz() {
+        let _entregando = false;
+        async function submitQuiz() {
             if (examMode === 'escrito') { submitEscrito(); return; }
-            playSound('success'); 
+            if (_entregando) return;
+            _entregando = true;
+            // Integridad: en intento seguro el servidor corrige (las claves nunca estuvieron en el navegador).
+            // Se hace ANTES de cerrar el examen: si no hay conexión, el alumno puede reintentar sin perder nada.
+            let integ = null;
+            if (window.ExamIntegridad && ExamIntegridad.estado) {
+                try {
+                    const aciertosCli = ExamIntegridad.esSeguro() ? null : currentExam.reduce((n, q, i) => n + (userAnswers[i] === q.correct ? 1 : 0), 0);
+                    integ = await ExamIntegridad.entregar({ exam: currentExam, answers: userAnswers, aciertos: aciertosCli, puntaje: null });
+                    if (integ && integ.detalle) {
+                        // Recién ahora llegan las respuestas correctas y las justificaciones
+                        const letras = ['a', 'b', 'c', 'd', 'e', 'f'];
+                        const porId = {}; integ.detalle.forEach((d) => { porId[d.pregunta_id] = d; });
+                        currentExam.forEach((q) => {
+                            const d = porId[q._pid]; if (!d) return;
+                            const k = q._oids.indexOf(d.correcta);
+                            q.correct = k >= 0 ? letras[k] : 'a'; q.feedback = d.justificacion || 'Sin justificación detallada.';
+                        });
+                    }
+                } catch (e) {
+                    console.error('[Integridad] No se pudo entregar:', e);
+                    _entregando = false;
+                    if (ExamIntegridad.esSeguro()) { alert('No se pudo entregar el examen (¿sin conexión?). Tus respuestas siguen guardadas: revisá tu conexión y volvé a tocar «Finalizar».'); return; }
+                }
+            }
+            _entregando = false;            playSound('success'); 
             clearInterval(timerInterval); 
             isExamActive = false; 
             localStorage.removeItem('nika_active_exam');
@@ -4986,6 +5056,12 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
 
             renderReview('all');
             recordExamStatsLocally(finalScore, totalQuestions);
+            if (integ && integ.estado === 'en_revision') {
+                const av = document.createElement('div');
+                av.style.cssText = 'margin:14px 0;padding:12px 16px;border-radius:12px;background:#fef3c7;border:2px solid #f59e0b;color:#78350f;font-weight:700;font-size:.9rem';
+                av.textContent = '⚠️ Este intento quedó en revisión por incidencias de integridad. Un docente puede validarlo antes de considerarlo definitivo.';
+                const fb = document.getElementById('motivational-feedback'); if (fb && fb.parentNode) fb.parentNode.insertBefore(av, fb);
+            }
 
             // Guarda el resultado en Supabase (por materia y por UP): alimenta Mi Rendimiento,
             // el Radar Clínico y la Curva del Olvido. Si no hay conexión queda en cola y se reintenta.
@@ -5435,6 +5511,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             const isDemo = urlParams.get('mode') === 'demo';
 
             if (confirm("¿Estás seguro de que querés cancelar el examen? Se perderá el progreso actual y no se guardará la nota.")) {
+                if (window.ExamIntegridad) ExamIntegridad.abandonar();
                 // Si es modo demo redirige al index, de lo contrario al campus
                 window.location.href = isDemo ? 'index.html' : 'campus.html'; 
             }

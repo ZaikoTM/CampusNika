@@ -1,0 +1,38 @@
+/* CAMPUS NIKA — Integridad de exámenes (js/examIntegridad.js) */
+
+/* Sin selección de texto en enunciados y opciones mientras el examen está protegido.
+   Los campos de escritura (notas) siguen permitiendo escribir; pegar está bloqueado por JS. */
+body.ei-protegido #quiz-screen,
+body.ei-protegido #question-container,
+body.ei-protegido .q-text,
+body.ei-protegido .q-content-col,
+body.ei-protegido .options-container,
+body.ei-protegido .option-text {
+    -webkit-user-select: none; -moz-user-select: none; user-select: none;
+    -webkit-touch-callout: none;
+}
+body.ei-protegido #quiz-screen textarea,
+body.ei-protegido #quiz-screen input[type="text"] { -webkit-user-select: text; user-select: text; }
+body.ei-protegido #quiz-screen img { -webkit-user-drag: none; user-drag: none; }
+
+/* Modo Estricto: la grilla de preguntas es solo informativa */
+body.ei-estricto #nav-grid .nav-box { pointer-events: none; cursor: not-allowed; }
+body.ei-estricto #nav-grid .nav-box:not(.current) { opacity: .75; }
+.ei-badge-estricto { display: inline-flex; align-items: center; gap: 6px; font-size: .74rem; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: rgba(124,58,237,.12); color: #7c3aed; }
+
+/* Toggle de la pantalla de configuración */
+.ei-opcion { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; margin: 0 0 20px; border-radius: 12px; border: 1px dashed #7c3aed; background: rgba(124,58,237,.06); cursor: pointer; text-align: left; }
+.ei-opcion input { width: 20px; height: 20px; margin-top: 2px; accent-color: #7c3aed; flex-shrink: 0; cursor: pointer; }
+.ei-opcion b { display: block; font-size: .92rem; color: var(--text-main, #0f172a); }
+.ei-opcion small { display: block; margin-top: 2px; font-size: .78rem; line-height: 1.4; color: var(--text-muted, #64748b); }
+
+/* Advertencia / entrega forzada */
+.ei-overlay { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(2, 6, 23, .72); backdrop-filter: blur(4px); animation: ei-in .2s ease; }
+@keyframes ei-in { from { opacity: 0; } }
+.ei-card { width: min(460px, 100%); padding: 28px 26px; border-radius: 20px; text-align: center; box-shadow: 0 30px 70px -20px rgba(0, 0, 0, .6); }
+.ei-amarillo { background: #fef3c7; color: #78350f; border: 3px solid #f59e0b; }
+.ei-rojo { background: #fee2e2; color: #7f1d1d; border: 3px solid #dc2626; }
+.ei-ico { font-size: 2.6rem; margin-bottom: 8px; }
+.ei-msg { margin: 0 0 18px; font-size: 1.02rem; font-weight: 700; line-height: 1.5; }
+.ei-btn { border: none; cursor: pointer; padding: 12px 28px; border-radius: 999px; font-weight: 800; font-size: .95rem; font-family: inherit; background: #d97706; color: #fff; }
+.ei-btn:hover { background: #b45309; }
