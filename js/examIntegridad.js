@@ -99,7 +99,7 @@ const ExamIntegridad = (() => {
     if (document.getElementById('ei-aviso')) return;
     const ov = document.createElement('div');
     ov.id = 'ei-aviso'; ov.className = 'ei-overlay'; ov.setAttribute('role', 'alertdialog'); ov.setAttribute('aria-modal', 'true');
-    ov.innerHTML = `<div class="ei-card ei-amarillo"><div class="ei-ico">⚠️</div><p class="ei-msg"></p><button type="button" class="ei-btn" id="ei-aviso-ok">Entendido</button></div>`;
+    ov.innerHTML = `<div class="ei-card ei-amarillo"><div class="ei-ico">👀⚠️</div><p class="ei-msg"></p><button type="button" class="ei-btn" id="ei-aviso-ok">Entendido</button></div>`;
     ov.querySelector('.ei-msg').textContent = MENSAJE_ADVERTENCIA;
     document.body.appendChild(ov);
     ov.querySelector('#ei-aviso-ok').onclick = () => { ov.remove(); if (st) st.avisadoEn = Date.now(); };
@@ -276,9 +276,51 @@ const ExamIntegridad = (() => {
       res = data;
       console.log('[Integridad] 📨 Entrega confirmada por el servidor · estado:', res.estado, res.motivos && res.motivos.length ? res.motivos : '');
     }
+    const resumen = resumir();
     if (cerrar) { desactivar(); ls.del(CFG.lsIntento); st = null; }
-    return res;
+    return Object.assign({}, res || {}, { resumen });
   }
+  // Resumen de lo que detectó el sistema en este intento (para explicárselo al alumno al terminar)
+  function resumir() {
+    const por = {};
+    (st.incidencias || []).forEach((i) => { por[i.tipo_incidencia] = (por[i.tipo_incidencia] || 0) + 1; });
+    return { total: (st.incidencias || []).length, porTipo: por, forzada: !!st.forzada, avisado: !!st.avisado, segundosFuera: st.segundosFuera || 0, estricto: !!st.estricto };
+  }
+  const ETIQUETAS = {
+    cambio_pestana: ['cambiaste de pestaña o minimizaste la ventana', '🪟'],
+    foco_perdido: ['la ventana del examen perdió el foco (hiciste clic o pasaste a otra aplicación)', '🖱️'],
+    copia_bloqueada: ['intentaste copiar, cortar, pegar, abrir el menú contextual o las herramientas de inspección', '📋'],
+    tiempo_sospechoso: ['respondiste preguntas largas en menos de 2 segundos', '⏱️'],
+  };
+  const MOTIVOS = {
+    tiempo_excedido: 'entregaste después de que se cumpliera el tiempo límite',
+    tiempos_sospechosos: 'varias respuestas fueron demasiado rápidas para haberse leído',
+    incidencias_sobre_umbral: 'acumulaste más incidencias que el máximo permitido',
+    entrega_forzada_por_infracciones: 'reincidiste después de la advertencia y el sistema entregó el examen por vos',
+    tiempos_incoherentes: 'los tiempos registrados no coincidieron con los del servidor',
+  };
+  const escH = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // HTML del cartel final. Devuelve '' si el intento fue limpio.
+  function mensajeFinalHTML(res, info) {
+    if (!res) return '';
+    const r = res.resumen || {};
+    const enRevision = res.estado === 'en_revision';
+    if (!enRevision && !(r.total > 0)) return '';
+    const items = Object.entries(r.porTipo || {}).map(([t, n]) => { const e = ETIQUETAS[t] || [t, '•']; return `<li>${e[1]} ${escH(e[0])} <b>(${n} ${n === 1 ? 'vez' : 'veces'})</b></li>`; });
+    (res.motivos || []).forEach((m) => { if (MOTIVOS[m]) items.push(`<li>🚩 ${escH(MOTIVOS[m])}</li>`); });
+    const porQue = r.forzada
+      ? `<p><b>¿Por qué desaprobaste?</b> Después de la advertencia volvió a detectarse una infracción, así que el sistema cerró y entregó tu examen automáticamente. Las preguntas que no alcanzaste a responder cuentan como incorrectas${info && info.aciertos === 0 ? ', y por eso el resultado es 0%' : ''}.</p>`
+      : '';
+    return `<div class="ei-final">
+      <div class="ei-final-t">👀 Revisión de integridad</div>
+      <p>${enRevision ? 'Este intento quedó <b>en revisión</b>. Un docente puede validarlo antes de considerarlo definitivo.' : 'Durante el examen el sistema registró algunas incidencias.'}</p>
+      ${porQue}
+      ${items.length ? `<p><b>Esto fue lo que detectó el sistema:</b></p><ul>${items.join('')}</ul>` : ''}
+      <p><b>Por favor, no lo vuelvas a hacer.</b> Este simulacro existe para que midas cuánto sabés de verdad: si te ayudás con trampa, el único que se engaña sos vos, y después la práctica clínica no perdona. Rendí siendo honesto, sin salir de la pantalla ni copiar, y el resultado va a reflejar tu nivel real.</p>
+      <p class="ei-final-s">Si fue un error (por ejemplo, un cambio de pestaña accidental), el docente lo va a poder tener en cuenta al revisar.</p>
+    </div>`;
+  }
+
   const esSeguro = () => !!(st && st.origen === 'seguro');
 
   function abandonar() { desactivar(); ls.del(CFG.lsIntento); st = null; }
@@ -299,7 +341,7 @@ const ExamIntegridad = (() => {
 
   return {
     MENSAJE_ADVERTENCIA, leerEstricto, guardarEstricto, montarToggles, esEstricto,
-    registrarIncidencia, iniciar, iniciarSeguro, activar, desactivar, reanudar, abandonar, entregar, esSeguro, fueForzada,
+    registrarIncidencia, mensajeFinalHTML, iniciar, iniciarSeguro, activar, desactivar, reanudar, abandonar, entregar, esSeguro, fueForzada,
     preguntaMostrada, respuestaElegida, puedeIr, puedeRetroceder, bloquearPregunta, estaBloqueada,
     get estado() { return st; },
   };
