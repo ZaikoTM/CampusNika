@@ -1078,20 +1078,6 @@
                         <div class="form-group" style="flex: 1;"><label class="form-label">Tiempo Límite (Minutos):</label><input type="number" id="q-time" class="form-control" value="60" min="5" max="180"></div>
                     </div>
 
-                    <div class="ei-reglas">
-                        <h4>👀 Reglas del examen (leelas antes de empezar)</h4>
-                        <ul>
-                            <li><b>No salgas de la pantalla:</b> cambiar de pestaña, minimizar o pasar a otra aplicación queda registrado.</li>
-                            <li><b>No copies ni pegues:</b> el clic derecho, copiar, cortar, pegar y las herramientas de inspección (F12, Ctrl+U, Ctrl+Shift+I) están bloqueados y también cuentan como incidencia.</li>
-                            <li><b>Nada de capturas:</b> sacar una captura de pantalla (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) o imprimir el examen también dispara la advertencia.</li>
-                            <li><b>Advertencia:</b> a la 3.ª incidencia aparece un aviso amarillo. Si después de eso reincidís, <b>el examen se entrega solo</b> y queda <b>en revisión</b>.</li>
-                            <li>Muchas incidencias, entregar fuera de tiempo o responder preguntas largas en menos de 2 segundos también dejan el intento en revisión.</li>
-                            <li>Una vez que empezás, no podés abandonar la pantalla del examen sin que se registre. Al terminar te vamos a explicar qué detectó el sistema.</li>
-                            <li>Sé honesto: este simulacro es para que midas tu nivel real.</li>
-                        </ul>
-                        <label for="cfg-reglas"><input type="checkbox" id="cfg-reglas"> <span>Leí las reglas y me comprometo a rendir con honestidad.</span></label>
-                    </div>
-
                     <label class="ei-opcion" for="cfg-estricto">
                         <input type="checkbox" id="cfg-estricto" class="ei-toggle-estricto">
                         <span><b>🔒 Bloquear retroceso de preguntas (Modo Estricto / Una sola vía)</b>
@@ -1701,9 +1687,13 @@
 
         async function startQuiz(isDemoForce = false) {
             if (examMode === 'escrito' && !isDemoForce) return startEscrito();
+            // Las reglas se muestran en una ventana emergente y hay que aceptarlas para empezar
             if (!isDemoForce && window.ExamIntegridad) {
-                const okReglas = document.getElementById('cfg-reglas');
-                if (okReglas && !okReglas.checked) { alert('Antes de empezar tenés que leer las reglas y marcar «Leí las reglas y me comprometo a rendir con honestidad».'); okReglas.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+                if (window.__reglasAceptadas) { window.__reglasAceptadas = false; }
+                else {
+                    ExamIntegridad.pedirAceptacion().then((ok) => { if (ok) { window.__reglasAceptadas = true; startQuiz(); } });
+                    return;
+                }
             }
             const btn = document.querySelector('button[onclick="startQuiz()"]');
             if (btn) { btn.innerText = "Cargando preguntas de la Base de Datos..."; btn.disabled = true; }

@@ -50,3 +50,15 @@ body.ei-estricto #nav-grid .nav-box:not(.current) { opacity: .75; }
 
 /* Al imprimir / "guardar como PDF" el examen no se ve */
 @media print { body.ei-protegido * { visibility: hidden !important; } body.ei-protegido::before { content: "Impresión bloqueada · NikaMed"; visibility: visible; display: block; font-size: 24px; padding: 40px; } }
+
+/* Ventana emergente de reglas */
+.ei-reglas-card { width: min(560px, 100%); max-height: 92vh; overflow-y: auto; text-align: left; background: #fffbeb; color: #78350f; border: 3px solid #f59e0b; }
+.ei-reglas-card .ei-ico { text-align: center; margin-bottom: 0; }
+.ei-reglas-t { margin: 0; text-align: center; font-size: 1.3rem; font-weight: 800; }
+.ei-reglas-s { margin: 4px 0 12px; text-align: center; font-size: .85rem; opacity: .85; }
+.ei-reglas-l { margin: 0 0 14px 18px; padding: 0; font-size: .9rem; line-height: 1.5; } .ei-reglas-l li { margin: 6px 0; }
+.ei-reglas-ok { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; margin-bottom: 14px; border-radius: 12px; background: rgba(245,158,11,.15); font-weight: 800; font-size: .9rem; cursor: pointer; }
+.ei-reglas-ok input { width: 20px; height: 20px; margin-top: 1px; accent-color: #d97706; flex-shrink: 0; cursor: pointer; }
+.ei-reglas-b { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+.ei-btn:disabled { opacity: .45; cursor: not-allowed; } .ei-btn:disabled:hover { background: #d97706; }
+.ei-btn-sec { background: #e2e8f0; color: #334155; } .ei-btn-sec:hover { background: #cbd5e1; }

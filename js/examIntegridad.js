@@ -347,6 +347,44 @@ const ExamIntegridad = (() => {
     </div>`;
   }
 
+  // ------------------------------------------------------------------ reglas (ventana emergente previa al examen)
+  // Devuelve una promesa: true si el alumno aceptó las reglas, false si canceló.
+  function pedirAceptacion() {
+    return new Promise((resolve) => {
+      if (document.getElementById('ei-reglas-modal')) return resolve(false);
+      const ov = document.createElement('div');
+      ov.id = 'ei-reglas-modal'; ov.className = 'ei-overlay'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
+      ov.innerHTML = `<div class="ei-card ei-reglas-card">
+        <div class="ei-ico">👀</div>
+        <h3 class="ei-reglas-t">Reglas del examen</h3>
+        <p class="ei-reglas-s">Leelas con atención: se aplican desde el momento en que empezás.</p>
+        <ul class="ei-reglas-l">
+          <li><b>No salgas de la pantalla:</b> cambiar de pestaña, minimizar o pasar a otra aplicación queda registrado.</li>
+          <li><b>No copies ni pegues:</b> el clic derecho, copiar, cortar, pegar y las herramientas de inspección (F12, Ctrl+U, Ctrl+Shift+I) están bloqueados y también cuentan como incidencia.</li>
+          <li><b>Nada de capturas:</b> sacar una captura de pantalla (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) o imprimir el examen también dispara la advertencia.</li>
+          <li><b>Advertencia:</b> a la 3.ª incidencia aparece un aviso amarillo. Si después de eso reincidís, <b>el examen se entrega solo</b> y queda <b>en revisión</b>.</li>
+          <li>Muchas incidencias, entregar fuera de tiempo o responder preguntas largas en menos de 2 segundos también dejan el intento en revisión.</li>
+          <li>Al terminar te vamos a explicar qué detectó el sistema.</li>
+          <li><b>Sé honesto:</b> este simulacro es para que midas tu nivel real.</li>
+        </ul>
+        <label class="ei-reglas-ok"><input type="checkbox" id="ei-reglas-chk"> <span>Leí las reglas y me comprometo a rendir con honestidad.</span></label>
+        <div class="ei-reglas-b">
+          <button type="button" class="ei-btn ei-btn-sec" id="ei-reglas-no">Cancelar</button>
+          <button type="button" class="ei-btn" id="ei-reglas-si" disabled>Acepto y comenzar</button>
+        </div>
+      </div>`;
+      document.body.appendChild(ov);
+      const chk = ov.querySelector('#ei-reglas-chk'), si = ov.querySelector('#ei-reglas-si');
+      const cerrar = (v) => { document.removeEventListener('keydown', onEsc, true); ov.remove(); resolve(v); };
+      const onEsc = (e) => { if (e.key === 'Escape') cerrar(false); };
+      chk.onchange = () => { si.disabled = !chk.checked; };
+      si.onclick = () => { if (chk.checked) cerrar(true); };
+      ov.querySelector('#ei-reglas-no').onclick = () => cerrar(false);
+      document.addEventListener('keydown', onEsc, true);
+      chk.focus();
+    });
+  }
+
   const esSeguro = () => !!(st && st.origen === 'seguro');
 
   function abandonar() { desactivar(); ls.del(CFG.lsIntento); st = null; }
@@ -367,7 +405,7 @@ const ExamIntegridad = (() => {
 
   return {
     MENSAJE_ADVERTENCIA, leerEstricto, guardarEstricto, montarToggles, esEstricto,
-    registrarIncidencia, mensajeFinalHTML, iniciar, iniciarSeguro, activar, desactivar, reanudar, abandonar, entregar, esSeguro, fueForzada,
+    registrarIncidencia, mensajeFinalHTML, pedirAceptacion, iniciar, iniciarSeguro, activar, desactivar, reanudar, abandonar, entregar, esSeguro, fueForzada,
     preguntaMostrada, respuestaElegida, puedeIr, puedeRetroceder, bloquearPregunta, estaBloqueada,
     get estado() { return st; },
   };
