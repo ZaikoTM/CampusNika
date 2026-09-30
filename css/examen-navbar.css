@@ -1,0 +1,72 @@
+/* CAMPUS NIKA — Barra superior de los simuladores (examen.html): botones modernos con animaciones */
+
+.navbar {
+  background: linear-gradient(120deg, #0b1220 0%, #111c33 55%, #0c2a4a 100%);
+  border-bottom: 1px solid rgba(56, 189, 248, .18);
+  box-shadow: 0 10px 30px -14px rgba(2, 132, 199, .55);
+  backdrop-filter: blur(10px);
+}
+.brand-title { letter-spacing: .3px; transition: filter .25s ease, transform .25s ease; }
+.brand-title:hover { filter: drop-shadow(0 0 10px rgba(56, 189, 248, .55)); transform: translateY(-1px); }
+
+.navbar-actions { gap: 10px; }
+.navbar-actions > * { animation: nb-in .5s cubic-bezier(.2, .8, .2, 1) both; }
+.navbar-actions > *:nth-child(1) { animation-delay: .05s; } .navbar-actions > *:nth-child(2) { animation-delay: .1s; }
+.navbar-actions > *:nth-child(3) { animation-delay: .15s; } .navbar-actions > *:nth-child(4) { animation-delay: .2s; }
+.navbar-actions > *:nth-child(5) { animation-delay: .25s; } .navbar-actions > *:nth-child(6) { animation-delay: .3s; }
+.navbar-actions > *:nth-child(7) { animation-delay: .35s; }
+@keyframes nb-in { from { opacity: 0; transform: translateY(-8px) scale(.96); } to { opacity: 1; transform: none; } }
+
+/* Botones de herramientas: cristal + brillo al pasar el mouse */
+.nav-tool-btn, .nav-cancel-btn, .btn-back {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 15px; border-radius: 999px; font: 700 .82rem/1 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: transform .22s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease, background .25s ease, border-color .25s ease, color .2s ease;
+}
+.nav-tool-btn {
+  color: #e2e8f0; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .16);
+  backdrop-filter: blur(6px);
+}
+.nav-tool-btn:hover {
+  transform: translateY(-2px); color: #fff; background: rgba(56, 189, 248, .16); border-color: rgba(56, 189, 248, .55);
+  box-shadow: 0 10px 22px -10px rgba(56, 189, 248, .7);
+}
+/* destello que barre el botón */
+.nav-tool-btn::after, .nav-cancel-btn::after, .btn-back::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; transform: translateX(-120%);
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .28) 50%, transparent 80%);
+  transition: transform .6s ease;
+}
+.nav-tool-btn:hover::after, .nav-cancel-btn:hover::after, .btn-back:hover::after { transform: translateX(120%); }
+.nav-tool-btn:active, .nav-cancel-btn:active, .btn-back:active { transform: translateY(0) scale(.96); box-shadow: none; }
+.nav-tool-btn:focus-visible, .nav-cancel-btn:focus-visible, .btn-back:focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; }
+
+/* Ícono con pequeña animación */
+.nb-ic { display: inline-block; transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.nav-tool-btn:hover .nb-ic, .nav-cancel-btn:hover .nb-ic { transform: scale(1.25) rotate(-8deg); }
+
+/* Cancelar: rojo, con pulso suave al pasar el mouse */
+.nav-cancel-btn {
+  color: #fca5a5; background: rgba(239, 68, 68, .13); border: 1px solid rgba(239, 68, 68, .38);
+}
+.nav-cancel-btn:hover { transform: translateY(-2px); color: #fff; background: rgba(239, 68, 68, .85); border-color: #ef4444; box-shadow: 0 10px 24px -10px rgba(239, 68, 68, .8); }
+
+/* Volver al menú: botón principal con degradado y flecha que se desplaza */
+.btn-back {
+  color: #fff; border: none; padding: 9px 18px;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%); box-shadow: 0 8px 20px -10px rgba(37, 99, 235, .9);
+}
+.btn-back:hover { transform: translateY(-2px); background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%); box-shadow: 0 14px 28px -12px rgba(37, 99, 235, 1); }
+.btn-back .nb-arrow { display: inline-block; transition: transform .25s ease; }
+.btn-back:hover .nb-arrow { transform: translateX(-4px); }
+
+@media (max-width: 720px) {
+  .nav-tool-btn, .nav-cancel-btn, .btn-back { padding: 7px 12px; font-size: .76rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .navbar-actions > * { animation: none; }
+  .nav-tool-btn, .nav-cancel-btn, .btn-back, .nb-ic, .btn-back .nb-arrow, .brand-title { transition: none; }
+  .nav-tool-btn::after, .nav-cancel-btn::after, .btn-back::after { display: none; }
+}

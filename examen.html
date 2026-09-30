@@ -954,6 +954,7 @@
     </style>
     <link rel="stylesheet" href="css/nika-unificado.css">
     <link rel="stylesheet" href="css/examen-integridad.css">
+    <link rel="stylesheet" href="css/examen-navbar.css">
 </head>
 <body>
     <canvas id="confetti-canvas"></canvas>
@@ -966,13 +967,33 @@
         <div class="navbar-actions">
             <span data-nika-net-slot></span>
             <button class="nav-tool-btn" data-guardia-open title="Descargar bancos y vademécum para usar sin conexión">🛡️ Guardia</button>
-            <button onclick="confirmarCancelacionExamen()" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">✕ Cancelar Examen</button>
+            <button type="button" class="nav-cancel-btn" onclick="confirmarCancelacionExamen()" title="Cancelar el examen">✕ Cancelar Examen</button>
             <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
             <button class="nav-tool-btn" onclick="toggleFocusMode()" title="Modo Enfoque (Pantalla Completa)">🔍 Enfoque</button>
             <button class="nav-tool-btn" onclick="openHelpModal()" title="Atajos de Teclado">❓ Atajos</button>
             <a href="cirugia_hub.html" class="btn-back" id="btn-menu-materia">← Menú Cirugía</a>
         </div>
     </header>
+
+    <script>
+    // Envuelve el ícono inicial de los botones de la barra para animarlo (y lo vuelve a hacer si toggleAudio cambia el texto)
+    (function () {
+        const RE = /^(\p{Extended_Pictographic}\uFE0F?|✕|←)\s*(.*)$/u;
+        function envolver(b) {
+            if (b.querySelector(':scope > .nb-ic, :scope > .nb-arrow')) return;
+            const t = b.textContent.trim(), m = RE.exec(t);
+            if (!m) return;
+            const esFlecha = m[1] === '←';
+            b.innerHTML = `<span class="${esFlecha ? 'nb-arrow' : 'nb-ic'}" aria-hidden="true">${m[1]}</span><span class="nb-tx">${m[2]}</span>`;
+        }
+        function todos() { document.querySelectorAll('.navbar-actions .nav-tool-btn, .navbar-actions .nav-cancel-btn, .navbar-actions .btn-back').forEach(envolver); }
+        document.addEventListener('DOMContentLoaded', () => {
+            todos();
+            const barra = document.querySelector('.navbar-actions');
+            if (barra) new MutationObserver(() => todos()).observe(barra, { childList: true, subtree: true, characterData: true });
+        });
+    })();
+    </script>
 
     <main class="container">
         
