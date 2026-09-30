@@ -189,3 +189,46 @@ pre.rz-campo { font-family: 'Caveat', cursive; }
 .rz-sello-res.ok { color: #16a34a; } .rz-sello-res.mal { color: #dc2626; } @keyframes rz-sello { from { opacity: 0; transform: translateY(-50%) rotate(-12deg) scale(2.4); } }
 @media (max-width: 640px) { .rz-sello-res { display: none; } }
 @media (prefers-reduced-motion: reduce) { .rz-hero::before, .rz-hero::after, .rz-hero-logo, .rz-ico, .rz-acciones .rz-btn, .rz-anillo, .rz-sello-res, .rz-best i { animation: none; } }
+
+/* ===== v3: portada más aireada + caso clínico destacado ===== */
+.rz-wrap { padding-top: 14px; }
+.rz-hero { margin-bottom: 26px; }
+.rz-tabs { margin-bottom: 26px; }
+.rz-franja { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 6px 4px 22px; margin-bottom: 14px; border-bottom: 1px solid var(--border, #e2e8f0); }
+.rz-stats { display: flex; gap: 10px; flex-wrap: wrap; margin: 0; }
+.rz-stat { padding: 8px 16px 8px 10px; gap: 10px; border-radius: 999px; background: var(--card-bg, #fff); }
+.rz-stat > span { width: 34px; height: 34px; font-size: 1.05rem; border-radius: 50%; }
+.rz-stat b { font-size: 1.05rem; display: inline; margin-right: 6px; } .rz-stat small { font-size: .74rem; } .rz-stat div { display: flex; align-items: baseline; }
+.rz-flujo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: .8rem; font-weight: 700; color: var(--text-muted, #64748b); }
+.rz-paso-i { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(2,132,199,.08); animation: rz-in .5s both; } .rz-paso-i i { font-style: normal; }
+.rz-flecha { color: #0284c7; animation: rz-flecha 1.6s ease-in-out infinite; } @keyframes rz-flecha { 50% { transform: translateX(4px); } }
+.rz-h2 { margin: 22px 0 2px; font-size: 1.35rem; font-weight: 800; } .rz-intro { margin: 0 0 18px; }
+.rz-filtros { margin: 10px 0 24px; }
+.rz-grid { gap: 22px; }
+.rz-card { min-height: 224px; }
+
+/* Caso clínico: protagonista de la pantalla */
+@property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.rz-caso { position: relative; padding: 3px; margin: 6px 0 26px; border: none; border-radius: 26px; background: conic-gradient(from var(--ang), #0ea5e9, #6366f1, #22d3ee, #0ea5e9); animation: rz-gira 6s linear infinite, rz-entra .7s cubic-bezier(.2,.8,.2,1) both; box-shadow: 0 26px 50px -28px rgba(14,165,233,.85); }
+@keyframes rz-gira { to { --ang: 360deg; } } @keyframes rz-entra { from { opacity: 0; transform: translateY(22px) scale(.98); } }
+.rz-caso.trampa { background: conic-gradient(from var(--ang), #f59e0b, #ef4444, #fbbf24, #f59e0b); box-shadow: 0 26px 50px -28px rgba(245,158,11,.9); }
+.rz-caso-in { display: flex; gap: 22px; align-items: flex-start; padding: 22px 26px; border-radius: 23px; background: linear-gradient(135deg, var(--card-bg, #fff) 0%, color-mix(in srgb, var(--card-bg, #fff) 88%, #0ea5e9) 100%); }
+.rz-avatar { flex-shrink: 0; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; font: 800 1.7rem 'Plus Jakarta Sans', sans-serif; color: #fff; background: linear-gradient(135deg, hsl(var(--h), 80%, 52%), hsl(calc(var(--h) + 40), 85%, 42%)); box-shadow: 0 0 0 5px color-mix(in srgb, hsl(var(--h), 80%, 52%) 25%, transparent), 0 14px 26px -12px hsl(var(--h), 80%, 40%); animation: rz-avatar 3.2s ease-in-out infinite; }
+@keyframes rz-avatar { 50% { transform: scale(1.05); box-shadow: 0 0 0 10px color-mix(in srgb, hsl(var(--h), 80%, 52%) 12%, transparent), 0 14px 26px -12px hsl(var(--h), 80%, 40%); } }
+.rz-caso-main { flex: 1; min-width: 0; }
+.rz-caso-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.rz-caso-badge { display: inline-flex; align-items: center; gap: 8px; font: 800 .7rem 'Plus Jakarta Sans', sans-serif; letter-spacing: 1px; color: #0369a1; padding: 5px 12px; border-radius: 999px; background: rgba(14,165,233,.14); }
+.rz-caso.trampa .rz-caso-badge { color: #b45309; background: rgba(245,158,11,.18); }
+.rz-caso-badge i { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: rz-vivo 1.6s ease-out infinite; } @keyframes rz-vivo { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,.7); } 100% { box-shadow: 0 0 0 10px rgba(34,197,94,0); } }
+.rz-nuevo { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border, #e2e8f0); background: var(--bg-body, #f8fafc); color: var(--text-main, #0f172a); padding: 8px 14px; border-radius: 999px; font: 800 .78rem inherit; font-family: inherit; cursor: pointer; transition: all .2s; }
+.rz-nuevo:hover { border-color: #0284c7; color: #0284c7; transform: translateY(-1px); } .rz-nuevo:hover span { display: inline-block; animation: rz-dado .6s ease; } @keyframes rz-dado { to { transform: rotate(360deg); } }
+.rz-caso-nombre { margin: 12px 0 8px; font-size: clamp(1.3rem, 2.6vw, 1.75rem); font-weight: 800; letter-spacing: -.3px; }
+.rz-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.rz-chips span { padding: 5px 12px; border-radius: 999px; font-size: .78rem; font-weight: 700; background: rgba(14,165,233,.1); color: #0369a1; border: 1px solid rgba(14,165,233,.25); animation: rz-in .45s both; }
+.rz-chips span:nth-child(2) { animation-delay: .08s; } .rz-chips span:nth-child(3) { animation-delay: .16s; } .rz-chips span:nth-child(4) { animation-delay: .24s; }
+.rz-caso-texto { margin: 0 0 6px; padding: 12px 16px; font-size: 1rem; line-height: 1.6; border-left: 4px solid #0ea5e9; border-radius: 6px 14px 14px 6px; background: rgba(14,165,233,.07); animation: rz-in .55s .15s both; }
+.rz-caso.trampa .rz-caso-texto { border-left-color: #f59e0b; background: rgba(245,158,11,.09); }
+.rz-caso .rz-datos { margin-top: 10px; }
+.rz-corresponde { animation: rz-in .5s .3s both; }
+@media (max-width: 720px) { .rz-caso-in { flex-direction: column; padding: 18px; } .rz-avatar { width: 60px; height: 60px; font-size: 1.3rem; } }
+@media (prefers-reduced-motion: reduce) { .rz-caso, .rz-avatar, .rz-flecha, .rz-caso-badge i { animation: none; } }

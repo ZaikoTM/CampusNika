@@ -19,6 +19,32 @@ const NikaRecetarios = (() => {
   const hoyTxt = () => { const d = new Date(); return { dd: String(d.getDate()).padStart(2, '0'), mm: String(d.getMonth() + 1).padStart(2, '0'), aaaa: String(d.getFullYear()) }; };
   const stats = () => { try { return JSON.parse(localStorage.getItem(LS_STATS) || '{}') || {}; } catch (_) { return {}; } };
   const guardarStat = (id, puntaje) => { try { const s = stats(); const x = s[id] || { mejor: 0, intentos: 0 }; x.mejor = Math.max(x.mejor, puntaje); x.intentos++; s[id] = x; localStorage.setItem(LS_STATS, JSON.stringify(s)); } catch (_) {} };
+
+  // Cada intento se guarda también en Supabase (tabla exam_results) por NikaRendimiento: suma a «Mi Rendimiento Académico»,
+  // se sincroniza entre dispositivos y, sin conexión, queda en la cola offline y se sube solo.
+  const MODULO = () => (new URLSearchParams(location.search).get('modulo') || 'clinica');
+  async function subirIntento(id, pct, correctos, total, segundos) {
+    try {
+      if (!window.NikaRendimiento) return;
+      await window.NikaRendimiento.guardarExamen({ modulo: 'clinica', mode: `recetario_${id}`, total, correct: correctos, blank: 0, score: correctos, scorePct: pct, durationSeconds: segundos });
+      console.log('[Recetarios] ✅ Intento guardado (Mi Rendimiento):', id, pct);
+    } catch (e) { console.warn('[Recetarios] No se pudo guardar el intento:', e && e.message); }
+  }
+  // Trae de Supabase los mejores puntajes (otros dispositivos) y los fusiona con los locales
+  async function sincronizarStats() {
+    try {
+      const c = window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase);
+      if (!c || !navigator.onLine) return;
+      const { data: { session } } = await c.auth.getSession(); if (!session) return;
+      const { data, error } = await c.from('exam_results').select('mode, score_pct').eq('user_id', session.user.id).like('mode', 'recetario\\_%').limit(2000);
+      if (error || !data) return;
+      const remoto = {};
+      data.forEach((r) => { const id = String(r.mode).replace(/^recetario_/, ''); if (!R.DOCS[id]) return; const x = remoto[id] || { mejor: 0, intentos: 0 }; x.mejor = Math.max(x.mejor, r.score_pct || 0); x.intentos++; remoto[id] = x; });
+      const local = stats(); let cambio = false;
+      Object.entries(remoto).forEach(([id, x]) => { const l = local[id]; if (!l || l.mejor < x.mejor || l.intentos < x.intentos) { local[id] = { mejor: Math.max(x.mejor, l ? l.mejor : 0), intentos: Math.max(x.intentos, l ? l.intentos : 0) }; cambio = true; } });
+      if (cambio) { localStorage.setItem(LS_STATS, JSON.stringify(local)); if (!docId && vista === 'sim') renderLista(); }
+    } catch (e) { console.warn('[Recetarios] sincronizarStats:', e && e.message); }
+  }
   const toast = (m) => { if (typeof window.showToast === 'function') window.showToast(m); else console.info(m); };
 
   function tieneNombreEnOrden(txt, p) {
@@ -276,11 +302,11 @@ const NikaRecetarios = (() => {
     const prom = hechos ? Math.round(R.ORDEN.filter((id) => s[id]).reduce((a, id) => a + s[id].mejor, 0) / hechos) : 0;
     const intentos = Object.values(s).reduce((a, x) => a + (x.intentos || 0), 0);
     const tile = (ico, val, lab, i) => `<div class="rz-stat" style="animation-delay:${i * 90}ms"><span>${ico}</span><div><b data-cuenta="${val}">${val}</b><small>${lab}</small></div></div>`;
-    return `<div class="rz-stats">${tile('📄', `${hechos}/${R.ORDEN.length}`, 'documentos practicados', 0)}${tile('🎯', `${prom}`, 'promedio de tus mejores notas', 1)}${tile('🔁', `${intentos}`, 'intentos realizados', 2)}</div>`;
+    return `<div class="rz-stats">${tile('📄', `${hechos}/${R.ORDEN.length}`, 'practicados', 0)}${tile('🎯', `${prom}`, 'promedio', 1)}${tile('🔁', `${intentos}`, 'intentos', 2)}</div>`;
   }
   function comoFunciona() {
-    const paso = (n, ico, t, d) => `<div class="rz-paso" style="animation-delay:${n * 110}ms"><span class="rz-paso-n">${n}</span><i>${ico}</i><div><b>${t}</b><small>${d}</small></div></div>`;
-    return `<div class="rz-pasos">${paso(1, '📖', 'Leé la guía', 'Cada documento trae sus pasos y reglas de oro.')}${paso(2, '✍️', 'Completá la hoja', 'Escribí sobre el recetario: firma, sello, fecha…')}${paso(3, '✅', 'Recibí tu corrección', 'Puntaje, errores y el modelo para comparar.')}</div>`;
+    const paso = (n, ico, t) => `<span class="rz-paso-i" style="animation-delay:${n * 110}ms"><i>${ico}</i>${t}</span>`;
+    return `<div class="rz-flujo">${paso(1, '📖', 'Leé la guía', '')}<span class="rz-flecha">→</span>${paso(2, '✍️', 'Completá la hoja', '')}<span class="rz-flecha">→</span>${paso(3, '✅', 'Recibí tu corrección', '')}</div>`;
   }
   function tarjetas() {
     const s = stats(); let n = 0;
@@ -309,7 +335,7 @@ const NikaRecetarios = (() => {
   function renderLista() {
     const root = $('#rz-root'); docId = null;
     if (vista === 'teoria') { root.innerHTML = cabecera() + teoriaHtml(); return; }
-    root.innerHTML = cabecera() + resumenProgreso() + comoFunciona() + `<p class="rz-intro">Elegí qué querés practicar. Cada intento genera un paciente y un caso distintos.</p>${tarjetas()}`;
+    root.innerHTML = cabecera() + `<div class="rz-franja">${resumenProgreso()}${comoFunciona()}</div><h2 class="rz-h2">Elegí qué querés practicar</h2><p class="rz-intro">Cada intento genera un paciente y un caso distintos. Tus notas se guardan en Mi Rendimiento.</p>${tarjetas()}`;
   }
 
   function teoriaHtml() {
@@ -340,20 +366,27 @@ const NikaRecetarios = (() => {
 
   function abrir(id, nuevoCaso = true) {
     const doc = R.DOCS[id]; if (!doc) return;
-    docId = id; if (nuevoCaso) caso = doc.caso();
+    docId = id; if (nuevoCaso) caso = doc.caso(); inicio = Date.now();
     Object.keys(hojas).forEach((k) => delete hojas[k]);
     const f = hoyTxt();
     const root = $('#rz-root');
     root.innerHTML = `
       <div class="rz-barra"><button type="button" class="rz-volver" onclick="NikaRecetarios.lista()">← Volver a los documentos</button><h2>${doc.icono} ${esc(doc.titulo)}</h2></div>
       <section class="rz-caso ${caso.trampa ? 'trampa' : ''}">
-        <div class="rz-caso-h"><b>🩺 Caso clínico</b><div><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.nuevoCaso()">🎲 Nuevo caso</button></div></div>
-        <p>${esc(caso.texto)}</p>
-        ${doc.trampa ? `<div class="rz-corresponde"><span>Antes de escribir: <b>¿corresponde extender este certificado?</b></span><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.negarme()">🚫 No corresponde extenderlo</button></div>` : ''}
-        <details class="rz-datos"><summary>Datos del paciente</summary><ul>
-          <li><b>Apellido y nombre:</b> ${esc(caso.p.nombreCompleto)}</li><li><b>DNI:</b> ${esc(caso.p.dniTxt)}</li><li><b>Edad / sexo:</b> ${caso.p.edad} años · ${caso.p.sexo === 'F' ? 'femenino' : 'masculino'}</li>
-          ${caso.p.obraSocial ? `<li><b>Obra social:</b> ${esc(caso.p.obraSocial)} · <b>Afiliado:</b> ${esc(caso.p.afiliado)}</li>` : '<li><b>Obra social:</b> no tiene</li>'}
-          <li><b>Dirección:</b> ${esc(caso.p.direccion)}</li><li><b>Historia clínica N.°:</b> ${caso.p.hc}</li><li><b>Fecha de hoy:</b> ${f.dd}/${f.mm}/${f.aaaa}</li></ul></details>
+        <div class="rz-caso-in">
+          <div class="rz-avatar" style="--h:${(caso.p.dni % 360)}">${esc((caso.p.nombre[0] || '') + (caso.p.apellido[0] || ''))}</div>
+          <div class="rz-caso-main">
+            <div class="rz-caso-top"><span class="rz-caso-badge"><i></i>CASO CLÍNICO · TU PACIENTE</span><button type="button" class="rz-nuevo" onclick="NikaRecetarios.nuevoCaso()"><span>🎲</span> Nuevo caso</button></div>
+            <h3 class="rz-caso-nombre">${esc(caso.p.nombreCompleto)}</h3>
+            <div class="rz-chips"><span>🎂 ${caso.p.edad} años</span><span>${caso.p.sexo === 'F' ? '♀ femenino' : '♂ masculino'}</span><span>🪪 DNI ${esc(caso.p.dniTxt)}</span><span>🏥 ${caso.p.obraSocial ? esc(caso.p.obraSocial) : 'sin obra social'}</span></div>
+            <p class="rz-caso-texto">${esc(caso.texto)}</p>
+            ${doc.trampa ? `<div class="rz-corresponde"><span>⚖️ Antes de escribir: <b>¿corresponde extender este certificado?</b></span><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.negarme()">🚫 No corresponde extenderlo</button></div>` : ''}
+            <details class="rz-datos"><summary>Ver todos los datos del paciente</summary><ul>
+              <li><b>Apellido y nombre:</b> ${esc(caso.p.nombreCompleto)}</li><li><b>DNI:</b> ${esc(caso.p.dniTxt)}</li><li><b>Edad / sexo:</b> ${caso.p.edad} años · ${caso.p.sexo === 'F' ? 'femenino' : 'masculino'}</li>
+              ${caso.p.obraSocial ? `<li><b>Obra social:</b> ${esc(caso.p.obraSocial)} · <b>Afiliado:</b> ${esc(caso.p.afiliado)}</li>` : '<li><b>Obra social:</b> no tiene</li>'}
+              <li><b>Dirección:</b> ${esc(caso.p.direccion)}</li><li><b>Historia clínica N.°:</b> ${caso.p.hc}</li><li><b>Fecha de hoy:</b> ${f.dd}/${f.mm}/${f.aaaa}</li></ul></details>
+          </div>
+        </div>
       </section>
       <div class="rz-mesa">
         <div class="rz-hojas">
@@ -391,7 +424,7 @@ const NikaRecetarios = (() => {
         ok = k === caso.trampa.razon;
         msg = ok ? `¡Correcto! ${caso.trampa.txt} Te amparás en el Art. 123 del Código de Ética («ciencia y conciencia»). Extenderlo sería un certificado falso (Art. 295 del Código Penal).` : `No era ese el fundamento: ${caso.trampa.txt} Este certificado NO correspondía extenderlo.`;
       } else { ok = false; msg = k === 'nada' ? 'Correcto en el razonamiento, pero entonces tenés que extenderlo: escribí el certificado.' : 'En este caso SÍ había justa causa y constatación clínica: correspondía extender el certificado. Negarlo sin motivo no es adecuado.'; if (k === 'nada') ok = true; }
-      if (caso.trampa) guardarStat(docId + '-negativa', ok ? 100 : 0);
+      if (caso.trampa) { guardarStat(docId + '-negativa', ok ? 100 : 0); subirIntento(docId + '_negativa', ok ? 100 : 0, ok ? 1 : 0, 1, Math.round((Date.now() - inicio) / 1000)); }
       mostrarModal(`<div class="rz-res-h ${ok ? 'ok' : 'mal'}"><span>${ok ? '✅' : '❌'}</span><div><b>${ok ? 'Buen criterio médico' : 'Revisá el criterio'}</b></div></div><p>${esc(msg)}</p><ul class="rz-lista-neg">${T.negativa.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`);
     }));
   }
@@ -403,16 +436,19 @@ const NikaRecetarios = (() => {
     document.body.appendChild(ov); ov.querySelector('[data-x]').onclick = () => ov.remove(); ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
   }
 
+  const obt_ok = (checks) => checks.filter((c) => c.ok).length;
+  let inicio = Date.now();
   function corregir() {
     const doc = R.DOCS[docId];
     if (caso.trampa) {
       mostrarModal(`<div class="rz-res-h mal"><span>⚠️</span><div><b>Este certificado no correspondía</b></div></div><p>${esc(caso.trampa.txt)} Antes de escribir tenías que preguntarte si <b>correspondía o no su extensión</b>. Usá el botón «No corresponde extenderlo».</p>`);
-      guardarStat(docId, 0); return;
+      guardarStat(docId, 0); subirIntento(docId, 0, 0, 1, Math.round((Date.now() - inicio) / 1000)); return;
     }
     const checks = (doc.layout === 'certificado' ? corregirCertificado : CORRECTORES[docId])(doc, caso);
     const total = checks.reduce((a, c) => a + c.peso, 0), obt = checks.filter((c) => c.ok).reduce((a, c) => a + c.peso, 0);
     const pct = Math.round(obt * 100 / total);
     guardarStat(docId, pct);
+    subirIntento(docId, pct, obt_ok(checks), checks.length, Math.round((Date.now() - inicio) / 1000));
     const nivel = pct >= 90 ? ['Excelente', '🏆'] : pct >= 75 ? ['Muy bien', '🥇'] : pct >= 60 ? ['Aprobado', '✅'] : ['A reforzar', '📚'];
     const mal = checks.filter((c) => !c.ok);
     mostrarModal(`<div class="rz-res-h ${pct >= 60 ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos</small></div><span class="rz-sello-res ${pct >= 60 ? 'ok' : 'mal'}">${pct >= 60 ? 'APROBADO' : 'A REFORZAR'}</span></div>
@@ -440,6 +476,7 @@ const NikaRecetarios = (() => {
   function init() {
     const p = new URLSearchParams(location.search);
     if (p.get('doc') && R.DOCS[p.get('doc')]) abrir(p.get('doc')); else renderLista();
+    setTimeout(sincronizarStats, 1500);
     if (p.get('from') === 'examen') { const b = document.getElementById('rz-atras'); if (b) b.style.display = ''; }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();

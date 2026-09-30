@@ -7,7 +7,7 @@ const vm = require('vm');
 function cargar() {
   const ctx = {
     window: {}, document: { readyState: 'complete', addEventListener() {}, querySelector: () => ({ innerHTML: '', querySelectorAll: () => [], addEventListener() {} }), getElementById: () => null },
-    localStorage: { getItem: () => null, setItem() {} }, console, location: { search: '' }, Math, Date, JSON, Object, Array, String, Number, RegExp, Set, Map, URLSearchParams, Event: class {}, Promise,
+    localStorage: { getItem: () => null, setItem() {} }, console, location: { search: '' }, Math, Date, JSON, Object, Array, String, Number, RegExp, Set, Map, URLSearchParams, Event: class {}, Promise, setTimeout: () => 0, navigator: { onLine: false },
   };
   ctx.window = ctx; vm.createContext(ctx);
   vm.runInContext(fs.readFileSync(__dirname + '/../js/recetariosData.js', 'utf8'), ctx);
