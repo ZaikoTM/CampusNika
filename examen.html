@@ -1688,15 +1688,15 @@
         }
 
         async function startQuiz(isDemoForce = false) {
-            if (examMode === 'escrito' && !isDemoForce) return startEscrito();
             // Las reglas se muestran en una ventana emergente y hay que aceptarlas para empezar
             if (!isDemoForce && window.ExamIntegridad) {
                 if (window.__reglasAceptadas) { window.__reglasAceptadas = false; }
                 else {
-                    ExamIntegridad.pedirAceptacion().then((ok) => { if (ok) { window.__reglasAceptadas = true; startQuiz(); } });
+                    ExamIntegridad.pedirAceptacion({ escrito: examMode === 'escrito' }).then((ok) => { if (ok) { window.__reglasAceptadas = true; startQuiz(); } });
                     return;
                 }
             }
+            if (examMode === 'escrito' && !isDemoForce) return startEscrito();
             const btn = document.querySelector('button[onclick="startQuiz()"]');
             if (btn) { btn.innerText = "Cargando preguntas de la Base de Datos..."; btn.disabled = true; }
             if (!isDemoForce) playSound('click');
@@ -4459,6 +4459,11 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             document.getElementById('quiz-screen').style.display = 'block';
             buildNavGrid(); renderQuestion(); startTimer();
             if (localStorage.getItem('nika_currentUser')) saveProgressLocally();
+            // Mismas reglas anti-trampa que el Choice: pestaña, copiar/pegar, capturas, advertencia y entrega forzada
+            if (window.ExamIntegridad) {
+                ExamIntegridad.iniciar({ modulo: getModuloActual(), modo: 'escrito', estricto: ExamIntegridad.leerEstricto(), total: currentExam.length, limiteSeg: segundos, onForzarEntrega: () => submitEscrito() });
+                renderQuestion();
+            }
         }
 
         function htmlEscritoTextarea(idx) {
@@ -4566,8 +4571,17 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
         let _envioEscrito = null;      // { respuestas, segundos, marcadas }
         let _resultadoEscrito = null;  // resultado fusionado (para filtros / reintentos)
 
+        let _entregandoEscrito = false;
         async function submitEscrito() {
+            if (_entregandoEscrito) return;
+            _entregandoEscrito = true;
             EscritoMic.detener(true);
+            window.__integEscrito = null;
+            if (window.ExamIntegridad && ExamIntegridad.estado) {
+                try { window.__integEscrito = await ExamIntegridad.entregar({ exam: currentExam, answers: {}, aciertos: null, puntaje: null }); }
+                catch (e) { console.warn('[Integridad] No se pudo registrar la entrega del escrito:', e && e.message); ExamIntegridad.abandonar(); }
+            }
+            _entregandoEscrito = false;
             playSound('success');
             clearInterval(timerInterval);
             saveProgressLocally();                 // primero se guardan las respuestas (si la IA falla no se pierde nada)
@@ -4846,6 +4860,10 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                         <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 16px;">La corrección la hace una IA y es orientativa: puede equivocarse. Ante cualquier duda, contrastala con la bibliografía de la cátedra.</p>
                     </div>
                 </div>`;
+            if (window.ExamIntegridad && window.__integEscrito) {
+                const htmlInteg = ExamIntegridad.mensajeFinalHTML(window.__integEscrito, { aciertos: null });
+                if (htmlInteg) document.getElementById('result-escrito-body').insertAdjacentHTML('afterbegin', htmlInteg);
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (res.notaFinal !== null && res.notaFinal >= 9.5) triggerConfetti();
         }

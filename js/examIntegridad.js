@@ -349,7 +349,8 @@ const ExamIntegridad = (() => {
 
   // ------------------------------------------------------------------ reglas (ventana emergente previa al examen)
   // Devuelve una promesa: true si el alumno aceptó las reglas, false si canceló.
-  function pedirAceptacion() {
+  function pedirAceptacion(opts) {
+    const escrito = !!(opts && opts.escrito);
     return new Promise((resolve) => {
       if (document.getElementById('ei-reglas-modal')) return resolve(false);
       const ov = document.createElement('div');
@@ -364,6 +365,7 @@ const ExamIntegridad = (() => {
           <li><b>Nada de capturas:</b> sacar una captura de pantalla (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) o imprimir el examen también dispara la advertencia.</li>
           <li><b>Advertencia:</b> a la 3.ª incidencia aparece un aviso amarillo. Si después de eso reincidís, <b>el examen se entrega solo</b> y queda <b>en revisión</b>.</li>
           <li>Muchas incidencias, entregar fuera de tiempo o responder preguntas largas en menos de 2 segundos también dejan el intento en revisión.</li>
+          ${escrito ? '<li><b>Examen escrito:</b> podés tipear o dictar con el micrófono, pero <b>no pegar texto</b> copiado de otro lado.</li>' : ''}
           <li>Al terminar te vamos a explicar qué detectó el sistema.</li>
           <li><b>Sé honesto:</b> este simulacro es para que midas tu nivel real.</li>
         </ul>

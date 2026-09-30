@@ -279,18 +279,22 @@ const ProgramaTemas = (() => {
       .pt-tit { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; font-size: .95rem; font-weight: 800; color: #0f172a; }
       .pt-badge { font-size: .68rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: #e0f2fe; color: #0369a1; }
       .pt-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-      .pt-item { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: .84rem; line-height: 1.45; color: #334155; }
-      .pt-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 800; background: #0284c7; color: #fff; }
-      .pt-item b { color: #0369a1; }
-      .pt-txt { min-width: 0; } .pt-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
-      .pt-pill { font-size: .74rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; line-height: 1.3; }
+      .pt-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .86rem; line-height: 1.45; color: #334155; opacity: 0; animation: pt-in .45s cubic-bezier(.2,.8,.2,1) forwards; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+      .pt-item:hover { transform: translateY(-2px); border-color: #7dd3fc; box-shadow: 0 8px 18px -12px rgba(2,132,199,.55); }
+      @keyframes pt-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+      .pt-t { display: block; font-weight: 800; color: #0369a1; }
+      .pt-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; box-shadow: 0 4px 10px -4px rgba(37,99,235,.7); transition: transform .25s ease; }
+      .pt-item:hover .pt-num { transform: scale(1.12) rotate(-6deg); }
+      .pt-txt { min-width: 0; } .pt-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+      .pt-pill { font-size: .75rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; line-height: 1.3; transition: background .15s, transform .15s; }
+      .pt-pill:hover { background: #e0f2fe; transform: translateY(-1px); }
       body.dark-mode .pt-btn { background: rgba(2,132,199,.15); border-color: rgba(125,211,252,.35); color: #7dd3fc; }
       body.dark-mode .pt-btn:hover { background: rgba(2,132,199,.28); }
       body.dark-mode .pt-panel.on { background: rgba(15,23,42,.6); border-color: rgba(148,163,184,.25); }
       body.dark-mode .pt-tit { color: #f1f5f9; } body.dark-mode .pt-item { background: rgba(30,41,59,.7); border-color: rgba(148,163,184,.2); color: #cbd5e1; }
-      body.dark-mode .pt-item b, body.dark-mode .pt-pill { color: #7dd3fc; } body.dark-mode .pt-pill { background: rgba(2,132,199,.18); border-color: rgba(125,211,252,.3); }
+      body.dark-mode .pt-t, body.dark-mode .pt-pill { color: #7dd3fc; } body.dark-mode .pt-pill { background: rgba(2,132,199,.18); border-color: rgba(125,211,252,.3); }
       body.dark-mode .pt-chip { background: rgba(30,41,59,.7); border-color: rgba(148,163,184,.3); color: #cbd5e1; } body.dark-mode .pt-chip.on { background: #0284c7; color: #fff; }
-      @media (prefers-reduced-motion: reduce) { .pt-panel, .pt-arrow, .pt-in { transition: none; } }
+      @media (prefers-reduced-motion: reduce) { .pt-panel, .pt-arrow, .pt-in, .pt-item { transition: none; animation: none; opacity: 1; } }
     `;
     document.head.appendChild(st);
   }
@@ -306,18 +310,25 @@ const ProgramaTemas = (() => {
     return out.length ? out.slice(0, -1).concat(out.slice(-1)[0].split(/ y (?![^(]*\))/)).map((x) => x.trim()).filter(Boolean) : [];
   }
 
+  const cap = (t) => { const x = String(t).trim().replace(/[.;]+$/, ''); return x.charAt(0).toUpperCase() + x.slice(1); };
+  // Cada eje se muestra SIEMPRE igual: título (primera mayúscula) + píldoras con sus subtemas (primera mayúscula)
+  function separar(t) {
+    const k = t.indexOf(': ');
+    if (k > 0 && k < 90) return { titulo: t.slice(0, k), pills: partes(t.slice(k + 2)) };
+    const punto = t.indexOf('. ');
+    if (punto > 0) return { titulo: t.slice(0, punto), pills: partes(t.slice(punto + 2)) };
+    const larga = /^(.{25,}?\))\s+y\s+(.+)$/.exec(t);
+    if (larga) return { titulo: larga[1], pills: [larga[2]] };
+    const m = /^(.*?)\s*\(([^()]+)\)\s*$/.exec(t);
+    if (m && m[1]) return { titulo: m[1], pills: [m[2]] };
+    return { titulo: t, pills: [] };
+  }
+
   function detalle(datos) {
     return `<h5 class="pt-tit">🎯 ${esc(datos.titulo)} <span class="pt-badge">${datos.temas.length} ejes</span></h5>
       <ul class="pt-list">${datos.temas.map((t, i) => {
-        const k = t.indexOf(': ');
-        let html;
-        if (k > 0 && k < 90) {
-          const pills = partes(t.slice(k + 2));
-          html = `<b>${esc(t.slice(0, k))}</b>` + (pills.length > 1
-            ? `<span class="pt-pills">${pills.map((x) => `<span class="pt-pill">${esc(x)}</span>`).join('')}</span>`
-            : ` ${esc(t.slice(k + 2))}`);
-        } else html = esc(t);
-        return `<li class="pt-item"><span class="pt-num">${i + 1}</span><span class="pt-txt">${html}</span></li>`;
+        const { titulo, pills } = separar(t);
+        return `<li class="pt-item" style="animation-delay:${i * 55}ms"><span class="pt-num">${i + 1}</span><span class="pt-txt"><span class="pt-t">${esc(cap(titulo))}</span>${pills.length ? `<span class="pt-pills">${pills.map((x) => `<span class="pt-pill">${esc(cap(x))}</span>`).join('')}</span>` : ''}</span></li>`;
       }).join('')}</ul>`;
   }
 
