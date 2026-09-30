@@ -21,6 +21,7 @@ const VoiceManager = (() => {
   let micTrack = null, camTrack = null, screenTrack = null, videoActual = null;
   let audioCtx = null, vadTimer = null, statsTimer = null, monitores = new Map();
   let latenciaMs = null;
+  const expulsados = new Set();      // usernames que el anfitrión sacó de esta sala (solo en su dispositivo)
 
   const cliente = () => sb || (sb = (window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase)) || window.supabaseClient);
   const soportado = () => !!(window.RTCPeerConnection && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -42,6 +43,7 @@ const VoiceManager = (() => {
     let p = peers.get(id);
     if (p) { if (meta) { p.meta = { ...p.meta, ...meta }; emit('onPeers', listaPeers()); } return p; }
     if (peers.size >= MAX_PARTICIPANTES - 1) return null; // sala llena
+    if (meta && meta.username && expulsados.has(meta.username)) { enviar('kick', id, {}); return null; }
 
     const pc = new RTCPeerConnection(ICE_CONFIG);
     p = {
@@ -166,7 +168,8 @@ const VoiceManager = (() => {
     handlers = opts.cbs || {};
     silenciosa = !!opts.silenciosa;
     roomId = sala;
-    yo = { id: uid(), meta: { ...meta, muted: false, cam: false, sharing: false } };
+    yo = { id: uid(), meta: { ...meta, muted: false, cam: false, sharing: false, t: Date.now() } };
+    expulsados.clear();
 
     // Micrófono (si se niega el permiso se entra como oyente)
     try {
@@ -189,6 +192,10 @@ const VoiceManager = (() => {
     channel.on('broadcast', { event: 'answer' }, ({ payload }) => { if (payload.to === yo.id) alRecibirDescripcion(payload.from, payload.data); });
     channel.on('broadcast', { event: 'ice-candidate' }, ({ payload }) => { if (payload.to === yo.id) alRecibirIce(payload.from, payload.data); });
     channel.on('broadcast', { event: 'leave' }, ({ payload }) => cerrarPeer(payload.from));
+    channel.on('broadcast', { event: 'kick' }, ({ payload }) => {
+      // Solo obedece si lo manda quien YO veo como anfitrión
+      if (payload.to === yo.id && payload.from === hostId()) { emit('onKicked'); salir(); }
+    });
     channel.on('broadcast', { event: 'join' }, ({ payload }) => { if (payload.data) asegurarPeer(payload.from, payload.data); });
 
     await new Promise((resolve, reject) => {
@@ -210,6 +217,26 @@ const VoiceManager = (() => {
 
     clearInterval(statsTimer); statsTimer = setInterval(medirLatencia, 3000);
     return { peerId: yo.id, silenciosa };
+  }
+
+  // Anfitrión = quien entró primero a la sala (si se va, pasa automáticamente al siguiente)
+  function hostId() {
+    if (!yo) return null;
+    const todos = [{ id: yo.id, t: yo.meta.t }, ...[...peers.values()].map((p) => ({ id: p.id, t: p.meta && p.meta.t }))];
+    todos.sort((a, b) => ((a.t || Infinity) - (b.t || Infinity)) || (a.id < b.id ? -1 : 1));
+    return todos[0].id;
+  }
+  const soyHost = () => !!yo && hostId() === yo.id;
+
+  // Solo el anfitrión puede expulsar. El expulsado no puede volver a entrar mientras el anfitrión siga en la sala.
+  function expulsar(id) {
+    if (!soyHost()) return { ok: false, motivo: 'Solo el anfitrión puede expulsar participantes.' };
+    const p = peers.get(id);
+    if (!p) return { ok: false, motivo: 'Esa persona ya no está en la sala.' };
+    if (p.meta && p.meta.username) expulsados.add(p.meta.username);
+    enviar('kick', id, {});
+    cerrarPeer(id);
+    return { ok: true, nombre: (p.meta && p.meta.nombre) || 'Participante' };
   }
 
   function sincronizarPresencia() {
@@ -299,7 +326,7 @@ const VoiceManager = (() => {
   window.addEventListener('pagehide', () => { if (channel) { try { enviar('leave', '*', null); } catch (_) {} } });
 
   return {
-    soportado, unirse, salir, alternarMic, alternarCamara, alternarPantalla,
+    soportado, unirse, salir, alternarMic, alternarCamara, alternarPantalla, expulsar, hostId, soyHost,
     get sala() { return roomId; }, get yo() { return yo; }, get silenciosa() { return silenciosa; },
     get micActivo() { return !!(micTrack && micTrack.enabled); },
     get camActiva() { return !!camTrack; }, get pantallaActiva() { return !!screenTrack; },

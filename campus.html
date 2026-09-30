@@ -439,6 +439,17 @@
                     </div>
                 </div>
 
+                <!-- ================= USUARIOS EN LÍNEA (últimos 5 min) ================= -->
+                <div class="community-widget" id="dashboard-online-users-widget">
+                    <div class="community-widget-header">
+                        <h4>👥 Usuarios en línea</h4>
+                        <a onclick="renderOnlineUsersWidget()" title="Actualizar">↻ Actualizar</a>
+                    </div>
+                    <div id="dashboard-online-users">
+                        <div class="community-widget-empty">Cargando usuarios en línea...</div>
+                    </div>
+                </div>
+
             <!-- ================= SECCIÓN DE MÓDULOS ================= -->
             <div id="modulos-section">
                 <h2 class="section-title">📚 Plan de Estudios — Módulos por Año</h2>
@@ -1346,6 +1357,7 @@
     <script src="js/assistant.js"></script>
     <script src="js/social.js"></script>
     <script src="js/friendsManager.js"></script>
+    <script src="js/presenciaCampus.js"></script>
     <script src="js/moderacion.js"></script>
     <!-- Modo Guardia Offline-First: IndexedDB + cola de sincronización + descarga por lotes -->
     <script src="js/offlineStorage.js"></script>
@@ -3261,6 +3273,7 @@ async function handleLogout() {
         // Presence (ya filtrado por heartbeat/staleness en pomodoroSyncManager.js),
         // y se repinta cada vez que cambia la presencia, no solo al abrir la página.
         let _dashboardFriendsCache = null;
+        let _ultimaVezAmigos = {};   // { userId: ISO } (ver js/presenciaCampus.js)
 
         async function renderDashboardOnlineFriends() {
             const listBox = document.getElementById('dashboard-online-friends-list');
@@ -3272,6 +3285,7 @@ async function handleLogout() {
             }
             try {
                 _dashboardFriendsCache = await NikaFriends.listFriends();
+                try { _ultimaVezAmigos = window.NikaPresencia ? await window.NikaPresencia.ultimaVezAmigos() : {}; } catch (_) { _ultimaVezAmigos = {}; }
             } catch (err) {
                 console.warn('[renderDashboardOnlineFriends]', err);
                 listBox.innerHTML = '<div class="community-widget-empty">No se pudieron cargar tus amigos.</div>';
@@ -3295,35 +3309,77 @@ async function handleLogout() {
             const usernames = _dashboardFriendsCache.map(f => f.username);
             const online = window.PomodoroSyncManager ? window.PomodoroSyncManager.estadoDeAmigos(usernames) : [];
             const estadoPorUsername = new Map(online.map(o => [o.username, o]));
-            const conectados = _dashboardFriendsCache.filter(f => estadoPorUsername.has(f.username)).slice(0, 5);
-
-            if (!conectados.length) {
-                listBox.innerHTML = '<div class="community-widget-empty">Nadie de tu red está conectado ahora.</div>';
-                return;
-            }
+            const NP = window.NikaPresencia;
+            // "En línea" = presencia en vivo O latido reciente en Supabase (cubre a quien está en otra página)
+            const enLinea = f => estadoPorUsername.has(f.username) || (NP && NP.estaEnLinea(_ultimaVezAmigos[f.id]));
+            const ts = f => _ultimaVezAmigos[f.id] ? new Date(_ultimaVezAmigos[f.id]).getTime() : 0;
+            const ordenados = [..._dashboardFriendsCache].sort((a, b) => (enLinea(b) - enLinea(a)) || (ts(b) - ts(a)));
+            const visibles = ordenados.slice(0, 6);
+            const nOnline = ordenados.filter(enLinea).length;
 
             const esc = NikaFriends.esc;
-            listBox.innerHTML = conectados.map(f => {
+            const cab = document.querySelector('#dashboard-community-widget .community-widget-header h4');
+            if (cab) cab.textContent = `🟢 Compañeros conectados (${nOnline}/${ordenados.length})`;
+            listBox.innerHTML = visibles.map(f => {
                 const displayName = esc(f.fullname);
                 const avatar = esc(f.avatar || DEFAULT_AVATAR);
                 const u = esc(f.username);
                 const estado = estadoPorUsername.get(f.username);
+                const on = enLinea(f);
                 const enPomodoro = estado && estado.pomodoroActivo;
-                const meta = enPomodoro ? (estado.tema ? `🍅 Estudiando: ${esc(estado.tema)}` : '🍅 En Pomodoro activo') : (estado && estado.up ? `📖 Estudiando ${esc(estado.up)}...` : `@${u} · En línea`);
+                let meta;
+                if (!on) meta = `@${u} · ${esc(NP ? NP.haceTiempo(_ultimaVezAmigos[f.id]) : 'desconectado')}`;
+                else if (enPomodoro) meta = estado.tema ? `🍅 Estudiando: ${esc(estado.tema)}` : '🍅 En Pomodoro activo';
+                else if (estado && estado.up) meta = `📖 Estudiando ${esc(estado.up)}...`;
+                else meta = `@${u} · En línea`;
                 return `
-                    <div class="online-friend-item online-friend-item--link" style="display:flex; align-items:center; justify-content:space-between; gap:8px; cursor:pointer;" onclick="abrirPerfilPublico('${esc(f.id)}')" title="Ver perfil de ${displayName}">
+                    <div class="online-friend-item online-friend-item--link" style="display:flex; align-items:center; justify-content:space-between; gap:8px; cursor:pointer; ${on ? '' : 'opacity:.7;'}" onclick="abrirPerfilPublico('${esc(f.id)}')" title="Ver perfil de ${displayName}">
                         <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:0;">
-                            <span class="online-status-dot"></span>
+                            <span class="online-status-dot" style="${on ? '' : 'background:#94a3b8;box-shadow:none;animation:none;'}"></span>
                             <img src="${avatar}" class="online-friend-avatar" alt="${displayName}">
                             <div style="min-width:0;">
                                 <div class="online-friend-name">${displayName}</div>
                                 <div class="online-friend-meta">${meta}</div>
                             </div>
                         </div>
-                        <button class="btn-module nika-pomo-btn" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); abrirMenuPomodoro(event, '${u}')" title="Pomodoro compartido" aria-haspopup="menu">🍅</button>
+                        ${on ? `<button class="btn-module nika-pomo-btn" style="width:auto; flex-shrink:0; padding:4px 8px; font-size:0.68rem; background:#fef3c7; color:#92400e;" onclick="event.stopPropagation(); abrirMenuPomodoro(event, '${u}')" title="Pomodoro compartido">🍅</button>` : ''}
                     </div>`;
             }).join('');
         }
+
+        // ---- Usuarios en línea (últimos 5 minutos): js/presenciaCampus.js + sql/presencia_ultima_vez.sql
+        async function renderOnlineUsersWidget() {
+            const box = document.getElementById('dashboard-online-users');
+            if (!box || !window.NikaPresencia) return;
+            if (!localStorage.getItem('nika_currentUser')) { box.innerHTML = '<div class="community-widget-empty">Iniciá sesión para ver quién está en línea.</div>'; return; }
+            const [total, lista] = await Promise.all([window.NikaPresencia.conteoEnLinea(5), window.NikaPresencia.usuariosEnLinea(5, 40)]);
+            if (total == null) { box.innerHTML = '<div class="community-widget-empty">Todavía no está activado el contador (falta correr sql/presencia_ultima_vez.sql en Supabase).</div>'; return; }
+            const esc = NikaFriends.esc;
+            const misAmigos = new Set((_dashboardFriendsCache || []).map(f => f.id));
+            const yo = (() => { try { return JSON.parse(localStorage.getItem('nika_currentUser')).id; } catch (_) { return null; } })();
+            const ver = lista.slice(0, 12);
+            const otros = Math.max(0, total - ver.length);
+            box.innerHTML = `
+                <div style="font-size:.95rem;font-weight:800;color:var(--text-main);margin-bottom:10px;">${total} usuario${total === 1 ? '' : 's'} online <span style="font-weight:600;color:var(--text-muted);font-size:.8rem;">(últimos 5 minutos)</span></div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    ${ver.map(u => `
+                        <div class="online-friend-item online-friend-item--link" onclick="abrirPerfilPublico('${esc(u.id)}')" title="Ver perfil" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                            <img src="${esc(u.avatar || DEFAULT_AVATAR)}" class="online-friend-avatar" alt="">
+                            <div style="min-width:0;flex:1;">
+                                <div class="online-friend-name">${esc(u.fullname)}${u.id === yo ? ' <small style="color:var(--text-muted)">(vos)</small>' : misAmigos.has(u.id) ? ' <small style="color:#16a34a">· amigo</small>' : ''}</div>
+                                <div class="online-friend-meta">${esc(window.NikaPresencia.haceTiempo(u.last_seen_at))}</div>
+                            </div>
+                            <span style="color:var(--nika-primary);">👁️</span>
+                        </div>`).join('')}
+                    ${otros ? `<div class="community-widget-empty" style="text-align:left;">Otros usuarios (${otros})</div>` : ''}
+                </div>`;
+        }
+        setInterval(() => {
+            if (document.hidden) return;
+            renderOnlineUsersWidget();
+            if (_dashboardFriendsCache && window.NikaPresencia) window.NikaPresencia.ultimaVezAmigos().then(m => { _ultimaVezAmigos = m; _pintarOnlineFriendsDashboard(); }).catch(() => {});
+        }, 60000);
+        setTimeout(renderOnlineUsersWidget, 2500);
 
         function openFriendsModal() {
             if (!localStorage.getItem('nika_currentUser')) { alert("Iniciá sesión para usar la comunidad."); return; }
@@ -3549,6 +3605,16 @@ async function handleLogout() {
                     </div>
                 </div>`;
             }).join('');
+            // Última vez activo (los que están en línea los pisa el evento de presencia en vivo)
+            if (window.NikaPresencia) window.NikaPresencia.ultimaVezAmigos().then(mapa => {
+                friends.forEach(u => {
+                    const el = listBox.querySelector(`[data-presence-user="${CSS.escape(u.username)}"]`);
+                    if (!el || !mapa[u.id]) return;
+                    const txt = `@${u.username} · ${window.NikaPresencia.haceTiempo(mapa[u.id])}`;
+                    el.setAttribute('data-fallback', txt);
+                    if (el.textContent === `@${u.username}`) el.textContent = txt;
+                });
+            }).catch(() => {});
         }
 
         // Pastilla "🤝 N amigos" dentro del modal de Mi Perfil (ver abajo, junto a openProfileModal)
@@ -5462,7 +5528,7 @@ async function handleLogout() {
         abrirPerfilPublico, closePublicProfileModal, volverDesdePerfilPublico,
         openChatWithFriend, closePrivateChatModal, sendPrivateMessage, handlePcComposerKeydown, autoResizePcComposer,
         openDmInboxModal, closeDmInboxModal, actualizarBadgeMensajes, instalarAppNika, instalarAppNikaDesdeBanner,
-        initCommunityPresence, unirseAlPomodoroDe, abrirMenuPomodoro, pomodoroInvitarComoHost, pomodoroAcompanarComoInvitado, closePomodoroSyncModal, NikaOnboarding,
+        initCommunityPresence, renderOnlineUsersWidget, unirseAlPomodoroDe, abrirMenuPomodoro, pomodoroInvitarComoHost, pomodoroAcompanarComoInvitado, closePomodoroSyncModal, NikaOnboarding,
         minimizePrivateChat, handleChatFabClick, actualizarVisibilidadChatFab,
         openAdminUsersModal, closeAdminUsersModal, filterAdminUsersList, cargarAdminUsuarios, refrescarStatUsuarios
     });
