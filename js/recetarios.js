@@ -277,11 +277,11 @@ const NikaRecetarios = (() => {
     const btn = art.querySelector('[data-accion="raya"]'); btn.classList.toggle('on', !!st.raya);
     svg.innerHTML = '';
     if (!st.raya) return;
-    const lh = 32; const total = ta.clientHeight; const h0 = ta.style.height; ta.style.height = '0px'; const usado = Math.min(total, Math.ceil((ta.scrollHeight - 12) / lh) * lh + 6); ta.style.height = h0;
+    const lh = 32; const total = ta.clientHeight; const h0 = ta.style.height, m0 = ta.style.minHeight; ta.style.height = '0px'; ta.style.minHeight = '0px'; const usado = Math.min(total, Math.ceil((ta.scrollHeight - 12) / lh) * lh + 6); ta.style.height = h0; ta.style.minHeight = m0;
     const y0 = Math.max(usado, 12), w = ta.clientWidth - 24; if (y0 >= total - 8) return;
-    let d = `M 12 ${y0 + 10}`; const paso = 22; let x = 12, arriba = false; const yTop = y0 + 8, yBot = total - 8;
-    while (x < w + 12) { x += paso; d += ` L ${Math.min(x, w + 12)} ${arriba ? yTop : yBot}`; arriba = !arriba; }
-    svg.setAttribute('viewBox', `0 0 ${ta.clientWidth} ${total}`); svg.innerHTML = `<path d="${d}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" opacity=".8"/>`;
+    const filas = Math.floor((total - y0) / lh); let d = '';
+    for (let f = 0; f < filas; f++) { const yy = y0 + f * lh + 20; d += `M 12 ${yy}`; for (let x = 12; x < w + 12; x += 14) d += ` Q ${x + 7} ${yy + ((x / 14) % 2 ? -5 : 5)} ${x + 14} ${yy}`; }
+    svg.setAttribute('viewBox', `0 0 ${ta.clientWidth} ${total}`); svg.innerHTML = `<path d="${d}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".85"/>`;
   }
   function firmaCanvas(cv, st) {
     const ctx = cv.getContext('2d'); let dib = false; ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1e3a8a';
@@ -293,7 +293,7 @@ const NikaRecetarios = (() => {
   }
 
   // ------------------------------------------------------------------ pantalla principal
-  let filtro = 'Todos';
+  let filtro = 'Todos', compartido = false;
   const CATS = ['Todos', 'Recetas', 'Solicitudes', 'Certificados por enfermedad', 'Certificados de aptitud'];
   const COLOR_CAT = { 'Recetas': '#0ea5e9', 'Solicitudes': '#8b5cf6', 'Certificados por enfermedad': '#f59e0b', 'Certificados de aptitud': '#10b981' };
 
@@ -364,14 +364,16 @@ const NikaRecetarios = (() => {
     </aside>`;
   }
 
-  function abrir(id, nuevoCaso = true) {
+  function abrir(id, nuevoCaso = true, casoDado = null) {
     const doc = R.DOCS[id]; if (!doc) return;
-    docId = id; if (nuevoCaso) caso = doc.caso(); inicio = Date.now();
+    if (casoDado) { caso = casoDado; nuevoCaso = false; }
+    docId = id; if (nuevoCaso) { caso = doc.caso(); compartido = false; } inicio = Date.now();
     Object.keys(hojas).forEach((k) => delete hojas[k]);
     const f = hoyTxt();
     const root = $('#rz-root');
     root.innerHTML = `
-      <div class="rz-barra"><button type="button" class="rz-volver" onclick="NikaRecetarios.lista()">← Volver a los documentos</button><h2>${doc.icono} ${esc(doc.titulo)}</h2></div>
+      <div class="rz-barra"><button type="button" class="rz-volver" onclick="NikaRecetarios.atras()">← Volver</button><h2>${doc.icono} ${esc(doc.titulo)}</h2></div>
+      ${compartido ? '<div class="rz-banner">🔗 <b>Caso compartido por un compañero.</b> Resolvelo y compará tu resultado con el suyo.</div>' : ''}
       <section class="rz-caso ${caso.trampa ? 'trampa' : ''}">
         <div class="rz-caso-in">
           <div class="rz-avatar" style="--h:${(caso.p.dni % 360)}">${esc((caso.p.nombre[0] || '') + (caso.p.apellido[0] || ''))}</div>
@@ -438,23 +440,64 @@ const NikaRecetarios = (() => {
 
   const obt_ok = (checks) => checks.filter((c) => c.ok).length;
   let inicio = Date.now();
+  // ------------------------------------------------------------------ resultados: áreas, sugerencias y acciones
+  let ultimo = null;   // { pct, nivel, checks, segundos } del último intento corregido (lo usa el módulo de compartir)
+  const AREAS = [
+    ['Datos del paciente', '🪪', /apellido|nombre|dni|documento|obra social|afiliado|edad|sexo|historia|direcci/i],
+    ['Contenido y redacción', '✍️', null],
+    ['Cierre: firma, sello y fecha', '🖋️', /firma|raya|sello|matr[ií]cula|fecha|hora/i],
+  ];
+  function areaDe(label) { for (const a of AREAS) if (a[2] && a[2].test(label)) return a[0]; return 'Contenido y redacción'; }
+  function porAreas(checks) {
+    return AREAS.map(([n, ico]) => {
+      const cs = checks.filter((c) => areaDe(c.label) === n); if (!cs.length) return null;
+      const tot = cs.reduce((a, c) => a + c.peso, 0), ok = cs.filter((c) => c.ok).reduce((a, c) => a + c.peso, 0);
+      return { nombre: n, ico, pct: Math.round(ok * 100 / tot), ok: cs.filter((c) => c.ok).length, total: cs.length };
+    }).filter(Boolean);
+  }
+  function sugerencias(doc, checks, areas) {
+    const mal = checks.filter((c) => !c.ok).sort((a, b) => b.peso - a.peso);
+    const out = mal.slice(0, 3).map((c, i) => ({ t: `Prioridad ${i + 1}: ${c.label}`, d: c.tip || '' }));
+    const cierre = areas.find((a) => a.nombre.startsWith('Cierre'));
+    if (cierre && cierre.pct < 100) out.push({ t: 'Practicá el cierre del documento', d: 'Firmá al terminar el texto, rayá el espacio libre, colocá el sello, la matrícula, la fecha y la hora, siempre sin dejar espacios en blanco.' });
+    if (!lapicera) out.push({ t: 'Probá el modo lapicera', d: 'En el examen real no se puede borrar: activá «Modo lapicera» y salvá los errores con «Digo…».' });
+    if (!mal.length) out.push({ t: '¡Desafiá a un compañero!', d: 'Compartí tu resolución y el link del caso: así comparan cómo lo resolvió cada uno.' });
+    else out.push({ t: 'Recordá las reglas de oro', d: doc.reglas.join(' ') });
+    return out;
+  }
+  const navBtns = () => `<button type="button" class="rz-btn-sec" onclick="NikaRecetarios.modelo()">👁️ Ver modelo</button><button type="button" class="rz-btn-sec" onclick="document.getElementById('rz-modal-res').remove();NikaRecetarios.nuevoCaso()">🎲 Nuevo caso</button><button type="button" class="rz-btn-sec" onclick="document.getElementById('rz-modal-res').remove();NikaRecetarios.lista()">← Volver a los documentos</button>`;
+  const WA_SVG = '<svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.3.6 4.4 1.8 6.3L3 29l7.4-1.9c1.8 1 3.7 1.5 5.6 1.5 7 0 12.7-5.6 12.7-12.5S23 3 16 3zm0 22.9c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.4 1.1 1.2-4.2-.3-.4a10.1 10.1 0 01-1.6-5.4C5.5 9.8 10.2 5.3 16 5.3s10.5 4.5 10.5 10.1S21.8 25.9 16 25.9zm5.8-7.5c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.4 8.4 0 01-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3 2 3.1 4.9 4.3c1.8.8 2.5.8 3.4.7.5-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.4z"/></svg>';
+
   function corregir() {
     const doc = R.DOCS[docId];
     if (caso.trampa) {
-      mostrarModal(`<div class="rz-res-h mal"><span>⚠️</span><div><b>Este certificado no correspondía</b></div></div><p>${esc(caso.trampa.txt)} Antes de escribir tenías que preguntarte si <b>correspondía o no su extensión</b>. Usá el botón «No corresponde extenderlo».</p>`);
-      guardarStat(docId, 0); subirIntento(docId, 0, 0, 1, Math.round((Date.now() - inicio) / 1000)); return;
+      const seg = Math.round((Date.now() - inicio) / 1000);
+      ultimo = { pct: 0, nivel: 'A reforzar', checks: [{ ok: false, peso: 1, label: 'Corresponde o no extender el certificado', tip: caso.trampa.txt }], segundos: seg, trampa: true };
+      mostrarModal(`<div class="rz-res-h mal"><span>⚠️</span><div><b>Este certificado no correspondía</b></div></div><p>${esc(caso.trampa.txt)} Antes de escribir tenías que preguntarte si <b>correspondía o no su extensión</b>. Usá el botón «No corresponde extenderlo».</p>`, navBtns());
+      guardarStat(docId, 0); subirIntento(docId, 0, 0, 1, seg); return;
     }
     const checks = (doc.layout === 'certificado' ? corregirCertificado : CORRECTORES[docId])(doc, caso);
     const total = checks.reduce((a, c) => a + c.peso, 0), obt = checks.filter((c) => c.ok).reduce((a, c) => a + c.peso, 0);
     const pct = Math.round(obt * 100 / total);
+    const seg = Math.round((Date.now() - inicio) / 1000);
     guardarStat(docId, pct);
-    subirIntento(docId, pct, obt_ok(checks), checks.length, Math.round((Date.now() - inicio) / 1000));
+    subirIntento(docId, pct, obt_ok(checks), checks.length, seg);
     const nivel = pct >= 90 ? ['Excelente', '🏆'] : pct >= 75 ? ['Muy bien', '🥇'] : pct >= 60 ? ['Aprobado', '✅'] : ['A reforzar', '📚'];
-    const mal = checks.filter((c) => !c.ok);
-    mostrarModal(`<div class="rz-res-h ${pct >= 60 ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos</small></div><span class="rz-sello-res ${pct >= 60 ? 'ok' : 'mal'}">${pct >= 60 ? 'APROBADO' : 'A REFORZAR'}</span></div>
-      ${mal.length ? `<h4>Para corregir</h4><ul class="rz-checks mal">${mal.map((c) => `<li><span>✗</span><div><b>${esc(c.label)}</b><small>${esc(c.tip || '')}</small></div></li>`).join('')}</ul>` : '<p class="rz-perfecto">¡Impecable! Cumpliste todos los pasos de la guía.</p>'}
+    ultimo = { pct, nivel: nivel[0], checks, segundos: seg };
+    const mal = checks.filter((c) => !c.ok); const areas = porAreas(checks); const sug = sugerencias(doc, checks, areas);
+    mostrarModal(`<div class="rz-res-h ${pct >= 60 ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos · ${Math.floor(seg / 60)} min ${seg % 60} s</small></div><span class="rz-sello-res ${pct >= 60 ? 'ok' : 'mal'}">${pct >= 60 ? 'APROBADO' : 'A REFORZAR'}</span></div>
+      <div class="rz-compartir"><div class="rz-comp-t">📤 Compartí tu resolución</div><div class="rz-comp-b">
+        <button type="button" class="rz-wa" onclick="RecetariosShare.abrir('whatsapp')"><span class="rz-wa-ic">${WA_SVG}</span><span>Compartir por WhatsApp</span></button>
+        <button type="button" class="rz-dl" onclick="RecetariosShare.abrir('descargar')"><span>⬇️</span> Descargar imagen</button>
+        <button type="button" class="rz-lk" onclick="RecetariosShare.copiarLink(this)"><span>🔗</span> Copiar link del caso</button>
+      </div></div>
+      <h4 class="rz-h4">📊 Cómo te fue por área</h4>
+      <div class="rz-areas">${areas.map((a, i) => `<div class="rz-area-r" style="animation-delay:${i * 90}ms"><div class="rz-area-h"><span>${a.ico} ${esc(a.nombre)}</span><b>${a.pct}%</b></div><div class="rz-area-bar"><i class="${a.pct >= 90 ? 'v' : a.pct >= 60 ? 'a' : 'r'}" style="width:${a.pct}%"></i></div><small>${a.ok} de ${a.total} criterios</small></div>`).join('')}</div>
+      ${mal.length ? `<h4 class="rz-h4">❌ Errores que tuviste</h4><ul class="rz-checks mal">${mal.map((c) => `<li><span>✗</span><div><b>${esc(c.label)}</b><small>${esc(c.tip || '')}</small></div></li>`).join('')}</ul>` : '<p class="rz-perfecto">🎉 ¡Impecable! Cumpliste todos los pasos de la guía.</p>'}
+      <h4 class="rz-h4">💡 Sugerencias para mejorar</h4>
+      <ol class="rz-sugs">${sug.map((x, i) => `<li style="animation-delay:${i * 80}ms"><b>${esc(x.t)}</b><small>${esc(x.d)}</small></li>`).join('')}</ol>
       <details class="rz-acc"><summary>✓ Criterios cumplidos (${checks.length - mal.length})</summary><ul class="rz-checks bien">${checks.filter((c) => c.ok).map((c) => `<li><span>✓</span><div><b>${esc(c.label)}</b></div></li>`).join('')}</ul></details>`,
-    `<button type="button" class="rz-btn-sec" onclick="NikaRecetarios.modelo()">👁️ Ver modelo</button><button type="button" class="rz-btn-sec" onclick="document.getElementById('rz-modal-res').remove();NikaRecetarios.nuevoCaso()">🎲 Nuevo caso</button>`);
+    navBtns());
   }
 
   function modelo() {
@@ -470,16 +513,30 @@ const NikaRecetarios = (() => {
     mostrarModal(`<h3>👁️ Cómo debería quedar</h3><p class="rz-mini-t">Una forma correcta de completarlo (hay otras redacciones válidas, mientras cumplan todos los pasos de la guía).</p><div class="rz-hojas-w modelo-w">${hojasHtml}</div>`);
   }
 
-  function irLista() { renderLista(); }
+  function irLista() { renderLista(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  // Volver: desde un documento → lista; desde la lista → de donde viniste (simulador o campus)
+  function atras() {
+    if (docId) { irLista(); return; }
+    const p = new URLSearchParams(location.search);
+    if (p.get('from') === 'examen') { location.href = 'examen.html?modulo=' + encodeURIComponent(p.get('modulo') || 'cirugia'); return; }
+    if (history.length > 1 && document.referrer) { history.back(); return; }
+    location.href = 'campus.html';
+  }
   function cambiarVista(v) { vista = v; renderLista(); }
 
   function init() {
     const p = new URLSearchParams(location.search);
-    if (p.get('doc') && R.DOCS[p.get('doc')]) abrir(p.get('doc')); else renderLista();
+    const docParam = p.get('doc');
+    if (docParam && R.DOCS[docParam] && p.get('c')) {
+      // Caso compartido: se reconstruye desde el catálogo (nada del link se ejecuta ni se confía a ciegas)
+      const c = R.reconstruir(R.deBase64Url(p.get('c')));
+      if (c && c.tipo === docParam) { compartido = true; abrir(docParam, false, c); }
+      else { renderLista(); toast('⚠️ El link del caso no es válido. Elegí un documento para practicar.'); }
+    } else if (docParam && R.DOCS[docParam]) abrir(docParam); else renderLista();
     setTimeout(sincronizarStats, 1500);
     if (p.get('from') === 'examen') { const b = document.getElementById('rz-atras'); if (b) b.style.display = ''; }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  return { abrir, filtrar, lista: irLista, vista: cambiarVista, nuevoCaso, corregir, modelo, digo, negarme, _test: { corregirCertificado, corregirReceta, corregirPsico, corregirExamenes, modeloDe, hojas, setCaso: (c, id) => { caso = c; docId = id; } } };
+  return { abrir, atras, filtrar, lista: irLista, _api: () => ({ R, doc: R.DOCS[docId], docId, caso, hojas, ultimo, modelo: () => modeloDe(R.DOCS[docId], caso) }), vista: cambiarVista, nuevoCaso, corregir, modelo, digo, negarme, _test: { corregirCertificado, corregirReceta, corregirPsico, corregirExamenes, modeloDe, hojas, setCaso: (c, id) => { caso = c; docId = id; } } };
 })();
 window.NikaRecetarios = NikaRecetarios;

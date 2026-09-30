@@ -158,6 +158,58 @@ const RECETARIOS = (() => {
   ];
   const GENERICOS_PROHIBIDOS = ['perfil lipidico', 'perfil renal', 'perfil hepatico', 'perfil tiroideo', 'rutina', 'laboratorio completo'];
 
+
+  // ------------------------------------------------------------------ casos compartibles (link para que un compañero practique el MISMO caso)
+  // El link NO confía en los datos que trae: cada pieza se reconstruye desde el catálogo interno y se valida.
+  const REPOSO_DX = [{ dx: 'faringoamigdalitis aguda', kw: ['faringoamigdalitis', 'amigdalitis'], h: 48 }, { dx: 'gastroenteritis aguda', kw: ['gastroenteritis'], h: 72 }, { dx: 'síndrome gripal', kw: ['gripal'], h: 48 }];
+  const TXT = /^[\p{L}\d .,'\-\/°()]{1,90}$/u;
+  const num = (x, a, b) => { const n = Number(x); return Number.isInteger(n) && n >= a && n <= b ? n : null; };
+
+  function compactar(c) {
+    const p = c.p;
+    const k = {};
+    if (c.d && (c.tipo === 'receta' || c.tipo === 'psicofarmacos')) k.dci = c.d.dci;
+    if (c.tipo === 'examenes') k.m = c.c.motivo;
+    if (c.tipo === 'ausentismo') { k.dx = c.d.dx; k.dias = c.dias; k.aut = c.aut || null; }
+    if (c.tipo === 'reposo') k.dx = c.d.dx;
+    if (c.tipo === 'conducir') { k.g = c.g; k.rh = c.rh ? 1 : 0; k.veh = c.veh.map((x) => x.v); k.apto = c.apto ? 1 : 0; k.mot = c.motivo || null; }
+    if (c.tipo === 'alimentos') k.aut = c.aut || null;
+    if (c.trampa) k.tr = TRAMPAS.findIndex((t) => t.razon === c.trampa.razon);
+    return { v: 1, t: c.tipo, p: { s: p.sexo, e: p.edad, a: p.apellido, n: p.nombre, d: p.dni, o: p.obraSocial, f: p.afiliado, r: p.direccion, h: p.hc }, k, x: String(c.texto || '').slice(0, 600) };
+  }
+
+  // Devuelve un caso válido o null si el link fue alterado o no corresponde
+  function reconstruir(s) {
+    try {
+      if (!s || s.v !== 1 || !DOCS[s.t]) return null;
+      const q = s.p || {}, k = s.k || {};
+      const sexo = q.s === 'F' || q.s === 'M' ? q.s : null;
+      const edad = num(q.e, 0, 110), dni = num(q.d, 1000000, 99999999), hc = num(q.h, 1, 9999999);
+      if (!sexo || edad == null || dni == null || hc == null) return null;
+      if (![q.a, q.n, q.r].every((x) => typeof x === 'string' && TXT.test(x))) return null;
+      if (q.o != null && !OBRAS_SOCIALES.includes(q.o)) return null;
+      if (q.o != null && !(typeof q.f === 'string' && /^[\d\-\/]{3,30}$/.test(q.f))) return null;
+      const p = { sexo, edad, apellido: q.a, nombre: q.n, dni, dniTxt: fmtDni(dni), obraSocial: q.o || null, afiliado: q.o ? q.f : null, direccion: q.r, hc };
+      p.nombreCompleto = `${p.apellido}, ${p.nombre}`;
+      const c = { tipo: s.t, p, texto: typeof s.x === 'string' ? s.x.slice(0, 600) : '' };
+      const por = (arr, campo, v) => arr.find((x) => x[campo] === v);
+      if (s.t === 'receta') { c.d = por(DROGAS, 'dci', k.dci); if (!c.d) return null; }
+      else if (s.t === 'psicofarmacos') { c.d = por(PSICO, 'dci', k.dci); if (!c.d) return null; c.ocup = OCUPACIONES[0]; }
+      else if (s.t === 'examenes') { c.c = por(LAB_CASOS, 'motivo', k.m); if (!c.c) return null; }
+      else if (s.t === 'ausentismo') { c.d = por(DX_AUSENTISMO, 'dx', k.dx); if (!c.d || !c.d.dias.includes(k.dias)) return null; c.dias = k.dias; c.aut = AUTORIDADES.includes(k.aut) ? k.aut : null; }
+      else if (s.t === 'reposo') { c.d = por(REPOSO_DX, 'dx', k.dx); if (!c.d) return null; }
+      else if (s.t === 'conducir') {
+        if (!GRUPOS.includes(k.g) || !Array.isArray(k.veh)) return null;
+        c.g = k.g; c.rh = !!k.rh; c.veh = k.veh.map((v) => por(VEHICULOS, 'v', v)).filter(Boolean); if (!c.veh.length) return null;
+        c.apto = !!k.apto; c.motivo = c.apto ? null : (NO_APTO.includes(k.mot) ? k.mot : NO_APTO[0]);
+      } else if (s.t === 'alimentos') c.aut = AUTORIDADES.includes(k.aut) ? k.aut : AUTORIDADES[0];
+      if (k.tr != null && k.tr >= 0 && TRAMPAS[k.tr]) c.trampa = TRAMPAS[k.tr];
+      return c;
+    } catch (_) { return null; }
+  }
+  const aBase64Url = (obj) => { const b = btoa(unescape(encodeURIComponent(JSON.stringify(obj)))); return b.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+  const deBase64Url = (t) => { try { const b = String(t).replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(escape(atob(b + '='.repeat((4 - b.length % 4) % 4))))); } catch (_) { return null; } };
+
   // ------------------------------------------------------------------ definición de documentos
   const DOCS = {
     receta: {
@@ -254,7 +306,7 @@ const RECETARIOS = (() => {
         ...P_FIRMA_SELLO,
       ],
       caso() {
-        const p = paciente({ edadMin: 12, edadMax: 40, conOS: false }); const d = azar([{ dx: 'faringoamigdalitis aguda', kw: ['faringoamigdalitis', 'amigdalitis'], h: 48 }, { dx: 'gastroenteritis aguda', kw: ['gastroenteritis'], h: 72 }, { dx: 'síndrome gripal', kw: ['gripal'], h: 48 }]);
+        const p = paciente({ edadMin: 12, edadMax: 40, conOS: false }); const d = azar(REPOSO_DX);
         const tr = Math.random() < 0.15 ? azar(TRAMPAS) : null;
         return { tipo: 'reposo', p, d, trampa: tr, texto: tr ? `${p.nombreCompleto}, DNI ${p.dniTxt}, le pide: «¿${tr.pedido}?». No hay constatación de enfermedad.` : `${p.nombreCompleto}, ${p.edad} años, DNI ${p.dniTxt}, HC N.° ${p.hc}. Cursa una ${d.dx}. Indicás ${d.h} horas de reposo. Para presentar en la institución educativa o laboral.` };
       },
@@ -361,7 +413,7 @@ const RECETARIOS = (() => {
 
   const ORDEN = ['receta', 'psicofarmacos', 'examenes', 'ausentismo', 'reposo', 'conducir', 'buena_salud', 'recreativa', 'competitiva', 'alimentos'];
 
-  return { DOCS, ORDEN, TEORIA, TRAMPAS, NUM_LETRAS, ROMANOS, GENERICOS_PROHIBIDOS, azar, entre, paciente };
+  return { DOCS, ORDEN, TEORIA, TRAMPAS, NUM_LETRAS, ROMANOS, GENERICOS_PROHIBIDOS, azar, entre, paciente, compactar, reconstruir, aBase64Url, deBase64Url };
 })();
 if (typeof window !== 'undefined') window.RECETARIOS = RECETARIOS;
 if (typeof module !== 'undefined' && module.exports) module.exports = { RECETARIOS };

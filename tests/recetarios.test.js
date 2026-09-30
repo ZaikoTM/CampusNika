@@ -7,7 +7,7 @@ const vm = require('vm');
 function cargar() {
   const ctx = {
     window: {}, document: { readyState: 'complete', addEventListener() {}, querySelector: () => ({ innerHTML: '', querySelectorAll: () => [], addEventListener() {} }), getElementById: () => null },
-    localStorage: { getItem: () => null, setItem() {} }, console, location: { search: '' }, Math, Date, JSON, Object, Array, String, Number, RegExp, Set, Map, URLSearchParams, Event: class {}, Promise, setTimeout: () => 0, navigator: { onLine: false },
+    localStorage: { getItem: () => null, setItem() {} }, console, location: { search: '' }, Math, Date, JSON, Object, Array, String, Number, RegExp, Set, Map, URLSearchParams, Event: class {}, Promise, setTimeout: () => 0, navigator: { onLine: false }, btoa: (s) => Buffer.from(s, "binary").toString("base64"), atob: (s) => Buffer.from(s, "base64").toString("binary"), unescape, escape, encodeURIComponent, decodeURIComponent,
   };
   ctx.window = ctx; vm.createContext(ctx);
   vm.runInContext(fs.readFileSync(__dirname + '/../js/recetariosData.js', 'utf8'), ctx);
@@ -68,4 +68,37 @@ test('psicofármacos: la receta de archivo exige DNI, edad y dirección', () => 
   const malos = T.corregirPsico(R.DOCS.psicofarmacos, c).filter((x) => !x.ok).map((x) => x.label);
   assert.ok(malos.some((l) => /R2 · N\.° de DNI/.test(l)));
   assert.ok(malos.some((l) => /R2 · Dirección/.test(l)));
+});
+
+test('el link compartido reconstruye el mismo caso y el modelo sigue aprobando', () => {
+  for (const id of R.ORDEN) {
+    for (let i = 0; i < 40; i++) {
+      const c0 = R.DOCS[id].caso();
+      const seed = JSON.parse(JSON.stringify(R.compactar(c0)));
+      const c1 = R.reconstruir(seed);
+      assert.ok(c1, `no reconstruyó ${id}`);
+      assert.strictEqual(c1.texto, c0.texto);
+      if (c1.trampa) continue;
+      cargarModelo(id, c1);
+      const fallos = corrector(id)(R.DOCS[id], c1).filter((x) => !x.ok);
+      assert.strictEqual(fallos.length, 0, `${id}: ${JSON.stringify(fallos.map((x) => x.label))}`);
+    }
+  }
+});
+
+test('el link rechaza datos alterados (regex maliciosa, catálogo inexistente, tipos raros)', () => {
+  const c = R.DOCS.receta.caso(); const s = JSON.parse(JSON.stringify(R.compactar(c)));
+  const mal = (f) => { const x = JSON.parse(JSON.stringify(s)); f(x); assert.strictEqual(R.reconstruir(x), null); };
+  mal((x) => { x.p.a = '(a+)+$'; });
+  mal((x) => { x.k.dci = 'Inventadol'; });
+  mal((x) => { x.p.e = 'abc'; });
+  mal((x) => { x.t = 'noexiste'; });
+  mal((x) => { x.p.o = 'Obra <script>'; });
+  assert.strictEqual(R.reconstruir(null), null);
+});
+
+test('codificación base64url ida y vuelta con tildes', () => {
+  const o = { a: 'Ñengará · Gómez', n: 5 };
+  assert.strictEqual(JSON.stringify(R.deBase64Url(R.aBase64Url(o))), JSON.stringify(o));
+  assert.strictEqual(R.deBase64Url('%%%'), null);
 });

@@ -22,6 +22,13 @@
             <img src="assets/N%20NIKA.png" alt="NIKA">
             <span>CAMPUS NIKA<small>Recetarios y Certificados</small></span>
         </a>
+        <nav class="rz-nav" aria-label="Navegación">
+            <button type="button" onclick="NikaRecetarios.atras()" title="Volver"><span class="ic">←</span><span class="lbl">Atrás</span></button>
+            <button type="button" id="rz-nav-doc" onclick="NikaRecetarios.vista('sim');NikaRecetarios.lista()"><span class="ic">📝</span><span class="lbl">Documentos</span></button>
+            <button type="button" id="rz-nav-teo" onclick="NikaRecetarios.vista('teoria')"><span class="ic">📚</span><span class="lbl">Guía teórica</span></button>
+            <a href="campus.html" title="Más simuladores"><span class="ic">🩺</span><span class="lbl">Simuladores</span></a>
+            <a href="nikafarma.html" title="NikaFarma"><span class="ic">💊</span><span class="lbl">NikaFarma</span></a>
+        </nav>
         <div class="pl-acciones">
             <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
             <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
@@ -42,6 +49,7 @@
     <script src="js/rendimiento.js"></script>
     <script src="js/recetariosData.js"></script>
     <script src="js/recetarios.js"></script>
+    <script src="js/recetariosShare.js"></script>
     <script src="js/paginaLateral.js"></script>
 </body>
 </html>
