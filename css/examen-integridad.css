@@ -47,3 +47,6 @@ body.ei-estricto #nav-grid .nav-box:not(.current) { opacity: .75; }
 .ei-reglas ul { margin: 0 0 10px 18px; padding: 0; font-size: .85rem; line-height: 1.5; } .ei-reglas li { margin: 4px 0; }
 .ei-reglas label { display: flex; gap: 10px; align-items: flex-start; font-weight: 800; font-size: .88rem; cursor: pointer; }
 .ei-reglas input { width: 18px; height: 18px; margin-top: 2px; accent-color: #d97706; flex-shrink: 0; }
+
+/* Al imprimir / "guardar como PDF" el examen no se ve */
+@media print { body.ei-protegido * { visibility: hidden !important; } body.ei-protegido::before { content: "Impresión bloqueada · NikaMed"; visibility: visible; display: block; font-size: 24px; padding: 40px; } }

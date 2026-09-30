@@ -149,9 +149,30 @@ const ExamIntegridad = (() => {
   const onCopy = (e) => bloquear(e, 'copy');
   const onCut = (e) => bloquear(e, 'cut');
   const onPaste = (e) => bloquear(e, 'paste');
+
+  // ---- Capturas de pantalla: el navegador no puede verlas directamente, así que se detectan las teclas
+  //      habituales (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) y la impresión (Ctrl+P / "Guardar como PDF").
+  function capturaDetectada(tecla) {
+    if (!activo) return;
+    ultimoEvento = Date.now() + 1500;   // el recortador de pantalla hace perder el foco: no se cuenta dos veces
+    try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText('Captura bloqueada · NikaMed').catch(() => {}); } catch (_) {}
+    contarIncidencia('captura_pantalla', { tecla, pregunta: st && st.preguntaActual });
+  }
+  function esAtajoCaptura(e) {
+    const k = (e.key || '').toLowerCase();
+    if (e.key === 'PrintScreen' || e.code === 'PrintScreen') return 'Impr Pant';
+    if (e.metaKey && e.shiftKey && k === 's') return 'Win/Cmd+Shift+S';
+    if (e.metaKey && e.shiftKey && ['3', '4', '5'].includes(k)) return 'Cmd+Shift+' + k;
+    return null;
+  }
+  function onKeyUp(e) { if (!activo) return; const t = esAtajoCaptura(e); if (t) capturaDetectada(t); }
+  const onBeforePrint = () => capturaDetectada('imprimir');
   function onKey(e) {
     if (!activo) return;
     const k = (e.key || '').toLowerCase(), ctrl = e.ctrlKey || e.metaKey;
+    const cap = esAtajoCaptura(e);
+    if (cap && e.key !== 'PrintScreen') { e.preventDefault(); capturaDetectada(cap); return; }
+    if (ctrl && !e.shiftKey && k === 'p') { e.preventDefault(); e.stopPropagation(); capturaDetectada('Ctrl+P'); return; }
     let motivo = null;
     if (e.key === 'F12') motivo = 'F12';
     else if (ctrl && e.shiftKey && ['i', 'j', 'c'].includes(k)) motivo = 'Ctrl+Shift+' + k.toUpperCase();
@@ -169,6 +190,8 @@ const ExamIntegridad = (() => {
     document.addEventListener('contextmenu', onCtx, true);
     document.addEventListener('copy', onCopy, true); document.addEventListener('cut', onCut, true); document.addEventListener('paste', onPaste, true);
     document.addEventListener('keydown', onKey, true);
+    document.addEventListener('keyup', onKeyUp, true);
+    window.addEventListener('beforeprint', onBeforePrint);
   }
   function desactivar() {
     activo = false; enSegundoPlano = null;
@@ -178,6 +201,8 @@ const ExamIntegridad = (() => {
     document.removeEventListener('contextmenu', onCtx, true);
     document.removeEventListener('copy', onCopy, true); document.removeEventListener('cut', onCut, true); document.removeEventListener('paste', onPaste, true);
     document.removeEventListener('keydown', onKey, true);
+    document.removeEventListener('keyup', onKeyUp, true);
+    window.removeEventListener('beforeprint', onBeforePrint);
     document.getElementById('ei-aviso')?.remove();
   }
 
@@ -290,6 +315,7 @@ const ExamIntegridad = (() => {
     cambio_pestana: ['cambiaste de pestaña o minimizaste la ventana', '🪟'],
     foco_perdido: ['la ventana del examen perdió el foco (hiciste clic o pasaste a otra aplicación)', '🖱️'],
     copia_bloqueada: ['intentaste copiar, cortar, pegar, abrir el menú contextual o las herramientas de inspección', '📋'],
+    captura_pantalla: ['intentaste sacar una captura de pantalla o imprimir el examen', '📸'],
     tiempo_sospechoso: ['respondiste preguntas largas en menos de 2 segundos', '⏱️'],
   };
   const MOTIVOS = {

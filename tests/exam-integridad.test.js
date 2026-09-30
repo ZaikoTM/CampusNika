@@ -114,3 +114,16 @@ test('sin conexión: las incidencias quedan en cola local (no se pierden ni bloq
   assert.strictEqual(cola.length, 1);
   assert.strictEqual(cola[0].tipo_incidencia, 'copia_bloqueada');
 });
+
+test('captura de pantalla (Impr Pant / Win+Shift+S) cuenta como incidencia y dispara la advertencia', async () => {
+  const { EI, disparar, agregados } = cargar();
+  await EI.iniciar({ modulo: 'cirugia', estricto: false });
+  disparar('d:keyup', { key: 'PrintScreen', code: 'PrintScreen' });
+  const win = { key: 'S', metaKey: true, shiftKey: true, ctrlKey: false, preventDefault() {}, stopPropagation() {} };
+  EI.estado.avisadoEn = 0;
+  disparar('d:keydown', win);
+  assert.strictEqual(EI.estado.incidencias.filter((i) => i.tipo_incidencia === 'captura_pantalla').length, 2);
+  disparar('d:keydown', { key: 'p', ctrlKey: true, shiftKey: false, preventDefault() {}, stopPropagation() {} });
+  assert.strictEqual(EI.estado.avisado, true);
+  assert.ok(agregados.some((el) => el._msg && el._msg.textContent.startsWith('Te macheteaste')));
+});
