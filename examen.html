@@ -4641,6 +4641,57 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
         function esEntornoLocal() {
             return ['localhost', '127.0.0.1', ''].includes(location.hostname);
         }
+        // [Sprint 2] Entrega a la cola y espera el resultado consultando el estado del envío.
+        // Devuelve { evaluaciones, resumen_general, ... } (mismo formato que el endpoint síncrono)
+        // o null si la función de cola no existe todavía (→ el llamador usa el camino síncrono).
+        const COLA_ESCRITO = { fnEntregar: 'entregar-examen-escrito', esperaMaxMs: 10 * 60 * 1000, pollMinMs: 3000, pollMaxMs: 8000 };
+        async function evaluarEscritoPorCola(payload, token) {
+            const sb = window.NikaSupabase;
+            const client = sb && sb.client;
+            if (!client || !_envioEscrito) return null;
+            // La misma clave mientras no haya resultado: un "Reintentar" con el envío aún en curso NO duplica la corrección.
+            if (!_envioEscrito.idemKey) _envioEscrito.idemKey = (crypto.randomUUID ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(36).slice(2))).replace(/[^A-Za-z0-9_-]/g, '');
+            const olvidarClave = () => { _envioEscrito.idemKey = null; };
+
+            let resp;
+            try {
+                resp = await fetch(`${getSupabaseUrl()}/functions/v1/${COLA_ESCRITO.fnEntregar}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, 'apikey': getSupabaseAnonKey() },
+                    body: JSON.stringify({ modulo: payload.modulo, respuestas: payload.respuestas, idempotency_key: _envioEscrito.idemKey })
+                });
+            } catch (e) {
+                // Una función sin desplegar responde 404 SIN cabeceras CORS: el navegador lo ve como error de red.
+                // Con conexión, se prueba el camino síncrono (que a su vez informa cualquier falla real).
+                if (navigator.onLine !== false) return null;
+                throw new Error('No pudimos enviar tu examen: revisá tu conexión y reintentá. Tus respuestas siguen guardadas en este dispositivo.');
+            }
+            if (resp.status === 404) return null;                       // función no desplegada: camino síncrono
+            const ent = await resp.json().catch(() => ({}));
+            if (!resp.ok || !ent.envio_id) throw new Error(ent.error || `No se pudo registrar la entrega (HTTP ${resp.status}).`);
+
+            const t0 = Date.now();
+            let espera = COLA_ESCRITO.pollMinMs;
+            while (Date.now() - t0 < COLA_ESCRITO.esperaMaxMs) {
+                await new Promise((r) => setTimeout(r, espera * (0.75 + Math.random() * 0.5)));   // jitter: miles de alumnos no consultan a la vez
+                espera = Math.min(COLA_ESCRITO.pollMaxMs, espera + 500);
+                if (navigator.onLine === false) continue;                // sin señal: se sigue esperando, el servidor no se detuvo
+                const { data: est, error } = await client.from('correccion_envios')
+                    .select('estado, lotes_hechos, total_lotes, error').eq('id', ent.envio_id).maybeSingle();
+                if (error || !est) continue;
+                const p = document.querySelector('#result-escrito-body .ia-loading p');
+                if (p && est.total_lotes) p.textContent = `Corrigiendo… ${est.lotes_hechos} de ${est.total_lotes} bloques listos. No cierres esta pestaña.`;
+                if (est.estado === 'error') { olvidarClave(); throw new Error(est.error || 'El corrector no pudo terminar. Reintentá en un momento.'); }
+                if (est.estado === 'completado') {
+                    const { data: fin, error: e2 } = await client.from('correccion_envios').select('resultado').eq('id', ent.envio_id).maybeSingle();
+                    if (e2 || !fin || !fin.resultado) continue;
+                    if (!Array.isArray(fin.resultado.evaluaciones)) throw new Error('Respuesta inesperada del corrector.');
+                    olvidarClave();
+                    return fin.resultado;
+                }
+            }
+            throw new Error('La corrección está tardando más de lo normal. Tu entrega quedó registrada: reintentá en unos minutos.');
+        }
         async function evaluarExamenEscritoConIA(respuestas) {
             if (navigator.onLine === false) {
                 throw new Error('Sin conexión: la corrección con IA necesita internet. Tus respuestas están guardadas en este dispositivo; reintentá cuando tengas señal.');
@@ -4658,6 +4709,15 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             if (esEntornoLocal()) {
                 try { payload.banco_local = await cargarBancoEscrito(getModuloActual()); }
                 catch (_) { /* si falla, seguimos sin fallback: la Edge Function devolverá su error normal */ }
+            }
+
+            // [Sprint 2] Camino principal: entrega asíncrona (cola + worker). Responde al instante y la
+            // corrección ocurre en segundo plano, sin depender de que una sola petición dure minutos.
+            // Si la función nueva todavía no está desplegada (404) o estamos en local, se cae al camino
+            // síncrono de siempre (evaluar-examen-escrito), así nada se rompe durante el despliegue.
+            if (!esEntornoLocal()) {
+                const viaCola = await evaluarEscritoPorCola(payload, token);
+                if (viaCola) return viaCola;
             }
 
             const ctrl = new AbortController();

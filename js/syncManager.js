@@ -19,6 +19,16 @@
 //  6. Background Sync: registra el tag 'nika-sync'; el Service Worker avisa
 //     a la pestaña abierta cuando vuelve la señal.
 //
+//  7. [Sprint 1 · escalabilidad] Anti-estampida al reconectar miles de
+//     dispositivos a la vez:
+//       · Full Jitter en el backoff (espera aleatoria entre 0 y el tope
+//         exponencial, en vez de 5/10/20 s idénticos para todos).
+//       · Retraso aleatorio (0–15 s) tras el evento 'online'.
+//       · Envío por LOTES (hasta 25 filas por request) para resultado_examen
+//         y progreso_estudio. Si un lote falla por datos (no por red), cae al
+//         envío fila por fila para no envenenar al resto.
+//       · Respeta Retry-After / 429 / 503 del servidor.
+//
 // Uso desde otros módulos:
 //   await SyncManager.encolar('errata', { preguntaTexto, justificacion });
 //   SyncManager.on((estado) => ...);   SyncManager.sincronizarAhora();
@@ -28,7 +38,10 @@
 
 const SyncManager = (() => {
   const MAX_INTENTOS = 3;
-  const BACKOFF_BASE_MS = 5000;               // 5 s, 10 s, 20 s
+  const BACKOFF_BASE_MS = 5000;               // base del backoff exponencial
+  const BACKOFF_MAX_MS = 60000;               // [Sprint 1] tope del backoff
+  const ONLINE_JITTER_MAX_MS = 15000;         // [Sprint 1] dispersa la "ola" al volver la señal
+  const BATCH_SIZE = 25;                      // [Sprint 1] filas por request en envíos por lote
   const PING_CADA_MS = 15000;
   const LEGACY_QUEUE_KEY = 'nika_pending_exam_results';
   const BG_SYNC_TAG = 'nika-sync';
@@ -38,6 +51,7 @@ const SyncManager = (() => {
   let _iniciado = false;
   let _timerReintento = null;
   let _timerPing = null;
+  let _timerOnline = null;                    // [Sprint 1] retraso aleatorio post-'online'
   let _conteo = { pendientes: 0, fallidos: 0, total: 0 };
   let _badgeEl = null;
   const _oyentes = [];
@@ -189,6 +203,101 @@ const SyncManager = (() => {
   };
 
   // ------------------------------------------------------------
+  // [Sprint 1] Full Jitter: espera aleatoria en [0, min(tope, base·2^(n-1))].
+  // Con miles de clientes fallando a la vez, un backoff determinista los
+  // reintenta a la MISMA hora y vuelve a saturar el servidor. Con jitter los
+  // reintentos se reparten en el tiempo. Piso de 1 s para no martillar.
+  // ------------------------------------------------------------
+  function _fullJitter(intento) {
+    const tope = Math.min(BACKOFF_MAX_MS, BACKOFF_BASE_MS * Math.pow(2, Math.max(0, intento - 1)));
+    return Math.max(1000, Math.random() * tope);
+  }
+
+  // [Sprint 1] Si el servidor pidió esperar (Retry-After en segundos, 429/503), se respeta.
+  function _retryAfterMs(error) {
+    try {
+      const h = error && error.headers;
+      const v = h && (typeof h.get === 'function' ? h.get('retry-after') : h['retry-after']);
+      const n = Number(v);
+      return Number.isFinite(n) && n > 0 ? Math.min(n * 1000, 5 * 60 * 1000) : 0;
+    } catch (_) { return 0; }
+  }
+
+  // ------------------------------------------------------------
+  // [Sprint 1] Handlers por LOTE. Reciben varios items del mismo tipo y
+  // devuelven un array de resultados alineado (mismo formato que HANDLERS:
+  // {} ok · {omitir} · {descartar} · {error,status}). Un lote que falla por
+  // datos (4xx) se reenvía fila por fila con el HANDLER individual, así una
+  // fila mala no bloquea a las demás. Errores de red / 5xx / 429 / auth se
+  // aplican a todo el lote (se reintenta completo con jitter).
+  // ------------------------------------------------------------
+  const _esFalloDeLote = (error, status) => {
+    const c = _clasificar(error, status);
+    return c === 'red' || c === '5xx' || c === 'auth' || status === 429;
+  };
+
+  async function _individual(items, ctx, tipo) {
+    const out = [];
+    for (const it of items) {
+      try { out.push(await HANDLERS[tipo](it, ctx)); } catch (e) { out.push({ error: e, status: 0 }); }
+    }
+    return out;
+  }
+
+  const BATCH_HANDLERS = {
+    async resultado_examen(items, ctx) {
+      const res = new Array(items.length);
+      const idx = [], filas = [];
+      items.forEach((it, i) => {
+        const fila = it.payload && it.payload.fila;
+        if (!fila) { res[i] = { descartar: true }; return; }
+        if (it.userId && it.userId !== ctx.userId) { res[i] = { omitir: true }; return; }
+        idx.push(i); filas.push({ ...fila, user_id: ctx.userId });
+      });
+      if (!filas.length) return res;
+      const r = await ctx.client.from('exam_results').insert(filas);   // 1 request para todo el lote
+      if (!r.error) { idx.forEach((i) => { res[i] = {}; }); return res; }
+      if (_esFalloDeLote(r.error, r.status)) { idx.forEach((i) => { res[i] = { error: r.error, status: r.status }; }); return res; }
+      const ind = await _individual(idx.map((i) => items[i]), ctx, 'resultado_examen');
+      idx.forEach((i, k) => { res[i] = ind[k]; });
+      return res;
+    },
+
+    async progreso_estudio(items, ctx) {
+      const res = new Array(items.length);
+      const idx = [], filas = [];
+      items.forEach((it, i) => {
+        const row = it.payload && it.payload.row;
+        if (!row) { res[i] = { descartar: true }; return; }
+        if (it.userId && it.userId !== ctx.userId) { res[i] = { omitir: true }; return; }
+        idx.push(i); filas.push({ ...row, user_id: ctx.userId });
+      });
+      if (!filas.length) return res;
+
+      // Idempotencia en UNA consulta (antes: una por sesión): qué sesiones del lote ya están en la nube
+      const clave = (f) => `${new Date(f.completed_at).getTime()}|${f.modulo}|${f.up_id}`;
+      let existentes = new Set();
+      try {
+        const q = await ctx.client.from('study_sessions').select('completed_at, modulo, up_id')
+          .eq('user_id', ctx.userId).in('completed_at', filas.map((f) => f.completed_at));
+        if (!q.error && q.data) existentes = new Set(q.data.map(clave));
+      } catch (_) { /* si el chequeo falla, el índice único (23505) protege igual */ }
+
+      const nuevas = [];                                   // posiciones k dentro de idx/filas
+      idx.forEach((i, k) => { if (existentes.has(clave(filas[k]))) res[i] = {}; else nuevas.push(k); });
+      if (!nuevas.length) return res;
+
+      const r = await ctx.client.from('study_sessions').insert(nuevas.map((k) => filas[k]));
+      if (!r.error) { nuevas.forEach((k) => { res[idx[k]] = {}; }); return res; }
+      if (_esFalloDeLote(r.error, r.status)) { nuevas.forEach((k) => { res[idx[k]] = { error: r.error, status: r.status }; }); return res; }
+      // 23505 (duplicado), columna 'completed' inexistente, etc.: el handler individual ya sabe resolverlo
+      const ind = await _individual(nuevas.map((k) => items[idx[k]]), ctx, 'progreso_estudio');
+      nuevas.forEach((k, j) => { res[idx[k]] = ind[j]; });
+      return res;
+    },
+  };
+
+  // ------------------------------------------------------------
   // Cola: encolar y procesar
   // ------------------------------------------------------------
   async function encolar(tipo, payload) {
@@ -229,42 +338,77 @@ const SyncManager = (() => {
       const items = await OS().obtenerColaPendiente();
       let proximo = Infinity;
 
-      for (const item of items) {
-        if (item.proximoIntento && item.proximoIntento > Date.now()) { proximo = Math.min(proximo, item.proximoIntento); continue; }
-        const handler = HANDLERS[item.tipo];
-        if (!handler) { await OS().eliminarDeCola(item.id); continue; }
-
-        let res;
-        try { res = await handler(item, ctx); }
-        catch (e) { res = { error: e, status: 0 }; }
-
-        if (res.omitir) { resumen.omitidos++; continue; }
-        if (res.descartar) { await OS().eliminarDeCola(item.id); continue; }
+      // [Sprint 1] Procesa UN resultado ya obtenido (del handler individual o del lote).
+      // Devuelve true si hay que cortar el ciclo (red caída).
+      const aplicar = async (item, res) => {
+        if (res.omitir) { resumen.omitidos++; return false; }
+        if (res.descartar) { await OS().eliminarDeCola(item.id); return false; }
 
         const clase = _clasificar(res.error, res.status);
         if (clase === 'ok') {
           await OS().eliminarDeCola(item.id);
           resumen.enviados++;
           _clearRedCaida();
-          continue;
+          return false;
         }
         if (clase === 'red') {                       // sin señal real: se corta y se espera
           _marcarRedCaida();
           resumen.motivo = 'red';
-          break;
+          return true;
         }
-        if (clase === 'auth') { resumen.motivo = 'sin_sesion'; continue; }   // no consume intentos
+        if (clase === 'auth') { resumen.motivo = 'sin_sesion'; return false; }   // no consume intentos
 
-        // 5xx / 4xx: backoff exponencial con tope de intentos
+        // 5xx / 4xx: backoff exponencial con FULL JITTER y tope de intentos
         const intentos = (item.intentos || 0) + 1;
         const msg = String((res.error && res.error.message) || res.error || 'Error').slice(0, 300);
         if (intentos >= MAX_INTENTOS) {
           await OS().actualizarItemCola(item.id, { intentos, estado: 'fallido', ultimoError: msg });
           resumen.fallidos++;
         } else {
-          const espera = BACKOFF_BASE_MS * Math.pow(2, intentos - 1);
+          // Si el servidor mandó Retry-After (429/503) se respeta; si no, Full Jitter
+          const espera = Math.max(_retryAfterMs(res.error), _fullJitter(intentos));
           await OS().actualizarItemCola(item.id, { intentos, ultimoError: msg, proximoIntento: Date.now() + espera });
           proximo = Math.min(proximo, Date.now() + espera);
+        }
+        return false;
+      };
+
+      // Elegibles ahora (los que esperan su backoff se saltan y fijan el próximo reintento)
+      const elegibles = [];
+      for (const item of items) {
+        if (item.proximoIntento && item.proximoIntento > Date.now()) { proximo = Math.min(proximo, item.proximoIntento); continue; }
+        if (!HANDLERS[item.tipo]) { await OS().eliminarDeCola(item.id); continue; }
+        elegibles.push(item);
+      }
+
+      // Tipos con envío por lote: se agrupan y se mandan de a BATCH_SIZE. El resto (ej. errata) va de a uno.
+      const porTipo = {};
+      const sueltos = [];
+      for (const it of elegibles) {
+        if (BATCH_HANDLERS[it.tipo]) (porTipo[it.tipo] = porTipo[it.tipo] || []).push(it);
+        else sueltos.push(it);
+      }
+
+      let cortar = false;
+      for (const tipo of Object.keys(porTipo)) {
+        const lista = porTipo[tipo];
+        for (let i = 0; i < lista.length && !cortar; i += BATCH_SIZE) {
+          const lote = lista.slice(i, i + BATCH_SIZE);
+          let resultados;
+          try { resultados = await BATCH_HANDLERS[tipo](lote, ctx); }
+          catch (e) { resultados = lote.map(() => ({ error: e, status: 0 })); }
+          for (let k = 0; k < lote.length; k++) {
+            if (await aplicar(lote[k], resultados[k] || { error: new Error('sin resultado'), status: 0 })) { cortar = true; break; }
+          }
+        }
+        if (cortar) break;
+      }
+      if (!cortar) {
+        for (const item of sueltos) {
+          let res;
+          try { res = await HANDLERS[item.tipo](item, ctx); }
+          catch (e) { res = { error: e, status: 0 }; }
+          if (await aplicar(item, res)) break;
         }
       }
 
@@ -326,12 +470,20 @@ const SyncManager = (() => {
     } catch (_) { return false; }
   }
 
+  // [Sprint 1] Antes: al volver la señal cada dispositivo pingueaba y sincronizaba AL INSTANTE.
+  // Tras un corte masivo (facultad, barrio, caída de un proveedor) eso es una estampida contra
+  // Supabase. Ahora cada cliente con cola pendiente espera un retraso aleatorio (0–15 s). El badge
+  // se actualiza al instante; solo se dispersa la subida. Tocar el badge sigue siendo inmediato.
   function _onOnline() {
     _emitir();
-    _ping().then((ok) => {
-      if (ok) { _clearRedCaida(); sincronizarAhora({ manual: true }); }
-      else { _marcarRedCaida(); }
-    });
+    clearTimeout(_timerOnline);
+    const retraso = _conteo.pendientes > 0 ? Math.random() * ONLINE_JITTER_MAX_MS : 0;
+    _timerOnline = setTimeout(() => {
+      _ping().then((ok) => {
+        if (ok) { _clearRedCaida(); sincronizarAhora({ manual: true }); }
+        else { _marcarRedCaida(); }
+      });
+    }, retraso);
   }
   function _onOffline() { _emitir(); _registrarBackgroundSync(); }
 
