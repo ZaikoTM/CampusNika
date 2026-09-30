@@ -1449,6 +1449,8 @@
 <script src="js/atajos.js"></script>
     <script src="js/examen.js"></script>
     <script src="js/examIntegridad.js"></script>
+    <script src="js/programaTemas.js"></script>
+    <script src="js/casosPacientes.js"></script>
     <script src="js/pwa-update.js"></script>
     <script src="data/banco_trauma_superior.js"></script>
     <script src="data/banco_trauma_inferior.js"></script>
@@ -2083,7 +2085,16 @@
         // en vez de depender del label suelto ("UP 1") que la IA no sabe
         // interpretar por sí sola. Si no hay diccionario o no matchea el id,
         // cae al comportamiento anterior (usa el texto del label tal cual).
+        // Caso asignado al azar para esta sesión (js/casosPacientes.js). Se genera UNA vez al elegir la temática
+        // y se reutiliza en todos los turnos; sobrevive a un F5 porque también se guarda en sessionStorage.
+        function _semillaCasoActual() {
+            if (typeof window.__semillaCaso === 'string') return window.__semillaCaso;
+            try { return sessionStorage.getItem('nika_semilla_caso') || ''; } catch (_) { return ''; }
+        }
         function _construirReglaTematica(tematicaTexto, tematicaId) {
+            return _construirReglaTematicaBase(tematicaTexto, tematicaId) + _semillaCasoActual();
+        }
+        function _construirReglaTematicaBase(tematicaTexto, tematicaId) {
             if (!tematicaTexto) return '';
             const diccionariosPorMateria = { ginecologia: (typeof TEMARIOS_GINECOLOGIA !== 'undefined') ? TEMARIOS_GINECOLOGIA : window.TEMARIOS_GINECOLOGIA };
             const diccionario = diccionariosPorMateria[getModuloActual()];
@@ -2213,6 +2224,8 @@ Preguntas de opción múltiple de Salud Integral de la Mujer (Ginecología y Obs
         function getCasoSemillaMateria(modoId) {
             const porMateria = (typeof CASOS_SEMILLA_POR_MATERIA !== 'undefined') ? CASOS_SEMILLA_POR_MATERIA : (window.CASOS_SEMILLA_POR_MATERIA || {});
             const deLaMateria = porMateria[getModuloActual()];
+            // Con banco de pacientes, el caso lo arma la IA con un paciente al azar; la semilla fija queda de respaldo.
+            if (window.CASOS_PACIENTES && window.CASOS_PACIENTES[getModuloActual()] && window.__semillaCaso) return null;
             return (deLaMateria && deLaMateria[modoId]) || null;
         }
         // Config del modal de temática (#modal-tematica-up) por materia
@@ -2820,6 +2833,11 @@ Preguntas de opción múltiple de Salud Integral de la Mujer (Ginecología y Obs
             if (!modo || !sub) return; // doble click: este caso ya se está iniciando (evita 2 llamadas a la IA y cobrar 2 veces)
             _modalTematicaCtx = { modo: null, sub: null };
             cerrarModalTematica();
+            // Paciente y cuadro distintos en cada sesión (evita que la IA repita siempre el mismo caso)
+            try {
+                window.__semillaCaso = window.CasosPacientes ? CasosPacientes.generar(getModuloActual(), tematicaTexto, tematicaId, modo && modo.id) : '';
+                sessionStorage.setItem('nika_semilla_caso', window.__semillaCaso || '');
+            } catch (_) { window.__semillaCaso = ''; }
             setTimeout(() => {
                 if (!modo || !sub) return;
                 const subConPrompt = conPromptDeMateria(modo, sub);
