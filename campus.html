@@ -22,7 +22,7 @@
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2">
     <style>
         /* ---- Tarjeta Upsell NikaMed+ (sidebar, solo usuarios free) ----
            No la metemos en styles.css porque ese archivo lo comparten
@@ -633,7 +633,7 @@
                     <input type="file" id="prof-banner-file" class="form-input" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleBannerPreview(event)" style="padding: 6px; font-size: 0.85rem; flex:1;">
                     <button type="button" class="pc-icon-btn" onclick="quitarBannerPerfil()" title="Quitar portada" aria-label="Quitar portada">🗑️</button>
                 </div>
-                <span style="font-size: 0.75rem; color: var(--text-muted, #94a3b8); display: block; margin-top: 4px;">Se ve detrás de tu foto en tu perfil público. Tamaño recomendado: 1200 × 400 px (formato panorámico 3:1). JPG o PNG.</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted, #94a3b8); display: block; margin-top: 4px;">Se ve detrás de tu foto en tu perfil público. Tamaño recomendado: 1200 × 208 px (formato muy panorámico, ~6:1). JPG o PNG.</span>
             </div>
             
             <div class="form-group" style="text-align: center; margin-bottom: 20px;">
@@ -2635,7 +2635,7 @@ let tempAvatarBase64 = null;
 let tempAvatarBlob = null; // Guardamos el blob real para poder subirlo como archivo
 
 // ---- Recorte de avatar (canvas nativo: arrastrar, zoom con slider/rueda/pellizco) ----
-// modo 'avatar' (cuadrado 320, sale 400x400) o 'banner' (panorámico 600x200, sale 1200x400)
+// modo 'avatar' (cuadrado 320, sale 400x400) o 'banner' (panorámico 600x104, sale 1200x208)
 const AvatarCrop = { img: null, modo: 'avatar', W: 320, H: 320, base: 1, zoom: 1, x: 0, y: 0, punteros: new Map(), pinchDist: 0 };
 
 function handleAvatarPreview(event) {
@@ -2663,7 +2663,7 @@ function abrirRecorteAvatar(img, modo) {
     c.img = img;
     c.modo = modo === 'banner' ? 'banner' : 'avatar';
     const esBanner = c.modo === 'banner';
-    c.W = esBanner ? 600 : 320; c.H = esBanner ? 200 : 320;
+    c.W = esBanner ? 600 : 320; c.H = esBanner ? 104 : 320;   // portada: misma proporción que en el perfil público (~5.8:1)
     const canvas = document.getElementById('avatar-crop-canvas');
     canvas.width = c.W; canvas.height = c.H;
     document.getElementById('avatar-crop-stage').classList.toggle('is-banner', esBanner);
@@ -2767,7 +2767,7 @@ function confirmarRecorteAvatar() {
     const c = AvatarCrop;
     if (!c.img) return;
     const esBanner = c.modo === 'banner';
-    const OUT_W = esBanner ? 1200 : 400, OUT_H = 400;   // px finales: portada 1200x400, avatar 400x400
+    const OUT_W = esBanner ? 1200 : 400, OUT_H = esBanner ? 208 : 400;   // px finales: portada 1200x208, avatar 400x400
     const out = document.createElement('canvas');
     out.width = OUT_W; out.height = OUT_H;
     const ctx = out.getContext('2d');
