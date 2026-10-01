@@ -148,7 +148,7 @@ const PomodoroModule = (() => {
     const sharedNoteHtml = stShared ? `
         <div style="background: rgba(255,255,255,0.7); border: 1px dashed ${borderColor}; border-radius: 8px; padding: 7px 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
             <span style="font-size: 0.72rem; font-weight: 700; color: ${titleColor}; line-height: 1.3;">
-                ${bloqueado ? '🔒' : '🧉'} Sesión compartida ${stShared.partner ? 'con @' + escHtml(stShared.partner) : '(esperando invitado)'}${bloqueado ? ' · el Host controla el reloj' : ''}
+                ${bloqueado ? '🔒' : '🧉'} Sesión compartida ${(() => { const g = (stShared.guests || []).filter(x => x.joined); return g.length > 1 ? 'con ' + g.map(x => '@' + escHtml(x.username)).join(', ') : (stShared.partner ? 'con @' + escHtml(stShared.partner) : '(esperando invitado)'); })()}${bloqueado ? ' · el Host controla el reloj' : ''}
             </span>
             <button id="pomo-shared-leave" style="background: transparent; border: 1px solid ${borderColor}; color: ${titleColor}; border-radius: 6px; padding: 3px 8px; font-size: 0.68rem; font-weight: 700; cursor: pointer; white-space: nowrap;">Salir</button>
         </div>` : '';

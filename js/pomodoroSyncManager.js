@@ -288,7 +288,7 @@ const PomodoroSyncManager = (function () {
         } catch (_) {}
 
         const s = { sessionId: shared.sessionId, role: shared.role, hostUsername: shared.hostUsername, username,
-                    canal: null, helloTimer: null, graceTimer: null, gotCmd: false, cerrada: false };
+                    canal: null, helloTimer: null, graceTimer: null, gotCmd: false, cerrada: false, anunciados: new Set() };
         sala = s;
         const ch = sb().channel(nombre, { config: { broadcast: { self: false, ack: true }, presence: { key: username } } });
         s.canal = ch;
@@ -307,11 +307,12 @@ const PomodoroSyncManager = (function () {
             const eng = window.PomodoroEngine;
             const info = eng && eng.getSharedInfo && eng.getSharedInfo();
             if (!info || info.role !== "host" || info.sessionId !== s.sessionId) return;
-            if (info.partner && info.partner !== payload.username) { // sala de a dos: ya hay otra persona
-                _enviarSala(s, "rechazo", { toUsername: payload.username, motivo: "sala_llena" }, 0);
+            // Solo entra quien el Host invitó o cuyo pedido aceptó, y hasta MAX_GUESTS (4) personas.
+            const r = eng.registerGuestJoined(payload.username);
+            if (!r.ok) {
+                _enviarSala(s, "rechazo", { toUsername: payload.username, motivo: r.reason === "sala_llena" ? "sala_llena" : "no_invitado" }, 0);
                 return;
             }
-            eng.setPartnerOnline(true, payload.username);
             const snap = eng.getSharedSnapshot("sync");
             if (snap) _enviarSala(s, "cmd", snap, 1);
             _anunciarInvitado(s, payload.username);
@@ -319,14 +320,14 @@ const PomodoroSyncManager = (function () {
 
         ch.on("broadcast", { event: "bye" }, ({ payload }) => {
             if (s.role !== "host" || !payload || s.cerrada) return;
-            s.anunciado = null; // si vuelve a entrar, se anuncia de nuevo
+            if (s.anunciados) s.anunciados.delete(payload.username); // si vuelve a entrar, se anuncia de nuevo
             if (window.PomodoroEngine) window.PomodoroEngine.partnerLeft(payload.username);
         });
 
         ch.on("broadcast", { event: "rechazo" }, ({ payload }) => {
             if (s.role !== "guest" || !payload || payload.toUsername !== s.username || s.cerrada) return;
-            _notificar({ tipo: "sala_llena", username: s.hostUsername });
-            if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: "sala_llena", notify: false });
+            _notificar({ tipo: payload.motivo === "no_invitado" ? "no_invitado" : "sala_llena", username: s.hostUsername });
+            if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: payload.motivo || "sala_llena", notify: false });
         });
 
         const evaluar = () => _evaluarSocio(s);
@@ -352,8 +353,8 @@ const PomodoroSyncManager = (function () {
 
     // "@x se unió": el aviso puede llegar por Presence o por el 'hello' (el primero que llegue); se anuncia UNA vez.
     function _anunciarInvitado(s, username) {
-        if (s.anunciado === username) return;
-        s.anunciado = username;
+        if (s.anunciados.has(username)) return;
+        s.anunciados.add(username);
         _notificar({ tipo: "guest_joined", username });
     }
 
@@ -364,12 +365,12 @@ const PomodoroSyncManager = (function () {
         const otros = Object.keys(s.canal.presenceState()).filter((k) => k !== s.username);
         if (s.role === "host") {
             const info = eng.getSharedInfo && eng.getSharedInfo();
-            const partner = info && info.partner;
-            if (partner) {
-                const presente = otros.includes(partner);
-                eng.setPartnerOnline(presente, partner);
-                if (presente) _anunciarInvitado(s, partner);
-            }
+            const guests = (info && info.guests) || [];
+            guests.filter((g) => g.joined).forEach((g) => {
+                const presente = otros.includes(g.username);
+                eng.setGuestOnline(g.username, presente);
+                if (presente) _anunciarInvitado(s, g.username);
+            });
         } else {
             const hostOnline = otros.includes(s.hostUsername);
             eng.setPartnerOnline(hostOnline);

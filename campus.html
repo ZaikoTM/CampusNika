@@ -128,7 +128,7 @@
     </script>
 
     <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
-    <script src="js/pomodoroEngine.js?v=2"></script>
+    <script src="js/pomodoroEngine.js?v=3"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/avisoVencimiento.js"></script>
@@ -1319,9 +1319,9 @@
     <script src="js/rendimiento.js?v=2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="js/chatManager.js?v=3"></script>
-    <script src="js/pomodoroSyncManager.js"></script>
+    <script src="js/pomodoroSyncManager.js?v=2"></script>
     <script src="js/onboardingTour.js"></script>
-    <script src="js/pomodoroBar.js?v=2"></script>
+    <script src="js/pomodoroBar.js?v=3"></script>
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js"></script>
     <script src="js/ateneos.js"></script>
@@ -5476,9 +5476,39 @@ async function handleLogout() {
             const st = window.PomodoroEngine.getState();
             if (st.shared && st.shared.role === 'guest') { rechazar('es_invitado'); return; }
             if (st.status === 'idle' && !st.shared) { rechazar('sin_pomodoro'); return; }
-            const r = await window.PomodoroSyncManager.aceptarSolicitud(from);
-            if (r && r.ok) showToast(`🧉 @${from} se está uniendo a tu sesión…`);
+            const MAX = window.PomodoroEngine.MAX_GUESTS || 4;
+            const info = window.PomodoroEngine.getSharedInfo();
+            const yaEsta = !!(info && (info.guests || []).some(g => g.username === from));
+            if (!yaEsta && info && (info.guests || []).length >= MAX) { rechazar('sala_llena'); return; }
+            _mostrarSolicitudUnion(from, MAX);
         };
+
+        // El Host decide: nadie entra a su sala sin invitación o sin que él acepte el pedido.
+        function _mostrarSolicitudUnion(from, max) {
+            const id = 'nika-join-req-' + from.replace(/[^\w.-]/g, '_');
+            if (document.getElementById(id)) return;
+            const esc = NikaFriends.esc;
+            const card = document.createElement('div');
+            card.className = 'nika-pomo-invite'; card.id = id;
+            card.style.bottom = (20 + document.querySelectorAll('.nika-pomo-invite').length * 150) + 'px';
+            card.innerHTML = `
+                <div class="nika-pomo-invite-title">🧉 @${esc(from)} quiere estudiar con vos</div>
+                <div class="nika-pomo-invite-sub">Pidió sumarse a tu sesión de Pomodoro (hasta ${max} invitados). Va a ver tu reloj; vos seguís controlándolo.</div>
+                <div class="nika-pomo-invite-actions">
+                    <button type="button" class="nika-pomo-invite-reject">Rechazar</button>
+                    <button type="button" class="nika-pomo-invite-accept">Aceptar</button>
+                </div>`;
+            document.body.appendChild(card);
+            const cerrar = () => card.remove();
+            card.querySelector('.nika-pomo-invite-reject').addEventListener('click', () => { cerrar(); window.PomodoroSyncManager.rechazarSolicitud(from, 'rechazada'); });
+            card.querySelector('.nika-pomo-invite-accept').addEventListener('click', async () => {
+                cerrar();
+                const r = await window.PomodoroSyncManager.aceptarSolicitud(from);
+                if (r && r.ok) showToast(`🧉 @${from} se está uniendo a tu sesión…`);
+                else if (r && r.reason === 'full') showToast(`Tu sala ya tiene ${max} invitados.`);
+            });
+            setTimeout(cerrar, 55000);   // el pedido vence al minuto (igual que del lado del que lo envió)
+        }
 
         // Avisos de la sesión compartida (entró / salió alguien, se cortó el Host, pedido rechazado…)
         if (window.PomodoroEngine && !window._nikaPomoSharedHooked) {
@@ -5491,12 +5521,13 @@ async function handleLogout() {
                     case 'guest_left': showToast(`${u} salió de la sesión.`); break;
                     case 'host_ended': showToast(`${u} terminó la sesión compartida. Tu tiempo quedó guardado.`); break;
                     case 'host_offline': showToast(`Se perdió la conexión con ${u}. Tu tiempo quedó guardado.`); break;
-                    case 'sala_llena': showToast(`${u} ya está estudiando con otra persona.`); break;
+                    case 'sala_llena': showToast(`La sala de ${u} está completa (máximo 4 invitados).`); break;
+                    case 'no_invitado': showToast(`${u} no te invitó a esa sesión.`); break;
                     case 'rechazada': {
                         const motivos = {
                             sin_pomodoro: `${u} no tiene un Pomodoro activo ahora.`,
-                            occupied: `${u} ya estudia con otra persona.`,
-                            sala_llena: `${u} ya estudia con otra persona.`,
+                            sala_llena: `La sala de ${u} está completa (máximo 4 invitados).`,
+                            rechazada: `${u} no aceptó tu pedido.`,
                             es_invitado: `${u} está como invitado en otra sesión.`,
                             no_amigo: 'Solo podés sincronizar con tus amigos.',
                         };
@@ -5638,7 +5669,7 @@ async function handleLogout() {
         if (!friendUsername || !(await _esAmigoConfirmado(friendUsername))) return;
         const r = window.PomodoroEngine.hostSharedSession(friendUsername);
         if (!r.ok) {
-            showToast(r.reason === 'occupied' ? `Ya estás estudiando con @${r.partner}.`
+            showToast(r.reason === 'full' ? `Tu sala ya tiene ${r.max || 4} invitados (el máximo).`
                 : r.reason === 'guest' ? 'Estás como invitado en otra sesión: salí primero.'
                 : 'No se pudo iniciar la sesión compartida.');
             return;

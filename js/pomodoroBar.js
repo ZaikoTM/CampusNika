@@ -261,8 +261,15 @@ const NikaPomoBar = (() => {
         const partnerEl = document.getElementById('nika-pomo-bar-partner');
         if (sh) {
             const otro = sh.partner;
+            const entraron = (sh.guests || []).filter(g => g.joined);
             let txt;
-            if (otro) {
+            if (!esInvitado && entraron.length > 1) {
+                const nombres = entraron.slice(0, 2).map(g => '@' + g.username).join(', ');
+                const resto = entraron.length - 2;
+                const con = resto > 0 ? `${nombres} y ${resto} más` : nombres;
+                txt = tema ? `Estudiando: ${tema} con ${con}` : `Estudiando con ${con}`;
+                partnerEl.title = entraron.map(g => '@' + g.username + (g.online ? '' : ' (sin conexión)')).join(', ');
+            } else if (otro) {
                 txt = tema ? `Estudiando: ${tema} con @${otro}` : `Estudiando con @${otro}`;
                 if (!sh.partnerOnline) txt += ' (sin conexión)';
                 if (esInvitado && enEspera) txt = `Esperando que @${otro} inicie el reloj` + (tema ? ` · ${tema}` : '');
@@ -270,7 +277,7 @@ const NikaPomoBar = (() => {
                 txt = tema ? `Estudiando: ${tema} · esperando invitado…` : 'Esperando invitado…';
             }
             partnerEl.textContent = txt;
-            partnerEl.title = txt;
+            if (!(!esInvitado && entraron.length > 1)) partnerEl.title = txt;
         } else {
             const legado = getSyncPartner();
             partnerEl.textContent = legado ? `· Sincronizado con @${legado}` : (tema ? `· ${tema}` : '');

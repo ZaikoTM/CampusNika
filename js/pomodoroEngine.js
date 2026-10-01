@@ -78,12 +78,36 @@ const PomodoroEngine = (() => {
     };
   }
 
+  // ------------------------------------------------------------
+  // Sala compartida con hasta MAX_GUESTS invitados.
+  // sh.guests = [{ username, joined, online, at }] (solo el Host la usa). `partner` / `partnerOnline`
+  // se mantienen como "primer invitado / alguno conectado" para no romper la UI existente.
+  // Solo entran los que el Host invitó o cuyo pedido aceptó (queda en la lista); cualquier otro 'hello' se rechaza.
+  // ------------------------------------------------------------
+  const MAX_GUESTS = 4;
+  const RESERVA_MS = 90 * 1000;   // una invitación sin respuesta libera su lugar a los 90 s
+
+  function normalizarShared(sh) {
+    if (sh && sh.role === 'host' && !Array.isArray(sh.guests)) {
+      sh.guests = sh.partner ? [{ username: sh.partner, joined: true, online: !!sh.partnerOnline, at: 0 }] : [];
+    }
+    return sh;
+  }
+  function lugaresUsados(sh) {
+    const ahora = Date.now();
+    return sh.guests.filter((g) => g.joined || ahora - g.at < RESERVA_MS);
+  }
+  function sincronizarPartner(sh) {
+    sh.partner = sh.guests.length ? sh.guests[0].username : null;
+    sh.partnerOnline = sh.guests.some((g) => g.joined && g.online);
+  }
+
   function loadState() {
     try {
       const raw = localStorage.getItem(STATE_KEY);
       if (raw) {
         const s = JSON.parse(raw);
-        if (s && s.mode && s.status) { if (!s.shared) s.shared = null; return s; }
+        if (s && s.mode && s.status) { if (!s.shared) s.shared = null; else normalizarShared(s.shared); return s; }
       }
     } catch (_) {}
     return idleState('work');
@@ -436,7 +460,7 @@ const PomodoroEngine = (() => {
     // El Host también acredita al Invitado: si el invitado tenía la pestaña en otra página o sin conexión, el aviso
     // en vivo del fin de fase no le llegó y nunca registraría su parte. La clave es la misma que usa el Invitado
     // (sessionId:fase:guest) y la base la hace única, así que si él también lo registra no se duplica.
-    if (sh.role === 'host' && sh.partner) acreditarInvitado(sh.partner, p.moduleId, p.upId, mins, done, `${sh.sessionId}:${phaseSeq}:guest`);
+    if (sh.role === 'host') (sh.guests || []).filter((g) => g.joined).forEach((g) => acreditarInvitado(g.username, p.moduleId, p.upId, mins, done, `${sh.sessionId}:${phaseSeq}:guest`));
     return mins;
   }
 
@@ -718,17 +742,24 @@ const PomodoroEngine = (() => {
   // Convierte este cliente en HOST de una sala (sin arrancar el reloj).
   function becomeHost(partner) {
     if (isGuest()) return { ok: false, reason: 'guest' };
-    if (isHost() && state.shared.partner && state.shared.partner !== partner && state.shared.partnerOnline) {
-      return { ok: false, reason: 'occupied', partner: state.shared.partner };
-    }
     if (!isHost()) {
       state.shared = {
-        sessionId: newSessionId(), role: 'host', partner: partner || null,
-        hostUsername: myUsername(), phaseSeq: 0, lateMin: 0, partnerOnline: false,
+        sessionId: newSessionId(), role: 'host', partner: null,
+        hostUsername: myUsername(), phaseSeq: 0, lateMin: 0, partnerOnline: false, guests: [],
       };
-    } else {
-      state.shared.partner = partner || state.shared.partner;
     }
+    const sh = normalizarShared(state.shared);
+    if (partner) {
+      const ya = sh.guests.find((g) => g.username === partner);
+      if (ya) {
+        ya.at = Date.now();                       // re-invitación: renueva la reserva
+      } else {
+        sh.guests = sh.guests.filter((g) => g.joined || Date.now() - g.at < RESERVA_MS);   // libera invitaciones vencidas
+        if (lugaresUsados(sh).length >= MAX_GUESTS) return { ok: false, reason: 'full', max: MAX_GUESTS };
+        sh.guests.push({ username: partner, joined: false, online: false, at: Date.now() });
+      }
+    }
+    sincronizarPartner(sh);
     // Sin UP elegida la sesión igual se guarda, bajo un contexto genérico.
     if (!state.moduleId || !state.upId) {
       state.moduleId = 'biblioteca';
@@ -758,7 +789,7 @@ const PomodoroEngine = (() => {
     const sessionId = info && info.sessionId;
     const hostUsername = info && info.hostUsername;
     if (!sessionId || !hostUsername) return { ok: false, reason: 'datos' };
-    if (isHost() && state.shared.partnerOnline) return { ok: false, reason: 'is_host' };
+    if (isHost() && state.shared.partnerOnline) return { ok: false, reason: 'is_host' };   // sigue valiendo: con invitados conectados no podés pasar a invitado
     if (isGuest() && state.shared.sessionId === sessionId) return { ok: true, ya: true };
 
     if (state.shared) leaveShared({ notify: true });
@@ -804,23 +835,51 @@ const PomodoroEngine = (() => {
     emit('shared', { tipo: 'left', reason: opts.reason || 'manual', role: sh.role, username: sh.partner });
   }
 
-  // El manager avisa si el otro extremo está conectado a la sala.
+  // Invitado: avisa si el Host está conectado a la sala.
+  // Host: (compat) delega en setGuestOnline cuando viene el username.
   function setPartnerOnline(online, username) {
     const sh = state.shared;
     if (!sh) return;
+    if (sh.role === 'host') { if (username) setGuestOnline(username, online); return; }
     const prevOnline = sh.partnerOnline;
-    const prevPartner = sh.partner;
     sh.partnerOnline = !!online;
-    if (sh.role === 'host' && online && username) sh.partner = username;
-    if (prevOnline !== sh.partnerOnline || prevPartner !== sh.partner) saveState();
+    if (prevOnline !== sh.partnerOnline) saveState();
   }
 
-  // El Invitado avisó que se fue (bye): el Host queda libre para invitar a otra persona.
+  // Host: un invitado mandó 'hello'. Solo entra si el Host lo invitó / aceptó y hay lugar.
+  function registerGuestJoined(username) {
+    const sh = state.shared;
+    if (!sh || sh.role !== 'host' || !username) return { ok: false, reason: 'no_host' };
+    normalizarShared(sh);
+    const g = sh.guests.find((x) => x.username === username);
+    if (!g) return { ok: false, reason: 'no_invitado' };
+    if (!g.joined && sh.guests.filter((x) => x.joined).length >= MAX_GUESTS) return { ok: false, reason: 'sala_llena' };
+    const cambio = !g.joined || !g.online;
+    g.joined = true; g.online = true; g.at = Date.now();
+    sincronizarPartner(sh);
+    if (cambio) saveState();
+    return { ok: true, nuevo: cambio };
+  }
+
+  // Host: un invitado aparece / desaparece de la presencia de la sala.
+  function setGuestOnline(username, online) {
+    const sh = state.shared;
+    if (!sh || sh.role !== 'host') return;
+    normalizarShared(sh);
+    const g = sh.guests.find((x) => x.username === username && x.joined);
+    if (!g || g.online === !!online) return;
+    g.online = !!online;
+    sincronizarPartner(sh);
+    saveState();
+  }
+
+  // Un invitado avisó que se fue (bye): se libera su lugar (el Host puede invitar a otra persona).
   function partnerLeft(username) {
     const sh = state.shared;
     if (!sh || sh.role !== 'host') return;
-    sh.partner = null;
-    sh.partnerOnline = false;
+    normalizarShared(sh);
+    sh.guests = sh.guests.filter((g) => g.username !== username);
+    sincronizarPartner(sh);
     saveState();
     emit('shared', { tipo: 'guest_left', username });
   }
@@ -964,7 +1023,7 @@ const PomodoroEngine = (() => {
     start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
-    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, partnerLeft, notifyShared,
+    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, partnerLeft, notifyShared, MAX_GUESTS,
     // Solo para pruebas (tests/)
     _test: { registerStudySession, flushPending, readPending },
   };
