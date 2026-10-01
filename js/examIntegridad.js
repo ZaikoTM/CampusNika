@@ -128,13 +128,15 @@ const ExamIntegridad = (() => {
   // vuelve enseguida y no es una incidencia. Cambiar de pestaña (visibilitychange) sigue contando de
   // inmediato, y las capturas se detectan aparte (capturaDetectada).
   const GRACIA_BLUR_MS = 1500;
+  const VENTANA_CAPTURA_MS = 10000;   // el recortador de pantalla (Win+Shift+S) quita el foco: ya cuenta como captura
   let timerBlur = null;
+  let ultimaCaptura = 0;
   function onBlur() {
     if (!activo || document.hidden) return;
     clearTimeout(timerBlur);
     timerBlur = setTimeout(() => {
       timerBlur = null;
-      if (activo && !document.hidden && !document.hasFocus()) inicioSegundoPlano('foco_perdido', { evento: 'blur' });
+      if (activo && !document.hidden && !document.hasFocus() && Date.now() - ultimaCaptura > VENTANA_CAPTURA_MS) inicioSegundoPlano('foco_perdido', { evento: 'blur' });
     }, GRACIA_BLUR_MS);
   }
   function onFocus() { clearTimeout(timerBlur); timerBlur = null; if (activo) finSegundoPlano(); }
@@ -167,6 +169,7 @@ const ExamIntegridad = (() => {
   //      habituales (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) y la impresión (Ctrl+P / "Guardar como PDF").
   function capturaDetectada(tecla) {
     if (!activo) return;
+    ultimaCaptura = Date.now();
     ultimoEvento = Date.now() + 1500;   // el recortador de pantalla hace perder el foco: no se cuenta dos veces
     try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText('Captura bloqueada · NikaMed').catch(() => {}); } catch (_) {}
     contarIncidencia('captura_pantalla', { tecla, pregunta: st && st.preguntaActual });

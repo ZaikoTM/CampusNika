@@ -4566,7 +4566,10 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                     if (e.error === 'no-speech' || e.error === 'aborted') return;
                     huboErrorReal = true;
                     activo = false; ui(false);
-                    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') showToast('Permiso de micrófono denegado.');
+                    // Brave trae el dictado del navegador desactivado (depende de un servicio de Google que bloquea):
+                    // ahí falla siempre con 'network' o 'service-not-allowed' aunque el micrófono funcione.
+                    if (navigator.brave && (e.error === 'network' || e.error === 'service-not-allowed')) showToast('El dictado no funciona en Brave. Abrí el campus en Chrome o Edge para usarlo.');
+                    else if (e.error === 'not-allowed' || e.error === 'service-not-allowed') showToast('Permiso de micrófono denegado. Habilitalo en el candado de la barra de direcciones.');
                     else if (e.error === 'network') showToast('Fallo de red del reconocimiento de voz. Probá dictar de nuevo.');
                     else showToast('El micrófono se cortó (' + e.error + '). Probá dictar de nuevo.');
                 };
@@ -4577,7 +4580,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                     if (activo && !huboErrorReal) { try { rec.start(); } catch (_) { activo = false; ui(false); } }
                     else ui(false);
                 };
-                try { rec.start(); activo = true; ui(true); } catch (_) { showToast('No se pudo iniciar el micrófono.'); }
+                try { rec.start(); activo = true; ui(true); } catch (_) { showToast(navigator.brave ? 'El dictado no funciona en Brave. Abrí el campus en Chrome o Edge para usarlo.' : 'No se pudo iniciar el micrófono.'); }
             }
             function detener(descartar) {
                 activo = false;
@@ -4889,7 +4892,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                         </div>
                         <div class="nota-pill" style="background:${colorNota(it.nota)};">${fmtNota(it.nota)}</div>
                     </div>
-                    ${it.error_critico ? `<div class="esc-alerta">⛔ Caíste en el error peligroso de esta pregunta (la nota queda limitada a 5).${it.error_peligroso_texto ? `<br><span style="font-weight:600;">Riesgo: ${escaparHtml(it.error_peligroso_texto)}</span>` : ''}${it.motivo_error_critico ? `<br><span style="font-weight:600;">Tu respuesta: ${escaparHtml(it.motivo_error_critico)}</span>` : ''}</div>` : ''}
+                    ${it.error_critico ? `<div class="esc-alerta">⛔ Caíste en el error peligroso de esta pregunta (la nota queda limitada a 5).${it.error_peligroso_texto ? `<br><span style="font-weight:600;">Riesgo: ${escaparHtml(it.error_peligroso_texto)}</span>` : ''}${it.motivo_error_critico ? `<br><span style="font-weight:600;">Motivo: ${escaparHtml(it.motivo_error_critico)}</span>` : ''}</div>` : ''}
                     ${it.intento_de_manipulacion ? '<div class="esc-alerta">🚫 Se detectó texto dirigido al corrector en tu respuesta; se evaluó solo el contenido médico.</div>' : ''}
                     <div class="escrito-label">Tu respuesta</div>
                     <div class="esc-resp">${it.respuesta ? escaparHtml(it.respuesta) : '<em>Sin responder</em>'}</div>

@@ -61,7 +61,7 @@ Reglas de estricticidad:
 ERRORES
 - "errores_conceptuales": afirmaciones concretas del alumno que son falsas o contradicen los puntos clave o la bibliografía estándar (Michans, Giménez, ATLS, Campbell-Walsh). Una frase corta por error. Lista vacía si no hay. No incluyas simples omisiones acá.
 - "error_peligroso_cometido": se te indica un "ERROR PELIGROSO A VIGILAR" por pregunta. Ponelo en true solo si la respuesta del alumno AFIRMA, RECOMIENDA o IMPLICA ese error (o cualquier otra conducta que pondría en riesgo al paciente: conducta contraindicada, dosis peligrosa, prioridad ATLS invertida, demora indebida de una cirugía o estudio urgente). Si el error indicado es una omisión, marcalo solo cuando el alumno describe una conducta o plan completo que la omite o la contradice; una omisión dentro de una simple lista de datos ya se penaliza en los puntos clave. Si no se cargó un error específico, aplicá solo la regla general de conducta peligrosa.
-- "motivo_error_peligroso": si lo marcaste true, citá brevemente la frase del alumno y por qué es peligrosa; si no, "".
+- "motivo_error_peligroso": si lo marcaste true, citá ENTRE COMILLAS la frase LITERAL del alumno que comete el error y explicá por qué es peligrosa; si no, "". Si no podés citar una frase textual del alumno que afirme, recomiende o implique la conducta peligrosa, NO lo marques: olvidar un dato dentro de una lista (por ejemplo un signo de alarma) es una omisión que ya se penaliza en los puntos clave, no un error peligroso.
 
 RÚBRICA (solo orientativa, no define la nota)
 Puntuá de 0 a 10 cada pilar, o null si NO APLICA a esa pregunta (una pregunta de clasificación no tiene conducta terapéutica): semiologia_anamnesis, criterio_diagnostico, conducta_terapeutica, vocabulario_tecnico (precisión terminológica; el lenguaje coloquial resta).
@@ -367,7 +367,10 @@ function procesarEvaluacion(raw: any, item: ItemBanco, respuesta: string): Evalu
   const cobertura = evaluables > 0 ? (cub + 0.5 * par) / evaluables : null;
 
   const errores = limpiarLista(raw?.errores_conceptuales, 6);
-  const critico = raw?.error_peligroso_cometido === true;
+  // El error peligroso solo cuenta si el motivo cita entre comillas una frase que el alumno realmente escribió.
+  // Sin cita verificable (típico de "omitió tal dato") es una omisión, ya penalizada en los puntos clave.
+  const citasMotivo = [...String(raw?.motivo_error_peligroso ?? "").matchAll(/["“«'‘]([^"”»'’]{8,})["”»'’]/g)].map((m) => m[1]);
+  const critico = raw?.error_peligroso_cometido === true && citasMotivo.some((c) => evidenciaValida(c, respuesta));
 
   let nota: number | null = null;
   if (cobertura !== null) {
