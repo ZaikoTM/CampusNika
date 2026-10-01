@@ -45,6 +45,8 @@
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { withCors } from "../_shared/cors.ts";
+// [Sprint 3] Modelo por plan y cupo de Gemini compartidos con el tribunal escrito (ver _shared/evaluador.ts).
+import { consultarPlan, MODEL as MODELO_PREMIUM, MODELO_GRATIS, MODELO_RESPALDO, reservarCupo, limitesDe } from "../_shared/evaluador.ts";
 
 // CORS (orígenes permitidos, preflight OPTIONS, cabeceras en todas las respuestas y captura de
 // errores no controlados) lo maneja ../_shared/cors.ts. Acá solo queda el Content-Type.
@@ -87,9 +89,16 @@ const PRECIO_OUTPUT_POR_MILLON = 2.50;
 // Modelo: por defecto "gemini-flash-lite-latest" (familia 2.x, sin "thinking",
 // rápido y estable — el que veníamos usando cuando andaba bien). Se puede
 // pisar con GEMINI_MODEL (o el nombre viejo GEMINI_MODEL_EVAL) en los secrets.
-const GEMINI_MODEL = Deno.env.get("GEMINI_MODEL") || Deno.env.get("GEMINI_MODEL_EVAL") || "gemini-flash-lite-latest";
+// [Sprint 3] El modelo ya no está fijo: NikaMed+/admin usan MODELO_BASE y los gratuitos MODELO_GRATIS
+// (secreto GEMINI_MODEL_GRATIS; si no existe es el mismo). Antes el default era "gemini-flash-lite-latest",
+// un modelo distinto del tribunal escrito, con su propio cupo y fuera del contador: ahora ambos usan
+// GEMINI_MODEL_EVAL (default gemini-3.5-flash-lite) y comparten el limitador. GEMINI_MODEL, si está
+// cargado, sigue teniendo prioridad para este simulador.
+const MODELO_BASE = Deno.env.get("GEMINI_MODEL") || MODELO_PREMIUM;
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") || "";
-const ES_MODELO_FAMILIA_3 = /^gemini-3/.test(GEMINI_MODEL);
+
+// Espera máxima (segundos) por cupo de Gemini antes de pedirle al cliente que reintente.
+const CUPO_ESPERA_MAX_S = 10;
 
 // Timeout + reintentos del fetch a Gemini (independiente del timeout que tiene
 // el cliente en llamarEdgeFunctionSimulador). Si Gemini no contesta en este
@@ -134,11 +143,25 @@ function esperar(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Mira (sin consumir) si el modelo tiene cupo ahora. 0 = hay · >0 = segundos hasta el próximo minuto ·
+// -1 = cupo diario agotado. Si la base falla, se asume que hay cupo.
+async function cupoLibre(admin: any, modelo: string): Promise<number> {
+    const { rpm, rpd } = limitesDe(modelo);
+    try {
+        const { data, error } = await admin.rpc("gemini_cupo_libre", { p_modelo: modelo, p_rpm: rpm, p_rpd: rpd });
+        if (error || typeof data !== "number") { console.error("[evaluar-simulacion] gemini_cupo_libre falló:", error?.message); return 0; }
+        return data;
+    } catch (e) {
+        console.error("[evaluar-simulacion] gemini_cupo_libre excepción:", (e as Error).message);
+        return 0;
+    }
+}
+
 // Un solo intento de fetch a Gemini, con AbortController propio: si no contesta
 // en GEMINI_TIMEOUT_MS, aborta la request (evita quedarnos "pensando" para
 // siempre) y tira un error claro para que el caller decida si reintentar.
-async function intentarLlamarGemini(systemPrompt: string, historial: any[], mensaje: string, esEvaluacion: boolean) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+async function intentarLlamarGemini(modelo: string, systemPrompt: string, historial: any[], mensaje: string, esEvaluacion: boolean) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${GEMINI_API_KEY}`;
     const generationConfig: Record<string, unknown> = {
         temperature: esEvaluacion ? 0.35 : 0.9,
         maxOutputTokens: 2048,
@@ -149,7 +172,7 @@ async function intentarLlamarGemini(systemPrompt: string, historial: any[], mens
     // vacío (o tardar mucho más). La familia 2.x (gemini-flash-lite-latest,
     // gemini-2.5-flash-lite, etc.) no entiende este campo, así que solo lo
     // mandamos si el modelo configurado es de la familia 3.
-    if (ES_MODELO_FAMILIA_3) {
+    if (/^gemini-3/.test(modelo)) {
         generationConfig.thinkingConfig = { thinkingLevel: "minimal" };
     }
     const body = {
@@ -189,11 +212,11 @@ async function intentarLlamarGemini(systemPrompt: string, historial: any[], mens
 // Reintenta con backoff simple (700ms, 1400ms) ante timeouts/abortos o errores
 // 5xx/de red de Gemini. Errores claramente "de configuración" (API key,
 // argumentos inválidos) no se reintentan porque van a fallar siempre igual.
-async function llamarGemini(systemPrompt: string, historial: any[], mensaje: string, esEvaluacion = false) {
+async function llamarGemini(modelo: string, systemPrompt: string, historial: any[], mensaje: string, esEvaluacion = false) {
     let ultimoError: unknown;
     for (let intento = 1; intento <= GEMINI_MAX_INTENTOS; intento++) {
         try {
-            return await intentarLlamarGemini(systemPrompt, historial, mensaje, esEvaluacion);
+            return await intentarLlamarGemini(modelo, systemPrompt, historial, mensaje, esEvaluacion);
         } catch (err) {
             ultimoError = err;
             const esAbort = err instanceof Error && (err.name === "AbortError" || /abort/i.test(err.message));
@@ -265,6 +288,27 @@ Deno.serve(withCors(async (req: Request) => {
     // motivo no llega, asumimos "true" para no regalar turnos gratis por accidente.
     const esPrimerTurno = es_primer_turno !== false;
 
+    // ---- [Sprint 3] Modelo según el plan + chequeo de cupo SIN consumirlo -----------
+    // Va ANTES de cobrar créditos: si no hay cupo se responde 429/503 sin haber cobrado nada, y el
+    // reintento automático del cliente no duplica el cobro. Mirar sin reservar tampoco permite que
+    // alguien sin créditos gaste el cupo de los suscriptores (el 402 sale antes de reservar).
+    let modelo = MODELO_BASE;
+    if (MODELO_GRATIS !== MODELO_PREMIUM) {   // solo vale la pena consultar el plan si los modelos difieren
+        const plan = await consultarPlan(supabaseAuth);
+        if (plan.ok && !plan.ilimitado) modelo = MODELO_GRATIS;
+    }
+    let libre = await cupoLibre(supabaseAdmin, modelo);
+    if (libre !== 0 && MODELO_RESPALDO && MODELO_RESPALDO !== modelo && (await cupoLibre(supabaseAdmin, MODELO_RESPALDO)) === 0) {
+        modelo = MODELO_RESPALDO;
+        libre = 0;
+    }
+    if (libre === -1) {
+        return jsonResponse(503, { error: "cupo_ia_diario", mensaje: "El simulador alcanzó su límite diario de uso. Volvé a intentar más tarde." });
+    }
+    if (libre > CUPO_ESPERA_MAX_S) {
+        return jsonResponse(429, { error: "cupo_ia", reintentar_en: libre, mensaje: "El simulador tiene mucha demanda en este momento. Reintentamos en unos segundos." });
+    }
+
     // ---- Validación previa: descontar créditos ANTES de llamar a Gemini -------
     const costo = costoSimulador(modo, esPrimerTurno, accion);
 
@@ -310,9 +354,24 @@ Deno.serve(withCors(async (req: Request) => {
         }
     }
 
+    // ---- [Sprint 3] Reservar cupo (esperando hasta CUPO_ESPERA_MAX_S) ---------------
+    let reserva = await reservarCupo(supabaseAdmin, modelo);
+    if (reserva > 0 && reserva <= CUPO_ESPERA_MAX_S) {
+        await esperar(reserva * 1000 + 300);
+        reserva = await reservarCupo(supabaseAdmin, modelo);
+    }
+    if (reserva !== 0) {
+        if (costo === 0) {   // turno gratis: es seguro pedir reintento
+            return jsonResponse(429, { error: "cupo_ia", reintentar_en: reserva > 0 ? reserva : 30, mensaje: "El simulador tiene mucha demanda en este momento. Reintentamos en unos segundos." });
+        }
+        // Ya se cobró el arranque del caso: no se lo hacemos perder, se llama igual (sobrepasar un poco el
+        // tope por minuto es preferible a cobrar y no responder).
+        console.warn("[evaluar-simulacion] sin cupo reservado tras cobrar; se llama igual a Gemini.");
+    }
+
     // ---- Llamada a Gemini (con timeout + reintentos) -----------------------------
     try {
-        const { texto, inputTokens, outputTokens } = await llamarGemini(system_prompt, historial, mensaje, esEvaluacionDeCierre);
+        const { texto, inputTokens, outputTokens } = await llamarGemini(modelo, system_prompt, historial, mensaje, esEvaluacionDeCierre);
 
         // ---- Telemetría: se guarda de forma asíncrona, sin bloquear la respuesta
         const costoUsd = calcularCostoUsd(inputTokens, outputTokens);

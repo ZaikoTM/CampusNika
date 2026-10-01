@@ -3789,6 +3789,9 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             if (!token && sb && sb.restaurarSesionSiExiste) { try { await sb.restaurarSesionSiExiste(); } catch (_) {} token = await getToken(); }
             if (!token) throw new Error('Tu sesión no está activa. Volvé a iniciar sesión y reintentá.');
 
+            // [Sprint 3] Si el servidor avisa que no hay cupo de IA en este momento (429 'cupo_ia'; se responde
+            // ANTES de cobrar créditos, así que reintentar no duplica el cobro), se espera y se reintenta solo.
+            for (let intentoCupo = 0; ; intentoCupo++) {
             const ctrl = new AbortController();
             const to = setTimeout(() => ctrl.abort(), CLINICA_CFG.timeoutMs);
             try {
@@ -3799,6 +3802,12 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                     signal: ctrl.signal
                 });
                 const data = await resp.json().catch(() => ({}));
+                if (resp.status === 429 && data.error === 'cupo_ia' && intentoCupo < 3) {
+                    const seg = Math.min(30, Math.max(3, Number(data.reintentar_en) || 10));
+                    showToast(`El simulador tiene mucha demanda. Reintentando en ${seg} s…`);
+                    await new Promise((r) => setTimeout(r, seg * 1000 + Math.random() * 1500));
+                    continue;
+                }
                 if (!resp.ok || data.error) {
                     const err = new Error(data.mensaje || data.error || `El simulador respondió con error HTTP ${resp.status}.`);
                     err.code = data.error || null;     // ej: 'creditos_insuficientes', 'no_autenticado'
@@ -3811,6 +3820,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 if (err && err.name === 'AbortError') throw new Error('La IA tardó demasiado en responder. Reintentá en un momento.');
                 throw err;
             } finally { clearTimeout(to); }
+            }
         }
 
         const ClinicaEngine = (() => {
