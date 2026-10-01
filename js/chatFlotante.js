@@ -98,11 +98,19 @@
     document.body.append(fab, panel);
     vistaLista();
   }
-  const abrir = () => { abierto = true; minimizado = false; panel.classList.add('on'); aplicarMin(); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } };
-  function cerrar() { abierto = false; panel.classList.remove('on'); document.body.classList.remove('cf-abierto'); }
+  const abrir = () => { abierto = true; minimizado = false; panel.classList.add('on'); aplicarMin(); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; marcarLeidoActual(); } };
+  // Un mensaje cuenta como LEÍDO solo si el panel está desplegado y a la vista. Minimizado o cerrado, queda sin leer:
+  // suena, se pone el botón en rojo y el contador sube, igual que si estuvieras en cualquier otra pantalla.
+  function sincronizarLectura() { try { if (window.ChatManager) window.ChatManager.lecturaAutomatica = !!(abierto && !minimizado); } catch (_) {} }
+  function marcarLeidoActual() { if (actual && abierto && !minimizado && !document.hidden) window.ChatManager.marcarComoLeido(actual).then(refrescarNoLeidos).catch(() => {}); }
+  function cerrar() {
+    abierto = false; panel.classList.remove('on'); document.body.classList.remove('cf-abierto');
+    if (actual) { actual = null; try { window.ChatManager.cerrarConversacion(); } catch (_) {} }   // al cerrar se sale de la conversación: lo que llegue queda sin leer
+    sincronizarLectura();
+  }
   // Minimizar: queda solo la barra de arriba (nombre, estado y contador); un clic en la barra lo vuelve a abrir
-  function aplicarMin() { panel.classList.toggle('min', minimizado); document.body.classList.toggle('cf-abierto', abierto && !minimizado); const b = $('.cf-min', panel); if (b) { b.textContent = minimizado ? '▢' : '–'; b.title = minimizado ? 'Restaurar' : 'Minimizar'; } }
-  function alternarMin(e) { if (e) e.stopPropagation(); minimizado = !minimizado; aplicarMin(); if (!minimizado) { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } }
+  function aplicarMin() { panel.classList.toggle('min', minimizado); document.body.classList.toggle('cf-abierto', abierto && !minimizado); sincronizarLectura(); const b = $('.cf-min', panel); if (b) { b.textContent = minimizado ? '▢' : '–'; b.title = minimizado ? 'Restaurar' : 'Minimizar'; } }
+  function alternarMin(e) { if (e) e.stopPropagation(); minimizado = !minimizado; aplicarMin(); if (!minimizado) { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; marcarLeidoActual(); } }
   const cabeceraBtns = () => `<button type="button" class="cf-min" aria-label="Minimizar">–</button><button type="button" class="cf-x" aria-label="Cerrar">✕</button>`;
   function conectarCabecera() {
     $('.cf-x', panel).onclick = (e) => { e.stopPropagation(); cerrar(); };
@@ -191,8 +199,8 @@
       <form class="cf-in" autocomplete="off"><input type="text" maxlength="800" placeholder="Escribí un mensaje…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">➤</button></form>`;
     $('.cf-back', panel).onclick = (e) => { e.stopPropagation(); vistaLista(); }; conectarCabecera();
     const pintarEstado = (on) => { const s = $('#cf-est', panel); if (s) { s.textContent = on ? 'En línea' : 'Desconectado'; s.classList.toggle('on', !!on); } };
-    CM.lecturaAutomatica = true;
-    CM.onMensaje = (row) => { if (row.from_username !== user && row.to_username !== user) return; burbuja(row); if (row.from_username === user && !document.hidden) CM.marcarComoLeido(user).then(refrescarNoLeidos); };
+    sincronizarLectura();
+    CM.onMensaje = (row) => { if (row.from_username !== user && row.to_username !== user) return; burbuja(row); if (row.from_username === user && abierto && !minimizado && !document.hidden) CM.marcarComoLeido(user).then(refrescarNoLeidos); else refrescarNoLeidos(); };
     CM.onPresenciaCambio = pintarEstado;
     try {
       const hist = await CM.abrirConversacion(user);
