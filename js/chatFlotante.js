@@ -5,7 +5,8 @@
 //    (antes solo el campus lo hacía: quien estudiaba en otra página figuraba "desconectado" y no recibía nada).
 //  • Interfaz: botón flotante 💬 (arriba del asistente) con contador rojo de mensajes sin leer, bandeja de
 //    amigos con puntos de "en línea" y conversación completa con tildes de entrega y lectura.
-//  • En campus.html no hace nada (el campus tiene su propia interfaz). Con data-modo="presencia" (examen)
+//  • En campus.html reemplaza al chat viejo: el botón flotante, "Mensajes Privados" y los botones «Chat» de amigos y
+//    perfiles abren ESTE mismo chat, así que es idéntico en todo el sitio. Con data-modo="presencia" (examen)
 //    solo mantiene la presencia, sin botón: no distrae mientras se rinde.
 //
 // Uso: <script src="js/chatFlotante.js"></script> después de supabaseClient.js. Carga solo lo que falte
@@ -80,6 +81,8 @@
   .cf-b em{display:block;font-style:normal;font-size:.64rem;opacity:.75;margin-top:2px;text-align:right}
   .cf-b .chat-bubble-tick{display:inline-flex;vertical-align:middle;margin-left:4px}.cf-b .chat-bubble-tick svg{width:15px;height:10px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .cf-b .tick-read{color:#7dd3fc}.cf-b .tick-sent,.cf-b .tick-delivered{opacity:.8}
+  .cf-b.cf-pregunta{border-left:4px solid #8b5cf6}.cf-b.cf-pregunta strong{display:block;font-size:.74rem;margin-bottom:4px;opacity:.9}
+  #chat-fab-btn,#dm-inbox-modal,#private-chat-modal{display:none!important}
   .cf-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border,#e2e8f0)}.cf-in input{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .88rem 'Plus Jakarta Sans',sans-serif;outline:none}
   .cf-in input:focus{border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.2)}.cf-in button{width:42px;height:42px;border:0;border-radius:50%;background:#0284c7;color:#fff;font-size:1.05rem;cursor:pointer}
   @media (max-width:640px){.cf-fab{width:48px;height:48px;right:12px;bottom:74px}.cf-panel{right:8px;bottom:132px;height:min(70vh,520px)}}
@@ -170,7 +173,11 @@
     const mia = String(m.from_username).toLowerCase() === String(yo()).toLowerCase();
     const CM = window.ChatManager;
     const el = document.createElement('div'); el.className = 'cf-b chat-bubble ' + (mia ? 'mine' : 'theirs'); if (m.id) el.setAttribute('data-msg-id', m.id);
-    const t = document.createElement('span'); t.textContent = m.content || ''; el.appendChild(t);
+    if (m.shared_question) {   // tarjeta de pregunta compartida desde un simulacro
+      const q = m.shared_question; el.classList.add('cf-pregunta');
+      const h = document.createElement('strong'); h.textContent = '📋 Pregunta compartida' + (q.up ? ' · ' + q.up : ''); el.appendChild(h);
+    }
+    const t = document.createElement('span'); t.textContent = m.shared_question ? (m.shared_question.q || '') : (m.content || ''); el.appendChild(t);
     const meta = document.createElement('em'); meta.innerHTML = esc(hora(m.created_at)) + (mia ? CM.tickHTML(CM.estadoDeEntrega(m)) : ''); el.appendChild(meta);
     box.appendChild(el); box.scrollTop = box.scrollHeight;
   }
@@ -217,24 +224,59 @@
   }
 
   // ------------------------------------------------------------------ arranque
+  let montado = false, corriendo = false, resolverListo; const listo = new Promise((r) => { resolverListo = r; });
   async function iniciar() {
-    if ($('#chat-fab-btn')) return;                                  // campus.html: tiene su propia interfaz
-    if (!hayUsuario() || !window.NikaSupabase) return;
-    try { await window.NikaSupabase.ready; } catch (_) { return; }
-    if (!yo()) return;
-    const okCM = await cargarScript('chatManager.js?v=3', () => !!window.ChatManager);
-    await cargarScript('friendsManager.js', () => !!window.NikaFriends);
-    await cargarScript('presenciaCampus.js', () => !!window.NikaPresencia);
-    if (!okCM || !window.ChatManager) return;
-    const CM = window.ChatManager;
-    CM.iniciarPresenciaGlobal().catch(() => {});
-    if (SOLO_PRESENCIA) return;
-    montarUI();
-    CM.alCambiarLista(() => refrescarNoLeidos());
-    CM.alCambiarPresencia(() => { if (abierto && !actual) pintarLista(); if (actual) { const s = $('#cf-est', panel); if (s) { const on = CM.estaEnLinea(actual); s.textContent = on ? 'En línea' : 'Desconectado'; s.classList.toggle('on', on); } } });
-    refrescarNoLeidos();
-    setInterval(() => { if (!document.hidden) refrescarNoLeidos(); }, 40000);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescarNoLeidos(); });
+    if (montado) return true;
+    if (corriendo || !hayUsuario() || !window.NikaSupabase) return false;
+    corriendo = true;
+    try {
+      try { await window.NikaSupabase.ready; } catch (_) { return false; }
+      if (!yo()) return false;
+      const okCM = await cargarScript('chatManager.js?v=3', () => !!window.ChatManager);
+      await cargarScript('friendsManager.js', () => !!window.NikaFriends);
+      await cargarScript('presenciaCampus.js', () => !!window.NikaPresencia);
+      if (!okCM || !window.ChatManager) return false;
+      const CM = window.ChatManager;
+      CM.iniciarPresenciaGlobal().catch(() => {});
+      if (!SOLO_PRESENCIA) {
+        montarUI();
+        CM.alCambiarLista(() => refrescarNoLeidos());
+        CM.alCambiarPresencia(() => { if (abierto && !actual) pintarLista(); if (actual) { const s = $('#cf-est', panel); if (s) { const on = CM.estaEnLinea(actual); s.textContent = on ? 'En línea' : 'Desconectado'; s.classList.toggle('on', on); } } });
+        refrescarNoLeidos();
+        setInterval(() => { if (!document.hidden) refrescarNoLeidos(); }, 40000);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescarNoLeidos(); });
+      }
+      montado = true; resolverListo(true);
+      return true;
+    } finally { corriendo = false; }
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(iniciar, 600)); else setTimeout(iniciar, 600);
+
+  // API pública: abrir la bandeja o una conversación desde cualquier botón del sitio
+  async function abrirBandeja() { await listo; if (SOLO_PRESENCIA) return; abrir(); }
+  async function abrirConUsuario(user) {
+    await listo; if (SOLO_PRESENCIA || !user) return;
+    if (!amigos.length) { try { amigos = await window.NikaFriends.listFriends(); } catch (_) {} }
+    if (!amigos.some((f) => String(f.username).toLowerCase() === String(user).toLowerCase())) {
+      if (typeof window.showToast === 'function') window.showToast('Solo podés chatear con tus amigos. Agregalo desde «Comunidad & Amigos».'); return;
+    }
+    const real = amigos.find((f) => String(f.username).toLowerCase() === String(user).toLowerCase());
+    abierto = true; panel.classList.add('on'); minimizado = false; guardar(LS_MIN, false); aplicarMin();
+    await conversacion(real.username);
+  }
+  window.NikaChat = { abrir: abrirBandeja, conversacion: abrirConUsuario };
+  // En el campus los botones del chat viejo (menú «Mensajes Privados», «Chat» de amigos y perfiles) pasan al chat unificado
+  if (!SOLO_PRESENCIA) {
+    window.openChatWithFriend = (u) => abrirConUsuario(u);
+    window.openDmInboxModal = () => abrirBandeja();
+    window.handleChatFabClick = () => abrirBandeja();
+    window.closeDmInboxModal = () => {};
+  }
+
+  // El campus permite iniciar sesión sin recargar: se reintenta hasta que haya sesión
+  function arrancar() {
+    let intentos = 0;
+    const t = setInterval(async () => { if (await iniciar() || ++intentos > 600) clearInterval(t); }, 1500);
+    iniciar().then((ok) => { if (ok) clearInterval(t); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(arrancar, 600)); else setTimeout(arrancar, 600);
 })();
