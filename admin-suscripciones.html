@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Suscripciones | Campus Nika</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="theme-color" content="#07050d">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-suscripciones.css">
+</head>
+<body class="as-body as-verificando">
+
+    <header class="as-top">
+        <a class="as-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span>CAMPUS NIKA<small>Panel de suscripciones</small></span>
+        </a>
+        <div class="as-acciones">
+            <button type="button" class="as-btn" id="as-refrescar" title="Recargar datos">🔄 <span class="lbl">Actualizar</span></button>
+            <a class="as-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+        </div>
+    </header>
+
+    <main class="as-main">
+        <section class="as-hero">
+            <h1>✨ Centro de NikaMed+</h1>
+            <p>Suscriptores, pagos, reportes y usuarios en un solo lugar. Abrí cada mosaico para ver el detalle.</p>
+        </section>
+
+        <section class="as-kpis" id="as-kpis" aria-label="Resumen"></section>
+
+        <section class="as-tiles" id="as-tiles">
+
+            <article class="as-tile" id="tile-subs" style="animation-delay:.05s">
+                <button type="button" class="as-head" aria-expanded="false">
+                    <span class="as-ico">💎</span>
+                    <span class="as-tt"><b>Suscriptores NikaMed+</b><small>Quién tiene el plan, hasta cuándo y cuánto le queda</small></span>
+                    <span class="as-badge" id="badge-subs">–</span><span class="as-chev">⌄</span>
+                </button>
+                <div class="as-body"><div class="as-inner"><div class="as-content">
+                    <div class="as-tools">
+                        <input class="as-search" id="subs-q" type="search" placeholder="Buscar suscriptor…" autocomplete="off">
+                        <div class="as-chips" id="subs-filtros">
+                            <button type="button" class="as-chip on" data-f="todos">Todos</button>
+                            <button type="button" class="as-chip" data-f="activos">Activos</button>
+                            <button type="button" class="as-chip" data-f="porvencer">Por vencer</button>
+                            <button type="button" class="as-chip" data-f="vencidos">Vencidos</button>
+                        </div>
+                    </div>
+                    <div class="as-list" id="subs-lista"></div>
+                </div></div></div>
+            </article>
+
+            <article class="as-tile" id="tile-pagos" style="animation-delay:.12s">
+                <button type="button" class="as-head" aria-expanded="false">
+                    <span class="as-ico">💳</span>
+                    <span class="as-tt"><b>Pagos recientes</b><small>Cobros de Mercado Pago y a quién se acreditaron</small></span>
+                    <span class="as-badge" id="badge-pagos">–</span><span class="as-chev">⌄</span>
+                </button>
+                <div class="as-body"><div class="as-inner"><div class="as-content">
+                    <div class="as-tools">
+                        <div class="as-chips" id="pagos-filtros">
+                            <button type="button" class="as-chip on" data-f="aprobados">Aprobados</button>
+                            <button type="button" class="as-chip" data-f="todos">Todos</button>
+                        </div>
+                    </div>
+                    <div class="as-list" id="pagos-lista"></div>
+                </div></div></div>
+            </article>
+
+            <article class="as-tile" id="tile-reportes" style="animation-delay:.19s">
+                <button type="button" class="as-head" aria-expanded="false">
+                    <span class="as-ico">🚩</span>
+                    <span class="as-tt"><b>Reportes de la comunidad</b><small>Chat y foro: descartar, eliminar o suspender</small></span>
+                    <span class="as-badge" id="badge-reportes">–</span><span class="as-chev">⌄</span>
+                </button>
+                <div class="as-body"><div class="as-inner"><div class="as-content">
+                    <div class="as-reportes" id="reportes-box"></div>
+                </div></div></div>
+            </article>
+
+            <article class="as-tile" id="tile-usuarios" style="animation-delay:.26s">
+                <button type="button" class="as-head" aria-expanded="false">
+                    <span class="as-ico">👥</span>
+                    <span class="as-tt"><b>Usuarios registrados</b><small>Buscá a cualquiera y activale o quitale NikaMed+ a mano</small></span>
+                    <span class="as-badge" id="badge-usuarios">–</span><span class="as-chev">⌄</span>
+                </button>
+                <div class="as-body"><div class="as-inner"><div class="as-content">
+                    <div class="as-tools">
+                        <input class="as-search" id="usr-q" type="search" placeholder="Buscar por nombre o usuario…" autocomplete="off">
+                    </div>
+                    <div class="as-list" id="usr-lista"></div>
+                </div></div></div>
+            </article>
+
+        </section>
+    </main>
+
+    <div id="toast">Listo</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/moderacion.js"></script>
+    <script src="js/adminSuscripciones.js"></script>
+</body>
+</html>

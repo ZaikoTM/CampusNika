@@ -158,6 +158,7 @@
             <div id="sidebar-admin-category" style="display: none;">
                 <div class="sidebar-category" style="color: var(--danger);">Administración</div>
                 <li><button onclick="showAdminDashboard()" class="sidebar-link" style="color: var(--danger);">⚙️ Panel Admin</button></li>
+                <li><a href="admin-suscripciones.html" class="sidebar-link" style="color: #a855f7;">✨ Suscripciones NikaMed+</a></li>
             </div>
 
             <div class="sidebar-category">Mi Cuenta</div>
@@ -562,7 +563,10 @@
                         <h2>Centro de Control del Creador</h2>
                         <p>Gestión de métricas, análisis de rendimiento y bandeja de erratas.</p>
                     </div>
-                    <button class="btn-module" style="width:auto; background:var(--bg-body); color:var(--text-main); border:1px solid var(--border);" onclick="showDashboard()">Cerrar Panel ✖</button>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                        <a href="admin-suscripciones.html" class="btn-module" style="width:auto; text-decoration:none; background:linear-gradient(135deg,#7c3aed,#a855f7); color:#fff; border:none;">✨ Suscripciones NikaMed+</a>
+                        <button class="btn-module" style="width:auto; background:var(--bg-body); color:var(--text-main); border:1px solid var(--border);" onclick="showDashboard()">Cerrar Panel ✖</button>
+                    </div>
                 </div>
 
                 <div class="admin-stats-grid">
