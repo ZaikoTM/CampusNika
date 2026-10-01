@@ -171,6 +171,11 @@ const NikaAssistant = (() => {
             if (!response.ok) {
                 const errBody = await response.text().catch(() => '');
                 console.error('Error de la Edge Function chat-flotante:', response.status, errBody);
+                // El servidor ahora exige sesión y limita el uso: sus mensajes ya vienen listos para el alumno
+                // (401 sin sesión · 429 límite por hora / mucha demanda).
+                if (response.status === 401 || response.status === 429) {
+                    try { const j = JSON.parse(errBody); if (j && j.mensaje) { clearTimeout(timeoutId); return j.mensaje; } } catch (_) {}
+                }
                 throw new Error(`Error HTTP ${response.status}`);
             }
 

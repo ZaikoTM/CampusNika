@@ -1058,9 +1058,15 @@ function initModuleChat() {
 
         try {
             // 3 y 4. POST a la Edge Function con { pregunta, modulo, unidad }.
+            // El servidor ahora verifica la sesión y que la cuenta sea NikaMed+/admin: hay que mandar el token del usuario.
+            let _token = null;
+            try {
+                const _c = window.NikaSupabase && window.NikaSupabase.client;
+                if (_c) { const { data: { session: _s } } = await _c.auth.getSession(); _token = _s && _s.access_token; }
+            } catch (_) {}
             const response = await fetch(NIKA_CHAT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', ...(_token ? { 'Authorization': 'Bearer ' + _token } : {}) },
                 body: JSON.stringify({
                     pregunta: text,
                     modulo: moduloActivoLabel(),
@@ -1069,6 +1075,10 @@ function initModuleChat() {
             });
 
             if (!response.ok) {
+                if ([401, 403, 429, 503].includes(response.status)) {
+                    const j = await response.json().catch(() => null);
+                    if (j && j.mensaje) { loadingRow.remove(); appendModuleMsg('⚠️ ' + j.mensaje, 'error'); return; }
+                }
                 throw new Error(`HTTP ${response.status}`);
             }
 

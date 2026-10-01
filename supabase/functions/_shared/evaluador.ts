@@ -9,6 +9,8 @@
 // Una sola fuente de verdad: si cambiás la rúbrica, cambia para los dos.
 // ============================================================================
 
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
 export const MODEL = Deno.env.get("GEMINI_MODEL_EVAL") ?? "gemini-3.5-flash-lite";
 const GEMINI_BASE = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguage.googleapis.com/v1beta";
 export const SITE_URL = (Deno.env.get("SITE_URL") ?? "https://nikamed.com.ar").replace(/\/+$/, "");
@@ -548,8 +550,12 @@ export function limitesDe(modelo: string): { rpm: number; rpd: number | null } {
 // Reserva `n` pedidos del modelo en la base (función SQL gemini_reservar, atómica entre workers).
 // Devuelve 0 = reservado · >0 = esperar esos segundos (cupo por minuto) · -1 = cupo diario agotado.
 // Si la base falla, deja pasar (mejor intentar que frenar todo).
-export async function reservarCupo(admin: any, modelo: string, n = 1): Promise<number> {
-  const { rpm, rpd } = limitesDe(modelo);
+// `fraccion` (0-1) deja libre una parte del tope para las funciones prioritarias: p. ej. los chats usan 0.4,
+// así nunca pueden empujar el contador compartido por encima del 40 % y le dejan lugar a los exámenes.
+export async function reservarCupo(admin: any, modelo: string, n = 1, fraccion = 1): Promise<number> {
+  const lim = limitesDe(modelo);
+  const rpm = Math.max(1, Math.floor(lim.rpm * fraccion));
+  const rpd = lim.rpd ? Math.max(1, Math.floor(lim.rpd * fraccion)) : null;
   try {
     const { data, error } = await admin.rpc("gemini_reservar", { p_modelo: modelo, p_rpm: rpm, p_rpd: rpd, p_n: n });
     if (error || typeof data !== "number") { console.error("[cupo] gemini_reservar falló:", error?.message); return 0; }
@@ -557,6 +563,66 @@ export async function reservarCupo(admin: any, modelo: string, n = 1): Promise<n
   } catch (e) {
     console.error("[cupo] gemini_reservar excepción:", (e as Error).message);
     return 0;
+  }
+}
+
+
+// ----------------------------------------------------------------------------
+// Utilidades para las funciones de chat (chat-nika, chat-flotante)
+// ----------------------------------------------------------------------------
+
+// Valida la sesión REAL del usuario (la clave pública "anon" no sirve). Devuelve null si no hay sesión válida.
+export async function autenticar(req: Request): Promise<{ user: any; supaUser: any; admin: any } | null> {
+  const jwt = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "");
+  if (!jwt) return null;
+  const url = Deno.env.get("SUPABASE_URL")!;
+  const supaUser = createClient(url, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: `Bearer ${jwt}` } } });
+  const { data, error } = await supaUser.auth.getUser(jwt);
+  if (error || !data?.user) return null;
+  const admin = createClient(url, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+  return { user: data.user, supaUser, admin };
+}
+
+// Límite de consultas por usuario y por hora (función SQL ia_reservar_usuario). 0 = permitido · >0 = segundos
+// hasta que se libere. Si la base falla se deja pasar: el contador de cupo global igual protege la cuota.
+export async function limitarUsuario(admin: any, userId: string, funcion: string, max: number): Promise<number> {
+  try {
+    const { data, error } = await admin.rpc("ia_reservar_usuario", { p_user: userId, p_funcion: funcion, p_max: max });
+    if (error || typeof data !== "number") { console.error("[limite-usuario] falló:", error?.message); return 0; }
+    return data;
+  } catch (e) {
+    console.error("[limite-usuario] excepción:", (e as Error).message);
+    return 0;
+  }
+}
+
+// Llamada simple a Gemini (texto plano) con timeout. No expone detalles internos: lanza un Error genérico.
+export async function generarTexto(
+  apiKey: string, modelo: string, systemInstruction: string | null, userText: string,
+  opts: { temperature?: number; maxOutputTokens?: number; timeoutMs?: number } = {},
+): Promise<string> {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), opts.timeoutMs ?? 20_000);
+  try {
+    const body: any = {
+      contents: [{ role: "user", parts: [{ text: userText }] }],
+      generationConfig: { temperature: opts.temperature ?? 0.6, maxOutputTokens: opts.maxOutputTokens ?? 1000 },
+    };
+    if (systemInstruction) body.systemInstruction = { parts: [{ text: systemInstruction }] };
+    const resp = await fetch(`${GEMINI_BASE}/models/${modelo}:generateContent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+      body: JSON.stringify(body),
+      signal: ctrl.signal,
+    });
+    if (!resp.ok) {
+      console.error("[generarTexto] Gemini HTTP", resp.status, (await resp.text().catch(() => "")).slice(0, 200));
+      throw new Error("gemini_http_" + resp.status);
+    }
+    const data = await resp.json();
+    return (data.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("").trim();
+  } finally {
+    clearTimeout(t);
   }
 }
 
