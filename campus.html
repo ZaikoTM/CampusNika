@@ -739,7 +739,7 @@
     <div class="modal-overlay" id="avatar-crop-modal" style="z-index: 3500;">
         <div class="modal-content avatar-crop-card" role="dialog" aria-modal="true" aria-labelledby="avatar-crop-title">
             <h3 id="avatar-crop-title" style="font-size: 1.15rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px;">Encuadrá tu foto</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;">Arrastrá para mover y usá el zoom. Lo que queda dentro del círculo es tu avatar.</p>
+            <p id="avatar-crop-help" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;">Arrastrá para mover y usá el zoom. Lo que queda dentro del círculo es tu avatar.</p>
             <div class="avatar-crop-stage" id="avatar-crop-stage">
                 <canvas id="avatar-crop-canvas" width="320" height="320"></canvas>
                 <div class="avatar-crop-mask"></div>
@@ -751,7 +751,7 @@
             </div>
             <div class="modal-footer-btns" style="margin-top: 16px; display: flex; gap: 10px; justify-content: flex-end;">
                 <button type="button" class="btn-balance-cerrar" onclick="cancelarRecorteAvatar()">Cancelar</button>
-                <button type="button" class="plan-btn-balance" onclick="confirmarRecorteAvatar()">Usar esta foto</button>
+                <button type="button" class="plan-btn-balance" id="avatar-crop-ok" onclick="confirmarRecorteAvatar()">Usar esta foto</button>
             </div>
         </div>
     </div>
@@ -2635,7 +2635,8 @@ let tempAvatarBase64 = null;
 let tempAvatarBlob = null; // Guardamos el blob real para poder subirlo como archivo
 
 // ---- Recorte de avatar (canvas nativo: arrastrar, zoom con slider/rueda/pellizco) ----
-const AvatarCrop = { img: null, V: 320, base: 1, zoom: 1, x: 0, y: 0, punteros: new Map(), pinchDist: 0 };
+// modo 'avatar' (cuadrado 320, sale 400x400) o 'banner' (panorámico 600x200, sale 1200x400)
+const AvatarCrop = { img: null, modo: 'avatar', W: 320, H: 320, base: 1, zoom: 1, x: 0, y: 0, punteros: new Map(), pinchDist: 0 };
 
 function handleAvatarPreview(event) {
     const file = event.target.files[0];
@@ -2657,13 +2658,23 @@ function handleAvatarPreview(event) {
     reader.readAsDataURL(file);
 }
 
-function abrirRecorteAvatar(img) {
+function abrirRecorteAvatar(img, modo) {
     const c = AvatarCrop;
     c.img = img;
-    c.base = c.V / Math.max(img.width, img.height); // se ve la foto ENTERA; desde ahí se hace zoom y se encuadra
+    c.modo = modo === 'banner' ? 'banner' : 'avatar';
+    const esBanner = c.modo === 'banner';
+    c.W = esBanner ? 600 : 320; c.H = esBanner ? 200 : 320;
+    const canvas = document.getElementById('avatar-crop-canvas');
+    canvas.width = c.W; canvas.height = c.H;
+    document.getElementById('avatar-crop-stage').classList.toggle('is-banner', esBanner);
+    document.getElementById('avatar-crop-title').textContent = esBanner ? 'Encuadrá tu portada' : 'Encuadrá tu foto';
+    document.getElementById('avatar-crop-help').textContent = esBanner ? 'Arrastrá para mover y usá el zoom. Se ve todo lo que queda dentro del recuadro.' : 'Arrastrá para mover y usá el zoom. Lo que queda dentro del círculo es tu avatar.';
+    document.getElementById('avatar-crop-ok').textContent = esBanner ? 'Usar esta portada' : 'Usar esta foto';
+    // avatar: se ve la foto ENTERA y desde ahí se hace zoom; portada: arranca cubriendo todo el recuadro (sin huecos)
+    c.base = esBanner ? Math.max(c.W / img.width, c.H / img.height) : c.W / Math.max(img.width, img.height);
     c.zoom = 1;
-    c.x = (c.V - img.width * c.base) / 2;
-    c.y = (c.V - img.height * c.base) / 2;
+    c.x = (c.W - img.width * c.base) / 2;
+    c.y = (c.H - img.height * c.base) / 2;
     c.punteros.clear();
     document.getElementById('avatar-crop-zoom').value = 1;
     document.getElementById('avatar-crop-modal').style.display = 'flex';
@@ -2675,8 +2686,8 @@ function _limitarRecorte() {
     const c = AvatarCrop, s = c.base * c.zoom;
     const w = c.img.width * s, h = c.img.height * s;
     // Si la foto es más chica que el cuadro en un eje queda centrada; si es más grande, no deja huecos
-    c.x = w <= c.V ? (c.V - w) / 2 : Math.min(0, Math.max(c.V - w, c.x));
-    c.y = h <= c.V ? (c.V - h) / 2 : Math.min(0, Math.max(c.V - h, c.y));
+    c.x = w <= c.W ? (c.W - w) / 2 : Math.min(0, Math.max(c.W - w, c.x));
+    c.y = h <= c.H ? (c.H - h) / 2 : Math.min(0, Math.max(c.H - h, c.y));
 }
 
 function _dibujarRecorte() {
@@ -2686,7 +2697,7 @@ function _dibujarRecorte() {
     const ctx = document.getElementById('avatar-crop-canvas').getContext('2d');
     const s = c.base * c.zoom;
     ctx.fillStyle = '#cbd5e1';
-    ctx.fillRect(0, 0, c.V, c.V);
+    ctx.fillRect(0, 0, c.W, c.H);
     ctx.drawImage(c.img, c.x, c.y, c.img.width * s, c.img.height * s);
 }
 
@@ -2696,10 +2707,10 @@ function _aplicarZoomRecorte(nuevoZoom) {
     if (!c.img) return;
     nuevoZoom = Math.min(6, Math.max(1, nuevoZoom));
     const sViejo = c.base * c.zoom, sNuevo = c.base * nuevoZoom;
-    const cx = (c.V / 2 - c.x) / sViejo, cy = (c.V / 2 - c.y) / sViejo;
+    const cx = (c.W / 2 - c.x) / sViejo, cy = (c.H / 2 - c.y) / sViejo;
     c.zoom = nuevoZoom;
-    c.x = c.V / 2 - cx * sNuevo;
-    c.y = c.V / 2 - cy * sNuevo;
+    c.x = c.W / 2 - cx * sNuevo;
+    c.y = c.H / 2 - cy * sNuevo;
     document.getElementById('avatar-crop-zoom').value = nuevoZoom;
     _dibujarRecorte();
 }
@@ -2709,7 +2720,7 @@ function _conectarEventosRecorte() {
     if (canvas.dataset.listo) return;
     canvas.dataset.listo = '1';
     const c = AvatarCrop;
-    const escala = () => c.V / canvas.getBoundingClientRect().width; // px de canvas por px de pantalla
+    const escala = () => c.W / canvas.getBoundingClientRect().width; // px de canvas por px de pantalla
 
     canvas.addEventListener('pointerdown', (e) => {
         canvas.setPointerCapture(e.pointerId);
@@ -2746,7 +2757,7 @@ function _conectarEventosRecorte() {
 function _cerrarRecorteAvatar() {
     document.getElementById('avatar-crop-modal').style.display = 'none';
     AvatarCrop.img = null;
-    const input = document.getElementById('prof-avatar-file');
+    const input = document.getElementById(AvatarCrop.modo === 'banner' ? 'prof-banner-file' : 'prof-avatar-file');
     if (input) input.value = ''; // permite volver a elegir el mismo archivo
 }
 
@@ -2755,14 +2766,24 @@ function cancelarRecorteAvatar() { _cerrarRecorteAvatar(); }
 function confirmarRecorteAvatar() {
     const c = AvatarCrop;
     if (!c.img) return;
-    const SALIDA = 400; // px del avatar final
+    const esBanner = c.modo === 'banner';
+    const OUT_W = esBanner ? 1200 : 400, OUT_H = 400;   // px finales: portada 1200x400, avatar 400x400
     const out = document.createElement('canvas');
-    out.width = SALIDA; out.height = SALIDA;
+    out.width = OUT_W; out.height = OUT_H;
     const ctx = out.getContext('2d');
-    const k = SALIDA / c.V, s = c.base * c.zoom * k;
+    const k = OUT_W / c.W, s = c.base * c.zoom * k;
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, SALIDA, SALIDA);
-    ctx.drawImage(c.img, c.x * k, c.y * k, c.img.width * s / 1, c.img.height * s / 1);
+    ctx.fillRect(0, 0, OUT_W, OUT_H);
+    ctx.drawImage(c.img, c.x * k, c.y * k, c.img.width * s, c.img.height * s);
+
+    if (esBanner) {
+        out.toBlob((b) => { if (!b) return; _bannerBlob = b; _bannerQuitar = false; _pintarBannerPreview(URL.createObjectURL(b)); }, 'image/jpeg', 0.85);
+        const bi = document.getElementById('prof-banner-file'); if (bi) bi.value = '';
+        document.getElementById('avatar-crop-modal').style.display = 'none';
+        c.img = null;
+        showToast('Portada lista 🖼️ Guardá el perfil para aplicarla.');
+        return;
+    }
 
     tempAvatarBase64 = out.toDataURL('image/jpeg', 0.85);
     tempAvatarBlob = null;
@@ -3100,12 +3121,7 @@ function handleBannerPreview(event) {
     const reader = new FileReader();
     reader.onload = (e) => {
         const img = new Image();
-        img.onload = () => {
-            const W = 1200, H = 400, c = document.createElement('canvas'); c.width = W; c.height = H;
-            const k = Math.max(W / img.width, H / img.height), w = img.width * k, h = img.height * k;
-            c.getContext('2d').drawImage(img, (W - w) / 2, (H - h) / 2, w, h);   // recorte tipo "cover"
-            c.toBlob((b) => { if (!b) return; _bannerBlob = b; _bannerQuitar = false; _pintarBannerPreview(URL.createObjectURL(b)); }, 'image/jpeg', 0.85);
-        };
+        img.onload = () => abrirRecorteAvatar(img, 'banner');
         img.onerror = () => showToast('⚠️ No se pudo leer esa imagen.');
         img.src = e.target.result;
     };

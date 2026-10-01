@@ -124,7 +124,7 @@ img, video, svg { max-width: 100%; }
   .plan-card-header { flex-direction: column; align-items: flex-start; }
   .plan-item { flex-wrap: wrap; } .plan-item-acciones { margin-left: 0; }
   .balance-hero-top { flex-direction: column; gap: 6px; }
-  .avatar-crop-stage { width: min(320px, 82vw) !important; height: min(320px, 82vw) !important; }
+  .avatar-crop-stage:not(.is-banner) { width: min(320px, 82vw) !important; height: min(320px, 82vw) !important; }
   .nt-tooltip { width: calc(100vw - 20px) !important; }
 
   /* Barra superior de la sala de estudio, Versus, simuladores y hubs */
