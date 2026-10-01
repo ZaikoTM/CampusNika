@@ -128,6 +128,27 @@ const ChatManager = (function () {
     // se avisa a todos cuando cambian los no leídos o quién está conectado.
     const _escListaExtra = [], _escPresenciaExtra = [];
     let presenciaNombres = [];      // usernames tal como se conectaron (con sus mayúsculas)
+    // Respaldo: quien dio señales de vida (latido a la base, NikaPresencia) en los últimos minutos figura "en línea"
+    // aunque su pestaña esté en otra sección que no mantiene el canal de presencia, o Realtime tarde en sincronizar.
+    let respaldoPresencia = new Set(), respaldoNombres = [], _timerRespaldo = null;
+    function _notificarPresenciaExtra() {
+        if (onPresenciaGlobal) { try { onPresenciaGlobal(new Set(presenciaGlobal)); } catch (_) {} }
+        _escPresenciaExtra.forEach((f) => { try { f(new Set(presenciaGlobal)); } catch (e) { console.error(e); } });
+        if (conversacionActual && onPresenciaCambio) { try { onPresenciaCambio(_amigoEnLinea(conversacionActual)); } catch (_) {} }
+    }
+    async function actualizarRespaldoPresencia() {
+        const NF = window.NikaFriends, NP = window.NikaPresencia;
+        if (!NF || !NP || !_yo()) return;
+        try {
+            const [amigos, mapa] = await Promise.all([NF.listFriends(), NP.ultimaVezAmigos()]);
+            const nuevo = new Set(), nombres = [];
+            amigos.forEach((a) => { if (NP.estaEnLinea(mapa[a.id])) { nuevo.add(_norm(a.username)); nombres.push(a.username); } });
+            const cambio = nuevo.size !== respaldoPresencia.size || [...nuevo].some((u) => !respaldoPresencia.has(u));
+            respaldoPresencia = nuevo; respaldoNombres = nombres;
+            if (cambio) _notificarPresenciaExtra();
+        } catch (_) { /* sin sesión o sin conexión: queda lo que diga Realtime */ }
+    }
+
     function _avisarLista() { if (onListaChanged) { try { onListaChanged(); } catch (_) {} } _escListaExtra.forEach((f) => { try { f(); } catch (e) { console.error(e); } }); }
     let onEntregaCambio = null;     // (friendUsername, ids[]) => void
     let lecturaAutomatica = true;   // poné false desde la UI si el chat está minimizado
@@ -164,7 +185,7 @@ const ChatManager = (function () {
     // ---------- Presencia global (la que faltaba: el DM solo veía a quien tenía ESE chat abierto) ----------
     function _amigoEnLinea(friend) {
         const f = _norm(friend);
-        if (presenciaGlobal.has(f)) return true;
+        if (presenciaGlobal.has(f) || respaldoPresencia.has(f)) return true;
         if (canalActivo && _norm(conversacionActual) === f) {
             return Object.keys(canalActivo.presenceState()).some((k) => _norm(k) === f);
         }
@@ -211,6 +232,8 @@ const ChatManager = (function () {
             await canal.track({ username, online_at: new Date().toISOString() });
             _confirmarPendientes(); // todo lo que llegó mientras estaba offline pasa a "recibido"
         });
+        actualizarRespaldoPresencia();
+        if (!_timerRespaldo) _timerRespaldo = setInterval(() => { if (!document.hidden) actualizarRespaldoPresencia(); }, 30000);
 
         // Respaldo: además del aviso del remitente (dm_ping), se escuchan los INSERT de mis mensajes en la base.
         // Si la tabla no tiene Realtime activado esto simplemente no hace nada (el aviso y el sondeo siguen).
@@ -607,7 +630,8 @@ const ChatManager = (function () {
         iniciarPresenciaGlobal,
         detenerPresenciaGlobal,
         estaEnLinea,
-        usuariosEnLinea() { return presenciaNombres.slice(); },
+        usuariosEnLinea() { return presenciaNombres.concat(respaldoNombres.filter((n) => !presenciaGlobal.has(_norm(n)))); },
+        actualizarRespaldoPresencia,
         alCambiarLista(cb) { if (typeof cb === 'function') _escListaExtra.push(cb); },
         alCambiarPresencia(cb) { if (typeof cb === 'function') _escPresenciaExtra.push(cb); },
         tickHTML,
