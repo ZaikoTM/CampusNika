@@ -2414,8 +2414,14 @@
         // ================= JERARQUÍA VISUAL / RANGOS DE USUARIO =================
         // Traduce el rol de la cuenta a lo que se muestra en el sidebar:
         // etiqueta de rango, color del nombre/rango, glow del avatar y logo.
-        function obtenerRangoUsuario(role) {
-            const esVip = role === 'premium' || role === 'vip' || (window.NikaAcceso && window.NikaAcceso.esVip());
+        // esPlusAjeno: para OTROS usuarios (listas, amigos, perfiles) pasar su
+        // es_nikamed_plus (vista profiles_public). Sin ese dato se usa el estado del
+        // usuario logueado (sidebar propio); nunca mezclar ambos: el rango de un
+        // tercero no puede depender de si quien mira es premium.
+        function obtenerRangoUsuario(role, esPlusAjeno) {
+            const esVip = typeof esPlusAjeno === 'boolean'
+                ? esPlusAjeno
+                : (role === 'premium' || role === 'vip' || (window.NikaAcceso && window.NikaAcceso.esVip()));
             if (role === 'admin') return { label: '👑 Admin', clase: 'profile-admin' };
             if (esVip) return { label: '✨ NikaMed+', clase: 'profile-premium' };
             return { label: '📚 Estudiante', clase: 'profile-free' };
@@ -2424,8 +2430,8 @@
         // Puente entre obtenerRangoUsuario() (ya existente, usada en el sidebar) y las
         // clases visuales .rank-admin/.rank-premium/.rank-free que usan las tarjetas
         // de "Comunidad & Amigos" y el modal de perfil público.
-        function _rangoTarjetaAmigo(role) {
-            const r = obtenerRangoUsuario(role);
+        function _rangoTarjetaAmigo(role, esPlusAjeno) {
+            const r = obtenerRangoUsuario(role, !!esPlusAjeno);
             const mapa = { 'profile-admin': 'rank-admin', 'profile-premium': 'rank-premium', 'profile-free': 'rank-free' };
             return { label: r.label, clase: mapa[r.clase] || 'rank-free' };
         }
@@ -3471,8 +3477,8 @@ async function handleLogout() {
             const myId = authUser ? authUser.id : null;
 
             const { data, error } = await supabase
-                .from('profiles')
-                .select('id, username, fullname, avatar, role')
+                .from('profiles_public')
+                .select('id, username, fullname, avatar, role, es_nikamed_plus')
                 .or(`username.ilike.%${rawQuery}%,fullname.ilike.%${rawQuery}%`)
                 .limit(20);
 
@@ -3491,7 +3497,7 @@ async function handleLogout() {
             }
 
             resultsBox.innerHTML = filtered.map(u => {
-                const rango = _rangoTarjetaAmigo(u.role);
+                const rango = _rangoTarjetaAmigo(u.role, u.es_nikamed_plus);
                 return `
                 <div class="friend-card">
                     <div class="friend-card-avatar-wrap">
@@ -3596,7 +3602,7 @@ async function handleLogout() {
             }
             const esc = NikaFriends.esc;
             listBox.innerHTML = friends.map(u => {
-                const rango = _rangoTarjetaAmigo(u.role);
+                const rango = _rangoTarjetaAmigo(u.role, u.es_nikamed_plus);
                 return `
                 <div class="friend-card">
                     <div class="friend-card-avatar-wrap" style="cursor:pointer;" onclick="abrirPerfilPublico('${esc(u.id)}')" title="Ver perfil">
@@ -3699,7 +3705,7 @@ async function handleLogout() {
             try {
                 const { data, error } = await window.NikaSupabase.client
                     .from('profiles')
-                    .select('id, username, fullname, avatar, role')
+                    .select('id, username, fullname, avatar, role, tipo_cuenta, plan_activo, fecha_fin_suscripcion')
                     .order('fullname', { ascending: true })
                     .limit(500);
                 if (error) throw error;
@@ -3734,16 +3740,32 @@ async function handleLogout() {
                 listBox.innerHTML = '<div class="friends-empty-state"><div class="friends-empty-icon">🔍</div><p>No se encontraron usuarios.</p></div>';
                 return;
             }
-            listBox.innerHTML = usuarios.map(u => `
+            const ahora = Date.now();
+            const planDe = (u) => {
+                const tipo = String(u.tipo_cuenta || 'free').toLowerCase();
+                if (tipo !== 'premium' && tipo !== 'vip') return null;
+                const fin = u.fecha_fin_suscripcion ? new Date(u.fecha_fin_suscripcion) : null;
+                const vencido = fin && fin.getTime() < ahora;
+                const txt = fin ? fin.toLocaleDateString('es-AR') : 'sin vencimiento';
+                return { vencido, txt };
+            };
+            listBox.innerHTML = usuarios.map(u => {
+                const plan = planDe(u);
+                const planHTML = !plan ? '' : (plan.vencido
+                    ? `<span class="admin-user-role-badge" style="background:rgba(245,158,11,0.15);color:#b45309;" title="Venció el ${plan.txt}">NikaMed+ vencido</span>`
+                    : `<span class="admin-user-role-badge" style="background:rgba(168,85,247,0.15);color:#9333ea;" title="Vence el ${plan.txt}">✨ NikaMed+ · hasta ${plan.txt}</span>`);
+                return `
                 <div class="admin-user-row">
                     <img src="${nikaEsc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="admin-user-avatar">
                     <div class="admin-user-body">
                         <div class="admin-user-name">${nikaEsc(u.fullname || 'Estudiante Nika')}</div>
                         <div class="admin-user-meta">@${nikaEsc(u.username || '')}</div>
                     </div>
+                    ${planHTML}
                     <span class="admin-user-role-badge${u.role === 'admin' ? ' is-admin' : ''}">${u.role === 'admin' ? 'Admin' : 'Usuario'}</span>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         function initMockErratas() {

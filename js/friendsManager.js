@@ -52,8 +52,8 @@ const NikaFriends = (() => {
     if (!ids.length) return {};
     const c = await getClient();
     const { data, error } = await c
-      .from('profiles')
-      .select('id, username, fullname, full_name, nombre, avatar, avatar_url, role')
+      .from('profiles_public')
+      .select('id, username, fullname, avatar, role, es_nikamed_plus')
       .in('id', ids);
     if (error) throw error;
     const map = {};
@@ -64,6 +64,7 @@ const NikaFriends = (() => {
         fullname: p.fullname || p.full_name || p.nombre || p.username || 'Estudiante Nika',
         avatar: p.avatar || p.avatar_url || null,
         role: p.role || 'free',
+        es_nikamed_plus: !!p.es_nikamed_plus,
       };
     });
     return map;

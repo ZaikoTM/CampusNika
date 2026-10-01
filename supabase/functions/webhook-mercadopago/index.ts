@@ -105,8 +105,13 @@ Deno.serve(async (req) => {
         return new Response(`ok (status=${pago.status})`, { status: 200, headers });
     }
 
+    // La acreditación se guía SOLO por external_reference (el user_id del campus
+    // que mandó crear-preferencia). El email/cuenta de MP del pagador NO se usa:
+    // puede pagar un familiar, con saldo, tarjeta o débito.
     const userId: string | undefined = pago.external_reference;
-    const plan: string | undefined = pago.metadata?.plan;
+    // Si MP no devolviera metadata.plan, se deduce del monto cobrado.
+    const PLAN_POR_MONTO: Record<number, string> = { 5000: "mensual", 25000: "semestral", 45000: "anual" };
+    const plan: string | undefined = pago.metadata?.plan || PLAN_POR_MONTO[Math.round(Number(pago.transaction_amount))];
     const dias = plan ? PLAN_DIAS[plan] : undefined;
 
     if (!userId || !dias) {
@@ -157,8 +162,13 @@ Deno.serve(async (req) => {
 
     if (extendError) {
         console.error("[webhook-mercadopago] Error extendiendo NikaMed+:", extendError);
+        // Sin esto el reintento de MP chocaría con el registro de idempotencia
+        // ("duplicado, ya procesado") y el usuario pagaría sin recibir NikaMed+.
+        await supabaseAdmin.from("pagos_procesados").delete().eq("payment_id", String(paymentId));
         return new Response("error_interno", { status: 500, headers });
     }
+
+    console.log("[webhook-mercadopago] NikaMed+ acreditado", { paymentId, userId, plan, dias, metodo: pago.payment_method_id });
 
     return new Response("ok", { status: 200, headers });
 });
