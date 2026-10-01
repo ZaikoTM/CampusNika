@@ -268,12 +268,19 @@ const NikaRendimiento = (() => {
     try {
       const c = await getClient();
       let { error } = await c.from('study_sessions').insert(row);
+      if (error && /shared_key/i.test(error.message || '')) {
+        // Falta 10_pomodoro_compartido.sql: se guarda igual, sin la clave anti-duplicado
+        const { shared_key: _k, ...sinClave } = row; row = sinClave;
+        ({ error } = await c.from('study_sessions').insert(row));
+      }
       if (error && /completed/i.test(error.message || '')) {
         // La columna 'completed' todavía no existe (falta sql/rendimiento.sql)
         if (row.completed === false) return { ok: false, omitida: true };
         const { completed: _omitida, ...sinFlag } = row;
         ({ error } = await c.from('study_sessions').insert(sinFlag));
       }
+      // 23505: el Host ya la acreditó (misma clave) → esta sesión ya está guardada, no hay que reintentar
+      if (error && String(error.code) === '23505') return { ok: true, duplicada: true };
       if (error) throw error;
       return { ok: true };
     } catch (err) {
@@ -310,6 +317,7 @@ const NikaRendimiento = (() => {
       duration_minutes: minutes,
       completed: p.completed !== false,
       completed_at: new Date().toISOString(),
+      shared_key: p.sharedKey || null,
     };
     const res = await _guardarFilaEstudio(fila);
 

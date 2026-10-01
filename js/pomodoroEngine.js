@@ -433,7 +433,21 @@ const PomodoroEngine = (() => {
       moduleId: p.moduleId, upId: p.upId, minutes: mins, completed: done,
       role: sh.role, hostUsername: sh.hostUsername, partner: sh.partner,
     });
+    // El Host también acredita al Invitado: si el invitado tenía la pestaña en otra página o sin conexión, el aviso
+    // en vivo del fin de fase no le llegó y nunca registraría su parte. La clave es la misma que usa el Invitado
+    // (sessionId:fase:guest) y la base la hace única, así que si él también lo registra no se duplica.
+    if (sh.role === 'host' && sh.partner) acreditarInvitado(sh.partner, p.moduleId, p.upId, mins, done, `${sh.sessionId}:${phaseSeq}:guest`);
     return mins;
+  }
+
+  async function acreditarInvitado(invitado, moduleId, upId, minutos, completed, key) {
+    try {
+      const c = window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase);
+      if (!c || !navigator.onLine) return;
+      const { data, error } = await c.rpc('nika_acreditar_sesion_compartida', { p_invitado: invitado, p_modulo: moduleId, p_up: upId, p_minutos: Math.round(minutos), p_completed: !!completed, p_key: key });
+      if (error) console.warn('[PomodoroEngine] No se pudo acreditar al invitado (¿corriste 10_pomodoro_compartido.sql?):', error.message);
+      else if (data) console.log('[PomodoroEngine] ✅ Sesión compartida acreditada también a @' + invitado, minutos + ' min');
+    } catch (e) { console.warn('[PomodoroEngine] acreditarInvitado:', e && e.message); }
   }
 
   // ------------------------------------------------------------
