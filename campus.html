@@ -132,7 +132,7 @@
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/avisoVencimiento.js"></script>
-    <link rel="stylesheet" href="css/nika-unificado.css?v=6">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=7">
 </head>
 <body>
 
@@ -172,7 +172,7 @@
             <li><button onclick="openNewsModal()" class="sidebar-link">📢 Novedades</button></li>
             <li><button onclick="openFriendsModal()" class="sidebar-link">🤝 Comunidad & Amigos</button></li>
             <li><button onclick="openDmInboxModal()" class="sidebar-link" style="position:relative;">🗨️ Mensajes Privados<span id="dm-unread-badge" style="display:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--danger,#ef4444); color:#fff; font-size:0.65rem; font-weight:800; border-radius:20px; padding:2px 7px; line-height:1;"></span></button></li>
-            <li><button onclick="openChatModal()" class="sidebar-link" style="position:relative;">🗨️ Chat Global<span id="chat-online-badge" class="sidebar-live" style="display:none;" title="Usuarios conectados ahora"></span></button></li>
+            <li><button onclick="openChatModal()" class="sidebar-link" style="position:relative;">🗨️ Chat Global<span id="chat-online-badge" class="sidebar-live" style="display:none;" title="Mensajes nuevos sin leer"></span></button></li>
             <li><button onclick="window.location.href='foro.html'" class="sidebar-link" id="sidebar-foro-btn">💬 Foro Académico</button></li>
             <li><button onclick="openVersusModal()" class="sidebar-link">⚔️ Modo Versus 1vs1</button></li>
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
@@ -3979,6 +3979,7 @@ async function handleLogout() {
 
             const modal = document.getElementById('chat-modal');
             if (modal) modal.style.display = 'flex';
+            marcarGlobalVisto();
 
             renderChatMessages();
 
@@ -3992,6 +3993,7 @@ async function handleLogout() {
         function closeChatModal() {
             const modal = document.getElementById('chat-modal');
             if (modal) modal.style.display = 'none';
+            marcarGlobalVisto();
             if (_unsuscribirseChat) { _unsuscribirseChat(); _unsuscribirseChat = null; }
         }
 
@@ -4903,9 +4905,47 @@ async function handleLogout() {
         document.querySelectorAll('[data-presence-dot-for]').forEach(d => d.classList.toggle('is-online', CM.estaEnLinea(d.dataset.presenceDotFor)));
         document.querySelectorAll('[data-presence-text-for]').forEach(t => { const on = CM.estaEnLinea(t.dataset.presenceTextFor); t.textContent = on ? ' · en línea' : ''; t.classList.toggle('on', on); });
         const n = (CM.usuariosEnLinea ? CM.usuariosEnLinea() : []).length;
-        const b = document.getElementById('chat-online-badge');
-        if (b) { b.textContent = n; b.style.display = n > 0 ? 'inline-flex' : 'none'; }
         renderConectadosChatGlobal();
+    }
+
+    // Mensajes NUEVOS del Chat Global desde la última vez que se abrió (el globito del menú). Los conectados
+    // se ven solo dentro del chat. Se cuenta por tiempo real (INSERT en global_chat) y se confirma contra la base.
+    const LS_VISTO_GLOBAL = 'nika_chat_global_visto';
+    let _globalNuevos = 0, _globalCanal = null, _miId = null;
+    function _globalAbierto() { const m = document.getElementById('chat-modal'); return !!m && getComputedStyle(m).display !== 'none'; }
+    function pintarBadgeGlobal() {
+        const b = document.getElementById('chat-online-badge'); if (!b) return;
+        b.classList.add('rojo'); b.textContent = _globalNuevos > 99 ? '99+' : String(_globalNuevos);
+        b.style.display = _globalNuevos > 0 ? 'inline-flex' : 'none';
+    }
+    function marcarGlobalVisto() { try { localStorage.setItem(LS_VISTO_GLOBAL, new Date().toISOString()); } catch (_) {} _globalNuevos = 0; pintarBadgeGlobal(); }
+    async function recontarGlobal() {
+        const c = window.NikaSupabase && window.NikaSupabase.client; if (!c || !localStorage.getItem('nika_currentUser')) return;
+        if (_globalAbierto()) { marcarGlobalVisto(); return; }
+        let desde = null; try { desde = localStorage.getItem(LS_VISTO_GLOBAL); } catch (_) {}
+        if (!desde) { marcarGlobalVisto(); return; }   // primera vez: se empieza a contar desde ahora
+        try {
+            if (!_miId) { const { data } = await c.auth.getUser(); _miId = data && data.user ? data.user.id : null; }
+            let q = c.from('global_chat').select('id', { count: 'exact', head: true }).gt('created_at', desde);
+            if (_miId) q = q.neq('user_id', _miId);
+            const { count, error } = await q;
+            if (!error && typeof count === 'number') { _globalNuevos = count; pintarBadgeGlobal(); }
+        } catch (_) {}
+    }
+    function iniciarAvisosChatGlobal() {
+        const c = window.NikaSupabase && window.NikaSupabase.client; if (!c || _globalCanal) return;
+        recontarGlobal();
+        try {
+            _globalCanal = c.channel('global_chat_badge').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'global_chat' }, (p) => {
+                const row = p && p.new; if (!row || _globalAbierto()) return;
+                if (_miId && row.user_id === _miId) return;
+                if (window.NikaModeracion && NikaModeracion.estaBloqueado && NikaModeracion.estaBloqueado(row.user_id)) return;
+                _globalNuevos++; pintarBadgeGlobal();
+                if (window.ChatManager && ChatManager.sonarMensaje && ChatManager.sonidoActivado) { try { ChatManager.sonarMensaje(); } catch (_) {} }
+            }).subscribe();
+        } catch (_) {}
+        setInterval(() => { if (!document.hidden) recontarGlobal(); }, 60000);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) recontarGlobal(); });
     }
 
     let _avisosChatOn = false;
@@ -4917,6 +4957,7 @@ async function handleLogout() {
             const modal = document.getElementById('dm-inbox-modal');
             if (modal && getComputedStyle(modal).display !== 'none') renderDmInboxList();   // bandeja abierta: se actualiza sola
         };
+        iniciarAvisosChatGlobal();
         ChatManager.alCambiarLista(refrescarBandeja);
         ChatManager.alCambiarPresencia(() => pintarPresenciaGlobal());
         refrescarBandeja();

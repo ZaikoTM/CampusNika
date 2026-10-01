@@ -229,3 +229,7 @@ body.dark-mode .badge-soon { background: rgba(250, 204, 21, .16); color: #fbbf24
 .dm-inbox-live.on { color: #16a34a; font-weight: 800; }
 body.dark-mode .dm-inbox-live.on { color: #4ade80; }
 @media (prefers-reduced-motion: reduce) { .chat-fab.has-unread, .chat-fab.rebota, .cc-tit i, .cc-chip { animation: none !important; } }
+
+/* Globito del menú «Chat Global»: mensajes nuevos sin leer (rojo, como el de Mensajes Privados) */
+.sidebar-live.rojo { background: #ef4444; color: #fff; box-shadow: 0 0 0 3px rgba(239, 68, 68, .25); animation: cc-pulso-rojo 2s infinite; }
+@keyframes cc-pulso-rojo { 70% { box-shadow: 0 0 0 7px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
