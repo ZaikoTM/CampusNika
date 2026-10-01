@@ -45,13 +45,14 @@ def _notificar_campanita(user_id: str, texto: str) -> None:
         db.table("notifications").insert(filas).execute()
 
 
-def _enviar_email(asunto: str, cuerpo_html: str) -> None:
-    if not (RESEND_API_KEY and ADMIN_NOTIFY_EMAIL):
-        return
+RESEND_FROM_SANDBOX = "Campus Nika <onboarding@resend.dev>"
+
+
+def _enviar_email_desde(remitente: str, asunto: str, cuerpo_html: str) -> None:
     req = urllib.request.Request(
         "https://api.resend.com/emails",
         data=json.dumps({
-            "from": RESEND_FROM,
+            "from": remitente,
             "to": [ADMIN_NOTIFY_EMAIL],
             "subject": asunto,
             "html": cuerpo_html,
@@ -60,6 +61,20 @@ def _enviar_email(asunto: str, cuerpo_html: str) -> None:
         method="POST",
     )
     urllib.request.urlopen(req, timeout=10).read()
+
+
+def _enviar_email(asunto: str, cuerpo_html: str) -> None:
+    if not (RESEND_API_KEY and ADMIN_NOTIFY_EMAIL):
+        return
+    try:
+        _enviar_email_desde(RESEND_FROM, asunto, cuerpo_html)
+    except Exception:
+        # Típico mientras el dominio de RESEND_FROM todavía no está verificado en Resend:
+        # se reintenta con el remitente de pruebas (solo entrega al email dueño de la cuenta).
+        if RESEND_FROM == RESEND_FROM_SANDBOX:
+            raise
+        log.warning("[avisos_admin] Falló el envío desde %s; reintentando con el remitente de pruebas", RESEND_FROM)
+        _enviar_email_desde(RESEND_FROM_SANDBOX, asunto, cuerpo_html)
 
 
 def avisar_nueva_suscripcion(user_id: str, plan_key: str, monto, fecha_fin: str, mp_payment_id: str) -> None:
