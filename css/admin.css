@@ -32,7 +32,13 @@ body.as-body {
     var(--as-bg);
   background-attachment: fixed;
 }
-body.as-body.as-verificando .as-main, body.as-body.as-verificando .as-top { visibility: hidden; }
+body.as-body.as-verificando .as-main, body.as-body.as-verificando .as-top {
+  position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px clamp(14px, 4vw, 40px); color: #fff;
+  background: linear-gradient(115deg, #4c1d95 0%, #6d28d9 45%, #a855f7 100%); background-size: 160% 100%;
+  box-shadow: 0 6px 24px -10px rgba(76, 29, 149, .65); animation: as-fluye 14s ease-in-out infinite alternate;
+}
+@keyframes as-fluye { to { background-position: 100% 0; } }
 
 /* ---------- Barra superior ---------- */
 .as-top {
@@ -40,9 +46,9 @@ body.as-body.as-verificando .as-main, body.as-body.as-verificando .as-top { visi
   padding: 12px clamp(14px, 4vw, 40px); background: rgba(255, 255, 255, .86); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--as-line); box-shadow: 0 2px 0 rgba(139, 61, 240, .14);
 }
-.as-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--as-text); text-decoration: none; font-weight: 800; letter-spacing: .5px; }
+.as-brand { display: inline-flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: .5px; }
 .as-brand img { width: 34px; height: 34px; object-fit: contain; }
-.as-brand small { display: block; font-size: .64rem; letter-spacing: 1.4px; color: var(--as-v2); text-transform: uppercase; font-weight: 700; }
+.as-brand small { display: block; font-size: .64rem; letter-spacing: 1.4px; color: #e9d5ff; text-transform: uppercase; font-weight: 700; }
 .as-acciones { display: flex; gap: 10px; align-items: center; }
 .as-btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--as-line);
@@ -220,3 +226,8 @@ button.as-tag { cursor: pointer; font-family: inherit; }
 .as-banco { margin: 0; padding: 14px; border-radius: 14px; background: var(--as-card-2); border: 1px solid var(--as-line); list-style: none; display: grid; gap: 6px; font-size: .84rem; font-weight: 700; }
 .as-banco li.ok { color: var(--as-ok); } .as-banco li.warn { color: var(--as-warn); } .as-banco li.gris { color: var(--as-muted); font-weight: 600; }
 .as-banco-tit { display: block; margin-bottom: 8px; font-size: .84rem; font-weight: 800; }
+
+/* Botones de la barra superior sobre el degradé */
+.as-top .as-btn { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .35); color: #fff; backdrop-filter: blur(6px); }
+.as-top .as-btn:hover { background: rgba(255, 255, 255, .26); border-color: #fff; box-shadow: 0 6px 18px -6px rgba(0, 0, 0, .45); }
+.as-subtit { margin: 22px 2px 10px; font-size: .74rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--as-v3); }

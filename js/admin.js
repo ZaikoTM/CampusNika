@@ -281,44 +281,85 @@
   }
 
   // ------------------------------------------------------------
-  // Mosaico: publicar novedad (mismo almacenamiento que usa el campus: localStorage 'nika_news')
+  // Mosaico: novedades (tabla `novedades`: la ven todos los usuarios en el campus, solo el admin escribe)
   // ------------------------------------------------------------
-  const escHtml = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  function leerLS(clave) { try { return JSON.parse(localStorage.getItem(clave)) || []; } catch (_) { return []; } }
-  function publicarNovedad() {
-    const t = $('news-title'), ct = $('news-content');
-    const titulo = t.value.trim(), contenido = ct.value.trim();
-    if (!titulo || !contenido) { toast('Completá título y contenido.'); return; }
-    const lista = leerLS('nika_news');
-    // El campus dibuja `content` como HTML: se escapa lo escrito y solo se agrega el formato.
-    lista.unshift({ date: new Date().toLocaleDateString('es-AR'), content: `<strong>${escHtml(titulo)}</strong><br>${escHtml(contenido)}` });
-    try { localStorage.setItem('nika_news', JSON.stringify(lista)); } catch (_) { toast('No se pudo guardar la novedad.'); return; }
-    t.value = ''; ct.value = '';
-    toast('Novedad publicada 🚀');
+  async function cargarNovedades() {
+    const lista = $('novedades-lista');
+    const { data, error } = await c.from('novedades').select('id, title, content, created_at').order('created_at', { ascending: false }).limit(30);
+    lista.textContent = '';
+    if (error) { console.warn('[Admin] novedades:', error.message); lista.appendChild(el('div', 'as-vacio', 'No se pudieron leer las novedades.')); return; }
+    $('badge-novedades').textContent = String((data || []).length);
+    if (!data.length) { lista.appendChild(el('div', 'as-vacio', 'Todavía no publicaste novedades.')); return; }
+    data.forEach((n, i) => {
+      const card = el('div', 'as-errata'); card.style.animationDelay = Math.min(i, 10) * 0.03 + 's';
+      const meta = el('div', 'meta');
+      const del = el('button', 'as-btn chico peligro', 'Eliminar'); del.type = 'button';
+      del.addEventListener('click', async () => {
+        if (!confirm('¿Eliminar esta novedad? Deja de verse en el campus.')) return;
+        del.disabled = true;
+        const { error: e2 } = await c.from('novedades').delete().eq('id', n.id);
+        if (e2) { toast('No se pudo eliminar: ' + e2.message); del.disabled = false; return; }
+        toast('Novedad eliminada'); cargarNovedades();
+      });
+      meta.append(el('span', null, '📅 ' + fmtFecha(n.created_at)), del);
+      card.append(meta, el('div', 'q', n.title), el('div', 'j', n.content));
+      lista.appendChild(card);
+    });
+  }
+
+  async function publicarNovedad() {
+    const t = $('news-title'), ct = $('news-content'), b = $('news-publicar');
+    const title = t.value.trim(), content = ct.value.trim();
+    if (!title || !content) { toast('Completá título y contenido.'); return; }
+    b.disabled = true;
+    try {
+      const { data: { session } } = await c.auth.getSession();
+      const { error } = await c.from('novedades').insert({ title, content, created_by: session ? session.user.id : null });
+      if (error) { toast('No se pudo publicar: ' + error.message); return; }
+      t.value = ''; ct.value = '';
+      toast('Novedad publicada para todos 🚀');
+      cargarNovedades();
+    } finally { b.disabled = false; }
   }
 
   // ------------------------------------------------------------
-  // Mosaico: erratas (localStorage 'nika_erratas', igual que el panel anterior)
+  // Mosaico: erratas (tabla `erratas`: las envían los alumnos desde los simulacros)
   // ------------------------------------------------------------
   const ESTADOS_ERRATA = { pending: ['warn', '🟡 Pendiente'], fixed: ['ok', '🟢 Corregido'], rejected: ['bad', '🔴 Descartado'] };
+  let erratas = [];
+  let erratasFiltro = 'pending';
+
+  async function cargarErratas() {
+    const { data, error } = await c.from('erratas')
+      .select('id, reporter_username, question_text, justification, status, created_at')
+      .order('created_at', { ascending: false }).limit(300);
+    if (error) { console.warn('[Admin] erratas:', error.message); erratas = null; }
+    else erratas = data || [];
+    pintarErratas();
+  }
+
   function pintarErratas() {
     const lista = $('erratas-lista'); lista.textContent = '';
-    const erratas = leerLS('nika_erratas');
-    $('badge-erratas').textContent = String(erratas.filter((e) => e.status === 'pending').length);
-    if (!erratas.length) { lista.appendChild(el('div', 'as-vacio', 'No hay erratas pendientes.')); return; }
-    erratas.forEach((e, i) => {
+    if (erratas === null) { $('badge-erratas').textContent = '–'; lista.appendChild(el('div', 'as-vacio', 'No se pudieron leer las erratas.')); return; }
+    const pendientes = erratas.filter((e) => e.status === 'pending').length;
+    const badge = $('badge-erratas'); badge.textContent = String(pendientes); badge.classList.toggle('alerta', pendientes > 0);
+    const filas = erratas.filter((e) => erratasFiltro === 'todas' || e.status === erratasFiltro);
+    if (!filas.length) { lista.appendChild(el('div', 'as-vacio', erratasFiltro === 'pending' ? 'No hay erratas pendientes. 🎉' : 'No hay erratas.')); return; }
+    filas.forEach((e, i) => {
       const [cls, txt] = ESTADOS_ERRATA[e.status] || ESTADOS_ERRATA.pending;
       const card = el('div', 'as-errata'); card.style.animationDelay = Math.min(i, 10) * 0.03 + 's';
       const meta = el('div', 'meta');
       const tag = el('button', 'as-tag ' + cls, txt); tag.type = 'button'; tag.title = 'Cambiar estado';
-      tag.addEventListener('click', () => {
-        e.status = e.status === 'pending' ? 'fixed' : e.status === 'fixed' ? 'rejected' : 'pending';
-        try { localStorage.setItem('nika_erratas', JSON.stringify(erratas)); } catch (_) {}
-        pintarErratas(); toast('Estado actualizado');
+      tag.addEventListener('click', async () => {
+        const nuevo = e.status === 'pending' ? 'fixed' : e.status === 'fixed' ? 'rejected' : 'pending';
+        tag.disabled = true;
+        const { error } = await c.from('erratas').update({ status: nuevo, resolved_at: nuevo === 'pending' ? null : new Date().toISOString() }).eq('id', e.id);
+        if (error) { toast('No se pudo actualizar: ' + error.message); tag.disabled = false; return; }
+        e.status = nuevo; pintarErratas(); toast('Estado actualizado');
       });
-      meta.append(el('span', null, 'Reportado por: ' + (e.user || '—')), tag);
-      card.append(meta, el('div', 'q', '"' + (e.q || '') + '"'));
-      const j = el('div', 'j'); j.append(el('b', null, 'Fundamento: '), document.createTextNode(e.justif || '')); card.appendChild(j);
+      meta.append(el('span', null, `@${e.reporter_username || '—'} · ${fmtFecha(e.created_at)}`), tag);
+      card.append(meta, el('div', 'q', '"' + (e.question_text || '') + '"'));
+      const j = el('div', 'j'); j.append(el('b', null, 'Fundamento: '), document.createTextNode(e.justification || '')); card.appendChild(j);
       lista.appendChild(card);
     });
   }
@@ -420,7 +461,8 @@
   function skeleton(box) { box.textContent = ''; for (let i = 0; i < 3; i++) box.appendChild(el('div', 'as-sk')); }
 
   async function alAbrir(id) {
-    if (id === 'tile-erratas') pintarErratas();
+    if (id === 'tile-erratas') cargarErratas();
+    if (id === 'tile-novedad') cargarNovedades();
     if (id === 'tile-bancos') iniciarBancos();
     if (id === 'tile-fallos' && !cargado.fallos) {
       cargado.fallos = true;
@@ -463,6 +505,12 @@
     $('subs-q').addEventListener('input', (e) => { clearTimeout(t1); t1 = setTimeout(() => { estado.subsQ = e.target.value; pintarSubs(); }, 120); });
     $('usr-q').addEventListener('input', (e) => { clearTimeout(t2); t2 = setTimeout(() => { estado.usrQ = e.target.value; estado.usrMax = PAGINA; pintarUsuarios(); }, 120); });
     $('news-publicar').addEventListener('click', publicarNovedad);
+    $('erratas-filtros').addEventListener('click', (e) => {
+      const b = e.target.closest('.as-chip'); if (!b) return;
+      erratasFiltro = b.dataset.f;
+      document.querySelectorAll('#erratas-filtros .as-chip').forEach((x) => x.classList.toggle('on', x === b));
+      pintarErratas();
+    });
     $('as-refrescar').addEventListener('click', () => recargar(true));
   }
 
@@ -496,9 +544,8 @@
     conectarTiles();
     await cargarPerfiles();
     pintarKpis(null); pintarSubs(); pintarUsuarios();
-    pintarErratas();
-    const [rep] = await Promise.all([contarReportes(), cargarStats()]);
-    pintarKpis(rep);
+    const [rep] = await Promise.all([contarReportes(), cargarStats(), cargarErratas(), cargarPagos()]);
+    pintarKpis(rep); pintarPagos();
   }
   iniciar();
 })();

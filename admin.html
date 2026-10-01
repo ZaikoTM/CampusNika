@@ -104,8 +104,8 @@
             <article class="as-tile" id="tile-novedad" style="animation-delay:.25s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">📢</span>
-                    <span class="as-tt"><b>Publicar novedad</b><small>Anuncio para el tablón de novedades del campus</small></span>
-                    <span class="as-chev">⌄</span>
+                    <span class="as-tt"><b>Publicar novedad</b><small>Anuncio que ven todos los usuarios en "Novedades" del campus</small></span>
+                    <span class="as-badge" id="badge-novedades">–</span><span class="as-chev">⌄</span>
                 </button>
                 <div class="as-body"><div class="as-inner"><div class="as-content">
                     <div class="as-form">
@@ -115,16 +115,26 @@
                             <textarea class="as-input" id="news-content" rows="4" placeholder="Detalles de la actualización..."></textarea></div>
                         <div><button type="button" class="as-btn primario" id="news-publicar">Publicar en el Tablón 🚀</button></div>
                     </div>
+                    <h3 class="as-subtit">Últimas publicadas</h3>
+                    <div class="as-list" id="novedades-lista"></div>
                 </div></div></div>
             </article>
 
             <article class="as-tile" id="tile-erratas" style="animation-delay:.3s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">📥</span>
-                    <span class="as-tt"><b>Bandeja de erratas</b><small>Correcciones reportadas a las preguntas. Tocá el estado para cambiarlo</small></span>
+                    <span class="as-tt"><b>Bandeja de erratas</b><small>Correcciones que reportan los alumnos desde los simulacros. Tocá el estado para cambiarlo</small></span>
                     <span class="as-badge" id="badge-erratas">–</span><span class="as-chev">⌄</span>
                 </button>
                 <div class="as-body"><div class="as-inner"><div class="as-content">
+                    <div class="as-tools">
+                        <div class="as-chips" id="erratas-filtros">
+                            <button type="button" class="as-chip on" data-f="pending">Pendientes</button>
+                            <button type="button" class="as-chip" data-f="fixed">Corregidas</button>
+                            <button type="button" class="as-chip" data-f="rejected">Descartadas</button>
+                            <button type="button" class="as-chip" data-f="todas">Todas</button>
+                        </div>
+                    </div>
                     <div class="as-list" id="erratas-lista"></div>
                 </div></div></div>
             </article>

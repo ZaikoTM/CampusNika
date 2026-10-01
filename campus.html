@@ -3930,20 +3930,20 @@ async function handleLogout() {
 
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSimuladoresHub(); });
 
-        function openNewsModal() {
+        async function openNewsModal() {
             const modal = document.getElementById('news-modal');
             if (modal) modal.style.display = 'flex';
             const feed = document.getElementById('news-feed');
             if (!feed) return;
-            let newsList = JSON.parse(localStorage.getItem('nika_news')) || [];
-            if (newsList.length === 0) { 
-                feed.innerHTML = '<p style="text-align:center; color:var(--text-muted);">No hay novedades recientes.</p>'; 
-                return; 
-            }
-            feed.innerHTML = '';
-            newsList.forEach(item => {
-                feed.innerHTML += `<div style="background:var(--bg-body); border-left:4px solid var(--nika-primary); padding:12px; margin-bottom:10px; border-radius:6px;"><span style="font-size:0.75rem; color:var(--text-muted); font-weight:800;">📅 ${item.date}</span><p style="font-size:0.9rem; margin-top:4px;">${item.content}</p></div>`;
-            });
+            const vacio = (txt) => { feed.innerHTML = '<p style="text-align:center; color:var(--text-muted);">' + txt + '</p>'; };
+            const cliente = window.NikaSupabase && window.NikaSupabase.client;
+            if (!cliente) { vacio('No se pudieron cargar las novedades.'); return; }
+            vacio('Cargando novedades...');
+            const { data, error } = await cliente.from('novedades')
+                .select('id, title, content, created_at').order('created_at', { ascending: false }).limit(30);
+            if (error) { console.warn('[novedades]', error.message); vacio('No se pudieron cargar las novedades.'); return; }
+            if (!data || data.length === 0) { vacio('No hay novedades recientes.'); return; }
+            feed.innerHTML = data.map(n => `<div style="background:var(--bg-body); border-left:4px solid var(--nika-primary); padding:12px; margin-bottom:10px; border-radius:6px;"><span style="font-size:0.75rem; color:var(--text-muted); font-weight:800;">📅 ${nikaEsc(new Date(n.created_at).toLocaleDateString('es-AR'))}</span><p style="font-size:0.9rem; margin-top:4px;"><strong>${nikaEsc(n.title)}</strong><br>${nikaEsc(n.content)}</p></div>`).join('');
         }
 
         function closeNewsModal() { 
