@@ -21,7 +21,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { withCors } from "../_shared/cors.ts";
 import {
-  cargarBanco, construirRespuestaFinal, evaluacionNula, evaluarEntradas,
+  cargarBanco, construirRespuestaFinal, evaluacionNula, evaluarEntradas, MODEL, MODELO_RESPALDO, reservarCupo,
 } from "../_shared/evaluador.ts";
 import type { Entrada, Evaluacion, ItemBanco } from "../_shared/evaluador.ts";
 
@@ -37,17 +37,45 @@ const json = (body: unknown, status = 200) =>
 
 const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 
-type Job = { id: number; envio_id: string; lote_idx: number; intentos: number; entradas: Entrada[]; modulo: string };
+type Job = { id: number; envio_id: string; lote_idx: number; intentos: number; entradas: Entrada[]; modulo: string; modelo: string | null };
 
 const esperaBackoff = (intentos: number) =>
   Math.round(Math.min(120, 10 * 2 ** (intentos - 1)) * (0.5 + Math.random()));   // 5-15 s, 10-30 s, 20-60 s…
 
 const SIN_CORREGIR = "No se pudo corregir esta pregunta en este intento. Volvé a entregar el examen para reintentar.";
 
-async function procesarJob(apiKey: string, job: Job): Promise<void> {
+const dormir = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+// Elige el modelo del trabajo y reserva 1 pedido de su cupo. Si el modelo está al tope por minuto y la
+// espera es corta, espera acá mismo; si hay un modelo de respaldo con cupo, lo usa. Devuelve modelo=null
+// cuando hay que devolver el trabajo a la cola (y cuántos segundos esperar).
+async function elegirModelo(job: Job): Promise<{ modelo: string | null; espera: number }> {
+  const principal = job.modelo || MODEL;
+  let r = await reservarCupo(admin, principal);
+  if (r === 0) return { modelo: principal, espera: 0 };
+
+  if (MODELO_RESPALDO && MODELO_RESPALDO !== principal && (await reservarCupo(admin, MODELO_RESPALDO)) === 0) {
+    return { modelo: MODELO_RESPALDO, espera: 0 };
+  }
+  if (r > 0 && r <= 20) {              // tope por minuto: casi siempre alcanza con esperar al próximo minuto
+    await dormir(r * 1000 + Math.random() * 1500);
+    r = await reservarCupo(admin, principal);
+    if (r === 0) return { modelo: principal, espera: 0 };
+  }
+  // Tope diario agotado (-1) o fila larga: se devuelve a la cola y se reintenta más tarde
+  return { modelo: null, espera: r < 0 ? 900 : Math.max(r, 5) + Math.round(Math.random() * 10) };
+}
+
+// Devuelve false si el trabajo no se pudo procesar ahora por falta de cupo.
+async function procesarJob(apiKey: string, job: Job): Promise<boolean> {
   try {
+    const { modelo, espera } = await elegirModelo(job);
+    if (!modelo) {
+      await admin.rpc("correccion_reintentar_job", { p_job: job.id, p_espera_seg: espera, p_error: "esperando cupo de Gemini", p_sin_gastar_intento: true });
+      return false;
+    }
     const banco = await cargarBanco(job.modulo);
-    const evals = await evaluarEntradas(apiKey, banco, job.entradas);
+    const evals = await evaluarEntradas(apiKey, banco, job.entradas, modelo);
 
     // evaluarEntradas no lanza si Gemini falla: devuelve notas nulas. Las detectamos para reintentar
     // el trabajo completo (son 3 preguntas) en vez de entregarle "no se pudo corregir" al alumno.
@@ -57,9 +85,10 @@ async function procesarJob(apiKey: string, job: Job): Promise<void> {
     });
     if (fallaron && job.intentos < MAX_INTENTOS) {
       await admin.rpc("correccion_reintentar_job", { p_job: job.id, p_espera_seg: esperaBackoff(job.intentos), p_error: "Gemini no devolvió todas las evaluaciones" });
-      return;
+      return true;
     }
     await terminar(job, evals, false, fallaron ? "Gemini no devolvió todas las evaluaciones" : null);
+    return true;
   } catch (err) {
     const msg = String((err as Error)?.message ?? err).slice(0, 300);
     console.error(`[worker-correccion] job ${job.id} (intento ${job.intentos}):`, msg);
@@ -69,6 +98,7 @@ async function procesarJob(apiKey: string, job: Job): Promise<void> {
       const nulas = job.entradas.map((e) => evaluacionNula(e.id, SIN_CORREGIR));
       await terminar(job, nulas, true, msg);
     }
+    return true;
   }
 }
 
@@ -86,7 +116,7 @@ async function cerrarEnvio(envioId: string) {
 
   try {
     const apiKey = Deno.env.get("GEMINI_API_KEY")!;
-    const { data: envio } = await admin.from("correccion_envios").select("modulo").eq("id", envioId).single();
+    const { data: envio } = await admin.from("correccion_envios").select("modulo, modelo").eq("id", envioId).single();
     const { data: jobs, error } = await admin.from("correccion_jobs")
       .select("lote_idx, entradas, evaluaciones").eq("envio_id", envioId).order("lote_idx");
     if (error || !jobs) throw new Error(error?.message ?? "sin trabajos");
@@ -99,7 +129,17 @@ async function cerrarEnvio(envioId: string) {
     let banco = new Map<string, ItemBanco>();
     try { banco = await cargarBanco(envio?.modulo ?? "cirugia"); } catch { /* sin rótulos de UP */ }
 
-    const resultado = await construirRespuestaFinal(apiKey, evaluaciones, banco);
+    // El resumen general también cuesta 1 pedido: se reserva cupo (esperando hasta ~25 s). Si no hay,
+    // el examen se entrega igual con sus notas y feedback por pregunta, solo sin el comentario general.
+    const modelo = envio?.modelo || MODEL;
+    let conResumen = false;
+    for (let i = 0; i < 2 && !conResumen; i++) {
+      const r = await reservarCupo(admin, modelo);
+      if (r === 0) conResumen = true;
+      else if (r > 0 && r <= 25 && i === 0) await dormir(r * 1000 + 500);
+      else break;
+    }
+    const resultado = await construirRespuestaFinal(apiKey, evaluaciones, banco, modelo, conResumen);
     await admin.rpc("correccion_guardar_resultado", { p_envio: envioId, p_resultado: resultado, p_error: null });
   } catch (err) {
     const msg = String((err as Error)?.message ?? err).slice(0, 300);
@@ -128,16 +168,25 @@ async function handler(req: Request): Promise<Response> {
     const { data: jobs, error } = await admin.rpc("correccion_tomar_jobs", { p_n: WORKER_LOTES, p_lease_seg: LEASE_SEG });
     if (error) { console.error("[worker-correccion] tomar_jobs:", error.message); break; }
     if (!jobs || jobs.length === 0) break;
-    await Promise.all((jobs as Job[]).map((j) => procesarJob(apiKey, j)));
-    procesados += jobs.length;
+    const hechos = await Promise.all((jobs as Job[]).map((j) => procesarJob(apiKey, j)));
+    const ok = hechos.filter(Boolean).length;
+    procesados += ok;
+    if (ok === 0) break;   // todos esperaban cupo: no tiene sentido seguir pidiendo trabajos ahora
   }
 
-  // Si quedó trabajo listo, nos volvemos a invocar (encadenado)
+  // Reinvocación encadenada: ya mismo si quedó trabajo listo; si no, cuando venza el próximo trabajo en
+  // espera (cupo de Gemini, backoff o lease de un worker caído). Así no hace falta un cron para que la cola avance.
   const { data: hay } = await admin.rpc("correccion_hay_trabajo");
-  if (hay) {
-    const p = fetch(`${Deno.env.get("SUPABASE_URL")}/functions/v1/worker-correccion`, {
+  let demora = 0;
+  if (!hay) {
+    const { data: seg } = await admin.rpc("correccion_segundos_hasta_proximo");
+    if (typeof seg !== "number") demora = -1;                  // no queda nada pendiente: la cadena termina
+    else demora = Math.min(seg, 150) + Math.random() * 3;
+  }
+  if (demora >= 0) {
+    const p = dormir(demora * 1000).then(() => fetch(`${Deno.env.get("SUPABASE_URL")}/functions/v1/worker-correccion`, {
       method: "POST", headers: { "Content-Type": "application/json", "x-worker-secret": secret }, body: "{}",
-    }).then((r) => r.body?.cancel()).catch(() => {});
+    })).then((r) => r.body?.cancel()).catch(() => {});
     if (typeof EdgeRuntime !== "undefined") EdgeRuntime.waitUntil(p);
   }
 

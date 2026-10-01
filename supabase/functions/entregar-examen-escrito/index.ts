@@ -16,7 +16,7 @@
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { withCors } from "../_shared/cors.ts";
-import { LOTE, MAX_PREGUNTAS, MAX_RESPUESTA, texto } from "../_shared/evaluador.ts";
+import { consultarPlan, LOTE, MAX_PREGUNTAS, MAX_RESPUESTA, modeloParaPlan, texto } from "../_shared/evaluador.ts";
 
 declare const EdgeRuntime: { waitUntil(p: Promise<unknown>): void } | undefined;
 
@@ -54,8 +54,30 @@ async function handler(req: Request): Promise<Response> {
     for (let i = 0; i < entradas.length; i += LOTE) lotes.push(entradas.slice(i, i + LOTE));
 
     const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+
+    // Acceso por plan: NikaMed+ y admin sin límite; gratuitos solo con los usos de prueba que consumieron
+    // al iniciar el simulador (cada entrega no fallida gasta uno). Un reintento de la MISMA entrega
+    // (misma clave) siempre pasa. Si no se puede consultar el plan, se deja pasar para no frenar a un
+    // suscriptor por una falla momentánea (queda en el log).
+    const { data: previo } = await admin.from("correccion_envios").select("id")
+      .eq("user_id", user.id).eq("idempotency_key", key).maybeSingle();
+    let modelo = modeloParaPlan(true);   // si no se puede consultar el plan: modelo de NikaMed+
+    if (!previo) {
+      const plan = await consultarPlan(supaUser);
+      if (plan.ok) modelo = modeloParaPlan(plan.ilimitado);
+      if (!plan.ok) {
+        console.warn("[entregar-examen-escrito] no se pudo consultar el plan de", user.id, "- se deja pasar");
+      } else if (!plan.ilimitado) {
+        const { count } = await admin.from("correccion_envios").select("id", { count: "exact", head: true })
+          .eq("user_id", user.id).neq("estado", "error");
+        if (plan.usos <= (count ?? 0)) {
+          return json({ error: "Ya usaste tus pruebas gratuitas del Simulador Escrito. Suscribite a NikaMed+ para seguir corrigiendo con IA.", codigo: "pruebas_agotadas" }, 403);
+        }
+      }
+    }
+
     const { data, error } = await admin.rpc("correccion_crear_envio", {
-      p_user: user.id, p_modulo: modulo, p_key: key, p_lotes: lotes,
+      p_user: user.id, p_modulo: modulo, p_key: key, p_lotes: lotes, p_modelo: modelo,
     });
     if (error) { console.error("[entregar-examen-escrito] rpc:", error.message); return json({ error: "No se pudo registrar la entrega." }, 500); }
     if (data?.error === "rate_limit") return json({ error: "Demasiadas correcciones seguidas. Esperá unos minutos y reintentá." }, 429);

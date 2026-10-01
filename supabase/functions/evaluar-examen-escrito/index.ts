@@ -38,7 +38,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { withCors } from "../_shared/cors.ts";
 import {
-  cargarBanco, evaluacionNula, evaluarLote, excedeLimite, generarResumen, indexarBanco, LOTE,
+  cargarBanco, consultarPlan, evaluacionNula, evaluarLote, excedeLimite, generarResumen, indexarBanco, LOTE,
   MAX_PREGUNTAS, MAX_RESPUESTA, MODEL, PILARES, promedio, redondear1, SITE_URL, texto,
 } from "../_shared/evaluador.ts";
 import type { Entrada, Evaluacion, ItemBanco } from "../_shared/evaluador.ts";
@@ -66,6 +66,10 @@ async function handler(req: Request): Promise<Response> {
     });
     const { data: { user }, error: userError } = await supa.auth.getUser();
     if (userError || !user) return json({ error: "Sesión inválida o vencida. Iniciá sesión de nuevo." }, 401);
+    // Este endpoint síncrono es el RESPALDO: los alumnos gratuitos (con usos de prueba) corrigen por
+    // entregar-examen-escrito, que lleva la cuenta de sus usos. Acá solo NikaMed+ y admin.
+    const plan = await consultarPlan(supa);
+    if (plan.ok && !plan.ilimitado) return json({ error: "Tu cuenta gratuita corrige por el sistema nuevo. Recargá la página (Ctrl+F5) y volvé a entregar." }, 403);
     if (excedeLimite(user.id)) return json({ error: "Demasiadas correcciones seguidas. Esperá unos minutos y reintentá." }, 429);
 
     const apiKey = Deno.env.get("GEMINI_API_KEY");

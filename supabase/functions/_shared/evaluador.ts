@@ -279,11 +279,11 @@ function armarMensajeLote(lote: { item: ItemBanco; entrada: Entrada }[]): string
   return `Corregí las siguientes ${lote.length} respuestas. Devolvé una evaluación por cada número entre corchetes, con TODOS sus puntos clave.\n\n${bloques.join("\n\n")}`;
 }
 
-async function llamarGemini(apiKey: string, systemPrompt: string, userText: string, schema: unknown, temperature = 0.1): Promise<any> {
+async function llamarGemini(apiKey: string, systemPrompt: string, userText: string, schema: unknown, temperature = 0.1, modelo = MODEL): Promise<any> {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), TIMEOUT_GEMINI_MS);
   try {
-    const resp = await fetch(`${GEMINI_BASE}/models/${MODEL}:generateContent`, {
+    const resp = await fetch(`${GEMINI_BASE}/models/${modelo}:generateContent`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
       body: JSON.stringify({
@@ -415,13 +415,13 @@ export function evaluacionNula(id: string, feedback: string): Evaluacion {
 }
 
 // Evalúa un lote; si Gemini omite alguna pregunta, reintenta solo esas (1 vez)
-export async function evaluarLote(apiKey: string, lote: { item: ItemBanco; entrada: Entrada }[]): Promise<Evaluacion[]> {
+export async function evaluarLote(apiKey: string, lote: { item: ItemBanco; entrada: Entrada }[], modelo = MODEL): Promise<Evaluacion[]> {
   const resultados = new Map<string, Evaluacion>();
   let pendientes = lote;
 
   for (let intento = 0; intento < 2 && pendientes.length > 0; intento++) {
     try {
-      const salida = await llamarGemini(apiKey, SYSTEM_PROMPT, armarMensajeLote(pendientes), ESQUEMA_LOTE);
+      const salida = await llamarGemini(apiKey, SYSTEM_PROMPT, armarMensajeLote(pendientes), ESQUEMA_LOTE, 0.1, modelo);
       for (const ev of Array.isArray(salida?.evaluaciones) ? salida.evaluaciones : []) {
         const par = pendientes[Number(ev?.n) - 1];
         if (!par || resultados.has(par.item.id)) continue;
@@ -440,7 +440,7 @@ export async function evaluarLote(apiKey: string, lote: { item: ItemBanco; entra
   );
 }
 
-export async function generarResumen(apiKey: string, evals: Evaluacion[], banco: Map<string, ItemBanco>, notaFinal: number | null) {
+export async function generarResumen(apiKey: string, evals: Evaluacion[], banco: Map<string, ItemBanco>, notaFinal: number | null, modelo = MODEL) {
   try {
     const filas = evals.filter((e) => e.nota !== null).map((e) => {
       const it = banco.get(e.id);
@@ -450,7 +450,7 @@ export async function generarResumen(apiKey: string, evals: Evaluacion[], banco:
     const salida = await llamarGemini(
       apiKey, SYSTEM_PROMPT_RESUMEN,
       `Nota final: ${notaFinal}\n\nDetalle por pregunta:\n${filas}\n\nDevolvé: comentario (máx. 60 palabras), fortalezas (máx. 3 ítems cortos) y a_reforzar (máx. 4 ítems cortos y concretos).`,
-      ESQUEMA_RESUMEN, 0.4,
+      ESQUEMA_RESUMEN, 0.4, modelo,
     );
     return { comentario: texto(salida?.comentario, 700), fortalezas: limpiarLista(salida?.fortalezas, 3, 160), a_reforzar: limpiarLista(salida?.a_reforzar, 4, 160) };
   } catch (err) {
@@ -465,7 +465,7 @@ export async function generarResumen(apiKey: string, evals: Evaluacion[], banco:
 
 // Corrige UN lote de entradas (hasta LOTE) y devuelve una Evaluacion por entrada, en el mismo
 // orden. Replica el paso 3-4 del handler síncrono: sin banco / sin respuesta no llaman a Gemini.
-export async function evaluarEntradas(apiKey: string, banco: Map<string, ItemBanco>, entradas: Entrada[]): Promise<Evaluacion[]> {
+export async function evaluarEntradas(apiKey: string, banco: Map<string, ItemBanco>, entradas: Entrada[], modelo = MODEL): Promise<Evaluacion[]> {
   const listas = new Map<string, Evaluacion>();
   const evaluables: { item: ItemBanco; entrada: Entrada }[] = [];
   for (const e of entradas) {
@@ -474,24 +474,86 @@ export async function evaluarEntradas(apiKey: string, banco: Map<string, ItemBan
     if (!e.respuesta) { listas.set(e.id, { ...evaluacionNula(e.id, "Sin respuesta."), nota: 1 }); continue; }
     evaluables.push({ item, entrada: e });
   }
-  if (evaluables.length) for (const ev of await evaluarLote(apiKey, evaluables)) listas.set(ev.id, ev);
+  if (evaluables.length) for (const ev of await evaluarLote(apiKey, evaluables, modelo)) listas.set(ev.id, ev);
   return entradas.map((e) => listas.get(e.id)!);
 }
 
 // Arma la respuesta final (mismo formato que devuelve el endpoint síncrono) a partir de
 // todas las evaluaciones: nota final, promedios por pilar y resumen general.
-export async function construirRespuestaFinal(apiKey: string, evaluaciones: Evaluacion[], banco: Map<string, ItemBanco>) {
+export async function construirRespuestaFinal(apiKey: string, evaluaciones: Evaluacion[], banco: Map<string, ItemBanco>, modelo = MODEL, conResumen = true) {
   const notas = evaluaciones.map((e) => e.nota).filter((n): n is number => n !== null);
   const notaFinal = redondear1(promedio(notas));
   const promediosPilares: Record<string, number | null> = {};
   for (const p of PILARES) {
     promediosPilares[p] = redondear1(promedio(evaluaciones.map((e) => e.pilares[p]).filter((v): v is number => v !== null)));
   }
-  const resumen = notas.length ? await generarResumen(apiKey, evaluaciones, banco, notaFinal) : { comentario: "", fortalezas: [], a_reforzar: [] };
+  const resumen = (notas.length && conResumen) ? await generarResumen(apiKey, evaluaciones, banco, notaFinal, modelo) : { comentario: "", fortalezas: [], a_reforzar: [] };
   return {
     evaluaciones,
     resumen_general: { nota_final: notaFinal, promedios_pilares: promediosPilares, ...resumen },
     sin_corregir: evaluaciones.filter((e) => e.nota === null).length,
-    modelo: MODEL,
+    modelo,
   };
 }
+
+
+// ----------------------------------------------------------------------------
+// Control de acceso por plan (lo fuerza el SERVIDOR; la pantalla solo lo refleja)
+// ----------------------------------------------------------------------------
+// Pregunta a la RPC simulador_usos() (que corre con la sesión del propio alumno) si la cuenta es
+// NikaMed+/admin (ilimitado) o gratuita, y cuántos usos de prueba del Simulador Escrito consumió.
+// ok=false significa que no se pudo consultar (el llamador decide si deja pasar o no).
+export async function consultarPlan(supaUsuario: any): Promise<{ ok: boolean; ilimitado: boolean; usos: number }> {
+  try {
+    const { data, error } = await supaUsuario.rpc("simulador_usos");
+    if (error || !data) return { ok: false, ilimitado: false, usos: 0 };
+    return { ok: true, ilimitado: data.ilimitado === true, usos: Number(data.usos?.escrito ?? 0) };
+  } catch {
+    return { ok: false, ilimitado: false, usos: 0 };
+  }
+}
+
+
+// ----------------------------------------------------------------------------
+// Modelo por plan y cupo por modelo
+// ----------------------------------------------------------------------------
+// NikaMed+ / admin usan GEMINI_MODEL_EVAL (MODEL). Los alumnos gratuitos (usos de prueba) usan
+// GEMINI_MODEL_GRATIS. Si ese secreto no existe, usan el MISMO modelo que premium: para ahorrar cupo
+// del modelo principal basta con cargar el secreto con un modelo Lite, sin tocar código.
+export const MODELO_GRATIS = Deno.env.get("GEMINI_MODEL_GRATIS") ?? MODEL;
+// Opcional: modelo al que se desvía un trabajo cuando el suyo se quedó sin cupo.
+export const MODELO_RESPALDO = Deno.env.get("GEMINI_MODEL_RESPALDO") ?? "";
+export const modeloParaPlan = (ilimitado: boolean) => (ilimitado ? MODEL : MODELO_GRATIS);
+
+// Topes del nivel gratuito de Gemini (RPM = pedidos por minuto, RPD = por día; vistos en AI Studio >
+// Límite de frecuencia). Un modelo que no figure acá usa un tope conservador. Se pueden sobreescribir con
+// el secreto GEMINI_LIMITES, p. ej. {"gemini-2.5-flash-lite":{"rpm":10,"rpd":20}}.
+const LIMITES_BASE: Record<string, { rpm: number; rpd: number | null }> = {
+  "gemini-3.5-flash-lite": { rpm: 15, rpd: 500 },
+  "gemini-2.5-flash-lite": { rpm: 10, rpd: null },
+};
+// Se usa solo una parte del tope: otras funciones (asistente, chat, simulador clínico) comparten la
+// misma API key y evaluarLote puede reintentar una vez.
+const MARGEN = Number(Deno.env.get("GEMINI_MARGEN") ?? "0.8");
+export function limitesDe(modelo: string): { rpm: number; rpd: number | null } {
+  let extra: Record<string, { rpm: number; rpd: number | null }> = {};
+  try { extra = JSON.parse(Deno.env.get("GEMINI_LIMITES") ?? "{}"); } catch { /* secreto mal formado: se ignora */ }
+  const b = extra[modelo] ?? LIMITES_BASE[modelo] ?? { rpm: 5, rpd: null };
+  return { rpm: Math.max(1, Math.floor(b.rpm * MARGEN)), rpd: b.rpd ? Math.max(1, Math.floor(b.rpd * MARGEN)) : null };
+}
+
+// Reserva `n` pedidos del modelo en la base (función SQL gemini_reservar, atómica entre workers).
+// Devuelve 0 = reservado · >0 = esperar esos segundos (cupo por minuto) · -1 = cupo diario agotado.
+// Si la base falla, deja pasar (mejor intentar que frenar todo).
+export async function reservarCupo(admin: any, modelo: string, n = 1): Promise<number> {
+  const { rpm, rpd } = limitesDe(modelo);
+  try {
+    const { data, error } = await admin.rpc("gemini_reservar", { p_modelo: modelo, p_rpm: rpm, p_rpd: rpd, p_n: n });
+    if (error || typeof data !== "number") { console.error("[cupo] gemini_reservar falló:", error?.message); return 0; }
+    return data;
+  } catch (e) {
+    console.error("[cupo] gemini_reservar excepción:", (e as Error).message);
+    return 0;
+  }
+}
+
