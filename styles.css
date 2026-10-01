@@ -2187,9 +2187,25 @@ body.dark-mode .balance-pendientes .plan-item { background: #111827; }
 .pp-banner { background-size: cover; background-position: center; }
 .pp-banner.has-img::after { background: linear-gradient(180deg, rgba(2,6,23,.45) 0%, rgba(2,6,23,0) 45%, rgba(2,6,23,.25) 100%); }
 #public-profile-modal .pp-back-btn, #public-profile-modal .pp-close-btn { background: rgba(2,6,23,.55); box-shadow: 0 2px 10px rgba(0,0,0,.45); backdrop-filter: blur(4px); }
-.prof-banner-preview { aspect-ratio: 1200 / 208; width: 100%; border-radius: 12px; border: 1px solid var(--border); background: linear-gradient(120deg, #0891b2 0%, #0284c7 45%, #2563eb 100%); background-size: cover; background-position: center; }
+.prof-banner-preview { aspect-ratio: 2 / 1; width: 100%; max-width: 380px; border-radius: 12px; border: 1px solid var(--border); background: linear-gradient(120deg, #0891b2 0%, #0284c7 45%, #2563eb 100%); background-size: cover; background-position: center; }
 .pp-soc-ico { width: 18px; height: 18px; flex-shrink: 0; }
 .avatar-crop-card:has(.is-banner) { max-width: 420px; }
-.avatar-crop-stage.is-banner { width: 100%; height: auto; aspect-ratio: 600 / 104; }
+.avatar-crop-stage.is-banner { width: 100%; height: auto; aspect-ratio: 2 / 1; }
 .avatar-crop-stage.is-banner .avatar-crop-mask { background: none; box-shadow: inset 0 0 0 2px rgba(255,255,255,.9); }
 .avatar-crop-stage.is-banner canvas { height: auto; }
+
+/* Portada que cubre TODA la cabecera del perfil público, con glow y movimiento suave */
+#public-profile-modal .pp-banner.has-img { bottom: 0; height: auto; background-size: 112%; background-position: 50% 50%; animation: ppKen 22s ease-in-out infinite alternate; }
+@keyframes ppKen { from { background-size: 108%; background-position: 40% 45%; } to { background-size: 122%; background-position: 62% 55%; } }
+#public-profile-modal .pp-banner.has-img::after { background:
+  linear-gradient(180deg, rgba(2,6,23,.40) 0%, rgba(2,6,23,.05) 38%, rgba(8,15,32,.78) 82%, rgba(8,15,32,.96) 100%),
+  radial-gradient(circle at 20% 15%, rgba(56,189,248,.35), transparent 50%),
+  radial-gradient(circle at 85% 90%, rgba(168,85,247,.28), transparent 55%);
+  background-size: 100% 100%, 160% 160%, 160% 160%; animation: ppGlow 8s ease-in-out infinite alternate; }
+@keyframes ppGlow { from { background-position: 0 0, 0% 0%, 100% 100%; opacity: .85; } to { background-position: 0 0, 40% 30%, 60% 70%; opacity: 1; } }
+#public-profile-modal .pp-header:has(.pp-banner.has-img) { box-shadow: inset 0 -40px 60px -30px rgba(8,15,32,.9), inset 0 0 0 1px rgba(56,189,248,.25), 0 0 34px -6px rgba(56,189,248,.45); }
+#public-profile-modal .pp-header:has(.pp-banner.has-img) .pp-avatar { box-shadow: 0 0 0 3px rgba(56,189,248,.55), 0 0 28px 4px rgba(56,189,248,.55); animation: ppAvatarGlow 3.5s ease-in-out infinite alternate; }
+@keyframes ppAvatarGlow { from { box-shadow: 0 0 0 3px rgba(56,189,248,.45), 0 0 18px 2px rgba(56,189,248,.4); } to { box-shadow: 0 0 0 3px rgba(125,211,252,.8), 0 0 36px 8px rgba(56,189,248,.65); } }
+#public-profile-modal .pp-header:has(.pp-banner.has-img) .pp-fullname,
+#public-profile-modal .pp-header:has(.pp-banner.has-img) .pp-username { text-shadow: 0 2px 10px rgba(0,0,0,.85); position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) { #public-profile-modal .pp-banner.has-img, #public-profile-modal .pp-banner.has-img::after, #public-profile-modal .pp-header .pp-avatar { animation: none !important; } }
