@@ -42,7 +42,7 @@ begin
     end if;
 
     insert into public.study_sessions (user_id, modulo, up_id, duration_minutes, completed_at, shared_key)
-    values (v_inv, p_modulo, p_up, p_minutos, now(), p_key)
+    values (v_inv::text, p_modulo, p_up, p_minutos, now(), p_key)
     on conflict (user_id, shared_key) where shared_key is not null do nothing;
     get diagnostics v_n = row_count;
 
@@ -50,7 +50,7 @@ begin
     if v_n > 0 and exists (select 1 from information_schema.columns
                            where table_schema = 'public' and table_name = 'study_sessions' and column_name = 'completed') then
         execute 'update public.study_sessions set completed = $1 where user_id = $2 and shared_key = $3'
-            using coalesce(p_completed, true), v_inv, p_key;
+            using coalesce(p_completed, true), v_inv::text, p_key;   -- user_id es texto en esta tabla
     end if;
     return v_n > 0;
 end $$;
@@ -59,18 +59,22 @@ revoke all on function public.nika_acreditar_sesion_compartida(text, text, text,
 grant execute on function public.nika_acreditar_sesion_compartida(text, text, text, integer, boolean, text) to authenticated;
 
 -- ---------------------------------------------------------------------
--- OPCIONAL · Recuperar la sesión de hoy que no se le acreditó a Euge
--- Primero mirá qué se va a copiar (solo lectura):
+-- OPCIONAL · Recuperar la sesión de hoy que no se le acreditó a Euge (una consulta por vez)
+-- OJO: study_sessions.user_id es TEXTO, por eso el id del perfil va con ::text
 -- ---------------------------------------------------------------------
--- select s.modulo, s.up_id, s.duration_minutes, s.completed_at
--- from public.study_sessions s
--- where s.user_id = (select id from public.profiles where lower(username) = 'aguswei7')
--- order by s.completed_at desc limit 3;
+-- 1) Ver qué se va a copiar (solo lectura):
+select s.modulo, s.up_id, s.duration_minutes, s.completed_at
+from public.study_sessions s
+where s.user_id = (select id::text from public.profiles where lower(username) = 'aguswei7')
+order by s.completed_at desc
+limit 3;
 
--- Si la primera fila es la sesión compartida, copiala a Euge (cambiá el username si hace falta):
+-- 2) Copiarla a Euge (solo si la primera fila de arriba es la sesión compartida):
 -- insert into public.study_sessions (user_id, modulo, up_id, duration_minutes, completed_at)
--- select (select id from public.profiles where lower(username) = 'eugeniorauldalmeida'),
---        s.modulo, s.up_id, s.duration_minutes, s.completed_at
+-- select e.id::text, s.modulo, s.up_id, s.duration_minutes, s.completed_at
 -- from public.study_sessions s
--- where s.user_id = (select id from public.profiles where lower(username) = 'aguswei7')
--- order by s.completed_at desc limit 1;
+-- cross join (select id from public.profiles where lower(username) = 'eugeniorauldalmeida') e
+-- where s.user_id = (select id::text from public.profiles where lower(username) = 'aguswei7')
+--   and s.completed_at = (select max(completed_at) from public.study_sessions
+--                         where user_id = (select id::text from public.profiles where lower(username) = 'aguswei7'))
+--   and not exists (select 1 from public.study_sessions x where x.user_id = e.id::text and x.completed_at = s.completed_at);
