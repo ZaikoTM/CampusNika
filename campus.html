@@ -3778,14 +3778,16 @@ async function handleLogout() {
             listBox.innerHTML = usuarios.map(u => {
                 const plan = planDe(u);
                 const planHTML = !plan ? '' : (plan.vencido
-                    ? `<span class="admin-user-role-badge" style="background:rgba(245,158,11,0.15);color:#b45309;" title="Venció el ${plan.txt}">NikaMed+ vencido</span>`
-                    : `<span class="admin-user-role-badge" style="background:rgba(168,85,247,0.15);color:#9333ea;" title="Vence el ${plan.txt}">✨ NikaMed+ · hasta ${plan.txt}</span>`);
+                    ? `<span class="admin-user-role-badge" style="background:rgba(245,158,11,0.15);color:#b45309;">NikaMed+ vencido</span>`
+                    : `<span class="admin-user-role-badge" style="background:rgba(168,85,247,0.15);color:#9333ea;">✨ NikaMed+</span>`);
+                // La fecha solo la ve el admin (este modal): va en la línea del usuario, no en el cartel.
+                const metaPlan = !plan ? '' : (plan.vencido ? ` · venció el ${plan.txt}` : ` · vence el ${plan.txt}`);
                 return `
                 <div class="admin-user-row">
                     <img src="${nikaEsc(u.avatar || DEFAULT_AVATAR)}" alt="img" class="admin-user-avatar">
                     <div class="admin-user-body">
                         <div class="admin-user-name">${nikaEsc(u.fullname || 'Estudiante Nika')}</div>
-                        <div class="admin-user-meta">@${nikaEsc(u.username || '')}</div>
+                        <div class="admin-user-meta">@${nikaEsc(u.username || '')}${metaPlan}</div>
                     </div>
                     ${planHTML}
                     <span class="admin-user-role-badge${u.role === 'admin' ? ' is-admin' : ''}">${u.role === 'admin' ? 'Admin' : 'Usuario'}</span>
