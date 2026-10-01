@@ -151,3 +151,47 @@ img, video, svg { max-width: 100%; }
   #nm-panel { max-height: 92vh; max-height: 92dvh; }
   .modal-content { max-height: 96vh; max-height: 96dvh; }
 }
+
+/* ==========================================================================
+   REVISIÓN DE CONTRASTE — modo oscuro (y algunos ajustes que valen en ambos modos)
+   Criterio: texto normal ≥ 4.5:1 y texto grande ≥ 3:1 (WCAG AA) contra el fondo real.
+   ========================================================================== */
+
+/* Logo "NIKA" (texto vectorial azul marino): sobre fondo oscuro desaparecía. Se invierte la luminosidad
+   conservando el matiz: el marino pasa a celeste claro y el azul del trazo sigue siendo azul. */
+body.dark-mode .hero-text-logo { filter: invert(1) hue-rotate(180deg) brightness(1.15) drop-shadow(0 0 10px rgba(56, 189, 248, .35)); }
+body.dark-mode .hero-n-logo { filter: drop-shadow(0 0 12px rgba(56, 189, 248, .4)); }
+
+/* Enlaces del pie (política de privacidad, términos): quedaban en el azul por defecto del navegador */
+.footer a, footer a { color: var(--nika-primary); text-decoration: underline; text-underline-offset: 3px; }
+.footer a:hover, footer a:hover { color: var(--nika-accent); }
+
+/* Insignia NikaMed+: blanco sobre lila claro (2.6:1) → violeta más profundo (≥ 5:1) */
+.nika-vip-badge { background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%) !important; }
+.account-btn .nika-vip-badge { background: rgba(255, 255, 255, .22) !important; }
+
+/* Racha en 0: gris azulado sobre fondo oscuro (3:1) → gris claro legible */
+body.dark-mode .nika-racha-btn.is-cero { color: #cbd5e1; border-color: rgba(148, 163, 184, .5); background: rgba(148, 163, 184, .16); }
+
+/* Administración en el menú lateral: rojo #dc2626 sobre #020617 (4.2:1) → rojo claro */
+body.dark-mode #sidebar-admin-category .sidebar-category,
+body.dark-mode #sidebar-admin-category .sidebar-link { color: #f87171 !important; }
+
+/* Botón de cuenta con rango (violeta intenso) */
+body.dark-mode .account-btn { text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+
+/* Textos secundarios que quedaban casi invisibles */
+body.dark-mode .suite-hero p { color: #e0f2fe; }
+
+/* Botones/píldoras de cuenta NikaMed+: el extremo claro del degradé bajaba el contraste del texto blanco (3.9:1) */
+body.nika-vip .account-btn { background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%); }
+body.nika-vip .btn-continue-action { background: linear-gradient(135deg, #6d28d9, #9333ea); }
+
+/* Botones de acción celestes con texto blanco chico: #0284c7 daba 4.1:1 → #0369a1 (6:1) */
+.fr-publicar, .fr-filtro.on, .at-btn, .rz-btn { background-color: #0369a1; }
+body.dark-mode .at-prev > span { color: #94a3b8; }
+body.dark-mode .at-tag { color: #c4b5fd; }
+.nf-panic { background: #dc2626; }
+a.btn-back .nb-tx, .btn-back .nb-tx { color: #fff; }
+a.btn-back:has(.nb-tx) { background-color: #0369a1; }
+body.dark-mode .badge-soon { background: rgba(250, 204, 21, .16); color: #fbbf24; }

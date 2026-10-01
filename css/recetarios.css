@@ -365,3 +365,30 @@ body.rz-examen .rz-caso { border-color: rgba(239, 68, 68, .3); }
   .rz-reloj, .rz-reloj-ico, .rz-reloj.urgente, .rz-modo-card, .rz-aviso-t { animation: none !important; transition: none !important; }
   .rz-aviso-t { opacity: 1; transform: none; }
 }
+
+/* ==========================================================================
+   RECETARIOS — contraste en modo oscuro (la hoja de papel conserva su crema y tinta oscura)
+   ========================================================================== */
+.rz-btn { background: linear-gradient(135deg, #0369a1, #2563eb); }
+.rz-tit-hoja { background-color: #0369a1; }
+.rz-avatar { text-shadow: 0 1px 3px rgba(0, 0, 0, .55); }
+
+body.dark-mode .rz-volver,
+body.dark-mode .rz-datos summary,
+body.dark-mode .rz-guia h4,
+body.dark-mode .rz-cat,
+body.dark-mode .rz-btn-sec:hover,
+body.dark-mode .rz-tabs button:hover { color: #38bdf8; }
+body.dark-mode .rz-caso-badge,
+body.dark-mode .rz-chips span,
+body.dark-mode .rz-modo-tag.practica { color: #7dd3fc; }
+body.dark-mode .rz-modo-tag.examen,
+body.dark-mode .rz-ex-res { color: #fca5a5; }
+body.dark-mode .rz-lap-fija,
+body.dark-mode .rz-reglas li { color: #fbbf24; }
+body.dark-mode .rz-modo-card.examen b { color: #f87171; }
+body.dark-mode .rz-modo-card.practica b { color: #7dd3fc; }
+body.dark-mode .rz-best { color: #4ade80; }
+body.dark-mode .rz-best.nuevo { color: #94a3b8; }
+/* Avatar del paciente: luminosidad más baja para que las iniciales blancas se lean con cualquier tono */
+.rz-avatar { background: linear-gradient(135deg, hsl(var(--h), 70%, 38%), hsl(calc(var(--h) + 40), 75%, 30%)); }

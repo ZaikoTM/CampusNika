@@ -1,0 +1,62 @@
+/* ==========================================================================
+   CAMPUS NIKA — Modo oscuro de las páginas con tema propio:
+   estudio.html · cirugia_hub.html · gineco_hub.html
+   Se activa con body.dark-mode (lo pone js/temaOscuro.js según localStorage 'nika_theme').
+   Mismos tonos que el resto del campus (styles.css): fondo #090d16, tarjetas #111827, texto #f8fafc.
+   ========================================================================== */
+html.nika-oscuro { background: #090d16; color-scheme: dark; }
+
+body.dark-mode {
+  --bg-body: #090d16;
+  --bg-page: #0b1220;
+  --border: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --card-bg: #111827;
+  --success-light: rgba(34, 197, 94, .16);
+  --warning-light: rgba(234, 179, 8, .16);
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, .55);
+  background: #090d16; color: #f8fafc;
+}
+/* Cada página conserva su color de acento; solo se aclaran los que se usan como texto */
+body.dark-mode[data-tema="estudio"] { --nika-primary: #38bdf8; --nika-accent: #38bdf8; --nika-dark: #f8fafc; }
+body.dark-mode[data-tema="cirugia_hub"] { --nika-primary: #1d82d6; }
+body.dark-mode[data-tema="gineco_hub"] { --nika-dark: #f9a8d4; }
+
+/* ---------- estudio.html ---------- */
+body.dark-mode .navbar { background: rgba(9, 13, 22, .88); border-bottom-color: #1e293b; box-shadow: 0 1px 0 rgba(56, 189, 248, .12); }
+body.dark-mode .up-card-title,
+body.dark-mode .up-detail-title-block h2,
+body.dark-mode .resource-info h5,
+body.dark-mode .side-panel-header h4,
+body.dark-mode .up-tab-btn:hover,
+body.dark-mode .nm-nav-btn { color: #f8fafc; }
+body.dark-mode .nav-brand, body.dark-mode .navbar .brand-title { color: #f8fafc; }
+body.dark-mode .resource-item:hover { background: #162033; }
+body.dark-mode .search-bar-wrap svg, body.dark-mode #search-up-input::placeholder { color: #64748b; }
+body.dark-mode #search-up-input { background: #0b1220; color: #f8fafc; border-color: #1e293b; }
+body.dark-mode .btn-back { background: rgba(56, 189, 248, .12); color: #7dd3fc; border-color: rgba(56, 189, 248, .35); }
+body.dark-mode .btn-back:hover { background: rgba(56, 189, 248, .22); color: #e0f2fe; }
+body.dark-mode .up-card, body.dark-mode .resource-item, body.dark-mode .side-panel,
+body.dark-mode .up-detail, body.dark-mode .up-tabs { background: #111827; border-color: #1e293b; }
+body.dark-mode .up-tag, body.dark-mode .up-badge { background: rgba(56, 189, 248, .14); color: #7dd3fc; }
+
+/* ---------- cirugia_hub.html / gineco_hub.html ---------- */
+body.dark-mode .hub-header h1 { color: #7dd3fc; }
+body.dark-mode[data-tema="gineco_hub"] .hub-header h1 { color: #f9a8d4; }
+body.dark-mode .hub-header p { color: #94a3b8; }
+body.dark-mode .hub-card { background: #111827; border-color: #1e293b; }
+body.dark-mode .hub-card:hover { border-color: #38bdf8; box-shadow: 0 18px 34px -20px rgba(56, 189, 248, .6); }
+body.dark-mode .hub-card h3 { color: #f8fafc; }
+body.dark-mode .hub-card p { color: #94a3b8; }
+body.dark-mode .btn-hub { background: #0369a1; color: #fff; }
+body.dark-mode .btn-hub:hover { background: #0284c7; }
+body.dark-mode[data-tema="gineco_hub"] .btn-hub,
+body.dark-mode[data-tema="gineco_hub"] .hub-eyebrow { background: linear-gradient(120deg, #9333ea, #db2777); color: #fff; border-color: transparent; }
+body.dark-mode[data-tema="gineco_hub"] .btn-back { background: rgba(249, 168, 212, .12); border-color: rgba(249, 168, 212, .4); color: #f9a8d4; }
+body.dark-mode .footer { background: #0b1220; color: #94a3b8; border-top: 1px solid #1e293b; }
+body.dark-mode .footer strong { color: #e2e8f0; }
+body.dark-mode[data-tema="cirugia_hub"] .navbar, body.dark-mode[data-tema="cirugia_hub"] .footer { background-color: #0b2545; }
+body.dark-mode[data-tema="gineco_hub"] .navbar { background: #0b1220; border-bottom: 1px solid #1e293b; }
+body.dark-mode[data-tema="gineco_hub"] .brand-title { color: #f9a8d4; }
