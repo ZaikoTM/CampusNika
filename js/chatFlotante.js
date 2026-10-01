@@ -33,6 +33,13 @@
 
   // ------------------------------------------------------------------ estado
   let amigos = [], noLeidos = {}, actual = null, ids = new Set(), ultimoDia = null, abierto = false;
+  let busqueda = '';
+  const LS_GRUPOS = 'nika_cf_grupos', LS_MIN = 'nika_cf_min', PASO = 8;
+  const limites = { msg: PASO, on: PASO, off: PASO, res: PASO * 2 };
+  const leer = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (_) { return d; } };
+  const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} };
+  let plegados = leer(LS_GRUPOS, null);      // { msg:bool, on:bool, off:bool } true = plegado
+  let minimizado = !!leer(LS_MIN, false);
   const yo = () => window.NikaSupabase.getNikaCurrentUsername();
 
   // ------------------------------------------------------------------ interfaz
@@ -51,7 +58,14 @@
   @keyframes cf-entra{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
   .cf-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border,#e2e8f0);background:linear-gradient(120deg,rgba(2,132,199,.12),rgba(99,102,241,.1))}
   .cf-h h4{margin:0;font-size:1rem;font-weight:800;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cf-h small{display:block;font-size:.72rem;font-weight:700;color:var(--text-muted,#64748b)}
-  .cf-h small.on{color:#16a34a}.cf-x,.cf-back{border:0;background:transparent;color:inherit;font-size:1.1rem;cursor:pointer;padding:6px 9px;border-radius:10px}.cf-x:hover,.cf-back:hover{background:rgba(148,163,184,.2)}
+  .cf-h small.on{color:#16a34a}.cf-min,.cf-x,.cf-back{border:0;background:transparent;color:inherit;font-size:1.1rem;cursor:pointer;padding:6px 9px;border-radius:10px}.cf-x:hover,.cf-back:hover{background:rgba(148,163,184,.2)}
+  .cf-min:hover,.cf-x:hover{background:rgba(148,163,184,.2)}
+  .cf-panel.min{height:auto!important}.cf-panel.min .cf-lista,.cf-panel.min .cf-msgs,.cf-panel.min .cf-in,.cf-panel.min .cf-buscar{display:none}.cf-panel.min .cf-h{cursor:pointer;border-bottom:0}
+  .cf-buscar{padding:8px 10px 2px}.cf-buscar input{width:100%;box-sizing:border-box;padding:9px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .84rem 'Plus Jakarta Sans',sans-serif;outline:none}
+  .cf-buscar input:focus{border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.2)}
+  .cf-grp{display:flex;align-items:center;justify-content:space-between;width:100%;margin:6px 0 2px;padding:7px 10px;border:0;border-radius:10px;background:rgba(148,163,184,.14);color:var(--text-muted,#64748b);font:800 .7rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.4px;text-transform:uppercase;cursor:pointer}
+  .cf-grp em{font-style:normal;margin-left:4px;padding:1px 7px;border-radius:999px;background:rgba(2,132,199,.15);color:#0369a1}.cf-grp i{font-style:normal;transition:transform .2s}.cf-grp.cerrado i{transform:rotate(-90deg)}
+  .cf-mas{display:block;width:calc(100% - 12px);margin:4px 6px 6px;padding:8px;border:1px dashed var(--border,#cbd5e1);border-radius:10px;background:transparent;color:#0369a1;font:800 .76rem 'Plus Jakarta Sans',sans-serif;cursor:pointer}.cf-mas:hover{background:rgba(2,132,199,.08)}
   .cf-lista{flex:1;overflow-y:auto;padding:6px}.cf-item{display:flex;align-items:center;gap:12px;width:100%;padding:10px;border:0;border-radius:14px;background:transparent;color:inherit;font-family:inherit;text-align:left;cursor:pointer;transition:background .15s}
   .cf-item:hover{background:rgba(2,132,199,.1)}.cf-av{position:relative;flex-shrink:0}.cf-av img{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#e2e8f0;display:block}
   .cf-av i{position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;background:#94a3b8;border:2.5px solid var(--card-bg,#fff)}.cf-av i.on{background:#22c55e}
@@ -80,27 +94,66 @@
     document.body.append(fab, panel);
     vistaLista();
   }
-  const abrir = () => { abierto = true; panel.classList.add('on'); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } };
+  const abrir = () => { abierto = true; panel.classList.add('on'); aplicarMin(); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } };
   function cerrar() { abierto = false; panel.classList.remove('on'); }
+  // Minimizar: queda solo la barra de arriba (nombre, estado y contador); un clic en la barra lo vuelve a abrir
+  function aplicarMin() { panel.classList.toggle('min', minimizado); const b = $('.cf-min', panel); if (b) { b.textContent = minimizado ? '▢' : '–'; b.title = minimizado ? 'Restaurar' : 'Minimizar'; } }
+  function alternarMin(e) { if (e) e.stopPropagation(); minimizado = !minimizado; guardar(LS_MIN, minimizado); aplicarMin(); if (!minimizado) { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } }
+  const cabeceraBtns = () => `<button type="button" class="cf-min" aria-label="Minimizar">–</button><button type="button" class="cf-x" aria-label="Cerrar">✕</button>`;
+  function conectarCabecera() {
+    $('.cf-x', panel).onclick = (e) => { e.stopPropagation(); cerrar(); };
+    $('.cf-min', panel).onclick = alternarMin;
+    $('.cf-h', panel).onclick = (e) => { if (minimizado && !e.target.closest('button')) alternarMin(); };
+    aplicarMin();
+  }
 
   // ------------------------------------------------------------------ bandeja
   async function vistaLista() {
     const CM = window.ChatManager;
     if (actual) { actual = null; try { await CM.cerrarConversacion(); } catch (_) {} }
-    panel.innerHTML = `<div class="cf-h"><h4>💬 Mensajes</h4><button type="button" class="cf-x" aria-label="Cerrar">✕</button></div><div class="cf-lista" id="cf-lista"><div class="cf-vacio">Cargando…</div></div>`;
-    $('.cf-x', panel).onclick = cerrar;
+    panel.innerHTML = `<div class="cf-h"><h4>💬 Mensajes<small id="cf-sub"></small></h4>${cabeceraBtns()}</div>
+      <div class="cf-buscar"><input type="search" id="cf-q" placeholder="Buscar amigo…" aria-label="Buscar amigo" autocomplete="off" value="${esc(busqueda)}"></div>
+      <div class="cf-lista" id="cf-lista"><div class="cf-vacio">Cargando…</div></div>`;
+    conectarCabecera();
+    $('#cf-q', panel).addEventListener('input', (e) => { busqueda = e.target.value; limites.res = PASO * 2; pintarLista(); });
     try { amigos = await window.NikaFriends.listFriends(); } catch (_) { amigos = []; }
     try { noLeidos = await CM.contarNoLeidos(); } catch (_) {}
     pintarLista();
   }
+  const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  function filaAmigo(f, on) {
+    return `<button type="button" class="cf-item" data-u="${esc(f.username)}"><span class="cf-av"><img src="${esc(f.avatar || AVATAR)}" alt="" loading="lazy"><i class="${on ? 'on' : ''}"></i></span>
+      <span class="cf-nom"><b>${esc(f.fullname)}</b><small class="${on ? 'on' : ''}">${on ? 'En línea' : '@' + esc(f.username)}</small></span>${noLeidos[f.username] ? `<span class="cf-n">${noLeidos[f.username]}</span>` : ''}</button>`;
+  }
   function pintarLista() {
     const box = $('#cf-lista', panel); if (!box || actual) return;
     const CM = window.ChatManager; const on = (f) => CM.estaEnLinea(f.username);
+    const nOn = amigos.filter(on).length, nMsg = amigos.filter((f) => noLeidos[f.username]).length;
+    const sub = $('#cf-sub', panel); if (sub) sub.textContent = amigos.length ? `${nOn} en línea · ${amigos.length} amigos` : '';
     if (!amigos.length) { box.innerHTML = '<div class="cf-vacio">Agregá amigos desde «Comunidad &amp; Amigos» del campus para chatear con ellos.</div>'; return; }
-    const orden = amigos.slice().sort((a, b) => ((noLeidos[b.username] || 0) - (noLeidos[a.username] || 0)) || (on(b) - on(a)) || String(a.fullname).localeCompare(String(b.fullname), 'es'));
-    box.innerHTML = orden.map((f) => `<button type="button" class="cf-item" data-u="${esc(f.username)}"><span class="cf-av"><img src="${esc(f.avatar || AVATAR)}" alt=""><i class="${on(f) ? 'on' : ''}"></i></span>
-      <span class="cf-nom"><b>${esc(f.fullname)}</b><small class="${on(f) ? 'on' : ''}">${on(f) ? 'En línea' : '@' + esc(f.username)}</small></span>${noLeidos[f.username] ? `<span class="cf-n">${noLeidos[f.username]}</span>` : ''}</button>`).join('');
+    const porNombre = (a, b) => String(a.fullname).localeCompare(String(b.fullname), 'es');
+    const q = norm(busqueda).trim();
+    let html = '';
+    const lista = (arr, clave) => {
+      const max = limites[clave]; const vis = arr.slice(0, max);
+      return vis.map((f) => filaAmigo(f, on(f))).join('') + (arr.length > max ? `<button type="button" class="cf-mas" data-mas="${clave}">Ver ${Math.min(PASO, arr.length - max)} más (${arr.length - max} sin mostrar)</button>` : '');
+    };
+    if (q) {
+      const res = amigos.filter((f) => norm(f.fullname).includes(q) || norm(f.username).includes(q)).sort((a, b) => (on(b) - on(a)) || porNombre(a, b));
+      html = res.length ? lista(res, 'res') : '<div class="cf-vacio">Nadie coincide con esa búsqueda.</div>';
+    } else {
+      const conMsg = amigos.filter((f) => noLeidos[f.username]).sort((a, b) => noLeidos[b.username] - noLeidos[a.username] || porNombre(a, b));
+      const enLinea = amigos.filter((f) => !noLeidos[f.username] && on(f)).sort(porNombre);
+      const resto = amigos.filter((f) => !noLeidos[f.username] && !on(f)).sort(porNombre);
+      // Por defecto, con muchos amigos solo se despliegan los que tienen mensajes y los conectados
+      if (!plegados) plegados = { msg: false, on: false, off: amigos.length > 6 };
+      const grupo = (clave, titulo, arr) => arr.length ? `<button type="button" class="cf-grp${plegados[clave] ? ' cerrado' : ''}" data-g="${clave}"><span>${titulo} <em>${arr.length}</em></span><i>▾</i></button>${plegados[clave] ? '' : lista(arr, clave)}` : '';
+      html = grupo('msg', '💬 Con mensajes', conMsg) + grupo('on', '🟢 En línea', enLinea) + grupo('off', '⚪ Desconectados', resto);
+    }
+    box.innerHTML = html;
     box.querySelectorAll('.cf-item').forEach((b) => b.addEventListener('click', () => conversacion(b.dataset.u)));
+    box.querySelectorAll('.cf-grp').forEach((b) => b.addEventListener('click', () => { plegados[b.dataset.g] = !plegados[b.dataset.g]; guardar(LS_GRUPOS, plegados); pintarLista(); }));
+    box.querySelectorAll('.cf-mas').forEach((b) => b.addEventListener('click', () => { limites[b.dataset.mas] += PASO; pintarLista(); }));
   }
 
   // ------------------------------------------------------------------ conversación
@@ -125,10 +178,10 @@
     const CM = window.ChatManager; const f = amigos.find((x) => x.username === user) || { username: user, fullname: '@' + user };
     actual = user; ids = new Set(); ultimoDia = null;
     panel.innerHTML = `<div class="cf-h"><button type="button" class="cf-back" aria-label="Volver">←</button><span class="cf-av"><img src="${esc(f.avatar || AVATAR)}" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover"></span>
-      <h4>${esc(f.fullname)}<small id="cf-est">Conectando…</small></h4><button type="button" class="cf-x" aria-label="Cerrar">✕</button></div>
+      <h4>${esc(f.fullname)}<small id="cf-est">Conectando…</small></h4>${cabeceraBtns()}</div>
       <div class="cf-msgs"><div class="cf-vacio">Cargando conversación…</div></div>
       <form class="cf-in" autocomplete="off"><input type="text" maxlength="800" placeholder="Escribí un mensaje…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">➤</button></form>`;
-    $('.cf-back', panel).onclick = vistaLista; $('.cf-x', panel).onclick = cerrar;
+    $('.cf-back', panel).onclick = (e) => { e.stopPropagation(); vistaLista(); }; conectarCabecera();
     const pintarEstado = (on) => { const s = $('#cf-est', panel); if (s) { s.textContent = on ? 'En línea' : 'Desconectado'; s.classList.toggle('on', !!on); } };
     CM.lecturaAutomatica = true;
     CM.onMensaje = (row) => { if (row.from_username !== user && row.to_username !== user) return; burbuja(row); if (row.from_username === user && !document.hidden) CM.marcarComoLeido(user).then(refrescarNoLeidos); };
