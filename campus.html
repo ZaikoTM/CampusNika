@@ -3423,12 +3423,12 @@ async function handleLogout() {
             const box = document.getElementById('dashboard-online-users');
             if (!box || !window.NikaPresencia) return;
             if (!localStorage.getItem('nika_currentUser')) { box.innerHTML = '<div class="community-widget-empty">Iniciá sesión para ver quién está en línea.</div>'; return; }
-            const [total, lista] = await Promise.all([window.NikaPresencia.conteoEnLinea(5), window.NikaPresencia.usuariosEnLinea(5, 40)]);
+            const [total, lista] = await Promise.all([window.NikaPresencia.conteoEnLinea(5), window.NikaPresencia.usuariosEnLinea(5, 5)]);
             if (total == null) { box.innerHTML = '<div class="community-widget-empty">Todavía no está activado el contador (falta correr sql/presencia_ultima_vez.sql en Supabase).</div>'; return; }
             const esc = NikaFriends.esc;
             const misAmigos = new Set((_dashboardFriendsCache || []).map(f => f.id));
             const yo = (() => { try { return JSON.parse(localStorage.getItem('nika_currentUser')).id; } catch (_) { return null; } })();
-            const ver = lista.slice(0, 12);
+            const ver = lista.slice(0, 5);   // solo los 5 más recientes; el resto se resume en un texto
             const otros = Math.max(0, total - ver.length);
             box.innerHTML = `
                 <div style="font-size:.95rem;font-weight:800;color:var(--text-main);margin-bottom:10px;">${total} usuario${total === 1 ? '' : 's'} online <span style="font-weight:600;color:var(--text-muted);font-size:.8rem;">(últimos 5 minutos)</span></div>
@@ -3442,7 +3442,7 @@ async function handleLogout() {
                             </div>
                             <span style="color:var(--nika-primary);">👁️</span>
                         </div>`).join('')}
-                    ${otros ? `<div class="community-widget-empty" style="text-align:left;">Otros usuarios (${otros})</div>` : ''}
+                    ${otros ? `<div style="margin-top:2px;padding:9px 12px;border-radius:10px;background:rgba(56,189,248,.08);border:1px dashed rgba(56,189,248,.35);font-size:.82rem;font-weight:700;color:var(--text-muted);">➕ y <strong style="color:var(--nika-primary);">${otros}</strong> usuario${otros === 1 ? '' : 's'} más en los últimos 5 minutos</div>` : ''}
                 </div>`;
         }
         setInterval(() => {
