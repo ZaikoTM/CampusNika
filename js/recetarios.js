@@ -428,7 +428,9 @@ const NikaRecetarios = (() => {
     if (casoDado) { caso = casoDado; nuevoCaso = false; }
     docId = id; if (nuevoCaso) { caso = doc.caso(); compartido = false; } inicio = Date.now();
     Object.keys(hojas).forEach((k) => delete hojas[k]);
-    if (ex) lapicera = true;                           // en el examen no se puede borrar
+    // Examen: lapicera obligatoria (no se puede borrar ni modificar). Práctica: libre por defecto, para aprender;
+    // quien quiera entrenar a mano alzada la activa con el interruptor y se recuerda su elección.
+    lapicera = ex ? true : (() => { try { return localStorage.getItem('nika_rz_lapicera_practica') === '1'; } catch (_) { return false; } })();
     const f = hoyTxt();
     const root = $('#rz-root');
     root.innerHTML = `
@@ -454,7 +456,7 @@ const NikaRecetarios = (() => {
         <div class="rz-hojas">
           <div class="rz-herr">${ex
             ? '<span class="rz-lap-fija">✒️ Lapicera obligatoria · solo se escribe a continuación</span>'
-            : `<label class="rz-sw"><input type="checkbox" id="rz-lap" ${lapicera ? 'checked' : ''}> ✒️ Modo lapicera (no se puede borrar)</label>`}<button type="button" class="rz-btn-sec" onclick="NikaRecetarios.digo()">✏️ Digo…</button></div>
+            : `<label class="rz-sw"><input type="checkbox" id="rz-lap" ${lapicera ? 'checked' : ''}> ✒️ Modo lapicera <small>(opcional · no se puede borrar)</small></label>`}<button type="button" class="rz-btn-sec" onclick="NikaRecetarios.digo()">✏️ Digo…</button></div>
           <div class="rz-hojas-w">${doc.hojas.map((h) => hojaHtml(doc, h)).join('')}</div>
         </div>
         ${ex ? '' : guiaLateral(doc)}
@@ -463,7 +465,7 @@ const NikaRecetarios = (() => {
         ? '<button type="button" class="rz-btn" onclick="NikaRecetarios.entregar()">📨 Entregar examen</button>'
         : `<button type="button" class="rz-btn" onclick="NikaRecetarios.corregir()">✅ Corregir</button><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.modelo()">👁️ Ver modelo</button><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.abrir('${id}', false, null, 'practica')">↺ Reiniciar hojas</button>`}</div>`;
     root.querySelectorAll('.rz-hoja').forEach(conectarHoja);
-    const lap = $('#rz-lap'); if (lap) lap.addEventListener('change', (e) => { lapicera = e.target.checked; });
+    const lap = $('#rz-lap'); if (lap) lap.addEventListener('change', (e) => { lapicera = e.target.checked; try { localStorage.setItem('nika_rz_lapicera_practica', lapicera ? '1' : '0'); } catch (_) {} toast(lapicera ? '✒️ Modo lapicera activado: solo se escribe a continuación' : '✏️ Modo lapicera apagado: podés borrar y corregir libremente'); });
     if (ex) iniciarExamen(doc);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
