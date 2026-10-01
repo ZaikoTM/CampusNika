@@ -40,7 +40,7 @@
   const leer = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (_) { return d; } };
   const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} };
   let plegados = leer(LS_GRUPOS, null);      // { msg:bool, on:bool, off:bool } true = plegado
-  let minimizado = !!leer(LS_MIN, false);
+  let minimizado = false;   // se minimiza solo mientras se está usando; abrir con el botón siempre lo despliega
   const yo = () => window.NikaSupabase.getNikaCurrentUsername();
 
   // ------------------------------------------------------------------ interfaz
@@ -93,16 +93,16 @@
   function montarUI() {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     fab = document.createElement('button'); fab.type = 'button'; fab.className = 'cf-fab'; fab.setAttribute('aria-label', 'Abrir chat'); fab.innerHTML = '💬<b></b>';
-    fab.addEventListener('click', () => (abierto ? cerrar() : abrir()));
+    fab.addEventListener('click', () => { if (!abierto) abrir(); else if (minimizado) alternarMin(); else cerrar(); });
     panel = document.createElement('section'); panel.className = 'cf-panel'; panel.setAttribute('aria-label', 'Mensajes');
     document.body.append(fab, panel);
     vistaLista();
   }
-  const abrir = () => { abierto = true; panel.classList.add('on'); aplicarMin(); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } };
+  const abrir = () => { abierto = true; minimizado = false; panel.classList.add('on'); aplicarMin(); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } };
   function cerrar() { abierto = false; panel.classList.remove('on'); document.body.classList.remove('cf-abierto'); }
   // Minimizar: queda solo la barra de arriba (nombre, estado y contador); un clic en la barra lo vuelve a abrir
   function aplicarMin() { panel.classList.toggle('min', minimizado); document.body.classList.toggle('cf-abierto', abierto && !minimizado); const b = $('.cf-min', panel); if (b) { b.textContent = minimizado ? '▢' : '–'; b.title = minimizado ? 'Restaurar' : 'Minimizar'; } }
-  function alternarMin(e) { if (e) e.stopPropagation(); minimizado = !minimizado; guardar(LS_MIN, minimizado); aplicarMin(); if (!minimizado) { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } }
+  function alternarMin(e) { if (e) e.stopPropagation(); minimizado = !minimizado; aplicarMin(); if (!minimizado) { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } }
   const cabeceraBtns = () => `<button type="button" class="cf-min" aria-label="Minimizar">–</button><button type="button" class="cf-x" aria-label="Cerrar">✕</button>`;
   function conectarCabecera() {
     $('.cf-x', panel).onclick = (e) => { e.stopPropagation(); cerrar(); };
@@ -261,7 +261,7 @@
       if (typeof window.showToast === 'function') window.showToast('Solo podés chatear con tus amigos. Agregalo desde «Comunidad & Amigos».'); return;
     }
     const real = amigos.find((f) => String(f.username).toLowerCase() === String(user).toLowerCase());
-    abierto = true; panel.classList.add('on'); minimizado = false; guardar(LS_MIN, false); aplicarMin();
+    abierto = true; panel.classList.add('on'); minimizado = false; aplicarMin();
     await conversacion(real.username);
   }
   window.NikaChat = { abrir: abrirBandeja, conversacion: abrirConUsuario };
