@@ -47,13 +47,14 @@
   const CSS = `
   .cf-fab{position:fixed;right:20px;bottom:90px;width:56px;height:56px;border:0;border-radius:50%;cursor:pointer;z-index:9998;display:flex;align-items:center;justify-content:center;font-size:25px;color:#fff;
     background:linear-gradient(135deg,var(--nika-primary,#0284c7),var(--nika-accent,#38bdf8));box-shadow:0 4px 14px rgba(0,0,0,.3);transition:transform .18s,box-shadow .18s}
+  .cf-fab,#nika-assistant-btn{transition:opacity .25s,transform .25s}body.cf-abierto .cf-fab,body.cf-abierto #nika-assistant-btn{opacity:0!important;pointer-events:none!important;transform:scale(.6)!important}
   .cf-fab:hover{transform:scale(1.07)}.cf-fab.hay{background:linear-gradient(135deg,#ef4444,#b91c1c);animation:cf-aviso 1.8s ease-in-out infinite}
   .cf-fab.rebota{animation:cf-rebote .7s cubic-bezier(.3,1.6,.5,1),cf-aviso 1.8s ease-in-out .7s infinite}
   .cf-fab b{position:absolute;top:-6px;right:-6px;min-width:22px;padding:1px 6px;border-radius:999px;background:#fff;color:#b91c1c;border:2px solid #ef4444;font:800 .72rem 'Plus Jakarta Sans',sans-serif;text-align:center;display:none;box-shadow:0 3px 10px rgba(0,0,0,.35)}
   .cf-fab.hay b{display:block}
   @keyframes cf-aviso{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.3),0 0 0 0 rgba(239,68,68,.55)}50%{box-shadow:0 4px 14px rgba(0,0,0,.3),0 0 0 12px rgba(239,68,68,0)}}
   @keyframes cf-rebote{0%{transform:scale(1)}30%{transform:scale(1.28) rotate(-10deg)}60%{transform:scale(.94) rotate(6deg)}100%{transform:scale(1)}}
-  .cf-panel{position:fixed;right:20px;bottom:156px;width:min(360px,calc(100vw - 24px));height:min(520px,calc(100vh - 180px));z-index:9999;display:none;flex-direction:column;overflow:hidden;border-radius:20px;
+  .cf-panel{position:fixed;right:16px;bottom:16px;width:min(330px,calc(100vw - 20px));height:min(430px,calc(100vh - 110px));z-index:9999;display:none;flex-direction:column;overflow:hidden;border-radius:20px;
     background:var(--card-bg,#fff);color:var(--text-main,#0f172a);border:1px solid var(--border,#e2e8f0);box-shadow:0 24px 60px -20px rgba(0,0,0,.55);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
   .cf-panel.on{display:flex;animation:cf-entra .3s cubic-bezier(.2,.8,.2,1) both}
   @keyframes cf-entra{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
@@ -61,7 +62,7 @@
   .cf-h h4{margin:0;font-size:1rem;font-weight:800;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cf-h small{display:block;font-size:.72rem;font-weight:700;color:var(--text-muted,#64748b)}
   .cf-h small.on{color:#16a34a}.cf-min,.cf-x,.cf-back{border:0;background:transparent;color:inherit;font-size:1.1rem;cursor:pointer;padding:6px 9px;border-radius:10px}.cf-x:hover,.cf-back:hover{background:rgba(148,163,184,.2)}
   .cf-min:hover,.cf-x:hover{background:rgba(148,163,184,.2)}
-  .cf-panel.min{height:auto!important}.cf-panel.min .cf-lista,.cf-panel.min .cf-msgs,.cf-panel.min .cf-in,.cf-panel.min .cf-buscar{display:none}.cf-panel.min .cf-h{cursor:pointer;border-bottom:0}
+  .cf-panel.min{height:auto!important;right:84px;width:min(260px,calc(100vw - 100px))}.cf-panel.min .cf-lista,.cf-panel.min .cf-msgs,.cf-panel.min .cf-in,.cf-panel.min .cf-buscar{display:none}.cf-panel.min .cf-h{cursor:pointer;border-bottom:0}
   .cf-buscar{padding:8px 10px 2px}.cf-buscar input{width:100%;box-sizing:border-box;padding:9px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .84rem 'Plus Jakarta Sans',sans-serif;outline:none}
   .cf-buscar input:focus{border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.2)}
   .cf-grp{display:flex;align-items:center;justify-content:space-between;width:100%;margin:6px 0 2px;padding:7px 10px;border:0;border-radius:10px;background:rgba(148,163,184,.14);color:var(--text-muted,#64748b);font:800 .7rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.4px;text-transform:uppercase;cursor:pointer}
@@ -85,7 +86,7 @@
   #chat-fab-btn,#dm-inbox-modal,#private-chat-modal{display:none!important}
   .cf-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border,#e2e8f0)}.cf-in input{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .88rem 'Plus Jakarta Sans',sans-serif;outline:none}
   .cf-in input:focus{border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.2)}.cf-in button{width:42px;height:42px;border:0;border-radius:50%;background:#0284c7;color:#fff;font-size:1.05rem;cursor:pointer}
-  @media (max-width:640px){.cf-fab{width:48px;height:48px;right:12px;bottom:74px}.cf-panel{right:8px;bottom:132px;height:min(70vh,520px)}}
+  @media (max-width:640px){.cf-fab{width:48px;height:48px;right:12px;bottom:74px}.cf-panel{right:8px;bottom:8px;width:calc(100vw - 16px);height:min(75vh,520px)}.cf-panel.min{right:70px;bottom:12px;width:calc(100vw - 84px)}}
   @media (prefers-reduced-motion:reduce){.cf-fab.hay,.cf-fab.rebota,.cf-panel.on,.cf-b{animation:none!important}}`;
 
   let fab, panel;
@@ -98,9 +99,9 @@
     vistaLista();
   }
   const abrir = () => { abierto = true; panel.classList.add('on'); aplicarMin(); if (!actual) vistaLista(); else { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } };
-  function cerrar() { abierto = false; panel.classList.remove('on'); }
+  function cerrar() { abierto = false; panel.classList.remove('on'); document.body.classList.remove('cf-abierto'); }
   // Minimizar: queda solo la barra de arriba (nombre, estado y contador); un clic en la barra lo vuelve a abrir
-  function aplicarMin() { panel.classList.toggle('min', minimizado); const b = $('.cf-min', panel); if (b) { b.textContent = minimizado ? '▢' : '–'; b.title = minimizado ? 'Restaurar' : 'Minimizar'; } }
+  function aplicarMin() { panel.classList.toggle('min', minimizado); document.body.classList.toggle('cf-abierto', abierto && !minimizado); const b = $('.cf-min', panel); if (b) { b.textContent = minimizado ? '▢' : '–'; b.title = minimizado ? 'Restaurar' : 'Minimizar'; } }
   function alternarMin(e) { if (e) e.stopPropagation(); minimizado = !minimizado; guardar(LS_MIN, minimizado); aplicarMin(); if (!minimizado) { const m = $('.cf-msgs', panel); if (m) m.scrollTop = m.scrollHeight; } }
   const cabeceraBtns = () => `<button type="button" class="cf-min" aria-label="Minimizar">–</button><button type="button" class="cf-x" aria-label="Cerrar">✕</button>`;
   function conectarCabecera() {
