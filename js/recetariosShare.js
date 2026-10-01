@@ -8,8 +8,9 @@ const RecetariosShare = (() => {
   const toast = (m) => { if (typeof window.showToast === 'function') window.showToast(m); else console.info(m); };
   const W = 1180, PAD = 44;
   const INK = '#1e3a8a';
-  let opciones = { resultado: true, caso: true, modelo: false, link: false };   // link: el enlace del caso es larguísimo, por eso va apagado
+  let opciones = { resultado: true, caso: true, modelo: false, link: true };
   let blobActual = null, urlActual = null, generando = 0;
+  let linkActual = null;           // link corto del caso (null mientras se crea o si no se pudo crear)
 
   // ------------------------------------------------------------------ utilidades de dibujo
   const cargarImg = (src) => new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src; });
@@ -145,6 +146,27 @@ const RecetariosShare = (() => {
     const { R, docId, caso } = api();
     return `${location.origin}${location.pathname.replace(/[^/]*$/, '')}recetarios.html?doc=${encodeURIComponent(docId)}&c=${R.aBase64Url(R.compactar(caso))}`;
   }
+  // Link corto: el caso se guarda en la tabla casos_compartidos y se comparte solo su código (8 caracteres).
+  // Si la tabla no existe todavía (09_casos_compartidos.sql) o no hay conexión, se devuelve null y el mensaje
+  // lleva la dirección del sitio sin el caso.
+  const _cacheLinks = new Map();
+  async function linkCorto() {
+    const { R, docId, caso } = api();
+    const compacto = R.compactar(caso); const firma = docId + JSON.stringify(compacto);
+    if (_cacheLinks.has(firma)) return _cacheLinks.get(firma);
+    const c = window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase);
+    if (!c || !navigator.onLine) return null;
+    const alfabeto = 'abcdefghjkmnpqrstuvwxyz23456789';
+    for (let intento = 0; intento < 3; intento++) {
+      let id = ''; const buf = new Uint8Array(8); crypto.getRandomValues(buf); buf.forEach((b) => { id += alfabeto[b % alfabeto.length]; });
+      const { error } = await c.from('casos_compartidos').insert({ id, doc: docId, caso: compacto });
+      if (!error) { const url = `${location.origin}${location.pathname.replace(/[^/]*$/, '')}recetarios.html?doc=${encodeURIComponent(docId)}&k=${id}`; _cacheLinks.set(firma, url); return url; }
+      if (error.code !== '23505') { console.warn('[RecetariosShare] No se pudo crear el link corto:', error.message); return null; }   // 23505: código repetido, se reintenta
+    }
+    return null;
+  }
+  async function prepararLink(alListo) { linkActual = null; try { linkActual = await linkCorto(); } catch (_) {} if (alListo) alListo(); }
+
   function mensajePorDefecto() {
     const { doc, ultimo, caso } = api();
     const nombre = doc.titulo.toLowerCase();
@@ -152,7 +174,7 @@ const RecetariosShare = (() => {
     if (opciones.resultado && ultimo && !ultimo.trampa) lineas.push(`Me dio ${ultimo.pct}/100 (${ultimo.nivel}).`);
     if (caso.trampa) lineas.push('Era un caso de criterio médico: ¿vos lo hubieras extendido?');
     lineas.push('¿Qué te parece? ¿Está bien? 👀');
-    if (opciones.link) lineas.push('', 'Probá el mismo caso vos (te toca el mismo paciente):', linkCaso());
+    if (opciones.link && linkActual) lineas.push('', 'Probá el mismo caso vos (te toca el mismo paciente):', linkActual);
     else lineas.push('', 'Practicá tus recetas y certificados en nikamed.com.ar 🩺');
     return lineas.join('\n');
   }
@@ -168,23 +190,34 @@ const RecetariosShare = (() => {
     ov.innerHTML = `<div class="rz-mcard grande rz-share">
       <div class="rz-sh-h"><h3>📤 Compartir mi resolución</h3><button type="button" class="rz-sh-x" data-x aria-label="Cerrar">✕</button></div>
       <div class="rz-sh-grid">
-        <div class="rz-sh-prev"><div class="rz-sh-loader" id="rz-sh-load"><i></i><span>Armando tu imagen…</span></div><img id="rz-sh-img" alt="Vista previa" hidden></div>
+        <div class="rz-sh-prev"><div class="rz-sh-loader" id="rz-sh-load"><i></i><span>Armando tu imagen…</span></div><img id="rz-sh-img" alt="Vista previa" hidden draggable="true"><p class="rz-sh-arrastra" id="rz-sh-arrastra" hidden>🖱️ Podés <b>arrastrar esta imagen</b> directo al chat de WhatsApp Web</p></div>
         <div class="rz-sh-side">
           <div class="rz-sh-opts">
             <label class="rz-tg"><input type="checkbox" data-o="resultado" ${opciones.resultado ? 'checked' : ''}><span class="rz-tg-b"></span><em>📊 Incluir mi puntaje</em></label>
             <label class="rz-tg"><input type="checkbox" data-o="caso" ${opciones.caso ? 'checked' : ''}><span class="rz-tg-b"></span><em>🩺 Incluir el caso clínico</em></label>
             ${caso.trampa ? '' : `<label class="rz-tg"><input type="checkbox" data-o="modelo" ${opciones.modelo ? 'checked' : ''}><span class="rz-tg-b"></span><em>✅ Incluir cómo debería quedar</em></label>`}
-            <label class="rz-tg"><input type="checkbox" data-o="link" ${opciones.link ? 'checked' : ''}><span class="rz-tg-b"></span><em>🔗 Agregar el link del caso al mensaje <small>(largo)</small></em></label>
+            <label class="rz-tg"><input type="checkbox" data-o="link" ${opciones.link ? 'checked' : ''}><span class="rz-tg-b"></span><em>🔗 Agregar link corto del caso <small id="rz-sh-linkest">(creando…)</small></em></label>
           </div>
           <label class="rz-sh-l" for="rz-sh-msg">✏️ Mensaje (podés editarlo)</label>
           <textarea id="rz-sh-msg" rows="8" maxlength="900"></textarea>
           <div class="rz-sh-chips">${SUGERENCIAS.map((s) => `<button type="button" data-ins="${esc(s)}">${esc(s)}</button>`).join('')}<button type="button" data-rest>↺ Restablecer</button></div>
           <div class="rz-sh-acc">
             <button type="button" class="rz-wa big" data-wa><span class="rz-wa-ic">${WA}</span><span>Enviar por WhatsApp</span></button>
+            <button type="button" class="rz-cp" data-wa-web title="Abre web.whatsapp.com en otra pestaña"><span>🌐</span> WhatsApp Web</button>
+            <button type="button" class="rz-cp" data-wa-app title="Abre la aplicación de WhatsApp instalada en la PC"><span>🖥️</span> App de WhatsApp</button>
             <button type="button" class="rz-dl" data-dl><span>⬇️</span> Descargar imagen</button>
             <button type="button" class="rz-cp" data-cpimg><span>📋</span> Copiar imagen</button>
             <button type="button" class="rz-cp" data-cptxt><span>💬</span> Copiar texto</button>
+            <button type="button" class="rz-cp" data-cplink><span>🔗</span> Copiar link</button>
           </div>
+          <details class="rz-sh-ayuda" open><summary>💻 ¿Cómo la mando desde la computadora?</summary>
+            <ol>
+              <li><b>Apretá «Enviar por WhatsApp»</b> (o «WhatsApp Web»). La imagen se copia sola y se abre WhatsApp con tu mensaje.</li>
+              <li><b>Elegí el chat</b> al que querés mandarlo.</li>
+              <li><b>Hacé clic en el cuadro de mensaje y presioná <kbd>Ctrl</kbd> + <kbd>V</kbd></b>: aparece tu recetario como imagen, listo para enviar.</li>
+            </ol>
+            <p>¿No se pegó? Tenés dos alternativas: <b>arrastrá la imagen</b> de la izquierda hasta el chat, o apretá <b>«Descargar imagen»</b> y adjuntala con el clip 📎 → «Fotos y videos».</p>
+          </details>
           <p class="rz-sh-nota" id="rz-sh-nota"></p>
         </div>
       </div></div>`;
@@ -196,9 +229,25 @@ const RecetariosShare = (() => {
     ov.querySelectorAll('[data-ins]').forEach((b) => b.addEventListener('click', () => { const l = msg.value.split('\n'); l.splice(Math.min(l.length, 2), 0, b.dataset.ins); msg.value = l.join('\n'); editado = true; msg.focus(); }));
     ov.querySelector('[data-rest]').addEventListener('click', () => { msg.value = mensajePorDefecto(); editado = false; });
     ov.querySelector('[data-dl]').addEventListener('click', descargar);
-    ov.querySelector('[data-cptxt]').addEventListener('click', async () => { try { await navigator.clipboard.writeText(msg.value); toast('💬 Texto copiado'); } catch (_) { msg.select(); toast('Seleccioná y copiá el texto'); } });
+    ov.querySelector('[data-cptxt]').addEventListener('click', async () => { try { await navigator.clipboard.writeText(msg.value); toast('💬 Texto copiado'); destello('[data-cptxt]', '¡Copiado!'); } catch (_) { msg.select(); toast('Seleccioná y copiá el texto'); } });
     ov.querySelector('[data-cpimg]').addEventListener('click', () => copiarImagen(true));
     ov.querySelector('[data-wa]').addEventListener('click', () => whatsapp(msg.value, ov.querySelector('#rz-sh-nota')));
+    ov.querySelector('[data-wa-web]').addEventListener('click', () => whatsapp(msg.value, ov.querySelector('#rz-sh-nota'), 'web'));
+    ov.querySelector('[data-wa-app]').addEventListener('click', () => whatsapp(msg.value, ov.querySelector('#rz-sh-nota'), 'app'));
+    ov.querySelector('[data-cplink]').addEventListener('click', () => copiarLink());
+    // El mensaje se actualiza solo cuando el link corto está listo (si el alumno no lo editó)
+    const linkEst = ov.querySelector('#rz-sh-linkest');
+    linkEst.textContent = '(creando…)';
+    prepararLink(() => {
+      if (linkEst) linkEst.textContent = linkActual ? '(corto)' : '(no disponible)';
+      if (!editado) msg.value = mensajePorDefecto();
+    });
+    // Arrastrar la imagen hacia el chat de WhatsApp Web: se entrega como archivo PNG
+    const imgPrev = ov.querySelector('#rz-sh-img');
+    imgPrev.addEventListener('dragstart', (e) => {
+      if (!blobActual) return;
+      try { const f = new File([blobActual], nombreArchivo(), { type: 'image/png' }); e.dataTransfer.items.add(f); e.dataTransfer.effectAllowed = 'copy'; } catch (_) {}
+    });
     await refrescar();
     if (foco === 'descargar') ov.querySelector('[data-dl]').focus();
   }
@@ -209,7 +258,7 @@ const RecetariosShare = (() => {
     try {
       const cv = await generar(); if (tok !== generando) return;
       const blob = await new Promise((ok) => cv.toBlob(ok, 'image/png')); if (tok !== generando) return;
-      liberar(); blobActual = blob; urlActual = URL.createObjectURL(blob); img.src = urlActual; img.hidden = false; load.hidden = true;
+      liberar(); blobActual = blob; urlActual = URL.createObjectURL(blob); img.src = urlActual; img.hidden = false; load.hidden = true; const ar = document.getElementById('rz-sh-arrastra'); if (ar) ar.hidden = false;
     } catch (e) { console.warn('[RecetariosShare] generar:', e); load.querySelector('span').textContent = 'No se pudo armar la imagen.'; }
   }
   function liberar() { if (urlActual) { try { URL.revokeObjectURL(urlActual); } catch (_) {} } urlActual = null; }
@@ -217,11 +266,16 @@ const RecetariosShare = (() => {
 
   function descargar() {
     if (!blobActual) { toast('Esperá un segundo: se está armando la imagen'); return; }
-    const a = document.createElement('a'); a.href = urlActual || URL.createObjectURL(blobActual); a.download = nombreArchivo(); document.body.appendChild(a); a.click(); a.remove(); toast('⬇️ Imagen descargada');
+    const a = document.createElement('a'); a.href = urlActual || URL.createObjectURL(blobActual); a.download = nombreArchivo(); document.body.appendChild(a); a.click(); a.remove(); toast('⬇️ Imagen descargada'); destello('[data-dl]', '¡Descargada!');
+  }
+  function destello(sel, txt) {
+    const b = document.querySelector(`#rz-modal-share ${sel}`); if (!b) return;
+    const orig = b.innerHTML; b.classList.add('hecho'); b.innerHTML = `<span>✅</span> ${txt}`;
+    setTimeout(() => { b.classList.remove('hecho'); b.innerHTML = orig; }, 2000);
   }
   async function copiarImagen(aviso) {
-    try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobActual })]); if (aviso) toast('📋 Imagen copiada: pegala en el chat'); return true; }
-    catch (_) { if (aviso) toast('Tu navegador no permite copiar imágenes: usá «Descargar»'); return false; }
+    try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobActual })]); if (aviso) { toast('📋 Imagen copiada: pegala en el chat con Ctrl + V'); destello('[data-cpimg]', '¡Copiada!'); } return true; }
+    catch (_) { if (aviso) toast('Tu navegador no permite copiar imágenes: usá «Descargar» o arrastrá la imagen'); return false; }
   }
   // Pasos guiados para computadora: WhatsApp (web o escritorio) no permite adjuntar archivos desde un enlace,
   // así que la imagen queda en el portapapeles y el alumno solo tiene que pegarla.
@@ -234,24 +288,27 @@ const RecetariosShare = (() => {
     const r = nota.querySelector('[data-recopiar]'); if (r) r.addEventListener('click', () => copiarImagen(true));
     nota.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-  async function whatsapp(texto, nota) {
+  async function whatsapp(texto, nota, via) {
     if (!blobActual) { toast('Esperá un segundo: se está armando la imagen'); return; }
     const file = new File([blobActual], nombreArchivo(), { type: 'image/png' });
     // Celular (y Edge/Chrome en Windows): hoja de compartir del sistema con la IMAGEN adjunta y el texto como mensaje
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    if (!via && navigator.canShare && navigator.canShare({ files: [file] })) {
       try { await navigator.share({ files: [file], text: texto, title: 'Mi recetario · NikaMed' }); toast('📤 Elegí WhatsApp en la lista'); return; }
       catch (e) { if (e && e.name === 'AbortError') return; }
     }
     // Resto de las computadoras: imagen al portapapeles (o descarga) + WhatsApp con el mensaje corto
     const copiada = await copiarImagen(false);
     if (!copiada) descargar();
-    window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+    const t = encodeURIComponent(texto);
+    const destino = via === 'web' ? `https://web.whatsapp.com/send?text=${t}` : via === 'app' ? `whatsapp://send?text=${t}` : `https://wa.me/?text=${t}`;
+    if (via === 'app') { location.href = destino; } else window.open(destino, '_blank', 'noopener');
     guiaPegar(nota, copiada);
     toast(copiada ? '📋 Imagen copiada: pegala con Ctrl + V en el chat' : '⬇️ Imagen descargada: adjuntala en el chat');
   }
   async function copiarLink(btn) {
-    const l = linkCaso();
-    try { await navigator.clipboard.writeText(l); if (btn) { btn.classList.add('ok'); const s = btn.innerHTML; btn.innerHTML = '<span>✅</span> ¡Link copiado!'; setTimeout(() => { btn.innerHTML = s; btn.classList.remove('ok'); }, 1800); } toast('🔗 Link copiado: tu compañero practica el mismo caso'); }
+    let l = linkActual; if (!l) { try { l = await linkCorto(); } catch (_) {} }
+    const corto = !!l; if (!l) l = linkCaso();   // sin la tabla / sin conexión: el link largo sigue funcionando
+    try { await navigator.clipboard.writeText(l); if (btn) { btn.classList.add('ok'); const s0 = btn.innerHTML; btn.innerHTML = '<span>✅</span> ¡Link copiado!'; setTimeout(() => { btn.innerHTML = s0; btn.classList.remove('ok'); }, 1800); } else destello('[data-cplink]', '¡Copiado!'); toast(corto ? '🔗 Link corto copiado: tu compañero practica el mismo caso' : '🔗 Link copiado (largo): tu compañero practica el mismo caso'); }
     catch (_) { window.prompt('Copiá este link:', l); }
   }
   return { abrir, copiarLink, _generar: generar };

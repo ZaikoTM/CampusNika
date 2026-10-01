@@ -398,3 +398,14 @@ body.dark-mode .rz-best.nuevo { color: #94a3b8; }
 .rz-sh-pegar ol { margin: 6px 0 10px; padding-left: 20px; } .rz-sh-pegar li { margin: 3px 0; }
 .rz-sh-pegar kbd { padding: 1px 7px; border-radius: 6px; border: 1px solid var(--border, #cbd5e1); background: var(--card-bg, #fff); font: 800 .78rem 'Plus Jakarta Sans', sans-serif; box-shadow: 0 2px 0 var(--border, #cbd5e1); }
 .rz-tg em small { opacity: .7; font-style: normal; }
+
+/* Compartir: ayuda para la PC, arrastrar imagen y botones con respuesta */
+.rz-sh-ayuda { margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: rgba(2, 132, 199, .08); border: 1px solid rgba(2, 132, 199, .3); font-size: .84rem; line-height: 1.55; }
+.rz-sh-ayuda summary { cursor: pointer; font-weight: 800; color: #0369a1; }
+.rz-sh-ayuda ol { margin: 8px 0; padding-left: 20px; } .rz-sh-ayuda li { margin: 4px 0; } .rz-sh-ayuda p { margin: 6px 0 0; color: var(--text-muted, #64748b); }
+.rz-sh-ayuda kbd { padding: 1px 7px; border-radius: 6px; border: 1px solid var(--border, #cbd5e1); background: var(--card-bg, #fff); font: 800 .78rem 'Plus Jakarta Sans', sans-serif; box-shadow: 0 2px 0 var(--border, #cbd5e1); }
+.rz-sh-arrastra { margin: 0; padding: 8px 12px; font-size: .78rem; text-align: center; color: #0369a1; background: rgba(2, 132, 199, .1); }
+.rz-sh-prev img { cursor: grab; animation: rz-in .5s cubic-bezier(.2, .8, .2, 1) both; } .rz-sh-prev img:active { cursor: grabbing; }
+.rz-sh-acc button.hecho { background: linear-gradient(135deg, #16a34a, #22c55e) !important; color: #fff !important; border-color: transparent !important; transform: scale(1.04); }
+.rz-share { animation: rz-in .35s cubic-bezier(.2, .8, .2, 1) both; }
+body.dark-mode .rz-sh-ayuda summary, body.dark-mode .rz-sh-arrastra { color: #7dd3fc; }

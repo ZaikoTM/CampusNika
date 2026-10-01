@@ -645,7 +645,19 @@ const NikaRecetarios = (() => {
   function init() {
     const p = new URLSearchParams(location.search);
     const docParam = p.get('doc');
-    if (docParam && R.DOCS[docParam] && p.get('c')) {
+    if (docParam && R.DOCS[docParam] && p.get('k')) {
+      // Link corto: el caso está guardado en la tabla casos_compartidos
+      renderLista();
+      (async () => {
+        try {
+          const c = window.NikaSupabase && (window.NikaSupabase.client || window.NikaSupabase.supabase);
+          const { data, error } = await c.from('casos_compartidos').select('caso').eq('id', String(p.get('k')).slice(0, 12)).maybeSingle();
+          const caso = !error && data ? R.reconstruir(data.caso) : null;
+          if (caso && caso.tipo === docParam) { compartido = true; abrir(docParam, false, caso, modoParam(p)); }
+          else toast('⚠️ El link del caso no existe o ya no está disponible.');
+        } catch (e) { toast('⚠️ No se pudo abrir el caso compartido.'); }
+      })();
+    } else if (docParam && R.DOCS[docParam] && p.get('c')) {
       // Caso compartido: se reconstruye desde el catálogo (nada del link se ejecuta ni se confía a ciegas)
       const c = R.reconstruir(R.deBase64Url(p.get('c')));
       if (c && c.tipo === docParam) { compartido = true; abrir(docParam, false, c, modoParam(p)); }
