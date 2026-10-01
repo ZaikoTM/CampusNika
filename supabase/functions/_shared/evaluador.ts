@@ -52,6 +52,7 @@ Para cada pregunta recibís PUNTOS CLAVE numerados (P1, P2, …). Por cada uno d
 - "no_evaluable": el ítem es un título, un encabezado, un diagrama, una referencia bibliográfica o una aclaración que no constituye un dato exigible. Usalo solo cuando sea realmente así, nunca para evitar puntuar un dato que el alumno omitió.
 Reglas de estricticidad:
 - No acredites por inferencia ni "porque seguramente lo sabe": solo cuenta lo escrito.
+- Si la respuesta solo repite, enumera o reordena palabras del ENUNCIADO de la pregunta sin aportar contenido propio (por ejemplo, nombrar las categorías que la pregunta ya menciona), NINGÚN punto está "cubierto": todos son "ausente".
 - Nombrar un tema sin el dato que el punto exige es "parcial", no "cubierto".
 - Un valor numérico incorrecto no cubre el punto.
 - "evidencia": para "cubierto" y "parcial" copiá LITERALMENTE del texto del alumno (máximo 15 palabras) la frase que lo respalda. Para "ausente" y "no_evaluable" dejá "". Si no podés citar una frase textual del alumno, el punto no está "cubierto".
@@ -323,9 +324,21 @@ function evidenciaValida(evidencia: string, respuesta: string): boolean {
 
 const recorte = (s: string, n = 130) => (s.length > n ? s.slice(0, n - 1).replace(/[\s:;,.]+$/, "") + "…" : s.replace(/[\s:;,.]+$/, ""));
 
+// Anti-eco del enunciado: cuenta cuántas palabras con contenido (más de 3 letras o números) de `texto`
+// NO aparecen en el enunciado de la pregunta (comparando por raíz de 5 letras, para tolerar plurales y
+// conjugaciones). Una respuesta que solo repite las palabras de la pregunta devuelve 0.
+const _contenido = (s: string) => normalizar(s).split(" ").filter((w) => w.length > 3 || /^\d+$/.test(w)).map((w) => w.slice(0, 5));
+function palabrasNuevas(texto: string, enunciado: string): number {
+  const base = new Set(_contenido(enunciado));
+  return new Set(_contenido(texto).filter((r) => !base.has(r))).size;
+}
+
 function procesarEvaluacion(raw: any, item: ItemBanco, respuesta: string): Evaluacion {
   const estados: Estado[] = item.puntos.map(() => "ausente" as Estado);
   const vistos = new Set<number>();
+  // Si la respuesta del alumno no aporta NINGUNA palabra que no esté ya en el enunciado, es un eco de la
+  // pregunta: ningún punto clave puede darse por cubierto, aunque el modelo lo haya acreditado.
+  const esEco = palabrasNuevas(respuesta, item.pregunta) === 0;
   for (const p of Array.isArray(raw?.puntos) ? raw.puntos : []) {
     const idx = Number(p?.i) - 1;
     if (!Number.isInteger(idx) || idx < 0 || idx >= item.puntos.length || vistos.has(idx)) continue;
@@ -333,9 +346,13 @@ function procesarEvaluacion(raw: any, item: ItemBanco, respuesta: string): Evalu
     let estado: Estado = ["cubierto", "parcial", "ausente", "no_evaluable"].includes(p?.estado) ? p.estado : "ausente";
     // Un punto solo cuenta si la cita del modelo existe en lo que escribió el alumno:
     // "cubierto" sin cita verificable baja a "parcial"; "parcial" sin cita verificable baja a "ausente".
-    const citaOk = evidenciaValida(String(p?.evidencia ?? ""), respuesta);
+    // Además, la cita debe aportar al menos una palabra que no esté en el enunciado: si solo repite la
+    // pregunta, no prueba que el alumno sepa el dato que exige el punto clave.
+    const evid = String(p?.evidencia ?? "");
+    const citaOk = evidenciaValida(evid, respuesta) && palabrasNuevas(evid, item.pregunta) >= 1;
     if (estado === "cubierto" && !citaOk) estado = "parcial";
     else if (estado === "parcial" && !citaOk) estado = "ausente";
+    if (esEco) estado = "ausente";
     estados[idx] = estado;
   }
 
@@ -378,7 +395,9 @@ function procesarEvaluacion(raw: any, item: ItemBanco, respuesta: string): Evalu
     puntos_logrados: logrados.slice(0, 10),
     puntos_faltantes: faltantes.slice(0, 10),
     errores,
-    feedback: texto(raw?.feedback, 1200),
+    feedback: esEco
+      ? "Tu respuesta repite los términos del enunciado sin desarrollar contenido propio, así que no hay puntos para acreditar. Para sumar tenés que explicar cada concepto: criterios, ejemplos, datos y valores."
+      : texto(raw?.feedback, 1200),
     error_critico: critico,
     error_peligroso_texto: critico ? (item.errorPeligroso ?? "") : "",
     motivo_error_critico: critico ? compacto(raw?.motivo_error_peligroso, 400) : "",

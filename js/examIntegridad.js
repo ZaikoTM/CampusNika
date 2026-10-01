@@ -123,8 +123,21 @@ const ExamIntegridad = (() => {
     if (document.hidden) inicioSegundoPlano('cambio_pestana', { evento: 'visibilitychange' });
     else finSegundoPlano();
   }
-  function onBlur() { if (activo && !document.hidden) inicioSegundoPlano('foco_perdido', { evento: 'blur' }); }
-  function onFocus() { if (activo) finSegundoPlano(); }
+  // El foco perdido solo cuenta si el alumno sigue FUERA de la ventana pasado un instante. Un blur
+  // momentáneo (clic en la barra del navegador, popup de una extensión, notificación del sistema)
+  // vuelve enseguida y no es una incidencia. Cambiar de pestaña (visibilitychange) sigue contando de
+  // inmediato, y las capturas se detectan aparte (capturaDetectada).
+  const GRACIA_BLUR_MS = 1500;
+  let timerBlur = null;
+  function onBlur() {
+    if (!activo || document.hidden) return;
+    clearTimeout(timerBlur);
+    timerBlur = setTimeout(() => {
+      timerBlur = null;
+      if (activo && !document.hidden && !document.hasFocus()) inicioSegundoPlano('foco_perdido', { evento: 'blur' });
+    }, GRACIA_BLUR_MS);
+  }
+  function onFocus() { clearTimeout(timerBlur); timerBlur = null; if (activo) finSegundoPlano(); }
   function inicioSegundoPlano(tipo, detalles) {
     const ahora = Date.now();
     if (enSegundoPlano || ahora - ultimoEvento < CFG.debounce_ms) { if (!enSegundoPlano) return; if (tipo === 'cambio_pestana' && enSegundoPlano.tipo === 'foco_perdido') enSegundoPlano.tipo = 'cambio_pestana'; return; }
@@ -194,7 +207,7 @@ const ExamIntegridad = (() => {
     window.addEventListener('beforeprint', onBeforePrint);
   }
   function desactivar() {
-    activo = false; enSegundoPlano = null;
+    activo = false; enSegundoPlano = null; clearTimeout(timerBlur); timerBlur = null;
     document.body.classList.remove('ei-protegido', 'ei-estricto');
     document.removeEventListener('visibilitychange', onVisibilidad);
     window.removeEventListener('blur', onBlur); window.removeEventListener('focus', onFocus);
