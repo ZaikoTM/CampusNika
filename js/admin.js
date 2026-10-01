@@ -112,6 +112,33 @@
   }
 
   // ------------------------------------------------------------
+  // Número que "cuenta" desde el valor anterior hasta el nuevo (solo cambia lo que cambió)
+  // ------------------------------------------------------------
+  const ultimoKpi = {};
+  function contar(nodo, id, hasta, fmt) {
+    const f = fmt || ((v) => Math.round(v).toLocaleString('es-AR'));
+    if (hasta == null || Number.isNaN(hasta)) { nodo.textContent = hasta === null ? '–' : '…'; return; }
+    const desde = typeof ultimoKpi[id] === 'number' ? ultimoKpi[id] : 0;
+    ultimoKpi[id] = hasta;
+    if (desde === hasta || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { nodo.textContent = f(hasta); return; }
+    const t0 = performance.now(), dur = 900;
+    (function paso(t) {
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      nodo.textContent = f(desde + (hasta - desde) * e);
+      if (p < 1) requestAnimationFrame(paso);
+    })(t0);
+  }
+
+  // Aparición de mosaicos y encabezados al entrar en pantalla
+  function activarReveal() {
+    const items = document.querySelectorAll('.as-reveal');
+    const mostrar = (n) => { n.classList.add('visto'); setTimeout(() => n.classList.remove('as-reveal', 'visto'), 900); };
+    if (!('IntersectionObserver' in window)) { items.forEach(mostrar); return; }
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { mostrar(e.target); io.unobserve(e.target); } }), { threshold: 0.08 });
+    items.forEach((n, i) => { n.style.transitionDelay = Math.min(i, 4) * 60 + 'ms'; io.observe(n); });
+  }
+
+  // ------------------------------------------------------------
   // KPIs
   // ------------------------------------------------------------
   function pintarKpis(reportesAbiertos) {
@@ -124,24 +151,26 @@
       .reduce((a, p) => a + p.monto, 0);
 
     const defs = [
-      { cls: 'vip', t: 'NikaMed+ activos', v: activos, s: `${perfiles.length ? Math.round(activos * 100 / perfiles.length) : 0}% de los usuarios`, tile: 'tile-subs' },
-      { cls: 'warn', t: 'Por vencer', v: porVencer, s: `en ${POR_VENCER_DIAS} días o menos`, tile: 'tile-subs', filtro: 'porvencer' },
-      { cls: 'bad', t: 'Vencidos', v: vencidos, s: 'pendientes de baja', tile: 'tile-subs', filtro: 'vencidos' },
-      { cls: 'ok', t: 'Ingresos del mes', v: cargado.pagos ? fmtMoney(ingresos) : '…', s: 'pagos aprobados', tile: 'tile-pagos' },
-      { cls: '', t: 'Usuarios', v: perfiles.length, s: 'registrados', tile: 'tile-usuarios' },
-      { cls: reportesAbiertos > 0 ? 'bad' : '', t: 'Reportes abiertos', v: reportesAbiertos == null ? '–' : reportesAbiertos, s: 'chat y foro', tile: 'tile-reportes' },
-      { cls: '', t: 'Simulacros', v: stats ? stats.simulacros : '–', s: stats ? `+${stats.simulacros_7d} esta semana` : 'completados', tile: 'tile-fallos' },
-      { cls: '', t: 'Efectividad', v: stats && stats.efectividad_pct != null ? stats.efectividad_pct + '%' : '–', s: 'aciertos en simulacros', tile: 'tile-fallos' },
+      { id: 'activos', col: '#8b3df0', ico: '💎', t: 'NikaMed+ activos', n: activos, s: `${perfiles.length ? Math.round(activos * 100 / perfiles.length) : 0}% de los usuarios`, tile: 'tile-subs' },
+      { id: 'porvencer', col: '#f59e0b', ico: '⏳', t: 'Por vencer', n: porVencer, s: `en ${POR_VENCER_DIAS} días o menos`, tile: 'tile-subs', filtro: 'porvencer' },
+      { id: 'vencidos', col: '#ef4444', ico: '⚠️', t: 'Vencidos', n: vencidos, s: 'pendientes de baja', tile: 'tile-subs', filtro: 'vencidos' },
+      { id: 'ingresos', col: '#10b981', ico: '💰', t: 'Ingresos del mes', n: cargado.pagos ? ingresos : null, fmt: fmtMoney, s: 'pagos aprobados', tile: 'tile-pagos' },
+      { id: 'usuarios', col: '#0ea5e9', ico: '👥', t: 'Usuarios', n: perfiles.length, s: 'registrados', tile: 'tile-usuarios' },
+      { id: 'reportes', col: '#f43f5e', ico: '🚩', alerta: reportesAbiertos > 0, t: 'Reportes abiertos', n: reportesAbiertos, s: 'chat y foro', tile: 'tile-reportes' },
+      { id: 'simulacros', col: '#6366f1', ico: '📝', t: 'Simulacros', n: stats ? stats.simulacros : null, s: stats ? `+${stats.simulacros_7d} esta semana` : 'completados', tile: 'tile-fallos' },
+      { id: 'efectividad', col: '#06b6d4', ico: '🎯', t: 'Efectividad', n: stats && stats.efectividad_pct != null ? Number(stats.efectividad_pct) : null, fmt: (v) => v.toFixed(1) + '%', s: 'aciertos en simulacros', tile: 'tile-fallos' },
     ];
     const box = $('as-kpis'); box.textContent = '';
     defs.forEach((d, i) => {
-      const b = el('button', 'as-kpi ' + d.cls); b.type = 'button'; b.style.animationDelay = (i * 0.05) + 's';
-      b.append(el('span', null, d.t), el('b', null, String(d.v)), el('small', null, d.s));
+      const b = el('button', 'as-kpi' + (d.alerta ? ' alerta' : '')); b.type = 'button'; b.style.animationDelay = (i * 0.06) + 's'; b.style.setProperty('--k', d.col);
+      const valor = el('b', null, '…');
+      b.append(el('span', 'k-ico', d.ico), el('span', null, d.t), valor, el('small', null, d.s));
       b.addEventListener('click', () => {
         if (d.filtro) setFiltroSubs(d.filtro);
         abrirTile(d.tile, true);
       });
       box.appendChild(b);
+      contar(valor, d.id, d.n, d.fmt);
     });
     $('badge-subs').textContent = String(activos + vencidos);
     $('badge-usuarios').textContent = String(perfiles.length);
@@ -540,6 +569,8 @@
       location.replace('campus.html'); return;
     }
     document.body.classList.remove('as-verificando');
+    const hoy = $('as-hoy'); if (hoy) hoy.textContent = '📅 ' + new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+    activarReveal();
     skeleton($('subs-lista')); skeleton($('usr-lista'));
     conectarTiles();
     await cargarPerfiles();

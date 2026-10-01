@@ -8,9 +8,9 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin.css?v=20261001b">
+    <link rel="stylesheet" href="css/admin.css?v=20261001e">
 </head>
-<body class="as-body as-verificando">
+<body class="as-page as-verificando">
 
     <header class="as-top">
         <a class="as-brand" href="campus.html" title="Volver al Campus">
@@ -27,15 +27,19 @@
         <section class="as-hero">
             <h1>✨ Centro de Control</h1>
             <p>Suscripciones, pagos, comunidad y contenido en un solo lugar. Abrí cada mosaico para ver el detalle.</p>
+            <div class="as-chips-hero">
+                <span class="as-pill"><i></i> Sesión de administrador</span>
+                <span class="as-pill" id="as-hoy">📅 —</span>
+            </div>
         </section>
 
         <section class="as-kpis" id="as-kpis" aria-label="Resumen"></section>
 
         <section class="as-tiles" id="as-tiles">
 
-            <h2 class="as-grupo">Suscripciones y pagos</h2>
+            <h2 class="as-grupo as-reveal" data-ico="💎" style="--g:var(--c-violet)">Suscripciones y pagos</h2>
 
-            <article class="as-tile" id="tile-subs" style="animation-delay:.05s">
+            <article class="as-tile tone-violet as-reveal" id="tile-subs" style="animation-delay:.05s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">💎</span>
                     <span class="as-tt"><b>Suscriptores NikaMed+</b><small>Quién tiene el plan, hasta cuándo y cuánto le queda</small></span>
@@ -55,7 +59,7 @@
                 </div></div></div>
             </article>
 
-            <article class="as-tile" id="tile-pagos" style="animation-delay:.1s">
+            <article class="as-tile tone-emerald as-reveal" id="tile-pagos" style="animation-delay:.1s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">💳</span>
                     <span class="as-tt"><b>Pagos recientes</b><small>Cobros de Mercado Pago y a quién se acreditaron</small></span>
@@ -72,9 +76,9 @@
                 </div></div></div>
             </article>
 
-            <h2 class="as-grupo">Comunidad</h2>
+            <h2 class="as-grupo as-reveal" data-ico="🛡️" style="--g:var(--c-sky)">Comunidad</h2>
 
-            <article class="as-tile" id="tile-reportes" style="animation-delay:.15s">
+            <article class="as-tile tone-red as-reveal" id="tile-reportes" style="animation-delay:.15s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">🚩</span>
                     <span class="as-tt"><b>Reportes de la comunidad</b><small>Chat y foro: descartar, eliminar o suspender</small></span>
@@ -85,7 +89,7 @@
                 </div></div></div>
             </article>
 
-            <article class="as-tile" id="tile-usuarios" style="animation-delay:.2s">
+            <article class="as-tile tone-sky as-reveal" id="tile-usuarios" style="animation-delay:.2s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">👥</span>
                     <span class="as-tt"><b>Usuarios registrados</b><small>Buscá a cualquiera y activale o quitale NikaMed+ a mano</small></span>
@@ -99,9 +103,9 @@
                 </div></div></div>
             </article>
 
-            <h2 class="as-grupo">Contenido</h2>
+            <h2 class="as-grupo as-reveal" data-ico="📚" style="--g:var(--c-amber)">Contenido</h2>
 
-            <article class="as-tile" id="tile-novedad" style="animation-delay:.25s">
+            <article class="as-tile tone-amber as-reveal" id="tile-novedad" style="animation-delay:.25s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">📢</span>
                     <span class="as-tt"><b>Publicar novedad</b><small>Anuncio que ven todos los usuarios en "Novedades" del campus</small></span>
@@ -120,7 +124,7 @@
                 </div></div></div>
             </article>
 
-            <article class="as-tile" id="tile-erratas" style="animation-delay:.3s">
+            <article class="as-tile tone-orange as-reveal" id="tile-erratas" style="animation-delay:.3s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">📥</span>
                     <span class="as-tt"><b>Bandeja de erratas</b><small>Correcciones que reportan los alumnos desde los simulacros. Tocá el estado para cambiarlo</small></span>
@@ -139,7 +143,7 @@
                 </div></div></div>
             </article>
 
-            <article class="as-tile" id="tile-bancos" style="animation-delay:.35s">
+            <article class="as-tile tone-indigo as-reveal" id="tile-bancos" style="animation-delay:.35s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">📦</span>
                     <span class="as-tt"><b>Bancos de preguntas JSON</b><small>Cargá o actualizá bancos por área y unidad (se sincronizan con Supabase)</small></span>
@@ -157,9 +161,9 @@
                 </div></div></div>
             </article>
 
-            <h2 class="as-grupo">Métricas</h2>
+            <h2 class="as-grupo as-reveal" data-ico="📈" style="--g:var(--c-cyan)">Métricas</h2>
 
-            <article class="as-tile" id="tile-fallos" style="animation-delay:.4s">
+            <article class="as-tile tone-cyan as-reveal" id="tile-fallos" style="animation-delay:.4s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">🔥</span>
                     <span class="as-tt"><b>Unidades con más fallos</b><small>Top 5 con datos reales de los simulacros</small></span>
@@ -177,7 +181,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
-    <script src="js/moderacion.js?v=20261001b"></script>
-    <script src="js/admin.js?v=20261001b"></script>
+    <script src="js/moderacion.js?v=20261001e"></script>
+    <script src="js/admin.js?v=20261001e"></script>
 </body>
 </html>
