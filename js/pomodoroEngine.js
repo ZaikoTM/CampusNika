@@ -497,6 +497,9 @@ const PomodoroEngine = (() => {
       upLabel: state.upLabel,
       tema: formatTema(),
       hostUsername: sh.hostUsername,
+      roster: (sh.guests || []).filter((g) => g.joined).map((g) => g.username),   // quiénes están en la sala (lo ve la sala de espera)
+      workMin: getMinutes('work'),
+      breakMin: getMinutes('break'),
     }, extra || {});
   }
 
@@ -773,6 +776,32 @@ const PomodoroEngine = (() => {
     return { ok: true, sessionId: state.shared.sessionId, tema: formatTema() };
   }
 
+  // Sala de espera: el Host abre la sala SIN arrancar el reloj. Los invitados entran y recién ahí él toca "Iniciar",
+  // así todos empiezan juntos y nadie pierde minutos.
+  function openRoom() {
+    if (isGuest()) return { ok: false, reason: 'guest' };
+    if (!isHost() && state.status !== 'idle') return { ok: false, reason: 'en_curso' };
+    if (state.status === 'idle' && state.mode !== 'work') state = idleState('work', state);
+    return becomeHost(null);
+  }
+
+  // Host, con el reloj en espera: cambia minutos de estudio / descanso y la unidad que se va a estudiar.
+  function setRoomConfig(cfg) {
+    if (!isHost() || state.status !== 'idle' || !cfg) return { ok: false };
+    const w = parseInt(cfg.workMin, 10), b = parseInt(cfg.breakMin, 10);
+    try {
+      if (w >= 1 && w <= 120) localStorage.setItem('nika_pomo_w_mins', String(w));
+      if (b >= 1 && b <= 60) localStorage.setItem('nika_pomo_b_mins', String(b));
+    } catch (_) {}
+    if (cfg.moduleId && cfg.upId) {
+      state.moduleId = cfg.moduleId; state.upId = cfg.upId; state.upLabel = cfg.upLabel || cfg.upId;
+    }
+    state = idleState('work', state);
+    saveState();
+    reportPresence('sync');
+    return { ok: true };
+  }
+
   // Opción A del menú: "Invitar a estudiar (Host)". Si no hay Pomodoro en marcha, arranca uno.
   function hostSharedSession(partner) {
     const r = becomeHost(partner);
@@ -808,6 +837,7 @@ const PomodoroEngine = (() => {
     reportPresence();
     const m = sm();
     if (m && typeof m.abrirSala === 'function') { const p = m.abrirSala(state.shared); if (p && p.catch) p.catch(() => {}); }
+    emit('shared', { tipo: 'joined', username: hostUsername });   // la sala de espera se abre sola para el invitado
     return { ok: true };
   }
 
@@ -895,6 +925,7 @@ const PomodoroEngine = (() => {
     sincronizarPartner(sh);
     saveState();
     emit('shared', { tipo: 'guest_left', username });
+    publishShared('sync');
   }
 
   function notifyShared(evt) { emit('shared', evt); }
@@ -917,6 +948,9 @@ const PomodoroEngine = (() => {
     state.shared.lastSeq = snap.seq;
     if (snap.hostUsername) { state.shared.hostUsername = snap.hostUsername; state.shared.partner = snap.hostUsername; }
     state.shared.partnerOnline = true;
+    if (Array.isArray(snap.roster)) state.shared.roster = snap.roster;
+    if (snap.workMin) state.shared.workMin = snap.workMin;
+    if (snap.breakMin) state.shared.breakMin = snap.breakMin;
 
     const adoptCtx = () => {
       if (snap.moduleId) state.moduleId = snap.moduleId;
@@ -1036,7 +1070,7 @@ const PomodoroEngine = (() => {
     start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
-    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, partnerLeft, notifyShared, MAX_GUESTS,
+    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, partnerLeft, openRoom, setRoomConfig, notifyShared, MAX_GUESTS,
     // Solo para pruebas (tests/)
     _test: { registerStudySession, flushPending, readPending },
   };

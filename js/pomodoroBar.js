@@ -123,6 +123,7 @@ const NikaPomoBar = (() => {
                 </div>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-toggle" title="Pausar / reanudar">⏸️</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-leave" title="Salir de la sesión compartida" style="display:none;">🚪</button>
+                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-room" title="Abrir la sala de estudio" style="display:none;">🍅</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-cfg" title="Configurar tiempos">⚙️</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-min" title="Minimizar">—</button>
             </div>
@@ -143,6 +144,7 @@ const NikaPomoBar = (() => {
         document.body.prepend(bar);
 
         document.getElementById('nika-pomo-bar-cfg').addEventListener('click', _toggleCfg);
+        document.getElementById('nika-pomo-bar-room').addEventListener('click', () => { if (window.abrirSalaEstudio) window.abrirSalaEstudio(); });
         document.getElementById('nika-cfg-save').addEventListener('click', _guardarCfg);
 
         document.getElementById('nika-pomo-bar-leave').addEventListener('click', () => {
@@ -276,6 +278,7 @@ const NikaPomoBar = (() => {
             } else {
                 txt = tema ? `Estudiando: ${tema} · esperando invitado…` : 'Esperando invitado…';
             }
+            if (!esInvitado && enEspera) txt = `Sala de espera · ${entraron.length + 1} en la sala · tocá 🍅 para abrirla`;
             partnerEl.textContent = txt;
             if (!(!esInvitado && entraron.length > 1)) partnerEl.title = txt;
         } else {
@@ -290,6 +293,7 @@ const NikaPomoBar = (() => {
         toggle.style.display = (esInvitado && enEspera) ? 'none' : '';
         toggle.title = esInvitado ? `Controlado por @${sh.partner || 'el Host'}` : 'Pausar / reanudar';
         document.getElementById('nika-pomo-bar-leave').style.display = sh ? '' : 'none';
+        document.getElementById('nika-pomo-bar-room').style.display = (sh && enEspera && window.abrirSalaEstudio) ? '' : 'none';   // sala de espera abierta
         document.getElementById('nika-pomo-bar-cfg').style.display = esInvitado ? 'none' : '';   // el Invitado no toca el reloj del Host
         if (esInvitado) { const pc = document.getElementById('nika-pomo-cfg'); if (pc) pc.classList.remove('is-open'); }
         bar.classList.toggle('nika-pomo-bar--paused', st.status !== 'running');

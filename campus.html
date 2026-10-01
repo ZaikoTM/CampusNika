@@ -128,7 +128,7 @@
     </script>
 
     <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
-    <script src="js/pomodoroEngine.js?v=4"></script>
+    <script src="js/pomodoroEngine.js?v=5"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/avisoVencimiento.js"></script>
@@ -177,6 +177,7 @@
             <li><button onclick="openVersusModal()" class="sidebar-link">⚔️ Modo Versus 1vs1</button></li>
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
             <li><button onclick="window.location.href='liga.html'" class="sidebar-link" id="sidebar-liga-btn">🍅 Liga Pomodoro</button></li>
+            <li><button onclick="abrirSalaEstudio()" class="sidebar-link" id="sidebar-sala-btn">🧉 Sala de estudio</button></li>
             <li><button onclick="window.location.href='ateneos.html'" class="sidebar-link" id="sidebar-ateneos-btn">📹 Sala de Ateneos</button></li>
 
             <div class="sidebar-category">Exámenes</div>
@@ -1310,6 +1311,7 @@
     <script src="js/friendsManager.js"></script>
     <script src="js/novedadesAviso.js"></script>
     <script src="js/perfilRedes.js?v=1"></script>
+    <script src="js/salaEstudio.js?v=1"></script>
     <script src="js/presenciaCampus.js"></script>
     <script src="js/moderacion.js"></script>
     <!-- Modo Guardia Offline-First: IndexedDB + cola de sincronización + descarga por lotes -->
@@ -1321,7 +1323,7 @@
     <script src="js/chatManager.js?v=3"></script>
     <script src="js/pomodoroSyncManager.js?v=3"></script>
     <script src="js/onboardingTour.js"></script>
-    <script src="js/pomodoroBar.js?v=3"></script>
+    <script src="js/pomodoroBar.js?v=4"></script>
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js"></script>
     <script src="js/ateneos.js"></script>
@@ -5475,7 +5477,7 @@ async function handleLogout() {
             if (!(await _esAmigoConfirmado(from, { avisar: false, siFalla: false }))) { rechazar('no_amigo'); return; }
             const st = window.PomodoroEngine.getState();
             if (st.shared && st.shared.role === 'guest') { rechazar('es_invitado'); return; }
-            if (st.status === 'idle' && !st.shared) { rechazar('sin_pomodoro'); return; }
+            if (st.status === 'idle' && !(st.shared && st.shared.role === 'host')) { rechazar('sin_pomodoro'); return; }   // vale con el reloj en marcha o con la sala de espera abierta
             const MAX = window.PomodoroEngine.MAX_GUESTS || 4;
             const info = window.PomodoroEngine.getSharedInfo();
             const yaEsta = !!(info && (info.guests || []).some(g => g.username === from));
@@ -5585,7 +5587,7 @@ async function handleLogout() {
         const st = window.PomodoroEngine ? window.PomodoroEngine.getState() : null;
         const compartida = st && st.shared;
         const estadoAmigo = window.PomodoroSyncManager ? (window.PomodoroSyncManager.estadoDeAmigos([friendUsername])[0] || null) : null;
-        const amigoActivo = !!(estadoAmigo && estadoAmigo.pomodoroActivo);
+        const amigoActivo = !!(estadoAmigo && (estadoAmigo.pomodoroActivo || (estadoAmigo.salaCompartida && estadoAmigo.rolPomodoro === 'host')));
 
         let motivoA = '';
         let motivoB = '';
@@ -5601,7 +5603,7 @@ async function handleLogout() {
             <div class="nika-pomo-menu-head">🍅 Pomodoro con <b>@${esc(friendUsername)}</b></div>
             <button type="button" role="menuitem" class="nika-pomo-menu-item" data-act="host" ${motivoA ? 'disabled' : ''}>
                 <span class="nika-pomo-menu-title">Invitar a estudiar (Host) 🧉</span>
-                <span class="nika-pomo-menu-sub">${esc(motivoA || 'Vos controlás el reloj y @' + friendUsername + ' lo ve sincronizado')}</span>
+                <span class="nika-pomo-menu-sub">${esc(motivoA || 'Abrís una sala de espera y arrancás el reloj cuando estén todos')}</span>
             </button>
             <button type="button" role="menuitem" class="nika-pomo-menu-item" data-act="guest" ${motivoB ? 'disabled' : ''}>
                 <span class="nika-pomo-menu-title">Acompañar en el estudio (Invitado) 🧉</span>
@@ -5668,7 +5670,13 @@ async function handleLogout() {
     async function pomodoroInvitarComoHost(friendUsername) {
         if (!window.PomodoroEngine || !window.PomodoroSyncManager) { showToast('Pomodoro sincronizado no disponible todavía.'); return; }
         if (!friendUsername || !(await _esAmigoConfirmado(friendUsername))) return;
-        const r = window.PomodoroEngine.hostSharedSession(friendUsername);
+        const stActual = window.PomodoroEngine.getState();
+        if (!stActual.shared && stActual.status !== 'idle') {
+            showToast('Tu reloj ya está en marcha. Detenelo y armá una sala para que arranquen todos juntos.');
+            return;
+        }
+        // Sala de espera: se abre la sala SIN arrancar el reloj; el Host lo inicia cuando estén todos.
+        const r = window.PomodoroEngine.becomeHost(friendUsername);
         if (!r.ok) {
             showToast(r.reason === 'full' ? `Tu sala ya tiene ${r.max || 4} invitados (el máximo).`
                 : r.reason === 'guest' ? 'Estás como invitado en otra sesión: salí primero.'
@@ -5677,7 +5685,8 @@ async function handleLogout() {
         }
         try {
             await window.PomodoroSyncManager.invitarASincronizar(friendUsername, { sessionId: r.sessionId, tema: r.tema });
-            showToast(`🧉 Invitación enviada a @${friendUsername}. Tu reloj ya está en marcha.`);
+            showToast(`🧉 Invitación enviada a @${friendUsername}.`);
+            if (window.abrirSalaEstudio) window.abrirSalaEstudio();
         } catch (_) {
             showToast('La sesión quedó abierta, pero no se pudo enviar la invitación. Probá de nuevo.');
         }
@@ -5689,7 +5698,7 @@ async function handleLogout() {
         if (!friendUsername || !(await _esAmigoConfirmado(friendUsername))) return;
         if (window.PomodoroEngine.getState().shared) { showToast('Ya estás en una sesión compartida.'); return; }
         const estado = window.PomodoroSyncManager.estadoDeAmigos([friendUsername])[0];
-        if (!estado || !estado.pomodoroActivo) { showToast(`@${friendUsername} no tiene un Pomodoro activo. Pedile que te invite (opción Host).`); return; }
+        if (!estado || !(estado.pomodoroActivo || (estado.salaCompartida && estado.rolPomodoro === 'host'))) { showToast(`@${friendUsername} no tiene un Pomodoro activo. Pedile que te invite (opción Host).`); return; }
         try {
             await window.PomodoroSyncManager.solicitarUnirse(friendUsername);
             showToast(`🧉 Pedido enviado a @${friendUsername}. Te sumás apenas te acepte.`);
