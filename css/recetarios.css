@@ -289,3 +289,79 @@ pre.rz-campo { font-family: 'Caveat', cursive; }
 .rz-sh-loader[hidden], .rz-sh-prev img[hidden] { display: none; }
 .rz-mcard { overflow-x: hidden; }
 .rz-nav .lbl { font: inherit; }
+
+/* ==========================================================================
+   MODO PRÁCTICA / MODO EXAMEN
+   ========================================================================== */
+.rz-modo-tag { padding: 5px 12px; border-radius: 999px; font-size: .74rem; font-weight: 800; letter-spacing: .3px; border: 1px solid transparent; }
+.rz-modo-tag.practica { color: #0369a1; background: rgba(2, 132, 199, .12); border-color: rgba(2, 132, 199, .3); }
+.rz-modo-tag.examen { color: #b91c1c; background: rgba(239, 68, 68, .12); border-color: rgba(239, 68, 68, .35); }
+.rz-a-examen { margin-left: auto; padding: 8px 16px; font-size: .78rem; }
+
+/* Selector de modo */
+.rz-modos { width: min(720px, 100%); }
+.rz-modo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.rz-modo-card { position: relative; display: flex; flex-direction: column; gap: 6px; text-align: left; padding: 18px; border-radius: 18px; cursor: pointer; font-family: inherit; color: inherit;
+  background: var(--card-bg, #fff); border: 2px solid var(--border, #e2e8f0); transition: transform .22s cubic-bezier(.2, .8, .2, 1), border-color .22s, box-shadow .22s; animation: rz-in .45s cubic-bezier(.2, .8, .2, 1) both; }
+.rz-modo-card:nth-child(2) { animation-delay: .08s; }
+.rz-modo-card .ic { font-size: 1.9rem; transition: transform .35s cubic-bezier(.3, 1.6, .5, 1); }
+.rz-modo-card b { font-size: 1.05rem; font-weight: 800; }
+.rz-modo-card small { color: var(--text-muted, #64748b); line-height: 1.45; }
+.rz-modo-card ul { margin: 6px 0 0; padding-left: 18px; font-size: .8rem; line-height: 1.7; color: var(--text-main, #0f172a); }
+.rz-modo-card:hover { transform: translateY(-4px); }
+.rz-modo-card:hover .ic { transform: scale(1.15) rotate(-8deg); }
+.rz-modo-card.practica:hover { border-color: #0ea5e9; box-shadow: 0 18px 34px -20px rgba(14, 165, 233, .8); }
+.rz-modo-card.examen:hover { border-color: #ef4444; box-shadow: 0 18px 34px -20px rgba(239, 68, 68, .8); }
+.rz-modo-card.examen b { color: #dc2626; }
+@media (max-width: 640px) { .rz-modo-grid { grid-template-columns: 1fr; } }
+
+/* Lapicera obligatoria */
+.rz-lap-fija { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; font-weight: 800; font-size: .8rem;
+  color: #b45309; background: rgba(245, 158, 11, .14); border: 1px solid rgba(245, 158, 11, .4); }
+
+/* Examen: la hoja ocupa todo el ancho (sin guía) */
+.rz-mesa.examen { grid-template-columns: minmax(0, 1fr); max-width: 860px; margin: 0 auto; }
+body.rz-examen .rz-hoja { box-shadow: 0 0 0 1px rgba(239, 68, 68, .18), 0 24px 46px -26px rgba(15, 23, 42, .55); }
+body.rz-examen .rz-caso { border-color: rgba(239, 68, 68, .3); }
+
+/* Reloj regresivo */
+.rz-reloj { position: sticky; top: 66px; z-index: 900; margin: 0 0 14px; padding: 10px 16px; border-radius: 16px; color: #fff;
+  background: linear-gradient(120deg, #0369a1, #2563eb); box-shadow: 0 14px 28px -16px rgba(37, 99, 235, .9); animation: rz-in .5s cubic-bezier(.2, .8, .2, 1) both;
+  transition: background .6s ease, box-shadow .6s ease; }
+.rz-reloj-in { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.rz-reloj-ico { font-size: 1.5rem; display: inline-block; animation: rz-tic 1s steps(2, end) infinite; transform-origin: 50% 55%; }
+@keyframes rz-tic { 0% { transform: rotate(-6deg); } 100% { transform: rotate(6deg); } }
+.rz-reloj-txt { display: flex; flex-direction: column; line-height: 1.1; }
+.rz-reloj-txt small { font-size: .62rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
+.rz-reloj-txt b { font-size: 1.7rem; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: .5px; }
+.rz-reloj-bar { flex: 1; min-width: 120px; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, .25); overflow: hidden; }
+.rz-reloj-bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #bae6fd, #fff); transition: width .5s linear, background .6s; }
+.rz-reloj-modo { font-size: .68rem; font-weight: 800; letter-spacing: 1px; padding: 4px 10px; border-radius: 999px; background: rgba(255, 255, 255, .18); border: 1px solid rgba(255, 255, 255, .35); }
+.rz-reloj-snd { border: 1px solid rgba(255, 255, 255, .4); background: rgba(255, 255, 255, .15); color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 1rem; cursor: pointer; transition: transform .15s, background .15s; }
+.rz-reloj-snd:hover { transform: scale(1.1); background: rgba(255, 255, 255, .28); }
+.rz-reloj.atencion { background: linear-gradient(120deg, #b45309, #f59e0b); box-shadow: 0 14px 28px -16px rgba(245, 158, 11, .95); }
+.rz-reloj.atencion .rz-reloj-bar i { background: linear-gradient(90deg, #fde68a, #fff); }
+.rz-reloj.urgente { background: linear-gradient(120deg, #991b1b, #ef4444); box-shadow: 0 14px 30px -14px rgba(239, 68, 68, 1); animation: rz-in .5s both, rz-alarma 1.2s ease-in-out infinite; }
+.rz-reloj.urgente .rz-reloj-bar i { background: linear-gradient(90deg, #fecaca, #fff); }
+.rz-reloj.latido .rz-reloj-txt b { animation: rz-pulso-num .45s ease; }
+.rz-reloj.agotado { background: linear-gradient(120deg, #1f2937, #4b5563); animation: none; }
+@keyframes rz-alarma { 50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, .28), 0 14px 30px -14px rgba(239, 68, 68, 1); } }
+@keyframes rz-pulso-num { 0% { transform: scale(1); } 40% { transform: scale(1.18); } 100% { transform: scale(1); } }
+@media (max-width: 640px) { .rz-reloj { top: 58px; padding: 8px 12px; } .rz-reloj-txt b { font-size: 1.35rem; } .rz-reloj-modo { display: none; } }
+
+/* Avisos del examen (arriba, al centro) */
+.rz-avisos { position: fixed; top: 74px; left: 50%; transform: translateX(-50%); z-index: 9500; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; width: min(92vw, 520px); }
+.rz-aviso-t { padding: 12px 20px; border-radius: 14px; font-weight: 800; font-size: .9rem; text-align: center; color: #fff; background: #0369a1; box-shadow: 0 18px 36px -16px rgba(0, 0, 0, .7);
+  opacity: 0; transform: translateY(-14px) scale(.96); transition: opacity .35s ease, transform .35s cubic-bezier(.2, .9, .3, 1.2); }
+.rz-aviso-t.on { opacity: 1; transform: none; }
+.rz-aviso-t.aviso { background: linear-gradient(120deg, #b45309, #f59e0b); }
+.rz-aviso-t.urgente { background: linear-gradient(120deg, #991b1b, #ef4444); }
+.rz-aviso-t.fin { background: linear-gradient(120deg, #111827, #374151); }
+
+/* Resumen del examen en el resultado */
+.rz-ex-res { margin: 0 0 14px; padding: 10px 14px; border-radius: 12px; font-size: .86rem; line-height: 1.5; color: #b91c1c; background: rgba(239, 68, 68, .1); border: 1px solid rgba(239, 68, 68, .3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rz-reloj, .rz-reloj-ico, .rz-reloj.urgente, .rz-modo-card, .rz-aviso-t { animation: none !important; transition: none !important; }
+  .rz-aviso-t { opacity: 1; transform: none; }
+}

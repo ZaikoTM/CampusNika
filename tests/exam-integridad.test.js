@@ -17,7 +17,7 @@ function cargar() {
     return el;
   };
   const document = {
-    readyState: 'complete', hidden: false, body: { classList: { add() {}, remove() {}, toggle() {} }, appendChild(c) { agregados.push(c); } },
+    readyState: 'complete', hidden: false, hasFocus: () => false, body: { classList: { add() {}, remove() {}, toggle() {} }, appendChild(c) { agregados.push(c); } },
     addEventListener(n, f) { (oyentes['d:' + n] = oyentes['d:' + n] || []).push(f); }, removeEventListener() {},
     createElement: mkEl, getElementById: () => null, querySelectorAll: () => [],
   };
@@ -28,7 +28,7 @@ function cargar() {
   const ctx = {
     window, document, console: { log() {}, warn() {}, error() {} }, navigator: { onLine: false },
     localStorage: { getItem: (k) => (k in store ? store[k] : null), setItem: (k, v) => { store[k] = String(v); }, removeItem: (k) => { delete store[k]; } },
-    setTimeout: (f) => { f(); return 0; }, Date, JSON, Math, Promise, Object, Array, String, Number,
+    setTimeout: (f) => { f(); return 0; }, clearTimeout() {}, Date, JSON, Math, Promise, Object, Array, String, Number,
   };
   ctx.globalThis = ctx;
   vm.createContext(ctx);

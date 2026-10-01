@@ -10,6 +10,7 @@ const NikaRecetarios = (() => {
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
   let docId = null, caso = null, lapicera = true, ultimoCampo = null, vista = 'sim';
+  let modo = 'practica', examenActivo = false, entregando = false;   // modo: 'practica' (con guía) | 'examen' (sin guía, con reloj)
   const hojas = {};            // id → { encabezado, cuerpo, fecha, hora, sello, matricula, firma, raya }
 
   // ------------------------------------------------------------------ utilidades de texto
@@ -18,7 +19,7 @@ const NikaRecetarios = (() => {
   const digitos = (s) => String(s || '').replace(/[.\s]/g, '');
   const hoyTxt = () => { const d = new Date(); return { dd: String(d.getDate()).padStart(2, '0'), mm: String(d.getMonth() + 1).padStart(2, '0'), aaaa: String(d.getFullYear()) }; };
   const stats = () => { try { return JSON.parse(localStorage.getItem(LS_STATS) || '{}') || {}; } catch (_) { return {}; } };
-  const guardarStat = (id, puntaje) => { try { const s = stats(); const x = s[id] || { mejor: 0, intentos: 0 }; x.mejor = Math.max(x.mejor, puntaje); x.intentos++; s[id] = x; localStorage.setItem(LS_STATS, JSON.stringify(s)); } catch (_) {} };
+  const guardarStat = (id, puntaje, ex) => { try { const s = stats(); const x = s[id] || { mejor: 0, intentos: 0 }; x.mejor = Math.max(x.mejor, puntaje); x.intentos++; if (ex) { x.mejorEx = Math.max(x.mejorEx || 0, puntaje); x.ex = (x.ex || 0) + 1; } s[id] = x; localStorage.setItem(LS_STATS, JSON.stringify(s)); } catch (_) {} };
 
   // Cada intento se guarda también en Supabase (tabla exam_results) por NikaRendimiento: suma a «Mi Rendimiento Académico»,
   // se sincroniza entre dispositivos y, sin conexión, queda en la cola offline y se sube solo.
@@ -41,7 +42,7 @@ const NikaRecetarios = (() => {
       const remoto = {};
       data.forEach((r) => { const id = String(r.mode).replace(/^recetario_/, ''); if (!R.DOCS[id]) return; const x = remoto[id] || { mejor: 0, intentos: 0 }; x.mejor = Math.max(x.mejor, r.score_pct || 0); x.intentos++; remoto[id] = x; });
       const local = stats(); let cambio = false;
-      Object.entries(remoto).forEach(([id, x]) => { const l = local[id]; if (!l || l.mejor < x.mejor || l.intentos < x.intentos) { local[id] = { mejor: Math.max(x.mejor, l ? l.mejor : 0), intentos: Math.max(x.intentos, l ? l.intentos : 0) }; cambio = true; } });
+      Object.entries(remoto).forEach(([id, x]) => { const l = local[id]; if (!l || l.mejor < x.mejor || l.intentos < x.intentos) { local[id] = { ...(l || {}), mejor: Math.max(x.mejor, l ? l.mejor : 0), intentos: Math.max(x.intentos, l ? l.intentos : 0) }; cambio = true; } });
       if (cambio) { localStorage.setItem(LS_STATS, JSON.stringify(local)); if (!docId && vista === 'sim') renderLista(); }
     } catch (e) { console.warn('[Recetarios] sincronizarStats:', e && e.message); }
   }
@@ -230,22 +231,22 @@ const NikaRecetarios = (() => {
       <div class="rz-tit-hoja">${esc(h.titulo)}</div>
       ${membrete(esCert ? 'Certificado médico' : doc.layout === 'solicitud' ? 'Solicitud de estudios' : 'Receta')}
       <div class="rz-cuerpo">
-        ${h.encabezado ? `<textarea class="rz-campo rz-centro" data-f="encabezado" rows="4" spellcheck="false" placeholder="Apellido y nombre del paciente…" aria-label="Encabezado del paciente"></textarea>` : ''}
+        ${h.encabezado ? `<textarea class="rz-campo rz-centro" data-f="encabezado" rows="4" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Apellido y nombre del paciente…" aria-label="Encabezado del paciente"></textarea>` : ''}
         <div class="rz-rp">${esCert ? 'Rp/' : 'R/p'}</div>
         <div class="rz-area">
-          <textarea class="rz-campo rz-lineas" data-f="cuerpo" rows="${esCert ? 9 : 8}" spellcheck="false" placeholder="${esCert ? 'Escribí el certificado…' : doc.layout === 'solicitud' ? 'Solicito…' : 'Diagnóstico, medicamento, dosis, forma, cantidades…'}" aria-label="Cuerpo del documento"></textarea>
+          <textarea class="rz-campo rz-lineas" data-f="cuerpo" rows="${esCert ? 9 : 8}" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="${esCert ? 'Escribí el certificado…' : doc.layout === 'solicitud' ? 'Solicito…' : 'Diagnóstico, medicamento, dosis, forma, cantidades…'}" aria-label="Cuerpo del documento"></textarea>
           <svg class="rz-raya" aria-hidden="true"></svg>
         </div>
         <div class="rz-pie">
           <div class="rz-pie-izq">
-            <label>Fecha <input class="rz-campo rz-mini" data-f="fecha" type="text" placeholder="dd/mm/aaaa" autocomplete="off"></label>
-            <label>Hora <input class="rz-campo rz-mini" data-f="hora" type="text" placeholder="hh:mm" autocomplete="off"></label>
+            <label>Fecha <input class="rz-campo rz-mini" data-f="fecha" type="text" placeholder="dd/mm/aaaa" autocomplete="off" autocorrect="off" autocapitalize="off"></label>
+            <label>Hora <input class="rz-campo rz-mini" data-f="hora" type="text" placeholder="hh:mm" autocomplete="off" autocorrect="off" autocapitalize="off"></label>
             <button type="button" class="rz-btn-mini" data-accion="raya">〰️ Rayar espacio libre</button>
           </div>
           <div class="rz-pie-der">
             <div class="rz-firma"><canvas width="300" height="110" data-firma></canvas><span>Firma</span><button type="button" class="rz-limpia" data-accion="borra-firma" title="Borrar firma">↺</button></div>
-            <label class="rz-sello">Sello (aclaratorio) <input class="rz-campo" data-f="sello" type="text" placeholder="Apellido y nombre" autocomplete="off"></label>
-            <label class="rz-sello">Matrícula N.° <input class="rz-campo rz-mini" data-f="matricula" type="text" placeholder="simbólica (2 dígitos)" autocomplete="off"></label>
+            <label class="rz-sello">Sello (aclaratorio) <input class="rz-campo" data-f="sello" type="text" placeholder="Apellido y nombre" autocomplete="off" autocorrect="off" autocapitalize="off"></label>
+            <label class="rz-sello">Matrícula N.° <input class="rz-campo rz-mini" data-f="matricula" type="text" placeholder="simbólica (2 dígitos)" autocomplete="off" autocorrect="off" autocapitalize="off"></label>
           </div>
         </div>
       </div>
@@ -256,21 +257,44 @@ const NikaRecetarios = (() => {
   function conectarHoja(art) {
     const id = art.dataset.hoja; const st = hojas[id] = hojas[id] || { firma: false, raya: false };
     art.querySelectorAll('[data-f]').forEach((el) => {
-      el.addEventListener('input', () => { st[el.dataset.f] = el.value; if (el.dataset.f === 'cuerpo') actualizarRaya(art); });
-      el.addEventListener('focus', () => { ultimoCampo = el; });
-      // Modo lapicera: no se puede borrar ni pegar; los errores se salvan con «Digo…»
-      el.addEventListener('keydown', (e) => { if (lapicera && (e.key === 'Backspace' || e.key === 'Delete')) { e.preventDefault(); aviso(art); } });
-      el.addEventListener('beforeinput', (e) => { if (lapicera && /^(delete|history|insertFromPaste|insertFromDrop)/.test(e.inputType || '')) { e.preventDefault(); aviso(art); } });
-      el.addEventListener('paste', (e) => { if (lapicera) { e.preventDefault(); aviso(art); } });
+      let previo = el.value;
+      const alFinal = () => { const n = el.value.length; try { el.setSelectionRange(n, n); } catch (_) {} };
+      el.addEventListener('input', () => {
+        // Modo lapicera = solo se escribe a continuación. Lo ya escrito no se puede tocar: ni borrar, ni insertar
+        // texto o espacios antes, ni reemplazar una selección. Esta es la red de seguridad final: cualquier cambio
+        // que no sea «lo anterior + texto nuevo al final» se revierte (cubre autocorrectores, dictado y atajos raros).
+        if (lapicera && !el.value.startsWith(previo)) { el.value = previo; alFinal(); aviso(art, 'modificar'); return; }
+        previo = el.value; st[el.dataset.f] = el.value; if (el.dataset.f === 'cuerpo') actualizarRaya(art);
+      });
+      el.addEventListener('focus', () => { ultimoCampo = el; if (lapicera) alFinal(); });
+      // El cursor siempre queda al final: así lo que se escribe nunca cae en el medio del texto.
+      ['mouseup', 'touchend', 'select', 'keyup'].forEach((ev) => el.addEventListener(ev, () => { if (lapicera) alFinal(); }));
+      el.addEventListener('keydown', (e) => {
+        if (!lapicera) return;
+        if (e.key === 'Backspace' || e.key === 'Delete') { e.preventDefault(); aviso(art, 'borrar'); return; }
+        if ((e.ctrlKey || e.metaKey) && /^[zyx]$/i.test(e.key)) { e.preventDefault(); aviso(art, 'borrar'); }   // deshacer, rehacer, cortar
+      });
+      el.addEventListener('beforeinput', (e) => {
+        if (!lapicera) return;
+        if (/^(delete|history|insertFromPaste|insertFromDrop|insertReplacementText|insertFromYank)/.test(e.inputType || '')) { e.preventDefault(); aviso(art, 'borrar'); return; }
+        const n = el.value.length;
+        if (el.selectionStart !== n || el.selectionEnd !== n) { e.preventDefault(); alFinal(); aviso(art, 'modificar'); }
+      });
+      el.addEventListener('paste', (e) => { if (lapicera) { e.preventDefault(); aviso(art, 'borrar'); } });
       el.addEventListener('cut', (e) => { if (lapicera) e.preventDefault(); });
+      el.addEventListener('drop', (e) => { if (lapicera) { e.preventDefault(); aviso(art, 'borrar'); } });
+      el.addEventListener('dragstart', (e) => { if (lapicera) e.preventDefault(); });
     });
     art.querySelector('[data-accion="raya"]').addEventListener('click', () => { st.raya = !st.raya; actualizarRaya(art); });
     art.querySelector('[data-accion="borra-firma"]').addEventListener('click', () => { const c = art.querySelector('canvas'); c.getContext('2d').clearRect(0, 0, c.width, c.height); st.firma = false; });
     firmaCanvas(art.querySelector('canvas'), st);
   }
-  function aviso(art) {
+  function aviso(art, motivo) {
     const b = art.querySelector('.rz-tit-hoja'); b.classList.remove('rz-shake'); void b.offsetWidth; b.classList.add('rz-shake');
-    toast('✒️ Modo lapicera: no se puede borrar. Salvá el error escribiendo «Digo…» y seguí.');
+    toast(motivo === 'modificar'
+      ? '✒️ Modo lapicera: solo se escribe a continuación. No se puede insertar ni modificar lo ya escrito: salvá el error con «Digo…».'
+      : '✒️ Modo lapicera: no se puede borrar ni pegar. Salvá el error escribiendo «Digo…» y seguí.');
+    if (examenActivo && window.RecetariosExamen) RecetariosExamen.sonido('alerta');
   }
   function actualizarRaya(art) {
     const st = hojas[art.dataset.hoja]; const svg = art.querySelector('.rz-raya'); const ta = art.querySelector('[data-f="cuerpo"]');
@@ -317,7 +341,7 @@ const NikaRecetarios = (() => {
       return `<button type="button" class="rz-card" style="--c:${col};animation-delay:${(n++) * 55}ms" onclick="NikaRecetarios.abrir('${d.id}')">
         <span class="rz-tag">${esc(d.cat)}</span>
         <span class="rz-ico">${d.icono}</span><b>${esc(d.titulo)}</b><small>${esc(d.resumen)}</small>
-        ${x ? `<span class="rz-best"><i style="width:${x.mejor}%"></i><em>Mejor ${x.mejor}/100 · ${x.intentos} ${x.intentos === 1 ? 'intento' : 'intentos'}</em></span>` : '<span class="rz-best nuevo"><em>Sin intentos · ¡probalo!</em></span>'}
+        ${x ? `<span class="rz-best"><i style="width:${x.mejor}%"></i><em>Mejor ${x.mejor}/100 · ${x.intentos} ${x.intentos === 1 ? 'intento' : 'intentos'}${x.mejorEx != null ? ` · 🏁 Examen ${x.mejorEx}` : ''}</em></span>` : '<span class="rz-best nuevo"><em>Sin intentos · ¡probalo!</em></span>'}
         <span class="rz-go">Practicar →</span>
       </button>`;
     }).join('')}</div>`;
@@ -364,21 +388,57 @@ const NikaRecetarios = (() => {
     </aside>`;
   }
 
-  function abrir(id, nuevoCaso = true, casoDado = null) {
+  // Minutos del examen según el documento (una hoja de certificado, una de receta/solicitud, o dos recetas)
+  const tiempoExamen = (doc) => (doc.hojas.length > 1 ? 15 * 60 : doc.layout === 'certificado' ? 8 * 60 : 10 * 60);
+
+  // Pantalla previa: práctica (con guía) o examen (sin guía y con reloj)
+  function elegirModo(id, nuevoCaso, casoDado) {
+    if (examenActivo) return;
+    const doc = R.DOCS[id]; const min = Math.round(tiempoExamen(doc) / 60);
+    document.getElementById('rz-modal-modo')?.remove();
+    const ov = document.createElement('div'); ov.className = 'rz-modal on'; ov.id = 'rz-modal-modo';
+    ov.innerHTML = `<div class="rz-mcard rz-modos"><h3>${doc.icono} ${esc(doc.titulo)}</h3><p>Elegí cómo querés practicar:</p>
+      <div class="rz-modo-grid">
+        <button type="button" class="rz-modo-card practica" data-m="practica"><span class="ic">🎓</span><b>Práctica</b><small>Con la guía paso a paso al lado y sin tiempo. Ideal para aprender el formato.</small>
+          <ul><li>Guía y reglas de oro visibles</li><li>Podés ver el modelo y repetir</li><li>Sin límite de tiempo</li></ul></button>
+        <button type="button" class="rz-modo-card examen" data-m="examen"><span class="ic">🏁</span><b>Examen</b><small>Como el examen real: sin guía y contra el reloj.</small>
+          <ul><li>Guía oculta</li><li>${min} minutos, con alertas y sonidos</li><li>Lapicera obligatoria</li><li>Reglas anti‑trampa activadas</li></ul></button>
+      </div>
+      <div class="rz-mb"><button type="button" class="rz-btn-sec" data-x>Cancelar</button></div></div>`;
+    document.body.appendChild(ov);
+    const cerrar = () => ov.remove();
+    ov.querySelector('[data-x]').onclick = cerrar;
+    ov.addEventListener('click', (e) => { if (e.target === ov) cerrar(); });
+    ov.querySelectorAll('.rz-modo-card').forEach((b) => b.addEventListener('click', () => { const m = b.dataset.m; cerrar(); empezar(id, nuevoCaso, casoDado, m); }));
+  }
+
+  // El examen pide aceptar las reglas anti-trampa antes de arrancar (las mismas de los demás exámenes)
+  async function empezar(id, nuevoCaso, casoDado, m) {
+    if (m === 'examen' && window.ExamIntegridad) {
+      const ok = await ExamIntegridad.pedirAceptacion({ escrito: true });
+      if (!ok) return;
+    }
+    abrir(id, nuevoCaso, casoDado, m);
+  }
+
+  function abrir(id, nuevoCaso = true, casoDado = null, modoSel = null) {
     const doc = R.DOCS[id]; if (!doc) return;
+    if (!modoSel) { elegirModo(id, nuevoCaso, casoDado); return; }
+    modo = modoSel; const ex = modo === 'examen';
     if (casoDado) { caso = casoDado; nuevoCaso = false; }
     docId = id; if (nuevoCaso) { caso = doc.caso(); compartido = false; } inicio = Date.now();
     Object.keys(hojas).forEach((k) => delete hojas[k]);
+    if (ex) lapicera = true;                           // en el examen no se puede borrar
     const f = hoyTxt();
     const root = $('#rz-root');
     root.innerHTML = `
-      <div class="rz-barra"><button type="button" class="rz-volver" onclick="NikaRecetarios.atras()">← Volver</button><h2>${doc.icono} ${esc(doc.titulo)}</h2></div>
+      <div class="rz-barra"><button type="button" class="rz-volver" onclick="NikaRecetarios.atras()">← Volver</button><h2>${doc.icono} ${esc(doc.titulo)}</h2><span class="rz-modo-tag ${modo}">${ex ? '🏁 Examen' : '🎓 Práctica'}</span>${ex ? '' : '<button type="button" class="rz-btn-sec rz-a-examen" onclick="NikaRecetarios.aExamen()">🏁 Probar en modo examen</button>'}</div>
       ${compartido ? '<div class="rz-banner">🔗 <b>Caso compartido por un compañero.</b> Resolvelo y compará tu resultado con el suyo.</div>' : ''}
       <section class="rz-caso ${caso.trampa ? 'trampa' : ''}">
         <div class="rz-caso-in">
           <div class="rz-avatar" style="--h:${(caso.p.dni % 360)}">${esc((caso.p.nombre[0] || '') + (caso.p.apellido[0] || ''))}</div>
           <div class="rz-caso-main">
-            <div class="rz-caso-top"><span class="rz-caso-badge"><i></i>CASO CLÍNICO · TU PACIENTE</span><button type="button" class="rz-nuevo" onclick="NikaRecetarios.nuevoCaso()"><span>🎲</span> Nuevo caso</button></div>
+            <div class="rz-caso-top"><span class="rz-caso-badge"><i></i>CASO CLÍNICO · TU PACIENTE</span>${ex ? '' : '<button type="button" class="rz-nuevo" onclick="NikaRecetarios.nuevoCaso()"><span>🎲</span> Nuevo caso</button>'}</div>
             <h3 class="rz-caso-nombre">${esc(caso.p.nombreCompleto)}</h3>
             <div class="rz-chips"><span>🎂 ${caso.p.edad} años</span><span>${caso.p.sexo === 'F' ? '♀ femenino' : '♂ masculino'}</span><span>🪪 DNI ${esc(caso.p.dniTxt)}</span><span>🏥 ${caso.p.obraSocial ? esc(caso.p.obraSocial) : 'sin obra social'}</span></div>
             <p class="rz-caso-texto">${esc(caso.texto)}</p>
@@ -390,18 +450,59 @@ const NikaRecetarios = (() => {
           </div>
         </div>
       </section>
-      <div class="rz-mesa">
+      <div class="rz-mesa ${ex ? 'examen' : ''}">
         <div class="rz-hojas">
-          <div class="rz-herr"><label class="rz-sw"><input type="checkbox" id="rz-lap" ${lapicera ? 'checked' : ''}> ✒️ Modo lapicera (no se puede borrar)</label><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.digo()">✏️ Digo…</button></div>
+          <div class="rz-herr">${ex
+            ? '<span class="rz-lap-fija">✒️ Lapicera obligatoria · solo se escribe a continuación</span>'
+            : `<label class="rz-sw"><input type="checkbox" id="rz-lap" ${lapicera ? 'checked' : ''}> ✒️ Modo lapicera (no se puede borrar)</label>`}<button type="button" class="rz-btn-sec" onclick="NikaRecetarios.digo()">✏️ Digo…</button></div>
           <div class="rz-hojas-w">${doc.hojas.map((h) => hojaHtml(doc, h)).join('')}</div>
         </div>
-        ${guiaLateral(doc)}
+        ${ex ? '' : guiaLateral(doc)}
       </div>
-      <div class="rz-acciones"><button type="button" class="rz-btn" onclick="NikaRecetarios.corregir()">✅ Corregir</button><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.modelo()">👁️ Ver modelo</button><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.abrir('${id}', false)">↺ Reiniciar hojas</button></div>`;
+      <div class="rz-acciones">${ex
+        ? '<button type="button" class="rz-btn" onclick="NikaRecetarios.entregar()">📨 Entregar examen</button>'
+        : `<button type="button" class="rz-btn" onclick="NikaRecetarios.corregir()">✅ Corregir</button><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.modelo()">👁️ Ver modelo</button><button type="button" class="rz-btn-sec" onclick="NikaRecetarios.abrir('${id}', false, null, 'practica')">↺ Reiniciar hojas</button>`}</div>`;
     root.querySelectorAll('.rz-hoja').forEach(conectarHoja);
-    $('#rz-lap').addEventListener('change', (e) => { lapicera = e.target.checked; });
+    const lap = $('#rz-lap'); if (lap) lap.addEventListener('change', (e) => { lapicera = e.target.checked; });
+    if (ex) iniciarExamen(doc);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // ------------------------------------------------------------------ examen: reloj, reglas anti-trampa y entrega
+  const avisoSalida = (e) => { if (examenActivo) { e.preventDefault(); e.returnValue = ''; } };
+  function iniciarExamen(doc) {
+    examenActivo = true; entregando = false;
+    const seg = tiempoExamen(doc);
+    RecetariosExamen.iniciar({ segundos: seg, contenedor: $('#rz-root'), onFin: () => entregar('tiempo') });
+    if (window.ExamIntegridad) ExamIntegridad.iniciar({ modulo: 'recetarios', modo: 'recetario_' + doc.id, estricto: false, total: 1, limiteSeg: seg, onForzarEntrega: () => entregar('forzada') });
+    window.addEventListener('beforeunload', avisoSalida);
+  }
+  // Cierra el examen (reloj, reglas y aviso de salida). Devuelve el cartel de integridad si hubo incidencias.
+  async function cerrarExamen() {
+    RecetariosExamen.detener(); window.removeEventListener('beforeunload', avisoSalida); examenActivo = false;
+    let integ = '';
+    if (window.ExamIntegridad && ExamIntegridad.estado) {
+      try { const r = await ExamIntegridad.entregar({ exam: [], answers: {}, aciertos: null, puntaje: null }); integ = ExamIntegridad.mensajeFinalHTML(r, { aciertos: null }) || ''; }
+      catch (e) { try { ExamIntegridad.abandonar(); } catch (_) {} }
+    }
+    return integ;
+  }
+  // Salir en medio de un examen pierde el intento: se pide confirmación.
+  function salirExamen() {
+    if (!examenActivo) return true;
+    if (!confirm('Estás en un examen en curso. Si salís ahora se pierde el intento sin corregir. ¿Querés salir?')) return false;
+    RecetariosExamen.detener(); window.removeEventListener('beforeunload', avisoSalida); examenActivo = false;
+    if (window.ExamIntegridad) { try { ExamIntegridad.abandonar(); } catch (_) {} }
+    return true;
+  }
+  // motivo: undefined (el alumno entrega) · 'tiempo' (se acabó el reloj) · 'forzada' (reincidió tras la advertencia)
+  function entregar(motivo) {
+    if (!examenActivo || entregando) return;
+    if (!motivo && !confirm('¿Entregar el examen ahora? Después no vas a poder modificarlo.')) return;
+    entregando = true; if (motivo !== 'tiempo') RecetariosExamen.sonido('entrega');
+    corregir({ examen: true, motivo: motivo || 'manual' });
+  }
+  const aExamen = () => { if (docId) empezar(docId, false, caso, 'examen'); };
 
   // ------------------------------------------------------------------ acciones
   function digo() {
@@ -409,7 +510,7 @@ const NikaRecetarios = (() => {
     const ins = (el.value && !/\s$/.test(el.value) ? ' ' : '') + 'Digo: ';
     el.value += ins; el.dispatchEvent(new Event('input', { bubbles: true })); el.focus();
   }
-  function nuevoCaso() { abrir(docId, true); }
+  function nuevoCaso() { if (examenActivo) return; abrir(docId, true, null, modo); }
   function negarme() {
     const doc = R.DOCS[docId];
     const ov = document.createElement('div'); ov.className = 'rz-modal on'; ov.id = 'rz-modal-neg';
@@ -426,7 +527,8 @@ const NikaRecetarios = (() => {
         ok = k === caso.trampa.razon;
         msg = ok ? `¡Correcto! ${caso.trampa.txt} Te amparás en el Art. 123 del Código de Ética («ciencia y conciencia»). Extenderlo sería un certificado falso (Art. 295 del Código Penal).` : `No era ese el fundamento: ${caso.trampa.txt} Este certificado NO correspondía extenderlo.`;
       } else { ok = false; msg = k === 'nada' ? 'Correcto en el razonamiento, pero entonces tenés que extenderlo: escribí el certificado.' : 'En este caso SÍ había justa causa y constatación clínica: correspondía extender el certificado. Negarlo sin motivo no es adecuado.'; if (k === 'nada') ok = true; }
-      if (caso.trampa) { guardarStat(docId + '-negativa', ok ? 100 : 0); subirIntento(docId + '_negativa', ok ? 100 : 0, ok ? 1 : 0, 1, Math.round((Date.now() - inicio) / 1000)); }
+      if (caso.trampa) { guardarStat(docId + '-negativa', ok ? 100 : 0, examenActivo); subirIntento(docId + '_negativa', ok ? 100 : 0, ok ? 1 : 0, 1, Math.round((Date.now() - inicio) / 1000)); }
+      if (examenActivo) { cerrarExamen(); entregando = true; if (window.RecetariosExamen) RecetariosExamen.sonido(ok ? 'ok' : 'mal'); }
       mostrarModal(`<div class="rz-res-h ${ok ? 'ok' : 'mal'}"><span>${ok ? '✅' : '❌'}</span><div><b>${ok ? 'Buen criterio médico' : 'Revisá el criterio'}</b></div></div><p>${esc(msg)}</p><ul class="rz-lista-neg">${T.negativa.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`);
     }));
   }
@@ -468,24 +570,35 @@ const NikaRecetarios = (() => {
   const navBtns = () => `<button type="button" class="rz-btn-sec" onclick="NikaRecetarios.modelo()">👁️ Ver modelo</button><button type="button" class="rz-btn-sec" onclick="document.getElementById('rz-modal-res').remove();NikaRecetarios.nuevoCaso()">🎲 Nuevo caso</button><button type="button" class="rz-btn-sec" onclick="document.getElementById('rz-modal-res').remove();NikaRecetarios.lista()">← Volver a los documentos</button>`;
   const WA_SVG = '<svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.3.6 4.4 1.8 6.3L3 29l7.4-1.9c1.8 1 3.7 1.5 5.6 1.5 7 0 12.7-5.6 12.7-12.5S23 3 16 3zm0 22.9c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.4 1.1 1.2-4.2-.3-.4a10.1 10.1 0 01-1.6-5.4C5.5 9.8 10.2 5.3 16 5.3s10.5 4.5 10.5 10.1S21.8 25.9 16 25.9zm5.8-7.5c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.4 8.4 0 01-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3 2 3.1 4.9 4.3c1.8.8 2.5.8 3.4.7.5-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.4z"/></svg>';
 
-  function corregir() {
+  async function corregir(opts) {
     const doc = R.DOCS[docId];
+    const ex = !!(opts && opts.examen);
+    let integ = '';
+    if (ex) integ = await cerrarExamen();
+    const cartelExamen = (seg) => {
+      if (!ex) return '';
+      const lim = Math.round(tiempoExamen(doc) / 60);
+      const extra = opts.motivo === 'tiempo' ? ' · ⌛ entregado al agotarse el tiempo' : opts.motivo === 'forzada' ? ' · ⛔ entregado por incumplir las reglas' : '';
+      return `<div class="rz-ex-res">🏁 <b>Modo examen</b> · tiempo usado ${Math.floor(seg / 60)} min ${seg % 60} s de ${lim} min${extra}</div>`;
+    };
     if (caso.trampa) {
       const seg = Math.round((Date.now() - inicio) / 1000);
       ultimo = { pct: 0, nivel: 'A reforzar', checks: [{ ok: false, peso: 1, label: 'Corresponde o no extender el certificado', tip: caso.trampa.txt }], segundos: seg, trampa: true };
-      mostrarModal(`<div class="rz-res-h mal"><span>⚠️</span><div><b>Este certificado no correspondía</b></div></div><p>${esc(caso.trampa.txt)} Antes de escribir tenías que preguntarte si <b>correspondía o no su extensión</b>. Usá el botón «No corresponde extenderlo».</p>`, navBtns());
-      guardarStat(docId, 0); subirIntento(docId, 0, 0, 1, seg); return;
+      if (ex) RecetariosExamen.sonido('mal');
+      mostrarModal(cartelExamen(seg) + `<div class="rz-res-h mal"><span>⚠️</span><div><b>Este certificado no correspondía</b></div></div><p>${esc(caso.trampa.txt)} Antes de escribir tenías que preguntarte si <b>correspondía o no su extensión</b>. Usá el botón «No corresponde extenderlo».</p>`, navBtns());
+      guardarStat(docId, 0, ex); subirIntento(docId, 0, 0, 1, seg); return;
     }
     const checks = (doc.layout === 'certificado' ? corregirCertificado : CORRECTORES[docId])(doc, caso);
     const total = checks.reduce((a, c) => a + c.peso, 0), obt = checks.filter((c) => c.ok).reduce((a, c) => a + c.peso, 0);
     const pct = Math.round(obt * 100 / total);
     const seg = Math.round((Date.now() - inicio) / 1000);
-    guardarStat(docId, pct);
+    guardarStat(docId, pct, ex);
     subirIntento(docId, pct, obt_ok(checks), checks.length, seg);
+    if (ex) RecetariosExamen.sonido(pct >= 60 ? 'ok' : 'mal');
     const nivel = pct >= 90 ? ['Excelente', '🏆'] : pct >= 75 ? ['Muy bien', '🥇'] : pct >= 60 ? ['Aprobado', '✅'] : ['A reforzar', '📚'];
     ultimo = { pct, nivel: nivel[0], checks, segundos: seg };
     const mal = checks.filter((c) => !c.ok); const areas = porAreas(checks); const sug = sugerencias(doc, checks, areas);
-    mostrarModal(`<div class="rz-res-h ${pct >= 60 ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos · ${Math.floor(seg / 60)} min ${seg % 60} s</small></div><span class="rz-sello-res ${pct >= 60 ? 'ok' : 'mal'}">${pct >= 60 ? 'APROBADO' : 'A REFORZAR'}</span></div>
+    mostrarModal(cartelExamen(seg) + integ + `<div class="rz-res-h ${pct >= 60 ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos · ${Math.floor(seg / 60)} min ${seg % 60} s</small></div><span class="rz-sello-res ${pct >= 60 ? 'ok' : 'mal'}">${pct >= 60 ? 'APROBADO' : 'A REFORZAR'}</span></div>
       <div class="rz-compartir"><div class="rz-comp-t">📤 Compartí tu resolución</div><div class="rz-comp-b">
         <button type="button" class="rz-wa" onclick="RecetariosShare.abrir('whatsapp')"><span class="rz-wa-ic">${WA_SVG}</span><span>Compartir por WhatsApp</span></button>
         <button type="button" class="rz-dl" onclick="RecetariosShare.abrir('descargar')"><span>⬇️</span> Descargar imagen</button>
@@ -501,6 +614,7 @@ const NikaRecetarios = (() => {
   }
 
   function modelo() {
+    if (examenActivo) return;                           // el modelo es la respuesta: no se muestra en pleno examen
     const doc = R.DOCS[docId]; document.getElementById('rz-modal-res')?.remove();
     if (caso.trampa) { mostrarModal(`<h3>👁️ Modelo</h3><p>En este caso el modelo correcto es <b>no extender el certificado</b>. ${esc(caso.trampa.txt)}</p>`); return; }
     const m = modeloDe(doc, caso);
@@ -513,30 +627,32 @@ const NikaRecetarios = (() => {
     mostrarModal(`<h3>👁️ Cómo debería quedar</h3><p class="rz-mini-t">Una forma correcta de completarlo (hay otras redacciones válidas, mientras cumplan todos los pasos de la guía).</p><div class="rz-hojas-w modelo-w">${hojasHtml}</div>`);
   }
 
-  function irLista() { renderLista(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  function irLista() { if (examenActivo && !salirExamen()) return; renderLista(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   // Volver: desde un documento → lista; desde la lista → de donde viniste (simulador o campus)
   function atras() {
-    if (docId) { irLista(); return; }
+    if (examenActivo && !salirExamen()) return;
+    if (docId) { renderLista(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const p = new URLSearchParams(location.search);
     if (p.get('from') === 'examen') { location.href = 'examen.html?modulo=' + encodeURIComponent(p.get('modulo') || 'cirugia'); return; }
     if (history.length > 1 && document.referrer) { history.back(); return; }
     location.href = 'campus.html';
   }
-  function cambiarVista(v) { vista = v; renderLista(); }
+  function cambiarVista(v) { if (examenActivo && !salirExamen()) return; vista = v; renderLista(); }
 
+  const modoParam = (p) => (['practica', 'examen'].includes(p.get('modo')) ? p.get('modo') : null);
   function init() {
     const p = new URLSearchParams(location.search);
     const docParam = p.get('doc');
     if (docParam && R.DOCS[docParam] && p.get('c')) {
       // Caso compartido: se reconstruye desde el catálogo (nada del link se ejecuta ni se confía a ciegas)
       const c = R.reconstruir(R.deBase64Url(p.get('c')));
-      if (c && c.tipo === docParam) { compartido = true; abrir(docParam, false, c); }
+      if (c && c.tipo === docParam) { compartido = true; abrir(docParam, false, c, modoParam(p)); }
       else { renderLista(); toast('⚠️ El link del caso no es válido. Elegí un documento para practicar.'); }
-    } else if (docParam && R.DOCS[docParam]) abrir(docParam); else renderLista();
+    } else if (docParam && R.DOCS[docParam]) { const m = modoParam(p); if (m) empezar(docParam, true, null, m); else abrir(docParam); } else renderLista();
     setTimeout(sincronizarStats, 1500);
     if (p.get('from') === 'examen') { const b = document.getElementById('rz-atras'); if (b) b.style.display = ''; }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  return { abrir, atras, filtrar, lista: irLista, _api: () => ({ R, doc: R.DOCS[docId], docId, caso, hojas, ultimo, modelo: () => modeloDe(R.DOCS[docId], caso) }), vista: cambiarVista, nuevoCaso, corregir, modelo, digo, negarme, _test: { corregirCertificado, corregirReceta, corregirPsico, corregirExamenes, modeloDe, hojas, setCaso: (c, id) => { caso = c; docId = id; } } };
+  return { abrir, empezar, entregar, aExamen, atras, filtrar, lista: irLista, _api: () => ({ R, doc: R.DOCS[docId], docId, caso, hojas, ultimo, modelo: () => modeloDe(R.DOCS[docId], caso) }), vista: cambiarVista, nuevoCaso, corregir, modelo, digo, negarme, _test: { corregirCertificado, corregirReceta, corregirPsico, corregirExamenes, modeloDe, hojas, setCaso: (c, id) => { caso = c; docId = id; } } };
 })();
 window.NikaRecetarios = NikaRecetarios;
