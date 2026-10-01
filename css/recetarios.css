@@ -392,3 +392,9 @@ body.dark-mode .rz-best { color: #4ade80; }
 body.dark-mode .rz-best.nuevo { color: #94a3b8; }
 /* Avatar del paciente: luminosidad más baja para que las iniciales blancas se lean con cualquier tono */
 .rz-avatar { background: linear-gradient(135deg, hsl(var(--h), 70%, 38%), hsl(calc(var(--h) + 40), 75%, 30%)); }
+
+/* Guía para pegar la imagen en WhatsApp (computadora) */
+.rz-sh-nota.rz-sh-pegar { margin-top: 12px; padding: 14px 16px; border-radius: 14px; background: rgba(34, 197, 94, .12); border: 1px solid rgba(34, 197, 94, .4); color: var(--text-main, #0f172a); font-size: .86rem; line-height: 1.55; animation: rz-in .4s cubic-bezier(.2, .8, .2, 1) both; }
+.rz-sh-pegar ol { margin: 6px 0 10px; padding-left: 20px; } .rz-sh-pegar li { margin: 3px 0; }
+.rz-sh-pegar kbd { padding: 1px 7px; border-radius: 6px; border: 1px solid var(--border, #cbd5e1); background: var(--card-bg, #fff); font: 800 .78rem 'Plus Jakarta Sans', sans-serif; box-shadow: 0 2px 0 var(--border, #cbd5e1); }
+.rz-tg em small { opacity: .7; font-style: normal; }

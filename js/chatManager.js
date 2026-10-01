@@ -124,6 +124,11 @@ const ChatManager = (function () {
     let _promesaGlobal = null;
     let presenciaGlobal = new Set();
     let onPresenciaGlobal = null;
+    // Suscriptores extra (la interfaz los registra apenas inicia sesión, sin abrir ningún chat):
+    // se avisa a todos cuando cambian los no leídos o quién está conectado.
+    const _escListaExtra = [], _escPresenciaExtra = [];
+    let presenciaNombres = [];      // usernames tal como se conectaron (con sus mayúsculas)
+    function _avisarLista() { if (onListaChanged) { try { onListaChanged(); } catch (_) {} } _escListaExtra.forEach((f) => { try { f(); } catch (e) { console.error(e); } }); }
     let onEntregaCambio = null;     // (friendUsername, ids[]) => void
     let lecturaAutomatica = true;   // poné false desde la UI si el chat está minimizado
     let _visibilidadRegistrada = false;
@@ -187,8 +192,10 @@ const ChatManager = (function () {
         canalGlobal = canal;
 
         const refrescar = () => {
-            presenciaGlobal = new Set(Object.keys(canal.presenceState()).map(_norm));
+            presenciaNombres = Object.keys(canal.presenceState());
+            presenciaGlobal = new Set(presenciaNombres.map(_norm));
             if (onPresenciaGlobal) onPresenciaGlobal(new Set(presenciaGlobal));
+            _escPresenciaExtra.forEach((f) => { try { f(new Set(presenciaGlobal)); } catch (e) { console.error(e); } });
             if (conversacionActual && onPresenciaCambio) onPresenciaCambio(_amigoEnLinea(conversacionActual));
         };
         canal.on('presence', { event: 'sync' }, refrescar);
@@ -204,6 +211,16 @@ const ChatManager = (function () {
             await canal.track({ username, online_at: new Date().toISOString() });
             _confirmarPendientes(); // todo lo que llegó mientras estaba offline pasa a "recibido"
         });
+
+        // Respaldo: además del aviso del remitente (dm_ping), se escuchan los INSERT de mis mensajes en la base.
+        // Si la tabla no tiene Realtime activado esto simplemente no hace nada (el aviso y el sondeo siguen).
+        try {
+            await _limpiarTopic('nika_inbox');
+            sb().channel('nika_inbox')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'private_messages', filter: `to_username=eq.${username}` },
+                    (p) => { if (p && p.new) _alRecibirMensaje(p.new, 'dm'); })
+                .subscribe();
+        } catch (e) { console.warn('[ChatManager] Sin respaldo Realtime de mensajes:', e && e.message); }
 
         if (!_visibilidadRegistrada) {
             _visibilidadRegistrada = true;
@@ -311,7 +328,7 @@ const ChatManager = (function () {
             }
             if (lecturaAutomatica && !document.hidden) marcarComoLeido(ref.from_username);
         }
-        if (onListaChanged) onListaChanged();
+        _avisarLista();
     }
 
     async function _confirmarRecepcion(ref) {
@@ -581,7 +598,7 @@ const ChatManager = (function () {
             _emitirEvento(friendUsername, "mensajes_leidos", { reader: username, owner: friendUsername });
         }
 
-        if (onListaChanged) onListaChanged();
+        _avisarLista();
     }
 
     return {
@@ -590,6 +607,9 @@ const ChatManager = (function () {
         iniciarPresenciaGlobal,
         detenerPresenciaGlobal,
         estaEnLinea,
+        usuariosEnLinea() { return presenciaNombres.slice(); },
+        alCambiarLista(cb) { if (typeof cb === 'function') _escListaExtra.push(cb); },
+        alCambiarPresencia(cb) { if (typeof cb === 'function') _escPresenciaExtra.push(cb); },
         tickHTML,
         estadoDeEntrega,
         sonarMensaje: _reproducirSonidoMensaje, // para el chat global

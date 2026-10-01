@@ -8,7 +8,7 @@ const RecetariosShare = (() => {
   const toast = (m) => { if (typeof window.showToast === 'function') window.showToast(m); else console.info(m); };
   const W = 1180, PAD = 44;
   const INK = '#1e3a8a';
-  let opciones = { resultado: true, caso: true, modelo: false };
+  let opciones = { resultado: true, caso: true, modelo: false, link: false };   // link: el enlace del caso es larguísimo, por eso va apagado
   let blobActual = null, urlActual = null, generando = 0;
 
   // ------------------------------------------------------------------ utilidades de dibujo
@@ -152,7 +152,8 @@ const RecetariosShare = (() => {
     if (opciones.resultado && ultimo && !ultimo.trampa) lineas.push(`Me dio ${ultimo.pct}/100 (${ultimo.nivel}).`);
     if (caso.trampa) lineas.push('Era un caso de criterio médico: ¿vos lo hubieras extendido?');
     lineas.push('¿Qué te parece? ¿Está bien? 👀');
-    lineas.push('', 'Probá el mismo caso vos (te toca el mismo paciente):', linkCaso());
+    if (opciones.link) lineas.push('', 'Probá el mismo caso vos (te toca el mismo paciente):', linkCaso());
+    else lineas.push('', 'Practicá tus recetas y certificados en nikamed.com.ar 🩺');
     return lineas.join('\n');
   }
 
@@ -173,6 +174,7 @@ const RecetariosShare = (() => {
             <label class="rz-tg"><input type="checkbox" data-o="resultado" ${opciones.resultado ? 'checked' : ''}><span class="rz-tg-b"></span><em>📊 Incluir mi puntaje</em></label>
             <label class="rz-tg"><input type="checkbox" data-o="caso" ${opciones.caso ? 'checked' : ''}><span class="rz-tg-b"></span><em>🩺 Incluir el caso clínico</em></label>
             ${caso.trampa ? '' : `<label class="rz-tg"><input type="checkbox" data-o="modelo" ${opciones.modelo ? 'checked' : ''}><span class="rz-tg-b"></span><em>✅ Incluir cómo debería quedar</em></label>`}
+            <label class="rz-tg"><input type="checkbox" data-o="link" ${opciones.link ? 'checked' : ''}><span class="rz-tg-b"></span><em>🔗 Agregar el link del caso al mensaje <small>(largo)</small></em></label>
           </div>
           <label class="rz-sh-l" for="rz-sh-msg">✏️ Mensaje (podés editarlo)</label>
           <textarea id="rz-sh-msg" rows="8" maxlength="900"></textarea>
@@ -190,7 +192,7 @@ const RecetariosShare = (() => {
     const msg = ov.querySelector('#rz-sh-msg'); msg.value = mensajePorDefecto();
     let editado = false; msg.addEventListener('input', () => { editado = true; });
     ov.addEventListener('click', (e) => { if (e.target === ov || e.target.closest('[data-x]')) { ov.remove(); liberar(); } });
-    ov.querySelectorAll('[data-o]').forEach((c) => c.addEventListener('change', () => { opciones[c.dataset.o] = c.checked; if (!editado) msg.value = mensajePorDefecto(); refrescar(); }));
+    ov.querySelectorAll('[data-o]').forEach((c) => c.addEventListener('change', () => { opciones[c.dataset.o] = c.checked; if (!editado) msg.value = mensajePorDefecto(); if (c.dataset.o !== 'link') refrescar(); }));
     ov.querySelectorAll('[data-ins]').forEach((b) => b.addEventListener('click', () => { const l = msg.value.split('\n'); l.splice(Math.min(l.length, 2), 0, b.dataset.ins); msg.value = l.join('\n'); editado = true; msg.focus(); }));
     ov.querySelector('[data-rest]').addEventListener('click', () => { msg.value = mensajePorDefecto(); editado = false; });
     ov.querySelector('[data-dl]').addEventListener('click', descargar);
@@ -221,19 +223,31 @@ const RecetariosShare = (() => {
     try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobActual })]); if (aviso) toast('📋 Imagen copiada: pegala en el chat'); return true; }
     catch (_) { if (aviso) toast('Tu navegador no permite copiar imágenes: usá «Descargar»'); return false; }
   }
+  // Pasos guiados para computadora: WhatsApp (web o escritorio) no permite adjuntar archivos desde un enlace,
+  // así que la imagen queda en el portapapeles y el alumno solo tiene que pegarla.
+  function guiaPegar(nota, copiada) {
+    if (!nota) return;
+    nota.className = 'rz-sh-nota rz-sh-pegar';
+    nota.innerHTML = copiada
+      ? '<b>📋 ¡Imagen copiada!</b><ol><li>Elegí el chat en WhatsApp.</li><li>Hacé clic en el cuadro de mensaje y presioná <kbd>Ctrl</kbd> + <kbd>V</kbd>: aparece tu recetario como imagen.</li><li>Enviá. (El texto ya está escrito.)</li></ol><button type="button" class="rz-cp" data-recopiar>📋 Copiar la imagen de nuevo</button>'
+      : '<b>⬇️ Descargamos la imagen.</b><ol><li>Elegí el chat en WhatsApp.</li><li>Tocá el clip 📎 → «Fotos y videos» y elegí la imagen descargada.</li><li>Enviá. (El texto ya está escrito.)</li></ol>';
+    const r = nota.querySelector('[data-recopiar]'); if (r) r.addEventListener('click', () => copiarImagen(true));
+    nota.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
   async function whatsapp(texto, nota) {
     if (!blobActual) { toast('Esperá un segundo: se está armando la imagen'); return; }
     const file = new File([blobActual], nombreArchivo(), { type: 'image/png' });
-    // Celular: abre la hoja de compartir del sistema con la imagen y el texto (WhatsApp aparece en la lista)
+    // Celular (y Edge/Chrome en Windows): hoja de compartir del sistema con la IMAGEN adjunta y el texto como mensaje
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file], text: texto, title: 'Mi recetario · NikaMed' }); return; }
+      try { await navigator.share({ files: [file], text: texto, title: 'Mi recetario · NikaMed' }); toast('📤 Elegí WhatsApp en la lista'); return; }
       catch (e) { if (e && e.name === 'AbortError') return; }
     }
-    // Computadora: el enlace de WhatsApp lleva solo el texto; la imagen se copia al portapapeles y se descarga
+    // Resto de las computadoras: imagen al portapapeles (o descarga) + WhatsApp con el mensaje corto
     const copiada = await copiarImagen(false);
     if (!copiada) descargar();
     window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
-    if (nota) nota.innerHTML = copiada ? '✅ Se abrió WhatsApp con tu mensaje. <b>La imagen está copiada: pegala en el chat (Ctrl + V).</b>' : '✅ Se abrió WhatsApp con tu mensaje. <b>La imagen se descargó: adjuntala en el chat.</b>';
+    guiaPegar(nota, copiada);
+    toast(copiada ? '📋 Imagen copiada: pegala con Ctrl + V en el chat' : '⬇️ Imagen descargada: adjuntala en el chat');
   }
   async function copiarLink(btn) {
     const l = linkCaso();

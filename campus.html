@@ -132,7 +132,7 @@
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/avisoVencimiento.js"></script>
-    <link rel="stylesheet" href="css/nika-unificado.css?v=5">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=6">
 </head>
 <body>
 
@@ -172,7 +172,7 @@
             <li><button onclick="openNewsModal()" class="sidebar-link">📢 Novedades</button></li>
             <li><button onclick="openFriendsModal()" class="sidebar-link">🤝 Comunidad & Amigos</button></li>
             <li><button onclick="openDmInboxModal()" class="sidebar-link" style="position:relative;">🗨️ Mensajes Privados<span id="dm-unread-badge" style="display:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--danger,#ef4444); color:#fff; font-size:0.65rem; font-weight:800; border-radius:20px; padding:2px 7px; line-height:1;"></span></button></li>
-            <li><button onclick="openChatModal()" class="sidebar-link">🗨️ Chat Global</button></li>
+            <li><button onclick="openChatModal()" class="sidebar-link" style="position:relative;">🗨️ Chat Global<span id="chat-online-badge" class="sidebar-live" style="display:none;" title="Usuarios conectados ahora"></span></button></li>
             <li><button onclick="window.location.href='foro.html'" class="sidebar-link" id="sidebar-foro-btn">💬 Foro Académico</button></li>
             <li><button onclick="openVersusModal()" class="sidebar-link">⚔️ Modo Versus 1vs1</button></li>
             <li><button onclick="openLeaderboardModal()" class="sidebar-link">🏆 Ranking Global</button></li>
@@ -981,7 +981,8 @@
     <div class="modal-overlay" id="chat-modal">
         <div class="modal-content" style="max-width: 480px; display:flex; flex-direction:column; height: min(560px, 80vh); padding: 20px 20px 16px 20px;">
             <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--nika-dark); margin-bottom: 4px;">🗨️ Chat Global</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Conversá en vivo con toda la comunidad de Campus Nika.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Conversá en vivo con toda la comunidad de Campus Nika.</p>
+            <div id="chat-conectados" class="chat-conectados" aria-live="polite"><span class="cc-tit"><i></i><b id="cc-num">0</b> conectados</span><div class="cc-lista" id="cc-lista"></div></div>
 
             <div id="chat-messages-list" style="flex:1; overflow-y:auto; border:1px solid var(--border); border-radius: 10px; padding: 12px; display:flex; flex-direction:column; gap:8px; background: var(--bg-body);">
                 <div class="skeleton-row"><div class="skeleton-block skeleton-avatar"></div><div class="skeleton-lines"><div class="skeleton-block skeleton-line short"></div><div class="skeleton-block skeleton-line long"></div></div></div>
@@ -1298,7 +1299,7 @@
     <script src="js/guardiaModal.js"></script>
     <script src="js/rendimiento.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="js/chatManager.js"></script>
+    <script src="js/chatManager.js?v=2"></script>
     <script src="js/pomodoroSyncManager.js"></script>
     <script src="js/onboardingTour.js"></script>
     <script src="js/pomodoroBar.js"></script>
@@ -2439,7 +2440,8 @@
 
                 initCommunityPresence();
                 // Presencia global del chat: sin esto los amigos figuran "Desconectado" salvo que tengan abierto ESE mismo chat
-                if (window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().catch(console.error);
+                if (window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().then(() => pintarPresenciaGlobal()).catch(console.error);
+                iniciarAvisosChat();
             } else {
                 if (headerBtn) headerBtn.innerHTML = `👤 Iniciar sesión / Registrarse`;
                 if (sidebarName) sidebarName.innerText = "Invitado";
@@ -3973,6 +3975,7 @@ async function handleLogout() {
         function openChatModal() {
             const rawUser = localStorage.getItem('nika_currentUser');
             if (!rawUser) { showToast("Iniciá sesión para usar el Chat Global."); return; }
+            pintarPresenciaGlobal();
 
             const modal = document.getElementById('chat-modal');
             if (modal) modal.style.display = 'flex';
@@ -4811,6 +4814,8 @@ async function handleLogout() {
         actualizarBadgeMensajes(noLeidos);
 
         const esc = NikaFriends.esc;
+        const enLinea = (f) => (window.ChatManager && ChatManager.estaEnLinea ? ChatManager.estaEnLinea(f.username) : false);
+        myFriends = myFriends.slice().sort((a, b) => ((noLeidos[b.username] || 0) - (noLeidos[a.username] || 0)) || (enLinea(b) - enLinea(a)) || String(a.fullname).localeCompare(String(b.fullname), 'es'));
         listBox.innerHTML = myFriends.map(f => {
             const displayName = esc(f.fullname);
             const avatar = esc(f.avatar || DEFAULT_AVATAR);
@@ -4824,24 +4829,100 @@ async function handleLogout() {
                     </div>
                     <div class="dm-inbox-body">
                         <div class="dm-inbox-name">${displayName}</div>
-                        <div class="dm-inbox-meta">@${u}</div>
+                        <div class="dm-inbox-meta">@${u}<span class="dm-inbox-live" data-presence-text-for="${u}"></span></div>
                     </div>
                     ${pendientes > 0 ? `<span class="dm-inbox-badge">${pendientes}</span>` : ''}
                 </div>`;
         }).join('');
+        pintarPresenciaGlobal();
     }
 
+    // Mensajes sin leer: se muestran SIEMPRE (menú lateral + botón flotante del chat), sin abrir el chat.
+    let _noLeidosTotal = 0, _noLeidosPrevio = 0;
+    function pintarFabNoLeidos() {
+        const fab = document.getElementById('chat-fab-btn'), badge = document.getElementById('chat-fab-badge');
+        if (!fab || !badge) return;
+        const n = _noLeidosTotal;
+        fab.classList.toggle('has-unread', n > 0);
+        badge.textContent = n > 99 ? '99+' : (n > 0 ? String(n) : '');
+        fab.setAttribute('aria-label', n > 0 ? `Abrir chat: ${n} mensaje${n === 1 ? '' : 's'} sin leer` : 'Abrir chat');
+        if (n > _noLeidosPrevio) { fab.classList.remove('rebota'); void fab.offsetWidth; fab.classList.add('rebota'); }   // llegó uno nuevo
+        _noLeidosPrevio = n;
+    }
     function actualizarBadgeMensajes(noLeidosPrecargados) {
-        const badge = document.getElementById('dm-unread-badge');
-        if (!badge) return;
+        const badge = document.getElementById('dm-unread-badge') || document.createElement('span');
         const usarValores = (valores) => {
             const total = Object.values(valores).reduce((a, b) => a + b, 0);
             if (total > 0) { badge.style.display = 'inline-block'; badge.innerText = total; }
             else { badge.style.display = 'none'; }
+            _noLeidosTotal = total; pintarFabNoLeidos();
         };
         if (noLeidosPrecargados) { usarValores(noLeidosPrecargados); return; }
         if (!window.ChatManager || !window.NikaSupabase || !window.NikaSupabase.getNikaCurrentUsername()) return;
         window.ChatManager.contarNoLeidos().then(usarValores).catch(err => console.error('[actualizarBadgeMensajes]', err));
+    }
+
+    // ================= AVISOS DEL CHAT EN VIVO (sin abrir el chat) =================
+    // Presencia global (quién está conectado) y mensajes sin leer: se mantienen vivos desde que se inicia
+    // sesión, con tres capas para que nunca dependan de abrir el chat: el aviso en tiempo real del remitente,
+    // el respaldo Realtime de la base (ChatManager) y un sondeo cada 40 s / al volver a la pestaña.
+    const _perfilesConectados = new Map();   // username(lower) -> { id, username, fullname, avatar }
+
+    async function _cargarPerfilesConectados(nombres) {
+        const faltan = nombres.filter(n => !_perfilesConectados.has(String(n).toLowerCase()));
+        if (!faltan.length || !window.NikaSupabase || !window.NikaSupabase.client) return;
+        try {
+            const { data } = await window.NikaSupabase.client.from('profiles_public').select('id, username, fullname, avatar').in('username', faltan);
+            (data || []).forEach(p => _perfilesConectados.set(String(p.username).toLowerCase(), p));
+        } catch (_) { /* sin conexión: se muestra con el username */ }
+    }
+
+    async function renderConectadosChatGlobal() {
+        const lista = document.getElementById('cc-lista'), num = document.getElementById('cc-num');
+        if (!lista || !num || !window.ChatManager) return;
+        const yo = String(window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername ? window.NikaSupabase.getNikaCurrentUsername() : '').toLowerCase();
+        const nombres = ChatManager.usuariosEnLinea();
+        num.textContent = nombres.length;
+        await _cargarPerfilesConectados(nombres);
+        const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const ordenados = nombres.slice().sort((a, b) => (String(a).toLowerCase() === yo ? -1 : 0) - (String(b).toLowerCase() === yo ? -1 : 0) || String(a).localeCompare(String(b), 'es'));
+        const MAX = 14;
+        lista.innerHTML = ordenados.slice(0, MAX).map(u => {
+            const p = _perfilesConectados.get(String(u).toLowerCase());
+            const nombre = esc((p && (p.fullname || p.username)) || u);
+            const av = esc((p && p.avatar) || DEFAULT_AVATAR);
+            const click = p && p.id ? ` onclick="abrirPerfilPublico('${esc(p.id)}')" style="cursor:pointer;"` : '';
+            return `<span class="cc-chip"${click} title="${nombre}${String(u).toLowerCase() === yo ? ' (vos)' : ''}"><img src="${av}" alt=""><i></i><em>${nombre.split(' ')[0]}${String(u).toLowerCase() === yo ? ' (vos)' : ''}</em></span>`;
+        }).join('') + (ordenados.length > MAX ? `<span class="cc-mas">+${ordenados.length - MAX}</span>` : '');
+        if (!nombres.length) lista.innerHTML = '<span class="cc-vacio">Nadie conectado en este momento.</span>';
+    }
+
+    // Pinta los puntos verdes de las listas, el contador del menú y la franja del chat global
+    function pintarPresenciaGlobal() {
+        const CM = window.ChatManager; if (!CM || !CM.estaEnLinea) return;
+        document.querySelectorAll('[data-presence-dot-for]').forEach(d => d.classList.toggle('is-online', CM.estaEnLinea(d.dataset.presenceDotFor)));
+        document.querySelectorAll('[data-presence-text-for]').forEach(t => { const on = CM.estaEnLinea(t.dataset.presenceTextFor); t.textContent = on ? ' · en línea' : ''; t.classList.toggle('on', on); });
+        const n = (CM.usuariosEnLinea ? CM.usuariosEnLinea() : []).length;
+        const b = document.getElementById('chat-online-badge');
+        if (b) { b.textContent = n; b.style.display = n > 0 ? 'inline-flex' : 'none'; }
+        renderConectadosChatGlobal();
+    }
+
+    let _avisosChatOn = false;
+    function iniciarAvisosChat() {
+        if (_avisosChatOn || !window.ChatManager) return;
+        _avisosChatOn = true;
+        const refrescarBandeja = () => {
+            actualizarBadgeMensajes();
+            const modal = document.getElementById('dm-inbox-modal');
+            if (modal && getComputedStyle(modal).display !== 'none') renderDmInboxList();   // bandeja abierta: se actualiza sola
+        };
+        ChatManager.alCambiarLista(refrescarBandeja);
+        ChatManager.alCambiarPresencia(() => pintarPresenciaGlobal());
+        refrescarBandeja();
+        setInterval(() => { if (!document.hidden && localStorage.getItem('nika_currentUser')) actualizarBadgeMensajes(); }, 40000);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) { actualizarBadgeMensajes(); pintarPresenciaGlobal(); } });
+        window.addEventListener('online', () => { actualizarBadgeMensajes(); });
     }
 
     // ================= CHAT PRIVADO (ChatManager) =================
@@ -5027,8 +5108,7 @@ async function handleLogout() {
         }
 
         fab.classList.toggle('has-minimized', _pcMinimized && !!_pcAmigoActual);
-        const badge = document.getElementById('chat-fab-badge');
-        if (badge) badge.textContent = '';
+        pintarFabNoLeidos();
     }
 
     // Etiqueta de separador de día ("Hoy", "Ayer" o fecha corta en español)
