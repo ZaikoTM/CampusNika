@@ -128,7 +128,7 @@
     </script>
 
     <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
-    <script src="js/pomodoroEngine.js?v=3"></script>
+    <script src="js/pomodoroEngine.js?v=4"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/avisoVencimiento.js"></script>
@@ -1319,7 +1319,7 @@
     <script src="js/rendimiento.js?v=2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="js/chatManager.js?v=3"></script>
-    <script src="js/pomodoroSyncManager.js?v=2"></script>
+    <script src="js/pomodoroSyncManager.js?v=3"></script>
     <script src="js/onboardingTour.js"></script>
     <script src="js/pomodoroBar.js?v=3"></script>
     <script src="js/liga.js"></script>
@@ -5522,6 +5522,7 @@ async function handleLogout() {
                     case 'host_ended': showToast(`${u} terminó la sesión compartida. Tu tiempo quedó guardado.`); break;
                     case 'host_offline': showToast(`Se perdió la conexión con ${u}. Tu tiempo quedó guardado.`); break;
                     case 'sala_llena': showToast(`La sala de ${u} está completa (máximo 4 invitados).`); break;
+                    case 'invitacion_rechazada': showToast(e.motivo === 'sin_respuesta' ? `${u} no respondió tu invitación.` : `${u} no quiso unirse a tu sesión.`); break;
                     case 'no_invitado': showToast(`${u} no te invitó a esa sesión.`); break;
                     case 'rechazada': {
                         const motivos = {
@@ -5722,14 +5723,15 @@ async function handleLogout() {
             </div>
         `;
         document.body.appendChild(card);
-        card.querySelector('.nika-pomo-invite-reject').addEventListener('click', () => card.remove());
+        const avisarAlHost = (motivo) => { try { window.PomodoroSyncManager.rechazarInvitacion(payload.fromUsername, payload.sessionId, motivo); } catch (_) {} };
+        card.querySelector('.nika-pomo-invite-reject').addEventListener('click', () => { card.remove(); avisarAlHost('rechazada'); });
         card.querySelector('.nika-pomo-invite-accept').addEventListener('click', () => {
             card.remove();
             _unirseComoInvitado(payload);
         });
 
         // No se queda para siempre en pantalla si el invitado no reacciona.
-        setTimeout(() => { if (document.getElementById('nika-pomo-invite') === card) card.remove(); }, 45000);
+        setTimeout(() => { if (document.getElementById('nika-pomo-invite') === card) { card.remove(); avisarAlHost('sin_respuesta'); } }, 45000);
     }
 
     async function _unirseComoInvitado(payload) {

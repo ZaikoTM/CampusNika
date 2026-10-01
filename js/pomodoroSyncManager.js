@@ -81,6 +81,14 @@ const PomodoroSyncManager = (function () {
         canal.on("broadcast", { event: "solicitud_union" }, ({ payload }) => {
             if (payload && payload.toUsername === username && onJoinRequest) onJoinRequest(payload);
         });
+        // Una persona que invité dijo "ahora no" (o no respondió): libero su lugar y aviso.
+        canal.on("broadcast", { event: "invitacion_rechazada" }, ({ payload }) => {
+            if (!payload || payload.toUsername !== username) return;
+            const eng = window.PomodoroEngine;
+            const info = eng && eng.getSharedInfo && eng.getSharedInfo();
+            if (!info || info.role !== "host" || (payload.sessionId && payload.sessionId !== info.sessionId)) return;
+            if (eng.releaseInvite(payload.fromUsername)) _notificar({ tipo: "invitacion_rechazada", username: payload.fromUsername, motivo: payload.motivo });
+        });
         canal.on("broadcast", { event: "union_rechazada" }, ({ payload }) => {
             if (!payload || payload.toUsername !== username) return;
             solicitudPendiente = null;
@@ -237,6 +245,19 @@ const PomodoroSyncManager = (function () {
         if (!r.ok) { await rechazarSolicitud(toUsername, r.reason); return r; }
         await invitarASincronizar(toUsername, { sessionId: r.sessionId, tema: r.tema });
         return r;
+    }
+
+    // El invitado le responde al Host que no se une ("rechazada") o que no contestó ("sin_respuesta").
+    async function rechazarInvitacion(hostUsername, sessionId, motivo) {
+        const username = window.NikaSupabase.getNikaCurrentUsername();
+        if (!username || !canal || !hostUsername) return;
+        try {
+            await canal.send({
+                type: "broadcast",
+                event: "invitacion_rechazada",
+                payload: { fromUsername: username, toUsername: hostUsername, sessionId: sessionId || null, motivo: motivo || "rechazada" },
+            });
+        } catch (_) {}
     }
 
     async function rechazarSolicitud(toUsername, motivo) {
@@ -471,6 +492,7 @@ const PomodoroSyncManager = (function () {
         solicitarUnirse,
         aceptarSolicitud,
         rechazarSolicitud,
+        rechazarInvitacion,
         confirmarUnion,
         abrirSala,
         salirDeSala,

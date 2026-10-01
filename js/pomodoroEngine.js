@@ -873,6 +873,19 @@ const PomodoroEngine = (() => {
     saveState();
   }
 
+  // Host: la persona invitada dijo que no (o no respondió): se libera su lugar sin tratarla como "salió de la sesión".
+  function releaseInvite(username) {
+    const sh = state.shared;
+    if (!sh || sh.role !== 'host') return false;
+    normalizarShared(sh);
+    const antes = sh.guests.length;
+    sh.guests = sh.guests.filter((g) => !(g.username === username && !g.joined));
+    if (sh.guests.length === antes) return false;
+    sincronizarPartner(sh);
+    saveState();
+    return true;
+  }
+
   // Un invitado avisó que se fue (bye): se libera su lugar (el Host puede invitar a otra persona).
   function partnerLeft(username) {
     const sh = state.shared;
@@ -1023,7 +1036,7 @@ const PomodoroEngine = (() => {
     start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
-    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, partnerLeft, notifyShared, MAX_GUESTS,
+    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, partnerLeft, notifyShared, MAX_GUESTS,
     // Solo para pruebas (tests/)
     _test: { registerStudySession, flushPending, readPending },
   };
