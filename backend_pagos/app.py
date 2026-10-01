@@ -16,6 +16,7 @@ from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 
 from db import get_db
+from avisos_admin import avisar_nueva_suscripcion
 from security import requiere_login, requiere_premium, validar_firma_webhook_mp
 from mercadopago_service import crear_preferencia_pago, obtener_pago, PlanInvalidoError
 from subscription_manager import (
@@ -174,6 +175,15 @@ def webhook_mercadopago():
             "meses_otorgados": resultado["meses_otorgados"],
             "procesado_en": "now()",
         }).eq("mp_payment_id", payment_id).execute()
+
+        # Aviso al admin (campanita + email). Nunca debe romper la acreditación.
+        avisar_nueva_suscripcion(
+            user_id=user_id,
+            plan_key=plan_key,
+            monto=pago.get("transaction_amount"),
+            fecha_fin=resultado["fecha_fin_suscripcion"],
+            mp_payment_id=payment_id,
+        )
 
     return jsonify({"status": "ok"}), 200
 

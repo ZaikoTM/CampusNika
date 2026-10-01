@@ -2430,8 +2430,34 @@
         // Puente entre obtenerRangoUsuario() (ya existente, usada en el sidebar) y las
         // clases visuales .rank-admin/.rank-premium/.rank-free que usan las tarjetas
         // de "Comunidad & Amigos" y el modal de perfil público.
-        function _rangoTarjetaAmigo(role, esPlusAjeno) {
-            const r = obtenerRangoUsuario(role, !!esPlusAjeno);
+        // Caché de ids con NikaMed+ vigente (profiles_public.es_nikamed_plus). Sirve para
+        // las pantallas que solo conocen el user_id del autor (foro, chat, ranking, perfil).
+        let _plusIds = new Set();
+        let _plusCargadoEn = 0;
+        let _plusPromesa = null;
+        function cargarPlusIds(forzar) {
+            const c = window.NikaSupabase && window.NikaSupabase.client;
+            if (!c) return Promise.resolve();
+            if (_plusPromesa) return _plusPromesa;
+            if (!forzar && Date.now() - _plusCargadoEn < 5 * 60 * 1000) return Promise.resolve();
+            _plusPromesa = c.from('profiles_public').select('id').eq('es_nikamed_plus', true).limit(2000)
+                .then(({ data, error }) => {
+                    if (!error && data) { _plusIds = new Set(data.map(r => r.id)); _plusCargadoEn = Date.now(); }
+                })
+                .catch(() => {})
+                .finally(() => { _plusPromesa = null; });
+            return _plusPromesa;
+        }
+
+        window.addEventListener('load', () => setTimeout(() => cargarPlusIds(true), 1200));
+
+        // userId: si no se conoce es_nikamed_plus del usuario, se consulta la caché por su id.
+        function _rangoTarjetaAmigo(role, esPlusAjeno, userId) {
+            if (typeof esPlusAjeno !== 'boolean') {
+                if (Date.now() - _plusCargadoEn >= 5 * 60 * 1000) cargarPlusIds();
+                esPlusAjeno = !!userId && _plusIds.has(userId);
+            }
+            const r = obtenerRangoUsuario(role, esPlusAjeno);
             const mapa = { 'profile-admin': 'rank-admin', 'profile-premium': 'rank-premium', 'profile-free': 'rank-free' };
             return { label: r.label, clase: mapa[r.clase] || 'rank-free' };
         }
@@ -4077,7 +4103,7 @@ async function handleLogout() {
             const nombre = row.profiles?.fullname || 'Estudiante Nika';
             const avatar = row.profiles?.avatar || (typeof NikaSocial !== 'undefined' ? NikaSocial.DEFAULT_AVATAR : '');
             const hora = row.created_at ? new Date(row.created_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) : '';
-            const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(row.profiles?.role) : { label: '', clase: 'rank-free' };
+            const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(row.profiles?.role, undefined, row.user_id) : { label: '', clase: 'rank-free' };
 
             const msgEl = document.createElement('div');
             msgEl.style.cssText = 'display:flex; gap:8px; align-items:flex-start;';
@@ -4162,7 +4188,7 @@ async function handleLogout() {
 
             list.innerHTML = res.data.filter(t => !(window.NikaModeracion && NikaModeracion.estaBloqueado(t.user_id))).map(t => {
                 const autor = t.profiles?.fullname || 'Estudiante Nika';
-                const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(t.profiles?.role) : { label: '', clase: 'rank-free' };
+                const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(t.profiles?.role, undefined, t.user_id) : { label: '', clase: 'rank-free' };
                 const fecha = t.created_at ? new Date(t.created_at).toLocaleDateString('es-AR') : '';
                 const cantRespuestas = Array.isArray(t.forum_replies) && t.forum_replies[0] ? t.forum_replies[0].count : 0;
                 return `
@@ -4190,7 +4216,7 @@ async function handleLogout() {
             const repliesHtml = res.ok && res.data.length
                 ? res.data.filter(r => !(window.NikaModeracion && NikaModeracion.estaBloqueado(r.user_id))).map(r => {
                     const autor = r.profiles?.fullname || 'Estudiante Nika';
-                    const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(r.profiles?.role) : { label: '', clase: 'rank-free' };
+                    const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(r.profiles?.role, undefined, r.user_id) : { label: '', clase: 'rank-free' };
                     const fecha = r.created_at ? new Date(r.created_at).toLocaleDateString('es-AR') : '';
                     return `<div data-nika-item="1" style="font-size:0.82rem; padding:6px 0; border-bottom:1px solid var(--border);"><span class="social-name ${rango.clase}">${nikaEsc(autor)}</span><span class="social-rank-badge ${rango.clase}">${rango.label}</span> <span style="color:var(--text-muted); font-size:0.72rem;">${fecha}</span> ${window.NikaModeracion ? NikaModeracion.botonReporte('forum_reply', r.id, r.user_id, autor, r.content) : ''}<div>${nikaEsc(r.content)}</div></div>`;
                 }).join('')
@@ -4259,7 +4285,7 @@ async function handleLogout() {
                 const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : '🏅'));
                 const nombre = u.profiles?.fullname || 'Estudiante Nika';
                 const avatar = u.profiles?.avatar || NikaSocial.DEFAULT_AVATAR;
-                const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(u.profiles?.role) : { label: '', clase: 'rank-free' };
+                const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(u.profiles?.role, undefined, u.user_id) : { label: '', clase: 'rank-free' };
                 list.innerHTML += `<div class="user-list-item" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); cursor:pointer;" onclick="closeLeaderboardAndOpenProfile('${u.user_id}')"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.2rem; margin-right:5px;">${medal}</span><img src="${nikaEsc(avatar)}" alt="img" class="social-avatar-sm ${rango.clase}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;"><div><strong class="social-name ${rango.clase}" style="font-size:0.85rem; display:block;">${nikaEsc(nombre)}<span class="social-rank-badge ${rango.clase}">${rango.label}</span></strong><span style="font-size:0.75rem; color:var(--text-muted);">${u.wins || 0}V - ${u.losses || 0}D</span></div></div><span style="font-size:0.9rem; font-weight:800; color:var(--nika-primary);">${u.elo_score ?? 1000} ELO</span></div>`;
             });
         }
@@ -4544,7 +4570,8 @@ async function handleLogout() {
         window._ppCurrentUsername = user.username || null;
 
         // Rango visual: mismo mapeo que usan las tarjetas de "Comunidad & Amigos".
-        const rango = _rangoTarjetaAmigo(user.role);
+        await cargarPlusIds(true);
+        const rango = _rangoTarjetaAmigo(user.role, undefined, userId);
         document.getElementById('pp-avatar').src = user.avatar || user.avatar_url || 'assets/N%20NIKA.png';
         document.getElementById('pp-avatar').className = `pp-avatar ${rango.clase}`;
         document.getElementById('pp-header').className = `pp-header ${rango.clase}`;
