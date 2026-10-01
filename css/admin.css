@@ -38,8 +38,8 @@ body.as-body.as-verificando .as-main, body.as-body.as-verificando .as-top { visi
 .as-top {
   position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 12px clamp(14px, 4vw, 40px); color: #fff;
-  background: linear-gradient(115deg, #4c1d95 0%, #6d28d9 45%, #a855f7 100%); background-size: 160% 100%;
-  box-shadow: 0 6px 24px -10px rgba(76, 29, 149, .65); animation: as-fluye 14s ease-in-out infinite alternate;
+  background: linear-gradient(115deg, #7c3aed 0%, #8b5cf6 40%, #a78bfa 75%, #b79cf9 100%); background-size: 200% 100%;
+  box-shadow: 0 8px 26px -12px rgba(124, 58, 237, .55); animation: as-fluye 12s ease-in-out infinite alternate;
 }
 @keyframes as-fluye { to { background-position: 100% 0; } }
 .as-brand { display: inline-flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: .5px; }
