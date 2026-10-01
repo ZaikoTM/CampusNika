@@ -48,6 +48,16 @@ const NikaPomoBar = (() => {
             .nika-pomo-bar-btn:disabled { opacity: 0.45; cursor: not-allowed; }
             .nika-pomo-bar-btn { background: rgba(255,255,255,0.22); border: none; color: #fff; width: 26px; height: 26px; border-radius: 7px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
             .nika-pomo-bar-btn:hover { background: rgba(255,255,255,0.35); }
+            .nika-pomo-cfg { display: none; position: absolute; top: calc(100% + 8px); right: 12px; width: min(300px, calc(100vw - 24px)); background: var(--card-bg, #fff); color: var(--text-main, #0f172a); border: 1px solid var(--border, #e2e8f0); border-radius: 14px; box-shadow: 0 20px 44px -12px rgba(0,0,0,.45); padding: 14px; font-weight: 700; z-index: 2600; }
+            .nika-pomo-cfg.is-open { display: block; animation: nikaCfgIn .18s ease; }
+            @keyframes nikaCfgIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+            .nika-pomo-cfg h4 { font-size: .86rem; font-weight: 800; margin: 0 0 10px; }
+            .nika-pomo-cfg label { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: .8rem; margin-bottom: 8px; }
+            .nika-pomo-cfg input, .nika-pomo-cfg select { background: var(--bg-body, #f1f5f9); color: inherit; border: 1px solid var(--border, #cbd5e1); border-radius: 8px; padding: 6px 8px; font: inherit; font-size: .8rem; }
+            .nika-pomo-cfg input[type=number] { width: 70px; text-align: center; }
+            .nika-pomo-cfg select { max-width: 170px; }
+            .nika-pomo-cfg-ok { width: 100%; margin-top: 4px; background: linear-gradient(90deg, #e11d48, #fb7185); color: #fff; border: 0; border-radius: 10px; padding: 9px; font: inherit; font-size: .8rem; font-weight: 800; cursor: pointer; }
+            .nika-pomo-cfg-nota { font-size: .68rem; font-weight: 600; color: var(--text-muted, #64748b); margin: 8px 0 0; }
             @media (max-width: 640px) { .nika-pomo-bar-inner { font-size: 0.74rem; padding: 6px 10px; gap: 7px; } }
 
             /* ---- Modo minimizado: píldora fina centrada en el borde superior ----
@@ -113,7 +123,16 @@ const NikaPomoBar = (() => {
                 </div>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-toggle" title="Pausar / reanudar">⏸️</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-leave" title="Salir de la sesión compartida" style="display:none;">🚪</button>
+                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-cfg" title="Configurar tiempos">⚙️</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-min" title="Minimizar">—</button>
+            </div>
+            <div class="nika-pomo-cfg" id="nika-pomo-cfg" role="dialog" aria-label="Configurar Pomodoro">
+                <h4>⚙️ Configurar Pomodoro</h4>
+                <label>Estudio (min) <input type="number" id="nika-cfg-work" min="1" max="120"></label>
+                <label>Descanso (min) <input type="number" id="nika-cfg-break" min="1" max="60"></label>
+                <label id="nika-cfg-up-row">Unidad <select id="nika-cfg-up"></select></label>
+                <button type="button" class="nika-pomo-cfg-ok" id="nika-cfg-save">Guardar y reiniciar</button>
+                <p class="nika-pomo-cfg-nota">Al guardar, el reloj se reinicia con los nuevos tiempos.</p>
             </div>
             <button type="button" class="nika-pomo-bar-pill" id="nika-pomo-bar-pill" title="Click para volver a mostrar la barra completa">
                 <span id="nika-pomo-bar-pill-icon">⏱️</span>
@@ -122,6 +141,9 @@ const NikaPomoBar = (() => {
             </button>
         `;
         document.body.prepend(bar);
+
+        document.getElementById('nika-pomo-bar-cfg').addEventListener('click', _toggleCfg);
+        document.getElementById('nika-cfg-save').addEventListener('click', _guardarCfg);
 
         document.getElementById('nika-pomo-bar-leave').addEventListener('click', () => {
             if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: 'manual' });
@@ -149,6 +171,51 @@ const NikaPomoBar = (() => {
         // Pomodoro nuevo después de que el anterior terminó), respeta el
         // último estado elegido en vez de volver a abrirse sola.
         bar.classList.toggle('is-collapsed', collapsed);
+    }
+
+    // ---- Configuración rápida (⚙️): duración, descanso y unidad, sin volver a la Sala de Estudio ----
+    const DATA_FILES = { cirugia: 'data/cirugia.json', ginecologia: 'data/gineco_data.json' };
+    const _unidadesCache = {};
+    async function _cargarUnidades(moduloId) {
+        if (!moduloId) return [];
+        if (window.EstudioState && EstudioState.data && EstudioState.data.units && EstudioState.modulo === moduloId) return EstudioState.data.units;
+        if (_unidadesCache[moduloId]) return _unidadesCache[moduloId];
+        try {
+            const r = await fetch(DATA_FILES[moduloId] || `data/${moduloId}.json`);
+            if (!r.ok) return [];
+            const d = await r.json();
+            return (_unidadesCache[moduloId] = d.units || []);
+        } catch (_) { return []; }
+    }
+
+    async function _toggleCfg() {
+        const panel = document.getElementById('nika-pomo-cfg'); if (!panel) return;
+        if (panel.classList.contains('is-open')) { panel.classList.remove('is-open'); return; }
+        const E = window.PomodoroEngine; if (!E) return;
+        const st = E.getState();
+        document.getElementById('nika-cfg-work').value = E.getMinutes('work');
+        document.getElementById('nika-cfg-break').value = E.getMinutes('break');
+        const sel = document.getElementById('nika-cfg-up'), fila = document.getElementById('nika-cfg-up-row');
+        const units = await _cargarUnidades(st.moduleId);
+        fila.style.display = units.length ? '' : 'none';
+        sel.innerHTML = units.map(u => `<option value="${u.id}" ${u.id === st.upId ? 'selected' : ''}>UP${u.number} · ${String(u.title || '').trim()}</option>`).join('');
+        panel.classList.add('is-open');
+    }
+
+    function _guardarCfg() {
+        const E = window.PomodoroEngine; if (!E) return;
+        const w = parseInt(document.getElementById('nika-cfg-work').value, 10);
+        const b = parseInt(document.getElementById('nika-cfg-break').value, 10);
+        if (!(w >= 1 && w <= 120) || !(b >= 1 && b <= 60)) { alert('Estudio: 1 a 120 min · Descanso: 1 a 60 min.'); return; }
+        try { localStorage.setItem('nika_pomo_w_mins', String(w)); localStorage.setItem('nika_pomo_b_mins', String(b)); } catch (_) {}
+        const st = E.getState();
+        const sel = document.getElementById('nika-cfg-up');
+        const upId = sel && sel.value ? sel.value : st.upId;
+        const unit = upId && window.EstudioState && EstudioState.unitsById ? EstudioState.unitsById[upId] : null;
+        const opt = sel && sel.selectedOptions[0];
+        const upLabel = upId === st.upId ? st.upLabel : (unit ? unit.title : (opt ? opt.textContent.replace(/^UP\d+\s·\s/, '') : upId));
+        E.reset(undefined, { moduleId: st.moduleId, upId, upLabel });
+        document.getElementById('nika-pomo-cfg').classList.remove('is-open');
     }
 
     function _setCollapsed(valor) {
@@ -216,6 +283,8 @@ const NikaPomoBar = (() => {
         toggle.style.display = (esInvitado && enEspera) ? 'none' : '';
         toggle.title = esInvitado ? `Controlado por @${sh.partner || 'el Host'}` : 'Pausar / reanudar';
         document.getElementById('nika-pomo-bar-leave').style.display = sh ? '' : 'none';
+        document.getElementById('nika-pomo-bar-cfg').style.display = esInvitado ? 'none' : '';   // el Invitado no toca el reloj del Host
+        if (esInvitado) { const pc = document.getElementById('nika-pomo-cfg'); if (pc) pc.classList.remove('is-open'); }
         bar.classList.toggle('nika-pomo-bar--paused', st.status !== 'running');
         document.body.classList.add('nika-has-pomo-bar');
 
