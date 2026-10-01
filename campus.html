@@ -132,7 +132,7 @@
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/avisoVencimiento.js"></script>
-    <link rel="stylesheet" href="css/nika-unificado.css?v=7">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=8">
 </head>
 <body>
 
@@ -169,7 +169,7 @@
             <li><button onclick="showOnlyModules()" class="sidebar-link">📚 Módulos Clínicos</button></li>
 
             <div class="sidebar-category">Competitivo & Social</div>
-            <li><button onclick="openNewsModal()" class="sidebar-link">📢 Novedades</button></li>
+            <li><button onclick="openNewsModal()" class="sidebar-link" style="position:relative;">📢 Novedades<span id="news-unread-badge" class="sidebar-live" style="display:none;" title="Novedades sin leer">0</span></button></li>
             <li><button onclick="openFriendsModal()" class="sidebar-link">🤝 Comunidad & Amigos</button></li>
             <li><button onclick="openDmInboxModal()" class="sidebar-link" style="position:relative;">🗨️ Mensajes Privados<span id="dm-unread-badge" style="display:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--danger,#ef4444); color:#fff; font-size:0.65rem; font-weight:800; border-radius:20px; padding:2px 7px; line-height:1;"></span></button></li>
             <li><button onclick="openChatModal()" class="sidebar-link" style="position:relative;">🗨️ Chat Global<span id="chat-online-badge" class="sidebar-live" style="display:none;" title="Mensajes nuevos sin leer"></span></button></li>
@@ -625,6 +625,16 @@
         </button>
 
         <form id="form-profile" onsubmit="handleSaveProfile(event)">
+
+            <div class="form-group">
+                <label>Portada del perfil:</label>
+                <div id="prof-banner-preview" class="prof-banner-preview"></div>
+                <div style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+                    <input type="file" id="prof-banner-file" class="form-input" accept="image/jpeg, image/png, .jpg, .jpeg, .png" onchange="handleBannerPreview(event)" style="padding: 6px; font-size: 0.85rem; flex:1;">
+                    <button type="button" class="pc-icon-btn" onclick="quitarBannerPerfil()" title="Quitar portada" aria-label="Quitar portada">🗑️</button>
+                </div>
+                <span style="font-size: 0.75rem; color: var(--text-muted, #94a3b8); display: block; margin-top: 4px;">Se ve detrás de tu foto en tu perfil público. (JPG o PNG)</span>
+            </div>
             
             <div class="form-group" style="text-align: center; margin-bottom: 20px;">
                 <label style="text-align: left; margin-bottom: 8px; display: block;">Foto de Perfil:</label>
@@ -645,7 +655,8 @@
             </div>
             <div class="form-group">
                 <label>Nombre de Usuario:</label>
-                <input type="text" id="prof-username" class="form-input" required disabled style="opacity: 0.7; cursor: not-allowed;">
+                <input type="text" id="prof-username" class="form-input" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_.]{3,20}" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="tu_usuario">
+                <span style="font-size: 0.75rem; color: var(--text-muted, #94a3b8); display: block; margin-top: 4px;">Es tu @ público: 3 a 20 caracteres, solo letras, números, _ y .</span>
             </div>
             <div class="form-group">
                 <label>Correo Electrónico:</label>
@@ -874,8 +885,8 @@
                 <div class="pp-stat-card pp-stat-card--wide">
                     <span class="pp-stat-label">🌐 Redes Sociales</span>
                     <span class="pp-stat-value pp-social-row" id="pp-social-row">
-                        <a id="pp-instagram" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">📷 Instagram</a>
-                        <a id="pp-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;">💬 WhatsApp</a>
+                        <a id="pp-instagram" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;"><svg class="pp-soc-ico" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ppIgG" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".35" stop-color="#fa7e1e"/><stop offset=".6" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><path fill="url(#ppIgG)" d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.2-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg> Instagram</a>
+                        <a id="pp-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="pp-social-link" style="display:none;"><svg class="pp-soc-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.25-1.38A9.9 9.9 0 1 0 12.04 2zm0 1.8a8.1 8.1 0 1 1-4.2 15.04l-.3-.18-3.1.82.83-3.02-.2-.31A8.1 8.1 0 0 1 12.04 3.8zM8.6 7.4c-.2 0-.5.07-.75.35-.25.28-.97.95-.97 2.3s.99 2.67 1.13 2.85c.14.18 1.9 3.04 4.7 4.14 2.3.9 2.77.72 3.27.68.5-.05 1.62-.66 1.85-1.3.23-.64.23-1.19.16-1.3-.07-.12-.25-.18-.52-.32-.28-.14-1.62-.8-1.87-.89-.25-.09-.43-.14-.62.14-.18.27-.7.89-.86 1.07-.16.18-.32.2-.6.07-.27-.14-1.16-.43-2.2-1.36-.81-.72-1.36-1.62-1.52-1.89-.16-.27-.02-.42.12-.56.12-.12.27-.32.4-.48.14-.16.18-.27.27-.46.09-.18.05-.34-.02-.48-.07-.14-.6-1.5-.84-2.05-.22-.52-.45-.45-.62-.46h-.53z"/></svg> WhatsApp</a>
                         <span id="pp-redes-empty" style="display:none;">No especificadas</span>
                     </span>
                 </div>
@@ -1291,6 +1302,7 @@
     <script src="js/assistant.js"></script>
     <script src="js/social.js"></script>
     <script src="js/friendsManager.js"></script>
+    <script src="js/novedadesAviso.js"></script>
     <script src="js/presenciaCampus.js"></script>
     <script src="js/moderacion.js"></script>
     <!-- Modo Guardia Offline-First: IndexedDB + cola de sincronización + descarga por lotes -->
@@ -1517,12 +1529,14 @@
                 const cuando = dias === 1 ? 'Mañana' : `En ${dias} días`;
                 const icono = e.tipo === 'examen' ? '📝' : e.tipo === 'repaso' ? '📘' : e.tipo === 'bloque_estudio' ? '⏰' : '📌';
                 const ctx = _etiquetaEv(e);
+                const nombreEv = (e.titulo && String(e.titulo).trim()) || ctx || (e.tipo === 'examen' ? 'Examen' : 'Evento');
+                const fechaEv = new Date(e.fecha + 'T00:00:00').toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit' });
                 return `<div class="plan-item is-proximo" onclick="editarEvento('${e.id}')" title="Editar evento">
                     <div class="plan-item-main">
-                        <span class="plan-item-title">${icono} ${_esc(e.titulo)}</span>
+                        <span class="plan-item-title">${icono} ${_esc(nombreEv)}</span>
                         <span class="plan-item-ctx">
-                            <span class="plan-badge plan-badge--proximo">${cuando}</span>
-                            ${ctx ? `<span>${_esc(ctx)}</span>` : ''}
+                            <span class="plan-badge plan-badge--proximo">${cuando} · ${fechaEv}</span>
+                            ${ctx && ctx !== nombreEv ? `<span>${_esc(ctx)}</span>` : ''}
                         </span>
                     </div>
                     <span class="plan-item-acciones">
@@ -2442,6 +2456,7 @@
                 // Presencia global del chat: sin esto los amigos figuran "Desconectado" salvo que tengan abierto ESE mismo chat
                 if (window.ChatManager) window.ChatManager.iniciarPresenciaGlobal().then(() => pintarPresenciaGlobal()).catch(console.error);
                 iniciarAvisosChat();
+                if (window.NikaNovedades) NikaNovedades.iniciar();
             } else {
                 if (headerBtn) headerBtn.innerHTML = `👤 Iniciar sesión / Registrarse`;
                 if (sidebarName) sidebarName.innerText = "Invitado";
@@ -3001,6 +3016,8 @@ async function openProfileModal() {
     
     if (fn) fn.value = user.fullname || user.nombre || ''; 
     if (un) un.value = user.username || ''; 
+    _bannerBlob = null; _bannerQuitar = false; _pintarBannerPreview(user.banner_url || '');
+    const bf = document.getElementById('prof-banner-file'); if (bf) bf.value = '';
     if (em) em.value = user.email || ''; 
     if (pw) {
         pw.value = '';
@@ -3042,7 +3059,7 @@ async function openProfileModal() {
 
         const { data: dbProfile, error } = await client
             .from('profiles')
-            .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at') .eq('id', session.user.id)
+            .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, banner_url, created_at, last_login_at, updated_at') .eq('id', session.user.id)
             .maybeSingle();
 
         if (!error && dbProfile) {
@@ -3053,6 +3070,8 @@ async function openProfileModal() {
             if (ig) ig.value = dbProfile.instagram || '';
             if (wa) wa.value = dbProfile.whatsapp || '';
             if (previewEl && dbProfile.avatar) previewEl.src = dbProfile.avatar;
+            if (un && dbProfile.username) un.value = dbProfile.username;
+            if (!_bannerBlob && !_bannerQuitar) _pintarBannerPreview(dbProfile.banner_url || '');
 
             // Curar y reparar la memoria local para que otras funciones no fallen
             const updatedUser = { ...user, ...dbProfile };
@@ -3070,6 +3089,33 @@ function closeProfileModal() {
     if (modal) modal.style.display = 'none'; 
 }
 
+let _bannerBlob = null, _bannerQuitar = false;
+function _pintarBannerPreview(url) {
+    const el = document.getElementById('prof-banner-preview'); if (!el) return;
+    el.style.backgroundImage = url ? `url("${String(url).replace(/"/g, '%22')}")` : '';
+}
+function handleBannerPreview(event) {
+    const file = event.target.files[0]; if (!file) return;
+    if (!/^image\/(jpeg|png)$/.test(file.type)) { showToast('⚠️ Elegí una imagen JPG o PNG.'); event.target.value = ''; return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            const W = 1200, H = 400, c = document.createElement('canvas'); c.width = W; c.height = H;
+            const k = Math.max(W / img.width, H / img.height), w = img.width * k, h = img.height * k;
+            c.getContext('2d').drawImage(img, (W - w) / 2, (H - h) / 2, w, h);   // recorte tipo "cover"
+            c.toBlob((b) => { if (!b) return; _bannerBlob = b; _bannerQuitar = false; _pintarBannerPreview(URL.createObjectURL(b)); }, 'image/jpeg', 0.85);
+        };
+        img.onerror = () => showToast('⚠️ No se pudo leer esa imagen.');
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+function quitarBannerPerfil() {
+    _bannerBlob = null; _bannerQuitar = true; _pintarBannerPreview('');
+    const f = document.getElementById('prof-banner-file'); if (f) f.value = '';
+}
+
 async function handleSaveProfile(e) {
     e.preventDefault(); 
     const saveBtn = e.target.querySelector('button[type="submit"]');
@@ -3084,7 +3130,9 @@ async function handleSaveProfile(e) {
         const nuevaBio = document.getElementById('prof-bio').value.trim();
         const nuevoIg = document.getElementById('prof-instagram').value.trim();
         const nuevoWa = document.getElementById('prof-whatsapp').value.trim();
-        const newPass = document.getElementById('prof-password').value; 
+        const newPass = document.getElementById('prof-password').value;
+        const nuevoUsername = (document.getElementById('prof-username').value || '').trim();
+        if (!/^[A-Za-z0-9_.]{3,20}$/.test(nuevoUsername)) throw new Error('El usuario debe tener 3 a 20 caracteres: letras, números, _ o . (sin espacios).');
 
         const client = window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
         if (!client) throw new Error('No hay conexión con Supabase.');
@@ -3094,7 +3142,15 @@ async function handleSaveProfile(e) {
         if (sessionError || !session) {
             throw new Error('Tu sesión en la nube expiró. Por favor, volvé a iniciar sesión.');
         }
-        const realUserId = session.user.id; 
+        const realUserId = session.user.id;
+
+        // Unicidad del @usuario (sin distinguir mayúsculas); la base además tiene índice único
+        const cambioUsername = nuevoUsername.toLowerCase() !== String(user.username || '').toLowerCase();
+        if (cambioUsername) {
+            const patron = nuevoUsername.replace(/[\\%_]/g, (m) => '\\' + m);
+            const { data: ocupado } = await client.from('profiles').select('id').ilike('username', patron).neq('id', realUserId).limit(1);
+            if (ocupado && ocupado.length) throw new Error('Ese @usuario ya está en uso. Probá con otro.');
+        }
 
         // 2) Actualizar contraseña si se ingresó una nueva
         if (newPass.length >= 6) {
@@ -3103,6 +3159,16 @@ async function handleSaveProfile(e) {
         }
 
         let avatarFinal = user.avatar;
+        let bannerFinal = user.banner_url || null;
+        if (_bannerQuitar) bannerFinal = null;
+        if (_bannerBlob) {
+            if (saveBtn) saveBtn.textContent = 'Subiendo portada...';
+            const bPath = `${realUserId}/banner-${Date.now()}.jpg`;
+            const { error: bErr } = await client.storage.from('avatars').upload(bPath, _bannerBlob, { cacheControl: '3600', upsert: false, contentType: 'image/jpeg' });
+            if (bErr) { console.error('Error subiendo portada:', bErr); throw new Error('No se pudo subir la portada.'); }
+            const { data: bUrl } = client.storage.from('avatars').getPublicUrl(bPath);
+            if (bUrl && bUrl.publicUrl) bannerFinal = bUrl.publicUrl;
+        }
 
         // 3) CORRECCIÓN: Si hay una imagen nueva en memoria, subirla al Storage "avatars"
         if (tempAvatarBlob) {
@@ -3151,7 +3217,8 @@ async function handleSaveProfile(e) {
         // 4) Guardar en tabla 'profiles'
         const payload = {
             id: realUserId,
-            username: user.username || (user.email ? user.email.split('@')[0] : 'usuario'),
+            username: nuevoUsername,
+            banner_url: bannerFinal,
             nombre: nuevoNombre,
             fullname: nuevoNombre,
             email: user.email,
@@ -3168,7 +3235,11 @@ async function handleSaveProfile(e) {
             .from('profiles')
             .upsert(payload, { onConflict: 'id' });
 
-        if (dbError) throw dbError;
+        if (dbError) {
+            if (dbError.code === '23505' || /duplicate|unique/i.test(dbError.message || '')) throw new Error('Ese @usuario ya está en uso. Probá con otro.');
+            throw dbError;
+        }
+        _bannerBlob = null; _bannerQuitar = false;
 
         // 5) Actualizar cache local
         const updatedUser = { ...user, ...payload };
@@ -3945,6 +4016,7 @@ async function handleLogout() {
                 .select('id, title, content, created_at').order('created_at', { ascending: false }).limit(30);
             if (error) { console.warn('[novedades]', error.message); vacio('No se pudieron cargar las novedades.'); return; }
             if (!data || data.length === 0) { vacio('No hay novedades recientes.'); return; }
+            if (window.NikaNovedades) NikaNovedades.marcarVistas();
             feed.innerHTML = data.map(n => `<div style="background:var(--bg-body); border-left:4px solid var(--nika-primary); padding:12px; margin-bottom:10px; border-radius:6px;"><span style="font-size:0.75rem; color:var(--text-muted); font-weight:800;">📅 ${nikaEsc(new Date(n.created_at).toLocaleDateString('es-AR'))}</span><p style="font-size:0.9rem; margin-top:4px;"><strong>${nikaEsc(n.title)}</strong><br>${nikaEsc(n.content)}</p></div>`).join('');
         }
 
@@ -4467,7 +4539,7 @@ async function handleLogout() {
         const [{ data: user, error }, rankingRes, amigosRes] = await Promise.all([
             supabase
                 .from('profiles')
-                .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, created_at, last_login_at, updated_at')
+                .select('id, username, fullname, full_name, nombre, avatar, avatar_url, faculty, role, anio_cursada, cursada, especialidad, bio, instagram, whatsapp, banner_url, created_at, last_login_at, updated_at')
                 .eq('id', userId)
                 .single(),
             supabase
@@ -4496,6 +4568,11 @@ async function handleLogout() {
         document.getElementById('pp-avatar').src = user.avatar || user.avatar_url || 'assets/N%20NIKA.png';
         document.getElementById('pp-avatar').className = `pp-avatar ${rango.clase}`;
         document.getElementById('pp-header').className = `pp-header ${rango.clase}`;
+        const ppBanner = document.querySelector('#pp-header .pp-banner');
+        if (ppBanner) {
+            ppBanner.style.backgroundImage = user.banner_url ? `url("${String(user.banner_url).replace(/"/g, '%22')}")` : '';
+            ppBanner.classList.toggle('has-img', !!user.banner_url);
+        }
         document.getElementById('pp-fullname').textContent = user.fullname || user.full_name || user.nombre || 'Estudiante Nika';
         document.getElementById('pp-fullname').className = `pp-fullname ${rango.clase}`;
         document.getElementById('pp-username').textContent = `@${user.username || 'usuario'}`;
@@ -5616,7 +5693,7 @@ async function handleLogout() {
         syncStudyProgress, toggleSidebar, showOnlyModules, showDashboard, showAdminDashboard, toggleDarkMode, showToast,
         handleProfileClick, openAuthModal, closeAuthModal, switchAuthTab, handleLogin, handleRegister,
         openForgotPasswordForm, closeForgotPasswordForm, handleForgotPassword, openResetPasswordModal, closeResetPasswordModal, handleUpdatePassword,
-        handleAvatarPreview, cancelarRecorteAvatar, confirmarRecorteAvatar, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
+        handleAvatarPreview, handleBannerPreview, quitarBannerPerfil, cancelarRecorteAvatar, confirmarRecorteAvatar, openProfileModal, closeProfileModal, handleSaveProfile, handleLogout, openFriendsModal, closeFriendsModal, switchFriendsTab, searchUsers, sendFriendRequest, acceptFriend, rejectFriend, removeFriend, adminProcessQuestionBankUpload, onAdminAreaChange, cycleStatus, openNewsModal, closeNewsModal, adminPublishNews, openForumModal, postForumThread, openVersusModal, openLeaderboardModal, openInfoModal, closeInfoModal, openAboutCreatorModal, closeAboutCreatorModal,
         NikaAudio, applySidebarResponsiveState,
         cargarNotificaciones, toggleNotificationsPanel, marcarLeida, aceptarSolicitud, cargarDirectorioUsuarios, enviarSolicitudAmistad, retarDueloUsuario,
         openSimuladoresHub, closeSimuladoresHub,
