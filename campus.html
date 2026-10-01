@@ -157,8 +157,7 @@
         <ul class="sidebar-menu">
             <div id="sidebar-admin-category" style="display: none;">
                 <div class="sidebar-category" style="color: var(--danger);">Administración</div>
-                <li><button onclick="showAdminDashboard()" class="sidebar-link" style="color: var(--danger);">⚙️ Panel Admin</button></li>
-                <li><a href="admin-suscripciones.html" class="sidebar-link" style="color: #a855f7;">✨ Suscripciones NikaMed+</a></li>
+                <li><a href="admin.html" class="sidebar-link" style="color: var(--danger);">⚙️ Panel Admin</a></li>
             </div>
 
             <div class="sidebar-category">Mi Cuenta</div>
@@ -552,86 +551,6 @@
                         <span class="subject-tile-tag tag-active">Activo</span>
                         <div class="subject-tile-name">Introducción a las Especialidades Clínico-Quirúrgicas (Cirugía)</div>
                         <button class="subject-tile-btn btn-enter" onclick="location.href='cirugia_hub.html'">Ingresar al Módulo →</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ================= PANEL DE ADMINISTRACIÓN ================= -->
-            <div id="admin-dashboard-section" class="admin-dashboard">
-                <div class="admin-header">
-                    <div>
-                        <h2>Centro de Control del Creador</h2>
-                        <p>Gestión de métricas, análisis de rendimiento y bandeja de erratas.</p>
-                    </div>
-                    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                        <a href="admin-suscripciones.html" class="btn-module" style="width:auto; text-decoration:none; background:linear-gradient(135deg,#7c3aed,#a855f7); color:#fff; border:none;">✨ Suscripciones NikaMed+</a>
-                        <button class="btn-module" style="width:auto; background:var(--bg-body); color:var(--text-main); border:1px solid var(--border);" onclick="showDashboard()">Cerrar Panel ✖</button>
-                    </div>
-                </div>
-
-                <div class="admin-stats-grid">
-                    <div class="admin-stat-card" style="cursor:pointer;" onclick="openAdminUsersModal()" title="Ver / buscar usuarios registrados"><h4>👥 Usuarios Registrados</h4><div class="stat-val" id="admin-stat-users">–</div><span id="admin-stat-users-sub" style="font-size:0.75rem; color:var(--success);"></span></div>
-                    <div class="admin-stat-card"><h4>📝 Simulacros Completados</h4><div class="stat-val" id="admin-stat-exams">–</div><span id="admin-stat-exams-sub" style="font-size:0.75rem; color:var(--success);"></span></div>
-                    <div class="admin-stat-card"><h4>📊 Efectividad Promedio</h4><div class="stat-val" id="admin-stat-avg" style="color:var(--warning);">–</div><span style="font-size:0.75rem; color:var(--text-muted);">% de aciertos en simulacros</span></div>
-                </div>
-
-                <div class="admin-panels-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
-                    <div class="admin-panel-card">
-                        <div class="admin-panel-header"><span>📢 Publicar Nueva Novedad</span></div>
-                        <div class="admin-panel-body" style="padding: 20px;">
-                            <div class="form-group">
-                                <label class="form-label">Título / Anuncio:</label>
-                                <input type="text" id="admin-news-title" class="form-input" placeholder="Ej. ¡Nuevo banco de preguntas UP3 disponible!">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Contenido de la Actualización:</label>
-                                <textarea id="admin-news-content" class="form-input" rows="4" placeholder="Detalles de la actualización..." style="resize:vertical;"></textarea>
-                            </div>
-                            <button class="btn-module" style="background:var(--nika-primary); color:white; width:100%;" onclick="adminPublishNews()">Publicar en el Tablón 🚀</button>
-                        </div>
-                    </div>
-
-                    <div class="admin-panel-card">
-                        <div class="admin-panel-header">
-                            <span>📥 Bandeja de Erratas y Reportes</span>
-                            <span style="font-size:0.8rem; background:var(--danger); color:white; padding:2px 8px; border-radius:10px;">Pendientes</span>
-                        </div>
-                        <div class="admin-panel-body" id="admin-erratas-list"></div>
-                    </div>
-
-                    <div class="admin-panel-card">
-                        <div class="admin-panel-header">
-                            <span>🔥 Unidades con más fallos</span>
-                            <span style="font-size:0.8rem; color:var(--text-muted);">Top 5 (datos reales)</span>
-                        </div>
-                        <div class="admin-panel-body" id="admin-up-stats"></div>
-                    </div>
-
-                    <div class="admin-panel-card">
-                        <div class="admin-panel-header">
-                            <span>🚩 Reportes de la comunidad <span id="admin-reports-count"></span></span>
-                            <span style="font-size:0.8rem; color:var(--text-muted);">Chat, foro</span>
-                        </div>
-                        <div class="admin-panel-body" id="admin-reports-list"></div>
-                    </div>
-
-                    <div class="admin-panel-card" style="grid-column: 1 / -1;">
-                        <div class="admin-panel-header">
-                            <span>📦 Gestor Dinámico de Bancos JSON (Multi-Área)</span>
-                            <span style="font-size:0.8rem; background:var(--nika-primary); color:white; padding:2px 8px; border-radius:10px;">Supabase</span>
-                        </div>
-                        <div class="admin-panel-body" style="padding: 20px;">
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
-                                Cargá o actualizá bancos de preguntas en formato JSON. Se sincronizan con la tabla <code>bancos_json</code> de Supabase; si falla la red, quedan en caché local como respaldo offline.
-                            </p>
-                            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 15px;">
-                                <select id="admin-area-selector" class="form-input" style="width: auto; padding: 8px 12px;" onchange="onAdminAreaChange()"></select>
-                                <select id="admin-up-selector" class="form-input" style="width: auto; padding: 8px 12px;"></select>
-                                <input type="file" id="admin-json-file" accept=".json" class="form-input" style="width: auto; padding: 6px 10px;">
-                                <button type="button" class="btn-module" style="width: auto; background: var(--nika-primary); color: white; padding: 9px 18px;" onclick="adminProcessQuestionBankUpload()">Subir e Integrar Banco 📥</button>
-                            </div>
-                            <div id="admin-bank-status-list" style="font-size: 0.82rem; color: var(--text-muted); background: var(--bg-body); padding: 12px; border-radius: 8px; border: 1px solid var(--border);"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1995,18 +1914,9 @@
             if (window.innerWidth <= 900) toggleSidebar();
         }
 
+        // El panel de administración vive en su propia página (admin.html).
         function showAdminDashboard() {
-            const _lg = document.getElementById('liga-section'); if (_lg) _lg.style.display = 'none';
-            const _fr = document.getElementById('foro-section'); if (_fr) _fr.style.display = 'none';
-            const _at = document.getElementById('ateneos-section'); if (_at) _at.style.display = 'none';
-            const hero = document.getElementById('dashboard-hero-section');
-            const modulos = document.getElementById('modulos-section');
-            const admin = document.getElementById('admin-dashboard-section');
-            if (hero) hero.style.display = 'none';
-            if (modulos) modulos.style.display = 'none';
-            if (admin) admin.style.display = 'block';
-            loadAdminData();
-            if (window.innerWidth <= 900) toggleSidebar();
+            window.location.href = 'admin.html';
         }
 
         function toggleDarkMode() {

@@ -358,7 +358,7 @@
 
   window.NikaModeracion = {
     reportar, botonReporte, bloquear, desbloquear, estaBloqueado, esMio,
-    cargarBloqueados, abrirBloqueados, actualizarPanelAdmin, renderAdminReportes,
+    cargarBloqueados, abrirBloqueados, actualizarPanelAdmin, renderAdminReportes, renderAdminUpStats,
   };
 
   // Cargar los bloqueos apenas haya sesión

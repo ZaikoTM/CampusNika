@@ -1,5 +1,5 @@
-// js/adminSuscripciones.js
-// CAMPUS NIKA — Panel de suscripciones NikaMed+ (admin-suscripciones.html).
+// js/admin.js
+// CAMPUS NIKA — Panel Admin completo (admin.html): suscripciones NikaMed+, pagos, comunidad y contenido.
 //
 // Acceso: solo role='admin'. La comprobación de esta página es de comodidad (redirige);
 // la seguridad real está en la base: las policies RLS (profiles_select_admin, pagos_*_select_admin)
@@ -21,7 +21,8 @@
   let perfiles = [];
   let pagos = [];
   const estado = { subsFiltro: 'todos', subsQ: '', usrQ: '', usrMax: PAGINA, pagosFiltro: 'aprobados' };
-  const cargado = { pagos: false, reportes: false };
+  const cargado = { pagos: false, reportes: false, fallos: false };
+  let stats = null; // RPC admin_stats (usuarios, simulacros, efectividad, reportes)
 
   const $ = (id) => document.getElementById(id);
   function el(tag, cls, text) {
@@ -62,8 +63,13 @@
     const { data, error } = await c.from('profiles')
       .select('id, username, fullname, avatar, role, tipo_cuenta, plan_activo, fecha_inicio_suscripcion, fecha_fin_suscripcion, created_at')
       .order('fullname', { ascending: true }).limit(3000);
-    if (error) { console.error('[AdminSuscripciones] perfiles:', error); toast('No se pudieron leer los perfiles (¿corriste 07_rango_nikamed_plus.sql?).'); return; }
+    if (error) { console.error('[Admin] perfiles:', error); toast('No se pudieron leer los perfiles (¿corriste 07_rango_nikamed_plus.sql?).'); return; }
     perfiles = data || [];
+  }
+
+  async function cargarStats() {
+    const { data, error } = await c.rpc('admin_stats');
+    if (error) console.warn('[Admin] admin_stats no disponible:', error.message); else stats = data;
   }
 
   async function cargarPagos() {
@@ -78,7 +84,7 @@
           monto: Number(r.monto) || PRECIOS[r.plan] || 0, estado: String(r.estado || 'pending'), ref: r.mp_payment_id,
         });
       });
-    } else console.warn('[AdminSuscripciones] pagos_mercadopago:', mp.error.message);
+    } else console.warn('[Admin] pagos_mercadopago:', mp.error.message);
 
     const pp = await c.from('pagos_procesados').select('*').limit(150);
     if (!pp.error) {
@@ -89,7 +95,7 @@
           monto: PRECIOS[r.plan] || 0, estado: 'approved', ref: r.payment_id,
         });
       });
-    } else console.warn('[AdminSuscripciones] pagos_procesados:', pp.error.message);
+    } else console.warn('[Admin] pagos_procesados:', pp.error.message);
 
     filas.sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0));
     pagos = filas;
@@ -124,6 +130,8 @@
       { cls: 'ok', t: 'Ingresos del mes', v: cargado.pagos ? fmtMoney(ingresos) : '…', s: 'pagos aprobados', tile: 'tile-pagos' },
       { cls: '', t: 'Usuarios', v: perfiles.length, s: 'registrados', tile: 'tile-usuarios' },
       { cls: reportesAbiertos > 0 ? 'bad' : '', t: 'Reportes abiertos', v: reportesAbiertos == null ? '–' : reportesAbiertos, s: 'chat y foro', tile: 'tile-reportes' },
+      { cls: '', t: 'Simulacros', v: stats ? stats.simulacros : '–', s: stats ? `+${stats.simulacros_7d} esta semana` : 'completados', tile: 'tile-fallos' },
+      { cls: '', t: 'Efectividad', v: stats && stats.efectividad_pct != null ? stats.efectividad_pct + '%' : '–', s: 'aciertos en simulacros', tile: 'tile-fallos' },
     ];
     const box = $('as-kpis'); box.textContent = '';
     defs.forEach((d, i) => {
@@ -273,11 +281,152 @@
   }
 
   // ------------------------------------------------------------
+  // Mosaico: publicar novedad (mismo almacenamiento que usa el campus: localStorage 'nika_news')
+  // ------------------------------------------------------------
+  const escHtml = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  function leerLS(clave) { try { return JSON.parse(localStorage.getItem(clave)) || []; } catch (_) { return []; } }
+  function publicarNovedad() {
+    const t = $('news-title'), ct = $('news-content');
+    const titulo = t.value.trim(), contenido = ct.value.trim();
+    if (!titulo || !contenido) { toast('Completá título y contenido.'); return; }
+    const lista = leerLS('nika_news');
+    // El campus dibuja `content` como HTML: se escapa lo escrito y solo se agrega el formato.
+    lista.unshift({ date: new Date().toLocaleDateString('es-AR'), content: `<strong>${escHtml(titulo)}</strong><br>${escHtml(contenido)}` });
+    try { localStorage.setItem('nika_news', JSON.stringify(lista)); } catch (_) { toast('No se pudo guardar la novedad.'); return; }
+    t.value = ''; ct.value = '';
+    toast('Novedad publicada 🚀');
+  }
+
+  // ------------------------------------------------------------
+  // Mosaico: erratas (localStorage 'nika_erratas', igual que el panel anterior)
+  // ------------------------------------------------------------
+  const ESTADOS_ERRATA = { pending: ['warn', '🟡 Pendiente'], fixed: ['ok', '🟢 Corregido'], rejected: ['bad', '🔴 Descartado'] };
+  function pintarErratas() {
+    const lista = $('erratas-lista'); lista.textContent = '';
+    const erratas = leerLS('nika_erratas');
+    $('badge-erratas').textContent = String(erratas.filter((e) => e.status === 'pending').length);
+    if (!erratas.length) { lista.appendChild(el('div', 'as-vacio', 'No hay erratas pendientes.')); return; }
+    erratas.forEach((e, i) => {
+      const [cls, txt] = ESTADOS_ERRATA[e.status] || ESTADOS_ERRATA.pending;
+      const card = el('div', 'as-errata'); card.style.animationDelay = Math.min(i, 10) * 0.03 + 's';
+      const meta = el('div', 'meta');
+      const tag = el('button', 'as-tag ' + cls, txt); tag.type = 'button'; tag.title = 'Cambiar estado';
+      tag.addEventListener('click', () => {
+        e.status = e.status === 'pending' ? 'fixed' : e.status === 'fixed' ? 'rejected' : 'pending';
+        try { localStorage.setItem('nika_erratas', JSON.stringify(erratas)); } catch (_) {}
+        pintarErratas(); toast('Estado actualizado');
+      });
+      meta.append(el('span', null, 'Reportado por: ' + (e.user || '—')), tag);
+      card.append(meta, el('div', 'q', '"' + (e.q || '') + '"'));
+      const j = el('div', 'j'); j.append(el('b', null, 'Fundamento: '), document.createTextNode(e.justif || '')); card.appendChild(j);
+      lista.appendChild(card);
+    });
+  }
+
+  // ------------------------------------------------------------
+  // Mosaico: bancos de preguntas JSON (tabla bancos_json vía supabaseClient.js)
+  // Para sumar un área o UP nueva alcanza con editar NIKA_MODULOS.
+  // ------------------------------------------------------------
+  const NIKA_MODULOS = {
+    cirugia: { label: 'Cirugía General', ups: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11'].map((n) => ({ id: n, label: 'UP ' + n })) },
+    ginecologia: { label: 'Ginecología', ups: [] },
+    siam: { label: 'S.I.A.M.', ups: [] },
+  };
+  let bancosIniciado = false;
+
+  function iniciarBancos() {
+    if (!bancosIniciado) {
+      bancosIniciado = true;
+      const area = $('bank-area');
+      Object.entries(NIKA_MODULOS).forEach(([k, cfg]) => { const o = el('option', null, cfg.label); o.value = k; area.appendChild(o); });
+      area.addEventListener('change', alCambiarArea);
+      $('bank-subir').addEventListener('click', subirBanco);
+    }
+    alCambiarArea();
+  }
+  function alCambiarArea() {
+    const cfg = NIKA_MODULOS[$('bank-area').value];
+    const up = $('bank-up'); up.textContent = '';
+    if (cfg && cfg.ups.length) cfg.ups.forEach((u) => { const o = el('option', null, u.label); o.value = u.id; up.appendChild(o); });
+    else { const o = el('option', null, 'Sin UPs configuradas'); o.value = ''; up.appendChild(o); }
+    pintarEstadoBancos();
+  }
+
+  // Tolera varios formatos de export: array plano, {preguntas:[]}, {questions:[]} o {up1:{title, questions:[]}}.
+  function extraerPreguntas(parsed, upId) {
+    if (Array.isArray(parsed)) return parsed;
+    if (parsed && Array.isArray(parsed.preguntas)) return parsed.preguntas;
+    if (parsed && Array.isArray(parsed.questions)) return parsed.questions;
+    const clave = 'up' + parseInt(upId, 10);
+    if (parsed && parsed[clave] && Array.isArray(parsed[clave].questions)) return parsed[clave].questions;
+    const keys = parsed ? Object.keys(parsed) : [];
+    if (keys.length === 1 && parsed[keys[0]] && Array.isArray(parsed[keys[0]].questions)) return parsed[keys[0]].questions;
+    throw new Error('Estructura no válida. Se esperaba un array, {preguntas:[]}, {questions:[]} o {up#: {questions:[]}}.');
+  }
+
+  function subirBanco() {
+    const modulo = $('bank-area').value, upId = $('bank-up').value, input = $('bank-file');
+    if (!modulo || !upId) { toast('Seleccioná Área y Unidad Problema primero.'); return; }
+    if (!input.files || !input.files[0]) { toast('Seleccioná un archivo JSON primero.'); return; }
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      let preguntas;
+      try { preguntas = extraerPreguntas(JSON.parse(evt.target.result), upId); }
+      catch (err) { alert('Error al procesar el archivo JSON: ' + err.message); return; }
+      try { localStorage.setItem(`nika_banco_${modulo}_${upId}`, JSON.stringify(preguntas)); } catch (_) {}
+      if (!window.NikaSupabase || !window.NikaSupabase.guardarBancoJSON) {
+        toast(`Guardado localmente (${preguntas.length} preguntas). Supabase no disponible.`);
+      } else {
+        toast('Subiendo a Supabase...');
+        const { error } = await window.NikaSupabase.guardarBancoJSON({ modulo, upId, data: preguntas });
+        if (error) alert('Se guardó en caché local, pero falló la sincronización con Supabase: ' + error.message);
+        else toast(`✅ ${NIKA_MODULOS[modulo].label} · UP ${upId}: ${preguntas.length} preguntas sincronizadas.`);
+      }
+      input.value = '';
+      pintarEstadoBancos();
+    };
+    reader.readAsText(input.files[0]);
+  }
+
+  async function pintarEstadoBancos() {
+    const box = $('bank-estado'); box.textContent = '';
+    const modulo = $('bank-area').value, cfg = NIKA_MODULOS[modulo];
+    if (!cfg || !cfg.ups.length) { box.appendChild(el('div', 'as-vacio', 'No hay Unidades Problema configuradas para esta área todavía.')); return; }
+    box.appendChild(el('div', 'as-vacio', 'Consultando Supabase…'));
+    const remotos = {};
+    if (window.NikaSupabase && window.NikaSupabase.listarBancosJSON) {
+      try { const { data, error } = await window.NikaSupabase.listarBancosJSON(modulo); if (!error && data) data.forEach((f) => { remotos[f.up_id] = f; }); }
+      catch (err) { console.warn('[Admin] No se pudo consultar Supabase, se muestra estado local:', err); }
+    }
+    if ($('bank-area').value !== modulo) return; // cambió de área mientras se consultaba
+    box.textContent = '';
+    box.appendChild(el('b', 'as-banco-tit', 'Estado de bancos — ' + cfg.label));
+    const ul = el('ul', 'as-banco');
+    cfg.ups.forEach((up) => {
+      const remoto = remotos[up.id];
+      let local = null; try { local = localStorage.getItem(`nika_banco_${modulo}_${up.id}`); } catch (_) {}
+      let li;
+      if (remoto) li = el('li', 'ok', `🟢 ${up.label}: ${Array.isArray(remoto.data) ? remoto.data.length : 0} preguntas (Supabase)`);
+      else if (local) { let n = 0; try { n = JSON.parse(local).length; } catch (_) {} li = el('li', 'warn', `🟡 ${up.label}: ${n} preguntas (solo caché local, sin sincronizar)`); }
+      else li = el('li', 'gris', `⚪ ${up.label}: Nativo / sin banco cargado`);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+  }
+
+  // ------------------------------------------------------------
   // Mosaicos desplegables
   // ------------------------------------------------------------
   function skeleton(box) { box.textContent = ''; for (let i = 0; i < 3; i++) box.appendChild(el('div', 'as-sk')); }
 
   async function alAbrir(id) {
+    if (id === 'tile-erratas') pintarErratas();
+    if (id === 'tile-bancos') iniciarBancos();
+    if (id === 'tile-fallos' && !cargado.fallos) {
+      cargado.fallos = true;
+      if (window.NikaModeracion && window.NikaModeracion.renderAdminUpStats) await window.NikaModeracion.renderAdminUpStats('fallos-box');
+      else $('fallos-box').textContent = 'No se pudo cargar el módulo de métricas.';
+    }
     if (id === 'tile-pagos' && !cargado.pagos) {
       skeleton($('pagos-lista')); await cargarPagos(); pintarPagos(); pintarKpis(await contarReportes());
     } else if (id === 'tile-pagos') pintarPagos();
@@ -313,6 +462,7 @@
     let t1, t2;
     $('subs-q').addEventListener('input', (e) => { clearTimeout(t1); t1 = setTimeout(() => { estado.subsQ = e.target.value; pintarSubs(); }, 120); });
     $('usr-q').addEventListener('input', (e) => { clearTimeout(t2); t2 = setTimeout(() => { estado.usrQ = e.target.value; estado.usrMax = PAGINA; pintarUsuarios(); }, 120); });
+    $('news-publicar').addEventListener('click', publicarNovedad);
     $('as-refrescar').addEventListener('click', () => recargar(true));
   }
 
@@ -320,7 +470,7 @@
     const b = $('as-refrescar'); b.firstChild.nodeValue = '⏳ ';
     await cargarPerfiles();
     if (cargado.pagos) await cargarPagos();
-    const rep = await contarReportes();
+    const [rep] = await Promise.all([contarReportes(), cargarStats()]);
     pintarKpis(rep); pintarSubs(); pintarUsuarios(); if (cargado.pagos) pintarPagos();
     b.firstChild.nodeValue = '🔄 ';
     if (avisar) toast('Datos actualizados');
@@ -338,7 +488,7 @@
       const { data: yo } = await c.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
       if (!yo || yo.role !== 'admin') { location.replace('campus.html'); return; }
     } catch (e) {
-      console.error('[AdminSuscripciones] acceso:', e);
+      console.error('[Admin] acceso:', e);
       location.replace('campus.html'); return;
     }
     document.body.classList.remove('as-verificando');
@@ -346,7 +496,9 @@
     conectarTiles();
     await cargarPerfiles();
     pintarKpis(null); pintarSubs(); pintarUsuarios();
-    const rep = await contarReportes(); pintarKpis(rep);
+    pintarErratas();
+    const [rep] = await Promise.all([contarReportes(), cargarStats()]);
+    pintarKpis(rep);
   }
   iniciar();
 })();

@@ -1,5 +1,5 @@
 -- =====================================================================
--- CAMPUS NIKA · Panel de suscripciones (admin-suscripciones.html)
+-- CAMPUS NIKA · Panel de suscripciones (admin.html)
 -- Ejecutá cada bloque por separado (seleccioná solo ese bloque y Run).
 -- Requiere: is_admin() de 002_rls_admin_tables.sql y 07_rango_nikamed_plus.sql.
 -- =====================================================================
