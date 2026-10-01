@@ -64,8 +64,10 @@ ALLOWED_ORIGINS = [
 # Espejo de la tabla `planes_nikamed` (SQL). Tenerlo también acá permite
 # armar la preferencia sin una consulta extra, pero el backend SIEMPRE
 # valida contra la base antes de otorgar acceso (ver subscription_manager).
+# "dias" es lo que se SUMA al acceso (30 / 183 / 365: los mismos valores que usan el panel admin
+# y la Edge Function webhook-mercadopago). "meses" es solo informativo (meses_otorgados).
 PLANES = {
-    "mensual":   {"nombre": "NikaMed+ Mensual",  "meses": 1,  "precio": 5000.00},
-    "semestral": {"nombre": "NikaMed+ 6 Meses",  "meses": 6,  "precio": 25000.00},
-    "anual":     {"nombre": "NikaMed+ Anual",    "meses": 12, "precio": 45000.00},
+    "mensual":   {"nombre": "NikaMed+ Mensual",  "meses": 1,  "dias": 30,  "precio": 5000.00},
+    "semestral": {"nombre": "NikaMed+ 6 Meses",  "meses": 6,  "dias": 183, "precio": 25000.00},
+    "anual":     {"nombre": "NikaMed+ Anual",    "meses": 12, "dias": 365, "precio": 45000.00},
 }

@@ -12,52 +12,69 @@ from config import PLANES
 from db import get_db
 
 
+# Orden de los planes: si alguien renueva con otro plan mientras tiene uno vigente,
+# plan_activo conserva el de mayor nivel (la fecha de fin suma ambos períodos igual).
+_NIVEL_PLAN = {"mensual": 1, "semestral": 2, "anual": 3}
+
+
+def _parse_fecha(valor):
+    if not valor:
+        return None
+    try:
+        return datetime.fromisoformat(str(valor).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
 def otorgar_acceso_premium(user_id: str, plan_key: str, mp_payment_id: str) -> dict:
     """
     Otorga (o extiende) el acceso premium de un usuario tras un pago
     APROBADO y ya validado por el webhook.
 
     Reglas:
+      - Los días sumados salen de PLANES[plan]["dias"] (30 / 183 / 365).
       - Si el usuario ya es premium y su suscripción sigue vigente, el
         nuevo período se SUMA a partir de la fecha de fin actual (no se
-        pisa), para que renovar antes de que venza no le "robe" días.
+        pisa) y se conserva su fecha de inicio original.
       - Si no es premium o ya venció, arranca desde `ahora`.
     """
     if plan_key not in PLANES:
         raise ValueError(f"Plan desconocido: {plan_key}")
 
-    meses = PLANES[plan_key]["meses"]
+    plan = PLANES[plan_key]
     db = get_db()
 
     perfil = (
         db.table("profiles")
-        .select("tipo_cuenta, fecha_fin_suscripcion")
+        .select("tipo_cuenta, plan_activo, fecha_inicio_suscripcion, fecha_fin_suscripcion")
         .eq("id", user_id)
         .single()
         .execute()
         .data
-    )
+    ) or {}
 
     ahora = datetime.now(timezone.utc)
-    fecha_fin_actual = perfil.get("fecha_fin_suscripcion") if perfil else None
+    fin_previo = _parse_fecha(perfil.get("fecha_fin_suscripcion"))
+    vigente = perfil.get("tipo_cuenta") == "premium" and fin_previo is not None and fin_previo > ahora
 
-    if perfil and perfil.get("tipo_cuenta") == "premium" and fecha_fin_actual:
-        fin_previo = datetime.fromisoformat(fecha_fin_actual.replace("Z", "+00:00"))
-        base = fin_previo if fin_previo > ahora else ahora
-    else:
-        base = ahora
+    base = fin_previo if vigente else ahora
+    nueva_fecha_fin = base + timedelta(days=plan["dias"])
 
-    nueva_fecha_fin = base + timedelta(days=30 * meses)  # ~30 días por mes contratado
+    inicio = (_parse_fecha(perfil.get("fecha_inicio_suscripcion")) or ahora) if vigente else ahora
+    plan_final = plan_key
+    if vigente and _NIVEL_PLAN.get(perfil.get("plan_activo"), 0) > _NIVEL_PLAN[plan_key]:
+        plan_final = perfil["plan_activo"]
 
     db.table("profiles").update({
         "tipo_cuenta": "premium",
-        "plan_activo": plan_key,
-        "fecha_inicio_suscripcion": ahora.isoformat(),
+        "plan_activo": plan_final,
+        "fecha_inicio_suscripcion": inicio.isoformat(),
         "fecha_fin_suscripcion": nueva_fecha_fin.isoformat(),
+        "nikamed_vence_en": nueva_fecha_fin.isoformat(),
         "id_transaccion_mp": mp_payment_id,
     }).eq("id", user_id).execute()
 
-    return {"fecha_fin_suscripcion": nueva_fecha_fin.isoformat(), "meses_otorgados": meses}
+    return {"fecha_fin_suscripcion": nueva_fecha_fin.isoformat(), "meses_otorgados": plan["meses"]}
 
 
 def verificar_y_downgrade_si_corresponde(user_id: str) -> bool:

@@ -12,6 +12,8 @@ Correr en desarrollo:
   python app.py
 """
 
+from datetime import datetime, timezone
+
 from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 
@@ -115,15 +117,17 @@ def webhook_mercadopago():
 
     db = get_db()
 
-    # Idempotencia: si ya procesamos este payment_id como aprobado, salimos.
+    # Idempotencia: solo se considera procesado un pago al que YA se le dio el acceso
+    # (procesado_en / meses_otorgados se escriben después de otorgarlo). Marcarlo "approved"
+    # no alcanza: si el alta fallaba, el reintento de MP lo ignoraba y el usuario pagaba sin acceso.
     ya_procesado = (
         db.table("pagos_mercadopago")
-        .select("id, estado")
+        .select("id, estado, procesado_en, meses_otorgados")
         .eq("mp_payment_id", payment_id)
         .execute()
         .data
     )
-    if ya_procesado and ya_procesado[0]["estado"] == "approved":
+    if ya_procesado and (ya_procesado[0].get("procesado_en") or ya_procesado[0].get("meses_otorgados")):
         return jsonify({"status": "ya procesado"}), 200
 
     external_reference = pago.get("external_reference")
@@ -170,11 +174,27 @@ def webhook_mercadopago():
 
     # SOLO si Mercado Pago confirma "approved" otorgamos el acceso premium.
     if estado_mp == "approved":
-        resultado = otorgar_acceso_premium(user_id=user_id, plan_key=plan_key, mp_payment_id=payment_id)
-        db.table("pagos_mercadopago").update({
-            "meses_otorgados": resultado["meses_otorgados"],
-            "procesado_en": "now()",
-        }).eq("mp_payment_id", payment_id).execute()
+        # Se "reclama" el pago de forma atómica: si MP manda dos notificaciones casi juntas
+        # (payment.created y payment.updated), solo una llega a sumar días.
+        reclamado = (
+            db.table("pagos_mercadopago")
+            .update({"procesado_en": datetime.now(timezone.utc).isoformat()})
+            .eq("mp_payment_id", payment_id)
+            .is_("procesado_en", "null")
+            .execute()
+            .data
+        )
+        if not reclamado:
+            return jsonify({"status": "ya procesado"}), 200
+
+        try:
+            resultado = otorgar_acceso_premium(user_id=user_id, plan_key=plan_key, mp_payment_id=payment_id)
+        except Exception:
+            # Se libera el reclamo para que el reintento de MP (respondemos 500) vuelva a intentar.
+            db.table("pagos_mercadopago").update({"procesado_en": None}).eq("mp_payment_id", payment_id).execute()
+            raise
+
+        db.table("pagos_mercadopago").update({"meses_otorgados": resultado["meses_otorgados"]}).eq("mp_payment_id", payment_id).execute()
 
         # Aviso al admin (campanita + email). Nunca debe romper la acreditación.
         avisar_nueva_suscripcion(
