@@ -409,3 +409,19 @@ body.dark-mode .rz-best.nuevo { color: #94a3b8; }
 .rz-sh-acc button.hecho { background: linear-gradient(135deg, #16a34a, #22c55e) !important; color: #fff !important; border-color: transparent !important; transform: scale(1.04); }
 .rz-share { animation: rz-in .35s cubic-bezier(.2, .8, .2, 1) both; }
 body.dark-mode .rz-sh-ayuda summary, body.dark-mode .rz-sh-arrastra { color: #7dd3fc; }
+
+/* Configuración del examen (selector de modo) */
+.rz-cfg { margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: var(--bg-body, #f1f5f9); border: 1px solid var(--border, #e2e8f0); }
+.rz-cfg summary { cursor: pointer; font-weight: 800; font-size: .86rem; }
+.rz-cfg-fila { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 12px 0 10px; } .rz-cfg-fila label { font-weight: 800; font-size: .84rem; }
+.rz-cfg-sel, .rz-cfg-num { padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border, #cbd5e1); background: var(--card-bg, #fff); color: var(--text-main, #0f172a); font: 700 .84rem 'Plus Jakarta Sans', sans-serif; }
+.rz-cfg-num { width: 84px; } .rz-cfg-num[hidden] { display: none; }
+.rz-cfg-sw { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; } .rz-cfg-prueba { margin-top: 10px; padding: 7px 14px; font-size: .78rem; }
+@media (max-width: 560px) { .rz-cfg-sw { grid-template-columns: 1fr; } }
+.rz-cancelar { color: #b91c1c !important; border-color: rgba(239, 68, 68, .4) !important; } .rz-cancelar:hover { background: rgba(239, 68, 68, .1) !important; }
+.rz-barra .rz-cancelar { margin-left: auto; padding: 8px 16px; font-size: .78rem; }
+.rz-acc-modelo .rz-hojas-w { margin-top: 10px; transform-origin: top; }
+/* Animaciones apagadas desde la configuración del examen */
+body.rz-sin-anim .rz-reloj, body.rz-sin-anim .rz-reloj *, body.rz-sin-anim .rz-aviso-t, body.rz-sin-anim .rz-hoja, body.rz-sin-anim .rz-caso { animation: none !important; transition: none !important; }
+body.rz-sin-anim .rz-aviso-t { opacity: 1; transform: none; }
+body.dark-mode .rz-cancelar { color: #fca5a5 !important; }

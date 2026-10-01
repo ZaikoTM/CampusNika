@@ -11,10 +11,15 @@
 // API: RecetariosExamen.iniciar({ segundos, onFin, contenedor }) · detener() · tiempoUsado() · sonido(nombre)
 
 const RecetariosExamen = (() => {
-  const LS_SONIDO = 'nika_recetarios_sonido';
+  const LS_CFG = 'nika_rz_cfg';
+  // Configuración elegida por el alumno antes de empezar (se recuerda): minutos (null = recomendado), sonidos,
+  // avisos en pantalla, vibración y animaciones.
+  const CFG_BASE = { minutos: null, sonido: true, avisos: true, vibrar: true, animaciones: true };
+  function config() { try { return Object.assign({}, CFG_BASE, JSON.parse(localStorage.getItem(LS_CFG) || '{}')); } catch (_) { return Object.assign({}, CFG_BASE); } }
+  function guardarConfig(parcial) { const c = Object.assign(config(), parcial || {}); try { localStorage.setItem(LS_CFG, JSON.stringify(c)); } catch (_) {} return c; }
   let audio = null, silencio = false, intervalo = null, fin = 0, total = 0, activo = false, onFinCb = null;
   let avisados = new Set(), ultimoSeg = -1, barra = null, tituloOriginal = '', t0 = 0, contenedorAviso = null;
-  try { silencio = localStorage.getItem(LS_SONIDO) === '0'; } catch (_) {}
+  silencio = !config().sonido;
 
   // ------------------------------------------------------------------ sonido (Web Audio)
   function ctxAudio() {
@@ -46,10 +51,10 @@ const RecetariosExamen = (() => {
     alerta: () => { nota(300, 0.18, 0, 'sawtooth', 0.1); nota(240, 0.3, 0.18, 'sawtooth', 0.1); },
   };
   function sonido(nombre) { try { if (SONIDOS[nombre]) SONIDOS[nombre](); } catch (_) {} }
-  function vibrar(patron) { try { if (!silencio && navigator.vibrate) navigator.vibrate(patron); } catch (_) {} }
+  function vibrar(patron) { try { if (!silencio && config().vibrar && navigator.vibrate) navigator.vibrate(patron); } catch (_) {} }
   function alternarSonido() {
     silencio = !silencio;
-    try { localStorage.setItem(LS_SONIDO, silencio ? '0' : '1'); } catch (_) {}
+    guardarConfig({ sonido: !silencio });
     if (barra) { const b = barra.querySelector('[data-snd]'); if (b) { b.textContent = silencio ? '🔕' : '🔔'; b.title = silencio ? 'Activar sonidos' : 'Silenciar sonidos'; } }
     if (!silencio) sonido('aviso');
     return silencio;
@@ -57,6 +62,7 @@ const RecetariosExamen = (() => {
 
   // ------------------------------------------------------------------ avisos en pantalla
   function aviso(texto, tipo = 'info', ms = 3800) {
+    if (!config().avisos && tipo !== 'fin') return;   // «Avisos en pantalla» apagados: solo se muestra el cartel de fin de tiempo
     if (!contenedorAviso) {
       contenedorAviso = document.createElement('div'); contenedorAviso.className = 'rz-avisos'; contenedorAviso.setAttribute('aria-live', 'assertive');
       document.body.appendChild(contenedorAviso);
@@ -134,6 +140,8 @@ const RecetariosExamen = (() => {
     tituloOriginal = document.title.replace(/^⏱ \d\d:\d\d · Examen$/, 'Recetarios y Certificados | NikaMed');
     barra = crearBarra(contenedor);
     document.body.classList.add('rz-examen');
+    document.body.classList.toggle('rz-sin-anim', !config().animaciones);
+    silencio = !config().sonido;
     ctxAudio(); sonido('inicio'); vibrar(80);
     aviso(`🏁 ¡Comenzó el examen! Tenés ${Math.round(segundos / 60)} minutos`, 'info', 3200);
     intervalo = setInterval(actualizar, 250);
@@ -146,12 +154,12 @@ const RecetariosExamen = (() => {
     clearInterval(intervalo); intervalo = null; activo = false; onFinCb = null;
     document.removeEventListener('visibilitychange', alVolver);
     if (barra) { barra.remove(); barra = null; }
-    document.body.classList.remove('rz-examen');
+    document.body.classList.remove('rz-examen', 'rz-sin-anim');
     if (tituloOriginal) document.title = tituloOriginal;
   }
   const tiempoUsado = () => (t0 ? Math.round((Date.now() - t0) / 1000) : 0);
   const estaActivo = () => activo;
 
-  return { iniciar, detener, tiempoUsado, estaActivo, sonido, aviso, vibrar, alternarSonido, formato: fmt };
+  return { iniciar, detener, tiempoUsado, estaActivo, sonido, aviso, vibrar, alternarSonido, config, guardarConfig, formato: fmt };
 })();
 window.RecetariosExamen = RecetariosExamen;

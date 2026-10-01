@@ -25,7 +25,7 @@ const RecetariosShare = (() => {
     });
     return lineas;
   }
-  const colorNivel = (p) => (p >= 90 ? '#22c55e' : p >= 75 ? '#38bdf8' : p >= 60 ? '#f59e0b' : '#ef4444');
+  const colorNivel = (p) => (p >= 90 ? '#22c55e' : p >= 80 ? '#38bdf8' : p >= 70 ? '#f59e0b' : '#ef4444');
 
   // ------------------------------------------------------------------ una hoja de recetario
   function hoja(ctx, x, y, w, h, doc, datos, firmaEl, imgs) {

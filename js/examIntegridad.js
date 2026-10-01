@@ -168,7 +168,7 @@ const ExamIntegridad = (() => {
   // ---- Capturas de pantalla: el navegador no puede verlas directamente, así que se detectan las teclas
   //      habituales (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) y la impresión (Ctrl+P / "Guardar como PDF").
   function capturaDetectada(tecla) {
-    if (!activo) return;
+    if (!activo || hooks.permitirCaptura) return;   // permitirCaptura: simuladores donde no hay nada que proteger (Recetarios)
     ultimaCaptura = Date.now();
     ultimoEvento = Date.now() + 1500;   // el recortador de pantalla hace perder el foco: no se cuenta dos veces
     try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText('Captura bloqueada · NikaMed').catch(() => {}); } catch (_) {}
@@ -186,9 +186,9 @@ const ExamIntegridad = (() => {
   function onKey(e) {
     if (!activo) return;
     const k = (e.key || '').toLowerCase(), ctrl = e.ctrlKey || e.metaKey;
-    const cap = esAtajoCaptura(e);
+    const cap = hooks.permitirCaptura ? null : esAtajoCaptura(e);
     if (cap && e.key !== 'PrintScreen') { e.preventDefault(); capturaDetectada(cap); return; }
-    if (ctrl && !e.shiftKey && k === 'p') { e.preventDefault(); e.stopPropagation(); capturaDetectada('Ctrl+P'); return; }
+    if (!hooks.permitirCaptura && ctrl && !e.shiftKey && k === 'p') { e.preventDefault(); e.stopPropagation(); capturaDetectada('Ctrl+P'); return; }
     let motivo = null;
     if (e.key === 'F12') motivo = 'F12';
     else if (ctrl && e.shiftKey && ['i', 'j', 'c'].includes(k)) motivo = 'Ctrl+Shift+' + k.toUpperCase();
@@ -230,8 +230,8 @@ const ExamIntegridad = (() => {
   function persistir() { if (st) ls.set(CFG.lsIntento, st); }
 
   // Abre el intento en el servidor. Bancos JSON (legado): solo registra started_at y modo.
-  async function iniciar({ modulo, modo, estricto, total, limiteSeg, intento, onForzarEntrega }) {
-    if (onForzarEntrega) hooks = { onForzarEntrega };
+  async function iniciar({ modulo, modo, estricto, total, limiteSeg, intento, onForzarEntrega, permitirCaptura }) {
+    if (onForzarEntrega) hooks = { onForzarEntrega, permitirCaptura: !!permitirCaptura };
     if (!st || !intento) st = nuevoEstado({ modulo });
     st.estricto = !!estricto; st.modulo = modulo; st.t0 = Date.now();
     if (intento) { st.intentoId = intento.intento_id; st.origen = 'seguro'; }
@@ -378,7 +378,7 @@ const ExamIntegridad = (() => {
         <ul class="ei-reglas-l">
           <li><b>No salgas de la pantalla:</b> cambiar de pestaña, minimizar o pasar a otra aplicación queda registrado.</li>
           <li><b>No copies ni pegues:</b> el clic derecho, copiar, cortar, pegar y las herramientas de inspección (F12, Ctrl+U, Ctrl+Shift+I) están bloqueados y también cuentan como incidencia.</li>
-          <li><b>Nada de capturas:</b> sacar una captura de pantalla (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) o imprimir el examen también dispara la advertencia.</li>
+          ${opts && opts.permitirCaptura ? '<li><b>Capturas permitidas:</b> podés sacar capturas de tu hoja y de tu resultado.</li>' : '<li><b>Nada de capturas:</b> sacar una captura de pantalla (Impr Pant, Win+Shift+S, Cmd+Shift+3/4/5) o imprimir el examen también dispara la advertencia.</li>'}
           <li><b>Advertencia:</b> a la 3.ª incidencia aparece un aviso amarillo. Si después de eso reincidís, <b>el examen se entrega solo</b> y queda <b>en revisión</b>.</li>
           <li>Muchas incidencias, entregar fuera de tiempo o responder preguntas largas en menos de 2 segundos también dejan el intento en revisión.</li>
           ${escrito ? '<li><b>Examen escrito:</b> podés tipear o dictar con el micrófono, pero <b>no pegar texto</b> copiado de otro lado.</li>' : ''}
