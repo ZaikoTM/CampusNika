@@ -87,7 +87,7 @@
     .view-header p { color: var(--text-muted); font-size: 1.02rem; }
 
     /* ---------- Selector de modo (tarjetas) ---------- */
-    .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+    .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 22px; }
     .mode-card {
         background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 30px 26px;
         cursor: pointer; transition: all 0.25s ease; box-shadow: var(--shadow); text-align: center;
@@ -302,7 +302,7 @@
         }
     }
 </style>
-    <link rel="stylesheet" href="css/nika-unificado.css?v=9">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=10">
 </head>
 <body>
 
@@ -449,7 +449,7 @@
             <h1>🤝 Desafiar a un amigo</h1>
             <p>Elegí a quién le mandás el reto</p>
         </div>
-        <div id="friends-list" class="mode-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));"></div>
+        <div id="friends-list" class="mode-grid" style="grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));"></div>
         <div class="form-inline">
             <button class="btn-secondary" onclick="volverASelector()">← Volver</button>
         </div>

@@ -269,3 +269,18 @@ body.dark-mode .dm-inbox-live.on { color: #4ade80; }
   .plan-item-acciones { width: 100%; justify-content: flex-end; }
   .modal-content, .card, [class$="-card"] { max-width: 100%; box-sizing: border-box; }
 }
+
+/* Red de seguridad para todas las páginas */
+@media (max-width: 900px) {
+  .pl-main, .container, .app-container, main { min-width: 0; }
+  pre, code { overflow-wrap: anywhere; white-space: pre-wrap; }
+  table { max-width: 100%; }
+  .table-wrap, .tabla-scroll, [class*="table"] { max-width: 100%; overflow-x: auto; }
+  a, p, h1, h2, h3, h4, li, td { overflow-wrap: anywhere; }
+  .pilares-panel, .pilares-panel > * { min-width: 0; }
+}
+@media (max-width: 1100px) { .fr-aside { min-width: 0; } .fr-layout > * { min-width: 0; } }
+/* Pantallas táctiles: objetivos de toque cómodos */
+@media (hover: none) and (pointer: coarse) {
+  button, .btn, [role="button"], select { min-height: 40px; }
+}

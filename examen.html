@@ -97,7 +97,7 @@
         .card-body { padding: 24px; }
 
         /* ================= MOSAICOS (CONFIG) ================= */
-        .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; margin-bottom: 24px; }
         .mode-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 10px; padding: 18px; cursor: pointer; transition: all 0.2s; display: flex; align-items: flex-start; gap: 14px; }
         .mode-card:hover { border-color: #bae6fd; transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.1); }
         .mode-card.active { border-color: var(--nika-primary); background: rgba(2, 132, 199, 0.03); box-shadow: 0 0 0 1px var(--nika-primary); }
@@ -232,7 +232,7 @@
         .feedback-danger  { background: var(--danger-light); color: var(--danger); border: 1px solid #fecaca; }
 
        /* Desglose UP y Filtros */
-        .up-breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 30px; }
+        .up-breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px; margin-bottom: 30px; }
         .up-stat-box { border: 1px solid var(--border); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 700; background: var(--card-bg); color: var(--text-main);}
         
         .review-filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
@@ -952,7 +952,7 @@
           color: #fbbf24 !important;
         }
     </style>
-    <link rel="stylesheet" href="css/nika-unificado.css?v=9">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=10">
     <link rel="stylesheet" href="css/examen-integridad.css">
     <link rel="stylesheet" href="css/examen-navbar.css">
 </head>

@@ -432,7 +432,7 @@
       #nfEmerg { display:none; margin:10px 0; }
       .nfp-emerg-h { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:12px; padding:12px 14px; border-radius:14px; border:2px solid #ef4444; background:rgba(239,68,68,.1); }
       .nfp-emerg-h small { display:block; color:var(--text-muted,#94a3b8); font-size:.75rem; }
-      .nfp-emerg-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; }
+      .nfp-emerg-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap:12px; }
       .nfp-emerg-card { border:2px solid #7f1d1d; border-top:5px solid #ef4444; border-radius:16px; padding:14px 16px; background:var(--card-bg,#0c1118); }
       .nfp-emerg-card h4 { margin:0 0 8px; font-size:1.05rem; display:flex; gap:8px; align-items:center; color:var(--text-main,#f8fafc); }
       .nfp-emerg-card ol { margin:0; padding-left:20px; display:grid; gap:6px; font-size:.9rem; line-height:1.45; color:var(--text-main,#f8fafc); }

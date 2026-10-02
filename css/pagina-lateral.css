@@ -78,7 +78,7 @@ body[data-pagina="foro"] .pl-main { max-width: 1240px; }
 .fr-vacio-grande .ico { font-size: 3rem; display: block; margin-bottom: 8px; } .fr-vacio-grande b { display: block; color: var(--text-main); font-size: 1.05rem; margin-bottom: 4px; }
 .fr-skel { height: 170px; border-radius: 20px; border: 1px solid var(--border); background: linear-gradient(90deg, var(--card-bg) 25%, var(--bg-body) 37%, var(--card-bg) 63%); background-size: 400% 100%; animation: frShimmer 1.3s ease infinite; }
 @keyframes frShimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
-@media (max-width: 960px) { .fr-layout { grid-template-columns: 1fr; } .fr-aside { position: static; order: -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); } }
+@media (max-width: 960px) { .fr-layout { grid-template-columns: 1fr; } .fr-aside { position: static; order: -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); } }
 
 /* ============================================================================
    SALA DE ATENEOS — portada
@@ -99,7 +99,7 @@ body[data-pagina="ateneos"] .pl-main { max-width: 1240px; }
 .at-hero-tiles i:nth-child(2) { animation-delay: -1s; } .at-hero-tiles i:nth-child(3) { animation-delay: -2s; } .at-hero-tiles i:nth-child(4) { animation-delay: -3s; }
 @keyframes atFlota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 .at-back-mini { position: absolute; top: 16px; left: 18px; z-index: 2; }
-.at-pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.at-pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 12px; margin-bottom: 22px; }
 .at-paso { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 18px; background: var(--card-bg); border: 1px solid var(--border); }
 .at-paso b { flex-shrink: 0; width: 34px; height: 34px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; background: linear-gradient(135deg, #0284c7, #7c3aed); }
 .at-paso strong { display: block; font-size: .88rem; color: var(--text-main); } .at-paso span { font-size: .78rem; color: var(--text-muted); line-height: 1.4; }

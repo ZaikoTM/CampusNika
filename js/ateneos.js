@@ -49,7 +49,7 @@ const NikaAteneos = (() => {
       .at-head p { margin: 2px 0 0; font-size: .85rem; color: var(--text-muted); }
       .at-actual { display: none; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; margin-bottom: 16px; border-radius: 14px; background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.45); color: var(--text-main); font-size: .88rem; }
       .at-actual.on { display: flex; }
-      .at-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 22px; }
+      .at-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 16px; margin-bottom: 22px; }
       .at-card { --c: #0ea5e9; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 18px; background: var(--card-bg); border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s, border-color .2s; }
       .at-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--c); }
       .at-card:hover { transform: translateY(-3px); border-color: var(--c); box-shadow: 0 16px 34px -18px var(--c); }

@@ -20,7 +20,7 @@
 
 /* ---------- Tarjetas de documentos ---------- */
 .rz-cat { margin: 22px 0 10px; font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .7px; color: #0284c7; }
-.rz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.rz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 14px; }
 .rz-card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; text-align: left; padding: 18px; border-radius: 18px; cursor: pointer; font-family: inherit;
   background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); color: inherit; box-shadow: var(--shadow, 0 6px 16px -10px rgba(15,23,42,.3));
   animation: rz-in .5s cubic-bezier(.2,.8,.2,1) both; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
@@ -135,12 +135,12 @@ textarea.rz-centro, pre.rz-centro { text-align: center; height: 128px; backgroun
 .rz-hero-logo { animation: rz-pulso 4s ease-in-out infinite; } @keyframes rz-pulso { 50% { transform: translateY(-3px); box-shadow: 0 18px 30px -14px rgba(56,189,248,.8); } }
 
 /* Estadísticas y "cómo funciona" */
-.rz-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px; }
+.rz-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px; margin-bottom: 12px; }
 .rz-stat { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 16px; background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); animation: rz-in .5s cubic-bezier(.2,.8,.2,1) both; transition: transform .2s, box-shadow .2s; }
 .rz-stat:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -16px rgba(2,132,199,.6); }
 .rz-stat > span { width: 46px; height: 46px; display: grid; place-items: center; font-size: 1.4rem; border-radius: 14px; background: linear-gradient(135deg, rgba(2,132,199,.16), rgba(99,102,241,.14)); }
 .rz-stat b { display: block; font-size: 1.5rem; line-height: 1.1; } .rz-stat small { color: var(--text-muted, #64748b); font-size: .76rem; }
-.rz-pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.rz-pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 12px; margin-bottom: 18px; }
 .rz-paso { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; background: linear-gradient(135deg, rgba(2,132,199,.08), rgba(99,102,241,.06)); border: 1px dashed rgba(2,132,199,.4); animation: rz-in .5s cubic-bezier(.2,.8,.2,1) both; }
 .rz-paso-n { position: absolute; top: -10px; left: 14px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .72rem; color: #fff; background: linear-gradient(135deg, #0284c7, #2563eb); }
 .rz-paso i { font-style: normal; font-size: 1.6rem; } .rz-paso b { display: block; font-size: .9rem; } .rz-paso small { color: var(--text-muted, #64748b); font-size: .78rem; }
@@ -150,7 +150,7 @@ textarea.rz-centro, pre.rz-centro { text-align: center; height: 128px; backgroun
 .rz-filtros button { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border, #e2e8f0); background: var(--card-bg, #fff); color: var(--text-muted, #64748b); font-weight: 800; font-size: .78rem; font-family: inherit; cursor: pointer; transition: all .2s; }
 .rz-filtros button:hover { border-color: #0284c7; color: #0284c7; transform: translateY(-1px); }
 .rz-filtros button.on { background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; border-color: transparent; box-shadow: 0 8px 16px -8px rgba(37,99,235,.9); }
-.rz-grid { grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); }
+.rz-grid { grid-template-columns: repeat(auto-fill, minmax(min(238px, 100%), 1fr)); }
 .rz-card { --c: #0284c7; padding: 20px 18px 16px; min-height: 210px; }
 .rz-card::before { background: var(--c); height: 5px; transform: scaleX(1); opacity: .9; }
 .rz-card::after { content: ""; position: absolute; right: -40px; top: -40px; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--c) 28%, transparent), transparent 70%); transition: transform .5s ease; }

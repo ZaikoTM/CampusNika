@@ -53,7 +53,7 @@ h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:900;letter-spacing:-1.4px;line-h
 .pill:hover{color:#fff;border-color:rgba(168,85,247,.6)}
 .pill.on{color:#fff;background:linear-gradient(135deg,rgba(168,85,247,.5),rgba(56,189,248,.35));border-color:rgba(255,255,255,.35)}
 .count{font-size:.8rem;color:var(--d);font-weight:600;margin:6px 0 20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;align-items:start}
+.grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(min(320px, 100%), 1fr));gap:16px;align-items:start}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:border-color .25s,box-shadow .25s,transform .25s}
 .card:hover{border-color:rgba(168,85,247,.55);box-shadow:0 0 26px rgba(56,189,248,.12);transform:translateY(-2px)}
 .card.wide{grid-column:1/-1}
@@ -76,7 +76,7 @@ mark{background:rgba(250,204,21,.28);color:#fff;border-radius:3px;padding:0 2px}
 @media(max-width:520px){.grid{grid-template-columns:1fr}.brand span.n{display:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
-    <link rel="stylesheet" href="css/nika-unificado.css?v=9">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=10">
 </head>
 <body>
 <header class="top">
