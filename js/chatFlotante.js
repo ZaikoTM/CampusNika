@@ -169,7 +169,7 @@
   }
 
   // ------------------------------------------------------------------ conversación
-  const hora = (iso) => { try { return new Date(iso).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }); } catch (_) { return ''; } };
+  const hora = (iso) => { try { return new Date(iso).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false }); } catch (_) { return ''; } };
   function etiquetaDia(iso) {
     const f = new Date(iso), h = new Date(), a = new Date(h); a.setDate(h.getDate() - 1); const igual = (x, y) => x.toDateString() === y.toDateString();
     return igual(f, h) ? 'Hoy' : igual(f, a) ? 'Ayer' : f.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });

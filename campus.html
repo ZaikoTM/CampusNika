@@ -2238,7 +2238,7 @@
             if (!ses.length) return _vacioR('Todavía no estudiaste hoy. ¡Un Pomodoro y arrancás la racha!');
             const filas = ses.map(s => `<div style="display:flex; justify-content:space-between; align-items:center; padding:9px 11px; background:var(--bg-body); border:1px solid var(--border); border-radius:10px; margin-bottom:7px; font-size:0.83rem;">
                 <span><strong>${_escR(NikaRendimiento.labelModulo(s.modulo || 'otros'))}</strong>${s.up_id ? ' · ' + _escR(NikaRendimiento.normUp(s.up_id) || s.up_id) : ''}${s.completed === false ? ' <em style="color:var(--text-muted);">(parcial)</em>' : ''}</span>
-                <span style="color:var(--text-muted);">${new Date(s.completed_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })} · <strong style="color:var(--text-main);">${_fmtMin(Number(s.duration_minutes) || 0)}</strong></span></div>`).join('');
+                <span style="color:var(--text-muted);">${new Date(s.completed_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false })} · <strong style="color:var(--text-main);">${_fmtMin(Number(s.duration_minutes) || 0)}</strong></span></div>`).join('');
             const pct = Math.min(100, Math.round(r.kpis.tiempoHoyMin / 120 * 100));
             return `<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">${_kpiR(_fmtMin(r.kpis.tiempoHoyMin), 'Hoy')}${_kpiR(r.kpis.pomodorosHoy, 'Sesiones')}${_kpiR(pct + '%', 'De la meta (2 h)')}</div>
                 <div style="margin-bottom:16px;">${_barraR(pct)}</div>${filas}`;
@@ -4139,7 +4139,7 @@ async function handleLogout() {
 
             const nombre = row.profiles?.fullname || 'Estudiante Nika';
             const avatar = row.profiles?.avatar || (typeof NikaSocial !== 'undefined' ? NikaSocial.DEFAULT_AVATAR : '');
-            const hora = row.created_at ? new Date(row.created_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) : '';
+            const hora = row.created_at ? new Date(row.created_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false }) : '';
             const rango = (typeof _rangoTarjetaAmigo === 'function') ? _rangoTarjetaAmigo(row.profiles?.role, undefined, row.user_id) : { label: '', clase: 'rank-free' };
 
             const msgEl = document.createElement('div');
@@ -5273,7 +5273,7 @@ async function handleLogout() {
     }
 
     function _pcHora(fechaISO) {
-        try { return new Date(fechaISO).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }); }
+        try { return new Date(fechaISO).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false }); }
         catch (_) { return ''; }
     }
 
