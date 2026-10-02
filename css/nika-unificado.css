@@ -255,3 +255,17 @@ body.dark-mode .dm-inbox-live.on { color: #4ade80; }
 /* Móvil: el aviso (toast) invisible tapaba el panel de notificaciones y se comía los toques (Aceptar solicitud) */
 #toast { pointer-events: none; }
 #notifications-panel button { touch-action: manipulation; min-height: 34px; padding-left: 12px !important; padding-right: 12px !important; }
+
+/* ============================================================================
+   Adaptación a celulares/tablets: nada se corta ni ensancha la pantalla
+   ============================================================================ */
+.plan-card, .plan-card-cols > *, .plan-lista, .plan-item, .plan-item-main { min-width: 0; max-width: 100%; }
+.plan-vacio { overflow-wrap: anywhere; }
+@media (max-width: 720px) {
+  .plan-card-cols { grid-template-columns: minmax(0, 1fr) !important; gap: 18px; }
+  .plan-item-title { white-space: normal; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .plan-item-main { flex: 1 1 100%; }
+  .plan-item-go { width: 100%; justify-content: center; }
+  .plan-item-acciones { width: 100%; justify-content: flex-end; }
+  .modal-content, .card, [class$="-card"] { max-width: 100%; box-sizing: border-box; }
+}

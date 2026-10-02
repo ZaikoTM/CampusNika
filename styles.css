@@ -155,7 +155,7 @@
         .year-tab-btn.active { background: var(--nika-primary); border-color: var(--nika-primary); color: #fff; box-shadow: 0 4px 14px rgba(2,132,199,0.3); }
         .year-tab-btn .tab-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--success); margin-left: 7px; vertical-align: middle; }
 
-        .year-content { display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; animation: fadeInYear 0.35s ease; }
+        .year-content { display: none; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 16px; animation: fadeInYear 0.35s ease; }
         .year-content.active { display: grid; }
         @keyframes fadeInYear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -1809,7 +1809,7 @@ body.nika-vip .sim-hub-ai { color: #a855f7; background: rgba(168, 85, 247, 0.14)
 .btn-balance-secundario:hover { background: rgba(2, 132, 199, 0.06); border-color: #0284c7; transform: translateY(-1px); }
 .btn-balance-cerrar { background: #f1f5f9; color: #475569; border: 1px solid rgba(226, 232, 240, 0.9); border-radius: 12px; padding: 10px 22px; font-weight: 700; font-size: 0.86rem; cursor: pointer; transition: background .2s ease; }
 .btn-balance-cerrar:hover { background: #e2e8f0; }
-@media (max-width: 720px) { .plan-card-cols { grid-template-columns: 1fr; } .balance-hero-big { font-size: 1.6rem; } }
+@media (max-width: 720px) { .plan-card-cols { grid-template-columns: minmax(0, 1fr); } .balance-hero-big { font-size: 1.6rem; } }
 
 /* Acciones editar/eliminar en la tarjeta de eventos + modal de edición */
 .plan-item { cursor: pointer; }
