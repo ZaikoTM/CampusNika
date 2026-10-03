@@ -3,77 +3,267 @@
   "titulo": "Mesa de instrumental · Sonda vesical",
   "consigna": "Armá la bandeja estéril con todo lo necesario para sondar a este paciente. Tocá un elemento para inspeccionarlo; arrastralo a la bandeja o usá el botón para agregarlo.",
   "grupos": [
-    { "id": "sondas", "titulo": "Sondas y colectores" },
-    { "id": "medic", "titulo": "Medicación y antisépticos" },
-    { "id": "campo", "titulo": "Protección y campo" },
-    { "id": "insumos", "titulo": "Insumos" }
+    {
+      "id": "sondas",
+      "titulo": "Sondas y colectores"
+    },
+    {
+      "id": "medic",
+      "titulo": "Medicación y antisépticos"
+    },
+    {
+      "id": "campo",
+      "titulo": "Protección y campo"
+    },
+    {
+      "id": "insumos",
+      "titulo": "Insumos"
+    }
   ],
   "items": [
-    { "id": "sonda_f", "grupo": "sondas", "emoji": "🪢", "nombre": "Sonda Foley 14 Fr, 2 vías", "detalle": "Silicona o látex · balón de 10 mL · estéril", "sexo": "F", "correcto": true, "critico": true,
+    {
+      "id": "sonda_f",
+      "grupo": "sondas",
+      "emoji": "🪢",
+      "nombre": "Sonda Foley 14 Fr, 2 vías",
+      "detalle": "Silicona o látex · balón de 10 mL · estéril",
+      "sexo": "F",
+      "correcto": true,
+      "critico": true,
       "descripcion": "Para el sondaje permanente en la mujer se usan calibres finos (14 a 16 Fr). Tiene dos vías: una para el drenaje de la orina y otra para inflar el balón.",
-      "falta": "Sin la sonda Foley adecuada no hay procedimiento: en la mujer corresponde un calibre fino de 2 vías." },
-    { "id": "sonda_m", "grupo": "sondas", "emoji": "🪢", "nombre": "Sonda Foley 16 Fr, 2 vías", "detalle": "Silicona o látex · balón de 10 mL · estéril", "sexo": "M", "correcto": true, "critico": true,
+      "falta": "Sin la sonda Foley adecuada no hay procedimiento: en la mujer corresponde un calibre fino de 2 vías."
+    },
+    {
+      "id": "sonda_m",
+      "grupo": "sondas",
+      "emoji": "🪢",
+      "nombre": "Sonda Foley 16 Fr, 2 vías",
+      "detalle": "Silicona o látex · balón de 10 mL · estéril",
+      "sexo": "M",
+      "correcto": true,
+      "critico": true,
       "descripcion": "Para el sondaje permanente en el varón se usan calibres de 16 a 18 Fr. Tiene dos vías: drenaje y balón.",
-      "falta": "Sin la sonda Foley adecuada no hay procedimiento: en el varón corresponde un calibre de 16 a 18 Fr de 2 vías." },
-    { "id": "sonda_3v", "grupo": "sondas", "emoji": "🧵", "nombre": "Sonda Foley 22 Fr, 3 vías", "detalle": "Balón de 30 mL · irrigación continua · estéril", "correcto": false, "critico": false,
+      "falta": "Sin la sonda Foley adecuada no hay procedimiento: en el varón corresponde un calibre de 16 a 18 Fr de 2 vías."
+    },
+    {
+      "id": "sonda_3v",
+      "grupo": "sondas",
+      "emoji": "🧵",
+      "nombre": "Sonda Foley 22 Fr, 3 vías",
+      "detalle": "Balón de 30 mL · irrigación continua · estéril",
+      "correcto": false,
+      "critico": false,
       "descripcion": "La tercera vía permite irrigar la vejiga de forma continua.",
-      "feedback": "La sonda de 3 vías se reserva para la irrigación vesical continua (por ejemplo, hematuria con coágulos). Para un sondaje simple alcanza una de 2 vías, y un calibre grueso lesiona la uretra." },
-    { "id": "nelaton", "grupo": "sondas", "emoji": "➖", "nombre": "Sonda Nélaton 12 Fr", "detalle": "Sin balón · evacuadora · estéril", "correcto": false, "critico": false,
+      "feedback": "La sonda de 3 vías se reserva para la irrigación vesical continua (por ejemplo, hematuria con coágulos). Para un sondaje simple alcanza una de 2 vías, y un calibre grueso lesiona la uretra."
+    },
+    {
+      "id": "nelaton",
+      "grupo": "sondas",
+      "emoji": "➖",
+      "nombre": "Sonda Nélaton 12 Fr",
+      "detalle": "Sin balón · evacuadora · estéril",
+      "correcto": false,
+      "critico": false,
       "descripcion": "Sonda recta, sin balón, usada para vaciar la vejiga de forma intermitente.",
-      "feedback": "La Nélaton no tiene balón: no queda fija en la vejiga. Se usa para el sondaje evacuador intermitente, no para el drenaje permanente." },
-    { "id": "sng", "grupo": "sondas", "emoji": "🧪", "nombre": "Sonda nasogástrica 16 Fr", "detalle": "Vía digestiva alta · estéril", "correcto": false, "critico": true,
+      "feedback": "La Nélaton no tiene balón: no queda fija en la vejiga. Se usa para el sondaje evacuador intermitente, no para el drenaje permanente."
+    },
+    {
+      "id": "sng",
+      "grupo": "sondas",
+      "emoji": "🧪",
+      "nombre": "Sonda nasogástrica 16 Fr",
+      "detalle": "Vía digestiva alta · estéril",
+      "correcto": false,
+      "critico": true,
       "descripcion": "Sonda larga y flexible para la vía digestiva alta.",
-      "feedback": "La sonda nasogástrica es para la vía digestiva. Usarla en la uretra es un error de material grave: no tiene balón ni el diseño para la vía urinaria." },
-    { "id": "bolsa", "grupo": "sondas", "emoji": "🛍️", "nombre": "Bolsa colectora de sistema cerrado", "detalle": "2000 mL · válvula antirreflujo · estéril", "correcto": true, "critico": true,
+      "feedback": "La sonda nasogástrica es para la vía digestiva. Usarla en la uretra es un error de material grave: no tiene balón ni el diseño para la vía urinaria."
+    },
+    {
+      "id": "bolsa",
+      "grupo": "sondas",
+      "emoji": "🛍️",
+      "nombre": "Bolsa colectora de sistema cerrado",
+      "detalle": "2000 mL · válvula antirreflujo · estéril",
+      "correcto": true,
+      "critico": true,
       "descripcion": "Se conecta a la sonda y forma un sistema cerrado que protege de la infección. Tiene válvula antirreflujo y pico de vaciado.",
-      "falta": "Sin la bolsa colectora de sistema cerrado no se puede completar el drenaje ni mantener la asepsia del circuito." },
-
-    { "id": "agua", "grupo": "medic", "emoji": "💧", "nombre": "Agua bidestilada estéril", "detalle": "Ampolla de 10 mL", "correcto": true, "critico": true,
-      "descripcion": "Es el líquido con el que se infla el balón una vez que la sonda está dentro de la vejiga.",
-      "falta": "Falta el agua bidestilada estéril: es lo que se usa para inflar el balón de fijación." },
-    { "id": "suero", "grupo": "medic", "emoji": "🧂", "nombre": "Solución fisiológica 0,9 %", "detalle": "Ampolla de 10 mL", "correcto": false, "critico": true,
+      "falta": "Sin la bolsa colectora de sistema cerrado no se puede completar el drenaje ni mantener la asepsia del circuito."
+    },
+    {
+      "id": "agua",
+      "grupo": "medic",
+      "emoji": "💧",
+      "nombre": "Agua bidestilada estéril",
+      "detalle": "Ampolla de 10 mL",
+      "correcto": true,
+      "critico": true,
+      "descripcion": "Se carga con la jeringa de 10 mL y se usan 10 cc para inflar el balón una vez que la sonda está dentro de la vejiga. El balón se infla siempre con líquido (nunca aire): es incompresible y da un volumen constante.",
+      "falta": "Falta el agua bidestilada estéril: es lo que se usa para inflar el balón de fijación."
+    },
+    {
+      "id": "suero",
+      "grupo": "medic",
+      "emoji": "🧂",
+      "nombre": "Solución fisiológica 0,9 %",
+      "detalle": "Ampolla de 10 mL",
+      "correcto": false,
+      "critico": false,
       "descripcion": "Solución salina isotónica de uso general.",
-      "feedback": "El balón se infla con agua bidestilada, no con suero fisiológico: la sal puede cristalizar en la válvula y el balón no se desinfla al retirar la sonda." },
-    { "id": "gel", "grupo": "medic", "emoji": "🧴", "nombre": "Lidocaína en gel 2 %", "detalle": "Jeringa estéril monodosis", "correcto": true, "critico": true,
+      "feedback": "El insumo estipulado para inflar el balón es el agua bidestilada estéril: la sal del suero fisiológico puede cristalizar en la válvula y el microcanal y dificultar el desinflado al retirar la sonda."
+    },
+    {
+      "id": "gel",
+      "grupo": "medic",
+      "emoji": "🧴",
+      "nombre": "Lidocaína en gel 2 %",
+      "detalle": "Jeringa estéril monodosis",
+      "correcto": true,
+      "critico": true,
       "descripcion": "Lubrica la sonda y anestesia la uretra, lo que disminuye el dolor y el trauma uretral.",
-      "falta": "Falta la lidocaína en gel: sin lubricación ni anestesia local aumenta el dolor y el riesgo de lesión uretral." },
-    { "id": "vaselina", "grupo": "medic", "emoji": "🫙", "nombre": "Vaselina en pomada", "detalle": "Pote de uso general · no estéril", "correcto": false, "critico": false,
+      "falta": "Falta la lidocaína en gel: sin lubricación ni anestesia local aumenta el dolor y el riesgo de lesión uretral."
+    },
+    {
+      "id": "vaselina",
+      "grupo": "medic",
+      "emoji": "🫙",
+      "nombre": "Vaselina en pomada",
+      "detalle": "Pote de uso general · no estéril",
+      "correcto": false,
+      "critico": false,
       "descripcion": "Lubricante oleoso de uso común.",
-      "feedback": "La vaselina no es estéril ni anestésica y puede contaminar la uretra. Para sondar se usa gel estéril hidrosoluble con anestésico." },
-    { "id": "iodo", "grupo": "medic", "emoji": "🧼", "nombre": "Iodopovidona jabonosa", "detalle": "Antiséptico para la zona genital", "correcto": true, "critico": true,
-      "descripcion": "Se usa para la antisepsia del meato y las zonas adyacentes antes de armar el campo estéril.",
-      "falta": "Falta el antiséptico (iodopovidona jabonosa): sin antisepsia aumenta el riesgo de infección urinaria asociada a la sonda." },
-    { "id": "alcohol", "grupo": "medic", "emoji": "🧫", "nombre": "Alcohol al 70 %", "detalle": "Gasas embebidas", "correcto": false, "critico": false,
+      "feedback": "La vaselina no es estéril ni anestésica y puede contaminar la uretra. Para sondar se usa gel estéril hidrosoluble con anestésico."
+    },
+    {
+      "id": "iodo",
+      "grupo": "medic",
+      "emoji": "🧼",
+      "nombre": "Iodopovidona jabonosa",
+      "detalle": "Antiséptico para la zona genital",
+      "correcto": true,
+      "critico": true,
+      "descripcion": "Antisepsia de la zona genital: mínimo 3 pasadas con gasas estériles (una nueva por pasada), de lo más limpio a lo más contaminado (mujer: de arriba hacia abajo; varón: del meato hacia afuera, retrayendo el prepucio). Todo el lavado se repite 2 veces.",
+      "falta": "Falta el antiséptico (iodopovidona jabonosa): sin antisepsia aumenta el riesgo de infección urinaria asociada a la sonda."
+    },
+    {
+      "id": "alcohol",
+      "grupo": "medic",
+      "emoji": "🧫",
+      "nombre": "Alcohol al 70 %",
+      "detalle": "Gasas embebidas",
+      "correcto": false,
+      "critico": false,
       "descripcion": "Antiséptico de uso cutáneo.",
-      "feedback": "El alcohol irrita las mucosas y no es el antiséptico indicado para la zona genital en este procedimiento: corresponde iodopovidona jabonosa." },
-
-    { "id": "guantes_ns", "grupo": "campo", "emoji": "🧤", "nombre": "Guantes de examen no estériles", "detalle": "Par · para la higiene de la zona", "correcto": true, "critico": true,
+      "feedback": "El alcohol irrita las mucosas y no es el antiséptico indicado para la zona genital en este procedimiento: corresponde iodopovidona jabonosa."
+    },
+    {
+      "id": "guantes_ns",
+      "grupo": "campo",
+      "emoji": "🧤",
+      "nombre": "Guantes de examen no estériles",
+      "detalle": "Par · para la higiene de la zona",
+      "correcto": true,
+      "critico": true,
       "descripcion": "Protegen al operador durante la higiene genital, que es la etapa limpia del procedimiento.",
-      "falta": "Faltan los guantes no estériles para la etapa de higiene de la zona." },
-    { "id": "guantes_e", "grupo": "campo", "emoji": "🧤", "nombre": "Guantes estériles", "detalle": "Par · talle adecuado · técnica cerrada", "correcto": true, "critico": true,
+      "falta": "Faltan los guantes no estériles para la etapa de higiene de la zona."
+    },
+    {
+      "id": "guantes_e",
+      "grupo": "campo",
+      "emoji": "🧤",
+      "nombre": "Guantes estériles",
+      "detalle": "Par · talle adecuado · técnica cerrada",
+      "correcto": true,
+      "critico": true,
       "descripcion": "Se colocan con técnica cerrada, luego del lavado de manos, para toda la etapa estéril.",
-      "falta": "Faltan los guantes estériles: la introducción de la sonda es una maniobra estéril." },
-    { "id": "panos_ns", "grupo": "campo", "emoji": "🧻", "nombre": "Paños clínicos no estériles (2)", "detalle": "Para cubrir y apoyar los muslos", "correcto": true, "critico": false,
+      "falta": "Faltan los guantes estériles: la introducción de la sonda es una maniobra estéril."
+    },
+    {
+      "id": "panos_ns",
+      "grupo": "campo",
+      "emoji": "🧻",
+      "nombre": "Paños clínicos no estériles (2)",
+      "detalle": "Para cubrir y apoyar los muslos",
+      "correcto": true,
+      "critico": false,
       "descripcion": "Cubren la zona genital durante la higiene y se colocan bajo los muslos para aislar la cama.",
-      "falta": "Faltan los paños clínicos no estériles para preservar la intimidad y aislar la zona durante la higiene." },
-    { "id": "pano_e", "grupo": "campo", "emoji": "🟦", "nombre": "Paños estériles (2)", "detalle": "Uno para el campo y otro adicional", "correcto": true, "critico": true,
+      "falta": "Faltan los paños clínicos no estériles para preservar la intimidad y aislar la zona durante la higiene."
+    },
+    {
+      "id": "pano_e",
+      "grupo": "campo",
+      "emoji": "🟦",
+      "nombre": "Paños estériles (2)",
+      "detalle": "Uno para el campo y otro adicional",
+      "correcto": true,
+      "critico": true,
       "descripcion": "Uno cubre la región pelviana y genital (campo estéril); el otro sirve de superficie estéril para los elementos.",
-      "falta": "Faltan los paños estériles: sin campo estéril se rompe la asepsia del procedimiento." },
-    { "id": "pack", "grupo": "campo", "emoji": "📦", "nombre": "Set de sondaje estéril", "detalle": "Gasas, pinza y cuenco", "correcto": true, "critico": false,
-      "descripcion": "Reúne los elementos auxiliares estériles: gasas, cuenco y pinza.",
-      "falta": "Falta el set de sondaje estéril con las gasas y los elementos auxiliares." },
-
-    { "id": "jeringa10", "grupo": "insumos", "emoji": "💉", "nombre": "Jeringa estéril de 10 mL", "detalle": "Para inflar el balón", "correcto": true, "critico": true,
-      "descripcion": "Se usa para cargar el agua bidestilada e inflar el balón por la vía correspondiente.",
-      "falta": "Falta la jeringa de 10 mL para inflar el balón." },
-    { "id": "jeringa_ins", "grupo": "insumos", "emoji": "📏", "nombre": "Jeringa de insulina 1 mL", "detalle": "Aguja integrada", "correcto": false, "critico": false,
+      "falta": "Faltan los paños estériles: sin campo estéril se rompe la asepsia del procedimiento."
+    },
+    {
+      "id": "gasas",
+      "grupo": "campo",
+      "emoji": "🧽",
+      "nombre": "Gasas estériles (mín. 20)",
+      "detalle": "Una gasa nueva por pasada de antisepsia",
+      "correcto": true,
+      "critico": false,
+      "descripcion": "Se usan en la antisepsia: mínimo 3 pasadas, una gasa nueva por pasada, y el lavado se repite 2 veces.",
+      "falta": "Faltan las gasas estériles (la cátedra pide como mínimo 20) para las pasadas de antisepsia."
+    },
+    {
+      "id": "rinonera",
+      "grupo": "campo",
+      "emoji": "🥣",
+      "nombre": "Riñonera / cuenco estéril",
+      "detalle": "Para dejar los elementos y la orina inicial",
+      "correcto": true,
+      "critico": false,
+      "descripcion": "Recipiente estéril sobre el campo auxiliar para ordenar los elementos y recibir líquidos.",
+      "falta": "Falta la riñonera o cuenco estéril del listado de insumos."
+    },
+    {
+      "id": "jeringa10",
+      "grupo": "insumos",
+      "emoji": "💉",
+      "nombre": "Jeringa estéril de 10 mL",
+      "detalle": "Para inflar el balón",
+      "correcto": true,
+      "critico": true,
+      "descripcion": "Tiene un triple uso: probar el balón con 5 cc de aire fuera del paciente, instilar la lidocaína en el meato del varón (sin aguja) e inflar el balón con 10 cc de agua bidestilada.",
+      "falta": "Falta la jeringa de 10 mL para inflar el balón."
+    },
+    {
+      "id": "jeringa_ins",
+      "grupo": "insumos",
+      "emoji": "📏",
+      "nombre": "Jeringa de insulina 1 mL",
+      "detalle": "Aguja integrada",
+      "correcto": false,
+      "critico": false,
       "descripcion": "Jeringa fina, de 1 mL, con aguja fija.",
-      "feedback": "La jeringa de insulina no tiene el volumen necesario (10 mL) y trae aguja: el balón se infla sin aguja, por su válvula." },
-    { "id": "aguja", "grupo": "insumos", "emoji": "📍", "nombre": "Aguja 21 G", "detalle": "Descartable · estéril", "correcto": false, "critico": false,
+      "feedback": "La jeringa de insulina tiene 1 mL (harían falta 10 recargas, rompiendo la esterilidad) y aguja fija, mientras que la válvula del balón requiere acople directo tipo Luer, sin aguja."
+    },
+    {
+      "id": "aguja",
+      "grupo": "insumos",
+      "emoji": "📍",
+      "nombre": "Aguja 21 G",
+      "detalle": "Descartable · estéril",
+      "correcto": false,
+      "critico": false,
       "descripcion": "Aguja hipodérmica de uso general.",
-      "feedback": "No se usa aguja en este procedimiento. El balón se infla acoplando la jeringa a su válvula, sin agujas." },
-    { "id": "cinta", "grupo": "insumos", "emoji": "🩹", "nombre": "Cinta hipoalergénica", "detalle": "Para fijar la sonda al muslo", "correcto": true, "critico": false,
-      "descripcion": "Fija la sonda a la cara interna del muslo para evitar la tracción sobre la uretra.",
-      "falta": "Falta la cinta hipoalergénica para fijar la sonda al muslo." }
+      "feedback": "No se usa aguja en este procedimiento. El balón se infla acoplando la jeringa a su válvula, sin agujas."
+    },
+    {
+      "id": "cinta",
+      "grupo": "insumos",
+      "emoji": "🩹",
+      "nombre": "Cinta hipoalergénica",
+      "detalle": "Para fijar la sonda al muslo",
+      "correcto": true,
+      "critico": false,
+      "descripcion": "Fijación externa secundaria de la sonda a la cara interna del muslo para evitar tironeamientos. La fijación primaria es el balón inflado en la vejiga.",
+      "falta": "Falta la cinta hipoalergénica para fijar la sonda al muslo."
+    }
   ]
 }

@@ -51,7 +51,7 @@
    "fase": "Comunicación",
    "target": "paciente",
    "critico": false,
-   "explica": "La explicación incluye los motivos de la práctica, sus riesgos (infección, trauma o falsa vía uretral) y sus beneficios, con lenguaje claro y sencillo.",
+   "explica": "Explicá el procedimiento con lenguaje claro y sencillo, exento de tecnicismos, para no inducir ansiedad. Incluí el motivo, los riesgos (infección, trauma o falsa vía) y los beneficios, pedí su colaboración activa durante el paso de la sonda y verificá que no le queden dudas antes del consentimiento.",
    "estado": {}
   },
   {
@@ -71,7 +71,7 @@
    "fase": "Posición y asepsia",
    "target": "paciente",
    "critico": false,
-   "explica": "Mujeres: posición ginecológica (litotomía) para exponer el meato. Varones: decúbito supino.",
+   "explica": "Mujer: posición ginecológica o de litotomía (decúbito supino con las piernas flexionadas y separadas) para ver bien el meato. Varón: decúbito supino con los miembros inferiores extendidos y levemente separados.",
    "estado": {
     "pos": 1
    }
@@ -102,7 +102,7 @@
    "fase": "Posición y asepsia",
    "target": "iodo",
    "critico": false,
-   "explica": "La antisepsia con iodopovidona jabonoso del meato y zonas adyacentes reduce la carga bacteriana y el riesgo de infección urinaria asociada a la sonda.",
+   "explica": "Antisepsia con iodopovidona jabonosa, con un mínimo de 3 pasadas con gasas estériles (una gasa nueva por pasada), de lo más limpio a lo más contaminado, ampliada a la región pelviana y la cara interna de los muslos; todo el lavado se repite 2 veces. Mujer: genitales externos de arriba hacia abajo (de clítoris a ano); si está menstruando se coloca un tapón vaginal con gasa estéril que se retira al finalizar. Varón: retraer el prepucio y limpiar del meato hacia afuera en forma circular, con atención al surco balano-prepucial. Al terminar se pide al paciente que eleve los muslos y se coloca debajo un paño clínico limpio.",
    "estado": {
     "higiene": 1
    }
@@ -144,7 +144,7 @@
    "fase": "Campo estéril",
    "target": "guantes-e",
    "critico": true,
-   "explica": "Los guantes estériles se colocan con técnica cerrada para no tocar su exterior con la piel y mantener la esterilidad.",
+   "explica": "Los guantes estériles se colocan con técnica cerrada y garantizan la etapa estéril: a partir de este momento las manos no pueden tocar ninguna superficie no estéril (cama, piel no delimitada, frascos externos).",
    "estado": {
     "gloves": "e"
    }
@@ -166,7 +166,7 @@
    "fase": "Campo estéril",
    "target": "campo-aux",
    "critico": false,
-   "explica": "Un paño adicional estéril, cerca de la zona, es la superficie donde se ordenan los elementos necesarios sin contaminarlos.",
+   "explica": "Este segundo paño estéril funciona como mesa auxiliar sobre el campo de trabajo, donde se ordenan la sonda, la jeringa, el agua bidestilada y la lidocaína sin riesgo de contaminación.",
    "estado": {
     "aux": 1
    }
@@ -177,7 +177,7 @@
    "fase": "Campo estéril",
    "target": "pack",
    "critico": false,
-   "explica": "El pack se abre con la mano dominante y la sonda se retira enrollándola de a poco, sin que toque superficies no estériles.",
+   "explica": "Se abre el sobre con la mano dominante y se sostiene y enrolla la sonda en la palma de la mano no dominante, de a poco, para evitar el «efecto látigo»: si el extremo libre cuelga puede rozar la cama o los muslos y perder la esterilidad.",
    "estado": {
     "pack": 1
    }
@@ -188,7 +188,7 @@
    "fase": "Técnica",
    "target": "sonda",
    "critico": true,
-   "explica": "Se infla y desinfla el balón con aire para confirmar que no pierde y que no está roto. Un balón defectuoso puede romperse dentro de la vejiga o no fijar la sonda. No comprobarlo es criterio de desaprobación.",
+   "explica": "Fuera del paciente se prueba el balón con 5 cc de AIRE: si no infla de forma simétrica o pierde, se descarta la sonda. Antes de lubricar e introducir hay que desinflar y aspirar todo el aire (con el balón parcialmente inflado se lacera la uretra). No comprobarlo es criterio de desaprobación. Dentro de la vejiga el balón se infla con 10 cc de agua bidestilada, nunca con aire.",
    "estado": {
     "tested": 1
    }
@@ -199,7 +199,7 @@
    "fase": "Técnica",
    "target": "gel",
    "critico": false,
-   "explica": "La lidocaína en gel lubrica y anestesia localmente el extremo de la sonda, y disminuye el trauma uretral y el dolor.",
+   "explica": "Se lubrica el extremo distal de la sonda (donde están las fenestras de drenaje). En el varón, además, se instila abundante lidocaína en gel directamente en el meato con una jeringa sin aguja (esperar 3 a 5 minutos) para anestesiar y dilatar la uretra.",
    "estado": {
     "gel": 1
    }
@@ -219,7 +219,7 @@
    "fase": "Técnica",
    "target": "uretra",
    "critico": false,
-   "explica": "Se introduce siguiendo el recorrido de la uretra de cada sexo (corta en la mujer, larga y con curvas en el varón) hasta que fluye orina. Ante resistencia no se fuerza: se reevalúa, para evitar una falsa vía uretral.",
+   "explica": "Mujer: separar los labios mayores y menores con la mano no dominante e introducir suavemente 5 a 7 cm hasta ver salir orina; ante resistencia, angular hacia la sínfisis pubiana. Si a los 8-10 cm no sale orina, la sonda entró en la vagina: se descarta ese material y se rehace con sonda y guantes estériles nuevos. Varón: traccionar el pene a 90° hacia arriba para rectificar la curva anterior, introducir 17 a 22 cm hasta ver orina (hasta la bifurcación de la sonda); ante resistencia en el esfínter o la próstata, bajar el pene a 45°, avanzar con suaves rotaciones y pedir al paciente que puje o respire profundo. Nunca forzar.",
    "estado": {
     "ins": 1
    }
@@ -230,7 +230,7 @@
    "fase": "Técnica",
    "target": "jeringa",
    "critico": false,
-   "explica": "Una vez que sale orina se infla el balón con agua bidestilada (no suero fisiológico, que puede cristalizar y dificultar el desinflado). Inflar antes de confirmar que está en la vejiga lesiona la uretra.",
+   "explica": "Primero hay que confirmar que sale orina y avanzar la sonda 2 a 3 cm más; recién entonces se infla el balón con 10 cc de agua bidestilada estéril (nunca aire; no suero fisiológico, porque puede cristalizar en la válvula). Inflar antes de ver orina lesiona la uretra.",
    "estado": {
     "infl": 1
    }
@@ -250,7 +250,7 @@
    "fase": "Cierre",
    "target": "bolsa",
    "critico": false,
-   "explica": "Se conecta la bolsa colectora y se comprueba que la orina fluye hacia ella (sistema cerrado).",
+   "explica": "Se conecta la bolsa al pico de la sonda formando un sistema cerrado y se verifica que la orina fluya. Con una retención de gran volumen (más de 500-800 cc) se clampea el tubo de la bolsa de forma intermitente (cada 500 cc) para evitar la hipotensión súbita y la hematuria ex vacuo.",
    "estado": {
     "bag": 1
    }
@@ -284,7 +284,7 @@
    "fase": "Cierre",
    "target": "cinta",
    "critico": false,
-   "explica": "Fijar la sonda a la cara interna del muslo evita la tracción sobre la uretra y el cuello vesical.",
+   "explica": "La fijación primaria es el balón inflado en la vejiga. En algunas ocasiones se sujeta además una parte de la sonda a la cara interna del muslo con cinta hipoalergénica, como fijación secundaria para evitar la movilización y los tironeamientos.",
    "estado": {
     "fix": 1
    }
@@ -380,7 +380,7 @@
   },
   "iodo": {
    "nombre": "Iodopovidona jabonoso",
-   "desc": "Antisepsia de la zona genital y adyacencias.",
+   "desc": "Antiséptico de la higiene genital: mínimo 3 pasadas con gasas estériles (una nueva por pasada), de lo más limpio a lo más contaminado, y se repite todo el lavado 2 veces.",
    "pasos": [
     10
    ]
@@ -430,7 +430,7 @@
   },
   "gel": {
    "nombre": "Lidocaína gel",
-   "desc": "Lubricación y anestesia local del extremo de la sonda.",
+   "desc": "Lubricación y anestesia local. En el varón se instila además en el meato con una jeringa sin aguja.",
    "pasos": [
     19
    ]
@@ -444,7 +444,7 @@
   },
   "jeringa": {
    "nombre": "Jeringa con agua bidestilada",
-   "desc": "Para inflar el balón una vez que fluye orina.",
+   "desc": "Jeringa de 10 mL sin aguja. Se usa 3 veces: probar el balón con 5 cc de aire fuera del paciente, instilar la lidocaína en el meato (varón) e inflar el balón con 10 cc de agua bidestilada una vez en la vejiga.",
    "pasos": [
     22
    ]
@@ -479,7 +479,7 @@
   },
   "cinta": {
    "nombre": "Cinta hipoalergénica",
-   "desc": "Fija la sonda a la cara interna del muslo.",
+   "desc": "Fijación externa secundaria de la sonda a la cara interna del muslo. La fijación primaria es el balón inflado en la vejiga.",
    "pasos": [
     27
    ]
@@ -542,7 +542,7 @@
    "id": "d2",
    "texto": "Infla el balón con suero fisiológico",
    "critico": false,
-   "porque": "Corresponde agua bidestilada: el suero puede cristalizar y dificultar el desinflado.",
+   "porque": "La cátedra estipula agua bidestilada estéril: el suero fisiológico puede cristalizar en la válvula y el microcanal de insuflación y dificultar el desinflado al retirar la sonda.",
    "target": "jeringa"
   },
   {
@@ -643,6 +643,13 @@
    "critico": true,
    "target": "guantes-e",
    "porque": "Los guantes estériles se colocan con técnica cerrada, sin tocar su exterior."
+  },
+  {
+   "id": "d17",
+   "texto": "Infla el balón con aire dentro de la vejiga",
+   "critico": true,
+   "target": "jeringa",
+   "porque": "Dentro de la vejiga el balón se infla siempre con líquido (10 cc de agua bidestilada): el líquido es incompresible y mantiene un volumen constante. El aire solo se usa para probar el balón fuera del paciente."
   }
  ],
  "casos": [
@@ -669,12 +676,12 @@
   {
    "sexo": "F",
    "edad": 85,
-   "motivo": "Retención urinaria por impactación fecal. Se indica sondaje evacuador."
+   "motivo": "Retención urinaria por impactación fecal. Se indica sondaje vesical con sonda Foley."
   },
   {
    "sexo": "M",
    "edad": 68,
-   "motivo": "Hematuria con coágulos y retención. Se indica sonda para irrigación vesical."
+   "motivo": "Postoperatorio de cirugía abdominal mayor. Se indica sonda vesical para el control de la diuresis."
   }
  ],
  "fundamentos": [
@@ -720,7 +727,7 @@
     "Solución con lidocaína"
    ],
    "c": 2,
-   "e": "Con agua bidestilada. El suero puede cristalizar y el aire no es estable ni seguro dentro de la vejiga."
+   "e": "Con 10 cc de agua bidestilada estéril. El aire nunca se usa dentro de la vejiga (solo, 5 cc, para probar el balón fuera del paciente) y el suero fisiológico puede cristalizar en la válvula."
   },
   {
    "q": "Luego de drenar de golpe 1200 mL de una vejiga muy distendida, el paciente se hipotensa y presenta hematuria. ¿Cómo se previene?",
@@ -753,7 +760,7 @@
     "Inflar el balón para que avance"
    ],
    "c": 2,
-   "e": "Forzar puede crear una falsa vía uretral o lacerar la uretra."
+   "e": "Forzar puede crear una falsa vía uretral o lacerar la uretra. En el varón se baja el pene a 45°, se rota suavemente y se pide al paciente que puje o respire profundo."
   },
   {
    "q": "¿Cuál es una contraindicación relativa del sondaje vesical?",
@@ -767,7 +774,7 @@
    "e": "La alergia al látex o a anestésicos locales obliga a usar materiales alternativos; es una contraindicación relativa, igual que la estenosis uretral."
   }
  ],
- "criterios_texto": "Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles (14) o el registro (30).",
+ "criterios_texto": "Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles con técnica cerrada (14) o el registro (30). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
  "machete": {
   "perlas": [
    {
@@ -776,31 +783,31 @@
    },
    {
     "t": "Técnica aséptica",
-    "x": "Separá la etapa limpia (higiene con guantes no estériles) de la estéril (lavado de manos, guantes estériles con técnica cerrada, campo estéril). Lo que toca la sonda debe ser estéril."
+    "x": "Separá la etapa limpia (higiene con guantes no estériles) de la estéril (lavado de manos, guantes estériles con técnica cerrada, campo estéril). La antisepsia lleva mínimo 3 pasadas con gasas estériles, de lo más limpio a lo más contaminado, y se repite 2 veces."
    },
    {
     "t": "Balón: siempre probalo",
-    "x": "Inflá y desinflá el balón con aire antes de introducir. Es criterio de desaprobación: un balón defectuoso se rompe en la vejiga o no fija la sonda."
+    "x": "Fuera del paciente probá el balón con 5 cc de aire. Si no infla simétrico o pierde, se descarta la sonda. Antes de lubricar e introducir, desinflá y aspirá todo el aire. Es criterio de desaprobación. Dentro de la vejiga se infla con 10 cc de agua bidestilada, nunca con aire."
    },
    {
     "t": "Mujer",
-    "x": "Uretra corta (≈ 4 cm). El meato está por encima del introito vaginal. Si se canula la vagina por error, dejá esa sonda como referencia y usá una nueva y estéril."
+    "x": "Uretra corta (≈ 4 cm). El meato está por encima del introito vaginal. Introducí 5 a 7 cm hasta ver orina; si hay resistencia, angulá hacia la sínfisis. Si a los 8-10 cm no sale orina, la sonda está en la vagina: descartá ese material y rehacé con sonda y guantes estériles nuevos."
    },
    {
     "t": "Varón",
-    "x": "Uretra larga (≈ 18-20 cm) con dos curvas. Traccioná el pene hacia arriba, perpendicular al cuerpo, para rectificar la curva. Ante resistencia (esfínter externo, próstata), no fuerces: pedí relajación y respiración profunda."
+    "x": "Uretra larga (≈ 18-20 cm) con dos curvas. Traccioná el pene a 90° hacia arriba y avanzá 17 a 22 cm hasta ver orina. Ante resistencia (esfínter externo, próstata) bajá el pene a 45°, rotá suavemente y pedí que puje o respire profundo. Nunca fuerces. Instilá lidocaína en el meato con jeringa sin aguja."
    },
    {
     "t": "Cuándo inflar",
-    "x": "Recién cuando sale orina. Avanzá la sonda unos centímetros más antes de inflar para asegurar que el balón queda dentro de la vejiga. Inflar en la uretra la lesiona."
+    "x": "Recién cuando sale orina, y después de avanzar la sonda 2 a 3 cm más para asegurar que el balón queda dentro de la vejiga. Inflar en la uretra la lesiona."
    },
    {
     "t": "Con qué inflar",
-    "x": "Agua bidestilada, en el volumen indicado por la sonda (habitualmente 10 mL). No suero fisiológico: puede cristalizar y trabar el desinflado."
+    "x": "10 cc de agua bidestilada estéril. Nunca aire (el líquido es incompresible y da un volumen constante). Tampoco suero fisiológico: la sal puede cristalizar en la válvula y trabar el desinflado."
    },
    {
     "t": "Vaciado progresivo",
-    "x": "Si hay retención con gran volumen, drenar de a poco (clampeando la sonda cada tanto) para evitar la hematuria ex vacuo y la hipotensión."
+    "x": "Con retención de gran volumen (más de 500-800 cc), clampeá el tubo de la bolsa de forma intermitente cada 500 cc para evitar la hipotensión súbita y la hematuria ex vacuo."
    },
    {
     "t": "Parafimosis",
@@ -808,7 +815,7 @@
    },
    {
     "t": "Sistema cerrado",
-    "x": "La bolsa va colgada del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso. La sonda se fija a la cara interna del muslo, sin tracción."
+    "x": "La bolsa va colgada del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso. La fijación primaria es el balón; la cinta al muslo es una fijación secundaria contra los tironeamientos."
    },
    {
     "t": "Cuidados e infección",
@@ -817,31 +824,31 @@
   ],
   "por_paso": {
    "2": "Identificá al paciente con dos datos (apellido y nombre / DNI) y confirmá que la indicación está escrita.",
-   "5": "Explicá motivo, riesgos (infección, trauma o falsa vía) y beneficios, con lenguaje simple.",
+   "5": "Lenguaje claro y sencillo, exento de tecnicismos, para no provocar ansiedad y lograr su colaboración.",
    "6": "Sin consentimiento firmado y anexado a la historia clínica, no se empieza.",
-   "7": "Mujer: litotomía (ginecológica). Varón: decúbito supino.",
+   "7": "Mujer: litotomía. Varón: decúbito supino con piernas extendidas y levemente separadas.",
    "9": "Estos guantes son solo para la higiene: después se descartan.",
-   "10": "Antisepsia del meato y zonas adyacentes, de la zona más limpia a la más contaminada.",
+   "10": "Mínimo 3 pasadas con gasas estériles (una nueva por pasada), de lo más limpio a lo más contaminado; se repite todo 2 veces.",
    "13": "Lavado de manos con técnica clínica antes de los guantes estériles. Es crítico.",
    "14": "Técnica cerrada: no toques el exterior del guante con la piel. Es crítico.",
-   "17": "Abrí el pack con la mano dominante y desenrollá la sonda sin contaminarla.",
-   "18": "Inflá y desinflá el balón con aire. No hacerlo desaprueba.",
-   "19": "Lubricá y anestesiá el extremo con lidocaína en gel.",
-   "21": "Mujer: ≈ 5-7 cm hasta ver orina. Varón: hasta la bifurcación de la sonda. No forzar.",
-   "22": "Agua bidestilada, y solo después de que salga orina.",
+   "17": "Enrollá la sonda en la palma de la mano no dominante para evitar el efecto látigo.",
+   "18": "Probá el balón con 5 cc de AIRE y aspirá todo el aire antes de introducir. No hacerlo desaprueba.",
+   "19": "Mujer: lubricá la punta. Varón: además, instilá lidocaína en el meato con jeringa sin aguja.",
+   "21": "Mujer: 5-7 cm hasta ver orina. Varón: pene a 90° y 17-22 cm; ante resistencia, 45° y rotación. No forzar.",
+   "22": "Con orina confirmada y 2-3 cm de avance extra: 10 cc de agua bidestilada. Nunca aire ni suero.",
    "23": "Tracción suave hasta sentir resistencia: el balón queda apoyado en el cuello vesical.",
-   "24": "Conectá la bolsa y verificá que la orina fluya (sistema cerrado).",
+   "24": "Con gran volumen retenido, clampeá cada 500 cc.",
    "25": "Varón: reducí el prepucio para evitar parafimosis.",
    "26": "Bolsa debajo del nivel de la vejiga y sin apoyarla en el piso.",
-   "27": "Cara interna del muslo, sin tensión.",
+   "27": "Fijación secundaria. La primaria es el balón.",
    "28": "Cuidados: no tironear, mantener la bolsa abajo, consultar ante dolor, fiebre o sin diuresis.",
    "30": "Registrá fecha, tipo y calibre de sonda, volumen del balón, características de la orina y tolerancia. Es crítico."
   },
   "referencias": [
-   "Calibres habituales: mujer 14-16 Fr, varón 16-18 Fr (según indicación del servicio).",
-   "Balón: llenado con el volumen que indica la sonda (10 mL en la mayoría).",
-   "Lidocaína en gel: en el varón conviene esperar unos minutos para que actúe.",
-   "Material orientativo de estudio: validar con la guía de la cátedra."
+   "Calibres habituales: mujer 14-16 Fr, varón 16-18 Fr (sonda Foley de 2 vías).",
+   "Balón: 10 cc de agua bidestilada estéril dentro de la vejiga; 5 cc de aire solo para probarlo fuera del paciente.",
+   "Lidocaína en gel 2 %: en el varón se instila en el meato y se espera 3 a 5 minutos.",
+   "Material de estudio: validado con la guía de la cátedra."
   ]
  },
  "examen": {
