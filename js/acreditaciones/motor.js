@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=15'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=16'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
@@ -121,7 +121,8 @@
       document.getElementById('acr-full-fab').onclick = pantallaCompleta;
     }
     document.addEventListener('fullscreenchange', () => { const b = document.getElementById('acr-full-fab'); if (b) { b.classList.toggle('on', !!document.fullscreenElement); b.title = document.fullscreenElement ? 'Salir de pantalla completa' : 'Pantalla completa'; } });
-    const quitarCancelarEx = () => { const b = document.getElementById('acr-ex-x'); if (b) b.remove(); };
+    const quitarCancelarEx = () => { const b = document.getElementById('acr-ex-x'); if (b) b.remove(); document.body.classList.remove('acr-examen'); };
+    if (!document.fullscreenEnabled) document.body.classList.add('acr-sin-fs');   // iPhone y otros: sin API de pantalla completa
     const cancelarExamen = () => {
       if (!S.ex || (S.ex.fase !== 'mesa' && S.ex.fase !== 'curso')) return;
       if (!confirm('¿Cancelar el examen? No se corrige ni se guarda ningún resultado.')) return;
@@ -130,6 +131,7 @@
     };
     const mostrarCancelarEx = () => {
       if (document.getElementById('acr-ex-x')) return;
+      document.body.classList.add('acr-examen');   // el chat privado se oculta mientras se rinde
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ex-x" class="acr-ex-x">✕ Cancelar examen</button>');
       document.getElementById('acr-ex-x').onclick = cancelarExamen;
     };
@@ -137,7 +139,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r17'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r19'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
@@ -338,7 +340,7 @@
     }
     const fxPaso = (q, ding) => { if (!window.AcrFX || !q || !q.fx) return Promise.resolve(); return AcrFX.play(q.fx, { sexo: S.sexo, vel: S.velFx || 1, vp: document.querySelector('.acr3d-vp') }).then(() => { if (ding) AcrFX.sonido('ding'); }); };
     function completarPaso(q) {
-      fxPaso(q, true);
+      fxPaso(q, true); if (ESC && ESC.enfocar) ESC.enfocar(q.target);
       const E = S.ent; E.hechos.add(q.n); E.esperando = false; resaltar(null);
       const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados);
       toast(`✔ Paso ${q.n} completado`, 'ok');

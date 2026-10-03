@@ -282,12 +282,12 @@ export class MedicalProcedureViewer {
       const t = b.dataset.tool;
       if (t === 'full') { root.dispatchEvent(new CustomEvent('acr-full')); return; }
       if (t === 'ayuda') { root.dispatchEvent(new CustomEvent('acr-ayuda')); return; }
-      if (t.startsWith('v-')) { C.goal = V(...C.vistas[t.slice(2, 5)]); return; }
+      if (t.startsWith('v-')) { C.tgoal = null; C.goal = V(...C.vistas[t.slice(2, 5)]); return; }
       if (t === 'xray' || t === 'cut' || t === 'labels') C.opt[t] = !C.opt[t]; else C.opt.capas[t] = !C.opt.capas[t];
       b.classList.toggle('on', t === 'xray' || t === 'cut' || t === 'labels' ? C.opt[t] : C.opt.capas[t]);
       this.aplicarLook();
     });
-    controls.addEventListener('start', () => { C.goal = null; C.lento = false; });
+    controls.addEventListener('start', () => { C.goal = null; C.tgoal = null; C.lento = false; });
     const mover = (acc) => {
       C.goal = null; C.lento = false;
       const off = camera.position.clone().sub(controls.target);
@@ -327,6 +327,12 @@ export class MedicalProcedureViewer {
       if (this.C !== C) return;
       C.raf = requestAnimationFrame(loop);
       if (C.goal) { camera.position.lerp(C.goal, C.lento ? 0.04 : 0.08); if (camera.position.distanceTo(C.goal) < 0.3) { C.goal = null; C.lento = false; } }
+      if (C.tgoal) {
+        controls.target.lerp(C.tgoal, 0.07);
+        const off = camera.position.clone().sub(controls.target); const d = off.length(); const nd = d + (C.dgoal - d) * 0.07;
+        camera.position.copy(controls.target).add(off.setLength(nd));
+        if (controls.target.distanceTo(C.tgoal) < 0.05 && Math.abs(nd - C.dgoal) < 0.2) C.tgoal = null;
+      }
       controls.update();
       C.inst.forEach((s) => {
         const k = s.cat; k.cur += (k.goal - k.cur) * 0.03; if (Math.abs(k.goal - k.cur) < 0.002) k.cur = k.goal;
@@ -395,7 +401,15 @@ export class MedicalProcedureViewer {
       if (s.dedo) { s.cat.goal = has(s.clases.avance) && !has(s.clases.retira) ? 1 : 0; s.dedo.barr = has(s.clases.barrido) && s.cat.goal > 0; return; }
       s.cat.goal = has(s.clases.avance) ? 1 : 0; s.bal.goal = has(s.clases.inflar) ? 1.3 : 0.001; s.bolsa.goal = has(s.clases.bolsa) ? 1 : 0.001; });
   }
-  hl(id) { if (this.C) this.C.hl = id || null; }
+  hl(id) { if (!this.C) return; this.C.hl = id || null; if (id) this.enfocar(id); }
+  /** lleva la cámara (con suavidad) hacia una estructura; sin estructura, vuelve a la vista general */
+  enfocar(id) {
+    const C = this.C; if (!C) return;
+    const cam = this.CFG[C.variante].camara; const a = id && id !== 'paciente' ? C.anclas[id] : null;
+    C.tgoal = a ? a.clone() : V(...cam.objetivo);
+    C.dgoal = a ? ((this.CFG.general.camara || {}).foco || 26) : V(...cam.lat).distanceTo(V(...cam.objetivo));
+    C.goal = null; C.lento = false;
+  }
   sel(id) { if (this.C) this.C.sel = id || null; }
 
   dispose() {

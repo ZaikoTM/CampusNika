@@ -711,3 +711,27 @@ body.dark-mode .wb-hoja { background: #14213a; color: #e2e8f0; }
 @keyframes fx-presiona { from { transform: translateY(-8px); } to { transform: translateY(10px) scale(.92); } }
 @keyframes fx-gira { to { transform: rotate(360deg); } }
 @keyframes fx-aprieta { from { transform: scale(1); } to { transform: scale(1.35); } }
+
+/* ===== Chat privado fuera del examen · sin pantalla completa · caso en columna ===== */
+body.acr-examen .cf-fab, body.acr-examen .cf-panel, body.acr-examen #nika-assistant-btn { display: none !important; }
+body.acr-sin-fs .acr-full-fab, body.acr-sin-fs [data-tool="full"] { display: none !important; }
+.wb-caso-pant { flex-direction: column; align-items: center; }
+.wb-caso-pant > .wb-demo-banner { width: 100%; max-width: 760px; }
+
+/* ===== Celular ===== */
+@media (max-width: 640px) {
+  .acr-main { padding-bottom: 84px; }
+  .acr-crit-wrap { padding: 10px; margin-top: 10px; }
+  .acr-crit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .acr-crit-card { padding: 8px; gap: 8px; }
+  .acr-crit-card .ic { width: 30px; height: 30px; font-size: 1rem; border-radius: 9px; }
+  .acr-crit-card b { font-size: .74rem; }
+  .acr-crit-tit span { font-size: .72rem; }
+  .acr-crit-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .acr-ex-x { top: 70px; right: 8px; font-size: .7rem; padding: 6px 12px; }
+  .lect-hoja { max-height: 96vh; border-radius: 16px; }
+  .lect-pasos { grid-template-columns: 1fr; }
+  .cc-cuerpo { padding: 12px; } .cc-top { padding: 16px 14px 26px; }
+  .cc-mision { margin: 6px 12px; }
+  .wb-caso-pant { padding: 10px 0; }
+}
