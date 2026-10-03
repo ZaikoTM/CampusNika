@@ -1,0 +1,456 @@
+{
+ "id": "iet",
+ "titulo": "Mesa de instrumental · Intubación endotraqueal",
+ "consigna": "Leé el caso clínico y armá la mesa con todo lo necesario para ese paciente: el calibre del tubo depende del sexo. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "indicación de intubación endotraqueal",
+ "indicacion_def": "Intubación endotraqueal.",
+ "mision": [
+  "qué tubo endotraqueal corresponde al paciente (calibre según el sexo);",
+  "qué equipo de vía aérea, ventilación y monitoreo hace falta… y cuáles sobran."
+ ],
+ "demo_caso": "Primero se lee el caso clínico: de él depende el calibre del tubo y el equipo que se prepara.",
+ "grupos": [
+  {
+   "id": "via",
+   "titulo": "Vía aérea"
+  },
+  {
+   "id": "vent",
+   "titulo": "Ventilación y monitoreo"
+  },
+  {
+   "id": "prot",
+   "titulo": "Protección"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "laringoscopio",
+   "grupo": "via",
+   "nombre": "Laringoscopio con hoja curva Macintosh n.º 3",
+   "detalle": "Mango + hoja · luz LED",
+   "img": "assets/instrumental/laringoscopio.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Permite ver la glotis. La hoja curva se apoya en la vallécula y levanta la epiglotis. La n.º 3 (o 4) corresponde al adulto.",
+   "ficha": [
+    [
+     "Hoja",
+     "Macintosh n.º 3"
+    ],
+    [
+     "Luz",
+     "LED"
+    ],
+    [
+     "Pilas",
+     "Cargadas"
+    ],
+    [
+     "Lote",
+     "LR-44021"
+    ]
+   ],
+   "falta": "Falta el laringoscopio: sin él no hay visión directa de la glotis."
+  },
+  {
+   "id": "hoja_miller0",
+   "grupo": "via",
+   "nombre": "Hoja recta Miller n.º 0",
+   "detalle": "Neonatal · hoja recta",
+   "img": "assets/instrumental/hoja_miller0.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Hoja recta pequeña para recién nacidos.",
+   "ficha": [
+    [
+     "Hoja",
+     "Miller n.º 0"
+    ],
+    [
+     "Uso",
+     "Neonatal"
+    ]
+   ],
+   "feedback": "La hoja Miller n.º 0 es neonatal. En el adulto se usa una hoja curva Macintosh n.º 3 (o 4)."
+  },
+  {
+   "id": "tet_f",
+   "grupo": "via",
+   "nombre": "Tubo endotraqueal 7,0 mm con balón",
+   "detalle": "Adulto · mujer · con balón y piloto",
+   "img": "assets/instrumental/tet_f.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Calibre habitual para una mujer adulta (7,0–7,5 mm). Tiene balón de baja presión y piloto para inflarlo.",
+   "ficha": [
+    [
+     "Calibre",
+     "7,0 mm"
+    ],
+    [
+     "Balón",
+     "Alto volumen · baja presión"
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ],
+    [
+     "Lote",
+     "TE-70112"
+    ]
+   ],
+   "correcto_para": "F",
+   "falta": "Falta el tubo endotraqueal del calibre adecuado para la mujer (7,0–7,5 mm).",
+   "feedback_otro": "Para un varón adulto corresponde un tubo de 7,5–8,0 mm: uno de 7,0 mm es más fino de lo adecuado y aumenta la resistencia al flujo."
+  },
+  {
+   "id": "tet_m",
+   "grupo": "via",
+   "nombre": "Tubo endotraqueal 8,0 mm con balón",
+   "detalle": "Adulto · varón · con balón y piloto",
+   "img": "assets/instrumental/tet_m.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Calibre habitual para un varón adulto (7,5–8,0 mm). Tiene balón de baja presión y piloto para inflarlo.",
+   "ficha": [
+    [
+     "Calibre",
+     "8,0 mm"
+    ],
+    [
+     "Balón",
+     "Alto volumen · baja presión"
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ],
+    [
+     "Lote",
+     "TE-80231"
+    ]
+   ],
+   "correcto_para": "M",
+   "falta": "Falta el tubo endotraqueal del calibre adecuado para el varón (7,5–8,0 mm).",
+   "feedback_otro": "Para una mujer adulta corresponde un tubo de 7,0–7,5 mm: uno de 8,0 mm es demasiado grueso y aumenta el riesgo de lesión laríngea."
+  },
+  {
+   "id": "tet_ped",
+   "grupo": "via",
+   "nombre": "Tubo endotraqueal 4,0 mm sin balón",
+   "detalle": "Pediátrico",
+   "img": "assets/instrumental/tet_ped.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Tubo fino sin balón para niños pequeños.",
+   "ficha": [
+    [
+     "Calibre",
+     "4,0 mm"
+    ],
+    [
+     "Balón",
+     "Sin balón"
+    ]
+   ],
+   "feedback": "El tubo de 4,0 mm sin balón es pediátrico: no sirve en un adulto, ni sella la vía aérea."
+  },
+  {
+   "id": "guedel",
+   "grupo": "via",
+   "nombre": "Cánula orofaríngea de Guedel n.º 4",
+   "detalle": "Adulto",
+   "img": "assets/instrumental/guedel.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Mantiene la vía aérea permeable al ventilar con máscara. Es opcional si no se necesita.",
+   "ficha": [
+    [
+     "Tamaño",
+     "N.º 4"
+    ],
+    [
+     "Material",
+     "Plástico"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "aspirador",
+   "grupo": "via",
+   "nombre": "Aspirador con cánula de Yankauer",
+   "detalle": "Succión rígida",
+   "img": "assets/instrumental/aspirador.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Por si hay secreciones o vómito. Es opcional.",
+   "ficha": [
+    [
+     "Cánula",
+     "Yankauer"
+    ],
+    [
+     "Succión",
+     "Rígida"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "estetoscopio",
+   "grupo": "vent",
+   "nombre": "Estetoscopio",
+   "detalle": "Adulto",
+   "img": "assets/instrumental/estetoscopio.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Sirve para auscultar epigastrio y ambos campos pulmonares y verificar la colocación del tubo.",
+   "ficha": [
+    [
+     "Tipo",
+     "Doble campana"
+    ],
+    [
+     "Uso",
+     "Adulto"
+    ]
+   ],
+   "falta": "Falta el estetoscopio para auscultar y verificar la colocación del tubo."
+  },
+  {
+   "id": "ambu",
+   "grupo": "vent",
+   "nombre": "Bolsa de ambú con máscara y reservorio",
+   "detalle": "Adulto · con oxígeno",
+   "img": "assets/instrumental/ambu.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para ventilar con máscara antes de laringoscopiar y por el tubo después, a 15–18 por minuto.",
+   "ficha": [
+    [
+     "Volumen",
+     "Adulto 1600 mL"
+    ],
+    [
+     "Reservorio",
+     "Sí"
+    ],
+    [
+     "Máscara",
+     "N.º 4"
+    ],
+    [
+     "Lote",
+     "AM-20987"
+    ]
+   ],
+   "falta": "Falta la bolsa de ambú con máscara: no se puede preoxigenar ni ventilar."
+  },
+  {
+   "id": "oxigeno",
+   "grupo": "vent",
+   "nombre": "Fuente de oxígeno",
+   "detalle": "Con caudalímetro",
+   "img": "assets/instrumental/oxigeno.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Alimenta la bolsa de ambú con oxígeno al 100 %.",
+   "ficha": [
+    [
+     "Gas",
+     "Oxígeno medicinal"
+    ],
+    [
+     "Flujo",
+     "10–15 L/min"
+    ]
+   ],
+   "falta": "Falta la fuente de oxígeno para la ventilación."
+  },
+  {
+   "id": "saturometro",
+   "grupo": "vent",
+   "nombre": "Saturómetro (pulsioxímetro)",
+   "detalle": "De dedo",
+   "img": "assets/instrumental/saturometro.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Monitoriza la saturación de oxígeno de forma continua durante todo el procedimiento.",
+   "ficha": [
+    [
+     "Tipo",
+     "De dedo"
+    ],
+    [
+     "Medición",
+     "SpO₂ y pulso"
+    ]
+   ],
+   "falta": "Falta el saturómetro: no hay monitoreo continuo."
+  },
+  {
+   "id": "kit_esteril",
+   "grupo": "prot",
+   "nombre": "Ropa estéril",
+   "detalle": "Camisolín, gorro, barbijo y guantes",
+   "img": "assets/instrumental/kit_esteril.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "El tubo se introduce en una vía aérea estéril y el operador se expone a secreciones.",
+   "ficha": [
+    [
+     "Contenido",
+     "Camisolín · gorro · barbijo · guantes"
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ],
+    [
+     "Talle",
+     "7,5"
+    ]
+   ],
+   "falta": "Falta la ropa estéril: camisolín, gorro, barbijo y guantes."
+  },
+  {
+   "id": "guantes_ns",
+   "grupo": "prot",
+   "nombre": "Guantes de examen no estériles",
+   "detalle": "No alcanzan para este procedimiento",
+   "descripcion": "Protegen al operador durante la higiene genital, que es la etapa limpia del procedimiento.",
+   "img": "assets/instrumental/guantes_ns.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "Para intubar se necesita ropa estéril completa (incluidos guantes estériles). Los guantes de examen no estériles no alcanzan.",
+   "ficha": [
+    [
+     "Tipo",
+     "Examen, no estériles"
+    ]
+   ]
+  },
+  {
+   "id": "jeringa10",
+   "grupo": "otros",
+   "nombre": "Jeringa de 10 cc",
+   "detalle": "Para inflar el balón por el piloto",
+   "descripcion": "Se acopla al piloto del tubo para inflar el balón con 10 cc de aire.",
+   "img": "assets/instrumental/jeringa10.svg",
+   "correcto": true,
+   "critico": true,
+   "falta": "Falta la jeringa de 10 cc para inflar el balón del tubo.",
+   "ficha": [
+    [
+     "Capacidad",
+     "10 mL"
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ]
+   ]
+  },
+  {
+   "id": "cinta",
+   "grupo": "otros",
+   "nombre": "Cinta hipoalergénica",
+   "detalle": "Para fijar el tubo a las mejillas",
+   "descripcion": "Fija el tubo a las mejillas para evitar su desplazamiento o la extubación accidental.",
+   "img": "assets/instrumental/cinta.svg",
+   "correcto": true,
+   "critico": false,
+   "falta": "Falta la cinta hipoalergénica para fijar el tubo.",
+   "ficha": [
+    [
+     "Ancho",
+     "2,5 cm"
+    ],
+    [
+     "Material",
+     "Hipoalergénica"
+    ]
+   ]
+  },
+  {
+   "id": "gel",
+   "grupo": "otros",
+   "nombre": "Lidocaína en gel 2 %",
+   "detalle": "Lubricante hidrosoluble",
+   "descripcion": "Puede usarse para lubricar el tubo. Es opcional.",
+   "img": "assets/instrumental/jeringa_gel.svg",
+   "correcto": true,
+   "critico": false,
+   "opcional": true,
+   "ficha": [
+    [
+     "Contenido",
+     "Lidocaína 2 %"
+    ]
+   ]
+  },
+  {
+   "id": "sonda_m",
+   "grupo": "otros",
+   "nombre": "Sonda Foley 16 Fr, 2 vías",
+   "detalle": "Látex siliconado · balón de 10 mL · estéril",
+   "descripcion": "Para el sondaje permanente en el varón se usan calibres de 16 a 18 Fr. Tiene dos vías: drenaje y balón.",
+   "img": "assets/instrumental/sonda_m.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La sonda Foley es para el sondaje vesical. En la intubación no se usa."
+  },
+  {
+   "id": "sng",
+   "grupo": "otros",
+   "nombre": "Sonda nasogástrica 16 Fr",
+   "detalle": "Vía digestiva alta · estéril",
+   "descripcion": "Sonda larga y flexible para la vía digestiva alta.",
+   "img": "assets/instrumental/sng.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La sonda nasogástrica es para la vía digestiva. Colocarla en lugar del tubo no asegura la vía aérea."
+  },
+  {
+   "id": "bolsa",
+   "grupo": "otros",
+   "nombre": "Bolsa colectora de sistema cerrado",
+   "detalle": "2000 mL · válvula antirreflujo · estéril",
+   "descripcion": "Se conecta a la sonda y forma un sistema cerrado que protege de la infección. Tiene válvula antirreflujo y pico de vaciado.",
+   "img": "assets/instrumental/bolsa.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La bolsa colectora es para el drenaje urinario. No se usa en la intubación."
+  },
+  {
+   "id": "aguja",
+   "grupo": "otros",
+   "nombre": "Aguja 21 G",
+   "detalle": "Descartable · estéril",
+   "descripcion": "Aguja hipodérmica de uso general.",
+   "img": "assets/instrumental/aguja.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "No se usan agujas en la intubación."
+  },
+  {
+   "id": "iodo",
+   "grupo": "otros",
+   "nombre": "Iodopovidona jabonosa",
+   "detalle": "Antiséptico para la zona genital",
+   "descripcion": "Antisepsia de la zona genital: mínimo 3 pasadas con gasas estériles (una nueva por pasada), de lo más limpio a lo más contaminado (mujer: de arriba hacia abajo; varón: del meato hacia afuera, retrayendo el prepucio). Todo el lavado se repite 2 veces.",
+   "img": "assets/instrumental/iodo.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La iodopovidona no se usa en este procedimiento."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

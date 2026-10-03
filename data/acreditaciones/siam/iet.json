@@ -1,0 +1,1609 @@
+{
+ "id": "iet",
+ "area": "siam",
+ "titulo": "Intubación endotraqueal",
+ "icono": "🫁",
+ "resumen": "Recorrido virtual de la intubación endotraqueal, con 26 pasos de la lista de cotejo de la cátedra.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Evaluación en intubación endotraqueal (26 ítems)",
+ "elementos": {
+  "mesa": {
+   "nombre": "Mesa alta de traslado",
+   "desc": "Donde se reúne y prepara todo el material antes de ir al paciente.",
+   "pasos": [
+    1
+   ]
+  },
+  "lado": {
+   "nombre": "Lado del paciente",
+   "desc": "Zona junto a la cabecera donde queda el carro con el material.",
+   "pasos": [
+    2
+   ]
+  },
+  "lavabo": {
+   "nombre": "Lavabo",
+   "desc": "Lavado de manos con técnica clínica antes de la ropa estéril.",
+   "pasos": [
+    3
+   ]
+  },
+  "ropa": {
+   "nombre": "Ropa estéril",
+   "desc": "Camisolín, gorro, barbijo y guantes estériles.",
+   "pasos": [
+    4
+   ]
+  },
+  "laringo": {
+   "nombre": "Laringoscopio",
+   "desc": "Mango con hoja curva y luz: se verifica, se sostiene con la mano izquierda y se retira al final.",
+   "pasos": [
+    5,
+    22
+   ]
+  },
+  "tetc": {
+   "nombre": "Tubo endotraqueal (TET)",
+   "desc": "Con balón y piloto. Se verifica el balón antes de usarlo.",
+   "pasos": [
+    6
+   ]
+  },
+  "paciente": {
+   "nombre": "Paciente",
+   "desc": "Se lo acomoda en decúbito dorsal con la cabeza en posición de olfateo.",
+   "pasos": [
+    7
+   ]
+  },
+  "cabecera": {
+   "nombre": "Cabecera del paciente",
+   "desc": "El operador se ubica detrás de la cabeza, en el eje del paciente.",
+   "pasos": [
+    8
+   ]
+  },
+  "saturometro": {
+   "nombre": "Saturómetro",
+   "desc": "Pulsioxímetro de dedo: saturometría continua durante todo el procedimiento.",
+   "pasos": [
+    9
+   ]
+  },
+  "cabeza": {
+   "nombre": "Cabeza y cuello",
+   "desc": "Se hiperextiende la cabeza y se eleva el mentón.",
+   "pasos": [
+    10
+   ]
+  },
+  "boca": {
+   "nombre": "Boca",
+   "desc": "Se retiran las prótesis, se abre la boca y se acomoda la comisura labial.",
+   "pasos": [
+    11,
+    14,
+    17
+   ]
+  },
+  "ambu": {
+   "nombre": "Bolsa de ambú",
+   "desc": "Ventilación con máscara antes de laringoscopiar y por el tubo al final.",
+   "pasos": [
+    12,
+    25
+   ]
+  },
+  "cricoides": {
+   "nombre": "Cartílago cricoides",
+   "desc": "El asistente lo presiona hacia atrás (maniobra de Sellick).",
+   "pasos": [
+    13
+   ]
+  },
+  "lengua": {
+   "nombre": "Lengua",
+   "desc": "La hoja entra por la derecha y la desplaza hacia la izquierda.",
+   "pasos": [
+    15
+   ]
+  },
+  "epiglotis": {
+   "nombre": "Epiglotis y vallécula",
+   "desc": "La punta de la hoja curva se apoya en la vallécula y levanta la epiglotis.",
+   "pasos": [
+    16
+   ]
+  },
+  "cuerdas": {
+   "nombre": "Cuerdas vocales",
+   "desc": "Delimitan la glotis: se visualizan y se atraviesan bajo visión directa.",
+   "pasos": [
+    18,
+    20
+   ]
+  },
+  "asistente": {
+   "nombre": "Asistente",
+   "desc": "Alcanza el tubo y realiza la presión sobre el cricoides.",
+   "pasos": [
+    19
+   ]
+  },
+  "balon": {
+   "nombre": "Balón del TET",
+   "desc": "Queda 3 a 4 cm por debajo de las cuerdas y se infla por el piloto.",
+   "pasos": [
+    21
+   ]
+  },
+  "jeringa": {
+   "nombre": "Jeringa de 10 cc",
+   "desc": "Para inflar el balón por el piloto.",
+   "pasos": [
+    23
+   ]
+  },
+  "pulmones": {
+   "nombre": "Pulmones",
+   "desc": "Se auscultan ambos campos pulmonares para verificar la posición del tubo.",
+   "pasos": [
+    24
+   ]
+  },
+  "cinta": {
+   "nombre": "Cinta hipoalergénica",
+   "desc": "Fija el tubo a las mejillas.",
+   "pasos": [
+    26
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Comienza sin lavarse las manos ni vestirse con ropa estéril",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la vía aérea inferior es estéril y el operador debe protegerse de las secreciones.",
+   "target": "lavabo",
+   "claves": [
+    [
+     "sin lavar",
+     "manos"
+    ],
+    [
+     "no me lavo"
+    ],
+    [
+     "sin lavarme"
+    ],
+    [
+     "sin ropa esteril"
+    ],
+    [
+     "sin vestirme"
+    ],
+    [
+     "no me visto"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Introduce el laringoscopio sin verificar que la luz funcione",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: sin luz no hay visión y se obliga a retirarse con el paciente apneico.",
+   "target": "laringo",
+   "claves": [
+    [
+     "sin verificar",
+     "laringoscopio"
+    ],
+    [
+     "sin probar",
+     "laringoscopio"
+    ],
+    [
+     "no verifico",
+     "laringoscopio"
+    ],
+    [
+     "no pruebo",
+     "laringoscopio"
+    ],
+    [
+     "sin comprobar",
+     "laringoscopio"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Usa el tubo sin verificar el balón",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: un balón defectuoso no sella la vía aérea y permite aspiración.",
+   "target": "tetc",
+   "claves": [
+    [
+     "sin verificar",
+     "balon"
+    ],
+    [
+     "sin probar",
+     "balon"
+    ],
+    [
+     "no verifico",
+     "balon"
+    ],
+    [
+     "no pruebo",
+     "balon"
+    ],
+    [
+     "sin comprobar",
+     "balon"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Realiza el procedimiento sin saturómetro",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: sin monitoreo continuo no se sabe cuándo el paciente desatura.",
+   "target": "saturometro",
+   "claves": [
+    [
+     "sin saturometro"
+    ],
+    [
+     "sin saturometria"
+    ],
+    [
+     "no coloco",
+     "saturometro"
+    ],
+    [
+     "sin oximetro"
+    ],
+    [
+     "sin monitoreo"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Laringoscopia sin ventilar ni oxigenar antes al paciente",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: sin preoxigenación el paciente desatura durante la apnea del intento.",
+   "target": "ambu",
+   "claves": [
+    [
+     "sin ventilar"
+    ],
+    [
+     "sin oxigenar"
+    ],
+    [
+     "sin preoxigenar"
+    ],
+    [
+     "no ventilo"
+    ],
+    [
+     "sin ambu"
+    ],
+    [
+     "sin mascara"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Hace palanca con el laringoscopio sobre los dientes",
+   "critico": true,
+   "porque": "Es una falla técnica grave: lesiona los dientes y no mejora la visión. La tracción se hace en el eje del mango, hacia arriba y adelante.",
+   "target": "laringo",
+   "claves": [
+    [
+     "palanca"
+    ],
+    [
+     "apoyo",
+     "dientes"
+    ],
+    [
+     "sobre los dientes"
+    ],
+    [
+     "hacia atras",
+     "laringoscopio"
+    ],
+    [
+     "pivoteo"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Intuba sin visualizar las cuerdas vocales (a ciegas)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: sin visión directa de la glotis no se pasa el tubo; se retira, se ventila y se reintenta.",
+   "target": "cuerdas",
+   "claves": [
+    [
+     "sin visualizar"
+    ],
+    [
+     "a ciegas"
+    ],
+    [
+     "sin ver",
+     "cuerdas"
+    ],
+    [
+     "sin ver la glotis"
+    ],
+    [
+     "sin visualizar",
+     "glotis"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "Ingresa la hoja por el centro o por la izquierda sin desplazar la lengua",
+   "critico": false,
+   "porque": "La hoja entra por el lado derecho de la lengua y la desplaza hacia la izquierda; de lo contrario la lengua tapa la glotis.",
+   "target": "lengua",
+   "claves": [
+    [
+     "por el lado izquierdo"
+    ],
+    [
+     "por la izquierda",
+     "hoja"
+    ],
+    [
+     "sin desplazar",
+     "lengua"
+    ],
+    [
+     "por el centro",
+     "hoja"
+    ]
+   ]
+  },
+  {
+   "id": "d9",
+   "texto": "Infla el balón antes de ubicar el tubo en la tráquea",
+   "critico": false,
+   "porque": "El balón se infla una vez que el tubo está en posición, 3 a 4 cm por debajo de las cuerdas.",
+   "target": "balon",
+   "claves": [
+    [
+     "inflo",
+     "antes"
+    ],
+    [
+     "inflo el balon antes"
+    ]
+   ]
+  },
+  {
+   "id": "d10",
+   "texto": "Avanza el tubo hasta el fondo (riesgo de intubación selectiva)",
+   "critico": false,
+   "porque": "Introducir el tubo de más lo lleva al bronquio derecho (intubación selectiva): hipoventilación del hemitórax izquierdo.",
+   "target": "cuerdas",
+   "claves": [
+    [
+     "hasta el fondo"
+    ],
+    [
+     "avanzo",
+     "carina"
+    ],
+    [
+     "hasta que no avance"
+    ]
+   ]
+  },
+  {
+   "id": "d11",
+   "texto": "Da por correcta la intubación sin verificar la colocación",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la intubación esofágica no detectada es letal; siempre se verifica con auscultación, expansión torácica, vaho y capnografía.",
+   "target": "pulmones",
+   "claves": [
+    [
+     "sin verificar",
+     "colocacion"
+    ],
+    [
+     "doy por correcto"
+    ],
+    [
+     "asumo",
+     "colocacion"
+    ],
+    [
+     "no verifico",
+     "colocacion"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Ricardo S.",
+   "sexo": "M",
+   "edad": 58,
+   "motivo": "Paro respiratorio por EPOC reagudizado. Glasgow 6.",
+   "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
+   "antecedentes": "EPOC, tabaquista de larga data.",
+   "alergia": null,
+   "extra": [
+    "Mallampati II"
+   ],
+   "via_aerea": "Mallampati II, apertura bucal normal, cuello móvil y distancia tiromentoniana mayor de 6 cm.",
+   "protesis": "sin prótesis dentales.",
+   "verif": "murmullo vesicular simétrico, epigastrio silencioso, vaho en el tubo y onda de capnografía."
+  },
+  {
+   "id": "c2",
+   "nombre": "Lucía G.",
+   "sexo": "F",
+   "edad": 34,
+   "motivo": "Politraumatismo con traumatismo craneoencefálico grave. Glasgow 7.",
+   "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
+   "antecedentes": "Sin antecedentes. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Mallampati I"
+   ],
+   "via_aerea": "Mallampati I, apertura bucal amplia y cuello móvil.",
+   "protesis": "sin prótesis dentales.",
+   "verif": "expansión torácica simétrica, murmullo vesicular bilateral, capnografía con onda normal."
+  },
+  {
+   "id": "c3",
+   "nombre": "Alberto D.",
+   "sexo": "M",
+   "edad": 71,
+   "motivo": "Edema agudo de pulmón con insuficiencia respiratoria: saturación 78 % pese al oxígeno.",
+   "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
+   "antecedentes": "Insuficiencia cardíaca, hipertensión arterial.",
+   "alergia": null,
+   "extra": [
+    "Mallampati III"
+   ],
+   "via_aerea": "Mallampati III: se ve el paladar blando y la base de la úvula; cuello algo rígido. Anticipá una laringoscopia más difícil.",
+   "protesis": "tiene una prótesis dental superior removible.",
+   "verif": "estertores bilaterales conservando la simetría, epigastrio silencioso, vaho y onda de capnografía."
+  },
+  {
+   "id": "c4",
+   "nombre": "Marta E.",
+   "sexo": "F",
+   "edad": 66,
+   "motivo": "Cirugía programada (colecistectomía) bajo anestesia general.",
+   "indicacion": "Intubación endotraqueal para anestesia general.",
+   "antecedentes": "Hipertensión arterial. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Mallampati II"
+   ],
+   "via_aerea": "Mallampati II, apertura bucal normal.",
+   "protesis": "sin prótesis dentales.",
+   "verif": "murmullo vesicular simétrico, capnografía con onda normal y vaho en el tubo."
+  },
+  {
+   "id": "c5",
+   "nombre": "Pablo N.",
+   "sexo": "M",
+   "edad": 25,
+   "motivo": "Sobredosis de opioides con depresión respiratoria. Glasgow 5.",
+   "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
+   "antecedentes": "Consumo problemático de sustancias.",
+   "alergia": null,
+   "extra": [
+    "Mallampati I"
+   ],
+   "via_aerea": "Mallampati I, apertura bucal amplia.",
+   "protesis": "sin prótesis dentales.",
+   "verif": "expansión simétrica, murmullo vesicular bilateral y capnografía normal."
+  },
+  {
+   "id": "c6",
+   "nombre": "Rosa T.",
+   "sexo": "F",
+   "edad": 79,
+   "motivo": "ACV hemorrágico con deterioro del sensorio. Glasgow 6.",
+   "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
+   "antecedentes": "Hipertensión arterial, fibrilación auricular anticoagulada.",
+   "alergia": null,
+   "extra": [
+    "Mallampati III"
+   ],
+   "via_aerea": "Mallampati III, cuello rígido. Anticipá una laringoscopia más difícil.",
+   "protesis": "tiene una prótesis dental superior removible.",
+   "verif": "murmullo vesicular simétrico, epigastrio silencioso, vaho y capnografía con onda."
+  },
+  {
+   "id": "c7",
+   "nombre": "Jorge M.",
+   "sexo": "M",
+   "edad": 52,
+   "motivo": "Paro cardiorrespiratorio presenciado. Se requiere vía aérea definitiva.",
+   "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
+   "antecedentes": "Cardiopatía isquémica.",
+   "alergia": null,
+   "extra": [
+    "Mallampati II"
+   ],
+   "via_aerea": "Mallampati II, apertura bucal normal.",
+   "protesis": "sin prótesis dentales.",
+   "verif": "murmullo vesicular simétrico y capnografía con onda."
+  },
+  {
+   "id": "c8",
+   "nombre": "Elena V.",
+   "sexo": "F",
+   "edad": 45,
+   "motivo": "Estado asmático refractario con fatiga respiratoria.",
+   "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
+   "antecedentes": "Asma bronquial de larga data.",
+   "alergia": null,
+   "extra": [
+    "Mallampati II"
+   ],
+   "via_aerea": "Mallampati II, apertura bucal normal.",
+   "protesis": "sin prótesis dentales.",
+   "verif": "sibilancias bilaterales simétricas, epigastrio silencioso, vaho y capnografía con onda en pico de aleta."
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Cuál es una indicación de intubación endotraqueal?",
+   "o": [
+    "Glasgow 8 o menos con riesgo de aspiración",
+    "Tos productiva sin dificultad respiratoria",
+    "Disfonía leve",
+    "Saturación de 96 % con aire ambiente"
+   ],
+   "c": 0,
+   "e": "Un Glasgow ≤ 8 no protege la vía aérea. Otras indicaciones: apnea o paro, insuficiencia respiratoria refractaria, obstrucción de la vía aérea y ventilación mecánica en anestesia general."
+  },
+  {
+   "q": "¿Qué se evalúa con la clasificación de Mallampati?",
+   "o": [
+    "Las estructuras faríngeas visibles con la boca abierta y la lengua protruida, para predecir la dificultad de la laringoscopia",
+    "El diámetro del tubo endotraqueal",
+    "La distancia entre el cricoides y la carina",
+    "La presión del balón"
+   ],
+   "c": 0,
+   "e": "Clase I: paladar blando, fauces, úvula y pilares; II: paladar blando, fauces y úvula; III: paladar blando y base de la úvula; IV: solo paladar duro. A mayor clase, mayor probabilidad de laringoscopia difícil."
+  },
+  {
+   "q": "¿Por qué se ventila con máscara y ambú antes de laringoscopiar?",
+   "o": [
+    "Para preoxigenar y tolerar la apnea del intento sin desaturar",
+    "Para dilatar las cuerdas vocales",
+    "Para comprobar el balón del tubo",
+    "Para sedar al paciente"
+   ],
+   "c": 0,
+   "e": "La ventilación con oxígeno aumenta la reserva de oxígeno y permite intentar con seguridad. Laringoscopiar sin ventilar antes es criterio de desaprobación."
+  },
+  {
+   "q": "¿Cuál es la posición de la cabeza para intubar?",
+   "o": [
+    "Posición de olfateo, con elevación del occipucio",
+    "Flexión del cuello con el mentón en el pecho",
+    "Rotación lateral máxima",
+    "Cabeza sin almohada y cuello en flexión"
+   ],
+   "c": 0,
+   "e": "En la posición de olfateo se alinean los ejes oral, faríngeo y laríngeo, lo que facilita ver la glotis."
+  },
+  {
+   "q": "¿Para qué se realiza la maniobra de Sellick?",
+   "o": [
+    "Presionar el cricoides hacia atrás para ocluir el esófago y prevenir la regurgitación",
+    "Abrir la boca del paciente",
+    "Insertar el laringoscopio",
+    "Fijar el tubo a las mejillas"
+   ],
+   "c": 0,
+   "e": "El cricoides es un anillo completo: al presionarlo hacia atrás comprime el esófago contra la columna cervical."
+  },
+  {
+   "q": "¿Hacia dónde se levanta el laringoscopio con una hoja curva?",
+   "o": [
+    "Hacia arriba y adelante, en el eje del mango, sin palanca sobre los dientes",
+    "Hacia atrás, apoyando la hoja en los dientes superiores",
+    "Hacia la izquierda",
+    "Hacia abajo, hacia el esternón"
+   ],
+   "c": 0,
+   "e": "La hoja curva (Macintosh) se apoya en la vallécula y se levanta hacia arriba y adelante. La palanca sobre los dientes los rompe."
+  },
+  {
+   "q": "¿Dónde debe quedar el balón del tubo?",
+   "o": [
+    "3 a 4 cm por debajo de las cuerdas vocales",
+    "A la altura de las cuerdas vocales",
+    "En el bronquio derecho",
+    "Por encima de la epiglotis"
+   ],
+   "c": 0,
+   "e": "Más arriba lesiona la laringe y más abajo aumenta el riesgo de intubación selectiva."
+  },
+  {
+   "q": "Tras intubar, no hay ruidos respiratorios, se oyen borborigmos en el epigastrio y cae la saturación. ¿Qué indica y qué se hace?",
+   "o": [
+    "Intubación esofágica: retirar el tubo de inmediato y reoxigenar",
+    "Intubación selectiva: avanzar el tubo",
+    "Neumotórax: inflar más el balón",
+    "Posición correcta: fijar el tubo"
+   ],
+   "c": 0,
+   "e": "La intubación esofágica no detectada es letal. Se retira el tubo, se ventila con máscara y se reintenta. La intubación selectiva (ruidos solo a la derecha) se corrige retirando el tubo unos centímetros."
+  },
+  {
+   "q": "En la visión de Cormack-Lehane, solo se ve la epiglotis y no la glotis. ¿Qué grado es?",
+   "o": [
+    "Grado III",
+    "Grado I",
+    "Grado II",
+    "Grado IV"
+   ],
+   "c": 0,
+   "e": "I: glotis completa; II: solo la comisura posterior; III: solo la epiglotis; IV: ninguna estructura glótica ni epiglotis."
+  }
+ ],
+ "criterios_texto": "Desaprueba si omite: el lavado de manos y la ropa estéril (3, 4); la verificación del laringoscopio y del balón del tubo (5, 6); la saturometría continua y la ventilación con ambú antes de laringoscopiar (9, 12); la visualización de las cuerdas antes de pasar el tubo (18, 20); o la posición del balón, su inflado y la verificación de la colocación (21, 23, 24). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
+ "criterios": [
+  {
+   "ico": "🧼",
+   "titulo": "Asepsia: lavado de manos y ropa estéril",
+   "pasos": [
+    3,
+    4
+   ]
+  },
+  {
+   "ico": "🔦",
+   "titulo": "Verificar laringoscopio y balón del tubo",
+   "pasos": [
+    5,
+    6
+   ]
+  },
+  {
+   "ico": "🫧",
+   "titulo": "Saturometría y ventilar con ambú antes de laringoscopiar",
+   "pasos": [
+    9,
+    12
+   ]
+  },
+  {
+   "ico": "👁️",
+   "titulo": "Ver las cuerdas antes de pasar el tubo",
+   "pasos": [
+    18,
+    20
+   ]
+  },
+  {
+   "ico": "✅",
+   "titulo": "Balón en posición, inflado y colocación verificada",
+   "pasos": [
+    21,
+    23,
+    24
+   ]
+  }
+ ],
+ "final_criticos": "asepsia, verificación del equipo, saturometría y ventilación previa, visualización de las cuerdas y verificación de la colocación",
+ "hallazgo_pasos": {
+  "7": "via_aerea",
+  "11": "protesis",
+  "24": "verif"
+ },
+ "hallazgo_rotulo": "🩺 Evaluás:",
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes de empezar",
+    "x": "Indicaciones: apnea o paro, Glasgow ≤ 8, insuficiencia respiratoria refractaria, obstrucción y anestesia general. Evaluá la vía aérea: Mallampati, apertura bucal, movilidad cervical, distancia tiromentoniana."
+   },
+   {
+    "t": "Asepsia y equipo",
+    "x": "Lavado de manos y ropa estéril. Probá la luz del laringoscopio y el balón del TET (mujer 7,0–7,5 mm; varón 7,5–8,0 mm). Omitirlo desaprueba."
+   },
+   {
+    "t": "Oxigenar primero",
+    "x": "Saturómetro puesto durante todo el procedimiento y ventilación con máscara y ambú a 15–18 por minuto ANTES de laringoscopiar. Posición de olfateo, cabeza hiperextendida y mentón elevado. Prótesis fuera."
+   },
+   {
+    "t": "Sellick",
+    "x": "El asistente presiona el cricoides hacia atrás y mantiene la presión hasta el final."
+   },
+   {
+    "t": "Laringoscopia",
+    "x": "Mango en la izquierda; hoja por la derecha de la lengua, empujándola a la izquierda, en la línea media. La punta va a la vallécula y se levanta hacia arriba y adelante: mango al techo a 45°. Nunca palanca sobre los dientes."
+   },
+   {
+    "t": "Intubación",
+    "x": "Visualizá las cuerdas. Pedí el tubo sin dejar de mirar, deslizalo por la hoja hasta pasar las cuerdas y dejá el balón 3–4 cm por debajo. Retirá el laringoscopio e inflá el balón con 10 cc."
+   },
+   {
+    "t": "Verificar y fijar",
+    "x": "Auscultá epigastrio y ambos campos, mirá la expansión torácica, el vaho y la capnografía; ventilá a 15–18 controlando la saturación y fijá con cinta a las mejillas."
+   }
+  ],
+  "por_paso": {
+   "5": "Armá la hoja y comprobá que la luz encienda.",
+   "6": "Inflá y desinflá el balón: sin pérdidas.",
+   "7": "Olfateo + Mallampati.",
+   "9": "Saturometría continua.",
+   "12": "Ventilá con máscara ANTES de laringoscopiar.",
+   "13": "Presión en el cricoides hasta el final.",
+   "15": "Hoja por la derecha, lengua a la izquierda.",
+   "16": "Punta en la vallécula, arriba y adelante.",
+   "17": "Mango al techo, 45°. Sin palanca.",
+   "18": "Sin ver las cuerdas no se intuba.",
+   "21": "Balón 3–4 cm bajo las cuerdas.",
+   "23": "Inflá con 10 cc por el piloto.",
+   "24": "Auscultación, expansión, vaho y capnografía."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/siam/iet_modelo.json",
+ "peso_modelo": "1 a 2 MB",
+ "instrumental": "data/acreditaciones/siam/instrumental_iet.json",
+ "mesa_pasos": [
+  1
+ ],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Reúne la totalidad de los materiales necesarios para la práctica y los prepara en una “Mesa Alta” de traslado.",
+   "fase": "Preparación",
+   "target": "mesa",
+   "critico": false,
+   "explica": "Se reúne y ordena todo antes de empezar: ropa estéril, laringoscopio con hoja curva, tubo endotraqueal (TET) del calibre adecuado, jeringa de 10 cc, bolsa de ambú con máscara, fuente de oxígeno, saturómetro, estetoscopio y cinta hipoalergénica. En una vía aérea no se puede interrumpir el procedimiento para buscar algo.",
+   "estado": {},
+   "claves": [
+    [
+     "reuno"
+    ],
+    [
+     "junto",
+     "material"
+    ],
+    [
+     "mesa alta"
+    ],
+    [
+     "preparo",
+     "material"
+    ]
+   ],
+   "frase": "Reúno todo el material necesario y lo preparo en la mesa alta de traslado.",
+   "fx": "reunir"
+  },
+  {
+   "n": 2,
+   "texto": "Lleva la totalidad de los materiales al lado del paciente.",
+   "fase": "Preparación",
+   "target": "lado",
+   "critico": false,
+   "explica": "El carro queda junto a la cabecera, al alcance de la mano, para no apartarse del paciente durante la laringoscopia.",
+   "estado": {},
+   "claves": [
+    [
+     "llevo",
+     "material"
+    ],
+    [
+     "llevo",
+     "mesa"
+    ],
+    [
+     "llevo",
+     "carro"
+    ],
+    [
+     "traslado",
+     "paciente"
+    ],
+    [
+     "acerco",
+     "material"
+    ]
+   ],
+   "frase": "Llevo todo el material al lado del paciente.",
+   "fx": "trasladar"
+  },
+  {
+   "n": 3,
+   "texto": "Se lava las manos con técnica clínica.",
+   "fase": "Preparación",
+   "target": "lavabo",
+   "critico": true,
+   "explica": "El lavado de manos con técnica clínica antes de vestirse con ropa estéril es la base de la asepsia: la vía aérea inferior es estéril. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "manos": 1
+   },
+   "claves": [
+    [
+     "lavo",
+     "manos"
+    ],
+    [
+     "lavado",
+     "manos"
+    ],
+    [
+     "higienizo",
+     "manos"
+    ]
+   ],
+   "frase": "Me lavo las manos con técnica clínica.",
+   "fx": "lavado"
+  },
+  {
+   "n": 4,
+   "texto": "Se viste con ropa estéril.",
+   "fase": "Preparación",
+   "target": "ropa",
+   "critico": true,
+   "explica": "Camisolín, gorro, barbijo y guantes estériles: el tubo se introduce en la tráquea, que no tiene flora normal, y el operador queda expuesto a secreciones y aerosoles. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "esteril": 1
+   },
+   "claves": [
+    [
+     "ropa esteril"
+    ],
+    [
+     "me visto"
+    ],
+    [
+     "camisolin"
+    ],
+    [
+     "guantes esteril"
+    ],
+    [
+     "barbijo"
+    ],
+    [
+     "gorro"
+    ]
+   ],
+   "frase": "Me visto con ropa estéril: camisolín, gorro, barbijo y guantes estériles.",
+   "fx": "vestir"
+  },
+  {
+   "n": 5,
+   "texto": "Verifica el laringoscopio",
+   "fase": "Verificación del equipo",
+   "target": "laringo",
+   "critico": true,
+   "explica": "Se arma la hoja sobre el mango y se comprueba que la luz encienda y quede fija. Un laringoscopio sin luz en el momento de la laringoscopia obliga a retirarse con el paciente apneico. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "lar_ok": 1
+   },
+   "claves": [
+    [
+     "verifico",
+     "laringoscopio"
+    ],
+    [
+     "compruebo",
+     "laringoscopio"
+    ],
+    [
+     "pruebo",
+     "laringoscopio"
+    ],
+    [
+     "luz",
+     "laringoscopio"
+    ],
+    [
+     "enciende"
+    ]
+   ],
+   "frase": "Verifico el laringoscopio: armo la hoja y compruebo que la luz encienda.",
+   "fx": "luz_lar"
+  },
+  {
+   "n": 6,
+   "texto": "Verifica el correcto funcionamiento del globo del Tubo Endo-Traqueal (TET) elegido",
+   "fase": "Verificación del equipo",
+   "target": "tetc",
+   "critico": true,
+   "explica": "Se infla el balón con la jeringa para comprobar que no pierda ni se deforme y se lo desinfla por completo antes de usar. Un balón defectuoso no sella la vía aérea. Calibre habitual: mujer 7,0–7,5 mm, varón 7,5–8,0 mm. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "tet_ok": 1
+   },
+   "claves": [
+    [
+     "verifico",
+     "balon"
+    ],
+    [
+     "compruebo",
+     "balon"
+    ],
+    [
+     "pruebo",
+     "balon"
+    ],
+    [
+     "funcionamiento",
+     "balon"
+    ],
+    [
+     "funcionamiento",
+     "globo"
+    ],
+    [
+     "globo",
+     "tet"
+    ]
+   ],
+   "frase": "Verifico el funcionamiento del balón del tubo endotraqueal: compruebo que infle y desinfle sin pérdidas.",
+   "fx": "balon_tet"
+  },
+  {
+   "n": 7,
+   "texto": "Acomoda al paciente:",
+   "fase": "Posición y monitoreo",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Paciente en decúbito dorsal con la cabeza en posición de olfateo (elevación del occipucio con una almohada o toalla): alinea los ejes oral, faríngeo y laríngeo. Se evalúa la vía aérea: clasificación de Mallampati, apertura bucal, movilidad cervical y distancia tiromentoniana.",
+   "estado": {
+    "pos": 1
+   },
+   "claves": [
+    [
+     "acomodo",
+     "paciente"
+    ],
+    [
+     "posicion",
+     "olfateo"
+    ],
+    [
+     "olfateo"
+    ],
+    [
+     "almohada"
+    ],
+    [
+     "decubito dorsal"
+    ],
+    [
+     "mallampati"
+    ],
+    [
+     "posiciono",
+     "paciente"
+    ]
+   ],
+   "frase": "Acomodo al paciente en decúbito dorsal, en posición de olfateo, y evalúo la vía aérea (Mallampati).",
+   "fx": "posicion_iet"
+  },
+  {
+   "n": 8,
+   "texto": "Se ubica a la cabecera del paciente.",
+   "fase": "Posición y monitoreo",
+   "target": "cabecera",
+   "critico": false,
+   "explica": "El operador se coloca detrás de la cabeza, en el eje del paciente, con la camilla a la altura de su apófisis xifoides: así la línea de visión coincide con el eje de la laringoscopia.",
+   "estado": {
+    "cab": 1
+   },
+   "claves": [
+    [
+     "cabecera"
+    ]
+   ],
+   "frase": "Me ubico a la cabecera del paciente.",
+   "fx": "cabecera"
+  },
+  {
+   "n": 9,
+   "texto": "Coloca el saturometro manteniendo la ejecución de la saturometria durante todo el procedimiento",
+   "fase": "Posición y monitoreo",
+   "target": "saturometro",
+   "critico": true,
+   "explica": "La saturación de oxígeno se monitoriza de forma continua: es la única forma de saber cuánto tiempo seguro queda durante la laringoscopia. Si cae por debajo de 90 % se interrumpe el intento y se ventila. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "sat": 1
+   },
+   "claves": [
+    [
+     "saturometro"
+    ],
+    [
+     "oximetro"
+    ],
+    [
+     "pulsioximetro"
+    ],
+    [
+     "saturacion",
+     "dedo"
+    ],
+    [
+     "coloco",
+     "sat"
+    ]
+   ],
+   "frase": "Coloco el saturómetro y mantengo la saturometría durante todo el procedimiento.",
+   "fx": "saturometro"
+  },
+  {
+   "n": 10,
+   "texto": "Hiper-extiende la cabeza del paciente llevándola a posterior y elevándole el mentón.",
+   "fase": "Posición y monitoreo",
+   "target": "cabeza",
+   "critico": false,
+   "explica": "Con la mano derecha se lleva la cabeza hacia atrás y se eleva el mentón (maniobra frente-mentón): despeja la base de la lengua de la pared posterior de la faringe y abre la vía aérea.",
+   "estado": {
+    "ext": 1
+   },
+   "claves": [
+    [
+     "hiperextiendo"
+    ],
+    [
+     "hiperextension"
+    ],
+    [
+     "elevo",
+     "menton"
+    ],
+    [
+     "extiendo",
+     "cabeza"
+    ],
+    [
+     "extension",
+     "cabeza"
+    ]
+   ],
+   "frase": "Hiperextiendo la cabeza llevándola hacia atrás y elevo el mentón.",
+   "fx": "hiperextension"
+  },
+  {
+   "n": 11,
+   "texto": "Remueve prótesis dentales (si las hubiere).",
+   "fase": "Posición y monitoreo",
+   "target": "boca",
+   "critico": false,
+   "explica": "Se retiran las prótesis removibles: pueden desplazarse y obstruir la vía aérea o dañarse durante la laringoscopia. (En un paciente real, este es el momento de iniciar la sedación y la relajación.)",
+   "estado": {
+    "prot": 1
+   },
+   "claves": [
+    [
+     "protesis"
+    ],
+    [
+     "dentadura"
+    ],
+    [
+     "retiro",
+     "dientes"
+    ],
+    [
+     "placa dental"
+    ]
+   ],
+   "frase": "Retiro las prótesis dentales, si las hubiera.",
+   "fx": "protesis"
+  },
+  {
+   "n": 12,
+   "texto": "Inicia la ventilación con máscara de ambú a una frecuencia de 15-18 ventilaciones por minuto.",
+   "fase": "Oxigenación",
+   "target": "ambu",
+   "critico": true,
+   "explica": "Antes de laringoscopiar se ventila con máscara y bolsa de ambú con oxígeno a 15–18 por minuto (preoxigenación): la reserva de oxígeno permite tolerar la apnea del intento sin desaturar. Laringoscopiar sin ventilar antes es criterio de desaprobación.",
+   "estado": {
+    "vent": 1
+   },
+   "claves": [
+    [
+     "mascara",
+     "ambu"
+    ],
+    [
+     "mascara",
+     "ventil"
+    ],
+    [
+     "inicio",
+     "ventilacion"
+    ],
+    [
+     "comienzo",
+     "ventilar"
+    ],
+    [
+     "preoxigen"
+    ],
+    [
+     "oxigeno",
+     "mascara"
+    ]
+   ],
+   "frase": "Inicio la ventilación con máscara de ambú a 15-18 ventilaciones por minuto.",
+   "fx": "ventilar",
+   "gemelo": 25
+  },
+  {
+   "n": 13,
+   "texto": "Solicita al asistente que presione el cartílago cricoides hacia posterior. manteniendo ésta conducta hasta finalizado el procedimiento",
+   "fase": "Oxigenación",
+   "target": "cricoides",
+   "critico": false,
+   "explica": "Maniobra de Sellick: el asistente presiona el cricoides hacia atrás y comprime el esófago contra la columna cervical, lo que previene la regurgitación y la broncoaspiración. Se mantiene hasta que el balón está inflado.",
+   "estado": {
+    "sellick": 1
+   },
+   "claves": [
+    [
+     "cricoides"
+    ],
+    [
+     "sellick"
+    ],
+    [
+     "presion",
+     "cricoid"
+    ],
+    [
+     "asistente",
+     "presione"
+    ]
+   ],
+   "frase": "Le pido al asistente que presione el cartílago cricoides hacia atrás y lo mantenga hasta el final.",
+   "fx": "sellick"
+  },
+  {
+   "n": 14,
+   "texto": "Sostiene el laringoscopio con su mano izquierda y con la derecha, abre la boca y acomodar la comisura labial.",
+   "fase": "Laringoscopia",
+   "target": "boca",
+   "critico": false,
+   "explica": "El laringoscopio se sostiene siempre con la mano izquierda; con la derecha se abre la boca (técnica de los dedos cruzados) y se retira la comisura labial para no pellizcarla con la hoja.",
+   "estado": {
+    "lar_mano": 1
+   },
+   "claves": [
+    [
+     "sostengo",
+     "laringoscopio"
+    ],
+    [
+     "mano izquierda"
+    ],
+    [
+     "abro",
+     "boca"
+    ],
+    [
+     "comisura"
+    ]
+   ],
+   "frase": "Sostengo el laringoscopio con la mano izquierda, abro la boca con la derecha y acomodo la comisura labial.",
+   "fx": "sostener"
+  },
+  {
+   "n": 15,
+   "texto": "Ingresa con la hoja del laringoscopio del lado derecho de la lengua y empuja la misma hacia la izquierda dejando la hoja del mismo en la línea media.",
+   "fase": "Laringoscopia",
+   "target": "lengua",
+   "critico": false,
+   "explica": "La hoja entra por la comisura derecha, desplaza la lengua hacia la izquierda y se centra en la línea media: la lengua queda fuera de la línea de visión. Entrar por el centro empuja la lengua hacia atrás y tapa la glotis.",
+   "estado": {
+    "lar_dentro": 1
+   },
+   "claves": [
+    [
+     "lado derecho",
+     "lengua"
+    ],
+    [
+     "derecha",
+     "lengua",
+     "hoja"
+    ],
+    [
+     "empujo",
+     "lengua"
+    ],
+    [
+     "desplazo",
+     "lengua"
+    ],
+    [
+     "lengua",
+     "izquierda"
+    ],
+    [
+     "linea media"
+    ]
+   ],
+   "frase": "Ingreso con la hoja por el lado derecho de la lengua, la empujo hacia la izquierda y dejo la hoja en la línea media.",
+   "fx": "hoja_in"
+  },
+  {
+   "n": 16,
+   "texto": "Desciende hasta la base de la lengua y realiza un movimiento continuo hacia arriba y adelante",
+   "fase": "Laringoscopia",
+   "target": "epiglotis",
+   "critico": false,
+   "explica": "Con la hoja curva la punta se apoya en la vallécula (entre la base de la lengua y la epiglotis) y se levanta en el eje del mango, hacia arriba y adelante, que eleva la epiglotis y expone la glotis. Nunca se hace palanca sobre los dientes: los lesiona y no mejora la visión.",
+   "estado": {
+    "lar_palanca": 1
+   },
+   "claves": [
+    [
+     "base de la lengua"
+    ],
+    [
+     "valecula"
+    ],
+    [
+     "arriba y adelante"
+    ],
+    [
+     "desciendo"
+    ]
+   ],
+   "frase": "Desciendo hasta la base de la lengua y hago un movimiento continuo hacia arriba y adelante.",
+   "fx": "levantar"
+  },
+  {
+   "n": 17,
+   "texto": "Deja el  mango del laringoscopio mirando hacia el techo en un ángulo de 45°.",
+   "fase": "Laringoscopia",
+   "target": "boca",
+   "critico": false,
+   "explica": "El mango queda mirando hacia el techo en un ángulo de unos 45°: es la dirección de tracción correcta. Si se inclina hacia atrás (palanca) se rompen los dientes.",
+   "estado": {
+    "lar_45": 1
+   },
+   "claves": [
+    [
+     "mango",
+     "techo"
+    ],
+    [
+     "angulo de 45"
+    ],
+    [
+     "mango",
+     "45"
+    ]
+   ],
+   "frase": "Dejo el mango del laringoscopio mirando hacia el techo, en un ángulo de 45°.",
+   "fx": "angulo45"
+  },
+  {
+   "n": 18,
+   "texto": "Visualiza las cuerdas vocales.",
+   "fase": "Laringoscopia",
+   "target": "cuerdas",
+   "critico": true,
+   "explica": "Se visualizan las cuerdas vocales, el triángulo blanco que delimita la glotis. Se gradúa la visión (Cormack-Lehane: I glotis completa, II solo comisura posterior, III solo epiglotis, IV ninguna estructura). Pasar el tubo sin ver las cuerdas es criterio de desaprobación.",
+   "estado": {
+    "cuerdas": 1
+   },
+   "claves": [
+    [
+     "visualizo",
+     "cuerdas"
+    ],
+    [
+     "veo",
+     "cuerdas"
+    ],
+    [
+     "visualizo",
+     "glotis"
+    ],
+    [
+     "observo",
+     "cuerdas"
+    ]
+   ],
+   "frase": "Visualizo las cuerdas vocales.",
+   "fx": "cuerdas"
+  },
+  {
+   "n": 19,
+   "texto": "Solicitar (al asistente) el TET y lo toma con la mano derecha sin retirar la mirada de las cuerdas vocales",
+   "fase": "Intubación",
+   "target": "asistente",
+   "critico": false,
+   "explica": "Sin apartar la vista de las cuerdas, se pide el tubo al asistente y se lo toma con la mano derecha como una lapicera. Mirar hacia otro lado hace perder la exposición de la glotis.",
+   "estado": {
+    "tet_mano": 1
+   },
+   "claves": [
+    [
+     "solicito",
+     "tet"
+    ],
+    [
+     "solicito",
+     "tubo"
+    ],
+    [
+     "pido",
+     "tubo"
+    ],
+    [
+     "pido",
+     "tet"
+    ],
+    [
+     "asistente",
+     "tubo"
+    ],
+    [
+     "sin retirar",
+     "mirada"
+    ]
+   ],
+   "frase": "Solicito el tubo endotraqueal al asistente y lo tomo con la mano derecha sin retirar la mirada de las cuerdas.",
+   "fx": "pedir_tet"
+  },
+  {
+   "n": 20,
+   "texto": "Desliza el TET por la hoja del laringoscopio hasta superar las cuerdas vocales",
+   "fase": "Intubación",
+   "target": "cuerdas",
+   "critico": true,
+   "explica": "El tubo se desliza por el lado derecho de la hoja, sin tapar la visión, hasta que el extremo supera las cuerdas bajo visión directa. Si no se ven las cuerdas no se intuba a ciegas.",
+   "estado": {
+    "tet": 1
+   },
+   "claves": [
+    [
+     "deslizo",
+     "tubo"
+    ],
+    [
+     "deslizo",
+     "tet"
+    ],
+    [
+     "supero",
+     "cuerdas"
+    ],
+    [
+     "paso",
+     "tubo",
+     "cuerdas"
+    ],
+    [
+     "introduzco",
+     "tubo"
+    ],
+    [
+     "avanzo",
+     "tubo"
+    ]
+   ],
+   "frase": "Deslizo el tubo por la hoja del laringoscopio hasta superar las cuerdas vocales.",
+   "fx": "tet_in"
+  },
+  {
+   "n": 21,
+   "texto": "Ubica el balón 3 a 4 cm por debajo de las cuerdas vocales.",
+   "fase": "Intubación",
+   "target": "balon",
+   "critico": true,
+   "explica": "El balón debe quedar 3 a 4 cm por debajo de las cuerdas vocales, en la tráquea: más arriba lesiona la laringe y más abajo se corre el riesgo de intubación selectiva del bronquio derecho. Omitir la profundidad correcta es criterio de desaprobación.",
+   "estado": {
+    "tetp": 1
+   },
+   "claves": [
+    [
+     "ubico",
+     "balon"
+    ],
+    [
+     "balon",
+     "debajo"
+    ],
+    [
+     "3 a 4"
+    ],
+    [
+     "3 4 cm"
+    ]
+   ],
+   "frase": "Ubico el balón del tubo 3 a 4 cm por debajo de las cuerdas vocales.",
+   "fx": "tet_prof"
+  },
+  {
+   "n": 22,
+   "texto": "Retira el laringoscopio.",
+   "fase": "Intubación",
+   "target": "laringo",
+   "critico": false,
+   "explica": "Con el tubo en posición se retira el laringoscopio con cuidado, sin arrastrar el tubo, y se lo apoya sin contaminar el campo.",
+   "estado": {
+    "lar_fuera": 1
+   },
+   "claves": [
+    [
+     "retiro",
+     "laringoscopio"
+    ],
+    [
+     "saco",
+     "laringoscopio"
+    ]
+   ],
+   "frase": "Retiro el laringoscopio.",
+   "fx": "retirar_lar"
+  },
+  {
+   "n": 23,
+   "texto": "Infla el balón a través del piloto con la jeringa de 10 cc",
+   "fase": "Intubación",
+   "target": "jeringa",
+   "critico": true,
+   "explica": "Se infla el balón por el piloto con la jeringa de 10 cc hasta sellar la vía aérea (presión habitual 20–30 cm H₂O). Un balón sin inflar permite fugas y aspiración. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "infl": 1
+   },
+   "claves": [
+    [
+     "inflo",
+     "jeringa"
+    ],
+    [
+     "inflo",
+     "piloto"
+    ],
+    [
+     "10 cc"
+    ],
+    [
+     "jeringa",
+     "piloto"
+    ]
+   ],
+   "frase": "Inflo el balón por el piloto con la jeringa de 10 cc.",
+   "fx": "inflar_tet"
+  },
+  {
+   "n": 24,
+   "texto": "Verifica la correcta colocación del TET:",
+   "fase": "Verificación",
+   "target": "pulmones",
+   "critico": true,
+   "explica": "Se confirma la posición del tubo: expansión torácica simétrica, vaho en el tubo, auscultación de epigastrio (sin ruidos) y de ambos campos pulmonares (murmullo vesicular simétrico) y capnografía con onda de CO₂. La intubación esofágica no detectada mata; la selectiva (ruidos solo a la derecha) se corrige retirando el tubo unos centímetros. Omitir la verificación es criterio de desaprobación.",
+   "estado": {
+    "verif": 1
+   },
+   "claves": [
+    [
+     "ausculto"
+    ],
+    [
+     "auscultacion"
+    ],
+    [
+     "capnograf"
+    ],
+    [
+     "colocacion",
+     "tubo"
+    ],
+    [
+     "verifico",
+     "colocacion"
+    ],
+    [
+     "expansion",
+     "torac"
+    ],
+    [
+     "epigastrio"
+    ]
+   ],
+   "frase": "Verifico la correcta colocación del tubo: ausculto epigastrio y ambos campos pulmonares y observo la expansión torácica.",
+   "fx": "auscultar"
+  },
+  {
+   "n": 25,
+   "texto": "Ventila con Bolsa de ambú para ventilación manual a una frecuencia de 15-18 ventilaciones por minuto verificando permanentemente la Saturación de Oxigeno (Sat O2)",
+   "fase": "Verificación",
+   "target": "ambu",
+   "critico": false,
+   "explica": "Se conecta la bolsa de ambú al tubo y se ventila a 15–18 por minuto controlando de forma permanente la saturación de oxígeno.",
+   "estado": {
+    "vent2": 1
+   },
+   "claves": [
+    [
+     "ventilo",
+     "saturacion"
+    ],
+    [
+     "ambu",
+     "saturacion"
+    ],
+    [
+     "verificando",
+     "saturacion"
+    ],
+    [
+     "ventilo",
+     "bolsa"
+    ]
+   ],
+   "frase": "Ventilo con la bolsa de ambú a 15-18 por minuto verificando la saturación de oxígeno.",
+   "fx": "ventilar",
+   "gemelo": 12
+  },
+  {
+   "n": 26,
+   "texto": "Asegura el TET pegándolo (con cinta adhesiva hipo-alergénica) a las mejillas.",
+   "fase": "Verificación",
+   "target": "cinta",
+   "critico": false,
+   "explica": "El tubo se fija con cinta hipoalergénica a las mejillas, anotando la marca de profundidad en la comisura labial, para evitar su desplazamiento o la extubación accidental.",
+   "estado": {
+    "fix": 1
+   },
+   "claves": [
+    [
+     "cinta"
+    ],
+    [
+     "fijo",
+     "tubo"
+    ],
+    [
+     "aseguro",
+     "tubo"
+    ],
+    [
+     "mejillas"
+    ]
+   ],
+   "frase": "Aseguro el tubo con cinta hipoalergénica a las mejillas.",
+   "fx": "cinta"
+  }
+ ]
+}

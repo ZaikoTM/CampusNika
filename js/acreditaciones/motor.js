@@ -56,14 +56,14 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=16'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=19'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
     let MESA = null;
     async function asegurarMesa() {
       if (MESA) return;
-      const [mod, cfg] = await Promise.all([import('./mesa.js?v=13'), getJSON(D.instrumental)]);
+      const [mod, cfg] = await Promise.all([import('./mesa.js?v=14'), getJSON(D.instrumental)]);
       MESA = mod.crearMesa(cfg);
     }
     const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
@@ -139,7 +139,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r20'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r22'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     // caso con contraindicación absoluta: se omiten los pasos del tacto y aparece el paso «no realizar»
@@ -149,7 +149,9 @@
     const aplica = (p, sexo, ign) => (!p.solo || p.solo === (sexo || S.sexo)) && (ign || casoOk(p));
     const pasosAplicables = (sexo, ign) => D.pasos.filter((p) => aplica(p, sexo, ign));
     const etiquetaPaso = (n) => (Number.isInteger(n) ? n : Math.floor(n) + ' bis');
-    const hallazgoDe = () => (casoActual() && casoActual().hallazgo) || 'región perianal sin lesiones visibles.'
+    // hallazgos que el simulador revela al completar ciertos pasos (según el caso): D.hallazgo_pasos = { paso: campo del caso }
+    const hallazgoDe = (n) => { const k = D.hallazgo_pasos && D.hallazgo_pasos[n]; const c = casoActual(); return k && c && c[k] ? c[k] : null; };
+    const hallazgoTxt = (n) => { const h = hallazgoDe(n); return h ? `${D.hallazgo_rotulo || '🔍 Observás:'} ${h}` : null; };
     const porN = (n) => D.pasos.find((p) => p.n === n);
 
     // ---- reconocimiento de lo que el alumno escribe en la bitácora (palabras clave por paso y por acción incorrecta)
@@ -165,10 +167,38 @@
     }
     const chatHTML = (msgs, ph, titulo) => `<div class="acr-chat"><div class="acr-fase" style="margin-top:12px">${titulo}</div>
       <div class="acr-chat-log" id="acr-chat-log">${msgs.length ? msgs.map((m) => `<div class="m ${m.de} ${m.cls || ''}">${esc(m.txt)}</div>`).join('') : '<div class="m vacio">Escribí lo que vas haciendo y cómo lo hacés. Ej.: «me lavo las manos con técnica clínica».</div>'}</div>
-      <form id="acr-chat-f" autocomplete="off"><input id="acr-chat-i" type="text" placeholder="${ph}" maxlength="220"><button class="acr-btn" type="submit">Enviar</button></form></div>`;
+      <form id="acr-chat-f" autocomplete="off"><input id="acr-chat-i" type="text" placeholder="${ph}" maxlength="220"><button type="button" id="acr-mic" class="acr-mic" title="Dictar por voz" aria-label="Dictar por voz">🎤</button><button class="acr-btn" type="submit">Enviar</button></form></div>`;
+    // ---- dictado por voz (Web Speech API): cada frase reconocida se envía sola a la bitácora
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const VOZ = { rec: null, on: false, enviar: null };
+    const pintarMic = () => { const b = $('#acr-mic'); if (!b) return; b.classList.toggle('on', VOZ.on); b.title = VOZ.on ? 'Dictado activo: tocá para detenerlo' : 'Dictar por voz'; b.textContent = VOZ.on ? '⏹' : '🎤'; };
+    function detenerMic() { VOZ.on = false; try { VOZ.rec && VOZ.rec.stop(); } catch (_) {} VOZ.rec = null; pintarMic(); }
+    function iniciarMic() {
+      if (!SR) { toast('Tu navegador no admite el dictado por voz (probá con Chrome, Edge o Brave)', 'neutro'); return; }
+      const rec = new SR(); VOZ.rec = rec; rec.lang = 'es-AR'; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 1;
+      rec.onresult = (ev) => {
+        const i = $('#acr-chat-i'); let parcial = '';
+        for (let k = ev.resultIndex; k < ev.results.length; k++) {
+          const r = ev.results[k]; const tx = r[0].transcript.trim();
+          if (r.isFinal) { if (i) i.value = ''; if (tx && VOZ.enviar) VOZ.enviar(tx.slice(0, 220)); } else parcial += tx + ' ';
+        }
+        const inp = $('#acr-chat-i'); if (inp && parcial) inp.value = parcial.trim();
+      };
+      rec.onerror = (e) => {
+        if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { toast('Permití el micrófono en el navegador para dictar', 'mal'); detenerMic(); }
+        else if (e.error === 'audio-capture') { toast('No se encontró un micrófono', 'mal'); detenerMic(); }
+      };
+      rec.onend = () => { if (VOZ.on && VOZ.rec === rec) { try { rec.start(); } catch (_) { detenerMic(); } } };
+      VOZ.on = true; try { rec.start(); } catch (_) { VOZ.on = false; } pintarMic();
+      if (VOZ.on && window.AcrFX) AcrFX.sonido('pop');
+    }
+    setInterval(() => { if (VOZ.on && !document.getElementById('acr-chat-f')) detenerMic(); }, 1500);
     function enlazarChat(alEnviar) {
       const f = $('#acr-chat-f'); const log = $('#acr-chat-log'); if (log) log.scrollTop = log.scrollHeight;
+      VOZ.enviar = alEnviar;
       if (f) f.onsubmit = (e) => { e.preventDefault(); const i = $('#acr-chat-i'); const v = i.value.trim(); if (!v) return; i.value = ''; alEnviar(v); };
+      const mic = $('#acr-mic');
+      if (mic) { if (!SR) { mic.classList.add('sin'); mic.title = 'Tu navegador no admite el dictado por voz'; } mic.onclick = () => { if (VOZ.on) detenerMic(); else iniciarMic(); }; pintarMic(); }
     }
 
     // ---- tutorial del modelo 3D
@@ -348,7 +378,7 @@
     function completarPaso(q) {
       fxPaso(q, true); if (ESC && ESC.enfocar) ESC.enfocar(q.target);
       const E = S.ent; E.hechos.add(q.n);
-      if (q.n === 12) E.chat.push({ de: 'sis', cls: 'neutro', txt: '🔍 Observás: ' + hallazgoDe() }); E.esperando = false; resaltar(null);
+      if (hallazgoTxt(q.n)) E.chat.push({ de: 'sis', cls: 'neutro', txt: hallazgoTxt(q.n) }); E.esperando = false; resaltar(null);
       const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados);
       toast(`✔ Paso ${etiquetaPaso(q.n)} completado`, 'ok');
       pintarGuiado({ ok: q });
@@ -593,8 +623,8 @@
         else {
           const previos = X.apl.filter((z) => z.n < n && !X.hechos.has(z.n));
           const enOrden = previos.length === 0;
-          X.hechos.set(n, enOrden ? 'SI' : 'M'); snap.agrego = n; fxPaso(q, false);
-          if (n === 12) X.chat.push({ de: 'sis', cls: 'neutro', txt: '🔍 Observás: ' + hallazgoDe() });
+          X.hechos.set(n, enOrden ? 'SI' : 'M'); snap.agrego = n; fxPaso(q, false); if (ESC && ESC.enfocar) ESC.enfocar(q.target);
+          if (hallazgoTxt(n)) X.chat.push({ de: 'sis', cls: 'neutro', txt: hallazgoTxt(n) });
           if (!enOrden) {
             const critPrev = previos.some((z) => z.critico);
             X.log.push({ tipo: 'orden', n, texto: q.texto, grave: critPrev, porque: `Se hizo antes de completar pasos previos (${previos.slice(0, 3).map((z) => z.n).join(', ')}${previos.length > 3 ? '…' : ''}).` });
@@ -752,7 +782,7 @@
         const caja = $('#demo-typing');
         for (const ch of q.frase) { if (dem.cancel || dem.salto) break; while (dem.pausa && !dem.cancel && !dem.salto) await dormir(200, dem); caja.textContent += ch; abajo(); await dormir(Math.max(3, 24 / dem.vel), dem); }
         if (dem.cancel) return; if (dem.salto) continue;
-        log.insertAdjacentHTML('beforeend', `<div class="m sis ok">✅ Paso ${etiquetaPaso(q.n)} registrado.</div>${q.n === 12 ? `<div class="m sis neutro">🔍 Observás: ${esc(hallazgoDe())}</div>` : ''}`); abajo();
+        log.insertAdjacentHTML('beforeend', `<div class="m sis ok">✅ Paso ${etiquetaPaso(q.n)} registrado.</div>${hallazgoTxt(q.n) ? `<div class="m sis neutro">${esc(hallazgoTxt(q.n))}</div>` : ''}`); abajo();
         S.velFx = dem.vel; const fxp = fxPaso(q, true); const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados); resaltar(null);
         await Promise.race([fxp, new Promise((ok) => { dem.alSaltar = ok; })]);
         const ex = $('#demo-expl'); if (ex) { ex.style.transition = 'opacity .5s'; ex.style.opacity = 1; }
@@ -775,7 +805,7 @@
 
     // ---- portada (sin cargar nada pesado) y navegación
     function portada() {
-      parar(); quitarCancelarEx(); pintarLectura(true);
+      parar(); quitarCancelarEx(); detenerMic(); pintarLectura(true);
       if (ESC) ESC.dispose();
       document.querySelector('.acr-grid').classList.add('sin-escena');
       $('#acr-chips').innerHTML = '';

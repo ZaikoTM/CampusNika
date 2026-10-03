@@ -72,6 +72,7 @@ export class MedicalProcedureViewer {
           <span class="sep"></span>
           <button type="button" data-nav="reset" title="Restablecer vista" aria-label="Restablecer vista">⌖</button>
         </div>
+        ${this.CFG.overlay_html || ''}
         <div class="acr3d-hint">Arrastrá o usá los botones · rueda para acercar</div>
       </div>
       ${mesa}${entorno}
@@ -132,7 +133,8 @@ export class MedicalProcedureViewer {
 
   async construir(variante, onProg) {
     const C = this.C; const cfg = this.CFG[variante]; const o = V(...cfg.origen);
-    const gm = new THREE.Group(); gm.position.copy(o).negate(); C.scene.add(gm); C.gm = gm;
+    const gm = new THREE.Group(); gm.position.copy(o).negate();
+    const rotg = new THREE.Group(); rotg.rotation.order = 'YXZ'; rotg.rotation.set(...(cfg.rotacion || [0, 0, 0])); rotg.add(gm); C.scene.add(rotg); C.gm = gm; C.rotg = rotg;
     ['piel', 'huesos', 'organos', 'sonda'].forEach((k) => { C.capas[k] = new THREE.Group(); gm.add(C.capas[k]); });
     // silueta pélvica inmediata (no torso completo)
     if (cfg.piel) {
@@ -142,7 +144,7 @@ export class MedicalProcedureViewer {
       C.capas.piel.add(piel);
     }
     Object.values(cfg.procedurales || {}).forEach((d) => this.tuboProc(d));
-    C.anclas = {}; Object.entries(cfg.pines).forEach(([k, v]) => { C.anclas[k] = V(...v).sub(o); });
+    C.anclas = {}; Object.entries(cfg.pines).forEach(([k, v]) => { C.anclas[k] = V(...v).sub(o).applyEuler(rotg.rotation); });
     this.instrumentos(variante);
     C.corte = cfg.corte_x - o.x; C.plane.constant = C.corte;
     const res = await this.cargarPiezas(cfg.piezas, onProg);
@@ -161,8 +163,10 @@ export class MedicalProcedureViewer {
         });
       }
       obj.scale.setScalar(p.escala); obj.rotation.set(...p.rot); obj.position.set(...p.pos); obj.name = p.id;
-      C.capas[p.capa].add(obj);
+      if (p.pivote) { const gp = new THREE.Group(); gp.position.set(...p.pivote); obj.position.sub(gp.position); gp.rotation.set(...(p.rot_pivote || [0, 0, 0])); gp.add(obj); C.capas[p.capa].add(gp); }
+      else C.capas[p.capa].add(obj);
     });
+    if (this.CFG.general.corte_inicial) { C.opt.cut = true; const bc = C.vp.querySelector('[data-tool="cut"]'); if (bc) bc.classList.add('on'); }
     this.aplicarLook();
   }
 
@@ -204,6 +208,86 @@ export class MedicalProcedureViewer {
         C.inst.push({ tipo: ins.tipo, clases: ins.clases, cat: { mesh: dedo, total: geo.index.count, per: 16 * 6, cur: 0, goal: 0 },
           bal: { mesh: new THREE.Object3D(), cur: 0.001, goal: 0.001 }, bolsa: { g: new THREE.Object3D(), cur: 0.001, goal: 0.001 }, con: new THREE.Object3D(),
           dedo: { g, tip, curva, piv, barr: false } });
+      }
+
+      if (ins.tipo === 'laringoscopio') {
+        const L = cfg.laringo; const g = new THREE.Group(); g.position.set(...L.bisagra); const pose = new THREE.Group(); g.add(pose);
+        const tip0 = V(0, ...L.hoja[L.hoja.length - 1]); const pv = new THREE.Group(); pv.position.copy(tip0); pose.add(pv); const cont = new THREE.Group(); cont.position.copy(tip0).negate(); pv.add(cont);
+        const matM = this.material('#a8b5c6', 1, 'sonda', { metalness: 0.25, roughness: 0.4, clearcoat: 0.3, emissive: 0x233449, emissiveIntensity: 0.5, depthWrite: true });
+        const matH = this.material('#e2e8f0', 1, 'sonda', { metalness: 0.25, roughness: 0.3, clearcoat: 0.4, emissive: 0x3b4d63, emissiveIntensity: 0.55, depthWrite: true });
+        const pts = L.hoja.map(([y, z]) => V(0, y, z)); const curva = new THREE.CatmullRomCurve3(pts);
+        const hoja = new THREE.Mesh(new THREE.TubeGeometry(curva, 48, L.grosor || 0.5, 12, false), matH); hoja.scale.x = 1.7; matH.depthTest = false; hoja.renderOrder = 9; cont.add(hoja);
+        const dir = V(0, L.mango.dir[0], L.mango.dir[1]).normalize();
+        const mango = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.05, L.mango.largo, 24), matM);
+        mango.quaternion.setFromUnitVectors(V(0, 1, 0), dir); mango.position.copy(dir).multiplyScalar(L.mango.largo / 2 + 0.3); cont.add(mango);
+        for (let i = 0; i < 6; i++) { const aro = new THREE.Mesh(new THREE.TorusGeometry(1.03, 0.09, 8, 24), matH); aro.quaternion.setFromUnitVectors(V(0, 0, 1), dir); aro.position.copy(dir).multiplyScalar(2 + i * 1.5); cont.add(aro); }
+        const bis = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.4, 1.6), matM); bis.quaternion.setFromUnitVectors(V(0, 1, 0), dir); cont.add(bis);
+        const tip = pts[pts.length - 1]; const dl = tip.clone().sub(pts[pts.length - 3]).normalize();
+        const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.34, 14, 10), new THREE.MeshBasicMaterial({ color: 0xfffbe0 })); bulb.position.copy(tip); cont.add(bulb);
+        const spot = new THREE.SpotLight(0xfff0bd, 0, 0, 0.55, 0.75, 1.1); spot.position.copy(tip); const tg = new THREE.Object3D(); tg.position.copy(tip).add(dl.clone().multiplyScalar(8)); cont.add(tg, spot); spot.target = tg;
+        const conoMat = new THREE.MeshBasicMaterial({ color: 0xfff2b8, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+        const cono = new THREE.Mesh(new THREE.ConeGeometry(3.4, 9, 28, 1, true), conoMat); cono.quaternion.setFromUnitVectors(V(0, -1, 0), dl); cono.position.copy(tip).add(dl.clone().multiplyScalar(4.5)); cono.renderOrder = 8; cont.add(cono);
+        g.traverse((m) => { if (m.isMesh && m.material && m.material.userData && m.material.userData.capa) this.registrar(m, 'sonda', 'laringoscopio'); });
+        g.visible = false; C.capas.sonda.add(g);
+        const E = { cur: 0, goal: 0 };
+        const POS = [[0, 0, 0, 0], [0, 3.0, 11, 0.0], [0, 0, 0, 0], [0, 0.2, 1.1, L.giro || -0.41]];   // [x, y, z, giro] por etapa; la etapa 0 se oculta
+        const ent = { tipo: ins.tipo, cat: { goal: 0 },
+          sync: (has) => { const c = ins.clases; E.goal = has(c.fuera) ? 0 : has(c.palanca) ? 3 : has(c.dentro) ? 2 : has(c.mano) ? 1 : 0; ent.cat.goal = E.goal > 0 ? 1 : 0; },
+          tick: (t) => {
+            E.cur += (E.goal - E.cur) * 0.06; if (Math.abs(E.goal - E.cur) < 0.002) E.cur = E.goal;
+            g.visible = E.cur > 0.04; if (!g.visible) return;
+            const a = Math.min(2, Math.floor(E.cur)), f = E.cur - a;
+            const P0 = a === 0 ? [0, 8, 26, 0] : POS[a], P1 = POS[a + 1] || POS[a];
+            const m = (i) => P0[i] + (P1[i] - P0[i]) * f;
+            pose.position.set(0, m(1), m(2)); pv.rotation.x = m(3);
+            const on = E.cur > 1.5 ? 1 : 0.35 * (E.cur > 0.5 ? 1 : 0);
+            spot.intensity += (on * L.luz - spot.intensity) * 0.1; conoMat.opacity += (on * 0.2 - conoMat.opacity) * 0.1;
+            bulb.scale.setScalar(1 + 0.15 * Math.sin(t / 140));
+          } };
+        C.inst.push(ent);
+      }
+      if (ins.tipo === 'tet') {
+        const T = cfg.tet; const pts = T.ruta.map((p) => V(...p)); const curva = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+        const rad = ins.radio || 0.5; const geo = new THREE.TubeGeometry(curva, 320, rad, 14, false);
+        const mat = this.material(ins.color, 0.92, 'sonda', { emissive: 0x38bdf8, emissiveIntensity: 0.28, depthWrite: true });
+        mat.depthTest = false; const tubo = new THREE.Mesh(geo, mat); tubo.visible = false; tubo.renderOrder = 10; this.registrar(tubo, 'sonda', 'tet'); C.capas.sonda.add(tubo);
+        const bal = new THREE.Mesh(new THREE.SphereGeometry(1, 28, 20), this.material(ins.color_balon, 0.8, 'sonda', { emissive: 0x0284c7, emissiveIntensity: 0.4 }));
+        this.registrar(bal, 'sonda', 'balon'); bal.position.copy(V(...T.balon)); bal.scale.set(0.001, 0.001, 0.001); C.capas.sonda.add(bal);
+        const conector = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 1.6, 16), this.material('#2563eb', 1, 'sonda', { depthWrite: true })); conector.visible = false; C.capas.sonda.add(conector);
+        const u = (p) => { let mejor = 0, d0 = 1e9; for (let i = 0; i <= 600; i++) { const q = curva.getPointAt(i / 600); const d = q.distanceTo(V(...p)); if (d < d0) { d0 = d; mejor = i / 600; } } return mejor; };
+        const U = { fuera: u(T.fuera), cuerdas: u(T.pasa_cuerdas), fondo: 1 };
+        const inicio = pts[0].clone(), sig = curva.getPointAt(0.03); conector.position.copy(inicio); conector.quaternion.setFromUnitVectors(V(0, 1, 0), sig.clone().sub(inicio).normalize());
+        const e = { cat: { mesh: tubo, total: geo.index.count, per: 14 * 6, cur: 0, goal: 0 }, bal: { mesh: bal, cur: 0.001, goal: 0.001 }, bolsa: { g: new THREE.Object3D(), cur: 0.001, goal: 0.001 }, con: new THREE.Object3D(), tipo: ins.tipo };
+        e.sync = (has) => { const c = ins.clases; e.cat.goal = has(c.profundo) ? U.fondo : has(c.avance) ? U.cuerdas : has(c.mano) ? U.fuera : 0; e.bal.goal = has(c.inflar) ? 1.25 : 0.5; };
+        e.tick2 = () => { conector.visible = e.cat.cur > 0.003; };
+        C.inst.push(e);
+      }
+      if (ins.tipo === 'ventila') {
+        const V0 = cfg.ventila; const g = new THREE.Group(); g.visible = false; C.capas.sonda.add(g);
+        const mask = new THREE.Group(); mask.position.set(...V0.mascara); mask.rotation.x = Math.PI / 2;
+        const dom = new THREE.Mesh(new THREE.SphereGeometry(3.4, 28, 16, 0, Math.PI * 2, 0, Math.PI / 2), this.material('#7dd3fc', 0.5, 'sonda', { emissive: 0x0ea5e9, emissiveIntensity: 0.25 })); mask.add(dom);
+        const borde = new THREE.Mesh(new THREE.TorusGeometry(3.4, 0.35, 10, 32), this.material('#e0f2fe', 0.9, 'sonda', { depthWrite: true })); borde.rotation.x = Math.PI / 2; mask.add(borde);
+        const bolsaM = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), this.material('#bae6fd', 0.85, 'sonda', { emissive: 0x38bdf8, emissiveIntensity: 0.3 })); bolsaM.scale.set(2.4, 2.4, 3.2); bolsaM.position.set(0, 4.8, 0); mask.add(bolsaM);
+        g.add(mask);
+        const bolsaT = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), this.material('#bae6fd', 0.85, 'sonda', { emissive: 0x38bdf8, emissiveIntensity: 0.3 })); bolsaT.position.set(...V0.bolsa_tet); bolsaT.scale.set(2.2, 2.2, 3.4); g.add(bolsaT);
+        const conT = this.tuboProc({ pts: V0.cuello_bolsa, radio: 0.45, color: '#38bdf8', opacidad: 0.95, capa: 'sonda', hs: null }); conT.visible = false;
+        let modo = 0;
+        C.inst.push({ tipo: ins.tipo, cat: { goal: 0 },
+          sync: (has) => { const c = ins.clases; modo = has(c.bolsa_tet) ? 2 : (has(c.mascara) && !has(c.laringo)) ? 1 : 0; },
+          tick: (t) => {
+            g.visible = modo > 0; mask.visible = modo === 1; bolsaT.visible = modo === 2; conT.visible = modo === 2; if (!g.visible) return;
+            const s = 1 + 0.2 * Math.sin(t / 520);
+            if (modo === 1) bolsaM.scale.set(2.4 * s, 2.4 * s, 3.2 * (0.9 + 0.2 * Math.sin(t / 520))); else bolsaT.scale.set(2.2 * s, 2.2 * s, 3.4 * (0.9 + 0.2 * Math.sin(t / 520)));
+          } });
+      }
+      if (ins.tipo === 'presion') {
+        const P = cfg.presion; const g = new THREE.Group(); g.position.set(...P.punto); g.visible = false; C.capas.sonda.add(g);
+        const mat = this.material('#f59e0b', 0.95, 'sonda', { emissive: 0xf59e0b, emissiveIntensity: 0.6, depthWrite: true });
+        const dedo = new THREE.Mesh(new THREE.CapsuleGeometry(0.55, 2.4, 6, 12), mat); dedo.rotation.x = Math.PI / 2; dedo.position.z = 1.9; g.add(dedo);
+        const fl = new THREE.Mesh(new THREE.ConeGeometry(0.75, 1.5, 16), mat); fl.rotation.x = -Math.PI / 2; fl.position.z = 4.6; g.add(fl);
+        let on = false;
+        C.inst.push({ tipo: ins.tipo, cat: { goal: 0 }, sync: (has) => { const c = ins.clases; on = has(c.activa) && !has(c.suelta); },
+          tick: (t) => { g.visible = on; if (on) g.position.z = P.punto[2] + 0.35 * Math.sin(t / 260); } });
       }
       // otros tipos (aguja, catéter…) se agregan aquí con su propia animación
     });
@@ -335,11 +419,13 @@ export class MedicalProcedureViewer {
       }
       controls.update();
       C.inst.forEach((s) => {
+        if (s.tick) { s.tick(t); return; }
         const k = s.cat; k.cur += (k.goal - k.cur) * 0.03; if (Math.abs(k.goal - k.cur) < 0.002) k.cur = k.goal;
         k.mesh.visible = k.cur > 0.003; k.mesh.geometry.setDrawRange(0, Math.floor((k.total * k.cur) / k.per) * k.per);
         const b = s.bal; b.cur += (b.goal - b.cur) * 0.07; b.mesh.scale.setScalar(Math.max(b.cur, 0.001)); b.mesh.visible = k.cur > 0.97;
         const g = s.bolsa; g.cur += (g.goal - g.cur) * 0.1; g.g.scale.setScalar(Math.max(g.cur, 0.001)); g.g.visible = g.cur > 0.01;
         s.con.visible = g.cur > 0.05 && k.cur > 0.05;
+        if (s.tick2) s.tick2();
         if (s.dedo) { const e = s.dedo; e.tip.visible = k.cur > 0.02; if (e.tip.visible) e.tip.position.copy(e.curva.getPointAt(Math.min(k.cur, 0.999))).sub(e.piv); e.g.rotation.y = e.barr ? Math.sin(t / 240) * 0.25 : 0; }
       });
       const pulso = 0.5 + 0.4 * Math.sin(t / 170);
@@ -398,6 +484,7 @@ export class MedicalProcedureViewer {
     if (!this.C) return;
     const has = (k) => root.classList.contains(k);
     this.C.inst.forEach((s) => {
+      if (s.sync) { s.sync(has); return; }
       if (s.dedo) { s.cat.goal = has(s.clases.avance) && !has(s.clases.retira) ? 1 : 0; s.dedo.barr = has(s.clases.barrido) && s.cat.goal > 0; return; }
       s.cat.goal = has(s.clases.avance) ? 1 : 0; s.bal.goal = has(s.clases.inflar) ? 1.3 : 0.001; s.bolsa.goal = has(s.clases.bolsa) ? 1 : 0.001; });
   }

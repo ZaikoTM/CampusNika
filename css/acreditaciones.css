@@ -735,3 +735,35 @@ body.acr-sin-fs .acr-full-fab, body.acr-sin-fs [data-tool="full"] { display: non
   .cc-mision { margin: 6px 12px; }
   .wb-caso-pant { padding: 10px 0; }
 }
+
+/* ===== Intubación: monitor de saturación y vista laringoscópica sobre el visor ===== */
+.a-fuelle .fx-ico { animation: fx-fuelle 1.1s ease-in-out infinite; }
+@keyframes fx-fuelle { 0%, 100% { transform: scale(.9); } 50% { transform: scale(1.35); } }
+.acr3d-vp .hud-sat { position: absolute; right: 12px; top: 96px; display: none; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 14px; background: rgba(2,12,20,.82); border: 1px solid rgba(74,222,128,.5); color: #bbf7d0; z-index: 5; font: 700 .7rem 'Plus Jakarta Sans', sans-serif; box-shadow: 0 10px 20px -12px rgba(0,0,0,.8); animation: pn-in .4s ease both; }
+.acr3d.s-sat .hud-sat { display: flex; }
+.hud-sat .v { font-size: 1.5rem; font-weight: 800; color: #4ade80; text-shadow: 0 0 10px rgba(74,222,128,.6); }
+.hud-sat .lat { width: 9px; height: 9px; border-radius: 50%; background: #f87171; animation: hud-lat .85s ease-in-out infinite; }
+@keyframes hud-lat { 50% { transform: scale(1.7); opacity: .4; } }
+.acr3d-vp .inset-lar { position: absolute; left: 12px; bottom: 66px; width: min(220px, 40%); border-radius: 16px; background: #0b0f1d; border: 1px solid rgba(34,211,238,.55); box-shadow: 0 18px 30px -14px rgba(0,0,0,.9), 0 0 24px -6px rgba(34,211,238,.35); z-index: 5; opacity: 0; transform: translateY(12px) scale(.94); pointer-events: none; transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1); overflow: hidden; }
+.acr3d.s-lar_palanca .inset-lar { opacity: 1; transform: none; }
+.acr3d.s-lar_fuera .inset-lar { opacity: 0; transform: translateY(12px) scale(.94); }
+.inset-lar .inset-tit { font: 800 .64rem 'Plus Jakarta Sans', sans-serif; color: #67e8f9; padding: 6px 10px 0; letter-spacing: .5px; text-transform: uppercase; }
+.inset-lar svg { display: block; width: 100%; height: auto; }
+.inset-lar .vl-epi { transition: transform 1.2s cubic-bezier(.16,1,.3,1); transform: translateY(46px); }
+.acr3d.s-lar_45 .inset-lar .vl-epi, .acr3d.s-cuerdas .inset-lar .vl-epi { transform: translateY(-6px); }
+.inset-lar .vl-glotis { opacity: .15; transition: opacity 1.2s ease; }
+.acr3d.s-lar_palanca .inset-lar .vl-glotis { opacity: .5; }
+.acr3d.s-lar_45 .inset-lar .vl-glotis, .acr3d.s-cuerdas .inset-lar .vl-glotis { opacity: 1; }
+.inset-lar .vl-tubo { transform: translateY(150px); transition: transform 1.6s cubic-bezier(.16,1,.3,1); }
+.acr3d.s-tet .inset-lar .vl-tubo { transform: translateY(8px); }
+.acr3d.s-tetp .inset-lar .vl-tubo { transform: translateY(-28px); }
+.inset-lar .vl-cd, .inset-lar .vl-ci { transition: transform .9s ease; transform-origin: 100px 62px; }
+.acr3d.s-tet .inset-lar .vl-cd { transform: rotate(-4deg); } .acr3d.s-tet .inset-lar .vl-ci { transform: rotate(4deg); }
+@media (max-width: 640px) { .acr3d-vp .inset-lar { width: 150px; bottom: 76px; } .acr3d-vp .hud-sat { top: 128px; } }
+
+/* ===== Dictado por voz ===== */
+.acr-mic { flex: none; width: 40px; border-radius: 12px; border: 1px solid var(--acr-line); background: var(--acr-bg); cursor: pointer; font-size: 1.05rem; transition: transform .2s cubic-bezier(.34,1.56,.64,1), background .2s, box-shadow .2s; }
+.acr-mic:hover { transform: scale(1.1); background: rgba(0,168,150,.12); }
+.acr-mic.on { background: #dc2626; border-color: #fecaca; color: #fff; animation: mic-pulso 1.1s ease-in-out infinite; }
+.acr-mic.sin { opacity: .45; }
+@keyframes mic-pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,.55); } 50% { box-shadow: 0 0 0 9px rgba(220,38,38,0); } }

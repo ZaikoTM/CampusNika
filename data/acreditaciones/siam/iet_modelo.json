@@ -1,0 +1,1816 @@
+{
+ "general": {
+  "fondo": "#0a0f1d",
+  "luces": {
+   "ambiente": 0.55,
+   "frontal": 1.15,
+   "contorno": 0.7,
+   "color_contorno": "#22d3ee"
+  },
+  "camara": {
+   "fov": 36,
+   "min": 6,
+   "max": 120,
+   "foco": 17
+  },
+  "material": {
+   "rugosidad": 0.28,
+   "clearcoat": 0.6
+  },
+  "grosor_sonda": 0.2,
+  "vistas": {
+   "fro": "Cabecera"
+  },
+  "corte_inicial": true
+ },
+ "overlay_html": "<div class=\"hud-sat\" aria-hidden=\"true\"><b>SpO₂</b><span class=\"v\">98</span><i class=\"lat\"></i></div><div class=\"inset-lar\" aria-hidden=\"true\"><div class=\"inset-tit\">🎥 Vista laringoscópica</div><svg viewBox=\"0 0 200 170\"><defs><radialGradient id=\"vlm\" cx=\"50%\" cy=\"48%\" r=\"60%\"><stop offset=\"0\" stop-color=\"#e7938f\"/><stop offset=\".6\" stop-color=\"#c9696a\"/><stop offset=\"1\" stop-color=\"#5b1f27\"/></radialGradient><linearGradient id=\"vlc\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff7f5\"/><stop offset=\"1\" stop-color=\"#e8d3cf\"/></linearGradient><linearGradient id=\"vlt\" x1=\"0\" x2=\"1\"><stop offset=\"0\" stop-color=\"#e0f2fe\"/><stop offset=\".5\" stop-color=\"#7dd3fc\"/><stop offset=\"1\" stop-color=\"#bae6fd\"/></linearGradient><clipPath id=\"vlclip\"><circle cx=\"100\" cy=\"88\" r=\"78\"/></clipPath></defs><circle cx=\"100\" cy=\"88\" r=\"80\" fill=\"#0b0f1d\"/><g clip-path=\"url(#vlclip)\"><rect width=\"200\" height=\"170\" fill=\"url(#vlm)\"/><g class=\"vl-epi\"><path d=\"M28 20 C60 6 140 6 172 20 C176 44 150 62 100 64 C50 62 24 44 28 20 Z\" fill=\"#f2b3ae\" stroke=\"#c9696a\" stroke-width=\"1.2\"/><path d=\"M52 24 C80 14 120 14 148 24\" stroke=\"#fff\" stroke-width=\"2\" opacity=\".5\" fill=\"none\"/></g><g class=\"vl-glotis\"><path d=\"M100 62 L66 128 Q100 146 134 128 Z\" fill=\"#12060a\"/><g class=\"vl-tra\" opacity=\".9\"><ellipse cx=\"100\" cy=\"118\" rx=\"20\" ry=\"9\" fill=\"none\" stroke=\"#3b1219\" stroke-width=\"2\"/><ellipse cx=\"100\" cy=\"124\" rx=\"14\" ry=\"6\" fill=\"none\" stroke=\"#3b1219\" stroke-width=\"2\"/></g><path class=\"vl-cd\" d=\"M100 62 L62 130 L74 134 L102 78 Z\" fill=\"url(#vlc)\" stroke=\"#d9b8b3\"/><path class=\"vl-ci\" d=\"M100 62 L138 130 L126 134 L98 78 Z\" fill=\"url(#vlc)\" stroke=\"#d9b8b3\"/><ellipse cx=\"72\" cy=\"140\" rx=\"12\" ry=\"9\" fill=\"#d98c88\" stroke=\"#a24f52\"/><ellipse cx=\"128\" cy=\"140\" rx=\"12\" ry=\"9\" fill=\"#d98c88\" stroke=\"#a24f52\"/></g><g class=\"vl-tubo\"><rect x=\"86\" y=\"70\" width=\"28\" height=\"140\" rx=\"13\" fill=\"url(#vlt)\" stroke=\"#0284c7\" stroke-width=\"1.4\" opacity=\".92\"/><ellipse cx=\"100\" cy=\"72\" rx=\"13\" ry=\"7\" fill=\"#e0f2fe\" stroke=\"#0284c7\"/></g><ellipse cx=\"100\" cy=\"88\" rx=\"78\" ry=\"78\" fill=\"none\" stroke=\"rgba(255,255,255,.18)\" stroke-width=\"3\"/></g><text x=\"100\" y=\"166\" text-anchor=\"middle\" font-size=\"9\" font-weight=\"700\" fill=\"#cbd5e1\" font-family=\"Plus Jakarta Sans,Arial,sans-serif\">Cormack-Lehane I</text></svg></div>",
+ "tarjetas": {
+  "mesa": {
+   "titulo": "🛒 Mesa alta de traslado",
+   "id": "mesa",
+   "items": [
+    [
+     "laringo",
+     "🔦",
+     "Laringoscopio",
+     "hoja curva"
+    ],
+    [
+     "tetc",
+     "🧵",
+     "Tubo endotraqueal",
+     "con balón"
+    ],
+    [
+     "jeringa",
+     "💉",
+     "Jeringa",
+     "de 10 cc"
+    ],
+    [
+     "ambu",
+     "🫁",
+     "Bolsa de ambú",
+     "con máscara"
+    ],
+    [
+     "saturometro",
+     "🩸",
+     "Saturómetro",
+     ""
+    ],
+    [
+     "cinta",
+     "🩹",
+     "Cinta",
+     "hipoalergénica"
+    ]
+   ]
+  },
+  "entorno": {
+   "titulo": "🏥 Entorno del paciente",
+   "items": [
+    [
+     "lavabo",
+     "🚰",
+     "Lavabo",
+     ""
+    ],
+    [
+     "ropa",
+     "🥼",
+     "Ropa estéril",
+     ""
+    ],
+    [
+     "cabecera",
+     "🛏️",
+     "Cabecera",
+     "del paciente"
+    ],
+    [
+     "asistente",
+     "🧑‍⚕️",
+     "Asistente",
+     ""
+    ],
+    [
+     "lado",
+     "🛒",
+     "Lado del",
+     "paciente"
+    ]
+   ]
+  }
+ },
+ "chips": [
+  [
+   "esteril",
+   "Ropa estéril"
+  ],
+  [
+   "lar_ok",
+   "Laringoscopio ok"
+  ],
+  [
+   "tet_ok",
+   "Balón del TET ok"
+  ],
+  [
+   "pos",
+   "Posición"
+  ],
+  [
+   "sat",
+   "Saturometría"
+  ],
+  [
+   "vent",
+   "Preoxigenado"
+  ],
+  [
+   "cuerdas",
+   "Cuerdas visualizadas"
+  ],
+  [
+   "tet",
+   "TET pasó las cuerdas"
+  ],
+  [
+   "tetp",
+   "TET en posición"
+  ],
+  [
+   "infl",
+   "Balón inflado"
+  ],
+  [
+   "verif",
+   "Colocación verificada"
+  ],
+  [
+   "fix",
+   "TET fijado"
+  ]
+ ],
+ "usables": [
+  "lavabo",
+  "ropa",
+  "laringo",
+  "tetc",
+  "saturometro",
+  "ambu",
+  "jeringa",
+  "cinta",
+  "asistente",
+  "cabecera"
+ ],
+ "pines": [
+  {
+   "id": "boca",
+   "label": "Boca",
+   "capa": "organos",
+   "externo": true
+  },
+  {
+   "id": "cabeza",
+   "label": "Cabeza y cuello",
+   "capa": "piel",
+   "externo": true
+  },
+  {
+   "id": "paciente",
+   "label": "Paciente",
+   "capa": "piel",
+   "externo": true
+  },
+  {
+   "id": "lengua",
+   "label": "Lengua",
+   "capa": "organos"
+  },
+  {
+   "id": "epiglotis",
+   "label": "Epiglotis y vallécula",
+   "capa": "organos"
+  },
+  {
+   "id": "cuerdas",
+   "label": "Cuerdas vocales",
+   "capa": "organos"
+  },
+  {
+   "id": "laringe",
+   "label": "Laringe",
+   "capa": "organos"
+  },
+  {
+   "id": "cricoides",
+   "label": "Cartílago cricoides",
+   "capa": "organos"
+  },
+  {
+   "id": "traquea",
+   "label": "Tráquea",
+   "capa": "organos"
+  },
+  {
+   "id": "esofago",
+   "label": "Esófago",
+   "capa": "organos"
+  },
+  {
+   "id": "faringe",
+   "label": "Faringe",
+   "capa": "organos"
+  },
+  {
+   "id": "paladar",
+   "label": "Paladar blando y úvula",
+   "capa": "organos"
+  },
+  {
+   "id": "pulmones",
+   "label": "Pulmones",
+   "capa": "organos"
+  },
+  {
+   "id": "balon",
+   "label": "Balón del TET",
+   "capa": "sonda",
+   "solo_con": "instrumento"
+  }
+ ],
+ "instrumentos": [
+  {
+   "id": "laringoscopio",
+   "tipo": "laringoscopio",
+   "clases": {
+    "mano": "s-lar_mano",
+    "dentro": "s-lar_dentro",
+    "palanca": "s-lar_palanca",
+    "fuera": "s-lar_fuera"
+   }
+  },
+  {
+   "id": "tet",
+   "tipo": "tet",
+   "color": "#bfe8ff",
+   "color_balon": "#38bdf8",
+   "radio": 0.52,
+   "clases": {
+    "mano": "s-tet_mano",
+    "avance": "s-tet",
+    "profundo": "s-tetp",
+    "inflar": "s-infl"
+   }
+  },
+  {
+   "id": "ventila",
+   "tipo": "ventila",
+   "clases": {
+    "mascara": "s-vent",
+    "laringo": "s-lar_mano",
+    "bolsa_tet": "s-vent2"
+   }
+  },
+  {
+   "id": "presion",
+   "tipo": "presion",
+   "clases": {
+    "activa": "s-sellick",
+    "suelta": "s-infl"
+   }
+  }
+ ],
+ "M": {
+  "origen": [
+   0,
+   148.0,
+   3.0
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   -1.5707963,
+   3.1415927,
+   0
+  ],
+  "piezas": [
+   {
+    "id": "piel",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/piel.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#d8a387",
+    "opacidad": 0.3,
+    "hs": null,
+    "nombre": "Cuerpo del paciente",
+    "peso": 140448,
+    "piel_real": true
+   },
+   {
+    "id": "vertebras",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/vertebras.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": null,
+    "nombre": "Vértebras cervicales C3-C7",
+    "peso": 88572
+   },
+   {
+    "id": "columna",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/columna.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": null,
+    "nombre": "Atlas y axis",
+    "peso": 11968
+   },
+   {
+    "id": "mandibula",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/mandibula.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": null,
+    "nombre": "Mandíbula y maxilar",
+    "peso": 64056,
+    "pivote": [
+     0,
+     157.0,
+     0.9
+    ],
+    "rot_pivote": [
+     0.3,
+     0,
+     0
+    ]
+   },
+   {
+    "id": "dientes_sup",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/dientes_sup.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#f8fafc",
+    "opacidad": 0.95,
+    "hs": "dientes",
+    "nombre": "Dientes superiores",
+    "peso": 47180
+   },
+   {
+    "id": "dientes_inf",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/dientes_inf.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#f8fafc",
+    "opacidad": 0.95,
+    "hs": "dientes",
+    "nombre": "Dientes inferiores",
+    "peso": 48504,
+    "pivote": [
+     0,
+     157.0,
+     0.9
+    ],
+    "rot_pivote": [
+     0.3,
+     0,
+     0
+    ]
+   },
+   {
+    "id": "hioides",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/hioides.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.7,
+    "hs": null,
+    "nombre": "Hioides",
+    "peso": 5724
+   },
+   {
+    "id": "lengua",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/lengua.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#d9707a",
+    "opacidad": 0.82,
+    "hs": "lengua",
+    "nombre": "Lengua",
+    "peso": 41780,
+    "pivote": [
+     0,
+     157.0,
+     0.9
+    ],
+    "rot_pivote": [
+     0.24,
+     0,
+     0
+    ]
+   },
+   {
+    "id": "paladar",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/paladar.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f08aa0",
+    "opacidad": 0.8,
+    "hs": "paladar",
+    "nombre": "Paladar blando y úvula",
+    "peso": 19396
+   },
+   {
+    "id": "faringe",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/faringe.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#e07a8a",
+    "opacidad": 0.4,
+    "hs": "faringe",
+    "nombre": "Faringe",
+    "peso": 24992
+   },
+   {
+    "id": "epiglotis",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/epiglotis.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f4a6b0",
+    "opacidad": 0.9,
+    "hs": "epiglotis",
+    "nombre": "Epiglotis",
+    "peso": 12612
+   },
+   {
+    "id": "laringe",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/laringe.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#b8c7d9",
+    "opacidad": 0.85,
+    "hs": "laringe",
+    "nombre": "Cartílago tiroides y aritenoides",
+    "peso": 49732
+   },
+   {
+    "id": "cricoides",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/cricoides.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#9fb3c8",
+    "opacidad": 0.9,
+    "hs": "cricoides",
+    "nombre": "Cartílago cricoides",
+    "peso": 20000
+   },
+   {
+    "id": "traquea",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/traquea.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ffb4a2",
+    "opacidad": 0.55,
+    "hs": "traquea",
+    "nombre": "Tráquea y bronquios",
+    "peso": 21868
+   },
+   {
+    "id": "pulmones",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/pulmones.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f4a9a8",
+    "opacidad": 0.4,
+    "hs": "pulmones",
+    "nombre": "Pulmones",
+    "peso": 52968
+   }
+  ],
+  "procedurales": {
+   "esofago": {
+    "pts": [
+     [
+      0,
+      147.0,
+      -1.6
+     ],
+     [
+      0,
+      143,
+      -2.6
+     ],
+     [
+      0,
+      138,
+      -2.9
+     ],
+     [
+      0,
+      130,
+      -2.4
+     ],
+     [
+      0,
+      122,
+      -1.6
+     ]
+    ],
+    "radio": 0.8,
+    "color": "#c97a6b",
+    "opacidad": 0.55,
+    "capa": "organos",
+    "hs": "esofago"
+   },
+   "cuerda_d": {
+    "pts": [
+     [
+      0.2,
+      147.55,
+      2.0
+     ],
+     [
+      0.42,
+      147.45,
+      1.45
+     ],
+     [
+      0.55,
+      147.4,
+      0.95
+     ]
+    ],
+    "radio": 0.14,
+    "color": "#f8f1f1",
+    "opacidad": 0.98,
+    "capa": "organos",
+    "hs": "cuerdas"
+   },
+   "cuerda_i": {
+    "pts": [
+     [
+      -0.2,
+      147.55,
+      2.0
+     ],
+     [
+      -0.42,
+      147.45,
+      1.45
+     ],
+     [
+      -0.55,
+      147.4,
+      0.95
+     ]
+    ],
+    "radio": 0.14,
+    "color": "#f8f1f1",
+    "opacidad": 0.98,
+    "capa": "organos",
+    "hs": "cuerdas"
+   }
+  },
+  "laringo": {
+   "bisagra": [
+    0,
+    151.9,
+    11.6
+   ],
+   "hoja": [
+    [
+     0,
+     0
+    ],
+    [
+     -0.5,
+     -2.8
+    ],
+    [
+     -1.5,
+     -5.4
+    ],
+    [
+     -2.3,
+     -7.6
+    ],
+    [
+     -2.6,
+     -8.9
+    ],
+    [
+     -2.4,
+     -9.4
+    ]
+   ],
+   "mango": {
+    "dir": [
+     -0.93,
+     0.37
+    ],
+    "largo": 11
+   },
+   "grosor": 0.5,
+   "luz": 420,
+   "giro": -0.41
+  },
+  "tet": {
+   "ruta": [
+    [
+     0,
+     156.4,
+     18.0
+    ],
+    [
+     0,
+     154.6,
+     13.2
+    ],
+    [
+     0,
+     152.9,
+     9.0
+    ],
+    [
+     0,
+     151.7,
+     6.6
+    ],
+    [
+     0,
+     150.5,
+     4.2
+    ],
+    [
+     0,
+     149.2,
+     2.6
+    ],
+    [
+     0,
+     147.8,
+     1.4
+    ],
+    [
+     0,
+     146.2,
+     0.9
+    ],
+    [
+     0,
+     144.4,
+     0.5
+    ],
+    [
+     0,
+     142.0,
+     0.2
+    ],
+    [
+     0,
+     139.4,
+     0.0
+    ]
+   ],
+   "fuera": [
+    0,
+    152.9,
+    9.0
+   ],
+   "pasa_cuerdas": [
+    0,
+    146.2,
+    0.9
+   ],
+   "balon": [
+    0,
+    144.1,
+    0.45
+   ]
+  },
+  "ventila": {
+   "mascara": [
+    0,
+    153.0,
+    10.0
+   ],
+   "bolsa_tet": [
+    0,
+    156.4,
+    20.5
+   ],
+   "cuello_bolsa": [
+    [
+     0,
+     156.4,
+     18.0
+    ],
+    [
+     0,
+     156.4,
+     19.4
+    ]
+   ]
+  },
+  "presion": {
+   "punto": [
+    0,
+    146.4,
+    5.4
+   ]
+  },
+  "pines": {
+   "paciente": [
+    0,
+    172,
+    2
+   ],
+   "cabeza": [
+    0,
+    163,
+    3
+   ],
+   "boca": [
+    0,
+    152.8,
+    9.0
+   ],
+   "lengua": [
+    0,
+    152.0,
+    5.0
+   ],
+   "epiglotis": [
+    0,
+    150.0,
+    2.3
+   ],
+   "cuerdas": [
+    0,
+    147.6,
+    1.4
+   ],
+   "laringe": [
+    0,
+    148.6,
+    3.0
+   ],
+   "cricoides": [
+    0,
+    146.4,
+    2.0
+   ],
+   "traquea": [
+    0,
+    140.5,
+    -0.3
+   ],
+   "esofago": [
+    0,
+    141.5,
+    -2.4
+   ],
+   "faringe": [
+    0,
+    152.5,
+    1.2
+   ],
+   "paladar": [
+    0,
+    155.0,
+    3.0
+   ],
+   "pulmones": [
+    3,
+    130,
+    -1.2
+   ],
+   "balon": [
+    0,
+    144.1,
+    0.45
+   ]
+  },
+  "camara": {
+   "lat": [
+    30,
+    -1.5,
+    0
+   ],
+   "fro": [
+    0,
+    4,
+    32
+   ],
+   "sup": [
+    0.01,
+    34,
+    0
+   ],
+   "objetivo": [
+    0,
+    -1.5,
+    0
+   ],
+   "ini": [
+    26,
+    12,
+    20
+   ]
+  },
+  "etiquetas": {
+   "paciente": [
+    0,
+    -50
+   ],
+   "cabeza": [
+    110,
+    -50
+   ],
+   "boca": [
+    0,
+    -80
+   ],
+   "lengua": [
+    -20,
+    70
+   ],
+   "epiglotis": [
+    -90,
+    60
+   ],
+   "cuerdas": [
+    110,
+    50
+   ],
+   "laringe": [
+    -120,
+    -20
+   ],
+   "cricoides": [
+    130,
+    90
+   ],
+   "traquea": [
+    -110,
+    40
+   ],
+   "esofago": [
+    110,
+    10
+   ],
+   "faringe": [
+    -60,
+    -60
+   ],
+   "paladar": [
+    60,
+    -70
+   ],
+   "pulmones": [
+    0,
+    60
+   ],
+   "balon": [
+    -110,
+    90
+   ]
+  }
+ },
+ "F": {
+  "origen": [
+   0,
+   148.0,
+   3.0
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   -1.5707963,
+   3.1415927,
+   0
+  ],
+  "piezas": [
+   {
+    "id": "piel",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/piel.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#d8a387",
+    "opacidad": 0.3,
+    "hs": null,
+    "nombre": "Cuerpo del paciente",
+    "peso": 140448,
+    "piel_real": true
+   },
+   {
+    "id": "vertebras",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/vertebras.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": null,
+    "nombre": "Vértebras cervicales C3-C7",
+    "peso": 88572
+   },
+   {
+    "id": "columna",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/columna.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": null,
+    "nombre": "Atlas y axis",
+    "peso": 11968
+   },
+   {
+    "id": "mandibula",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/mandibula.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": null,
+    "nombre": "Mandíbula y maxilar",
+    "peso": 64056,
+    "pivote": [
+     0,
+     157.0,
+     0.9
+    ],
+    "rot_pivote": [
+     0.3,
+     0,
+     0
+    ]
+   },
+   {
+    "id": "dientes_sup",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/dientes_sup.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#f8fafc",
+    "opacidad": 0.95,
+    "hs": "dientes",
+    "nombre": "Dientes superiores",
+    "peso": 47180
+   },
+   {
+    "id": "dientes_inf",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/dientes_inf.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#f8fafc",
+    "opacidad": 0.95,
+    "hs": "dientes",
+    "nombre": "Dientes inferiores",
+    "peso": 48504,
+    "pivote": [
+     0,
+     157.0,
+     0.9
+    ],
+    "rot_pivote": [
+     0.3,
+     0,
+     0
+    ]
+   },
+   {
+    "id": "hioides",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/hioides.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.7,
+    "hs": null,
+    "nombre": "Hioides",
+    "peso": 5724
+   },
+   {
+    "id": "lengua",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/lengua.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#d9707a",
+    "opacidad": 0.82,
+    "hs": "lengua",
+    "nombre": "Lengua",
+    "peso": 41780,
+    "pivote": [
+     0,
+     157.0,
+     0.9
+    ],
+    "rot_pivote": [
+     0.24,
+     0,
+     0
+    ]
+   },
+   {
+    "id": "paladar",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/paladar.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f08aa0",
+    "opacidad": 0.8,
+    "hs": "paladar",
+    "nombre": "Paladar blando y úvula",
+    "peso": 19396
+   },
+   {
+    "id": "faringe",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/faringe.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#e07a8a",
+    "opacidad": 0.4,
+    "hs": "faringe",
+    "nombre": "Faringe",
+    "peso": 24992
+   },
+   {
+    "id": "epiglotis",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/epiglotis.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f4a6b0",
+    "opacidad": 0.9,
+    "hs": "epiglotis",
+    "nombre": "Epiglotis",
+    "peso": 12612
+   },
+   {
+    "id": "laringe",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/laringe.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#b8c7d9",
+    "opacidad": 0.85,
+    "hs": "laringe",
+    "nombre": "Cartílago tiroides y aritenoides",
+    "peso": 49732
+   },
+   {
+    "id": "cricoides",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/cricoides.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#9fb3c8",
+    "opacidad": 0.9,
+    "hs": "cricoides",
+    "nombre": "Cartílago cricoides",
+    "peso": 20000
+   },
+   {
+    "id": "traquea",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/traquea.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ffb4a2",
+    "opacidad": 0.55,
+    "hs": "traquea",
+    "nombre": "Tráquea y bronquios",
+    "peso": 21868
+   },
+   {
+    "id": "pulmones",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/pulmones.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f4a9a8",
+    "opacidad": 0.4,
+    "hs": "pulmones",
+    "nombre": "Pulmones",
+    "peso": 52968
+   }
+  ],
+  "procedurales": {
+   "esofago": {
+    "pts": [
+     [
+      0,
+      147.0,
+      -1.6
+     ],
+     [
+      0,
+      143,
+      -2.6
+     ],
+     [
+      0,
+      138,
+      -2.9
+     ],
+     [
+      0,
+      130,
+      -2.4
+     ],
+     [
+      0,
+      122,
+      -1.6
+     ]
+    ],
+    "radio": 0.8,
+    "color": "#c97a6b",
+    "opacidad": 0.55,
+    "capa": "organos",
+    "hs": "esofago"
+   },
+   "cuerda_d": {
+    "pts": [
+     [
+      0.2,
+      147.55,
+      2.0
+     ],
+     [
+      0.42,
+      147.45,
+      1.45
+     ],
+     [
+      0.55,
+      147.4,
+      0.95
+     ]
+    ],
+    "radio": 0.14,
+    "color": "#f8f1f1",
+    "opacidad": 0.98,
+    "capa": "organos",
+    "hs": "cuerdas"
+   },
+   "cuerda_i": {
+    "pts": [
+     [
+      -0.2,
+      147.55,
+      2.0
+     ],
+     [
+      -0.42,
+      147.45,
+      1.45
+     ],
+     [
+      -0.55,
+      147.4,
+      0.95
+     ]
+    ],
+    "radio": 0.14,
+    "color": "#f8f1f1",
+    "opacidad": 0.98,
+    "capa": "organos",
+    "hs": "cuerdas"
+   }
+  },
+  "laringo": {
+   "bisagra": [
+    0,
+    151.9,
+    11.6
+   ],
+   "hoja": [
+    [
+     0,
+     0
+    ],
+    [
+     -0.5,
+     -2.8
+    ],
+    [
+     -1.5,
+     -5.4
+    ],
+    [
+     -2.3,
+     -7.6
+    ],
+    [
+     -2.6,
+     -8.9
+    ],
+    [
+     -2.4,
+     -9.4
+    ]
+   ],
+   "mango": {
+    "dir": [
+     -0.93,
+     0.37
+    ],
+    "largo": 11
+   },
+   "grosor": 0.5,
+   "luz": 420,
+   "giro": -0.41
+  },
+  "tet": {
+   "ruta": [
+    [
+     0,
+     156.4,
+     18.0
+    ],
+    [
+     0,
+     154.6,
+     13.2
+    ],
+    [
+     0,
+     152.9,
+     9.0
+    ],
+    [
+     0,
+     151.7,
+     6.6
+    ],
+    [
+     0,
+     150.5,
+     4.2
+    ],
+    [
+     0,
+     149.2,
+     2.6
+    ],
+    [
+     0,
+     147.8,
+     1.4
+    ],
+    [
+     0,
+     146.2,
+     0.9
+    ],
+    [
+     0,
+     144.4,
+     0.5
+    ],
+    [
+     0,
+     142.0,
+     0.2
+    ],
+    [
+     0,
+     139.4,
+     0.0
+    ]
+   ],
+   "fuera": [
+    0,
+    152.9,
+    9.0
+   ],
+   "pasa_cuerdas": [
+    0,
+    146.2,
+    0.9
+   ],
+   "balon": [
+    0,
+    144.1,
+    0.45
+   ]
+  },
+  "ventila": {
+   "mascara": [
+    0,
+    153.0,
+    10.0
+   ],
+   "bolsa_tet": [
+    0,
+    156.4,
+    20.5
+   ],
+   "cuello_bolsa": [
+    [
+     0,
+     156.4,
+     18.0
+    ],
+    [
+     0,
+     156.4,
+     19.4
+    ]
+   ]
+  },
+  "presion": {
+   "punto": [
+    0,
+    146.4,
+    5.4
+   ]
+  },
+  "pines": {
+   "paciente": [
+    0,
+    172,
+    2
+   ],
+   "cabeza": [
+    0,
+    163,
+    3
+   ],
+   "boca": [
+    0,
+    152.8,
+    9.0
+   ],
+   "lengua": [
+    0,
+    152.0,
+    5.0
+   ],
+   "epiglotis": [
+    0,
+    150.0,
+    2.3
+   ],
+   "cuerdas": [
+    0,
+    147.6,
+    1.4
+   ],
+   "laringe": [
+    0,
+    148.6,
+    3.0
+   ],
+   "cricoides": [
+    0,
+    146.4,
+    2.0
+   ],
+   "traquea": [
+    0,
+    140.5,
+    -0.3
+   ],
+   "esofago": [
+    0,
+    141.5,
+    -2.4
+   ],
+   "faringe": [
+    0,
+    152.5,
+    1.2
+   ],
+   "paladar": [
+    0,
+    155.0,
+    3.0
+   ],
+   "pulmones": [
+    3,
+    130,
+    -1.2
+   ],
+   "balon": [
+    0,
+    144.1,
+    0.45
+   ]
+  },
+  "camara": {
+   "lat": [
+    30,
+    -1.5,
+    0
+   ],
+   "fro": [
+    0,
+    4,
+    32
+   ],
+   "sup": [
+    0.01,
+    34,
+    0
+   ],
+   "objetivo": [
+    0,
+    -1.5,
+    0
+   ],
+   "ini": [
+    26,
+    12,
+    20
+   ]
+  },
+  "etiquetas": {
+   "paciente": [
+    0,
+    -50
+   ],
+   "cabeza": [
+    110,
+    -50
+   ],
+   "boca": [
+    0,
+    -80
+   ],
+   "lengua": [
+    -20,
+    70
+   ],
+   "epiglotis": [
+    -90,
+    60
+   ],
+   "cuerdas": [
+    110,
+    50
+   ],
+   "laringe": [
+    -120,
+    -20
+   ],
+   "cricoides": [
+    130,
+    90
+   ],
+   "traquea": [
+    -110,
+    40
+   ],
+   "esofago": [
+    110,
+    10
+   ],
+   "faringe": [
+    -60,
+    -60
+   ],
+   "paladar": [
+    60,
+    -70
+   ],
+   "pulmones": [
+    0,
+    60
+   ],
+   "balon": [
+    -110,
+    90
+   ]
+  }
+ }
+}

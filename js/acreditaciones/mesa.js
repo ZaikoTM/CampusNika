@@ -23,6 +23,7 @@ export class ProcedureWorkbench {
   item(id) { return this.cfg.items.find((i) => i.id === id); }
   /** corrección efectiva del insumo para el caso actual */
   ef(i) {
+    if (i.correcto_para && this.caso && this.caso.sexo !== i.correcto_para) return { correcto: false, critico: false, feedback: i.feedback_otro };
     const alerg = this.caso && this.caso.alergia === 'latex' && i.latex;
     return alerg ? { correcto: false, critico: true, feedback: i.feedback_latex } : { correcto: i.correcto, critico: !!i.critico, feedback: i.feedback, falta: i.falta };
   }
@@ -65,7 +66,7 @@ export class ProcedureWorkbench {
         <div class="cc-top">
           <div class="cc-av">${av}</div>
           <div><small>📋 Caso clínico · ${esc(this.cfg.caso_sub || 'indicación de sondaje vesical')}</small><h2>${esc(c.nombre || 'Paciente')}</h2>
-            <div class="cc-chips"><span class="cc-chip">${c.sexo === 'F' ? '♀ Mujer' : '♂ Varón'}</span><span class="cc-chip">${c.edad} años</span>
+            <div class="cc-chips"><span class="cc-chip">${c.sexo === 'F' ? '♀ Mujer' : '♂ Varón'}</span><span class="cc-chip">${c.edad} años</span>${(c.extra || []).map((x) => `<span class="cc-chip">${esc(x)}</span>`).join('')}
               ${c.alergia === 'latex' ? '<span class="cc-chip rojo">⚠ Alergia al látex</span>' : '<span class="cc-chip verde">✔ Sin alergias conocidas</span>'}</div></div>
           <svg class="cc-ecg" viewBox="0 0 400 34" preserveAspectRatio="none"><path d="M0 18 H70 L80 18 L88 4 L98 30 L108 18 H170 L180 18 L188 6 L198 28 L208 18 H290 L300 18 L308 4 L318 30 L328 18 H400"/></svg>
         </div>
