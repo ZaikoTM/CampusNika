@@ -63,7 +63,7 @@
     let MESA = null;
     async function asegurarMesa() {
       if (MESA) return;
-      const [mod, cfg] = await Promise.all([import('./mesa.js?v=9'), getJSON(D.instrumental)]);
+      const [mod, cfg] = await Promise.all([import('./mesa.js?v=10'), getJSON(D.instrumental)]);
       MESA = mod.crearMesa(cfg);
     }
     const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
@@ -81,11 +81,12 @@
         } });
     }
     document.title = `${D.titulo} · Atlas de acreditaciones`;
+    if (window.AcrFX) AcrFX.boton();
     if (!document.getElementById('acr-ayuda-fab')) {
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r9'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r10'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
@@ -281,7 +282,9 @@
       $('#acr-panel').onclick = guiadoClick;
       pintarGuiado({ nuevo: true });
     }
+    const fxPaso = (q, ding) => { if (!window.AcrFX || !q || !q.fx) return Promise.resolve(); return AcrFX.play(q.fx, { sexo: S.sexo, vel: S.velFx || 1, vp: document.querySelector('.acr3d-vp') }).then(() => { if (ding) AcrFX.sonido('ding'); }); };
     function completarPaso(q) {
+      fxPaso(q, true);
       const E = S.ent; E.hechos.add(q.n); E.esperando = false; resaltar(null);
       const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados);
       toast(`✔ Paso ${q.n} completado`, 'ok');
@@ -524,7 +527,7 @@
         else {
           const previos = X.apl.filter((z) => z.n < n && !X.hechos.has(z.n));
           const enOrden = previos.length === 0;
-          X.hechos.set(n, enOrden ? 'SI' : 'M'); snap.agrego = n;
+          X.hechos.set(n, enOrden ? 'SI' : 'M'); snap.agrego = n; fxPaso(q, false);
           if (!enOrden) {
             const critPrev = previos.some((z) => z.critico);
             X.log.push({ tipo: 'orden', n, texto: q.texto, grave: critPrev, porque: `Se hizo antes de completar pasos previos (${previos.slice(0, 3).map((z) => z.n).join(', ')}${previos.length > 3 ? '…' : ''}).` });
@@ -580,10 +583,10 @@
 
     // ---- DEMOSTRACIÓN: la acreditación modelo, de punta a punta y bien hecha
     const dormir = (ms, dem) => new Promise((ok) => { dem.despertar = ok; dem.t = setTimeout(ok, ms); });
-    function cerrarDemo(dem) { if (!dem) return; dem.cancel = true; clearTimeout(dem.t); if (dem.despertar) dem.despertar(); if (MESA) MESA.dispose(); S.demo = null; document.onkeydown = null; const pn = document.getElementById('acr-panel'); if (pn) pn.classList.remove('demo'); try { localStorage.setItem('nika_acr_demo_v1', '1'); } catch (_) {} }
+    function cerrarDemo(dem) { if (!dem) return; dem.cancel = true; if (window.AcrFX) AcrFX.quitar(); dem.alSaltar && dem.alSaltar(); clearTimeout(dem.t); if (dem.despertar) dem.despertar(); if (MESA) MESA.dispose(); S.demo = null; document.onkeydown = null; const pn = document.getElementById('acr-panel'); if (pn) pn.classList.remove('demo'); try { localStorage.setItem('nika_acr_demo_v1', '1'); } catch (_) {} }
     async function demoModelo() {
       parar(); if (S.demo) cerrarDemo(S.demo);
-      sinEscena(); $('#acr-panel').innerHTML = '';
+      sinEscena(); $('#acr-panel').innerHTML = ''; window.scrollTo({ top: 0, behavior: 'smooth' });
       const dem = S.demo = { cancel: false, pausa: false, k: 0 };
       try { await asegurarMesa(); } catch (e) { cerrarDemo(dem); return portada(); }
       const caso = D.casos.find((c) => c.id === 'c1') || D.casos[0];
@@ -605,7 +608,7 @@
       dem.vel = dem.vel || 1;
       // espera que respeta pausa y velocidad; se corta al saltar de paso o cancelar
       const pausable = async (ms) => { let t = 0; while (t < ms && !dem.cancel && !dem.salto) { await dormir(50, dem); if (!dem.pausa) t += 50 * dem.vel; } };
-      const cambiar = (k) => { dem.k = Math.max(0, Math.min(N - 1, k)); dem.salto = true; dem.final = false; dem.despertar && dem.despertar(); };
+      const cambiar = (k) => { dem.k = Math.max(0, Math.min(N - 1, k)); dem.salto = true; dem.final = false; dem.alSaltar && dem.alSaltar(); dem.despertar && dem.despertar(); };
       const sync = () => {
         const bp = $('#demo-pausa'); if (bp) { bp.innerHTML = dem.pausa ? '▶ Continuar' : '⏸ Pausar'; bp.classList.toggle('on', dem.pausa); }
         const bv = $('#demo-vel'); if (bv) bv.textContent = `⚡ ${dem.vel}×`;
@@ -614,7 +617,7 @@
       panel.onclick = (e) => {
         const b = e.target.closest('[data-d]'); if (!b) return; const a = b.dataset.d;
         if (a === 'pausa') { dem.pausa = !dem.pausa; sync(); if (!dem.pausa && dem.despertar) dem.despertar(); }
-        else if (a === 'vel') { const v = [1, 2, 4]; dem.vel = v[(v.indexOf(dem.vel) + 1) % v.length]; sync(); }
+        else if (a === 'vel') { const v = [0.5, 1, 1.5, 2, 4]; dem.vel = v[(v.indexOf(dem.vel) + 1) % v.length]; sync(); }
         else if (a === 'ant') cambiar(dem.k - 1);
         else if (a === 'sig') cambiar(dem.k + 1);
         else if (a === 'reiniciar') cambiar(0);
@@ -654,7 +657,8 @@
         for (const ch of q.frase) { if (dem.cancel || dem.salto) break; while (dem.pausa && !dem.cancel && !dem.salto) await dormir(200, dem); caja.textContent += ch; abajo(); await dormir(Math.max(3, 24 / dem.vel), dem); }
         if (dem.cancel) return; if (dem.salto) continue;
         log.insertAdjacentHTML('beforeend', `<div class="m sis ok">✅ Paso ${q.n} registrado.</div>`); abajo();
-        const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados); resaltar(null);
+        S.velFx = dem.vel; const fxp = fxPaso(q, true); const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados); resaltar(null);
+        await Promise.race([fxp, new Promise((ok) => { dem.alSaltar = ok; })]);
         const ex = $('#demo-expl'); if (ex) { ex.style.transition = 'opacity .5s'; ex.style.opacity = 1; }
         toast(`✔ Paso ${q.n}`, 'ok');
         await pausable(q.critico ? 3600 : 2800); if (dem.cancel) return; if (dem.salto) continue;

@@ -32,7 +32,8 @@
      "mesa alta"
     ]
    ],
-   "frase": "Reúno todo el material necesario y lo preparo en la mesa alta de traslado."
+   "frase": "Reúno todo el material necesario y lo preparo en la mesa alta de traslado.",
+   "fx": "reunir"
   },
   {
    "n": 2,
@@ -72,7 +73,8 @@
      "identifico"
     ]
    ],
-   "frase": "Verifico el apellido y nombre del paciente y la solicitud del procedimiento."
+   "frase": "Verifico el apellido y nombre del paciente y la solicitud del procedimiento.",
+   "fx": "verificar"
   },
   {
    "n": 3,
@@ -108,7 +110,8 @@
      "mesa"
     ]
    ],
-   "frase": "Llevo la mesa con el material al lado del paciente."
+   "frase": "Llevo la mesa con el material al lado del paciente.",
+   "fx": "trasladar"
   },
   {
    "n": 4,
@@ -135,7 +138,8 @@
      "hola"
     ]
    ],
-   "frase": "Saludo al paciente y me presento con nombre y apellido."
+   "frase": "Saludo al paciente y me presento con nombre y apellido.",
+   "fx": "hablar"
   },
   {
    "n": 5,
@@ -165,7 +169,8 @@
      "explico"
     ]
    ],
-   "frase": "Le explico el procedimiento con lenguaje claro y sencillo: por qué se hace, riesgos y beneficios."
+   "frase": "Le explico el procedimiento con lenguaje claro y sencillo: por qué se hace, riesgos y beneficios.",
+   "fx": "hablar"
   },
   {
    "n": 6,
@@ -189,7 +194,8 @@
      "firme"
     ]
    ],
-   "frase": "Le pido que firme el consentimiento informado y lo anexo a la historia clínica."
+   "frase": "Le pido que firme el consentimiento informado y lo anexo a la historia clínica.",
+   "fx": "firma"
   },
   {
    "n": 7,
@@ -229,7 +235,8 @@
      "posicion"
     ]
    ],
-   "frase": "Le pido que se coloque en la posición adecuada: ginecológica en la mujer, decúbito supino en el varón."
+   "frase": "Le pido que se coloque en la posición adecuada: ginecológica en la mujer, decúbito supino en el varón.",
+   "fx": "posicion"
   },
   {
    "n": 8,
@@ -262,7 +269,8 @@
      "intimidad"
     ]
    ],
-   "frase": "Retiro la ropa interior y cubro el área genital con un paño clínico no estéril."
+   "frase": "Retiro la ropa interior y cubro el área genital con un paño clínico no estéril.",
+   "fx": "sabana"
   },
   {
    "n": 9,
@@ -287,7 +295,8 @@
      "higiene"
     ]
    ],
-   "frase": "Me coloco guantes no estériles."
+   "frase": "Me coloco guantes no estériles.",
+   "fx": "guante"
   },
   {
    "n": 10,
@@ -326,7 +335,8 @@
      "zona"
     ]
    ],
-   "frase": "Higienizo la zona genital y adyacencias con iodopovidona jabonosa."
+   "frase": "Higienizo la zona genital y adyacencias con iodopovidona jabonosa.",
+   "fx": "higiene"
   },
   {
    "n": 11,
@@ -354,7 +364,8 @@
      "muslo"
     ]
    ],
-   "frase": "Le pido que eleve los muslos y coloco debajo un paño clínico no estéril."
+   "frase": "Le pido que eleve los muslos y coloco debajo un paño clínico no estéril.",
+   "fx": "sabana"
   },
   {
    "n": 12,
@@ -388,7 +399,8 @@
      "guantes"
     ]
    ],
-   "frase": "Me quito los guantes."
+   "frase": "Me quito los guantes.",
+   "fx": "guante_off"
   },
   {
    "n": 13,
@@ -417,7 +429,8 @@
      "lavado clinico"
     ]
    ],
-   "frase": "Me lavo las manos con técnica clínica."
+   "frase": "Me lavo las manos con técnica clínica.",
+   "fx": "lavado"
   },
   {
    "n": 14,
@@ -441,7 +454,8 @@
      "cerrada"
     ]
    ],
-   "frase": "Me coloco guantes estériles con técnica cerrada."
+   "frase": "Me coloco guantes estériles con técnica cerrada.",
+   "fx": "guante"
   },
   {
    "n": 15,
@@ -478,7 +492,8 @@
      "cubr"
     ]
    ],
-   "frase": "Coloco un paño estéril cubriendo la región pelviana y genital."
+   "frase": "Coloco un paño estéril cubriendo la región pelviana y genital.",
+   "fx": "pano"
   },
   {
    "n": 16,
@@ -522,7 +537,8 @@
      "sobre el"
     ]
    ],
-   "frase": "Coloco un segundo paño estéril y ubico sobre él los elementos necesarios."
+   "frase": "Coloco un segundo paño estéril y ubico sobre él los elementos necesarios.",
+   "fx": "pano"
   },
   {
    "n": 17,
@@ -560,7 +576,8 @@
      "sonda"
     ]
    ],
-   "frase": "Abro el pack estéril con la mano dominante y retiro la sonda enrollándola sin contaminarla."
+   "frase": "Abro el pack estéril con la mano dominante y retiro la sonda enrollándola sin contaminarla.",
+   "fx": "pack"
   },
   {
    "n": 18,
@@ -605,7 +622,8 @@
      "balon"
     ]
    ],
-   "frase": "Compruebo la indemnidad del balón inflando y desinflando con aire."
+   "frase": "Compruebo la indemnidad del balón inflando y desinflando con aire.",
+   "fx": "balon_test"
   },
   {
    "n": 19,
@@ -633,7 +651,8 @@
      "lidocaina"
     ]
    ],
-   "frase": "Lubrico la punta de la sonda con lidocaína en gel."
+   "frase": "Lubrico la punta de la sonda con lidocaína en gel.",
+   "fx": "gel"
   },
   {
    "n": 20,
@@ -668,7 +687,8 @@
      "empiez"
     ]
    ],
-   "frase": "Le aviso al paciente que comienzo el procedimiento."
+   "frase": "Le aviso al paciente que comienzo el procedimiento.",
+   "fx": "aviso"
   },
   {
    "n": 21,
@@ -704,7 +724,8 @@
      "introduzco"
     ]
    ],
-   "frase": "Introduzco la sonda con suavidad según la técnica, sin forzar, hasta ver salir orina."
+   "frase": "Introduzco la sonda con suavidad según la técnica, sin forzar, hasta ver salir orina.",
+   "fx": "insertar"
   },
   {
    "n": 22,
@@ -737,7 +758,8 @@
      "insuflo"
     ]
    ],
-   "frase": "Con la orina confirmada, inflo el balón con agua bidestilada."
+   "frase": "Con la orina confirmada, inflo el balón con agua bidestilada.",
+   "fx": "inflar"
   },
   {
    "n": 23,
@@ -763,7 +785,8 @@
      "leve"
     ]
    ],
-   "frase": "Tracciono levemente la sonda hasta sentir una leve resistencia."
+   "frase": "Tracciono levemente la sonda hasta sentir una leve resistencia.",
+   "fx": "traccion"
   },
   {
    "n": 24,
@@ -788,7 +811,8 @@
      "conecto"
     ]
    ],
-   "frase": "Conecto la sonda a la bolsa colectora y verifico que la orina fluya."
+   "frase": "Conecto la sonda a la bolsa colectora y verifico que la orina fluya.",
+   "fx": "bolsa"
   },
   {
    "n": 25,
@@ -809,7 +833,8 @@
      "glande"
     ]
    ],
-   "frase": "Vuelvo el prepucio a su lugar."
+   "frase": "Vuelvo el prepucio a su lugar.",
+   "fx": "prepucio"
   },
   {
    "n": 26,
@@ -837,7 +862,8 @@
      "cuelgo"
     ]
    ],
-   "frase": "Cuelgo la bolsa colectora del ganchillo de la cama."
+   "frase": "Cuelgo la bolsa colectora del ganchillo de la cama.",
+   "fx": "gancho"
   },
   {
    "n": 27,
@@ -866,7 +892,8 @@
      "sonda"
     ]
    ],
-   "frase": "Fijo la sonda a la cara interna del muslo con cinta hipoalergénica."
+   "frase": "Fijo la sonda a la cara interna del muslo con cinta hipoalergénica.",
+   "fx": "cinta"
   },
   {
    "n": 28,
@@ -902,7 +929,8 @@
      "informo"
     ]
    ],
-   "frase": "Informo al paciente que finalizó el procedimiento y los cuidados que debe mantener."
+   "frase": "Informo al paciente que finalizó el procedimiento y los cuidados que debe mantener.",
+   "fx": "hablar"
   },
   {
    "n": 29,
@@ -934,7 +962,8 @@
      "todo"
     ]
    ],
-   "frase": "Retiro los elementos de la cama y desecho los utilizados."
+   "frase": "Retiro los elementos de la cama y desecho los utilizados.",
+   "fx": "residuos"
   },
   {
    "n": 30,
@@ -964,7 +993,8 @@
      "asiento"
     ]
    ],
-   "frase": "Registro el procedimiento en la historia clínica."
+   "frase": "Registro el procedimiento en la historia clínica.",
+   "fx": "registro"
   }
  ],
  "elementos": {

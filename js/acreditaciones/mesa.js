@@ -43,26 +43,31 @@ export class ProcedureWorkbench {
     this.dispose();
     this.el = cont; this.opt = opt; this.caso = opt.caso; this.sel = new Set(); this.intentos = 0; this.ocupado = false;
     cont.onclick = (e) => this.clic(e);
+    this.pausa = opt.modo === 'demo'; this.vel = 1; this.adelante = false; this.cancelado = false;
     this.pintarCaso();
   }
 
   // ---------------------------------------------------------------- 1) caso clínico
   pintarCaso() {
     const c = this.caso; const otro = this.opt.modo === 'practica' && this.opt.casos && this.opt.casos.length > 1;
+    const av = c.sexo === 'F' ? (c.edad >= 65 ? '👵' : '👩') : (c.edad >= 65 ? '👴' : '👨');
+    const fila = (i, ico, tit, txt) => `<div class="cc-fila" style="--i:${i}"><span class="i">${ico}</span><div><label>${tit}</label><p>${esc(txt)}</p></div></div>`;
     this.el.innerHTML = `<div class="wb wb-caso-pant">
       ${this.opt.modo === 'demo' ? this.bannerDemo() : ''}
-      <div class="wb-hoja">
-        <div class="wb-hoja-cab"><span>📋</span><div><h2>Caso clínico</h2><p>Indicación de sondaje vesical</p></div></div>
-        <div class="wb-hoja-grid">
-          <div><label>Paciente</label><b>${esc(c.nombre || 'Paciente')}</b></div>
-          <div><label>Sexo</label><b>${c.sexo === 'F' ? 'Mujer' : 'Varón'}</b></div>
-          <div><label>Edad</label><b>${c.edad} años</b></div>
-          <div><label>Alergias</label><b class="${c.alergia ? 'rojo' : ''}">${c.alergia === 'latex' ? 'Látex' : 'Sin alergias conocidas'}</b></div>
+      <div class="cc">
+        <div class="cc-top">
+          <div class="cc-av">${av}</div>
+          <div><small>📋 Caso clínico · indicación de sondaje vesical</small><h2>${esc(c.nombre || 'Paciente')}</h2>
+            <div class="cc-chips"><span class="cc-chip">${c.sexo === 'F' ? '♀ Mujer' : '♂ Varón'}</span><span class="cc-chip">${c.edad} años</span>
+              ${c.alergia === 'latex' ? '<span class="cc-chip rojo">⚠ Alergia al látex</span>' : '<span class="cc-chip verde">✔ Sin alergias conocidas</span>'}</div></div>
+          <svg class="cc-ecg" viewBox="0 0 400 34" preserveAspectRatio="none"><path d="M0 18 H70 L80 18 L88 4 L98 30 L108 18 H170 L180 18 L188 6 L198 28 L208 18 H290 L300 18 L308 4 L318 30 L328 18 H400"/></svg>
         </div>
-        <div class="wb-hoja-bloque"><label>Motivo de consulta</label><p>${esc(c.motivo)}</p></div>
-        <div class="wb-hoja-bloque"><label>Antecedentes</label><p>${esc(c.antecedentes || '—')}</p></div>
-        <div class="wb-hoja-bloque"><label>Indicación médica</label><p>${esc(c.indicacion || 'Sondaje vesical.')}</p></div>
-        <p class="wb-hoja-nota">Elegí el instrumental según este paciente: sexo, calibre, material y alergias.</p>
+        <div class="cc-cuerpo">
+          ${fila(0, '🩺', 'Motivo de consulta', c.motivo)}
+          ${fila(1, '🗂️', 'Antecedentes', c.antecedentes || '—')}
+          ${fila(2, '📝', 'Indicación médica', c.indicacion || 'Sondaje vesical.')}
+        </div>
+        <div class="cc-mision"><b>🎯 Tu misión</b> · leé el caso y decidí:<ul><li>qué sonda corresponde a este paciente (tipo, calibre y material);</li><li>qué insumos hacen falta para el procedimiento… y cuáles sobran.</li></ul></div>
         <div class="acr-row">${this.opt.modo === 'demo' ? '' : '<button class="acr-btn" id="wb-ir-mesa">Ir a la mesa de instrumental →</button>'}${otro ? '<button class="acr-btn sec" id="wb-otro">Otro caso</button>' : ''}</div>
       </div></div>`;
   }
@@ -162,7 +167,7 @@ export class ProcedureWorkbench {
   quitar(id, sinVuelo) {
     if (!this.sel.has(id)) return;
     const it = this.item(id); const bi = this.objBandeja(id); const dst = this.objMesa(id); if (!it || !bi) return;
-    this.sel.delete(id); this.ocultarFicha();
+    this.sel.delete(id); this.ocultarFicha(); if (window.AcrFX) AcrFX.sonido('whoosh');
     const fin = () => { dst?.classList.remove('ausente'); dst?.classList.add('vuelve'); setTimeout(() => dst?.classList.remove('vuelve'), 500); };
     const r = bi.querySelector('img').getBoundingClientRect();
     bi.remove();
@@ -177,6 +182,7 @@ export class ProcedureWorkbench {
   reaccion(it) {
     const b = this.el?.querySelector('#wb-bandeja'); if (!b) return;
     const clase = this.opt.modo !== 'examen' ? (this.ef(it).correcto ? 'pulso-ok' : 'sacude') : 'pulso-neutro';
+    if (window.AcrFX) AcrFX.sonido(clase === 'sacude' ? 'error' : 'pop');
     b.classList.remove('pulso-ok', 'sacude', 'pulso-neutro'); void b.offsetWidth; b.classList.add(clase);
     setTimeout(() => b.classList.remove(clase), 700);
   }
@@ -221,7 +227,7 @@ export class ProcedureWorkbench {
       const a = bd.dataset.bd;
       if (a === 'saltar') { this.cancelado = true; this.pausa = false; if (this.opt.onSaltar) this.opt.onSaltar(); }
       else if (a === 'pausa') { this.pausa = !this.pausa; this.el.querySelectorAll('[data-bd="pausa"]').forEach((b) => { b.innerHTML = this.pausa ? '▶ Continuar' : '⏸ Pausar'; b.classList.toggle('on', this.pausa); }); this.el.querySelectorAll('.wb-demo-banner').forEach((b) => b.classList.toggle('en-pausa', this.pausa)); }
-      else if (a === 'vel') { const v = [1, 2, 4]; this.vel = v[(v.indexOf(this.vel || 1) + 1) % v.length]; this.el.querySelectorAll('[data-bd="vel"]').forEach((b) => { b.textContent = '⚡ ' + this.vel + '×'; }); }
+      else if (a === 'vel') { const v = [0.5, 1, 1.5, 2, 4]; this.vel = v[(v.indexOf(this.vel || 1) + 1) % v.length]; this.el.querySelectorAll('[data-bd="vel"]').forEach((b) => { b.textContent = '⚡ ' + this.vel + '×'; }); }
       else if (a === 'adelante') { this.adelante = true; this.pausa = false; }
       return;
     }
@@ -279,6 +285,7 @@ export class ProcedureWorkbench {
   /** demostración automática: muestra el caso, inspecciona cada insumo y arma la bandeja correcta */
   async demo() {
     this.vel = this.vel || 1;
+    if (this.pausa) this.narrar('Listo. Apretá ▶ Continuar para empezar la demostración (podés pausar, acelerar o cancelar cuando quieras).');
     const esperar = async (ms) => { let t = 0; while (t < ms && !this.adelante && this.el && !this.cancelado) { await new Promise((r) => setTimeout(r, 60)); if (!this.pausa) t += 60 * this.vel; } };
     const vivo = () => this.el && !this.cancelado;
     this.narrar('Primero se lee el caso clínico: de él depende qué sonda y qué insumos elegir.'); await esperar(4200); if (!vivo()) return;
