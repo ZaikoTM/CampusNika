@@ -34,13 +34,14 @@
       default: y = 0.015 * Math.sin(t * 1.7) + (Math.random() - 0.5) * 0.012;   // asistolia: línea casi plana
     }
     if (M.rcpActiva()) {                      // artefacto de las compresiones torácicas (110 por minuto)
-      const f = (t * 110 / 60) % 1;
+      const f = M.rcpFase();
       y += 0.8 * (f < 0.45 ? Math.sin(f / 0.45 * Math.PI) : -0.18 * Math.sin((f - 0.45) / 0.55 * Math.PI)) * (0.85 + 0.15 * Math.sin(t * 3));
     }
     if (performance.now() < M.shockHasta) y = Math.sin(t * 90) * 0.04;   // tras la descarga: «línea plana» breve
     return Math.max(-1.4, Math.min(1.4, y));
   }
   M.rcpActiva = () => M.rcp && performance.now() > M.pausaRcp;
+  M.rcpFase = () => (((performance.now() - (M.rcpT0 || 0)) * 110) / 60000) % 1;
   M.alarma = () => (['fv', 'tvsp', 'asistolia'].includes(M.ritmo) && !M.flags.has('muerte') ? 'alta' : (M.ritmo === 'aesp' || M.ritmo === 'sinusal_sinpulso') ? 'media' : null);
 
   // ------------------------------------------------------------------ sonidos
@@ -79,11 +80,15 @@
     }
     M.x = (M.x + px) % W; M.tw += px / PXS;
     // compresiones: pitido del metrónomo y golpe
-    if (M.rcpActiva() && ahora - M.ultimoMetro >= 60000 / 110) { M.ultimoMetro = ahora; if (M.metronomo) sonar('metronomo'); }
+    if (M.rcpActiva()) {
+      if (!M.rcpPrev) { M.rcpT0 = ahora; M.rcpPrev = true; M.lastN = -1; }
+      const n = Math.floor(((ahora - M.rcpT0) * 110) / 60000);
+      if (n !== M.lastN) { M.lastN = n; if (M.metronomo) sonar('metronomo'); setTimeout(() => { if (M.activo && M.rcpActiva()) sonar('compresion'); }, 245); }   // golpe al llegar al fondo de la compresión
+    } else M.rcpPrev = false;
     // alarmas
     const al = M.alarma();
     if (al && ahora > M.silenciada && ahora - M.ultimaAlarma > (al === 'alta' ? 3200 : 6000)) { M.ultimaAlarma = ahora; patronAlarma(al === 'alta'); }
-    if (M.ritmo === 'asistolia' && M.flags.has('muerte') && !M.planoSonado) { M.planoSonado = true; sonar('plano'); }
+    if (M.ritmo === 'asistolia' && M.flags.has('muerte') && ahora > M.silenciada && ahora - (M.planoT || 0) > 2300) { M.planoT = ahora; sonar('plano'); }   // tono continuo de línea plana
     // números y ciclo
     if (ahora - M.ultimoNum > 280) { M.ultimoNum = ahora; numeros(ahora); }
   }
@@ -168,15 +173,51 @@
     recalcular();
   };
 
+  // ------------------------------------------------------------------ minijuego: ritmo de las compresiones
+  M.juego = function () {
+    const vp = M.raiz && M.raiz.querySelector('.acr3d-vp'); if (!vp) return;
+    let j = vp.querySelector('.rcp-juego'); if (j) { j.remove(); document.onkeydown = M._kd || null; return; }
+    j = document.createElement('div'); j.className = 'rcp-juego';
+    j.innerHTML = '<div class="rj-tit">🎯 Practicá el ritmo: 100 a 120 por minuto</div><button type="button" class="rj-pecho" aria-label="Comprimir"><span>❤️</span></button><div class="rj-bpm"><b>--</b> /min</div><div class="rj-barra"><i></i><u></u></div><div class="rj-info">Tocá el corazón (o la barra espaciadora) al compás. 30 compresiones.</div><div class="rj-fin"><button type="button" class="rj-guia">🥁 Guía</button><button type="button" class="rj-x">Cerrar</button></div>';
+    vp.appendChild(j);
+    const st = { t: [], guia: false, id: 0 };
+    const bpm = j.querySelector('.rj-bpm b'), barra = j.querySelector('.rj-barra i'), info = j.querySelector('.rj-info'), pecho = j.querySelector('.rj-pecho');
+    const cerrar = () => { clearInterval(st.id); j.remove(); document.onkeydown = M._kd || null; };
+    const tap = () => {
+      const now = performance.now(); if (st.t.length >= 30) st.t = [];
+      st.t.push(now); sonar('compresion'); pecho.classList.remove('late'); void pecho.offsetWidth; pecho.classList.add('late');
+      if (st.t.length >= 2) {
+        const ult = st.t.slice(-6); const dt = (ult[ult.length - 1] - ult[0]) / (ult.length - 1); const r = 60000 / dt;
+        bpm.textContent = Math.round(r); const ok = r >= 100 && r <= 120; bpm.parentElement.className = 'rj-bpm ' + (ok ? 'ok' : r < 100 ? 'lento' : 'rapido');
+        barra.style.width = Math.max(4, Math.min(100, ((r - 60) / 100) * 100)) + '%'; barra.className = ok ? 'ok' : 'mal';
+        info.textContent = ok ? '¡En ritmo!' : r < 100 ? 'Más rápido' : 'Más lento';
+      }
+      if (st.t.length === 30) {
+        const d = []; for (let i = 1; i < 30; i++) d.push(st.t[i] - st.t[i - 1]);
+        const prom = d.reduce((a, b) => a + b, 0) / d.length; const r = 60000 / prom; const enRitmo = d.filter((x) => 60000 / x >= 95 && 60000 / x <= 125).length;
+        const bien = r >= 100 && r <= 120 && enRitmo >= 0.8 * d.length;
+        info.innerHTML = `<b>${bien ? '🏆 ¡Excelente!' : '🔁 Probá de nuevo'}</b> Promedio ${Math.round(r)} por minuto · ${enRitmo} de ${d.length} compresiones en ritmo.`; if (bien) sonar('rosc');
+        bpm.parentElement.className = 'rj-bpm ' + (bien ? 'ok' : 'rapido');
+      }
+    };
+    pecho.onclick = tap;
+    M._kd = document.onkeydown;
+    document.onkeydown = (e) => { if (e.code === 'Space' && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) { e.preventDefault(); tap(); } else if (e.key === 'Escape') cerrar(); if (M._kd) M._kd(e); };
+    j.querySelector('.rj-x').onclick = cerrar;
+    j.querySelector('.rj-guia').onclick = (e) => { st.guia = !st.guia; e.currentTarget.classList.toggle('on', st.guia); clearInterval(st.id); if (st.guia) st.id = setInterval(() => sonar('metronomo'), 60000 / 110); };
+  };
+
   // ------------------------------------------------------------------ ciclo de vida
+  const this_metro = (cfg) => !(cfg && cfg.metronomo === false);
   M.montar = function (raiz, cfg) {
     M.detener();
     const cv = raiz && raiz.querySelector('.mon-ecg'); if (!cv) return;
     M.raiz = raiz; M.ecg = cv; M.ctx = cv.getContext('2d'); M.cfg = cfg || {}; M.flags = new Set(); M.activo = true; M.tw = 0; M.x = 0; M.x0 = 0; M.y0 = cv.height * 0.56; M.fase = 0; M.tUlt = 0;
-    M.pulso = false; M.rcp = false; M.sat = 0; M.co2 = 0; M.ultimaAlarma = 0; M.silenciada = 0; M.shockHasta = 0; M.pausaRcp = 0; M.metronomo = true; M.planoSonado = false;
+    M.pulso = false; M.rcp = false; M.sat = 0; M.co2 = 0; M.ultimaAlarma = 0; M.silenciada = 0; M.shockHasta = 0; M.pausaRcp = 0; M.metronomo = this_metro(cfg); M.planoT = 0; M.rcpPrev = false;
     M.ritmo = M.cfg.ritmo || 'asistolia';
     const mu = raiz.querySelector('.mon-mute'); if (mu) mu.onclick = () => { M.silenciada = performance.now() + 120000; mu.classList.add('on'); setTimeout(() => mu.classList.remove('on'), 600); };
-    const me = raiz.querySelector('.mon-metro'); if (me) { me.classList.add('on'); me.onclick = () => { M.metronomo = !M.metronomo; me.classList.toggle('on', M.metronomo); }; }
+    const ju = raiz.querySelector('.mon-juego'); if (ju) ju.onclick = () => M.juego();
+    const me = raiz.querySelector('.mon-metro'); if (me) { if (!M.metronomo) { me.style.display = 'none'; } else { me.classList.add('on'); me.onclick = () => { M.metronomo = !M.metronomo; me.classList.toggle('on', M.metronomo); }; } }
     panelDefi('apagado', 'EN ESPERA'); recalcular();
     M.raf = requestAnimationFrame(pintar);
   };

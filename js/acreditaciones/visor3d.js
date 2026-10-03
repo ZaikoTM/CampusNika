@@ -308,7 +308,7 @@ export class MedicalProcedureViewer {
           const pausa = window.AcrMonitor && window.AcrMonitor.activo && !window.AcrMonitor.rcpActiva();
           g.visible = (s.mano || s.rcp) && !s.rosc && !s.muerte;
           let p = 0;
-          if (comprime && !pausa) { if (!t0) t0 = t; const f = (((t - t0) / 1000) * (K.frecuencia || 110) / 60) % 1; p = f < 0.45 ? Math.sin((f / 0.45) * Math.PI / 2) : Math.cos(((f - 0.45) / 0.55) * Math.PI / 2); } else t0 = 0;
+          if (comprime && !pausa) { if (!t0) t0 = t; const mon = window.AcrMonitor && window.AcrMonitor.activo; const f = mon ? window.AcrMonitor.rcpFase() : (((t - t0) / 1000) * (K.frecuencia || 110) / 60) % 1; p = f < 0.45 ? Math.sin((f / 0.45) * Math.PI / 2) : Math.cos(((f - 0.45) / 0.55) * Math.PI / 2); } else t0 = 0;
           const prof = (K.profundidad || 4.5) * p;
           g.position.z = K.sitio[2] - prof;
           (A.esternon || []).forEach((o) => { o.position.z = -prof; });
