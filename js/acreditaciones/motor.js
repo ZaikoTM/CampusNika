@@ -56,10 +56,24 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=1'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=4'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
+    let MESA = null;
+    async function asegurarMesa() {
+      if (MESA) return;
+      const [mod, cfg] = await Promise.all([import('./mesa.js?v=1'), getJSON(D.instrumental)]);
+      MESA = mod.crearMesa(cfg);
+    }
+    const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
+    async function mostrarMesaPractica() {
+      parar(); sinEscena(); $('#acr-panel').innerHTML = '';
+      if (!D.instrumental) { S.mesaOk = true; await asegurarVisor(); return ir(); }
+      try { await asegurarMesa(); } catch (e) { console.error(e); $('#acr-escena').innerHTML = '<p class="acr-sub" style="padding:20px">No se pudo cargar la mesa de instrumental.</p>'; return; }
+      MESA.mount($('#acr-escena'), { sexo: S.sexo, modo: 'practica', onSexo: (s) => { S.sexo = s; pintarTabs(); },
+        onValidar: async () => { MESA.dispose(); S.mesaOk = true; $('#acr-escena').innerHTML = '<p class="acr-sub" style="padding:20px">Preparando al paciente…</p>'; await asegurarVisor(); ir(); } });
+    }
     document.title = `${D.titulo} · Atlas de acreditaciones`;
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null };
@@ -252,7 +266,8 @@
     function examenInicio() {
       parar();
       const caso = azar(D.casos); S.sexo = caso.sexo; pintarTabs();
-      montarEscena(true); aplicarEstado({}, [], true);
+      if (MESA) MESA.dispose();
+      sinEscena();
       const tiempos = (D.examen && D.examen.tiempos) || [2, 5, 10];
       S.ex = { caso, t: tiempos[1] || tiempos[0], fase: 'inicio' };
       const pintarInicio = () => {
@@ -271,10 +286,36 @@
       };
       pintarInicio();
     }
-    function examenComenzar() {
+    function iniciarTimerExamen() {
+      S.timer = setInterval(() => {
+        const X = S.ex; if (X.fase !== 'curso' && X.fase !== 'mesa') return;
+        X.seg = X.t * 60 - Math.floor((Date.now() - X.inicio) / 1000);
+        const el = $('#acr-reloj'); if (el) { el.textContent = '⏱ ' + mmss(Math.max(0, X.seg)); el.classList.toggle('urge', X.seg <= 30); }
+        if (X.seg <= 0) examenFin(true);
+      }, 500);
+    }
+    async function examenComenzar() {
       const apl = pasosAplicables(S.ex.caso.sexo);
       const dist = D.distractores.filter((d) => !d.solo || d.solo === S.ex.caso.sexo);
-      Object.assign(S.ex, { fase: 'curso', apl, dist, hechos: new Map(), log: [], graves: 0, seg: S.ex.t * 60, inicio: Date.now(), sel: null, aviso: '' });
+      Object.assign(S.ex, { fase: 'mesa', apl, dist, hechos: new Map(), log: [], graves: 0, seg: S.ex.t * 60, inicio: Date.now(), sel: null, aviso: '' });
+      iniciarTimerExamen();
+      if (!D.instrumental) return examenCurso();
+      try { await asegurarMesa(); } catch (e) { console.error(e); return examenCurso(); }
+      $('#acr-panel').innerHTML = `<div class="acr-examen-bar"><span id="acr-reloj" class="acr-reloj">⏱ ${mmss(Math.max(0, S.ex.seg))}</span></div>`;
+      $('#acr-panel').onclick = null;
+      MESA.mount($('#acr-escena'), { sexo: S.ex.caso.sexo, modo: 'examen', caso: S.ex.caso,
+        onValidar: (res) => {
+          const X = S.ex;
+          res.incorrectos.forEach((i) => X.log.push({ tipo: 'material', texto: i.nombre, grave: !!i.critico, porque: i.feedback }));
+          res.faltantes.forEach((i) => X.log.push({ tipo: 'material', falta: true, texto: 'Falta: ' + i.nombre, grave: !!i.critico, porque: i.falta }));
+          MESA.dispose(); examenCurso();
+        } });
+    }
+    async function examenCurso() {
+      if (S.ex.fase === 'fin') return;
+      S.ex.fase = 'curso';
+      await asegurarVisor();
+      if (S.ex.fase !== 'curso') return;
       montarEscena(false); aplicarEstado({}, [], true);
       svg.onclick = (e) => {
         const g = e.target.closest('[data-hs]'); if (!g || S.ex.fase !== 'curso') return;
@@ -285,12 +326,6 @@
         if (e.target.id === 'acr-cancel') { S.ex.sel = null; marcarSel(null); pintarExamen(); }
         if (e.target.id === 'acr-fin') { if (confirm('¿Finalizar el examen y corregir?')) examenFin(false); }
       };
-      S.timer = setInterval(() => {
-        const X = S.ex; if (X.fase !== 'curso') return;
-        X.seg = X.t * 60 - Math.floor((Date.now() - X.inicio) / 1000);
-        const el = $('#acr-reloj'); if (el) { el.textContent = '⏱ ' + mmss(Math.max(0, X.seg)); el.classList.toggle('urge', X.seg <= 30); }
-        if (X.seg <= 0) examenFin(true);
-      }, 500);
       pintarExamen();
     }
     function pintarExamen() {
@@ -336,18 +371,18 @@
       X.sel = null; marcarSel(null); pintarExamen();
     }
     function examenFin(porTiempo) {
-      const X = S.ex; if (X.fase !== 'curso') return; X.fase = 'fin'; parar();
+      const X = S.ex; if (X.fase !== 'curso' && X.fase !== 'mesa') return; X.fase = 'fin'; parar(); if (MESA) MESA.dispose(); document.querySelector('.acr-grid').classList.remove('sin-escena'); svg = svg || $('#acr-escena');
       const usado = Math.min(X.t * 60, Math.round((Date.now() - X.inicio) / 1000));
       const filas = X.apl.map((p) => ({ p, st: X.hechos.get(p.n) || 'NO' }));
       const pen = D.examen || { penalizacion_incorrecta: 3, penalizacion_repetida: 1 };
       const baseP = filas.reduce((a, f) => a + (f.st === 'SI' ? 1 : f.st === 'M' ? 0.5 : 0), 0) / X.apl.length * 100;
-      const resta = X.log.reduce((a, l) => a + (l.tipo === 'incorrecta' ? pen.penalizacion_incorrecta : l.tipo === 'repetida' ? pen.penalizacion_repetida : 0), 0);
+      const resta = X.log.reduce((a, l) => a + (l.tipo === 'incorrecta' || (l.tipo === 'material' && !l.falta) ? pen.penalizacion_incorrecta : l.tipo === 'material' ? 2 : l.tipo === 'repetida' ? pen.penalizacion_repetida : 0), 0);
       const pct = Math.max(0, Math.round(baseP - resta));
       const criticosFallidos = filas.filter((f) => f.p.critico && f.st !== 'SI');
       const gravesLog = X.log.filter((l) => l.grave);
       const aprobado = !criticosFallidos.length && !gravesLog.length && pct >= D.umbral;
       guardarRes(area, id, 'examen', { pct, aprobado, seg: usado });
-      resaltar(null); marcarSel(null);
+      try { if (ESC) { ESC.hl(null); ESC.sel(null); } } catch (_) {}
       $('#acr-panel').onclick = (e) => { if (e.target.id === 'acr-otra') examenInicio(); if (e.target.id === 'acr-prac') { S.modo = 'practica'; S.sub = 'guiado'; ir(); } };
       $('#acr-panel').innerHTML = `
         <div class="acr-res ${aprobado ? 'ap' : 'de'}"><h2>${aprobado ? 'ACREDITADO' : 'NO ACREDITADO'}</h2>
@@ -355,9 +390,9 @@
           <div>Tiempo: ${mmss(usado)} de ${mmss(X.t * 60)}${porTiempo ? ' (tiempo agotado)' : ''}</div></div>
         ${criticosFallidos.length || gravesLog.length ? `<div class="acr-info mal"><b>Criterios de desaprobación:</b><ul style="margin:6px 0 0 18px">
           ${criticosFallidos.map((f) => `<li>Paso ${f.p.n} (${f.st === 'NO' ? 'omitido' : 'fuera de orden'}): ${esc(f.p.texto)}<br><small>${esc(f.p.explica)}</small></li>`).join('')}
-          ${gravesLog.filter((l) => l.tipo === 'incorrecta').map((l) => `<li>Acción incorrecta grave: “${esc(l.texto)}”<br><small>${esc(l.porque)}</small></li>`).join('')}</ul></div>` : ''}
+          ${gravesLog.filter((l) => l.tipo === 'incorrecta' || l.tipo === 'material').map((l) => `<li>${l.tipo === 'material' ? (l.falta ? 'Material crítico faltante' : 'Material incorrecto grave') : 'Acción incorrecta grave'}: “${esc(l.texto.replace(/^Falta: /, ''))}”<br><small>${esc(l.porque)}</small></li>`).join('')}</ul></div>` : ''}
         <div class="acr-fase">Detalle de errores (${X.log.length})</div>
-        ${X.log.length ? `<ul class="acr-refs">${X.log.map((l) => `<li><b>${l.tipo === 'incorrecta' ? 'Acción incorrecta' : l.tipo === 'orden' ? 'Orden alterado' : 'Acción repetida'}${l.grave ? ' · grave' : ''}:</b> ${esc(l.texto)}<br><small>${esc(l.porque)}</small></li>`).join('')}</ul>` : '<p>No registraste errores de acción ni de orden.</p>'}
+        ${X.log.length ? `<ul class="acr-refs">${X.log.map((l) => `<li><b>${l.tipo === 'material' ? (l.falta ? 'Material faltante' : 'Material incorrecto') : l.tipo === 'incorrecta' ? 'Acción incorrecta' : l.tipo === 'orden' ? 'Orden alterado' : 'Acción repetida'}${l.grave ? ' · grave' : ''}:</b> ${esc(l.texto)}<br><small>${esc(l.porque)}</small></li>`).join('')}</ul>` : '<p>No registraste errores de acción ni de orden.</p>'}
         <div class="acr-row"><button class="acr-btn" id="acr-otra">Nuevo intento</button><button class="acr-btn sec" id="acr-prac">Practicar</button></div>
         <div class="acr-fase">Lista de cotejo (${X.apl.length} pasos)</div>
         <table class="acr-tabla">${filas.map((f) => `<tr><td>${f.p.n}</td><td>${esc(f.p.texto)} ${f.p.critico ? '<span class="acr-crit">⚠</span>' : ''}</td><td class="st-${f.st}">${f.st === 'SI' ? 'SÍ' : f.st === 'M' ? '+/-' : 'NO'}</td></tr>`).join('')}</table>
@@ -375,31 +410,39 @@
         <h2>${esc(D.titulo)}</h2>
         <p>${esc(D.resumen)}</p>
         <ul class="acr-refs">
+          <li><b>Antes del paciente:</b> armás la bandeja en la mesa de instrumental.</li>
           <li><b>Práctica:</b> exploración libre, recorrido guiado, machete clínico y fundamentos.</li>
           <li><b>Examen:</b> a ciegas, con tiempo límite y corrección estricta.</li>
         </ul>
         <p class="acr-peso">El modelo 3D (${esc(D.peso_modelo || 'unos MB')}) se descarga recién cuando comenzás; no se carga nada pesado antes.</p>
         <div class="acr-row"><button class="acr-btn" id="acr-go-prac">Comenzar entrenamiento</button><button class="acr-btn sec" id="acr-go-ex">Rendir examen</button></div>
+        <div class="acr-row"><button class="acr-btn sec" id="acr-go-libre" style="font-size:.8rem;padding:7px 14px">Solo explorar el modelo 3D</button></div>
         <div id="acr-portada-msg" class="acr-info mal" hidden></div>
       </div>`;
       $('#acr-panel').innerHTML = '';
       const arrancar = async (modo, sub) => {
         const btns = document.querySelectorAll('.acr-portada .acr-btn'); btns.forEach((b) => { b.disabled = true; });
-        try { await asegurarVisor(); } catch (e) {
+        try {
+          S.modo = modo; if (sub) S.sub = sub;
+          if (modo === 'practica' && sub === 'guiado') return await mostrarMesaPractica();
+          if (modo === 'practica') await asegurarVisor();
+          ir();
+        } catch (e) {
           console.error(e); btns.forEach((b) => { b.disabled = false; });
-          const m = $('#acr-portada-msg'); m.hidden = false; m.textContent = 'No se pudo cargar el visor 3D. Revisá tu conexión e intentá de nuevo.'; return;
+          const m = $('#acr-portada-msg'); m.hidden = false; m.textContent = 'No se pudo cargar el simulador. Revisá tu conexión e intentá de nuevo.';
         }
-        S.modo = modo; if (sub) S.sub = sub; ir();
       };
       $('#acr-go-prac').onclick = () => arrancar('practica', 'guiado');
       $('#acr-go-ex').onclick = () => arrancar('examen');
+      $('#acr-go-libre').onclick = () => arrancar('practica', 'explorar');
     }
     function ir() {
       parar();
       pintarTabs();
+      if (S.modo === 'examen') return examenInicio();
+      if (S.modo === 'practica' && S.sub === 'guiado' && !S.mesaOk) return mostrarMesaPractica();
       const sin3d = S.modo === 'practica' && S.sub === 'fundamentos';
       if (!sin3d && !ESC) return portada();
-      if (S.modo === 'examen') return examenInicio();
       if (S.sub === 'explorar') vistaExplorar();
       else if (S.sub === 'guiado') vistaGuiado();
       else if (S.sub === 'machete') vistaMachete();

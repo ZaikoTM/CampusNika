@@ -520,6 +520,14 @@
    "nombre": "Próstata",
    "desc": "Rodea la uretra prostática en el varón, debajo de la vejiga. Su aumento (HBP) causa retención y resistencia al pasar la sonda.",
    "pasos": []
+  },
+  "meato": {
+   "nombre": "Meato uretral",
+   "desc": "Abertura externa de la uretra. En la mujer queda por encima del introito vaginal; en el varón está en el extremo del glande. Es el punto de entrada de la sonda.",
+   "pasos": [
+    10,
+    21
+   ]
   }
  },
  "distractores": [
@@ -846,5 +854,6 @@
   "penalizacion_repetida": 1
  },
  "visor": "data/acreditaciones/siam/sv_modelo.json",
- "peso_modelo": "3 a 5 MB"
+ "peso_modelo": "3 a 5 MB",
+ "instrumental": "data/acreditaciones/siam/instrumental_sv.json"
 }

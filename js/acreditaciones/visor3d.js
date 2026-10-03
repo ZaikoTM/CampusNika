@@ -41,11 +41,12 @@ export class MedicalProcedureViewer {
     return `<div class="acr3d sx-${variante}">
       <div class="acr3d-vp">
         <canvas></canvas>
+        <svg class="acr3d-lines" aria-hidden="true"></svg>
         <div class="acr3d-pins">${pines}</div>
         <div class="acr3d-load"><div class="acr3d-load-t">Cargando modelo anatómico… <b>0%</b></div><div class="acr3d-load-bar"><i style="width:0%"></i></div><div class="acr3d-load-s"></div></div>
         <div class="acr3d-tools">
           <button data-tool="xray" type="button" title="Ver estructuras profundas">Rayos X</button>
-          <button data-tool="cut" type="button" class="on" title="Corte sagital">Corte</button>
+          <button data-tool="cut" type="button" title="Corte sagital">Corte</button>
           <button data-tool="labels" type="button" class="on">Focos</button>
           <span class="sep"></span>
           <button data-tool="piel" type="button" class="on">Piel</button>
@@ -119,10 +120,12 @@ export class MedicalProcedureViewer {
     const gm = new THREE.Group(); gm.position.copy(o).negate(); C.scene.add(gm); C.gm = gm;
     ['piel', 'huesos', 'organos', 'sonda'].forEach((k) => { C.capas[k] = new THREE.Group(); gm.add(C.capas[k]); });
     // silueta pélvica inmediata (no torso completo)
-    const perfil = cfg.piel.radios.map(([r, y]) => new THREE.Vector2(r, y));
-    const piel = new THREE.Mesh(new THREE.LatheGeometry(perfil, 64), this.material(0x5b9bff, 0.1, 'piel', { roughness: 0.15, clearcoat: 0.9 }));
-    this.registrar(piel, 'piel', null); piel.scale.set(1, 1, cfg.piel.escala_z); piel.position.set(...cfg.piel.pos.map((v, i) => v + cfg.origen[i]));
-    C.capas.piel.add(piel);
+    if (cfg.piel) {
+      const perfil = cfg.piel.radios.map(([r, y]) => new THREE.Vector2(r, y));
+      const piel = new THREE.Mesh(new THREE.LatheGeometry(perfil, 64), this.material(0x5b9bff, 0.1, 'piel', { roughness: 0.15, clearcoat: 0.9 }));
+      this.registrar(piel, 'piel', null); piel.scale.set(1, 1, cfg.piel.escala_z); piel.position.set(...cfg.piel.pos.map((v, i) => v + cfg.origen[i]));
+      C.capas.piel.add(piel);
+    }
     Object.values(cfg.procedurales || {}).forEach((d) => this.tuboProc(d));
     C.anclas = {}; Object.entries(cfg.pines).forEach(([k, v]) => { C.anclas[k] = V(...v).sub(o); });
     this.instrumentos(variante);
@@ -215,16 +218,22 @@ export class MedicalProcedureViewer {
     scene.add(new THREE.HemisphereLight(0xcfe3ff, 0x1b2a4a, G.luces.ambiente));
     const key = new THREE.DirectionalLight(0xffffff, G.luces.frontal); key.position.set(40, 30, 55); scene.add(key);
     const rim = new THREE.DirectionalLight(new THREE.Color(G.luces.color_contorno), G.luces.contorno); rim.position.set(-45, 15, -40); scene.add(rim);
-    const grid = new THREE.GridHelper(160, 32, new THREE.Color(G.rejilla.color1), new THREE.Color(G.rejilla.color2)); grid.position.y = G.rejilla.y; scene.add(grid);
 
     const C = this.C = {
       root, vp, canvas, renderer, scene, camera, controls, mats: [], capas: {}, hsMeshes: {}, plane: new THREE.Plane(V(-1, 0, 0), 0),
-      opt: { xray: false, cut: true, labels: true, capas: { piel: true, huesos: true, organos: true, sonda: true } },
+      opt: { xray: false, cut: false, labels: true, capas: { piel: true, huesos: true, organos: true, sonda: true } },
       hl: null, sel: null, hover: null, goal: null, variante, raf: 0, anclas: {}, inst: [],
     };
     C.pins = [...vp.querySelectorAll('.pin')];
+    C.svgLineas = vp.querySelector('.acr3d-lines'); C.lineas = {};
+    const et = this.CFG[variante].etiquetas || {};
+    C.pins.forEach((p) => {
+      const [dx, dy] = et[p.dataset.hs] || [70, -30];
+      p.style.setProperty('--dx', dx + 'px'); p.style.setProperty('--dy', dy + 'px'); p.dataset.dx = dx; p.dataset.dy = dy;
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line'); C.svgLineas.appendChild(ln); C.lineas[p.dataset.hs] = ln;
+    });
     const cam = this.CFG[variante].camara; C.vistas = { lat: cam.lat, fro: cam.fro, sup: cam.sup };
-    controls.target.set(...cam.objetivo); camera.position.set(...cam.lat);
+    controls.target.set(...cam.objetivo); camera.position.set(...(cam.ini || cam.lat));
 
     const resize = () => { const w = vp.clientWidth, h = vp.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
     C.ro = new ResizeObserver(resize); C.ro.observe(vp); resize();
@@ -281,7 +290,15 @@ export class MedicalProcedureViewer {
         const conInst = p.dataset.solo === 'instrumento' ? C.inst.some((s) => s.cat.cur > 0.97) : true;
         const vis = C.opt.labels && C.opt.capas[p.dataset.capa] !== false && tmp.z < 1 && conInst;
         p.classList.toggle('oculto', !vis);
-        if (vis) p.style.transform = `translate(${((tmp.x + 1) / 2) * w}px, ${((1 - tmp.y) / 2) * h}px)`;
+        const ln = C.lineas[p.dataset.hs]; if (ln) ln.style.display = vis ? '' : 'none';
+        if (vis) {
+          const px = ((tmp.x + 1) / 2) * w, py = ((1 - tmp.y) / 2) * h;
+          p.style.transform = `translate(${px}px, ${py}px)`;
+          if (ln) {
+            const dx = +p.dataset.dx, dy = +p.dataset.dy; const wl = p.lastElementChild.offsetWidth || 70;
+            ln.setAttribute('x1', px); ln.setAttribute('y1', py); ln.setAttribute('x2', px + 13 + dx + (dx < 0 ? wl : 0)); ln.setAttribute('y2', py + dy);
+          }
+        }
       });
     };
     C.raf = requestAnimationFrame(loop);
