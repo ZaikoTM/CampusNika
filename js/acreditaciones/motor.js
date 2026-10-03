@@ -177,7 +177,7 @@
     const casoActual = () => (S.modo === 'examen' && S.ex ? S.ex.caso : S.caso);
     const conContra = () => !!(casoActual() && casoActual().contra);
     // pasos que dependen del caso: solo_contra / sin_contra (contraindicación) y solo_si / sin_si (cualquier campo del caso, p. ej. «trauma»)
-    const casoOk = (p) => { const c = casoActual(); if (p.solo_contra) return conContra(); if (p.sin_contra) return !conContra(); if (p.solo_si) return !!(c && c[p.solo_si]); if (p.sin_si) return !(c && c[p.sin_si]); return true; };
+    const casoOk = (p) => { const c = casoActual(); if (p.solo_contra && !conContra()) return false; if (p.sin_contra && conContra()) return false; if (p.solo_si && !(c && c[p.solo_si])) return false; if (p.sin_si && c && c[p.sin_si]) return false; return true; };
     const aplica = (p, sexo, ign) => (!p.solo || p.solo === (sexo || S.sexo)) && (ign || casoOk(p));
     const pasosAplicables = (sexo, ign) => D.pasos.filter((p) => aplica(p, sexo, ign));
     const etiquetaPaso = (n) => { if (Number.isInteger(n)) return n; const f = Math.round((n - Math.floor(n)) * 10); return f === 5 ? Math.floor(n) + ' bis' : Math.floor(n) + String.fromCharCode(96 + f); };
