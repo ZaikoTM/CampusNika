@@ -437,7 +437,7 @@
   },
   "uretra": {
    "nombre": "Uretra",
-   "desc": "Vía por la que avanza la sonda hasta la vejiga. Corta en la mujer; larga y con dos curvas en el varón.",
+   "desc": "Vía por la que avanza la sonda hasta la vejiga. En la mujer mide unos 4 cm; en el varón unos 18-20 cm, con dos curvas (subpubiana y prepubiana).",
    "pasos": [
     21
    ]
@@ -490,6 +490,36 @@
    "pasos": [
     29
    ]
+  },
+  "vejiga": {
+   "nombre": "Vejiga",
+   "desc": "Reservorio muscular de la orina, detrás de la sínfisis pubiana. El balón de la sonda queda apoyado en su cuello.",
+   "pasos": []
+  },
+  "recto": {
+   "nombre": "Recto",
+   "desc": "Parte final del tubo digestivo, por detrás de la vejiga y la próstata (o la vagina). Es la vía del tacto rectal.",
+   "pasos": []
+  },
+  "sinfisis": {
+   "nombre": "Sínfisis pubiana",
+   "desc": "Articulación anterior de la pelvis. La uretra femenina pasa por detrás de ella y la vejiga queda detrás.",
+   "pasos": []
+  },
+  "utero": {
+   "nombre": "Útero",
+   "desc": "Órgano muscular de la pelvis femenina, apoyado sobre la vejiga.",
+   "pasos": []
+  },
+  "vagina": {
+   "nombre": "Vagina",
+   "desc": "Conducto por detrás de la uretra femenina. Su abertura queda por debajo del meato uretral: no confundirla al sondar.",
+   "pasos": []
+  },
+  "prostata": {
+   "nombre": "Próstata",
+   "desc": "Rodea la uretra prostática en el varón, debajo de la vejiga. Su aumento (HBP) causa retención y resistencia al pasar la sonda.",
+   "pasos": []
   }
  },
  "distractores": [

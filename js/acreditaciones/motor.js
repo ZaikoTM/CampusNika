@@ -52,8 +52,7 @@
   async function vistaAtlas() {
     volver.href = `acreditaciones.html?area=${area}`;
     const D = await getJSON(`${base}/${id}.json`);
-    await new Promise((ok, no) => { const s = document.createElement('script'); s.src = `js/acreditaciones/escena_${id}.js?v=1`; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
-    const ESC = window.ACR_ESCENAS[id];
+    const ESC = (await import(`./escena_${id}.js?v=3`)).default;
     document.title = `${D.titulo} · Atlas de acreditaciones`;
 
     const S = { modo: 'explorar', sexo: 'F', paso: 0, sel: null, ent: null, ev: null, fun: null };
@@ -81,9 +80,11 @@
     // ---- escena
     let svg = null;
     function montarEscena(estatica) {
+      if (ESC.dispose) ESC.dispose();
       $('#acr-escena').innerHTML = ESC.build(S.sexo);
       svg = $('#acr-escena').firstElementChild;
       if (estatica) svg.classList.add('estatica');
+      if (ESC.mount) ESC.mount(svg, S.sexo);
     }
     function estadoHasta(n) {
       const est = {}; const usados = new Set();
@@ -96,15 +97,18 @@
       svg.querySelectorAll('.hs.used').forEach((e) => e.classList.remove('used'));
       (usados || []).forEach((t) => { const e = svg.querySelector(`[data-hs="${t}"]`); if (e) e.classList.add('used'); });
       const e = est || {};
+      if (ESC.sync) ESC.sync(svg);
       $('#acr-chips').innerHTML = ESC.CHIPS.map(([k, l]) => `<span class="acr-chip ${e[k] ? 'on' : ''}">${e[k] ? '✔ ' : ''}${esc(l)}</span>`).join('');
     }
     function resaltar(t) {
       svg.querySelectorAll('.hl').forEach((e) => e.classList.remove('hl'));
       if (t) svg.querySelectorAll(`[data-hs="${t}"]`).forEach((e) => e.classList.add('hl'));
+      if (ESC.hl) ESC.hl(t);
     }
     function marcarSel(t) {
       svg.querySelectorAll('.sel').forEach((e) => e.classList.remove('sel'));
       if (t) svg.querySelectorAll(`[data-hs="${t}"]`).forEach((e) => e.classList.add('sel'));
+      if (ESC.sel) ESC.sel(t);
     }
     function sinEstado() { aplicarEstado({}, []); }
 
@@ -131,7 +135,7 @@
         const g = e.target.closest('[data-hs]'); if (!g) return;
         const el = D.elementos[g.dataset.hs]; if (!el) return;
         marcarSel(g.dataset.hs); resaltar(null);
-        $('#acr-detalle').innerHTML = `<div class="acr-info"><b>${esc(el.nombre)}</b><br>${esc(el.desc)}<br><small>Pasos donde interviene: ${el.pasos.filter((n) => aplica(porN(n))).map((n) => `<a href="#" data-ir="${n}" onclick="return false">${n}</a>`).join(', ')}</small></div>`;
+        $('#acr-detalle').innerHTML = `<div class="acr-info"><b>${esc(el.nombre)}</b><br>${esc(el.desc)}<br><small>${el.pasos.filter((n) => aplica(porN(n))).length ? `Pasos donde interviene: ${el.pasos.filter((n) => aplica(porN(n))).map((n) => `<a href="#" data-ir="${n}" onclick="return false">${n}</a>`).join(', ')}` : 'Estructura anatómica de referencia.'}</small></div>`;
       };
     }
 
