@@ -1,0 +1,675 @@
+{
+ "id": "sv",
+ "area": "siam",
+ "titulo": "Colocación de sonda vesical",
+ "icono": "🧪",
+ "resumen": "Recorrido virtual de la colocación de sonda vesical, con 30 pasos de la lista de cotejo de la cátedra.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Evaluación en colocación de sonda vesical (30 ítems)",
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Reúne la totalidad de los materiales necesarios y los prepara en una “Mesa Alta” de traslado.",
+   "fase": "Preparación",
+   "target": "mesa",
+   "critico": false,
+   "explica": "Se reúne y prepara todo antes de empezar para no interrumpir la técnica una vez iniciada. La mesa alta de traslado permite llevar el material junto al paciente.",
+   "estado": {}
+  },
+  {
+   "n": 2,
+   "texto": "Verifica: Apellido y nombres del paciente, solicitud del procedimiento, etc.",
+   "fase": "Preparación",
+   "target": "hc",
+   "critico": false,
+   "explica": "Verificar apellido, nombre y la solicitud del procedimiento evita errores de paciente y de práctica (seguridad del paciente).",
+   "estado": {
+    "id": 1
+   }
+  },
+  {
+   "n": 3,
+   "texto": "Lleva la totalidad de los materiales necesarios al lado del paciente.",
+   "fase": "Preparación",
+   "target": "lado",
+   "critico": false,
+   "explica": "El material queda al lado del paciente, al alcance de la mano, antes de comenzar con la parte limpia.",
+   "estado": {}
+  },
+  {
+   "n": 4,
+   "texto": "Saluda y se presenta",
+   "fase": "Comunicación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Saludar y presentarse es la base de la relación médico-paciente y reduce la ansiedad ante un procedimiento invasivo.",
+   "estado": {}
+  },
+  {
+   "n": 5,
+   "texto": "Explica el procedimiento utilizando un lenguaje claro y sencillo (Incluye en la explicación los motivos por los que se realiza la práctica, sus riesgos y beneficios, etc.).",
+   "fase": "Comunicación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "La explicación incluye los motivos de la práctica, sus riesgos (infección, trauma o falsa vía uretral) y sus beneficios, con lenguaje claro y sencillo.",
+   "estado": {}
+  },
+  {
+   "n": 6,
+   "texto": "Solicita la firma del consentimiento informado y lo anexa (firmado) a la Planilla de Registro de la Actividad y a su correspondiente Historia Clínica.",
+   "fase": "Comunicación",
+   "target": "consent",
+   "critico": true,
+   "explica": "El consentimiento informado es un requisito ético y legal. Se solicita la firma y se anexa firmado a la planilla de registro y a la historia clínica.",
+   "estado": {
+    "consent": 1
+   }
+  },
+  {
+   "n": 7,
+   "texto": "Solicita al paciente que se ubique en la posición más adecuada para la práctica: Posición ginecológica (en mujeres) / Decúbito supino (en varones).",
+   "fase": "Posición y asepsia",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Mujeres: posición ginecológica (litotomía) para exponer el meato. Varones: decúbito supino.",
+   "estado": {
+    "pos": 1
+   }
+  },
+  {
+   "n": 8,
+   "texto": "Retira la ropa interior del paciente y cubre el área genital con sábana ó paño clínico no estéril",
+   "fase": "Posición y asepsia",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se resguarda la intimidad del paciente: se retira la ropa interior y se cubre el área genital con sábana o paño clínico no estéril.",
+   "estado": {}
+  },
+  {
+   "n": 9,
+   "texto": "Se coloca guantes no estériles",
+   "fase": "Posición y asepsia",
+   "target": "guantes-ns",
+   "critico": false,
+   "explica": "Los guantes no estériles protegen al operador durante la higiene, que es la etapa limpia-sucia del procedimiento.",
+   "estado": {
+    "gloves": "ns"
+   }
+  },
+  {
+   "n": 10,
+   "texto": "Higieniza la zona genital y adyacencias con Iodo-Povidona jabonoso.",
+   "fase": "Posición y asepsia",
+   "target": "iodo",
+   "critico": false,
+   "explica": "La antisepsia con iodopovidona jabonoso del meato y zonas adyacentes reduce la carga bacteriana y el riesgo de infección urinaria asociada a la sonda.",
+   "estado": {
+    "higiene": 1
+   }
+  },
+  {
+   "n": 11,
+   "texto": "Solicita al paciente que eleve levemente los muslos y le coloca debajo 1 (un) paño clínico no estéril.",
+   "fase": "Posición y asepsia",
+   "target": "panos-ns",
+   "critico": false,
+   "explica": "Un paño clínico no estéril debajo de los muslos mantiene la zona seca y aislada de la cama.",
+   "estado": {}
+  },
+  {
+   "n": 12,
+   "texto": "Se quita los guantes",
+   "fase": "Posición y asepsia",
+   "target": "guantes-ns",
+   "critico": false,
+   "explica": "Terminada la etapa de higiene, los guantes sucios se descartan para no contaminar el campo estéril.",
+   "estado": {
+    "gloves": "none"
+   }
+  },
+  {
+   "n": 13,
+   "texto": "Se lava las manos con técnica clínica",
+   "fase": "Posición y asepsia",
+   "target": "lavabo",
+   "critico": true,
+   "explica": "El lavado de manos con técnica clínica antes de los guantes estériles es la medida de asepsia más importante para prevenir infecciones.",
+   "estado": {
+    "manos": 1
+   }
+  },
+  {
+   "n": 14,
+   "texto": "Se coloca guantes estériles con técnica cerrada",
+   "fase": "Campo estéril",
+   "target": "guantes-e",
+   "critico": true,
+   "explica": "Los guantes estériles se colocan con técnica cerrada para no tocar su exterior con la piel y mantener la esterilidad.",
+   "estado": {
+    "gloves": "e"
+   }
+  },
+  {
+   "n": 15,
+   "texto": "Coloca 1 (una)  paño clínico estéril cubriendo la región pelviana y genital.",
+   "fase": "Campo estéril",
+   "target": "pano-e",
+   "critico": false,
+   "explica": "El paño estéril cubriendo la región pelviana y genital delimita el campo estéril de trabajo.",
+   "estado": {
+    "campo": 1
+   }
+  },
+  {
+   "n": 16,
+   "texto": "Coloca (próximo a la región de la practica), 1 (un) paño clínico adicional y ubica sobre él, el conjunto de los elementos necesarios para realización de la misma.",
+   "fase": "Campo estéril",
+   "target": "campo-aux",
+   "critico": false,
+   "explica": "Un paño adicional estéril, cerca de la zona, es la superficie donde se ordenan los elementos necesarios sin contaminarlos.",
+   "estado": {
+    "aux": 1
+   }
+  },
+  {
+   "n": 17,
+   "texto": "Abre el pack estéril que contiene la sonda utilizando la mano dominante y la retira enrollándola progresivamente y evitando que se contamine.",
+   "fase": "Campo estéril",
+   "target": "pack",
+   "critico": false,
+   "explica": "El pack se abre con la mano dominante y la sonda se retira enrollándola de a poco, sin que toque superficies no estériles.",
+   "estado": {
+    "pack": 1
+   }
+  },
+  {
+   "n": 18,
+   "texto": "Comprueba la indemnidad de la Sonda a utilizar inflando-desinflando el balón con aire.",
+   "fase": "Técnica",
+   "target": "sonda",
+   "critico": true,
+   "explica": "Se infla y desinfla el balón con aire para confirmar que no pierde y que no está roto. Un balón defectuoso puede romperse dentro de la vejiga o no fijar la sonda. No comprobarlo es criterio de desaprobación.",
+   "estado": {
+    "tested": 1
+   }
+  },
+  {
+   "n": 19,
+   "texto": "Toma la Sonda por uno de sus extremos y coloca sobre él: Lidocaina-gel.",
+   "fase": "Técnica",
+   "target": "gel",
+   "critico": false,
+   "explica": "La lidocaína en gel lubrica y anestesia localmente el extremo de la sonda, y disminuye el trauma uretral y el dolor.",
+   "estado": {
+    "gel": 1
+   }
+  },
+  {
+   "n": 20,
+   "texto": "Informar al/la paciente el comienzo del procedimiento.",
+   "fase": "Técnica",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se avisa al paciente que comienza el procedimiento para que se prepare y colabore (respirar tranquilo, no contraer).",
+   "estado": {}
+  },
+  {
+   "n": 21,
+   "texto": "Introduce la sonda contemplando las recomendaciones normatizadas para sondaje masculino-femenino, resistencia-no resistencia a su introducción, etc.",
+   "fase": "Técnica",
+   "target": "uretra",
+   "critico": false,
+   "explica": "Se introduce siguiendo el recorrido de la uretra de cada sexo (corta en la mujer, larga y con curvas en el varón) hasta que fluye orina. Ante resistencia no se fuerza: se reevalúa, para evitar una falsa vía uretral.",
+   "estado": {
+    "ins": 1
+   }
+  },
+  {
+   "n": 22,
+   "texto": "Infla el balón de la sonda con agua bidestilada.",
+   "fase": "Técnica",
+   "target": "jeringa",
+   "critico": false,
+   "explica": "Una vez que sale orina se infla el balón con agua bidestilada (no suero fisiológico, que puede cristalizar y dificultar el desinflado). Inflar antes de confirmar que está en la vejiga lesiona la uretra.",
+   "estado": {
+    "infl": 1
+   }
+  },
+  {
+   "n": 23,
+   "texto": "Tracciona levemente  la sonda hasta sentir una leve resistencia.",
+   "fase": "Técnica",
+   "target": "balon",
+   "critico": false,
+   "explica": "La tracción suave hasta sentir resistencia apoya el balón en el cuello vesical y confirma que quedó fijo.",
+   "estado": {}
+  },
+  {
+   "n": 24,
+   "texto": "Conecta la sonda a la bolsa colectora y se asegura que la orina fluye hacia la misma.",
+   "fase": "Cierre",
+   "target": "bolsa",
+   "critico": false,
+   "explica": "Se conecta la bolsa colectora y se comprueba que la orina fluye hacia ella (sistema cerrado).",
+   "estado": {
+    "bag": 1
+   }
+  },
+  {
+   "n": 25,
+   "texto": "Para el caso de sondajes masculinos: Vuelve la piel del prepucio a su lugar.",
+   "fase": "Cierre",
+   "target": "prepucio",
+   "critico": false,
+   "explica": "En el varón se reduce el prepucio sobre el glande para evitar una parafimosis, que estrangula el glande y es una urgencia.",
+   "estado": {
+    "prep": 1
+   },
+   "solo": "M"
+  },
+  {
+   "n": 26,
+   "texto": "Cuelga la bolsa colectora con el ganchillo a la cama.",
+   "fase": "Cierre",
+   "target": "gancho",
+   "critico": false,
+   "explica": "La bolsa se cuelga del ganchillo de la cama, por debajo del nivel de la vejiga y sin apoyarla en el piso, para evitar el reflujo de orina.",
+   "estado": {
+    "hook": 1
+   }
+  },
+  {
+   "n": 27,
+   "texto": "Sujeta (con cinta hipo-alergénica) una parte de la sonda a la cara interna muslo del paciente y verifica su estabilidad y la de la bolsa colectora",
+   "fase": "Cierre",
+   "target": "cinta",
+   "critico": false,
+   "explica": "Fijar la sonda a la cara interna del muslo evita la tracción sobre la uretra y el cuello vesical.",
+   "estado": {
+    "fix": 1
+   }
+  },
+  {
+   "n": 28,
+   "texto": "Informa al paciente el final del procedimiento y los cuidados que debe mantener",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se informa el final de la práctica y los cuidados: no tironear, mantener la bolsa debajo de la vejiga y consultar ante dolor, fiebre o falta de diuresis.",
+   "estado": {}
+  },
+  {
+   "n": 29,
+   "texto": "Retira todos los elementos de la cama del paciente y desecha los utilizados.",
+   "fase": "Cierre",
+   "target": "residuos",
+   "critico": false,
+   "explica": "Se retiran los elementos de la cama y se desechan los usados en los residuos correspondientes.",
+   "estado": {
+    "limpio": 1
+   }
+  },
+  {
+   "n": 30,
+   "texto": "Registra el procedimiento en la Historia Clínica del paciente.",
+   "fase": "Cierre",
+   "target": "hc",
+   "critico": true,
+   "explica": "Registrar el procedimiento (fecha, tipo y calibre de sonda, volumen de agua del balón, características de la orina, tolerancia) deja constancia legal y asistencial.",
+   "estado": {
+    "reg": 1
+   }
+  }
+ ],
+ "elementos": {
+  "mesa": {
+   "nombre": "Mesa alta de traslado",
+   "desc": "Donde se reúne y prepara todo el material antes de ir al paciente.",
+   "pasos": [
+    1
+   ]
+  },
+  "lado": {
+   "nombre": "Lado del paciente",
+   "desc": "Zona junto a la cama donde queda el material, al alcance del operador.",
+   "pasos": [
+    3
+   ]
+  },
+  "hc": {
+   "nombre": "Historia clínica y solicitud",
+   "desc": "Se verifican los datos y la indicación al inicio, y se registra el procedimiento al final.",
+   "pasos": [
+    2,
+    30
+   ]
+  },
+  "consent": {
+   "nombre": "Consentimiento informado",
+   "desc": "Formulario que firma el paciente; se anexa a la planilla de registro y a la historia clínica.",
+   "pasos": [
+    6
+   ]
+  },
+  "paciente": {
+   "nombre": "Paciente",
+   "desc": "Con él se dialoga (saludo, explicación, aviso) y se lo ubica en la posición correcta.",
+   "pasos": [
+    4,
+    5,
+    7,
+    8,
+    20,
+    28
+   ]
+  },
+  "lavabo": {
+   "nombre": "Lavabo",
+   "desc": "Lavado de manos con técnica clínica antes de colocar los guantes estériles.",
+   "pasos": [
+    13
+   ]
+  },
+  "guantes-ns": {
+   "nombre": "Guantes no estériles",
+   "desc": "Para la etapa de higiene. Se descartan antes del campo estéril.",
+   "pasos": [
+    9,
+    12
+   ]
+  },
+  "iodo": {
+   "nombre": "Iodopovidona jabonoso",
+   "desc": "Antisepsia de la zona genital y adyacencias.",
+   "pasos": [
+    10
+   ]
+  },
+  "panos-ns": {
+   "nombre": "Paños clínicos no estériles",
+   "desc": "Para cubrir la zona y apoyar los muslos durante la higiene.",
+   "pasos": [
+    8,
+    11
+   ]
+  },
+  "guantes-e": {
+   "nombre": "Guantes estériles",
+   "desc": "Se colocan con técnica cerrada luego del lavado de manos.",
+   "pasos": [
+    14
+   ]
+  },
+  "pano-e": {
+   "nombre": "Paño estéril",
+   "desc": "Cubre la región pelviana y genital: campo estéril.",
+   "pasos": [
+    15
+   ]
+  },
+  "campo-aux": {
+   "nombre": "Paño estéril adicional",
+   "desc": "Superficie estéril donde se ubican los elementos de la práctica.",
+   "pasos": [
+    16
+   ]
+  },
+  "pack": {
+   "nombre": "Pack estéril con sonda",
+   "desc": "Se abre con la mano dominante evitando contaminar la sonda.",
+   "pasos": [
+    17
+   ]
+  },
+  "sonda": {
+   "nombre": "Sonda Foley",
+   "desc": "Se comprueba la indemnidad inflando y desinflando el balón con aire.",
+   "pasos": [
+    18
+   ]
+  },
+  "gel": {
+   "nombre": "Lidocaína gel",
+   "desc": "Lubricación y anestesia local del extremo de la sonda.",
+   "pasos": [
+    19
+   ]
+  },
+  "uretra": {
+   "nombre": "Uretra",
+   "desc": "Vía por la que avanza la sonda hasta la vejiga. Corta en la mujer; larga y con dos curvas en el varón.",
+   "pasos": [
+    21
+   ]
+  },
+  "jeringa": {
+   "nombre": "Jeringa con agua bidestilada",
+   "desc": "Para inflar el balón una vez que fluye orina.",
+   "pasos": [
+    22
+   ]
+  },
+  "balon": {
+   "nombre": "Balón de la sonda",
+   "desc": "Se apoya en el cuello vesical; la tracción suave confirma la fijación.",
+   "pasos": [
+    23
+   ]
+  },
+  "bolsa": {
+   "nombre": "Bolsa colectora",
+   "desc": "Se conecta a la sonda formando un sistema cerrado.",
+   "pasos": [
+    24
+   ]
+  },
+  "prepucio": {
+   "nombre": "Prepucio (varón)",
+   "desc": "Debe volver a su lugar para prevenir parafimosis.",
+   "pasos": [
+    25
+   ]
+  },
+  "gancho": {
+   "nombre": "Ganchillo de la cama",
+   "desc": "Sostiene la bolsa por debajo del nivel de la vejiga.",
+   "pasos": [
+    26
+   ]
+  },
+  "cinta": {
+   "nombre": "Cinta hipoalergénica",
+   "desc": "Fija la sonda a la cara interna del muslo.",
+   "pasos": [
+    27
+   ]
+  },
+  "residuos": {
+   "nombre": "Residuos",
+   "desc": "Descarte de los elementos utilizados.",
+   "pasos": [
+    29
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Introduce la sonda sin comprobar la indemnidad del balón",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: un balón defectuoso puede romperse en la vejiga o no fijar la sonda."
+  },
+  {
+   "id": "d2",
+   "texto": "Infla el balón con suero fisiológico",
+   "critico": false,
+   "porque": "Corresponde agua bidestilada: el suero puede cristalizar y dificultar el desinflado."
+  },
+  {
+   "id": "d3",
+   "texto": "Comienza el procedimiento sin solicitar el consentimiento informado",
+   "critico": true,
+   "porque": "El consentimiento informado es un requisito ético y legal previo."
+  },
+  {
+   "id": "d4",
+   "texto": "Introduce la sonda con guantes no estériles",
+   "critico": true,
+   "porque": "La introducción es una maniobra estéril: requiere guantes estériles y campo estéril."
+  },
+  {
+   "id": "d5",
+   "texto": "Fuerza la sonda al encontrar resistencia",
+   "critico": true,
+   "porque": "Forzar puede crear una falsa vía uretral o lacerar la uretra. Ante resistencia se reevalúa."
+  },
+  {
+   "id": "d6",
+   "texto": "Infla el balón antes de confirmar que sale orina",
+   "critico": true,
+   "porque": "Inflar fuera de la vejiga lesiona la uretra. Primero debe fluir orina."
+  },
+  {
+   "id": "d7",
+   "texto": "Se coloca los guantes estériles sin lavarse las manos",
+   "critico": true,
+   "porque": "El lavado de manos con técnica clínica es previo a los guantes estériles."
+  },
+  {
+   "id": "d8",
+   "texto": "Deja la bolsa colectora apoyada sobre el piso",
+   "critico": false,
+   "porque": "Debe colgarse del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso."
+  },
+  {
+   "id": "d9",
+   "texto": "Deja el prepucio retraído sobre el glande al finalizar",
+   "critico": false,
+   "solo": "M",
+   "porque": "Puede producir parafimosis: el prepucio debe volver a su lugar."
+  }
+ ],
+ "casos": [
+  {
+   "sexo": "F",
+   "edad": 82,
+   "motivo": "Retención aguda de orina luego de una cirugía de cadera. Globo vesical palpable."
+  },
+  {
+   "sexo": "M",
+   "edad": 76,
+   "motivo": "Retención aguda de orina por hiperplasia benigna de próstata. Dolor hipogástrico."
+  },
+  {
+   "sexo": "F",
+   "edad": 79,
+   "motivo": "Sepsis de foco respiratorio. Requiere control estricto de la diuresis."
+  },
+  {
+   "sexo": "M",
+   "edad": 71,
+   "motivo": "Internado en terapia. Requiere control horario de la diuresis."
+  },
+  {
+   "sexo": "F",
+   "edad": 85,
+   "motivo": "Retención urinaria por impactación fecal. Se indica sondaje evacuador."
+  },
+  {
+   "sexo": "M",
+   "edad": 68,
+   "motivo": "Hematuria con coágulos y retención. Se indica sonda para irrigación vesical."
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Cuál de las siguientes es una indicación diagnóstica de sondaje vesical?",
+   "o": [
+    "Prostatitis aguda con fiebre",
+    "Control estricto de la diuresis en un paciente crítico",
+    "Incontinencia urinaria leve sin complicaciones",
+    "Comodidad del personal en un paciente autoválido"
+   ],
+   "c": 1,
+   "e": "En pacientes críticos el control de la diuresis exige medición exacta. La prostatitis aguda es una contraindicación, y la comodidad no es una indicación."
+  },
+  {
+   "q": "Paciente con traumatismo pélvico que presenta sangre en el meato uretral. ¿Qué corresponde?",
+   "o": [
+    "Colocar una sonda de menor calibre",
+    "Colocar la sonda con abundante lidocaína gel",
+    "No sondar: sospecha de rotura uretral",
+    "Colocar la sonda e inflar el balón de inmediato"
+   ],
+   "c": 2,
+   "e": "La uretrorragia postraumática hace sospechar rotura uretral: es contraindicación absoluta del sondaje a ciegas."
+  },
+  {
+   "q": "¿Cuál es una contraindicación absoluta del sondaje vesical?",
+   "o": [
+    "Prostatitis aguda",
+    "Retención aguda de orina",
+    "Hematuria con coágulos",
+    "Cirugía urológica programada"
+   ],
+   "c": 0,
+   "e": "Prostatitis aguda, uretritis aguda, abscesos periuretrales y sospecha de rotura uretral son contraindicaciones absolutas."
+  },
+  {
+   "q": "¿Con qué se debe inflar el balón de la sonda una vez dentro de la vejiga?",
+   "o": [
+    "Aire",
+    "Suero fisiológico",
+    "Agua bidestilada",
+    "Solución con lidocaína"
+   ],
+   "c": 2,
+   "e": "Con agua bidestilada. El suero puede cristalizar y el aire no es estable ni seguro dentro de la vejiga."
+  },
+  {
+   "q": "Luego de drenar de golpe 1200 mL de una vejiga muy distendida, el paciente se hipotensa y presenta hematuria. ¿Cómo se previene?",
+   "o": [
+    "Vaciando de a poco, clampeando la sonda cada 500 mL por unos minutos",
+    "Retirando la sonda tras el primer litro",
+    "Aumentando el calibre de la sonda",
+    "Irrigando la vejiga con agua destilada"
+   ],
+   "c": 0,
+   "e": "Es la hematuria ex vacuo con hipotensión por descompresión brusca. Se previene con vaciado progresivo."
+  },
+  {
+   "q": "En un varón sondado, ¿qué complicación se evita volviendo el prepucio a su lugar?",
+   "o": [
+    "Uretritis",
+    "Parafimosis",
+    "Fimosis congénita",
+    "Epididimitis"
+   ],
+   "c": 1,
+   "e": "Si el prepucio queda retraído por detrás del glande, se estrangula y produce parafimosis, una urgencia isquémica."
+  },
+  {
+   "q": "Al avanzar la sonda se encuentra resistencia. ¿Qué corresponde?",
+   "o": [
+    "Empujar con más fuerza para vencerla",
+    "Aumentar el calibre de la sonda",
+    "No forzar y reevaluar para evitar una falsa vía",
+    "Inflar el balón para que avance"
+   ],
+   "c": 2,
+   "e": "Forzar puede crear una falsa vía uretral o lacerar la uretra."
+  },
+  {
+   "q": "¿Cuál es una contraindicación relativa del sondaje vesical?",
+   "o": [
+    "Retención aguda de orina",
+    "Alergia conocida al látex o a la lidocaína",
+    "Control de diuresis",
+    "Hematuria con coágulos"
+   ],
+   "c": 1,
+   "e": "La alergia al látex o a anestésicos locales obliga a usar materiales alternativos; es una contraindicación relativa, igual que la estenosis uretral."
+  }
+ ],
+ "criterios_texto": "Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles (14) o el registro (30)."
+}

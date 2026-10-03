@@ -1,0 +1,69 @@
+{
+ "area": "siam",
+ "nombre": "S.I.A.M.",
+ "acreditaciones": [
+  {
+   "id": "sv",
+   "titulo": "Colocación de sonda vesical",
+   "icono": "🧪",
+   "pasos": 30,
+   "estado": "activo"
+  },
+  {
+   "id": "tr",
+   "titulo": "Tacto rectal",
+   "icono": "🖐️",
+   "pasos": 25,
+   "estado": "proximamente"
+  },
+  {
+   "id": "iet",
+   "titulo": "Intubación endotraqueal",
+   "icono": "🫁",
+   "pasos": 26,
+   "estado": "proximamente"
+  },
+  {
+   "id": "rcp",
+   "titulo": "RCP avanzado",
+   "icono": "❤️‍🔥",
+   "pasos": 24,
+   "estado": "proximamente"
+  },
+  {
+   "id": "artro",
+   "titulo": "Artrocentesis",
+   "icono": "🦵",
+   "pasos": 45,
+   "estado": "proximamente"
+  },
+  {
+   "id": "tc",
+   "titulo": "TC de cráneo",
+   "icono": "🧠",
+   "pasos": 27,
+   "estado": "proximamente"
+  },
+  {
+   "id": "rmn",
+   "titulo": "RMN cerebral",
+   "icono": "🧲",
+   "pasos": 14,
+   "estado": "proximamente"
+  },
+  {
+   "id": "rxo",
+   "titulo": "Rx de esqueleto óseo",
+   "icono": "🦴",
+   "pasos": 16,
+   "estado": "proximamente"
+  },
+  {
+   "id": "ue",
+   "titulo": "Urograma excretor",
+   "icono": "💧",
+   "pasos": 15,
+   "estado": "proximamente"
+  }
+ ]
+}
