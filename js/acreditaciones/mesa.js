@@ -30,7 +30,14 @@ export class ProcedureWorkbench {
   /** Evalúa la bandeja: faltantes (requeridos ausentes), incorrectos (distractores presentes) y ok. */
   evaluar(sel) {
     const items = this.visibles();
-    const faltantes = items.filter((i) => this.ef(i).correcto && !sel.has(i.id)).map((i) => ({ ...i, critico: this.ef(i).critico }));
+    // opcional: no se exige ni se penaliza. uno_de: basta con uno del grupo (p. ej. vaselina o lidocaína en gel)
+    const grupoCubierto = (i) => i.uno_de && items.some((j) => j.uno_de === i.uno_de && sel.has(j.id));
+    const vistos = new Set();
+    const faltantes = items.filter((i) => {
+      if (!this.ef(i).correcto || i.opcional || sel.has(i.id) || grupoCubierto(i)) return false;
+      if (i.uno_de) { if (vistos.has(i.uno_de)) return false; vistos.add(i.uno_de); }
+      return true;
+    }).map((i) => ({ ...i, critico: this.ef(i).critico }));
     const incorrectos = items.filter((i) => !this.ef(i).correcto && sel.has(i.id)).map((i) => ({ ...i, critico: this.ef(i).critico, feedback: this.ef(i).feedback }));
     return { faltantes, incorrectos, ok: !faltantes.length && !incorrectos.length, seleccion: [...sel] };
   }
@@ -57,7 +64,7 @@ export class ProcedureWorkbench {
       <div class="cc">
         <div class="cc-top">
           <div class="cc-av">${av}</div>
-          <div><small>📋 Caso clínico · indicación de sondaje vesical</small><h2>${esc(c.nombre || 'Paciente')}</h2>
+          <div><small>📋 Caso clínico · ${esc(this.cfg.caso_sub || 'indicación de sondaje vesical')}</small><h2>${esc(c.nombre || 'Paciente')}</h2>
             <div class="cc-chips"><span class="cc-chip">${c.sexo === 'F' ? '♀ Mujer' : '♂ Varón'}</span><span class="cc-chip">${c.edad} años</span>
               ${c.alergia === 'latex' ? '<span class="cc-chip rojo">⚠ Alergia al látex</span>' : '<span class="cc-chip verde">✔ Sin alergias conocidas</span>'}</div></div>
           <svg class="cc-ecg" viewBox="0 0 400 34" preserveAspectRatio="none"><path d="M0 18 H70 L80 18 L88 4 L98 30 L108 18 H170 L180 18 L188 6 L198 28 L208 18 H290 L300 18 L308 4 L318 30 L328 18 H400"/></svg>
@@ -65,9 +72,9 @@ export class ProcedureWorkbench {
         <div class="cc-cuerpo">
           ${fila(0, '🩺', 'Motivo de consulta', c.motivo)}
           ${fila(1, '🗂️', 'Antecedentes', c.antecedentes || '—')}
-          ${fila(2, '📝', 'Indicación médica', c.indicacion || 'Sondaje vesical.')}
+          ${fila(2, '📝', 'Indicación médica', c.indicacion || this.cfg.indicacion_def || 'Sondaje vesical.')}
         </div>
-        <div class="cc-mision"><b>🎯 Tu misión</b> · leé el caso y decidí:<ul><li>qué sonda corresponde a este paciente (tipo, calibre y material);</li><li>qué insumos hacen falta para el procedimiento… y cuáles sobran.</li></ul></div>
+        <div class="cc-mision"><b>🎯 Tu misión</b> · leé el caso y decidí:<ul>${(this.cfg.mision || ['qué sonda corresponde a este paciente (tipo, calibre y material);', 'qué insumos hacen falta para el procedimiento… y cuáles sobran.']).map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
         <div class="acr-row">${this.opt.modo === 'demo' ? '' : '<button class="acr-btn" id="wb-ir-mesa">Ir a la mesa de instrumental →</button>'}${otro ? '<button class="acr-btn sec" id="wb-otro">Otro caso</button>' : ''}</div>
       </div></div>`;
   }
@@ -288,7 +295,7 @@ export class ProcedureWorkbench {
     if (this.pausa) this.narrar('Listo. Apretá ▶ Continuar para empezar la demostración (podés pausar, acelerar o cancelar cuando quieras).');
     const esperar = async (ms) => { let t = 0; while (t < ms && !this.adelante && this.el && !this.cancelado && tok === this.tok) { await new Promise((r) => setTimeout(r, 60)); if (!this.pausa) t += 60 * this.vel; } };
     const vivo = () => this.el && !this.cancelado && tok === this.tok;
-    this.narrar('Primero se lee el caso clínico: de él depende qué sonda y qué insumos elegir.'); await esperar(4200); if (!vivo()) return;
+    this.narrar(this.cfg.demo_caso || 'Primero se lee el caso clínico: de él depende qué sonda y qué insumos elegir.'); await esperar(4200); if (!vivo()) return;
     this.pintarEscena(); await esperar(900); if (!vivo()) return;
     this.narrar('Ahora se arma la bandeja con todo lo necesario para este paciente, inspeccionando cada insumo.');
     await esperar(1700);

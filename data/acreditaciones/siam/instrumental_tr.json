@@ -1,0 +1,534 @@
+{
+ "id": "tr",
+ "titulo": "Mesa de instrumental · Tacto rectal",
+ "consigna": "Leé el caso clínico y armá la mesa con todo lo necesario para ese paciente: el tacto rectal es una maniobra limpia. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "indicación de tacto rectal",
+ "indicacion_def": "Tacto rectal.",
+ "mision": [
+  "qué guantes corresponden a este paciente (¿hay alergia al látex?);",
+  "qué lubricante usar… y qué insumos sobran, porque no es un procedimiento estéril."
+ ],
+ "demo_caso": "Primero se lee el caso clínico: de él depende qué guantes elegir (látex o sin látex).",
+ "grupos": [
+  {
+   "id": "prot",
+   "titulo": "Protección y limpieza"
+  },
+  {
+   "id": "lub",
+   "titulo": "Lubricantes y antisépticos"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "guantes_ns",
+   "grupo": "prot",
+   "nombre": "Guantes de examen de látex",
+   "detalle": "Par · no estériles · látex",
+   "descripcion": "Protegen al operador y al paciente durante el tacto rectal. Es una maniobra limpia: alcanzan guantes de examen (o manoplas) no estériles.",
+   "img": "assets/instrumental/guantes_ns.svg",
+   "ficha": [
+    [
+     "Tipo",
+     "Examen, no estériles"
+    ],
+    [
+     "Material",
+     "Látex"
+    ],
+    [
+     "Talle",
+     "M"
+    ],
+    [
+     "Vencimiento",
+     "02/2029"
+    ],
+    [
+     "Lote",
+     "GN-90120"
+    ]
+   ],
+   "correcto": true,
+   "critico": true,
+   "latex": true,
+   "falta": "Faltan los guantes de examen: sin ellos no se puede realizar el tacto rectal (bioseguridad).",
+   "feedback_latex": "El paciente es alérgico al látex: los guantes de látex están contraindicados. Corresponde usar guantes de nitrilo u otro material sin látex."
+  },
+  {
+   "id": "guantes_nitrilo",
+   "grupo": "prot",
+   "nombre": "Guantes de nitrilo (sin látex)",
+   "detalle": "Par · no estériles · libres de látex",
+   "img": "assets/instrumental/guantes_nitrilo.svg",
+   "solo_alergia": "latex",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Guantes de examen sin látex, indicados en pacientes alérgicos al látex. Protegen igual que los de látex.",
+   "falta": "Falta el guante sin látex: el paciente es alérgico al látex y se necesitan guantes de nitrilo.",
+   "ficha": [
+    [
+     "Tipo",
+     "Examen, no estériles"
+    ],
+    [
+     "Material",
+     "Nitrilo (sin látex)"
+    ],
+    [
+     "Talle",
+     "M"
+    ],
+    [
+     "Vencimiento",
+     "06/2029"
+    ],
+    [
+     "Lote",
+     "GN-33871"
+    ]
+   ]
+  },
+  {
+   "id": "vaselina",
+   "grupo": "lub",
+   "nombre": "Vaselina (sólida o líquida)",
+   "detalle": "Lubricante · uso general",
+   "descripcion": "Lubrica el dedo explorador y disminuye la fricción, el dolor y el riesgo de lesionar la mucosa anal. Es una de las dos opciones válidas (la otra es la lidocaína en gel).",
+   "img": "assets/instrumental/vaselina.svg",
+   "ficha": [
+    [
+     "Contenido",
+     "100 g"
+    ],
+    [
+     "Presentación",
+     "Pote de uso general"
+    ],
+    [
+     "Vencimiento",
+     "08/2029"
+    ],
+    [
+     "Lote",
+     "VS-10094"
+    ]
+   ],
+   "correcto": true,
+   "critico": true,
+   "uno_de": "lubricante",
+   "falta": "Falta el lubricante (vaselina o lidocaína en gel): explorar “a seco” produce dolor, contracción del esfínter y riesgo de desgarro."
+  },
+  {
+   "id": "gel",
+   "grupo": "lub",
+   "nombre": "Lidocaína en gel 2 %",
+   "detalle": "Lubricante con anestésico local",
+   "descripcion": "Lubrica y anestesia localmente la zona. Es una alternativa válida a la vaselina.",
+   "img": "assets/instrumental/jeringa_gel.svg",
+   "ficha": [
+    [
+     "Contenido",
+     "Lidocaína 2 %"
+    ],
+    [
+     "Presentación",
+     "Jeringa monodosis estéril"
+    ],
+    [
+     "Vencimiento",
+     "05/2028"
+    ],
+    [
+     "Lote",
+     "LG-61203"
+    ]
+   ],
+   "correcto": true,
+   "critico": true,
+   "uno_de": "lubricante",
+   "falta": "Falta el lubricante (vaselina o lidocaína en gel): explorar “a seco” produce dolor, contracción del esfínter y riesgo de desgarro."
+  },
+  {
+   "id": "gasas",
+   "grupo": "prot",
+   "nombre": "Gasas o papel (no estériles)",
+   "detalle": "Para higienizar al paciente al finalizar",
+   "descripcion": "Sirven para limpiar al paciente al terminar. No hace falta que sean estériles. Son opcionales.",
+   "img": "assets/instrumental/gasas.svg",
+   "ficha": [
+    [
+     "Medidas",
+     "10 × 10 cm"
+    ],
+    [
+     "Cantidad",
+     "10 unidades"
+    ],
+    [
+     "Esterilidad",
+     "No estériles"
+    ],
+    [
+     "Vencimiento",
+     "11/2028"
+    ],
+    [
+     "Lote",
+     "GS-70419"
+    ]
+   ],
+   "correcto": true,
+   "critico": false,
+   "opcional": true
+  },
+  {
+   "id": "panos_ns",
+   "grupo": "prot",
+   "nombre": "Paños clínicos no estériles",
+   "detalle": "Para resguardar la intimidad y la cama",
+   "descripcion": "Cubren lo que no se explora y protegen la cama de restos de lubricante o materia fecal. Son opcionales.",
+   "img": "assets/instrumental/panos_ns.svg",
+   "ficha": [
+    [
+     "Tipo",
+     "Paños clínicos"
+    ],
+    [
+     "Cantidad",
+     "2 unidades"
+    ],
+    [
+     "Esterilidad",
+     "No estériles"
+    ]
+   ],
+   "correcto": true,
+   "critico": false,
+   "opcional": true
+  },
+  {
+   "id": "sonda_m",
+   "grupo": "otros",
+   "nombre": "Sonda Foley 16 Fr, 2 vías",
+   "detalle": "Látex siliconado · balón de 10 mL · estéril",
+   "descripcion": "Para el sondaje permanente en el varón se usan calibres de 16 a 18 Fr. Tiene dos vías: drenaje y balón.",
+   "img": "assets/instrumental/sonda_m.svg",
+   "ficha": [
+    [
+     "Calibre",
+     "16 Fr"
+    ],
+    [
+     "Vías",
+     "2 (drenaje y balón)"
+    ],
+    [
+     "Volumen del balón",
+     "10 mL"
+    ],
+    [
+     "Material",
+     "Látex"
+    ],
+    [
+     "Vencimiento",
+     "09/2028"
+    ],
+    [
+     "Lote",
+     "FL-24118"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "La sonda Foley es para el sondaje vesical. El tacto rectal es una exploración digital: no requiere sonda."
+  },
+  {
+   "id": "bolsa",
+   "grupo": "otros",
+   "nombre": "Bolsa colectora de sistema cerrado",
+   "detalle": "2000 mL · válvula antirreflujo · estéril",
+   "descripcion": "Se conecta a la sonda y forma un sistema cerrado que protege de la infección. Tiene válvula antirreflujo y pico de vaciado.",
+   "img": "assets/instrumental/bolsa.svg",
+   "ficha": [
+    [
+     "Capacidad",
+     "2000 mL"
+    ],
+    [
+     "Circuito",
+     "Cerrado, válvula antirreflujo"
+    ],
+    [
+     "Vaciado",
+     "Pico inferior"
+    ],
+    [
+     "Vencimiento",
+     "01/2029"
+    ],
+    [
+     "Lote",
+     "BC-31877"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "La bolsa colectora es para el drenaje urinario. No se usa en el tacto rectal."
+  },
+  {
+   "id": "iodo",
+   "grupo": "lub",
+   "nombre": "Iodopovidona jabonosa",
+   "detalle": "Antiséptico para la zona genital",
+   "descripcion": "Antisepsia de la zona genital: mínimo 3 pasadas con gasas estériles (una nueva por pasada), de lo más limpio a lo más contaminado (mujer: de arriba hacia abajo; varón: del meato hacia afuera, retrayendo el prepucio). Todo el lavado se repite 2 veces.",
+   "img": "assets/instrumental/iodo.svg",
+   "ficha": [
+    [
+     "Contenido",
+     "250 mL"
+    ],
+    [
+     "Composición",
+     "Iodopovidona 10 % jabonosa"
+    ],
+    [
+     "Uso",
+     "Antisepsia de piel y mucosas"
+    ],
+    [
+     "Vencimiento",
+     "04/2028"
+    ],
+    [
+     "Lote",
+     "IP-88231"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "La iodopovidona es un antiséptico cutáneo: no lubrica ni hace falta en este procedimiento, y puede irritar la mucosa."
+  },
+  {
+   "id": "alcohol",
+   "grupo": "lub",
+   "nombre": "Alcohol al 70 %",
+   "detalle": "Gasas embebidas",
+   "descripcion": "Antiséptico de uso cutáneo.",
+   "img": "assets/instrumental/alcohol.svg",
+   "ficha": [
+    [
+     "Contenido",
+     "250 mL"
+    ],
+    [
+     "Composición",
+     "Alcohol etílico 70 %"
+    ],
+    [
+     "Uso",
+     "Antisepsia de piel sana"
+    ],
+    [
+     "Vencimiento",
+     "07/2028"
+    ],
+    [
+     "Lote",
+     "AL-30155"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "El alcohol irrita la mucosa anorrectal y no lubrica."
+  },
+  {
+   "id": "guantes_e",
+   "grupo": "prot",
+   "nombre": "Guantes estériles",
+   "detalle": "Par · talle adecuado · técnica cerrada",
+   "descripcion": "Se colocan con técnica cerrada, luego del lavado de manos, para toda la etapa estéril.",
+   "img": "assets/instrumental/guantes_e.svg",
+   "ficha": [
+    [
+     "Tipo",
+     "Quirúrgicos estériles"
+    ],
+    [
+     "Talle",
+     "7½"
+    ],
+    [
+     "Presentación",
+     "Par en sobre"
+    ],
+    [
+     "Vencimiento",
+     "03/2029"
+    ],
+    [
+     "Lote",
+     "GE-11873"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "Los guantes estériles no son necesarios: el tacto rectal es una maniobra limpia. Alcanzan guantes de examen."
+  },
+  {
+   "id": "pano_e",
+   "grupo": "prot",
+   "nombre": "Paños estériles (2)",
+   "detalle": "Uno para el campo y otro adicional",
+   "descripcion": "Uno cubre la región pelviana y genital (campo estéril); el otro sirve de superficie estéril para los elementos.",
+   "img": "assets/instrumental/pano_e.svg",
+   "ficha": [
+    [
+     "Tipo",
+     "Campo fenestrado"
+    ],
+    [
+     "Medidas",
+     "75 × 90 cm"
+    ],
+    [
+     "Cantidad",
+     "2 paños"
+    ],
+    [
+     "Esterilidad",
+     "Estériles"
+    ],
+    [
+     "Vencimiento",
+     "09/2028"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "No se arma un campo estéril para el tacto rectal."
+  },
+  {
+   "id": "jeringa10",
+   "grupo": "otros",
+   "nombre": "Jeringa estéril de 10 mL",
+   "detalle": "Para inflar el balón",
+   "descripcion": "Tiene un triple uso: probar el balón con 5 cc de aire fuera del paciente, instilar la lidocaína en el meato del varón (sin aguja) e inflar el balón con 10 cc de agua bidestilada.",
+   "img": "assets/instrumental/jeringa10.svg",
+   "ficha": [
+    [
+     "Volumen",
+     "10 mL"
+    ],
+    [
+     "Punta",
+     "Luer, sin aguja"
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ],
+    [
+     "Vencimiento",
+     "08/2028"
+    ],
+    [
+     "Lote",
+     "JR-45208"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "No se usan jeringas en el tacto rectal."
+  },
+  {
+   "id": "aguja",
+   "grupo": "otros",
+   "nombre": "Aguja 21 G",
+   "detalle": "Descartable · estéril",
+   "descripcion": "Aguja hipodérmica de uso general.",
+   "img": "assets/instrumental/aguja.svg",
+   "ficha": [
+    [
+     "Calibre",
+     "21 G × 1½\""
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ],
+    [
+     "Vencimiento",
+     "05/2029"
+    ],
+    [
+     "Lote",
+     "AG-26194"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "No se usan agujas en el tacto rectal."
+  },
+  {
+   "id": "rinonera",
+   "grupo": "otros",
+   "nombre": "Riñonera / cuenco estéril",
+   "detalle": "Para dejar los elementos y la orina inicial",
+   "descripcion": "Recipiente estéril sobre el campo auxiliar para ordenar los elementos y recibir líquidos.",
+   "img": "assets/instrumental/rinonera.svg",
+   "ficha": [
+    [
+     "Tipo",
+     "Cuenco / riñonera"
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ],
+    [
+     "Uso",
+     "Contener elementos y líquidos"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "No hace falta un cuenco estéril en este procedimiento."
+  },
+  {
+   "id": "cinta",
+   "grupo": "otros",
+   "nombre": "Cinta hipoalergénica",
+   "detalle": "Para fijar la sonda al muslo",
+   "descripcion": "Fijación externa secundaria de la sonda a la cara interna del muslo para evitar tironeamientos. La fijación primaria es el balón inflado en la vejiga.",
+   "img": "assets/instrumental/cinta.svg",
+   "ficha": [
+    [
+     "Tipo",
+     "Hipoalergénica"
+    ],
+    [
+     "Medidas",
+     "2,5 cm × 9 m"
+    ],
+    [
+     "Material",
+     "Papel microporoso"
+    ],
+    [
+     "Vencimiento",
+     "06/2029"
+    ]
+   ],
+   "correcto": false,
+   "critico": false,
+   "feedback": "No se necesita cinta: no hay nada que fijar en el tacto rectal."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

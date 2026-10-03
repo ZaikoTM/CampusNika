@@ -1,0 +1,1550 @@
+{
+ "id": "tr",
+ "area": "siam",
+ "titulo": "Tacto rectal",
+ "icono": "🖐️",
+ "resumen": "Recorrido virtual del tacto rectal, con 25 pasos de la lista de cotejo de la cátedra.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Evaluación en tacto rectal (25 ítems)",
+ "elementos": {
+  "mesa": {
+   "nombre": "Mesa alta de traslado",
+   "desc": "Donde se reúne y prepara todo el material antes de ir al paciente.",
+   "pasos": [
+    1,
+    2
+   ]
+  },
+  "lado": {
+   "nombre": "Lado del paciente",
+   "desc": "Zona junto a la camilla donde queda el carro, al alcance del operador.",
+   "pasos": [
+    3
+   ]
+  },
+  "consent": {
+   "nombre": "Consentimiento del paciente",
+   "desc": "El tacto rectal es invasivo: se solicita el consentimiento y la colaboración del paciente.",
+   "pasos": [
+    6
+   ]
+  },
+  "paciente": {
+   "nombre": "Paciente",
+   "desc": "Con él se dialoga (saludo, explicación, aviso, resultados) y se lo ubica en la posición adecuada.",
+   "pasos": [
+    4,
+    5,
+    9,
+    10,
+    14,
+    24
+   ]
+  },
+  "lavabo": {
+   "nombre": "Lavabo",
+   "desc": "Lavado de manos con técnica clínica antes de los guantes y al finalizar.",
+   "pasos": [
+    7,
+    23
+   ]
+  },
+  "guantes": {
+   "nombre": "Guantes de examen",
+   "desc": "De látex (o nitrilo si hay alergia). Se colocan antes de explorar, se examinan al retirar el dedo y se descartan.",
+   "pasos": [
+    8,
+    21,
+    22
+   ]
+  },
+  "lubricante": {
+   "nombre": "Lubricante",
+   "desc": "Vaselina (sólida o líquida) o lidocaína en gel para lubricar el dedo índice.",
+   "pasos": [
+    13
+   ]
+  },
+  "ano": {
+   "nombre": "Región perianal y margen anal",
+   "desc": "Se separan las nalgas, se inspecciona y se apoya el dedo antes de introducirlo; al final se retira.",
+   "pasos": [
+    11,
+    12,
+    15,
+    20
+   ]
+  },
+  "esfinter": {
+   "nombre": "Esfínter anal",
+   "desc": "Se aplica presión suave hasta su relajación y luego se valora su tono pidiendo que apriete el dedo.",
+   "pasos": [
+    16,
+    19
+   ]
+  },
+  "recto": {
+   "nombre": "Recto",
+   "desc": "Se introduce el dedo hacia el ombligo y se realiza el barrido de la mucosa reconociendo estructuras.",
+   "pasos": [
+    17,
+    18
+   ]
+  },
+  "hc": {
+   "nombre": "Historia clínica",
+   "desc": "Se registra el procedimiento y los hallazgos al final.",
+   "pasos": [
+    25
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Comienza el procedimiento sin explicar ni solicitar el consentimiento",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el tacto rectal es invasivo y exige explicación y consentimiento previos.",
+   "target": "paciente",
+   "claves": [
+    [
+     "sin consentimiento"
+    ],
+    [
+     "sin pedir",
+     "consentimiento"
+    ],
+    [
+     "no pido",
+     "consentimiento"
+    ],
+    [
+     "sin autorizacion"
+    ],
+    [
+     "sin explicar"
+    ],
+    [
+     "no explico"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Se coloca los guantes sin lavarse las manos",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el lavado de manos previo es una precaución estándar de bioseguridad.",
+   "target": "lavabo",
+   "claves": [
+    [
+     "sin lavar",
+     "manos"
+    ],
+    [
+     "no me lavo"
+    ],
+    [
+     "sin lavarme"
+    ],
+    [
+     "no lavo",
+     "manos"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Realiza el tacto rectal sin guantes",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el contacto con mucosas y fluidos exige guantes (o manoplas).",
+   "target": "guantes",
+   "claves": [
+    [
+     "sin guantes"
+    ],
+    [
+     "no me coloco",
+     "guantes"
+    ],
+    [
+     "sin colocarme",
+     "guantes"
+    ],
+    [
+     "sin manoplas"
+    ],
+    [
+     "manos desnudas"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Introduce el dedo sin lubricar (a seco)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: sin lubricación hay dolor intenso, contracción del esfínter y riesgo de desgarro de la mucosa.",
+   "target": "lubricante",
+   "claves": [
+    [
+     "sin lubric"
+    ],
+    [
+     "no lubrico"
+    ],
+    [
+     "sin vaselina"
+    ],
+    [
+     "sin gel"
+    ],
+    [
+     "a seco"
+    ],
+    [
+     "en seco"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Introduce el dedo bruscamente o forzando el esfínter",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: forzar la entrada provoca dolor intolerable y traumatismo iatrogénico; hay que esperar la relajación del esfínter.",
+   "target": "recto",
+   "claves": [
+    [
+     "introduzco",
+     "brusc"
+    ],
+    [
+     "introduzco",
+     "rapido"
+    ],
+    [
+     "introduzco",
+     "de golpe"
+    ],
+    [
+     "forzo"
+    ],
+    [
+     "fuerzo"
+    ],
+    [
+     "a la fuerza"
+    ],
+    [
+     "sin esperar"
+    ],
+    [
+     "no espero"
+    ],
+    [
+     "sin relajar"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Introduce el dedo en dirección perpendicular o hacia el sacro (no hacia el ombligo)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el dedo debe apoyarse y orientarse hacia el ombligo, siguiendo el eje del canal anal.",
+   "target": "ano",
+   "claves": [
+    [
+     "perpendicular"
+    ],
+    [
+     "hacia el sacro"
+    ],
+    [
+     "hacia el coxis"
+    ],
+    [
+     "hacia la espalda"
+    ],
+    [
+     "hacia atras",
+     "introduzco"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Introduce el dedo sin inspeccionar antes la región perianal",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la inspección previa aporta datos clave y detecta contraindicaciones absolutas.",
+   "target": "ano",
+   "claves": [
+    [
+     "sin inspeccion"
+    ],
+    [
+     "sin inspeccionar"
+    ],
+    [
+     "sin observar"
+    ],
+    [
+     "no inspecciono"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "Ubica al paciente sentado",
+   "critico": false,
+   "porque": "No es una posición válida para el tacto rectal. Las posiciones son decúbito lateral izquierdo (Sims), litotomía, genupectoral y de pie inclinado.",
+   "target": "paciente",
+   "claves": [
+    [
+     "sentado"
+    ],
+    [
+     "sentada"
+    ],
+    [
+     "boca abajo"
+    ],
+    [
+     "decubito prono"
+    ]
+   ]
+  },
+  {
+   "id": "d9",
+   "texto": "Explora con dos dedos o con toda la mano",
+   "critico": false,
+   "porque": "El tacto rectal se hace con el dedo índice lubricado; usar más dedos aumenta el dolor y el riesgo de lesión.",
+   "target": "recto",
+   "claves": [
+    [
+     "dos dedos"
+    ],
+    [
+     "indice y medio"
+    ],
+    [
+     "toda la mano"
+    ]
+   ]
+  },
+  {
+   "id": "d10",
+   "texto": "Lubrica con un antiséptico (iodopovidona o alcohol)",
+   "critico": false,
+   "porque": "Los antisépticos no lubrican e irritan la mucosa. Se usa vaselina o lidocaína en gel.",
+   "target": "lubricante",
+   "claves": [
+    [
+     "lubrico",
+     "iodo"
+    ],
+    [
+     "lubrico",
+     "alcohol"
+    ],
+    [
+     "iodopovidona",
+     "dedo"
+    ],
+    [
+     "alcohol",
+     "dedo"
+    ]
+   ]
+  },
+  {
+   "id": "d11",
+   "texto": "Reutiliza los mismos guantes con otro paciente o no los descarta",
+   "critico": true,
+   "porque": "Es una falla de bioseguridad: los guantes son de un solo uso y se descartan tras cada paciente.",
+   "target": "guantes",
+   "claves": [
+    [
+     "reutilizo",
+     "guantes"
+    ],
+    [
+     "mismos guantes"
+    ],
+    [
+     "no descarto",
+     "guantes"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Luis A.",
+   "sexo": "M",
+   "edad": 68,
+   "motivo": "Polaquiuria, nicturia y chorro urinario débil desde hace meses.",
+   "indicacion": "Tacto rectal para valorar el tamaño y la consistencia de la próstata.",
+   "antecedentes": "Hipertensión arterial. Sin alergias conocidas.",
+   "alergia": null
+  },
+  {
+   "id": "c2",
+   "nombre": "Silvia R.",
+   "sexo": "F",
+   "edad": 54,
+   "motivo": "Rectorragia: sangre roja rutilante al final de la deposición, con prurito anal.",
+   "indicacion": "Inspección perianal y tacto rectal.",
+   "antecedentes": "Constipación crónica. Sin alergias conocidas.",
+   "alergia": null
+  },
+  {
+   "id": "c3",
+   "nombre": "Raúl D.",
+   "sexo": "M",
+   "edad": 72,
+   "motivo": "Heces negras, fétidas y pastosas (melena) desde hace 3 días, con astenia.",
+   "indicacion": "Tacto rectal para constatar la melena y descartar patología orificial.",
+   "antecedentes": "Uso crónico de antiinflamatorios por artrosis.",
+   "alergia": null
+  },
+  {
+   "id": "c4",
+   "nombre": "Hilda M.",
+   "sexo": "F",
+   "edad": 83,
+   "motivo": "Incontinencia fecal y sospecha de fecaloma. Paciente postrada.",
+   "indicacion": "Tacto rectal para evaluar el tono del esfínter y la ampolla rectal.",
+   "antecedentes": "ACV con secuelas hace 2 años, postración. Sin alergias conocidas.",
+   "alergia": null
+  },
+  {
+   "id": "c5",
+   "nombre": "Diego P.",
+   "sexo": "M",
+   "edad": 45,
+   "motivo": "Proctalgia y prurito anal de 2 semanas de evolución.",
+   "indicacion": "Inspección y tacto rectal con material libre de látex.",
+   "antecedentes": "Alergia al látex: urticaria al contacto con guantes.",
+   "alergia": "latex"
+  },
+  {
+   "id": "c6",
+   "nombre": "Mario G.",
+   "sexo": "M",
+   "edad": 63,
+   "motivo": "Hemospermia y goteo urinario terminal.",
+   "indicacion": "Tacto rectal para valorar la próstata.",
+   "antecedentes": "Antecedente familiar de cáncer de próstata. Sin alergias conocidas.",
+   "alergia": null
+  },
+  {
+   "id": "c7",
+   "nombre": "Carolina B.",
+   "sexo": "F",
+   "edad": 38,
+   "motivo": "Prurito anal y sensación de masa en el margen anal.",
+   "indicacion": "Inspección perianal y tacto rectal con material libre de látex.",
+   "antecedentes": "Alergia al látex. Sin otros antecedentes.",
+   "alergia": "latex"
+  },
+  {
+   "id": "c8",
+   "nombre": "Teresa L.",
+   "sexo": "F",
+   "edad": 61,
+   "motivo": "Tenesmo rectal y alteración del tránsito intestinal.",
+   "indicacion": "Tacto rectal para evaluar el canal anal y la ampolla rectal.",
+   "antecedentes": "Sin antecedentes relevantes ni alergias conocidas.",
+   "alergia": null
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Cuál de las siguientes es una indicación del tacto rectal?",
+   "o": [
+    "Rectorragia",
+    "Fisura anal aguda dolorosa",
+    "Absceso anorrectal supurativo",
+    "Trombosis hemorroidal aguda"
+   ],
+   "c": 0,
+   "e": "La rectorragia es una indicación anorrectal. Las otras tres son contraindicaciones absolutas: el tacto agravaría el dolor y puede diseminar la infección."
+  },
+  {
+   "q": "¿Cuál es una contraindicación absoluta del tacto rectal?",
+   "o": [
+    "Absceso anorrectal supurativo",
+    "Nicturia",
+    "Hemospermia",
+    "Tenesmo rectal"
+   ],
+   "c": 0,
+   "e": "Las contraindicaciones absolutas son la fisura anal aguda, el absceso anorrectal supurativo y la trombosis hemorroidal aguda. Los demás son síntomas que justifican el tacto."
+  },
+  {
+   "q": "¿Cuál es la posición más utilizada, y la menos pudorosa, para el tacto rectal?",
+   "o": [
+    "Decúbito lateral izquierdo (Sims)",
+    "Genupectoral",
+    "Sentado",
+    "Decúbito prono"
+   ],
+   "c": 0,
+   "e": "El decúbito lateral izquierdo o de Sims, con caderas y rodillas flexionadas, es la más usada. La genupectoral se reserva para una exploración detallada y profunda de la mucosa."
+  },
+  {
+   "q": "¿Hacia dónde se orienta el extremo distal del dedo índice al apoyarlo y al introducirlo?",
+   "o": [
+    "Hacia el ombligo",
+    "Hacia el sacro",
+    "Hacia la espalda",
+    "Perpendicular al margen anal"
+   ],
+   "c": 0,
+   "e": "Se orienta hacia el ombligo, siguiendo el eje del canal anal. Introducirlo perpendicular o hacia el sacro es traumático y desaprueba."
+  },
+  {
+   "q": "¿Con qué se lubrica el dedo explorador?",
+   "o": [
+    "Vaselina (sólida o líquida) o lidocaína en gel",
+    "Iodopovidona",
+    "Alcohol al 70 %",
+    "No hace falta si el paciente colabora"
+   ],
+   "c": 0,
+   "e": "Se usa vaselina o lidocaína en gel. Los antisépticos irritan la mucosa y no lubrican. Explorar a seco desaprueba."
+  },
+  {
+   "q": "Próstata aumentada de tamaño, simétrica, lisa, de consistencia elástica y con surco medio conservado: ¿qué sugiere?",
+   "o": [
+    "Hiperplasia benigna de próstata",
+    "Cáncer de próstata",
+    "Prostatitis aguda",
+    "Próstata normal de un joven"
+   ],
+   "c": 0,
+   "e": "Esos hallazgos sugieren hiperplasia benigna. El cáncer suele dar un nódulo duro, asimétrico, con surco medio borrado. La prostatitis aguda es dolorosa y está contraindicado masajearla."
+  },
+  {
+   "q": "Heces negras, pastosas y fétidas en el guante, ¿qué indican?",
+   "o": [
+    "Melena (sangrado digestivo alto)",
+    "Rectorragia de un hemorroide",
+    "Hallazgo normal",
+    "Fecaloma"
+   ],
+   "c": 0,
+   "e": "La melena indica sangre digerida, habitualmente de origen digestivo alto. La sangre roja rutilante sugiere patología orificial o rectal baja."
+  },
+  {
+   "q": "¿Qué posición permite la palpación bimanual y es de elección en pacientes postrados?",
+   "o": [
+    "Litotomía (decúbito dorsal o ginecológica)",
+    "De pie inclinado",
+    "Genupectoral",
+    "Sims"
+   ],
+   "c": 0,
+   "e": "La posición de litotomía permite la palpación bimanual y es la elección en pacientes postrados; sirve para próstata y vesículas seminales."
+  }
+ ],
+ "criterios_texto": "Desaprueba si omite: la explicación y el consentimiento (5, 6); el lavado de manos y los guantes (7, 8, 22, 23); la lubricación (13); la introducción suave y orientada hacia el ombligo (15, 16, 17); o la inspección previa, el examen del guante y el registro (12, 21, 25). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
+ "criterios": [
+  {
+   "ico": "🗣️",
+   "titulo": "Explicación y consentimiento",
+   "pasos": [
+    5,
+    6
+   ]
+  },
+  {
+   "ico": "🧼",
+   "titulo": "Bioseguridad: lavado de manos y guantes",
+   "pasos": [
+    7,
+    8,
+    22,
+    23
+   ]
+  },
+  {
+   "ico": "🧴",
+   "titulo": "Lubricar antes de explorar",
+   "pasos": [
+    13
+   ]
+  },
+  {
+   "ico": "☝️",
+   "titulo": "Introducción suave y orientada al ombligo",
+   "pasos": [
+    15,
+    16,
+    17
+   ]
+  },
+  {
+   "ico": "📝",
+   "titulo": "Inspección previa, guante y registro",
+   "pasos": [
+    12,
+    21,
+    25
+   ]
+  }
+ ],
+ "final_criticos": "explicación y consentimiento, bioseguridad (lavado y guantes), lubricación, introducción suave y registro",
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes de empezar",
+    "x": "Verificá la indicación. Indicaciones anorrectales: proctalgia, incontinencia fecal, tenesmo, rectorragia, alteración del tránsito, prurito anal, prolapso. Urológicas: incontinencia, polaquiuria, nicturia, hemospermia, hematuria, oliguria, goteo terminal. Contraindicaciones absolutas: fisura anal aguda, absceso anorrectal supurativo, trombosis hemorroidal aguda."
+   },
+   {
+    "t": "Bioseguridad",
+    "x": "Lavado de manos con técnica clínica antes de los guantes y al terminar. Guantes de examen o manoplas de látex (nitrilo si hay alergia). Maniobra limpia: no hace falta técnica estéril. Se descartan al finalizar. Es criterio de desaprobación omitirlos."
+   },
+   {
+    "t": "Comunicación",
+    "x": "Saludá, presentate, explicá con lenguaje claro y pedí consentimiento y colaboración antes de tocar. Avisá cuando comenzás y cuando terminás, y comunicá los resultados."
+   },
+   {
+    "t": "Posiciones",
+    "x": "Sims (decúbito lateral izquierdo): la más usada. Litotomía: bimanual, próstata y postrados. Genupectoral: mucosa rectal en detalle. De pie inclinado sobre la camilla."
+   },
+   {
+    "t": "Técnica",
+    "x": "Separá las nalgas e inspeccioná y describí. Lubricá el índice (vaselina o lidocaína gel). Apoyalo en el margen anal con la punta hacia el ombligo, presión suave y sostenida hasta que el esfínter se relaje, e introducí siguiendo esa dirección. Nunca a seco, brusco ni forzado."
+   },
+   {
+    "t": "Qué palpar",
+    "x": "Barrido horario y antihorario: tono, ampolla, paredes, masas, pólipos, estenosis, fecaloma, dolor. Varón: próstata (tamaño, consistencia, simetría, superficie, surco medio, dolor) y vesículas seminales. Mujer: cuello uterino. Pedí que apriete el dedo para valorar el tono."
+   },
+   {
+    "t": "Al retirar",
+    "x": "Examiná el guante: heces, moco, pus o sangre (roja = rectorragia; negra y fétida = melena). Sacate los guantes, lavate las manos de nuevo y registrá en la historia clínica los hallazgos."
+   }
+  ],
+  "por_paso": {
+   "5": "Explicación y consentimiento: sin ellos no se empieza.",
+   "6": "Pedí consentimiento y ofrecé un acompañante si el paciente lo desea.",
+   "10": "Sims es la posición más usada; litotomía para próstata y bimanual.",
+   "12": "Mirá antes de tocar: si ves fisura aguda, absceso o trombosis hemorroidal, no hay tacto.",
+   "13": "Vaselina o lidocaína en gel. Nunca a seco.",
+   "15": "Punta del dedo hacia el ombligo.",
+   "16": "Esperá a que el esfínter se relaje antes de avanzar.",
+   "18": "Barrido horario y antihorario. En el varón, próstata en la pared anterior.",
+   "21": "El guante habla: sangre, moco, pus, heces.",
+   "25": "Registrá tono, hallazgos y contenido del guante."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   2,
+   3,
+   5
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/siam/tr_modelo.json",
+ "peso_modelo": "3 a 5 MB",
+ "instrumental": "data/acreditaciones/siam/instrumental_tr.json",
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Reúne la totalidad de los materiales necesarios para la ejecución de la práctica",
+   "fase": "Preparación",
+   "target": "mesa",
+   "critico": false,
+   "explica": "Se reúne todo antes de empezar para no interrumpir el procedimiento ni dejar solo al paciente: guantes de examen (de látex, o de nitrilo si hay alergia al látex), lubricante (vaselina sólida o líquida, o lidocaína en gel) y gasas o papel para la higiene final.",
+   "estado": {},
+   "claves": [
+    [
+     "reuno"
+    ],
+    [
+     "junto",
+     "material"
+    ],
+    [
+     "junto",
+     "insumos"
+    ],
+    [
+     "recopilo"
+    ],
+    [
+     "armo",
+     "material"
+    ]
+   ],
+   "frase": "Reúno todo el material necesario para el tacto rectal.",
+   "fx": "reunir"
+  },
+  {
+   "n": 2,
+   "texto": "Prepara los materiales sobre una mesa alta de traslado",
+   "fase": "Preparación",
+   "target": "mesa",
+   "critico": false,
+   "explica": "Los insumos se ordenan sobre la mesa alta de traslado (carro) para llevarlos juntos, limpios y al alcance de la mano.",
+   "estado": {},
+   "claves": [
+    [
+     "mesa alta"
+    ],
+    [
+     "mesa",
+     "traslado"
+    ],
+    [
+     "preparo",
+     "mesa"
+    ],
+    [
+     "ordeno",
+     "mesa"
+    ]
+   ],
+   "frase": "Preparo los materiales sobre la mesa alta de traslado.",
+   "fx": "reunir"
+  },
+  {
+   "n": 3,
+   "texto": "Lleva el carro de transporte (con los materiales necesarios) al lado del paciente",
+   "fase": "Preparación",
+   "target": "lado",
+   "critico": false,
+   "explica": "El carro queda junto al paciente, al alcance de la mano dominante, para no tener que salir a buscar insumos durante la exploración.",
+   "estado": {},
+   "claves": [
+    [
+     "llevo",
+     "carro"
+    ],
+    [
+     "llevo",
+     "mesa"
+    ],
+    [
+     "traslado",
+     "paciente"
+    ],
+    [
+     "acerco",
+     "carro"
+    ],
+    [
+     "carro",
+     "paciente"
+    ],
+    [
+     "llevo",
+     "material"
+    ]
+   ],
+   "frase": "Llevo el carro con el material al lado del paciente.",
+   "fx": "trasladar"
+  },
+  {
+   "n": 4,
+   "texto": "Saluda y se presenta",
+   "fase": "Comunicación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Saludar y presentarse con nombre y apellido genera confianza y permite verificar la identidad del paciente.",
+   "estado": {},
+   "claves": [
+    [
+     "saludo"
+    ],
+    [
+     "me presento"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ]
+   ],
+   "frase": "Saludo al paciente y me presento con nombre y apellido.",
+   "fx": "hablar"
+  },
+  {
+   "n": 5,
+   "texto": "Explica el procedimiento a realizar utilizando un lenguaje claro y sencillo.",
+   "fase": "Comunicación",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Se explica con palabras simples qué se va a hacer, para qué sirve y qué va a sentir (presión, ganas de defecar), y que puede avisar si algo molesta. Omitir la explicación y el consentimiento es criterio de desaprobación.",
+   "estado": {},
+   "claves": [
+    [
+     "explico"
+    ],
+    [
+     "explicacion"
+    ],
+    [
+     "lenguaje",
+     "claro"
+    ],
+    [
+     "le cuento",
+     "procedimiento"
+    ],
+    [
+     "le comento",
+     "procedimiento"
+    ]
+   ],
+   "frase": "Le explico el procedimiento con lenguaje claro y sencillo.",
+   "fx": "hablar"
+  },
+  {
+   "n": 6,
+   "texto": "Solicita el consentimiento del paciente y su colaboración en el procedimiento",
+   "fase": "Comunicación",
+   "target": "consent",
+   "critico": true,
+   "explica": "El tacto rectal es una maniobra invasiva y pudorosa: requiere el consentimiento y la colaboración del paciente. Se le ofrece la presencia de un acompañante o testigo si lo desea. Sin consentimiento no se comienza: es criterio de desaprobación.",
+   "estado": {
+    "consent": 1
+   },
+   "claves": [
+    [
+     "consentimiento"
+    ],
+    [
+     "autoriza"
+    ],
+    [
+     "permiso"
+    ],
+    [
+     "colaboracion"
+    ],
+    [
+     "acepta",
+     "procedimiento"
+    ]
+   ],
+   "frase": "Le solicito su consentimiento y su colaboración para el procedimiento.",
+   "fx": "hablar"
+  },
+  {
+   "n": 7,
+   "texto": "Se lava las manos con técnica clínica",
+   "fase": "Bioseguridad y posición",
+   "target": "lavabo",
+   "critico": true,
+   "explica": "El lavado de manos con técnica clínica antes de colocarse los guantes es una precaución estándar: protege al paciente y al operador. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "manos": 1
+   },
+   "claves": [
+    [
+     "lavo",
+     "manos"
+    ],
+    [
+     "lavado",
+     "manos"
+    ],
+    [
+     "higienizo",
+     "manos"
+    ],
+    [
+     "lavo",
+     "mano"
+    ]
+   ],
+   "frase": "Me lavo las manos con técnica clínica.",
+   "fx": "lavado",
+   "gemelo": 23
+  },
+  {
+   "n": 8,
+   "texto": "Se coloca los guantes (ó manoplas) de látex",
+   "fase": "Bioseguridad y posición",
+   "target": "guantes",
+   "critico": true,
+   "explica": "Se usan guantes de examen (o manoplas) de látex; si el paciente o el operador son alérgicos al látex, de nitrilo. No hace falta técnica estéril: es una maniobra limpia. Explorar sin guantes es criterio de desaprobación.",
+   "estado": {
+    "gloves": "ns"
+   },
+   "claves": [
+    [
+     "me coloco",
+     "guantes"
+    ],
+    [
+     "me pongo",
+     "guantes"
+    ],
+    [
+     "coloco",
+     "guantes"
+    ],
+    [
+     "pongo",
+     "guantes"
+    ],
+    [
+     "manoplas"
+    ],
+    [
+     "guantes",
+     "latex"
+    ]
+   ],
+   "frase": "Me coloco los guantes de examen.",
+   "fx": "guante"
+  },
+  {
+   "n": 9,
+   "texto": "Solicita al paciente que se descubra la ropa de la cintura para abajo",
+   "fase": "Bioseguridad y posición",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se pide que se descubra de la cintura para abajo, resguardando la intimidad (puerta cerrada, biombo, sábana sobre lo que no se explora).",
+   "estado": {
+    "desc": 1
+   },
+   "claves": [
+    [
+     "descubr",
+     "cintura"
+    ],
+    [
+     "se descubra"
+    ],
+    [
+     "ropa",
+     "cintura"
+    ],
+    [
+     "ropa interior"
+    ],
+    [
+     "desvista"
+    ],
+    [
+     "baje",
+     "pantalon"
+    ],
+    [
+     "descubro"
+    ]
+   ],
+   "frase": "Le pido que se descubra la ropa de la cintura para abajo.",
+   "fx": "desnudar"
+  },
+  {
+   "n": 10,
+   "texto": "Solicita al paciente que se ubique en la posición más adecuada para la práctica.",
+   "fase": "Bioseguridad y posición",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Posiciones: decúbito lateral izquierdo o de Sims (la más usada y la menos pudorosa), litotomía o ginecológica (permite la palpación bimanual y es de elección en pacientes postrados), genupectoral (exploración detallada y profunda de la mucosa) o de pie inclinado sobre la camilla.",
+   "estado": {
+    "pos": 1
+   },
+   "claves": [
+    [
+     "posicion"
+    ],
+    [
+     "decubito"
+    ],
+    [
+     "sims"
+    ],
+    [
+     "genupectoral"
+    ],
+    [
+     "litotomia"
+    ],
+    [
+     "ginecologica"
+    ],
+    [
+     "de pie",
+     "inclin"
+    ],
+    [
+     "se acueste"
+    ],
+    [
+     "se recueste"
+    ]
+   ],
+   "frase": "Le pido que se ubique en la posición adecuada, por ejemplo decúbito lateral izquierdo (Sims).",
+   "fx": "posicion_tr"
+  },
+  {
+   "n": 11,
+   "texto": "Separa las nalgas del paciente valiéndose de ambas manos ó de los dedos índice y pulgar de la mano no dominante dependiendo de la posición de exploración elegida.",
+   "fase": "Bioseguridad y posición",
+   "target": "ano",
+   "critico": false,
+   "explica": "Con ambas manos, o con el índice y el pulgar de la mano no dominante según la posición, se separan las nalgas para exponer el margen anal. La mano dominante queda libre para explorar.",
+   "estado": {
+    "sep": 1
+   },
+   "claves": [
+    [
+     "separo",
+     "nalgas"
+    ],
+    [
+     "abro",
+     "nalgas"
+    ],
+    [
+     "separo",
+     "gluteos"
+    ],
+    [
+     "nalgas"
+    ],
+    [
+     "gluteos"
+    ]
+   ],
+   "frase": "Separo las nalgas con la mano no dominante para exponer el margen anal.",
+   "fx": "separar"
+  },
+  {
+   "n": 12,
+   "texto": "Inspecciona la región y describe sus hallazgos.",
+   "fase": "Inspección y técnica",
+   "target": "ano",
+   "critico": true,
+   "explica": "Se inspecciona la región perianal antes de tocar: piel, eritema, fisuras, fístulas, hemorroides externas, prolapso, lesiones, restos de heces o sangre, y se describe lo observado. Permite detectar contraindicaciones absolutas (fisura anal aguda, absceso anorrectal supurativo, trombosis hemorroidal aguda): en ese caso no se hace el tacto. Omitir la inspección es criterio de desaprobación.",
+   "estado": {
+    "insp": 1
+   },
+   "claves": [
+    [
+     "inspecciono"
+    ],
+    [
+     "inspeccion"
+    ],
+    [
+     "observo",
+     "region"
+    ],
+    [
+     "observo",
+     "zona"
+    ],
+    [
+     "miro",
+     "region"
+    ],
+    [
+     "miro",
+     "zona"
+    ],
+    [
+     "examino",
+     "region"
+    ],
+    [
+     "describo",
+     "hallazgos"
+    ],
+    [
+     "perianal"
+    ]
+   ],
+   "frase": "Inspecciono la región perianal y describo lo que observo.",
+   "fx": "inspeccion"
+  },
+  {
+   "n": 13,
+   "texto": "Lubrica el dedo índice con vaselina (liquida ó gel) ó lidocaína gel.",
+   "fase": "Inspección y técnica",
+   "target": "lubricante",
+   "critico": true,
+   "explica": "Se lubrica el dedo índice con vaselina (sólida o líquida) o con lidocaína en gel. Sin lubricación la maniobra produce dolor intenso, contracción defensiva del esfínter y riesgo de desgarro de la mucosa: es criterio de desaprobación.",
+   "estado": {
+    "lub": 1
+   },
+   "claves": [
+    [
+     "lubrico"
+    ],
+    [
+     "lubrica"
+    ],
+    [
+     "vaselina"
+    ],
+    [
+     "lidocaina"
+    ],
+    [
+     "lubricante"
+    ]
+   ],
+   "frase": "Lubrico el dedo índice con vaselina o lidocaína en gel.",
+   "fx": "lubricar"
+  },
+  {
+   "n": 14,
+   "texto": "Informa al paciente el inicio del procedimiento.",
+   "fase": "Inspección y técnica",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se avisa que se comienza, que va a sentir presión y que respire tranquilo y relaje la zona: favorece la colaboración y la relajación del esfínter.",
+   "estado": {},
+   "claves": [
+    [
+     "aviso",
+     "comienzo"
+    ],
+    [
+     "informo",
+     "inicio"
+    ],
+    [
+     "le aviso"
+    ],
+    [
+     "voy a comenzar"
+    ],
+    [
+     "comienzo el procedimiento"
+    ],
+    [
+     "empiezo"
+    ]
+   ],
+   "frase": "Le aviso al paciente que comienzo el procedimiento.",
+   "fx": "aviso"
+  },
+  {
+   "n": 15,
+   "texto": "Apoya el dedo índice sobre el margen anal con su extremo distal en dirección al ombligo.",
+   "fase": "Inspección y técnica",
+   "target": "ano",
+   "critico": true,
+   "explica": "El dedo se apoya sobre el margen anal con su extremo distal orientado hacia el ombligo, alineado con el eje del canal anal. Introducirlo de golpe o en otra dirección (perpendicular, hacia el sacro) es criterio de desaprobación.",
+   "estado": {
+    "apoyo": 1
+   },
+   "claves": [
+    [
+     "apoyo",
+     "dedo"
+    ],
+    [
+     "apoyo",
+     "margen"
+    ],
+    [
+     "apoyo",
+     "indice"
+    ],
+    [
+     "apoyo",
+     "ano"
+    ]
+   ],
+   "frase": "Apoyo el dedo índice sobre el margen anal, con el extremo distal hacia el ombligo.",
+   "fx": "apoyar"
+  },
+  {
+   "n": 16,
+   "texto": "Aplica una presión suave (y sostenida por un breve momento) sobre el esfínter anal hasta lograr su relajación.",
+   "fase": "Inspección y técnica",
+   "target": "esfinter",
+   "critico": true,
+   "explica": "Una presión suave y sostenida sobre el esfínter externo lo relaja por fatiga del reflejo de contracción. No se avanza hasta lograr la relajación; forzar el esfínter provoca dolor y traumatismo.",
+   "estado": {
+    "relaj": 1
+   },
+   "claves": [
+    [
+     "presion",
+     "esfinter"
+    ],
+    [
+     "presion suave"
+    ],
+    [
+     "presiono",
+     "esfinter"
+    ],
+    [
+     "espero",
+     "relaj"
+    ],
+    [
+     "relajacion",
+     "esfinter"
+    ],
+    [
+     "presion",
+     "sostenida"
+    ],
+    [
+     "hasta que se relaje"
+    ]
+   ],
+   "frase": "Aplico una presión suave y sostenida sobre el esfínter hasta que se relaje.",
+   "fx": "presion"
+  },
+  {
+   "n": 17,
+   "texto": "Introduce el dedo índice siguiendo la dirección hacia el ombligo.",
+   "fase": "Inspección y técnica",
+   "target": "recto",
+   "critico": true,
+   "explica": "Con el esfínter relajado se introduce el dedo con suavidad siguiendo el eje del canal anal, hacia el ombligo, y luego la concavidad del sacro dentro de la ampolla rectal. Nunca de golpe ni forzando: es criterio de desaprobación.",
+   "estado": {
+    "ins": 1
+   },
+   "claves": [
+    [
+     "introduzco",
+     "dedo"
+    ],
+    [
+     "introduzco",
+     "indice"
+    ],
+    [
+     "inserto",
+     "dedo"
+    ],
+    [
+     "introduzco"
+    ],
+    [
+     "penetro"
+    ],
+    [
+     "avanzo",
+     "dedo"
+    ],
+    [
+     "ingreso",
+     "dedo"
+    ]
+   ],
+   "frase": "Introduzco el dedo índice con suavidad, en dirección al ombligo.",
+   "fx": "dedo_in"
+  },
+  {
+   "n": 18,
+   "texto": "Desplaza el pulpejo del dedo índice por la superficie mucosa del recto realizando un “barrido” en el mismo sentido y en sentido contrario al giro de las agujas del reloj reconociendo las estructuras anatómicas locales normales, diferenciándolas de las patológicas y describiéndolas.",
+   "fase": "Inspección y técnica",
+   "target": "recto",
+   "critico": false,
+   "explica": "Se recorre la mucosa con el pulpejo en sentido horario y antihorario, reconociendo lo normal y diferenciándolo de lo patológico: tono, ampolla rectal, masas, pólipos, estenosis, fecaloma, dolor. En el varón se palpa la próstata en la pared anterior (tamaño, consistencia, simetría, superficie, surco medio, dolor) y las vesículas seminales; en la mujer, el cuello uterino.",
+   "estado": {
+    "barrido": 1
+   },
+   "claves": [
+    [
+     "barrido"
+    ],
+    [
+     "barro"
+    ],
+    [
+     "palpo",
+     "mucosa"
+    ],
+    [
+     "recorro",
+     "recto"
+    ],
+    [
+     "sentido horario"
+    ],
+    [
+     "agujas del reloj"
+    ],
+    [
+     "palpo",
+     "paredes"
+    ],
+    [
+     "palpo",
+     "prostata"
+    ],
+    [
+     "desplazo",
+     "pulpejo"
+    ]
+   ],
+   "frase": "Realizo el barrido de la mucosa en sentido horario y antihorario, describiendo lo que palpo.",
+   "fx": "barrido"
+  },
+  {
+   "n": 19,
+   "texto": "Solicita al paciente que realice fuerza “como para apretar el dedo” y constata el tono del esfínter anal.",
+   "fase": "Inspección y técnica",
+   "target": "esfinter",
+   "critico": false,
+   "explica": "Se pide que apriete el dedo como para retener las heces: se valora el tono basal en reposo y la contracción voluntaria del esfínter (útil en incontinencia fecal y lesiones medulares).",
+   "estado": {
+    "tono": 1
+   },
+   "claves": [
+    [
+     "tono"
+    ],
+    [
+     "apriete"
+    ],
+    [
+     "apretar",
+     "dedo"
+    ],
+    [
+     "contraiga",
+     "esfinter"
+    ],
+    [
+     "fuerza",
+     "dedo"
+    ],
+    [
+     "haga fuerza"
+    ],
+    [
+     "constato",
+     "esfinter"
+    ]
+   ],
+   "frase": "Le pido que haga fuerza como para apretar mi dedo y constato el tono del esfínter.",
+   "fx": "tono"
+  },
+  {
+   "n": 20,
+   "texto": "Retira el dedo del canal ano-rectal.",
+   "fase": "Cierre",
+   "target": "ano",
+   "critico": false,
+   "explica": "El dedo se retira con suavidad, sin brusquedad, por el mismo eje.",
+   "estado": {
+    "ret": 1
+   },
+   "claves": [
+    [
+     "retiro",
+     "dedo"
+    ],
+    [
+     "saco",
+     "dedo"
+    ],
+    [
+     "extraigo",
+     "dedo"
+    ],
+    [
+     "retiro",
+     "canal"
+    ]
+   ],
+   "frase": "Retiro el dedo del canal anorrectal.",
+   "fx": "retirar"
+  },
+  {
+   "n": 21,
+   "texto": "Examina en el guante (ó manopla) la presencia-ausencia de materia fecal adherida y/o presencia-ausencia de moco, pus ó sangre en la misma, etc.",
+   "fase": "Cierre",
+   "target": "guantes",
+   "critico": true,
+   "explica": "El guante aporta datos diagnósticos: heces (color, consistencia), sangre roja (rectorragia), negra y fétida (melena), moco o pus. Omitir este examen es criterio de desaprobación.",
+   "estado": {
+    "gex": 1
+   },
+   "claves": [
+    [
+     "examino",
+     "guante"
+    ],
+    [
+     "reviso",
+     "guante"
+    ],
+    [
+     "inspecciono",
+     "guante"
+    ],
+    [
+     "observo",
+     "guante"
+    ],
+    [
+     "miro",
+     "guante"
+    ],
+    [
+     "examino",
+     "manopla"
+    ]
+   ],
+   "frase": "Examino el guante en busca de materia fecal, moco, pus o sangre.",
+   "fx": "examinar"
+  },
+  {
+   "n": 22,
+   "texto": "Se quita los guantes ó manoplas de látex.",
+   "fase": "Cierre",
+   "target": "guantes",
+   "critico": true,
+   "explica": "Los guantes usados se retiran sin tocar su cara externa y se descartan en el residuo de riesgo biológico.",
+   "estado": {
+    "gloves": "none"
+   },
+   "claves": [
+    [
+     "me quito",
+     "guantes"
+    ],
+    [
+     "retiro",
+     "guantes"
+    ],
+    [
+     "saco",
+     "guantes"
+    ],
+    [
+     "descarto",
+     "guantes"
+    ],
+    [
+     "quito",
+     "guantes"
+    ]
+   ],
+   "frase": "Me quito los guantes y los descarto.",
+   "fx": "guante_off"
+  },
+  {
+   "n": 23,
+   "texto": "Se lava las manos nuevamente",
+   "fase": "Cierre",
+   "target": "lavabo",
+   "critico": true,
+   "explica": "El lavado de manos al finalizar completa la bioseguridad. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "manos2": 1
+   },
+   "claves": [
+    [
+     "manos",
+     "nuevamente"
+    ],
+    [
+     "manos",
+     "de nuevo"
+    ],
+    [
+     "manos",
+     "otra vez"
+    ],
+    [
+     "vuelvo",
+     "lavar"
+    ],
+    [
+     "lavo",
+     "manos",
+     "finalizar"
+    ]
+   ],
+   "frase": "Me lavo las manos nuevamente.",
+   "fx": "lavado",
+   "gemelo": 7
+  },
+  {
+   "n": 24,
+   "texto": "Informa al paciente la finalización del procedimiento y sus resultados.",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se informa que terminó el procedimiento y lo hallado, se le ofrece papel o gasas para higienizarse y se lo ayuda a vestirse resguardando su intimidad.",
+   "estado": {},
+   "claves": [
+    [
+     "informo",
+     "finaliz"
+    ],
+    [
+     "informo",
+     "termin"
+    ],
+    [
+     "finalizo",
+     "procedimiento"
+    ],
+    [
+     "le informo",
+     "resultado"
+    ],
+    [
+     "termino",
+     "procedimiento"
+    ],
+    [
+     "le comunico",
+     "resultad"
+    ],
+    [
+     "resultados"
+    ]
+   ],
+   "frase": "Le informo que finalizó el procedimiento y le comunico los resultados.",
+   "fx": "hablar"
+  },
+  {
+   "n": 25,
+   "texto": "Registra el procedimiento en la Historia Clínica del paciente.",
+   "fase": "Cierre",
+   "target": "hc",
+   "critico": true,
+   "explica": "Se registra el procedimiento y los hallazgos (inspección, tono esfinteriano, próstata o cuello uterino, masas, contenido del guante). Es la obligación médico-legal que deja constancia; omitirlo es criterio de desaprobación.",
+   "estado": {
+    "reg": 1
+   },
+   "claves": [
+    [
+     "registro"
+    ],
+    [
+     "historia clinica"
+    ],
+    [
+     "anoto"
+    ],
+    [
+     "asiento"
+    ],
+    [
+     "dejo constancia"
+    ]
+   ],
+   "frase": "Registro el procedimiento y los hallazgos en la historia clínica.",
+   "fx": "registro"
+  }
+ ],
+ "mesa_pasos": [
+  1,
+  2
+ ]
+}

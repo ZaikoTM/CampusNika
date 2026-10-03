@@ -702,3 +702,12 @@ body.dark-mode .wb-hoja { background: #14213a; color: #e2e8f0; }
 .acr-nav a.brand img { background: #fff; border-radius: 10px; padding: 3px; height: 36px; }
 .acr-back { color: #fff; border-color: rgba(255,255,255,.55); background: rgba(255,255,255,.14); box-shadow: none; }
 .acr-back:hover { background: #fff; color: #028090; box-shadow: 0 14px 22px -10px rgba(0,0,0,.5); }
+
+.a-escanea .fx-ico { animation: fx-escanea 1.1s ease-in-out infinite alternate; }
+.a-presiona .fx-ico { animation: fx-presiona 1s ease-in-out infinite alternate; }
+.a-gira .fx-ico { animation: fx-gira 1.2s linear infinite; }
+.a-aprieta .fx-ico { animation: fx-aprieta .5s ease-in-out infinite alternate; }
+@keyframes fx-escanea { from { transform: translateX(-26px) rotate(-10deg); } to { transform: translateX(26px) rotate(10deg); } }
+@keyframes fx-presiona { from { transform: translateY(-8px); } to { transform: translateY(10px) scale(.92); } }
+@keyframes fx-gira { to { transform: rotate(360deg); } }
+@keyframes fx-aprieta { from { transform: scale(1); } to { transform: scale(1.35); } }

@@ -22,6 +22,7 @@ const geoCache = { stl: new Map(), glb: new Map() }; // evita volver a descargar
 
 export class MedicalProcedureViewer {
   constructor(CFG) {
+    if (typeof window !== "undefined") window.AcrVisor = this;
     this.CFG = CFG;
     this.C = null;
     this.ray = new THREE.Raycaster();
@@ -53,9 +54,9 @@ export class MedicalProcedureViewer {
           <button data-tool="huesos" type="button" class="on">Huesos</button>
           <button data-tool="organos" type="button" class="on">Órganos</button>
           <span class="sep"></span>
-          <button data-tool="v-lat" type="button">Lateral</button>
-          <button data-tool="v-fro" type="button">Frontal</button>
-          <button data-tool="v-sup" type="button">Superior</button>
+          <button data-tool="v-lat" type="button">${(this.CFG.general.vistas || {}).lat || 'Lateral'}</button>
+          <button data-tool="v-fro" type="button">${(this.CFG.general.vistas || {}).fro || 'Frontal'}</button>
+          <button data-tool="v-sup" type="button">${(this.CFG.general.vistas || {}).sup || 'Superior'}</button>
           <span class="sep"></span>
           <button data-tool="full" type="button">⛶ Pantalla completa</button>
           <button data-tool="ayuda" type="button" class="ayuda">❓ Cómo usar</button>
@@ -188,6 +189,22 @@ export class MedicalProcedureViewer {
         const con = this.tuboProc({ pts: [cola[0].toArray(), bolsaPos.clone().add(V(0, -1.5, 0)).toArray()], radio: 0.2, color: ins.color, opacidad: 1, capa: 'sonda', hs: null }); con.visible = false;
         C.inst.push({ tipo: ins.tipo, clases: ins.clases, cat: { mesh: cat, total: geo.index.count, per: 14 * 6, cur: 0, goal: 0 }, bal: { mesh: bal, cur: 0.001, goal: 0.001 }, bolsa: { g, cur: 0.001, goal: 0.001 }, con });
       }
+      if (ins.tipo === 'dedo') {
+        const d = cfg.dedo; const pts = [...d.cola, ...d.canal].map((p) => V(...p)); const piv = V(...d.pivote);
+        const curva = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+        const rad = ins.radio || 0.7;
+        const geo = new THREE.TubeGeometry(curva, 260, rad, 16, false);
+        const g = new THREE.Group(); g.position.copy(piv);
+        const mat = this.material(ins.color, 0.97, 'sonda', { emissive: 0x0891b2, emissiveIntensity: 0.5, depthWrite: true });
+        const dedo = new THREE.Mesh(geo, mat); dedo.position.copy(piv).multiplyScalar(-1); dedo.visible = false;
+        this.registrar(dedo, 'sonda', null);
+        mat.depthTest = false; mat.opacity = 0.9; dedo.renderOrder = 10;   // se ve a través de la pared rectal translúcida
+        const tip = new THREE.Mesh(new THREE.SphereGeometry(rad, 20, 14), mat); tip.visible = false; tip.renderOrder = 10;
+        g.add(dedo, tip); C.capas.sonda.add(g);
+        C.inst.push({ tipo: ins.tipo, clases: ins.clases, cat: { mesh: dedo, total: geo.index.count, per: 16 * 6, cur: 0, goal: 0 },
+          bal: { mesh: new THREE.Object3D(), cur: 0.001, goal: 0.001 }, bolsa: { g: new THREE.Object3D(), cur: 0.001, goal: 0.001 }, con: new THREE.Object3D(),
+          dedo: { g, tip, curva, piv, barr: false } });
+      }
       // otros tipos (aguja, catéter…) se agregan aquí con su propia animación
     });
   }
@@ -317,6 +334,7 @@ export class MedicalProcedureViewer {
         const b = s.bal; b.cur += (b.goal - b.cur) * 0.07; b.mesh.scale.setScalar(Math.max(b.cur, 0.001)); b.mesh.visible = k.cur > 0.97;
         const g = s.bolsa; g.cur += (g.goal - g.cur) * 0.1; g.g.scale.setScalar(Math.max(g.cur, 0.001)); g.g.visible = g.cur > 0.01;
         s.con.visible = g.cur > 0.05 && k.cur > 0.05;
+        if (s.dedo) { const e = s.dedo; e.tip.visible = k.cur > 0.02; if (e.tip.visible) e.tip.position.copy(e.curva.getPointAt(Math.min(k.cur, 0.999))).sub(e.piv); e.g.rotation.y = e.barr ? Math.sin(t / 240) * 0.25 : 0; }
       });
       const pulso = 0.5 + 0.4 * Math.sin(t / 170);
       Object.entries(C.hsMeshes).forEach(([id, ms]) => ms.forEach((m) => {
@@ -373,7 +391,9 @@ export class MedicalProcedureViewer {
   sync(root) {
     if (!this.C) return;
     const has = (k) => root.classList.contains(k);
-    this.C.inst.forEach((s) => { s.cat.goal = has(s.clases.avance) ? 1 : 0; s.bal.goal = has(s.clases.inflar) ? 1.3 : 0.001; s.bolsa.goal = has(s.clases.bolsa) ? 1 : 0.001; });
+    this.C.inst.forEach((s) => {
+      if (s.dedo) { s.cat.goal = has(s.clases.avance) && !has(s.clases.retira) ? 1 : 0; s.dedo.barr = has(s.clases.barrido) && s.cat.goal > 0; return; }
+      s.cat.goal = has(s.clases.avance) ? 1 : 0; s.bal.goal = has(s.clases.inflar) ? 1.3 : 0.001; s.bolsa.goal = has(s.clases.bolsa) ? 1 : 0.001; });
   }
   hl(id) { if (this.C) this.C.hl = id || null; }
   sel(id) { if (this.C) this.C.sel = id || null; }

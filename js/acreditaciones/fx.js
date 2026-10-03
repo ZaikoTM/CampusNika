@@ -73,6 +73,18 @@
     gancho: E('🪝', 'Colgando la bolsa del ganchillo', 'click', 'a-cuelga', 1900),
     residuos: E('🗑️', 'Retirando y desechando los elementos', 'thud', 'a-cae', 2000),
     registro: E('📝', 'Registrando en la historia clínica', 'pluma', 'a-escribe', 2300),
+    posicion_tr: E('🛌', 'Posición adecuada: decúbito lateral izquierdo (Sims), litotomía, genupectoral o de pie inclinado', 'thud', 'a-pop', 2300),
+    desnudar: E('👖', 'Descubriendo de la cintura para abajo, resguardando la intimidad', 'crujido', 'a-baja'),
+    separar: E('👐', 'Separando las nalgas para exponer la región', 'pop', 'a-abre', 1800),
+    inspeccion: { ico: '🔍', cap: 'Inspeccionando la región perianal: piel, orificio, lesiones', snd: 'tick', cls: 'a-escanea', dur: 2800, ancla: true },
+    lubricar: { ico: '🧴', cap: 'Lubricando el dedo índice', snd: 'squelch', cls: 'a-gel', dur: 1900, ancla: true },
+    apoyar: { ico: '☝️', cap: 'Apoyando el dedo sobre el margen anal, hacia el ombligo', snd: 'tick', cls: 'a-pop', dur: 1900, ancla: true },
+    presion: { ico: '🫳', cap: 'Presión suave y sostenida hasta que el esfínter se relaje', snd: 'deslizar', cls: 'a-presiona', dur: 2800, ancla: true },
+    dedo_in: { ico: '☝️', cap: 'Introduciendo el dedo hacia el ombligo, con suavidad', snd: 'deslizar', cls: 'a-inserta', dur: 3000, ancla: true },
+    barrido: { ico: '🔄', cap: 'Barrido en sentido horario y antihorario: mucosa, próstata o cuello uterino', snd: 'tick', cls: 'a-gira', dur: 3400, ancla: true },
+    tono: { ico: '💪', cap: 'Pide que apriete el dedo: se evalúa el tono del esfínter', snd: 'tick', cls: 'a-aprieta', dur: 2600, ancla: true },
+    retirar: { ico: '↩️', cap: 'Retirando el dedo del canal ano-rectal', snd: 'squelch', cls: 'a-tira', dur: 2000, ancla: true },
+    examinar: { ico: '🧤', cap: 'Examinando el guante: heces, moco, pus o sangre', snd: 'tick', cls: 'a-escanea', dur: 2800 },
     cinta: E('🩹', 'Fijando con cinta hipoalergénica', 'cinta', 'a-cinta', 1700),
     bolsa: E('🧪', 'Conectando a la bolsa colectora', 'goteo', 'a-gotas', 2300),
     balon_test: { ico: '🎈', cap: 'Probando el balón: infla y desinfla', snd: 'inflar', snd2: ['desinflar', 2000], cls: 'a-balon', dur: 3300 },
@@ -87,7 +99,7 @@
 
   function ancla(vp) {
     const r = vp.getBoundingClientRect();
-    const p = vp.querySelector('.pin[data-hs="meato"]');
+    const p = vp.querySelector('.pin[data-hs="meato"]') || vp.querySelector('.pin[data-hs="ano"]');
     if (p) { const b = p.getBoundingClientRect(); if (b.width) return { x: b.left + b.width / 2 - r.left, y: b.top + b.height / 2 - r.top, w: r.width, h: r.height }; }
     return { x: r.width * 0.5, y: r.height * 0.58, w: r.width, h: r.height };
   }
