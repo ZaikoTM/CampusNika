@@ -56,6 +56,8 @@ export class MedicalProcedureViewer {
           <button data-tool="v-lat" type="button">Lateral</button>
           <button data-tool="v-fro" type="button">Frontal</button>
           <button data-tool="v-sup" type="button">Superior</button>
+          <span class="sep"></span>
+          <button data-tool="ayuda" type="button" class="ayuda">❓ Cómo usar</button>
         </div>
         <div class="acr3d-hint">Arrastrá para girar · rueda para acercar</div>
       </div>
@@ -249,6 +251,7 @@ export class MedicalProcedureViewer {
     vp.querySelector('.acr3d-tools').addEventListener('click', (e) => {
       const b = e.target.closest('[data-tool]'); if (!b || this.C !== C) return;
       const t = b.dataset.tool;
+      if (t === 'ayuda') { root.dispatchEvent(new CustomEvent('acr-ayuda')); return; }
       if (t.startsWith('v-')) { C.goal = V(...C.vistas[t.slice(2, 5)]); return; }
       if (t === 'xray' || t === 'cut' || t === 'labels') C.opt[t] = !C.opt[t]; else C.opt.capas[t] = !C.opt.capas[t];
       b.classList.toggle('on', t === 'xray' || t === 'cut' || t === 'labels' ? C.opt[t] : C.opt.capas[t]);

@@ -50,6 +50,7 @@ export class ProcedureWorkbench {
   pintarCaso() {
     const c = this.caso; const otro = this.opt.modo === 'practica' && this.opt.casos && this.opt.casos.length > 1;
     this.el.innerHTML = `<div class="wb wb-caso-pant">
+      ${this.opt.modo === 'demo' ? '<div class="wb-demo-banner"><span class="tag">▶ DEMOSTRACIÓN</span><span id="wb-demo-txt"></span><button type="button" id="wb-saltar">Saltar ✕</button></div>' : ''}
       <div class="wb-hoja">
         <div class="wb-hoja-cab"><span>📋</span><div><h2>Caso clínico</h2><p>Indicación de sondaje vesical</p></div></div>
         <div class="wb-hoja-grid">
@@ -62,7 +63,7 @@ export class ProcedureWorkbench {
         <div class="wb-hoja-bloque"><label>Antecedentes</label><p>${esc(c.antecedentes || '—')}</p></div>
         <div class="wb-hoja-bloque"><label>Indicación médica</label><p>${esc(c.indicacion || 'Sondaje vesical.')}</p></div>
         <p class="wb-hoja-nota">Elegí el instrumental según este paciente: sexo, calibre, material y alergias.</p>
-        <div class="acr-row"><button class="acr-btn" id="wb-ir-mesa">Ir a la mesa de instrumental →</button>${otro ? '<button class="acr-btn sec" id="wb-otro">Otro caso</button>' : ''}</div>
+        <div class="acr-row">${this.opt.modo === 'demo' ? '' : '<button class="acr-btn" id="wb-ir-mesa">Ir a la mesa de instrumental →</button>'}${otro ? '<button class="acr-btn sec" id="wb-otro">Otro caso</button>' : ''}</div>
       </div></div>`;
   }
 
@@ -70,6 +71,7 @@ export class ProcedureWorkbench {
   pintarEscena() {
     const cont = this.el; const c = this.caso;
     cont.innerHTML = `<div class="wb">
+      ${this.opt.modo === 'demo' ? '<div class="wb-demo-banner"><span class="tag">▶ DEMOSTRACIÓN</span><span id="wb-demo-txt"></span><button type="button" id="wb-saltar">Saltar ✕</button></div>' : ''}
       <div class="wb-cab">
         <div><h2>${esc(this.cfg.titulo)}</h2><p>${esc(this.cfg.consigna)}</p></div>
         <button type="button" class="wb-caso-btn" id="wb-ver-caso">📋 Ver caso clínico</button>
@@ -174,7 +176,7 @@ export class ProcedureWorkbench {
   // reacción de la bandeja: práctica = feedback inmediato (cian / sacudida roja); examen = pulso neutro (no revela nada)
   reaccion(it) {
     const b = this.el?.querySelector('#wb-bandeja'); if (!b) return;
-    const clase = this.opt.modo === 'practica' ? (this.ef(it).correcto ? 'pulso-ok' : 'sacude') : 'pulso-neutro';
+    const clase = this.opt.modo !== 'examen' ? (this.ef(it).correcto ? 'pulso-ok' : 'sacude') : 'pulso-neutro';
     b.classList.remove('pulso-ok', 'sacude', 'pulso-neutro'); void b.offsetWidth; b.classList.add(clase);
     setTimeout(() => b.classList.remove(clase), 700);
   }
@@ -184,7 +186,7 @@ export class ProcedureWorkbench {
   }
   actualizarBoton() {
     const btn = this.el?.querySelector('#wb-pasar'); if (!btn) return;
-    const listo = this.opt.modo === 'practica' ? this.evaluar(this.sel).ok : this.sel.size > 0;
+    const listo = this.opt.modo !== 'examen' ? this.evaluar(this.sel).ok : this.sel.size > 0;
     btn.classList.toggle('listo', listo);
   }
 
@@ -214,6 +216,7 @@ export class ProcedureWorkbench {
   }
 
   clic(e) {
+    if (e.target.id === 'wb-saltar') { this.cancelado = true; if (this.opt.onSaltar) this.opt.onSaltar(); return; }
     if (e.target.id === 'wb-ir-mesa') { this.pintarEscena(); return; }
     if (e.target.id === 'wb-otro') {
       const otros = this.opt.casos.filter((c) => c.id !== this.caso.id); this.caso = otros[Math.floor(Math.random() * otros.length)];
@@ -258,6 +261,26 @@ export class ProcedureWorkbench {
     r.incorrectos.forEach((i) => this.quitar(i.id));
     r.faltantes.forEach((i, k) => { setTimeout(() => { if (this.el) this.agregar(i.id); }, 140 * (k + 1)); });
     setTimeout(() => { if (this.el) this.salir({ ...this.evaluar(this.sel), corregido: true, avisos: r }); }, 140 * (r.faltantes.length + 1) + 900);
+  }
+  narrar(txt) { const n = this.el?.querySelector('#wb-demo-txt'); if (n) { n.textContent = txt; n.classList.remove('nuevo'); void n.offsetWidth; n.classList.add('nuevo'); } }
+  /** demostración automática: muestra el caso, inspecciona cada insumo y arma la bandeja correcta */
+  async demo() {
+    const esperar = (ms) => new Promise((r) => setTimeout(r, ms)); const vivo = () => this.el && !this.cancelado;
+    this.narrar('Primero se lee el caso clínico: de él depende qué sonda y qué insumos elegir.'); await esperar(4200); if (!vivo()) return;
+    this.pintarEscena(); await esperar(900); if (!vivo()) return;
+    this.narrar('Ahora se arma la bandeja con todo lo necesario para este paciente, inspeccionando cada insumo.');
+    await esperar(1700);
+    const req = this.visibles().filter((i) => this.ef(i).correcto);
+    let n = 0;
+    for (const it of req) {
+      if (!vivo()) return; const largo = n++ < 4;
+      const o = this.objMesa(it.id); if (!o) continue;
+      this.mostrarFicha(it.id, o, false); this.narrar(`${it.nombre}: ${it.descripcion}`); await esperar(largo ? 2400 : 1300); if (!vivo()) return;
+      this.agregar(it.id); await esperar(largo ? 900 : 650);
+    }
+    this.ocultarFicha();
+    this.narrar('Bandeja completa: todo lo necesario y nada de más. Pasamos con el paciente.'); await esperar(2400); if (!vivo()) return;
+    this.salir(this.evaluar(this.sel));
   }
   /** transición de salida: la mesa se desvanece con desenfoque y recién entonces se avisa para montar el 3D */
   salir(res) {

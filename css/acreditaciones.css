@@ -402,3 +402,56 @@ body.dark-mode .wb-hoja { background: #14213a; color: #e2e8f0; }
 .acr-tut-dots i.on { background: var(--acr-primary); transform: scale(1.3); }
 .acr-tut-no { display: block; font-size: .74rem; color: var(--acr-muted); margin: 6px 0 10px; }
 .acr-tut-x { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 1.1rem; cursor: pointer; color: var(--acr-muted); }
+
+/* ===== v4: navegación del guiado, timeline, bitácora, demostración, microanimaciones ===== */
+.acr-gnav { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 6px; }
+.acr-gnav .acr-btn { flex: 1 1 auto; padding: 9px 12px; font-size: .8rem; }
+.acr-btn { transition: transform .18s cubic-bezier(.16,1,.3,1), box-shadow .18s, filter .18s; }
+.acr-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 16px -8px rgba(0,168,150,.55); filter: brightness(1.05); }
+.acr-btn:active:not(:disabled) { transform: translateY(0) scale(.97); }
+.acr-opt, .acr-tab, .acr-paso { transition: transform .18s cubic-bezier(.16,1,.3,1), border-color .18s, box-shadow .18s, background .18s; }
+.acr-opt:hover:not(:disabled), .acr-paso:hover { transform: translateX(3px); }
+.acr-tl { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0 10px; }
+.acr-tl .tl { width: 26px; height: 26px; border-radius: 8px; border: 1px solid var(--acr-line); background: var(--acr-card); color: var(--acr-muted); font: 800 .68rem inherit; font-family: inherit; cursor: pointer; transition: transform .15s, background .2s, border-color .2s; }
+.acr-tl .tl:hover { transform: translateY(-2px); border-color: var(--acr-primary); }
+.acr-tl .tl.ok { background: rgba(22,163,74,.16); border-color: rgba(22,163,74,.55); color: var(--acr-ok); }
+.acr-tl .tl.sk { background: rgba(245,158,11,.14); border-color: rgba(245,158,11,.5); color: #b45309; }
+.acr-tl .tl.cur { background: linear-gradient(135deg, #028090, #00A896); color: #fff; border-color: transparent; transform: scale(1.12); box-shadow: 0 6px 12px -6px rgba(0,168,150,.8); }
+.acr-hecho { display: inline-block; font-size: .7rem; font-weight: 800; color: var(--acr-ok); background: rgba(22,163,74,.12); border-radius: 999px; padding: 2px 9px; animation: acr-pop .4s cubic-bezier(.34,1.56,.64,1); }
+@keyframes acr-pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.acr-prog i { transition: width .6s cubic-bezier(.16,1,.3,1); }
+.acr-panel.pn-in > * { animation: pn-in .42s cubic-bezier(.16,1,.3,1) both; }
+.acr-panel.pn-in > *:nth-child(2) { animation-delay: .04s; } .acr-panel.pn-in > *:nth-child(3) { animation-delay: .08s; } .acr-panel.pn-in > *:nth-child(4) { animation-delay: .12s; } .acr-panel.pn-in > *:nth-child(5) { animation-delay: .16s; }
+@keyframes pn-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.acr-info.bien { animation: acr-pop .35s cubic-bezier(.34,1.56,.64,1); }
+.acr-info.mal { animation: acr-shake .35s; }
+
+/* avisos flotantes */
+.acr-toast { position: fixed; top: 76px; right: 18px; z-index: 10001; padding: 10px 16px; border-radius: 12px; font-weight: 800; font-size: .84rem; color: #fff; box-shadow: 0 14px 30px -10px rgba(0,0,0,.5); animation: toast-in .4s cubic-bezier(.34,1.56,.64,1) both; }
+.acr-toast.ok { background: linear-gradient(135deg, #15803d, #16a34a); }
+.acr-toast.mal { background: linear-gradient(135deg, #b91c1c, #dc2626); }
+.acr-toast.neutro { background: linear-gradient(135deg, #0f766e, #028090); }
+.acr-toast.sale { animation: toast-out .5s ease forwards; }
+@keyframes toast-in { from { opacity: 0; transform: translateX(40px) scale(.9); } to { opacity: 1; transform: none; } }
+@keyframes toast-out { to { opacity: 0; transform: translateX(40px); } }
+
+/* final / demostración */
+.acr-final { text-align: center; padding: 6px 2px; }
+.acr-final-ico { font-size: 3rem; animation: acr-pop .6s cubic-bezier(.34,1.56,.64,1); }
+.acr-final .acr-refs { text-align: left; }
+.acr-demo-tag { display: inline-block; background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff; font-weight: 800; font-size: .7rem; letter-spacing: .4px; padding: 4px 12px; border-radius: 999px; animation: wb-neutro 2.4s ease-in-out infinite; }
+.wb-demo-banner { position: sticky; top: 64px; z-index: 30; display: flex; gap: 10px; align-items: center; background: rgba(15,23,42,.9); backdrop-filter: blur(6px); color: #e2e8f0; border: 1px solid rgba(251,191,36,.5); border-radius: 14px; padding: 8px 12px; margin-bottom: 10px; font-size: .84rem; }
+.wb-demo-banner .tag { flex: none; background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff; font-weight: 800; font-size: .66rem; padding: 3px 10px; border-radius: 999px; }
+.wb-demo-banner #wb-demo-txt { flex: 1; }
+.wb-demo-banner #wb-demo-txt.nuevo { animation: pn-in .45s cubic-bezier(.16,1,.3,1) both; }
+.wb-demo-banner button { flex: none; border: 1px solid rgba(255,255,255,.4); background: none; color: #fff; border-radius: 999px; padding: 4px 12px; cursor: pointer; font-family: inherit; font-weight: 700; }
+
+/* portada: acceso a la acreditación modelo */
+.acr-modelo { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; max-width: 440px; margin: 10px auto 12px; text-align: left; border: none; cursor: pointer; font-family: inherit; color: #fff; padding: 14px 16px; border-radius: 16px; background: linear-gradient(135deg, #f59e0b, #ef4444 90%); box-shadow: 0 14px 26px -12px rgba(239,68,68,.7); transition: transform .2s cubic-bezier(.16,1,.3,1), box-shadow .2s; overflow: hidden; }
+.acr-modelo:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 20px 30px -12px rgba(239,68,68,.8); }
+.acr-modelo .p { flex: none; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.acr-modelo b { display: block; font-size: 1rem; }
+.acr-modelo small { display: block; opacity: .9; font-size: .74rem; }
+.acr-modelo em { position: absolute; top: 8px; right: 10px; font-style: normal; font-size: .6rem; font-weight: 800; background: #fff; color: #b91c1c; padding: 2px 8px; border-radius: 999px; }
+.acr-build { position: fixed; right: 10px; bottom: 6px; z-index: 5; font-size: .62rem; color: var(--acr-muted); opacity: .6; pointer-events: none; }
+.acr3d-tools button.ayuda { background: rgba(245,158,11,.25); border-color: #fbbf24; color: #fff; }

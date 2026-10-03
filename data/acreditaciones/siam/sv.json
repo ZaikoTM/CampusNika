@@ -31,7 +31,8 @@
     [
      "mesa alta"
     ]
-   ]
+   ],
+   "frase": "Reúno todo el material necesario y lo preparo en la mesa alta de traslado."
   },
   {
    "n": 2,
@@ -70,7 +71,8 @@
     [
      "identifico"
     ]
-   ]
+   ],
+   "frase": "Verifico el apellido y nombre del paciente y la solicitud del procedimiento."
   },
   {
    "n": 3,
@@ -105,7 +107,8 @@
      "llevo",
      "mesa"
     ]
-   ]
+   ],
+   "frase": "Llevo la mesa con el material al lado del paciente."
   },
   {
    "n": 4,
@@ -131,7 +134,8 @@
     [
      "hola"
     ]
-   ]
+   ],
+   "frase": "Saludo al paciente y me presento con nombre y apellido."
   },
   {
    "n": 5,
@@ -160,7 +164,8 @@
     [
      "explico"
     ]
-   ]
+   ],
+   "frase": "Le explico el procedimiento con lenguaje claro y sencillo: por qué se hace, riesgos y beneficios."
   },
   {
    "n": 6,
@@ -183,7 +188,8 @@
     [
      "firme"
     ]
-   ]
+   ],
+   "frase": "Le pido que firme el consentimiento informado y lo anexo a la historia clínica."
   },
   {
    "n": 7,
@@ -222,7 +228,8 @@
     [
      "posicion"
     ]
-   ]
+   ],
+   "frase": "Le pido que se coloque en la posición adecuada: ginecológica en la mujer, decúbito supino en el varón."
   },
   {
    "n": 8,
@@ -254,7 +261,8 @@
     [
      "intimidad"
     ]
-   ]
+   ],
+   "frase": "Retiro la ropa interior y cubro el área genital con un paño clínico no estéril."
   },
   {
    "n": 9,
@@ -278,7 +286,8 @@
      "guantes",
      "higiene"
     ]
-   ]
+   ],
+   "frase": "Me coloco guantes no estériles."
   },
   {
    "n": 10,
@@ -316,7 +325,8 @@
      "higien",
      "zona"
     ]
-   ]
+   ],
+   "frase": "Higienizo la zona genital y adyacencias con iodopovidona jabonosa."
   },
   {
    "n": 11,
@@ -343,7 +353,8 @@
      "elevo",
      "muslo"
     ]
-   ]
+   ],
+   "frase": "Le pido que eleve los muslos y coloco debajo un paño clínico no estéril."
   },
   {
    "n": 12,
@@ -376,7 +387,8 @@
      "me quito",
      "guantes"
     ]
-   ]
+   ],
+   "frase": "Me quito los guantes."
   },
   {
    "n": 13,
@@ -404,7 +416,8 @@
     [
      "lavado clinico"
     ]
-   ]
+   ],
+   "frase": "Me lavo las manos con técnica clínica."
   },
   {
    "n": 14,
@@ -427,7 +440,8 @@
      "guantes",
      "cerrada"
     ]
-   ]
+   ],
+   "frase": "Me coloco guantes estériles con técnica cerrada."
   },
   {
    "n": 15,
@@ -456,10 +470,15 @@
      "region"
     ],
     [
-     "coloco",
-     "pano esteril"
+     "cubriendo",
+     "region"
+    ],
+    [
+     "pano esteril",
+     "cubr"
     ]
-   ]
+   ],
+   "frase": "Coloco un paño estéril cubriendo la región pelviana y genital."
   },
   {
    "n": 16,
@@ -496,8 +515,14 @@
     [
      "ordeno",
      "elementos"
+    ],
+    [
+     "coloco",
+     "pano",
+     "sobre el"
     ]
-   ]
+   ],
+   "frase": "Coloco un segundo paño estéril y ubico sobre él los elementos necesarios."
   },
   {
    "n": 17,
@@ -534,7 +559,8 @@
      "abro",
      "sonda"
     ]
-   ]
+   ],
+   "frase": "Abro el pack estéril con la mano dominante y retiro la sonda enrollándola sin contaminarla."
   },
   {
    "n": 18,
@@ -578,7 +604,8 @@
      "controlo",
      "balon"
     ]
-   ]
+   ],
+   "frase": "Compruebo la indemnidad del balón inflando y desinflando con aire."
   },
   {
    "n": 19,
@@ -605,7 +632,8 @@
     [
      "lidocaina"
     ]
-   ]
+   ],
+   "frase": "Lubrico la punta de la sonda con lidocaína en gel."
   },
   {
    "n": 20,
@@ -639,7 +667,8 @@
      "aviso",
      "empiez"
     ]
-   ]
+   ],
+   "frase": "Le aviso al paciente que comienzo el procedimiento."
   },
   {
    "n": 21,
@@ -674,7 +703,8 @@
     [
      "introduzco"
     ]
-   ]
+   ],
+   "frase": "Introduzco la sonda con suavidad según la técnica, sin forzar, hasta ver salir orina."
   },
   {
    "n": 22,
@@ -706,7 +736,8 @@
     [
      "insuflo"
     ]
-   ]
+   ],
+   "frase": "Con la orina confirmada, inflo el balón con agua bidestilada."
   },
   {
    "n": 23,
@@ -731,7 +762,8 @@
      "resistencia",
      "leve"
     ]
-   ]
+   ],
+   "frase": "Tracciono levemente la sonda hasta sentir una leve resistencia."
   },
   {
    "n": 24,
@@ -755,7 +787,8 @@
     [
      "conecto"
     ]
-   ]
+   ],
+   "frase": "Conecto la sonda a la bolsa colectora y verifico que la orina fluya."
   },
   {
    "n": 25,
@@ -775,7 +808,8 @@
     [
      "glande"
     ]
-   ]
+   ],
+   "frase": "Vuelvo el prepucio a su lugar."
   },
   {
    "n": 26,
@@ -802,7 +836,8 @@
     [
      "cuelgo"
     ]
-   ]
+   ],
+   "frase": "Cuelgo la bolsa colectora del ganchillo de la cama."
   },
   {
    "n": 27,
@@ -830,7 +865,8 @@
      "sujeto",
      "sonda"
     ]
-   ]
+   ],
+   "frase": "Fijo la sonda a la cara interna del muslo con cinta hipoalergénica."
   },
   {
    "n": 28,
@@ -865,7 +901,8 @@
      "termine",
      "informo"
     ]
-   ]
+   ],
+   "frase": "Informo al paciente que finalizó el procedimiento y los cuidados que debe mantener."
   },
   {
    "n": 29,
@@ -896,7 +933,8 @@
      "retiro",
      "todo"
     ]
-   ]
+   ],
+   "frase": "Retiro los elementos de la cama y desecho los utilizados."
   },
   {
    "n": 30,
@@ -925,7 +963,8 @@
     [
      "asiento"
     ]
-   ]
+   ],
+   "frase": "Registro el procedimiento en la historia clínica."
   }
  ],
  "elementos": {
@@ -1247,10 +1286,14 @@
      "resistencia"
     ],
     [
-     "forzar"
+     "forzar",
+     "resistencia"
     ],
     [
      "forzando"
+    ],
+    [
+     "forzo"
     ]
    ]
   },
