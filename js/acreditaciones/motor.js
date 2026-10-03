@@ -52,7 +52,7 @@
   async function vistaAtlas() {
     volver.href = `acreditaciones.html?area=${area}`;
     const D = await getJSON(`${base}/${id}.json`);
-    const ESC = (await import(`./escena_${id}.js?v=3`)).default;
+    const ESC = (await import(`./escena_${id}.js?v=6`)).default;
     document.title = `${D.titulo} · Atlas de acreditaciones`;
 
     const S = { modo: 'explorar', sexo: 'F', paso: 0, sel: null, ent: null, ev: null, fun: null };

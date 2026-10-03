@@ -208,3 +208,7 @@ body.acr-page { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemF
   .acr3d-vp { height: 380px; }
   .acr3d-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
 }
+
+.acr3d-cred { padding: 8px 14px 12px; font-size: .68rem; color: var(--acr-muted); }
+.acr3d-cred a { color: var(--acr-primary); }
+.acr3d-msg[hidden] { display: none; }

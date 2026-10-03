@@ -1,0 +1,773 @@
+{
+ "M": {
+  "origen": [
+   0,
+   83.2,
+   8.0
+  ],
+  "corte_x": 0.0,
+  "piezas": [
+   {
+    "id": "cadera_i",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA16586.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.4,
+    "hs": null,
+    "nombre": "Hueso coxal"
+   },
+   {
+    "id": "cadera_d",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA16587.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.4,
+    "hs": null,
+    "nombre": "Hueso coxal"
+   },
+   {
+    "id": "sacro",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA16202.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.4,
+    "hs": null,
+    "nombre": "Sacro"
+   },
+   {
+    "id": "recto",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA14544.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#b9774f",
+    "opacidad": 0.62,
+    "hs": "recto",
+    "nombre": "Recto"
+   },
+   {
+    "id": "vejiga",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA15900.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ffc21a",
+    "opacidad": 0.7,
+    "hs": "vejiga",
+    "nombre": "Vejiga"
+   },
+   {
+    "id": "prostata",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA9600.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ff8a1f",
+    "opacidad": 0.8,
+    "hs": "prostata",
+    "nombre": "Próstata"
+   },
+   {
+    "id": "uretra",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA19667.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ff3b5c",
+    "opacidad": 0.82,
+    "hs": "uretra",
+    "nombre": "Uretra"
+   },
+   {
+    "id": "cuerpo_esponjoso",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA19617nsn.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#f0c7a0",
+    "opacidad": 0.32,
+    "hs": null,
+    "nombre": "Cuerpo esponjoso"
+   },
+   {
+    "id": "glande",
+    "tipo": "stl",
+    "src": "assets/anatomia/bp3d/FMA18247.stl",
+    "escala": 0.1,
+    "rot": [
+     -1.5707963,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#f08c8c",
+    "opacidad": 0.6,
+    "hs": "prepucio",
+    "nombre": "Glande y prepucio"
+   }
+  ],
+  "procedurales": {},
+  "uretra": [
+   [
+    -0.06,
+    69.81,
+    18.3
+   ],
+   [
+    -0.0,
+    70.68,
+    18.37
+   ],
+   [
+    -0.02,
+    71.55,
+    18.37
+   ],
+   [
+    -0.05,
+    72.43,
+    18.34
+   ],
+   [
+    -0.06,
+    73.29,
+    18.22
+   ],
+   [
+    -0.06,
+    74.12,
+    17.95
+   ],
+   [
+    -0.06,
+    74.89,
+    17.54
+   ],
+   [
+    -0.06,
+    75.58,
+    16.99
+   ],
+   [
+    -0.06,
+    76.12,
+    16.31
+   ],
+   [
+    -0.06,
+    76.51,
+    15.53
+   ],
+   [
+    -0.07,
+    76.76,
+    14.69
+   ],
+   [
+    -0.08,
+    76.84,
+    13.82
+   ],
+   [
+    -0.09,
+    76.73,
+    12.95
+   ],
+   [
+    -0.09,
+    76.52,
+    12.1
+   ],
+   [
+    -0.07,
+    76.29,
+    11.26
+   ],
+   [
+    -0.06,
+    76.11,
+    10.4
+   ],
+   [
+    -0.06,
+    76.11,
+    9.53
+   ],
+   [
+    -0.06,
+    76.55,
+    8.79
+   ],
+   [
+    -0.06,
+    77.31,
+    8.35
+   ],
+   [
+    -0.06,
+    78.14,
+    8.06
+   ],
+   [
+    -0.05,
+    78.89,
+    7.62
+   ],
+   [
+    -0.05,
+    79.68,
+    7.55
+   ],
+   [
+    -0.06,
+    80.31,
+    8.16
+   ],
+   [
+    -0.07,
+    80.98,
+    8.72
+   ]
+  ],
+  "meatus_tail": [
+   [
+    0.0,
+    0.5,
+    1.4
+   ],
+   [
+    0.0,
+    -1.8,
+    3.6
+   ],
+   [
+    0.0,
+    -6.0,
+    4.8
+   ]
+  ],
+  "balon": [
+   0.0,
+   82.0,
+   8.7
+  ],
+  "punta": [
+   0.0,
+   83.2,
+   9.2
+  ],
+  "bolsa": [
+   0.0,
+   -10.5,
+   4.8
+  ],
+  "pines": {
+   "vejiga": [
+    0,
+    82.2,
+    9.8
+   ],
+   "balon": [
+    0,
+    82.0,
+    8.7
+   ],
+   "uretra": [
+    0,
+    76.4,
+    13.0
+   ],
+   "prostata": [
+    0,
+    78.2,
+    8.4
+   ],
+   "prepucio": [
+    0,
+    72.2,
+    18.6
+   ],
+   "recto": [
+    0,
+    83.5,
+    4.5
+   ],
+   "sinfisis": [
+    0,
+    78.6,
+    14.9
+   ],
+   "paciente": [
+    0,
+    97.5,
+    8.0
+   ]
+  },
+  "piel": {
+   "radios": [
+    [
+     16,
+     -22
+    ],
+    [
+     18.5,
+     -12
+    ],
+    [
+     20.5,
+     0
+    ],
+    [
+     20.5,
+     10
+    ],
+    [
+     18,
+     18
+    ],
+    [
+     15.5,
+     26
+    ]
+   ],
+   "escala_z": 0.56,
+   "pos": [
+    0,
+    0,
+    0
+   ]
+  },
+  "camara": {
+   "lat": [
+    52,
+    -7,
+    5
+   ],
+   "fro": [
+    0,
+    -7,
+    55
+   ],
+   "sup": [
+    0.01,
+    50,
+    5
+   ],
+   "objetivo": [
+    0,
+    -7,
+    5
+   ]
+  }
+ },
+ "F": {
+  "origen": [
+   -0.85,
+   5.9,
+   -9.0
+  ],
+  "corte_x": -0.85,
+  "piezas": [
+   {
+    "id": "pelvis",
+    "tipo": "glb",
+    "src": "assets/anatomia/hra/pelvis_f.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.4,
+    "hs": null,
+    "nombre": "Pelvis ósea"
+   },
+   {
+    "id": "vejiga",
+    "tipo": "glb",
+    "src": "assets/anatomia/hra/bladder_f.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ffc21a",
+    "opacidad": 0.7,
+    "hs": "vejiga",
+    "nombre": "Vejiga"
+   },
+   {
+    "id": "utero",
+    "tipo": "glb",
+    "src": "assets/anatomia/hra/uterus_f.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ff6fb5",
+    "opacidad": 0.78,
+    "hs": "utero",
+    "nombre": "Útero"
+   }
+  ],
+  "procedurales": {
+   "uretra": {
+    "pts": [
+     [
+      -1.25,
+      -1.5,
+      -5.2
+     ],
+     [
+      -1.1,
+      -2.8,
+      -4.3
+     ],
+     [
+      -1.0,
+      -3.9,
+      -3.4
+     ],
+     [
+      -0.9,
+      -4.8,
+      -2.7
+     ]
+    ],
+    "radio": 0.38,
+    "color": "#ff3b5c",
+    "opacidad": 0.85,
+    "capa": "organos",
+    "hs": "uretra"
+   },
+   "vagina": {
+    "pts": [
+     [
+      -1.0,
+      1.5,
+      -8.2
+     ],
+     [
+      -1.0,
+      -1.0,
+      -7.2
+     ],
+     [
+      -1.0,
+      -3.8,
+      -4.9
+     ],
+     [
+      -0.9,
+      -6.2,
+      -1.7
+     ]
+    ],
+    "radio": 0.9,
+    "color": "#e87fb0",
+    "opacidad": 0.5,
+    "capa": "organos",
+    "hs": "vagina"
+   },
+   "recto": {
+    "pts": [
+     [
+      -1.0,
+      12.0,
+      -11.5
+     ],
+     [
+      -1.0,
+      6.0,
+      -13.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -12.4
+     ],
+     [
+      -1.0,
+      -3.5,
+      -10.6
+     ],
+     [
+      -1.0,
+      -6.2,
+      -9.6
+     ]
+    ],
+    "radio": 1.6,
+    "color": "#b9774f",
+    "opacidad": 0.6,
+    "capa": "organos",
+    "hs": "recto"
+   }
+  },
+  "uretra": [
+   [
+    -0.9,
+    -4.8,
+    -2.7
+   ],
+   [
+    -1.0,
+    -3.9,
+    -3.4
+   ],
+   [
+    -1.1,
+    -2.8,
+    -4.3
+   ],
+   [
+    -1.25,
+    -1.5,
+    -5.2
+   ]
+  ],
+  "meatus_tail": [
+   [
+    0.0,
+    -0.7,
+    0.9
+   ],
+   [
+    0.0,
+    -3.2,
+    3.0
+   ],
+   [
+    0.0,
+    -7.2,
+    3.6
+   ]
+  ],
+  "balon": [
+   -1.3,
+   -0.7,
+   -4.9
+  ],
+  "punta": [
+   -1.4,
+   0.7,
+   -4.5
+  ],
+  "bolsa": [
+   -0.9,
+   -15.2,
+   -2.2
+  ],
+  "pines": {
+   "vejiga": [
+    -0.9,
+    0.9,
+    -3.4
+   ],
+   "balon": [
+    -1.3,
+    -0.7,
+    -4.9
+   ],
+   "uretra": [
+    -1.1,
+    -3.1,
+    -4.1
+   ],
+   "utero": [
+    -0.9,
+    3.8,
+    -4.9
+   ],
+   "vagina": [
+    -1.0,
+    -2.2,
+    -6.2
+   ],
+   "recto": [
+    -1.0,
+    5.0,
+    -12.8
+   ],
+   "sinfisis": [
+    -0.9,
+    -1.8,
+    -0.9
+   ],
+   "paciente": [
+    -0.9,
+    17.5,
+    -9.0
+   ]
+  },
+  "piel": {
+   "radios": [
+    [
+     16,
+     -22
+    ],
+    [
+     18.5,
+     -12
+    ],
+    [
+     20.5,
+     0
+    ],
+    [
+     20.5,
+     10
+    ],
+    [
+     18,
+     18
+    ],
+    [
+     15.5,
+     26
+    ]
+   ],
+   "escala_z": 0.62,
+   "pos": [
+    0,
+    0,
+    0
+   ]
+  },
+  "camara": {
+   "lat": [
+    52,
+    -8,
+    0
+   ],
+   "fro": [
+    0,
+    -8,
+    55
+   ],
+   "sup": [
+    0.01,
+    50,
+    0
+   ],
+   "objetivo": [
+    0,
+    -8,
+    0
+   ]
+  }
+ }
+}
