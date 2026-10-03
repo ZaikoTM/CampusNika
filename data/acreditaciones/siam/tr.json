@@ -373,6 +373,58 @@
      "guantes"
     ]
    ]
+  },
+  {
+   "id": "d12",
+   "texto": "Realiza el tacto rectal a pesar de una contraindicación absoluta",
+   "critico": true,
+   "solo_contra": true,
+   "target": "ano",
+   "porque": "Es criterio de desaprobación: con fisura anal aguda, absceso anorrectal supurativo o trombosis hemorroidal aguda el tacto está contraindicado; se suspende, se informa y se deriva.",
+   "claves": [
+    [
+     "a pesar"
+    ],
+    [
+     "pese a"
+    ],
+    [
+     "igual",
+     "tacto"
+    ],
+    [
+     "igual",
+     "introduzco"
+    ],
+    [
+     "continuo",
+     "tacto"
+    ],
+    [
+     "continuo",
+     "procedimiento"
+    ],
+    [
+     "lubrico"
+    ],
+    [
+     "introduzco"
+    ],
+    [
+     "apoyo",
+     "dedo"
+    ],
+    [
+     "presion",
+     "esfinter"
+    ],
+    [
+     "barrido"
+    ],
+    [
+     "apriete"
+    ]
+   ]
   }
  ],
  "casos": [
@@ -384,7 +436,8 @@
    "motivo": "Polaquiuria, nicturia y chorro urinario débil desde hace meses.",
    "indicacion": "Tacto rectal para valorar el tamaño y la consistencia de la próstata.",
    "antecedentes": "Hipertensión arterial. Sin alergias conocidas.",
-   "alergia": null
+   "alergia": null,
+   "hallazgo": "región perianal sin lesiones, sin eritema ni fisuras."
   },
   {
    "id": "c2",
@@ -394,7 +447,8 @@
    "motivo": "Rectorragia: sangre roja rutilante al final de la deposición, con prurito anal.",
    "indicacion": "Inspección perianal y tacto rectal.",
    "antecedentes": "Constipación crónica. Sin alergias conocidas.",
-   "alergia": null
+   "alergia": null,
+   "hallazgo": "pequeños plicomas y una hemorroide externa no trombosada, con escasa sangre roja rutilante; sin fisura aguda."
   },
   {
    "id": "c3",
@@ -404,7 +458,8 @@
    "motivo": "Heces negras, fétidas y pastosas (melena) desde hace 3 días, con astenia.",
    "indicacion": "Tacto rectal para constatar la melena y descartar patología orificial.",
    "antecedentes": "Uso crónico de antiinflamatorios por artrosis.",
-   "alergia": null
+   "alergia": null,
+   "hallazgo": "piel perianal sin lesiones, con restos de materia fecal oscura en el margen anal."
   },
   {
    "id": "c4",
@@ -414,7 +469,8 @@
    "motivo": "Incontinencia fecal y sospecha de fecaloma. Paciente postrada.",
    "indicacion": "Tacto rectal para evaluar el tono del esfínter y la ampolla rectal.",
    "antecedentes": "ACV con secuelas hace 2 años, postración. Sin alergias conocidas.",
-   "alergia": null
+   "alergia": null,
+   "hallazgo": "piel perianal macerada con restos de materia fecal; sin fisuras ni abscesos."
   },
   {
    "id": "c5",
@@ -424,7 +480,8 @@
    "motivo": "Proctalgia y prurito anal de 2 semanas de evolución.",
    "indicacion": "Inspección y tacto rectal con material libre de látex.",
    "antecedentes": "Alergia al látex: urticaria al contacto con guantes.",
-   "alergia": "latex"
+   "alergia": "latex",
+   "hallazgo": "eritema perianal leve por rascado; sin fisuras agudas ni abscesos."
   },
   {
    "id": "c6",
@@ -434,7 +491,8 @@
    "motivo": "Hemospermia y goteo urinario terminal.",
    "indicacion": "Tacto rectal para valorar la próstata.",
    "antecedentes": "Antecedente familiar de cáncer de próstata. Sin alergias conocidas.",
-   "alergia": null
+   "alergia": null,
+   "hallazgo": "región perianal sin lesiones."
   },
   {
    "id": "c7",
@@ -444,7 +502,8 @@
    "motivo": "Prurito anal y sensación de masa en el margen anal.",
    "indicacion": "Inspección perianal y tacto rectal con material libre de látex.",
    "antecedentes": "Alergia al látex. Sin otros antecedentes.",
-   "alergia": "latex"
+   "alergia": "latex",
+   "hallazgo": "un plicoma anal (pliegue cutáneo redundante) no doloroso y sin trombosis."
   },
   {
    "id": "c8",
@@ -454,7 +513,44 @@
    "motivo": "Tenesmo rectal y alteración del tránsito intestinal.",
    "indicacion": "Tacto rectal para evaluar el canal anal y la ampolla rectal.",
    "antecedentes": "Sin antecedentes relevantes ni alergias conocidas.",
-   "alergia": null
+   "alergia": null,
+   "hallazgo": "región perianal sin lesiones."
+  },
+  {
+   "id": "c9",
+   "nombre": "Julián F.",
+   "sexo": "M",
+   "edad": 34,
+   "motivo": "Dolor anal intenso y súbito al defecar, con escasa sangre roja. Espasmo doloroso.",
+   "indicacion": "Tacto rectal para evaluar el canal anal.",
+   "antecedentes": "Constipación reciente. Sin alergias conocidas.",
+   "alergia": null,
+   "contra": "fisura anal aguda",
+   "hallazgo": "fisura anal aguda en la comisura posterior, con dolor intenso y espasmo del esfínter."
+  },
+  {
+   "id": "c10",
+   "nombre": "Marina T.",
+   "sexo": "F",
+   "edad": 47,
+   "motivo": "Dolor anal pulsátil con fiebre y tumefacción perianal.",
+   "indicacion": "Tacto rectal para evaluar el canal anal.",
+   "antecedentes": "Diabetes tipo 2. Sin alergias conocidas.",
+   "alergia": null,
+   "contra": "absceso anorrectal supurativo",
+   "hallazgo": "tumefacción perianal eritematosa, caliente, fluctuante y muy dolorosa: absceso anorrectal supurativo."
+  },
+  {
+   "id": "c11",
+   "nombre": "Esteban R.",
+   "sexo": "M",
+   "edad": 59,
+   "motivo": "Tumoración muy dolorosa de aparición brusca en el margen anal.",
+   "indicacion": "Tacto rectal para evaluar la tumoración.",
+   "antecedentes": "Constipación crónica. Sin alergias conocidas.",
+   "alergia": null,
+   "contra": "trombosis hemorroidal aguda",
+   "hallazgo": "tumoración violácea, tensa y muy dolorosa en el margen anal: trombosis hemorroidal externa aguda."
   }
  ],
  "fundamentos": [
@@ -545,6 +641,17 @@
    ],
    "c": 0,
    "e": "La posición de litotomía permite la palpación bimanual y es la elección en pacientes postrados; sirve para próstata y vesículas seminales."
+  },
+  {
+   "q": "Al inspeccionar la región perianal observás una fisura anal aguda muy dolorosa con espasmo del esfínter. ¿Qué corresponde?",
+   "o": [
+    "No realizar el tacto rectal, informar al paciente y derivar para su tratamiento",
+    "Lubricar abundantemente y realizar el tacto con suavidad",
+    "Realizar el tacto con anestesia local y un dedo más fino",
+    "Pedir que puje para completar el tacto"
+   ],
+   "c": 0,
+   "e": "La fisura anal aguda es una contraindicación absoluta del tacto rectal, igual que el absceso anorrectal supurativo y la trombosis hemorroidal aguda. Se suspende la maniobra, se explica al paciente, se registra y se deriva."
   }
  ],
  "criterios_texto": "Desaprueba si omite: la explicación y el consentimiento (5, 6); el lavado de manos y los guantes (7, 8, 22, 23); la lubricación (13); la introducción suave y orientada hacia el ombligo (15, 16, 17); o la inspección previa, el examen del guante y el registro (12, 21, 25). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
@@ -635,7 +742,8 @@
    "16": "Esperá a que el esfínter se relaje antes de avanzar.",
    "18": "Barrido horario y antihorario. En el varón, próstata en la pared anterior.",
    "21": "El guante habla: sangre, moco, pus, heces.",
-   "25": "Registrá tono, hallazgos y contenido del guante."
+   "25": "Registrá tono, hallazgos y contenido del guante.",
+   "12.5": "Fisura aguda, absceso supurado o trombosis hemorroidal aguda: NO se hace el tacto. Informá, registrá y derivá."
   }
  },
  "examen": {
@@ -1069,6 +1177,44 @@
    "fx": "inspeccion"
   },
   {
+   "n": 12.5,
+   "texto": "Constata la contraindicación absoluta y NO realiza el tacto rectal: informa al paciente y lo deriva para su tratamiento.",
+   "fase": "Inspección y técnica",
+   "target": "ano",
+   "critico": true,
+   "solo_contra": true,
+   "estado": {
+    "contra": 1
+   },
+   "fx": "contraindicado",
+   "explica": "Si la inspección muestra fisura anal aguda, absceso anorrectal supurativo o trombosis hemorroidal aguda, el tacto rectal está contraindicado de forma absoluta: aumentaría el dolor, provocaría espasmo y traumatismo y, en un absceso, riesgo de bacteriemia. Saber cuándo no tocar es parte de la técnica: se suspende, se explica al paciente, se registra y se deriva. Realizar la maniobra igual es criterio de desaprobación.",
+   "claves": [
+    [
+     "no realizo"
+    ],
+    [
+     "no hago"
+    ],
+    [
+     "no efectuo"
+    ],
+    [
+     "contraindic"
+    ],
+    [
+     "suspendo"
+    ],
+    [
+     "no corresponde",
+     "tacto"
+    ],
+    [
+     "derivo"
+    ]
+   ],
+   "frase": "Constato una contraindicación absoluta: no realizo el tacto rectal, informo al paciente y lo derivo para su tratamiento."
+  },
+  {
    "n": 13,
    "texto": "Lubrica el dedo índice con vaselina (liquida ó gel) ó lidocaína gel.",
    "fase": "Inspección y técnica",
@@ -1096,7 +1242,8 @@
     ]
    ],
    "frase": "Lubrico el dedo índice con vaselina o lidocaína en gel.",
-   "fx": "lubricar"
+   "fx": "lubricar",
+   "sin_contra": true
   },
   {
    "n": 14,
@@ -1129,7 +1276,8 @@
     ]
    ],
    "frase": "Le aviso al paciente que comienzo el procedimiento.",
-   "fx": "aviso"
+   "fx": "aviso",
+   "sin_contra": true
   },
   {
    "n": 15,
@@ -1160,7 +1308,8 @@
     ]
    ],
    "frase": "Apoyo el dedo índice sobre el margen anal, con el extremo distal hacia el ombligo.",
-   "fx": "apoyar"
+   "fx": "apoyar",
+   "sin_contra": true
   },
   {
    "n": 16,
@@ -1201,7 +1350,8 @@
     ]
    ],
    "frase": "Aplico una presión suave y sostenida sobre el esfínter hasta que se relaje.",
-   "fx": "presion"
+   "fx": "presion",
+   "sin_contra": true
   },
   {
    "n": 17,
@@ -1242,7 +1392,8 @@
     ]
    ],
    "frase": "Introduzco el dedo índice con suavidad, en dirección al ombligo.",
-   "fx": "dedo_in"
+   "fx": "dedo_in",
+   "sin_contra": true
   },
   {
    "n": 18,
@@ -1289,7 +1440,8 @@
     ]
    ],
    "frase": "Realizo el barrido de la mucosa en sentido horario y antihorario, describiendo lo que palpo.",
-   "fx": "barrido"
+   "fx": "barrido",
+   "sin_contra": true
   },
   {
    "n": 19,
@@ -1329,7 +1481,8 @@
     ]
    ],
    "frase": "Le pido que haga fuerza como para apretar mi dedo y constato el tono del esfínter.",
-   "fx": "tono"
+   "fx": "tono",
+   "sin_contra": true
   },
   {
    "n": 20,
@@ -1360,7 +1513,8 @@
     ]
    ],
    "frase": "Retiro el dedo del canal anorrectal.",
-   "fx": "retirar"
+   "fx": "retirar",
+   "sin_contra": true
   },
   {
    "n": 21,
@@ -1399,7 +1553,8 @@
     ]
    ],
    "frase": "Examino el guante en busca de materia fecal, moco, pus o sangre.",
-   "fx": "examinar"
+   "fx": "examinar",
+   "sin_contra": true
   },
   {
    "n": 22,

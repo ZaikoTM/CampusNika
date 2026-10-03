@@ -34,7 +34,7 @@ export class ProcedureWorkbench {
     const grupoCubierto = (i) => i.uno_de && items.some((j) => j.uno_de === i.uno_de && sel.has(j.id));
     const vistos = new Set();
     const faltantes = items.filter((i) => {
-      if (!this.ef(i).correcto || i.opcional || sel.has(i.id) || grupoCubierto(i)) return false;
+      if (!this.ef(i).correcto || i.opcional || (this.caso && this.caso.contra && i.uno_de) || sel.has(i.id) || grupoCubierto(i)) return false;
       if (i.uno_de) { if (vistos.has(i.uno_de)) return false; vistos.add(i.uno_de); }
       return true;
     }).map((i) => ({ ...i, critico: this.ef(i).critico }));

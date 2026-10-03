@@ -1,13 +1,14 @@
 # Revisión clínica · Tacto rectal
 
-Documento para validar con la cátedra antes de dar por cerrada la acreditación. Los pasos y su orden son los de la lista de cotejo oficial (25 ítems). Lo demás (explicaciones, frases del alumno modelo, casos, preguntas) lo redacté a partir de los fundamentos de la carpeta SIAM y de los criterios de desaprobación que me pasaste.
+Estado: **validado por NotebookLM contra la lista de cotejo, la guía y el compendio de la cátedra (25 pasos, 5 criterios, frases, casos, errores y preguntas)**. Pendiente: confirmación final de la cátedra.
 
-## Criterios de desaprobación (los 5 que fijaste)
+## Criterios de desaprobación
 - 🗣️ **Explicación y consentimiento** — pasos 5, 6
 - 🧼 **Bioseguridad: lavado de manos y guantes** — pasos 7, 8, 22, 23
 - 🧴 **Lubricar antes de explorar** — pasos 13
 - ☝️ **Introducción suave y orientada al ombligo** — pasos 15, 16, 17
 - 📝 **Inspección previa, guante y registro** — pasos 12, 21, 25
+- 🚫 **Realizar el tacto con una contraindicación absoluta** (fisura anal aguda, absceso anorrectal supurativo, trombosis hemorroidal aguda): en los casos con contraindicación, el paso «12 bis» es crítico.
 
 ## Pasos, fundamento y frase del alumno modelo
 
@@ -58,6 +59,10 @@ Frase modelo: “Separo las nalgas con la mano no dominante para exponer el marg
 **12. Inspecciona la región y describe sus hallazgos.** ⚠ crítico  
 Fundamento: Se inspecciona la región perianal antes de tocar: piel, eritema, fisuras, fístulas, hemorroides externas, prolapso, lesiones, restos de heces o sangre, y se describe lo observado. Permite detectar contraindicaciones absolutas (fisura anal aguda, absceso anorrectal supurativo, trombosis hemorroidal aguda): en ese caso no se hace el tacto. Omitir la inspección es criterio de desaprobación.  
 Frase modelo: “Inspecciono la región perianal y describo lo que observo.”
+
+**12 bis. Constata la contraindicación absoluta y NO realiza el tacto rectal: informa al paciente y lo deriva para su tratamiento.** ⚠ crítico  
+Fundamento: Si la inspección muestra fisura anal aguda, absceso anorrectal supurativo o trombosis hemorroidal aguda, el tacto rectal está contraindicado de forma absoluta: aumentaría el dolor, provocaría espasmo y traumatismo y, en un absceso, riesgo de bacteriemia. Saber cuándo no tocar es parte de la técnica: se suspende, se explica al paciente, se registra y se deriva. Realizar la maniobra igual es criterio de desaprobación.  
+Frase modelo: “Constato una contraindicación absoluta: no realizo el tacto rectal, informo al paciente y lo derivo para su tratamiento.”
 
 **13. Lubrica el dedo índice con vaselina (liquida ó gel) ó lidocaína gel.** ⚠ crítico  
 Fundamento: Se lubrica el dedo índice con vaselina (sólida o líquida) o con lidocaína en gel. Sin lubricación la maniobra produce dolor intenso, contracción defensiva del esfínter y riesgo de desgarro de la mucosa: es criterio de desaprobación.  
@@ -112,14 +117,17 @@ Fundamento: Se registra el procedimiento y los hallazgos (inspección, tono esfi
 Frase modelo: “Registro el procedimiento y los hallazgos en la historia clínica.”
 
 ## Casos clínicos
-- **Luis A.** (varón, 68): Polaquiuria, nicturia y chorro urinario débil desde hace meses. — Hipertensión arterial. Sin alergias conocidas.
-- **Silvia R.** (mujer, 54): Rectorragia: sangre roja rutilante al final de la deposición, con prurito anal. — Constipación crónica. Sin alergias conocidas.
-- **Raúl D.** (varón, 72): Heces negras, fétidas y pastosas (melena) desde hace 3 días, con astenia. — Uso crónico de antiinflamatorios por artrosis.
-- **Hilda M.** (mujer, 83): Incontinencia fecal y sospecha de fecaloma. Paciente postrada. — ACV con secuelas hace 2 años, postración. Sin alergias conocidas.
-- **Diego P.** (varón, 45): Proctalgia y prurito anal de 2 semanas de evolución. — Alergia al látex: urticaria al contacto con guantes. **[alergia al látex]**
-- **Mario G.** (varón, 63): Hemospermia y goteo urinario terminal. — Antecedente familiar de cáncer de próstata. Sin alergias conocidas.
-- **Carolina B.** (mujer, 38): Prurito anal y sensación de masa en el margen anal. — Alergia al látex. Sin otros antecedentes. **[alergia al látex]**
-- **Teresa L.** (mujer, 61): Tenesmo rectal y alteración del tránsito intestinal. — Sin antecedentes relevantes ni alergias conocidas.
+- **Luis A.** (varón, 68): Polaquiuria, nicturia y chorro urinario débil desde hace meses. — Hipertensión arterial. Sin alergias conocidas. · Hallazgo de la inspección: región perianal sin lesiones, sin eritema ni fisuras.
+- **Silvia R.** (mujer, 54): Rectorragia: sangre roja rutilante al final de la deposición, con prurito anal. — Constipación crónica. Sin alergias conocidas. · Hallazgo de la inspección: pequeños plicomas y una hemorroide externa no trombosada, con escasa sangre roja rutilante; sin fisura aguda.
+- **Raúl D.** (varón, 72): Heces negras, fétidas y pastosas (melena) desde hace 3 días, con astenia. — Uso crónico de antiinflamatorios por artrosis. · Hallazgo de la inspección: piel perianal sin lesiones, con restos de materia fecal oscura en el margen anal.
+- **Hilda M.** (mujer, 83): Incontinencia fecal y sospecha de fecaloma. Paciente postrada. — ACV con secuelas hace 2 años, postración. Sin alergias conocidas. · Hallazgo de la inspección: piel perianal macerada con restos de materia fecal; sin fisuras ni abscesos.
+- **Diego P.** (varón, 45): Proctalgia y prurito anal de 2 semanas de evolución. — Alergia al látex: urticaria al contacto con guantes. **[alergia al látex]** · Hallazgo de la inspección: eritema perianal leve por rascado; sin fisuras agudas ni abscesos.
+- **Mario G.** (varón, 63): Hemospermia y goteo urinario terminal. — Antecedente familiar de cáncer de próstata. Sin alergias conocidas. · Hallazgo de la inspección: región perianal sin lesiones.
+- **Carolina B.** (mujer, 38): Prurito anal y sensación de masa en el margen anal. — Alergia al látex. Sin otros antecedentes. **[alergia al látex]** · Hallazgo de la inspección: un plicoma anal (pliegue cutáneo redundante) no doloroso y sin trombosis.
+- **Teresa L.** (mujer, 61): Tenesmo rectal y alteración del tránsito intestinal. — Sin antecedentes relevantes ni alergias conocidas. · Hallazgo de la inspección: región perianal sin lesiones.
+- **Julián F.** (varón, 34): Dolor anal intenso y súbito al defecar, con escasa sangre roja. Espasmo doloroso. — Constipación reciente. Sin alergias conocidas. **[CONTRAINDICADO: fisura anal aguda]** · Hallazgo de la inspección: fisura anal aguda en la comisura posterior, con dolor intenso y espasmo del esfínter.
+- **Marina T.** (mujer, 47): Dolor anal pulsátil con fiebre y tumefacción perianal. — Diabetes tipo 2. Sin alergias conocidas. **[CONTRAINDICADO: absceso anorrectal supurativo]** · Hallazgo de la inspección: tumefacción perianal eritematosa, caliente, fluctuante y muy dolorosa: absceso anorrectal supurativo.
+- **Esteban R.** (varón, 59): Tumoración muy dolorosa de aparición brusca en el margen anal. — Constipación crónica. Sin alergias conocidas. **[CONTRAINDICADO: trombosis hemorroidal aguda]** · Hallazgo de la inspección: tumoración violácea, tensa y muy dolorosa en el margen anal: trombosis hemorroidal externa aguda.
 
 ## Acciones incorrectas que detecta el examen
 - ⚠ GRAVE · Comienza el procedimiento sin explicar ni solicitar el consentimiento — Es criterio de desaprobación: el tacto rectal es invasivo y exige explicación y consentimiento previos.
@@ -133,6 +141,7 @@ Frase modelo: “Registro el procedimiento y los hallazgos en la historia clíni
 - Explora con dos dedos o con toda la mano — El tacto rectal se hace con el dedo índice lubricado; usar más dedos aumenta el dolor y el riesgo de lesión.
 - Lubrica con un antiséptico (iodopovidona o alcohol) — Los antisépticos no lubrican e irritan la mucosa. Se usa vaselina o lidocaína en gel.
 - ⚠ GRAVE · Reutiliza los mismos guantes con otro paciente o no los descarta — Es una falla de bioseguridad: los guantes son de un solo uso y se descartan tras cada paciente.
+- ⚠ GRAVE · Realiza el tacto rectal a pesar de una contraindicación absoluta — Es criterio de desaprobación: con fisura anal aguda, absceso anorrectal supurativo o trombosis hemorroidal aguda el tacto está contraindicado; se suspende, se informa y se deriva.
 
 ## Preguntas de fundamentos
 - ¿Cuál de las siguientes es una indicación del tacto rectal? → **Rectorragia**. La rectorragia es una indicación anorrectal. Las otras tres son contraindicaciones absolutas: el tacto agravaría el dolor y puede diseminar la infección.
@@ -143,13 +152,15 @@ Frase modelo: “Registro el procedimiento y los hallazgos en la historia clíni
 - Próstata aumentada de tamaño, simétrica, lisa, de consistencia elástica y con surco medio conservado: ¿qué sugiere? → **Hiperplasia benigna de próstata**. Esos hallazgos sugieren hiperplasia benigna. El cáncer suele dar un nódulo duro, asimétrico, con surco medio borrado. La prostatitis aguda es dolorosa y está contraindicado masajearla.
 - Heces negras, pastosas y fétidas en el guante, ¿qué indican? → **Melena (sangrado digestivo alto)**. La melena indica sangre digerida, habitualmente de origen digestivo alto. La sangre roja rutilante sugiere patología orificial o rectal baja.
 - ¿Qué posición permite la palpación bimanual y es de elección en pacientes postrados? → **Litotomía (decúbito dorsal o ginecológica)**. La posición de litotomía permite la palpación bimanual y es la elección en pacientes postrados; sirve para próstata y vesículas seminales.
+- Al inspeccionar la región perianal observás una fisura anal aguda muy dolorosa con espasmo del esfínter. ¿Qué corresponde? → **No realizar el tacto rectal, informar al paciente y derivar para su tratamiento**. La fisura anal aguda es una contraindicación absoluta del tacto rectal, igual que el absceso anorrectal supurativo y la trombosis hemorroidal aguda. Se suspende la maniobra, se explica al paciente, se registra y se deriva.
 
-## Puntos a confirmar con la cátedra
+## Resuelto en la última revisión
 
-1. **Contraindicaciones absolutas (fisura aguda, absceso anorrectal supurativo, trombosis hemorroidal aguda):** hoy se enseñan en el machete, en los fundamentos y en el paso 12 (inspección). Todavía no hay un caso clínico en el que el alumno deba *no* hacer el tacto. ¿Querés que sumemos casos de ese tipo?
-2. **Lubricante:** se aceptan vaselina o lidocaína en gel (basta con uno). Verificar que no se pida otra cosa.
-3. **Insumos opcionales:** gasas/papel y paños clínicos no estériles no se exigen ni penalizan. ¿Es correcto?
-4. **Guantes:** con alergia al látex corresponde nitrilo; con látex en un paciente alérgico se marca como error grave.
-5. **Pasos 1 y 2** (reunir y preparar sobre la mesa alta) se dan por cumplidos al armar la mesa.
-6. **Hallazgos prostáticos** (HPB vs cáncer) en las preguntas de fundamentos: validar redacción.
-7. **3D:** recto, esfínter anal externo, próstata y vesículas seminales (BodyParts3D, CC BY-SA 2.1 JP) en el varón; en la mujer el recto y la vagina son tubos procedurales y el útero viene de HRA. El dedo se dibuja atravesando la pared translúcida del recto.
+- Contraindicaciones absolutas: sumados 3 casos (fisura aguda, absceso supurado, trombosis hemorroidal aguda) en los que el alumno debe inspeccionar, **no** realizar el tacto, informar y derivar. En esos casos no se piden lubricante ni los pasos 13 a 21.
+- Lubricante (vaselina o lidocaína en gel, basta uno), insumos opcionales, guantes de nitrilo con alergia al látex y pasos 1 y 2 por la mesa: confirmados.
+
+## Para tener en cuenta
+
+- La redacción de «surco medio» difiere entre fuentes (conservado en HBP leve, borrado en HBP avanzada o tumor). La pregunta de fundamentos usa HBP con surco conservado.
+- Tamaño prostático normal (≈ 3 × 4 cm) no figura en el simulador por ahora.
+- 3D: recto, esfínter anal externo, próstata y vesículas seminales (BodyParts3D, CC BY-SA 2.1 JP) en el varón; en la mujer el recto y la vagina son tubos procedurales y el útero viene de HRA.

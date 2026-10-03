@@ -74,6 +74,7 @@
     residuos: E('🗑️', 'Retirando y desechando los elementos', 'thud', 'a-cae', 2000),
     registro: E('📝', 'Registrando en la historia clínica', 'pluma', 'a-escribe', 2300),
     posicion_tr: E('🛌', 'Posición adecuada: decúbito lateral izquierdo (Sims), litotomía, genupectoral o de pie inclinado', 'thud', 'a-pop', 2300),
+    contraindicado: E('🚫', 'Contraindicación absoluta: no se realiza el tacto rectal', 'error', 'a-pop', 2600),
     desnudar: E('👖', 'Descubriendo de la cintura para abajo, resguardando la intimidad', 'crujido', 'a-baja'),
     separar: E('👐', 'Separando las nalgas para exponer la región', 'pop', 'a-abre', 1800),
     inspeccion: { ico: '🔍', cap: 'Inspeccionando la región perianal: piel, orificio, lesiones', snd: 'tick', cls: 'a-escanea', dur: 2800, ancla: true },
