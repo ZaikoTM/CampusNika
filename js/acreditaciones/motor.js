@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=11'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=12'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
@@ -82,11 +82,36 @@
     }
     document.title = `${D.titulo} · Atlas de acreditaciones`;
     if (window.AcrFX) AcrFX.boton();
+    const pantallaCompleta = () => {
+      const de = document.documentElement;
+      try {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else if (de.requestFullscreen) de.requestFullscreen().catch(() => toast('Tu navegador no permitió la pantalla completa', 'neutro'));
+        else toast('Este dispositivo no admite pantalla completa', 'neutro');
+      } catch (_) {}
+    };
+    if (!document.getElementById('acr-full-fab')) {
+      document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-full-fab" class="acr-ayuda-fab acr-full-fab" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>');
+      document.getElementById('acr-full-fab').onclick = pantallaCompleta;
+    }
+    document.addEventListener('fullscreenchange', () => { const b = document.getElementById('acr-full-fab'); if (b) { b.classList.toggle('on', !!document.fullscreenElement); b.title = document.fullscreenElement ? 'Salir de pantalla completa' : 'Pantalla completa'; } });
+    const quitarCancelarEx = () => { const b = document.getElementById('acr-ex-x'); if (b) b.remove(); };
+    const cancelarExamen = () => {
+      if (!S.ex || (S.ex.fase !== 'mesa' && S.ex.fase !== 'curso')) return;
+      if (!confirm('¿Cancelar el examen? No se corrige ni se guarda ningún resultado.')) return;
+      parar(); if (MESA) MESA.dispose(); S.ex.fase = 'cancelado'; quitarCancelarEx();
+      S.modo = 'practica'; S.sub = 'guiado'; S.mesaOk = false; portada();
+    };
+    const mostrarCancelarEx = () => {
+      if (document.getElementById('acr-ex-x')) return;
+      document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ex-x" class="acr-ex-x">✕ Cancelar examen</button>');
+      document.getElementById('acr-ex-x').onclick = cancelarExamen;
+    };
     if (!document.getElementById('acr-ayuda-fab')) {
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r10'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r12'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
@@ -182,6 +207,7 @@
       if (ESC.mount) ESC.mount(svg, S.sexo);
       svg.onclick = null;
       svg.addEventListener('acr-ayuda', () => tutorial3D());
+      svg.addEventListener('acr-full', pantallaCompleta);
     }
     function estadoHasta(n) {
       const est = {}; const usados = new Set();
@@ -450,7 +476,7 @@
       const apl = pasosAplicables(S.ex.caso.sexo);
       const dist = D.distractores.filter((d) => !d.solo || d.solo === S.ex.caso.sexo);
       Object.assign(S.ex, { fase: 'mesa', apl, dist, hechos: new Map(), log: [], graves: 0, seg: S.ex.t * 60, inicio: Date.now(), sel: null, aviso: '', chat: [] });
-      iniciarTimerExamen();
+      iniciarTimerExamen(); mostrarCancelarEx();
       if (!D.instrumental) return examenCurso();
       try { await asegurarMesa(); } catch (e) { console.error(e); return examenCurso(); }
       $('#acr-panel').innerHTML = `<div class="acr-examen-bar"><span id="acr-reloj" class="acr-reloj">⏱ ${mmss(Math.max(0, S.ex.seg))}</span></div>`;
@@ -485,6 +511,7 @@
         const a = e.target.closest('[data-act]'); if (a) { examenAccion(a.dataset.act); return; }
         if (e.target.closest('#acr-undo')) { examenDeshacer(); return; }
         if (e.target.id === 'acr-cancel') { S.ex.sel = null; marcarSel(null); pintarExamen(); }
+        if (e.target.id === 'acr-abandonar') { cancelarExamen(); return; }
         if (e.target.id === 'acr-fin') { if (confirm('¿Finalizar el examen y corregir?')) examenFin(false); }
       };
       setTimeout(tutorialAuto, 1000);
@@ -506,7 +533,7 @@
         ${X.aviso ? `<div class="acr-info mal acr-alerta">${X.aviso}</div>` : ''}
         ${cuerpo}
         ${chatHTML(X.chat, 'Escribí lo que hacés, ej.: me lavo las manos…', '✍ Bitácora de tus acciones')}
-        <div class="acr-row" style="margin-top:12px"><button class="acr-btn sec" id="acr-undo" ${X.hist && X.hist.length ? '' : 'disabled'}>↩ Deshacer última acción</button><button class="acr-btn bad" id="acr-fin">Finalizar examen</button></div>
+        <div class="acr-row" style="margin-top:12px"><button class="acr-btn sec" id="acr-undo" ${X.hist && X.hist.length ? '' : 'disabled'}>↩ Deshacer última acción</button><button class="acr-btn bad" id="acr-fin">Finalizar examen</button><button class="acr-btn sec" id="acr-abandonar">✕ Cancelar examen</button></div>
         <small>Deshacer cuesta 1 punto: cada rectificación queda registrada.</small>`;
       enlazarChat(examenTexto);
     }
@@ -553,7 +580,7 @@
       X.sel = null; marcarSel(null); toast('Acción deshecha (−1 punto)', 'neutro'); pintarExamen();
     }
     function examenFin(porTiempo) {
-      const X = S.ex; if (X.fase !== 'curso' && X.fase !== 'mesa') return; X.fase = 'fin'; parar(); if (MESA) MESA.dispose(); document.querySelector('.acr-grid').classList.remove('sin-escena'); svg = svg || $('#acr-escena');
+      const X = S.ex; if (X.fase !== 'curso' && X.fase !== 'mesa') return; X.fase = 'fin'; quitarCancelarEx(); parar(); if (MESA) MESA.dispose(); document.querySelector('.acr-grid').classList.remove('sin-escena'); svg = svg || $('#acr-escena');
       const usado = Math.min(X.t * 60, Math.round((Date.now() - X.inicio) / 1000));
       const filas = X.apl.map((p) => ({ p, st: X.hechos.get(p.n) || 'NO' }));
       const pen = D.examen || { penalizacion_incorrecta: 3, penalizacion_repetida: 1 };
@@ -565,20 +592,49 @@
       const aprobado = !criticosFallidos.length && !gravesLog.length && pct >= D.umbral;
       guardarRes(area, id, 'examen', { pct, aprobado, seg: usado });
       try { if (ESC) { ESC.hl(null); ESC.sel(null); } } catch (_) {}
-      $('#acr-panel').onclick = (e) => { if (e.target.id === 'acr-otra') examenInicio(); if (e.target.id === 'acr-prac') { S.modo = 'practica'; S.sub = 'guiado'; ir(); } };
-      $('#acr-panel').innerHTML = `
-        <div class="acr-res ${aprobado ? 'ap' : 'de'}"><h2>${aprobado ? 'ACREDITADO' : 'NO ACREDITADO'}</h2>
-          <div><b>${pct}%</b> de acierto · umbral ${D.umbral}%</div>
-          <div>Tiempo: ${mmss(usado)} de ${mmss(X.t * 60)}${porTiempo ? ' (tiempo agotado)' : ''}</div></div>
-        ${criticosFallidos.length || gravesLog.length ? `<div class="acr-info mal"><b>Criterios de desaprobación:</b><ul style="margin:6px 0 0 18px">
-          ${criticosFallidos.map((f) => `<li>Paso ${f.p.n} (${f.st === 'NO' ? 'omitido' : 'fuera de orden'}): ${esc(f.p.texto)}<br><small>${esc(f.p.explica)}</small></li>`).join('')}
-          ${gravesLog.filter((l) => l.tipo === 'incorrecta' || l.tipo === 'material').map((l) => `<li>${l.tipo === 'material' ? (l.falta ? 'Material crítico faltante' : 'Material incorrecto grave') : 'Acción incorrecta grave'}: “${esc(l.texto.replace(/^Falta: /, ''))}”<br><small>${esc(l.porque)}</small></li>`).join('')}</ul></div>` : ''}
-        <div class="acr-fase">Detalle de errores (${X.log.length})</div>
-        ${X.log.length ? `<ul class="acr-refs">${X.log.map((l) => `<li><b>${l.tipo === 'rectificacion' ? 'Rectificación' : l.tipo === 'material' ? (l.falta ? 'Material faltante' : 'Material incorrecto') : l.tipo === 'incorrecta' ? 'Acción incorrecta' : l.tipo === 'orden' ? 'Orden alterado' : 'Acción repetida'}${l.grave ? ' · grave' : ''}:</b> ${esc(l.texto)}<br><small>${esc(l.porque)}</small></li>`).join('')}</ul>` : '<p>No registraste errores de acción ni de orden.</p>'}
-        <div class="acr-row"><button class="acr-btn" id="acr-otra">Nuevo intento</button><button class="acr-btn sec" id="acr-prac">Practicar</button></div>
-        <div class="acr-fase">Lista de cotejo (${X.apl.length} pasos)</div>
-        <table class="acr-tabla">${filas.map((f) => `<tr><td>${f.p.n}</td><td>${esc(f.p.texto)} ${f.p.critico ? '<span class="acr-crit">⚠</span>' : ''}</td><td class="st-${f.st}">${f.st === 'SI' ? 'SÍ' : f.st === 'M' ? '+/-' : 'NO'}</td></tr>`).join('')}</table>
-        <p style="margin-top:8px"><small>+/- = realizado pero fuera de orden (vale 0,5). Cada acción incorrecta resta ${pen.penalizacion_incorrecta} puntos y cada repetida ${pen.penalizacion_repetida}.</small></p>`;
+      sinEscena(); const pn = $('#acr-panel'); pn.classList.add('informe');
+      const perlaDe = (n) => (D.machete && D.machete.por_paso && D.machete.por_paso[n]) || '';
+      const mejora = (q) => `<div class="inf-mejora"><b>💡 Cómo mejorarlo</b><p>${esc(perlaDe(q.n) || q.explica)}</p>${q.frase ? `<p class="inf-frase">🗣 Cómo decirlo en la bitácora: “${esc(q.frase)}”</p>` : ''}</div>`;
+      const nSI = filas.filter((f) => f.st === 'SI').length, nM = filas.filter((f) => f.st === 'M').length, nNO = filas.filter((f) => f.st === 'NO').length;
+      const prioridades = [
+        ...criticosFallidos.map((f) => ({ tit: `Paso ${f.p.n} · ${f.st === 'NO' ? 'omitido' : 'fuera de orden'} (crítico)`, que: f.p.texto, porque: f.p.explica, q: f.p })),
+        ...gravesLog.filter((l) => l.tipo === 'incorrecta' || l.tipo === 'material').map((l) => ({ tit: l.tipo === 'material' ? (l.falta ? 'Material crítico faltante' : 'Material incorrecto grave') : 'Acción incorrecta grave', que: l.texto.replace(/^Falta: /, ''), porque: l.porque, q: null })),
+      ];
+      const etiquetaLog = (l) => l.tipo === 'rectificacion' ? 'Rectificación' : l.tipo === 'material' ? (l.falta ? 'Material faltante' : 'Material incorrecto') : l.tipo === 'incorrecta' ? 'Acción incorrecta' : l.tipo === 'orden' ? 'Orden alterado' : 'Acción repetida';
+      const anillo = (v, ok) => { const r = 54, c = 2 * Math.PI * r; return `<svg class="inf-anillo" viewBox="0 0 130 130"><circle cx="65" cy="65" r="${r}" class="fondo"/><circle cx="65" cy="65" r="${r}" class="${ok ? 'ok' : 'mal'}" style="stroke-dasharray:${c};stroke-dashoffset:${c * (1 - v / 100)}"/><text x="65" y="72" text-anchor="middle">${v}%</text></svg>`; };
+      const fila = (f) => {
+        const ant = f.st === 'M' ? filas.filter((z) => z.p.n < f.p.n && z.st === 'NO').map((z) => z.p.n) : [];
+        const estado = f.st === 'SI' ? ['ok', 'Correcto, en orden'] : f.st === 'M' ? ['med', 'Hecho, pero fuera de orden (vale 0,5)'] : ['mal', 'Omitido'];
+        return `<details class="inf-paso ${estado[0]}" ${f.st === 'SI' ? '' : 'open'}><summary><span class="n">${f.p.n}</span><span class="t">${esc(f.p.texto)} ${f.p.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}</span><span class="b ${estado[0]}">${f.st === 'SI' ? '✔ SÍ' : f.st === 'M' ? '± Orden' : '✖ NO'}</span></summary>
+          <div class="inf-det"><p><b>${estado[1]}.</b>${ant.length ? ` Lo hiciste antes de completar el/los paso(s) ${ant.join(', ')}.` : ''}</p>
+          <p><b>Por qué importa:</b> ${esc(f.p.explica)}</p>${f.st === 'SI' ? '' : mejora(f.p)}</div></details>`;
+      };
+      pn.innerHTML = `<div class="inf">
+        <div class="inf-cab ${aprobado ? 'ap' : 'de'}">
+          <div class="inf-ribbon">⭐ Informe detallado NikaMed+</div>
+          ${anillo(pct, aprobado)}
+          <div><h2>${aprobado ? 'ACREDITADO' : 'NO ACREDITADO'}</h2>
+            <p>${esc(D.titulo)} · caso de ${esc(X.caso.nombre || 'paciente')} (${X.caso.sexo === 'F' ? 'mujer' : 'varón'}, ${X.caso.edad} años)</p>
+            <p class="inf-sub">${aprobado ? 'Cumpliste el umbral y ningún criterio de desaprobación.' : (criticosFallidos.length || gravesLog.length ? 'Desaprobado por criterio crítico, aunque el puntaje cuente.' : `No alcanzaste el umbral de ${D.umbral}%.`)}${porTiempo ? ' · Se agotó el tiempo.' : ''}</p></div>
+        </div>
+        <div class="inf-stats">
+          <div><b>${mmss(usado)}</b><span>de ${mmss(X.t * 60)}</span></div><div class="ok"><b>${nSI}</b><span>pasos correctos</span></div><div class="med"><b>${nM}</b><span>fuera de orden</span></div><div class="mal"><b>${nNO}</b><span>omitidos</span></div><div class="mal"><b>${X.log.filter((l) => l.tipo !== 'rectificacion').length}</b><span>errores de acción</span></div><div><b>${gravesLog.length}</b><span>infracciones graves</span></div>
+        </div>
+        <div class="inf-calculo"><b>Cómo se calculó:</b> base ${Math.round(baseP)}% (pasos en orden = 1, fuera de orden = 0,5) − ${resta} punto${resta === 1 ? '' : 's'} por errores (${pen.penalizacion_incorrecta} por acción incorrecta, ${pen.penalizacion_repetida} por repetida o rectificación) = <b>${pct}%</b>. Umbral ${D.umbral}%.</div>
+        ${prioridades.length ? `<h3 class="inf-h">🚨 Qué corregir primero</h3><div class="inf-prio">${prioridades.map((x) => `<div class="inf-card mal"><h4>${esc(x.tit)}</h4><p><b>Qué pasó:</b> ${esc(x.que)}</p><p><b>Por qué es grave:</b> ${esc(x.porque)}</p>${x.q ? mejora(x.q) : '<div class="inf-mejora"><b>💡 Cómo mejorarlo</b><p>Repasá este punto en Fundamentos y practicá el recorrido guiado antes de volver a rendir.</p></div>'}</div>`).join('')}</div>` : '<div class="acr-info bien">Sin criterios críticos fallidos. ¡Muy bien!</div>'}
+        ${X.log.length ? `<h3 class="inf-h">⚠ Errores de acción y de material (${X.log.length})</h3><div class="inf-prio">${X.log.map((l) => { const q = l.n ? porN(l.n) : null; return `<div class="inf-card ${l.grave ? 'mal' : 'med'}"><h4>${etiquetaLog(l)}${l.grave ? ' · grave' : ''}</h4><p><b>Registro:</b> ${esc(l.texto)}</p><p><b>Por qué:</b> ${esc(l.porque)}</p>${q ? mejora(q) : ''}</div>`; }).join('')}</div>` : '<h3 class="inf-h">⚠ Errores de acción</h3><div class="acr-info bien">No registraste errores de acción ni de orden.</div>'}
+        <h3 class="inf-h">📋 Revisión paso a paso (${X.apl.length} pasos)</h3>
+        <div class="inf-pasos">${filas.map(fila).join('')}</div>
+        <h3 class="inf-h">🎯 Plan para el próximo intento</h3>
+        <ul class="acr-refs">${nNO || nM || X.log.length ? `${nNO ? `<li>Practicá en modo guiado los pasos omitidos: ${filas.filter((f) => f.st === 'NO').map((f) => f.p.n).join(', ')}.</li>` : ''}${nM ? `<li>Respetá el orden de la lista de cotejo: de lo limpio a lo estéril.</li>` : ''}${X.log.length ? '<li>Escribí en la bitácora solo lo que realmente hacés y revisá el material de la mesa según el caso (sexo, calibre, alergias).</li>' : ''}` : '<li>Repetí el examen con otro caso y sexo para consolidar.</li>'}<li>Repasá la pestaña Machete y Fundamentos antes de reintentar.</li></ul>
+        <div class="acr-row"><button class="acr-btn" id="acr-otra">Nuevo intento</button><button class="acr-btn sec" id="acr-prac">Practicar</button><button class="acr-btn sec" id="acr-fund">Ver fundamentos</button></div>
+      </div>`;
+      pn.onclick = (e) => {
+        if (e.target.id === 'acr-otra') { pn.classList.remove('informe'); examenInicio(); }
+        if (e.target.id === 'acr-prac') { pn.classList.remove('informe'); S.modo = 'practica'; S.sub = 'guiado'; ir(); }
+        if (e.target.id === 'acr-fund') { pn.classList.remove('informe'); S.modo = 'practica'; S.sub = 'fundamentos'; ir(); }
+      };
+      pn.classList.remove('pn-in'); window.scrollTo({ top: Math.max(0, pn.getBoundingClientRect().top + scrollY - 90), behavior: 'smooth' });
     }
 
     // ---- DEMOSTRACIÓN: la acreditación modelo, de punta a punta y bien hecha
@@ -679,7 +735,7 @@
 
     // ---- portada (sin cargar nada pesado) y navegación
     function portada() {
-      parar();
+      parar(); quitarCancelarEx();
       if (ESC) ESC.dispose();
       document.querySelector('.acr-grid').classList.add('sin-escena');
       $('#acr-chips').innerHTML = '';
@@ -718,7 +774,7 @@
       $('#acr-go-libre').onclick = () => arrancar('practica', 'explorar');
     }
     function ir() {
-      parar();
+      parar(); if (S.modo !== 'examen') quitarCancelarEx();
       pintarTabs();
       if (S.modo === 'examen') return examenInicio();
       if (S.modo === 'practica' && S.sub === 'guiado' && !S.mesaOk) return mostrarMesaPractica();

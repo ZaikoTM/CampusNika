@@ -570,3 +570,52 @@ body.dark-mode .wb-hoja { background: #14213a; color: #e2e8f0; }
 .cc .acr-row { padding: 6px 22px 20px; }
 @media (max-width: 560px) { .cc-top { flex-direction: column; text-align: center; } .cc-chips { justify-content: center; } }
 .wb-demo-banner { position: static; }
+
+.acr-full-fab { left: 92px; font-size: 1rem; }
+.acr-full-fab.on { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+.acr-ex-x { position: fixed; right: 14px; top: 76px; z-index: 9400; border: 1px solid #fecaca; background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; font: 800 .78rem 'Plus Jakarta Sans', sans-serif; padding: 8px 16px; border-radius: 999px; cursor: pointer; box-shadow: 0 10px 22px -8px rgba(185,28,28,.8); transition: transform .2s cubic-bezier(.34,1.56,.64,1); animation: pn-in .4s ease both; }
+.acr-ex-x:hover { transform: scale(1.06); }
+
+/* ===== Informe de examen (NikaMed+) ===== */
+.acr-panel.informe { max-height: none; overflow: visible; padding: 0; background: none; border: none; }
+.acr-grid.sin-escena .acr-panel.informe { max-width: 980px; margin: 0 auto; width: 100%; }
+.inf { display: grid; gap: 14px; animation: cc-in .6s cubic-bezier(.16,1,.3,1) both; }
+.inf-cab { position: relative; display: flex; gap: 22px; align-items: center; padding: 28px 26px 22px; border-radius: 22px; color: #fff; overflow: hidden; }
+.inf-cab.ap { background: linear-gradient(135deg, #064e3b, #059669 70%, #10b981); }
+.inf-cab.de { background: linear-gradient(135deg, #450a0a, #b91c1c 70%, #ef4444); }
+.inf-cab h2 { font-size: 1.9rem; color: #fff; margin-bottom: 4px; letter-spacing: .5px; }
+.inf-cab p { color: rgba(255,255,255,.92); font-size: .92rem; margin: 2px 0; }
+.inf-sub { font-weight: 700; }
+.inf-ribbon { position: absolute; top: 10px; right: 14px; font-size: .68rem; font-weight: 800; padding: 4px 12px; border-radius: 999px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #3b2300; }
+.inf-anillo { flex: none; width: 130px; height: 130px; transform: rotate(-90deg); }
+.inf-anillo circle { fill: none; stroke-width: 11; stroke-linecap: round; }
+.inf-anillo .fondo { stroke: rgba(255,255,255,.22); }
+.inf-anillo .ok, .inf-anillo .mal { stroke: #fff; transition: stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1); animation: inf-anillo 1.4s cubic-bezier(.16,1,.3,1) both; }
+@keyframes inf-anillo { from { stroke-dashoffset: 340; } }
+.inf-anillo text { transform: rotate(90deg); transform-origin: 65px 65px; fill: #fff; font: 800 28px 'Plus Jakarta Sans', sans-serif; }
+.inf-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.inf-stats > div { background: var(--acr-bg); border: 1px solid var(--acr-line); border-radius: 14px; padding: 12px; text-align: center; }
+.inf-stats b { display: block; font-size: 1.5rem; color: var(--acr-ttl); }
+.inf-stats span { font-size: .72rem; color: var(--acr-muted); font-weight: 700; }
+.inf-stats .ok b { color: #16a34a; } .inf-stats .med b { color: #d97706; } .inf-stats .mal b { color: #dc2626; }
+.inf-calculo { font-size: .84rem; padding: 12px 14px; border-radius: 14px; background: rgba(13,148,136,.08); border: 1px solid var(--acr-line); }
+.inf-h { font-size: 1.1rem; color: var(--acr-ttl); margin: 8px 0 0; }
+.inf-prio { display: grid; gap: 10px; }
+.inf-card { background: var(--acr-bg); border: 1px solid var(--acr-line); border-left: 5px solid #dc2626; border-radius: 14px; padding: 14px 16px; }
+.inf-card.med { border-left-color: #f59e0b; }
+.inf-card h4 { font-size: .95rem; margin-bottom: 6px; color: var(--acr-ttl); }
+.inf-card p, .inf-det p { font-size: .88rem; margin: 4px 0; }
+.inf-mejora { margin-top: 8px; padding: 10px 12px; border-radius: 12px; background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.35); }
+.inf-mejora p { margin: 3px 0; }
+.inf-frase { font-style: italic; color: var(--acr-muted); }
+.inf-pasos { display: grid; gap: 8px; }
+.inf-paso { background: var(--acr-bg); border: 1px solid var(--acr-line); border-left: 5px solid #16a34a; border-radius: 12px; }
+.inf-paso.med { border-left-color: #f59e0b; } .inf-paso.mal { border-left-color: #dc2626; }
+.inf-paso summary { display: flex; gap: 10px; align-items: center; padding: 10px 14px; cursor: pointer; list-style: none; }
+.inf-paso summary::-webkit-details-marker { display: none; }
+.inf-paso .n { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .78rem; background: var(--acr-line); }
+.inf-paso .t { flex: 1; font-size: .88rem; font-weight: 600; }
+.inf-paso .b { flex: none; font-size: .72rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+.inf-paso .b.ok { background: rgba(22,163,74,.15); color: #15803d; } .inf-paso .b.med { background: rgba(245,158,11,.18); color: #b45309; } .inf-paso .b.mal { background: rgba(220,38,38,.15); color: #b91c1c; }
+.inf-det { padding: 0 16px 14px 52px; }
+@media (max-width: 640px) { .inf-cab { flex-direction: column; text-align: center; } .inf-det { padding-left: 16px; } }
