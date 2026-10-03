@@ -787,6 +787,29 @@
   "corte_x": -0.85,
   "piezas": [
    {
+    "id": "piel_cuerpo",
+    "tipo": "glb",
+    "src": "assets/anatomia/piel/piel_f.glb",
+    "escala": 1,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#7db2ff",
+    "opacidad": 0.13,
+    "hs": null,
+    "nombre": "Cuerpo del paciente",
+    "peso": 59272,
+    "sin_normales_suaves": false
+   },
+   {
     "id": "pelvis",
     "tipo": "glb",
     "src": "assets/anatomia/hra/pelvis_f.glb",
@@ -916,18 +939,18 @@
     "pts": [
      [
       -1.0,
-      12.0,
-      -11.5
+      8.0,
+      -12.6
      ],
      [
       -1.0,
-      6.0,
+      4.0,
       -13.0
      ],
      [
       -1.0,
-      1.0,
-      -12.4
+      0.0,
+      -12.0
      ],
      [
       -1.0,
@@ -940,9 +963,9 @@
       -9.6
      ]
     ],
-    "radio": 1.6,
+    "radio": 1.25,
     "color": "#b9774f",
-    "opacidad": 0.6,
+    "opacidad": 0.55,
     "capa": "organos",
     "hs": "recto"
    }
@@ -1046,40 +1069,6 @@
     -0.9,
     -4.8,
     -2.7
-   ]
-  },
-  "piel": {
-   "radios": [
-    [
-     15,
-     -13
-    ],
-    [
-     18,
-     -8
-    ],
-    [
-     20,
-     -1
-    ],
-    [
-     20,
-     8
-    ],
-    [
-     17.5,
-     13
-    ],
-    [
-     14.5,
-     16
-    ]
-   ],
-   "escala_z": 0.62,
-   "pos": [
-    0,
-    0,
-    0
    ]
   },
   "camara": {
