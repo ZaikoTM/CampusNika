@@ -694,3 +694,11 @@ body.dark-mode .wb-hoja { background: #14213a; color: #e2e8f0; }
 .acr-back:hover { background: linear-gradient(135deg, #028090, #00A896); color: #fff; transform: translateY(-2px); box-shadow: 0 14px 22px -10px rgba(0,168,150,.9); }
 .acr-back:hover .fl { transform: translateX(-5px); }
 .acr-back:focus-visible, .acr-nav a.brand:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+
+/* ===== Barra superior celeste con degradado (igual que las hojas) ===== */
+.acr-nav { background: linear-gradient(135deg, #04323a, #028090 70%, #00A896); border-bottom: none; box-shadow: 0 10px 24px -14px rgba(2,128,144,.8); }
+.acr-nav a.brand { color: #fff; border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.12); }
+.acr-nav a.brand:hover { border-color: #fff; background: rgba(255,255,255,.22); box-shadow: 0 12px 22px -12px rgba(0,0,0,.6); }
+.acr-nav a.brand img { background: #fff; border-radius: 10px; padding: 3px; height: 36px; }
+.acr-back { color: #fff; border-color: rgba(255,255,255,.55); background: rgba(255,255,255,.14); box-shadow: none; }
+.acr-back:hover { background: #fff; color: #028090; box-shadow: 0 14px 22px -10px rgba(0,0,0,.5); }
