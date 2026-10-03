@@ -81,7 +81,11 @@
         } });
     }
     document.title = `${D.titulo} · Atlas de acreditaciones`;
-    const BUILD = '2026-10-03 · r7'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    if (!document.getElementById('acr-ayuda-fab')) {
+      document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
+      document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
+    }
+    const BUILD = '2026-10-03 · r8'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
@@ -109,6 +113,7 @@
 
     // ---- tutorial del modelo 3D
     const TUT = [
+      { ico: '🍽️', t: 'La mesa de instrumental', x: 'Leé el caso clínico y armá la bandeja: pasá el cursor sobre un insumo para inspeccionarlo y hacé clic (o arrastralo) para agregarlo; tocá uno de la bandeja para devolverlo a la mesa. Al terminar, «Pasar al procedimiento con el paciente».' },
       { ico: '🖱️', t: 'Girá y acercá', x: 'Arrastrá con el mouse o el dedo para girar el modelo. Con la rueda (o pellizcando) acercás y alejás. Con el botón derecho (o dos dedos) desplazás la vista.' },
       { ico: '🧍', t: 'Piel, huesos y órganos', x: 'El paciente se ve con su piel. Con los botones «Piel», «Huesos» y «Órganos» prendés y apagás cada capa: podés retirar la piel por completo para ver la anatomía interna. «Rayos X» vuelve transparente el cuerpo.' },
       { ico: '📍', t: 'Focos y cortes', x: 'Cada punto con etiqueta es una estructura: tocala para saber qué es. «Focos» oculta o muestra las etiquetas y «Corte» abre un corte sagital de la pelvis.' },

@@ -455,3 +455,8 @@ body.dark-mode .wb-hoja { background: #14213a; color: #e2e8f0; }
 .acr-modelo em { position: absolute; top: 8px; right: 10px; font-style: normal; font-size: .6rem; font-weight: 800; background: #fff; color: #b91c1c; padding: 2px 8px; border-radius: 999px; }
 .acr-build { position: fixed; right: 10px; bottom: 6px; z-index: 5; font-size: .62rem; color: var(--acr-muted); opacity: .6; pointer-events: none; }
 .acr3d-tools button.ayuda { background: rgba(245,158,11,.25); border-color: #fbbf24; color: #fff; }
+
+/* botón de ayuda siempre visible */
+.acr-ayuda-fab { position: fixed; left: 12px; bottom: 12px; z-index: 9500; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,.55); cursor: pointer; font: 800 .95rem Plus Jakarta Sans, sans-serif; color: #fff; background: linear-gradient(135deg, #028090, #00A896); box-shadow: 0 8px 18px -6px rgba(0,168,150,.8); transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s; }
+.acr-ayuda-fab:hover { transform: scale(1.18) rotate(-8deg); box-shadow: 0 10px 22px -6px rgba(0,168,150,.95); }
+.acr-ayuda-fab:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
