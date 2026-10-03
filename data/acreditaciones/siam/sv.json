@@ -195,7 +195,9 @@
     ]
    ],
    "frase": "Le pido que firme el consentimiento informado y lo anexo a la historia clínica.",
-   "fx": "firma"
+   "fx": "firma",
+   "corto": "Consentimiento informado",
+   "ico": "✍️"
   },
   {
    "n": 7,
@@ -430,7 +432,9 @@
     ]
    ],
    "frase": "Me lavo las manos con técnica clínica.",
-   "fx": "lavado"
+   "fx": "lavado",
+   "corto": "Lavado de manos",
+   "ico": "🧼"
   },
   {
    "n": 14,
@@ -455,7 +459,9 @@
     ]
    ],
    "frase": "Me coloco guantes estériles con técnica cerrada.",
-   "fx": "guante"
+   "fx": "guante",
+   "corto": "Guantes estériles con técnica cerrada",
+   "ico": "🧤"
   },
   {
    "n": 15,
@@ -623,7 +629,9 @@
     ]
    ],
    "frase": "Compruebo la indemnidad del balón inflando y desinflando con aire.",
-   "fx": "balon_test"
+   "fx": "balon_test",
+   "corto": "Indemnidad del balón",
+   "ico": "🎈"
   },
   {
    "n": 19,
@@ -994,7 +1002,9 @@
     ]
    ],
    "frase": "Registro el procedimiento en la historia clínica.",
-   "fx": "registro"
+   "fx": "registro",
+   "corto": "Registro en la historia clínica",
+   "ico": "📝"
   }
  ],
  "elementos": {

@@ -70,13 +70,27 @@
     function pintarLectura(ver) {
       const c = $('#acr-lectura'); if (!c) return;
       if (!ver) { c.innerHTML = ''; return; }
-      const abierto = c.querySelector('details')?.open;
-      const lista = pasosAplicables(S.sexo);
       c.innerHTML = `<div class="lect-aviso">📖 <b>Antes de practicar</b>, leé la lista de cotejo o tenela a mano: en el examen no vas a tener ayudas.</div>
-        <details class="lect" ${abierto ? 'open' : ''}><summary><span>📋 Lista de cotejo · ${lista.length} pasos (${S.sexo === 'F' ? 'mujer' : 'varón'})</span><em>tocá para ${abierto ? 'ocultar' : 'desplegar'}</em></summary>
-          <ol class="lect-lista">${lista.map((z) => `<li class="${z.critico ? 'cri' : ''}"><b>${z.n}.</b> ${esc(z.texto)} ${z.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}</li>`).join('')}</ol>
-          <p class="lect-nota">Los pasos marcados con ⚠ son criterios de desaprobación.</p></details>`;
-      const d = c.querySelector('details'); d.addEventListener('toggle', () => { d.querySelector('em').textContent = 'tocá para ' + (d.open ? 'ocultar' : 'desplegar'); });
+        <button type="button" class="lect-btn" id="lect-abrir"><span class="ic">📋</span><span><b>Ver la lista de cotejo completa</b><small>${D.pasos.length} pasos · versión mujer y varón</small></span><em>Abrir ↗</em></button>`;
+      $('#lect-abrir').onclick = () => abrirLista(S.sexo);
+    }
+    function abrirLista(sexo) {
+      if (document.querySelector('.lect-modal')) return;
+      const m = document.createElement('div'); m.className = 'lect-modal'; let sx = sexo || 'F';
+      const cerrar = () => { m.classList.add('sale'); document.removeEventListener('keydown', tecla); setTimeout(() => m.remove(), 250); };
+      const tecla = (e) => { if (e.key === 'Escape') cerrar(); };
+      const pintar = () => {
+        const lista = pasosAplicables(sx); const fases = []; lista.forEach((z) => { let f = fases.find((q) => q.n === z.fase); if (!f) fases.push(f = { n: z.fase, p: [] }); f.p.push(z); });
+        const solos = D.pasos.filter((z) => z.solo);
+        m.innerHTML = `<div class="lect-hoja" role="dialog" aria-label="Lista de cotejo">
+          <div class="lect-cab"><div><h2>📋 Lista de cotejo · ${esc(D.titulo)}</h2><p>${lista.length} pasos · ${lista.filter((z) => z.critico).length} críticos${solos.length ? ` · ${solos.length} paso${solos.length === 1 ? '' : 's'} difiere${solos.length === 1 ? '' : 'n'} según el sexo` : ''}</p></div>
+            <div class="lect-sx"><button data-sx="F" class="${sx === 'F' ? 'on' : ''}">♀ Mujer</button><button data-sx="M" class="${sx === 'M' ? 'on' : ''}">♂ Varón</button></div>
+            <button class="lect-x" data-cerrar aria-label="Cerrar">✕</button></div>
+          <div class="lect-cuerpo">${fases.map((f, i) => `<section style="--i:${i}"><h3>${esc(f.n)}</h3><div class="lect-pasos">${f.p.map((z) => `<div class="lect-p ${z.critico ? 'cri' : ''}"><span class="n">${z.n}</span><div>${esc(z.texto)} ${z.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}${z.solo ? `<span class="lect-solo">Solo ${z.solo === 'F' ? 'mujer' : 'varón'}</span>` : ''}</div></div>`).join('')}</div></section>`).join('')}</div>
+          <div class="lect-pie">⚠ Los pasos críticos son criterios de desaprobación. <button class="acr-btn sec" data-cerrar>Cerrar</button></div></div>`;
+      };
+      m.onclick = (e) => { if (e.target === m || e.target.closest('[data-cerrar]')) return cerrar(); const b = e.target.closest('[data-sx]'); if (b) { sx = b.dataset.sx; pintar(); } };
+      pintar(); document.body.appendChild(m); document.addEventListener('keydown', tecla);
     }
     async function mostrarMesaPractica() {
       pintarLectura(true);
@@ -123,7 +137,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r13'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r14'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
@@ -189,7 +203,8 @@
     app.innerHTML = `
       <div class="acr-head">
         <div><h1 class="acr-h1">${D.icono} ${esc(D.titulo)}</h1><p class="acr-sub" style="margin-bottom:0">${esc(D.resumen)}</p></div>
-        <div class="acr-crit-box"><b>⚠ Criterios de desaprobación.</b> ${esc(D.criterios_texto)}</div>
+        <div class="acr-crit-wrap"><div class="acr-crit-tit"><b>⚠ Criterios de desaprobación</b><span>Se aprueba con al menos ${D.umbral} % del puntaje y ningún paso crítico fallido</span></div>
+          <div class="acr-crit-grid">${D.pasos.filter((p) => p.critico).map((p) => `<div class="acr-crit-card"><span class="ic">${p.ico || '⚠'}</span><div><small>Paso ${p.n}</small><b>${esc(p.corto || p.texto)}</b></div></div>`).join('')}</div></div>
       </div>
       <div class="acr-tabs" id="acr-tabs"></div>
       <div class="acr-tabs acr-sub-tabs" id="acr-subtabs"></div>
