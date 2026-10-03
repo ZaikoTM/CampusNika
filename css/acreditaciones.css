@@ -212,3 +212,16 @@ body.acr-page { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemF
 .acr3d-cred { padding: 8px 14px 12px; font-size: .68rem; color: var(--acr-muted); }
 .acr3d-cred a { color: var(--acr-primary); }
 .acr3d-msg[hidden] { display: none; }
+
+/* ===== Modos Práctica / Examen ===== */
+.acr-subtabs-wrap, .acr-sub-tabs { margin-top: -4px; }
+.acr-sub-tabs[hidden] { display: none; }
+.acr-tab.sm { padding: 6px 13px; font-size: .8rem; }
+.acr-perla { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.35); border-radius: 12px; padding: 10px 12px; margin: 8px 0; font-size: .85rem; }
+.acr-refs { margin: 6px 0 6px 18px; font-size: .84rem; }
+.acr-refs li { margin-bottom: 4px; }
+.acr-examen-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.acr-reloj { font-size: 1.4rem; font-weight: 800; color: var(--acr-ttl); font-variant-numeric: tabular-nums; }
+.acr-reloj.urge { color: var(--acr-bad); animation: acr-pulse 1s ease-in-out infinite; }
+.acr-caso { font-size: .84rem; background: rgba(13,148,136,.08); border-radius: 10px; padding: 8px 10px; margin-bottom: 8px; }
+.acr-alerta { font-weight: 700; animation: acr-shake .4s; }

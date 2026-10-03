@@ -527,56 +527,114 @@
    "id": "d1",
    "texto": "Introduce la sonda sin comprobar la indemnidad del balón",
    "critico": true,
-   "porque": "Es criterio de desaprobación: un balón defectuoso puede romperse en la vejiga o no fijar la sonda."
+   "porque": "Es criterio de desaprobación: un balón defectuoso puede romperse en la vejiga o no fijar la sonda.",
+   "target": "uretra"
   },
   {
    "id": "d2",
    "texto": "Infla el balón con suero fisiológico",
    "critico": false,
-   "porque": "Corresponde agua bidestilada: el suero puede cristalizar y dificultar el desinflado."
+   "porque": "Corresponde agua bidestilada: el suero puede cristalizar y dificultar el desinflado.",
+   "target": "jeringa"
   },
   {
    "id": "d3",
    "texto": "Comienza el procedimiento sin solicitar el consentimiento informado",
    "critico": true,
-   "porque": "El consentimiento informado es un requisito ético y legal previo."
+   "porque": "El consentimiento informado es un requisito ético y legal previo.",
+   "target": "paciente"
   },
   {
    "id": "d4",
    "texto": "Introduce la sonda con guantes no estériles",
    "critico": true,
-   "porque": "La introducción es una maniobra estéril: requiere guantes estériles y campo estéril."
+   "porque": "La introducción es una maniobra estéril: requiere guantes estériles y campo estéril.",
+   "target": "uretra"
   },
   {
    "id": "d5",
    "texto": "Fuerza la sonda al encontrar resistencia",
    "critico": true,
-   "porque": "Forzar puede crear una falsa vía uretral o lacerar la uretra. Ante resistencia se reevalúa."
+   "porque": "Forzar puede crear una falsa vía uretral o lacerar la uretra. Ante resistencia se reevalúa.",
+   "target": "uretra"
   },
   {
    "id": "d6",
    "texto": "Infla el balón antes de confirmar que sale orina",
    "critico": true,
-   "porque": "Inflar fuera de la vejiga lesiona la uretra. Primero debe fluir orina."
+   "porque": "Inflar fuera de la vejiga lesiona la uretra. Primero debe fluir orina.",
+   "target": "jeringa"
   },
   {
    "id": "d7",
    "texto": "Se coloca los guantes estériles sin lavarse las manos",
    "critico": true,
-   "porque": "El lavado de manos con técnica clínica es previo a los guantes estériles."
+   "porque": "El lavado de manos con técnica clínica es previo a los guantes estériles.",
+   "target": "guantes-e"
   },
   {
    "id": "d8",
    "texto": "Deja la bolsa colectora apoyada sobre el piso",
    "critico": false,
-   "porque": "Debe colgarse del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso."
+   "porque": "Debe colgarse del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso.",
+   "target": "gancho"
   },
   {
    "id": "d9",
    "texto": "Deja el prepucio retraído sobre el glande al finalizar",
    "critico": false,
    "solo": "M",
-   "porque": "Puede producir parafimosis: el prepucio debe volver a su lugar."
+   "porque": "Puede producir parafimosis: el prepucio debe volver a su lugar.",
+   "target": "prepucio"
+  },
+  {
+   "id": "d10",
+   "texto": "Higieniza la zona genital sin colocarse guantes",
+   "critico": false,
+   "target": "iodo",
+   "porque": "La higiene de la zona se hace con guantes no estériles para proteger al operador."
+  },
+  {
+   "id": "d11",
+   "texto": "Omite la lubricación de la sonda",
+   "critico": false,
+   "target": "gel",
+   "porque": "Sin lubricación y anestesia local aumenta el trauma uretral y el dolor."
+  },
+  {
+   "id": "d12",
+   "texto": "Fija la sonda tensa sobre el abdomen",
+   "critico": false,
+   "target": "cinta",
+   "porque": "La fijación va en la cara interna del muslo, sin tracción sobre la uretra."
+  },
+  {
+   "id": "d13",
+   "texto": "Registra el procedimiento antes de realizarlo",
+   "critico": false,
+   "target": "hc",
+   "porque": "El registro se hace al finalizar, con los datos reales de la práctica."
+  },
+  {
+   "id": "d14",
+   "texto": "Firma el consentimiento en lugar del paciente",
+   "critico": true,
+   "target": "consent",
+   "porque": "El consentimiento lo firma el paciente (o su representante legal) luego de la explicación."
+  },
+  {
+   "id": "d15",
+   "texto": "Desecha la sonda abierta y la vuelve a usar",
+   "critico": true,
+   "target": "pack",
+   "porque": "El material estéril no se reutiliza si se contaminó: se descarta y se abre uno nuevo."
+  },
+  {
+   "id": "d16",
+   "texto": "Se coloca los guantes estériles tocando el exterior con la piel",
+   "critico": true,
+   "target": "guantes-e",
+   "porque": "Los guantes estériles se colocan con técnica cerrada, sin tocar su exterior."
   }
  ],
  "casos": [
@@ -701,5 +759,90 @@
    "e": "La alergia al látex o a anestésicos locales obliga a usar materiales alternativos; es una contraindicación relativa, igual que la estenosis uretral."
   }
  ],
- "criterios_texto": "Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles (14) o el registro (30)."
+ "criterios_texto": "Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles (14) o el registro (30).",
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes de empezar",
+    "x": "Verificá identidad e indicación. Si hay una contraindicación absoluta (sospecha de rotura uretral con sangre en el meato, prostatitis o uretritis aguda), no se sonda."
+   },
+   {
+    "t": "Técnica aséptica",
+    "x": "Separá la etapa limpia (higiene con guantes no estériles) de la estéril (lavado de manos, guantes estériles con técnica cerrada, campo estéril). Lo que toca la sonda debe ser estéril."
+   },
+   {
+    "t": "Balón: siempre probalo",
+    "x": "Inflá y desinflá el balón con aire antes de introducir. Es criterio de desaprobación: un balón defectuoso se rompe en la vejiga o no fija la sonda."
+   },
+   {
+    "t": "Mujer",
+    "x": "Uretra corta (≈ 4 cm). El meato está por encima del introito vaginal. Si se canula la vagina por error, dejá esa sonda como referencia y usá una nueva y estéril."
+   },
+   {
+    "t": "Varón",
+    "x": "Uretra larga (≈ 18-20 cm) con dos curvas. Traccioná el pene hacia arriba, perpendicular al cuerpo, para rectificar la curva. Ante resistencia (esfínter externo, próstata), no fuerces: pedí relajación y respiración profunda."
+   },
+   {
+    "t": "Cuándo inflar",
+    "x": "Recién cuando sale orina. Avanzá la sonda unos centímetros más antes de inflar para asegurar que el balón queda dentro de la vejiga. Inflar en la uretra la lesiona."
+   },
+   {
+    "t": "Con qué inflar",
+    "x": "Agua bidestilada, en el volumen indicado por la sonda (habitualmente 10 mL). No suero fisiológico: puede cristalizar y trabar el desinflado."
+   },
+   {
+    "t": "Vaciado progresivo",
+    "x": "Si hay retención con gran volumen, drenar de a poco (clampeando la sonda cada tanto) para evitar la hematuria ex vacuo y la hipotensión."
+   },
+   {
+    "t": "Parafimosis",
+    "x": "En el varón, volvé el prepucio a su lugar al finalizar. Si queda retraído por detrás del glande se estrangula: es una urgencia."
+   },
+   {
+    "t": "Sistema cerrado",
+    "x": "La bolsa va colgada del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso. La sonda se fija a la cara interna del muslo, sin tracción."
+   },
+   {
+    "t": "Cuidados e infección",
+    "x": "El riesgo de infección urinaria asociada a la sonda crece con los días: se retira apenas deja de ser necesaria. Indicá al paciente consultar ante dolor, fiebre o falta de diuresis."
+   }
+  ],
+  "por_paso": {
+   "2": "Identificá al paciente con dos datos (apellido y nombre / DNI) y confirmá que la indicación está escrita.",
+   "5": "Explicá motivo, riesgos (infección, trauma o falsa vía) y beneficios, con lenguaje simple.",
+   "6": "Sin consentimiento firmado y anexado a la historia clínica, no se empieza.",
+   "7": "Mujer: litotomía (ginecológica). Varón: decúbito supino.",
+   "9": "Estos guantes son solo para la higiene: después se descartan.",
+   "10": "Antisepsia del meato y zonas adyacentes, de la zona más limpia a la más contaminada.",
+   "13": "Lavado de manos con técnica clínica antes de los guantes estériles. Es crítico.",
+   "14": "Técnica cerrada: no toques el exterior del guante con la piel. Es crítico.",
+   "17": "Abrí el pack con la mano dominante y desenrollá la sonda sin contaminarla.",
+   "18": "Inflá y desinflá el balón con aire. No hacerlo desaprueba.",
+   "19": "Lubricá y anestesiá el extremo con lidocaína en gel.",
+   "21": "Mujer: ≈ 5-7 cm hasta ver orina. Varón: hasta la bifurcación de la sonda. No forzar.",
+   "22": "Agua bidestilada, y solo después de que salga orina.",
+   "23": "Tracción suave hasta sentir resistencia: el balón queda apoyado en el cuello vesical.",
+   "24": "Conectá la bolsa y verificá que la orina fluya (sistema cerrado).",
+   "25": "Varón: reducí el prepucio para evitar parafimosis.",
+   "26": "Bolsa debajo del nivel de la vejiga y sin apoyarla en el piso.",
+   "27": "Cara interna del muslo, sin tensión.",
+   "28": "Cuidados: no tironear, mantener la bolsa abajo, consultar ante dolor, fiebre o sin diuresis.",
+   "30": "Registrá fecha, tipo y calibre de sonda, volumen del balón, características de la orina y tolerancia. Es crítico."
+  },
+  "referencias": [
+   "Calibres habituales: mujer 14-16 Fr, varón 16-18 Fr (según indicación del servicio).",
+   "Balón: llenado con el volumen que indica la sonda (10 mL en la mayoría).",
+   "Lidocaína en gel: en el varón conviene esperar unos minutos para que actúe.",
+   "Material orientativo de estudio: validar con la guía de la cátedra."
+  ]
+ },
+ "examen": {
+  "tiempos": [
+   2,
+   5,
+   10
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ }
 }
