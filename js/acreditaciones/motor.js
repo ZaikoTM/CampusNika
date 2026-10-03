@@ -67,14 +67,26 @@
       MESA = mod.crearMesa(cfg);
     }
     const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
+    function pintarLectura(ver) {
+      const c = $('#acr-lectura'); if (!c) return;
+      if (!ver) { c.innerHTML = ''; return; }
+      const abierto = c.querySelector('details')?.open;
+      const lista = pasosAplicables(S.sexo);
+      c.innerHTML = `<div class="lect-aviso">📖 <b>Antes de practicar</b>, leé la lista de cotejo o tenela a mano: en el examen no vas a tener ayudas.</div>
+        <details class="lect" ${abierto ? 'open' : ''}><summary><span>📋 Lista de cotejo · ${lista.length} pasos (${S.sexo === 'F' ? 'mujer' : 'varón'})</span><em>tocá para ${abierto ? 'ocultar' : 'desplegar'}</em></summary>
+          <ol class="lect-lista">${lista.map((z) => `<li class="${z.critico ? 'cri' : ''}"><b>${z.n}.</b> ${esc(z.texto)} ${z.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}</li>`).join('')}</ol>
+          <p class="lect-nota">Los pasos marcados con ⚠ son criterios de desaprobación.</p></details>`;
+      const d = c.querySelector('details'); d.addEventListener('toggle', () => { d.querySelector('em').textContent = 'tocá para ' + (d.open ? 'ocultar' : 'desplegar'); });
+    }
     async function mostrarMesaPractica() {
+      pintarLectura(true);
       parar(); sinEscena(); $('#acr-panel').innerHTML = '';
       if (!D.instrumental) { S.mesaOk = true; await asegurarVisor(); return ir(); }
       try { await asegurarMesa(); } catch (e) { console.error(e); $('#acr-escena').innerHTML = '<p class="acr-sub" style="padding:20px">No se pudo cargar la mesa de instrumental.</p>'; return; }
       if (!S.caso) { S.caso = azar(D.casos); }
-      S.sexo = S.caso.sexo; pintarTabs();
+      S.sexo = S.caso.sexo; pintarTabs(); pintarLectura(true);
       MESA.mount($('#acr-escena'), { caso: S.caso, casos: D.casos, modo: 'practica',
-        onCaso: (c) => { S.caso = c; S.sexo = c.sexo; pintarTabs(); },
+        onCaso: (c) => { S.caso = c; S.sexo = c.sexo; pintarTabs(); pintarLectura(true); },
         onValidar: async (res) => {
           MESA.dispose(); S.mesaOk = true; S.avisoMesa = res.corregido ? res.avisos : null;
           $('#acr-escena').innerHTML = '<p class="acr-sub" style="padding:20px">Preparando al paciente…</p>'; await asegurarVisor(); ir();
@@ -111,7 +123,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r12'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r13'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
@@ -181,6 +193,7 @@
       </div>
       <div class="acr-tabs" id="acr-tabs"></div>
       <div class="acr-tabs acr-sub-tabs" id="acr-subtabs"></div>
+      <div id="acr-lectura"></div>
       <div class="acr-grid">
         <div><div class="acr-escena" id="acr-escena"></div><div class="acr-chips" id="acr-chips"></div></div>
         <aside class="acr-panel" id="acr-panel"></aside>
@@ -376,6 +389,7 @@
         <div class="acr-tl">${tl}</div>
         <div class="acr-goal">${esc(q.texto)} ${q.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''} ${hecho ? '<span class="acr-hecho">✔ completado</span>' : ''}</div>
         ${hecho ? '<p>Este paso ya está completo. Podés avanzar o volver a revisarlo.</p>' : '<p>Tocá el elemento o la estructura con el que se realiza este paso, o escribí en la bitácora qué hacés.</p>'}
+        ${chatHTML(E.chat, 'Contá qué hacés y cómo lo hacés…', '✍ Bitácora del procedimiento')}
         ${fb.mal ? `<div class="acr-info mal">❌ ${esc(fb.mal)}</div>` : ''}
         ${fb.ok ? `<div class="acr-info bien">✅ <b>Correcto.</b> ${esc(fb.ok.explica)}</div>` : ''}
         ${fb.ver ? `<div class="acr-info">👁 <b>Así se hace.</b> ${esc(fb.ver.explica)}</div>` : ''}
@@ -386,8 +400,7 @@
           <button class="acr-btn sec" data-g="ver">👁 Ver cómo se hace</button>
           <button class="acr-btn ${hecho ? '' : 'sec'}" data-g="${hecho ? 'cont' : 'sig'}">${hecho ? 'Siguiente →' : 'Saltar →'}</button>
         </div>
-        <small>Errores: ${E.errores} · Ayudas: ${E.pistas} · Saltados: ${E.saltados.size}</small>
-        ${chatHTML(E.chat, 'Contá qué hacés y cómo lo hacés…', '✍ Bitácora del procedimiento')}`;
+        <small>Errores: ${E.errores} · Ayudas: ${E.pistas} · Saltados: ${E.saltados.size}</small>`;
       enlazarChat(guiadoTexto);
       if (fb.nuevo) animarPanel();
     }
@@ -443,7 +456,7 @@
 
     // ---- EXAMEN (a ciegas)
     function examenInicio() {
-      parar();
+      parar(); pintarLectura(false);
       const caso = azar(D.casos); S.sexo = caso.sexo; pintarTabs();
       if (MESA) MESA.dispose();
       sinEscena();
@@ -641,7 +654,7 @@
     const dormir = (ms, dem) => new Promise((ok) => { dem.despertar = ok; dem.t = setTimeout(ok, ms); });
     function cerrarDemo(dem) { if (!dem) return; dem.cancel = true; if (window.AcrFX) AcrFX.quitar(); dem.alSaltar && dem.alSaltar(); clearTimeout(dem.t); if (dem.despertar) dem.despertar(); if (MESA) MESA.dispose(); S.demo = null; document.onkeydown = null; const pn = document.getElementById('acr-panel'); if (pn) pn.classList.remove('demo'); try { localStorage.setItem('nika_acr_demo_v1', '1'); } catch (_) {} }
     async function demoModelo() {
-      parar(); if (S.demo) cerrarDemo(S.demo);
+      parar(); pintarLectura(false); if (S.demo) cerrarDemo(S.demo);
       sinEscena(); $('#acr-panel').innerHTML = ''; window.scrollTo({ top: 0, behavior: 'smooth' });
       const dem = S.demo = { cancel: false, pausa: false, k: 0 };
       try { await asegurarMesa(); } catch (e) { cerrarDemo(dem); return portada(); }
@@ -735,7 +748,7 @@
 
     // ---- portada (sin cargar nada pesado) y navegación
     function portada() {
-      parar(); quitarCancelarEx();
+      parar(); quitarCancelarEx(); pintarLectura(true);
       if (ESC) ESC.dispose();
       document.querySelector('.acr-grid').classList.add('sin-escena');
       $('#acr-chips').innerHTML = '';
@@ -775,6 +788,7 @@
     }
     function ir() {
       parar(); if (S.modo !== 'examen') quitarCancelarEx();
+      if (S.modo === 'examen' || !(S.modo === 'practica' && S.sub === 'guiado' && !S.mesaOk)) pintarLectura(false);
       pintarTabs();
       if (S.modo === 'examen') return examenInicio();
       if (S.modo === 'practica' && S.sub === 'guiado' && !S.mesaOk) return mostrarMesaPractica();
@@ -790,7 +804,12 @@
       if (e.target.closest('[data-tut]')) { tutorial3D(); return; }
       const t = e.target.closest('[data-modo]'); const s = e.target.closest('[data-sx]');
       if (t) { S.modo = t.dataset.modo; ir(); }
-      else if (s) { S.sexo = s.dataset.sx; ir(); }
+      else if (s) {
+        const sx = s.dataset.sx;
+        if (S.demo) cerrarDemo(S.demo);
+        if (!S.caso || S.caso.sexo !== sx) { const c = D.casos.filter((z) => z.sexo === sx); if (c.length) { S.caso = azar(c); S.mesaOk = false; if (MESA) MESA.dispose(); } }
+        S.sexo = sx; ir();
+      }
     };
     $('#acr-subtabs').onclick = (e) => { const b = e.target.closest('[data-sub]'); if (b) { S.sub = b.dataset.sub; ir(); } };
     ir();
