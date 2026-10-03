@@ -48,6 +48,7 @@
     plano: (c) => tono(c, { f0: 880, dur: 2.4, tipo: 'sine', g: 0.07 }),
     inyeccion: (c) => { ruido(c, { tipo: 'bandpass', f0: 2200, f1: 800, q: 1.5, dur: 0.22, g: 0.14 }); tono(c, { t: 0.2, f0: 700, f1: 500, dur: 0.06, g: 0.08 }); },
     rcp4: (c) => { for (let i = 0; i < 4; i++) { tono(c, { t: i * 0.545, f0: 90, f1: 45, dur: 0.12, g: 0.2 }); ruido(c, { t: i * 0.545, tipo: 'lowpass', f0: 240, dur: 0.07, g: 0.18 }); } },
+    vent2: (c) => { [0.25, 1.75].forEach((t) => { ruido(c, { t, tipo: 'lowpass', f0: 900, f1: 320, dur: 0.9, g: 0.26 }); tono(c, { t, f0: 170, f1: 120, dur: 0.8, g: 0.05 }); }); },
     swish: (c) => { for (let i = 0; i < 4; i++) ruido(c, { t: i * 0.42, f0: 1100, f1: 2800, q: 2, dur: 0.34, g: 0.2 }); },
     agua: (c) => { for (let i = 0; i < 9; i++) ruido(c, { t: i * 0.2, f0: 900 + (i % 3) * 400, f1: 1700, q: 0.7, dur: 0.3, g: 0.14 }); },
     crujido: (c) => { for (let i = 0; i < 12; i++) ruido(c, { t: Math.random() * 0.7, tipo: 'highpass', f0: 2500 + Math.random() * 3000, dur: 0.04 + Math.random() * 0.04, g: 0.28 }); },

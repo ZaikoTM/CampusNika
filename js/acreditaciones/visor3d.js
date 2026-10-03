@@ -276,9 +276,10 @@ export class MedicalProcedureViewer {
         C.inst.push({ tipo: ins.tipo, cat: { goal: 0 },
           sync: (has) => { const c = ins.clases; modo = has(c.bolsa_tet) ? 2 : (has(c.mascara) && !has(c.laringo)) ? 1 : 0; },
           tick: (t) => {
-            g.visible = modo > 0; mask.visible = modo === 1; bolsaT.visible = modo === 2; conT.visible = modo === 2; if (!g.visible) return;
+            const mm = (window.AcrMonitor && window.AcrMonitor.activo && window.AcrMonitor.ventilando) ? 1 : modo;
+            g.visible = mm > 0; mask.visible = mm === 1; bolsaT.visible = mm === 2; conT.visible = mm === 2; if (!g.visible) return;
             const s = 1 + 0.2 * Math.sin(t / 520);
-            if (modo === 1) bolsaM.scale.set(2.4 * s, 2.4 * s, 3.2 * (0.9 + 0.2 * Math.sin(t / 520))); else bolsaT.scale.set(2.2 * s, 2.2 * s, 3.4 * (0.9 + 0.2 * Math.sin(t / 520)));
+            if (mm === 1) bolsaM.scale.set(2.4 * s, 2.4 * s, 3.2 * (0.9 + 0.2 * Math.sin(t / 520))); else bolsaT.scale.set(2.2 * s, 2.2 * s, 3.4 * (0.9 + 0.2 * Math.sin(t / 520)));
           } });
       }
       if (ins.tipo === 'presion') {

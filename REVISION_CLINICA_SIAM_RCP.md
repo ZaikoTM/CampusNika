@@ -1,8 +1,21 @@
 # Revisión clínica · RCP avanzado
 
-Los 24 pasos y su orden son los de la lista de cotejo oficial. **Todo lo demás lo redacté yo y hay que validarlo con la cátedra**: los criterios de desaprobación (la planilla no los marca), los pasos del algoritmo (descarga, adrenalina, causas reversibles, amiodarona), los casos, las acciones incorrectas y las preguntas.
+Estado: **revisado con NotebookLM contra la lista de cotejo (24 pasos), la guía de aprendizaje y las guías AHA/ECC.** Pendiente: confirmación final de la cátedra.
 
-## Criterios de desaprobación propuestos
+## Cómo funciona el simulador
+
+- **Monitor**: muestra el ritmo real del caso (FV, TV sin pulso, asistolia o AESP) sin nombrarlo; el alumno debe identificarlo (paso 4). Interpretarlo mal es una acción grave.
+- **Ritmo desfibrilable**: pasos 18a (cargar 200 J bifásico), 18b (¡todos fuera!, descargar, volver a comprimir), 18g (adrenalina tras la 2.ª descarga) y, en la FV refractaria, 18h (amiodarona 300 mg tras el 3.er choque).
+- **Ritmo no desfibrilable**: pasos 18c (adrenalina 1 mg cada 3–5 min, con flush de 20 mL) y 18d (5H y 5T). Descargar es una acción grave.
+- **Desenlace**: con retorno de la circulación, paso 22 (cuidados post-paro); sin respuesta, paso 22 bis (hora de la muerte). Confundirlos es grave.
+- **Ventilación 30:2**: cada 30 compresiones el simulador pausa las compresiones y hace sonar dos ventilaciones con bolsa-máscara (con la máscara en el 3D); luego se retoma.
+- **DEA** (caso extrahospitalario de Rubén A.): el desfibrilador automático habla — «Analizando el ritmo. No toque al paciente», «Descarga indicada. Cargando», «Aléjese del paciente. Presione el botón».
+- **Sonidos** (generados en el navegador): pitido del monitor en cada QRS, tono de saturación, alarma de prioridad alta (FV, TV, asistolia) y media (AESP), línea plana continua, metrónomo y golpe de cada compresión, ventilaciones, carga del desfibrilador, tono de listo, descarga, inyección, aviso de relevo cada 2 minutos y jingle del retorno de la circulación. En el examen se desactiva el metrónomo.
+- **Voz del equipo**: enfermería informa la situación, el equipo responde y el líder grita «¡todos fuera!».
+- **3D**: costillas, esternón, corazón y pulmones (Z-Anatomy, CC BY-SA 4.0) y piel (BodyParts3D, CC BY-SA 2.1 JP); las manos comprimen a 110 por minuto.
+- **Minijuego** 🎯 del monitor para practicar el ritmo (100–120 por minuto).
+
+## Criterios de desaprobación (validados)
 - 🧤 **Bioseguridad: guantes** — pasos 3
 - 📟 **Leer el ritmo, comprobar respuesta y dar la voz de inicio** — pasos 4, 8, 9
 - 🫀 **Compresiones de calidad: sitio, manos, 100–120/min y 5–6 cm** — pasos 12, 13, 17
@@ -11,16 +24,12 @@ Los 24 pasos y su orden son los de la lista de cotejo oficial. **Todo lo demás 
 
 Pasos críticos: 3, 4, 8, 9, 12, 13, 17, 18, 18a, 18b, 18c, 19, 21, 22, 22 bis, 24
 
-## Cómo funciona el simulador
+## Resuelto con la revisión
 
-- El **monitor** muestra el ritmo real del caso (FV, TV sin pulso, asistolia o AESP) sin nombrarlo: el alumno debe identificarlo (paso 4). Si lo interpreta mal, es una acción grave.
-- **Ritmo desfibrilable** (FV, TV sin pulso): se agregan los pasos 18a (cargar 200 J bifásico), 18b (¡todos fuera!, descargar y volver a comprimir) y 18g (adrenalina 1 mg tras la 2.ª descarga); en la FV refractaria, 18h (amiodarona 300 mg tras el 3.er choque).
-- **Ritmo no desfibrilable** (asistolia, AESP): se agregan los pasos 18c (adrenalina 1 mg cada 3–5 min) y 18d (causas reversibles, 5H y 5T). Descargar en estos ritmos es una acción grave.
-- **Desenlace del caso**: con retorno de la circulación espontánea se hace el paso 22 (cuidados post-paro); sin respuesta, el paso 22 bis (hora de la muerte). Confundirlos es una acción grave.
-- **Sonidos** (todos generados en el navegador, con botón para silenciarlos): pitido del monitor en cada QRS, pitido de la saturación, alarma de prioridad alta (FV, TV, asistolia) y media (AESP), tono continuo de la línea plana, metrónomo y golpe de cada compresión, carga del desfibrilador (silbido ascendente), tono de «listo», descarga, inyección, alerta de relevo cada 2 minutos y jingle del retorno de la circulación. En el examen se desactiva el metrónomo.
-- **Voz del equipo** (síntesis de voz del navegador): enfermería informa la situación, el equipo responde a las indicaciones, el líder grita «¡todos fuera!».
-- **3D**: tórax con costillas, esternón, corazón y pulmones (Z-Anatomy, CC BY-SA 4.0) y piel (BodyParts3D, CC BY-SA 2.1 JP). Las manos y los brazos del reanimador comprimen el esternón a 110 por minuto; el corazón se comprime y, tras el retorno de la circulación, late.
-- **Minijuego**: botón 🎯 del monitor para practicar el ritmo de las compresiones (100–120 por minuto) tocando el corazón.
+- Los pasos del algoritmo (descarga, adrenalina, amiodarona, causas reversibles) se evalúan como pasos propios; parámetros: 200 J bifásico (120–200; monofásico 360), adrenalina 1 mg EV/IO con flush de 20 mL cada 3–5 min, amiodarona 300 mg tras el 3.er choque y 150 mg tras el 5.º.
+- La desfibrilación se prepara durante las compresiones (se carga mientras otro comprime) y tras la descarga no se palpa el pulso: se comprime 2 minutos.
+- Sumada la relación 30:2 con ventilaciones y un caso extrahospitalario con DEA.
+- Conservada la errata «a la atura del tórax» del paso 10 (la planilla); la explicación usa la ortografía correcta.
 
 ## Pasos, fundamento y frase del alumno modelo
 
@@ -49,7 +58,7 @@ Fundamento: Se indica a enfermería: colocar una vía periférica (o intraósea)
 Frase modelo: “Indico a enfermería: colocar una vía periférica, el sondaje vesical, preparar el kit de vía aérea, la medicación y el desfibrilador.”
 
 **7. Determina la necesidad de dispositivos de vía aérea avanzada y protocolo de oxigenación**  
-Fundamento: Se decide cuándo asegurar la vía aérea (tubo endotraqueal o dispositivo supraglótico) sin interrumpir las compresiones y se define el protocolo de oxigenación: oxígeno al 100 %. Con la vía aérea avanzada se ventila a 10 por minuto sin pausar las compresiones.  
+Fundamento: Mientras no hay vía aérea avanzada se ventila con bolsa-máscara con reservorio y oxígeno al 100 % (12–15 L/min), 2 ventilaciones de 1 segundo cada 30 compresiones. Se decide cuándo asegurar la vía aérea (tubo endotraqueal o dispositivo supraglótico): una vez colocada, las compresiones son continuas y se ventila a 10 por minuto.  
 Frase modelo: “Determino la necesidad de una vía aérea avanzada y el protocolo de oxigenación con oxígeno al 100 %.”
 
 **8. Comprueba el nivel de conciencia del paciente recurriendo a estímulos verbales y dolorosos** ⚠ crítico  
@@ -69,7 +78,7 @@ Fundamento: Se palpa el apéndice xifoides, el extremo inferior del esternón, c
 Frase modelo: “Localizo el apéndice xifoides.”
 
 **12. Localiza el sitio correcto para la realización de las compresiones.** ⚠ crítico  
-Fundamento: El sitio correcto es la mitad inferior del esternón, en el centro del tórax (entre las tetillas), por encima del apéndice xifoides. Comprimir sobre el xifoides o sobre las costillas lesiona órganos y es ineficaz: es criterio de desaprobación.  
+Fundamento: El sitio correcto es la mitad inferior del esternón, en el centro del tórax (línea intermamilar), unos 2 cm por encima del apéndice xifoides. Comprimir sobre el xifoides o sobre las costillas lesiona órganos y es ineficaz: es criterio de desaprobación.  
 Frase modelo: “Localizo el sitio correcto para las compresiones, en la mitad inferior del esternón.”
 
 **13. Ubica el talón de la mano dominante sobre el sitio elegido para las compresiones** ⚠ crítico  
@@ -93,7 +102,7 @@ Fundamento: Compresiones de alta calidad: 100 a 120 por minuto, 5 a 6 cm de prof
 Frase modelo: “Inicio las compresiones torácicas a 100 a 120 por minuto, con una profundidad de 5 a 6 cm y permitiendo la descompresión.”
 
 **18. Continúa las compresiones de manera rítmica y sin detenerse. En el caso de contar con ayudante: Realiza 30 compresiones e indica 2 ventilaciones** ⚠ crítico  
-Fundamento: Se mantiene el ritmo sin detenerse. Con un ayudante y vía aérea no asegurada: ciclos de 30 compresiones y 2 ventilaciones (relación 30:2). Con vía aérea avanzada: compresiones continuas y 10 ventilaciones por minuto.  
+Fundamento: Se mantiene el ritmo sin detenerse. Con un ayudante y vía aérea no asegurada: ciclos de 30 compresiones y 2 ventilaciones (relación 30:2); el simulador hace sonar las dos ventilaciones cada 30 compresiones. Con vía aérea avanzada: compresiones continuas y 10 ventilaciones por minuto.  
 Frase modelo: “Continúo las compresiones de manera rítmica y sin detenerme; con ayudante hago 30 compresiones e indico 2 ventilaciones.”
 
 **18a. Solicita el desfibrilador, selecciona la energía (bifásico 200 J) y carga mientras se continúan las compresiones.** ⚠ crítico _(solo si el ritmo es desfibrilable)_  
@@ -101,11 +110,11 @@ Fundamento: Ante FV o TV sin pulso se desfibrila lo antes posible. Se pide el de
 Frase modelo: “Solicito el desfibrilador, selecciono 200 J bifásico y cargo mientras se continúan las compresiones.”
 
 **18b. Avisa «¡todos fuera!», verifica que nadie toque al paciente, entrega la descarga y vuelve a comprimir de inmediato.** ⚠ crítico _(solo si el ritmo es desfibrilable)_  
-Fundamento: Antes de descargar se grita «¡todos fuera!» y se verifica que nadie toque al paciente, la camilla ni el oxígeno. Se entrega la descarga y se reinician las compresiones de inmediato, sin chequear el pulso, durante 2 minutos. Descargar sin avisar o sin verificar la seguridad es criterio de desaprobación.  
+Fundamento: Antes de descargar se grita «¡todos fuera!» y se verifica que nadie toque al paciente, la camilla ni el oxígeno. También se retira el ambú del tórax. Se entrega la descarga y se reinician las compresiones de inmediato, sin palpar el pulso ni mirar el monitor (el miocardio queda aturdido y necesita soporte mecánico), durante 2 minutos completos. Descargar sin avisar o sin verificar la seguridad es criterio de desaprobación.  
 Frase modelo: “Aviso: ¡todos fuera! Verifico que nadie toque al paciente, entrego la descarga y vuelvo a comprimir de inmediato.”
 
 **18c. Indica adrenalina 1 mg EV/IO, que se repite cada 3 a 5 minutos.** ⚠ crítico _(solo si el ritmo no es desfibrilable)_  
-Fundamento: En ritmos no desfibrilables (asistolia y AESP) se administra adrenalina 1 mg EV/IO lo antes posible y se repite cada 3 a 5 minutos, seguida de 20 mL de solución salina. La dosis de 1 mg (no 10 mg) es parte de la desaprobación si se indica mal.  
+Fundamento: En ritmos no desfibrilables (asistolia y AESP) se administra adrenalina 1 mg EV/IO lo antes posible y se repite cada 3 a 5 minutos, seguida de 20 mL de solución salina y elevación del miembro unos 10 a 20 segundos. La dosis de 1 mg (no 10 mg) es parte de la desaprobación si se indica mal.  
 Frase modelo: “Indico adrenalina 1 mg EV, que se repite cada 3 a 5 minutos.”
 
 **18d. Busca y trata las causas reversibles (5H y 5T).** _(solo si el ritmo no es desfibrilable)_  
@@ -117,7 +126,7 @@ Fundamento: En FV/TV sin pulso la adrenalina 1 mg EV/IO se administra después d
 Frase modelo: “Indico adrenalina 1 mg EV tras la segunda descarga, que se repite cada 3 a 5 minutos.”
 
 **18h. Tras el tercer choque indica amiodarona 300 mg EV.** _(solo en FV refractaria)_  
-Fundamento: En FV/TV sin pulso refractaria, después del tercer choque se administra amiodarona 300 mg EV en bolo; una segunda dosis de 150 mg si persiste.  
+Fundamento: En FV/TV sin pulso refractaria, después del tercer choque se administra amiodarona 300 mg EV/IO en bolo; una segunda dosis de 150 mg después del quinto choque si persiste. La lidocaína (1 a 1,5 mg/kg) es una alternativa.  
 Frase modelo: “Tras el tercer choque indico amiodarona 300 mg EV.”
 
 **19. Realiza reevaluación constante de signos vitales en monitor multiparamétrico** ⚠ crítico  
@@ -133,19 +142,19 @@ Fundamento: Cada 2 minutos se releva a quien comprime (la fatiga reduce la profu
 Frase modelo: “Relevo la reanimación cada 2 minutos y continúo los pasos 18 a 20 hasta obtener respuesta.”
 
 **22. En caso de obtener retorno de la circulación espontánea: Determinar cuidados post-paro.** ⚠ crítico _(solo si hay retorno de la circulación)_  
-Fundamento: Con retorno de la circulación espontánea (pulso palpable, presión arterial y salto del CO₂ espirado) se inician los cuidados post-paro: asegurar la vía aérea y la oxigenación (SpO₂ 92–98 %), mantener la presión arterial, ECG de 12 derivaciones, buscar la causa y derivar a terapia intensiva.  
+Fundamento: Con retorno de la circulación espontánea (pulso palpable, presión arterial y salto del CO₂ espirado) se inician los cuidados post-paro: asegurar la vía aérea, ventilar hasta lograr normocapnia y titular el oxígeno para una SpO₂ de 92 a 98 % (evitar la hiperoxia), mantener una presión arterial media de 65 mmHg o más (cristaloides y vasopresores), ECG de 12 derivaciones (el supradesnivel del ST indica angioplastia urgente), manejo controlado de la temperatura si no obedece órdenes, buscar la causa y derivar a terapia intensiva.  
 Frase modelo: “Con retorno de la circulación espontánea, determino los cuidados post-paro.”
 
 **22 bis. En caso de no responder u observar signos de muerte: Determinar hora de la muerte.** ⚠ crítico _(solo si no hay respuesta y se determina la muerte)_  
-Fundamento: Si tras la reanimación avanzada prolongada no hay respuesta y persisten los signos de muerte (asistolia sostenida, ausencia de pulso, respiración y reflejos, pupilas midriáticas), se declara el fallecimiento y se determina la hora de la muerte, que se informa al equipo y se registra.  
+Fundamento: Si tras la reanimación avanzada prolongada no hay respuesta y persisten los signos de muerte (asistolia sostenida, ausencia de pulso, respiración y reflejos, pupilas midriáticas), se declara el fallecimiento y se determina la hora de la muerte, que se informa al equipo y se registra. En general se suspenden las maniobras tras 20 a 30 minutos de reanimación de calidad sin causas reversibles corregibles y con CO₂ espirado menor de 10 mmHg.  
 Frase modelo: “Determino la hora de la muerte.”
 
 **23. Comunicar la evolución del paciente de manera respetuosa al familiar u acompañante**  
-Fundamento: Se informa a la familia en un lugar tranquilo, con lenguaje claro, empatía y sin tecnicismos: qué ocurrió, qué se hizo y cómo evoluciona el paciente.  
+Fundamento: Se informa a la familia en un lugar tranquilo y privado, fuera del shock room, con lenguaje claro, empatía y sin tecnicismos (protocolo SPIKES): qué ocurrió, qué se hizo y cómo evoluciona el paciente. Se permite la expresión emocional y se ofrece contención.  
 Frase modelo: “Comunico la evolución del paciente al familiar de manera respetuosa y con lenguaje claro.”
 
 **24. Registrar los procedimientos realizados en la Historia Clínica** ⚠ crítico  
-Fundamento: Se registran las horas, el ritmo, las descargas y la medicación (dosis y hora), los dispositivos colocados y la evolución: es el documento médico-legal de la reanimación. Omitirlo es criterio de desaprobación.  
+Fundamento: Se registran las horas (colapso, inicio de la reanimación, retorno de la circulación o fallecimiento), el ritmo inicial y sus cambios, las descargas (cantidad y energía), la medicación (dosis y hora), la vía aérea y los dispositivos colocados y la evolución: es el documento médico-legal de la reanimación. Omitirlo es criterio de desaprobación.  
 Frase modelo: “Registro los procedimientos realizados en la historia clínica.”
 
 ## Casos clínicos
@@ -156,6 +165,7 @@ Frase modelo: “Registro los procedimientos realizados en la historia clínica.
 - **Jorge T.** (varón, 59): Fibrilación ventricular recurrente tras un infarto. — Infarto agudo de miocardio en las últimas horas. · Ritmo: **FV** (desfibrilable) · FV refractaria · Desenlace: retorno de la circulación espontánea
 - **Hilda B.** (mujer, 86): Paro en una paciente terminal, con familiar presente. — Cáncer avanzado, insuficiencia renal y cardíaca. Sin alergias conocidas. · Ritmo: **ASISTOLIA** (no desfibrilable) · Desenlace: sin respuesta, hora de la muerte
 - **Diego F.** (varón, 45): Colapso durante una actividad deportiva. — Sin antecedentes conocidos. Sin alergias conocidas. · Ritmo: **FV** (desfibrilable) · Desenlace: retorno de la circulación espontánea
+- **Rubén A.** (varón, 62): Colapso en la vía pública, presenciado por testigos que llamaron al 107. — Tabaquista. Sin alergias conocidas. · Ritmo: **FV** (desfibrilable) · DEA · Desenlace: retorno de la circulación espontánea
 - **Elena S.** (mujer, 69): Colapso con disnea súbita y sospecha de tromboembolismo pulmonar. — Reposo prolongado por una fractura de cadera reciente. · Ritmo: **AESP** (no desfibrilable) · Desenlace: retorno de la circulación espontánea
 
 ## Acciones incorrectas que detecta el examen
@@ -188,12 +198,3 @@ Frase modelo: “Registro los procedimientos realizados en la historia clínica.
 - ¿Cuáles son las causas reversibles (5H y 5T)? → **Hipovolemia, hipoxia, acidosis, alteraciones del potasio e hipotermia; neumotórax a tensión, taponamiento, tóxicos, trombosis coronaria y TEP**. Se buscan y tratan en el paro, sobre todo en la asistolia y la AESP.
 - Durante las compresiones el CO₂ espirado es de 6 mmHg. ¿Qué indica? → **Compresiones de baja calidad: hay que mejorar la profundidad, la frecuencia o relevar**. Un CO₂ espirado menor de 10 mmHg sugiere compresiones inadecuadas. Un salto brusco hacia 35–40 mmHg indica retorno de la circulación.
 - ¿Qué indica un ascenso brusco del CO₂ espirado con aparición de un pulso palpable? → **Retorno de la circulación espontánea: se inician los cuidados post-paro**. Con retorno de la circulación espontánea se pasa a los cuidados post-paro: oxigenación, presión arterial, ECG de 12 derivaciones y búsqueda de la causa.
-
-## Puntos a confirmar con la cátedra
-
-1. **Criterios de desaprobación** (arriba): confirmar o corregir cuáles pasos son eliminatorios.
-2. **Pasos del algoritmo** (descarga, adrenalina, amiodarona, causas): la planilla solo dice «cardio-desfibrilación» dentro del paso 6. ¿La cátedra los evalúa como pasos propios? ¿Con qué energía (120–200 J bifásico) y qué dosis?
-3. **Orden**: en el simulador la descarga se da después de iniciar las compresiones (paso 17) y durante el paso 18; ¿la cátedra prefiere desfibrilar apenas se identifica el ritmo (antes de las compresiones)?
-4. **Relación 30:2** y ventilaciones: no se simulan ventilaciones como paso; ¿hay que sumarlas?
-5. **Desenlace**: se simulan retornos de la circulación y una muerte; ¿se necesita un caso de paro presenciado/extrahospitalario?
-6. **Texto original del paso 10** dice «a la atura del tórax» (errata de la planilla); se conserva tal cual.

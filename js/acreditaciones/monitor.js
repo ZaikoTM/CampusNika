@@ -81,9 +81,14 @@
     M.x = (M.x + px) % W; M.tw += px / PXS;
     // compresiones: pitido del metrónomo y golpe
     if (M.rcpActiva()) {
-      if (!M.rcpPrev) { M.rcpT0 = ahora; M.rcpPrev = true; M.lastN = -1; }
+      if (!M.rcpPrev) { M.rcpT0 = ahora; M.rcpPrev = true; M.lastN = -1; M.cuenta = 0; }
       const n = Math.floor(((ahora - M.rcpT0) * 110) / 60000);
-      if (n !== M.lastN) { M.lastN = n; if (M.metronomo) sonar('metronomo'); setTimeout(() => { if (M.activo && M.rcpActiva()) sonar('compresion'); }, 245); }   // golpe al llegar al fondo de la compresión
+      if (n !== M.lastN) { M.lastN = n; M.cuenta++; if (M.metronomo) sonar('metronomo'); setTimeout(() => { if (M.activo && M.rcpActiva()) sonar('compresion'); }, 245); }   // golpe al llegar al fondo de la compresión
+      // relación 30:2: cada 30 compresiones, dos ventilaciones con bolsa-máscara y se retoma
+      if (M.cuenta >= 30 && !M.ventilando) {
+        M.ventilando = true; M.pausaRcp = ahora + 3800; sonar('vent2');
+        setTimeout(() => { M.ventilando = false; if (M.activo) M.cuenta = 0; }, 3800);
+      }
     } else M.rcpPrev = false;
     // alarmas
     const al = M.alarma();
@@ -105,6 +110,7 @@
     set('.mon-co2 b', M.co2 > 3 ? Math.round(M.co2) : '--');
     const al = M.alarma(); const e = $('.mon-alarma'); if (e) { e.classList.toggle('on', !!al && ahora > M.silenciada); e.classList.toggle('alta', al === 'alta'); }
     // temporizador del ciclo de 2 minutos
+    set('.rcp-cnt', M.ventilando ? 'Ventilando ×2' : `${Math.min(30, M.cuenta || 0)}/30`);
     const t = $('.cron b');
     if (M.rcp && M.cicloIni) {
       const seg = Math.max(0, 120 - Math.floor((ahora - M.cicloIni) / 1000));
@@ -119,13 +125,23 @@
   function panelDefi(est, txt) { const d = $('.defi'); if (!d) return; d.dataset.est = est; const e = $('.defi-est'); if (e) e.textContent = txt; }
   function cargarDefi() {
     if (M.cargando) return; M.cargando = true; M.listo = false;
-    const barra = $('.defi-barra i'); panelDefi('carga', 'CARGANDO…'); sonar('carga');
+    const barra = $('.defi-barra i'); const F0 = FX();
+    if (M.cfg.dea && F0 && F0.hablar) {      // DEA: el desfibrilador automático analiza y habla
+      panelDefi('carga', 'ANALIZANDO EL RITMO…'); F0.hablar('Analizando el ritmo. No toque al paciente.', 'f');
+      setTimeout(() => { if (M.activo) { F0.hablar('Descarga indicada. Cargando.', 'f'); panelDefi('carga', 'DESCARGA INDICADA'); } }, 2600);
+      setTimeout(() => { if (M.activo) iniciarCarga(barra); }, 4200); return;
+    }
+    iniciarCarga(barra);
+  }
+  function iniciarCarga(barra) {
+    panelDefi('carga', 'CARGANDO…'); sonar('carga');
     if (barra) { barra.style.transition = 'none'; barra.style.width = '0%'; void barra.offsetWidth; barra.style.transition = 'width 3.2s linear'; barra.style.width = '100%'; }
     setTimeout(() => { if (!M.activo) return; M.cargando = false; M.listo = true; panelDefi('listo', 'LISTO · 200 J'); sonar('listo'); }, 3250);
   }
   function descargarDefi() {
+    if (M.cargando && !M.listo) { setTimeout(() => { if (M.activo) descargarDefi(); }, 400); return; }   // espera a que termine de cargar
     const F = FX();
-    panelDefi('listo', '¡TODOS FUERA!'); if (F && F.hablar) F.hablar('¡Todos fuera!', 'm');
+    panelDefi('listo', '¡TODOS FUERA!'); if (F && F.hablar) F.hablar(M.cfg.dea ? 'Aléjese del paciente. Presione el botón de descarga.' : '¡Todos fuera!', M.cfg.dea ? 'f' : 'm');
     M.pausaRcp = performance.now() + 3600;
     setTimeout(() => {
       if (!M.activo) return;
