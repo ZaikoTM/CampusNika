@@ -9,9 +9,9 @@
   },
   "camara": {
    "fov": 36,
-   "min": 6,
+   "min": 8,
    "max": 120,
-   "foco": 20
+   "foco": 30
   },
   "material": {
    "rugosidad": 0.28,
@@ -22,7 +22,8 @@
    "fro": "Cabecera"
   }
  },
- "overlay_html": "<div class=\"mon\" aria-hidden=\"false\"><div class=\"mon-top\"><span class=\"mon-t\">MONITOR</span><span class=\"mon-alarma\">ALARMA</span><button type=\"button\" class=\"mon-juego\" title=\"Practicá el ritmo de las compresiones\" aria-label=\"Practicar el ritmo\">🎯</button><button type=\"button\" class=\"mon-metro\" title=\"Metrónomo de las compresiones\" aria-label=\"Metrónomo\">🥁</button><button type=\"button\" class=\"mon-mute\" title=\"Silenciar la alarma\" aria-label=\"Silenciar la alarma\">🔕</button></div><canvas class=\"mon-ecg\" width=\"480\" height=\"104\"></canvas><div class=\"mon-num\"><div class=\"mon-fc\"><small>FC lpm</small><b>--</b></div><div class=\"mon-spo2\"><small>SpO₂ %</small><b>--</b></div><div class=\"mon-pa\"><small>PA mmHg</small><b>--/--</b></div><div class=\"mon-co2\"><small>EtCO₂ mmHg</small><b>--</b></div></div></div><div class=\"defi\" data-est=\"apagado\"><div class=\"defi-tit\">⚡ DESFIBRILADOR</div><div class=\"defi-est\">EN ESPERA</div><div class=\"defi-barra\"><i></i></div><div class=\"defi-j\">BIFÁSICO · 200 J</div></div><div class=\"cron\"><small>CICLO DE 2 MIN</small><b>--:--</b></div><div class=\"rcp-hud\" data-on=\"0\"><b>110</b> /min · <b>5–6</b> cm · <span class=\"rcp-cnt\">0/30</span></div>",
+ "overlay_html": "<div class=\"cron\"><small>CICLO DE 2 MIN</small><b>--:--</b></div><div class=\"rcp-hud\" data-on=\"0\"><b>110</b> /min · <b>5–6</b> cm · <span class=\"rcp-cnt\">0/30</span></div>",
+ "dock_html": "<div class=\"mon-dock\"><div class=\"mon\" aria-hidden=\"false\"><div class=\"mon-top\"><span class=\"mon-t\">MONITOR MULTIPARAMÉTRICO</span><span class=\"mon-alarma\">ALARMA</span><button type=\"button\" class=\"mon-juego\" title=\"Practicá el ritmo de las compresiones\" aria-label=\"Practicar el ritmo\">🎯</button><button type=\"button\" class=\"mon-metro\" title=\"Metrónomo de las compresiones\" aria-label=\"Metrónomo\">🥁</button><button type=\"button\" class=\"mon-mute\" title=\"Silenciar la alarma\" aria-label=\"Silenciar la alarma\">🔕</button></div><canvas class=\"mon-ecg\" width=\"640\" height=\"110\"></canvas><div class=\"mon-num\"><div class=\"mon-fc\"><small>FC lpm</small><b>--</b></div><div class=\"mon-spo2\"><small>SpO₂ %</small><b>--</b></div><div class=\"mon-pa\"><small>PA mmHg</small><b>--/--</b></div><div class=\"mon-co2\"><small>EtCO₂ mmHg</small><b>--</b></div></div></div><div class=\"defi\" data-est=\"apagado\"><div class=\"defi-tit\">⚡ DESFIBRILADOR</div><div class=\"defi-est\">EN ESPERA</div><div class=\"defi-barra\"><i></i></div><div class=\"defi-j\">BIFÁSICO · 200 J</div></div></div>",
  "tarjetas": {
   "mesa": {
    "titulo": "🏥 Shock room",
@@ -457,18 +458,18 @@
   },
   "camara": {
    "lat": [
-    36,
-    4,
+    56,
+    5,
     0
    ],
    "fro": [
     0,
-    6,
-    36
+    8,
+    56
    ],
    "sup": [
     0.01,
-    40,
+    60,
     0
    ],
    "objetivo": [
@@ -477,9 +478,9 @@
     0
    ],
    "ini": [
-    24,
-    18,
-    16
+    40,
+    26,
+    22
    ]
   },
   "etiquetas": {
@@ -758,18 +759,18 @@
   },
   "camara": {
    "lat": [
-    36,
-    4,
+    56,
+    5,
     0
    ],
    "fro": [
     0,
-    6,
-    36
+    8,
+    56
    ],
    "sup": [
     0.01,
-    40,
+    60,
     0
    ],
    "objetivo": [
@@ -778,9 +779,9 @@
     0
    ],
    "ini": [
-    24,
-    18,
-    16
+    40,
+    26,
+    22
    ]
   },
   "etiquetas": {

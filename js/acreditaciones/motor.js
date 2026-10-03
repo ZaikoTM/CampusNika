@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=22'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=23'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
@@ -170,7 +170,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r28'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r29'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     // caso con contraindicación absoluta: se omiten los pasos del tacto y aparece el paso «no realizar»
