@@ -18,7 +18,8 @@ const EstudioState = {
 // data/<modulo>.json por defecto (ver initEstudio).
 const DATA_FILE_MAP = {
     cirugia: 'data/cirugia.json',
-    ginecologia: 'data/gineco_data.json'
+    ginecologia: 'data/gineco_data.json',
+    siam: 'data/siam_data.json'
 };
 
 // Paleta por módulo: variables CSS que se inyectan sobre :root cuando
@@ -28,6 +29,18 @@ const DATA_FILE_MAP = {
 // exclusivamente como acento: botones, bordes activos y detalles — nunca
 // como color de fondo de página ni de tarjetas.
 const MODULE_THEMES = {
+    siam: {
+        '--nika-primary': '#0d9488',   // acento verde azulado (botones, tab activa, focus)
+        '--nika-accent': '#06b6d4',    // acento cian
+        '--nika-dark': '#134e4a',      // títulos
+        '--bg-body': '#f2faf9',
+        '--bg-page': '#f2faf9',
+        '--border': '#cfeae6',
+        '--text-main': '#1e293b',
+        '--text-muted': '#64748b',
+        '--text-dim': '#94a3b8',
+        '--card-bg': '#ffffff'
+    },
     ginecologia: {
         '--nika-primary': '#f472b6',   // acento rosa (botones, tab activa, focus)
         '--nika-accent': '#c084fc',    // acento violeta (hover, detalles)
@@ -95,6 +108,32 @@ function aplicarTemaModulo(modulo) {
                 border-color: var(--nika-primary);
             }
             body[data-modulo="ginecologia"] .up-tab-btn.active {
+                color: var(--nika-primary);
+                border-bottom-color: var(--nika-primary);
+            }
+            body[data-modulo="siam"] {
+                background:
+                    radial-gradient(circle at 12% 8%, rgba(13,148,136,0.06), transparent 40%),
+                    radial-gradient(circle at 88% 92%, rgba(6,182,212,0.06), transparent 40%),
+                    var(--bg-body);
+            }
+            body[data-modulo="siam"] .up-card:hover,
+            body[data-modulo="siam"] .resource-item:hover {
+                background: #fff;
+                box-shadow: 0 12px 24px -10px rgba(13,148,136,0.2);
+            }
+            body[data-modulo="siam"] .btn-hub,
+            body[data-modulo="siam"] .btn-continue-action,
+            body[data-modulo="siam"] #btn-agendar-repaso {
+                background: linear-gradient(135deg, #06b6d4, #0d9488) !important;
+                color: #fff !important;
+                border: none;
+            }
+            body[data-modulo="siam"] .up-card:hover,
+            body[data-modulo="siam"] .content-block:hover {
+                border-color: var(--nika-primary);
+            }
+            body[data-modulo="siam"] .up-tab-btn.active {
                 color: var(--nika-primary);
                 border-bottom-color: var(--nika-primary);
             }
@@ -1345,7 +1384,7 @@ function abrirModalAgendarRepaso() {
     const subtitulo = document.getElementById('modal-agendar-subtitulo');
     const fechaInput = document.getElementById('input-fecha-repaso');
 
-    subtitulo.textContent = `${RepasoState.moduloActual === 'ginecologia' ? 'Ginecología' : 'Cirugía'} · ${RepasoState.upLabelActual || RepasoState.upActual}`;
+    subtitulo.textContent = `${({ ginecologia: 'Ginecología', siam: 'S.I.A.M.' }[RepasoState.moduloActual] || 'Cirugía')} · ${RepasoState.upLabelActual || RepasoState.upActual}`;
 
     // Sugerencia por defecto: hoy + 3 días (el usuario la puede cambiar libremente).
     const sugerida = new Date();
@@ -1484,6 +1523,7 @@ function inyectarModalEditarEventoSiHaceFalta() {
                         <option value="">— Sin módulo —</option>
                         <option value="cirugia">Cirugía</option>
                         <option value="ginecologia">Ginecología</option>
+                        <option value="siam">S.I.A.M.</option>
                     </select></div>
                 <div style="flex:1;"><label style="${label}">UP (número)</label>
                     <input type="number" id="edit-ev-up" min="1" max="99" placeholder="Ej: 7" style="${campo}"></div>
@@ -1605,7 +1645,7 @@ async function guardarRepasoDesdeModal() {
         return;
     }
 
-    const nombreModulo = RepasoState.moduloActual === 'ginecologia' ? 'Ginecología' : 'Cirugía';
+    const nombreModulo = ({ ginecologia: 'Ginecología', siam: 'S.I.A.M.' })[RepasoState.moduloActual] || 'Cirugía';
 
     btn.disabled = true;
     btn.textContent = 'Guardando...';
@@ -1820,7 +1860,7 @@ async function eliminarBloqueTimeboxing(id) {
 }
 
 function etiquetaModuloUp(b) {
-    const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
+    const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.' };
     const unit = (EstudioState.unitsById || {})[b.up_id];
     const up = unit ? `UP${unit.number}` : (b.up_id ? String(b.up_id).toUpperCase() : '');
     return [nombres[b.modulo] || b.modulo, up].filter(Boolean).join(' · ');

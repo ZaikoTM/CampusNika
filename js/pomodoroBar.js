@@ -176,7 +176,7 @@ const NikaPomoBar = (() => {
     }
 
     // ---- Configuración rápida (⚙️): duración, descanso y unidad, sin volver a la Sala de Estudio ----
-    const DATA_FILES = { cirugia: 'data/cirugia.json', ginecologia: 'data/gineco_data.json' };
+    const DATA_FILES = { cirugia: 'data/cirugia.json', ginecologia: 'data/gineco_data.json', siam: 'data/siam_data.json' };
     const _unidadesCache = {};
     async function _cargarUnidades(moduloId) {
         if (!moduloId) return [];

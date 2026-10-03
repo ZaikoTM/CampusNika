@@ -22,10 +22,10 @@
       "id": "siam",
       "nombre": "S.I.A.M.",
       "nombreCompleto": "Salud Integral del Adulto Mayor",
-      "estado": "proximamente",
+      "estado": "activo",
       "año": 5,
-      "dataFile": null,
-      "hub": null
+      "dataFile": "data/siam_data.json",
+      "hub": "siam_hub.html"
     }
   ]
 }

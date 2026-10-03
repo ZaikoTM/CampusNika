@@ -539,9 +539,9 @@
 
                 <div class="year-content active" id="modulo-year-5">
                     <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
+                        <span class="subject-tile-tag tag-active">Activo</span>
                         <div class="subject-tile-name">Salud Integral del Adulto Mayor (S.I.A.M.)</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
+                        <button class="subject-tile-btn btn-enter" onclick="location.href='siam_hub.html'" style="background: linear-gradient(90deg, #06b6d4, #0d9488); color: white; border: none;">Ingresar al Módulo →</button>
                     </div>
                     <div class="subject-tile tile-active">
                         <span class="subject-tile-tag tag-active">Activo</span>
@@ -785,6 +785,7 @@
                         <option value="">— Sin módulo —</option>
                         <option value="cirugia">Cirugía</option>
                         <option value="ginecologia">Ginecología</option>
+                        <option value="siam">S.I.A.M.</option>
                     </select></div>
                 <div><label class="ev-label">UP (número)</label>
                     <input type="number" id="ev-edit-up" class="ev-input" min="1" max="99" placeholder="Ej: 7"></div>
@@ -1474,7 +1475,7 @@
         return `estudio.html?modulo=${encodeURIComponent(modulo)}${up ? `&up=${up}` : ''}`;
     }
     function _etiquetaEv(ev) {
-        const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
+        const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.' };
         const up = _upNumero(ev.up_id);
         return [nombres[ev.modulo] || ev.modulo, up ? `UP${up}` : ''].filter(Boolean).join(' · ');
     }
@@ -1790,7 +1791,7 @@
             }
 
             const etiquetasTipo = { examen: 'Examen' };
-            const nombresModulo = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
+            const nombresModulo = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.' };
             const tipoLabel = etiquetasTipo[evento.tipo] || 'Examen';
             const moduloLabel = nombresModulo[evento.modulo] || evento.modulo || '';
             const fechaLegible = new Date(evento.fecha + 'T00:00:00').toLocaleDateString('es-AR', { day: 'numeric', month: 'long' });
@@ -3880,7 +3881,7 @@ async function handleLogout() {
             },
             siam: {
                 label: "S.I.A.M.",
-                ups: [] // En desarrollo (ver tarjeta de módulos)
+                ups: ['01','02','03','04','05','06','07','08','09'].map(n => ({ id: n, label: `UP ${n}` }))
             }
         };
 

@@ -6,7 +6,7 @@
 // Datos: forum_threads / forum_replies / forum_reactions (ver sql/foro_feed.sql) vía NikaSocial (js/social.js).
 
 const NikaForo = (() => {
-  const MATERIAS = { cirugia: 'Cirugía', ginecologia: 'Ginecología' };
+  const MATERIAS = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.' };
   const UPS = ['general', ...Array.from({ length: 11 }, (_, i) => 'up' + (i + 1))];
   const REACCIONES = [
     { tipo: 'util', icono: '👍', label: 'Útil' },

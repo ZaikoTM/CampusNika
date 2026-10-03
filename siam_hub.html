@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Campus Nika | Sala de Estudio S.I.A.M.</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
+<script src="js/pomodoroEngine.js?v=2"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nika-primary: #0d9488;      /* acento rosa: botones, bordes activos */
+            --nika-dark: #134e4a;         /* títulos: plum oscuro, elegante */
+            --nika-accent: #06b6d4;       /* acento violeta */
+            --bg-body: #f2faf9;
+            --border: #cfeae6;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --card-bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background:
+                radial-gradient(circle at 12% 8%, rgba(13,148,136,0.06), transparent 40%),
+                radial-gradient(circle at 88% 92%, rgba(6,182,212,0.06), transparent 40%),
+                var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar: clara, con línea inferior de acento en degradado sutil */
+        .navbar {
+            background: #ffffff;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(90deg, var(--nika-accent), var(--nika-primary)) 1;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-title { font-size: 1.4rem; font-weight: 800; color: var(--nika-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nika-asset-img { display: block; margin: 0 auto; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+        .brand-title img.nika-isotipo-mini { height: 48px; max-height: 54px; min-height: 48px; width: auto; margin: 0; }
+        .brand-slogan {
+            font-size: 0.8rem;
+            background: linear-gradient(120deg, var(--nika-accent), var(--nika-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase; letter-spacing: 1px; display: block; font-weight: 700;
+        }
+        .btn-back { background: var(--bg-body); border: 1px solid var(--border); color: var(--nika-dark); padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
+        .btn-back:hover { background: #fce7f3; }
+
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; flex: 1; width: 100%; }
+
+        .hub-header { text-align: center; margin-bottom: 40px; }
+        .hub-header h1 { font-size: 2rem; margin-bottom: 8px; font-weight: 800; color: var(--nika-dark); }
+        .hub-header .hub-eyebrow {
+            display: inline-block;
+            font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+            padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
+            background: linear-gradient(120deg, rgba(192,132,252,0.12), rgba(244,114,182,0.12));
+            border: 1px solid var(--border);
+            color: var(--nika-dark);
+        }
+        .hub-header p { color: var(--text-muted); font-size: 1.05rem; }
+
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+            gap: 25px;
+        }
+
+        .hub-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hub-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -5px rgba(13,148,136,0.18);
+            border-color: var(--nika-primary);
+        }
+
+        .hub-icon { font-size: 3rem; margin-bottom: 20px; }
+        .hub-card h3 { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 10px; }
+        .hub-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px; }
+
+        /* El acento rosa/violeta vive acá: fondo de los botones principales */
+        .btn-hub {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(120deg, var(--nika-accent), var(--nika-primary));
+            color: #ffffff;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-hub:hover { opacity: 0.9; }
+
+        .footer {
+            background: #ffffff;
+            color: var(--text-muted);
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+    </style>
+    <link rel="stylesheet" href="css/nika-unificado.css?v=10">
+    <script src="js/temaOscuro.js?v=3"></script>
+    <link rel="stylesheet" href="css/tema-oscuro-paginas.css?v=3">
+</head>
+<body>
+
+    <header class="navbar">
+        <div>
+            <a href="campus.html" class="brand-title">
+                <img src="assets/N%20NIKA.png" alt="NIKA" class="nika-asset-img nika-isotipo-mini">CAMPUS NIKA
+            </a>
+            <span class="brand-slogan">Estudia, competi, aprobá</span>
+        </div>
+        <a href="campus.html" class="btn-back">← Volver al Inicio</a>
+    </header>
+
+    <main class="container">
+
+        <div class="hub-header">
+            <span class="hub-eyebrow">SIAM 2026</span>
+            <h1>Sala de Estudio S.I.A.M.</h1>
+            <p>Seleccioná la sección en la que querés trabajar hoy para avanzar en tu preparación.</p>
+        </div>
+
+        <div class="hub-grid">
+            <div class="hub-card" onclick="location.href='estudio.html?modulo=siam'">
+                <div>
+                    <div class="hub-icon">📖</div>
+                    <h3>Sección Estudio Teórico</h3>
+                    <p>Accedé al programa completo con las 9 Unidades Problema de Salud Integral del Adulto Mayor, objetivos de cátedra y checklists interactivos de progreso.</p>
+                </div>
+                <a href="estudio.html?modulo=siam" class="btn-hub">Ingresar a Estudio →</a>
+            </div>
+
+            <div class="hub-card" style="opacity:.6;cursor:default;">
+                <div>
+                    <div class="hub-icon">📝</div>
+                    <h3>Simulador de Exámenes / Choices</h3>
+                    <p>Entrená con parciales cronometrados, examen final integral y banco masivo de preguntas con justificación bibliográfica oficial.</p>
+                </div>
+                <span class="btn-hub" style="opacity:.55;">Próximamente</span>
+            </div>
+
+            <div class="hub-card" style="opacity:.6;cursor:default;">
+                <div>
+                    <div class="hub-icon">⚔️</div>
+                    <h3>Duelos 1vs1 y Ranking</h3>
+                    <p>Competí cara a cara con tus compañeras/os en modo muerte súbita, sumá medallas y escalá en el podio de rangos médicos.</p>
+                </div>
+                <span class="btn-hub" style="opacity:.55;">Próximamente</span>
+            </div>
+            <div class="hub-card" style="opacity:.6;cursor:default;">
+                <div>
+                    <div class="hub-icon">🩺</div>
+                    <h3>Atlas de Acreditaciones</h3>
+                    <p>Recorridos virtuales de las 9 acreditaciones del área, con la lista de cotejo como corrección estricta y criterios de desaprobación.</p>
+                </div>
+                <span class="btn-hub" style="opacity:.55;">Próximamente</span>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div><strong>Campus Nika</strong> — Sala de Estudio S.I.A.M. | Estudia, competi, aprobá.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rawUser = localStorage.getItem('nika_currentUser');
+            if (!rawUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                const activeUser = JSON.parse(rawUser);
+                const userSuffix = activeUser.username || 'invitado';
+
+                const lastProgress = localStorage.getItem(`nika_last_study_progress_${userSuffix}`);
+                if (!lastProgress) {
+                    localStorage.setItem(`nika_last_study_progress_${userSuffix}`, JSON.stringify({
+                        modulo: 'S.I.A.M.',
+                        up: 'Menú Principal',
+                        porcentaje: 0,
+                        url: 'siam_hub.html'
+                    }));
+                }
+            } catch(e) {
+                console.error("Error al registrar visita al hub:", e);
+            }
+        });
+    </script>
+<script src="js/assistant.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/chatFlotante.js?v=5"></script>
+</body>
+</html>

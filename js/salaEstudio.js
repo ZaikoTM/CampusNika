@@ -5,8 +5,8 @@
 (function () {
   'use strict';
   const MAX = 4;
-  const DATA_FILES = { cirugia: 'data/cirugia.json', ginecologia: 'data/gineco_data.json' };
-  const NOMBRES_MODULO = { cirugia: 'Cirugía', ginecologia: 'Ginecología', biblioteca: 'Estudio libre' };
+  const DATA_FILES = { cirugia: 'data/cirugia.json', ginecologia: 'data/gineco_data.json', siam: 'data/siam_data.json' };
+  const NOMBRES_MODULO = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', biblioteca: 'Estudio libre' };
   const AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fca5a5'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
   let overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [];
