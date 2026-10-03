@@ -80,7 +80,7 @@
       const cerrar = () => { m.classList.add('sale'); document.removeEventListener('keydown', tecla); setTimeout(() => m.remove(), 250); };
       const tecla = (e) => { if (e.key === 'Escape') cerrar(); };
       const pintar = () => {
-        const lista = pasosAplicables(sx, true).filter((z) => !z.solo_contra); const fases = []; lista.forEach((z) => { let f = fases.find((q) => q.n === z.fase); if (!f) fases.push(f = { n: z.fase, p: [] }); f.p.push(z); });
+        const lista = pasosAplicables(sx, true).filter((z) => !z.solo_contra && !z.solo_si); const fases = []; lista.forEach((z) => { let f = fases.find((q) => q.n === z.fase); if (!f) fases.push(f = { n: z.fase, p: [] }); f.p.push(z); });
         const solos = D.pasos.filter((z) => z.solo);
         m.innerHTML = `<div class="lect-hoja" role="dialog" aria-label="Lista de cotejo">
           <div class="lect-cab"><div><h2>📋 Lista de cotejo · ${esc(D.titulo)}</h2><p>${lista.length} pasos · ${lista.filter((z) => z.critico).length} críticos${solos.length ? ` · ${solos.length} paso${solos.length === 1 ? '' : 's'} difiere${solos.length === 1 ? '' : 'n'} según el sexo` : ''}</p></div>
@@ -121,6 +121,21 @@
       document.getElementById('acr-full-fab').onclick = pantallaCompleta;
     }
     document.addEventListener('fullscreenchange', () => { const b = document.getElementById('acr-full-fab'); if (b) { b.classList.toggle('on', !!document.fullscreenElement); b.title = document.fullscreenElement ? 'Salir de pantalla completa' : 'Pantalla completa'; } });
+    // ---- celulares y tablets: sugerir el uso en horizontal (se ve como una computadora a menor escala)
+    const chicoTactil = () => (window.matchMedia('(pointer: coarse)').matches || Math.min(screen.width, screen.height) < 820) && Math.min(screen.width, screen.height) < 900;
+    const vertical = () => window.matchMedia('(orientation: portrait)').matches;
+    const pintarRotar = () => {
+      let b = document.getElementById('acr-rotar'); let cerrado = false; try { cerrado = sessionStorage.getItem('acr_rotar_x') === '1'; } catch (_) {}
+      const ver = chicoTactil() && vertical() && !cerrado;
+      if (!ver) { if (b) b.remove(); return; }
+      if (b) return;
+      document.body.insertAdjacentHTML('beforeend', '<div id="acr-rotar" class="acr-rotar" role="status"><span class="ph">📱</span><div class="tx"><b>Girá el celular</b><small>Usá el simulador en horizontal: ocupa toda la pantalla y se ve como en una computadora.</small></div><button type="button" id="acr-rotar-fs" class="fs">Pantalla completa</button><button type="button" id="acr-rotar-x" aria-label="Cerrar">✕</button></div>');
+      $('#acr-rotar-x').onclick = () => { try { sessionStorage.setItem('acr_rotar_x', '1'); } catch (_) {} pintarRotar(); };
+      const fs = $('#acr-rotar-fs');
+      if (!document.fullscreenEnabled) fs.remove();
+      else fs.onclick = async () => { try { await document.documentElement.requestFullscreen(); if (screen.orientation && screen.orientation.lock) await screen.orientation.lock('landscape'); } catch (_) { toast('Girá el celular manualmente', 'neutro'); } };
+    };
+    pintarRotar(); window.addEventListener('orientationchange', () => setTimeout(pintarRotar, 250)); window.addEventListener('resize', () => setTimeout(pintarRotar, 250));
     const quitarCancelarEx = () => { const b = document.getElementById('acr-ex-x'); if (b) b.remove(); document.body.classList.remove('acr-examen'); };
     if (!document.fullscreenEnabled) document.body.classList.add('acr-sin-fs');   // iPhone y otros: sin API de pantalla completa
     const cancelarExamen = () => {
@@ -139,13 +154,14 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r22'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r24'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     // caso con contraindicación absoluta: se omiten los pasos del tacto y aparece el paso «no realizar»
     const casoActual = () => (S.modo === 'examen' && S.ex ? S.ex.caso : S.caso);
     const conContra = () => !!(casoActual() && casoActual().contra);
-    const casoOk = (p) => (p.solo_contra ? conContra() : p.sin_contra ? !conContra() : true);
+    // pasos que dependen del caso: solo_contra / sin_contra (contraindicación) y solo_si / sin_si (cualquier campo del caso, p. ej. «trauma»)
+    const casoOk = (p) => { const c = casoActual(); if (p.solo_contra) return conContra(); if (p.sin_contra) return !conContra(); if (p.solo_si) return !!(c && c[p.solo_si]); if (p.sin_si) return !(c && c[p.sin_si]); return true; };
     const aplica = (p, sexo, ign) => (!p.solo || p.solo === (sexo || S.sexo)) && (ign || casoOk(p));
     const pasosAplicables = (sexo, ign) => D.pasos.filter((p) => aplica(p, sexo, ign));
     const etiquetaPaso = (n) => (Number.isInteger(n) ? n : Math.floor(n) + ' bis');
@@ -160,7 +176,7 @@
       const tx = norm(texto).replace(/\b(no|sin) (fuerzo|forzo|forzar|forzando|fuerza)\b/g, ' '); if (tx.length < 3) return null;
       const puntaje = (claves) => (claves || []).reduce((mx, g) => (g.every((f) => tx.includes(f)) ? Math.max(mx, g.join('').length) : mx), 0);
       let mejor = null;
-      D.distractores.filter((d) => (!d.solo || d.solo === sexo) && (!d.solo_contra || conContra())).forEach((d) => { const s = puntaje(d.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'd', id: d.id, s }; });
+      D.distractores.filter((d) => (!d.solo || d.solo === sexo) && (!d.solo_contra || conContra()) && (!d.solo_si || (casoActual() && casoActual()[d.solo_si]))).forEach((d) => { const s = puntaje(d.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'd', id: d.id, s }; });
       if (mejor) return mejor;
       D.pasos.filter((q) => aplica(q, sexo)).forEach((q) => { const s = puntaje(q.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'p', n: q.n, s }; });
       return mejor;
@@ -265,6 +281,7 @@
     // ---- escena
     let svg = null;
     function montarEscena(estatica) {
+      document.body.classList.add('acr-en-escena');
       document.querySelector('.acr-grid').classList.remove('sin-escena');
       if (ESC.dispose) ESC.dispose();
       $('#acr-escena').innerHTML = ESC.build(S.sexo);
@@ -805,7 +822,7 @@
 
     // ---- portada (sin cargar nada pesado) y navegación
     function portada() {
-      parar(); quitarCancelarEx(); detenerMic(); pintarLectura(true);
+      parar(); quitarCancelarEx(); detenerMic(); document.body.classList.remove('acr-en-escena'); pintarLectura(true);
       if (ESC) ESC.dispose();
       document.querySelector('.acr-grid').classList.add('sin-escena');
       $('#acr-chips').innerHTML = '';

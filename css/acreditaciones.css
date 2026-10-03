@@ -767,3 +767,38 @@ body.acr-sin-fs .acr-full-fab, body.acr-sin-fs [data-tool="full"] { display: non
 .acr-mic.on { background: #dc2626; border-color: #fecaca; color: #fff; animation: mic-pulso 1.1s ease-in-out infinite; }
 .acr-mic.sin { opacity: .45; }
 @keyframes mic-pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,.55); } 50% { box-shadow: 0 0 0 9px rgba(220,38,38,0); } }
+
+/* ===== Aviso para usar en horizontal + diseño de computadora a menor escala en celulares y tablets apaisados ===== */
+.acr-rotar { position: fixed; left: 10px; right: 10px; bottom: 64px; z-index: 9600; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; color: #fff; background: linear-gradient(135deg, #04323a, #028090 70%, #00A896); box-shadow: 0 18px 34px -14px rgba(0,0,0,.7); animation: pn-in .5s cubic-bezier(.16,1,.3,1) both; }
+.acr-rotar .ph { flex: none; font-size: 1.8rem; display: inline-block; animation: rotar-tel 2.4s ease-in-out infinite; }
+@keyframes rotar-tel { 0%, 25% { transform: rotate(0); } 55%, 100% { transform: rotate(-90deg); } }
+.acr-rotar .tx { flex: 1; min-width: 0; line-height: 1.25; }
+.acr-rotar b { display: block; font-size: .9rem; }
+.acr-rotar small { font-size: .74rem; opacity: .92; }
+.acr-rotar button { flex: none; border: 1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.14); color: #fff; border-radius: 999px; padding: 6px 12px; font: 700 .72rem 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
+.acr-rotar button:hover { background: #fff; color: #028090; }
+.acr-rotar #acr-rotar-x { width: 30px; height: 30px; padding: 0; border-radius: 50%; }
+@media (orientation: landscape) and (max-height: 560px) {
+  .acr-nav { padding: 5px 12px !important; }
+  .acr-nav a.brand { padding: 3px 12px 3px 6px; font-size: .85rem; } .acr-nav a.brand img { height: 26px; }
+  .acr-back { padding: 5px 12px; font-size: .78rem; }
+  .acr-main { padding-top: 8px; padding-bottom: 60px; }
+  .acr-head .acr-h1 { font-size: 1.05rem; } .acr-head .acr-sub { display: none; }
+  .acr-crit-wrap { padding: 6px 10px; margin-top: 6px; } .acr-crit-tit span { display: none; }
+  .acr-crit-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; } .acr-crit-card { padding: 5px 7px; gap: 6px; } .acr-crit-card .ic { width: 24px; height: 24px; font-size: .85rem; } .acr-crit-card b { font-size: .64rem; } .acr-crit-card small { font-size: .55rem; }
+  .acr-grid { grid-template-columns: minmax(0, 1.5fr) minmax(250px, 1fr) !important; gap: 10px; }
+  .acr-panel { max-height: calc(100vh - 78px) !important; padding: 10px; }
+  .acr3d-vp { height: calc(100vh - 118px) !important; min-height: 220px; }
+  .acr-escena .acr-svg { min-width: 0 !important; } .acr-escena::before { content: none !important; }
+  .acr3d-tools button { padding: 4px 9px; font-size: .64rem; } .acr3d-nav button { width: 28px; height: 28px; }
+  .acr-rotar { display: none; }
+}
+
+@media (orientation: landscape) and (max-height: 560px) {
+  body.acr-en-escena .acr-head .acr-sub, body.acr-en-escena .acr-crit-wrap { display: none; }
+  body.acr-en-escena .acr-head { margin-bottom: 4px; }
+  body.acr-en-escena .acr-h1 { font-size: .95rem; margin: 0; }
+  .acr-tabs { gap: 6px; margin: 4px 0; } .acr-tabs .acr-tab { padding: 5px 12px; font-size: .74rem; } .acr-sexo button { padding: 5px 10px; font-size: .72rem; }
+  #acr-lectura { margin-bottom: 4px; }
+  .acr3d-vp { height: calc(100vh - 150px) !important; }
+}

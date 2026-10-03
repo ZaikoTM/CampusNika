@@ -75,7 +75,8 @@
    "nombre": "Cabeza y cuello",
    "desc": "Se hiperextiende la cabeza y se eleva el mentón.",
    "pasos": [
-    10
+    10,
+    10.5
    ]
   },
   "boca": {
@@ -411,6 +412,33 @@
    ]
   },
   {
+   "id": "d12",
+   "texto": "Hiperextiende la cabeza de un paciente con sospecha de trauma cervical",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: con sospecha de lesión cervical la hiperextensión puede lesionar la médula; se inmoviliza el cuello en eje y se usa solo la tracción mandibular.",
+   "target": "cabeza",
+   "claves": [
+    [
+     "hiperextiendo"
+    ],
+    [
+     "hiperextension"
+    ],
+    [
+     "extiendo",
+     "cabeza"
+    ],
+    [
+     "frente menton"
+    ],
+    [
+     "elevo",
+     "menton"
+    ]
+   ],
+   "solo_si": "trauma"
+  },
+  {
    "id": "d11",
    "texto": "Da por correcta la intubación sin verificar la colocación",
    "critico": true,
@@ -437,6 +465,7 @@
  ],
  "casos": [
   {
+   "trauma": false,
    "id": "c1",
    "nombre": "Ricardo S.",
    "sexo": "M",
@@ -453,22 +482,24 @@
    "verif": "murmullo vesicular simétrico, epigastrio silencioso, vaho en el tubo y onda de capnografía."
   },
   {
+   "trauma": true,
    "id": "c2",
    "nombre": "Lucía G.",
    "sexo": "F",
    "edad": 34,
-   "motivo": "Politraumatismo con traumatismo craneoencefálico grave. Glasgow 7.",
+   "motivo": "Politraumatismo por accidente de tránsito con traumatismo craneoencefálico grave. Glasgow 7. Llega con collar cervical colocado por emergencias.",
    "indicacion": "Intubación endotraqueal para proteger la vía aérea y ventilar.",
    "antecedentes": "Sin antecedentes. Sin alergias conocidas.",
    "alergia": null,
    "extra": [
     "Mallampati I"
    ],
-   "via_aerea": "Mallampati I, apertura bucal amplia y cuello móvil.",
+   "via_aerea": "Mallampati I, apertura bucal amplia. Sospecha de lesión cervical: un asistente debe mantener la inmovilización manual en eje.",
    "protesis": "sin prótesis dentales.",
    "verif": "expansión torácica simétrica, murmullo vesicular bilateral, capnografía con onda normal."
   },
   {
+   "trauma": false,
    "id": "c3",
    "nombre": "Alberto D.",
    "sexo": "M",
@@ -480,11 +511,12 @@
    "extra": [
     "Mallampati III"
    ],
-   "via_aerea": "Mallampati III: se ve el paladar blando y la base de la úvula; cuello algo rígido. Anticipá una laringoscopia más difícil.",
+   "via_aerea": "Mallampati III: se ve el paladar blando y la base de la úvula; cuello algo rígido. Anticipá una laringoscopia más difícil: tené a mano mandril y bougie.",
    "protesis": "tiene una prótesis dental superior removible.",
    "verif": "estertores bilaterales conservando la simetría, epigastrio silencioso, vaho y onda de capnografía."
   },
   {
+   "trauma": false,
    "id": "c4",
    "nombre": "Marta E.",
    "sexo": "F",
@@ -501,6 +533,7 @@
    "verif": "murmullo vesicular simétrico, capnografía con onda normal y vaho en el tubo."
   },
   {
+   "trauma": false,
    "id": "c5",
    "nombre": "Pablo N.",
    "sexo": "M",
@@ -517,6 +550,7 @@
    "verif": "expansión simétrica, murmullo vesicular bilateral y capnografía normal."
   },
   {
+   "trauma": false,
    "id": "c6",
    "nombre": "Rosa T.",
    "sexo": "F",
@@ -528,11 +562,12 @@
    "extra": [
     "Mallampati III"
    ],
-   "via_aerea": "Mallampati III, cuello rígido. Anticipá una laringoscopia más difícil.",
+   "via_aerea": "Mallampati III, cuello rígido. Anticipá una laringoscopia más difícil: tené a mano mandril y bougie.",
    "protesis": "tiene una prótesis dental superior removible.",
    "verif": "murmullo vesicular simétrico, epigastrio silencioso, vaho y capnografía con onda."
   },
   {
+   "trauma": false,
    "id": "c7",
    "nombre": "Jorge M.",
    "sexo": "M",
@@ -549,6 +584,7 @@
    "verif": "murmullo vesicular simétrico y capnografía con onda."
   },
   {
+   "trauma": false,
    "id": "c8",
    "nombre": "Elena V.",
    "sexo": "F",
@@ -600,6 +636,17 @@
    "e": "La ventilación con oxígeno aumenta la reserva de oxígeno y permite intentar con seguridad. Laringoscopiar sin ventilar antes es criterio de desaprobación."
   },
   {
+   "q": "Paciente politraumatizada con collar cervical. ¿Cómo se abre la vía aérea?",
+   "o": [
+    "Tracción o subluxación de la mandíbula con inmovilización cervical en eje, sin hiperextender",
+    "Maniobra frente-mentón con hiperextensión",
+    "Flexión máxima del cuello",
+    "Se retira el collar y se coloca la posición de olfateo"
+   ],
+   "c": 0,
+   "e": "Con sospecha de trauma cervical la hiperextensión está contraindicada. Un asistente inmoviliza el cuello en eje y el operador abre la vía aérea solo con la tracción de la mandíbula."
+  },
+  {
    "q": "¿Cuál es la posición de la cabeza para intubar?",
    "o": [
     "Posición de olfateo, con elevación del occipucio",
@@ -631,6 +678,17 @@
    ],
    "c": 0,
    "e": "La hoja curva (Macintosh) se apoya en la vallécula y se levanta hacia arriba y adelante. La palanca sobre los dientes los rompe."
+  },
+  {
+   "q": "¿En qué orden se ausculta para verificar el tubo?",
+   "o": [
+    "Primero el epigastrio (debe ser negativo) y luego ambos pulmones (positivos y simétricos)",
+    "Solo el pulmón derecho",
+    "Primero los vértices y no el epigastrio",
+    "No hace falta auscultar si hay capnografía"
+   ],
+   "c": 0,
+   "e": "Se ausculta primero el epigastrio: si hay ruidos hidroaéreos es una intubación esofágica y se retira el tubo. Después se ausculta en ambos pulmones, que deben ser positivos y simétricos."
   },
   {
    "q": "¿Dónde debe quedar el balón del tubo?",
@@ -725,7 +783,7 @@
    },
    {
     "t": "Asepsia y equipo",
-    "x": "Lavado de manos y ropa estéril. Probá la luz del laringoscopio y el balón del TET (mujer 7,0–7,5 mm; varón 7,5–8,0 mm). Omitirlo desaprueba."
+    "x": "Lavado de manos y ropa estéril. Probá la luz del laringoscopio y el balón del TET (diámetro interno: mujer 7,0–8,0 mm; varón 8,0–9,0 mm). Omitirlo desaprueba."
    },
    {
     "t": "Oxigenar primero",
@@ -787,7 +845,7 @@
    "fase": "Preparación",
    "target": "mesa",
    "critico": false,
-   "explica": "Se reúne y ordena todo antes de empezar: ropa estéril, laringoscopio con hoja curva, tubo endotraqueal (TET) del calibre adecuado, jeringa de 10 cc, bolsa de ambú con máscara, fuente de oxígeno, saturómetro, estetoscopio y cinta hipoalergénica. En una vía aérea no se puede interrumpir el procedimiento para buscar algo.",
+   "explica": "Se reúne y ordena todo antes de empezar: ropa estéril, laringoscopio con hoja curva, tubos endotraqueales (TET) de varios calibres, mandril o guía estéril (si se requiere), jeringa de 10 cc, bolsa de ambú con máscara y reservorio, fuente de oxígeno, saturómetro, estetoscopio, cánula de Guedel, lubricante estéril y cinta de fijación. En una vía aérea no se puede interrumpir el procedimiento para buscar algo.",
    "estado": {},
    "claves": [
     [
@@ -874,7 +932,7 @@
    "fase": "Preparación",
    "target": "ropa",
    "critico": true,
-   "explica": "Camisolín, gorro, barbijo y guantes estériles: el tubo se introduce en la tráquea, que no tiene flora normal, y el operador queda expuesto a secreciones y aerosoles. Omitirlo es criterio de desaprobación.",
+   "explica": "Camisolín, cofia, antiparras, barbijo, guantes y botas estériles: el tubo se introduce en una vía aérea inferior estéril y el operador queda expuesto a secreciones y aerosoles. Omitirlo es criterio de desaprobación.",
    "estado": {
     "esteril": 1
    },
@@ -896,9 +954,18 @@
     ],
     [
      "gorro"
+    ],
+    [
+     "cofia"
+    ],
+    [
+     "antiparras"
+    ],
+    [
+     "botas"
     ]
    ],
-   "frase": "Me visto con ropa estéril: camisolín, gorro, barbijo y guantes estériles.",
+   "frase": "Me visto con la ropa estéril completa: camisolín, cofia, antiparras, barbijo, guantes y botas estériles.",
    "fx": "vestir"
   },
   {
@@ -941,7 +1008,7 @@
    "fase": "Verificación del equipo",
    "target": "tetc",
    "critico": true,
-   "explica": "Se infla el balón con la jeringa para comprobar que no pierda ni se deforme y se lo desinfla por completo antes de usar. Un balón defectuoso no sella la vía aérea. Calibre habitual: mujer 7,0–7,5 mm, varón 7,5–8,0 mm. Omitirlo es criterio de desaprobación.",
+   "explica": "Se conecta la jeringa de 10 cc a la válvula del piloto y se insufla aire (5 a 10 cc) fuera del paciente para comprobar que el balón no pierde ni se deforma; luego se lo desinfla por completo antes de usar (un balón parcialmente inflado lesiona las cuerdas). Un balón defectuoso no sella la vía aérea. Diámetro interno según la planilla de la cátedra: mujer 7,0–8,0 mm, varón 8,0–9,0 mm. Omitirlo es criterio de desaprobación.",
    "estado": {
     "tet_ok": 1
    },
@@ -971,7 +1038,7 @@
      "tet"
     ]
    ],
-   "frase": "Verifico el funcionamiento del balón del tubo endotraqueal: compruebo que infle y desinfle sin pérdidas.",
+   "frase": "Verifico el funcionamiento del balón del tubo endotraqueal: compruebo que infle y desinfle sin pérdidas y lo dejo desinflado.",
    "fx": "balon_tet"
   },
   {
@@ -980,7 +1047,7 @@
    "fase": "Posición y monitoreo",
    "target": "paciente",
    "critico": false,
-   "explica": "Paciente en decúbito dorsal con la cabeza en posición de olfateo (elevación del occipucio con una almohada o toalla): alinea los ejes oral, faríngeo y laríngeo. Se evalúa la vía aérea: clasificación de Mallampati, apertura bucal, movilidad cervical y distancia tiromentoniana.",
+   "explica": "Se baja la cabecera de la cama a 0° (plano) de modo que la cabeza del paciente quede a la altura del apéndice xifoides del operador. Paciente en decúbito dorsal con la cabeza en posición de olfateo (elevación del occipucio unos 8 a 10 cm con una almohada o toalla): alinea los ejes oral, faríngeo y laríngeo. Se evalúa la vía aérea: Mallampati (III y IV predicen vía aérea difícil), apertura bucal, movilidad cervical y distancia tiromentoniana. Con sospecha de trauma cervical no se usa la posición de olfateo: se mantiene la inmovilización cervical en eje.",
    "estado": {
     "pos": 1
    },
@@ -1010,7 +1077,7 @@
      "paciente"
     ]
    ],
-   "frase": "Acomodo al paciente en decúbito dorsal, en posición de olfateo, y evalúo la vía aérea (Mallampati).",
+   "frase": "Acomodo al paciente en decúbito dorsal con la cama plana, en posición de olfateo, y evalúo la vía aérea (Mallampati).",
    "fx": "posicion_iet"
   },
   {
@@ -1069,7 +1136,7 @@
    "fase": "Posición y monitoreo",
    "target": "cabeza",
    "critico": false,
-   "explica": "Con la mano derecha se lleva la cabeza hacia atrás y se eleva el mentón (maniobra frente-mentón): despeja la base de la lengua de la pared posterior de la faringe y abre la vía aérea.",
+   "explica": "Con la mano derecha se lleva la cabeza hacia atrás y se eleva el mentón (maniobra frente-mentón): despeja la base de la lengua de la pared posterior de la faringe y abre la vía aérea. Atención: con sospecha de trauma cervical está contraindicada; se hace solo tracción o subluxación de la mandíbula con el cuello inmovilizado en eje.",
    "estado": {
     "ext": 1
    },
@@ -1094,7 +1161,46 @@
     ]
    ],
    "frase": "Hiperextiendo la cabeza llevándola hacia atrás y elevo el mentón.",
-   "fx": "hiperextension"
+   "fx": "hiperextension",
+   "sin_si": "trauma"
+  },
+  {
+   "n": 10.5,
+   "texto": "Con sospecha de trauma cervical: realiza la tracción o subluxación mandibular manteniendo la inmovilización cervical en eje, sin hiperextender el cuello.",
+   "fase": "Posición y monitoreo",
+   "target": "cabeza",
+   "critico": true,
+   "explica": "Con sospecha de lesión cervical la hiperextensión está contraindicada: puede lesionar la médula. Un asistente mantiene la inmovilización manual en eje y el operador abre la vía aérea solo con la tracción o subluxación de la mandíbula, sin mover el cuello. Hiperextender en este paciente es criterio de desaprobación.",
+   "estado": {
+    "subluxacion": 1
+   },
+   "claves": [
+    [
+     "traccion",
+     "mandib"
+    ],
+    [
+     "subluxacion"
+    ],
+    [
+     "elevo",
+     "mandibula"
+    ],
+    [
+     "inmovilizacion",
+     "cervical"
+    ],
+    [
+     "inmovilizo"
+    ],
+    [
+     "traccion",
+     "menton"
+    ]
+   ],
+   "frase": "Realizo la tracción mandibular manteniendo la inmovilización cervical en eje, sin hiperextender el cuello.",
+   "fx": "traccion_mandibular",
+   "solo_si": "trauma"
   },
   {
    "n": 11,
@@ -1130,7 +1236,7 @@
    "fase": "Oxigenación",
    "target": "ambu",
    "critico": true,
-   "explica": "Antes de laringoscopiar se ventila con máscara y bolsa de ambú con oxígeno a 15–18 por minuto (preoxigenación): la reserva de oxígeno permite tolerar la apnea del intento sin desaturar. Laringoscopiar sin ventilar antes es criterio de desaprobación.",
+   "explica": "Antes de laringoscopiar se ventila con máscara y bolsa de ambú con oxígeno al 100 % (12–15 L/min, con reservorio) a 15–18 por minuto. La máscara se sella con la técnica C-E: el pulgar y el índice de la mano no dominante forman una «C» sobre la máscara y los otros tres dedos una «E» bajo la mandíbula para traccionarla. La preoxigenación crea una reserva de oxígeno que permite tolerar la apnea del intento sin desaturar. Laringoscopiar sin ventilar antes es criterio de desaprobación.",
    "estado": {
     "vent": 1
    },
@@ -1159,7 +1265,7 @@
      "mascara"
     ]
    ],
-   "frase": "Inicio la ventilación con máscara de ambú a 15-18 ventilaciones por minuto.",
+   "frase": "Inicio la ventilación con máscara de ambú, con técnica C-E, a 15-18 ventilaciones por minuto.",
    "fx": "ventilar",
    "gemelo": 25
   },
@@ -1169,7 +1275,7 @@
    "fase": "Oxigenación",
    "target": "cricoides",
    "critico": false,
-   "explica": "Maniobra de Sellick: el asistente presiona el cricoides hacia atrás y comprime el esófago contra la columna cervical, lo que previene la regurgitación y la broncoaspiración. Se mantiene hasta que el balón está inflado.",
+   "explica": "Maniobra de Sellick: el asistente presiona el cricoides (único anillo cartilaginoso completo de la vía aérea) hacia atrás y comprime el esófago contra el cuerpo de la sexta vértebra cervical, lo que previene la regurgitación y la broncoaspiración. Se mantiene hasta que el balón está inflado y la colocación verificada.",
    "estado": {
     "sellick": 1
    },
@@ -1429,7 +1535,7 @@
    "fase": "Intubación",
    "target": "balon",
    "critico": true,
-   "explica": "El balón debe quedar 3 a 4 cm por debajo de las cuerdas vocales, en la tráquea: más arriba lesiona la laringe y más abajo se corre el riesgo de intubación selectiva del bronquio derecho. Omitir la profundidad correcta es criterio de desaprobación.",
+   "explica": "El balón debe quedar 3 a 4 cm por debajo de las cuerdas vocales, en la tráquea: más arriba lesiona la laringe y más abajo se corre el riesgo de intubación selectiva del bronquio derecho. En el adulto la marca del tubo a la altura de la comisura labial queda aproximadamente entre 21 y 23 cm. Omitir la profundidad correcta es criterio de desaprobación.",
    "estado": {
     "tetp": 1
    },
@@ -1481,7 +1587,7 @@
    "fase": "Intubación",
    "target": "jeringa",
    "critico": true,
-   "explica": "Se infla el balón por el piloto con la jeringa de 10 cc hasta sellar la vía aérea (presión habitual 20–30 cm H₂O). Un balón sin inflar permite fugas y aspiración. Omitirlo es criterio de desaprobación.",
+   "explica": "Se infla el balón por el piloto con la jeringa de 10 cc (habitualmente bastan 5 a 8 cc de aire) hasta sellar la vía aérea, con una presión de 20 a 30 cm H₂O; por encima de eso se isquemia la mucosa traqueal. Un balón sin inflar permite fugas y aspiración. Omitirlo es criterio de desaprobación.",
    "estado": {
     "infl": 1
    },
@@ -1511,7 +1617,7 @@
    "fase": "Verificación",
    "target": "pulmones",
    "critico": true,
-   "explica": "Se confirma la posición del tubo: expansión torácica simétrica, vaho en el tubo, auscultación de epigastrio (sin ruidos) y de ambos campos pulmonares (murmullo vesicular simétrico) y capnografía con onda de CO₂. La intubación esofágica no detectada mata; la selectiva (ruidos solo a la derecha) se corrige retirando el tubo unos centímetros. Omitir la verificación es criterio de desaprobación.",
+   "explica": "La planilla lo desglosa en dos incisos: (24-A) auscultación de ambos pulmones, desde la región infraclavicular descendiendo por la línea medioclavicular: debe ser positiva (murmullo vesicular presente) y simétrica; (24-B) auscultación del epigastrio: debe ser negativa. Se completa con expansión torácica simétrica, vaho en el tubo y capnografía con onda de CO₂. Se ausculta primero el epigastrio: si hay ruidos hidroaéreos es una intubación esofágica y se retira el tubo de inmediato. La intubación selectiva (ruidos solo a la derecha) se corrige desinflando levemente el balón y retirando el tubo 2 a 3 cm. Omitir la verificación es criterio de desaprobación.",
    "estado": {
     "verif": 1
    },
@@ -1541,7 +1647,7 @@
      "epigastrio"
     ]
    ],
-   "frase": "Verifico la correcta colocación del tubo: ausculto epigastrio y ambos campos pulmonares y observo la expansión torácica.",
+   "frase": "Verifico la correcta colocación del tubo: ausculto primero el epigastrio, luego ambos campos pulmonares de forma simétrica, y observo la expansión torácica y el vaho.",
    "fx": "auscultar"
   },
   {
@@ -1582,7 +1688,7 @@
    "fase": "Verificación",
    "target": "cinta",
    "critico": false,
-   "explica": "El tubo se fija con cinta hipoalergénica a las mejillas, anotando la marca de profundidad en la comisura labial, para evitar su desplazamiento o la extubación accidental.",
+   "explica": "El tubo se fija con cinta hipoalergénica a las mejillas, constatando la marca de profundidad en la comisura labial (habitualmente entre 21 y 23 cm en el adulto), para detectar cualquier desplazamiento o extubación accidental.",
    "estado": {
     "fix": 1
    },

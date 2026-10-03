@@ -97,6 +97,7 @@
     retirar_lar: E('↩️', 'Retirando el laringoscopio', 'whoosh', 'a-tira', 2000),
     inflar_tet: { ico: '💉', cap: 'Inflando el balón con 10 cc por el piloto', snd: 'inflar', cls: 'a-jeringa', dur: 2600, cc: true },
     auscultar: E('🩺', 'Auscultando epigastrio y ambos campos pulmonares; capnografía', 'tick', 'a-escanea', 3200),
+    traccion_mandibular: E('🤲', 'Tracción mandibular con inmovilización cervical en eje, sin hiperextender', 'tick', 'a-tira', 2600),
     contraindicado: E('🚫', 'Contraindicación absoluta: no se realiza el tacto rectal', 'error', 'a-pop', 2600),
     desnudar: E('👖', 'Descubriendo de la cintura para abajo, resguardando la intimidad', 'crujido', 'a-baja'),
     separar: E('👐', 'Separando las nalgas para exponer la región', 'pop', 'a-abre', 1800),

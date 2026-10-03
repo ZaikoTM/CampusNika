@@ -81,16 +81,16 @@
   {
    "id": "tet_f",
    "grupo": "via",
-   "nombre": "Tubo endotraqueal 7,0 mm con balón",
+   "nombre": "Tubo endotraqueal 7,5 mm con balón",
    "detalle": "Adulto · mujer · con balón y piloto",
    "img": "assets/instrumental/tet_f.svg",
    "correcto": true,
    "critico": true,
-   "descripcion": "Calibre habitual para una mujer adulta (7,0–7,5 mm). Tiene balón de baja presión y piloto para inflarlo.",
+   "descripcion": "Diámetro interno para una mujer adulta según la cátedra: 7,0 a 8,0 mm. Tiene balón de baja presión y piloto para inflarlo.",
    "ficha": [
     [
      "Calibre",
-     "7,0 mm"
+     "7,5 mm ID"
     ],
     [
      "Balón",
@@ -106,22 +106,22 @@
     ]
    ],
    "correcto_para": "F",
-   "falta": "Falta el tubo endotraqueal del calibre adecuado para la mujer (7,0–7,5 mm).",
-   "feedback_otro": "Para un varón adulto corresponde un tubo de 7,5–8,0 mm: uno de 7,0 mm es más fino de lo adecuado y aumenta la resistencia al flujo."
+   "falta": "Falta el tubo endotraqueal del calibre adecuado para la mujer (7,0–8,0 mm).",
+   "feedback_otro": "Para un varón adulto corresponde un tubo de 8,0–9,0 mm: uno de 7,5 mm es más fino de lo adecuado y aumenta la resistencia al flujo."
   },
   {
    "id": "tet_m",
    "grupo": "via",
-   "nombre": "Tubo endotraqueal 8,0 mm con balón",
+   "nombre": "Tubo endotraqueal 8,5 mm con balón",
    "detalle": "Adulto · varón · con balón y piloto",
    "img": "assets/instrumental/tet_m.svg",
    "correcto": true,
    "critico": true,
-   "descripcion": "Calibre habitual para un varón adulto (7,5–8,0 mm). Tiene balón de baja presión y piloto para inflarlo.",
+   "descripcion": "Diámetro interno para un varón adulto según la cátedra: 8,0 a 9,0 mm. Tiene balón de baja presión y piloto para inflarlo.",
    "ficha": [
     [
      "Calibre",
-     "8,0 mm"
+     "8,5 mm ID"
     ],
     [
      "Balón",
@@ -137,8 +137,8 @@
     ]
    ],
    "correcto_para": "M",
-   "falta": "Falta el tubo endotraqueal del calibre adecuado para el varón (7,5–8,0 mm).",
-   "feedback_otro": "Para una mujer adulta corresponde un tubo de 7,0–7,5 mm: uno de 8,0 mm es demasiado grueso y aumenta el riesgo de lesión laríngea."
+   "falta": "Falta el tubo endotraqueal del calibre adecuado para el varón (8,0–9,0 mm).",
+   "feedback_otro": "Para una mujer adulta corresponde un tubo de 7,0–8,0 mm: uno de 8,5 mm es demasiado grueso y aumenta el riesgo de lesión laríngea."
   },
   {
    "id": "tet_ped",
@@ -160,6 +160,27 @@
     ]
    ],
    "feedback": "El tubo de 4,0 mm sin balón es pediátrico: no sirve en un adulto, ni sella la vía aérea."
+  },
+  {
+   "id": "mandril",
+   "grupo": "via",
+   "nombre": "Mandril o guía estéril",
+   "detalle": "Se introduce dentro del tubo",
+   "img": "assets/instrumental/mandril.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Da rigidez y forma al tubo cuando se anticipa una laringoscopia difícil (Mallampati III-IV, cuello rígido). Es opcional.",
+   "ficha": [
+    [
+     "Tipo",
+     "Guía maleable"
+    ],
+    [
+     "Esterilidad",
+     "Estéril"
+    ]
+   ],
+   "opcional": true
   },
   {
    "id": "guedel",
@@ -211,7 +232,7 @@
    "img": "assets/instrumental/estetoscopio.svg",
    "correcto": true,
    "critico": true,
-   "descripcion": "Sirve para auscultar epigastrio y ambos campos pulmonares y verificar la colocación del tubo.",
+   "descripcion": "Sirve para auscultar primero el epigastrio y luego ambos campos pulmonares y verificar la colocación del tubo.",
    "ficha": [
     [
      "Tipo",
@@ -299,7 +320,7 @@
    "id": "kit_esteril",
    "grupo": "prot",
    "nombre": "Ropa estéril",
-   "detalle": "Camisolín, gorro, barbijo y guantes",
+   "detalle": "Camisolín, cofia, antiparras, barbijo, guantes y botas",
    "img": "assets/instrumental/kit_esteril.svg",
    "correcto": true,
    "critico": true,
@@ -307,7 +328,7 @@
    "ficha": [
     [
      "Contenido",
-     "Camisolín · gorro · barbijo · guantes"
+     "Camisolín · cofia · antiparras · barbijo · guantes · botas"
     ],
     [
      "Esterilidad",
@@ -318,7 +339,7 @@
      "7,5"
     ]
    ],
-   "falta": "Falta la ropa estéril: camisolín, gorro, barbijo y guantes."
+   "falta": "Falta la ropa estéril: camisolín, cofia, antiparras, barbijo, guantes y botas."
   },
   {
    "id": "guantes_ns",
