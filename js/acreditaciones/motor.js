@@ -63,7 +63,7 @@
     let MESA = null;
     async function asegurarMesa() {
       if (MESA) return;
-      const [mod, cfg] = await Promise.all([import('./mesa.js?v=10'), getJSON(D.instrumental)]);
+      const [mod, cfg] = await Promise.all([import('./mesa.js?v=11'), getJSON(D.instrumental)]);
       MESA = mod.crearMesa(cfg);
     }
     const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
@@ -137,7 +137,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r14'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r15'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);

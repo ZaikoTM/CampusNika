@@ -284,10 +284,10 @@ export class ProcedureWorkbench {
   narrar(txt) { this.ultNarr = txt; const n = this.el?.querySelector('#wb-demo-txt'); if (n) { n.textContent = txt; n.classList.remove('nuevo'); void n.offsetWidth; n.classList.add('nuevo'); } }
   /** demostración automática: muestra el caso, inspecciona cada insumo y arma la bandeja correcta */
   async demo() {
-    this.vel = this.vel || 1;
+    this.vel = this.vel || 1; const tok = this.tok;
     if (this.pausa) this.narrar('Listo. Apretá ▶ Continuar para empezar la demostración (podés pausar, acelerar o cancelar cuando quieras).');
-    const esperar = async (ms) => { let t = 0; while (t < ms && !this.adelante && this.el && !this.cancelado) { await new Promise((r) => setTimeout(r, 60)); if (!this.pausa) t += 60 * this.vel; } };
-    const vivo = () => this.el && !this.cancelado;
+    const esperar = async (ms) => { let t = 0; while (t < ms && !this.adelante && this.el && !this.cancelado && tok === this.tok) { await new Promise((r) => setTimeout(r, 60)); if (!this.pausa) t += 60 * this.vel; } };
+    const vivo = () => this.el && !this.cancelado && tok === this.tok;
     this.narrar('Primero se lee el caso clínico: de él depende qué sonda y qué insumos elegir.'); await esperar(4200); if (!vivo()) return;
     this.pintarEscena(); await esperar(900); if (!vivo()) return;
     this.narrar('Ahora se arma la bandeja con todo lo necesario para este paciente, inspeccionando cada insumo.');
@@ -312,6 +312,7 @@ export class ProcedureWorkbench {
   }
 
   dispose() {
+    this.tok = (this.tok || 0) + 1; this.cancelado = true;
     if (this.el) { this.el.onclick = this.el.onmouseover = this.el.onmouseout = this.el.ondragstart = this.el.ondragover = this.el.ondragleave = this.el.ondrop = null; this.el.innerHTML = ''; }
     document.querySelectorAll('.wb-vuelo').forEach((n) => n.remove());
     this.el = null;
