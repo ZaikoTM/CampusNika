@@ -56,14 +56,14 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=6'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=8'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
     let MESA = null;
     async function asegurarMesa() {
       if (MESA) return;
-      const [mod, cfg] = await Promise.all([import('./mesa.js?v=3'), getJSON(D.instrumental)]);
+      const [mod, cfg] = await Promise.all([import('./mesa.js?v=5'), getJSON(D.instrumental)]);
       MESA = mod.crearMesa(cfg);
     }
     const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
@@ -71,15 +71,70 @@
       parar(); sinEscena(); $('#acr-panel').innerHTML = '';
       if (!D.instrumental) { S.mesaOk = true; await asegurarVisor(); return ir(); }
       try { await asegurarMesa(); } catch (e) { console.error(e); $('#acr-escena').innerHTML = '<p class="acr-sub" style="padding:20px">No se pudo cargar la mesa de instrumental.</p>'; return; }
-      MESA.mount($('#acr-escena'), { sexo: S.sexo, modo: 'practica', onSexo: (s) => { S.sexo = s; pintarTabs(); },
-        onValidar: async () => { MESA.dispose(); S.mesaOk = true; $('#acr-escena').innerHTML = '<p class="acr-sub" style="padding:20px">Preparando al paciente…</p>'; await asegurarVisor(); ir(); } });
+      if (!S.caso) { S.caso = azar(D.casos); }
+      S.sexo = S.caso.sexo; pintarTabs();
+      MESA.mount($('#acr-escena'), { caso: S.caso, casos: D.casos, modo: 'practica',
+        onCaso: (c) => { S.caso = c; S.sexo = c.sexo; pintarTabs(); },
+        onValidar: async (res) => {
+          MESA.dispose(); S.mesaOk = true; S.avisoMesa = res.corregido ? res.avisos : null;
+          $('#acr-escena').innerHTML = '<p class="acr-sub" style="padding:20px">Preparando al paciente…</p>'; await asegurarVisor(); ir();
+        } });
     }
     document.title = `${D.titulo} · Atlas de acreditaciones`;
 
-    const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null };
+    const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
     const pasosAplicables = (sexo) => D.pasos.filter((p) => aplica(p, sexo));
     const porN = (n) => D.pasos.find((p) => p.n === n);
+
+    // ---- reconocimiento de lo que el alumno escribe en la bitácora (palabras clave por paso y por acción incorrecta)
+    const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+    function reconocer(texto, sexo) {
+      const tx = norm(texto); if (tx.length < 3) return null;
+      const puntaje = (claves) => (claves || []).reduce((mx, g) => (g.every((f) => tx.includes(f)) ? Math.max(mx, g.join('').length) : mx), 0);
+      let mejor = null;
+      D.distractores.filter((d) => !d.solo || d.solo === sexo).forEach((d) => { const s = puntaje(d.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'd', id: d.id, s }; });
+      if (mejor) return mejor;
+      D.pasos.filter((q) => aplica(q, sexo)).forEach((q) => { const s = puntaje(q.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'p', n: q.n, s }; });
+      return mejor;
+    }
+    const chatHTML = (msgs, ph, titulo) => `<div class="acr-chat"><div class="acr-fase" style="margin-top:12px">${titulo}</div>
+      <div class="acr-chat-log" id="acr-chat-log">${msgs.length ? msgs.map((m) => `<div class="m ${m.de} ${m.cls || ''}">${esc(m.txt)}</div>`).join('') : '<div class="m vacio">Escribí lo que vas haciendo y cómo lo hacés. Ej.: «me lavo las manos con técnica clínica».</div>'}</div>
+      <form id="acr-chat-f" autocomplete="off"><input id="acr-chat-i" type="text" placeholder="${ph}" maxlength="220"><button class="acr-btn" type="submit">Enviar</button></form></div>`;
+    function enlazarChat(alEnviar) {
+      const f = $('#acr-chat-f'); const log = $('#acr-chat-log'); if (log) log.scrollTop = log.scrollHeight;
+      if (f) f.onsubmit = (e) => { e.preventDefault(); const i = $('#acr-chat-i'); const v = i.value.trim(); if (!v) return; i.value = ''; alEnviar(v); };
+    }
+
+    // ---- tutorial del modelo 3D
+    const TUT = [
+      { ico: '🖱️', t: 'Girá y acercá', x: 'Arrastrá con el mouse o el dedo para girar el modelo. Con la rueda (o pellizcando) acercás y alejás. Con el botón derecho (o dos dedos) desplazás la vista.' },
+      { ico: '🧍', t: 'Piel, huesos y órganos', x: 'El paciente se ve con su piel. Con los botones «Piel», «Huesos» y «Órganos» prendés y apagás cada capa: podés retirar la piel por completo para ver la anatomía interna. «Rayos X» vuelve transparente el cuerpo.' },
+      { ico: '📍', t: 'Focos y cortes', x: 'Cada punto con etiqueta es una estructura: tocala para saber qué es. «Focos» oculta o muestra las etiquetas y «Corte» abre un corte sagital de la pelvis.' },
+      { ico: '🎥', t: 'Vistas y recorrido', x: 'Lateral, Frontal y Superior llevan la cámara a esa vista. En Explorar, «▶ Ver el procedimiento» reproduce la técnica paso a paso sobre el modelo.' },
+      { ico: '🎓', t: 'Cómo se usa cada modo', x: 'Explorar: aprendés mirando. Guiado: respondés tocando el elemento o escribiendo en la bitácora lo que hacés. Examen: sin ayudas, registrás tus acciones y se evalúa de forma estricta.' },
+    ];
+    function tutorial3D() {
+      if (document.querySelector('.acr-tut')) return;
+      let k = 0; const ov = document.createElement('div'); ov.className = 'acr-tut';
+      const pintar = () => {
+        const s = TUT[k];
+        ov.innerHTML = `<div class="acr-tut-card"><div class="acr-tut-ico">${s.ico}</div><h3>${s.t}</h3><p>${s.x}</p>
+          <div class="acr-tut-dots">${TUT.map((_, i) => `<i class="${i === k ? 'on' : ''}"></i>`).join('')}</div>
+          <label class="acr-tut-no"><input type="checkbox" id="tut-no"> No volver a mostrar</label>
+          <div class="acr-row" style="justify-content:space-between"><button class="acr-btn sec" id="tut-ant" ${k === 0 ? 'disabled' : ''}>← Anterior</button><button class="acr-btn" id="tut-sig">${k === TUT.length - 1 ? 'Empezar' : 'Siguiente →'}</button></div>
+          <button class="acr-tut-x" id="tut-x" aria-label="Cerrar">✕</button></div>`;
+      };
+      const cerrar = () => { try { if (ov.querySelector('#tut-no')?.checked) localStorage.setItem('nika_acr_tut_v1', '1'); } catch (_) {} ov.remove(); };
+      ov.onclick = (e) => {
+        if (e.target.id === 'tut-sig') { if (k === TUT.length - 1) cerrar(); else { k++; pintar(); } }
+        else if (e.target.id === 'tut-ant') { k = Math.max(0, k - 1); pintar(); }
+        else if (e.target.id === 'tut-x' || e.target === ov) cerrar();
+      };
+      pintar(); document.body.appendChild(ov);
+    }
+    const tutorialVisto = () => { try { return localStorage.getItem('nika_acr_tut_v1') === '1'; } catch (_) { return false; } };
+    const tutorialAuto = () => { if (tutorialVisto() || S.tutAuto) return; S.tutAuto = true; tutorial3D(); };
 
     app.innerHTML = `
       <div class="acr-head">
@@ -98,6 +153,7 @@
       const enExamen = S.modo === 'examen';
       $('#acr-tabs').innerHTML = `<button class="acr-tab ${!enExamen ? 'on' : ''}" data-modo="practica">🎓 Práctica</button><button class="acr-tab ${enExamen ? 'on' : ''}" data-modo="examen">📝 Examen</button>` +
         `<span class="acr-sexo" ${enExamen || S.sub === 'fundamentos' ? 'hidden' : ''}><button data-sx="F" class="${S.sexo === 'F' ? 'on' : ''}">♀ Mujer</button><button data-sx="M" class="${S.sexo === 'M' ? 'on' : ''}">♂ Varón</button></span>`;
+      if (ESC && !enExamen) $('#acr-tabs').insertAdjacentHTML('beforeend', '<button class="acr-tab sm" data-tut="1" style="margin-left:6px">❓ Cómo usar el 3D</button>');
       $('#acr-subtabs').hidden = enExamen;
       $('#acr-subtabs').innerHTML = SUBS.map(([k, l]) => `<button class="acr-tab sm ${S.sub === k ? 'on' : ''}" data-sub="${k}">${l}</button>`).join('');
     }
@@ -145,7 +201,8 @@
       const fases = []; pasosAplicables().forEach((p) => { let f = fases.find((x) => x.nombre === p.fase); if (!f) { f = { nombre: p.fase, pasos: [] }; fases.push(f); } f.pasos.push(p); });
       $('#acr-panel').innerHTML = `
         <h3>Exploración libre</h3>
-        <p>Tocá un paso para ver cómo queda la escena y por qué se hace así. También podés tocar cualquier estructura o elemento.</p>
+        <p>Tocá un paso para ver cómo queda la escena y por qué se hace así, o mirá el procedimiento completo. También podés tocar cualquier estructura o elemento.</p>
+        <div class="acr-row"><button class="acr-btn" id="acr-play">▶ Ver el procedimiento</button></div>
         <div id="acr-detalle"></div>
         ${fases.map((f) => `<div class="acr-fase">${esc(f.nombre)}</div>${f.pasos.map((p) => `<button class="acr-paso" data-paso="${p.n}"><span class="n">${p.n}</span><span>${esc(p.texto)} ${p.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}</span></button>`).join('')}`).join('')}`;
       const ver = (n) => {
@@ -156,7 +213,15 @@
         const b = document.querySelector(`.acr-paso[data-paso="${n}"]`); if (b) b.scrollIntoView({ block: 'nearest' });
       };
       aplicarEstado({}, []);
-      $('#acr-panel').onclick = (e) => { const b = e.target.closest('.acr-paso'); if (b) ver(+b.dataset.paso); const ir2 = e.target.closest('[data-ir]'); if (ir2) ver(+ir2.dataset.ir); };
+      const nums = pasosAplicables().map((q) => q.n); let pos = -1;
+      const detener = () => { parar(); const b = $('#acr-play'); if (b) b.textContent = '▶ Ver el procedimiento'; };
+      const reproducir = () => {
+        if (S.timer) { detener(); return; }
+        const b = $('#acr-play'); b.textContent = '⏸ Pausar'; if (pos >= nums.length - 1) pos = -1;
+        const avanzar = () => { pos++; if (pos >= nums.length) { detener(); return; } ver(nums[pos]); };
+        avanzar(); S.timer = setInterval(avanzar, 3600);
+      };
+      $('#acr-panel').onclick = (e) => { if (e.target.id === 'acr-play') { reproducir(); return; } if (e.target.closest('.acr-paso')) detener(); const b = e.target.closest('.acr-paso'); if (b) ver(+b.dataset.paso); const ir2 = e.target.closest('[data-ir]'); if (ir2) ver(+ir2.dataset.ir); };
       svg.onclick = (e) => {
         const g = e.target.closest('[data-hs]'); if (!g) return;
         const el = D.elementos[g.dataset.hs]; if (!el) return;
@@ -170,7 +235,13 @@
     function vistaGuiado() {
       montarEscena(false);
       const lista = pasosAplicables();
-      S.ent = { i: 0, errores: 0, pistas: 0, esperando: true, lista, fin: false };
+      S.ent = { i: 0, errores: 0, pistas: 0, esperando: true, lista, fin: false, chat: [] };
+      if (S.avisoMesa) {
+        const a = S.avisoMesa; const n = a.incorrectos.length + a.faltantes.length;
+        S.ent.chat.push({ de: 'sis', cls: 'mal', txt: `La bandeja tenía ${n} error${n === 1 ? '' : 'es'} (${a.faltantes.length} faltante${a.faltantes.length === 1 ? '' : 's'} y ${a.incorrectos.length} elemento${a.incorrectos.length === 1 ? '' : 's'} incorrecto${a.incorrectos.length === 1 ? '' : 's'}). Se completó por vos; seguimos con el paciente.` });
+        S.avisoMesa = null;
+      }
+      setTimeout(tutorialAuto, 1200);
       aplicarEstado({}, []);
       pintarGuiado();
       svg.onclick = (e) => {
@@ -188,6 +259,18 @@
           pintarGuiado({ mal: mas ? 'Orden incorrecto: ese elemento se usa más adelante, pero todavía no es el momento.' : antes ? 'Ya usaste ese elemento en un paso anterior. Revisá la consigna.' : 'Ese elemento no corresponde a este paso. Revisá la consigna.' });
         }
       };
+    }
+    function guiadoTexto(v) {
+      const E = S.ent; if (E.fin) return;
+      const p = E.lista[E.i]; E.chat.push({ de: 'yo', txt: v });
+      if (!E.esperando) { E.chat.push({ de: 'sis', cls: 'neutro', txt: 'Primero continuá con el siguiente paso.' }); pintarGuiado({ ok: p }); return; }
+      const r = reconocer(v, S.sexo);
+      if (!r) { E.chat.push({ de: 'sis', cls: 'neutro', txt: 'No reconozco esa acción. Probá contarla con otras palabras (por ejemplo: «saludo y me presento»).' }); pintarGuiado(); return; }
+      if (r.tipo === 'd') { const d = D.distractores.find((x) => x.id === r.id); E.errores++; E.chat.push({ de: 'sis', cls: 'mal', txt: '❌ ' + d.porque }); pintarGuiado({ mal: 'Esa acción es incorrecta.' }); return; }
+      if (r.n === p.n) { E.esperando = false; E.chat.push({ de: 'sis', cls: 'ok', txt: `✅ Paso ${p.n} registrado.` }); resaltar(null); const { est, usados } = estadoHasta(p.n); aplicarEstado(est, usados); pintarGuiado({ ok: p }); return; }
+      const q = porN(r.n); E.errores++;
+      E.chat.push({ de: 'sis', cls: 'mal', txt: r.n > p.n ? `❌ Orden incorrecto: «${q.texto}» viene más adelante.` : 'Ese paso ya lo hiciste.' });
+      pintarGuiado({ mal: r.n > p.n ? 'Orden incorrecto.' : 'Ese paso ya está hecho.' });
     }
     function pintarGuiado(fb) {
       const E = S.ent; const tot = E.lista.length;
@@ -208,7 +291,9 @@
         ${fb && fb.ok ? `<div class="acr-info bien">✅ <b>Correcto.</b> ${esc(fb.ok.explica)}</div>` : ''}
         ${perla ? `<div class="acr-perla">📌 ${esc(perla)}</div>` : ''}
         <div class="acr-row">${fb && fb.ok ? '<button class="acr-btn" id="acr-sig">Continuar →</button>' : '<button class="acr-btn sec" id="acr-pista">💡 Pista</button>'}</div>
-        <small>Errores: ${E.errores} · Pistas: ${E.pistas}</small>`;
+        <small>Errores: ${E.errores} · Pistas: ${E.pistas}</small>
+        ${chatHTML(E.chat, 'Contá qué hacés y cómo lo hacés…', '✍ Bitácora del procedimiento')}`;
+      enlazarChat(guiadoTexto);
       const pb = $('#acr-pista'); if (pb) pb.onclick = () => { E.pistas++; resaltar(p.target); pb.disabled = true; };
       const sg = $('#acr-sig'); if (sg) sg.onclick = () => { E.i++; E.esperando = true; resaltar(null); pintarGuiado(); };
     }
@@ -273,8 +358,7 @@
       const pintarInicio = () => {
         $('#acr-panel').innerHTML = `
           <h3>Examen de acreditación</h3>
-          <div class="acr-info"><b>Caso:</b> ${caso.sexo === 'F' ? 'Mujer' : 'Varón'} de ${caso.edad} años. ${esc(caso.motivo)}</div>
-          <p>Vas a realizar el procedimiento <b>a ciegas</b>: no hay lista de pasos ni ayudas. Tocá un elemento o una estructura del dibujo y elegí qué acción realizás con él, en el orden que corresponda.</p>
+          <p>Vas a recibir un <b>caso clínico</b>, armar la bandeja y realizar el procedimiento <b>a ciegas</b>: no hay lista de pasos ni ayudas. Tocá un elemento o una estructura del dibujo y elegí qué acción realizás con él, en el orden que corresponda.</p>
           <ul class="acr-refs"><li>Las infracciones graves te avisan al instante.</li><li>Las demás fallas se registran en silencio y se informan al final.</li><li>Cada acción incorrecta penaliza el puntaje.</li></ul>
           <div class="acr-fase">Tiempo límite</div>
           <div class="acr-row">${tiempos.map((t) => `<button class="acr-tab sm ${S.ex.t === t ? 'on' : ''}" data-t="${t}">${t} min</button>`).join('')}</div>
@@ -297,13 +381,13 @@
     async function examenComenzar() {
       const apl = pasosAplicables(S.ex.caso.sexo);
       const dist = D.distractores.filter((d) => !d.solo || d.solo === S.ex.caso.sexo);
-      Object.assign(S.ex, { fase: 'mesa', apl, dist, hechos: new Map(), log: [], graves: 0, seg: S.ex.t * 60, inicio: Date.now(), sel: null, aviso: '' });
+      Object.assign(S.ex, { fase: 'mesa', apl, dist, hechos: new Map(), log: [], graves: 0, seg: S.ex.t * 60, inicio: Date.now(), sel: null, aviso: '', chat: [] });
       iniciarTimerExamen();
       if (!D.instrumental) return examenCurso();
       try { await asegurarMesa(); } catch (e) { console.error(e); return examenCurso(); }
       $('#acr-panel').innerHTML = `<div class="acr-examen-bar"><span id="acr-reloj" class="acr-reloj">⏱ ${mmss(Math.max(0, S.ex.seg))}</span></div>`;
       $('#acr-panel').onclick = null;
-      MESA.mount($('#acr-escena'), { sexo: S.ex.caso.sexo, modo: 'examen', caso: S.ex.caso,
+      MESA.mount($('#acr-escena'), { modo: 'examen', caso: S.ex.caso,
         onValidar: (res) => {
           const X = S.ex;
           res.incorrectos.forEach((i) => X.log.push({ tipo: 'material', texto: i.nombre, grave: !!i.critico, porque: i.feedback }));
@@ -343,10 +427,20 @@
         <div class="acr-caso"><b>Caso:</b> ${X.caso.sexo === 'F' ? 'Mujer' : 'Varón'} de ${X.caso.edad} años. ${esc(X.caso.motivo)}</div>
         ${X.aviso ? `<div class="acr-info mal acr-alerta">${X.aviso}</div>` : ''}
         ${cuerpo}
+        ${chatHTML(X.chat, 'Escribí lo que hacés, ej.: me lavo las manos…', '✍ Bitácora de tus acciones')}
         <div class="acr-row" style="margin-top:14px"><button class="acr-btn bad" id="acr-fin">Finalizar examen</button></div>`;
+    enlazarChat(examenTexto);
     }
-    function examenAccion(cl) {
+    function examenTexto(v) {
+      const X = S.ex; if (X.fase !== 'curso') return;
+      const r = reconocer(v, X.caso.sexo);
+      if (!r) { X.chat.push({ de: 'yo', txt: v }, { de: 'sis', cls: 'neutro', txt: 'Anotado. No corresponde a ninguna acción del procedimiento.' }); X.sel = null; marcarSel(null); pintarExamen(); return; }
+      examenAccion(r.tipo === 'p' ? 'p:' + r.n : 'd:' + r.id, v);
+    }
+    function examenAccion(cl, textoUsuario) {
       const X = S.ex; const [k, ref] = cl.split(':'); X.aviso = '';
+      const etiqueta = k === 'p' ? porN(+ref).texto : (X.dist.find((x) => x.id === ref) || {}).texto;
+      X.chat.push({ de: 'yo', txt: textoUsuario || etiqueta }, { de: 'sis', cls: 'neutro', txt: 'Registrado.' });
       if (k === 'p') {
         const n = +ref; const p = porN(n);
         if (X.hechos.has(n)) { X.log.push({ tipo: 'repetida', n, texto: p.texto, grave: false, porque: 'Acción ya realizada.' }); }
@@ -443,12 +537,14 @@
       if (S.modo === 'practica' && S.sub === 'guiado' && !S.mesaOk) return mostrarMesaPractica();
       const sin3d = S.modo === 'practica' && S.sub === 'fundamentos';
       if (!sin3d && !ESC) return portada();
+      if (ESC) setTimeout(tutorialAuto, 1200);
       if (S.sub === 'explorar') vistaExplorar();
       else if (S.sub === 'guiado') vistaGuiado();
       else if (S.sub === 'machete') vistaMachete();
       else vistaFundamentos();
     }
     $('#acr-tabs').onclick = (e) => {
+      if (e.target.closest('[data-tut]')) { tutorial3D(); return; }
       const t = e.target.closest('[data-modo]'); const s = e.target.closest('[data-sx]');
       if (t) { S.modo = t.dataset.modo; ir(); }
       else if (s) { S.sexo = s.dataset.sx; ir(); }

@@ -222,7 +222,8 @@
   {
    "id": "meato",
    "label": "Meato uretral",
-   "capa": "organos"
+   "capa": "organos",
+   "externo": true
   },
   {
    "id": "recto",
@@ -237,7 +238,8 @@
   {
    "id": "paciente",
    "label": "Paciente",
-   "capa": "piel"
+   "capa": "piel",
+   "externo": true
   },
   {
    "id": "utero",
@@ -261,7 +263,8 @@
    "id": "prepucio",
    "label": "Glande y prepucio",
    "capa": "piel",
-   "sexo": "M"
+   "sexo": "M",
+   "externo": true
   }
  ],
  "instrumentos": [
@@ -304,12 +307,13 @@
      0
     ],
     "capa": "piel",
-    "color": "#7db2ff",
-    "opacidad": 0.13,
+    "color": "#d8a387",
+    "opacidad": 0.93,
     "hs": null,
     "nombre": "Cuerpo del paciente",
     "peso": 76964,
-    "sin_normales_suaves": false
+    "sin_normales_suaves": false,
+    "piel_real": true
    },
    {
     "id": "cadera_i",
@@ -802,12 +806,13 @@
      0
     ],
     "capa": "piel",
-    "color": "#7db2ff",
-    "opacidad": 0.13,
+    "color": "#d8a387",
+    "opacidad": 0.93,
     "hs": null,
     "nombre": "Cuerpo del paciente",
     "peso": 59272,
-    "sin_normales_suaves": false
+    "sin_normales_suaves": false,
+    "piel_real": true
    },
    {
     "id": "pelvis",

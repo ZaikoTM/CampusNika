@@ -35,7 +35,7 @@ export class MedicalProcedureViewer {
     const T = this.CFG.tarjetas || {};
     const carta = ([id, emo, a, b]) => `<button class="hs carta" data-hs="${id}" type="button"><span class="ok">✔</span><span class="emo">${emo}</span><span class="t">${a}<br>${b}</span></button>`;
     const pines = (this.CFG.pines || []).filter((p) => !p.sexo || p.sexo === variante)
-      .map((p) => `<button class="hs pin" data-hs="${p.id}" data-capa="${p.capa}" ${p.solo_con ? `data-solo="${p.solo_con}"` : ''} type="button"><i></i><span>${p.label}</span></button>`).join('');
+      .map((p) => `<button class="hs pin" data-hs="${p.id}" data-capa="${p.capa}" ${p.solo_con ? `data-solo="${p.solo_con}"` : ''} ${p.externo ? 'data-ext="1"' : ''} type="button"><i></i><span>${p.label}</span></button>`).join('');
     const mesa = T.mesa ? `<div class="acr3d-zona"><div class="acr3d-tit">${T.mesa.titulo}</div><div class="hs mesa" data-hs="${T.mesa.id}"><div class="acr3d-grid">${T.mesa.items.map(carta).join('')}</div></div></div>` : '';
     const entorno = T.entorno ? `<div class="acr3d-zona"><div class="acr3d-tit">${T.entorno.titulo}</div><div class="acr3d-grid">${T.entorno.items.map(carta).join('')}</div></div>` : '';
     return `<div class="acr3d sx-${variante}">
@@ -137,7 +137,13 @@ export class MedicalProcedureViewer {
       if (p.tipo === 'stl') { obj = new THREE.Mesh(r.clone(), this.material(p.color, p.opacidad, p.capa)); this.registrar(obj, p.capa, p.hs); }
       else {
         obj = r.clone(true);
-        obj.traverse((m) => { if (m.isMesh) { m.geometry = m.geometry.clone(); m.geometry.computeVertexNormals(); m.material = this.material(p.color, p.opacidad, p.capa); this.registrar(m, p.capa, p.hs); } });
+        obj.traverse((m) => {
+          if (!m.isMesh) return;
+          m.geometry = m.geometry.clone(); m.geometry.computeVertexNormals();
+          m.material = this.material(p.color, p.opacidad, p.capa, p.piel_real ? { roughness: 0.62, clearcoat: 0.12, clearcoatRoughness: 0.6 } : undefined);
+          if (p.piel_real) { m.material.userData.skin = true; C.skinMats.push(m.material); }
+          this.registrar(m, p.capa, p.hs);
+        });
       }
       obj.scale.setScalar(p.escala); obj.rotation.set(...p.rot); obj.position.set(...p.pos); obj.name = p.id;
       C.capas[p.capa].add(obj);
@@ -178,13 +184,14 @@ export class MedicalProcedureViewer {
     const r = C.canvas.getBoundingClientRect();
     this.ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     this.ray.setFromCamera(this.ptr, C.camera);
-    const cand = Object.values(C.hsMeshes).flat().filter((m) => m.visible && C.capas[m.userData.capa] && C.capas[m.userData.capa].visible);
+    const cand = Object.values(C.hsMeshes).flat().filter((m) => m.visible && C.capas[m.userData.capa] && C.capas[m.userData.capa].visible && (!C.skinOpaque || C.extIds.has(m.userData.hs)));
     const hits = this.ray.intersectObjects(cand, false).filter((h) => !C.opt.cut || C.plane.distanceToPoint(h.point) >= -0.01);
     return hits.length ? hits[0].object.userData.hs : null;
   }
   aplicarLook() {
     const C = this.C; const o = C.opt;
     C.mats.forEach((m) => {
+      if (m.userData.skin) { m.clippingPlanes = o.cut ? [C.plane] : null; m.needsUpdate = true; return; }
       const capa = m.userData.capa; let op = m.userData.base;
       if (capa === 'piel') op = o.xray ? 0.03 : m.userData.base;
       else if (capa === 'huesos') op = o.xray ? 0.9 : m.userData.base;
@@ -222,7 +229,8 @@ export class MedicalProcedureViewer {
     const C = this.C = {
       root, vp, canvas, renderer, scene, camera, controls, mats: [], capas: {}, hsMeshes: {}, plane: new THREE.Plane(V(-1, 0, 0), 0),
       opt: { xray: false, cut: false, labels: true, capas: { piel: true, huesos: true, organos: true, sonda: true } },
-      hl: null, sel: null, hover: null, goal: null, variante, raf: 0, anclas: {}, inst: [],
+      hl: null, sel: null, hover: null, goal: null, variante, raf: 0, anclas: {}, inst: [], skinMats: [], skinOpaque: false,
+      extIds: new Set((this.CFG.pines || []).filter((q) => q.externo).map((q) => q.id)),
     };
     C.pins = [...vp.querySelectorAll('.pin')];
     C.svgLineas = vp.querySelector('.acr3d-lines'); C.lineas = {};
@@ -282,13 +290,18 @@ export class MedicalProcedureViewer {
         else if (id === 'balon') { mt.emissive.setHex(0x0284c7); mt.emissiveIntensity = 0.45; }
         else { mt.emissiveIntensity = 0; }
       }));
+      if (C.skinMats.length) {
+        const objetivo = C.opt.xray ? 0.03 : (C.inst.some((s) => s.cat.goal > 0) ? 0.14 : C.skinMats[0].userData.base);
+        C.skinMats.forEach((m) => { m.opacity += (objetivo - m.opacity) * 0.08; m.depthWrite = m.opacity > 0.6; });
+        C.skinOpaque = C.capas.piel.visible && C.skinMats[0].opacity > 0.45;
+      }
       renderer.render(scene, camera);
       const w = vp.clientWidth, h = vp.clientHeight;
       C.pins.forEach((p) => {
         const a = C.anclas[p.dataset.hs]; if (!a) return;
         tmp.copy(a).project(camera);
         const conInst = p.dataset.solo === 'instrumento' ? C.inst.some((s) => s.cat.cur > 0.97) : true;
-        const vis = C.opt.labels && C.opt.capas[p.dataset.capa] !== false && tmp.z < 1 && conInst;
+        const vis = C.opt.labels && C.opt.capas[p.dataset.capa] !== false && tmp.z < 1 && conInst && !(C.skinOpaque && !p.dataset.ext);
         p.classList.toggle('oculto', !vis);
         const ln = C.lineas[p.dataset.hs]; if (ln) ln.style.display = vis ? '' : 'none';
         if (vis) {

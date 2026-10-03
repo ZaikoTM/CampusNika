@@ -1,41 +1,80 @@
-// CAMPUS NIKA — ProcedureWorkbench: mesa de instrumental inmersiva (fase previa al simulador 3D).
+// CAMPUS NIKA — ProcedureWorkbench: caso clínico + mesa de instrumental inmersiva (fase previa al simulador 3D).
 // 100 % configurable por JSON (data/acreditaciones/<area>/instrumental_<id>.json):
 //   bandeja_img            imagen de la bandeja receptora
 //   grupos[]               estantes (se reparten a ambos lados de la bandeja)
-//   items[]                { id, grupo, img, nombre, detalle, descripcion, ficha:[[campo,valor]], sexo?, correcto, critico, falta?, feedback? }
+//   items[]                { id, grupo, img, nombre, detalle, descripcion, ficha:[[campo,valor]], sexo?, solo_alergia?, latex?,
+//                            correcto, critico, falta?, feedback?, feedback_latex? }
 //                          correcto:true → requerido (falta = mensaje si no está en la bandeja) · correcto:false → distractor (feedback)
+//                          latex:true → pasa a ser incorrecto (crítico) si el caso tiene alergia al látex · solo_alergia:'latex' → sólo aparece en ese caso
+// El caso clínico (opt.caso) define el sexo del paciente y las alergias, y por lo tanto qué insumos son correctos.
 // No importa three.js: la escena 3D se inicializa recién después de validar la mesa.
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const SIN_HOVER = typeof matchMedia === 'function' && matchMedia('(hover: none)').matches;
 const reducido = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export class ProcedureWorkbench {
-  constructor(cfg) { this.cfg = cfg; this.el = null; }
+  constructor(cfg) { this.cfg = cfg; this.el = null; this.caso = null; }
 
-  visibles(sexo) { return this.cfg.items.filter((i) => !i.sexo || i.sexo === sexo); }
+  // ---------------------------------------------------------------- reglas según el caso
+  visibles() {
+    const c = this.caso || {};
+    return this.cfg.items.filter((i) => (!i.sexo || i.sexo === c.sexo) && (!i.solo_alergia || i.solo_alergia === c.alergia));
+  }
   item(id) { return this.cfg.items.find((i) => i.id === id); }
+  /** corrección efectiva del insumo para el caso actual */
+  ef(i) {
+    const alerg = this.caso && this.caso.alergia === 'latex' && i.latex;
+    return alerg ? { correcto: false, critico: true, feedback: i.feedback_latex } : { correcto: i.correcto, critico: !!i.critico, feedback: i.feedback, falta: i.falta };
+  }
 
   /** Evalúa la bandeja: faltantes (requeridos ausentes), incorrectos (distractores presentes) y ok. */
-  evaluar(sel, sexo) {
-    const items = this.visibles(sexo);
-    const faltantes = items.filter((i) => i.correcto && !sel.has(i.id));
-    const incorrectos = items.filter((i) => !i.correcto && sel.has(i.id));
+  evaluar(sel) {
+    const items = this.visibles();
+    const faltantes = items.filter((i) => this.ef(i).correcto && !sel.has(i.id)).map((i) => ({ ...i, critico: this.ef(i).critico }));
+    const incorrectos = items.filter((i) => !this.ef(i).correcto && sel.has(i.id)).map((i) => ({ ...i, critico: this.ef(i).critico, feedback: this.ef(i).feedback }));
     return { faltantes, incorrectos, ok: !faltantes.length && !incorrectos.length, seleccion: [...sel] };
   }
 
   /**
    * @param {HTMLElement} cont
-   * @param {{sexo:'F'|'M', modo:'practica'|'examen', caso?:object, onValidar:(res)=>void, onSexo?:(s)=>void}} opt
+   * @param {{caso:object, casos?:object[], modo:'practica'|'examen', onValidar:(res)=>void, onCaso?:(c)=>void}} opt
    */
   mount(cont, opt) {
     this.dispose();
-    this.el = cont; this.opt = opt; this.sel = new Set(); this.intentos = 0; this.ocupado = false;
+    this.el = cont; this.opt = opt; this.caso = opt.caso; this.sel = new Set(); this.intentos = 0; this.ocupado = false;
+    cont.onclick = (e) => this.clic(e);
+    this.pintarCaso();
+  }
+
+  // ---------------------------------------------------------------- 1) caso clínico
+  pintarCaso() {
+    const c = this.caso; const otro = this.opt.modo === 'practica' && this.opt.casos && this.opt.casos.length > 1;
+    this.el.innerHTML = `<div class="wb wb-caso-pant">
+      <div class="wb-hoja">
+        <div class="wb-hoja-cab"><span>📋</span><div><h2>Caso clínico</h2><p>Indicación de sondaje vesical</p></div></div>
+        <div class="wb-hoja-grid">
+          <div><label>Paciente</label><b>${esc(c.nombre || 'Paciente')}</b></div>
+          <div><label>Sexo</label><b>${c.sexo === 'F' ? 'Mujer' : 'Varón'}</b></div>
+          <div><label>Edad</label><b>${c.edad} años</b></div>
+          <div><label>Alergias</label><b class="${c.alergia ? 'rojo' : ''}">${c.alergia === 'latex' ? 'Látex' : 'Sin alergias conocidas'}</b></div>
+        </div>
+        <div class="wb-hoja-bloque"><label>Motivo de consulta</label><p>${esc(c.motivo)}</p></div>
+        <div class="wb-hoja-bloque"><label>Antecedentes</label><p>${esc(c.antecedentes || '—')}</p></div>
+        <div class="wb-hoja-bloque"><label>Indicación médica</label><p>${esc(c.indicacion || 'Sondaje vesical.')}</p></div>
+        <p class="wb-hoja-nota">Elegí el instrumental según este paciente: sexo, calibre, material y alergias.</p>
+        <div class="acr-row"><button class="acr-btn" id="wb-ir-mesa">Ir a la mesa de instrumental →</button>${otro ? '<button class="acr-btn sec" id="wb-otro">Otro caso</button>' : ''}</div>
+      </div></div>`;
+  }
+
+  // ---------------------------------------------------------------- 2) mesa
+  pintarEscena() {
+    const cont = this.el; const c = this.caso;
     cont.innerHTML = `<div class="wb">
       <div class="wb-cab">
         <div><h2>${esc(this.cfg.titulo)}</h2><p>${esc(this.cfg.consigna)}</p></div>
-        ${opt.modo === 'practica' ? `<span class="acr-sexo"><button data-wb-sx="F" class="${opt.sexo === 'F' ? 'on' : ''}">♀ Mujer</button><button data-wb-sx="M" class="${opt.sexo === 'M' ? 'on' : ''}">♂ Varón</button></span>` : ''}
+        <button type="button" class="wb-caso-btn" id="wb-ver-caso">📋 Ver caso clínico</button>
       </div>
-      ${opt.caso ? `<div class="wb-caso"><b>Paciente:</b> ${opt.caso.sexo === 'F' ? 'mujer' : 'varón'} de ${opt.caso.edad} años. ${esc(opt.caso.motivo)}</div>` : ''}
+      <div class="wb-caso"><b>${esc(c.nombre || 'Paciente')}</b> · ${c.sexo === 'F' ? 'mujer' : 'varón'} de ${c.edad} años · ${esc(c.motivo)}${c.alergia === 'latex' ? ' <b class="rojo">· ALERGIA AL LÁTEX</b>' : ''}</div>
       <div class="wb-escena" id="wb-escena">
         <div class="wb-pano"></div>
         <div class="wb-zona izq" id="wb-izq"></div>
@@ -54,15 +93,14 @@ export class ProcedureWorkbench {
     </div>`;
     this.pintarMesa();
     this.actualizarBoton();
-    cont.onclick = (e) => this.clic(e);
     cont.onmouseover = (e) => this.hover(e);
     cont.onmouseout = (e) => { if (!SIN_HOVER && !e.relatedTarget?.closest?.('.wb-obj, .wb-bi, .wb-ficha')) this.ocultarFicha(); };
     cont.ondragstart = (e) => {
-      const c = e.target.closest('[data-id]'); if (!c || this.ocupado) return;
-      e.dataTransfer.setData('text/plain', c.dataset.id); e.dataTransfer.effectAllowed = 'move'; this.ocultarFicha();
+      const o = e.target.closest('[data-id]'); if (!o || this.ocupado) return;
+      e.dataTransfer.setData('text/plain', o.dataset.id); e.dataTransfer.effectAllowed = 'move'; this.ocultarFicha();
     };
     cont.ondragover = (e) => { if (e.target.closest('.wb-bandeja, .wb-zona')) { e.preventDefault(); e.target.closest('.wb-bandeja')?.classList.add('sobre'); } };
-    cont.ondragleave = (e) => { if (!e.relatedTarget?.closest?.('.wb-bandeja')) this.el.querySelector('.wb-bandeja')?.classList.remove('sobre'); };
+    cont.ondragleave = (e) => { if (!e.relatedTarget?.closest?.('.wb-bandeja')) this.el?.querySelector('.wb-bandeja')?.classList.remove('sobre'); };
     cont.ondrop = (e) => {
       const id = e.dataTransfer.getData('text/plain'); this.el.querySelector('.wb-bandeja')?.classList.remove('sobre'); if (!id) return;
       if (e.target.closest('.wb-bandeja')) { e.preventDefault(); this.agregar(id, true); }
@@ -70,18 +108,14 @@ export class ProcedureWorkbench {
     };
   }
 
-  // ---------------------------------------------------------------- mesa
   pintarMesa() {
-    const items = this.visibles(this.opt.sexo);
+    const items = this.visibles();
     const izq = [], der = [];
     this.cfg.grupos.forEach((g, k) => { items.filter((i) => i.grupo === g.id).forEach((i) => (k % 2 === 0 ? izq : der).push(i)); });
     const html = (arr) => arr.map((i, k) => `<button type="button" class="wb-obj" data-id="${i.id}" draggable="true" style="--r:${((k * 37 + i.id.length * 11) % 9) - 4}deg;--d:${(k % 6) * 40}ms">
-      <img src="${esc(i.img)}" alt="${esc(i.nombre)}" draggable="false"><span class="wb-nom">${esc(i.nombre)}</span></button>`).join('');
+      <span class="wb-foto"><img src="${esc(i.img)}" alt="${esc(i.nombre)}" draggable="false"></span><span class="wb-nom">${esc(i.nombre)}</span></button>`).join('');
     this.el.querySelector('#wb-izq').innerHTML = html(izq);
     this.el.querySelector('#wb-der').innerHTML = html(der);
-    this.el.querySelector('#wb-in').querySelectorAll('.wb-bi').forEach((n) => n.remove());
-    this.el.querySelector('#wb-vacia').hidden = false;
-    this.el.querySelector('#wb-n').textContent = '0';
   }
 
   objMesa(id) { return this.el.querySelector(`.wb-obj[data-id="${id}"]`); }
@@ -128,19 +162,19 @@ export class ProcedureWorkbench {
     const it = this.item(id); const bi = this.objBandeja(id); const dst = this.objMesa(id); if (!it || !bi) return;
     this.sel.delete(id); this.ocultarFicha();
     const fin = () => { dst?.classList.remove('ausente'); dst?.classList.add('vuelve'); setTimeout(() => dst?.classList.remove('vuelve'), 500); };
-    const origen = bi.querySelector('img'); const r = origen.getBoundingClientRect();
+    const r = bi.querySelector('img').getBoundingClientRect();
     bi.remove();
     this.el.querySelector('#wb-vacia').hidden = this.sel.size > 0;
     this.contador();
     if (sinVuelo || reducido || !dst) fin();
-    else { const fantasma = { getBoundingClientRect: () => r }; this.volar(fantasma, dst.querySelector('img'), it.img, fin, true); }
+    else this.volar({ getBoundingClientRect: () => r }, dst.querySelector('img'), it.img, fin, true);
     this.actualizarBoton();
   }
 
   // reacción de la bandeja: práctica = feedback inmediato (cian / sacudida roja); examen = pulso neutro (no revela nada)
   reaccion(it) {
-    const b = this.el.querySelector('#wb-bandeja'); if (!b) return;
-    const clase = this.opt.modo === 'practica' ? (it.correcto ? 'pulso-ok' : 'sacude') : 'pulso-neutro';
+    const b = this.el?.querySelector('#wb-bandeja'); if (!b) return;
+    const clase = this.opt.modo === 'practica' ? (this.ef(it).correcto ? 'pulso-ok' : 'sacude') : 'pulso-neutro';
     b.classList.remove('pulso-ok', 'sacude', 'pulso-neutro'); void b.offsetWidth; b.classList.add(clase);
     setTimeout(() => b.classList.remove(clase), 700);
   }
@@ -149,8 +183,8 @@ export class ProcedureWorkbench {
     n.classList.remove('pop'); void n.offsetWidth; n.classList.add('pop');
   }
   actualizarBoton() {
-    const btn = this.el.querySelector('#wb-pasar'); if (!btn) return;
-    const listo = this.opt.modo === 'practica' ? this.evaluar(this.sel, this.opt.sexo).ok : this.sel.size > 0;
+    const btn = this.el?.querySelector('#wb-pasar'); if (!btn) return;
+    const listo = this.opt.modo === 'practica' ? this.evaluar(this.sel).ok : this.sel.size > 0;
     btn.classList.toggle('listo', listo);
   }
 
@@ -175,15 +209,18 @@ export class ProcedureWorkbench {
   ocultarFicha() { const f = this.el?.querySelector('#wb-ficha'); if (f) f.hidden = true; this.fichaId = null; }
   hover(e) {
     if (SIN_HOVER) return;
-    const o = e.target.closest('.wb-obj, .wb-bi'); if (!o) return;
-    if (o.classList.contains('ausente')) return;
+    const o = e.target.closest('.wb-obj, .wb-bi'); if (!o || o.classList.contains('ausente')) return;
     if (this.fichaId !== o.dataset.id) this.mostrarFicha(o.dataset.id, o, false);
   }
 
   clic(e) {
+    if (e.target.id === 'wb-ir-mesa') { this.pintarEscena(); return; }
+    if (e.target.id === 'wb-otro') {
+      const otros = this.opt.casos.filter((c) => c.id !== this.caso.id); this.caso = otros[Math.floor(Math.random() * otros.length)];
+      if (this.opt.onCaso) this.opt.onCaso(this.caso); this.pintarCaso(); return;
+    }
+    if (e.target.id === 'wb-ver-caso') { this.sel.clear(); this.pintarCaso(); return; }
     const alt = e.target.closest('[data-alt]'); if (alt) { const id = alt.dataset.alt; this.ocultarFicha(); this.sel.has(id) ? this.quitar(id) : this.agregar(id); return; }
-    const sx = e.target.closest('[data-wb-sx]');
-    if (sx) { this.opt.sexo = sx.dataset.wbSx; this.sel.clear(); if (this.opt.onSexo) this.opt.onSexo(this.opt.sexo); this.el.querySelectorAll('[data-wb-sx]').forEach((b) => b.classList.toggle('on', b.dataset.wbSx === this.opt.sexo)); this.pintarMesa(); this.actualizarBoton(); return; }
     const bi = e.target.closest('.wb-bi'); if (bi) { this.quitar(bi.dataset.id); return; }
     const ob = e.target.closest('.wb-obj');
     if (ob) {
@@ -193,32 +230,34 @@ export class ProcedureWorkbench {
     }
     if (e.target.id === 'wb-pasar' || e.target.closest('#wb-pasar')) { this.validar(); return; }
     if (e.target.id === 'wb-cerrar') { this.el.querySelector('#wb-modal').hidden = true; return; }
-    if (e.target.id === 'wb-auto') { this.autocorregir(); return; }
+    if (e.target.id === 'wb-continuar') { this.corregirYContinuar(); return; }
     if (!e.target.closest('.wb-ficha')) this.ocultarFicha();
   }
 
   // ---------------------------------------------------------------- validación
   validar() {
     if (this.ocupado) return;
-    const res = this.evaluar(this.sel, this.opt.sexo);
-    if (this.opt.modo === 'examen' || res.ok) { this.salir(res); return; }
+    const res = this.evaluar(this.sel);
+    if (this.opt.modo === 'examen' || res.ok) { this.salir(res); return; }   // examen: avanza igual y se registra en silencio
+    // práctica: aviso clínico y continuación con la bandeja corregida
     this.intentos++;
     const b = this.el.querySelector('#wb-bandeja'); b.classList.remove('sacude', 'alerta'); void b.offsetWidth; b.classList.add('sacude', 'alerta');
     setTimeout(() => b.classList.remove('sacude', 'alerta'), 900);
     const m = this.el.querySelector('#wb-modal'); m.hidden = false;
     m.innerHTML = `<div class="wb-dlg" role="alertdialog" aria-modal="true">
-      <h3>⚠ Revisá la bandeja antes de ir con el paciente</h3>
-      ${res.incorrectos.length ? `<div class="acr-fase" style="margin-top:6px">Elementos que no corresponden</div>${res.incorrectos.map((i) => `<div class="wb-err"><img src="${esc(i.img)}" alt=""><div><b>${esc(i.nombre)}</b><br>${esc(i.feedback)}</div></div>`).join('')}` : ''}
-      ${res.faltantes.length ? `<div class="acr-fase" style="margin-top:6px">Faltan elementos${res.faltantes.some((i) => i.critico) ? ' (hay críticos)' : ''}</div>${res.faltantes.map((i) => `<div class="wb-err ${i.critico ? '' : 'leve'}"><img src="${esc(i.img)}" alt=""><div><b>${esc(i.nombre)}${i.critico ? ' · crítico' : ''}</b><br>${esc(i.falta)}</div></div>`).join('')}` : ''}
-      <div class="acr-row"><button class="acr-btn" id="wb-cerrar">Volver a la mesa</button>${this.intentos >= 2 ? '<button class="acr-btn sec" id="wb-auto">Corregir la bandeja por mí</button>' : ''}</div>
+      <h3>⚠ La bandeja no estaba bien armada</h3>
+      <p class="wb-dlg-sub">Esto es lo que habría que corregir antes de ir con el paciente. Te completo la bandeja y seguimos con el procedimiento.</p>
+      ${res.incorrectos.length ? `<div class="acr-fase" style="margin-top:6px">Elementos que no corresponden</div>${res.incorrectos.map((i) => `<div class="wb-err"><img src="${esc(i.img)}" alt=""><div><b>${esc(i.nombre)}${i.critico ? ' · grave' : ''}</b><br>${esc(i.feedback)}</div></div>`).join('')}` : ''}
+      ${res.faltantes.length ? `<div class="acr-fase" style="margin-top:6px">Faltaban elementos${res.faltantes.some((i) => i.critico) ? ' (hay críticos)' : ''}</div>${res.faltantes.map((i) => `<div class="wb-err ${i.critico ? '' : 'leve'}"><img src="${esc(i.img)}" alt=""><div><b>${esc(i.nombre)}${i.critico ? ' · crítico' : ''}</b><br>${esc(i.falta)}</div></div>`).join('')}` : ''}
+      <div class="acr-row"><button class="acr-btn" id="wb-continuar">Entendido, completar y continuar →</button><button class="acr-btn sec" id="wb-cerrar">Volver a la mesa</button></div>
     </div>`;
   }
-  autocorregir() {
-    const r = this.evaluar(this.sel, this.opt.sexo);
+  corregirYContinuar() {
+    const r = this.evaluar(this.sel);
     this.el.querySelector('#wb-modal').hidden = true;
-    r.incorrectos.forEach((i) => this.quitar(i.id, true));
-    let k = 0;
-    r.faltantes.forEach((i) => { setTimeout(() => { if (this.el) this.agregar(i.id); }, 120 * k++); });
+    r.incorrectos.forEach((i) => this.quitar(i.id));
+    r.faltantes.forEach((i, k) => { setTimeout(() => { if (this.el) this.agregar(i.id); }, 140 * (k + 1)); });
+    setTimeout(() => { if (this.el) this.salir({ ...this.evaluar(this.sel), corregido: true, avisos: r }); }, 140 * (r.faltantes.length + 1) + 900);
   }
   /** transición de salida: la mesa se desvanece con desenfoque y recién entonces se avisa para montar el 3D */
   salir(res) {

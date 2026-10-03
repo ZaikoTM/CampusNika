@@ -14,7 +14,24 @@
    "target": "mesa",
    "critico": false,
    "explica": "Se reúne y prepara todo antes de empezar para no interrumpir la técnica una vez iniciada. La mesa alta de traslado permite llevar el material junto al paciente.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "reun",
+     "material"
+    ],
+    [
+     "prepar",
+     "mesa"
+    ],
+    [
+     "junto",
+     "material"
+    ],
+    [
+     "mesa alta"
+    ]
+   ]
   },
   {
    "n": 2,
@@ -25,7 +42,35 @@
    "explica": "Verificar apellido, nombre y la solicitud del procedimiento evita errores de paciente y de práctica (seguridad del paciente).",
    "estado": {
     "id": 1
-   }
+   },
+   "claves": [
+    [
+     "verific",
+     "identidad"
+    ],
+    [
+     "verific",
+     "paciente"
+    ],
+    [
+     "verific",
+     "solicitud"
+    ],
+    [
+     "apellido"
+    ],
+    [
+     "confirmo",
+     "datos"
+    ],
+    [
+     "verific",
+     "indicacion"
+    ],
+    [
+     "identifico"
+    ]
+   ]
   },
   {
    "n": 3,
@@ -34,7 +79,33 @@
    "target": "lado",
    "critico": false,
    "explica": "El material queda al lado del paciente, al alcance de la mano, antes de comenzar con la parte limpia.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "llevo",
+     "material"
+    ],
+    [
+     "acerco",
+     "material"
+    ],
+    [
+     "traslad",
+     "paciente"
+    ],
+    [
+     "al lado",
+     "paciente"
+    ],
+    [
+     "llevo",
+     "carro"
+    ],
+    [
+     "llevo",
+     "mesa"
+    ]
+   ]
   },
   {
    "n": 4,
@@ -43,7 +114,24 @@
    "target": "paciente",
    "critico": false,
    "explica": "Saludar y presentarse es la base de la relación médico-paciente y reduce la ansiedad ante un procedimiento invasivo.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "salud"
+    ],
+    [
+     "me present"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas"
+    ],
+    [
+     "hola"
+    ]
+   ]
   },
   {
    "n": 5,
@@ -52,7 +140,27 @@
    "target": "paciente",
    "critico": false,
    "explica": "Explicá el procedimiento con lenguaje claro y sencillo, exento de tecnicismos, para no inducir ansiedad. Incluí el motivo, los riesgos (infección, trauma o falsa vía) y los beneficios, pedí su colaboración activa durante el paso de la sonda y verificá que no le queden dudas antes del consentimiento.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "explic",
+     "procedimiento"
+    ],
+    [
+     "explic",
+     "paciente"
+    ],
+    [
+     "le explico"
+    ],
+    [
+     "informo",
+     "riesgo"
+    ],
+    [
+     "explico"
+    ]
+   ]
   },
   {
    "n": 6,
@@ -63,7 +171,19 @@
    "explica": "El consentimiento informado es un requisito ético y legal. Se solicita la firma y se anexa firmado a la planilla de registro y a la historia clínica.",
    "estado": {
     "consent": 1
-   }
+   },
+   "claves": [
+    [
+     "consentimiento"
+    ],
+    [
+     "firma",
+     "paciente"
+    ],
+    [
+     "firme"
+    ]
+   ]
   },
   {
    "n": 7,
@@ -74,7 +194,35 @@
    "explica": "Mujer: posición ginecológica o de litotomía (decúbito supino con las piernas flexionadas y separadas) para ver bien el meato. Varón: decúbito supino con los miembros inferiores extendidos y levemente separados.",
    "estado": {
     "pos": 1
-   }
+   },
+   "claves": [
+    [
+     "posicion",
+     "ginecologica"
+    ],
+    [
+     "litotomia"
+    ],
+    [
+     "decubito",
+     "supino"
+    ],
+    [
+     "ubic",
+     "posicion"
+    ],
+    [
+     "acomodo",
+     "paciente"
+    ],
+    [
+     "posicion",
+     "paciente"
+    ],
+    [
+     "posicion"
+    ]
+   ]
   },
   {
    "n": 8,
@@ -83,7 +231,30 @@
    "target": "paciente",
    "critico": false,
    "explica": "Se resguarda la intimidad del paciente: se retira la ropa interior y se cubre el área genital con sábana o paño clínico no estéril.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "ropa interior"
+    ],
+    [
+     "cubro",
+     "genital"
+    ],
+    [
+     "pudor"
+    ],
+    [
+     "sabana",
+     "genital"
+    ],
+    [
+     "retiro",
+     "ropa"
+    ],
+    [
+     "intimidad"
+    ]
+   ]
   },
   {
    "n": 9,
@@ -94,7 +265,20 @@
    "explica": "Los guantes no estériles protegen al operador durante la higiene, que es la etapa limpia-sucia del procedimiento.",
    "estado": {
     "gloves": "ns"
-   }
+   },
+   "claves": [
+    [
+     "guantes no esteril"
+    ],
+    [
+     "guantes",
+     "examen"
+    ],
+    [
+     "guantes",
+     "higiene"
+    ]
+   ]
   },
   {
    "n": 10,
@@ -105,7 +289,34 @@
    "explica": "Antisepsia con iodopovidona jabonosa, con un mínimo de 3 pasadas con gasas estériles (una gasa nueva por pasada), de lo más limpio a lo más contaminado, ampliada a la región pelviana y la cara interna de los muslos; todo el lavado se repite 2 veces. Mujer: genitales externos de arriba hacia abajo (de clítoris a ano); si está menstruando se coloca un tapón vaginal con gasa estéril que se retira al finalizar. Varón: retraer el prepucio y limpiar del meato hacia afuera en forma circular, con atención al surco balano-prepucial. Al terminar se pide al paciente que eleve los muslos y se coloca debajo un paño clínico limpio.",
    "estado": {
     "higiene": 1
-   }
+   },
+   "claves": [
+    [
+     "higien",
+     "genital"
+    ],
+    [
+     "povidona"
+    ],
+    [
+     "iodo"
+    ],
+    [
+     "antisepsia"
+    ],
+    [
+     "limpio",
+     "zona"
+    ],
+    [
+     "lavo",
+     "zona"
+    ],
+    [
+     "higien",
+     "zona"
+    ]
+   ]
   },
   {
    "n": 11,
@@ -114,7 +325,25 @@
    "target": "panos-ns",
    "critico": false,
    "explica": "Un paño clínico no estéril debajo de los muslos mantiene la zona seca y aislada de la cama.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "pano",
+     "muslo"
+    ],
+    [
+     "pano",
+     "debajo"
+    ],
+    [
+     "eleve",
+     "muslo"
+    ],
+    [
+     "elevo",
+     "muslo"
+    ]
+   ]
   },
   {
    "n": 12,
@@ -125,7 +354,29 @@
    "explica": "Terminada la etapa de higiene, los guantes sucios se descartan para no contaminar el campo estéril.",
    "estado": {
     "gloves": "none"
-   }
+   },
+   "claves": [
+    [
+     "quito",
+     "guantes"
+    ],
+    [
+     "me saco",
+     "guantes"
+    ],
+    [
+     "retiro",
+     "guantes"
+    ],
+    [
+     "descarto",
+     "guantes"
+    ],
+    [
+     "me quito",
+     "guantes"
+    ]
+   ]
   },
   {
    "n": 13,
@@ -136,7 +387,24 @@
    "explica": "El lavado de manos con técnica clínica antes de los guantes estériles es la medida de asepsia más importante para prevenir infecciones.",
    "estado": {
     "manos": 1
-   }
+   },
+   "claves": [
+    [
+     "lavo",
+     "manos"
+    ],
+    [
+     "lavado",
+     "manos"
+    ],
+    [
+     "higiene",
+     "manos"
+    ],
+    [
+     "lavado clinico"
+    ]
+   ]
   },
   {
    "n": 14,
@@ -147,7 +415,19 @@
    "explica": "Los guantes estériles se colocan con técnica cerrada y garantizan la etapa estéril: a partir de este momento las manos no pueden tocar ninguna superficie no estéril (cama, piel no delimitada, frascos externos).",
    "estado": {
     "gloves": "e"
-   }
+   },
+   "claves": [
+    [
+     "guantes esteril"
+    ],
+    [
+     "tecnica cerrada"
+    ],
+    [
+     "guantes",
+     "cerrada"
+    ]
+   ]
   },
   {
    "n": 15,
@@ -158,7 +438,28 @@
    "explica": "El paño estéril cubriendo la región pelviana y genital delimita el campo estéril de trabajo.",
    "estado": {
     "campo": 1
-   }
+   },
+   "claves": [
+    [
+     "pano esteril",
+     "pelvi"
+    ],
+    [
+     "pano esteril",
+     "genital"
+    ],
+    [
+     "campo esteril"
+    ],
+    [
+     "cubro",
+     "region"
+    ],
+    [
+     "coloco",
+     "pano esteril"
+    ]
+   ]
   },
   {
    "n": 16,
@@ -169,7 +470,34 @@
    "explica": "Este segundo paño estéril funciona como mesa auxiliar sobre el campo de trabajo, donde se ordenan la sonda, la jeringa, el agua bidestilada y la lidocaína sin riesgo de contaminación.",
    "estado": {
     "aux": 1
-   }
+   },
+   "claves": [
+    [
+     "segundo pano"
+    ],
+    [
+     "pano adicional"
+    ],
+    [
+     "pano",
+     "elementos"
+    ],
+    [
+     "ubico",
+     "elementos"
+    ],
+    [
+     "mesa auxiliar"
+    ],
+    [
+     "pano",
+     "material"
+    ],
+    [
+     "ordeno",
+     "elementos"
+    ]
+   ]
   },
   {
    "n": 17,
@@ -180,7 +508,33 @@
    "explica": "Se abre el sobre con la mano dominante y se sostiene y enrolla la sonda en la palma de la mano no dominante, de a poco, para evitar el «efecto látigo»: si el extremo libre cuelga puede rozar la cama o los muslos y perder la esterilidad.",
    "estado": {
     "pack": 1
-   }
+   },
+   "claves": [
+    [
+     "abro",
+     "pack"
+    ],
+    [
+     "abro",
+     "sobre"
+    ],
+    [
+     "abro",
+     "envase"
+    ],
+    [
+     "saco",
+     "sonda"
+    ],
+    [
+     "enrollo",
+     "sonda"
+    ],
+    [
+     "abro",
+     "sonda"
+    ]
+   ]
   },
   {
    "n": 18,
@@ -191,7 +545,40 @@
    "explica": "Fuera del paciente se prueba el balón con 5 cc de AIRE: si no infla de forma simétrica o pierde, se descarta la sonda. Antes de lubricar e introducir hay que desinflar y aspirar todo el aire (con el balón parcialmente inflado se lacera la uretra). No comprobarlo es criterio de desaprobación. Dentro de la vejiga el balón se infla con 10 cc de agua bidestilada, nunca con aire.",
    "estado": {
     "tested": 1
-   }
+   },
+   "claves": [
+    [
+     "compruebo",
+     "balon"
+    ],
+    [
+     "pruebo",
+     "balon"
+    ],
+    [
+     "verifico",
+     "balon"
+    ],
+    [
+     "infl",
+     "desinfl"
+    ],
+    [
+     "indemnidad"
+    ],
+    [
+     "balon",
+     "aire"
+    ],
+    [
+     "chequeo",
+     "balon"
+    ],
+    [
+     "controlo",
+     "balon"
+    ]
+   ]
   },
   {
    "n": 19,
@@ -202,7 +589,23 @@
    "explica": "Se lubrica el extremo distal de la sonda (donde están las fenestras de drenaje). En el varón, además, se instila abundante lidocaína en gel directamente en el meato con una jeringa sin aguja (esperar 3 a 5 minutos) para anestesiar y dilatar la uretra.",
    "estado": {
     "gel": 1
-   }
+   },
+   "claves": [
+    [
+     "lubric"
+    ],
+    [
+     "lidocaina",
+     "sonda"
+    ],
+    [
+     "gel",
+     "sonda"
+    ],
+    [
+     "lidocaina"
+    ]
+   ]
   },
   {
    "n": 20,
@@ -211,7 +614,32 @@
    "target": "paciente",
    "critico": false,
    "explica": "Se avisa al paciente que comienza el procedimiento para que se prepare y colabore: respirar profundo o pujar suavemente relaja el esfínter uretral externo y facilita el avance de la sonda.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "aviso",
+     "paciente"
+    ],
+    [
+     "informo",
+     "comienz"
+    ],
+    [
+     "informo",
+     "inicio"
+    ],
+    [
+     "le aviso"
+    ],
+    [
+     "aviso",
+     "comienz"
+    ],
+    [
+     "aviso",
+     "empiez"
+    ]
+   ]
   },
   {
    "n": 21,
@@ -222,7 +650,31 @@
    "explica": "Mujer: separar los labios mayores y menores con la mano no dominante e introducir suavemente 5 a 7 cm hasta ver salir orina; ante resistencia, angular hacia la sínfisis pubiana. Si a los 8-10 cm no sale orina, la sonda entró en la vagina: se descarta ese material y se rehace con sonda y guantes estériles nuevos. Varón: traccionar el pene a 90° hacia arriba para rectificar la curva anterior, introducir 17 a 22 cm hasta ver orina (hasta la bifurcación de la sonda); ante resistencia en el esfínter o la próstata, bajar el pene a 45°, avanzar con suaves rotaciones y pedir al paciente que puje o respire profundo. Nunca forzar.",
    "estado": {
     "ins": 1
-   }
+   },
+   "claves": [
+    [
+     "introduzco",
+     "sonda"
+    ],
+    [
+     "introduc",
+     "sonda"
+    ],
+    [
+     "inserto"
+    ],
+    [
+     "avanzo",
+     "sonda"
+    ],
+    [
+     "paso",
+     "sonda"
+    ],
+    [
+     "introduzco"
+    ]
+   ]
   },
   {
    "n": 22,
@@ -233,7 +685,28 @@
    "explica": "Primero hay que confirmar que sale orina y avanzar la sonda 2 a 3 cm más; recién entonces se infla el balón con 10 cc de agua bidestilada estéril (nunca aire; no suero fisiológico, porque puede cristalizar en la válvula). Inflar antes de ver orina lesiona la uretra.",
    "estado": {
     "infl": 1
-   }
+   },
+   "claves": [
+    [
+     "inflo",
+     "balon"
+    ],
+    [
+     "inflo",
+     "agua"
+    ],
+    [
+     "agua bidestilada",
+     "balon"
+    ],
+    [
+     "inflar",
+     "balon"
+    ],
+    [
+     "insuflo"
+    ]
+   ]
   },
   {
    "n": 23,
@@ -242,7 +715,23 @@
    "target": "balon",
    "critico": false,
    "explica": "La tracción suave hasta sentir resistencia apoya el balón en el cuello vesical y confirma que quedó fijo.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "traccion"
+    ],
+    [
+     "tiro",
+     "sonda"
+    ],
+    [
+     "tironeo"
+    ],
+    [
+     "resistencia",
+     "leve"
+    ]
+   ]
   },
   {
    "n": 24,
@@ -253,7 +742,20 @@
    "explica": "Se conecta la bolsa al pico de la sonda formando un sistema cerrado y se verifica que la orina fluya. Con una retención de gran volumen (más de 500-800 cc) se clampea el tubo de la bolsa de forma intermitente (cada 500 cc) para evitar la hipotensión súbita y la hematuria ex vacuo.",
    "estado": {
     "bag": 1
-   }
+   },
+   "claves": [
+    [
+     "conecto",
+     "bolsa"
+    ],
+    [
+     "bolsa",
+     "conect"
+    ],
+    [
+     "conecto"
+    ]
+   ]
   },
   {
    "n": 25,
@@ -265,7 +767,15 @@
    "estado": {
     "prep": 1
    },
-   "solo": "M"
+   "solo": "M",
+   "claves": [
+    [
+     "prepucio"
+    ],
+    [
+     "glande"
+    ]
+   ]
   },
   {
    "n": 26,
@@ -276,7 +786,23 @@
    "explica": "La bolsa se cuelga del ganchillo de la cama, por debajo del nivel de la vejiga y sin apoyarla en el piso, para evitar el reflujo de orina.",
    "estado": {
     "hook": 1
-   }
+   },
+   "claves": [
+    [
+     "cuelgo",
+     "bolsa"
+    ],
+    [
+     "ganchillo"
+    ],
+    [
+     "bolsa",
+     "cama"
+    ],
+    [
+     "cuelgo"
+    ]
+   ]
   },
   {
    "n": 27,
@@ -287,7 +813,24 @@
    "explica": "La fijación primaria es el balón inflado en la vejiga. En algunas ocasiones se sujeta además una parte de la sonda a la cara interna del muslo con cinta hipoalergénica, como fijación secundaria para evitar la movilización y los tironeamientos.",
    "estado": {
     "fix": 1
-   }
+   },
+   "claves": [
+    [
+     "fijo",
+     "sonda"
+    ],
+    [
+     "cinta",
+     "muslo"
+    ],
+    [
+     "cinta"
+    ],
+    [
+     "sujeto",
+     "sonda"
+    ]
+   ]
   },
   {
    "n": 28,
@@ -296,7 +839,33 @@
    "target": "paciente",
    "critico": false,
    "explica": "Se informa el final de la práctica y los cuidados: no tironear la sonda, no elevar la bolsa por encima del nivel de la vejiga y consultar ante fiebre, dolor suprapúbico, hematuria, falta de diuresis o pérdida de orina alrededor de la sonda.",
-   "estado": {}
+   "estado": {},
+   "claves": [
+    [
+     "informo",
+     "final"
+    ],
+    [
+     "informo",
+     "cuidados"
+    ],
+    [
+     "explico",
+     "cuidados"
+    ],
+    [
+     "cuidados",
+     "paciente"
+    ],
+    [
+     "finalice",
+     "informo"
+    ],
+    [
+     "termine",
+     "informo"
+    ]
+   ]
   },
   {
    "n": 29,
@@ -307,7 +876,27 @@
    "explica": "Se retiran los elementos de la cama y se desechan los usados clasificando los residuos según las normas de bioseguridad (patogénicos y comunes).",
    "estado": {
     "limpio": 1
-   }
+   },
+   "claves": [
+    [
+     "retiro",
+     "elementos"
+    ],
+    [
+     "desecho"
+    ],
+    [
+     "descarto",
+     "material"
+    ],
+    [
+     "residuos"
+    ],
+    [
+     "retiro",
+     "todo"
+    ]
+   ]
   },
   {
    "n": 30,
@@ -318,7 +907,25 @@
    "explica": "Registrar fecha y hora, tipo y calibre de la sonda, volumen de agua del balón, volumen y aspecto de la orina (clara, colúrica, hematúrica, con sedimento) y tolerancia o complicaciones deja constancia legal y asistencial.",
    "estado": {
     "reg": 1
-   }
+   },
+   "claves": [
+    [
+     "registro"
+    ],
+    [
+     "anoto"
+    ],
+    [
+     "historia clinica",
+     "registr"
+    ],
+    [
+     "evolucion"
+    ],
+    [
+     "asiento"
+    ]
+   ]
   }
  ],
  "elementos": {
@@ -536,56 +1143,174 @@
    "texto": "Introduce la sonda sin comprobar la indemnidad del balón",
    "critico": true,
    "porque": "Es criterio de desaprobación: un balón defectuoso puede romperse en la vejiga o no fijar la sonda.",
-   "target": "uretra"
+   "target": "uretra",
+   "claves": [
+    [
+     "sin comprobar",
+     "balon"
+    ],
+    [
+     "no compruebo",
+     "balon"
+    ],
+    [
+     "sin probar",
+     "balon"
+    ],
+    [
+     "no pruebo",
+     "balon"
+    ],
+    [
+     "sin verificar",
+     "balon"
+    ]
+   ]
   },
   {
    "id": "d2",
    "texto": "Infla el balón con suero fisiológico",
    "critico": false,
    "porque": "La cátedra estipula agua bidestilada estéril: el suero fisiológico puede cristalizar en la válvula y el microcanal de insuflación y dificultar el desinflado al retirar la sonda.",
-   "target": "jeringa"
+   "target": "jeringa",
+   "claves": [
+    [
+     "suero",
+     "balon"
+    ],
+    [
+     "solucion fisiologica",
+     "balon"
+    ],
+    [
+     "inflo",
+     "suero"
+    ],
+    [
+     "inflo",
+     "fisiologica"
+    ]
+   ]
   },
   {
    "id": "d3",
    "texto": "Comienza el procedimiento sin solicitar el consentimiento informado",
    "critico": true,
    "porque": "El consentimiento informado es un requisito ético y legal previo.",
-   "target": "paciente"
+   "target": "paciente",
+   "claves": [
+    [
+     "sin consentimiento"
+    ],
+    [
+     "sin pedir",
+     "consentimiento"
+    ],
+    [
+     "no pido",
+     "consentimiento"
+    ]
+   ]
   },
   {
    "id": "d4",
    "texto": "Introduce la sonda con guantes no estériles",
    "critico": true,
    "porque": "La introducción es una maniobra estéril: requiere guantes estériles y campo estéril.",
-   "target": "uretra"
+   "target": "uretra",
+   "claves": [
+    [
+     "guantes no esteril",
+     "introduzco"
+    ],
+    [
+     "sin guantes esteril"
+    ],
+    [
+     "guantes no esteril",
+     "sonda"
+    ]
+   ]
   },
   {
    "id": "d5",
    "texto": "Fuerza la sonda al encontrar resistencia",
    "critico": true,
    "porque": "Forzar puede crear una falsa vía uretral o lacerar la uretra. Ante resistencia se reevalúa.",
-   "target": "uretra"
+   "target": "uretra",
+   "claves": [
+    [
+     "fuerzo"
+    ],
+    [
+     "empujo",
+     "resistencia"
+    ],
+    [
+     "forzar"
+    ],
+    [
+     "forzando"
+    ]
+   ]
   },
   {
    "id": "d6",
    "texto": "Infla el balón antes de confirmar que sale orina",
    "critico": true,
    "porque": "Inflar fuera de la vejiga lesiona la uretra. Primero debe fluir orina.",
-   "target": "jeringa"
+   "target": "jeringa",
+   "claves": [
+    [
+     "inflo",
+     "antes",
+     "orina"
+    ],
+    [
+     "inflo",
+     "sin",
+     "orina"
+    ],
+    [
+     "inflo",
+     "sin ver"
+    ]
+   ]
   },
   {
    "id": "d7",
    "texto": "Se coloca los guantes estériles sin lavarse las manos",
    "critico": true,
    "porque": "El lavado de manos con técnica clínica es previo a los guantes estériles.",
-   "target": "guantes-e"
+   "target": "guantes-e",
+   "claves": [
+    [
+     "sin lavar"
+    ],
+    [
+     "sin lavarme"
+    ],
+    [
+     "no me lavo"
+    ]
+   ]
   },
   {
    "id": "d8",
    "texto": "Deja la bolsa colectora apoyada sobre el piso",
    "critico": false,
    "porque": "Debe colgarse del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso.",
-   "target": "gancho"
+   "target": "gancho",
+   "claves": [
+    [
+     "bolsa",
+     "piso"
+    ],
+    [
+     "bolsa",
+     "suelo"
+    ]
+   ]
   },
   {
    "id": "d9",
@@ -593,95 +1318,226 @@
    "critico": false,
    "solo": "M",
    "porque": "Puede producir parafimosis: el prepucio debe volver a su lugar.",
-   "target": "prepucio"
+   "target": "prepucio",
+   "claves": [
+    [
+     "dejo",
+     "prepucio"
+    ]
+   ]
   },
   {
    "id": "d10",
    "texto": "Higieniza la zona genital sin colocarse guantes",
    "critico": false,
    "target": "iodo",
-   "porque": "La higiene de la zona se hace con guantes no estériles para proteger al operador."
+   "porque": "La higiene de la zona se hace con guantes no estériles para proteger al operador.",
+   "claves": [
+    [
+     "higien",
+     "sin guantes"
+    ]
+   ]
   },
   {
    "id": "d11",
    "texto": "Omite la lubricación de la sonda",
    "critico": false,
    "target": "gel",
-   "porque": "Sin lubricación y anestesia local aumenta el trauma uretral y el dolor."
+   "porque": "Sin lubricación y anestesia local aumenta el trauma uretral y el dolor.",
+   "claves": [
+    [
+     "sin lubric"
+    ],
+    [
+     "no lubrico"
+    ],
+    [
+     "omito",
+     "lubric"
+    ]
+   ]
   },
   {
    "id": "d12",
    "texto": "Fija la sonda tensa sobre el abdomen",
    "critico": false,
    "target": "cinta",
-   "porque": "La fijación va en la cara interna del muslo, sin tracción sobre la uretra."
+   "porque": "La fijación va en la cara interna del muslo, sin tracción sobre la uretra.",
+   "claves": [
+    [
+     "tenso",
+     "abdomen"
+    ],
+    [
+     "fijo",
+     "abdomen"
+    ]
+   ]
   },
   {
    "id": "d13",
    "texto": "Registra el procedimiento antes de realizarlo",
    "critico": false,
    "target": "hc",
-   "porque": "El registro se hace al finalizar, con los datos reales de la práctica."
+   "porque": "El registro se hace al finalizar, con los datos reales de la práctica.",
+   "claves": [
+    [
+     "registro",
+     "antes de"
+    ]
+   ]
   },
   {
    "id": "d14",
    "texto": "Firma el consentimiento en lugar del paciente",
    "critico": true,
    "target": "consent",
-   "porque": "El consentimiento lo firma el paciente (o su representante legal) luego de la explicación."
+   "porque": "El consentimiento lo firma el paciente (o su representante legal) luego de la explicación.",
+   "claves": [
+    [
+     "firmo",
+     "por el paciente"
+    ],
+    [
+     "firmo yo"
+    ]
+   ]
   },
   {
    "id": "d15",
    "texto": "Desecha la sonda abierta y la vuelve a usar",
    "critico": true,
    "target": "pack",
-   "porque": "El material estéril no se reutiliza si se contaminó: se descarta y se abre uno nuevo."
+   "porque": "El material estéril no se reutiliza si se contaminó: se descarta y se abre uno nuevo.",
+   "claves": [
+    [
+     "reutilizo"
+    ],
+    [
+     "vuelvo a usar",
+     "sonda"
+    ]
+   ]
   },
   {
    "id": "d16",
    "texto": "Se coloca los guantes estériles tocando el exterior con la piel",
    "critico": true,
    "target": "guantes-e",
-   "porque": "Los guantes estériles se colocan con técnica cerrada, sin tocar su exterior."
+   "porque": "Los guantes estériles se colocan con técnica cerrada, sin tocar su exterior.",
+   "claves": [
+    [
+     "toco",
+     "exterior",
+     "guante"
+    ],
+    [
+     "guantes",
+     "toco",
+     "piel"
+    ]
+   ]
   },
   {
    "id": "d17",
    "texto": "Infla el balón con aire dentro de la vejiga",
    "critico": true,
    "target": "jeringa",
-   "porque": "Dentro de la vejiga el balón se infla siempre con líquido (10 cc de agua bidestilada): el líquido es incompresible y mantiene un volumen constante. El aire solo se usa para probar el balón fuera del paciente."
+   "porque": "Dentro de la vejiga el balón se infla siempre con líquido (10 cc de agua bidestilada): el líquido es incompresible y mantiene un volumen constante. El aire solo se usa para probar el balón fuera del paciente.",
+   "claves": [
+    [
+     "inflo",
+     "aire",
+     "vejiga"
+    ],
+    [
+     "inflo",
+     "con aire"
+    ]
+   ]
   }
  ],
  "casos": [
   {
+   "id": "c1",
+   "nombre": "Rosa M.",
    "sexo": "F",
    "edad": 82,
-   "motivo": "Retención aguda de orina luego de una cirugía de cadera. Globo vesical palpable."
+   "motivo": "Retención aguda de orina luego de una cirugía de cadera. Globo vesical palpable.",
+   "indicacion": "Sondaje vesical con sonda Foley permanente.",
+   "antecedentes": "Hipertensión arterial. Cirugía de cadera hace 2 días, con analgesia opioide.",
+   "alergia": null
   },
   {
+   "id": "c2",
+   "nombre": "Alberto G.",
    "sexo": "M",
    "edad": 76,
-   "motivo": "Retención aguda de orina por hiperplasia benigna de próstata. Dolor hipogástrico."
+   "motivo": "Retención aguda de orina por hiperplasia benigna de próstata. Dolor hipogástrico.",
+   "indicacion": "Sondaje vesical con sonda Foley permanente.",
+   "antecedentes": "Hiperplasia benigna de próstata en seguimiento. Sin alergias conocidas.",
+   "alergia": null
   },
   {
+   "id": "c3",
+   "nombre": "Marta L.",
    "sexo": "F",
    "edad": 79,
-   "motivo": "Sepsis de foco respiratorio. Requiere control estricto de la diuresis."
+   "motivo": "Sepsis de foco respiratorio. Requiere control estricto de la diuresis.",
+   "indicacion": "Sondaje vesical permanente para monitoreo horario de diuresis.",
+   "antecedentes": "Neumonía grave, internada en terapia intermedia.",
+   "alergia": null
   },
   {
+   "id": "c4",
+   "nombre": "Héctor R.",
    "sexo": "M",
    "edad": 71,
-   "motivo": "Internado en terapia. Requiere control horario de la diuresis."
+   "motivo": "Internado en terapia. Requiere control horario de la diuresis.",
+   "indicacion": "Sondaje vesical permanente con bolsa de sistema cerrado.",
+   "antecedentes": "Insuficiencia cardíaca descompensada.",
+   "alergia": null
   },
   {
+   "id": "c5",
+   "nombre": "Elsa P.",
    "sexo": "F",
    "edad": 85,
-   "motivo": "Retención urinaria por impactación fecal. Se indica sondaje vesical con sonda Foley."
+   "motivo": "Retención urinaria por impactación fecal. Se indica sondaje vesical con sonda Foley.",
+   "indicacion": "Sondaje vesical con sonda Foley transitoria hasta resolver la causa.",
+   "antecedentes": "Constipación crónica, postrada.",
+   "alergia": null
   },
   {
+   "id": "c6",
+   "nombre": "Rubén D.",
    "sexo": "M",
    "edad": 68,
-   "motivo": "Postoperatorio de cirugía abdominal mayor. Se indica sonda vesical para el control de la diuresis."
+   "motivo": "Postoperatorio de cirugía abdominal mayor. Se indica sonda vesical para el control de la diuresis.",
+   "indicacion": "Sondaje vesical permanente.",
+   "antecedentes": "Colectomía hace 12 horas. Sin alergias conocidas.",
+   "alergia": null
+  },
+  {
+   "id": "c7",
+   "nombre": "Nilda S.",
+   "sexo": "F",
+   "edad": 74,
+   "motivo": "Retención aguda de orina posoperatoria. Alergia conocida al látex (reacción urticariforme previa).",
+   "indicacion": "Sondaje vesical con sonda Foley permanente.",
+   "antecedentes": "Alergia al látex documentada en la historia clínica.",
+   "alergia": "latex"
+  },
+  {
+   "id": "c8",
+   "nombre": "Oscar T.",
+   "sexo": "M",
+   "edad": 80,
+   "motivo": "Retención aguda de orina por fármacos anticolinérgicos. Alergia al látex (anafilaxia previa).",
+   "indicacion": "Sondaje vesical con sonda Foley permanente.",
+   "antecedentes": "Parkinson en tratamiento. Alergia al látex documentada.",
+   "alergia": "latex"
   }
  ],
  "fundamentos": [

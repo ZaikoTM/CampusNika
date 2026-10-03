@@ -1,7 +1,7 @@
 {
   "id": "sv",
   "titulo": "Mesa de instrumental · Sonda vesical",
-  "consigna": "Armá la bandeja estéril con todo lo necesario para sondar a este paciente. Tocá un elemento para inspeccionarlo; arrastralo a la bandeja o usá el botón para agregarlo.",
+  "consigna": "Leé el caso clínico y armá la bandeja estéril con todo lo necesario para ese paciente. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
   "grupos": [
     {
       "id": "sondas",
@@ -25,7 +25,7 @@
       "id": "sonda_f",
       "grupo": "sondas",
       "nombre": "Sonda Foley 14 Fr, 2 vías",
-      "detalle": "Silicona o látex · balón de 10 mL · estéril",
+      "detalle": "Látex siliconado · balón de 10 mL · estéril",
       "sexo": "F",
       "correcto": true,
       "critico": true,
@@ -57,13 +57,15 @@
           "Lote",
           "FL-24031"
         ]
-      ]
+      ],
+      "latex": true,
+      "feedback_latex": "El paciente tiene alergia al látex documentada: esta sonda es de látex y puede provocar una reacción alérgica grave. Corresponde una sonda de silicona 100 %."
     },
     {
       "id": "sonda_m",
       "grupo": "sondas",
       "nombre": "Sonda Foley 16 Fr, 2 vías",
-      "detalle": "Silicona o látex · balón de 10 mL · estéril",
+      "detalle": "Látex siliconado · balón de 10 mL · estéril",
       "sexo": "M",
       "correcto": true,
       "critico": true,
@@ -95,7 +97,9 @@
           "Lote",
           "FL-24118"
         ]
-      ]
+      ],
+      "latex": true,
+      "feedback_latex": "El paciente tiene alergia al látex documentada: esta sonda es de látex y puede provocar una reacción alérgica grave. Corresponde una sonda de silicona 100 %."
     },
     {
       "id": "sonda_3v",
@@ -226,6 +230,84 @@
         [
           "Lote",
           "BC-31877"
+        ]
+      ]
+    },
+    {
+      "id": "sonda_f_sil",
+      "grupo": "sondas",
+      "img": "assets/instrumental/sonda_f_sil.svg",
+      "nombre": "Sonda Foley 14 Fr, 2 vías (silicona 100 %)",
+      "detalle": "Silicona 100 % · libre de látex · balón de 10 mL · estéril",
+      "sexo": "F",
+      "solo_alergia": "latex",
+      "correcto": true,
+      "critico": true,
+      "descripcion": "Sonda de silicona sin látex, indicada en pacientes con alergia al látex. Dos vías: drenaje y balón.",
+      "falta": "Falta la sonda de silicona: el paciente es alérgico al látex y necesita una sonda libre de látex.",
+      "ficha": [
+        [
+          "Calibre",
+          "14 Fr"
+        ],
+        [
+          "Vías",
+          "2 (drenaje y balón)"
+        ],
+        [
+          "Volumen del balón",
+          "10 mL"
+        ],
+        [
+          "Material",
+          "Silicona 100 %, libre de látex"
+        ],
+        [
+          "Vencimiento",
+          "10/2028"
+        ],
+        [
+          "Lote",
+          "FS-24090"
+        ]
+      ]
+    },
+    {
+      "id": "sonda_m_sil",
+      "grupo": "sondas",
+      "img": "assets/instrumental/sonda_m_sil.svg",
+      "nombre": "Sonda Foley 16 Fr, 2 vías (silicona 100 %)",
+      "detalle": "Silicona 100 % · libre de látex · balón de 10 mL · estéril",
+      "sexo": "M",
+      "solo_alergia": "latex",
+      "correcto": true,
+      "critico": true,
+      "descripcion": "Sonda de silicona sin látex, indicada en pacientes con alergia al látex. Dos vías: drenaje y balón.",
+      "falta": "Falta la sonda de silicona: el paciente es alérgico al látex y necesita una sonda libre de látex.",
+      "ficha": [
+        [
+          "Calibre",
+          "16 Fr"
+        ],
+        [
+          "Vías",
+          "2 (drenaje y balón)"
+        ],
+        [
+          "Volumen del balón",
+          "10 mL"
+        ],
+        [
+          "Material",
+          "Silicona 100 %, libre de látex"
+        ],
+        [
+          "Vencimiento",
+          "10/2028"
+        ],
+        [
+          "Lote",
+          "FS-24091"
         ]
       ]
     },
