@@ -210,7 +210,7 @@
    "fase": "Técnica",
    "target": "paciente",
    "critico": false,
-   "explica": "Se avisa al paciente que comienza el procedimiento para que se prepare y colabore (respirar tranquilo, no contraer).",
+   "explica": "Se avisa al paciente que comienza el procedimiento para que se prepare y colabore: respirar profundo o pujar suavemente relaja el esfínter uretral externo y facilita el avance de la sonda.",
    "estado": {}
   },
   {
@@ -295,7 +295,7 @@
    "fase": "Cierre",
    "target": "paciente",
    "critico": false,
-   "explica": "Se informa el final de la práctica y los cuidados: no tironear, mantener la bolsa debajo de la vejiga y consultar ante dolor, fiebre o falta de diuresis.",
+   "explica": "Se informa el final de la práctica y los cuidados: no tironear la sonda, no elevar la bolsa por encima del nivel de la vejiga y consultar ante fiebre, dolor suprapúbico, hematuria, falta de diuresis o pérdida de orina alrededor de la sonda.",
    "estado": {}
   },
   {
@@ -304,7 +304,7 @@
    "fase": "Cierre",
    "target": "residuos",
    "critico": false,
-   "explica": "Se retiran los elementos de la cama y se desechan los usados en los residuos correspondientes.",
+   "explica": "Se retiran los elementos de la cama y se desechan los usados clasificando los residuos según las normas de bioseguridad (patogénicos y comunes).",
    "estado": {
     "limpio": 1
    }
@@ -315,7 +315,7 @@
    "fase": "Cierre",
    "target": "hc",
    "critico": true,
-   "explica": "Registrar el procedimiento (fecha, tipo y calibre de sonda, volumen de agua del balón, características de la orina, tolerancia) deja constancia legal y asistencial.",
+   "explica": "Registrar fecha y hora, tipo y calibre de la sonda, volumen de agua del balón, volumen y aspecto de la orina (clara, colúrica, hematúrica, con sedimento) y tolerancia o complicaciones deja constancia legal y asistencial.",
    "estado": {
     "reg": 1
    }
@@ -705,7 +705,7 @@
     "Colocar la sonda e inflar el balón de inmediato"
    ],
    "c": 2,
-   "e": "La uretrorragia postraumática hace sospechar rotura uretral: es contraindicación absoluta del sondaje a ciegas."
+   "e": "La sangre en el meato tras un trauma pélvico (uretrorragia) hace sospechar una rotura de la uretra: es contraindicación absoluta del sondaje a ciegas. Requiere evaluación urológica (uretrografía retrógrada o cistostomía suprapúbica)."
   },
   {
    "q": "¿Cuál es una contraindicación absoluta del sondaje vesical?",
@@ -738,7 +738,7 @@
     "Irrigando la vejiga con agua destilada"
    ],
    "c": 0,
-   "e": "Es la hematuria ex vacuo con hipotensión por descompresión brusca. Se previene con vaciado progresivo."
+   "e": "Es la hematuria ex vacuo con hipotensión por descompresión brusca. Según la cátedra se previene con el vaciado fraccionado: clampear el tubo de la bolsa cada 500 cc durante unos minutos."
   },
   {
    "q": "En un varón sondado, ¿qué complicación se evita volviendo el prepucio a su lugar?",
@@ -771,7 +771,7 @@
     "Hematuria con coágulos"
    ],
    "c": 1,
-   "e": "La alergia al látex o a anestésicos locales obliga a usar materiales alternativos; es una contraindicación relativa, igual que la estenosis uretral."
+   "e": "La alergia al látex o a los anestésicos locales exige modificar los insumos (sonda de silicona, lubricante hidrosoluble sin anestésico); es una contraindicación relativa, igual que la estenosis uretral."
   }
  ],
  "criterios_texto": "Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles con técnica cerrada (14) o el registro (30). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
@@ -779,7 +779,7 @@
   "perlas": [
    {
     "t": "Antes de empezar",
-    "x": "Verificá identidad e indicación. Si hay una contraindicación absoluta (sospecha de rotura uretral con sangre en el meato, prostatitis o uretritis aguda), no se sonda."
+    "x": "Verificá identidad e indicación. Contraindicaciones absolutas: sangre en el meato tras un trauma pélvico (sospecha de rotura uretral), prostatitis aguda, uretritis aguda y abscesos periuretrales. En esos casos no se sonda."
    },
    {
     "t": "Técnica aséptica",
@@ -819,7 +819,7 @@
    },
    {
     "t": "Cuidados e infección",
-    "x": "El riesgo de infección urinaria asociada a la sonda crece con los días: se retira apenas deja de ser necesaria. Indicá al paciente consultar ante dolor, fiebre o falta de diuresis."
+    "x": "El sondaje vesical es la principal causa de infección urinaria nosocomial y el riesgo crece con los días: se retira apenas deja de ser necesaria. Indicá al paciente consultar ante fiebre, dolor, hematuria o falta de diuresis."
    }
   ],
   "por_paso": {
@@ -841,11 +841,13 @@
    "25": "Varón: reducí el prepucio para evitar parafimosis.",
    "26": "Bolsa debajo del nivel de la vejiga y sin apoyarla en el piso.",
    "27": "Fijación secundaria. La primaria es el balón.",
-   "28": "Cuidados: no tironear, mantener la bolsa abajo, consultar ante dolor, fiebre o sin diuresis.",
-   "30": "Registrá fecha, tipo y calibre de sonda, volumen del balón, características de la orina y tolerancia. Es crítico."
+   "28": "Pautas de alarma: fiebre, dolor suprapúbico, hematuria, sin diuresis o pérdida de orina junto a la sonda.",
+   "30": "Registrá fecha, hora, tipo y calibre, volumen del balón, volumen y aspecto de la orina y tolerancia. Es crítico.",
+   "20": "Pedile que respire profundo o puje suavemente: relaja el esfínter externo.",
+   "29": "Descartá los residuos según bioseguridad (patogénicos y comunes)."
   },
   "referencias": [
-   "Calibres habituales: mujer 14-16 Fr, varón 16-18 Fr (sonda Foley de 2 vías).",
+   "Calibres habituales: mujer 14-16 Fr, varón 16-18 Fr (sonda Foley de 2 vías). Los calibres de 20-22 Fr se reservan para patología prostática o hematuria.",
    "Balón: 10 cc de agua bidestilada estéril dentro de la vejiga; 5 cc de aire solo para probarlo fuera del paciente.",
    "Lidocaína en gel 2 %: en el varón se instila en el meato y se espera 3 a 5 minutos.",
    "Material de estudio: validado con la guía de la cátedra."

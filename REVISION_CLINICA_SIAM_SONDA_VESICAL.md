@@ -183,7 +183,7 @@ El texto del paso es de la cátedra. Valido la **explicación** que agregué.
 63. [ ] Explicación: Se lubrica el extremo distal de la sonda (donde están las fenestras de drenaje). En el varón, además, se instila abundante lidocaína en gel directamente en el meato con una jeringa sin aguja (esperar 3 a 5 minutos) para anestesiar y dilatar la uretra.
 
 **Paso 20**: Informar al/la paciente el comienzo del procedimiento.  
-64. [ ] Explicación: Se avisa al paciente que comienza el procedimiento para que se prepare y colabore (respirar tranquilo, no contraer).
+64. [ ] Explicación: Se avisa al paciente que comienza el procedimiento para que se prepare y colabore: respirar profundo o pujar suavemente relaja el esfínter uretral externo y facilita el avance de la sonda.
 
 **Paso 21**: Introduce la sonda contemplando las recomendaciones normatizadas para sondaje masculino-femenino, resistencia-no resistencia a su introducción, etc.  
 65. [ ] Explicación: Mujer: separar los labios mayores y menores con la mano no dominante e introducir suavemente 5 a 7 cm hasta ver salir orina; ante resistencia, angular hacia la sínfisis pubiana. Si a los 8-10 cm no sale orina, la sonda entró en la vagina: se descarta ese material y se rehace con sonda y guantes estériles nuevos. Varón: traccionar el pene a 90° hacia arriba para rectificar la curva anterior, introducir 17 a 22 cm hasta ver orina (hasta la bifurcación de la sonda); ante resistencia en el esfínter o la próstata, bajar el pene a 45°, avanzar con suaves rotaciones y pedir al paciente que puje o respire profundo. Nunca forzar.
@@ -207,18 +207,18 @@ El texto del paso es de la cátedra. Valido la **explicación** que agregué.
 71. [ ] Explicación: La fijación primaria es el balón inflado en la vejiga. En algunas ocasiones se sujeta además una parte de la sonda a la cara interna del muslo con cinta hipoalergénica, como fijación secundaria para evitar la movilización y los tironeamientos.
 
 **Paso 28**: Informa al paciente el final del procedimiento y los cuidados que debe mantener  
-72. [ ] Explicación: Se informa el final de la práctica y los cuidados: no tironear, mantener la bolsa debajo de la vejiga y consultar ante dolor, fiebre o falta de diuresis.
+72. [ ] Explicación: Se informa el final de la práctica y los cuidados: no tironear la sonda, no elevar la bolsa por encima del nivel de la vejiga y consultar ante fiebre, dolor suprapúbico, hematuria, falta de diuresis o pérdida de orina alrededor de la sonda.
 
 **Paso 29**: Retira todos los elementos de la cama del paciente y desecha los utilizados.  
-73. [ ] Explicación: Se retiran los elementos de la cama y se desechan los usados en los residuos correspondientes.
+73. [ ] Explicación: Se retiran los elementos de la cama y se desechan los usados clasificando los residuos según las normas de bioseguridad (patogénicos y comunes).
 
 **Paso 30** — CRÍTICO: Registra el procedimiento en la Historia Clínica del paciente.  
-74. [ ] Explicación: Registrar el procedimiento (fecha, tipo y calibre de sonda, volumen de agua del balón, características de la orina, tolerancia) deja constancia legal y asistencial.
+74. [ ] Explicación: Registrar fecha y hora, tipo y calibre de la sonda, volumen de agua del balón, volumen y aspecto de la orina (clara, colúrica, hematúrica, con sedimento) y tolerancia o complicaciones deja constancia legal y asistencial.
 
 
 ## D. Machete clínico (perlas)
 
-75. [ ] **Antes de empezar:** Verificá identidad e indicación. Si hay una contraindicación absoluta (sospecha de rotura uretral con sangre en el meato, prostatitis o uretritis aguda), no se sonda.
+75. [ ] **Antes de empezar:** Verificá identidad e indicación. Contraindicaciones absolutas: sangre en el meato tras un trauma pélvico (sospecha de rotura uretral), prostatitis aguda, uretritis aguda y abscesos periuretrales. En esos casos no se sonda.
 76. [ ] **Técnica aséptica:** Separá la etapa limpia (higiene con guantes no estériles) de la estéril (lavado de manos, guantes estériles con técnica cerrada, campo estéril). La antisepsia lleva mínimo 3 pasadas con gasas estériles, de lo más limpio a lo más contaminado, y se repite 2 veces.
 77. [ ] **Balón: siempre probalo:** Fuera del paciente probá el balón con 5 cc de aire. Si no infla simétrico o pierde, se descarta la sonda. Antes de lubricar e introducir, desinflá y aspirá todo el aire. Es criterio de desaprobación. Dentro de la vejiga se infla con 10 cc de agua bidestilada, nunca con aire.
 78. [ ] **Mujer:** Uretra corta (≈ 4 cm). El meato está por encima del introito vaginal. Introducí 5 a 7 cm hasta ver orina; si hay resistencia, angulá hacia la sínfisis. Si a los 8-10 cm no sale orina, la sonda está en la vagina: descartá ese material y rehacé con sonda y guantes estériles nuevos.
@@ -228,7 +228,7 @@ El texto del paso es de la cátedra. Valido la **explicación** que agregué.
 82. [ ] **Vaciado progresivo:** Con retención de gran volumen (más de 500-800 cc), clampeá el tubo de la bolsa de forma intermitente cada 500 cc para evitar la hipotensión súbita y la hematuria ex vacuo.
 83. [ ] **Parafimosis:** En el varón, volvé el prepucio a su lugar al finalizar. Si queda retraído por detrás del glande se estrangula: es una urgencia.
 84. [ ] **Sistema cerrado:** La bolsa va colgada del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso. La fijación primaria es el balón; la cinta al muslo es una fijación secundaria contra los tironeamientos.
-85. [ ] **Cuidados e infección:** El riesgo de infección urinaria asociada a la sonda crece con los días: se retira apenas deja de ser necesaria. Indicá al paciente consultar ante dolor, fiebre o falta de diuresis.
+85. [ ] **Cuidados e infección:** El sondaje vesical es la principal causa de infección urinaria nosocomial y el riesgo crece con los días: se retira apenas deja de ser necesaria. Indicá al paciente consultar ante fiebre, dolor, hematuria o falta de diuresis.
 
 ### Notas por paso (modo guiado)
 
@@ -250,35 +250,37 @@ El texto del paso es de la cátedra. Valido la **explicación** que agregué.
 101. [ ] Paso 25: Varón: reducí el prepucio para evitar parafimosis.
 102. [ ] Paso 26: Bolsa debajo del nivel de la vejiga y sin apoyarla en el piso.
 103. [ ] Paso 27: Fijación secundaria. La primaria es el balón.
-104. [ ] Paso 28: Cuidados: no tironear, mantener la bolsa abajo, consultar ante dolor, fiebre o sin diuresis.
-105. [ ] Paso 30: Registrá fecha, tipo y calibre de sonda, volumen del balón, características de la orina y tolerancia. Es crítico.
+104. [ ] Paso 28: Pautas de alarma: fiebre, dolor suprapúbico, hematuria, sin diuresis o pérdida de orina junto a la sonda.
+105. [ ] Paso 30: Registrá fecha, hora, tipo y calibre, volumen del balón, volumen y aspecto de la orina y tolerancia. Es crítico.
+106. [ ] Paso 20: Pedile que respire profundo o puje suavemente: relaja el esfínter externo.
+107. [ ] Paso 29: Descartá los residuos según bioseguridad (patogénicos y comunes).
 
 ### Referencias
 
-106. [ ] Calibres habituales: mujer 14-16 Fr, varón 16-18 Fr (sonda Foley de 2 vías).
-107. [ ] Balón: 10 cc de agua bidestilada estéril dentro de la vejiga; 5 cc de aire solo para probarlo fuera del paciente.
-108. [ ] Lidocaína en gel 2 %: en el varón se instila en el meato y se espera 3 a 5 minutos.
-109. [ ] Material de estudio: validado con la guía de la cátedra.
+108. [ ] Calibres habituales: mujer 14-16 Fr, varón 16-18 Fr (sonda Foley de 2 vías). Los calibres de 20-22 Fr se reservan para patología prostática o hematuria.
+109. [ ] Balón: 10 cc de agua bidestilada estéril dentro de la vejiga; 5 cc de aire solo para probarlo fuera del paciente.
+110. [ ] Lidocaína en gel 2 %: en el varón se instila en el meato y se espera 3 a 5 minutos.
+111. [ ] Material de estudio: validado con la guía de la cátedra.
 
 ## E. Acciones incorrectas del examen (por qué penalizan)
 
-110. [ ] “Introduce la sonda sin comprobar la indemnidad del balón” — GRAVE (desaprueba): Es criterio de desaprobación: un balón defectuoso puede romperse en la vejiga o no fijar la sonda.
-111. [ ] “Infla el balón con suero fisiológico”: La cátedra estipula agua bidestilada estéril: el suero fisiológico puede cristalizar en la válvula y el microcanal de insuflación y dificultar el desinflado al retirar la sonda.
-112. [ ] “Comienza el procedimiento sin solicitar el consentimiento informado” — GRAVE (desaprueba): El consentimiento informado es un requisito ético y legal previo.
-113. [ ] “Introduce la sonda con guantes no estériles” — GRAVE (desaprueba): La introducción es una maniobra estéril: requiere guantes estériles y campo estéril.
-114. [ ] “Fuerza la sonda al encontrar resistencia” — GRAVE (desaprueba): Forzar puede crear una falsa vía uretral o lacerar la uretra. Ante resistencia se reevalúa.
-115. [ ] “Infla el balón antes de confirmar que sale orina” — GRAVE (desaprueba): Inflar fuera de la vejiga lesiona la uretra. Primero debe fluir orina.
-116. [ ] “Se coloca los guantes estériles sin lavarse las manos” — GRAVE (desaprueba): El lavado de manos con técnica clínica es previo a los guantes estériles.
-117. [ ] “Deja la bolsa colectora apoyada sobre el piso”: Debe colgarse del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso.
-118. [ ] “Deja el prepucio retraído sobre el glande al finalizar”: Puede producir parafimosis: el prepucio debe volver a su lugar.
-119. [ ] “Higieniza la zona genital sin colocarse guantes”: La higiene de la zona se hace con guantes no estériles para proteger al operador.
-120. [ ] “Omite la lubricación de la sonda”: Sin lubricación y anestesia local aumenta el trauma uretral y el dolor.
-121. [ ] “Fija la sonda tensa sobre el abdomen”: La fijación va en la cara interna del muslo, sin tracción sobre la uretra.
-122. [ ] “Registra el procedimiento antes de realizarlo”: El registro se hace al finalizar, con los datos reales de la práctica.
-123. [ ] “Firma el consentimiento en lugar del paciente” — GRAVE (desaprueba): El consentimiento lo firma el paciente (o su representante legal) luego de la explicación.
-124. [ ] “Desecha la sonda abierta y la vuelve a usar” — GRAVE (desaprueba): El material estéril no se reutiliza si se contaminó: se descarta y se abre uno nuevo.
-125. [ ] “Se coloca los guantes estériles tocando el exterior con la piel” — GRAVE (desaprueba): Los guantes estériles se colocan con técnica cerrada, sin tocar su exterior.
-126. [ ] “Infla el balón con aire dentro de la vejiga” — GRAVE (desaprueba): Dentro de la vejiga el balón se infla siempre con líquido (10 cc de agua bidestilada): el líquido es incompresible y mantiene un volumen constante. El aire solo se usa para probar el balón fuera del paciente.
+112. [ ] “Introduce la sonda sin comprobar la indemnidad del balón” — GRAVE (desaprueba): Es criterio de desaprobación: un balón defectuoso puede romperse en la vejiga o no fijar la sonda.
+113. [ ] “Infla el balón con suero fisiológico”: La cátedra estipula agua bidestilada estéril: el suero fisiológico puede cristalizar en la válvula y el microcanal de insuflación y dificultar el desinflado al retirar la sonda.
+114. [ ] “Comienza el procedimiento sin solicitar el consentimiento informado” — GRAVE (desaprueba): El consentimiento informado es un requisito ético y legal previo.
+115. [ ] “Introduce la sonda con guantes no estériles” — GRAVE (desaprueba): La introducción es una maniobra estéril: requiere guantes estériles y campo estéril.
+116. [ ] “Fuerza la sonda al encontrar resistencia” — GRAVE (desaprueba): Forzar puede crear una falsa vía uretral o lacerar la uretra. Ante resistencia se reevalúa.
+117. [ ] “Infla el balón antes de confirmar que sale orina” — GRAVE (desaprueba): Inflar fuera de la vejiga lesiona la uretra. Primero debe fluir orina.
+118. [ ] “Se coloca los guantes estériles sin lavarse las manos” — GRAVE (desaprueba): El lavado de manos con técnica clínica es previo a los guantes estériles.
+119. [ ] “Deja la bolsa colectora apoyada sobre el piso”: Debe colgarse del ganchillo de la cama, por debajo de la vejiga y sin tocar el piso.
+120. [ ] “Deja el prepucio retraído sobre el glande al finalizar”: Puede producir parafimosis: el prepucio debe volver a su lugar.
+121. [ ] “Higieniza la zona genital sin colocarse guantes”: La higiene de la zona se hace con guantes no estériles para proteger al operador.
+122. [ ] “Omite la lubricación de la sonda”: Sin lubricación y anestesia local aumenta el trauma uretral y el dolor.
+123. [ ] “Fija la sonda tensa sobre el abdomen”: La fijación va en la cara interna del muslo, sin tracción sobre la uretra.
+124. [ ] “Registra el procedimiento antes de realizarlo”: El registro se hace al finalizar, con los datos reales de la práctica.
+125. [ ] “Firma el consentimiento en lugar del paciente” — GRAVE (desaprueba): El consentimiento lo firma el paciente (o su representante legal) luego de la explicación.
+126. [ ] “Desecha la sonda abierta y la vuelve a usar” — GRAVE (desaprueba): El material estéril no se reutiliza si se contaminó: se descarta y se abre uno nuevo.
+127. [ ] “Se coloca los guantes estériles tocando el exterior con la piel” — GRAVE (desaprueba): Los guantes estériles se colocan con técnica cerrada, sin tocar su exterior.
+128. [ ] “Infla el balón con aire dentro de la vejiga” — GRAVE (desaprueba): Dentro de la vejiga el balón se infla siempre con líquido (10 cc de agua bidestilada): el líquido es incompresible y mantiene un volumen constante. El aire solo se usa para probar el balón fuera del paciente.
 
 ## F. Preguntas de fundamentos
 
@@ -287,68 +289,68 @@ El texto del paso es de la cátedra. Valido la **explicación** que agregué.
 - **(correcta)** Control estricto de la diuresis en un paciente crítico  
 - Incontinencia urinaria leve sin complicaciones  
 - Comodidad del personal en un paciente autoválido  
-127. [ ] Explicación: En pacientes críticos el control de la diuresis exige medición exacta. La prostatitis aguda es una contraindicación, y la comodidad no es una indicación.
+129. [ ] Explicación: En pacientes críticos el control de la diuresis exige medición exacta. La prostatitis aguda es una contraindicación, y la comodidad no es una indicación.
 
 **Paciente con traumatismo pélvico que presenta sangre en el meato uretral. ¿Qué corresponde?**  
 - Colocar una sonda de menor calibre  
 - Colocar la sonda con abundante lidocaína gel  
 - **(correcta)** No sondar: sospecha de rotura uretral  
 - Colocar la sonda e inflar el balón de inmediato  
-128. [ ] Explicación: La uretrorragia postraumática hace sospechar rotura uretral: es contraindicación absoluta del sondaje a ciegas.
+130. [ ] Explicación: La sangre en el meato tras un trauma pélvico (uretrorragia) hace sospechar una rotura de la uretra: es contraindicación absoluta del sondaje a ciegas. Requiere evaluación urológica (uretrografía retrógrada o cistostomía suprapúbica).
 
 **¿Cuál es una contraindicación absoluta del sondaje vesical?**  
 - **(correcta)** Prostatitis aguda  
 - Retención aguda de orina  
 - Hematuria con coágulos  
 - Cirugía urológica programada  
-129. [ ] Explicación: Prostatitis aguda, uretritis aguda, abscesos periuretrales y sospecha de rotura uretral son contraindicaciones absolutas.
+131. [ ] Explicación: Prostatitis aguda, uretritis aguda, abscesos periuretrales y sospecha de rotura uretral son contraindicaciones absolutas.
 
 **¿Con qué se debe inflar el balón de la sonda una vez dentro de la vejiga?**  
 - Aire  
 - Suero fisiológico  
 - **(correcta)** Agua bidestilada  
 - Solución con lidocaína  
-130. [ ] Explicación: Con 10 cc de agua bidestilada estéril. El aire nunca se usa dentro de la vejiga (solo, 5 cc, para probar el balón fuera del paciente) y el suero fisiológico puede cristalizar en la válvula.
+132. [ ] Explicación: Con 10 cc de agua bidestilada estéril. El aire nunca se usa dentro de la vejiga (solo, 5 cc, para probar el balón fuera del paciente) y el suero fisiológico puede cristalizar en la válvula.
 
 **Luego de drenar de golpe 1200 mL de una vejiga muy distendida, el paciente se hipotensa y presenta hematuria. ¿Cómo se previene?**  
 - **(correcta)** Vaciando de a poco, clampeando la sonda cada 500 mL por unos minutos  
 - Retirando la sonda tras el primer litro  
 - Aumentando el calibre de la sonda  
 - Irrigando la vejiga con agua destilada  
-131. [ ] Explicación: Es la hematuria ex vacuo con hipotensión por descompresión brusca. Se previene con vaciado progresivo.
+133. [ ] Explicación: Es la hematuria ex vacuo con hipotensión por descompresión brusca. Según la cátedra se previene con el vaciado fraccionado: clampear el tubo de la bolsa cada 500 cc durante unos minutos.
 
 **En un varón sondado, ¿qué complicación se evita volviendo el prepucio a su lugar?**  
 - Uretritis  
 - **(correcta)** Parafimosis  
 - Fimosis congénita  
 - Epididimitis  
-132. [ ] Explicación: Si el prepucio queda retraído por detrás del glande, se estrangula y produce parafimosis, una urgencia isquémica.
+134. [ ] Explicación: Si el prepucio queda retraído por detrás del glande, se estrangula y produce parafimosis, una urgencia isquémica.
 
 **Al avanzar la sonda se encuentra resistencia. ¿Qué corresponde?**  
 - Empujar con más fuerza para vencerla  
 - Aumentar el calibre de la sonda  
 - **(correcta)** No forzar y reevaluar para evitar una falsa vía  
 - Inflar el balón para que avance  
-133. [ ] Explicación: Forzar puede crear una falsa vía uretral o lacerar la uretra. En el varón se baja el pene a 45°, se rota suavemente y se pide al paciente que puje o respire profundo.
+135. [ ] Explicación: Forzar puede crear una falsa vía uretral o lacerar la uretra. En el varón se baja el pene a 45°, se rota suavemente y se pide al paciente que puje o respire profundo.
 
 **¿Cuál es una contraindicación relativa del sondaje vesical?**  
 - Retención aguda de orina  
 - **(correcta)** Alergia conocida al látex o a la lidocaína  
 - Control de diuresis  
 - Hematuria con coágulos  
-134. [ ] Explicación: La alergia al látex o a anestésicos locales obliga a usar materiales alternativos; es una contraindicación relativa, igual que la estenosis uretral.
+136. [ ] Explicación: La alergia al látex o a los anestésicos locales exige modificar los insumos (sonda de silicona, lubricante hidrosoluble sin anestésico); es una contraindicación relativa, igual que la estenosis uretral.
 
 
 ## G. Casos clínicos del examen
 
-135. [ ] Mujer de 82 años: Retención aguda de orina luego de una cirugía de cadera. Globo vesical palpable.
-136. [ ] Varón de 76 años: Retención aguda de orina por hiperplasia benigna de próstata. Dolor hipogástrico.
-137. [ ] Mujer de 79 años: Sepsis de foco respiratorio. Requiere control estricto de la diuresis.
-138. [ ] Varón de 71 años: Internado en terapia. Requiere control horario de la diuresis.
-139. [ ] Mujer de 85 años: Retención urinaria por impactación fecal. Se indica sondaje vesical con sonda Foley.
-140. [ ] Varón de 68 años: Postoperatorio de cirugía abdominal mayor. Se indica sonda vesical para el control de la diuresis.
+137. [ ] Mujer de 82 años: Retención aguda de orina luego de una cirugía de cadera. Globo vesical palpable.
+138. [ ] Varón de 76 años: Retención aguda de orina por hiperplasia benigna de próstata. Dolor hipogástrico.
+139. [ ] Mujer de 79 años: Sepsis de foco respiratorio. Requiere control estricto de la diuresis.
+140. [ ] Varón de 71 años: Internado en terapia. Requiere control horario de la diuresis.
+141. [ ] Mujer de 85 años: Retención urinaria por impactación fecal. Se indica sondaje vesical con sonda Foley.
+142. [ ] Varón de 68 años: Postoperatorio de cirugía abdominal mayor. Se indica sonda vesical para el control de la diuresis.
 
 ## H. Reglas de desaprobación
 
-141. [ ] Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles con técnica cerrada (14) o el registro (30). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.
-142. [ ] Umbral de aprobación: 60 % (además de no fallar ningún crítico).
+143. [ ] Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles con técnica cerrada (14) o el registro (30). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.
+144. [ ] Umbral de aprobación: 60 % (además de no fallar ningún crítico).
