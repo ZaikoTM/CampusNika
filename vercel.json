@@ -68,7 +68,43 @@
       ]
     },
     {
-      "source": "/(acreditaciones\\.html|js/acreditaciones/(.*)|data/acreditaciones/(.*)|css/acreditaciones\\.css|assets/instrumental/(.*))",
+      "source": "/acreditaciones.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/js/acreditaciones/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/data/acreditaciones/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/css/acreditaciones.css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/instrumental/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
