@@ -892,3 +892,31 @@ body.acr-sin-fs .acr-full-fab, body.acr-sin-fs [data-tool="full"] { display: non
 .mon-dock .mon-num small { font-size: .6rem; }
 .mon-dock .mon-num > div { padding-top: 2px; padding-bottom: 2px; }
 .mon-dock .defi-tit, .mon-dock .defi-est { font-size: .75rem; }
+
+/* ===== Artrocentesis: contador de mL aspirados y tubos animados (llenado, rótulo, envío al laboratorio) ===== */
+.acr3d-vp .art-hud { position: absolute; left: 12px; bottom: 58px; z-index: 6; display: flex; align-items: baseline; gap: 6px; padding: 7px 12px; border-radius: 12px; background: linear-gradient(135deg, rgba(8,145,178,.92), rgba(13,148,136,.92)); color: #fff; font-weight: 800; box-shadow: 0 8px 22px rgba(0,0,0,.35); opacity: 0; transform: translateY(8px) scale(.96); transition: .35s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+.acr3d-vp .art-hud[data-on="1"] { opacity: 1; transform: none; }
+.art-hud b { font-size: 1.35rem; min-width: 1.4em; text-align: right; font-variant-numeric: tabular-nums; } .art-hud span { font-size: .74rem; letter-spacing: .04em; } .art-hud small { opacity: .85; }
+.acr3d-vp .art-tubos { position: absolute; right: 10px; top: 62px; z-index: 6; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; opacity: 0; transform: translateX(26px); transition: .45s ease; pointer-events: none; }
+.acr3d.s-tubos .art-tubos { opacity: 1; transform: none; }
+.art-rack { display: flex; gap: 9px; padding: 14px 10px 24px; border-radius: 14px; background: rgba(8,18,30,.78); border: 1px solid rgba(125,211,252,.28); box-shadow: 0 10px 26px rgba(0,0,0,.4); backdrop-filter: blur(3px); }
+.art-rack .tb { position: relative; width: 20px; height: 62px; border: 1.5px solid #8fbfd1; border-top: 0; border-radius: 0 0 11px 11px; background: rgba(255,255,255,.1); }
+.art-rack .tb .cap { position: absolute; top: -8px; left: -3px; right: -3px; height: 10px; border-radius: 4px; background: #16a34a; box-shadow: inset 0 -2px 0 rgba(0,0,0,.18); }
+.art-rack .t1 .cap { background: #dc2626; } .art-rack .t2 .cap { background: #facc15; }
+.art-rack .tb .liq { position: absolute; left: 1px; right: 1px; bottom: 1px; height: 0; border-radius: 0 0 9px 9px; background: linear-gradient(180deg, color-mix(in srgb, var(--liq, #f5e27a) 80%, #fff), var(--liq, #f5e27a)); }
+.acr3d.s-tubos .art-rack .tb .liq { animation: art-llena 1.3s cubic-bezier(.3,.7,.3,1) forwards; }
+.acr3d.s-tubos .art-rack .t1 .liq { animation-delay: .2s; } .acr3d.s-tubos .art-rack .t2 .liq { animation-delay: .9s; } .acr3d.s-tubos .art-rack .t3 .liq { animation-delay: 1.6s; } .acr3d.s-tubos .art-rack .t4 .liq { animation-delay: 2.3s; --h: 50%; }
+.acr3d[data-vol="escaso"].s-tubos .art-rack .t1 .liq { --h: 18%; } .acr3d[data-vol="escaso"].s-tubos .art-rack .t3 .liq { --h: 30%; }
+.acr3d[data-vol="escaso"] .art-rack .t2, .acr3d[data-vol="escaso"] .art-rack .t4 { opacity: .25; }
+.art-rack .tb { --h: 70%; }
+@keyframes art-llena { from { height: 0; } to { height: var(--h); } }
+.art-rack .tb span { position: absolute; top: 68px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 8px; font-weight: 700; color: #cfeff5; letter-spacing: .02em; }
+.art-rack .tb .rot { position: absolute; left: -4px; right: -4px; top: 18px; height: 20px; background: #fff; color: #0f172a; border-radius: 3px; font-size: 6px; font-weight: 800; display: flex; align-items: center; justify-content: center; font-style: normal; transform: scaleX(0); transform-origin: left center; transition: transform .45s cubic-bezier(.34,1.4,.64,1); box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+.acr3d.s-rotulo .art-rack .tb .rot { transform: scaleX(1); } .acr3d.s-rotulo .art-rack .t2 .rot { transition-delay: .15s; } .acr3d.s-rotulo .art-rack .t3 .rot { transition-delay: .3s; } .acr3d.s-rotulo .art-rack .t4 .rot { transition-delay: .45s; }
+.art-lab { display: flex; flex-direction: column; align-items: center; padding: 7px 14px; border-radius: 12px; background: linear-gradient(135deg, #0d9488, #0891b2); color: #fff; box-shadow: 0 8px 20px rgba(0,0,0,.35); opacity: 0; transform: translateY(8px) scale(.9); transition: .45s cubic-bezier(.34,1.56,.64,1); }
+.art-lab b { font-size: .78rem; } .art-lab small { font-size: .68rem; opacity: .9; }
+.acr3d.s-envio .art-lab { opacity: 1; transform: none; transition-delay: 1s; }
+.acr3d.s-envio .art-rack { animation: art-envia 1.5s cubic-bezier(.55,0,.8,.4) forwards; }
+@keyframes art-envia { 0% { transform: none; opacity: 1; } 60% { transform: translateY(24px) scale(.9); opacity: 1; } 100% { transform: translateY(70px) scale(.5); opacity: 0; } }
+@media (max-width: 640px) { .acr3d-vp .art-tubos { top: auto; bottom: 108px; } .art-rack .tb span { display: none; } .art-rack { padding-bottom: 12px; } }
+@media (orientation: landscape) and (max-height: 560px) { .acr3d-vp .art-tubos { top: 52px; transform-origin: top right; } .art-rack .tb { height: 44px; } .art-rack .tb span { top: 48px; font-size: 7px; } .art-hud { bottom: 54px; } }

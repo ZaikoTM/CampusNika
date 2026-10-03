@@ -340,7 +340,142 @@ export class MedicalProcedureViewer {
         };
         C.inst.push(ent);
       }
-      // otros tipos (aguja, catéter…) se agregan aquí con su propia animación
+      if (ins.tipo === 'artro') {
+        const A = cfg.artro; const E = V(...A.entrada), Dn = V(...A.dentro); const dir = Dn.clone().sub(E); const prof = dir.length(); dir.normalize();
+        const root = new THREE.Group(); C.capas.sonda.add(root);
+        const qd = new THREE.Quaternion().setFromUnitVectors(V(1, 0, 0), dir);
+        const mat = (c, o, ex) => { const m = this.material(c, o, 'sonda', Object.assign({ depthWrite: true }, ex || {})); m.depthTest = false; return m; };
+        const cx = (r, rb) => { const g = new THREE.CylinderGeometry(r, rb === undefined ? r : rb, 1, 20); g.rotateZ(Math.PI / 2); return g; };    // eje a lo largo de +X, largo 1
+        const mAc = mat('#d5dde5', 1, { metalness: 0.5, roughness: 0.22, clearcoat: 0.6, emissive: 0x3b4d63, emissiveIntensity: 0.45 });
+        const mVid = mat('#dff3fb', 0.42, { roughness: 0.1, emissive: 0x7dd3fc, emissiveIntensity: 0.18 }); mVid.depthWrite = false;
+        const mHub = mat('#16a34a', 1, { emissive: 0x16a34a, emissiveIntensity: 0.35 });
+        const mLiq = mat('#f5e27a', 0.9, { emissive: 0xf5e27a, emissiveIntensity: 0.22 });
+        const mPl = mat('#e2e8f0', 1, { roughness: 0.4, emissive: 0x3b4d63, emissiveIntensity: 0.4 });
+        const jer = new THREE.Group(); jer.quaternion.copy(qd); jer.visible = false; root.add(jer);
+        const aguja = new THREE.Mesh(cx(0.07), mAc); jer.add(aguja);                              // aguja (punta en el origen, hacia -x)
+        const cono = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.2, 0.7, 16).rotateZ(Math.PI / 2), mHub); jer.add(cono);
+        const barril = new THREE.Mesh(cx(0.55), mVid); jer.add(barril);
+        const liq = new THREE.Mesh(cx(0.5), mLiq); jer.add(liq);
+        const bridas = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 0.95, 0.12, 20).rotateZ(Math.PI / 2), mPl); jer.add(bridas);
+        const varilla = new THREE.Mesh(cx(0.14), mPl); jer.add(varilla);
+        const piston = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.35, 16).rotateZ(Math.PI / 2), mat('#334155', 1)); jer.add(piston);
+        const pulgar = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 0.15, 18).rotateZ(Math.PI / 2), mPl); jer.add(pulgar);
+        const llave = new THREE.Group(); llave.visible = false; jer.add(llave);                  // llave de 3 vías (para el derrame importante)
+        llave.add(new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.9, 14), mat('#38bdf8', 1, { emissive: 0x0284c7, emissiveIntensity: 0.4 })));
+        const palanca = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.16, 0.2), mat('#1d4ed8', 1)); palanca.position.y = 0.55; llave.add(palanca);
+        const dims = { aneste: { L: 2.8, Lb: 4.4, rb: 0.5, hub: '#f59e0b' }, extrae: { L: 4.2, Lb: 5.0, rb: 0.55, hub: '#16a34a' }, grande: { L: 4.2, Lb: 7.2, rb: 0.95, hub: '#16a34a' } };
+        let tipo = ''; let Lc = 4.2, Lbc = 5;
+        const armar = (k) => {
+          if (tipo === k) return; tipo = k; const d = dims[k]; Lc = d.L; Lbc = d.Lb;
+          aguja.scale.x = d.L; aguja.position.x = -d.L / 2; cono.position.x = -d.L - 0.35; mHub.color.set(d.hub); mHub.emissive.set(d.hub);
+          barril.scale.set(d.Lb, d.rb / 0.55, d.rb / 0.55); barril.position.x = -d.L - 0.7 - d.Lb / 2; liq.scale.set(0.001, d.rb / 0.5 * 0.88, d.rb / 0.5 * 0.88);
+          bridas.position.x = -d.L - 0.7 - d.Lb; bridas.scale.set(1, d.rb / 0.55 * 1.0, d.rb / 0.55 * 1.0);
+          piston.scale.set(1, d.rb / 0.5 * 0.98, d.rb / 0.5 * 0.98); llave.position.x = -d.L - 0.25;
+        };
+        armar('extrae');
+        // ---- derrame (elipsoide en el receso suprarrotuliano), roncha anestésica, marcador del sitio, paño fenestrado, antisepsia y apósito
+        const dc = V(...A.derrame_centro), dr = A.derrame_radios;
+        const mDer = this.material('#f5e27a', 0.52, 'organos', { roughness: 0.08, clearcoat: 1, emissive: 0xf5e27a, emissiveIntensity: 0.28, depthWrite: false });
+        const der = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 22), mDer); der.position.copy(dc); der.scale.set(...dr); C.capas.organos.add(der); der.userData.capa = 'organos'; der.renderOrder = 3;
+        const mRon = mat('#fff1ea', 0.9, { emissive: 0xffd9c9, emissiveIntensity: 0.3 });
+        const ronc = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), mRon); ronc.position.set(A.lateral_x + 0.12, E.y, E.z); ronc.scale.setScalar(0.001); root.add(ronc);
+        const mMarca = mat('#34d399', 0.95, { emissive: 0x10b981, emissiveIntensity: 0.9 });
+        const marca = new THREE.Mesh(new THREE.TorusGeometry(1.15, 0.12, 10, 36), mMarca); marca.position.set(A.lateral_x - 0.05, E.y, E.z); marca.rotation.y = Math.PI / 2; marca.visible = false; root.add(marca);
+        const mRoj = mat('#ef4444', 0.95, { emissive: 0xdc2626, emissiveIntensity: 0.9 });
+        const prohib = new THREE.Group(); prohib.position.set(A.lateral_x - 0.1, E.y, E.z); prohib.rotation.y = Math.PI / 2; prohib.visible = false; root.add(prohib);
+        prohib.add(new THREE.Mesh(new THREE.TorusGeometry(2.4, 0.2, 10, 40), mRoj)); { const bar = new THREE.Mesh(new THREE.BoxGeometry(5, 0.4, 0.2), mRoj); bar.rotation.z = Math.PI / 4; prohib.add(bar); }
+        const mCel = mat('#f87171', 0.45, { emissive: 0xdc2626, emissiveIntensity: 0.5 });
+        const celu = new THREE.Mesh(new THREE.CircleGeometry(4.2, 36), mCel); celu.position.set(A.lateral_x + 0.03, E.y + 0.6, E.z + 0.4); celu.rotation.y = -Math.PI / 2; celu.visible = false; root.add(celu);
+        const plano = (o) => { o.rotation.y = -Math.PI / 2; return o; };                       // lámina que mira hacia el lateral (-x)
+        const mA1 = mat('#b45309', 0.5, { emissive: 0xb45309, emissiveIntensity: 0.25 });
+        const a1 = []; [[6.8, 0], [5.4, 1.2], [6.2, 2.1]].forEach(([r, d]) => { const m = plano(new THREE.Mesh(new THREE.CircleGeometry(r, 40), mA1)); m.position.set(A.lateral_x + 0.06, E.y + d * 0.2, E.z + d * 0.15); m.scale.setScalar(0.001); m.visible = false; root.add(m); a1.push(m); });
+        const mA2 = mat('#d97706', 0.78, { emissive: 0xf59e0b, emissiveIntensity: 0.55 });
+        const a2 = []; for (let i = 0; i < 6; i++) { const m = plano(new THREE.Mesh(new THREE.RingGeometry(0.7 + i * 0.8, 0.7 + i * 0.8 + 0.22, 48), mA2)); m.position.set(A.lateral_x + 0.05, E.y, E.z); m.scale.setScalar(0.001); m.visible = false; root.add(m); a2.push(m); }
+        const sh = new THREE.Shape(); sh.moveTo(-11, -11); sh.lineTo(11, -11); sh.lineTo(11, 11); sh.lineTo(-11, 11); sh.lineTo(-11, -11);
+        const hole = new THREE.Path(); hole.absarc(0, 0, 6.2, 0, Math.PI * 2, true); sh.holes.push(hole);
+        const mPano = this.material('#5fd0c0', 0.94, 'sonda', { roughness: 0.8, clearcoat: 0, emissive: 0x0f766e, emissiveIntensity: 0.22, depthWrite: true });
+        const pano = plano(new THREE.Mesh(new THREE.ShapeGeometry(sh, 40), mPano)); pano.position.set(A.lateral_x - 0.28, E.y, E.z); pano.scale.setScalar(0.001); pano.visible = false; root.add(pano);
+        const mApo = mat('#f8fafc', 1, { emissive: 0xe2e8f0, emissiveIntensity: 0.35 });
+        const apos = new THREE.Group(); apos.position.set(A.lateral_x - 0.12, E.y, E.z); apos.visible = false; root.add(apos);
+        { const pad = plano(new THREE.Mesh(new THREE.PlaneGeometry(6, 5), mApo)); apos.add(pad); const gasa = plano(new THREE.Mesh(new THREE.PlaneGeometry(2.6, 2.6), mat('#cbd5e1', 1))); gasa.position.x = -0.03; apos.add(gasa);
+          [-2.2, 2.2].forEach((dz) => { const t = plano(new THREE.Mesh(new THREE.PlaneGeometry(1.1, 7.4), mat('#fde68a', 0.95))); t.position.z = dz; t.position.x = -0.02; apos.add(t); }); }
+        // frasco colector con tubo (derrame importante)
+        const bot = new THREE.Group(); bot.position.set(A.lateral_x - 8.5, E.y - 7.5, E.z - 1); bot.visible = false; root.add(bot);
+        const bFr = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.1, 6.2, 22), mat('#dff3fb', 0.4, { roughness: 0.1 })); bFr.material.depthWrite = false; bot.add(bFr);
+        const bTapa = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 0.8, 18), mat('#2563eb', 1)); bTapa.position.y = 3.5; bot.add(bTapa);
+        const bLiq = new THREE.Mesh(new THREE.CylinderGeometry(1.95, 1.95, 1, 22), mLiq); bLiq.scale.y = 0.001; bot.add(bLiq);
+        let tubo = null;
+        const ent = { tipo: ins.tipo, cat: { goal: 0 }, st: {}, root: null, jer, der };
+        ent.sync = (has, raiz) => {
+          const c = ins.clases; ent.st = {}; Object.keys(c).forEach((k) => { ent.st[k] = has(c[k]); }); ent.st.expo = has('s-expo'); ent.raiz = raiz || ent.raiz;
+          if (ent.raiz) { const cs = getComputedStyle(ent.raiz); const col = (cs.getPropertyValue('--liq') || '').trim(); if (col) { mDer.color.set(col); mDer.emissive.set(col); mLiq.color.set(col); mLiq.emissive.set(col); }
+            ent.vol = ent.raiz.dataset.vol || 'moderado'; ent.ml = parseFloat(ent.raiz.dataset.ml || '30') || 30; ent.contra = (ent.raiz.dataset.contra || '').toLowerCase(); }
+        };
+        let depth = -9, asp = 0, ultimo = 0, fill = 0, base = 1, rt = 0;
+        const ease = (a, b, k) => a + (b - a) * k;
+        ent.tick = (t) => {
+          const dt = ultimo ? Math.min(0.1, (t - ultimo) / 1000) : 0.016; ultimo = t; const s = ent.st; const k = 1 - Math.exp(-dt * 6);
+          const vol = ent.vol || 'moderado'; const ml = vol === 'escaso' ? 6 : (ent.ml || 30); const contra = !!s.contra;
+          // derrame
+          const baseSc = vol === 'grande' ? 1.38 : vol === 'escaso' ? 0.34 : 1; const tglt = !!ent.contra && !s.contra ? 0.95 : 1;
+          let fr = 0; if (s.vacio) fr = 0.94; else if (s.evac) fr = 0.5; else if (s.aspira) fr = 0.08;
+          const aspMeta = s.vacio ? ml : s.evac ? ml * 0.55 : s.aspira ? Math.min(3, ml * 0.2) : 0;
+          if (!s.aspira) asp = 0; else asp = ease(asp, aspMeta, 1 - Math.exp(-dt * (vol === 'grande' ? 0.9 : 1.4)));
+          const sc = baseSc * tglt * (1 - (asp / Math.max(1, ml)) * 0.93);
+          der.scale.set(dr[0] * (0.25 + 0.75 * Math.min(1, sc)), dr[1] * (0.3 + 0.7 * Math.min(1, sc)), dr[2] * (0.2 + 0.8 * Math.min(1, sc))); der.visible = !(vol === 'escaso' && !s.aspira && false);
+          mDer.opacity = 0.5 * Math.min(1, 0.2 + sc) ;
+          // HUD de mL aspirados
+          if (ent.raiz) { const hud = ent.raiz.querySelector('.art-hud'); if (hud) { hud.dataset.on = asp > 0.2 ? '1' : '0'; const b = hud.querySelector('.art-ml'); if (b) b.textContent = Math.round(asp); } }
+          // roncha, marcador, rechazo
+          const ronGoal = s.anest ? 1 : 0; const rs = ronc.scale.x; ronc.scale.setScalar(ease(rs, ronGoal * 0.55, k) + (ronGoal ? 0 : 0.0005));
+          marca.visible = (s.sitio && !s.a1 && !contra) || false; if (marca.visible) { const p = 1 + 0.18 * Math.sin(t / 220); marca.scale.setScalar(p); }
+          prohib.visible = contra; if (contra) prohib.scale.setScalar(1 + 0.08 * Math.sin(t / 200));
+          celu.visible = !!ent.contra && ent.contra.indexOf('celulitis') >= 0 && (s.expo || contra);
+          // antisepsia, campo y apósito
+          a1.forEach((m, i) => { const on = s.a1 ? 1 : 0; m.visible = on > 0 || m.scale.x > 0.01; m.scale.setScalar(ease(m.scale.x, on, 1 - Math.exp(-dt * (2.2 - i * 0.4)))); });
+          a2.forEach((m, i) => { const on = s.a2 ? 1 : 0; m.visible = on > 0 || m.scale.x > 0.01; const kk = on ? 1 - Math.exp(-dt * Math.max(0.35, 3.2 - i * 0.55)) : 0.3; m.scale.setScalar(ease(m.scale.x, on, kk)); });
+          pano.visible = s.pano || pano.scale.x > 0.02; pano.scale.setScalar(ease(pano.scale.x, s.pano ? 1 : 0.001, 1 - Math.exp(-dt * 3.5)));
+          apos.visible = !!s.apos;
+          // jeringa
+          let goal = -9; let want = 'extrae'; let pl = 0;
+          if (contra) { goal = -9; }
+          else if (s.anest && !s.aguja) { want = 'aneste'; if (s.espera) goal = -9; else { rt += dt; goal = 0.5 + 1.7 * (0.5 + 0.5 * Math.sin(rt * 1.4)); pl = 0.35 + 0.3 * Math.sin(rt * 1.4); } }
+          else if (s.aguja && !s.punza) { goal = -5.5; }
+          else if (s.punza && !s.dentro) { goal = prof * 0.5; }
+          else if (s.dentro && !s.retira) { goal = prof; }
+          else if (s.retira) { goal = -9; }
+          if (s.llave) want = 'grande';
+          armar(want);
+          depth = ease(depth, goal, 1 - Math.exp(-dt * (s.punza ? 2.4 : 4)));
+          const visible = depth > -8.5 && (s.anest || s.aguja) && !contra;
+          jer.visible = visible; jer.position.copy(E).addScaledVector(dir, depth);
+          // llenado del barril y émbolo
+          let fl = 0;
+          if (want === 'aneste') fl = 0.5 - pl * 0.5;
+          else if (s.llave && s.evac && !s.vacio) fl = 0.5 + 0.5 * Math.sin(t / 700);
+          else fl = Math.min(1, asp / (want === 'grande' ? 20 : 10));
+          fill = ease(fill, fl, 1 - Math.exp(-dt * 6));
+          liq.visible = !(want === 'aneste') || true; mLiq.color.set(want === 'aneste' ? '#f1f5f9' : mLiq.color.getStyle());
+          const Lb = Lbc; liq.scale.x = Math.max(0.001, Lb * (want === 'aneste' ? 0.55 : fill)); liq.position.x = -Lc - 0.7 - liq.scale.x / 2;
+          const px = -Lc - 0.7 - Lb * (want === 'aneste' ? 0.35 + 0.4 * (pl) : Math.max(0.02, fill));
+          piston.position.x = px; varilla.scale.x = Lb + 0.6; varilla.position.x = px - (Lb + 0.6) / 2; pulgar.position.x = px - Lb - 0.6; bridas.position.x = -Lc - 0.7 - Lb;
+          llave.visible = !!s.llave;
+          // frasco colector
+          bot.visible = !!s.llave && !contra;
+          if (bot.visible) {
+            bLiq.scale.y = Math.max(0.001, 5.6 * Math.min(1, asp / Math.max(1, ml))); bLiq.position.y = -3.1 + bLiq.scale.y / 2;
+            if (!tubo) {
+              const h = E.clone().addScaledVector(dir, prof).addScaledVector(dir, -(Lc + 0.25));
+              const p0 = h, p3 = new THREE.Vector3(bot.position.x, bot.position.y + 3.9, bot.position.z);
+              const cur = new THREE.CatmullRomCurve3([p0, p0.clone().add(V(-1.6, 0.4, 0.5)), V((p0.x + p3.x) / 2 - 1.5, (p0.y + p3.y) / 2 + 0.3, (p0.z + p3.z) / 2 + 0.4), p3]);
+              tubo = new THREE.Mesh(new THREE.TubeGeometry(cur, 40, 0.14, 8, false), mat('#bae6fd', 0.8, { emissive: 0x38bdf8, emissiveIntensity: 0.3 })); root.add(tubo);
+            }
+            tubo.visible = true;
+          } else if (tubo) tubo.visible = false;
+        };
+        C.inst.push(ent);
+      }
+      // otros tipos (catéter…) se agregan aquí con su propia animación
     });
   }
 
@@ -535,7 +670,7 @@ export class MedicalProcedureViewer {
     if (!this.C) return;
     const has = (k) => root.classList.contains(k);
     this.C.inst.forEach((s) => {
-      if (s.sync) { s.sync(has); return; }
+      if (s.sync) { s.sync(has, root); return; }
       if (s.dedo) { s.cat.goal = has(s.clases.avance) && !has(s.clases.retira) ? 1 : 0; s.dedo.barr = has(s.clases.barrido) && s.cat.goal > 0; return; }
       s.cat.goal = has(s.clases.avance) ? 1 : 0; s.bal.goal = has(s.clases.inflar) ? 1.3 : 0.001; s.bolsa.goal = has(s.clases.bolsa) ? 1 : 0.001; });
   }

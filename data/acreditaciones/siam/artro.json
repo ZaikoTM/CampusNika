@@ -1,0 +1,2970 @@
+{
+ "id": "artro",
+ "area": "siam",
+ "titulo": "Artrocentesis",
+ "icono": "🦵",
+ "resumen": "Recorrido virtual de la artrocentesis de rodilla con 45 pasos de la lista de cotejo de la cátedra: asepsia, anestesia por planos, punción supero-lateral, fraccionamiento del líquido en tubos y contraindicaciones.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Artrocentesis (45 ítems)",
+ "elementos": {
+  "ambiente": {
+   "nombre": "Ambiente",
+   "desc": "Consultorio limpio, con buena luz, privacidad y temperatura agradable.",
+   "pasos": [
+    1
+   ]
+  },
+  "solicitud": {
+   "nombre": "Solicitud médica",
+   "desc": "Orden e historia clínica: articulación, lado afectado y motivo de la artrocentesis.",
+   "pasos": [
+    2
+   ]
+  },
+  "mesa": {
+   "nombre": "Mesa de transporte",
+   "desc": "Reúne todo el material y se ubica cerca de la camilla, del lado de la mano hábil.",
+   "pasos": [
+    3,
+    4
+   ]
+  },
+  "paciente": {
+   "nombre": "Paciente",
+   "desc": "Se lo saluda, se confirma su identidad, se indaga y se le explica el procedimiento; después se lo ubica en decúbito dorsal.",
+   "pasos": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    36,
+    38,
+    39,
+    40
+   ]
+  },
+  "tensio": {
+   "nombre": "Tensiómetro",
+   "desc": "Presión arterial previa para constatar la estabilidad hemodinámica.",
+   "pasos": [
+    12
+   ]
+  },
+  "rodilla": {
+   "nombre": "Rodilla",
+   "desc": "Se explora: piel sana, calor, choque rotuliano y movilidad.",
+   "pasos": [
+    13,
+    14,
+    15.5
+   ]
+  },
+  "sitio": {
+   "nombre": "Sitio de punción",
+   "desc": "Región supero-lateral externa de la rodilla, por debajo del borde superior de la rótula, con la aguja horizontal.",
+   "pasos": [
+    15,
+    16,
+    20,
+    21,
+    23,
+    24,
+    26,
+    32,
+    33,
+    34
+   ]
+  },
+  "manos": {
+   "nombre": "Manos",
+   "desc": "Lavado de manos con técnica clínica antes de los guantes y al finalizar.",
+   "pasos": [
+    17,
+    43
+   ]
+  },
+  "guantes": {
+   "nombre": "Guantes",
+   "desc": "Guantes con técnica aséptica; al final se retiran evertidos.",
+   "pasos": [
+    18,
+    42
+   ]
+  },
+  "campo": {
+   "nombre": "Paño fenestrado estéril",
+   "desc": "Delimita el campo con la ventana sobre el sitio de punción.",
+   "pasos": [
+    19
+   ]
+  },
+  "jeringa": {
+   "nombre": "Jeringa y aguja",
+   "desc": "Jeringa de 10 cc con lidocaína 1 % (aguja fina) para anestesiar; aguja 21 G para extraer el líquido.",
+   "pasos": [
+    22,
+    25,
+    28,
+    29,
+    30,
+    30.5,
+    31
+   ]
+  },
+  "receso": {
+   "nombre": "Receso suprarrotuliano",
+   "desc": "Bolsa de la cápsula articular donde se acumula el derrame y a la que llega la aguja.",
+   "pasos": [
+    27
+   ]
+  },
+  "tubos": {
+   "nombre": "Tubos estériles",
+   "desc": "Dos sin heparina (Gram/cultivo y cristales) y uno o dos con heparina (recuento celular y fisicoquímico).",
+   "pasos": [
+    35,
+    35.1,
+    37
+   ]
+  },
+  "descarte": {
+   "nombre": "Descartador y bolsa roja",
+   "desc": "Cortopunzantes sin reencapuchar y residuos patogénicos.",
+   "pasos": [
+    41
+   ]
+  },
+  "hc": {
+   "nombre": "Historia clínica",
+   "desc": "Registro del procedimiento, el volumen, el aspecto del líquido y las indicaciones.",
+   "pasos": [
+    44
+   ]
+  },
+  "lab": {
+   "nombre": "Laboratorio",
+   "desc": "Microbiología, cristales con luz polarizada y citología.",
+   "pasos": [
+    45
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Punza sin haberse lavado las manos o sin colocarse guantes",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el lavado de manos y los guantes son la barrera contra una artritis séptica iatrogénica.",
+   "target": "manos",
+   "claves": [
+    [
+     "sin lavarme"
+    ],
+    [
+     "sin guantes"
+    ],
+    [
+     "sin colocarme guantes"
+    ],
+    [
+     "sin ponerme guantes"
+    ],
+    [
+     "no me lavo"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Punza sin colocar el paño fenestrado (sin campo estéril)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el paño fenestrado delimita el campo estéril.",
+   "target": "campo",
+   "claves": [
+    [
+     "sin pano"
+    ],
+    [
+     "sin campo esteril"
+    ],
+    [
+     "sin colocar el pano"
+    ],
+    [
+     "no coloco el pano"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Hace la antisepsia desde la periferia hacia el centro, o la repite sobre zonas ya limpias",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la antisepsia va del centro hacia afuera, en círculos excéntricos, para no arrastrar flora de la periferia al punto de punción.",
+   "target": "sitio",
+   "claves": [
+    [
+     "desde la periferia"
+    ],
+    [
+     "de afuera hacia adentro"
+    ],
+    [
+     "de la periferia al centro"
+    ],
+    [
+     "hacia el centro"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Elige un sitio de punción incorrecto (tendón rotuliano, cavidad poplítea o cara medial)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el sitio es la región supero-lateral externa, de mayor distensión de la cápsula.",
+   "target": "sitio",
+   "claves": [
+    [
+     "tendon rotuliano"
+    ],
+    [
+     "cavidad poplitea"
+    ],
+    [
+     "hueco popliteo"
+    ],
+    [
+     "cara medial"
+    ],
+    [
+     "por detras de la rodilla"
+    ],
+    [
+     "linea media de la rodilla"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Introduce la aguja oblicua o avanza con fuerza",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la aguja entra horizontal y se avanza lentamente; forzarla lesiona el cartílago o provoca una hemartrosis iatrogénica.",
+   "target": "sitio",
+   "claves": [
+    [
+     "aguja oblicua"
+    ],
+    [
+     "de forma oblicua"
+    ],
+    [
+     "con fuerza"
+    ],
+    [
+     "enrgicamente"
+    ],
+    [
+     "energicamente"
+    ],
+    [
+     "de golpe"
+    ],
+    [
+     "hacia abajo con fuerza"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Inyecta la anestesia sin aspirar antes",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: siempre se aspira antes de inyectar para descartar la punción de un vaso (inyección intravascular).",
+   "target": "jeringa",
+   "claves": [
+    [
+     "sin aspirar"
+    ],
+    [
+     "no aspiro antes"
+    ],
+    [
+     "sin retraer el embolo antes"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Usa lidocaína con epinefrina",
+   "critico": false,
+   "porque": "En la artrocentesis se usa lidocaína al 1 % SIN vasoconstrictor.",
+   "target": "jeringa",
+   "claves": [
+    [
+     "con epinefrina"
+    ],
+    [
+     "con adrenalina"
+    ],
+    [
+     "con vasoconstrictor"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "Inyecta un corticoide intraarticular en la punción diagnóstica",
+   "critico": false,
+   "porque": "No corresponde en una artrocentesis diagnóstica: primero se estudia el líquido; el corticoide está contraindicado si se sospecha infección.",
+   "target": "jeringa",
+   "claves": [
+    [
+     "corticoide"
+    ],
+    [
+     "metilprednisolona"
+    ],
+    [
+     "betametasona"
+    ],
+    [
+     "dexametasona"
+    ]
+   ]
+  },
+  {
+   "id": "d9",
+   "texto": "Realiza la punción a pesar de una contraindicación",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: ante celulitis en el sitio, coagulopatía grave, alergia a anestésicos o prótesis articular, se suspende, se informa y se deriva.",
+   "target": "rodilla",
+   "claves": [
+    [
+     "a pesar"
+    ],
+    [
+     "pese a"
+    ],
+    [
+     "igual",
+     "puncion"
+    ],
+    [
+     "igual",
+     "aguja"
+    ],
+    [
+     "igual",
+     "anestesia"
+    ],
+    [
+     "de todas maneras"
+    ],
+    [
+     "continuo con la puncion"
+    ],
+    [
+     "comienzo la puncion"
+    ],
+    [
+     "inicio la puncion"
+    ],
+    [
+     "introduzco la aguja"
+    ],
+    [
+     "infiltro"
+    ],
+    [
+     "anestesio"
+    ]
+   ],
+   "solo_contra": true
+  },
+  {
+   "id": "d10",
+   "texto": "Reencapucha la aguja usada",
+   "critico": false,
+   "porque": "No se reencapucha: la aguja usada va directamente al descartador rígido.",
+   "target": "descarte",
+   "claves": [
+    [
+     "reencapucho"
+    ],
+    [
+     "vuelvo a tapar la aguja"
+    ],
+    [
+     "tapo la aguja"
+    ]
+   ]
+  },
+  {
+   "id": "d11",
+   "texto": "Descarta la aguja en la bolsa de residuos común o patogénica",
+   "critico": false,
+   "porque": "Los cortopunzantes van al descartador rígido, nunca a la bolsa.",
+   "target": "descarte",
+   "claves": [
+    [
+     "aguja en la bolsa"
+    ],
+    [
+     "aguja en el tacho"
+    ],
+    [
+     "aguja en la basura"
+    ],
+    [
+     "aguja en el cesto"
+    ]
+   ]
+  },
+  {
+   "id": "d12",
+   "texto": "Coloca todo el líquido en un solo tubo",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la muestra se fracciona en 3 o 4 tubos, con y sin heparina, según el estudio.",
+   "target": "tubos",
+   "claves": [
+    [
+     "un solo tubo"
+    ],
+    [
+     "todo en un tubo"
+    ],
+    [
+     "todo el liquido en un tubo"
+    ],
+    [
+     "solo un tubo"
+    ]
+   ]
+  },
+  {
+   "id": "d13",
+   "texto": "Usa tubos con heparina para el cultivo",
+   "critico": false,
+   "porque": "La heparina interfiere con los estudios microbiológicos: Gram y cultivo van en tubo SIN heparina.",
+   "target": "tubos",
+   "claves": [
+    [
+     "cultivo",
+     "con heparina"
+    ],
+    [
+     "gram",
+     "con heparina"
+    ],
+    [
+     "cultivo en el tubo con heparina"
+    ]
+   ]
+  },
+  {
+   "id": "d14",
+   "texto": "No rotula los tubos",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: una muestra sin rótulo no se procesa y puede confundirse.",
+   "target": "tubos",
+   "claves": [
+    [
+     "sin rotular"
+    ],
+    [
+     "no rotulo"
+    ],
+    [
+     "sin etiquetar"
+    ],
+    [
+     "no etiqueto"
+    ]
+   ]
+  },
+  {
+   "id": "d15",
+   "texto": "No informa las pautas de alarma",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: fiebre, enrojecimiento, calor, dolor intenso o aumento rápido del volumen obligan a consultar de inmediato.",
+   "target": "paciente",
+   "claves": [
+    [
+     "sin pautas de alarma"
+    ],
+    [
+     "no informo",
+     "alarma"
+    ],
+    [
+     "no explico",
+     "alarma"
+    ],
+    [
+     "omito las pautas"
+    ],
+    [
+     "sin informar las pautas"
+    ]
+   ]
+  },
+  {
+   "id": "d16",
+   "texto": "Indica un AINE sin considerar el riesgo en el adulto mayor",
+   "critico": false,
+   "porque": "En el adulto mayor la primera elección es el paracetamol; los AINE se evitan o se usan por pocos días por su riesgo renal, gastrointestinal y de sangrado.",
+   "target": "paciente",
+   "claves": [
+    [
+     "ibuprofeno"
+    ],
+    [
+     "diclofenac"
+    ],
+    [
+     "ketorolac"
+    ],
+    [
+     "indico un aine"
+    ],
+    [
+     "indico aine"
+    ],
+    [
+     "naproxeno"
+    ]
+   ]
+  },
+  {
+   "id": "d17",
+   "texto": "Usa una aguja de gran calibre (18 G)",
+   "critico": false,
+   "porque": "El calibre indicado es 21 G (o 25 G para la piel); una aguja gruesa lesiona más los tejidos.",
+   "target": "jeringa",
+   "claves": [
+    [
+     "aguja 18"
+    ],
+    [
+     "calibre 18"
+    ],
+    [
+     "18 g"
+    ],
+    [
+     "aguja gruesa"
+    ]
+   ]
+  },
+  {
+   "id": "d18",
+   "texto": "Punza sin el consentimiento informado",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el consentimiento es un requisito ético y legal.",
+   "target": "paciente",
+   "claves": [
+    [
+     "sin consentimiento"
+    ],
+    [
+     "sin pedir el consentimiento"
+    ],
+    [
+     "no pido el consentimiento"
+    ]
+   ]
+  },
+  {
+   "id": "d19",
+   "texto": "Coloca una almohada bajo la rodilla o la flexiona",
+   "critico": false,
+   "porque": "La rodilla se mantiene en extensión completa: la flexión desplaza el líquido y dificulta el acceso al receso suprarrotuliano.",
+   "target": "paciente",
+   "claves": [
+    [
+     "almohada"
+    ],
+    [
+     "rodilla flexionada"
+    ],
+    [
+     "flexiono la rodilla"
+    ],
+    [
+     "flexion de rodilla"
+    ]
+   ]
+  },
+  {
+   "id": "d20",
+   "texto": "Insiste con más de tres punciones sin suspender",
+   "critico": false,
+   "porque": "Si tras 2 o 3 redirecciones no hay débito sinovial, se suspende y se deriva (por ejemplo, para punción ecoguiada).",
+   "target": "sitio",
+   "claves": [
+    [
+     "sigo punzando"
+    ],
+    [
+     "insisto",
+     "puncion"
+    ],
+    [
+     "mas de tres"
+    ],
+    [
+     "multiples punciones"
+    ],
+    [
+     "punzo varias veces"
+    ]
+   ]
+  },
+  {
+   "id": "d21",
+   "texto": "No toma la presión arterial antes de comenzar",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la presión basal documenta la estabilidad hemodinámica y permite anticipar reacciones vasovagales.",
+   "target": "tensio",
+   "claves": [
+    [
+     "sin tomar la presion"
+    ],
+    [
+     "no tomo la presion"
+    ],
+    [
+     "omito la presion"
+    ],
+    [
+     "sin presion arterial"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Elena S.",
+   "sexo": "F",
+   "edad": 68,
+   "motivo": "Dolor y aumento de volumen de la rodilla derecha de 2 semanas, que empeora al caminar y mejora con el reposo.",
+   "indicacion": "Artrocentesis de rodilla derecha.",
+   "antecedentes": "Artrosis de manos y rodillas. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [],
+   "orden": "Orden: artrocentesis de rodilla derecha por derrame de causa no aclarada.",
+   "filiat": "Paciente: Elena S. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Dolor de tipo mecánico, sin fiebre, sin traumatismos, sin anticoagulantes, sin desmayos previos y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 130/80 mmHg, frecuencia cardíaca 76 lpm, afebril.",
+   "hallazgo": "rodilla derecha con aumento de volumen, choque rotuliano positivo, sin calor ni eritema y con la piel sana en la región supero-lateral.",
+   "liq_txt": "Líquido amarillo claro, transparente y muy viscoso (filancia de 3 a 5 cm): patrón mecánico o no inflamatorio, compatible con artrosis.",
+   "liq": {
+    "color": "#f5e27a",
+    "aspecto": "amarillo claro, transparente y viscoso",
+    "ml": 30,
+    "tipo": "I",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico."
+  },
+  {
+   "id": "c2",
+   "nombre": "Roberto G.",
+   "sexo": "M",
+   "edad": 61,
+   "motivo": "Dolor intenso y súbito en la rodilla derecha desde hace 2 días, con calor y enrojecimiento. No puede apoyar.",
+   "indicacion": "Artrocentesis de rodilla derecha.",
+   "antecedentes": "Hiperuricemia, consumo de alcohol y diurético. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [],
+   "orden": "Orden: artrocentesis de rodilla derecha por monoartritis aguda.",
+   "filiat": "Paciente: Roberto G. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Dolor muy intenso desde hace 2 días, sin fiebre alta, sin traumatismo, sin anticoagulantes, sin desmayos previos y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 140/90 mmHg, frecuencia cardíaca 88 lpm, temperatura 37,6 °C.",
+   "hallazgo": "rodilla derecha caliente, eritematosa y tumefacta, con choque rotuliano positivo y la piel íntegra, sin celulitis.",
+   "liq_txt": "Líquido amarillo turbio, de viscosidad baja: patrón inflamatorio intenso. En la microscopía con luz polarizada se esperan cristales de urato monosódico en forma de aguja (gota).",
+   "liq": {
+    "color": "#efcf62",
+    "aspecto": "amarillo turbio, de baja viscosidad",
+    "ml": 30,
+    "tipo": "III",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico."
+  },
+  {
+   "id": "c3",
+   "nombre": "Norma V.",
+   "sexo": "F",
+   "edad": 79,
+   "motivo": "Dolor agudo e hinchazón de la rodilla derecha tras una internación reciente.",
+   "indicacion": "Artrocentesis de rodilla derecha.",
+   "antecedentes": "Condrocalcinosis conocida e hipertensión. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [],
+   "orden": "Orden: artrocentesis de rodilla derecha por monoartritis aguda.",
+   "filiat": "Paciente: Norma V. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Dolor y tumefacción de 3 días, sin fiebre, sin traumatismos, sin anticoagulantes y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 150/85 mmHg, frecuencia cardíaca 80 lpm, temperatura 37,2 °C.",
+   "hallazgo": "rodilla derecha tumefacta y tibia, choque rotuliano positivo, sin lesiones de la piel.",
+   "liq_txt": "Líquido turbio y pajizo de baja viscosidad: patrón inflamatorio. Se esperan cristales romboidales de pirofosfato de calcio (pseudogota).",
+   "liq": {
+    "color": "#ecd98a",
+    "aspecto": "turbio, pajizo, de baja viscosidad",
+    "ml": 28,
+    "tipo": "III",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico."
+  },
+  {
+   "id": "c4",
+   "nombre": "Oscar L.",
+   "sexo": "M",
+   "edad": 72,
+   "motivo": "Dolor intenso de la rodilla derecha con fiebre y escalofríos desde hace 48 horas.",
+   "indicacion": "Artrocentesis de rodilla derecha.",
+   "antecedentes": "Diabetes tipo 2. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": true,
+   "escaso": false,
+   "extra": [
+    "Derrame a tensión"
+   ],
+   "orden": "Orden: artrocentesis de rodilla derecha por sospecha de artritis séptica.",
+   "filiat": "Paciente: Oscar L. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Fiebre de 48 horas con escalofríos, dolor que impide mover la rodilla, sin anticoagulantes y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 100/60 mmHg, frecuencia cardíaca 108 lpm, temperatura 38,9 °C.",
+   "hallazgo": "rodilla derecha muy caliente, eritematosa y tensa, con derrame a tensión y dolor intenso a la movilización; piel íntegra en el sitio de punción.",
+   "liq_txt": "Líquido opaco y purulento de viscosidad muy baja: patrón séptico (más de 50 000 leucocitos, más de 90 % de PMN). Se envía Gram y cultivo de inmediato.",
+   "liq": {
+    "color": "#d2c28a",
+    "aspecto": "opaco, purulento, de viscosidad muy baja",
+    "ml": 70,
+    "tipo": "IV",
+    "vol": "grande"
+   },
+   "debito": "Al aspirar suavemente aparece líquido espeso y purulento: hay un derrame importante.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico."
+  },
+  {
+   "id": "c5",
+   "nombre": "Matías B.",
+   "sexo": "M",
+   "edad": 38,
+   "motivo": "Tumefacción rápida de la rodilla derecha a las pocas horas de un traumatismo jugando al fútbol.",
+   "indicacion": "Artrocentesis de rodilla derecha.",
+   "antecedentes": "Sano. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": true,
+   "escaso": false,
+   "extra": [
+    "Derrame hemático"
+   ],
+   "orden": "Orden: artrocentesis de rodilla derecha por hemartrosis postraumática.",
+   "filiat": "Paciente: Matías B. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Traumatismo con torsión hace 6 horas, rodilla muy inflamada, sin fiebre, sin anticoagulantes y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 120/75 mmHg, frecuencia cardíaca 82 lpm, afebril.",
+   "hallazgo": "rodilla derecha muy tumefacta y tensa, con choque rotuliano positivo y equimosis leve; piel íntegra.",
+   "liq_txt": "Líquido rojo sanguinolento (hemartrosis): sospechar lesión ligamentaria o fractura osteocondral.",
+   "liq": {
+    "color": "#b3262e",
+    "aspecto": "rojo, sanguinolento",
+    "ml": 80,
+    "tipo": "H",
+    "vol": "grande"
+   },
+   "debito": "Al aspirar suavemente aparece sangre oscura en la jeringa: el derrame es abundante.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico."
+  },
+  {
+   "id": "c6",
+   "nombre": "Graciela T.",
+   "sexo": "F",
+   "edad": 54,
+   "motivo": "Dolor y rigidez matinal de la rodilla derecha y de las manos, de 3 meses.",
+   "indicacion": "Artrocentesis de rodilla derecha.",
+   "antecedentes": "Rigidez matinal prolongada. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [],
+   "orden": "Orden: artrocentesis de rodilla derecha por oligoartritis de causa no aclarada.",
+   "filiat": "Paciente: Graciela T. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Rigidez matinal de más de una hora, sin fiebre, sin anticoagulantes, sin desmayos previos y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 125/80 mmHg, frecuencia cardíaca 72 lpm, afebril.",
+   "hallazgo": "rodilla derecha con aumento de volumen moderado, ligero calor y choque rotuliano positivo; piel íntegra.",
+   "liq_txt": "Líquido amarillo, transparente o levemente turbio, de viscosidad algo disminuida: patrón inflamatorio moderado (artritis reumatoidea inicial).",
+   "liq": {
+    "color": "#f0d874",
+    "aspecto": "amarillo, levemente turbio",
+    "ml": 26,
+    "tipo": "II",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico."
+  },
+  {
+   "id": "c7",
+   "nombre": "Ramón C.",
+   "sexo": "M",
+   "edad": 74,
+   "motivo": "Aumento de volumen leve de la rodilla derecha, con dolor al subir escaleras.",
+   "indicacion": "Artrocentesis de rodilla derecha.",
+   "antecedentes": "Artrosis de rodilla. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": true,
+   "extra": [
+    "Débito escaso"
+   ],
+   "orden": "Orden: artrocentesis de rodilla derecha por derrame leve.",
+   "filiat": "Paciente: Ramón C. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Dolor mecánico, sin fiebre, sin traumatismo, sin anticoagulantes y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 135/80 mmHg, frecuencia cardíaca 70 lpm, afebril.",
+   "hallazgo": "rodilla derecha con derrame escaso (choque rotuliano apenas perceptible), sin calor; piel íntegra.",
+   "liq_txt": "Líquido amarillo claro, escaso (unos pocos mL) y viscoso.",
+   "liq": {
+    "color": "#f5e27a",
+    "aspecto": "amarillo claro, escaso",
+    "ml": 6,
+    "tipo": "I",
+    "vol": "escaso"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Volumen mínimo útil: 0,5 mL para cultivo (sin heparina) y 1 a 2 mL para recuento celular (con heparina)."
+  },
+  {
+   "id": "c8",
+   "nombre": "Teresa M.",
+   "sexo": "F",
+   "edad": 66,
+   "motivo": "Rodilla derecha hinchada y dolorosa desde hace una semana.",
+   "indicacion": "Artrocentesis de rodilla derecha (a evaluar).",
+   "antecedentes": "Várices e hipertensión. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [
+    "Posible contraindicación"
+   ],
+   "orden": "Orden: artrocentesis de rodilla derecha por derrame.",
+   "filiat": "Paciente: Teresa M. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Dolor y tumefacción de una semana, sin anticoagulantes, sin desmayos previos y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 140/85 mmHg, frecuencia cardíaca 84 lpm, temperatura 37,8 °C.",
+   "hallazgo": "eritema, calor y lesión de la piel justo sobre la región supero-lateral de la rodilla: celulitis en el sitio de punción.",
+   "liq_txt": "",
+   "liq": {
+    "color": "#f5e27a",
+    "aspecto": "",
+    "ml": 0,
+    "tipo": "",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico.",
+   "contra": "celulitis en el sitio de punción"
+  },
+  {
+   "id": "c9",
+   "nombre": "Héctor P.",
+   "sexo": "M",
+   "edad": 77,
+   "motivo": "Rodilla derecha tumefacta y dolorosa, con derrame.",
+   "indicacion": "Artrocentesis de rodilla derecha (a evaluar).",
+   "antecedentes": "Fibrilación auricular anticoagulado con warfarina. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [
+    "Posible contraindicación"
+   ],
+   "orden": "Orden: artrocentesis de rodilla derecha por derrame.",
+   "filiat": "Paciente: Héctor P. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Toma warfarina por fibrilación auricular; último control de laboratorio con RIN de 4,2. Sin fiebre ni traumatismos y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 135/80 mmHg, frecuencia cardíaca 90 lpm, afebril.",
+   "hallazgo": "rodilla derecha con derrame y piel íntegra; el laboratorio muestra un RIN de 4,2.",
+   "liq_txt": "",
+   "liq": {
+    "color": "#f5e27a",
+    "aspecto": "",
+    "ml": 0,
+    "tipo": "",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico.",
+   "contra": "anticoagulación con RIN mayor de 3"
+  },
+  {
+   "id": "c10",
+   "nombre": "Lucía F.",
+   "sexo": "F",
+   "edad": 59,
+   "motivo": "Dolor y derrame de la rodilla derecha de 10 días.",
+   "indicacion": "Artrocentesis de rodilla derecha (a evaluar).",
+   "antecedentes": "Hipotiroidismo. No toma anticoagulantes.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [
+    "Posible contraindicación"
+   ],
+   "orden": "Orden: artrocentesis de rodilla derecha por derrame.",
+   "filiat": "Paciente: Lucía F. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Refiere que, tras una anestesia dental, tuvo urticaria y edema de labios: alergia conocida a la lidocaína. Sin anticoagulantes.",
+   "pa_txt": "Presión arterial 120/75 mmHg, frecuencia cardíaca 76 lpm, afebril.",
+   "hallazgo": "rodilla derecha con derrame moderado y piel íntegra; sin otras contraindicaciones.",
+   "liq_txt": "",
+   "liq": {
+    "color": "#f5e27a",
+    "aspecto": "",
+    "ml": 0,
+    "tipo": "",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico.",
+   "contra": "alergia a los anestésicos locales (lidocaína)"
+  },
+  {
+   "id": "c11",
+   "nombre": "Aníbal R.",
+   "sexo": "M",
+   "edad": 70,
+   "motivo": "Dolor y derrame de la rodilla derecha operada hace 3 años.",
+   "indicacion": "Artrocentesis de rodilla derecha (a evaluar).",
+   "antecedentes": "Prótesis total de rodilla derecha. No toma anticoagulantes. Sin alergias conocidas.",
+   "alergia": null,
+   "grande": false,
+   "escaso": false,
+   "extra": [
+    "Posible contraindicación"
+   ],
+   "orden": "Orden: artrocentesis de rodilla derecha por derrame.",
+   "filiat": "Paciente: Aníbal R. · DNI coincide con la orden y la historia clínica.",
+   "anamnesis": "Tiene una prótesis total de rodilla derecha colocada hace 3 años; sin fiebre ni anticoagulantes y sin alergia a anestésicos locales.",
+   "pa_txt": "Presión arterial 130/80 mmHg, frecuencia cardíaca 78 lpm, afebril.",
+   "hallazgo": "rodilla derecha con cicatriz quirúrgica y derrame moderado; la articulación tiene una prótesis.",
+   "liq_txt": "",
+   "liq": {
+    "color": "#f5e27a",
+    "aspecto": "",
+    "ml": 0,
+    "tipo": "",
+    "vol": "moderado"
+   },
+   "debito": "Al aspirar suavemente aparece líquido en la jeringa: la aguja está dentro de la articulación.",
+   "tubos_txt": "Tubo 1 (sin heparina): Gram y cultivo · Tubo 2 (sin heparina): cristales · Tubo 3 (con heparina): recuento celular · Tubo 4 (con heparina): fisicoquímico.",
+   "contra": "prótesis articular (requiere manejo por traumatología)"
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Cuál es el sitio de punción de elección en la artrocentesis de rodilla?",
+   "o": [
+    "La región supero-lateral externa, por debajo del borde superior de la rótula",
+    "La cavidad poplítea, por detrás de la rodilla",
+    "Sobre el tendón rotuliano, en la línea media",
+    "La cara medial del cóndilo femoral"
+   ],
+   "c": 0,
+   "e": "Es el área de mayor distensión de la cápsula y de la bolsa suprarrotuliana, incluso con derrames escasos, y minimiza el riesgo vascular y osteocartilaginoso. La aguja ingresa horizontal."
+  },
+  {
+   "q": "¿Qué anestésico se usa para infiltrar por planos?",
+   "o": [
+    "Lidocaína al 1 % sin epinefrina",
+    "Lidocaína al 1 % con epinefrina",
+    "Bupivacaína al 0,5 % con epinefrina",
+    "No se usa anestesia local"
+   ],
+   "c": 0,
+   "e": "Se infiltran 5 cc de lidocaína al 1 % sin vasoconstrictor, de a 0,25 cc por plano, aspirando siempre antes de inyectar."
+  },
+  {
+   "q": "¿Por qué se aspira antes de inyectar el anestésico?",
+   "o": [
+    "Para descartar que la aguja esté en un vaso sanguíneo",
+    "Para medir la presión articular",
+    "Para tomar la muestra de líquido",
+    "Para comprobar que la lidocaína está tibia"
+   ],
+   "c": 0,
+   "e": "Aspirar descarta la punción vascular y evita la inyección intravascular del anestésico (toxicidad)."
+  },
+  {
+   "q": "¿Qué calibre de aguja se usa para extraer líquido de la rodilla de un adulto?",
+   "o": [
+    "21 G (0,8 × 40 mm)",
+    "25 G (0,5 × 25 mm)",
+    "18 G (1,2 × 40 mm)",
+    "30 G"
+   ],
+   "c": 0,
+   "e": "El líquido sinovial es viscoso y obstruye las agujas finas; la 25 G se reserva para la piel o las articulaciones pequeñas."
+  },
+  {
+   "q": "¿Cuántos intentos de redirección se hacen si no hay débito sinovial?",
+   "o": [
+    "2 o 3; si no hay líquido se suspende y se deriva",
+    "Todos los que hagan falta",
+    "Ninguno: se retira y se da por finalizado",
+    "Diez, cambiando de rodilla"
+   ],
+   "c": 0,
+   "e": "Ante una punción seca se retrae hasta el subcutáneo, se redirecciona y se vuelve a punzar; tras 2 o 3 intentos se suspende y se considera la guía ecográfica o la derivación."
+  },
+  {
+   "q": "¿Qué va en los tubos SIN heparina?",
+   "o": [
+    "Gram y cultivo con antibiograma, y examen de cristales",
+    "Recuento celular y fórmula diferencial",
+    "Solo proteínas y glucosa",
+    "Ninguno: todos llevan heparina"
+   ],
+   "c": 0,
+   "e": "Tubos 1 y 2 sin heparina: la heparina interfiere con la microbiología. Los cristales se buscan con luz polarizada."
+  },
+  {
+   "q": "¿Qué va en el tubo CON heparina?",
+   "o": [
+    "Recuento celular total y fórmula leucocitaria diferencial",
+    "Cultivo con antibiograma",
+    "Tinción de Gram",
+    "Búsqueda de cristales"
+   ],
+   "c": 0,
+   "e": "El tubo 3 (con heparina) evita que el líquido inflamatorio coagule y permite contar las células; el tubo 4 (opcional) es para fisicoquímico."
+  },
+  {
+   "q": "Con un débito escaso, ¿qué volumen mínimo útil se prioriza?",
+   "o": [
+    "0,5 mL para cultivo y 1 a 2 mL para recuento celular",
+    "10 mL para cada estudio",
+    "Solo 0,1 mL para todos",
+    "No se envía la muestra"
+   ],
+   "c": 0,
+   "e": "Si hay poco líquido se prioriza el cultivo (0,5 mL) y el recuento celular (1 a 2 mL)."
+  },
+  {
+   "q": "Ante un derrame importante, ¿cómo se evacúa?",
+   "o": [
+    "Con una jeringa de 20 o 60 mL conectada a una llave de 3 vías y un frasco colector, sin retirar la aguja",
+    "Retirando la aguja y volviendo a punzar cada 10 mL",
+    "Con una jeringa de 3 mL",
+    "Presionando la rodilla sin aguja"
+   ],
+   "c": 0,
+   "e": "La llave de 3 vías permite aspirar y descargar en el frasco sin soltar la aguja; con la mano libre se comprime la región medial de la rodilla."
+  },
+  {
+   "q": "Líquido opaco y purulento, más de 50 000 leucocitos con más de 90 % de PMN: ¿qué sugiere?",
+   "o": [
+    "Artritis séptica",
+    "Artrosis",
+    "Gota sin infección",
+    "Líquido normal"
+   ],
+   "c": 0,
+   "e": "Es el patrón de tipo IV (séptico): se envía Gram y cultivo de inmediato y se trata como urgencia."
+  },
+  {
+   "q": "Líquido amarillo claro, transparente y muy viscoso, con menos de 2 000 leucocitos: ¿qué patrón es?",
+   "o": [
+    "Mecánico o no inflamatorio (por ejemplo, artrosis)",
+    "Séptico",
+    "Inflamatorio intenso",
+    "Hemartrosis"
+   ],
+   "c": 0,
+   "e": "Tipo I: no inflamatorio, con menos de 2 000 leucocitos y menos de 25 % de PMN, sin cristales."
+  },
+  {
+   "q": "Cristales de urato monosódico en forma de aguja con luz polarizada: ¿qué diagnóstico sugieren?",
+   "o": [
+    "Gota",
+    "Pseudogota",
+    "Artrosis",
+    "Artritis séptica"
+   ],
+   "c": 0,
+   "e": "El urato monosódico (gota) tiene forma de aguja y birrefringencia negativa; el pirofosfato de calcio (pseudogota) forma cristales romboidales."
+  },
+  {
+   "q": "¿Cuál es una contraindicación de la artrocentesis?",
+   "o": [
+    "Infección de la piel sobre el sitio de punción",
+    "Derrame articular",
+    "Dolor mecánico",
+    "Edad mayor de 60 años"
+   ],
+   "c": 0,
+   "e": "Las contraindicaciones relativas son la infección de la piel o del tejido celular subcutáneo en el sitio, la coagulopatía grave (RIN mayor de 3 o plaquetas ≤ 30 000), la alergia a anestésicos locales y la prótesis articular."
+  },
+  {
+   "q": "¿Qué indicación posterior es adecuada para el adulto mayor con dolor tras la punción?",
+   "o": [
+    "Hielo local y paracetamol; evitar AINE",
+    "Ibuprofeno a dosis altas",
+    "Calor local intenso",
+    "Actividad física inmediata"
+   ],
+   "c": 0,
+   "e": "En geriatría la primera elección es el paracetamol; los AINE se evitan o se usan pocos días por su riesgo renal, digestivo y de sangrado."
+  },
+  {
+   "q": "¿Ante qué debe consultar de inmediato el paciente?",
+   "o": [
+    "Fiebre, enrojecimiento, calor, dolor intenso o aumento rápido del volumen de la rodilla",
+    "Un leve dolor al apoyar a las 6 horas",
+    "Un pequeño apósito manchado",
+    "Cansancio"
+   ],
+   "c": 0,
+   "e": "Son las pautas de alarma: pueden indicar una artritis séptica iatrogénica o una hemartrosis."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Interpretación del líquido sinovial",
+  "boton_titulo": "Ver la tabla del líquido sinovial",
+  "boton_sub": "Tipos I a IV y hemartrosis",
+  "aviso": "la tabla del líquido sinovial",
+  "flecha": "▼ Según el aspecto, los leucocitos y los cristales",
+  "flecha_final": "▼ Se confirma con el laboratorio",
+  "pie": "Aspecto, recuento de leucocitos, % de PMN y cristales orientan la causa.",
+  "comun": [
+   {
+    "t": "Líquido obtenido",
+    "x": "Color, transparencia y viscosidad (filancia).",
+    "flag": "liq"
+   },
+   {
+    "t": "Tubos fraccionados",
+    "x": "2 sin heparina (Gram/cultivo y cristales) y 1–2 con heparina (recuento y fisicoquímico).",
+    "flag": "tubos"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "Tipo I · Mecánico (no inflamatorio)",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Aspecto",
+      "x": "Amarillo claro/rosado, transparente, muy viscoso.",
+      "flag": "liq"
+     },
+     {
+      "t": "Recuento",
+      "x": "Menos de 2 000 leucocitos/mm³ · menos de 25 % PMN · sin cristales.",
+      "flag": "liq"
+     },
+     {
+      "t": "Causas",
+      "x": "Artrosis, traumatismo, osteocondritis.",
+      "flag": "liq"
+     }
+    ]
+   },
+   {
+    "titulo": "Tipo II · Inflamatorio moderado",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Aspecto",
+      "x": "Amarillo, transparente o levemente turbio, viscosidad baja.",
+      "flag": "liq"
+     },
+     {
+      "t": "Recuento",
+      "x": "2 000–5 000 leucocitos/mm³ · menos de 30 % PMN · sin cristales.",
+      "flag": "liq"
+     },
+     {
+      "t": "Causas",
+      "x": "Artritis reumatoidea inicial, lupus, artritis reactiva.",
+      "flag": "liq"
+     }
+    ]
+   },
+   {
+    "titulo": "Tipo III · Inflamatorio intenso",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Aspecto",
+      "x": "Amarillo turbio o pajizo, viscosidad muy baja.",
+      "flag": "liq"
+     },
+     {
+      "t": "Recuento",
+      "x": "5 000–50 000 leucocitos/mm³ · 50–75 % PMN · cristales presentes.",
+      "flag": "liq"
+     },
+     {
+      "t": "Causas",
+      "x": "Gota (urato monosódico), pseudogota (pirofosfato), AR activa.",
+      "flag": "liq"
+     }
+    ]
+   },
+   {
+    "titulo": "Tipo IV · Séptico",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Aspecto",
+      "x": "Opaco, purulento, viscosidad muy baja.",
+      "flag": "liq"
+     },
+     {
+      "t": "Recuento",
+      "x": "Más de 50 000 (hasta más de 100 000) leucocitos/mm³ · más de 90 % PMN.",
+      "flag": "liq"
+     },
+     {
+      "t": "Causa",
+      "x": "Artritis séptica (Staphylococcus aureus): Gram y cultivo, urgencia.",
+      "flag": "liq"
+     }
+    ]
+   },
+   {
+    "titulo": "Hemartrosis",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Aspecto",
+      "x": "Rojo, sanguinolento.",
+      "flag": "liq"
+     },
+     {
+      "t": "Recuento",
+      "x": "Glóbulos rojos altos · menos de 25 % PMN.",
+      "flag": "liq"
+     },
+     {
+      "t": "Causas",
+      "x": "Traumatismo, coagulopatía (RIN > 3).",
+      "flag": "liq"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Cristales con luz polarizada",
+    "x": "Urato monosódico: forma de aguja (gota). Pirofosfato de calcio: romboidales (pseudogota). Dentro de las 2 primeras horas.",
+    "flag": "envio"
+   },
+   {
+    "t": "Gram y cultivo",
+    "x": "Siempre en tubo sin heparina; positivo en la artritis séptica.",
+    "flag": "envio"
+   }
+  ]
+ },
+ "criterios_texto": "Desaprueba si omite o realiza mal: la asepsia (primera antisepsia, lavado de manos, guantes, paño fenestrado y segunda antisepsia del centro hacia afuera); si no indaga alergias y contraindicaciones o punza ante una contraindicación; si elige un sitio incorrecto, no punza en horizontal o no aspira antes de inyectar; si no fracciona la muestra en tubos con y sin heparina, no la rotula o no la envía al laboratorio; o si no presenta las pautas de alarma.",
+ "criterios": [
+  {
+   "ico": "🧼",
+   "titulo": "Asepsia: antisepsia, lavado de manos, guantes y paño fenestrado",
+   "pasos": [
+    16,
+    17,
+    18,
+    19,
+    20
+   ]
+  },
+  {
+   "ico": "⚠️",
+   "titulo": "Contraindicaciones y alergias: indagarlas y no punzar si existen",
+   "pasos": [
+    7,
+    8,
+    "15 bis"
+   ]
+  },
+  {
+   "ico": "💉",
+   "titulo": "Sitio y técnica: supero-lateral, horizontal y aspirar antes de inyectar",
+   "pasos": [
+    15,
+    23,
+    26,
+    28
+   ]
+  },
+  {
+   "ico": "🧪",
+   "titulo": "Muestras: tubos con y sin heparina, rótulo y envío",
+   "pasos": [
+    35,
+    37,
+    45
+   ]
+  },
+  {
+   "ico": "📋",
+   "titulo": "Pautas de alarma post-procedimiento",
+   "pasos": [
+    40
+   ]
+  }
+ ],
+ "final_criticos": "asepsia, contraindicaciones y alergias, sitio y técnica de punción, muestras y pautas de alarma",
+ "hallazgo_pasos": {
+  "2": "orden",
+  "7": "filiat",
+  "8": "anamnesis",
+  "12": "pa_txt",
+  "14": "hallazgo",
+  "28": "debito",
+  "29": "liq_txt",
+  "35": "tubos_txt",
+  "35.1": "tubos_txt"
+ },
+ "hallazgo_rotulos": {
+  "2": "📋 Orden:",
+  "7": "🗣",
+  "8": "🗣 El paciente responde:",
+  "12": "🩺 Medís:",
+  "14": "🩺 Observás:",
+  "28": "🩺 Aspirás:",
+  "29": "🔬 Observás:",
+  "35": "🧪",
+  "35.1": "🧪"
+ },
+ "hallazgo_voz": {
+  "7": "a",
+  "8": "a"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes de punzar",
+    "x": "Ambiente, solicitud (lado), mesa lista, filiación, anamnesis (anticoagulantes, alergia a la lidocaína, piel), consentimiento y presión arterial. Explorá la rodilla: si hay piel infectada, coagulopatía, alergia o prótesis, NO se punza."
+   },
+   {
+    "t": "Asepsia (criterio de desaprobación)",
+    "x": "1.ª antisepsia → lavado de manos → guantes → paño fenestrado → 2.ª antisepsia del centro hacia afuera (5 cm de radio, sin volver a pasar por zonas limpias)."
+   },
+   {
+    "t": "Anestesia",
+    "x": "Lidocaína 1 % SIN epinefrina, 5 cc en jeringa de 10 cc. Aguja horizontal en la región supero-lateral, 0,25 cc por plano, aspirando antes de inyectar. Esperar 1–2 minutos."
+   },
+   {
+    "t": "Punción",
+    "x": "Aguja 21 G, horizontal, bajo el borde superior de la rótula (mitad o polo superior). Avanzá lento hasta la pérdida de resistencia, aspirá suave: si hay líquido (+) seguí; si no (−), retraé, redireccioná y repuncioná (máx. 2–3 veces)."
+   },
+   {
+    "t": "Líquido",
+    "x": "Color, transparencia y viscosidad. Derrame grande: jeringa de 20–60 mL + llave de 3 vías + frasco, comprimiendo la región medial. Repetir hasta vaciar."
+   },
+   {
+    "t": "Tubos",
+    "x": "3–5 mL en 3–4 tubos: 2 SIN heparina (Gram/cultivo y cristales) + 1–2 CON heparina (recuento y fisicoquímico). Escaso: 0,5 mL cultivo y 1–2 mL recuento. Rotulá todo y enviá de inmediato."
+   },
+   {
+    "t": "Cierre",
+    "x": "Retirá la aguja, presioná, apósito y cinta hipoalergénica. Reposo 6–24 h, hielo y paracetamol (evitar AINE). Pautas de alarma. Descarte sin reencapuchar, guantes, lavado y registro."
+   }
+  ],
+  "por_paso": {
+   "8": "Alergia a la lidocaína, anticoagulantes, fiebre, desmayos y piel: acá aparecen las contraindicaciones.",
+   "12": "La presión arterial es paso crítico.",
+   "15": "Región supero-lateral externa.",
+   "15.5": "Celulitis, RIN > 3, alergia a anestésicos o prótesis: NO punzar. Informá, registrá y derivá.",
+   "16": "Antes del lavado de manos y de los guantes.",
+   "20": "Del centro hacia afuera, 5 cm de radio.",
+   "23": "Horizontal, 0,25 cc por plano y aspirar antes de inyectar.",
+   "25": "21 G para extraer.",
+   "28": "Si no hay líquido: retraer, redireccionar, repuncionar (máx. 2–3).",
+   "30.5": "Llave de 3 vías: no se retira la aguja.",
+   "35": "2 tubos sin heparina + 1–2 con heparina.",
+   "37": "Nombre, DNI, articulación, fecha y hora, heparina y firma.",
+   "39": "Hielo + paracetamol; evitar AINE.",
+   "40": "Fiebre, rubor, calor, dolor intenso o hinchazón rápida."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/siam/artro_modelo.json",
+ "peso_modelo": "1 a 2 MB",
+ "instrumental": "data/acreditaciones/siam/instrumental_artro.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Asegura que el ambiente sea el adecuado para la práctica",
+   "fase": "Preparación",
+   "target": "ambiente",
+   "critico": false,
+   "explica": "Se verifica un ambiente con iluminación adecuada, privacidad, temperatura agradable y comodidad: reduce el riesgo de infección y permite trabajar sin apuro.",
+   "estado": {
+    "amb": 1
+   },
+   "claves": [
+    [
+     "ambiente"
+    ],
+    [
+     "consultorio"
+    ],
+    [
+     "iluminacion"
+    ],
+    [
+     "privacidad"
+    ]
+   ],
+   "frase": "Verifico que el ambiente cuente con adecuada iluminación, privacidad, temperatura agradable y comodidad.",
+   "fx": "ambiente"
+  },
+  {
+   "n": 2,
+   "texto": "Certifica la correcta solicitud de la intervención",
+   "fase": "Preparación",
+   "target": "solicitud",
+   "critico": true,
+   "explica": "Antes de punzar se certifica en la orden médica y en la historia clínica la indicación de la artrocentesis: articulación, lado afectado y motivo. Punzar la rodilla equivocada o sin indicación es un error grave.",
+   "estado": {
+    "sol": 1
+   },
+   "claves": [
+    [
+     "solicitud"
+    ],
+    [
+     "certifico"
+    ],
+    [
+     "orden medica"
+    ],
+    [
+     "indicacion clinica"
+    ],
+    [
+     "indicacion de la artrocentesis"
+    ]
+   ],
+   "frase": "Certifico en la orden médica y en la historia clínica la indicación de la artrocentesis de la rodilla afectada.",
+   "fx": "verificar"
+  },
+  {
+   "n": 3,
+   "texto": "Reúne todos los materiales necesarios para la práctica en una mesa de transporte",
+   "fase": "Preparación",
+   "target": "mesa",
+   "critico": false,
+   "explica": "Se reúne la totalidad de los insumos en la mesa alta de traslado antes de empezar, para no interrumpir el procedimiento estéril buscando elementos.",
+   "estado": {
+    "mat": 1
+   },
+   "claves": [
+    [
+     "reuno"
+    ],
+    [
+     "materiales"
+    ],
+    [
+     "insumos"
+    ],
+    [
+     "mesa de transporte"
+    ],
+    [
+     "mesa de traslado"
+    ]
+   ],
+   "frase": "Reúno la totalidad de los materiales e insumos necesarios en la mesa de transporte.",
+   "fx": "reunir"
+  },
+  {
+   "n": 4,
+   "texto": "Lleva la mesa con los materiales y la ubica en un lugar próximo y cómodo",
+   "fase": "Preparación",
+   "target": "mesa",
+   "critico": false,
+   "explica": "La mesa queda al lado de la camilla, del lado de la mano hábil del operador, al alcance sin cruzar el campo estéril.",
+   "estado": {
+    "mesa": 1
+   },
+   "claves": [
+    [
+     "llevo la mesa"
+    ],
+    [
+     "ubico la mesa"
+    ],
+    [
+     "mesa",
+     "camilla"
+    ],
+    [
+     "mesa",
+     "cama"
+    ],
+    [
+     "traslado la mesa"
+    ]
+   ],
+   "frase": "Llevo la mesa de materiales y la ubico próxima al paciente, en un lugar cómodo.",
+   "fx": "trasladar"
+  },
+  {
+   "n": 5,
+   "texto": "Saluda cordialmente",
+   "fase": "Presentación y consentimiento",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El saludo establece el primer contacto humano y un clima de confianza.",
+   "estado": {
+    "sal": 1
+   },
+   "claves": [
+    [
+     "saludo"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ],
+    [
+     "buenas noches"
+    ],
+    [
+     "hola"
+    ]
+   ],
+   "frase": "Buenas tardes, ¿cómo se encuentra?",
+   "fx": "hablar"
+  },
+  {
+   "n": 6,
+   "texto": "Se presenta con nombre y apellido",
+   "fase": "Presentación y consentimiento",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El paciente debe saber quién va a realizar el procedimiento.",
+   "estado": {
+    "pres": 1
+   },
+   "claves": [
+    [
+     "me presento"
+    ],
+    [
+     "soy el doctor"
+    ],
+    [
+     "soy la doctora"
+    ],
+    [
+     "mi nombre"
+    ],
+    [
+     "soy el dr"
+    ],
+    [
+     "soy la dra"
+    ]
+   ],
+   "frase": "Me presento: soy el doctor, mi nombre y apellido es ..., médico tratante.",
+   "fx": "hablar"
+  },
+  {
+   "n": 7,
+   "texto": "Confirma los datos filiatorios de la persona a la que se le realizará la práctica",
+   "fase": "Presentación y consentimiento",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Se confirman nombre, apellido y documento, y se verifica que coincidan con la orden y la historia clínica. Previene errores de identidad y de lateralidad (rodilla derecha vs. izquierda).",
+   "estado": {
+    "fil": 1
+   },
+   "claves": [
+    [
+     "datos filiatorios"
+    ],
+    [
+     "nombre completo"
+    ],
+    [
+     "dni"
+    ],
+    [
+     "documento"
+    ],
+    [
+     "confirmo",
+     "nombre"
+    ],
+    [
+     "nombre y apellido",
+     "paciente"
+    ]
+   ],
+   "frase": "Confirmo el nombre completo y el DNI del paciente y verifico que coincidan con la orden médica.",
+   "fx": "verificar"
+  },
+  {
+   "n": 8,
+   "texto": "Realiza una breve anamnesis",
+   "fase": "Presentación y consentimiento",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Se indaga el motivo de consulta y el tiempo de evolución, traumatismos, fiebre, anticoagulantes, infecciones de piel, antecedentes de desmayos o episodios vasovagales y alergia a anestésicos locales (lidocaína). Es lo que permite detectar contraindicaciones antes de punzar.",
+   "estado": {
+    "anam": 1
+   },
+   "claves": [
+    [
+     "anamnesis"
+    ],
+    [
+     "desde cuando"
+    ],
+    [
+     "interrogo"
+    ],
+    [
+     "antecedentes"
+    ],
+    [
+     "alergia"
+    ],
+    [
+     "anticoagul"
+    ],
+    [
+     "pregunto",
+     "fiebre"
+    ]
+   ],
+   "frase": "Realizo la anamnesis: motivo de consulta y evolución, traumatismos, fiebre, anticoagulantes, desmayos previos y alergia a anestésicos locales como la lidocaína.",
+   "fx": "hablar"
+  },
+  {
+   "n": 9,
+   "texto": "Explica el procedimiento que se realizará con un lenguaje claro y sencillo",
+   "fase": "Presentación y consentimiento",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se explica la necesidad de la práctica, la técnica, los objetivos diagnósticos y terapéuticos y las posibles complicaciones, asegurando que el paciente comprenda.",
+   "estado": {
+    "expl": 1
+   },
+   "claves": [
+    [
+     "explico"
+    ],
+    [
+     "le voy a explicar"
+    ],
+    [
+     "procedimiento",
+     "consiste"
+    ],
+    [
+     "lenguaje claro"
+    ],
+    [
+     "complicaciones"
+    ]
+   ],
+   "frase": "Explico la necesidad del procedimiento, la técnica, sus objetivos y las posibles complicaciones con un lenguaje claro y sencillo.",
+   "fx": "hablar"
+  },
+  {
+   "n": 10,
+   "texto": "Solicita la firma del consentimiento informado y colaboración para la práctica",
+   "fase": "Presentación y consentimiento",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Es un requisito ético y legal: el paciente acepta con conocimiento de beneficios y riesgos. Se pide además su colaboración durante la práctica. Punzar sin consentimiento es criterio de desaprobación.",
+   "estado": {
+    "cons": 1
+   },
+   "claves": [
+    [
+     "consentimiento"
+    ],
+    [
+     "firme"
+    ],
+    [
+     "firma"
+    ],
+    [
+     "colaboracion"
+    ]
+   ],
+   "frase": "Solicito la firma del consentimiento informado y la colaboración del paciente durante la práctica.",
+   "fx": "firma"
+  },
+  {
+   "n": 11,
+   "texto": "Solicita al paciente que se ubique en decúbito dorsal con las piernas extendidas y en posición cómoda",
+   "fase": "Posición y examen",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Decúbito dorsal con las piernas extendidas, sin almohada bajo la rodilla: la extensión completa relaja el cuádriceps y proyecta el líquido hacia el receso suprarrotuliano, donde se punza.",
+   "estado": {
+    "pos": 1
+   },
+   "claves": [
+    [
+     "decubito dorsal"
+    ],
+    [
+     "boca arriba"
+    ],
+    [
+     "piernas extendidas"
+    ],
+    [
+     "acueste"
+    ],
+    [
+     "acuesta"
+    ],
+    [
+     "piernas estiradas"
+    ],
+    [
+     "decubito"
+    ]
+   ],
+   "frase": "Solicito al paciente que se ubique en decúbito dorsal con las piernas extendidas y en una posición cómoda.",
+   "fx": "posicion_art"
+  },
+  {
+   "n": 12,
+   "texto": "Toma la presión arterial antes de comenzar con la realización del procedimiento",
+   "fase": "Posición y examen",
+   "target": "tensio",
+   "critico": true,
+   "explica": "La presión arterial basal establece la estabilidad hemodinámica, orienta el estado general (hipotensión o shock en una artritis séptica con sepsis) y permite anticipar reacciones vasovagales durante la punción.",
+   "estado": {
+    "pa": 1
+   },
+   "claves": [
+    [
+     "presion arterial"
+    ],
+    [
+     "tension arterial"
+    ],
+    [
+     "tomo la presion"
+    ],
+    [
+     "tomo la tension"
+    ],
+    [
+     "tensiometro"
+    ],
+    [
+     "estabilidad hemodinamica"
+    ]
+   ],
+   "frase": "Tomo la presión arterial para constatar la estabilidad hemodinámica del paciente.",
+   "fx": "presion_art"
+  },
+  {
+   "n": 13,
+   "texto": "Se ubica a un lado del paciente, sentado y a una altura que permita la cómoda realización de la práctica",
+   "fase": "Posición y examen",
+   "target": "rodilla",
+   "critico": false,
+   "explica": "El operador se sienta al lado de la camilla, a la altura de la rodilla, en una postura ergonómica que da estabilidad a la mano al punzar.",
+   "estado": {
+    "sent": 1
+   },
+   "claves": [
+    [
+     "me siento"
+    ],
+    [
+     "sentado"
+    ],
+    [
+     "me ubico",
+     "lado"
+    ],
+    [
+     "a un lado del paciente"
+    ],
+    [
+     "altura de la rodilla"
+    ]
+   ],
+   "frase": "Me ubico sentado a un lado del paciente, a una altura cómoda para realizar la práctica.",
+   "fx": "sentarse"
+  },
+  {
+   "n": 14,
+   "texto": "Realiza una exploración física completa de la articulación a punzar",
+   "fase": "Posición y examen",
+   "target": "rodilla",
+   "critico": false,
+   "explica": "Se inspecciona y se palpa la rodilla: lesiones o infección de la piel (contraindicación), calor, derrame con el signo del choque rotuliano, rango de movilidad y puntos dolorosos.",
+   "estado": {
+    "expo": 1
+   },
+   "claves": [
+    [
+     "exploro"
+    ],
+    [
+     "inspecciono"
+    ],
+    [
+     "palpo la rodilla"
+    ],
+    [
+     "choque rotuliano"
+    ],
+    [
+     "peloteo"
+    ],
+    [
+     "exploracion fisica"
+    ],
+    [
+     "examino la rodilla"
+    ]
+   ],
+   "frase": "Exploro la rodilla: descarto lesiones o infección de la piel, busco calor y el signo del choque rotuliano para evaluar el derrame.",
+   "fx": "examinar_rodilla"
+  },
+  {
+   "n": 15,
+   "texto": "Selecciona el sitio más adecuado para la punción",
+   "fase": "Posición y examen",
+   "target": "sitio",
+   "critico": true,
+   "explica": "El sitio de elección es la región supero-lateral externa de la rodilla: es el área de mayor distensión de la cápsula y de la bolsa suprarrotuliana, incluso con derrames escasos, y minimiza el riesgo vascular y osteocartilaginoso. Elegir otro sitio es criterio de desaprobación.",
+   "estado": {
+    "sitio": 1
+   },
+   "claves": [
+    [
+     "supero lateral"
+    ],
+    [
+     "superolateral"
+    ],
+    [
+     "region supero"
+    ],
+    [
+     "selecciono el sitio"
+    ],
+    [
+     "selecciono",
+     "sitio"
+    ],
+    [
+     "elijo",
+     "sitio"
+    ]
+   ],
+   "frase": "Selecciono la región supero-lateral externa de la rodilla como sitio de punción, por ser el de mayor distensión de la cápsula sinovial.",
+   "fx": "marcar_sitio",
+   "sin_contra": true
+  },
+  {
+   "n": 15.5,
+   "texto": "Constata la contraindicación y NO realiza la artrocentesis: informa al paciente, lo deriva para su resolución y lo registra",
+   "fase": "Posición y examen",
+   "target": "rodilla",
+   "critico": true,
+   "explica": "Hay contraindicaciones relativas que obligan a postergar o derivar: infección activa de la piel o del tejido celular subcutáneo sobre el sitio de punción (celulitis), trastornos graves de la coagulación (RIN mayor de 3 o plaquetas ≤ 30 000/mm³), alergia conocida a los anestésicos locales y prótesis articular (manejo por traumatología). Saber cuándo no punzar es parte de la técnica: se suspende, se explica al paciente, se registra y se deriva. Realizar la punción igual es criterio de desaprobación.",
+   "estado": {
+    "contra": 1
+   },
+   "claves": [
+    [
+     "no realizo la artrocentesis"
+    ],
+    [
+     "no hago la artrocentesis"
+    ],
+    [
+     "no efectuo"
+    ],
+    [
+     "contraindic"
+    ],
+    [
+     "suspendo"
+    ],
+    [
+     "no corresponde"
+    ],
+    [
+     "lo derivo"
+    ],
+    [
+     "postergo"
+    ]
+   ],
+   "frase": "Constato una contraindicación: no realizo la artrocentesis, informo al paciente, lo derivo y lo registro.",
+   "fx": "contraindicado",
+   "solo_contra": true
+  },
+  {
+   "n": 16,
+   "texto": "Realiza una primera antisepsia con algodón embebido en alcohol etílico al 70 % v/v o iodo-povidona",
+   "fase": "Asepsia y campo estéril",
+   "target": "sitio",
+   "critico": true,
+   "explica": "Primera antisepsia («en sucio») con algodón o gasa embebidos en alcohol 70 % o iodopovidona: reduce la carga bacteriana de la piel antes de lavarse las manos y calzarse los guantes. Una asepsia deficiente puede causar una artritis séptica iatrogénica.",
+   "estado": {
+    "a1": 1
+   },
+   "claves": [
+    [
+     "primera antisepsia"
+    ],
+    [
+     "antisepsia",
+     "sucio"
+    ],
+    [
+     "primera",
+     "iodopovidona"
+    ],
+    [
+     "primera",
+     "alcohol"
+    ]
+   ],
+   "frase": "Efectúo la primera antisepsia con algodón embebido en alcohol al 70 % o iodopovidona.",
+   "fx": "antisepsia1",
+   "sin_contra": true
+  },
+  {
+   "n": 17,
+   "texto": "Se lava las manos con técnica clínica",
+   "fase": "Asepsia y campo estéril",
+   "target": "manos",
+   "critico": true,
+   "explica": "Lavado de manos con agua y jabón con técnica clínica antes de calzarse los guantes: es la barrera principal contra la infección articular.",
+   "estado": {
+    "lav": 1
+   },
+   "claves": [
+    [
+     "me lavo las manos"
+    ],
+    [
+     "lavado de manos"
+    ],
+    [
+     "lavo las manos"
+    ],
+    [
+     "higiene de manos"
+    ],
+    [
+     "tecnica clinica"
+    ]
+   ],
+   "frase": "Me lavo las manos con técnica clínica.",
+   "fx": "lavado",
+   "sin_contra": true
+  },
+  {
+   "n": 18,
+   "texto": "Se coloca guantes o manoplas de látex",
+   "fase": "Asepsia y campo estéril",
+   "target": "guantes",
+   "critico": true,
+   "explica": "Se colocan los guantes con técnica aséptica (abierta): barrera de protección para el paciente y para el operador.",
+   "estado": {
+    "guantes": 1
+   },
+   "claves": [
+    [
+     "me coloco",
+     "guantes"
+    ],
+    [
+     "me pongo",
+     "guantes"
+    ],
+    [
+     "coloco",
+     "guantes"
+    ],
+    [
+     "pongo",
+     "guantes"
+    ],
+    [
+     "manoplas"
+    ]
+   ],
+   "frase": "Me coloco los guantes con técnica aséptica.",
+   "fx": "guante",
+   "sin_contra": true
+  },
+  {
+   "n": 19,
+   "texto": "Coloca un paño fenestrado estéril con su ventana sobre el sitio de punción seleccionado",
+   "fase": "Asepsia y campo estéril",
+   "target": "campo",
+   "critico": true,
+   "explica": "El paño fenestrado delimita el campo estéril y aísla la zona de entrada, dejando la ventana centrada sobre el sitio elegido.",
+   "estado": {
+    "pano": 1
+   },
+   "claves": [
+    [
+     "pano fenestrado"
+    ],
+    [
+     "pano",
+     "ventana"
+    ],
+    [
+     "campo esteril"
+    ],
+    [
+     "fenestrado"
+    ]
+   ],
+   "frase": "Coloco el paño fenestrado estéril con su ventana sobre el sitio de punción seleccionado.",
+   "fx": "pano_fenestrado",
+   "sin_contra": true
+  },
+  {
+   "n": 20,
+   "texto": "Realiza correctamente una segunda antisepsia utilizando gasa o algodón embebido en alcohol etílico al 70 % v/v o iodo-povidona",
+   "fase": "Asepsia y campo estéril",
+   "target": "sitio",
+   "critico": true,
+   "explica": "Segunda antisepsia sobre el campo ya delimitado: movimientos rotatorios excéntricos, del centro (sitio de punción) hacia afuera, en un radio de unos 5 cm, sin volver a pasar la gasa por zonas ya limpias para no arrastrar flora de la periferia al punto de punción.",
+   "estado": {
+    "a2": 1
+   },
+   "claves": [
+    [
+     "segunda antisepsia"
+    ],
+    [
+     "segunda",
+     "iodopovidona"
+    ],
+    [
+     "segunda",
+     "alcohol"
+    ],
+    [
+     "circulos concentricos"
+    ],
+    [
+     "de adentro hacia afuera"
+    ],
+    [
+     "excentric"
+    ]
+   ],
+   "frase": "Realizo la segunda antisepsia en movimientos circulares excéntricos, del centro hacia afuera, en un radio de 5 cm.",
+   "fx": "antisepsia2",
+   "sin_contra": true
+  },
+  {
+   "n": 21,
+   "texto": "Palpa nuevamente el sitio de punción",
+   "fase": "Asepsia y campo estéril",
+   "target": "sitio",
+   "critico": false,
+   "explica": "Con los guantes puestos se vuelve a palpar la referencia anatómica sobre el campo estéril para reconfirmar el punto exacto de ingreso.",
+   "estado": {
+    "palpa": 1
+   },
+   "claves": [
+    [
+     "palpo nuevamente"
+    ],
+    [
+     "vuelvo a palpar"
+    ],
+    [
+     "re palpo"
+    ],
+    [
+     "repalpo"
+    ],
+    [
+     "palpo",
+     "referencia"
+    ]
+   ],
+   "frase": "Vuelvo a palpar la referencia anatómica sobre el campo estéril para reconfirmar el punto de ingreso.",
+   "fx": "repalpar",
+   "sin_contra": true
+  },
+  {
+   "n": 22,
+   "texto": "Carga jeringa de 10 cc (equipada con una aguja adecuada a la contextura física del paciente y a la articulación a punzar) con 5 cc de lidocaína al 1 %",
+   "fase": "Anestesia local",
+   "target": "jeringa",
+   "critico": false,
+   "explica": "Se cargan 5 cc de lidocaína al 1 % sin epinefrina en una jeringa de 10 cc con una aguja fina (25 G). La lidocaína con vasoconstrictor no corresponde en este procedimiento.",
+   "estado": {
+    "carga": 1
+   },
+   "claves": [
+    [
+     "cargo",
+     "lidocaina"
+    ],
+    [
+     "5 cc de lidocaina"
+    ],
+    [
+     "jeringa de 10"
+    ],
+    [
+     "cargo",
+     "jeringa"
+    ]
+   ],
+   "frase": "Cargo 5 cc de lidocaína al 1 % sin epinefrina en la jeringa de 10 cc equipada con una aguja adecuada.",
+   "fx": "cargar_lido",
+   "sin_contra": true
+  },
+  {
+   "n": 23,
+   "texto": "Coloca anestesia introduciendo la aguja de forma horizontal, por debajo de la rótula y a la mitad de la misma (o ligeramente hacia el polo superior), aplicando el anestésico de a 0,25 cc en cada uno de los planos que van desde la piel hasta la proximidad de la cavidad articular",
+   "fase": "Anestesia local",
+   "target": "sitio",
+   "critico": true,
+   "explica": "La aguja ingresa en forma horizontal, en la región supero-lateral, y se infiltran 0,25 cc por plano desde la piel hasta la proximidad de la cápsula. Siempre se aspira antes de inyectar para descartar una punción vascular (toxicidad por inyección intravascular). Punzar en un lugar equivocado o inyectar sin aspirar es criterio de desaprobación.",
+   "estado": {
+    "anest": 1
+   },
+   "claves": [
+    [
+     "infiltro"
+    ],
+    [
+     "anestesia local"
+    ],
+    [
+     "0 25"
+    ],
+    [
+     "por planos"
+    ],
+    [
+     "coloco",
+     "anestesia"
+    ],
+    [
+     "coloco la anestesia"
+    ],
+    [
+     "anestesio"
+    ]
+   ],
+   "frase": "Infiltro la anestesia local con la aguja en forma horizontal, aspirando antes de inyectar 0,25 cc por plano, desde la piel hasta la proximidad de la cápsula articular.",
+   "fx": "anestesia",
+   "sin_contra": true
+  },
+  {
+   "n": 24,
+   "texto": "Espera que comience a hacer efecto el anestésico",
+   "fase": "Anestesia local",
+   "target": "sitio",
+   "critico": false,
+   "explica": "La lidocaína tarda aproximadamente 1 a 2 minutos en actuar: esperar evita el dolor y las reacciones vasovagales. Se verifica que la zona esté insensible.",
+   "estado": {
+    "espera": 1
+   },
+   "claves": [
+    [
+     "espero"
+    ],
+    [
+     "latencia"
+    ],
+    [
+     "hace efecto"
+    ],
+    [
+     "haga efecto"
+    ],
+    [
+     "insensibil"
+    ]
+   ],
+   "frase": "Espero un par de minutos el tiempo de latencia de la lidocaína y verifico la insensibilización de la zona.",
+   "fx": "esperar",
+   "sin_contra": true
+  },
+  {
+   "n": 25,
+   "texto": "Toma jeringa equipada con aguja calibre 21 o 25",
+   "fase": "Punción y extracción",
+   "target": "jeringa",
+   "critico": false,
+   "explica": "En la rodilla de un adulto el estándar es la aguja 21 G (0,8 × 40 mm): el líquido sinovial inflamatorio o hemático es viscoso y obstruye las agujas más finas. La 25 G se reserva para la piel o las articulaciones pequeñas.",
+   "estado": {
+    "aguja": 1
+   },
+   "claves": [
+    [
+     "tomo la jeringa"
+    ],
+    [
+     "tomo una jeringa"
+    ],
+    [
+     "aguja",
+     "21"
+    ],
+    [
+     "calibre 21"
+    ],
+    [
+     "jeringa de extraccion"
+    ]
+   ],
+   "frase": "Tomo la jeringa de extracción equipada con una aguja calibre 21 G.",
+   "fx": "tomar_aguja",
+   "sin_contra": true
+  },
+  {
+   "n": 26,
+   "texto": "Comienza la punción propiamente dicha introduciendo la aguja de forma horizontal, por debajo de la rótula y a la mitad de la misma o ligeramente hacia el polo superior",
+   "fase": "Punción y extracción",
+   "target": "sitio",
+   "critico": true,
+   "explica": "La aguja ingresa en forma horizontal por la región supero-lateral, por debajo del borde superior de la rótula, a su mitad o ligeramente hacia el polo superior. Punzar sobre el tendón rotuliano o la cavidad poplítea, o avanzar con energía, es criterio de desaprobación.",
+   "estado": {
+    "punza": 1
+   },
+   "claves": [
+    [
+     "comienzo la puncion"
+    ],
+    [
+     "inicio la puncion"
+    ],
+    [
+     "introduzco la aguja"
+    ],
+    [
+     "punzo"
+    ],
+    [
+     "comienzo",
+     "puncion"
+    ],
+    [
+     "aguja",
+     "horizontal"
+    ]
+   ],
+   "frase": "Comienzo la punción introduciendo la aguja en dirección horizontal, por debajo del borde superior de la rótula.",
+   "fx": "puncion",
+   "sin_contra": true
+  },
+  {
+   "n": 27,
+   "texto": "Progresa lentamente con la punción hasta sentir el ingreso en la cavidad articular",
+   "fase": "Punción y extracción",
+   "target": "receso",
+   "critico": false,
+   "explica": "Se avanza despacio hasta notar la pérdida de resistencia al atravesar la cápsula sinovial («resalto»). Avanzar con fuerza puede lesionar el cartílago o provocar una hemartrosis iatrogénica.",
+   "estado": {
+    "dentro": 1
+   },
+   "claves": [
+    [
+     "avanzo"
+    ],
+    [
+     "progreso"
+    ],
+    [
+     "resalto"
+    ],
+    [
+     "perdida de resistencia"
+    ],
+    [
+     "cavidad articular"
+    ],
+    [
+     "ingreso"
+    ]
+   ],
+   "frase": "Avanzo lentamente hasta sentir la pérdida de resistencia al atravesar la cápsula y el ingreso en la cavidad articular.",
+   "fx": "ingreso_cavidad",
+   "sin_contra": true
+  },
+  {
+   "n": 28,
+   "texto": "Retrae suavemente el émbolo de la jeringa a fin de confirmar la obtención de débito sinovial",
+   "fase": "Punción y extracción",
+   "target": "jeringa",
+   "critico": true,
+   "explica": "Se aspira suavemente para confirmar que la aguja está dentro de la articulación. Si hay débito (+) se pasa al paso 29; si no (−), se retrae la aguja hasta el plano subcutáneo, se redirecciona y se vuelve a punzar. Se suspende y se deriva si no se obtiene líquido tras 2 o 3 intentos.",
+   "estado": {
+    "aspira": 1
+   },
+   "claves": [
+    [
+     "aspiro"
+    ],
+    [
+     "retraigo suavemente"
+    ],
+    [
+     "debito sinovial"
+    ],
+    [
+     "confirmo",
+     "liquido"
+    ],
+    [
+     "retraigo el embolo suavemente"
+    ],
+    [
+     "embolo"
+    ]
+   ],
+   "frase": "Aspiro suavemente con el émbolo y confirmo la obtención de líquido sinovial.",
+   "fx": "aspirar",
+   "sin_contra": true
+  },
+  {
+   "n": 29,
+   "texto": "Identifica las características macroscópicas del líquido",
+   "fase": "Punción y extracción",
+   "target": "jeringa",
+   "critico": false,
+   "explica": "Color, transparencia y viscosidad (filancia) orientan el diagnóstico al lado de la cama: normal o mecánico (amarillo claro, transparente, viscoso), inflamatorio (turbio, pajizo, poco viscoso), séptico (opaco, purulento) o hemartrosis (rojo).",
+   "estado": {
+    "liq": 1
+   },
+   "claves": [
+    [
+     "caracteristicas macroscopicas"
+    ],
+    [
+     "macroscop"
+    ],
+    [
+     "color",
+     "transparencia"
+    ],
+    [
+     "viscosidad"
+    ]
+   ],
+   "frase": "Evalúo las características macroscópicas del líquido: color, transparencia y viscosidad.",
+   "fx": "liquido",
+   "sin_contra": true
+  },
+  {
+   "n": 30,
+   "texto": "Retrae el émbolo lenta y progresivamente y va obteniendo muestra del líquido sinovial",
+   "fase": "Punción y extracción",
+   "target": "jeringa",
+   "critico": false,
+   "explica": "Se continúa aspirando lenta y progresivamente para obtener la muestra de líquido sinovial.",
+   "estado": {
+    "evac": 1
+   },
+   "claves": [
+    [
+     "retraigo el embolo"
+    ],
+    [
+     "obtengo la muestra"
+    ],
+    [
+     "continuo aspirando"
+    ],
+    [
+     "aspiro lentamente"
+    ],
+    [
+     "obtengo muestra"
+    ]
+   ],
+   "frase": "Retraigo el émbolo lenta y progresivamente y voy obteniendo la muestra de líquido sinovial.",
+   "fx": "aspirar_lento",
+   "sin_contra": true
+  },
+  {
+   "n": 30.5,
+   "texto": "Si el derrame es importante (o el débito es hemático): conecta una jeringa de 20 o 60 mL a una llave de 3 vías y aspira lenta y progresivamente, descargando lo evacuado en un frasco plástico",
+   "fase": "Punción y extracción",
+   "target": "jeringa",
+   "critico": false,
+   "explica": "Ante un derrame a tensión o un débito hemático o purulento abundante se acopla una llave de 3 vías a la aguja intraarticular: se aspira con la jeringa de 20 o 60 mL y se descarga en el frasco colector sin retirar la aguja. Con la mano libre se comprime la región medial de la rodilla para desplazar el líquido hacia la aguja.",
+   "estado": {
+    "llave": 1
+   },
+   "claves": [
+    [
+     "llave de 3 vias"
+    ],
+    [
+     "llave de tres vias"
+    ],
+    [
+     "llave",
+     "vias"
+    ],
+    [
+     "jeringa de 20"
+    ],
+    [
+     "jeringa de 60"
+    ],
+    [
+     "frasco"
+    ]
+   ],
+   "frase": "Ante el derrame importante conecto una jeringa de 20 o 60 mL a una llave de 3 vías y evacuo lentamente en un frasco, comprimiendo la región medial con la mano libre.",
+   "fx": "llave3",
+   "solo_si": "grande",
+   "sin_contra": true
+  },
+  {
+   "n": 31,
+   "texto": "Repite el paso anterior hasta que se deje de obtener líquido de aspirado",
+   "fase": "Punción y extracción",
+   "target": "jeringa",
+   "critico": false,
+   "explica": "Se repite la evacuación hasta desocupar la cavidad: alivia el dolor y la tensión de la cápsula.",
+   "estado": {
+    "vacio": 1
+   },
+   "claves": [
+    [
+     "repito"
+    ],
+    [
+     "hasta que no salga"
+    ],
+    [
+     "evacuo la totalidad"
+    ],
+    [
+     "hasta desocupar"
+    ],
+    [
+     "dejo de obtener"
+    ],
+    [
+     "no sale mas"
+    ]
+   ],
+   "frase": "Repito la evacuación hasta que deje de obtener líquido.",
+   "fx": "vaciar",
+   "sin_contra": true
+  },
+  {
+   "n": 32,
+   "texto": "Retira suavemente la aguja",
+   "fase": "Punción y extracción",
+   "target": "sitio",
+   "critico": false,
+   "explica": "Se retira la aguja en el mismo eje de entrada, con un movimiento suave y continuo, para no lesionar los tejidos.",
+   "estado": {
+    "retira": 1
+   },
+   "claves": [
+    [
+     "retiro la aguja"
+    ],
+    [
+     "retiro suavemente"
+    ],
+    [
+     "saco la aguja"
+    ]
+   ],
+   "frase": "Retiro suavemente la aguja en el mismo eje de entrada.",
+   "fx": "retirar_aguja",
+   "sin_contra": true
+  },
+  {
+   "n": 33,
+   "texto": "Presiona firmemente el sitio de punción con un apósito, gasa estéril o algodón embebido en alcohol etílico al 70 % v/v",
+   "fase": "Punción y extracción",
+   "target": "sitio",
+   "critico": false,
+   "explica": "La presión firme sobre el trayecto de punción hace hemostasia y previene el hematoma.",
+   "estado": {
+    "presiona": 1
+   },
+   "claves": [
+    [
+     "hemostasia"
+    ],
+    [
+     "comprimo",
+     "sitio"
+    ],
+    [
+     "presion firme"
+    ],
+    [
+     "presionando firmemente"
+    ]
+   ],
+   "frase": "Realizo hemostasia presionando firmemente el sitio de punción con una gasa estéril.",
+   "fx": "hemostasia",
+   "sin_contra": true
+  },
+  {
+   "n": 34,
+   "texto": "Cubre el sitio de punción con apósito o gasa estéril y lo fija con cinta hipoalergénica",
+   "fase": "Punción y extracción",
+   "target": "sitio",
+   "critico": false,
+   "explica": "El apósito estéril protege el orificio de entrada de la flora ambiental; la cinta hipoalergénica evita irritar la piel.",
+   "estado": {
+    "apos": 1
+   },
+   "claves": [
+    [
+     "cubro"
+    ],
+    [
+     "aposito"
+    ],
+    [
+     "cinta hipoalergenica"
+    ],
+    [
+     "fijo"
+    ],
+    [
+     "cinta"
+    ]
+   ],
+   "frase": "Cubro el sitio de punción con un apósito estéril y lo fijo con cinta hipoalergénica.",
+   "fx": "aposito",
+   "sin_contra": true
+  },
+  {
+   "n": 35,
+   "texto": "Coloca 3 a 5 ml de líquido sinovial en cada uno de los tubos estériles (3 o 4)",
+   "fase": "Muestras y cierre",
+   "target": "tubos",
+   "critico": true,
+   "explica": "Se distribuyen 3 a 5 mL en 3 o 4 tubos: DOS SIN heparina (tubo 1: examen directo, Gram y cultivo con antibiograma; tubo 2: examen directo para cristales con luz polarizada) y UNO O DOS CON heparina (tubo 3: recuento celular y fórmula diferencial; tubo 4, opcional: proteínas, glucosa y otros). La heparina interfiere con los estudios microbiológicos. No fraccionar la muestra es criterio de desaprobación.",
+   "estado": {
+    "tubos": 1
+   },
+   "claves": [
+    [
+     "distribuyo"
+    ],
+    [
+     "tubos esteriles"
+    ],
+    [
+     "cada tubo"
+    ],
+    [
+     "tubos",
+     "heparin"
+    ],
+    [
+     "3 a 5 ml"
+    ],
+    [
+     "fracciono"
+    ],
+    [
+     "reparto"
+    ]
+   ],
+   "frase": "Distribuyo de 3 a 5 mL de líquido sinovial en cada uno de los 3 o 4 tubos, con y sin heparina, según el estudio solicitado.",
+   "fx": "tubos_llenado",
+   "sin_si": "escaso",
+   "sin_contra": true
+  },
+  {
+   "n": 35.1,
+   "texto": "Con débito escaso: fracciona el volumen mínimo útil (0,5 mL para cultivo y 1 a 2 mL para recuento celular)",
+   "fase": "Muestras y cierre",
+   "target": "tubos",
+   "critico": true,
+   "explica": "Cuando se obtiene muy poco líquido se prioriza: 0,5 mL para el cultivo (tubo sin heparina) y 1 a 2 mL para el recuento celular con fórmula diferencial (tubo con heparina). Los estudios de cristales y fisicoquímicos pasan a segundo plano.",
+   "estado": {
+    "tubos": 1
+   },
+   "claves": [
+    [
+     "volumen minimo"
+    ],
+    [
+     "0 5 ml"
+    ],
+    [
+     "escaso"
+    ],
+    [
+     "fracciono",
+     "minimo"
+    ],
+    [
+     "cultivo",
+     "recuento"
+    ],
+    [
+     "priorizo"
+    ]
+   ],
+   "frase": "Como el débito es escaso, fracciono el volumen mínimo útil: 0,5 mL para el cultivo y 1 a 2 mL para el recuento celular.",
+   "fx": "tubos_llenado",
+   "solo_si": "escaso",
+   "sin_contra": true
+  },
+  {
+   "n": 36,
+   "texto": "Informa al paciente la finalización del procedimiento",
+   "fase": "Muestras y cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se comunica que terminó la práctica y se pregunta cómo se siente: cierra el procedimiento y reevalúa el confort del paciente.",
+   "estado": {
+    "fin": 1
+   },
+   "claves": [
+    [
+     "finalizo"
+    ],
+    [
+     "terminamos"
+    ],
+    [
+     "hemos terminado"
+    ],
+    [
+     "finalizamos"
+    ],
+    [
+     "termino el procedimiento"
+    ]
+   ],
+   "frase": "Le comunico al paciente que hemos terminado el procedimiento y le pregunto cómo se siente.",
+   "fx": "hablar",
+   "sin_contra": true
+  },
+  {
+   "n": 37,
+   "texto": "Rotula los tubos con todos los datos de importancia",
+   "fase": "Muestras y cierre",
+   "target": "tubos",
+   "critico": true,
+   "explica": "Cada tubo se rotula con apellido y nombre, DNI, tipo de muestra, articulación y lado, fecha y hora, condición (con o sin heparina) y firma del médico. Una muestra mal identificada no sirve y puede generar un error diagnóstico.",
+   "estado": {
+    "rotulo": 1
+   },
+   "claves": [
+    [
+     "rotulo"
+    ],
+    [
+     "etiqueto"
+    ],
+    [
+     "rotulado"
+    ],
+    [
+     "rotulo cada tubo"
+    ]
+   ],
+   "frase": "Rotulo cada tubo con nombre y DNI del paciente, articulación, fecha y hora, condición con o sin heparina y mi firma.",
+   "fx": "rotular",
+   "sin_contra": true
+  },
+  {
+   "n": 38,
+   "texto": "Solicita al paciente que permanezca en reposo articular por 6 a 24 hs",
+   "fase": "Muestras y cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El reposo relativo de 6 a 24 horas disminuye la reacumulación precoz del derrame y el malestar después de la punción.",
+   "estado": {
+    "reposo": 1
+   },
+   "claves": [
+    [
+     "reposo"
+    ],
+    [
+     "6 a 24"
+    ],
+    [
+     "permanezca en reposo"
+    ]
+   ],
+   "frase": "Solicito al paciente reposo articular por 6 a 24 horas.",
+   "fx": "reposo",
+   "sin_contra": true
+  },
+  {
+   "n": 39,
+   "texto": "Indica hielo local y/o analgésicos (según dolor)",
+   "fase": "Muestras y cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Hielo local indirecto (15 a 20 minutos cada 4 a 6 horas) y analgesia según el dolor. En el adulto mayor la primera elección es paracetamol; los AINE se evitan o se usan por pocos días por el riesgo renal, gastrointestinal y de sangrado.",
+   "estado": {
+    "hielo": 1
+   },
+   "claves": [
+    [
+     "hielo"
+    ],
+    [
+     "analgesicos"
+    ],
+    [
+     "analgesico"
+    ],
+    [
+     "paracetamol"
+    ]
+   ],
+   "frase": "Indico aplicación de hielo local y analgésicos según el dolor, con paracetamol como primera elección.",
+   "fx": "hielo",
+   "sin_contra": true
+  },
+  {
+   "n": 40,
+   "texto": "Presentar al paciente las «pautas de alarma» frente a las cuales debe consultar",
+   "fase": "Muestras y cierre",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Se explica que debe consultar de inmediato ante fiebre, enrojecimiento, calor local, dolor intenso o progresivo o aumento rápido del volumen de la rodilla: pueden indicar una artritis séptica iatrogénica o una hemartrosis. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "alarma": 1
+   },
+   "claves": [
+    [
+     "pautas de alarma"
+    ],
+    [
+     "signos de alarma"
+    ],
+    [
+     "consultar inmediatamente"
+    ],
+    [
+     "consulte",
+     "fiebre"
+    ],
+    [
+     "fiebre",
+     "enrojecimiento"
+    ],
+    [
+     "alarma"
+    ]
+   ],
+   "frase": "Presento las pautas de alarma: debe consultar de inmediato ante fiebre, enrojecimiento, calor local, dolor intenso o aumento rápido del volumen de la rodilla.",
+   "fx": "alarma",
+   "sin_contra": true
+  },
+  {
+   "n": 41,
+   "texto": "Desecha la totalidad de los elementos utilizados",
+   "fase": "Muestras y cierre",
+   "target": "descarte",
+   "critico": false,
+   "explica": "Las agujas y los cortopunzantes van al descartador rígido, sin reencapuchar; las gasas, apósitos y demás material contaminado, a la bolsa roja de residuos patogénicos.",
+   "estado": {
+    "desecha": 1
+   },
+   "claves": [
+    [
+     "desecho"
+    ],
+    [
+     "descarto"
+    ],
+    [
+     "descartador"
+    ],
+    [
+     "bolsa roja"
+    ],
+    [
+     "residuos"
+    ]
+   ],
+   "frase": "Descarto los cortopunzantes en el descartador rígido, sin reencapuchar, y el resto de los residuos en la bolsa roja patogénica.",
+   "fx": "residuos",
+   "sin_contra": true
+  },
+  {
+   "n": 42,
+   "texto": "Se quita los guantes y los descarta",
+   "fase": "Muestras y cierre",
+   "target": "guantes",
+   "critico": false,
+   "explica": "Los guantes se retiran evertidos (de adentro hacia afuera) y se descartan para no contaminar las manos ni el ambiente.",
+   "estado": {
+    "guantes_off": 1
+   },
+   "claves": [
+    [
+     "me quito los guantes"
+    ],
+    [
+     "retiro los guantes"
+    ],
+    [
+     "me saco los guantes"
+    ],
+    [
+     "quito",
+     "guantes"
+    ]
+   ],
+   "frase": "Me quito los guantes evertiéndolos y los descarto.",
+   "fx": "guante_off",
+   "sin_contra": true
+  },
+  {
+   "n": 43,
+   "texto": "Se lava las manos nuevamente",
+   "fase": "Muestras y cierre",
+   "target": "manos",
+   "critico": true,
+   "explica": "Higiene final de manos con técnica clínica para cortar la cadena de transmisión de microorganismos.",
+   "estado": {
+    "lav2": 1
+   },
+   "claves": [
+    [
+     "lavo las manos nuevamente"
+    ],
+    [
+     "me lavo las manos nuevamente"
+    ],
+    [
+     "lavo las manos",
+     "final"
+    ],
+    [
+     "higiene final"
+    ],
+    [
+     "nuevamente",
+     "manos"
+    ],
+    [
+     "manos",
+     "finalizar"
+    ]
+   ],
+   "frase": "Me lavo las manos nuevamente con técnica clínica.",
+   "fx": "lavado",
+   "sin_contra": true
+  },
+  {
+   "n": 44,
+   "texto": "Registra el procedimiento realizado",
+   "fase": "Muestras y cierre",
+   "target": "hc",
+   "critico": true,
+   "explica": "Se registra en la historia clínica: fecha y hora, articulación y lado, anestésico y dosis, calibre de aguja, volumen extraído y aspecto del líquido, tolerancia y complicaciones, pautas de alarma entregadas y estudios enviados. Si se decidió no punzar, se registra la contraindicación y la derivación.",
+   "estado": {
+    "reg": 1
+   },
+   "claves": [
+    [
+     "registro el procedimiento"
+    ],
+    [
+     "historia clinica"
+    ],
+    [
+     "asiento"
+    ],
+    [
+     "dejo constancia"
+    ],
+    [
+     "anoto"
+    ]
+   ],
+   "frase": "Registro el procedimiento en la historia clínica: técnica, volumen extraído, aspecto del líquido, tolerancia y pautas de alarma entregadas.",
+   "fx": "registro"
+  },
+  {
+   "n": 45,
+   "texto": "Envía las muestras al laboratorio para su procesamiento y evaluación",
+   "fase": "Muestras y cierre",
+   "target": "lab",
+   "critico": true,
+   "explica": "Las muestras rotuladas viajan de inmediato al laboratorio junto con la orden de estudios (microbiología, cristales con luz polarizada y citología): los cristales y el recuento celular son más confiables dentro de las primeras 2 horas. Sin envío no hay diagnóstico.",
+   "estado": {
+    "envio": 1
+   },
+   "claves": [
+    [
+     "envio las muestras"
+    ],
+    [
+     "envia las muestras"
+    ],
+    [
+     "laboratorio"
+    ],
+    [
+     "envio de inmediato"
+    ]
+   ],
+   "frase": "Envío de inmediato las muestras rotuladas al laboratorio junto con la solicitud de estudios.",
+   "fx": "enviar_lab",
+   "sin_contra": true
+  }
+ ]
+}

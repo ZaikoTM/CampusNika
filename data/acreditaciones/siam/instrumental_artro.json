@@ -1,0 +1,578 @@
+{
+ "id": "artro",
+ "titulo": "Mesa de transporte · Artrocentesis de rodilla",
+ "consigna": "Leé el caso clínico y reuní lo que hace falta en la mesa de transporte: asepsia, anestesia, punción, muestras y cierre. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "indicación de artrocentesis de rodilla",
+ "indicacion_def": "Artrocentesis de rodilla derecha.",
+ "mision": [
+  "qué hace falta para punzar y anestesiar con asepsia;",
+  "cómo se toman, se rotulan y se envían las muestras;",
+  "qué insumos no corresponden."
+ ],
+ "demo_caso": "Primero se lee el caso clínico: puede haber una contraindicación y el derrame puede ser grande o escaso.",
+ "grupos": [
+  {
+   "id": "asep",
+   "titulo": "Asepsia y campo"
+  },
+  {
+   "id": "anest",
+   "titulo": "Anestesia"
+  },
+  {
+   "id": "punc",
+   "titulo": "Punción y muestras"
+  },
+  {
+   "id": "cierre",
+   "titulo": "Cierre y control"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "consentimiento",
+   "grupo": "cierre",
+   "nombre": "Consentimiento informado",
+   "detalle": "Formulario para firmar",
+   "img": "assets/instrumental/consentimiento.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "El paciente firma luego de comprender el procedimiento, sus beneficios y sus riesgos. Es un requisito ético y legal.",
+   "ficha": [
+    [
+     "Documento",
+     "Consentimiento informado"
+    ]
+   ],
+   "falta": "Falta el consentimiento informado: sin él no se puede punzar."
+  },
+  {
+   "id": "tensiometro",
+   "grupo": "cierre",
+   "nombre": "Tensiómetro y brazalete",
+   "detalle": "Aneroide · adulto",
+   "img": "assets/instrumental/tensiometro.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para medir la presión arterial antes de comenzar y constatar la estabilidad hemodinámica.",
+   "ficha": [
+    [
+     "Tipo",
+     "Aneroide"
+    ],
+    [
+     "Brazalete",
+     "Adulto"
+    ]
+   ],
+   "falta": "Falta el tensiómetro: la presión arterial previa es un paso crítico."
+  },
+  {
+   "id": "alcohol",
+   "grupo": "asep",
+   "nombre": "Alcohol etílico al 70 %",
+   "detalle": "Frasco con gasas o algodón",
+   "descripcion": "Antiséptico aceptado para la primera y la segunda antisepsia de la piel (alcohol 70 % o iodopovidona).",
+   "img": "assets/instrumental/alcohol.svg",
+   "correcto": true,
+   "critico": true,
+   "uno_de": "antisepsia",
+   "falta": "Falta un antiséptico: se necesita alcohol al 70 % o iodopovidona para las dos antisepsias.",
+   "ficha": [
+    [
+     "Concentración",
+     "70 % v/v"
+    ],
+    [
+     "Vencimiento",
+     "06/2028"
+    ]
+   ]
+  },
+  {
+   "id": "iodo",
+   "grupo": "asep",
+   "nombre": "Iodopovidona",
+   "detalle": "Solución antiséptica al 10 %",
+   "descripcion": "Antiséptico aceptado para las dos antisepsias, del centro hacia afuera. Alternativa al alcohol al 70 %.",
+   "img": "assets/instrumental/iodo.svg",
+   "correcto": true,
+   "critico": true,
+   "uno_de": "antisepsia",
+   "falta": "Falta un antiséptico: se necesita alcohol al 70 % o iodopovidona para las dos antisepsias.",
+   "ficha": [
+    [
+     "Concentración",
+     "10 %"
+    ],
+    [
+     "Vencimiento",
+     "03/2029"
+    ]
+   ]
+  },
+  {
+   "id": "gasas",
+   "grupo": "asep",
+   "nombre": "Gasas estériles",
+   "detalle": "Sobre de gasas 10 × 10 cm",
+   "descripcion": "Para las antisepsias, la hemostasia del sitio de punción y el apósito.",
+   "img": "assets/instrumental/gasas.svg",
+   "correcto": true,
+   "critico": true,
+   "falta": "Faltan las gasas estériles para la antisepsia y la hemostasia.",
+   "ficha": [
+    [
+     "Tamaño",
+     "10 × 10 cm"
+    ],
+    [
+     "Estéril",
+     "Sí"
+    ]
+   ]
+  },
+  {
+   "id": "pano_fenestrado",
+   "grupo": "asep",
+   "nombre": "Paño fenestrado estéril",
+   "detalle": "Con ventana central",
+   "img": "assets/instrumental/pano_fenestrado.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Delimita el campo estéril y deja una ventana sobre el sitio de punción.",
+   "ficha": [
+    [
+     "Tipo",
+     "Fenestrado"
+    ],
+    [
+     "Estéril",
+     "Sí"
+    ]
+   ],
+   "falta": "Falta el paño fenestrado estéril: delimita el campo para punzar."
+  },
+  {
+   "id": "guantes_e",
+   "grupo": "asep",
+   "nombre": "Guantes estériles",
+   "detalle": "Par de látex · talle a elección",
+   "descripcion": "Guantes con técnica aséptica para tocar el campo estéril y punzar.",
+   "img": "assets/instrumental/guantes_e.svg",
+   "correcto": true,
+   "critico": true,
+   "uno_de": "guantes",
+   "falta": "Faltan los guantes: se colocan luego del lavado de manos.",
+   "ficha": [
+    [
+     "Material",
+     "Látex"
+    ],
+    [
+     "Estéril",
+     "Sí"
+    ]
+   ]
+  },
+  {
+   "id": "guantes_ns",
+   "grupo": "asep",
+   "nombre": "Guantes de examen",
+   "detalle": "Caja de guantes",
+   "descripcion": "Guantes de examen; sirven para colocarse los guantes del procedimiento (manoplas).",
+   "img": "assets/instrumental/guantes_ns.svg",
+   "correcto": true,
+   "critico": true,
+   "uno_de": "guantes",
+   "falta": "Faltan los guantes: se colocan luego del lavado de manos.",
+   "ficha": [
+    [
+     "Material",
+     "Látex"
+    ],
+    [
+     "Estéril",
+     "No"
+    ]
+   ]
+  },
+  {
+   "id": "lidocaina",
+   "grupo": "anest",
+   "nombre": "Lidocaína al 1 % sin epinefrina",
+   "detalle": "Frasco ampolla de 20 mL",
+   "img": "assets/instrumental/lidocaina.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Anestésico local para infiltrar por planos (0,25 cc por plano), siempre aspirando antes de inyectar.",
+   "ficha": [
+    [
+     "Concentración",
+     "1 %"
+    ],
+    [
+     "Vasoconstrictor",
+     "No"
+    ],
+    [
+     "Vencimiento",
+     "09/2028"
+    ]
+   ],
+   "falta": "Falta la lidocaína al 1 % sin epinefrina para anestesiar."
+  },
+  {
+   "id": "jeringa10",
+   "grupo": "anest",
+   "nombre": "Jeringa de 10 cc",
+   "detalle": "Descartable · Luer",
+   "descripcion": "Para cargar 5 cc de lidocaína y anestesiar por planos.",
+   "img": "assets/instrumental/jeringa10.svg",
+   "correcto": true,
+   "critico": true,
+   "falta": "Falta la jeringa de 10 cc para la anestesia.",
+   "ficha": [
+    [
+     "Volumen",
+     "10 mL"
+    ],
+    [
+     "Estéril",
+     "Sí"
+    ]
+   ]
+  },
+  {
+   "id": "aguja25",
+   "grupo": "anest",
+   "nombre": "Aguja 25 G (0,5 × 25 mm)",
+   "detalle": "Naranja · para la piel",
+   "img": "assets/instrumental/aguja25.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Aguja fina para infiltrar el anestésico en la piel y los planos superficiales.",
+   "ficha": [
+    [
+     "Calibre",
+     "25 G"
+    ],
+    [
+     "Longitud",
+     "25 mm"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "aguja21",
+   "grupo": "punc",
+   "nombre": "Aguja 21 G (0,8 × 40 mm)",
+   "detalle": "Verde · para extraer líquido",
+   "img": "assets/instrumental/aguja21.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Calibre estándar para extraer líquido sinovial de la rodilla del adulto: las agujas más finas se obstruyen con la viscosidad del líquido.",
+   "ficha": [
+    [
+     "Calibre",
+     "21 G"
+    ],
+    [
+     "Longitud",
+     "40 mm"
+    ]
+   ],
+   "falta": "Falta la aguja 21 G (o 25 G) para extraer el líquido."
+  },
+  {
+   "id": "jeringa20",
+   "grupo": "punc",
+   "nombre": "Jeringa de 20 mL",
+   "detalle": "Para derrames importantes",
+   "img": "assets/instrumental/jeringa20.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Con la llave de 3 vías permite evacuar derrames grandes sin retirar la aguja. Solo hace falta si el derrame es importante.",
+   "ficha": [
+    [
+     "Volumen",
+     "20 mL"
+    ],
+    [
+     "Conexión",
+     "Luer lock"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "llave3vias",
+   "grupo": "punc",
+   "nombre": "Llave de 3 vías",
+   "detalle": "Estéril · Luer",
+   "img": "assets/instrumental/llave3vias.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Conecta la aguja, la jeringa grande y el frasco colector para evacuar el derrame sin soltar la aguja.",
+   "ficha": [
+    [
+     "Vías",
+     "3"
+    ],
+    [
+     "Estéril",
+     "Sí"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "frasco_colector",
+   "grupo": "punc",
+   "nombre": "Frasco colector plástico",
+   "detalle": "1000 mL",
+   "img": "assets/instrumental/frasco_colector.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Recibe el líquido evacuado en los derrames abundantes.",
+   "ficha": [
+    [
+     "Capacidad",
+     "1000 mL"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "tubos_nohep",
+   "grupo": "punc",
+   "nombre": "Tubos estériles SIN heparina (2)",
+   "detalle": "Gram/cultivo y cristales",
+   "img": "assets/instrumental/tubos_nohep.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Tubo 1: examen directo, Gram y cultivo con antibiograma. Tubo 2: examen directo para cristales con luz polarizada. La heparina interfiere con la microbiología.",
+   "ficha": [
+    [
+     "Cantidad",
+     "2"
+    ],
+    [
+     "Anticoagulante",
+     "Ninguno"
+    ]
+   ],
+   "falta": "Faltan los tubos estériles sin heparina para el cultivo y los cristales."
+  },
+  {
+   "id": "tubos_hep",
+   "grupo": "punc",
+   "nombre": "Tubos estériles CON heparina (1–2)",
+   "detalle": "Recuento celular y fisicoquímico",
+   "img": "assets/instrumental/tubos_hep.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Tubo 3: recuento celular total y fórmula diferencial. Tubo 4 (opcional): proteínas, glucosa y otros. La heparina evita que el líquido coagule.",
+   "ficha": [
+    [
+     "Cantidad",
+     "1 a 2"
+    ],
+    [
+     "Anticoagulante",
+     "Heparina"
+    ]
+   ],
+   "falta": "Faltan los tubos con heparina para el recuento celular."
+  },
+  {
+   "id": "rotulos",
+   "grupo": "punc",
+   "nombre": "Rótulos para las muestras",
+   "detalle": "Etiquetas autoadhesivas",
+   "img": "assets/instrumental/rotulos.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Cada tubo se rotula con nombre, DNI, articulación, fecha y hora, condición (con o sin heparina) y firma del médico.",
+   "ficha": [
+    [
+     "Datos",
+     "Paciente · articulación · fecha · hora · firma"
+    ]
+   ],
+   "falta": "Faltan los rótulos: una muestra sin identificar no se procesa."
+  },
+  {
+   "id": "aposito",
+   "grupo": "cierre",
+   "nombre": "Apósito estéril",
+   "detalle": "Adhesivo · 6 × 7 cm",
+   "img": "assets/instrumental/aposito.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Cubre el sitio de punción después de la hemostasia.",
+   "ficha": [
+    [
+     "Tamaño",
+     "6 × 7 cm"
+    ],
+    [
+     "Estéril",
+     "Sí"
+    ]
+   ],
+   "falta": "Falta el apósito estéril para cubrir el sitio de punción."
+  },
+  {
+   "id": "cinta",
+   "grupo": "cierre",
+   "nombre": "Cinta hipoalergénica",
+   "detalle": "Rollo de 2,5 cm",
+   "descripcion": "Fija el apósito sin irritar la piel.",
+   "img": "assets/instrumental/cinta.svg",
+   "correcto": true,
+   "critico": false,
+   "ficha": [
+    [
+     "Ancho",
+     "2,5 cm"
+    ],
+    [
+     "Material",
+     "Hipoalergénica"
+    ]
+   ]
+  },
+  {
+   "id": "descartador",
+   "grupo": "cierre",
+   "nombre": "Descartador de cortopunzantes",
+   "detalle": "Rígido, rojo",
+   "img": "assets/instrumental/descartador.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "La aguja usada se descarta de inmediato en el descartador rígido, sin reencapuchar.",
+   "ficha": [
+    [
+     "Tipo",
+     "Rígido"
+    ],
+    [
+     "Color",
+     "Rojo"
+    ]
+   ],
+   "falta": "Falta el descartador de cortopunzantes: la aguja no se reencapucha ni va a la bolsa."
+  },
+  {
+   "id": "bolsa_roja",
+   "grupo": "cierre",
+   "nombre": "Bolsa roja de residuos patogénicos",
+   "detalle": "Para gasas, apósitos y guantes",
+   "img": "assets/instrumental/bolsa_roja.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Recibe el material contaminado que no es cortopunzante.",
+   "ficha": [
+    [
+     "Color",
+     "Rojo"
+    ]
+   ]
+  },
+  {
+   "id": "lidocaina_epi",
+   "grupo": "otros",
+   "nombre": "Lidocaína al 1 % con epinefrina",
+   "detalle": "Frasco ampolla de 20 mL",
+   "img": "assets/instrumental/lidocaina_epi.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Anestésico con vasoconstrictor.",
+   "ficha": [
+    [
+     "Concentración",
+     "1 %"
+    ],
+    [
+     "Vasoconstrictor",
+     "Sí"
+    ]
+   ],
+   "feedback": "En la artrocentesis se usa lidocaína sin epinefrina."
+  },
+  {
+   "id": "corticoide",
+   "grupo": "otros",
+   "nombre": "Metilprednisolona 40 mg/mL",
+   "detalle": "Corticoide depot",
+   "img": "assets/instrumental/corticoide.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Corticoide intraarticular.",
+   "ficha": [
+    [
+     "Dosis",
+     "40 mg/mL"
+    ]
+   ],
+   "feedback": "No corresponde en una artrocentesis diagnóstica: primero se estudia el líquido y no se inyecta corticoide si se sospecha infección."
+  },
+  {
+   "id": "aguja18",
+   "grupo": "otros",
+   "nombre": "Aguja 18 G (1,2 × 40 mm)",
+   "detalle": "Rosa · gran calibre",
+   "img": "assets/instrumental/aguja18.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Aguja gruesa.",
+   "ficha": [
+    [
+     "Calibre",
+     "18 G"
+    ]
+   ],
+   "feedback": "Una aguja de gran calibre lesiona más los tejidos: corresponde 21 G (25 G para la piel)."
+  },
+  {
+   "id": "suero",
+   "grupo": "otros",
+   "nombre": "Solución fisiológica 0,9 %",
+   "detalle": "Ampolla de 10 mL",
+   "descripcion": "Solución salina isotónica de uso general.",
+   "img": "assets/instrumental/suero.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "El suero fisiológico no se usa en este procedimiento."
+  },
+  {
+   "id": "rinonera",
+   "grupo": "otros",
+   "nombre": "Riñonera / cuenco estéril",
+   "detalle": "Para dejar los elementos y la orina inicial",
+   "descripcion": "Recipiente estéril sobre el campo auxiliar para ordenar los elementos y recibir líquidos.",
+   "img": "assets/instrumental/rinonera.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La riñonera no hace falta: los cortopunzantes van al descartador rígido."
+  },
+  {
+   "id": "vaselina",
+   "grupo": "otros",
+   "nombre": "Vaselina en pomada",
+   "detalle": "Pote de uso general · no estéril",
+   "descripcion": "Lubricante oleoso de uso común.",
+   "img": "assets/instrumental/vaselina.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La vaselina no se usa en este procedimiento."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

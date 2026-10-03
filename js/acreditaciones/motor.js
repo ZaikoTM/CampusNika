@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=25'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=27'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
@@ -70,9 +70,9 @@
     function pintarLectura(ver) {
       const c = $('#acr-lectura'); if (!c) return;
       if (!ver) { c.innerHTML = ''; return; }
-      c.innerHTML = `<div class="lect-aviso">📖 <b>Antes de practicar</b>, leé la lista de cotejo${D.algoritmo ? ' y el algoritmo' : ''} o tenelos a mano: en el examen no vas a tener ayudas.</div>
+      c.innerHTML = `<div class="lect-aviso">📖 <b>Antes de practicar</b>, leé la lista de cotejo${D.algoritmo ? ' y ' + (D.algoritmo.aviso || 'el algoritmo') : ''} o tenelos a mano: en el examen no vas a tener ayudas.</div>
         <button type="button" class="lect-btn" id="lect-abrir"><span class="ic">📋</span><span><b>Ver la lista de cotejo completa</b><small>${D.pasos.filter((z) => !z.solo_si && !z.solo_contra).length} pasos${D.casos.some((z) => z.sexo === 'F') && D.pasos.some((z) => z.solo) ? ' · versión mujer y varón' : ''}</small></span><em>Abrir ↗</em></button>
-        ${D.algoritmo ? '<button type="button" class="lect-btn alg" id="lect-alg"><span class="ic">🧭</span><span><b>Ver el algoritmo</b><small>Ritmos desfibrilables y no desfibrilables</small></span><em>Abrir ↗</em></button>' : ''}`;
+        ${D.algoritmo ? `<button type="button" class="lect-btn alg" id="lect-alg"><span class="ic">🧭</span><span><b>${esc(D.algoritmo.boton_titulo || 'Ver el algoritmo')}</b><small>${esc(D.algoritmo.boton_sub || 'Ritmos desfibrilables y no desfibrilables')}</small></span><em>Abrir ↗</em></button>` : ''}`;
       $('#lect-abrir').onclick = () => abrirLista(S.sexo);
       if (D.algoritmo) $('#lect-alg').onclick = () => abrirAlgoritmo();
     }
@@ -83,10 +83,10 @@
       const cerrar = () => { m.classList.add('sale'); document.removeEventListener('keydown', tecla); setTimeout(() => m.remove(), 250); };
       const tecla = (e) => { if (e.key === 'Escape') cerrar(); };
       m.innerHTML = `<div class="lect-hoja alg-hoja" role="dialog" aria-label="Algoritmo"><div class="lect-cab"><div><h2>🧭 ${esc(A.titulo)}</h2><p>Los pasos ya realizados se marcan en verde.</p></div><button class="lect-x" data-cerrar aria-label="Cerrar">✕</button></div>
-        <div class="lect-cuerpo"><div class="alg-fila">${A.comun.map(nodo).join('')}</div><div class="alg-flecha">▼ ¿Ritmo desfibrilable?</div>
+        <div class="lect-cuerpo"><div class="alg-fila">${A.comun.map(nodo).join('')}</div><div class="alg-flecha">${esc(A.flecha || '▼ ¿Ritmo desfibrilable?')}</div>
         <div class="alg-cols">${A.columnas.map((c) => `<div class="alg-col ${c.cls}"><h3>${esc(c.titulo)}</h3>${c.nodos.map(nodo).join('<div class="alg-flecha chica">▼</div>')}</div>`).join('')}</div>
-        <div class="alg-flecha">▼ Cada 2 minutos: reevaluar el ritmo</div><div class="alg-fila">${A.final.map(nodo).join('')}</div></div>
-        <div class="lect-pie">Compresiones de calidad, mínimas interrupciones y relevo cada 2 minutos. <button class="acr-btn sec" data-cerrar>Cerrar</button></div></div>`;
+        <div class="alg-flecha">${esc(A.flecha_final || '▼ Cada 2 minutos: reevaluar el ritmo')}</div><div class="alg-fila">${A.final.map(nodo).join('')}</div></div>
+        <div class="lect-pie">${esc(A.pie || 'Compresiones de calidad, mínimas interrupciones y relevo cada 2 minutos.')} <button class="acr-btn sec" data-cerrar>Cerrar</button></div></div>`;
       m.onclick = (e) => { if (e.target === m || e.target.closest('[data-cerrar]')) cerrar(); };
       document.body.appendChild(m); document.addEventListener('keydown', tecla);
     }
@@ -170,7 +170,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r29'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r30'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     // caso con contraindicación absoluta: se omiten los pasos del tacto y aparece el paso «no realizar»
@@ -321,6 +321,7 @@
       Object.entries(est || {}).forEach(([k, v]) => { if (v === 'none') return; svg.classList.add(typeof v === 'string' ? `g-${v}` : `s-${k}`); });
       svg.querySelectorAll('.hs.used').forEach((e) => e.classList.remove('used'));
       (usados || []).forEach((t) => { const e = svg.querySelector(`[data-hs="${t}"]`); if (e) e.classList.add('used'); });
+      { const _c = casoActual(); if (_c && _c.liq) { svg.style.setProperty('--liq', _c.liq.color); svg.dataset.vol = _c.liq.vol || 'moderado'; svg.dataset.ml = _c.liq.ml || 30; } else { svg.dataset.vol = ''; } svg.dataset.contra = (_c && _c.contra) || ''; }
       if (ESC.sync) ESC.sync(svg);
       if (window.AcrMonitor && AcrMonitor.activo) AcrMonitor.estado(svg);
       const e = est || {};
