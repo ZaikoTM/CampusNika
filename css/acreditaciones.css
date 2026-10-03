@@ -883,3 +883,12 @@ body.acr-sin-fs .acr-full-fab, body.acr-sin-fs [data-tool="full"] { display: non
 .mon-dock .mon-num b { font-size: 1.3rem; } .mon-dock .mon-pa b { font-size: 1rem; }
 @media (max-width: 640px) { .mon-dock { grid-template-columns: minmax(0, 1fr); } .acr3d-vp .cron { top: 70px; } }
 @media (orientation: landscape) and (max-height: 560px) { .mon-dock { grid-template-columns: minmax(0, 1fr) 170px; padding: 4px 6px; } .mon-dock .mon-ecg { height: 70px; } .mon-dock .mon-num b { font-size: 1rem; } }
+
+/* RCP: monitor más compacto para dejar más lugar al 3D */
+.mon-dock { padding: 4px 8px; gap: 8px; grid-template-columns: minmax(0, 1fr) 170px; }
+.mon-dock .mon-ecg { height: 52px; }
+.mon-dock .mon-top { padding-top: 2px; padding-bottom: 2px; }
+.mon-dock .mon-num b { font-size: 1rem; } .mon-dock .mon-pa b { font-size: .85rem; }
+.mon-dock .mon-num small { font-size: .6rem; }
+.mon-dock .mon-num > div { padding-top: 2px; padding-bottom: 2px; }
+.mon-dock .defi-tit, .mon-dock .defi-est { font-size: .75rem; }
