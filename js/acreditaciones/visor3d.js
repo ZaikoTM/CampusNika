@@ -246,7 +246,7 @@ export class MedicalProcedureViewer {
       b.classList.toggle('on', t === 'xray' || t === 'cut' || t === 'labels' ? C.opt[t] : C.opt.capas[t]);
       this.aplicarLook();
     });
-    controls.addEventListener('start', () => { C.goal = null; });
+    controls.addEventListener('start', () => { C.goal = null; C.lento = false; });
     let down = null;
     canvas.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
     canvas.addEventListener('pointerup', (e) => {
@@ -264,7 +264,7 @@ export class MedicalProcedureViewer {
     const loop = (t) => {
       if (this.C !== C) return;
       C.raf = requestAnimationFrame(loop);
-      if (C.goal) { camera.position.lerp(C.goal, 0.08); if (camera.position.distanceTo(C.goal) < 0.3) C.goal = null; }
+      if (C.goal) { camera.position.lerp(C.goal, C.lento ? 0.04 : 0.08); if (camera.position.distanceTo(C.goal) < 0.3) { C.goal = null; C.lento = false; } }
       controls.update();
       C.inst.forEach((s) => {
         const k = s.cat; k.cur += (k.goal - k.cur) * 0.03; if (Math.abs(k.goal - k.cur) < 0.002) k.cur = k.goal;
@@ -308,7 +308,14 @@ export class MedicalProcedureViewer {
     return this.construir(variante, (f, nombre) => {
       if (this.C !== C) return;
       const p = Math.round(f * 100); pct.textContent = p + '%'; fill.style.width = p + '%'; sub.textContent = `${mb} MB · ${nombre || ''}`;
-    }).then(() => { if (this.C === C) barra.hidden = true; })
+    }).then(() => {
+      if (this.C !== C) return;
+      barra.hidden = true;
+      if (!(typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches)) {   // entrada cinematográfica: la cámara se acerca al paciente
+        const fin = camera.position.clone(); const tg = controls.target;
+        camera.position.copy(tg).add(fin.clone().sub(tg).multiplyScalar(1.75)); C.goal = fin; C.lento = true;
+      }
+    })
       .catch((e) => { console.error('[Visor3D]', e); if (this.C === C) barra.innerHTML = '<div class="acr3d-load-t">No se pudo cargar el modelo 3D.</div>'; });
   }
 

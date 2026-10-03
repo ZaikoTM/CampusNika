@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+<defs>
+<linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfdfe"/><stop offset=".3" stop-color="#b7c3cb"/><stop offset=".55" stop-color="#eef3f6"/><stop offset=".8" stop-color="#8996a1"/><stop offset="1" stop-color="#cfd8de"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b98a3"/><stop offset=".45" stop-color="#cbd5dc"/><stop offset=".7" stop-color="#aab6bf"/><stop offset="1" stop-color="#e3e9ed"/></linearGradient>
+<linearGradient id="bevel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset="1" stop-color="#6b7884" stop-opacity=".5"/></linearGradient>
+<filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter><filter id="blur2"><feGaussianBlur stdDeviation="1.6"/></filter>
+</defs>
+<rect x="14" y="26" width="612" height="364" rx="34" fill="#02131a" opacity=".5" filter="url(#blur6)"/>
+<rect x="10" y="10" width="620" height="372" rx="34" fill="url(#rim)" stroke="#6f7d88" stroke-width="2"/>
+<rect x="14" y="14" width="612" height="364" rx="31" fill="none" stroke="#ffffff" stroke-opacity=".7" stroke-width="2"/>
+<rect x="30" y="30" width="580" height="332" rx="22" fill="url(#bevel)" opacity=".85"/>
+<rect x="44" y="44" width="552" height="304" rx="16" fill="url(#floor)" stroke="#5e6b76" stroke-width="2"/>
+<rect x="46" y="46" width="548" height="300" rx="15" fill="none" stroke="#2b3640" stroke-opacity=".55" stroke-width="5" filter="url(#blur2)"/>
+<path d="M60 70 C170 52 300 56 420 66" stroke="#ffffff" stroke-opacity=".6" stroke-width="3" fill="none" stroke-linecap="round" filter="url(#blur2)"/>
+<path d="M120 320 C260 332 420 330 560 316" stroke="#ffffff" stroke-opacity=".4" stroke-width="3" fill="none" stroke-linecap="round" filter="url(#blur2)"/>
+<rect x="300" y="14" width="40" height="8" rx="4" fill="#5c6a75" opacity=".55"/>
+</svg>

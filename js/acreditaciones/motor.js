@@ -56,14 +56,14 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=5'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=6'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
     let MESA = null;
     async function asegurarMesa() {
       if (MESA) return;
-      const [mod, cfg] = await Promise.all([import('./mesa.js?v=1'), getJSON(D.instrumental)]);
+      const [mod, cfg] = await Promise.all([import('./mesa.js?v=3'), getJSON(D.instrumental)]);
       MESA = mod.crearMesa(cfg);
     }
     const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
