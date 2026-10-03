@@ -165,6 +165,7 @@ export class MedicalProcedureViewer {
       obj.scale.setScalar(p.escala); obj.rotation.set(...p.rot); obj.position.set(...p.pos); obj.name = p.id;
       if (p.pivote) { const gp = new THREE.Group(); gp.position.set(...p.pivote); obj.position.sub(gp.position); gp.rotation.set(...(p.rot_pivote || [0, 0, 0])); gp.add(obj); C.capas[p.capa].add(gp); }
       else C.capas[p.capa].add(obj);
+      if (p.anim) { C.anim = C.anim || {}; (C.anim[p.anim] = C.anim[p.anim] || []).push(obj); }
     });
     if (this.CFG.general.corte_inicial) { C.opt.cut = true; const bc = C.vp.querySelector('[data-tool="cut"]'); if (bc) bc.classList.add('on'); }
     this.aplicarLook();
@@ -288,6 +289,33 @@ export class MedicalProcedureViewer {
         let on = false;
         C.inst.push({ tipo: ins.tipo, cat: { goal: 0 }, sync: (has) => { const c = ins.clases; on = has(c.activa) && !has(c.suelta); },
           tick: (t) => { g.visible = on; if (on) g.position.z = P.punto[2] + 0.35 * Math.sin(t / 260); } });
+      }
+
+      if (ins.tipo === 'compresion') {
+        const K = cfg.compresion; const g = new THREE.Group(); g.position.set(...K.sitio); g.visible = false; C.capas.sonda.add(g);
+        const mG = this.material('#7dd3fc', 0.96, 'sonda', { emissive: 0x0369a1, emissiveIntensity: 0.35, depthWrite: true });
+        const mM = this.material('#2dd4bf', 0.9, 'sonda', { emissive: 0x0f766e, emissiveIntensity: 0.25, depthWrite: true });
+        const talon = new THREE.Mesh(new THREE.BoxGeometry(7.2, 8.6, 2.2), mG); talon.position.set(0, 0, 1.1);
+        const dedos = new THREE.Mesh(new THREE.BoxGeometry(6.0, 7.2, 2.0), mG); dedos.position.set(0.3, -0.4, 3.2);
+        g.add(talon, dedos);
+        [-1.6, 1.6].forEach((dx) => { const br = new THREE.Mesh(new THREE.CylinderGeometry(2.3, 2.6, K.brazos, 18), mM); br.rotation.x = Math.PI / 2; br.position.set(dx, -0.4, 4.2 + K.brazos / 2); g.add(br); });
+        g.traverse((m) => { if (m.isMesh) this.registrar(m, 'sonda', 'mano'); });
+        const ent = { tipo: ins.tipo, cat: { goal: 0 }, st: { mano: false, rcp: false, rosc: false, muerte: false } };
+        ent.sync = (has) => { const c = ins.clases; ent.st = { mano: has(c.mano), rcp: has(c.rcp), rosc: has(c.rosc), muerte: has(c.muerte) }; ent.cat.goal = ent.st.rcp && !ent.st.rosc && !ent.st.muerte ? 1 : 0; };
+        let t0 = 0;
+        ent.tick = (t) => {
+          const s = ent.st; const A = C.anim || {}; const comprime = s.rcp && !s.rosc && !s.muerte;
+          const pausa = window.AcrMonitor && window.AcrMonitor.activo && !window.AcrMonitor.rcpActiva();
+          g.visible = (s.mano || s.rcp) && !s.rosc && !s.muerte;
+          let p = 0;
+          if (comprime && !pausa) { if (!t0) t0 = t; const f = (((t - t0) / 1000) * (K.frecuencia || 110) / 60) % 1; p = f < 0.45 ? Math.sin((f / 0.45) * Math.PI / 2) : Math.cos(((f - 0.45) / 0.55) * Math.PI / 2); } else t0 = 0;
+          const prof = (K.profundidad || 4.5) * p;
+          g.position.z = K.sitio[2] - prof;
+          (A.esternon || []).forEach((o) => { o.position.z = -prof; });
+          const lat = s.rosc && !s.muerte ? Math.pow(Math.max(0, Math.sin(t / 1000 * 2 * Math.PI * 78 / 60)), 3) * 0.06 : 0;
+          (A.corazon || []).forEach((o) => { o.scale.set(1, 1, 1 - 0.16 * p + lat); });
+        };
+        C.inst.push(ent);
       }
       // otros tipos (aguja, catéter…) se agregan aquí con su propia animación
     });

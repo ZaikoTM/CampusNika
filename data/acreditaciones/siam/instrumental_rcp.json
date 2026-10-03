@@ -1,0 +1,334 @@
+{
+ "id": "rcp",
+ "titulo": "Carro de paro y sala de reanimación · RCP avanzado",
+ "consigna": "Leé el caso clínico y reuní lo que hace falta en el shock room: monitoreo, desfibrilación, vía aérea, accesos y medicación. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "indicación de reanimación cardiopulmonar avanzada",
+ "indicacion_def": "Reanimación cardiopulmonar avanzada.",
+ "mision": [
+  "qué equipo y qué medicación hacen falta para la reanimación;",
+  "qué insumos no corresponden en un paro cardíaco."
+ ],
+ "demo_caso": "Primero se lee el caso clínico: el ritmo del monitor va a definir si se descarga o se da adrenalina.",
+ "grupos": [
+  {
+   "id": "desf",
+   "titulo": "Desfibrilación"
+  },
+  {
+   "id": "aereo",
+   "titulo": "Vía aérea y oxigenación"
+  },
+  {
+   "id": "med",
+   "titulo": "Medicación y accesos"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "guantes_ns",
+   "grupo": "otros",
+   "nombre": "Guantes de examen",
+   "detalle": "Par · precaución estándar",
+   "descripcion": "Precaución estándar frente a sangre y fluidos antes de tocar al paciente.",
+   "img": "assets/instrumental/guantes_ns.svg",
+   "correcto": true,
+   "critico": true,
+   "falta": "Faltan los guantes: la precaución estándar es obligatoria.",
+   "ficha": [
+    [
+     "Tipo",
+     "Examen, no estériles"
+    ]
+   ]
+  },
+  {
+   "id": "desfibrilador",
+   "grupo": "desf",
+   "nombre": "Desfibrilador bifásico con palas",
+   "detalle": "Monitor, carga y descarga",
+   "img": "assets/instrumental/desfibrilador.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para descargar ante FV o TV sin pulso: se selecciona la energía (120–200 J bifásico), se carga y se descarga con todos fuera.",
+   "ficha": [
+    [
+     "Tipo",
+     "Bifásico"
+    ],
+    [
+     "Energía",
+     "120–200 J"
+    ],
+    [
+     "Batería",
+     "Cargada"
+    ]
+   ],
+   "falta": "Falta el desfibrilador: sin él no se puede tratar la FV ni la TV sin pulso."
+  },
+  {
+   "id": "carro_paro",
+   "grupo": "med",
+   "nombre": "Carro de paro",
+   "detalle": "Medicación y material de emergencia",
+   "img": "assets/instrumental/carro_paro.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Reúne la medicación de la reanimación (adrenalina, amiodarona) y el material de emergencia.",
+   "ficha": [
+    [
+     "Contenido",
+     "Medicación y accesos"
+    ],
+    [
+     "Precinto",
+     "Intacto"
+    ]
+   ],
+   "falta": "Falta el carro de paro con la medicación de la reanimación."
+  },
+  {
+   "id": "adrenalina",
+   "grupo": "med",
+   "nombre": "Adrenalina 1 mg/mL",
+   "detalle": "Ampolla de 1 mL",
+   "img": "assets/instrumental/adrenalina.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Fármaco de la reanimación: 1 mg EV/IO cada 3 a 5 minutos, en ritmos desfibrilables (tras la 2.ª descarga) y no desfibrilables.",
+   "ficha": [
+    [
+     "Concentración",
+     "1 mg/mL"
+    ],
+    [
+     "Vencimiento",
+     "08/2028"
+    ],
+    [
+     "Lote",
+     "AD-30581"
+    ]
+   ],
+   "falta": "Falta la adrenalina: es el fármaco central de la reanimación."
+  },
+  {
+   "id": "amiodarona",
+   "grupo": "med",
+   "nombre": "Amiodarona 150 mg",
+   "detalle": "Ampolla de 3 mL",
+   "img": "assets/instrumental/amiodarona.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Antiarrítmico para la FV/TV sin pulso refractaria: 300 mg EV tras el tercer choque. Es opcional en los demás casos.",
+   "ficha": [
+    [
+     "Concentración",
+     "50 mg/mL"
+    ],
+    [
+     "Vencimiento",
+     "03/2029"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "via_ev",
+   "grupo": "med",
+   "nombre": "Equipo de vía periférica y solución fisiológica",
+   "detalle": "Catéter 18 G + solución de 500 mL",
+   "img": "assets/instrumental/via_ev.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Acceso venoso para la medicación: vía periférica (o intraósea) y solución salina para el lavado.",
+   "ficha": [
+    [
+     "Catéter",
+     "18 G"
+    ],
+    [
+     "Solución",
+     "NaCl 0,9 % 500 mL"
+    ]
+   ],
+   "falta": "Falta el material para la vía periférica: sin acceso no se puede administrar medicación."
+  },
+  {
+   "id": "ambu",
+   "grupo": "aereo",
+   "nombre": "Bolsa de ambú con máscara y reservorio",
+   "detalle": "Adulto · con oxígeno",
+   "img": "assets/instrumental/ambu.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Ventilación durante la reanimación: 30:2 con ayudante o 10 por minuto con vía aérea avanzada.",
+   "ficha": [
+    [
+     "Volumen",
+     "Adulto 1600 mL"
+    ],
+    [
+     "Reservorio",
+     "Sí"
+    ]
+   ],
+   "falta": "Falta la bolsa de ambú con máscara."
+  },
+  {
+   "id": "oxigeno",
+   "grupo": "aereo",
+   "nombre": "Fuente de oxígeno",
+   "detalle": "Con caudalímetro",
+   "img": "assets/instrumental/oxigeno.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Oxígeno al 100 % para la ventilación durante la reanimación.",
+   "ficha": [
+    [
+     "Gas",
+     "Oxígeno medicinal"
+    ],
+    [
+     "Flujo",
+     "10–15 L/min"
+    ]
+   ],
+   "falta": "Falta la fuente de oxígeno."
+  },
+  {
+   "id": "kit_via_aerea",
+   "grupo": "aereo",
+   "nombre": "Kit de vía aérea avanzada",
+   "detalle": "Laringoscopio, tubo, jeringa y guía",
+   "img": "assets/instrumental/kit_via_aerea.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para asegurar la vía aérea sin interrumpir las compresiones, si se decide hacerlo.",
+   "ficha": [
+    [
+     "Contenido",
+     "Laringoscopio · TET · jeringa · guía"
+    ]
+   ],
+   "falta": "Falta el kit de vía aérea que se indica preparar a enfermería."
+  },
+  {
+   "id": "tabla_rigida",
+   "grupo": "otros",
+   "nombre": "Tabla rígida (dorsal)",
+   "detalle": "Superficie firme",
+   "img": "assets/instrumental/tabla_rigida.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Una superficie firme bajo el tórax mejora la efectividad de las compresiones. Es opcional.",
+   "ficha": [
+    [
+     "Material",
+     "Plástico rígido"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "sonda_m",
+   "grupo": "otros",
+   "nombre": "Sonda vesical y bolsa",
+   "detalle": "Sondaje vesical indicado a enfermería",
+   "descripcion": "El sondaje vesical figura entre las indicaciones a enfermería. Es opcional en el material.",
+   "img": "assets/instrumental/sonda_m.svg",
+   "correcto": true,
+   "critico": false,
+   "opcional": true,
+   "ficha": [
+    [
+     "Tipo",
+     "Foley"
+    ]
+   ]
+  },
+  {
+   "id": "atropina",
+   "grupo": "med",
+   "nombre": "Atropina 1 mg/mL",
+   "detalle": "Ampolla de 1 mL",
+   "img": "assets/instrumental/atropina.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Anticolinérgico.",
+   "ficha": [
+    [
+     "Concentración",
+     "1 mg/mL"
+    ]
+   ],
+   "feedback": "La atropina ya no se recomienda en la asistolia ni en la AESP: corresponde adrenalina."
+  },
+  {
+   "id": "bicarbonato",
+   "grupo": "med",
+   "nombre": "Bicarbonato de sodio 8,4 %",
+   "detalle": "Frasco de 10 mL",
+   "img": "assets/instrumental/bicarbonato.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Alcalinizante.",
+   "ficha": [
+    [
+     "Concentración",
+     "8,4 %"
+    ]
+   ],
+   "feedback": "El bicarbonato de sodio no se usa de rutina en la reanimación; solo en causas específicas (hiperpotasemia, acidosis grave, intoxicaciones)."
+  },
+  {
+   "id": "alcohol",
+   "grupo": "otros",
+   "nombre": "Alcohol al 70 %",
+   "detalle": "Gasas embebidas",
+   "descripcion": "Antiséptico de uso cutáneo.",
+   "img": "assets/instrumental/alcohol.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "El alcohol no se usa en este procedimiento."
+  },
+  {
+   "id": "iodo",
+   "grupo": "otros",
+   "nombre": "Iodopovidona jabonosa",
+   "detalle": "Antiséptico para la zona genital",
+   "descripcion": "Antisepsia de la zona genital: mínimo 3 pasadas con gasas estériles (una nueva por pasada), de lo más limpio a lo más contaminado (mujer: de arriba hacia abajo; varón: del meato hacia afuera, retrayendo el prepucio). Todo el lavado se repite 2 veces.",
+   "img": "assets/instrumental/iodo.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La iodopovidona no se usa en este procedimiento."
+  },
+  {
+   "id": "aguja",
+   "grupo": "otros",
+   "nombre": "Aguja 21 G",
+   "detalle": "Descartable · estéril",
+   "descripcion": "Aguja hipodérmica de uso general.",
+   "img": "assets/instrumental/aguja.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "Una aguja suelta no sirve para la reanimación: el acceso es un catéter venoso o intraóseo."
+  },
+  {
+   "id": "sng",
+   "grupo": "otros",
+   "nombre": "Sonda nasogástrica 16 Fr",
+   "detalle": "Vía digestiva alta · estéril",
+   "descripcion": "Sonda larga y flexible para la vía digestiva alta.",
+   "img": "assets/instrumental/sng.svg",
+   "correcto": false,
+   "critico": false,
+   "feedback": "La sonda nasogástrica no forma parte del material de la reanimación inicial."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

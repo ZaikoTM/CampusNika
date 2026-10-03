@@ -37,6 +37,17 @@
     snap: (c) => { [0, 0.22].forEach((t) => { ruido(c, { t, tipo: 'highpass', f0: 2500, dur: 0.07, g: 0.5 }); tono(c, { t, f0: 170, f1: 60, dur: 0.13, g: 0.25 }); }); },
     bip: (c) => { tono(c, { f0: 940, dur: 0.09, tipo: 'square', g: 0.06 }); tono(c, { t: 0.5, f0: 940, dur: 0.09, tipo: 'square', g: 0.06 }); tono(c, { t: 1.0, f0: 940, dur: 0.09, tipo: 'square', g: 0.06 }); },
     fuelle: (c) => { for (let i = 0; i < 3; i++) { ruido(c, { t: i * 1.1, tipo: 'lowpass', f0: 700, f1: 300, dur: 0.55, g: 0.28 }); tono(c, { t: i * 1.1, f0: 180, f1: 120, dur: 0.4, g: 0.05 }); } },
+    // --- reanimación
+    compresion: (c) => { tono(c, { f0: 90, f1: 45, dur: 0.12, g: 0.22 }); ruido(c, { tipo: 'lowpass', f0: 240, dur: 0.07, g: 0.2 }); },
+    metronomo: (c) => tono(c, { f0: 1000, dur: 0.045, tipo: 'square', g: 0.09 }),
+    carga: (c) => { const d = 3.2; const o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.setValueAtTime(380, c.currentTime); o.frequency.exponentialRampToValueAtTime(2300, c.currentTime + d); const g = c.createGain(); g.gain.setValueAtTime(0.0001, c.currentTime); g.gain.exponentialRampToValueAtTime(0.11, c.currentTime + 0.3); g.gain.setValueAtTime(0.11, c.currentTime + d - 0.1); g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + d + 0.08); const f = c.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 3200; o.connect(f); f.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + d + 0.1); },
+    listo: (c) => { for (let i = 0; i < 6; i++) tono(c, { t: i * 0.22, f0: 1500, dur: 0.12, tipo: 'square', g: 0.07 }); },
+    descarga: (c) => { ruido(c, { tipo: 'bandpass', f0: 2600, f1: 500, q: 0.7, dur: 0.22, g: 0.6 }); tono(c, { f0: 140, f1: 38, dur: 0.5, g: 0.55 }); ruido(c, { t: 0.02, tipo: 'lowpass', f0: 400, f1: 80, dur: 0.45, g: 0.4 }); },
+    zumbido: (c) => { tono(c, { f0: 880, dur: 0.1, tipo: 'sine', g: 0.07 }); tono(c, { t: 0.14, f0: 1175, dur: 0.14, g: 0.07 }); },
+    rosc: (c) => { [660, 880, 1100, 1320].forEach((f, i) => tono(c, { t: i * 0.16, f0: f, dur: 0.28, g: 0.12 })); },
+    plano: (c) => tono(c, { f0: 880, dur: 2.4, tipo: 'sine', g: 0.07 }),
+    inyeccion: (c) => { ruido(c, { tipo: 'bandpass', f0: 2200, f1: 800, q: 1.5, dur: 0.22, g: 0.14 }); tono(c, { t: 0.2, f0: 700, f1: 500, dur: 0.06, g: 0.08 }); },
+    rcp4: (c) => { for (let i = 0; i < 4; i++) { tono(c, { t: i * 0.545, f0: 90, f1: 45, dur: 0.12, g: 0.2 }); ruido(c, { t: i * 0.545, tipo: 'lowpass', f0: 240, dur: 0.07, g: 0.18 }); } },
     swish: (c) => { for (let i = 0; i < 4; i++) ruido(c, { t: i * 0.42, f0: 1100, f1: 2800, q: 2, dur: 0.34, g: 0.2 }); },
     agua: (c) => { for (let i = 0; i < 9; i++) ruido(c, { t: i * 0.2, f0: 900 + (i % 3) * 400, f1: 1700, q: 0.7, dur: 0.3, g: 0.14 }); },
     crujido: (c) => { for (let i = 0; i < 12; i++) ruido(c, { t: Math.random() * 0.7, tipo: 'highpass', f0: 2500 + Math.random() * 3000, dur: 0.04 + Math.random() * 0.04, g: 0.28 }); },
@@ -52,7 +63,18 @@
     hablar: (c) => { for (let i = 0; i < 4; i++) tono(c, { t: i * 0.13, f0: 330 + (i % 2) * 90, f1: 380, dur: 0.09, g: 0.09 }); },
     tick: (c) => { tono(c, { f0: 700, f1: 500, dur: 0.06, tipo: 'triangle', g: 0.15 }); tono(c, { t: 0.1, f0: 500, dur: 0.05, tipo: 'triangle', g: 0.1 }); },
   };
-  function sonido(n) { const c = audio(); if (!c || !SND[n]) return; try { SND[n](c); } catch (_) {} }
+  // voz del equipo (síntesis de voz del navegador): ordena y responde en las acreditaciones que lo piden
+  function hablar(txt, rol) {
+    try {
+      if (mudo || !window.speechSynthesis || !txt) return;
+      const limpio = String(txt).replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '').replace(/[«»]/g, '').replace(/\s+/g, ' ').trim(); if (!limpio) return;
+      const u = new SpeechSynthesisUtterance(limpio); u.lang = 'es-AR'; u.rate = 1.08; u.pitch = rol === 'm' ? 0.85 : rol === 'a' ? 1.0 : 1.12; u.volume = 0.9;
+      const vs = window.speechSynthesis.getVoices().filter((v) => /^es/i.test(v.lang)); if (vs.length) u.voice = vs.find((v) => /AR|MX|419|US/i.test(v.lang)) || vs[0];
+      window.speechSynthesis.speak(u);
+    } catch (_) {}
+  }
+  function sonido(n) { const c = audio(); if (!c || !SND[n]) return; try { SND[n](c); } catch (e) { console.warn('[AcrFX] sonido', n, e); } }
+  const nombresSonido = () => Object.keys(SND);
 
   // ---- escenas visuales. Cada una: ico, cap, snd, dur (ms a 1×), html opcional y init(el, ctx)
   const E = (ico, cap, snd, cls, dur) => ({ ico, cap, snd, cls, dur: dur || 1900 });
@@ -98,6 +120,32 @@
     inflar_tet: { ico: '💉', cap: 'Inflando el balón con 10 cc por el piloto', snd: 'inflar', cls: 'a-jeringa', dur: 2600, cc: true },
     auscultar: E('🩺', 'Auscultando epigastrio y ambos campos pulmonares; capnografía', 'tick', 'a-escanea', 3200),
     traccion_mandibular: E('🤲', 'Tracción mandibular con inmovilización cervical en eje, sin hiperextender', 'tick', 'a-tira', 2600),
+    monitor_ver: E('📟', 'Leyendo el ritmo en el monitor multiparamétrico', 'bip', 'a-escanea', 2600),
+    equipo: E('👥', 'Pidiendo ayuda y delegando funciones en el shock room', 'pop', 'a-pop', 2400),
+    indicar: E('📋', 'Indicaciones a enfermería: vía, sonda, vía aérea, medicación y desfibrilador', 'tick', 'a-pop', 2600),
+    oxigenar: E('🫁', 'Oxígeno al 100 % y dispositivos de vía aérea avanzada', 'fuelle', 'a-fuelle', 3200),
+    conciencia: E('👋', 'Estímulos verbales y dolorosos: sin respuesta', 'tick', 'a-pop', 2400),
+    voz: E('📣', '¡Inicio de reanimación avanzada!', 'zumbido', 'a-pop', 2200),
+    lado_torax: E('🧍', 'A un lado del paciente, a la altura del tórax', 'rodar', 'a-rueda', 1900),
+    xifoides: E('🫳', 'Palpando el apéndice xifoides', 'tick', 'a-presiona', 2000),
+    sitio: E('📍', 'Mitad inferior del esternón, en el centro del tórax', 'tick', 'a-pop', 2200),
+    talon: E('✋', 'Talón de la mano dominante sobre el esternón', 'thud', 'a-presiona', 2000),
+    dedos: E('🤝', 'Dedos entrelazados, levantados del tórax', 'pop', 'a-pop', 1900),
+    codos: E('💪', 'Codos completamente extendidos', 'tick', 'a-tira', 1900),
+    angulo90: E('📐', 'Hombros sobre las manos: ángulo de 90° con el tórax', 'click', 'a-pop', 2100),
+    compresiones: { ico: '❤️', cap: 'Compresiones: 100 a 120 por minuto, 5 a 6 cm, descompresión completa', snd: 'rcp4', cls: 'a-latido', dur: 3000 },
+    continuar: { ico: '❤️', cap: 'Compresiones rítmicas y sin detenerse · 30:2 con ayudante', snd: 'rcp4', cls: 'a-latido', dur: 2800 },
+    carga_defi: { ico: '⚡', cap: 'Desfibrilador: bifásico 200 J, cargando', snd: '', cls: 'a-pop', dur: 3200 },
+    descarga_fx: { ico: '🚨', cap: '¡TODOS FUERA! Descarga y compresiones de inmediato', snd: '', cls: 'a-pop', dur: 3400 },
+    adrenalina: { ico: '💉', cap: 'Adrenalina 1 mg EV/IO, cada 3 a 5 minutos', snd: '', cls: 'a-jeringa', dur: 2400 },
+    amiodarona: { ico: '💉', cap: 'Amiodarona 300 mg EV tras el tercer choque', snd: '', cls: 'a-jeringa', dur: 2400 },
+    causas: E('🔎', 'Causas reversibles: 5H y 5T', 'tick', 'a-escanea', 2800),
+    reevaluar: E('📈', 'Reevaluando el ritmo y el CO₂ espirado en el monitor', 'bip', 'a-escanea', 2800),
+    decide: E('🗣️', 'Decide si continuar y lo comunica al equipo', 'hablar', 'a-pop', 2300),
+    relevo: { ico: '🔁', cap: 'Relevo de quien comprime cada 2 minutos', snd: '', cls: 'a-gira', dur: 2600 },
+    rosc: { ico: '🎉', cap: '¡Retorno de la circulación espontánea! Cuidados post-paro', snd: '', cls: 'a-latido', dur: 3200 },
+    muerte: E('🕯️', 'Sin respuesta: se determina la hora de la muerte', 'tick', 'a-pop', 2800),
+    familia: E('🫂', 'Comunicando la evolución a la familia con respeto', 'hablar', 'a-pop', 2600),
     contraindicado: E('🚫', 'Contraindicación absoluta: no se realiza el tacto rectal', 'error', 'a-pop', 2600),
     desnudar: E('👖', 'Descubriendo de la cintura para abajo, resguardando la intimidad', 'crujido', 'a-baja'),
     separar: E('👐', 'Separando las nalgas para exponer la región', 'pop', 'a-abre', 1800),
@@ -188,5 +236,5 @@
     pintar(); document.body.appendChild(b);
   }
 
-  window.AcrFX = { play, sonido, boton, existe: (k) => !!ESC[k], quitar: quitarEscena, mudo: () => mudo };
+  window.AcrFX = { play, sonido, nombresSonido, hablar, audio, ruido, tono, boton, existe: (k) => !!ESC[k], quitar: quitarEscena, mudo: () => mudo };
 })();

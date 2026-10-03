@@ -1,0 +1,2044 @@
+{
+ "id": "rcp",
+ "area": "siam",
+ "titulo": "RCP avanzado",
+ "icono": "❤️‍🔥",
+ "resumen": "Recorrido virtual de la reanimación cardiopulmonar avanzada en el shock room, con 24 pasos de la lista de cotejo de la cátedra y el algoritmo según el ritmo del monitor.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Reanimación cardio-pulmonar avanzada (24 ítems)",
+ "elementos": {
+  "equipo": {
+   "nombre": "Equipo de trabajo",
+   "desc": "Médicos, enfermería y técnicos del shock room: se les pide colaboración, se les delegan funciones y se les informa el inicio del protocolo.",
+   "pasos": [
+    1,
+    2,
+    5,
+    6,
+    9,
+    18.4,
+    20
+   ]
+  },
+  "guantes": {
+   "nombre": "Guantes",
+   "desc": "Precaución estándar antes de tocar al paciente.",
+   "pasos": [
+    3
+   ]
+  },
+  "monitor": {
+   "nombre": "Monitor multiparamétrico",
+   "desc": "Muestra el ECG, la saturación, la presión y el CO₂ espirado. De él se lee el ritmo que define el algoritmo.",
+   "pasos": [
+    4,
+    19
+   ]
+  },
+  "oxigeno": {
+   "nombre": "Oxígeno y vía aérea",
+   "desc": "Oxigenación al 100 % y dispositivos de vía aérea avanzada.",
+   "pasos": [
+    7
+   ]
+  },
+  "paciente": {
+   "nombre": "Paciente",
+   "desc": "Se comprueba el nivel de conciencia con estímulos verbales y dolorosos y, al final, la respuesta a la reanimación.",
+   "pasos": [
+    8,
+    22
+   ]
+  },
+  "torax": {
+   "nombre": "Tórax",
+   "desc": "El reanimador se ubica a un lado, a la altura del tórax, y se inclina 90° sobre él.",
+   "pasos": [
+    10,
+    16
+   ]
+  },
+  "xifoides": {
+   "nombre": "Apéndice xifoides",
+   "desc": "Extremo inferior del esternón: referencia para ubicar el sitio de las compresiones.",
+   "pasos": [
+    11
+   ]
+  },
+  "esternon": {
+   "nombre": "Esternón (sitio de compresión)",
+   "desc": "Mitad inferior del esternón, en el centro del tórax.",
+   "pasos": [
+    12,
+    13,
+    17,
+    18
+   ]
+  },
+  "mano": {
+   "nombre": "Manos del reanimador",
+   "desc": "Talón de la mano dominante apoyado en el esternón, dedos entrelazados y codos extendidos.",
+   "pasos": [
+    14,
+    15
+   ]
+  },
+  "desfibrilador": {
+   "nombre": "Desfibrilador",
+   "desc": "Se selecciona la energía, se carga y se descarga con todos fuera, solo ante FV o TV sin pulso.",
+   "pasos": [
+    18.1,
+    18.2
+   ]
+  },
+  "carro": {
+   "nombre": "Carro de paro",
+   "desc": "Medicación de la reanimación: adrenalina y amiodarona.",
+   "pasos": [
+    18.3,
+    18.7,
+    18.8
+   ]
+  },
+  "reloj": {
+   "nombre": "Cronómetro",
+   "desc": "Marca los ciclos de 2 minutos y la hora de la muerte.",
+   "pasos": [
+    21,
+    22.5
+   ]
+  },
+  "familia": {
+   "nombre": "Familiar o acompañante",
+   "desc": "Se le comunica la evolución con respeto y lenguaje claro.",
+   "pasos": [
+    23
+   ]
+  },
+  "hc": {
+   "nombre": "Historia clínica",
+   "desc": "Se registran los procedimientos, las horas y la medicación.",
+   "pasos": [
+    24
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Inicia las compresiones sin comprobar la falta de respuesta",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: antes de comprimir se comprueba que el paciente no responde ni respira.",
+   "target": "paciente",
+   "claves": [
+    [
+     "sin comprobar",
+     "conciencia"
+    ],
+    [
+     "sin verificar",
+     "respuesta"
+    ],
+    [
+     "sin comprobar",
+     "respuesta"
+    ],
+    [
+     "sin evaluar",
+     "respuesta"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Inicia las compresiones sin haber leído el ritmo en el monitor",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el ritmo define el algoritmo (descarga o adrenalina).",
+   "target": "monitor",
+   "claves": [
+    [
+     "sin mirar",
+     "monitor"
+    ],
+    [
+     "sin leer",
+     "monitor"
+    ],
+    [
+     "sin observar",
+     "monitor"
+    ],
+    [
+     "sin determinar",
+     "ritmo"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Realiza las compresiones a una frecuencia inadecuada",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la frecuencia correcta es de 100 a 120 por minuto.",
+   "target": "esternon",
+   "claves": [
+    [
+     "60 por minuto"
+    ],
+    [
+     "60 compresiones"
+    ],
+    [
+     "150 por minuto"
+    ],
+    [
+     "200 por minuto"
+    ],
+    [
+     "compresiones lentas"
+    ],
+    [
+     "compresiones rapidas"
+    ],
+    [
+     "80 por minuto"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Realiza las compresiones con una profundidad inadecuada o sin permitir la descompresión",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la profundidad correcta es de 5 a 6 cm y el tórax debe expandirse por completo entre compresiones.",
+   "target": "esternon",
+   "claves": [
+    [
+     "2 cm"
+    ],
+    [
+     "3 cm"
+    ],
+    [
+     "sin descompresion"
+    ],
+    [
+     "sin permitir la descompresion"
+    ],
+    [
+     "me apoyo sobre el torax"
+    ],
+    [
+     "compresiones superficiales"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Ubica las manos en un sitio incorrecto (sobre el xifoides, el abdomen o las costillas)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el sitio correcto es la mitad inferior del esternón.",
+   "target": "esternon",
+   "claves": [
+    [
+     "sobre el xifoides"
+    ],
+    [
+     "sobre el abdomen"
+    ],
+    [
+     "sobre las costillas"
+    ],
+    [
+     "mitad superior"
+    ],
+    [
+     "sobre el cuello"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Interrumpe las compresiones durante un tiempo prolongado",
+   "critico": true,
+   "porque": "Las interrupciones deben ser mínimas (menos de 10 segundos): cada pausa baja la presión de perfusión coronaria.",
+   "target": "esternon",
+   "claves": [
+    [
+     "dejo de comprimir"
+    ],
+    [
+     "interrumpo",
+     "prolongad"
+    ],
+    [
+     "detengo las compresiones"
+    ],
+    [
+     "pauso las compresiones"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Descarga ante un ritmo no desfibrilable (asistolia o AESP)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la asistolia y la AESP no son desfibrilables; corresponde adrenalina y buscar causas reversibles.",
+   "target": "desfibrilador",
+   "claves": [
+    [
+     "descarga"
+    ],
+    [
+     "desfibrilo"
+    ],
+    [
+     "doy un shock"
+    ],
+    [
+     "aplico un shock"
+    ],
+    [
+     "indico un shock"
+    ],
+    [
+     "doy shock"
+    ],
+    [
+     "aplico shock"
+    ],
+    [
+     "indico shock"
+    ],
+    [
+     "shock electrico"
+    ],
+    [
+     "choque"
+    ],
+    [
+     "cardiovierto"
+    ],
+    [
+     "200 j"
+    ],
+    [
+     "200 joules"
+    ]
+   ],
+   "solo_si": "nodesfib"
+  },
+  {
+   "id": "d8",
+   "texto": "Indica adrenalina en lugar de descargar ante FV o TV sin pulso, o no descarga",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: ante FV o TV sin pulso la prioridad es la desfibrilación.",
+   "target": "carro",
+   "claves": [
+    [
+     "solo adrenalina"
+    ],
+    [
+     "no desfibrilo"
+    ],
+    [
+     "no descargo"
+    ],
+    [
+     "sin desfibrilar"
+    ],
+    [
+     "sin descargar"
+    ]
+   ],
+   "solo_si": "desfib"
+  },
+  {
+   "id": "d9",
+   "texto": "Interpreta mal el ritmo: indica un ritmo desfibrilable en un paciente con asistolia o AESP",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: en el monitor se ve un ritmo no desfibrilable (sin actividad eléctrica organizada o con complejos sin pulso).",
+   "target": "monitor",
+   "claves": [
+    [
+     "fibrilacion ventricular"
+    ],
+    [
+     "taquicardia ventricular"
+    ],
+    [
+     "tvsp"
+    ],
+    [
+     "ritmo desfibrilable"
+    ],
+    [
+     "fv"
+    ]
+   ],
+   "solo_si": "nodesfib"
+  },
+  {
+   "id": "d10",
+   "texto": "Interpreta mal el ritmo: indica asistolia, AESP o ritmo no desfibrilable en un paciente con FV o TV sin pulso",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: en el monitor se ve un ritmo desfibrilable (caótico o taquicardia ancha sin pulso).",
+   "target": "monitor",
+   "claves": [
+    [
+     "asistolia"
+    ],
+    [
+     "linea plana"
+    ],
+    [
+     "actividad electrica sin pulso"
+    ],
+    [
+     "aesp"
+    ],
+    [
+     "nodesfib"
+    ]
+   ],
+   "solo_si": "desfib"
+  },
+  {
+   "id": "d11",
+   "texto": "Descarga sin avisar ni verificar que nadie toque al paciente",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se grita «¡todos fuera!» y se verifica la seguridad antes de cada descarga.",
+   "target": "desfibrilador",
+   "claves": [
+    [
+     "sin avisar"
+    ],
+    [
+     "sin gritar"
+    ],
+    [
+     "sin decir",
+     "fuera"
+    ],
+    [
+     "sin verificar",
+     "nadie toque"
+    ],
+    [
+     "sin alejar"
+    ]
+   ]
+  },
+  {
+   "id": "d12",
+   "texto": "Indica una dosis incorrecta de adrenalina",
+   "critico": true,
+   "porque": "La dosis de adrenalina es de 1 mg EV/IO cada 3 a 5 minutos; 10 mg es una sobredosis.",
+   "target": "carro",
+   "claves": [
+    [
+     "adrenalina",
+     "10 mg"
+    ],
+    [
+     "adrenalina",
+     "5 mg"
+    ],
+    [
+     "adrenalina",
+     "cada 10 minutos"
+    ],
+    [
+     "adrenalina",
+     "cada 15"
+    ]
+   ]
+  },
+  {
+   "id": "d13",
+   "texto": "Ventila en exceso (hiperventilación)",
+   "critico": false,
+   "porque": "La hiperventilación aumenta la presión intratorácica y disminuye el retorno venoso: con vía aérea avanzada son 10 ventilaciones por minuto.",
+   "target": "oxigeno",
+   "claves": [
+    [
+     "hiperventil"
+    ],
+    [
+     "20 ventilaciones"
+    ],
+    [
+     "30 ventilaciones"
+    ],
+    [
+     "ventilo rapido"
+    ]
+   ]
+  },
+  {
+   "id": "d14",
+   "texto": "Indica atropina en asistolia o AESP",
+   "critico": false,
+   "porque": "La atropina ya no se recomienda en la asistolia ni en la AESP: corresponde adrenalina.",
+   "target": "carro",
+   "claves": [
+    [
+     "atropina"
+    ]
+   ]
+  },
+  {
+   "id": "d15",
+   "texto": "No releva a quien comprime (se fatiga)",
+   "critico": false,
+   "porque": "Se releva cada 2 minutos: la fatiga disminuye la profundidad de las compresiones.",
+   "target": "reloj",
+   "claves": [
+    [
+     "no releva"
+    ],
+    [
+     "sin relevar"
+    ],
+    [
+     "sin relevo"
+    ],
+    [
+     "no relevo"
+    ]
+   ]
+  },
+  {
+   "id": "d16",
+   "texto": "Indica cuidados post-paro en un paciente que no recuperó la circulación",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: sin retorno de la circulación espontánea no corresponden los cuidados post-paro; se continúa o se determina la hora de la muerte.",
+   "target": "paciente",
+   "claves": [
+    [
+     "post paro"
+    ],
+    [
+     "cuidados post"
+    ],
+    [
+     "retorno de la circulacion"
+    ],
+    [
+     "rosc"
+    ]
+   ],
+   "solo_si": "muerte"
+  },
+  {
+   "id": "d17",
+   "texto": "Declara la muerte de un paciente que recuperó la circulación",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: con retorno de la circulación espontánea se inician los cuidados post-paro.",
+   "target": "reloj",
+   "claves": [
+    [
+     "hora de la muerte"
+    ],
+    [
+     "declaro"
+    ],
+    [
+     "fallec"
+    ],
+    [
+     "certifico"
+    ]
+   ],
+   "sin_si": "muerte"
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Carlos M.",
+   "sexo": "M",
+   "edad": 64,
+   "motivo": "Dolor precordial intenso y colapso brusco en la guardia.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Hipertensión arterial, tabaquista. Sin alergias conocidas.",
+   "alergia": null,
+   "ritmo": "fv",
+   "desfib": true,
+   "nodesfib": false,
+   "refractaria": false,
+   "muerte": false,
+   "extra": [],
+   "situacion": "Enfermería: paciente de 64 años con dolor torácico que se desploma en la sala de espera hace 2 minutos. No responde, no respira.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: pulso carotídeo palpable, presión arterial de 112/68 y CO₂ espirado en 38.",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  },
+  {
+   "id": "c2",
+   "nombre": "Silvia R.",
+   "sexo": "F",
+   "edad": 58,
+   "motivo": "Palpitaciones y síncope con deterioro rápido.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Cardiopatía isquémica previa. Sin alergias conocidas.",
+   "alergia": null,
+   "ritmo": "tvsp",
+   "desfib": true,
+   "nodesfib": false,
+   "refractaria": false,
+   "muerte": false,
+   "extra": [],
+   "situacion": "Enfermería: paciente de 58 años con palpitaciones y síncope; llegó con taquicardia y perdió el pulso en el traslado.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: pulso carotídeo palpable, presión arterial de 108/66 y CO₂ espirado en 40.",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  },
+  {
+   "id": "c3",
+   "nombre": "Raúl P.",
+   "sexo": "M",
+   "edad": 71,
+   "motivo": "Hallado sin respuesta en la cama de internación.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Neumonía grave con oxigenoterapia. Sin alergias conocidas.",
+   "alergia": null,
+   "ritmo": "asistolia",
+   "desfib": false,
+   "nodesfib": true,
+   "refractaria": false,
+   "muerte": false,
+   "extra": [
+    "Causa a buscar: hipoxia"
+   ],
+   "situacion": "Enfermería: paciente internado por neumonía, hallado sin respuesta; el monitor muestra una línea plana. Venía con mala saturación.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: pulso carotídeo palpable, presión arterial de 96/58 y CO₂ espirado en 35 tras corregir la hipoxia.",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  },
+  {
+   "id": "c4",
+   "nombre": "Marta L.",
+   "sexo": "F",
+   "edad": 77,
+   "motivo": "Paro en el postoperatorio inmediato de una cirugía abdominal.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Cirugía abdominal hace 6 horas con drenaje hemático abundante.",
+   "alergia": null,
+   "ritmo": "aesp",
+   "desfib": false,
+   "nodesfib": true,
+   "refractaria": false,
+   "muerte": false,
+   "extra": [
+    "Causa a buscar: hipovolemia"
+   ],
+   "situacion": "Enfermería: paciente en el postoperatorio de una cirugía abdominal con sangrado por el drenaje; el monitor muestra complejos organizados, pero no tiene pulso.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: pulso palpable, presión arterial de 90/54 y CO₂ espirado en 34 tras reponer volumen.",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  },
+  {
+   "id": "c5",
+   "nombre": "Jorge T.",
+   "sexo": "M",
+   "edad": 59,
+   "motivo": "Fibrilación ventricular recurrente tras un infarto.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Infarto agudo de miocardio en las últimas horas.",
+   "alergia": null,
+   "ritmo": "fv",
+   "desfib": true,
+   "nodesfib": false,
+   "refractaria": true,
+   "muerte": false,
+   "extra": [
+    "FV refractaria"
+   ],
+   "situacion": "Enfermería: paciente con infarto agudo de miocardio que entra en fibrilación ventricular recurrente en la unidad coronaria.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: pulso carotídeo palpable, presión arterial de 100/60 y CO₂ espirado en 37 tras el tercer choque y la amiodarona.",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  },
+  {
+   "id": "c6",
+   "nombre": "Hilda B.",
+   "sexo": "F",
+   "edad": 86,
+   "motivo": "Paro en una paciente terminal, con familiar presente.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Cáncer avanzado, insuficiencia renal y cardíaca. Sin alergias conocidas.",
+   "alergia": null,
+   "ritmo": "asistolia",
+   "desfib": false,
+   "nodesfib": true,
+   "refractaria": false,
+   "muerte": true,
+   "extra": [
+    "Familiar presente"
+   ],
+   "situacion": "Enfermería: paciente de 86 años con enfermedad avanzada, hallada sin respuesta hace más de 20 minutos; la hija está en la puerta de la sala.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: ",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  },
+  {
+   "id": "c7",
+   "nombre": "Diego F.",
+   "sexo": "M",
+   "edad": 45,
+   "motivo": "Colapso durante una actividad deportiva.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Sin antecedentes conocidos. Sin alergias conocidas.",
+   "alergia": null,
+   "ritmo": "fv",
+   "desfib": true,
+   "nodesfib": false,
+   "refractaria": false,
+   "muerte": false,
+   "extra": [],
+   "situacion": "Enfermería: varón de 45 años que se desplomó jugando al fútbol; reanimación básica de testigos hasta la llegada.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: pulso carotídeo palpable, presión arterial de 118/72 y CO₂ espirado en 41.",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  },
+  {
+   "id": "c8",
+   "nombre": "Elena S.",
+   "sexo": "F",
+   "edad": 69,
+   "motivo": "Colapso con disnea súbita y sospecha de tromboembolismo pulmonar.",
+   "indicacion": "Reanimación cardiopulmonar avanzada.",
+   "antecedentes": "Reposo prolongado por una fractura de cadera reciente.",
+   "alergia": null,
+   "ritmo": "aesp",
+   "desfib": false,
+   "nodesfib": true,
+   "refractaria": false,
+   "muerte": false,
+   "extra": [
+    "Causa a buscar: TEP"
+   ],
+   "situacion": "Enfermería: paciente con fractura de cadera reciente que presenta disnea súbita y se colapsa; el monitor muestra complejos organizados sin pulso.",
+   "conciencia": "Sin respuesta a los estímulos verbales ni dolorosos; sin respiración ni pulso carotídeo.",
+   "eco5": "Equipo: «Doctor, somos cinco en la sala: dos médicos, dos enfermeras y un técnico. Esperamos sus indicaciones».",
+   "eco6": "Enfermería: «Vía periférica en curso, sondaje vesical preparado, kit de vía aérea abierto, adrenalina cargada y el desfibrilador conectado al paciente».",
+   "eco9": "Equipo: «Anotamos la hora de inicio. Reanimación avanzada en marcha».",
+   "rosc_txt": "Retorno de la circulación espontánea: pulso carotídeo palpable, presión arterial de 92/55 y CO₂ espirado en 33 tras el tratamiento de la causa.",
+   "muerte_txt": "Sin respuesta tras la reanimación avanzada: asistolia sostenida, sin pulso ni respiración, pupilas midriáticas arreactivas."
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Cuáles son los ritmos desfibrilables de un paro cardíaco?",
+   "o": [
+    "Fibrilación ventricular y taquicardia ventricular sin pulso",
+    "Asistolia y actividad eléctrica sin pulso",
+    "Bradicardia sinusal y bloqueo AV",
+    "Fibrilación auricular y flutter"
+   ],
+   "c": 0,
+   "e": "Solo la FV y la TV sin pulso se descargan. La asistolia y la AESP no son desfibrilables: se da adrenalina y se buscan las causas reversibles."
+  },
+  {
+   "q": "¿Cuál es la frecuencia y la profundidad de las compresiones torácicas en el adulto?",
+   "o": [
+    "100 a 120 por minuto y 5 a 6 cm",
+    "60 a 80 por minuto y 2 cm",
+    "140 por minuto y 8 cm",
+    "100 por minuto y 3 cm"
+   ],
+   "c": 0,
+   "e": "Compresiones de alta calidad: 100 a 120 por minuto, 5 a 6 cm de profundidad, permitiendo la descompresión completa entre ellas."
+  },
+  {
+   "q": "¿Dónde se comprime?",
+   "o": [
+    "En la mitad inferior del esternón, en el centro del tórax",
+    "Sobre el apéndice xifoides",
+    "En el lado izquierdo del tórax, sobre el ápex",
+    "En el abdomen, sobre el epigastrio"
+   ],
+   "c": 0,
+   "e": "El sitio es la mitad inferior del esternón; el xifoides es solo la referencia para ubicarlo."
+  },
+  {
+   "q": "Si el paciente no tiene la vía aérea asegurada y hay un ayudante, ¿qué relación se usa?",
+   "o": [
+    "30 compresiones y 2 ventilaciones",
+    "15 compresiones y 2 ventilaciones",
+    "5 compresiones y 1 ventilación",
+    "Solo compresiones, sin ventilar nunca"
+   ],
+   "c": 0,
+   "e": "Relación 30:2. Con vía aérea avanzada se ventila a 10 por minuto sin pausar las compresiones."
+  },
+  {
+   "q": "¿Cada cuánto se releva a quien comprime?",
+   "o": [
+    "Cada 2 minutos",
+    "Cada 10 minutos",
+    "Cada 30 segundos",
+    "No se releva"
+   ],
+   "c": 0,
+   "e": "La fatiga reduce la profundidad de las compresiones: se releva cada 2 minutos (cada ciclo) con una pausa mínima."
+  },
+  {
+   "q": "¿Qué se administra ante asistolia o AESP?",
+   "o": [
+    "Adrenalina 1 mg EV/IO cada 3 a 5 minutos y se buscan causas reversibles",
+    "Atropina 3 mg",
+    "Una descarga de 200 J",
+    "Bicarbonato de sodio de rutina"
+   ],
+   "c": 0,
+   "e": "En los ritmos no desfibrilables se da adrenalina lo antes posible y se buscan y tratan las 5H y las 5T. La atropina ya no se recomienda."
+  },
+  {
+   "q": "En FV refractaria, ¿qué antiarrítmico se indica tras el tercer choque?",
+   "o": [
+    "Amiodarona 300 mg EV",
+    "Atropina 1 mg",
+    "Furosemida",
+    "Nitroglicerina"
+   ],
+   "c": 0,
+   "e": "Después del tercer choque se administra amiodarona 300 mg en bolo y, si persiste, una segunda dosis de 150 mg."
+  },
+  {
+   "q": "¿Cuáles son las causas reversibles (5H y 5T)?",
+   "o": [
+    "Hipovolemia, hipoxia, acidosis, alteraciones del potasio e hipotermia; neumotórax a tensión, taponamiento, tóxicos, trombosis coronaria y TEP",
+    "Hipertensión, hipoglucemia, hipertermia, hiperlipemia y hipocalcemia",
+    "Solo hipoxia y acidosis",
+    "No existen causas reversibles"
+   ],
+   "c": 0,
+   "e": "Se buscan y tratan en el paro, sobre todo en la asistolia y la AESP."
+  },
+  {
+   "q": "Durante las compresiones el CO₂ espirado es de 6 mmHg. ¿Qué indica?",
+   "o": [
+    "Compresiones de baja calidad: hay que mejorar la profundidad, la frecuencia o relevar",
+    "Retorno de la circulación espontánea",
+    "Hiperventilación",
+    "Que el tubo está en el esófago"
+   ],
+   "c": 0,
+   "e": "Un CO₂ espirado menor de 10 mmHg sugiere compresiones inadecuadas. Un salto brusco hacia 35–40 mmHg indica retorno de la circulación."
+  },
+  {
+   "q": "¿Qué indica un ascenso brusco del CO₂ espirado con aparición de un pulso palpable?",
+   "o": [
+    "Retorno de la circulación espontánea: se inician los cuidados post-paro",
+    "Que se debe seguir con las compresiones sin pausas",
+    "Hiperventilación",
+    "Que se debe declarar la hora de la muerte"
+   ],
+   "c": 0,
+   "e": "Con retorno de la circulación espontánea se pasa a los cuidados post-paro: oxigenación, presión arterial, ECG de 12 derivaciones y búsqueda de la causa."
+  }
+ ],
+ "monitor": true,
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Algoritmo de reanimación cardiopulmonar avanzada",
+  "comun": [
+   {
+    "t": "Paro cardíaco confirmado",
+    "x": "Sin respuesta, sin respiración y sin pulso. Pedir ayuda, iniciar RCP y conectar el monitor/desfibrilador.",
+    "flag": "conc"
+   },
+   {
+    "t": "Compresiones de calidad",
+    "x": "100–120/min · 5–6 cm · descompresión completa · pausas < 10 s · 30:2 · relevo cada 2 min.",
+    "flag": "rcp"
+   },
+   {
+    "t": "Analizar el ritmo",
+    "x": "Leer el ritmo en el monitor: ¿desfibrilable o no?",
+    "flag": "ritmo"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "⚡ Desfibrilable · FV / TV sin pulso",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Cargar y descargar",
+      "x": "Bifásico 120–200 J. «¡Todos fuera!». Reiniciar compresiones de inmediato.",
+      "flag": "descarga"
+     },
+     {
+      "t": "2 minutos de RCP",
+      "x": "Acceso EV/IO. Reevaluar el ritmo.",
+      "flag": "relevo"
+     },
+     {
+      "t": "Adrenalina",
+      "x": "1 mg tras la 2.ª descarga y cada 3–5 min.",
+      "flag": "adre"
+     },
+     {
+      "t": "Amiodarona",
+      "x": "300 mg tras la 3.ª descarga (luego 150 mg).",
+      "flag": "amio"
+     }
+    ]
+   },
+   {
+    "titulo": "➖ No desfibrilable · Asistolia / AESP",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Adrenalina lo antes posible",
+      "x": "1 mg EV/IO, repetir cada 3–5 min.",
+      "flag": "adre"
+     },
+     {
+      "t": "Buscar causas reversibles",
+      "x": "5H: hipovolemia, hipoxia, hidrogeniones, hipo/hiperpotasemia, hipotermia. 5T: neumotórax a tensión, taponamiento, tóxicos, trombosis coronaria y pulmonar.",
+      "flag": "causas"
+     },
+     {
+      "t": "2 minutos de RCP",
+      "x": "Reevaluar el ritmo y relevar a quien comprime.",
+      "flag": "relevo"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Retorno de la circulación espontánea",
+    "x": "Cuidados post-paro: vía aérea, oxigenación, presión arterial, ECG, causa y derivación.",
+    "flag": "rosc"
+   },
+   {
+    "t": "Sin respuesta y con signos de muerte",
+    "x": "Determinar la hora de la muerte, informar a la familia y registrar.",
+    "flag": "muerte"
+   }
+  ]
+ },
+ "criterios_texto": "Desaprueba si omite: los guantes (3); la lectura del ritmo y la comprobación de la ausencia de respuesta (4, 8, 9); las compresiones de calidad: sitio, posición, 100–120 por minuto y 5–6 cm (12, 13, 17); la continuidad y el relevo (18, 19, 21); o el algoritmo según el ritmo: descarga si es desfibrilable, adrenalina si no lo es. Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
+ "criterios": [
+  {
+   "ico": "🧤",
+   "titulo": "Bioseguridad: guantes",
+   "pasos": [
+    3
+   ]
+  },
+  {
+   "ico": "📟",
+   "titulo": "Leer el ritmo, comprobar respuesta y dar la voz de inicio",
+   "pasos": [
+    4,
+    8,
+    9
+   ]
+  },
+  {
+   "ico": "🫀",
+   "titulo": "Compresiones de calidad: sitio, manos, 100–120/min y 5–6 cm",
+   "pasos": [
+    12,
+    13,
+    17
+   ]
+  },
+  {
+   "ico": "⚡",
+   "titulo": "Algoritmo: descarga si es desfibrilable, adrenalina si no",
+   "pasos": [
+    "18a",
+    "18b",
+    "18c"
+   ]
+  },
+  {
+   "ico": "🔁",
+   "titulo": "Continuidad, reevaluación y relevo cada 2 minutos",
+   "pasos": [
+    18,
+    19,
+    21
+   ]
+  }
+ ],
+ "final_criticos": "guantes, lectura del ritmo y comprobación de la respuesta, compresiones de calidad, algoritmo según el ritmo y relevo cada 2 minutos",
+ "hallazgo_pasos": {
+  "2": "situacion",
+  "5": "eco5",
+  "6": "eco6",
+  "8": "conciencia",
+  "9": "eco9",
+  "22": "rosc_txt",
+  "22.5": "muerte_txt"
+ },
+ "hallazgo_rotulos": {
+  "2": "🗣",
+  "5": "🗣",
+  "6": "🗣",
+  "8": "🩺 Evaluás:",
+  "9": "🗣",
+  "22": "🩺 Evaluás:",
+  "22.5": "🩺 Evaluás:"
+ },
+ "hallazgo_voz": {
+  "2": "f",
+  "5": "m",
+  "6": "f",
+  "9": "m"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes de empezar",
+    "x": "Presentate, preguntá qué pasó, ponete guantes, leé el ritmo en el monitor y comprobá que no responde ni respira. Pedí ayuda, delegá y gritá el inicio de la reanimación."
+   },
+   {
+    "t": "Compresiones de calidad",
+    "x": "Mitad inferior del esternón, talón de la mano dominante, dedos entrelazados, codos extendidos y hombros sobre las manos (90°). 100 a 120 por minuto, 5 a 6 cm, descompresión completa, pausas de menos de 10 segundos. 30:2 con ayudante."
+   },
+   {
+    "t": "Ritmos desfibrilables (FV / TVSP)",
+    "x": "Descarga lo antes posible (bifásico 120–200 J), «¡todos fuera!», y reiniciá compresiones de inmediato por 2 minutos. Adrenalina 1 mg tras la 2.ª descarga y cada 3–5 min; amiodarona 300 mg tras la 3.ª."
+   },
+   {
+    "t": "Ritmos no desfibrilables (asistolia / AESP)",
+    "x": "Adrenalina 1 mg EV/IO lo antes posible y cada 3–5 min. Buscá y tratá las 5H y las 5T. Nunca se descarga."
+   },
+   {
+    "t": "Cada 2 minutos",
+    "x": "Reevaluá el ritmo en el monitor (menos de 10 s), decidí si continuar y relevá a quien comprime. El CO₂ espirado ≥ 10 mmHg indica compresiones eficaces; un salto a 35–40 indica retorno de la circulación."
+   },
+   {
+    "t": "Cierre",
+    "x": "Con retorno de la circulación: cuidados post-paro. Sin respuesta y con signos de muerte: determiná la hora de la muerte. Informá a la familia con respeto y registrá todo en la historia clínica."
+   }
+  ],
+  "por_paso": {
+   "4": "FV y TVSP se descargan; asistolia y AESP no.",
+   "8": "Estímulo verbal y doloroso, respiración y pulso: menos de 10 s.",
+   "12": "Mitad inferior del esternón.",
+   "17": "100–120 por minuto, 5–6 cm, descompresión completa.",
+   "18.1": "Carga mientras otro comprime.",
+   "18.2": "«¡Todos fuera!» y a comprimir de inmediato.",
+   "18.3": "Adrenalina 1 mg cada 3–5 min.",
+   "21": "Relevo cada 2 minutos."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/siam/rcp_modelo.json",
+ "peso_modelo": "1 a 2 MB",
+ "instrumental": "data/acreditaciones/siam/instrumental_rcp.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Saluda y se presenta",
+   "fase": "Evaluación inicial",
+   "target": "equipo",
+   "critico": false,
+   "explica": "Al entrar a la sala de reanimación el líder se presenta al equipo con nombre y rol: en una emergencia la comunicación clara evita errores.",
+   "estado": {},
+   "claves": [
+    [
+     "saludo"
+    ],
+    [
+     "me presento"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ]
+   ],
+   "frase": "Buenas tardes, soy el doctor a cargo, me presento con nombre y apellido.",
+   "fx": "hablar"
+  },
+  {
+   "n": 2,
+   "texto": "Indaga acerca de la situación que determinó su llamado",
+   "fase": "Evaluación inicial",
+   "target": "equipo",
+   "critico": false,
+   "explica": "Se pregunta qué pasó, hace cuánto, si fue presenciado, antecedentes y medicación: orienta la causa del paro y las causas reversibles (5H y 5T).",
+   "estado": {
+    "situ": 1
+   },
+   "claves": [
+    [
+     "indago"
+    ],
+    [
+     "pregunto",
+     "situacion"
+    ],
+    [
+     "que paso"
+    ],
+    [
+     "situacion",
+     "llamado"
+    ],
+    [
+     "pregunto",
+     "paso"
+    ],
+    [
+     "motivo",
+     "llamado"
+    ]
+   ],
+   "frase": "Indago qué pasó: pregunto por la situación que motivó el llamado, los antecedentes y el tiempo de evolución.",
+   "fx": "hablar"
+  },
+  {
+   "n": 3,
+   "texto": "Se coloca guantes con técnica clínica",
+   "fase": "Evaluación inicial",
+   "target": "guantes",
+   "critico": true,
+   "explica": "Precaución estándar frente a sangre y fluidos: se coloca guantes antes de tocar al paciente. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "guantes": 1
+   },
+   "claves": [
+    [
+     "me coloco",
+     "guantes"
+    ],
+    [
+     "me pongo",
+     "guantes"
+    ],
+    [
+     "coloco",
+     "guantes"
+    ],
+    [
+     "pongo",
+     "guantes"
+    ]
+   ],
+   "frase": "Me coloco los guantes con técnica clínica.",
+   "fx": "guante"
+  },
+  {
+   "n": 4,
+   "texto": "Observa el monitor multiparamétrico y determina el ritmo cardiaco",
+   "fase": "Evaluación inicial",
+   "target": "monitor",
+   "critico": true,
+   "explica": "Lo primero es leer el ritmo en el monitor: define el algoritmo. Fibrilación ventricular y taquicardia ventricular sin pulso son ritmos desfibrilables (se descarga); asistolia y actividad eléctrica sin pulso (AESP) no lo son (se da adrenalina y se buscan causas reversibles). Interpretar mal el ritmo es criterio de desaprobación.",
+   "estado": {
+    "ritmo": 1
+   },
+   "claves": [
+    [
+     "ritmo"
+    ],
+    [
+     "monitor"
+    ],
+    [
+     "fibrilacion ventricular"
+    ],
+    [
+     "asistolia"
+    ],
+    [
+     "linea plana"
+    ],
+    [
+     "actividad electrica sin pulso"
+    ],
+    [
+     "aesp"
+    ],
+    [
+     "taquicardia ventricular"
+    ],
+    [
+     "tvsp"
+    ],
+    [
+     "desfibrilable"
+    ],
+    [
+     "nodesfib"
+    ],
+    [
+     "fv"
+    ]
+   ],
+   "frase": "Observo el monitor multiparamétrico y determino el ritmo cardíaco.",
+   "fx": "monitor_ver"
+  },
+  {
+   "n": 5,
+   "texto": "Solicita colaboración del equipo de trabajo (determinando capacidad máxima permitida de personas en el shock room) y delega funciones",
+   "fase": "Organización del equipo",
+   "target": "equipo",
+   "critico": false,
+   "explica": "El líder pide ayuda, respeta la cantidad máxima de personas permitida en el shock room y delega roles claros: compresiones, vía aérea, vía venosa y medicación, desfibrilador y registro.",
+   "estado": {
+    "equipo": 1
+   },
+   "claves": [
+    [
+     "solicito colaboracion"
+    ],
+    [
+     "pido ayuda"
+    ],
+    [
+     "delego"
+    ],
+    [
+     "capacidad maxima"
+    ],
+    [
+     "equipo de trabajo"
+    ],
+    [
+     "solicito",
+     "equipo"
+    ]
+   ],
+   "frase": "Solicito la colaboración del equipo, determino la capacidad máxima de personas en el shock room y delego funciones.",
+   "fx": "equipo"
+  },
+  {
+   "n": 6,
+   "texto": "Da indicaciones generales al personal de enfermería según corresponda: Colocación de vía periférica, sondaje vesical, kit de vía aérea, preparación de medicación, cardio-desfibrilación, etc.",
+   "fase": "Organización del equipo",
+   "target": "equipo",
+   "critico": false,
+   "explica": "Se indica a enfermería: colocar una vía periférica (o intraósea), sondaje vesical, preparar el kit de vía aérea, la medicación (adrenalina) y el desfibrilador, para que todo esté listo sin interrumpir las compresiones.",
+   "estado": {
+    "indic": 1
+   },
+   "claves": [
+    [
+     "indicaciones",
+     "enfermeria"
+    ],
+    [
+     "indico",
+     "via periferica"
+    ],
+    [
+     "via periferica"
+    ],
+    [
+     "sondaje vesical"
+    ],
+    [
+     "kit de via aerea"
+    ],
+    [
+     "preparar",
+     "medicacion"
+    ],
+    [
+     "indico",
+     "enfermeria"
+    ]
+   ],
+   "frase": "Indico a enfermería: colocar una vía periférica, el sondaje vesical, preparar el kit de vía aérea, la medicación y el desfibrilador.",
+   "fx": "indicar"
+  },
+  {
+   "n": 7,
+   "texto": "Determina la necesidad de dispositivos de vía aérea avanzada y protocolo de oxigenación",
+   "fase": "Organización del equipo",
+   "target": "oxigeno",
+   "critico": false,
+   "explica": "Se decide cuándo asegurar la vía aérea (tubo endotraqueal o dispositivo supraglótico) sin interrumpir las compresiones y se define el protocolo de oxigenación: oxígeno al 100 %. Con la vía aérea avanzada se ventila a 10 por minuto sin pausar las compresiones.",
+   "estado": {
+    "via": 1
+   },
+   "claves": [
+    [
+     "via aerea avanzada"
+    ],
+    [
+     "oxigenacion"
+    ],
+    [
+     "necesidad",
+     "via aerea"
+    ],
+    [
+     "dispositivo",
+     "via aerea"
+    ],
+    [
+     "oxigeno al 100"
+    ]
+   ],
+   "frase": "Determino la necesidad de una vía aérea avanzada y el protocolo de oxigenación con oxígeno al 100 %.",
+   "fx": "oxigenar"
+  },
+  {
+   "n": 8,
+   "texto": "Comprueba el nivel de conciencia del paciente recurriendo a estímulos verbales y dolorosos",
+   "fase": "Evaluación inicial",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Se comprueba la falta de respuesta llamándolo en voz alta y con un estímulo doloroso (sacudir los hombros, presión esternal), junto con la respiración y el pulso carotídeo (no más de 10 segundos). Iniciar compresiones sin comprobar la ausencia de respuesta es criterio de desaprobación.",
+   "estado": {
+    "conc": 1
+   },
+   "claves": [
+    [
+     "nivel de conciencia"
+    ],
+    [
+     "estimulo verbal"
+    ],
+    [
+     "estimulo doloroso"
+    ],
+    [
+     "estimulos"
+    ],
+    [
+     "llamo al paciente"
+    ],
+    [
+     "respuesta del paciente"
+    ],
+    [
+     "respondo",
+     "paciente"
+    ]
+   ],
+   "frase": "Compruebo el nivel de conciencia con estímulos verbales y dolorosos.",
+   "fx": "conciencia"
+  },
+  {
+   "n": 9,
+   "texto": "Informa en voz alta el inicio del protocolo de reanimación avanzada",
+   "fase": "Organización del equipo",
+   "target": "equipo",
+   "critico": true,
+   "explica": "Se anuncia en voz alta «¡inicio de reanimación avanzada!» para que todo el equipo sincronice sus acciones y registre la hora de comienzo. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "voz": 1
+   },
+   "claves": [
+    [
+     "en voz alta"
+    ],
+    [
+     "inicio",
+     "reanimacion avanzada"
+    ],
+    [
+     "informo",
+     "reanimacion"
+    ],
+    [
+     "anuncio",
+     "reanimacion"
+    ],
+    [
+     "inicio del protocolo"
+    ]
+   ],
+   "frase": "Informo en voz alta: inicio del protocolo de reanimación avanzada.",
+   "fx": "voz"
+  },
+  {
+   "n": 10,
+   "texto": "Se coloca a un lado del paciente a la atura del tórax",
+   "fase": "Compresiones torácicas",
+   "target": "torax",
+   "critico": false,
+   "explica": "El reanimador se arrodilla o se para a un lado del paciente, a la altura del tórax, sobre una superficie firme y con espacio para trabajar.",
+   "estado": {
+    "lado": 1
+   },
+   "claves": [
+    [
+     "me coloco",
+     "lado"
+    ],
+    [
+     "a un lado del paciente"
+    ],
+    [
+     "altura del torax"
+    ],
+    [
+     "me ubico",
+     "lado"
+    ]
+   ],
+   "frase": "Me coloco a un lado del paciente, a la altura del tórax.",
+   "fx": "lado_torax"
+  },
+  {
+   "n": 11,
+   "texto": "Localiza el apéndice xifoides",
+   "fase": "Compresiones torácicas",
+   "target": "xifoides",
+   "critico": false,
+   "explica": "Se palpa el apéndice xifoides, el extremo inferior del esternón, como referencia para ubicar el sitio de las compresiones.",
+   "estado": {
+    "xif": 1
+   },
+   "claves": [
+    [
+     "xifoides"
+    ]
+   ],
+   "frase": "Localizo el apéndice xifoides.",
+   "fx": "xifoides"
+  },
+  {
+   "n": 12,
+   "texto": "Localiza el sitio correcto para la realización de las compresiones.",
+   "fase": "Compresiones torácicas",
+   "target": "esternon",
+   "critico": true,
+   "explica": "El sitio correcto es la mitad inferior del esternón, en el centro del tórax (entre las tetillas), por encima del apéndice xifoides. Comprimir sobre el xifoides o sobre las costillas lesiona órganos y es ineficaz: es criterio de desaprobación.",
+   "estado": {
+    "sitio": 1
+   },
+   "claves": [
+    [
+     "sitio correcto"
+    ],
+    [
+     "mitad inferior del esternon"
+    ],
+    [
+     "centro del torax"
+    ],
+    [
+     "sitio",
+     "compresiones"
+    ],
+    [
+     "localizo",
+     "sitio"
+    ],
+    [
+     "ubico",
+     "sitio"
+    ]
+   ],
+   "frase": "Localizo el sitio correcto para las compresiones, en la mitad inferior del esternón.",
+   "fx": "sitio"
+  },
+  {
+   "n": 13,
+   "texto": "Ubica el talón de la mano dominante sobre el sitio elegido para las compresiones",
+   "fase": "Compresiones torácicas",
+   "target": "esternon",
+   "critico": true,
+   "explica": "El talón de la mano dominante se apoya sobre el sitio elegido, con los dedos levantados del tórax. Una mala ubicación de la mano es criterio de desaprobación.",
+   "estado": {
+    "talon": 1
+   },
+   "claves": [
+    [
+     "talon de la mano"
+    ],
+    [
+     "talon",
+     "mano dominante"
+    ],
+    [
+     "apoyo",
+     "talon"
+    ],
+    [
+     "ubico",
+     "talon"
+    ]
+   ],
+   "frase": "Ubico el talón de la mano dominante sobre el sitio elegido para las compresiones.",
+   "fx": "talon"
+  },
+  {
+   "n": 14,
+   "texto": "Entrelaza los dedos de la mano no dominante con los dedos de la mano dominante hacia la palma",
+   "fase": "Compresiones torácicas",
+   "target": "mano",
+   "critico": false,
+   "explica": "Se entrelazan los dedos de ambas manos y se los levanta de modo que solo el talón de la mano apoye sobre el tórax.",
+   "estado": {
+    "manos": 1
+   },
+   "claves": [
+    [
+     "entrelazo"
+    ],
+    [
+     "entrelaza"
+    ],
+    [
+     "dedos entrelazados"
+    ],
+    [
+     "mano no dominante"
+    ]
+   ],
+   "frase": "Entrelazo los dedos de la mano no dominante con los de la mano dominante hacia la palma.",
+   "fx": "dedos"
+  },
+  {
+   "n": 15,
+   "texto": "Extiende los codos en su totalidad",
+   "fase": "Compresiones torácicas",
+   "target": "mano",
+   "critico": false,
+   "explica": "Con los codos completamente extendidos la fuerza viene del peso del tronco y no de los brazos: las compresiones son más profundas y el reanimador se cansa menos.",
+   "estado": {
+    "codos": 1
+   },
+   "claves": [
+    [
+     "extiendo",
+     "codos"
+    ],
+    [
+     "codos extendidos"
+    ],
+    [
+     "codos",
+     "totalidad"
+    ],
+    [
+     "extiende",
+     "codos"
+    ]
+   ],
+   "frase": "Extiendo los codos en su totalidad.",
+   "fx": "codos"
+  },
+  {
+   "n": 16,
+   "texto": "Se inclina hacia adelante formando un ángulo de 90º con el tórax del paciente",
+   "fase": "Compresiones torácicas",
+   "target": "torax",
+   "critico": false,
+   "explica": "Los hombros quedan justo por encima de las manos, con los brazos perpendiculares al tórax (90°), para que el peso del cuerpo comprima en línea recta.",
+   "estado": {
+    "angulo": 1
+   },
+   "claves": [
+    [
+     "90"
+    ],
+    [
+     "inclino hacia adelante"
+    ],
+    [
+     "angulo de 90"
+    ],
+    [
+     "me inclino"
+    ]
+   ],
+   "frase": "Me inclino hacia adelante formando un ángulo de 90° con el tórax del paciente.",
+   "fx": "angulo90"
+  },
+  {
+   "n": 17,
+   "texto": "Inicia compresiones torácicas a una frecuencia de 100 a 120 por minuto con una profundidad de 5 a 6 cm permitiendo la descompresión entre compresiones.",
+   "fase": "Compresiones torácicas",
+   "target": "esternon",
+   "critico": true,
+   "explica": "Compresiones de alta calidad: 100 a 120 por minuto, 5 a 6 cm de profundidad, permitiendo que el tórax se expanda por completo entre una y otra (sin apoyarse) y con interrupciones mínimas (menos de 10 segundos). Una frecuencia o profundidad inadecuadas son criterio de desaprobación.",
+   "estado": {
+    "rcp": 1
+   },
+   "claves": [
+    [
+     "inicio",
+     "compresiones"
+    ],
+    [
+     "comienzo",
+     "compresiones"
+    ],
+    [
+     "100 a 120"
+    ],
+    [
+     "5 a 6 cm"
+    ],
+    [
+     "compresiones toracicas"
+    ],
+    [
+     "inicio las compresiones"
+    ]
+   ],
+   "frase": "Inicio las compresiones torácicas a 100 a 120 por minuto, con una profundidad de 5 a 6 cm y permitiendo la descompresión.",
+   "fx": "compresiones"
+  },
+  {
+   "n": 18,
+   "texto": "Continúa las compresiones de manera rítmica y sin detenerse. En el caso de contar con ayudante: Realiza 30 compresiones e indica 2 ventilaciones",
+   "fase": "Compresiones torácicas",
+   "target": "esternon",
+   "critico": true,
+   "explica": "Se mantiene el ritmo sin detenerse. Con un ayudante y vía aérea no asegurada: ciclos de 30 compresiones y 2 ventilaciones (relación 30:2). Con vía aérea avanzada: compresiones continuas y 10 ventilaciones por minuto.",
+   "estado": {
+    "cont": 1
+   },
+   "claves": [
+    [
+     "continuo",
+     "compresiones"
+    ],
+    [
+     "sin detenerme"
+    ],
+    [
+     "30 compresiones"
+    ],
+    [
+     "2 ventilaciones"
+    ],
+    [
+     "30 y 2"
+    ],
+    [
+     "30 2"
+    ]
+   ],
+   "frase": "Continúo las compresiones de manera rítmica y sin detenerme; con ayudante hago 30 compresiones e indico 2 ventilaciones.",
+   "fx": "continuar"
+  },
+  {
+   "n": 18.1,
+   "texto": "Solicita el desfibrilador, selecciona la energía (bifásico 200 J) y carga mientras se continúan las compresiones.",
+   "fase": "Algoritmo",
+   "target": "desfibrilador",
+   "critico": true,
+   "explica": "Ante FV o TV sin pulso se desfibrila lo antes posible. Se pide el desfibrilador, se selecciona la energía (bifásico 120–200 J; 200 J si no se conoce el dispositivo) y se carga mientras otro reanimador sigue comprimiendo. No cargar ni descargar ante un ritmo desfibrilable es criterio de desaprobación.",
+   "estado": {
+    "carga": 1
+   },
+   "claves": [
+    [
+     "solicito",
+     "desfibrilador"
+    ],
+    [
+     "cargo",
+     "desfibrilador"
+    ],
+    [
+     "200 j"
+    ],
+    [
+     "200 joules"
+    ],
+    [
+     "selecciono",
+     "energia"
+    ],
+    [
+     "cargo"
+    ],
+    [
+     "bifasico"
+    ]
+   ],
+   "frase": "Solicito el desfibrilador, selecciono 200 J bifásico y cargo mientras se continúan las compresiones.",
+   "fx": "carga_defi",
+   "solo_si": "desfib"
+  },
+  {
+   "n": 18.2,
+   "texto": "Avisa «¡todos fuera!», verifica que nadie toque al paciente, entrega la descarga y vuelve a comprimir de inmediato.",
+   "fase": "Algoritmo",
+   "target": "desfibrilador",
+   "critico": true,
+   "explica": "Antes de descargar se grita «¡todos fuera!» y se verifica que nadie toque al paciente, la camilla ni el oxígeno. Se entrega la descarga y se reinician las compresiones de inmediato, sin chequear el pulso, durante 2 minutos. Descargar sin avisar o sin verificar la seguridad es criterio de desaprobación.",
+   "estado": {
+    "descarga": 1
+   },
+   "claves": [
+    [
+     "todos fuera"
+    ],
+    [
+     "descarga"
+    ],
+    [
+     "desfibrilo"
+    ],
+    [
+     "entrego la descarga"
+    ],
+    [
+     "doy un shock"
+    ],
+    [
+     "choque"
+    ],
+    [
+     "nadie toque"
+    ]
+   ],
+   "frase": "Aviso: ¡todos fuera! Verifico que nadie toque al paciente, entrego la descarga y vuelvo a comprimir de inmediato.",
+   "fx": "descarga_fx",
+   "solo_si": "desfib"
+  },
+  {
+   "n": 18.3,
+   "texto": "Indica adrenalina 1 mg EV/IO, que se repite cada 3 a 5 minutos.",
+   "fase": "Algoritmo",
+   "target": "carro",
+   "critico": true,
+   "explica": "En ritmos no desfibrilables (asistolia y AESP) se administra adrenalina 1 mg EV/IO lo antes posible y se repite cada 3 a 5 minutos, seguida de 20 mL de solución salina. La dosis de 1 mg (no 10 mg) es parte de la desaprobación si se indica mal.",
+   "estado": {
+    "adre": 1
+   },
+   "claves": [
+    [
+     "adrenalina"
+    ],
+    [
+     "epinefrina"
+    ]
+   ],
+   "frase": "Indico adrenalina 1 mg EV, que se repite cada 3 a 5 minutos.",
+   "fx": "adrenalina",
+   "solo_si": "nodesfib"
+  },
+  {
+   "n": 18.4,
+   "texto": "Busca y trata las causas reversibles (5H y 5T).",
+   "fase": "Algoritmo",
+   "target": "equipo",
+   "critico": false,
+   "explica": "En asistolia y AESP se buscan las causas reversibles: Hipovolemia, Hipoxia, Hidrogeniones (acidosis), Hipo/hiperkalemia, Hipotermia; y Neumotórax a tensión, Taponamiento cardíaco, Tóxicos, Trombosis coronaria y Tromboembolismo pulmonar.",
+   "estado": {
+    "causas": 1
+   },
+   "claves": [
+    [
+     "causas reversibles"
+    ],
+    [
+     "5h"
+    ],
+    [
+     "hipovolemia"
+    ],
+    [
+     "hipoxia"
+    ],
+    [
+     "5 h"
+    ],
+    [
+     "cinco h"
+    ]
+   ],
+   "frase": "Busco y trato las causas reversibles, las 5 H y las 5 T.",
+   "fx": "causas",
+   "solo_si": "nodesfib"
+  },
+  {
+   "n": 18.7,
+   "texto": "Tras la segunda descarga indica adrenalina 1 mg EV/IO, que se repite cada 3 a 5 minutos.",
+   "fase": "Algoritmo",
+   "target": "carro",
+   "critico": false,
+   "explica": "En FV/TV sin pulso la adrenalina 1 mg EV/IO se administra después de la segunda descarga y luego cada 3 a 5 minutos, mientras se continúan las compresiones.",
+   "estado": {
+    "adre": 1
+   },
+   "claves": [
+    [
+     "adrenalina"
+    ],
+    [
+     "epinefrina"
+    ]
+   ],
+   "frase": "Indico adrenalina 1 mg EV tras la segunda descarga, que se repite cada 3 a 5 minutos.",
+   "fx": "adrenalina",
+   "solo_si": "desfib"
+  },
+  {
+   "n": 18.8,
+   "texto": "Tras el tercer choque indica amiodarona 300 mg EV.",
+   "fase": "Algoritmo",
+   "target": "carro",
+   "critico": false,
+   "explica": "En FV/TV sin pulso refractaria, después del tercer choque se administra amiodarona 300 mg EV en bolo; una segunda dosis de 150 mg si persiste.",
+   "estado": {
+    "amio": 1
+   },
+   "claves": [
+    [
+     "amiodarona"
+    ]
+   ],
+   "frase": "Tras el tercer choque indico amiodarona 300 mg EV.",
+   "fx": "amiodarona",
+   "solo_si": "refractaria"
+  },
+  {
+   "n": 19,
+   "texto": "Realiza reevaluación constante de signos vitales en monitor multiparamétrico",
+   "fase": "Reevaluación",
+   "target": "monitor",
+   "critico": true,
+   "explica": "Cada 2 minutos se interrumpen las compresiones menos de 10 segundos para reevaluar el ritmo en el monitor y el pulso. El CO₂ espirado (≥ 10 mmHg durante las compresiones; salto brusco con el retorno) ayuda a juzgar la calidad y el retorno de la circulación.",
+   "estado": {
+    "reeval": 1
+   },
+   "claves": [
+    [
+     "reevaluo"
+    ],
+    [
+     "reevaluacion"
+    ],
+    [
+     "signos vitales"
+    ],
+    [
+     "reevalua"
+    ],
+    [
+     "controlo el monitor"
+    ]
+   ],
+   "frase": "Realizo la reevaluación constante de los signos vitales en el monitor multiparamétrico.",
+   "fx": "reevaluar"
+  },
+  {
+   "n": 20,
+   "texto": "Determina la necesidad de continuar maniobras de reanimación y lo comunica a su equipo.",
+   "fase": "Reevaluación",
+   "target": "equipo",
+   "critico": false,
+   "explica": "Con cada reevaluación el líder decide si hay que seguir y lo comunica al equipo: continuar con las maniobras si no hay retorno, o pasar a los cuidados post-paro si lo hay.",
+   "estado": {
+    "decide": 1
+   },
+   "claves": [
+    [
+     "necesidad de continuar"
+    ],
+    [
+     "continuar",
+     "reanimacion"
+    ],
+    [
+     "comunico",
+     "equipo"
+    ],
+    [
+     "continuar las maniobras"
+    ],
+    [
+     "continuar",
+     "maniobras"
+    ]
+   ],
+   "frase": "Determino la necesidad de continuar las maniobras de reanimación y lo comunico a mi equipo.",
+   "fx": "decide"
+  },
+  {
+   "n": 21,
+   "texto": "Releva la reanimación cada 2 minutos y continuando pasos 18-20 hasta obtener respuesta",
+   "fase": "Reevaluación",
+   "target": "reloj",
+   "critico": true,
+   "explica": "Cada 2 minutos se releva a quien comprime (la fatiga reduce la profundidad), con una pausa mínima, y se repiten los pasos 18 a 20 hasta obtener respuesta. Omitir el relevo es criterio de desaprobación.",
+   "estado": {
+    "relevo": 1
+   },
+   "claves": [
+    [
+     "releva"
+    ],
+    [
+     "relevo"
+    ],
+    [
+     "cada 2 minutos"
+    ],
+    [
+     "cada dos minutos"
+    ],
+    [
+     "2 minutos"
+    ]
+   ],
+   "frase": "Relevo la reanimación cada 2 minutos y continúo los pasos 18 a 20 hasta obtener respuesta.",
+   "fx": "relevo"
+  },
+  {
+   "n": 22,
+   "texto": "En caso de obtener retorno de la circulación espontánea: Determinar cuidados post-paro.",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Con retorno de la circulación espontánea (pulso palpable, presión arterial y salto del CO₂ espirado) se inician los cuidados post-paro: asegurar la vía aérea y la oxigenación (SpO₂ 92–98 %), mantener la presión arterial, ECG de 12 derivaciones, buscar la causa y derivar a terapia intensiva.",
+   "estado": {
+    "rosc": 1
+   },
+   "claves": [
+    [
+     "post paro"
+    ],
+    [
+     "cuidados post"
+    ],
+    [
+     "retorno de la circulacion"
+    ],
+    [
+     "rosc"
+    ],
+    [
+     "post-paro"
+    ]
+   ],
+   "frase": "Con retorno de la circulación espontánea, determino los cuidados post-paro.",
+   "fx": "rosc",
+   "sin_si": "muerte"
+  },
+  {
+   "n": 22.5,
+   "texto": "En caso de no responder u observar signos de muerte: Determinar hora de la muerte.",
+   "fase": "Cierre",
+   "target": "reloj",
+   "critico": true,
+   "explica": "Si tras la reanimación avanzada prolongada no hay respuesta y persisten los signos de muerte (asistolia sostenida, ausencia de pulso, respiración y reflejos, pupilas midriáticas), se declara el fallecimiento y se determina la hora de la muerte, que se informa al equipo y se registra.",
+   "estado": {
+    "muerte": 1
+   },
+   "claves": [
+    [
+     "hora de la muerte"
+    ],
+    [
+     "hora",
+     "muerte"
+    ],
+    [
+     "declaro"
+    ],
+    [
+     "fallec"
+    ],
+    [
+     "certifico"
+    ],
+    [
+     "signos de muerte"
+    ]
+   ],
+   "frase": "Determino la hora de la muerte.",
+   "fx": "muerte",
+   "solo_si": "muerte"
+  },
+  {
+   "n": 23,
+   "texto": "Comunicar la evolución del paciente de manera respetuosa al familiar u acompañante",
+   "fase": "Cierre",
+   "target": "familia",
+   "critico": false,
+   "explica": "Se informa a la familia en un lugar tranquilo, con lenguaje claro, empatía y sin tecnicismos: qué ocurrió, qué se hizo y cómo evoluciona el paciente.",
+   "estado": {
+    "familia": 1
+   },
+   "claves": [
+    [
+     "familiar"
+    ],
+    [
+     "acompanante"
+    ],
+    [
+     "comunico",
+     "evolucion"
+    ],
+    [
+     "familia"
+    ]
+   ],
+   "frase": "Comunico la evolución del paciente al familiar de manera respetuosa y con lenguaje claro.",
+   "fx": "familia"
+  },
+  {
+   "n": 24,
+   "texto": "Registrar los procedimientos realizados en la Historia Clínica",
+   "fase": "Cierre",
+   "target": "hc",
+   "critico": true,
+   "explica": "Se registran las horas, el ritmo, las descargas y la medicación (dosis y hora), los dispositivos colocados y la evolución: es el documento médico-legal de la reanimación. Omitirlo es criterio de desaprobación.",
+   "estado": {
+    "reg": 1
+   },
+   "claves": [
+    [
+     "registro"
+    ],
+    [
+     "historia clinica"
+    ],
+    [
+     "anoto"
+    ],
+    [
+     "dejo constancia"
+    ]
+   ],
+   "frase": "Registro los procedimientos realizados en la historia clínica.",
+   "fx": "registro"
+  }
+ ]
+}

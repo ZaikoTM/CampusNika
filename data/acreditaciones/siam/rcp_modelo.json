@@ -1,0 +1,760 @@
+{
+ "general": {
+  "fondo": "#0a0f1d",
+  "luces": {
+   "ambiente": 0.55,
+   "frontal": 1.15,
+   "contorno": 0.7,
+   "color_contorno": "#22d3ee"
+  },
+  "camara": {
+   "fov": 36,
+   "min": 6,
+   "max": 120,
+   "foco": 20
+  },
+  "material": {
+   "rugosidad": 0.28,
+   "clearcoat": 0.6
+  },
+  "grosor_sonda": 0.2,
+  "vistas": {
+   "fro": "Cabecera"
+  }
+ },
+ "overlay_html": "<div class=\"mon\" aria-hidden=\"false\"><div class=\"mon-top\"><span class=\"mon-t\">MONITOR</span><span class=\"mon-alarma\">ALARMA</span><button type=\"button\" class=\"mon-metro\" title=\"Metrónomo de las compresiones\" aria-label=\"Metrónomo\">🥁</button><button type=\"button\" class=\"mon-mute\" title=\"Silenciar la alarma\" aria-label=\"Silenciar la alarma\">🔕</button></div><canvas class=\"mon-ecg\" width=\"480\" height=\"104\"></canvas><div class=\"mon-num\"><div class=\"mon-fc\"><small>FC lpm</small><b>--</b></div><div class=\"mon-spo2\"><small>SpO₂ %</small><b>--</b></div><div class=\"mon-pa\"><small>PA mmHg</small><b>--/--</b></div><div class=\"mon-co2\"><small>EtCO₂ mmHg</small><b>--</b></div></div></div><div class=\"defi\" data-est=\"apagado\"><div class=\"defi-tit\">⚡ DESFIBRILADOR</div><div class=\"defi-est\">EN ESPERA</div><div class=\"defi-barra\"><i></i></div><div class=\"defi-j\">BIFÁSICO · 200 J</div></div><div class=\"cron\"><small>CICLO DE 2 MIN</small><b>--:--</b></div><div class=\"rcp-hud\" data-on=\"0\"><b>110</b> /min · <b>5–6</b> cm</div>",
+ "tarjetas": {
+  "mesa": {
+   "titulo": "🏥 Shock room",
+   "id": "mesa",
+   "items": [
+    [
+     "monitor",
+     "📟",
+     "Monitor",
+     "multiparamétrico"
+    ],
+    [
+     "desfibrilador",
+     "⚡",
+     "Desfibrilador",
+     ""
+    ],
+    [
+     "carro",
+     "🧰",
+     "Carro de paro",
+     ""
+    ],
+    [
+     "oxigeno",
+     "🫁",
+     "Oxígeno y",
+     "vía aérea"
+    ],
+    [
+     "guantes",
+     "🧤",
+     "Guantes",
+     ""
+    ]
+   ]
+  },
+  "entorno": {
+   "titulo": "👥 Equipo y entorno",
+   "items": [
+    [
+     "equipo",
+     "👥",
+     "Equipo",
+     "de trabajo"
+    ],
+    [
+     "reloj",
+     "⏱️",
+     "Cronómetro",
+     ""
+    ],
+    [
+     "familia",
+     "🫂",
+     "Familiar",
+     "o acompañante"
+    ],
+    [
+     "hc",
+     "📋",
+     "Historia clínica",
+     ""
+    ]
+   ]
+  }
+ },
+ "chips": [
+  [
+   "guantes",
+   "Guantes"
+  ],
+  [
+   "ritmo",
+   "Ritmo leído"
+  ],
+  [
+   "conc",
+   "Respuesta evaluada"
+  ],
+  [
+   "voz",
+   "Inicio anunciado"
+  ],
+  [
+   "rcp",
+   "Compresiones"
+  ],
+  [
+   "carga",
+   "Desfibrilador cargado"
+  ],
+  [
+   "descarga",
+   "Descarga"
+  ],
+  [
+   "adre",
+   "Adrenalina"
+  ],
+  [
+   "relevo",
+   "Relevo"
+  ],
+  [
+   "rosc",
+   "Retorno de la circulación"
+  ],
+  [
+   "muerte",
+   "Hora de la muerte"
+  ],
+  [
+   "reg",
+   "Registrado"
+  ]
+ ],
+ "usables": [
+  "monitor",
+  "desfibrilador",
+  "carro",
+  "oxigeno",
+  "guantes",
+  "equipo",
+  "reloj",
+  "familia",
+  "hc"
+ ],
+ "pines": [
+  {
+   "id": "paciente",
+   "label": "Paciente",
+   "capa": "piel",
+   "externo": true
+  },
+  {
+   "id": "torax",
+   "label": "Tórax",
+   "capa": "piel",
+   "externo": true
+  },
+  {
+   "id": "xifoides",
+   "label": "Apéndice xifoides",
+   "capa": "huesos"
+  },
+  {
+   "id": "esternon",
+   "label": "Esternón: sitio de compresión",
+   "capa": "huesos"
+  },
+  {
+   "id": "corazon",
+   "label": "Corazón",
+   "capa": "organos"
+  },
+  {
+   "id": "pulmones",
+   "label": "Pulmones",
+   "capa": "organos"
+  },
+  {
+   "id": "mano",
+   "label": "Manos del reanimador",
+   "capa": "sonda",
+   "solo_con": "instrumento"
+  }
+ ],
+ "instrumentos": [
+  {
+   "id": "compresion",
+   "tipo": "compresion",
+   "clases": {
+    "mano": "s-talon",
+    "rcp": "s-rcp",
+    "rosc": "s-rosc",
+    "muerte": "s-muerte"
+   }
+  }
+ ],
+ "M": {
+  "origen": [
+   0,
+   129.0,
+   6.0
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   -1.5707963,
+   3.1415927,
+   0
+  ],
+  "piezas": [
+   {
+    "id": "piel",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/piel.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#d8a387",
+    "opacidad": 0.28,
+    "hs": null,
+    "nombre": "Cuerpo del paciente",
+    "peso": 140448,
+    "piel_real": true
+   },
+   {
+    "id": "costillas",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/costillas.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.8,
+    "hs": null,
+    "nombre": "Costillas",
+    "peso": 256772
+   },
+   {
+    "id": "clavicula",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/clavicula.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.8,
+    "hs": null,
+    "nombre": "Clavículas",
+    "peso": 9464
+   },
+   {
+    "id": "esternon",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/esternon.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#f3ecd8",
+    "opacidad": 0.95,
+    "hs": "esternon",
+    "nombre": "Esternón y cartílagos costales",
+    "peso": 247632,
+    "anim": "esternon"
+   },
+   {
+    "id": "corazon",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/corazon.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#d6453b",
+    "opacidad": 0.92,
+    "hs": "corazon",
+    "nombre": "Corazón",
+    "peso": 153028,
+    "anim": "corazon"
+   },
+   {
+    "id": "pulmones",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/pulmones.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f4a9a8",
+    "opacidad": 0.35,
+    "hs": "pulmones",
+    "nombre": "Pulmones",
+    "peso": 52968
+   },
+   {
+    "id": "traquea",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/traquea.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ffb4a2",
+    "opacidad": 0.5,
+    "hs": null,
+    "nombre": "Tráquea",
+    "peso": 21868
+   }
+  ],
+  "procedurales": {},
+  "compresion": {
+   "sitio": [
+    0,
+    128.3,
+    14.4
+   ],
+   "brazos": 24,
+   "profundidad": 4.5,
+   "frecuencia": 110
+  },
+  "pines": {
+   "paciente": [
+    0,
+    142,
+    6
+   ],
+   "torax": [
+    0,
+    131,
+    11
+   ],
+   "xifoides": [
+    0,
+    123.2,
+    10.6
+   ],
+   "esternon": [
+    0,
+    128.5,
+    13.2
+   ],
+   "corazon": [
+    4,
+    129,
+    3
+   ],
+   "pulmones": [
+    10,
+    127,
+    0
+   ],
+   "mano": [
+    0,
+    128.3,
+    18
+   ]
+  },
+  "camara": {
+   "lat": [
+    36,
+    4,
+    0
+   ],
+   "fro": [
+    0,
+    6,
+    36
+   ],
+   "sup": [
+    0.01,
+    40,
+    0
+   ],
+   "objetivo": [
+    0,
+    3,
+    0
+   ],
+   "ini": [
+    24,
+    18,
+    16
+   ]
+  },
+  "etiquetas": {
+   "paciente": [
+    0,
+    -50
+   ],
+   "torax": [
+    -120,
+    -40
+   ],
+   "xifoides": [
+    -130,
+    40
+   ],
+   "esternon": [
+    110,
+    -50
+   ],
+   "corazon": [
+    120,
+    40
+   ],
+   "pulmones": [
+    -60,
+    90
+   ],
+   "mano": [
+    110,
+    -90
+   ]
+  }
+ },
+ "F": {
+  "origen": [
+   0,
+   129.0,
+   6.0
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   -1.5707963,
+   3.1415927,
+   0
+  ],
+  "piezas": [
+   {
+    "id": "piel",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/piel.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#d8a387",
+    "opacidad": 0.28,
+    "hs": null,
+    "nombre": "Cuerpo del paciente",
+    "peso": 140448,
+    "piel_real": true
+   },
+   {
+    "id": "costillas",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/costillas.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.8,
+    "hs": null,
+    "nombre": "Costillas",
+    "peso": 256772
+   },
+   {
+    "id": "clavicula",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/clavicula.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.8,
+    "hs": null,
+    "nombre": "Clavículas",
+    "peso": 9464
+   },
+   {
+    "id": "esternon",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/esternon.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#f3ecd8",
+    "opacidad": 0.95,
+    "hs": "esternon",
+    "nombre": "Esternón y cartílagos costales",
+    "peso": 247632,
+    "anim": "esternon"
+   },
+   {
+    "id": "corazon",
+    "tipo": "glb",
+    "src": "assets/anatomia/rcp/corazon.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#d6453b",
+    "opacidad": 0.92,
+    "hs": "corazon",
+    "nombre": "Corazón",
+    "peso": 153028,
+    "anim": "corazon"
+   },
+   {
+    "id": "pulmones",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/pulmones.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#f4a9a8",
+    "opacidad": 0.35,
+    "hs": "pulmones",
+    "nombre": "Pulmones",
+    "peso": 52968
+   },
+   {
+    "id": "traquea",
+    "tipo": "glb",
+    "src": "assets/anatomia/iet/traquea.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "organos",
+    "color": "#ffb4a2",
+    "opacidad": 0.5,
+    "hs": null,
+    "nombre": "Tráquea",
+    "peso": 21868
+   }
+  ],
+  "procedurales": {},
+  "compresion": {
+   "sitio": [
+    0,
+    128.3,
+    14.4
+   ],
+   "brazos": 24,
+   "profundidad": 4.5,
+   "frecuencia": 110
+  },
+  "pines": {
+   "paciente": [
+    0,
+    142,
+    6
+   ],
+   "torax": [
+    0,
+    131,
+    11
+   ],
+   "xifoides": [
+    0,
+    123.2,
+    10.6
+   ],
+   "esternon": [
+    0,
+    128.5,
+    13.2
+   ],
+   "corazon": [
+    4,
+    129,
+    3
+   ],
+   "pulmones": [
+    10,
+    127,
+    0
+   ],
+   "mano": [
+    0,
+    128.3,
+    18
+   ]
+  },
+  "camara": {
+   "lat": [
+    36,
+    4,
+    0
+   ],
+   "fro": [
+    0,
+    6,
+    36
+   ],
+   "sup": [
+    0.01,
+    40,
+    0
+   ],
+   "objetivo": [
+    0,
+    3,
+    0
+   ],
+   "ini": [
+    24,
+    18,
+    16
+   ]
+  },
+  "etiquetas": {
+   "paciente": [
+    0,
+    -50
+   ],
+   "torax": [
+    -120,
+    -40
+   ],
+   "xifoides": [
+    -130,
+    40
+   ],
+   "esternon": [
+    110,
+    -50
+   ],
+   "corazon": [
+    120,
+    40
+   ],
+   "pulmones": [
+    -60,
+    90
+   ],
+   "mano": [
+    110,
+    -90
+   ]
+  }
+ }
+}

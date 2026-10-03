@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=19'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=20'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
@@ -66,13 +66,29 @@
       const [mod, cfg] = await Promise.all([import('./mesa.js?v=14'), getJSON(D.instrumental)]);
       MESA = mod.crearMesa(cfg);
     }
-    const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
+    const sinEscena = () => { if (window.AcrMonitor) AcrMonitor.detener(); if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
     function pintarLectura(ver) {
       const c = $('#acr-lectura'); if (!c) return;
       if (!ver) { c.innerHTML = ''; return; }
-      c.innerHTML = `<div class="lect-aviso">📖 <b>Antes de practicar</b>, leé la lista de cotejo o tenela a mano: en el examen no vas a tener ayudas.</div>
-        <button type="button" class="lect-btn" id="lect-abrir"><span class="ic">📋</span><span><b>Ver la lista de cotejo completa</b><small>${D.pasos.length} pasos · versión mujer y varón</small></span><em>Abrir ↗</em></button>`;
+      c.innerHTML = `<div class="lect-aviso">📖 <b>Antes de practicar</b>, leé la lista de cotejo${D.algoritmo ? ' y el algoritmo' : ''} o tenelos a mano: en el examen no vas a tener ayudas.</div>
+        <button type="button" class="lect-btn" id="lect-abrir"><span class="ic">📋</span><span><b>Ver la lista de cotejo completa</b><small>${D.pasos.filter((z) => !z.solo_si && !z.solo_contra).length} pasos${D.casos.some((z) => z.sexo === 'F') && D.pasos.some((z) => z.solo) ? ' · versión mujer y varón' : ''}</small></span><em>Abrir ↗</em></button>
+        ${D.algoritmo ? '<button type="button" class="lect-btn alg" id="lect-alg"><span class="ic">🧭</span><span><b>Ver el algoritmo</b><small>Ritmos desfibrilables y no desfibrilables</small></span><em>Abrir ↗</em></button>' : ''}`;
       $('#lect-abrir').onclick = () => abrirLista(S.sexo);
+      if (D.algoritmo) $('#lect-alg').onclick = () => abrirAlgoritmo();
+    }
+    function abrirAlgoritmo() {
+      if (document.querySelector('.lect-modal') || !D.algoritmo) return; const A = D.algoritmo; const m = document.createElement('div'); m.className = 'lect-modal';
+      const hecho = (fl) => !!(svg && svg.classList && svg.classList.contains('s-' + fl));
+      const nodo = (n, i) => `<div class="alg-n ${hecho(n.flag) ? 'hecho' : ''}" style="--i:${i}"><b>${esc(n.t)}</b><span>${esc(n.x)}</span></div>`;
+      const cerrar = () => { m.classList.add('sale'); document.removeEventListener('keydown', tecla); setTimeout(() => m.remove(), 250); };
+      const tecla = (e) => { if (e.key === 'Escape') cerrar(); };
+      m.innerHTML = `<div class="lect-hoja alg-hoja" role="dialog" aria-label="Algoritmo"><div class="lect-cab"><div><h2>🧭 ${esc(A.titulo)}</h2><p>Los pasos ya realizados se marcan en verde.</p></div><button class="lect-x" data-cerrar aria-label="Cerrar">✕</button></div>
+        <div class="lect-cuerpo"><div class="alg-fila">${A.comun.map(nodo).join('')}</div><div class="alg-flecha">▼ ¿Ritmo desfibrilable?</div>
+        <div class="alg-cols">${A.columnas.map((c) => `<div class="alg-col ${c.cls}"><h3>${esc(c.titulo)}</h3>${c.nodos.map(nodo).join('<div class="alg-flecha chica">▼</div>')}</div>`).join('')}</div>
+        <div class="alg-flecha">▼ Cada 2 minutos: reevaluar el ritmo</div><div class="alg-fila">${A.final.map(nodo).join('')}</div></div>
+        <div class="lect-pie">Compresiones de calidad, mínimas interrupciones y relevo cada 2 minutos. <button class="acr-btn sec" data-cerrar>Cerrar</button></div></div>`;
+      m.onclick = (e) => { if (e.target === m || e.target.closest('[data-cerrar]')) cerrar(); };
+      document.body.appendChild(m); document.addEventListener('keydown', tecla);
     }
     function abrirLista(sexo) {
       if (document.querySelector('.lect-modal')) return;
@@ -154,7 +170,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r24'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r26'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     // caso con contraindicación absoluta: se omiten los pasos del tacto y aparece el paso «no realizar»
@@ -164,19 +180,21 @@
     const casoOk = (p) => { const c = casoActual(); if (p.solo_contra) return conContra(); if (p.sin_contra) return !conContra(); if (p.solo_si) return !!(c && c[p.solo_si]); if (p.sin_si) return !(c && c[p.sin_si]); return true; };
     const aplica = (p, sexo, ign) => (!p.solo || p.solo === (sexo || S.sexo)) && (ign || casoOk(p));
     const pasosAplicables = (sexo, ign) => D.pasos.filter((p) => aplica(p, sexo, ign));
-    const etiquetaPaso = (n) => (Number.isInteger(n) ? n : Math.floor(n) + ' bis');
+    const etiquetaPaso = (n) => { if (Number.isInteger(n)) return n; const f = Math.round((n - Math.floor(n)) * 10); return f === 5 ? Math.floor(n) + ' bis' : Math.floor(n) + String.fromCharCode(96 + f); };
     // hallazgos que el simulador revela al completar ciertos pasos (según el caso): D.hallazgo_pasos = { paso: campo del caso }
     const hallazgoDe = (n) => { const k = D.hallazgo_pasos && D.hallazgo_pasos[n]; const c = casoActual(); return k && c && c[k] ? c[k] : null; };
-    const hallazgoTxt = (n) => { const h = hallazgoDe(n); return h ? `${D.hallazgo_rotulo || '🔍 Observás:'} ${h}` : null; };
+    const hallazgoTxt = (n) => { const h = hallazgoDe(n); return h ? `${(D.hallazgo_rotulos && D.hallazgo_rotulos[n]) || D.hallazgo_rotulo || '🔍 Observás:'} ${h}` : null; };
+    // el equipo responde en voz alta (síntesis de voz), si la acreditación lo pide: D.voz
+    const hablaPaso = (n) => { if (!D.voz || !window.AcrFX || !AcrFX.hablar) return; const h = hallazgoDe(n); if (h) AcrFX.hablar(h, (D.hallazgo_voz && D.hallazgo_voz[n]) || 'f'); };
     const porN = (n) => D.pasos.find((p) => p.n === n);
 
     // ---- reconocimiento de lo que el alumno escribe en la bitácora (palabras clave por paso y por acción incorrecta)
     const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
     function reconocer(texto, sexo) {
-      const tx = norm(texto).replace(/\b(no|sin) (fuerzo|forzo|forzar|forzando|fuerza)\b/g, ' '); if (tx.length < 3) return null;
+      const tx = norm(texto).replace(/\bno desfibrilable/g, ' nodesfib ').replace(/\b(no|sin) (fuerzo|forzo|forzar|forzando|fuerza)\b/g, ' ').replace(/\b(no|sin) (descarg\w*|desfibril\w*|shock|choque|cardiovert\w*)/g, ' '); if (tx.length < 3) return null;
       const puntaje = (claves) => (claves || []).reduce((mx, g) => (g.every((f) => tx.includes(f)) ? Math.max(mx, g.join('').length) : mx), 0);
       let mejor = null;
-      D.distractores.filter((d) => (!d.solo || d.solo === sexo) && (!d.solo_contra || conContra()) && (!d.solo_si || (casoActual() && casoActual()[d.solo_si]))).forEach((d) => { const s = puntaje(d.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'd', id: d.id, s }; });
+      D.distractores.filter((d) => (!d.solo || d.solo === sexo) && (!d.solo_contra || conContra()) && (!d.solo_si || (casoActual() && casoActual()[d.solo_si])) && (!d.sin_si || !(casoActual() && casoActual()[d.sin_si]))).forEach((d) => { const s = puntaje(d.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'd', id: d.id, s }; });
       if (mejor) return mejor;
       D.pasos.filter((q) => aplica(q, sexo)).forEach((q) => { const s = puntaje(q.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'p', n: q.n, s }; });
       return mejor;
@@ -288,6 +306,7 @@
       svg = $('#acr-escena').firstElementChild;
       if (estatica) svg.classList.add('estatica');
       if (ESC.mount) ESC.mount(svg, S.sexo);
+      if (D.monitor && window.AcrMonitor) { const cs = casoActual(); AcrMonitor.montar(svg, { ritmo: cs && cs.ritmo, refractaria: cs && cs.refractaria }); }
       svg.onclick = null;
       svg.addEventListener('acr-ayuda', () => tutorial3D());
       svg.addEventListener('acr-full', pantallaCompleta);
@@ -303,6 +322,7 @@
       svg.querySelectorAll('.hs.used').forEach((e) => e.classList.remove('used'));
       (usados || []).forEach((t) => { const e = svg.querySelector(`[data-hs="${t}"]`); if (e) e.classList.add('used'); });
       if (ESC.sync) ESC.sync(svg);
+      if (window.AcrMonitor && AcrMonitor.activo) AcrMonitor.estado(svg);
       const e = est || {};
       $('#acr-chips').innerHTML = sinChips ? '' : (VCFG ? VCFG.chips : []).map(([k, l]) => `<span class="acr-chip ${e[k] ? 'on' : ''}">${e[k] ? '✔ ' : ''}${esc(l)}</span>`).join('');
     }
@@ -395,7 +415,7 @@
     function completarPaso(q) {
       fxPaso(q, true); if (ESC && ESC.enfocar) ESC.enfocar(q.target);
       const E = S.ent; E.hechos.add(q.n);
-      if (hallazgoTxt(q.n)) E.chat.push({ de: 'sis', cls: 'neutro', txt: hallazgoTxt(q.n) }); E.esperando = false; resaltar(null);
+      if (hallazgoTxt(q.n)) { E.chat.push({ de: 'sis', cls: 'neutro', txt: hallazgoTxt(q.n) }); hablaPaso(q.n); } E.esperando = false; resaltar(null);
       const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados);
       toast(`✔ Paso ${etiquetaPaso(q.n)} completado`, 'ok');
       pintarGuiado({ ok: q });
@@ -641,7 +661,7 @@
           const previos = X.apl.filter((z) => z.n < n && !X.hechos.has(z.n));
           const enOrden = previos.length === 0;
           X.hechos.set(n, enOrden ? 'SI' : 'M'); snap.agrego = n; fxPaso(q, false); if (ESC && ESC.enfocar) ESC.enfocar(q.target);
-          if (hallazgoTxt(n)) X.chat.push({ de: 'sis', cls: 'neutro', txt: hallazgoTxt(n) });
+          if (hallazgoTxt(n)) { X.chat.push({ de: 'sis', cls: 'neutro', txt: hallazgoTxt(n) }); hablaPaso(n); }
           if (!enOrden) {
             const critPrev = previos.some((z) => z.critico);
             X.log.push({ tipo: 'orden', n, texto: q.texto, grave: critPrev, porque: `Se hizo antes de completar pasos previos (${previos.slice(0, 3).map((z) => z.n).join(', ')}${previos.length > 3 ? '…' : ''}).` });
@@ -822,7 +842,7 @@
 
     // ---- portada (sin cargar nada pesado) y navegación
     function portada() {
-      parar(); quitarCancelarEx(); detenerMic(); document.body.classList.remove('acr-en-escena'); pintarLectura(true);
+      parar(); quitarCancelarEx(); detenerMic(); document.body.classList.remove('acr-en-escena'); if (window.AcrMonitor) AcrMonitor.detener(); pintarLectura(true);
       if (ESC) ESC.dispose();
       document.querySelector('.acr-grid').classList.add('sin-escena');
       $('#acr-chips').innerHTML = '';
