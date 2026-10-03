@@ -70,15 +70,15 @@
         .btn-back:hover { background: #fce7f3; }
 
         /* Barra celeste con degradado y microanimaciones (igual que el Atlas de acreditaciones) */
-        .navbar { background: linear-gradient(135deg, #04323a, #028090 70%, #00A896); border-bottom: none; border-image: none; box-shadow: 0 10px 24px -14px rgba(2,128,144,.8); }
-        .navbar .brand-title { color: #fff; padding: 6px 16px 6px 8px; border-radius: 14px; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); letter-spacing: .4px; position: relative; overflow: hidden; transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s, border-color .22s, background .22s; }
+        header.navbar { background: linear-gradient(135deg, #04323a, #028090 70%, #00A896) !important; background-color: #028090 !important; background-image: linear-gradient(135deg, #04323a, #028090 70%, #00A896) !important; border-bottom: none !important; border-image: none !important; box-shadow: 0 10px 24px -14px rgba(2,128,144,.8) !important; backdrop-filter: none !important; }
+        header.navbar .brand-title { color: #fff !important; padding: 6px 16px 6px 8px; border-radius: 14px; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); letter-spacing: .4px; position: relative; overflow: hidden; transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s, border-color .22s, background .22s; }
         .navbar .brand-title img.nika-isotipo-mini { height: 40px; min-height: 40px; background: #fff; border-radius: 10px; padding: 3px; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
         .navbar .brand-title::after { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.7), transparent); transform: skewX(-20deg); }
         .navbar .brand-title:hover { transform: translateY(-2px); border-color: #fff; background: rgba(255,255,255,.22); box-shadow: 0 12px 22px -12px rgba(0,0,0,.6); }
         .navbar .brand-title:hover img { transform: rotate(-8deg) scale(1.12); }
         .navbar .brand-title:hover::after { left: 130%; transition: left .6s ease; }
-        .navbar .brand-slogan { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: rgba(255,255,255,.88); margin-top: 4px; padding-left: 4px; }
-        .navbar .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.55); background: rgba(255,255,255,.14); color: #fff; font-weight: 700; transition: transform .22s cubic-bezier(.34,1.56,.64,1), background .2s, color .2s, box-shadow .2s; }
+        header.navbar .brand-slogan { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: rgba(255,255,255,.88) !important; -webkit-text-fill-color: rgba(255,255,255,.88); margin-top: 4px; padding-left: 4px; }
+        header.navbar .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.55); background: rgba(255,255,255,.14) !important; color: #fff !important; font-weight: 700; transition: transform .22s cubic-bezier(.34,1.56,.64,1), background .2s, color .2s, box-shadow .2s; }
         .navbar .btn-back .fl { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
         .navbar .btn-back:hover { background: #fff; color: #028090; transform: translateY(-2px); box-shadow: 0 14px 22px -10px rgba(0,0,0,.5); }
         .navbar .btn-back:hover .fl { transform: translateX(-5px); }
