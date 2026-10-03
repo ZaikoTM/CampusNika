@@ -59,7 +59,18 @@ export class MedicalProcedureViewer {
           <span class="sep"></span>
           <button data-tool="ayuda" type="button" class="ayuda">❓ Cómo usar</button>
         </div>
-        <div class="acr3d-hint">Arrastrá para girar · rueda para acercar</div>
+        <div class="acr3d-nav" aria-label="Controles de cámara">
+          <button type="button" data-nav="in" title="Acercar" aria-label="Acercar">＋</button>
+          <button type="button" data-nav="out" title="Alejar" aria-label="Alejar">－</button>
+          <span class="sep"></span>
+          <button type="button" data-nav="l" title="Girar a la izquierda" aria-label="Girar a la izquierda">⟲</button>
+          <button type="button" data-nav="r" title="Girar a la derecha" aria-label="Girar a la derecha">⟳</button>
+          <button type="button" data-nav="u" title="Subir cámara" aria-label="Subir cámara">▲</button>
+          <button type="button" data-nav="d" title="Bajar cámara" aria-label="Bajar cámara">▼</button>
+          <span class="sep"></span>
+          <button type="button" data-nav="reset" title="Restablecer vista" aria-label="Restablecer vista">⌖</button>
+        </div>
+        <div class="acr3d-hint">Arrastrá o usá los botones · rueda para acercar</div>
       </div>
       ${mesa}${entorno}
       <div class="acr3d-cred">Modelos 3D: <a href="https://humanatlas.io/3d-reference-library" target="_blank" rel="noopener">Human Reference Atlas</a> (CC BY 4.0) · BodyParts3D, © Life Science Integrated Database Center (CC BY-SA 2.1 Japón) · <a href="https://www.z-anatomy.com" target="_blank" rel="noopener">Z-Anatomy</a> (CC BY-SA 4.0).</div>
@@ -258,6 +269,27 @@ export class MedicalProcedureViewer {
       this.aplicarLook();
     });
     controls.addEventListener('start', () => { C.goal = null; C.lento = false; });
+    const mover = (acc) => {
+      C.goal = null; C.lento = false;
+      const off = camera.position.clone().sub(controls.target);
+      if (acc === 'in' || acc === 'out') off.multiplyScalar(acc === 'in' ? 0.92 : 1.09);
+      else {
+        const s = new THREE.Spherical().setFromVector3(off); const d = 0.07;
+        if (acc === 'l') s.theta -= d; else if (acc === 'r') s.theta += d; else if (acc === 'u') s.phi -= d; else s.phi += d;
+        s.phi = Math.min(Math.PI - 0.06, Math.max(0.06, s.phi)); off.setFromSpherical(s);
+      }
+      camera.position.copy(controls.target).add(off);
+    };
+    let rep = 0;
+    const parar = () => { clearInterval(rep); rep = 0; };
+    const nav = vp.querySelector('.acr3d-nav');
+    nav.addEventListener('pointerdown', (e) => {
+      const b = e.target.closest('[data-nav]'); if (!b || this.C !== C) return;
+      const a = b.dataset.nav;
+      if (a === 'reset') { C.goal = V(...(cam.ini || cam.lat)); C.lento = false; return; }
+      mover(a); parar(); rep = setInterval(() => mover(a), 55);
+    });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => nav.addEventListener(ev, parar));
     let down = null;
     canvas.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
     canvas.addEventListener('pointerup', (e) => {

@@ -50,7 +50,7 @@ export class ProcedureWorkbench {
   pintarCaso() {
     const c = this.caso; const otro = this.opt.modo === 'practica' && this.opt.casos && this.opt.casos.length > 1;
     this.el.innerHTML = `<div class="wb wb-caso-pant">
-      ${this.opt.modo === 'demo' ? '<div class="wb-demo-banner"><span class="tag">▶ DEMOSTRACIÓN</span><span id="wb-demo-txt"></span><button type="button" id="wb-saltar">Saltar ✕</button></div>' : ''}
+      ${this.opt.modo === 'demo' ? this.bannerDemo() : ''}
       <div class="wb-hoja">
         <div class="wb-hoja-cab"><span>📋</span><div><h2>Caso clínico</h2><p>Indicación de sondaje vesical</p></div></div>
         <div class="wb-hoja-grid">
@@ -71,7 +71,7 @@ export class ProcedureWorkbench {
   pintarEscena() {
     const cont = this.el; const c = this.caso;
     cont.innerHTML = `<div class="wb">
-      ${this.opt.modo === 'demo' ? '<div class="wb-demo-banner"><span class="tag">▶ DEMOSTRACIÓN</span><span id="wb-demo-txt"></span><button type="button" id="wb-saltar">Saltar ✕</button></div>' : ''}
+      ${this.opt.modo === 'demo' ? this.bannerDemo() : ''}
       <div class="wb-cab">
         <div><h2>${esc(this.cfg.titulo)}</h2><p>${esc(this.cfg.consigna)}</p></div>
         <button type="button" class="wb-caso-btn" id="wb-ver-caso">📋 Ver caso clínico</button>
@@ -216,6 +216,15 @@ export class ProcedureWorkbench {
   }
 
   clic(e) {
+    const bd = e.target.closest('[data-bd]');
+    if (bd) {
+      const a = bd.dataset.bd;
+      if (a === 'saltar') { this.cancelado = true; this.pausa = false; if (this.opt.onSaltar) this.opt.onSaltar(); }
+      else if (a === 'pausa') { this.pausa = !this.pausa; this.el.querySelectorAll('[data-bd="pausa"]').forEach((b) => { b.innerHTML = this.pausa ? '▶ Continuar' : '⏸ Pausar'; b.classList.toggle('on', this.pausa); }); this.el.querySelectorAll('.wb-demo-banner').forEach((b) => b.classList.toggle('en-pausa', this.pausa)); }
+      else if (a === 'vel') { const v = [1, 2, 4]; this.vel = v[(v.indexOf(this.vel || 1) + 1) % v.length]; this.el.querySelectorAll('[data-bd="vel"]').forEach((b) => { b.textContent = '⚡ ' + this.vel + '×'; }); }
+      else if (a === 'adelante') { this.adelante = true; this.pausa = false; }
+      return;
+    }
     if (e.target.id === 'wb-saltar') { this.cancelado = true; if (this.opt.onSaltar) this.opt.onSaltar(); return; }
     if (e.target.id === 'wb-ir-mesa') { this.pintarEscena(); return; }
     if (e.target.id === 'wb-otro') {
@@ -262,10 +271,16 @@ export class ProcedureWorkbench {
     r.faltantes.forEach((i, k) => { setTimeout(() => { if (this.el) this.agregar(i.id); }, 140 * (k + 1)); });
     setTimeout(() => { if (this.el) this.salir({ ...this.evaluar(this.sel), corregido: true, avisos: r }); }, 140 * (r.faltantes.length + 1) + 900);
   }
-  narrar(txt) { const n = this.el?.querySelector('#wb-demo-txt'); if (n) { n.textContent = txt; n.classList.remove('nuevo'); void n.offsetWidth; n.classList.add('nuevo'); } }
+  bannerDemo() {
+    return `<div class="wb-demo-banner${this.pausa ? ' en-pausa' : ''}"><div class="wb-demo-fila"><span class="tag">▶ DEMOSTRACIÓN</span><span id="wb-demo-txt">${this.ultNarr || ''}</span></div>
+      <div class="wb-demo-ctl"><button type="button" data-bd="pausa" class="${this.pausa ? 'on' : ''}">${this.pausa ? '▶ Continuar' : '⏸ Pausar'}</button><button type="button" data-bd="vel">⚡ ${this.vel || 1}×</button><button type="button" data-bd="adelante">⏭ Ir al procedimiento</button><button type="button" data-bd="saltar" class="x">✕ Cancelar</button></div></div>`;
+  }
+  narrar(txt) { this.ultNarr = txt; const n = this.el?.querySelector('#wb-demo-txt'); if (n) { n.textContent = txt; n.classList.remove('nuevo'); void n.offsetWidth; n.classList.add('nuevo'); } }
   /** demostración automática: muestra el caso, inspecciona cada insumo y arma la bandeja correcta */
   async demo() {
-    const esperar = (ms) => new Promise((r) => setTimeout(r, ms)); const vivo = () => this.el && !this.cancelado;
+    this.vel = this.vel || 1;
+    const esperar = async (ms) => { let t = 0; while (t < ms && !this.adelante && this.el && !this.cancelado) { await new Promise((r) => setTimeout(r, 60)); if (!this.pausa) t += 60 * this.vel; } };
+    const vivo = () => this.el && !this.cancelado;
     this.narrar('Primero se lee el caso clínico: de él depende qué sonda y qué insumos elegir.'); await esperar(4200); if (!vivo()) return;
     this.pintarEscena(); await esperar(900); if (!vivo()) return;
     this.narrar('Ahora se arma la bandeja con todo lo necesario para este paciente, inspeccionando cada insumo.');
@@ -275,11 +290,11 @@ export class ProcedureWorkbench {
     for (const it of req) {
       if (!vivo()) return; const largo = n++ < 4;
       const o = this.objMesa(it.id); if (!o) continue;
-      this.mostrarFicha(it.id, o, false); this.narrar(`${it.nombre}: ${it.descripcion}`); await esperar(largo ? 2400 : 1300); if (!vivo()) return;
+      if (!this.adelante) { this.mostrarFicha(it.id, o, false); this.narrar(`${it.nombre}: ${it.descripcion}`); await esperar(largo ? 2400 : 1300); } if (!vivo()) return;
       this.agregar(it.id); await esperar(largo ? 900 : 650);
     }
     this.ocultarFicha();
-    this.narrar('Bandeja completa: todo lo necesario y nada de más. Pasamos con el paciente.'); await esperar(2400); if (!vivo()) return;
+    this.narrar('Bandeja completa: todo lo necesario y nada de más. Pasamos con el paciente.'); if (!this.adelante) await esperar(2400); if (!vivo()) return;
     this.salir(this.evaluar(this.sel));
   }
   /** transición de salida: la mesa se desvanece con desenfoque y recién entonces se avisa para montar el 3D */

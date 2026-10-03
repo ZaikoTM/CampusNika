@@ -56,14 +56,14 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=10'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=11'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
     let MESA = null;
     async function asegurarMesa() {
       if (MESA) return;
-      const [mod, cfg] = await Promise.all([import('./mesa.js?v=8'), getJSON(D.instrumental)]);
+      const [mod, cfg] = await Promise.all([import('./mesa.js?v=9'), getJSON(D.instrumental)]);
       MESA = mod.crearMesa(cfg);
     }
     const sinEscena = () => { if (ESC) ESC.dispose(); document.querySelector('.acr-grid').classList.add('sin-escena'); $('#acr-chips').innerHTML = ''; $('#acr-escena').innerHTML = ''; svg = $('#acr-escena'); };
@@ -85,7 +85,7 @@
       document.body.insertAdjacentHTML('beforeend', '<button type="button" id="acr-ayuda-fab" class="acr-ayuda-fab" title="Cómo usar el simulador" aria-label="Cómo usar el simulador">?</button>');
       document.getElementById('acr-ayuda-fab').onclick = () => tutorial3D();
     }
-    const BUILD = '2026-10-03 · r8'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
+    const BUILD = '2026-10-03 · r9'; if (!document.querySelector('.acr-build')) document.body.insertAdjacentHTML('beforeend', `<div class="acr-build">Atlas · versión ${BUILD}</div>`);
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null, caso: null, avisoMesa: null };
     const aplica = (p, sexo) => !p.solo || p.solo === (sexo || S.sexo);
@@ -580,7 +580,7 @@
 
     // ---- DEMOSTRACIÓN: la acreditación modelo, de punta a punta y bien hecha
     const dormir = (ms, dem) => new Promise((ok) => { dem.despertar = ok; dem.t = setTimeout(ok, ms); });
-    function cerrarDemo(dem) { if (!dem) return; dem.cancel = true; clearTimeout(dem.t); if (dem.despertar) dem.despertar(); if (MESA) MESA.dispose(); S.demo = null; try { localStorage.setItem('nika_acr_demo_v1', '1'); } catch (_) {} }
+    function cerrarDemo(dem) { if (!dem) return; dem.cancel = true; clearTimeout(dem.t); if (dem.despertar) dem.despertar(); if (MESA) MESA.dispose(); S.demo = null; document.onkeydown = null; const pn = document.getElementById('acr-panel'); if (pn) pn.classList.remove('demo'); try { localStorage.setItem('nika_acr_demo_v1', '1'); } catch (_) {} }
     async function demoModelo() {
       parar(); if (S.demo) cerrarDemo(S.demo);
       sinEscena(); $('#acr-panel').innerHTML = '';
@@ -602,39 +602,58 @@
     }
     async function demoPasos(dem) {
       const lista = pasosAplicables(S.sexo); const N = lista.length; const panel = $('#acr-panel');
-      const pausable = async (ms) => { await dormir(ms, dem); while (dem.pausa && !dem.cancel && !dem.salto) await dormir(250, dem); };
+      dem.vel = dem.vel || 1;
+      // espera que respeta pausa y velocidad; se corta al saltar de paso o cancelar
+      const pausable = async (ms) => { let t = 0; while (t < ms && !dem.cancel && !dem.salto) { await dormir(50, dem); if (!dem.pausa) t += 50 * dem.vel; } };
+      const cambiar = (k) => { dem.k = Math.max(0, Math.min(N - 1, k)); dem.salto = true; dem.final = false; dem.despertar && dem.despertar(); };
+      const sync = () => {
+        const bp = $('#demo-pausa'); if (bp) { bp.innerHTML = dem.pausa ? '▶ Continuar' : '⏸ Pausar'; bp.classList.toggle('on', dem.pausa); }
+        const bv = $('#demo-vel'); if (bv) bv.textContent = `⚡ ${dem.vel}×`;
+        const bar = $('#demo-bar'); if (bar) bar.classList.toggle('en-pausa', dem.pausa);
+      };
       panel.onclick = (e) => {
         const b = e.target.closest('[data-d]'); if (!b) return; const a = b.dataset.d;
-        if (a === 'pausa') { dem.pausa = !dem.pausa; b.textContent = dem.pausa ? '▶ Continuar' : '⏸ Pausar'; if (!dem.pausa && dem.despertar) dem.despertar(); }
-        else if (a === 'ant') { dem.k = Math.max(0, dem.k - 1); dem.salto = true; dem.despertar && dem.despertar(); }
-        else if (a === 'sig') { dem.k = Math.min(N - 1, dem.k + 1); dem.salto = true; dem.despertar && dem.despertar(); }
+        if (a === 'pausa') { dem.pausa = !dem.pausa; sync(); if (!dem.pausa && dem.despertar) dem.despertar(); }
+        else if (a === 'vel') { const v = [1, 2, 4]; dem.vel = v[(v.indexOf(dem.vel) + 1) % v.length]; sync(); }
+        else if (a === 'ant') cambiar(dem.k - 1);
+        else if (a === 'sig') cambiar(dem.k + 1);
+        else if (a === 'reiniciar') cambiar(0);
         else if (a === 'saltar') { cerrarDemo(dem); portada(); }
         else if (a === 'practicar') { cerrarDemo(dem); S.modo = 'practica'; S.sub = 'guiado'; S.mesaOk = false; mostrarMesaPractica(); }
         else if (a === 'examen') { cerrarDemo(dem); S.modo = 'examen'; ir(); }
         else if (a === 'otra') { demoModelo(); }
       };
+      panel.classList.add('demo');
+      document.onkeydown = (e) => {
+        if (!S.demo || S.demo !== dem || /INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
+        if (e.key === ' ') { e.preventDefault(); $('#demo-pausa')?.click(); } else if (e.key === 'ArrowLeft') $('[data-d="ant"]')?.click(); else if (e.key === 'ArrowRight') $('[data-d="sig"]')?.click();
+      };
       while (dem.k < N && !dem.cancel) {
         const k = dem.k; const q = lista[k]; dem.salto = false;
         const prev = lista[k - 1]; if (prev) { const { est, usados } = estadoHasta(prev.n); aplicarEstado(est, usados); } else aplicarEstado({}, []);
         const hist = lista.slice(0, k).map((z) => `<div class="m yo">${esc(z.frase)}</div><div class="m sis ok">✅ Paso ${z.n} registrado.</div>`).join('');
-        panel.innerHTML = `<div class="acr-demo-tag">▶ DEMOSTRACIÓN · así se hace una acreditación aprobada</div>
-          <div class="acr-fase" style="margin-top:8px">${esc(q.fase)} · paso ${k + 1} de ${N}</div>
-          <div class="acr-prog"><i style="width:${Math.round((k / N) * 100)}%"></i></div>
-          <div class="acr-goal">${esc(q.texto)} ${q.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}</div>
-          <div class="acr-chat"><div class="acr-fase" style="margin-top:8px">✍ Bitácora (escrita por el alumno modelo)</div>
+        panel.innerHTML = `<div class="demo-cab"><span class="acr-demo-tag">▶ DEMOSTRACIÓN · así se hace una acreditación aprobada</span></div>
+          <div class="demo-bar${dem.pausa ? ' en-pausa' : ''}" id="demo-bar">
+            <button class="db" data-d="ant" title="Paso anterior (←)" ${k === 0 ? 'disabled' : ''}>⏮</button>
+            <button class="db pri${dem.pausa ? ' on' : ''}" id="demo-pausa" data-d="pausa" title="Pausar / continuar (espacio)">${dem.pausa ? '▶ Continuar' : '⏸ Pausar'}</button>
+            <button class="db" data-d="sig" title="Paso siguiente (→)" ${k === N - 1 ? 'disabled' : ''}>⏭</button>
+            <button class="db" id="demo-vel" data-d="vel" title="Velocidad">⚡ ${dem.vel}×</button>
+            <button class="db" data-d="reiniciar" title="Empezar la demostración de nuevo">↺</button>
+            <button class="db x" data-d="saltar" title="Cancelar la demostración">✕ Cancelar</button>
+          </div>
+          <div class="demo-info"><div class="acr-fase">${esc(q.fase)} · paso ${k + 1} de ${N}</div>
+            <div class="acr-prog"><i style="width:${Math.round((k / N) * 100)}%"></i></div>
+            <div class="acr-goal">${esc(q.texto)} ${q.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}</div></div>
+          <div class="acr-chat demo-chat"><div class="acr-fase">✍ Bitácora (escrita por el alumno modelo)</div>
             <div class="acr-chat-log" id="acr-chat-log">${hist}<div class="m yo" id="demo-typing"></div></div></div>
-          <div class="acr-info bien" id="demo-expl" style="opacity:0">✅ <b>Paso ${q.n}.</b> ${esc(q.explica)}</div>
-          <div class="acr-gnav"><button class="acr-btn sec" data-d="ant" ${k === 0 ? 'disabled' : ''}>← Anterior</button>
-            <button class="acr-btn sec" data-d="pausa">${dem.pausa ? '▶ Continuar' : '⏸ Pausar'}</button>
-            <button class="acr-btn sec" data-d="sig" ${k === N - 1 ? 'disabled' : ''}>Siguiente →</button>
-            <button class="acr-btn sec" data-d="saltar">Saltar demostración ✕</button></div>`;
+          <div class="acr-info bien" id="demo-expl" style="opacity:0">✅ <b>Paso ${q.n}.</b> ${esc(q.explica)}</div>`;
         animarPanel(); resaltar(q.target);
-        const log = $('#acr-chat-log'); log.scrollTop = log.scrollHeight;
+        const log = $('#acr-chat-log'); const abajo = () => { log.scrollTop = log.scrollHeight; }; abajo();
         await pausable(800); if (dem.cancel) return; if (dem.salto) continue;
         const caja = $('#demo-typing');
-        for (const ch of q.frase) { if (dem.cancel || dem.salto) break; while (dem.pausa && !dem.cancel && !dem.salto) await dormir(200, dem); caja.textContent += ch; log.scrollTop = log.scrollHeight; await dormir(17, dem); }
+        for (const ch of q.frase) { if (dem.cancel || dem.salto) break; while (dem.pausa && !dem.cancel && !dem.salto) await dormir(200, dem); caja.textContent += ch; abajo(); await dormir(Math.max(3, 24 / dem.vel), dem); }
         if (dem.cancel) return; if (dem.salto) continue;
-        log.insertAdjacentHTML('beforeend', `<div class="m sis ok">✅ Paso ${q.n} registrado.</div>`); log.scrollTop = log.scrollHeight;
+        log.insertAdjacentHTML('beforeend', `<div class="m sis ok">✅ Paso ${q.n} registrado.</div>`); abajo();
         const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados); resaltar(null);
         const ex = $('#demo-expl'); if (ex) { ex.style.transition = 'opacity .5s'; ex.style.opacity = 1; }
         toast(`✔ Paso ${q.n}`, 'ok');
@@ -642,6 +661,7 @@
         dem.k++;
       }
       if (dem.cancel) return;
+      document.onkeydown = null; panel.classList.remove('demo');
       try { localStorage.setItem('nika_acr_demo_v1', '1'); } catch (_) {}
       panel.innerHTML = `<div class="acr-final"><div class="acr-final-ico">🏆</div><h3>Así se ve una acreditación aprobada</h3>
         <div class="acr-info bien">Cumplió los <b>${N} pasos</b> en orden, con los 5 pasos críticos resueltos y sin acciones incorrectas.</div>
