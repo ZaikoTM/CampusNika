@@ -1,4 +1,285 @@
 {
+ "general": {
+  "fondo": "#0a0f1d",
+  "rejilla": {
+   "y": -22,
+   "color1": "#1d3a66",
+   "color2": "#142a4d"
+  },
+  "luces": {
+   "ambiente": 0.55,
+   "frontal": 1.15,
+   "contorno": 0.7,
+   "color_contorno": "#22d3ee"
+  },
+  "camara": {
+   "fov": 36,
+   "min": 14,
+   "max": 120
+  },
+  "material": {
+   "rugosidad": 0.28,
+   "clearcoat": 0.6
+  },
+  "grosor_sonda": 0.2
+ },
+ "tarjetas": {
+  "mesa": {
+   "titulo": "🛒 Mesa alta de traslado",
+   "id": "mesa",
+   "items": [
+    [
+     "iodo",
+     "🧼",
+     "Iodopovidona",
+     "jabonoso"
+    ],
+    [
+     "guantes-ns",
+     "🧤",
+     "Guantes",
+     "no estériles"
+    ],
+    [
+     "panos-ns",
+     "🧻",
+     "Paños clínicos",
+     "no estériles"
+    ],
+    [
+     "guantes-e",
+     "🧤",
+     "Guantes",
+     "estériles"
+    ],
+    [
+     "pano-e",
+     "🟦",
+     "Paño",
+     "estéril"
+    ],
+    [
+     "campo-aux",
+     "🟦",
+     "Paño estéril",
+     "adicional"
+    ],
+    [
+     "pack",
+     "📦",
+     "Pack estéril",
+     "con sonda"
+    ],
+    [
+     "sonda",
+     "🪢",
+     "Sonda Foley",
+     "(balón)"
+    ],
+    [
+     "gel",
+     "🧴",
+     "Lidocaína",
+     "gel"
+    ],
+    [
+     "jeringa",
+     "💉",
+     "Jeringa con",
+     "agua bidestilada"
+    ],
+    [
+     "bolsa",
+     "🛍️",
+     "Bolsa",
+     "colectora"
+    ],
+    [
+     "cinta",
+     "🩹",
+     "Cinta",
+     "hipoalergénica"
+    ]
+   ]
+  },
+  "entorno": {
+   "titulo": "🏥 Entorno del paciente",
+   "items": [
+    [
+     "lavabo",
+     "🚰",
+     "Lavabo",
+     ""
+    ],
+    [
+     "hc",
+     "📋",
+     "Historia clínica",
+     "y solicitud"
+    ],
+    [
+     "consent",
+     "📝",
+     "Consentimiento",
+     "informado"
+    ],
+    [
+     "residuos",
+     "🗑️",
+     "Residuos",
+     ""
+    ],
+    [
+     "lado",
+     "🛏️",
+     "Lado del",
+     "paciente"
+    ],
+    [
+     "gancho",
+     "🪝",
+     "Ganchillo",
+     "de la cama"
+    ]
+   ]
+  }
+ },
+ "chips": [
+  [
+   "id",
+   "Paciente verificado"
+  ],
+  [
+   "consent",
+   "Consentimiento"
+  ],
+  [
+   "pos",
+   "Posición"
+  ],
+  [
+   "manos",
+   "Manos lavadas"
+  ],
+  [
+   "campo",
+   "Campo estéril"
+  ],
+  [
+   "tested",
+   "Balón probado"
+  ],
+  [
+   "ins",
+   "Sonda colocada"
+  ],
+  [
+   "infl",
+   "Balón inflado"
+  ],
+  [
+   "bag",
+   "Bolsa conectada"
+  ],
+  [
+   "fix",
+   "Sonda fijada"
+  ],
+  [
+   "reg",
+   "Registrado"
+  ]
+ ],
+ "usables": [
+  "iodo",
+  "guantes-ns",
+  "panos-ns",
+  "guantes-e",
+  "pano-e",
+  "campo-aux",
+  "pack",
+  "gel",
+  "jeringa",
+  "bolsa",
+  "cinta",
+  "lavabo",
+  "hc",
+  "consent",
+  "residuos"
+ ],
+ "pines": [
+  {
+   "id": "vejiga",
+   "label": "Vejiga",
+   "capa": "organos"
+  },
+  {
+   "id": "balon",
+   "label": "Balón",
+   "capa": "sonda",
+   "solo_con": "instrumento"
+  },
+  {
+   "id": "uretra",
+   "label": "Uretra",
+   "capa": "organos"
+  },
+  {
+   "id": "recto",
+   "label": "Recto",
+   "capa": "organos"
+  },
+  {
+   "id": "sinfisis",
+   "label": "Sínfisis pubiana",
+   "capa": "huesos"
+  },
+  {
+   "id": "paciente",
+   "label": "Paciente",
+   "capa": "piel"
+  },
+  {
+   "id": "utero",
+   "label": "Útero",
+   "capa": "organos",
+   "sexo": "F"
+  },
+  {
+   "id": "vagina",
+   "label": "Vagina",
+   "capa": "organos",
+   "sexo": "F"
+  },
+  {
+   "id": "prostata",
+   "label": "Próstata",
+   "capa": "organos",
+   "sexo": "M"
+  },
+  {
+   "id": "prepucio",
+   "label": "Glande y prepucio",
+   "capa": "piel",
+   "sexo": "M"
+  }
+ ],
+ "instrumentos": [
+  {
+   "id": "sonda",
+   "tipo": "sonda_foley",
+   "color": "#22e0ff",
+   "color_balon": "#38d4ff",
+   "color_bolsa": "#bae6fd",
+   "color_orina": "#ffe34d",
+   "clases": {
+    "avance": "s-ins",
+    "inflar": "s-infl",
+    "bolsa": "s-bag"
+   },
+   "hs_balon": "balon"
+  }
+ ],
  "M": {
   "origen": [
    0,
@@ -26,7 +307,8 @@
     "color": "#e8e1cf",
     "opacidad": 0.4,
     "hs": null,
-    "nombre": "Hueso coxal"
+    "nombre": "Hueso coxal",
+    "peso": 485884
    },
    {
     "id": "cadera_d",
@@ -47,7 +329,8 @@
     "color": "#e8e1cf",
     "opacidad": 0.4,
     "hs": null,
-    "nombre": "Hueso coxal"
+    "nombre": "Hueso coxal",
+    "peso": 473584
    },
    {
     "id": "sacro",
@@ -68,7 +351,8 @@
     "color": "#e8e1cf",
     "opacidad": 0.4,
     "hs": null,
-    "nombre": "Sacro"
+    "nombre": "Sacro",
+    "peso": 2220884
    },
    {
     "id": "recto",
@@ -89,7 +373,8 @@
     "color": "#b9774f",
     "opacidad": 0.62,
     "hs": "recto",
-    "nombre": "Recto"
+    "nombre": "Recto",
+    "peso": 441284
    },
    {
     "id": "vejiga",
@@ -110,7 +395,8 @@
     "color": "#ffc21a",
     "opacidad": 0.7,
     "hs": "vejiga",
-    "nombre": "Vejiga"
+    "nombre": "Vejiga",
+    "peso": 200884
    },
    {
     "id": "prostata",
@@ -131,7 +417,8 @@
     "color": "#ff8a1f",
     "opacidad": 0.8,
     "hs": "prostata",
-    "nombre": "Pr�stata"
+    "nombre": "Próstata",
+    "peso": 87784
    },
    {
     "id": "uretra",
@@ -152,7 +439,8 @@
     "color": "#ff3b5c",
     "opacidad": 0.82,
     "hs": "uretra",
-    "nombre": "Uretra"
+    "nombre": "Uretra",
+    "peso": 59384
    },
    {
     "id": "cuerpo_esponjoso",
@@ -173,7 +461,8 @@
     "color": "#f0c7a0",
     "opacidad": 0.32,
     "hs": null,
-    "nombre": "Cuerpo esponjoso"
+    "nombre": "Cuerpo esponjoso",
+    "peso": 110184
    },
    {
     "id": "glande",
@@ -194,7 +483,8 @@
     "color": "#f08c8c",
     "opacidad": 0.6,
     "hs": "prepucio",
-    "nombre": "Glande y prepucio"
+    "nombre": "Glande y prepucio",
+    "peso": 262684
    }
   ],
   "procedurales": {},
@@ -397,28 +687,28 @@
   "piel": {
    "radios": [
     [
-     16,
-     -22
-    ],
-    [
-     18.5,
-     -12
-    ],
-    [
-     20.5,
-     0
-    ],
-    [
-     20.5,
-     10
+     15,
+     -13
     ],
     [
      18,
-     18
+     -8
     ],
     [
-     15.5,
-     26
+     20,
+     -1
+    ],
+    [
+     20,
+     8
+    ],
+    [
+     17.5,
+     13
+    ],
+    [
+     14.5,
+     16
     ]
    ],
    "escala_z": 0.56,
@@ -478,7 +768,8 @@
     "color": "#e8e1cf",
     "opacidad": 0.4,
     "hs": null,
-    "nombre": "Pelvis �sea"
+    "nombre": "Pelvis ósea",
+    "peso": 1593612
    },
    {
     "id": "vejiga",
@@ -499,7 +790,8 @@
     "color": "#ffc21a",
     "opacidad": 0.7,
     "hs": "vejiga",
-    "nombre": "Vejiga"
+    "nombre": "Vejiga",
+    "peso": 765224
    },
    {
     "id": "utero",
@@ -520,7 +812,8 @@
     "color": "#ff6fb5",
     "opacidad": 0.78,
     "hs": "utero",
-    "nombre": "�tero"
+    "nombre": "Útero",
+    "peso": 980408
    }
   ],
   "procedurales": {
@@ -716,28 +1009,28 @@
   "piel": {
    "radios": [
     [
-     16,
-     -22
-    ],
-    [
-     18.5,
-     -12
-    ],
-    [
-     20.5,
-     0
-    ],
-    [
-     20.5,
-     10
+     15,
+     -13
     ],
     [
      18,
-     18
+     -8
     ],
     [
-     15.5,
-     26
+     20,
+     -1
+    ],
+    [
+     20,
+     8
+    ],
+    [
+     17.5,
+     13
+    ],
+    [
+     14.5,
+     16
     ]
    ],
    "escala_z": 0.62,

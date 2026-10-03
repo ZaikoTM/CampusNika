@@ -52,7 +52,14 @@
   async function vistaAtlas() {
     volver.href = `acreditaciones.html?area=${area}`;
     const D = await getJSON(`${base}/${id}.json`);
-    const ESC = (await import(`./escena_${id}.js?v=7`)).default;
+    // Carga diferida: three.js, los loaders y los .glb se descargan recién cuando el usuario toca «Comenzar».
+    let ESC = null; let VCFG = null;
+    async function asegurarVisor() {
+      if (ESC) return;
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=1'), getJSON(D.visor)]);
+      VCFG = cfg; ESC = mod.crearVisor(cfg);
+    }
+    const usables = () => (VCFG ? VCFG.usables : []);
     document.title = `${D.titulo} · Atlas de acreditaciones`;
 
     const S = { modo: 'practica', sub: 'explorar', sexo: 'F', paso: 0, ent: null, ex: null, fun: null, timer: null };
@@ -84,6 +91,7 @@
     // ---- escena
     let svg = null;
     function montarEscena(estatica) {
+      document.querySelector('.acr-grid').classList.remove('sin-escena');
       if (ESC.dispose) ESC.dispose();
       $('#acr-escena').innerHTML = ESC.build(S.sexo);
       svg = $('#acr-escena').firstElementChild;
@@ -93,7 +101,7 @@
     }
     function estadoHasta(n) {
       const est = {}; const usados = new Set();
-      D.pasos.forEach((p) => { if (p.n <= n && aplica(p)) { Object.assign(est, p.estado); if (ESC.usable.includes(p.target)) usados.add(p.target); } });
+      D.pasos.forEach((p) => { if (p.n <= n && aplica(p)) { Object.assign(est, p.estado); if (usables().includes(p.target)) usados.add(p.target); } });
       return { est, usados };
     }
     function aplicarEstado(est, usados, sinChips) {
@@ -103,7 +111,7 @@
       (usados || []).forEach((t) => { const e = svg.querySelector(`[data-hs="${t}"]`); if (e) e.classList.add('used'); });
       if (ESC.sync) ESC.sync(svg);
       const e = est || {};
-      $('#acr-chips').innerHTML = sinChips ? '' : ESC.CHIPS.map(([k, l]) => `<span class="acr-chip ${e[k] ? 'on' : ''}">${e[k] ? '✔ ' : ''}${esc(l)}</span>`).join('');
+      $('#acr-chips').innerHTML = sinChips ? '' : (VCFG ? VCFG.chips : []).map(([k, l]) => `<span class="acr-chip ${e[k] ? 'on' : ''}">${e[k] ? '✔ ' : ''}${esc(l)}</span>`).join('');
     }
     function resaltar(t) {
       svg.querySelectorAll('.hl').forEach((e) => e.classList.remove('hl'));
@@ -212,7 +220,9 @@
 
     // ---- PRÁCTICA · FUNDAMENTOS
     function vistaFundamentos() {
-      montarEscena(true); aplicarEstado({}, []);
+      if (ESC) ESC.dispose();
+      $('#acr-escena').innerHTML = ''; $('#acr-chips').innerHTML = ''; svg = $('#acr-escena');
+      document.querySelector('.acr-grid').classList.add('sin-escena');
       const qs = mezclar(D.fundamentos).map((q) => ({ ...q, opts: mezclar(q.o.map((t, i) => ({ t, ok: i === q.c }))) }));
       S.fun = { qs, i: 0, ok: 0, resp: null };
       pintarFundamentos();
@@ -315,7 +325,7 @@
             if (critPrev) { X.graves++; X.aviso = '⚠ Infracción grave: alteraste el orden de la técnica y salteaste un paso crítico.'; }
           }
           const e2 = {}; const u2 = new Set();
-          X.hechos.forEach((_, m) => { const q = porN(m); Object.assign(e2, q.estado); if (ESC.usable.includes(q.target)) u2.add(q.target); });
+          X.hechos.forEach((_, m) => { const q = porN(m); Object.assign(e2, q.estado); if (usables().includes(q.target)) u2.add(q.target); });
           aplicarEstado(e2, u2, true);
         }
       } else {
@@ -354,10 +364,41 @@
         <p style="margin-top:8px"><small>+/- = realizado pero fuera de orden (vale 0,5). Cada acción incorrecta resta ${pen.penalizacion_incorrecta} puntos y cada repetida ${pen.penalizacion_repetida}.</small></p>`;
     }
 
-    // ---- navegación
+    // ---- portada (sin cargar nada pesado) y navegación
+    function portada() {
+      parar();
+      if (ESC) ESC.dispose();
+      document.querySelector('.acr-grid').classList.add('sin-escena');
+      $('#acr-chips').innerHTML = '';
+      $('#acr-escena').innerHTML = `<div class="acr-portada">
+        <div class="ico">${D.icono}</div>
+        <h2>${esc(D.titulo)}</h2>
+        <p>${esc(D.resumen)}</p>
+        <ul class="acr-refs">
+          <li><b>Práctica:</b> exploración libre, recorrido guiado, machete clínico y fundamentos.</li>
+          <li><b>Examen:</b> a ciegas, con tiempo límite y corrección estricta.</li>
+        </ul>
+        <p class="acr-peso">El modelo 3D (${esc(D.peso_modelo || 'unos MB')}) se descarga recién cuando comenzás; no se carga nada pesado antes.</p>
+        <div class="acr-row"><button class="acr-btn" id="acr-go-prac">Comenzar entrenamiento</button><button class="acr-btn sec" id="acr-go-ex">Rendir examen</button></div>
+        <div id="acr-portada-msg" class="acr-info mal" hidden></div>
+      </div>`;
+      $('#acr-panel').innerHTML = '';
+      const arrancar = async (modo, sub) => {
+        const btns = document.querySelectorAll('.acr-portada .acr-btn'); btns.forEach((b) => { b.disabled = true; });
+        try { await asegurarVisor(); } catch (e) {
+          console.error(e); btns.forEach((b) => { b.disabled = false; });
+          const m = $('#acr-portada-msg'); m.hidden = false; m.textContent = 'No se pudo cargar el visor 3D. Revisá tu conexión e intentá de nuevo.'; return;
+        }
+        S.modo = modo; if (sub) S.sub = sub; ir();
+      };
+      $('#acr-go-prac').onclick = () => arrancar('practica', 'guiado');
+      $('#acr-go-ex').onclick = () => arrancar('examen');
+    }
     function ir() {
       parar();
       pintarTabs();
+      const sin3d = S.modo === 'practica' && S.sub === 'fundamentos';
+      if (!sin3d && !ESC) return portada();
       if (S.modo === 'examen') return examenInicio();
       if (S.sub === 'explorar') vistaExplorar();
       else if (S.sub === 'guiado') vistaGuiado();

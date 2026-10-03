@@ -225,3 +225,21 @@ body.acr-page { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemF
 .acr-reloj.urge { color: var(--acr-bad); animation: acr-pulse 1s ease-in-out infinite; }
 .acr-caso { font-size: .84rem; background: rgba(13,148,136,.08); border-radius: 10px; padding: 8px 10px; margin-bottom: 8px; }
 .acr-alerta { font-weight: 700; animation: acr-shake .4s; }
+
+/* ===== Portada y carga diferida ===== */
+.acr-grid.sin-escena { grid-template-columns: minmax(0, 1fr); }
+.acr-grid.sin-escena #acr-escena:empty, .acr-grid.sin-escena .acr-escena:empty { display: none; }
+.acr-portada { padding: 34px 26px; text-align: center; max-width: 560px; margin: 0 auto; }
+.acr-portada .ico { font-size: 3rem; }
+.acr-portada h2 { color: var(--acr-ttl); margin: 6px 0; }
+.acr-portada p { color: var(--acr-muted); font-size: .92rem; }
+.acr-portada .acr-refs { text-align: left; display: inline-block; }
+.acr-portada .acr-row { justify-content: center; }
+.acr-peso { margin-top: 10px; font-size: .8rem !important; }
+.acr3d-load { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: rgba(10,15,29,.92); color: #cbd5e1; z-index: 5; padding: 20px; text-align: center; }
+.acr3d-load[hidden] { display: none; }
+.acr3d-load-t b { color: #22d3ee; }
+.acr3d-load-bar { width: min(320px, 80%); height: 8px; background: rgba(148,163,184,.25); border-radius: 999px; overflow: hidden; }
+.acr3d-load-bar i { display: block; height: 100%; background: linear-gradient(90deg, #06b6d4, #0d9488); transition: width .2s; }
+.acr3d-load-s { font-size: .72rem; color: #94a3b8; }
+.acr-panel:empty { display: none; }
