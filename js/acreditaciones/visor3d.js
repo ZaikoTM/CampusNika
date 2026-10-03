@@ -312,6 +312,16 @@ export class MedicalProcedureViewer {
         cil(1.7, 1.9, 3.5, -4.6, 0, 2.6, 0, 0, null).rotation.set(0, 1.0, 0);
         const br = cil(2.1, 2.5, K.brazos, -6.2, 0, 4.0 + K.brazos / 2, Math.PI / 2, 0, mM);
         br.rotation.set(Math.PI / 2, 0, 0);
+        const proc = [...g.children].filter((x) => x !== br);                                          // manos procedurales (respaldo si el modelo no carga)
+        if (K.manos) {                                                                                     // manos reales entrelazadas (escaneo CC-BY, ver LICENSE_manos.txt)
+          const ld = new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/'));
+          ld.load(K.manos.src, (gl) => {
+            const w = new THREE.Group(); const D = Math.PI / 180;
+            gl.scene.traverse((m) => { if (m.isMesh) { m.material = mG; m.geometry.computeVertexNormals(); this.registrar(m, 'sonda', 'mano'); } });
+            w.add(gl.scene); w.scale.setScalar(K.manos.escala); w.rotation.set(...K.manos.rot.map((v) => v * D), 'YXZ'); w.position.set(...K.manos.pos);
+            g.add(w); proc.forEach((x) => g.remove(x)); window.__manos = w;
+          }, undefined, () => {});
+        }
         g.traverse((m) => { if (m.isMesh) this.registrar(m, 'sonda', 'mano'); });
         const ent = { tipo: ins.tipo, cat: { goal: 0 }, st: { mano: false, rcp: false, rosc: false, muerte: false } };
         ent.sync = (has) => { const c = ins.clases; ent.st = { mano: has(c.mano), rcp: has(c.rcp), rosc: has(c.rosc), muerte: has(c.muerte) }; ent.cat.goal = ent.st.rcp && !ent.st.rosc && !ent.st.muerte ? 1 : 0; };

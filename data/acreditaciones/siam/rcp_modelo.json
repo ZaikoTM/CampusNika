@@ -393,7 +393,21 @@
    ],
    "brazos": 24,
    "profundidad": 4.5,
-   "frecuencia": 110
+   "frecuencia": 110,
+   "manos": {
+    "src": "assets/anatomia/rcp/manos_rcp.glb",
+    "escala": 0.09,
+    "rot": [
+     -90,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     4.5
+    ]
+   }
   },
   "ventila": {
    "mascara": [
@@ -694,7 +708,21 @@
    ],
    "brazos": 24,
    "profundidad": 4.5,
-   "frecuencia": 110
+   "frecuencia": 110,
+   "manos": {
+    "src": "assets/anatomia/rcp/manos_rcp.glb",
+    "escala": 0.09,
+    "rot": [
+     -90,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     4.5
+    ]
+   }
   },
   "ventila": {
    "mascara": [
