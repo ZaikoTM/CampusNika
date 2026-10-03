@@ -299,25 +299,19 @@ export class MedicalProcedureViewer {
         // manos enguantadas (nitrilo) entrelazadas: el talón de la mano apoya en el esternón y los brazos suben con los codos extendidos
         const mG = this.material('#72c9f2', 0.98, 'sonda', { roughness: 0.34, clearcoat: 0.55, clearcoatRoughness: 0.2, emissive: 0x0b4f78, emissiveIntensity: 0.16, depthWrite: true });
         const mM = this.material('#2dd4bf', 0.95, 'sonda', { roughness: 0.7, clearcoat: 0, emissive: 0x0f766e, emissiveIntensity: 0.18, depthWrite: true });
-        const cap = (r, largo, mat) => { const m = new THREE.Mesh(new THREE.CapsuleGeometry(r, largo, 6, 14), mat); m.rotation.z = -Math.PI / 2; return m; };   // eje a lo largo de +X
-        const mano = (espejo) => {
-          const h = new THREE.Group();
-          const palma = new THREE.Mesh(new RoundedBoxGeometry(8.6, 8.2, 2.3, 5, 1.0), mG); palma.position.set(0, 0, 1.2); h.add(palma);
-          const nudillos = new THREE.Mesh(new RoundedBoxGeometry(1.8, 8.4, 2.5, 4, 0.8), mG); nudillos.position.set(4.4, 0, 1.3); h.add(nudillos);
-          const largos = [6.6, 7.6, 7.2, 5.6]; const ys = [-3.05, -1.0, 1.05, 3.05];
-          largos.forEach((L, i) => { const d = cap(0.95, L, mG); d.position.set(5.2 + L / 2, ys[i] * (espejo ? -1 : 1), 1.15); h.add(d); });
-          const pulgar = cap(1.1, 4.6, mG); pulgar.position.set(1.6, (espejo ? 1 : -1) * 5.1, 1.1); pulgar.rotation.z = -Math.PI / 2 + (espejo ? -0.55 : 0.55); h.add(pulgar);
-          const muneca = new THREE.Mesh(new THREE.CylinderGeometry(3.0, 3.3, 3.2, 20), mG); muneca.rotation.z = Math.PI / 2; muneca.position.set(-5.8, 0, 1.4); h.add(muneca);
-          return h;
-        };
-        const baja = mano(false); baja.position.set(4.0, 0, 0); g.add(baja);                                   // mano dominante: el talón sobre el esternón
-        const alta = mano(true); alta.position.set(3.2, 0.5, 2.5); g.add(alta);                              // mano no dominante, encima
-        [[-1.0, 8.4], [1.0, 8.9], [3.0, 8.6], [5.0, 7.6]].forEach(([yy, xx]) => {                            // dedos entrelazados: se curvan sobre los de la mano de abajo
-          const gancho = cap(0.9, 2.3, mG); gancho.rotation.z = Math.PI / 2 + 0.3; gancho.position.set(xx + 3.4, yy * 0.9 + 0.5, 2.3); g.add(gancho);
-        });
-        [-1.8, 1.8].forEach((dy) => {                                                                          // antebrazos y brazos verticales (codos extendidos)
-          const br = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.9, K.brazos, 20), mM); br.rotation.x = Math.PI / 2; br.position.set(-1.8, dy * 0.7, 4.0 + K.brazos / 2); g.add(br);
-        });
+        const esf = (rx, ry, rz, x, y, z, mat) => { const m = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), mat || mG); m.scale.set(rx, ry, rz); m.position.set(x, y, z); g.add(m); return m; };
+        const cil = (r1, r2, L, x, y, z, rx, ry, mat) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r1, r2, L, 20), mat || mG); m.position.set(x, y, z); m.rotation.set(rx || 0, 0, ry || 0); g.add(m); return m; };
+        // dorso de las manos entrelazadas (visto desde arriba/lateral): masa redondeada, el talón apoya en el esternón
+        esf(4.6, 3.7, 1.9, 0, 0, 1.4);                                   // dorso mano superior
+        esf(4.3, 3.3, 1.4, 1.2, 0, 0.5);                                 // mano inferior (talón sobre el esternón)
+        for (let i = 0; i < 4; i++) esf(0.95, 0.95, 0.85, 4.1, -2.5 + i * 1.65, 1.0);   // nudillos
+        for (let i = 0; i < 4; i++) { const d = esf(1.7, 0.78, 0.75, 6.1, -2.4 + i * 1.6, 0.9); d.rotation.z = (i - 1.5) * 0.06; }   // dedos entrelazados
+        esf(2.0, 0.85, 0.8, 1.2, 4.0, 1.5).rotation.z = -0.5;           // pulgar derecho
+        esf(2.0, 0.85, 0.8, 1.2, -4.0, 1.5).rotation.z = 0.5;           // pulgar izquierdo
+        // muñecas y antebrazos con manga, brazos extendidos y ligeramente abiertos
+        cil(1.7, 1.9, 3.5, -4.6, 0, 2.6, 0, 0, null).rotation.set(0, 1.0, 0);
+        const br = cil(2.1, 2.5, K.brazos, -6.2, 0, 4.0 + K.brazos / 2, Math.PI / 2, 0, mM);
+        br.rotation.set(Math.PI / 2, 0, 0);
         g.traverse((m) => { if (m.isMesh) this.registrar(m, 'sonda', 'mano'); });
         const ent = { tipo: ins.tipo, cat: { goal: 0 }, st: { mano: false, rcp: false, rosc: false, muerte: false } };
         ent.sync = (has) => { const c = ins.clases; ent.st = { mano: has(c.mano), rcp: has(c.rcp), rosc: has(c.rosc), muerte: has(c.muerte) }; ent.cat.goal = ent.st.rcp && !ent.st.rosc && !ent.st.muerte ? 1 : 0; };
