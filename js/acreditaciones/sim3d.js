@@ -3,6 +3,7 @@
 // Cada tipo recibe (visor, ins, cfg, C) y registra en C.inst un objeto { sync(has, raiz), tick(t) } (igual que los instrumentos de visor3d.js).
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 export const TIPOS = {};
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -28,7 +29,7 @@ export const AUdeEG = (eg) => (eg < 12 ? 0 : eg < 20 ? (eg - 12) * 1.4 : Math.mi
 
 export function anclar(C, cfg, id, v) { if (!C.anclas || !C.rotg) return; C.anclas[id] = v.clone().sub(V(...cfg.origen)).applyEuler(C.rotg.rotation); }
 // ---------------------------------------------------------------- mano con guante (palma + 5 dedos articulados)
-export function crearMano(mat, lado = 1) {
+function crearManoProc(mat, lado = 1) {
   const g = new THREE.Group(); const hold = new THREE.Group(); g.add(hold);
   const palma = new THREE.Mesh(new RoundedBoxGeometry(8.0, 1.9, 8.4, 4, 0.8), mat); palma.position.set(0, 0, 4.2); hold.add(palma);
   const muneca = new THREE.Mesh(new THREE.CylinderGeometry(3.0, 3.3, 2.6, 18), mat); muneca.rotation.x = Math.PI / 2; muneca.position.set(0, 0, -1.4); hold.add(muneca);
@@ -61,6 +62,22 @@ export function crearMano(mat, lado = 1) {
   };
   g.pose('plana');
   g.userData.hold = hold;
+  return g;
+}
+
+
+// mano real (escaneo/modelado CC-BY, 7 poses como morph targets): reemplaza a la procedural en cuanto se descarga
+let MANO_REAL = null;
+const cargarManoReal = () => MANO_REAL || (MANO_REAL = new Promise((ok) => { new GLTFLoader().load('assets/anatomia/manos/mano_real.glb', (gl) => { let m = null; gl.scene.traverse((o) => { if (o.isMesh && !m) m = o; }); ok(m); }, undefined, () => ok(null)); }));
+export function crearMano(mat, lado = 1) {
+  const g = crearManoProc(mat, lado); const poseProc = g.pose; let real = null; let ultima = ['plana', 1];
+  g.pose = (nombre, k = 1) => { ultima = [nombre, k]; if (!real) { poseProc(nombre, k); return; }
+    const inf = real.morphTargetInfluences; inf.fill(0); const i = real.morphTargetDictionary[nombre]; if (i !== undefined) inf[i] = Math.max(0, Math.min(1, k)); };
+  cargarManoReal().then((base) => { if (!base) return;
+    real = base.clone(); real.geometry = base.geometry; real.morphTargetInfluences = base.morphTargetInfluences.slice();
+    real.material = lado < 0 ? Object.assign(mat.clone(), { side: THREE.DoubleSide }) : mat; real.scale.set(lado < 0 ? -1 : 1, 1, 1); real.renderOrder = 9; real.frustumCulled = false;
+    const hold = g.userData.hold; const cuff = hold.children.find((c) => c.geometry && c.geometry.type === 'CylinderGeometry');
+    hold.children.slice().forEach((c) => { if (c !== cuff) hold.remove(c); }); if (cuff) { cuff.position.z = -3.4; cuff.scale.set(1.08, 1.5, 1.08); } hold.add(real); g.pose(...ultima); });
   return g;
 }
 
