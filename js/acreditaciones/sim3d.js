@@ -380,6 +380,7 @@ TIPOS.gin = (visor, ins, cfg, C) => {
   // dedos del tacto (índice y medio) y manos
   const mG = visor.material('#72c9f2', 0.97, 'sonda', { roughness: 0.34, clearcoat: 0.5, emissive: 0x0b4f78, emissiveIntensity: 0.16, depthWrite: true });
   const dedos = new THREE.Group(); raiz.add(dedos); dedos.visible = false; const dx = [-0.55, 0.55].map((x) => { const d = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 7, 6, 12), mG); d.rotation.x = Math.PI / 2; d.position.x = x; d.renderOrder = 7; dedos.add(d); return d; });
+  new GLTFLoader().load('assets/anatomia/manos/dedos_tacto.glb', (gl) => { let m = null; gl.scene.traverse((o) => { if (o.isMesh && !m) m = o; }); if (!m) return; const real = new THREE.Mesh(m.geometry, mG); real.renderOrder = 7; real.frustumCulled = false; dedos.add(real); dx.forEach((d) => { d.visible = false; }); });
   const mano = crearMano(mG, 1); mano.visible = false; raiz.add(mano); const manoAb = crearMano(mG, -1); manoAb.visible = false; raiz.add(manoAb);
   mano.traverse((o) => { if (o.isMesh) o.renderOrder = 7; }); manoAb.traverse((o) => { if (o.isMesh) o.renderOrder = 7; });
   // inset de vista (externa / especular)
