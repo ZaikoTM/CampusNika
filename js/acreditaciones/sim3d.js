@@ -99,6 +99,7 @@ TIPOS.gravida = (visor, ins, cfg, C) => {
     const G = calc(eg); ent.G = G; ent.eg = eg;
     if (ent.torsoMesh) ent.torsoMesh.morphTargetInfluences[0] = G.v;
     ut.position.set(-0.4, G.yc, G.zc); ut.scale.set(G.ax, G.ayy, G.azz); ut.visible = eg >= 6;
+    { const dim = !!ent.dim; mFeto.opacity += ((dim ? 0.2 : 0.88) - mFeto.opacity) * 0.12; mUt.opacity += ((dim ? 0.1 : 0.28) - mUt.opacity) * 0.12; mFeto.userData.base = mFeto.opacity; mUt.userData.base = mUt.opacity; }
     // feto: tamaño por EG, posición y actitud según el caso
     const sc = CRL(eg) / 34.4; const pres = caso.presentacion || 'cefalica'; const dorso = caso.dorso === 'der' ? 1 : -1;
     feto.position.set(-0.4, G.yc, G.zc); feto.scale.setScalar(Math.min(sc, 1.2));
@@ -192,6 +193,7 @@ TIPOS.obs = (visor, ins, cfg, C) => {
     const yAU = yDeAU(au, G.v); const y0 = GRAV.SINFISIS;
     const fase = s.fin ? 'fin' : s.l4 ? 'l4' : s.l3 ? 'l3' : s.pinard ? 'pinard' : s.l2 ? 'l2' : s.l1 ? 'l1' : s.curva ? 'curva' : s.cinta ? 'cinta' : s.cinta0 ? 'cinta0' : s.pubis ? 'pubis' : '';
     const enAU = ['pubis', 'cinta0', 'cinta', 'curva'].includes(fase);
+    gr.dim = enAU;
     prog = lerp(prog, s.cinta ? 1 : 0, easeK(dt, 2.2));
     const yFin = lerp(y0, yAU, prog); let arc = 0; let pz0 = superficie(G, 0, y0) + 0.3, py0 = y0;
     for (let i = 0; i <= N; i++) { const y = lerp(y0, yFin, i / N); const z = superficie(G, 0, y) + 0.3; const a = i * 2;
