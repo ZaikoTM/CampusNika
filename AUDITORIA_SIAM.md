@@ -11,10 +11,10 @@ Revisión automática y manual de las 5 acreditaciones SIAM (sonda vesical, tact
 - En artrocentesis los pasos que dependen del caso (derrame grande o escaso) se aplicaban a todos los casos porque el motor evaluaba solo la primera condición. Ahora se cumplen **todas** las condiciones (`solo_si`, `sin_si`, `solo_contra`, `sin_contra`).
 
 ## Mejoras aplicadas
-- Más preguntas de fundamentos (sonda vesical +4, tacto rectal +4, intubación +3, RCP +4), **pendientes de validar con NotebookLM**.
+- Más preguntas de fundamentos (sonda vesical +4, tacto rectal +4, intubación +3, RCP +4), validadas con NotebookLM.
 - Selector de sexo oculto cuando todos los casos son del mismo sexo (área SIM).
 
-## Preguntas agregadas (a validar)
+## Preguntas agregadas (VALIDADAS con NotebookLM: las 15 correctas y respaldadas por la bibliografía de la cátedra)
 
 ### SV
 - ¿Qué calibre de sonda Foley se usa habitualmente en la mujer adulta?  
