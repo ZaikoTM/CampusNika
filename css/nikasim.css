@@ -1,0 +1,85 @@
+/* NikaSim · Centro de Simulación Clínica. Todo con prefijo .ns- para no pisar nada de styles.css. Usa las variables del campus. */
+:root { --ns-side: 248px; --ns-side-c: 72px; --ns-cian: #22d3ee; --ns-azul: #0284c7; }
+body.nikasim { display: block; background: var(--bg-body); }
+body.nikasim::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(900px 520px at 12% -8%, rgba(34, 211, 238, .16), transparent 60%), radial-gradient(720px 480px at 100% 0%, rgba(2, 132, 199, .12), transparent 55%); }
+
+/* ---- sidebar oscuro colapsable ---- */
+.ns-side { position: fixed; left: 0; top: 0; bottom: 0; width: var(--ns-side); z-index: 1100; display: flex; flex-direction: column; padding: 14px 10px; gap: 4px;
+  background: linear-gradient(180deg, #071426, #0a192f 60%, #06101f); color: #cbd5e1; border-right: 1px solid rgba(125, 211, 252, .12); transition: width .28s cubic-bezier(.4, 0, .2, 1), transform .28s; overflow: hidden auto; }
+.ns-side .ns-brand { display: flex; align-items: center; gap: 10px; padding: 6px 8px 14px; text-decoration: none; color: #fff; white-space: nowrap; }
+.ns-side .ns-brand img { width: 34px; height: 34px; object-fit: contain; flex: none; }
+.ns-side .ns-brand b { font-size: 1rem; letter-spacing: .04em; } .ns-side .ns-brand small { display: block; font-size: .62rem; letter-spacing: 1.4px; color: var(--ns-cian); text-transform: uppercase; }
+.ns-cat { font-size: .64rem; letter-spacing: 1.2px; text-transform: uppercase; color: #64748b; padding: 12px 10px 4px; white-space: nowrap; font-weight: 800; }
+.ns-link { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; color: #cbd5e1; text-decoration: none; font-size: .88rem; font-weight: 600; border: 0; background: none; cursor: pointer; text-align: left; white-space: nowrap; transition: background .2s, color .2s, transform .2s; font-family: inherit; }
+.ns-link svg, .ns-link .ns-ic { width: 20px; height: 20px; flex: none; text-align: center; font-size: 1.05rem; line-height: 20px; }
+.ns-link:hover { background: rgba(125, 211, 252, .1); color: #fff; transform: translateX(2px); }
+.ns-link.on { background: linear-gradient(135deg, rgba(34, 211, 238, .22), rgba(2, 132, 199, .22)); color: #fff; box-shadow: inset 0 0 0 1px rgba(34, 211, 238, .35); }
+.ns-colapsar { margin-top: auto; justify-content: center; border: 1px solid rgba(125, 211, 252, .18); }
+body.ns-colapsado { --ns-side: var(--ns-side-c); }
+body.ns-colapsado .ns-side .ns-t, body.ns-colapsado .ns-side .ns-brand span, body.ns-colapsado .ns-cat { display: none; }
+body.ns-colapsado .ns-link { justify-content: center; padding: 11px 0; }
+.ns-shell { margin-left: var(--ns-side); transition: margin-left .28s cubic-bezier(.4, 0, .2, 1); min-height: 100vh; }
+
+/* ---- topbar ---- */
+.ns-top { position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px clamp(14px, 3vw, 28px);
+  background: color-mix(in srgb, var(--card-bg) 86%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.ns-top h1 { font-size: 1.05rem; margin: 0; display: flex; align-items: center; gap: 8px; color: var(--text-main); }
+.ns-burger { display: none; border: 1px solid var(--border); background: var(--card-bg); border-radius: 10px; padding: 8px 11px; cursor: pointer; font-size: 1rem; color: var(--text-main); }
+.ns-acc { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.ns-main { max-width: 1180px; margin: 0 auto; padding: clamp(14px, 3vw, 30px) clamp(14px, 4vw, 32px) 90px; }
+
+/* ---- hero con Nika ---- */
+.ns-hero { position: relative; display: flex; gap: 18px; align-items: center; padding: 22px clamp(16px, 3vw, 28px); border-radius: 22px; overflow: hidden; color: #fff;
+  background: linear-gradient(135deg, #0b2447 0%, #0369a1 55%, #0891b2 100%); box-shadow: 0 18px 40px -22px rgba(2, 132, 199, .7); }
+.ns-hero::after { content: ""; position: absolute; right: -60px; top: -60px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(34, 211, 238, .35), transparent 65%); animation: ns-flota 7s ease-in-out infinite; }
+@keyframes ns-flota { 50% { transform: translate(-18px, 16px) scale(1.08); } }
+.ns-nika { flex: none; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .14); border: 2px solid rgba(255, 255, 255, .5); animation: ns-saluda 4s ease-in-out infinite; z-index: 1; }
+.ns-nika img { width: 48px; height: 48px; object-fit: contain; }
+@keyframes ns-saluda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.ns-burbuja { z-index: 1; } .ns-burbuja small { text-transform: uppercase; letter-spacing: 1.4px; font-size: .66rem; font-weight: 800; color: #a5f3fc; }
+.ns-burbuja h2 { margin: 2px 0 6px; font-size: clamp(1.2rem, 2.4vw, 1.6rem); } .ns-burbuja p { margin: 0; font-size: .92rem; opacity: .95; line-height: 1.45; max-width: 640px; }
+
+/* ---- nivel 1: años ---- */
+.ns-paso { margin: 22px 0 8px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.ns-paso b { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--nika-primary, #0284c7); color: #fff; font-size: .78rem; }
+.ns-paso h3 { margin: 0; font-size: 1.02rem; color: var(--text-main); } .ns-paso small { color: var(--text-muted); font-size: .8rem; }
+.ns-years { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 8px; scrollbar-width: thin; }
+.ns-year { flex: none; padding: 10px 20px; border-radius: 999px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); font-weight: 700; font-size: .9rem; cursor: pointer; font-family: inherit; transition: .22s; }
+.ns-year:hover { border-color: var(--ns-cian); transform: translateY(-2px); }
+.ns-year.on { background: linear-gradient(135deg, #0891b2, #0284c7); color: #fff; border-color: transparent; box-shadow: 0 10px 22px -12px rgba(2, 132, 199, .9); }
+
+/* ---- nivel 2: áreas ---- */
+.ns-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+.ns-card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 20px; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); text-align: left; cursor: pointer; font-family: inherit; transition: transform .25s, box-shadow .25s, border-color .25s; text-decoration: none; animation: ns-entra .45s both; }
+.ns-card:hover { transform: translateY(-4px); border-color: var(--ns-cian); box-shadow: 0 16px 30px -18px rgba(2, 132, 199, .6); }
+.ns-card.off { opacity: .66; cursor: default; } .ns-card.off:hover { transform: none; border-color: var(--border); box-shadow: none; }
+.ns-card .ns-ico { font-size: 1.9rem; line-height: 1; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(135deg, rgba(34, 211, 238, .2), rgba(2, 132, 199, .18)); }
+.ns-card h4 { margin: 4px 0 0; font-size: 1.05rem; } .ns-card p { margin: 0; color: var(--text-muted); font-size: .84rem; line-height: 1.4; } .ns-card small { color: var(--text-muted); font-size: .76rem; }
+.ns-card .ns-go { margin-top: auto; padding-top: 6px; color: var(--nika-primary, #0284c7); font-weight: 800; font-size: .84rem; }
+@keyframes ns-entra { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.ns-pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: .68rem; font-weight: 800; letter-spacing: .02em; background: rgba(100, 116, 139, .14); color: var(--text-muted); width: fit-content; }
+.ns-pill.ok { background: rgba(22, 163, 74, .14); color: #16a34a; } .ns-pill.bad { background: rgba(220, 38, 38, .12); color: #dc2626; } .ns-pill.cian { background: rgba(34, 211, 238, .14); color: #0e7490; border: 1px solid rgba(34, 211, 238, .45); } .ns-pill.dev { background: rgba(245, 158, 11, .15); color: #b45309; }
+body.dark-mode .ns-pill.cian { color: #67e8f9; } body.dark-mode .ns-pill.ok { color: #4ade80; } body.dark-mode .ns-pill.bad { color: #f87171; } body.dark-mode .ns-pill.dev { color: #fbbf24; }
+
+/* ---- nivel 3 ---- */
+.ns-miga { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .84rem; color: var(--text-muted); margin: 18px 0 4px; }
+.ns-miga button { border: 0; background: none; color: var(--nika-primary, #0284c7); font-weight: 700; cursor: pointer; font-family: inherit; padding: 0; font-size: inherit; } .ns-miga button:hover { text-decoration: underline; }
+.ns-area-cab { display: flex; gap: 14px; align-items: center; margin: 6px 0 4px; } .ns-area-cab .ns-ico { font-size: 2rem; width: 58px; height: 58px; display: grid; place-items: center; border-radius: 18px; background: linear-gradient(135deg, rgba(34, 211, 238, .2), rgba(2, 132, 199, .18)); }
+.ns-area-cab h2 { margin: 0; font-size: 1.35rem; color: var(--text-main); } .ns-area-cab p { margin: 2px 0 0; color: var(--text-muted); font-size: .88rem; }
+.ns-sec { margin-top: 26px; } .ns-sec h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font-size: 1.08rem; color: var(--text-main); } .ns-sec h3 span { font-size: .72rem; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: rgba(2, 132, 199, .12); color: var(--nika-primary, #0284c7); }
+.ns-tour { padding: 0; overflow: hidden; } .ns-tour .ns-vista { height: 128px; position: relative; display: grid; place-items: center; font-size: 3rem; background: linear-gradient(135deg, #0b2447, #0369a1 60%, #0891b2); overflow: hidden; }
+.ns-tour .ns-vista::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 38px), repeating-linear-gradient(0deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 38px); transform: perspective(300px) rotateX(55deg) translateY(30px); transform-origin: bottom; }
+.ns-tour .ns-vista span { position: relative; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .4)); animation: ns-saluda 4s ease-in-out infinite; }
+.ns-tour .ns-cuerpo { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.ns-vacio { padding: 34px 20px; text-align: center; border: 1px dashed var(--border); border-radius: 20px; color: var(--text-muted); background: color-mix(in srgb, var(--card-bg) 70%, transparent); }
+.ns-vacio b { display: block; font-size: 2rem; margin-bottom: 6px; }
+.ns-fade { animation: ns-entra .4s both; }
+
+@media (max-width: 900px) {
+  .ns-side { transform: translateX(-100%); width: var(--ns-side); box-shadow: 8px 0 30px rgba(0, 0, 0, .45); }
+  body.ns-abierto .ns-side { transform: none; } .ns-shell, body.ns-colapsado .ns-shell { margin-left: 0; } .ns-burger { display: inline-block; }
+  body.ns-colapsado .ns-side .ns-t, body.ns-colapsado .ns-side .ns-brand span, body.ns-colapsado .ns-cat { display: revert; } body.ns-colapsado .ns-link { justify-content: flex-start; padding: 10px 12px; } .ns-colapsar { display: none; }
+  .ns-hero { flex-direction: column; text-align: center; } .ns-burbuja p { margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) { .ns-card, .ns-fade, .ns-nika, .ns-hero::after, .ns-tour .ns-vista span { animation: none !important; } }

@@ -2284,3 +2284,17 @@ body.dark-mode .balance-pendientes .plan-item { background: #111827; }
 #pp-social-row .pp-social-link:hover { text-decoration: none; transform: translateY(-2px); border-color: rgba(56,189,248,.7); box-shadow: 0 8px 20px -8px rgba(56,189,248,.9); }
 #pp-social-row .rs-badge { width: 26px; height: 26px; border-radius: 50%; } #pp-social-row .rs-badge img { width: 14px; height: 14px; }
 .pp-preview-tag { position: sticky; top: 0; z-index: 6; text-align: center; padding: 6px 10px; font-size: .74rem; font-weight: 800; letter-spacing: .03em; color: #fff; background: linear-gradient(90deg, #7c3aed, #2563eb); }
+
+/* ---- NikaSim: mosaico del dashboard (5.ª tarjeta) ---- */
+.action-buttons-grid--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1280px) { .action-buttons-grid--5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .action-buttons-grid--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .action-buttons-grid--5 { grid-template-columns: 1fr; } }
+.action-btn-card--nikasim { position: relative; border-color: rgba(34, 211, 238, .45) !important; background: linear-gradient(160deg, rgba(34, 211, 238, .10), rgba(37, 99, 235, .08)), var(--card-bg); overflow: hidden; }
+.action-btn-card--nikasim .ns-badge { position: absolute; top: 10px; right: 10px; padding: 3px 10px; border-radius: 999px; font-size: .62rem; font-weight: 800; letter-spacing: .03em; background: rgba(34, 211, 238, .14); color: #0e7490; border: 1px solid rgba(34, 211, 238, .55); }
+body.dark-mode .action-btn-card--nikasim .ns-badge { color: #67e8f9; }
+.action-btn-card--nikasim .action-icon--nikasim { background: linear-gradient(135deg, rgba(34, 211, 238, .22), rgba(37, 99, 235, .2)); animation: ns-cubo 5s ease-in-out infinite; }
+@keyframes ns-cubo { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(4deg); } }
+.action-btn-card--nikasim .ns-cta { margin-top: 8px; padding: 7px 14px; border-radius: 999px; font-weight: 800; font-size: .78rem; color: #fff; background: linear-gradient(135deg, #0891b2, #2563eb); transition: transform .2s, box-shadow .2s; }
+.action-btn-card--nikasim:hover .ns-cta { transform: translateX(4px); box-shadow: 0 8px 18px -8px rgba(37, 99, 235, .8); }
+@media (prefers-reduced-motion: reduce) { .action-btn-card--nikasim .action-icon--nikasim { animation: none; } }

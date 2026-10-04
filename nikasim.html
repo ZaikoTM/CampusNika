@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0a192f">
+    <title>NikaSim · Centro de Simulación Clínica 3D | Campus Nika</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=10">
+    <link rel="stylesheet" href="css/nikasim.css?v=1">
+</head>
+<body class="nikasim" data-pagina="nikasim">
+
+    <aside class="ns-side" id="ns-side" aria-label="Navegación">
+        <a class="ns-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span><b>CAMPUS NIKA</b><small>NikaSim</small></span>
+        </a>
+        <div class="ns-cat">Navegación</div>
+        <a class="ns-link" href="campus.html"><span class="ns-ic">🏠</span><span class="ns-t">Inicio / Dashboard</span></a>
+        <a class="ns-link on" href="nikasim.html" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 20 7.4v9.2l-8 4.6-8-4.6V7.4z"/><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"/></svg>
+            <span class="ns-t">Centro de Simulación</span>
+        </a>
+        <div class="ns-cat">Atlas de acreditaciones</div>
+        <a class="ns-link" href="#5to/siam" data-ir="5to/siam"><span class="ns-ic">🫀</span><span class="ns-t">SIAM</span></a>
+        <a class="ns-link" href="#5to/sim" data-ir="5to/sim"><span class="ns-ic">🤰</span><span class="ns-t">SIM</span></a>
+        <a class="ns-link" href="#5to/iecq" data-ir="5to/iecq"><span class="ns-ic">🔪</span><span class="ns-t">IECQ · Cirugía</span></a>
+        <div class="ns-cat">Herramientas</div>
+        <a class="ns-link" href="nikafarma.html"><span class="ns-ic">💊</span><span class="ns-t">NikaFarma</span></a>
+        <button type="button" class="ns-link ns-colapsar" id="ns-colapsar" aria-label="Contraer o expandir la barra lateral"><span class="ns-ic">⇤</span><span class="ns-t">Contraer</span></button>
+    </aside>
+
+    <div class="ns-shell">
+        <header class="ns-top">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <button type="button" class="ns-burger" id="ns-burger" aria-label="Abrir menú">☰</button>
+                <h1>🧊 NikaSim <small style="font-weight:600;color:var(--text-muted);font-size:.78rem;">Centro de Simulación Clínica</small></h1>
+            </div>
+            <div class="ns-acc">
+                <span data-nika-racha-slot></span>
+                <button type="button" class="pl-btn music" data-nika-music-toggle title="NikaMusic" aria-label="Abrir NikaMusic"><span class="lbl">🎧 NikaMusic</span></button>
+                <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+                <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+            </div>
+        </header>
+
+        <main class="ns-main" id="ns-main">
+            <section class="ns-hero" aria-label="Nika, tu instructora">
+                <div class="ns-nika" aria-hidden="true"><img src="assets/N%20NIKA.png" alt=""></div>
+                <div class="ns-burbuja">
+                    <small>NikaSim · 3D &amp; VR inmersivo</small>
+                    <h2>Centro de Simulación Clínica</h2>
+                    <p id="ns-saludo"></p>
+                </div>
+            </section>
+
+            <div class="ns-paso"><b>1</b><h3>Elegí tu cursada</h3><small>Años 1° a 6°</small></div>
+            <div class="ns-years" id="ns-years" role="tablist" aria-label="Año de cursada"></div>
+
+            <div id="ns-contenido"></div>
+        </main>
+    </div>
+
+    <div id="toast">Notificación</div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/nikaAcceso.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/rachas.js"></script>
+    <script src="js/nikaMusic.js"></script>
+    <script src="js/atajos.js"></script>
+    <script src="js/paginaLateral.js"></script>
+    <script src="nikasim-data.js?v=1"></script>
+    <script src="js/nikasim.js?v=1"></script>
+</body>
+</html>
