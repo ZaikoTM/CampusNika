@@ -998,3 +998,15 @@ details.acr-crit-wrap[open] > summary { margin-bottom: 10px; }
 .acr-head { gap: 6px; }
 .acr3d-vp .sim-gesto { right: calc(min(46%, 270px) + 18px); }
 @media (max-width: 640px) { .acr3d-vp .sim-gesto { right: calc(52% + 14px); } }
+
+/* familigrama que se dibuja: líneas trazadas, figuras que brotan, etiquetas que aparecen */
+.sim-fg > path.fg-l { stroke-dasharray: 220; stroke-dashoffset: 220; animation: fg-traza .7s ease-out forwards; }
+.sim-fg > circle, .sim-fg > rect { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: fg-brota .55s cubic-bezier(.34,1.7,.64,1) forwards; }
+.sim-fg > circle.yo, .sim-fg > rect.yo { animation: fg-brota .55s cubic-bezier(.34,1.7,.64,1) forwards, fg-late 1.8s ease-in-out 1.6s infinite; }
+.sim-fg > path.mu { stroke-dasharray: 60; stroke-dashoffset: 60; animation: fg-traza .5s ease-out forwards; }
+.sim-fg > text { opacity: 0; animation: fg-texto .5s ease-out forwards; }
+@keyframes fg-traza { to { stroke-dashoffset: 0; } }
+@keyframes fg-brota { to { transform: scale(1); } }
+@keyframes fg-texto { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes fg-late { 50% { filter: drop-shadow(0 0 5px #2dd4bf); } }
+@media (prefers-reduced-motion: reduce) { .sim-fg > * { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; } }

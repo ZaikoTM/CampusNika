@@ -257,7 +257,7 @@ TIPOS.hc = (visor, ins, cfg, C) => {
   const filas = ins.filas || []; let caso0 = null; const els = {};
   const armar = (c) => { caso0 = c; cuerpo.innerHTML = filas.map((f) => `<div class="hc-f" data-f="${f.f}"><span class="k">${esc(f.t)}</span><span class="v"></span></div>`).join('') + '<div class="hc-fg" data-f="famili"></div>';
     filas.forEach((f) => { els[f.f] = cuerpo.querySelector(`[data-f="${f.f}"]`); const v = els[f.f].querySelector('.v'); const txt = c[f.c]; v.textContent = (f.f === 'trat') ? [c.h_cons, c.h_estudios, c.h_dx, c.h_trat].filter(Boolean).join(' · ') : (txt || ''); els[f.f].querySelector('.v').dataset.txt = v.textContent; });
-    cuerpo.querySelector('.hc-fg').innerHTML = familigrama(c); };
+    cuerpo.querySelector('.hc-fg').innerHTML = familigrama(c); [...cuerpo.querySelectorAll('.sim-fg > *')].forEach((n, i) => { n.style.animationDelay = (0.25 + i * 0.16) + 's'; }); };
   const HL = { menarca: ['ovarios', 'trompas', 'utero'], irs: ['utero'], parejas: ['utero'], paridad: ['utero'], its: ['utero'], genito: ['utero'], fum: ['ovarios', 'utero'], anticon: ['utero', 'ovarios'] };
   const ent = { tipo: 'hc', st: {}, cat: { goal: 0 } }; let ultimoOn = '';
   ent.sync = (has, raiz) => { ent.raiz = raiz || ent.raiz; ent.has = has; };
