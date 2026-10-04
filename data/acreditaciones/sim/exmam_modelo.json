@@ -161,7 +161,7 @@
    {
     "id": "piel",
     "tipo": "glb",
-    "src": "assets/anatomia/sim/torso_f.glb",
+    "src": "assets/anatomia/sim/torso_mama.glb",
     "escala": 100,
     "rot": [
      0,
@@ -178,19 +178,19 @@
     "opacidad": 0.3,
     "hs": null,
     "nombre": "Paciente",
-    "peso": 1255052,
+    "peso": 150512,
     "piel_real": true
    }
   ],
   "procedurales": {},
   "mam": {
    "pezon_d": [
-    -10.6,
+    -9.07,
     39.3,
     8.6
    ],
    "pezon_i": [
-    9.4,
+    9.07,
     39.3,
     8.6
    ],
@@ -199,12 +199,12 @@
   },
   "pines": {
    "pezonD": [
-    -10.6,
+    -9.07,
     39.3,
     9.2
    ],
    "pezonI": [
-    9.4,
+    9.07,
     39.3,
     9.2
    ],
@@ -268,7 +268,7 @@
    {
     "id": "piel",
     "tipo": "glb",
-    "src": "assets/anatomia/sim/torso_f.glb",
+    "src": "assets/anatomia/sim/torso_mama.glb",
     "escala": 100,
     "rot": [
      0,
@@ -285,19 +285,19 @@
     "opacidad": 0.3,
     "hs": null,
     "nombre": "Paciente",
-    "peso": 1255052,
+    "peso": 150512,
     "piel_real": true
    }
   ],
   "procedurales": {},
   "mam": {
    "pezon_d": [
-    -10.6,
+    -9.07,
     39.3,
     8.6
    ],
    "pezon_i": [
-    9.4,
+    9.07,
     39.3,
     8.6
    ],
@@ -306,12 +306,12 @@
   },
   "pines": {
    "pezonD": [
-    -10.6,
+    -9.07,
     39.3,
     9.2
    ],
    "pezonI": [
-    9.4,
+    9.07,
     39.3,
     9.2
    ],

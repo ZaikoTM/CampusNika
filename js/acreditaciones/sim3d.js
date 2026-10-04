@@ -452,11 +452,11 @@ TIPOS.mam = (visor, ins, cfg, C) => {
   // por mama: glándula, areola, pezón, tubérculos de Montgomery, red venosa de Haller, parches de piel y nódulo
   lados.forEach((L) => {
     const g = new THREE.Group(); g.position.copy(L.c); g.position.z -= R; raiz.add(g); L.g = g;
-    const gl = new THREE.Group(); g.add(gl); L.gl = gl;
+    const gl = new THREE.Group(); gl.scale.set(0.84, 0.84, 0.9); gl.position.z = 0.4; g.add(gl); L.gl = gl;
     for (let i = 0; i < 26; i++) { const th = Math.acos(1 - Math.random() * (1 - Math.cos(TH * 0.9))), ph = Math.random() * 6.283; const r = R * (0.45 + Math.random() * 0.4); const lob = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 8), mGl); lob.position.set(r * Math.sin(th) * Math.cos(ph), r * Math.sin(th) * Math.sin(ph), r * Math.cos(th)); lob.scale.setScalar(0.8 + Math.random() * 0.9); gl.add(lob); }
     const dctos = new THREE.Group(); gl.add(dctos);
     for (let i = 0; i < 9; i++) { const ph = i * 0.7; const pts = [V(0, 0, R * 0.98), V(2.5 * Math.cos(ph), 2.5 * Math.sin(ph), R * 0.8), V(4.4 * Math.cos(ph), 4.4 * Math.sin(ph), R * 0.55)]; const t = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 10, 0.09, 6, false), mGl); dctos.add(t); }
-    const are = new THREE.Mesh(new THREE.CircleGeometry(2.0, 36), mAr); are.position.z = R + 0.05; are.renderOrder = 4; g.add(are); L.are = are;
+    const areG = new THREE.SphereGeometry(R + 0.05, 40, 8, 0, Math.PI * 2, 0, 2.1 / R); areG.translate(0, -(R + 0.05), 0); const are = new THREE.Mesh(areG, mAr); are.rotation.x = Math.PI / 2; are.position.z = R + 0.05; are.renderOrder = 4; g.add(are); L.are = are;
     const nip = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.55, 0.9, 16), mPe); nip.rotation.x = Math.PI / 2; nip.position.z = R + 0.45; nip.renderOrder = 5; g.add(nip); L.nip = nip;
     for (let i = 0; i < 8; i++) { const a = i * 0.8; const m = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 6), mMo); m.position.set(Math.cos(a) * 1.4, Math.sin(a) * 1.4, R + 0.1); m.renderOrder = 5; g.add(m); }
     const ven = new THREE.Group(); ven.visible = false; g.add(ven); L.ven = ven;
