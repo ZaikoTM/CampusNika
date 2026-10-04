@@ -17,7 +17,7 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { TIPOS as SIMT } from './sim3d.js?v=6';
+import { TIPOS as SIMT } from './sim3d.js?v=7';
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const geoCache = { stl: new Map(), glb: new Map() }; // evita volver a descargar al cambiar de modo o de variante
@@ -546,7 +546,8 @@ export class MedicalProcedureViewer {
     const cam = this.CFG[variante].camara; C.vistas = { lat: cam.lat, fro: cam.fro, sup: cam.sup };
     controls.target.set(...cam.objetivo); camera.position.set(...(cam.ini || cam.lat));
 
-    const resize = () => { const w = vp.clientWidth, h = vp.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+    const resize = () => { const w = vp.clientWidth, h = vp.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h; const r = Math.min(C.reserva || 0, w * 0.6); if (r > 1) camera.setViewOffset(w, h, r / 2, 0, w, h); else camera.clearViewOffset(); camera.updateProjectionMatrix(); };
+    C.resize = resize;
     C.ro = new ResizeObserver(resize); C.ro.observe(vp); resize();
 
     vp.querySelector('.acr3d-tools').addEventListener('click', (e) => {

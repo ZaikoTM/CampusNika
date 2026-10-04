@@ -267,6 +267,9 @@ TIPOS.hc = (visor, ins, cfg, C) => {
     filas.forEach((f) => { const on = has('s-' + f.f) || (f.f === 'trat' && has('s-trat')); const el = els[f.f]; if (!el) return; if (on) { n++; if (HL[f.f]) activo = f.f; } if (el.classList.contains('on') !== on) { el.classList.toggle('on', on); } });
     cuerpo.querySelector('.hc-fg').classList.toggle('on', has('s-famili')); panel.querySelector('.hc-n').textContent = n;
     panel.style.display = n || has('s-famili') ? '' : 'none';
+    const rs = (panel.style.display !== 'none' && !panel.classList.contains('plegado')) ? panel.offsetWidth + 10 : 0; if (rs !== C.reserva) { C.reserva = rs; C.resize && C.resize(); }
+    if (n !== ent.nPrev) { ent.nPrev = n; cuerpo.scrollTo({ top: cuerpo.scrollHeight, behavior: 'smooth' }); }
+    const fgOn = has('s-famili'); if (fgOn !== ent.fgPrev) { ent.fgPrev = fgOn; if (fgOn) setTimeout(() => cuerpo.scrollTo({ top: cuerpo.scrollHeight, behavior: 'smooth' }), 120); }
     // resaltado anatómico de la estructura relacionada con la última pregunta gineco-obstétrica
     const sel = new Set(HL[activo] || []);
     ['utero', 'ovarios', 'trompas'].forEach((id) => { const ms = C.hsMeshes && C.hsMeshes[id]; if (!ms) return; ms.forEach((m) => { if (!m.material || !m.material.emissive) return; const k = sel.has(id) ? 0.55 + 0.35 * Math.sin(t / 260) : 0.1; m.material.emissive.set(sel.has(id) ? 0xf43f5e : 0x7a2e45); m.material.emissiveIntensity = k; }); });

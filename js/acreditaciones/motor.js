@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=33'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=34'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
@@ -285,8 +285,8 @@
     app.innerHTML = `
       <div class="acr-head">
         <div><h1 class="acr-h1">${D.icono} ${esc(D.titulo)}</h1><p class="acr-sub" style="margin-bottom:0">${esc(D.resumen)}</p></div>
-        <div class="acr-crit-wrap"><div class="acr-crit-tit"><b>⚠ Criterios de desaprobación</b><span>Se aprueba con al menos ${D.umbral} % del puntaje y ningún paso crítico fallido</span></div>
-          <div class="acr-crit-grid">${(D.criterios || D.pasos.filter((p) => p.critico).map((p) => ({ ico: p.ico, pasos: [p.n], titulo: p.corto || p.texto }))).map((c) => `<div class="acr-crit-card"><span class="ic">${c.ico || '⚠'}</span><div><small>${c.pasos.length > 1 ? 'Pasos' : 'Paso'} ${c.pasos.join(', ')}</small><b>${esc(c.titulo)}</b></div></div>`).join('')}</div></div>
+        <details class="acr-crit-wrap"><summary class="acr-crit-tit"><b>⚠ Criterios de desaprobación</b><span>Se aprueba con al menos ${D.umbral} % del puntaje y ningún paso crítico fallido · tocá para ver</span></summary>
+          <div class="acr-crit-grid">${(D.criterios || D.pasos.filter((p) => p.critico).map((p) => ({ ico: p.ico, pasos: [p.n], titulo: p.corto || p.texto }))).map((c) => `<div class="acr-crit-card"><span class="ic">${c.ico || '⚠'}</span><div><small>${c.pasos.length > 1 ? 'Pasos' : 'Paso'} ${c.pasos.join(', ')}</small><b>${esc(c.titulo)}</b></div></div>`).join('')}</div></details>
       </div>
       <div class="acr-tabs" id="acr-tabs"></div>
       <div class="acr-tabs acr-sub-tabs" id="acr-subtabs"></div>

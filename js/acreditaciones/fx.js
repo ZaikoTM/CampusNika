@@ -50,6 +50,14 @@
     rcp4: (c) => { for (let i = 0; i < 4; i++) { tono(c, { t: i * 0.545, f0: 90, f1: 45, dur: 0.12, g: 0.2 }); ruido(c, { t: i * 0.545, tipo: 'lowpass', f0: 240, dur: 0.07, g: 0.18 }); } },
     vent2: (c) => { [0.25, 1.75].forEach((t) => { ruido(c, { t, tipo: 'lowpass', f0: 900, f1: 320, dur: 0.9, g: 0.26 }); tono(c, { t, f0: 170, f1: 120, dur: 0.8, g: 0.05 }); }); },
     swish: (c) => { for (let i = 0; i < 4; i++) ruido(c, { t: i * 0.42, f0: 1100, f1: 2800, q: 2, dur: 0.34, g: 0.2 }); },
+    // canilla abierta: chorro continuo (ruido blanco filtrado) + salpicaduras de manos que se frotan + cierre
+    canilla: (c) => {
+      ruido(c, { t: 0, f0: 700, f1: 500, q: 4, dur: 0.18, g: 0.09, tipo: 'bandpass' });
+      ruido(c, { t: 0.12, f0: 3400, f1: 3000, q: 0.45, dur: 2.5, g: 0.2, tipo: 'highpass' });
+      ruido(c, { t: 0.12, f0: 1500, f1: 1300, q: 0.6, dur: 2.5, g: 0.1, tipo: 'bandpass' });
+      for (let i = 0; i < 14; i++) ruido(c, { t: 0.5 + i * 0.13, f0: 1800 + (i % 4) * 500, f1: 900, q: 1.4, dur: 0.12, g: 0.07 + (i % 3) * 0.02 });
+      ruido(c, { t: 2.55, f0: 600, f1: 420, q: 5, dur: 0.14, g: 0.08, tipo: 'bandpass' });
+    },
     agua: (c) => { for (let i = 0; i < 9; i++) ruido(c, { t: i * 0.2, f0: 900 + (i % 3) * 400, f1: 1700, q: 0.7, dur: 0.3, g: 0.14 }); },
     crujido: (c) => { for (let i = 0; i < 12; i++) ruido(c, { t: Math.random() * 0.7, tipo: 'highpass', f0: 2500 + Math.random() * 3000, dur: 0.04 + Math.random() * 0.04, g: 0.28 }); },
     inflar: (c) => { for (let i = 0; i < 5; i++) { ruido(c, { t: i * 0.3, tipo: 'lowpass', f0: 800, dur: 0.2, g: 0.25 }); tono(c, { t: i * 0.3, f0: 220 + i * 45, f1: 300 + i * 50, dur: 0.18, g: 0.07 }); } },
@@ -96,7 +104,7 @@
     sabana: E('🧻', 'Cubriendo con paño clínico no estéril', 'crujido', 'a-baja'),
     guante: E('🧤', 'Colocando los guantes', 'snap', 'a-guante'),
     guante_off: E('🧤', 'Retirando los guantes', 'snap', 'a-vuela', 1800),
-    lavado: E('🫧', 'Lavado de manos con técnica clínica', 'agua', 'a-burbujas', 2600),
+    lavado: E('🫧', 'Lavado de manos con técnica clínica', 'canilla', 'a-burbujas', 2600),
     pano: E('🟦', 'Paño estéril sobre la región', 'crujido', 'a-baja', 2000),
     pack: E('📦', 'Abriendo el pack estéril', 'crujido', 'a-abre', 2000),
     aviso: E('🗣️', 'Avisando al paciente', 'hablar', 'a-pop'),

@@ -991,3 +991,10 @@ body.acr-sin-fs .acr-full-fab, body.acr-sin-fs [data-tool="full"] { display: non
 .sim-mapas .areola { fill: #b9715a; } .sim-mapas .pez { fill: #7a3f2f; } .sim-mapas .nodulo { fill: #ef4444; stroke: #fff; stroke-width: 1.4; opacity: 0; transition: opacity .6s; } .sim-mapas .axila { fill: #f59e0b; stroke: #fff; opacity: 0; transition: opacity .6s; } .sim-mapas .mm-t { display: block; font-size: .52rem; color: #fde68a; font-weight: 700; line-height: 1.2; min-height: 2.4em; }
 .sim-hud.mam .sim-postura { position: absolute; left: 12px; top: 100px; width: 86px; text-align: center; padding: 6px; border-radius: 12px; background: rgba(8,18,30,.86); border: 1px solid rgba(125,211,252,.28); opacity: 0; transform: translateX(-16px); transition: .4s; }
 .sim-hud.mam .sim-postura[data-on="1"] { opacity: 1; transform: none; } .sim-postura svg { width: 100%; height: auto; stroke: #7dd3fc; stroke-width: 4; fill: none; stroke-linecap: round; } .sim-postura circle { fill: #7dd3fc; } .sim-postura .arms-alto { transition: opacity .5s; } .sim-postura span { font-size: .56rem; color: #fde68a; font-weight: 800; }
+
+/* criterios plegables: el simulador queda más arriba */
+details.acr-crit-wrap { padding: 8px 14px; } details.acr-crit-wrap > summary { cursor: pointer; list-style: none; margin: 0; } details.acr-crit-wrap > summary::-webkit-details-marker { display: none; }
+details.acr-crit-wrap[open] > summary { margin-bottom: 10px; }
+.acr-head { gap: 6px; }
+.acr3d-vp .sim-gesto { right: calc(min(46%, 270px) + 18px); }
+@media (max-width: 640px) { .acr3d-vp .sim-gesto { right: calc(52% + 14px); } }
