@@ -1,0 +1,165 @@
+{
+ "id": "exmam",
+ "titulo": "Consultorio de mastología · Examen mamario",
+ "consigna": "Preparás el consultorio para el examen mamario: privacidad, higiene, camilla y material educativo. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "examen mamario",
+ "indicacion_def": "Examen mamario.",
+ "mision": [
+  "qué hace falta para examinar con privacidad e higiene;",
+  "qué estudios o insumos no corresponden al examen clínico."
+ ],
+ "demo_caso": "Primero se lee el caso: el motivo orienta qué buscar en la inspección y en la palpación.",
+ "grupos": [
+  {
+   "id": "prot",
+   "titulo": "Privacidad e higiene"
+  },
+  {
+   "id": "educ",
+   "titulo": "Educación"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "bata_paciente",
+   "grupo": "prot",
+   "nombre": "Bata de la paciente",
+   "detalle": "Descartable",
+   "img": "assets/instrumental/bata_paciente.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para que la paciente se descubra resguardando su pudor.",
+   "ficha": [
+    [
+     "Uso",
+     "Intimidad"
+    ]
+   ],
+   "falta": "Falta la bata para la paciente."
+  },
+  {
+   "id": "biombo",
+   "grupo": "prot",
+   "nombre": "Biombo",
+   "detalle": "Plegable",
+   "img": "assets/instrumental/biombo.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para que la paciente se cambie con privacidad.",
+   "ficha": [
+    [
+     "Uso",
+     "Privacidad"
+    ]
+   ],
+   "falta": "Falta el biombo para resguardar la intimidad."
+  },
+  {
+   "id": "alcohol_gel",
+   "grupo": "prot",
+   "nombre": "Alcohol en gel",
+   "detalle": "Higiene de manos",
+   "img": "assets/instrumental/alcohol_gel.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Higiene de manos antes de examinar.",
+   "ficha": [
+    [
+     "Uso",
+     "Higiene"
+    ]
+   ],
+   "falta": "Falta el alcohol en gel para la higiene de manos."
+  },
+  {
+   "id": "camilla_obs",
+   "grupo": "prot",
+   "nombre": "Camilla",
+   "detalle": "Con almohada",
+   "img": "assets/instrumental/camilla_obs.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para el decúbito dorsal en la palpación.",
+   "ficha": [
+    [
+     "Uso",
+     "Decúbito"
+    ]
+   ],
+   "falta": "Falta la camilla para la palpación en decúbito."
+  },
+  {
+   "id": "guia_autoexamen",
+   "grupo": "educ",
+   "nombre": "Guía del autoexamen mamario",
+   "detalle": "Folleto ilustrado",
+   "img": "assets/instrumental/guia_autoexamen.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Material para enseñar el autoexamen a la paciente.",
+   "ficha": [
+    [
+     "Uso",
+     "Educación"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "mamografo",
+   "grupo": "otros",
+   "nombre": "Mamógrafo",
+   "detalle": "Equipo de rayos X",
+   "img": "assets/instrumental/mamografo.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Estudio por imágenes.",
+   "ficha": [
+    [
+     "Uso",
+     "Mamografía"
+    ]
+   ],
+   "feedback": "La mamografía es un estudio complementario; no forma parte del examen clínico."
+  },
+  {
+   "id": "gel_ecografia",
+   "grupo": "otros",
+   "nombre": "Gel conductor para ecografía",
+   "detalle": "Frasco",
+   "img": "assets/instrumental/gel_ecografia.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Para ecografía.",
+   "ficha": [
+    [
+     "Uso",
+     "Ecografía"
+    ]
+   ],
+   "feedback": "La ecografía mamaria se indica después del examen clínico."
+  },
+  {
+   "id": "aguja",
+   "grupo": "otros",
+   "nombre": "Jeringa y aguja para punción",
+   "detalle": "Estéril",
+   "img": "assets/instrumental/aguja.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Punción aspirativa.",
+   "ficha": [
+    [
+     "Uso",
+     "PAAF"
+    ]
+   ],
+   "feedback": "La punción se indica según los hallazgos, no en el examen clínico de rutina."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

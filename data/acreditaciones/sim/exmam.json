@@ -1,0 +1,1439 @@
+{
+ "id": "exmam",
+ "area": "sim",
+ "titulo": "Examen mamario",
+ "icono": "🎀",
+ "resumen": "Recorrido virtual del examen mamario con 18 pasos de la lista de cotejo: inspección en dos posiciones, palpación por cuadrantes de ambas mamas, examen del pezón y la axila, y enseñanza del autoexamen, con casos benignos, inflamatorios y sospechosos.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Examen mamario (18 ítems)",
+ "elementos": {
+  "paciente": {
+   "nombre": "Paciente",
+   "desc": "Se la saluda, se resguarda su intimidad y se la despide.",
+   "pasos": [
+    1,
+    3,
+    16,
+    17,
+    18
+   ]
+  },
+  "consultorio": {
+   "nombre": "Consultorio",
+   "desc": "Sillas para la paciente y el acompañante.",
+   "pasos": [
+    2
+   ]
+  },
+  "manos": {
+   "nombre": "Manos",
+   "desc": "Lavado de manos antes de examinar.",
+   "pasos": [
+    4
+   ]
+  },
+  "biombo": {
+   "nombre": "Biombo y bata",
+   "desc": "Resguardan la intimidad.",
+   "pasos": [
+    5
+   ]
+  },
+  "mamas": {
+   "nombre": "Mamas",
+   "desc": "Se inspeccionan, comparan y palpan.",
+   "pasos": [
+    6,
+    8,
+    11
+   ]
+  },
+  "axila": {
+   "nombre": "Región axilar y supraclavicular",
+   "desc": "Se inspecciona y se palpa.",
+   "pasos": [
+    7
+   ]
+  },
+  "areola": {
+   "nombre": "Areola y pezón",
+   "desc": "Pigmentación, tubérculos de Montgomery y red de Haller.",
+   "pasos": [
+    9,
+    10
+   ]
+  },
+  "pezon": {
+   "nombre": "Pezón",
+   "desc": "Se presiona y se eleva.",
+   "pasos": [
+    12,
+    13,
+    14
+   ]
+  },
+  "autoexamen": {
+   "nombre": "Autoexamen",
+   "desc": "Se enseña a la paciente.",
+   "pasos": [
+    15
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Palpa las mamas sin haberlas inspeccionado antes",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la inspección (con las manos en la cintura y con los brazos en alto) precede a la palpación y detecta retracciones y asimetrías.",
+   "target": "mamas",
+   "claves": [
+    [
+     "sin inspeccionar"
+    ],
+    [
+     "sin observar antes"
+    ],
+    [
+     "palpo sin mirar"
+    ],
+    [
+     "omito la inspeccion"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Palpa solo la mama que le preocupa a la paciente",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se examinan siempre ambas mamas y las axilas, comparándolas.",
+   "target": "mamas",
+   "claves": [
+    [
+     "solo la mama derecha"
+    ],
+    [
+     "solo la mama izquierda"
+    ],
+    [
+     "solo la que le duele"
+    ],
+    [
+     "solo una mama"
+    ],
+    [
+     "solo la afectada"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Palpa los cuadrantes sin orden ni sistema",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se palpa cuidadosa y ordenadamente por cuadrantes, desde el pezón a la periferia y de regreso.",
+   "target": "mamas",
+   "claves": [
+    [
+     "sin orden"
+    ],
+    [
+     "al azar"
+    ],
+    [
+     "sin sistema"
+    ],
+    [
+     "palpo cualquier lugar"
+    ],
+    [
+     "sin seguir un orden"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Omite la exploración de las axilas y las fosas supraclaviculares",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: las adenopatías axilares y supraclaviculares orientan la extensión de la enfermedad.",
+   "target": "axila",
+   "claves": [
+    [
+     "sin explorar la axila"
+    ],
+    [
+     "omito la axila"
+    ],
+    [
+     "no exploro la axila"
+    ],
+    [
+     "no reviso las axilas"
+    ],
+    [
+     "sin axilas"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "No resguarda la intimidad de la paciente",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se utiliza bata y biombo y solo se descubren las mamas durante el examen.",
+   "target": "biombo",
+   "claves": [
+    [
+     "sin bata"
+    ],
+    [
+     "sin biombo"
+    ],
+    [
+     "no resguardo"
+    ],
+    [
+     "delante de todos"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Presiona o comprime la mama con fuerza excesiva o con las uñas",
+   "critico": false,
+   "porque": "La palpación se hace con la palma y las yemas de los dedos, con presión graduada, sin pellizcar ni usar las uñas.",
+   "target": "mamas",
+   "claves": [
+    [
+     "con fuerza excesiva"
+    ],
+    [
+     "pellizco"
+    ],
+    [
+     "con las unas"
+    ],
+    [
+     "aprieto fuerte"
+    ],
+    [
+     "con brusquedad"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Indica a la paciente que no hace falta hacerse el autoexamen ni consultar ante cambios",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se debe enseñar el autoexamen y la consulta ante cualquier cambio.",
+   "target": "autoexamen",
+   "claves": [
+    [
+     "no hace falta el autoexamen"
+    ],
+    [
+     "no necesita el autoexamen"
+    ],
+    [
+     "no se examine"
+    ],
+    [
+     "no hace falta consultar"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "Omite la presión del pezón para ver si hay secreción",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la secreción es un dato clave (hemática, serosa, lechosa o purulenta).",
+   "target": "pezon",
+   "claves": [
+    [
+     "sin presionar el pezon"
+    ],
+    [
+     "no presiono el pezon"
+    ],
+    [
+     "omito el pezon"
+    ],
+    [
+     "sin expresar"
+    ]
+   ]
+  },
+  {
+   "id": "d9",
+   "texto": "Palpa con la paciente sentada sin extender el brazo o sin posición adecuada, descartando el decúbito",
+   "critico": false,
+   "porque": "Para la palpación se coloca a la paciente en decúbito dorsal con las manos bajo la nuca, aplanando la mama sobre el tórax.",
+   "target": "mamas",
+   "claves": [
+    [
+     "sentada para palpar"
+    ],
+    [
+     "de pie para palpar"
+    ],
+    [
+     "sin decubito"
+    ]
+   ]
+  },
+  {
+   "id": "d10",
+   "texto": "No se lava las manos antes de examinar",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la higiene de manos es obligatoria antes de tocar a la paciente.",
+   "target": "manos",
+   "claves": [
+    [
+     "sin lavarme"
+    ],
+    [
+     "no me lavo las manos"
+    ],
+    [
+     "sin lavado de manos"
+    ],
+    [
+     "omito el lavado"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Carolina M.",
+   "sexo": "F",
+   "edad": 25,
+   "motivo": "Control mamario de rutina.",
+   "indicacion": "Examen mamario.",
+   "antecedentes": "Sin antecedentes. Sin alergias conocidas.",
+   "alergia": null,
+   "lado": "D",
+   "cuadrante": "CSE",
+   "nod_tam": 0,
+   "nod_txt": "",
+   "nod_duro": false,
+   "piel": "normal",
+   "pezon": "normal",
+   "secrecion": "ninguna",
+   "sec_bilateral": false,
+   "adenopatia": false,
+   "venas": false,
+   "adherido": false,
+   "h_ant": "Refiere ciclos regulares, sin dolor ni nódulos; antecedente familiar de cáncer de mama en una tía materna.",
+   "h_insp": "Mamas simétricas, de tamaño y forma normales, sin retracciones ni cambios en la piel.",
+   "h_pig": "Areolas y pezones de color normal, sin grietas.",
+   "h_mont": "Tubérculos de Montgomery discretos; red venosa de Haller poco visible.",
+   "h_palp": "Consistencia fibroglandular homogénea, sin nódulos ni masas en ninguno de los cuadrantes; sin dolor.",
+   "h_pezon": "Pezones protráctiles, sin lesiones.",
+   "h_secr": "No hay secreción al presionar.",
+   "h_movil": "El complejo areola-pezón es móvil, sin adherencias.",
+   "h_axila": "Axilas y fosas supraclaviculares libres, sin adenopatías.",
+   "h_preg": "La paciente pregunta: «¿Con qué edad empiezo a hacerme la mamografía?».",
+   "extra": [
+    "Mama normal"
+   ]
+  },
+  {
+   "id": "c2",
+   "nombre": "Lucía F.",
+   "sexo": "F",
+   "edad": 22,
+   "motivo": "Noté una «bolita» en la mama derecha.",
+   "indicacion": "Examen mamario.",
+   "antecedentes": "Sin antecedentes. Sin alergias conocidas.",
+   "alergia": null,
+   "lado": "D",
+   "cuadrante": "CSE",
+   "nod_tam": 2,
+   "nod_txt": "Nódulo de 2 cm, móvil y elástico",
+   "nod_duro": false,
+   "piel": "normal",
+   "pezon": "normal",
+   "secrecion": "ninguna",
+   "sec_bilateral": false,
+   "adenopatia": false,
+   "venas": false,
+   "adherido": false,
+   "h_ant": "Refiere una «bolita» en la mama derecha hace 2 meses, que no duele ni cambió con la menstruación; sin antecedentes familiares.",
+   "h_insp": "Mamas simétricas, sin cambios en la piel ni retracciones.",
+   "h_pig": "Areola y pezón normales.",
+   "h_mont": "Tubérculos de Montgomery normales.",
+   "h_palp": "En el cuadrante superoexterno de la mama derecha se palpa un nódulo de 2 cm, de bordes lisos y bien delimitados, de consistencia elástica y muy móvil («ratón de la mama»), indoloro; el resto sin alteraciones.",
+   "h_pezon": "Pezón protráctil.",
+   "h_secr": "No hay secreción.",
+   "h_movil": "El complejo areola-pezón es móvil.",
+   "h_axila": "Axilas libres, sin adenopatías.",
+   "h_preg": "La paciente pregunta: «¿Es un cáncer? ¿Me lo tienen que sacar?».",
+   "extra": [
+    "Nódulo móvil"
+   ]
+  },
+  {
+   "id": "c3",
+   "nombre": "Gladys R.",
+   "sexo": "F",
+   "edad": 58,
+   "motivo": "Tengo una dureza en la mama izquierda y el pezón metido.",
+   "indicacion": "Examen mamario.",
+   "antecedentes": "Menopausia a los 51 años. Terapia hormonal por 8 años. Madre con cáncer de mama. Sin alergias conocidas.",
+   "alergia": null,
+   "lado": "I",
+   "cuadrante": "CSE",
+   "nod_tam": 3,
+   "nod_txt": "Nódulo de 3 cm, duro, irregular y adherido",
+   "nod_duro": true,
+   "piel": "naranja",
+   "pezon": "retraido",
+   "secrecion": "ninguna",
+   "sec_bilateral": false,
+   "adenopatia": true,
+   "venas": true,
+   "adherido": true,
+   "h_ant": "Refiere una masa dura en la mama izquierda hace 4 meses, con retracción del pezón y piel «como cáscara de naranja»; no consultó antes por miedo.",
+   "h_insp": "Asimetría: la mama izquierda tiene la piel engrosada con aspecto de «piel de naranja» y el pezón retraído.",
+   "h_pig": "Areola de color normal; pezón izquierdo retraído.",
+   "h_mont": "Red venosa de Haller prominente en la mama izquierda.",
+   "h_palp": "En el cuadrante superoexterno de la mama izquierda se palpa una masa de 3 cm, dura, de bordes irregulares, indolora y adherida a planos profundos y a la piel.",
+   "h_pezon": "Pezón izquierdo retraído e invertido.",
+   "h_secr": "No hay secreción.",
+   "h_movil": "El complejo areola-pezón está fijo, sin movilidad (adherido).",
+   "h_axila": "Adenopatías axilares izquierdas duras, fijas y de 2 cm.",
+   "h_preg": "La paciente pregunta: «¿Esto es grave? ¿Qué estudios necesito?».",
+   "extra": [
+    "Sospecha de cáncer de mama"
+   ]
+  },
+  {
+   "id": "c4",
+   "nombre": "Marcela V.",
+   "sexo": "F",
+   "edad": 40,
+   "motivo": "Dolor y bultos en ambas mamas antes de la menstruación.",
+   "indicacion": "Examen mamario.",
+   "antecedentes": "Nuligesta. Sin alergias conocidas.",
+   "alergia": null,
+   "lado": "I",
+   "cuadrante": "CSE",
+   "nod_tam": 1,
+   "nod_txt": "Nodularidad difusa con quistes móviles",
+   "nod_duro": false,
+   "piel": "normal",
+   "pezon": "normal",
+   "secrecion": "ninguna",
+   "sec_bilateral": false,
+   "adenopatia": false,
+   "venas": false,
+   "adherido": false,
+   "h_ant": "Refiere dolor y sensibilidad en ambas mamas los días previos a la menstruación, que mejoran luego del sangrado; cafeína abundante.",
+   "h_insp": "Mamas simétricas, sin cambios en la piel.",
+   "h_pig": "Areolas y pezones normales.",
+   "h_mont": "Tubérculos de Montgomery normales.",
+   "h_palp": "Nodularidad difusa, de consistencia en «empedrado», más marcada en los cuadrantes superoexternos, con algún quiste móvil de 1 cm, doloroso a la palpación.",
+   "h_pezon": "Pezones protráctiles.",
+   "h_secr": "No hay secreción.",
+   "h_movil": "El complejo areola-pezón es móvil.",
+   "h_axila": "Axilas libres.",
+   "h_preg": "La paciente pregunta: «¿Esto puede convertirse en cáncer?».",
+   "extra": [
+    "Mastopatía fibroquística"
+   ]
+  },
+  {
+   "id": "c5",
+   "nombre": "Soledad A.",
+   "sexo": "F",
+   "edad": 30,
+   "motivo": "Sale leche de mis pechos y no estoy amamantando.",
+   "indicacion": "Examen mamario.",
+   "antecedentes": "Nuligesta. Amenorrea secundaria hace 6 meses. Sin alergias conocidas.",
+   "alergia": null,
+   "lado": "D",
+   "cuadrante": "CSE",
+   "nod_tam": 0,
+   "nod_txt": "",
+   "nod_duro": false,
+   "piel": "normal",
+   "pezon": "normal",
+   "secrecion": "lechosa",
+   "sec_bilateral": true,
+   "adenopatia": false,
+   "venas": false,
+   "adherido": false,
+   "h_ant": "Refiere salida espontánea de líquido blanquecino de ambas mamas y menstruaciones ausentes hace 6 meses; cefaleas.",
+   "h_insp": "Mamas simétricas, de tamaño normal, sin cambios en la piel.",
+   "h_pig": "Areolas y pezones normales.",
+   "h_mont": "Tubérculos de Montgomery normales.",
+   "h_palp": "Mamas de consistencia fibroglandular, sin nódulos ni masas.",
+   "h_pezon": "Pezones protráctiles.",
+   "h_secr": "Al presionar sale secreción lechosa, blanca, bilateral y por múltiples conductos (galactorrea).",
+   "h_movil": "El complejo areola-pezón es móvil.",
+   "h_axila": "Axilas libres.",
+   "h_preg": "La paciente pregunta: «¿Por qué sale leche si no estoy embarazada?».",
+   "extra": [
+    "Galactorrea"
+   ]
+  },
+  {
+   "id": "c6",
+   "nombre": "Alicia P.",
+   "sexo": "F",
+   "edad": 45,
+   "motivo": "Mancho el corpiño con sangre de la mama derecha.",
+   "indicacion": "Examen mamario.",
+   "antecedentes": "G2P2. Sin alergias conocidas.",
+   "alergia": null,
+   "lado": "D",
+   "cuadrante": "retroareolar",
+   "nod_tam": 0,
+   "nod_txt": "",
+   "nod_duro": false,
+   "piel": "normal",
+   "pezon": "normal",
+   "secrecion": "hematica",
+   "sec_bilateral": false,
+   "adenopatia": false,
+   "venas": false,
+   "adherido": false,
+   "h_ant": "Refiere que desde hace un mes mancha el corpiño con una secreción sanguinolenta del pezón derecho, espontánea, sin dolor ni masa.",
+   "h_insp": "Mamas simétricas, sin cambios en la piel.",
+   "h_pig": "Areola y pezón derechos normales; mancha rojiza en el corpiño.",
+   "h_mont": "Tubérculos de Montgomery normales.",
+   "h_palp": "No se palpan nódulos; un conducto retroareolar derecho se palpa levemente engrosado.",
+   "h_pezon": "Pezón protráctil.",
+   "h_secr": "Al presionar sale secreción hemática por un solo conducto del pezón derecho (a las 10 horas).",
+   "h_movil": "El complejo areola-pezón es móvil.",
+   "h_axila": "Axilas libres.",
+   "h_preg": "La paciente pregunta: «¿Esa sangre es de un cáncer?».",
+   "extra": [
+    "Secreción hemática unilateral"
+   ]
+  },
+  {
+   "id": "c7",
+   "nombre": "Natalia G.",
+   "sexo": "F",
+   "edad": 29,
+   "motivo": "Dolor, calor y enrojecimiento en la mama izquierda; estoy amamantando.",
+   "indicacion": "Examen mamario.",
+   "antecedentes": "Puérpera de 3 semanas, lactancia materna. Sin alergias conocidas.",
+   "alergia": null,
+   "lado": "I",
+   "cuadrante": "CSE",
+   "nod_tam": 3,
+   "nod_txt": "Zona indurada y dolorosa",
+   "nod_duro": false,
+   "piel": "eritema",
+   "pezon": "normal",
+   "secrecion": "purulenta",
+   "sec_bilateral": false,
+   "adenopatia": false,
+   "venas": true,
+   "adherido": false,
+   "h_ant": "Refiere fiebre de 38,5 °C, escalofríos y dolor intenso en la mama izquierda desde hace 2 días, con grietas en el pezón.",
+   "h_insp": "Mama izquierda aumentada de tamaño, con eritema en cuña en el cuadrante superoexterno.",
+   "h_pig": "Pezón izquierdo con una grieta; areola congestiva.",
+   "h_mont": "Red venosa de Haller prominente (lactancia).",
+   "h_palp": "En el cuadrante superoexterno izquierdo se palpa una zona indurada, caliente y muy dolorosa, sin fluctuación.",
+   "h_pezon": "Pezón con grieta, erosionado.",
+   "h_secr": "Al presionar sale secreción láctea con algo de pus.",
+   "h_movil": "El complejo areola-pezón es móvil.",
+   "h_axila": "Adenopatía axilar izquierda dolorosa y móvil.",
+   "h_preg": "La paciente pregunta: «¿Puedo seguir amamantando?».",
+   "extra": [
+    "Mastitis lactacional"
+   ]
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿En qué posición se inspeccionan las mamas?",
+   "o": [
+    "Sentada, con las manos en la cintura y luego con los brazos en alto",
+    "Acostada boca abajo",
+    "De pie con los brazos cruzados",
+    "Solo acostada"
+   ],
+   "c": 0,
+   "e": "La inspección en esas dos posiciones evidencia retracciones y asimetrías."
+  },
+  {
+   "q": "¿En qué posición se palpan las mamas?",
+   "o": [
+    "Decúbito dorsal con las manos bajo la nuca",
+    "Sentada con los brazos en alto",
+    "De pie",
+    "Decúbito lateral"
+   ],
+   "c": 0,
+   "e": "Aplana la mama sobre el tórax y facilita la palpación."
+  },
+  {
+   "q": "¿Cómo se palpa cada mama?",
+   "o": [
+    "Por cuadrantes, desde el pezón a la periferia y de regreso",
+    "Solo el cuadrante dolorido",
+    "Con un pellizco general",
+    "Solo el centro"
+   ],
+   "c": 0,
+   "e": "Palpación ordenada por cuadrantes, con palma y yemas de los dedos."
+  },
+  {
+   "q": "¿Cuáles son los cuadrantes de la mama?",
+   "o": [
+    "Superoexterno, superointerno, inferoexterno e inferointerno (más la prolongación axilar)",
+    "Anterior, posterior, derecho e izquierdo",
+    "Solo superior e inferior",
+    "Cuatro cuadrantes de la areola"
+   ],
+   "c": 0,
+   "e": "El cuadrante superoexterno es el más frecuente de tumores por su mayor cantidad de glándula."
+  },
+  {
+   "q": "¿Qué son los tubérculos de Montgomery?",
+   "o": [
+    "Glándulas sebáceas de la areola",
+    "Ganglios axilares",
+    "Quistes del pezón",
+    "Venas superficiales"
+   ],
+   "c": 0,
+   "e": "Se hacen más prominentes durante el embarazo."
+  },
+  {
+   "q": "¿Qué es la red venosa de Haller?",
+   "o": [
+    "La red de venas subcutáneas de la mama",
+    "Los conductos galactóforos",
+    "Un ligamento de Cooper",
+    "Un ganglio"
+   ],
+   "c": 0,
+   "e": "Se vuelve más visible en el embarazo, la lactancia o ante un tumor."
+  },
+  {
+   "q": "Un nódulo duro, irregular, adherido y con retracción del pezón sugiere...",
+   "o": [
+    "Cáncer de mama",
+    "Fibroadenoma",
+    "Mastopatía fibroquística",
+    "Mastitis"
+   ],
+   "c": 0,
+   "e": "Son signos de malignidad: requiere mamografía, ecografía y biopsia."
+  },
+  {
+   "q": "Un nódulo liso, móvil y elástico en una mujer joven sugiere...",
+   "o": [
+    "Fibroadenoma",
+    "Cáncer",
+    "Absceso",
+    "Galactorrea"
+   ],
+   "c": 0,
+   "e": "El fibroadenoma es el tumor benigno más frecuente en mujeres jóvenes."
+  },
+  {
+   "q": "Una secreción hemática unilateral por un solo conducto sugiere...",
+   "o": [
+    "Papiloma intraductal (o neoplasia): requiere estudio",
+    "Embarazo",
+    "Galactorrea",
+    "Es normal"
+   ],
+   "c": 0,
+   "e": "La secreción espontánea unilateral de un solo conducto exige estudio."
+  },
+  {
+   "q": "Una secreción lechosa bilateral fuera de la lactancia se llama...",
+   "o": [
+    "Galactorrea (descartar hiperprolactinemia)",
+    "Telorrea",
+    "Mastalgia",
+    "Mastitis"
+   ],
+   "c": 0,
+   "e": "Se estudia la prolactina, la TSH y los fármacos."
+  },
+  {
+   "q": "¿Cuándo se recomienda hacerse el autoexamen mamario?",
+   "o": [
+    "Una vez por mes, unos días después de la menstruación",
+    "Una vez por año",
+    "Solo si duele",
+    "Nunca"
+   ],
+   "c": 0,
+   "e": "En la posmenopausia, siempre el mismo día de cada mes."
+  },
+  {
+   "q": "Fijación del pezón y de la areola a planos profundos sugiere...",
+   "o": [
+    "Neoplasia subyacente",
+    "Embarazo",
+    "Mastitis",
+    "Normalidad"
+   ],
+   "c": 0,
+   "e": "La movilidad conservada del complejo areola-pezón es normal."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Hallazgos del examen mamario",
+  "boton_titulo": "Ver los hallazgos típicos",
+  "boton_sub": "Benigno, inflamatorio y sospechoso",
+  "aviso": "los hallazgos típicos",
+  "flecha": "▼ Características del nódulo",
+  "flecha_final": "▼ Conducta",
+  "pie": "Todo hallazgo sospechoso se completa con mamografía/ecografía y biopsia.",
+  "comun": [
+   {
+    "t": "Inspección",
+    "x": "Simetría, piel, pezón, areola, axila.",
+    "flag": "tam"
+   },
+   {
+    "t": "Palpación",
+    "x": "Cuadrantes, areola, pezón y axila.",
+    "flag": "palp"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "Benigno",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Fibroadenoma",
+      "x": "Liso, móvil, elástico, indoloro; mujer joven.",
+      "flag": "palp"
+     },
+     {
+      "t": "Mastopatía fibroquística",
+      "x": "Nodularidad difusa y dolor premenstrual.",
+      "flag": "palp"
+     },
+     {
+      "t": "Galactorrea",
+      "x": "Secreción lechosa bilateral: estudiar prolactina.",
+      "flag": "secr"
+     }
+    ]
+   },
+   {
+    "titulo": "Inflamatorio",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Mastitis",
+      "x": "Calor, rubor, dolor, fiebre; lactancia.",
+      "flag": "tam"
+     },
+     {
+      "t": "Absceso",
+      "x": "Colección fluctuante: drenaje.",
+      "flag": "palp"
+     }
+    ]
+   },
+   {
+    "titulo": "Sospechoso de malignidad",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Nódulo duro e irregular",
+      "x": "Adherido, con piel de naranja o retracción del pezón.",
+      "flag": "palp"
+     },
+     {
+      "t": "Adenopatías axilares",
+      "x": "Duras y fijas.",
+      "flag": "brazos"
+     },
+     {
+      "t": "Secreción hemática unilateral",
+      "x": "Un solo conducto.",
+      "flag": "secr"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Estudios",
+    "x": "Mamografía, ecografía mamaria y biopsia.",
+    "flag": "palp"
+   },
+   {
+    "t": "Autoexamen",
+    "x": "Mensual, con ayuda del espejo y en decúbito.",
+    "flag": "auto"
+   }
+  ]
+ },
+ "hallazgo_pasos": {
+  "3": "h_ant",
+  "7": "h_axila",
+  "8": "h_insp",
+  "9": "h_pig",
+  "10": "h_mont",
+  "11": "h_palp",
+  "12": "h_pezon",
+  "13": "h_secr",
+  "14": "h_movil",
+  "17": "h_preg"
+ },
+ "hallazgo_rotulos": {
+  "3": "🗣 Paciente:",
+  "7": "👁️ Observás:",
+  "8": "👁️ Observás:",
+  "9": "👁️ Observás:",
+  "10": "👁️ Observás:",
+  "11": "🖐️ Palpás:",
+  "12": "🖐️ Palpás:",
+  "13": "💧 Observás:",
+  "14": "🖐️ Palpás:",
+  "17": "🗣 Paciente:"
+ },
+ "hallazgo_voz": {
+  "3": "f",
+  "17": "f"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes del examen",
+    "x": "Saludá, sentá a la paciente y al familiar, interrogá antecedentes mamarios, informá, lavate las manos y resguardá su intimidad (bata y biombo)."
+   },
+   {
+    "t": "Inspección",
+    "x": "Sentada con las manos en la cintura: simetría, tamaño, piel, pezón y areola. Con los brazos en alto: retracciones, axila y región supraclavicular. Anotá edema, inflamación, pigmentación, grietas, tubérculos de Montgomery y red de Haller."
+   },
+   {
+    "t": "Palpación",
+    "x": "Decúbito dorsal, manos bajo la nuca. Palma y yemas, por cuadrantes del pezón a la periferia y de regreso, en ambas mamas, más axila."
+   },
+   {
+    "t": "Pezón",
+    "x": "Palpá la areola, presioná el pezón entre pulgar e índice (¿secreción?: lechosa, serosa, hemática, purulenta) y elevalo con la areola (¿móvil o adherido?)."
+   },
+   {
+    "t": "Cierre",
+    "x": "Enseñá el autoexamen, dejá que se vista, respondé dudas y despedite."
+   }
+  ],
+  "por_paso": {
+   "6": "Manos en la cintura.",
+   "7": "Brazos en alto + axila y supraclavicular.",
+   "11": "Decúbito, manos bajo la nuca.",
+   "12": "Pezón entre pulgar e índice.",
+   "15": "Autoexamen mensual."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/sim/exmam_modelo.json",
+ "peso_modelo": "2 MB",
+ "instrumental": "data/acreditaciones/sim/instrumental_exmam.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Saluda y se presenta",
+   "fase": "Recepción y preparación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Saludar y presentarse con nombre y rol genera confianza antes de un examen íntimo.",
+   "estado": {
+    "pres": 1
+   },
+   "claves": [
+    [
+     "me presento"
+    ],
+    [
+     "soy la doctora"
+    ],
+    [
+     "soy el doctor"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ],
+    [
+     "mucho gusto"
+    ]
+   ],
+   "frase": "Buenas tardes, soy la doctora, me presento con mi nombre y apellido.",
+   "fx": "hablar"
+  },
+  {
+   "n": 2,
+   "texto": "Invita a sentarse a la paciente y al familiar",
+   "fase": "Recepción y preparación",
+   "target": "consultorio",
+   "critico": false,
+   "explica": "Se invita a sentarse a la paciente y a su acompañante para conversar antes del examen.",
+   "estado": {
+    "sent": 1
+   },
+   "claves": [
+    [
+     "tome asiento"
+    ],
+    [
+     "tomar asiento"
+    ],
+    [
+     "siente"
+    ],
+    [
+     "sientese"
+    ],
+    [
+     "invito a sentarse"
+    ]
+   ],
+   "frase": "Invito a sentarse a la paciente y a su familiar.",
+   "fx": "sentar"
+  },
+  {
+   "n": 3,
+   "texto": "Inicia el interrogatorio y pregunta sobre antecedentes de patología mamaria",
+   "fase": "Recepción y preparación",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Se pregunta por dolor, nódulos, secreciones, cambios en la piel o el pezón, cirugías mamarias, uso de hormonas, lactancia, menarca, menopausia y antecedentes familiares de cáncer de mama y ovario.",
+   "estado": {
+    "inter": 1
+   },
+   "claves": [
+    [
+     "interrogatorio"
+    ],
+    [
+     "antecedentes mamarios"
+    ],
+    [
+     "patologia mamaria"
+    ],
+    [
+     "antecedentes de patologia"
+    ],
+    [
+     "pregunto por antecedentes"
+    ],
+    [
+     "antecedentes de mama"
+    ]
+   ],
+   "frase": "Inicio el interrogatorio y pregunto sobre antecedentes de patología mamaria.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 4,
+   "texto": "Informa a la paciente y a su acompañante sobre el procedimiento que realizará para palpar las mamas y procede al lavado de manos",
+   "fase": "Recepción y preparación",
+   "target": "manos",
+   "critico": true,
+   "explica": "Se explica en qué consiste el examen y que no debería doler, y se realiza el lavado de manos (con alcohol en gel o agua y jabón) antes de tocar a la paciente.",
+   "estado": {
+    "info": 1,
+    "lav": 1
+   },
+   "claves": [
+    [
+     "informo"
+    ],
+    [
+     "le explico"
+    ],
+    [
+     "lavado de manos"
+    ],
+    [
+     "me lavo las manos"
+    ],
+    [
+     "procedimiento para palpar"
+    ]
+   ],
+   "frase": "Informo a la paciente y a su acompañante sobre el procedimiento para palpar las mamas y me lavo las manos.",
+   "fx": "lavado"
+  },
+  {
+   "n": 5,
+   "texto": "Resguarda la intimidad y privacidad de la paciente: le indica que se coloque una bata y se ubique detrás del biombo",
+   "fase": "Recepción y preparación",
+   "target": "biombo",
+   "critico": true,
+   "explica": "Se resguarda el pudor de la paciente con una bata y un biombo, y solo se descubren las mamas durante el examen.",
+   "estado": {
+    "bata": 1
+   },
+   "claves": [
+    [
+     "biombo"
+    ],
+    [
+     "bata"
+    ],
+    [
+     "resguardo la intimidad"
+    ],
+    [
+     "privacidad"
+    ],
+    [
+     "intimidad"
+    ]
+   ],
+   "frase": "Resguardo su intimidad: le indico que se coloque una bata y se ubique detrás del biombo.",
+   "fx": "biombo"
+  },
+  {
+   "n": 6,
+   "texto": "Invita a la paciente a sentarse con las manos en la cintura, descubrirse hasta la cintura y observa ambas mamas, el pezón y la areola",
+   "fase": "Inspección",
+   "target": "mamas",
+   "critico": true,
+   "explica": "Con la paciente sentada, con las manos en la cintura (contrae los pectorales) y descubierta hasta la cintura, se comparan ambas mamas en simetría, forma y tamaño, y se observan el pezón y la areola.",
+   "estado": {
+    "posA": 1
+   },
+   "claves": [
+    [
+     "manos en la cintura"
+    ],
+    [
+     "sentada"
+    ],
+    [
+     "descubrirse hasta la cintura"
+    ],
+    [
+     "observo ambas mamas"
+    ],
+    [
+     "observo las mamas"
+    ]
+   ],
+   "frase": "La invito a sentarse con las manos en la cintura, descubrirse hasta la cintura y observo ambas mamas, el pezón y la areola.",
+   "fx": "postura_cintura"
+  },
+  {
+   "n": 7,
+   "texto": "En la misma posición, con los brazos en alto, inspecciona la región axilar y supraclavicular",
+   "fase": "Inspección",
+   "target": "axila",
+   "critico": true,
+   "explica": "Con los brazos en alto se evidencian retracciones y asimetrías que no se ven con los brazos abajo, y se inspeccionan las regiones axilares y supraclaviculares en busca de adenopatías.",
+   "estado": {
+    "brazos": 1
+   },
+   "claves": [
+    [
+     "brazos en alto"
+    ],
+    [
+     "region axilar"
+    ],
+    [
+     "supraclavicular"
+    ],
+    [
+     "inspecciono la axila"
+    ],
+    [
+     "levante los brazos"
+    ]
+   ],
+   "frase": "Con los brazos en alto inspecciono la región axilar y supraclavicular.",
+   "fx": "postura_brazos"
+  },
+  {
+   "n": 8,
+   "texto": "Registra y observa su tamaño y conformación, prominencias o depresiones, edemas y procesos inflamatorios visibles en la superficie de la mama",
+   "fase": "Inspección",
+   "target": "mamas",
+   "critico": true,
+   "explica": "Se registra el tamaño, la simetría, las prominencias o retracciones, el edema de la piel («piel de naranja») y los signos inflamatorios (eritema, calor).",
+   "estado": {
+    "tam": 1
+   },
+   "claves": [
+    [
+     "tamano y conformacion"
+    ],
+    [
+     "prominencias"
+    ],
+    [
+     "depresiones"
+    ],
+    [
+     "edema"
+    ],
+    [
+     "piel de naranja"
+    ],
+    [
+     "procesos inflamatorios"
+    ],
+    [
+     "conformacion"
+    ]
+   ],
+   "frase": "Registro y observo el tamaño y la conformación de las mamas, prominencias o depresiones, edemas y procesos inflamatorios visibles.",
+   "fx": "inspeccion_mama"
+  },
+  {
+   "n": 9,
+   "texto": "Identifica los cambios de pigmentación en el pezón, las areolas y las grietas",
+   "fase": "Inspección",
+   "target": "areola",
+   "critico": false,
+   "explica": "Se observan el color de la areola y el pezón, las grietas, las erosiones y el eczema (enfermedad de Paget).",
+   "estado": {
+    "pig": 1
+   },
+   "claves": [
+    [
+     "pigmentacion"
+    ],
+    [
+     "grietas"
+    ],
+    [
+     "color de la areola"
+    ],
+    [
+     "cambios de pigmentacion"
+    ]
+   ],
+   "frase": "Identifico los cambios de pigmentación en el pezón y las areolas, y las grietas.",
+   "fx": "pigmentacion"
+  },
+  {
+   "n": 10,
+   "texto": "Reconoce la existencia de los tubérculos de Montgomery en la areola primaria y la red venosa de Haller en la superficie de la glándula mamaria",
+   "fase": "Inspección",
+   "target": "areola",
+   "critico": false,
+   "explica": "Los tubérculos de Montgomery son glándulas sebáceas de la areola (se hacen prominentes en el embarazo); la red venosa de Haller es la red de venas subcutáneas, más visible en el embarazo o ante un tumor.",
+   "estado": {
+    "mont": 1
+   },
+   "claves": [
+    [
+     "tuberculos de montgomery"
+    ],
+    [
+     "montgomery"
+    ],
+    [
+     "red venosa"
+    ],
+    [
+     "haller"
+    ]
+   ],
+   "frase": "Reconozco los tubérculos de Montgomery en la areola primaria y la red venosa de Haller en la superficie de la glándula.",
+   "fx": "montgomery"
+  },
+  {
+   "n": 11,
+   "texto": "Le pide que se coloque en decúbito dorsal con las manos debajo de la región cervical y palpa cuidadosa y ordenadamente cada mama por cuadrantes, desde el pezón hacia la periferia y de regreso",
+   "fase": "Palpación",
+   "target": "mamas",
+   "critico": true,
+   "explica": "En decúbito dorsal con las manos bajo la nuca se aplana la mama sobre el tórax. Con la palma y las yemas de los dedos se palpa cada cuadrante (superoexterno, superointerno, inferointerno e inferoexterno) desde el pezón hacia la periferia y de regreso, comparando ambas mamas y la prolongación axilar.",
+   "estado": {
+    "palp": 1
+   },
+   "claves": [
+    [
+     "decubito dorsal"
+    ],
+    [
+     "palpo"
+    ],
+    [
+     "por cuadrantes"
+    ],
+    [
+     "cuadrantes"
+    ],
+    [
+     "palpacion de las mamas"
+    ],
+    [
+     "manos debajo de la nuca"
+    ]
+   ],
+   "frase": "Le pido que se coloque en decúbito dorsal con las manos debajo de la nuca y palpo cuidadosa y ordenadamente cada mama por cuadrantes, desde el pezón a la periferia y de regreso.",
+   "fx": "palpacion"
+  },
+  {
+   "n": 12,
+   "texto": "Realiza la palpación de la areola y el pezón, presionando el pezón entre los dedos pulgar e índice",
+   "fase": "Palpación",
+   "target": "pezon",
+   "critico": true,
+   "explica": "Se palpa la areola y se presiona suavemente el pezón entre el pulgar y el índice para evaluar su consistencia y expresar secreciones.",
+   "estado": {
+    "pezon": 1
+   },
+   "claves": [
+    [
+     "palpo la areola"
+    ],
+    [
+     "palpacion de la areola"
+    ],
+    [
+     "presiono el pezon"
+    ],
+    [
+     "entre el pulgar y el indice"
+    ],
+    [
+     "el pezon"
+    ]
+   ],
+   "frase": "Palpo la areola y el pezón, presionando el pezón entre los dedos pulgar e índice.",
+   "fx": "palpar_pezon"
+  },
+  {
+   "n": 13,
+   "texto": "Observa si al presionar existe algún tipo de secreción",
+   "fase": "Palpación",
+   "target": "pezon",
+   "critico": true,
+   "explica": "Se observa el aspecto de la secreción: lechosa (galactorrea), serosa, serohemática o hemática (papiloma intraductal o neoplasia) o purulenta (infección). La secreción unilateral, espontánea y de un solo conducto exige estudio.",
+   "estado": {
+    "secr": 1
+   },
+   "claves": [
+    [
+     "secrecion"
+    ],
+    [
+     "sale algo"
+    ],
+    [
+     "observo si hay"
+    ],
+    [
+     "expreso"
+    ],
+    [
+     "salida de liquido"
+    ]
+   ],
+   "frase": "Observo si al presionar existe algún tipo de secreción.",
+   "fx": "secrecion"
+  },
+  {
+   "n": 14,
+   "texto": "Levanta el pezón junto con la areola para comprobar si hay buena movilidad o adherencia",
+   "fase": "Palpación",
+   "target": "pezon",
+   "critico": true,
+   "explica": "Se eleva el complejo areola-pezón para evaluar su movilidad: la fijación o adherencia a planos profundos o la retracción sugieren una neoplasia subyacente.",
+   "estado": {
+    "movil": 1
+   },
+   "claves": [
+    [
+     "levanto el pezon"
+    ],
+    [
+     "movilidad"
+    ],
+    [
+     "adherencia"
+    ],
+    [
+     "elevo el pezon"
+    ],
+    [
+     "levanto la areola"
+    ]
+   ],
+   "frase": "Levanto el pezón junto con la areola para comprobar si hay buena movilidad o adherencia.",
+   "fx": "movilidad"
+  },
+  {
+   "n": 15,
+   "texto": "Enseña a la paciente a realizar el autoexamen de mamas",
+   "fase": "Educación y cierre",
+   "target": "autoexamen",
+   "critico": true,
+   "explica": "Se enseña el autoexamen mensual (unos días después de la menstruación; en la posmenopausia, siempre el mismo día): frente al espejo y en decúbito, con la pulpa de los dedos, en círculos, en tiras verticales o en cuña, sin olvidar la axila y el pezón. Se consulta ante cualquier cambio.",
+   "estado": {
+    "auto": 1
+   },
+   "claves": [
+    [
+     "autoexamen"
+    ],
+    [
+     "le ensenio"
+    ],
+    [
+     "le enseno"
+    ],
+    [
+     "como examinarse"
+    ],
+    [
+     "autoexploracion"
+    ]
+   ],
+   "frase": "Le enseño a la paciente a realizar el autoexamen de mamas.",
+   "fx": "autoexamen"
+  },
+  {
+   "n": 16,
+   "texto": "Invita a la paciente a vestirse",
+   "fase": "Educación y cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se la invita a vestirse con privacidad y se la espera sentada para comentar los hallazgos.",
+   "estado": {
+    "viste": 1
+   },
+   "claves": [
+    [
+     "vestirse"
+    ],
+    [
+     "se vista"
+    ],
+    [
+     "puede vestirse"
+    ]
+   ],
+   "frase": "La invito a vestirse.",
+   "fx": "vestirse"
+  },
+  {
+   "n": 17,
+   "texto": "Escucha y responde las preguntas, preocupaciones y molestias de la paciente",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se da espacio para dudas, se explican los hallazgos con claridad y se indican los estudios y controles (mamografía, ecografía mamaria).",
+   "estado": {
+    "preg": 1
+   },
+   "claves": [
+    [
+     "preguntas"
+    ],
+    [
+     "dudas"
+    ],
+    [
+     "preocupaciones"
+    ],
+    [
+     "escucho"
+    ],
+    [
+     "molestias"
+    ]
+   ],
+   "frase": "Escucho y respondo las preguntas, preocupaciones y molestias de la paciente.",
+   "fx": "hablar"
+  },
+  {
+   "n": 18,
+   "texto": "Saluda y se despide",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El saludo final cierra la consulta.",
+   "estado": {
+    "desp": 1
+   },
+   "claves": [
+    [
+     "me despido"
+    ],
+    [
+     "hasta luego"
+    ],
+    [
+     "hasta pronto"
+    ],
+    [
+     "chau"
+    ]
+   ],
+   "frase": "Saludo y me despido de la paciente.",
+   "fx": "hablar"
+  }
+ ],
+ "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la información y la intimidad, la inspección en dos posiciones, la palpación ordenada por cuadrantes de ambas mamas, la exploración del pezón y la axila y la enseñanza del autoexamen (propuesto, a validar).",
+ "criterios": [
+  {
+   "ico": "🛡️",
+   "titulo": "Información, lavado de manos e intimidad",
+   "pasos": [
+    4,
+    5
+   ]
+  },
+  {
+   "ico": "👁️",
+   "titulo": "Inspección en dos posiciones, axila y supraclavicular",
+   "pasos": [
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "ico": "🖐️",
+   "titulo": "Palpación ordenada por cuadrantes",
+   "pasos": [
+    11
+   ]
+  },
+  {
+   "ico": "💧",
+   "titulo": "Pezón: secreción y movilidad",
+   "pasos": [
+    12,
+    13,
+    14
+   ]
+  },
+  {
+   "ico": "🪞",
+   "titulo": "Enseñanza del autoexamen",
+   "pasos": [
+    15
+   ]
+  }
+ ],
+ "final_criticos": "la información e intimidad, la inspección, la palpación por cuadrantes, el examen del pezón y el autoexamen"
+}

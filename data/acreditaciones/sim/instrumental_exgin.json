@@ -1,0 +1,335 @@
+{
+ "id": "exgin",
+ "titulo": "Consultorio de ginecología · Examen y toma de PAP",
+ "consigna": "Reuní lo que hace falta para el examen ginecológico y la toma de PAP: protección, espéculo, instrumentos de toma, portaobjetos y fijador. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "examen ginecológico con toma de PAP",
+ "indicacion_def": "Examen ginecológico con toma de PAP y tacto bimanual.",
+ "mision": [
+  "qué hace falta para el examen y la toma de las muestras;",
+  "qué insumos no corresponden al PAP."
+ ],
+ "demo_caso": "Primero se lee el caso: el motivo orienta lo que se espera encontrar.",
+ "grupos": [
+  {
+   "id": "prot",
+   "titulo": "Protección y confort"
+  },
+  {
+   "id": "toma",
+   "titulo": "Examen y toma de PAP"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "guantes_ns",
+   "grupo": "prot",
+   "nombre": "Guantes de látex",
+   "detalle": "Caja de guantes",
+   "img": "assets/instrumental/guantes_ns.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Barrera de protección para la paciente y para el examinador.",
+   "ficha": [
+    [
+     "Material",
+     "Látex"
+    ]
+   ],
+   "falta": "Faltan los guantes de látex."
+  },
+  {
+   "id": "lampara_pie",
+   "grupo": "prot",
+   "nombre": "Lámpara de pie",
+   "detalle": "Luz orientable",
+   "img": "assets/instrumental/lampara_pie.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Ilumina el introito y el cuello para verlos bien.",
+   "ficha": [
+    [
+     "Tipo",
+     "De pie, orientable"
+    ]
+   ],
+   "falta": "Falta la lámpara de pie para ver el cuello."
+  },
+  {
+   "id": "bata_paciente",
+   "grupo": "prot",
+   "nombre": "Bata de la paciente",
+   "detalle": "Descartable",
+   "img": "assets/instrumental/bata_paciente.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para que la paciente se libere de la ropa resguardando su intimidad.",
+   "ficha": [
+    [
+     "Uso",
+     "Intimidad"
+    ]
+   ]
+  },
+  {
+   "id": "sabana_campo",
+   "grupo": "prot",
+   "nombre": "Sábana o campo",
+   "detalle": "Para cubrir",
+   "img": "assets/instrumental/sabana_campo.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Cubre a la paciente y descubre solo la zona del examen.",
+   "ficha": [
+    [
+     "Uso",
+     "Resguardo de la intimidad"
+    ]
+   ],
+   "falta": "Falta la sábana para cubrir a la paciente."
+  },
+  {
+   "id": "alcohol_gel",
+   "grupo": "prot",
+   "nombre": "Alcohol en gel",
+   "detalle": "Higiene de manos",
+   "img": "assets/instrumental/alcohol_gel.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Higiene de manos antes y después del examen.",
+   "ficha": [
+    [
+     "Uso",
+     "Higiene de manos"
+    ]
+   ]
+  },
+  {
+   "id": "camilla_gin",
+   "grupo": "prot",
+   "nombre": "Camilla ginecológica",
+   "detalle": "Con estribos",
+   "img": "assets/instrumental/camilla_gin.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para la posición ginecológica.",
+   "ficha": [
+    [
+     "Uso",
+     "Posición ginecológica"
+    ]
+   ],
+   "falta": "Falta la camilla con estribos."
+  },
+  {
+   "id": "especulo",
+   "grupo": "toma",
+   "nombre": "Espéculo descartable",
+   "detalle": "Tamaño mediano",
+   "img": "assets/instrumental/especulo.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Instrumento bivalvo que separa las paredes vaginales y deja ver el cuello.",
+   "ficha": [
+    [
+     "Tipo",
+     "Bivalvo descartable"
+    ],
+    [
+     "Tamaño",
+     "Mediano"
+    ]
+   ],
+   "falta": "Falta el espéculo vaginal."
+  },
+  {
+   "id": "espatula_ayre",
+   "grupo": "toma",
+   "nombre": "Espátula de Ayre",
+   "detalle": "Madera descartable",
+   "img": "assets/instrumental/espatula_ayre.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para tomar la muestra del exocérvix.",
+   "ficha": [
+    [
+     "Uso",
+     "Exocérvix"
+    ]
+   ],
+   "falta": "Falta la espátula de Ayre."
+  },
+  {
+   "id": "citobrush",
+   "grupo": "toma",
+   "nombre": "Citobrush",
+   "detalle": "Cepillo endocervical",
+   "img": "assets/instrumental/citobrush.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para tomar la muestra del endocérvix.",
+   "ficha": [
+    [
+     "Uso",
+     "Endocérvix"
+    ]
+   ],
+   "falta": "Falta el citobrush."
+  },
+  {
+   "id": "portaobjetos",
+   "grupo": "toma",
+   "nombre": "Portaobjetos",
+   "detalle": "2 unidades, rotulables",
+   "img": "assets/instrumental/portaobjetos.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Donde se extiende cada muestra.",
+   "ficha": [
+    [
+     "Cantidad",
+     "2"
+    ]
+   ],
+   "falta": "Faltan los portaobjetos."
+  },
+  {
+   "id": "fijador_spray",
+   "grupo": "toma",
+   "nombre": "Fijador en spray",
+   "detalle": "Citológico",
+   "img": "assets/instrumental/fijador_spray.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Fija los extendidos inmediatamente.",
+   "ficha": [
+    [
+     "Uso",
+     "Fijación"
+    ]
+   ],
+   "falta": "Falta el fijador en spray."
+  },
+  {
+   "id": "orden_pap",
+   "grupo": "toma",
+   "nombre": "Orden de PAP",
+   "detalle": "Solicitud de estudio",
+   "img": "assets/instrumental/orden_pap.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Acompaña los portaobjetos al laboratorio.",
+   "ficha": [
+    [
+     "Documento",
+     "Orden"
+    ]
+   ]
+  },
+  {
+   "id": "bolsa_roja",
+   "grupo": "prot",
+   "nombre": "Bolsa roja de residuos",
+   "detalle": "Patogénicos",
+   "img": "assets/instrumental/bolsa_roja.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para el espéculo y los guantes descartados.",
+   "ficha": [
+    [
+     "Color",
+     "Rojo"
+    ]
+   ]
+  },
+  {
+   "id": "gel_lubricante",
+   "grupo": "otros",
+   "nombre": "Gel lubricante",
+   "detalle": "Hidrosoluble",
+   "img": "assets/instrumental/gel_lubricante.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Lubricante.",
+   "ficha": [
+    [
+     "Uso",
+     "Lubricación"
+    ]
+   ],
+   "feedback": "Los lubricantes alteran las células y vuelven inservible el PAP; el espéculo se humedece con agua tibia."
+  },
+  {
+   "id": "histerometro",
+   "grupo": "otros",
+   "nombre": "Histerómetro",
+   "detalle": "Metálico",
+   "img": "assets/instrumental/histerometro.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Mide la cavidad uterina.",
+   "ficha": [
+    [
+     "Uso",
+     "Cavidad uterina"
+    ]
+   ],
+   "feedback": "No forma parte del PAP ni del examen de rutina."
+  },
+  {
+   "id": "pinza_pozzi",
+   "grupo": "otros",
+   "nombre": "Pinza de Pozzi",
+   "detalle": "Metálica",
+   "img": "assets/instrumental/pinza_pozzi.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Pinza de tracción del cuello.",
+   "ficha": [
+    [
+     "Uso",
+     "Tracción"
+    ]
+   ],
+   "feedback": "No se usa en un PAP de rutina."
+  },
+  {
+   "id": "colposcopio",
+   "grupo": "otros",
+   "nombre": "Colposcopio",
+   "detalle": "Equipo óptico",
+   "img": "assets/instrumental/colposcopio.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Magnifica el cuello.",
+   "ficha": [
+    [
+     "Uso",
+     "Colposcopia"
+    ]
+   ],
+   "feedback": "Se indica luego, si el PAP o el examen son anormales."
+  },
+  {
+   "id": "hisopo_algodon",
+   "grupo": "otros",
+   "nombre": "Hisopo de algodón",
+   "detalle": "Estéril",
+   "img": "assets/instrumental/hisopo_algodon.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Toma de cultivos.",
+   "ficha": [
+    [
+     "Uso",
+     "Cultivo"
+    ]
+   ],
+   "feedback": "No reemplaza a la espátula ni al citobrush para el PAP."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

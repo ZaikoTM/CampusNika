@@ -1,0 +1,1717 @@
+{
+ "id": "exgin",
+ "area": "sim",
+ "titulo": "Examen ginecológico, PAP y tacto bimanual",
+ "icono": "🔬",
+ "resumen": "Recorrido virtual del examen ginecológico con 27 pasos de la lista de cotejo: genitales externos, espéculo, toma de citología cervical (exocérvix y endocérvix), fijación y tacto vaginal bimanual, con vista especular del cuello.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Examen ginecológico, toma de citología cervical y tacto vaginal bimanual (27 ítems)",
+ "elementos": {
+  "paciente": {
+   "nombre": "Paciente",
+   "desc": "Se la saluda, se le explica el examen, se resguarda su intimidad y se la despide.",
+   "pasos": [
+    1,
+    3,
+    4,
+    17,
+    23,
+    24,
+    27
+   ]
+  },
+  "consultorio": {
+   "nombre": "Consultorio",
+   "desc": "Sillas para la paciente y el acompañante.",
+   "pasos": [
+    2
+   ]
+  },
+  "camilla": {
+   "nombre": "Camilla ginecológica",
+   "desc": "Posición ginecológica con estribos.",
+   "pasos": [
+    5
+   ]
+  },
+  "sabana": {
+   "nombre": "Sábana",
+   "desc": "Resguarda la intimidad.",
+   "pasos": [
+    6
+   ]
+  },
+  "guantes": {
+   "nombre": "Guantes y luz",
+   "desc": "Guantes de látex y lámpara de pie.",
+   "pasos": [
+    7
+   ]
+  },
+  "vulva": {
+   "nombre": "Genitales externos",
+   "desc": "Se inspeccionan y se entreabre la vulva.",
+   "pasos": [
+    8,
+    9,
+    18
+   ]
+  },
+  "especulo": {
+   "nombre": "Espéculo",
+   "desc": "Se introduce cerrado y se rota 90°.",
+   "pasos": [
+    10,
+    11,
+    16
+   ]
+  },
+  "cuello": {
+   "nombre": "Cuello uterino",
+   "desc": "Se ubica y se describe.",
+   "pasos": [
+    12
+   ]
+  },
+  "espatula": {
+   "nombre": "Espátula de Ayre",
+   "desc": "Toma del exocérvix.",
+   "pasos": [
+    13
+   ]
+  },
+  "citobrush": {
+   "nombre": "Citobrush",
+   "desc": "Toma del endocérvix.",
+   "pasos": [
+    14
+   ]
+  },
+  "fijador": {
+   "nombre": "Fijador en spray",
+   "desc": "Fija los extendidos.",
+   "pasos": [
+    15
+   ]
+  },
+  "dedos": {
+   "nombre": "Dedos examinadores",
+   "desc": "Medio e índice de la mano hábil.",
+   "pasos": [
+    19,
+    21
+   ]
+  },
+  "hipogastrio": {
+   "nombre": "Hipogastrio",
+   "desc": "Donde se apoya la mano libre.",
+   "pasos": [
+    20
+   ]
+  },
+  "residuos": {
+   "nombre": "Bolsa roja",
+   "desc": "Descarte del material.",
+   "pasos": [
+    22
+   ]
+  },
+  "resultado": {
+   "nombre": "Resultado del PAP",
+   "desc": "Cómo y cuándo retirarlo.",
+   "pasos": [
+    25
+   ]
+  },
+  "cita": {
+   "nombre": "Nueva cita",
+   "desc": "Para ver los resultados.",
+   "pasos": [
+    26
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Lubrica el espéculo con gel o vaselina antes de introducirlo",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: los lubricantes alteran las células y vuelven inservible el PAP; el espéculo se humedece solo con agua tibia o suero.",
+   "target": "especulo",
+   "claves": [
+    [
+     "con gel"
+    ],
+    [
+     "con vaselina"
+    ],
+    [
+     "lubrico el especulo"
+    ],
+    [
+     "lubricante"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Realiza el tacto vaginal antes de la toma de PAP",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el tacto previo contamina el cuello con lubricante y altera la muestra; el PAP se toma primero.",
+   "target": "dedos",
+   "claves": [
+    [
+     "tacto antes del pap"
+    ],
+    [
+     "tacto antes de la toma"
+    ],
+    [
+     "primero el tacto"
+    ],
+    [
+     "antes de la citologia el tacto"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Introduce el espéculo con las valvas abiertas",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se introduce cerrado, para no lastimar la mucosa ni el meato uretral.",
+   "target": "especulo",
+   "claves": [
+    [
+     "valvas abiertas"
+    ],
+    [
+     "especulo abierto"
+    ],
+    [
+     "con el especulo abierto"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Rota el espéculo en sentido antihorario",
+   "critico": false,
+   "porque": "La guía indica rotarlo 90° en sentido de las agujas del reloj a medida que se introduce.",
+   "target": "especulo",
+   "claves": [
+    [
+     "antihorario"
+    ],
+    [
+     "sentido contrario a las agujas"
+    ],
+    [
+     "contrario a las agujas"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Toma primero el endocérvix y luego el exocérvix",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se toma primero el exocérvix con la espátula y después el endocérvix con el citobrush.",
+   "target": "espatula",
+   "claves": [
+    [
+     "primero el endocervix"
+    ],
+    [
+     "endocervix y luego el exocervix"
+    ],
+    [
+     "endocervix antes"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "No fija las muestras o las deja secar al aire",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el secado al aire altera las células y el PAP no se puede interpretar; se fija inmediatamente.",
+   "target": "fijador",
+   "claves": [
+    [
+     "no fijo"
+    ],
+    [
+     "sin fijar"
+    ],
+    [
+     "dejo secar"
+    ],
+    [
+     "secar al aire"
+    ],
+    [
+     "omito el fijador"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Retira el espéculo abierto",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se lo cierra antes de retirarlo para no lastimar a la paciente.",
+   "target": "especulo",
+   "claves": [
+    [
+     "retiro el especulo abierto"
+    ],
+    [
+     "con las valvas abiertas"
+    ],
+    [
+     "sin cerrarlo"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "No explica el procedimiento antes de comenzar",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: informar es parte del consentimiento y reduce la ansiedad y la contractura.",
+   "target": "paciente",
+   "claves": [
+    [
+     "sin explicar"
+    ],
+    [
+     "no le explico"
+    ],
+    [
+     "sin informar"
+    ],
+    [
+     "no informo"
+    ]
+   ]
+  },
+  {
+   "id": "d9",
+   "texto": "No resguarda la intimidad de la paciente",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: se la cubre con una sábana y solo se descubre la zona del examen.",
+   "target": "sabana",
+   "claves": [
+    [
+     "sin cubrirla"
+    ],
+    [
+     "no resguardo"
+    ],
+    [
+     "sin sabana"
+    ],
+    [
+     "no la cubro"
+    ]
+   ]
+  },
+  {
+   "id": "d10",
+   "texto": "Realiza el examen sin luz o sin guantes",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: los guantes protegen a ambos y sin luz no se puede ver el cuello.",
+   "target": "guantes",
+   "claves": [
+    [
+     "sin guantes"
+    ],
+    [
+     "sin luz"
+    ],
+    [
+     "sin la lampara"
+    ],
+    [
+     "no uso guantes"
+    ]
+   ]
+  },
+  {
+   "id": "d11",
+   "texto": "Fuerza el espéculo ante la resistencia o el dolor de la paciente",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: ante dolor o resistencia se detiene, se tranquiliza a la paciente y se cambia el tamaño o el ángulo.",
+   "target": "especulo",
+   "claves": [
+    [
+     "fuerzo el especulo"
+    ],
+    [
+     "empujo con fuerza"
+    ],
+    [
+     "sin importar el dolor"
+    ],
+    [
+     "con fuerza el especulo"
+    ]
+   ]
+  },
+  {
+   "id": "d12",
+   "texto": "Toma la muestra con la paciente menstruando o con flujo sanguinolento abundante sin avisar ni reprogramar",
+   "critico": false,
+   "porque": "El PAP se toma idealmente fuera de la menstruación y 48 horas después de relaciones, duchas o óvulos.",
+   "target": "paciente",
+   "claves": [
+    [
+     "durante la menstruacion"
+    ],
+    [
+     "menstruando"
+    ],
+    [
+     "sin importar el sangrado"
+    ]
+   ]
+  },
+  {
+   "id": "d13",
+   "texto": "No descarta el material ni se quita los guantes",
+   "critico": false,
+   "porque": "El material contaminado se descarta en la bolsa roja y se hace higiene de manos.",
+   "target": "residuos",
+   "claves": [
+    [
+     "no descarto"
+    ],
+    [
+     "dejo el especulo"
+    ],
+    [
+     "sin descartar"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Agustina C.",
+   "sexo": "F",
+   "edad": 22,
+   "motivo": "Control ginecológico de rutina; es su primer PAP.",
+   "indicacion": "Examen ginecológico con toma de PAP y tacto bimanual.",
+   "antecedentes": "Nuligesta. Sin antecedentes patológicos. Sin alergias conocidas.",
+   "alergia": null,
+   "cervix": "normal",
+   "parto": "nulipara",
+   "pared": "normal",
+   "vulva": "normal",
+   "vista_txt": "Cuello rosado, simétrico, con orificio externo puntiforme y moco claro.",
+   "ext_txt": "Genitales externos sin lesiones.",
+   "h_ant": "La paciente refiere ciclos regulares, sin flujo anormal, sin ITS y sin PAP previos.",
+   "h_ext": "Vulva de aspecto normal, sin lesiones, flujo ni tumoraciones.",
+   "h_cuello": "Cuello de aspecto normal, rosado, orificio externo puntiforme y moco claro.",
+   "h_vagina": "Paredes vaginales rosadas con rugosidades normales.",
+   "h_utero": "Útero en anteversoflexión, de tamaño normal, móvil e indoloro; anexos no palpables; fondos de saco libres.",
+   "h_preg": "La paciente pregunta: «¿Me va a doler? ¿Con qué frecuencia me tengo que hacer el PAP?».",
+   "h_pap": "El resultado del PAP está en 20 días en el laboratorio del hospital.",
+   "extra": [
+    "Primer PAP"
+   ]
+  },
+  {
+   "id": "c2",
+   "nombre": "Laura B.",
+   "sexo": "F",
+   "edad": 35,
+   "motivo": "Control anual y flujo abundante.",
+   "indicacion": "Examen ginecológico con toma de PAP y tacto bimanual.",
+   "antecedentes": "G3P3. Sin patologías. Sin alergias conocidas.",
+   "alergia": null,
+   "cervix": "ectropion",
+   "parto": "multipara",
+   "pared": "normal",
+   "vulva": "normal",
+   "vista_txt": "Cuello con ectropión: zona roja alrededor del orificio, orificio en hendidura.",
+   "ext_txt": "Genitales externos sin lesiones.",
+   "h_ant": "Refiere flujo transparente abundante sin picazón, con sinusorragia ocasional. Último PAP hace 2 años, normal.",
+   "h_ext": "Vulva sin lesiones; flujo claro.",
+   "h_cuello": "Cuello con ectropión (ectopia) en torno al orificio externo en hendidura, sin lesiones sospechosas.",
+   "h_vagina": "Paredes vaginales normales; flujo transparente.",
+   "h_utero": "Útero en anteversoflexión, de tamaño normal, móvil e indoloro; anexos no palpables.",
+   "h_preg": "La paciente pregunta: «¿Esa zona roja es grave? ¿Por qué sangro después de las relaciones?».",
+   "h_pap": "El resultado del PAP está en 20 días en el laboratorio del hospital.",
+   "extra": [
+    "Ectropión"
+   ]
+  },
+  {
+   "id": "c3",
+   "nombre": "Romina F.",
+   "sexo": "F",
+   "edad": 26,
+   "motivo": "Dolor bajo, flujo amarillento y mal olor.",
+   "indicacion": "Examen ginecológico con toma de PAP y tacto bimanual.",
+   "antecedentes": "Nuligesta. Clamidia tratada hace 2 años. Sin alergias conocidas.",
+   "alergia": null,
+   "cervix": "cervicitis",
+   "parto": "nulipara",
+   "pared": "normal",
+   "vulva": "leucorrea",
+   "vista_txt": "Cuello eritematoso con moco-pus amarillo que sale del orificio.",
+   "ext_txt": "Flujo amarillento en el introito.",
+   "h_ant": "Refiere dolor abdominal bajo, flujo amarillento maloliente, dispareunia y fiebre de 38 °C; varias parejas sin preservativo.",
+   "h_ext": "Flujo amarillento en el introito; sin lesiones.",
+   "h_cuello": "Cuello eritematoso, friable al contacto, con moco-pus saliendo del orificio: cervicitis mucopurulenta.",
+   "h_vagina": "Flujo amarillento abundante en las paredes.",
+   "h_utero": "Útero de tamaño normal, doloroso a la movilización; dolor en ambos anexos; signo de Chandelier positivo; sospecha de enfermedad pélvica inflamatoria.",
+   "h_preg": "La paciente pregunta: «¿Es una infección? ¿Se la puede contagiar mi pareja?».",
+   "h_pap": "El resultado del PAP está en 20 días en el laboratorio del hospital.",
+   "extra": [
+    "Cervicitis / EPI"
+   ]
+  },
+  {
+   "id": "c4",
+   "nombre": "Susana P.",
+   "sexo": "F",
+   "edad": 46,
+   "motivo": "Sangrados irregulares entre menstruaciones.",
+   "indicacion": "Examen ginecológico con toma de PAP y tacto bimanual.",
+   "antecedentes": "G2P2. Miomatosis. Sin alergias conocidas.",
+   "alergia": null,
+   "cervix": "polipo",
+   "parto": "multipara",
+   "pared": "normal",
+   "vulva": "normal",
+   "vista_txt": "Pólipo rosado que asoma por el orificio cervical.",
+   "ext_txt": "Genitales externos sin lesiones.",
+   "h_ant": "Refiere metrorragia entre menstruaciones y sinusorragia desde hace 3 meses. Último PAP hace 3 años.",
+   "h_ext": "Vulva sin lesiones; leve sangrado en el introito.",
+   "h_cuello": "Pólipo endocervical rosado, pediculado, que asoma por el orificio externo.",
+   "h_vagina": "Paredes vaginales normales; sangre escasa.",
+   "h_utero": "Útero aumentado de tamaño (como de 8 semanas), irregular y firme, móvil e indoloro; anexos no palpables.",
+   "h_preg": "La paciente pregunta: «¿Ese bulto puede ser cáncer? ¿Me lo tienen que sacar?».",
+   "h_pap": "El resultado del PAP está en 20 días en el laboratorio del hospital.",
+   "extra": [
+    "Pólipo endocervical"
+   ]
+  },
+  {
+   "id": "c5",
+   "nombre": "Marta R.",
+   "sexo": "F",
+   "edad": 62,
+   "motivo": "Sequedad y dolor en las relaciones.",
+   "indicacion": "Examen ginecológico con toma de PAP y tacto bimanual.",
+   "antecedentes": "G4P4. Menopausia a los 50 años. Hipertensión. Sin alergias conocidas.",
+   "alergia": null,
+   "cervix": "atrofia",
+   "parto": "multipara",
+   "pared": "atrofica",
+   "vulva": "normal",
+   "vista_txt": "Cuello pequeño, pálido, con orificio puntiforme; paredes lisas y delgadas.",
+   "ext_txt": "Atrofia vulvar: labios adelgazados y pálidos.",
+   "h_ant": "Refiere sequedad vaginal, ardor y dispareunia. Nunca se hizo PAP en los últimos 10 años.",
+   "h_ext": "Atrofia vulvar: labios menores adelgazados y pálidos, introito estrecho.",
+   "h_cuello": "Cuello pequeño y pálido, con orificio puntiforme; mucosa fina.",
+   "h_vagina": "Paredes vaginales pálidas, lisas, sin rugosidades y friables (vaginitis atrófica).",
+   "h_utero": "Útero pequeño, firme y móvil; anexos no palpables; introducción dolorosa del examen por el introito estrecho.",
+   "h_preg": "La paciente pregunta: «¿Es normal que me duela? ¿Hay algo para la sequedad?».",
+   "h_pap": "El resultado del PAP está en 20 días en el laboratorio del hospital.",
+   "extra": [
+    "Atrofia posmenopáusica"
+   ]
+  },
+  {
+   "id": "c6",
+   "nombre": "Carolina V.",
+   "sexo": "F",
+   "edad": 31,
+   "motivo": "Picazón intensa y flujo blanco.",
+   "indicacion": "Examen ginecológico con toma de PAP y tacto bimanual.",
+   "antecedentes": "G1P1. Sin patologías. Sin alergias conocidas.",
+   "alergia": null,
+   "cervix": "normal",
+   "parto": "multipara",
+   "pared": "candidiasis",
+   "vulva": "leucorrea",
+   "vista_txt": "Cuello rosado normal; placas blanquecinas adheridas a las paredes vaginales.",
+   "ext_txt": "Flujo blanco grumoso y eritema vulvar.",
+   "h_ant": "Refiere prurito intenso y flujo blanco como «queso blanco» desde hace 5 días, después de tomar antibióticos.",
+   "h_ext": "Eritema vulvar con flujo blanco grumoso, escoriaciones por rascado.",
+   "h_cuello": "Cuello de aspecto normal, rodeado de flujo blanco grumoso.",
+   "h_vagina": "Placas blancas adheridas a las paredes vaginales: candidiasis vulvovaginal.",
+   "h_utero": "Útero de tamaño normal, móvil e indoloro; anexos no palpables.",
+   "h_preg": "La paciente pregunta: «¿Es una infección de transmisión sexual? ¿Puede volver?».",
+   "h_pap": "El resultado del PAP está en 20 días en el laboratorio del hospital.",
+   "extra": [
+    "Candidiasis"
+   ]
+  },
+  {
+   "id": "c7",
+   "nombre": "Beatriz M.",
+   "sexo": "F",
+   "edad": 40,
+   "motivo": "Sangrado con las relaciones sexuales.",
+   "indicacion": "Examen ginecológico con toma de PAP y tacto bimanual.",
+   "antecedentes": "G3P3. Fuma 15 cigarrillos por día. Sin controles hace 6 años. Sin alergias conocidas.",
+   "alergia": null,
+   "cervix": "lesion",
+   "parto": "multipara",
+   "pared": "normal",
+   "vulva": "normal",
+   "vista_txt": "Lesión irregular, friable, que sangra al contacto.",
+   "ext_txt": "Genitales externos sin lesiones.",
+   "h_ant": "Refiere sinusorragia y flujo sanguinolento desde hace 2 meses. Nunca se hizo un PAP desde hace 6 años; inicio precoz de las relaciones.",
+   "h_ext": "Vulva sin lesiones.",
+   "h_cuello": "Lesión exofítica irregular y friable en el labio anterior del cuello, que sangra al contacto: sospechosa de neoplasia.",
+   "h_vagina": "Paredes vaginales normales; sangre escasa.",
+   "h_utero": "Útero de tamaño normal; cuello duro e indurado, con parametrios sin infiltrar; anexos no palpables.",
+   "h_preg": "La paciente pregunta: «¿Qué es esa herida? ¿Es cáncer?».",
+   "h_pap": "El resultado del PAP está en 20 días en el laboratorio del hospital.",
+   "extra": [
+    "Lesión sospechosa del cuello"
+   ]
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Cuál es la posición de la paciente para el examen con espéculo?",
+   "o": [
+    "Ginecológica (litotomía): decúbito dorsal con rodillas flexionadas y muslos separados",
+    "Decúbito ventral",
+    "Sentada",
+    "Decúbito lateral derecho"
+   ],
+   "c": 0,
+   "e": "La posición ginecológica expone el introito y permite introducir el espéculo."
+  },
+  {
+   "q": "¿Cómo se introduce el espéculo?",
+   "o": [
+    "Cerrado, apoyado sobre la horquilla, rotándolo 90° en sentido horario al avanzar",
+    "Abierto y de golpe",
+    "Con gel y sin rotarlo",
+    "De arriba hacia abajo en sentido vertical"
+   ],
+   "c": 0,
+   "e": "Se introduce cerrado y se rota 90° para que las valvas queden arriba y abajo."
+  },
+  {
+   "q": "¿Con qué se humedece el espéculo para tomar un PAP?",
+   "o": [
+    "Con agua tibia o suero fisiológico",
+    "Con gel lubricante",
+    "Con vaselina",
+    "Con lidocaína en gel"
+   ],
+   "c": 0,
+   "e": "Los lubricantes alteran las células: se usa agua tibia o suero."
+  },
+  {
+   "q": "¿Con qué instrumento se toma el exocérvix?",
+   "o": [
+    "Espátula de Ayre",
+    "Citobrush",
+    "Hisopo de algodón",
+    "Pinza de Pozzi"
+   ],
+   "c": 0,
+   "e": "La espátula de Ayre se gira 360° apoyada sobre el exocérvix."
+  },
+  {
+   "q": "¿Con qué instrumento se toma el endocérvix?",
+   "o": [
+    "Citobrush (cepillo endocervical)",
+    "Espátula de Ayre",
+    "Histerómetro",
+    "Hisopo"
+   ],
+   "c": 0,
+   "e": "El citobrush se introduce en el canal y se gira un cuarto a media vuelta."
+  },
+  {
+   "q": "¿Qué orden se respeta en la toma de las muestras?",
+   "o": [
+    "Primero el exocérvix y luego el endocérvix",
+    "Primero el endocérvix",
+    "Las dos a la vez",
+    "No importa"
+   ],
+   "c": 0,
+   "e": "La guía indica espátula de Ayre y luego citobrush."
+  },
+  {
+   "q": "¿Cuándo se fijan los extendidos?",
+   "o": [
+    "Inmediatamente, con spray fijador",
+    "Después de media hora",
+    "No se fijan",
+    "Al día siguiente"
+   ],
+   "c": 0,
+   "e": "El secado al aire destruye la morfología celular."
+  },
+  {
+   "q": "¿Por qué se toma el PAP antes del tacto bimanual?",
+   "o": [
+    "Para no contaminar el cuello con lubricante ni alterar la muestra",
+    "Porque duele menos",
+    "Es indistinto",
+    "Para ahorrar tiempo"
+   ],
+   "c": 0,
+   "e": "El tacto se hace después, con lubricante, y puede alterar la citología."
+  },
+  {
+   "q": "En el tacto bimanual, ¿qué hace la mano libre?",
+   "o": [
+    "Se apoya sobre el hipogastrio y las fosas ilíacas y presiona hacia los dedos vaginales",
+    "Sostiene el espéculo",
+    "Abre la vulva",
+    "Descansa a un costado"
+   ],
+   "c": 0,
+   "e": "Permite palpar el útero y los anexos entre ambas manos."
+  },
+  {
+   "q": "¿Qué orificio externo tiene el cuello de una nulípara?",
+   "o": [
+    "Puntiforme (redondeado)",
+    "En hendidura transversal",
+    "No tiene",
+    "Siempre abierto"
+   ],
+   "c": 0,
+   "e": "En la multípara el orificio es una hendidura transversal."
+  },
+  {
+   "q": "¿Qué indica un cuello friable que sangra al contacto?",
+   "o": [
+    "Sospecha de lesión neoplásica o cervicitis: requiere colposcopia",
+    "Es normal",
+    "Un embarazo",
+    "Menopausia"
+   ],
+   "c": 0,
+   "e": "Debe derivarse a colposcopia y biopsia dirigida."
+  },
+  {
+   "q": "¿Cada cuánto se recomienda el control ginecológico con PAP?",
+   "o": [
+    "Una vez al año (la guía de la cátedra)",
+    "Cada 10 años",
+    "Solo si hay síntomas",
+    "Una sola vez"
+   ],
+   "c": 0,
+   "e": "La guía de la cátedra recomienda un control anual."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Interpretación del cuello uterino",
+  "boton_titulo": "Ver los aspectos del cuello",
+  "boton_sub": "Normal, ectropión, cervicitis, pólipo, atrofia, lesión",
+  "aviso": "los aspectos del cuello",
+  "flecha": "▼ Aspecto del cuello en la vista especular",
+  "flecha_final": "▼ Conducta",
+  "pie": "Lesión sospechosa, friable o sangrante: colposcopia.",
+  "comun": [
+   {
+    "t": "Cuello ubicado",
+    "x": "Color, tamaño, orificio, secreciones y lesiones.",
+    "flag": "cuello"
+   },
+   {
+    "t": "Muestras tomadas",
+    "x": "Exocérvix + endocérvix, fijadas.",
+    "flag": "fija"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "Normal / ectropión",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Normal",
+      "x": "Rosado, orificio puntiforme (nulípara) o en hendidura (multípara), moco claro.",
+      "flag": "cuello"
+     },
+     {
+      "t": "Ectropión (ectopia)",
+      "x": "Zona roja alrededor del orificio, frecuente en multíparas y anticonceptivas.",
+      "flag": "cuello"
+     }
+    ]
+   },
+   {
+    "titulo": "Infección",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Cervicitis",
+      "x": "Eritematoso, friable, moco-pus: tratar la ITS y estudiar EPI.",
+      "flag": "cuello"
+     },
+     {
+      "t": "Candidiasis",
+      "x": "Placas blancas en las paredes: antifúngico.",
+      "flag": "cuello"
+     }
+    ]
+   },
+   {
+    "titulo": "Lesiones",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Pólipo endocervical",
+      "x": "Estudiar el sangrado; polipectomía.",
+      "flag": "cuello"
+     },
+     {
+      "t": "Lesión friable",
+      "x": "Colposcopia y biopsia dirigida.",
+      "flag": "cuello"
+     },
+     {
+      "t": "Atrofia",
+      "x": "Paredes pálidas y lisas: estrógenos locales.",
+      "flag": "cuello"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Resultado del PAP",
+    "x": "Se retira en 15-30 días y se interpreta en una nueva cita.",
+    "flag": "res"
+   }
+  ]
+ },
+ "hallazgo_pasos": {
+  "3": "h_ant",
+  "8": "h_ext",
+  "12": "h_cuello",
+  "19": "h_vagina",
+  "20": "h_utero",
+  "24": "h_preg",
+  "25": "h_pap"
+ },
+ "hallazgo_rotulos": {
+  "3": "🗣 Paciente:",
+  "8": "👁️ Observás:",
+  "12": "👁️ Observás:",
+  "19": "🖐️ Palpás:",
+  "20": "🖐️ Palpás:",
+  "24": "🗣 Paciente:",
+  "25": "📋"
+ },
+ "hallazgo_voz": {
+  "3": "f",
+  "24": "f"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes del examen",
+    "x": "Saludá, sentá a la paciente y a su familiar, interrogá antecedentes ginecológicos, informá el procedimiento, indicá la posición ginecológica y resguardá su intimidad."
+   },
+   {
+    "t": "Genitales externos",
+    "x": "Guantes y luz. Inspeccioná monte de Venus, labios, clítoris, meato, introito y horquilla. Entreabrí la vulva con índice y pulgar de la mano hábil."
+   },
+   {
+    "t": "Espéculo",
+    "x": "Cerrado, articulación hacia abajo, apoyado en la horquilla, inclinado a la izquierda, rotando 90° en sentido horario; separá las valvas con el pulgar sobre la valva superior; ubicá el cuello. Sin gel."
+   },
+   {
+    "t": "PAP",
+    "x": "Primero exocérvix con espátula de Ayre (girar 360°), luego endocérvix con citobrush; extendé cada muestra en un portaobjetos y fijá con spray enseguida."
+   },
+   {
+    "t": "Tacto bimanual",
+    "x": "Después del PAP: medio sobre la horquilla hacia el sacro, luego el índice; recorré la vagina; la mano libre en hipogastrio y fosas ilíacas. Retirá suave."
+   },
+   {
+    "t": "Cierre",
+    "x": "Descartá guantes y material, avisá que terminó, escuchá preguntas, indicá cómo retirar el PAP, concertá nueva cita y despedite."
+   }
+  ],
+  "por_paso": {
+   "10": "Cerrado, 90° horario, sin gel.",
+   "13": "Exocérvix: espátula de Ayre, 360°.",
+   "14": "Endocérvix: citobrush.",
+   "15": "Fijar de inmediato.",
+   "19": "Después del PAP, nunca antes."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/sim/exgin_modelo.json",
+ "peso_modelo": "2 a 3 MB",
+ "instrumental": "data/acreditaciones/sim/instrumental_exgin.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Saluda y se presenta",
+   "fase": "Recepción y preparación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se saluda con respeto y se dice el nombre y el rol antes del examen: un examen ginecológico es íntimo y requiere confianza.",
+   "estado": {
+    "pres": 1
+   },
+   "claves": [
+    [
+     "me presento"
+    ],
+    [
+     "soy la doctora"
+    ],
+    [
+     "soy el doctor"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ],
+    [
+     "mucho gusto"
+    ]
+   ],
+   "frase": "Buenas tardes, soy la doctora, me presento con mi nombre y apellido.",
+   "fx": "hablar"
+  },
+  {
+   "n": 2,
+   "texto": "Invita a sentarse a la paciente y al familiar",
+   "fase": "Recepción y preparación",
+   "target": "consultorio",
+   "critico": false,
+   "explica": "Se invita a sentarse a la paciente y a su acompañante para conversar antes del examen.",
+   "estado": {
+    "sent": 1
+   },
+   "claves": [
+    [
+     "tome asiento"
+    ],
+    [
+     "tomar asiento"
+    ],
+    [
+     "siente"
+    ],
+    [
+     "sientese"
+    ],
+    [
+     "invito a sentarse"
+    ]
+   ],
+   "frase": "Invito a sentarse a la paciente y a su familiar.",
+   "fx": "sentar"
+  },
+  {
+   "n": 3,
+   "texto": "Inicia el interrogatorio y pregunta por antecedentes de patología ginecológica",
+   "fase": "Recepción y preparación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se interroga sobre síntomas, ciclos, FUM, antecedentes de ITS, PAP previos y cirugías ginecológicas.",
+   "estado": {
+    "inter": 1
+   },
+   "claves": [
+    [
+     "interrogatorio"
+    ],
+    [
+     "antecedentes ginecologicos"
+    ],
+    [
+     "patologia ginecologica"
+    ],
+    [
+     "antecedentes de patologia"
+    ],
+    [
+     "pregunto por antecedentes"
+    ]
+   ],
+   "frase": "Inicio el interrogatorio y pregunto por antecedentes de patología ginecológica.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 4,
+   "texto": "Informa a la paciente y a su acompañante sobre el procedimiento que realizará",
+   "fase": "Recepción y preparación",
+   "target": "paciente",
+   "critico": true,
+   "explica": "Se explica qué se va a hacer (examen de genitales, espéculo, toma de PAP y tacto), para qué sirve y que puede sentir presión pero no debería doler. Informar y obtener la aceptación es parte del acto médico.",
+   "estado": {
+    "info": 1
+   },
+   "claves": [
+    [
+     "informo"
+    ],
+    [
+     "le explico"
+    ],
+    [
+     "explico el procedimiento"
+    ],
+    [
+     "voy a realizar"
+    ],
+    [
+     "procedimiento que realizare"
+    ]
+   ],
+   "frase": "Informo a la paciente y a su acompañante sobre el procedimiento que realizaré: examen de los genitales, toma de PAP y tacto vaginal.",
+   "fx": "hablar"
+  },
+  {
+   "n": 5,
+   "texto": "Invita e indica cómo colocarse en posición ginecológica",
+   "fase": "Recepción y preparación",
+   "target": "camilla",
+   "critico": false,
+   "explica": "Posición ginecológica (litotomía): decúbito dorsal con las rodillas flexionadas, los muslos separados y los talones en los estribos; la pelvis al borde de la camilla.",
+   "estado": {
+    "pos": 1
+   },
+   "claves": [
+    [
+     "posicion ginecologica"
+    ],
+    [
+     "litotomia"
+    ],
+    [
+     "estribos"
+    ],
+    [
+     "colocarse en posicion"
+    ],
+    [
+     "se coloque en posicion"
+    ]
+   ],
+   "frase": "La invito y le indico cómo colocarse en posición ginecológica.",
+   "fx": "posicion_gin"
+  },
+  {
+   "n": 6,
+   "texto": "Cubre a la paciente resguardando su intimidad y le pide que se libere de la ropa, incluida la interior",
+   "fase": "Recepción y preparación",
+   "target": "sabana",
+   "critico": true,
+   "explica": "Se cubre a la paciente con una sábana o bata y solo se descubre la zona del examen: se resguarda su intimidad y su pudor.",
+   "estado": {
+    "cubre": 1
+   },
+   "claves": [
+    [
+     "resguardo su intimidad"
+    ],
+    [
+     "la cubro"
+    ],
+    [
+     "sabana"
+    ],
+    [
+     "intimidad"
+    ],
+    [
+     "ropa interior"
+    ],
+    [
+     "bata"
+    ]
+   ],
+   "frase": "La cubro con una sábana resguardando su intimidad y le pido que se libere de la ropa, incluida la interior.",
+   "fx": "sabana"
+  },
+  {
+   "n": 7,
+   "texto": "Utiliza guantes de látex y luz",
+   "fase": "Examen de genitales externos",
+   "target": "guantes",
+   "critico": true,
+   "explica": "Se colocan guantes de látex (barrera de protección) y se enciende la lámpara de pie orientándola hacia el introito para ver bien.",
+   "estado": {
+    "guantes": 1
+   },
+   "claves": [
+    [
+     "guantes"
+    ],
+    [
+     "lampara"
+    ],
+    [
+     "luz"
+    ],
+    [
+     "me coloco los guantes"
+    ]
+   ],
+   "frase": "Me coloco los guantes de látex y enciendo la luz, orientándola hacia el introito.",
+   "fx": "guante_luz"
+  },
+  {
+   "n": 8,
+   "texto": "Observa y reconoce los genitales externos",
+   "fase": "Examen de genitales externos",
+   "target": "vulva",
+   "critico": true,
+   "explica": "Se inspeccionan el monte de Venus, los labios mayores y menores, el clítoris, el meato uretral, el introito y la horquilla, buscando lesiones, secreciones, tumoraciones, vello, signos de atrofia o inflamación.",
+   "estado": {
+    "vulva": 1
+   },
+   "claves": [
+    [
+     "genitales externos"
+    ],
+    [
+     "observo la vulva"
+    ],
+    [
+     "monte de venus"
+    ],
+    [
+     "labios mayores"
+    ],
+    [
+     "reconozco los genitales"
+    ],
+    [
+     "inspecciono"
+    ]
+   ],
+   "frase": "Observo y reconozco los genitales externos: monte de Venus, labios, clítoris, meato y horquilla.",
+   "fx": "observar_genitales"
+  },
+  {
+   "n": 9,
+   "texto": "Entreabre la vulva a la altura del introito con los dedos índice y pulgar de la mano hábil",
+   "fase": "Examen de genitales externos",
+   "target": "vulva",
+   "critico": true,
+   "explica": "Con el índice y el pulgar de la mano hábil se separan los labios menores a nivel del introito, lo que deja ver el vestíbulo y el orificio vaginal y facilita la introducción del espéculo.",
+   "estado": {
+    "abre": 1
+   },
+   "claves": [
+    [
+     "entreabro la vulva"
+    ],
+    [
+     "entreabro"
+    ],
+    [
+     "separo los labios"
+    ],
+    [
+     "abro la vulva"
+    ],
+    [
+     "indice y pulgar de la mano habil"
+    ]
+   ],
+   "frase": "Entreabro la vulva a la altura del introito con los dedos índice y pulgar de la mano hábil.",
+   "fx": "entreabrir"
+  },
+  {
+   "n": 10,
+   "texto": "Introduce el espéculo cerrado con la articulación hacia abajo, apoyándolo sobre la horquilla, ligeramente inclinado hacia la izquierda, y lo rota 90° en sentido horario a medida que avanza",
+   "fase": "Examen con espéculo y toma de PAP",
+   "target": "especulo",
+   "critico": true,
+   "explica": "El espéculo cerrado y sin lubricante (solo agua tibia) se apoya sobre la horquilla, con la articulación hacia abajo y algo inclinado hacia la izquierda; al avanzar se lo rota 90° en sentido horario para que las valvas queden en posición superior e inferior, siguiendo el eje de la vagina (hacia el sacro).",
+   "estado": {
+    "esp": 1
+   },
+   "claves": [
+    [
+     "introduzco el especulo"
+    ],
+    [
+     "introduzco",
+     "especulo"
+    ],
+    [
+     "especulo cerrado"
+    ],
+    [
+     "rotandolo 90"
+    ],
+    [
+     "rota 90"
+    ],
+    [
+     "inserto el especulo"
+    ]
+   ],
+   "frase": "Introduzco el espéculo cerrado con la articulación hacia abajo, apoyado sobre la horquilla, inclinado hacia la izquierda, y lo roto 90° en sentido horario a medida que avanza.",
+   "fx": "esp_insertar"
+  },
+  {
+   "n": 11,
+   "texto": "Mantiene el espéculo en posición presionando la valva superior con el pulgar de la mano izquierda y separa las valvas",
+   "fase": "Examen con espéculo y toma de PAP",
+   "target": "especulo",
+   "critico": true,
+   "explica": "Se sostiene el espéculo con la mano izquierda, se presiona con el pulgar la palanca de la valva superior para separar las valvas y se fija el tornillo en posición abierta, dejando a la vista el cuello uterino.",
+   "estado": {
+    "valvas": 1
+   },
+   "claves": [
+    [
+     "separo las valvas"
+    ],
+    [
+     "abro las valvas"
+    ],
+    [
+     "valva superior"
+    ],
+    [
+     "separa las valvas"
+    ],
+    [
+     "abro el especulo"
+    ],
+    [
+     "presionando la valva"
+    ]
+   ],
+   "frase": "Mantengo el espéculo en posición, presiono la valva superior con el pulgar de la mano izquierda y separo las valvas.",
+   "fx": "esp_abrir"
+  },
+  {
+   "n": 12,
+   "texto": "Ubica y reconoce el cuello uterino",
+   "fase": "Examen con espéculo y toma de PAP",
+   "target": "cuello",
+   "critico": true,
+   "explica": "Se identifica el cuello uterino y se describe: color, tamaño, forma del orificio externo (puntiforme en la nulípara y en hendidura en la multípara), secreciones, lesiones o sangrado.",
+   "estado": {
+    "cuello": 1
+   },
+   "claves": [
+    [
+     "ubico el cuello"
+    ],
+    [
+     "reconozco el cuello"
+    ],
+    [
+     "cuello uterino"
+    ],
+    [
+     "localizo el cuello"
+    ],
+    [
+     "identifico el cuello"
+    ]
+   ],
+   "frase": "Ubico y reconozco el cuello uterino.",
+   "fx": "ubicar_cuello"
+  },
+  {
+   "n": 13,
+   "texto": "Toma la muestra del exocérvix con espátula de Ayre y extiende el material en el portaobjetos",
+   "fase": "Examen con espéculo y toma de PAP",
+   "target": "espatula",
+   "critico": true,
+   "explica": "Se apoya la espátula de Ayre con la punta larga en el orificio cervical y se gira 360° apoyando el borde sobre el exocérvix; el material se extiende en una sola capa fina sobre el portaobjetos rotulado.",
+   "estado": {
+    "ayre": 1
+   },
+   "claves": [
+    [
+     "espatula de ayre"
+    ],
+    [
+     "exocervix"
+    ],
+    [
+     "ectocervix"
+    ],
+    [
+     "toma exocervical"
+    ],
+    [
+     "ayre"
+    ]
+   ],
+   "frase": "Tomo la muestra del exocérvix con la espátula de Ayre y extiendo el material en el portaobjetos.",
+   "fx": "toma_exo"
+  },
+  {
+   "n": 14,
+   "texto": "Toma la muestra del endocérvix con citobrush y extiende el material en otro portaobjetos",
+   "fase": "Examen con espéculo y toma de PAP",
+   "target": "citobrush",
+   "critico": true,
+   "explica": "Se introduce el cepillo (citobrush) en el canal endocervical y se lo gira un cuarto a media vuelta; el material se extiende en otro portaobjetos con un solo movimiento.",
+   "estado": {
+    "cito": 1
+   },
+   "claves": [
+    [
+     "citobrush"
+    ],
+    [
+     "endocervix"
+    ],
+    [
+     "toma endocervical"
+    ],
+    [
+     "cepillo"
+    ]
+   ],
+   "frase": "Tomo la muestra del endocérvix con el citobrush y extiendo el material en otro portaobjetos.",
+   "fx": "toma_endo"
+  },
+  {
+   "n": 15,
+   "texto": "Fija las muestras con spray",
+   "fase": "Examen con espéculo y toma de PAP",
+   "target": "fijador",
+   "critico": true,
+   "explica": "Los extendidos se fijan de inmediato con spray fijador a 20-30 cm: si se secan al aire se alteran las células y el PAP no es interpretable.",
+   "estado": {
+    "fija": 1
+   },
+   "claves": [
+    [
+     "fijo"
+    ],
+    [
+     "spray"
+    ],
+    [
+     "fijador"
+    ],
+    [
+     "fijar las muestras"
+    ]
+   ],
+   "frase": "Fijo las muestras con spray fijador.",
+   "fx": "fijar_spray"
+  },
+  {
+   "n": 16,
+   "texto": "Cierra el espéculo y lo retira de la vagina",
+   "fase": "Examen con espéculo y toma de PAP",
+   "target": "especulo",
+   "critico": true,
+   "explica": "Se afloja el tornillo, se cierran las valvas parcialmente y se retira el espéculo lentamente, rotándolo, sin pellizcar la mucosa ni los labios.",
+   "estado": {
+    "cierra": 1,
+    "retira": 1
+   },
+   "claves": [
+    [
+     "cierro el especulo"
+    ],
+    [
+     "retiro el especulo"
+    ],
+    [
+     "cierro y retiro"
+    ],
+    [
+     "saco el especulo"
+    ]
+   ],
+   "frase": "Cierro el espéculo y lo retiro de la vagina.",
+   "fx": "esp_retirar"
+  },
+  {
+   "n": 17,
+   "texto": "Explica a la paciente que procederá a realizar el tacto vaginal bimanual",
+   "fase": "Tacto vaginal bimanual",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se avisa lo que se va a hacer (tacto con dos dedos y la otra mano sobre el abdomen) para evitar sorpresas y contracturas.",
+   "estado": {
+    "expl2": 1
+   },
+   "claves": [
+    [
+     "tacto vaginal bimanual"
+    ],
+    [
+     "tacto bimanual"
+    ],
+    [
+     "voy a hacer el tacto"
+    ],
+    [
+     "procedere a realizar el tacto"
+    ]
+   ],
+   "frase": "Le explico que procederé a realizar el tacto vaginal bimanual.",
+   "fx": "hablar"
+  },
+  {
+   "n": 18,
+   "texto": "Entreabre la vulva a la altura del introito con los dedos índice y pulgar de la mano que no realizará el tacto (mano menos hábil)",
+   "fase": "Tacto vaginal bimanual",
+   "target": "vulva",
+   "critico": false,
+   "explica": "Con la mano menos hábil se separan los labios para que la mano examinadora entre sin tocar el vello ni la piel.",
+   "estado": {
+    "abre2": 1
+   },
+   "claves": [
+    [
+     "mano menos habil"
+    ],
+    [
+     "entreabro",
+     "menos habil"
+    ],
+    [
+     "entreabro la vulva con la mano que no"
+    ],
+    [
+     "mano que no realizara"
+    ]
+   ],
+   "frase": "Entreabro la vulva con los dedos índice y pulgar de la mano menos hábil, la que no realizará el tacto.",
+   "fx": "entreabrir"
+  },
+  {
+   "n": 19,
+   "texto": "Introduce el dedo medio de la mano hábil apoyándolo sobre la horquilla, presiona en dirección al sacro y luego hace penetrar el índice recorriendo la vagina en toda su longitud",
+   "fase": "Tacto vaginal bimanual",
+   "target": "dedos",
+   "critico": true,
+   "explica": "Se introduce el dedo medio apoyado en la horquilla vulvar presionando hacia el sacro (relaja el músculo) y luego el índice, y se recorre la vagina en toda su longitud: paredes, fondos de saco y cuello (consistencia, forma y dolor a la movilización).",
+   "estado": {
+    "bimd": 1
+   },
+   "claves": [
+    [
+     "dedo medio"
+    ],
+    [
+     "introduzco el dedo"
+    ],
+    [
+     "recorro la vagina"
+    ],
+    [
+     "hacia el sacro"
+    ],
+    [
+     "dedos en la vagina"
+    ]
+   ],
+   "frase": "Introduzco el dedo medio de la mano hábil apoyado en la horquilla, presiono hacia el sacro, hago penetrar el índice y recorro la vagina en toda su longitud.",
+   "fx": "tacto_dedos"
+  },
+  {
+   "n": 20,
+   "texto": "Aplica la mano libre sobre el hipogastrio y luego sobre ambas fosas ilíacas, presionando suavemente y abarcando con ambas manos los diversos órganos",
+   "fase": "Tacto vaginal bimanual",
+   "target": "hipogastrio",
+   "critico": true,
+   "explica": "La mano libre se apoya sobre el hipogastrio y luego sobre cada fosa ilíaca, presionando suavemente hacia los dedos vaginales: se palpa el útero (tamaño, forma, consistencia, movilidad, dolor) y los anexos.",
+   "estado": {
+    "bima": 1
+   },
+   "claves": [
+    [
+     "mano libre"
+    ],
+    [
+     "hipogastrio"
+    ],
+    [
+     "fosas iliacas"
+    ],
+    [
+     "abarco con ambas manos"
+    ],
+    [
+     "palpo el utero"
+    ]
+   ],
+   "frase": "Aplico la mano libre sobre el hipogastrio y luego sobre ambas fosas ilíacas, presionando suavemente y abarcando los órganos con ambas manos.",
+   "fx": "tacto_abdomen"
+  },
+  {
+   "n": 21,
+   "texto": "Retira suavemente la mano examinadora de la vagina",
+   "fase": "Tacto vaginal bimanual",
+   "target": "dedos",
+   "critico": false,
+   "explica": "Los dedos se retiran lentamente, sin molestias, y se revisa el guante (sangre, secreciones).",
+   "estado": {
+    "bimr": 1
+   },
+   "claves": [
+    [
+     "retiro la mano"
+    ],
+    [
+     "retiro suavemente"
+    ],
+    [
+     "retiro los dedos"
+    ]
+   ],
+   "frase": "Retiro suavemente la mano examinadora de la vagina.",
+   "fx": "retirar_mano"
+  },
+  {
+   "n": 22,
+   "texto": "Descarta el material descartable y los guantes",
+   "fase": "Finalización",
+   "target": "residuos",
+   "critico": true,
+   "explica": "El espéculo descartable y los guantes se descartan en la bolsa roja de residuos patogénicos; los portaobjetos fijados se guardan para el laboratorio; se realiza higiene de manos.",
+   "estado": {
+    "desc": 1
+   },
+   "claves": [
+    [
+     "descarto"
+    ],
+    [
+     "desecho"
+    ],
+    [
+     "guantes"
+    ],
+    [
+     "bolsa roja"
+    ],
+    [
+     "material descartable"
+    ]
+   ],
+   "frase": "Descarto el material descartable y los guantes en la bolsa roja.",
+   "fx": "residuos"
+  },
+  {
+   "n": 23,
+   "texto": "Comunica a la paciente que finalizó el examen y le indica que se vista y tome asiento",
+   "fase": "Finalización",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se avisa que terminó, se resguarda la intimidad mientras se viste y se la invita a sentarse para conversar.",
+   "estado": {
+    "fin": 1
+   },
+   "claves": [
+    [
+     "finalizo el examen"
+    ],
+    [
+     "termino el examen"
+    ],
+    [
+     "se vista"
+    ],
+    [
+     "tome asiento"
+    ],
+    [
+     "hemos terminado"
+    ]
+   ],
+   "frase": "Le comunico que finalizó el examen y le indico que se vista y tome asiento.",
+   "fx": "vestirse"
+  },
+  {
+   "n": 24,
+   "texto": "Escucha y responde a las preguntas, preocupaciones y molestias de la paciente",
+   "fase": "Finalización",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se da espacio para dudas, se explican los hallazgos con lenguaje claro y se contiene a la paciente.",
+   "estado": {
+    "preg": 1
+   },
+   "claves": [
+    [
+     "preguntas"
+    ],
+    [
+     "dudas"
+    ],
+    [
+     "preocupaciones"
+    ],
+    [
+     "escucho"
+    ],
+    [
+     "molestias"
+    ]
+   ],
+   "frase": "Escucho y respondo a las preguntas, preocupaciones y molestias de la paciente.",
+   "fx": "hablar"
+  },
+  {
+   "n": 25,
+   "texto": "Le indica cómo retirar el resultado del PAP",
+   "fase": "Cierre",
+   "target": "resultado",
+   "critico": false,
+   "explica": "Se indica dónde y cuándo retirar el resultado (por ejemplo en 15 a 30 días en el laboratorio o en el centro de salud) y que debe traerlo a la consulta.",
+   "estado": {
+    "res": 1
+   },
+   "claves": [
+    [
+     "retirar el resultado"
+    ],
+    [
+     "retirar los resultados"
+    ],
+    [
+     "resultado del pap"
+    ],
+    [
+     "resultado del papanicolau"
+    ]
+   ],
+   "frase": "Le indico cómo y cuándo retirar el resultado del PAP.",
+   "fx": "resultado_pap"
+  },
+  {
+   "n": 26,
+   "texto": "Concierta una nueva cita para ver los resultados",
+   "fase": "Cierre",
+   "target": "cita",
+   "critico": false,
+   "explica": "Se acuerda una fecha para interpretar el resultado juntas y decidir el seguimiento (control anual, repetir el PAP, colposcopia o tratamiento).",
+   "estado": {
+    "cita": 1
+   },
+   "claves": [
+    [
+     "nueva cita"
+    ],
+    [
+     "concierto una cita"
+    ],
+    [
+     "proxima cita"
+    ],
+    [
+     "turno"
+    ],
+    [
+     "para ver los resultados"
+    ]
+   ],
+   "frase": "Concierto una nueva cita para ver los resultados.",
+   "fx": "cita"
+  },
+  {
+   "n": 27,
+   "texto": "Saluda y se despide",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El saludo final cierra la consulta con calidez.",
+   "estado": {
+    "desp": 1
+   },
+   "claves": [
+    [
+     "me despido"
+    ],
+    [
+     "hasta luego"
+    ],
+    [
+     "hasta pronto"
+    ],
+    [
+     "chau"
+    ],
+    [
+     "gracias por venir"
+    ]
+   ],
+   "frase": "Saludo y me despido de la paciente.",
+   "fx": "hablar"
+  }
+ ],
+ "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la bioseguridad y la intimidad, la técnica de introducción del espéculo, la toma y la fijación de las muestras del PAP y el tacto bimanual (propuesto, a validar).",
+ "criterios": [
+  {
+   "ico": "🛡️",
+   "titulo": "Información, intimidad y bioseguridad",
+   "pasos": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "ico": "🔬",
+   "titulo": "Introducción del espéculo y ubicación del cuello",
+   "pasos": [
+    10,
+    11,
+    12,
+    16
+   ]
+  },
+  {
+   "ico": "🧫",
+   "titulo": "Toma del PAP: exocérvix, endocérvix y fijación",
+   "pasos": [
+    13,
+    14,
+    15
+   ]
+  },
+  {
+   "ico": "🖐️",
+   "titulo": "Tacto vaginal bimanual",
+   "pasos": [
+    19,
+    20
+   ]
+  },
+  {
+   "ico": "🗑️",
+   "titulo": "Descarte de material y guantes",
+   "pasos": [
+    22
+   ]
+  }
+ ],
+ "final_criticos": "la información e intimidad, la técnica del espéculo, la toma y fijación del PAP y el tacto bimanual"
+}

@@ -303,3 +303,194 @@ TIPOS.gesto = (visor, ins, cfg, C) => {
   };
   C.inst.push(ent);
 };
+
+// ---------------------------------------------------------------- GIN: examen ginecológico (espéculo, toma de PAP, tacto bimanual)
+const svgExterna = (c) => {
+  const lesion = c.vulva === 'lesion' ? '<g class="lesion"><circle cx="76" cy="104" r="4.2"/><circle cx="84" cy="112" r="3.2"/><circle cx="68" cy="112" r="3.4"/></g>' : '';
+  const flujo = c.vulva === 'leucorrea' || c.pared === 'candidiasis' ? '<path class="flujo" d="M92 132 C100 148 108 148 112 130 C106 140 98 140 92 132Z"/>' : '';
+  return `<svg viewBox="0 0 200 200" class="sv-ext">
+  <ellipse cx="100" cy="100" rx="94" ry="94" class="piel"/>
+  <g class="vello">${Array.from({ length: 36 }, (_, i) => `<circle cx="${70 + (i * 17) % 60}" cy="${22 + (i * 11) % 34}" r="1.4"/>`).join('')}</g>
+  <path class="mayor" d="M100 44 C60 52 58 120 80 160 C88 172 96 168 100 156 Z"/><path class="mayor" d="M100 44 C140 52 142 120 120 160 C112 172 104 168 100 156 Z"/>
+  <g class="menores"><path class="menor izq" d="M100 70 C80 76 80 118 92 144 C96 150 100 146 100 138 Z"/><path class="menor der" d="M100 70 C120 76 120 118 108 144 C104 150 100 146 100 138 Z"/></g>
+  <ellipse class="introito" cx="100" cy="118" rx="9" ry="16"/><circle class="clitoris" cx="100" cy="76" r="4.2"/><circle class="meato" cx="100" cy="95" r="2.6"/>
+  <text x="100" y="62" class="et" text-anchor="middle">Monte de Venus</text><text x="150" y="82" class="et">Clítoris</text><text x="150" y="124" class="et">Introito</text><text x="150" y="150" class="et">Horquilla</text>
+  ${lesion}${flujo}
+  <g class="dedos"><ellipse class="dedo" cx="52" cy="104" rx="20" ry="7" transform="rotate(-20 52 104)"/><ellipse class="dedo" cx="148" cy="104" rx="20" ry="7" transform="rotate(20 148 104)"/></g>
+  </svg>`;
+};
+const svgEspecular = (c) => {
+  const cv = c.cervix || 'normal'; const mult = c.parto === 'multipara';
+  const pared = c.pared === 'candidiasis' ? '#f3c9c4' : c.pared === 'atrofica' ? '#f6d0cb' : '#e9857f';
+  const exo = cv === 'atrofia' ? '#f8d5cf' : cv === 'cervicitis' ? '#e0534a' : cv === 'lesion' ? '#e58a86' : '#f0a5ad';
+  const os = mult ? '<rect class="os" x="-14" y="-3" width="28" height="6" rx="3"/>' : '<circle class="os" r="5.4"/>';
+  const extra = cv === 'ectropion' ? '<ellipse class="ectro" rx="24" ry="22"/>' : cv === 'cervicitis' ? '<path class="moco" d="M-16 4 C-6 26 8 26 16 4 C10 16 -8 16 -16 4Z"/><circle class="moco" cx="0" cy="0" r="9" opacity=".7"/>'
+    : cv === 'polipo' ? '<ellipse class="polipo" cx="2" cy="14" rx="7" ry="15"/>' : cv === 'lesion' ? '<path class="friable" d="M-22 -8 C-10 -26 8 -20 20 -6 C26 8 12 22 -4 18 C-18 14 -26 4 -22 -8Z"/><circle class="sangre" cx="6" cy="8" r="3"/><circle class="sangre" cx="-8" cy="4" r="2.4"/>' : '';
+  const placas = c.pared === 'candidiasis' ? Array.from({ length: 16 }, (_, i) => `<ellipse class="placa" cx="${Math.cos(i * 1.7) * 66}" cy="${Math.sin(i * 1.7) * 66}" rx="7" ry="4" transform="rotate(${i * 40} ${Math.cos(i * 1.7) * 66} ${Math.sin(i * 1.7) * 66})"/>`).join('') : '';
+  const rugas = Array.from({ length: 7 }, (_, i) => `<path class="ruga" d="M${-96 + i * 6} ${-30 + i * 10} Q0 ${-70 - i * 4} ${96 - i * 6} ${-30 + i * 10}" fill="none"/>`).join('');
+  return `<svg viewBox="-100 -100 200 200" class="sv-esp"><defs><radialGradient id="svgPared"><stop offset=".4" stop-color="${pared}"/><stop offset="1" stop-color="#8f3a3a"/></radialGradient><clipPath id="svgCirc"><circle r="96"/></clipPath></defs>
+    <g clip-path="url(#svgCirc)"><circle r="100" fill="url(#svgPared)"/>${rugas}${placas}
+    <g class="cervix"><ellipse rx="44" ry="42" fill="${exo}" class="exo"/>${extra}${os}</g>
+    <g class="valvas"><path d="M-100 -98 L100 -98 L100 -62 C40 -80 -40 -80 -100 -62Z"/><path d="M-100 98 L100 98 L100 62 C40 80 -40 80 -100 62Z"/></g>
+    <g class="ayre"><path d="M70 90 L8 8" class="vara"/><path d="M12 12 C-2 6 -4 -6 6 -10 C16 -8 22 4 12 12Z" class="punta"/></g>
+    <g class="cito"><path d="M70 90 L4 6" class="vara2"/><g class="cerdas">${Array.from({ length: 12 }, (_, i) => `<path d="M${4 - i * 0.6} ${6 - i * 1.6} l${i % 2 ? 7 : -7} ${i % 2 ? -3 : 3}"/>`).join('')}</g></g>
+    <g class="spray">${Array.from({ length: 14 }, (_, i) => `<circle cx="${-30 + i * 6}" cy="${-10 + (i % 3) * 8}" r="${1.4 + (i % 4)}"/>`).join('')}</g></g></svg>`;
+};
+TIPOS.gin = (visor, ins, cfg, C) => {
+  const A = cfg.gin; const I = V(...A.introito), O = V(...A.os);
+  const curva = new THREE.CatmullRomCurve3([I, V(...A.p1), V(...A.p2), O]); const LARGO = curva.getLength();
+  const raiz = new THREE.Group(); C.capas.sonda.add(raiz);
+  const mVag = visor.material('#f1a9b8', 0.34, 'organos', { roughness: 0.55, clearcoat: 0.3, emissive: 0x8a3b52, emissiveIntensity: 0.18 });
+  const vag = new THREE.Mesh(new THREE.TubeGeometry(curva, 36, A.radio, 20, false), mVag); vag.renderOrder = 2; C.capas.organos.add(vag); vag.userData.capa = 'organos';
+  const mEsp = visor.material('#d6eef7', 0.5, 'sonda', { roughness: 0.2, clearcoat: 0.8, emissive: 0x6bb7d6, emissiveIntensity: 0.28, depthWrite: true });
+  const mEspB = visor.material('#7dd3fc', 0.95, 'sonda', { roughness: 0.3, emissive: 0x0284c7, emissiveIntensity: 0.45, depthWrite: true });
+  // espéculo bivalvo: dos valvas semicilíndricas con bisagra, mango y tornillo
+  const esp = new THREE.Group(); raiz.add(esp); esp.visible = false; const LV = 8.2, RV = 1.2;
+  const valva = (sup) => { const g = new THREE.CylinderGeometry(RV, RV * 0.95, LV, 24, 1, true, sup ? 0 : Math.PI, Math.PI); g.rotateX(Math.PI / 2); g.translate(0, 0, LV / 2); const m = new THREE.Mesh(g, mEsp); m.renderOrder = 6; const piv = new THREE.Group(); piv.add(m); esp.add(piv); return piv; };
+  const vSup = valva(true), vInf = valva(false);
+  const mango = new THREE.Group(); esp.add(mango); [-1, 1].forEach((s) => { const b = new THREE.Mesh(new RoundedBoxGeometry(0.9, 8, 1.1, 3, 0.3), mEspB); b.position.set(0, -4.6 * 1 + (s > 0 ? 0 : 0), -1.2); b.rotation.x = 0; b.position.y = -4.2; b.position.x = s * 0.55; mango.add(b); });
+  const tor = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 3.6, 12), mEspB); tor.rotation.z = Math.PI / 2; tor.position.set(0, 0.2, -2.2); mango.add(tor);
+  [esp].forEach((g) => g.traverse((m) => { if (m.isMesh) m.renderOrder = 6; }));
+  // instrumentos de toma de muestra: espátula de Ayre y citobrush
+  const mMad = visor.material('#e7c590', 0.98, 'sonda', { roughness: 0.6, emissive: 0x6b4a1a, emissiveIntensity: 0.2, depthWrite: true });
+  const ayre = new THREE.Group(); { const v = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.18, 14), mMad); v.position.z = -7; ayre.add(v); const p = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.2, 2.2), mMad); p.position.z = 0.4; ayre.add(p); } ayre.visible = false; raiz.add(ayre);
+  const cito = new THREE.Group(); { const v = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 14, 8), mEspB); v.rotation.x = Math.PI / 2; v.position.z = -7; cito.add(v); for (let i = 0; i < 24; i++) { const a = i * 0.9; const c = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.9, 4), mMad); c.position.set(Math.cos(a) * 0.4, Math.sin(a) * 0.4, 0.2 + (i % 8) * 0.18); c.rotation.set(Math.sin(a) * 1.4, 0, -Math.cos(a) * 1.4); cito.add(c); } } cito.visible = false; raiz.add(cito);
+  // dedos del tacto (índice y medio) y manos
+  const mG = visor.material('#72c9f2', 0.97, 'sonda', { roughness: 0.34, clearcoat: 0.5, emissive: 0x0b4f78, emissiveIntensity: 0.16, depthWrite: true });
+  const dedos = new THREE.Group(); raiz.add(dedos); dedos.visible = false; const dx = [-0.55, 0.55].map((x) => { const d = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 7, 6, 12), mG); d.rotation.x = Math.PI / 2; d.position.x = x; d.renderOrder = 7; dedos.add(d); return d; });
+  const mano = crearMano(mG, 1); mano.visible = false; raiz.add(mano); const manoAb = crearMano(mG, -1); manoAb.visible = false; raiz.add(manoAb);
+  mano.traverse((o) => { if (o.isMesh) o.renderOrder = 7; }); manoAb.traverse((o) => { if (o.isMesh) o.renderOrder = 7; });
+  // inset de vista (externa / especular)
+  const vista = document.createElement('div'); vista.className = 'sim-vista'; vista.innerHTML = '<div class="sv-tit"></div><div class="sv-cont"></div><div class="sv-cap"></div>'; C.vp.appendChild(vista);
+  const portas = document.createElement('div'); portas.className = 'sim-portas'; portas.innerHTML = '<div class="pt"><i class="pt-1"></i><small>Exocérvix</small></div><div class="pt"><i class="pt-2"></i><small>Endocérvix</small></div><div class="pt-fijador">FIJADO</div>'; C.vp.appendChild(portas);
+  let caso0 = null; const ent = { tipo: 'gin', st: {}, cat: { goal: 0 } };
+  ent.sync = (has, raizEl) => { ent.raiz = raizEl || ent.raiz; const c = ins.clases; ent.st = {}; Object.keys(c).forEach((k) => { ent.st[k] = has(c[k]); }); };
+  const punto = (d) => { if (d <= 0) { const t = curva.getTangentAt(0); return I.clone().addScaledVector(t, d); } return curva.getPointAt(Math.min(1, d / LARGO)); };
+  const tang = (d) => curva.getTangentAt(clamp(d / LARGO, 0, 1));
+  let ultimo = 0, prof = -14, roll = -Math.PI / 2, abre = 0, modo = '', cid = null, tAyre = 0, tCito = 0, mA = 0, tFija = 0;
+  const colocar = (g, d, rollang, extra = 0) => {
+    const T = tang(d); const x = V(1, 0, 0).sub(T.clone().multiplyScalar(T.x)).normalize(); const y = new THREE.Vector3().crossVectors(T, x).normalize();
+    const m = new THREE.Matrix4().makeBasis(x, y, T); g.quaternion.setFromRotationMatrix(m); g.rotateZ(rollang); g.position.copy(punto(d));
+  };
+  ent.tick = (t) => {
+    if (!ent.raiz) return; const dt = ultimo ? Math.min(0.1, (t - ultimo) / 1000) : 0.016; ultimo = t; const s = ent.st; const c = ent.raiz.__caso || {};
+    if (!c.id) return; if (cid !== c.id) { cid = c.id; }
+    const k = easeK(dt, 3.2);
+    // espéculo
+    const fase = s.retira ? 'fuera' : s.esp ? 'dentro' : 'antes';
+    const dMeta = s.retira ? -14 : s.esp ? Math.min(LARGO - 1.0, 7.4) : -14;
+    prof = lerp(prof, dMeta, easeK(dt, s.retira ? 1.6 : 1.8)); roll = lerp(roll, s.esp && !s.retira ? 0 : -Math.PI / 2, easeK(dt, 1.8));
+    const abMeta = s.valvas && !s.cierra ? 0.34 : 0; abre = lerp(abre, abMeta, easeK(dt, 3));
+    esp.visible = (s.esp && prof > -13) || prof > -13; if (!s.esp) esp.visible = false;
+    colocar(esp, prof, roll); vSup.rotation.x = -abre; vInf.rotation.x = abre;
+    if (!s.esp) esp.visible = false;
+    // herramientas
+    const usaAyre = s.ayre && !s.cito, usaCito = s.cito && !s.fija && !s.retira;
+    tAyre = usaAyre ? tAyre + dt : 0; tCito = usaCito ? tCito + dt : 0;
+    ayre.visible = usaAyre && s.valvas; cito.visible = usaCito && s.valvas;
+    if (ayre.visible) { const d = Math.min(LARGO - 0.4, 3 + Math.min(1, tAyre * 0.8) * (LARGO - 3.4)); colocar(ayre, d, tAyre * 3.2); }
+    if (cito.visible) { const d = Math.min(LARGO - 0.2, 3 + Math.min(1, tCito * 0.8) * (LARGO - 3.2)); colocar(cito, d, Math.sin(tCito * 3) * 1.1); }
+    // tacto bimanual: dedos dentro de la vagina + mano abdominal sobre el hipogastrio
+    const bim = s.bimd && !s.bimr; dedos.visible = bim;
+    if (bim) { const d = lerp(0, LARGO - 1.0, clamp((t % 4000) / 1600, 0, 1)); colocar(dedos, d - 4.2, 0); }
+    mano.visible = false; manoAb.visible = false;
+    const yH = 7.6; const zH = (A.hipogastrio || [0, 7.6, 7.2])[2];
+    if (s.bima && !s.bimr) { manoAb.visible = true; manoAb.pose('plana'); const pr = 0.4 * Math.sin(t / 380); manoAb.position.set(-1.3, yH, zH + 0.9 - pr * 0.5); manoAb.quaternion.setFromEuler(new THREE.Euler(-Math.PI / 2 + 0.35, 0, Math.PI)); manoAb.scale.setScalar(1); }
+    if (s.abre2 && !s.bimd) { mano.visible = true; mano.pose('pinza', 0.8); const o = I.clone().add(V(2.5, -3, 4)); mano.position.copy(o); mano.quaternion.setFromEuler(new THREE.Euler(-0.9, 2.4, 0)); }
+    if (s.abre && !s.esp) { mano.visible = true; mano.pose('pinza', 0.8); const o = I.clone().add(V(2.5, -3, 4)); mano.position.copy(o); mano.quaternion.setFromEuler(new THREE.Euler(-0.9, 2.4, 0)); }
+    // útero resalta durante el tacto bimanual
+    const ms = C.hsMeshes && C.hsMeshes.utero; if (ms) ms.forEach((m) => { if (m.material && m.material.emissive) { m.material.emissive.set(bim && s.bima ? 0xf43f5e : 0x7a2e45); m.material.emissiveIntensity = bim && s.bima ? 0.5 + 0.3 * Math.sin(t / 240) : 0.12; } });
+    // inset
+    let m = ''; if (s.vulva && !s.esp) m = 'ext'; if (s.valvas && !s.retira) m = 'esp'; if (s.abre2 && !s.bimd) m = m || 'ext';
+    if (m !== modo || caso0 !== c.id) { modo = m; caso0 = c.id; const cont = vista.querySelector('.sv-cont'); vista.dataset.on = m ? '1' : '0';
+      if (m === 'ext') { cont.innerHTML = svgExterna(c); vista.querySelector('.sv-tit').textContent = 'Vista externa · genitales'; }
+      else if (m === 'esp') { cont.innerHTML = svgEspecular(c); vista.querySelector('.sv-tit').textContent = 'Vista especular · cuello uterino'; }
+      else cont.innerHTML = ''; }
+    const ve = vista.querySelector('svg'); if (ve) {
+      ve.classList.toggle('abierta', !!(s.abre || s.abre2)); ve.classList.toggle('ayre-on', usaAyre); ve.classList.toggle('cito-on', usaCito); ve.classList.toggle('spray-on', !!s.fija && !s.retira); ve.classList.toggle('con-valvas', !!s.valvas); }
+    vista.querySelector('.sv-cap').textContent = m === 'esp' ? (s.cuello ? c.vista_txt || '' : 'Valvas separadas: ubicá el cuello') : (m === 'ext' ? c.ext_txt || '' : '');
+    portas.dataset.s1 = s.ayre ? '1' : '0'; portas.dataset.s2 = s.cito ? '1' : '0'; portas.dataset.fij = s.fija ? '1' : '0'; portas.style.display = s.ayre ? '' : 'none';
+    anclar(C, cfg, 'cuello', O.clone().add(V(0, 0.4, 0.4))); anclar(C, cfg, 'introito', I.clone());
+  };
+  C.inst.push(ent);
+};
+
+// ---------------------------------------------------------------- MAM: examen mamario (inspección, palpación por cuadrantes, expresión del pezón, autoexamen)
+const CUADR = { CSE: [-1, 1], CSI: [1, 1], CIE: [-1, -1], CII: [1, -1] };   // [lado: -1 externo (según la mama), arriba/abajo]
+TIPOS.mam = (visor, ins, cfg, C) => {
+  const M = cfg.mam; const R = M.R || 7.5; const TH = M.th || 0.95;
+  const raiz = new THREE.Group(); C.capas.sonda.add(raiz);
+  const mat = (c, o, ex) => visor.material(c, o, 'organos', Object.assign({ roughness: 0.5, clearcoat: 0.3 }, ex || {}));
+  const mGl = mat('#f3d9a4', 0.5, { emissive: 0xb9893a, emissiveIntensity: 0.18 }); const mNod = mat('#c0392b', 0.95, { emissive: 0x7f1d1d, emissiveIntensity: 0.35, depthWrite: true });
+  const mAr = visor.material('#b9715a', 0.98, 'piel', { roughness: 0.6, clearcoat: 0.1, depthWrite: true }); const mPe = visor.material('#a45a47', 0.98, 'piel', { roughness: 0.6, clearcoat: 0.1, depthWrite: true });
+  const mMo = visor.material('#d9a28f', 0.98, 'piel', { depthWrite: true }); const mVen = visor.material('#5b8def', 0.8, 'piel', { emissive: 0x1d4ed8, emissiveIntensity: 0.3, depthWrite: true });
+  const lados = [{ id: 'D', c: V(...M.pezon_d), lado: -1 }, { id: 'I', c: V(...M.pezon_i), lado: 1 }];
+  const pt = (L, th, ph, r = R) => V(L.c.x + r * Math.sin(th) * Math.cos(ph), L.c.y + r * Math.sin(th) * Math.sin(ph), L.c.z - R + r * Math.cos(th));
+  const nrm = (L, th, ph) => V(Math.sin(th) * Math.cos(ph), Math.sin(th) * Math.sin(ph), Math.cos(th));
+  // por mama: glándula, areola, pezón, tubérculos de Montgomery, red venosa de Haller, parches de piel y nódulo
+  lados.forEach((L) => {
+    const g = new THREE.Group(); g.position.copy(L.c); g.position.z -= R; raiz.add(g); L.g = g;
+    const gl = new THREE.Group(); g.add(gl); L.gl = gl;
+    for (let i = 0; i < 26; i++) { const th = Math.acos(1 - Math.random() * (1 - Math.cos(TH * 0.9))), ph = Math.random() * 6.283; const r = R * (0.45 + Math.random() * 0.4); const lob = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 8), mGl); lob.position.set(r * Math.sin(th) * Math.cos(ph), r * Math.sin(th) * Math.sin(ph), r * Math.cos(th)); lob.scale.setScalar(0.8 + Math.random() * 0.9); gl.add(lob); }
+    const dctos = new THREE.Group(); gl.add(dctos);
+    for (let i = 0; i < 9; i++) { const ph = i * 0.7; const pts = [V(0, 0, R * 0.98), V(2.5 * Math.cos(ph), 2.5 * Math.sin(ph), R * 0.8), V(4.4 * Math.cos(ph), 4.4 * Math.sin(ph), R * 0.55)]; const t = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 10, 0.09, 6, false), mGl); dctos.add(t); }
+    const are = new THREE.Mesh(new THREE.CircleGeometry(2.0, 36), mAr); are.position.z = R + 0.05; are.renderOrder = 4; g.add(are); L.are = are;
+    const nip = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.55, 0.9, 16), mPe); nip.rotation.x = Math.PI / 2; nip.position.z = R + 0.45; nip.renderOrder = 5; g.add(nip); L.nip = nip;
+    for (let i = 0; i < 8; i++) { const a = i * 0.8; const m = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 6), mMo); m.position.set(Math.cos(a) * 1.4, Math.sin(a) * 1.4, R + 0.1); m.renderOrder = 5; g.add(m); }
+    const ven = new THREE.Group(); ven.visible = false; g.add(ven); L.ven = ven;
+    for (let i = 0; i < 6; i++) { const ph = i * 1.05 + 0.3; const pts = []; for (let k = 0; k <= 8; k++) { const th = 0.28 + k * 0.08; const pp = pt({ c: V(0, 0, R) }, th, ph + Math.sin(k) * 0.12, R + 0.1); pts.push(pp.sub(V(0, 0, R)).add(V(0, 0, 0))); } ven.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 16, 0.06, 5, false), mVen)); }
+    const nod = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), mNod); nod.visible = false; nod.renderOrder = 6; g.add(nod); L.nod = nod;
+    const naranja = new THREE.Mesh(new THREE.SphereGeometry(R + 0.12, 32, 20, 0, Math.PI * 2, 0, TH), visor.material('#d9892b', 0.0, 'piel', { roughness: 1, clearcoat: 0, depthWrite: false })); naranja.visible = false; naranja.renderOrder = 4; g.add(naranja); L.piel = naranja;
+    const gotas = []; for (let i = 0; i < 6; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry(0.22, 10, 8), mat('#fff7e0', 0.95, { emissive: 0xfff7e0, emissiveIntensity: 0.5, depthWrite: true })); d.visible = false; d.renderOrder = 7; g.add(d); gotas.push(d); } L.gotas = gotas;
+    L.g.traverse((m) => { if (m.isMesh) m.userData.capa = m.userData.capa || 'organos'; });
+  });
+  const mG = visor.material('#72c9f2', 0.98, 'sonda', { roughness: 0.34, clearcoat: 0.55, emissive: 0x0b4f78, emissiveIntensity: 0.16, depthWrite: true });
+  const mano = crearMano(mG, 1); mano.traverse((o) => { if (o.isMesh) o.renderOrder = 9; }); mano.visible = false; raiz.add(mano);
+  const mano2 = crearMano(mG, -1); mano2.traverse((o) => { if (o.isMesh) o.renderOrder = 9; }); mano2.visible = false; raiz.add(mano2);
+  // HUD: mapa de cuadrantes de ambas mamas + postura
+  const hud = document.createElement('div'); hud.className = 'sim-hud mam';
+  const mapa = (id, lado) => `<div class="mm" data-m="${id}"><b>${id === 'D' ? 'Mama derecha' : 'Mama izquierda'}</b><svg viewBox="-60 -60 120 120"><circle r="50" class="borde"/><path class="q q-CSE" d="M0 0 L${lado === -1 ? '-' : ''}50 0 A50 50 0 0 ${lado === -1 ? 1 : 0} 0 -50Z"/><path class="q q-CSI" d="M0 0 L${lado === -1 ? '' : '-'}50 0 A50 50 0 0 ${lado === -1 ? 0 : 1} 0 -50Z"/><path class="q q-CIE" d="M0 0 L${lado === -1 ? '-' : ''}50 0 A50 50 0 0 ${lado === -1 ? 0 : 1} 0 50Z"/><path class="q q-CII" d="M0 0 L${lado === -1 ? '' : '-'}50 0 A50 50 0 0 ${lado === -1 ? 1 : 0} 0 50Z"/><circle r="9" class="areola"/><circle r="3" class="pez"/><circle class="nodulo" r="4" cx="0" cy="0"/><circle class="axila" r="5" cx="${lado === -1 ? -56 : 56}" cy="-34"/></svg><small class="mm-t"></small></div>`;
+  hud.innerHTML = `<div class="sim-postura" data-on="0"><svg viewBox="0 0 100 120"><circle cx="50" cy="18" r="10"/><path d="M50 28 L50 70 M50 36 L30 58 M50 36 L70 58 M50 70 L38 106 M50 70 L62 106"/><g class="arms-alto"><path d="M50 36 L28 10 M50 36 L72 10"/></g></svg><span></span></div><div class="sim-mapas" data-on="0">${mapa('D', -1)}${mapa('I', 1)}</div>`;
+  C.vp.appendChild(hud); const post = hud.querySelector('.sim-postura'), mapas = hud.querySelector('.sim-mapas');
+  const ent = { tipo: 'mam', st: {}, cat: { goal: 0 } }; let ultimo = 0, t0 = 0, cid = null, tAuto = 0, sec = 0;
+  ent.sync = (has, raizEl) => { ent.raiz = raizEl || ent.raiz; const c = ins.clases; ent.st = {}; Object.keys(c).forEach((k) => { ent.st[k] = has(c[k]); }); };
+  // dirección de cada cuadrante (ángulo en el plano x-y del pezón; +x = izquierda de la paciente)
+  const ANG = (L, q) => { const ext = q.endsWith('E') ? -1 : +1; /* externo = hacia el costado de esa mama */ const lateral = L.lado === -1 ? -1 : 1; const dx = lateral * (q.endsWith('E') ? 1 : -1); const dy = q.startsWith('CS') ? 1 : -1; return Math.atan2(dy * 0.8, dx); };
+  ent.tick = (t) => {
+    if (!ent.raiz) return; const dt = ultimo ? Math.min(0.1, (t - ultimo) / 1000) : 0.016; ultimo = t; const s = ent.st; const c = ent.raiz.__caso || {}; if (!c.id) return;
+    // configuración de nódulos, piel y pezón por caso
+    if (cid !== c.id) { cid = c.id; lados.forEach((L) => { const afecta = (c.lado || 'D') === L.id; const nod = L.nod; nod.visible = !!(afecta && c.nod_tam);
+      if (nod.visible) { const q = c.cuadrante || 'CSE'; const th = (q === 'retroareolar' ? 0.12 : 0.55), ph = ANG(L, q === 'retroareolar' ? 'CSE' : q); const r = R * 0.8; nod.position.set(r * Math.sin(th) * Math.cos(ph), r * Math.sin(th) * Math.sin(ph), r * Math.cos(th)); nod.scale.setScalar(Math.max(0.5, c.nod_tam / 2)); nod.material.color.set(c.nod_duro ? '#7f1d1d' : '#c0392b'); }
+      L.ven.visible = !!(afecta && c.venas); L.piel.visible = !!(afecta && (c.piel === 'naranja' || c.piel === 'eritema')); if (L.piel.visible) { L.piel.material.color.set(c.piel === 'eritema' ? '#e11d48' : '#d9892b'); L.piel.material.opacity = 0.0; L.piel.userData.base = c.piel === 'eritema' ? 0.35 : 0.3; }
+      L.nip.position.z = R + (afecta && c.pezon === 'retraido' ? 0.05 : 0.45); L.nip.scale.set(1, afecta && c.pezon === 'retraido' ? 0.35 : 1, 1); }); }
+    // postura y mapas
+    post.dataset.on = (s.posA && !s.palp) ? '1' : '0'; post.querySelector('.arms-alto').style.opacity = s.brazos ? 1 : 0; post.querySelector('span').textContent = s.brazos ? 'Brazos en alto' : 'Manos en la cintura';
+    mapas.dataset.on = (s.palp || s.auto) ? '1' : '0';
+    // palpación: 4 cuadrantes por mama, mama derecha y luego izquierda
+    const iniciando = s.palp && !s.pezon; if (iniciando && !t0) t0 = t; if (!s.palp) t0 = 0;
+    mano.visible = false; mano2.visible = false; lados.forEach((L) => { L.gotas.forEach((d) => { d.visible = false; }); });
+    const Q = ['CSE', 'CSI', 'CII', 'CIE']; const DUR = 2200; const tr = t0 ? t - t0 : 0; const total = DUR * 8;
+    const info = {}; if (s.palp) { const k = Math.floor(clamp(tr, 0, total - 1) / DUR); const fq = (clamp(tr, 0, total - 1) % DUR) / DUR; const L = lados[k < 4 ? 0 : 1]; const q = Q[k % 4];
+      if (tr < total && !s.pezon) { const th = clamp(fq < 0.5 ? fq * 2 : (1 - fq) * 2, 0.05, 1) * 0.82 * TH; const ph = ANG(L, q) + Math.sin(fq * 14) * 0.22; const p = pt(L, th, ph, R + 0.5); const n = nrm(L, th, ph);
+        mano.visible = true; mano.pose('plana'); const f = V(Math.cos(ph), Math.sin(ph), 0); colocarManoSup(mano, p, n, f); }
+      lados.forEach((Lx, li) => Q.forEach((qq, qi) => { const idx = li * 4 + qi; const prog = tr >= (idx + 1) * DUR || s.pezon; const act = Math.floor(tr / DUR) === idx && tr < total && !s.pezon; const el = mapas.querySelector(`[data-m="${Lx.id}"] .q-${qq}`); el.classList.toggle('hecho', !!prog); el.classList.toggle('act', !!act); })); }
+    mapas.querySelectorAll('.mm').forEach((mm) => { const id = mm.dataset.m; const afecta = (c.lado || 'D') === id; const nodo = mm.querySelector('.nodulo'); const qq = c.cuadrante || 'CSE'; const L = lados.find((x) => x.id === id);
+      const hecho = (qs) => mm.querySelector('.q-' + qs) && mm.querySelector('.q-' + qs).classList.contains('hecho'); const vis = afecta && c.nod_tam && (qq === 'retroareolar' ? hecho('CSE') : hecho(qq)); nodo.style.opacity = vis ? 1 : 0;
+      if (vis) { const a = ANG(L, qq === 'retroareolar' ? 'CSE' : qq); const rr = qq === 'retroareolar' ? 0 : 27; nodo.setAttribute('cx', Math.cos(a) * rr); nodo.setAttribute('cy', -Math.sin(a) * rr); nodo.setAttribute('r', Math.max(3, c.nod_tam * 1.6)); }
+      mm.querySelector('.axila').style.opacity = (afecta && c.adenopatia && (s.brazos || s.palp)) ? 1 : 0; mm.querySelector('.mm-t').textContent = (afecta && vis) ? (c.nod_txt || '') : (s.palp ? '' : ''); });
+    // pezón: presión con pulgar e índice, secreción y movilidad
+    if (s.pezon && !s.auto) { const L = lados.find((x) => x.id === (c.lado || 'D')) || lados[0]; const p = pt(L, 0.02, 0, R + 0.9); mano.visible = true; mano.pose('pinza', 0.9); colocarManoSup(mano, p, V(0, 0.2, 1).normalize(), V(0, 1, 0.1)); }
+    const sc = c.secrecion; lados.forEach((L) => { const afecta = c.sec_bilateral || (c.lado || 'D') === L.id; if (s.secr && sc && sc !== 'ninguna' && afecta) { sec += dt; L.gotas.forEach((d, i) => { const ph = (sec * 0.8 + i / L.gotas.length) % 1; d.visible = true; d.position.set((i - 2.5) * 0.06, -ph * 2.6, R + 0.6 + ph * 0.3); d.material.color.set(sc === 'hematica' ? '#8b0000' : sc === 'purulenta' ? '#d8c24a' : sc === 'lechosa' ? '#fffdf0' : '#e5e5c8'); d.material.emissive.set(sc === 'hematica' ? '#4a0000' : '#fff7e0'); d.scale.setScalar(1 - ph * 0.5); }); } });
+    lados.forEach((L) => { const mov = s.movil && (c.lado || 'D') === L.id; const fija = c.pezon === 'retraido' || c.adherido; L.are.position.z = R + 0.05 + (mov && !fija ? 0.5 * Math.sin(t / 260) ** 2 : 0); L.nip.position.z += 0; if (L.piel.visible) L.piel.material.opacity = (L.piel.userData.base || 0.3) * (s.tam ? 1 : 0.0); });
+    // autoexamen: patrones de palpación (círculos / líneas verticales / cuña)
+    if (s.auto) { tAuto += dt; const L = lados[0]; const patron = Math.floor(tAuto / 4) % 3; const f = (tAuto % 4) / 4; let th = 0.1, ph = 0; if (patron === 0) { th = 0.8 * TH * (0.15 + 0.85 * f); ph = f * 18; } else if (patron === 1) { const xx = -0.8 + (Math.floor(f * 4) / 3) * 1.6; ph = xx > 0 ? 0 : 3.14; th = 0.2 + Math.abs(xx) * 0.5 + 0.35 * Math.abs(Math.sin(f * 24)); } else { ph = f * 6.28; th = 0.5 * TH * (Math.floor(f * 6) % 2 ? 1 : 0.2) + 0.1; }
+      const p = pt(L, th, ph, R + 0.5); mano2.visible = true; mano2.pose('plana'); colocarManoSup(mano2, p, nrm(L, th, ph), V(Math.cos(ph), Math.sin(ph), 0)); } else tAuto = 0;
+    lados.forEach((L) => { L.g.visible = true; });
+    anclar(C, cfg, 'pezonD', lados[0].c.clone().add(V(0, 0, 0.6))); anclar(C, cfg, 'pezonI', lados[1].c.clone().add(V(0, 0, 0.6)));
+  };
+  C.inst.push(ent);
+};
+function colocarManoSup(mano, p, n, f) {
+  const fd = f.clone().sub(n.clone().multiplyScalar(f.dot(n))).normalize(); const yA = n.clone().negate(); const xA = new THREE.Vector3().crossVectors(yA, fd).normalize();
+  mano.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(xA, yA, fd)); mano.position.copy(p).addScaledVector(n, 0.35);
+}
