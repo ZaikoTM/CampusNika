@@ -1,0 +1,55 @@
+{
+ "area": "cir",
+ "nombre": "Cirugía · Introducción a las especialidades clínico-quirúrgicas",
+ "acreditaciones": [
+  {
+   "id": "lav",
+   "titulo": "Lavado de manos quirúrgico y guantes",
+   "icono": "🧼",
+   "pasos": 22,
+   "estado": "activo"
+  },
+  {
+   "id": "parac",
+   "titulo": "Paracentesis (diagnóstica y evacuadora)",
+   "icono": "💉",
+   "pasos": 50,
+   "estado": "proximamente"
+  },
+  {
+   "id": "ost",
+   "titulo": "Cuidado de ostomías",
+   "icono": "🩹",
+   "pasos": 11,
+   "estado": "proximamente"
+  },
+  {
+   "id": "vaer",
+   "titulo": "Taller de vía aérea",
+   "icono": "🫁",
+   "pasos": 13,
+   "estado": "proximamente"
+  },
+  {
+   "id": "eco",
+   "titulo": "Lectura de ecografía de abdomen",
+   "icono": "🔊",
+   "pasos": 11,
+   "estado": "proximamente"
+  },
+  {
+   "id": "rxab",
+   "titulo": "Lectura de Rx de abdomen",
+   "icono": "🩻",
+   "pasos": 16,
+   "estado": "proximamente"
+  },
+  {
+   "id": "mano",
+   "titulo": "Lectura de manometría",
+   "icono": "📈",
+   "pasos": 10,
+   "estado": "proximamente"
+  }
+ ]
+}

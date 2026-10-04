@@ -1,0 +1,311 @@
+{
+ "id": "lav",
+ "titulo": "Antequirófano · Lavado quirúrgico",
+ "consigna": "Preparás el antequirófano para el lavado quirúrgico y el enguantado: vestimenta, jabón antiséptico, cepillo, compresas y guantes estériles. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "lavado quirúrgico",
+ "indicacion_def": "Lavado quirúrgico y guantes estériles.",
+ "mision": [
+  "qué barrera y qué insumos estériles hacen falta;",
+  "qué elementos no corresponden a un lavado quirúrgico."
+ ],
+ "demo_caso": "Primero se lee el caso: una alergia al látex cambia los guantes que corresponden.",
+ "grupos": [
+  {
+   "id": "vest",
+   "titulo": "Vestimenta"
+  },
+  {
+   "id": "lavado",
+   "titulo": "Lavado y secado"
+  },
+  {
+   "id": "guantes",
+   "titulo": "Guantes estériles"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "ambo_q",
+   "grupo": "vest",
+   "nombre": "Ambo quirúrgico",
+   "detalle": "Limpio, de uso exclusivo",
+   "img": "assets/instrumental/ambo_q.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Pantalón y chaqueta de uso exclusivo del área quirúrgica.",
+   "ficha": [
+    [
+     "Uso",
+     "Barrera"
+    ]
+   ],
+   "falta": "Falta el ambo quirúrgico."
+  },
+  {
+   "id": "gorro_q",
+   "grupo": "vest",
+   "nombre": "Gorro quirúrgico",
+   "detalle": "Cubre todo el cabello",
+   "img": "assets/instrumental/gorro_q.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Evita la caída de cabello y partículas al campo.",
+   "ficha": [
+    [
+     "Uso",
+     "Barrera"
+    ]
+   ],
+   "falta": "Falta el gorro quirúrgico."
+  },
+  {
+   "id": "barbijo_q",
+   "grupo": "vest",
+   "nombre": "Barbijo quirúrgico",
+   "detalle": "Cubre nariz y boca",
+   "img": "assets/instrumental/barbijo_q.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Barrera para las gotitas de la vía aérea.",
+   "ficha": [
+    [
+     "Uso",
+     "Barrera"
+    ]
+   ],
+   "falta": "Falta el barbijo."
+  },
+  {
+   "id": "botas_q",
+   "grupo": "vest",
+   "nombre": "Botas o cofia para el calzado",
+   "detalle": "Descartables",
+   "img": "assets/instrumental/botas_q.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Cubren el calzado al ingresar al área quirúrgica.",
+   "ficha": [
+    [
+     "Uso",
+     "Barrera"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "jabon_antiseptico",
+   "grupo": "lavado",
+   "nombre": "Jabón antiséptico con dosificador",
+   "detalle": "Clorhexidina o povidona yodada",
+   "img": "assets/instrumental/jabon_antiseptico.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Jabón líquido antiséptico de un dosificador, sin tocar el pico con las manos.",
+   "ficha": [
+    [
+     "Uso",
+     "Lavado"
+    ]
+   ],
+   "falta": "Falta el jabón antiséptico con dosificador."
+  },
+  {
+   "id": "cepillo_q",
+   "grupo": "lavado",
+   "nombre": "Cepillo estéril con esponja",
+   "detalle": "Descartable",
+   "img": "assets/instrumental/cepillo_q.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para cepillar uñas y dedos y fregar con la esponja.",
+   "ficha": [
+    [
+     "Uso",
+     "Cepillado"
+    ]
+   ],
+   "falta": "Falta el cepillo estéril con esponja."
+  },
+  {
+   "id": "limpiaunas",
+   "grupo": "lavado",
+   "nombre": "Limpiauñas estéril",
+   "detalle": "Palillo",
+   "img": "assets/instrumental/limpiaunas.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para quitar los detritus subungueales.",
+   "ficha": [
+    [
+     "Uso",
+     "Uñas"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "compresas_e",
+   "grupo": "lavado",
+   "nombre": "Compresas estériles",
+   "detalle": "Para secar",
+   "img": "assets/instrumental/compresas_e.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Compresas estériles de un solo uso para el secado.",
+   "ficha": [
+    [
+     "Uso",
+     "Secado"
+    ]
+   ],
+   "falta": "Faltan las compresas estériles para secar."
+  },
+  {
+   "id": "guantes_e",
+   "grupo": "guantes",
+   "nombre": "Guantes estériles (con látex)",
+   "detalle": "Talla 7,5",
+   "img": "assets/instrumental/guantes_e.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Guantes quirúrgicos estériles en paquete.",
+   "ficha": [
+    [
+     "Material",
+     "Látex"
+    ],
+    [
+     "Estéril",
+     "Sí"
+    ]
+   ],
+   "latex": true,
+   "falta": "Faltan los guantes estériles."
+  },
+  {
+   "id": "guantes_sin_latex",
+   "grupo": "guantes",
+   "nombre": "Guantes estériles sin látex",
+   "detalle": "Talla 7,5",
+   "img": "assets/instrumental/guantes_sin_latex.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para el paciente alérgico al látex.",
+   "ficha": [
+    [
+     "Material",
+     "Sin látex"
+    ]
+   ],
+   "solo_alergia": "latex",
+   "falta": "Faltan los guantes estériles sin látex que exige la alergia."
+  },
+  {
+   "id": "alcohol_gel",
+   "grupo": "otros",
+   "nombre": "Alcohol en gel",
+   "detalle": "Higiene de manos",
+   "img": "assets/instrumental/alcohol_gel.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Higiene de manos de rutina.",
+   "ficha": [
+    [
+     "Uso",
+     "Higiene"
+    ]
+   ],
+   "feedback": "El alcohol en gel no reemplaza el lavado quirúrgico con jabón antiséptico y cepillado."
+  },
+  {
+   "id": "jabon_barra",
+   "grupo": "otros",
+   "nombre": "Jabón común en barra",
+   "detalle": "No antiséptico",
+   "img": "assets/instrumental/jabon_barra.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Jabón doméstico.",
+   "ficha": [
+    [
+     "Uso",
+     "Doméstico"
+    ]
+   ],
+   "feedback": "Se usa jabón antiséptico líquido con dosificador; la barra se contamina."
+  },
+  {
+   "id": "toalla_tela",
+   "grupo": "otros",
+   "nombre": "Toalla de tela común",
+   "detalle": "No estéril",
+   "img": "assets/instrumental/toalla_tela.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Toalla de uso general.",
+   "ficha": [
+    [
+     "Estéril",
+     "No"
+    ]
+   ],
+   "feedback": "Las manos lavadas sólo se secan con compresas estériles."
+  },
+  {
+   "id": "estropajo",
+   "grupo": "otros",
+   "nombre": "Estropajo abrasivo",
+   "detalle": "Esponja áspera",
+   "img": "assets/instrumental/estropajo.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Esponja de cocina.",
+   "ficha": [
+    [
+     "Uso",
+     "Limpieza"
+    ]
+   ],
+   "feedback": "El estropajo lesiona la piel; se usa un cepillo estéril con esponja."
+  },
+  {
+   "id": "reloj_anillos",
+   "grupo": "otros",
+   "nombre": "Reloj, anillos y pulsera",
+   "detalle": "Accesorios",
+   "img": "assets/instrumental/reloj_anillos.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Accesorios de las manos.",
+   "ficha": [
+    [
+     "Uso",
+     "Personal"
+    ]
+   ],
+   "feedback": "Los accesorios se retiran antes de lavarse; no forman parte de la mesa."
+  },
+  {
+   "id": "guantes_nitrilo",
+   "grupo": "otros",
+   "nombre": "Guantes de examen no estériles",
+   "detalle": "Caja",
+   "img": "assets/instrumental/guantes_nitrilo.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Para el examen físico.",
+   "ficha": [
+    [
+     "Estéril",
+     "No"
+    ]
+   ],
+   "feedback": "Los guantes de examen no son estériles: no sirven para la cirugía."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

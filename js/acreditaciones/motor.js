@@ -34,7 +34,7 @@
 
   // ------------------------------------------------------------------ listado
   async function vistaLista() {
-    volver.href = area === 'siam' ? 'siam_hub.html' : area === 'sim' ? 'gineco_hub.html' : 'campus.html';
+    volver.href = area === 'siam' ? 'siam_hub.html' : area === 'sim' ? 'gineco_hub.html' : area === 'cir' ? 'cirugia_hub.html' : 'campus.html';
     const idx = await getJSON(`${base}/index.json`);
     const res = leerRes();
     app.innerHTML = `
@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=39'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=40'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);

@@ -1,0 +1,1255 @@
+{
+ "id": "lav",
+ "area": "cir",
+ "titulo": "Lavado de manos quirúrgico y colocación de guantes",
+ "icono": "🧼",
+ "resumen": "Lavado de manos quirúrgico en tres tiempos (3 a 5 minutos), secado estéril con las manos en alto y colocación de guantes estériles sin contaminar, con casos de cirugía programada, alergia al látex y urgencia.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Lavado de manos quirúrgico y colocación de guantes (UP 1, 22 ítems)",
+ "elementos": {
+  "vestimenta": {
+   "nombre": "Vestimenta quirúrgica",
+   "desc": "Ambo, gorro, barbijo y botas o cofia.",
+   "pasos": [
+    1
+   ]
+  },
+  "accesorios": {
+   "nombre": "Accesorios",
+   "desc": "Anillos, pulseras y reloj se retiran antes de lavarse.",
+   "pasos": [
+    2
+   ]
+  },
+  "canilla": {
+   "nombre": "Canilla",
+   "desc": "Agua corriente; se cierra con el codo si es manual.",
+   "pasos": [
+    3,
+    13
+   ]
+  },
+  "manos": {
+   "nombre": "Manos",
+   "desc": "Palmas, dorso, dedos y uñas.",
+   "pasos": [
+    4,
+    7,
+    9,
+    11,
+    12
+   ]
+  },
+  "jabon": {
+   "nombre": "Jabón antiséptico",
+   "desc": "Dosificador, sin tocar el pico.",
+   "pasos": [
+    5
+   ]
+  },
+  "unas": {
+   "nombre": "Uñas",
+   "desc": "Se limpian los detritus y se cepillan.",
+   "pasos": [
+    6
+   ]
+  },
+  "antebrazos": {
+   "nombre": "Antebrazos",
+   "desc": "Lavado circular de distal a proximal.",
+   "pasos": [
+    8,
+    10
+   ]
+  },
+  "compresas": {
+   "nombre": "Compresas estériles",
+   "desc": "Secado de dedos a codo en una sola dirección.",
+   "pasos": [
+    14
+   ]
+  },
+  "guantes": {
+   "nombre": "Guantes estériles",
+   "desc": "Se toman por el doblez y se estiran por completo.",
+   "pasos": [
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Reemplaza el lavado quirúrgico por alcohol en gel",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el lavado quirúrgico de esta lista exige jabón antiséptico, cepillado y enjuague; el gel no lo reemplaza.",
+   "target": "manos",
+   "claves": [
+    [
+     "alcohol en gel"
+    ],
+    [
+     "con gel"
+    ],
+    [
+     "solo alcohol"
+    ],
+    [
+     "friccion con alcohol"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Deja las manos por debajo de los codos después del lavado o se las seca con el ambo",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: las manos bajas dejan escurrir agua contaminada desde el codo y el ambo no es estéril.",
+   "target": "manos",
+   "claves": [
+    [
+     "manos abajo"
+    ],
+    [
+     "manos por debajo del codo"
+    ],
+    [
+     "me seco en el ambo"
+    ],
+    [
+     "me seco con el ambo"
+    ],
+    [
+     "bajo las manos"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Cierra la canilla con la mano",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: tocar la canilla con la mano lavada la contamina; se cierra con el codo.",
+   "target": "canilla",
+   "claves": [
+    [
+     "cierro la canilla con la mano"
+    ],
+    [
+     "cierro con la mano"
+    ],
+    [
+     "con la mano la canilla"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Se seca con una toalla común o de tela no estéril",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: sólo se secan con compresas estériles.",
+   "target": "compresas",
+   "claves": [
+    [
+     "toalla comun"
+    ],
+    [
+     "toalla de tela"
+    ],
+    [
+     "con una toalla"
+    ],
+    [
+     "papel comun"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Se toca el exterior del guante con la mano sin guante",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: contamina el guante; la mano sin guante sólo toca la cara interna del doblez.",
+   "target": "guantes",
+   "claves": [
+    [
+     "toco el exterior"
+    ],
+    [
+     "por fuera con la mano desnuda"
+    ],
+    [
+     "con la mano sin guante el exterior"
+    ],
+    [
+     "toco el guante por fuera"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Se lava durante menos de 3 minutos",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la duración total del lavado quirúrgico debe ser de 3 a 5 minutos.",
+   "target": "manos",
+   "claves": [
+    [
+     "un minuto"
+    ],
+    [
+     "dos minutos"
+    ],
+    [
+     "30 segundos"
+    ],
+    [
+     "menos de 3 minutos"
+    ],
+    [
+     "rapido el lavado"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Conserva anillos, pulseras o reloj durante el lavado",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: bajo las joyas se acumulan gérmenes y el lavado no las alcanza.",
+   "target": "accesorios",
+   "claves": [
+    [
+     "con el reloj puesto"
+    ],
+    [
+     "con el anillo"
+    ],
+    [
+     "sin sacarme el reloj"
+    ],
+    [
+     "no me saco los anillos"
+    ],
+    [
+     "conservo los anillos"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "Vuelve a lavar áreas ya lavadas o sube y baja el cepillo por el antebrazo",
+   "critico": false,
+   "porque": "El lavado va siempre de distal a proximal sin volver sobre zonas ya lavadas.",
+   "target": "antebrazos",
+   "claves": [
+    [
+     "de proximal a distal"
+    ],
+    [
+     "desde el codo hacia la mano"
+    ],
+    [
+     "vuelvo a lavar"
+    ],
+    [
+     "subo y bajo"
+    ]
+   ]
+  },
+  {
+   "id": "d9",
+   "texto": "Apoya los guantes estériles en una superficie no estéril",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el paquete va sobre el campo estéril de la mesa.",
+   "target": "guantes",
+   "claves": [
+    [
+     "sobre la camilla"
+    ],
+    [
+     "sobre una superficie comun"
+    ],
+    [
+     "sobre la mesa sin campo"
+    ],
+    [
+     "en el lavabo"
+    ],
+    [
+     "sobre el carro sin campo"
+    ]
+   ]
+  },
+  {
+   "id": "d10",
+   "texto": "Se toca la cara, el ambo o un objeto no estéril con las manos lavadas",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: cualquier contacto con un objeto no estéril obliga a repetir el lavado.",
+   "target": "manos",
+   "claves": [
+    [
+     "me toco la cara"
+    ],
+    [
+     "toco el ambo"
+    ],
+    [
+     "me rasco"
+    ],
+    [
+     "toco el barbijo"
+    ],
+    [
+     "toco la canilla"
+    ]
+   ]
+  },
+  {
+   "id": "d11",
+   "texto": "Usa guantes con látex en un paciente alérgico al látex",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el látex puede provocar una reacción alérgica grave; se usan guantes sin látex.",
+   "target": "guantes",
+   "claves": [
+    [
+     "guantes de latex"
+    ],
+    [
+     "con latex"
+    ],
+    [
+     "guantes comunes de latex"
+    ]
+   ],
+   "solo_si": "alergia"
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Martín G.",
+   "sexo": "M",
+   "edad": 54,
+   "motivo": "Colecistectomía laparoscópica programada.",
+   "indicacion": "Lavado de manos quirúrgico y colocación de guantes estériles antes de la cirugía.",
+   "antecedentes": "Litiasis vesicular sintomática. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Cirugía programada"
+   ],
+   "h_acc": "Al empezar tenés puesto un reloj, un anillo y una pulsera: hay que retirarlos antes de abrir la canilla.",
+   "h_agua": "La canilla es manual, de palanca: se cierra con el codo.",
+   "h_seca": "La instrumentadora te alcanza compresas estériles dobladas.",
+   "h_g": "El paquete de guantes estériles talla 7,5 está sobre la mesa."
+  },
+  {
+   "id": "c2",
+   "nombre": "Ana P.",
+   "sexo": "F",
+   "edad": 41,
+   "motivo": "Hernioplastia umbilical programada. Alergia al látex.",
+   "indicacion": "Lavado quirúrgico y enguantado con guantes sin látex.",
+   "antecedentes": "Hernia umbilical. Alergia al látex (urticaria por contacto).",
+   "alergia": "latex",
+   "extra": [
+    "Alergia al látex",
+    "Cirugía programada"
+   ],
+   "h_acc": "Retirás el reloj y los anillos antes de lavarte.",
+   "h_agua": "La canilla es manual, de palanca.",
+   "h_seca": "Compresas estériles de un solo uso.",
+   "h_g": "Por la alergia al látex de la paciente, el paquete que corresponde es el de guantes estériles sin látex."
+  },
+  {
+   "id": "c3",
+   "nombre": "Rubén L.",
+   "sexo": "M",
+   "edad": 67,
+   "motivo": "Apendicectomía de urgencia.",
+   "indicacion": "Lavado quirúrgico completo aun en la urgencia.",
+   "antecedentes": "Apendicitis aguda. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Urgencia"
+   ],
+   "h_acc": "Venís directo de la guardia: te quedan el reloj y una pulsera de la guardia.",
+   "h_agua": "La canilla es de pedal: no se toca con las manos.",
+   "h_seca": "Compresas estériles de la caja del quirófano.",
+   "h_g": "Guantes estériles talla 7,5 en el campo."
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Cuánto debe durar en total el lavado de manos quirúrgico?",
+   "o": [
+    "De 3 a 5 minutos",
+    "30 segundos",
+    "1 minuto",
+    "Más de 15 minutos"
+   ],
+   "c": 0,
+   "e": "La duración total del lavado quirúrgico debe ser de 3 a 5 minutos."
+  },
+  {
+   "q": "¿En qué dirección se lavan los antebrazos?",
+   "o": [
+    "De distal a proximal, sin volver a las áreas ya lavadas",
+    "De proximal a distal",
+    "De un lado a otro, indistintamente",
+    "Sólo las manos"
+   ],
+   "c": 0,
+   "e": "Siempre de la zona más limpia (manos) a la menos limpia (codo)."
+  },
+  {
+   "q": "Terminado el lavado, ¿cómo se mantienen las manos?",
+   "o": [
+    "En alto, por encima del codo y fuera del ambo",
+    "Hacia abajo, para que escurra el agua",
+    "Apoyadas en el ambo",
+    "Sobre la camilla"
+   ],
+   "c": 0,
+   "e": "Con las manos en alto el agua escurre hacia el codo y no contamina las manos."
+  },
+  {
+   "q": "¿Con qué se cierra una canilla manual?",
+   "o": [
+    "Con el codo",
+    "Con la mano mojada",
+    "Con una compresa estéril usada",
+    "No se cierra"
+   ],
+   "c": 0,
+   "e": "Tocarla con la mano la contamina."
+  },
+  {
+   "q": "¿Con qué se secan las manos y los antebrazos?",
+   "o": [
+    "Con compresas estériles",
+    "Con una toalla de tela común",
+    "Con el ambo",
+    "Se dejan secar al aire sin tocar nada y se enguantan mojadas"
+   ],
+   "c": 0,
+   "e": "Sólo material estéril toca las manos lavadas."
+  },
+  {
+   "q": "¿Qué accesorios se retiran antes del lavado?",
+   "o": [
+    "Anillos, pulseras y reloj",
+    "Sólo el reloj",
+    "Ninguno",
+    "Sólo el gorro"
+   ],
+   "c": 0,
+   "e": "Todos los accesorios de las manos y las muñecas."
+  },
+  {
+   "q": "¿Por dónde se toma el primer guante estéril?",
+   "o": [
+    "Por la zona doblada, que es la cara interna",
+    "Por los dedos",
+    "Por la palma exterior",
+    "Indistintamente"
+   ],
+   "c": 0,
+   "e": "La mano sin guante sólo toca la cara interna del doblez."
+  },
+  {
+   "q": "¿Cómo se coloca el segundo guante?",
+   "o": [
+    "Con los dedos de la mano enguantada, sin contaminar el guante colocado",
+    "Con la mano desnuda, por el exterior",
+    "Con la ayuda del barbijo",
+    "Apoyándolo en el ambo"
+   ],
+   "c": 0,
+   "e": "La mano enguantada sólo toca el exterior estéril del segundo guante."
+  },
+  {
+   "q": "¿Cuántos lavados se realizan?",
+   "o": [
+    "Tres, cada uno llegando a una zona más corta",
+    "Uno solo",
+    "Cinco",
+    "Ninguno si se usa gel"
+   ],
+   "c": 0,
+   "e": "Primero hasta 2,5 cm por encima del codo, luego hasta 3 cm por debajo del codo y por último hasta 3 cm por encima de la muñeca."
+  },
+  {
+   "q": "Si el paciente es alérgico al látex, ¿qué guantes se usan?",
+   "o": [
+    "Guantes estériles sin látex",
+    "Guantes de látex de todos modos",
+    "Guantes de examen no estériles",
+    "Ninguno"
+   ],
+   "c": 0,
+   "e": "El látex puede provocar una reacción alérgica grave."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Lavado quirúrgico: secuencia",
+  "boton_titulo": "Ver la secuencia del lavado",
+  "boton_sub": "Tres lavados y enguantado",
+  "aviso": "la secuencia del lavado",
+  "flecha": "▼ Lavado",
+  "flecha_final": "▼ Enguantado",
+  "pie": "La duración total del lavado debe ser de 3 a 5 minutos.",
+  "comun": [
+   {
+    "t": "Preparación",
+    "x": "Ambo, gorro, barbijo, botas; sin accesorios.",
+    "flag": "vest"
+   },
+   {
+    "t": "Agua y jabón",
+    "x": "Canilla abierta, jabón antiséptico en el cepillo.",
+    "flag": "jabon"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "Primer lavado",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Manos y uñas",
+      "x": "Palmas, dorso, dedos y uñas.",
+      "flag": "lav1"
+     },
+     {
+      "t": "Antebrazos",
+      "x": "De distal a proximal hasta 2,5 cm sobre el codo.",
+      "flag": "antebr"
+     },
+     {
+      "t": "Enjuague",
+      "x": "De la mano al codo.",
+      "flag": "enj1"
+     }
+    ]
+   },
+   {
+    "titulo": "Segundo y tercer lavado",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Segundo",
+      "x": "Hasta 3 cm por debajo del codo.",
+      "flag": "lav2"
+     },
+     {
+      "t": "Tercero",
+      "x": "Hasta 3 cm por encima de la muñeca.",
+      "flag": "lav3"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Secado",
+    "x": "Manos en alto, canilla con el codo, compresas estériles.",
+    "flag": "seca"
+   },
+   {
+    "t": "Guantes",
+    "x": "Por el doblez, sin contaminar; estirar ambos.",
+    "flag": "g1"
+   }
+  ]
+ },
+ "hallazgo_pasos": {
+  "2": "h_acc",
+  "3": "h_agua",
+  "14": "h_seca",
+  "16": "h_g"
+ },
+ "hallazgo_rotulos": {
+  "2": "👁️ Observás:",
+  "3": "👁️ Observás:",
+  "14": "👁️ Observás:",
+  "16": "👁️ Observás:"
+ },
+ "hallazgo_voz": {},
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes del lavado",
+    "x": "Ambo, gorro, barbijo y botas o cofia. Sacate anillos, pulseras y reloj. Abrí la canilla."
+   },
+   {
+    "t": "Lavado (3 a 5 minutos)",
+    "x": "Mojá con las manos altas, jabón antiséptico, cepillá uñas, palmas, dorsos y dedos. Antebrazos en círculos, de distal a proximal, hasta 2,5 cm por encima del codo, sin volver atrás. Enjuagá de la mano al codo."
+   },
+   {
+    "t": "Segundo y tercer lavado",
+    "x": "Segundo: hasta 3 cm por debajo del codo. Tercero: hasta 3 cm por encima de la muñeca. Enjuagá cada vez."
+   },
+   {
+    "t": "Secado",
+    "x": "Manos en alto, fuera del ambo. Cerrá la canilla con el codo y secate con compresas estériles, de los dedos al codo."
+   },
+   {
+    "t": "Guantes",
+    "x": "Paquete sobre el campo, abrilo por las puntas. Primer guante por la zona doblada sin terminar de estirar; segundo con los dedos enguantados sin contaminar; estirá ambos por completo."
+   }
+  ],
+  "por_paso": {
+   "8": "Distal a proximal, sin volver atrás.",
+   "12": "Manos en alto, fuera del ambo.",
+   "14": "Compresas estériles.",
+   "19": "Primer guante por la zona doblada."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/cir/lav_modelo.json",
+ "peso_modelo": "1 MB",
+ "instrumental": "data/acreditaciones/cir/instrumental_lav.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Se viste con ambo quirúrgico, gorro, botas y/o cofia y barbijo",
+   "fase": "Preparación",
+   "target": "vestimenta",
+   "critico": true,
+   "explica": "La barrera quirúrgica se completa antes de lavarse: ambo, gorro que cubre todo el pelo, barbijo que cubre nariz y boca y botas o cofia.",
+   "estado": {
+    "vest": 1
+   },
+   "claves": [
+    [
+     "ambo"
+    ],
+    [
+     "gorro"
+    ],
+    [
+     "barbijo"
+    ],
+    [
+     "cofia"
+    ],
+    [
+     "botas"
+    ],
+    [
+     "me visto"
+    ]
+   ],
+   "frase": "Me visto con ambo quirúrgico, gorro, botas y barbijo.",
+   "fx": "vestir"
+  },
+  {
+   "n": 2,
+   "texto": "Se quita los accesorios de las manos (anillos, pulseras, reloj)",
+   "fase": "Preparación",
+   "target": "accesorios",
+   "critico": true,
+   "explica": "Bajo los anillos, pulseras y relojes se acumulan microorganismos y el lavado no los alcanza: se retiran por completo antes de empezar.",
+   "estado": {
+    "acc": 1
+   },
+   "claves": [
+    [
+     "anillos"
+    ],
+    [
+     "pulsera"
+    ],
+    [
+     "reloj"
+    ],
+    [
+     "accesorios"
+    ],
+    [
+     "joyas"
+    ],
+    [
+     "me quito los"
+    ]
+   ],
+   "frase": "Me quito los accesorios de las manos: anillos, pulseras y reloj.",
+   "fx": "accesorios"
+  },
+  {
+   "n": 3,
+   "texto": "Abre la canilla de agua corriente",
+   "fase": "Preparación",
+   "target": "canilla",
+   "critico": false,
+   "explica": "Se regula el chorro de agua corriente a una temperatura templada, sin salpicar el ambo.",
+   "estado": {
+    "canilla": 1
+   },
+   "claves": [
+    [
+     "abro la canilla"
+    ],
+    [
+     "abro el grifo"
+    ],
+    [
+     "abro el agua"
+    ],
+    [
+     "abro la llave"
+    ]
+   ],
+   "frase": "Abro la canilla de agua corriente.",
+   "fx": "canilla"
+  },
+  {
+   "n": 4,
+   "texto": "Moja las manos con agua corriente",
+   "fase": "Lavado",
+   "target": "manos",
+   "critico": false,
+   "explica": "Se mojan manos y antebrazos con las manos más altas que los codos, para que el agua escurra hacia el codo.",
+   "estado": {
+    "mojar": 1
+   },
+   "claves": [
+    [
+     "mojo las manos"
+    ],
+    [
+     "humedezco las manos"
+    ],
+    [
+     "mojo"
+    ],
+    [
+     "mojar las manos"
+    ]
+   ],
+   "frase": "Mojo las manos con agua corriente.",
+   "fx": "mojar"
+  },
+  {
+   "n": 5,
+   "texto": "Aplica jabón líquido con dosificador y lo aplica sobre la esponja del cepillo",
+   "fase": "Lavado",
+   "target": "jabon",
+   "critico": false,
+   "explica": "Se usa jabón antiséptico líquido de un dosificador (sin tocar el pico) y se carga la esponja del cepillo estéril.",
+   "estado": {
+    "jabon": 1
+   },
+   "claves": [
+    [
+     "jabon"
+    ],
+    [
+     "dosificador"
+    ],
+    [
+     "esponja del cepillo"
+    ],
+    [
+     "jabon liquido"
+    ]
+   ],
+   "frase": "Aplico jabón líquido con el dosificador y lo coloco sobre la esponja del cepillo.",
+   "fx": "jabon"
+  },
+  {
+   "n": 6,
+   "texto": "Si fuera necesario, quita los detritus de debajo de las uñas",
+   "fase": "Lavado",
+   "target": "unas",
+   "critico": false,
+   "explica": "Con el limpiauñas estéril se retiran los detritus subungueales, que son un reservorio de gérmenes.",
+   "estado": {
+    "unas": 1
+   },
+   "claves": [
+    [
+     "detritus"
+    ],
+    [
+     "debajo de las unas"
+    ],
+    [
+     "limpiaunas"
+    ],
+    [
+     "quito la suciedad de las unas"
+    ]
+   ],
+   "frase": "Si fuera necesario, quito los detritus de debajo de las uñas con el limpiauñas.",
+   "fx": "unas"
+  },
+  {
+   "n": 7,
+   "texto": "Lava palmas, dorso de las manos y dedos, y cepilla las uñas",
+   "fase": "Lavado",
+   "target": "manos",
+   "critico": true,
+   "explica": "Se cepillan sistemáticamente palmas, dorsos, cada dedo con sus cuatro caras, espacios interdigitales y uñas.",
+   "estado": {
+    "lav1": 1
+   },
+   "claves": [
+    [
+     "palmas"
+    ],
+    [
+     "dorso de las manos"
+    ],
+    [
+     "cepillo las unas"
+    ],
+    [
+     "cepillo los dedos"
+    ],
+    [
+     "lavo las manos"
+    ]
+   ],
+   "frase": "Lavo palmas, dorso de las manos y dedos, y cepillo las uñas.",
+   "fx": "cepillar"
+  },
+  {
+   "n": 8,
+   "texto": "Lava los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo, evitando volver a las áreas ya lavadas",
+   "fase": "Lavado",
+   "target": "antebrazos",
+   "critico": true,
+   "explica": "El lavado siempre va de la zona más limpia (manos) a la menos limpia (codo); nunca se vuelve sobre un área ya lavada.",
+   "estado": {
+    "antebr": 1
+   },
+   "claves": [
+    [
+     "antebrazos"
+    ],
+    [
+     "forma circular"
+    ],
+    [
+     "distal a proximal"
+    ],
+    [
+     "hasta el codo"
+    ]
+   ],
+   "frase": "Lavo los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo, sin volver a las áreas ya lavadas.",
+   "fx": "antebrazos"
+  },
+  {
+   "n": 9,
+   "texto": "Se enjuaga con abundante agua desde la porción distal hasta la proximal",
+   "fase": "Enjuague y secado",
+   "target": "manos",
+   "critico": true,
+   "explica": "Se enjuaga con las manos en alto, de las puntas de los dedos hacia el codo, para arrastrar el jabón y los gérmenes lejos de las manos.",
+   "estado": {
+    "enj1": 1
+   },
+   "claves": [
+    [
+     "enjuag"
+    ],
+    [
+     "abundante agua"
+    ],
+    [
+     "arrastro el jabon"
+    ]
+   ],
+   "frase": "Me enjuago con abundante agua desde la porción distal hasta la proximal.",
+   "fx": "enjuagar"
+  },
+  {
+   "n": 10,
+   "texto": "Repite el procedimiento llegando hasta 3 cm por debajo del codo, enjuaga (segundo lavado)",
+   "fase": "Lavado",
+   "target": "antebrazos",
+   "critico": false,
+   "explica": "Segundo lavado: el área es más corta (hasta 3 cm por debajo del codo) y se enjuaga de nuevo.",
+   "estado": {
+    "lav2": 1
+   },
+   "claves": [
+    [
+     "segundo lavado"
+    ],
+    [
+     "por debajo del codo"
+    ],
+    [
+     "repito el procedimiento hasta 3 cm por debajo"
+    ]
+   ],
+   "frase": "Repito el procedimiento llegando hasta 3 cm por debajo del codo y enjuago: segundo lavado.",
+   "fx": "cepillar"
+  },
+  {
+   "n": 11,
+   "texto": "Repite el procedimiento llegando hasta 3 cm por encima de la muñeca, enjuaga (tercer lavado)",
+   "fase": "Lavado",
+   "target": "manos",
+   "critico": false,
+   "explica": "Tercer lavado: sólo manos y la zona de la muñeca (hasta 3 cm por encima), con enjuague final.",
+   "estado": {
+    "lav3": 1
+   },
+   "claves": [
+    [
+     "tercer lavado"
+    ],
+    [
+     "por encima de la muneca"
+    ],
+    [
+     "3 cm por encima de la muneca"
+    ]
+   ],
+   "frase": "Repito el procedimiento llegando hasta 3 cm por encima de la muñeca y enjuago: tercer lavado.",
+   "fx": "cepillar"
+  },
+  {
+   "n": 12,
+   "texto": "Mantiene las manos en alto, por encima del codo y fuera del ambo quirúrgico",
+   "fase": "Enjuague y secado",
+   "target": "manos",
+   "critico": true,
+   "explica": "Con las manos más altas que los codos el agua escurre hacia el codo y las manos quedan lo más limpias posible; se mantienen lejos del cuerpo y del ambo.",
+   "estado": {
+    "alto": 1
+   },
+   "claves": [
+    [
+     "manos en alto"
+    ],
+    [
+     "en alto"
+    ],
+    [
+     "fuera del ambo"
+    ],
+    [
+     "por encima de los codos"
+    ]
+   ],
+   "frase": "Mantengo las manos en alto, por encima de los codos y fuera del ambo quirúrgico.",
+   "fx": "manos_alto"
+  },
+  {
+   "n": 13,
+   "texto": "Cierra la canilla con el codo cuando es manual",
+   "fase": "Enjuague y secado",
+   "target": "canilla",
+   "critico": false,
+   "explica": "Si la canilla no es de pie o automática, se cierra con el codo para no volver a contaminar las manos.",
+   "estado": {
+    "cierra": 1
+   },
+   "claves": [
+    [
+     "cierro la canilla"
+    ],
+    [
+     "cierro el agua"
+    ],
+    [
+     "con el codo"
+    ],
+    [
+     "cierro el grifo"
+    ]
+   ],
+   "frase": "Cierro la canilla con el codo.",
+   "fx": "codo"
+  },
+  {
+   "n": 14,
+   "texto": "Se seca perfectamente con compresas estériles",
+   "fase": "Enjuague y secado",
+   "target": "compresas",
+   "critico": true,
+   "explica": "Se seca con una compresa estéril por cada mano, de los dedos hacia el codo y en una sola dirección, sin volver atrás.",
+   "estado": {
+    "seca": 1
+   },
+   "claves": [
+    [
+     "compresas esteriles"
+    ],
+    [
+     "me seco"
+    ],
+    [
+     "secar"
+    ],
+    [
+     "seco las manos"
+    ],
+    [
+     "seco los brazos"
+    ]
+   ],
+   "frase": "Me seco perfectamente con compresas estériles, de los dedos hacia el codo.",
+   "fx": "secar"
+  },
+  {
+   "n": 15,
+   "texto": "Se coloca los guantes estériles solo o con ayuda de la instrumentadora",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": false,
+   "explica": "El enguantado puede hacerlo el propio cirujano (técnica cerrada o abierta) o la instrumentadora; en este práctico se coloca solo.",
+   "estado": {
+    "gsolo": 1
+   },
+   "claves": [
+    [
+     "instrumentadora"
+    ],
+    [
+     "solo o con"
+    ],
+    [
+     "me coloco los guantes esteriles solo"
+    ]
+   ],
+   "frase": "Me coloco los guantes estériles solo o con la ayuda de la instrumentadora.",
+   "fx": "guantes"
+  },
+  {
+   "n": 16,
+   "texto": "Coloca los guantes estériles en el campo, sobre la mesa",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": false,
+   "explica": "El paquete de guantes se apoya sobre el campo estéril de la mesa, nunca sobre una superficie sin cubrir.",
+   "estado": {
+    "paq": 1
+   },
+   "claves": [
+    [
+     "sobre la mesa"
+    ],
+    [
+     "sobre el campo"
+    ],
+    [
+     "paquete de guantes"
+    ],
+    [
+     "en el campo"
+    ]
+   ],
+   "frase": "Coloco los guantes estériles en el campo, sobre la mesa.",
+   "fx": "paquete"
+  },
+  {
+   "n": 17,
+   "texto": "Abre el envoltorio",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": false,
+   "explica": "Se abre el envoltorio despegando las solapas hacia afuera, sin tocar su interior.",
+   "estado": {
+    "abre": 1
+   },
+   "claves": [
+    [
+     "abro el envoltorio"
+    ],
+    [
+     "abro el paquete"
+    ],
+    [
+     "envoltorio"
+    ]
+   ],
+   "frase": "Abro el envoltorio.",
+   "fx": "abrir"
+  },
+  {
+   "n": 18,
+   "texto": "Toma el envoltorio por las puntas para poder abrirlo",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": false,
+   "explica": "Sólo se tocan las puntas externas del envoltorio: el interior es estéril.",
+   "estado": {
+    "puntas": 1
+   },
+   "claves": [
+    [
+     "por las puntas"
+    ],
+    [
+     "las puntas"
+    ],
+    [
+     "de las puntas"
+    ]
+   ],
+   "frase": "Tomo el envoltorio por las puntas para poder abrirlo.",
+   "fx": "abrir"
+  },
+  {
+   "n": 19,
+   "texto": "Toma un guante por la zona más próxima (doblada) e introduce la mano, sin terminar de estirarlo",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": true,
+   "explica": "El primer guante se toma por la cara interna del doblez (la única zona que se puede tocar con la mano sin guante) y se calza sin terminar de estirar.",
+   "estado": {
+    "g1": 1
+   },
+   "claves": [
+    [
+     "zona doblada"
+    ],
+    [
+     "introduzco la mano"
+    ],
+    [
+     "un guante por"
+    ],
+    [
+     "sin terminar de estirar"
+    ],
+    [
+     "zona mas proxima"
+    ]
+   ],
+   "frase": "Tomo un guante por la zona más próxima (doblada), introduzco la mano y coloco el guante sin terminar de estirarlo.",
+   "fx": "guante1"
+  },
+  {
+   "n": 20,
+   "texto": "Introduce los dedos en el segundo guante, sin contaminar el guante colocado",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": true,
+   "explica": "Con la mano ya enguantada se toma el segundo guante por el exterior (solo con los dedos enguantados) y se introduce la otra mano sin tocar la piel ni el ambo.",
+   "estado": {
+    "g2a": 1
+   },
+   "claves": [
+    [
+     "introduzco los dedos"
+    ],
+    [
+     "sin contaminar"
+    ],
+    [
+     "dedos en el segundo"
+    ]
+   ],
+   "frase": "Introduzco los dedos en el segundo guante, sin contaminar el guante colocado.",
+   "fx": "guante2"
+  },
+  {
+   "n": 21,
+   "texto": "Coloca el segundo guante estirándolo por completo",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": false,
+   "explica": "El segundo guante se estira por completo, cubriendo el puño del ambo.",
+   "estado": {
+    "est2": 1
+   },
+   "claves": [
+    [
+     "segundo guante",
+     "estir"
+    ],
+    [
+     "estirandolo por completo"
+    ],
+    [
+     "estiro el segundo"
+    ]
+   ],
+   "frase": "Coloco el segundo guante estirándolo por completo.",
+   "fx": "estirar"
+  },
+  {
+   "n": 22,
+   "texto": "Estira por completo el primer guante, por el doblez",
+   "fase": "Guantes estériles",
+   "target": "guantes",
+   "critico": false,
+   "explica": "Por último se estira el primer guante tomándolo por el doblez con la mano ya enguantada.",
+   "estado": {
+    "est1": 1
+   },
+   "claves": [
+    [
+     "primer guante",
+     "doblez"
+    ],
+    [
+     "por el doblez"
+    ],
+    [
+     "doblez"
+    ]
+   ],
+   "frase": "Estiro por completo el primer guante, por el doblez.",
+   "fx": "estirar"
+  }
+ ],
+ "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la barrera quirúrgica, el cepillado y el lavado de distal a proximal, el secado estéril con las manos en alto y la técnica de enguantado sin contaminar (propuesto, a validar).",
+ "criterios": [
+  {
+   "ico": "🥼",
+   "titulo": "Barrera quirúrgica y accesorios",
+   "pasos": [
+    1,
+    2
+   ]
+  },
+  {
+   "ico": "🧼",
+   "titulo": "Cepillado y lavado de distal a proximal",
+   "pasos": [
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "ico": "🙌",
+   "titulo": "Manos en alto y secado estéril",
+   "pasos": [
+    12,
+    14
+   ]
+  },
+  {
+   "ico": "🧤",
+   "titulo": "Enguantado sin contaminar",
+   "pasos": [
+    19,
+    20
+   ]
+  }
+ ],
+ "final_criticos": "la barrera quirúrgica, el lavado de distal a proximal, el secado estéril con las manos en alto y la técnica de enguantado"
+}

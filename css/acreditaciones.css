@@ -1010,3 +1010,17 @@ details.acr-crit-wrap[open] > summary { margin-bottom: 10px; }
 @keyframes fg-texto { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @keyframes fg-late { 50% { filter: drop-shadow(0 0 5px #2dd4bf); } }
 @media (prefers-reduced-motion: reduce) { .sim-fg > * { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; } }
+
+/* ---- Cirugía: HUD del lavado quirúrgico ---- */
+.acr3d-vp .cir-hud { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+.cir-hud .cir-vest { position: absolute; left: 10px; top: 58px; display: flex; flex-direction: column; gap: 4px; padding: 7px 10px; border-radius: 12px; background: rgba(8,18,30,.82); border: 1px solid rgba(125,211,252,.25); color: #cfe9f3; font-size: .7rem; }
+.cir-hud .cir-vest b { color: #7dd3c8; font-size: .6rem; letter-spacing: .06em; text-transform: uppercase; }
+.cir-hud .cir-vest span { opacity: .45; filter: grayscale(1); transition: .4s; } .cir-hud .cir-vest span.on { opacity: 1; filter: none; transform: translateX(3px); }
+.cir-hud .cir-vest span.on::after { content: ' ✓'; color: #34d399; font-weight: 800; }
+.cir-hud .cir-reloj { position: absolute; right: 12px; top: 58px; width: 170px; padding: 8px 12px; border-radius: 14px; background: linear-gradient(135deg, #0891b2, #0d9488); color: #fff; opacity: 0; transform: translateY(-10px); transition: .4s; box-shadow: 0 10px 24px rgba(0,0,0,.4); }
+.cir-hud .cir-reloj[data-on="1"] { opacity: 1; transform: none; } .cir-hud .cir-reloj small { display: block; font-size: .58rem; letter-spacing: .08em; opacity: .9; }
+.cir-hud .cir-reloj b { font-size: 1.5rem; font-variant-numeric: tabular-nums; } .cir-hud .cir-reloj i { display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,.25); overflow: hidden; margin: 3px 0; } .cir-hud .cir-reloj u { display: block; height: 100%; width: 0; background: #fde68a; transition: width .3s; }
+.cir-hud .cir-reloj em { font-size: .58rem; font-style: normal; opacity: .9; } .cir-hud .cir-reloj.ok u { background: #34d399; }
+.cir-hud .cir-nota { position: absolute; left: 50%; bottom: 62px; transform: translate(-50%, 10px); padding: 7px 14px; border-radius: 999px; background: rgba(8,18,30,.88); color: #e2f1f7; border: 1px solid rgba(45,212,191,.45); font-size: .76rem; font-weight: 700; opacity: 0; transition: .35s; max-width: 86%; text-align: center; }
+.cir-hud .cir-nota[data-on="1"] { opacity: 1; transform: translate(-50%, 0); }
+@media (max-width: 640px) { .cir-hud .cir-reloj { width: 130px; } .cir-hud .cir-vest { font-size: .62rem; } }

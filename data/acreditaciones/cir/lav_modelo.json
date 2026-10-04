@@ -1,0 +1,259 @@
+{
+ "general": {
+  "fondo": "#0a0f1d",
+  "luces": {
+   "ambiente": 0.55,
+   "frontal": 1.15,
+   "contorno": 0.7,
+   "color_contorno": "#22d3ee"
+  },
+  "camara": {
+   "fov": 36,
+   "min": 14,
+   "max": 110,
+   "foco": 34
+  },
+  "material": {
+   "rugosidad": 0.28,
+   "clearcoat": 0.6
+  },
+  "grosor_sonda": 0.2,
+  "vistas": {
+   "lat": "Lateral",
+   "fro": "Frontal",
+   "sup": "Superior"
+  }
+ },
+ "overlay_html": "",
+ "tarjetas": {
+  "mesa": {
+   "titulo": "🧰 Antequirófano",
+   "id": "mesa",
+   "items": [
+    [
+     "vestimenta",
+     "🥼",
+     "Vestimenta",
+     "quirúrgica"
+    ],
+    [
+     "accesorios",
+     "💍",
+     "Accesorios",
+     ""
+    ],
+    [
+     "jabon",
+     "🧴",
+     "Jabón",
+     "antiséptico"
+    ],
+    [
+     "compresas",
+     "🧻",
+     "Compresas",
+     "estériles"
+    ],
+    [
+     "guantes",
+     "🧤",
+     "Guantes",
+     "estériles"
+    ]
+   ]
+  },
+  "entorno": {
+   "titulo": "🚿 Lavabo",
+   "items": [
+    [
+     "canilla",
+     "🚰",
+     "Canilla",
+     ""
+    ],
+    [
+     "manos",
+     "🖐️",
+     "Manos",
+     ""
+    ],
+    [
+     "unas",
+     "💅",
+     "Uñas",
+     ""
+    ],
+    [
+     "antebrazos",
+     "💪",
+     "Antebrazos",
+     ""
+    ]
+   ]
+  }
+ },
+ "chips": [
+  [
+   "canilla",
+   "Agua"
+  ],
+  [
+   "jabon",
+   "Jabón"
+  ],
+  [
+   "lav1",
+   "1.er lavado"
+  ],
+  [
+   "lav2",
+   "2.º lavado"
+  ],
+  [
+   "lav3",
+   "3.er lavado"
+  ],
+  [
+   "alto",
+   "Manos en alto"
+  ],
+  [
+   "seca",
+   "Secado"
+  ],
+  [
+   "g1",
+   "Guantes"
+  ]
+ ],
+ "usables": [
+  "vestimenta",
+  "accesorios",
+  "canilla",
+  "manos",
+  "jabon",
+  "unas",
+  "antebrazos",
+  "compresas",
+  "guantes"
+ ],
+ "pines": [],
+ "instrumentos": [
+  {
+   "id": "lav",
+   "tipo": "lavado",
+   "clases": {
+    "vest": "s-vest",
+    "acc": "s-acc",
+    "canilla": "s-canilla",
+    "mojar": "s-mojar",
+    "jabon": "s-jabon",
+    "unas": "s-unas",
+    "lav1": "s-lav1",
+    "antebr": "s-antebr",
+    "enj1": "s-enj1",
+    "lav2": "s-lav2",
+    "lav3": "s-lav3",
+    "alto": "s-alto",
+    "cierra": "s-cierra",
+    "seca": "s-seca",
+    "gsolo": "s-gsolo",
+    "paq": "s-paq",
+    "abre": "s-abre",
+    "puntas": "s-puntas",
+    "g1": "s-g1",
+    "g2a": "s-g2a",
+    "est1": "s-est1",
+    "est2": "s-est2"
+   }
+  }
+ ],
+ "M": {
+  "origen": [
+   0,
+   14,
+   0
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   0,
+   0,
+   0
+  ],
+  "piezas": [],
+  "procedurales": {},
+  "pines": {},
+  "camara": {
+   "lat": [
+    60,
+    24,
+    20
+   ],
+   "fro": [
+    0,
+    22,
+    62
+   ],
+   "sup": [
+    0.01,
+    70,
+    6
+   ],
+   "objetivo": [
+    0,
+    12,
+    -4
+   ],
+   "ini": [
+    0,
+    20,
+    58
+   ]
+  },
+  "etiquetas": {}
+ },
+ "F": {
+  "origen": [
+   0,
+   14,
+   0
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   0,
+   0,
+   0
+  ],
+  "piezas": [],
+  "procedurales": {},
+  "pines": {},
+  "camara": {
+   "lat": [
+    60,
+    24,
+    20
+   ],
+   "fro": [
+    0,
+    22,
+    62
+   ],
+   "sup": [
+    0.01,
+    70,
+    6
+   ],
+   "objetivo": [
+    0,
+    12,
+    -4
+   ],
+   "ini": [
+    0,
+    20,
+    58
+   ]
+  },
+  "etiquetas": {}
+ }
+}
