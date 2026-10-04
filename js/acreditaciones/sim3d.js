@@ -221,7 +221,7 @@ TIPOS.obs = (visor, ins, cfg, C) => {
     }
     if (fase === 'l3') { mD.visible = true; mD.pose('pinza', 0.6 + 0.4 * Math.sin(t / 500)); colocarMano(mD, G, 0, y0 + 4.6, V(0, 1, 0), 0.6, Math.PI / 2); }
     if (fase === 'l4') { const k = 0.5 + 0.5 * Math.sin(t / 700); mD.visible = mI.visible = true; mD.pose('plana'); mI.pose('plana'); const yb = G.yc - G.ayy * 0.55; colocarMano(mD, G, -G.ax * 0.6 + k * 1.2, yb - k * 1.2, V(0.35, -1, 0), 0.5, 0); colocarMano(mI, G, G.ax * 0.6 - k * 1.2, yb - k * 1.2, V(-0.35, -1, 0), 0.5, 0); }
-    qAU.dataset.on = (s.leer && !s.fin) ? '1' : '0'; qAU.querySelector('b').textContent = Math.round(au);
+    qAU.dataset.on = (s.leer && !s.l1) ? '1' : '0'; qAU.querySelector('b').textContent = Math.round(au);
     qC.dataset.on = (s.curva && !s.l1) ? '1' : '0';
     if (qC.dataset.on === '1') { const pv = qC.querySelector('.prev'), nv = qC.querySelector('.nuevo');
       if (caso.au_prev != null && caso.eg_prev) { pv.setAttribute('cx', sx(caso.eg_prev)); pv.setAttribute('cy', sy(caso.au_prev)); pv.style.display = ''; } else pv.style.display = 'none';
