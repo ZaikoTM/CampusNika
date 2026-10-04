@@ -41,14 +41,14 @@ body.ns-colapsado .ns-link { justify-content: center; padding: 11px 0; }
 .nk-propul { animation: nk-propul .5s ease-in-out infinite alternate; transform-origin: 100px 206px; }
 .nk-sombra { animation: nk-sombra 3.6s ease-in-out infinite; transform-origin: 100px 218px; }
 .nk-ojos { transform: translate(var(--ex, 0px), var(--ey, 0px)); transition: transform .12s ease-out; }
-.nk-ojo { transform-box: fill-box; transform-origin: center; animation: nk-parpadeo 5s infinite; }
+.nk-ojo { transform-box: fill-box; transform-origin: 50% 100%; animation: nk-parpadeo 5s infinite; }
 .nk-ant { animation: nk-antena 1.6s ease-in-out infinite; } .nk-ant-halo { animation: nk-antena 1.6s ease-in-out infinite; transform-origin: 100px 17px; }
-.nk-cruz { animation: nk-late 1.6s ease-in-out infinite; transform-origin: 100px 162px; }
-.nk-brazo-s { transform-origin: 150px 146px; } .nk-brazo-q { transform-origin: 50px 146px; animation: nk-respira 3.6s ease-in-out infinite; }
+.nk-cruz { animation: nk-late 1.6s ease-in-out infinite; transform-origin: 100px 190px; }
+.nk-brazo-s { transform-origin: 138px 136px; } .nk-brazo-q { transform-origin: 62px 136px; animation: nk-respira 3.6s ease-in-out infinite; }
 .ns-nika:hover .nk-brazo-s, .ns-nika.saluda .nk-brazo-s { animation: nk-saluda .7s ease-in-out infinite; }
 .ns-nika.salta .nk-todo { animation: nk-salto .65s cubic-bezier(.3, 1.6, .5, 1); }
 .ns-nika.habla .nk-boca { animation: nk-habla .22s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
-.ns-nika.feliz .nk-ojo { animation: nk-feliz .7s ease-in-out; }
+.ns-nika.feliz .nk-ojo { animation: nk-feliz .7s ease-in-out; transform-origin: 50% 100%; }
 @keyframes nk-flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @keyframes nk-propul { from { transform: scale(.85); opacity: .6; } to { transform: scale(1.1); opacity: 1; } }
 @keyframes nk-sombra { 0%, 100% { transform: scale(1); opacity: .35; } 50% { transform: scale(.82); opacity: .22; } }
@@ -56,7 +56,7 @@ body.ns-colapsado .ns-link { justify-content: center; padding: 11px 0; }
 @keyframes nk-antena { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 @keyframes nk-late { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.14); } }
 @keyframes nk-respira { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(2.5deg); } }
-@keyframes nk-saluda { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(-150deg); } }
+@keyframes nk-saluda { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(-135deg); } }
 @keyframes nk-salto { 0% { transform: translateY(0) scale(1, 1); } 25% { transform: translateY(6px) scale(1.06, .92); } 55% { transform: translateY(-26px) scale(.96, 1.06); } 100% { transform: translateY(0) scale(1, 1); } }
 @keyframes nk-habla { from { transform: scaleY(.7); } to { transform: scaleY(1.5); } }
 @keyframes nk-feliz { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25, .55); } }

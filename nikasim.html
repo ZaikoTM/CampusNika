@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/pagina-lateral.css">
     <link rel="stylesheet" href="css/nika-unificado.css?v=10">
-    <link rel="stylesheet" href="css/nikasim.css?v=2">
+    <link rel="stylesheet" href="css/nikasim.css?v=3">
 </head>
 <body class="nikasim" data-pagina="nikasim">
 
@@ -55,27 +55,29 @@
                 <button type="button" class="ns-nika" id="ns-nika" aria-label="Nika, tu instructora virtual. Tocala para escuchar un consejo">
                     <svg viewBox="0 0 200 230" class="nk" aria-hidden="true" focusable="false">
                         <defs>
-                            <linearGradient id="nkB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe7f2"/></linearGradient>
-                            <radialGradient id="nkG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".9"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+                            <linearGradient id="nkB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#eef2f7"/><stop offset="1" stop-color="#cdd7e3"/></linearGradient>
+                            <linearGradient id="nkC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9c5d3"/><stop offset=".5" stop-color="#e9eef4"/><stop offset="1" stop-color="#aebbca"/></linearGradient>
+                            <linearGradient id="nkV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16395f"/><stop offset=".55" stop-color="#0c2140"/><stop offset="1" stop-color="#08162b"/></linearGradient>
+                            <radialGradient id="nkG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".8"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
                         </defs>
-                        <ellipse class="nk-sombra" cx="100" cy="218" rx="46" ry="7" fill="#020617" opacity=".35"/>
+                        <ellipse class="nk-sombra" cx="100" cy="222" rx="36" ry="6.5" fill="#020617" opacity=".32"/>
                         <g class="nk-todo">
-                            <ellipse class="nk-propul" cx="100" cy="206" rx="26" ry="8" fill="url(#nkG)"/>
-                            <line x1="100" y1="24" x2="100" y2="42" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-                            <circle class="nk-ant" cx="100" cy="17" r="8" fill="#22d3ee"/><circle cx="100" cy="17" r="14" fill="url(#nkG)" class="nk-ant-halo"/>
-                            <rect x="64" y="132" width="72" height="66" rx="26" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/>
-                            <circle cx="100" cy="162" r="13" fill="#0284c7"/><path d="M100 154v16M92 162h16" stroke="#fff" stroke-width="4.5" stroke-linecap="round" class="nk-cruz"/>
-                            <g class="nk-brazo-q"><rect x="38" y="140" width="24" height="52" rx="12" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/><circle cx="50" cy="196" r="10" fill="#fff" stroke="#c3d2e0" stroke-width="2"/></g>
-                            <g class="nk-brazo-s"><rect x="138" y="140" width="24" height="52" rx="12" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/><circle cx="150" cy="196" r="10" fill="#fff" stroke="#c3d2e0" stroke-width="2"/></g>
-                            <circle cx="34" cy="86" r="12" fill="#22d3ee" stroke="#0ea5b7" stroke-width="2"/><circle cx="166" cy="86" r="12" fill="#22d3ee" stroke="#0ea5b7" stroke-width="2"/>
-                            <rect x="40" y="42" width="120" height="92" rx="36" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/>
-                            <rect x="54" y="57" width="92" height="62" rx="24" fill="#0b2447"/>
-                            <path d="M62 66 Q100 58 138 66" stroke="#ffffff" stroke-opacity=".18" stroke-width="5" fill="none" stroke-linecap="round"/>
+                            <g class="nk-brazo-q"><path d="M62 134 C48 136 38 152 40 172 C41 183 53 185 59 176 C66 162 68 146 68 138 Z" fill="url(#nkB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M50 150 C48 160 49 168 51 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g>
+                            <g class="nk-brazo-s"><path d="M138 134 C152 136 162 152 160 172 C159 183 147 185 141 176 C134 162 132 146 132 138 Z" fill="url(#nkB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M150 150 C152 160 151 168 149 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g>
+                            <path d="M62 152 C62 130 80 122 100 122 C120 122 138 130 138 152 C138 184 124 208 100 208 C76 208 62 184 62 152 Z" fill="url(#nkB)" stroke="#c4d0dd" stroke-width="1.6"/>
+                            <path d="M70 170 L91 170 L95 177 L116 177 L130 170" stroke="#b6c3d1" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <ellipse cx="82" cy="146" rx="9" ry="16" fill="#fff" opacity=".7" transform="rotate(14 82 146)"/>
+                            <g class="nk-cruz" opacity=".9"><circle cx="100" cy="190" r="6.5" fill="#38bdf8"/><path d="M100 186v8M96 190h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></g>
+                            <rect x="22" y="64" width="19" height="40" rx="9.5" fill="url(#nkC)" stroke="#b3c0ce" stroke-width="1.4"/><rect x="159" y="64" width="19" height="40" rx="9.5" fill="url(#nkC)" stroke="#b3c0ce" stroke-width="1.4"/>
+                            <ellipse cx="100" cy="40" rx="24" ry="7" fill="#dfe6ee" stroke="#c4d0dd" stroke-width="1.4"/>
+                            <rect x="32" y="38" width="136" height="90" rx="42" fill="url(#nkB)" stroke="#c4d0dd" stroke-width="1.6"/>
+                            <path d="M48 50 C60 42 84 40 100 40" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/>
+                            <rect x="45" y="52" width="110" height="64" rx="30" fill="url(#nkV)"/>
+                            <path d="M58 60 C76 54 124 54 142 60" stroke="#fff" stroke-opacity=".16" stroke-width="5" stroke-linecap="round" fill="none"/>
                             <g class="nk-cara"><g class="nk-ojos">
-                                <ellipse class="nk-ojo" cx="80" cy="86" rx="8" ry="11" fill="#67e8f9"/><ellipse class="nk-ojo" cx="120" cy="86" rx="8" ry="11" fill="#67e8f9"/>
-                                <circle cx="83" cy="82" r="2.6" fill="#fff"/><circle cx="123" cy="82" r="2.6" fill="#fff"/></g>
-                                <path class="nk-boca" d="M88 104 Q100 114 112 104" stroke="#67e8f9" stroke-width="4.5" fill="none" stroke-linecap="round"/>
-                                <circle cx="66" cy="102" r="5" fill="#f472b6" opacity=".45"/><circle cx="134" cy="102" r="5" fill="#f472b6" opacity=".45"/></g>
+                                <path class="nk-ojo" d="M66 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path class="nk-ojo" d="M106 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/>
+                                <path d="M71 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/><path d="M111 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/></g>
+                                <path class="nk-boca" d="M91 99 Q100 112 109 99 Q100 103 91 99 Z" fill="#35e0f7" stroke="#35e0f7" stroke-width="2" stroke-linejoin="round"/></g>
                         </g>
                     </svg>
                 </button>
