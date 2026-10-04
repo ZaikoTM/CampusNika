@@ -325,6 +325,72 @@
     ]
    ],
    "solo_si": "alergia"
+  },
+  {
+   "id": "d12",
+   "texto": "Acomoda los dedos del primer guante antes de haberse colocado el segundo",
+   "critico": false,
+   "porque": "Los dedos se ajustan sólo cuando ambas manos ya tienen puesto el guante estéril; antes obliga a tocar el exterior con la mano desnuda.",
+   "target": "guantes",
+   "claves": [
+    [
+     "acomodo los dedos del primer"
+    ],
+    [
+     "ajusto los dedos del primer"
+    ],
+    [
+     "acomodo los dedos antes"
+    ],
+    [
+     "ajusto los dedos antes"
+    ]
+   ]
+  },
+  {
+   "id": "d13",
+   "texto": "Se enjuaga del codo hacia la mano o con movimiento de vaivén bajo el agua",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el agua arrastra los gérmenes del codo hacia las manos; se enjuaga en un solo sentido, de los dedos al codo.",
+   "target": "manos",
+   "claves": [
+    [
+     "enjuago de codo"
+    ],
+    [
+     "enjuague de codo"
+    ],
+    [
+     "vaiven"
+    ],
+    [
+     "meto el codo primero"
+    ],
+    [
+     "el agua corra del codo"
+    ]
+   ]
+  },
+  {
+   "id": "d14",
+   "texto": "Seca ambas manos con la misma cara húmeda de la compresa o frota de codo a mano",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el secado va de los dedos al codo y cada mano usa un extremo seco de la compresa.",
+   "target": "compresas",
+   "claves": [
+    [
+     "misma cara de la compresa"
+    ],
+    [
+     "misma compresa humeda"
+    ],
+    [
+     "seco de codo a mano"
+    ],
+    [
+     "la misma cara humeda"
+    ]
+   ]
   }
  ],
  "casos": [
@@ -341,7 +407,7 @@
     "Cirugía programada"
    ],
    "h_acc": "Al empezar tenés puesto un reloj, un anillo y una pulsera: hay que retirarlos antes de abrir la canilla.",
-   "h_agua": "La canilla es manual, de palanca: se cierra con el codo.",
+   "h_agua": "La canilla es manual, de palanca: se cierra con el codo (o se retira el pie o la mano del sensor).",
    "h_seca": "La instrumentadora te alcanza compresas estériles dobladas.",
    "h_g": "El paquete de guantes estériles talla 7,5 está sobre la mesa."
   },
@@ -479,7 +545,7 @@
     "Ninguno si se usa gel"
    ],
    "c": 0,
-   "e": "Primero hasta 2,5 cm por encima del codo, luego hasta 3 cm por debajo del codo y por último hasta 3 cm por encima de la muñeca."
+   "e": "Primero hasta 2,5 cm (a 5 cm) por encima del codo, luego hasta 3 cm por debajo del codo y por último hasta 3 cm por encima de la muñeca."
   },
   {
    "q": "Si el paciente es alérgico al látex, ¿qué guantes se usan?",
@@ -491,6 +557,28 @@
    ],
    "c": 0,
    "e": "El látex puede provocar una reacción alérgica grave."
+  },
+  {
+   "q": "¿Cuánto dura el lavado quirúrgico con clorhexidina y con povidona yodada?",
+   "o": [
+    "Clorhexidina 3 a 5 minutos; povidona 5 a 10 minutos",
+    "Ambas 30 segundos",
+    "Clorhexidina 10 minutos; povidona 1 minuto",
+    "Ambas 15 minutos"
+   ],
+   "c": 0,
+   "e": "La clorhexidina tiene mayor efecto residual y menor tiempo de lavado."
+  },
+  {
+   "q": "¿Cuándo se acomodan los dedos de los guantes?",
+   "o": [
+    "Cuando ambas manos ya están enguantadas",
+    "Apenas se coloca el primer guante",
+    "Nunca",
+    "Con la mano desnuda antes del segundo guante"
+   ],
+   "c": 0,
+   "e": "Ajustar el primer guante antes de colocar el segundo obliga a tocar su exterior con la mano desnuda."
   }
  ],
  "voz": true,
@@ -630,7 +718,7 @@
    "fase": "Preparación",
    "target": "vestimenta",
    "critico": true,
-   "explica": "La barrera quirúrgica se completa antes de lavarse: ambo, gorro que cubre todo el pelo, barbijo que cubre nariz y boca y botas o cofia.",
+   "explica": "La barrera quirúrgica se completa antes de lavarse: ambo con la chaqueta por dentro del pantalón (para que no roce el lavabo ni la mesa), gorro que cubre todo el cabello, barbijo ajustado sobre nariz y boca y botas o cofia.",
    "estado": {
     "vest": 1
    },
@@ -654,7 +742,7 @@
      "me visto"
     ]
    ],
-   "frase": "Me visto con ambo quirúrgico, gorro, botas y barbijo.",
+   "frase": "Me visto con ambo quirúrgico (chaqueta por dentro del pantalón), gorro que cubre todo el cabello, botas y barbijo ajustado.",
    "fx": "vestir"
   },
   {
@@ -696,7 +784,7 @@
    "fase": "Preparación",
    "target": "canilla",
    "critico": false,
-   "explica": "Se regula el chorro de agua corriente a una temperatura templada, sin salpicar el ambo.",
+   "explica": "Se regula el chorro a una temperatura templada y flujo moderado: la presión excesiva salpica el ambo y la humedad transporta gérmenes hacia la vestimenta.",
    "estado": {
     "canilla": 1
    },
@@ -750,7 +838,7 @@
    "fase": "Lavado",
    "target": "jabon",
    "critico": false,
-   "explica": "Se usa jabón antiséptico líquido de un dosificador (sin tocar el pico) y se carga la esponja del cepillo estéril.",
+   "explica": "Se usa jabón antiséptico líquido (clorhexidina o povidona yodada) de un dosificador accionado sin las manos y se carga la esponja del cepillo estéril. Con clorhexidina el lavado dura 3 a 5 minutos; con povidona yodada, 5 a 10.",
    "estado": {
     "jabon": 1
    },
@@ -768,7 +856,7 @@
      "jabon liquido"
     ]
    ],
-   "frase": "Aplico jabón líquido con el dosificador y lo coloco sobre la esponja del cepillo.",
+   "frase": "Aplico jabón antiséptico líquido con el dosificador (accionado con el codo) y lo coloco sobre la esponja del cepillo.",
    "fx": "jabon"
   },
   {
@@ -777,7 +865,7 @@
    "fase": "Lavado",
    "target": "unas",
    "critico": false,
-   "explica": "Con el limpiauñas estéril se retiran los detritus subungueales, que son un reservorio de gérmenes.",
+   "explica": "Con el limpiauñas estéril, bajo el chorro de agua, se retiran los detritus subungueales (reservorio de gérmenes); en seco se dispersarían.",
    "estado": {
     "unas": 1
    },
@@ -830,11 +918,11 @@
   },
   {
    "n": 8,
-   "texto": "Lava los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo, evitando volver a las áreas ya lavadas",
+   "texto": "Lava los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo (primer tiempo), evitando volver a las áreas ya lavadas",
    "fase": "Lavado",
    "target": "antebrazos",
    "critico": true,
-   "explica": "El lavado siempre va de la zona más limpia (manos) a la menos limpia (codo); nunca se vuelve sobre un área ya lavada.",
+   "explica": "El primer tiempo (el más largo, cerca de la mitad del tiempo total) llega hasta 2,5 a 5 cm por encima del codo. El lavado siempre va de la zona más limpia (manos) a la menos limpia (codo); nunca se vuelve sobre un área ya lavada.",
    "estado": {
     "antebr": 1
    },
@@ -861,7 +949,7 @@
    "fase": "Enjuague y secado",
    "target": "manos",
    "critico": true,
-   "explica": "Se enjuaga con las manos en alto, de las puntas de los dedos hacia el codo, para arrastrar el jabón y los gérmenes lejos de las manos.",
+   "explica": "Se enjuaga en un solo sentido, de las puntas de los dedos hacia el codo, sin movimientos de vaivén bajo el agua, para arrastrar el jabón y los gérmenes lejos de las manos.",
    "estado": {
     "enj1": 1
    },
@@ -885,7 +973,7 @@
    "fase": "Lavado",
    "target": "antebrazos",
    "critico": false,
-   "explica": "Segundo lavado: el área es más corta (hasta 3 cm por debajo del codo) y se enjuaga de nuevo.",
+   "explica": "Segundo tiempo (cerca de un tercio del tiempo total): manos, muñecas y antebrazo hasta 3 cm por debajo del codo, con enjuague unidireccional.",
    "estado": {
     "lav2": 1
    },
@@ -909,7 +997,7 @@
    "fase": "Lavado",
    "target": "manos",
    "critico": false,
-   "explica": "Tercer lavado: sólo manos y la zona de la muñeca (hasta 3 cm por encima), con enjuague final.",
+   "explica": "Tercer tiempo (el más corto): se concentra en manos y muñecas (hasta 3 cm por encima), la zona de mayor contacto con el campo, con enjuague final.",
    "estado": {
     "lav3": 1
    },
@@ -933,7 +1021,7 @@
    "fase": "Enjuague y secado",
    "target": "manos",
    "critico": true,
-   "explica": "Con las manos más altas que los codos el agua escurre hacia el codo y las manos quedan lo más limpias posible; se mantienen lejos del cuerpo y del ambo.",
+   "explica": "Con los brazos flexionados, las manos más altas que los codos y alejadas del cuerpo (entre la cintura y los hombros) el agua escurre hacia el codo y las manos quedan lo más limpias posible.",
    "estado": {
     "alto": 1
    },
@@ -960,7 +1048,7 @@
    "fase": "Enjuague y secado",
    "target": "canilla",
    "critico": false,
-   "explica": "Si la canilla no es de pie o automática, se cierra con el codo para no volver a contaminar las manos.",
+   "explica": "Si la canilla es de palanca se cierra empujando con el codo; si es de pedal o de sensor se retira el pie o la mano del campo del sensor. Nunca se toca con las manos lavadas.",
    "estado": {
     "cierra": 1
    },
@@ -987,7 +1075,7 @@
    "fase": "Enjuague y secado",
    "target": "compresas",
    "critico": true,
-   "explica": "Se seca con una compresa estéril por cada mano, de los dedos hacia el codo y en una sola dirección, sin volver atrás.",
+   "explica": "Se seca una mano con un extremo de la compresa estéril, de los dedos hacia el codo y en una sola dirección; la otra con el extremo opuesto, seco. Nunca se vuelve atrás ni se usa la misma cara húmeda en las dos manos.",
    "estado": {
     "seca": 1
    },
@@ -1008,7 +1096,7 @@
      "seco los brazos"
     ]
    ],
-   "frase": "Me seco perfectamente con compresas estériles, de los dedos hacia el codo.",
+   "frase": "Me seco perfectamente con compresas estériles, mano por mano, de los dedos hacia el codo y sin volver atrás.",
    "fx": "secar"
   },
   {
@@ -1017,7 +1105,7 @@
    "fase": "Guantes estériles",
    "target": "guantes",
    "critico": false,
-   "explica": "El enguantado puede hacerlo el propio cirujano (técnica cerrada o abierta) o la instrumentadora; en este práctico se coloca solo.",
+   "explica": "El enguantado puede hacerlo el propio cirujano o la instrumentadora; en este práctico se evalúa la técnica abierta autónoma (la cerrada se usa cuando el cirujano ya viste la bata estéril y las manos quedan dentro de los puños).",
    "estado": {
     "gsolo": 1
    },
@@ -1116,7 +1204,7 @@
    "fase": "Guantes estériles",
    "target": "guantes",
    "critico": true,
-   "explica": "El primer guante se toma por la cara interna del doblez (la única zona que se puede tocar con la mano sin guante) y se calza sin terminar de estirar.",
+   "explica": "El primer guante se toma por la cara interna del doblez (la única zona que se puede tocar con la mano sin guante) y se calza sin desplegar el puño ni ajustar los dedos. Regla piel con piel.",
    "estado": {
     "g1": 1
    },
@@ -1146,7 +1234,7 @@
    "fase": "Guantes estériles",
    "target": "guantes",
    "critico": true,
-   "explica": "Con la mano ya enguantada se toma el segundo guante por el exterior (solo con los dedos enguantados) y se introduce la otra mano sin tocar la piel ni el ambo.",
+   "explica": "Regla goma con goma: la mano ya enguantada desliza de 2 a 4 dedos por debajo del doblez externo del segundo guante y se introduce la otra mano sin tocar la piel ni el ambo.",
    "estado": {
     "g2a": 1
    },
@@ -1161,7 +1249,7 @@
      "dedos en el segundo"
     ]
    ],
-   "frase": "Introduzco los dedos en el segundo guante, sin contaminar el guante colocado.",
+   "frase": "Con la mano ya enguantada deslizo los dedos por debajo del doblez del segundo guante e introduzco la otra mano, sin contaminar el guante colocado.",
    "fx": "guante2"
   },
   {
@@ -1195,7 +1283,7 @@
    "fase": "Guantes estériles",
    "target": "guantes",
    "critico": false,
-   "explica": "Por último se estira el primer guante tomándolo por el doblez con la mano ya enguantada.",
+   "explica": "Con ambas manos enguantadas se estira el primer guante tomándolo por el doblez; recién entonces se acomodan los dedos de los dos guantes y se verifica que no haya perforaciones.",
    "estado": {
     "est1": 1
    },

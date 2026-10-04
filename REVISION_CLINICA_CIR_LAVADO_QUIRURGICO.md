@@ -1,6 +1,6 @@
 # Revisión clínica · Lavado de manos quirúrgico y colocación de guantes (Cirugía)
 
-Estado: **BORRADOR para validar con NotebookLM** contra «Lista de cotejo: Lavado de manos quirúrgico y colocación de guantes – UP 1» (22 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
+Estado: **VALIDADO con NotebookLM.** Pasos críticos confirmados (1, 2, 7, 8, 9, 12, 14, 19, 20); los tres tiempos del lavado son los de la planilla (no es errata; el primero llega a 2,5-5 cm sobre el codo); antisépticos: clorhexidina 3 a 5 min, povidona 5 a 10 min; técnica abierta autónoma (piel con piel / goma con goma); ajuste de dedos recién con ambos guantes puestos; látex: guantes sin látex. Referencia: contra «Lista de cotejo: Lavado de manos quirúrgico y colocación de guantes – UP 1» (22 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
 
 ## Cómo funciona el simulador
 
@@ -8,7 +8,7 @@ Estado: **BORRADOR para validar con NotebookLM** contra «Lista de cotejo: Lavad
 - **3D:** lavabo quirúrgico con canilla de palanca y chorro de agua, **manos y antebrazos reales**, espuma que se extiende de distal a proximal y se enjuaga, aro guía de hasta dónde se lava, **cronómetro** de 3 a 5 minutos, manos en alto, canilla cerrada con el codo, secado con compresa estéril y **colocación de los guantes** sobre un paquete con solapas que se abre.
 - **Mesa:** ambo, gorro, barbijo, botas, jabón antiséptico con dosificador, cepillo estéril, limpiauñas, compresas estériles y guantes estériles (o sin látex si hay alergia); distractores: alcohol en gel, jabón en barra, toalla de tela, estropajo, reloj y anillos, guantes de examen.
 
-Fuente de la lista: Lista de cotejo: Lavado de manos quirúrgico y colocación de guantes (UP 1, 22 ítems). Pasos: **22** (incluye los pasos que aparecen solo en algunos casos). Casos: **3**. Preguntas de fundamentos: **10**.
+Fuente de la lista: Lista de cotejo: Lavado de manos quirúrgico y colocación de guantes (UP 1, 22 ítems). Pasos: **22** (incluye los pasos que aparecen solo en algunos casos). Casos: **3**. Preguntas de fundamentos: **12**.
 
 ## Criterios de desaprobación (PROPUESTOS ❓)
 
@@ -84,19 +84,22 @@ Antecedentes: Apendicitis aguda. Sin alergias conocidas.
 - 🚨 GRAVE · Apoya los guantes estériles en una superficie no estéril — Es criterio de desaprobación: el paquete va sobre el campo estéril de la mesa.
 - 🚨 GRAVE · Se toca la cara, el ambo o un objeto no estéril con las manos lavadas — Es criterio de desaprobación: cualquier contacto con un objeto no estéril obliga a repetir el lavado.
 - 🚨 GRAVE · Usa guantes con látex en un paciente alérgico al látex — Es criterio de desaprobación: el látex puede provocar una reacción alérgica grave; se usan guantes sin látex.
+- Acomoda los dedos del primer guante antes de haberse colocado el segundo — Los dedos se ajustan sólo cuando ambas manos ya tienen puesto el guante estéril; antes obliga a tocar el exterior con la mano desnuda.
+- 🚨 GRAVE · Se enjuaga del codo hacia la mano o con movimiento de vaivén bajo el agua — Es criterio de desaprobación: el agua arrastra los gérmenes del codo hacia las manos; se enjuaga en un solo sentido, de los dedos al codo.
+- 🚨 GRAVE · Seca ambas manos con la misma cara húmeda de la compresa o frota de codo a mano — Es criterio de desaprobación: el secado va de los dedos al codo y cada mano usa un extremo seco de la compresa.
 
 ## Pasos, fundamento y frase del alumno modelo
 
 **1. Se viste con ambo quirúrgico, gorro, botas y/o cofia y barbijo** ⚠ crítico  
-Fundamento: La barrera quirúrgica se completa antes de lavarse: ambo, gorro que cubre todo el pelo, barbijo que cubre nariz y boca y botas o cofia.  
-Frase modelo: “Me visto con ambo quirúrgico, gorro, botas y barbijo.”
+Fundamento: La barrera quirúrgica se completa antes de lavarse: ambo con la chaqueta por dentro del pantalón (para que no roce el lavabo ni la mesa), gorro que cubre todo el cabello, barbijo ajustado sobre nariz y boca y botas o cofia.  
+Frase modelo: “Me visto con ambo quirúrgico (chaqueta por dentro del pantalón), gorro que cubre todo el cabello, botas y barbijo ajustado.”
 
 **2. Se quita los accesorios de las manos (anillos, pulseras, reloj)** ⚠ crítico  
 Fundamento: Bajo los anillos, pulseras y relojes se acumulan microorganismos y el lavado no los alcanza: se retiran por completo antes de empezar.  
 Frase modelo: “Me quito los accesorios de las manos: anillos, pulseras y reloj.”
 
 **3. Abre la canilla de agua corriente**  
-Fundamento: Se regula el chorro de agua corriente a una temperatura templada, sin salpicar el ambo.  
+Fundamento: Se regula el chorro a una temperatura templada y flujo moderado: la presión excesiva salpica el ambo y la humedad transporta gérmenes hacia la vestimenta.  
 Frase modelo: “Abro la canilla de agua corriente.”
 
 **4. Moja las manos con agua corriente**  
@@ -104,47 +107,47 @@ Fundamento: Se mojan manos y antebrazos con las manos más altas que los codos, 
 Frase modelo: “Mojo las manos con agua corriente.”
 
 **5. Aplica jabón líquido con dosificador y lo aplica sobre la esponja del cepillo**  
-Fundamento: Se usa jabón antiséptico líquido de un dosificador (sin tocar el pico) y se carga la esponja del cepillo estéril.  
-Frase modelo: “Aplico jabón líquido con el dosificador y lo coloco sobre la esponja del cepillo.”
+Fundamento: Se usa jabón antiséptico líquido (clorhexidina o povidona yodada) de un dosificador accionado sin las manos y se carga la esponja del cepillo estéril. Con clorhexidina el lavado dura 3 a 5 minutos; con povidona yodada, 5 a 10.  
+Frase modelo: “Aplico jabón antiséptico líquido con el dosificador (accionado con el codo) y lo coloco sobre la esponja del cepillo.”
 
 **6. Si fuera necesario, quita los detritus de debajo de las uñas**  
-Fundamento: Con el limpiauñas estéril se retiran los detritus subungueales, que son un reservorio de gérmenes.  
+Fundamento: Con el limpiauñas estéril, bajo el chorro de agua, se retiran los detritus subungueales (reservorio de gérmenes); en seco se dispersarían.  
 Frase modelo: “Si fuera necesario, quito los detritus de debajo de las uñas con el limpiauñas.”
 
 **7. Lava palmas, dorso de las manos y dedos, y cepilla las uñas** ⚠ crítico  
 Fundamento: Se cepillan sistemáticamente palmas, dorsos, cada dedo con sus cuatro caras, espacios interdigitales y uñas.  
 Frase modelo: “Lavo palmas, dorso de las manos y dedos, y cepillo las uñas.”
 
-**8. Lava los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo, evitando volver a las áreas ya lavadas** ⚠ crítico  
-Fundamento: El lavado siempre va de la zona más limpia (manos) a la menos limpia (codo); nunca se vuelve sobre un área ya lavada.  
+**8. Lava los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo (primer tiempo), evitando volver a las áreas ya lavadas** ⚠ crítico  
+Fundamento: El primer tiempo (el más largo, cerca de la mitad del tiempo total) llega hasta 2,5 a 5 cm por encima del codo. El lavado siempre va de la zona más limpia (manos) a la menos limpia (codo); nunca se vuelve sobre un área ya lavada.  
 Frase modelo: “Lavo los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo, sin volver a las áreas ya lavadas.”
 
 **9. Se enjuaga con abundante agua desde la porción distal hasta la proximal** ⚠ crítico  
-Fundamento: Se enjuaga con las manos en alto, de las puntas de los dedos hacia el codo, para arrastrar el jabón y los gérmenes lejos de las manos.  
+Fundamento: Se enjuaga en un solo sentido, de las puntas de los dedos hacia el codo, sin movimientos de vaivén bajo el agua, para arrastrar el jabón y los gérmenes lejos de las manos.  
 Frase modelo: “Me enjuago con abundante agua desde la porción distal hasta la proximal.”
 
 **10. Repite el procedimiento llegando hasta 3 cm por debajo del codo, enjuaga (segundo lavado)**  
-Fundamento: Segundo lavado: el área es más corta (hasta 3 cm por debajo del codo) y se enjuaga de nuevo.  
+Fundamento: Segundo tiempo (cerca de un tercio del tiempo total): manos, muñecas y antebrazo hasta 3 cm por debajo del codo, con enjuague unidireccional.  
 Frase modelo: “Repito el procedimiento llegando hasta 3 cm por debajo del codo y enjuago: segundo lavado.”
 
 **11. Repite el procedimiento llegando hasta 3 cm por encima de la muñeca, enjuaga (tercer lavado)**  
-Fundamento: Tercer lavado: sólo manos y la zona de la muñeca (hasta 3 cm por encima), con enjuague final.  
+Fundamento: Tercer tiempo (el más corto): se concentra en manos y muñecas (hasta 3 cm por encima), la zona de mayor contacto con el campo, con enjuague final.  
 Frase modelo: “Repito el procedimiento llegando hasta 3 cm por encima de la muñeca y enjuago: tercer lavado.”
 
 **12. Mantiene las manos en alto, por encima del codo y fuera del ambo quirúrgico** ⚠ crítico  
-Fundamento: Con las manos más altas que los codos el agua escurre hacia el codo y las manos quedan lo más limpias posible; se mantienen lejos del cuerpo y del ambo.  
+Fundamento: Con los brazos flexionados, las manos más altas que los codos y alejadas del cuerpo (entre la cintura y los hombros) el agua escurre hacia el codo y las manos quedan lo más limpias posible.  
 Frase modelo: “Mantengo las manos en alto, por encima de los codos y fuera del ambo quirúrgico.”
 
 **13. Cierra la canilla con el codo cuando es manual**  
-Fundamento: Si la canilla no es de pie o automática, se cierra con el codo para no volver a contaminar las manos.  
+Fundamento: Si la canilla es de palanca se cierra empujando con el codo; si es de pedal o de sensor se retira el pie o la mano del campo del sensor. Nunca se toca con las manos lavadas.  
 Frase modelo: “Cierro la canilla con el codo.”
 
 **14. Se seca perfectamente con compresas estériles** ⚠ crítico  
-Fundamento: Se seca con una compresa estéril por cada mano, de los dedos hacia el codo y en una sola dirección, sin volver atrás.  
-Frase modelo: “Me seco perfectamente con compresas estériles, de los dedos hacia el codo.”
+Fundamento: Se seca una mano con un extremo de la compresa estéril, de los dedos hacia el codo y en una sola dirección; la otra con el extremo opuesto, seco. Nunca se vuelve atrás ni se usa la misma cara húmeda en las dos manos.  
+Frase modelo: “Me seco perfectamente con compresas estériles, mano por mano, de los dedos hacia el codo y sin volver atrás.”
 
 **15. Se coloca los guantes estériles solo o con ayuda de la instrumentadora**  
-Fundamento: El enguantado puede hacerlo el propio cirujano (técnica cerrada o abierta) o la instrumentadora; en este práctico se coloca solo.  
+Fundamento: El enguantado puede hacerlo el propio cirujano o la instrumentadora; en este práctico se evalúa la técnica abierta autónoma (la cerrada se usa cuando el cirujano ya viste la bata estéril y las manos quedan dentro de los puños).  
 Frase modelo: “Me coloco los guantes estériles solo o con la ayuda de la instrumentadora.”
 
 **16. Coloca los guantes estériles en el campo, sobre la mesa**  
@@ -160,19 +163,19 @@ Fundamento: Sólo se tocan las puntas externas del envoltorio: el interior es es
 Frase modelo: “Tomo el envoltorio por las puntas para poder abrirlo.”
 
 **19. Toma un guante por la zona más próxima (doblada) e introduce la mano, sin terminar de estirarlo** ⚠ crítico  
-Fundamento: El primer guante se toma por la cara interna del doblez (la única zona que se puede tocar con la mano sin guante) y se calza sin terminar de estirar.  
+Fundamento: El primer guante se toma por la cara interna del doblez (la única zona que se puede tocar con la mano sin guante) y se calza sin desplegar el puño ni ajustar los dedos. Regla piel con piel.  
 Frase modelo: “Tomo un guante por la zona más próxima (doblada), introduzco la mano y coloco el guante sin terminar de estirarlo.”
 
 **20. Introduce los dedos en el segundo guante, sin contaminar el guante colocado** ⚠ crítico  
-Fundamento: Con la mano ya enguantada se toma el segundo guante por el exterior (solo con los dedos enguantados) y se introduce la otra mano sin tocar la piel ni el ambo.  
-Frase modelo: “Introduzco los dedos en el segundo guante, sin contaminar el guante colocado.”
+Fundamento: Regla goma con goma: la mano ya enguantada desliza de 2 a 4 dedos por debajo del doblez externo del segundo guante y se introduce la otra mano sin tocar la piel ni el ambo.  
+Frase modelo: “Con la mano ya enguantada deslizo los dedos por debajo del doblez del segundo guante e introduzco la otra mano, sin contaminar el guante colocado.”
 
 **21. Coloca el segundo guante estirándolo por completo**  
 Fundamento: El segundo guante se estira por completo, cubriendo el puño del ambo.  
 Frase modelo: “Coloco el segundo guante estirándolo por completo.”
 
 **22. Estira por completo el primer guante, por el doblez**  
-Fundamento: Por último se estira el primer guante tomándolo por el doblez con la mano ya enguantada.  
+Fundamento: Con ambas manos enguantadas se estira el primer guante tomándolo por el doblez; recién entonces se acomodan los dedos de los dos guantes y se verifica que no haya perforaciones.  
 Frase modelo: “Estiro por completo el primer guante, por el doblez.”
 
 ## Preguntas de fundamentos
@@ -194,6 +197,10 @@ Frase modelo: “Estiro por completo el primer guante, por el doblez.”
 8. ¿Cómo se coloca el segundo guante?  
    Respuesta correcta: **Con los dedos de la mano enguantada, sin contaminar el guante colocado**. La mano enguantada sólo toca el exterior estéril del segundo guante.
 9. ¿Cuántos lavados se realizan?  
-   Respuesta correcta: **Tres, cada uno llegando a una zona más corta**. Primero hasta 2,5 cm por encima del codo, luego hasta 3 cm por debajo del codo y por último hasta 3 cm por encima de la muñeca.
+   Respuesta correcta: **Tres, cada uno llegando a una zona más corta**. Primero hasta 2,5 cm (a 5 cm) por encima del codo, luego hasta 3 cm por debajo del codo y por último hasta 3 cm por encima de la muñeca.
 10. Si el paciente es alérgico al látex, ¿qué guantes se usan?  
    Respuesta correcta: **Guantes estériles sin látex**. El látex puede provocar una reacción alérgica grave.
+11. ¿Cuánto dura el lavado quirúrgico con clorhexidina y con povidona yodada?  
+   Respuesta correcta: **Clorhexidina 3 a 5 minutos; povidona 5 a 10 minutos**. La clorhexidina tiene mayor efecto residual y menor tiempo de lavado.
+12. ¿Cuándo se acomodan los dedos de los guantes?  
+   Respuesta correcta: **Cuando ambas manos ya están enguantadas**. Ajustar el primer guante antes de colocar el segundo obliga a tocar su exterior con la mano desnuda.
