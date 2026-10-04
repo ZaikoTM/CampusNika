@@ -105,7 +105,14 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     const aro = new THREE.Mesh(new THREE.TorusGeometry(5.3, 0.22, 8, 36), mat('#22d3ee', 0.95, { emissive: 0x22d3ee, emissiveIntensity: 0.9, depthWrite: false })); aro.rotation.y = Math.PI / 2; aro.visible = false; aro.renderOrder = 7; g.add(aro);
     const doblez = new THREE.Mesh(new THREE.TorusGeometry(3.7, 0.55, 8, 24), mGuante); doblez.position.z = -5; doblez.visible = false; g.add(doblez);
     const gl = guanteReal(lado, { color: '#f0dcc0' }, 0.82, 7.2); gl.visible = false; g.add(gl);
-    return { lado, g, mano, ante, codo, joyas, esp, aro, doblez, gl, guante: 0, glove: false };
+    const M = { lado, g, mano, ante, codo, joyas, esp, aro, doblez, gl, guante: 0, glove: false, rh: null };
+    // antebrazo y mano reales (first person hands): lado 1 = izquierda (pulgar +x), lado -1 = derecha
+    cargarGLB('assets/anatomia/cir/brazos.glb').then((root) => { if (!root) return; const L = lado > 0 ? 'L' : 'R'; let mh = null, an = null;
+      root.traverse((o) => { if (o.name === 'Mano' + L) mh = o; if (o.name === 'Ante' + L) an = o; });
+      const piel = new THREE.MeshPhysicalMaterial({ color: '#e7b496', roughness: 0.55, clearcoat: 0.12, clearcoatRoughness: 0.5 });
+      [mh, an].forEach((o) => { if (!o) return; const c = o.clone(); c.scale.setScalar(100); c.material = piel; c.renderOrder = 8; c.frustumCulled = false; g.add(c); if (o === mh) M.rh = c; });
+      if (M.rh) { mano.visible = false; ante.visible = false; codo.visible = false; M.mano0 = mano; } });
+    return M;
   });
   const [mR, mL] = manos;
 
@@ -183,7 +190,7 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     mesa.visible = paq.visible = s('paq') || s('abre'); prog.abre = lerp(prog.abre, s('abre') ? 1 : 0, easeK(dt, 2.5));
     solapaI.rotation.z = -prog.abre * 2.7; solapaD.rotation.z = prog.abre * 2.7; par.forEach((gm) => { gm.visible = prog.abre > 0.5; });
     // colocación: 1.º guante en la mano derecha, 2.º en la izquierda, estiramientos
-    manos.forEach((m, i) => { const puesto = i === 0 ? s('g1') : s('g2a'); m.glove = puesto; m.gl.visible = puesto; m.mano.visible = !puesto; });
+    manos.forEach((m, i) => { const puesto = i === 0 ? s('g1') : s('g2a'); m.glove = puesto; m.gl.visible = puesto; if (m.rh) m.rh.visible = !puesto; else m.mano.visible = !puesto; });
     // los guantes del paquete desaparecen al usarlos
     par[0].visible = prog.abre > 0.5 && !s('g1'); par[1].visible = prog.abre > 0.5 && !s('g2a');
     // movimiento hacia el paquete al ponerse los guantes

@@ -18,7 +18,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { TIPOS as SIMT } from './sim3d.js?v=12';
-import { TIPOS as CIRT } from './cir3d.js?v=3';
+import { TIPOS as CIRT } from './cir3d.js?v=4';
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const geoCache = { stl: new Map(), glb: new Map() }; // evita volver a descargar al cambiar de modo o de variante
