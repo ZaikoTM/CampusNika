@@ -3,8 +3,28 @@
 // Reutiliza la mano real (assets/anatomia/manos/mano_real.glb) vía crearMano de sim3d.js.
 import * as THREE from 'three';
 import { crearMano } from './sim3d.js?v=12';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+// carga de modelos reales (Draco) con caché de módulo
+const _cache = {}; let _loader = null;
+const cargarGLB = (url) => _cache[url] || (_cache[url] = new Promise((ok) => {
+  _loader = _loader || new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/'));
+  _loader.load(url, (g) => ok(g.scene), undefined, () => ok(null));
+}));
 
 export const TIPOS = {};
+// guante quirúrgico real: eje del modelo (dedos +x, palma -y, pulgar +z) → marco de la mano de sim3d (dedos +z, palma +y, pulgar +x)
+function guanteReal(lado, mat0, esc = 0.82, zOff = 7.2) {
+  const h = new THREE.Group(); h.matrixAutoUpdate = false;
+  const k = esc * 100; const sx = lado < 0 ? -1 : 1;
+  h.matrix.set(0, 0, sx * k, 0, 0, -k, 0, 0, k, 0, 0, zOff, 0, 0, 0, 1); h.matrixWorldNeedsUpdate = true;
+  cargarGLB('assets/anatomia/cir/guante.glb').then((m) => { if (!m) return; const g = m.clone(true);
+    g.traverse((o) => { if (o.isMesh) { const mt = o.material.clone(); mt.map = null; mt.color = new THREE.Color(mat0.color || '#f0dcc0'); mt.roughness = 0.42; mt.metalness = 0; if (mt.clearcoat !== undefined) mt.clearcoat = 0.25; mt.side = lado < 0 ? THREE.DoubleSide : THREE.FrontSide; o.material = mt; o.renderOrder = 9; o.frustumCulled = false; } });
+    h.add(g); });
+  return h;
+}
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -24,24 +44,40 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   const mTela = mat('#bae6fd', 1, { roughness: 0.85, clearcoat: 0 });
   const mPapel = mat('#e8f1f5', 1, { roughness: 0.9, clearcoat: 0 });
 
-  // --- ambiente: pared de azulejos, lavabo de acero con canilla
-  const pared = new THREE.Mesh(new THREE.BoxGeometry(80, 70, 1.5), mAzulej); pared.position.set(0, 34, -22); raiz.add(pared);
-  for (let i = -3; i <= 3; i++) { const l = new THREE.Mesh(new THREE.BoxGeometry(0.15, 70, 0.2), mat('#9cc3d0', 1)); l.position.set(i * 9.5, 34, -21.1); raiz.add(l); }
-  const lavabo = new THREE.Mesh(new THREE.BoxGeometry(50, 7, 22), mAcero); lavabo.position.set(0, -2, -10); raiz.add(lavabo);
-  const cubeta = new THREE.Mesh(new THREE.BoxGeometry(44, 1.2, 17), mat('#aeb9c2', 1, { roughness: 0.25 })); cubeta.position.set(0, 1.7, -10); raiz.add(cubeta);
-  const cano = new THREE.Group(); cano.position.set(0, 1, -20); raiz.add(cano);
-  const c1 = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.3, 38, 16), mAcero); c1.position.y = 19; cano.add(c1);
-  const c2 = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.0, 11, 16), mAcero); c2.rotation.x = Math.PI / 2; c2.position.set(0, 38, 5); cano.add(c2);
-  const palanca = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 12), mat('#9aa7b1', 1, { roughness: 0.3 })); palanca.position.set(0, 36.4, 2); cano.add(palanca);
-  const pico = V(0, 1 + 37.5, -20 + 10.5);
+  // --- reflejos de ambiente (acero, cromo, látex)
+  try { const pm = new THREE.PMREMGenerator(C.renderer); C.scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture; C.scene.environmentIntensity = 0.9; } catch (_) {}
+  // --- pared de azulejos con juntas
+  const tex = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); g.fillStyle = '#e9f3f6'; g.fillRect(0, 0, 256, 256); g.strokeStyle = '#a9c4cc'; g.lineWidth = 5; g.strokeRect(0, 0, 256, 256);
+    const gr = g.createLinearGradient(0, 0, 256, 256); gr.addColorStop(0, 'rgba(255,255,255,.55)'); gr.addColorStop(1, 'rgba(120,160,175,.12)'); g.fillStyle = gr; g.fillRect(6, 6, 244, 244); const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(10, 7.5); t.anisotropy = 4; t.colorSpace = THREE.SRGBColorSpace; return t; })();
+  const pared = new THREE.Mesh(new THREE.PlaneGeometry(100, 75), new THREE.MeshPhysicalMaterial({ map: tex, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.2 })); pared.position.set(0, 34, -24); raiz.add(pared);
+  const suelo = new THREE.Mesh(new THREE.PlaneGeometry(100, 70), new THREE.MeshStandardMaterial({ color: '#cdd6dc', roughness: 0.5 })); suelo.rotation.x = -Math.PI / 2; suelo.position.set(0, -42, 10); raiz.add(suelo);
+  // --- mesada y pileta de acero inoxidable (con la abertura recortada) + cuerpo del mueble
+  const mAcero2 = new THREE.MeshStandardMaterial({ color: '#dfe5ea', metalness: 0.75, roughness: 0.33 });
+  const mAceroOsc = new THREE.MeshStandardMaterial({ color: '#c9d1d8', metalness: 0.7, roughness: 0.38, side: THREE.BackSide });
+  const sh = new THREE.Shape(); sh.moveTo(-36, -7); sh.lineTo(36, -7); sh.lineTo(36, 27); sh.lineTo(-36, 27); sh.lineTo(-36, -7);
+  const hole = new THREE.Path(); const hx = 25, hz = 10, rr = 5, cy = 10; hole.moveTo(-hx + rr, cy - hz); hole.lineTo(hx - rr, cy - hz); hole.quadraticCurveTo(hx, cy - hz, hx, cy - hz + rr); hole.lineTo(hx, cy + hz - rr); hole.quadraticCurveTo(hx, cy + hz, hx - rr, cy + hz); hole.lineTo(-hx + rr, cy + hz); hole.quadraticCurveTo(-hx, cy + hz, -hx, cy + hz - rr); hole.lineTo(-hx, cy - hz + rr); hole.quadraticCurveTo(-hx, cy - hz, -hx + rr, cy - hz); sh.holes.push(hole);
+  const mesada = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 3, bevelEnabled: true, bevelSize: 0.3, bevelThickness: 0.3, bevelSegments: 2 }), mAcero2); mesada.rotation.x = -Math.PI / 2; mesada.position.set(0, -1, 0); raiz.add(mesada);
+  const tina = new THREE.Mesh(new THREE.BoxGeometry(50, 18, 20), mAceroOsc); tina.position.set(0, -7, -10); raiz.add(tina);
+  const desague = new THREE.Mesh(new THREE.CircleGeometry(2.2, 24), new THREE.MeshStandardMaterial({ color: '#4b5560', metalness: 1, roughness: 0.5 })); desague.rotation.x = -Math.PI / 2; desague.position.set(0, -15.9, -10); raiz.add(desague);
+  const mueble = new THREE.Mesh(new THREE.BoxGeometry(70, 40, 1.2), new THREE.MeshStandardMaterial({ color: '#d3dae0', metalness: 0.7, roughness: 0.36 })); mueble.position.set(0, -19, 7.2); raiz.add(mueble);
+  const lateralM = new THREE.Mesh(new THREE.BoxGeometry(1.2, 40, 34), new THREE.MeshStandardMaterial({ color: '#c6cdd4', metalness: 0.7, roughness: 0.38 })); [-35.4, 35.4].forEach((x) => { const l = lateralM.clone(); l.position.set(x, -19, -10); raiz.add(l); });
+  // --- canilla real (cuello de cisne, cromada): se rota para que el pico apunte hacia el frente
+  const cano = new THREE.Group(); cano.position.set(0, 2, -21); raiz.add(cano); const palanca = { rotation: { x: 0 } };
+  const pico = V(0, 31, -7);
+  cargarGLB('assets/anatomia/cir/canilla.glb').then((m) => { if (!m) return; const f = m.clone(true); f.scale.setScalar(100);
+    f.traverse((o) => { if (o.isMesh) o.material = new THREE.MeshStandardMaterial({ color: '#e8edf1', metalness: 1, roughness: 0.16 }); });
+    f.updateMatrixWorld(true); const bb = new THREE.Box3().setFromObject(f); let tx = bb.max.x, ty = bb.max.y, tz = 0, best = -1e9, bsx = 0, bn = 0;
+    f.traverse((o) => { if (o.isMesh) { const pos = o.geometry.attributes.position; for (let i = 0; i < pos.count; i++) { const v = V(pos.getX(i), pos.getY(i), pos.getZ(i)).multiplyScalar(100);
+      if (v.y > bb.min.y + (bb.max.y - bb.min.y) * 0.55 && v.x > best) { best = v.x; tx = v.x; ty = v.y; tz = v.z; } if (v.y < bb.min.y + 3) { bsx += v.x; bn++; } } } });
+    const bxm = bn ? bsx / bn : bb.min.x; f.rotation.y = -Math.PI / 2; const holder = new THREE.Group(); holder.add(f); cano.add(holder);
+    holder.position.set(tz, -bb.min.y, -bxm);           // pico centrado en x=0 y poste apoyado en la mesada
+    pico.set(0, 2 + (ty - bb.min.y) - 0.8, -21 + (tx - bxm)); });
   // chorro de agua
-  const chorro = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.45, 26, 12, 1, true), mAgua); chorro.position.set(0, pico.y - 13, pico.z); chorro.visible = false; chorro.renderOrder = 6; raiz.add(chorro);
+  const chorro = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.42, 1, 12, 1, true), mAgua); chorro.position.set(0, 15, -7); chorro.visible = false; chorro.renderOrder = 6; raiz.add(chorro);
   const gotas = []; for (let i = 0; i < 26; i++) { const g = new THREE.Mesh(new THREE.SphereGeometry(0.28, 8, 6), mAgua); g.visible = false; g.renderOrder = 6; raiz.add(g); gotas.push({ m: g, ph: Math.random() * 6.28, v: 6 + Math.random() * 6 }); }
   // dosificador de jabón + cepillo + limpiauñas
-  const dosif = new THREE.Group(); dosif.position.set(-22, 4, -16); raiz.add(dosif);
-  const dcu = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 9, 20), mat('#f59e0b', 0.9)); dcu.position.set(0, 4.5, 0); dosif.add(dcu);
-  const bomba = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 4, 10), mAcero); bomba.position.set(0, 11, 0); dosif.add(bomba);
-  const pico2 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 4), mAcero); pico2.position.set(0, 12.8, 2); dosif.add(pico2);
+  const dosif = new THREE.Group(); dosif.position.set(-29, 2.2, -14); raiz.add(dosif);
+  cargarGLB('assets/anatomia/cir/dosificador.glb').then((m) => { if (!m) return; const d = m.clone(true); d.scale.setScalar(100); d.rotation.y = 0.6; d.traverse((o) => { if (o.isMesh) o.material = new THREE.MeshPhysicalMaterial({ color: '#1f2933', roughness: 0.28, clearcoat: 0.7, metalness: 0.1 }); }); dosif.add(d); });
   const cepillo = new THREE.Group(); cepillo.visible = false; raiz.add(cepillo);
   cepillo.add(new THREE.Mesh(new THREE.BoxGeometry(7, 1.6, 2.4), mat('#38bdf8', 1)));
   const cerdas = new THREE.Mesh(new THREE.BoxGeometry(6.4, 1.1, 2), mat('#f8fafc', 1, { roughness: 1, clearcoat: 0 })); cerdas.position.y = -1.3; cepillo.add(cerdas);
@@ -51,13 +87,14 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   const manos = [1, -1].map((lado) => {
     const g = new THREE.Group(); raiz.add(g);
     const mano = crearMano(mPiel, lado); g.add(mano);
-    const ante = new THREE.Mesh(new THREE.CylinderGeometry(4.3, 3.0, 24, 22), mPiel); ante.rotation.x = Math.PI / 2; ante.position.set(0, 0, -15.4); g.add(ante);
-    const codo = new THREE.Mesh(new THREE.SphereGeometry(4.3, 18, 14), mPiel); codo.position.set(0, 0, -27.4); g.add(codo);
+    const ante = new THREE.Mesh(new THREE.CylinderGeometry(3.3, 2.35, 24, 24), mPiel); ante.rotation.x = Math.PI / 2; ante.position.set(0, 0, -15.4); g.add(ante);
+    const codo = new THREE.Mesh(new THREE.SphereGeometry(3.3, 18, 14), mPiel); codo.position.set(0, 0, -27.4); g.add(codo);
+    const manga = new THREE.Mesh(new THREE.CylinderGeometry(4.5, 4.9, 14, 26), mat('#38bdf8', 1, { roughness: 0.8, clearcoat: 0 })); manga.rotation.x = Math.PI / 2; manga.position.set(0, 0, -26); g.add(manga);
     // anillos, pulsera y reloj (se quitan en el paso 2)
     const joyas = new THREE.Group(); g.add(joyas);
     const anillo = new THREE.Mesh(new THREE.TorusGeometry(0.95, 0.2, 8, 20), mat('#facc15', 1, { metalness: 0.8, roughness: 0.2 })); anillo.position.set(-0.9 * lado, 0.6, 9.5); anillo.rotation.x = Math.PI / 2; joyas.add(anillo);
-    const reloj = new THREE.Mesh(new THREE.CylinderGeometry(3.4, 3.4, 1.2, 22), mat('#1e293b', 1, { roughness: 0.3 })); reloj.position.set(0, 0, -5.8); reloj.rotation.z = Math.PI / 2; joyas.add(reloj);
-    const pulsera = new THREE.Mesh(new THREE.TorusGeometry(3.4, 0.35, 8, 28), mat('#e11d48', 1)); pulsera.position.set(0, 0, -9); joyas.add(pulsera);
+    const reloj = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 2.8, 1.1, 22), mat('#1e293b', 1, { roughness: 0.3 })); reloj.position.set(0, 0, -6.2); reloj.rotation.z = Math.PI / 2; joyas.add(reloj);
+    const pulsera = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.3, 8, 28), mat('#e11d48', 1)); pulsera.position.set(0, 0, -9); joyas.add(pulsera);
     // espuma: esferas sobre la mano y el antebrazo, ordenadas de distal a proximal
     const esp = []; const eg = new THREE.Group(); g.add(eg);
     const N = 150; for (let i = 0; i < N; i++) {
@@ -67,7 +104,8 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     }
     const aro = new THREE.Mesh(new THREE.TorusGeometry(5.3, 0.22, 8, 36), mat('#22d3ee', 0.95, { emissive: 0x22d3ee, emissiveIntensity: 0.9, depthWrite: false })); aro.rotation.y = Math.PI / 2; aro.visible = false; aro.renderOrder = 7; g.add(aro);
     const doblez = new THREE.Mesh(new THREE.TorusGeometry(3.7, 0.55, 8, 24), mGuante); doblez.position.z = -5; doblez.visible = false; g.add(doblez);
-    return { lado, g, mano, ante, codo, joyas, esp, aro, doblez, guante: 0, glove: false };
+    const gl = guanteReal(lado, { color: '#f0dcc0' }, 0.82, 7.2); gl.visible = false; g.add(gl);
+    return { lado, g, mano, ante, codo, joyas, esp, aro, doblez, gl, guante: 0, glove: false };
   });
   const [mR, mL] = manos;
 
@@ -77,7 +115,7 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   const base = new THREE.Mesh(new THREE.BoxGeometry(18, 0.3, 14), mPapel); paq.add(base);
   const solapaI = new THREE.Mesh(new THREE.BoxGeometry(9, 0.25, 14), mPapel); solapaI.geometry.translate(4.5, 0, 0); solapaI.position.set(-9, 0.3, 0); paq.add(solapaI);
   const solapaD = new THREE.Mesh(new THREE.BoxGeometry(9, 0.25, 14), mPapel); solapaD.geometry.translate(-4.5, 0, 0); solapaD.position.set(9, 0.3, 0); paq.add(solapaD);
-  const par = [1, -1].map((l) => { const gm = crearMano(mGuante, l); gm.scale.setScalar(0.62); gm.rotation.set(0, 0, 0); gm.position.set(l * 4.2, 0.9, -4); gm.quaternion.setFromEuler(new THREE.Euler(0, 0, 0)); gm.rotation.x = 0; gm.visible = false; paq.add(gm); return gm; });
+  const par = [1, -1].map((l) => { const gm = new THREE.Group(); gm.add(guanteReal(l, { color: '#f0dcc0' }, 0.5, 0)); gm.position.set(l * 5.5, 0.9, -5); gm.rotation.set(0, l < 0 ? 0.2 : -0.2, 0); gm.visible = false; paq.add(gm); return gm; });
 
   // --- HUD: vestimenta, cronómetro, indicaciones
   const hud = document.createElement('div'); hud.className = 'cir-hud lav';
@@ -108,8 +146,9 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     const faseLav = s('lav3') ? 3 : s('lav2') ? 2 : (s('lav1') || s('antebr')) ? 1 : 0;
     const agua = s('canilla') && !s('cierra');
     chorro.visible = agua; palanca.rotation.x = lerp(palanca.rotation.x, agua ? -0.5 : 0, k);
+    const Hch = Math.max(4, pico.y + 14); chorro.scale.y = Hch; chorro.position.set(pico.x, pico.y - Hch / 2, pico.z);
     chorro.scale.x = chorro.scale.z = 0.85 + 0.15 * Math.sin(t / 60); chorro.material.opacity = 0.45 + 0.15 * Math.sin(t / 90);
-    gotas.forEach((g, i) => { g.m.visible = agua; if (!agua) return; const y = ((t / 1000) * g.v + g.ph * 3) % 26; g.m.position.set(Math.cos(g.ph + i) * 0.7 * (y / 26 + 0.3), pico.y - y, pico.z + Math.sin(g.ph + i) * 0.5); g.m.scale.setScalar(0.7 + 0.5 * Math.sin(t / 130 + i)); });
+    gotas.forEach((g, i) => { g.m.visible = agua; if (!agua) return; const y = ((t / 1000) * g.v + g.ph * 3) % Hch; g.m.position.set(pico.x + Math.cos(g.ph + i) * 0.7 * (y / Hch + 0.3), pico.y - y, pico.z + Math.sin(g.ph + i) * 0.5); g.m.scale.setScalar(0.7 + 0.5 * Math.sin(t / 130 + i)); });
     // joyas
     prog.acc = lerp(prog.acc, s('acc') ? 1 : 0, easeK(dt, 2.4));
     manos.forEach((m) => { m.joyas.visible = prog.acc < 0.98; m.joyas.position.y = prog.acc * 22; m.joyas.scale.setScalar(1 - prog.acc * 0.9); });
@@ -144,9 +183,7 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     mesa.visible = paq.visible = s('paq') || s('abre'); prog.abre = lerp(prog.abre, s('abre') ? 1 : 0, easeK(dt, 2.5));
     solapaI.rotation.z = -prog.abre * 2.7; solapaD.rotation.z = prog.abre * 2.7; par.forEach((gm) => { gm.visible = prog.abre > 0.5; });
     // colocación: 1.º guante en la mano derecha, 2.º en la izquierda, estiramientos
-    manos.forEach((m, i) => { const puesto = i === 0 ? s('g1') : s('g2a'); if (puesto !== m.glove) { m.glove = puesto; m.g.traverse((o) => { if (o.isMesh && !o.userData.fijo && (o === m.ante || o === m.codo || m.mano.children.some((h) => h.children.includes(o)) || o.parent === m.mano.userData.hold)) { /* se recolorea abajo */ } }); } });
-    const recol = (m, col) => { m.mano.traverse((o) => { if (o.isMesh && o.material !== col) o.material = o.material.isMeshPhysicalMaterial && o.userData.cuff ? o.material : col; }); };
-    recol(mR, s('g1') ? mGuante : mPiel); recol(mL, s('g2a') ? mGuante : mPiel);
+    manos.forEach((m, i) => { const puesto = i === 0 ? s('g1') : s('g2a'); m.glove = puesto; m.gl.visible = puesto; m.mano.visible = !puesto; });
     // los guantes del paquete desaparecen al usarlos
     par[0].visible = prog.abre > 0.5 && !s('g1'); par[1].visible = prog.abre > 0.5 && !s('g2a');
     // movimiento hacia el paquete al ponerse los guantes
