@@ -7,7 +7,21 @@
  * Estados posibles: "Disponible" · "Próximamente" · "En desarrollo".
  */
 const NIKASIM_DATABASE = {
-  mascota: { nombre: 'Nika', saludo: '¡Hola! Soy Nika, tu instructora virtual. Elegí tu año y tu materia y practicá cada destreza paso a paso, como en la acreditación real.' },
+  mascota: {
+    nombre: 'Nika',
+    saludo: '¡Hola! Soy Nika, tu instructora virtual. Elegí tu año y tu materia y practicá cada destreza paso a paso, como en la acreditación real.',
+    tips: [
+      'Practicá primero en modo guiado: yo te muestro cada paso con su fundamento. Después probá el examen, sin ayudas.',
+      'En la acreditación real los pasos críticos son eliminatorios: si fallás uno, desaprobás aunque tengas buen puntaje.',
+      'Podés dictar tus acciones por voz con el micrófono de la bitácora. ¡Hablá como si estuvieras frente al tribunal!',
+      'Armá bien la mesa de instrumental: elegir un insumo equivocado también cuenta como error.',
+      'Mirá el machete antes de rendir: resume cada acreditación en una pantalla.',
+      'Cada acreditación tiene preguntas de fundamentos para estudiar el porqué de cada paso.'
+    ],
+    alCambiarAnio: 'Estás en {anio}. Elegí la materia y vemos qué destrezas podés practicar.',
+    alElegirArea: '¡Buena elección! En {area} podés practicar {n} destrezas. Empezá por las disponibles.',
+    sinContenido: 'Este año todavía está en preparación. ¡Pronto vas a poder practicar acá!'
+  },
   defaultYear: '5to',
   years: [
     { id: '1ro', name: '1° Año', areas: [], aviso: 'Estamos preparando las acreditaciones y recorridos de este año.' },

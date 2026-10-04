@@ -89,11 +89,11 @@
     const year = DB.years.find((y) => y.id === S.year) || DB.years[0];
     pintarAnios();
     const cont = $('#ns-contenido');
-    if (!S.area) { cont.innerHTML = pintarAreas(year); return; }
+    if (!S.area) { cont.innerHTML = pintarAreas(year); if (window.NikaSimMascota && mi > 1) window.NikaSimMascota.decir(year.areas.length ? ((DB.mascota || {}).alCambiarAnio || '').replace('{anio}', year.name) : ((DB.mascota || {}).sinContenido || ''), { feliz: true }); return; }
     const area = year.areas.find((a) => a.id === S.area);
     cont.innerHTML = '<div class="ns-vacio ns-fade">Cargando catálogo…</div>';
     const html = await pintarCatalogo(year, area);
-    if (mi === token) { cont.innerHTML = html; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    if (mi === token) { cont.innerHTML = html; if (window.NikaSimMascota) window.NikaSimMascota.decir(((DB.mascota || {}).alElegirArea || '').replace('{area}', area.name).replace('{n}', area.acreditaciones.filter((x) => x.status === 'Disponible').length), { salto: true }); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   }
 
   // ---- eventos
@@ -111,6 +111,30 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.body.classList.remove('ns-abierto'); });
   document.addEventListener('click', (e) => { if (document.body.classList.contains('ns-abierto') && !e.target.closest('#ns-side') && !e.target.closest('#ns-burger')) document.body.classList.remove('ns-abierto'); });
 
-  $('#ns-saludo').textContent = (DB.mascota && DB.mascota.saludo) || '';
-  render();
+  // ---- Nika, la mascota: sigue el cursor con los ojos, saluda, salta al tocarla y da consejos
+  const Nika = (function () {
+    const btn = $('#ns-nika'), txt = $('#ns-saludo'); let tipo = 0, hablando = 0, ult = 0; const M = DB.mascota || {};
+    const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function animar(c, ms) { btn.classList.remove(c); void btn.offsetWidth; btn.classList.add(c); setTimeout(() => btn.classList.remove(c), ms); }
+    function decir(msg, o) {
+      o = o || {}; clearInterval(hablando); if (!msg) return; ult = Date.now();
+      if (reduce) { txt.textContent = msg; return; }
+      let i = 0; txt.textContent = ''; btn.classList.add('habla');
+      hablando = setInterval(() => { i += 2; txt.textContent = msg.slice(0, i); if (i >= msg.length) { clearInterval(hablando); btn.classList.remove('habla'); } }, 22);
+      if (o.salto) animar('salta', 700); if (o.feliz) animar('feliz', 720);
+    }
+    const consejo = () => { const t = M.tips || []; if (!t.length) return; decir(t[tipo++ % t.length], { salto: true }); };
+    btn.addEventListener('click', consejo);
+    if (!reduce) document.addEventListener('pointermove', (e) => {
+      const r = btn.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.4);
+      const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260);
+      btn.style.setProperty('--ex', (dx / d * 5 * k).toFixed(1) + 'px'); btn.style.setProperty('--ey', (dy / d * 3.5 * k).toFixed(1) + 'px');
+    });
+    setTimeout(() => animar('saluda', 2400), 600);
+    setInterval(() => { if (document.hidden || Date.now() - ult < 25000) return; consejo(); }, 30000);
+    return { decir, animar, saludo: () => decir(M.saludo || '', { salto: true }) };
+  })();
+  window.NikaSimMascota = Nika;
+
+  render(); Nika.saludo();
 })();

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/pagina-lateral.css">
     <link rel="stylesheet" href="css/nika-unificado.css?v=10">
-    <link rel="stylesheet" href="css/nikasim.css?v=1">
+    <link rel="stylesheet" href="css/nikasim.css?v=2">
 </head>
 <body class="nikasim" data-pagina="nikasim">
 
@@ -25,8 +25,7 @@
         <div class="ns-cat">Navegación</div>
         <a class="ns-link" href="campus.html"><span class="ns-ic">🏠</span><span class="ns-t">Inicio / Dashboard</span></a>
         <a class="ns-link on" href="nikasim.html" aria-current="page">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 20 7.4v9.2l-8 4.6-8-4.6V7.4z"/><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"/></svg>
-            <span class="ns-t">Centro de Simulación</span>
+            <span class="ns-ic">🥽</span><span class="ns-t">Centro de Simulación</span>
         </a>
         <div class="ns-cat">Atlas de acreditaciones</div>
         <a class="ns-link" href="#5to/siam" data-ir="5to/siam"><span class="ns-ic">🫀</span><span class="ns-t">SIAM</span></a>
@@ -41,7 +40,7 @@
         <header class="ns-top">
             <div style="display:flex;align-items:center;gap:10px;">
                 <button type="button" class="ns-burger" id="ns-burger" aria-label="Abrir menú">☰</button>
-                <h1>🧊 NikaSim <small style="font-weight:600;color:var(--text-muted);font-size:.78rem;">Centro de Simulación Clínica</small></h1>
+                <h1>🥽 NikaSim <small style="font-weight:600;color:var(--text-muted);font-size:.78rem;">Centro de Simulación Clínica</small></h1>
             </div>
             <div class="ns-acc">
                 <span data-nika-racha-slot></span>
@@ -53,11 +52,38 @@
 
         <main class="ns-main" id="ns-main">
             <section class="ns-hero" aria-label="Nika, tu instructora">
-                <div class="ns-nika" aria-hidden="true"><img src="assets/N%20NIKA.png" alt=""></div>
+                <button type="button" class="ns-nika" id="ns-nika" aria-label="Nika, tu instructora virtual. Tocala para escuchar un consejo">
+                    <svg viewBox="0 0 200 230" class="nk" aria-hidden="true" focusable="false">
+                        <defs>
+                            <linearGradient id="nkB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe7f2"/></linearGradient>
+                            <radialGradient id="nkG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".9"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+                        </defs>
+                        <ellipse class="nk-sombra" cx="100" cy="218" rx="46" ry="7" fill="#020617" opacity=".35"/>
+                        <g class="nk-todo">
+                            <ellipse class="nk-propul" cx="100" cy="206" rx="26" ry="8" fill="url(#nkG)"/>
+                            <line x1="100" y1="24" x2="100" y2="42" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+                            <circle class="nk-ant" cx="100" cy="17" r="8" fill="#22d3ee"/><circle cx="100" cy="17" r="14" fill="url(#nkG)" class="nk-ant-halo"/>
+                            <rect x="64" y="132" width="72" height="66" rx="26" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/>
+                            <circle cx="100" cy="162" r="13" fill="#0284c7"/><path d="M100 154v16M92 162h16" stroke="#fff" stroke-width="4.5" stroke-linecap="round" class="nk-cruz"/>
+                            <g class="nk-brazo-q"><rect x="38" y="140" width="24" height="52" rx="12" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/><circle cx="50" cy="196" r="10" fill="#fff" stroke="#c3d2e0" stroke-width="2"/></g>
+                            <g class="nk-brazo-s"><rect x="138" y="140" width="24" height="52" rx="12" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/><circle cx="150" cy="196" r="10" fill="#fff" stroke="#c3d2e0" stroke-width="2"/></g>
+                            <circle cx="34" cy="86" r="12" fill="#22d3ee" stroke="#0ea5b7" stroke-width="2"/><circle cx="166" cy="86" r="12" fill="#22d3ee" stroke="#0ea5b7" stroke-width="2"/>
+                            <rect x="40" y="42" width="120" height="92" rx="36" fill="url(#nkB)" stroke="#c3d2e0" stroke-width="2"/>
+                            <rect x="54" y="57" width="92" height="62" rx="24" fill="#0b2447"/>
+                            <path d="M62 66 Q100 58 138 66" stroke="#ffffff" stroke-opacity=".18" stroke-width="5" fill="none" stroke-linecap="round"/>
+                            <g class="nk-cara"><g class="nk-ojos">
+                                <ellipse class="nk-ojo" cx="80" cy="86" rx="8" ry="11" fill="#67e8f9"/><ellipse class="nk-ojo" cx="120" cy="86" rx="8" ry="11" fill="#67e8f9"/>
+                                <circle cx="83" cy="82" r="2.6" fill="#fff"/><circle cx="123" cy="82" r="2.6" fill="#fff"/></g>
+                                <path class="nk-boca" d="M88 104 Q100 114 112 104" stroke="#67e8f9" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                                <circle cx="66" cy="102" r="5" fill="#f472b6" opacity=".45"/><circle cx="134" cy="102" r="5" fill="#f472b6" opacity=".45"/></g>
+                        </g>
+                    </svg>
+                </button>
                 <div class="ns-burbuja">
                     <small>NikaSim · 3D &amp; VR inmersivo</small>
                     <h2>Centro de Simulación Clínica</h2>
-                    <p id="ns-saludo"></p>
+                    <p id="ns-saludo" aria-live="polite"></p>
+                    <small class="ns-tip-pista">👆 Tocá a Nika para escuchar un consejo</small>
                 </div>
             </section>
 
@@ -77,7 +103,7 @@
     <script src="js/nikaMusic.js"></script>
     <script src="js/atajos.js"></script>
     <script src="js/paginaLateral.js"></script>
-    <script src="nikasim-data.js?v=1"></script>
-    <script src="js/nikasim.js?v=1"></script>
+    <script src="nikasim-data.js?v=2"></script>
+    <script src="js/nikasim.js?v=2"></script>
 </body>
 </html>
