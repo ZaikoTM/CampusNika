@@ -149,7 +149,7 @@ INS = dict(id='lav', titulo='Antequirófano · Lavado quirúrgico', consigna='Pr
  grupos=[dict(id='vest', titulo='Vestimenta'), dict(id='lavado', titulo='Lavado y secado'), dict(id='guantes', titulo='Guantes estériles'), dict(id='otros', titulo='Otros insumos')], items=items, bandeja_img='assets/instrumental/bandeja.svg')
 W(OUT + 'instrumental_lav.json', INS)
 M = J('data/acreditaciones/siam/sv_modelo.json')
-VAR = dict(origen=[0, 24, 0], corte_x=0.0, rotacion=[0, 0, 0], piezas=[], procedurales={}, pines={}, camara=dict(lat=[70, 30, 6], fro=[0, 30, 72], sup=[0.01, 100, 10], objetivo=[0, 12, -6], ini=[22, 32, 62]), etiquetas={})
+VAR = dict(origen=[0, 24, 0], corte_x=0.0, rotacion=[0, 0, 0], piezas=[], procedurales={}, pines={}, camara=dict(lat=[76, 30, 8], fro=[0, 34, 80], sup=[0.01, 110, 10], objetivo=[0, 14, -2], ini=[22, 36, 76]), etiquetas={})
 G = dict(M['general']); G['camara'] = dict(M['general']['camara'], foco=34, min=14, max=110); G['vistas'] = dict(lat='Lateral', fro='Frontal', sup='Superior')
 IM = dict(general=G, overlay_html='', tarjetas=dict(mesa=dict(titulo='🧰 Antequirófano', id='mesa', items=[['vestimenta', '🥼', 'Vestimenta', 'quirúrgica'], ['accesorios', '💍', 'Accesorios', ''], ['jabon', '🧴', 'Jabón', 'antiséptico'], ['compresas', '🧻', 'Compresas', 'estériles'], ['guantes', '🧤', 'Guantes', 'estériles']]), entorno=dict(titulo='🚿 Lavabo', items=[['canilla', '🚰', 'Canilla', ''], ['manos', '🖐️', 'Manos', ''], ['unas', '💅', 'Uñas', ''], ['antebrazos', '💪', 'Antebrazos', '']])),
   chips=[['canilla', 'Agua'], ['jabon', 'Jabón'], ['lav1', '1.er lavado'], ['lav2', '2.º lavado'], ['lav3', '3.er lavado'], ['alto', 'Manos en alto'], ['seca', 'Secado'], ['g1', 'Guantes']],

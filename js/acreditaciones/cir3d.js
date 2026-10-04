@@ -36,6 +36,7 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   const raiz = new THREE.Group(); C.capas.sonda.add(raiz);
   const mat = (c, o, ex) => visor.material(c, o, 'sonda', Object.assign({ roughness: 0.5, clearcoat: 0.2, depthWrite: true }, ex || {}));
   const mPiel = mat('#e9b89a', 1, { roughness: 0.62, clearcoat: 0.08 });
+  const pielReal = new THREE.MeshPhysicalMaterial({ color: '#e7b496', roughness: 0.58, clearcoat: 0.1, clearcoatRoughness: 0.4 });
   const mGuante = mat('#f2e2c6', 1, { roughness: 0.38, clearcoat: 0.55, emissive: 0x6b5a3a, emissiveIntensity: 0.12 });
   const mAcero = mat('#c7d0d8', 1, { roughness: 0.28, clearcoat: 0.5, metalness: 0.5 });
   const mAzulej = mat('#cfe7ef', 1, { roughness: 0.4, clearcoat: 0.3 });
@@ -104,17 +105,20 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     }
     const aro = new THREE.Mesh(new THREE.TorusGeometry(5.3, 0.22, 8, 36), mat('#22d3ee', 0.95, { emissive: 0x22d3ee, emissiveIntensity: 0.9, depthWrite: false })); aro.rotation.y = Math.PI / 2; aro.visible = false; aro.renderOrder = 7; g.add(aro);
     const doblez = new THREE.Mesh(new THREE.TorusGeometry(3.7, 0.55, 8, 24), mGuante); doblez.position.z = -5; doblez.visible = false; g.add(doblez);
+    const drops = new THREE.Group(); g.add(drops); const gts = []; const gg = new THREE.SphereGeometry(0.34, 8, 6);
+    for (let i = 0; i < 18; i++) { const d = new THREE.Mesh(gg, new THREE.MeshPhysicalMaterial({ color: '#cfeefc', roughness: 0.05, transmission: 0, clearcoat: 1, opacity: 0.8, transparent: true, depthWrite: false })); d.visible = false; d.renderOrder = 9; drops.add(d); gts.push({ m: d, o: i / 18, x: (Math.random() - 0.5) * 3.4, v: 0.35 + Math.random() * 0.3 }); }
     const gl = guanteReal(lado, { color: '#f0dcc0' }, 0.82, 7.2); gl.visible = false; g.add(gl);
-    const M = { lado, g, mano, ante, codo, joyas, esp, aro, doblez, gl, guante: 0, glove: false, rh: null };
+    const M = { lado, g, mano, ante, codo, joyas, esp, aro, doblez, gl, gts, guante: 0, glove: false, rh: null };
     // antebrazo y mano reales (first person hands): lado 1 = izquierda (pulgar +x), lado -1 = derecha
     cargarGLB('assets/anatomia/cir/brazos.glb').then((root) => { if (!root) return; const L = lado > 0 ? 'L' : 'R'; let mh = null, an = null;
       root.traverse((o) => { if (o.name === 'Mano' + L) mh = o; if (o.name === 'Ante' + L) an = o; });
-      const piel = new THREE.MeshPhysicalMaterial({ color: '#e7b496', roughness: 0.55, clearcoat: 0.12, clearcoatRoughness: 0.5 });
+      const piel = pielReal;
       [mh, an].forEach((o) => { if (!o) return; const c = o.clone(); c.scale.setScalar(100); c.material = piel; c.renderOrder = 8; c.frustumCulled = false; g.add(c); if (o === mh) M.rh = c; });
       if (M.rh) { mano.visible = false; ante.visible = false; codo.visible = false; M.mano0 = mano; } });
     return M;
   });
   const [mR, mL] = manos;
+  const spl = []; for (let i = 0; i < 14; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry(0.3, 8, 6), mAgua); d.visible = false; d.renderOrder = 8; raiz.add(d); spl.push({ m: d, a: Math.random() * 6.28, v: 3 + Math.random() * 4, o: Math.random() }); }
 
   // --- guantes estériles: paquete con solapas sobre una mesita lateral + par de guantes
   const mesa = new THREE.Mesh(new THREE.BoxGeometry(26, 2, 20), mat('#94a3b8', 1, { roughness: 0.3 })); mesa.position.set(0, 12, 20); mesa.visible = false; raiz.add(mesa);
@@ -137,11 +141,12 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   let ultimoT = 0, cap = null; const toalla = new THREE.Mesh(new THREE.BoxGeometry(14, 0.5, 9), mTela); toalla.visible = false; raiz.add(toalla);
   ent.sync = (h, r) => { has = h; ent.raiz = r || ent.raiz; ent.has = h; };
   const _m4 = new THREE.Matrix4(), _x = new THREE.Vector3(), _y = new THREE.Vector3(), _z = new THREE.Vector3();
-  const poneBrazo = (m, x, y, z, a) => {
+  const _qr = new THREE.Quaternion(), _ez = new THREE.Vector3(0, 0, 1), _qa = new THREE.Quaternion(), _qb = new THREE.Quaternion(), _qc = new THREE.Quaternion(), _wp = new THREE.Vector3();
+  const poneBrazo = (m, x, y, z, a, roll = 0) => {
     // dedos hacia arriba y adelante con elevación 'a', antebrazo hacia atrás/abajo (codo cerca del lavabo), palmas enfrentadas
     m.g.position.set(x, y, z); const sn = Math.sin(a), cs = Math.cos(a);
     _z.set(0, sn, -cs); _x.set(0, m.lado > 0 ? cs : -cs, m.lado > 0 ? sn : -sn); _y.crossVectors(_z, _x).normalize();
-    _m4.makeBasis(_x, _y, _z); m.g.quaternion.setFromRotationMatrix(_m4);
+    _m4.makeBasis(_x, _y, _z); m.g.quaternion.setFromRotationMatrix(_m4); if (roll) m.g.quaternion.multiply(_qr.setFromAxisAngle(_ez, roll));
   };
 
   ent.tick = (t) => {
@@ -159,33 +164,67 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     // joyas
     prog.acc = lerp(prog.acc, s('acc') ? 1 : 0, easeK(dt, 2.4));
     manos.forEach((m) => { m.joyas.visible = prog.acc < 0.98; m.joyas.position.y = prog.acc * 22; m.joyas.scale.setScalar(1 - prog.acc * 0.9); });
-    // postura de los brazos: lavado (horizontal sobre el lavabo) vs manos en alto
+    // ---------- coreografía natural de los brazos
     prog.alto = lerp(prog.alto, s('alto') ? 1 : 0, easeK(dt, 2.2)); prog.codo = lerp(prog.codo, s('cierra') ? 1 : 0, easeK(dt, 3));
-    const sec = s('seca'); const guantes = s('paq');
-    const yMano = lerp(23, 27, prog.alto), zMano = lerp(2, 5, prog.alto), ang = lerp(0.62, 0.95, prog.alto);
-    let shake = 0; if (faseLav && !s('enj1') && !s('alto')) shake = Math.sin(t / 130) * 1.2;
-    poneBrazo(mR, -4.2 - shake * 0.2, yMano + Math.abs(shake) * 0.3, zMano, ang); poneBrazo(mL, 4.2 + shake * 0.2, yMano + Math.abs(shake) * 0.3, zMano, ang);
-    if (prog.codo > 0.02) { mL.g.position.x += prog.codo * 3; mL.g.position.y -= prog.codo * 3; } // el codo baja a empujar la palanca
-    // pose de dedos
-    manos.forEach((m) => { const pose = (faseLav && !s('alto')) ? 'garra' : 'suave'; m.mano.pose(pose, pose === 'garra' ? 0.35 + 0.25 * Math.sin(t / 200) : 0.5); });
-    // espuma: cobertura objetivo
-    const objetivo = !s('jabon') ? 0 : (s('lav3') ? 0.38 : s('lav2') ? 0.82 : s('antebr') ? 1 : s('lav1') ? 0.28 : 0.05);
+    const sec = s('seca'); const guantes = s('paq'); const tt = t / 1000;
     if (faseLav !== ent.fl) { ent.fl = faseLav; ent.tf = t; } const loc = (t - (ent.tf || t)) / 1000;
     const enj = faseLav === 1 ? (s('enj1') || s('alto')) : faseLav >= 2 ? (loc > 3.6 || s('alto')) : s('alto');
+    const bajoAgua = agua && ((s('mojar') && !s('jabon')) || (enj && !s('alto')));
+    prog.agua = lerp(prog.agua || 0, bajoAgua ? 1 : 0, easeK(dt, 2.6));
+    if (sec && !ent.ts0) ent.ts0 = t; if (!sec) ent.ts0 = 0; const ts = sec ? (t - ent.ts0) / 1000 : 0; const SEG = 2.8;
+    const rub = faseLav > 0 && !enj && !s('alto') && !sec;
+    let pR = { x: -4.2, y: lerp(15, 12.5, prog.agua), z: lerp(9, 4.5, prog.agua), a: 0.62, r: 0 }, pL = { x: 4.2, y: pR.y, z: pR.z, a: 0.62, r: 0 };
+    // aire: leve respiración de las manos
+    pR.y += Math.sin(tt * 1.7) * 0.25; pL.y += Math.sin(tt * 1.7 + 1) * 0.25;
+    let barrido = null;
+    if (rub) {
+      const f = tt * 7.6;
+      if (faseLav === 3 || (faseLav === 1 && !s('antebr'))) {      // frotado de palmas, dorsos y dedos entrelazados
+        const c = Math.cos(f * 0.5), sn = Math.sin(f);
+        pR.z += 3.4 * sn; pL.z -= 3.4 * sn; pR.x += 1.6 + 1.2 * c; pL.x -= 1.6 + 1.2 * c; pR.r = 0.55 * Math.sin(f * 0.5); pL.r = -0.55 * Math.sin(f * 0.5); pR.y += 0.8 * c; pL.y -= 0.8 * c;
+      } else { barrido = Math.floor(tt / 3.4) % 2; }                // antebrazos: una mano restriega el antebrazo de la otra
+    }
+    poneBrazo(mR, pR.x, pR.y, pR.z, pR.a, pR.r); poneBrazo(mL, pL.x, pL.y, pL.z, pL.a, pL.r);
+    if (barrido !== null) {
+      const A = barrido ? mL : mR, B = barrido ? mR : mL; A.g.position.y += 1; A.g.updateMatrixWorld(true);
+      const u = (tt / 1.7) % 1, recorrido = faseLav === 1 ? 20 : 15;
+      B.g.position.copy(A.g.localToWorld(_wp.set(0, 5.6 + 0.6 * Math.sin(tt * 9), 0 - u * recorrido)));
+      _qa.copy(A.g.quaternion); _qb.setFromAxisAngle(_ez, Math.PI); _qc.setFromAxisAngle(new THREE.Vector3(0, 1, 0), (B.lado > 0 ? 1 : -1) * Math.PI / 2);
+      B.g.quaternion.copy(_qa).multiply(_qb).multiply(_qc);
+    }
+    if (prog.alto > 0.01) { poneBrazo(mR, lerp(mR.g.position.x, -5.5, prog.alto), lerp(mR.g.position.y, 27, prog.alto), lerp(mR.g.position.z, 6, prog.alto), lerp(0.62, 0.98, prog.alto)); poneBrazo(mL, lerp(mL.g.position.x, 5.5, prog.alto), lerp(mL.g.position.y, 27, prog.alto), lerp(mL.g.position.z, 6, prog.alto), lerp(0.62, 0.98, prog.alto)); }
+    // secado: una mano se ofrece palma arriba mientras la otra pasa la compresa de los dedos al codo; después se cambia
+    if (sec) {
+      if (ts < 2 * SEG + 0.4) {
+        const seg = Math.min(1, Math.floor(ts / SEG)), u = clamp((ts - seg * SEG) / SEG, 0, 1), O = seg ? mL : mR, H = seg ? mR : mL;
+        poneBrazo(O, O.lado > 0 ? 3.5 : -3.5, 21, 8, 0.7, O.lado > 0 ? -0.75 : 0.75); O.g.updateMatrixWorld(true);
+        const zq = lerp(17, -20, smooth(u)); toalla.position.copy(O.g.localToWorld(_wp.set(0, -3.4, zq))); toalla.quaternion.copy(O.g.quaternion);
+        poneBrazo(H, O.g.position.x * 0.2 + (H.lado > 0 ? 5 : -5), 17, 13, 0.45, H.lado > 0 ? -0.6 : 0.6);
+        H.g.position.lerp(_wp.copy(toalla.position).add(new THREE.Vector3(0, -4.5, 5)), 0.6);
+      } else { poneBrazo(mR, -5.5, 27, 6, 0.98); poneBrazo(mL, 5.5, 27, 6, 0.98); }
+    }
+    if (prog.codo > 0.02) { mL.g.position.x += prog.codo * 3; mL.g.position.y -= prog.codo * 3; }
+    const yMano = pR.y, zMano = pR.z;
+    // ---------- humedad: la piel brilla y chorrean gotas por el antebrazo
+    const wTgt = sec ? clamp(1 - ts / (2 * SEG), 0, 1) : bajoAgua ? 1 : (faseLav > 0 && s('jabon') && !s('alto')) ? 0.7 : s('alto') ? 0.85 : prog.agua > 0.02 ? 0.5 : (s('mojar') ? 0.6 : 0);
+    ent.wet = lerp(ent.wet || 0, wTgt, easeK(dt, sec ? 1.2 : 2.2)); const W = ent.wet;
+    [mPiel, pielReal].forEach((q) => { q.roughness = lerp(0.6, 0.14, W); q.clearcoat = lerp(0.1, 1, W); q.clearcoatRoughness = lerp(0.4, 0.06, W); });
+    manos.forEach((m) => { m.gts.forEach((d) => { const on = W > 0.35 && !m.glove; d.m.visible = on; if (!on) return; const p = (tt * d.v + d.o) % 1; d.m.position.set(d.x * 0.6 + (m.lado > 0 ? 2.2 : -2.2) * 0.4, 2.4 + 0.8 * Math.sin(p * 9), lerp(11, -27, p)); d.m.scale.setScalar(0.7 + 0.5 * Math.sin(p * 3.14)); }); });
+    spl.forEach((d) => { const on = prog.agua > 0.3 && agua; d.m.visible = on; if (!on) return; const p = (tt * 1.4 + d.o) % 1; d.m.position.set(pico.x + Math.cos(d.a) * d.v * p, yMano + 10 + Math.sin(p * 3.14) * 3.5 - p * 2, pico.z + Math.sin(d.a) * d.v * p * 0.8); d.m.scale.setScalar(1 - p * 0.7); });
+    // espuma: cobertura objetivo
+    const objetivo = !s('jabon') ? 0 : (s('lav3') ? 0.38 : s('lav2') ? 0.82 : s('antebr') ? 1 : s('lav1') ? 0.28 : 0.05);
     const tgt = enj ? 0 : objetivo; manos.forEach((m, i) => { cov[i] = lerp(cov[i], tgt, easeK(dt, enj ? 0.9 : 1.1)); m.esp.forEach((e) => { const on = e.t <= cov[i] + 0.001 && cov[i] > 0.02; e.m.visible = on; if (on) { const q = clamp((cov[i] - e.t) * 6, 0, 1); e.m.scale.setScalar(e.base * (0.6 + 0.4 * q) * (1 + 0.08 * Math.sin(t / 150 + e.t * 40))); } }); });
     // aro guía (hasta dónde se lava)
     manos.forEach((m) => { m.aro.visible = faseLav > 0 && !enj && !s('alto'); const zz = faseLav === 1 ? -27.4 + 2.5 : faseLav === 2 ? -27.4 - 3 : -3; m.aro.position.z = lerp(m.aro.position.z, zz, k); });
     // cepillo y limpiauñas
     cepillo.visible = s('jabon') && !s('alto') && (faseLav >= 1 || s('unas') === false); const brushOn = faseLav > 0 && !enj;
     cepillo.visible = s('jabon') && !s('alto') && !s('seca');
-    if (cepillo.visible) { const tt = t / 1000; const z0 = brushOn ? lerp(10, -22, (Math.sin(tt * 2.2) * 0.5 + 0.5)) : 8; const wp = V(-4.2 * (Math.floor(tt / 3) % 2 ? -1 : 1) * (brushOn ? 1 : 0.6), yMano + 5 + (10 - z0) * 0.25, zMano - 4 - z0 * 0.3); cepillo.position.lerp(wp, k * 1.5); cepillo.rotation.set(0.3, 0, Math.sin(tt * 9) * 0.25); }
+    if (cepillo.visible) { if (barrido !== null) { const B = barrido ? mR : mL; cepillo.position.lerp(B.g.localToWorld(_wp.set(0, -1.8, 5)), 0.7); cepillo.quaternion.copy(B.g.quaternion); } else { const wp = V(pR.x + 3, yMano + 12, zMano - 6 + 2 * Math.sin(tt * 3)); cepillo.position.lerp(wp, k * 1.5); cepillo.rotation.set(0.3, 0, Math.sin(tt * 9) * 0.25); } }
     palito.visible = s('unas') && !s('lav1'); if (palito.visible) palito.position.set(mR.g.position.x + 1.5, yMano + 15 + Math.sin(t / 120) * 0.5, zMano - 12 - Math.sin(t / 220) * 0.8), palito.rotation.set(1.2, 0, 0.3);
     // cronómetro de la fase de lavado
     const durMs = { 0: 0, 1: 7000, 2: 7000, 3: 7000 }; if (faseLav && !s('alto')) tiempo = Math.min(300, tiempo + dt * (180 / 21)); else if (!faseLav) tiempo = 0;
     hr.dataset.on = (faseLav && !s('seca')) ? '1' : '0'; const seg = Math.round(tiempo); hr.querySelector('b').textContent = `${Math.floor(seg / 60)}:${String(seg % 60).padStart(2, '0')}`; hr.querySelector('u').style.width = `${(tiempo / 300) * 100}%`; hr.classList.toggle('ok', tiempo >= 180);
-    // toalla estéril: de los dedos al codo, una sola dirección
-    prog.toalla = lerp(prog.toalla, sec ? 1 : 0, easeK(dt, 0.7)); toalla.visible = sec && !guantes;
-    if (toalla.visible) { const q = (t / 1700) % 1; const z = lerp(8, -18, q); toalla.position.set(mR.g.position.x + 2.2, mR.g.position.y + 8 + (8 - z) * 0.45, mR.g.position.z - 3 - (8 - z) * 0.3); toalla.rotation.set(0.9, 0, 0); }
+    toalla.visible = sec && ts < 2 * SEG + 0.4 && !guantes;
     // paquete y guantes
     mesa.visible = paq.visible = s('paq') || s('abre'); prog.abre = lerp(prog.abre, s('abre') ? 1 : 0, easeK(dt, 2.5));
     solapaI.rotation.z = -prog.abre * 2.7; solapaD.rotation.z = prog.abre * 2.7; par.forEach((gm) => { gm.visible = prog.abre > 0.5; });
