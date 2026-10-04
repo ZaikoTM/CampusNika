@@ -1,6 +1,6 @@
 # Revisión clínica · Anamnesis ginecológica (SIM)
 
-Estado: **BORRADOR para validar con NotebookLM** contra «Guía de TP N.º 1 · Anamnesis gineco-obstétrica» (lista de cotejo de anamnesis ginecológica) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
+Estado: **VALIDADO con NotebookLM.** FUM (paso 22) pasa a crítico; anticoncepción (paso 23) no aplica en posmenopausia (c5 y c8); fórmula obstétrica G P C Abe Abp y familigrama de 2 a 3 generaciones confirmados. Referencia: contra «Guía de TP N.º 1 · Anamnesis gineco-obstétrica» (lista de cotejo de anamnesis ginecológica) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
 
 ## Cómo funciona el simulador
 

@@ -508,7 +508,8 @@
      }
     ]
    },
-   "titulo": "Hiperplasia / cáncer de endometrio"
+   "titulo": "Hiperplasia / cáncer de endometrio",
+   "posmeno": true
   },
   {
    "id": "c6",
@@ -680,7 +681,8 @@
      }
     ]
    },
-   "titulo": "Síndrome climatérico"
+   "titulo": "Síndrome climatérico",
+   "posmeno": true
   }
  ],
  "fundamentos": [
@@ -1680,7 +1682,7 @@
    "texto": "Pregunta sobre la fecha de la última menstruación (FUM)",
    "fase": "Antecedentes gineco-obstétricos",
    "target": "hc",
-   "critico": false,
+   "critico": true,
    "explica": "La FUM permite descartar un embarazo, ubicar el ciclo y calcular la edad gestacional si corresponde.",
    "estado": {
     "fum": 1
@@ -1711,7 +1713,7 @@
    "fase": "Antecedentes gineco-obstétricos",
    "target": "hc",
    "critico": false,
-   "explica": "Método anticonceptivo actual, tiempo de uso y tolerancia; también el deseo reproductivo.",
+   "explica": "Método anticonceptivo actual, tiempo de uso y tolerancia; también el deseo reproductivo. No aplica en la posmenopausia (se pregunta por terapia hormonal o salud sexual).",
    "estado": {
     "anticon": 1
    },
@@ -1739,7 +1741,8 @@
     ]
    ],
    "frase": "Le pregunto sobre el uso de anticoncepción: qué método usa y desde cuándo.",
-   "fx": "preguntar"
+   "fx": "preguntar",
+   "sin_si": "posmeno"
   },
   {
    "n": 24,

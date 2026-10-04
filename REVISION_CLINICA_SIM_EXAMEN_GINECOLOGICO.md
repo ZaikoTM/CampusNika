@@ -1,6 +1,6 @@
 # Revisión clínica · Examen ginecológico, toma de PAP y tacto bimanual (SIM)
 
-Estado: **BORRADOR para validar con NotebookLM** contra «Guía de TP N.º 2 · Examen ginecológico (toma de PAP y tacto bimanual)» (lista de cotejo de 27 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
+Estado: **VALIDADO con NotebookLM.** Técnica del espéculo (diestra, giro horario de 90°), gel prohibido antes del PAP, exocérvix antes que endocérvix y PAP antes del tacto: confirmados. Se mantiene un portaobjetos por muestra según la lista de cotejo. Referencia: contra «Guía de TP N.º 2 · Examen ginecológico (toma de PAP y tacto bimanual)» (lista de cotejo de 27 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
 
 ## Cómo funciona el simulador
 

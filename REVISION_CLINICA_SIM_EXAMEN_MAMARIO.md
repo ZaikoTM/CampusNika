@@ -1,6 +1,6 @@
 # Revisión clínica · Examen mamario (SIM)
 
-Estado: **BORRADOR para validar con NotebookLM** contra «Guía de TP N.º 3 · Examen mamario» (lista de cotejo de 18 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
+Estado: **VALIDADO con NotebookLM.** Paso 4 unificado, secuencia de inspección y palpación en decúbito y autoexamen mensual a los 7-10 días del inicio de la regla confirmados; se aceptan cuadrantes, espiral o tiras verticales. Referencia: contra «Guía de TP N.º 3 · Examen mamario» (lista de cotejo de 18 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
 
 ## Cómo funciona el simulador
 

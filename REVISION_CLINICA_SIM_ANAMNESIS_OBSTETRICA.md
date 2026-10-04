@@ -1,6 +1,6 @@
 # Revisión clínica · Anamnesis obstétrica (SIM)
 
-Estado: **BORRADOR para validar con NotebookLM** contra «Guía de TP N.º 1 · Anamnesis gineco-obstétrica» (lista de cotejo de anamnesis obstétrica) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
+Estado: **VALIDADO con NotebookLM.** Agrupación en 22 pasos, pasos críticos y orden de la planilla confirmados. Vacunas: dTpa desde la semana 20, antigripal en cualquier trimestre, VSR semanas 32-36, antirrubeólica contraindicada. Referencia: contra «Guía de TP N.º 1 · Anamnesis gineco-obstétrica» (lista de cotejo de anamnesis obstétrica) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
 
 ## Cómo funciona el simulador
 

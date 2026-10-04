@@ -1,6 +1,6 @@
 # Revisión clínica · Cálculo de EG y FPP (SIM)
 
-Estado: **BORRADOR para validar con NotebookLM** contra «Guía de TP N.º 1 · Cálculo de EG y FPP» (no incluye lista de cotejo: la secuencia de pasos es **propuesta**) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
+Estado: **VALIDADO con NotebookLM.** Se aceptan Naegele y Wahl-Beruti (+10 días) y el conteo de 280 días con tolerancia de 1 a 3 días; umbral de discrepancia con ecografía del 1.er trimestre: más de 7 días; clasificación y trimestres confirmados. Referencia: contra «Guía de TP N.º 1 · Cálculo de EG y FPP» (no incluye lista de cotejo: la secuencia de pasos es **propuesta**) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
 
 ## Cómo funciona el simulador
 

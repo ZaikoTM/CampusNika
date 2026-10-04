@@ -1,6 +1,6 @@
 # Revisión clínica · Examen obstétrico (SIM)
 
-Estado: **BORRADOR para validar con NotebookLM** contra «Guía de TP N.º 2 · Examen obstétrico» (lista de cotejo de semiología obstétrica, 19 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
+Estado: **VALIDADO con NotebookLM.** Orden de la planilla (Pinard entre la 2.ª y la 3.ª maniobra), FCF 110-160 lpm, curva de AU P10-P90 y hallazgos de la situación transversa confirmados. Referencia: contra «Guía de TP N.º 2 · Examen obstétrico» (lista de cotejo de semiología obstétrica, 19 ítems) y la bibliografía de la cátedra. Todo lo marcado con ❓ es una decisión mía que necesita confirmación clínica.
 
 ## Cómo funciona el simulador
 
