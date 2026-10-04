@@ -25,21 +25,21 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   const mPapel = mat('#e8f1f5', 1, { roughness: 0.9, clearcoat: 0 });
 
   // --- ambiente: pared de azulejos, lavabo de acero con canilla
-  const pared = new THREE.Mesh(new THREE.BoxGeometry(70, 46, 1.5), mAzulej); pared.position.set(0, 24, -22); raiz.add(pared);
-  for (let i = -3; i <= 3; i++) { const l = new THREE.Mesh(new THREE.BoxGeometry(0.15, 46, 0.2), mat('#9cc3d0', 1)); l.position.set(i * 9.5, 24, -21.1); raiz.add(l); }
+  const pared = new THREE.Mesh(new THREE.BoxGeometry(80, 70, 1.5), mAzulej); pared.position.set(0, 34, -22); raiz.add(pared);
+  for (let i = -3; i <= 3; i++) { const l = new THREE.Mesh(new THREE.BoxGeometry(0.15, 70, 0.2), mat('#9cc3d0', 1)); l.position.set(i * 9.5, 34, -21.1); raiz.add(l); }
   const lavabo = new THREE.Mesh(new THREE.BoxGeometry(50, 7, 22), mAcero); lavabo.position.set(0, -2, -10); raiz.add(lavabo);
   const cubeta = new THREE.Mesh(new THREE.BoxGeometry(44, 1.2, 17), mat('#aeb9c2', 1, { roughness: 0.25 })); cubeta.position.set(0, 1.7, -10); raiz.add(cubeta);
   const cano = new THREE.Group(); cano.position.set(0, 1, -20); raiz.add(cano);
-  const c1 = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.3, 16, 16), mAcero); c1.position.y = 8; cano.add(c1);
-  const c2 = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.0, 11, 16), mAcero); c2.rotation.x = Math.PI / 2; c2.position.set(0, 16, 5); cano.add(c2);
-  const palanca = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 12), mat('#9aa7b1', 1, { roughness: 0.3 })); palanca.position.set(0, 14.4, 2); cano.add(palanca);
-  const pico = V(0, 1, -20 + 10.5).add(V(0, 15, 0));
+  const c1 = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.3, 38, 16), mAcero); c1.position.y = 19; cano.add(c1);
+  const c2 = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.0, 11, 16), mAcero); c2.rotation.x = Math.PI / 2; c2.position.set(0, 38, 5); cano.add(c2);
+  const palanca = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 12), mat('#9aa7b1', 1, { roughness: 0.3 })); palanca.position.set(0, 36.4, 2); cano.add(palanca);
+  const pico = V(0, 1 + 37.5, -20 + 10.5);
   // chorro de agua
-  const chorro = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.45, 14, 12, 1, true), mAgua); chorro.position.set(0, pico.y - 7, pico.z); chorro.visible = false; chorro.renderOrder = 6; raiz.add(chorro);
+  const chorro = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.45, 26, 12, 1, true), mAgua); chorro.position.set(0, pico.y - 13, pico.z); chorro.visible = false; chorro.renderOrder = 6; raiz.add(chorro);
   const gotas = []; for (let i = 0; i < 26; i++) { const g = new THREE.Mesh(new THREE.SphereGeometry(0.28, 8, 6), mAgua); g.visible = false; g.renderOrder = 6; raiz.add(g); gotas.push({ m: g, ph: Math.random() * 6.28, v: 6 + Math.random() * 6 }); }
   // dosificador de jabón + cepillo + limpiauñas
   const dosif = new THREE.Group(); dosif.position.set(-22, 4, -16); raiz.add(dosif);
-  dosif.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 9, 20), mat('#f59e0b', 0.9)), { position: V(0, 4.5, 0) }));
+  const dcu = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 9, 20), mat('#f59e0b', 0.9)); dcu.position.set(0, 4.5, 0); dosif.add(dcu);
   const bomba = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 4, 10), mAcero); bomba.position.set(0, 11, 0); dosif.add(bomba);
   const pico2 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 4), mAcero); pico2.position.set(0, 12.8, 2); dosif.add(pico2);
   const cepillo = new THREE.Group(); cepillo.visible = false; raiz.add(cepillo);
@@ -72,12 +72,12 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   const [mR, mL] = manos;
 
   // --- guantes estériles: paquete con solapas sobre una mesita lateral + par de guantes
-  const mesa = new THREE.Mesh(new THREE.BoxGeometry(26, 2, 20), mat('#94a3b8', 1, { roughness: 0.3 })); mesa.position.set(36, 2, 0); mesa.visible = false; raiz.add(mesa);
-  const paq = new THREE.Group(); paq.position.set(36, 3.2, 0); paq.visible = false; raiz.add(paq);
+  const mesa = new THREE.Mesh(new THREE.BoxGeometry(26, 2, 20), mat('#94a3b8', 1, { roughness: 0.3 })); mesa.position.set(0, 12, 20); mesa.visible = false; raiz.add(mesa);
+  const paq = new THREE.Group(); paq.position.set(0, 13.2, 20); paq.visible = false; raiz.add(paq);
   const base = new THREE.Mesh(new THREE.BoxGeometry(18, 0.3, 14), mPapel); paq.add(base);
   const solapaI = new THREE.Mesh(new THREE.BoxGeometry(9, 0.25, 14), mPapel); solapaI.geometry.translate(4.5, 0, 0); solapaI.position.set(-9, 0.3, 0); paq.add(solapaI);
   const solapaD = new THREE.Mesh(new THREE.BoxGeometry(9, 0.25, 14), mPapel); solapaD.geometry.translate(-4.5, 0, 0); solapaD.position.set(9, 0.3, 0); paq.add(solapaD);
-  const par = [1, -1].map((l) => { const gm = crearMano(mGuante, l); gm.scale.setScalar(0.62); gm.rotation.set(0, 0, 0); gm.position.set(l * 4.2, 0.9, -5); gm.visible = false; paq.add(gm); return gm; });
+  const par = [1, -1].map((l) => { const gm = crearMano(mGuante, l); gm.scale.setScalar(0.62); gm.rotation.set(0, 0, 0); gm.position.set(l * 4.2, 0.9, -4); gm.quaternion.setFromEuler(new THREE.Euler(0, 0, 0)); gm.rotation.x = 0; gm.visible = false; paq.add(gm); return gm; });
 
   // --- HUD: vestimenta, cronómetro, indicaciones
   const hud = document.createElement('div'); hud.className = 'cir-hud lav';
@@ -91,11 +91,12 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
   const ent = { tipo: 'lavado', st: {}, cat: { goal: 0 } }; let has = () => false; let cov = [0, 0], covObj = [0, 0]; let tiempo = 0, wet = 0, prog = { toalla: 0, g1: 0, g2: 0, est1: 0, est2: 0, abre: 0, alto: 0, codo: 0, cierra: 0, acc: 0 };
   let ultimoT = 0, cap = null; const toalla = new THREE.Mesh(new THREE.BoxGeometry(14, 0.5, 9), mTela); toalla.visible = false; raiz.add(toalla);
   ent.sync = (h, r) => { has = h; ent.raiz = r || ent.raiz; ent.has = h; };
-  const poneBrazo = (m, x, y, z, alto, yaw) => {
-    // mano a la altura 'y'; antebrazo hacia atrás/abajo; 'alto' = 0 (horizontal hacia el lavabo) a 1 (manos en alto, codos abajo)
-    m.g.position.set(x, y, z);
-    const tilt = lerp(-0.55, -1.05, alto); // dedos hacia arriba
-    m.g.quaternion.setFromEuler(new THREE.Euler(tilt, yaw * m.lado, 0, 'YXZ'));
+  const _m4 = new THREE.Matrix4(), _x = new THREE.Vector3(), _y = new THREE.Vector3(), _z = new THREE.Vector3();
+  const poneBrazo = (m, x, y, z, a) => {
+    // dedos hacia arriba y adelante con elevación 'a', antebrazo hacia atrás/abajo (codo cerca del lavabo), palmas enfrentadas
+    m.g.position.set(x, y, z); const sn = Math.sin(a), cs = Math.cos(a);
+    _z.set(0, sn, -cs); _x.set(0, m.lado > 0 ? cs : -cs, m.lado > 0 ? sn : -sn); _y.crossVectors(_z, _x).normalize();
+    _m4.makeBasis(_x, _y, _z); m.g.quaternion.setFromRotationMatrix(_m4);
   };
 
   ent.tick = (t) => {
@@ -108,17 +109,17 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     const agua = s('canilla') && !s('cierra');
     chorro.visible = agua; palanca.rotation.x = lerp(palanca.rotation.x, agua ? -0.5 : 0, k);
     chorro.scale.x = chorro.scale.z = 0.85 + 0.15 * Math.sin(t / 60); chorro.material.opacity = 0.45 + 0.15 * Math.sin(t / 90);
-    gotas.forEach((g, i) => { g.m.visible = agua; if (!agua) return; const y = ((t / 1000) * g.v + g.ph * 3) % 14; g.m.position.set(Math.cos(g.ph + i) * 0.7 * (y / 14 + 0.3), pico.y - y, pico.z + Math.sin(g.ph + i) * 0.5); g.m.scale.setScalar(0.7 + 0.5 * Math.sin(t / 130 + i)); });
+    gotas.forEach((g, i) => { g.m.visible = agua; if (!agua) return; const y = ((t / 1000) * g.v + g.ph * 3) % 26; g.m.position.set(Math.cos(g.ph + i) * 0.7 * (y / 26 + 0.3), pico.y - y, pico.z + Math.sin(g.ph + i) * 0.5); g.m.scale.setScalar(0.7 + 0.5 * Math.sin(t / 130 + i)); });
     // joyas
     prog.acc = lerp(prog.acc, s('acc') ? 1 : 0, easeK(dt, 2.4));
     manos.forEach((m) => { m.joyas.visible = prog.acc < 0.98; m.joyas.position.y = prog.acc * 22; m.joyas.scale.setScalar(1 - prog.acc * 0.9); });
     // postura de los brazos: lavado (horizontal sobre el lavabo) vs manos en alto
     prog.alto = lerp(prog.alto, s('alto') ? 1 : 0, easeK(dt, 2.2)); prog.codo = lerp(prog.codo, s('cierra') ? 1 : 0, easeK(dt, 3));
     const sec = s('seca'); const guantes = s('paq');
-    const yMano = lerp(10, 24, prog.alto), zMano = lerp(-2, 6, prog.alto);
+    const yMano = lerp(23, 27, prog.alto), zMano = lerp(2, 5, prog.alto), ang = lerp(0.62, 0.95, prog.alto);
     let shake = 0; if (faseLav && !s('enj1') && !s('alto')) shake = Math.sin(t / 130) * 1.2;
-    poneBrazo(mR, 7.5 + shake * 0.2, yMano + Math.abs(shake) * 0.3, zMano, prog.alto, 1.55); poneBrazo(mL, -7.5 - shake * 0.2, yMano + Math.abs(shake) * 0.3, zMano, prog.alto, 1.55);
-    if (prog.codo > 0.02) { mR.g.position.x -= prog.codo * 2.2; mR.g.position.y -= prog.codo * 4; } // el codo baja a empujar la palanca
+    poneBrazo(mR, -4.2 - shake * 0.2, yMano + Math.abs(shake) * 0.3, zMano, ang); poneBrazo(mL, 4.2 + shake * 0.2, yMano + Math.abs(shake) * 0.3, zMano, ang);
+    if (prog.codo > 0.02) { mL.g.position.x += prog.codo * 3; mL.g.position.y -= prog.codo * 3; } // el codo baja a empujar la palanca
     // pose de dedos
     manos.forEach((m) => { const pose = (faseLav && !s('alto')) ? 'garra' : 'suave'; m.mano.pose(pose, pose === 'garra' ? 0.35 + 0.25 * Math.sin(t / 200) : 0.5); });
     // espuma: cobertura objetivo
@@ -131,14 +132,14 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     // cepillo y limpiauñas
     cepillo.visible = s('jabon') && !s('alto') && (faseLav >= 1 || s('unas') === false); const brushOn = faseLav > 0 && !enj;
     cepillo.visible = s('jabon') && !s('alto') && !s('seca');
-    if (cepillo.visible) { const tt = t / 1000; const z0 = brushOn ? lerp(10, -22, (Math.sin(tt * 2.2) * 0.5 + 0.5)) : 8; const wp = V(7.5 * (Math.floor(tt / 3) % 2 ? -1 : 1) * (brushOn ? 1 : 0.6), yMano + 2.4, zMano - z0 * 0.38); cepillo.position.lerp(wp, k * 1.5); cepillo.rotation.set(0.3, 0, Math.sin(tt * 9) * 0.25); }
-    palito.visible = s('unas') && !s('lav1'); if (palito.visible) palito.position.set(mR.g.position.x - 1, yMano + 1.5 + Math.sin(t / 120) * 0.5, zMano + 11 - Math.sin(t / 220) * 0.8), palito.rotation.set(1.2, 0, 0.3);
+    if (cepillo.visible) { const tt = t / 1000; const z0 = brushOn ? lerp(10, -22, (Math.sin(tt * 2.2) * 0.5 + 0.5)) : 8; const wp = V(-4.2 * (Math.floor(tt / 3) % 2 ? -1 : 1) * (brushOn ? 1 : 0.6), yMano + 5 + (10 - z0) * 0.25, zMano - 4 - z0 * 0.3); cepillo.position.lerp(wp, k * 1.5); cepillo.rotation.set(0.3, 0, Math.sin(tt * 9) * 0.25); }
+    palito.visible = s('unas') && !s('lav1'); if (palito.visible) palito.position.set(mR.g.position.x + 1.5, yMano + 15 + Math.sin(t / 120) * 0.5, zMano - 12 - Math.sin(t / 220) * 0.8), palito.rotation.set(1.2, 0, 0.3);
     // cronómetro de la fase de lavado
     const durMs = { 0: 0, 1: 7000, 2: 7000, 3: 7000 }; if (faseLav && !s('alto')) tiempo = Math.min(300, tiempo + dt * (180 / 21)); else if (!faseLav) tiempo = 0;
     hr.dataset.on = (faseLav && !s('seca')) ? '1' : '0'; const seg = Math.round(tiempo); hr.querySelector('b').textContent = `${Math.floor(seg / 60)}:${String(seg % 60).padStart(2, '0')}`; hr.querySelector('u').style.width = `${(tiempo / 300) * 100}%`; hr.classList.toggle('ok', tiempo >= 180);
     // toalla estéril: de los dedos al codo, una sola dirección
     prog.toalla = lerp(prog.toalla, sec ? 1 : 0, easeK(dt, 0.7)); toalla.visible = sec && !guantes;
-    if (toalla.visible) { const q = (t / 1700) % 1; const z = lerp(8, -18, q); toalla.position.set(mR.g.position.x - 0.5, mR.g.position.y + 2 + 0.3 * Math.sin(q * 12), mR.g.position.z - z * 0.4); toalla.rotation.set(0.5, 0, 0); }
+    if (toalla.visible) { const q = (t / 1700) % 1; const z = lerp(8, -18, q); toalla.position.set(mR.g.position.x + 2.2, mR.g.position.y + 8 + (8 - z) * 0.45, mR.g.position.z - 3 - (8 - z) * 0.3); toalla.rotation.set(0.9, 0, 0); }
     // paquete y guantes
     mesa.visible = paq.visible = s('paq') || s('abre'); prog.abre = lerp(prog.abre, s('abre') ? 1 : 0, easeK(dt, 2.5));
     solapaI.rotation.z = -prog.abre * 2.7; solapaD.rotation.z = prog.abre * 2.7; par.forEach((gm) => { gm.visible = prog.abre > 0.5; });
@@ -149,7 +150,8 @@ TIPOS.lavado = (visor, ins, cfg, C) => {
     // los guantes del paquete desaparecen al usarlos
     par[0].visible = prog.abre > 0.5 && !s('g1'); par[1].visible = prog.abre > 0.5 && !s('g2a');
     // movimiento hacia el paquete al ponerse los guantes
-    if (guantes) { const fase = s('g2a') ? 2 : s('g1') ? 1 : s('puntas') ? 0.5 : 0; const wob = Math.sin(t / 260) * 0.3; mR.g.position.set(30 + wob, 12, 6); mR.g.quaternion.setFromEuler(new THREE.Euler(-0.6, 1.2, 0, 'YXZ')); mL.g.position.set(-8 + (fase >= 2 ? 22 : 0), 12 + (fase >= 2 ? 0 : 6), 4); mL.g.quaternion.setFromEuler(new THREE.Euler(-0.7, 1.55, 0, 'YXZ')); }
+    if (guantes) { const fase = s('g2a') ? 2 : s('g1') ? 1 : 0; const wob = Math.sin(t / 260) * 0.4;
+      poneBrazo(mR, -9 + wob, 19, 17, 0.25); poneBrazo(mL, 9 - wob + (fase >= 1 ? 0 : 0), 19 + (fase === 0 ? 3 : 0), 17, 0.25); }
     prog.est1 = lerp(prog.est1, s('est1') ? 1 : 0, easeK(dt, 3)); prog.est2 = lerp(prog.est2, s('est2') ? 1 : 0, easeK(dt, 3));
     mR.doblez.visible = s('g1') && !s('est1'); mL.doblez.visible = s('g2a') && !s('est2');
     if (s('est1')) mR.ante.scale.set(1.03, 1, 1.03); if (s('est2')) mL.ante.scale.set(1.03, 1, 1.03);
