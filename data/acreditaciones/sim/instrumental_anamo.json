@@ -1,0 +1,167 @@
+{
+ "id": "anamo",
+ "titulo": "Consultorio de control prenatal · Anamnesis",
+ "consigna": "Preparás el consultorio: carnet, historia clínica, balanza y tensiómetro. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "control prenatal",
+ "indicacion_def": "Anamnesis obstétrica.",
+ "mision": [
+  "qué hace falta para registrar y controlar peso y tensión;",
+  "qué insumos no corresponden."
+ ],
+ "demo_caso": "Primero se lee el caso: la edad gestacional y los antecedentes orientan el interrogatorio.",
+ "grupos": [
+  {
+   "id": "registro",
+   "titulo": "Registro"
+  },
+  {
+   "id": "medir",
+   "titulo": "Peso y tensión"
+  },
+  {
+   "id": "confort",
+   "titulo": "Consultorio"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "carnet_perinatal",
+   "grupo": "registro",
+   "nombre": "Carnet perinatal",
+   "detalle": "Control prenatal",
+   "img": "assets/instrumental/carnet_perinatal.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Documento donde se registran los controles del embarazo.",
+   "ficha": [
+    [
+     "Documento",
+     "Carnet perinatal"
+    ]
+   ],
+   "falta": "Falta el carnet perinatal."
+  },
+  {
+   "id": "hc_blanca",
+   "grupo": "registro",
+   "nombre": "Historia clínica obstétrica",
+   "detalle": "Formulario en blanco",
+   "img": "assets/instrumental/hc_blanca.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para registrar la anamnesis obstétrica.",
+   "ficha": [
+    [
+     "Documento",
+     "Historia clínica"
+    ]
+   ],
+   "falta": "Falta la historia clínica."
+  },
+  {
+   "id": "balanza_pie",
+   "grupo": "medir",
+   "nombre": "Balanza de pie",
+   "detalle": "Peso materno",
+   "img": "assets/instrumental/balanza_pie.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para pesar a la embarazada.",
+   "ficha": [
+    [
+     "Uso",
+     "Peso"
+    ]
+   ],
+   "falta": "Falta la balanza para pesar a la paciente."
+  },
+  {
+   "id": "tensiometro",
+   "grupo": "medir",
+   "nombre": "Tensiómetro y brazalete",
+   "detalle": "Aneroide",
+   "img": "assets/instrumental/tensiometro.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para tomar la tensión arterial.",
+   "ficha": [
+    [
+     "Uso",
+     "Tensión arterial"
+    ]
+   ],
+   "falta": "Falta el tensiómetro."
+  },
+  {
+   "id": "mesa_sillas",
+   "grupo": "confort",
+   "nombre": "Mesa y sillas del consultorio",
+   "detalle": "2 sillas enfrentadas",
+   "img": "assets/instrumental/mesa_sillas.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Lugar cómodo para conversar.",
+   "ficha": [
+    [
+     "Cantidad",
+     "2 mesas y 6 sillas"
+    ]
+   ]
+  },
+  {
+   "id": "lapicera",
+   "grupo": "registro",
+   "nombre": "Lapicera y tablilla",
+   "detalle": "Para anotar",
+   "img": "assets/instrumental/lapicera.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para registrar los datos.",
+   "ficha": [
+    [
+     "Uso",
+     "Registro"
+    ]
+   ]
+  },
+  {
+   "id": "especulo",
+   "grupo": "otros",
+   "nombre": "Espéculo vaginal",
+   "detalle": "Descartable",
+   "img": "assets/instrumental/especulo.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Instrumento del examen ginecológico.",
+   "ficha": [
+    [
+     "Uso",
+     "Examen"
+    ]
+   ],
+   "feedback": "No corresponde a la anamnesis."
+  },
+  {
+   "id": "doppler",
+   "grupo": "otros",
+   "nombre": "Doppler fetal portátil",
+   "detalle": "Detector de latidos",
+   "img": "assets/instrumental/doppler.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Detector de latidos fetales.",
+   "ficha": [
+    [
+     "Uso",
+     "Auscultación"
+    ]
+   ],
+   "feedback": "La auscultación fetal pertenece al examen obstétrico, no a la anamnesis."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

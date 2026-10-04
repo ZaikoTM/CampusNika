@@ -1,0 +1,1523 @@
+{
+ "id": "exobs",
+ "area": "sim",
+ "titulo": "Examen obstétrico",
+ "icono": "🫄",
+ "resumen": "Recorrido virtual del examen obstétrico con 19 pasos de la lista de cotejo: medición de la altura uterina con cinta, las cuatro maniobras de Leopold, auscultación de la frecuencia cardíaca fetal con estetoscopio de Pinard y registro en la curva de incremento.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Semiología obstétrica (19 ítems)",
+ "elementos": {
+  "paciente": {
+   "nombre": "Embarazada",
+   "desc": "Se la saluda, se le explica el examen, se la ubica en decúbito dorsal y se le informan los hallazgos.",
+   "pasos": [
+    1,
+    2,
+    4,
+    9,
+    12,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ]
+  },
+  "camilla": {
+   "nombre": "Camilla",
+   "desc": "Decúbito dorsal con el abdomen descubierto.",
+   "pasos": [
+    3
+   ]
+  },
+  "pubis": {
+   "nombre": "Borde superior del pubis",
+   "desc": "Punto cero de la medición de la altura uterina.",
+   "pasos": [
+    5
+   ]
+  },
+  "cinta": {
+   "nombre": "Cinta obstétrica",
+   "desc": "Cinta flexible e inextensible, con el 0 en el borde superior del pubis.",
+   "pasos": [
+    6,
+    8
+   ]
+  },
+  "fondo": {
+   "nombre": "Fondo uterino",
+   "desc": "Extremo superior del útero: hasta ahí se mide la altura uterina.",
+   "pasos": [
+    7,
+    11
+   ]
+  },
+  "curva": {
+   "nombre": "Curva de incremento de la AU",
+   "desc": "Gráfico con los percentilos 10 y 90 de la altura uterina según la edad gestacional.",
+   "pasos": [
+    10
+   ]
+  },
+  "pinard": {
+   "nombre": "Estetoscopio de Pinard",
+   "desc": "Cuerno de madera para auscultar los latidos fetales sobre el dorso fetal.",
+   "pasos": [
+    13
+   ]
+  },
+  "reloj": {
+   "nombre": "Reloj con segundero",
+   "desc": "Para contar los latidos fetales durante un minuto y tomar el pulso materno.",
+   "pasos": []
+  },
+  "manos": {
+   "nombre": "Manos",
+   "desc": "Higiene de manos antes de tocar a la embarazada.",
+   "pasos": []
+  },
+  "carnet": {
+   "nombre": "Carnet perinatal",
+   "desc": "Se registran la altura uterina, el peso, la presión arterial y la FCF.",
+   "pasos": []
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Mide la altura uterina desde el ombligo o desde otro punto que no sea el borde superior del pubis",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el cero de la cinta va en el borde superior de la sínfisis pubiana.",
+   "target": "pubis",
+   "claves": [
+    [
+     "desde el ombligo"
+    ],
+    [
+     "desde la cicatriz umbilical"
+    ],
+    [
+     "desde el apendice xifoides"
+    ],
+    [
+     "desde el hueso pubiano"
+    ],
+    [
+     "desde las espinas"
+    ],
+    [
+     "desde la cresta iliaca"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Mide con una cinta métrica común (de costura) o la deja floja",
+   "critico": false,
+   "porque": "Se usa la cinta obstétrica, flexible e inextensible, bien apoyada sobre la piel.",
+   "target": "cinta",
+   "claves": [
+    [
+     "cinta de costura"
+    ],
+    [
+     "metro de costura"
+    ],
+    [
+     "cinta metrica comun"
+    ],
+    [
+     "regla"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Mide la altura uterina con la paciente sentada o de costado",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la medición se hace en decúbito dorsal.",
+   "target": "camilla",
+   "claves": [
+    [
+     "sentada"
+    ],
+    [
+     "de costado"
+    ],
+    [
+     "decubito lateral"
+    ],
+    [
+     "parada"
+    ],
+    [
+     "de pie"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Se coloca a la izquierda de la paciente para medir",
+   "critico": false,
+   "porque": "El examinador se ubica al lado derecho de la paciente, de frente a ella.",
+   "target": "paciente",
+   "claves": [
+    [
+     "lado izquierdo"
+    ],
+    [
+     "a la izquierda de la paciente"
+    ],
+    [
+     "me coloco",
+     "izquierda"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Ausculta con el estetoscopio de Pinard sin identificar antes el dorso fetal",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: el foco máximo está sobre el dorso fetal, que se identifica con las maniobras de Leopold.",
+   "target": "pinard",
+   "claves": [
+    [
+     "sin identificar el dorso"
+    ],
+    [
+     "sin palpar el dorso"
+    ],
+    [
+     "ausculto cualquier lugar"
+    ],
+    [
+     "sin ubicar el dorso"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Sujeta el Pinard con las manos mientras cuenta los latidos",
+   "critico": false,
+   "porque": "El estetoscopio de Pinard se sostiene con la presión de la oreja, sin agarrarlo con las manos.",
+   "target": "pinard",
+   "claves": [
+    [
+     "sostengo el pinard con la mano"
+    ],
+    [
+     "agarro el pinard"
+    ],
+    [
+     "sujeto el pinard"
+    ],
+    [
+     "con las manos el pinard"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Cuenta los latidos fetales durante 15 segundos o menos",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: los latidos se cuentan durante un minuto completo con reloj con segundero.",
+   "target": "reloj",
+   "claves": [
+    [
+     "15 segundos"
+    ],
+    [
+     "10 segundos"
+    ],
+    [
+     "30 segundos"
+    ],
+    [
+     "cuento 15"
+    ],
+    [
+     "cuarto de minuto"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "No toma el pulso materno al auscultar",
+   "critico": false,
+   "porque": "El pulso materno se toma simultáneamente para no confundir los latidos maternos con los fetales.",
+   "target": "reloj",
+   "claves": [
+    [
+     "sin tomar el pulso materno"
+    ],
+    [
+     "no tomo el pulso"
+    ],
+    [
+     "sin pulso materno"
+    ]
+   ]
+  },
+  {
+   "id": "d9",
+   "texto": "Realiza las maniobras de Leopold con las manos frías o con fuerza excesiva",
+   "critico": false,
+   "porque": "Las maniobras se hacen con delicadeza, con las manos tibias, para no desencadenar contracciones ni molestias.",
+   "target": "paciente",
+   "claves": [
+    [
+     "con fuerza excesiva"
+    ],
+    [
+     "manos frias"
+    ],
+    [
+     "con brusquedad"
+    ],
+    [
+     "presiono con fuerza"
+    ]
+   ]
+  },
+  {
+   "id": "d10",
+   "texto": "Realiza la cuarta maniobra mirando hacia la cara de la paciente",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: para la cuarta maniobra el examinador mira hacia los pies de la mujer.",
+   "target": "paciente",
+   "claves": [
+    [
+     "cuarta maniobra",
+     "hacia la cara"
+    ],
+    [
+     "cuarta maniobra",
+     "mirando a la paciente"
+    ],
+    [
+     "cuarta maniobra",
+     "de frente"
+    ]
+   ]
+  },
+  {
+   "id": "d11",
+   "texto": "No registra la altura uterina en la curva",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la altura uterina se grafica en la curva de incremento para detectar desvíos del crecimiento.",
+   "target": "curva",
+   "claves": [
+    [
+     "no registro"
+    ],
+    [
+     "sin registrar"
+    ],
+    [
+     "sin graficar"
+    ],
+    [
+     "omito el registro"
+    ]
+   ]
+  },
+  {
+   "id": "d12",
+   "texto": "No informa a la embarazada sobre el procedimiento",
+   "critico": false,
+   "porque": "Se explica qué se va a hacer y para qué antes de tocar a la paciente.",
+   "target": "paciente",
+   "claves": [
+    [
+     "sin informar"
+    ],
+    [
+     "no le explico"
+    ],
+    [
+     "sin explicar"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Camila R.",
+   "sexo": "F",
+   "edad": 24,
+   "motivo": "Control prenatal de rutina. Refiere movimientos fetales activos.",
+   "indicacion": "Control prenatal con examen obstétrico.",
+   "antecedentes": "Primigesta (G1P0). Sin antecedentes patológicos. Sin alergias conocidas.",
+   "alergia": null,
+   "eg": 36,
+   "au": 35,
+   "au_prev": 32,
+   "eg_prev": 32,
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 144,
+   "encajada": false,
+   "extra": [
+    "Embarazo de 36 semanas"
+   ],
+   "au_txt": "Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_au": "La altura uterina es de 35 cm (edad gestacional: 36 semanas).",
+   "hall_dice": "La embarazada responde: «Sí, la vez anterior me midieron 32 cm».",
+   "hall_curva": "Punto graficado en la curva: AU 35 cm a las 36 semanas. Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_l1": "En el fondo uterino se palpa un polo blando, grande, irregular y poco móvil: corresponde a las nalgas fetales.",
+   "hall_l2": "Del lado izquierda se palpa una superficie lisa, convexa y resistente (dorso fetal) y del lado derecha, partes pequeñas e irregulares (miembros). Situación longitudinal.",
+   "hall_pinard": "Foco máximo en el cuadrante inferior izquierda (sobre el dorso fetal): 144 lpm, regular. Pulso materno: 84 lpm, distinto del fetal.",
+   "hall_l3": "Por encima de la sínfisis se palpa un polo duro, redondeado, que se mueve entre los dedos (peloteo): es la cabeza fetal.",
+   "hall_l4": "Los dedos convergen hacia la pelvis y chocan con la cabeza: la cabeza no está encajada, está móvil."
+  },
+  {
+   "id": "c2",
+   "nombre": "Lucía M.",
+   "sexo": "F",
+   "edad": 31,
+   "motivo": "Control prenatal. Sin molestias.",
+   "indicacion": "Control prenatal con examen obstétrico.",
+   "antecedentes": "G2P1 con un parto vaginal previo. Sin patologías. Sin alergias conocidas.",
+   "alergia": null,
+   "eg": 28,
+   "au": 28,
+   "au_prev": 25,
+   "eg_prev": 25,
+   "presentacion": "cefalica",
+   "dorso": "der",
+   "fcf": 150,
+   "encajada": false,
+   "extra": [
+    "Embarazo de 28 semanas"
+   ],
+   "au_txt": "Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_au": "La altura uterina es de 28 cm (edad gestacional: 28 semanas).",
+   "hall_dice": "La embarazada responde: «Sí, la vez anterior me midieron 25 cm».",
+   "hall_curva": "Punto graficado en la curva: AU 28 cm a las 28 semanas. Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_l1": "En el fondo uterino se palpa un polo blando, grande, irregular y poco móvil: corresponde a las nalgas fetales.",
+   "hall_l2": "Del lado derecha se palpa una superficie lisa, convexa y resistente (dorso fetal) y del lado izquierda, partes pequeñas e irregulares (miembros). Situación longitudinal.",
+   "hall_pinard": "Foco máximo en el cuadrante inferior derecha (sobre el dorso fetal): 150 lpm, regular. Pulso materno: 84 lpm, distinto del fetal.",
+   "hall_l3": "Por encima de la sínfisis se palpa un polo duro, redondeado, que se mueve entre los dedos (peloteo): es la cabeza fetal.",
+   "hall_l4": "Los dedos convergen hacia la pelvis y chocan con la cabeza: la cabeza no está encajada, está móvil."
+  },
+  {
+   "id": "c3",
+   "nombre": "Gabriela P.",
+   "sexo": "F",
+   "edad": 38,
+   "motivo": "Control prenatal; percibe pocos movimientos fetales.",
+   "indicacion": "Control prenatal con examen obstétrico.",
+   "antecedentes": "G3P2. Hipertensión arterial crónica. Sin alergias conocidas.",
+   "alergia": null,
+   "eg": 34,
+   "au": 28,
+   "au_prev": 26,
+   "eg_prev": 30,
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 136,
+   "encajada": false,
+   "extra": [
+    "AU menor a la esperada"
+   ],
+   "au_txt": "Por debajo del percentilo 10: sospechar restricción del crecimiento fetal u oligoamnios.",
+   "hall_au": "La altura uterina es de 28 cm (edad gestacional: 34 semanas).",
+   "hall_dice": "La embarazada responde: «Sí, la vez anterior me midieron 26 cm».",
+   "hall_curva": "Punto graficado en la curva: AU 28 cm a las 34 semanas. Por debajo del percentilo 10: sospechar restricción del crecimiento fetal u oligoamnios.",
+   "hall_l1": "En el fondo uterino se palpa un polo blando, grande, irregular y poco móvil: corresponde a las nalgas fetales.",
+   "hall_l2": "Del lado izquierda se palpa una superficie lisa, convexa y resistente (dorso fetal) y del lado derecha, partes pequeñas e irregulares (miembros). Situación longitudinal.",
+   "hall_pinard": "Foco máximo en el cuadrante inferior izquierda (sobre el dorso fetal): 136 lpm, regular. Pulso materno: 84 lpm, distinto del fetal.",
+   "hall_l3": "Por encima de la sínfisis se palpa un polo duro, redondeado, que se mueve entre los dedos (peloteo): es la cabeza fetal.",
+   "hall_l4": "Los dedos convergen hacia la pelvis y chocan con la cabeza: la cabeza no está encajada, está móvil."
+  },
+  {
+   "id": "c4",
+   "nombre": "Natalia S.",
+   "sexo": "F",
+   "edad": 29,
+   "motivo": "Control prenatal; abdomen muy grande para su embarazo.",
+   "indicacion": "Control prenatal con examen obstétrico.",
+   "antecedentes": "G1P0. Diabetes gestacional en tratamiento. Sin alergias conocidas.",
+   "alergia": null,
+   "eg": 32,
+   "au": 38,
+   "au_prev": 33,
+   "eg_prev": 28,
+   "presentacion": "podalica",
+   "dorso": "der",
+   "fcf": 148,
+   "encajada": false,
+   "extra": [
+    "AU mayor a la esperada"
+   ],
+   "au_txt": "Por encima del percentilo 90: sospechar macrosomía, polihidramnios o embarazo múltiple.",
+   "hall_au": "La altura uterina es de 38 cm (edad gestacional: 32 semanas).",
+   "hall_dice": "La embarazada responde: «Sí, la vez anterior me midieron 33 cm».",
+   "hall_curva": "Punto graficado en la curva: AU 38 cm a las 32 semanas. Por encima del percentilo 90: sospechar macrosomía, polihidramnios o embarazo múltiple.",
+   "hall_l1": "En el fondo uterino se palpa un polo duro, redondeado, móvil y que peloteaba entre los dedos: es la cabeza fetal.",
+   "hall_l2": "Del lado derecha se palpa el dorso fetal (liso, convexo y resistente) y del izquierda, partes pequeñas e irregulares (miembros). Situación longitudinal.",
+   "hall_pinard": "Foco máximo por encima del ombligo, del lado derecha (dorso fetal): 148 lpm, regular. Pulso materno: 82 lpm.",
+   "hall_l3": "Por encima de la sínfisis se palpa un polo blando, irregular y poco definido: son las nalgas fetales.",
+   "hall_l4": "Los dedos descienden hacia la pelvis sin encontrar un polo duro: las nalgas están altas y no encajadas."
+  },
+  {
+   "id": "c5",
+   "nombre": "Romina T.",
+   "sexo": "F",
+   "edad": 27,
+   "motivo": "Control prenatal a las 38 semanas.",
+   "indicacion": "Control prenatal con examen obstétrico.",
+   "antecedentes": "G2P1 (cesárea previa). Sin alergias conocidas.",
+   "alergia": null,
+   "eg": 38,
+   "au": 37,
+   "au_prev": 35,
+   "eg_prev": 35,
+   "presentacion": "transversa",
+   "dorso": "izq",
+   "fcf": 140,
+   "encajada": false,
+   "extra": [
+    "Situación transversa"
+   ],
+   "au_txt": "Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_au": "La altura uterina es de 37 cm (edad gestacional: 38 semanas).",
+   "hall_dice": "La embarazada responde: «Sí, la vez anterior me midieron 35 cm».",
+   "hall_curva": "Punto graficado en la curva: AU 37 cm a las 38 semanas. Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_l1": "El fondo uterino está ocupado por un polo fetal ausente: el fondo se palpa vacío y el útero es más ancho que alto.",
+   "hall_l2": "El útero se palpa más ancho que alto: de un lado una masa redonda y dura (cabeza) y del otro, una masa blanda (nalgas); el dorso mira hacia la izquierda. Situación transversa.",
+   "hall_pinard": "Foco máximo a nivel del ombligo, del lado izquierda (dorso fetal): 140 lpm, regular. Pulso materno: 86 lpm.",
+   "hall_l3": "Por encima de la sínfisis la excavación está vacía: no hay parte fetal en la entrada de la pelvis.",
+   "hall_l4": "Los dedos llegan a la entrada de la pelvis sin encontrar ninguna parte fetal."
+  },
+  {
+   "id": "c6",
+   "nombre": "Valeria D.",
+   "sexo": "F",
+   "edad": 22,
+   "motivo": "Control prenatal a las 40 semanas, con contracciones irregulares.",
+   "indicacion": "Control prenatal con examen obstétrico.",
+   "antecedentes": "G1P0. Sin antecedentes. Sin alergias conocidas.",
+   "alergia": null,
+   "eg": 40,
+   "au": 36,
+   "au_prev": 37,
+   "eg_prev": 38,
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 132,
+   "encajada": true,
+   "extra": [
+    "Cabeza encajada"
+   ],
+   "au_txt": "Por debajo del percentilo 10: sospechar restricción del crecimiento fetal u oligoamnios.",
+   "hall_au": "La altura uterina es de 36 cm (edad gestacional: 40 semanas).",
+   "hall_dice": "La embarazada responde: «Sí, la vez anterior me midieron 37 cm».",
+   "hall_curva": "Punto graficado en la curva: AU 36 cm a las 40 semanas. Por debajo del percentilo 10: sospechar restricción del crecimiento fetal u oligoamnios.",
+   "hall_l1": "En el fondo uterino se palpa un polo blando, grande, irregular y poco móvil: corresponde a las nalgas fetales.",
+   "hall_l2": "Del lado izquierda se palpa una superficie lisa, convexa y resistente (dorso fetal) y del lado derecha, partes pequeñas e irregulares (miembros). Situación longitudinal.",
+   "hall_pinard": "Foco máximo en el cuadrante inferior izquierda (sobre el dorso fetal): 132 lpm, regular. Pulso materno: 84 lpm, distinto del fetal.",
+   "hall_l3": "Por encima de la sínfisis se palpa un polo duro y redondeado, fijo, que no se moviliza: cabeza encajada.",
+   "hall_l4": "Los dedos no pueden juntarse y divergen hacia la pelvis: la cabeza está encajada."
+  },
+  {
+   "id": "c7",
+   "nombre": "Paula G.",
+   "sexo": "F",
+   "edad": 34,
+   "motivo": "Control prenatal; la ecografía mostró presentación podálica.",
+   "indicacion": "Control prenatal con examen obstétrico.",
+   "antecedentes": "G3P2. Sin patologías. Sin alergias conocidas.",
+   "alergia": null,
+   "eg": 30,
+   "au": 30,
+   "au_prev": 27,
+   "eg_prev": 28,
+   "presentacion": "podalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "encajada": false,
+   "extra": [
+    "Presentación podálica"
+   ],
+   "au_txt": "Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_au": "La altura uterina es de 30 cm (edad gestacional: 30 semanas).",
+   "hall_dice": "La embarazada responde: «Sí, la vez anterior me midieron 27 cm».",
+   "hall_curva": "Punto graficado en la curva: AU 30 cm a las 30 semanas. Entre los percentilos 10 y 90: crecimiento adecuado.",
+   "hall_l1": "En el fondo uterino se palpa un polo duro, redondeado, móvil y que peloteaba entre los dedos: es la cabeza fetal.",
+   "hall_l2": "Del lado izquierda se palpa el dorso fetal (liso, convexo y resistente) y del derecha, partes pequeñas e irregulares (miembros). Situación longitudinal.",
+   "hall_pinard": "Foco máximo por encima del ombligo, del lado izquierda (dorso fetal): 146 lpm, regular. Pulso materno: 82 lpm.",
+   "hall_l3": "Por encima de la sínfisis se palpa un polo blando, irregular y poco definido: son las nalgas fetales.",
+   "hall_l4": "Los dedos descienden hacia la pelvis sin encontrar un polo duro: las nalgas están altas y no encajadas."
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Desde dónde se mide la altura uterina?",
+   "o": [
+    "Desde el borde superior de la sínfisis pubiana hasta el fondo uterino",
+    "Desde el ombligo hasta el apéndice xifoides",
+    "Desde el borde inferior del pubis hasta el ombligo",
+    "Desde la espina ilíaca hasta el fondo"
+   ],
+   "c": 0,
+   "e": "La cinta obstétrica se fija con el 0 en el borde superior del pubis y se desliza por la línea media hasta el fondo uterino."
+  },
+  {
+   "q": "¿Con qué parte de la mano se llega al fondo uterino al medir?",
+   "o": [
+    "Con el borde cubital de la mano izquierda",
+    "Con la yema del pulgar",
+    "Con el dorso de la mano",
+    "Con la palma completa"
+   ],
+   "c": 0,
+   "e": "La cinta se desliza entre los dedos índice y medio y el borde cubital delimita el fondo."
+  },
+  {
+   "q": "Entre las semanas 20 y 34, ¿cuánto se espera que mida la altura uterina?",
+   "o": [
+    "Aproximadamente tantos centímetros como semanas de gestación",
+    "La mitad de las semanas",
+    "El doble de las semanas",
+    "Siempre 30 cm"
+   ],
+   "c": 0,
+   "e": "La altura uterina coincide aproximadamente con la edad gestacional en semanas entre las semanas 20 y 34."
+  },
+  {
+   "q": "Una altura uterina por debajo del percentilo 10 sugiere...",
+   "o": [
+    "Restricción del crecimiento fetal u oligoamnios",
+    "Polihidramnios",
+    "Macrosomía fetal",
+    "Embarazo gemelar"
+   ],
+   "c": 0,
+   "e": "Por debajo del percentilo 10: crecimiento restringido, oligoamnios, error de EG o feto muerto."
+  },
+  {
+   "q": "Una altura uterina por encima del percentilo 90 sugiere...",
+   "o": [
+    "Macrosomía, polihidramnios, embarazo múltiple o error de EG",
+    "Restricción del crecimiento",
+    "Oligoamnios",
+    "Placenta previa"
+   ],
+   "c": 0,
+   "e": "Por encima del percentilo 90: feto grande, exceso de líquido amniótico o embarazo múltiple."
+  },
+  {
+   "q": "¿Qué se identifica con la primera maniobra de Leopold?",
+   "o": [
+    "El polo fetal que ocupa el fondo uterino y la altura del fondo",
+    "La posición del dorso",
+    "El encajamiento de la cabeza",
+    "La frecuencia cardíaca fetal"
+   ],
+   "c": 0,
+   "e": "La maniobra de fondo reconoce qué polo (cabeza o nalgas) ocupa el fondo."
+  },
+  {
+   "q": "¿Qué se identifica con la segunda maniobra de Leopold?",
+   "o": [
+    "La posición del dorso fetal y la situación",
+    "El encajamiento",
+    "La altura uterina",
+    "El peso fetal"
+   ],
+   "c": 0,
+   "e": "La maniobra lateral distingue el dorso (liso y resistente) de las partes pequeñas."
+  },
+  {
+   "q": "¿Dónde se coloca el estetoscopio de Pinard?",
+   "o": [
+    "En ángulo recto sobre el dorso fetal, en el foco máximo de auscultación",
+    "Sobre el ombligo siempre",
+    "Sobre las partes pequeñas fetales",
+    "Sobre el fondo uterino siempre"
+   ],
+   "c": 0,
+   "e": "El foco máximo está sobre el hombro anterior, es decir sobre el dorso fetal."
+  },
+  {
+   "q": "¿Cuánto tiempo se cuentan los latidos fetales?",
+   "o": [
+    "Un minuto completo con reloj con segundero",
+    "15 segundos y se multiplica por 4",
+    "5 segundos",
+    "No se cuentan"
+   ],
+   "c": 0,
+   "e": "Se cuentan durante un minuto con un reloj con segundero (normal: 110 a 160 lpm)."
+  },
+  {
+   "q": "¿Por qué se toma el pulso materno mientras se ausculta?",
+   "o": [
+    "Para no confundir los latidos maternos con los fetales",
+    "Para medir la presión arterial",
+    "Para calcular la edad gestacional",
+    "No es necesario"
+   ],
+   "c": 0,
+   "e": "Si la frecuencia es igual a la materna, probablemente se están escuchando latidos maternos."
+  },
+  {
+   "q": "¿Qué parte fetal se palpa con la tercera maniobra de Leopold?",
+   "o": [
+    "La parte que se presenta, por encima de la sínfisis",
+    "El fondo",
+    "El dorso",
+    "El cordón umbilical"
+   ],
+   "c": 0,
+   "e": "La maniobra de Pawlik aprehende la parte presentada y permite saber si está móvil o fija."
+  },
+  {
+   "q": "En la cuarta maniobra de Leopold, ¿hacia dónde mira el examinador?",
+   "o": [
+    "Hacia los pies de la paciente",
+    "Hacia la cara de la paciente",
+    "Hacia la pared",
+    "Da igual"
+   ],
+   "c": 0,
+   "e": "Se da vuelta, mira hacia los pies y deprime hacia la entrada de la pelvis para evaluar el encajamiento."
+  },
+  {
+   "q": "Si en el fondo uterino se palpa un polo blando e irregular y por arriba de la sínfisis uno duro y redondeado, ¿cuál es la presentación?",
+   "o": [
+    "Cefálica",
+    "Podálica",
+    "Transversa",
+    "No se puede saber"
+   ],
+   "c": 0,
+   "e": "Nalgas en el fondo y cabeza abajo: presentación cefálica (situación longitudinal)."
+  },
+  {
+   "q": "¿Cuál es el rango normal de la frecuencia cardíaca fetal?",
+   "o": [
+    "110 a 160 latidos por minuto",
+    "60 a 100",
+    "160 a 200",
+    "80 a 120"
+   ],
+   "c": 0,
+   "e": "La FCF basal normal es de 110 a 160 lpm."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Valores de referencia del control obstétrico",
+  "boton_titulo": "Ver valores de referencia",
+  "boton_sub": "AU, FCF y maniobras de Leopold",
+  "aviso": "los valores de referencia",
+  "flecha": "▼ Interpretación de la altura uterina",
+  "flecha_final": "▼ Conducta",
+  "pie": "Altura uterina ≈ semanas de gestación entre las semanas 20 y 34 (percentilos 10 y 90 de la curva).",
+  "comun": [
+   {
+    "t": "Altura uterina",
+    "x": "Del borde superior del pubis al fondo uterino, en cm, con cinta obstétrica.",
+    "flag": "leer"
+   },
+   {
+    "t": "FCF normal",
+    "x": "110 a 160 lpm, regular; contar 1 minuto y tomar el pulso materno.",
+    "flag": "pinard"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "AU < percentilo 10",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Sospechar",
+      "x": "Restricción del crecimiento, oligoamnios, error de EG.",
+      "flag": "curva"
+     },
+     {
+      "t": "Conducta",
+      "x": "Ecografía obstétrica y Doppler; control de la vitalidad fetal.",
+      "flag": "curva"
+     }
+    ]
+   },
+   {
+    "titulo": "AU entre P10 y P90",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Crecimiento adecuado",
+      "x": "Continuar el control prenatal de rutina.",
+      "flag": "curva"
+     }
+    ]
+   },
+   {
+    "titulo": "AU > percentilo 90",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Sospechar",
+      "x": "Macrosomía, polihidramnios, embarazo múltiple, error de EG.",
+      "flag": "curva"
+     },
+     {
+      "t": "Conducta",
+      "x": "Ecografía obstétrica; descartar diabetes gestacional.",
+      "flag": "curva"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Leopold 1 y 2",
+    "x": "Polo del fondo, situación y posición (lado del dorso).",
+    "flag": "l2"
+   },
+   {
+    "t": "Leopold 3 y 4",
+    "x": "Parte presentada y encajamiento.",
+    "flag": "l4"
+   }
+  ]
+ },
+ "hallazgo_pasos": {
+  "8": "hall_au",
+  "9": "hall_dice",
+  "10": "hall_curva",
+  "11": "hall_l1",
+  "12": "hall_l2",
+  "13": "hall_pinard",
+  "14": "hall_l3",
+  "16": "hall_l4"
+ },
+ "hallazgo_rotulos": {
+  "8": "📏 Medís:",
+  "9": "🗣",
+  "10": "📈",
+  "11": "🤲 Palpás:",
+  "12": "🤲 Palpás:",
+  "13": "🩺 Auscultás:",
+  "14": "🤲 Palpás:",
+  "16": "🤲 Palpás:"
+ },
+ "hallazgo_voz": {
+  "9": "f"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "Antes de empezar",
+    "x": "Presentate, explicá el examen, decúbito dorsal con el abdomen descubierto y colocate a la derecha de la paciente, de frente a ella."
+   },
+   {
+    "t": "Altura uterina",
+    "x": "Cero de la cinta en el borde superior del pubis; deslizala por la línea media entre los dedos índice y medio de la mano izquierda hasta el fondo (borde cubital). Leé en cm, decíselo a la paciente, preguntá la medición anterior y graficala en la curva."
+   },
+   {
+    "t": "Leopold 1 y 2",
+    "x": "1: manos a los lados del fondo, ¿qué polo hay? 2: una mano a cada lado, empujá y palpá: dorso (liso, convexo, resistente) vs. partes pequeñas."
+   },
+   {
+    "t": "Auscultación",
+    "x": "Pinard en ángulo recto sobre el dorso fetal, oreja firme sin sostenerlo con la mano; 1 minuto con reloj con segundero (110–160 lpm) y pulso materno en simultáneo."
+   },
+   {
+    "t": "Leopold 3 y 4",
+    "x": "3: pulgar e índice por arriba de la sínfisis, parte presentada, ¿móvil o fija? 4: mirando hacia los pies, rodillas dobladas, dedos hacia la entrada pélvica: ¿encajada?"
+   },
+   {
+    "t": "Cierre",
+    "x": "Avisá que terminó, que se vista y se siente, escuchá sus preguntas y despedite."
+   }
+  ],
+  "por_paso": {
+   "5": "Cero de la medición: borde superior del pubis.",
+   "7": "Borde cubital de la mano izquierda hasta el fondo.",
+   "10": "Graficá la AU: P10–P90.",
+   "13": "Pinard sobre el dorso fetal, 1 minuto y pulso materno.",
+   "15": "Para la 4.ª maniobra, mirando hacia los pies."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/sim/exobs_modelo.json",
+ "peso_modelo": "2 a 3 MB",
+ "instrumental": "data/acreditaciones/sim/instrumental_exobs.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Preséntese a la embarazada",
+   "fase": "Presentación y preparación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El primer contacto establece confianza: la profesional se presenta con nombre y rol antes de tocar a la embarazada.",
+   "estado": {
+    "pres": 1
+   },
+   "claves": [
+    [
+     "me presento"
+    ],
+    [
+     "soy la doctora"
+    ],
+    [
+     "soy el doctor"
+    ],
+    [
+     "mi nombre"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ]
+   ],
+   "frase": "Buenas tardes, soy la doctora, mi nombre y apellido es ..., voy a controlar su embarazo.",
+   "fx": "hablar"
+  },
+  {
+   "n": 2,
+   "texto": "Informe a la embarazada sobre el procedimiento que realizará con el objetivo de medir la altura uterina",
+   "fase": "Presentación y preparación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se explica con lenguaje simple qué se va a hacer (medir la altura del útero, palpar y escuchar al bebé) y para qué: vigilar el crecimiento y la vitalidad fetal. Una embarazada informada coopera y se relaja.",
+   "estado": {
+    "info": 1
+   },
+   "claves": [
+    [
+     "informo"
+    ],
+    [
+     "le explico"
+    ],
+    [
+     "explico"
+    ],
+    [
+     "procedimiento"
+    ],
+    [
+     "voy a medir"
+    ]
+   ],
+   "frase": "Le informo que voy a medir la altura del útero con una cinta, palpar su abdomen y escuchar los latidos del bebé para controlar su crecimiento.",
+   "fx": "hablar"
+  },
+  {
+   "n": 3,
+   "texto": "Invitar a la embarazada a colocarse en decúbito dorsal",
+   "fase": "Presentación y preparación",
+   "target": "camilla",
+   "critico": false,
+   "explica": "Decúbito dorsal con el abdomen descubierto, el cuerpo alineado y las piernas ligeramente flexionadas para relajar la pared abdominal. Una posición incorrecta falsea la medición.",
+   "estado": {
+    "pos": 1
+   },
+   "claves": [
+    [
+     "decubito dorsal"
+    ],
+    [
+     "boca arriba"
+    ],
+    [
+     "se acueste"
+    ],
+    [
+     "acuestese"
+    ],
+    [
+     "colocarse en decubito"
+    ],
+    [
+     "recueste"
+    ]
+   ],
+   "frase": "La invito a colocarse en decúbito dorsal, boca arriba, con el abdomen descubierto.",
+   "fx": "decubito_obs"
+  },
+  {
+   "n": 4,
+   "texto": "Colóquese al lado derecho de la paciente, mirando a la mujer",
+   "fase": "Presentación y preparación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El examinador se ubica a la derecha de la paciente, de frente a su cara, para las maniobras 1, 2 y 3 y la medición de la altura uterina.",
+   "estado": {
+    "lado": 1
+   },
+   "claves": [
+    [
+     "lado derecho"
+    ],
+    [
+     "a la derecha"
+    ],
+    [
+     "me coloco",
+     "derecha"
+    ],
+    [
+     "me ubico",
+     "derecha"
+    ],
+    [
+     "me paro",
+     "derecha"
+    ]
+   ],
+   "frase": "Me coloco al lado derecho de la paciente, mirándola.",
+   "fx": "lado_der"
+  },
+  {
+   "n": 5,
+   "texto": "Palpe el borde superior del pubis con el dedo índice y mayor de la mano derecha",
+   "fase": "Medición de la altura uterina",
+   "target": "pubis",
+   "critico": true,
+   "explica": "El punto cero de la medición es el borde superior de la sínfisis pubiana: se lo localiza con las yemas de los dedos índice y mayor de la mano derecha. Un punto de partida incorrecto invalida la altura uterina.",
+   "estado": {
+    "pubis": 1
+   },
+   "claves": [
+    [
+     "palpo el borde superior del pubis"
+    ],
+    [
+     "palpo el pubis"
+    ],
+    [
+     "palpo",
+     "dedos indice y mayor"
+    ],
+    [
+     "palpo",
+     "sinfisis"
+    ]
+   ],
+   "frase": "Palpo el borde superior del pubis con los dedos índice y mayor de la mano derecha.",
+   "fx": "pubis_palpa"
+  },
+  {
+   "n": 6,
+   "texto": "Al mismo tiempo fijar el extremo de la cinta métrica en el borde superior del pubis en la numeración 0 de la cinta (0 el inicio)",
+   "fase": "Medición de la altura uterina",
+   "target": "cinta",
+   "critico": true,
+   "explica": "El extremo cero de la cinta obstétrica (flexible e inextensible) se fija sobre el borde superior del pubis con los dedos que lo palparon.",
+   "estado": {
+    "cinta0": 1
+   },
+   "claves": [
+    [
+     "fijo la cinta"
+    ],
+    [
+     "extremo de la cinta"
+    ],
+    [
+     "numeracion 0"
+    ],
+    [
+     "cero de la cinta"
+    ],
+    [
+     "fijo",
+     "cinta"
+    ],
+    [
+     "cinta",
+     "pubis"
+    ]
+   ],
+   "frase": "Fijo el extremo de la cinta, en la marca 0, sobre el borde superior del pubis.",
+   "fx": "cinta_fija"
+  },
+  {
+   "n": 7,
+   "texto": "Deslice entre los dedos índice y mayor de la mano izquierda la cinta hasta alcanzar el fondo uterino con el borde cubital de la mano",
+   "fase": "Medición de la altura uterina",
+   "target": "fondo",
+   "critico": true,
+   "explica": "La cinta se desliza entre los dedos índice y medio de la mano izquierda, siguiendo la línea media del abdomen, hasta que el borde cubital de esa mano alcanza el fondo uterino (donde el útero deja de ser palpable).",
+   "estado": {
+    "cinta": 1
+   },
+   "claves": [
+    [
+     "deslizo la cinta"
+    ],
+    [
+     "borde cubital"
+    ],
+    [
+     "fondo uterino"
+    ],
+    [
+     "desliza la cinta"
+    ],
+    [
+     "deslizo",
+     "cinta"
+    ]
+   ],
+   "frase": "Deslizo la cinta entre los dedos índice y mayor de la mano izquierda hasta alcanzar el fondo uterino con el borde cubital de la mano.",
+   "fx": "cinta_desliza"
+  },
+  {
+   "n": 8,
+   "texto": "Observe el número que marque con los dedos lo que representará la altura uterina en cm",
+   "fase": "Medición de la altura uterina",
+   "target": "cinta",
+   "critico": true,
+   "explica": "La altura uterina es el número que marca la cinta a nivel del borde cubital: se lee en centímetros. Entre las semanas 20 y 34 coincide aproximadamente con las semanas de amenorrea.",
+   "estado": {
+    "leer": 1
+   },
+   "claves": [
+    [
+     "altura uterina es"
+    ],
+    [
+     "observo el numero"
+    ],
+    [
+     "leo"
+    ],
+    [
+     "marca la cinta"
+    ],
+    [
+     "la altura uterina"
+    ],
+    [
+     "numero que marca"
+    ]
+   ],
+   "frase": "Observo el número que marca la cinta con mis dedos: es la altura uterina, en centímetros.",
+   "fx": "leer_au"
+  },
+  {
+   "n": 9,
+   "texto": "Dígalo a la embarazada y pregunte si recuerda la medición anterior",
+   "fase": "Medición de la altura uterina",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se comunica el valor a la embarazada y se le pregunta si recuerda la medición anterior: permite comparar la velocidad de crecimiento entre controles.",
+   "estado": {
+    "dice": 1
+   },
+   "claves": [
+    [
+     "le digo"
+    ],
+    [
+     "medicion anterior"
+    ],
+    [
+     "recuerda"
+    ],
+    [
+     "dice la medicion"
+    ],
+    [
+     "le informo la altura"
+    ]
+   ],
+   "frase": "Le digo la medición a la embarazada y le pregunto si recuerda la medición anterior.",
+   "fx": "hablar"
+  },
+  {
+   "n": 10,
+   "texto": "Registre los datos hallados en el gráfico de la curva de incremento de la Altura Uterina",
+   "fase": "Medición de la altura uterina",
+   "target": "curva",
+   "critico": true,
+   "explica": "La altura uterina se grafica en la curva de incremento de la AU (percentilos 10 y 90 según la edad gestacional): un punto por debajo del percentilo 10 sugiere restricción del crecimiento u oligoamnios; por encima del 90, macrosomía, polihidramnios o embarazo múltiple.",
+   "estado": {
+    "curva": 1
+   },
+   "claves": [
+    [
+     "registro",
+     "curva"
+    ],
+    [
+     "grafico"
+    ],
+    [
+     "curva de incremento"
+    ],
+    [
+     "registro",
+     "altura uterina"
+    ],
+    [
+     "curva"
+    ]
+   ],
+   "frase": "Registro el dato en el gráfico de la curva de incremento de la altura uterina.",
+   "fx": "curva_au"
+  },
+  {
+   "n": 11,
+   "texto": "Primera maniobra de Leopold: coloque sus manos a los lados del fondo uterino y doble los dedos alrededor de la parte superior (borde cubital). Palpe la forma, el tamaño, la consistencia, la movilidad",
+   "fase": "Maniobras de Leopold y auscultación",
+   "target": "fondo",
+   "critico": true,
+   "explica": "La primera maniobra (de fondo) abarca el fondo con el borde cubital de ambas manos: se reconoce qué polo fetal lo ocupa (cabeza: dura, redonda y peloteable; nalgas: blanda, irregular y poco móvil) y se confirma la altura uterina.",
+   "estado": {
+    "l1": 1
+   },
+   "claves": [
+    [
+     "primera maniobra"
+    ],
+    [
+     "maniobra de leopold 1"
+    ],
+    [
+     "leopold 1"
+    ],
+    [
+     "leopold uno"
+    ],
+    [
+     "1 maniobra"
+    ],
+    [
+     "primer leopold"
+    ]
+   ],
+   "frase": "Primera maniobra de Leopold: coloco mis manos a los lados del fondo uterino y palpo con el borde cubital su forma, tamaño, consistencia y movilidad.",
+   "fx": "leopold1"
+  },
+  {
+   "n": 12,
+   "texto": "Segunda maniobra de Leopold: una mano a cada lado del útero, a mitad de camino entre la sínfisis y el fondo; presión a un lado empujando al feto hacia el otro y palpe el lado contrario; repita a la inversa",
+   "fase": "Maniobras de Leopold y auscultación",
+   "target": "paciente",
+   "critico": true,
+   "explica": "La segunda maniobra (lateral) identifica la situación y la posición fetal: de un lado se palpa una superficie lisa, convexa y resistente (el dorso) y del otro, partes pequeñas e irregulares (miembros). Se repite empujando al feto hacia el lado contrario.",
+   "estado": {
+    "l2": 1
+   },
+   "claves": [
+    [
+     "segunda maniobra"
+    ],
+    [
+     "maniobra de leopold 2"
+    ],
+    [
+     "leopold 2"
+    ],
+    [
+     "leopold dos"
+    ],
+    [
+     "2 maniobra"
+    ],
+    [
+     "segundo leopold"
+    ]
+   ],
+   "frase": "Segunda maniobra de Leopold: una mano a cada lado del útero, presiono a un lado empujando al feto y palpo el lado contrario, y repito a la inversa.",
+   "fx": "leopold2"
+  },
+  {
+   "n": 13,
+   "texto": "Coloque el estetoscopio de Pinard sobre el abdomen en ángulo recto, en la zona del dorso fetal (foco máximo de auscultación), con la oreja en firme contacto; cuente los latidos en un minuto con reloj con segundero y tome el pulso materno",
+   "fase": "Maniobras de Leopold y auscultación",
+   "target": "pinard",
+   "critico": true,
+   "explica": "El foco máximo está sobre el dorso fetal (hombro anterior). El Pinard se apoya en ángulo recto, la oreja lo sostiene sin tocarlo con las manos, y se cuentan los latidos durante 1 minuto con un reloj con segundero (normal 110–160 lpm). Simultáneamente se toma el pulso materno para no confundir los latidos maternos con los fetales.",
+   "estado": {
+    "pinard": 1
+   },
+   "claves": [
+    [
+     "pinard"
+    ],
+    [
+     "auscultacion"
+    ],
+    [
+     "auscultar"
+    ],
+    [
+     "latidos fetales"
+    ],
+    [
+     "foco maximo"
+    ],
+    [
+     "frecuencia cardiaca fetal"
+    ],
+    [
+     "fcf"
+    ]
+   ],
+   "frase": "Coloco el estetoscopio de Pinard en ángulo recto sobre el dorso fetal, cuento los latidos durante un minuto con el reloj y tomo el pulso materno en simultáneo.",
+   "fx": "pinard"
+  },
+  {
+   "n": 14,
+   "texto": "Tercera maniobra de Leopold: con el pulgar y el índice agarre la parte inferior del abdomen, inmediatamente por arriba de la sínfisis; presione con delicadeza y firmeza para palpar la parte presentada",
+   "fase": "Maniobras de Leopold y auscultación",
+   "target": "paciente",
+   "critico": true,
+   "explica": "La tercera maniobra (de Pawlik) aprehende con pulgar e índice la parte que se presenta por encima de la sínfisis: permite saber qué polo se presenta (cabeza o nalgas) y si está móvil o fija (encajada).",
+   "estado": {
+    "l3": 1
+   },
+   "claves": [
+    [
+     "tercera maniobra"
+    ],
+    [
+     "maniobra de leopold 3"
+    ],
+    [
+     "leopold 3"
+    ],
+    [
+     "leopold tres"
+    ],
+    [
+     "3 maniobra"
+    ],
+    [
+     "tercer leopold"
+    ],
+    [
+     "pawlik"
+    ]
+   ],
+   "frase": "Tercera maniobra de Leopold: con el pulgar y el índice aprehendo la parte inferior del abdomen, por arriba de la sínfisis, y palpo la parte que se presenta.",
+   "fx": "leopold3"
+  },
+  {
+   "n": 15,
+   "texto": "Oriéntese mirando hacia los pies de la mujer, asegurándose de que tenga las rodillas dobladas",
+   "fase": "Maniobras de Leopold y auscultación",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Para la cuarta maniobra el examinador se da vuelta y mira hacia los pies de la embarazada, que flexiona las rodillas para relajar los músculos abdominales.",
+   "estado": {
+    "pies": 1
+   },
+   "claves": [
+    [
+     "hacia los pies"
+    ],
+    [
+     "mirando los pies"
+    ],
+    [
+     "rodillas dobladas"
+    ],
+    [
+     "rodillas flexionadas"
+    ],
+    [
+     "flexione las rodillas"
+    ],
+    [
+     "me oriento"
+    ]
+   ],
+   "frase": "Me oriento mirando hacia los pies de la mujer y le pido que doble las rodillas.",
+   "fx": "pies_obs"
+  },
+  {
+   "n": 16,
+   "texto": "Cuarta maniobra de Leopold: una mano a cada lado del útero, palmas justo por debajo del ombligo y dedos dirigidos hacia la sínfisis; presione profundamente con las yemas y mueva los dedos hacia la entrada pélvica",
+   "fase": "Maniobras de Leopold y auscultación",
+   "target": "paciente",
+   "critico": true,
+   "explica": "La cuarta maniobra (pelviana) deprime profundamente hacia la entrada de la pelvis: informa el grado de encajamiento de la parte presentada (si los dedos convergen, la cabeza no está encajada; si divergen, está encajada) y la actitud de la cabeza.",
+   "estado": {
+    "l4": 1
+   },
+   "claves": [
+    [
+     "cuarta maniobra"
+    ],
+    [
+     "maniobra de leopold 4"
+    ],
+    [
+     "leopold 4"
+    ],
+    [
+     "leopold cuatro"
+    ],
+    [
+     "4 maniobra"
+    ],
+    [
+     "cuarto leopold"
+    ]
+   ],
+   "frase": "Cuarta maniobra de Leopold: apoyo las manos a cada lado del útero, con los dedos hacia la sínfisis, y deprimo profundamente hacia la entrada de la pelvis.",
+   "fx": "leopold4"
+  },
+  {
+   "n": 17,
+   "texto": "Comunica a la paciente que finalizó el examen y le indica que se vista y tome asiento",
+   "fase": "Fin del examen",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se avisa que terminó el examen, se resguarda la intimidad mientras se viste y se la invita a sentarse para comentar los hallazgos.",
+   "estado": {
+    "fin": 1
+   },
+   "claves": [
+    [
+     "finalizo el examen"
+    ],
+    [
+     "termino el examen"
+    ],
+    [
+     "se vista"
+    ],
+    [
+     "tome asiento"
+    ],
+    [
+     "finalizamos"
+    ],
+    [
+     "hemos terminado"
+    ]
+   ],
+   "frase": "Le comunico que finalizó el examen y le indico que se vista y tome asiento.",
+   "fx": "hablar"
+  },
+  {
+   "n": 18,
+   "texto": "Escucha y responde a las preguntas, preocupaciones y molestias de la paciente",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se da espacio para dudas y se explican los hallazgos en lenguaje claro, con tranquilidad: la comunicación sostiene la adherencia a los controles prenatales.",
+   "estado": {
+    "preg": 1
+   },
+   "claves": [
+    [
+     "preguntas"
+    ],
+    [
+     "dudas"
+    ],
+    [
+     "preocupaciones"
+    ],
+    [
+     "escucho"
+    ],
+    [
+     "molestias"
+    ]
+   ],
+   "frase": "Escucho y respondo las preguntas, preocupaciones y molestias de la paciente.",
+   "fx": "hablar"
+  },
+  {
+   "n": 19,
+   "texto": "Saluda y se despide",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El saludo final cierra la consulta y se acuerda el próximo control.",
+   "estado": {
+    "sal": 1
+   },
+   "claves": [
+    [
+     "me despido"
+    ],
+    [
+     "hasta luego"
+    ],
+    [
+     "hasta la proxima"
+    ],
+    [
+     "nos vemos"
+    ],
+    [
+     "saludo y me despido"
+    ],
+    [
+     "chau"
+    ]
+   ],
+   "frase": "Saludo y me despido de la paciente hasta el próximo control.",
+   "fx": "hablar"
+  }
+ ],
+ "criterios_texto": "Desaprueba si omite o realiza mal: el punto de partida y la técnica de medición de la altura uterina (pasos 5 a 8) o su registro en la curva (10); las cuatro maniobras de Leopold (11, 12, 14 y 16); o la auscultación de la frecuencia cardíaca fetal con el estetoscopio de Pinard durante un minuto (13).",
+ "criterios": [
+  {
+   "ico": "📏",
+   "titulo": "Medición de la altura uterina: pubis, cinta y fondo",
+   "pasos": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "ico": "📈",
+   "titulo": "Registro en la curva de incremento de la AU",
+   "pasos": [
+    10
+   ]
+  },
+  {
+   "ico": "🤲",
+   "titulo": "Maniobras de Leopold completas y en orden",
+   "pasos": [
+    11,
+    12,
+    14,
+    16
+   ]
+  },
+  {
+   "ico": "🩺",
+   "titulo": "Auscultación de la FCF con Pinard durante un minuto",
+   "pasos": [
+    13
+   ]
+  }
+ ],
+ "final_criticos": "medición de la altura uterina, registro en la curva, maniobras de Leopold y auscultación de la FCF"
+}

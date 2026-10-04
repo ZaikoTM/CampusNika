@@ -17,6 +17,7 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { TIPOS as SIMT } from './sim3d.js?v=3';
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const geoCache = { stl: new Map(), glb: new Map() }; // evita volver a descargar al cambiar de modo o de variante
@@ -178,6 +179,7 @@ export class MedicalProcedureViewer {
     const C = this.C; const cfg = this.CFG[variante]; const gen = this.CFG.general;
     C.inst = [];
     (this.CFG.instrumentos || []).forEach((ins) => {
+      if (SIMT[ins.tipo]) { SIMT[ins.tipo](this, ins, cfg, C); return; }
       if (ins.tipo === 'sonda_foley') {
         const ure = cfg.uretra.map((p) => V(...p));
         const meato = ure[0].clone();

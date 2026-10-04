@@ -1,0 +1,2052 @@
+{
+ "id": "anamg",
+ "area": "sim",
+ "titulo": "Anamnesis ginecológica",
+ "icono": "🗂️",
+ "resumen": "Entrevista ginecológica con 31 pasos de la lista de cotejo: recepción, relato libre, enfermedad actual, antecedentes gineco-obstétricos, personales y familiares, con familigrama. La paciente responde y la historia clínica se completa en pantalla.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Anamnesis ginecológica",
+ "elementos": {
+  "paciente": {
+   "nombre": "Paciente y acompañante",
+   "desc": "Se las saluda, se escucha el relato sin interrumpir y se despide cordialmente.",
+   "pasos": [
+    1,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    31
+   ]
+  },
+  "consultorio": {
+   "nombre": "Consultorio",
+   "desc": "Mesa y sillas a la misma altura, sin barreras, con privacidad.",
+   "pasos": [
+    2
+   ]
+  },
+  "hc": {
+   "nombre": "Historia clínica",
+   "desc": "Se registran filiación, motivo de consulta, enfermedad actual y los antecedentes.",
+   "pasos": [
+    3,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+   ]
+  },
+  "familigrama": {
+   "nombre": "Familigrama",
+   "desc": "Gráfico breve de la familia: círculos para mujeres, cuadrados para varones.",
+   "pasos": [
+    30
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Interrumpe el relato de la paciente con preguntas",
+   "critico": true,
+   "porque": "Interrumpir sesga el relato y hace perder datos espontáneos: se deja terminar a la paciente antes de las preguntas dirigidas.",
+   "target": "paciente",
+   "claves": [
+    [
+     "interrumpo el relato"
+    ],
+    [
+     "la corto"
+    ],
+    [
+     "no la dejo terminar"
+    ],
+    [
+     "la interrumpo con"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "Hace preguntas inductoras que sugieren la respuesta (por ejemplo «¿no será una infección?»)",
+   "critico": true,
+   "porque": "Las preguntas inductoras condicionan la respuesta de la paciente: se formulan preguntas abiertas.",
+   "target": "paciente",
+   "claves": [
+    [
+     "no sera una infeccion"
+    ],
+    [
+     "pregunta inductora"
+    ],
+    [
+     "seguro que es"
+    ],
+    [
+     "le sugiero la respuesta"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Juzga o hace comentarios moralizantes sobre la vida sexual de la paciente",
+   "critico": true,
+   "porque": "La anamnesis sexual se hace con respeto, sin juicios de valor: la confianza es indispensable para obtener datos reales.",
+   "target": "paciente",
+   "claves": [
+    [
+     "juzgo"
+    ],
+    [
+     "moralizo"
+    ],
+    [
+     "la reto"
+    ],
+    [
+     "comentario sobre su conducta"
+    ],
+    [
+     "mala conducta"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "No registra la información brindada por la paciente",
+   "critico": false,
+   "porque": "Los datos se registran durante o inmediatamente después de la entrevista; la memoria no alcanza.",
+   "target": "hc",
+   "claves": [
+    [
+     "no registro"
+    ],
+    [
+     "sin registrar"
+    ],
+    [
+     "no anoto"
+    ],
+    [
+     "sin anotar"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Usa un lenguaje técnico que la paciente no entiende",
+   "critico": false,
+   "porque": "Se usa un lenguaje claro y sencillo; los tecnicismos dificultan la comunicación.",
+   "target": "paciente",
+   "claves": [
+    [
+     "lenguaje tecnico"
+    ],
+    [
+     "tecnicismos"
+    ],
+    [
+     "no entiende los terminos"
+    ],
+    [
+     "terminos medicos complicados"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Omite preguntar por la fecha de la última menstruación",
+   "critico": true,
+   "porque": "Omitir la FUM puede hacer pasar por alto un embarazo antes de indicar estudios o tratamientos.",
+   "target": "hc",
+   "claves": [
+    [
+     "no pregunto la fum"
+    ],
+    [
+     "sin preguntar la fum"
+    ],
+    [
+     "omito la fum"
+    ],
+    [
+     "no pregunto por la ultima menstruacion"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Pregunta por la vida sexual delante de otras personas sin pedir privacidad",
+   "critico": false,
+   "porque": "Los temas íntimos se tratan con privacidad; si hay acompañante se ofrece conversar a solas un momento.",
+   "target": "consultorio",
+   "claves": [
+    [
+     "delante de todos"
+    ],
+    [
+     "sin privacidad"
+    ],
+    [
+     "con su suegra presente"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Marina L.",
+   "sexo": "F",
+   "edad": 28,
+   "motivo": "Tengo mucha picazón y flujo blanco hace una semana.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Sin antecedentes patológicos. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Vaginitis"
+   ],
+   "h_fil": "Marina L., 28 años. Docente, soltera, vive con su pareja.",
+   "h_motivo": "«Tengo mucha picazón y flujo blanco hace una semana.»",
+   "h_ea": "Me pica mucho la zona genital y tengo un flujo blanco, espeso, sin mal olor.",
+   "h_inicio": "Empezó hace 7 días.",
+   "h_como": "De golpe, después de un tratamiento con antibióticos por una infección de garganta.",
+   "h_evol": "Empeora de noche; el flujo es cada vez más espeso y siento ardor al orinar.",
+   "h_prim": "No, tuve algo parecido dos veces el año pasado.",
+   "h_cons": "No consulté por esto todavía.",
+   "h_estudios": "No me hicieron estudios.",
+   "h_dx": "Una vez me dijeron que era una «cándida».",
+   "h_trat": "Usé un óvulo que me dio la farmacia y me alivió unos días.",
+   "h_menarca": "A los 12 años; ciclos regulares cada 28 días, de 4 días de duración, sin dolor.",
+   "h_irs": "A los 17 años.",
+   "h_parejas": "Una pareja actual hace 3 años (varón).",
+   "h_paridad": "Nuligesta (G0).",
+   "h_its": "Nunca tuve ITS.",
+   "h_genito": "No tengo sangrados fuera de la menstruación.",
+   "h_fum": "Hace 20 días (le vino ayer, ciclo regular).",
+   "h_anticon": "Uso preservativo y anticonceptivos orales hace 5 años.",
+   "h_enf": "Ninguna. Sin alergias.",
+   "h_cirug": "Ninguna cirugía; sin traumatismos.",
+   "h_habitos": "No fumo, tomo alcohol ocasional, sin drogas. Alimentación variada.",
+   "h_med": "Anticonceptivos orales; recibió antibióticos hace 10 días.",
+   "h_social": "Vive con su pareja en un departamento propio; trabaja 8 horas como docente; buena red de apoyo.",
+   "h_fam": "Mi mamá tiene diabetes tipo 2 y mi abuela materna tuvo cáncer de mama.",
+   "familia": {
+    "padre": {
+     "vivo": true,
+     "enf": "HTA"
+    },
+    "madre": {
+     "vivo": true,
+     "enf": "DBT 2"
+    },
+    "hermanos": [
+     {
+      "sexo": "F",
+      "enf": "sana"
+     }
+    ],
+    "hijos": []
+   },
+   "titulo": "Candidiasis vulvovaginal"
+  },
+  {
+   "id": "c2",
+   "nombre": "Susana P.",
+   "sexo": "F",
+   "edad": 44,
+   "motivo": "Me vienen unos sangrados muy abundantes y estoy cansada.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Anemia ferropénica previa. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Sangrado uterino anormal"
+   ],
+   "h_fil": "Susana P., 44 años. Empleada administrativa, casada, vive con su esposo y 3 hijos.",
+   "h_motivo": "«Me vienen unos sangrados muy abundantes y estoy cansada.»",
+   "h_ea": "Los sangrados menstruales son muy abundantes y duran más días; tengo que cambiarme cada hora.",
+   "h_inicio": "Hace 8 meses.",
+   "h_como": "Fue gradual: cada mes sangro más.",
+   "h_evol": "Empeoró; ahora tengo mareos, cansancio y falta de aire al subir escaleras.",
+   "h_prim": "No, nunca había sangrado así.",
+   "h_cons": "Consulté en una guardia hace 2 meses.",
+   "h_estudios": "Me hicieron un análisis: dijeron que tenía anemia.",
+   "h_dx": "No me dieron un diagnóstico.",
+   "h_trat": "Me dieron hierro por 1 mes.",
+   "h_menarca": "A los 13 años; ciclos regulares cada 28 días, pero con sangrado de 9 días y coágulos.",
+   "h_irs": "A los 19 años.",
+   "h_parejas": "Una pareja estable hace 15 años.",
+   "h_paridad": "G3 P3 (tres partos vaginales).",
+   "h_its": "Nunca tuve ITS.",
+   "h_genito": "Sangra solo en la menstruación, sin sangrado entre ciclos.",
+   "h_fum": "Hace 12 días.",
+   "h_anticon": "Ligadura tubaria hace 5 años.",
+   "h_enf": "Hipotiroidismo en tratamiento. Sin alergias.",
+   "h_cirug": "Ligadura tubaria; sin traumatismos.",
+   "h_habitos": "No fumo, no tomo alcohol, dieta pobre en carnes rojas.",
+   "h_med": "Levotiroxina 75 mcg por día; hierro oral.",
+   "h_social": "Vive con su esposo y tres hijos; trabaja 8 horas; refiere estrés por el trabajo.",
+   "h_fam": "Mi mamá tuvo fibromas y le sacaron el útero; mi hermana tiene hipotiroidismo.",
+   "familia": {
+    "padre": {
+     "vivo": false,
+     "enf": "ACV"
+    },
+    "madre": {
+     "vivo": true,
+     "enf": "miomas"
+    },
+    "hermanos": [
+     {
+      "sexo": "F",
+      "enf": "hipotiroidismo"
+     }
+    ],
+    "hijos": [
+     {
+      "sexo": "F",
+      "enf": "sana"
+     },
+     {
+      "sexo": "M",
+      "enf": "sano"
+     },
+     {
+      "sexo": "F",
+      "enf": "sana"
+     }
+    ]
+   },
+   "titulo": "Miomatosis uterina con anemia"
+  },
+  {
+   "id": "c3",
+   "nombre": "Carolina V.",
+   "sexo": "F",
+   "edad": 31,
+   "motivo": "Tengo dolores terribles con la menstruación y con las relaciones.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Dismenorrea desde la adolescencia. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Dolor pélvico"
+   ],
+   "h_fil": "Carolina V., 31 años. Abogada, casada, vive con su esposo.",
+   "h_motivo": "«Tengo dolores terribles con la menstruación y con las relaciones.»",
+   "h_ea": "Siento un dolor muy fuerte en la parte baja del abdomen cuando menstruo, y dolor profundo en las relaciones sexuales.",
+   "h_inicio": "Desde hace 4 años, cada vez peor.",
+   "h_como": "Gradual; al principio solo en la menstruación.",
+   "h_evol": "Hoy el dolor también aparece fuera de la menstruación y me falta a veces el trabajo.",
+   "h_prim": "Tuve dolor menstrual desde la adolescencia, pero nunca tan intenso.",
+   "h_cons": "Consulté a mi médica clínica.",
+   "h_estudios": "Me hicieron una ecografía que mostró un quiste en el ovario.",
+   "h_dx": "Me dijeron «puede ser endometriosis».",
+   "h_trat": "Tomo ibuprofeno y me calma poco.",
+   "h_menarca": "A los 11 años; ciclos regulares cada 28 días, con dismenorrea intensa.",
+   "h_irs": "A los 18 años.",
+   "h_parejas": "Una pareja actual hace 6 años.",
+   "h_paridad": "Nuligesta; busca embarazo hace 2 años sin lograrlo.",
+   "h_its": "Nunca tuve ITS.",
+   "h_genito": "No hay sangrado fuera de la menstruación.",
+   "h_fum": "Hace 18 días.",
+   "h_anticon": "No usa anticoncepción; desea embarazo.",
+   "h_enf": "Ninguna. Sin alergias.",
+   "h_cirug": "Ninguna cirugía; sin traumatismos.",
+   "h_habitos": "No fumo, sin alcohol. Hago ejercicio 3 veces por semana.",
+   "h_med": "Ibuprofeno 600 mg en la menstruación.",
+   "h_social": "Vive con su esposo; trabaja 9 horas; refiere ansiedad por la dificultad para embarazarse.",
+   "h_fam": "Mi mamá tuvo endometriosis; mi abuela murió de cáncer de ovario.",
+   "familia": {
+    "padre": {
+     "vivo": true,
+     "enf": "sano"
+    },
+    "madre": {
+     "vivo": true,
+     "enf": "endometriosis"
+    },
+    "hermanos": [],
+    "hijos": []
+   },
+   "titulo": "Endometriosis"
+  },
+  {
+   "id": "c4",
+   "nombre": "Julieta R.",
+   "sexo": "F",
+   "edad": 24,
+   "motivo": "Hace 6 meses que no me viene la menstruación y me salen vellos.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Obesidad. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Amenorrea"
+   ],
+   "h_fil": "Julieta R., 24 años. Estudiante, soltera, vive con sus padres.",
+   "h_motivo": "«Hace 6 meses que no me viene la menstruación y me salen vellos.»",
+   "h_ea": "Mi menstruación venía cada 2 o 3 meses y hace 6 que no me viene. Además tengo acné y vello en el mentón.",
+   "h_inicio": "Hace 6 meses la falta total; los ciclos irregulares desde la adolescencia.",
+   "h_como": "Gradual, con aumento de peso.",
+   "h_evol": "Subí 10 kilos y tengo más vello y acné.",
+   "h_prim": "Mis ciclos siempre fueron irregulares.",
+   "h_cons": "Fui a una consulta hace un año.",
+   "h_estudios": "Me hicieron un análisis hormonal que no retiré.",
+   "h_dx": "No me dieron un diagnóstico.",
+   "h_trat": "No hice tratamiento.",
+   "h_menarca": "A los 13 años; ciclos irregulares cada 2 a 3 meses.",
+   "h_irs": "A los 20 años.",
+   "h_parejas": "Una pareja actual hace 2 años.",
+   "h_paridad": "Nuligesta (G0).",
+   "h_its": "Nunca tuve ITS.",
+   "h_genito": "No tengo sangrados.",
+   "h_fum": "Hace 6 meses.",
+   "h_anticon": "Usa preservativo.",
+   "h_enf": "Ninguna. Sin alergias.",
+   "h_cirug": "Ninguna cirugía.",
+   "h_habitos": "No fumo, tomo alcohol los fines de semana; come muchos ultraprocesados y no hace ejercicio.",
+   "h_med": "Ninguno.",
+   "h_social": "Vive con sus padres; estudia y trabaja medio tiempo; refiere angustia por su aspecto.",
+   "h_fam": "Mi papá tiene diabetes tipo 2 y mi tía tiene ovario poliquístico.",
+   "familia": {
+    "padre": {
+     "vivo": true,
+     "enf": "DBT 2"
+    },
+    "madre": {
+     "vivo": true,
+     "enf": "HTA"
+    },
+    "hermanos": [
+     {
+      "sexo": "M",
+      "enf": "sano"
+     }
+    ],
+    "hijos": []
+   },
+   "titulo": "Síndrome de ovario poliquístico"
+  },
+  {
+   "id": "c5",
+   "nombre": "Beatriz M.",
+   "sexo": "F",
+   "edad": 57,
+   "motivo": "Volví a sangrar por la vagina y yo ya no menstruaba.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Obesidad, HTA y diabetes tipo 2. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Sangrado postmenopáusico"
+   ],
+   "h_fil": "Beatriz M., 57 años. Ama de casa, casada, vive con su esposo.",
+   "h_motivo": "«Volví a sangrar por la vagina y yo ya no menstruaba.»",
+   "h_ea": "Hace 2 meses empecé a perder sangre por la vagina, a veces con coágulos, y hace 6 años que no menstruo.",
+   "h_inicio": "Hace 2 meses.",
+   "h_como": "De golpe, sin dolor.",
+   "h_evol": "Se repite cada semana, en poca cantidad.",
+   "h_prim": "No, nunca había pasado desde la menopausia.",
+   "h_cons": "Todavía no consulté.",
+   "h_estudios": "No me hicieron estudios; mi último PAP fue hace 5 años.",
+   "h_dx": "No tengo diagnóstico.",
+   "h_trat": "No hice tratamiento.",
+   "h_menarca": "A los 12 años; ciclos regulares hasta la menopausia a los 51 años.",
+   "h_irs": "A los 20 años.",
+   "h_parejas": "Una sola pareja, su esposo, hace 35 años.",
+   "h_paridad": "G4 P4 (cuatro partos vaginales).",
+   "h_its": "Nunca tuve ITS.",
+   "h_genito": "Sangrado postmenopáusico hace 2 meses.",
+   "h_fum": "Menopausia hace 6 años.",
+   "h_anticon": "No usa anticoncepción (menopausia).",
+   "h_enf": "Hipertensión arterial y diabetes tipo 2. Sin alergias.",
+   "h_cirug": "Colecistectomía hace 10 años.",
+   "h_habitos": "No fumo, sin alcohol; sedentaria.",
+   "h_med": "Enalapril 10 mg, metformina 850 mg.",
+   "h_social": "Vive con su esposo; no trabaja; buena red de apoyo familiar.",
+   "h_fam": "Mi hermana tuvo cáncer de mama y mi mamá, de útero.",
+   "familia": {
+    "padre": {
+     "vivo": false,
+     "enf": "IAM"
+    },
+    "madre": {
+     "vivo": false,
+     "enf": "cáncer de útero"
+    },
+    "hermanos": [
+     {
+      "sexo": "F",
+      "enf": "cáncer de mama"
+     }
+    ],
+    "hijos": [
+     {
+      "sexo": "F",
+      "enf": "sana"
+     },
+     {
+      "sexo": "M",
+      "enf": "sano"
+     }
+    ]
+   },
+   "titulo": "Hiperplasia / cáncer de endometrio"
+  },
+  {
+   "id": "c6",
+   "nombre": "Agustina C.",
+   "sexo": "F",
+   "edad": 22,
+   "motivo": "Vengo a hacerme el control ginecológico y el PAP.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Sana. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Control"
+   ],
+   "h_fil": "Agustina C., 22 años. Estudiante, soltera, vive con una amiga.",
+   "h_motivo": "«Vengo a hacerme el control ginecológico y el PAP.»",
+   "h_ea": "No tengo ninguna molestia, vengo por un control de rutina.",
+   "h_inicio": "No corresponde: no tiene síntomas.",
+   "h_como": "No corresponde.",
+   "h_evol": "No corresponde.",
+   "h_prim": "Primera vez que consulto por control.",
+   "h_cons": "No consulté antes.",
+   "h_estudios": "Nunca me hicieron un PAP.",
+   "h_dx": "Ninguno.",
+   "h_trat": "Ninguno.",
+   "h_menarca": "A los 12 años; ciclos regulares cada 30 días, sin dolor.",
+   "h_irs": "A los 18 años.",
+   "h_parejas": "Una pareja actual hace 1 año; antes tuvo 2 parejas.",
+   "h_paridad": "Nuligesta (G0).",
+   "h_its": "Nunca tuve ITS; recibió las 2 dosis de vacuna contra el HPV.",
+   "h_genito": "No hay sangrados fuera de la menstruación.",
+   "h_fum": "Hace 15 días.",
+   "h_anticon": "Usa preservativo y quiere conocer otras opciones.",
+   "h_enf": "Ninguna. Sin alergias.",
+   "h_cirug": "Ninguna cirugía.",
+   "h_habitos": "Fuma 5 cigarrillos por día; alcohol los fines de semana.",
+   "h_med": "Ninguno.",
+   "h_social": "Vive con una amiga; estudia; buena red de apoyo.",
+   "h_fam": "Mi abuela paterna tuvo cáncer de cuello de útero.",
+   "familia": {
+    "padre": {
+     "vivo": true,
+     "enf": "sano"
+    },
+    "madre": {
+     "vivo": true,
+     "enf": "sana"
+    },
+    "hermanos": [
+     {
+      "sexo": "F",
+      "enf": "sana"
+     }
+    ],
+    "hijos": []
+   },
+   "titulo": "Control ginecológico de rutina"
+  },
+  {
+   "id": "c7",
+   "nombre": "Romina F.",
+   "sexo": "F",
+   "edad": 26,
+   "motivo": "Tengo dolor en la parte baja del abdomen y un flujo con mal olor.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Sin antecedentes patológicos. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "ITS / EPI"
+   ],
+   "h_fil": "Romina F., 26 años. Moza, soltera, vive con una amiga.",
+   "h_motivo": "«Tengo dolor en la parte baja del abdomen y un flujo con mal olor.»",
+   "h_ea": "Siento dolor en el bajo vientre, flujo amarillento con mal olor y dolor en las relaciones.",
+   "h_inicio": "Hace 5 días.",
+   "h_como": "Gradual, con fiebre de 38 grados desde ayer.",
+   "h_evol": "Empeoró: el dolor es más fuerte y tengo escalofríos.",
+   "h_prim": "Nunca me había pasado.",
+   "h_cons": "No consulté antes.",
+   "h_estudios": "No me hicieron estudios.",
+   "h_dx": "No tengo diagnóstico.",
+   "h_trat": "Tomé ibuprofeno sin alivio.",
+   "h_menarca": "A los 12 años; ciclos regulares cada 28 días.",
+   "h_irs": "A los 16 años.",
+   "h_parejas": "Tres parejas en el último año, sin preservativo con la última.",
+   "h_paridad": "Nuligesta (G0).",
+   "h_its": "Tuve una infección por clamidia hace 2 años, tratada.",
+   "h_genito": "Sangra levemente después de las relaciones.",
+   "h_fum": "Hace 10 días.",
+   "h_anticon": "Usa anticonceptivos orales, a veces se olvida.",
+   "h_enf": "Ninguna. Sin alergias.",
+   "h_cirug": "Ninguna cirugía.",
+   "h_habitos": "Fuma 10 cigarrillos por día; alcohol los fines de semana.",
+   "h_med": "Anticonceptivos orales.",
+   "h_social": "Vive con una amiga; trabaja 9 horas por la noche; poca red de apoyo.",
+   "h_fam": "Mi mamá tiene hipertensión; sin otros antecedentes.",
+   "familia": {
+    "padre": {
+     "vivo": true,
+     "enf": "sano"
+    },
+    "madre": {
+     "vivo": true,
+     "enf": "HTA"
+    },
+    "hermanos": [],
+    "hijos": []
+   },
+   "titulo": "Enfermedad pélvica inflamatoria"
+  },
+  {
+   "id": "c8",
+   "nombre": "Mónica G.",
+   "sexo": "F",
+   "edad": 51,
+   "motivo": "Tengo muchos calores, no duermo y las relaciones me duelen.",
+   "indicacion": "Anamnesis ginecológica.",
+   "antecedentes": "Menopausia reciente. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Climaterio"
+   ],
+   "h_fil": "Mónica G., 51 años. Contadora, casada, vive con su esposo.",
+   "h_motivo": "«Tengo muchos calores, no duermo y las relaciones me duelen.»",
+   "h_ea": "Tengo bochornos varias veces al día, sudores nocturnos, insomnio y sequedad vaginal que hace dolorosas las relaciones.",
+   "h_inicio": "Hace 1 año.",
+   "h_como": "Gradual, a medida que se espaciaban las menstruaciones.",
+   "h_evol": "Empeoró en los últimos meses; tengo mal humor.",
+   "h_prim": "No, es la primera vez.",
+   "h_cons": "Consulté a mi clínica hace 3 meses.",
+   "h_estudios": "Me pidieron una densitometría que todavía no hice.",
+   "h_dx": "Me dijeron «puede ser la menopausia».",
+   "h_trat": "Tomo un producto natural sin mucho resultado.",
+   "h_menarca": "A los 13 años; ciclos regulares hasta hace 2 años.",
+   "h_irs": "A los 19 años.",
+   "h_parejas": "Una pareja estable hace 25 años.",
+   "h_paridad": "G2 P2 (dos partos vaginales).",
+   "h_its": "Nunca tuve ITS.",
+   "h_genito": "No tengo sangrados desde hace 8 meses.",
+   "h_fum": "Hace 8 meses (amenorrea).",
+   "h_anticon": "No usa anticoncepción.",
+   "h_enf": "Hipertensión leve. Sin alergias.",
+   "h_cirug": "Apendicectomía a los 20 años.",
+   "h_habitos": "No fumo; tomo un vaso de vino por día; sedentaria.",
+   "h_med": "Losartán 50 mg; isoflavonas.",
+   "h_social": "Vive con su esposo; trabaja 8 horas; refiere estrés laboral.",
+   "h_fam": "Mi mamá tuvo osteoporosis y fractura de cadera.",
+   "familia": {
+    "padre": {
+     "vivo": false,
+     "enf": "IAM"
+    },
+    "madre": {
+     "vivo": true,
+     "enf": "osteoporosis"
+    },
+    "hermanos": [
+     {
+      "sexo": "F",
+      "enf": "sana"
+     }
+    ],
+    "hijos": [
+     {
+      "sexo": "F",
+      "enf": "sana"
+     },
+     {
+      "sexo": "M",
+      "enf": "sano"
+     }
+    ]
+   },
+   "titulo": "Síndrome climatérico"
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Con qué se inicia la anamnesis ginecológica?",
+   "o": [
+    "Con la presentación, el saludo y la invitación a tomar asiento",
+    "Con el examen físico",
+    "Con la indicación de estudios",
+    "Con el interrogatorio de la FUM únicamente"
+   ],
+   "c": 0,
+   "e": "Se establece primero una relación de confianza: presentación, saludo a la paciente y su acompañante e invitación a sentarse."
+  },
+  {
+   "q": "¿Cómo se registra el motivo de consulta?",
+   "o": [
+    "Con las palabras de la propia paciente",
+    "Con un diagnóstico presuntivo",
+    "Con términos técnicos",
+    "No se registra"
+   ],
+   "c": 0,
+   "e": "El motivo de consulta se escribe como lo dice la paciente, sin interpretarlo."
+  },
+  {
+   "q": "Durante el relato de la enfermedad actual, el médico debe...",
+   "o": [
+    "Escuchar atentamente sin interrumpir ni inducir",
+    "Interrumpir para aclarar cada dato",
+    "Sugerir posibles diagnósticos",
+    "Completar los datos con sus hipótesis"
+   ],
+   "c": 0,
+   "e": "La escucha activa evita sesgos; las preguntas dirigidas se hacen después, solo sobre lo que falta."
+  },
+  {
+   "q": "¿Qué datos de la enfermedad actual se preguntan si no aparecieron en el relato?",
+   "o": [
+    "Cuándo se inició, cómo empezó y cómo evolucionó",
+    "Solo el tratamiento",
+    "Solo los estudios",
+    "Solo los antecedentes familiares"
+   ],
+   "c": 0,
+   "e": "Inicio, modo de comienzo y evolución de los síntomas y signos."
+  },
+  {
+   "q": "¿Cuál es la edad normal de la menarca?",
+   "o": [
+    "Entre los 9 y los 15 años",
+    "Entre los 5 y los 8 años",
+    "Después de los 18 años",
+    "Entre los 20 y los 25 años"
+   ],
+   "c": 0,
+   "e": "La menarca normal ocurre entre los 9 y los 15 años (promedio 12)."
+  },
+  {
+   "q": "¿Qué significa la fórmula G3 P2 A1?",
+   "o": [
+    "3 embarazos, 2 partos y 1 aborto",
+    "3 hijos y 2 abortos",
+    "3 partos y 2 cesáreas",
+    "3 abortos y 2 partos"
+   ],
+   "c": 0,
+   "e": "G: gestas; P: partos; A: abortos (también C: cesáreas)."
+  },
+  {
+   "q": "Un sangrado vaginal luego de la menopausia se llama...",
+   "o": [
+    "Sangrado postmenopáusico y siempre debe estudiarse",
+    "Menstruación tardía",
+    "Metrorragia fisiológica",
+    "Sinusorragia"
+   ],
+   "c": 0,
+   "e": "Es una señal de alarma que obliga a descartar patología endometrial, incluido el cáncer."
+  },
+  {
+   "q": "¿Por qué se pregunta la FUM en toda mujer en edad fértil?",
+   "o": [
+    "Para descartar un embarazo y ubicar el ciclo",
+    "Para calcular el peso",
+    "Solo si hay amenorrea",
+    "No es necesaria"
+   ],
+   "c": 0,
+   "e": "La FUM permite descartar un embarazo antes de indicar estudios o fármacos."
+  },
+  {
+   "q": "¿Qué es el familigrama?",
+   "o": [
+    "Un gráfico de la familia con edades, enfermedades y causas de muerte",
+    "Una lista de medicamentos",
+    "Un esquema del ciclo menstrual",
+    "Un análisis de sangre"
+   ],
+   "c": 0,
+   "e": "Se usan círculos para mujeres y cuadrados para varones, en al menos tres generaciones."
+  },
+  {
+   "q": "Frente a un tema íntimo como la vida sexual, el médico debe...",
+   "o": [
+    "Preguntar con respeto, sin juzgar y garantizando privacidad",
+    "Evitar preguntar",
+    "Preguntar delante de todos",
+    "Hacer comentarios sobre las conductas"
+   ],
+   "c": 0,
+   "e": "La confianza y la privacidad son la base de una anamnesis sexual confiable."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Guía de la anamnesis ginecológica",
+  "boton_titulo": "Ver el esquema de la anamnesis",
+  "boton_sub": "Orden del interrogatorio ginecológico",
+  "aviso": "el esquema de la anamnesis",
+  "flecha": "▼ Interrogatorio dirigido",
+  "flecha_final": "▼ Cierre",
+  "pie": "Sin juzgar, con privacidad y sin interrumpir.",
+  "comun": [
+   {
+    "t": "Recepción",
+    "x": "Presentación, saludo, asiento, filiación.",
+    "flag": "fil"
+   },
+   {
+    "t": "Motivo y enfermedad actual",
+    "x": "Relato libre, escucha activa.",
+    "flag": "ea"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "Enfermedad actual",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Inicio y modo de comienzo",
+      "x": "¿Cuándo? ¿Cómo empezó?",
+      "flag": "como"
+     },
+     {
+      "t": "Evolución",
+      "x": "Mejoró, empeoró, síntomas asociados.",
+      "flag": "evol"
+     },
+     {
+      "t": "Antecedentes del cuadro",
+      "x": "Episodios previos, consultas, estudios, diagnóstico y tratamientos.",
+      "flag": "trat"
+     }
+    ]
+   },
+   {
+    "titulo": "Gineco-obstétricos",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Menarca, relaciones y parejas",
+      "x": "Edad de la menarca, IRS, número de parejas.",
+      "flag": "parejas"
+     },
+     {
+      "t": "Paridad, ITS, genitorragia",
+      "x": "G P C A; ITS; sangrados anormales.",
+      "flag": "genito"
+     },
+     {
+      "t": "FUM y anticoncepción",
+      "x": "Descartar embarazo; método anticonceptivo.",
+      "flag": "anticon"
+     }
+    ]
+   },
+   {
+    "titulo": "Personales y familiares",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Personales",
+      "x": "Enfermedades, cirugías, hábitos, medicamentos, aspectos sociales.",
+      "flag": "social"
+     },
+     {
+      "t": "Familiares",
+      "x": "Antecedentes y familigrama.",
+      "flag": "famili"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Despedida",
+    "x": "Agradecer y explicar los pasos a seguir.",
+    "flag": "desp"
+   }
+  ]
+ },
+ "hallazgo_pasos": {
+  "3": "h_fil",
+  "4": "h_motivo",
+  "5": "h_ea",
+  "8": "h_inicio",
+  "9": "h_como",
+  "10": "h_evol",
+  "11": "h_prim",
+  "12": "h_cons",
+  "13": "h_estudios",
+  "14": "h_dx",
+  "15": "h_trat",
+  "16": "h_menarca",
+  "17": "h_irs",
+  "18": "h_parejas",
+  "19": "h_paridad",
+  "20": "h_its",
+  "21": "h_genito",
+  "22": "h_fum",
+  "23": "h_anticon",
+  "24": "h_enf",
+  "25": "h_cirug",
+  "26": "h_habitos",
+  "27": "h_med",
+  "28": "h_social",
+  "29": "h_fam"
+ },
+ "hallazgo_rotulos": {
+  "3": "🗣 Paciente:",
+  "4": "🗣 Paciente:",
+  "5": "🗣 Paciente:",
+  "8": "🗣 Paciente:",
+  "9": "🗣 Paciente:",
+  "10": "🗣 Paciente:",
+  "11": "🗣 Paciente:",
+  "12": "🗣 Paciente:",
+  "13": "🗣 Paciente:",
+  "14": "🗣 Paciente:",
+  "15": "🗣 Paciente:",
+  "16": "🗣 Paciente:",
+  "17": "🗣 Paciente:",
+  "18": "🗣 Paciente:",
+  "19": "🗣 Paciente:",
+  "20": "🗣 Paciente:",
+  "21": "🗣 Paciente:",
+  "22": "🗣 Paciente:",
+  "23": "🗣 Paciente:",
+  "24": "🗣 Paciente:",
+  "25": "🗣 Paciente:",
+  "26": "🗣 Paciente:",
+  "27": "🗣 Paciente:",
+  "28": "🗣 Paciente:",
+  "29": "🗣 Paciente:"
+ },
+ "hallazgo_voz": {
+  "3": "f",
+  "4": "f",
+  "5": "f",
+  "8": "f",
+  "9": "f",
+  "10": "f",
+  "11": "f",
+  "12": "f",
+  "13": "f",
+  "14": "f",
+  "15": "f",
+  "16": "f",
+  "17": "f",
+  "18": "f",
+  "19": "f",
+  "20": "f",
+  "21": "f",
+  "22": "f",
+  "23": "f",
+  "24": "f",
+  "25": "f",
+  "26": "f",
+  "27": "f",
+  "28": "f",
+  "29": "f"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "Recepción",
+    "x": "Presentate, saludá a la paciente y al acompañante, invitá a sentarse, y registrá filiación y motivo de consulta con sus palabras."
+   },
+   {
+    "t": "Enfermedad actual",
+    "x": "Dejala relatar sin interrumpir ni inducir. Después preguntá lo que no apareció: cuándo empezó, cómo empezó, evolución, episodios previos, consultas, estudios, diagnóstico y tratamientos."
+   },
+   {
+    "t": "Gineco-obstétricos",
+    "x": "Menarca y ciclos, inicio de relaciones, parejas, paridad (G P C A), ITS, genitorragia, FUM y anticoncepción."
+   },
+   {
+    "t": "Otros antecedentes",
+    "x": "Enfermedades previas, traumatismos y cirugías, hábitos, medicamentos, aspectos sociales, laborales, culturales y ambientales."
+   },
+   {
+    "t": "Familiares y cierre",
+    "x": "Antecedentes familiares y familigrama breve; despedite cordialmente."
+   }
+  ],
+  "por_paso": {
+   "7": "No interrumpir ni inducir.",
+   "22": "La FUM descarta embarazo.",
+   "30": "Círculo = mujer, cuadrado = varón."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/sim/anamg_modelo.json",
+ "peso_modelo": "2 MB",
+ "instrumental": "data/acreditaciones/sim/instrumental_anamg.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Se presenta, saluda a la paciente y acompañante",
+   "fase": "Recepción",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Presentarse con nombre y rol y saludar también al acompañante abre la relación médico-paciente con respeto y confianza.",
+   "estado": {
+    "pres": 1
+   },
+   "claves": [
+    [
+     "me presento"
+    ],
+    [
+     "soy la doctora"
+    ],
+    [
+     "soy el doctor"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ],
+    [
+     "mucho gusto"
+    ]
+   ],
+   "frase": "Buenas tardes, soy la doctora, me presento con mi nombre y apellido. Saludo a la paciente y a su acompañante.",
+   "fx": "hablar"
+  },
+  {
+   "n": 2,
+   "texto": "Invita a tomar asiento",
+   "fase": "Recepción",
+   "target": "consultorio",
+   "critico": false,
+   "explica": "Invitar a sentarse, a la misma altura y sin barreras, favorece un ambiente de confianza para hablar de temas íntimos.",
+   "estado": {
+    "asiento": 1
+   },
+   "claves": [
+    [
+     "tome asiento"
+    ],
+    [
+     "tomar asiento"
+    ],
+    [
+     "siente"
+    ],
+    [
+     "sientese"
+    ],
+    [
+     "invito a sentarse"
+    ],
+    [
+     "pase y"
+    ]
+   ],
+   "frase": "La invito a tomar asiento, por favor.",
+   "fx": "sentar"
+  },
+  {
+   "n": 3,
+   "texto": "Interroga sobre datos filiatorios, personales y los registra",
+   "fase": "Recepción",
+   "target": "hc",
+   "critico": false,
+   "explica": "Nombre completo, edad, fecha de nacimiento, DNI, domicilio, estado civil, ocupación, nivel de instrucción y cobertura de salud: identifican a la paciente y orientan el riesgo.",
+   "estado": {
+    "fil": 1
+   },
+   "claves": [
+    [
+     "datos filiatorios"
+    ],
+    [
+     "nombre completo"
+    ],
+    [
+     "cuantos anos tiene"
+    ],
+    [
+     "edad"
+    ],
+    [
+     "ocupacion"
+    ],
+    [
+     "estado civil"
+    ],
+    [
+     "domicilio"
+    ],
+    [
+     "dni"
+    ]
+   ],
+   "frase": "Le pregunto sus datos filiatorios y personales: nombre completo, edad, DNI, domicilio, estado civil y ocupación, y los registro.",
+   "fx": "registro"
+  },
+  {
+   "n": 4,
+   "texto": "Invita a la paciente a relatar el motivo que la lleva a la consulta y lo registra",
+   "fase": "Motivo y enfermedad actual",
+   "target": "paciente",
+   "critico": false,
+   "explica": "El motivo de consulta se registra con las palabras de la paciente: «¿Qué la trae hoy por acá?».",
+   "estado": {
+    "motivo": 1
+   },
+   "claves": [
+    [
+     "motivo de consulta"
+    ],
+    [
+     "que la trae"
+    ],
+    [
+     "por que consulta"
+    ],
+    [
+     "que le pasa"
+    ],
+    [
+     "motivo que la lleva"
+    ]
+   ],
+   "frase": "Le pregunto qué la trae a la consulta y registro el motivo de consulta con sus palabras.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 5,
+   "texto": "Invita a la paciente a relatar la enfermedad actual",
+   "fase": "Motivo y enfermedad actual",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se la invita a contar con libertad cómo es su problema: «Cuénteme desde el principio qué le viene pasando».",
+   "estado": {
+    "ea": 1
+   },
+   "claves": [
+    [
+     "enfermedad actual"
+    ],
+    [
+     "cuenteme"
+    ],
+    [
+     "relate"
+    ],
+    [
+     "relato"
+    ],
+    [
+     "como viene"
+    ],
+    [
+     "cuente"
+    ]
+   ],
+   "frase": "La invito a relatar la enfermedad actual: que me cuente desde el principio qué le viene pasando.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 6,
+   "texto": "Escucha atentamente el relato",
+   "fase": "Motivo y enfermedad actual",
+   "target": "paciente",
+   "critico": false,
+   "explica": "La escucha activa (contacto visual, asentir, sin interrumpir) permite obtener datos que no aparecen en un interrogatorio dirigido.",
+   "estado": {
+    "escucha": 1
+   },
+   "claves": [
+    [
+     "escucho"
+    ],
+    [
+     "escucha atenta"
+    ],
+    [
+     "atentamente"
+    ],
+    [
+     "sin interrumpir"
+    ],
+    [
+     "contacto visual"
+    ]
+   ],
+   "frase": "Escucho atentamente el relato, mirándola a los ojos y sin interrumpirla.",
+   "fx": "escuchar"
+  },
+  {
+   "n": 7,
+   "texto": "Induce o interrumpe el relato con preguntas o aportes (NO debe hacerlo)",
+   "fase": "Motivo y enfermedad actual",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Interrumpir o inducir las respuestas sesga el relato: las preguntas dirigidas se hacen después, solo sobre lo que no apareció espontáneamente.",
+   "estado": {
+    "noint": 1
+   },
+   "claves": [
+    [
+     "no interrumpo"
+    ],
+    [
+     "no induzco"
+    ],
+    [
+     "no la interrumpo"
+    ],
+    [
+     "sin inducir"
+    ]
+   ],
+   "frase": "No interrumpo ni induzco el relato: dejo que la paciente termine antes de hacer preguntas.",
+   "fx": "escuchar"
+  },
+  {
+   "n": 8,
+   "texto": "Pregunta cuándo se inició el padecimiento",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Si no apareció en el relato: fecha de inicio y tiempo de evolución del síntoma.",
+   "estado": {
+    "inicio": 1
+   },
+   "claves": [
+    [
+     "cuando empezo"
+    ],
+    [
+     "cuando se inicio"
+    ],
+    [
+     "desde cuando"
+    ],
+    [
+     "hace cuanto"
+    ],
+    [
+     "cuando comenzo"
+    ]
+   ],
+   "frase": "Le pregunto cuándo se inició el padecimiento, desde cuándo le pasa.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 9,
+   "texto": "Pregunta cómo empezó el cuadro",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Modo de comienzo (brusco o gradual) y circunstancias asociadas.",
+   "estado": {
+    "como": 1
+   },
+   "claves": [
+    [
+     "como empezo"
+    ],
+    [
+     "como comenzo"
+    ],
+    [
+     "de que forma empezo"
+    ],
+    [
+     "de golpe"
+    ],
+    [
+     "gradual"
+    ]
+   ],
+   "frase": "Le pregunto cómo empezó el cuadro, si fue de golpe o de manera gradual.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 10,
+   "texto": "Pregunta sobre la evolución y el desarrollo de los síntomas y signos",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Cómo evolucionó: si mejoró, empeoró o se mantuvo, y qué otros síntomas se agregaron.",
+   "estado": {
+    "evol": 1
+   },
+   "claves": [
+    [
+     "evolucion"
+    ],
+    [
+     "como evoluciono"
+    ],
+    [
+     "empeoro"
+    ],
+    [
+     "mejoro"
+    ],
+    [
+     "sintomas asociados"
+    ],
+    [
+     "desarrollo de los sintomas"
+    ]
+   ],
+   "frase": "Le pregunto sobre la evolución y el desarrollo de los síntomas y signos desde que empezó.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 11,
+   "texto": "Pregunta si es la primera vez que presenta este padecimiento o si presentó un cuadro parecido antes",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Antecedentes de la enfermedad actual: si es un episodio nuevo o recurrente.",
+   "estado": {
+    "prim": 1
+   },
+   "claves": [
+    [
+     "primera vez"
+    ],
+    [
+     "cuadro parecido"
+    ],
+    [
+     "le paso antes"
+    ],
+    [
+     "episodio previo"
+    ],
+    [
+     "alguna vez"
+    ]
+   ],
+   "frase": "Le pregunto si es la primera vez que le pasa o si tuvo un cuadro parecido antes.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 12,
+   "texto": "Pregunta si hizo alguna consulta médica previa",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Si consultó antes por esto y con quién.",
+   "estado": {
+    "cons": 1
+   },
+   "claves": [
+    [
+     "consulta medica previa"
+    ],
+    [
+     "consulto antes"
+    ],
+    [
+     "vio a algun medico"
+    ],
+    [
+     "consulto con alguien"
+    ],
+    [
+     "consulta previa"
+    ]
+   ],
+   "frase": "Le pregunto si hizo alguna consulta médica previa por este problema.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 13,
+   "texto": "Pregunta si le hicieron estudios complementarios",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Análisis, ecografías, PAP, colposcopia u otros estudios, y sus resultados.",
+   "estado": {
+    "estudios": 1
+   },
+   "claves": [
+    [
+     "estudios complementarios"
+    ],
+    [
+     "le hicieron estudios"
+    ],
+    [
+     "ecografia"
+    ],
+    [
+     "analisis"
+    ],
+    [
+     "estudios previos"
+    ]
+   ],
+   "frase": "Le pregunto si le hicieron estudios complementarios y cuáles fueron los resultados.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 14,
+   "texto": "Pregunta si se le hizo algún diagnóstico",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Si recibió un diagnóstico previo y de quién.",
+   "estado": {
+    "dx": 1
+   },
+   "claves": [
+    [
+     "algun diagnostico"
+    ],
+    [
+     "le dijeron que tenia"
+    ],
+    [
+     "diagnostico previo"
+    ],
+    [
+     "le diagnosticaron"
+    ],
+    [
+     "diagnostico"
+    ]
+   ],
+   "frase": "Le pregunto si se le hizo algún diagnóstico.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 15,
+   "texto": "Pregunta si realizó tratamientos",
+   "fase": "Interrogatorio dirigido",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Tratamientos recibidos, dosis, duración, respuesta y adherencia.",
+   "estado": {
+    "trat": 1
+   },
+   "claves": [
+    [
+     "tratamiento"
+    ],
+    [
+     "realizo algun tratamiento"
+    ],
+    [
+     "medicacion para esto"
+    ],
+    [
+     "tomo algo"
+    ],
+    [
+     "hizo tratamiento"
+    ]
+   ],
+   "frase": "Le pregunto si realizó algún tratamiento y cómo respondió.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 16,
+   "texto": "Pregunta sobre la menarca",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Edad de la primera menstruación (normal: 9 a 15 años) y características del ciclo (duración, regularidad, cantidad).",
+   "estado": {
+    "menarca": 1
+   },
+   "claves": [
+    [
+     "menarca"
+    ],
+    [
+     "primera menstruacion"
+    ],
+    [
+     "primera regla"
+    ],
+    [
+     "primer sangrado"
+    ],
+    [
+     "a que edad menstruo"
+    ]
+   ],
+   "frase": "Le pregunto sobre la menarca: a qué edad tuvo su primera menstruación y cómo son sus ciclos.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 17,
+   "texto": "Pregunta sobre el inicio de relaciones sexuales",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Edad de inicio de las relaciones sexuales (factor de riesgo de ITS y de lesiones cervicales si es precoz). Se pregunta con respeto y sin juzgar.",
+   "estado": {
+    "irs": 1
+   },
+   "claves": [
+    [
+     "inicio de relaciones"
+    ],
+    [
+     "primera relacion sexual"
+    ],
+    [
+     "inicio de las relaciones"
+    ],
+    [
+     "comenzo a tener relaciones"
+    ],
+    [
+     "irs"
+    ]
+   ],
+   "frase": "Le pregunto sobre el inicio de las relaciones sexuales, a qué edad comenzó.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 18,
+   "texto": "Pregunta sobre el número de parejas sexuales",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Número de parejas actuales y a lo largo de la vida, y tipo de pareja (varón, mujer o ambos): riesgo de ITS y de HPV.",
+   "estado": {
+    "parejas": 1
+   },
+   "claves": [
+    [
+     "parejas sexuales"
+    ],
+    [
+     "numero de parejas"
+    ],
+    [
+     "cuantas parejas"
+    ],
+    [
+     "pareja actual"
+    ],
+    [
+     "parejas"
+    ]
+   ],
+   "frase": "Le pregunto sobre el número de parejas sexuales.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 19,
+   "texto": "Pregunta sobre la paridad",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Gestas, partos vaginales, cesáreas, abortos y hijos vivos (fórmula G P C A).",
+   "estado": {
+    "paridad": 1
+   },
+   "claves": [
+    [
+     "paridad"
+    ],
+    [
+     "embarazos previos"
+    ],
+    [
+     "cuantos hijos"
+    ],
+    [
+     "partos"
+    ],
+    [
+     "cesareas"
+    ],
+    [
+     "abortos"
+    ],
+    [
+     "gestas"
+    ]
+   ],
+   "frase": "Le pregunto sobre la paridad: embarazos, partos, cesáreas y abortos.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 20,
+   "texto": "Pregunta sobre infecciones de transmisión sexual (ITS)",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Antecedente de ITS (HPV, clamidia, gonorrea, sífilis, herpes, VIH) y tratamientos recibidos.",
+   "estado": {
+    "its": 1
+   },
+   "claves": [
+    [
+     "its"
+    ],
+    [
+     "infecciones de transmision sexual"
+    ],
+    [
+     "enfermedades de transmision sexual"
+    ],
+    [
+     "infeccion sexual"
+    ],
+    [
+     "hpv"
+    ],
+    [
+     "clamidia"
+    ],
+    [
+     "hiv"
+    ]
+   ],
+   "frase": "Le pregunto sobre antecedentes de infecciones de transmisión sexual (ITS).",
+   "fx": "preguntar"
+  },
+  {
+   "n": 21,
+   "texto": "Pregunta sobre genitorragia",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Sangrados genitales fuera de la menstruación o con las relaciones sexuales (sinusorragia), o postmenopáusicos.",
+   "estado": {
+    "genito": 1
+   },
+   "claves": [
+    [
+     "genitorragia"
+    ],
+    [
+     "sangrado genital"
+    ],
+    [
+     "sangrado fuera"
+    ],
+    [
+     "sangra entre"
+    ],
+    [
+     "sinusorragia"
+    ],
+    [
+     "sangrado vaginal"
+    ],
+    [
+     "perdidas de sangre"
+    ]
+   ],
+   "frase": "Le pregunto sobre genitorragia: si tiene sangrados fuera de la menstruación.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 22,
+   "texto": "Pregunta sobre la fecha de la última menstruación (FUM)",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "La FUM permite descartar un embarazo, ubicar el ciclo y calcular la edad gestacional si corresponde.",
+   "estado": {
+    "fum": 1
+   },
+   "claves": [
+    [
+     "fum"
+    ],
+    [
+     "ultima menstruacion"
+    ],
+    [
+     "ultima regla"
+    ],
+    [
+     "fecha de la ultima"
+    ],
+    [
+     "cuando fue su ultima"
+    ]
+   ],
+   "frase": "Le pregunto sobre la fecha de la última menstruación (FUM).",
+   "fx": "preguntar"
+  },
+  {
+   "n": 23,
+   "texto": "Pregunta (si amerita el caso) sobre el uso de anticoncepción",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Método anticonceptivo actual, tiempo de uso y tolerancia; también el deseo reproductivo.",
+   "estado": {
+    "anticon": 1
+   },
+   "claves": [
+    [
+     "anticoncepcion"
+    ],
+    [
+     "metodo anticonceptivo"
+    ],
+    [
+     "se cuida"
+    ],
+    [
+     "pastillas"
+    ],
+    [
+     "preservativo"
+    ],
+    [
+     "diu"
+    ],
+    [
+     "anticonceptivo"
+    ]
+   ],
+   "frase": "Le pregunto sobre el uso de anticoncepción: qué método usa y desde cuándo.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 24,
+   "texto": "Pregunta sobre enfermedades previas",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Enfermedades crónicas (HTA, diabetes, tiroides, cardiopatías) y de la infancia, y alergias.",
+   "estado": {
+    "enf": 1
+   },
+   "claves": [
+    [
+     "enfermedades previas"
+    ],
+    [
+     "enfermedades anteriores"
+    ],
+    [
+     "padece alguna enfermedad"
+    ],
+    [
+     "antecedentes personales"
+    ],
+    [
+     "alergias"
+    ],
+    [
+     "hipertension"
+    ],
+    [
+     "diabetes"
+    ]
+   ],
+   "frase": "Le pregunto sobre enfermedades previas y alergias.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 25,
+   "texto": "Pregunta sobre traumatismos y cirugías previas",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Traumatismos, internaciones y cirugías (ginecológicas y de otro tipo) con fecha y motivo.",
+   "estado": {
+    "cirug": 1
+   },
+   "claves": [
+    [
+     "cirugias previas"
+    ],
+    [
+     "traumatismos"
+    ],
+    [
+     "operaciones"
+    ],
+    [
+     "la operaron"
+    ],
+    [
+     "internaciones"
+    ],
+    [
+     "cirugias"
+    ]
+   ],
+   "frase": "Le pregunto sobre traumatismos y cirugías previas.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 26,
+   "texto": "Interroga sobre hábitos",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Tabaco, alcohol, drogas, alimentación, sueño y actividad física: factores de riesgo para cáncer cervical, osteoporosis y enfermedad cardiovascular.",
+   "estado": {
+    "habitos": 1
+   },
+   "claves": [
+    [
+     "habitos"
+    ],
+    [
+     "fuma"
+    ],
+    [
+     "tabaco"
+    ],
+    [
+     "alcohol"
+    ],
+    [
+     "drogas"
+    ],
+    [
+     "alimentacion"
+    ]
+   ],
+   "frase": "Interrogo sobre hábitos: tabaco, alcohol, drogas, alimentación y sueño.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 27,
+   "texto": "Interroga sobre el uso de medicamentos",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Medicación habitual, automedicación y productos naturales (anticoagulantes, hormonas, anticonceptivos).",
+   "estado": {
+    "med": 1
+   },
+   "claves": [
+    [
+     "medicamentos"
+    ],
+    [
+     "medicacion habitual"
+    ],
+    [
+     "toma algun medicamento"
+    ],
+    [
+     "remedios"
+    ],
+    [
+     "automedicacion"
+    ]
+   ],
+   "frase": "Interrogo sobre el uso de medicamentos.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 28,
+   "texto": "Pregunta sobre aspectos sociales, laborales, culturales y ambientales",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Con quién vive, trabajo, nivel educativo, creencias, red de apoyo, violencia y vivienda: determinantes sociales de la salud.",
+   "estado": {
+    "social": 1
+   },
+   "claves": [
+    [
+     "aspectos sociales"
+    ],
+    [
+     "laborales"
+    ],
+    [
+     "con quien vive"
+    ],
+    [
+     "en que trabaja"
+    ],
+    [
+     "culturales"
+    ],
+    [
+     "ambientales"
+    ]
+   ],
+   "frase": "Pregunto sobre aspectos sociales, laborales, culturales y ambientales.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 29,
+   "texto": "Pregunta sobre antecedentes familiares",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Cáncer de mama, ovario o colon, diabetes, hipertensión, enfermedades cardiovasculares y trombosis en familiares directos.",
+   "estado": {
+    "fam": 1
+   },
+   "claves": [
+    [
+     "antecedentes familiares"
+    ],
+    [
+     "en su familia"
+    ],
+    [
+     "familiares"
+    ],
+    [
+     "su mama"
+    ],
+    [
+     "hermanas"
+    ],
+    [
+     "familia"
+    ]
+   ],
+   "frase": "Pregunto sobre antecedentes familiares.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 30,
+   "texto": "Construye un familigrama breve",
+   "fase": "Otros antecedentes",
+   "target": "familigrama",
+   "critico": false,
+   "explica": "El familigrama es un gráfico de la familia (círculos para mujeres, cuadrados para varones) que muestra edades, enfermedades y causas de muerte de por lo menos tres generaciones.",
+   "estado": {
+    "famili": 1
+   },
+   "claves": [
+    [
+     "familigrama"
+    ],
+    [
+     "genograma"
+    ],
+    [
+     "arbol familiar"
+    ],
+    [
+     "grafico de la familia"
+    ]
+   ],
+   "frase": "Construyo un familigrama breve con los datos de la familia de la paciente.",
+   "fx": "familigrama"
+  },
+  {
+   "n": 31,
+   "texto": "Se despide del paciente",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se agradece, se resumen los pasos a seguir y se despide cordialmente.",
+   "estado": {
+    "desp": 1
+   },
+   "claves": [
+    [
+     "me despido"
+    ],
+    [
+     "hasta luego"
+    ],
+    [
+     "hasta pronto"
+    ],
+    [
+     "gracias por venir"
+    ],
+    [
+     "chau"
+    ]
+   ],
+   "frase": "Me despido de la paciente y le agradezco.",
+   "fx": "hablar"
+  }
+ ],
+ "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la comunicación (presentación, escucha sin interrumpir), la cobertura del relato y de los antecedentes gineco-obstétricos y personales, y el registro (propuesto, a validar).",
+ "criterios": [
+  {
+   "ico": "🤝",
+   "titulo": "Recepción y comunicación: presentarse, escuchar sin interrumpir",
+   "pasos": [
+    1,
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "ico": "📖",
+   "titulo": "Relato y enfermedad actual completos",
+   "pasos": [
+    4,
+    5,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "ico": "🌸",
+   "titulo": "Antecedentes gineco-obstétricos",
+   "pasos": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ]
+  },
+  {
+   "ico": "🗂️",
+   "titulo": "Otros antecedentes y familigrama",
+   "pasos": [
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+   ]
+  }
+ ],
+ "final_criticos": "la comunicación, el relato de la enfermedad actual y los antecedentes gineco-obstétricos"
+}

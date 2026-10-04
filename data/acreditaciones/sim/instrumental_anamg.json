@@ -1,0 +1,163 @@
+{
+ "id": "anamg",
+ "titulo": "Consultorio de ginecología · Anamnesis",
+ "consigna": "Preparás el consultorio para la entrevista: la historia clínica y un lugar cómodo para conversar. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "consulta ginecológica",
+ "indicacion_def": "Anamnesis ginecológica.",
+ "mision": [
+  "qué hace falta para una entrevista cómoda y registrada;",
+  "qué insumos no corresponden a la anamnesis."
+ ],
+ "demo_caso": "Primero se lee el caso clínico: el motivo de consulta orienta el interrogatorio.",
+ "grupos": [
+  {
+   "id": "registro",
+   "titulo": "Registro"
+  },
+  {
+   "id": "confort",
+   "titulo": "Consultorio"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "hc_blanca",
+   "grupo": "registro",
+   "nombre": "Historia clínica ginecológica",
+   "detalle": "Formulario en blanco",
+   "img": "assets/instrumental/hc_blanca.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Formulario donde se registran filiación, motivo de consulta, enfermedad actual y antecedentes.",
+   "ficha": [
+    [
+     "Documento",
+     "Historia clínica"
+    ]
+   ],
+   "falta": "Falta la historia clínica donde registrar la anamnesis."
+  },
+  {
+   "id": "lapicera",
+   "grupo": "registro",
+   "nombre": "Lapicera y tablilla",
+   "detalle": "Para anotar",
+   "img": "assets/instrumental/lapicera.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para registrar los datos durante la entrevista.",
+   "ficha": [
+    [
+     "Uso",
+     "Registro"
+    ]
+   ]
+  },
+  {
+   "id": "mesa_sillas",
+   "grupo": "confort",
+   "nombre": "Mesa y sillas del consultorio",
+   "detalle": "2 sillas enfrentadas",
+   "img": "assets/instrumental/mesa_sillas.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Sillas a la misma altura y sin barreras para conversar con comodidad.",
+   "ficha": [
+    [
+     "Cantidad",
+     "2 mesas y 6 sillas"
+    ]
+   ],
+   "falta": "Faltan la mesa y las sillas del consultorio."
+  },
+  {
+   "id": "panuelos",
+   "grupo": "confort",
+   "nombre": "Caja de pañuelos descartables",
+   "detalle": "Para la contención",
+   "img": "assets/instrumental/panuelos.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Un gesto simple de contención ante temas emotivos.",
+   "ficha": [
+    [
+     "Uso",
+     "Contención"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "familigrama_hoja",
+   "grupo": "registro",
+   "nombre": "Hoja para el familigrama",
+   "detalle": "Con símbolos",
+   "img": "assets/instrumental/familigrama_hoja.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Hoja para dibujar el familigrama breve.",
+   "ficha": [
+    [
+     "Símbolos",
+     "Círculo mujer, cuadrado varón"
+    ]
+   ]
+  },
+  {
+   "id": "especulo",
+   "grupo": "otros",
+   "nombre": "Espéculo vaginal",
+   "detalle": "Descartable",
+   "img": "assets/instrumental/especulo.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Instrumento del examen físico.",
+   "ficha": [
+    [
+     "Uso",
+     "Examen ginecológico"
+    ]
+   ],
+   "feedback": "El espéculo corresponde al examen físico, no a la anamnesis."
+  },
+  {
+   "id": "camilla_obs",
+   "grupo": "otros",
+   "nombre": "Camilla ginecológica",
+   "detalle": "Con estribos",
+   "img": "assets/instrumental/camilla_obs.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Para el examen ginecológico.",
+   "ficha": [
+    [
+     "Uso",
+     "Examen físico"
+    ]
+   ],
+   "feedback": "La anamnesis se hace sentadas, conversando; la camilla se usa recién en el examen físico."
+  },
+  {
+   "id": "orden_estudios",
+   "grupo": "otros",
+   "nombre": "Órdenes de estudios ya completadas",
+   "detalle": "Pedidos prellenados",
+   "img": "assets/instrumental/orden_estudios.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Pedidos de laboratorio e imágenes.",
+   "ficha": [
+    [
+     "Uso",
+     "Solicitud de estudios"
+    ]
+   ],
+   "feedback": "Los estudios se piden después de la anamnesis y según lo que surja; no antes de escuchar a la paciente."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

@@ -1,0 +1,1531 @@
+{
+ "id": "anamo",
+ "area": "sim",
+ "titulo": "Anamnesis obstétrica",
+ "icono": "🤰",
+ "resumen": "Entrevista obstétrica con 22 pasos de la lista de cotejo: recepción, carnet perinatal, FUM y edad gestacional, antecedentes de riesgo, hábitos, grupo y factor, vacunas, peso y tensión arterial.",
+ "umbral": 60,
+ "fuente": "Lista de cotejo: Anamnesis obstétrica",
+ "elementos": {
+  "paciente": {
+   "nombre": "Paciente y acompañante",
+   "desc": "Se las saluda, se escucha el relato sin interrumpir y se despide cordialmente.",
+   "pasos": [
+    1,
+    4,
+    5,
+    22
+   ]
+  },
+  "consultorio": {
+   "nombre": "Consultorio",
+   "desc": "Mesa y sillas a la misma altura, sin barreras, con privacidad.",
+   "pasos": [
+    2
+   ]
+  },
+  "hc": {
+   "nombre": "Historia clínica",
+   "desc": "Se registran filiación, motivo de consulta, enfermedad actual y los antecedentes.",
+   "pasos": [
+    3,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ]
+  },
+  "familigrama": {
+   "nombre": "Familigrama",
+   "desc": "Gráfico breve de la familia: círculos para mujeres, cuadrados para varones.",
+   "pasos": []
+  },
+  "carnet": {
+   "nombre": "Carnet perinatal",
+   "desc": "Resume los controles, estudios y medicación del embarazo.",
+   "pasos": [
+    6
+   ]
+  },
+  "balanza": {
+   "nombre": "Balanza",
+   "desc": "Para pesar a la paciente en cada control.",
+   "pasos": [
+    20
+   ]
+  },
+  "tensio": {
+   "nombre": "Tensiómetro",
+   "desc": "Para tomar la tensión arterial.",
+   "pasos": [
+    21
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Interrumpe el relato de la embarazada",
+   "critico": true,
+   "porque": "Interrumpir sesga el relato y hace perder datos espontáneos.",
+   "target": "paciente",
+   "claves": [
+    [
+     "interrumpo el relato"
+    ],
+    [
+     "la corto"
+    ],
+    [
+     "no la dejo terminar"
+    ],
+    [
+     "la interrumpo con"
+    ]
+   ]
+  },
+  {
+   "id": "d2",
+   "texto": "No solicita el carnet perinatal",
+   "critico": true,
+   "porque": "El carnet perinatal es el documento clave del control: omitirlo hace perder controles, estudios y medicación previos.",
+   "target": "carnet",
+   "claves": [
+    [
+     "no solicito el carnet"
+    ],
+    [
+     "sin pedir el carnet"
+    ],
+    [
+     "omito el carnet"
+    ],
+    [
+     "no pido el carnet"
+    ]
+   ]
+  },
+  {
+   "id": "d3",
+   "texto": "Omite preguntar por el grupo y factor sanguíneo",
+   "critico": true,
+   "porque": "Una madre Rh negativa requiere seguimiento (Coombs indirecto) e inmunoglobulina anti-D.",
+   "target": "hc",
+   "claves": [
+    [
+     "no pregunto el grupo"
+    ],
+    [
+     "sin preguntar el grupo"
+    ],
+    [
+     "omito el grupo"
+    ],
+    [
+     "no pregunto por el grupo"
+    ]
+   ]
+  },
+  {
+   "id": "d4",
+   "texto": "Omite preguntar por violencia, tabaco, alcohol y drogas",
+   "critico": true,
+   "porque": "Son factores de riesgo materno-fetales que obligan a intervenir.",
+   "target": "hc",
+   "claves": [
+    [
+     "no pregunto por violencia"
+    ],
+    [
+     "sin preguntar por el tabaco"
+    ],
+    [
+     "omito los habitos"
+    ],
+    [
+     "no pregunto por los habitos"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Indica la vacuna antirrubeólica durante el embarazo",
+   "critico": true,
+   "porque": "La vacuna antirrubeólica (virus vivo atenuado) está contraindicada en el embarazo; se aplica en el puerperio.",
+   "target": "hc",
+   "claves": [
+    [
+     "aplico la antirrubeolica"
+    ],
+    [
+     "indico la vacuna antirrubeolica"
+    ],
+    [
+     "vacuno contra la rubeola"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "No toma la tensión arterial",
+   "critico": true,
+   "porque": "La tensión arterial es fundamental para detectar los trastornos hipertensivos del embarazo.",
+   "target": "tensio",
+   "claves": [
+    [
+     "no tomo la tension"
+    ],
+    [
+     "sin tomar la presion"
+    ],
+    [
+     "omito la tension"
+    ],
+    [
+     "no tomo la presion"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Hace comentarios que juzgan sobre el embarazo no deseado o el estado civil",
+   "critico": false,
+   "porque": "Se evitan los juicios de valor: la confianza permite detectar riesgos psicosociales.",
+   "target": "paciente",
+   "claves": [
+    [
+     "juzgo"
+    ],
+    [
+     "comentario sobre su conducta"
+    ],
+    [
+     "la reto"
+    ],
+    [
+     "moralizo"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Camila R.",
+   "sexo": "F",
+   "edad": 24,
+   "eg": 12,
+   "motivo": "Estoy embarazada y vengo a hacerme mi primer control.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "Primigesta, sin antecedentes.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 12 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Camila R., 24 años, empleada de comercio, soltera, vive con su pareja.",
+   "h_motivo": "«Estoy embarazada y vengo a mi primer control».",
+   "h_carnet": "Es el primer control: no tiene carnet, se le abre uno nuevo.",
+   "h_fum": "FUM: 10 de julio; calcula 12 semanas. Ciclos regulares.",
+   "h_prev": "Primer embarazo (G1).",
+   "h_anticon": "Usaba preservativo; lo dejó hace 4 meses para buscar el embarazo.",
+   "h_deseado": "Sí, fue un embarazo buscado y deseado por ambos.",
+   "h_pap": "Nunca se hizo un PAP.",
+   "h_genito": "No tuvo pérdidas de sangre.",
+   "h_enf": "Niega tuberculosis, diabetes, hipertensión, cardiopatías e infertilidad. Sin cirugías previas.",
+   "h_habitos": "No fuma, no toma alcohol, sin drogas, sin violencia.",
+   "h_med": "Toma ácido fólico desde hace 3 meses.",
+   "h_social": "Camina 30 minutos por día; trabaja 40 horas semanales; no va a clubes.",
+   "h_fam": "Madre con hipertensión; abuela paterna con diabetes tipo 2.",
+   "h_grupo": "Grupo A, factor Rh positivo.",
+   "h_vacunas": "Antirrubeólica completa en la niñez; antitetánica vencida; antigripal no aplicada.",
+   "h_peso": "Pesa 62 kg (talla 1,64 m, IMC 23).",
+   "h_ta": "Presión arterial 110/70 mmHg."
+  },
+  {
+   "id": "c2",
+   "nombre": "Lucía M.",
+   "sexo": "F",
+   "edad": 31,
+   "eg": 28,
+   "motivo": "Vengo a mi control; tengo la presión alta desde hace años.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "G3P2. Hipertensión arterial crónica.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 28 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Lucía M., 31 años, docente, casada, vive con su esposo y dos hijos.",
+   "h_motivo": "«Vengo a mi control de embarazo».",
+   "h_carnet": "Trae el carnet con 5 controles previos, con presiones entre 130/85 y 140/90.",
+   "h_fum": "FUM: 18 de enero; 28 semanas confirmadas por una ecografía del primer trimestre.",
+   "h_prev": "G3 P2: dos partos vaginales; en el último tuvo preeclampsia.",
+   "h_anticon": "Usaba DIU, que se retiró para buscar el embarazo.",
+   "h_deseado": "Sí, embarazo planificado.",
+   "h_pap": "Último PAP hace 1 año, normal.",
+   "h_genito": "No refiere pérdidas de sangre.",
+   "h_enf": "Hipertensión arterial crónica; preeclampsia en el embarazo anterior. Niega diabetes, tuberculosis y cardiopatías.",
+   "h_habitos": "No fuma, no toma alcohol, sin drogas, sin violencia.",
+   "h_med": "Metildopa 500 mg cada 8 horas, ácido fólico, hierro.",
+   "h_social": "Hace caminatas 2 veces por semana; trabaja 30 horas semanales.",
+   "h_fam": "Madre con hipertensión y preeclampsia; hermana con diabetes gestacional.",
+   "h_grupo": "Grupo O, factor Rh positivo.",
+   "h_vacunas": "Antigripal aplicada; dTpa pendiente; antirrubeólica completa.",
+   "h_peso": "Pesa 78 kg (ganó 8 kg).",
+   "h_ta": "Presión arterial 138/88 mmHg."
+  },
+  {
+   "id": "c3",
+   "nombre": "Gabriela P.",
+   "sexo": "F",
+   "edad": 38,
+   "eg": 34,
+   "motivo": "Tengo diabetes y vengo a controlar mi embarazo.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "G3P2. Diabetes pregestacional tipo 2.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 34 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Gabriela P., 38 años, cocinera, casada, vive con su familia.",
+   "h_motivo": "«Controlo mi embarazo; soy diabética».",
+   "h_carnet": "Trae el carnet con glucemias de ayuno entre 110 y 130 mg/dL.",
+   "h_fum": "FUM: 14 de febrero; 34 semanas por ecografía precoz.",
+   "h_prev": "G3 P2: dos partos, el último de un bebé de 4,2 kg.",
+   "h_anticon": "Usaba anticonceptivos orales.",
+   "h_deseado": "No fue planificado, pero lo aceptó.",
+   "h_pap": "Último PAP hace 3 años.",
+   "h_genito": "No tuvo pérdidas de sangre.",
+   "h_enf": "Diabetes tipo 2 desde hace 6 años; obesidad. Niega hipertensión, cardiopatías y tuberculosis.",
+   "h_habitos": "No fuma, no toma alcohol, sin drogas, sin violencia.",
+   "h_med": "Insulina NPH 20 UI por la noche, ácido fólico, hierro.",
+   "h_social": "No hace actividad física; trabaja 45 horas semanales.",
+   "h_fam": "Padre y hermana con diabetes tipo 2.",
+   "h_grupo": "Grupo B, factor Rh positivo.",
+   "h_vacunas": "Antitetánica y antigripal aplicadas; antirrubeólica completa.",
+   "h_peso": "Pesa 91 kg (ganó 12 kg).",
+   "h_ta": "Presión arterial 120/78 mmHg."
+  },
+  {
+   "id": "c4",
+   "nombre": "Natalia S.",
+   "sexo": "F",
+   "edad": 29,
+   "eg": 32,
+   "motivo": "Vengo a mi control; mi grupo es negativo.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "G2P0A1. Rh negativo.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 32 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Natalia S., 29 años, administrativa, casada.",
+   "h_motivo": "«Vengo a mi control; me dijeron que mi sangre es negativa».",
+   "h_carnet": "Trae el carnet: Coombs indirecto negativo en la semana 28.",
+   "h_fum": "FUM: 5 de marzo; 32 semanas por ecografía.",
+   "h_prev": "G2 P0 A1: un aborto espontáneo de 8 semanas hace 2 años, sin recibir inmunoglobulina.",
+   "h_anticon": "Usaba preservativo.",
+   "h_deseado": "Sí, embarazo deseado.",
+   "h_pap": "Último PAP hace 1 año, normal.",
+   "h_genito": "No tuvo pérdidas de sangre en este embarazo.",
+   "h_enf": "Niega tuberculosis, diabetes, hipertensión, cardiopatías y cirugías.",
+   "h_habitos": "No fuma, no toma alcohol, sin drogas, sin violencia.",
+   "h_med": "Ácido fólico y hierro.",
+   "h_social": "Hace yoga 2 veces por semana; trabaja 35 horas semanales.",
+   "h_fam": "Sin antecedentes familiares relevantes.",
+   "h_grupo": "Grupo O, factor Rh NEGATIVO; la pareja es Rh positivo.",
+   "h_vacunas": "dTpa y antigripal pendientes; antirrubeólica completa.",
+   "h_peso": "Pesa 68 kg.",
+   "h_ta": "Presión arterial 112/72 mmHg."
+  },
+  {
+   "id": "c5",
+   "nombre": "Micaela T.",
+   "sexo": "F",
+   "edad": 16,
+   "eg": 30,
+   "motivo": "No sabía que estaba embarazada; vengo con mi mamá.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "Adolescente, primigesta, sin controles previos.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 30 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Micaela T., 16 años, estudiante secundaria, soltera, vive con su madre.",
+   "h_motivo": "«Vengo con mi mamá porque estoy embarazada».",
+   "h_carnet": "No tiene carnet ni controles previos: se abre uno nuevo.",
+   "h_fum": "FUM incierta; por altura uterina y ecografía, cursa 30 semanas.",
+   "h_prev": "Primer embarazo (G1).",
+   "h_anticon": "No usaba ningún método.",
+   "h_deseado": "No fue planificado ni deseado.",
+   "h_pap": "Nunca se hizo un PAP.",
+   "h_genito": "No tuvo pérdidas de sangre.",
+   "h_enf": "Niega tuberculosis, diabetes, hipertensión y cardiopatías.",
+   "h_habitos": "Fuma 5 cigarrillos por día; toma alcohol los fines de semana; refiere discusiones violentas con su pareja.",
+   "h_med": "No toma ningún medicamento.",
+   "h_social": "No hace actividad física; dejó la escuela; no tiene recreación.",
+   "h_fam": "Sin antecedentes familiares relevantes.",
+   "h_grupo": "Grupo A, factor Rh positivo.",
+   "h_vacunas": "No tiene vacunas del embarazo.",
+   "h_peso": "Pesa 52 kg.",
+   "h_ta": "Presión arterial 100/60 mmHg."
+  },
+  {
+   "id": "c6",
+   "nombre": "Valeria D.",
+   "sexo": "F",
+   "edad": 36,
+   "eg": 24,
+   "motivo": "Tengo una enfermedad del corazón y estoy embarazada.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "G2P1C1. Cardiopatía valvular. Infertilidad previa.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 24 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Valeria D., 36 años, contadora, casada.",
+   "h_motivo": "«Tengo una válvula del corazón y estoy embarazada».",
+   "h_carnet": "Trae el carnet con ecocardiograma y controles cardiológicos.",
+   "h_fum": "FUM: 2 de abril; 24 semanas por ecografía.",
+   "h_prev": "G2 P0 C1: una cesárea hace 4 años.",
+   "h_anticon": "Dejó el DIU para buscar el embarazo; tuvo 3 años de infertilidad.",
+   "h_deseado": "Sí, embarazo muy buscado.",
+   "h_pap": "Último PAP hace 2 años, normal.",
+   "h_genito": "No tuvo pérdidas de sangre.",
+   "h_enf": "Cardiopatía valvular (estenosis mitral leve); infertilidad previa; cesárea. Niega diabetes y tuberculosis.",
+   "h_habitos": "No fuma, no toma alcohol, sin drogas, sin violencia.",
+   "h_med": "Metoprolol 50 mg por día, ácido fólico, hierro.",
+   "h_social": "Camina 20 minutos por día; trabaja 30 horas semanales.",
+   "h_fam": "Madre con valvulopatía.",
+   "h_grupo": "Grupo A, factor Rh positivo.",
+   "h_vacunas": "Antigripal aplicada; dTpa pendiente.",
+   "h_peso": "Pesa 64 kg.",
+   "h_ta": "Presión arterial 105/65 mmHg."
+  },
+  {
+   "id": "c7",
+   "nombre": "Romina F.",
+   "sexo": "F",
+   "edad": 27,
+   "eg": 20,
+   "motivo": "Vengo a controlarme; tuve tuberculosis.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "G3P1A1. Antecedente de tuberculosis tratada.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 20 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Romina F., 27 años, moza, en pareja.",
+   "h_motivo": "«Vengo a controlar el embarazo; hace dos años tuve tuberculosis».",
+   "h_carnet": "Trae el carnet: serologías (HIV, sífilis, hepatitis B) solicitadas.",
+   "h_fum": "FUM: 20 de mayo; 20 semanas por ecografía.",
+   "h_prev": "G3 P1 A1: un parto vaginal y un aborto espontáneo.",
+   "h_anticon": "Usaba anticonceptivos orales.",
+   "h_deseado": "No fue planificado, pero está contenta.",
+   "h_pap": "Último PAP hace 2 años, normal.",
+   "h_genito": "Tuvo una pérdida escasa de sangre hace 2 semanas, ya resuelta.",
+   "h_enf": "Tuberculosis pulmonar tratada hace 2 años. Niega diabetes, hipertensión y cardiopatías.",
+   "h_habitos": "Fuma 10 cigarrillos por día; toma alcohol los fines de semana; sin drogas; sin violencia.",
+   "h_med": "Ácido fólico y hierro.",
+   "h_social": "No hace actividad física; trabaja 50 horas semanales.",
+   "h_fam": "Un tío con tuberculosis.",
+   "h_grupo": "Grupo B, factor Rh positivo.",
+   "h_vacunas": "Antitetánica aplicada; antigripal pendiente.",
+   "h_peso": "Pesa 59 kg.",
+   "h_ta": "Presión arterial 110/70 mmHg."
+  },
+  {
+   "id": "c8",
+   "nombre": "Paula G.",
+   "sexo": "F",
+   "edad": 34,
+   "eg": 38,
+   "motivo": "Vengo a mi control; falta poco para el parto.",
+   "indicacion": "Anamnesis obstétrica.",
+   "antecedentes": "G3P2. Sin patologías.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de 38 semanas"
+   ],
+   "presentacion": "cefalica",
+   "dorso": "izq",
+   "fcf": 146,
+   "h_fil": "Paula G., 34 años, docente, casada.",
+   "h_motivo": "«Vengo a mi control; estoy por cumplir las 38 semanas».",
+   "h_carnet": "Trae el carnet completo, con todos los controles normales.",
+   "h_fum": "FUM: 3 de enero; 38 semanas.",
+   "h_prev": "G3 P2: dos partos vaginales sin complicaciones.",
+   "h_anticon": "Usaba preservativo.",
+   "h_deseado": "Sí, embarazo planificado.",
+   "h_pap": "Último PAP hace 1 año, normal.",
+   "h_genito": "No tuvo pérdidas de sangre.",
+   "h_enf": "Niega tuberculosis, diabetes, hipertensión, cardiopatías e infertilidad.",
+   "h_habitos": "No fuma, no toma alcohol, sin drogas, sin violencia.",
+   "h_med": "Ácido fólico y hierro.",
+   "h_social": "Camina 40 minutos por día; trabaja 30 horas semanales; va a un club de natación.",
+   "h_fam": "Sin antecedentes familiares relevantes.",
+   "h_grupo": "Grupo O, factor Rh positivo.",
+   "h_vacunas": "Antigripal y dTpa aplicadas; antirrubeólica completa.",
+   "h_peso": "Pesa 74 kg.",
+   "h_ta": "Presión arterial 115/70 mmHg."
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Para qué sirve el carnet perinatal?",
+   "o": [
+    "Resume los controles, estudios y medicación del embarazo en curso",
+    "Reemplaza a la historia clínica",
+    "Es solo un trámite administrativo",
+    "Registra únicamente el peso"
+   ],
+   "c": 0,
+   "e": "Se solicita al inicio para revisar la información del embarazo."
+  },
+  {
+   "q": "¿Para qué se pregunta la FUM en la gestante?",
+   "o": [
+    "Para calcular la edad gestacional y la fecha probable de parto",
+    "Para medir el peso",
+    "Para indicar anticoncepción",
+    "No se pregunta"
+   ],
+   "c": 0,
+   "e": "La FUM permite estimar la EG y la FPP; se confirma con ecografía precoz si es dudosa."
+  },
+  {
+   "q": "¿Qué significa G3 P2 A0?",
+   "o": [
+    "3 embarazos, 2 partos y ningún aborto",
+    "3 hijos vivos y 2 abortos",
+    "3 cesáreas y 2 partos",
+    "2 embarazos y 3 partos"
+   ],
+   "c": 0,
+   "e": "G gestas; P partos; A abortos."
+  },
+  {
+   "q": "¿Qué riesgo implica una madre Rh negativa con pareja Rh positivo?",
+   "o": [
+    "Isoinmunización: Coombs indirecto e inmunoglobulina anti-D",
+    "Diabetes gestacional",
+    "Hipertensión",
+    "Ninguno"
+   ],
+   "c": 0,
+   "e": "Se solicita Coombs indirecto y se indica inmunoglobulina anti-D si corresponde."
+  },
+  {
+   "q": "¿Cuál es una vacuna contraindicada durante el embarazo?",
+   "o": [
+    "Antirrubeólica (virus vivo)",
+    "Antitetánica (dTpa)",
+    "Antigripal",
+    "Hepatitis B"
+   ],
+   "c": 0,
+   "e": "Las vacunas con virus vivos atenuados están contraindicadas; la dTpa se aplica desde la semana 20."
+  },
+  {
+   "q": "¿Qué se registra al tomar la tensión arterial en la gestante?",
+   "o": [
+    "Cifras para detectar trastornos hipertensivos del embarazo",
+    "Solo el pulso",
+    "La temperatura",
+    "La saturación"
+   ],
+   "c": 0,
+   "e": "Una TA ≥ 140/90 mmHg obliga a descartar preeclampsia."
+  },
+  {
+   "q": "¿Por qué se indaga por violencia en la anamnesis obstétrica?",
+   "o": [
+    "Es un factor de riesgo materno y fetal que obliga a intervenir",
+    "Es una curiosidad",
+    "No se pregunta",
+    "Solo en adolescentes"
+   ],
+   "c": 0,
+   "e": "La violencia aumenta el riesgo de parto prematuro, bajo peso y lesiones."
+  },
+  {
+   "q": "Una pérdida de sangre durante el embarazo debe...",
+   "o": [
+    "Indagarse siempre y estudiarse",
+    "Ignorarse si es escasa",
+    "Tratarse con reposo sin estudios",
+    "Atribuirse a la menstruación"
+   ],
+   "c": 0,
+   "e": "Puede ser amenaza de aborto, placenta previa o desprendimiento."
+  },
+  {
+   "q": "¿Qué antecedentes personales se interrogan en la embarazada?",
+   "o": [
+    "TBC, DBT, HTA, preeclampsia, cirugías, infertilidad y cardiopatías",
+    "Solo diabetes",
+    "Solo cirugías",
+    "Ninguno"
+   ],
+   "c": 0,
+   "e": "Definen el riesgo obstétrico y el nivel de atención."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Guía de la anamnesis obstétrica",
+  "boton_titulo": "Ver el esquema de la anamnesis",
+  "boton_sub": "Orden del interrogatorio obstétrico",
+  "aviso": "el esquema de la anamnesis",
+  "flecha": "▼ Embarazo actual",
+  "flecha_final": "▼ Examen básico y cierre",
+  "pie": "Carnet perinatal, FUM, antecedentes de riesgo, grupo y factor, vacunas, peso y TA.",
+  "comun": [
+   {
+    "t": "Recepción",
+    "x": "Presentación, asiento, filiación y motivo.",
+    "flag": "motivo"
+   },
+   {
+    "t": "Carnet perinatal",
+    "x": "Controles, estudios y medicación del embarazo.",
+    "flag": "carnet"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "Embarazo actual",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "FUM y EG",
+      "x": "Calcular la edad gestacional.",
+      "flag": "fum"
+     },
+     {
+      "t": "Embarazos previos",
+      "x": "G P C A y resultados.",
+      "flag": "prev"
+     },
+     {
+      "t": "Deseado, PAP y genitorragia",
+      "x": "Aceptación, tamizaje y sangrados.",
+      "flag": "genito"
+     }
+    ]
+   },
+   {
+    "titulo": "Antecedentes de riesgo",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Personales y familiares",
+      "x": "TBC, DBT, HTA, preeclampsia, cardiopatías...",
+      "flag": "fam"
+     },
+     {
+      "t": "Hábitos y violencia",
+      "x": "Tabaco, alcohol, drogas, violencia.",
+      "flag": "habitos"
+     },
+     {
+      "t": "Medicamentos",
+      "x": "Ácido fólico, hierro, otros.",
+      "flag": "med"
+     }
+    ]
+   },
+   {
+    "titulo": "Prevención",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Grupo y factor",
+      "x": "Rh negativo: Coombs y anti-D.",
+      "flag": "grupo"
+     },
+     {
+      "t": "Vacunas",
+      "x": "dTpa, antigripal; antirrubeólica no.",
+      "flag": "vacunas"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Peso y tensión arterial",
+    "x": "Ganancia de peso y detección de hipertensión.",
+    "flag": "ta"
+   },
+   {
+    "t": "Despedida",
+    "x": "Próximo control.",
+    "flag": "desp"
+   }
+  ]
+ },
+ "hallazgo_pasos": {
+  "3": "h_fil",
+  "4": "h_motivo",
+  "6": "h_carnet",
+  "7": "h_fum",
+  "8": "h_prev",
+  "9": "h_anticon",
+  "10": "h_deseado",
+  "11": "h_pap",
+  "12": "h_genito",
+  "13": "h_enf",
+  "14": "h_habitos",
+  "15": "h_med",
+  "16": "h_social",
+  "17": "h_fam",
+  "18": "h_grupo",
+  "19": "h_vacunas",
+  "20": "h_peso",
+  "21": "h_ta"
+ },
+ "hallazgo_rotulos": {
+  "20": "⚖️ Balanza:",
+  "21": "🩺 Medís:",
+  "3": "🗣 Embarazada:",
+  "4": "🗣 Embarazada:",
+  "6": "🗣 Embarazada:",
+  "7": "🗣 Embarazada:",
+  "8": "🗣 Embarazada:",
+  "9": "🗣 Embarazada:",
+  "10": "🗣 Embarazada:",
+  "11": "🗣 Embarazada:",
+  "12": "🗣 Embarazada:",
+  "13": "🗣 Embarazada:",
+  "14": "🗣 Embarazada:",
+  "15": "🗣 Embarazada:",
+  "16": "🗣 Embarazada:",
+  "17": "🗣 Embarazada:",
+  "18": "🗣 Embarazada:",
+  "19": "🗣 Embarazada:"
+ },
+ "hallazgo_voz": {
+  "3": "f",
+  "4": "f",
+  "6": "f",
+  "7": "f",
+  "8": "f",
+  "9": "f",
+  "10": "f",
+  "11": "f",
+  "12": "f",
+  "13": "f",
+  "14": "f",
+  "15": "f",
+  "16": "f",
+  "17": "f",
+  "18": "f",
+  "19": "f",
+  "20": "f",
+  "21": "f"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "Recepción",
+    "x": "Presentate, saludá a la paciente y al acompañante, invitá a sentarse, filiación, motivo de consulta y escucha sin interrumpir."
+   },
+   {
+    "t": "Embarazo actual",
+    "x": "Pedí el carnet perinatal; FUM y EG; embarazos previos; anticoncepción; si fue deseado; PAP previo; genitorragia; grupo y factor; vacunas."
+   },
+   {
+    "t": "Antecedentes",
+    "x": "Personales y familiares: TBC, DBT, HTA, preeclampsia, cirugías, infertilidad, cardiopatías. Hábitos: tabaco, alcohol, drogas y violencia. Medicamentos y aspectos sociales."
+   },
+   {
+    "t": "Examen básico",
+    "x": "Pesá a la paciente y tomá la tensión arterial. Saludá y despedite."
+   }
+  ],
+  "por_paso": {
+   "6": "Carnet perinatal al comienzo.",
+   "18": "Rh negativo: Coombs y anti-D.",
+   "19": "Antirrubeólica NO en el embarazo."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/sim/anamo_modelo.json",
+ "peso_modelo": "2 a 3 MB",
+ "instrumental": "data/acreditaciones/sim/instrumental_anamo.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Se presenta, saluda a la paciente y acompañante",
+   "fase": "Recepción",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Presentarse y saludar también al acompañante abre la relación con respeto y confianza.",
+   "estado": {
+    "pres": 1
+   },
+   "claves": [
+    [
+     "me presento"
+    ],
+    [
+     "soy la doctora"
+    ],
+    [
+     "soy el doctor"
+    ],
+    [
+     "buen dia"
+    ],
+    [
+     "buenas tardes"
+    ],
+    [
+     "mucho gusto"
+    ]
+   ],
+   "frase": "Buenas tardes, soy la doctora, me presento con mi nombre y apellido. Saludo a la paciente y a su acompañante.",
+   "fx": "hablar"
+  },
+  {
+   "n": 2,
+   "texto": "Invita a tomar asiento",
+   "fase": "Recepción",
+   "target": "consultorio",
+   "critico": false,
+   "explica": "Invitar a sentarse favorece un ambiente cómodo y de confianza.",
+   "estado": {
+    "asiento": 1
+   },
+   "claves": [
+    [
+     "tome asiento"
+    ],
+    [
+     "tomar asiento"
+    ],
+    [
+     "siente"
+    ],
+    [
+     "sientese"
+    ],
+    [
+     "invito a sentarse"
+    ]
+   ],
+   "frase": "La invito a tomar asiento, por favor.",
+   "fx": "sentar"
+  },
+  {
+   "n": 3,
+   "texto": "Interroga sobre datos filiatorios, personales y los registra",
+   "fase": "Recepción",
+   "target": "hc",
+   "critico": false,
+   "explica": "Nombre, edad, DNI, domicilio, estado civil, ocupación, nivel de instrucción y cobertura de salud.",
+   "estado": {
+    "fil": 1
+   },
+   "claves": [
+    [
+     "datos filiatorios"
+    ],
+    [
+     "nombre completo"
+    ],
+    [
+     "cuantos anos tiene"
+    ],
+    [
+     "edad"
+    ],
+    [
+     "ocupacion"
+    ],
+    [
+     "estado civil"
+    ],
+    [
+     "domicilio"
+    ],
+    [
+     "dni"
+    ]
+   ],
+   "frase": "Le pregunto sus datos filiatorios y personales y los registro.",
+   "fx": "registro"
+  },
+  {
+   "n": 4,
+   "texto": "Invita a la paciente a relatar el motivo que la lleva a la consulta y lo registra",
+   "fase": "Motivo y enfermedad actual",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se registra el motivo de consulta con las palabras de la embarazada.",
+   "estado": {
+    "motivo": 1
+   },
+   "claves": [
+    [
+     "motivo de consulta"
+    ],
+    [
+     "que la trae"
+    ],
+    [
+     "por que consulta"
+    ],
+    [
+     "que le pasa"
+    ],
+    [
+     "motivo que la lleva"
+    ]
+   ],
+   "frase": "Le pregunto qué la trae a la consulta y registro el motivo de consulta.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 5,
+   "texto": "Escucha atentamente el relato",
+   "fase": "Motivo y enfermedad actual",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Escucha activa, sin interrumpir: la embarazada puede aportar datos relevantes de manera espontánea.",
+   "estado": {
+    "escucha": 1
+   },
+   "claves": [
+    [
+     "escucho"
+    ],
+    [
+     "escucha atenta"
+    ],
+    [
+     "atentamente"
+    ],
+    [
+     "sin interrumpir"
+    ]
+   ],
+   "frase": "Escucho atentamente el relato, sin interrumpirla.",
+   "fx": "escuchar"
+  },
+  {
+   "n": 6,
+   "texto": "Solicita el carnet perinatal",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "carnet",
+   "critico": true,
+   "explica": "El carnet perinatal resume los controles, los estudios y la medicación del embarazo en curso: se lo solicita al comienzo para revisar los datos.",
+   "estado": {
+    "carnet": 1
+   },
+   "claves": [
+    [
+     "carnet perinatal"
+    ],
+    [
+     "carnet"
+    ],
+    [
+     "libreta del embarazo"
+    ],
+    [
+     "solicito el carnet"
+    ]
+   ],
+   "frase": "Le solicito el carnet perinatal para revisar los controles del embarazo.",
+   "fx": "carnet"
+  },
+  {
+   "n": 7,
+   "texto": "Pregunta sobre la FUM e interroga sobre la edad gestacional",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": true,
+   "explica": "La FUM permite calcular la edad gestacional y la fecha probable de parto; se la confirma con ecografía precoz si es dudosa.",
+   "estado": {
+    "fum": 1
+   },
+   "claves": [
+    [
+     "fum"
+    ],
+    [
+     "ultima menstruacion"
+    ],
+    [
+     "ultima regla"
+    ],
+    [
+     "edad gestacional"
+    ],
+    [
+     "cuantas semanas"
+    ],
+    [
+     "semanas de embarazo"
+    ]
+   ],
+   "frase": "Le pregunto la fecha de la última menstruación (FUM) y de cuántas semanas está.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 8,
+   "texto": "Pregunta sobre embarazos previos",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Gestas, partos, cesáreas, abortos y resultados perinatales previos (prematurez, preeclampsia, diabetes gestacional).",
+   "estado": {
+    "prev": 1
+   },
+   "claves": [
+    [
+     "embarazos previos"
+    ],
+    [
+     "embarazos anteriores"
+    ],
+    [
+     "cuantos hijos"
+    ],
+    [
+     "partos anteriores"
+    ],
+    [
+     "abortos"
+    ],
+    [
+     "cesareas"
+    ],
+    [
+     "gestas"
+    ]
+   ],
+   "frase": "Le pregunto sobre embarazos previos: partos, cesáreas y abortos.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 9,
+   "texto": "Pregunta sobre el uso de anticoncepción",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Método usado antes del embarazo y planes anticonceptivos después del parto.",
+   "estado": {
+    "anticon": 1
+   },
+   "claves": [
+    [
+     "anticoncepcion"
+    ],
+    [
+     "metodo anticonceptivo"
+    ],
+    [
+     "se cuidaba"
+    ],
+    [
+     "pastillas"
+    ],
+    [
+     "preservativo"
+    ],
+    [
+     "anticonceptivo"
+    ]
+   ],
+   "frase": "Le pregunto sobre el uso de anticoncepción antes del embarazo.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 10,
+   "texto": "Pregunta si fue un embarazo deseado o no",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Si fue planificado y deseado: orienta la aceptación, el apoyo y los riesgos psicosociales.",
+   "estado": {
+    "deseado": 1
+   },
+   "claves": [
+    [
+     "embarazo deseado"
+    ],
+    [
+     "planificado"
+    ],
+    [
+     "lo buscaba"
+    ],
+    [
+     "deseado"
+    ],
+    [
+     "busco el embarazo"
+    ]
+   ],
+   "frase": "Le pregunto si fue un embarazo deseado o no.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 11,
+   "texto": "Pregunta sobre un Papanicolau previo",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": false,
+   "explica": "Fecha y resultado del último PAP: el embarazo es una oportunidad para completar el tamizaje cervical.",
+   "estado": {
+    "pap": 1
+   },
+   "claves": [
+    [
+     "papanicolau"
+    ],
+    [
+     "pap"
+    ],
+    [
+     "citologia"
+    ],
+    [
+     "ultimo pap"
+    ]
+   ],
+   "frase": "Le pregunto sobre un Papanicolau previo.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 12,
+   "texto": "Pregunta sobre genitorragia",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": true,
+   "explica": "Sangrado genital durante el embarazo: amenaza de aborto, placenta previa, desprendimiento: debe indagarse siempre.",
+   "estado": {
+    "genito": 1
+   },
+   "claves": [
+    [
+     "genitorragia"
+    ],
+    [
+     "sangrado genital"
+    ],
+    [
+     "sangrado vaginal"
+    ],
+    [
+     "perdidas de sangre"
+    ],
+    [
+     "sangra"
+    ]
+   ],
+   "frase": "Le pregunto sobre genitorragia: si tuvo pérdidas de sangre en este embarazo.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 13,
+   "texto": "Pregunta por antecedentes personales: TBC, DBT, HTA, preeclampsia, cirugías previas, infertilidad, cardiopatías y otras",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": true,
+   "explica": "Tuberculosis, diabetes, hipertensión, preeclampsia previa, cirugías, infertilidad, cardiopatías y otras: definen el riesgo obstétrico.",
+   "estado": {
+    "enf": 1
+   },
+   "claves": [
+    [
+     "antecedentes personales"
+    ],
+    [
+     "tuberculosis"
+    ],
+    [
+     "diabetes"
+    ],
+    [
+     "hipertension"
+    ],
+    [
+     "preeclampsia"
+    ],
+    [
+     "cardiopatia"
+    ],
+    [
+     "infertilidad"
+    ]
+   ],
+   "frase": "Pregunto por antecedentes personales: tuberculosis, diabetes, hipertensión, preeclampsia, cirugías previas, infertilidad, cardiopatías y otras.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 14,
+   "texto": "Interroga sobre hábitos: tabaco, alcohol, drogas y violencia",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": true,
+   "explica": "Tabaco, alcohol, drogas y violencia (de pareja o familiar): factores de riesgo materno y fetal que obligan a intervenir.",
+   "estado": {
+    "habitos": 1
+   },
+   "claves": [
+    [
+     "habitos"
+    ],
+    [
+     "tabaco"
+    ],
+    [
+     "fuma"
+    ],
+    [
+     "alcohol"
+    ],
+    [
+     "drogas"
+    ],
+    [
+     "violencia"
+    ]
+   ],
+   "frase": "Interrogo sobre hábitos: tabaco, alcohol, drogas y si sufre violencia.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 15,
+   "texto": "Interroga sobre el uso de medicamentos",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Medicación habitual, ácido fólico, hierro y automedicación: algunos fármacos son teratogénicos.",
+   "estado": {
+    "med": 1
+   },
+   "claves": [
+    [
+     "medicamentos"
+    ],
+    [
+     "medicacion"
+    ],
+    [
+     "acido folico"
+    ],
+    [
+     "toma algo"
+    ],
+    [
+     "remedios"
+    ]
+   ],
+   "frase": "Interrogo sobre el uso de medicamentos, ácido fólico y hierro.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 16,
+   "texto": "Pregunta sobre aspectos sociales, laborales y culturales: actividad física, actividad laboral y recreación",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Actividad física semanal, horas de trabajo y actividades recreativas: orientan hábitos y estrés.",
+   "estado": {
+    "social": 1
+   },
+   "claves": [
+    [
+     "aspectos sociales"
+    ],
+    [
+     "actividad fisica"
+    ],
+    [
+     "actividad laboral"
+    ],
+    [
+     "trabaja"
+    ],
+    [
+     "clubes"
+    ],
+    [
+     "recreacion"
+    ]
+   ],
+   "frase": "Pregunto sobre aspectos sociales, laborales y culturales: actividad física, trabajo y actividades de recreación.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 17,
+   "texto": "Pregunta sobre antecedentes familiares: TBC, DBT, HTA, preeclampsia, cirugías, infertilidad, cardiopatías y otras",
+   "fase": "Otros antecedentes",
+   "target": "hc",
+   "critico": false,
+   "explica": "Los mismos antecedentes en los familiares directos: diabetes, hipertensión, preeclampsia, malformaciones y embarazos múltiples.",
+   "estado": {
+    "fam": 1
+   },
+   "claves": [
+    [
+     "antecedentes familiares"
+    ],
+    [
+     "en su familia"
+    ],
+    [
+     "familiares"
+    ],
+    [
+     "mama"
+    ],
+    [
+     "hermanas"
+    ]
+   ],
+   "frase": "Pregunto sobre antecedentes familiares.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 18,
+   "texto": "Pregunta sobre grupo y factor sanguíneo",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": true,
+   "explica": "El grupo y factor Rh definen el riesgo de isoinmunización: una madre Rh negativa necesita inmunoglobulina anti-D.",
+   "estado": {
+    "grupo": 1
+   },
+   "claves": [
+    [
+     "grupo y factor"
+    ],
+    [
+     "grupo sanguineo"
+    ],
+    [
+     "factor rh"
+    ],
+    [
+     "rh"
+    ],
+    [
+     "grupo"
+    ]
+   ],
+   "frase": "Pregunto sobre el grupo y factor sanguíneo.",
+   "fx": "preguntar"
+  },
+  {
+   "n": 19,
+   "texto": "Pregunta sobre la vigencia de las vacunas: antirrubeólica, antitetánica y antigripal",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "hc",
+   "critico": true,
+   "explica": "Antitetánica (dTpa desde la semana 20), antigripal y antirrubeólica (no se aplica en el embarazo): protegen a la madre y al recién nacido.",
+   "estado": {
+    "vacunas": 1
+   },
+   "claves": [
+    [
+     "vacunas"
+    ],
+    [
+     "vigencia de las vacunas"
+    ],
+    [
+     "antitetanica"
+    ],
+    [
+     "antigripal"
+    ],
+    [
+     "antirrubeola"
+    ],
+    [
+     "dtpa"
+    ]
+   ],
+   "frase": "Pregunto sobre la vigencia de las vacunas: antirrubeólica, antitetánica y antigripal.",
+   "fx": "vacunas"
+  },
+  {
+   "n": 20,
+   "texto": "Pesa a la paciente",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "balanza",
+   "critico": false,
+   "explica": "El peso y la ganancia de peso se controlan en cada visita y se grafican en el carnet.",
+   "estado": {
+    "peso": 1
+   },
+   "claves": [
+    [
+     "peso"
+    ],
+    [
+     "balanza"
+    ],
+    [
+     "pesa"
+    ],
+    [
+     "pesar"
+    ]
+   ],
+   "frase": "Pesa a la paciente en la balanza y registro el peso.",
+   "fx": "peso_pac"
+  },
+  {
+   "n": 21,
+   "texto": "Toma la tensión arterial",
+   "fase": "Antecedentes gineco-obstétricos",
+   "target": "tensio",
+   "critico": true,
+   "explica": "La tensión arterial detecta trastornos hipertensivos del embarazo; se toma sentada, en reposo, con el brazalete adecuado.",
+   "estado": {
+    "ta": 1
+   },
+   "claves": [
+    [
+     "tension arterial"
+    ],
+    [
+     "presion arterial"
+    ],
+    [
+     "ta"
+    ],
+    [
+     "tensiometro"
+    ],
+    [
+     "tomo la presion"
+    ]
+   ],
+   "frase": "Tomo la tensión arterial a la paciente.",
+   "fx": "presion_art"
+  },
+  {
+   "n": 22,
+   "texto": "Saluda y se despide",
+   "fase": "Cierre",
+   "target": "paciente",
+   "critico": false,
+   "explica": "Se agradece la consulta, se acuerda el próximo control y se despide cordialmente.",
+   "estado": {
+    "desp": 1
+   },
+   "claves": [
+    [
+     "me despido"
+    ],
+    [
+     "hasta luego"
+    ],
+    [
+     "hasta el proximo control"
+    ],
+    [
+     "gracias por venir"
+    ],
+    [
+     "chau"
+    ]
+   ],
+   "frase": "Me despido de la paciente y acordamos el próximo control.",
+   "fx": "hablar"
+  }
+ ],
+ "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la comunicación, el uso del carnet perinatal, la FUM y la edad gestacional, los antecedentes de riesgo, el grupo y factor, las vacunas y la toma de peso y tensión arterial (propuesto, a validar).",
+ "criterios": [
+  {
+   "ico": "🤝",
+   "titulo": "Recepción y escucha",
+   "pasos": [
+    1,
+    2,
+    5
+   ]
+  },
+  {
+   "ico": "📒",
+   "titulo": "Carnet perinatal, FUM y edad gestacional",
+   "pasos": [
+    6,
+    7
+   ]
+  },
+  {
+   "ico": "⚠️",
+   "titulo": "Antecedentes de riesgo: personales, hábitos y violencia",
+   "pasos": [
+    12,
+    13,
+    14
+   ]
+  },
+  {
+   "ico": "🩸",
+   "titulo": "Grupo y factor, vacunas",
+   "pasos": [
+    18,
+    19
+   ]
+  },
+  {
+   "ico": "⚖️",
+   "titulo": "Peso y tensión arterial",
+   "pasos": [
+    20,
+    21
+   ]
+  }
+ ],
+ "final_criticos": "el carnet perinatal, la FUM, los antecedentes de riesgo, el grupo y factor, las vacunas y la tensión arterial"
+}

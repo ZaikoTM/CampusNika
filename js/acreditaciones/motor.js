@@ -34,7 +34,7 @@
 
   // ------------------------------------------------------------------ listado
   async function vistaLista() {
-    volver.href = area === 'siam' ? 'siam_hub.html' : 'campus.html';
+    volver.href = area === 'siam' ? 'siam_hub.html' : area === 'sim' ? 'gineco_hub.html' : 'campus.html';
     const idx = await getJSON(`${base}/index.json`);
     const res = leerRes();
     app.innerHTML = `
@@ -56,7 +56,7 @@
     let ESC = null; let VCFG = null;
     async function asegurarVisor() {
       if (ESC) return;
-      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=27'), getJSON(D.visor)]);
+      const [mod, cfg] = await Promise.all([import('./visor3d.js?v=30'), getJSON(D.visor)]);
       VCFG = cfg; ESC = mod.crearVisor(cfg);
     }
     const usables = () => (VCFG ? VCFG.usables : []);
@@ -100,7 +100,7 @@
         const solos = D.pasos.filter((z) => z.solo);
         m.innerHTML = `<div class="lect-hoja" role="dialog" aria-label="Lista de cotejo">
           <div class="lect-cab"><div><h2>📋 Lista de cotejo · ${esc(D.titulo)}</h2><p>${lista.length} pasos · ${lista.filter((z) => z.critico).length} críticos${solos.length ? ` · ${solos.length} paso${solos.length === 1 ? '' : 's'} difiere${solos.length === 1 ? '' : 'n'} según el sexo` : ''}</p></div>
-            <div class="lect-sx"><button data-sx="F" class="${sx === 'F' ? 'on' : ''}">♀ Mujer</button><button data-sx="M" class="${sx === 'M' ? 'on' : ''}">♂ Varón</button></div>
+             <div class="lect-sx" ${new Set(D.casos.map((c) => c.sexo)).size < 2 ? 'hidden' : ''}><button data-sx="F" class="${sx === 'F' ? 'on' : ''}">♀ Mujer</button><button data-sx="M" class="${sx === 'M' ? 'on' : ''}">♂ Varón</button></div>
             <button class="lect-x" data-cerrar aria-label="Cerrar">✕</button></div>
           <div class="lect-cuerpo">${fases.map((f, i) => `<section style="--i:${i}"><h3>${esc(f.n)}</h3><div class="lect-pasos">${f.p.map((z) => `<div class="lect-p ${z.critico ? 'cri' : ''}"><span class="n">${z.n}</span><div>${esc(z.texto)} ${z.critico ? '<span class="acr-crit">⚠ crítico</span>' : ''}${z.solo ? `<span class="lect-solo">Solo ${z.solo === 'F' ? 'mujer' : 'varón'}</span>` : ''}</div></div>`).join('')}</div></section>`).join('')}</div>
           <div class="lect-pie">⚠ Los pasos críticos son criterios de desaprobación. <button class="acr-btn sec" data-cerrar>Cerrar</button></div></div>`;
@@ -187,16 +187,26 @@
     // el equipo responde en voz alta (síntesis de voz), si la acreditación lo pide: D.voz
     const hablaPaso = (n) => { if (!D.voz || !window.AcrFX || !AcrFX.hablar) return; const h = hallazgoDe(n); if (h) AcrFX.hablar(h, (D.hallazgo_voz && D.hallazgo_voz[n]) || 'f'); };
     const porN = (n) => D.pasos.find((p) => p.n === n);
+    const fraseDe = (q) => { const c = casoActual(); return (q.frases_caso && c && q.frases_caso[c.id]) || q.frase; };
 
     // ---- reconocimiento de lo que el alumno escribe en la bitácora (palabras clave por paso y por acción incorrecta)
     const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
     function reconocer(texto, sexo) {
       const tx = norm(texto).replace(/\bno desfibrilable/g, ' nodesfib ').replace(/\b(no|sin) (fuerzo|forzo|forzar|forzando|fuerza)\b/g, ' ').replace(/\b(no|sin) (descarg\w*|desfibril\w*|shock|choque|cardiovert\w*)/g, ' '); if (tx.length < 3) return null;
       const puntaje = (claves) => (claves || []).reduce((mx, g) => (g.every((f) => tx.includes(f)) ? Math.max(mx, g.join('').length) : mx), 0);
+      const cc = casoActual(); const extra = (o) => (o.claves_caso && cc && o.claves_caso[cc.id]) || [];
       let mejor = null;
-      D.distractores.filter((d) => (!d.solo || d.solo === sexo) && (!d.solo_contra || conContra()) && (!d.solo_si || (casoActual() && casoActual()[d.solo_si])) && (!d.sin_si || !(casoActual() && casoActual()[d.sin_si]))).forEach((d) => { const s = puntaje(d.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'd', id: d.id, s }; });
+      // respuestas numéricas (cálculo de EG y FPP): un número distinto del correcto para el caso es una acción incorrecta
+      D.distractores.forEach((d) => {
+        if (!d.num || !cc) return; const T = ' ' + tx + ' '; if (d.num.requiere && !d.num.requiere.some((k) => T.includes(k))) return;
+        const m = tx.match(new RegExp(d.num.re)); if (!m) return;
+        const malo = d.num.campos.some((c, i) => m[i + 1] !== undefined && String(m[i + 1]) !== String(cc[c]) && !(c === 'eg_dias' && m[i + 1] === undefined));
+        if (malo) mejor = { tipo: 'd', id: d.id, s: 99 };
+      });
       if (mejor) return mejor;
-      D.pasos.filter((q) => aplica(q, sexo)).forEach((q) => { const s = puntaje(q.claves); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'p', n: q.n, s }; });
+      D.distractores.filter((d) => (!d.solo || d.solo === sexo) && (!d.solo_contra || conContra()) && (!d.solo_si || (casoActual() && casoActual()[d.solo_si])) && (!d.sin_si || !(casoActual() && casoActual()[d.sin_si]))).forEach((d) => { const s = puntaje((d.claves || []).concat(extra(d))); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'd', id: d.id, s }; });
+      if (mejor) return mejor;
+      D.pasos.filter((q) => aplica(q, sexo)).forEach((q) => { const s = puntaje((q.claves || []).concat(extra(q))); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'p', n: q.n, s }; });
       return mejor;
     }
     const chatHTML = (msgs, ph, titulo) => `<div class="acr-chat"><div class="acr-fase" style="margin-top:12px">${titulo}</div>
@@ -290,7 +300,7 @@
     function pintarTabs() {
       const enExamen = S.modo === 'examen';
       $('#acr-tabs').innerHTML = `<button class="acr-tab ${!enExamen ? 'on' : ''}" data-modo="practica">🎓 Práctica</button><button class="acr-tab ${enExamen ? 'on' : ''}" data-modo="examen">📝 Examen</button>` +
-        `<span class="acr-sexo" ${enExamen || S.sub === 'fundamentos' ? 'hidden' : ''}><button data-sx="F" class="${S.sexo === 'F' ? 'on' : ''}">♀ Mujer</button><button data-sx="M" class="${S.sexo === 'M' ? 'on' : ''}">♂ Varón</button></span>`;
+        `<span class="acr-sexo" ${enExamen || S.sub === 'fundamentos' || new Set(D.casos.map((c) => c.sexo)).size < 2 ? 'hidden' : ''}><button data-sx="F" class="${S.sexo === 'F' ? 'on' : ''}">♀ Mujer</button><button data-sx="M" class="${S.sexo === 'M' ? 'on' : ''}">♂ Varón</button></span>`;
       if (ESC && !enExamen) $('#acr-tabs').insertAdjacentHTML('beforeend', '<button class="acr-tab sm" data-tut="1" style="margin-left:6px">❓ Cómo usar el 3D</button>');
       $('#acr-subtabs').hidden = enExamen;
       $('#acr-subtabs').innerHTML = SUBS.map(([k, l]) => `<button class="acr-tab sm ${S.sub === k ? 'on' : ''}" data-sub="${k}">${l}</button>`).join('');
@@ -321,7 +331,7 @@
       Object.entries(est || {}).forEach(([k, v]) => { if (v === 'none') return; svg.classList.add(typeof v === 'string' ? `g-${v}` : `s-${k}`); });
       svg.querySelectorAll('.hs.used').forEach((e) => e.classList.remove('used'));
       (usados || []).forEach((t) => { const e = svg.querySelector(`[data-hs="${t}"]`); if (e) e.classList.add('used'); });
-      { const _c = casoActual(); if (_c && _c.liq) { svg.style.setProperty('--liq', _c.liq.color); svg.dataset.vol = _c.liq.vol || 'moderado'; svg.dataset.ml = _c.liq.ml || 30; } else { svg.dataset.vol = ''; } svg.dataset.contra = (_c && _c.contra) || ''; }
+      { const _c = casoActual(); svg.__caso = _c || D.casos[0] || null; if (_c && _c.liq) { svg.style.setProperty('--liq', _c.liq.color); svg.dataset.vol = _c.liq.vol || 'moderado'; svg.dataset.ml = _c.liq.ml || 30; } else { svg.dataset.vol = ''; } svg.dataset.contra = (_c && _c.contra) || ''; }
       if (ESC.sync) ESC.sync(svg);
       if (window.AcrMonitor && AcrMonitor.activo) AcrMonitor.estado(svg);
       const e = est || {};
@@ -702,7 +712,7 @@
       try { if (ESC) { ESC.hl(null); ESC.sel(null); } } catch (_) {}
       sinEscena(); const pn = $('#acr-panel'); pn.classList.add('informe');
       const perlaDe = (n) => (D.machete && D.machete.por_paso && D.machete.por_paso[n]) || '';
-      const mejora = (q) => `<div class="inf-mejora"><b>💡 Cómo mejorarlo</b><p>${esc(perlaDe(q.n) || q.explica)}</p>${q.frase ? `<p class="inf-frase">🗣 Cómo decirlo en la bitácora: “${esc(q.frase)}”</p>` : ''}</div>`;
+      const mejora = (q) => `<div class="inf-mejora"><b>💡 Cómo mejorarlo</b><p>${esc(perlaDe(q.n) || q.explica)}</p>${fraseDe(q) ? `<p class="inf-frase">🗣 Cómo decirlo en la bitácora: “${esc(fraseDe(q))}”</p>` : ''}</div>`;
       const nSI = filas.filter((f) => f.st === 'SI').length, nM = filas.filter((f) => f.st === 'M').length, nNO = filas.filter((f) => f.st === 'NO').length;
       const prioridades = [
         ...criticosFallidos.map((f) => ({ tit: `Paso ${etiquetaPaso(f.p.n)} · ${f.st === 'NO' ? 'omitido' : 'fuera de orden'} (crítico)`, que: f.p.texto, porque: f.p.explica, q: f.p })),
@@ -798,7 +808,7 @@
       while (dem.k < N && !dem.cancel) {
         const k = dem.k; const q = lista[k]; dem.salto = false;
         const prev = lista[k - 1]; if (prev) { const { est, usados } = estadoHasta(prev.n); aplicarEstado(est, usados); } else aplicarEstado({}, []);
-        const hist = lista.slice(0, k).map((z) => `<div class="m yo">${esc(z.frase)}</div><div class="m sis ok">✅ Paso ${etiquetaPaso(z.n)} registrado.</div>`).join('');
+        const hist = lista.slice(0, k).map((z) => `<div class="m yo">${esc(fraseDe(z))}</div><div class="m sis ok">✅ Paso ${etiquetaPaso(z.n)} registrado.</div>`).join('');
         panel.innerHTML = `<div class="demo-cab"><span class="acr-demo-tag">▶ DEMOSTRACIÓN · así se hace una acreditación aprobada</span></div>
           <div class="demo-bar${dem.pausa ? ' en-pausa' : ''}" id="demo-bar">
             <button class="db" data-d="ant" title="Paso anterior (←)" ${k === 0 ? 'disabled' : ''}>⏮</button>
@@ -818,7 +828,7 @@
         const log = $('#acr-chat-log'); const abajo = () => { log.scrollTop = log.scrollHeight; }; abajo();
         await pausable(800); if (dem.cancel) return; if (dem.salto) continue;
         const caja = $('#demo-typing');
-        for (const ch of q.frase) { if (dem.cancel || dem.salto) break; while (dem.pausa && !dem.cancel && !dem.salto) await dormir(200, dem); caja.textContent += ch; abajo(); await dormir(Math.max(3, 24 / dem.vel), dem); }
+        for (const ch of fraseDe(q)) { if (dem.cancel || dem.salto) break; while (dem.pausa && !dem.cancel && !dem.salto) await dormir(200, dem); caja.textContent += ch; abajo(); await dormir(Math.max(3, 24 / dem.vel), dem); }
         if (dem.cancel) return; if (dem.salto) continue;
         log.insertAdjacentHTML('beforeend', `<div class="m sis ok">✅ Paso ${etiquetaPaso(q.n)} registrado.</div>${hallazgoTxt(q.n) ? `<div class="m sis neutro">${esc(hallazgoTxt(q.n))}</div>` : ''}`); abajo(); hablaPaso(q.n);
         S.velFx = dem.vel; const fxp = fxPaso(q, true); const { est, usados } = estadoHasta(q.n); aplicarEstado(est, usados); resaltar(null);

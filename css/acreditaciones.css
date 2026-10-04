@@ -920,3 +920,45 @@ body.acr-sin-fs .acr-full-fab, body.acr-sin-fs [data-tool="full"] { display: non
 @keyframes art-envia { 0% { transform: none; opacity: 1; } 60% { transform: translateY(24px) scale(.9); opacity: 1; } 100% { transform: translateY(70px) scale(.5); opacity: 0; } }
 @media (max-width: 640px) { .acr3d-vp .art-tubos { top: auto; bottom: 108px; } .art-rack .tb span { display: none; } .art-rack { padding-bottom: 12px; } }
 @media (orientation: landscape) and (max-height: 560px) { .acr3d-vp .art-tubos { top: 52px; transform-origin: top right; } .art-rack .tb { height: 44px; } .art-rack .tb span { top: 48px; font-size: 7px; } .art-hud { bottom: 54px; } }
+
+/* ===== Área SIM: HUD de los simuladores (altura uterina, curva, FCF, historia clínica, gestograma, visor especular, mapa mamario) ===== */
+.acr3d-vp .sim-hud { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+.sim-hud .sim-au, .sim-hud .sim-fcf { position: absolute; left: 12px; bottom: 58px; display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 14px; color: #fff; font-weight: 800; box-shadow: 0 8px 22px rgba(0,0,0,.38); opacity: 0; transform: translateY(8px) scale(.96); transition: .35s cubic-bezier(.34,1.56,.64,1); }
+.sim-hud .sim-au { background: linear-gradient(135deg, #0891b2, #0d9488); }
+.sim-hud .sim-fcf { background: linear-gradient(135deg, #be123c, #e11d48); min-width: 190px; }
+.sim-hud [data-on="1"] { opacity: 1 !important; transform: none !important; }
+.sim-hud small { display: block; font-size: .62rem; letter-spacing: .06em; opacity: .9; }
+.sim-hud b { font-size: 1.5rem; font-variant-numeric: tabular-nums; } .sim-hud span { font-size: .75rem; opacity: .9; margin-left: 3px; }
+.sim-fcf .lat { font-style: normal; font-size: 1.7rem; animation: sim-lat 1s ease-in-out infinite; }
+@keyframes sim-lat { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.3); } 24% { transform: scale(1); } 36% { transform: scale(1.18); } }
+.sim-fcf .sim-reloj { position: absolute; left: 10px; right: 10px; bottom: 3px; height: 3px; background: rgba(255,255,255,.3); border-radius: 3px; overflow: hidden; } .sim-fcf .sim-reloj i { display: block; height: 100%; width: 0; background: #fff; }
+.sim-hud .sim-curva { position: absolute; right: 10px; top: 60px; width: 210px; opacity: 0; transform: translateX(24px); transition: .45s ease; filter: drop-shadow(0 8px 18px rgba(0,0,0,.4)); }
+.sim-curva .fondo { fill: rgba(8,18,30,.86); stroke: rgba(125,211,252,.3); } .sim-curva .banda { fill: rgba(52,211,153,.2); } .sim-curva .p50 { stroke: #34d399; stroke-width: 1.4; stroke-dasharray: 3 2; }
+.sim-curva .ejes line { stroke: rgba(255,255,255,.1); } .sim-curva .ejes text { fill: #9fc4d3; font-size: 7px; } .sim-curva .tit { fill: #e0f2fe; font-size: 8.5px; font-weight: 800; } .sim-curva .lect { fill: #fde68a; font-size: 6.6px; font-weight: 700; }
+.sim-curva .prev { fill: #94a3b8; stroke: #fff; stroke-width: 1; } .sim-curva .nuevo { fill: #f59e0b; stroke: #fff; stroke-width: 1.5; animation: sim-punto .9s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes sim-punto { from { r: 0; opacity: 0; } to { r: 5.5; opacity: 1; } }
+@media (max-width: 640px) { .sim-hud .sim-curva { width: 160px; top: 54px; } }
+
+/* ----- panel de historia clínica (anamnesis) ----- */
+.acr3d-vp .sim-hc { position: absolute; right: 10px; top: 58px; bottom: 56px; width: min(46%, 270px); z-index: 7; display: flex; flex-direction: column; border-radius: 14px; background: rgba(8,18,30,.86); border: 1px solid rgba(125,211,252,.28); box-shadow: 0 12px 28px rgba(0,0,0,.45); backdrop-filter: blur(4px); overflow: hidden; color: #e2f1f7; }
+.sim-hc .hc-cab { display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: linear-gradient(135deg, rgba(8,145,178,.9), rgba(13,148,136,.9)); color: #fff; border: 0; cursor: pointer; font: inherit; text-align: left; }
+.sim-hc .hc-cab b { font-size: .8rem; flex: 1; } .sim-hc .hc-n { background: rgba(255,255,255,.25); border-radius: 999px; padding: 1px 8px; font-weight: 800; } .sim-hc .hc-cab i { font-style: normal; transition: transform .3s; }
+.sim-hc.plegado { bottom: auto; } .sim-hc.plegado .hc-cuerpo { display: none; } .sim-hc.plegado .hc-cab i { transform: rotate(-90deg); }
+.sim-hc .hc-cuerpo { overflow-y: auto; padding: 6px 8px 10px; display: flex; flex-direction: column; gap: 5px; scrollbar-width: thin; }
+.sim-hc .hc-f { display: none; flex-direction: column; padding: 6px 8px; border-radius: 9px; background: rgba(255,255,255,.06); border-left: 3px solid #2dd4bf; }
+.sim-hc .hc-f.on { display: flex; animation: hc-entra .5s cubic-bezier(.34,1.4,.64,1) both; }
+@keyframes hc-entra { from { opacity: 0; transform: translateX(14px) scale(.97); } to { opacity: 1; transform: none; } }
+.sim-hc .k { font-size: .6rem; letter-spacing: .06em; text-transform: uppercase; color: #7dd3c8; font-weight: 800; } .sim-hc .v { font-size: .74rem; line-height: 1.3; color: #f1f9fc; }
+.sim-hc .hc-fg { display: none; } .sim-hc .hc-fg.on { display: block; animation: hc-entra .6s ease both; }
+.sim-fg { width: 100%; height: auto; background: rgba(255,255,255,.05); border-radius: 10px; } .sim-fg .fg { fill: #0f2a3a; stroke: #7dd3fc; stroke-width: 1.6; } .sim-fg .fg.yo { fill: #0d9488; stroke: #fff; stroke-width: 2.4; } .sim-fg .fg-l { stroke: #7dd3fc; stroke-width: 1.4; fill: none; } .sim-fg .mu { stroke: #fca5a5; stroke-width: 1.6; } .sim-fg .fg-t { fill: #cfeff5; font-size: 7.5px; }
+@media (max-width: 640px) { .acr3d-vp .sim-hc { width: 52%; top: 52px; } }
+
+/* ----- gestograma (cálculo de EG y FPP) ----- */
+.acr3d-vp .sim-gesto { position: absolute; left: 8px; right: 8px; bottom: 50px; z-index: 6; pointer-events: none; padding: 4px 6px 0; border-radius: 12px; background: rgba(8,18,30,.8); border: 1px solid rgba(125,211,252,.25); }
+.sim-gesto .g-svg { width: 100%; height: auto; display: block; }
+.sim-gesto .tri1 { fill: #1d4ed8; opacity: .55; } .sim-gesto .tri2 { fill: #0d9488; opacity: .55; } .sim-gesto .tri3 { fill: #be185d; opacity: .55; }
+.sim-gesto .g-prog { fill: #fbbf24; opacity: .85; transition: width 1.4s cubic-bezier(.3,.7,.3,1); }
+.sim-gesto .g-t { stroke: rgba(255,255,255,.35); stroke-width: 1; } .sim-gesto .g-m { fill: #bcd9e4; font-size: 7px; } .sim-gesto .g-s { fill: #e2f1f7; font-size: 7.5px; font-weight: 800; }
+.sim-gesto .g-tit { fill: #e0f2fe; font-size: 9px; font-weight: 800; } .sim-gesto .g-eg { fill: #fde68a; font-size: 10px; font-weight: 800; }
+.sim-gesto g[class^="g-m-"] { opacity: 0; transform: translateY(8px); transition: .5s cubic-bezier(.34,1.56,.64,1); transform-box: fill-box; } .sim-gesto g[class^="g-m-"].on { opacity: 1; transform: none; }
+.sim-gesto g[class^="g-m-"] path { stroke: #fff; stroke-width: 1.2; } .sim-gesto g[class^="g-m-"] circle { fill: #0f2a3a; stroke: #fde68a; stroke-width: 1.6; } .sim-gesto g[class^="g-m-"] text { font-size: 9px; } .sim-gesto .g-l { fill: #fde68a; font-size: 7.4px; font-weight: 800; }

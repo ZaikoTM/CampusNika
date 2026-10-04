@@ -1,0 +1,48 @@
+{
+ "area": "sim",
+ "nombre": "Salud Integral de la Mujer",
+ "acreditaciones": [
+  {
+   "id": "anamg",
+   "titulo": "Anamnesis ginecológica",
+   "icono": "🗂️",
+   "pasos": 31,
+   "estado": "activo"
+  },
+  {
+   "id": "anamo",
+   "titulo": "Anamnesis obstétrica",
+   "icono": "🤰",
+   "pasos": 22,
+   "estado": "activo"
+  },
+  {
+   "id": "egfpp",
+   "titulo": "Cálculo de EG y FPP",
+   "icono": "📅",
+   "pasos": 9,
+   "estado": "activo"
+  },
+  {
+   "id": "exgin",
+   "titulo": "Examen ginecológico, PAP y tacto bimanual",
+   "icono": "🔬",
+   "pasos": 27,
+   "estado": "proximamente"
+  },
+  {
+   "id": "exobs",
+   "titulo": "Examen obstétrico",
+   "icono": "🫄",
+   "pasos": 19,
+   "estado": "activo"
+  },
+  {
+   "id": "exmam",
+   "titulo": "Examen mamario",
+   "icono": "🎀",
+   "pasos": 18,
+   "estado": "proximamente"
+  }
+ ]
+}

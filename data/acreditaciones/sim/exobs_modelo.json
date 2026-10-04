@@ -1,0 +1,442 @@
+{
+ "general": {
+  "fondo": "#0a0f1d",
+  "luces": {
+   "ambiente": 0.55,
+   "frontal": 1.15,
+   "contorno": 0.7,
+   "color_contorno": "#22d3ee"
+  },
+  "camara": {
+   "fov": 36,
+   "min": 10,
+   "max": 140,
+   "foco": 26
+  },
+  "material": {
+   "rugosidad": 0.28,
+   "clearcoat": 0.6
+  },
+  "grosor_sonda": 0.2,
+  "vistas": {
+   "fro": "Pies"
+  }
+ },
+ "overlay_html": "",
+ "tarjetas": {
+  "mesa": {
+   "titulo": "🧰 Material del control",
+   "id": "mesa",
+   "items": [
+    [
+     "cinta",
+     "📏",
+     "Cinta",
+     "obstétrica"
+    ],
+    [
+     "pinard",
+     "🩺",
+     "Estetoscopio",
+     "de Pinard"
+    ],
+    [
+     "reloj",
+     "⏱️",
+     "Reloj con",
+     "segundero"
+    ],
+    [
+     "curva",
+     "📈",
+     "Curva",
+     "de la AU"
+    ],
+    [
+     "manos",
+     "🫧",
+     "Higiene",
+     "de manos"
+    ]
+   ]
+  },
+  "entorno": {
+   "titulo": "🏥 Consultorio",
+   "items": [
+    [
+     "paciente",
+     "🤰",
+     "Embarazada",
+     ""
+    ],
+    [
+     "camilla",
+     "🛏️",
+     "Camilla",
+     ""
+    ],
+    [
+     "carnet",
+     "📒",
+     "Carnet",
+     "perinatal"
+    ]
+   ]
+  }
+ },
+ "chips": [
+  [
+   "pos",
+   "Decúbito dorsal"
+  ],
+  [
+   "cinta0",
+   "Cinta en el pubis"
+  ],
+  [
+   "leer",
+   "AU medida"
+  ],
+  [
+   "curva",
+   "AU graficada"
+  ],
+  [
+   "l1",
+   "Leopold 1"
+  ],
+  [
+   "l2",
+   "Leopold 2"
+  ],
+  [
+   "pinard",
+   "FCF"
+  ],
+  [
+   "l3",
+   "Leopold 3"
+  ],
+  [
+   "l4",
+   "Leopold 4"
+  ]
+ ],
+ "usables": [
+  "cinta",
+  "pinard",
+  "reloj",
+  "curva",
+  "manos",
+  "paciente",
+  "camilla",
+  "carnet",
+  "pubis"
+ ],
+ "pines": [
+  {
+   "id": "pubis",
+   "label": "Borde superior del pubis (0 de la cinta)",
+   "capa": "piel",
+   "externo": true
+  },
+  {
+   "id": "fondo",
+   "label": "Fondo uterino",
+   "capa": "piel",
+   "externo": true
+  },
+  {
+   "id": "ombligo",
+   "label": "Ombligo",
+   "capa": "piel",
+   "externo": true
+  },
+  {
+   "id": "foco",
+   "label": "Foco de auscultación",
+   "capa": "sonda",
+   "solo_con": "instrumento"
+  }
+ ],
+ "instrumentos": [
+  {
+   "id": "gravida",
+   "tipo": "gravida",
+   "eg_defecto": 36
+  },
+  {
+   "id": "obs",
+   "tipo": "obs",
+   "clases": {
+    "pubis": "s-pubis",
+    "cinta0": "s-cinta0",
+    "cinta": "s-cinta",
+    "leer": "s-leer",
+    "curva": "s-curva",
+    "l1": "s-l1",
+    "l2": "s-l2",
+    "pinard": "s-pinard",
+    "l3": "s-l3",
+    "l4": "s-l4",
+    "fin": "s-fin"
+   }
+  }
+ ],
+ "M": {
+  "origen": [
+   0,
+   17,
+   6
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   -1.5707963,
+   3.1415927,
+   0
+  ],
+  "piezas": [
+   {
+    "id": "piel",
+    "tipo": "glb",
+    "src": "assets/anatomia/sim/torso_f.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#d8a387",
+    "opacidad": 0.3,
+    "hs": null,
+    "nombre": "Paciente",
+    "peso": 1255052,
+    "piel_real": true
+   },
+   {
+    "id": "pelvis",
+    "tipo": "glb",
+    "src": "assets/anatomia/hra/pelvis_f.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": "pelvis",
+    "nombre": "Pelvis ósea",
+    "peso": 120000
+   }
+  ],
+  "procedurales": {},
+  "pines": {
+   "pubis": [
+    -1.5,
+    0.6,
+    2.4
+   ],
+   "fondo": [
+    0,
+    30,
+    12
+   ],
+   "ombligo": [
+    0,
+    19,
+    9.6
+   ],
+   "foco": [
+    -5,
+    12,
+    14
+   ]
+  },
+  "camara": {
+   "lat": [
+    60,
+    14,
+    0
+   ],
+   "fro": [
+    0,
+    14,
+    60
+   ],
+   "sup": [
+    3,
+    66,
+    0.01
+   ],
+   "objetivo": [
+    0,
+    0,
+    0
+   ],
+   "ini": [
+    36,
+    38,
+    26
+   ]
+  },
+  "etiquetas": {
+   "pubis": [
+    -110,
+    40
+   ],
+   "fondo": [
+    110,
+    -60
+   ],
+   "ombligo": [
+    110,
+    30
+   ],
+   "foco": [
+    -110,
+    -50
+   ]
+  }
+ },
+ "F": {
+  "origen": [
+   0,
+   17,
+   6
+  ],
+  "corte_x": 0.0,
+  "rotacion": [
+   -1.5707963,
+   3.1415927,
+   0
+  ],
+  "piezas": [
+   {
+    "id": "piel",
+    "tipo": "glb",
+    "src": "assets/anatomia/sim/torso_f.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "piel",
+    "color": "#d8a387",
+    "opacidad": 0.3,
+    "hs": null,
+    "nombre": "Paciente",
+    "peso": 1255052,
+    "piel_real": true
+   },
+   {
+    "id": "pelvis",
+    "tipo": "glb",
+    "src": "assets/anatomia/hra/pelvis_f.glb",
+    "escala": 100,
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capa": "huesos",
+    "color": "#e8e1cf",
+    "opacidad": 0.55,
+    "hs": "pelvis",
+    "nombre": "Pelvis ósea",
+    "peso": 120000
+   }
+  ],
+  "procedurales": {},
+  "pines": {
+   "pubis": [
+    -1.5,
+    0.6,
+    2.4
+   ],
+   "fondo": [
+    0,
+    30,
+    12
+   ],
+   "ombligo": [
+    0,
+    19,
+    9.6
+   ],
+   "foco": [
+    -5,
+    12,
+    14
+   ]
+  },
+  "camara": {
+   "lat": [
+    60,
+    14,
+    0
+   ],
+   "fro": [
+    0,
+    14,
+    60
+   ],
+   "sup": [
+    3,
+    66,
+    0.01
+   ],
+   "objetivo": [
+    0,
+    0,
+    0
+   ],
+   "ini": [
+    36,
+    38,
+    26
+   ]
+  },
+  "etiquetas": {
+   "pubis": [
+    -110,
+    40
+   ],
+   "fondo": [
+    110,
+    -60
+   ],
+   "ombligo": [
+    110,
+    30
+   ],
+   "foco": [
+    -110,
+    -50
+   ]
+  }
+ }
+}

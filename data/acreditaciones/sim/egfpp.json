@@ -1,0 +1,1360 @@
+{
+ "id": "egfpp",
+ "area": "sim",
+ "titulo": "Cálculo de EG y FPP",
+ "icono": "📅",
+ "resumen": "Resolución de casos clínicos: obtención y verificación de la FUM, cálculo de la edad gestacional en semanas y días, fecha probable de parto con la regla de Naegele, datación por ecografía y clasificación del embarazo.",
+ "umbral": 60,
+ "fuente": "Guía de TP N.º 1: Cálculo de EG y FPP",
+ "elementos": {
+  "fum": {
+   "nombre": "FUM",
+   "desc": "Primer día de la última menstruación.",
+   "pasos": [
+    1,
+    2,
+    2.5
+   ]
+  },
+  "calendario": {
+   "nombre": "Calendario",
+   "desc": "Para contar los días y aplicar la regla de Naegele.",
+   "pasos": [
+    3,
+    4,
+    6
+   ]
+  },
+  "calculadora": {
+   "nombre": "Calculadora / cuadernillo",
+   "desc": "Para dividir los días por 7.",
+   "pasos": [
+    5
+   ]
+  },
+  "eco": {
+   "nombre": "Ecografía del primer trimestre",
+   "desc": "Longitud cráneo-caudal para fechar el embarazo.",
+   "pasos": [
+    7
+   ]
+  },
+  "carnet": {
+   "nombre": "Carnet perinatal",
+   "desc": "Se registran la EG y la FPP.",
+   "pasos": [
+    8,
+    9
+   ]
+  }
+ },
+ "distractores": [
+  {
+   "id": "d1",
+   "texto": "Informa una edad gestacional incorrecta (semanas o días mal calculados)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: un error en la edad gestacional lleva a decisiones equivocadas sobre prematurez y posmadurez.",
+   "target": "calculadora",
+   "claves": [],
+   "num": {
+    "re": "(\\d+) semanas?(?: y (\\d+) dias?)?",
+    "campos": [
+     "eg_sem",
+     "eg_dias"
+    ],
+    "requiere": [
+     "edad gestacional",
+     " eg ",
+     "cursa",
+     "gestacion de",
+     "semanas y"
+    ]
+   }
+  },
+  {
+   "id": "d2",
+   "texto": "Informa una fecha probable de parto incorrecta",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: aplicar mal la regla de Naegele da una fecha equivocada.",
+   "target": "calendario",
+   "claves": [],
+   "num": {
+    "re": "(\\d{1,2}) de (enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)",
+    "campos": [
+     "fpp_dia",
+     "fpp_mes"
+    ],
+    "requiere": [
+     "fpp",
+     "fecha probable",
+     "parto",
+     "naegele"
+    ]
+   }
+  },
+  {
+   "id": "d3",
+   "texto": "Clasifica mal el embarazo (pretérmino, de término o postérmino)",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: pretérmino es menor de 37 semanas; de término de 37 a 41+6; postérmino desde la semana 42.",
+   "target": "carnet",
+   "claves": [],
+   "num": {
+    "re": "(pretermino|postermino|termino)",
+    "campos": [
+     "clasif_k"
+    ],
+    "requiere": [
+     "clasific",
+     "embarazo es",
+     "embarazo de"
+    ]
+   }
+  },
+  {
+   "id": "d4",
+   "texto": "Usa una ecografía del tercer trimestre para fechar la gestación",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: las ecografías tardías tienen un error muy grande; solo la del primer trimestre sirve para fechar.",
+   "target": "eco",
+   "claves": [
+    [
+     "ecografia del tercer trimestre"
+    ],
+    [
+     "ecografia tardia"
+    ],
+    [
+     "ecografia de las 34"
+    ],
+    [
+     "ecografia del ultimo trimestre"
+    ],
+    [
+     "fecho con la ecografia de las"
+    ]
+   ]
+  },
+  {
+   "id": "d5",
+   "texto": "Toma una FUM dudosa como confiable sin verificarla",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: si la FUM no es segura o los ciclos son irregulares, la edad se establece por ecografía precoz.",
+   "target": "fum",
+   "claves": [
+    [
+     "sin verificar la fum"
+    ],
+    [
+     "tomo la fum igual"
+    ],
+    [
+     "aunque no recuerda"
+    ],
+    [
+     "aunque no este segura"
+    ],
+    [
+     "sin confirmar la fum"
+    ]
+   ]
+  },
+  {
+   "id": "d6",
+   "texto": "Informa la FPP como una fecha exacta e inmodificable",
+   "critico": false,
+   "porque": "Solo una minoría de los partos ocurre en la FPP: se la informa como una fecha aproximada; el término abarca de la semana 37 a la 41+6.",
+   "target": "carnet",
+   "claves": [
+    [
+     "fecha exacta"
+    ],
+    [
+     "exactamente ese dia"
+    ],
+    [
+     "seguro nace ese dia"
+    ],
+    [
+     "nacera ese dia"
+    ]
+   ]
+  },
+  {
+   "id": "d7",
+   "texto": "Cuenta los días a partir de la fecha de concepción o de la última relación sexual",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: la edad gestacional se cuenta desde el primer día de la última menstruación, no desde la concepción.",
+   "target": "fum",
+   "claves": [
+    [
+     "desde la concepcion"
+    ],
+    [
+     "desde la ovulacion"
+    ],
+    [
+     "desde la ultima relacion"
+    ],
+    [
+     "desde el coito"
+    ]
+   ]
+  },
+  {
+   "id": "d8",
+   "texto": "No registra la EG y la FPP en el carnet perinatal",
+   "critico": true,
+   "porque": "Es criterio de desaprobación: son datos clave de todos los controles posteriores.",
+   "target": "carnet",
+   "claves": [
+    [
+     "no registro"
+    ],
+    [
+     "sin registrar"
+    ],
+    [
+     "no anoto"
+    ],
+    [
+     "sin anotar"
+    ]
+   ]
+  }
+ ],
+ "casos": [
+  {
+   "id": "c1",
+   "nombre": "Camila R.",
+   "sexo": "F",
+   "edad": 24,
+   "motivo": "Primer control prenatal.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "Primigesta. Sin antecedentes. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Ciclos regulares"
+   ],
+   "fum_iso": "2026-02-14",
+   "hoy_iso": "2026-06-09",
+   "eg": 16.43,
+   "eg_sem": 16,
+   "eg_dias": 3,
+   "dias_tot": 115,
+   "fpp_dia": 21,
+   "fpp_mes": "noviembre",
+   "fpp_mes_n": 11,
+   "clasif_k": "pretermino",
+   "ciclo_largo": false,
+   "eco": false,
+   "h_fum": "La paciente refiere: «Mi última menstruación empezó el 14 de febrero de 2026».",
+   "h_ciclos": "Ciclos regulares de 28 días, sin anticonceptivos hormonales previos: la FUM es confiable.",
+   "h_hoy": "La consulta es el 9 de junio de 2026.",
+   "h_dias": "Correcto: desde la FUM hasta hoy pasaron 115 días.",
+   "h_eg": "Correcto: 115 ÷ 7 = 16 semanas y 3 días (16+3).",
+   "h_fpp": "Correcto: FUM 14 de febrero de 2026 + 7 días − 3 meses → FPP 21 de noviembre de 2026.",
+   "h_eco": "La FUM es confiable y no hay ecografía precoz que la contradiga: no se necesita corrección.",
+   "h_clas": "El embarazo es pretérmino, del 2.º trimestre (16+3 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 16+3 semanas · FPP 21 de noviembre de 2026 · método: FUM.",
+   "claves_dias": [
+    [
+     "115",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "id": "c2",
+   "nombre": "Lucía M.",
+   "sexo": "F",
+   "edad": 31,
+   "motivo": "Control prenatal.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "G2P1. Sin patologías. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Cruza dos meses de 31 días"
+   ],
+   "fum_iso": "2026-01-03",
+   "hoy_iso": "2026-08-15",
+   "eg": 32.0,
+   "eg_sem": 32,
+   "eg_dias": 0,
+   "dias_tot": 224,
+   "fpp_dia": 10,
+   "fpp_mes": "octubre",
+   "fpp_mes_n": 10,
+   "clasif_k": "pretermino",
+   "ciclo_largo": false,
+   "eco": false,
+   "h_fum": "La paciente refiere: «Mi última menstruación empezó el 3 de enero de 2026».",
+   "h_ciclos": "Ciclos regulares de 28 días, sin anticonceptivos hormonales previos: la FUM es confiable.",
+   "h_hoy": "La consulta es el 15 de agosto de 2026.",
+   "h_dias": "Correcto: desde la FUM hasta hoy pasaron 224 días.",
+   "h_eg": "Correcto: 224 ÷ 7 = 32 semanas y 0 días (32+0).",
+   "h_fpp": "Correcto: FUM 3 de enero de 2026 + 7 días − 3 meses → FPP 10 de octubre de 2026.",
+   "h_eco": "La FUM es confiable y no hay ecografía precoz que la contradiga: no se necesita corrección.",
+   "h_clas": "El embarazo es pretérmino, del 3.º trimestre (32+0 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 32+0 semanas · FPP 10 de octubre de 2026 · método: FUM.",
+   "claves_dias": [
+    [
+     "224",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "id": "c3",
+   "nombre": "Gabriela P.",
+   "sexo": "F",
+   "edad": 38,
+   "motivo": "Consulta por amenorrea.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "G3P2. Sin patologías. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "FPP en el año siguiente"
+   ],
+   "fum_iso": "2025-12-09",
+   "hoy_iso": "2026-05-04",
+   "eg": 20.86,
+   "eg_sem": 20,
+   "eg_dias": 6,
+   "dias_tot": 146,
+   "fpp_dia": 16,
+   "fpp_mes": "septiembre",
+   "fpp_mes_n": 9,
+   "clasif_k": "pretermino",
+   "ciclo_largo": false,
+   "eco": false,
+   "h_fum": "La paciente refiere: «Mi última menstruación empezó el 9 de diciembre de 2025».",
+   "h_ciclos": "Ciclos regulares de 28 días, sin anticonceptivos hormonales previos: la FUM es confiable.",
+   "h_hoy": "La consulta es el 4 de mayo de 2026.",
+   "h_dias": "Correcto: desde la FUM hasta hoy pasaron 146 días.",
+   "h_eg": "Correcto: 146 ÷ 7 = 20 semanas y 6 días (20+6).",
+   "h_fpp": "Correcto: FUM 9 de diciembre de 2025 + 7 días − 3 meses → FPP 16 de septiembre de 2026.",
+   "h_eco": "La FUM es confiable y no hay ecografía precoz que la contradiga: no se necesita corrección.",
+   "h_clas": "El embarazo es pretérmino, del 2.º trimestre (20+6 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 20+6 semanas · FPP 16 de septiembre de 2026 · método: FUM.",
+   "claves_dias": [
+    [
+     "146",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "id": "c4",
+   "nombre": "Natalia S.",
+   "sexo": "F",
+   "edad": 29,
+   "motivo": "Control prenatal.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "G1P0. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Mes de FUM: marzo"
+   ],
+   "fum_iso": "2026-03-28",
+   "hoy_iso": "2026-10-01",
+   "eg": 26.71,
+   "eg_sem": 26,
+   "eg_dias": 5,
+   "dias_tot": 187,
+   "fpp_dia": 4,
+   "fpp_mes": "enero",
+   "fpp_mes_n": 1,
+   "clasif_k": "pretermino",
+   "ciclo_largo": false,
+   "eco": false,
+   "h_fum": "La paciente refiere: «Mi última menstruación empezó el 28 de marzo de 2026».",
+   "h_ciclos": "Ciclos regulares de 28 días, sin anticonceptivos hormonales previos: la FUM es confiable.",
+   "h_hoy": "La consulta es el 1 de octubre de 2026.",
+   "h_dias": "Correcto: desde la FUM hasta hoy pasaron 187 días.",
+   "h_eg": "Correcto: 187 ÷ 7 = 26 semanas y 5 días (26+5).",
+   "h_fpp": "Correcto: FUM 28 de marzo de 2026 + 7 días − 3 meses → FPP 4 de enero de 2027.",
+   "h_eco": "La FUM es confiable y no hay ecografía precoz que la contradiga: no se necesita corrección.",
+   "h_clas": "El embarazo es pretérmino, del 2.º trimestre (26+5 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 26+5 semanas · FPP 4 de enero de 2027 · método: FUM.",
+   "claves_dias": [
+    [
+     "187",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "id": "c5",
+   "nombre": "Romina T.",
+   "sexo": "F",
+   "edad": 27,
+   "motivo": "Control prenatal a término.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "G2P1. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Embarazo de término"
+   ],
+   "fum_iso": "2025-10-12",
+   "hoy_iso": "2026-07-16",
+   "eg": 39.57,
+   "eg_sem": 39,
+   "eg_dias": 4,
+   "dias_tot": 277,
+   "fpp_dia": 19,
+   "fpp_mes": "julio",
+   "fpp_mes_n": 7,
+   "clasif_k": "termino",
+   "ciclo_largo": false,
+   "eco": false,
+   "h_fum": "La paciente refiere: «Mi última menstruación empezó el 12 de octubre de 2025».",
+   "h_ciclos": "Ciclos regulares de 28 días, sin anticonceptivos hormonales previos: la FUM es confiable.",
+   "h_hoy": "La consulta es el 16 de julio de 2026.",
+   "h_dias": "Correcto: desde la FUM hasta hoy pasaron 277 días.",
+   "h_eg": "Correcto: 277 ÷ 7 = 39 semanas y 4 días (39+4).",
+   "h_fpp": "Correcto: FUM 12 de octubre de 2025 + 7 días − 3 meses → FPP 19 de julio de 2026.",
+   "h_eco": "La FUM es confiable y no hay ecografía precoz que la contradiga: no se necesita corrección.",
+   "h_clas": "El embarazo es de término, del 3.º trimestre (39+4 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 39+4 semanas · FPP 19 de julio de 2026 · método: FUM.",
+   "claves_dias": [
+    [
+     "277",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "id": "c6",
+   "nombre": "Valeria D.",
+   "sexo": "F",
+   "edad": 36,
+   "motivo": "Control: no recuerda bien la FUM.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "G2P1. Ciclos irregulares. Dejó los anticonceptivos hace 2 meses. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "FUM dudosa · ecografía precoz"
+   ],
+   "fum_iso": "2026-01-22",
+   "hoy_iso": "2026-06-22",
+   "eg": 21.57,
+   "eg_sem": 21,
+   "eg_dias": 4,
+   "dias_tot": 151,
+   "fpp_dia": 29,
+   "fpp_mes": "octubre",
+   "fpp_mes_n": 10,
+   "clasif_k": "pretermino",
+   "ciclo_largo": false,
+   "eco": true,
+   "h_fum": "La paciente refiere: «No recuerdo bien la fecha de mi última menstruación».",
+   "h_ciclos": "Ciclos irregulares y dejó anticonceptivos hace 2 meses: la FUM NO es confiable; hay que fechar con ecografía.",
+   "h_hoy": "La consulta es el 22 de junio de 2026.",
+   "h_dias": "Correcto: desde la FUM hasta hoy pasaron 151 días.",
+   "h_eg": "Correcto: 151 ÷ 7 = 21 semanas y 4 días (21+4).",
+   "h_fpp": "Correcto: FUM 22 de enero de 2026 + 7 días − 3 meses → FPP 29 de octubre de 2026.",
+   "h_eco": "Ecografía del 26 de marzo de 2026: longitud cráneo-caudal 32 mm = 9 semanas y 0 días; la edad gestacional se toma de la ecografía.",
+   "h_clas": "El embarazo es pretérmino, del 2.º trimestre (21+4 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 21+4 semanas · FPP 29 de octubre de 2026 · método: ecografía.",
+   "claves_dias": [
+    [
+     "151",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "id": "c7",
+   "nombre": "Paula G.",
+   "sexo": "F",
+   "edad": 34,
+   "motivo": "Control prenatal; ciclos largos.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "G1P0. Ciclos de 35 días. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Ciclos de 35 días"
+   ],
+   "fum_iso": "2026-02-15",
+   "hoy_iso": "2026-08-30",
+   "eg": 28.0,
+   "eg_sem": 28,
+   "eg_dias": 0,
+   "dias_tot": 196,
+   "fpp_dia": 22,
+   "fpp_mes": "noviembre",
+   "fpp_mes_n": 11,
+   "clasif_k": "pretermino",
+   "ciclo_largo": true,
+   "eco": false,
+   "h_fum": "La paciente refiere: «Mi última menstruación empezó el 8 de febrero de 2026».",
+   "h_ciclos": "Ciclos regulares de 35 días: la ovulación se retrasa 7 días; hay que corregir la FUM.",
+   "h_hoy": "La consulta es el 30 de agosto de 2026.",
+   "h_dias": "Correcto: desde la FUM corregida hasta hoy pasaron 196 días.",
+   "h_eg": "Correcto: 196 ÷ 7 = 28 semanas y 0 días (28+0).",
+   "h_fpp": "Correcto: FUM 15 de febrero de 2026 + 7 días − 3 meses → FPP 22 de noviembre de 2026.",
+   "h_eco": "La FUM es confiable y no hay ecografía precoz que la contradiga: no se necesita corrección.",
+   "h_clas": "El embarazo es pretérmino, del 3.º trimestre (28+0 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 28+0 semanas · FPP 22 de noviembre de 2026 · método: FUM.",
+   "claves_dias": [
+    [
+     "196",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "id": "c8",
+   "nombre": "Mónica V.",
+   "sexo": "F",
+   "edad": 40,
+   "motivo": "Control a las 42 semanas.",
+   "indicacion": "Cálculo de la edad gestacional y de la fecha probable de parto.",
+   "antecedentes": "G4P3. Sin alergias conocidas.",
+   "alergia": null,
+   "extra": [
+    "Embarazo postérmino"
+   ],
+   "fum_iso": "2025-09-10",
+   "hoy_iso": "2026-07-02",
+   "eg": 42.14,
+   "eg_sem": 42,
+   "eg_dias": 1,
+   "dias_tot": 295,
+   "fpp_dia": 17,
+   "fpp_mes": "junio",
+   "fpp_mes_n": 6,
+   "clasif_k": "postermino",
+   "ciclo_largo": false,
+   "eco": false,
+   "h_fum": "La paciente refiere: «Mi última menstruación empezó el 10 de septiembre de 2025».",
+   "h_ciclos": "Ciclos regulares de 28 días, sin anticonceptivos hormonales previos: la FUM es confiable.",
+   "h_hoy": "La consulta es el 2 de julio de 2026.",
+   "h_dias": "Correcto: desde la FUM hasta hoy pasaron 295 días.",
+   "h_eg": "Correcto: 295 ÷ 7 = 42 semanas y 1 días (42+1).",
+   "h_fpp": "Correcto: FUM 10 de septiembre de 2025 + 7 días − 3 meses → FPP 17 de junio de 2026.",
+   "h_eco": "La FUM es confiable y no hay ecografía precoz que la contradiga: no se necesita corrección.",
+   "h_clas": "El embarazo es postérmino, del 3.º trimestre (42+1 semanas).",
+   "h_carnet": "Registrado en el carnet: EG 42+1 semanas · FPP 17 de junio de 2026 · método: FUM.",
+   "claves_dias": [
+    [
+     "295",
+     "dias"
+    ]
+   ]
+  }
+ ],
+ "fundamentos": [
+  {
+   "q": "¿Desde qué momento se cuenta la edad gestacional?",
+   "o": [
+    "Desde el primer día de la última menstruación",
+    "Desde la fecha de concepción",
+    "Desde la ovulación",
+    "Desde el primer control prenatal"
+   ],
+   "c": 0,
+   "e": "La edad gestacional se cuenta desde la FUM (aunque la concepción ocurra unos 14 días después)."
+  },
+  {
+   "q": "¿Cuántos días dura en promedio un embarazo de feto único contados desde la FUM?",
+   "o": [
+    "280 días (40 semanas)",
+    "266 días (38 semanas)",
+    "300 días",
+    "250 días"
+   ],
+   "c": 0,
+   "e": "40 semanas = 280 días desde la FUM, o 266 días desde la concepción."
+  },
+  {
+   "q": "¿Cómo se aplica la regla de Naegele con una FUM en mayo?",
+   "o": [
+    "Se suman 7 días y se restan 3 meses, sumando un año",
+    "Se suman 9 meses",
+    "Se restan 7 días y se suman 3 meses",
+    "Se suman 3 meses y 7 días"
+   ],
+   "c": 0,
+   "e": "Para FUM de abril a diciembre: +7 días, −3 meses y +1 año; de enero a marzo: +7 días y +9 meses."
+  },
+  {
+   "q": "Una paciente cursa 115 días desde su FUM. ¿Cuál es su edad gestacional?",
+   "o": [
+    "16 semanas y 3 días",
+    "15 semanas y 2 días",
+    "17 semanas",
+    "16 semanas exactas"
+   ],
+   "c": 0,
+   "e": "115 ÷ 7 = 16, resto 3."
+  },
+  {
+   "q": "¿Qué se hace con una FUM dudosa?",
+   "o": [
+    "Se fecha con la ecografía del primer trimestre (LCC)",
+    "Se usa igual",
+    "Se usa la altura uterina",
+    "Se descarta el embarazo"
+   ],
+   "c": 0,
+   "e": "La ecografía precoz (LCC) es el mejor método de datación cuando la FUM no es confiable."
+  },
+  {
+   "q": "En una mujer con ciclos regulares de 35 días, ¿qué corrección se aplica a la FUM?",
+   "o": [
+    "Se le suman 7 días",
+    "Se le restan 7 días",
+    "No se corrige",
+    "Se le suman 14 días"
+   ],
+   "c": 0,
+   "e": "La ovulación se retrasa tantos días como excede el ciclo de 28."
+  },
+  {
+   "q": "¿Desde qué edad gestacional un embarazo es de término?",
+   "o": [
+    "37 semanas",
+    "34 semanas",
+    "40 semanas",
+    "42 semanas"
+   ],
+   "c": 0,
+   "e": "De término: 37 a 41+6 semanas; pretérmino: menos de 37; postérmino: 42 o más."
+  },
+  {
+   "q": "¿Qué trimestre cursa una gestante de 29 semanas?",
+   "o": [
+    "El tercer trimestre (desde la semana 28)",
+    "El segundo trimestre",
+    "El primer trimestre",
+    "Ya terminó el embarazo"
+   ],
+   "c": 0,
+   "e": "1.º hasta la 13+6; 2.º de la 14 a la 27+6; 3.º desde la 28."
+  },
+  {
+   "q": "¿Qué ecografía tiene mayor precisión para datar el embarazo?",
+   "o": [
+    "La del primer trimestre (hasta la semana 13+6)",
+    "La del tercer trimestre",
+    "La del segundo trimestre",
+    "Todas son iguales"
+   ],
+   "c": 0,
+   "e": "Su error es de ± 5 a 7 días; el error crece a medida que avanza la gestación."
+  },
+  {
+   "q": "¿Por qué es importante calcular bien la EG?",
+   "o": [
+    "Para evitar partos prematuros iatrogénicos y reducir la morbimortalidad neonatal",
+    "Solo por trámite",
+    "Para elegir el sexo del bebé",
+    "No es importante"
+   ],
+   "c": 0,
+   "e": "Un error de cálculo puede llevar a inducir un parto antes de término o a no detectar un postérmino."
+  }
+ ],
+ "voz": true,
+ "algoritmo": {
+  "titulo": "Cómo calcular la EG y la FPP",
+  "boton_titulo": "Ver el cálculo paso a paso",
+  "boton_sub": "Regla de Naegele y edad gestacional",
+  "aviso": "el cálculo paso a paso",
+  "flecha": "▼ ¿Es confiable la FUM?",
+  "flecha_final": "▼ Interpretación",
+  "pie": "EG = (hoy − FUM) ÷ 7. FPP = FUM + 7 días − 3 meses (+1 año).",
+  "comun": [
+   {
+    "t": "FUM",
+    "x": "Primer día de la última menstruación.",
+    "flag": "fum"
+   },
+   {
+    "t": "Fecha de la consulta",
+    "x": "Fecha de referencia del cálculo.",
+    "flag": "hoy"
+   }
+  ],
+  "columnas": [
+   {
+    "titulo": "FUM confiable",
+    "cls": "nd",
+    "nodos": [
+     {
+      "t": "Días transcurridos",
+      "x": "Desde la FUM hasta hoy.",
+      "flag": "dias"
+     },
+     {
+      "t": "Edad gestacional",
+      "x": "Días ÷ 7 = semanas + días.",
+      "flag": "eg"
+     },
+     {
+      "t": "FPP",
+      "x": "Regla de Naegele.",
+      "flag": "fpp"
+     }
+    ]
+   },
+   {
+    "titulo": "FUM dudosa o ciclos distintos",
+    "cls": "fv",
+    "nodos": [
+     {
+      "t": "Ciclos de 35 días",
+      "x": "Sumar 7 días a la FUM.",
+      "flag": "corr"
+     },
+     {
+      "t": "Ecografía del primer trimestre",
+      "x": "LCC: se toma la edad ecográfica.",
+      "flag": "eco"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "t": "Clasificación",
+    "x": "Pretérmino, de término o postérmino; trimestre.",
+    "flag": "clas"
+   },
+   {
+    "t": "Registro",
+    "x": "Carnet perinatal e historia clínica.",
+    "flag": "reg"
+   }
+  ]
+ },
+ "hallazgo_pasos": {
+  "1": "h_fum",
+  "2": "h_ciclos",
+  "3": "h_hoy",
+  "4": "h_dias",
+  "5": "h_eg",
+  "6": "h_fpp",
+  "7": "h_eco",
+  "8": "h_clas",
+  "9": "h_carnet"
+ },
+ "hallazgo_rotulos": {
+  "1": "🗣",
+  "2": "🩺",
+  "3": "📅",
+  "4": "🧮",
+  "5": "🧮",
+  "6": "👶",
+  "7": "🔊",
+  "8": "🏷️",
+  "9": "📒"
+ },
+ "hallazgo_voz": {
+  "1": "f"
+ },
+ "machete": {
+  "perlas": [
+   {
+    "t": "FUM confiable",
+    "x": "Primer día de la última menstruación normal, ciclos regulares de 28 días y sin anticonceptivos hormonales recientes. Si no: ecografía del primer trimestre."
+   },
+   {
+    "t": "EG",
+    "x": "Días transcurridos desde la FUM hasta hoy ÷ 7 = semanas completas + días (resto)."
+   },
+   {
+    "t": "Naegele",
+    "x": "FUM + 7 días − 3 meses (+ 1 año) si el mes es abril a diciembre; FUM + 7 días + 9 meses si es enero a marzo."
+   },
+   {
+    "t": "Ciclos de otra duración",
+    "x": "Ciclo de 35 días: sumar 7 días a la FUM. Ciclo de 21 días: restar 7."
+   },
+   {
+    "t": "Clasificación",
+    "x": "Pretérmino < 37; de término 37 a 41+6; postérmino ≥ 42. 1.º trimestre hasta 13+6; 2.º hasta 27+6; 3.º desde 28."
+   }
+  ],
+  "por_paso": {
+   "2.5": "Ciclo de 35 días: suma 7 días a la FUM.",
+   "5": "Días ÷ 7: cociente = semanas, resto = días.",
+   "6": "FUM + 7 días − 3 meses (+1 año)."
+  }
+ },
+ "examen": {
+  "tiempos": [
+   5,
+   10,
+   15,
+   30
+  ],
+  "penalizacion_incorrecta": 3,
+  "penalizacion_repetida": 1
+ },
+ "visor": "data/acreditaciones/sim/egfpp_modelo.json",
+ "peso_modelo": "2 a 3 MB",
+ "instrumental": "data/acreditaciones/sim/instrumental_egfpp.json",
+ "mesa_pasos": [],
+ "pasos": [
+  {
+   "n": 1,
+   "texto": "Interroga a la paciente sobre la fecha del primer día de su última menstruación (FUM)",
+   "fase": "Datos de la paciente",
+   "target": "fum",
+   "critico": true,
+   "explica": "La FUM es el primer día del último sangrado menstrual normal. Es el dato base del cálculo: la gestación de feto único dura en promedio 280 días (40 semanas) contados desde ese día.",
+   "estado": {
+    "fum": 1
+   },
+   "claves": [
+    [
+     "fum"
+    ],
+    [
+     "ultima menstruacion"
+    ],
+    [
+     "ultima regla"
+    ],
+    [
+     "primer dia de su ultima"
+    ],
+    [
+     "fecha de la ultima"
+    ]
+   ],
+   "frase": "Le pregunto el primer día de su última menstruación (FUM).",
+   "fx": "preguntar_fum"
+  },
+  {
+   "n": 2,
+   "texto": "Verifica que la FUM sea confiable: ciclos regulares de 28 días, sin anticonceptivos hormonales recientes ni sangrados dudosos",
+   "fase": "Datos de la paciente",
+   "target": "fum",
+   "critico": true,
+   "explica": "Una FUM es confiable si la mujer la recuerda con certeza, tiene ciclos regulares de 28 días y no usó anticonceptivos hormonales ni lactó en los meses previos. Si no, el cálculo por FUM no es válido y se fecha por ecografía precoz.",
+   "estado": {
+    "ciclos": 1
+   },
+   "claves": [
+    [
+     "confiable"
+    ],
+    [
+     "ciclos regulares"
+    ],
+    [
+     "regularidad"
+    ],
+    [
+     "seguridad de la fum"
+    ],
+    [
+     "duracion del ciclo"
+    ],
+    [
+     "ciclos de 28"
+    ]
+   ],
+   "frase": "Verifico que la FUM sea confiable: pregunto por la regularidad de los ciclos y por el uso de anticonceptivos.",
+   "fx": "preguntar_fum"
+  },
+  {
+   "n": 2.5,
+   "texto": "Corrige la FUM según la duración del ciclo (ciclo de 35 días: se suman 7 días)",
+   "fase": "Datos de la paciente",
+   "target": "fum",
+   "critico": true,
+   "explica": "Con ciclos más largos que 28 días la ovulación se retrasa: se suman a la FUM los días que exceden de 28 (en un ciclo de 35 días, 7 días) antes de calcular la EG y la FPP.",
+   "estado": {
+    "ciclos": 1,
+    "corr": 1
+   },
+   "claves": [
+    [
+     "corrijo la fum"
+    ],
+    [
+     "suma 7 dias a la fum"
+    ],
+    [
+     "sumo 7 dias a la fum"
+    ],
+    [
+     "ciclo de 35"
+    ],
+    [
+     "fum corregida"
+    ],
+    [
+     "ajusto la fum"
+    ]
+   ],
+   "frase": "Corrijo la FUM: como el ciclo es de 35 días, le sumo 7 días a la FUM antes de calcular.",
+   "fx": "calcular",
+   "solo_si": "ciclo_largo"
+  },
+  {
+   "n": 3,
+   "texto": "Establece la fecha de la consulta (fecha de referencia del cálculo)",
+   "fase": "Datos de la paciente",
+   "target": "calendario",
+   "critico": false,
+   "explica": "La edad gestacional se calcula hasta la fecha de referencia, que es la fecha de la consulta o de la ecografía.",
+   "estado": {
+    "hoy": 1
+   },
+   "claves": [
+    [
+     "fecha de la consulta"
+    ],
+    [
+     "fecha de hoy"
+    ],
+    [
+     "hoy es"
+    ],
+    [
+     "fecha actual"
+    ],
+    [
+     "fecha de referencia"
+    ]
+   ],
+   "frase": "Establezco la fecha de hoy como fecha de referencia del cálculo.",
+   "fx": "calendario"
+  },
+  {
+   "n": 4,
+   "texto": "Calcula los días transcurridos desde la FUM hasta la fecha de la consulta",
+   "fase": "Cálculo",
+   "target": "calendario",
+   "critico": true,
+   "explica": "Se cuentan los días completos entre la FUM y hoy: se suman los días que faltan para terminar el mes de la FUM, los meses completos y los días del mes actual.",
+   "estado": {
+    "dias": 1
+   },
+   "claves": [],
+   "frase": "Calculo los días transcurridos desde la FUM hasta hoy.",
+   "fx": "calcular",
+   "claves_caso": {
+    "c1": [
+     [
+      "115",
+      "dias"
+     ]
+    ],
+    "c2": [
+     [
+      "224",
+      "dias"
+     ]
+    ],
+    "c3": [
+     [
+      "146",
+      "dias"
+     ]
+    ],
+    "c4": [
+     [
+      "187",
+      "dias"
+     ]
+    ],
+    "c5": [
+     [
+      "277",
+      "dias"
+     ]
+    ],
+    "c6": [
+     [
+      "151",
+      "dias"
+     ]
+    ],
+    "c7": [
+     [
+      "196",
+      "dias"
+     ]
+    ],
+    "c8": [
+     [
+      "295",
+      "dias"
+     ]
+    ]
+   },
+   "frases_caso": {
+    "c1": "Calculo los días transcurridos desde la FUM hasta hoy: 115 días.",
+    "c2": "Calculo los días transcurridos desde la FUM hasta hoy: 224 días.",
+    "c3": "Calculo los días transcurridos desde la FUM hasta hoy: 146 días.",
+    "c4": "Calculo los días transcurridos desde la FUM hasta hoy: 187 días.",
+    "c5": "Calculo los días transcurridos desde la FUM hasta hoy: 277 días.",
+    "c6": "Calculo los días transcurridos desde la FUM hasta hoy: 151 días.",
+    "c7": "Calculo los días transcurridos desde la FUM hasta hoy: 196 días.",
+    "c8": "Calculo los días transcurridos desde la FUM hasta hoy: 295 días."
+   }
+  },
+  {
+   "n": 5,
+   "texto": "Expresa la edad gestacional en semanas y días (días transcurridos ÷ 7)",
+   "fase": "Cálculo",
+   "target": "calculadora",
+   "critico": true,
+   "explica": "Los días transcurridos se dividen por 7: el cociente son las semanas completas y el resto, los días. Ej.: 115 días = 16 semanas y 3 días.",
+   "estado": {
+    "eg": 1
+   },
+   "claves": [],
+   "frase": "Expreso la edad gestacional en semanas y días dividiendo los días por 7.",
+   "fx": "calcular",
+   "claves_caso": {
+    "c1": [
+     [
+      "16 semanas",
+      "3 dia"
+     ],
+     [
+      "16 3"
+     ]
+    ],
+    "c2": [
+     [
+      "32 semanas"
+     ]
+    ],
+    "c3": [
+     [
+      "20 semanas",
+      "6 dia"
+     ],
+     [
+      "20 6"
+     ]
+    ],
+    "c4": [
+     [
+      "26 semanas",
+      "5 dia"
+     ],
+     [
+      "26 5"
+     ]
+    ],
+    "c5": [
+     [
+      "39 semanas",
+      "4 dia"
+     ],
+     [
+      "39 4"
+     ]
+    ],
+    "c6": [
+     [
+      "21 semanas",
+      "4 dia"
+     ],
+     [
+      "21 4"
+     ]
+    ],
+    "c7": [
+     [
+      "28 semanas"
+     ]
+    ],
+    "c8": [
+     [
+      "42 semanas",
+      "1 dia"
+     ],
+     [
+      "42 1"
+     ]
+    ]
+   },
+   "frases_caso": {
+    "c1": "Expreso la edad gestacional en semanas y días: 16 semanas y 3 días.",
+    "c2": "Expreso la edad gestacional en semanas y días: 32 semanas y 0 días.",
+    "c3": "Expreso la edad gestacional en semanas y días: 20 semanas y 6 días.",
+    "c4": "Expreso la edad gestacional en semanas y días: 26 semanas y 5 días.",
+    "c5": "Expreso la edad gestacional en semanas y días: 39 semanas y 4 días.",
+    "c6": "Expreso la edad gestacional en semanas y días: 21 semanas y 4 días.",
+    "c7": "Expreso la edad gestacional en semanas y días: 28 semanas y 0 días.",
+    "c8": "Expreso la edad gestacional en semanas y días: 42 semanas y 1 días."
+   }
+  },
+  {
+   "n": 6,
+   "texto": "Calcula la fecha probable de parto (FPP) con la regla de Naegele: FUM + 7 días − 3 meses (+ 1 año)",
+   "fase": "Cálculo",
+   "target": "calendario",
+   "critico": true,
+   "explica": "Regla de Naegele: a la fecha de la FUM se le suman 7 días y se le restan 3 meses (si el mes es abril o posterior, y se suma un año); si el mes es enero a marzo se suman 9 meses. Da la fecha en que se cumplen las 40 semanas.",
+   "estado": {
+    "fpp": 1
+   },
+   "claves": [],
+   "frase": "Calculo la fecha probable de parto con la regla de Naegele: FUM más 7 días, menos 3 meses.",
+   "fx": "naegele",
+   "claves_caso": {
+    "c1": [
+     [
+      "21 de noviembre"
+     ],
+     [
+      "21 11"
+     ]
+    ],
+    "c2": [
+     [
+      "10 de octubre"
+     ],
+     [
+      "10 10"
+     ]
+    ],
+    "c3": [
+     [
+      "16 de septiembre"
+     ],
+     [
+      "16 9"
+     ]
+    ],
+    "c4": [
+     [
+      "4 de enero"
+     ],
+     [
+      "4 1"
+     ]
+    ],
+    "c5": [
+     [
+      "19 de julio"
+     ],
+     [
+      "19 7"
+     ]
+    ],
+    "c6": [
+     [
+      "29 de octubre"
+     ],
+     [
+      "29 10"
+     ]
+    ],
+    "c7": [
+     [
+      "22 de noviembre"
+     ],
+     [
+      "22 11"
+     ]
+    ],
+    "c8": [
+     [
+      "17 de junio"
+     ],
+     [
+      "17 6"
+     ]
+    ]
+   },
+   "frases_caso": {
+    "c1": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 21 de noviembre.",
+    "c2": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 10 de octubre.",
+    "c3": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 16 de septiembre.",
+    "c4": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 4 de enero.",
+    "c5": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 19 de julio.",
+    "c6": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 29 de octubre.",
+    "c7": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 22 de noviembre.",
+    "c8": "Calculo la FPP con la regla de Naegele: FUM más 7 días, menos 3 meses; la fecha probable de parto es el 17 de junio."
+   }
+  },
+  {
+   "n": 7,
+   "texto": "Confirma o corrige la edad gestacional con la ecografía del primer trimestre (longitud cráneo-caudal)",
+   "fase": "Cálculo",
+   "target": "eco",
+   "critico": true,
+   "explica": "Si la FUM no es confiable o la ecografía del primer trimestre difiere de la FUM en más de 7 días antes de las 14 semanas, se toma la edad por ecografía (longitud cráneo-caudal). Las ecografías tardías no sirven para fechar.",
+   "estado": {
+    "eco": 1
+   },
+   "claves": [
+    [
+     "ecografia"
+    ],
+    [
+     "longitud craneo caudal"
+    ],
+    [
+     "lcc"
+    ],
+    [
+     "crl"
+    ],
+    [
+     "ecografia precoz"
+    ],
+    [
+     "ecografia del primer trimestre"
+    ]
+   ],
+   "frase": "Confirmo la edad gestacional con la ecografía del primer trimestre, midiendo la longitud cráneo-caudal.",
+   "fx": "eco_fecha",
+   "solo_si": "eco"
+  },
+  {
+   "n": 8,
+   "texto": "Clasifica el embarazo según la edad gestacional (pretérmino, de término o postérmino) y el trimestre",
+   "fase": "Interpretación y registro",
+   "target": "carnet",
+   "critico": false,
+   "explica": "Según la EG: pretérmino (< 37 semanas), de término (37 a 41 semanas y 6 días) y postérmino (≥ 42 semanas). Trimestres: 1.º hasta la semana 13+6, 2.º de la 14 a la 27+6 y 3.º desde la semana 28.",
+   "estado": {
+    "clas": 1
+   },
+   "claves": [],
+   "frase": "Clasifico el embarazo según su edad gestacional y el trimestre.",
+   "fx": "clasificar",
+   "claves_caso": {
+    "c1": [
+     [
+      "pretermino"
+     ]
+    ],
+    "c2": [
+     [
+      "pretermino"
+     ]
+    ],
+    "c3": [
+     [
+      "pretermino"
+     ]
+    ],
+    "c4": [
+     [
+      "pretermino"
+     ]
+    ],
+    "c5": [
+     [
+      "de termino"
+     ],
+     [
+      "a termino"
+     ]
+    ],
+    "c6": [
+     [
+      "pretermino"
+     ]
+    ],
+    "c7": [
+     [
+      "pretermino"
+     ]
+    ],
+    "c8": [
+     [
+      "postermino"
+     ]
+    ]
+   },
+   "frases_caso": {
+    "c1": "Clasifico el embarazo como pretérmino y lo ubico en el trimestre que corresponde.",
+    "c2": "Clasifico el embarazo como pretérmino y lo ubico en el trimestre que corresponde.",
+    "c3": "Clasifico el embarazo como pretérmino y lo ubico en el trimestre que corresponde.",
+    "c4": "Clasifico el embarazo como pretérmino y lo ubico en el trimestre que corresponde.",
+    "c5": "Clasifico el embarazo como de término y lo ubico en el trimestre que corresponde.",
+    "c6": "Clasifico el embarazo como pretérmino y lo ubico en el trimestre que corresponde.",
+    "c7": "Clasifico el embarazo como pretérmino y lo ubico en el trimestre que corresponde.",
+    "c8": "Clasifico el embarazo como postérmino y lo ubico en el trimestre que corresponde."
+   }
+  },
+  {
+   "n": 9,
+   "texto": "Registra la edad gestacional y la FPP en el carnet perinatal y en la historia clínica",
+   "fase": "Interpretación y registro",
+   "target": "carnet",
+   "critico": true,
+   "explica": "La EG, la FPP y el método usado para fecharla (FUM o ecografía) se anotan en el carnet perinatal y en la historia clínica y se informan a la paciente, aclarando que solo una minoría de los partos ocurre exactamente en la FPP.",
+   "estado": {
+    "reg": 1
+   },
+   "claves": [
+    [
+     "registro"
+    ],
+    [
+     "carnet perinatal"
+    ],
+    [
+     "historia clinica"
+    ],
+    [
+     "anoto"
+    ],
+    [
+     "dejo constancia"
+    ]
+   ],
+   "frase": "Registro la edad gestacional y la fecha probable de parto en el carnet perinatal y en la historia clínica.",
+   "fx": "registro"
+  }
+ ],
+ "criterios_texto": "La guía no define criterios de desaprobación automática; el simulador califica la obtención y verificación de la FUM, el cálculo de la edad gestacional en semanas y días, la FPP por la regla de Naegele, la datación por ecografía cuando la FUM no es confiable y el registro (propuesto, a validar).",
+ "criterios": [
+  {
+   "ico": "📅",
+   "titulo": "FUM obtenida y verificada",
+   "pasos": [
+    1,
+    2,
+    "2 bis"
+   ]
+  },
+  {
+   "ico": "🧮",
+   "titulo": "Edad gestacional en semanas y días",
+   "pasos": [
+    4,
+    5
+   ]
+  },
+  {
+   "ico": "👶",
+   "titulo": "Fecha probable de parto (regla de Naegele)",
+   "pasos": [
+    6
+   ]
+  },
+  {
+   "ico": "🔊",
+   "titulo": "Datación por ecografía si la FUM es dudosa",
+   "pasos": [
+    7
+   ]
+  },
+  {
+   "ico": "📒",
+   "titulo": "Registro de la EG y la FPP",
+   "pasos": [
+    9
+   ]
+  }
+ ],
+ "final_criticos": "la FUM, el cálculo de la edad gestacional, la fecha probable de parto y su registro"
+}

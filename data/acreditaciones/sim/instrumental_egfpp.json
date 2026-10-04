@@ -1,0 +1,147 @@
+{
+ "id": "egfpp",
+ "titulo": "Consultorio · Cálculo de EG y FPP",
+ "consigna": "Reuní lo que hace falta para calcular y registrar la edad gestacional y la fecha probable de parto. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "cálculo de edad gestacional y fecha probable de parto",
+ "indicacion_def": "Cálculo de EG y FPP.",
+ "mision": [
+  "qué elementos ayudan a calcular y registrar;",
+  "qué insumos no corresponden."
+ ],
+ "demo_caso": "Primero se lee el caso: los datos de la FUM y de la consulta son la base del cálculo.",
+ "grupos": [
+  {
+   "id": "calculo",
+   "titulo": "Cálculo"
+  },
+  {
+   "id": "registro",
+   "titulo": "Registro"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "gestograma",
+   "grupo": "calculo",
+   "nombre": "Gestograma (disco)",
+   "detalle": "Rueda de edad gestacional",
+   "img": "assets/instrumental/gestograma.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Disco giratorio para ubicar la FUM y leer la EG y la FPP.",
+   "ficha": [
+    [
+     "Uso",
+     "EG y FPP"
+    ]
+   ],
+   "falta": "Falta el gestograma para controlar el cálculo."
+  },
+  {
+   "id": "calendario",
+   "grupo": "calculo",
+   "nombre": "Calendario",
+   "detalle": "Del año en curso",
+   "img": "assets/instrumental/calendario.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para contar los días y los meses desde la FUM.",
+   "ficha": [
+    [
+     "Uso",
+     "Contar días"
+    ]
+   ],
+   "falta": "Falta el calendario para contar los días."
+  },
+  {
+   "id": "boligrafo_cuad",
+   "grupo": "calculo",
+   "nombre": "Bolígrafo y cuadernillo",
+   "detalle": "Para anotar",
+   "img": "assets/instrumental/boligrafo_cuad.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para hacer el cálculo por escrito.",
+   "ficha": [
+    [
+     "Uso",
+     "Cálculo"
+    ]
+   ]
+  },
+  {
+   "id": "calculadora",
+   "grupo": "calculo",
+   "nombre": "Calculadora",
+   "detalle": "Básica",
+   "img": "assets/instrumental/calculadora.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Para dividir los días por 7.",
+   "ficha": [
+    [
+     "Uso",
+     "Operaciones"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "carnet_perinatal",
+   "grupo": "registro",
+   "nombre": "Carnet perinatal",
+   "detalle": "Control prenatal",
+   "img": "assets/instrumental/carnet_perinatal.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Donde se registra la EG, la FPP y el método de datación.",
+   "ficha": [
+    [
+     "Documento",
+     "Carnet perinatal"
+    ]
+   ],
+   "falta": "Falta el carnet perinatal para registrar la EG y la FPP."
+  },
+  {
+   "id": "especulo",
+   "grupo": "otros",
+   "nombre": "Espéculo vaginal",
+   "detalle": "Descartable",
+   "img": "assets/instrumental/especulo.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Examen ginecológico.",
+   "ficha": [
+    [
+     "Uso",
+     "Examen"
+    ]
+   ],
+   "feedback": "No se necesita para el cálculo de la EG."
+  },
+  {
+   "id": "balanza_pie",
+   "grupo": "otros",
+   "nombre": "Balanza de pie",
+   "detalle": "Peso materno",
+   "img": "assets/instrumental/balanza_pie.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Peso.",
+   "ficha": [
+    [
+     "Uso",
+     "Peso"
+    ]
+   ],
+   "feedback": "El peso no interviene en el cálculo de la EG y la FPP."
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}

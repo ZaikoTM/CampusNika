@@ -1,0 +1,248 @@
+{
+ "id": "exobs",
+ "titulo": "Consultorio de control prenatal · Examen obstétrico",
+ "consigna": "Leé el caso clínico y reuní lo que hace falta para el examen obstétrico: medición, auscultación y registro. Pasá el cursor (o tocá) cada insumo para inspeccionarlo; arrastralo a la bandeja o hacé clic para agregarlo.",
+ "caso_sub": "control prenatal con examen obstétrico",
+ "indicacion_def": "Control prenatal con examen obstétrico.",
+ "mision": [
+  "qué instrumentos hacen falta para medir y auscultar;",
+  "qué insumos no corresponden."
+ ],
+ "demo_caso": "Primero se lee el caso: la edad gestacional y los antecedentes orientan lo que se espera encontrar.",
+ "grupos": [
+  {
+   "id": "medir",
+   "titulo": "Medición"
+  },
+  {
+   "id": "auscultar",
+   "titulo": "Auscultación"
+  },
+  {
+   "id": "registro",
+   "titulo": "Registro"
+  },
+  {
+   "id": "confort",
+   "titulo": "Confort e higiene"
+  },
+  {
+   "id": "otros",
+   "titulo": "Otros insumos"
+  }
+ ],
+ "items": [
+  {
+   "id": "cinta_obstetrica",
+   "grupo": "medir",
+   "nombre": "Cinta obstétrica",
+   "detalle": "Flexible e inextensible · 0 a 50 cm",
+   "img": "assets/instrumental/cinta_obstetrica.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Cinta con el 0 en el extremo, para medir la altura uterina desde el borde superior del pubis hasta el fondo.",
+   "ficha": [
+    [
+     "Material",
+     "Flexible, inextensible"
+    ],
+    [
+     "Longitud",
+     "50 cm"
+    ]
+   ],
+   "falta": "Falta la cinta obstétrica: sin ella no se puede medir la altura uterina."
+  },
+  {
+   "id": "pinard",
+   "grupo": "auscultar",
+   "nombre": "Estetoscopio de Pinard",
+   "detalle": "Cuerno de madera",
+   "img": "assets/instrumental/pinard.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Permite auscultar los latidos fetales apoyando la campana sobre el dorso fetal y la oreja en el extremo plano.",
+   "ficha": [
+    [
+     "Material",
+     "Madera"
+    ],
+    [
+     "Uso",
+     "Auscultación fetal"
+    ]
+   ],
+   "falta": "Falta el estetoscopio de Pinard para auscultar los latidos fetales."
+  },
+  {
+   "id": "reloj_segundero",
+   "grupo": "auscultar",
+   "nombre": "Reloj con segundero",
+   "detalle": "Para contar durante 1 minuto",
+   "img": "assets/instrumental/reloj_segundero.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Para contar los latidos fetales durante un minuto y tomar el pulso materno.",
+   "ficha": [
+    [
+     "Función",
+     "Cronómetro / segundero"
+    ]
+   ],
+   "falta": "Falta un reloj con segundero para contar los latidos durante un minuto."
+  },
+  {
+   "id": "curva_au",
+   "grupo": "registro",
+   "nombre": "Gráfico de la curva de incremento de la AU",
+   "detalle": "Percentilos 10 y 90",
+   "img": "assets/instrumental/curva_au.svg",
+   "correcto": true,
+   "critico": true,
+   "descripcion": "Curva donde se registra la altura uterina según la edad gestacional.",
+   "ficha": [
+    [
+     "Percentilos",
+     "10 y 90"
+    ]
+   ],
+   "falta": "Falta el gráfico de la curva de incremento de la altura uterina."
+  },
+  {
+   "id": "carnet_perinatal",
+   "grupo": "registro",
+   "nombre": "Carnet perinatal",
+   "detalle": "Historia clínica perinatal",
+   "img": "assets/instrumental/carnet_perinatal.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Se registran la altura uterina, la presión arterial, el peso y la FCF en cada control.",
+   "ficha": [
+    [
+     "Documento",
+     "Carnet perinatal"
+    ]
+   ],
+   "opcional": true
+  },
+  {
+   "id": "camilla_obs",
+   "grupo": "confort",
+   "nombre": "Camilla con almohada",
+   "detalle": "Para decúbito dorsal",
+   "img": "assets/instrumental/camilla_obs.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Superficie cómoda para que la embarazada se acueste en decúbito dorsal.",
+   "ficha": [
+    [
+     "Uso",
+     "Decúbito dorsal"
+    ]
+   ]
+  },
+  {
+   "id": "alcohol_gel",
+   "grupo": "confort",
+   "nombre": "Alcohol en gel",
+   "detalle": "Higiene de manos",
+   "img": "assets/instrumental/alcohol_gel.svg",
+   "correcto": true,
+   "critico": false,
+   "descripcion": "Higiene de manos antes de tocar a la embarazada.",
+   "ficha": [
+    [
+     "Uso",
+     "Higiene de manos"
+    ]
+   ]
+  },
+  {
+   "id": "estetoscopio_c",
+   "grupo": "otros",
+   "nombre": "Estetoscopio común",
+   "detalle": "Para auscultación adulta",
+   "img": "assets/instrumental/estetoscopio_c.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Estetoscopio biauricular.",
+   "ficha": [
+    [
+     "Uso",
+     "Auscultación adulta"
+    ]
+   ],
+   "feedback": "En el examen obstétrico de la lista de cotejo se usa el estetoscopio de Pinard (cuerno de madera); un estetoscopio común no sirve para localizar el foco máximo fetal."
+  },
+  {
+   "id": "cinta_costura",
+   "grupo": "otros",
+   "nombre": "Cinta métrica de costura",
+   "detalle": "Tela",
+   "img": "assets/instrumental/cinta_costura.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Cinta de tela.",
+   "ficha": [
+    [
+     "Uso",
+     "Costura"
+    ]
+   ],
+   "feedback": "Se usa la cinta obstétrica (flexible e inextensible); una cinta de costura se estira y falsea la medición."
+  },
+  {
+   "id": "especulo",
+   "grupo": "otros",
+   "nombre": "Espéculo vaginal",
+   "detalle": "Descartable",
+   "img": "assets/instrumental/especulo.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Instrumento para el examen ginecológico.",
+   "ficha": [
+    [
+     "Uso",
+     "Examen ginecológico"
+    ]
+   ],
+   "feedback": "El espéculo no se usa en el examen obstétrico abdominal."
+  },
+  {
+   "id": "doppler",
+   "grupo": "otros",
+   "nombre": "Doppler fetal portátil",
+   "detalle": "Detector de latidos",
+   "img": "assets/instrumental/doppler.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Detector ultrasónico de latidos fetales.",
+   "ficha": [
+    [
+     "Uso",
+     "Auscultación fetal"
+    ]
+   ],
+   "feedback": "La lista de cotejo indica auscultar con el estetoscopio de Pinard y contar un minuto con reloj; el Doppler es una alternativa pero no es lo que se evalúa."
+  },
+  {
+   "id": "balanza_pie",
+   "grupo": "otros",
+   "nombre": "Balanza de pie",
+   "detalle": "Peso materno",
+   "img": "assets/instrumental/balanza_pie.svg",
+   "correcto": false,
+   "critico": false,
+   "descripcion": "Balanza.",
+   "ficha": [
+    [
+     "Uso",
+     "Peso corporal"
+    ]
+   ],
+   "feedback": "El peso se registra en el control prenatal, pero no forma parte de este examen.",
+   "opcional": false
+  }
+ ],
+ "bandeja_img": "assets/instrumental/bandeja.svg"
+}
