@@ -272,7 +272,7 @@ const NikaAssistant = (() => {
         style.id = 'nika-assistant-styles';
         style.textContent = `
             #nika-assistant-btn {
-                position: fixed; bottom: 162px; right: 14px; left: auto; z-index: 9998;
+                position: fixed; bottom: 8px; right: 14px; left: auto; z-index: 9998;
                 width: 66px; height: 76px; padding: 0; border: none; border-radius: 22px;
                 background: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
                 animation: nkaEntra .6s cubic-bezier(.3,1.5,.5,1) both;
@@ -378,7 +378,7 @@ const NikaAssistant = (() => {
 
             @media (max-width: 480px) {
                 #nika-assistant-panel { left: 12px; right: 12px; width: auto; }
-                #nika-assistant-btn { right: 10px; bottom: 162px; }
+                #nika-assistant-btn { right: 10px; bottom: 8px; }
             }
         `;
         document.head.appendChild(style);

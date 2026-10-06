@@ -45,7 +45,7 @@
 
   // ------------------------------------------------------------------ interfaz
   const CSS = `
-  .cf-fab{position:fixed;right:20px;bottom:90px;width:56px;height:56px;border:0;border-radius:50%;cursor:pointer;z-index:9998;display:flex;align-items:center;justify-content:center;font-size:25px;color:#fff;
+  .cf-fab{position:fixed;right:20px;bottom:104px;width:56px;height:56px;border:0;border-radius:50%;cursor:pointer;z-index:9998;display:flex;align-items:center;justify-content:center;font-size:25px;color:#fff;
     background:linear-gradient(135deg,var(--nika-primary,#0284c7),var(--nika-accent,#38bdf8));box-shadow:0 4px 14px rgba(0,0,0,.3);transition:transform .18s,box-shadow .18s}
   .cf-fab,#nika-assistant-btn{transition:opacity .25s,transform .25s}body.cf-abierto .cf-fab,body.cf-abierto #nika-assistant-btn{opacity:0!important;pointer-events:none!important;transform:scale(.6)!important}
   .cf-fab:hover{transform:scale(1.07)}.cf-fab.hay{background:linear-gradient(135deg,#ef4444,#b91c1c);animation:cf-aviso 1.8s ease-in-out infinite}
