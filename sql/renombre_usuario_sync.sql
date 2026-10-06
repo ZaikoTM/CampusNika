@@ -5,6 +5,7 @@
 -- Auditoría: casi todo se identifica por UUID (study_sessions, calendario, exámenes, foro, friendships...) y no se rompe.
 -- Se rompen las tablas que guardan el @usuario como TEXTO sin uuid:
 --   versus_players.username   -> al renombrarse se crea un jugador NUEVO con ELO inicial y se pierde el historial/ranking
+--   versus_answers.username, versus_badges.username, versus_history.winner_username (confirmadas con el diagnóstico)
 --   versus_rooms.host_username / guest_username / winner_username, versus_queue.username,
 --   versus_challenges.from_username / to_username, erratas.reporter_username
 -- (private_messages ya se sincroniza con nika_pm_sync_username, ver private_messages_historial.sql, Bloque 6.)
@@ -29,6 +30,7 @@ declare
         ['versus_rooms','host_username'], ['versus_rooms','guest_username'], ['versus_rooms','winner_username'],
         ['versus_queue','username'],
         ['versus_challenges','from_username'], ['versus_challenges','to_username'],
+        ['versus_answers','username'], ['versus_badges','username'], ['versus_history','winner_username'],
         ['erratas','reporter_username']
     ];
     i int;
