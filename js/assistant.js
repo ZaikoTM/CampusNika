@@ -272,17 +272,34 @@ const NikaAssistant = (() => {
         style.id = 'nika-assistant-styles';
         style.textContent = `
             #nika-assistant-btn {
-                position: fixed; bottom: 22px; right: 20px; left: auto; z-index: 9998;
-                width: 56px; height: 56px; border-radius: 50%;
-                background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-                border: none; cursor: pointer;
-                display: flex; align-items: center; justify-content: center;
-                font-size: 1.5rem; color: #fff;
-                box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.45);
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
-                font-family: 'Plus Jakarta Sans', sans-serif;
+                position: fixed; bottom: 162px; right: 14px; left: auto; z-index: 9998;
+                width: 66px; height: 76px; padding: 0; border: none; border-radius: 22px;
+                background: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+                animation: nkaEntra .6s cubic-bezier(.3,1.5,.5,1) both;
             }
-            #nika-assistant-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 14px 30px -5px rgba(2, 132, 199, 0.55); }
+            #nika-assistant-btn .nka { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 14px rgba(2,20,50,.4)); transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+            #nika-assistant-btn:hover .nka { transform: scale(1.12) rotate(-3deg); }
+            #nika-assistant-btn:active .nka { transform: scale(.94); }
+            #nika-assistant-btn:focus-visible { outline: 3px solid #38bdf8; outline-offset: 3px; }
+            @keyframes nkaEntra { from { opacity: 0; transform: translateY(40px) scale(.6); } to { opacity: 1; transform: none; } }
+            .nka-todo { animation: nkaFlota 3.6s ease-in-out infinite; transform-origin: 100px 210px; }
+            .nka-sombra { animation: nkaSombra 3.6s ease-in-out infinite; transform-origin: 100px 218px; }
+            .nka-ojos { transform: translate(var(--ex, 0px), var(--ey, 0px)); transition: transform .12s ease-out; }
+            .nka-ojo { transform-box: fill-box; transform-origin: 50% 100%; animation: nkaParpadeo 5s infinite; }
+            .nka-cruz { animation: nkaLate 1.6s ease-in-out infinite; transform-origin: 100px 190px; }
+            .nka-brazo-s { transform-origin: 138px 136px; } .nka-brazo-q { transform-origin: 62px 136px; animation: nkaRespira 3.6s ease-in-out infinite; }
+            #nika-assistant-btn:hover .nka-brazo-s, #nika-assistant-btn.saluda .nka-brazo-s { animation: nkaSaluda .7s ease-in-out infinite; }
+            #nika-assistant-btn.has-unread .nka-todo { animation: nkaSalto .9s ease-in-out infinite; }
+            #nika-assistant-btn.feliz .nka-ojo { animation: nkaFeliz .7s ease-in-out; }
+            @keyframes nkaFlota { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+            @keyframes nkaSombra { 0%,100% { transform: scale(1); opacity: .35; } 50% { transform: scale(.82); opacity: .22; } }
+            @keyframes nkaParpadeo { 0%,92%,100% { transform: scaleY(1); } 95% { transform: scaleY(.08); } }
+            @keyframes nkaLate { 0%,100% { transform: scale(1); } 50% { transform: scale(1.14); } }
+            @keyframes nkaRespira { 0%,100% { transform: rotate(0); } 50% { transform: rotate(2.5deg); } }
+            @keyframes nkaSaluda { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(-135deg); } }
+            @keyframes nkaSalto { 0%,100% { transform: translateY(0); } 40% { transform: translateY(-16px); } }
+            @keyframes nkaFeliz { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25,.55); } }
+            @media (prefers-reduced-motion: reduce) { #nika-assistant-btn, #nika-assistant-btn * { animation: none !important; } }
 
             /* Badge rojo de mensaje sin leer, superpuesto sobre el ícono del robot */
             #nika-assistant-badge {
@@ -361,7 +378,7 @@ const NikaAssistant = (() => {
 
             @media (max-width: 480px) {
                 #nika-assistant-panel { left: 12px; right: 12px; width: auto; }
-                #nika-assistant-btn { right: 16px; bottom: 16px; }
+                #nika-assistant-btn { right: 10px; bottom: 162px; }
             }
         `;
         document.head.appendChild(style);
@@ -497,10 +514,20 @@ const NikaAssistant = (() => {
         btnEl = document.createElement('button');
         btnEl.id = 'nika-assistant-btn';
         btnEl.setAttribute('aria-label', 'Abrir asistente Nika');
-        btnEl.innerHTML = '<span aria-hidden="true">🤖</span><span id="nika-assistant-badge"></span>';
+        btnEl.innerHTML = '<svg viewBox="0 0 200 230" class="nka" aria-hidden="true" focusable="false"><defs><linearGradient id="nkaB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#eef2f7"/><stop offset="1" stop-color="#cdd7e3"/></linearGradient><linearGradient id="nkaC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9c5d3"/><stop offset=".5" stop-color="#e9eef4"/><stop offset="1" stop-color="#aebbca"/></linearGradient><linearGradient id="nkaV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16395f"/><stop offset=".55" stop-color="#0c2140"/><stop offset="1" stop-color="#08162b"/></linearGradient><radialGradient id="nkaG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".8"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient></defs><ellipse class="nka-sombra" cx="100" cy="222" rx="36" ry="6.5" fill="#020617" opacity=".32"/><g class="nka-todo"><g class="nka-brazo-q"><path d="M62 134 C48 136 38 152 40 172 C41 183 53 185 59 176 C66 162 68 146 68 138 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M50 150 C48 160 49 168 51 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g><g class="nka-brazo-s"><path d="M138 134 C152 136 162 152 160 172 C159 183 147 185 141 176 C134 162 132 146 132 138 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M150 150 C152 160 151 168 149 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g><path d="M62 152 C62 130 80 122 100 122 C120 122 138 130 138 152 C138 184 124 208 100 208 C76 208 62 184 62 152 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M70 170 L91 170 L95 177 L116 177 L130 170" stroke="#b6c3d1" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="82" cy="146" rx="9" ry="16" fill="#fff" opacity=".7" transform="rotate(14 82 146)"/><g class="nka-cruz" opacity=".9"><circle cx="100" cy="190" r="6.5" fill="#38bdf8"/><path d="M100 186v8M96 190h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></g><rect x="22" y="64" width="19" height="40" rx="9.5" fill="url(#nkaC)" stroke="#b3c0ce" stroke-width="1.4"/><rect x="159" y="64" width="19" height="40" rx="9.5" fill="url(#nkaC)" stroke="#b3c0ce" stroke-width="1.4"/><ellipse cx="100" cy="40" rx="24" ry="7" fill="#dfe6ee" stroke="#c4d0dd" stroke-width="1.4"/><rect x="32" y="38" width="136" height="90" rx="42" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M48 50 C60 42 84 40 100 40" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/><rect x="45" y="52" width="110" height="64" rx="30" fill="url(#nkaV)"/><path d="M58 60 C76 54 124 54 142 60" stroke="#fff" stroke-opacity=".16" stroke-width="5" stroke-linecap="round" fill="none"/><g class="nka-cara"><g class="nka-ojos"><path class="nka-ojo" d="M66 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path class="nka-ojo" d="M106 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path d="M71 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/><path d="M111 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/></g><path class="nka-boca" d="M91 99 Q100 112 109 99 Q100 103 91 99 Z" fill="#35e0f7" stroke="#35e0f7" stroke-width="2" stroke-linejoin="round"/></g></g></svg><span id="nika-assistant-badge"></span>';
         badgeEl = btnEl.querySelector('#nika-assistant-badge');
         btnEl.addEventListener('click', () => togglePanel());
         document.body.appendChild(btnEl);
+        if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            document.addEventListener('pointermove', (e) => {
+                const r = btnEl.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.4);
+                const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260);
+                btnEl.style.setProperty('--ex', (dx / d * 5 * k).toFixed(1) + 'px'); btnEl.style.setProperty('--ey', (dy / d * 3.5 * k).toFixed(1) + 'px');
+            }, { passive: true });
+            const saludar = () => { btnEl.classList.add('saluda'); setTimeout(() => btnEl.classList.remove('saluda'), 2200); };
+            setTimeout(saludar, 1200); setInterval(() => { if (!document.hidden && !isOpen) saludar(); }, 45000);
+            btnEl.addEventListener('click', () => { btnEl.classList.add('feliz'); setTimeout(() => btnEl.classList.remove('feliz'), 750); });
+        }
 
         // Panel de chat
         panelEl = document.createElement('div');

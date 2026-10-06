@@ -239,8 +239,9 @@ const ChatManager = (function () {
         // Si la tabla no tiene Realtime activado esto simplemente no hace nada (el aviso y el sondeo siguen).
         try {
             await _limpiarTopic('nika_inbox');
+            const uid = await _obtenerMiUuid();   // por UUID: sigue valiendo si cambia el username
             sb().channel('nika_inbox')
-                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'private_messages', filter: `to_username=eq.${username}` },
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'private_messages', filter: uid ? `receiver_id=eq.${uid}` : `to_username=eq.${username}` },
                     (p) => { if (p && p.new) _alRecibirMensaje(p.new, 'dm'); })
                 .subscribe();
         } catch (e) { console.warn('[ChatManager] Sin respaldo Realtime de mensajes:', e && e.message); }
@@ -455,26 +456,53 @@ const ChatManager = (function () {
     }
 
     // ------------------------------------------------------------
-    // 2. Historial de una conversación (últimos 100 mensajes)
+    // 2. Historial de una conversación (paginado, por UUID: sobrevive a cambios de username)
+    //    Devuelve un array cronológico (viejo → nuevo) con dos propiedades extra:
+    //      .hayMas  -> true si hay mensajes anteriores sin cargar
+    //      .cursor  -> created_at del más viejo cargado (pasalo a cargarAnteriores)
     // ------------------------------------------------------------
-    async function historial(friendUsername) {
-        const username = window.NikaSupabase.getNikaCurrentUsername();
-        if (!username) throw new Error("No hay usuario logueado.");
+    const PAGINA = 50;
+    let _miUuid = null;
+    const _uuidPorUsuario = new Map();
 
-        const { data, error } = await sb()
-            .from("private_messages")
-            .select("*")
-            .or(
-                `and(from_username.eq.${username},to_username.eq.${friendUsername}),` +
-                `and(from_username.eq.${friendUsername},to_username.eq.${username})`
-            )
-            .order("created_at", { ascending: true })
-            .limit(100);
-
-        if (error) throw error;
-        (data || []).forEach((m) => { if (_norm(m.from_username) === _norm(username)) _registrarEnviado(m); });
-        return data || [];
+    async function _obtenerMiUuid() {
+        if (_miUuid) return _miUuid;
+        try { const { data } = await sb().auth.getSession(); _miUuid = data && data.session ? data.session.user.id : null; } catch (_) {}
+        return _miUuid;
     }
+    async function _uuidDe(username) {
+        const k = _norm(username);
+        if (_uuidPorUsuario.has(k)) return _uuidPorUsuario.get(k);
+        try {
+            const { data } = await sb().from('profiles').select('id').ilike('username', username).maybeSingle();
+            if (data && data.id) { _uuidPorUsuario.set(k, data.id); return data.id; }
+        } catch (_) {}
+        return null;
+    }
+
+    async function _paginaHistorial(friendUsername, limite, antesDe) {
+        const username = _yo();
+        if (!username) throw new Error("No hay usuario logueado.");
+        const [yoId, amigoId] = await Promise.all([_obtenerMiUuid(), _uuidDe(friendUsername)]);
+
+        let q = sb().from("private_messages").select("*");
+        q = (yoId && amigoId)
+            ? q.or(`and(sender_id.eq.${yoId},receiver_id.eq.${amigoId}),and(sender_id.eq.${amigoId},receiver_id.eq.${yoId})`)
+            : q.or(`and(from_username.eq.${username},to_username.eq.${friendUsername}),and(from_username.eq.${friendUsername},to_username.eq.${username})`);
+        q = q.order("created_at", { ascending: false }).limit(limite + 1);   // los MÁS RECIENTES primero; +1 para saber si hay más
+        if (antesDe) q = q.lt("created_at", antesDe);
+
+        const { data, error } = await q;
+        if (error) throw error;
+        const filas = (data || []).slice(0, limite).reverse();               // cronológico para pintar
+        filas.forEach((m) => { if (_norm(m.from_username) === _norm(username)) _registrarEnviado(m); });
+        filas.hayMas = (data || []).length > limite;
+        filas.cursor = filas.length ? filas[0].created_at : null;
+        return filas;
+    }
+
+    function historial(friendUsername, limite) { return _paginaHistorial(friendUsername, limite || PAGINA, null); }
+    function cargarAnteriores(friendUsername, cursor, limite) { return _paginaHistorial(friendUsername, limite || PAGINA, cursor); }
 
     // ------------------------------------------------------------
     // 3. Enviar mensaje de texto
@@ -642,6 +670,7 @@ const ChatManager = (function () {
         set onEntregaCambio(cb) { onEntregaCambio = cb; },
         set onPresenciaGlobal(cb) { onPresenciaGlobal = cb; },
         historial,
+        cargarAnteriores,
         enviarMensaje,
         compartirPregunta,
         contarNoLeidos,

@@ -293,7 +293,7 @@ const NikaPomoBar = (() => {
         toggle.style.display = (esInvitado && enEspera) ? 'none' : '';
         toggle.title = esInvitado ? `Controlado por @${sh.partner || 'el Host'}` : 'Pausar / reanudar';
         document.getElementById('nika-pomo-bar-leave').style.display = sh ? '' : 'none';
-        document.getElementById('nika-pomo-bar-room').style.display = (sh && enEspera && window.abrirSalaEstudio) ? '' : 'none';   // sala de espera abierta
+        document.getElementById('nika-pomo-bar-room').style.display = (sh && (enEspera || !esInvitado) && window.abrirSalaEstudio) ? '' : 'none';   // sala de espera abierta
         document.getElementById('nika-pomo-bar-cfg').style.display = esInvitado ? 'none' : '';   // el Invitado no toca el reloj del Host
         if (esInvitado) { const pc = document.getElementById('nika-pomo-cfg'); if (pc) pc.classList.remove('is-open'); }
         bar.classList.toggle('nika-pomo-bar--paused', st.status !== 'running');

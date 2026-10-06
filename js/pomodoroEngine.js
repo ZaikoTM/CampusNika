@@ -928,6 +928,21 @@ const PomodoroEngine = (() => {
     publishShared('sync');
   }
 
+  // Host: expulsa a un invitado (con el reloj corriendo o no). Se libera su lugar y se le avisa para que se suelte.
+  function kickGuest(username) {
+    const sh = state.shared;
+    if (!sh || sh.role !== 'host' || !username) return false;
+    normalizarShared(sh);
+    const antes = sh.guests.length;
+    sh.guests = sh.guests.filter((g) => g.username !== username);
+    if (sh.guests.length === antes) return false;
+    sincronizarPartner(sh);
+    saveState();
+    publishShared('kick', { kicked: username });
+    emit('shared', { tipo: 'guest_kicked', username });
+    return true;
+  }
+
   function notifyShared(evt) { emit('shared', evt); }
 
   function getSharedInfo() { return state.shared ? { ...state.shared } : null; }
@@ -941,6 +956,15 @@ const PomodoroEngine = (() => {
       const host = state.shared.hostUsername;
       leaveShared({ reason: 'host_ended', notify: false });
       emit('shared', { tipo: 'host_ended', username: host });
+      return;
+    }
+
+    if (snap.type === 'kick') { // el Host me sacó de la sala (los demás invitados ignoran este mensaje)
+      if (snap.kicked && snap.kicked === myUsername()) {
+        const host = state.shared.hostUsername;
+        leaveShared({ reason: 'kicked', notify: false });
+        emit('shared', { tipo: 'kicked', username: host });
+      }
       return;
     }
 
@@ -1070,7 +1094,7 @@ const PomodoroEngine = (() => {
     start, pause, reset, setContext, getState, getRemainingSeconds, getMinutes, on, initAudio, formatTime: fmt, startSynced,
     // Pomodoro compartido
     formatTema, becomeHost, hostSharedSession, joinShared, leaveShared,
-    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, partnerLeft, openRoom, setRoomConfig, notifyShared, MAX_GUESTS,
+    getSharedInfo, getSharedSnapshot, applyRemoteCommand, setPartnerOnline, registerGuestJoined, setGuestOnline, releaseInvite, kickGuest, partnerLeft, openRoom, setRoomConfig, notifyShared, MAX_GUESTS,
     // Solo para pruebas (tests/)
     _test: { registerStudySession, flushPending, readPending },
   };

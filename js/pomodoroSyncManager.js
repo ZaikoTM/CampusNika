@@ -132,7 +132,14 @@ const PomodoroSyncManager = (function () {
     }
 
     function _onVisibilityChange() {
-        if (!document.hidden) _latido();
+        if (document.hidden) return;
+        _latido();
+        // Invitado que vuelve de segundo plano: pide el estado al Host y re-evalúa la presencia
+        const s = sala;
+        if (s && s.role === "guest" && !s.cerrada) {
+            s.gotCmd = false; _iniciarHello(s);
+            setTimeout(() => { if (sala === s) _evaluarSocio(s); }, 3000);
+        }
     }
 
     // El cierre de pestaña/navegador no siempre da tiempo a un ciclo completo del
@@ -405,6 +412,11 @@ const PomodoroSyncManager = (function () {
         s.graceTimer = setTimeout(() => {
             s.graceTimer = null;
             if (sala !== s || s.cerrada) return;
+            // Pestaña en segundo plano o canal propio caído: la que está dormida es ESTA conexión, no el Host.
+            // El reloj sigue corriendo por hora de fin; se reconecta al volver y se re-evalúa, sin soltar al invitado.
+            if (document.hidden || !s.canal || s.canal.state !== "joined") { _iniciarGracia(s); return; }
+            const presentes = Object.keys(s.canal.presenceState()).filter((k) => k !== s.username);
+            if (presentes.includes(s.hostUsername)) return;
             _notificar({ tipo: "host_offline", username: s.hostUsername });
             if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: "host_offline", notify: false });
         }, HOST_GRACE_MS);

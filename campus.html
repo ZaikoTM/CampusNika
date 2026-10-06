@@ -128,7 +128,7 @@
     </script>
 
     <!-- Motor global del Pomodoro: corre en todas las páginas del campus -->
-    <script src="js/pomodoroEngine.js?v=5"></script>
+    <script src="js/pomodoroEngine.js?v=6"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/avisoVencimiento.js"></script>
@@ -1315,12 +1315,12 @@
     </script>
 
     <!-- Asistente IA y Módulos Sociales -->
-    <script src="js/assistant.js"></script>
+    <script src="js/assistant.js?v=2"></script>
     <script src="js/social.js"></script>
     <script src="js/friendsManager.js"></script>
     <script src="js/novedadesAviso.js"></script>
     <script src="js/perfilRedes.js?v=1"></script>
-    <script src="js/salaEstudio.js?v=1"></script>
+    <script src="js/salaEstudio.js?v=2"></script>
     <script src="js/presenciaCampus.js"></script>
     <script src="js/moderacion.js"></script>
     <!-- Modo Guardia Offline-First: IndexedDB + cola de sincronización + descarga por lotes -->
@@ -1329,10 +1329,10 @@
     <script src="js/guardiaModal.js"></script>
     <script src="js/rendimiento.js?v=2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="js/chatManager.js?v=3"></script>
-    <script src="js/pomodoroSyncManager.js?v=3"></script>
+    <script src="js/chatManager.js?v=4"></script>
+    <script src="js/pomodoroSyncManager.js?v=4"></script>
     <script src="js/onboardingTour.js"></script>
-    <script src="js/pomodoroBar.js?v=4"></script>
+    <script src="js/pomodoroBar.js?v=5"></script>
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js"></script>
     <script src="js/ateneos.js"></script>
@@ -5296,11 +5296,33 @@ async function handleLogout() {
         }
         listBox.innerHTML = '';
         _pcLastDayKey = null;
+        _pcHist = mensajes;
+        if (mensajes.hayMas) {   // hay historial anterior: botón para traerlo por páginas
+            listBox.insertAdjacentHTML('beforeend', '<button type="button" id="pc-cargar-previos" class="pc-previos" style="align-self:center;margin:6px auto 10px;padding:6px 14px;border-radius:999px;border:1px solid var(--border,#e2e8f0);background:transparent;color:inherit;font:inherit;font-size:.74rem;font-weight:700;cursor:pointer">↑ Cargar mensajes anteriores</button>');
+            document.getElementById('pc-cargar-previos').onclick = _pcCargarPrevios;
+        }
         mensajes.forEach(m => {
             if (m.id) _pcRenderedIds.add(m.id);
             listBox.insertAdjacentHTML('beforeend', _pcHtmlConDivisor(m, myUsername));
         });
         listBox.scrollTop = listBox.scrollHeight;
+    }
+
+    let _pcHist = [];
+    async function _pcCargarPrevios() {
+        const btn = document.getElementById('pc-cargar-previos'), listBox = document.getElementById('pc-messages-list');
+        if (!btn || !_pcAmigoActual || !_pcHist.cursor) return;
+        btn.disabled = true; btn.textContent = 'Cargando…';
+        try {
+            const amigo = _pcAmigoActual;
+            const previos = await window.ChatManager.cargarAnteriores(amigo, _pcHist.cursor);
+            if (amigo !== _pcAmigoActual) return;
+            const alturaAntes = listBox.scrollHeight;
+            const todos = previos.concat(_pcHist);
+            todos.hayMas = previos.hayMas; todos.cursor = previos.cursor || _pcHist.cursor;
+            _renderMensajesPrivados(todos);
+            listBox.scrollTop = listBox.scrollHeight - alturaAntes;   // no saltar: se queda donde estaba leyendo
+        } catch (e) { btn.disabled = false; btn.textContent = '↑ Cargar mensajes anteriores'; }
     }
 
     function _pcHtmlConDivisor(m, myUsername) {
@@ -6038,6 +6060,6 @@ async function handleLogout() {
     });
 </script>
 
-    <script src="js/chatFlotante.js?v=5"></script>
+    <script src="js/chatFlotante.js?v=6"></script>
 </body>
 </html>

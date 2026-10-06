@@ -9,7 +9,7 @@
   const NOMBRES_MODULO = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', biblioteca: 'Estudio libre' };
   const AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fca5a5'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
-  let overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [];
+  let overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
   const E = () => window.PomodoroEngine;
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const toast = (m, t) => { if (typeof window.showToast === 'function') window.showToast(m, t); };
@@ -90,6 +90,11 @@
     .sala-boom{position:fixed;inset:0;z-index:3950;pointer-events:none;overflow:hidden}
     .sala-boom i{position:absolute;bottom:30%;font-style:normal;font-size:2rem;animation:salaBoom 1.4s ease-out forwards}
     @keyframes salaBoom{to{transform:translate(var(--dx),-70vh) rotate(var(--r));opacity:0}}
+    #sala-overlay.sala-quieta,#sala-overlay.sala-quieta .sala-card,#sala-overlay.sala-quieta .sala-seat.entro .sala-av,#sala-overlay.sala-quieta .sala-picker{animation:none}
+    .sala-av,.sala-card{will-change:transform}
+    .sala-kick{border:0;background:none;color:#fda4af;font-size:.62rem;cursor:pointer;text-decoration:underline;padding:0}
+    .sala-kick:hover{color:#fff}
+    .sala-kick.re{color:#86efac}
     @media(max-width:520px){.sala-seats{grid-template-columns:repeat(5,1fr);gap:4px}.sala-av{width:48px;height:48px;font-size:1.2rem}.sala-card{padding:22px 14px 16px}.sala-foot{flex-wrap:wrap}.sala-btn.sec{flex:1}}
     @media(prefers-reduced-motion:reduce){.sala-card *,.sala-card{animation:none!important}}
     `;
@@ -121,7 +126,9 @@
       if (st.status !== 'idle') { toast('Tu reloj ya está en marcha. Detenelo y armá una sala para que arranquen todos juntos.'); return; }
       const r = E().openRoom();
       if (!r.ok) { toast(r.reason === 'guest' ? 'Estás como invitado en otra sala: salí primero.' : 'No se pudo abrir la sala.'); return; }
-    } else if (sh.role === 'host' && st.status !== 'idle') { toast('Tu sesión ya está en marcha.'); return; }
+    }
+    // Con el reloj corriendo el Host igual puede gestionar la sala (invitar / reingresar / expulsar), sin botón de inicio.
+    enCurso = !!(sh && sh.role === 'host' && st.status !== 'idle');
     css();
     await Promise.all([cargarAmigos(), cargarUnidades()]);
     if (!overlay) {
@@ -130,7 +137,7 @@
       overlay.addEventListener('change', onChange);
       document.body.appendChild(overlay);
     }
-    abierta = true; contando = false; pickerAbierto = false;
+    abierta = true; contando = false; pickerAbierto = false; ultimoHtml = '';
     render();
     desuscribir.forEach((f) => f()); desuscribir = [];
     desuscribir.push(E().on('change', alCambiar), E().on('shared', alCambiar));
@@ -147,7 +154,8 @@
     if (!abierta) return;
     const { st, sh } = estadoRoom();
     if (!sh) { cerrar(); return; }                                       // me fui / el Host cerró la sala
-    if (st.status === 'running' && !contando) { explotar(); cerrar(); return; }   // el Host inició: ¡a estudiar!
+    if (st.status === 'running' && !contando && !enCurso) { explotar(); cerrar(); return; }   // el Host inició: ¡a estudiar!
+    if (enCurso && st.status === 'idle') enCurso = false;                // el Host frenó el reloj: vuelve a ser sala de espera
     if (!contando) render(true);
   }
 
@@ -165,7 +173,11 @@
     if (tipo === 'libre') return `<div class="sala-seat libre ${extra || ''}" data-libre="1"><div class="sala-av" title="Invitar">＋</div><div class="sala-nom">Libre</div></div>`;
     const marca = tipo === 'host' ? '<span class="sala-tag crown">👑</span>' : (tipo === 'espera' ? '' : `<span class="sala-tag ${extra === 'off' ? 'off' : ''}">✓</span>`);
     const sub = tipo === 'host' ? '<small>Host</small>' : (tipo === 'espera' ? '<small>invitado…</small>' : '');
-    const cancelar = tipo === 'espera' && estadoRoom().host ? `<button class="sala-cancel" data-cancelar="${esc(u)}">cancelar</button>` : '';
+    const esHost = estadoRoom().host;
+    let cancelar = tipo === 'espera' && esHost ? `<button class="sala-cancel" data-cancelar="${esc(u)}">cancelar</button>` : '';
+    if (tipo === 'entro' && esHost) {
+      cancelar = (extra === 'off' ? `<button class="sala-kick re" data-reinvitar="${esc(u)}">reinvitar</button> ` : '') + `<button class="sala-kick" data-expulsar="${esc(u)}">expulsar</button>`;
+    }
     return `<div class="sala-seat ${tipo === 'host' ? 'host' : tipo === 'espera' ? 'espera' : 'entro'}"><div class="sala-av"><img src="${img}" alt="" onerror="this.style.display='none'">${marca}</div><div class="sala-nom">${esc(nombre || u)}${sub}</div>${cancelar}</div>`;
   }
 
@@ -195,6 +207,7 @@
 
     // si el picker o un input están enfocados no se redibuja entero (se perdería lo que se está tocando)
     if (suave && overlay.contains(document.activeElement) && /INPUT|SELECT/.test(document.activeElement.tagName)) return;
+    const curso = host && enCurso;
 
     let asientos = asiento('host', sh.hostUsername || (window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername && window.NikaSupabase.getNikaCurrentUsername()));
     joined.forEach((u) => { asientos += asiento('entro', u, online[u] === false ? 'off' : ''); });
@@ -203,7 +216,8 @@
 
     const tomates = Array.from({ length: 1 + MAX }, (_, i) => `<i class="${i < total ? 'on' : ''}">🍅</i>`).join('');
 
-    const config = host ? `
+    const config = curso ? `
+      <div class="sala-chips"><span class="sala-chip">⏱️ ${w} min estudio</span><span class="sala-chip">☕ ${b} min descanso</span>${tema ? `<span class="sala-chip">📚 ${esc(tema)}</span>` : ''}</div>` : host ? `
       <div class="sala-config">
         <label class="sala-cfg-item">Estudio (min)<input type="number" id="sala-w" min="1" max="120" value="${w}"></label>
         <label class="sala-cfg-item">Descanso (min)<input type="number" id="sala-b" min="1" max="60" value="${b}"></label>
@@ -215,7 +229,11 @@
       <div class="sala-picker"><h4>Invitar a un amigo <small style="font-weight:600;color:#fda4af">· ${Math.max(0, MAX - joined.length - invitados.length)} lugares libres</small></h4>
         <div class="sala-amigos">${amigosHtml(joined, invitados) || '<div style="font-size:.78rem;color:#fda4af">No tenés amigos para invitar todavía.</div>'}</div></div>` : '';
 
-    const pie = host ? `
+    const pie = curso ? `
+      <div class="sala-foot">
+        <button class="sala-btn sec" data-cerrar-sala="1">Cerrar sala</button>
+        <button class="sala-btn go" data-min="1" style="animation:none">Volver al estudio</button>
+      </div>` : host ? `
       <div class="sala-foot">
         <button class="sala-btn sec" data-cerrar-sala="1">Cerrar sala</button>
         <button class="sala-btn go" data-iniciar="1">🍅 Iniciar Pomodoro${joined.length ? ` con ${total} personas` : ' (solo)'}</button>
@@ -225,14 +243,14 @@
         <div class="sala-espera"><b>🍅</b> Esperando que @${esc(sh.hostUsername || 'el Host')} inicie el Pomodoro…</div>
       </div>`;
 
-    overlay.innerHTML = `
+    const html = `
       <div class="sala-card" role="dialog" aria-label="Sala de estudio">
         ${bgTomates()}
         <div class="sala-head">
           <button class="sala-x" data-min="1" aria-label="Minimizar" title="Minimizar (la sala sigue abierta)">—</button>
           <div class="sala-tomate">🍅</div>
           <h2>Sala de estudio</h2>
-          <p>${host ? 'Invitá a tus compañeros. El reloj arranca cuando vos lo decidas: todos empiezan juntos.' : `Sala de @${esc(sh.hostUsername || '')} · ya estás adentro`}</p>
+          <p>${curso ? 'El reloj sigue corriendo: podés invitar, reingresar o expulsar gente sin frenarlo.' : host ? 'Invitá a tus compañeros. El reloj arranca cuando vos lo decidas: todos empiezan juntos.' : `Sala de @${esc(sh.hostUsername || '')} · ya estás adentro`}</p>
         </div>
         ${config}
         <div class="sala-meter">${tomates}<span>${total} / ${1 + MAX} en la sala</span></div>
@@ -240,6 +258,10 @@
         ${picker}
         ${pie}
       </div>`;
+    if (html === ultimoHtml) return;          // nada cambió: no se toca el DOM (evita el parpadeo)
+    ultimoHtml = html;
+    overlay.classList.toggle('sala-quieta', !!suave);   // al redibujar no se repiten las animaciones de entrada
+    overlay.innerHTML = html;
   }
 
   function amigosHtml(joined, invitados) {
@@ -291,6 +313,8 @@
     const q = (sel) => t.closest(sel);
     let el;
     if ((el = q('[data-invitar]'))) return invitar(el.dataset.invitar);
+    if ((el = q('[data-expulsar]'))) { if (E().kickGuest(el.dataset.expulsar)) toast(`@${el.dataset.expulsar} salió de la sala.`); return render(); }
+    if ((el = q('[data-reinvitar]'))) return invitar(el.dataset.reinvitar);
     if ((el = q('[data-cancelar]'))) { E().releaseInvite(el.dataset.cancelar); return render(); }
     if (q('[data-libre]') && estadoRoom().host) { pickerAbierto = !pickerAbierto; return render(); }
     if (q('[data-iniciar]')) return iniciar();
@@ -301,7 +325,7 @@
   }
 
   function onChange(e) {
-    if (!estadoRoom().host) return;
+    if (!estadoRoom().host || enCurso) return;
     const w = document.getElementById('sala-w'), b = document.getElementById('sala-b'), up = document.getElementById('sala-up');
     if (!w || !b || !up) return;
     const [moduleId, upId] = String(up.value).split('|');

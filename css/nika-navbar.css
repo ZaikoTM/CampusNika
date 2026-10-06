@@ -1,0 +1,63 @@
+/* Campus Nika — Navbar moderna con degradado, microanimaciones y entrada suave.
+   Paleta por página vía variables: --nb-a, --nb-b, --nb-c (degradado), --nb-ink (texto del botón al hover). */
+header.navbar{
+  --nb-a:#04323a;--nb-b:#028090;--nb-c:#00A896;--nb-ink:#028090;
+  background:linear-gradient(120deg,var(--nb-a),var(--nb-b) 60%,var(--nb-c)) !important;
+  background-size:200% 200%;animation:nbEntra .5s cubic-bezier(.2,.9,.3,1) both,nbFluye 14s ease-in-out infinite;
+  border:0 !important;border-image:none !important;color:#fff;
+  box-shadow:0 10px 26px -14px rgba(0,0,0,.55) !important;backdrop-filter:none !important;
+  display:flex !important;align-items:center !important;justify-content:space-between !important;gap:16px;
+}
+@keyframes nbEntra{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes nbFluye{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+/* bloque izquierdo: logo + eslogan alineados a la izquierda, sin descentrar */
+header.navbar > div:first-child{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;min-width:0}
+header.navbar .brand-title{position:relative;overflow:hidden;color:#fff !important;display:inline-flex;align-items:center;gap:10px;
+  padding:6px 16px 6px 8px;border-radius:14px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);
+  font-size:1.25rem;font-weight:800;letter-spacing:.4px;line-height:1;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s,background .22s,border-color .22s}
+header.navbar .brand-title img.nika-isotipo-mini,header.navbar .brand-title .brand-mark img{height:40px;min-height:40px;max-height:40px;width:auto;margin:0;display:block;
+  background:#fff;border-radius:10px;padding:3px;object-fit:contain;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+header.navbar .brand-title::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);pointer-events:none}
+header.navbar .brand-title:hover{transform:translateY(-2px);border-color:#fff;background:rgba(255,255,255,.22);box-shadow:0 12px 22px -12px rgba(0,0,0,.6)}
+header.navbar .brand-title:hover img{transform:rotate(-8deg) scale(1.12)}
+header.navbar .brand-title:hover::after{left:130%;transition:left .6s ease}
+header.navbar .brand-slogan{display:block;background:none;-webkit-background-clip:border-box;background-clip:border-box;
+  color:rgba(255,255,255,.88) !important;-webkit-text-fill-color:rgba(255,255,255,.88);font-size:.72rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding-left:6px}
+header.navbar .btn-back{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.55);
+  background:rgba(255,255,255,.14) !important;color:#fff !important;font-weight:700;font-size:.9rem;white-space:nowrap;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1),background .2s,color .2s,box-shadow .2s}
+header.navbar .btn-back .fl,header.navbar .btn-back svg{display:inline-block;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+header.navbar .btn-back:hover{background:#fff !important;color:var(--nb-ink) !important;transform:translateY(-2px);box-shadow:0 14px 22px -10px rgba(0,0,0,.5)}
+header.navbar .btn-back:hover .fl,header.navbar .btn-back:hover svg{transform:translateX(-5px)}
+header.navbar .btn-back:active,header.navbar .brand-title:active{transform:scale(.95)}
+header.navbar .brand-title:focus-visible,header.navbar .btn-back:focus-visible{outline:3px solid #fbbf24;outline-offset:2px}
+@media(max-width:560px){header.navbar{padding:12px 14px !important}header.navbar .brand-slogan{display:none}header.navbar .btn-back{padding:8px 14px;font-size:.82rem}}
+@media(prefers-reduced-motion:reduce){header.navbar{animation:none}header.navbar *{transition:none !important}}
+
+/* ---- Entrada escalonada + microanimaciones de tarjetas (hubs y salas de estudio) ---- */
+@keyframes nkUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hub-header,.suite-hero{animation:nkUp .55s cubic-bezier(.2,.9,.3,1) both .08s}
+.hub-grid>*,.up-bento-grid>*{animation:nkUp .5s cubic-bezier(.2,.9,.3,1) both}
+.hub-grid>*:nth-child(1),.up-bento-grid>*:nth-child(1){animation-delay:.12s}
+.hub-grid>*:nth-child(2),.up-bento-grid>*:nth-child(2){animation-delay:.2s}
+.hub-grid>*:nth-child(3),.up-bento-grid>*:nth-child(3){animation-delay:.28s}
+.hub-grid>*:nth-child(n+4),.up-bento-grid>*:nth-child(n+4){animation-delay:.34s}
+.hub-card,.up-card{transition:transform .25s cubic-bezier(.34,1.4,.64,1),box-shadow .25s,border-color .25s}
+.hub-card:hover,.up-card:hover{transform:translateY(-6px) scale(1.012)}
+.hub-card:active,.up-card:active{transform:scale(.98)}
+.hub-card .hub-icon,.hub-card .icon{display:inline-block;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.hub-card:hover .hub-icon,.hub-card:hover .icon{transform:scale(1.18) rotate(-6deg)}
+.hub-card:focus-visible,.up-card:focus-visible,#search-up-input:focus-visible{outline:3px solid var(--nika-accent);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.hub-header,.suite-hero,.hub-grid>*,.up-bento-grid>*{animation:none}}
+
+/* ---- Paletas por especialidad ---- */
+body.pal-gineco header.navbar,body[data-modulo="ginecologia"] header.navbar{--nb-a:#5b0f3a;--nb-b:#be3a8f;--nb-c:#c084fc;--nb-ink:#9d2a74}
+body.pal-cirugia header.navbar,body[data-modulo="cirugia"] header.navbar{--nb-a:#06284f;--nb-b:#0f6cbf;--nb-c:#38bdf8;--nb-ink:#0b4f8c}
+/* navbar de estudio.html: el logo N reemplaza al símbolo genérico, centrado y nítido */
+header.navbar .brand-title .brand-mark{width:auto;height:auto;background:none;border:0;padding:0;display:flex;align-items:center;justify-content:center}
+header.navbar .brand-title .brand-mark img{height:40px}
+header.navbar .brand-title>span:last-child{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+header.navbar .brand-title>span:last-child .brand-slogan{padding-left:0}
+header.navbar .nm-nav-btn,header.navbar [data-nika-racha-slot]>*{transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s}
+header.navbar .nm-nav-btn:hover,header.navbar [data-nika-racha-slot]>*:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 18px -10px rgba(0,0,0,.5)}

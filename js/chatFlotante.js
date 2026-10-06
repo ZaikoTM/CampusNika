@@ -75,6 +75,7 @@
   .cf-n{min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:#0284c7;color:#fff;font-size:.74rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
   .cf-vacio{padding:30px 16px;text-align:center;color:var(--text-muted,#64748b);font-size:.86rem}
   .cf-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:6px;background:var(--bg-body,#f1f5f9)}
+  .cf-previos{align-self:center;margin:4px auto 8px;padding:5px 12px;border-radius:999px;border:1px solid var(--border,#e2e8f0);background:transparent;color:inherit;font:inherit;font-size:.72rem;font-weight:700;cursor:pointer}.cf-previos:hover{background:rgba(2,132,199,.1)}
   .cf-dia{align-self:center;font-size:.68rem;font-weight:800;color:var(--text-muted,#64748b);margin:6px 0}
   .cf-b{max-width:80%;padding:8px 12px;border-radius:16px;font-size:.88rem;line-height:1.4;word-wrap:break-word;white-space:pre-wrap;animation:cf-entra .25s both}
   .cf-b.theirs{align-self:flex-start;background:var(--card-bg,#fff);border:1px solid var(--border,#e2e8f0);border-bottom-left-radius:4px}
@@ -207,6 +208,28 @@
       const box = $('.cf-msgs', panel); box.innerHTML = '';
       if (!hist.length) box.innerHTML = '<div class="cf-vacio">Todavía no hay mensajes. ¡Escribile algo!</div>';
       hist.forEach(burbuja);
+      let cursor = hist.cursor;
+      const previos = (hayMas) => {   // botón al tope: trae la página anterior y la antepone sin perder la posición
+        const b = $('.cf-previos', box); if (b) b.remove();
+        if (!hayMas) return;
+        const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'cf-previos'; btn.textContent = '↑ Cargar mensajes anteriores';
+        btn.onclick = async () => {
+          btn.disabled = true; btn.textContent = 'Cargando…';
+          try {
+            const ant = await CM.cargarAnteriores(user, cursor);
+            const alto = box.scrollHeight;
+            const nuevos = ant.filter((m) => m.id && !ids.has(m.id));
+            const cola = Array.from(box.children).filter((n) => !n.classList.contains('cf-previos'));
+            cola.forEach((n) => n.remove()); ultimoDia = null;
+            const ya = new Set(ids); ids = new Set();
+            nuevos.forEach(burbuja);
+            cola.forEach((n) => box.appendChild(n)); ids = new Set([...ids, ...ya]);
+            cursor = ant.cursor || cursor; box.scrollTop = box.scrollHeight - alto; previos(ant.hayMas);
+          } catch (_) { btn.disabled = false; btn.textContent = '↑ Cargar mensajes anteriores'; }
+        };
+        box.prepend(btn);
+      };
+      previos(hist.hayMas);
       await CM.marcarComoLeido(user); refrescarNoLeidos();
     } catch (e) { const box = $('.cf-msgs', panel); if (box) box.innerHTML = '<div class="cf-vacio">No se pudo cargar el chat.</div>'; }
     pintarEstado(CM.estaEnLinea(user));
