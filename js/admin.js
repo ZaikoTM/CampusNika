@@ -397,10 +397,12 @@
   // Mosaico: bancos de preguntas JSON (tabla bancos_json vía supabaseClient.js)
   // Para sumar un área o UP nueva alcanza con editar NIKA_MODULOS.
   // ------------------------------------------------------------
+  // Unidades de Ginecología y SIAM: mismo catálogo que usa el simulador (js/examModesConfig.js → CHOICE_UNIDADES_POR_MATERIA); cada una trae el archivo local con su banco
+  const _upsDe = (k) => ((window.CHOICE_UNIDADES_POR_MATERIA || {})[k] || []).map((u) => ({ id: u.id, label: u.label, archivo: u.archivo }));
   const NIKA_MODULOS = {
     cirugia: { label: 'Cirugía General', ups: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11'].map((n) => ({ id: n, label: 'UP ' + n })) },
-    ginecologia: { label: 'Ginecología', ups: [] },
-    siam: { label: 'S.I.A.M.', ups: [] },
+    ginecologia: { label: 'Ginecología', ups: _upsDe('ginecologia') },
+    siam: { label: 'S.I.A.M.', ups: _upsDe('siam') },
   };
   let bancosIniciado = false;
 
@@ -411,6 +413,7 @@
       Object.entries(NIKA_MODULOS).forEach(([k, cfg]) => { const o = el('option', null, cfg.label); o.value = k; area.appendChild(o); });
       area.addEventListener('change', alCambiarArea);
       $('bank-subir').addEventListener('click', subirBanco);
+      const sync = $('bank-sync'); if (sync) sync.addEventListener('click', sincronizarLocales);
     }
     alCambiarArea();
   }
@@ -419,6 +422,7 @@
     const up = $('bank-up'); up.textContent = '';
     if (cfg && cfg.ups.length) cfg.ups.forEach((u) => { const o = el('option', null, u.label); o.value = u.id; up.appendChild(o); });
     else { const o = el('option', null, 'Sin UPs configuradas'); o.value = ''; up.appendChild(o); }
+    const sync = $('bank-sync'); if (sync) sync.style.display = (cfg && cfg.ups.some((u) => u.archivo)) ? '' : 'none';
     pintarEstadoBancos();
   }
 
@@ -456,6 +460,31 @@
       pintarEstadoBancos();
     };
     reader.readAsText(input.files[0]);
+  }
+
+  // Sube a Supabase (bancos_json) todos los bancos de un área que el sitio ya trae en data/*.json. Hace falta ser admin (RLS).
+  async function sincronizarLocales() {
+    const modulo = $('bank-area').value, cfg = NIKA_MODULOS[modulo]; if (!cfg) return;
+    const lista = cfg.ups.filter((u) => u.archivo); if (!lista.length) { toast('Esta área no tiene bancos locales para sincronizar.'); return; }
+    if (!window.NikaSupabase || !window.NikaSupabase.guardarBancoJSON) { toast('Supabase no está disponible.'); return; }
+    if (!confirm(`Se van a cargar ${lista.length} bancos de ${cfg.label} en Supabase, tomados de los archivos del sitio. Reemplaza lo que haya en esas unidades. ¿Continuar?`)) return;
+    const btn = $('bank-sync'); const txt = btn.textContent; btn.disabled = true;
+    let ok = 0, total = 0; const fallos = [];
+    for (const u of lista) {
+      btn.textContent = `Subiendo ${u.id}…`;
+      try {
+        const r = await fetch(u.archivo, { cache: 'no-cache' }); if (!r.ok) throw new Error('HTTP ' + r.status);
+        const preguntas = extraerPreguntas(await r.json(), u.id);
+        const { error } = await window.NikaSupabase.guardarBancoJSON({ modulo, upId: u.id, data: preguntas });
+        if (error) throw error;
+        ok++; total += preguntas.length;
+        try { localStorage.setItem(`nika_banco_${modulo}_${u.id}`, JSON.stringify(preguntas)); } catch (_) {}
+      } catch (e) { fallos.push(`${u.id}: ${e.message || e}`); }
+    }
+    btn.disabled = false; btn.textContent = txt;
+    if (fallos.length) alert(`Se sincronizaron ${ok} de ${lista.length} bancos (${total} preguntas).\n\nFallaron:\n` + fallos.join('\n'));
+    else toast(`✅ ${cfg.label}: ${ok} bancos sincronizados (${total} preguntas).`);
+    pintarEstadoBancos();
   }
 
   async function pintarEstadoBancos() {

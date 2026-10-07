@@ -313,7 +313,7 @@
     </div>
     <div class="navbar-actions">
         <button class="btn-icon" id="dark-mode-btn" onclick="toggleDarkMode()">🌙</button>
-        <a href="cirugia_hub.html" class="btn-back">← Volver al Hub</a>
+        <a href="cirugia_hub.html" class="btn-back" id="btn-back-hub">← Volver al Hub</a>
     </div>
 </header>
 
@@ -590,6 +590,7 @@
 </div>
 
 <!-- ============ Orden de carga: config → managers → lógica de página ============ -->
+<script src="js/examModesConfig.js?v=72"></script>
 <script src="supabaseClient.js"></script>
 <script src="js/friendsManager.js"></script>
 <script src="duelosManager.js"></script>
@@ -782,7 +783,7 @@
 
     function continuarADificultadIA() {
         if (modoIAActual === 'up_especifica') {
-            upEspecificaIAActual = parseInt(document.getElementById('ia-specific-up').value, 10);
+            upEspecificaIAActual = document.getElementById('ia-specific-up').value;
         }
         playSound('click');
         mostrarVista('view-ia-dificultad');
@@ -1037,61 +1038,77 @@
     // ------------------------------------------------------------
     // Banco de preguntas optimizado con limpieza OCR
     // ------------------------------------------------------------
-    async function _cargarBancoPreguntas(modo, upEspecifica) {
-        let upsTarget = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-        if (modo === 'parcial_1') upsTarget = [1, 2, 3, 4, 5];
-        else if (modo === 'parcial_2') upsTarget = [6, 7, 8, 9, 10, 11];
-        else if (modo === 'up_especifica' && upEspecifica) upsTarget = [parseInt(upEspecifica, 10)];
+    // ------------------------------------------------------------
+    // Materia del duelo: ?modulo=cirugia | ginecologia | siam (por defecto cirugía).
+    // Las unidades salen de js/examModesConfig.js (CHOICE_UNIDADES_POR_MATERIA / TEMATICA_POR_MATERIA); cirugía conserva sus 11 UP.
+    // ------------------------------------------------------------
+    const MODULO = new URLSearchParams(location.search).get('modulo') || 'cirugia';
+    const UNIDADES_MAT = (window.CHOICE_UNIDADES_POR_MATERIA || {})[MODULO] || null;
+    const HUBS = { cirugia: 'cirugia_hub.html', ginecologia: 'gineco_hub.html', siam: 'siam_hub.html' };
 
+    function _todasLasUnidades() {
+        if (UNIDADES_MAT) return UNIDADES_MAT.map((u, i) => ({ n: i + 1, id: u.id, archivo: u.archivo, label: u.label }));
+        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((n) => ({ n, id: String(n).padStart(2, '0'), archivo: null }));
+    }
+
+    function _unidadesDelModo(modo, upEspecifica) {
+        const todas = _todasLasUnidades();
+        const T = (window.TEMATICA_POR_MATERIA || {})[MODULO];
+        const idsParcial = (k) => (UNIDADES_MAT && T && T.parciales && T.parciales[k] && T.parciales[k].unidadesParcial) || null;
+        if (modo === 'parcial_1') { const l = idsParcial(0); return l ? todas.filter((u) => l.includes(u.id)) : todas.filter((u) => u.n <= 5); }
+        if (modo === 'parcial_2') { const l = idsParcial(1); return l ? todas.filter((u) => l.includes(u.id)) : todas.filter((u) => u.n >= 6); }
+        if (modo === 'up_especifica' && upEspecifica != null) return todas.filter((u) => String(u.n) === String(upEspecifica) || u.id === String(upEspecifica));
+        return todas;
+    }
+
+    // Adapta textos, tarjetas de modo y selector de UP a la materia
+    function _adaptarUIMateria() {
+        const volver = document.getElementById('btn-back-hub'); if (volver && HUBS[MODULO]) volver.href = HUBS[MODULO];
+        if (!UNIDADES_MAT) return;
+        const T = (window.TEMATICA_POR_MATERIA || {})[MODULO]; const todas = _todasLasUnidades();
+        const p = (T && T.parciales) || [];
+        const tarjeta = (modo) => document.querySelector(`#view-ia-modo [data-ia-modo="${modo}"]`);
+        const poner = (modo, titulo, sub) => { const c = tarjeta(modo); if (!c) return; c.querySelector('h3').textContent = titulo; c.querySelector('p').textContent = sub; };
+        if (p[0]) poner('parcial_1', p[0].label || 'Primer Parcial', p[0].sub || ('UP 1 a ' + (p[0].unidadesParcial || []).length));
+        const c2 = tarjeta('parcial_2');
+        if (p[1]) poner('parcial_2', p[1].label || 'Segundo Parcial', p[1].sub || '');
+        else if (c2) c2.style.display = 'none';
+        poner('final', (T && T.global && T.global.label) || 'Examen Final', `Integral, las ${todas.length} unidades.`);
+        const sel = document.getElementById('ia-specific-up');
+        if (sel) { sel.innerHTML = ''; todas.forEach((u) => { const o = document.createElement('option'); o.value = u.id; o.textContent = u.label || u.id; sel.appendChild(o); }); }
+        upEspecificaIAActual = todas[0] ? todas[0].id : 1;
+    }
+    document.addEventListener('DOMContentLoaded', _adaptarUIMateria);
+
+    // Convierte un ítem del banco ({q, options:{a..d}, correct}) en pregunta de duelo
+    function _mapearPregunta(item, upNum, idx, prefijo) {
+        let cleanQ = item.q != null ? item.q : item.pregunta;                                       // cirugía: {q, options, correct}; SIAM/Ginecología: {pregunta, opciones, respuesta_correcta}
+        const cleanOptions = { ...(item.options || item.opciones || {}) };
+        const correcta = String(item.correct != null ? item.correct : item.respuesta_correcta).trim().toLowerCase();
+        // Limpieza OCR: rescata texto de opción pegado al enunciado
+        if (cleanOptions.a) {
+            const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
+            if (matchA && matchA[1].trim() !== "") { cleanQ += " " + matchA[1].trim(); cleanOptions.a = matchA[2]; }
+        }
+        ['a', 'b', 'c', 'd'].forEach((key) => {
+            if (cleanOptions[key]) cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
+        });
+        const opciones = ['a', 'b', 'c', 'd']
+            .filter((l) => cleanOptions[l] !== undefined && cleanOptions[l] !== '')
+            .map((l) => ({ id: l, texto: cleanOptions[l], correcta: l === correcta }));
+        return { id: `${prefijo}_${idx}`, up: upNum, pregunta: cleanQ, opciones };
+    }
+    const _itemsDe = (res) => (res && res.data && Array.isArray(res.data)) ? res.data : (Array.isArray(res) ? res : (res && res.questions ? res.questions : []));
+
+    async function _cargarBancoPreguntas(modo, upEspecifica) {
+        const unidades = _unidadesDelModo(modo, upEspecifica);
         bancoPreguntas = [];
 
+        // 1) Supabase (bancos_json); 2) archivo local del sitio (materias nuevas) o db_cirugia_organizado.json (cirugía)
         try {
             if (window.NikaSupabase && typeof window.NikaSupabase.cargarPreguntasUP === 'function') {
-                const promesas = upsTarget.map(upNum => {
-                    const upId = upNum.toString().padStart(2, '0');
-                    return window.NikaSupabase.cargarPreguntasUP({ modulo: 'cirugia', upId })
-                        .catch(() => ({ data: [] }));
-                });
-                const resultados = await Promise.all(promesas);
-
-                resultados.forEach((res, i) => {
-                    const upNum = upsTarget[i];
-                    const items = (res && res.data) ? res.data : (Array.isArray(res) ? res : (res && res.questions ? res.questions : []));
-                    
-                    items.forEach((item, idx) => {
-                        let cleanQ = item.q;
-                        let cleanOptions = { ...item.options };
-
-                        // Limpieza OCR: rescata texto de opción pegado al enunciado
-                        if (cleanOptions.a) {
-                            const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
-                            if (matchA && matchA[1].trim() !== "") {
-                                cleanQ += " " + matchA[1].trim();
-                                cleanOptions.a = matchA[2];
-                            }
-                        }
-                        ['a', 'b', 'c', 'd'].forEach(key => {
-                            if (cleanOptions[key]) {
-                                cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
-                            }
-                        });
-
-                        const opciones = ['a', 'b', 'c', 'd']
-                            .filter(l => cleanOptions[l] !== undefined && cleanOptions[l] !== '')
-                            .map(l => ({
-                                id: l,
-                                texto: cleanOptions[l],
-                                correcta: l === item.correct
-                            }));
-
-                        bancoPreguntas.push({
-                            id: `up${upNum}_${idx}`,
-                            up: upNum,
-                            pregunta: cleanQ,
-                            opciones
-                        });
-                    });
-                });
+                const resultados = await Promise.all(unidades.map((u) => window.NikaSupabase.cargarPreguntasUP({ modulo: MODULO, upId: u.id }).catch(() => ({ data: [] }))));
+                resultados.forEach((res, i) => { _itemsDe(res).forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, unidades[i].n, idx, UNIDADES_MAT ? `up${unidades[i].id}` : `up${unidades[i].n}`))); });
             }
         } catch (err) {
             console.warn("[Versus] Error consultando Supabase, recurriendo a respaldo local:", err);
@@ -1099,58 +1116,30 @@
 
         if (bancoPreguntas.length === 0) {
             try {
-                const res = await fetch('db_cirugia_organizado.json');
-                const raw = await res.json();
-                upsTarget.forEach(upNum => {
-                    const upKey = `up${upNum}`;
-                    if (raw[upKey] && raw[upKey].questions) {
-                        raw[upKey].questions.forEach((item, idx) => {
-                            let cleanQ = item.q;
-                            let cleanOptions = { ...item.options };
-
-                            if (cleanOptions.a) {
-                                const matchA = cleanOptions.a.match(/(.*?)([A|a]\).*)/);
-                                if (matchA && matchA[1].trim() !== "") {
-                                    cleanQ += " " + matchA[1].trim();
-                                    cleanOptions.a = matchA[2];
-                                }
-                            }
-                            ['a', 'b', 'c', 'd'].forEach(key => {
-                                if (cleanOptions[key]) {
-                                    cleanOptions[key] = cleanOptions[key].replace(new RegExp(`^${key}\\)\\s*`, 'i'), '').trim();
-                                }
-                            });
-
-                            const opciones = ['a', 'b', 'c', 'd']
-                                .filter(letra => cleanOptions[letra] !== undefined && cleanOptions[letra] !== '')
-                                .map(letra => ({
-                                    id: letra,
-                                    texto: cleanOptions[letra],
-                                    correcta: letra === item.correct
-                                }));
-
-                            bancoPreguntas.push({
-                                id: `${upKey}_${idx}`,
-                                up: upNum,
-                                pregunta: cleanQ,
-                                opciones
-                            });
-                        });
+                if (UNIDADES_MAT) {
+                    for (const u of unidades) {
+                        const r = await fetch(u.archivo); if (!r.ok) continue;
+                        const j = await r.json(); const items = Array.isArray(j) ? j : (j.preguntas || j.questions || []);
+                        items.forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, u.n, idx, `up${u.id}`)));
                     }
-                });
+                } else {
+                    const res = await fetch('db_cirugia_organizado.json');
+                    const raw = await res.json();
+                    unidades.forEach((u) => {
+                        const bloque = raw[`up${u.n}`];
+                        if (bloque && bloque.questions) bloque.questions.forEach((item, idx) => bancoPreguntas.push(_mapearPregunta(item, u.n, idx, `up${u.n}`)));
+                    });
+                }
             } catch (fallbackErr) {
                 console.error("[Versus] Error cargando base de respaldo local:", fallbackErr);
             }
         }
-
         return bancoPreguntas;
     }
 
     function _filtrarBancoPorModo(banco, modo, upEspecifica) {
-        if (modo === 'parcial_1') return banco.filter((q) => q.up >= 1 && q.up <= 5);
-        if (modo === 'parcial_2') return banco.filter((q) => q.up >= 6 && q.up <= 11);
-        if (modo === 'up_especifica') return banco.filter((q) => q.up === parseInt(upEspecifica, 10));
-        return banco;
+        const ns = new Set(_unidadesDelModo(modo, upEspecifica).map((u) => u.n));
+        return (modo === 'parcial_1' || modo === 'parcial_2' || modo === 'up_especifica') ? banco.filter((q) => ns.has(q.up)) : banco;
     }
 
     async function _cargarPreguntasParaDuelo(cantidad, modo, upEspecifica) {
