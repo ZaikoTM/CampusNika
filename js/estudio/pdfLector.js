@@ -19,6 +19,7 @@
     fs: '<svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
     fsx: '<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>',
     ok: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+    pincel: '<svg viewBox="0 0 24 24"><path d="M14 4l6 6-9.5 9.5H4.5v-6z"/><path d="M12.5 5.5l6 6"/><path d="M4 21h4"/></svg>',
     area: '<svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2" stroke-dasharray="3 2"/><path d="M8 14h8"/></svg>',
     drive: '<svg viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 7H6l-4-7z"/></svg>',
     ajustar: '<svg viewBox="0 0 24 24"><path d="M4 12h16M7 8l-3 4 3 4M17 8l3 4-3 4"/></svg>',
@@ -49,7 +50,7 @@
     const st = document.createElement('style'); st.id = 'nkpdf-css';
     st.textContent = `
 .nkpdf{position:absolute;inset:0;display:flex;flex-direction:column;background:#e2e8f0;font-family:inherit;overflow:hidden}
-.nkpdf svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.nkpdf-bar svg,.nkpdf-panel svg,.nkpdf-toast svg,.nkpdf-pop svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .nkpdf-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;color:#e2e8f0;font-size:.78rem;font-weight:700;
   background:linear-gradient(120deg,#0b1535,#1e1b4b 55%,#2e1065);border-bottom:1px solid rgba(168,85,247,.45);box-shadow:0 6px 18px rgba(15,23,42,.35);position:relative;z-index:5}
 .nkpdf-grupo{display:flex;align-items:center;gap:3px;padding:3px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}
@@ -75,6 +76,15 @@
 .nkpdf-scroll{flex:1;overflow:auto;padding:14px 0;-webkit-overflow-scrolling:touch}
 .nkpdf.m-sub .nkpdf-scroll{cursor:text}
 .nkpdf.m-area .nkpdf-scroll{cursor:crosshair;touch-action:none}
+.nkpdf.m-pincel .nkpdf-scroll,.nkpdf.m-bor .nkpdf-scroll{cursor:none;touch-action:none}
+.nkpdf.m-pincel .nk-tx,.nkpdf.m-bor .nk-tx{user-select:none;-webkit-user-select:none}
+.nk-hl svg,.nk-live{position:absolute;left:0;top:0;pointer-events:none;mix-blend-mode:multiply;opacity:.55}
+.nkpdf-aro{position:absolute;z-index:8;pointer-events:none;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px rgba(15,23,42,.65),inset 0 0 0 1px rgba(15,23,42,.25);transform:translate(-50%,-50%);display:none}
+.nkpdf-tam{display:none;align-items:center;gap:8px;padding:3px 10px}
+.nkpdf.m-pincel .nkpdf-tam,.nkpdf.m-bor .nkpdf-tam{display:flex}
+.nkpdf-tam input[type=range]{width:96px;accent-color:#a855f7;padding:0;height:4px}
+.nkpdf-tam b{min-width:30px;font-size:.72rem;color:#c4b5fd}
+.nkpdf-item .cp{margin-right:4px}
 .nkpdf.m-area .nk-tx{user-select:none;-webkit-user-select:none}
 .nkpdf-rect{position:absolute;pointer-events:none;border:2px dashed rgba(15,23,42,.55);border-radius:3px;z-index:3}
 .nkpdf-volver{position:absolute;left:12px;bottom:12px;z-index:30;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:0;border-radius:999px;font:inherit;font-weight:800;font-size:.82rem;color:#fff;cursor:pointer;background:linear-gradient(135deg,#7e22ce,#a855f7 60%,#6366f1);box-shadow:0 8px 22px rgba(168,85,247,.55);animation:nkpdfIn .3s ease both;transition:transform .18s,box-shadow .18s}
@@ -176,16 +186,31 @@
   }
 
   // ---------- render ----------
+  const esTrazo = (m) => !!(m.rects && m.rects[0] && m.rects[0].t === 'p');
+  function dTrazo(pts, W, H) { return pts.map((q, i) => (i ? 'L' : 'M') + (q[0] * W).toFixed(1) + ' ' + (q[1] * H).toFixed(1)).join(' ') + (pts.length === 1 ? ' l0.01 0' : ''); }
   function pintarMarcas(pg) {
     const capa = pg.el.querySelector('.nk-hl'); if (!capa) return;
     capa.innerHTML = '';
+    const W = pg.el.offsetWidth || parseFloat(pg.el.style.width) || 1, H = pg.el.offsetHeight || parseFloat(pg.el.style.height) || 1;
+    const trazos = [];
     S.marcas.filter((m) => m.pagina === pg.num).forEach((m) => {
       (m.rects || []).forEach((r) => {
+        if (r.t === 'p') { trazos.push([m, r]); return; }
         const i = document.createElement('i');
         i.style.cssText = `left:${r.x * 100}%;top:${r.y * 100}%;width:${r.w * 100}%;height:${r.h * 100}%;background:${COLORES[m.color] || COLORES.amarillo}`;
         capa.appendChild(i);
       });
     });
+    if (trazos.length) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('width', W); svg.setAttribute('height', H);
+      trazos.forEach(([m, r]) => {
+        const pa = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        pa.setAttribute('d', dTrazo(r.p, W, H)); pa.setAttribute('fill', 'none'); pa.setAttribute('stroke', COLORES[m.color] || COLORES.amarillo);
+        pa.setAttribute('stroke-width', Math.max(1, r.w * W)); pa.setAttribute('stroke-linecap', 'round'); pa.setAttribute('stroke-linejoin', 'round');
+        svg.appendChild(pa);
+      });
+      capa.appendChild(svg);
+    }
   }
   function repintarTodas() { S.pags.forEach((pg) => { if (pg.hecho) pintarMarcas(pg); }); panel(); }
 
@@ -262,28 +287,86 @@
   }
 
 
-  // ---------- marcar un área arrastrando (PDFs escaneados o sin texto) ----------
-  function iniciarArea(e, mi) {
-    if (S !== mi || e.button || !(S.modo === 'area' || S.modo === 'sub')) return;
-    const pg = S.pags.find((p) => p.el.contains(e.target)); if (!pg || !pg.hecho) return;
-    const conTexto = pg.el.querySelectorAll('.nk-tx span').length >= 8;
-    if (S.modo === 'sub' && conTexto) return;               // páginas con texto: se subraya seleccionando
+  // ---------- toque sobre marcas (texto, áreas y trazos) ----------
+  function distSeg(px, py, ax, ay, bx, by) {
+    const dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy; let t = l2 ? ((px - ax) * dx + (py - ay) * dy) / l2 : 0; t = Math.max(0, Math.min(1, t));
+    return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+  }
+  function tocaMarca(m, W, H, px, py, rpx) {
+    return (m.rects || []).some((r) => {
+      if (r.t === 'p') {
+        const half = r.w * W / 2 + rpx; const P = r.p;
+        if (P.length === 1) return Math.hypot(px - P[0][0] * W, py - P[0][1] * H) <= half;
+        for (let i = 1; i < P.length; i++) if (distSeg(px, py, P[i - 1][0] * W, P[i - 1][1] * H, P[i][0] * W, P[i][1] * H) <= half) return true;
+        return false;
+      }
+      return px >= r.x * W - rpx && px <= (r.x + r.w) * W + rpx && py >= r.y * H - rpx && py <= (r.y + r.h) * H + rpx;
+    });
+  }
+  const marcasEn = (pg, px, py, rpx) => S.marcas.filter((m) => m.pagina === pg.num && tocaMarca(m, pg.el.offsetWidth, pg.el.offsetHeight, px, py, rpx));
+
+  // ---------- pincel (trazo libre, tamaño ajustable) y borrador de arrastre ----------
+  function paginaBajo(e) { return S.pags.find((p) => p.el.contains(e.target)); }
+  function iniciarTrazo(e, mi) {
+    if (S !== mi || e.button) return;
+    const pg = paginaBajo(e); if (!pg || !pg.hecho) return;
+    const sparse = pg.el.querySelectorAll('.nk-tx span').length < 8;
+    const modoPincel = S.modo === 'pincel' || (S.modo === 'sub' && sparse);
+    if (S.modo === 'bor') return borrarArrastrando(e, mi, pg);
+    if (!modoPincel) return;
     e.preventDefault(); cerrarPop();
-    const b0 = pg.el.getBoundingClientRect(); const x0 = e.clientX, y0 = e.clientY;
-    const caja = document.createElement('div'); caja.className = 'nkpdf-rect'; caja.style.background = COLORES[S.color] + '88'; pg.el.appendChild(caja);
-    const pos = (ev) => ({ x: Math.min(Math.max(ev.clientX, b0.left), b0.right), y: Math.min(Math.max(ev.clientY, b0.top), b0.bottom) });
-    const mover = (ev) => { const p = pos(ev); caja.style.left = (Math.min(x0, p.x) - b0.left) + 'px'; caja.style.top = (Math.min(y0, p.y) - b0.top) + 'px'; caja.style.width = Math.abs(p.x - x0) + 'px'; caja.style.height = Math.abs(p.y - y0) + 'px'; };
-    mover(e);
+    const b0 = pg.el.getBoundingClientRect(); const W = b0.width, H = b0.height;
+    const norm = (ev) => [Math.min(1, Math.max(0, (ev.clientX - b0.left) / W)), Math.min(1, Math.max(0, (ev.clientY - b0.top) / H))];
+    const pts = [norm(e)];
+    const live = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); live.setAttribute('class', 'nk-live'); live.setAttribute('width', W); live.setAttribute('height', H);
+    const pa = document.createElementNS('http://www.w3.org/2000/svg', 'path'); pa.setAttribute('fill', 'none'); pa.setAttribute('stroke', COLORES[S.color]);
+    pa.setAttribute('stroke-width', S.tam); pa.setAttribute('stroke-linecap', 'round'); pa.setAttribute('stroke-linejoin', 'round'); live.appendChild(pa); pg.el.appendChild(live);
+    const dibujar = () => pa.setAttribute('d', dTrazo(pts, W, H));
+    dibujar();
+    const mover = (ev) => {
+      const q = norm(ev), u = pts[pts.length - 1];
+      if (Math.hypot((q[0] - u[0]) * W, (q[1] - u[1]) * H) < 1.5) return;
+      if (ev.shiftKey) { pts.length = 1; }                            // con Mayús: línea recta desde el inicio
+      pts.push(q); dibujar();
+    };
     const fin = async (ev) => {
       window.removeEventListener('pointermove', mover); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin);
-      caja.remove(); if (S !== mi) return;
-      const p = pos(ev); const w = Math.abs(p.x - x0) / b0.width, h = Math.abs(p.y - y0) / b0.height;
-      if (w < 0.012 || h < 0.006) return;                    // un simple toque no marca nada
-      const m = { pagina: pg.num, color: S.color, texto: '', area: true, rects: [{ x: (Math.min(x0, p.x) - b0.left) / b0.width, y: (Math.min(y0, p.y) - b0.top) / b0.height, w, h }] };
-      m.texto = 'Área marcada';
+      live.remove(); if (S !== mi) return;
+      const lim = [pts[0]]; for (let i = 1; i < pts.length; i++) { const u = lim[lim.length - 1]; if (Math.hypot((pts[i][0] - u[0]) * W, (pts[i][1] - u[1]) * H) >= 2.5 || i === pts.length - 1) lim.push(pts[i]); }
+      const m = { pagina: pg.num, color: S.color, texto: 'Trazo de pincel', rects: [{ t: 'p', w: S.tam / W, p: lim.map((q) => [+q[0].toFixed(4), +q[1].toFixed(4)]) }] };
       S.marcas.push(m); pintarMarcas(pg); actualizarBarra(); panel(); await guardarMarca(m);
     };
     window.addEventListener('pointermove', mover); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
+  }
+
+  function borrarArrastrando(e, mi, pg0) {
+    e.preventDefault(); cerrarPop();
+    const quitadas = [];
+    const pasar = (ev) => {
+      const pg = S.pags.find((p) => { const b = p.el.getBoundingClientRect(); return ev.clientX >= b.left && ev.clientX <= b.right && ev.clientY >= b.top && ev.clientY <= b.bottom; }) || pg0;
+      const b = pg.el.getBoundingClientRect(); const hit = marcasEn(pg, ev.clientX - b.left, ev.clientY - b.top, S.tam / 2);
+      if (!hit.length) return;
+      hit.forEach((m) => { quitadas.push(m); });
+      S.marcas = S.marcas.filter((m) => !hit.includes(m)); pintarMarcas(pg); actualizarBarra(); panel();
+    };
+    pasar(e);
+    const mover = (ev) => pasar(ev);
+    const fin = async () => {
+      window.removeEventListener('pointermove', mover); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin);
+      for (const m of quitadas) await borrarMarca(m);
+    };
+    window.addEventListener('pointermove', mover); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
+  }
+
+  // aro que muestra el tamaño del pincel/borrador siguiendo al cursor
+  function moverAro(e) {
+    if (!S) return; const aro = $('.nkpdf-aro', S.root); if (!aro) return;
+    if (!(S.modo === 'pincel' || S.modo === 'bor')) { aro.style.display = 'none'; return; }
+    const r = $('.nkpdf-cuerpo', S.root).getBoundingClientRect();
+    if (e.clientX > r.right - 6 || e.clientX < r.left || e.clientY < r.top || e.clientY > r.bottom) { aro.style.display = 'none'; return; }
+    aro.style.display = 'block'; aro.style.width = aro.style.height = S.tam + 'px';
+    aro.style.left = (e.clientX - r.left) + 'px'; aro.style.top = (e.clientY - r.top) + 'px';
+    aro.style.background = S.modo === 'pincel' ? COLORES[S.color] + '66' : 'rgba(248,113,113,.25)';
   }
 
   // ---------- pasar al visor de Drive y volver ----------
@@ -343,7 +426,7 @@
   }
 
   function seleccion() {
-    if (!S || S.modo === 'bor' || S.modo === 'area') return;
+    if (!S || S.modo === 'bor' || S.modo === 'pincel') return;
     const d = recolectar(); if (!d) return;
     if (S.modo === 'sub') { aplicarSubrayado(d, S.color); return; }
     const fin = d.rango.getBoundingClientRect();
@@ -358,17 +441,19 @@
 
   function clickEnMarca(e) {
     if (!S || !window.getSelection().isCollapsed) return;
-    const pg = S.pags.find((p) => p.el.contains(e.target)); if (!pg) { cerrarPop(); return; }
-    const b = pg.el.getBoundingClientRect(); const fx = (e.clientX - b.left) / b.width, fy = (e.clientY - b.top) / b.height;
-    const m = S.marcas.find((m) => m.pagina === pg.num && (m.rects || []).some((r) => fx >= r.x && fx <= r.x + r.w && fy >= r.y && fy <= r.y + r.h));
+    if (S.modo === 'bor' || S.modo === 'pincel') return;
+    const pg = paginaBajo(e); if (!pg) { cerrarPop(); return; }
+    const b = pg.el.getBoundingClientRect();
+    const hit = marcasEn(pg, e.clientX - b.left, e.clientY - b.top, 3); const m = hit[hit.length - 1];
     if (!m) { cerrarPop(); return; }
-    if (S.modo === 'bor') { eliminar(m); return; }          // borrador: un toque y se va
     if (S.modo === 'sub') return;
+    const conTexto = m.texto && !esTrazo(m) && !m.area;
     popover(e.clientX, e.clientY + 10,
-      Object.keys(COLORES).map((k) => `<span class="c" data-c="${k}" title="Cambiar a ${NOMBRES[k]}" style="background:${COLORES[k]}"></span>`).join('') + '<button class="x" data-x="borrar">🗑 Borrar</button>',
+      Object.keys(COLORES).map((k) => `<span class="c" data-c="${k}" title="Cambiar a ${NOMBRES[k]}" style="background:${COLORES[k]}"></span>`).join('') + (conTexto ? '<button class="x" data-x="copiar">📋 Copiar</button>' : '') + '<button class="x" data-x="borrar">🗑 Borrar</button>',
       async (t) => {
         cerrarPop();
         if (t.dataset.x === 'borrar') { eliminar(m); return; }
+        if (t.dataset.x === 'copiar') { try { await navigator.clipboard.writeText(m.texto); } catch (_) {} return; }
         if (t.dataset.c && t.dataset.c !== m.color) {
           const viejo = m.color; m.color = t.dataset.c; repintarTodas();
           if (m.id && !m.local && S.uid) { try { await cliente().from('pdf_subrayados').update({ color: m.color }).eq('id', m.id); } catch (_) { m.color = viejo; repintarTodas(); } }
@@ -380,13 +465,13 @@
   // ---------- modos, colores, panel ----------
   const AYUDA = {
     sel: 'Seleccioná texto para subrayarlo · tocá un subrayado para cambiarle el color o borrarlo',
-    sub: 'Modo subrayar: lo que selecciones se subraya al instante · en páginas escaneadas (sin texto) arrastrá para marcar un área',
-    area: 'Modo área: arrastrá para marcar una zona con el color elegido · sirve en cualquier PDF, también en los escaneados',
-    bor: 'Modo borrador: tocá un subrayado para quitarlo',
+    sub: 'Modo subrayar: lo que selecciones se subraya al instante · en páginas escaneadas (sin texto) funciona como pincel',
+    pincel: 'Pincel: arrastrá para marcar a mano alzada (Mayús = línea recta) · ajustá el tamaño con el deslizador o con [ y ] · sirve en cualquier PDF, también escaneados',
+    bor: 'Borrador: pasalo por encima de lo marcado (texto, pincel o áreas) para quitarlo · ajustá el tamaño con el deslizador o con [ y ]',
   };
   function modo(m) {
     S.modo = m; cerrarPop();
-    S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area'); S.root.classList.add('m-' + m);
+    S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area', 'm-pincel'); const aro0 = $('.nkpdf-aro', S.root); if (aro0) aro0.style.display = 'none'; S.root.classList.add('m-' + m);
     S.root.querySelectorAll('[data-modo]').forEach((b) => b.classList.toggle('on', b.dataset.modo === m));
     const h = $('.nkpdf-hint span', S.root); if (h) h.textContent = AYUDA[m];
   }
@@ -402,7 +487,7 @@
     lista.innerHTML = ms.length ? '' : '<div class="nkpdf-vacio">Todavía no subrayaste nada en este archivo.<br>Elegí la herramienta 🖍 Subrayar y seleccioná un texto.</div>';
     ms.forEach((m) => {
       const it = document.createElement('div'); it.className = 'nkpdf-item'; it.style.setProperty('--c', COLORES[m.color] || COLORES.amarillo);
-      it.innerHTML = `<small><span>Página ${m.pagina}</span><button title="Borrar subrayado">🗑</button></small><p>${esc(m.texto || (m.area ? 'Área marcada' : ''))}</p>`;
+      it.innerHTML = `<small><span>Página ${m.pagina}</span><button title="Borrar subrayado">🗑</button></small><p>${esc(m.texto || (esTrazo(m) ? 'Trazo de pincel' : m.area ? 'Área marcada' : ''))}</p>`;
       it.addEventListener('click', (e) => { if (e.target.closest('button')) { eliminar(m); return; } irA(m.pagina, true); });
       lista.appendChild(it);
     });
@@ -457,7 +542,7 @@
     const iframe = $('iframe', wrapper); if (iframe) iframe.style.display = 'none';
     const root = document.createElement('div'); root.className = 'nkpdf m-sel'; wrapper.appendChild(root);
     mensaje(root, '<div class="sp"></div><div>Abriendo el PDF…</div>');
-    S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: 'amarillo', panelAbierto: false };
+    S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: 'amarillo', panelAbierto: false, tam: 16 };
     const mi = S;
     const volver = (motivo) => { if (S !== mi) return; const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
     try {
@@ -488,12 +573,13 @@
         <div class="nkpdf-grupo" role="toolbar" aria-label="Herramientas">
           <button data-modo="sel" class="on" title="Seleccionar (V)">${ICO.sel}<span class="nkpdf-txt">Seleccionar</span></button>
           <button data-modo="sub" title="Subrayar (H)">${ICO.sub}<span class="nkpdf-txt">Subrayar</span></button>
-          <button data-modo="area" title="Marcar un área (A) · sirve en PDFs escaneados">${ICO.area}<span class="nkpdf-txt">Área</span></button>
+          <button data-modo="pincel" title="Pincel (P) · marca a mano alzada, sirve en PDFs escaneados">${ICO.pincel}<span class="nkpdf-txt">Pincel</span></button>
           <button data-modo="bor" title="Borrador (E)">${ICO.bor}<span class="nkpdf-txt">Borrar</span></button>
         </div>
         <div class="nkpdf-grupo" aria-label="Color del subrayado">
           ${Object.keys(COLORES).map((k, i) => `<button class="nkpdf-col" data-color="${k}" title="${NOMBRES[k]} (${i + 1})" style="background:${COLORES[k]}"></button>`).join('')}
         </div>
+        <div class="nkpdf-grupo nkpdf-tam" title="Tamaño del pincel y del borrador ( [ y ] )"><span style="font-size:.7rem">Tamaño</span><input type="range" class="nkpdf-rango" min="4" max="64" value="${mi.tam}" aria-label="Tamaño"><b>${mi.tam}</b></div>
         <div class="nkpdf-grupo">
           <button data-accion="zm" title="Alejar (−)">−</button><span class="nkpdf-zoom">100%</span><button data-accion="zp" title="Acercar (+)">＋</button>
           <button data-accion="ajustar" title="Ajustar al ancho">${ICO.ajustar}</button>
@@ -511,6 +597,7 @@
       </div>
       <div class="nkpdf-cuerpo">
         <div class="nkpdf-scroll"></div>
+        <i class="nkpdf-aro"></i>
         <aside class="nkpdf-panel" aria-label="Mis subrayados"><h4><span>📝 Mis subrayados</span><button data-accion="cerrar-lista" aria-label="Cerrar">✕</button></h4><div class="nkpdf-lista"></div></aside>
       </div>`);
     mi.scroll = $('.nkpdf-scroll', root);
@@ -525,7 +612,10 @@
     }, { root: mi.scroll, rootMargin: '700px 0px' });
     mi.pags.forEach((pg) => mi.io.observe(pg.el));
 
-    mi.scroll.addEventListener('pointerdown', (e) => iniciarArea(e, mi));
+    mi.scroll.addEventListener('pointerdown', (e) => iniciarTrazo(e, mi));
+    mi.scroll.addEventListener('pointermove', moverAro);
+    mi.scroll.addEventListener('pointerleave', () => { const a = $('.nkpdf-aro', mi.root); if (a) a.style.display = 'none'; });
+    const rango = $('.nkpdf-rango', root); rango.addEventListener('input', () => { mi.tam = +rango.value; $('.nkpdf-tam b', root).textContent = mi.tam; });
     mi.scroll.addEventListener('mouseup', () => setTimeout(seleccion, 10));
     mi.scroll.addEventListener('touchend', () => setTimeout(seleccion, 350));
     mi.scroll.addEventListener('click', clickEnMarca);
@@ -535,7 +625,7 @@
     root.addEventListener('click', (e) => {
       const b = e.target.closest('[data-modo],[data-color],[data-accion]'); if (!b || S !== mi) return;
       if (b.dataset.modo) { modo(b.dataset.modo); return; }
-      if (b.dataset.color) { mi.color = b.dataset.color; marcarColor(); if (mi.modo !== 'sub') modo('sub'); return; }
+      if (b.dataset.color) { mi.color = b.dataset.color; marcarColor(); if (mi.modo !== 'sub' && mi.modo !== 'pincel') modo('sub'); return; }
       switch (b.dataset.accion) {
         case 'zm': zoom(-1); break;
         case 'zp': zoom(1); break;
@@ -553,7 +643,8 @@
       const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
       if (!document.body.contains(root) || !(root.offsetParent || enPantalla())) return;
       const k = e.key.toLowerCase();
-      if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'a') modo('area'); else if (k === 'e') modo('bor');
+      if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'p' || k === 'a') modo('pincel'); else if (k === 'e') modo('bor');
+      else if (k === '[' || k === ']') { mi.tam = Math.max(4, Math.min(64, mi.tam + (k === ']' ? 4 : -4))); const rg = $('.nkpdf-rango', root); if (rg) rg.value = mi.tam; $('.nkpdf-tam b', root).textContent = mi.tam; }
       else if (k === 'f') pantalla();
       else if (['1', '2', '3', '4'].includes(k)) { mi.color = Object.keys(COLORES)[+k - 1]; marcarColor(); modo('sub'); }
       else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1);
