@@ -345,7 +345,7 @@
             </div>
 
             <div class="action-buttons-grid action-buttons-grid--4 action-buttons-grid--5">
-                <div class="action-btn-card" onclick="document.getElementById('modulos-section').scrollIntoView({behavior:'smooth'})">
+                <div class="action-btn-card" role="link" tabindex="0" onclick="window.location.href='sala_estudio.html'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='sala_estudio.html'}">
                     <div class="action-icon">
                         <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 6.2c-1.6-1.1-3.7-1.7-6.2-1.7v13c2.5 0 4.6.6 6.2 1.7m0-13c1.6-1.1 3.7-1.7 6.2-1.7v13c-2.5 0-4.6.6-6.2 1.7m0-13v13"/>
@@ -472,107 +472,7 @@
                 </div>
 
             <!-- ================= SECCIÓN DE MÓDULOS ================= -->
-            <div id="modulos-section">
-                <h2 class="section-title">📚 Plan de Estudios — Módulos por Año</h2>
-
-                <div class="modulos-tabs">
-                    <button class="year-tab-btn" onclick="showModuloYear(1, this)">1° Año</button>
-                    <button class="year-tab-btn" onclick="showModuloYear(2, this)">2° Año</button>
-                    <button class="year-tab-btn" onclick="showModuloYear(3, this)">3° Año</button>
-                    <button class="year-tab-btn" onclick="showModuloYear(4, this)">4° Año</button>
-                    <button class="year-tab-btn active" onclick="showModuloYear(5, this)">5° Año<span class="tab-dot"></span></button>
-                </div>
-
-                <div class="year-content" id="modulo-year-1">
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Salud Individual</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Salud Colectiva</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Crecimiento y Desarrollo</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                </div>
-
-                <div class="year-content" id="modulo-year-2">
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Nutrición</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Sexualidad, Género y Reproducción</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Trabajo y Tiempo Libre</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">El Ser Humano y su Medio</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                </div>
-
-                <div class="year-content" id="modulo-year-3">
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Injuria</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Defensa</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                </div>
-
-                <div class="year-content" id="modulo-year-4">
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Salud del Niño y del Adolescente</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Salud Integral del Adulto Joven</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-dev">En desarrollo</span>
-                        <div class="subject-tile-name">Medicina Legal</div>
-                        <button class="subject-tile-btn btn-disabled" onclick="openInfoModal('coming_soon')">Próximamente</button>
-                    </div>
-                </div>
-
-                <div class="year-content active" id="modulo-year-5">
-                    <div class="subject-tile">
-                        <span class="subject-tile-tag tag-active">Activo</span>
-                        <div class="subject-tile-name">Salud Integral del Adulto Mayor (S.I.A.M.)</div>
-                        <button class="subject-tile-btn btn-enter" onclick="location.href='siam_hub.html'" style="background: linear-gradient(90deg, #06b6d4, #0d9488); color: white; border: none;">Ingresar al Módulo →</button>
-                    </div>
-                    <div class="subject-tile tile-active">
-                        <span class="subject-tile-tag tag-active">Activo</span>
-                        <div class="subject-tile-name">Salud Integral de la Mujer (Ginecología y Obstetricia)</div>
-                        <button class="subject-tile-btn btn-enter" onclick="location.href='gineco_hub.html'" style="background: linear-gradient(90deg, #ec4899, #a855f7); color: white; border: none;">Ingresar al Módulo →</button>
-                    </div>
-                    <div class="subject-tile tile-active">
-                        <span class="subject-tile-tag tag-active">Activo</span>
-                        <div class="subject-tile-name">Introducción a las Especialidades Clínico-Quirúrgicas (Cirugía)</div>
-                        <button class="subject-tile-btn btn-enter" onclick="location.href='cirugia_hub.html'">Ingresar al Módulo →</button>
-                    </div>
-                </div>
-            </div>
+            <div id="modulos-section" aria-hidden="true" style="display:none;margin:0;padding:0"></div>
         </main>
         
         <footer class="footer"><div><strong>Campus Nika</strong> — Plataforma de Evaluación Médica Independiente | <span>Estudia, competi, aprobá.</span><div style="margin-top:6px; font-size:0.78rem;"><a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> · <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a></div></div></footer>
@@ -1341,7 +1241,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="js/chatManager.js?v=4"></script>
     <script src="js/pomodoroSyncManager.js?v=4"></script>
-    <script src="js/onboardingTour.js"></script>
+    <script src="js/onboardingTour.js?v=2"></script>
     <script src="js/pomodoroBar.js?v=5"></script>
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js"></script>
@@ -1354,13 +1254,6 @@
 </html>
 
     <script>
-        // Pestañas de Plan de Estudios (Sala de Estudio → #modulos-section)
-        function showModuloYear(year, btn) {
-            document.querySelectorAll('.year-tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.year-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(`modulo-year-${year}`).classList.add('active');
-        }
 
         const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
@@ -1457,7 +1350,7 @@
                 if (continuityLabel) continuityLabel.innerText = `0% completado`;
                 if (btnEl) {
                     btnEl.textContent = "Ir a Salas de Estudio →";
-                    btnEl.onclick = () => document.getElementById('modulos-section')?.scrollIntoView({behavior:'smooth'});
+                    btnEl.onclick = () => { window.location.href = 'sala_estudio.html'; };
                 }
             }
         }
@@ -1936,11 +1829,8 @@
             const modulos = document.getElementById('modulos-section');
             if (hero) hero.style.display = 'none';
             if (admin) admin.style.display = 'none';
-            if (modulos) {
-                modulos.style.display = 'block';
-                modulos.scrollIntoView({ behavior: 'smooth' });
-            }
-            if (window.innerWidth <= 900) toggleSidebar();
+            if (modulos) modulos.style.display = 'none';
+            window.location.href = 'sala_estudio.html';
         }
 
         function showDashboard() {
@@ -1951,7 +1841,7 @@
             const modulos = document.getElementById('modulos-section');
             const admin = document.getElementById('admin-dashboard-section');
             if (hero) hero.style.display = 'block';
-            if (modulos) modulos.style.display = 'block';
+            if (modulos) modulos.style.display = 'none';
             if (admin) admin.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (window.innerWidth <= 900) toggleSidebar();

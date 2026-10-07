@@ -38,7 +38,7 @@ const NikaOnboarding = (() => {
       lista: ['Planificado vs. cumplido, con porcentaje', 'Minutos reales de Pomodoro', 'Reprogramá para mañana lo que quedó pendiente'],
     },
     {
-      selector: '.action-btn-card[onclick*="modulos-section"]', icono: '📖', categoria: 'Estudio', color: '#0ea5e9', posicion: 'bottom',
+      selector: '.action-btn-card[onclick*="sala_estudio"]', icono: '📖', categoria: 'Estudio', color: '#0ea5e9', posicion: 'bottom',
       titulo: 'Sala de Estudio con Pomodoro',
       texto: 'Elegí una Unidad Problema y estudiá con material, notas y un Pomodoro interactivo.',
       lista: ['Barra espaciadora: iniciar / pausar el reloj', 'Bloques de estudio con estados y alertas', 'Cronograma de repaso conectado al calendario'],
@@ -98,11 +98,6 @@ const NikaOnboarding = (() => {
       selector: '#dashboard-community-widget', icono: '🟢', categoria: 'Comunidad', color: '#22c55e', posicion: 'top',
       titulo: 'Compañeros conectados',
       texto: 'Mirá quién está estudiando ahora. Tocá a un compañero para ver su perfil, o sincronizá un Pomodoro en Modo Biblioteca.',
-    },
-    {
-      selector: '#modulos-section', icono: '📚', categoria: 'Estudio', color: '#0284c7', posicion: 'top',
-      titulo: 'Plan de Estudios',
-      texto: 'Todos los módulos clínicos organizados por año. Entrá a cada Unidad Problema con su temario, algoritmos y videos.',
     },
     {
       icono: '🚀', categoria: 'Listo', color: '#2563eb',
