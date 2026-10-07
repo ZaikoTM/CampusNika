@@ -28,12 +28,46 @@
     chip.textContent = cuenta === 'admin' ? '👑 Admin' : '✨ NikaMed+';
   }
 
+  function ctaGratis(li) {
+    if (document.getElementById('cp-cta')) return;
+    const cta = document.createElement('li'); cta.id = 'cp-cta';
+    cta.innerHTML = '<button type="button" class="sidebar-link cp-premium-cta">💜 Tema Premium <span style="margin-left:auto;font-size:.8rem">🔒</span></button>';
+    li.insertAdjacentElement('afterend', cta);
+    cta.querySelector('button').addEventListener('click', avisoPremium);
+  }
+
+  function avisoPremium() {
+    if (document.getElementById('cp-modal')) return;
+    const m = document.createElement('div'); m.id = 'cp-modal'; m.className = 'cp-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+    m.innerHTML = `<div class="cp-modal-caja">
+      <button type="button" class="cp-cerrar" aria-label="Cerrar">×</button>
+      <div class="cp-vista" aria-hidden="true"></div>
+      <h3>Tema Premium · exclusivo NikaMed+</h3>
+      <p class="cp-sub">Una apariencia espacial pensada para quienes estudian con NikaMed+.</p>
+      <ul class="cp-lista">
+        <li><span>🌌</span><span><b>Fondo espacial animado</b> con estrellas, meteoritos y naves que cruzan muy suave por detrás.</span></li>
+        <li><span>💜</span><span><b>Degradé violeta</b> en el menú, el encabezado, las tarjetas y el banner de bienvenida, con efectos al pasar el mouse.</span></li>
+        <li><span>✨</span><span><b>Banner de marca animado</b> con tu insignia NikaMed+.</span></li>
+        <li><span>🎛️</span><span><b>Selector de apariencia</b>: Premium, Clásico u Oscuro, cuando quieras.</span></li>
+      </ul>
+      <div class="cp-paso"><b>¿Cómo se habilita?</b> Tocá "Ver planes", elegí tu plan en la página de NikaMed+ y completá la compra. Cuando tu plan se active, el tema aparece solo en tu campus (queda como predeterminado). Si todavía no iniciaste sesión, ingresá primero con tu cuenta.</div>
+      <div class="cp-acciones">
+        <a class="cp-btn pri" href="nikamed-plus.html">Ver planes de NikaMed+</a>
+        <button type="button" class="cp-btn sec" data-x>Ahora no</button>
+      </div></div>`;
+    const esc = (e) => { if (e.key === 'Escape') cerrar(); };
+    const cerrar = () => { m.remove(); document.removeEventListener('keydown', esc); };
+    m.addEventListener('click', (e) => { if (e.target === m || e.target.closest('.cp-cerrar') || e.target.closest('[data-x]')) cerrar(); });
+    document.addEventListener('keydown', esc); document.body.appendChild(m);
+  }
+
   function selector() {
     const btn = document.getElementById('dark-mode-btn');
     const li = btn && btn.closest('li');
     if (!li) return;
     let sel = document.getElementById('cp-apariencia');
-    if (!elegible()) { if (sel) sel.remove(); li.style.display = ''; return; }
+    if (!elegible()) { if (sel) sel.remove(); li.style.display = ''; ctaGratis(li); return; }
+    const cta = document.getElementById('cp-cta'); if (cta) cta.remove();
     li.style.display = 'none';
     if (!sel) {
       sel = document.createElement('li'); sel.id = 'cp-apariencia'; sel.className = 'cp-apariencia';
@@ -60,8 +94,31 @@
     marca(); selector();
   }
 
-  function elegir(t) { if (!valido(t)) return; guardar(t); aplicar(); }
-  function setCuenta(c) { cuenta = (c === 'admin' || c === 'plus') ? c : null; aplicar(); }
+  // Sincronización con la cuenta (profiles.campus_tema, ver sql/perfil_campus_tema.sql). Si la columna no existe, falla en silencio y queda el valor local.
+  const cliente = () => window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client) || null;
+  async function idUsuario() {
+    try { const c = cliente(); if (!c || !c.auth) return null; const { data } = await c.auth.getSession(); return (data && data.session && data.session.user && data.session.user.id) || null; } catch (_) { return null; }
+  }
+  async function subir(t) {
+    try { const c = cliente(), id = await idUsuario(); if (c && id) await c.from('profiles').update({ campus_tema: t }).eq('id', id); } catch (_) {}
+  }
+  let _bajado = false;
+  async function bajar() {
+    if (_bajado) return; _bajado = true;
+    try {
+      const c = cliente(), id = await idUsuario(); if (!c || !id) { _bajado = false; return; }
+      const { data, error } = await c.from('profiles').select('campus_tema').eq('id', id).maybeSingle();
+      if (error || !data) return;
+      if (valido(data.campus_tema)) { if (data.campus_tema !== leer()) { guardar(data.campus_tema); aplicar(); } }
+      else if (valido(leer())) subir(leer());   // primera vez: se sube la elección que ya tenía este dispositivo
+    } catch (_) {}
+  }
+
+  function elegir(t) { if (!valido(t)) return; guardar(t); aplicar(); subir(t); }
+  function setCuenta(c) {
+    cuenta = (c === 'admin' || c === 'plus') ? c : null; aplicar();
+    if (elegible()) bajar(); else _bajado = false;
+  }
 
   window.CampusTema = { setCuenta, elegir, actual, aplicar };
 })();

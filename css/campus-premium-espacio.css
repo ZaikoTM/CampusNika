@@ -1,0 +1,52 @@
+/* Campus NikaMed+ — extras del tema premium: fix del banner, fondo espacial y aviso para cuentas gratuitas.
+   Se carga después de campus-premium.css. */
+
+/* El banner no debe achicarse dentro de la sidebar (cortaba el logo) */
+.sidebar-brand-box, .sidebar-user-card { flex-shrink: 0; }
+.sidebar-brand-logo { min-height: 52px; }
+.sidebar-brand-logo .nika-isotipo { height: 52px; width: auto; display: block; }
+
+/* =============== FONDO ESPACIAL (naves y meteoritos, muy suave) =============== */
+.cp-espacio { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.cp-estrella { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #e9d5ff; opacity: .15; animation: cpTitila var(--d, 4s) ease-in-out infinite; animation-delay: var(--w, 0s); }
+@keyframes cpTitila { 0%, 100% { opacity: .08; transform: scale(1); } 50% { opacity: .75; transform: scale(1.6); } }
+.cp-meteoro { position: absolute; width: 120px; height: 2px; border-radius: 2px; opacity: 0; transform-origin: 100% 50%;
+  background: linear-gradient(90deg, transparent, rgba(196, 181, 253, .75), #fff); filter: drop-shadow(0 0 6px rgba(168, 85, 247, .9)); animation: cpMeteoro var(--t, 1.6s) ease-out forwards; }
+@keyframes cpMeteoro { 0% { opacity: 0; transform: rotate(var(--r, 28deg)) translateX(0); } 12% { opacity: .85; } 100% { opacity: 0; transform: rotate(var(--r, 28deg)) translateX(var(--dx, 520px)); } }
+.cp-nave { position: absolute; left: 0; top: 0; opacity: 0; will-change: transform; animation: cpNave var(--t, 40s) linear forwards; }
+.cp-nave svg { display: block; width: var(--s, 38px); height: auto; filter: drop-shadow(0 0 8px rgba(168, 85, 247, .55)); animation: cpBalanceo 4s ease-in-out infinite; }
+@keyframes cpNave { 0% { opacity: 0; transform: translate(var(--x0), var(--y0)); } 8% { opacity: .5; } 92% { opacity: .5; } 100% { opacity: 0; transform: translate(var(--x1), var(--y1)); } }
+@keyframes cpBalanceo { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-5px) rotate(2deg); } }
+body:not(.tema-premium) .cp-espacio { display: none; }
+@media (prefers-reduced-motion: reduce) { .cp-espacio { display: none; } }
+
+/* =============== Aviso del tema premium para cuentas gratuitas =============== */
+.sidebar-link.cp-premium-cta { position: relative; overflow: hidden; color: #f5f3ff; border: 1px solid rgba(192, 132, 252, .45);
+  background: linear-gradient(110deg, rgba(126, 34, 206, .55), rgba(99, 102, 241, .35), rgba(126, 34, 206, .55)); background-size: 200% 100%; animation: cpTexto 6s linear infinite; }
+.sidebar-link.cp-premium-cta:hover { box-shadow: 0 6px 18px rgba(168, 85, 247, .45); }
+.cp-modal { position: fixed; inset: 0; z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(5, 2, 18, .72);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: cpFade .25s ease both; }
+@keyframes cpFade { from { opacity: 0; } to { opacity: 1; } }
+.cp-modal-caja { position: relative; width: min(460px, 100%); max-height: 92vh; overflow-y: auto; border-radius: 20px; padding: 26px 24px 22px; color: #f8fafc;
+  background: radial-gradient(500px 260px at 20% -10%, rgba(168, 85, 247, .38), transparent 60%), #0e0629; border: 1px solid rgba(192, 132, 252, .5);
+  box-shadow: 0 30px 70px rgba(76, 29, 149, .6); animation: cpSube .35s cubic-bezier(.2, .9, .3, 1.2) both; }
+@keyframes cpSube { from { opacity: 0; transform: translateY(18px) scale(.96); } to { opacity: 1; transform: none; } }
+.cp-modal-caja h3 { font-size: 1.25rem; font-weight: 900; margin: 6px 0 4px; background: linear-gradient(110deg, #e9d5ff, #c084fc, #7dd3fc); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.cp-modal-caja .cp-sub { font-size: .86rem; color: #c4b5fd; margin-bottom: 14px; }
+.cp-vista { height: 92px; border-radius: 14px; margin-bottom: 14px; position: relative; overflow: hidden; border: 1px solid rgba(192, 132, 252, .4);
+  background: linear-gradient(120deg, #1e0b4b, #4c1d95 45%, #6d28d9 70%, #0ea5e9 140%); background-size: 220% 220%; animation: cpHero 10s ease-in-out infinite; }
+.cp-vista::before { content: "✦  ·  ✧   ·    ✦   ·  ✧"; position: absolute; inset: 10px 14px auto; letter-spacing: 10px; color: rgba(233, 213, 255, .7); font-size: .8rem; animation: cpTitila 3s ease-in-out infinite; }
+.cp-vista::after { content: "🚀"; position: absolute; bottom: 12px; left: -30px; font-size: 1.6rem; animation: cpVuela 7s linear infinite; }
+@keyframes cpVuela { to { transform: translateX(520px) translateY(-18px); } }
+.cp-lista { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+.cp-lista li { display: flex; gap: 10px; font-size: .88rem; line-height: 1.45; color: #e2e8f0; }
+.cp-lista li b { color: #fff; }
+.cp-paso { font-size: .8rem; color: #a5b4d0; background: rgba(168, 85, 247, .12); border: 1px dashed rgba(192, 132, 252, .45); border-radius: 12px; padding: 10px 12px; margin-bottom: 16px; line-height: 1.5; }
+.cp-acciones { display: flex; gap: 10px; flex-wrap: wrap; }
+.cp-btn { flex: 1; min-width: 140px; text-align: center; padding: 11px 14px; border-radius: 12px; font: inherit; font-weight: 800; font-size: .9rem; cursor: pointer; text-decoration: none; transition: transform .18s, box-shadow .18s; }
+.cp-btn.pri { color: #fff; border: 0; background: linear-gradient(135deg, #7e22ce, #a855f7 60%, #6366f1); box-shadow: 0 8px 20px rgba(168, 85, 247, .45); }
+.cp-btn.pri:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(168, 85, 247, .6); }
+.cp-btn.sec { color: #c4b5fd; background: transparent; border: 1px solid rgba(192, 132, 252, .4); }
+.cp-btn.sec:hover { background: rgba(168, 85, 247, .15); }
+.cp-cerrar { position: absolute; top: 10px; right: 12px; background: none; border: 0; color: #c4b5fd; font-size: 1.3rem; cursor: pointer; line-height: 1; }
+@media (prefers-reduced-motion: reduce) { .cp-vista, .cp-vista::before, .cp-vista::after, .sidebar-link.cp-premium-cta, .cp-modal, .cp-modal-caja { animation: none !important; } }
