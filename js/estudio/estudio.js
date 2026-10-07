@@ -864,6 +864,7 @@ function openInlineViewer(url, title, element) {
     if (titleEl) titleEl.innerText = title;
 
     let embedUrl = url;
+    let driveId = null;
 
     // 1. Detección de YouTube
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
@@ -882,6 +883,7 @@ function openInlineViewer(url, title, element) {
         const fileId = url.split('/file/d/')[1]?.split('/')[0];
         if (fileId) {
             embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+            driveId = fileId;
         }
     } 
     // 3. Detección de Google Slides / Presentaciones (PowerPoint)
@@ -892,7 +894,16 @@ function openInlineViewer(url, title, element) {
         }
     }
 
-    if (iframe) iframe.src = embedUrl;
+    // Archivos de Drive: lector propio con subrayado y progreso (js/estudio/pdfLector.js). Si no se puede abrir así, cae al visor de Drive.
+    const wrapperEl = document.getElementById('nika-inline-frame-wrapper');
+    if (window.NikaPdf) window.NikaPdf.cerrar();
+    if (iframe) iframe.style.display = '';
+    if (driveId && window.NikaPdf && wrapperEl) {
+        if (iframe) iframe.src = '';
+        window.NikaPdf.abrir({ wrapper: wrapperEl, fileId: driveId, title, fallback: () => { if (iframe) iframe.src = embedUrl; } });
+    } else if (iframe) {
+        iframe.src = embedUrl;
+    }
     if (container) {
         container.style.display = 'block';
         container.style.width = '100%';
@@ -908,7 +919,8 @@ function closeInlineViewer() {
 
     const container = document.getElementById('nika-inline-viewer-container');
     const iframe = document.getElementById('nika-inline-iframe');
-    if (iframe) iframe.src = '';
+    if (window.NikaPdf) window.NikaPdf.cerrar();
+    if (iframe) { iframe.src = ''; iframe.style.display = ''; }
     if (container) {
         container.style.display = 'none';
         const rightSidePanel = document.querySelector('.study-right-column') || document.querySelector('.right-column') || document.querySelector('.col-right');
