@@ -19,6 +19,8 @@
     fs: '<svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
     fsx: '<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>',
     ok: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+    area: '<svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2" stroke-dasharray="3 2"/><path d="M8 14h8"/></svg>',
+    drive: '<svg viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 7H6l-4-7z"/></svg>',
     ajustar: '<svg viewBox="0 0 24 24"><path d="M4 12h16M7 8l-3 4 3 4M17 8l3 4-3 4"/></svg>',
   };
 
@@ -72,6 +74,11 @@
 .nkpdf-cuerpo{flex:1;position:relative;min-height:0;display:flex}
 .nkpdf-scroll{flex:1;overflow:auto;padding:14px 0;-webkit-overflow-scrolling:touch}
 .nkpdf.m-sub .nkpdf-scroll{cursor:text}
+.nkpdf.m-area .nkpdf-scroll{cursor:crosshair;touch-action:none}
+.nkpdf.m-area .nk-tx{user-select:none;-webkit-user-select:none}
+.nkpdf-rect{position:absolute;pointer-events:none;border:2px dashed rgba(15,23,42,.55);border-radius:3px;z-index:3}
+.nkpdf-volver{position:absolute;left:12px;bottom:12px;z-index:30;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:0;border-radius:999px;font:inherit;font-weight:800;font-size:.82rem;color:#fff;cursor:pointer;background:linear-gradient(135deg,#7e22ce,#a855f7 60%,#6366f1);box-shadow:0 8px 22px rgba(168,85,247,.55);animation:nkpdfIn .3s ease both;transition:transform .18s,box-shadow .18s}
+.nkpdf-volver:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(168,85,247,.7)}
 .nkpdf.m-bor .nk-tx{user-select:none;-webkit-user-select:none}
 .nkpdf.m-bor .nkpdf-scroll{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24' fill='%23fecaca' stroke='%23991b1b' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M3 17l8-12 9 6-7 10H7z'/%3E%3C/svg%3E") 4 22,pointer}
 .nk-pg{position:relative;margin:0 auto 14px;background:#fff;box-shadow:0 4px 14px rgba(15,23,42,.25);border-radius:3px}
@@ -254,6 +261,47 @@
     S.escala = Math.max(0.6, Math.min(2.6, ancho / S.base.w)); reconstruir();
   }
 
+
+  // ---------- marcar un área arrastrando (PDFs escaneados o sin texto) ----------
+  function iniciarArea(e, mi) {
+    if (S !== mi || e.button || !(S.modo === 'area' || S.modo === 'sub')) return;
+    const pg = S.pags.find((p) => p.el.contains(e.target)); if (!pg || !pg.hecho) return;
+    const conTexto = pg.el.querySelectorAll('.nk-tx span').length >= 8;
+    if (S.modo === 'sub' && conTexto) return;               // páginas con texto: se subraya seleccionando
+    e.preventDefault(); cerrarPop();
+    const b0 = pg.el.getBoundingClientRect(); const x0 = e.clientX, y0 = e.clientY;
+    const caja = document.createElement('div'); caja.className = 'nkpdf-rect'; caja.style.background = COLORES[S.color] + '88'; pg.el.appendChild(caja);
+    const pos = (ev) => ({ x: Math.min(Math.max(ev.clientX, b0.left), b0.right), y: Math.min(Math.max(ev.clientY, b0.top), b0.bottom) });
+    const mover = (ev) => { const p = pos(ev); caja.style.left = (Math.min(x0, p.x) - b0.left) + 'px'; caja.style.top = (Math.min(y0, p.y) - b0.top) + 'px'; caja.style.width = Math.abs(p.x - x0) + 'px'; caja.style.height = Math.abs(p.y - y0) + 'px'; };
+    mover(e);
+    const fin = async (ev) => {
+      window.removeEventListener('pointermove', mover); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin);
+      caja.remove(); if (S !== mi) return;
+      const p = pos(ev); const w = Math.abs(p.x - x0) / b0.width, h = Math.abs(p.y - y0) / b0.height;
+      if (w < 0.012 || h < 0.006) return;                    // un simple toque no marca nada
+      const m = { pagina: pg.num, color: S.color, texto: '', area: true, rects: [{ x: (Math.min(x0, p.x) - b0.left) / b0.width, y: (Math.min(y0, p.y) - b0.top) / b0.height, w, h }] };
+      m.texto = 'Área marcada';
+      S.marcas.push(m); pintarMarcas(pg); actualizarBarra(); panel(); await guardarMarca(m);
+    };
+    window.addEventListener('pointermove', mover); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
+  }
+
+  // ---------- pasar al visor de Drive y volver ----------
+  function quitarVolver() { document.querySelectorAll('.nkpdf-volver').forEach((b) => b.remove()); }
+  function mostrarVolver(wrapper) {
+    quitarVolver();
+    const toggle = document.getElementById('nika-modo-visor'); if (toggle && toggle.style.display !== 'none' && toggle.children.length) return;   // ya hay selector en el encabezado
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'nkpdf-volver'; b.innerHTML = '📖 Abrir con el lector NikaMed';
+    b.addEventListener('click', () => { b.remove(); if (ultimoOp) abrir(ultimoOp); });
+    wrapper.appendChild(b);
+  }
+  function aDrive() {
+    const mi = S; if (!mi) return; const f = mi.fallback, w = mi.wrapper; const ifr = $('iframe', w);
+    cerrar(); if (ifr) ifr.style.display = '';
+    if (f) f('manual');
+    mostrarVolver(w);
+  }
+
   // ---------- subrayar / borrar ----------
   function cerrarPop() { const p = $('.nkpdf-pop'); if (p) p.remove(); }
   function popover(x, y, html, alClick) {
@@ -295,7 +343,7 @@
   }
 
   function seleccion() {
-    if (!S || S.modo === 'bor') return;
+    if (!S || S.modo === 'bor' || S.modo === 'area') return;
     const d = recolectar(); if (!d) return;
     if (S.modo === 'sub') { aplicarSubrayado(d, S.color); return; }
     const fin = d.rango.getBoundingClientRect();
@@ -332,12 +380,13 @@
   // ---------- modos, colores, panel ----------
   const AYUDA = {
     sel: 'Seleccioná texto para subrayarlo · tocá un subrayado para cambiarle el color o borrarlo',
-    sub: 'Modo subrayar: todo lo que selecciones se subraya al instante con el color elegido',
+    sub: 'Modo subrayar: lo que selecciones se subraya al instante · en páginas escaneadas (sin texto) arrastrá para marcar un área',
+    area: 'Modo área: arrastrá para marcar una zona con el color elegido · sirve en cualquier PDF, también en los escaneados',
     bor: 'Modo borrador: tocá un subrayado para quitarlo',
   };
   function modo(m) {
     S.modo = m; cerrarPop();
-    S.root.classList.remove('m-sel', 'm-sub', 'm-bor'); S.root.classList.add('m-' + m);
+    S.root.classList.remove('m-sel', 'm-sub', 'm-bor', 'm-area'); S.root.classList.add('m-' + m);
     S.root.querySelectorAll('[data-modo]').forEach((b) => b.classList.toggle('on', b.dataset.modo === m));
     const h = $('.nkpdf-hint span', S.root); if (h) h.textContent = AYUDA[m];
   }
@@ -353,7 +402,7 @@
     lista.innerHTML = ms.length ? '' : '<div class="nkpdf-vacio">Todavía no subrayaste nada en este archivo.<br>Elegí la herramienta 🖍 Subrayar y seleccioná un texto.</div>';
     ms.forEach((m) => {
       const it = document.createElement('div'); it.className = 'nkpdf-item'; it.style.setProperty('--c', COLORES[m.color] || COLORES.amarillo);
-      it.innerHTML = `<small><span>Página ${m.pagina}</span><button title="Borrar subrayado">🗑</button></small><p>${esc(m.texto || '')}</p>`;
+      it.innerHTML = `<small><span>Página ${m.pagina}</span><button title="Borrar subrayado">🗑</button></small><p>${esc(m.texto || (m.area ? 'Área marcada' : ''))}</p>`;
       it.addEventListener('click', (e) => { if (e.target.closest('button')) { eliminar(m); return; } irA(m.pagina, true); });
       lista.appendChild(it);
     });
@@ -402,8 +451,9 @@
   }
 
   async function abrir(op) {
-    cerrar(); css(); ultimoOp = op;
+    cerrar(); css(); ultimoOp = op; quitarVolver();
     const { wrapper, fileId, title, fallback } = op;
+    const fbAzul = document.getElementById('nika-fs-btn'); if (fbAzul) fbAzul.style.display = 'none';   // el lector trae su propio botón de pantalla completa
     const iframe = $('iframe', wrapper); if (iframe) iframe.style.display = 'none';
     const root = document.createElement('div'); root.className = 'nkpdf m-sel'; wrapper.appendChild(root);
     mensaje(root, '<div class="sp"></div><div>Abriendo el PDF…</div>');
@@ -438,6 +488,7 @@
         <div class="nkpdf-grupo" role="toolbar" aria-label="Herramientas">
           <button data-modo="sel" class="on" title="Seleccionar (V)">${ICO.sel}<span class="nkpdf-txt">Seleccionar</span></button>
           <button data-modo="sub" title="Subrayar (H)">${ICO.sub}<span class="nkpdf-txt">Subrayar</span></button>
+          <button data-modo="area" title="Marcar un área (A) · sirve en PDFs escaneados">${ICO.area}<span class="nkpdf-txt">Área</span></button>
           <button data-modo="bor" title="Borrador (E)">${ICO.bor}<span class="nkpdf-txt">Borrar</span></button>
         </div>
         <div class="nkpdf-grupo" aria-label="Color del subrayado">
@@ -453,6 +504,7 @@
         <span class="nkpdf-sep"></span>
         <div class="nkpdf-grupo">
           <button data-accion="lista" title="Mis subrayados">${ICO.lista}<span class="nkpdf-txt">Subrayados</span><span class="nkpdf-cnt" style="display:none">0</span></button>
+          <button data-accion="drive" title="Ver este archivo con el visor de Drive">${ICO.drive}<span class="nkpdf-txt">Visor Drive</span></button>
           <button data-accion="fs" title="Pantalla completa (F)">${ICO.fs}<span class="nkpdf-txt">Pantalla completa</span></button>
         </div>
         <div class="nkpdf-hint"><span>${AYUDA.sel}</span></div>
@@ -473,6 +525,7 @@
     }, { root: mi.scroll, rootMargin: '700px 0px' });
     mi.pags.forEach((pg) => mi.io.observe(pg.el));
 
+    mi.scroll.addEventListener('pointerdown', (e) => iniciarArea(e, mi));
     mi.scroll.addEventListener('mouseup', () => setTimeout(seleccion, 10));
     mi.scroll.addEventListener('touchend', () => setTimeout(seleccion, 350));
     mi.scroll.addEventListener('click', clickEnMarca);
@@ -491,6 +544,7 @@
         case 'lista': panel(!mi.panelAbierto); break;
         case 'cerrar-lista': panel(false); break;
         case 'fs': pantalla(); break;
+        case 'drive': aDrive(); break;
       }
     });
     $('.nkpdf-pag', root).addEventListener('change', (e) => irA(+e.target.value, true));
@@ -499,7 +553,7 @@
       const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
       if (!document.body.contains(root) || !(root.offsetParent || enPantalla())) return;
       const k = e.key.toLowerCase();
-      if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'e') modo('bor');
+      if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'a') modo('area'); else if (k === 'e') modo('bor');
       else if (k === 'f') pantalla();
       else if (['1', '2', '3', '4'].includes(k)) { mi.color = Object.keys(COLORES)[+k - 1]; marcarColor(); modo('sub'); }
       else if (k === '+' || k === '=') zoom(1); else if (k === '-') zoom(-1);
@@ -528,6 +582,7 @@
     if (c && document.fullscreenElement === c) document.exitFullscreen().catch(() => {});
     clearInterval(S.reloj); clearTimeout(_t); if (S.io) S.io.disconnect();
     if (S.teclas) document.removeEventListener('keydown', S.teclas);
+    const fbAzul = document.getElementById('nika-fs-btn'); if (fbAzul) fbAzul.style.display = '';
     const s = S; persistir(s); S = null; s.tok = -1;
     try { s.pdf && s.pdf.destroy(); } catch (_) {}
     if (s.root && s.root.parentNode) s.root.remove();
