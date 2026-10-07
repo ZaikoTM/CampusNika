@@ -2,7 +2,7 @@
 // Cada tipo recibe (visor, ins, cfg, C) y registra en C.inst un objeto { sync(has, raiz), tick(t) } (igual que sim3d.js).
 // Reutiliza la mano real (assets/anatomia/manos/mano_real.glb) vía crearMano de sim3d.js.
 import * as THREE from 'three';
-import { crearMano } from './sim3d.js?v=17';
+import { crearMano } from './sim3d.js?v=19';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';

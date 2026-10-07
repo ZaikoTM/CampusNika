@@ -12,9 +12,9 @@ const L_SUP = 27, L_ANT = 24;
 
 // poses de un brazo; sx = −1 brazo derecho de la paciente (x < 0), +1 izquierdo
 const POSES = (sx) => ({
-  reposo: { W: V(sx * 24.8, -5, -8.8), polo: V(sx * 0.5, -0.2, -1), palma: V(-sx, 0, 0) },                // colgando a los costados, palma hacia el muslo
-  cintura: { W: V(sx * 19.8, 6.5, -7.6), polo: V(sx * 1, 0.1, -0.35), palma: V(-sx, -0.15, 0.25) },       // manos en la cintura, codos hacia afuera
-  alto: { W: V(sx * 6.8, 57, -19.5), polo: V(sx * 1, 0.5, 0.35), palma: V(0, 0, 1) },                     // manos detrás de la cabeza/nuca, codos hacia afuera
+  reposo: { W: V(sx * 21, -8, -9), polo: V(sx * 0.25, -0.1, -1), palma: V(-sx, 0, 0) },                    // colgando pegados al cuerpo, palma hacia el muslo
+  cintura: { W: V(sx * 21, 8, -3.5), polo: V(sx * 1, 0.05, -0.9), palma: V(-sx, -0.25, 0.1) },             // manos en la cintura: codos hacia afuera y atrás, dedos hacia adelante
+  alto: { W: V(sx * 27, 82, -9), polo: V(sx * 0.55, 0.1, -0.6), palma: V(-sx, 0, 0.25) },                   // brazos levantados (en V), codos hacia afuera, sin cruzarse
 });
 
 export function crearBrazosPaciente({ matPiel, crearMano, capa, registrarMat }) {
@@ -64,7 +64,7 @@ export function crearBrazosPaciente({ matPiel, crearMano, capa, registrarMat }) 
       lados.forEach((L, i) => {
         const nombre = (i === 0 ? poseDer : poseIzq) || pose; L.pose = nombre;
         const T = L.P[nombre] || L.P.reposo;
-        L.act.W.lerp(T.W, k); L.act.polo.lerp(T.polo, k); L.act.palma.lerp(T.palma, k);
+        const pm = nombre === 'reposo' ? 'suave' : 'plana'; if (L.poseMano !== pm) { L.poseMano = pm; L.mano.pose(pm); } L.act.W.lerp(T.W, k); L.act.polo.lerp(T.polo, k); L.act.palma.lerp(T.palma, k);
         resolver(L);
       });
     },

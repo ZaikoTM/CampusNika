@@ -4,7 +4,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { crearBrazosPaciente } from './brazos3d.js?v=2';
+import { crearBrazosPaciente } from './brazos3d.js?v=4';
 
 export const TIPOS = {};
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -582,7 +582,7 @@ TIPOS.mam = (visor, ins, cfg, C) => {
       L.nip.position.z = R + (afecta && c.pezon === 'retraido' ? 0.05 : 0.45); L.nip.scale.set(1, afecta && c.pezon === 'retraido' ? 0.35 : 1, 1); }); }
     // brazos de la paciente: reposo → manos en la cintura → manos detrás de la cabeza (misma piel que el torso)
     if (!brazosP && C.skinMats && C.skinMats.length) {
-      const base = C.skinMats[0]; const matB = base.clone(); matB.userData = Object.assign({}, base.userData); C.skinMats.push(matB); if (C.mats) C.mats.push(matB);
+      const base = C.skinMats[0]; const matB = base.clone(); matB.userData = Object.assign({}, base.userData, { fijo: 0.92 }); C.skinMats.push(matB); if (C.mats) C.mats.push(matB);
       brazosP = crearBrazosPaciente({ matPiel: matB, crearMano, capa: C.capas.piel, registrarMat: (m) => { C.skinMats.push(m); if (C.mats) C.mats.push(m); } });
       brazosP.lados.forEach((L) => L.g.traverse((o) => { if (o.isMesh) o.userData.capa = 'piel'; }));
     }
@@ -610,7 +610,8 @@ TIPOS.mam = (visor, ins, cfg, C) => {
     const sc = c.secrecion; lados.forEach((L) => { const afecta = c.sec_bilateral || (c.lado || 'D') === L.id; if (s.secr && sc && sc !== 'ninguna' && afecta) { sec += dt; L.gotas.forEach((d, i) => { const ph = (sec * 0.8 + i / L.gotas.length) % 1; d.visible = true; d.position.set((i - 2.5) * 0.06, -ph * 2.6, R + 0.6 + ph * 0.3); d.material.color.set(sc === 'hematica' ? '#8b0000' : sc === 'purulenta' ? '#d8c24a' : sc === 'lechosa' ? '#fffdf0' : '#e5e5c8'); d.material.emissive.set(sc === 'hematica' ? '#4a0000' : '#fff7e0'); d.scale.setScalar(1 - ph * 0.5); }); } });
     lados.forEach((L) => { const mov = s.movil && (c.lado || 'D') === L.id; const fija = c.pezon === 'retraido' || c.adherido; L.are.position.z = R + 0.05 + (mov && !fija ? 0.5 * Math.sin(t / 260) ** 2 : 0); L.nip.position.z += 0; if (L.piel.visible) L.piel.material.opacity = (L.piel.userData.base || 0.3) * (s.tam ? 1 : 0.0); });
     // autoexamen: patrones de palpación (círculos / líneas verticales / cuña)
-    if (s.auto) { tAuto += dt; const L = lados[0]; const patron = Math.floor(tAuto / 4) % 3; const f = (tAuto % 4) / 4; let th = 0.1, ph = 0; if (patron === 0) { th = 0.8 * TH * (0.15 + 0.85 * f); ph = f * 18; } else if (patron === 1) { const xx = -0.8 + (Math.floor(f * 4) / 3) * 1.6; ph = xx > 0 ? 0 : 3.14; th = 0.2 + Math.abs(xx) * 0.5 + 0.35 * Math.abs(Math.sin(f * 24)); } else { ph = f * 6.28; th = 0.5 * TH * (Math.floor(f * 6) % 2 ? 1 : 0.2) + 0.1; }
+    if (s.auto && tAuto > 13) { tAuto += dt; }          // terminó el recorrido: la mano ya no se muestra
+    else if (s.auto) { tAuto += dt; const L = lados[0]; const patron = Math.floor(tAuto / 4) % 3; const f = (tAuto % 4) / 4; let th = 0.1, ph = 0; if (patron === 0) { th = 0.8 * TH * (0.15 + 0.85 * f); ph = f * 18; } else if (patron === 1) { const xx = -0.8 + (Math.floor(f * 4) / 3) * 1.6; ph = xx > 0 ? 0 : 3.14; th = 0.2 + Math.abs(xx) * 0.5 + 0.35 * Math.abs(Math.sin(f * 24)); } else { ph = f * 6.28; th = 0.5 * TH * (Math.floor(f * 6) % 2 ? 1 : 0.2) + 0.1; }
       const p = pt(L, th, ph, R + 0.5); mano2.visible = true; mano2.pose('plana'); colocarManoSup(mano2, p, nrm(L, th, ph), V(Math.cos(ph), Math.sin(ph), 0)); } else tAuto = 0;
     lados.forEach((L) => { L.g.visible = true; });
     anclar(C, cfg, 'pezonD', lados[0].c.clone().add(V(0, 0, 0.6))); anclar(C, cfg, 'pezonI', lados[1].c.clone().add(V(0, 0, 0.6)));

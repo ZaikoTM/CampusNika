@@ -17,7 +17,7 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { TIPOS as SIMT } from './sim3d.js?v=17';
+import { TIPOS as SIMT } from './sim3d.js?v=19';
 import { TIPOS as CIRT } from './cir3d.js?v=5';
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -303,6 +303,7 @@ export class MedicalProcedureViewer {
         // manos enguantadas (nitrilo) entrelazadas: el talón de la mano apoya en el esternón y los brazos suben con los codos extendidos
         const mG = this.material('#72c9f2', 0.98, 'sonda', { roughness: 0.34, clearcoat: 0.55, clearcoatRoughness: 0.2, emissive: 0x0b4f78, emissiveIntensity: 0.16, depthWrite: true });
         const mM = this.material('#2dd4bf', 0.95, 'sonda', { roughness: 0.7, clearcoat: 0, emissive: 0x0f766e, emissiveIntensity: 0.18, depthWrite: true });
+        const mS = this.material('#cf9f7c', 0.98, 'sonda', { roughness: 0.58, clearcoat: 0.08, clearcoatRoughness: 0.5, depthWrite: true });   // piel clara-morena (manos sin guante)
         const esf = (rx, ry, rz, x, y, z, mat) => { const m = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), mat || mG); m.scale.set(rx, ry, rz); m.position.set(x, y, z); g.add(m); return m; };
         const cil = (r1, r2, L, x, y, z, rx, ry, mat) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r1, r2, L, 20), mat || mG); m.position.set(x, y, z); m.rotation.set(rx || 0, 0, ry || 0); g.add(m); return m; };
         // dorso de las manos entrelazadas (visto desde arriba/lateral): masa redondeada, el talón apoya en el esternón
@@ -317,20 +318,18 @@ export class MedicalProcedureViewer {
         const proc = [...g.children];                                                                    // manos procedurales (respaldo si el modelo no carga)
         // mangas: continúan los dos antebrazos del modelo (miden donde termina cada corte abierto y en qué dirección siguen); puño de guante + manga de ropa quirúrgica que se ensancha hacia el codo
         const mangaDesde = (ex, ey, ez, dx, dy, dz, r) => {
-          const dir = new THREE.Vector3(dx, dy, dz).normalize(); const L = Math.max(K.brazos || 24, 18);
-          const geo = new THREE.CylinderGeometry(r + 1.5, r + 0.3, L, 28, 1, true);                       // arriba (+y local) = lado del codo
+          const dir = new THREE.Vector3(dx, dy, dz).normalize(); const L = 17;
+          const geo = new THREE.CylinderGeometry(r + 0.9, r + 0.15, L, 28, 1, true);                       // arriba (+y local) = lado del codo
           const tubo = new THREE.Mesh(geo, mM); tubo.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
           tubo.position.set(ex, ey, ez).addScaledVector(dir, L / 2 - 0.6); g.add(tubo);
-          const puno = new THREE.Mesh(new THREE.TorusGeometry(r + 0.32, 0.55, 12, 36), mG); puno.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), dir);
-          puno.position.set(ex, ey, ez).addScaledVector(dir, 0.1); g.add(puno);
         };
-        mangaDesde(5.37, -5.56, 11.6, 0.283, -0.558, 0.78, 3.0);
-        mangaDesde(-7.12, 0.29, 12.0, -0.32, 0.112, 0.941, 3.3);
+        mangaDesde(5.37, -5.56, 11.6, 0.15, -0.28, 0.9, 3.0);        // brazos casi verticales (codos extendidos) sobre el esternón
+        mangaDesde(-7.12, 0.29, 12.0, -0.16, 0.06, 0.98, 3.3);
         if (K.manos) {                                                                                     // manos reales entrelazadas (escaneo CC-BY, ver LICENSE_manos.txt)
           const ld = new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/'));
           ld.load(K.manos.src, (gl) => {
             const w = new THREE.Group(); const D = Math.PI / 180;
-            gl.scene.traverse((m) => { if (m.isMesh) { m.material = mG; m.geometry.computeVertexNormals(); this.registrar(m, 'sonda', 'mano'); } });
+            gl.scene.traverse((m) => { if (m.isMesh) { m.material = mS; m.geometry.computeVertexNormals(); this.registrar(m, 'sonda', 'mano'); } });
             w.add(gl.scene); w.scale.setScalar(K.manos.escala); w.rotation.set(...K.manos.rot.map((v) => v * D), 'YXZ'); w.position.set(...K.manos.pos);
             g.add(w); proc.forEach((x) => g.remove(x)); window.__manos = w;
           }, undefined, () => {});
@@ -639,7 +638,7 @@ export class MedicalProcedureViewer {
       }));
       if (C.skinMats.length) {
         const objetivo = C.opt.xray ? 0.03 : (C.inst.some((s) => s.cat.goal > 0) ? 0.14 : C.skinMats[0].userData.base);
-        C.skinMats.forEach((m) => { m.opacity += (objetivo - m.opacity) * 0.08; m.depthWrite = m.opacity > 0.6; });
+        C.skinMats.forEach((m) => { const fijo = m.userData && m.userData.fijo; const obj = fijo !== undefined ? (C.opt.xray ? 0.03 : fijo) : objetivo; m.opacity += (obj - m.opacity) * 0.08; m.depthWrite = m.opacity > 0.6; });
         C.skinOpaque = C.capas.piel.visible && C.skinMats[0].opacity > 0.45;
       }
       renderer.render(scene, camera);
@@ -692,9 +691,12 @@ export class MedicalProcedureViewer {
   /** lleva la cámara (con suavidad) hacia una estructura; sin estructura, vuelve a la vista general */
   enfocar(id) {
     const C = this.C; if (!C) return;
-    const cam = this.CFG[C.variante].camara; const a = id && id !== 'paciente' ? C.anclas[id] : null;
+    const cam = this.CFG[C.variante].camara; const gc = this.CFG.general.camara || {};
+    let a = id && id !== 'paciente' ? C.anclas[id] : null;
+    const centro = id && gc.centros && gc.centros[id];            // centro propio (en el marco del modelo) en vez del pin de la estructura
+    if (centro && C.rotg) a = V(...centro).sub(V(...this.CFG[C.variante].origen)).applyEuler(C.rotg.rotation);
     C.tgoal = a ? a.clone() : V(...cam.objetivo);
-    C.dgoal = a ? ((this.CFG.general.camara || {}).foco || 26) : V(...cam.lat).distanceTo(V(...cam.objetivo));
+    C.dgoal = a ? ((gc.focos && gc.focos[id]) || gc.foco || 26) : V(...cam.lat).distanceTo(V(...cam.objetivo));
     C.goal = null; C.lento = false;
   }
   sel(id) { if (this.C) this.C.sel = id || null; }

@@ -11,7 +11,9 @@
    "fov": 36,
    "min": 10,
    "max": 120,
-   "foco": 28
+   "foco": 44,
+   "centros": { "axila": [0, 62, 0] },
+   "focos": { "axila": 118, "areola": 36, "pezon": 30 }
   },
   "material": {
    "rugosidad": 0.28,
