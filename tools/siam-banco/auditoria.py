@@ -44,6 +44,7 @@ FRASES = [
     ('otra fótica/miótica', 'otra contraída/miótica'), ('QTc = QT / \\sqrt{RR}', 'QTc = QT / √RR'),
     ('ISQUÉMICO ISQUÉMICO EMBÓLICO', 'ISQUÉMICO EMBÓLICO'), ('Eco-Doppler', 'Eco-Doppler'), ('T_{1/2}', 'T½'),
     ('GABA_A', 'GABA-A'), ('GABA_B', 'GABA-B'), ('ECO-DOPPER', 'ECO-DOPPLER'),
+    ('hipertiroidismo felino', 'hipertiroidismo'), ('Hipertiroidismo felino', 'Hipertiroidismo'),
     ('TP_{paciente}', 'TP paciente'), ('TP_{control}', 'TP control'), ('τ_{disociación}', 'τ disociación'),
 ]
 
