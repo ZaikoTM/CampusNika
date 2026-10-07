@@ -131,8 +131,10 @@
     <script src="js/pomodoroEngine.js?v=6"></script>
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
+    <script src="js/campusTema.js?v=1"></script>
     <script src="js/avisoVencimiento.js"></script>
     <link rel="stylesheet" href="css/nika-unificado.css?v=10">
+    <link rel="stylesheet" href="css/campus-premium.css?v=1">
 </head>
 <body>
 
@@ -2435,6 +2437,7 @@
                 brandNameEl.textContent = esDestacado ? 'Campus NikaMed' : 'Campus Nika';
                 brandNameEl.classList.toggle('sidebar-brand-name--premium', esDestacado);
             }
+            if (window.CampusTema) window.CampusTema.setCuenta(rango.clase === 'profile-admin' ? 'admin' : (rango.clase === 'profile-premium' ? 'plus' : null));
         }
 
         // ================= AUTENTICACIÓN =================
@@ -2488,6 +2491,7 @@
                 if (sidebarRankElGuest) sidebarRankElGuest.style.display = 'none';
                 const brandNameElGuest = document.getElementById('sidebar-brand-name');
                 if (brandNameElGuest) { brandNameElGuest.textContent = 'Campus Nika'; brandNameElGuest.classList.remove('sidebar-brand-name--premium'); }
+                if (window.CampusTema) window.CampusTema.setCuenta(null);
                 // Sin sesión = trato como free: mostramos el upsell.
                 const upsellCardGuest = document.getElementById('sidebar-upsell-card');
                 if (upsellCardGuest) upsellCardGuest.style.display = 'block';
