@@ -425,3 +425,7 @@ body.dark-mode .rz-sh-ayuda summary, body.dark-mode .rz-sh-arrastra { color: #7d
 body.rz-sin-anim .rz-reloj, body.rz-sin-anim .rz-reloj *, body.rz-sin-anim .rz-aviso-t, body.rz-sin-anim .rz-hoja, body.rz-sin-anim .rz-caso { animation: none !important; transition: none !important; }
 body.rz-sin-anim .rz-aviso-t { opacity: 1; transform: none; }
 body.dark-mode .rz-cancelar { color: #fca5a5 !important; }
+
+/* Modo embebido en el ECOE (iframe): sin barra superior, sin chat ni asistente, sin botón de volver */
+html.rz-embed .pl-top, html.rz-embed .rz-volver, html.rz-embed #nika-assistant-btn, html.rz-embed .cf-fab, html.rz-embed #cf-panel, html.rz-embed [id^='nika-assistant'], html.rz-embed .rz-modo-tag { display: none !important; }
+html.rz-embed .pl-main { padding-top: 8px; }

@@ -117,6 +117,8 @@
 .nkpdf-panel.on{transform:none}
 .nkpdf-panel h4{margin:0;padding:12px 14px;font-size:.85rem;font-weight:800;border-bottom:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center}
 .nkpdf-panel h4 button{background:none;border:0;color:#94a3b8;font-size:1.1rem;cursor:pointer}
+.nkpdf-bar button:disabled{opacity:.35;cursor:default}.nkpdf-aviso{position:absolute;left:50%;bottom:18px;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,.92);color:#fff;padding:7px 14px;border-radius:999px;font-size:.78rem;font-weight:700;opacity:0;pointer-events:none;transition:.2s;z-index:30}.nkpdf-aviso.on{opacity:1;transform:translateX(-50%)}
+.nkpdf-atajos{position:absolute;inset:0;background:rgba(2,6,23,.55);display:flex;align-items:center;justify-content:center;z-index:40}.nkpdf-atajos>div{background:#0f172a;color:#e2e8f0;border-radius:14px;padding:14px 18px;width:min(420px,92%);max-height:88%;overflow:auto;box-shadow:0 20px 50px rgba(0,0,0,.5)}.nkpdf-atajos h4{display:flex;justify-content:space-between;margin:0 0 8px;font-size:.95rem}.nkpdf-atajos h4 button{background:none;border:0;color:#94a3b8;cursor:pointer}.nkpdf-atajos p{display:flex;gap:10px;align-items:center;margin:5px 0;font-size:.8rem}.nkpdf-atajos kbd{min-width:104px;text-align:center;background:#1e293b;border:1px solid #334155;border-radius:6px;padding:2px 7px;font:700 .72rem monospace;color:#c4b5fd}
 .nkpdf-lista{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
 .nkpdf-vacio{color:#94a3b8;font-size:.8rem;line-height:1.5;padding:14px 6px;text-align:center}
 .nkpdf-item{border-radius:10px;padding:9px 10px;background:rgba(255,255,255,.06);border-left:4px solid var(--c);cursor:pointer;transition:background .15s,transform .15s}
@@ -326,7 +328,7 @@
     const mover = (ev) => {
       const q = norm(ev), u = pts[pts.length - 1];
       if (Math.hypot((q[0] - u[0]) * W, (q[1] - u[1]) * H) < 1.5) return;
-      if (ev.shiftKey) { pts.length = 1; }                            // con Mayús: línea recta desde el inicio
+      if (ev.shiftKey || S.recta) { pts.length = 1; }               // con Mayús (o el botón Línea recta): recta desde el inicio
       pts.push(q); dibujar();
     };
     const fin = async (ev) => {
@@ -334,7 +336,7 @@
       live.remove(); if (S !== mi) return;
       const lim = [pts[0]]; for (let i = 1; i < pts.length; i++) { const u = lim[lim.length - 1]; if (Math.hypot((pts[i][0] - u[0]) * W, (pts[i][1] - u[1]) * H) >= 2.5 || i === pts.length - 1) lim.push(pts[i]); }
       const m = { pagina: pg.num, color: S.color, texto: 'Trazo de pincel', rects: [{ t: 'p', w: S.tam / W, p: lim.map((q) => [+q[0].toFixed(4), +q[1].toFixed(4)]) }] };
-      S.marcas.push(m); pintarMarcas(pg); actualizarBarra(); panel(); await guardarMarca(m);
+      S.marcas.push(m); reg({ t: 'add', ms: [m] }); pintarMarcas(pg); actualizarBarra(); panel(); await guardarMarca(m);
     };
     window.addEventListener('pointermove', mover); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
   }
@@ -353,6 +355,7 @@
     const mover = (ev) => pasar(ev);
     const fin = async () => {
       window.removeEventListener('pointermove', mover); window.removeEventListener('pointerup', fin); window.removeEventListener('pointercancel', fin);
+      if (quitadas.length) reg({ t: 'del', ms: quitadas.slice() });
       for (const m of quitadas) await borrarMarca(m);
     };
     window.addEventListener('pointermove', mover); window.addEventListener('pointerup', fin); window.addEventListener('pointercancel', fin);
@@ -418,6 +421,7 @@
     const nuevas = [];
     d.porPagina.forEach((rects, num) => { nuevas.push({ pagina: num, color, texto: d.texto.slice(0, 600), rects }); });
     cerrarPop(); d.sel.removeAllRanges();
+    if (nuevas.length) reg({ t: 'add', ms: nuevas });
     for (const m of nuevas) {
       S.marcas.push(m); const pg = S.pags[m.pagina - 1]; if (pg) pintarMarcas(pg);
       await guardarMarca(m);
@@ -435,7 +439,49 @@
       (t) => { if (t.dataset.x) { cerrarPop(); return; } S.color = t.dataset.c; marcarColor(); aplicarSubrayado(d, t.dataset.c); });
   }
 
+  // ---------- deshacer / rehacer ----------
+  function botonesUndo() {
+    if (!S) return;
+    const u = $('[data-accion="undo"]', S.root), r = $('[data-accion="redo"]', S.root);
+    if (u) u.disabled = !S.undo.length; if (r) r.disabled = !S.redo.length;
+  }
+  function reg(a) { S.undo.push(a); if (S.undo.length > 100) S.undo.shift(); S.redo = []; botonesUndo(); }
+  async function quitarMs(ms) { S.marcas = S.marcas.filter((x) => !ms.includes(x)); repintarTodas(); actualizarBarra(); for (const m of ms) await borrarMarca(m); }
+  async function ponerMs(ms) { ms.forEach((m) => { delete m.id; delete m.local; S.marcas.push(m); }); repintarTodas(); actualizarBarra(); for (const m of ms) await guardarMarca(m); }
+  async function fijarColor(m, c) {
+    m.color = c; repintarTodas();
+    if (m.id && !m.local && S.uid) { try { await cliente().from('pdf_subrayados').update({ color: c }).eq('id', m.id); } catch (_) {} }
+    else lsSet('hl', S.fileId, S.marcas.filter((x) => x.local));
+  }
+  async function aplicar(a, dir) {      // dir: 1 = rehacer, -1 = deshacer
+    if (a.t === 'add') return dir < 0 ? quitarMs(a.ms) : ponerMs(a.ms);
+    if (a.t === 'del') return dir < 0 ? ponerMs(a.ms) : quitarMs(a.ms);
+    if (a.t === 'color') return fijarColor(a.m, dir < 0 ? a.de : a.a);
+  }
+  async function deshacer() {
+    if (!S || !S.undo.length) { aviso('No hay nada para deshacer'); return; }
+    const a = S.undo.pop(); S.redo.push(a); botonesUndo(); S.sel = null; await aplicar(a, -1); aviso('Deshecho');
+  }
+  async function rehacer() {
+    if (!S || !S.redo.length) { aviso('No hay nada para rehacer'); return; }
+    const a = S.redo.pop(); S.undo.push(a); botonesUndo(); S.sel = null; await aplicar(a, 1); aviso('Rehecho');
+  }
+  function aviso(t) {
+    if (!S) return; let a = $('.nkpdf-aviso', S.root); if (!a) { a = document.createElement('div'); a.className = 'nkpdf-aviso'; S.root.appendChild(a); }
+    a.textContent = t; a.classList.add('on'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 1400);
+  }
+  const ATAJOS = [['V', 'Seleccionar'], ['H', 'Subrayar'], ['P / A', 'Pincel'], ['E', 'Borrador'], ['1 – 4', 'Color del subrayado'], ['[  ]', 'Tamaño del pincel y borrador'],
+    ['Mayús (al trazar)', 'Línea recta desde donde empezás'], ['Ctrl + Z', 'Deshacer'], ['Ctrl + Y', 'Rehacer'], ['Supr', 'Borrar la marca seleccionada (tocala antes)'],
+    ['Esc', 'Cerrar menú / deseleccionar'], ['+  −', 'Acercar / alejar'], ['F', 'Pantalla completa'], ['?', 'Ver esta ayuda']];
+  function atajos() {
+    if (!S) return; const ya = $('.nkpdf-atajos', S.root); if (ya) { ya.remove(); return; }
+    const d = document.createElement('div'); d.className = 'nkpdf-atajos';
+    d.innerHTML = '<div><h4><span>⌨ Atajos de teclado</span><button aria-label="Cerrar">✕</button></h4>' + ATAJOS.map((a) => `<p><kbd>${esc(a[0])}</kbd><span>${esc(a[1])}</span></p>`).join('') + '</div>';
+    d.addEventListener('click', (e) => { if (e.target === d || e.target.closest('button')) d.remove(); });
+    S.root.appendChild(d);
+  }
   async function eliminar(m) {
+    reg({ t: 'del', ms: [m] }); if (S.sel === m) S.sel = null;
     S.marcas = S.marcas.filter((x) => x !== m); repintarTodas(); actualizarBarra(); await borrarMarca(m);
   }
 
@@ -446,6 +492,7 @@
     const b = pg.el.getBoundingClientRect();
     const hit = marcasEn(pg, e.clientX - b.left, e.clientY - b.top, 3); const m = hit[hit.length - 1];
     if (!m) { cerrarPop(); return; }
+    S.sel = m;
     if (S.modo === 'sub') return;
     const conTexto = m.texto && !esTrazo(m) && !m.area;
     popover(e.clientX, e.clientY + 10,
@@ -455,9 +502,7 @@
         if (t.dataset.x === 'borrar') { eliminar(m); return; }
         if (t.dataset.x === 'copiar') { try { await navigator.clipboard.writeText(m.texto); } catch (_) {} return; }
         if (t.dataset.c && t.dataset.c !== m.color) {
-          const viejo = m.color; m.color = t.dataset.c; repintarTodas();
-          if (m.id && !m.local && S.uid) { try { await cliente().from('pdf_subrayados').update({ color: m.color }).eq('id', m.id); } catch (_) { m.color = viejo; repintarTodas(); } }
-          else lsSet('hl', S.fileId, S.marcas.filter((x) => x.local));
+          reg({ t: 'color', m, de: m.color, a: t.dataset.c }); await fijarColor(m, t.dataset.c);
         }
       });
   }
@@ -466,7 +511,7 @@
   const AYUDA = {
     sel: 'Seleccioná texto para subrayarlo · tocá un subrayado para cambiarle el color o borrarlo',
     sub: 'Modo subrayar: lo que selecciones se subraya al instante · en páginas escaneadas (sin texto) funciona como pincel',
-    pincel: 'Pincel: arrastrá para marcar a mano alzada (Mayús = línea recta) · ajustá el tamaño con el deslizador o con [ y ] · sirve en cualquier PDF, también escaneados',
+    pincel: 'Pincel: arrastrá para marcar a mano alzada (consejo: mantené Mayús, o activá el botón Línea recta, para trazar una recta desde donde empezás) · ajustá el tamaño con el deslizador o con [ y ] · sirve en cualquier PDF, también escaneados',
     bor: 'Borrador: pasalo por encima de lo marcado (texto, pincel o áreas) para quitarlo · ajustá el tamaño con el deslizador o con [ y ]',
   };
   function modo(m) {
@@ -542,7 +587,7 @@
     const iframe = $('iframe', wrapper); if (iframe) iframe.style.display = 'none';
     const root = document.createElement('div'); root.className = 'nkpdf m-sel'; wrapper.appendChild(root);
     mensaje(root, '<div class="sp"></div><div>Abriendo el PDF…</div>');
-    S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: 'amarillo', panelAbierto: false, tam: 16 };
+    S = { root, fileId, title, wrapper, fallback, tok: 1, escala: 1, leidas: new Set(), marcas: [], pags: [], actual: 1, segs: 0, uid: null, modo: 'sel', color: 'amarillo', panelAbierto: false, tam: 16, undo: [], redo: [], sel: null, recta: false };
     const mi = S;
     const volver = (motivo) => { if (S !== mi) return; const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
     try {
@@ -576,6 +621,12 @@
           <button data-modo="pincel" title="Pincel (P) · marca a mano alzada, sirve en PDFs escaneados">${ICO.pincel}<span class="nkpdf-txt">Pincel</span></button>
           <button data-modo="bor" title="Borrador (E)">${ICO.bor}<span class="nkpdf-txt">Borrar</span></button>
         </div>
+        <div class="nkpdf-grupo" aria-label="Edición">
+          <button data-accion="undo" title="Deshacer (Ctrl+Z)" disabled>↶<span class="nkpdf-txt">Deshacer</span></button>
+          <button data-accion="redo" title="Rehacer (Ctrl+Y)" disabled>↷<span class="nkpdf-txt">Rehacer</span></button>
+          <button data-accion="supr" title="Borrar la marca seleccionada (Supr). Tocá una marca para seleccionarla">🗑<span class="nkpdf-txt">Borrar marca</span></button>
+          <button data-accion="recta" title="Línea recta: el pincel traza una recta desde donde empezás (también con Mayús)">📏<span class="nkpdf-txt">Línea recta</span></button>
+        </div>
         <div class="nkpdf-grupo" aria-label="Color del subrayado">
           ${Object.keys(COLORES).map((k, i) => `<button class="nkpdf-col" data-color="${k}" title="${NOMBRES[k]} (${i + 1})" style="background:${COLORES[k]}"></button>`).join('')}
         </div>
@@ -591,6 +642,7 @@
         <div class="nkpdf-grupo">
           <button data-accion="lista" title="Mis subrayados">${ICO.lista}<span class="nkpdf-txt">Subrayados</span><span class="nkpdf-cnt" style="display:none">0</span></button>
           <button data-accion="drive" title="Ver este archivo con el visor de Drive">${ICO.drive}<span class="nkpdf-txt">Visor Drive</span></button>
+          <button data-accion="atajos" title="Atajos de teclado (?)">⌨<span class="nkpdf-txt">Atajos</span></button>
           <button data-accion="fs" title="Pantalla completa (F)">${ICO.fs}<span class="nkpdf-txt">Pantalla completa</span></button>
         </div>
         <div class="nkpdf-hint"><span>${AYUDA.sel}</span></div>
@@ -635,14 +687,27 @@
         case 'cerrar-lista': panel(false); break;
         case 'fs': pantalla(); break;
         case 'drive': aDrive(); break;
+        case 'atajos': atajos(); break;
+        case 'undo': deshacer(); break;
+        case 'redo': rehacer(); break;
+        case 'supr': if (mi.sel && mi.marcas.includes(mi.sel)) eliminar(mi.sel); else aviso('Tocá primero una marca para seleccionarla'); break;
+        case 'recta': mi.recta = !mi.recta; b.classList.toggle('on', mi.recta); if (mi.recta && mi.modo !== 'pincel') modo('pincel'); aviso(mi.recta ? 'Línea recta activada' : 'Línea recta desactivada'); break;
       }
     });
     $('.nkpdf-pag', root).addEventListener('change', (e) => irA(+e.target.value, true));
     mi.teclas = (e) => {
-      if (S !== mi || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (S !== mi) return;
       const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
       if (!document.body.contains(root) || !(root.offsetParent || enPantalla())) return;
       const k = e.key.toLowerCase();
+      if ((e.ctrlKey || e.metaKey) && !e.altKey) {
+        if (k === 'z' && !e.shiftKey) { e.preventDefault(); deshacer(); } else if (k === 'y' || (k === 'z' && e.shiftKey)) { e.preventDefault(); rehacer(); }
+        return;
+      }
+      if (e.altKey) return;
+      if (k === 'delete' || k === 'backspace') { if (mi.sel && mi.marcas.includes(mi.sel)) { e.preventDefault(); cerrarPop(); eliminar(mi.sel); } else aviso('Tocá primero una marca para seleccionarla'); return; }
+      if (k === 'escape') { cerrarPop(); mi.sel = null; const at = $('.nkpdf-atajos', root); if (at) at.remove(); return; }
+      if (k === '?' || (k === '/' && e.shiftKey)) { atajos(); return; }
       if (k === 'v') modo('sel'); else if (k === 'h') modo('sub'); else if (k === 'p' || k === 'a') modo('pincel'); else if (k === 'e') modo('bor');
       else if (k === '[' || k === ']') { mi.tam = Math.max(4, Math.min(64, mi.tam + (k === ']' ? 4 : -4))); const rg = $('.nkpdf-rango', root); if (rg) rg.value = mi.tam; $('.nkpdf-tam b', root).textContent = mi.tam; }
       else if (k === 'f') pantalla();

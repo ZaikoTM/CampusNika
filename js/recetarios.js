@@ -9,6 +9,10 @@ const NikaRecetarios = (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+  // Modo embebido: el ECOE abre este simulador en un iframe (examen de 5 min, sin guía) y recibe el resultado por postMessage
+  const EMBED = new URLSearchParams(location.search).get('embed') === 'ecoe';
+  if (EMBED) document.documentElement.classList.add('rz-embed');
+  const aPadre = (d) => { try { window.parent.postMessage(Object.assign({ nika: 'recetario-ecoe' }, d), location.origin); } catch (_) {} };
   let docId = null, caso = null, lapicera = true, ultimoCampo = null, vista = 'sim';
   let modo = 'practica', examenActivo = false, entregando = false;   // modo: 'practica' (con guía) | 'examen' (sin guía, con reloj)
   const hojas = {};            // id → { encabezado, cuerpo, fecha, hora, sello, matricula, firma, raya }
@@ -159,7 +163,23 @@ const NikaRecetarios = (() => {
     if (opts.posologia) out.push({ ok: /(cada|por la (manana|noche|tarde)|en ayunas|por dia|por dias)/.test(t), peso: 6, label: 'Posología (cuánto, cada cuánto y por cuánto tiempo)', tip: `Indicá la posología: ${d.posologia}.` });
   }
 
+  // ECOE: el alumno elige el fármaco según su propio diagnóstico. Acá solo se corrige la FORMA (identificación, envases, posología,
+  // sin marca ni abreviaturas, cierre); si el fármaco, la dosis y la vía son los correctos lo juzga el tribunal de IA, que conoce el caso.
+  function corregirRecetaEcoe(c) {
+    const h = hojas.r1 || {}; const out = []; const t = N(h.cuerpo);
+    cabeceraPaciente(h.encabezado, c.p, out);
+    out.push({ ok: /(r\/p|rp)\b/.test(N(h.cuerpo).replace(/^diagnostico[^\n]*\n/, '')) || t.length > 20, peso: 4, label: 'Hay un medicamento prescripto', tip: 'Escribí el medicamento a continuación del R/p.' });
+    out.push({ ok: /diagnostico/.test(t) || /\bcie\b/.test(t), peso: 4, label: 'Diagnóstico (explícito o CIE-10)', tip: 'Consigná el diagnóstico sobre el margen izquierdo.' });
+    out.push({ ok: /\b\d+([.,]\d+)?\s*(mg|mcg|g|ml|ui|%)/.test(t), peso: 6, label: 'Dosis por unidad (mcg / mg / g)', tip: 'Indicá la dosis por unidad.' });
+    out.push({ ok: /(comprimid|capsul|gotas|jarabe|ampolla|sobre|crema|ungüento|unguento|supositorio|aerosol|inhal|parche|solucion|suspension|tableta)/.test(t), peso: 4, label: 'Forma de presentación', tip: 'Indicá la forma de presentación (comprimidos, cápsulas, gotas…).' });
+    out.push({ ok: envasesOk(h.cuerpo, 1) || /\b(i|ii|iii|iv|v)\b/.test(t), peso: 6, label: 'Envases en romanos y en letras', tip: 'La cantidad de envases va en números romanos y desarrollada en letras: I (uno).' });
+    out.push({ ok: /(cada|por la (manana|noche|tarde)|en ayunas|por dia|por dias)/.test(t), peso: 6, label: 'Posología (cuánto, cada cuánto y por cuánto tiempo)', tip: 'Indicá la posología completa.' });
+    out.push({ ok: !ABREV.test(h.cuerpo || ''), peso: 4, label: 'Sin abreviaturas confusas', tip: 'Evitá abreviaturas y siglas.' });
+    chequeoFinal('r1', false, out);
+    return out;
+  }
   function corregirReceta(d, c) {
+    if (c.ecoe) return corregirRecetaEcoe(c);
     const h = hojas.r1 || {}; const out = [];
     cabeceraPaciente(h.encabezado, c.p, out);
     cuerpoReceta(h.cuerpo, c.d, c, out, { dx: true, posologia: true });
@@ -391,7 +411,7 @@ const NikaRecetarios = (() => {
   // Minutos del examen según el documento (una hoja de certificado, una de receta/solicitud, o dos recetas)
   const UMBRAL_APROBADO = 70;   // el docente exige 70/100 y ningún error grave
   const tiempoRecomendado = (doc) => (doc.hojas.length > 1 ? 15 * 60 : doc.layout === 'certificado' ? 8 * 60 : 10 * 60);
-  const tiempoExamen = (doc) => { const m = RecetariosExamen.config().minutos; return m && m >= 1 ? Math.min(180, Math.round(m)) * 60 : tiempoRecomendado(doc); };
+  const tiempoExamen = (doc) => { if (EMBED) return 300; const m = RecetariosExamen.config().minutos; return m && m >= 1 ? Math.min(180, Math.round(m)) * 60 : tiempoRecomendado(doc); };
 
   // Pantalla previa: práctica (con guía) o examen (sin guía y con reloj), con la configuración del examen
   function elegirModo(id, nuevoCaso, casoDado) {
@@ -500,14 +520,14 @@ const NikaRecetarios = (() => {
     examenActivo = true; entregando = false;
     const seg = tiempoExamen(doc);
     RecetariosExamen.iniciar({ segundos: seg, contenedor: $('#rz-root'), onFin: () => entregar('tiempo') });
-    if (window.ExamIntegridad) ExamIntegridad.iniciar({ modulo: 'recetarios', modo: 'recetario_' + doc.id, estricto: false, total: 1, limiteSeg: seg, permitirCaptura: true, onForzarEntrega: () => entregar('forzada') });
+    if (window.ExamIntegridad && !EMBED) ExamIntegridad.iniciar({ modulo: 'recetarios', modo: 'recetario_' + doc.id, estricto: false, total: 1, limiteSeg: seg, permitirCaptura: true, onForzarEntrega: () => entregar('forzada') });
     window.addEventListener('beforeunload', avisoSalida);
   }
   // Cierra el examen (reloj, reglas y aviso de salida). Devuelve el cartel de integridad si hubo incidencias.
   async function cerrarExamen() {
     RecetariosExamen.detener(); window.removeEventListener('beforeunload', avisoSalida); examenActivo = false;
     let integ = '';
-    if (window.ExamIntegridad && ExamIntegridad.estado) {
+    if (window.ExamIntegridad && ExamIntegridad.estado && !EMBED) {
       try { const r = await ExamIntegridad.entregar({ exam: [], answers: {}, aciertos: null, puntaje: null }); integ = ExamIntegridad.mensajeFinalHTML(r, { aciertos: null }) || ''; }
       catch (e) { try { ExamIntegridad.abandonar(); } catch (_) {} }
     }
@@ -532,6 +552,7 @@ const NikaRecetarios = (() => {
   function cancelarExamen() {
     if (!examenActivo) return;
     if (!salirExamen()) return;
+    if (EMBED) { aPadre({ estado: 'cancelado' }); return; }
     renderLista(); window.scrollTo({ top: 0, behavior: 'smooth' }); toast('Examen cancelado: no se guardó el intento.');
   }
   const aExamen = () => { if (docId) empezar(docId, false, caso, 'examen'); };
@@ -640,6 +661,7 @@ const NikaRecetarios = (() => {
       : (graves.length ? `<div class="rz-ex-res">⛔ <b>Errores graves que impiden aprobar:</b> ${graves.map((c) => esc(c.label)).join(' · ')}</div>` : (pct < UMBRAL_APROBADO ? `<div class="rz-ex-res">Para aprobar se necesitan al menos ${UMBRAL_APROBADO} puntos.</div>` : ''));
     ultimo = { pct, nivel: nivel[0], checks, segundos: seg };
     const mal = checks.filter((c) => !c.ok); const areas = porAreas(checks); const sug = sugerencias(doc, checks, areas);
+    if (EMBED) { const h1 = hojas.r1 || {}; aPadre({ estado: 'entregado', texto: [h1.encabezado, h1.cuerpo].filter(Boolean).join('\n').slice(0, 1500), pct, nivel: nivel[0], aprobado, vacia, segundos: seg, motivo: (opts && opts.motivo) || 'manual', graves: graves.map((c) => c.label), fallas: mal.slice(0, 8).map((c) => c.label), total: checks.length, ok: checks.length - mal.length }); return; }
     mostrarModal(cartelExamen(seg) + integ + extraVeredicto + `<div class="rz-res-h ${aprobado ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos · ${Math.floor(seg / 60)} min ${seg % 60} s</small></div><span class="rz-sello-res ${aprobado ? 'ok' : 'mal'}">${aprobado ? 'APROBADO' : 'DESAPROBADO'}</span></div>
       <div class="rz-compartir"><div class="rz-comp-t">📤 Compartí tu resolución</div><div class="rz-comp-b">
         <button type="button" class="rz-wa" onclick="RecetariosShare.abrir('whatsapp')"><span class="rz-wa-ic">${WA_SVG}</span><span>Compartir por WhatsApp</span></button>
@@ -688,6 +710,14 @@ const NikaRecetarios = (() => {
   const modoParam = (p) => (['practica', 'examen'].includes(p.get('modo')) ? p.get('modo') : null);
   function init() {
     const p = new URLSearchParams(location.search);
+    if (EMBED) {
+      let est = {}; try { est = JSON.parse(sessionStorage.getItem('nika_ecoe_receta') || '{}') || {}; } catch (_) {}
+      const edad = Number.isInteger(est.edad) && est.edad > 0 && est.edad < 111 ? est.edad : null;
+      const pac = R.paciente({ sexo: est.sexo === 'F' || est.sexo === 'M' ? est.sexo : undefined, edadMin: edad || 20, edadMax: edad || 75, conOS: true });
+      const c = { tipo: 'receta', ecoe: true, p: pac, d: { dci: '', dosis: '', forma: '', unidades: 1, dx: '', posologia: '', marcas: [] },
+        texto: `Paciente de la estación: ${pac.nombreCompleto} (${pac.edad} años, DNI ${pac.dniTxt}, obra social ${pac.obraSocial}, afiliado N.° ${pac.afiliado}). Redactá la receta con el tratamiento que indicaste en la estación, sin ayudas.` };
+      abrir('receta', false, c, 'examen'); return;
+    }
     const docParam = p.get('doc');
     if (docParam && R.DOCS[docParam] && p.get('k')) {
       // Link corto: el caso está guardado en la tabla casos_compartidos

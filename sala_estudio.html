@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala de Estudio | Campus Nika</title>
+    <meta name="description" content="Elegí tu año y tu materia y entrá a la Sala de Estudio, al simulador, a los duelos o a NikaSim.">
+    <meta name="theme-color" content="#0a192f">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=10">
+    <link rel="stylesheet" href="css/nikasim.css?v=3">
+    <link rel="stylesheet" href="css/sala-estudio.css?v=1">
+    <link rel="stylesheet" href="css/campus-premium.css?v=3">
+    <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
+    <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
+</head>
+<body class="nikasim sala-estudio" data-pagina="sala-estudio">
+
+    <aside class="ns-side" id="ns-side" aria-label="Navegación">
+        <a class="ns-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span><b>CAMPUS NIKA</b><small>Sala de Estudio</small></span>
+        </a>
+        <div class="ns-cat">Navegación</div>
+        <a class="ns-link" href="campus.html"><span class="ns-ic">🏠</span><span class="ns-t">Inicio / Dashboard</span></a>
+        <a class="ns-link on" href="sala_estudio.html" aria-current="page"><span class="ns-ic">📚</span><span class="ns-t">Sala de Estudio</span></a>
+        <a class="ns-link" href="nikasim.html"><span class="ns-ic">🥽</span><span class="ns-t">Centro de Simulación</span></a>
+        <div class="ns-cat">Materias · 5° año</div>
+        <a class="ns-link" href="siam_hub.html"><span class="ns-ic">🫀</span><span class="ns-t">S.I.A.M.</span></a>
+        <a class="ns-link" href="gineco_hub.html"><span class="ns-ic">🤰</span><span class="ns-t">Ginecología</span></a>
+        <a class="ns-link" href="cirugia_hub.html"><span class="ns-ic">🔪</span><span class="ns-t">Cirugía</span></a>
+        <div class="ns-cat">Herramientas</div>
+        <a class="ns-link" href="nikafarma.html"><span class="ns-ic">💊</span><span class="ns-t">NikaFarma</span></a>
+        <button type="button" class="ns-link ns-colapsar" id="ns-colapsar" aria-label="Contraer o expandir la barra lateral"><span class="ns-ic">⇤</span><span class="ns-t">Contraer</span></button>
+    </aside>
+
+    <div class="ns-shell">
+        <header class="ns-top">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <button type="button" class="ns-burger" id="ns-burger" aria-label="Abrir menú">☰</button>
+                <h1>📚 Sala de Estudio <small style="font-weight:600;color:var(--text-muted);font-size:.78rem;">Elegí tu año y tu materia</small></h1>
+            </div>
+            <div class="ns-acc">
+                <span data-nika-racha-slot></span>
+                <button type="button" class="pl-btn music" data-nika-music-toggle title="NikaMusic" aria-label="Abrir NikaMusic"><span class="lbl">🎧 NikaMusic</span></button>
+                <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+                <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+            </div>
+        </header>
+
+        <main class="ns-main" id="ns-main">
+            <section class="se-hero" aria-label="Sala de Estudio">
+                <div class="se-estrellas" aria-hidden="true"></div>
+                <div class="se-libro" aria-hidden="true">
+                    <svg viewBox="0 0 220 170" focusable="false">
+                        <defs>
+                            <linearGradient id="seT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#cbd5e1"/></linearGradient>
+                            <linearGradient id="seC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+                        </defs>
+                        <ellipse class="se-sombra" cx="110" cy="158" rx="70" ry="8" fill="#020617" opacity=".35"/>
+                        <g class="se-flota">
+                            <path d="M110 40 C86 28 52 28 24 40 L24 130 C52 118 86 118 110 130 Z" fill="url(#seT)" stroke="#94a3b8" stroke-width="2"/>
+                            <path d="M110 40 C134 28 168 28 196 40 L196 130 C168 118 134 118 110 130 Z" fill="url(#seT)" stroke="#94a3b8" stroke-width="2"/>
+                            <path d="M110 40 L110 130" stroke="#64748b" stroke-width="2.4"/>
+                            <g stroke="#94a3b8" stroke-width="2.4" stroke-linecap="round" opacity=".8"><path d="M36 58 C58 52 82 52 100 60"/><path d="M36 74 C58 68 82 68 100 76"/><path d="M36 90 C58 84 82 84 100 92"/><path d="M120 60 C138 52 162 52 184 58"/><path d="M120 76 C138 68 162 68 184 74"/><path d="M120 92 C138 84 162 84 184 90"/></g>
+                            <path class="se-pagina" d="M110 40 C134 28 168 28 196 40 L196 130 C168 118 134 118 110 130 Z" fill="#fff" opacity=".7"/>
+                            <path d="M22 134 C52 122 86 122 110 134 C134 122 168 122 198 134" fill="none" stroke="url(#seC)" stroke-width="6" stroke-linecap="round"/>
+                        </g>
+                    </svg>
+                    <span class="se-chispa s1">✦</span><span class="se-chispa s2">✧</span><span class="se-chispa s3">✦</span>
+                </div>
+                <div class="se-hero-txt">
+                    <small>Campus Nika · Sala de Estudio</small>
+                    <h2>¿Qué querés estudiar hoy?</h2>
+                    <p>Elegí tu año y tu materia. Desde cada una entrás al <b>programa de estudio</b>, al <b>simulador de exámenes</b>, a los <b>duelos 1vs1</b> o al <b>atlas 3D</b> de acreditaciones.</p>
+                    <div class="se-atajos" id="se-atajos"></div>
+                </div>
+            </section>
+
+            <div class="ns-paso"><b>1</b><h3>Elegí tu cursada</h3><small>Años 1° a 6°</small></div>
+            <div class="ns-years" id="ns-years" role="tablist" aria-label="Año de cursada"></div>
+
+            <div class="ns-paso"><b>2</b><h3>Elegí la materia</h3><small id="se-anio-txt"></small></div>
+            <div id="se-contenido" aria-live="polite"></div>
+        </main>
+    </div>
+
+    <div id="toast">Notificación</div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/nikaAcceso.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/rachas.js"></script>
+    <script src="js/nikaMusic.js"></script>
+    <script src="js/atajos.js"></script>
+    <script src="js/paginaLateral.js"></script>
+    <script src="js/salaEstudioHub.js?v=1"></script>
+<script src="js/campusTema.js?v=3"></script>
+<script src="js/campusEspacio.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+/* Tema premium (violeta + fondo espacial) para las salas comunes: Sala de Estudio, NikaSim y los hubs de cada materia.
+   Se activa con body.tema-premium (js/campusTema.js). Va después de campus-premium.css, que define las variables y el fondo. */
+
+/* ---- selector de apariencia en la barra superior ---- */
+.cp-top { display: inline-flex; gap: 3px; padding: 3px; border-radius: 999px; background: rgba(148, 163, 184, .14); border: 1px solid var(--border); }
+.cp-top-op { display: inline-flex; align-items: center; gap: 5px; border: 0; background: transparent; color: var(--text-main); padding: 6px 11px; border-radius: 999px; font: inherit; font-size: .76rem; font-weight: 700; cursor: pointer; transition: background .2s, transform .2s, box-shadow .2s, color .2s; }
+.cp-top-op b { font-weight: 700; }
+.cp-top-op:hover { transform: translateY(-1px); background: rgba(168, 85, 247, .18); }
+.cp-top-op.on { color: #fff; background: linear-gradient(135deg, #7e22ce, #a855f7 60%, #6366f1); box-shadow: 0 6px 16px rgba(168, 85, 247, .45); }
+.cp-top-op.on span { animation: cpPopTop .4s ease; }
+@keyframes cpPopTop { 0% { transform: scale(.6) rotate(-20deg); } 60% { transform: scale(1.25) rotate(8deg); } 100% { transform: none; } }
+.pl-btn.cp-top-cta { color: #fff; background: linear-gradient(110deg, #7e22ce, #6366f1, #7e22ce); background-size: 200% 100%; border-color: rgba(192, 132, 252, .5); animation: cpTexto 6s linear infinite; }
+@media (max-width: 760px) { .cp-top-op b, .pl-btn.cp-top-cta .lbl { display: none; } }
+
+/* ---- NikaSim y Sala de Estudio (esqueleto .ns-*) ---- */
+body.tema-premium.nikasim .ns-side { background: linear-gradient(180deg, #14083a 0%, #0a0420 55%, #06021a 100%); border-right: 1px solid rgba(168, 85, 247, .3); box-shadow: 8px 0 40px rgba(76, 29, 149, .35); }
+body.tema-premium .ns-brand small, body.tema-premium .ns-cat { color: #a78bfa; }
+body.tema-premium .ns-link:hover { background: linear-gradient(90deg, rgba(168, 85, 247, .22), rgba(56, 189, 248, .08)); color: #f5f3ff; box-shadow: inset 3px 0 0 #a855f7; }
+body.tema-premium .ns-link.on { background: linear-gradient(135deg, rgba(168, 85, 247, .38), rgba(99, 102, 241, .3)); color: #fff; box-shadow: inset 0 0 0 1px rgba(192, 132, 252, .55); }
+body.tema-premium .ns-top { background: rgba(12, 6, 34, .72); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(168, 85, 247, .35); box-shadow: 0 8px 30px rgba(76, 29, 149, .22); }
+body.tema-premium .ns-burger { background: rgba(168, 85, 247, .16); color: #e9d5ff; border-color: rgba(192, 132, 252, .4); }
+body.tema-premium .pl-btn { background: rgba(168, 85, 247, .14); color: #e9d5ff; border-color: rgba(192, 132, 252, .38); }
+body.tema-premium .pl-btn:hover { background: rgba(168, 85, 247, .28); border-color: #c084fc; }
+body.tema-premium .pl-btn.music { background: rgba(29, 185, 84, .14); }
+body.tema-premium .ns-hero { background: linear-gradient(125deg, #1e0b4b 0%, #5b21b6 55%, #0e7490 130%); background-size: 200% 200%; animation: cpHero 14s ease-in-out infinite; box-shadow: 0 22px 46px -24px rgba(124, 58, 237, .7); border: 1px solid rgba(192, 132, 252, .35); }
+body.tema-premium .ns-paso b { background: linear-gradient(135deg, #7e22ce, #a855f7); box-shadow: 0 4px 12px rgba(168, 85, 247, .5); }
+body.tema-premium .ns-year { background: rgba(18, 10, 44, .6); color: #e9d5ff; border-color: rgba(168, 85, 247, .3); }
+body.tema-premium .ns-year:hover { border-color: #c084fc; }
+body.tema-premium .ns-year.on { background: linear-gradient(135deg, #7e22ce, #a855f7); border-color: transparent; color: #fff; box-shadow: 0 10px 22px -12px rgba(168, 85, 247, .9); }
+body.tema-premium .ns-card { background: var(--card-bg); border-color: rgba(168, 85, 247, .25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+body.tema-premium .ns-card:hover { border-color: #c084fc; box-shadow: 0 18px 34px -16px rgba(168, 85, 247, .6); }
+body.tema-premium .ns-card .ns-go, body.tema-premium .ns-miga b { color: #c4b5fd; }
+body.tema-premium .ns-pill.ok { background: rgba(168, 85, 247, .18); color: #e9d5ff; }
+body.tema-premium .ns-pill.cian { background: rgba(56, 189, 248, .16); }
+body.tema-premium .ns-vacio { border-color: rgba(168, 85, 247, .3); }
+
+/* ---- Sala de Estudio: tarjetas ---- */
+body.tema-premium .se-hero { border: 1px solid rgba(192, 132, 252, .35); }
+body.tema-premium .se-card { border-color: rgba(168, 85, 247, .28); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+body.tema-premium .se-rapido a { background: rgba(18, 10, 44, .55); color: #c4b5fd; border-color: rgba(168, 85, 247, .28); }
+body.tema-premium .se-rapido a:hover { color: #fff; background: rgba(168, 85, 247, .22); }
+
+/* ---- hubs de materia (siam_hub / gineco_hub / cirugia_hub) ---- */
+body.tema-premium header.navbar { background: linear-gradient(135deg, #14083a, #4c1d95 65%, #6d28d9) !important; background-color: #4c1d95 !important; background-image: linear-gradient(135deg, #14083a, #4c1d95 65%, #6d28d9) !important;
+  border-bottom: 1px solid rgba(192, 132, 252, .45); box-shadow: 0 10px 34px rgba(76, 29, 149, .4); }
+body.tema-premium header.navbar .btn-back:hover { color: #6d28d9; }
+body.tema-premium .hub-header h1 { color: #f8fafc; }
+body.tema-premium .hub-header .hub-eyebrow { color: #c4b5fd; }
+body.tema-premium .hub-card { background: var(--card-bg); border: 1px solid rgba(168, 85, 247, .26); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); animation: cpEntra .6s cubic-bezier(.2, .8, .2, 1) both; }
+body.tema-premium .hub-card:nth-child(2) { animation-delay: .08s; } body.tema-premium .hub-card:nth-child(3) { animation-delay: .16s; } body.tema-premium .hub-card:nth-child(4) { animation-delay: .24s; }
+body.tema-premium .hub-card:hover { border-color: #c084fc; box-shadow: 0 22px 44px -14px rgba(168, 85, 247, .55); transform: translateY(-7px); }
+body.tema-premium .hub-card h3 { color: #f5f3ff; }
+body.tema-premium .hub-card .btn-hub { background: linear-gradient(135deg, #7e22ce, #a855f7 60%, #6366f1); color: #fff; box-shadow: 0 8px 20px rgba(168, 85, 247, .4); }
+body.tema-premium .hub-card .btn-hub:hover { box-shadow: 0 12px 26px rgba(168, 85, 247, .6); transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) { body.tema-premium .ns-hero, body.tema-premium .hub-card, .pl-btn.cp-top-cta, .cp-top-op.on span { animation: none !important; } }

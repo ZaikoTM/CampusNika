@@ -1178,7 +1178,8 @@
                 <div class="clinica-topbar">
                     <button type="button" class="clinica-btn-volver" onclick="ClinicaEngine.volver()"><span class="arrow">←</span> Volver al Menú</button>
                     <div class="clinica-title" id="clinica-titulo">Simulación Clínica</div>
-                    <button type="button" class="clinica-btn-volver" id="clinica-btn-finalizar" onclick="ClinicaEngine.finalizarCaso()" title="Cerrar el caso ahora y recibir la evaluación docente" style="margin-left:auto; border-color:#c4b5fd; color:#7c3aed; background:#f5f3ff;">🏁 Finalizar y Evaluar</button>
+                    <button type="button" class="clinica-btn-volver" id="clinica-btn-receta" onclick="ClinicaEngine.parteReceta()" title="Parte práctica: redactar la receta en el recetario (5 minutos, sin ayudas)" style="margin-left:auto; display:none; border-color:#0ea5e9; color:#0369a1; background:#f0f9ff;">📝 Redactar receta</button>
+                    <button type="button" class="clinica-btn-volver" id="clinica-btn-finalizar" onclick="ClinicaEngine.finalizarCaso()" title="Cerrar el caso ahora y recibir la evaluación docente" style="margin-left:8px; border-color:#c4b5fd; color:#7c3aed; background:#f5f3ff;">🏁 Finalizar y Evaluar</button>
                 </div>
 
                 <div class="nika-aviso-ficticio">⚖️ Entorno de simulación con fines formativos. Los casos y pacientes son 100% ficticios. Prohibido ingresar datos reales de pacientes.</div>
@@ -1488,6 +1489,7 @@
     <script src="data/banco_trauma_inferior.js"></script>
     <script src="data/banco_suturas.js"></script>
     <script src="js/examModesConfig.js?v=72"></script>
+    <script src="js/examPromptsMaterias.js?v=3"></script>
 
     <script>
         // ================= ESTADO GLOBAL =================
@@ -3867,6 +3869,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             let _temaSorteado = '';       // tema sorteado por el cliente si el submodo trae temasEstacion (ECOE) y la temática es Global
             let _esqueleto = '';          // esqueleto clínico del caso (solo si no hay temática ni tema sorteado)
             let _abogado = null;          // { id, tema, debilidad_detectada } del error_bank, o null
+            let _recetaHecha = false;     // ECOE: la parte práctica (receta en el recetario) ya se hizo en esta estación
 
             // Texto a agregar al final del systemPrompt cuando el alumno eligió
             // una temática en #modal-tematica-up (null/'' = Global / Al azar,
@@ -3899,13 +3902,21 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 return '\n\nMODO ABOGADO DEL DIABLO (instrucción interna del tribunal: nunca la menciones ni reveles que viene de un examen anterior). En una evaluación previa este alumno mostró una debilidad puntual en: "' + deb + '" (tema: ' + tema + '). Sin alterar el caso clínico ni romper la regla temática, actuá además como ABOGADO DEL DIABLO respecto de ese concepto: en el momento clínicamente más natural (idealmente a mitad del caso) llevá la conversación hacia ese concepto y cuestioná con escepticismo cada respuesta del alumno sobre él ("¿está seguro?", "¿y si el paciente tuviera...?", "¿por qué no la otra conducta?"). Presioná con contraejemplos y variantes del cuadro, y repreguntá hasta comprobar si realmente lo superó o si solo lo repite de memoria. No le des la respuesta correcta; si insiste en un error, hacé que tenga consecuencia en la evolución del paciente. Al cerrar el caso, el JSON de evaluación debe incluir además el campo "debilidad_superada": true si el alumno demostró dominio real de ese concepto bajo presión, o false si no. Ese campo extra es la única excepción a la forma exacta del JSON indicada más arriba.';
             }
 
+            // ECOE (todas las materias): la receta se redacta en el simulador de Recetarios (parte práctica), no en el chat.
+            const RE_PEDIDO_RECETA = /\b(redact\w*|escrib\w*|confeccion\w*|hag\w*|extiend\w*|prepar\w*|complet\w*|entreg\w*|dej\w*|doy)\b[^.\n]{0,40}\b(receta|recetario)\b|\b(receto|prescribo)\b/i;
+            function reglaParteReceta() {
+                if (!modoActual || modoActual.id !== 'ecoe_final') return '';
+                return '\n\nPARTE PRÁCTICA DE LA RECETA (regla del sistema): la receta NO se redacta en el chat: el sistema le abre al alumno el recetario en modo examen (5 minutos, sin ayudas). Si el alumno pide redactar o entregar la receta en el chat, respondé solo [Evaluador: Redacte la receta en el recetario que se abre en pantalla.] y esperá. Cuando recibas un mensaje que empieza con [Sistema — parte práctica], vas a recibir el TEXTO de la receta que escribió el alumno: respondé [Evaluador: Receta registrada.] y continuá la estación sin comentarla. La receta es una prueba CLÍNICA: en la evaluación final juzgá con el diagnóstico real de tu caso si el fármaco es el CORRECTO y adecuado (principio activo por nombre genérico, dosis, vía, frecuencia y duración), si respeta las alergias, la función renal o hepática, la edad y las interacciones conocidas en la estación. Un fármaco incorrecto, contraindicado, peligroso o con una dosis errónea es un ERROR CRÍTICO: el pilar "terapeutica" no supera 4. Una receta con el fármaco correcto pero con fallas de forma (marca comercial, sin posología, datos del paciente incompletos) baja "vocabulario" y se menciona. Incluí en la devolución docente una línea que empiece con "Parte práctica (receta):" con tu veredicto clínico y formal. Si el alumno nunca la redactó y el tratamiento incluía fármacos para el domicilio, anotalo como omisión.';
+            }
+
             function armarSystemPrompt(primerTurno) {
                 return ((submodoActual && submodoActual.systemPrompt) || '')
                     + '\n\n' + FORMATO_EVALUACION_FINAL
                     + reglaTematica()
                     + reglaTemaSorteado()
                     + (primerTurno ? reglaEsqueleto() : '')
-                    + reglaAbogadoDelDiablo();
+                    + reglaAbogadoDelDiablo()
+                    + reglaParteReceta();
             }
 
             function elScreen() { return document.getElementById('pantalla-clinica'); }
@@ -4057,7 +4068,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             function _autoEvaluarSiLlegaAlLimite() {
                 const limite = submodoActual && Number(submodoActual.limiteTurnos);
                 if (!limite || _pendiente) return;
-                const turnosDelAlumno = _historial.filter((m) => m.rol === 'usuario').length;
+                const turnosDelAlumno = _historial.filter((m) => m.rol === 'usuario' && !/^\[Sistema/.test(m.texto)).length;
                 if (turnosDelAlumno >= limite) procesarTurno(MENSAJE_FORZAR_EVALUACION, { esCierreForzado: true });
             }
 
@@ -4094,7 +4105,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             function iniciar(modo, sub, tematica, tematicaId) {
                 NikaCasoPersistencia.limpiar(); // caso nuevo: descarta cualquier resto de uno anterior
                 modoActual = modo; submodoActual = sub;
-                _historial = []; _pendiente = false; _ultimoIntento = null; _resultadoFinal = null;
+                _historial = []; _pendiente = false; _ultimoIntento = null; _resultadoFinal = null; _recetaHecha = false;
                 _tematicaActual = tematica || null;
                 _tematicaIdActual = tematicaId || null;
                 _temaSorteado = (!_tematicaActual && sub && Array.isArray(sub.temasEstacion) && sub.temasEstacion.length)
@@ -4121,6 +4132,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 const ta = document.getElementById('clinica-textarea');
                 if (ta) ta.value = '';
                 const btnFin = document.getElementById('clinica-btn-finalizar'); if (btnFin) btnFin.disabled = false;
+                const btnRec = document.getElementById('clinica-btn-receta'); if (btnRec) btnRec.style.display = (modo && modo.id === 'ecoe_final') ? '' : 'none';
 
                 const tienePrompt = !!(sub && sub.systemPrompt);
                 fijarControles(false);
@@ -4157,8 +4169,61 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 const texto = ta.value.trim();
                 agregarAlLog('usuario', texto);
                 ta.value = '';
+                if (modoActual && modoActual.id === 'ecoe_final' && !_recetaHecha && RE_PEDIDO_RECETA.test(texto)) { parteReceta(true); return; }
                 await procesarTurno(texto);
             }
+
+            // ---- Parte práctica del ECOE: el recetario en modo examen (5 min, sin ayudas) dentro de un iframe ----
+            function parteReceta(yaEscrito) {
+                if (_pendiente || !modoActual || modoActual.id !== 'ecoe_final') return;
+                if (_recetaHecha) { mostrarErrorEnvio('La receta de esta estación ya fue redactada.'); return; }
+                _recetaHecha = true;
+                const aviso = '[Evaluador: Redacte la receta en el recetario que se abre en pantalla. Tiempo máximo: 5 minutos. Sin ayudas.]';
+                if (!yaEscrito) agregarAlLog('usuario', 'Redacto la receta.');
+                agregarAlLog('ia', aviso);
+                const b = document.getElementById('clinica-btn-receta'); if (b) b.style.display = 'none';
+                fijarControles(false);
+                abrirRecetario();
+            }
+            // Pide a la IA solo la edad y el sexo del paciente de la estación (para que el recetario sea de ese paciente) y abre el recetario
+            async function abrirRecetario() {
+                let est = {};
+                try {
+                    const r = await llamarEdgeFunctionSimulador({
+                        modo: modoActual ? modoActual.id : null, submodo: submodoActual ? submodoActual.id : null,
+                        system_prompt: armarSystemPrompt(false), historial: _historial.slice(), es_primer_turno: false,
+                        mensaje: '[Instrucción de sistema — no es un turno del alumno] Respondé ÚNICAMENTE con un objeto JSON {"edad": número, "sexo": "F" o "M"} con la edad y el sexo del paciente de esta estación, sin ninguna otra palabra y sin evaluación.',
+                    });
+                    const m = /\{[^{}]*\}/.exec(String((r && r.texto) || '')); if (m) est = JSON.parse(m[0]);
+                } catch (e) { console.warn('[ECOE] No se pudo obtener edad y sexo del paciente para la receta:', e && e.message); }
+                try { sessionStorage.setItem('nika_ecoe_receta', JSON.stringify({ edad: Number(est.edad) || null, sexo: est.sexo === 'F' || est.sexo === 'M' ? est.sexo : null })); } catch (_) {}
+                const ov = document.createElement('div'); ov.id = 'ecoe-receta-ov';
+                ov.style.cssText = 'position:fixed;inset:0;z-index:9800;background:rgba(2,6,23,.82);display:flex;flex-direction:column;padding:10px;gap:8px';
+                ov.innerHTML = '<div style="color:#e2e8f0;font:700 .9rem/1.2 inherit;display:flex;align-items:center;gap:10px">📝 Parte práctica del ECOE · Receta médica <span style="font-weight:600;color:#94a3b8;font-size:.78rem">5 minutos · sin ayudas · el fármaco y la dosis los juzga el tribunal</span></div>'
+                    + '<iframe src="recetarios.html?embed=ecoe" title="Recetario" style="flex:1;border:0;border-radius:12px;background:#fff;width:100%"></iframe>';
+                document.body.appendChild(ov);
+            }
+            async function recetaEntregada(d) {
+                const ov = document.getElementById('ecoe-receta-ov'); if (ov) ov.remove();
+                if (!d || !modoActual) return;
+                const f = (arr) => (arr && arr.length ? arr.join('; ') : 'ninguna');
+                let txt, html;
+                if (d.estado === 'entregado') {
+                    const seg = d.segundos || 0;
+                    txt = '[Sistema — parte práctica] El alumno redactó la receta en el recetario en modo examen (' + (d.motivo === 'tiempo' ? 'se agotó el tiempo' : 'entregada a tiempo') + ', ' + Math.floor(seg / 60) + ' min ' + (seg % 60) + ' s de 5). Puntaje de forma y legalidad: ' + d.pct + '/100 (' + d.nivel + '; ' + d.ok + ' de ' + d.total + ' criterios). Fallas de forma: ' + f(d.fallas) + '. TEXTO DE LA RECETA DEL ALUMNO (entre comillas triples): """' + String(d.texto || '(vacía)') + '""". Respondé [Evaluador: Receta registrada.] y continuá la estación sin comentar el resultado; el veredicto clínico (fármaco, dosis, vía, seguridad) va en la evaluación final.';
+                    html = '📝 <b>Parte práctica entregada</b>: forma de la receta ' + d.pct + '/100 (' + escaparHtml(d.nivel) + '). El fármaco y la dosis se juzgan en la evaluación final.' + (d.fallas && d.fallas.length ? '<br><small>A revisar: ' + d.fallas.map(escaparHtml).join(' · ') + '</small>' : '');
+                } else {
+                    txt = '[Sistema — parte práctica] El alumno NO entregó la receta (canceló el recetario). Respondé [Evaluador: Receta no entregada.] y continuá la estación; en la evaluación final contalo como omisión.';
+                    html = '📝 La receta no fue entregada.';
+                }
+                crearBubble('sistema', { html });
+                _historial.push({ rol: 'usuario', texto: txt }); guardarCasoActivo();
+                await procesarTurno(txt);
+            }
+            window.addEventListener('message', (e) => {
+                if (e.origin !== location.origin || !e.data || e.data.nika !== 'recetario-ecoe') return;
+                recetaEntregada(e.data);
+            });
 
             async function reintentar() {
                 if (_pendiente || !_ultimoIntento) return;
@@ -4175,8 +4240,9 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 if (micCtrl) { micCtrl.destroy(); micCtrl = null; }
                 const pantalla = elScreen();
                 if (pantalla) pantalla.style.display = 'none';
-                _historial = []; _pendiente = false; _ultimoIntento = null; _resultadoFinal = null;
+                _historial = []; _pendiente = false; _ultimoIntento = null; _resultadoFinal = null; _recetaHecha = false;
                 _tematicaActual = null; _temaSorteado = ''; _esqueleto = ''; _abogado = null;
+                const btnRec = document.getElementById('clinica-btn-receta'); if (btnRec) btnRec.style.display = 'none';
                 mostrarPaso(2);
             }
 
@@ -4193,6 +4259,8 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 _esqueleto = guardado.esqueleto || '';
                 _abogado = guardado.abogado || null;
                 _pendiente = false; _ultimoIntento = null; _resultadoFinal = null;
+                _recetaHecha = _historial.some((m) => m.rol === 'usuario' && /^\[Sistema — parte práctica/.test(m.texto)) || _historial.some((m) => m.rol === 'ia' && /Redacte la receta en el recetario/.test(m.texto));
+                const btnRec = document.getElementById('clinica-btn-receta'); if (btnRec) btnRec.style.display = (modo && modo.id === 'ecoe_final' && !_recetaHecha) ? '' : 'none';
 
                 ocultarEmbudo();
                 const pantalla = elScreen();
@@ -4201,7 +4269,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 document.getElementById('clinica-titulo').textContent = modo ? modo.nombre : 'Simulación Clínica';
                 const log = document.getElementById('clinica-chat-log');
                 log.innerHTML = ''; log.style.display = '';
-                _historial.forEach((m) => crearBubble(m.rol, { texto: m.texto }));
+                _historial.forEach((m) => { if (m.rol === 'usuario' && /^\[Sistema/.test(m.texto)) return; crearBubble(m.rol, { texto: m.texto }); });
 
                 const filaInput = document.querySelector('#pantalla-clinica .clinica-input-row');
                 if (filaInput) filaInput.style.display = '';
@@ -4213,7 +4281,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            return { iniciar: iniciarConCupo, enviar, reintentar, reiniciar, volver, restaurar, finalizarCaso };
+            return { iniciar: iniciarConCupo, enviar, reintentar, reiniciar, volver, restaurar, finalizarCaso, parteReceta };
         })();
 
         function ocultarEmbudo() {

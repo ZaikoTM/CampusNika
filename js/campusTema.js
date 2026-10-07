@@ -1,7 +1,7 @@
-/* Campus NikaMed+ — selector de apariencia (Premium violeta / Clásico / Oscuro).
+/* Campus NikaMed+ — selector de apariencia (Premium violeta / Clásico / Oscuro) para el campus y las salas comunes (Sala de Estudio, NikaSim, hubs).
    Solo para NikaMed+ y admin. Por defecto, Premium. La elección queda en este dispositivo (localStorage).
    Los usuarios comunes siguen con el botón Modo Claro/Oscuro de siempre.
-   Uso: CampusTema.setCuenta('admin' | 'plus' | null)  — lo llama aplicarRangoUsuario() de campus.html. */
+   Uso: en el campus lo llama aplicarRangoUsuario() → CampusTema.setCuenta('admin' | 'plus' | null). En las demás páginas detecta la cuenta solo. */
 (function () {
   'use strict';
   const KEY = 'nika_campus_tema';
@@ -61,7 +61,38 @@
     document.addEventListener('keydown', esc); document.body.appendChild(m);
   }
 
+  const esCampus = () => !!document.getElementById('dark-mode-btn');
+
+  // Salas comunes (NikaSim, Sala de Estudio, hubs): grupo de 3 botones en la barra superior
+  function selectorTop() {
+    const ancla = document.getElementById('pl-tema') || document.querySelector('.btn-back') || null;
+    const cont = document.querySelector('.ns-acc') || (ancla && ancla.parentElement);
+    if (!cont) return;
+    let g = document.getElementById('cp-top'); const cta = document.getElementById('cp-top-cta');
+    if (!elegible()) {
+      if (g) g.remove();
+      if (ancla && ancla.id === 'pl-tema') ancla.style.display = '';
+      if (!cta) {
+        const b = document.createElement('button'); b.type = 'button'; b.id = 'cp-top-cta'; b.className = 'pl-btn cp-top-cta'; b.title = 'Tema Premium (NikaMed+)'; b.setAttribute('aria-label', 'Tema Premium');
+        b.innerHTML = '💜 <span class="lbl">Tema Premium</span> 🔒'; b.addEventListener('click', avisoPremium);
+        if (ancla && ancla.parentElement === cont) ancla.insertAdjacentElement('beforebegin', b); else cont.insertBefore(b, cont.firstChild);
+      }
+      return;
+    }
+    if (cta) cta.remove();
+    if (ancla && ancla.id === 'pl-tema') ancla.style.display = 'none';
+    if (!g) {
+      g = document.createElement('div'); g.id = 'cp-top'; g.className = 'cp-top'; g.setAttribute('role', 'radiogroup'); g.setAttribute('aria-label', 'Apariencia');
+      g.innerHTML = OPCIONES.map((o) => '<button type="button" role="radio" class="cp-top-op" data-t="' + o.id + '" title="' + o.txt + '"><span>' + o.ico + '</span><b>' + o.txt + '</b></button>').join('');
+      if (ancla && ancla.parentElement === cont) ancla.insertAdjacentElement('beforebegin', g); else cont.insertBefore(g, cont.firstChild);
+      g.addEventListener('click', (e) => { const b = e.target.closest('.cp-top-op'); if (b) elegir(b.dataset.t); });
+    }
+    const a = actual();
+    g.querySelectorAll('.cp-top-op').forEach((b) => { const on = b.dataset.t === a; b.classList.toggle('on', on); b.setAttribute('aria-checked', String(on)); });
+  }
+
   function selector() {
+    if (!esCampus()) { selectorTop(); return; }
     const btn = document.getElementById('dark-mode-btn');
     const li = btn && btn.closest('li');
     if (!li) return;
@@ -119,6 +150,23 @@
     cuenta = (c === 'admin' || c === 'plus') ? c : null; aplicar();
     if (elegible()) bajar(); else _bajado = false;
   }
+
+  // Fuera del campus la cuenta se deduce del perfil guardado en el navegador (solo estético: el acceso real a NikaMed+ lo valida el servidor)
+  function detectar() {
+    let u = null; try { u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); } catch (_) {}
+    const rol = String((u && u.role) || '').toLowerCase(), tipo = String((u && u.tipo_cuenta) || '').toLowerCase();
+    if (rol === 'admin' || tipo === 'admin') return 'admin';
+    let vip = ['vip', 'premium', 'plus', 'nikamed_plus'].includes(tipo) || rol === 'vip' || rol === 'premium';
+    try { if (window.NikaAcceso && window.NikaAcceso.esVip && window.NikaAcceso.esVip()) vip = true; } catch (_) {}
+    return vip ? 'plus' : null;
+  }
+  function auto() { if (esCampus()) return; const c = detectar(); if (c !== cuenta || !document.getElementById(c ? 'cp-top' : 'cp-top-cta')) setCuenta(c); }
+  function iniciar() {
+    if (esCampus()) return;
+    auto(); setTimeout(auto, 1200); setTimeout(auto, 3500);          // el perfil puede terminar de cargarse después
+    window.addEventListener('storage', (e) => { if (e.key === 'nika_currentUser' || e.key === KEY) auto(); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 
   window.CampusTema = { setCuenta, elegir, actual, aplicar };
 })();
