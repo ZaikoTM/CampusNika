@@ -69,15 +69,66 @@ function crearManoProc(mat, lado = 1) {
 // mano real (escaneo/modelado CC-BY, 7 poses como morph targets): reemplaza a la procedural en cuanto se descarga
 let MANO_REAL = null;
 const cargarManoReal = () => MANO_REAL || (MANO_REAL = new Promise((ok) => { new GLTFLoader().load('assets/anatomia/manos/mano_real.glb', (gl) => { let m = null; gl.scene.traverse((o) => { if (o.isMesh && !m) m = o; }); ok(m); }, undefined, () => ok(null)); }));
+// ---- guante de nitrilo: microarrugas (bump), brillo satinado y borde de puño enrollado; antebrazo con piel continuo con la muñeca
+let BUMP_GUANTE = null;
+function bumpGuante() {
+  if (BUMP_GUANTE || typeof document === 'undefined') return BUMP_GUANTE;
+  const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d');
+  x.fillStyle = '#808080'; x.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 1400; i++) {                                   // arrugas finas y cortas, como las de un guante estirado
+    const px = Math.random() * 256, py = Math.random() * 256, l = 5 + Math.random() * 22, a = (Math.random() - 0.5) * 0.9 + 1.2;
+    const v = Math.random() < 0.5 ? 70 + Math.random() * 40 : 150 + Math.random() * 60;
+    x.strokeStyle = `rgba(${v},${v},${v},0.55)`; x.lineWidth = 0.6 + Math.random() * 1.1; x.beginPath(); x.moveTo(px, py); x.lineTo(px + Math.cos(a) * l, py + Math.sin(a) * l); x.stroke();
+  }
+  BUMP_GUANTE = new THREE.CanvasTexture(c); BUMP_GUANTE.wrapS = BUMP_GUANTE.wrapT = THREE.RepeatWrapping; BUMP_GUANTE.repeat.set(2.2, 2.2);
+  return BUMP_GUANTE;
+}
+function materialGuante(mat) {
+  const m = mat.clone();
+  if (m.isMeshPhysicalMaterial) {
+    m.roughness = 0.3; m.clearcoat = 0.75; m.clearcoatRoughness = 0.22;
+    m.sheen = 0.7; m.sheenRoughness = 0.5; m.sheenColor = new THREE.Color('#bfe9ff');
+    const t = bumpGuante(); if (t) { m.bumpMap = t; m.bumpScale = 0.35; }
+  }
+  return m;
+}
+// degradé vertical para que el antebrazo se desvanezca hacia el codo en vez de cortarse en seco sobre la paciente
+let ALFA_BRAZO = null;
+function alfaBrazo() {
+  if (ALFA_BRAZO || typeof document === 'undefined') return ALFA_BRAZO;
+  const c = document.createElement('canvas'); c.width = 4; c.height = 128; const x = c.getContext('2d');
+  const gr = x.createLinearGradient(0, 128, 0, 0); gr.addColorStop(0, '#fff'); gr.addColorStop(0.3, '#fff'); gr.addColorStop(1, '#000');   // abajo (v=0, muñeca) opaco → arriba (v=1, codo) transparente
+  x.fillStyle = gr; x.fillRect(0, 0, 4, 128); ALFA_BRAZO = new THREE.CanvasTexture(c); return ALFA_BRAZO;
+}
+const MAT_PIEL_ANTEBRAZO = () => new THREE.MeshStandardMaterial({ color: '#e6bba0', roughness: 0.6, metalness: 0, transparent: true, alphaMap: alfaBrazo(), depthWrite: false });
+function crearAntebrazo(mat) {
+  const g = new THREE.Group();
+  // puño del guante: anillo enrollado sobre la muñeca + manguito
+  const puno = new THREE.Mesh(new THREE.TorusGeometry(3.1, 0.55, 12, 36), mat); puno.position.z = -3.0; puno.scale.set(1.0, 0.66, 1); puno.renderOrder = 9; g.add(puno);
+  const mangaMat = mat.clone(); mangaMat.side = THREE.DoubleSide;
+  const mg = new THREE.CylinderGeometry(3.1, 3.2, 3.6, 28, 1, true); mg.rotateX(-Math.PI / 2);          // eje hacia −Z; radiusTop (3.1) queda lejos de la mano
+  const manga = new THREE.Mesh(mg, mangaMat); manga.position.z = -3.5; manga.scale.set(1.0, 0.66, 1); manga.renderOrder = 9; g.add(manga);
+  // antebrazo de piel, aplanado y más ancho hacia el codo; se desvanece hacia el extremo
+  const bg = new THREE.CylinderGeometry(3.7, 3.1, 8, 32, 1, true); bg.rotateX(-Math.PI / 2);
+  const brazo = new THREE.Mesh(bg, MAT_PIEL_ANTEBRAZO()); brazo.position.z = -9.2; brazo.scale.set(1.0, 0.66, 1); brazo.renderOrder = 8; g.add(brazo);
+  return g;
+}
+
 export function crearMano(mat, lado = 1) {
-  const g = crearManoProc(mat, lado); const poseProc = g.pose; let real = null; let ultima = ['plana', 1];
+  const guante = materialGuante(mat);
+  const g = crearManoProc(guante, lado); const poseProc = g.pose; let real = null; let ultima = ['plana', 1];
   g.pose = (nombre, k = 1) => { ultima = [nombre, k]; if (!real) { poseProc(nombre, k); return; }
     const inf = real.morphTargetInfluences; inf.fill(0); const i = real.morphTargetDictionary[nombre]; if (i !== undefined) inf[i] = Math.max(0, Math.min(1, k)); };
+  const hold0 = g.userData.hold; const muneca0 = hold0.children.find((c) => c.geometry && c.geometry.type === 'CylinderGeometry');
+  if (muneca0) hold0.remove(muneca0);
+  const brazo = crearAntebrazo(guante); brazo.userData.esBrazo = true; hold0.add(brazo);
   cargarManoReal().then((base) => { if (!base) return;
     real = base.clone(); real.geometry = base.geometry; real.morphTargetInfluences = base.morphTargetInfluences.slice();
-    real.material = lado < 0 ? Object.assign(mat.clone(), { side: THREE.DoubleSide }) : mat; real.scale.set(lado < 0 ? -1 : 1, 1, 1); real.renderOrder = 9; real.frustumCulled = false;
-    const hold = g.userData.hold; const cuff = hold.children.find((c) => c.geometry && c.geometry.type === 'CylinderGeometry');
-    hold.children.slice().forEach((c) => { if (c !== cuff) hold.remove(c); }); if (cuff) { cuff.position.z = -3.4; cuff.scale.set(1.08, 1.5, 1.08); } hold.add(real); g.pose(...ultima); });
+    real.material = lado < 0 ? Object.assign(guante.clone(), { side: THREE.DoubleSide }) : guante; real.renderOrder = 9; real.frustumCulled = false;
+    // la malla viene con los dedos hacia +Y y la palma hacia −Z; la escena espera dedos hacia +Z y palma hacia +Y (hacia la piel): giro de 90° en X
+    real.rotation.x = Math.PI / 2; real.scale.set(lado < 0 ? -1 : 1, 1, 1);
+    const hold = g.userData.hold; hold.children.slice().forEach((c) => { if (!c.userData.esBrazo) hold.remove(c); });
+    hold.add(real); g.pose(...ultima); });
   return g;
 }
 
