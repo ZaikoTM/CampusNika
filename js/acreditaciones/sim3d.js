@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { crearBrazosPaciente } from './brazos3d.js?v=1';
 
 export const TIPOS = {};
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -104,27 +105,28 @@ const MAT_PIEL_ANTEBRAZO = () => new THREE.MeshStandardMaterial({ color: '#e6bba
 function crearAntebrazo(mat) {
   const g = new THREE.Group();
   // puño del guante: anillo enrollado sobre la muñeca + manguito
-  const puno = new THREE.Mesh(new THREE.TorusGeometry(3.1, 0.55, 12, 36), mat); puno.position.z = -3.0; puno.scale.set(1.0, 0.66, 1); puno.renderOrder = 9; g.add(puno);
+  const puno = new THREE.Mesh(new THREE.TorusGeometry(3.35, 0.5, 12, 36), mat); puno.position.z = -2.6; puno.scale.set(1.0, 0.6, 1); puno.renderOrder = 9; g.add(puno);
   const mangaMat = mat.clone(); mangaMat.side = THREE.DoubleSide;
-  const mg = new THREE.CylinderGeometry(3.1, 3.2, 3.6, 28, 1, true); mg.rotateX(-Math.PI / 2);          // eje hacia −Z; radiusTop (3.1) queda lejos de la mano
-  const manga = new THREE.Mesh(mg, mangaMat); manga.position.z = -3.5; manga.scale.set(1.0, 0.66, 1); manga.renderOrder = 9; g.add(manga);
+  const mg = new THREE.CylinderGeometry(3.4, 3.5, 3.6, 28, 1, true); mg.rotateX(-Math.PI / 2);          // eje hacia −Z; radiusTop (3.1) queda lejos de la mano
+  const manga = new THREE.Mesh(mg, mangaMat); manga.position.z = -3.4; manga.scale.set(1.0, 0.6, 1); manga.renderOrder = 9; g.add(manga);
   // antebrazo de piel, aplanado y más ancho hacia el codo; se desvanece hacia el extremo
-  const bg = new THREE.CylinderGeometry(3.7, 3.1, 8, 32, 1, true); bg.rotateX(-Math.PI / 2);
-  const brazo = new THREE.Mesh(bg, MAT_PIEL_ANTEBRAZO()); brazo.position.z = -9.2; brazo.scale.set(1.0, 0.66, 1); brazo.renderOrder = 8; g.add(brazo);
+  const bg = new THREE.CylinderGeometry(4.0, 3.4, 8, 32, 1, true); bg.rotateX(-Math.PI / 2);
+  const brazo = new THREE.Mesh(bg, MAT_PIEL_ANTEBRAZO()); brazo.position.z = -9.2; brazo.scale.set(1.0, 0.62, 1); brazo.renderOrder = 8; g.add(brazo);
   return g;
 }
 
-export function crearMano(mat, lado = 1) {
-  const guante = materialGuante(mat);
+export function crearMano(mat, lado = 1, opts = {}) {
+  const piel = !!opts.piel;
+  const guante = piel ? mat : materialGuante(mat);
   const g = crearManoProc(guante, lado); const poseProc = g.pose; let real = null; let ultima = ['plana', 1];
   g.pose = (nombre, k = 1) => { ultima = [nombre, k]; if (!real) { poseProc(nombre, k); return; }
     const inf = real.morphTargetInfluences; inf.fill(0); const i = real.morphTargetDictionary[nombre]; if (i !== undefined) inf[i] = Math.max(0, Math.min(1, k)); };
   const hold0 = g.userData.hold; const muneca0 = hold0.children.find((c) => c.geometry && c.geometry.type === 'CylinderGeometry');
   if (muneca0) hold0.remove(muneca0);
-  const brazo = crearAntebrazo(guante); brazo.userData.esBrazo = true; hold0.add(brazo);
+  if (!piel) { const brazo = crearAntebrazo(guante); brazo.userData.esBrazo = true; brazo.position.x = -1.8 * lado; hold0.add(brazo); }   // la muñeca de la malla está desplazada 1.8 cm en x
   cargarManoReal().then((base) => { if (!base) return;
     real = base.clone(); real.geometry = base.geometry; real.morphTargetInfluences = base.morphTargetInfluences.slice();
-    real.material = lado < 0 ? Object.assign(guante.clone(), { side: THREE.DoubleSide }) : guante; real.renderOrder = 9; real.frustumCulled = false;
+    real.material = piel ? guante : (lado < 0 ? Object.assign(guante.clone(), { side: THREE.DoubleSide }) : guante); real.renderOrder = piel ? 0 : 9; real.frustumCulled = false;
     // la malla viene con los dedos hacia +Y y la palma hacia −Z; la escena espera dedos hacia +Z y palma hacia +Y (hacia la piel): giro de 90° en X
     real.rotation.x = Math.PI / 2; real.scale.set(lado < 0 ? -1 : 1, 1, 1);
     const hold = g.userData.hold; hold.children.slice().forEach((c) => { if (!c.userData.esBrazo) hold.remove(c); });
@@ -526,7 +528,7 @@ TIPOS.mam = (visor, ins, cfg, C) => {
   const mapa = (id, lado) => `<div class="mm" data-m="${id}"><b>${id === 'D' ? 'Mama derecha' : 'Mama izquierda'}</b><svg viewBox="-60 -60 120 120"><circle r="50" class="borde"/><path class="q q-CSE" d="M0 0 L${lado === -1 ? '-' : ''}50 0 A50 50 0 0 ${lado === -1 ? 1 : 0} 0 -50Z"/><path class="q q-CSI" d="M0 0 L${lado === -1 ? '' : '-'}50 0 A50 50 0 0 ${lado === -1 ? 0 : 1} 0 -50Z"/><path class="q q-CIE" d="M0 0 L${lado === -1 ? '-' : ''}50 0 A50 50 0 0 ${lado === -1 ? 0 : 1} 0 50Z"/><path class="q q-CII" d="M0 0 L${lado === -1 ? '' : '-'}50 0 A50 50 0 0 ${lado === -1 ? 1 : 0} 0 50Z"/><circle r="9" class="areola"/><circle r="3" class="pez"/><circle class="nodulo" r="4" cx="0" cy="0"/><circle class="axila" r="5" cx="${lado === -1 ? -56 : 56}" cy="-34"/></svg><small class="mm-t"></small></div>`;
   hud.innerHTML = `<div class="sim-postura" data-on="0"><svg viewBox="0 0 100 120"><circle cx="50" cy="18" r="10"/><path d="M50 28 L50 70 M50 36 L30 58 M50 36 L70 58 M50 70 L38 106 M50 70 L62 106"/><g class="arms-alto"><path d="M50 36 L28 10 M50 36 L72 10"/></g></svg><span></span></div><div class="sim-mapas" data-on="0">${mapa('D', -1)}${mapa('I', 1)}</div>`;
   C.vp.appendChild(hud); const post = hud.querySelector('.sim-postura'), mapas = hud.querySelector('.sim-mapas');
-  const ent = { tipo: 'mam', st: {}, cat: { goal: 0 } }; let ultimo = 0, t0 = 0, cid = null, tAuto = 0, sec = 0;
+  const ent = { tipo: 'mam', st: {}, cat: { goal: 0 } }; let ultimo = 0, t0 = 0, cid = null, tAuto = 0, sec = 0; let brazosP = null;
   ent.sync = (has, raizEl) => { ent.raiz = raizEl || ent.raiz; const c = ins.clases; ent.st = {}; Object.keys(c).forEach((k) => { ent.st[k] = has(c[k]); }); };
   // dirección de cada cuadrante (ángulo en el plano x-y del pezón; +x = izquierda de la paciente)
   const ANG = (L, q) => { const ext = q.endsWith('E') ? -1 : +1; /* externo = hacia el costado de esa mama */ const lateral = L.lado === -1 ? -1 : 1; const dx = lateral * (q.endsWith('E') ? 1 : -1); const dy = q.startsWith('CS') ? 1 : -1; return Math.atan2(dy * 0.8, dx); };
@@ -537,6 +539,16 @@ TIPOS.mam = (visor, ins, cfg, C) => {
       if (nod.visible) { const q = c.cuadrante || 'CSE'; const th = (q === 'retroareolar' ? 0.12 : 0.55), ph = ANG(L, q === 'retroareolar' ? 'CSE' : q); const r = R * 0.8; nod.position.set(r * Math.sin(th) * Math.cos(ph), r * Math.sin(th) * Math.sin(ph), r * Math.cos(th)); nod.scale.setScalar(Math.max(0.5, c.nod_tam / 2)); nod.material.color.set(c.nod_duro ? '#7f1d1d' : '#c0392b'); }
       L.ven.visible = !!(afecta && c.venas); L.piel.visible = !!(afecta && (c.piel === 'naranja' || c.piel === 'eritema')); if (L.piel.visible) { L.piel.material.color.set(c.piel === 'eritema' ? '#e11d48' : '#d9892b'); L.piel.material.opacity = 0.0; L.piel.userData.base = c.piel === 'eritema' ? 0.35 : 0.3; }
       L.nip.position.z = R + (afecta && c.pezon === 'retraido' ? 0.05 : 0.45); L.nip.scale.set(1, afecta && c.pezon === 'retraido' ? 0.35 : 1, 1); }); }
+    // brazos de la paciente: reposo → manos en la cintura → manos detrás de la cabeza (misma piel que el torso)
+    if (!brazosP && C.skinMats && C.skinMats.length) {
+      const base = C.skinMats[0]; const matB = base.clone(); matB.userData = Object.assign({}, base.userData); C.skinMats.push(matB); if (C.mats) C.mats.push(matB);
+      brazosP = crearBrazosPaciente({ matPiel: matB, crearMano, capa: C.capas.piel });
+      brazosP.lados.forEach((L) => L.g.traverse((o) => { if (o.isMesh) o.userData.capa = 'piel'; }));
+    }
+    if (brazosP) {
+      let pb = 'reposo'; if (s.auto) pb = 'reposo'; else if (s.palp || s.brazos) pb = 'alto'; else if (s.posA || s.pezon || s.secr || s.movil) pb = 'cintura';
+      brazosP.update(dt, pb, s.auto ? 'alto' : null, null);
+    }
     // postura y mapas
     post.dataset.on = (s.posA && !s.palp) ? '1' : '0'; post.querySelector('.arms-alto').style.opacity = s.brazos ? 1 : 0; post.querySelector('span').textContent = s.brazos ? 'Brazos en alto' : 'Manos en la cintura';
     mapas.dataset.on = (s.palp || s.auto) ? '1' : '0';
