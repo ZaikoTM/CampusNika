@@ -18,7 +18,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { TIPOS as SIMT } from './sim3d.js?v=19';
+import { TIPOS as SIMT } from './sim3d.js?v=20';
 import { TIPOS as CIRT } from './cir3d.js?v=5';
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);

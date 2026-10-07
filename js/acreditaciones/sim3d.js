@@ -8,6 +8,7 @@ import { crearBrazosPaciente } from './brazos3d.js?v=4';
 
 export const TIPOS = {};
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
+const easeIO = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const lerp = (a, b, t) => a + (b - a) * t;
 const easeK = (dt, v) => 1 - Math.exp(-dt * v);
@@ -159,14 +160,35 @@ export function crearMano(mat, lado = 1, opts = {}) {
   const guante = piel ? matPiel : materialGuante(mat);
   const g = crearManoProc(guante, lado); const poseProc = g.pose; let real = null; let ultima = ['plana', 1];
   let unasFn = null;
+  let normBase = null, normOrig = null; const cacheNorm = {};
+  // normales de la forma ya deformada: n = n_original + (n_deformada − n_base), así se conservan las costuras suaves del modelo y los dedos flexionados se iluminan bien
+  const normalesDePose = (geo, inf) => {
+    const pos = geo.attributes.position, morph = geo.morphAttributes.position || [];
+    const arr = new Float32Array(pos.array.length); arr.set(pos.array);
+    morph.forEach((att, k) => { const w = inf[k]; if (!w) return; for (let i = 0; i < arr.length; i++) arr[i] += att.array[i] * w; });
+    const tmp = new THREE.BufferGeometry(); tmp.setAttribute('position', new THREE.BufferAttribute(arr, 3)); if (geo.index) tmp.setIndex(geo.index); tmp.computeVertexNormals();
+    return tmp.attributes.normal.array;
+  };
+  const bakeNormales = () => {
+    const geo = real.geometry; const nrm = geo.attributes.normal; if (!nrm || !geo.index) return;
+    if (!normBase) { const z = new Array(real.morphTargetInfluences.length).fill(0); normBase = normalesDePose(geo, z); normOrig = nrm.array.slice(); }
+    const inf = real.morphTargetInfluences; const key = inf.map((w) => w.toFixed(2)).join(',');
+    let n = cacheNorm[key];
+    if (!n) {
+      const nm = normalesDePose(geo, inf); n = new Float32Array(nm.length);
+      for (let i = 0; i < nm.length; i += 3) { const x = normOrig[i] + nm[i] - normBase[i], y = normOrig[i + 1] + nm[i + 1] - normBase[i + 1], z = normOrig[i + 2] + nm[i + 2] - normBase[i + 2]; const l = Math.hypot(x, y, z) || 1; n[i] = x / l; n[i + 1] = y / l; n[i + 2] = z / l; }
+      cacheNorm[key] = n;
+    }
+    nrm.array.set(n); nrm.needsUpdate = true;
+  };
   g.pose = (nombre, k = 1) => { ultima = [nombre, k]; if (!real) { poseProc(nombre, k); return; }
-    const inf = real.morphTargetInfluences; inf.fill(0); const i = real.morphTargetDictionary[nombre]; if (i !== undefined) inf[i] = Math.max(0, Math.min(1, k)); if (unasFn) unasFn(); };
+    const inf = real.morphTargetInfluences; inf.fill(0); const i = real.morphTargetDictionary[nombre]; if (i !== undefined) inf[i] = Math.max(0, Math.min(1, k)); bakeNormales(); if (unasFn) unasFn(); };
   if (piel) g.userData.matsExtra = [matPiel, matUnas];
   const hold0 = g.userData.hold; const muneca0 = hold0.children.find((c) => c.geometry && c.geometry.type === 'CylinderGeometry');
   if (muneca0) hold0.remove(muneca0);
   if (!piel) { const brazo = crearAntebrazo(guante); brazo.userData.esBrazo = true; brazo.position.x = -1.8 * lado; hold0.add(brazo); }   // la muñeca de la malla está desplazada 1.8 cm en x
   cargarManoReal().then((base) => { if (!base) return;
-    real = base.clone(); real.geometry = base.geometry; real.morphTargetInfluences = base.morphTargetInfluences.slice();
+    real = base.clone(); real.geometry = base.geometry.clone(); real.morphTargetInfluences = base.morphTargetInfluences.slice();
     real.material = piel ? guante : (lado < 0 ? Object.assign(guante.clone(), { side: THREE.DoubleSide }) : guante); real.renderOrder = piel ? 0 : 9; real.frustumCulled = false;
     // la malla viene con los dedos hacia +Y y la palma hacia −Z; la escena espera dedos hacia +Z y palma hacia +Y (hacia la piel): giro de 90° en X
     real.rotation.x = Math.PI / 2; real.scale.set(lado < 0 ? -1 : 1, 1, 1);
@@ -473,8 +495,9 @@ TIPOS.gin = (visor, ins, cfg, C) => {
   const cito = new THREE.Group(); { const v = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 14, 8), mEspB); v.rotation.x = Math.PI / 2; v.position.z = -7; cito.add(v); for (let i = 0; i < 24; i++) { const a = i * 0.9; const c = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.9, 4), mMad); c.position.set(Math.cos(a) * 0.4, Math.sin(a) * 0.4, 0.2 + (i % 8) * 0.18); c.rotation.set(Math.sin(a) * 1.4, 0, -Math.cos(a) * 1.4); cito.add(c); } } cito.visible = false; raiz.add(cito);
   // dedos del tacto (índice y medio) y manos
   const mG = visor.material('#72c9f2', 0.97, 'sonda', { roughness: 0.34, clearcoat: 0.5, emissive: 0x0b4f78, emissiveIntensity: 0.16, depthWrite: true });
-  const dedos = new THREE.Group(); raiz.add(dedos); dedos.visible = false; const dx = [-0.55, 0.55].map((x) => { const d = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 7, 6, 12), mG); d.rotation.x = Math.PI / 2; d.position.x = x; d.renderOrder = 7; dedos.add(d); return d; });
-  new GLTFLoader().load('assets/anatomia/manos/dedos_tacto.glb', (gl) => { let m = null; gl.scene.traverse((o) => { if (o.isMesh && !m) m = o; }); if (!m) return; const real = new THREE.Mesh(m.geometry, mG); real.renderOrder = 7; real.frustumCulled = false; dedos.add(real); dx.forEach((d) => { d.visible = false; }); });
+  // mano real con guante en la pose «tacto»: índice y medio extendidos dentro de la vagina; el pulgar abierto, los otros dedos flexionados, la muñeca y el antebrazo afuera
+  const manoT = crearMano(mG, 1); manoT.visible = false; raiz.add(manoT); manoT.pose('tacto'); manoT.traverse((o) => { if (o.isMesh) o.renderOrder = 7; });
+  const LARGO_MANO = 18.3;   // distancia de la muñeca a la punta del dedo medio en la pose «tacto» (cm)
   const mano = crearMano(mG, 1); mano.visible = false; raiz.add(mano); const manoAb = crearMano(mG, -1); manoAb.visible = false; raiz.add(manoAb);
   mano.traverse((o) => { if (o.isMesh) o.renderOrder = 7; }); manoAb.traverse((o) => { if (o.isMesh) o.renderOrder = 7; });
   // inset de vista (externa / especular)
@@ -508,8 +531,13 @@ TIPOS.gin = (visor, ins, cfg, C) => {
     if (ayre.visible) { const d = Math.min(LARGO - 0.4, 3 + Math.min(1, tAyre * 0.8) * (LARGO - 3.4)); colocar(ayre, d, tAyre * 3.2); }
     if (cito.visible) { const d = Math.min(LARGO - 0.2, 3 + Math.min(1, tCito * 0.8) * (LARGO - 3.2)); colocar(cito, d, Math.sin(tCito * 3) * 1.1); }
     // tacto bimanual: dedos dentro de la vagina + mano abdominal sobre el hipogastrio
-    const bim = s.bimd && !s.bimr; dedos.visible = bim;
-    if (bim) { const d = lerp(0, LARGO - 1.0, clamp((t % 4000) / 1600, 0, 1)); colocar(dedos, d - 4.2, 0); }
+    const bim = s.bimd && !s.bimr; manoT.visible = bim;
+    if (bim) {   // ciclo natural: entran despacio, se detienen a palpar el útero y los anexos (leve movimiento de vaivén y giro) y salen
+      const ph = (t % 6400) / 6400; const prof = LARGO - 1.0;
+      const ingreso = ph < 0.3 ? easeIO(ph / 0.3) : ph < 0.75 ? 1 : 1 - easeIO((ph - 0.75) / 0.25);
+      const palpa = ph >= 0.3 && ph < 0.75 ? Math.sin((ph - 0.3) * 24) : 0;
+      colocar(manoT, lerp(0, prof, ingreso) + palpa * 0.35 - LARGO_MANO, Math.PI + palpa * 0.18);
+    }
     mano.visible = false; manoAb.visible = false;
     const yH = 7.6; const zH = (A.hipogastrio || [0, 7.6, 7.2])[2];
     if (s.bima && !s.bimr) { manoAb.visible = true; manoAb.pose('plana'); const pr = 0.4 * Math.sin(t / 380); manoAb.position.set(-1.3, yH, zH + 0.9 - pr * 0.5); manoAb.quaternion.setFromEuler(new THREE.Euler(-Math.PI / 2 + 0.35, 0, Math.PI)); manoAb.scale.setScalar(1); }
