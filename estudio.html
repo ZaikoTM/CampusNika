@@ -234,6 +234,11 @@
         .ct-temas { display: flex; flex-wrap: wrap; gap: 5px; }
         .ct-tema { font-size: 0.76rem; line-height: 1.3; padding: 3px 9px; border-radius: 999px; background: var(--bg-page); border: 1px solid var(--border); color: var(--text-dim); }
 
+        /* Racha y NikaMusic legibles sobre cualquier color de encabezado */
+        .nika-racha-btn { background: #fff7ed !important; color: #9a3412 !important; border-color: #fdba74 !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22); }
+        .nika-racha-btn.is-cero { background: rgba(255, 255, 255, 0.92) !important; color: #475569 !important; border-color: #cbd5e1 !important; }
+        .nm-nav-btn { background: rgba(255, 255, 255, 0.94) !important; color: #14532d !important; border-color: rgba(255, 255, 255, 0.6) !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+
         /* Material de estudio: lista de recursos */
         .resource-list { display: flex; flex-direction: column; gap: 10px; }
         .resource-item {
@@ -508,7 +513,7 @@
             <div class="up-detail-layout">
                 <!-- Contenido principal: Tabs -->
                 <div class="up-detail-main">
-                    <a class="btn-nikasim-up" id="btn-nikasim-up" href="acreditaciones.html?area=siam" title="NikaSIM · Atlas de Acreditaciones">
+                    <a class="btn-nikasim-up" id="btn-nikasim-up" href="acreditaciones.html?area=siam" onclick="return nikaIrAlAtlas(event)" title="NikaSIM · Atlas de Acreditaciones">
                         <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="30" y="4" width="4" height="9" rx="2" fill="#fff"/><circle class="nks-ant" cx="32" cy="4" r="3.5" fill="#38bdf8"/><rect x="8" y="14" width="48" height="38" rx="16" fill="#fff"/><rect x="14" y="22" width="36" height="22" rx="11" fill="#0f2a44"/><g class="nks-ojos"><circle cx="24" cy="33" r="4.2" fill="#38bdf8"/><circle cx="40" cy="33" r="4.2" fill="#38bdf8"/></g><path d="M27 39.5q5 3 10 0" stroke="#38bdf8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
                         <span class="nks-txt"><b>Practicá los procedimientos de esta unidad en el Atlas</b><small>NikaSIM · simuladores 3D de acreditaciones</small></span>
                         <span class="nks-flecha" aria-hidden="true">→</span>
@@ -601,8 +606,8 @@
     <script src="js/pomodoroSyncManager.js?v=4"></script>
 
     <!-- 4. Lógica de Estudio -->
-    <script src="js/estudio/estudio.js?v=73"></script>
-    <script src="js/estudio/pdfLector.js?v=1"></script>
+    <script src="js/estudio/estudio.js?v=74"></script>
+    <script src="js/estudio/pdfLector.js?v=2"></script>
 
     <!-- 5. Asistente IA y Módulos Sociales -->
     <script src="js/assistant.js?v=3"></script>
@@ -648,13 +653,26 @@
     </script>
     <script src="js/chatFlotante.js?v=7"></script>
     <script>
+        // Atlas de acreditaciones del módulo en el que está el alumno: SIAM → siam, Ginecología → sim, Cirugía → cir.
+        function nikaAreaAtlas() {
+            let m = null;
+            try { m = (window.EstudioState && window.EstudioState.modulo) || null; } catch (_) {}
+            if (!m) m = new URLSearchParams(location.search).get('modulo') || 'cirugia';
+            return { siam: 'siam', ginecologia: 'sim', cirugia: 'cir' }[m] || null;
+        }
+        function nikaIrAlAtlas(e) {
+            const area = nikaAreaAtlas();
+            if (!area) return true;
+            if (e) e.preventDefault();
+            location.href = 'acreditaciones.html?area=' + area;
+            return false;
+        }
         (function () {
-            const m = new URLSearchParams(location.search).get('modulo') || 'cirugia';
-            const area = { siam: 'siam', ginecologia: 'sim', cirugia: 'cir' }[m];
             const b = document.getElementById('btn-nikasim-up');
             if (!b) return;
+            const area = nikaAreaAtlas();
             if (area) b.href = 'acreditaciones.html?area=' + area; else b.style.display = 'none';
         })();
-        </script>
+    </script>
 </body>
 </html>

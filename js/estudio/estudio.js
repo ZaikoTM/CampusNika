@@ -842,6 +842,7 @@ function openInlineViewer(url, title, element) {
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-size: 1.1rem;">📖</span>
                         <h4 id="nika-inline-title" style="font-size: 1rem; font-weight: 700; margin: 0; color: #fff;">Visualizando Recurso</h4>
+                        <div id="nika-modo-visor" style="display:none; gap:3px; padding:3px; margin-left:8px; border-radius:10px; background:rgba(255,255,255,0.14);"></div>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <button onclick="toggleViewerFullscreen()" id="nika-fs-btn" style="background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600;">Pantalla Completa</button>
@@ -899,10 +900,11 @@ function openInlineViewer(url, title, element) {
     if (window.NikaPdf) window.NikaPdf.cerrar();
     if (iframe) iframe.style.display = '';
     if (driveId && window.NikaPdf && wrapperEl) {
-        if (iframe) iframe.src = '';
-        window.NikaPdf.abrir({ wrapper: wrapperEl, fileId: driveId, title, fallback: () => { if (iframe) iframe.src = embedUrl; } });
-    } else if (iframe) {
-        iframe.src = embedUrl;
+        configurarModoVisor({ fileId: driveId, title, iframe, wrapperEl, embedUrl });
+        cambiarModoVisor('nika');
+    } else {
+        configurarModoVisor(null);
+        if (iframe) iframe.src = embedUrl;
     }
     if (container) {
         container.style.display = 'block';
@@ -913,6 +915,43 @@ function openInlineViewer(url, title, element) {
     }
 }
 
+// Selector "Lector NikaMed | Visor Drive": se puede ir y volver entre los dos cuando se quiera.
+let _modoVisorCtx = null;
+function configurarModoVisor(ctx) {
+    _modoVisorCtx = ctx;
+    const box = document.getElementById('nika-modo-visor');
+    if (!box) return;
+    if (!ctx) { box.style.display = 'none'; box.innerHTML = ''; return; }
+    box.style.display = 'inline-flex';
+    box.innerHTML = '<button type="button" data-m="nika">📖 Lector NikaMed</button><button type="button" data-m="drive">Visor Drive</button>';
+    box.querySelectorAll('button').forEach((b) => {
+        b.style.cssText = 'border:0; border-radius:7px; padding:5px 11px; font:inherit; font-size:0.76rem; font-weight:700; cursor:pointer; color:#fff; background:transparent; transition:background .2s, transform .2s;';
+        b.addEventListener('click', () => cambiarModoVisor(b.dataset.m));
+    });
+}
+function marcarModoVisor(modo) {
+    document.querySelectorAll('#nika-modo-visor button').forEach((b) => {
+        const on = b.dataset.m === modo;
+        b.style.background = on ? 'linear-gradient(135deg, #7e22ce, #a855f7)' : 'transparent';
+        b.style.boxShadow = on ? '0 3px 10px rgba(168,85,247,0.5)' : 'none';
+    });
+}
+function cambiarModoVisor(modo) {
+    const c = _modoVisorCtx; if (!c) return;
+    marcarModoVisor(modo);
+    if (modo === 'drive') {
+        if (window.NikaPdf) window.NikaPdf.cerrar();
+        if (c.iframe) { c.iframe.style.display = ''; c.iframe.src = c.embedUrl; }
+        return;
+    }
+    if (c.iframe) c.iframe.src = '';
+    window.NikaPdf.abrir({
+        wrapper: c.wrapperEl, fileId: c.fileId, title: c.title,
+        // si el archivo no se puede abrir con el lector, se muestra el visor de Drive y el selector lo refleja
+        fallback: () => { if (c.iframe) { c.iframe.style.display = ''; c.iframe.src = c.embedUrl; } marcarModoVisor('drive'); },
+    });
+}
+
 function closeInlineViewer() {
     EstudioState.activeResourceUrl = null;
     document.querySelectorAll('.resource-item').forEach(el => el.classList.remove('active-resource'));
@@ -920,6 +959,7 @@ function closeInlineViewer() {
     const container = document.getElementById('nika-inline-viewer-container');
     const iframe = document.getElementById('nika-inline-iframe');
     if (window.NikaPdf) window.NikaPdf.cerrar();
+    configurarModoVisor(null);
     if (iframe) { iframe.src = ''; iframe.style.display = ''; }
     if (container) {
         container.style.display = 'none';
@@ -929,6 +969,7 @@ function closeInlineViewer() {
 }
 
 function toggleViewerFullscreen() {
+    if (window.NikaPdf && window.NikaPdf.activo()) { window.NikaPdf.pantalla(); return; }
     const container = document.getElementById('nika-inline-viewer-container');
     const wrapper = document.getElementById('nika-inline-frame-wrapper');
     const fsBtn = document.getElementById('nika-fs-btn');
