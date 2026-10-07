@@ -314,9 +314,18 @@ export class MedicalProcedureViewer {
         esf(2.0, 0.85, 0.8, 1.2, -4.0, 1.5).rotation.z = 0.5;           // pulgar izquierdo
         // muñecas y antebrazos con manga, brazos extendidos y ligeramente abiertos
         cil(1.7, 1.9, 3.5, -4.6, 0, 2.6, 0, 0, null).rotation.set(0, 1.0, 0);
-        const br = cil(2.1, 2.5, K.brazos, -6.2, 0, 4.0 + K.brazos / 2, Math.PI / 2, 0, mM);
-        br.rotation.set(Math.PI / 2, 0, 0);
-        const proc = [...g.children].filter((x) => x !== br);                                          // manos procedurales (respaldo si el modelo no carga)
+        const proc = [...g.children];                                                                    // manos procedurales (respaldo si el modelo no carga)
+        // mangas: continúan los dos antebrazos del modelo (miden donde termina cada corte abierto y en qué dirección siguen); puño de guante + manga de ropa quirúrgica que se ensancha hacia el codo
+        const mangaDesde = (ex, ey, ez, dx, dy, dz, r) => {
+          const dir = new THREE.Vector3(dx, dy, dz).normalize(); const L = Math.max(K.brazos || 24, 18);
+          const geo = new THREE.CylinderGeometry(r + 1.5, r + 0.3, L, 28, 1, true);                       // arriba (+y local) = lado del codo
+          const tubo = new THREE.Mesh(geo, mM); tubo.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+          tubo.position.set(ex, ey, ez).addScaledVector(dir, L / 2 - 0.6); g.add(tubo);
+          const puno = new THREE.Mesh(new THREE.TorusGeometry(r + 0.32, 0.55, 12, 36), mG); puno.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), dir);
+          puno.position.set(ex, ey, ez).addScaledVector(dir, 0.1); g.add(puno);
+        };
+        mangaDesde(5.37, -5.56, 11.6, 0.283, -0.558, 0.78, 3.0);
+        mangaDesde(-7.12, 0.29, 12.0, -0.32, 0.112, 0.941, 3.3);
         if (K.manos) {                                                                                     // manos reales entrelazadas (escaneo CC-BY, ver LICENSE_manos.txt)
           const ld = new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/'));
           ld.load(K.manos.src, (gl) => {
