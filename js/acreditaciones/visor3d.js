@@ -17,6 +17,7 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { TIPOS as SIMT } from './sim3d.js?v=19';
 import { TIPOS as CIRT } from './cir3d.js?v=5';
 
@@ -527,10 +528,17 @@ export class MedicalProcedureViewer {
       barra.innerHTML = '<div class="acr3d-load-t">Tu dispositivo no permite mostrar el modelo 3D. Podés seguir el recorrido con los elementos de abajo.</div>';
       root.classList.add('sin3d'); return Promise.resolve();
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const dprMax = Math.min(window.devicePixelRatio || 1, 2);
+    renderer.setPixelRatio(dprMax);
     renderer.localClippingEnabled = true;
     renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
     const scene = new THREE.Scene(); scene.background = new THREE.Color(G.fondo);
+    try {   // fondo con degradado suave (más profundidad que un color plano)
+      const cg = document.createElement('canvas'); cg.width = 2; cg.height = 256; const gx = cg.getContext('2d');
+      const base = new THREE.Color(G.fondo); const arriba = base.clone().lerp(new THREE.Color(0xffffff), 0.1), abajo = base.clone().multiplyScalar(0.62);
+      const gr = gx.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#' + arriba.getHexString()); gr.addColorStop(1, '#' + abajo.getHexString()); gx.fillStyle = gr; gx.fillRect(0, 0, 2, 256);
+      const bt = new THREE.CanvasTexture(cg); bt.colorSpace = THREE.SRGBColorSpace; scene.background = bt;
+    } catch (_) {}
     const camera = new THREE.PerspectiveCamera(G.camara.fov, 1, 0.5, 600);
     const controls = new OrbitControls(camera, canvas);
     Object.assign(controls, { enableDamping: true, dampingFactor: 0.08, minDistance: G.camara.min, maxDistance: G.camara.max, screenSpacePanning: true });
@@ -542,7 +550,7 @@ export class MedicalProcedureViewer {
     const C = this.C = {
       root, vp, canvas, renderer, scene, camera, controls, mats: [], capas: {}, hsMeshes: {}, plane: new THREE.Plane(V(-1, 0, 0), 0),
       opt: { xray: false, cut: false, labels: true, capas: { piel: true, huesos: true, organos: true, sonda: true } },
-      hl: null, sel: null, hover: null, goal: null, variante, raf: 0, anclas: {}, inst: [], skinMats: [], skinOpaque: false,
+      hl: null, sel: null, hover: null, goal: null, variante, raf: 0, dpr: dprMax, dprMax, vis: true, ft: 16, nf: 0, last: 0, anclas: {}, inst: [], skinMats: [], skinOpaque: false,
       extIds: new Set((this.CFG.pines || []).filter((q) => q.externo).map((q) => q.id)),
     };
     C.pins = [...vp.querySelectorAll('.pin')];
@@ -559,6 +567,10 @@ export class MedicalProcedureViewer {
     const resize = () => { const w = vp.clientWidth, h = vp.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h; const r = Math.min(C.reserva || 0, w * 0.6); if (r > 1) camera.setViewOffset(w, h, r / 2, 0, w, h); else camera.clearViewOffset(); camera.updateProjectionMatrix(); };
     C.resize = resize;
     C.ro = new ResizeObserver(resize); C.ro.observe(vp); resize();
+    // sin dibujar cuando el visor no se ve (fuera de pantalla o pestaña en segundo plano): ahorra batería y CPU/GPU
+    const actualizarPausa = () => { const antes = C.pausa; C.pausa = !C.vis || document.hidden; if (antes && !C.pausa) C.last = 0; };
+    C.io = new IntersectionObserver((es) => { C.vis = es[es.length - 1].isIntersecting; actualizarPausa(); }, { threshold: 0.01 }); C.io.observe(vp);
+    C.onVis = actualizarPausa; document.addEventListener('visibilitychange', C.onVis);
 
     vp.querySelector('.acr3d-tools').addEventListener('click', (e) => {
       const b = e.target.closest('[data-tool]'); if (!b || this.C !== C) return;
@@ -600,15 +612,27 @@ export class MedicalProcedureViewer {
       const id = this.pick(e); if (!id) return;
       const pin = vp.querySelector(`.pin[data-hs="${id}"]`); if (pin) pin.click();
     });
+    let pmEv = null;
     canvas.addEventListener('pointermove', (e) => {
-      if (this.C !== C || root.classList.contains('estatica')) return;
-      const id = this.pick(e); C.hover = id; canvas.style.cursor = id ? 'pointer' : 'grab';
+      if (this.C !== C || root.classList.contains('estatica') || e.buttons) return;   // arrastrando: no se calcula el resaltado
+      pmEv = e;
+      if (C.pmRaf) return;
+      C.pmRaf = requestAnimationFrame(() => { C.pmRaf = 0; if (this.C !== C || !pmEv) return; const id = this.pick(pmEv); C.hover = id; canvas.style.cursor = id ? 'pointer' : 'grab'; });
     });
 
     const tmp = V(0, 0, 0);
     const loop = (t) => {
       if (this.C !== C) return;
       C.raf = requestAnimationFrame(loop);
+      if (C.pausa) return;
+      if (C.last) {   // calidad adaptable: si el equipo no da abasto baja la resolución de dibujo; si sobra, la sube
+        C.ft = C.ft * 0.94 + (t - C.last) * 0.06; C.nf++;
+        if (C.nf > 90 && C.nf % 45 === 0) {
+          if (C.ft > 26 && C.dpr > Math.min(1, C.dprMax)) { C.dpr = Math.max(Math.min(1, C.dprMax), C.dpr - 0.25); renderer.setPixelRatio(C.dpr); C.resize(); }
+          else if (C.ft < 15 && C.dpr < C.dprMax) { C.dpr = Math.min(C.dprMax, C.dpr + 0.25); renderer.setPixelRatio(C.dpr); C.resize(); }
+        }
+      }
+      C.last = t;
       if (C.goal) { camera.position.lerp(C.goal, C.lento ? 0.04 : 0.08); if (camera.position.distanceTo(C.goal) < 0.3) { C.goal = null; C.lento = false; } }
       if (C.tgoal) {
         controls.target.lerp(C.tgoal, 0.07);
@@ -654,7 +678,7 @@ export class MedicalProcedureViewer {
           const px = ((tmp.x + 1) / 2) * w, py = ((1 - tmp.y) / 2) * h;
           p.style.transform = `translate(${px}px, ${py}px)`;
           if (ln) {
-            const dx = +p.dataset.dx, dy = +p.dataset.dy; const wl = p.lastElementChild.offsetWidth || 70;
+            const dx = +p.dataset.dx, dy = +p.dataset.dy; const wl = p._wl || (p._wl = p.lastElementChild.offsetWidth || 70);
             ln.setAttribute('x1', px); ln.setAttribute('y1', py); ln.setAttribute('x2', px + 13 + dx + (dx < 0 ? wl : 0)); ln.setAttribute('y2', py + dy);
           }
         }
@@ -670,6 +694,12 @@ export class MedicalProcedureViewer {
     }).then(() => {
       if (this.C !== C) return;
       barra.hidden = true;
+      try {   // reflejos suaves de ambiente en materiales estándar y físicos (piel, órganos, instrumental) sin lavar el color
+        if (!scene.environment) {
+          const pm = new THREE.PMREMGenerator(renderer); C.env = pm.fromScene(new RoomEnvironment(), 0.04); scene.environment = C.env.texture; pm.dispose();
+          scene.traverse((o) => { if (!o.isMesh) return; [].concat(o.material).forEach((m) => { if (m && m.envMapIntensity !== undefined && !(m.userData && m.userData.envFijo)) m.envMapIntensity = 0.3; }); });
+        }
+      } catch (_) {}
       if (!(typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches)) {   // entrada cinematográfica: la cámara se acerca al paciente
         const fin = camera.position.clone(); const tg = controls.target;
         camera.position.copy(tg).add(fin.clone().sub(tg).multiplyScalar(1.75)); C.goal = fin; C.lento = true;
@@ -703,8 +733,9 @@ export class MedicalProcedureViewer {
 
   dispose() {
     const c = this.C; if (!c) return; this.C = null;
-    cancelAnimationFrame(c.raf);
-    if (c.ro) c.ro.disconnect();
+    cancelAnimationFrame(c.raf); if (c.pmRaf) cancelAnimationFrame(c.pmRaf);
+    if (c.ro) c.ro.disconnect(); if (c.io) c.io.disconnect(); if (c.onVis) document.removeEventListener('visibilitychange', c.onVis);
+    if (c.env) c.env.dispose(); if (c.scene && c.scene.background && c.scene.background.dispose) c.scene.background.dispose();
     if (c.controls) c.controls.dispose();
     c.mats.forEach((m) => m.dispose());
     if (c.renderer) c.renderer.dispose();

@@ -1024,3 +1024,6 @@ details.acr-crit-wrap[open] > summary { margin-bottom: 10px; }
 .cir-hud .cir-nota { position: absolute; left: 50%; bottom: 62px; transform: translate(-50%, 10px); padding: 7px 14px; border-radius: 999px; background: rgba(8,18,30,.88); color: #e2f1f7; border: 1px solid rgba(45,212,191,.45); font-size: .76rem; font-weight: 700; opacity: 0; transition: .35s; max-width: 86%; text-align: center; }
 .cir-hud .cir-nota[data-on="1"] { opacity: 1; transform: translate(-50%, 0); }
 @media (max-width: 640px) { .cir-hud .cir-reloj { width: 130px; } .cir-hud .cir-vest { font-size: .62rem; } }
+
+/* Visor 3D: viñeta suave que da profundidad y enfoca la mirada en el modelo (no intercepta clics) */
+.acr3d-vp::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1; background: radial-gradient(ellipse at 50% 46%, transparent 58%, rgba(2, 8, 24, .38) 100%); border-radius: inherit; }
