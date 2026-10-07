@@ -94,6 +94,7 @@ export class MedicalProcedureViewer {
       color: new THREE.Color(color), transparent: true, opacity, roughness: g.rugosidad ?? 0.3, metalness: 0,
       clearcoat: g.clearcoat ?? 0.5, clearcoatRoughness: 0.25, side: THREE.DoubleSide, depthWrite: false, ...(extra || {}),
     });
+    if (capa === 'piel' && m.isMeshPhysicalMaterial) { m.sheen = 0.5; m.sheenRoughness = 0.6; m.sheenColor = new THREE.Color('#ffd9c9'); m.clearcoat = Math.min(m.clearcoat, 0.25); }
     m.userData = { capa, base: opacity };
     this.C.mats.push(m);
     return m;
@@ -667,6 +668,7 @@ export class MedicalProcedureViewer {
       }
       renderer.render(scene, camera);
       const w = vp.clientWidth, h = vp.clientHeight;
+      const lab = [];
       C.pins.forEach((p) => {
         const a = C.anclas[p.dataset.hs]; if (!a) return;
         tmp.copy(a).project(camera);
@@ -677,11 +679,21 @@ export class MedicalProcedureViewer {
         if (vis) {
           const px = ((tmp.x + 1) / 2) * w, py = ((1 - tmp.y) / 2) * h;
           p.style.transform = `translate(${px}px, ${py}px)`;
-          if (ln) {
-            const dx = +p.dataset.dx, dy = +p.dataset.dy; const wl = p._wl || (p._wl = p.lastElementChild.offsetWidth || 70);
-            ln.setAttribute('x1', px); ln.setAttribute('y1', py); ln.setAttribute('x2', px + 13 + dx + (dx < 0 ? wl : 0)); ln.setAttribute('y2', py + dy);
-          }
-        }
+          const dx = +p.dataset.dx, dy = +p.dataset.dy; const wl = p._wl || (p._wl = p.lastElementChild.offsetWidth || 70);
+          lab.push({ p, ln, px, py, dx, dy, wl, x0: px + 13 + dx, y: py + dy });
+        } else p._ay = 0;
+      });
+      // las etiquetas que se pisan se separan hacia abajo (con suavidad) para que siempre se lean
+      if (lab.length > 1) {
+        lab.sort((u, v) => u.y - v.y);
+        for (let i = 1; i < lab.length; i++) { const u = lab[i]; for (let j = 0; j < i; j++) { const v = lab[j]; if (u.x0 < v.x0 + v.wl + 6 && v.x0 < u.x0 + u.wl + 6 && Math.abs(u.y - v.y) < 20) u.y = v.y + 20; } }
+      }
+      lab.forEach((L) => {
+        const obj = L.y - (L.py + L.dy); const p = L.p; const act = p._ay || 0;
+        p._ay = Math.abs(obj - act) < 0.3 ? obj : act + (obj - act) * 0.25;
+        const dyy = L.dy + p._ay;
+        if (Math.abs(dyy - (p._dyA === undefined ? 1e9 : p._dyA)) > 0.4) { p.style.setProperty('--dy', dyy.toFixed(1) + 'px'); p._dyA = dyy; }
+        if (L.ln) { L.ln.setAttribute('x1', L.px); L.ln.setAttribute('y1', L.py); L.ln.setAttribute('x2', L.px + 13 + L.dx + (L.dx < 0 ? L.wl : 0)); L.ln.setAttribute('y2', L.py + dyy); }
       });
     };
     C.raf = requestAnimationFrame(loop);

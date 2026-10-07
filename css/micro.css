@@ -1,0 +1,86 @@
+/* CAMPUS NIKA — microanimaciones compartidas (campus, salas, simuladores y perfil).
+   Solo transform / opacity (baratas para la GPU). Todo va dentro de prefers-reduced-motion: no-preference.
+   Los :where() tienen especificidad 0: nunca pisan el hover o el estilo propio de cada pantalla. */
+@media (prefers-reduced-motion: no-preference) {
+  :root { --mi-ease: cubic-bezier(.2, .8, .2, 1); --mi-pop: cubic-bezier(.2, .9, .3, 1.25); }
+
+  @keyframes mi-in { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: none; } }
+  @keyframes mi-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes mi-pop { from { opacity: 0; transform: translateY(14px) scale(.94); } to { opacity: 1; transform: none; } }
+  @keyframes mi-bubble { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+  @keyframes mi-rip { from { transform: scale(0); opacity: .38; } to { transform: scale(1); opacity: 0; } }
+  @keyframes mi-ring { 0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, .55); } 70% { box-shadow: 0 0 0 14px rgba(56, 189, 248, 0); } 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); } }
+  @keyframes mi-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+  @keyframes mi-shine { from { transform: translateX(-120%) skewX(-18deg); } to { transform: translateX(260%) skewX(-18deg); } }
+  @keyframes mi-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .55; transform: scale(1.35); } }
+
+  /* entrada escalonada de tarjetas (la agrega js/micro.js al entrar en pantalla) */
+  .mi { opacity: 0; }
+  .mi.mi-in { opacity: 1; animation: mi-in .55s var(--mi-ease) backwards; animation-delay: calc(var(--mi-d, 0) * 55ms); }
+
+  /* tarjetas y mosaicos: elevación suave al pasar el mouse y hundimiento al tocar */
+  :where(.action-btn-card, .perf-tile, .perf-time-tile, .plan-item, .mode-card, .hub-card, .se-card, .ns-card, .friend-card, .pp-stat-card, .pp-quick-card, .sim-hub-item, .subject-tile, .funnel-card, .online-friend-item) {
+    transition: transform .28s var(--mi-ease), box-shadow .28s var(--mi-ease), border-color .2s, background-color .2s;
+  }
+  :where(.action-btn-card, .mode-card, .hub-card, .se-card, .ns-card, .sim-hub-item, .pp-quick-card, .subject-tile):hover { transform: translateY(-4px); }
+  :where(.action-btn-card, .mode-card, .hub-card, .se-card, .ns-card, .sim-hub-item, .pp-quick-card, .subject-tile, .perf-tile, .plan-item):active { transform: translateY(0) scale(.985); transition-duration: .08s; }
+  :where(.action-btn-card, .mode-card, .se-card, .ns-card, .hub-card) .action-icon,
+  :where(.action-btn-card, .mode-card, .se-card, .ns-card, .hub-card) .mode-icon { transition: transform .35s var(--mi-pop); }
+  :where(.action-btn-card, .mode-card, .se-card, .ns-card, .hub-card):hover .action-icon,
+  :where(.action-btn-card, .mode-card, .se-card, .ns-card, .hub-card):hover .mode-icon { transform: scale(1.14) rotate(-4deg); }
+
+  /* botones: presión + ondas al tocar */
+  :where(.btn, .btn-primary, .btn-outline, .btn-secondary, .btn-hub, .btn-module, .pl-btn, .nav-tool-btn, .prof-btn, .pp-btn, .filter-btn, .year-chip, .ns-year, .nika-pomo-btn) {
+    transition: transform .2s var(--mi-ease), box-shadow .25s var(--mi-ease), background-color .2s, color .2s, border-color .2s, filter .2s;
+  }
+  :where(.btn, .btn-primary, .btn-outline, .btn-secondary, .btn-hub, .btn-module, .pl-btn, .nav-tool-btn, .prof-btn, .pp-btn, .filter-btn, .year-chip, .ns-year):active:not(:disabled) { transform: scale(.96); transition-duration: .07s; }
+  :where(.btn-primary, .btn-hub, .btn-module):hover:not(:disabled) { filter: brightness(1.07); transform: translateY(-1px); }
+  .mi-rip-host { position: relative; overflow: hidden; }
+  .mi-rip { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .55); pointer-events: none; transform: scale(0); animation: mi-rip .6s var(--mi-ease) forwards; }
+  .mi-rip.oscuro { background: rgba(14, 116, 144, .28); }
+
+  /* menú lateral */
+  :where(.sidebar-link, .ns-link) { transition: transform .22s var(--mi-ease), background-color .2s, color .2s, box-shadow .2s; }
+  :where(.sidebar-link, .ns-link):hover { transform: translateX(4px); }
+  :where(.sidebar-link, .ns-link):active { transform: translateX(2px) scale(.98); }
+
+  /* ventanas: entrada con fundido y escala; el contenido interno de tarjetas aparece escalonado */
+  .modal-overlay, .nika-modal-overlay { animation: mi-fade .22s ease-out; }
+  .modal-overlay > .modal-content, .nika-modal-overlay > .nika-modal-card, .modal-overlay > .pp-card { animation: mi-pop .38s var(--mi-pop); }
+
+  /* perfil (tarjeta que ve otro usuario y mi propio perfil) */
+  .pp-card .pp-avatar { animation: mi-ring 2.6s ease-out 1 .35s; transition: transform .4s var(--mi-pop); }
+  .pp-card .pp-avatar:hover { transform: scale(1.06) rotate(-2deg); }
+  .pp-card .pp-stat-card { animation: mi-pop .5s var(--mi-pop) backwards; }
+  .pp-card .pp-stat-card:nth-child(1) { animation-delay: .12s; } .pp-card .pp-stat-card:nth-child(2) { animation-delay: .2s; } .pp-card .pp-stat-card:nth-child(3) { animation-delay: .28s; }
+  .pp-card .pp-stat-card:nth-child(4) { animation-delay: .36s; } .pp-card .pp-stat-card:nth-child(5) { animation-delay: .44s; } .pp-card .pp-stat-card:nth-child(6) { animation-delay: .52s; }
+  .pp-card .pp-quick-card { animation: mi-pop .45s var(--mi-pop) backwards; animation-delay: .4s; }
+  .pp-card .pp-section-title { animation: mi-in .5s var(--mi-ease) backwards; animation-delay: .1s; }
+  .pp-card .pp-stat-card:hover { transform: translateY(-3px) scale(1.03); }
+  .prof-avatar-wrap img, #prof-avatar-preview { transition: transform .35s var(--mi-pop); }
+  .prof-avatar-wrap:hover img { transform: scale(1.05); }
+  .prof-avatar-cam { transition: transform .25s var(--mi-pop); } .prof-avatar-cam:hover { transform: scale(1.2) rotate(8deg); }
+
+  /* barras de progreso: crecen con suavidad */
+  :where(.status-bar-fill, .perf-time-tile-progress-fill, .pilar-fill, .nkpdf-prog i b) { transition: width .9s var(--mi-ease); }
+
+  /* simuladores: burbujas del chat clínico y resultados */
+  .clinica-bubble { animation: mi-bubble .3s var(--mi-ease); }
+  .results-header, .pilar-track { animation: mi-fade .5s ease-out; }
+  #clinica-pensando-bubble { animation: mi-bubble .3s var(--mi-ease), mi-float 1.4s ease-in-out .3s infinite; }
+
+  /* indicadores en vivo y detalles */
+  :where(.sidebar-live, .online-dot, .live-dot) { animation: mi-dot 1.8s ease-in-out infinite; }
+  .tab-dot { animation: mi-dot 1.8s ease-in-out infinite; }
+  :where(.sidebar-link) .nuevo, :where(.sidebar-link) [class*="badge-nuevo"] { position: relative; overflow: hidden; }
+  :where(.sidebar-link) .nuevo::after, :where(.sidebar-link) [class*="badge-nuevo"]::after { content: ''; position: absolute; inset: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent); animation: mi-shine 3.2s ease-in-out infinite; }
+
+  /* foco accesible, visible y suave */
+  :where(a, button, [role="button"], [role="link"], input, select, textarea):focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; transition: outline-offset .15s; }
+
+  /* esqueletos de carga */
+  :where(.skeleton-line, .skeleton-block, .skeleton-avatar) { background-size: 200% 100%; }
+
+  /* aparición suave de la página */
+  body { animation: mi-fade .4s ease-out; }
+}
