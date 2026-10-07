@@ -119,9 +119,27 @@ const NikaSocial = (() => {
      * @param {string} message - Contenido del mensaje (1-1000 caracteres).
      * @returns {Promise<{ok: boolean, data?: object, error?: string}>}
      */
+    // Filtro de lenguaje SOLO para el chat global (el chat privado entre amigos es libre y no pasa por acá).
+    // Tapa con asteriscos las groserías y los insultos discriminatorios más comunes, sin importar tildes ni mayúsculas.
+    const PALABRAS_GLOBAL = ['hijo de puta', 'hijos de puta', 'hdp', 'la puta que', 'puta', 'puto', 'putos', 'putas', 'mierda', 'concha', 'conchudo', 'conchuda', 'pelotudo', 'pelotuda', 'forro', 'forra', 'verga', 'pija',
+        'maricon', 'maricón', 'trolo', 'sudaca', 'mogolico', 'mogólico', 'retrasado', 'retrasada', 'negro de mierda', 'cagon de mierda'];
+    const _sinTildes = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    function filtrarChatGlobal(texto) {
+        let out = String(texto || '');
+        const plano = _sinTildes(out).toLowerCase();       // misma longitud que el original (las tildes se descomponen y se quitan)
+        if (plano.length !== out.length) return out;
+        const marcas = new Array(out.length).fill(false);
+        PALABRAS_GLOBAL.forEach((w) => {
+            const base = _sinTildes(w).toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const re = new RegExp('(^|[^a-z0-9])(' + base + ')(?=$|[^a-z0-9])', 'g');
+            let m; while ((m = re.exec(plano))) { const ini = m.index + m[1].length; for (let i = ini + 1; i < ini + m[2].length; i++) marcas[i] = true; }
+        });
+        return out.split('').map((ch, i) => (marcas[i] && ch !== ' ' ? '*' : ch)).join('');
+    }
+
     async function enviarMensajeChat(message) {
         try {
-            const text = (message || '').trim();
+            const text = filtrarChatGlobal((message || '').trim());
             if (!text) return { ok: false, error: 'El mensaje está vacío.' };
             if (text.length > 1000) return { ok: false, error: 'El mensaje supera los 1000 caracteres.' };
 
@@ -502,7 +520,7 @@ const NikaSocial = (() => {
     return {
         DEFAULT_AVATAR,
         // Chat global
-        enviarMensajeChat, cargarMensajesChat, suscribirseAChatGlobal,
+        enviarMensajeChat, filtrarChatGlobal, cargarMensajesChat, suscribirseAChatGlobal,
         // Foro
         crearHiloForo, cargarHilosForo, responderHilo, cargarRespuestasHilo,
         cargarReaccionesForo, alternarReaccionForo, subirAdjuntoForo,
