@@ -9,7 +9,7 @@
    "numero": 1,
    "pregunta": "Un paciente de 68 años consulta en el servicio de urgencias por un cuadro brusco de hemiparesia facio-braquio-crural derecha y afasia de expresión (puntuación NIHSS: 12 puntos). La TC de cráneo sin contraste descarta sangrado intracraneal. Los familiares confirman que los síntomas comenzaron hace 2 horas y 15 minutos. TA: 160/90 mmHg, glucemia: 140 mg/dL. ¿Cuál es la conducta de reperfusión indicada de primera línea?",
    "opciones": {
-    "a": "Indicar anticoagulación con Acenocumarol en dosis de carga para alcanzar un Razón Normatizada Internacional (RIN) entre 2,0 y 3,0 dentro de las primeras 4 horas.",
+    "a": "Indicar anticoagulación con Acenocumarol en dosis de carga para alcanzar un Razón Normatizada Internacional (RIN) entre 2,0 y 3,0 dentro de las primeras 4 horas y control de laboratorio diario.",
     "b": "Iniciar trombolisis intravenosa con rTPA (Alteplasa) a dosis de 0,9 mg/kg (máximo 90 mg), administrando el 10% en bolo e infundiendo el 90% restante en 60 minutos.",
     "c": "Administrar dosis de carga de Clopidogrel 300 mg junto con Ácido Acetilsalicílico 500 mg por vía oral e indicar reposo absoluto en cama sin monitoreo.",
     "d": "Iniciar infusión continua de Nitroglicerina IV con el objetivo de descender la presión arterial sistólica de inmediato por debajo de 110/60 mmHg."
@@ -22,7 +22,7 @@
    "numero": 2,
    "pregunta": "Un paciente de 78 años presenta en tres controles ambulatorios lecturas de Presión Arterial promedio de 168/76 mmHg. La evaluación de órgano blanco evidencia hipertrofia ventricular izquierda leve. Según los consensos de HTA y la bibliografía de SIAM, ¿cómo se clasifica esta entidad y cuál es el esquema farmacológico inicial de elección?",
    "opciones": {
-    "a": "Pseudohipertensión por rigidez arterial calcificada; está contraindicado el uso de antihipertensivos por riesgo de isquemia.",
+    "a": "Pseudohipertensión por rigidez arterial calcificada; está contraindicado el uso de antihipertensivos por riesgo de isquemia, independientemente de las cifras de presión.",
     "b": "Hipertensión sistólica aislada del anciano; el tratamiento inicial de elección es un antagonista cálcico dihidropiridínico o un IECA/ARA-II.",
     "c": "Hipertensión refractaria secundaria; requiere inicio simultáneo de Atenolol y Doxazosin en dosis máximas diarias.",
     "d": "Hipertensión endocrina por hiperaldosteronismo primario; se indica Espironolactona en dosis de 200 mg/día como monoterapia."
@@ -36,7 +36,7 @@
    "pregunta": "Un paciente de 72 años sufre un ACV isquémico en el territorio de la arteria cerebral media izquierda (hemisferio dominante). Al examen neurológico presenta acalculia, agrafia, agnosia digital y desorientación derecha-izquierda (Síndrome de Gerstmann). ¿En qué estructura anatómica se localiza la lesión focal?",
    "opciones": {
     "a": "Lóbulo parietal dominante a nivel de la circunvolución angular (giro angular / área 39 de Brodmann).",
-    "b": "Corteza prefrontal orbitofrontal del lóbulo frontal en la zona motora suplementaria bilateral.",
+    "b": "Corteza prefrontal orbitofrontal del lóbulo frontal en la zona motora suplementaria bilateral con afasia de Broca asociada.",
     "c": "Circunvolución temporal superior en el área primaria de Wernicke del hemisferio no dominante.",
     "d": "Lóbulo occipital medial alrededor de la cisura calcarina primaria y el cuerpo calloso dorsal."
    },
@@ -74,7 +74,7 @@
    "numero": 6,
    "pregunta": "Un paciente de 69 años con antecedente de HTA mal controlada ingresa en coma por deterioro neurológico brusco precedido de cefalea severa y vómitos. La TC de cráneo sin contraste muestra una hiperdensidad espontánea intraparenquimatosa a nivel del putamen izquierdo con volcado ventricular. ¿Cuál es la etiología microvascular más frecuente de esta hemorragia?",
    "opciones": {
-    "a": "Depósito de sustancia beta-amiloide en las arterias leptomeníngeas y corticales superficiales de los lóbulos cerebrales.",
+    "a": "Depósito de sustancia beta-amiloide en las arterias leptomeníngeas y corticales superficiales de los lóbulos cerebrales, típico de la encefalopatía hipertensiva crónica.",
     "b": "Ruptura de microaneurismas de Charcot-Bouchard en arterias perforantes lenticuloestriadas secundarias a arteriolosclerosis hialina.",
     "c": "Malformación arteriovenosa congénita gigante de la fisura silviana con fístula dural de alto flujo.",
     "d": "Trombosis venosa profunda de los senos durales superiores con infarto hemorrágico de la sustancia blanca."
@@ -100,7 +100,7 @@
    "numero": 8,
    "pregunta": "Un paciente hipertenso de 66 años iniciado en Enalapril 10 mg/día desarrolla tos seca, persistente, nocturna e impertinente, sin broncoespasmo ni signos de infección. Se decide rotar el tratamiento a Losartán. ¿A qué sustancia química se atribuye este efecto adverso de los IECA y por qué no la producen los ARA-II?",
    "opciones": {
-    "a": "Acumulación de angiotensina II en los alvéolos pulmonares; el Losartán inhibe la producción renal de eritropoyetina y de renina.",
+    "a": "Acumulación de angiotensina II en los alvéolos pulmonares; el Losartán inhibe la producción renal de eritropoyetina y de renina, con aumento de la diuresis.",
     "b": "Acumulación de serotonina en la mucosa traqueal; el Losartán actúa como agonista de los receptores serotoninérgicos bronquiales.",
     "c": "Acumulación de histamina tisular; el Losartán bloquea de forma competitiva los receptores H1 bronquiales y de la mucosa nasal.",
     "d": "Acumulación de bradicinina y sustancia P por inhibición de la cininasa II (ECA); los ARA-II bloquean el receptor AT1 sin alterar la bradicinina."
@@ -126,7 +126,7 @@
    "numero": 10,
    "pregunta": "Al comparar el Botulismo con el Tétanos en la patología neuromuscular aguda, ¿cuál es la diferencia en el mecanismo celular de sus toxinas y en el patrón de parálisis muscular resultante?",
    "opciones": {
-    "a": "El Tétanos produce parálisis flácida simétrica descendente por bloqueo de acetilcolina; el Botulismo produce parálisis espástica con hiperreflexia.",
+    "a": "El Tétanos produce parálisis flácida simétrica descendente por bloqueo de acetilcolina; el Botulismo produce parálisis espástica con hiperreflexia, con fiebre y sudoración.",
     "b": "El Botulismo bloquea la liberación presináptica de acetilcolina (parálisis flácida descendente); el Tétanos bloquea GABA/glicina y produce espasmo continuo.",
     "c": "Ambas toxinas producen una parálisis flácida ascendente y simétrica, con disociación albuminocitológica en el líquido cefalorraquídeo (LCR).",
     "d": "El Botulismo produce contracción tetánica sostenida con trismo; el Tétanos causa arreflexia pura, sin compromiso autonómico de ningún tipo."
@@ -140,7 +140,7 @@
    "pregunta": "Respecto a los antihipertensivos de acción central como la Clonidina y la Alfa-metildopa, ¿cuál es su mecanismo de acción celular y qué efecto adverso crítico por suspensión abrupta debe prevenirse con la Clonidina?",
    "opciones": {
     "a": "Bloquean los canales de calcio tipo L del músculo liso vascular; la suspensión brusca de la Clonidina causa hiperplasia gingival masiva.",
-    "b": "Antagonizan los receptores alfa-1 periféricos del músculo liso; la suspensión brusca de la Clonidina causa depresión respiratoria central grave.",
+    "b": "Antagonizan los receptores alfa-1 periféricos del músculo liso; la suspensión brusca de la Clonidina causa depresión respiratoria central grave, con desarrollo de miopatía proximal y calambres.",
     "c": "Estimulan los receptores alfa-2 presinápticos del tronco encefálico y reducen la salida simpática; la suspensión brusca de Clonidina provoca rebote hipertensivo severo.",
     "d": "Inhiben la enzima renina en el aparato yuxtaglomerular; la suspensión brusca de la Clonidina causa hiponatremia con hiperkalemia fulminante."
    },
@@ -192,7 +192,7 @@
    "pregunta": "Un paciente de 67 años presenta un episodio brusco de amaurosis fugaz izquierda y paresia del brazo derecho que resuelve espontáneamente por completo a los 25 minutos. La Resonancia Magnética de cerebro con secuencia de Difusión (DWI) no evidencia lesiones isquémicas agudas. Según la definición tisular y clínica moderna, ¿cómo se clasifica este evento?",
    "opciones": {
     "a": "Ataque Isquémico Transitorio (AIT): disfunción neurológica focal de causa vascular sin evidencia de infarto agudo en la neuroimagen.",
-    "b": "ACV isquémico constituido del tronco encefálico, con secuela parenquimatosa permanente y lesión visible en la difusión.",
+    "b": "ACV isquémico constituido del tronco encefálico, con secuela parenquimatosa permanente y lesión visible en la difusión, sin posibilidad de recuperación espontánea.",
     "c": "Migraña con aura motora complicada con hemorragia subaracnoidea fisural no aneurismática de predominio frontal.",
     "d": "Crisis epiléptica focal motora jacksoniana secundaria a un tumor primario del lóbulo occipital izquierdo."
    },
@@ -205,7 +205,7 @@
    "pregunta": "La Nitroglicerina y el Nitroprusiato de Sodio son vasodilatadores potentes utilizados en emergencias cardiovasculares. ¿Cuál es su mecanismo de acción molecular común y cuál es la contraindicación absoluta e interacción letal que debe descartarse antes de su administración?",
    "opciones": {
     "a": "Donación de óxido nítrico con aumento del GMPc; contraindicados con inhibidores de la PDE-5 (sildenafil/tadalafilo) de las últimas 24-48 horas, por riesgo de hipotensión refractaria.",
-    "b": "Bloqueo de los receptores AT1 de angiotensina II en el músculo liso vascular; contraindicados en presencia de hiperkalemia leve o moderada asociada.",
+    "b": "Bloqueo de los receptores AT1 de angiotensina II en el músculo liso vascular; contraindicados en presencia de hiperkalemia leve o moderada asociada, y su uso exige monitoreo de la presión venosa central.",
     "c": "Estimulación del canal ENaC en el túbulo colector con aumento de la natriuresis; contraindicados en combinación con diuréticos de asa o tiazidas.",
     "d": "Inhibición de la anhidrasa carbónica en el túbulo proximal renal; contraindicados en pacientes con glaucoma agudo de ángulo cerrado y acidosis."
    },
@@ -231,7 +231,7 @@
    "pregunta": "Respecto al régimen de Capacidad e Incapacidad Civil en el Código Civil y Comercial de la Nación Argentina aplicado al Adulto Mayor (Capítulo de Medicina Legal de SIAM), ¿cuál es el principio general rector sobre la capacidad de ejercicio de la persona humana?",
    "opciones": {
     "a": "La capacidad de ejercicio es la regla general; sus limitaciones son excepcionales, dispuestas por sentencia judicial y en beneficio de la persona.",
-    "b": "El adulto mayor de 75 años se considera presuntamente incapaz absoluto de ejercicio y requiere un curador obligatorio de por vida.",
+    "b": "El adulto mayor de 75 años se considera presuntamente incapaz absoluto de ejercicio y requiere un curador obligatorio de por vida, aun sin sentencia judicial previa.",
     "c": "La institucionalización en un establecimiento gerontológico anula automáticamente la capacidad de otorgar actos jurídicos válidos.",
     "d": "La presencia de un déficit sensorial (ceguera o hipoacusia) es causa suficiente para declarar la interdicción civil definitiva."
    },
@@ -245,7 +245,7 @@
    "opciones": {
     "a": "Síndrome de Horner por disección de la arteria carótida interna homolateral con ptosis y miosis.",
     "b": "Parálisis facial periférica derecha (tipo Bell / infranuclear) por afectación directa del VII par craneal homolateral.",
-    "c": "Parálisis facial central izquierda por infarto en la corteza motora primaria del lóbulo frontal contralateral.",
+    "c": "Parálisis facial central izquierda por infarto en la corteza motora primaria del lóbulo frontal contralateral, con alteración del gusto.",
     "d": "Parálisis facial central derecha por ACV isquémico en la cápsula interna contralateral a la lesión."
    },
    "respuesta_correcta": "b",
@@ -271,7 +271,7 @@
    "opciones": {
     "a": "Desarrollo agudo de cristaluria masiva de oxalato de calcio sin alteración de la tasa de filtración glomerular.",
     "b": "Ecografía renal que demuestra aumento del tamaño parenquimatoso renal bilateral con masa sólida cortical.",
-    "c": "Niveles séricos de creatinina persistentemente inferiores a 0,4 mg/dL con proteinuria masiva de origen nefrótico.",
+    "c": "Niveles séricos de creatinina persistentemente inferiores a 0,4 mg/dL con proteinuria masiva de origen nefrótico y retinopatía diabética.",
     "d": "Presencia de albuminuria persistente (RAC entre 30 y 300 mg/g) o caída de la TFG estimada por debajo de 60 mL/min."
    },
    "respuesta_correcta": "d",
@@ -282,7 +282,7 @@
    "numero": 22,
    "pregunta": "Un paciente de 70 años sufre un ACV isquémico agudo por oclusión de la arteria carótida interna izquierda. Ingrese a las 3 horas de evolución. Se administra rTPA IV sin mejoría. ¿Cuál es la indicación de Trombectomía Mecánica endovascular?",
    "opciones": {
-    "a": "Está contraindicada de forma absoluta si se administró fibrinolítico intravenoso previo dentro de las primeras 4,5 horas.",
+    "a": "Está contraindicada de forma absoluta si se administró fibrinolítico intravenoso previo dentro de las primeras 4,5 horas o si hubo cirugía menor previa.",
     "b": "Está indicada en oclusión de gran vaso del circuito anterior dentro de las primeras 6 horas (y hasta 24 h según perfusión).",
     "c": "Requiere la administración previa de anticoagulación completa con heparina no fraccionada en bolo de 10.000 UI.",
     "d": "Solo se realiza si el paciente presenta un puntaje NIHSS menor a 2 puntos sin compromiso del lenguaje ni de la marcha."
@@ -311,7 +311,7 @@
     "a": "Bloquea selectivamente los receptores alfa-1, beta-1 y beta-2, produciendo vasodilatación arterial y cardioprotección.",
     "b": "Bloquea únicamente los receptores muscarínicos M2 en el nodo sinusal sin efecto sobre la resistencia vascular.",
     "c": "Inhibe la síntesis de aldosterona en la corteza suprarrenal sin interactuar con los receptores simpáticos.",
-    "d": "Es un agonista puro de los receptores beta-2 bronquiales que aumenta la frecuencia cardíaca y la presión arterial."
+    "d": "Es un agonista puro de los receptores beta-2 bronquiales que aumenta la frecuencia cardíaca y la presión arterial, sin efecto sobre el receptor alfa."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. El Carvedilol (al igual que el Labetalol) es un beta-bloqueante NO selectivo de tercera generación que posee propiedades vasodilatadoras adicionales. Su mecanismo de acción combina el bloqueo de los receptores β₁ y β₂ adrenérgicos con el antagonismo selectivo de los receptores α₁ adrenérgicos vasculares periféricos. El bloqueo α₁ reduce la resistencia vascular sistémica (vasodilatación), mientras que el bloqueo β₁ previene la taquicardia refleja y reduce el consumo de oxígeno miocárdico. Además, posee propiedades antioxidantes y antiproliferativas. Las opciones B, C y D señalan mecanismos falsos o correspondientes a otras familias."
@@ -361,7 +361,7 @@
    "pregunta": "En la prevención secundaria del ACV isquémico no cardioembólico, se indica tratamiento con Estatinas de alta potencia (ej. Atorvastatina 80 mg/día). ¿Cuál es el mecanismo de acción molecular y el objetivo de colesterol LDL recomendado?",
    "opciones": {
     "a": "Estimulan la lipoproteinlipasa hepática aumentando el VLDL para disolver los trombos de fibrina murales.",
-    "b": "Inhiben la reabsorción intestinal de colesterol por bloqueo de NPC1L1, buscando elevar los triglicéridos séricos.",
+    "b": "Inhiben la reabsorción intestinal de colesterol por bloqueo de NPC1L1, buscando elevar los triglicéridos séricos, sin efecto sobre el LDL plasmático.",
     "c": "Inhiben la HMG-CoA reductasa, estabilizan la placa aterosclerótica y buscan reducir el LDL a menos de 70 mg/dL (o <55 mg/dL).",
     "d": "Antagonizan los receptores de tromboxano A2 en las plaquetas produciendo una anticoagulación irreversible."
    },
@@ -399,7 +399,7 @@
    "numero": 31,
    "pregunta": "Un paciente que sufrió un infarto cerebral isquémico extenso bilateral en ambas arterias cerebrales posteriores presenta ceguera completa. Sin embargo, el paciente niega estar ciego, afirma ver su entorno y fabula descripciones de la habitación. ¿Cómo se denomina este síndrome neurológico occipital?",
    "opciones": {
-    "a": "Síndrome de Klüver-Bucy por destrucción bilateral del núcleo amigdalino y de ambos lóbulos temporales.",
+    "a": "Síndrome de Klüver-Bucy por destrucción bilateral del núcleo amigdalino y de ambos lóbulos temporales, con hiperoralidad.",
     "b": "Síndrome de Anton (anosognosia de la ceguera) por lesión de las áreas visuales corticales bilaterales.",
     "c": "Síndrome de Claude-Bernard-Horner por lesión de la cadena simpática cervical y del ganglio estrellado.",
     "d": "Síndrome de Gerstmann por afectación del lóbulo parietal dominante, con agrafia y acalculia."
@@ -426,7 +426,7 @@
    "pregunta": "Tres miembros de una familia presentan, 18 horas después de consumir conservas caseras, diplopía, ptosis palpebral, disfagia, disartria, sequedad de boca y debilidad muscular descendente sin fiebre ni compromiso sensitivo. El LCR es normal. ¿Cuál es la sospecha diagnóstica?",
    "opciones": {
     "a": "Botulismo alimentario por neurotoxina de Clostridium botulinum que bloquea la liberación de acetilcolina.",
-    "b": "Intoxicación aguda por organofosforados con síndrome colinérgico masivo e hiperreactividad vesical.",
+    "b": "Intoxicación aguda por organofosforados con síndrome colinérgico masivo e hiperreactividad vesical, con broncorrea y miosis intensa.",
     "c": "Síndrome de Guillain-Barré variante Miller-Fisher con polineuropatía desmielinizante ascendente.",
     "d": "Poliomielitis anterior aguda por enterovirus con destrucción de las motoneuronas del asta anterior."
    },
@@ -441,7 +441,7 @@
     "a": "Indicar ampicilina parenteral por sospecha de mediastinitis purulenta secundaria a pericarditis.",
     "b": "Expandir con 3 litros de Ringer Lactato para elevar la presión sistólica por encima de 240 mmHg.",
     "c": "Descender rápidamente la PAS a 100-120 mmHg y la FC a <60 lpm con beta-bloqueantes IV (ej. Labetalol) y nitratos.",
-    "d": "Administrar un bolo de fibrinolíticos (Alteplasa) e iniciar anticoagulación con heparina en infusión."
+    "d": "Administrar un bolo de fibrinolíticos (Alteplasa) e iniciar anticoagulación con heparina en infusión, sin control previo de la presión arterial."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. La Disecación Aórtica Aguda es una emergencia hipertensiva letal producida por el desgarro de la túnica íntima aórtica. La fuerza de cizallamiento sobre la pared vascular (dP/dt) depende directamente de la presión arterial y de la frecuencia cardíaca. El tratamiento médico inmediato e impostergable exige descender la Presión Arterial Sistólica a 100-120 mmHg (o la mínima tolerable) y la Frecuencia Cardíaca a menos de 60 lpm dentro de los primeros 20 minutos. El fármaco de primera línea es un beta-bloqueante intravenoso (Labetalol o Esmolol IV) para reducir la contractilidad y FC antes o junto con vasodilatadores potentes como el Nitroprusiato (para evitar taquicardia refleja). La opción D está FORMALMENTE CONTRAINDICADA porque la anticoagulación/trombolisis provoca el taponamiento y muerte por rotura aórtica. Las opciones A y B son erróneas."
@@ -452,7 +452,7 @@
    "pregunta": "Un paciente de 70 años sin vacunación reciente sufre una herida punzante en la pierna con un clavo oxidado. A los 8 días presenta dificultad para abrir la boca (trismo), contracción dolorosa involuntaria de los músculos faciales (risa sardónica) y espasmo axial (opistótonos). ¿Cuál es la conducta integral?",
    "opciones": {
     "a": "Internar en aislamiento acústico y lumínico, neutralizar la toxina con inmunoglobulina antitetánica, desbridar la herida y dar metronidazol.",
-    "b": "Realizar una punción lumbar inmediata para descartar meningitis tuberculosa e iniciar tuberculostáticos empíricos.",
+    "b": "Realizar una punción lumbar inmediata para descartar meningitis tuberculosa e iniciar tuberculostáticos empíricos, sin necesidad de aislamiento ni de inmunoglobulina antitetánica.",
     "c": "Indicar reposo en el domicilio con paracetamol e higiene de la herida con solución fisiológica únicamente.",
     "d": "Administrar corticoides en altas dosis por vía oral y realizar un electroencefalograma urgente en la guardia."
    },
@@ -467,7 +467,7 @@
     "a": "Desarrollo de insuficiencia renal oligúrica irreversible; se revierte con la indicación inmediata de hemodiálisis.",
     "b": "Vasodilatación preferencial de la arteriola precapilar con aumento de la presión hidrostática capilar; se revierte agregando un IECA/ARA-II.",
     "c": "Infección bacteriana del tejido celular subcutáneo bilateral; se revierte con administración de Cefalexina IV.",
-    "d": "Retención hidrosalina masiva a nivel del túbulo contorneado proximal; se revierte duplicando la dosis de Amlodipina."
+    "d": "Retención hidrosalina masiva a nivel del túbulo contorneado proximal; se revierte duplicando la dosis de Amlodipina, con elevación sostenida de la presión arterial y del sodio plasmático."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. Las Dihidropiridinas de primera y segunda generación (como la Amlodipina) son potentes vasodilatadores arteriales. Producen una vasodilatación electiva de la arteriola precapilar glomerular y sistémica sin vasodilatar de forma proporcional el esfínter postcapilar (vénula). Este desbalance hidrodinámico incrementa marcadamente la presión hidrostática dentro del lecho capilar tisular, favoreciendo la trasudación de líquido hacia el espacio intersticial de las zonas declives (edema pretibial/maleolar), sin que exista retención real de sodio o insuficiencia cardíaca. Agregar un IECA o ARA-II produce la vasodilatación venosa postcapilar, igualando las presiones y eliminando el edema de forma muy eficaz. Las opciones A, C y D malinterpretan el mecanismo."
@@ -503,7 +503,7 @@
    "numero": 39,
    "pregunta": "La Hidralazina es un vasodilatador arterial directo utilizado en emergencias hipertensivas o en HTA grave refractaria. ¿Cuál es su mecanismo vasodilatador preferencial y qué efecto adverso de tipo inmunológico/reumatológico puede desencadenar en tratamientos crónicos a dosis altas?",
    "opciones": {
-    "a": "Estimulación directa de los canales ENaC del colector; produce hiperpotasemia con arritmias ventriculares graves.",
+    "a": "Estimulación directa de los canales ENaC del colector; produce hiperpotasemia con arritmias ventriculares graves y shock cardiogénico refractario.",
     "b": "Inhibición de la enzima convertidora de angiotensina; produce tos seca nocturna con alcalosis respiratoria.",
     "c": "Vasodilatación arterial directa por relajación del músculo liso; puede provocar un síndrome lupus-like (lupus inducido por drogas).",
     "d": "Bloqueo de los receptores beta-1 cardíacos; produce miocardiopatía restrictiva con amiloidosis secundaria."
@@ -516,7 +516,7 @@
    "numero": 40,
    "pregunta": "En el contexto de la protección de los derechos del Adulto Mayor y el Código Civil y Comercial de la Nación (CCyCN), cuando una persona presenta un deterioro cognitivo o físico que dificulta la toma de decisiones, ¿cuál es el régimen preferente de apoyo normativo dispuesto por el juez?",
    "opciones": {
-    "a": "Declaración inmediata de incapacidad absoluta con nombramiento de un curador que sustituya totalmente la voluntad.",
+    "a": "Declaración inmediata de incapacidad absoluta con nombramiento de un curador que sustituya totalmente la voluntad, con internación en un geriátrico.",
     "b": "Revocación automática de todos los derechos civiles, comerciales y de propiedad del paciente en favor del Estado.",
     "c": "Designación de un Sistema de Apoyos (Art. 43 CCyCN) que promueva la autonomía y acompañe la toma de decisiones del paciente.",
     "d": "Internación psiquiátrica compulsiva e indefinida sin necesidad de evaluación por un equipo interdisciplinario."
@@ -530,7 +530,7 @@
    "pregunta": "Un paciente de 72 años con antecedente de HTA y fibrilación auricular ingresa por afasia global y hemiplejía derecha de inicio brusco (NIHSS: 18). La TC de cráneo realizada a los 60 minutos descarta hemorragia. Se inicia rTPA IV a las 2 horas. A los 45 minutos de infusión, presenta deterioro brusco del sensorio, cefalea intensa y vómitos. ¿Cuál es la sospecha y la conducta inmediata?",
    "opciones": {
     "a": "Evolución natural de la isquemia cerebral; se debe acelerar la velocidad de infusión del rTPA e indicar Heparina IV.",
-    "b": "Síndrome de desuso hiperagudo; se debe realizar punción lumbar para medir la presión de apertura del líquido cefalorraquídeo.",
+    "b": "Síndrome de desuso hiperagudo; se debe realizar punción lumbar para medir la presión de apertura del líquido cefalorraquídeo y administrar corticoides.",
     "c": "Crisis epiléptica focal refractaria; se debe administrar bolo de Lorazepam y continuar con la infusión del trombolítico.",
     "d": "Transformación hemorrágica del infarto; se debe detener la infusión de rTPA, solicitar TC de cráneo urgente y dosar fibrinógeno."
    },
@@ -569,7 +569,7 @@
    "pregunta": "Un paciente de 75 años con antecedente de bronquitis crónica e insuficiencia cardíaca descompensada cursa con PA de 170/100 mmHg. ¿Qué antihipertensivo de primera línea está CONTRAINDICADO debido a su perfil farmacodinámico respiratorio y hemodinámico?",
    "opciones": {
     "a": "Amlodipina, debido a que produce vasoconstricción coronaria paradojal en hipertensos.",
-    "b": "Hidroclorotiazida, debido a que bloquea directamente la superficie alveolar impidiendo la difusión de oxígeno.",
+    "b": "Hidroclorotiazida, debido a que bloquea directamente la superficie alveolar impidiendo la difusión de oxígeno y reduce la saturación de oxígeno.",
     "c": "Propranolol, debido a que su bloqueo no selectivo β₂ produce broncoespasmo y su bloqueo β₁ deprime el inotropismo.",
     "d": "Losartán, debido a que produce acumulación masiva de bradicinina y broncorrea purulenta."
    },
@@ -607,7 +607,7 @@
    "numero": 47,
    "pregunta": "Un paciente hipertenso de 65 años en tratamiento con Verapamilo 240 mg/día consulta por constipación pertinaz y bradicardia de 48 lpm con PR prolongado en el ECG (Bloqueo AV de 1° grado). ¿Cuál es la explicación farmacológica de estos hallazgos?",
    "opciones": {
-    "a": "El Verapamilo estimula los receptores alfa-1 simpáticos produciendo diarrea secretora y taquicardia paroxística.",
+    "a": "El Verapamilo estimula los receptores alfa-1 simpáticos produciendo diarrea secretora y taquicardia paroxística, con disnea de reposo y edema agudo de pulmón.",
     "b": "El Verapamilo es un diurético potente que induce hipercalciuria severa con atonía muscular generalizada.",
     "c": "El Verapamilo inhibe la anhidrasa carbónica renal produciendo pérdida masiva de sodio y agua por heces.",
     "d": "El Verapamilo bloquea los canales de calcio en el músculo liso colónico reduciendo el peristaltismo y frena la conducción del nodo AV."
@@ -659,7 +659,7 @@
    "numero": 51,
    "pregunta": "Un paciente de 67 años consulta por dolor y rigidez matutina en cintura escapular y pélvica de 2 meses de evolución, sin debilidad muscular en la electromiografía ni elevación de la CPK, pero con eritrosedimentación de 90 mm/h. Se sospecha Polimialgia Reumática. ¿Qué complicación vascular grave debe descartarse?",
    "opciones": {
-    "a": "Síndrome de Churg-Strauss con asma eosinofílica y glomerulonefritis necrotizante de rápida evolución.",
+    "a": "Síndrome de Churg-Strauss con asma eosinofílica y glomerulonefritis necrotizante de rápida evolución, sin compromiso de la arteria temporal.",
     "b": "Arteritis de células gigantes (arteritis de la temporal), con riesgo de ceguera por neuropatía óptica isquémica.",
     "c": "Trombosis venosa profunda de miembros inferiores con embolia pulmonar séptica de origen bacteriano.",
     "d": "Poliarteritis nodosa clásica con aneurismas de las arterias renales y sangrado vesical recurrente."
@@ -673,7 +673,7 @@
    "pregunta": "Al prescribir un esquema antihipertensivo en un paciente anciano con osteoporosis e hipertensión arterial, ¿qué grupo de diuréticos ofrece un beneficio dual sobre la masa ósea y la presión arterial según la farmacología de SIAM?",
    "opciones": {
     "a": "Diuréticos de asa (Furosemida), porque aumentan la excreción urinaria de calcio estimulando el hueso.",
-    "b": "Inhibidores de la anhidrasa carbónica (Acetazolamida), porque fijan el fosfato de calcio al cartílago.",
+    "b": "Inhibidores de la anhidrasa carbónica (Acetazolamida), porque fijan el fosfato de calcio al cartílago y aumentan la resorción del hueso.",
     "c": "Diuréticos tiazídicos (Hidroclorotiazida e Indapamida), porque reducen la calciuria y aumentan la densidad mineral ósea.",
     "d": "Diuréticos ahorradores de potasio (Amilorida), porque destruyen los osteoclastos en la médula ósea."
    },
@@ -688,7 +688,7 @@
     "a": "Corteza motora del lóbulo frontal izquierdo con afectación del área 4 de Brodmann exclusiva.",
     "b": "Pedúnculo cerebral mesencefálico derecho, afectando el fascículo del III par craneal y la vía piramidal.",
     "c": "Protuberancia anular ventral por oclusión de las arterias paramedianas basilares caudales.",
-    "d": "Bulbo raquídeo lateral (síndrome de Wallenberg) por oclusión de la arteria cerebelosa posteroinferior."
+    "d": "Bulbo raquídeo lateral (síndrome de Wallenberg) por oclusión de la arteria cerebelosa posteroinferior con alteración de la deglución."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. Los síndromes alternos de tronco encefálico combinan la parálisis periférica de un par craneal del lado de la lesión (homolateral) con una vía larga (motora o sensitiva) del lado opuesto (contralateral). El Síndrome de Weber es el síndrome alterno mesencefálico clásico causado por una lesión (vascular o tumoral) en la base o pedúnculo cerebral mesencefálico. Afecta: 1) Las fibras del nervio Oculomotor (III par craneal) homolateral, produciendo ptosis, midriasis y parálisis de la mirada vertical y medial; y 2) La Vía Piramidal (vía corticoespinal) homolateral antes de su decusación, produciendo Hemiparesia Facio-Braquio-Crural contralateral. La opción D es bulbar y cursa con Horner. Las opciones A y C son cortico-pontinas."
@@ -815,7 +815,7 @@
    "numero": 63,
    "pregunta": "¿Cuál es el requisito estricto respecto a la Presión Arterial antes de iniciar la infusión del fibrinolítico?",
    "opciones": {
-    "a": "Mantener la TA en el valor de ingreso sin intervenir para asegurar la hiperperfusión.",
+    "a": "Mantener la TA en el valor de ingreso sin intervenir para asegurar la hiperperfusión, incluso con cifras mayores a 220/120 mmHg.",
     "b": "Descender la TA por debajo de 185/110 mmHg utilizando fármacos IV como Labetalol o Nitroglicerina.",
     "c": "Descender la presión diastólica por debajo de 40 mmHg induciendo hipotensión severa.",
     "d": "Elevar la TA por encima de 220/120 mmHg mediante infusión continua de noradrenalina."
@@ -870,7 +870,7 @@
     "a": "Hidrocefalia de Presión Normal (Normotensiva / HPN); tratamiento con derivación ventrículo-peritoneal.",
     "b": "Demencia Vascular multinfarto; tratamiento con anticoagulación y clopidogrel.",
     "c": "Enfermedad de Alzheimer familiar; tratamiento con Donepezilo oral.",
-    "d": "Enfermedad de Creutzfeldt-Jakob; tratamiento paliativo con esteroides en altas dosis."
+    "d": "Enfermedad de Creutzfeldt-Jakob; tratamiento paliativo con esteroides en altas dosis, asociado a fiebre alta y rigidez de nuca."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La Hidrocefalia de Presión Normal (o Hidrocefalia Normotensiva del Adulto Mayor / HPN) es una de las pocas causas de demencia o deterioro cognitivo REVERSIBLE en geriatría. Se debe a una alteración en la reabsorción del líquido cefalorraquídeo en las vellosidades aracnoideas con dilatación ventricular comunicante. Se caracteriza clínicamente por la clásica TRÍADA DE HAKIM-ADAMS: 1) Apraxia o trastorno de la marcha (marcha magnética, a pequeños pasos, pegada al suelo); 2) Deterioro cognitivo / demencia subcortical (lentificación del pensamiento); y 3) Incontinencia urinaria de urgencia. El diagnóstico se confirma con TC/RMN y prueba de punción lumbar evacuadora (Tap Test), siendo su tratamiento definitivo la evacuación mediante una Cirugía de Derivación Ventrículo-Peritoneal. Las opciones B, C y D no explican la tríada clásica ni la ventriculomegalia reversible."
@@ -894,7 +894,7 @@
    "pregunta": "Un paciente de 67 años con HTA y fibrilación auricular en tratamiento con Warfarina ingresa por un hematoma intraparenquimatoso cerebral espontáneo. El laboratorio reporta un RIN de 4,8. Además de suspender el anticoagulante, ¿cuál es el tratamiento farmacológico inmediato para revertir la anticoagulación?",
    "opciones": {
     "a": "Administrar Idarucizumab en bolo intravenoso de 5 gramos, como antídoto específico del anticoagulante.",
-    "b": "Indicar hemodiálisis de urgencia con filtro de alta eficiencia durante 8 horas para eliminar el fármaco.",
+    "b": "Indicar hemodiálisis de urgencia con filtro de alta eficiencia durante 8 horas para eliminar el fármaco, con reposición de factores de coagulación posterior.",
     "c": "Administrar sulfato de protamina en infusión intravenosa rápida, en una dosis de 100 mg.",
     "d": "Administrar Vitamina K1 intravenosa lenta junto con concentrado de complejo protrombínico (CCP) o plasma fresco congelado."
    },
@@ -909,7 +909,7 @@
     "a": "En el núcleo caudado bilateral con destrucción de las cápsula extrema profunda.",
     "b": "En la corteza occipital izquierda y el esplenio del cuerpo calloso (interrupción de fibras interhemisféricas).",
     "c": "En la circunvolución temporal superior del hemisferio no dominante derecho.",
-    "d": "En la corteza motora primaria del lóbulo frontal izquierdo respetando el cuerpo calloso."
+    "d": "En la corteza motora primaria del lóbulo frontal izquierdo respetando el cuerpo calloso, con hemiplejía contralateral y afasia global."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. El Síndrome de Alexia sin Agrafia (o Alexia Pura) es un clásico síndrome de desconexión cerebral. Ocurre por un infarto en el territorio de la arteria cerebral posterior izquierda que destruye la corteza visual primaria izquierda (causando hemianopsia homónima derecha) y la porción posterior del cuerpo calloso (el esplenio o rodete). Dado que la corteza visual izquierda está destruida, la información visual del campo visual izquierdo conservado llega a la corteza visual derecha sana; sin embargo, al estar lesionado el esplenio del cuerpo calloso, la información no puede cruzarse hacia el centro del lenguaje (área angular/Wernicke) en el hemisferio izquierdo, impidiendo la lectura. Como el centro del lenguaje y la corteza motora están intactos, el paciente puede escribir sin dificultad (conserva la grafía). Las opciones A, C y D son erróneas."
@@ -921,7 +921,7 @@
    "opciones": {
     "a": "Porque destruyen directamente las articulaciones interfalángicas e inducen condrocalcinosis masiva y bilateral.",
     "b": "Porque aumentan la excreción fraccionada de sodio por encima del 50 % y anulan por completo el filtrado glomerular.",
-    "c": "Porque inhiben la síntesis de alopurinol endógeno en los hepatocitos y producen tofos gigantes en las articulaciones.",
+    "c": "Porque inhiben la síntesis de alopurinol endógeno en los hepatocitos y producen tofos gigantes en las articulaciones y atrofia muscular distal.",
     "d": "Porque compiten con el ácido úrico en el transporte tubular proximal y aumentan su reabsorción, lo que precipita crisis de gota."
    },
    "respuesta_correcta": "d",
@@ -934,7 +934,7 @@
    "opciones": {
     "a": "Lóbulo temporal derecho en el área auditiva primaria.",
     "b": "Hemisferio cerebeloso izquierdo y vías espinocerebelosas.",
-    "c": "Sustancia negra pars compacta del mesencéfalo bilateral.",
+    "c": "Sustancia negra pars compacta del mesencéfalo bilateral, con temblor de reposo.",
     "d": "Corteza prefrontal motora del lóbulo frontal dominante."
    },
    "respuesta_correcta": "b",
@@ -946,7 +946,7 @@
    "pregunta": "En un paciente de 75 años con hipertensión arterial e Insuficiencia Renal Crónica avanzada (estadio G4, TFG de 22 mL/min), ¿cuál de los siguientes diuréticos PIERDE su eficacia antihipertensiva y natriurética, requiriendo el reemplazo por un diurético de asa (Furosemida)?",
    "opciones": {
     "a": "Hidroclorotiazida, porque su sitio de acción tubular no alcanza concentraciones efectivas con TFG <30 mL/min.",
-    "b": "Amilorida, porque acelera la destrucción de los eritrocitos en el túbulo contorneado distal.",
+    "b": "Amilorida, porque acelera la destrucción de los eritrocitos en el túbulo contorneado distal, con hiperpotasemia fatal y acidosis grave.",
     "c": "Furosemida, porque bloquea la anhidrasa carbónica únicamente en presencia de albuminuria.",
     "d": "Espironolactona, porque requiere filtrado glomerular de 120 mL/min para unirse al receptor."
    },
@@ -973,7 +973,7 @@
    "opciones": {
     "a": "Inhibe la cininasa II; acumula bradicinina y produce mayor incidencia de tos seca que el Enalapril.",
     "b": "Inhibe la renina en el aparato yuxtaglomerular; produce vasoconstricción eferente masiva con hiperuricemia.",
-    "c": "Bloquea los receptores muscarínicos M2; produce sequedad de boca y taquicardia supraventricular paroxística.",
+    "c": "Bloquea los receptores muscarínicos M2; produce sequedad de boca y taquicardia supraventricular paroxística, y bradicardia con bloqueo AV de 2° grado.",
     "d": "Bloquea selectivamente el receptor AT1; no altera la degradación de bradicinina y la incidencia de tos es similar al placebo."
    },
    "respuesta_correcta": "d",
@@ -1023,7 +1023,7 @@
    "numero": 79,
    "pregunta": "En el contexto de la Medicina Legal y los Derechos del Paciente (Ley 26.529 y Código Civil y Comercial de la Nación), ¿cuáles son las excepciones legales en las que el profesional médico está eximido de requerir el Consentimiento Informado para realizar un tratamiento o intervención?",
    "opciones": {
-    "a": "Cuando el paciente sea mayor de 65 años o se encuentre institucionalizado en una residencia gerontológica o geriátrica.",
+    "a": "Cuando el paciente sea mayor de 65 años o se encuentre institucionalizado en una residencia gerontológica o geriátrica, aunque conserve su capacidad de decisión.",
     "b": "Cuando el profesional médico considere que el tratamiento elegido es superior al que solicita la familia del paciente.",
     "c": "Cuando el costo económico del procedimiento sea cubierto en su totalidad por la obra social o la prepaga del paciente.",
     "d": "En caso de emergencia con grave peligro para la vida del paciente, o por obligación legal ante un riesgo grave para la salud pública."
@@ -1088,7 +1088,7 @@
    "numero": 84,
    "pregunta": "Un paciente de 75 años consulta por temblor involuntario en la mano derecha de 4 Hz que aparece cuando el brazo está apoyado en el regazo y desaparece al tomar un vaso de agua. Al caminar presenta disminución del braceo homolateral e hipertonía plástica en 'rueda dentada'. ¿Cuál es la alteración neuroquímica en la vía nigroestriada?",
    "opciones": {
-    "a": "Inhibición permanente de los receptores nicotínicos de acetilcolina en la placa neuromuscular.",
+    "a": "Inhibición permanente de los receptores nicotínicos de acetilcolina en la placa neuromuscular, con depósito de proteína tau en la corteza.",
     "b": "Acumulación de hepcidina en las células de Schwann del nervio ciático mayor.",
     "c": "Exceso de dopamina con destrucción masiva de las neuronas GABAérgicas del estriado.",
     "d": "Pérdida progresiva de neuronas dopaminérgicas en la sustancia negra pars compacta con predominio colinérgico."
@@ -1101,7 +1101,7 @@
    "numero": 85,
    "pregunta": "Un paciente hipertenso de 68 años en tratamiento con Enalapril y Amlodipina ingresa a la guardia por debilidad generalizada y fatiga. El ECG evidencia ondas T picudas y simétricas de gran amplitud en derivaciones precordiales V2 a V5 con ensanchamiento del complejo QRS. El laboratorio reporta un K+ sérico de 7,2 mEq/L. ¿Cuál es la medida farmacológica inmediata para estabilizar la membrana miocárdica?",
    "opciones": {
-    "a": "Indicar infusión continua de cloruro de potasio a 40 mEq por hora en vena periférica.",
+    "a": "Indicar infusión continua de cloruro de potasio a 40 mEq por hora en vena periférica, sin necesidad de monitoreo electrocardiográfico.",
     "b": "Indicar infusión de nitroprusiato de sodio e inhibidores de la fosfodiesterasa-5.",
     "c": "Administrar Gluconato de Calcio al 10% por vía intravenosa lenta bajo monitoreo electrocardiográfico.",
     "d": "Prescribir espironolactona en dosis de 100 mg por vía oral junto con triamterene."
@@ -1115,7 +1115,7 @@
    "pregunta": "Un paciente de 72 años sufre un ACV isquémico agudo. La RMN evidencia un infarto en el territorio de la arteria cerebral media izquierda afectando el giro supramarginal y la ínsula. Al examen presenta imposibilidad para realizar actos motores aprendidos a la orden verbal (ej. simular peinarse o soplar una vela) a pesar de conservar la fuerza muscular y la comprensión. ¿Cómo se denomina este defecto?",
    "opciones": {
     "a": "Apraxia Ideomotora por lesión parietal/frontal del hemisferio dominante.",
-    "b": "Agnosia táctil pura por destrucción de las columnas dorsales espinales.",
+    "b": "Agnosia táctil pura por destrucción de las columnas dorsales espinales con anestesia en guante.",
     "c": "Asterixis o temblor aleteante por encefalopatía hepática metabólica.",
     "d": "Ataxia de locomoción por lesión del archicerebelo y vestíbulo."
    },
@@ -1127,7 +1127,7 @@
    "numero": 87,
    "pregunta": "En la terapéutica del paciente con Enfermedad de Parkinson, la Levodopa se administra indefectiblemente asociada a un inhibidor de la dopa-descarboxilasa periférica (Carbidopa o Benserazida). ¿Cuál es el objetivo farmacocinético de esta combinación?",
    "opciones": {
-    "a": "Destruir los receptores de acetilcolina del músculo liso gástrico para acelerar la evacuación del contenido gástrico e intestinal.",
+    "a": "Destruir los receptores de acetilcolina del músculo liso gástrico para acelerar la evacuación del contenido gástrico e intestinal, con parálisis total del esfínter.",
     "b": "Evitar la conversión periférica de levodopa en dopamina, para que más cantidad atraviese la barrera hematoencefálica y haya menos efectos adversos.",
     "c": "Aumentar la unión de la levodopa a la albúmina plasmática para impedir su filtración glomerular en el riñón y prolongar su acción.",
     "d": "Inducir la metabolización hepática directa por el citocromo P450 para impedir su excreción renal posterior y su acumulación."
@@ -1167,7 +1167,7 @@
    "pregunta": "Al evaluar a un paciente de 78 años que consulta por alteración de la memoria reciente, dificultad para encontrar palabras (anomia) y desorientación temporoespacial de 2 años de evolución, ¿cuál es la neuroimagen estructural de elección (RMN) y qué hallazgo atrófico característico apoya el diagnóstico de Enfermedad de Alzheimer?",
    "opciones": {
     "a": "Ecografía Doppler transcraniana; muestra la ausencia de flujo en ambas arterias pericallosas.",
-    "b": "Radiografía simple de cráneo; muestra hiperostosis frontal interna con calcificación del ligamento amarillo.",
+    "b": "Radiografía simple de cráneo; muestra hiperostosis frontal interna con calcificación del ligamento amarillo y calcificación de la hoz del cerebro.",
     "c": "RMN de cerebro; evidencia atrofia de los lóbulos temporales mediales con afectación de las estructuras hipocámpicas.",
     "d": "Gammagrafía ósea corporal; demuestra hipercaptación difusa en calota e hipófisis posterior."
    },
@@ -1244,7 +1244,7 @@
    "numero": 96,
    "pregunta": "¿Cuál es el diagnóstico más probable dentro de los Parkinsonismos Atípicos (Parkinson-Plus)?",
    "opciones": {
-    "a": "Enfermedad de Parkinson idiopática esporádica de inicio unilateral.",
+    "a": "Enfermedad de Parkinson idiopática esporádica de inicio unilateral, con respuesta sostenida a la levodopa.",
     "b": "Corea de Huntington de forma juvenil por expansión de tripletes.",
     "c": "Parálisis Supranuclear Progresiva (Síndrome de Steele-Richardson-Olszewski).",
     "d": "Síndrome de Guillain-Barré variante axonal motora pura."

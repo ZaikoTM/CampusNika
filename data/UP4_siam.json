@@ -24,7 +24,7 @@
    "opciones": {
     "a": "Evalúa orientación, fijación, atención/cálculo, memoria diferida, lenguaje y praxia visuoespacial; máximo 30 puntos; corte tradicional <24.",
     "b": "Evalúa únicamente la agudeza visual y la coordinación de miembros superiores; puntaje máximo 15; punto de corte <8.",
-    "c": "Evalúa la función ejecutiva pura mediante la prueba de fluidez verbal rápida; puntaje máximo de 20 puntos; punto de corte <10.",
+    "c": "Evalúa la función ejecutiva pura mediante la prueba de fluidez verbal rápida; puntaje máximo de 20 puntos; punto de corte <10; se aplica en una hora.",
     "d": "Evalúa únicamente la memoria a largo plazo y la marcha; puntaje máximo de 100 puntos; punto de corte <50."
    },
    "respuesta_correcta": "a",
@@ -38,7 +38,7 @@
     "a": "Insuficiencia mitral secundaria → dilatación auricular pura → Tríada de hemoptisis, broncoespasmo y fiebre prolongada.",
     "b": "Sobrecarga de presión crónica → hipertrofia concéntrica del VI → Tríada de Angina de pecho, Síncope de esfuerzo y Disnea (tríada de Hardsty).",
     "c": "Sobrecarga de volumen crónica → hipertrofia excéntrica del VI → Tríada de cianosis, ictericia e insuficiencia renal.",
-    "d": "Disminución primaria de la precarga → atrofia miocárdica → Tríada de hipertensión paroxística, mareos posturales y diarrea."
+    "d": "Disminución primaria de la precarga → atrofia miocárdica → Tríada de hipertensión paroxística, mareos posturales y diarrea, con riesgo de muerte súbita inmediata."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. La Estenosis Aórtica (EA) produce una obstrucción fija al flujo de salida del Ventrículo Izquierdo (VI) hacia la aorta, lo que genera una sobrecarga de PRESIÓN crónica sobre el VI. Como mecanismo adaptativo según la Ley de Laplace (T = (P × r)/(2h)), el VI desarrolla una HIPERTROFIA CONCÉNTRICA (aumento del grosor de la pared h) para mantener el estrés parietal y preservar la función sistólica (gasto cardíaco) durante un período latente asintomático prolongado. Con el tiempo, la hipertrofia concéntrica reduce la complacencia (disfunción diastólica) e incrementa el consumo de oxígeno del miocardio. La aparición de los síntomas marca el fracaso de la adaptación y constituye la TRÍADA CLÁSICA CARDINAL: 1) Angina de pecho (isquemia subendocárdica por desproporción oferta/demanda); 2) Síncope de esfuerzo (incapacidad de aumentar el gasto cardíaco ante la vasodilatación muscular e hipertonía vagal); y 3) Disnea (elevación de la presión capilar pulmonar por falla diastólica/sistólica). Tras la aparición de los síntomas, la supervivencia media cae drásticamente (Disnea ~2 años, Síncope ~3 años, Angina ~5 años). La opción C confunde la sobrecarga. Las opciones A y D citan mecanismos falsos."
@@ -51,7 +51,7 @@
     "a": "Pulso alternante puro y chasquido de apertura protodiastólico con retumbo aórtico continuo en foco aórtico.",
     "b": "Pulso céler o en 'martillo de agua' (magnus et celer) y soplo holodiastólico suave en foco mitral irradiado a la axila.",
     "c": "Pulso parvus et tardus, soplo sistólico eyectivo romboidal con acmé tardío irradiado a carótidas y disminución del segundo ruido aórtico (A₂).",
-    "d": "Pulso dicroto hiperquinético y soplo presistólico que se incrementa con la inspiración profunda (signo de Rivero-Carvallo)."
+    "d": "Pulso dicroto hiperquinético y soplo presistólico que se incrementa con la inspiración profunda (signo de Rivero-Carvallo), sin irradiación a los vasos del cuello."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. Los hallazgos semiológicos patognomónicos de la Estenosis Aórtica severa derivan de la eyección dificultosa y prolongada del VI a través de la orificio valvular estrecho y rígido: 1) Pulso Arterial: Pulso PARVUS ET TARDUS (de pequeña amplitud o 'parvus' y de ascenso lento o 'tardus') palpado típicamente en las arterias carótidas; 2) Auscultación: Soplo Mesosistólico Eyectivo de configuración romboidal (en 'crescendo-decrescendo'), de timbre rudo o en 'raspa', cuyo acmé o pico máximo es más tardío cuanto mayor es la severidad de la estenosis. Se ausculta mejor en el 2° espacio intercostal derecho (foco aórtico) y se irradia característicamente hacia las arterias carótidas y hueco supraesternal; y 3) Ruidos cardíacos: Disminución, apagamiento o ausencia del componente aórtico del segundo ruido (A₂) por la rigidez e inmovilidad de las valvas calcificadas, pudiendo observarse un desdoblamiento paradójico del R₂. La opción B es característica de la Insuficiencia Aórtica. La opción D corresponde a valvulopatías derechas o hiperdinámicas."
@@ -88,7 +88,7 @@
    "pregunta": "Una paciente de 72 años consulta por disminución progresiva, indolora y bilateral de la agudeza visual de 2 años de evolución, refiriendo encandilamiento o alumbramiento molesto ante luces intensas nocturnas y una miopización progresiva que le permite leer de cerca sin anteojos. A la iluminación con lámpara de hendidura se observa opacificación del cristalino. ¿Cuál es el diagnóstico y el tratamiento definitivo?",
    "opciones": {
     "a": "Glaucoma Agudo de ángulo cerrado; tratamiento urgente con manitol e iridotomía láser.",
-    "b": "Neuritis Óptica isquémica retrobulbar; tratamiento con bolos de metilprednisolona intravenosa.",
+    "b": "Neuritis Óptica isquémica retrobulbar; tratamiento con bolos de metilprednisolona intravenosa, con recuperación visual completa en 24 horas.",
     "c": "Degeneración Macular Exudativa; tratamiento con inyecciones intravítreas de anti-VEGF.",
     "d": "Catarata Senil; el tratamiento definitivo es quirúrgico mediante facoemulsificación e implante de lente intraocular."
    },
@@ -102,7 +102,7 @@
    "opciones": {
     "a": "Opacificación del cuerpo vítreo; produce dolor ocular insoportable con pupila en miosis fija y ojo rojo.",
     "b": "PIO elevada por menor drenaje trabecular; pérdida de la visión periférica (campo tubular) con excavación papilar aumentada y visión central conservada.",
-    "c": "Hipotensión ocular severa; produce pérdida aguda de la visión central (metamorfopsia) con papiledema hiperémico y hemorragias.",
+    "c": "Hipotensión ocular severa; produce pérdida aguda de la visión central (metamorfopsia) con papiledema hiperémico y hemorragias, con dolor ocular intenso y ojo rojo agudo.",
     "d": "Desprendimiento exudativo de la retina; produce ceguera total completa en 24 horas sin alteración del campo visual previo."
    },
    "respuesta_correcta": "b",
@@ -115,7 +115,7 @@
    "opciones": {
     "a": "Desprendimiento retinal de tracción; la forma seca afecta la periferia retiniana y la húmeda afecta el cristalino.",
     "b": "DMAE; la forma seca es lenta, con drusas, y la húmeda cursa con neovascularización coroidea subretiniana de rápida progresión.",
-    "c": "Catarata corticonuclear avanzada; la forma seca es de causa infecciosa y la húmeda es de origen congénito y hereditario.",
+    "c": "Catarata corticonuclear avanzada; la forma seca es de causa infecciosa y la húmeda es de origen congénito y hereditario y presencia de drusas.",
     "d": "Oclusión de la arteria central de la retina; la forma seca no produce daño y la húmeda es causada por glaucoma."
    },
    "respuesta_correcta": "b",
@@ -127,7 +127,7 @@
    "pregunta": "Desde la perspectiva de la Psicogerontología (Salvarezza / Morabes), la 'Reminiscencia' es una función psíquica adaptativa del adulto mayor. ¿Cómo se diferencia la Reminiscencia de un trastorno amnésico patológico y cuál es su impacto sobre la economía narcisista?",
    "opciones": {
     "a": "La reminiscencia es la evocación voluntaria y placentera del pasado que resignifica el presente e integra duelos; no es un fallo mnésico sino una función del Yo.",
-    "b": "La reminiscencia es la simulación consciente de lagunas mentales con el objetivo de manipular al entorno familiar y evitar responsabilidades.",
+    "b": "La reminiscencia es la simulación consciente de lagunas mentales con el objetivo de manipular al entorno familiar y evitar responsabilidades, y que cesa al cambiar de ambiente.",
     "c": "La reminiscencia es un síntoma delirante y confusional que destruye progresivamente la memoria de largo plazo del paciente.",
     "d": "La reminiscencia es la incapacidad absoluta para fijar nuevos recuerdos, causada por la atrofia bilateral del hipocampo."
    },
@@ -139,7 +139,7 @@
    "numero": 11,
    "pregunta": "Un paciente de 80 años que reside en su domicilio ingresa al hospital por una Infección del Tracto Urinario (ITU). Durante la noche, la familia nota que de forma brusca se desorienta, se muestra muy agitado, no reconoce a sus hijos, ve insectos en las paredes (alucinaciones) y alterna momentos de somnolencia profunda con agitación extrema. Al día siguiente por la mañana está lúcido. ¿Cuál es el diagnóstico sindromático y su característica distintiva frente a la demencia?",
    "opciones": {
-    "a": "Enfermedad de Alzheimer de inicio súbito; se distingue por ser irreversible desde la primera hora y por no fluctuar nunca.",
+    "a": "Enfermedad de Alzheimer de inicio súbito; se distingue por ser irreversible desde la primera hora y por no fluctuar nunca, sin relación con la medicación.",
     "b": "Delirium; se distingue por inicio agudo, curso fluctuante, alteración de la atención y de la conciencia, y reversibilidad al tratar la causa.",
     "c": "Epilepsia focal temporal con estado de mal no convulsivo de 3 meses de evolución y sin ninguna causa orgánica asociada.",
     "d": "Esquizofrenia paranoide tardía; se distingue por la presencia de alucinaciones auditivas puras sin causa médica."
@@ -152,7 +152,7 @@
    "numero": 12,
    "pregunta": "Una paciente de 72 años con antecedente de fiebre reumática en la infancia consulta por disnea de esfuerzo progresiva, hemoptisis y palpitaciones. Al examen físico se ausculta un primer ruido brillante (R₁), chasquido de apertura mitral y un retumbo mesodiastólico en foco mitral. El ECG muestra fibrilación auricular. ¿Cuál es la valvulopatía estenosante responsable y su consecuencia hemodinámica atrial?",
    "opciones": {
-    "a": "Estenosis aórtica; genera dilatación pura del ventrículo derecho con colapso pulmonar total y cianosis central.",
+    "a": "Estenosis aórtica; genera dilatación pura del ventrículo derecho con colapso pulmonar total y cianosis central, y soplo diastólico en foco mitral.",
     "b": "Estenosis pulmonar congénita; genera estasis venosa en las arterias coronarias epicárdicas y angina de reposo.",
     "c": "Insuficiencia tricuspídea; genera reflujo sanguíneo masivo hacia las venas pulmonares superiores y edema agudo.",
     "d": "Estenosis mitral; sobrecarga de presión en la aurícula izquierda, hipertensión venocapilar pulmonar y riesgo de fibrilación auricular."
@@ -165,7 +165,7 @@
    "numero": 13,
    "pregunta": "En el diagnóstico diferencial de los síndromes demenciales, la Demencia Vascular es la segunda causa más frecuente en el adulto mayor después del Alzheimer. ¿Cuál es el patrón clínico de deterioro cognitivo y los hallazgos en neuroimágenes que la caracterizan diferencialmente?",
    "opciones": {
-    "a": "Deterioro cognitivo reversible en 24 horas; neuroimagen completamente normal sin daño tisular, con examen neurológico normal.",
+    "a": "Deterioro cognitivo reversible en 24 horas; neuroimagen completamente normal sin daño tisular, con examen neurológico normal, y recuperación completa sin tratamiento.",
     "b": "Deterioro cognitivo de curso insidioso y uniforme; neuroimagen con atrofia pura de los núcleos caudados y del putamen.",
     "c": "Pérdida aislada de la agudeza auditiva con neuroimagen que muestra hidrocefalia hipertensivo-obstructiva y edema cerebral.",
     "d": "Deterioro de inicio abrupto o en 'peldaños', con focalidad neurológica, disfunción ejecutiva temprana y lesiones isquémicas/lacunares en TC/RMN."
@@ -205,7 +205,7 @@
    "pregunta": "¿Cuáles son las características clínicas que orientan fuertemente hacia una Seudodemencia Depresiva?",
    "opciones": {
     "a": "Curso progresivo e irreversible durante 20 años con TAC que muestra calcificación del tronco cerebeloso y atrofia.",
-    "b": "Inicio insidioso y desconocido; el paciente disimula las fallas mentales y responde con perseveraciones e intenta compensar.",
+    "b": "Inicio insidioso y desconocido; el paciente disimula las fallas mentales y responde con perseveraciones e intenta compensar, sin angustia ni quejas subjetivas de memoria.",
     "c": "Presencia de afasia fluida pura con conservación absoluta del estado de ánimo y sin síntomas afectivos ni ansiosos.",
     "d": "Inicio preciso y subagudo; el paciente enfatiza sus fallas de memoria con angustia, responde 'no sé' con desgano y mejora con antidepresivos."
    },
@@ -230,7 +230,7 @@
    "numero": 18,
    "pregunta": "Una paciente de 80 años con Estenosis Aórtica Severa Calcificada refiere que desde hace un mes presenta disnea de esfuerzo en clase funcional III (NYHA) y un episodio de presíncope al subir las escaleras. El ecocardiograma confirma un área valvular aórtica de 0,7 cm² (normal: 3-4 cm²) con gradiente medio >40 mmHg. ¿Cuál es la indicación terapéutica definitiva para modificar el pronóstico de vida?",
    "opciones": {
-    "a": "Tratamiento médico exclusivo con diuréticos de asa en dosis elevadas de forma indefinida.",
+    "a": "Tratamiento médico exclusivo con diuréticos de asa en dosis elevadas de forma indefinida, sin indicación de ninguna cirugía.",
     "b": "Reposo absoluto en cama con indicación de vasodilatadores arteriales puros.",
     "c": "Reemplazo Valvular Aórtico (quirúrgico o mediante Implante de Prótesis Aórtica Transcatéter - TAVI).",
     "d": "Cardioversión eléctrica sincronizada de urgencia en monoterapia."
@@ -246,7 +246,7 @@
     "a": "Porque producen hipertiroidismo primario refractario con fibrilación auricular masiva y pérdida de peso brusca en pocos días.",
     "b": "Porque estimulan la eritropoyesis causando hiperviscosidad sanguínea y trombosis mitral con embolias sistémicas recurrentes.",
     "c": "Porque reducen abruptamente la precarga y la resistencia sistémica ante una obstrucción fija al flujo de salida del VI, con caída severa del gasto cardíaco.",
-    "d": "Porque destruyen el sistema de conducción del nodo auriculoventricular induciendo asistolia inmediata y definitiva en el paciente."
+    "d": "Porque destruyen el sistema de conducción del nodo auriculoventricular induciendo asistolia inmediata y definitiva en el paciente, con necrosis de las válvulas aórtica y mitral."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. En la Estenosis Aórtica Severa, el Ventrículo Izquierdo enfrenta una obstrucción anatómica fija e inamovible al flujo de salida. Para vencer esta resistencia y mantener el gasto cardíaco sistémico, el VI requiere trabajar con presiones intracavitarias muy elevadas y depende en forma crítica de una adecuada PRECARGA (volumen de llenado ventricular) y de una Presión Arterial media sustentada. Si se administran Vasodilatadores profundos (como Nitratos a dosis altas, Nitroprusiato o Dihidropiridinas de acción corta), se produce una venodilatación y vasodilatación arteriolar sistémica masiva. Debido a que el VI no puede aumentar su gasto cardíaco de forma compensatoria a través del orificio valvular estrecho, la vasodilatación genera una CAÍDA CRÍTICA E SEVERA DE LA PRESIÓN ARTERIAL SYSTEMICA, reduciendo drásticamente la perfusión cerebral (desencadenando síncope) y la presión de perfusión coronaria (exacerbando la isquemia miocárdica, la angina e induciendo paro cardiorrespiratorio). Su uso exige titulación cautelosa y bajo monitorización. Las opciones A, B y D citan mecanismos biológicamente inexistentes."
@@ -257,7 +257,7 @@
    "pregunta": "En la evaluación multidimensional del adulto mayor que habita en su domicilio, el equipo de salud evalúa el nivel de autonomía funcional. ¿Cuál es la diferencia conceptual y diagnóstica entre las Actividades Básicas de la Vida Diaria (ABVD - evaluadas por el Índice de Katz) y las Actividades Instrumentales de la Vida Diaria (AIVD - evaluadas por el Índice de Lawton y Brody), y cómo se afectan en la demencia?",
    "opciones": {
     "a": "Las AIVD exigen integración cognitiva y social (teléfono, dinero, medicación) y se pierden precozmente en la demencia; las ABVD son autocuidado básico y se conservan hasta estadios avanzados.",
-    "b": "Las ABVD evalúan la capacidad para realizar deportes de alto rendimiento; las AIVD evalúan el sueño profundo; ambas se pierden únicamente en el delirio agudo y se recuperan.",
+    "b": "Las ABVD evalúan la capacidad para realizar deportes de alto rendimiento; las AIVD evalúan el sueño profundo; ambas se pierden únicamente en el delirio agudo y se recuperan, y se evalúan con la misma escala.",
     "c": "Las ABVD se pierden a los 30 años de edad; las AIVD solo se aplican en niños recién nacidos; ambas escalas son idénticas en adultos mayores sanos.",
     "d": "No existe diferencia entre ambas escalas; ambas evalúan exclusivamente la capacidad de lectura y escritura analítica y se aplican en el mismo orden."
    },
@@ -282,7 +282,7 @@
    "numero": 22,
    "pregunta": "En la evaluación neurológica de las demencias, la tomografía computada (TC) o resonancia magnética (RMN) de cerebro son estudios complementarios indispensables. ¿Cuál es el hallazgo por neuroimagen estructural más característico e indicativo de Enfermedad de Alzheimer?",
    "opciones": {
-    "a": "Dilatación de los cuatro ventrículos con atrofia del vermis cerebeloso inferior e hidrocefalia ex vacuo pura sin atrofia cortical.",
+    "a": "Dilatación de los cuatro ventrículos con atrofia del vermis cerebeloso inferior e hidrocefalia ex vacuo pura sin atrofia cortical, con signo del colibrí.",
     "b": "Atrofia aislada de los lóbulos frontales y polos temporales anteriores con acentuación asimétrica y signo del hachazo.",
     "c": "Presencia de múltiples infartos lacunares en la cápsula interna e hiperintensidad de la sustancia blanca periventricular pura.",
     "d": "Atrofia cortical y subcortical difusa de predominio medial temporal (hipocampo y corteza entorrinal) con ensanchamiento de las astas temporales."
@@ -298,7 +298,7 @@
     "a": "4° espacio intercostal izquierdo, junto al esternón (foco tricúspide); irradia al apéndice xifoides y dorso.",
     "b": "2° espacio intercostal derecho, junto al borde esternal (foco aórtico); irradia hacia los vasos del cuello (carótidas) y hueco supraesternal.",
     "c": "5° espacio intercostal izquierdo, línea medio clavicular (foco mitral); irradia a la axila izquierda.",
-    "d": "2° espacio intercostal izquierdo, junto al esternón (foco pulmonar); irradia a la región subclavicular izquierda."
+    "d": "2° espacio intercostal izquierdo, junto al esternón (foco pulmonar); irradia a la región subclavicular izquierda y se escucha mejor en decúbito lateral derecho."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. La propagación o irradiación de los soplos cardíacos sigue la dirección de la corriente sanguínea a través del orificio valvular afectado. En la Estenosis Aórtica, el flujo sistólico turbulento es eyectado desde el VI hacia la aorta ascendente a alta velocidad; por lo tanto, el soplo mesosistólico eyectivo romboidal se ausculta con máxima intensidad en el FOCO AÓRTICO (segundo espacio intercostal derecho, junto al borde esternal) y se irradia típicamente hacia la derecha e izquierda a lo largo de las arterias carótidas en el cuello y hacia el hueco supraesternal. La opción C corresponde a la dirección del flujo en la Insuficiencia Mitral (hacia la axila). Las opciones A y D corresponden a valvulopatías tricúspides y pulmonares."
@@ -374,7 +374,7 @@
    "pregunta": "En el tratamiento farmacológico del Glaucoma Primario de Ángulo Abierto (GPAA), el objetivo primordial es disminuir la Presión Intraocular (PIO) para frenar el daño del nervio óptico. ¿Cuál es el grupo de fármacos hipotensores oculares de PRIMERA LÍNEA en gotas oftálmicas y cuál es su mecanismo de acción principal?",
    "opciones": {
     "a": "Mióticos puros de acción corta; destruyen el músculo esfínter de la pupila y paralizan la acomodación.",
-    "b": "Antibióticos aminoglucósidos; inhiben la síntesis proteica de la esclera y reducen la presión intraocular.",
+    "b": "Antibióticos aminoglucósidos; inhiben la síntesis proteica de la esclera y reducen la presión intraocular, con daño del nervio óptico.",
     "c": "Análogos de prostaglandinas (Latanoprost, Travoprost); aumentan el drenaje del humor acuoso por la vía uveoescleral.",
     "d": "Corticoides tópicos; estimulan la secreción de humor acuoso por el cuerpo ciliar de forma sostenida."
    },
@@ -400,7 +400,7 @@
    "pregunta": "En la evaluación psicológica del adulto mayor que habita en su entorno familiar, el concepto de 'Actividades de la Vida Diaria' permite valorar la capacidad de autoconstrucción y autonomía. ¿Qué aspecto psicosocial y funcional refleja la pérdida de la capacidad para realizar las Actividades Instrumentales (AIVD) en la cotidianidad del hogar?",
    "opciones": {
     "a": "Es un indicador de salud mental óptima con hiperautonomía y plena capacidad de planificación.",
-    "b": "Indica únicamente la presencia de parálisis de miembros inferiores por trauma medular de origen traumático.",
+    "b": "Indica únicamente la presencia de parálisis de miembros inferiores por trauma medular de origen traumático y pérdida de la sensibilidad.",
     "c": "Demuestra la presencia de un trastorno psicótico infantil congelado desde la adolescencia del paciente.",
     "d": "Refleja el inicio de la pérdida de independencia social y ejecutiva, que obliga a reorganizar la dinámica familiar."
    },
@@ -426,7 +426,7 @@
    "pregunta": "¿Por qué desaparece la acentuación o refuerzo presistólico del soplo en la Estenosis Mitral cuando se desencadena Fibrilación Auricular?",
    "opciones": {
     "a": "Porque la Fibrilación Auricular aumenta el área de la válvula mitral a 10 cm².",
-    "b": "Porque la Fibrilación Auricular detiene por completo el flujo de sangre a través del ventrículo derecho.",
+    "b": "Porque la Fibrilación Auricular detiene por completo el flujo de sangre a través del ventrículo derecho con colapso circulatorio.",
     "c": "Porque la Fibrilación Auricular produce la parálisis mecánica y pérdida de la sístole auricular efectiva.",
     "d": "Porque la Fibrilación Auricular destruye los músculos papilares de la válvula aórtica."
    },
@@ -454,7 +454,7 @@
     "a": "Porque bloquean los receptores muscarínicos cerebrales y agravan el déficit colinérgico, el deterioro cognitivo y el riesgo de delirium.",
     "b": "Porque destruyen el nervio óptico y causan ceguera cortical irreversible con atrofia del quiasma óptico bilateral.",
     "c": "Porque aumentan la masa muscular y producen rabdomiólisis destructiva con insuficiencia renal aguda secundaria.",
-    "d": "Porque estimulan la síntesis de insulina y provocan coma hipoglucémico permanente con convulsiones en el adulto mayor."
+    "d": "Porque estimulan la síntesis de insulina y provocan coma hipoglucémico permanente con convulsiones en el adulto mayor, sin posibilidad de recuperación."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La fisiopatología neuroquímica de la Enfermedad de Alzheimer y de otras demencias involucra una pérdida masiva de neuronas colinérgicas en el prosencéfalo basal y una reducción severa de la acetilcolina en la corteza e hipocampo. La administración de fármacos con elevada actividad Anticolinérgica / Antimuscarínica (como los antidepresivos tricíclicos tipo Amitriptilina, antihistamínicos de primera generación, antiespasmódicos u antiparkinsonianos anticolinérgicos): 1) A nivel central: antagonizan a los receptores muscarínicos M₁ cerebrales, anulando el poco tono colinérgico remanente, lo que desencadena un empeoramiento acelerado del deterioro cognitivo, amnesia de fijación, agitación, alucinaciones y Síndrome Confusional Agudo (Delirium); y 2) A nivel periférico: provocan retención aguda de orina, estreñimiento/íleo, sequedad bucal, visión borrosa y glaucoma de ángulo cerrado. Por ello están contraindicados e incluidos en la Lista de Criterios de Beers para evitar la polifarmacia inapropiada en geriatría. Las opciones B, C y D son aseveraciones falsas."
@@ -467,7 +467,7 @@
     "a": "Al cierre prematuro de la válvula mitral por hipertrofia del ventrículo derecho y sobrecarga de volumen.",
     "b": "A la destrucción completa de la válvula tricúspide por endocarditis bacteriana subaguda con vegetaciones.",
     "c": "Al mayor tiempo de eyección del VI, que retrasa el cierre aórtico (A₂) por detrás del pulmonar (P₂) durante la espiración.",
-    "d": "Al flujo retrógrado de sangre desde la vena cava inferior hacia la aurícula derecha durante la inspiración."
+    "d": "Al flujo retrógrado de sangre desde la vena cava inferior hacia la aurícula derecha durante la inspiración y la hipertensión pulmonar."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. Fisiológicamente, durante la espiración el segundo ruido cardíaco (R₂) se percibe único, y durante la inspiración se desdobla de forma fisiológica porque el aumento del retorno venoso al ventrículo derecho retrasa el cierre de la válvula pulmonar (P₂), quedando la secuencia como A₂ seguido de P₂. En la Estenosis Aórtica Severa (o en el bloqueo de rama izquierda), el Ventrículo Izquierdo requiere un tiempo de eyección anormalmente prolongado para expulsar su volumen de eyección a través del orificio aórtico estrechado. Esto provoca que el cierre de la válvula aórtica (A₂) se retrase severamente, ocurriendo DESPUÉS del cierre pulmonar (P₂). En consecuencia, se produce un DESDOBLAMIENTO PARADÓJICO O INVERTIDO: el desdoblamiento del R₂ se escucha durante la ESPIRACIÓN (secuencia P₂-A₂) y se junta o desaparece durante la inspiración (al retrasarse P₂ y acercarse a A₂). Es un signo semiológico de severidad hemodinámica de la estenosis aórtica. Las opciones A, B y D son erróneas."
@@ -530,7 +530,7 @@
    "pregunta": "¿Cuál es la diferencia conceptual y clínica entre un Deterioro Cognitivo Leve (DCL) y una Demencia establecida?",
    "opciones": {
     "a": "El DCL afecta la memoria a largo plazo y la demencia afecta únicamente la agudeza auditiva, sin compromiso de la función cognitiva.",
-    "b": "No existe diferencia entre ambas entidades; ambos términos son sinónimos epidemiológicos puros y se usan indistintamente en la práctica.",
+    "b": "No existe diferencia entre ambas entidades; ambos términos son sinónimos epidemiológicos puros y se usan indistintamente en la práctica de cualquier edad.",
     "c": "El DCL compromete uno o más dominios cognitivos pero PRESERVA la independencia funcional; la demencia interfiere en la autonomía cotidiana.",
     "d": "El DCL es irreversible en 24 horas y la demencia se cura con antibióticos por vía oral administrados durante dos semanas."
    },
@@ -543,7 +543,7 @@
    "pregunta": "En la evaluación neurológica y psiquiátrica de los Delirios (trastornos del contenido del pensamiento) en el adulto mayor, ¿cuál es la diferencia clínica y estructural entre un Delirio Primario (idea delirante autógena) y una Idea Deliroide (delirio secundario)?",
    "opciones": {
     "a": "El delirio primario es psicológicamente incomprensible; la idea deliroide es comprensible y deriva de un estado afectivo patológico (ej. depresión).",
-    "b": "El delirio primario ocurre únicamente en niños pequeños; la idea deliroide se cura con paracetamol en 5 minutos de tratamiento oral.",
+    "b": "El delirio primario ocurre únicamente en niños pequeños; la idea deliroide se cura con paracetamol en 5 minutos de tratamiento oral, sin intervención de factores afectivos.",
     "c": "Ambas formas derivan exclusivamente de la pérdida de la agudeza visual por cataratas no operadas y de la hipoacusia.",
     "d": "El delirio primario es fácilmente corregible mediante la lógica; la idea deliroide no se acompaña de emoción alguna."
    },
@@ -555,7 +555,7 @@
    "numero": 43,
    "pregunta": "Una paciente de 82 años con diagnóstico de Estenosis Aórtica Severa Calcificada y sin opción quirúrgica por fragilidad extrema consulta por angina de esfuerzo. El médico tratante considera el uso cauteloso de fármacos antianginosos. ¿Por qué el uso de Nitratos a dosis altas o de Dihidropiridinas de acción rápida (como Nifedipina) está formalmente desaconsejado o contraindicado por su efecto en la hemodinámica aórtica?",
    "opciones": {
-    "a": "Porque producen vasoconstricción coronaria masiva con trombosis del tronco de la arteria coronaria izquierda y paro cardíaco inmediato en el consultorio.",
+    "a": "Porque producen vasoconstricción coronaria masiva con trombosis del tronco de la arteria coronaria izquierda y paro cardíaco inmediato en el consultorio y shock cardiogénico.",
     "b": "Porque causan hipertrofia hepática aguda con hipertensión portal no cirrótica y ascitis refractaria al tratamiento diurético habitual.",
     "c": "Porque reducen bruscamente la resistencia vascular y la precarga ante una obstrucción fija del flujo de salida del VI, con caída crítica de la presión y síncope.",
     "d": "Porque estimulan la síntesis de hormona paratiroidea y causan hipercalcemia severa con litiasis renal bilateral y poliuria."
@@ -569,7 +569,7 @@
    "pregunta": "¿Cuáles son las dos complicaciones sistémicas más graves asociadas a la estasis sanguínea en la aurícula izquierda en la Estenosis Mitral con Fibrilación Auricular?",
    "opciones": {
     "a": "Trombosis venosa profunda de miembros superiores e insuficiencia suprarrenal primaria de aparición súbita.",
-    "b": "Desprendimiento retinal bilateral exudativo y coma cetoacidótico con insuficiencia renal aguda concomitante.",
+    "b": "Desprendimiento retinal bilateral exudativo y coma cetoacidótico con insuficiencia renal aguda concomitante, con pérdida irreversible de la visión central.",
     "c": "Aneurisma disecante de la aorta abdominal y pancreatitis aguda hemorrágica con shock hipovolémico.",
     "d": "Trombos en la orejuela izquierda con embolia sistémica (ACV isquémico embólico) y edema agudo de pulmón por hipertensión venocapilar."
    },
@@ -607,10 +607,10 @@
    "numero": 47,
    "pregunta": "¿Qué estudio complementario oftálmico es el estándar de oro para confirmar el diagnóstico de Degeneración Macular Asociada a la Edad (DMAE) Húmeda o Neovascular?",
    "opciones": {
-    "a": "Radiografía simple de órbita y ecografía tiroidea.",
-    "b": "Punción lumbar para estudio de líquido cefalorraquídeo con bandas oligoclonales.",
-    "c": "Audiometría tonal de alta frecuencia y timpanometría.",
-    "d": "Tomografía de Coherencia Óptica (OCT) de mácula y Angiografía Retinal con Fluoresceína (AFG)."
+    "a": "Radiografía simple de órbita y ecografía tiroidea con Doppler.",
+    "b": "Punción lumbar con estudio del LCR y electroencefalograma de sueño.",
+    "c": "Audiometría tonal de alta frecuencia y timpanometría bilateral.",
+    "d": "Tomografía de coherencia óptica (OCT) de mácula y angiografía con fluoresceína."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. Ante la sospecha clínica de Degeneración Macular Asociada a la Edad (DMAE), la presencia de METAMORFOPSIA (visión distorsionada de líneas rectas) y escotoma central indica la afectación del área foveal/macular y sugiere fuertemente la transición hacia la forma Húmeda o Neovascular. Los dos estudios complementarios de elección son: 1) TOMOGRAFÍA DE COHERENCIA ÓPTICA (OCT) DE MÁCULA: estudio no invasivo de alta resolución que permite visualizar en corte transversal las capas de la retina, detectando el grosor macular, la presencia de fluido intrarretiniano/subretiniano y el desprendimiento del epitelio pigmentario; y 2) ANGIOGRAFÍA RETINAL CON FLUORESCEÍNA (AFG): permite identificar la localización exacta, el patrón de fuga (leakage) y la extensión de la Membrana Neovascular Coroidea (MNVC) anómala. Ambos guían el tratamiento y el seguimiento con inyecciones intravítreas de anti-VEGF. Las opciones A, B y C son estudios sin aplicación en la maculopatía senil."
@@ -620,7 +620,7 @@
    "numero": 48,
    "pregunta": "En la evaluación neuropsiquiátrica de los pacientes adultos mayores que presentan delirios o alucinaciones, el médico debe clasificar la alteración de la percepción. ¿Cuál es la diferencia semiológica fundamental entre una 'Ilusión' y una 'Alucinación'?",
    "opciones": {
-    "a": "La ilusión es una percepción real sin objeto; la alucinación es un pensamiento lógico puro y verificable por el entorno.",
+    "a": "La ilusión es una percepción real sin objeto; la alucinación es un pensamiento lógico puro y verificable por el entorno, y se tratan igual con cirugía.",
     "b": "No existe diferencia; ambas ocurren únicamente durante el estado de coma profundo o bajo anestesia general.",
     "c": "La ilusión se trata con cirugía ocular; la alucinación es producida por la ingesta excesiva de vitamina C y de hierro.",
     "d": "La ilusión es la interpretación errónea de un estímulo REAL y PRESENTE; la alucinación es una percepción SIN objeto ni estímulo externo."
@@ -633,7 +633,7 @@
    "numero": 49,
    "pregunta": "Un paciente de 80 años con Enfermedad de Alzheimer avanzada (estadio severo de FAST/GDS) es evaluado en el domicilio. Ya no reconoce a sus familiares, ha perdido el habla (mutismo o monosílabos), presenta incontinencia doble (urinaria y fecal) y requiere asistencia total para la alimentación y el aseo. ¿Cuáles son los riesgos clínicos y complicaciones médicas más frecuentes que constituyen la causa principal de morbimortalidad en este estadio terminal de la demencia?",
    "opciones": {
-    "a": "Litiasis vesicular sintomática, hipertiroidismo primario y fibrilación auricular de alta respuesta.",
+    "a": "Litiasis vesicular sintomática, hipertiroidismo primario y fibrilación auricular de alta respuesta, y fracturas de cadera patológicas.",
     "b": "Crisis asmáticas agudas, melanoma nodular y crisis hipertensivas de repetición en el domicilio.",
     "c": "Infecciones intercurrentes (neumonía por aspiración, ITU), úlceras por presión y desnutrición/deshidratación por disfagia.",
     "d": "Glaucoma de ángulo cerrado, hipertrofia tímica y osteoartritis de manos con nódulos de Heberden."
@@ -648,7 +648,7 @@
    "opciones": {
     "a": "Evalúa el grado de hipertensión prostática; puntaje de 0 a 10; un puntaje bajo indica indicación de cirugía.",
     "b": "Cuantifica la gravedad del déficit neurológico focal del ACV (0 a 42 puntos); <4-5 indica déficit leve y >20-25 déficit muy severo.",
-    "c": "Evalúa exclusivamente la agudeza visual de cerca; varía de 0 a 10 puntos y se mide con una cartilla optométrica estándar.",
+    "c": "Evalúa exclusivamente la agudeza visual de cerca; varía de 0 a 10 puntos y se mide con una cartilla optométrica estándar a un metro del paciente.",
     "d": "Mide el nivel de colesterol en sangre; puntaje de 0 a 100; un puntaje alto indica necesidad de insulina."
    },
    "respuesta_correcta": "b",
@@ -662,7 +662,7 @@
     "a": "Evaluar la cámara anterior: una sombra iridiana amplia (cámara estrecha) advierte riesgo de glaucoma agudo si se usan midriáticos.",
     "b": "Detectar desprendimiento de retina y prevenir la miopización senil mediante control seriado de la refracción.",
     "c": "Medir la refracción del cristalino y recetar de inmediato lentes biconvexos para la presbicia avanzada.",
-    "d": "Diagnosticar una catarata traumática, indicar antibióticos por vía oral durante diez días y derivar a cirugía."
+    "d": "Diagnosticar una catarata traumática, indicar antibióticos por vía oral durante diez días y derivar a cirugía, y evitar el uso de colirios."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La maniobra de Iluminación Oblicua (o test de la linterna) es un examen sencillo y fundamental en la atención primaria y geriatría para estimar la profundidad de la Cámara Anterior del ojo. Al proyectar una luz oblicua desde el lado temporal del ojo: si la cámara anterior es profunda (normal), el iris se ilumina homogéneamente; si la cámara es estrecha (poco profunda), el iris abombado hacia adelante proyecta una sombra nasal (sombra de Eclipse o del iris). IMPORTANCIA CLÍNICA: Detectar una cámara anterior estrecha y un ángulo iridocorneal ocluido es crucial antes de instilar colirios midriáticos (como atropina o tropicamida) para fondo de ojo o cirugías, debido a que la midriasis (dilatación pupilar) pliega el iris en el ángulo y puede precipitar un ataque imperioso de GLAUCOMA AGUDO POR CIERRE ANGULAR (emergencia hipertónica). Las opciones B, C y D son erróneas."
@@ -672,7 +672,7 @@
    "numero": 52,
    "pregunta": "En la evaluación neuropsicológica del paciente con sospecha de demencia o deterioro cognitivo leve, el Test del Dibujo del Reloj (Clock Drawing Test) es una prueba complementaria altamente sensible. ¿Cuáles son los dominios cognitivos y funciones cerebrales complejas que evalúa de forma rápida esta herramienta?",
    "opciones": {
-    "a": "Evalúa la fuerza muscular del miembro superior dominante y el tono simpático del paciente evaluado.",
+    "a": "Evalúa la fuerza muscular del miembro superior dominante y el tono simpático del paciente evaluado y la agudeza auditiva global.",
     "b": "Evalúa exclusivamente el campo visual periférico de ambos ojos mediante campimetría computarizada.",
     "c": "Evalúa únicamente la memoria a corto plazo y la agudeza auditiva pura mediante audiometría tonal.",
     "d": "Evalúa funciones ejecutivas (planificación, secuenciación) y capacidades visuoespaciales (corteza frontoparietal)."
@@ -687,7 +687,7 @@
    "opciones": {
     "a": "Sokolow-Lyon (S en V₁ + R en V₅ o V₆ ≥ 35 mm) e índice de Cornell, con descenso del ST e inversión de T en V₅-V₆.",
     "b": "Ondas P picudas en DII y bloqueo completo de rama derecha puro, con eje desviado a la derecha.",
-    "c": "Intervalo PR ultracorto con onda delta presistólica y complejos QRS anchos de morfología variable.",
+    "c": "Intervalo PR ultracorto con onda delta presistólica y complejos QRS anchos de morfología variable, con eje desviado a la izquierda.",
     "d": "Ausencia de ondas P con ritmo nodal lento de 20 latidos por minuto y pausas sinusales prolongadas."
    },
    "respuesta_correcta": "a",
@@ -711,7 +711,7 @@
    "numero": 55,
    "pregunta": "¿Por qué las Benzodiacepinas están CONTRAINDICADAS o fuertemente desaconsejadas en adultos mayores con deterioro cognitivo o demencia según los Criterios de Beers?",
    "opciones": {
-    "a": "Porque incrementan la síntesis de tiroxina causando bocio tóxico multinodular, exoftalmos y pérdida de peso marcada.",
+    "a": "Porque incrementan la síntesis de tiroxina causando bocio tóxico multinodular, exoftalmos y pérdida de peso marcada, y mayor riesgo de arritmias.",
     "b": "Porque destruyen los hepatocitos produciendo cirrosis biliar primaria en 24 horas, con hepatomegalia dolorosa.",
     "c": "Porque causan sedación diurna, caídas y fracturas de cadera, amnesia anterógrada, peor déficit cognitivo y reacciones paradojales.",
     "d": "Porque producen una estimulación miocárdica masiva que causa hipertensión pulmonar primaria y fibrilación auricular."
@@ -724,7 +724,7 @@
    "numero": 56,
    "pregunta": "En la evaluación neurológica de la afasia y de las praxias en el adulto mayor, el médico evalúa la presencia de 'Apraxia'. ¿Cómo se define la Apraxia y cuál es la corteza cerebral cuya disfunción o atrofia produce la Apraxia Ideomotora clásico?",
    "opciones": {
-    "a": "Es la parálisis motora completa de la cara causada por una lesión del nervio facial, con desviación de la comisura labial y lagoftalmos.",
+    "a": "Es la parálisis motora completa de la cara causada por una lesión del nervio facial, con desviación de la comisura labial y lagoftalmos, y cierre ocular incompleto.",
     "b": "Incapacidad para ejecutar actos motores aprendidos ante una orden verbal pese a fuerza, sensibilidad y comprensión intactas; lesión parietal/frontal.",
     "c": "Es la inflamación del nervio ciático poplíteo externo, con dolor irradiado y pérdida de la sensibilidad en la pierna.",
     "d": "Es la pérdida de la agudeza auditiva por perforación timpánica bilateral, con otorrea purulenta, fiebre y mareos."
@@ -778,7 +778,7 @@
    "opciones": {
     "a": "Es la aparición de demencia contagiosa en los profesionales de la salud que atienden a pacientes con demencia avanzada.",
     "b": "Agotamiento físico, emocional y mental del cuidador del paciente con demencia (ansiedad, depresión, aislamiento); se detecta con la escala de Zarit.",
-    "c": "Es la hipertrofia muscular del cuidador por levantar al paciente; se mide con el test de Tinetti de marcha y equilibrio.",
+    "c": "Es la hipertrofia muscular del cuidador por levantar al paciente; se mide con el test de Tinetti de marcha y equilibrio, y se trata con fisioterapia intensiva diaria.",
     "d": "Es una reacción alérgica al polen de las flores en el entorno del paciente; se detecta con la prueba de Mantoux."
    },
    "respuesta_correcta": "b",
@@ -790,7 +790,7 @@
    "pregunta": "En la evaluación fisiopatológica de la Enfermedad de Alzheimer, ¿cuál es la 'Hipótesis de la Cascada Amiloide' que explica la secuencia inicial de daño neurodegenerativo?",
    "opciones": {
     "a": "Procesamiento aberrante de la APP por beta y gamma secretasas: acumulación de Aβ42, toxicidad sináptica, hiperfosforilación de Tau y muerte neuronal.",
-    "b": "La deficiencia congénita de vitamina B12 destruye las vainas de mielina de los cordones posteriores medulares y la sustancia blanca.",
+    "b": "La deficiencia congénita de vitamina B12 destruye las vainas de mielina de los cordones posteriores medulares y la sustancia blanca, sin relación con los depósitos de amiloide.",
     "c": "La invasión directa del tejido cerebral por Candida albicans induce la producción de insulina endógena y agregados de tau.",
     "d": "El exceso de dopamina en el cuerpo estriado destruye la membrana de los miocitos ventriculares y los astrocitos."
    },
@@ -815,7 +815,7 @@
    "numero": 63,
    "pregunta": "Un paciente de 75 años con antecedente de hipertensión arterial y fiebre reumática en su juventud acude a control por presentar ortopnea y disnea paroxística nocturna. Al examen físico se ausculta un chasquido de apertura seguido de un retumbo mesodiastólico en foco mitral y un segundo ruido aumentado en el foco pulmonar (P2 > A2). ¿Qué complicación hemodinámica vascular en el lecho pulmonar indica el refuerzo del componente pulmonar del segundo ruido (P2)?",
    "opciones": {
-    "a": "La curación espontánea de la estenosis valvular por regresión de las lesiones reumáticas antiguas.",
+    "a": "La curación espontánea de la estenosis valvular por regresión de las lesiones reumáticas antiguas y desaparición del soplo.",
     "b": "La destrucción completa de la arteria aorta ascendente por disección y rotura espontánea.",
     "c": "La presencia de hipotensión ortostática por fallo adrenérgico y síncope vasovagal recurrente.",
     "d": "Hipertensión arterial pulmonar reactiva o pasiva secundaria a la hipertensión venocapilar pulmonar crónica."
@@ -831,7 +831,7 @@
     "a": "Estimula los receptores beta-1 cardíacos aumentando la frecuencia cardíaca a 200 latidos por minuto.",
     "b": "Aumenta la absorción de hierro en la mucosa gástrica y favorece la formación de hemosiderina hepática.",
     "c": "Baja afinidad y rápida disociación de los receptores D2 estriatales, lo que minimiza el riesgo de síntomas extrapiramidales.",
-    "d": "Bloquea los receptores GABA de forma irreversible induciendo coma terapéutico con depresión respiratoria."
+    "d": "Bloquea los receptores GABA de forma irreversible induciendo coma terapéutico con depresión respiratoria y pérdida del tono muscular."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. La Quetiapina es un antipsicótico atípico (segunda generación) caracterizado por su perfil farmacológico de disociación rápida ('fast-off') y baja afinidad de unión por los receptores dopaminérgicos D2 en la vía nigroestriada, sumado a un potente antagonismo 5-HT2A y antihistamínico H1. Esta propiedad farmacodinámica le permite ejercer un efecto antipsicótico y sedante sin bloquear significativamente los receptores dopaminérgicos del estriado, lo que resulta en un riesgo extremadamente bajo de desencadenar o exacerbar el parkinsonismo (rigidez, bradicinesia). Por esta razón, la Quetiapina (junto a la Clozapina) es el antipsicótico de elección para el tratamiento de las alucinaciones o agitación en pacientes con Enfermedad de Parkinson, Demencia por Cuerpos de Lewy o demencias con síntomas extrapiramidales. Las opciones A, B y D citan acciones falsas."
@@ -856,7 +856,7 @@
    "opciones": {
     "a": "Capacidad del cerebro para tolerar el daño neuropatológico reclutando redes alternativas; la modulan la educación, la ocupación y la actividad intelectual y social.",
     "b": "Es la masa total del músculo cuádriceps femoral; modulada por el nivel de calcio sérico, la ingesta de proteínas y la vitamina D.",
-    "c": "Es la cantidad de líquido cefalorraquídeo acumulado en el cerebelo; modulado únicamente por la ingesta de sal y por el volumen de agua.",
+    "c": "Es la cantidad de líquido cefalorraquídeo acumulado en el cerebelo; modulado únicamente por la ingesta de sal y por el volumen de agua, y se mide con una punción lumbar.",
     "d": "Es la velocidad de conducción motora del nervio ciático; modulada por el uso de zapatos ortopédicos y por la temperatura ambiente."
    },
    "respuesta_correcta": "a",
@@ -932,7 +932,7 @@
    "numero": 72,
    "pregunta": "En la evaluación farmacológica y de seguridad en geriatría, el Donepezilo y la Rivastigmina deben administrarse con extrema precaución en pacientes con antecedente de Enfermedad Úlcero-Péptica o gastritis erosiva. ¿Cuál es el mecanismo de acción periférico que explica este riesgo de sangrado digestivo?",
    "opciones": {
-    "a": "Disminución de la producción de bilirrubina biliar por inhibición de la glucuronil transferasa.",
+    "a": "Disminución de la producción de bilirrubina biliar por inhibición de la glucuronil transferasa, y posterior hipoacusia neurosensorial.",
     "b": "Inhibición de la síntesis de prostaglandinas E2 por bloqueo irreversible de la COX-1 gástrica.",
     "c": "Destrucción directa del endotelio de la arteria mesentérica superior con isquemia intestinal.",
     "d": "Aumento del tono colinérgico/vagal que estimula la secreción ácida gástrica (M1/M3) y la hipermotilidad digestiva."
@@ -960,7 +960,7 @@
    "opciones": {
     "a": "Es la pérdida completa del campo visual temporal bilateral por compresión del quiasma óptico por un adenoma hipofisario.",
     "b": "Es la incapacidad para oler sustancias aromáticas causada por rinitis crónica, pólipos nasales y atrofia mucosa.",
-    "c": "Es la parálisis del esfínter anal interno con incontinencia fecal por lesión de la cola de caballo y de las raíces sacras.",
+    "c": "Es la parálisis del esfínter anal interno con incontinencia fecal por lesión de la cola de caballo y de las raíces sacras, y se trata con biofeedback anorrectal.",
     "d": "Falta de conciencia del propio déficit cognitivo: el paciente minimiza sus olvidos (típico del Alzheimer), a diferencia del depresivo que los exagera."
    },
    "respuesta_correcta": "d",
@@ -971,7 +971,7 @@
    "numero": 75,
    "pregunta": "Un paciente de 80 años acude a la consulta por disminución de la agudeza visual en ambos ojos. A la exploración se detecta una Catarata Senil bilateral madura. El paciente pregunta si existe algún colirio o medicamento en gotas para 'disolver' la catarata y evitar la cirugía. ¿Cuál es la respuesta médica correcta basada en la evidencia?",
    "opciones": {
-    "a": "Se debe aplicar colirio con atropina pura tres veces al día durante toda la vida, para mantener la pupila dilatada y frenar la progresión de la opacidad.",
+    "a": "Se debe aplicar colirio con atropina pura tres veces al día durante toda la vida, para mantener la pupila dilatada y frenar la progresión de la opacidad, y debe repetirse cada seis meses en forma indefinida.",
     "b": "La catarata se cura con masajes oculares externos y dieta vegetariana estricta mantenidos durante al menos seis meses, sin necesidad de cirugía.",
     "c": "NO hay tratamiento farmacológico probado que prevenga o disuelva la opacidad del cristalino; el único tratamiento curativo es la cirugía (facoemulsificación con lente intraocular).",
     "d": "Existen gotas de vitamina C que disuelven la catarata en 2 semanas de aplicación continua, evitando por completo la cirugía y los controles."
@@ -997,7 +997,7 @@
    "numero": 77,
    "pregunta": "Un paciente de 78 años diagnosticado de Enfermedad de Alzheimer en estadio leve inicia tratamiento con Rivastigmina en parche transdérmico. ¿Cuál es la ventaja farmacocinética de la vía transdérmica en comparación con la vía oral y qué precaución de aplicación cutánea se debe indicar a la familia?",
    "opciones": {
-    "a": "Permite una absorción continua y niveles plasmáticos fluctuantes; los parches deben aplicarse siempre en el mismo sitio exacto todos los días.",
+    "a": "Permite una absorción continua y niveles plasmáticos fluctuantes; los parches deben aplicarse siempre en el mismo sitio exacto todos los días, y se retiran a las 2 horas de colocados.",
     "b": "Inactiva al fármaco en la epidermis evitando que llegue al cerebro, por lo que se debe retirar el parche a las 2 horas de colocado.",
     "c": "Absorción continua y uniforme por la piel, sin picos plasmáticos, con menos efectos adversos gastrointestinales; se debe rotar el sitio de aplicación todos los días.",
     "d": "Exige aplicar 10 parches juntos en la planta del pie para alcanzar la dosis terapéutica, retirándolos recién a los 7 días."
@@ -1010,7 +1010,7 @@
    "numero": 78,
    "pregunta": "En la psicopatología del adulto mayor con trastorno depresivo grave, pueden aparecer ideas deliroides (delirios secundarios). ¿Cuáles son los dos contenidos delirantes o temáticas más representativas de la Depresión Mayor psicótica en la vejez?",
    "opciones": {
-    "a": "Delirio celotípico puro por consumo de cocaína, sin relación con el estado afectivo ni con la edad.",
+    "a": "Delirio celotípico puro por consumo de cocaína, sin relación con el estado afectivo ni con la edad, ni con la medicación.",
     "b": "Delirios de grandeza y de transformación mística cósmica con euforia persistente y logorrea.",
     "c": "Delirio de ser un superhéroe de historietas, con conductas heroicas de riesgo y desafío físico.",
     "d": "Ideas deliroides de ruina (económica) y de culpa, hipocondríacas o nihilistas (síndrome de Cotard)."
@@ -1036,7 +1036,7 @@
    "numero": 80,
    "pregunta": "En la adaptación del adulto mayor a su entorno domiciliario-familiar, el mantenimiento de las Actividades Cotidianas contribuye a preservar la autoestima. Desde la perspectiva de la Terapia Ocupacional y la Geriatría, ¿cuáles son las medidas de simplificación de tareas y adaptación ambiental recomendadas en el hogar para mantener la independencia funcional en un paciente con deterioro cognitivo leve?",
    "opciones": {
-    "a": "Eliminar todos los muebles del hogar y prohibir el uso del teléfono para evitar situaciones de confusión y de riesgo domiciliario.",
+    "a": "Eliminar todos los muebles del hogar y prohibir el uso del teléfono para evitar situaciones de confusión y de riesgo domiciliario, y aislar al paciente del entorno.",
     "b": "Establecer rutinas diarias estructuradas, usar apoyos visuales (calendarios, carteles) y eliminar riesgos del hogar (alfombras sueltas, mala iluminación).",
     "c": "Obligar al paciente a cocinar platos de alta complejidad con fuego directo sin supervisión, para estimular su autonomía diaria.",
     "d": "Aislar al paciente en una habitación a oscuras sin contacto con la familia, para reducir los estímulos y la agitación nocturna."
@@ -1049,7 +1049,7 @@
    "numero": 81,
    "pregunta": "En la evaluación neurológica de los trastornos del lenguaje en pacientes con sospecha de demencia o ACV, la Afasia Anómica o Amnésica es una manifestación frecuente. ¿Cómo se define la Afasia Anómica y en qué estructura del hemisferio dominante radica su disfunción?",
    "opciones": {
-    "a": "Pérdida aislada de la capacidad para escribir con las dos manos, sin afección del habla ni de la comprensión del lenguaje.",
+    "a": "Pérdida aislada de la capacidad para escribir con las dos manos, sin afección del habla ni de la comprensión del lenguaje, y con alteración del cálculo mental.",
     "b": "Incapacidad total para comprender cualquier palabra hablada, con lenguaje mutista puro y conservación de la lectura.",
     "c": "Articulación verborreica e incomprensible con destrucción pura del nervio hipogloso y atrofia de la hemilengua.",
     "d": "Dificultad selectiva para evocar nombres de objetos ('tenerlo en la punta de la lengua'), con fluidez, comprensión y repetición conservadas."
@@ -1062,7 +1062,7 @@
    "numero": 82,
    "pregunta": "¿Cuál es el perfil cognitivo y afectivo característico del Síndrome Demencial Subcortical?",
    "opciones": {
-    "a": "Amnesia episódica anterógrada pura con preservación absoluta de la función ejecutiva y de la velocidad de procesamiento.",
+    "a": "Amnesia episódica anterógrada pura con preservación absoluta de la función ejecutiva y de la velocidad de procesamiento, y sin apatía ni abulia.",
     "b": "Bradipsiquia, apatía o abulia, disfunción ejecutiva y alteración de la memoria de evocación, sin afasia, agnosia ni apraxia tempranas.",
     "c": "Ceguera cortical aguda con alucinaciones táctiles puras, anosognosia del déficit visual y agitación psicomotriz.",
     "d": "Afasia fluida severa con alexia y agrafia iniciales, sin alteración de la velocidad de procesamiento mental."
@@ -1101,10 +1101,10 @@
    "numero": 85,
    "pregunta": "En la farmacoterapia de la Enfermedad de Alzheimer, los Inhibidores de la Acetilcolinesterasa (Donepezilo, Rivastigmina, Galantamina) se indican en estadios leves a moderados. ¿Cuál de estos tres fármacos se caracteriza por inhibir tanto a la Acetilcolinesterasa (AChE) como a la Butirilcolinesterasa (BuChE) en la glía y neuronas?",
    "opciones": {
-    "a": "Rivastigmina.",
-    "b": "Donepezilo.",
-    "c": "Galantamina.",
-    "d": "Memantina."
+    "a": "Rivastigmina (Exelon).",
+    "b": "Donepezilo (Aricept).",
+    "c": "Galantamina (liberación prolongada).",
+    "d": "Memantina (Ebixa)."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. Dentro del grupo de los IACEs, la RIVASTIGMINA posee un perfil farmacodinámico único: es un inhibidor 'pseudo-irreversible' o de doble acción, ya que inhibe de forma selectiva tanto a la Acetilcolinesterasa (AChE) como a la Butirilcolinesterasa (BuChE). La BuChE es una enzima presente en las células gliales (astrocitos, microglía) y neuronas cuya actividad se incrementa a medida que la Enfermedad de Alzheimer avanza y degeneran las neuronas colinérgicas. Por su parte, el Donepezilo y la Galantamina son inhibidores selectivos puros de la AChE (la Galantamina suma un efecto modulador alostérico positivo sobre los receptores nicotínicos). La Memantina (opción D) no es un IACE, sino un antagonista NMDA. La opción A es la respuesta correcta."
@@ -1128,7 +1128,7 @@
    "pregunta": "¿Cuál es el mecanismo fisiopatológico por el cual la elevación de la Presión Intraocular (PIO) produce la muerte de las células ganglionares de la retina y la atrofia del nervio óptico?",
    "opciones": {
     "a": "Compresión del flujo axoplásmico en la lámina cribosa e hipoperfusión de la papila óptica.",
-    "b": "Destrucción de los fotorreceptores por exceso de luz infrarroja ambiental prolongada.",
+    "b": "Destrucción de los fotorreceptores por exceso de luz infrarroja ambiental prolongada y de la mácula.",
     "c": "Desprendimiento traumático del cristalino hacia la fosa nasal por golpe directo.",
     "d": "Infección bacteriana directa de las células amacrinas de la retina por estafilococo."
    },
@@ -1168,7 +1168,7 @@
    "opciones": {
     "a": "Se intensifica por el mayor retorno venoso (precarga) y resistencia sistémica (poscarga), que aumentan el flujo por la válvula.",
     "b": "Desaparece por completo en menos de un segundo, al cerrarse la válvula aórtica y cesar el gradiente transvalvular.",
-    "c": "Se transforma en un soplo diastólico de alta frecuencia, de tipo regurgitante, audible en el foco aórtico y mitral.",
+    "c": "Se transforma en un soplo diastólico de alta frecuencia, de tipo regurgitante, audible en el foco aórtico y mitral, con irradiación al cuello.",
     "d": "Disminuye de intensidad por colapso de la arteria pulmonar y desvío del flujo hacia el ventrículo derecho."
    },
    "respuesta_correcta": "a",
@@ -1181,7 +1181,7 @@
    "opciones": {
     "a": "Escotoma central foveal exclusivo.",
     "b": "Escotoma Arciforme de Bjerrum o Escalón Nasal de Ronne.",
-    "c": "Ceguera total monocular irrecuperable en 5 minutos.",
+    "c": "Ceguera total monocular irrecuperable en 5 minutos y dolor ocular.",
     "d": "Hemianopsia homónima izquierda pura."
    },
    "respuesta_correcta": "b",
@@ -1206,7 +1206,7 @@
    "pregunta": "¿Por qué los hipnóticos no benzodiacepínicos (Fármacos Z: Zolpidem, Zopiclona) deben administrarse con extrema precaución y a dosis reducidas a la mitad en el adulto mayor?",
    "opciones": {
     "a": "Porque, aunque relajan menos que las benzodiacepinas, causan somnolencia, ataxia y confusión nocturna y AUMENTAN EL RIESGO DE CAÍDAS Y FRACTURAS DE CADERA.",
-    "b": "Porque producen hipertiroidismo con alopecia difusa y pérdida de peso en pocas semanas de tratamiento continuo y sin ajuste.",
+    "b": "Porque producen hipertiroidismo con alopecia difusa y pérdida de peso en pocas semanas de tratamiento continuo y sin ajuste, y provocan insuficiencia renal aguda en pocos días de uso.",
     "c": "Porque destruyen los canales de calcio del músculo liso bronquial y provocan broncoespasmo severo inmediato en el anciano.",
     "d": "Porque provocan pancreatitis necrotizante aguda de inmediato y fallo multiorgánico en las primeras horas de uso del fármaco."
    },
@@ -1233,7 +1233,7 @@
    "opciones": {
     "a": "Infección viral aguda de las arterias coronarias por virus de la rabia, con vasculitis necrotizante extensa y oclusión trombótica.",
     "b": "Falta de glucosa en el plasma por hiperinsulinemia congénita, con hipoglucemia persistente y neuroglucopenia en el miocardio.",
-    "c": "Disminución de la frecuencia cardíaca a 10 latidos por minuto con vasodilatación masiva y colapso circulatorio inmediato del ventrículo.",
+    "c": "Disminución de la frecuencia cardíaca a 10 latidos por minuto con vasodilatación masiva y colapso circulatorio inmediato del ventrículo, con shock refractario y cianosis.",
     "d": "Mayor demanda de oxígeno (hipertrofia y tensión parietal P × r) más menor oferta por compresión de vasos intramiocárdicos y menor presión coronaria diastólica."
    },
    "respuesta_correcta": "d",
@@ -1271,7 +1271,7 @@
    "pregunta": "En la evaluación multidimensional del adulto mayor en el ámbito domiciliario-familiar, el concepto de 'Incapacidad' o 'Dependencia Funcional' exige la intervención de un equipo interdisciplinario. ¿Cuáles son los tres niveles de prevención en gerontología aplicados al mantenimiento de la autonomía en las actividades cotidianas?",
    "opciones": {
     "a": "Prevención primaria (estilos de vida saludables), secundaria (detección y tratamiento precoz) y terciaria (rehabilitación, adaptación del hogar y apoyo al cuidador).",
-    "b": "Prevención únicamente mediante la administración de antibióticos a toda la población anciana de forma indiscriminada, sin evaluación clínica.",
+    "b": "Prevención únicamente mediante la administración de antibióticos a toda la población anciana de forma indiscriminada, sin evaluación clínica, y vacunación obligatoria a todos.",
     "c": "Prevención basada exclusivamente en la internación geriátrica definitiva a los 60 años, sin actividades comunitarias ni domiciliarias.",
     "d": "Prevención quirúrgica de amputación profiláctica de ambos miembros inferiores para evitar caídas y úlceras por presión futuras."
    },

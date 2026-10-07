@@ -3,7 +3,8 @@
   "a": "Acumulación de secreciones traqueobronquiales por pérdida del reflejo deglutorio; se trata con butilhioscina o escopolamina.",
   "b": "Edema agudo de pulmón cardiogénico severo; se trata con furosemida 120 mg IV en bolo y nitritos sublinguales.",
   "c": "Infección fúngica masiva por Candida; se trata con fluconazol endovenoso durante 30 días de internación.",
-  "d": "Broncoespasmo asmático agudo; se trata con nebulizaciones de salbutamol y corticoides inhalados de rescate."
+  "d": "Broncoespasmo asmático agudo; se trata con nebulizaciones de salbutamol y corticoides inhalados de rescate.",
+  "b+": ", y requiere internación en terapia intensiva"
  },
  "SIAM-UP9-011": {
   "b": "Suspensión inmediata de la morfina y sustitución por paracetamol a dosis bajas sin laxantes ni dieta.",
@@ -19,13 +20,15 @@
   "a": "Glasgow 7; define coma severo y exige intubación endotraqueal (IET) y ventilación mecánica.",
   "b": "Glasgow 4; confirma muerte cerebral y se contraindica la intubación del paciente.",
   "c": "Glasgow 12; requiere observación ambulatoria con analgésicos orales y reposo.",
-  "d": "Glasgow 15; se encuentra en vigilia y lucidez completa sin riesgo de deterioro."
+  "d": "Glasgow 15; se encuentra en vigilia y lucidez completa sin riesgo de deterioro.",
+  "b+": ", y no requiere monitoreo"
  },
  "SIAM-UP9-035": {
   "a": "Nódulo de la hermana María José y síndrome de Trousseau.",
   "b": "Signo de Chvostek y síndrome de Cushing iatrogénico.",
   "c": "Signo de Murphy y síndrome de Leriche de la aorta.",
-  "d": "Signo de Nikolsky y nódulo de Aschoff cardíaco."
+  "d": "Signo de Nikolsky y nódulo de Aschoff cardíaco.",
+  "b+": " y de Raynaud"
  },
  "SIAM-UP9-057": {
   "a": "Hipertensión arterial, diabetes tipo 2 e insuficiencia renal crónica del profesional.",
@@ -48,10 +51,12 @@
   "d": "Ley de Brouardel; inicia en el abdomen y se fija exclusivamente en las vísceras huecas."
  },
  "SIAM-UP9-074": {
-  "d": "Depósito intercelular (en 'malla de pescar' o 'panal de abejas') de IgG y C3 en la epidermis."
+  "d": "Depósito intercelular (en 'malla de pescar' o 'panal de abejas') de IgG y C3 en la epidermis.",
+  "a+": ", con eosinófilos abundantes"
  },
  "SIAM-UP9-077": {
-  "c": "Desecación extrema y rápida de los tejidos en ambientes cálidos, secos y con circulación de aire."
+  "c": "Desecación extrema y rápida de los tejidos en ambientes cálidos, secos y con circulación de aire.",
+  "a+": ", y posterior fragmentación ósea"
  },
  "SIAM-UP9-078": {
   "a": "Metilfenidato y modafinilo por vía subcutánea, en dosis de rescate repetidas.",
@@ -66,7 +71,8 @@
   "d": "Linfomas no Hodgkin, leucemia linfática crónica y enfermedad de Castleman; con estomatitis ulcerosa severa."
  },
  "SIAM-UP9-095": {
-  "b": "Extensión, aducción y pronación rígida de miembros superiores y extensión de los inferiores; lesión del tronco encefálico."
+  "b": "Extensión, aducción y pronación rígida de miembros superiores y extensión de los inferiores; lesión del tronco encefálico.",
+  "d+": ", sin afectación del tronco"
  },
  "SIAM-UP9-096": {
   "a": "Hipoxia, Hipovolemia, Hidrogenión (acidosis), Hipo/Hiperpotasemia, Hipotermia; Neumotórax a tensión, Taponamiento, Toxinas, Trombosis pulmonar y coronaria.",
@@ -79,5 +85,137 @@
  "SIAM-UP9-099": {
   "b": "Causa directa: neumonía broncoaspirativa; intermedia: insuficiencia respiratoria; básica: adenocarcinoma gástrico metastásico.",
   "c": "Causa directa: grupo sanguíneo ABO; causa intermedia: edad; causa básica: firma del juez de paz en blanco."
+ },
+ "SIAM-UP9-003": {
+  "b+": ", y pupilas fijas en midriasis media"
+ },
+ "SIAM-UP9-004": {
+  "b+": ", sin coadyuvantes"
+ },
+ "SIAM-UP9-008": {
+  "b+": ", sin invasión linfática"
+ },
+ "SIAM-UP9-012": {
+  "b+": ", y respuesta completa a antibióticos"
+ },
+ "SIAM-UP9-013": {
+  "b+": ", sin necesidad de estadificar la enfermedad"
+ },
+ "SIAM-UP9-014": {
+  "d+": ", y anticonvulsivantes de acción corta"
+ },
+ "SIAM-UP9-016": {
+  "d+": " y cambios de ropa"
+ },
+ "SIAM-UP9-017": {
+  "c+": ", y evitar la ingesta de proteínas por completo"
+ },
+ "SIAM-UP9-018": {
+  "a+": ", y respuesta pupilar normal a la luz"
+ },
+ "SIAM-UP9-019": {
+  "d+": ", y se repite cada 30 minutos"
+ },
+ "SIAM-UP9-020": {
+  "d+": ", sin intervención judicial"
+ },
+ "SIAM-UP9-021": {
+  "a+": ", y cruza en el bulbo raquídeo"
+ },
+ "SIAM-UP9-022": {
+  "d+": ", y regulan el ritmo circadiano"
+ },
+ "SIAM-UP9-026": {
+  "b+": ", y Hemoglobina glicosilada"
+ },
+ "SIAM-UP9-030": {
+  "c+": ", sin cuidados de confort"
+ },
+ "SIAM-UP9-031": {
+  "a+": ", sin posibilidad de revocarse"
+ },
+ "SIAM-UP9-032": {
+  "c+": ", con asistencia ventilatoria"
+ },
+ "SIAM-UP9-033": {
+  "a+": ", y las exhumaciones son ilimitadas"
+ },
+ "SIAM-UP9-034": {
+  "c+": ", sin picazón ni dolor"
+ },
+ "SIAM-UP9-036": {
+  "b+": ", y aumentan la frecuencia respiratoria"
+ },
+ "SIAM-UP9-040": {
+  "a+": ", y evitar toda pregunta posterior"
+ },
+ "SIAM-UP9-041": {
+  "a+": " en el 100 % de los casos"
+ },
+ "SIAM-UP9-045": {
+  "a+": " por la familia"
+ },
+ "SIAM-UP9-046": {
+  "b+": ", y suplementos de vitamina E"
+ },
+ "SIAM-UP9-047": {
+  "b+": ", con apneas largas"
+ },
+ "SIAM-UP9-048": {
+  "d+": ", y alcanza niveles máximos a los 30 segundos"
+ },
+ "SIAM-UP9-050": {
+  "d+": ", y anemia hemolítica autoinmune"
+ },
+ "SIAM-UP9-051": {
+  "b+": ", y aparece solo en ambientes sin aire"
+ },
+ "SIAM-UP9-052": {
+  "a+": ", y se trata con paracetamol"
+ },
+ "SIAM-UP9-056": {
+  "c+": ", y se acompaña de tos con sangre rutilante"
+ },
+ "SIAM-UP9-059": {
+  "a+": ", y sin firma de ningún otro profesional"
+ },
+ "SIAM-UP9-064": {
+  "c+": ", y no requiere estadificación posterior"
+ },
+ "SIAM-UP9-066": {
+  "a+": ", y entregar el cuerpo a la familia"
+ },
+ "SIAM-UP9-067": {
+  "b+": ", y reposo en cama por 72 horas"
+ },
+ "SIAM-UP9-071": {
+  "c+": ", y se usa solo en el dolor neuropático"
+ },
+ "SIAM-UP9-076": {
+  "d+": ", y exposición a radiación"
+ },
+ "SIAM-UP9-079": {
+  "c+": ", y mejora con el reposo absoluto en cama"
+ },
+ "SIAM-UP9-080": {
+  "b+": ", y sin efecto sobre el dolor"
+ },
+ "SIAM-UP9-081": {
+  "b+": " o el corazón"
+ },
+ "SIAM-UP9-084": {
+  "d+": ", y debe evitarse en la fase terminal"
+ },
+ "SIAM-UP9-085": {
+  "c+": ", y Psiquiátrica pura"
+ },
+ "SIAM-UP9-100": {
+  "a+": ", sin considerar la dignidad"
+ },
+ "SIAM-UP9-069": {
+  "a": "Melanoma lentiginoso acral ulcerado.",
+  "b": "Carcinoma basocelular pigmentado.",
+  "c": "Sarcoma de Kaposi (asociado a HHV-8).",
+  "d": "Pénfigo vulgar vegetante extenso."
  }
 }

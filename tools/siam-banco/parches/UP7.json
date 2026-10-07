@@ -8,25 +8,29 @@
  "SIAM-UP7-016": {
   "a": "Clase funcional III de la NYHA (limitación marcada; asintomático en reposo, pero síntomas con actividad menor a la ordinaria).",
   "b": "Clase Funcional I de la NYHA (sin limitación de la actividad física ordinaria ni síntomas con el ejercicio).",
-  "d": "Clase Funcional II de la NYHA (limitación leve de la actividad física ordinaria, con síntomas con esfuerzos habituales)."
+  "d": "Clase Funcional II de la NYHA (limitación leve de la actividad física ordinaria, con síntomas con esfuerzos habituales).",
+  "d+": " y buena tolerancia al reposo"
  },
  "SIAM-UP7-019": {
   "a": "Consumo excesivo de agua destilada y realización de ecocardiogramas semanales de control y ejercicio físico moderado.",
   "b": "Picaduras de mosquitos y consumo de leche descremada en el desayuno de cada mañana y de cada tarde.",
   "c": "Infecciones urinarias por cándida y uso de suplementos de vitamina C pura en altas dosis diarias.",
-  "d": "Trasgresión alimentaria (exceso de sodio), mala adherencia al tratamiento, infecciones, uso de AINEs y arritmias (FA)."
+  "d": "Trasgresión alimentaria (exceso de sodio), mala adherencia al tratamiento, infecciones, uso de AINEs y arritmias (FA).",
+  "a+": " y dieta hiposódica"
  },
  "SIAM-UP7-038": {
   "a": "Túbulo colector cortical; destruye la bomba de sodio y potasio eliminando todo el calcio por heces y por orina.",
   "b": "Glomérulo renal; aumenta la secreción de eritropoyetina provocando policitemia severa, trombosis venosa y cefalea.",
   "d": "Rama descendente del asa de Henle; destruye las células paratiroideas disminuyendo la creatinina sérica y la calcemia.",
-  "c": "Túbulo contorneado distal; estimula la reabsorción de calcio y compite con el urato por el transporte tubular de ácidos orgánicos."
+  "c": "Túbulo contorneado distal; estimula la reabsorción de calcio y compite con el urato por el transporte tubular de ácidos orgánicos.",
+  "d+": ", y disminuye la presión arterial"
  },
  "SIAM-UP7-039": {
   "a": "Para sincronizar el choque con la onda R del QRS y evitar descargar sobre la onda T, que podría desencadenar fibrilación ventricular.",
   "b": "Para evitar que la corriente eléctrica se desvíe hacia los músculos intercostales del tórax y de los brazos.",
   "c": "Para convertir la corriente continua en corriente alterna de baja frecuencia sin tocar al paciente ni a la camilla.",
-  "d": "Para aumentar la energía del choque a 1000 Joules y destruir el foco ectópico auricular de forma definitiva."
+  "d": "Para aumentar la energía del choque a 1000 Joules y destruir el foco ectópico auricular de forma definitiva.",
+  "c+": ", y evitar interferencias del monitor"
  },
  "SIAM-UP7-048": {
   "a": "Flecainida combinada con Amiodarona por vía oral y control mensual de ECG.",
@@ -36,10 +40,12 @@
  },
  "SIAM-UP7-051": {
   "b": "Ototoxicidad e insuficiencia renal anúrica; se exige diálisis peritoneal inmediata y suspensión definitiva.",
-  "c": "Reacciones de hipersensibilidad cutánea y polineuropatía periférica dosis-dependiente; la neuropatía exige suspender el fármaco."
+  "c": "Reacciones de hipersensibilidad cutánea y polineuropatía periférica dosis-dependiente; la neuropatía exige suspender el fármaco.",
+  "b+": ", y debe repetirse la dosis cada 12 horas"
  },
  "SIAM-UP7-052": {
-  "b": "IC con FEVI reducida (≤40 %), levemente reducida (41-49 %) y preservada (≥50 %)."
+  "b": "IC con FEVI reducida (≤40 %), levemente reducida (41-49 %) y preservada (≥50 %).",
+  "c+": " según el síntoma"
  },
  "SIAM-UP7-054": {
   "a": "Oxigenoterapia o VNI/CPAP, furosemida IV y nitroglicerina IV en infusión si la PA lo permite."
@@ -60,13 +66,15 @@
   "c": "La negativización serológica en adultos crónicos es muy lenta: suele demorar entre 10 y 20 años o persistir positiva."
  },
  "SIAM-UP7-065": {
-  "d": "Ausencia de ondas P sinusales, actividad auricular caótica (ondas f) e intervalos R-R completamente irregulares."
+  "d": "Ausencia de ondas P sinusales, actividad auricular caótica (ondas f) e intervalos R-R completamente irregulares.",
+  "a+": ", sin variaciones en el intervalo R-R"
  },
  "SIAM-UP7-068": {
   "a": "Hay riesgo de recurrencia y deterioro de la FEVI; si no se recuperó, el embarazo está contraindicado; si se recuperó, exige asesoramiento.",
   "b": "Cero riesgo de recurrencia; la miocardiopatía del periparto confiere inmunidad permanente y no vuelve a aparecer jamás.",
   "c": "El riesgo de recurrencia es nulo únicamente si realiza dieta hipercalórica y reposo en cama durante los 9 meses de gestación.",
-  "d": "Requiere cesárea de urgencia preventiva al momento de la concepción combinada con digoxina a dosis máximas diarias."
+  "d": "Requiere cesárea de urgencia preventiva al momento de la concepción combinada con digoxina a dosis máximas diarias.",
+  "c+": ", sin necesidad de seguimiento ecocardiográfico"
  },
  "SIAM-UP7-071": {
   "a": "PCP <12 mmHg e índice cardíaco >3,0 L/min/m² (hemodinamia normal, sin congestión).",
@@ -101,7 +109,8 @@
   "a": "Fase 4 (despolarización lenta); bloquea canales de potasio en la aurícula izquierda y el nodo sinusal.",
   "b": "Fase 0 (despolarización rápida); se une a canales de Na⁺ inactivados con disociación muy rápida en tejido isquémico despolarizado.",
   "c": "Fase 3 (repolarización); estimula la entrada de cloro en las arterias coronarias epicárdicas y la aorta.",
-  "d": "Fase 2 (meseta de calcio); bloquea canales L aumentando el automatismo en tejido sano y en el nodo AV."
+  "d": "Fase 2 (meseta de calcio); bloquea canales L aumentando el automatismo en tejido sano y en el nodo AV.",
+  "c+": ", y bloquea la corriente de potasio"
  },
  "SIAM-UP7-085": {
   "d": "Vasoconstricción de la arteriola aferente por retroalimentación tubuloglomerular que reduce la hiperfiltración; efecto esperable, NO se suspende."
@@ -110,12 +119,14 @@
   "a": "Hemocromatosis hereditaria pura; se trata con flebotomías y consumo de suplementos de hierro y vitamina C.",
   "b": "Miocardiopatía chagásica aguda; se trata con benznidazol oral durante 20 años continuos y reposo.",
   "c": "Sarcoidosis cardíaca: granulomas no caseificantes y compromiso del sistema de conducción; se trata con corticoides y marcapasos/CDI.",
-  "d": "Amiloidosis cardíaca senil ATTR; se trata con tafamidis, anticoagulación oral y marcapasos profiláctico."
+  "d": "Amiloidosis cardíaca senil ATTR; se trata con tafamidis, anticoagulación oral y marcapasos profiláctico.",
+  "a+": ", sin compromiso del sistema de conducción cardíaco"
  },
  "SIAM-UP7-087": {
   "a": "Bloqueo trifascicular (BCRD + HBAI + BAV de 1er grado); daño extenso del sistema de conducción con riesgo de BAV completo.",
   "b": "Bloqueo AV de 1er grado aislado sin compromiso de las ramas ventriculares ni del haz de His.",
-  "c": "Ritmo idioventricular acelerado benigno secundario a la toma de tiazidas y de diuréticos de asa."
+  "c": "Ritmo idioventricular acelerado benigno secundario a la toma de tiazidas y de diuréticos de asa.",
+  "c+": ", sin repercusión en el sistema de conducción"
  },
  "SIAM-UP7-089": {
   "b": "Exacerba la sobrecarga de calcio intracelular y provoca paro en sístole o arritmias ventriculares letales."
@@ -138,13 +149,15 @@
   "d": "Clonidina combinada con Alfa-metildopa por vía endovenosa en bolo lento."
  },
  "SIAM-UP7-093": {
-  "b": "Bloquean el nodo AV sin frenar la vía accesoria (riesgo de FV); el tratamiento es procainamida o cardioversión."
+  "b": "Bloquean el nodo AV sin frenar la vía accesoria (riesgo de FV); el tratamiento es procainamida o cardioversión.",
+  "a+": ", y se agrava con la hidratación"
  },
  "SIAM-UP7-094": {
   "a": "Miocardiopatía arritmogénica del ventrículo derecho; alteración de proteínas del desmosoma (placofilina-2).",
   "b": "Miocardiopatía hipertrófica apical; alteración del complejo de la troponina C y del retículo sarcoplásmico.",
   "c": "Fibroelastosis endomiocárdica senil; alteración del canal de cloro epitelial y del colágeno.",
-  "d": "Miocardiopatía restrictiva amiloide; alteración de la síntesis de albúmina vascular y de la elastina."
+  "d": "Miocardiopatía restrictiva amiloide; alteración de la síntesis de albúmina vascular y de la elastina.",
+  "b+": " y del sarcómero"
  },
  "SIAM-UP7-095": {
   "a": "Andexanet alfa (factor Xa recombinante modificado, sin actividad catalítica).",
@@ -153,10 +166,114 @@
   "d": "Idarucizumab en doble bolo de 2,5 g endovenoso, separado por 15 minutos."
  },
  "SIAM-UP7-098": {
-  "b": "Examen directo en LCR o sangre (Strout/microhematocrito/PCR) que demuestra tripomastigotes; se trata con Benznidazol."
+  "b": "Examen directo en LCR o sangre (Strout/microhematocrito/PCR) que demuestra tripomastigotes; se trata con Benznidazol.",
+  "d+": ", y requiere internación por seis meses"
  },
  "SIAM-UP7-099": {
   "a": "Isquemia transmural aguda que produce acinesia de la pared posterior sin cambios de volumen cavitario.",
-  "b": "Sobrecarga de volumen crónica que induce hipertrofia excéntrica adaptativa con dilatación de la cavidad y mayor complacencia."
+  "b": "Sobrecarga de volumen crónica que induce hipertrofia excéntrica adaptativa con dilatación de la cavidad y mayor complacencia.",
+  "a+": ", y con engrosamiento concéntrico simultáneo"
+ },
+ "SIAM-UP7-005": {
+  "b+": ", con resultado concordante en dos muestras"
+ },
+ "SIAM-UP7-006": {
+  "d+": ", y en la insuficiencia renal grave"
+ },
+ "SIAM-UP7-007": {
+  "a+": ", más edema maleolar"
+ },
+ "SIAM-UP7-008": {
+  "c+": ", y se elevan en el ayuno"
+ },
+ "SIAM-UP7-009": {
+  "d+": ", y no participan en la fisiopatología de la IC"
+ },
+ "SIAM-UP7-011": {
+  "b+": ", sin efecto sobre la contractilidad miocárdica"
+ },
+ "SIAM-UP7-013": {
+  "a+": ", y aumenta la excreción de sodio"
+ },
+ "SIAM-UP7-014": {
+  "b+": ", y no alteran la calcemia ni la uricemia"
+ },
+ "SIAM-UP7-015": {
+  "a+": ", con aumento marcado de la secreción de renina"
+ },
+ "SIAM-UP7-017": {
+  "d+": ", y mejora con el reposo absoluto"
+ },
+ "SIAM-UP7-018": {
+  "b+": ", sin edemas periféricos ni hepatomegalia"
+ },
+ "SIAM-UP7-022": {
+  "c+": ", sin necesidad de suspender el fármaco ni usar corticoides"
+ },
+ "SIAM-UP7-023": {
+  "b+": ", y aumentan la diuresis de manera sostenida"
+ },
+ "SIAM-UP7-026": {
+  "a+": ", con actividad auricular en serrucho"
+ },
+ "SIAM-UP7-027": {
+  "c+": ", y que nunca progresa a bloqueo completo"
+ },
+ "SIAM-UP7-028": {
+  "c+": ", junto con restricción hídrica estricta"
+ },
+ "SIAM-UP7-029": {
+  "c+": ", con respuesta ventricular irregular"
+ },
+ "SIAM-UP7-034": {
+  "b+": ", y se evita todo tipo de diurético"
+ },
+ "SIAM-UP7-037": {
+  "d+": ", y se omiten los controles posteriores"
+ },
+ "SIAM-UP7-042": {
+  "a+": ", y los controles se suspenden de por vida"
+ },
+ "SIAM-UP7-044": {
+  "d+": ", y ambos actúan sobre los receptores muscarínicos"
+ },
+ "SIAM-UP7-046": {
+  "d+": ", sin afectación de los plexos nerviosos"
+ },
+ "SIAM-UP7-047": {
+  "c+": ", y sin realce tardío con gadolinio"
+ },
+ "SIAM-UP7-049": {
+  "b+": ", aun con abstinencia prolongada"
+ },
+ "SIAM-UP7-057": {
+  "a+": " de origen valvular"
+ },
+ "SIAM-UP7-066": {
+  "d+": " y aumentando la excreción urinaria"
+ },
+ "SIAM-UP7-067": {
+  "a+": ", y mayor sobrecarga del ventrículo izquierdo"
+ },
+ "SIAM-UP7-069": {
+  "d+": ", y mantener el ritmo con fármacos antiarrítmicos orales"
+ },
+ "SIAM-UP7-070": {
+  "b+": ", y ambas carecen de efecto sobre el potasio"
+ },
+ "SIAM-UP7-074": {
+  "c+": " y flujo diastólico anormal"
+ },
+ "SIAM-UP7-081": {
+  "d+": ", y mantener el sotalol sin modificar la dosis"
+ },
+ "SIAM-UP7-088": {
+  "b+": ", seguida de reposición de plaquetas"
+ },
+ "SIAM-UP7-096": {
+  "c+": ", sin necesidad de monitoreo"
+ },
+ "SIAM-UP7-097": {
+  "b+": ", y potencia el efecto sobre el nodo sinusal"
  }
 }

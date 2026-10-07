@@ -62,7 +62,7 @@
    "pregunta": "¿Cuáles son los métodos diagnósticos de laboratorio indicados para confirmar o descartar la infección por Trypanosoma cruzi en la Fase Crónica de la enfermedad?",
    "opciones": {
     "a": "Cultivo viral en medio de Sabouraud e intradermorreacción cutánea con tuberculina PPD.",
-    "b": "Demostración directa del parásito mediante gota gruesa, método de Strout o PCR cuantitativa en sangre periférica.",
+    "b": "Demostración directa del parásito mediante gota gruesa, método de Strout o PCR cuantitativa en sangre periférica, con resultado concordante en dos muestras.",
     "c": "Realización de al menos dos pruebas serológicas cuantitativas distintas (ej. ELISA e IFI/HAI) para detección de anticuerpos IgG.",
     "d": "Dosaje de troponina I ultrasensible y marcadores de lisis tumoral en orina de 24 horas."
    },
@@ -77,7 +77,7 @@
     "a": "Indicado en la fase aguda, transmisión congénita, accidentes de laboratorio y niños/jóvenes en fase crónica; contraindicado en el embarazo.",
     "b": "Indicado exclusivamente en mujeres en el tercer trimestre de gestación; contraindicado en pacientes sin serología previa.",
     "c": "Indicado prioritariamente en la miocardiopatía dilatada terminal de 40 años de evolución; contraindicado en la miopía.",
-    "d": "Indicado prioritariamente en el shock cardiogénico por infarto agudo; contraindicado en presencia de hipertensión arterial leve."
+    "d": "Indicado prioritariamente en el shock cardiogénico por infarto agudo; contraindicado en presencia de hipertensión arterial leve, y en la insuficiencia renal grave."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. El tratamiento antiparasitario etiológico de la Enfermedad de Chagas utiliza BENZNIDAZOL (de elección en Argentina, 5-7 mg/kg/día dividido en 2 tomas por 60 días) o NIFURTIMOX. INDICACIONES DE ALTA EFICACIA (Etiológico obligatorio): 1) Fase Aguda (cualquiera sea la vía de transmisión); 2) Chagas Congénito; 3) Accidentes de laboratorio con material contaminado; 4) Reactivación en inmunocomprometidos (ej. VIH o trasplantados); Y 5) Niños y adolescentes en fase crónica (asintomática o reciente). En adultos en fase crónica indeterminada o sin cardiopatía avanzada, también se ofrece para prevenir la progresión. CONTRAINDICACIONES ABSOLUTAS: EMBARAZO (por elevado riesgo de teratogenia y embriotoxicidad), Insuficiencia Renal o Hepática Grave. Las opciones B, C y D citan indicaciones o contraindicaciones erróneas."
@@ -87,7 +87,7 @@
    "numero": 7,
    "pregunta": "Un paciente de 76 años ingresa al servicio de urgencias por disnea de inicio brusco durante la noche que lo obliga a incorporarse en la cama (disnea paroxística nocturna). Al examen físico presenta una presión arterial de 150/90 mmHg, frecuencia cardíaca de 110 bpm, ingurgitación yugular a 45°, crepitantes húmedos en ambas bases pulmonares hasta campos medios y presencia de un tercer ruido cardíaco (R3 / galope). ¿Cuántos y cuáles Criterios Mayores de Framingham reúne el paciente para el diagnóstico de Insuficiencia Cardíaca?",
    "opciones": {
-    "a": "Reúne 1 Criterio Mayor (Hipertensión arterial) y 3 Criterios Menores (Frecuencia cardíaca, disnea de esfuerzo y tos nocturna).",
+    "a": "Reúne 1 Criterio Mayor (Hipertensión arterial) y 3 Criterios Menores (Frecuencia cardíaca, disnea de esfuerzo y tos nocturna), más edema maleolar.",
     "b": "Reúne 4 Criterios Mayores (Disnea paroxística nocturna, Ingurgitación yugular, Crepitantes pulmonares y Ritmo de galope por R3).",
     "c": "No reúne Criterios de Framingham ya que los criterios se aplican exclusivamente en pacientes jóvenes en choque anafiláctico.",
     "d": "Reúne únicamente Criterios Menores debido a que no presenta edema en miembros inferiores ni hepatomegalia dolorosa."
@@ -102,7 +102,7 @@
    "opciones": {
     "a": "Liberados por estimulación vagal; un valor bajo confirma la presencia de infarto agudo de miocardio con elevación del ST.",
     "b": "Liberados por la acidosis tubular renal; un valor bajo indica la necesidad imperiosa de realizar una arteriografía pulmonar.",
-    "c": "Liberados por hipoglucemia; un valor bajo se asocia a un riesgo elevado de muerte súbita arritmogénica por fibrilación ventricular.",
+    "c": "Liberados por hipoglucemia; un valor bajo se asocia a un riesgo elevado de muerte súbita arritmogénica por fibrilación ventricular, y se elevan en el ayuno.",
     "d": "Liberados por estiramiento y sobrecarga de presión/volumen del miocardio; un valor bajo descarta con alto valor predictivo negativo la IC."
    },
    "respuesta_correcta": "d",
@@ -116,7 +116,7 @@
     "a": "Sistema Oxitócico y Sistema Prolactínico; producen calcificación masiva de las arterias femorales en menos de 24 horas.",
     "b": "Sistema Renina-Angiotensina-Aldosterona y Sistema Nervioso Simpático; producen vasoconstricción, retención hidrosalina, fibrosis y remodelado adverso.",
     "c": "Sistema Histaminérgico y Sistema del Glucagón; producen destrucción de los glóbulos rojos e hipotensión portal súbita.",
-    "d": "Sistema Parasimpático y Sistema Calicreína-Cinina; producen bradicardia severa y vasoplejía periférica con pérdida de sodio."
+    "d": "Sistema Parasimpático y Sistema Calicreína-Cinina; producen bradicardia severa y vasoplejía periférica con pérdida de sodio, y no participan en la fisiopatología de la IC."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. En la fisiopatología de la Insuficiencia Cardíaca, la reducción del gasto cardíaco estimula barorreceptores y quimiorreceptores, desencadenando la activación de sistemas compensadores neurohormonales: 1) SISTEMA NERVIOSO SIMPÁTICO (aumento de Noradrenalina): Produce taquicardia, inotropismo y vasoconstricción; Y 2) SISTEMA RENINA-ANGIOTENSINA-ALDOSTERONA (SRAA): La Angiotensina II produce vasoconstricción arterial y estimula la secreción de Aldosterona, la cual favorece la reabsorción de Na+ y agua en el túbulo colector. CONSECUENCIAS A LARGO PLAZO (Paradoja de los mecanismos compensadores): Aunque logran mantener transitoriamente la PA y perfusión, a largo plazo la constante elevación de la poscarga y precarga, sumada al efecto tóxico directo de las catecolaminas, Angiotensina II y Aldosterona, produce REMODELADO VENTRICULAR ADVERSO, HIPERTROFIA, FIBROSIS MIOCÁRDICA, APOPTOSIS DE MIOCITOS Y ARRITMIAS. Por ello, el pilar del tratamiento es bloquear neurohormonalmente estos sistemas. Las opciones A, C y D son erróneas."
@@ -140,7 +140,7 @@
    "pregunta": "La Digoxina es un glucósido cardíaco (cardiotónico) con un estrecho margen terapéutico utilizado en el manejo de la Insuficiencia Cardíaca y en el control de la frecuencia en la Fibrilación Auricular. ¿Cuál es su mecanismo de acción celular exacto a nivel del miocito cardíaco y su efecto sobre la inotropía?",
    "opciones": {
     "a": "Estimulación directa de la adenilato ciclasa con aumento masivo de AMPc intracelular y apertura de canales de potasio.",
-    "b": "Bloqueo irreversible de los receptores AT1 de Angiotensina II en el músculo liso vascular con liberación de bradicinina.",
+    "b": "Bloqueo irreversible de los receptores AT1 de Angiotensina II en el músculo liso vascular con liberación de bradicinina, sin efecto sobre la contractilidad miocárdica.",
     "c": "Inhibición de la bomba Na+/K+-ATPasa miocárdica, lo que incrementa el Na+ intracelular y reduce el eflujo de Ca2+, aumentando la contractilidad.",
     "d": "Apertura de los canales de cloro activados por voltaje en el túbulo contorneado proximal."
    },
@@ -165,7 +165,7 @@
    "numero": 13,
    "pregunta": "En el manejo de un paciente de 74 años que ingresa con un cuadro de Edema Agudo de Pulmón y congestión venosa sistémica severa por descompensación de su Insuficiencia Cardíaca, se indica Furosemida endovenosa. ¿Cuál es el sitio de acción tubular de la Furosemida, su mecanismo celular y sus principales efectos adversos electrolíticos?",
    "opciones": {
-    "a": "Túbulo contorneado distal; inhibe el cotransportador Na+/Cl-; produce hipercalcemia aislada sin alteraciones del potasio.",
+    "a": "Túbulo contorneado distal; inhibe el cotransportador Na+/Cl-; produce hipercalcemia aislada sin alteraciones del potasio, y aumenta la excreción de sodio.",
     "b": "Túbulo contorneado proximal; inhibe la anhidrasa carbónica; produce acidosis hiperclorémica e hipercalcemia.",
     "c": "Túbulo colector cortical; bloquea los receptores de aldosterona; produce hiperpotasemia y ginecomastia.",
     "d": "Rama ascendente gruesa del asa de Henle; inhibe el cotransportador Na+/K+/2Cl-; produce hipopotasemia, hiponatremia y ototoxicidad."
@@ -179,7 +179,7 @@
    "pregunta": "Un paciente de 68 años en tratamiento con Hidroclorotiazida (25 mg/día) por HTA y congestión leve acude a control. En el laboratorio se detecta Ácido Úrico de 9,2 mg/dL con un episodio reciente de podagra (artritis gotosa aguda) y la glucemia en ayunas es de 132 mg/dL. ¿En qué segmento del túbulo renal actúan los diuréticos tiazídicos y cuáles son sus efectos adversos metabólicos característicos?",
    "opciones": {
     "a": "Glomérulo renal (aumentan la filtración de albúmina); producen hiperpotasemia y bradicardia sinusal severa.",
-    "b": "Túbulo colector medular (inhiben canales ENaC); producen hipouricemia masiva, hipoglucemia y ginecomastia dolorosa.",
+    "b": "Túbulo colector medular (inhiben canales ENaC); producen hipouricemia masiva, hipoglucemia y ginecomastia dolorosa, y no alteran la calcemia ni la uricemia.",
     "c": "Cápsula de Bowman (bloquean los receptores de renina); producen alcalosis respiratoria pura e hipocalcemia.",
     "d": "Túbulo contorneado distal (inhiben cotransportador Na+/Cl-); producen hiperuricemia, hiperglucemia, hipopotasemia y disfunción eréctil."
    },
@@ -191,7 +191,7 @@
    "numero": 15,
    "pregunta": "Una paciente de 72 años con Insuficiencia Cardíaca con FEVI del 30% se encuentra recibiendo tratamiento con Enalapril y Carvedilol. Se decide agregar Espironolactona (25 mg/día). ¿Cuál es el sitio de acción de la Espironolactona en la nefrona, su impacto sobre el remodelado cardíaco y el principal riesgo hidroelectrolítico a monitorear?",
    "opciones": {
-    "a": "Túbulo proximal; bloquea los receptores de vasopresina V2; estimula la fibrosis cardíaca y produce hiponatremia aislada.",
+    "a": "Túbulo proximal; bloquea los receptores de vasopresina V2; estimula la fibrosis cardíaca y produce hiponatremia aislada, con aumento marcado de la secreción de renina.",
     "b": "Túbulo colector (células principales); antagoniza al receptor de Aldosterona, previene la fibrosis miocárdica y produce riesgo de hiperpotasemia.",
     "c": "Corpúsculo renal; estimula la secreción de eritropoyetina; induce hipertensión maligna y colapso tubular.",
     "d": "Asa de Henle; inhibe la bomba de calcio; no altera el miocardio y produce hipopotasemia extrema con alcalosis."
@@ -207,7 +207,7 @@
     "a": "Clase funcional III de la NYHA (limitación marcada; asintomático en reposo, pero síntomas con actividad menor a la ordinaria).",
     "b": "Clase Funcional I de la NYHA (sin limitación de la actividad física ordinaria ni síntomas con el ejercicio).",
     "c": "Clase Funcional IV de la NYHA (incapacidad para llevar a cabo cualquier actividad sin disnea o síntomas en reposo).",
-    "d": "Clase Funcional II de la NYHA (limitación leve de la actividad física ordinaria, con síntomas con esfuerzos habituales)."
+    "d": "Clase Funcional II de la NYHA (limitación leve de la actividad física ordinaria, con síntomas con esfuerzos habituales) y buena tolerancia al reposo."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La CLASIFICACIÓN FUNCIONAL DE LA NEW YORK HEART ASSOCIATION (NYHA) evalúa la gravedad de los síntomas y el grado de limitación física en pacientes con Insuficiencia Cardíaca: 1) CLASE I: Sin limitación de la actividad física. La actividad ordinaria no causa fatiga, disnea ni palpitaciones; 2) CLASE II: Limitación leve de la actividad física. Asintomático en reposo, pero la actividad física ordinaria (ej. caminar varias cuadras a paso normal, subir más de 2 pisos) produce síntomas; 3) CLASE III: LIMITACIÓN MARCADA DE LA ACTIVIDAD FÍSICA. Asintomático en reposo, pero ACTIVIDADES MENORES A LAS ORDINARIAS (ej. caminar menos de 1-2 cuadras en llano, vestirse o hablar) provocan disnea o fatiga; Y 4) CLASE IV: Incapacidad para realizar cualquier actividad física sin malestar. PRESENCIA DE SÍNTOMAS EN REPOSO. El paciente presenta limitación marcada ante esfuerzo mínimo (Clase III)."
@@ -220,7 +220,7 @@
     "a": "Miocardiopatía Restrictiva por Amiloidosis AL; producida por depósito de inmunoglobulinas; se trata con trasplante renal aislado.",
     "b": "Miocardiopatía del Periparto; asociada a fragmentos tóxicos de prolactina (prolactina 16 kDa) y estrés oxidativo; se trata con Bromocriptina y manejo de IC.",
     "c": "Miocardiopatía Chagásica Aguda pura; producida por invasión de amastigotes al útero; se trata con aspirina y penicilina benzatínica.",
-    "d": "Miocardiopatía Hipertrófica obstructiva congénita; producida por mutación del colágeno tipo IV; se trata con digoxina y ejercicio de alto impacto."
+    "d": "Miocardiopatía Hipertrófica obstructiva congénita; producida por mutación del colágeno tipo IV; se trata con digoxina y ejercicio de alto impacto, y mejora con el reposo absoluto."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. La MIOCARDIOPATÍA DEL PERIPARTO (MCPP) es una forma idiopática de insuficiencia cardíaca por disfunción sistólica ventricular (FEVI <45%) que se desarrolla hacia EL FINAL DEL EMBARAZO (ÚLTIMO MES) O EN LOS PRIMEROS CINCO MESES POSTPARTO, en mujeres sin cardiopatía previa conocida. FISIOPATOLOGÍA Y FACTORES: Estrés oxidativo y escisión enzimática (por catepsina D) de la hormona PROLACTINA, generando un fragmento citotóxico y antiangiogénico de 16 kDa (prolactina de 16 kDa) que induce daño endotelial y apoptosis de miocitos. TRATAMIENTO ESPECÍFICO: Además del tratamiento estándar no teratogénico de la IC con FEVI reducida, se utiliza BROMOCRIPTINA (agonista dopaminérgico que inhibe la secreción de prolactina) en esquemas de 2,5 mg/día por 2 a 8 semanas, la cual ha demostrado acelerar la recuperación de la función ventricular. Las opciones A, C y D corresponden a diagnósticos erróneos."
@@ -231,7 +231,7 @@
    "pregunta": "En el examen clínico y semiológico de la Insuficiencia Cardíaca, se distinguen las manifestaciones dominantes de la falla del ventrículo izquierdo frente a la falla del ventrículo derecho. ¿Cuál de los siguientes conjuntos de signos y síntomas es característico y predominante en la Insuficiencia Cardíaca Derecha aislada (o Cor Pulmonale)?",
    "opciones": {
     "a": "Ausencia total de edemas con hipertensión arterial maligna y soplos carotídeos bilaterales sin visceromegalias.",
-    "b": "Congestión venosa pulmonar pura con disnea paroxística nocturna, ortopnea, crepitantes subcrepitantes bilaterales y esputo asalmonado.",
+    "b": "Congestión venosa pulmonar pura con disnea paroxística nocturna, ortopnea, crepitantes subcrepitantes bilaterales y esputo asalmonado, sin edemas periféricos ni hepatomegalia.",
     "c": "Congestión venosa sistémica con ingurgitación yugular, hepatomegalia congestiva dolorosa, reflujo hepatojugular, edemas periféricos en declive y nicturia.",
     "d": "Parálisis del nervio frénico izquierdo con presencia de respiración de Cheyne-Stokes únicamente durante la marcha."
    },
@@ -243,7 +243,7 @@
    "numero": 19,
    "pregunta": "¿Cuáles son los factores desencadenantes (causas de descompensación) de Insuficiencia Cardíaca más frecuentes en el adulto mayor?",
    "opciones": {
-    "a": "Consumo excesivo de agua destilada y realización de ecocardiogramas semanales de control y ejercicio físico moderado.",
+    "a": "Consumo excesivo de agua destilada y realización de ecocardiogramas semanales de control y ejercicio físico moderado y dieta hiposódica.",
     "b": "Picaduras de mosquitos y consumo de leche descremada en el desayuno de cada mañana y de cada tarde.",
     "c": "Infecciones urinarias por cándida y uso de suplementos de vitamina C pura en altas dosis diarias.",
     "d": "Trasgresión alimentaria (exceso de sodio), mala adherencia al tratamiento, infecciones, uso de AINEs y arritmias (FA)."
@@ -284,7 +284,7 @@
    "opciones": {
     "a": "Suspender de forma inmediata y definitiva la Amiodarona e iniciar tratamiento inmunosupresor con Corticoides orales en pauta descendente.",
     "b": "Rotar la Amiodarona a Flecainida por vía oral sin realizar estudios adicionales ni suspender la terapia previa.",
-    "c": "Indicar antibioticoterapia empírica para neumonía atípica con claritromicina por 14 días manteniendo la Amiodarona.",
+    "c": "Indicar antibioticoterapia empírica para neumonía atípica con claritromicina por 14 días manteniendo la Amiodarona, sin necesidad de suspender el fármaco ni usar corticoides.",
     "d": "Aumentar la dosis de Amiodarona a 400 mg/día e indicar broncodilatadores inhalados como salbutamol a demanda."
    },
    "respuesta_correcta": "a",
@@ -296,7 +296,7 @@
    "pregunta": "En un paciente con diagnóstico de Miocardiopatía Hipertrófica Obstructiva (MCHO) que presenta un gradiente dinámico en el tracto de salida del ventrículo izquierdo de 50 mmHg en reposo, ¿cuál es la razón fisiopatológica por la cual los diuréticos en dosis altas, los nitratos y los vasodilatadores arteriales están CONTRAINDICADOS?",
    "opciones": {
     "a": "Reducen la precarga y el volumen telediastólico del VI, reduciendo el tamaño cavitario y acentuando la obstrucción dinámica.",
-    "b": "Producen necrosis tubular renal aguda por precipitación del calcio miocárdico en las arteriolas aferentes.",
+    "b": "Producen necrosis tubular renal aguda por precipitación del calcio miocárdico en las arteriolas aferentes, y aumentan la diuresis de manera sostenida.",
     "c": "Bloquean la conducción en el nódulo sinusal induciendo paro cardíaco irreversible en menos de 1 minuto.",
     "d": "Aumentan la masa muscular del tabique interventricular al estimular la síntesis de colágeno de tipo III."
    },
@@ -334,7 +334,7 @@
    "numero": 26,
    "pregunta": "Un paciente de 68 años con antecedente de EPOC consulta por palpitaciones regulares y disnea. En el ECG de 12 derivaciones se observa una taquicardia regular a 150 latidos por minuto con complejos QRS estrechos (<100 ms). En las derivaciones inferiores (DII, DIII, aVF) se aprecian ondas de despolarización auricular continuas, negativas, en forma de 'dientes de sierra' (Ondas F) a una frecuencia auricular de 300 bpm con conducción AV 2:1. ¿Cuál es el diagnóstico de esta arritmia y el circuito anatómico responsable?",
    "opciones": {
-    "a": "Taquicardia Ventricular Monomórfica Sostenida; producida por reentrada en la rama izquierda del haz de His.",
+    "a": "Taquicardia Ventricular Monomórfica Sostenida; producida por reentrada en la rama izquierda del haz de His, con actividad auricular en serrucho.",
     "b": "Síndrome de Wolff-Parkinson-White; producido por conducción anterógrada por el Haz de Kent.",
     "c": "Fibrilación Auricular no valvular paroxística; producida por focos ectópicos en las venas pulmonares.",
     "d": "Flutter (Aleteo) Auricular Típico Macro-reentrante; producido por un circuito dependiente del Istmo Cavotricuspídeo (ICT)."
@@ -349,7 +349,7 @@
    "opciones": {
     "a": "Bloqueo Auriculoventricular de 2° Grado Mobitz II; de localización infranodal (sistema His-Purkinje) con alto riesgo de BAV completo.",
     "b": "Bloqueo Auriculoventricular de 1er Grado; de localización supra-Hisiana con PR variable.",
-    "c": "Bloqueo Auriculoventricular de 2° Grado Mobitz I (Wenckebach); de localización intranodal y evolución benigna.",
+    "c": "Bloqueo Auriculoventricular de 2° Grado Mobitz I (Wenckebach); de localización intranodal y evolución benigna, y que nunca progresa a bloqueo completo.",
     "d": "Disociación Auriculoventricular Completa pura; con marcapasos idioventricular a 100 bpm."
    },
    "respuesta_correcta": "a",
@@ -362,7 +362,7 @@
    "opciones": {
     "a": "Indicar sustitutos de sal rica en sodio e inyección de cloruro de calcio IV.",
     "b": "Suspender los betabloqueantes y administrar bicarbonato de sodio en infusión rápida.",
-    "c": "Aumentar la dosis de Furosemida e indicar Resinas de intercambio iónico como el sulfonato de poliestireno.",
+    "c": "Aumentar la dosis de Furosemida e indicar Resinas de intercambio iónico como el sulfonato de poliestireno, junto con restricción hídrica estricta.",
     "d": "Adicionar un Antagonista del Receptor de Mineralocorticoides (Espironolactona o Eplerenona) y aportar cloruro de potasio."
    },
    "respuesta_correcta": "d",
@@ -375,7 +375,7 @@
    "opciones": {
     "a": "Presencia de patrón de Bloqueo Incompleto de Rama Derecha con QRS de 90 ms.",
     "b": "Presencia de intervalo PR constante de 140 ms en todos los latidos conducidos.",
-    "c": "Normalización súbita de la frecuencia cardíaca mediante la compresión ocular bilateral.",
+    "c": "Normalización súbita de la frecuencia cardíaca mediante la compresión ocular bilateral, con respuesta ventricular irregular.",
     "d": "Presencia de Disociación Auriculoventricular o concordancia negativa en derivaciones precordiales."
    },
    "respuesta_correcta": "d",
@@ -439,7 +439,7 @@
    "pregunta": "¿En qué perfil hemodinámico de Stevenson se clasifica y cuál es el tratamiento farmacológico inicial?",
    "opciones": {
     "a": "Perfil L ('Frío y Seco'); se trata con expansión masiva de cristaloides de 10 litros.",
-    "b": "Perfil B ('Caliente y Húmedo'); se trata con nitroglicerina IV y betabloqueantes en dosis altas.",
+    "b": "Perfil B ('Caliente y Húmedo'); se trata con nitroglicerina IV y betabloqueantes en dosis altas, y se evita todo tipo de diurético.",
     "c": "Perfil C ('Frío y Húmedo'); se trata con inotrópicos positivos (Dobutamina) y vasodilatadores/diuréticos con cautela.",
     "d": "Perfil A ('Caliente y Seco'); se trata con reposo en cama y suspensión de toda medicación."
    },
@@ -480,7 +480,7 @@
     "a": "Reacción de Waaler-Rose y dosaje de anticuerpos IgE en líquido amniótico seco.",
     "b": "Parasitológico directo por microhematocrito o Strout al nacer; el tratamiento con Benznidazol logra >95% de curación.",
     "c": "Biopsia de médula ósea e intradermorreacción con tuberculina al nacimiento.",
-    "d": "Serología por ELISA para IgG a las 2 horas de vida; si da positiva no requiere tratamiento."
+    "d": "Serología por ELISA para IgG a las 2 horas de vida; si da positiva no requiere tratamiento, y se omiten los controles posteriores."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. Transmisión Congénita de Trypanosoma cruzi: Ocurre por vía transplacentaria en el 2 al 8% de los hijos de madres infectadas. DIAGNÓSTICO EN EL RECIÉN NACIDO: 1) Durante los primeros meses de vida (0 a 8 meses), las pruebas serológicas IgG NO SIRVEN porque detectan los anticuerpos maternos pasados transplacentariamente; 2) Se debe realizar un EXAMEN PARASITOLÓGICO DIRECTO (Microhematocrito o Método de Strout) en sangre de cordón o talón al nacer y a los 30-60 días de vida (o PCR si está disponible); Y 3) Si es positivo, el TRATAMIENTO CON BENZNIDAZOL (o Nifurtimox) iniciado en el primer año de vida alcanza una TASA DE CURACIÓN PARASITOLÓGICA CASI DEL 100% (>95%), siendo una ventana de oportunidad única. A partir de los 10 meses se puede realizar serología para confirmar la negativización o persistencia de anticuerpos. La opción B describe el manejo perinatal estandarizado."
@@ -493,7 +493,7 @@
     "a": "Túbulo colector cortical; destruye la bomba de sodio y potasio eliminando todo el calcio por heces y por orina.",
     "b": "Glomérulo renal; aumenta la secreción de eritropoyetina provocando policitemia severa, trombosis venosa y cefalea.",
     "c": "Túbulo contorneado distal; estimula la reabsorción de calcio y compite con el urato por el transporte tubular de ácidos orgánicos.",
-    "d": "Rama descendente del asa de Henle; destruye las células paratiroideas disminuyendo la creatinina sérica y la calcemia."
+    "d": "Rama descendente del asa de Henle; destruye las células paratiroideas disminuyendo la creatinina sérica y la calcemia, y disminuye la presión arterial."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. La CLORTALIDONA y la Hidroclorotiazida son Diuréticos Tiazídicos y Análogos Tiazídicos. SITIO DE ACCIÓN: Inhiben al cotransportador Na+/Cl- (NCC) en la membrana luminal del TÚBULO CONTORNEADO DISTAL. EFECTOS METABÓLICOS CARACTERÍSTICOS: 1) HIPERCALCEMIA: A diferencia de los diuréticos de asa (furosemida) que son hipercalciúricos, las tiazidas AUMENTAN LA REABSORCIÓN TUBULAR DE CALCIO en el túbulo distal (disminuyen la calciuria), lo que puede elevar levemente la calcemia; Y 2) HIPERURICEMIA: Producen depleción de volumen estimulando la reabsorción de urato en el túbulo proximal y compiten directamente con el Ácido Úrico por el sistema transmembrana de secreción de ácidos orgánicos en el túbulo proximal, desencadenando crisis de gota. Las opciones A, B y D citan sitios y mecanismos anatómicos falsos."
@@ -505,7 +505,7 @@
    "opciones": {
     "a": "Para sincronizar el choque con la onda R del QRS y evitar descargar sobre la onda T, que podría desencadenar fibrilación ventricular.",
     "b": "Para evitar que la corriente eléctrica se desvíe hacia los músculos intercostales del tórax y de los brazos.",
-    "c": "Para convertir la corriente continua en corriente alterna de baja frecuencia sin tocar al paciente ni a la camilla.",
+    "c": "Para convertir la corriente continua en corriente alterna de baja frecuencia sin tocar al paciente ni a la camilla, y evitar interferencias del monitor.",
     "d": "Para aumentar la energía del choque a 1000 Joules y destruir el foco ectópico auricular de forma definitiva."
    },
    "respuesta_correcta": "a",
@@ -542,7 +542,7 @@
    "numero": 42,
    "pregunta": "Una paciente de 45 años oriunda de una zona endémica rural es evaluada en un rastreo poblacional de Enfermedad de Chagas. Presenta serología positiva para Trypanosoma cruzi por dos métodos (ELISA e IFI). Se encuentra asintomática, el electrocardiograma de 12 derivaciones es normal, la radiografía de tórax no muestra cardiomegalia y el ecocardiograma es normal. ¿En qué fase o forma clínica de la Enfermedad de Chagas se encuentra y cuál es su pronóstico a largo plazo?",
    "opciones": {
-    "a": "Fase Erradicada Espontáneamente; indicativa de curación biológica completa que no requiere ningún tipo de seguimiento clínico.",
+    "a": "Fase Erradicada Espontáneamente; indicativa de curación biológica completa que no requiere ningún tipo de seguimiento clínico, y los controles se suspenden de por vida.",
     "b": "Fase Crónica Severa con Cardiopatía Grado IV; con evolución inevitable hacia el aneurisma apical en menos de 6 meses.",
     "c": "Fase Crónica Sin Demostración Clínica de Afección Cardíaca o Digestiva (Forma Indeterminada); con pronóstico favorable (70-80% permanecen estables).",
     "d": "Fase Aguda Sintomática; con riesgo de miocarditis fulminante e indicación de trasplante cardíaco ortotópico inmediato."
@@ -571,7 +571,7 @@
     "a": "Dobutamina: agonista selectivo beta-1 adrenérgico (aumenta AMPc); Milrinona: inhibidor de la fosfodiesterasa-3 (impide degradación de AMPc).",
     "b": "Dobutamina: inhibidor directo de la neprilisina; Milrinona: agonista de los receptores muscarínicos M2 cardíacos.",
     "c": "Dobutamina: agonista alfa-1 puro; Milrinona: estimulante del receptor V2 de vasopresina en el túbulo colector.",
-    "d": "Dobutamina: bloqueante no selectivo de canales de sodio; Milrinona: activador de la bomba de calcio del sarcolema."
+    "d": "Dobutamina: bloqueante no selectivo de canales de sodio; Milrinona: activador de la bomba de calcio del sarcolema, y ambos actúan sobre los receptores muscarínicos."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. Los INOTRÓPICOS NO DIGITÁLICOS INTRAVENOSOS se utilizan en el manejo a corto plazo del shock cardiogénico o la IC agudizada con bajo gasto e hipoperfusión tisular: 1) DOBUTAMINA: Catecolamina sintética que actúa como AGONISTA SELECTIVO DE LOS RECEPTORES BETA-1 ADRENÉRGICOS miocárdicos. Estimula la adenilil ciclasa aumentando los niveles de AMP cíclico (AMPc) e inotropismo; y 2) MILRINONA: Inotrópico e inodilatador no catecolaminérgico que actúa como INHIBIDOR SELECTIVO DE LA ENZIMA FOSFODIESTERASA TIPO 3 (PDE-3). Al inhibir la degradación del AMPc, eleva sus niveles intracelulares en el corazón (aumentando la fuerza de contracción) y en el músculo liso vascular (produciendo vasodilatación sistémica y pulmonar). Las opciones B, C y D citan mecanismos erróneos de otros grupos farmacológicos."
@@ -597,7 +597,7 @@
     "a": "Estenosis cicatrizal pura de la válvula ileocecal secundaria a tuberculosis intestinal activa.",
     "b": "Proliferación neoplásica maligna de células neuroendócrinas secretoras de gastrina en el recto.",
     "c": "Destrucción y denervación del plexo mientérico de Auerbach y submucoso de Meissner por la inflamación crónica.",
-    "d": "Degeneración amiloide de la mucosa colónica con hipertrofia selectiva del esfínter anal externo."
+    "d": "Degeneración amiloide de la mucosa colónica con hipertrofia selectiva del esfínter anal externo, sin afectación de los plexos nerviosos."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. Las manifestaciones digestivas de la Enfermedad de Chagas crónica (Megaesófago y Megacolon) se deben a la DESTRUCCIÓN PATOLÓGICA Y DENERVACIÓN DEL SISTEMA NERVIOSO ENTÉRICO: MECANISMO PATHOGENICO: Durante las fases iniciales y la inflamación crónica mediada por T. cruzi, se produce una neuronolisis y pérdida progresiva de las neuronas ganglionares de los PLEXOS INTRAMURALES DE AUERBACH (mientérico, responsable de la motilidad e incoordinación peristáltica) Y DE MEISSNER (submucoso). La falta de inervación parasimpática inhibitoria genera acalasia/hipertonía de los esfínteres y aperistalsis del cuerpo visceral. Con los años, la estasis del contenido fecal o alimentario provoca la DILATACIÓN FLÁCIDA E HIPERTROFIA COMPENSADORA de la pared muscular, dando lugar al Megacolon (constipación, fecalomas, vólvulo) o Megaesófago (disfagia, regurgitación). Las opciones A, B y D citan etiologías totalmente ajenas a la tripanosomiasis."
@@ -609,7 +609,7 @@
    "opciones": {
     "a": "Igualación absoluta de las presiones de llenado diastólicas en las cuatro cavidades cardíacas.",
     "b": "Ausencia de interdependencia ventricular significativa y presencia de realce tardío con gadolinio subendocárdico/difuso.",
-    "c": "Interdependencia ventricular acentuada con bamboleo septal (septal bounce) durante la inspiración.",
+    "c": "Interdependencia ventricular acentuada con bamboleo septal (septal bounce) durante la inspiración, y sin realce tardío con gadolinio.",
     "d": "Presencia de engrosamiento y calcificación pericárdica con realce pericárdico en T2."
    },
    "respuesta_correcta": "b",
@@ -634,7 +634,7 @@
    "pregunta": "Un paciente de 52 años con antecedentes de etilismo crónico grave (consumo de >100 g de alcohol/día durante 15 años) consulta por disnea de esfuerzo y edemas. Se diagnostica Miocardiopatía Dilatada Alcohólica con FEVI del 25%. Al ser informado sobre el diagnóstico, el paciente pregunta sobre las posibilidades de recuperación de su función cardíaca si abandona por completo el consumo de bebidas alcohólicas. ¿Cuál es la respuesta médica correcta basada en la fisiopatología de esta entidad?",
    "opciones": {
     "a": "El alcohol no produce daño directo sobre el corazón; la miocardiopatía se debe exclusivamente a la falta de hierro y no se modifica.",
-    "b": "El daño miocárdico por alcohol es 100% irreversible e insensible al cese del consumo, por lo que la abstinencia no cambia el pronóstico.",
+    "b": "El daño miocárdico por alcohol es 100% irreversible e insensible al cese del consumo, por lo que la abstinencia no cambia el pronóstico, aun con abstinencia prolongada.",
     "c": "Se debe recomendar sustituir el alcohol por ingesta de vino tinto en dosis de 2 litros diarios para limpiar las arterias coronarias.",
     "d": "La abstinencia completa y definitiva de alcohol puede lograr la estabilización e incluso la reversión parcial o total de la disfunción ventricular."
    },
@@ -660,7 +660,7 @@
    "pregunta": "¿Cuáles son los efectos adversos más frecuentes del Benznidazol y la conducta a seguir ante la sospecha de neurotoxicidad?",
    "opciones": {
     "a": "Hipotensión ortostática e hiperplasia gingival; se trata aumentando la dosis de Benznidazol al doble.",
-    "b": "Ototoxicidad e insuficiencia renal anúrica; se exige diálisis peritoneal inmediata y suspensión definitiva.",
+    "b": "Ototoxicidad e insuficiencia renal anúrica; se exige diálisis peritoneal inmediata y suspensión definitiva, y debe repetirse la dosis cada 12 horas.",
     "c": "Reacciones de hipersensibilidad cutánea y polineuropatía periférica dosis-dependiente; la neuropatía exige suspender el fármaco.",
     "d": "Alopecia areata e hipoglicemia fulminante; no requieren modificación de la conducta médica."
    },
@@ -674,7 +674,7 @@
    "opciones": {
     "a": "IC Sistólica (FEVI >90%), IC Diastólica (FEVI >80%) e IC Mixta (FEVI >70%).",
     "b": "IC con FEVI reducida (≤40 %), levemente reducida (41-49 %) y preservada (≥50 %).",
-    "c": "IC Compensada (FEVI 100%), IC Descompensada (FEVI 50%) e IC Terminal (FEVI 0%).",
+    "c": "IC Compensada (FEVI 100%), IC Descompensada (FEVI 50%) e IC Terminal (FEVI 0%) según el síntoma.",
     "d": "IC Leve (FEVI >70%), IC Moderada (FEVI 60-69%) e IC Severa (FEVI <60%)."
    },
    "respuesta_correcta": "b",
@@ -737,7 +737,7 @@
    "numero": 57,
    "pregunta": "Una mujer de 65 años sin factores de riesgo cardiovascular acude a la guardia por dolor precordial agudo e intenso surgido minutos después de recibir una noticia familiar trágica. El ECG muestra elevación del segmento ST en derivaciones precordiales (V2-V5) y troponinas moderadamente elevadas. Se realiza una coronariografía urgente que muestra arterias coronarias epicárdicas SIN LESIONES OBSTRUCTIVAS, y la ventriculografía muestra acinesia apical e hipercinesia basal del VI ('abombamiento apical'). ¿Cuál es el diagnóstico de esta miocardiopatía por estrés?",
    "opciones": {
-    "a": "Estenosis Aórtica Senil Calcificada con ruptura del tabique interventricular.",
+    "a": "Estenosis Aórtica Senil Calcificada con ruptura del tabique interventricular de origen valvular.",
     "b": "Enfermedad de Chagas Aguda con aneurisma apical congénito no roto.",
     "c": "Miocardiopatía Restrictiva Amiloide Aguda con infarto transmural anterior.",
     "d": "Síndrome de Takotsubo (Miocardiopatía por Estrés / Disfunción Apical Transitoria)."
@@ -841,7 +841,7 @@
    "numero": 65,
    "pregunta": "¿Cuáles son los tres criterios electrocardiográficos diagnósticos fundamentales que definen a la Fibrilación Auricular en el ECG?",
    "opciones": {
-    "a": "Presencia de ondas F en serrucho a 300 bpm con respuesta ventricular estrictamente regular de 150 bpm.",
+    "a": "Presencia de ondas F en serrucho a 300 bpm con respuesta ventricular estrictamente regular de 150 bpm, sin variaciones en el intervalo R-R.",
     "b": "Ondas Delta en V1 a V3, intervalo PR corto menor a 80 ms y frecuencia cardíaca fija de 40 bpm.",
     "c": "Ondas P picudas de 5 mm, intervalos PR fijos de 120 ms y complejos QRS siempre mayores a 200 ms.",
     "d": "Ausencia de ondas P sinusales, actividad auricular caótica (ondas f) e intervalos R-R completamente irregulares."
@@ -857,7 +857,7 @@
     "a": "La Amiodarona bloquea los receptores muscarínicos impidiendo la entrada de digoxina a los miocitos ventriculares.",
     "b": "La Amiodarona destruye las enzimas del jugo gástrico impidiendo la absorción de la digoxina por vía oral.",
     "c": "La Amiodarona inhibe la Glicoproteína-P y el CYP3A4, duplicando la digoxinemia; exige reducir la dosis de Digoxina al 50%.",
-    "d": "La Amiodarona estimula la filtración glomerular acelerando la eliminación de la digoxina y anulando su efecto inotrópico."
+    "d": "La Amiodarona estimula la filtración glomerular acelerando la eliminación de la digoxina y anulando su efecto inotrópico y aumentando la excreción urinaria."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. La interacción farmacocinética entre AMIODARONA Y DIGOXINA es de alta relevancia clínica y riesgo de intoxicación digitálica: MECANISMO MOLECULAR: La Amiodarona (y su metabolito desetilamiodarona) es un POTENTE INHIBIDOR DE LA GLICOPROTEÍNA-P (P-gp), el transportador transmembrana responsable de la secreción tubular renal y del aclaramiento biliar de la Digoxina. Al bloquear la P-gp, la Amiodarona reduce el aclaramiento de la digoxina en un 30-50%, DUPLICANDO SUS NIVELES PLASMÁTICOS (elevación de la digoxinemia) en pocos días. RECOMENDACIÓN PREVENTIVA OBLIGATORIA: Al iniciar tratamiento con Amiodarona en un paciente que ya recibe Digoxina, es OBLIGATORIO REDUCIR LA DOSIS DE DIGOXINA EN UN 50% de forma preventiva y solicitar digoxinemia de control para evitar bradicardia severa, BAV o intoxicación letal. Las opciones A, B y D citan mecanismos falsos."
@@ -867,7 +867,7 @@
    "numero": 67,
    "pregunta": "Los inhibidores del cotransportador sodio-glucosa tipo 2 (iSGLT2: Dapagliflozina y Empagliflozina) han revolucionado el tratamiento de la Insuficiencia Cardíaca. Además de su efecto glucosúrico y natriurético en el túbulo proximal, ¿cuáles son los mecanismos cardíacos y sistémicos pleiotrópicos que explican su beneficio en la reducción del remodelado y rehospitalizaciones?",
    "opciones": {
-    "a": "Bloqueo irreversible de los receptores beta-1 adrenérgicos con aumento del volumen telediastólico del ventrículo derecho.",
+    "a": "Bloqueo irreversible de los receptores beta-1 adrenérgicos con aumento del volumen telediastólico del ventrículo derecho, y mayor sobrecarga del ventrículo izquierdo.",
     "b": "Destrucción de las arterias renales con supresión total de la secreción de eritropoyetina e insulina.",
     "c": "Vasoconstricción coronaria masiva con estimulación del sistema parasimpático en el nódulo sinusal.",
     "d": "Reducción de la precarga/poscarga, inhibición del intercambiador NHE1 miocárdico, mejoría de la bioenergética y reducción de la fibrosis."
@@ -882,7 +882,7 @@
    "opciones": {
     "a": "Hay riesgo de recurrencia y deterioro de la FEVI; si no se recuperó, el embarazo está contraindicado; si se recuperó, exige asesoramiento.",
     "b": "Cero riesgo de recurrencia; la miocardiopatía del periparto confiere inmunidad permanente y no vuelve a aparecer jamás.",
-    "c": "El riesgo de recurrencia es nulo únicamente si realiza dieta hipercalórica y reposo en cama durante los 9 meses de gestación.",
+    "c": "El riesgo de recurrencia es nulo únicamente si realiza dieta hipercalórica y reposo en cama durante los 9 meses de gestación, sin necesidad de seguimiento ecocardiográfico.",
     "d": "Requiere cesárea de urgencia preventiva al momento de la concepción combinada con digoxina a dosis máximas diarias."
    },
    "respuesta_correcta": "a",
@@ -896,7 +896,7 @@
     "a": "Realización de cardioversión eléctrica no sincronizada a 360 Joules bifásico de forma ambulatoria.",
     "b": "Prescripción de benznidazol por vía oral durante 10 años continuos sin internación.",
     "c": "Implante de Marcapasos Cardíaco Definitivo (bicameral DDDR o VVI según ritmo auricular) para prevenir la asistolia y muerte.",
-    "d": "Ablación con radiofrecuencia del nódulo sinoauricular para estimular la conducción en el Haz de His."
+    "d": "Ablación con radiofrecuencia del nódulo sinoauricular para estimular la conducción en el Haz de His, y mantener el ritmo con fármacos antiarrítmicos orales."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. La Enfermedad de Chagas provoca un proceso de inflamación crónica, fibrosis y destrucción progresiva del tejido de conducción infranodal (Haz de His y sus ramas). INDICACIÓN DE MARCAPASOS DEFINITIVO: El desarrollo de BLOQUEO AV COMPLETO (3er Grado) o Bloqueo AV de 2° Grado Mobitz II, especialmente asociado a síncope, hipotensión o pausas asistólicas, constituye una INDICACIÓN ABSOLUTA (Clase I) DE IMPLANTE DE MARCAPASOS CARDÍACO DEFINITIVO. El marcapasos (DDD/DDDR si está en ritmo sinusal o VVI/VVIR si está en FA) restablece una frecuencia cardíaca adecuada y perfusión cerebral, eliminando el riesgo de asistolia y muerte súbita bradiarrítmica. La ablación (opción D) destruiría la poca conducción existente. El benznidazol (opción B) no revierte la fibrosis infranodal avanzada. La cardioversión (opción A) es para taquiarritmias."
@@ -907,7 +907,7 @@
    "pregunta": "En la comparación de los perfiles de efectos adversos entre los diuréticos de asa (Furosemida) y los diuréticos tiazídicos (Hidroclorotiazida / Clortalidona), se evalúa el impacto sobre el manejo renal del Calcio y los electrolitos. ¿Cuál es la diferencia fundamental respecto a la excreción de Calcio en orina y la calcemia entre ambos grupos de diuréticos?",
    "opciones": {
     "a": "Furosemida: es hipercalciúrica (aumenta excreción de Ca2+); Tiazidas: aumentan reabsorción de Ca2+ (hipocalciúricas) pudiendo elevar la calcemia.",
-    "b": "Furosemida: produce retención de calcio e hipercalcemia; Tiazidas: producen pérdida masiva de calcio e hipocalcemia.",
+    "b": "Furosemida: produce retención de calcio e hipercalcemia; Tiazidas: producen pérdida masiva de calcio e hipocalcemia, y ambas carecen de efecto sobre el potasio.",
     "c": "Ambos grupos producen hipercalcemia severa con nefrocalcinosis en menos de 24 horas de uso.",
     "d": "Ninguno de los dos grupos altera el calcio pero ambos producen destrucción de la glándula paratiroides."
    },
@@ -960,7 +960,7 @@
    "opciones": {
     "a": "Prolapso bivalvular mitral masivo con gradiente aórtico medio de 100 mmHg en reposo.",
     "b": "Ratio E/e' >9 (o >14), Volumen de la Aurícula Izquierda Indexado >34 mL/m2 y/o Masa del VI Indexada elevada.",
-    "c": "Ausencia total de flujo en las venas pulmonares con colapso inspiratorio de la vena cava inferior <10%.",
+    "c": "Ausencia total de flujo en las venas pulmonares con colapso inspiratorio de la vena cava inferior <10% y flujo diastólico anormal.",
     "d": "FEVI <20%, diámetro telediastólico del VI de 80 mm y acinesia apical amplia."
    },
    "respuesta_correcta": "b",
@@ -1052,7 +1052,7 @@
     "a": "Administración de Sulfato de Magnesio IV en bolo (1-2 g) y reposión de Cloruro de Potasio con suspensión inmediata del Sotalol.",
     "b": "Inyección de Adenosina 12 mg en bolo intraóseo rápido y maniobras de compresión carotídea bilateral.",
     "c": "Administración de Amiodarona en bolo rápido de 300 mg IV combinada con verapamilo endovenoso continuo.",
-    "d": "Infusión de Flecainida 150 mg IV para enlentecer la Fase 0 y reducir la dispersión de la repolarización."
+    "d": "Infusión de Flecainida 150 mg IV para enlentecer la Fase 0 y reducir la dispersión de la repolarización, y mantener el sotalol sin modificar la dosis."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La Torsades de Pointes (Taquicardia en Puntas Torcidas) es una variante de taquicardia ventricular polimórfica asociada a la prolongación del intervalo QTc (>500 ms). MECANISMO Y MANEJO EN LA URGENCIA: Los antiarrítmicos de la Clase III (como el Sotalol) bloquean la corriente de salida de potasio IKr, retrasando la repolarización (Fase 3) y favoreciendo la aparición de posdespolarizaciones precoces (EADs). La hipopotasemia e hipomagnesemia potencian masivamente esta alteración. 1) PRIMERA LÍNEA TERAPÉUTICA: SULFATO DE MAGNESIO INTRAVENOSO (1 a 2 g IV diluidos administrados en 1-2 minutos). El magnesio bloquea las corrientes de entrada de calcio ICa-L y suprime de forma hiperaguda las posdespolarizaciones precoces, siendo eficaz incluso si los niveles de magnesio sérico son normales; 2) Reposición electrolítica agresiva de K⁺ (para alcanzar valores de 4,5-5,0 mEq/L); Y 3) SUSPENSIÓN INMEDIATA del Sotalol o fármaco causante. Las opciones C y D (Amiodarona, Flecainida) prolongan aún más el QT o son proarrítmicas. La Adenosina (opción B) es ineficaz en arritmias ventriculares."
@@ -1090,7 +1090,7 @@
    "opciones": {
     "a": "Fase 4 (despolarización lenta); bloquea canales de potasio en la aurícula izquierda y el nodo sinusal.",
     "b": "Fase 0 (despolarización rápida); se une a canales de Na⁺ inactivados con disociación muy rápida en tejido isquémico despolarizado.",
-    "c": "Fase 3 (repolarización); estimula la entrada de cloro en las arterias coronarias epicárdicas y la aorta.",
+    "c": "Fase 3 (repolarización); estimula la entrada de cloro en las arterias coronarias epicárdicas y la aorta, y bloquea la corriente de potasio.",
     "d": "Fase 2 (meseta de calcio); bloquea canales L aumentando el automatismo en tejido sano y en el nodo AV."
    },
    "respuesta_correcta": "b",
@@ -1114,7 +1114,7 @@
    "numero": 86,
    "pregunta": "Un paciente de 52 años con antecedentes de disnea de esfuerzo y adenopatías hiliares bilaterales en la radiografía de tórax ingresa a la guardia por episodios recurrentes de síncope. En el ECG se constata un Bloqueo AV Completo (3er grado) y en el Holter de 24 horas se registran rachas de Taquicardia Ventricular No Sostenida (TVNS). La Resonancia Magnética Cardíaca revela áreas de realce tardío con gadolinio no coronario e infiltración granulomatosa multifocal. ¿Cuál es el diagnóstico de esta miocardiopatía infiltrativa y su tratamiento específico?",
    "opciones": {
-    "a": "Hemocromatosis hereditaria pura; se trata con flebotomías y consumo de suplementos de hierro y vitamina C.",
+    "a": "Hemocromatosis hereditaria pura; se trata con flebotomías y consumo de suplementos de hierro y vitamina C, sin compromiso del sistema de conducción cardíaco.",
     "b": "Miocardiopatía chagásica aguda; se trata con benznidazol oral durante 20 años continuos y reposo.",
     "c": "Sarcoidosis cardíaca: granulomas no caseificantes y compromiso del sistema de conducción; se trata con corticoides y marcapasos/CDI.",
     "d": "Amiloidosis cardíaca senil ATTR; se trata con tafamidis, anticoagulación oral y marcapasos profiláctico."
@@ -1129,7 +1129,7 @@
    "opciones": {
     "a": "Bloqueo trifascicular (BCRD + HBAI + BAV de 1er grado); daño extenso del sistema de conducción con riesgo de BAV completo.",
     "b": "Bloqueo AV de 1er grado aislado sin compromiso de las ramas ventriculares ni del haz de His.",
-    "c": "Ritmo idioventricular acelerado benigno secundario a la toma de tiazidas y de diuréticos de asa.",
+    "c": "Ritmo idioventricular acelerado benigno secundario a la toma de tiazidas y de diuréticos de asa, sin repercusión en el sistema de conducción.",
     "d": "Síndrome de Lown-Ganong-Levine con preexcitación ventricular pura y conducción retrógrada."
    },
    "respuesta_correcta": "a",
@@ -1141,7 +1141,7 @@
    "pregunta": "¿Cuál es el antídoto específico por fragmento de anticuerpo monoclonal humanizado indicado para neutralizar al Dabigatrán en minutos?",
    "opciones": {
     "a": "Sulfato de Protamina administrado por vía intramuscular profunda.",
-    "b": "Vitamina K1 (Fitomenadiona) en infusión endovenosa lenta durante 24 horas.",
+    "b": "Vitamina K1 (Fitomenadiona) en infusión endovenosa lenta durante 24 horas, seguida de reposición de plaquetas.",
     "c": "Andexanet Alfa administrado por vía oral diluido en jugo de naranja.",
     "d": "Idarucizumab (fragmento de anticuerpo Fab que se une al dabigatrán libre y unido a trombina)."
    },
@@ -1205,7 +1205,7 @@
    "numero": 93,
    "pregunta": "¿Por qué está CONTRAINDICADO el uso de Verapamilo, Diltiazem, Digoxina o Adenosina y cuál es el tratamiento de elección?",
    "opciones": {
-    "a": "Aumentan la frecuencia auricular a 1000 bpm; se trata con masaje del seno carotídeo sostenido por 2 horas.",
+    "a": "Aumentan la frecuencia auricular a 1000 bpm; se trata con masaje del seno carotídeo sostenido por 2 horas, y se agrava con la hidratación.",
     "b": "Bloquean el nodo AV sin frenar la vía accesoria (riesgo de FV); el tratamiento es procainamida o cardioversión.",
     "c": "Producen necrosis de la arteria aorta; se trata con altas dosis de propranolol por vía sublingual.",
     "d": "Inhiben la secreción de insulina provocando cetoacidosis; se trata con infusión de glucosado hipertónico."
@@ -1219,7 +1219,7 @@
    "pregunta": "Un deportista de 30 años consulta por episodios de palpitaciones durante el entrenamiento y un síncope de esfuerzo. En el electrocardiograma se observan ondas T invertidas de V1 a V3 y una pequeña deflexión de muesca positiva al final del complejo QRS en V1 denominada 'Onda Epsilon'. La Resonancia Magnética Cardíaca confirma la presencia de adelgazamiento y reemplazo fibrograso del miocardio de la pared libre del Ventrículo Derecho. ¿Cuál es el diagnóstico de esta miocardiopatía y el complejo proteico de unión celular alterado?",
    "opciones": {
     "a": "Miocardiopatía arritmogénica del ventrículo derecho; alteración de proteínas del desmosoma (placofilina-2).",
-    "b": "Miocardiopatía hipertrófica apical; alteración del complejo de la troponina C y del retículo sarcoplásmico.",
+    "b": "Miocardiopatía hipertrófica apical; alteración del complejo de la troponina C y del retículo sarcoplásmico y del sarcómero.",
     "c": "Fibroelastosis endomiocárdica senil; alteración del canal de cloro epitelial y del colágeno.",
     "d": "Miocardiopatía restrictiva amiloide; alteración de la síntesis de albúmina vascular y de la elastina."
    },
@@ -1246,7 +1246,7 @@
    "opciones": {
     "a": "Paracentesis diagnóstica sin reposición de albúmina.",
     "b": "Ultrafiltración Venovenosa Continua (Ultrafiltración extracorpórea).",
-    "c": "Toracocentesis evacuadora bilateral de 10 litros en 5 minutos.",
+    "c": "Toracocentesis evacuadora bilateral de 10 litros en 5 minutos, sin necesidad de monitoreo.",
     "d": "Punción lumbar evacuadora continua con drenaje de LCR."
    },
    "respuesta_correcta": "b",
@@ -1258,7 +1258,7 @@
    "pregunta": "¿Cuál es la causa farmacológica de la falta de respuesta a la Adenosina?",
    "opciones": {
     "a": "La adenosina solo actúa en presencia de hipertensión arterial maligna con fiebre alta.",
-    "b": "La Teofilina convierte a la adenosina en un estimulante beta-2 adrenérgico de acción ultra-larga.",
+    "b": "La Teofilina convierte a la adenosina en un estimulante beta-2 adrenérgico de acción ultra-larga, y potencia el efecto sobre el nodo sinusal.",
     "c": "La Teofilina destruye las venas del brazo impidiendo que la adenosina llegue al corazón.",
     "d": "La Teofilina es un antagonista competitivo de los receptores purinérgicos A1 de adenosina, bloqueando su efecto en el nodo AV."
    },
@@ -1273,7 +1273,7 @@
     "a": "Serología para anticuerpos IgG por ELISA; se trata con aciclovir endovenoso por 6 meses.",
     "b": "Examen directo en LCR o sangre (Strout/microhematocrito/PCR) que demuestra tripomastigotes; se trata con Benznidazol.",
     "c": "Cultivo de esputo para hongos; se trata con itraconazol y corticoides en dosis altas.",
-    "d": "Biopsia hepática guiada por ecografía; se trata con anfotericina B liposomal y pirimetamina."
+    "d": "Biopsia hepática guiada por ecografía; se trata con anfotericina B liposomal y pirimetamina, y requiere internación por seis meses."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. La REACTIVACIÓN DE LA ENFERMEDAD DE CHAGAS es una complicación oportunista grave y potencialmente letal que ocurre en pacientes con Chagas crónico que desarrollan inmunodepresión celular severa (especialmente en VIH con CD4 <200 cél/mm³ o en trasplantados). CLÍNICA Y PRESENTACIÓN: La reactivación se manifiesta característicamente como: 1) MENINGOENCEFALITIS O CHAGOMA CEREBRAL (lesiones tumorales necrotizantes con déficit focal e hipertensión endocraneana); O 2) Miocarditis aguda severa. DIAGNÓSTICO DE REACTIVACIÓN: Se confirma mediante la DEMOSTRACIÓN DIRECTA DE TRIPOMASTIGOTES ACTIVOS y móviles en líquido cefalorraquídeo (LCR), sangre (microhematocrito/Strout) o biopsia hística, o elevación masiva de la carga parasitaria por PCR. TRATAMIENTO ESPECÍFICO: BENZNIDAZOL (5 a 7 mg/kg/día durante 60 días), el cual debe iniciarse de forma precoz para prevenir la mortalidad. La opción B es la conducta estandarizada."
@@ -1283,7 +1283,7 @@
    "numero": 99,
    "pregunta": "¿Cuál es el tipo de sobrecarga hemodinámica y la adaptación geométrica inicial que sufre el ventrículo izquierdo en la Insuficiencia Mitral antes de fallar?",
    "opciones": {
-    "a": "Isquemia transmural aguda que produce acinesia de la pared posterior sin cambios de volumen cavitario.",
+    "a": "Isquemia transmural aguda que produce acinesia de la pared posterior sin cambios de volumen cavitario, y con engrosamiento concéntrico simultáneo.",
     "b": "Sobrecarga de volumen crónica que induce hipertrofia excéntrica adaptativa con dilatación de la cavidad y mayor complacencia.",
     "c": "Sobrecarga de presión pura que induce hipertrofia concéntrica sin dilatación cavitaria.",
     "d": "Obliteración de la cavidad ventricular por fibrosis endomiocárdica con miocardio rutilante."

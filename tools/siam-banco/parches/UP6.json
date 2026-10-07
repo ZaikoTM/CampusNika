@@ -1,12 +1,15 @@
 {
  "SIAM-UP6-013": {
-  "d": "Inhiben la entrada de calcio (fases 0 y 2) en tejidos de respuesta lenta; se usan para controlar la frecuencia en FA y TPSV."
+  "d": "Inhiben la entrada de calcio (fases 0 y 2) en tejidos de respuesta lenta; se usan para controlar la frecuencia en FA y TPSV.",
+  "b+": ", y aumentan la velocidad de conducción"
  },
  "SIAM-UP6-025": {
-  "d": "3 o más latidos ventriculares consecutivos a más de 100 lpm que terminan espontáneamente en menos de 30 s."
+  "d": "3 o más latidos ventriculares consecutivos a más de 100 lpm que terminan espontáneamente en menos de 30 s.",
+  "a+": ", que se resuelven en la hora siguiente"
  },
  "SIAM-UP6-027": {
-  "b": "La aurícula derecha se contrae contra la tricúspide cerrada por la sístole ventricular, que es independiente de la auricular."
+  "b": "La aurícula derecha se contrae contra la tricúspide cerrada por la sístole ventricular, que es independiente de la auricular.",
+  "a+": ", y retorna por la vena yugular externa"
  },
  "SIAM-UP6-029": {
   "a": "Falsa alteración de laboratorio; se suspende la levotiroxina y se aumenta la amiodarona a 1000 mg por día.",
@@ -21,31 +24,36 @@
   "a": "La intoxicación digitálica no posee antídoto y exige diálisis peritoneal inmediata y continua hasta la mejoría clínica.",
   "b": "La hiperpotasemia pura inactiva la digoxina; el antídoto específico es el cloruro de potasio anhidro por vía oral.",
   "c": "Hipopotasemia, hipomagnesemia e hipercalcemia potencian la toxicidad digitálica; en la intoxicación grave se usan anticuerpos Fab anti-digoxina.",
-  "d": "La hipernatremia extrema destruye el glucósido; el antídoto es la insulina corriente endovenosa en bolo rápido."
+  "d": "La hipernatremia extrema destruye el glucósido; el antídoto es la insulina corriente endovenosa en bolo rápido.",
+  "a+": ", y no mejora con ningún tratamiento específico"
  },
  "SIAM-UP6-032": {
   "a": "Ondas P bifásicas en DII con presencia de bloqueo completo de rama izquierda puro y eje desviado.",
   "b": "Intervalo PR prolongado de 400 ms con QRS estrecho e intervalo QT acortado a 200 ms de forma fija.",
   "c": "Infradesnivel del ST horizontal de 5 mm en V5-V6 con ondas T picudas simétricas y QT largo.",
-  "d": "Elevación del ST ≥2 mm en 'alero de tejado' (coved) seguida de T negativa en V1-V2; riesgo de muerte súbita por FV."
+  "d": "Elevación del ST ≥2 mm en 'alero de tejado' (coved) seguida de T negativa en V1-V2; riesgo de muerte súbita por FV.",
+  "b+": ", con eje del QRS desviado a la derecha"
  },
  "SIAM-UP6-033": {
   "a": "Bloqueo completo de rama derecha en deportistas de alto rendimiento, sin cardiopatía estructural asociada.",
   "b": "Intoxicación digitálica; ritmo nodal regular a 70-130 lpm con ondas P retrógradas (invertidas en DII, DIII, aVF).",
   "c": "Miopatía congénita del diafragma con hipercalcemia primaria y compromiso respiratorio restrictivo.",
-  "d": "Consumo excesivo de vitamina C; se caracteriza por asistolia ventricular permanente y shock."
+  "d": "Consumo excesivo de vitamina C; se caracteriza por asistolia ventricular permanente y shock.",
+  "a+": ", ni palpitaciones asociadas"
  },
  "SIAM-UP6-035": {
   "a": "Es un agonista directo de los canales de sodio; es ineficaz porque se destruye en el estómago al ingerirse.",
   "b": "Es un bloqueante de la anhidrasa carbónica; es ineficaz porque actúa únicamente en la retina y el cristalino.",
   "c": "Es un sedante central puro; es ineficaz porque aumenta la presión intracraneal y deprime el centro respiratorio.",
-  "d": "Antagonista competitivo de receptores muscarínicos M2; ineficaz en bloqueos infranodales porque el His-Purkinje carece de inervación vagal."
+  "d": "Antagonista competitivo de receptores muscarínicos M2; ineficaz en bloqueos infranodales porque el His-Purkinje carece de inervación vagal.",
+  "c+": ", y suprime el automatismo del nodo sinusal"
  },
  "SIAM-UP6-036": {
   "a": "Hipersensibilidad del seno carotídeo (cardioinhibitoria); positivo si la pausa es >3 s o la PAS cae >50 mmHg.",
   "b": "Síndrome de la vena cava superior; positivo si aparece edema en esclavina y cianosis facial.",
   "c": "Espasmo de la arteria carótida primitiva; positivo si la frecuencia sube a 200 lpm con hipotensión.",
-  "d": "Ataque isquémico transitorio vertebrobasilar puro; positivo si no hay cambios en el ECG ni en el pulso."
+  "d": "Ataque isquémico transitorio vertebrobasilar puro; positivo si no hay cambios en el ECG ni en el pulso.",
+  "d+": ", sin pausas sinusales"
  },
  "SIAM-UP6-037": {
   "a": "P mitrale (AI): ausente por completo; P pulmonale (AD): reemplazada por ondas T gigantes en precordiales.",
@@ -67,10 +75,12 @@
   "a": "El soplo desaparece por completo convirtiéndose en un soplo continuo diastólico de Austin-Flint en el latido siguiente.",
   "b": "El soplo disminuye de intensidad porque el ventrículo izquierdo se atrofia durante la pausa compensadora prolongada.",
   "c": "La intensidad del soplo eyectivo es completamente independiente de las pausas diastólicas y de la precarga del VI.",
-  "d": "El soplo AUMENTA en el latido post-extrasistólico por mayor llenado diastólico (precarga) y potenciación posextrasistólica de la contractilidad."
+  "d": "El soplo AUMENTA en el latido post-extrasistólico por mayor llenado diastólico (precarga) y potenciación posextrasistólica de la contractilidad.",
+  "a+": ", y se acompaña de pulso saltón y amplio"
  },
  "SIAM-UP6-042": {
-  "c": "Bloquea los canales de calcio tipo L en el nódulo AV; está contraindicado en la IC con FEVI reducida por su efecto inotrópico negativo."
+  "c": "Bloquea los canales de calcio tipo L en el nódulo AV; está contraindicado en la IC con FEVI reducida por su efecto inotrópico negativo.",
+  "a+": ", con broncodilatación marcada"
  },
  "SIAM-UP6-043": {
   "a": "1ª letra: Dosis de Droga; 2ª letra: Duración del Desfibrilador; 3ª letra: Drenaje Venoso del seno coronario.",
@@ -79,7 +89,8 @@
   "d": "1ª: cámara estimulada (doble: aurícula y ventrículo); 2ª: cámara detectada (doble); 3ª: modo de respuesta (doble: inhibido y gatillado)."
  },
  "SIAM-UP6-045": {
-  "c": "QRS estrecho (<120 ms) similar al sinusal, onda P' prematura de morfología distinta y pausa compensadora incompleta."
+  "c": "QRS estrecho (<120 ms) similar al sinusal, onda P' prematura de morfología distinta y pausa compensadora incompleta.",
+  "d+": " y desnivel del ST"
  },
  "SIAM-UP6-046": {
   "a": "Infarto agudo de miocardio sin elevación del ST; se indica trombolisis con alteplasa de inmediato.",
@@ -147,13 +158,15 @@
   "b": "Ablación con radiofrecuencia de ambas ramas del haz de His en la sala de electrofisiología, de inmediato."
  },
  "SIAM-UP6-063": {
-  "a": "Reducir 30-50 % la dosis del anticoagulante oral (warfarina/acenocumarol) al iniciar amiodarona, ajustando por RIN."
+  "a": "Reducir 30-50 % la dosis del anticoagulante oral (warfarina/acenocumarol) al iniciar amiodarona, ajustando por RIN.",
+  "d+": ", ni control periódico del RIN"
  },
  "SIAM-UP6-064": {
   "b": "'R1 en cañonazo'; por la posición variable de las valvas AV en el momento de la sístole ventricular, por la disociación AV."
  },
  "SIAM-UP6-066": {
-  "d": "Hiperpotasemia; con riesgo de progresión a ritmo sinoventricular, fibrilación ventricular y paro en asistolia."
+  "d": "Hiperpotasemia; con riesgo de progresión a ritmo sinoventricular, fibrilación ventricular y paro en asistolia.",
+  "a+": ", y alargamiento del segmento QT"
  },
  "SIAM-UP6-067": {
   "a": "'Impregnación digitálica' (efecto esperado de la digoxina); no requiere suspender el fármaco si no hay toxicidad.",
@@ -169,7 +182,8 @@
   "a": "Inactivación por la saliva; la toxicidad se manifiesta por hiperpigmentación de la piel y de las uñas.",
   "b": "Excreción renal pura sin metabolismo; la toxicidad produce retención urinaria aguda y ceguera transitoria.",
   "c": "Metabolismo hepático casi exclusivo; la toxicidad en el SNC produce parestesias peribucales, disartria, temblor y convulsiones.",
-  "d": "Eliminación pulmonar por espiración; la toxicidad produce asma bronquial reactivo irreversible y tos."
+  "d": "Eliminación pulmonar por espiración; la toxicidad produce asma bronquial reactivo irreversible y tos.",
+  "b+": ", y la dosis debe duplicarse en el anciano"
  },
  "SIAM-UP6-071": {
   "a": "Normal: negativa en todas las derivaciones precordiales; ondas T picudas simétricas indican hipotensión idiopática severa.",
@@ -179,13 +193,15 @@
  },
  "SIAM-UP6-072": {
   "a": "Es la suma del tiempo de sangría y tiempo de coagulación; el rango meta es RIN 0,1 a 0,5 en todos los casos.",
-  "b": "Estandarización del tiempo de protrombina (TP) por el índice de sensibilidad internacional (ISI); meta estándar en FA: RIN 2,0 a 3,0."
+  "b": "Estandarización del tiempo de protrombina (TP) por el índice de sensibilidad internacional (ISI); meta estándar en FA: RIN 2,0 a 3,0.",
+  "a+": ", y se mide en suero venoso en ayunas"
  },
  "SIAM-UP6-073": {
   "a": "Asociada a neumotórax espontáneo a tensión; se trata con marcapasos ventricular definitivo y drenaje pleural.",
   "b": "Asociada a embolia grasa cerebral pura; se trata con aspirina en dosis de 10 gramos orales por día y reposo.",
   "c": "Asociada a fibrosis miocárdica por Chagas; se trata con benznidazol por 12 años consecutivos y trasplante.",
-  "d": "Asociada a EPOC descompensado o cor pulmonale; se optimiza la función respiratoria y se usa verapamilo o diltiazem."
+  "d": "Asociada a EPOC descompensado o cor pulmonale; se optimiza la función respiratoria y se usa verapamilo o diltiazem.",
+  "a+": " y reposo absoluto"
  },
  "SIAM-UP6-074": {
   "a": "Bloqueo completo de rama derecha (BCRD) más hemibloqueo anterior o posterior izquierdo (HBAI/HBPI).",
@@ -200,7 +216,8 @@
   "d": "Los ACODs se acumulan en la falla renal e incrementan el riesgo de sangrado fatal; se prefiere un antagonista de la vitamina K ajustado por RIN."
  },
  "SIAM-UP6-076": {
-  "c": "Bradicardia sinusal severa inapropiada, pausas o paros sinusales, bloqueos sinoauriculares y síndrome de taquicardia-bradicardia."
+  "c": "Bradicardia sinusal severa inapropiada, pausas o paros sinusales, bloqueos sinoauriculares y síndrome de taquicardia-bradicardia.",
+  "a+": ", y fibrilación ventricular recurrente"
  },
  "SIAM-UP6-077": {
   "a": "Calcioantagonista dihidropiridínico; produce vasodilatación arterial pura, acortamiento del QT y taquicardia refleja.",
@@ -209,13 +226,15 @@
   "d": "Antiarrítmico clase III con acción betabloqueante; bloquea el potasio IKr y prolonga la repolarización (riesgo de Torsades)."
  },
  "SIAM-UP6-078": {
-  "a": "Bloqueo AV de 1er grado; es benigno y no requiere tratamiento ni marcapasos si el paciente está asintomático."
+  "a": "Bloqueo AV de 1er grado; es benigno y no requiere tratamiento ni marcapasos si el paciente está asintomático.",
+  "b+": ", con pausas de más de 3 segundos"
  },
  "SIAM-UP6-080": {
   "a": "1° Maniobras vagales; 2° Adenosina IV (6 y luego 12 mg); 3° Calcioantagonistas o betabloqueantes IV; 4° Cardioversión si hay inestabilidad.",
   "b": "1° Reposo en cama sin realizar ninguna maniobra por 15 días consecutivos; 2° Alta hospitalaria con control anual.",
   "c": "1° Cardioversión eléctrica inmediata a 360 Joules sin sedación; 2° Digoxina oral a dosis altas y alta precoz.",
-  "d": "1° Flecainida en bolo rápido en shock cardiogénico; 2° Marcapasos transcutáneo inmediato; 3° Alta a domicilio sin control."
+  "d": "1° Flecainida en bolo rápido en shock cardiogénico; 2° Marcapasos transcutáneo inmediato; 3° Alta a domicilio sin control.",
+  "d+": ", con control ambulatorio en 30 días"
  },
  "SIAM-UP6-081": {
   "b": "Los Clase IC aumentan la mortalidad por proarritmia en cardiopatía estructural con cicatriz (estudio CAST); la alternativa es la Amiodarona."
@@ -224,7 +243,8 @@
   "a": "Inducción masiva del citocromo P450 que destruye al verapamilo eliminando su efecto antiarrítmico habitual.",
   "b": "Destrucción de la pared auricular por la claritromicina con sepsis pericárdica y taponamiento cardíaco agudo.",
   "c": "Inhibición del CYP3A4 y de la P-gp por la claritromicina: aumenta la concentración de Verapamilo y potencia su bloqueo en el nodo AV.",
-  "d": "La claritromicina bloquea los receptores de dopamina produciendo rigidez extrema y crisis hipertérmica."
+  "d": "La claritromicina bloquea los receptores de dopamina produciendo rigidez extrema y crisis hipertérmica.",
+  "b+": ", con arritmias ventriculares malignas"
  },
  "SIAM-UP6-084": {
   "a": "Vida media normal: 6 meses; no se modifica por la función renal ya que se expulsa por aire espirado.",
@@ -254,24 +274,28 @@
   "a": "Fallo de batería pura con hiperestimulación simpática supraventricular y taquicardia sostenida.",
   "b": "Fallo de detección (sensing) y de captura (pacing); exige revisar el umbral y el electrodo del marcapasos.",
   "c": "Fallo de conducción en la arteria femoral derecha con isquemia aguda del miembro inferior.",
-  "d": "Funcionamiento normal y fisiológico de la batería en modo ahorro de energía programado."
+  "d": "Funcionamiento normal y fisiológico de la batería en modo ahorro de energía programado.",
+  "a+": ", y agotamiento súbito del generador"
  },
  "SIAM-UP6-089": {
   "a": "Infección por tuberculosis cavitada; exige quimioterapia tuberculosa por 10 años y aislamiento.",
   "b": "Toxicidad pulmonar por amiodarona (neumonitis/fibrosis); exige SUSPENDER la amiodarona e iniciar corticoides orales.",
-  "d": "Efecto benigno transitorio; se indica aumentar la dosis de amiodarona al doble y observar."
+  "d": "Efecto benigno transitorio; se indica aumentar la dosis de amiodarona al doble y observar.",
+  "c+": ", y mejora con broncodilatadores inhalados"
  },
  "SIAM-UP6-090": {
   "a": "FA gruesa: ausencia total de actividad eléctrica con asistolia completa de más de 3 segundos.",
   "b": "FA gruesa: ondas 'F' continuas en serrucho a 300 lpm con intervalos R-R fijos y regulares.",
   "c": "FA gruesa: ondas P normales sinusales de 5 mm de altura en todas las derivaciones del ECG.",
-  "d": "FA gruesa: ondas 'f' >1 mm en V1, indicativas de dilatación e hipertrofia de la aurícula izquierda."
+  "d": "FA gruesa: ondas 'f' >1 mm en V1, indicativas de dilatación e hipertrofia de la aurícula izquierda.",
+  "a+": " sin pulso detectable"
  },
  "SIAM-UP6-091": {
   "a": "Fibrinolítico puro; se administra por vía subcutánea abdominal cada 2 años sin controles de laboratorio.",
   "b": "Inhibidor del factor IIa; dosis de 1000 mg cada hora sin ajuste renal ni control del RIN en el laboratorio.",
   "c": "Inhibidor de la vitamina K; dosis estándar de 500 mg/día; se reduce si consume espinacas y verduras.",
-  "d": "Inhibidor directo del factor Xa; 20 mg/día en la cena; se reduce a 15 mg/día si el aclaramiento de creatinina es de 15 a 49 mL/min."
+  "d": "Inhibidor directo del factor Xa; 20 mg/día en la cena; se reduce a 15 mg/día si el aclaramiento de creatinina es de 15 a 49 mL/min.",
+  "b+": ", y se administra por vía subcutánea"
  },
  "SIAM-UP6-092": {
   "a": "Cinconismo: acúfenos, hipoacusia, cefalea, visión borrosa, náuseas y diarrea.",
@@ -283,24 +307,72 @@
   "a": "La hipoglucemia no produce arritmias ni altera el electrocardiograma en ningún caso clínico ni en el adulto mayor.",
   "b": "La falta de glucosa destruye la arteria aorta en segundos impidiendo el flujo sanguíneo hacia el cerebro y el miocardio.",
   "c": "La glucosa baja estimula al nervio vago produciendo fibrilación auricular gigante y bloqueo AV completo.",
-  "d": "La hipoglucemia libera catecolaminas e induce hipopotasemia intracelular, prolonga la repolarización y genera posdespolarizaciones precoces."
+  "d": "La hipoglucemia libera catecolaminas e induce hipopotasemia intracelular, prolonga la repolarización y genera posdespolarizaciones precoces.",
+  "b+": ", y se resuelve con reposo en cama"
  },
  "SIAM-UP6-095": {
   "a": "Déficit de oxigenación tisular; producido por la oclusión completa de la arteria subclavia bilateral y de ambas carótidas.",
   "b": "Signo de Musset verdadero; producido por insuficiencia tricúspide masiva y regurgitación diastólica.",
   "c": "'Déficit de pulso': muchos latidos prematuros o débiles de la FA expulsan un volumen sistólico insuficiente para generar pulso periférico.",
-  "d": "Fenómeno de Raynaud vascular; producido por el uso de atenolol y el vasoespasmo digital."
+  "d": "Fenómeno de Raynaud vascular; producido por el uso de atenolol y el vasoespasmo digital.",
+  "a+": ", y de las arterias renales"
  },
  "SIAM-UP6-097": {
   "a": "Aclaramiento de creatinina de 15-50 mL/min, peso ≤60 kg o uso de inhibidores potentes de la P-gp (dronedarona, ketoconazol).",
   "b": "Consumo de más de 3 litros de agua al día en pacientes sin alteraciones renales ni cardíacas asociadas de ningún tipo.",
   "c": "Edad menor a 40 años y peso mayor a 120 kg de forma aislada, sin otras condiciones clínicas ni interacciones.",
-  "d": "El edoxabán no se debe reducir en ningún caso y se mantiene siempre a 100 mg por día, aun con falla renal."
+  "d": "El edoxabán no se debe reducir en ningún caso y se mantiene siempre a 100 mg por día, aun con falla renal.",
+  "b+": ", y mayores de 18 años"
  },
  "SIAM-UP6-098": {
   "a": "Esmolol en microgoteo continuo por 24 horas.",
   "b": "Propranolol en bolo rápido endovenoso directo.",
   "c": "Adrenalina en infusión continua o Isoprenalina.",
   "d": "Amiodarona a dosis de carga saturante oral."
+ },
+ "SIAM-UP6-001": {
+  "b+": ", con ondas F negativas en cara inferior"
+ },
+ "SIAM-UP6-003": {
+  "a+": ", y acorta el período refractario"
+ },
+ "SIAM-UP6-005": {
+  "b+": ", y hepatitis colestásica aguda"
+ },
+ "SIAM-UP6-006": {
+  "c+": ", con respuesta ventricular a 220 lpm"
+ },
+ "SIAM-UP6-007": {
+  "a+": " durante tres días"
+ },
+ "SIAM-UP6-011": {
+  "a+": ", con respuesta inmediata"
+ },
+ "SIAM-UP6-015": {
+  "a+": " y reposo absoluto"
+ },
+ "SIAM-UP6-017": {
+  "a+": ", y aumento del automatismo sinusal"
+ },
+ "SIAM-UP6-019": {
+  "b+": " ni cardiopatía estructural"
+ },
+ "SIAM-UP6-022": {
+  "a+": ", seguidos de reposo en cama por 24 horas"
+ },
+ "SIAM-UP6-041": {
+  "d+": ", y la frecuencia ventricular es menor de 100 lpm"
+ },
+ "SIAM-UP6-065": {
+  "d+": ", y se usa en la fibrilación auricular"
+ },
+ "SIAM-UP6-082": {
+  "d+": " del nodo sinusal"
+ },
+ "SIAM-UP6-096": {
+  "a+": ", de uso oral"
+ },
+ "SIAM-UP6-099": {
+  "a+": ", y no tiene tratamiento"
  }
 }

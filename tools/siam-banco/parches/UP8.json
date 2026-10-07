@@ -9,7 +9,8 @@
   "d": "Antibióticos betalactámicos (ej. Amoxicilina) y lactulosa oral en dosis habituales."
  },
  "SIAM-UP8-017": {
-  "a": "Narcolepsia tipo 1 (con cataplejía); por pérdida selectiva de neuronas productoras de orexinas/hipocretinas del hipotálamo lateral."
+  "a": "Narcolepsia tipo 1 (con cataplejía); por pérdida selectiva de neuronas productoras de orexinas/hipocretinas del hipotálamo lateral.",
+  "b+": ", y que cursa con insomnio total y alucinaciones"
  },
  "SIAM-UP8-018": {
   "c": "Trastorno de conducta del sueño REM (TCSR); se asocia fuertemente al desarrollo posterior de Parkinson o demencia por cuerpos de Lewy."
@@ -52,22 +53,26 @@
   "a": "Se deben a la destrucción del cerebelo; se trata con diálisis peritoneal y reposo absoluto.",
   "b": "Se deben a la modulación de receptores GABA-A; exigen suspender de inmediato y definitivamente el Zolpidem.",
   "c": "Se deben a la hiperactivación del nervio óptico; se trata aumentando la dosis nocturna del fármaco.",
-  "d": "Se deben a la falta de absorción digestiva; se trata administrando el fármaco por vía rectal."
+  "d": "Se deben a la falta de absorción digestiva; se trata administrando el fármaco por vía rectal.",
+  "c+": ", y se mantiene el esquema"
  },
  "SIAM-UP8-066": {
   "a": "La destrucción de los quimiorreceptores carotídeos por el uso crónico de espironolactona y diuréticos.",
   "b": "El retraso en el tiempo de circulación pulmón-quimiorreceptores centrales más la hiperventilación por congestión pulmonar.",
   "c": "La parálisis total del nervio frénico izquierdo por hipertrofia de la arteria subclavia y de la aorta.",
-  "d": "El colapso mecánico de los bronquiolos terminales por deficiencia de surfactante pulmonar y atelectasia."
+  "d": "El colapso mecánico de los bronquiolos terminales por deficiencia de surfactante pulmonar y atelectasia.",
+  "d+": ", y obstrucción mecánica del bronquio principal"
  },
  "SIAM-UP8-071": {
-  "b": "Incapacidad transitoria para el movimiento voluntario al dormirse o despertarse, por persistencia de la atonía del sueño REM."
+  "b": "Incapacidad transitoria para el movimiento voluntario al dormirse o despertarse, por persistencia de la atonía del sueño REM.",
+  "a+": ", con dolor intenso y fiebre"
  },
  "SIAM-UP8-072": {
   "a": "Estimulante de la síntesis de prolactina por el tejido prostático con necrosis testicular secundaria y atrofia.",
   "b": "Inhibidor de la 5-alfa-reductasa: bloquea la conversión de testosterona en dihidrotestosterona (DHT) y reduce el volumen prostático.",
   "c": "Bloqueante de los receptores muscarínicos M3 en la vejiga, destruyendo la pared vesical y el detrusor.",
-  "d": "Inhibidor de la enzima PDE-5 que destruye el estroma fibroso del cuerpo cavernoso y de la próstata."
+  "d": "Inhibidor de la enzima PDE-5 que destruye el estroma fibroso del cuerpo cavernoso y de la próstata.",
+  "a+": ", y aumento del volumen prostático"
  },
  "SIAM-UP8-076": {
   "a": "Ramelteón (agonista MT1/MT2).",
@@ -79,7 +84,8 @@
   "a": "Tromboxano A2 y endotelina-1, vasoconstrictores potentes.",
   "b": "Dihidrotestosterona y aldosterona, ambas esteroideas.",
   "c": "Noradrenalina y adrenalina puras, de efecto simpático.",
-  "d": "Óxido nítrico (NO) y péptido intestinal vasoactivo (VIP)."
+  "d": "Óxido nítrico (NO) y péptido intestinal vasoactivo (VIP).",
+  "a+": " y de acción rápida"
  },
  "SIAM-UP8-078": {
   "a": "Cambiar el equipo CPAP por un tubo de oxígeno medicinal de flujo libre durante toda la noche.",
@@ -96,6 +102,118 @@
  "SIAM-UP8-094": {
   "a": "Traqueostomía profiláctica con colocación de cánula rígida de plata y control anual.",
   "c": "Dispositivo de avance mandibular (DAM), que adelanta mandíbula y lengua y mantiene abierta la vía aérea.",
-  "d": "Uso de barbijo de tela común con inhalación de vapor y aceite de eucalipto antes de dormir."
+  "d": "Uso de barbijo de tela común con inhalación de vapor y aceite de eucalipto antes de dormir.",
+  "d+": ", y elevación de la cabecera de la cama"
+ },
+ "SIAM-UP8-001": {
+  "b+": " y alteración del ritmo"
+ },
+ "SIAM-UP8-004": {
+  "a+": ", con hipotensión arterial crónica"
+ },
+ "SIAM-UP8-005": {
+  "c+": " y oxigenoterapia nocturna"
+ },
+ "SIAM-UP8-009": {
+  "b+": ", y aumento del tono simpático"
+ },
+ "SIAM-UP8-013": {
+  "a+": ", y sin necesidad de estimulación"
+ },
+ "SIAM-UP8-016": {
+  "b+": ", y se eleva con el envejecimiento"
+ },
+ "SIAM-UP8-024": {
+  "c+": ", y no se modifica con la edad"
+ },
+ "SIAM-UP8-026": {
+  "c+": ", sin riesgo de hipotensión"
+ },
+ "SIAM-UP8-032": {
+  "a+": ", con hemiparesia y afasia de inicio súbito"
+ },
+ "SIAM-UP8-039": {
+  "b+": ", sin efecto sobre el AMPc intracelular"
+ },
+ "SIAM-UP8-041": {
+  "b+": ", y aumenta la producción de melatonina diurna"
+ },
+ "SIAM-UP8-042": {
+  "d+": ", y reducción de la insulinemia basal"
+ },
+ "SIAM-UP8-044": {
+  "b+": ", y ambos aumentan con el alcohol"
+ },
+ "SIAM-UP8-045": {
+  "b+": ", y retardan el vaciamiento gástrico"
+ },
+ "SIAM-UP8-049": {
+  "d+": ", y se resuelve sin tratamiento"
+ },
+ "SIAM-UP8-050": {
+  "a+": ", y disminuye la poscarga ventricular"
+ },
+ "SIAM-UP8-051": {
+  "b+": ", y rápida desaparición del efecto"
+ },
+ "SIAM-UP8-060": {
+  "b+": ", y suspender todo control posterior"
+ },
+ "SIAM-UP8-061": {
+  "d+": ", y manometría anorrectal simultánea"
+ },
+ "SIAM-UP8-062": {
+  "d+": ", y repetir la dosis si no se logra dormir"
+ },
+ "SIAM-UP8-063": {
+  "b+": ", y aumenta los niveles de testosterona libre"
+ },
+ "SIAM-UP8-065": {
+  "b+": ", y consumir cafeína por la tarde"
+ },
+ "SIAM-UP8-067": {
+  "a+": ", sin efecto sobre el sueño ni sobre la vigilia"
+ },
+ "SIAM-UP8-068": {
+  "a+": ", y evitar toda actividad sexual"
+ },
+ "SIAM-UP8-070": {
+  "b+": ", y suspensión total en un solo día"
+ },
+ "SIAM-UP8-074": {
+  "a+": ", seguido de ejercicio intenso"
+ },
+ "SIAM-UP8-081": {
+  "c+": ", durante tiempo indefinido"
+ },
+ "SIAM-UP8-082": {
+  "d+": " con monitoreo ECG"
+ },
+ "SIAM-UP8-086": {
+  "a+": " y pauta de internación"
+ },
+ "SIAM-UP8-087": {
+  "a+": " en la primera hora"
+ },
+ "SIAM-UP8-088": {
+  "b+": ", y reposo absoluto en cama"
+ },
+ "SIAM-UP8-089": {
+  "b+": ", y ambas se tratan con antibióticos"
+ },
+ "SIAM-UP8-090": {
+  "a+": " y de sus ramas"
+ },
+ "SIAM-UP8-095": {
+  "c+": " (50 mg)"
+ },
+ "SIAM-UP8-096": {
+  "b+": ", y administrar haloperidol endovenoso"
+ },
+ "SIAM-UP8-098": {
+  "d+": ", y suprimir la secreción de melatonina"
+ },
+ "SIAM-UP8-099": {
+  "c+": ", y se indica a dosis crecientes"
  }
 }

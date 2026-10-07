@@ -1,13 +1,16 @@
 {
  "SIAM-UP5-010": {
-  "a": "Las internas están sobre la línea pectínea, con inervación visceral indolora; las externas debajo, con inervación somática dolorosa; la reductible manualmente es grado III."
+  "a": "Las internas están sobre la línea pectínea, con inervación visceral indolora; las externas debajo, con inervación somática dolorosa; la reductible manualmente es grado III.",
+  "d+": ", y la clasificación solo depende del sangrado"
  },
  "SIAM-UP5-012": {
-  "d": "Inhiben la farnesil pirofosfato sintasa del osteoclasto y lo llevan a apoptosis; se toman en ayunas con un vaso de agua, sin acostarse 30-60 minutos."
+  "d": "Inhiben la farnesil pirofosfato sintasa del osteoclasto y lo llevan a apoptosis; se toman en ayunas con un vaso de agua, sin acostarse 30-60 minutos.",
+  "c+": ", y luego deben ingerirse con abundante café"
  },
  "SIAM-UP5-015": {
   "b": "Ambas heparinas se administran por vía oral con las comidas y se eliminan por heces sin ajuste de dosis.",
-  "c": "Inhiben sobre todo el factor Xa, se absorben bien por vía subcutánea y no requieren monitoreo; con TFG <30 se reduce la dosis o se usa HNF."
+  "c": "Inhiben sobre todo el factor Xa, se absorben bien por vía subcutánea y no requieren monitoreo; con TFG <30 se reduce la dosis o se usa HNF.",
+  "d+": ", y su efecto no se revierte nunca"
  },
  "SIAM-UP5-018": {
   "a": "Convierten plasminógeno en plasmina, que lisa la fibrina; contraindican el ACV hemorrágico previo, el ACV isquémico reciente o el sangrado activo."
@@ -22,7 +25,8 @@
   "a": "En la aguda la aurícula es normal y poco complaciente, con edema pulmonar sin cardiomegalia; en la crónica se dilata y tolera el reflujo.",
   "b": "Ambas formas son idénticas en laboratorio, ecocardiograma y radiografía de tórax, sin diferencias evolutivas ni clínicas.",
   "c": "En la aguda la aurícula forma aneurismas gigantes de 15 cm; en la crónica la aurícula se atrofia por completo y desaparece.",
-  "d": "En la crónica el paciente fallece en segundos por colapso de la arteria pulmonar principal y paro cardíaco inmediato."
+  "d": "En la crónica el paciente fallece en segundos por colapso de la arteria pulmonar principal y paro cardíaco inmediato.",
+  "c+": ", sin repercusión radiológica ni hemodinámica"
  },
  "SIAM-UP5-028": {
   "a": "Profilaxis sistemática antes de cualquier extracción dental en pacientes ancianos con várices y edema crónico.",
@@ -30,7 +34,8 @@
  },
  "SIAM-UP5-029": {
   "a": "El trombo bloquea la entrada de aire a la tráquea y produce hipercapnia con acidosis metabólica pura, de aparición brusca.",
-  "d": "Zonas ventiladas pero no perfundidas (desequilibrio V/Q); la hiperventilación compensadora produce hipocapnia y alcalosis respiratoria."
+  "d": "Zonas ventiladas pero no perfundidas (desequilibrio V/Q); la hiperventilación compensadora produce hipocapnia y alcalosis respiratoria.",
+  "a+": ", y cursa con saturación normal"
  },
  "SIAM-UP5-031": {
   "a": "Asimetría, bordes irregulares, color heterogéneo y diámetro mayor de 5-6 mm, con atipia melanocítica e hiperplasia lentiginosa."
@@ -42,7 +47,8 @@
   "a": "El RANKL es una hormona tiroidea que estimula la síntesis de elastina y reduce la resorción ósea del hueso trabecular.",
   "b": "Los osteoclastos se activan solo por el potasio sérico urinario, sin intervención de ligandos ni receptores de membrana.",
   "c": "La osteoprotegerina es una enzima que destruye el calcio gástrico e impide su absorción intestinal en el duodeno.",
-  "d": "El RANKL de los osteoblastos activa RANK en los preosteoclastos y favorece su diferenciación; la osteoprotegerina es un receptor señuelo."
+  "d": "El RANKL de los osteoblastos activa RANK en los preosteoclastos y favorece su diferenciación; la osteoprotegerina es un receptor señuelo.",
+  "b+": ", ni acción de las citocinas"
  },
  "SIAM-UP5-037": {
   "a": "Bloqueante de canales de sodio del osteoblasto, aplicado por vía oral semanal sin efecto rebote al suspenderlo.",
@@ -76,13 +82,15 @@
  "SIAM-UP5-052": {
   "a": "Es PTH 1-34 recombinante; en dosis diaria subcutánea intermitente estimula a los osteoblastos, a diferencia de los antirresortivos.",
   "b": "Es un fármaco sublingual que inactiva la vitamina D y disminuye la absorción intestinal de calcio y fósforo.",
-  "c": "Es un inhibidor de la elastasa pulmonar que destruye el cartílago nasal y reduce la reabsorción ósea del hueso trabecular."
+  "c": "Es un inhibidor de la elastasa pulmonar que destruye el cartílago nasal y reduce la reabsorción ósea del hueso trabecular.",
+  "c+": ", sin efecto sobre las vértebras"
  },
  "SIAM-UP5-054": {
   "a": "Inhiben la elastasa pancreática y su antídoto específico es el sulfato de magnesio por vía intravenosa.",
   "b": "Son de uso exclusivo intravenoso continuo y destruyen las plaquetas circulantes, por lo que exigen internación.",
   "c": "Inhiben el factor Xa libre y ligado al coágulo, actúan rápido, tienen dosis fija sin monitoreo y se revierten con andexanet alfa.",
-  "d": "Requieren control semanal del RIN y su efecto se inactiva con la ingesta de lechuga y vegetales verdes."
+  "d": "Requieren control semanal del RIN y su efecto se inactiva con la ingesta de lechuga y vegetales verdes.",
+  "b+": ", y se contraindican en la insuficiencia renal"
  },
  "SIAM-UP5-055": {
   "a": "Cuadro benigno que se autolimita y no requiere ningún cambio de la medicación anticoagulante en curso.",
@@ -96,11 +104,13 @@
   "d": "Ningún pretratamiento; se elimina por heces sin importar la función renal ni el calcio sérico de la paciente."
  },
  "SIAM-UP5-058": {
-  "c": "3000 mg/día durante 4 días y 2000 mg/día durante 3 días; prolonga la acción de la noradrenalina venosa y reduce la permeabilidad."
+  "c": "3000 mg/día durante 4 días y 2000 mg/día durante 3 días; prolonga la acción de la noradrenalina venosa y reduce la permeabilidad.",
+  "d+": ", con efecto inmediato en 5 minutos"
  },
  "SIAM-UP5-060": {
   "a": "En la enfermedad asociada a cáncer está prohibido anticoagular por el riesgo de sangrado de las metástasis.",
-  "d": "Provocada por factor transitorio mayor: 3 meses; no provocada, recurrente o con cáncer activo: anticoagulación extendida o indefinida."
+  "d": "Provocada por factor transitorio mayor: 3 meses; no provocada, recurrente o con cáncer activo: anticoagulación extendida o indefinida.",
+  "b+": ", aunque la causa persista en el tiempo"
  },
  "SIAM-UP5-061": {
   "a": "Las primarias dañan las valvas; las secundarias dilatan la raíz o el anillo aórtico e impiden la coaptación de valvas normales."
@@ -119,13 +129,15 @@
   "a": "Mutación en el gen de la insulina; se trata con metformina y control estricto de la glucemia.",
   "b": "Mutación BRAF V600E; se trata con inhibidores de BRAF (Vemurafenib, Dabrafenib) más inhibidores de MEK.",
   "c": "Mutación EGFR T790M; se trata con imatinib oral continuo y radioterapia craneal profiláctica.",
-  "d": "Translocación BCR-ABL; se trata con radioterapia abdominal y quimioterapia intratecal semanal."
+  "d": "Translocación BCR-ABL; se trata con radioterapia abdominal y quimioterapia intratecal semanal.",
+  "d+": ", con trasplante de médula"
  },
  "SIAM-UP5-067": {
   "a": "Eritema polimorfo menor ampollar, de curso agudo y resolución espontánea en pocas semanas, asociado a herpes.",
   "b": "Carcinoma basocelular ulcerado, de crecimiento lento, con bordes perlados, telangiectasias y rara metástasis.",
   "c": "Lentigo solar (senil): proliferación benigna de melanocitos basales por radiación UV, sin atipia ni riesgo de malignización.",
-  "d": "Melanoma nodular de fase rápida, con crecimiento vertical, ulceración y alto riesgo de metástasis ganglionar."
+  "d": "Melanoma nodular de fase rápida, con crecimiento vertical, ulceración y alto riesgo de metástasis ganglionar.",
+  "a+": ", con lesiones en diana típicas"
  },
  "SIAM-UP5-068": {
   "a": "Uso de laxantes estimulantes catárticos por 2 años ininterrumpidos y sin control médico ni modificaciones de la dieta.",
@@ -137,49 +149,57 @@
   "a": "Ambos scores son idénticos y no se ajustan por ninguna variable sociodemográfica, por lo que se usan indistintamente en todos los grupos etarios.",
   "b": "El Z-Score compara la DMO con una población de igual EDAD, SEXO y ETNIA; se usa en premenopáusicas, hombres <50 años y niños (baja masa ósea si <= -2,0 DE).",
   "c": "El Z-Score compara al paciente con un grupo de lactantes prematuros exclusivamente, y no se utiliza en adultos de ningún sexo.",
-  "d": "El Z-Score se utiliza para diagnosticar osteoporosis senil en mujeres de 90 años, con un punto de corte único de -2,5 DE."
+  "d": "El Z-Score se utiliza para diagnosticar osteoporosis senil en mujeres de 90 años, con un punto de corte único de -2,5 DE.",
+  "a+": ", sin importar el sexo del paciente"
  },
  "SIAM-UP5-070": {
   "a": "Calcitonina: estimula la reabsorción ósea osteoclástica en un 100 % y eleva la calcemia plasmática.",
   "b": "Calcitriol: destruye el calcio renal aumentando el potasio sérico y reduciendo la absorción intestinal.",
   "c": "PTH: hipocalcemiante e hiperfosfatemiante pura, con acción exclusiva sobre la glándula tiroides.",
-  "d": "PTH: hipercalcemiante e hipofosfatemiante; Calcitriol: hipercalcemiante e hiperfosfatemiante; Calcitonina: hipocalcemiante."
+  "d": "PTH: hipercalcemiante e hipofosfatemiante; Calcitriol: hipercalcemiante e hiperfosfatemiante; Calcitonina: hipocalcemiante.",
+  "b+": ", y eleva la fosfatemia en forma crónica"
  },
  "SIAM-UP5-071": {
   "a": "Los bisfosfonatos se absorben al 100 % exclusivamente en el intestino grueso si hay calcio presente en la luz intestinal y en ayunas.",
   "b": "El agua corriente destruye el anillo lactónico del alendronato anulando su vida media plasmática por completo y de inmediato.",
   "c": "La leche metaboliza el alendronato en cianuro en el estómago, con toxicidad hepática inmediata y fallo multiorgánico.",
-  "d": "Los bisfosfonatos tienen biodisponibilidad oral <1 % y forman quelatos insolubles con cationes divalentes (Ca²⁺, Mg²⁺, Fe²⁺, Al³⁺) de alimentos o antiácidos."
+  "d": "Los bisfosfonatos tienen biodisponibilidad oral <1 % y forman quelatos insolubles con cationes divalentes (Ca²⁺, Mg²⁺, Fe²⁺, Al³⁺) de alimentos o antiácidos.",
+  "a+": ", y la leche mejora su biodisponibilidad"
  },
  "SIAM-UP5-072": {
   "a": "Son anticoagulantes orales directos que reemplazan a la heparina en la profilaxis de la trombosis venosa profunda y del TEP.",
   "b": "Destruyen la hemoglobina en las arterias femorales y producen hemólisis intravascular con ictericia y hemoglobinuria.",
   "c": "La escina inhibe la hialuronidasa y la elastasa lisosomales, reduce la extravasación y el edema; los ruscogénidos aumentan el tono venoso (alfa-1).",
-  "d": "Producen vasodilatación arterial masiva y parálisis del músculo liso, con hipotensión ortostática marcada y síncope."
+  "d": "Producen vasodilatación arterial masiva y parálisis del músculo liso, con hipotensión ortostática marcada y síncope.",
+  "a+": ", y se administran por vía endovenosa"
  },
  "SIAM-UP5-073": {
   "a": "Dermatitis de contacto alérgica y sensibilización local; la absorción por mucosa rectal inflamada puede causar toxicidad en SNC y metahemoglobinemia.",
   "b": "Aplasia medular irreversible en 24 horas por inactivación de la eritropoyetina circulante, con pancitopenia grave y sepsis.",
   "c": "No poseen efectos adversos ni se absorben por ninguna mucosa, por lo que se pueden usar sin límite de tiempo ni de dosis.",
-  "d": "Desarrollo de cáncer de colon sigmoides en 3 días de uso, con sangrado digestivo masivo y perforación intestinal."
+  "d": "Desarrollo de cáncer de colon sigmoides en 3 días de uso, con sangrado digestivo masivo y perforación intestinal.",
+  "b+": ", con necesidad de transfusiones periódicas"
  },
  "SIAM-UP5-074": {
   "a": "La HNF estimula la resorción osteoclástica e inhibe a los osteoblastos, alterando el remodelado óseo tras uso prolongado.",
   "b": "Produce calcificación masiva del periostio con atrofia muscular pura y dolor óseo difuso generalizado.",
   "c": "Las heparinas aumentan la masa ósea y curan la osteoporosis en todos los casos, sin riesgo de fracturas.",
-  "d": "La heparina destruye la matriz mineral gástrica impidiendo la ingesta de alimentos y la absorción de calcio."
+  "d": "La heparina destruye la matriz mineral gástrica impidiendo la ingesta de alimentos y la absorción de calcio.",
+  "d+": ", y reduce la masa muscular"
  },
  "SIAM-UP5-075": {
   "a": "El Ketoconazol produce alcalinización del colon impidiendo la acción de la trombina sobre el fibrinógeno circulante.",
   "b": "No existe ninguna interacción entre los antifúngicos azólicos y los anticoagulantes orales directos en la práctica clínica.",
   "c": "El Ketoconazol inhibe el CYP3A4 y la glicoproteína-P, reduce el aclaramiento del Rivaroxabán y aumenta sus niveles y el riesgo de sangrado.",
-  "d": "El Ketoconazol es un inductor enzimático que destruye la molécula de rivaroxabán en 5 segundos tras su absorción."
+  "d": "El Ketoconazol es un inductor enzimático que destruye la molécula de rivaroxabán en 5 segundos tras su absorción.",
+  "b+": ", ni siquiera con dosis altas del azol"
  },
  "SIAM-UP5-076": {
   "a": "La angina en la IA se produce por la falta de glucógeno en el músculo diafragma y por hipoglucemia crónica.",
   "b": "Caída profunda de la presión diastólica aórtica (menor perfusión coronaria, que ocurre en diástole) más mayor demanda de oxígeno del VI.",
   "c": "Espasmo primario de la vena cava inferior con hipotensión venosa y caída del retorno al ventrículo derecho.",
-  "d": "Aumento excesivo de la presión arterial diastólica a 180 mmHg que destruye las arterias coronarias epicárdicas."
+  "d": "Aumento excesivo de la presión arterial diastólica a 180 mmHg que destruye las arterias coronarias epicárdicas.",
+  "d+": ", y reduce la demanda de oxígeno del VI"
  },
  "SIAM-UP5-077": {
   "a": "IECA o ARA II (reducen la poscarga); cirugía (reparación o reemplazo) ante síntomas o FEVI <= 60 % o DSDVI >= 40 mm.",
@@ -191,13 +211,15 @@
   "a": "Enoxaparina 300 mg por vía oral cada 2 horas durante toda la vida, sin controles de laboratorio ni de función renal.",
   "b": "Heparina no fraccionada 100.000 UI IV en bolo directo antes de la anestesia, repetida cada 24 horas durante un mes.",
   "c": "No se realiza profilaxis farmacológica debido a que la deambulación no influye en la trombosis venosa posoperatoria.",
-  "d": "Enoxaparina 40 mg SC una vez al día (12 h antes o 6-12 h después de la cirugía) por 10 a 14 días (35 en cadera), más medias de compresión."
+  "d": "Enoxaparina 40 mg SC una vez al día (12 h antes o 6-12 h después de la cirugía) por 10 a 14 días (35 en cadera), más medias de compresión.",
+  "a+": ", y se repite todos los días del año"
  },
  "SIAM-UP5-079": {
   "a": "Porque el melanoma solo se puede diagnosticar mediante radiografía de tórax y tomografía de cuerpo entero con contraste.",
   "b": "Porque seccionar parcialmente la lesión destruye la base del tumor e impide medir el Breslow; se exige biopsia excisional con margen de 1 a 3 mm.",
   "c": "Porque el tejido rasurado se transforma espontáneamente en una verruga viral de crecimiento exofítico rápido y doloroso.",
-  "d": "Porque la biopsia parcial produce la diseminación inmediata del melanoma por vía estomacal y esplénica en horas."
+  "d": "Porque la biopsia parcial produce la diseminación inmediata del melanoma por vía estomacal y esplénica en horas.",
+  "a+": ", y requiere radiografía de abdomen"
  },
  "SIAM-UP5-080": {
   "a": "Es un diurético tiazídico que se toma cada 10 años por vía oral, con efecto sostenido sobre el hueso y el riñón sin riesgo cardiovascular.",
@@ -209,13 +231,15 @@
   "a": "La hipertrofia excéntrica se produce por el depósito masivo de glucógeno por falta de insulina y por hiperglucemia crónica sostenida.",
   "b": "La sobrecarga de volumen destruye los sarcómeros reduciendo el tamaño de la cavidad a 5 mL y aumentando el espesor parietal.",
   "c": "No existe adición de sarcómeros sino atrofia pura por falta de irrigación carotídea y de aporte de oxígeno al ventrículo.",
-  "d": "La sobrecarga de volumen estimula la adición de sarcómeros en SERIE (hipertrofia excéntrica); la de presión los añade en PARALELO (hipertrofia concéntrica)."
+  "d": "La sobrecarga de volumen estimula la adición de sarcómeros en SERIE (hipertrofia excéntrica); la de presión los añade en PARALELO (hipertrofia concéntrica).",
+  "a+": ", y no existe adición de sarcómeros"
  },
  "SIAM-UP5-082": {
   "a": "La dilatación de la AI produce la destrucción directa del nervio vago, con bradicardia extrema, síncope vasovagal y bloqueo AV completo.",
   "b": "La regurgitación estira y fibrosa la AI, desorganiza la conducción y favorece microrreentradas (FA); la estasis en la auriculilla predispone a trombos y ACV embólico.",
   "c": "La FA en la IM se produce por la migración de la flora bacteriana del colon hacia el pericardio y la aurícula izquierda.",
-  "d": "La fibrilación auricular elimina el riesgo de embolias y no requiere anticoagulación en ningún grupo de pacientes con valvulopatía."
+  "d": "La fibrilación auricular elimina el riesgo de embolias y no requiere anticoagulación en ningún grupo de pacientes con valvulopatía.",
+  "a+": ", y el uso de digoxina resuelve el cuadro"
  },
  "SIAM-UP5-083": {
   "a": "Inhiben la síntesis de albúmina hepática en menos de 2 horas, con hipoalbuminemia severa y ascitis.",
@@ -233,7 +257,8 @@
   "a": "Las quinolonas inactivan la warfarina disminuyendo el RIN a 0,5 y aumentando el riesgo de trombosis arterial aguda.",
   "b": "Inhibición del citocromo P450 (CYP2C9/CYP3A4) que metaboliza warfarina/acenocumarol, más la reducción de la flora que sintetiza vitamina K.",
   "c": "Destrucción directa del fibrinógeno por el antibiótico en el riñón, con hipofibrinogenemia aguda y sangrado difuso.",
-  "d": "Inducción masiva de los factores de coagulación dependientes de calcio, con hipercoagulabilidad persistente y trombosis venosa."
+  "d": "Inducción masiva de los factores de coagulación dependientes de calcio, con hipercoagulabilidad persistente y trombosis venosa.",
+  "d+": ", y mayor síntesis de protrombina"
  },
  "SIAM-UP5-086": {
   "a": "Presencia de un tapón córneo amarillento homogéneo sin red pigmentaria, típico de las lesiones queratósicas benignas.",
@@ -251,25 +276,29 @@
   "a": "No existen cojinetes anatómicos; son tumores malignos derivados del endotelio vascular y se presentan solo en la vejez avanzada.",
   "b": "Son cojinetes fibrovasculares normales que ayudan a la continencia; el prolapso surge por laxitud del tejido de sostén y aumento de la presión intraabdominal.",
   "c": "Las hemorroides son malformaciones congénitas aneurismáticas de la arteria renal que se manifiestan recién en la vejez avanzada.",
-  "d": "Las hemorroides se forman por la infección de parásitos en la piel del pubis y del periné durante la vejez y el embarazo."
+  "d": "Las hemorroides se forman por la infección de parásitos en la piel del pubis y del periné durante la vejez y el embarazo.",
+  "a+": ", y se diagnostican siempre por biopsia"
  },
  "SIAM-UP5-089": {
   "a": "Los marcadores de remodelado óseo no cambian con el tratamiento antirresortivo ni con la actividad osteoclástica.",
   "b": "Formación: P1NP y osteocalcina; Reabsorción: telopéptido C-terminal del colágeno tipo I (CTX-β) en suero u orina.",
   "c": "Formación: transaminasa TGO; Reabsorción: amilasa pancreática, ambas medidas en suero en ayunas matinal.",
-  "d": "Formación: troponina T; Reabsorción: ácido úrico en líquido sinovial, ambos medidos en muestras de orina."
+  "d": "Formación: troponina T; Reabsorción: ácido úrico en líquido sinovial, ambos medidos en muestras de orina.",
+  "a+": " en forma permanente"
  },
  "SIAM-UP5-090": {
   "a": "El Denosumab destruye el riñón y aumenta el riesgo de hipercalcemia con tetania y arritmias ventriculares graves.",
   "b": "En insuficiencia renal el Denosumab se administra por vía inhalatoria para evitar su eliminación renal y hepática.",
   "c": "El Denosumab no se elimina por vía renal, por lo que es seguro en falla renal severa; exige corregir la hipocalcemia con calcio y vitamina D.",
-  "d": "Los bisfosfonatos se eliminan por la bilis y son ideales en TFG <15 mL/min, sin necesidad de ajuste de dosis."
+  "d": "Los bisfosfonatos se eliminan por la bilis y son ideales en TFG <15 mL/min, sin necesidad de ajuste de dosis.",
+  "b+": ", y debe repetirse cada 15 días de por vida"
  },
  "SIAM-UP5-091": {
   "a": "Las medias de elastocompresión destruyen los ganglios linfáticos del abdomen y producen linfedema crónico en las piernas.",
   "b": "Es el pilar no farmacológico más eficaz: la compresión reduce el diámetro venoso, restaura la coaptación valvular y favorece la cicatrización.",
   "c": "Están contraindicadas si el paciente presenta pulsos pedios conservados y sin signos de isquemia arterial de ningún tipo.",
-  "d": "Las medias de compresión aumentan la estasis venosa en un 200 % agudizando la úlcera y el edema de la pierna."
+  "d": "Las medias de compresión aumentan la estasis venosa en un 200 % agudizando la úlcera y el edema de la pierna.",
+  "a+": ", y favorecen el edema en la pierna"
  },
  "SIAM-UP5-092": {
   "a": "Desgarro longitudinal del anodermo en la línea media posterior; se trata con vasodilatadores tópicos (nitroglicerina 0,2 % o diltiazem 2 %).",
@@ -281,19 +310,22 @@
   "a": "La protamina se administra exclusivamente junto con heparina para potenciar su efecto anticoagulante y prolongar su vida media.",
   "b": "No existe riesgo de sobredosis y se puede infundir de forma ilimitada, incluso sin conocer la dosis de heparina recibida.",
   "c": "Dosis de 500 gramos de protamina por vía oral en bolo único, repetida cada 4 horas hasta normalizar el KPTT.",
-  "d": "1 mg de protamina por cada 100 UI de HNF recibidas en las últimas 2 a 4 horas (máx. 50 mg); el exceso puede tener efecto anticoagulante paradójico."
+  "d": "1 mg de protamina por cada 100 UI de HNF recibidas en las últimas 2 a 4 horas (máx. 50 mg); el exceso puede tener efecto anticoagulante paradójico.",
+  "a+": ", y evitar la hemorragia hepática"
  },
  "SIAM-UP5-094": {
   "a": "Es un concentrado de vitamina K pura que se administra por vía intramuscular cada 6 horas durante tres días seguidos.",
   "b": "Es un complejo de albúmina sin afinidad específica por el anticoagulante, usado como expansor plasmático de urgencia.",
   "c": "Fragmento Fab de anticuerpo monoclonal humanizado que se une al Dabigatrán con afinidad 350 veces mayor que la trombina; se administran 5 g IV.",
-  "d": "Es una enzima pancreática que destruye al factor Xa en 24 horas y debe administrarse por vía oral con las comidas."
+  "d": "Es una enzima pancreática que destruye al factor Xa en 24 horas y debe administrarse por vía oral con las comidas.",
+  "a+": ", y está contraindicado en la fibrilación auricular"
  },
  "SIAM-UP5-095": {
   "a": "Ambas valvulopatías presentan un R₂ completamente normal e idéntico, sin ninguna alteración auscultatoria asociada.",
   "b": "Insuficiencia aórtica: R₂ gigante con clic eyectivo en el cuello; insuficiencia mitral: R₂ normal con soplo rudo.",
   "c": "IA: R₂ atenuado en su componente aórtico (falta de coaptación); IM: desdoblamiento amplio del R₂ por cierre precoz de A₂.",
-  "d": "Insuficiencia mitral: R₂ ausente en el 100 % de los casos, sin desdoblamiento y con chasquido de apertura asociado."
+  "d": "Insuficiencia mitral: R₂ ausente en el 100 % de los casos, sin desdoblamiento y con chasquido de apertura asociado.",
+  "a+": " en ambos focos"
  },
  "SIAM-UP5-096": {
   "a": "Aumentar la dosis de Warfarina al doble para estabilizar el hígado y evitar el riesgo de trombosis venosa posterior.",
@@ -305,18 +337,78 @@
   "a": "Prurito, dolor o sangrado de la lesión, cambio rápido de tamaño o color, y lesiones satélites o adenopatías regionales.",
   "b": "Crecimiento de vello grueso y liso dentro del nevo, sin cambios de color ni de tamaño en el tiempo.",
   "c": "Presencia de un nevo que permanece idéntico desde el nacimiento sin cambios en 50 años de seguimiento.",
-  "d": "Desaparición completa del pigmento dejando piel normal limpia, sin cicatriz ni signos de inflamación."
+  "d": "Desaparición completa del pigmento dejando piel normal limpia, sin cicatriz ni signos de inflamación.",
+  "c+": ", y sin prurito ni sangrado alguno"
  },
  "SIAM-UP5-098": {
   "a": "Se deben administrar los bisfosfonatos masticados junto con la cena para mejorar su absorción digestiva y su tolerancia.",
   "b": "Los bisfosfonatos orales están contraindicados (riesgo de ulceración esofágica); se usa ácido zoledrónico IV anual o denosumab subcutáneo semestral.",
   "c": "La incapacidad de mantenerse erguido obliga a suspender todo tratamiento antiosteoporótico de por vida y a indicar reposo.",
-  "d": "Está indicado administrar aspirina a dosis altas por vía oral para proteger la mucosa esofágica y la gástrica."
+  "d": "Está indicado administrar aspirina a dosis altas por vía oral para proteger la mucosa esofágica y la gástrica.",
+  "c+": ", y evitar toda actividad física"
  },
  "SIAM-UP5-099": {
   "a": "No existe diferencia histológica entre trombos arteriales y venosos; ambos se tratan siempre con antiagregantes plaquetarios.",
   "b": "El trombo venoso es rico exclusivamente en cristales de ácido úrico y se trata con alopurinol y colchicina en altas dosis.",
   "c": "El trombo venoso (rojo) es rico en fibrina y hematíes y nace en la estasis; se trata con ANTICOAGULANTES (el arterial, plaquetario, con ANTIAGREGANTES).",
-  "d": "El trombo venoso está formado por tejido muscular estriado puro y se trata con corticoides y reposo prolongado en cama."
+  "d": "El trombo venoso está formado por tejido muscular estriado puro y se trata con corticoides y reposo prolongado en cama.",
+  "a+": ", y no requieren ninguna anticoagulación"
+ },
+ "SIAM-UP5-001": {
+  "c+": ", con ausencia de soplo diastólico"
+ },
+ "SIAM-UP5-004": {
+  "a+": ", sin cambios de coloración cutánea"
+ },
+ "SIAM-UP5-006": {
+  "a+": ", con onda T negativa en derivaciones laterales"
+ },
+ "SIAM-UP5-008": {
+  "a+": " en niños"
+ },
+ "SIAM-UP5-009": {
+  "a+": " en toda la población"
+ },
+ "SIAM-UP5-011": {
+  "b+": " y suspensión del calcio"
+ },
+ "SIAM-UP5-016": {
+  "c+": ", independientemente del peso corporal"
+ },
+ "SIAM-UP5-019": {
+  "a+": ", y aumentan la filtración capilar"
+ },
+ "SIAM-UP5-021": {
+  "a+": ", sin soplo diastólico audible"
+ },
+ "SIAM-UP5-027": {
+  "c+": ", y se resuelve espontáneamente en 48 horas"
+ },
+ "SIAM-UP5-030": {
+  "b+": ", con alta hospitalaria a las pocas horas"
+ },
+ "SIAM-UP5-039": {
+  "a+": ", y se repite igual dosis cada 6 horas"
+ },
+ "SIAM-UP5-041": {
+  "b+": ", con crisis hipertensivas paroxísticas"
+ },
+ "SIAM-UP5-042": {
+  "d+": ", y compromiso de la cuerda tendinosa"
+ },
+ "SIAM-UP5-044": {
+  "c+": ", y solo en las arterias del muslo"
+ },
+ "SIAM-UP5-047": {
+  "a+": " y sin dolor ni edema"
+ },
+ "SIAM-UP5-048": {
+  "a+": ", sin necesidad de controles dermatológicos"
+ },
+ "SIAM-UP5-053": {
+  "b+": " ni en dosis altas"
+ },
+ "SIAM-UP5-057": {
+  "c+": ", con compromiso de la glándula paratiroides"
  }
 }

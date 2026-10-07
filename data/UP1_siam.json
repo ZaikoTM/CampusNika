@@ -61,7 +61,7 @@
    "numero": 5,
    "pregunta": "En un paciente anciano que cursa con un síndrome edematoso agudo secundario a insuficiencia cardíaca y falla renal, se indica Furosemida. ¿En qué sitio de la nefrona actúa este fármaco y cuál es su efecto sobre la excreción electrolítica?",
    "opciones": {
-    "a": "Antagoniza los receptores de aldosterona en el túbulo colector, promoviendo natriuresis con retención de potasio.",
+    "a": "Antagoniza los receptores de aldosterona en el túbulo colector, promoviendo natriuresis con retención de potasio, con efecto máximo a las 48 horas.",
     "b": "Inhibe el simporte NaCl en el túbulo contorneado distal, aumentando la excreción de sodio y reteniendo calcio.",
     "c": "Inhibe la anhidrasa carbónica en el túbulo proximal, generando pérdida de bicarbonato con acidificación urinaria.",
     "d": "Bloquea el cotransportador Na+-K+-2Cl- en la rama ascendente del asa, aumentando excreción de Na+, K+, Ca2+ y Mg2+."
@@ -90,7 +90,7 @@
     "a": "Bloqueo directo de los canales de sodio en el túbulo colector, produciendo una diuresis osmótica masiva.",
     "b": "Inhibición de la síntesis de prostaglandinas vasodilatadoras, generando vasoconstricción de la arteriola aferente.",
     "c": "Inducción de nefrocalcinosis aguda por precipitación masiva de cristales de urato monosódico en el túbulo.",
-    "d": "Vasodilatación selectiva de la arteriola eferente renal, generando una hiperfiltración glomerular destructiva."
+    "d": "Vasodilatación selectiva de la arteriola eferente renal, generando una hiperfiltración glomerular destructiva, con deterioro progresivo de la función."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. En estados de depleción de volumen o perfusión renal comprometida (ERC, IC, cirrosis, ancianos), la tasa de filtración glomerular se mantiene dependiente de la producción de prostaglandinas vasodilatadoras renales (PGE2 y PGI2), las cuales dilatan la arteriola aferente para preservar el flujo sanguíneo renal. Los AINEs inhiben las enzimas COX-1 y COX-2, suprimiendo la síntesis de prostaglandinas; esto desencadena una vasoconstricción intensa de la arteriola aferente, caída abrupta de la presión intraglomerular y falla renal aguda hemodinámica (prerrenal). La opción A es INCORRECTA porque los AINEs no bloquean los canales ENaC ni producen diuresis osmótica. La opción D es INCORRECTA porque la vasodilatación de la arteriola eferente es producida por los IECA/ARA-II al inhibir la Angiotensina II (no por AINEs). La opción C es INCORRECTA porque el mecanismo no es la precipitación de urato monosódico, sino la isquemia renal hemodinámica."
@@ -100,7 +100,7 @@
    "numero": 8,
    "pregunta": "Según el Consenso Argentino de ITU y las pautas de SIAM, ¿cuál es la conducta médica adecuada?",
    "opciones": {
-    "a": "Iniciar tratamiento antibiótico inmediato con Cefalexina 500 mg cada 8 horas durante 7 días para erradicarla.",
+    "a": "Iniciar tratamiento antibiótico inmediato con Cefalexina 500 mg cada 8 horas durante 7 días para erradicarla y control de urocultivo posterior.",
     "b": "Indicar fosfomicina 3 g en dosis única y colocar una sonda vesical permanente para drenaje continuo de orina.",
     "c": "Prescribir Ciprofloxacina 500 mg cada 12 horas por 10 días y solicitar urocultivo de control al finalizar.",
     "d": "No indicar tratamiento antibiótico, ya que la bacteriuria asintomática no debe tratarse en este grupo de pacientes."
@@ -126,7 +126,7 @@
    "numero": 10,
    "pregunta": "Un paciente varón de 52 años consulta por fiebre alta (40 °C), escalofríos, disuria intensa y dolor perineal. Al tacto rectal se palpa una próstata muy dolorosa, caliente y edematizada. ¿Cuál es el diagnóstico presuntivo, la contraindicación en el examen físico y el tratamiento empírico?",
    "opciones": {
-    "a": "Cistitis enfisematosa; está contraindicada la colocación de sonda vesical; se trata con Nitrofurantoína 100 mg.",
+    "a": "Cistitis enfisematosa; está contraindicada la colocación de sonda vesical; se trata con Nitrofurantoína 100 mg y drenaje quirúrgico inmediato.",
     "b": "Prostatitis bacteriana aguda; está contraindicado el masaje prostático vigoroso; se trata con Quinolonas o Ceftriaxona.",
     "c": "Hiperplasia benigna complicada; está contraindicada la ecografía prostática; se trata con Tamsulosina 0,4 mg.",
     "d": "Cáncer de próstata avanzado; está contraindicada la toma de PSA; se trata con Finasterida 5 mg y analgesia."
@@ -166,7 +166,7 @@
    "pregunta": "¿En qué estadio de ERC se encuentra y cuál es la indicación nefroprotectora recomendada?",
    "opciones": {
     "a": "Estadio G3b; se indica tratamiento con IECA o ARA-II junto con iSGLT2 para reducir la intraglomerular y proteinuria.",
-    "b": "Estadio G2; se debe suspender toda medicación antihipertensiva y reemplazar por diuréticos tiazídicos en dosis alta.",
+    "b": "Estadio G2; se debe suspender toda medicación antihipertensiva y reemplazar por diuréticos tiazídicos en dosis alta de forma permanente.",
     "c": "Estadio G4; se contraindica el uso de IECA/ARA-II por riesgo de hipertensión maligna, indicándose AINEs crónicos.",
     "d": "Estadio G5 (fase terminal); requiere el inicio inmediato de hemodiálisis de urgencia e inscripción en trasplante."
    },
@@ -218,7 +218,7 @@
    "pregunta": "Un paciente varón de 67 años, tabaquista pesado (40 paquetes/año), consulta por hematuria macroscópica indolora y total, con coágulos, de 3 semanas de evolución. ¿Cuál es la sospecha diagnóstica principal, el tipo histológico más frecuente y los estudios de elección?",
    "opciones": {
     "a": "Carcinoma urotelial de vejiga; se investiga mediante ecografía vesicoprostática, citología urinaria y cistoscopia.",
-    "b": "Tumor de Wilms del adulto; se confirma mediante la medición de niveles plasmáticos de gonadotropina coriónica.",
+    "b": "Tumor de Wilms del adulto; se confirma mediante la medición de niveles plasmáticos de gonadotropina coriónica, y se trata con nefrectomía simple.",
     "c": "Angiomiolipoma vesical benigno; se confirma mediante biopsia transrectal de próstata guiada por ecografía.",
     "d": "Adenocarcinoma renal de células claras; se confirma mediante urocultivo seriado y calciuria de 24 horas."
    },
@@ -243,7 +243,7 @@
    "numero": 19,
    "pregunta": "Respecto al Carcinoma de Células Renales (Tumor de células claras), ¿cuál es su forma de presentación clínica más habitual en la práctica médica actual y qué valor diagnóstico tiene la clásica 'tríada tumoral'?",
    "opciones": {
-    "a": "La tríada clásica se presenta en el 90% de los pacientes en estadios iniciales, siendo la forma típica de detección.",
+    "a": "La tríada clásica se presenta en el 90% de los pacientes en estadios iniciales, siendo la forma típica de detección, independientemente del estadio.",
     "b": "Se manifiesta en el 100% de los casos como una cistitis recurrente refractaria a antibióticos de amplio espectro.",
     "c": "Debuta siempre con insuficiencia renal anúrica aguda y requiere biopsia percutánea obligatoria inicial.",
     "d": "Es mayoritariamente un hallazgo incidental en ecografía/TC, ya que la tríada clásica ocurre en <10% e indica avance."
@@ -257,7 +257,7 @@
    "pregunta": "En un paciente con ERC estadio G4 (TFG de 22 mL/min) que requiere tratamiento antibiótico por una infección, ¿qué diferencia farmacocinética existe entre la Cefalexina (1° gen) y la Ceftriaxona (3° gen) respecto a la necesidad de ajuste de dosis?",
    "opciones": {
     "a": "Ambas drogas se inactivan exclusivamente por metabolismo CYP3A4, por lo que ninguna requiere modificación.",
-    "b": "La Cefalexina se elimina por vía biliar y no requiere ajuste; la Ceftriaxona es nefrotóxica directa si TFG <60.",
+    "b": "La Cefalexina se elimina por vía biliar y no requiere ajuste; la Ceftriaxona es nefrotóxica directa si TFG <60, por lo que se evita siempre.",
     "c": "La Ceftriaxona requiere hemodiálisis previa a cada dosis, mientras la Cefalexina no se filtra en el glomérulo.",
     "d": "La Cefalexina requiere ajuste por eliminación renal; la Ceftriaxona tiene eliminación dual y no suele requerir ajuste."
    },
@@ -334,7 +334,7 @@
    "numero": 26,
    "pregunta": "Respecto a la clasificación de las Cefalosporinas y su perfil espectral en infecciones del tracto urinario, ¿cuál es la diferencia fundamental entre Cefalexina (1° generación) y Ceftriaxona (3° generación)?",
    "opciones": {
-    "a": "Ceftriaxona se elimina únicamente por excreción salival sin alcanzar concentraciones terapéuticas en orina.",
+    "a": "Ceftriaxona se elimina únicamente por excreción salival sin alcanzar concentraciones terapéuticas en orina, por lo que no se indica en infecciones urinarias.",
     "b": "Cefalexina posee cobertura exclusiva contra Pseudomonas aeruginosa y se administra solo por vía parenteral.",
     "c": "Cefalexina es resistente a todas las carbapenemasas y sustituye al Meropenem en sepsis urinaria grave.",
     "d": "Ceftriaxona tiene mayor potencia sobre enterobacterias gramnegativas y penetración tisular, siendo útil en pielonefritis."
@@ -477,7 +477,7 @@
    "numero": 37,
    "pregunta": "Un paciente con Insuficiencia Cardíaca y SIADH cursa con hiponatremia sintomática euvolémica/hipervolémica refractaria a la restricción hídrica. Se indica Tolvaptán. ¿Cuál es el mecanismo de acción de este grupo farmacológico (vaptanos)?",
    "opciones": {
-    "a": "Inhiben el simporte Na+/K+/2Cl- en el asa de Henle, produciendo una diuresis hipernatriurética masiva.",
+    "a": "Inhiben el simporte Na+/K+/2Cl- en el asa de Henle, produciendo una diuresis hipernatriurética masiva y pérdida urinaria de potasio.",
     "b": "Bloquean los canales de sodio ENaC en el túbulo proximal, induciendo la pérdida de bicarbonato.",
     "c": "Antagonizan selectivamente los receptores V2 de vasopresina en el túbulo colector, produciendo acuaresis.",
     "d": "Estimulan la síntesis de hormona antidiurética a nivel del núcleo supraóptico del hipotálamo."
@@ -584,7 +584,7 @@
     "a": "Tabaquismo intenso no abandonado y dislipemia grave no controlada con estatinas.",
     "b": "Infecciones urinarias bajas episódicas no complicadas en el paciente con función renal estable.",
     "c": "Persistencia de proteinuria significativa (relación albúmina/creatinina elevada) en orina.",
-    "d": "Mala resolución de la hipertensión arterial con presiones sistólicas persistentes >140 mmHg."
+    "d": "Mala resolución de la hipertensión arterial con presiones sistólicas persistentes >140 mmHg durante más de tres meses."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. Pregunta extraída del parcial 1 y correcciones oficiales de SIAM. Los factores de progresión de la ERC son aquellos que aceleran la pérdida sostenida de la tasa de filtración glomerular a lo largo del tiempo. Entre ellos se destacan la hipertensión arterial no controlada, la proteinuria persistente (que induce toxicidad tubulointersticial), el tabaquismo y la dislipemia. En cambio, las infecciones del tracto urinario bajas episódicas NO son un factor directo de progresión de la insuficiencia renal crónica, sino que pueden actuar como factores descompensantes agudos transitorios o intercurrencias. Las opciones A, C y D son factores de progresión ampliamente validados por los consensos."
@@ -649,7 +649,7 @@
     "a": "Análogos del receptor de GLP-1 (ej. Dulaglutida), por acelerar el vaciamiento gástrico de forma irreversible.",
     "b": "Sulfonilureas de primera y segunda generación (ej. Glibenclamida), por eliminación renal de metabolitos activos.",
     "c": "Inhibidores de SGLT2 (ej. Dapagliflozina), por inducir cetoacidosis e hipertensión arterial maligna.",
-    "d": "Insulinas de acción ultralenta (ej. Degludec), por estar contraindicadas en cualquier paciente mayor de 65 años."
+    "d": "Insulinas de acción ultralenta (ej. Degludec), por estar contraindicadas en cualquier paciente mayor de 65 años y con deterioro cognitivo."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. Pregunta del parcial 1 y correcciones de SIAM. Las Sulfonilureas (especialmente la Glibenclamida y Clorpropamida) se eliminan por vía renal y poseen metabolitos activos que se acumulan peligrosamente cuando la función renal está reducida (TFG <30-50 mL/min). Esto desencadena episodios de hipoglucemia severa, prolongada y potencialmente fatal en el adulto mayor. Por este motivo, están formalmente desaconsejadas o contraindicadas en ERC avanzada. La opción C es INCORRECTA porque los iSGLT2 no causan hipertensión sino nefroprotección (aunque pierden efecto hipoglucemiante si la TFG es muy baja, no inducen hipoglucemia por sí solos). La opción A es INCORRECTA porque los arGLP-1 no aceleran sino que retrasan el vaciamiento gástrico. La opción D es INCORRECTA porque la insulina no está contraindicada por edad, sino que requiere ajuste por menor aclaramiento."
@@ -685,7 +685,7 @@
    "numero": 53,
    "pregunta": "Un paciente varón de 65 años consulta por chorro miccional débil, vacilación miccional y nicturia de 3 episodios por noche. Al tacto rectal se palpa una próstata de 40 g, lisa, elástica, simétrica e indolora, con surco medio conservado. PSA sérico: 2,1 ng/mL. ¿Cuál es el diagnóstico presuntivo y el tratamiento inicial?",
    "opciones": {
-    "a": "Cáncer de vejiga no músculo-invasivo; se solicita urocultivo seriado y citología de orina.",
+    "a": "Cáncer de vejiga no músculo-invasivo; se solicita urocultivo seriado y citología de orina cada tres meses.",
     "b": "Hiperplasia Benigna de Próstata; se indica un alfa-1 bloqueante como Tamsulosina 0,4 mg/día.",
     "c": "Adenocarcinoma prostático estadio T2; se deriva de urgencia para prostatectomía radical.",
     "d": "Prostatitis bacteriana crónica; se indica Ciprofloxacina 500 mg cada 12 horas por 21 días."
@@ -764,7 +764,7 @@
    "pregunta": "Un paciente hipertenso de 68 años con monorreno funcional e Insuficiencia Renal Crónica presenta una ecografía Doppler que confirma estenosis de la arteria renal del riñón único. ¿Por qué están FORMALMENTE CONTRAINDICADOS los IECA (Enalapril) o ARA-II (Losartán) en esta condición?",
    "opciones": {
     "a": "Porque inducen la precipitación de la droga en los túbulos colectores causando uropatía obstructiva.",
-    "b": "Porque estimulan la síntesis incontrollada de eritropoyetina produciendo un síndrome de hiperviscosidad.",
+    "b": "Porque estimulan la síntesis incontrollada de eritropoyetina produciendo un síndrome de hiperviscosidad con trombosis venosa renal.",
     "c": "Porque producen vasoconstricción masiva de la arteriola aferente desencadenando necrosis cortical.",
     "d": "Porque suprimen la vasoconstricción eferente, anulando la presión de filtración y causando falla renal aguda."
    },
@@ -843,7 +843,7 @@
    "opciones": {
     "a": "Fosfofructosa de calcio asociada a infecciones recurrentes por Escherichia coli enterotóxica.",
     "b": "Estruvita (fosfato de magnesio y amonio) asociada a bacterias productoras de ureasa como Proteus.",
-    "c": "Cistina insolubilizada por la presencia de bacteriuria asintomática por Streptococcus agalactiae.",
+    "c": "Cistina insolubilizada por la presencia de bacteriuria asintomática por Streptococcus agalactiae en la vejiga urinaria.",
     "d": "Ácido úrico puro producido por la sobreproducción de toxinas de Enterococcus faecalis."
    },
    "respuesta_correcta": "b",
@@ -855,7 +855,7 @@
    "pregunta": "Escherichia coli uropatógena (UPEC) es la causa de más del 80% de las infecciones urinarias comunitarias. ¿Qué factor de virulencia estructural le permite adherirse específicamente a las células del epitelio renal y desencadenar pielonefritis?",
    "opciones": {
     "a": "Exotoxina A que destruye los podocitos del glomérulo produciendo proteinuria nefrótica.",
-    "b": "Cápsula de polisacáridos K1 que inactiva el complemento a nivel de la vejiga únicamente.",
+    "b": "Cápsula de polisacáridos K1 que inactiva el complemento a nivel de la vejiga únicamente y no participa en la sepsis.",
     "c": "Flagelo H7 que permite la locomoción retrógrada exclusivamente en medios con pH ácido.",
     "d": "Fimbrias P (adhesinas P o pili asociadas a pielonefritis) que se unen al digalactósido urotelial."
    },
@@ -882,7 +882,7 @@
    "opciones": {
     "a": "Exposición crónica a berilio en la industria de la orfebrería y orfebrería sacra.",
     "b": "Inhalación de polvos de sílice en trabajadores de canteras de mármol y granito.",
-    "c": "Consumo continuado de agua con concentraciones elevadas de flúor sintético purificado.",
+    "c": "Consumo continuado de agua con concentraciones elevadas de flúor sintético purificado durante más de diez años.",
     "d": "Exposición ocupacional a aminas aromáticas en la industria del caucho, tintes y textiles."
    },
    "respuesta_correcta": "d",
@@ -909,7 +909,7 @@
     "a": "Porque los beta-lactámicos son destruidos por la amilasa prostática de forma irreversible en 5 minutos.",
     "b": "Porque se inactivan por la acidez del jugo prostático acumulándose exclusivamente en los testículos.",
     "c": "Porque poseen liposolubilidad y bajo enlace proteico, penetrando la barrera epitelial del estroma prostático.",
-    "d": "Porque el pH básico de la secreción prostática neutraliza completamente a las penicilinas y cefalosporinas."
+    "d": "Porque el pH básico de la secreción prostática neutraliza completamente a las penicilinas y cefalosporinas administradas por vía oral."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. Tema de Farmacología de la Prostatitis evaluado en finales. El estroma y el epitelio prostático constituyen una 'barrera próstata-sangre' lipídica difícil de atravesar para muchos antibióticos. Los beta-lactámicos (penicilinas, cefalosporinas) son hidrosolubles y están ionizados al pH plasmático, lo que impide su difusión hacia el parénquima prostático no inflamado en la fase crónica. En cambio, las Fluoroquinolonas (Ciprofloxacina, Levofloxacina) y la Trimetoprima son moléculas liposolubles, con bajo peso y pKa adecuado, lo que les permite atravesar el epitelio prostático y alcanzar concentraciones bactericidas en el tejido y secreción prostática. La opción A, B y D inventan mecanismos de inactivación inexistentes."
@@ -985,7 +985,7 @@
    "pregunta": "En el rastreo y diagnóstico diferencial de la patología prostática con Antígeno Prostático Específico (PSA) en el rango de 'zona gris' (4 a 10 ng/mL), ¿cuál es la interpretación clínica correcta de la relación PSA libre / PSA total?",
    "opciones": {
     "a": "Un porcentaje de PSA libre bajo (<10-15%) aumenta significativamente la probabilidad de Adenocarcinoma.",
-    "b": "El PSA libre no se modifica por patologías benignas y sólo se eleva en metástasis óseas avanzadas.",
+    "b": "El PSA libre no se modifica por patologías benignas y sólo se eleva en metástasis óseas avanzadas en cualquier grupo etario.",
     "c": "Una relación PSA libre/total de 1,0 confirma el diagnóstico de prostatitis tuberculosa latente.",
     "d": "Un porcentaje de PSA libre elevado (>25%) se asocia a mayor riesgo de Cáncer de Próstata."
    },
@@ -1062,7 +1062,7 @@
    "numero": 82,
    "pregunta": "Al comparar la Indometacina (AINE no selectivo) con el Celecoxib (inhibidor selectivo COX-2) a nivel de la función renal en un paciente hipertenso con TFG reducida, ¿qué efecto renal adverso comparten ambos fármacos?",
    "opciones": {
-    "a": "La Indometacina causa acidosis respiratoria, mientras el Celecoxib produce alcalosis metabólica hiperclorémica.",
+    "a": "La Indometacina causa acidosis respiratoria, mientras el Celecoxib produce alcalosis metabólica hiperclorémica durante el tratamiento prolongado.",
     "b": "Celecoxib produce vasculitis renal aguda exclusiva, mientras la Indometacina induce nefrocalcinosis grave.",
     "c": "Ambos inhiben prostaglandinas renales, produciendo retención de sodio, elevación de la TA y vasoconstricción aferente.",
     "d": "Ambos reducen la producción de eritropoyetina estimulando una crisis hemolítica autoinmune intravascular."
@@ -1128,7 +1128,7 @@
    "pregunta": "En la fisiopatología de la nefrolitiasis, ¿cuál es el mecanismo protector del Citrato urinario en la prevención de la cristalización y formación de cálculos de Oxalato de Calcio?",
    "opciones": {
     "a": "Forma complejos solubles con el Calcio en la luz tubular, reduciendo el Calcio libre iónico.",
-    "b": "Alcaliniza la orina destruyendo la pared celular de las enterobacterias uropatógenas.",
+    "b": "Alcaliniza la orina destruyendo la pared celular de las enterobacterias uropatógenas, con efecto bactericida inmediato.",
     "c": "Inhibe la síntesis hepática de la enzima xantino oxidasa reduciendo el ácido úrico.",
     "d": "Estimula la reabsorción de magnesio en la rama ascendente del asa de Henle."
    },
@@ -1205,7 +1205,7 @@
    "numero": 93,
    "pregunta": "En un paciente con hiponatremia dilucional hipervolémica grave secundaria a Insuficiencia Cardíaca o Cirrosis, ¿cuál es el riesgo neurológico crítico de una corrección plasmática excesivamente rápida del Sodio mediante el uso de Tolvaptán o solución salina hipertónica?",
    "opciones": {
-    "a": "Síndrome de Lisis Tumoral agudo con hiperuricemia masiva.",
+    "a": "Síndrome de Lisis Tumoral agudo con hiperuricemia masiva con hiperfosfatemia y falla renal.",
     "b": "Mielinolisis central pontina (síndrome de desmielinización osmótica).",
     "c": "Necrosis avascular bilateral de la cabeza femoral.",
     "d": "Edema cerebral agudo con herniación uncal inminente."
@@ -1219,7 +1219,7 @@
    "pregunta": "En el tratamiento empírico de la sepsis urológica intrahospitalaria o en pacientes con riesgo de infección por Pseudomonas aeruginosa, ¿cuál es la ventaja del Cefepime (Cefalosporina de 4° generación) frente a la Ceftriaxona (3° generación)?",
    "opciones": {
     "a": "Cobertura contra Pseudomonas aeruginosa y mayor estabilidad frente a beta-lactamasas AmpC.",
-    "b": "Ausencia total de eliminación renal, siendo segura en anuria dialítica sin ajuste.",
+    "b": "Ausencia total de eliminación renal, siendo segura en anuria dialítica sin ajuste y menor costo que otras opciones.",
     "c": "Mayor potencia exclusiva contra cocos grampositivos meticilino-resistentes (SAMR).",
     "d": "Capacidad de administrarse por vía oral en dosis única semanal."
    },
@@ -1260,7 +1260,7 @@
     "a": "Inhiben la liberación de renina mediada por el bloqueo de los receptores beta-1 adrenérgicos.",
     "b": "Bloquean la conversión periférica de angiotensina I en angiotensina II en el pulmón.",
     "c": "Estimulan masivamente la síntesis de renina por activación de los receptores beta-2.",
-    "d": "Destruyen las células de la mácula densa impidiendo la retroalimentación tubuloglomerular."
+    "d": "Destruyen las células de la mácula densa impidiendo la retroalimentación tubuloglomerular del aparato yuxtaglomerular."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. Las células yuxtaglomerulares del riñón poseen inervación simpática y expresan receptores β₁-adrenérgicos. La estimulación simpática estimula la síntesis y liberación de renina hacia la sangre. Los betabloqueantes (β₁-selectivos o no selectivos) bloquean estos receptores en el aparato yuxtaglomerular, INHIBIENDO la liberación de renina. Esto suprime la cascada del sistema Renina-Angiotensina-Aldosterona (SRAA), reduciendo los niveles de Angiotensina II y Aldosterona, contribuyendo de forma crucial a su efecto antihipertensivo. La opción C señala el efecto opuesto. La opción B es el mecanismo de los IECA (vía ECA pulmonar). La opción D es un mecanismo citotóxico falso."

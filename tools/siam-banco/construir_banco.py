@@ -27,7 +27,11 @@ for u in fuente['unidades']:
     preguntas = [limpiar_pregunta(p) for p in u['preguntas']]
     for p in preguntas:
         for letra, txt in (parches.get(p['id']) or {}).items():
-            if letra in p['opciones']:
+            if letra.endswith('+') and letra[:-1] in p['opciones']:
+                # "d+": agrega una cola al final de la opcion (antes del punto final), sin tocar el resto del texto
+                k = letra[:-1]; base = p['opciones'][k]; punto = '.' if base.endswith('.') else ''
+                p['opciones'][k] = limpiar_texto(base.rstrip('.') + txt + punto)
+            elif letra in p['opciones']:
                 p['opciones'][letra] = limpiar_texto(txt)
             elif letra in ('p', 'j'):                            # 'p' = enunciado, 'j' = justificacion
                 campo = 'pregunta' if letra == 'p' else 'justificacion'

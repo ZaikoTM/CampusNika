@@ -9,13 +9,15 @@
   "a": "Inhibe la enzima convertidora de angiotensina; la meta es uricemia <10 mg/dL sin requerir ninguna profilaxis asociada.",
   "b": "Inactiva la enzima ciclooxigenasa-2; la meta es una uricemia de 4 mg/dL administrando antibióticos orales asociados.",
   "c": "Inhibe la xantino oxidasa; la meta es uricemia <6 mg/dL (<5 en tofos) y requiere profilaxis con Colchicina a dosis baja durante 3 a 6 meses.",
-  "d": "Estimula la reabsorción tubular proximal de urato; la meta es una uricemia de 8 mg/dL usando dosis altas de aspirina."
+  "d": "Estimula la reabsorción tubular proximal de urato; la meta es una uricemia de 8 mg/dL usando dosis altas de aspirina.",
+  "a+": ", ni control de la función renal"
  },
  "SIAM-UP3-015": {
   "a": "Eritema nodoso pretibial; se trata con antibióticos betalactámicos y reposo absoluto en cama.",
   "b": "Nódulos de Bouchard; se trata con metotrexato oral y terapia biológica anti-TNF de inicio.",
   "c": "Nódulos de Heberden; el pilar inicial es educación, descenso de peso, ejercicio y Paracetamol o AINEs tópicos.",
-  "d": "Tofos gotosos sinoviales; se trata con alopurinol en dosis de carga y diálisis de urgencia."
+  "d": "Tofos gotosos sinoviales; se trata con alopurinol en dosis de carga y diálisis de urgencia.",
+  "a+": " asociados a corticoides orales"
  },
  "SIAM-UP3-018": {
   "a": "Inducen hipoglucemia severa por destrucción pancreática; la suspensión abrupta causa hipercalciuria masiva y litiasis.",
@@ -26,7 +28,8 @@
  "SIAM-UP3-019": {
   "a": "Síndrome de Munchausen geriátrico; refleja la simulación consciente de un déficit motor con fines de ganancia económica.",
   "c": "Demencia pugilística de inicio tardío; refleja la acumulación de proteína tau en los núcleos subtalámicos bilaterales.",
-  "d": "Síndrome Post-Caída (miedo a caerse o ptofobia); refleja la dificultad para elaborar el duelo por la pérdida de capacidades físicas."
+  "d": "Síndrome Post-Caída (miedo a caerse o ptofobia); refleja la dificultad para elaborar el duelo por la pérdida de capacidades físicas.",
+  "a+": " y búsqueda de beneficios"
  },
  "SIAM-UP3-025": {
   "a": "El Alopurinol NO debe iniciarse en el brote agudo; la variación brusca de la uricemia desestabiliza los cristales.",
@@ -36,7 +39,8 @@
   "a": "Hipersecreción gástrica hiperácida con hipertrofia del esfínter vesical interno y retención urinaria.",
   "b": "Estreñimiento (por enlentecimiento del tránsito colónico) e hiperreflexia del detrusor (urgencia y nocturia).",
   "c": "Acalasia cricofaríngea aislada con anuria urémica obstructiva aguda y pérdida de la función renal.",
-  "d": "Diarrea secretora acuosa profusa con incontinencia urinaria por rebosamiento arrefléxico y vejiga atónica."
+  "d": "Diarrea secretora acuosa profusa con incontinencia urinaria por rebosamiento arrefléxico y vejiga atónica.",
+  "d+": " y sequedad bucal"
  },
  "SIAM-UP3-042": {
   "d": "Presentan latencia de respuesta de 2 a 4 semanas, efecto remanente (carry-over) tras suspenderse y estimulan la síntesis de proteoglicanos."
@@ -56,13 +60,15 @@
   "a": "Bloquea los canales de calcio vasculares; su signo tóxico es la hipertensión endocraneana con edema papilar bilateral.",
   "b": "Inhibe la xantino oxidasa en los fagocitos; su signo tóxico es la sialorrea con ulceración lingual y gingival severa.",
   "c": "Inhibe irreversiblemente la ciclooxigenasa-1 plaquetaria; su signo tóxico es el estreñimiento pertinaz con íleo paralítico.",
-  "d": "Se une a la tubulina e impide la polimerización de microtúbulos (bloquea la quimiotaxis de neutrófilos); su signo tóxico inicial es la diarrea."
+  "d": "Se une a la tubulina e impide la polimerización de microtúbulos (bloquea la quimiotaxis de neutrófilos); su signo tóxico inicial es la diarrea.",
+  "c+": ", que aparece a las pocas horas"
  },
  "SIAM-UP3-050": {
   "a": "Porque aumenta la síntesis de hemoglobina y causa poliglobulia severa con trombosis arterial de miembros.",
   "b": "Porque induce la formación inmediata de tofos úricos a nivel de la corteza renal y de las articulaciones.",
   "c": "Porque inactiva la acción de la insulina, induciendo cetoacidosis diabética no cetósica en el anciano.",
-  "d": "Porque produce bloqueo colinérgico central y periférico grave: confusión, alucinaciones, retención urinaria y glaucoma."
+  "d": "Porque produce bloqueo colinérgico central y periférico grave: confusión, alucinaciones, retención urinaria y glaucoma.",
+  "a+": " y aumenta el riesgo de ACV"
  },
  "SIAM-UP3-051": {
   "a": "Mioclonía espinal segmentaria; el tratamiento de elección es el fenobarbital oral en dosis de carga alta.",
@@ -95,13 +101,15 @@
   "a": "El Febuxostat es un uricosúrico directo que actúa bloqueando el cotransportador URAT-1 en el asa de Henle ascendente.",
   "b": "El Febuxostat es un inhibidor selectivo no purínico de la xantino oxidasa que bloquea sus formas reducida y oxidada, sin ajuste en ERC leve-moderada.",
   "c": "El Febuxostat destruye al ácido úrico circulante convirtiéndolo en alantoína mediante lisis enzimática directa en el plasma.",
-  "d": "El Febuxostat inhibe la ciclooxigenasa-2 de los neutrófilos e impide así la fagocitosis de los cristales de urato."
+  "d": "El Febuxostat inhibe la ciclooxigenasa-2 de los neutrófilos e impide así la fagocitosis de los cristales de urato.",
+  "c+": ", sin intervención de la xantino oxidasa ni de la urato oxidasa"
  },
  "SIAM-UP3-062": {
   "a": "Salicilato no acetilado; produce sordera de conducción reversible con neuropatía motora periférica y tinnitus.",
   "b": "Derivado del ácido propiónico; produce sedación profunda con paresia del III par craneal y midriasis arreactiva bilateral.",
   "c": "Derivado del ácido indolacético; potente inhibidor de COX que causa cefalea, vértigo y mareos en el 25-50 % de los pacientes.",
-  "d": "Oxicam selectivo; produce parestesias generalizadas con convulsiones focales de origen temporal y fotofobia."
+  "d": "Oxicam selectivo; produce parestesias generalizadas con convulsiones focales de origen temporal y fotofobia.",
+  "b+": " y estreñimiento severo"
  },
  "SIAM-UP3-064": {
   "c": "Lesiones en diana o escarapela acrales y simétricas; compromiso mucoso nulo o de una sola mucosa (oral leve); lo desencadena principalmente el Virus del Herpes Simple (HSV).",
@@ -128,7 +136,8 @@
   "a": "Debilidad de los dorsiflexores del pie por lesión del nervio peroneo común (poplíteo externo) o de la raíz L5.",
   "b": "Hipertonía espástica del cuádriceps por sección completa de la médula cervical C3 con nivel sensitivo.",
   "c": "Disfunción de las vellosidades aracnoideas con hidrocefalia normotensiva y alteración de la marcha.",
-  "d": "Atrofia del lóbulo occipital izquierdo con destrucción del área motora primaria y del área visual."
+  "d": "Atrofia del lóbulo occipital izquierdo con destrucción del área motora primaria y del área visual.",
+  "b+": ", sin compromiso de la sensibilidad"
  },
  "SIAM-UP3-071": {
   "a": "Administración subcutánea diaria durante 3 meses; eliminación biliar; profilaxis con antibióticos betalactámicos orales.",
@@ -143,7 +152,8 @@
  "SIAM-UP3-073": {
   "a": "Sintetizado por osteocitos ante la hiperfosfatemia; inhibe los cotransportadores Na/Pi del túbulo proximal (fosfaturia) y la 1-alfa-hidroxilasa.",
   "b": "Sintetizado por los hepatocitos en respuesta a la hipoglucemia; promueve la fijación de calcio en las arterias coronarias.",
-  "d": "Sintetizado por las neuronas del hipotálamo posterior ante la deshidratación; estimula la síntesis de PTH y de calcitonina."
+  "d": "Sintetizado por las neuronas del hipotálamo posterior ante la deshidratación; estimula la síntesis de PTH y de calcitonina.",
+  "c+": ", y reduce la absorción intestinal de calcio"
  },
  "SIAM-UP3-074": {
   "a": "Restricción hídrica absoluta de 200 mL/día, exposición directa a luz solar ultravioleta y uso de jabones alcalinos concentrados en las lesiones.",
@@ -160,19 +170,22 @@
  "SIAM-UP3-078": {
   "a": "Proliferación de tejido adiposo maduro no inflamatorio, benigno y encapsulado; se ubican en la mucosa del colon sigmoides.",
   "c": "Acúmulos de cristales de urato monosódico con reacción granulomatosa de cuerpo extraño; se ubican en hélix auricular, bursa olecraniana y tendón de Aquiles.",
-  "d": "Infiltrado de amiloide AL con células tumorales plasmáticas atípicas; se ubican preferentemente en la corteza suprarrenal."
+  "d": "Infiltrado de amiloide AL con células tumorales plasmáticas atípicas; se ubican preferentemente en la corteza suprarrenal.",
+  "b+": ", y suelen verse en niños con hipercalcemia"
  },
  "SIAM-UP3-079": {
   "a": "Presencia de catarata senil con disminución de la agudeza visual y alteración de la percepción de profundidad.",
   "b": "Presencia de hipotensión ortostática por polifarmacia antihipertensiva y deshidratación crónica.",
   "c": "Disminución de la masa muscular (sarcopenia) con inestabilidad postural y lentitud de la marcha.",
-  "d": "Mala iluminación de pasillos y escaleras, alfombras sueltas, calzado inadecuado y falta de agarraderas en el baño."
+  "d": "Mala iluminación de pasillos y escaleras, alfombras sueltas, calzado inadecuado y falta de agarraderas en el baño.",
+  "a+": " en ambos ojos"
  },
  "SIAM-UP3-080": {
   "a": "Uso de alopurinol en dosis de carga, iniciado al primer síntoma cutáneo de cada recurrencia.",
   "b": "Tratamiento supresor crónico con un antiviral oral (aciclovir o valaciclovir) durante 6 a 12 meses.",
   "c": "Aplicación de inmunoglobulina intravenosa semanal con inmovilización de miembros durante el brote.",
-  "d": "Administración de corticoides orales en dosis altas de forma continua durante 5 años seguidos."
+  "d": "Administración de corticoides orales en dosis altas de forma continua durante 5 años seguidos.",
+  "c+": " y reposo estricto"
  },
  "SIAM-UP3-082": {
   "a": "La presencia de proteinuria de Bence-Jones en la tira reactiva de orina, repetida en tres controles.",
@@ -184,31 +197,36 @@
   "a": "Seudomembranas, simbléfaron, triquiasis y ceguera; se previenen con lubricación continua, colirios tópicos y liberación diaria de adherencias.",
   "b": "Glaucoma neovascular agudo; requiere únicamente la oclusión ocular binaural con parches secos durante 15 días.",
   "c": "Desprendimiento retinal exudativo; requiere fotocoagulación con láser de forma ambulatoria en la primera semana.",
-  "d": "Catarata nuclear bilateral; requiere facoemulsificación quirúrgica de urgencia en las primeras 6 horas de internación."
+  "d": "Catarata nuclear bilateral; requiere facoemulsificación quirúrgica de urgencia en las primeras 6 horas de internación.",
+  "d+": ", asociada a fotofobia y blefarospasmo"
  },
  "SIAM-UP3-085": {
   "a": "Fagocitosis de los cristales por macrófagos sinoviales con activación del inflamasoma NLRP3 y liberación masiva de IL-1β.",
   "b": "Inhibición directa de la enzima ciclooxigenasa-2 con supresión de la prostaglandina E2 en la membrana sinovial.",
   "c": "Activación de la vía alternativa del complemento con lisis pura de los osteoblastos del hueso subcondral.",
-  "d": "Estimulación de los receptores muscarínicos M3 en los condrocitos con secreción de calcitonina y de osteoprotegerina."
+  "d": "Estimulación de los receptores muscarínicos M3 en los condrocitos con secreción de calcitonina y de osteoprotegerina.",
+  "d+": " con liberación de histamina"
  },
  "SIAM-UP3-086": {
   "a": "Estimulan la síntesis de colágeno óseo; la profilaxis solo se indica si la calcemia supera los 15 mg/dL de forma sostenida.",
   "b": "Aumentan la reabsorción intestinal de calcio; la profilaxis exige el uso de diuréticos tiazídicos a dosis altas y reposo.",
   "c": "Inducen apoptosis de osteoblastos y osteocitos e incrementan el RANKL; se indica profilaxis con bisfosfonatos con prednisona ≥5 mg/día por ≥3 meses.",
-  "d": "Inhiben de forma irreversible a los osteoclastos; no se requiere profilaxis ni suplementación de calcio ni de vitamina D."
+  "d": "Inhiben de forma irreversible a los osteoclastos; no se requiere profilaxis ni suplementación de calcio ni de vitamina D.",
+  "a+": ", y la suplementación con calcio está contraindicada"
  },
  "SIAM-UP3-087": {
   "a": "Neuritis vestibular aguda; diagnóstico por audiometría tonal; tratamiento con aciclovir oral durante 7 días.",
   "b": "Enfermedad de Menière; diagnóstico por electrocochleografía; tratamiento con dieta hipersódica y diuréticos.",
   "c": "ACV isquémico de la arteria basilar; diagnóstico por radiografía de tórax; tratamiento con aspirina oral.",
-  "d": "Vértigo posicional paroxístico benigno (VPPB); diagnóstico por maniobra de Dix-Hallpike y tratamiento con maniobra de Epley."
+  "d": "Vértigo posicional paroxístico benigno (VPPB); diagnóstico por maniobra de Dix-Hallpike y tratamiento con maniobra de Epley.",
+  "a+": ", y posterior reposo prolongado en cama"
  },
  "SIAM-UP3-088": {
   "a": "Síndrome de acinesia aguda (tipo neuroléptico maligno) con rigidez severa, hipertermia, disautonomía y CPK elevada.",
   "b": "Precipitación de una crisis tirotoxicósica con exoftalmos bilateral y fibrilación auricular rápida.",
   "c": "Desarrollo de condrocalcinosis masiva en ambas articulaciones temporomandibulares con trismo secundario.",
-  "d": "Aparición de hipoglucemia severa con alcalosis respiratoria pura y cetoacidosis diabética concomitante."
+  "d": "Aparición de hipoglucemia severa con alcalosis respiratoria pura y cetoacidosis diabética concomitante.",
+  "c+": ", y dolor facial persistente"
  },
  "SIAM-UP3-089": {
   "a": "El desarrollo de hiperbulia con conducta atlética de alto riesgo y búsqueda activa de nuevos desafíos.",
@@ -220,7 +238,8 @@
   "a": "Aumenta la filtración glomerular al bloquear los receptores de aldosterona en el túbulo colector renal distal.",
   "b": "Se metaboliza de forma exclusiva en el líquido cefalorraquídeo sin pasar nunca a la circulación sistémica.",
   "c": "Destruye de forma irreversible las fibras nociceptivas tipo C en la corteza parietal y el tálamo.",
-  "d": "Alcanza concentraciones plasmáticas <10 % de la vía oral; analgesia local con mínimo riesgo gastrointestinal, renal y cardiovascular."
+  "d": "Alcanza concentraciones plasmáticas <10 % de la vía oral; analgesia local con mínimo riesgo gastrointestinal, renal y cardiovascular.",
+  "a+": ", con retención de sodio y edema periférico"
  },
  "SIAM-UP3-091": {
   "a": "Receptor con actividad tirosina quinasa intrínseca; fosforila directamente el sustrato IRS-1 de la insulina.",
@@ -232,7 +251,8 @@
   "a": "Exantema fijo medicamentoso (erupción fija por drogas).",
   "b": "Eritema polimorfo minor vesicular acral recurrente.",
   "c": "Pénfigo vulgar mucocutáneo autoinmune ampolloso.",
-  "d": "Necrólisis epidérmica tóxica extensa con despegamiento."
+  "d": "Necrólisis epidérmica tóxica extensa con despegamiento.",
+  "d+": " cutáneo"
  },
  "SIAM-UP3-093": {
   "a": "Síndrome de Guillain-Barré axonal; se trata con plasmaféresis y corticoides en altas dosis.",
@@ -262,13 +282,15 @@
   "a": "Estimulan la excreción biliar de ácido úrico mediante la vía de los ácidos biliares y la bilirrubina.",
   "b": "Bloquean el cotransportador URAT-1 en el túbulo contorneado proximal y aumentan la uricosuria.",
   "c": "Inhiben la enzima xantino oxidasa e impiden la síntesis de xantina a partir de la hipoxantina.",
-  "d": "Catalizan la conversión del ácido úrico en alantoína, producto inactivo y 5 a 10 veces más soluble que se elimina por orina."
+  "d": "Catalizan la conversión del ácido úrico en alantoína, producto inactivo y 5 a 10 veces más soluble que se elimina por orina.",
+  "a+": ", y reducen la uricemia por esa vía"
  },
  "SIAM-UP3-098": {
   "a": "Desarrollo de necrosis hepática difusa con hipertensión portal no cirrótica y esplenomegalia.",
   "b": "Glomerulonefritis rápidamente progresiva por depósitos de complejos inmunes IgG4 en el glomérulo.",
   "c": "Aparición de diabetes insípida nefrogénica por destrucción del túbulo colector y polidipsia.",
-  "d": "Hipercalciuria con riesgo de nefrocalcinosis, litiasis e insuficiencia renal, más calcificación de ganglios basales."
+  "d": "Hipercalciuria con riesgo de nefrocalcinosis, litiasis e insuficiencia renal, más calcificación de ganglios basales.",
+  "b+": " y proteinuria en rango nefrótico"
  },
  "SIAM-UP3-099": {
   "a": "Retirar primero la Levodopa; si persisten las alucinaciones indicar Haloperidol IV a dosis altas por 48 horas.",
@@ -281,5 +303,68 @@
   "b": "Ocurre cuando se administran vacunas virales en dosis pediátricas a un paciente joven, lo que aumenta las reacciones adversas locales y sistémicas.",
   "c": "Ocurre cuando se suspenden los antibióticos al segundo día de tratamiento por mejoría clínica, favoreciendo la resistencia bacteriana posterior.",
   "d": "Ocurre cuando el paciente olvida tomar sus remedios durante el fin de semana y luego duplica las dosis al retomar el tratamiento habitual."
+ },
+ "SIAM-UP3-001": {
+  "c+": " y de los túbulos renales"
+ },
+ "SIAM-UP3-007": {
+  "a+": ", y aumenta la actividad de la COMT"
+ },
+ "SIAM-UP3-008": {
+  "d+": ", y las manifestaciones serían contralaterales a la lesión"
+ },
+ "SIAM-UP3-013": {
+  "c+": ", ni seguimiento densitométrico anual"
+ },
+ "SIAM-UP3-016": {
+  "c+": " durante tres años seguidos"
+ },
+ "SIAM-UP3-017": {
+  "b+": ", con hipotensión ortostática marcada"
+ },
+ "SIAM-UP3-026": {
+  "b+": ", con alteración de la comprensión"
+ },
+ "SIAM-UP3-027": {
+  "a+": " y densitometría de antebrazo"
+ },
+ "SIAM-UP3-028": {
+  "a+": ", y empeora con los movimientos cefálicos"
+ },
+ "SIAM-UP3-032": {
+  "b+": ", de forma sistemática"
+ },
+ "SIAM-UP3-038": {
+  "a+": " ni de los reflejos"
+ },
+ "SIAM-UP3-039": {
+  "b+": ", sin otras complicaciones"
+ },
+ "SIAM-UP3-040": {
+  "c+": " y hospitalización inmediata"
+ },
+ "SIAM-UP3-048": {
+  "d+": " con compromiso de la columna"
+ },
+ "SIAM-UP3-053": {
+  "b+": " con compromiso de la articulación"
+ },
+ "SIAM-UP3-058": {
+  "d+": ", y su efecto adverso principal es la hepatitis fulminante aguda"
+ },
+ "SIAM-UP3-061": {
+  "d+": ", y su déficit produce hipocalcemia refractaria"
+ },
+ "SIAM-UP3-081": {
+  "b+": ", con elevación de la creatinina quinasa a más de 10.000 U/L"
+ },
+ "SIAM-UP3-083": {
+  "d+": " con apraxia precoz"
+ },
+ "SIAM-UP3-069": {
+  "a": "Hidrocortisona (cortisol natural).",
+  "b": "Fludrocortisona (fluorcortisol).",
+  "c": "Prednisona (cortisona sintética).",
+  "d": "Dexametasona (de acción prolongada)."
  }
 }

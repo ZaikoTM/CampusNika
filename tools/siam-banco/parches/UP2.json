@@ -13,19 +13,22 @@
   "a": "Acumulación de angiotensina II en los alvéolos pulmonares; el Losartán inhibe la producción renal de eritropoyetina y de renina.",
   "b": "Acumulación de serotonina en la mucosa traqueal; el Losartán actúa como agonista de los receptores serotoninérgicos bronquiales.",
   "c": "Acumulación de histamina tisular; el Losartán bloquea de forma competitiva los receptores H1 bronquiales y de la mucosa nasal.",
-  "d": "Acumulación de bradicinina y sustancia P por inhibición de la cininasa II (ECA); los ARA-II bloquean el receptor AT1 sin alterar la bradicinina."
+  "d": "Acumulación de bradicinina y sustancia P por inhibición de la cininasa II (ECA); los ARA-II bloquean el receptor AT1 sin alterar la bradicinina.",
+  "a+": ", con aumento de la diuresis"
  },
  "SIAM-UP2-010": {
   "a": "El Tétanos produce parálisis flácida simétrica descendente por bloqueo de acetilcolina; el Botulismo produce parálisis espástica con hiperreflexia.",
   "b": "El Botulismo bloquea la liberación presináptica de acetilcolina (parálisis flácida descendente); el Tétanos bloquea GABA/glicina y produce espasmo continuo.",
   "c": "Ambas toxinas producen una parálisis flácida ascendente y simétrica, con disociación albuminocitológica en el líquido cefalorraquídeo (LCR).",
-  "d": "El Botulismo produce contracción tetánica sostenida con trismo; el Tétanos causa arreflexia pura, sin compromiso autonómico de ningún tipo."
+  "d": "El Botulismo produce contracción tetánica sostenida con trismo; el Tétanos causa arreflexia pura, sin compromiso autonómico de ningún tipo.",
+  "a+": ", con fiebre y sudoración"
  },
  "SIAM-UP2-011": {
   "a": "Bloquean los canales de calcio tipo L del músculo liso vascular; la suspensión brusca de la Clonidina causa hiperplasia gingival masiva.",
   "b": "Antagonizan los receptores alfa-1 periféricos del músculo liso; la suspensión brusca de la Clonidina causa depresión respiratoria central grave.",
   "c": "Estimulan los receptores alfa-2 presinápticos del tronco encefálico y reducen la salida simpática; la suspensión brusca de Clonidina provoca rebote hipertensivo severo.",
-  "d": "Inhiben la enzima renina en el aparato yuxtaglomerular; la suspensión brusca de la Clonidina causa hiponatremia con hiperkalemia fulminante."
+  "d": "Inhiben la enzima renina en el aparato yuxtaglomerular; la suspensión brusca de la Clonidina causa hiponatremia con hiperkalemia fulminante.",
+  "b+": ", con desarrollo de miopatía proximal y calambres"
  },
  "SIAM-UP2-012": {
   "a": "Mide el grado de discapacidad funcional tardía a los 6 meses de evolución del cuadro, en una escala de 0 a 100 puntos de independencia.",
@@ -43,13 +46,15 @@
   "a": "Ataque Isquémico Transitorio (AIT): disfunción neurológica focal de causa vascular sin evidencia de infarto agudo en la neuroimagen.",
   "b": "ACV isquémico constituido del tronco encefálico, con secuela parenquimatosa permanente y lesión visible en la difusión.",
   "c": "Migraña con aura motora complicada con hemorragia subaracnoidea fisural no aneurismática de predominio frontal.",
-  "d": "Crisis epiléptica focal motora jacksoniana secundaria a un tumor primario del lóbulo occipital izquierdo."
+  "d": "Crisis epiléptica focal motora jacksoniana secundaria a un tumor primario del lóbulo occipital izquierdo.",
+  "b+": ", sin posibilidad de recuperación espontánea"
  },
  "SIAM-UP2-016": {
   "a": "Donación de óxido nítrico con aumento del GMPc; contraindicados con inhibidores de la PDE-5 (sildenafil/tadalafilo) de las últimas 24-48 horas, por riesgo de hipotensión refractaria.",
   "b": "Bloqueo de los receptores AT1 de angiotensina II en el músculo liso vascular; contraindicados en presencia de hiperkalemia leve o moderada asociada.",
   "c": "Estimulación del canal ENaC en el túbulo colector con aumento de la natriuresis; contraindicados en combinación con diuréticos de asa o tiazidas.",
-  "d": "Inhibición de la anhidrasa carbónica en el túbulo proximal renal; contraindicados en pacientes con glaucoma agudo de ángulo cerrado y acidosis."
+  "d": "Inhibición de la anhidrasa carbónica en el túbulo proximal renal; contraindicados en pacientes con glaucoma agudo de ángulo cerrado y acidosis.",
+  "b+": ", y su uso exige monitoreo de la presión venosa central"
  },
  "SIAM-UP2-017": {
   "a": "Albuminuria, Bradicardia severa, Cefalea holocraneana, Dosis de aspirina e Inversión de la onda T en el electrocardiograma.",
@@ -61,7 +66,8 @@
   "a": "La capacidad de ejercicio es la regla general; sus limitaciones son excepcionales, dispuestas por sentencia judicial y en beneficio de la persona.",
   "b": "El adulto mayor de 75 años se considera presuntamente incapaz absoluto de ejercicio y requiere un curador obligatorio de por vida.",
   "c": "La institucionalización en un establecimiento gerontológico anula automáticamente la capacidad de otorgar actos jurídicos válidos.",
-  "d": "La presencia de un déficit sensorial (ceguera o hipoacusia) es causa suficiente para declarar la interdicción civil definitiva."
+  "d": "La presencia de un déficit sensorial (ceguera o hipoacusia) es causa suficiente para declarar la interdicción civil definitiva.",
+  "b+": ", aun sin sentencia judicial previa"
  },
  "SIAM-UP2-020": {
   "a": "La urgencia requiere infusión continua de nitroprusiato IV en terapia intensiva; la emergencia se maneja con reposo en guardia y analgesia oral.",
@@ -73,19 +79,22 @@
   "a": "Síndrome de Klüver-Bucy por destrucción bilateral del núcleo amigdalino y de ambos lóbulos temporales.",
   "b": "Síndrome de Anton (anosognosia de la ceguera) por lesión de las áreas visuales corticales bilaterales.",
   "c": "Síndrome de Claude-Bernard-Horner por lesión de la cadena simpática cervical y del ganglio estrellado.",
-  "d": "Síndrome de Gerstmann por afectación del lóbulo parietal dominante, con agrafia y acalculia."
+  "d": "Síndrome de Gerstmann por afectación del lóbulo parietal dominante, con agrafia y acalculia.",
+  "a+": ", con hiperoralidad"
  },
  "SIAM-UP2-035": {
   "a": "Internar en aislamiento acústico y lumínico, neutralizar la toxina con inmunoglobulina antitetánica, desbridar la herida y dar metronidazol.",
   "b": "Realizar una punción lumbar inmediata para descartar meningitis tuberculosa e iniciar tuberculostáticos empíricos.",
   "c": "Indicar reposo en el domicilio con paracetamol e higiene de la herida con solución fisiológica únicamente.",
-  "d": "Administrar corticoides en altas dosis por vía oral y realizar un electroencefalograma urgente en la guardia."
+  "d": "Administrar corticoides en altas dosis por vía oral y realizar un electroencefalograma urgente en la guardia.",
+  "b+": ", sin necesidad de aislamiento ni de inmunoglobulina antitetánica"
  },
  "SIAM-UP2-039": {
   "a": "Estimulación directa de los canales ENaC del colector; produce hiperpotasemia con arritmias ventriculares graves.",
   "b": "Inhibición de la enzima convertidora de angiotensina; produce tos seca nocturna con alcalosis respiratoria.",
   "c": "Vasodilatación arterial directa por relajación del músculo liso; puede provocar un síndrome lupus-like (lupus inducido por drogas).",
-  "d": "Bloqueo de los receptores beta-1 cardíacos; produce miocardiopatía restrictiva con amiloidosis secundaria."
+  "d": "Bloqueo de los receptores beta-1 cardíacos; produce miocardiopatía restrictiva con amiloidosis secundaria.",
+  "a+": " y shock cardiogénico refractario"
  },
  "SIAM-UP2-046": {
   "a": "En el consentimiento informado verbal que otorga la institución gerontológica para realizar ensayos clínicos con sus residentes.",
@@ -97,7 +106,8 @@
   "a": "Síndrome de Churg-Strauss con asma eosinofílica y glomerulonefritis necrotizante de rápida evolución.",
   "b": "Arteritis de células gigantes (arteritis de la temporal), con riesgo de ceguera por neuropatía óptica isquémica.",
   "c": "Trombosis venosa profunda de miembros inferiores con embolia pulmonar séptica de origen bacteriano.",
-  "d": "Poliarteritis nodosa clásica con aneurismas de las arterias renales y sangrado vesical recurrente."
+  "d": "Poliarteritis nodosa clásica con aneurismas de las arterias renales y sangrado vesical recurrente.",
+  "a+": ", sin compromiso de la arteria temporal"
  },
  "SIAM-UP2-066": {
   "a": "Inhibe la anhidrasa carbónica renal; se debe administrar simultáneamente con Enalapril en la misma toma diaria.",
@@ -113,19 +123,22 @@
   "a": "Administrar Idarucizumab en bolo intravenoso de 5 gramos, como antídoto específico del anticoagulante.",
   "b": "Indicar hemodiálisis de urgencia con filtro de alta eficiencia durante 8 horas para eliminar el fármaco.",
   "c": "Administrar sulfato de protamina en infusión intravenosa rápida, en una dosis de 100 mg.",
-  "d": "Administrar Vitamina K1 intravenosa lenta junto con concentrado de complejo protrombínico (CCP) o plasma fresco congelado."
+  "d": "Administrar Vitamina K1 intravenosa lenta junto con concentrado de complejo protrombínico (CCP) o plasma fresco congelado.",
+  "b+": ", con reposición de factores de coagulación posterior"
  },
  "SIAM-UP2-071": {
   "a": "Porque destruyen directamente las articulaciones interfalángicas e inducen condrocalcinosis masiva y bilateral.",
   "b": "Porque aumentan la excreción fraccionada de sodio por encima del 50 % y anulan por completo el filtrado glomerular.",
   "c": "Porque inhiben la síntesis de alopurinol endógeno en los hepatocitos y producen tofos gigantes en las articulaciones.",
-  "d": "Porque compiten con el ácido úrico en el transporte tubular proximal y aumentan su reabsorción, lo que precipita crisis de gota."
+  "d": "Porque compiten con el ácido úrico en el transporte tubular proximal y aumentan su reabsorción, lo que precipita crisis de gota.",
+  "c+": " y atrofia muscular distal"
  },
  "SIAM-UP2-075": {
   "a": "Inhibe la cininasa II; acumula bradicinina y produce mayor incidencia de tos seca que el Enalapril.",
   "b": "Inhibe la renina en el aparato yuxtaglomerular; produce vasoconstricción eferente masiva con hiperuricemia.",
   "c": "Bloquea los receptores muscarínicos M2; produce sequedad de boca y taquicardia supraventricular paroxística.",
-  "d": "Bloquea selectivamente el receptor AT1; no altera la degradación de bradicinina y la incidencia de tos es similar al placebo."
+  "d": "Bloquea selectivamente el receptor AT1; no altera la degradación de bradicinina y la incidencia de tos es similar al placebo.",
+  "c+": ", y bradicardia con bloqueo AV de 2° grado"
  },
  "SIAM-UP2-076": {
   "a": "Bypass aortocoronario con injerto de vena safena magna bilateral, realizado de urgencia.",
@@ -137,7 +150,8 @@
   "a": "Cuando el paciente sea mayor de 65 años o se encuentre institucionalizado en una residencia gerontológica o geriátrica.",
   "b": "Cuando el profesional médico considere que el tratamiento elegido es superior al que solicita la familia del paciente.",
   "c": "Cuando el costo económico del procedimiento sea cubierto en su totalidad por la obra social o la prepaga del paciente.",
-  "d": "En caso de emergencia con grave peligro para la vida del paciente, o por obligación legal ante un riesgo grave para la salud pública."
+  "d": "En caso de emergencia con grave peligro para la vida del paciente, o por obligación legal ante un riesgo grave para la salud pública.",
+  "a+": ", aunque conserve su capacidad de decisión"
  },
  "SIAM-UP2-080": {
   "a": "Solicitar una biopsia endomiocárdica para descartar amiloidosis cardíaca senil antes de la primera toma del fármaco.",
@@ -149,7 +163,8 @@
   "a": "Destruir los receptores de acetilcolina del músculo liso gástrico para acelerar la evacuación del contenido gástrico e intestinal.",
   "b": "Evitar la conversión periférica de levodopa en dopamina, para que más cantidad atraviese la barrera hematoencefálica y haya menos efectos adversos.",
   "c": "Aumentar la unión de la levodopa a la albúmina plasmática para impedir su filtración glomerular en el riñón y prolongar su acción.",
-  "d": "Inducir la metabolización hepática directa por el citocromo P450 para impedir su excreción renal posterior y su acumulación."
+  "d": "Inducir la metabolización hepática directa por el citocromo P450 para impedir su excreción renal posterior y su acumulación.",
+  "a+": ", con parálisis total del esfínter"
  },
  "SIAM-UP2-092": {
   "b": "Estatinas de alta potencia como la Atorvastatina o la Rosuvastatina, usadas en prevención cardiovascular.",
@@ -166,5 +181,89 @@
   "b": "Bloquea los canales de sodio tipo 1A; se metaboliza por vía biliar sin riesgo de toxicidad en el anciano ni en la falla renal.",
   "c": "Inhibe la síntesis de aldosterona en la suprarrenal; no requiere control de niveles plasmáticos ni ajuste de dosis.",
   "d": "Estimula los receptores beta-1 cardíacos y aumenta el AMPc intracelular de forma irreversible, sin acumulación en el anciano."
+ },
+ "SIAM-UP2-001": {
+  "a+": " y control de laboratorio diario"
+ },
+ "SIAM-UP2-002": {
+  "a+": ", independientemente de las cifras de presión"
+ },
+ "SIAM-UP2-003": {
+  "b+": " con afasia de Broca asociada"
+ },
+ "SIAM-UP2-006": {
+  "a+": ", típico de la encefalopatía hipertensiva crónica"
+ },
+ "SIAM-UP2-019": {
+  "c+": ", con alteración del gusto"
+ },
+ "SIAM-UP2-021": {
+  "c+": " y retinopatía diabética"
+ },
+ "SIAM-UP2-022": {
+  "a+": " o si hubo cirugía menor previa"
+ },
+ "SIAM-UP2-024": {
+  "d+": ", sin efecto sobre el receptor alfa"
+ },
+ "SIAM-UP2-028": {
+  "b+": ", sin efecto sobre el LDL plasmático"
+ },
+ "SIAM-UP2-033": {
+  "b+": ", con broncorrea y miosis intensa"
+ },
+ "SIAM-UP2-034": {
+  "d+": ", sin control previo de la presión arterial"
+ },
+ "SIAM-UP2-036": {
+  "d+": ", con elevación sostenida de la presión arterial y del sodio plasmático"
+ },
+ "SIAM-UP2-040": {
+  "a+": ", con internación en un geriátrico"
+ },
+ "SIAM-UP2-041": {
+  "b+": " y administrar corticoides"
+ },
+ "SIAM-UP2-044": {
+  "b+": " y reduce la saturación de oxígeno"
+ },
+ "SIAM-UP2-047": {
+  "a+": ", con disnea de reposo y edema agudo de pulmón"
+ },
+ "SIAM-UP2-052": {
+  "b+": " y aumentan la resorción del hueso"
+ },
+ "SIAM-UP2-053": {
+  "d+": " con alteración de la deglución"
+ },
+ "SIAM-UP2-063": {
+  "a+": ", incluso con cifras mayores a 220/120 mmHg"
+ },
+ "SIAM-UP2-067": {
+  "d+": ", asociado a fiebre alta y rigidez de nuca"
+ },
+ "SIAM-UP2-070": {
+  "d+": ", con hemiplejía contralateral y afasia global"
+ },
+ "SIAM-UP2-072": {
+  "c+": ", con temblor de reposo"
+ },
+ "SIAM-UP2-073": {
+  "b+": ", con hiperpotasemia fatal y acidosis grave"
+ },
+ "SIAM-UP2-084": {
+  "a+": ", con depósito de proteína tau en la corteza"
+ },
+ "SIAM-UP2-085": {
+  "a+": ", sin necesidad de monitoreo electrocardiográfico"
+ },
+ "SIAM-UP2-086": {
+  "b+": " con anestesia en guante"
+ },
+ "SIAM-UP2-090": {
+  "b+": " y calcificación de la hoz del cerebro"
+ },
+ "SIAM-UP2-096": {
+  "a+": ", con respuesta sostenida a la levodopa"
  }
 }

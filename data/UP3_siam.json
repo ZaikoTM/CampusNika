@@ -11,7 +11,7 @@
    "opciones": {
     "a": "Hipercalcemia humoral maligna mediada por la secreción tumoral del péptido relacionado con la PTH (PTHrp) con supresión completa de la PTHi endógena.",
     "b": "Hiperparatiroidismo primario por adenoma paratiroideo; la PTH elevada estimula la resorción ósea, la reabsorción tubular de calcio y la síntesis de calcitriol.",
-    "c": "Hipoparatiroidismo primario secundario a la destrucción autoinmune del tejido paratiroideo por anticuerpos dirigidos contra los receptores sensores de calcio.",
+    "c": "Hipoparatiroidismo primario secundario a la destrucción autoinmune del tejido paratiroideo por anticuerpos dirigidos contra los receptores sensores de calcio y de los túbulos renales.",
     "d": "Hiperparatiroidismo secundario por insuficiencia renal crónica terminal con osteodistrofia renal e hiperfosfatemia severa con calcio iónico bajo."
    },
    "respuesta_correcta": "b",
@@ -87,7 +87,7 @@
    "numero": 7,
    "pregunta": "Un paciente con Enfermedad de Parkinson de 68 años en tratamiento con Levodopa/Carbidopa comienza a presentar fluctuaciones motoras con acortamiento del efecto de la dosis (fenómeno de wearing-off o 'deterioro de fin de dosis'). Se decide agregar Entacapona o Rasagilina. ¿Cuál es el mecanismo de acción de estos fármacos?",
    "opciones": {
-    "a": "La Entacapona estimula la síntesis de GABA en el núcleo subtalámico; la Rasagilina bloquea los receptores beta-2 bronquiales.",
+    "a": "La Entacapona estimula la síntesis de GABA en el núcleo subtalámico; la Rasagilina bloquea los receptores beta-2 bronquiales, y aumenta la actividad de la COMT.",
     "b": "La Entacapona inhibe a la enzima COMT periférica; la Rasagilina inhibe de forma selectiva e irreversible a la enzima MAO-B central.",
     "c": "Ambos fármacos aumentan la depuración renal de dopamina impidiendo la formación de metabólicos tóxicos tofo-ácidos.",
     "d": "Ambos fármacos actúan como agonistas muscarínicos puros en los ganglios de la base reduciendo la acetilcolina estriatal."
@@ -103,7 +103,7 @@
     "a": "Núcleo caudado bilateral por oclusión de las arterias lenticuloestriadas profundas del tálamo.",
     "b": "Lóbulo frontal derecho en el área motora suplementaria y corteza prefrontal orbitofrontal.",
     "c": "Hemisferio cerebeloso derecho, dado que las manifestaciones apendiculares cerebelosas son homolaterales a la lesión.",
-    "d": "Hemisferio cerebeloso izquierdo, por decusación doble de las vías cortico-espinales en el bulbo."
+    "d": "Hemisferio cerebeloso izquierdo, por decusación doble de las vías cortico-espinales en el bulbo, y las manifestaciones serían contralaterales a la lesión."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. El Síndrome Cerebeloso agrupa los signos y síntomas derivados de la disfunción del cerebelo o de sus vías aferentes/eferentes. Se caracteriza por: Ataxia (de la marcha y del tronco), Dismetría (incapacidad para ajustar la distancia y velocidad de los movimientos, temblor intencional), Adiadococinesia (dificultad para realizar movimientos alternantes rápidos como la pronosupinación), Asinergia, Hipotonía muscular, Nistagmo y Disartria / habla escandida. Una regla de oro de la semiología neurológica de SIAM establece que las lesiones de un Hemisferio Cerebeloso producen signos de ataxia, dismetría y adiadococinesia APENDICULARES (en los miembros) strictly HOMOLATERALES (del mismo lado) de la lesión (es decir, lesión en el hemisferio cerebeloso derecho causa dismetría y adiadococinesia en los miembros derechos). Las opciones A, B y D señalan topografías erróneas o contralaterales."
@@ -152,7 +152,7 @@
    "numero": 12,
    "pregunta": "Un paciente con antecedente de tres brotes de artritis gotosa en el último año y tofos gotosos en codos presenta una uricemia de 9,5 mg/dL. Se decide iniciar Terapia Hipouricemiante con Alopurinol. ¿Cuál es el mecanismo de acción de la droga, la meta de uricemia y la pauta de profilaxis de brote al iniciar el tratamiento?",
    "opciones": {
-    "a": "Inhibe la enzima convertidora de angiotensina; la meta es uricemia <10 mg/dL sin requerir ninguna profilaxis asociada.",
+    "a": "Inhibe la enzima convertidora de angiotensina; la meta es uricemia <10 mg/dL sin requerir ninguna profilaxis asociada, ni control de la función renal.",
     "b": "Inactiva la enzima ciclooxigenasa-2; la meta es una uricemia de 4 mg/dL administrando antibióticos orales asociados.",
     "c": "Inhibe la xantino oxidasa; la meta es uricemia <6 mg/dL (<5 en tofos) y requiere profilaxis con Colchicina a dosis baja durante 3 a 6 meses.",
     "d": "Estimula la reabsorción tubular proximal de urato; la meta es una uricemia de 8 mg/dL usando dosis altas de aspirina."
@@ -167,7 +167,7 @@
    "opciones": {
     "a": "Osteomalacia senil; se indica Calcitonina nasal a dosis diarias elevadas junto con diuréticos tiazídicos en dosis altas.",
     "b": "Osteoporosis; se indica un Bisfosfonato (Alendronato 70 mg/semana); tomar en ayunas con vaso lleno de agua y mantener bipedestación/sedestación 30 min.",
-    "c": "Osteopenia leve; se indica únicamente terapia física con calor local sin requerir suplementos ni fármacos antirresortivos.",
+    "c": "Osteopenia leve; se indica únicamente terapia física con calor local sin requerir suplementos ni fármacos antirresortivos, ni seguimiento densitométrico anual.",
     "d": "Enfermedad de Paget ósea; se indica teriparatida diaria durante 10 años en infusión intravenosa continua."
    },
    "respuesta_correcta": "b",
@@ -191,7 +191,7 @@
    "numero": 15,
    "pregunta": "Una paciente de 70 años consulta por dolor mecánico en ambas rodillas (gonartrosis) que aumenta con la deambulación y bajar escaleras y cede con el reposo, acompañado de rigidez matutina de 15 minutos de duración y crujidos articulares. Al examen físico se palpan engrosamientos óseos indoloros en las articulaciones interfalángicas distales de las manos. ¿Cómo se denominan estos nódulos y cuál es el pilar del tratamiento sintomático inicial?",
    "opciones": {
-    "a": "Eritema nodoso pretibial; se trata con antibióticos betalactámicos y reposo absoluto en cama.",
+    "a": "Eritema nodoso pretibial; se trata con antibióticos betalactámicos y reposo absoluto en cama asociados a corticoides orales.",
     "b": "Nódulos de Bouchard; se trata con metotrexato oral y terapia biológica anti-TNF de inicio.",
     "c": "Nódulos de Heberden; el pilar inicial es educación, descenso de peso, ejercicio y Paracetamol o AINEs tópicos.",
     "d": "Tofos gotosos sinoviales; se trata con alopurinol en dosis de carga y diálisis de urgencia."
@@ -206,7 +206,7 @@
    "opciones": {
     "a": "Artritis Reumatoide seronegativa; se indica prednisona 60 mg/día de forma indefinida.",
     "b": "Polimialgia Reumática pura; se indica profilaxis con antibióticos de amplio espectro.",
-    "c": "Lupus Eritematoso Sistémico grave; se indica ciclofosfamina endovenosa en bolos mensuales.",
+    "c": "Lupus Eritematoso Sistémico grave; se indica ciclofosfamina endovenosa en bolos mensuales durante tres años seguidos.",
     "d": "Fibromialgia; se indica abordaje no farmacológico junto con neuromoduladores (ej. Duloxetina o Pregabalina)."
    },
    "respuesta_correcta": "d",
@@ -218,7 +218,7 @@
    "pregunta": "Al prescribir un AINE no selectivo (ej. Indometacina, Ketorolac, Naproxeno) a un paciente hipertenso de 72 años con enfermedad renal crónica, ¿cuál es el mecanismo enzimático de su toxicidad renal y gastrointestinal?",
    "opciones": {
     "a": "Inhiben a la COX-1 y COX-2; reducen las prostaglandinas renales (PGE2/PGI2) causando vasoconstricción aferente y disminuyen el moco gástrico.",
-    "b": "Estimulan la síntesis de tromboxano A2 en los miocitos; causan vasodilatación eferente masiva con alcalosis metabólica.",
+    "b": "Estimulan la síntesis de tromboxano A2 en los miocitos; causan vasodilatación eferente masiva con alcalosis metabólica, con hipotensión ortostática marcada.",
     "c": "Inactivan a la anhidrasa carbónica tubular; causan hipercalciuria severa con atonía vesical y diarrea.",
     "d": "Bloquean los receptores beta-1 cardíacos; causan bradicardia sinusal refractaria con hipoglucemia."
    },
@@ -243,7 +243,7 @@
    "numero": 19,
    "pregunta": "Un paciente de 78 años sufre una caída desde su propia altura en el domicilio sin presentar fracturas óseas. A partir del evento, desarrolla un temor intenso a volver a caerse, rechaza deambular, se limita a la cama o sillón y presenta pérdida progresiva de la autonomía física e interacción social. ¿Cómo se denomina este síndrome psicosocial geriátrico y qué aspecto del proceso de envejecimiento refleja?",
    "opciones": {
-    "a": "Síndrome de Munchausen geriátrico; refleja la simulación consciente de un déficit motor con fines de ganancia económica.",
+    "a": "Síndrome de Munchausen geriátrico; refleja la simulación consciente de un déficit motor con fines de ganancia económica y búsqueda de beneficios.",
     "b": "Agnosia visual pura de la marcha; refleja la destrucción de las áreas de Wernicke y Broca en el lóbulo temporal.",
     "c": "Demencia pugilística de inicio tardío; refleja la acumulación de proteína tau en los núcleos subtalámicos bilaterales.",
     "d": "Síndrome Post-Caída (miedo a caerse o ptofobia); refleja la dificultad para elaborar el duelo por la pérdida de capacidades físicas."
@@ -335,7 +335,7 @@
    "pregunta": "Un paciente presenta un síndrome cerebeloso caracterizado por marcada inestabilidad en la estación de pie (astasia), marcha atáxica con aumento de la base de sustentación y titubeo del tronco, pero SIN dismetría ni adiadococinesia en las extremidades. ¿Dónde se ubica la lesión?",
    "opciones": {
     "a": "En el núcleo lenticular derecho afectando exclusivamente al globo pálido medial y al putamen.",
-    "b": "En la corteza parietal posterior del hemisferio cerebral izquierdo involucrando el área de Wernicke.",
+    "b": "En la corteza parietal posterior del hemisferio cerebral izquierdo involucrando el área de Wernicke, con alteración de la comprensión.",
     "c": "En el hemisferio cerebeloso lateral derecho afectando las vías eferentes del núcleo dentado.",
     "d": "En la región central del cerebelo correspondiente al Vermis Cerebeloso (síndrome cerebeloso axial o del vermis)."
    },
@@ -347,7 +347,7 @@
    "numero": 27,
    "pregunta": "¿Cuáles son los sitios anatómicos estandarizados de elección para la determinación de la Densidad Mineral Ósea (DMO)?",
    "opciones": {
-    "a": "Calcáneo izquierdo mediante ultrasonido cuantitativo y articulación acromioclavicular sin contraste.",
+    "a": "Calcáneo izquierdo mediante ultrasonido cuantitativo y articulación acromioclavicular sin contraste y densitometría de antebrazo.",
     "b": "Columna lumbar (L1 a L4) en proyección anteroposterior y cadera (fémur proximal total y cuello femoral).",
     "c": "Calota craneal completa y tibia distal del miembro inferior no dominante en proyección lateral.",
     "d": "Húmero proximal del miembro dominante y falanges distales de la mano derecha en proyección oblicua."
@@ -360,7 +360,7 @@
    "numero": 28,
    "pregunta": "¿Cuál de las siguientes afirmaciones es CORRECTA respecto al Síndrome Vestibular Central?",
    "opciones": {
-    "a": "Cursa de forma constante con hipoacusia severa, otalgia, acúfenos agudos e inhibición completa con la fijación ocular.",
+    "a": "Cursa de forma constante con hipoacusia severa, otalgia, acúfenos agudos e inhibición completa con la fijación ocular, y empeora con los movimientos cefálicos.",
     "b": "El nistagmo es unidireccional y horizontal puro, batiendo siempre hacia el lado opuesto a la desviación corporal.",
     "c": "La inestabilidad suele ser menos intensa que en el periférico, el inicio es gradual y la sensación vertiginosa es más prolongada.",
     "d": "Está provocado de forma exclusiva por la presencia de otolitos libres en el conducto semicircular posterior."
@@ -413,7 +413,7 @@
    "pregunta": "En la psicología del envejecimiento, Salvarezza analiza la función de la 'Reminiscencia' en el adulto mayor. ¿Cuál es la finalidad instrumental e integradora de este proceso psíquico ante las pérdidas corporales y sociales propias de la vejez?",
    "opciones": {
     "a": "Reafirmar la autoestima y la integridad del Yo cuando las capacidades psicofísicas y relacionales pierden vitalidad.",
-    "b": "Fomentar la negación psicótica de la realidad obligando al paciente a revivir episodios traumáticos de la infancia.",
+    "b": "Fomentar la negación psicótica de la realidad obligando al paciente a revivir episodios traumáticos de la infancia, de forma sistemática.",
     "c": "Permitir al sujeto abandonar sus proyectos de vida al asociar la muerte como un colapso inminente.",
     "d": "Inducir una regresión infantil permanente para delegar la toma de decisiones civiles a los familiares."
    },
@@ -467,7 +467,7 @@
     "a": "Hipersecreción gástrica hiperácida con hipertrofia del esfínter vesical interno y retención urinaria.",
     "b": "Estreñimiento (por enlentecimiento del tránsito colónico) e hiperreflexia del detrusor (urgencia y nocturia).",
     "c": "Acalasia cricofaríngea aislada con anuria urémica obstructiva aguda y pérdida de la función renal.",
-    "d": "Diarrea secretora acuosa profusa con incontinencia urinaria por rebosamiento arrefléxico y vejiga atónica."
+    "d": "Diarrea secretora acuosa profusa con incontinencia urinaria por rebosamiento arrefléxico y vejiga atónica y sequedad bucal."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. La neurodegeneración autonómica periférica y central en el Parkinson altera el plexo mientérico de Auerbach y Meissner, produciendo una severa disminución del peristaltismo que se manifiesta como Estreñimiento o Constipación crónica (presente en más del 70% de los pacientes). A nivel vesical, la alteración del control inhibitorio causa Hiperreflexia del Detrusor, clínicamente expresada por urgencia miccional, polaquiuria y nocturia. Las opciones A, C y D señalan síntomas ajenos a la disautonomía parkinsoniana típica."
@@ -490,7 +490,7 @@
    "numero": 38,
    "pregunta": "Un paciente de 64 años sufre un infarto isquémico en el hemisferio cerebeloso derecho. ¿Cuál es el hallazgo motor apendicular característico derivado de esta disfunción?",
    "opciones": {
-    "a": "Trastorno aislado del tono autonómico vesical sin afectación de la coordinación motora.",
+    "a": "Trastorno aislado del tono autonómico vesical sin afectación de la coordinación motora ni de los reflejos.",
     "b": "Hemiparesia espástica contralateral con signo de Babinski y clonus extensor.",
     "c": "Ataxia de las extremidades homolaterales (dismetría y adiadococinesia en miembros derechos).",
     "d": "Rigidez acrocelular simétrica en 'caño de plomo' con temblor de reposo de 4 Hz."
@@ -504,7 +504,7 @@
    "pregunta": "Respecto al perfil de seguridad de los Bisfosfonatos orales, ¿cuál es la afirmación correcta?",
    "opciones": {
     "a": "Deben tomarse siempre inmediatamente antes de acostarse a la noche junto con leche entera tibia.",
-    "b": "Carecen por completo de efectos adversos digestivos, siendo la hepatotoxicidad fulminante su única complicación.",
+    "b": "Carecen por completo de efectos adversos digestivos, siendo la hepatotoxicidad fulminante su única complicación, sin otras complicaciones.",
     "c": "Se asocian a irritación local y esofagitis si no se respetan las pautas estrictas de ingesta en ayunas y bipedestación.",
     "d": "Producen ulceración gastroduodenal por estimulación directa de la enzima ciclooxigenasa-1 (COX-1)."
    },
@@ -518,7 +518,7 @@
    "opciones": {
     "a": "Indicar artrocentesis de urgencia e internación para antibioticoterapia empírica de amplio espectro.",
     "b": "Prescribir Metotrexato subcutáneo junto con corticoides sistémicos a dosis altas de forma indefinida.",
-    "c": "Solicitar de inmediato Resonancia Magnética de rodilla con contraste e indicar infiltración articular con opioides.",
+    "c": "Solicitar de inmediato Resonancia Magnética de rodilla con contraste e indicar infiltración articular con opioides y hospitalización inmediata.",
     "d": "Realizar anamnesis completa y examen físico articular minucioso, e indicar analgésicos a demanda evaluando la respuesta clínica."
    },
    "respuesta_correcta": "d",
@@ -609,7 +609,7 @@
    "opciones": {
     "a": "Bloquea los canales de calcio vasculares; su signo tóxico es la hipertensión endocraneana con edema papilar bilateral.",
     "b": "Inhibe la xantino oxidasa en los fagocitos; su signo tóxico es la sialorrea con ulceración lingual y gingival severa.",
-    "c": "Inhibe irreversiblemente la ciclooxigenasa-1 plaquetaria; su signo tóxico es el estreñimiento pertinaz con íleo paralítico.",
+    "c": "Inhibe irreversiblemente la ciclooxigenasa-1 plaquetaria; su signo tóxico es el estreñimiento pertinaz con íleo paralítico, que aparece a las pocas horas.",
     "d": "Se une a la tubulina e impide la polimerización de microtúbulos (bloquea la quimiotaxis de neutrófilos); su signo tóxico inicial es la diarrea."
    },
    "respuesta_correcta": "d",
@@ -623,7 +623,7 @@
     "a": "Artropatía por Cristales de Pirofosfato de Calcio (Pseudogota / Condrocalcinosis).",
     "b": "Artritis Gotosa Aguda por depósito de cristales de urato monosódico.",
     "c": "Osteosarcoma condroblástico de la epífisis femoral distal.",
-    "d": "Artritis Reumatoide seropositiva con nódulos reumatoides intraarticulares."
+    "d": "Artritis Reumatoide seropositiva con nódulos reumatoides intraarticulares con compromiso de la columna."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La enfermedad por depósito de cristales de Pirofosfato de Calcio (Dihidrato) comprende varias formas clínicas, siendo la más característica la Pseudogota o Artritis Aguda por Pirofosfato (que simula un ataque de gota) y la Condrocalcinosis. Es la artropatía microcristalina más frecuente en el adulto mayor (>65-70 años), afectando predominantemente articulaciones grandes como la rodilla y la muñeca. Se diagnostica mediante: 1) Análisis del líquido sinovial: Cristales ROMBOIDALES o poligonales de Pirofosfato de Calcio que muestran BIRREFRINGENCIA POSITIVA DÉBIL (a diferencia de los de urato que son agujas con birrefringencia negativa fuerte); y 2) Radiografía: presencia de CONDROCALCINOSIS (calcificación del fibrocartílago meniscal o del cartílago hialino articular). Las opciones B, C y D corresponden a otras patologías con características ópticas y radiológicas opuestas."
@@ -646,7 +646,7 @@
    "numero": 50,
    "pregunta": "Un paciente de 55 años con Enfermedad de Parkinson incipiente que presenta un temblor de reposo muy severo e incapacitante es iniciado en tratamiento con Trihexifenidilo (anticolinérgico central). ¿Por qué este grupo farmacológico está estrictamente CONTRAINDICADO en pacientes adultos mayores (>65-70 años) o con deterioro cognitivo?",
    "opciones": {
-    "a": "Porque aumenta la síntesis de hemoglobina y causa poliglobulia severa con trombosis arterial de miembros.",
+    "a": "Porque aumenta la síntesis de hemoglobina y causa poliglobulia severa con trombosis arterial de miembros y aumenta el riesgo de ACV.",
     "b": "Porque induce la formación inmediata de tofos úricos a nivel de la corteza renal y de las articulaciones.",
     "c": "Porque inactiva la acción de la insulina, induciendo cetoacidosis diabética no cetósica en el anciano.",
     "d": "Porque produce bloqueo colinérgico central y periférico grave: confusión, alucinaciones, retención urinaria y glaucoma."
@@ -686,7 +686,7 @@
    "pregunta": "Una paciente de 67 años consulta por dolor sordo localizado en la base del primer dedo de la mano derecha que se desencadena al realizar actividades cotidianas como escurrir un trapo, abrir un frasco o girar una llave, y cede con el reposo. Al examen se evidencia deformidad en 'cuadrado' de la articulación trapeciometacarpiana y dolor a la maniobra de molienda (Grind test). ¿Cuál es el diagnóstico?",
    "opciones": {
     "a": "Artritis Gotosa tofácea de la articulación escafolunar.",
-    "b": "Tenosinovitis de De Quervain del extensor corto del pulgar.",
+    "b": "Tenosinovitis de De Quervain del extensor corto del pulgar con compromiso de la articulación.",
     "c": "Síndrome del Túnel Carpiano compresivo del nervio mediano.",
     "d": "Rizartrosis (Artrosis de la primera articulación trapeciometacarpiana)."
    },
@@ -753,7 +753,7 @@
     "a": "Es un corticoide sintético de depósito; se aplica intraarticular semanalmente y exige medir la TFG.",
     "b": "Es un anticuerpo monoclonal humano anti-RANKL; se administra por vía subcutánea cada 6 meses y exige verificar previamente la ausencia de hipocalcemia.",
     "c": "Es un análogo de la PTH; se administra diariamente vía oral y exige medir la glucemia en ayunas.",
-    "d": "Es un inhibidor de la transcriptasa reversa; se administra por vía intramuscular mensual y exige dosar bilirrubina total."
+    "d": "Es un inhibidor de la transcriptasa reversa; se administra por vía intramuscular mensual y exige dosar bilirrubina total, y su efecto adverso principal es la hepatitis fulminante aguda."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. El Denosumab es un anticuerpo monoclonal humano (IgG2) con potente efecto antirresortivo óseo. Su mecanismo de acción imita la función de la osteoprotegerina endógena: se une con alta afinidad y especificidad al Ligando del Receptor Activador del Factor Nuclear Kappa-B (RANKL), impidiendo que el RANKL se una a su receptor RANK ubicado en la superficie de los precursores osteoclásticos y osteoclastos maduros. Esto bloquea la formación, función y supervivencia de los osteoclastos, inhibiendo la resorción ósea en hueso trabecular y cortical. Se administra por vía SUBCUTÁNEA en dosis de 60 mg UNA VEZ CADA 6 MESES. PRECAUCIÓN OBLIGATORIA: Debido a su potente y rápida inhibición del recambio óseo, puede desencadenar HIPOCALCEMIA SEVERA; por lo tanto, es requisito estricto medir y corregir la calcemia (y asegurar adecuada ingesta de Calcio y Vitamina D) ANTES de administrar cada dosis. Las opciones A, C y D son falsas."
@@ -765,7 +765,7 @@
    "opciones": {
     "a": "El Febuxostat es un uricosúrico directo que actúa bloqueando el cotransportador URAT-1 en el asa de Henle ascendente.",
     "b": "El Febuxostat es un inhibidor selectivo no purínico de la xantino oxidasa que bloquea sus formas reducida y oxidada, sin ajuste en ERC leve-moderada.",
-    "c": "El Febuxostat destruye al ácido úrico circulante convirtiéndolo en alantoína mediante lisis enzimática directa en el plasma.",
+    "c": "El Febuxostat destruye al ácido úrico circulante convirtiéndolo en alantoína mediante lisis enzimática directa en el plasma, sin intervención de la xantino oxidasa ni de la urato oxidasa.",
     "d": "El Febuxostat inhibe la ciclooxigenasa-2 de los neutrófilos e impide así la fagocitosis de los cristales de urato."
    },
    "respuesta_correcta": "b",
@@ -792,7 +792,7 @@
     "a": "Enzima 1-alfa-hidroxilasa renal; estimulada por la PTH y la hipofosfatemia; aumenta la absorción intestinal y la reabsorción renal de calcio y fósforo.",
     "b": "Enzima 24-hidroxilasa hepática; estimulada por la calcitonina y la hipercalcemia; inhibe la fijación de calcio en el tejido osteoide.",
     "c": "Enzima fosfatasa alcalina ósea; estimulada por los corticoides sistémicos; promueve la resorción osteoclástica del hueso compacto.",
-    "d": "Enzima 25-hidroxilasa pancreática; estimulada por la insulina y la glucemia elevada; induce la eliminación urinaria masiva de fosfato."
+    "d": "Enzima 25-hidroxilasa pancreática; estimulada por la insulina y la glucemia elevada; induce la eliminación urinaria masiva de fosfato, y su déficit produce hipocalcemia refractaria."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La conversión de la 25-hidroxivitamina D3 (calcidiol) en la molécula activa 1,25-dihidroxivitamina D3 (Calcitriol) ocurre en las células del túbulo contorneado proximal renal por acción de la enzima mitocondrial 1-alfa-hidroxilasa. La actividad de esta enzima está estrechamente regulada: es estimulada directamente por la Hormona Paratiroidea (PTH) y por los niveles bajos de fosfato sérico (hipofosfatemia), e inhibida por el propio calcitriol, la hipercalcemia y el FGF-23. El Calcitriol actúa uniéndose a su receptor nuclear (VDR) para: 1) Aumentar drásticamente la absorción intestinal activa de calcio y fosfato mediante la inducción de la proteína calbindina-D; 2) Promover la reabsorción tubular renal de calcio y fosfato; y 3) Facilitar la mineralización adecuada de la matriz ósea. Las opciones B, C y D citan enzimas, sitios u órganos incorrectos."
@@ -803,7 +803,7 @@
    "pregunta": "La Indometacina es un AINE tradicionalmente utilizado en el tratamiento de la artritis gotosa aguda y en diversas patologías reumáticas. ¿A qué familia química pertenece, cuál es su potencia antiinflamatoria y cuál es el efecto adverso neurológico característico que limita frecuentemente su uso a dosis elevadas?",
    "opciones": {
     "a": "Salicilato no acetilado; produce sordera de conducción reversible con neuropatía motora periférica y tinnitus.",
-    "b": "Derivado del ácido propiónico; produce sedación profunda con paresia del III par craneal y midriasis arreactiva bilateral.",
+    "b": "Derivado del ácido propiónico; produce sedación profunda con paresia del III par craneal y midriasis arreactiva bilateral y estreñimiento severo.",
     "c": "Derivado del ácido indolacético; potente inhibidor de COX que causa cefalea, vértigo y mareos en el 25-50 % de los pacientes.",
     "d": "Oxicam selectivo; produce parestesias generalizadas con convulsiones focales de origen temporal y fotofobia."
    },
@@ -893,10 +893,10 @@
    "numero": 69,
    "pregunta": "Al comparar la farmacodinámica de los Glucocorticoides sistémicos (Hidrocortisona, Prednisona, Meprednisona, Dexametasona), ¿cuál de ellos posee la mayor potencia antiinflamatoria relativa y la menor (nula) actividad mineralocorticoide / de retención de sodio?",
    "opciones": {
-    "a": "Hidrocortisona (Cortisol).",
-    "b": "Fludrocortisona.",
-    "c": "Prednisona.",
-    "d": "Dexametasona."
+    "a": "Hidrocortisona (cortisol natural).",
+    "b": "Fludrocortisona (fluorcortisol).",
+    "c": "Prednisona (cortisona sintética).",
+    "d": "Dexametasona (de acción prolongada)."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. La modificación de la estructura química esteroidea altera tanto la potencia antiinflamatoria (vía receptores de glucocorticoides) como la retención hidrosalina (vía receptores de mineralocorticoides): 1) Hidrocortisona: tiene potencia antiinflamatoria de 1 y alta retención de sodio (potencia mineralocorticoide 1); 2) Prednisona/Meprednisona: tienen una potencia antiinflamatoria 4 a 5 veces superior a la hidrocortisona y moderadamente menor retención de sodio; 3) Dexametasona: es un glucocorticoide de acción prolongada de alta potencia (25 a 30 veces más potente que la hidrocortisona) y posee una actividad mineralocorticoide prácticamente NULA (0), por lo que no produce retención de sodio ni edemas; y 4) Fludrocortisona: posee un altísimo efecto mineralocorticoide (utilizada para restituir aldosterona). La opción D responde a la combinación de máxima potencia antiinflamatoria sin efecto mineralocorticoide."
@@ -907,7 +907,7 @@
    "pregunta": "Un paciente de 67 años consulta por dificultad para caminar. Al observarlo deambular, se evidencia que al levantar el pie derecho debe flexionar y elevar exageradamente la rodilla hacia arriba para evitar que la punta del pie tropiece contra el suelo, cayendo luego el antepié de forma brusca (marcha en 'Steppage' o estepante). ¿Cuál es la alteración neurológica causante?",
    "opciones": {
     "a": "Debilidad de los dorsiflexores del pie por lesión del nervio peroneo común (poplíteo externo) o de la raíz L5.",
-    "b": "Hipertonía espástica del cuádriceps por sección completa de la médula cervical C3 con nivel sensitivo.",
+    "b": "Hipertonía espástica del cuádriceps por sección completa de la médula cervical C3 con nivel sensitivo, sin compromiso de la sensibilidad.",
     "c": "Disfunción de las vellosidades aracnoideas con hidrocefalia normotensiva y alteración de la marcha.",
     "d": "Atrofia del lóbulo occipital izquierdo con destrucción del área motora primaria y del área visual."
    },
@@ -947,7 +947,7 @@
    "opciones": {
     "a": "Sintetizado por osteocitos ante la hiperfosfatemia; inhibe los cotransportadores Na/Pi del túbulo proximal (fosfaturia) y la 1-alfa-hidroxilasa.",
     "b": "Sintetizado por los hepatocitos en respuesta a la hipoglucemia; promueve la fijación de calcio en las arterias coronarias.",
-    "c": "Sintetizado por las células C tiroideas ante la hipocalcemia; aumenta la reabsorción tubular de fósforo y estimula a la vitamina D.",
+    "c": "Sintetizado por las células C tiroideas ante la hipocalcemia; aumenta la reabsorción tubular de fósforo y estimula a la vitamina D, y reduce la absorción intestinal de calcio.",
     "d": "Sintetizado por las neuronas del hipotálamo posterior ante la deshidratación; estimula la síntesis de PTH y de calcitonina."
    },
    "respuesta_correcta": "a",
@@ -1011,7 +1011,7 @@
    "pregunta": "Los Tofos Gotosos son la manifestación patognomónica de la Gota Tofácea Crónica no tratada o mal controlada. ¿Cuál es la composición histopatológica y ultraestructural de un tofo y cuáles son sus localizaciones anatómicas de aparición más frecuentes?",
    "opciones": {
     "a": "Proliferación de tejido adiposo maduro no inflamatorio, benigno y encapsulado; se ubican en la mucosa del colon sigmoides.",
-    "b": "Depósitos de cristales de fosfato de calcio rodeados por tejido necrótico sin inflamación; se ubican en la córnea y la esclerótica.",
+    "b": "Depósitos de cristales de fosfato de calcio rodeados por tejido necrótico sin inflamación; se ubican en la córnea y la esclerótica, y suelen verse en niños con hipercalcemia.",
     "c": "Acúmulos de cristales de urato monosódico con reacción granulomatosa de cuerpo extraño; se ubican en hélix auricular, bursa olecraniana y tendón de Aquiles.",
     "d": "Infiltrado de amiloide AL con células tumorales plasmáticas atípicas; se ubican preferentemente en la corteza suprarrenal."
    },
@@ -1023,7 +1023,7 @@
    "numero": 79,
    "pregunta": "En la evaluación multidimensional del adulto mayor, las caídas desde la propia altura constituyen un gran síndrome geriátrico. Al analizar los factores desencadenantes, ¿cuál representa un 'factor de riesgo extrínseco o ambiental' que debe corregirse en el domicilio del paciente?",
    "opciones": {
-    "a": "Presencia de catarata senil con disminución de la agudeza visual y alteración de la percepción de profundidad.",
+    "a": "Presencia de catarata senil con disminución de la agudeza visual y alteración de la percepción de profundidad en ambos ojos.",
     "b": "Presencia de hipotensión ortostática por polifarmacia antihipertensiva y deshidratación crónica.",
     "c": "Disminución de la masa muscular (sarcopenia) con inestabilidad postural y lentitud de la marcha.",
     "d": "Mala iluminación de pasillos y escaleras, alfombras sueltas, calzado inadecuado y falta de agarraderas en el baño."
@@ -1038,7 +1038,7 @@
    "opciones": {
     "a": "Uso de alopurinol en dosis de carga, iniciado al primer síntoma cutáneo de cada recurrencia.",
     "b": "Tratamiento supresor crónico con un antiviral oral (aciclovir o valaciclovir) durante 6 a 12 meses.",
-    "c": "Aplicación de inmunoglobulina intravenosa semanal con inmovilización de miembros durante el brote.",
+    "c": "Aplicación de inmunoglobulina intravenosa semanal con inmovilización de miembros durante el brote y reposo estricto.",
     "d": "Administración de corticoides orales en dosis altas de forma continua durante 5 años seguidos."
    },
    "respuesta_correcta": "b",
@@ -1050,7 +1050,7 @@
    "pregunta": "En el metabolismo proteico del adulto mayor, la Sarcopenia se define como un síndrome geriátrico caracterizado por la pérdida progresiva y generalizada de la masa, fuerza y rendimiento muscular. ¿Cuál es su mecanismo fisiopatológico central y la recomendación nutricional proteica para su prevención?",
    "opciones": {
     "a": "Acumulación masiva de glucógeno intracelular en los miocitos; requiere la administración de corticoides sistémicos a dosis altas.",
-    "b": "Destrucción autoinmune selectiva de las fibras musculares de tipo I por anticuerpos anti-miosina; requiere restricción proteica estricta a <0,4 g/kg/día.",
+    "b": "Destrucción autoinmune selectiva de las fibras musculares de tipo I por anticuerpos anti-miosina; requiere restricción proteica estricta a <0,4 g/kg/día, con elevación de la creatinina quinasa a más de 10.000 U/L.",
     "c": "Desequilibrio entre la síntesis y degradación proteica por resistencia anabólica, denervación e inflamación crónica de bajo grado; requiere un aporte proteico de 1,2 a 1,5 g/kg/día.",
     "d": "Ausencia de síntesis de mioblastos por deficiencia de calcitonina; requiere únicamente reposo prolongado en cama."
    },
@@ -1078,7 +1078,7 @@
     "a": "Síndrome de Guillain-Barré con diplejía facial.",
     "b": "Enfermedad de Parkinson idiopática esporádica pura.",
     "c": "Atrofia Multisistémica (MSA / Síndrome de Shy-Drager).",
-    "d": "Enfermedad de Alzheimer de inicio amnésico temprano."
+    "d": "Enfermedad de Alzheimer de inicio amnésico temprano con apraxia precoz."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. La Atrofia Multisistémica (MSA) es una alfasinucleinopatía neurodegenerativa atípica caracterizada por la combinación de: 1) Parkinsonismo simétrico de rápida progresión con escasa o nula respuesta a la Levodopa; 2) Disfunción Autonómica Precoz y Severa (Hipotensión ortostática sintomática, incontinencia urinaria temprana o disfunción eréctil, conocida históricamente como Síndrome de Shy-Drager); y 3) Signos cerebelosos (ataxia) o piramidales (hiperreflexia, Babinski). La presencia de fallo autonómico precoz y la refractariedad a la levodopa descartan la Enfermedad de Parkinson idiopática (opción B). Las opciones A y D presentan características ajenas al cuadro."
@@ -1091,7 +1091,7 @@
     "a": "Seudomembranas, simbléfaron, triquiasis y ceguera; se previenen con lubricación continua, colirios tópicos y liberación diaria de adherencias.",
     "b": "Glaucoma neovascular agudo; requiere únicamente la oclusión ocular binaural con parches secos durante 15 días.",
     "c": "Desprendimiento retinal exudativo; requiere fotocoagulación con láser de forma ambulatoria en la primera semana.",
-    "d": "Catarata nuclear bilateral; requiere facoemulsificación quirúrgica de urgencia en las primeras 6 horas de internación."
+    "d": "Catarata nuclear bilateral; requiere facoemulsificación quirúrgica de urgencia en las primeras 6 horas de internación, asociada a fotofobia y blefarospasmo."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La afectación ocular ocurre en más del 80% de los pacientes con SSJ/NET. La necrosis y denudación del epitelio conjuntival y palpebral desencadena la formación de seudomembranas y sinequias entre la conjuntiva bulbar y palpebral (Simbléfaron). Si no se trata precozmente, evoluciona hacia cicatrización aberrante, triquiasis (pestañas hacia adentro que erosiónan la córnea), ojo seco severo, cicatrización corneal, ulceración y ceguera irreversible. El manejo profiláctico obligatorio requiere la evaluación diaria por Oftalmología, lubricación ocular intensiva con lágrimas artificiales sin conservantes, colirios antibióticos/corticoides y la liberación mecánica diaria de las adherencias conjuntivales con bastoncillo. Las opciones B, C y D representan abordajes erróneos o irrelevantes."
@@ -1104,7 +1104,7 @@
     "a": "Fagocitosis de los cristales por macrófagos sinoviales con activación del inflamasoma NLRP3 y liberación masiva de IL-1β.",
     "b": "Inhibición directa de la enzima ciclooxigenasa-2 con supresión de la prostaglandina E2 en la membrana sinovial.",
     "c": "Activación de la vía alternativa del complemento con lisis pura de los osteoblastos del hueso subcondral.",
-    "d": "Estimulación de los receptores muscarínicos M3 en los condrocitos con secreción de calcitonina y de osteoprotegerina."
+    "d": "Estimulación de los receptores muscarínicos M3 en los condrocitos con secreción de calcitonina y de osteoprotegerina con liberación de histamina."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. La inflamación gotosa aguda es el modelo clásico de inmunidad innata activada por cristales. Los cristales de Urato Monosódico (UMS) son fagocitados por los macrófagos residentes de la membrana sinovial. Dentro del citoplasma celular, los cristales desestabilizan el lisosoma y estimulan la plataforma proteica intracelular denominada INFLAMASOMA NLRP3. La activación del inflamasoma NLRP3 recluta e inactiva a la enzima caspasa-1, la cual escinde proteolíticamente al precursor inactivo pro-IL-1β convirtiéndolo en su forma activa secretada: la Interleuquina-1 beta (IL-1β). La IL-1β es la citoquina clave de la gota que induce la vasodilatación, el dolor y el reclutamiento masivo de neutrófilos hacia el espacio articular. Las opciones B, C y D no explican el mecanismo del inflamasoma."
@@ -1114,7 +1114,7 @@
    "numero": 86,
    "pregunta": "Una paciente de 68 años inicia tratamiento con Meprednisona 20 mg/día por una arteritis de células gigantes. Respecto a la Osteoporosis Inducida por Glucocorticoides, ¿cuál es su fisiopatología celular y el criterio para iniciar profilaxis ósea con Bisfosfonatos?",
    "opciones": {
-    "a": "Estimulan la síntesis de colágeno óseo; la profilaxis solo se indica si la calcemia supera los 15 mg/dL de forma sostenida.",
+    "a": "Estimulan la síntesis de colágeno óseo; la profilaxis solo se indica si la calcemia supera los 15 mg/dL de forma sostenida, y la suplementación con calcio está contraindicada.",
     "b": "Aumentan la reabsorción intestinal de calcio; la profilaxis exige el uso de diuréticos tiazídicos a dosis altas y reposo.",
     "c": "Inducen apoptosis de osteoblastos y osteocitos e incrementan el RANKL; se indica profilaxis con bisfosfonatos con prednisona ≥5 mg/día por ≥3 meses.",
     "d": "Inhiben de forma irreversible a los osteoclastos; no se requiere profilaxis ni suplementación de calcio ni de vitamina D."
@@ -1127,7 +1127,7 @@
    "numero": 87,
    "pregunta": "Un paciente de 66 años consulta por episodios de vértigo rotatorio súbito y breve (duración <1 minuto) que se desencadenan exclusivamente al girar la cabeza en la cama o al extender el cuello para mirar hacia arriba. No presenta acúfenos ni hipoacusia. ¿Cuál es el diagnóstico más probable, la maniobra diagnóstica y la maniobra de tratamiento de elección?",
    "opciones": {
-    "a": "Neuritis vestibular aguda; diagnóstico por audiometría tonal; tratamiento con aciclovir oral durante 7 días.",
+    "a": "Neuritis vestibular aguda; diagnóstico por audiometría tonal; tratamiento con aciclovir oral durante 7 días, y posterior reposo prolongado en cama.",
     "b": "Enfermedad de Menière; diagnóstico por electrocochleografía; tratamiento con dieta hipersódica y diuréticos.",
     "c": "ACV isquémico de la arteria basilar; diagnóstico por radiografía de tórax; tratamiento con aspirina oral.",
     "d": "Vértigo posicional paroxístico benigno (VPPB); diagnóstico por maniobra de Dix-Hallpike y tratamiento con maniobra de Epley."
@@ -1142,7 +1142,7 @@
    "opciones": {
     "a": "Síndrome de acinesia aguda (tipo neuroléptico maligno) con rigidez severa, hipertermia, disautonomía y CPK elevada.",
     "b": "Precipitación de una crisis tirotoxicósica con exoftalmos bilateral y fibrilación auricular rápida.",
-    "c": "Desarrollo de condrocalcinosis masiva en ambas articulaciones temporomandibulares con trismo secundario.",
+    "c": "Desarrollo de condrocalcinosis masiva en ambas articulaciones temporomandibulares con trismo secundario, y dolor facial persistente.",
     "d": "Aparición de hipoglucemia severa con alcalosis respiratoria pura y cetoacidosis diabética concomitante."
    },
    "respuesta_correcta": "a",
@@ -1166,7 +1166,7 @@
    "numero": 90,
    "pregunta": "Un paciente de 72 años con antecedente de enfermedad úlcero-péptica e hipertensión arterial padece gonartrosis sintomática monoarticular. Al seleccionar la terapia antiinflamatoria, se opta por un AINE Tópico (ej. Diclofenac gel al 1%). ¿Cuál es la fundamentación farmacocinética y de seguridad de esta elección?",
    "opciones": {
-    "a": "Aumenta la filtración glomerular al bloquear los receptores de aldosterona en el túbulo colector renal distal.",
+    "a": "Aumenta la filtración glomerular al bloquear los receptores de aldosterona en el túbulo colector renal distal, con retención de sodio y edema periférico.",
     "b": "Se metaboliza de forma exclusiva en el líquido cefalorraquídeo sin pasar nunca a la circulación sistémica.",
     "c": "Destruye de forma irreversible las fibras nociceptivas tipo C en la corteza parietal y el tálamo.",
     "d": "Alcanza concentraciones plasmáticas <10 % de la vía oral; analgesia local con mínimo riesgo gastrointestinal, renal y cardiovascular."
@@ -1195,7 +1195,7 @@
     "a": "Exantema fijo medicamentoso (erupción fija por drogas).",
     "b": "Eritema polimorfo minor vesicular acral recurrente.",
     "c": "Pénfigo vulgar mucocutáneo autoinmune ampolloso.",
-    "d": "Necrólisis epidérmica tóxica extensa con despegamiento."
+    "d": "Necrólisis epidérmica tóxica extensa con despegamiento cutáneo."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. El Exantema Fijo por Drogas (o Erupción Fija Medicamentosa) es una reacción adversa cutánea a fármacos muy característica. Su hallazgo patognomónico es la reaparición de una o varias pápulas/placas eritematovioláceas redondeadas o numulares (que pueden ampollarse o erosionarse) exactamente en la MISMA LOCALIZACIÓN ANATÓMICA de la piel o mucosa cada vez que el paciente se expone al fármaco causal (frecuentemente sulfonamidas, AINEs, tetraciclinas o anticonvulsivantes), dejando una hiperpigmentación postinflamatoria residual. A diferencia del Eritema Polimorfo Minor (opción B), las lesiones no son dianas típicas simétricas acrales múltiples ni están desencadenadas por virus herpes. Las opciones C y D son patologías ampollosas más graves no circunscritas de forma fija recurrente."
@@ -1257,7 +1257,7 @@
    "numero": 97,
    "pregunta": "En el tratamiento de la hiperuricemia refractaria o en el Síndrome de Lisis Tumoral agudo, se utilizan enzimas Uricasas Recombinantes (Rasburicasa o Pegloticasa). ¿Cuál es su mecanismo de acción biocatalítico y su ventaja en la eliminación del ácido úrico?",
    "opciones": {
-    "a": "Estimulan la excreción biliar de ácido úrico mediante la vía de los ácidos biliares y la bilirrubina.",
+    "a": "Estimulan la excreción biliar de ácido úrico mediante la vía de los ácidos biliares y la bilirrubina, y reducen la uricemia por esa vía.",
     "b": "Bloquean el cotransportador URAT-1 en el túbulo contorneado proximal y aumentan la uricosuria.",
     "c": "Inhiben la enzima xantino oxidasa e impiden la síntesis de xantina a partir de la hipoxantina.",
     "d": "Catalizan la conversión del ácido úrico en alantoína, producto inactivo y 5 a 10 veces más soluble que se elimina por orina."
@@ -1271,7 +1271,7 @@
    "pregunta": "En el manejo del Hipoparatiroidismo Crónico con sales de calcio orales y Calcitriol, ¿cuál es el riesgo renal e intraparenquimatoso derivado del sobretratamiento cuando se intenta forzar la normocalcemia estricta?",
    "opciones": {
     "a": "Desarrollo de necrosis hepática difusa con hipertensión portal no cirrótica y esplenomegalia.",
-    "b": "Glomerulonefritis rápidamente progresiva por depósitos de complejos inmunes IgG4 en el glomérulo.",
+    "b": "Glomerulonefritis rápidamente progresiva por depósitos de complejos inmunes IgG4 en el glomérulo y proteinuria en rango nefrótico.",
     "c": "Aparición de diabetes insípida nefrogénica por destrucción del túbulo colector y polidipsia.",
     "d": "Hipercalciuria con riesgo de nefrocalcinosis, litiasis e insuficiencia renal, más calcificación de ganglios basales."
    },
