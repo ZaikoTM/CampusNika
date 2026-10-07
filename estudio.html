@@ -158,14 +158,28 @@
         .btn-back-dashboard svg, .btn-back svg { width: 18px; height: 18px; }
 
         .up-detail-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
-        .btn-nikasim-up { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; border-radius: 14px; text-decoration: none; color: #fff; background: linear-gradient(135deg, #0ea5e9, #0d9488); box-shadow: 0 6px 16px rgba(13, 148, 136, 0.28); transition: transform .18s, box-shadow .18s; }
-        .btn-nikasim-up:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(13, 148, 136, 0.38); }
-        .btn-nikasim-up svg { width: 38px; height: 38px; flex-shrink: 0; filter: drop-shadow(0 2px 3px rgba(0,0,0,.2)); animation: nksFlota 3s ease-in-out infinite; }
-        .btn-nikasim-up span { display: flex; flex-direction: column; line-height: 1.15; }
-        .btn-nikasim-up b { font-size: 0.95rem; font-weight: 900; }
-        .btn-nikasim-up small { font-size: 0.7rem; font-weight: 600; opacity: .9; }
-        @keyframes nksFlota { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-        @media (prefers-reduced-motion: reduce) { .btn-nikasim-up svg { animation: none; } }
+        .btn-nikasim-up { position: relative; overflow: hidden; display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding: 12px 18px 12px 14px; border-radius: 16px; text-decoration: none; color: #fff; background: linear-gradient(120deg, #0ea5e9, #0d9488 60%, #0ea5e9); background-size: 200% 100%; box-shadow: 0 8px 20px rgba(13, 148, 136, 0.28); transition: transform .2s ease, box-shadow .2s ease, background-position .6s ease; animation: nksEntra .6s cubic-bezier(.2,.9,.3,1.2) both; }
+        .btn-nikasim-up::after { content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-20deg); animation: nksBrillo 4.5s ease-in-out infinite; pointer-events: none; }
+        .btn-nikasim-up:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 14px 28px rgba(13, 148, 136, 0.4); background-position: 100% 0; }
+        .btn-nikasim-up:active { transform: translateY(-1px) scale(.99); }
+        .btn-nikasim-up svg { width: 44px; height: 44px; flex-shrink: 0; filter: drop-shadow(0 3px 4px rgba(0,0,0,.25)); animation: nksFlota 3s ease-in-out infinite; transform-origin: 50% 90%; }
+        .btn-nikasim-up:hover svg { animation: nksSaludo .8s ease-in-out infinite; }
+        .btn-nikasim-up .nks-ojos { transform-box: fill-box; transform-origin: center; animation: nksParpadeo 4s infinite; }
+        .btn-nikasim-up .nks-ant { animation: nksAntena 1.6s ease-in-out infinite; }
+        .nks-txt { display: flex; flex-direction: column; line-height: 1.2; flex: 1; min-width: 0; }
+        .nks-txt b { font-size: 0.98rem; font-weight: 900; }
+        .nks-txt small { font-size: 0.74rem; font-weight: 600; opacity: .92; margin-top: 2px; }
+        .nks-flecha { font-size: 1.5rem; font-weight: 900; transition: transform .2s; animation: nksEmpuja 1.8s ease-in-out infinite; }
+        .btn-nikasim-up:hover .nks-flecha { transform: translateX(6px); animation: none; }
+        @keyframes nksEntra { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+        @keyframes nksFlota { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        @keyframes nksSaludo { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-9deg) translateY(-3px); } 75% { transform: rotate(9deg) translateY(-3px); } }
+        @keyframes nksParpadeo { 0%,92%,100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+        @keyframes nksAntena { 0%,100% { opacity: 1; r: 3.5; } 50% { opacity: .35; r: 5; } }
+        @keyframes nksBrillo { 0%,60% { left: -60%; } 100% { left: 140%; } }
+        @keyframes nksEmpuja { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+        @media (prefers-reduced-motion: reduce) { .btn-nikasim-up, .btn-nikasim-up::after, .btn-nikasim-up svg, .btn-nikasim-up .nks-ojos, .btn-nikasim-up .nks-ant, .nks-flecha { animation: none !important; } }
+        @media (max-width: 600px) { .btn-nikasim-up { padding: 10px 12px; gap: 10px; } .btn-nikasim-up svg { width: 36px; height: 36px; } .nks-txt b { font-size: .88rem; } .nks-flecha { display: none; } }
         .up-detail-title-block .up-card-number { margin-bottom: 10px; display: inline-block; }
         .up-detail-title-block h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: 900; letter-spacing: -0.5px; color: var(--nika-dark); }
 
@@ -489,15 +503,16 @@
                     <span class="up-card-number" id="up-detail-number">UP1</span>
                     <h2 id="up-detail-title">Título de la Unidad Problema</h2>
                 </div>
-                <a class="btn-nikasim-up" id="btn-nikasim-up" href="acreditaciones.html?area=siam" title="Practicá en NikaSIM · Atlas de Acreditaciones">
-                    <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="30" y="3" width="4" height="9" rx="2" fill="#fff"/><circle cx="32" cy="4" r="3.5" fill="#38bdf8"/><rect x="8" y="14" width="48" height="38" rx="16" fill="#fff"/><rect x="14" y="22" width="36" height="22" rx="11" fill="#0f2a44"/><circle cx="24" cy="33" r="4.2" fill="#38bdf8"/><circle cx="40" cy="33" r="4.2" fill="#38bdf8"/><path d="M27 39.5q5 3 10 0" stroke="#38bdf8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-                    <span><b>NikaSIM</b><small>Practicá esta unidad en el Atlas</small></span>
-                </a>
             </div>
 
             <div class="up-detail-layout">
                 <!-- Contenido principal: Tabs -->
                 <div class="up-detail-main">
+                    <a class="btn-nikasim-up" id="btn-nikasim-up" href="acreditaciones.html?area=siam" title="NikaSIM · Atlas de Acreditaciones">
+                        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="30" y="4" width="4" height="9" rx="2" fill="#fff"/><circle class="nks-ant" cx="32" cy="4" r="3.5" fill="#38bdf8"/><rect x="8" y="14" width="48" height="38" rx="16" fill="#fff"/><rect x="14" y="22" width="36" height="22" rx="11" fill="#0f2a44"/><g class="nks-ojos"><circle cx="24" cy="33" r="4.2" fill="#38bdf8"/><circle cx="40" cy="33" r="4.2" fill="#38bdf8"/></g><path d="M27 39.5q5 3 10 0" stroke="#38bdf8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                        <span class="nks-txt"><b>Practicá los procedimientos de esta unidad en el Atlas</b><small>NikaSIM · simuladores 3D de acreditaciones</small></span>
+                        <span class="nks-flecha" aria-hidden="true">→</span>
+                    </a>
                     <div class="up-tabs-strip">
                         <button class="up-tab-btn active" onclick="showUpTab('temario', this)">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
@@ -586,7 +601,7 @@
     <script src="js/pomodoroSyncManager.js?v=4"></script>
 
     <!-- 4. Lógica de Estudio -->
-    <script src="js/estudio/estudio.js"></script>
+    <script src="js/estudio/estudio.js?v=72"></script>
 
     <!-- 5. Asistente IA y Módulos Sociales -->
     <script src="js/assistant.js?v=3"></script>
