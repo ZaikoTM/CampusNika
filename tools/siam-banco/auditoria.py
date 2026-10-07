@@ -64,7 +64,10 @@ def _latex(t):
         return _conv(SUP, cont) or cont if cont != '°' else '°'
     def sub(m):
         cont = m.group(1) if m.group(1) is not None else m.group(2)
-        return _conv(SUB, cont) or cont
+        r = _conv(SUB, cont)
+        if r:
+            return r
+        return (' ' + cont) if (len(cont) >= 5 and cont.isalpha()) else cont   # P_{capilar} -> 'P capilar'; I_{Kr} -> 'IKr'
     t = re.sub(r'\^\{([^}]*)\}|\^([+\-°\d])', lambda m: sup(m), t)
     t = re.sub(r'_\{([^}]*)\}|_([A-Za-z0-9]+)', lambda m: sub(m), t)
     return t
@@ -125,12 +128,46 @@ def _repetidas(t):
     return re.sub(r'\b(\w{4,})\s+\1\b', r'\1', t, flags=re.I)
 
 
-def limpiar_texto(t):
+# ---------------------------------------------------------------- LaTeX matematico ($...$, \alpha, \ge...) -> simbolos
+MACROS = {
+    'alpha': 'α', 'beta': 'β', 'gamma': 'γ', 'delta': 'δ', 'Delta': 'Δ', 'mu': 'μ', 'kappa': 'κ', 'tau': 'τ', 'theta': 'θ',
+    'sigma': 'σ', 'lambda': 'λ', 'pi': 'π', 'circ': '°', 'cdot': '·', 'approx': '≈', 'times': '×', 'pm': '±',
+    'rightarrow': '→', 'to': '→', 'leftarrow': '←', 'uparrow': '↑', 'downarrow': '↓', 'neq': '≠', 'infty': '∞',
+    'geq': '≥', 'ge': '≥', 'leq': '≤', 'le': '≤', 'sim': '~', 'ldots': '…', 'dots': '…',
+}
+
+
+def _mates(t):
+    if '\\' not in t and '$' not in t:
+        return t
+    t = re.sub(r'\\frac\{([^{}]*)\}\{([^{}]*)\}', r'\1/\2', t)
+    t = re.sub(r'\\text\{([^{}]*)\}|\\mathrm\{([^{}]*)\}', lambda m: m.group(1) or m.group(2), t)
+    t = t.replace('\\ ', ' ').replace('\\,', ' ').replace('\\%', '%')
+    t = re.sub(r'\\([A-Za-z]+)', lambda m: MACROS.get(m.group(1), m.group(1)), t)
+    t = t.replace('$', '')
+    return t
+
+
+def _e_por_y(t):
+    """La conjuncion 'y' aparece escrita como 'e' ante palabras que no empiezan con i-/hi-: se restituye 'y'."""
+    def rep(m):
+        w = m.group(1).lower()
+        if w.startswith('i') or (w.startswith('hi') and len(w) > 2 and w[2] not in 'aeou'):
+            return m.group(0)
+        return 'y ' + m.group(1)
+    t = re.sub(r"(?<![\w/'’.\-])e (?=[A-Za-zÁÉÍÓÚÜÑáéíóúüñ])([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)", rep, t)
+    return re.sub(r"(?<![\w/'’.\-])e (?=[\dαβγδμκτ])", 'y ', t)   # 'entre 3 e 5 mg', 'e 2)' -> 'y'
+
+
+def limpiar_texto(t, corregir_e=False):
     t = _entidades(t)
     t = _frases(t)          # antes del LaTeX: hay formulas con tratamiento propio (T½, GABA-A, TP paciente)
+    t = _mates(t)
     t = _latex(t)
     t = _espacios(t)
     t = _ortografia(t)
+    if corregir_e:
+        t = _e_por_y(t)
     t = _y_e(t)
     t = _repetidas(t)
     return t
