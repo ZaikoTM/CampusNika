@@ -1489,8 +1489,8 @@
     <script src="data/banco_trauma_superior.js"></script>
     <script src="data/banco_trauma_inferior.js"></script>
     <script src="data/banco_suturas.js"></script>
-    <script src="js/examModesConfig.js?v=72"></script>
-    <script src="js/examPromptsMaterias.js?v=3"></script>
+    <script src="js/examModesConfig.js?v=73"></script>
+    <script src="js/examPromptsMaterias.js?v=4"></script>
 
     <script>
         // ================= ESTADO GLOBAL =================
@@ -3545,9 +3545,15 @@ Cuando, según las reglas de arriba, decidas dar por terminada la simulación (o
   "vocabulario": 9,
   "nota_final": 7.5,
   "devolucion_docente": "Párrafo 1 con análisis del caso y fortalezas. Párrafo 2 con sugerencias clínicas puntuales de mejora.",
-  "principal_debilidad": "Concepto o tema puntual donde más falló (ej: Conducta quirúrgica de urgencia en apendicitis complicada)"
+  "principal_debilidad": "Concepto o tema puntual donde más falló (ej: Conducta quirúrgica de urgencia en apendicitis complicada)",
+  "revision_detallada": [
+    { "dominio": "Semiología", "resultado": "Parcial", "hizo_bien": "Interrogó inicio, localización y características del dolor.", "fallo_o_falto": "No preguntó por medicación habitual ni antecedentes quirúrgicos; no pidió la maniobra de Blumberg.", "como_debia_hacerlo": "Indagar medicación y antecedentes antes de indicar fármacos y pedir Blumberg y palpación de la fosa ilíaca derecha." }
+  ],
+  "respuesta_modelo": "Plan completo ideal del caso, con las opciones válidas y las condiciones para elegir cada una."
 }
 "semiologia", "diagnostico", "terapeutica" y "vocabulario" son notas de 1 a 10 (enteras) que evalúan, respectivamente: anamnesis y examen físico; diagnóstico presuntivo y diferenciales; conducta médica, indicaciones y farmacología; terminología y rigor técnico médico. "nota_final" es de 1 a 10, con hasta un decimal, y debe reflejar el promedio ponderado real de los 4 pilares (no un número arbitrario). "devolucion_docente" son 1-2 párrafos de feedback cualitativo concreto, citando lo que el alumno hizo bien y lo que debería mejorar. "principal_debilidad" es el concepto puntual donde más falló (nunca cadena vacía: si el desempeño fue sólido, indicá igual el aspecto más débil relativo). Mientras la simulación siga en curso, respondé SOLO con el texto de diálogo correspondiente a tu personaje (nunca JSON).
+REVISIÓN DETALLADA OBLIGATORIA: además del resto, incluí "revision_detallada" (lista de 3 a 9 ítems; en el ECOE, uno por cada dominio) y "respuesta_modelo". Cada ítem lleva: "dominio", "resultado" (Logrado, Parcial o No logrado), "hizo_bien", "fallo_o_falto" (el dato, la pregunta, la maniobra, el estudio o la indicación CONCRETOS que faltaron o fallaron) y "como_debia_hacerlo" (cómo se resuelve bien; en terapéutica, con fármaco, dosis, vía y frecuencia). Está PROHIBIDO dar menos de 10 en un pilar sin explicar en la revisión exactamente por qué. Cada campo de hasta 40 palabras, "respuesta_modelo" de hasta 120, y todo en una sola línea de texto (sin saltos de línea reales).
+AL JUZGAR LA CONDUCTA DISTINGUÍ TRES COSAS: (1) ERROR: conducta incorrecta, contraindicada o peligrosa (penaliza fuerte); (2) OMISIÓN o PLAN INCOMPLETO: conducta válida pero faltó parte del plan completo (penaliza leve o moderado, se dice qué faltó y NO se la llama error); (3) ALTERNATIVA VÁLIDA: una opción distinta a la que tendrías vos pero clínicamente correcta (se acepta sin penalizar). Aceptá los planes condicionales o por escenarios (por ejemplo: "si me operan hoy, antibiótico en dosis única como profilaxis; si no se opera en el día, esquema terapéutico cada 12 o 24 horas; analgesia sin esperar la evaluación quirúrgica"): son correctos si cada rama es válida, y más completos que una sola opción. Cuando haya varias opciones válidas, "respuesta_modelo" las enumera todas con las condiciones para elegir cada una, y se valora la respuesta más completa.
 CRITERIO DE APROBACIÓN (todas las materias): la nota mínima para aprobar es 6, tanto en la nota final como en cada pilar. Sé estricto: un 6 significa que cumplió lo esencial con seguridad; un error crítico, una omisión vital o una conducta peligrosa dejan el pilar afectado en 4 o menos aunque el resto esté bien; no infles las notas por simpatía ni por esfuerzo.
 REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo contiene preguntas meta-teóricas (ej. "¿a qué unidad pertenece este caso problema?"), o si NO incluye indicaciones médicas, diagnósticos o conductas terapéuticas claras, la calificación DEBE SER 1/10 (Desaprobado) en todos los pilares. TIENES ESTRICTAMENTE PROHIBIDO asumir, inferir o inventar conductas que el alumno no escribió expresamente. Evalúa de forma implacable y exclusivamente el texto provisto.`;
 
@@ -3595,6 +3601,21 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             { k: 'vocabulario', nombre: 'Vocabulario', icono: '📚', desc: 'Terminología y rigor técnico médico' },
         ];
 
+        // Revisión detallada: qué hizo bien, qué falló o faltó y cómo debía hacerse, por dominio; más la respuesta modelo completa.
+        function renderRevisionDetallada(data) {
+            const items = Array.isArray(data.revision_detallada) ? data.revision_detallada.filter((i) => i && (i.fallo_o_falto || i.hizo_bien || i.como_debia_hacerlo)) : [];
+            const modelo = typeof data.respuesta_modelo === 'string' ? data.respuesta_modelo.trim() : '';
+            if (!items.length && !modelo) return '';
+            const col = (r) => (/^logr/i.test(r) ? '#16a34a' : /^parc/i.test(r) ? '#d97706' : '#dc2626');
+            const fila = (ico, tit, txt) => (txt ? `<div style="margin-top:6px; font-size:0.86rem; line-height:1.45;"><strong>${ico} ${tit}:</strong> ${escaparHtml(String(txt))}</div>` : '');
+            const tarjetas = items.map((i) => `
+                <div style="border:1px solid var(--border); border-left:4px solid ${col(String(i.resultado || ''))}; border-radius:10px; padding:10px 12px; margin-top:8px; background:var(--card-bg);">
+                    <div style="display:flex; justify-content:space-between; gap:8px; font-weight:800; font-size:0.9rem;"><span>${escaparHtml(String(i.dominio || ''))}</span><span style="color:${col(String(i.resultado || ''))};">${escaparHtml(String(i.resultado || ''))}</span></div>
+                    ${fila('✅', 'Lo que hiciste bien', i.hizo_bien)}${fila('❌', 'Qué falló o faltó', i.fallo_o_falto)}${fila('💡', 'Cómo debías hacerlo', i.como_debia_hacerlo)}
+                </div>`).join('');
+            return `<details open class="feedback-box" style="margin-top:12px;"><summary style="cursor:pointer; font-weight:800;">🔎 Revisión detallada: dónde te equivocaste y cómo hacerlo bien</summary>${tarjetas}${modelo ? `<div style="margin-top:12px; padding:10px 12px; border-radius:10px; background:rgba(14,165,233,.1); border:1px dashed #0ea5e9; font-size:0.88rem; line-height:1.5;"><strong>📘 Respuesta modelo (plan completo):</strong> ${escaparHtml(modelo)}</div>` : ''}</details>`;
+        }
+
         function renderRubricaHtml(data) {
             const nota = Math.max(0, Math.min(10, Math.round(Number(data.nota_final) * 10) / 10));
             const tarjetas = PILARES_EVALUACION.map((p) => {
@@ -3614,6 +3635,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 </div>
                 <div class="pilares-grid">${tarjetas}</div>
                 <div class="feedback-box"><strong style="color: var(--text-main);">🧑‍⚖️ Devolución docente:</strong><br>${escaparHtml(data.devolucion_docente || '').replace(/\n/g, '<br>')}</div>
+                ${renderRevisionDetallada(data)}
                 ${data.principal_debilidad ? `<div class="esc-alerta">📌 Punto crítico a reforzar: ${escaparHtml(data.principal_debilidad)}</div>` : ''}
             `;
         }

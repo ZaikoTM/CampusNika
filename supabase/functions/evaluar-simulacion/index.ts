@@ -164,7 +164,7 @@ async function intentarLlamarGemini(modelo: string, systemPrompt: string, histor
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${GEMINI_API_KEY}`;
     const generationConfig: Record<string, unknown> = {
         temperature: esEvaluacion ? 0.35 : 0.9,
-        maxOutputTokens: 2048,
+        maxOutputTokens: esEvaluacion ? 4096 : 2048,   // la evaluación incluye la revisión detallada y la respuesta modelo
     };
     // La familia Gemini 3.x tiene "thinking" habilitado por defecto y el
     // razonamiento interno consume el mismo presupuesto de maxOutputTokens: si

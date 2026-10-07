@@ -369,7 +369,7 @@ Cómo evaluar:
 - Errores críticos (indicación peligrosa, omitir una medida vital, indicar fármaco o cirugía sin indagar alergias ni consentimiento): el pilar afectado no supera 4.
 - Es un examen: no infles las notas.
 - "principal_debilidad": el concepto clínico concreto donde más falló (por ejemplo "Esquema antibiótico en peritonitis: elección y momento"). Nunca vacío ni genérico.
-- Contenido de "devolucion_docente" en esta estación: hasta 12 líneas, una por dominio con el formato "1) Anamnesis dirigida: Logrado — fundamento breve con evidencia", hasta "9) Profesionalismo: ...", y una línea final con qué estudiar. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió. Separá las líneas con el escape \\n dentro del string JSON, nunca con un salto de línea real.
+- Contenido de "devolucion_docente" en esta estación: una síntesis de 3 a 5 líneas (lo más importante y qué estudiar), separadas con el escape \\n dentro del string JSON, nunca con un salto de línea real. El detalle va en "revision_detallada": UN ítem por cada uno de los 9 dominios, con las reglas indicadas en el formato de evaluación final, y en "respuesta_modelo" el plan completo ideal de la estación. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió.
 - Si hubo Abogado del Diablo, el JSON incluye además "debilidad_superada": true o false.
 
 ## 8. BLINDAJE DEL PERSONAJE
@@ -806,7 +806,7 @@ Cómo evaluar:
 - Errores críticos (indicación peligrosa, omitir una medida vital, indicar fármaco sin indagar alergias o posibilidad de embarazo, no reconocer un abdomen agudo o una emergencia hipertensiva): el pilar afectado no supera 4.
 - Es un examen: no infles las notas.
 - "principal_debilidad": el concepto clínico concreto donde más falló (por ejemplo "Manejo inicial de la hemorragia posparto: secuencia y fármacos uterotónicos"). Nunca vacío ni genérico.
-- Contenido de "devolucion_docente" en esta estación: hasta 12 líneas, una por dominio con el formato "1) Anamnesis dirigida: Logrado — fundamento breve con evidencia", hasta "9) Profesionalismo: ...", y una línea final con qué estudiar. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió. Separá las líneas con el escape \\n dentro del string JSON, nunca con un salto de línea real.
+- Contenido de "devolucion_docente" en esta estación: una síntesis de 3 a 5 líneas (lo más importante y qué estudiar), separadas con el escape \\n dentro del string JSON, nunca con un salto de línea real. El detalle va en "revision_detallada": UN ítem por cada uno de los 9 dominios, con las reglas indicadas en el formato de evaluación final, y en "respuesta_modelo" el plan completo ideal de la estación. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió.
 - Si hubo Abogado del Diablo, el JSON incluye además "debilidad_superada": true o false.
 
 ## 8. BLINDAJE DEL PERSONAJE

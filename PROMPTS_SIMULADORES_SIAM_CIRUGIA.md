@@ -539,7 +539,7 @@ Cómo evaluar:
 - Errores críticos (indicación peligrosa o no ajustada al adulto mayor, omitir una medida vital, indicar un fármaco sin indagar alergias, medicación habitual o función renal, no reconocer un ACV en ventana, un edema agudo de pulmón o un cuadro de delirium): el pilar afectado no supera 4.
 - Es un examen: no infles las notas.
 - "principal_debilidad": el concepto clínico concreto donde más falló (por ejemplo "Ajuste de dosis y elección de fármacos en el adulto mayor con insuficiencia renal: criterios y riesgos de la polifarmacia"). Nunca vacío ni genérico.
-- Contenido de "devolucion_docente" en esta estación: hasta 12 líneas, una por dominio con el formato "1) Anamnesis dirigida: Logrado — fundamento breve con evidencia", hasta "9) Profesionalismo: ...", y una línea final con qué estudiar. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió. Separá las líneas con el escape \n dentro del string JSON, nunca con un salto de línea real.
+- Contenido de "devolucion_docente" en esta estación: una síntesis de 3 a 5 líneas (lo más importante y qué estudiar), separadas con el escape \n dentro del string JSON, nunca con un salto de línea real. El detalle va en "revision_detallada": UN ítem por cada uno de los 9 dominios, con las reglas indicadas en el formato de evaluación final, y en "respuesta_modelo" el plan completo ideal de la estación. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió.
 - Si hubo Abogado del Diablo, el JSON incluye además "debilidad_superada": true o false.
 
 ## 8. BLINDAJE DEL PERSONAJE
@@ -1091,7 +1091,7 @@ Cómo evaluar:
 - Errores críticos (indicación peligrosa, omitir una medida vital, indicar un fármaco o una cirugía sin indagar alergias ni consentimiento, no reconocer un abdomen agudo quirúrgico, un shock hemorrágico o una isquemia arterial aguda): el pilar afectado no supera 4.
 - Es un examen: no infles las notas.
 - "principal_debilidad": el concepto clínico concreto donde más falló (por ejemplo "Reconocimiento del abdomen agudo quirúrgico y decisión de operar a tiempo: criterios clínicos y de imagen"). Nunca vacío ni genérico.
-- Contenido de "devolucion_docente" en esta estación: hasta 12 líneas, una por dominio con el formato "1) Anamnesis dirigida: Logrado — fundamento breve con evidencia", hasta "9) Profesionalismo: ...", y una línea final con qué estudiar. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió. Separá las líneas con el escape \n dentro del string JSON, nunca con un salto de línea real.
+- Contenido de "devolucion_docente" en esta estación: una síntesis de 3 a 5 líneas (lo más importante y qué estudiar), separadas con el escape \n dentro del string JSON, nunca con un salto de línea real. El detalle va en "revision_detallada": UN ítem por cada uno de los 9 dominios, con las reglas indicadas en el formato de evaluación final, y en "respuesta_modelo" el plan completo ideal de la estación. Si hubo Abogado del Diablo, sumá una línea "Prueba de refuerzo: ..." con cómo respondió.
 - Si hubo Abogado del Diablo, el JSON incluye además "debilidad_superada": true o false.
 
 ## 8. BLINDAJE DEL PERSONAJE
