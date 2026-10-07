@@ -1,0 +1,1282 @@
+{
+ "modulo": "siam",
+ "unidad": "UP6",
+ "seccion": "Cardiología y Farmacología",
+ "titulo": "El adulto mayor y su corazón I",
+ "preguntas": [
+  {
+   "id": "SIAM-UP6-001",
+   "numero": 1,
+   "pregunta": "Un paciente de 74 años consulta por palpitaciones de inicio reciente y fatiga. Al realizar un electrocardiograma de 12 derivaciones, se observa un ritmo irregularmente irregular con ausencia completa de ondas P visibles, presencia de ondas 'f' de fibrilación de baja amplitud e intervalos R-R totalmente desiguales. ¿Cuál es el diagnóstico electrocardiográfico y el mecanismo electrofisiológico subyacente?",
+   "opciones": {
+    "a": "Taquicardia Paroxística Supraventricular; producida por un microcircuito de reentrada dentro de la unión auriculoventricular.",
+    "b": "Flutter auricular típico; producido por un macrorrecircuito de reentrada en la aurícula derecha alrededor del istmo cavotricuspídeo.",
+    "c": "Síndrome del Nódulo Sinusal Enfermo; producido por la fibrosis degenerativa del marcapasos fisiológico con pausas asistólicas.",
+    "d": "Fibrilación Auricular; producida por múltiples microrreentradas e impulsos caóticos desorganizados originados en las venas pulmonares."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Fibrilación Auricular (FA) es la arritmia cardíaca sostenida más frecuente en la población geriátrica. HALLAZGOS ELECTROCARDIOGRÁFICOS PATOGNOMÓNICOS: 1) Ausencia de ondas P sinusales organizadas; 2) Presencia de ondas 'f' de fibrilación (oscilaciones irregulares de la línea isoeléctrica a una frecuencia de 350 a 600 latidos/min); y 3) Intervalos R-R absolutamente desiguales ('ritmo irregularmente irregular'). FISIOPATOLOGÍA: Ocurre por la generación de múltiples microrreentradas y descargas ectópicas de alta frecuencia originadas característicamente en las manguitos de músculo liso/miocardio situados en la desembocadura de las VENAS PULMONARES dentro de la Aurícula Izquierda. La opción B describe el Flutter auricular (ritmo regular con ondas en 'dientes de sierra'). La opción A corresponde a la TPSV (complejos QRS estrechos regulares). La opción C corresponde a la enfermedad del nodo sinusal."
+  },
+  {
+   "id": "SIAM-UP6-002",
+   "numero": 2,
+   "pregunta": "En la evaluación de un trazado electrocardiográfico de un paciente de 78 años con mareos episódicos, se observa una prolongación progresiva del intervalo PR en latidos sucesivos hasta que una onda P se bloquea y no conduce al ventrículo, tras lo cual el ciclo se reinicia con un PR más corto. ¿Cuál es la clasificación del bloqueo auriculoventricular y su sitio anatómico habitual?",
+   "opciones": {
+    "a": "Bloqueo AV de segundo grado Mobitz I (Wenckebach); localizado habitualmente a nivel del nódulo AV con comportamiento benigno.",
+    "b": "Bloqueo AV de primer grado; localizado exclusivamente en las fibras de Purkinje ventriculares con conducción auriculoventricular 1:1.",
+    "c": "Bloqueo AV de segundo grado Mobitz II; localizado habitualmente por debajo del haz de His con alto riesgo de progresión a bloqueo completo.",
+    "d": "Bloqueo AV de tercer grado o completo; localizado en el tabique interventricular con disociación auriculoventricular absoluta."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El Bloqueo Auriculoventricular (BAV) de 2º grado Mobitz I (Fenómeno de Wenckebach) se caracteriza electrocardiográficamente por el alargamiento o prolongación progresiva del intervalo PR (PR₁ < PR₂ < PR₃) en ciclos sucesivos hasta que una onda P no es seguida de un complejo QRS (onda P bloqueada). La pausa ventricular resultante es menor que la suma de dos intervalos P-P. ANATOMÍA Y PRONÓSTICO: La lesión se localiza casi de forma constante DENTRO DEL NÓDULO AURICULOVENTRICULAR (intranodal), suele ser fisiológica o degenerativa benigna, responde favorablemente a la atropina o al ejercicio e INFRECUENTEMENTE progresa a bloqueo completo. En el Mobitz II (opción C), los intervalos PR son constantes previos al bloqueo y la lesión es infranodal (Haz de His). La opción B presenta PR largo constante. La opción D presenta disociación AV total."
+  },
+  {
+   "id": "SIAM-UP6-003",
+   "numero": 3,
+   "pregunta": "Una paciente de 65 años ingresa a la guardia con taquicardia de complejos estrechos (QRS <120 ms), ritmo regular, frecuencia cardíaca de 180 latidos por minuto e inestabilidad hemodinámica leve (sin shock). Tras el fracaso de las maniobras vagales, se decide administrar adenosina en bolo IV rápido. ¿Cuál es el mecanismo de acción celular de la adenosina e indicación en este contexto?",
+   "opciones": {
+    "a": "Inhibición de la fosfodiesterasa III, aumentando la concentración intracelular de AMPc y acelerando la velocidad de conducción.",
+    "b": "Activación de receptores A1 e incremento de la salia de K+, hiperpolarizando la célula y bloqueando la conducción en el nódulo AV.",
+    "c": "Estimulación directa de los receptores beta-1 adrenérgicos, aumentando la corriente de entrada de calcio en el nódulo sinusal.",
+    "d": "Bloqueo irreversible de los canales de sodio rápidos, enlenteciendo la fase 0 de despolarización en las fibras de Purkinje."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La ADENOSINA es el fármaco de primera línea para la conversión rápida a ritmo sinusal de la Taquicardia Paroxística Supraventricular (TPSV) por reentrada en el nódulo AV (TRNAV) o por vía accesoria. MECANISMO DE ACCIÓN CELULAR: Se une a los receptores purinérgicos A1 acoplados a proteína Gi en el tejido nodal. Esto produce: 1) Apertura de los canales de potasio sensibles a acetilcolina/adenosina (IK,Ado), aumentando la eflujo de K⁺ e hiperpolarizando la membrana celular; y 2) Inhibición del AMPc intracelular impulsado por catecolaminas, bloqueando la corriente de entrada de Calcio (ICa-L). Esto produce un BLOQUEO TRANSIOLOGICO E INTENSO DE LA CONDUCCIÓN EN EL NÓDULO AV (interrumpiendo el circuito de reentrada). Posee una vida media ultra-corta (<10 segundos), exigiendo administración en bolo IV rápido seguido de lavado salino. Las opciones A, C y D describen acciones farmacológicas contrapuestas."
+  },
+  {
+   "id": "SIAM-UP6-004",
+   "numero": 4,
+   "pregunta": "Los fármacos antiarrítmicos de la Clase I de la clasificación de Vaughan Williams se caracterizan por el bloqueo de los canales de sodio dependientes de voltaje. ¿Cuál es la diferencia farmacodinámica fundamental entre la Subclase IA (Quinidina, Procainamida) y la Subclase IB (Lidocaína) respecto al intervalo QT y al potencial de acción?",
+   "opciones": {
+    "a": "La Clase IA prolonga la repolarización y el intervalo QT; la Clase IB acorta la repolarización y reduce el potencial de acción.",
+    "b": "La Clase IA no altera la conducción; la Clase IB bloquea masivamente los canales de calcio dihidropiridínicos en la fase 2.",
+    "c": "La Clase IA acorta el potencial de acción y reduce el intervalo QT; la Clase IB prolonga el potencial de acción y ensancha el QRS.",
+    "d": "La Clase IA actúa exclusivamente en el nódulo sinusal; la Clase IB actúa en la aurícula aumentando la refractariedad auricular."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Los antiarrítmicos del Grupo I de Vaughan Williams bloquean la corriente rápida de sodio (INa, Fase 0). Se dividen en tres subclases según su cinética de disociación del canal y su efecto sobre la duración del Potencial de Acción (DPA) y repolarización: 1) CLASE IA (Quinidina, Procainamida, Disopiramida): Poseen cinética intermedia. Bloquean el canal de Na⁺ e además bloquean los canales de potasio (IKr), por lo que PROLONGAN LA DURACIÓN DEL POTENCIAL DE ACCIÓN Y EL INTERVALO QT (riesgo de Torsades de Pointes); 2) CLASE IB (Lidocaína, Mexiletina, Fenitoína): Poseen cinética rápida. Se unen preferentemente a canales inactivados en tejido isquémico, ACORTAN LA DURACIÓN DEL POTENCIAL DE ACCIÓN Y REDUCEN EL INTERVALO QT (sin alterar el QRS en ritmo normal); y 3) Clase IC (Flecainida, Propafenona): Cinética lenta, deprimen la Fase 0 sin alterar la repolarización/QT. La opción A contrapone de forma precisa ambas subclases."
+  },
+  {
+   "id": "SIAM-UP6-005",
+   "numero": 5,
+   "pregunta": "La amiodarona es un antiarrítmico de Clase III de Vaughan Williams ampliamente utilizado en arritmias supraventriculares y ventriculares. Además de prolongar la duración del potencial de acción al bloquear los canales de potasio, presenta características multicanal y toxicidad extracardíaca. ¿Cuál de los siguientes perfiles de efectos adversos orgánicos crónicos es característico de la amiodarona?",
+   "opciones": {
+    "a": "Lupus eritematoso inducido por fármacos, retinopatía pigmentaria pigmentosa, agranulocitosis e hipoglucemia.",
+    "b": "Gastritis erosiva hemorrágica, hipertensión arterial maligna, sordera neurosensorial irreversible y alopecia total.",
+    "c": "Disfunción tiroidea (hipo o hipertiroidismo), toxicidad pulmonar (fibrosis), depósitos corneales y alteración hepática.",
+    "d": "Insuficiencia renal oligúrica aguda, necrosis epidérmica tóxica, anemia aplásica e hiperplasia gingival severa."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La AMIODARONA es un antiarrítmico de Clase III (bloqueante de canales de potasio IKr) que posee además acciones de Clase I, II y IV. Su molécula es rica en Yodo (37% de su peso) y lipofílica, acumulándose en los tejidos con una vida media plasmática prolongada (30 a 60 días). TOXICIDAD CRÓNICA ÓRGANO-ESPECÍFICA: 1) Toxicidad Tiroidea: Produce Hipo o Hipertiroidismo (Efecto Wolff-Chaikoff o Jod-Basedow) por su carga de yodo e inhibición de la deyodasa; 2) Toxicidad Pulmonar: Neumonitis intersticial o Fibrosis Pulmonar (efecto adverso tóxico más grave, potencialmente mortal); 3) Depósitos Corneales: Microdepósitos de lipofuscina córnea en casi el 100% de los usuarios crónicos (halos de luz); 4) Hepatotoxicidad con elevación de transaminasas y cirrosis; y 5) Fotosensibilidad y pigmentación cutánea cetrina/grisácea. La opción D cita insuficiencia renal e hiperplasia gingival (fenitoína). La opción A nombra lupus (procainamida/hidralazina)."
+  },
+  {
+   "id": "SIAM-UP6-006",
+   "numero": 6,
+   "pregunta": "Un paciente de 72 años presenta en el electrocardiograma una taquicardia regular con frecuencia auricular de 300 latidos por minuto y frecuencia ventricular de 150 latidos por minuto (conducción AV 2:1). En las derivaciones II, III y aVF se observan ondas 'F' en 'dientes de sierra' sin línea isoeléctrica intermedia. ¿Cuál es el diagnóstico y la terapia de ablación de elección?",
+   "opciones": {
+    "a": "Fibrilación auricular de alta respuesta; producida por microrreentradas en las venas pulmonares sin relación con el istmo.",
+    "b": "Taquicardia sinusal inapropiada; producida por automatismo aumentado del nódulo de Keith y Flack tratado con marcapasos.",
+    "c": "Taquicardia ventricular monomórfica; producida por un foco ectópico en la pared libre del ventrículo izquierdo ablacionable.",
+    "d": "Flutter auricular típico; producido por un macrorrecircuito en la aurícula derecha cuyo istmo cavotricuspídeo es el blanco de la ablación."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El FLUTTER O ALETEO AURICULAR TÍPICO es una taquiarritmia supraventricular caracterizada en el ECG por la presencia de Ondas 'F' continuas y regulares en forma de 'dientes de sierra' o 'serrucho', con ausencia de línea isoeléctrica entre ellas, auscultadas con mayor nitidez en las derivaciones inferiores (DII, DIII, aVF). La frecuencia auricular oscila entre 250 y 350 bpm (típicamente 300 bpm), con un bloqueo AV fisiológico proporcional (frecuentemente 2:1, generando respuesta ventricular a 150 bpm). SUSTRATO ELECTROFISIOLÓGICO: Se debe a un macrorrecircuito de reentrada monomórfico en la Aurícula Derecha que circula en sentido antihorario. ESTRUCTURA CRÍTICA Y ABLACIÓN: El circuito atraviesa obligatoriamente la brecha o puente entre la vena cava inferior y el anillo de la válvula tricúspide, denominado ISTMO CAVOTRICUSPÍDEO (ICT). La ablación por radiofrecuencia del istmo cavotricuspídeo es el tratamiento curativo definitivo con éxito >95%. Las opciones A, B y C citan mecanismos y arritmias distintas."
+  },
+  {
+   "id": "SIAM-UP6-007",
+   "numero": 7,
+   "pregunta": "Un paciente de 82 años presenta un síncope de inicio repentino mientras caminaba. Al ingreso, el electrocardiograma evidencia una frecuencia cardíaca de 32 latidos por minuto con ondas P regulares a 75 bpm y complejos QRS anchos a 32 bpm, existiendo una falta total de relación entre las ondas P y los complejos QRS (intervalos P-P constantes y R-R constantes independientes). ¿Cuál es la conducta terapéutica definitiva?",
+   "opciones": {
+    "a": "Administración de amiodarona en infusión endovenosa continua por 48 horas sin monitoreo.",
+    "b": "Cardioversión eléctrica sincronizada inmediata a 200 Joules bajo sedación profunda.",
+    "c": "Colocación de un Marcapasos Cardíaco Artificial definitivo para restaurar la frecuencia.",
+    "d": "Tratamiento por vía oral con diltiazem e indometacina para reducir el tono vagal."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El cuadro describe un BLOQUEO AURICULOVENTRICULAR DE TERCER GRADO O COMPLETO. HALLAZGOS ELECTROCARDIOGRÁFICOS: Ningún impulso generado en las aurículas es conducido hacia los ventrículos. Existe una DISOCIACIÓN AURICULOVENTRICULAR ABSOLUTA: 1) Las ondas P presentan un ritmo regular y constante (frecuencia auricular ej. 75 bpm); 2) Los complejos QRS presentan un ritmo de escape (nodal si es estrecho o infranodal/ventricular si es ancho) independiente y regular (frecuencia ventricular baja ej. 32 bpm); y 3) Los intervalos PR son totalmente variables sin relación constante. PRESENTACIÓN CLÍNICA: Causa bajo gasto cardíaco, síncope por hipoperfusión cerebral (Ataque de Stokes-Adams) o insuficiencia cardíaca. CONDUCTA TERAPÉUTICA DEFINITIVA: Indicación absoluta (Clase I) de IMPLANTE DE MARCAPASOS DEFINITIVO transvenoso para prevenir la muerte súbita. Dar amiodarona o diltiazem (opciones A y D) agravaría drásticamente la bradicardia. La cardioversión (opción B) es para taquiarritmias."
+  },
+  {
+   "id": "SIAM-UP6-008",
+   "numero": 8,
+   "pregunta": "¿Cuál es el diagnóstico y qué fármacos bloqueantes del nódulo AV están CONTRAINDICADOS si desarrolla Fibrilación Auricular preexcitada?",
+   "opciones": {
+    "a": "Síndrome de Wolff-Parkinson-White; están contraindicados el Verapamilo, Diltiazem, Digoxina y Betabloqueantes.",
+    "b": "Síndrome de Brugada; están contraindicados la aspirina, la atorvastatina y los diuréticos de asa.",
+    "c": "Síndrome de Lown-Ganong-Levine; están contraindicados los antiarrítmicos de la Clase IA de Vaughan Williams.",
+    "d": "Síndrome del QT Largo congénito; están contraindicados los suplementos de magnesio e isoprenalina."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El SÍNDROME DE WOLFF-PARKINSON-WHITE (WPW) es un síndrome de preexcitación provocado por la presencia de una vía de conducción accesoria auriculoventricular congénita (Haz de Kent) que se salta el retraso fisiológico del nódulo AV. TRÍADA ECG EN RITMO SINUSAL: 1) Intervalo PR corto (<120 ms); 2) Presencia de ONDA DELTA (empastamiento inicial del QRS por la preexcitación ventricular); y 3) QRS ancho (>120 ms) con alteraciones secundarias de la repolarización. RIESGO Y CONTRAINDICACIÓN CRÍTICA EN FA PREEXCITADA: Si el paciente desarrolla Fibrilación Auricular, la vía accesoria puede conducir los impulsos auriculares caóticos desorganizados (a 300-600 bpm) directamente hacia el ventrículo. LOS FÁRMACOS BLOQUEANTES DEL NÓDULO AV (Verapamilo, Diltiazem, Digoxina, Betabloqueantes) están ESTRICTAMENTE CONTRAINDICADOS debido a que frenan la conducción por el nodo AV y 'desvían' preferentemente todos los impulsos a través del Haz de Kent, desencadenando una Fibrilación Ventricular y paro cardíaco. Se debe usar Procainamida o Cardioversión. Las opciones B, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-009",
+   "numero": 9,
+   "pregunta": "Durante la evaluación de una taquicardia de complejos anchos (QRS >120 ms) a 170 latidos por minuto en un paciente con antecedente de infarto de miocardio previo, el médico debe diferenciar entre Taquicardia Ventricular (TV) y Taquicardia Supraventricular con Aberrancia (TSVA). Según los Criterios de Brugada, ¿cuál de los siguientes hallazgos apoya fuertemente el diagnóstico de Taquicardia Ventricular?",
+   "opciones": {
+    "a": "Aparición de ondas P normales precediendo a cada complejo QRS con intervalo RS menor a 50 ms.",
+    "b": "Eje eléctrico normal del complejo QRS situado entre 0 y +90 grados en el plano frontal.",
+    "c": "Presencia de un intervalo PR corto en todas las derivaciones con conducción auriculoventricular 1:1.",
+    "d": "Ausencia de complejos RS en todas las derivaciones precordiales (concordancia positiva o negativa) y disociación AV."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En el diagnóstico diferencial de las taquicardias de complejos anchos (QRS >120 ms), la integración de los CRITERIOS DE BRUGADA permite confirmar el origen ventricular con elevada sensibilidad y especificidad: Paso 1: Ausencia de complejos RS en todas las derivaciones precordiales de V1 a V6 (CONCORDANCIA PRECORDIAL POSITIVA O NEGATIVA); Paso 2: Intervalo RS >100 ms en alguna derivación precordial; Paso 3: Presencia de DISOCIACIÓN AURICULOVENTRICULAR (ondas P independientes dissociated del QRS, latidos de captura o latidos de fusión); y Paso 4: Criterios morfológicos característicos de TV en V1 y V6. Ante la duda en un paciente con antecedentes de cardiopatía isquémica (infarto previo), toda taquicardia de QRS ancho DEBE TRATARSE COMO TAQUICARDIA VENTRICULAR hasta que se demuestre lo contrario. Las opciones A, B y C citan parámetros que sugieren origen supraventricular."
+  },
+  {
+   "id": "SIAM-UP6-010",
+   "numero": 10,
+   "pregunta": "Según la Clasificación de Lown para arritmias ventriculares, ¿cuál de las siguientes presentaciones de extrasístoles ventriculares se clasifica como Grado 5 (de mayor riesgo de desencadenar Fibrilación Ventricular)?",
+   "opciones": {
+    "a": "Fenómeno de R sobre T (caída de la extrasístole sobre la onda T del latido previo).",
+    "b": "Bigeminismo ventricular continuo sin dupletas ni parejas de complejos ventriculares.",
+    "c": "Extrasístoles ventriculares polimórficas pareadas en número mayor a 10 por minuto.",
+    "d": "Extrasístoles ventriculares monomórficas aisladas con frecuencia menor a 30 por hora."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La CLASIFICACIÓN DE LOWN estratifica la severidad y el riesgo arrítmico de las Extrasístoles Ventriculares (EV) en el contexto de la cardiopatía isquémica: Grado 0: Sin extrasístoles; Grado 1: EV unifocales poco frecuentes (<30/hora o <1/min); Grado 2: EV unifocales frecuentes (>30/hora); Grado 3: EV multifocales o polimórficas; Grado 4a: EV en parejas o dupletas; Grado 4b: Taquicardia ventricular (3 o más EV consecutivas); y GRADO 5: FENÓMENO DE R SOBRE T. El fenómeno de R sobre T ocurre cuando la extrasístole ventricular precoz cae exactamente sobre la rama ascendente o vértice de la onda T del complejo previo (fase vulnerable de la repolarización ventricular). Esto puede desencadenar una Fibrilación Ventricular o Taquicardia Ventricular polimórfica por dispersión de la refractariedad. Las opciones B, C y D corresponden a los Grados 1, 2, 3 o 4 de Lown."
+  },
+  {
+   "id": "SIAM-UP6-011",
+   "numero": 11,
+   "pregunta": "Una paciente de 75 años en tratamiento con antidepresivos tricíclicos y eritromicina presenta en el monitor electrocardiográfico una taquicardia ventricular polimórfica en la cual los picos de los complejos QRS cambian continuamente de polaridad y amplitud, girando alrededor de la línea isoeléctrica. El trazado basal mostraba un QTc prolongado (>500 ms). ¿Cuál es el diagnóstico y el tratamiento farmacológico intravenoso de primera línea?",
+   "opciones": {
+    "a": "Taquicardia supraventricular por reentrada nodal; tratada con verapamilo intravenoso.",
+    "b": "Ritmo idioventricular acelerado; tratado con flecainida oral y cardioversión externa.",
+    "c": "Torsades de Pointes (Taquicardia en Puntas Torcidas); tratada con Sulfato de Magnesio IV.",
+    "d": "Flutter ventricular agudo; tratado con infusión endovenosa de digoxina a dosis altas."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La TORSADES DE POINTES ('Puntas Torcidas') es una variante específica y potencialmente letal de Taquicardia Ventricular Polimórfica asociada a la prolongación del intervalo QT (QTc >480-500 ms). TRAZADO ECG: Se caracteriza por complejos QRS anchos que cambian continuamente de amplitud, eje y polaridad, dando la impresión de que 'giran o se retuercen' alrededor de la línea isoeléctrica. ETIOLOGÍA: Congénita (Síndrome de Jervell-Lange-Nielsen / Romano-Ward) o Adquirida por fármacos que bloquean los canales de potasio IKr (macrólidos, quinolonas, antihistamínicos, antidepresivos, antiarrítmicos Ia y III) o trastornos electrolíticos (hipopotasemia, hipomagnesemia). TRATAMIENTO DE ELECCIÓN DE PRIMERA LÍNEA: Administración de SULFATO DE MAGNESIO por vía intravenosa (1-2 g IV en bolo/infusión), el cual estabiliza la membrana miocárdica y suprime las posdespolarizaciones precoces sin alterar el intervalo QT. Las opciones A, B y D corresponden a abordajes erróneos o contraindicados."
+  },
+  {
+   "id": "SIAM-UP6-012",
+   "numero": 12,
+   "pregunta": "Los betabloqueantes (ej. Propranolol, Atenolol, Metoprolol, Bisoprolol) constituyen la Clase II de la clasificación de antiarrítmicos de Vaughan Williams. ¿Cuál es su mecanismo de acción electrofisiológico principal en el nódulo sinusal y nódulo auriculoventricular y su indicación primaria?",
+   "opciones": {
+    "a": "Activación de los receptores muscarínicos M2, incrementando la frecuencia cardíaca máxima.",
+    "b": "Inhibición de la estimulación simpática mediada por catecolaminas, reduciendo la automaticidad y la conducción AV.",
+    "c": "Apertura selectiva de los canales de sodio, acelerando la fase 0 de despolarización en la aurícula.",
+    "d": "Bloqueo directo de la bomba Na+/K+ ATPasa, aumentando la corriente iónica de calcio en la sístole."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Los Betabloqueantes representan la CLASE II de Vaughan Williams. MECANISMO DE ACCIÓN ELECTROFISIOLÓGICO: Inhiben de forma competitiva a los receptores β₁-adrenérgicos cardíacos, antagonizando los efectos de las catecolaminas (adrenalina y noradrenalina). EFECTOS NODALES: 1) Nódulo Sinusal: Disminuyen la pendiente de despolarización diastólica lenta (Fase 4), reduciendo el automatismo y la FRECUENCIA CARDÍACA (efecto cronotrópico negativo); y 2) Nódulo AV: Disminuyen la velocidad de conducción y prolongan el período refractario efectivo del nódulo AV (efecto dromotrópico negativo). INDICACIONES CLÍNICAS: Control de frecuencia ventricular en Fibrilación y Flutter Auricular, prevención de arritmias por exceso catecolaminérgico, pos-infarto y prevención de muerte súbita. La opción D describe a la digoxina. La opción A y C describen acciones ajenas a la Clase II."
+  },
+  {
+   "id": "SIAM-UP6-013",
+   "numero": 13,
+   "pregunta": "Los antagonistas de los canales de calcio no dihidropiridínicos (Verapamilo y Diltiazem) representan la Clase IV de Vaughan Williams. ¿Sobre qué fase del potencial de acción de las células marcapasos del nódulo AV ejercen su efecto farmacológico y en qué arritmias están indicados?",
+   "opciones": {
+    "a": "Estimulan la salida masiva de potasio en la fase 3, indicados exclusivamente en el bloqueo AV completo.",
+    "b": "Inhiben la corriente rápida de sodio en tejidos de respuesta rápida, indicados en fibrilación ventricular.",
+    "c": "Inhiben la enzima anhidrasa carbónica renal, indicados en el tratamiento de la taquicardia sinusal.",
+    "d": "Inhiben la corriente de entrada de calcio (fase 0 y fase 2) en tejidos de respuesta lenta, indicados en el control de frecuencia en FA y TPSV."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los Calcioantagonistas No Dihidropiridínicos (VERAPAMILO Y DILTIAZEM) constituyen la CLASE IV de Vaughan Williams. MECANISMO DE ACCIÓN: Bloquean de forma selectiva los canales de Calcio lentos tipo L (ICa-L) dependientes de voltaje en los tejidos de respuesta lenta (Nódulo Sinusal y Nódulo Auriculoventricular). EFECTOS ELECTROFISIOLÓGICOS: Enlentecen la Fase 0 de despolarización dependiente de calcio en el nódulo AV y prolongan la conducción y el período refractario nodal. INDICACIONES: 1) Tratamiento agudo para la conversión de la Taquicardia Paroxística Supraventricular (TPSV); y 2) Control de la frecuencia ventricular en el Flutter y la Fibrilación Auricular. CONTRAINDICACIONES ESTRICTAS: Síndrome de WPW con FA preexcitada, disfunción sistólica severa del VI y Bloqueos AV de 2° o 3er grado. Las opciones A, B y C corresponden a la Clase I, Clase III o diuréticos."
+  },
+  {
+   "id": "SIAM-UP6-014",
+   "numero": 14,
+   "pregunta": "Un paciente de 80 años presenta el Síndrome del Nódulo Sinusal Enfermo (Síndrome de Taquicardia-Bradicardia). En el registro electrocardiográfico alterna episodios de Fibrilación Auricular paroxística de alta respuesta ventricular con pausas sinusales prolongadas y bradicardia severa sintomática. ¿Cuál es el desafío terapéutico y la conducta combinada recomendada?",
+   "opciones": {
+    "a": "Implante de Marcapasos definitivo asociado a fármacos frenadores del nódulo AV y anticoagulación.",
+    "b": "Uso de amiodarona a dosis máximas sin requerir marcapasos ni anticoagulación.",
+    "c": "Suspensión de todos los fármacos e indicación de ejercicio aeróbico de alta intensidad.",
+    "d": "Ablación completa de la vena cava inferior sin tratamiento anticoagulante orales."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El SÍNDROME DEL NÓDULO SINUSAL ENFERMO (Enfermedad del Seno) en su variante de SÍNDROME DE TAQUICARDIA-BRADICARDIA representa un dilema clínico frecuente en cardiología geriátrica: el paciente presenta bradiarritmias sinusales profundas (paro sinusal, bloqueo sinoauricular) alternadas intempestivamente con taquiarritmias supraventriculares (Fibrilación o Flutter Auricular). DESAFÍO TERAPÉUTICO: Si se administran fármacos para controlar la frecuencia de la taquicardia (betabloqueantes, verapamilo, digoxina), estos suprimen aún más al nódulo sinusal enfermo, provocando pausas asistólicas extremas y síncope. ESTRATEGIA COMBINADA ESTÁNDAR: 1) Colocación de un MARCAPASOS CARDÍACO ARTIFICIAL DEFINITIVO (que previene las pausas y asegura una frecuencia cardíaca basal adecuada); 2) Administración segura de FÁRMACOS FRENADORES O ANTIARRÍTMICOS para controlar las crisis de taquicardia supraventricular; y 3) Anticoagulación oral para prevenir eventos cardioembólicos por la FA. Las opciones B, C y D representan pautas erróneas y peligrosas."
+  },
+  {
+   "id": "SIAM-UP6-015",
+   "numero": 15,
+   "pregunta": "Un paciente de 68 años sufre un colapso circulatorio repentino en la sala de internación. En el monitor electrocardiográfico se observa un trazado completamente caótico, desorganizado, sin ondas P, complejos QRS ni ondas T definibles, con oscilaciones irregulares de altura y contorno variable. El paciente está inconsciente y sin pulso carotídeo. ¿Cuál es la arritmia y la intervención médica hiperaguda e inmediata?",
+   "opciones": {
+    "a": "Asistolia ventricular pura; tratada con administración de atropina endovenosa únicamente.",
+    "b": "Fibrilación Ventricular; tratada con Desfibrilación Eléctrica Inmediata NO Sincronizada y RCP.",
+    "c": "Taquicardia ventricular monomórfica; tratada con cardioversión sincronizada a 50 Joules.",
+    "d": "Aleteo auricular con conducción 1:1; treated con maniobras de masaje del seno carotídeo."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La FIBRILACIÓN VENTRICULAR (FV) es la arritmia cardíaca más letal, responsable de la mayoría de los casos de Muerte Súbita Cardíaca (frecuentemente en el contexto de isquemia miocárdica aguda). TRAZADO ECG: Pérdida total de la arquitectura electrocardiográfica, observándose una actividad eléctrica ventricular caótica, desorganizada y de alta frecuencia, sin complejos QRS identificables. CUADRO CLÍNICO: Produce la pérdida inmediata de la función de bomba del corazón, colapso hemodinámico y paro cardiorrespiratorio (paciente inconsciente, sin respiración y sin pulso). INTERVENCIÓN HIPERAGUDA DE ELECCIÓN: DESFIBRILACIÓN ELÉCTRICA NO SINCRONIZADA INMEDIATA a alta energía (200 J bifásico o 360 J monofásico) acompañada de Reanimación Cardiopulmonar (RCP) de alta calidad. La desfibrilación NO debe ser sincronizada porque no existen ondas R para detectar y la sincronización demoraría o impediría la descarga. Las opciones A, C y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP6-016",
+   "numero": 16,
+   "pregunta": "En la evaluación de un trazado electrocardiográfico de rutina, se identifica un foco ectópico ventricular que descarga de forma constante e independiente del ritmo sinusal de base, mostrando intervalos interectópicos paralelos y matemáticamente múltiplos entre sí, junto con la presencia de latidos de fusión y de captura. ¿Cómo se denomina este fenómeno electrofisiológico?",
+   "opciones": {
+    "a": "Parasistolia Ventricular.",
+    "b": "Fenómeno de Wenckebach ventricular.",
+    "c": "Disociación electromecánica.",
+    "d": "Síndrome de Brugada Tipo 1."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La PARASISTOLIA VENTRICULAR es una arritmia ectópica provocada por la presencia de un segundo marcapasos independiente (generalmente en el ventrículo) protegido por un 'bloqueo de entrada' que le impide ser despolarizado o reajustado por los impulsos del ritmo sinusal dominante. CARACTERÍSTICAS ELECTROCARDIOGRÁFICAS PATOGNOMÓNICAS: 1) Los intervalos de acoplamiento entre el latido sinusal previo y la extrasístole son VARIABLES; 2) Los intervalos entre las descargas parasistólicas (interectópicos) son CONSTANTES o múltiplos matemáticos del intervalo fundamental más corto; y 3) Presencia de LATIDOS DE FUSIÓN (complejo resultante de la activación simultánea del ventrículo por el impulso sinusal y el foco parasistólico) y Latidos de Captura. Suele ser benigna y no requerir tratamiento antiarrítmico salvo si es sintomática. Las opciones B, C y D son entidades completamente distintas."
+  },
+  {
+   "id": "SIAM-UP6-017",
+   "numero": 17,
+   "pregunta": "La Digoxina es un agente inotrópico y antiarrítmico que actúa inhibiendo la enzima Na+/K+ ATPasa miocárdica. Además de su efecto inotrópico positivo por aumento del calcio intracelular, ¿cuál es su mecanismo parasimpaticomimético para el control de la frecuencia cardíaca en la Fibrilación Auricular?",
+   "opciones": {
+    "a": "Bloqueo directo de los receptores alfa-1 adrenérgicos vasculares, disminuyendo la resistencia sistémica.",
+    "b": "Aumento del tono vagal central, reduciendo la velocidad de conducción y aumentando el período refractario en el nódulo AV.",
+    "c": "Inhibición de la síntesis de tiroxina en la glándula tiroides, produciendo bradicardia química.",
+    "d": "Estimulación de los canales de sodio cardíacos, acelerando la conducción intraventricular."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La DIGOXINA (Glucósido Cardíaco) posee dos efectos farmacológicos principales: 1) EFECTO INOTRÓPICO POSITIVO: Inhibe a la bomba Na⁺/K⁺ ATPasa miocárdica, lo que incrementa el sodio intracelular y reduce secundariamente el eflujo de calcio a través del intercambiador Na⁺/Ca²⁺, aumentando la contractilidad; y 2) EFECTO ANTIARRÍTMICO / NEURO-MODULADOR (Vagal): Estimula los núcleos vagales centrales y sensibiliza los barorreceptores (efecto parasimpaticomimético o vagotónico). Esto produce una REDUCCIÓN DE LA VELOCIDAD DE CONDUCCIÓN Y UN AUMENTO DEL PERÍODO REFRACTARIO EN EL NÓDULO AURICULOVENTRICULAR. Por este efecto vagal, la digoxina es útil para frenar la respuesta ventricular en la Fibrilación Auricular en pacientes sedentarios o con Insuficiencia Cardíaca con FEVI reducida. Las opciones A, C y D citan acciones falsas."
+  },
+  {
+   "id": "SIAM-UP6-018",
+   "numero": 18,
+   "pregunta": "En un paciente de 58 años que recibe terapia trombolítica por un infarto agudo de miocardio con elevación del ST, aparece en el monitor electrocardiográfico un ritmo ventricular regular a 80 latidos por minuto, con complejos QRS anchos, sin ondas P precedentes, que inicia y finaliza de forma gradual sin repercusión hemodinámica. ¿Cuál es el diagnóstico de esta arritmia y su significado clínico?",
+   "opciones": {
+    "a": "Taquicardia Ventricular Sostenida; indica falla del trombolítico y reoclusión coronaria aguda.",
+    "b": "Fibrilación Ventricular inminente; requiere desfibrilación eléctrica de emergencia a 360 Joules.",
+    "c": "Bloqueo Sinoauricular de tercer grado; requiere la colocación de un marcapasos transitorio urgente.",
+    "d": "Ritmo Idioventricular Acelerado (RIVA); constituye una arritmia de reperfusión benigna que no requiere tratamiento."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El RITMO IDIOVENTRICULAR ACELERADO (RIVA) o 'Taquicardia Ventricular Lenta' es una arritmia de origen ventricular caracterizada en el ECG por: 1) Frecuencia cardíaca entre 60 y 110 latidos/minuto (superior al ritmo de escape idioventricular normal de 30-40 bpm pero menor a la taquicardia ventricular >120 bpm); 2) Complejos QRS anchos y regulares; 3) Ausencia de ondas P sinusales conduciendo; y 4) Inicio y fin graduales por automatismo aumentado en el tejido de Purkinje. SIGNIFICADO CLÍNICO CRÍTICO: Es la ARRITMIA DE REPERFUSIÓN más característica y benigna tras la apertura exitosa de la arteria coronaria ocluida (mediante trombolisis o angioplastia primaria) en el Infarto Agudo de Miocardio. Como suele ser autolimitada y hemodinámicamente estable, NO REQUIERE TRATAMIENTO ANTIARRÍTMICO ESPECÍFICO. Las opciones A, B y C representan errores diagnósticos."
+  },
+  {
+   "id": "SIAM-UP6-019",
+   "numero": 19,
+   "pregunta": "Los fármacos antiarrítmicos de la Clase IC de Vaughan Williams (Flecainida y Propafenona) producen un marcado enlentecimiento de la fase 0 de despolarización por un potente bloqueo de los canales de sodio. ¿En qué grupo de pacientes está estrictamente CONTRAINDICADO el uso de Flecainida debido a un elevado incremento de la mortalidad por proarritmia (demostrado en el ensayo CAST)?",
+   "opciones": {
+    "a": "Pacientes con cardiopatía estructural y antecedente de Infarto de Miocardio previo.",
+    "b": "Pacientes con antecedentes de asma bronquial reactiva y función cardíaca normal.",
+    "c": "Pacientes jóvenes con Síndrome de Wolff-Parkinson-White sin preexcitación.",
+    "d": "Pacientes con Flutter auricular típico de reciente diagnóstico sin cardiopatía."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Los antiarrítmicos de la CLASE IC (Flecainida, Propafenona) son bloqueantes potentes de los canales de Na⁺ con cinética de disociación muy lenta, lo que produce una marcada depresión de la velocidad de conducción (fase 0) y ensanchamiento del QRS. ADVERTENCIA Y CONTRAINDICACIÓN ABSOLUTA: En el hito clínico demostrado por el estudio CAST (Cardiac Arrhythmia Suppression Trial), el uso de Flecainida para suprimir extrasístoles ventriculares en pacientes con CARDIOPATÍA ESTRUCTURAL (especialmente con antecedentes de Infarto Agudo de Miocardio o disfunción sistólica del VI) INCREMENTÓ SIGNIFICATIVAMENTE LA MORTALIDAD Y EL PARO CARDÍACO POR PROARRITMIA (desencadenamiento de taquicardia ventricular y fibrilación ventricular). Por ello, la Flecainida y Propafenona están ESTRICTAMENTE CONTRAINDICADAS en pacientes con cardiopatía isquémica o estructural. Solo se usan en corazones estructuralmente sanos. Las opciones B, C y D no son contraindicaciones absolutas."
+  },
+  {
+   "id": "SIAM-UP6-020",
+   "numero": 20,
+   "pregunta": "La Cardioversión Eléctrica Sincronizada es un procedimiento terapéutico que descarga una corriente eléctrica sobre el miocardio en un momento específico del ciclo cardíaco. ¿En qué punto del complejo electrocardiográfico debe sincronizarse el choque eléctrico para evitar desencadenar una Fibrilación Ventricular accidental por fenómeno de R sobre T?",
+   "opciones": {
+    "a": "En la cúspide u onda R del complejo QRS.",
+    "b": "En la fase descendente de la onda T.",
+    "c": "Durante el vértice de la onda P auricular.",
+    "d": "En el segmento ST isoeléctrico."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La CARDIOVERSIÓN ELÉCTRICA SINCRONIZADA consiste en la entrega de una descarga eléctrica de corriente continua sobre el tórax programada de forma precisa para coincidir con la despolarización ventricular. SINCRONIZACIÓN TÉCNICA: El desfibrilador detecta la ONDA R (cúspide del complejo QRS) en el electrocardiograma y emite el choque eléctrico en ese punto exacto. JUSTIFICACIÓN BIOLÓGICA: Sincronizar el choque con la onda R evita liberar la energía durante la fase de repolarización ventricular (onda T). Si la descarga eléctrica cayera de forma accidental sobre la rama ascendente o cumbre de la onda T (período vulnerable del miocardio ventricular), podría gatillar una Fibrilación Ventricular letal o Taquicardia Ventricular polimórfica por el fenómeno de R sobre T. Se utiliza para taquiarritmias organizadas con pulso (FA, Flutter, TPSV, TV monomórfica). Las opciones B, C y D citan momentos incorrectos del ciclo cardíaco."
+  },
+  {
+   "id": "SIAM-UP6-021",
+   "numero": 21,
+   "pregunta": "Un paciente de 82 años con antecedente de hipertensión arterial y cardiopatía isquémica consulta por mareos y cansancio fácil. El ECG revela ondas P normales a 70 bpm, pero solo 1 de cada 2 ondas P es seguida por un complejo QRS de 140 ms de duración, manteniéndose los intervalos PR de los latidos conducidos estrictamente constantes. ¿Cuál es el tipo de bloqueo auriculoventricular y su lugar anatómico de afección?",
+   "opciones": {
+    "a": "Bloqueo AV de 1er grado prolongado; localizado exclusivamente en las fibras de Purkinje de la aurícula derecha.",
+    "b": "Bloqueo AV completo o de 3er grado; localizado a nivel del marcapasos sinusal con disociación pura.",
+    "c": "Bloqueo AV de 2° grado Mobitz II (conducción 2:1); localizado infranodalmente en el sistema His-Purkinje.",
+    "d": "Bloqueo AV de 2° grado Mobitz I (Wenckebach); localizado en el nódulo AV con respuesta favorable al atropínico."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El Bloqueo Auriculoventricular (BAV) de 2º grado Mobitz II con respuesta 2:1 se caracteriza por la conducción intercalada de 1 onda P por cada 2 ondas P generadas (onda P conducida seguida de onda P bloqueada). CARACTERÍSTICA DISTINTIVA: A diferencia del Mobitz I, los intervalos PR de las ondas P que sí conducen son ESTRUCTURALMENTE CONSTANTES y fijos (no hay alargamiento progresivo del PR). UBICACIÓN ANATÓMICA Y PRONÓSTICO: La afección se sitúa por debajo del nódulo AV, es decir, es INFRANODAL (en el Haz de His o en las ramas del sistema de Purkinje). Se asocia a fibrosis degenerativa extensa o isquemia del tabique interventricular, presenta complexes QRS anchos y posee un ALTO RIESGO DE PROGRESIÓN RÁPIDA A BLOQUEO AV COMPLETO Y ASISTOLIA, requiriendo implante de marcapasos definitivo. La opción D presenta PR variable. La opción A conduce 1:1. La opción B presenta disociación AV total con ritmos independientes."
+  },
+  {
+   "id": "SIAM-UP6-022",
+   "numero": 22,
+   "pregunta": "En el tratamiento de la Fibrilación Auricular (FA) paroxística sintomática en un paciente de 62 años con corazón estructuralmente sano (sin cardiopatía isquémica ni hipertrofia), se decide utilizar la estrategia 'Pill in the Pocket' (comprimido en el bolsillo) para la auto-conversión farmacológica a ritmo sinusal en su domicilio. ¿Cuál de los siguientes esquemas antiarrítmicos de la Clase IC está indicado para esta modalidad?",
+   "opciones": {
+    "a": "Amiodarona 1200 mg orales asociados a digoxina e infusión de dopamina continua.",
+    "b": "Flecainida (300 mg) o Propafenona (600 mg) en toma única oral administrados al inicio del brote.",
+    "c": "Atenolol 100 mg orales combinados con diltiazem en bolo cada 15 minutos.",
+    "d": "Lidocaína 500 mg orales asociados a espironolactona en dosis única matutina."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La estrategia 'PILL IN THE POCKET' (comprimido en el bolsillo) está recomendada por las guías de la Sociedad Española de Cardiología y consensos de FA para el tratamiento ambulatorio precoz de los episodios paroxísticos sintomáticos de Fibrilación Auricular de reciente comienzo en pacientes seleccionados: 1) REQUISITO EXCLUYENTE: Pacientes sin cardiopatía estructural significativa (corazón sano, sin infarto previo ni disfunción sistólica); y 2) FÁRMACOS Y POSOLOGÍA EN TOMA ÚNICA: FLECAINIDA (300 mg si pesa ≥70 kg o 200 mg si <70 kg) o PROPAFENONA (600 mg si ≥70 kg o 450 mg si <70 kg) administradas en dosis única oral tan pronto como el paciente percibe el inicio de las palpitaciones. Debe probarse previamente en un entorno hospitalario para confirmar seguridad. Los betabloqueantes/antagonistas del calcio son coadyuvantes, pero no cardiovierten solos (opción C). La amiodarona (opción A) tiene un inicio de acción lento. La lidocaína (opción D) no se absorbe por vía oral para arritmias auriculares."
+  },
+  {
+   "id": "SIAM-UP6-023",
+   "numero": 23,
+   "pregunta": "Un paciente de 70 años con antecedente de Fibrilación Auricular permanente acude a control clínico. Se calcula la escala de riesgo tromboembólico CHA2DS2-VASc obteniendo un puntaje de 3 puntos (Hipertensión +1, Edad 70 años +1, Diabetes +1) y una escala HAS-BLED de 1 punto. ¿Cuál es la indicación de anticoagulación farmacológica según las guías clínicas de FA?",
+   "opciones": {
+    "a": "Suspensión de toda medicación y control exclusivamente con ECG Holter cada 5 años.",
+    "b": "Indicación Clase I de Anticoagulación Oral, prefiriéndose los ACODs (Rivaroxabán, Apixabán, Dabigatrán).",
+    "c": "Contraindicación absoluta de anticoagulantes; se indica únicamente Aspirina (AAS) 100 mg/día.",
+    "d": "Anticoagulación profiláctica con Heparina No Fraccionada endovenosa continua de por vida."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La indicación de anticoagulación en la Fibrilación Auricular (FA) para la prevención del Accidente Cerebrovascular (ACV) y embolia sistémica se fundamenta en la escala estratificada CHA2DS2-VASc: 1) Criterios de Puntuación: Cáncer/ICC (+1), Hipertensión (+1), Edad ≥75 años (+2), Diabetes (+1), Stroke/ACV previo (+2), Vasculopatía (+1), Edad 65-74 años (+1) y Sexo femenino (+1); y 2) RECOMENDACIÓN TERAPÉUTICA: En varones con CHA2DS2-VASc ≥2 puntos o mujeres con ≥3 puntos, existe una INDICACIÓN CLASE I ABSOLUTA de iniciar Anticoagulación Oral de por vida. Las guías recomiendan como primera línea los Anticoagulantes Orales Directos (ACODs: Apixabán, Rivaroxabán, Dabigatrán, Edoxabán) sobre los antagonistas de la vitamina K por su menor riesgo de hemorragia intracraneal. La antiagregación con aspirina (opción C) NO está recomendada para prevención de ictus en FA por escasa eficacia y similar riesgo de sangrado. Las opciones A y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP6-024",
+   "numero": 24,
+   "pregunta": "Un paciente de 76 años con Fibrilación Auricular de alta respuesta ventricular (150 bpm) e Insuficiencia Cardíaca Aguda descompensada con severa disfunción sistólica (FEVI 25%) requiere control farmacológico de la frecuencia cardíaca. ¿Cuál es el fármaco de elección recomendado e indicado en este escenario de IC descompensada con baja FEVI?",
+   "opciones": {
+    "a": "Diltiazem oral a dosis altas cada 6 horas.",
+    "b": "Flecainida oral combinada con propranolol.",
+    "c": "Digoxina endovenosa o Amiodarona.",
+    "d": "Verapamilo endovenoso en bolo directo."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El control de la frecuencia cardíaca en la Fibrilación Auricular (FA) aguda descompensada en presencia de Insuficiencia Cardíaca con Fracción de Eyección Reducida (FEVI <40%) o congestión pulmonar severa presenta limitaciones fármaco-terapéuticas estrictas: 1) FÁRMACOS CONTRAINDICADOS: Los Calcioantagonistas No Dihidropiridínicos (Verapamilo y Diltiazem, opciones A y D) presentan un marcado efecto inotrópico negativo que colapsa aún más la función contráctil e induce shock cardiogénico; los betabloqueantes en dosis altas en la fase aguda descompensada pueden agravar la congestión; y 2) FÁRMACOS DE ELECCIÓN: La DIGOXINA Endovenosa (que reduce la frecuencia por tono vagal sin efecto inotrópico negativo) o la AMIODARONA Endovenosa (que es neutra sobre la contractilidad y segura en cardiopatía estructural) constituyen la primera línea para reducir la frecuencia ventricular sin deteriorar el gasto cardíaco. La Flecainida (opción B) está prohibida en IC."
+  },
+  {
+   "id": "SIAM-UP6-025",
+   "numero": 25,
+   "pregunta": "En el estudio de las arritmias ventriculares, la Taquicardia Ventricular se clasifica en Sostenida frente a No Sostenida. ¿Cuál es la definición exacta de Taquicardia Ventricular No Sostenida (TVNS) según los criterios electrocardiográficos de tiempo y número de latidos?",
+   "opciones": {
+    "a": "Presencia de 2 latidos ventriculares aislados con intervalo PR corto de más de 60 segundos.",
+    "b": "Taquicardia de complejos estrechos que dura más de 24 horas continuas sin pausas.",
+    "c": "Presencia de un solo latido auricular ectópico que se prolonga por más de 10 minutos.",
+    "d": "Presencia de 3 o más latidos ventriculares consecutivos a más de 100 bpm que finaliza espontáneamente en menos de 30 segundos."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La TAQUICARDIA VENTRICULAR NO SOSTENIDA (TVNS) se define electrocardiográficamente por la presencia de TRES O MÁS LATIDOS CONSECUTIVOS de origen ventricular (complejos QRS anchos >120 ms) a una frecuencia cardíaca mayor a 100 latidos por minuto, que CESA E INTERRUMPE SU ACTIVIDAD DE FORMA ESPONTÁNEA EN UN TIEMPO MENOR A 30 SEGUNDOS, sin causar colapso hemodinámico inmediato. Si la taquicardia persiste por más de 30 segundos o exige una intervención hiperaguda (cardioversión/desfibrilación) por colapso, pasa a denominarse Taquicardia Ventricular Sostenida (TVS). La identificación de TVNS en pacientes con miocardiopatía o infarto previo es un marcador de riesgo elevado de muerte súbita. Las opciones A, B y C citan parámetros falsos."
+  },
+  {
+   "id": "SIAM-UP6-026",
+   "numero": 26,
+   "pregunta": "¿Qué sugiere la falta de respuesta a la adenosina en una taquicardia de QRS ancho?",
+   "opciones": {
+    "a": "Indica que la adenosina estaba vencida e inactiva por la acidez de la sangre.",
+    "b": "Demuestra que el paciente presenta un bloqueo sinoauricular fisiológico transitorio.",
+    "c": "Refuerza fuertemente el diagnóstico de Taquicardia Ventricular (u origen infranodal).",
+    "d": "Confirma que la arritmia es un aleteo auricular dependiente de la arteria carótida."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. En el diagnóstico diferencial de las Taquicardias de Complejos Anchos (QRS >120 ms), la administración de ADENOSINA IV en bolo rápido actúa como una maniobra diagnóstica y terapéutica útil: 1) Taquicardias Supraventriculares por Reentrada (TRNAV o Vía Accesoria): Dependen de la conducción a través del nódulo AV; la adenosina bloquea el nodo AV e interrumpe abruptamente la arritmia en más del 90% de los casos; y 2) TAQUICARDIA VENTRICULAR (TV): La gran mayoría de las taquicardias ventriculares se originan en focos ectópicos o circuitos de reentrada infranodales en el miocardio ventricular, los cuales NO dependen de la conducción por el nódulo AV. Por ello, LA ADENOSINA NO INTERRUMPE LA TAQUICARDIA VENTRICULAR ni modifica su frecuencia (salvo formas muy raras de TV fascicular o del tracto de salida). La falta de respuesta refuerza la sospecha de TV y exige proceder con antiarrítmicos (Amiodarona/Procainamida) o cardioversión eléctrica si hay inestabilidad. Las opciones A, B y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-027",
+   "numero": 27,
+   "pregunta": "En la auscultación y evaluación clínica de los Bloqueos Auriculoventricular de 3er grado o Completos, se puede detectar en la inspección del pulso venoso yugular la presencia de las denominadas 'Ondas a Gigantes en Cañón'. ¿Cuál es el mecanismo fisiológico de formación de la onda 'a' en cañón?",
+   "opciones": {
+    "a": "La contracción masiva del ventrículo izquierdo expulsa sangre directamente hacia la yugular externa.",
+    "b": "La sístole de la aurícula derecha ocurre contra la válvula tricúspide cerrada por la sístole ventricular simultánea e independiente.",
+    "c": "El flujo retrógrado de la aorta choca directamente contra la vena cava superior en la diástole.",
+    "d": "El colapso de la arteria pulmonar produce un aumento del llenado pasivo de la vena cava inferior."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En el Bloqueo Auriculoventricular Completo (3er grado), existe una disociación electromecánica absoluta entre las aurículas (controladas por el nodo sinusal) y los ventrículos (controlados por un marcapasos de escape nodal o ventricular). MECANISMO DE LA ONDA 'a' EN CAÑÓN: La ONDA 'A' del pulso venoso yugular representa la contracción o sístole de la Aurícula Derecha. En la disociación AV, ocurre de forma aleatoria e intermitente que la Aurícula Derecha se contrae exactamente en el mismo instante en que el Ventrículo Derecho está en sístole. Como el VD está en sístole, la VÁLVULA TRICÚSPIDE SE ENCUENTRA HERMÉTICAMENTE CERRADA. Al no poder vaciar su contenido hacia el ventrículo, la onda de presión producida por la contracción auricular retrocede masivamente hacia las venas cavas y yugulares, generando una ONDA 'A' GIGANTE O EN CAÑÓN visible a la inspección del cuello. Las opciones A, C y D citan mecanismos anatómicamente imposibles."
+  },
+  {
+   "id": "SIAM-UP6-028",
+   "numero": 28,
+   "pregunta": "Un paciente de 75 años con antecedente de infarto agudo de miocardio previo presenta extrasístoles ventriculares muy frecuentes en el Holter de 24 horas. Para el manejo farmacológico de las extrasístoles ventriculares sintomáticas en pacientes con cardiopatía isquémica crónica, ¿cuál es el grupo de antiarrítmicos de primera línea demostrado para reducir la mortalidad y la proarritmia?",
+   "opciones": {
+    "a": "Glucósidos cardíacos como la Digitoxina a dosis saturantes.",
+    "b": "Antiarrítmicos de Clase IC como la Flecainida o Propafenona.",
+    "c": "Betabloqueantes de Clase II (Metoprolol, Bisoprolol, Atenolol).",
+    "d": "Antiarrítmicos de Clase IA como la Quinidina o Procainamida oral."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. En los pacientes con extrasístoles ventriculares (EV) sintomáticas o frecuentes en el contexto de una CARDIOPATÍA ISQUÉMICA CRÓNICA o secuela de infarto: 1) FÁRMACOS DE PRIMERA LÍNEA SEGUROS: Los BETABLOQUEANTES (Clase II de Vaughan Williams: Bisoprolol, Metoprolol, Atenolol, Carvedilol) constituyen el tratamiento farmacológico de elección. Actúan suprimiendo la hiperactividad simpática, reduciendo el automatismo ectópico y el desencadenamiento de posdespolarizaciones, y han demostrado inequívocamente REDUCIR LA MORTALIDAD Y EL RIESGO DE MUERTE SÚBITA sin producir el efecto proarrítmico letal de otros agentes; y 2) FÁRMACOS CONTRAINDICADOS: La Flecainida y Propafenona (Clase IC, opción B) y la Quinidina (Clase IA, opción D) aumentan la mortalidad por proarritmia y FV en corazones isquémicos (estudio CAST). La digoxina (opción A) no está indicada para EV aisladas."
+  },
+  {
+   "id": "SIAM-UP6-029",
+   "numero": 29,
+   "pregunta": "Una paciente de 78 años en tratamiento con Amiodarona (200 mg/día) desde hace 2 años por Fibrilación Auricular acude a control. Refiere astenia progresiva, intolerancia al frío, piel seca, estreñimiento y aumento de peso. El laboratorio muestra una TSH de 14,5 mUI/L (elevada) y T4 libre disminuida. ¿Cuál es el mecanismo de la disfunción tiroidea inducida por amiodarona y cuál es la conducta recomendada?",
+   "opciones": {
+    "a": "Falsa alteración de laboratorio; se suspende la levotiroxina y se aumenta la amiodarona a 1000 mg.",
+    "b": "Cáncer anaplásico de tiroides; se inicia quimioterapia con cisplatino endovenoso.",
+    "c": "Hipotiroidismo por la alta carga de yodo de la amiodarona (Efecto Wolff-Chaikoff); se inicia sustitución con Levotiroxina sin necesidad de suspender la amiodarona si es eficaz.",
+    "d": "Hipertiroidismo autoinmune agudo por destrucción de la glándula; se realiza tiroidectomía de urgencia."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El HIPOTIROIDISMO INDUCIDO POR AMIODARONA es la complicación endocrina más frecuente del uso crónico de este antiarrítmico (ocurre en el 6-13% de los pacientes, especialmente en zonas con suficiencia de yodo). MECANISMO FISIOPATOLÓGICO: Una dosis diaria de 200 mg de amiodarona libera más de 6 mg de yodo inorgánico libre al día (más de 50 veces el requerimiento diario). El exceso de yodo inhibe la síntesis y liberación de hormonas tiroideas en una glándula vulnerable (EFECTO WOLFF-CHAIKOFF), además de que la amiodarona inhibe a la enzima 5'-deyodasa tipo 1 (impidiendo la conversión periférica de T4 a T3). MANEJO CLÍNICO PRACTICO: A diferencia del hipertiroidismo (AIT), el Hipotiroidismo por amiodarona ES FÁCIL DE MANEJAR. NO EXIGE LA SUSPENSIÓN OBLIGATORIA DE LA AMIODARONA si esta es indispensable para controlar una arritmia grave; se mantiene el antiarrítmico y se inicia suplementación exógena con LEVOTIROXINA graduando la dosis según el nivel de TSH. Las opciones A, B y D representan conductas erróneas."
+  },
+  {
+   "id": "SIAM-UP6-030",
+   "numero": 30,
+   "pregunta": "Un paciente de 67 años con diagnóstico de Flutter Auricular típico de reciente comienzo y buena tolerancia hemodinámica va a ser sometido a una Cardioversión Eléctrica o Farmacológica electiva. La arritmia tiene una duración no precisada (presumiblemente mayor a 48 horas). ¿Cuál es la regla de anticoagulación profiláctica pre y post-cardioversión obligatoria para prevenir un evento embólico?",
+   "opciones": {
+    "a": "Anticoagulación con dosis altas de vitamina K oral 1 hora antes de la descarga.",
+    "b": "Anticoagulación previa por al menos 3 semanas antes de la cardioversión y mantenerla por al menos 4 semanas posteriores al procedimiento.",
+    "c": "Anticoagulación únicamente durante los 5 minutos que dura la descarga eléctrica.",
+    "d": "No requiere anticoagulación debido a que el flutter no genera trombos en la aurícula."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En la cardioversión (sea eléctrica o farmacológica) de la Fibrilación Auricular o del Flutter Auricular con una duración MAYOR A 48 HORAS (o de tiempo desconocido), existe un riesgo elevado de embolia sistémica o ACV (1-7%). Esto se debe a la movilización de trombos formados previamente en la aurícula o al fenómeno de 'aturdimiento auricular' (stunning) tras restaurar el ritmo sinusal. REGLA ESTÁNDAR DE ANTICOAGULACIÓN PRE Y POST CARDIOVERSIÓN: 1) Anticoagulación terapéutica adecuada durante AL MENOS 3 SEMANAS PREVIAS a la cardioversión (con AVK RIN 2,0-3,0 o ACOD); Y 2) Mantener la anticoagulación durante AL MENOS 4 SEMANAS POSTERIORES a la cardioversión en todos los pacientes (e de forma indefinida si el score CHA2DS2-VASc es ≥2). Alternativa rápida: realizar un Ecocardiograma Transesofágico (ETE) para descartar trombos en la auriculilla y anticoagular con heparina antes de cardiovertir. Las opciones A, C y D vulneran la seguridad clínica."
+  },
+  {
+   "id": "SIAM-UP6-031",
+   "numero": 31,
+   "pregunta": "Un paciente de 80 años en tratamiento con Digoxina (0,25 mg/día) por Fibrilación Auricular crónica e Insuficiencia Renal leve acude a la guardia por náuseas, vómitos, visión amarillenta (xantopsia) y palpitaciones. El ECG muestra una Taquicardia Auricular con Bloqueo AV variable y extrasístoles ventriculares frecuentes. Se confirma Intoxicación Digitálica. ¿Cuáles son los factores hidroelectrolíticos desencadenantes y el antídoto de neutralización en casos graves?",
+   "opciones": {
+    "a": "La intoxicación digitálica no posee antídoto y exige diálisis peritoneal inmediata.",
+    "b": "La Hiperpotasemia pura inactiva la digoxina; el antídoto específico es el cloruro de potasio anhidro.",
+    "c": "La Hipopotasemia, la Hipomagnesemia y la Hipercalcemia potencian la toxicidad digitálica; en intoxicación grave con arritmias letales se utiliza el antídoto de Anticuerpos Específicos Anti-Digoxina (Fragmentos Fab / DigiFab).",
+    "d": "La hipernatremia extrema destruye el glucósido; el antídoto es la insulina corriente endovenosa."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Intoxicación Digitálica es una complicación clásica por el estrecho margen terapéutico de la Digoxina (0,5-0,9 ng/mL rango óptimo): 1) MANIFESTACIONES CLÍNICAS: Digestivas (anorexia, náuseas, vómitos), Neuro-Oftalmológicas (visión borrosa, XANTOPSIA o visión amarillento-verdosa, confusión) y Cardíacas (extrasístoles ventriculares, bigeminismo, Taquicardia Auricular con Bloqueo AV, ritmo de la unión, o BAV completo); 2) FACTORES ELECTROLÍTICOS PREDISPONENTES: La HIPOPOTASEMIA (potenciada por diuréticos de asa/tiazidas) aumenta la unión de la digoxina a la Na⁺/K⁺ ATPasa; la HIPOMAGNESEMIA y la HIPERCALCEMIA incrementan dramáticamente la arritmogenia y toxicidad digitálica a niveles plasmáticos incluso normales; y 3) ANTÍDOTO ESPECÍFICO: En arritmias ventriculares letales o hiperpotasemia severa, el tratamiento de elección es la administración de FRAGMENTOS DE ANTICUERPOS ESPECÍFICOS ANTI-DIGOXINA (DigiFab / Fab anti-digoxina). Las opciones A, B y D son falsas."
+  },
+  {
+   "id": "SIAM-UP6-032",
+   "numero": 32,
+   "pregunta": "¿Cuál es el patrón electrocardiográfico patognomónico del Síndrome de Brugada Tipo 1 en las derivaciones precordiales derechas (V1-V2) y cuál es el riesgo clínico asociado?",
+   "opciones": {
+    "a": "Ondas P bifásicas en DII con presencia de bloqueo completo de rama izquierda puro.",
+    "b": "Intervalo PR prolongado de 400 ms con QRS estrecho e intervalo QT acortado a 200 ms.",
+    "c": "Infradesnivel del ST horizontal de 5 mm en V5-V6 con ondas T picudas simétricas.",
+    "d": "Elevación del segmento ST ≥2 mm en 'alero de tejado' (coved-type) seguida de onda T negativa en V1-V2; con riesgo de Muerte Súbita por Fibrilación Ventricular."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El SÍNDROME DE BRUGADA es una canalopatía cardíaca hereditaria de herencia autosómica dominante (frecuentemente por mutaciones en el gen SCN5A del canal de sodio Nav1.5) que predispone a arritmias ventriculares polimórficas letales en corazones estructuralmente sanos. PATRÓN ECG TIPO 1 (PATOGNOMÓNICO): Se observa en las derivaciones precordiales derechas (V₁, V₂ o posicionado en 2° espacio intercostal) una ELEVACIÓN DEL SEGMENTO ST ≥ 2 mm CON MORFOLOGÍA CONVEXA O EN 'ALERO DE TEJADO' (coved-type), que se continúa con una ONDA T INVERTIDA O NEGATIVA. RIESGO CLÍNICO: Desencadenamiento de Taquicardia Ventricular Polimórfica y Fibrilación Ventricular (típicamente en reposo o durante el sueño, o desencadenado por la fiebre), produciendo síncope o Muerte Súbita Cardíaca. Tratamiento: Implante de Cardiodesfibrilador Automático (CDI). Las opciones A, B y C no corresponden al Brugada."
+  },
+  {
+   "id": "SIAM-UP6-033",
+   "numero": 33,
+   "pregunta": "En la clasificación de las arritmias de la unión auriculoventricular, la Taquicardia No Paroxística de la Unión AV es una arritmia producida por automatismo aumentado. ¿Cuál es la causa etiológica más frecuente de esta arritmia en la práctica clínica y sus características en el ECG?",
+   "opciones": {
+    "a": "Bloqueo completo de rama derecha en deportistas de alto rendimiento.",
+    "b": "Intoxicación por Digoxina; se caracteriza por un ritmo nodal regular a 70-130 bpm con ondas P retrógradas (invertidas en DII, DIII, aVF) o disociadas.",
+    "c": "Miopatía congénita del diafragma con hipercalcemia primaria.",
+    "d": "Consumo excesivo de vitamina C; caracterizado por asistolia ventricular permanente."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. LA TAQUICARDIA NO PAROXÍSTICA DE LA UNIÓN AURICULOVENTRICULAR (o Ritmo de la Unión Acelerado) es una arritmia automática supraventricular. ETIOLOGÍA CLÁSICA Y PRINCIPAL: La causa más característica en la práctica clínica es la INTOXICACIÓN DIGITÁLICA. Otras causas incluyen el infarto agudo de miocardio de cara inferior, miocarditis, la cirugía cardíaca y el exceso de catecolaminas. CARACTERÍSTICAS ELECTROCARDIOGRÁFICAS: 1) Frecuencia ventricular entre 70 y 130 latidos por minuto (superior al ritmo de escape nodal normal de 40-60 bpm, pero menor a la TPSV paroxística >150 bpm); 2) Incomienzo y fin graduales (a diferencia del inicio súbito paroxístico); y 3) Ondas P retrógradas (invertidas en derivaciones inferiores DII, DIII, aVF) situadas inmediatamente antes, dentro o después del complejo QRS estrecho, o disociación AV con el nódulo sinusal. Las opciones A, C y D citan etiologías y hallazgos falsos."
+  },
+  {
+   "id": "SIAM-UP6-034",
+   "numero": 34,
+   "pregunta": "Un paciente de 72 años con antecedente de Fibrilación Auricular es tratado con Propafenona. En el mecanismo de acción de la Propafenona (Clase IC), además del bloqueo potente del canal de sodio (INa), ¿qué otra propiedad farmacodinámica bloqueante posee que debe considerarse en pacientes con broncospasmo o bradicardia?",
+   "opciones": {
+    "a": "Actividad bloqueante beta-adrenérgica débil a moderada (similar al propranolol).",
+    "b": "Efecto estimulante alfa-1 que produce crisis hipertensivas sostenidas.",
+    "c": "Apertura irreversible de los canales de potasio en el músculo estriado.",
+    "d": "Inhibición masiva de la insulina con desarrollo de cetoacidosis diabética."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La PROPAFENONA es un fármaco antiarrítmico perteneciente a la CLASE IC de Vaughan Williams. Posee una estructura química similar a los betabloqueantes. MECANISMO DE ACCIÓN DUAL / MÚLTIPLE: 1) Efecto Clase IC Primario: Bloquea intensamente la corriente rápida de sodio (INa) en la Fase 0 del potencial de acción con una cinética de disociación lenta, enlenteciendo profundamente la conducción en la aurícula, nódulo AV y ventrículo; y 2) EFECTO BETABLOQUEANTE ASOCIADO: Presenta una ACTIVIDAD ANTAGONISTA BETA-ADRENÉRGICA MILD/MODERADA (efecto betabloqueante intrínseco). Por esta propiedad secundaria, la propafenona puede inducir o empeorar la bradicardia, el estrechamiento del automatismo sinusal y provocar broncospasmo en pacientes con asma bronquial o EPOC grave. Las opciones B, C y D citan efectos falsos."
+  },
+  {
+   "id": "SIAM-UP6-035",
+   "numero": 35,
+   "pregunta": "¿Cuál es el mecanismo de acción de la Atropina y por qué es INEFICAZ en los bloqueos auriculoventricular infranodales (Mobitz II o Bloqueo Completo con QRS ancho)?",
+   "opciones": {
+    "a": "Es un agonista directo de los canales de sodio; es ineficaz porque se destruye en el estómago.",
+    "b": "Es un bloqueante de la anhidrasa carbónica; es ineficaz porque actúa únicamente en la retina.",
+    "c": "Es un sedante central puro; es ineficaz porque aumenta la presión intracraneal.",
+    "d": "Es un antagonista competitivo de los receptores muscarínicos M2; es ineficaz infranodalmente porque las fibras del sistema His-Purkinje carecen de inervación vagal parasimpática significativa."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La ATROPINA es un fármaco parasimpaticolítico (antimuscárico). MECANISMO DE ACCIÓN: Inhibe de forma competitiva a los receptores muscarínicos M2 de acetilcolina en el corazón, bloqueando el tono vagal inhibitorio sobre el nódulo sinusal y el nódulo AV. Esto aumenta la frecuencia sinusal y acelera la velocidad de conducción AV. POR QUÉ ES INEFICAZ EN BLOQUEOS INFRANODALES (Mobitz II o BAV Completo infranodal): La inervación vagal (parasimpática) y la densidad de receptores M2 se concentran casi exclusivamente en las aurículas y los NÓDULOS SINUSAL Y AURICULOVENTRICULAR (estructuras supranodales). El sistema His-Purkinje y los ventrículos (infranodal) CARECEN DE INERVACIÓN VAGAL DIRECTA SIGNIFICATIVA. Por lo tanto, la atropina no logra mejorar la conducción cuando el bloqueo se ubica por debajo del nodo AV, e incluso al aumentar la frecuencia auricular sin mejorar el His, puede empeorar el grado de bloqueo. Las opciones A, B y C son falsas."
+  },
+  {
+   "id": "SIAM-UP6-036",
+   "numero": 36,
+   "pregunta": "Un paciente de 68 años consulta por episodios de síncope relacionados con giros bruscos del cuello o al abotonarse el cuello de la camisa. Se realiza un masaje del seno carotídeo bajo monitoreo electrocardiográfico continuo, registrándose una pausa asistólica ventricular de 4,5 segundos. ¿Cuál es el diagnóstico de este trastorno reflejo y el criterio de positividad?",
+   "opciones": {
+    "a": "Síndrome del Seno Carotídeo Hiperinsensible (Respuesta de Tipo Cardioinhibitorio); positivo si la pausa es mayor a 3 segundos o cae la PAS >50 mmHg.",
+    "b": "Síndrome de la Vena Cava Superior; positivo si aparece edema en esclavina y cianosis.",
+    "c": "Espasmo de la arteria carótida primitiva; positivo si la frecuencia sube a 200 bpm.",
+    "d": "Ataque Isquémico Transitorio vertebrobasilar puro; positivo si no hay cambios en el ECG."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El SÍNDROME DEL SENO CAROTÍDEO HIPERINFLABLE (HSC) es una causa de síncope reflejo neuromediado frecuente en adultos mayores por hipersensibilidad de los barorreceptores del seno carotídeo. PRUEBA DIAGNÓSTICA (Masaje del Seno Carotídeo - MSC): Se realiza compresión firme unilateral del seno carotídeo durante 5 a 10 segundos con monitoreo de ECG y PA. CRITERIOS DE POSITIVIDAD Y VARIANTES: 1) RESPUESTA CARDIOINHIBITORIA (más frecuente): Asistolia o PAUSA VENTRICULAR MAYOR A 3 SEGUNDOS por paro sinusal o bloqueo AV; 2) Respuesta Vasodepresora: Caída de la Presión Arterial Sistólica mayor a 50 mmHg sin bradicardia significativa; y 3) Respuesta Mixta. La reproducción del síncope coincidente con la pausa confirma el diagnóstico, siendo una indicación de implante de Marcapasos definitivo si es de tipo cardioinhibitorio sintomático. Las opciones B, C y D citan entidades ajenas."
+  },
+  {
+   "id": "SIAM-UP6-037",
+   "numero": 37,
+   "pregunta": "En la evaluación electrocardiográfica de la hipertrofia y crecimiento de las cavidades auriculares en pacientes con arritmias, ¿cuáles son los criterios electrocardiográficos para diagnosticar Crecimiento de Aurícula Izquierda (P Mitrale) frente a Crecimiento de Aurícula Derecha (P Pulmonale) en la derivación DII?",
+   "opciones": {
+    "a": "P Mitrale (AI): ausente por completo; P Pulmonale (AD): reemplazada por ondas T gigantes.",
+    "b": "Ambas hipertrofias presentan trazados idénticos sin alteraciones en la onda P.",
+    "c": "P Mitrale (AI): onda P picuda de 5 mm de alto; P Pulmonale (AD): onda P negativa invertida en todas las derivaciones.",
+    "d": "P Mitrale (AI): onda P muescada o bífida con duración prolongada ≥120 ms en DII; P Pulmonale (AD): onda P alta y picuda con amplitud ≥2,5 mm en DII."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La despolarización auricular normal genera la onda P en el ECG (los primeros 2/3 corresponden a la Aurícula Derecha y los últimos 2/3 a la Aurícula Izquierda). CRITERIOS EN DERIVACIÓN DII: 1) CRECIMIENTO DE AURÍCULA IZQUIERDA (P Mitrale): Dado que la AI despolariza al final, su dilatación prolonga el tiempo total de la despolarización auricular. Genera una ONDA P ANCHA O MUESCADA (bífida, con 'dos jorobas') de DURACIÓN EN ANCHO ≥120 ms (≥3 cuadraditos) en DII, y una fase negativa prominente en V1; y 2) CRECIMIENTO DE AURÍCULA DERECHA (P Pulmonale): Como la AD se despolariza al inicio, su hipertrofia/dilatación aumenta el voltaje o amplitud del vector inicial sin prolongar la duración total. Genera una ONDA P ALTA Y PICUDA DE ALTURA ≥2,5 mm (≥2.5 cuadraditos) en DII, DIII y aVF. La opción D contrapone con precisión ambos hallazgos."
+  },
+  {
+   "id": "SIAM-UP6-038",
+   "numero": 38,
+   "pregunta": "Un paciente de 75 años con antecedente de Fibrilación Auricular permanente se encuentra en tratamiento con Acenocumarol. Sufre un accidente de tránsito con traumatismo cerrado de abdomen e ingresa con hemorragia intraabdominal masiva e inestabilidad hemodinámica (shock). El RIN de ingreso es de 4,2. ¿Cuál es el esquema de REVERSIÓN INMEDIATA e hiperaguda de la anticoagulación indicado en esta emergencia vital?",
+   "opciones": {
+    "a": "Hemodiálisis de flujo alto durante 12 horas con filtros de celulosa.",
+    "b": "Vitamina K1 orales únicamente en dosis de 1 mg y reevaluar en 72 horas.",
+    "c": "Infusión de heparina no fraccionada en bolo de 50.000 UI para neutralizar el cumarínico.",
+    "d": "Concentrado de Complejo Protrombínico (CCP) o Plasma Fresco Congelado (PFC) asociado a Vitamina K1 intravenosa lenta."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En la emergencia de un SANGRADO MAYOR QUE AMENAZA LA VIDA o hemorragia exanguinante en un paciente anticoagulado con Antagonistas de la Vitamina K (Acenocumarol / Warfarina): 1) MEDIDA HIPERAGUDA DE REEMPLAZO INMEDIATO: Administrar de forma urgente CONCENTRADO DE COMPLEJO PROTROMBÍNICO (CCP - factores II, VII, IX y X activados/inactivos), el cual restaura los factores de coagulación en minutos y normaliza el RIN inmediatamente. Si no hay CCP disponible, se infunde PLASMA FRESCO CONGELADO (PFC); Y 2) REVERSIÓN SOSTENIDA A LARGO PLAZO: Administrar VITAMINA K1 INTRAVENOSA (5 a 10 mg en infusión lenta) para estimular la síntesis hepática endógena de nuevos factores de coagulación (cuyo efecto inicia a las 4-6 horas). Administrar solo vitamina K1 oral (opción B) demoraría 12-24 horas en actuar, lo que sería letal en shock hemorrágico. La heparina (opción C) empeoraría el sangrado."
+  },
+  {
+   "id": "SIAM-UP6-039",
+   "numero": 39,
+   "pregunta": "¿Cuál es la posología y esquema típico de 'Dosis de Carga' y 'Dosis de Mantenimiento' orales de la Amiodarona en adultos?",
+   "opciones": {
+    "a": "Carga: no requiere carga y se da 1 mg cada 10 días por vía oral.",
+    "b": "Carga: 600 a 1000 mg/día por 1 a 3 semanas; Mantenimiento: 200 mg/día (con días de descanso o continua).",
+    "c": "Carga: 10 mg/día por 1 año; Mantenimiento: 5000 mg/día cada 2 horas.",
+    "d": "Carga: 100 gramos de bolo directo; Mantenimiento: suspensión completa del fármaco."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La AMIODARONA posee propiedades farmacocinéticas sumamente singulares: su elevada lipofilia genera un VOLUMEN DE DISTRIBUCIÓN EXTREMADAMENTE ALTO (se acumula masivamente en el tejido adiposo, hígado y pulmones), lo que exige la administración obligatoria de una DOSIS DE CARGA inicial para saturar los depósitos tisulares y alcanzar niveles plasmáticos terapéuticos: 1) DOSIS DE CARGA ORAL: 600 a 1000 mg/día (divididos en 2 o 3 tomas al día) durante 1 a 3 semanas (hasta alcanzar una dosis acumulada total de 8 a 10 gramos); y 2) DOSIS DE MANTENIMIENTO ORAL: Una vez saturados los tejidos, se reduce la dosis a la menor cifra eficaz, habitualmente 200 mg/día (o 100 a 200 mg/día, a veces descansando sábados y domingos). Las opciones A, C y D citan esquemas y dosis químicamente imposibles o peligrosas."
+  },
+  {
+   "id": "SIAM-UP6-040",
+   "numero": 40,
+   "pregunta": "En la auscultación y examen físico de un paciente de 78 años con estenosis aórtica severa que desarrolla una arritmia por Extrasístoles Ventriculares frecuentes, el médico analiza el comportamiento de la intensidad del soplo eyectivo en el latido post-extrasistólico. ¿Qué ocurre con la intensidad del soplo de la Estenosis Aórtica en el latido posterior a una pausa extrasistólica y cuál es su explicación hemodinámica?",
+   "opciones": {
+    "a": "El soplo desaparece por completo convirtiéndose en un soplo continuo diastólico de Austin-Flint.",
+    "b": "El soplo disminuye de intensidad porque el ventrículo izquierdo se atrofia durante la pausa.",
+    "c": "La intensidad del soplo eyectivo es completamente independiente de las pausas diastólicas.",
+    "d": "El soplo AUMENTA de intensidad en el latido post-extrasistólico; debido a la mayor duración del llenado diastólico (mayor precarga) y a la potenciación posextrasistólica de la contractilidad."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En el diagnóstico diferencial auscultatorio de los soplos sistólicos (especialmente para diferenciar el soplo eyectivo de la Estenosis Aórtica del soplo regurgitante de la Insuficiencia Mitral), el comportamiento auscultatorio en el LATIDO POST-EXTRASISTÓLICO (el latido que sigue inmediatamente a la pausa compensadora de una extrasístole) es una maniobra semiológica clave: MECANISMO HEMODINÁMICO: Durante la pausa post-extrasistólica prolongada: 1) Aumenta el tiempo de llenado diastólico del Ventrículo Izquierdo (mayor volumen telediastólico / PRECARGA); Y 2) Se produce el fenómeno de POTENCIACIÓN POST-EXTRASISTÓLICA (mayor entrada de calcio al retículo sarcoplásmico que incrementa la contractilidad miocárdica). Al contraerse con mayor fuerza y expulsar un mayor volumen sistólico a través del orificio aórtico estenótico, EL SOPLO SISTÓLICO EYECTIVO AÓRTICO AUMENTA MARCADAMENTE DE INTENSIDAD. En la insuficiencia mitral, la intensidad no cambia significativamente. Las opciones A, B y C citan explicaciones erróneas."
+  },
+  {
+   "id": "SIAM-UP6-041",
+   "numero": 41,
+   "pregunta": "Un paciente de 75 años con antecedente de infarto de miocardio previo presenta en el monitor electrocardiográfico una taquicardia de complejos QRS anchos (>140 ms) regular a 160 latidos por minuto. Al aplicar los criterios electrocardiográficos de Brugada para diferenciar Taquicardia Ventricular (TV) de Taquicardia Supraventricular con Aberrancia (TSVA), ¿cuál de las siguientes opciones describe el criterio de 'Disociación Auriculoventricular' e indica su significación clínica?",
+   "opciones": {
+    "a": "Las ondas P sinusales marchan de forma totalmente independiente de los complejos QRS anchos; es un criterio altamente específico de Taquicardia Ventricular.",
+    "b": "Las ondas P están ausentes por completo en todas las derivaciones; confirma Bloqueo Sinoauricular de primer grado fisiológico.",
+    "c": "Las ondas P siguen a los complejos QRS con relación 1:1 estricta; es patognomónico de Fibrilación Auricular preexcitada.",
+    "d": "Las ondas P preceden a cada complejo QRS con un intervalo PR constante de 160 ms; confirma Taquicardia Supraventricular con Aberrancia."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. En el diagnóstico diferencial de las taquicardias de complejos QRS anchos (QRS >120 ms), la presencia de DISOCIACIÓN AURICULOVENTRICULAR es el hallazgo electrocardiográfico individual de MAYOR ESPECIFICIDAD (>98%) para confirmar el origen VENTRICULAR (Taquicardia Ventricular). DEFINICIÓN ELECTROCARDIOGRÁFICA: Las aurículas y los ventrículos son despolarizados por marcapasos independientes: las ondas P sinusales (o auriculares) marchan a su propia frecuencia (ej. 70-80 bpm) sin guardar ninguna relación fija ni constante con los complejos QRS anchos de la taquicardia ventricular (que marchan a 150-200 bpm). Se observan ondas P 'deformando' o 'mordiendo' de forma aleatoria los segmentos ST, ondas T o complejos QRS, además de la aparición esporádica de Latidos de Captura o Latidos de Fusión. Las opciones B, C y D corresponden a taquicardias supraventriculares o BAV."
+  },
+  {
+   "id": "SIAM-UP6-042",
+   "numero": 42,
+   "pregunta": "En el tratamiento farmacológico de las arritmias supraventriculares en el adulto mayor, el Diltiazem (Calcioantagonista No Dihidropiridínico, Clase IV) se utiliza para el control de la frecuencia cardíaca en la Fibrilación Auricular. ¿Cuál es su mecanismo de acción hemodinámico e iónico y cuál es su principal contraindicación en cardiopatías estructurales?",
+   "opciones": {
+    "a": "Estimula directamente a los receptores beta-1; está contraindicado en la bradicardia sinusal superior a 100 latidos por minuto.",
+    "b": "Abre los canales de sodio cardíacos; está contraindicado en la bronquitis crónica por provocar broncoconstricción.",
+    "c": "Bloquea los canales de calcio tipo L dependientes de voltaje en el nódulo AV; está contraindicado en la Insuficiencia Cardíaca con FEVI reducida por su efecto inotrópico negativo.",
+    "d": "Inhibe a la enzima glicoproteína-P renal; está contraindicado exclusivamente en el reflujo gastroesofágico leve."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El DILTIAZEM y el VERAPAMILO son Antiarrítmicos de la CLASE IV de Vaughan Williams. MECANISMO IÓNICO Y NODAL: Inhiben de forma selectiva la corriente lenta de entrada de Calcio (ICa-L) a través de los canales L dependientes de voltaje en los tejidos de respuesta lenta. En el nódulo AV, esto deprime la fase 0 de despolarización, prolonga la conducción (efecto dromotrópico negativo) e incrementa el período refractario efectivo, reduciendo la respuesta ventricular en la Fibrilación Auricular y Flutter. CONTRAINDICACIÓN CRÍTICA EN CARDIOPATÍAS: Poseen un EFECTO INOTRÓPICO NEGATIVO POTENTE (deprimen la contractilidad del miocardio). Por ello, están ESTRICTAMENTE CONTRAINDICADOS en pacientes con INSUFICIENCIA CARDÍACA CON FRACCIÓN DE EYECCIÓN REDUCIDA (FEVI <40%) o en choque cardiogénico, ya que pueden colapsar la función sistólica y desencadenar edema agudo de pulmón. Las opciones A, B y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-043",
+   "numero": 43,
+   "pregunta": "¿Qué significan las tres primeras letras de la codificación 'DDD' en un marcapasos bicameral?",
+   "opciones": {
+    "a": "1ª letra: Dosis de Droga; 2ª letra: Duración del Desfibrilador; 3ª letra: Drenaje Venoso.",
+    "b": "1ª letra: Despolarización Direccional; 2ª letra: Diástole Derecha; 3ª letra: Diámetro Distal.",
+    "c": "1ª letra: Diabetes; 2ª letra: Disnea; 3ª letra: Depresión de la respuesta nodular.",
+    "d": "1ª letra: Cámara Estimulada (Doble = Aurícula y Ventrículo); 2ª letra: Cámara Detectada (Doble); 3ª letra: Modo de Respuesta (Doble = Inhibido y Gatillado)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La nomenclatura internacional NBG para la programación de Marcapasos Artificiales consta de 5 posiciones o letras: 1) PRIMERA LETRA (Cámara Estimulada / Paced): 'A' (Aurícula), 'V' (Ventrículo) o 'D' (Doble: Aurícula y Ventrículo); 2) SEGUNDA LETRA (Cámara Detectada / Sensed): 'A', 'V' o 'D' (Doble); 3) TERCERA LETRA (Modo de Respuesta / Response to sensing): 'I' (Inhibido por evento propio), 'T' (Gatillado/Triggered) o 'D' (Doble: Inhibido y Gatillado); 4) Cuarta letra: Modulación de frecuencia (R = Rate responsive); y 5) Quinta letra: Funciones multisitio/desfibrilación. Un MARCAPASOS MODO DDD es un dispositivo BICAMERAL que estimula ambas cavidades ('D'), detecta ambas cavidades ('D') y responde inhibiéndose o gatillándose según los eventos intrínsecos ('D'), manteniendo la sincronía auriculoventricular fisiológica. Las opciones A, B y C inventan significados ajenos."
+  },
+  {
+   "id": "SIAM-UP6-044",
+   "numero": 44,
+   "pregunta": "Un paciente de 70 años sin antecedentes de enfermedad cardiovascular presenta en un ECG de rutina una onda P positiva en DII, DIII y aVF con intervalo PR constante de 160 ms y frecuencia cardíaca de 48 latidos por minuto. Se encuentra completamente asintomático. ¿Cuál es el diagnóstico de esta bradiarritmia y la conducta terapéutica recomendada?",
+   "opciones": {
+    "a": "Bradicardia Sinusal Fisiológica/Benigna; no requiere tratamiento farmacológico ni marcapasos si el paciente está asintomático.",
+    "b": "Fibrilación Auricular lenta; requiere cardioversión eléctrica de emergencia a 300 Joules.",
+    "c": "Bloqueo AV de tercer grado infranodal; requiere implante inmediato de marcapasos bicameral en menos de 1 hora.",
+    "d": "Paro sinusal patológico; requiere infusión continua de amiodarona y flecainida por vía oral."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La BRADICARDIA SINUSAL se define electrocardiográficamente por la presencia de un ritmo sinusal normal (onda P positiva en DII, DIII, aVF precediendo a cada QRS con PR constante de 120 a 200 ms) pero con una FRECUENCIA CARDÍACA INFERIOR A 60 LATIDOS POR MINUTO (en este caso 48 bpm). ETIOLOGÍA Y MANEJO: En adultos mayores o deportistas, la bradicardia sinusal leve a moderada (45-59 bpm) suele ser idiopática degenerativa benigna, secundaria a tono vagal aumentado o a fármacos (betabloqueantes). CONDUCTA RECOMENDADA: Si el paciente está COMPLETAMENTE ASINTOMÁTICO (sin síncope, mareos, presíncope ni insuficiencia cardíaca), NO REQUIERE NINGÚN TRATAMIENTO FARMACOLÓGICO NI IMPLANTE DE MARCAPASOS. Se realiza observación y seguimiento clínico periódico. Las opciones B, C y D representan sobrediagnósticos y conductas invasivas injustificadas."
+  },
+  {
+   "id": "SIAM-UP6-045",
+   "numero": 45,
+   "pregunta": "En el estudio de las extrasístoles supraventriculares (ESSV) y aurículo-nodales en el adulto mayor, ¿cuáles son las tres características electrocardiográficas que permiten diferenciarlas de las extrasístoles ventriculares (EV)?",
+   "opciones": {
+    "a": "Presencia de ondas 'F' en dientes de sierra a 300 bpm con intervalos R-R absolutamente regulares.",
+    "b": "Complejo QRS ancho (>140 ms) deformado, ausencia total de onda P' y pausa compensadora completa estricta.",
+    "c": "Complejo QRS estrecho (<120 ms) similar al sinusal, presencia de onda P' prematura de morfología distinta y pausa compensadora incompleta.",
+    "d": "Ausencia de ondas T en todas las derivaciones y presencia de bajo voltaje difuso con intervalo QT acortado."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Las EXTRASÍSTOLES SUPRAVENTRICULARES (ESSV o auriculares/nodales) se originan en focos ectópicos situados por encima del haz de His. TRES DERECHOS ELECTROCARDIOGRÁFICOS DIFERENCIALES CON LAS EXTRASÍSTOLES VENTRICULARES (EV): 1) MORFOLOGÍA DEL QRS: El complejo QRS es ESTRECHO (<120 ms) y de morfología idéntica o muy similar a los complejos sinusales normales (salvo si conduce con aberrancia de rama); 2) ONDA P' ANTECEDENTE: La extrasístole va precedida de una ONDA P' PREMATURA (ectópica) cuya morfología y eje difieren de la onda P sinusal normal; y 3) PAUSA COMPENSADORA INCOMPLETA: La despolarización ectópica auricular penetra en el nódulo sinusal y lo 'reajusta' (reset), por lo que la suma del intervalo pre-extrasistólico y post-extrasistólico es MENOR al doble del intervalo P-P sinusal (<2 P-P). En las EV (opción B), el QRS es ancho, no hay P antecedente y la pausa es completa. Las opciones A y D citan otros hallazgos."
+  },
+  {
+   "id": "SIAM-UP6-046",
+   "numero": 46,
+   "pregunta": "Un paciente de 78 años en tratamiento con Flecainida (100 mg c/12h) por extrasístoles ventriculares ingresa a la guardia por debilidad generalizada. En el ECG se observa un marcado ensanchamiento del complejo QRS de 100 ms a 170 ms (aumento mayor al 50% de la duración del QRS basal). ¿Cuál es la causa de esta alteración electrocardiográfica y la conducta terapéutica inmediata?",
+   "opciones": {
+    "a": "Infarto agudo de miocardio sin elevación del ST; se indica trombolisis con alteplasa.",
+    "b": "Efecto terapéutico normal y deseado de los bloqueantes de potasio; se debe duplicar la dosis a 400 mg.",
+    "c": "Signo de toxicidad/proarritmia por Flecainida (Clase IC); exige la SUSPENSIÓN INMEDIATA del fármaco y la administración de Bicarbonato de Sodio IV.",
+    "d": "Desarrollo de hipertiroidismo felino secundario a la flecainida; se administra metimazol oral."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La FLECAINIDA y la PROPAFENONA son antiarrítmicos de la CLASE IC de Vaughan Williams. Poseen un potente efecto bloqueante de la corriente rápida de sodio (INa) con una cinética de disociación muy lenta, lo que enlentece profundamente la Fase 0 y la velocidad de conducción en el miocardio ventricular. TOXICIDAD Y ENSANCHAMIENTO DEL QRS: Un signo de alarma y toxicidad grave por Clase IC es el ENSANCHAMIENTO EXCESIVO DEL COMPLEX QRS (un incremento >25-50% respecto al QRS basal o un QRS >150 ms). Esto refleja un bloqueo masivo de los canales de sodio con alto riesgo de desencadenar proarritmia letal (Taquicardia Ventricular o Fibrilación Ventricular). CONDUCTA INMEDIATA: 1) SUSPENDER INMEDIATAMENTE LA FLECAINIDA/PROPAFENONA; Y 2) Administrar BICARBONATO DE SODIO INTRAVENOSO (1-2 mEq/kg), el cual incrementa la concentración de sodio extracelular y alcaliniza el medio, desplazando al fármaco del canal de sodio y revirtiendo la cardiotoxicidad. Las opciones A, B y D representan errores graves."
+  },
+  {
+   "id": "SIAM-UP6-047",
+   "numero": 47,
+   "pregunta": "Una paciente de 76 años con antecedente de Fibrilación Auricular paroxística ingresa con palpitaciones y disnea. En el ECG se registra una Fibrilación Auricular de alta respuesta ventricular (160 bpm) e inestabilidad hemodinámica manifiesta (Presión Arterial 75/40 mmHg, estertores crepitantes pulmonares y angina de pecho). ¿Cuál es el tratamiento de urgencia indicado según las guías clínicas?",
+   "opciones": {
+    "a": "Tratamiento ambulatorio con amiodarona oral y control en 15 días.",
+    "b": "Cardioversión Eléctrica Sincronizada inmediata bajo sedación/analgesia corta.",
+    "c": "Colocación de un marcapasos temporal sin realizar descargas eléctricas.",
+    "d": "Administración de verapamilo orales con ingesta de agua helada."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En el algoritmo de manejo de la Fibrilación Auricular (FA) de reciente comienzo o paroxística, el primer paso clínico decisivo es EVALUAR LA ESTABILIDAD HEMODINÁMICA DEL PACIENTE: 1) PACIENTE INESTABLE HEMODINÁMICAMENTE (presencia de shock/hipotensión arterial PAS <90 mmHg, Edema Agudo de Pulmón/fallo cardíaco, angina de pecho isquémica grave o alteración del sensorio): Indicación de emergencia absoluta de CARDIOVERSIÓN ELÉCTRICA SINCRONIZADA INMEDIATA (choque de corriente continua monofásica o bifásica 120-200 J sincronizado con la onda R) bajo sedación o anestesia de corta duración. En la inestabilidad hemodinámica NO se debe perder tiempo intentando la conversión farmacológica (opciones A y D), ya que el retraso puede causar paro cardíaco; y 2) Paciente Estable Hemodinámicamente: Se puede optar por control de frecuencia o ritmo farmacológico. La opción C es incorrecta."
+  },
+  {
+   "id": "SIAM-UP6-048",
+   "numero": 48,
+   "pregunta": "En el estudio de las canalopatías y síndromes arritmogénicos congénitos, el Síndrome de QT Largo (SQTL) se caracteriza por un intervalo QTc prolongado en el ECG basal. ¿Cuál es el valor de corte del intervalo QT corregido (QTc mediante la fórmula de Bazzett) considerado patológico e indicativo de alto riesgo de arritmias ventriculares en hombres y mujeres?",
+   "opciones": {
+    "a": "El intervalo QTc no se puede medir en el electrocardiograma.",
+    "b": "QTc mayor a 450 ms en hombres y mayor a 470 ms en mujeres (o QTc >500 ms de alto riesgo).",
+    "c": "QTc exactamente igual a 100 ms en todas las derivaciones.",
+    "d": "QTc menor a 200 ms en ambos sexos de forma constante."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El INTERVALO QT del electrocardiograma representa la duración total de la despolarización y repolarización ventriculares (Sístole Eléctrica Ventricular). Como el intervalo QT varía inversamente con la frecuencia cardíaca, debe corregirse utilizando la FÓRMULA DE BAZETT (QTc = QT / √RR). VALORES NORMALES Y PATOLÓGICOS DEL QTc: 1) Normal: Valor medio de 390 a 440 ms; 2) PROLONGACIÓN PATOLÓGICA (QT Largo): Se define ante un QTc >450 ms en hombres e >470 ms en mujeres; y 3) RIESGO EXTREMO DE TORSADES DE POINTES Y MUERTE SÚBITA: Un intervalo QTc >500 ms (o un incremento >60 ms respecto al basal) constituye un marcador de ALTO RIESGO de desencadenar arritmias ventriculares polimórficas letales (Torsades de Pointes / Fibrilación Ventricular). Las opciones A, C y D citan valores o aseveraciones falsas."
+  },
+  {
+   "id": "SIAM-UP6-049",
+   "numero": 49,
+   "pregunta": "¿Cuál de los siguientes grupos de alimentos posee el mayor contenido de Vitamina K?",
+   "opciones": {
+    "a": "Verduras de hoja verde oscuro (espinaca, acelga, brócoli, repollo, col) y té verde.",
+    "b": "Carnes rojas magras, pechuga de pollo y pescado blanco.",
+    "c": "Agua mineral, sal de mesa y azúcar refinada pura.",
+    "d": "Leche descremada, yogur natural y quesos magros."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Los Antagonistas de la Vitamina K (AVK: Warfarina, Acenocumarol) actúan inhibiendo a la enzima Vitamina K Epóxido Reductasa (VKORC1), impidiendo la regeneración de la vitamina K reducida necesaria para la gamma-carboxilación hepática de los factores II, VII, IX y X. INTERACCIÓN DIETÉTICA CON VITAMINA K: La ingesta de alimentos con elevado contenido de Vitamina K1 (Filoquinona) aporta sustrato exógeno que compite y antagoniza el efecto del anticoagulante oral, REDUCIENDO EL RIN por debajo del rango terapéutico (<2,0) e incrementando el riesgo de trombosis. FUENTES ALIMENTARIAS RICAS EN VITAMINA K: VERDURAS DE HOJA VERDE OSCURO (espinaca, acelga, brócoli, repollo de Bruselas, col, berro, lechuga romana), té verde e hígado. NO está prohibido su consumo, sino que debe mantenerse un APORTE DIETÉTICO CONSTANTE E HOMOGÉNEO sin variaciones drásticas semanales. Las opciones B, C y D tienen contenido insignificante de vitamina K."
+  },
+  {
+   "id": "SIAM-UP6-050",
+   "numero": 50,
+   "pregunta": "En un electrocardiograma de un paciente de 65 años, se observa la presencia de ondas P normales seguidas de complejos QRS estrechos con un PR normal. De forma súbita e intermitente, aparece un complejo QRS ancho (150 ms) no precedido de onda P, con un segmento ST y onda T orientados en dirección opuesta al QRS (discordancia electrosistólica) y una pausa compensadora completa. ¿Cuál es el diagnóstico de esta extrasístole?",
+   "opciones": {
+    "a": "Extrasístole Ventricular aislada.",
+    "b": "Parasistolia auricular pura con bloqueo sinoauricular.",
+    "c": "Extrasístole Auricular conducida con aberrancia.",
+    "d": "Ritmo de escape nodal secundario a paro sinusal."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Las EXTRASÍSTOLES VENTRICULARES (EV) son impulsos ectópicos prematuros generados en el miocardio o sistema de Purkinje ventricular. TRES CRITERIOS ELECTROCARDIOGRÁFICOS CARACTERÍSTICOS: 1) PREMATURIDAD Y QRS ANCHO: Aparece antes del tiempo esperado y presenta un complejo QRS ANCHO (>120-140 ms) y deformado debido a que la conducción inter-ventricular se realiza lentamente de miocito a miocito sin usar el sistema His-Purkinje; 2) AUSENCIA DE ONDA P ANTECEDENTE: La extrasístole no es precedida por una onda P auricular conducida; 3) ALTERACIÓN DE LA REPOLARIZACIÓN (DISCORDANCIA): El segmento ST y la onda T están orientados en sentido opuesto a la deflexión principal del QRS; y 4) PAUSA COMPENSADORA COMPLETA: La suma del intervalo pre-extrasistólico y post-extrasistólico es exactamente IGUAL AL DOBLE DEL INTERVALO P-P SINUSAL BASAL (2 P-P), porque la EV no penetra ni reajusta el nodo sinusal. La opción A describe de forma exacta una EV aislada."
+  },
+  {
+   "id": "SIAM-UP6-051",
+   "numero": 51,
+   "pregunta": "Un paciente de 74 años con antecedente de Fibrilación Auricular tratados con Amiodarona y Diltiazem ingresa a la guardia con bradicardia severa de 32 latidos por minuto y somnolencia. En el ECG se observa una parada del marcapasos sinusal sin actividad auricular durante 4,2 segundos (Pausa Sinusal prolongada). ¿Cuál es el mecanismo fisiopatológico del Paro o Pausa Sinusal y su diferencia con el Bloqueo Sinoauricular?",
+   "opciones": {
+    "a": "En el Paro Sinusal el QRS mide 300 ms; en el Bloqueo Sinoauricular la frecuencia auricular es de 500 bpm.",
+    "b": "El Paro Sinusal es producido por un exceso de potasio en la aorta; el Bloqueo Sinoauricular es una infección del miocardio.",
+    "c": "Ambas condiciones son idénticas y se diferencian únicamente por el color de la piel.",
+    "d": "En el Paro Sinusal el nódulo sinusal cesa temporalmente su automatismo y no genera el impulso (pausa no múltiplo del P-P); en el Bloqueo Sinoauricular el nodo genera el impulso pero este se bloquea y no logra salir a la aurícula (pausa múltiplo del P-P)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los trastornos del automatismo y conducción del nódulo sinusal se diferencian fisiopatológica y electrocardiográficamente: 1) PARO O PARO SINUSAL (Sinus Arrest): Ocurre cuando las células marcapasos del NÓDULO SINUSAL CESAN TEMPORALMENTE SU AUTOMATISMO Y FALLAN EN GENERAR EL IMPULSO ELÉCTRICO. En el ECG se observa la falta total de ondas P y complexes QRS durante un período variable (pausa sinusal). CARACTERÍSTICA: La duración de la pausa NO ES UN MÚLTIPLO EXACTO del intervalo P-P sinusal previo; y 2) BLOQUEO SINOAURICULAR (BSA): El nódulo sinusal SÍ GENERA EL IMPULSO ELÉCTRICO en el tiempo esperado, pero este se frena o bloquea en el tejido perinatal y no logra propagarse hacia el miocardio auricular. En el BSA de 2° grado, la pausa resultante ES UN MÚLTIPLO MATEMÁTICO EXACTO del intervalo P-P basal (2 P-P, 3 P-P). Ambas formas se potencian por fármacos bradicardizantes (amiodarona, diltiazem). Las opciones A, B y C son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-052",
+   "numero": 52,
+   "pregunta": "¿Qué trastorno del ritmo se ha producido sobreagregado a la Fibrilación Auricular y qué indica?",
+   "opciones": {
+    "a": "Aumento del tono simpático con conducción auriculoventricular supernormal 1:1.",
+    "b": "Bloqueo Auriculoventricular Completo (3er grado) con ritmo de escape de la unión nodal; indica Intoxicación Digitálica severa.",
+    "c": "Conversión espontánea a ritmo sinusal fisiológico acelerado sin significación clínica.",
+    "d": "Síndrome de Wolff-Parkinson-White Tipo A con conducción retrógrada anómala."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La Fibrilación Auricular (FA) se caracteriza por una conducción auriculoventricular variable y caótica que genera un RITMO VENTRICULAR IRREGULARMENTE IRREGULAR (intervalos R-R desiguales). REGULARIZACIÓN DE LA FA (SIGNABILIDAD CRÍTICA): Si un paciente con Fibrilación Auricular presenta súbitamente un RITMO VENTRICULAR ABSOLUTAMENTE REGULAR Y LENTO (ej. R-R constantes a 45 bpm), esto SIGNIFICA QUE NINGÚN IMPULSO AURICULAR FIBRILATORIO ESTÁ LOGRANDO PASAR AL VENTRÍCULO: se ha producido un BLOQUEO AURICULOVENTRICULAR DE TERCER GRADO O COMPLETO. El ventrículo pasa a ser controlado por un marcapasos de escape nodal o infranodal independiente y regular. EN CONTEXTO DE DIGOXINA: La 'FA regularizada' con bradicardia es un hallazgo patognomónico y clásico de INTOXICACIÓN DIGITÁLICA SEVERA (bloqueo AV masivo por hipertonía vagal y depresión nodal). Exige la suspensión inmediata de la digoxina y dosaje de digoxinemia. Las opciones A, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-053",
+   "numero": 53,
+   "pregunta": "En la clasificación de los Bloqueos de Rama del Haz de His en el electrocardiograma de 12 derivaciones, ¿cuáles son los criterios electrocardiográficos característicos en las derivaciones precordiales V1 y V6 para diagnosticar Bloqueo Completo de Rama Izquierda (BCRI) frente al Bloqueo Completo de Rama Derecha (BCRD)?",
+   "opciones": {
+    "a": "BCRI: onda Delta inicial pura; BCRD: infradesnivel del ST tipo Brugada en V5.",
+    "b": "BCRI: QRS ≥120 ms, muesca o R ancha con QS/rS profundo en V1 y R ancha muescada en V6; BCRD: QRS ≥120 ms, patrón rsR' ('orejas de conejo') en V1 y S ancha en V6.",
+    "c": "Ambos bloqueos presentan patrones electrocardiográficos idénticos en todas las derivaciones.",
+    "d": "BCRI: QRS estrecho de 50 ms con onda P picuda; BCRD: ausente por completo en precordiales."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Los Bloqueos Completos de Rama del Haz de His alteran la secuencia normal de despolarización ventricular, generando un complejo QRS ANCHO (≥ 120 ms o ≥ 3 cuadraditos): 1) BLOQUEO COMPLETO DE RAMA DERECHA (BCRD): La activación del VD se retrasa. En las derivaciones precordiales derechas (V₁, V₂) se observa un patrón clásico en rsR' ('OREJAS DE CONEJO') o R ancha muescada, y en las derivaciones izquierdas (V₅, V₆, DI) se observa una ONDA S ANCHA Y EMPASTADA; y 2) BLOQUEO COMPLETO DE RAMA IZQUIERDA (BCRI): La activación del VI se retrasa profundamente. En V₁, V₂ se observa un complejo predominantemente NEGATIVO PROFUNDO (QS o rS), y en las derivaciones izquierdas (V₅, V₆, DI, aVL) se observa una ONDA R ANCHA, ALTA Y MUESCADA ('en meseta') con ausencia de onda Q y alteración secundaria de la repolarización. La opción B contrapone con precisión ambos bloqueos."
+  },
+  {
+   "id": "SIAM-UP6-054",
+   "numero": 54,
+   "pregunta": "¿Cuáles son los valores meta de frecuencia cardíaca recomendados por el estudio RACE II y las guías internacionales para el 'Control de Frecuencia' en Fibrilación Auricular permanente asintomática o paucisintomática?",
+   "opciones": {
+    "a": "Control Extremo: Frecuencia cardíaca mayor a 200 latidos por minuto en todo momento.",
+    "b": "La Fibrilación Auricular no requiere control de la frecuencia cardíaca.",
+    "c": "Control Estricto de Frecuencia: Frecuencia cardíaca en reposo exactamente entre 20 y 30 latidos por minuto.",
+    "d": "Control Laxo de Frecuencia: Frecuencia cardíaca en reposo menor a 110 latidos por minuto."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En la estrategia de 'Control de la Frecuencia' (Rate Control) para pacientes con Fibrilación Auricular permanente o persistente, el objetivo clínico es frenar la conducción por el nódulo AV para evitar la taquimiocardiopatía y aliviar los síntomas de disnea y palpitaciones: CRITERIOS DEL ESTUDIO RACE II Y GUÍAS DE FA (ESC/AHA): 1) CONTROL LAXO DE FRECUENCIA (Estrategia Inicial de Elección en pacientes asintomáticos o con síntomas leves): Se establece una META DE FRECUENCIA CARDÍACA EN REPOSO MENOR A 110 LATIDOS POR MINUTO (<110 bpm). Demostró ser igual de segura y eficaz en eventos cardiovasculares que el control estricto, requiriendo menor dosis de fármacos y menor riesgo de bradicardia; y 2) Control Estricto de Frecuencia: Meta de FC en reposo <80 bpm (e <110 bpm en ejercicio moderado), reservada únicamente para pacientes que persisten sintomáticos o sufren deterioro de la función ventricular con el control laxo. Las opciones A, B y C citan objetivos falsos o peligrosos."
+  },
+  {
+   "id": "SIAM-UP6-055",
+   "numero": 55,
+   "pregunta": "Un paciente de 75 años internado en la Unidad de Terapia Intensiva tras un paro cardiorrespiratorio resucitado requiere infusión de fármacos inotrópicos y vasopresores. Se inicia Isoprenalina (Isoproterenol). ¿Cuál es el mecanismo de acción receptor de la Isoprenalina y su indicación arritmológica transitoria?",
+   "opciones": {
+    "a": "Agonista potente y no selectivo de los receptores beta-1 y beta-2 adrenérgicos; indicado en el manejo agudo de la bradicardia severa o Bloqueo AV refractario a atropina como puente al marcapasos.",
+    "b": "Agonista selectivo de los receptores alfa-1 vasculares; indicado en el shock anafiláctico.",
+    "c": "Antagonista competitivo de los receptores muscarínicos M3; indicado en el asma bronquial.",
+    "d": "Bloqueante puro de los canales de potasio IKr; indicado en el tratamiento del infarto agudo de miocardio."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La ISOPRENALINA (Isoproterenol) es una catecolamina sintética de acción simpaticomimética potente. MECANISMO DE ACCIÓN MOLECULAR: Es un AGONISTA POTENTE Y NO SELECTIVO DE LOS RECEPTORES BETA-ADRENÉRGICOS (β₁ e β₂), con un efecto estimulante alfa práticamente nulo. 1) Efectos β₁ Cardíacos: Produce un potente efecto inotrópico positivo, cronotrópico positivo (aumenta la FC) y dromotrópico positivo (acelera la conducción en el nodo AV); y 2) Efectos β₂ Vasculares y Bronquiales: Produce vasodilatación sistémica y broncodilatación. INDICACIÓN ARRITMOLÓGICA CLÍNICA: Tratamiento de urgencia y transitorio de la BRADICARDIA SEVERA SIMPTOMÁTICA O BLOQUEO AURICULOVENTRICULAR DE ALTO GRADO / COMPLETO que no responde a la Atropina, sirviendo como medida de puente farmacológico mientras se instala el Marcapasos Transitorio o Definitivo. Las opciones B, C y D citan mecanismos falsos."
+  },
+  {
+   "id": "SIAM-UP6-056",
+   "numero": 56,
+   "pregunta": "¿Cuál es el mecanismo de acción del Apixabán y los criterios de reducción de dosis a 2,5 mg cada 12 horas?",
+   "opciones": {
+    "a": "Inhibidor directo del Factor Xa; se reduce la dosis si cumple al menos 2 de los siguientes 3 criterios: Edad ≥80 años, Peso ≤60 kg o Creatinina sérica ≥1,5 mg/dL.",
+    "b": "Antagonista de los canales de potasio; se reduce la dosis si consume jugo de pomelo.",
+    "c": "Estimulante de la antitrombina III; no requiere reducción de dosis en ningún caso.",
+    "d": "Inhibidor directo de la trombina (Factor IIa); se reduce la dosis únicamente si el paciente mide más de 2 metros."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El APIXABÁN es un Anticoagulante Oral Directo (ACOD). MECANISMO DE ACCIÓN: Inhibidor directo, selectivo y reversible del FACTOR Xa libre y ligado al coágulo dentro del complejo prothrombinasa, bloqueando la conversión de protrombina a trombina. DOSIFICACIÓN Y CRITERIOS ESTÁNDAR DE REDUCCIÓN DE DOSIS (Criterios de ARISTOTLE): La dosis estándar en FA es de 5 mg cada 12 horas por vía oral. Se reduce la dosis a 2,5 mg CADA 12 HORAS si el paciente cumple AL MENOS DOS DE LOS SIGUIENTES TRES CRITERIOS: 1) EDAD ≥ 80 AÑOS; 2) PESO CORPORAL ≤ 60 kg; o 3) CREATININA SÉRICA ≥ 1,5 mg/dL (133 μ mol/L). La opción A detalla con precisión esta regla posológica fundamental en farmacología geriátrica. La opción D corresponde al Dabigatrán."
+  },
+  {
+   "id": "SIAM-UP6-057",
+   "numero": 57,
+   "pregunta": "Un paciente de 66 años acude a la consulta por episodios de palpitaciones rápidas y regulares de inicio y fin brusco. En el ECG durante la crisis se observa una taquicardia regular de QRS estrecho a 180 bpm, con ondas P' retrógradas invisibles o 'ocultas' al final del QRS (muesca pseudo-r' en V1 y pseudo-s en DII). ¿Cuál es el diagnóstico de esta taquiarritmia y la reentrada subyacente?",
+   "opciones": {
+    "a": "Bloqueo sinoauricular de primer grado; producido por hipertonía vagal pura.",
+    "b": "Fibrilación Ventricular monomórfica; producida por isquemia transmural de la pared libre.",
+    "c": "Taquicardia por Reentrada en el Nódulo Auriculoventricular (TRNAV); producida por un circuito de reentrada con una vía lenta y una vía rápida dentro del nódulo AV.",
+    "d": "Aleteo auricular atípico; producido por un foco ectópico en la vena cava superior."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La TAQUICARDIA POR REENTRADA EN EL NÓDULO AURICULOVENTRICULAR (TRNAV) es la causa más frecuente de Taquicardia Paroxística Supraventricular (TPSV) en adultos (60% de los casos). SUSTRATO ELECTROFISIOLÓGICO (Doble Vía Nodal): El nódulo AV presenta dos vías funcionales paralelas con diferentes propiedades de conducción y refractariedad: una VÍA LENTA (conducción lenta y período refractario corto) Y una VÍA RÁPIDA (conducción rápida y período refractario largo). Un estímulo auricular prematuro (extrasístole) desencadena el circuito de reentrada (conduciendo por la vía lenta hacia el ventrículo y regresando por la vía rápida hacia la aurícula). HALLAZGOS ECG: Taquicardia regular de QRS estrecho (150-220 bpm). Como la activación de la aurícula y del ventrículo ocurre de forma casi simultánea, la onda P' retrógrada queda 'enterrada' dentro del QRS o aparece al final del QRS simulando una muesca pseudo-r' en V₁ o pseudo-s en DII, DIII y aVF. Las opciones A, B y D corresponden a otras entidades."
+  },
+  {
+   "id": "SIAM-UP6-058",
+   "numero": 58,
+   "pregunta": "¿Cuáles son los valores de tiempo normales para la duración de la Onda P, el Intervalo PR y el Complejo QRS a una velocidad de papel estándar de 25 mm/segundo?",
+   "opciones": {
+    "a": "Onda P: 500 ms; Intervalo PR: 10 ms; Complejo QRS: 400 ms.",
+    "b": "Onda P: menor a 110 ms; Intervalo PR: 120 a 200 ms; Complejo QRS: 60 a 100 ms (menor a 120 ms).",
+    "c": "Los valores normales dependen únicamente del grupo sanguíneo del paciente.",
+    "d": "Onda P: 1 segundo; Intervalo PR: 2 segundos; Complejo QRS: 5 segundos."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La medición e interpretación exacta de las ondas e intervalos en el Electrocardiograma de 12 derivaciones (registrado a velocidad de papel de 25 mm/seg donde 1 cuadradito = 0,04 seg = 40 ms) constituye la base de la electrocardiografía clínica: 1) ONDA P (Despolarización auricular): Duración normal <0,11 seg (<110 ms o <2,5 cuadraditos) y altura <2,5 mm; 2) INTERVALO PR (Tiempo de conducción auriculoventricular desde el inicio de la P hasta el inicio del QRS): Valor normal de 0,12 a 0,20 seg (120 a 200 ms o de 3 a 5 cuadraditos). Un PR >200 ms indica Bloqueo AV de 1er grado, e <120 ms indica Preexcitación (WPW); y 3) COMPLEX QRS (Despolarización ventricular): Duración normal de 0,06 a 0,10 seg (60 a 100 ms o <2,5-3 cuadraditos). Un QRS ≥ 120 ms (12 seg) indica bloqueo de rama o conducción ventricular ectópica. La opción B detalla los valores fisiológicos estándar."
+  },
+  {
+   "id": "SIAM-UP6-059",
+   "numero": 59,
+   "pregunta": "Un paciente de 72 años con antecedente de Insuficiencia Cardíaca crónica en tratamiento con Carvedilol y Espironolactona presenta una arritmia ventricular. ¿Cuál es el mecanismo de acción de la Espironolactona y Eplerenona (Antagonistas de los Receptores de Mineralocorticoides / ARM) y su beneficio en la prevención de remodelado y arritmias en la Insuficiencia Cardíaca?",
+   "opciones": {
+    "a": "Bloqueo competitivo de los receptores de Aldosterona en el túbulo colector; reduce la retención de sodio, previene la hipopotasemia y disminuye la fibrosis miocárdica y arritmias ventriculares.",
+    "b": "Apertura de los canales de calcio dependientes de voltaje en la aurícula izquierda.",
+    "c": "Estimulación de la síntesis de angiotensina II en el pulmón; produce vasoconstricción coronaria.",
+    "d": "Inhibición directa de los canales de sodio rápidos en el haz de His; aumenta la pérdida de potasio."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La ESPIRONOLACTONA y la EPLERENONA son Antagonistas de los Receptores de Mineralocorticoides / Aldosterona (ARM) que pertenecen al grupo de diuréticos ahorradores de potasio. MECANISMO DE ACCIÓN Y BENEFICIOS CARDIOVASCULARES: Bloquean de forma competitiva la unión de la Aldosterona a su receptor citoplasmático en las células principales del TÚBULO COLECTOR RENAL. Esto produce: 1) Efecto Renal: Disminuye la reabsorción de Na⁺ e agua y la excreción de K⁺ e H⁺ (diurético ahorrador de potasio), lo que PREVIENE LA HIPOPOTASEMIA y la hipomagnesemia inducidas por diuréticos de asa (reduciendo el riesgo de arritmias ventriculares letales); Y 2) EFECTO EXTRA-RENAL A LARGO PLAZO: Bloquea los efectos profibróticos, proinflamatorios y de remodelado vascular miocárdico de la aldosterona en el corazón, REDUCIENDO LA FIBROSIS MIOCÁRDICA, la rigidez ventricular y LA MORTALIDAD GLOBAL Y POR MUERTE SÚBITA ARRÍTMICA en la Insuficiencia Cardíaca (estudios RALES y EMPHASIS-HF). Las opciones B, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-061",
+   "numero": 61,
+   "pregunta": "Un paciente de 76 años con antecedente de infarto agudo de miocardio transmural antiguo acude a control. El ecocardiograma revela una zona de acinesia y adelgazamiento parietal en la cara anterior del ventrículo izquierdo. En la fisiopatología de las arritmias ventriculares reentrantes asociadas a cardiopatía isquémica crónica, ¿cuáles son las tres condiciones electrofisiológicas indispensables para que se establezca y perpetúe un circuito de reentrada?",
+   "opciones": {
+    "a": "Ausencia de tejido fibroso cicatrizal con hiperpolarización permanente y uniforme del tejido de Purkinje.",
+    "b": "Existencia de dos vías de conducción paralelas ligadas entre sí, bloqueo unidireccional en una de las vías y conducción lenta a través de la vía alternativa.",
+    "c": "Presencia de un marcapasos ectópico automático en la aurícula izquierda, falta de calcio intracelular y conducción rápida uniforme.",
+    "d": "Bloqueo bidireccional completo en ambas vías de conducción con aumento de la velocidad de despolarización diastólica Fase 4."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El mecanismo de REENTRADA es la causa más frecuente de taquiarritmias sostenidas (incluyendo la Taquicardia Ventricular monomórfica en secuelas de infarto, el Flutter auricular y la TPSV). REQUISITOS ELECTROFISIOLÓGICOS FUNDAMENTALES (Tríada de Miner/Allessie): 1) Presencia de un circuito anatómico o funcional con DOS VÍAS DE CONDUCCIÓN PARALELAS unidas en sus extremos; 2) BLOQUEO UNIDIRECCIONAL en una de las vías (el impulso no puede avanzar por esa vía en dirección anterógrada debido a refractariedad o daño tisular); Y 3) CONDUCCIÓN LENTA a través de la vía alternativa o la masa de tejido cicatrizal, permitiendo que el impulso viaje lo suficientemente despacio como para que la primera vía bloqueada tenga tiempo de recuperar su excitabilidad y ser penetrada en dirección retrógrada, cerrando el bucle o circuito continuo. Las opciones A, C y D citan condiciones incompatibles con la reentrada."
+  },
+  {
+   "id": "SIAM-UP6-062",
+   "numero": 62,
+   "pregunta": "Un paciente de 80 años en tratamiento con Amiodarona (200 mg/día) y Bisoprolol (5 mg/día) por Fibrilación Auricular presenta un episodio sintomático de bradicardia extrema a 28 latidos por minuto con mareos e hipotensión. En el ECG se observa un Paro Sinusal con un ritmo de escape infranodal (idioventricular) a 28 bpm con complejos QRS anchos. ¿Cuál es el tratamiento de urgencia no farmacológico e inmediato si el paciente no responde a la Atropina y persiste inestable?",
+   "opciones": {
+    "a": "Cardioversión eléctrica sincronizada a alta energía (360 Joules bifásico).",
+    "b": "Ablación con radiofrecuencia de ambas ramas del haz de His en la sala de electrofisiología.",
+    "c": "Estimulación con Marcapasos Cardíaco Transcutáneo (provisorio) seguido de colocación de un Marcapasos Transvenoso.",
+    "d": "Inyección intracardíaca directa de cloruro de potasio a dosis saturantes."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. En el manejo de las BRADIARRITMIAS SEVERAS E INESTABLES (bradicardia sinusal sintomática, paro sinusal o BAV completo de alto grado con compromiso hemodinámico, hipotensión o síncope): 1) MEDIDA INICIAL: Administrar Atropina IV; 2) SI FALLA LA ATROPINA O EL BLOQUEO ES INFRANODAL: Indicación de emergencia de ESTIMULACIÓN ELÉCTRICA TEMPORAL MEDIANTE MARCAPASOS TRANSCUTÁNEO (parches de estimulación torácica externa conectados a un desfibrilador/marcapasos) para restablecer de forma inmediata una frecuencia cardíaca efectiva y perfusión cerebral; Y 3) SEGUIMIENTO: Instalación a la brevedad de un Marcapasos Temporal Transvenoso y evaluación de un marcapasos definitivo tras depurar fármacos deprimientes (amiodarona/bisoprolol). La ablación (opción B) agravaría el bloqueo. El potasio (opción D) induce paro. La cardioversión (opción A) es para taquiarritmias."
+  },
+  {
+   "id": "SIAM-UP6-063",
+   "numero": 63,
+   "pregunta": "En un paciente de 72 años con insuficiencia cardíaca y antecedentes de arritmias ventriculares que requiere tratamiento con Amiodarona, el médico evalúa la farmacocinética e interacciones del fármaco. La Amiodarona es un potente inhibidor de los sistemas enzimáticos hepáticos y del transportador Glicoproteína-P (P-gp). ¿Qué ajuste de dosis debe realizarse de forma OBLIGATORIA si el paciente se encuentra anticoagulado con Warfarina o Acenocumarol?",
+   "opciones": {
+    "a": "Reducir la dosis del anticoagulante oral (Warfarina/Acenocumarol) entre un 30% y un 50% al iniciar la amiodarona, ajustando estrictamente por RIN.",
+    "b": "Duplicar la dosis del anticoagulante oral para compensar la inactivación gástrica de la amiodarona.",
+    "c": "Suspender completamente la amiodarona e indicar únicamente aspirina a dosis altas.",
+    "d": "No se requiere ningún ajuste de dosis de anticoagulantes ya que no interaccionan farmacocinéticamente."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. LA AMIODARONA presenta interacciones farmacocinéticas críticas y de alto riesgo hemorrágico con los Antagonistas de la Vitamina K (Warfarina y Acenocumarol). MECANISMO MOLECULAR: La amiodarona y su metabolito principal (desetilamiodarona) son INHIBIDORES POTENTES del citocromo P450 (especialmente la isoenzima CYP2C9 responsable de metabolizar al enantiómero activo S-Warfarina) y de la Glicoproteína-P. Esta inhibición disminuye drásticamente el aclaramiento del anticoagulante, prolongando su vida media y AUMENTANDO SUS NIVELES PLASMÁTICOS EN UN 50-100%. RECOMENDACIÓN PRÁCTICA ESTÁNDAR: Al iniciar amiodarona en un paciente estabilizado con Warfarina o Acenocumarol, es OBLIGATORIO REDUCIR PREVENTIVAMENTE LA DOSIS DEL ANTICOAGULANTE ORAL EN UN 30% A 50% y monitorear estrechamente el RIN a los pocos días para evitar sobre-anticoagulación y hemorragia grave. Las opciones B, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-064",
+   "numero": 64,
+   "pregunta": "En la auscultación y examen clínico de un paciente de 82 años con Bloqueo Auriculoventricular Completo (3er grado), se detectan variaciones intensas y llamativas en la sonoridad del Primer Ruido Cardíaco (R1). ¿Cómo se denomina este hallazgo auscultatorio clásico y cuál es su explicación hemodinámica?",
+   "opciones": {
+    "a": "Desdoblamiento paradójico del primer ruido; producido por la perforación de la válvula mitral por calcio.",
+    "b": "'R1 en Cañonazo' o 'Ruido de Cañón'; producido por la posición variable de las valvas AV en el momento de la sístole ventricular por la disociación AV.",
+    "c": "Clic de apertura aórtico telesistólico; producido exclusivamente por hipertensión arterial pulmonar severa.",
+    "d": "'R1 Borrado' permanente; producido por la parálisis absoluta de la pared del ventrículo izquierdo."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En el Bloqueo Auriculoventricular de 3er Grado o Completo, la presencia de Disociación Auriculoventricular provoca alteraciones auscultatorias características en el Primer Ruido Cardíaco (R₁, generado por el cierre de las válvulas Mitral y Tricúspide). MECANISMO DEL 'R1 EN CAÑONAZO' (Ruido de Cañón): Debido a que las aurículas y ventrículos se contraen a ritmos totalmente independientes, la distancia y separación entre las valvas AV al final de la diástole cambia en cada latido. Si el ventrículo se contrae cuando las valvas mitral y tricúspide están plenamente abiertas y muy separadas (debido a una contracción auricular inmediatamente precedente), el cierre violento y abrupto de las valvas bajo la presión ventricular genera un PRIMER RUIDO INTENSÍSIMO Y RESONANTE denominado 'R1 EN CAÑONAZO' o 'RUIDO DE CAÑÓN', intercalado con latidos de R₁ de tono bajo. Las opciones A, C y D citan fenómenos ajenos."
+  },
+  {
+   "id": "SIAM-UP6-065",
+   "numero": 65,
+   "pregunta": "Un paciente de 68 años con antecedente de Fibrilación Auricular no valvular e insuficiencia renal crónica leve es evaluado para el inicio de un Anticoagulante Oral Directo (ACOD). Se selecciona Dabigatrán etexilato. ¿Cuál es el mecanismo de acción directo del Dabigatrán y cuál es su antídoto de reversión específico aprobado (Idarucizumab)?",
+   "opciones": {
+    "a": "Inhibidor del Factor Xa; su antídoto específico es la Vitamina K1 endovenosa a dosis altas.",
+    "b": "Activador directo del plasminógeno; su antídoto es el ácido acetilsalicílico en bolo.",
+    "c": "Inhibidor directo y reversible de la Trombina (Factor IIa); su antídoto específico es el Idarucizumab (Praxbind).",
+    "d": "Inhibidor de la enzima ciclooxigenasa-1; su antídoto es el sulfato de protamina por vía oral."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El DABIGATRÁN etexilato es un Anticoagulante Oral Directo (ACOD). MECANISMO MOLECULAR: Es un inhibidor directo, potente y reversible de la TROMBINA (FACTOR IIa) tanto libre como unida al coágulo. Al bloquear la trombina, impide la conversión de fibrinógeno en fibrina, la activación del factor XIII y la agregación plaquetaria inducida por trombina. CARACTERÍSTICAS CLÍNICAS Y ANTÍDOTO: Se elimina predominantemente por vía renal (80%), por lo que exige ajuste en insuficiencia renal. Cuenta con el antídoto de reversión hiperaguda específico IDARUCIZUMAB (Praxbind), un fragmento de anticuerpo monoclonal humanizado que neutraliza el efecto del dabigatrán en minutos ante sangrado mayor o cirugía de urgencia. Los inhibidores del Factor Xa (Rivaroxabán, Apixabán, opción A) tienen como agente de reversión al Andexanet alfa. Las opciones B y D confunden mecanismos."
+  },
+  {
+   "id": "SIAM-UP6-066",
+   "numero": 66,
+   "pregunta": "Un paciente de 74 años consulta por episodios de debilidad muscular, calambres y palpitaciones. En el electrocardiograma se identifica una frecuencia cardíaca de 52 bpm, ondas P aplanadas, ensanchamiento del complejo QRS (>120 ms) y la presencia de Ondas T picudas, altas y simétricas en tienda de campaña en casi todas las derivaciones. ¿Cuál es el trastorno hidroelectrolítico subyacente y su riesgo cardíaco si no se trata?",
+   "opciones": {
+    "a": "Hipomagnesemia leve; con riesgo de elevación aislada del intervalo PR sin cambios en la onda T.",
+    "b": "Hipernatremia severa; con riesgo de taquicardia supraventricular por reentrada nodal pura.",
+    "c": "Hipocalcemia aguda; con riesgo de estenosis mitral reumática progresiva.",
+    "d": "Hiperpotasemia (Hiperkalemia); con riesgo de progresión a ritmo sinoventricular, fibrilación ventricular y paro en asistolia."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La HIPERPOTASEMIA (Hiperkalemia, K⁺ >5,5 mEq/L) es la emergencia electrolítica de mayor significación electrocardiográfica en adultos mayores y pacientes con insuficiencia renal o fármacos ahorradores de potasio (IECA, ARA II, Espironolactona). SECUENCIA DE HALLAZGOS ECG SEGÚN EL NIVEL DE POTASIO: 1) K⁺ 5,5-6,5 mEq/L: ONDAS T PICUDAS, ALTAS Y SIMÉTRICAS ('en tienda de campaña') y acortamiento del QT; 2) K⁺ 6,5-7,5 mEq/L: Aplanamiento y pérdida de la onda P, prolongación del PR y ENSANCHAMIENTO DEL COMPLEJO QRS; Y 3) K⁺ >7,5-8,0 mEq/L: Fusión del QRS ensanchado con la onda T formando un patrón bifásico o 'sinusoidal' (ritmo sinoventricular), evolucionando rápidamente a Fibrilación Ventricular o Asistolia. TRATAMIENTO URGENTE: Gluconato de Calcio IV (estabilizador de membrana), Insulina + Dextrosa, Salbutamol, Bicarbonato y Resinas/Diuréticos o Diálisis. Las opciones A, B y C no provocan ondas T picudas en tienda de campaña."
+  },
+  {
+   "id": "SIAM-UP6-067",
+   "numero": 67,
+   "pregunta": "En el electrocardiograma de un paciente de 78 años en tratamiento con Digoxina por Fibrilación Auricular, se observa un ritmo controlado a 65 bpm con un infradesnivel del segmento ST de morfología cóncava hacia arriba ('en cubeta' o 'muesca digitálica') en las derivaciones I, aVL y V4-V6. El paciente no refiere ningún síntoma y se encuentra clínicamente estable. ¿Cuál es la significación clínica de este hallazgo electrocardiográfico?",
+   "opciones": {
+    "a": "Indica 'Impregnación Digitálica' (efecto farmacológico fisiológico esperado de la digoxina) y no requiere suspender el medicamento si no hay toxicidad.",
+    "b": "Es patognomónico de infarto subendocárdico agudo con elevación del ST y exige angiografía coronaria.",
+    "c": "Indica desarrollo de pericarditis constrictiva tuberculosa en fase activa.",
+    "d": "Indica Intoxicación Digitálica severa e inminencia de paro en asistolia; exige antídoto urgente."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Es fundamental distinguir la 'Impregnación Digitálica' de la 'Intoxicación Digitálica': 1) IMPREGNACIÓN DIGITÁLICA: Corresponde a las modificaciones electrocardiográficas secundarias al EFECTO FARMACOLÓGICO HABITUAL Y ESPERADO de la Digoxina sobre la repolarización ventricular. El signo clásico es el INFRADESNIVEL DEL SEGMENTO ST CON CONCAVIDAD SUPERIOR ('CUBETA DIGITÁLICA' o en 'salvavidas/cuchara') y acortamiento del intervalo QTc. Si el paciente está asintomático y con digoxinemia en rango (0,5-0,9 ng/mL), ESTO NO SIGNIFICA TOXICIDAD NI EXIGE SUSPENDER EL FÁRMACO; Y 2) INTOXICACIÓN DIGITÁLICA: Se manifiesta por ARRITMIAS (extrasístoles ventriculares, bigeminismo, BAV, taquicardia auricular con bloqueo) y síntomas sistémicos (náuseas, xantopsia). La opción A define con precisión el concepto de impregnación."
+  },
+  {
+   "id": "SIAM-UP6-068",
+   "numero": 68,
+   "pregunta": "Un paciente de 67 años con diagnóstico de Taquicardia Ventricular Monomórfica Sostenida sin compromiso hemodinámico (paciente normotenso, orientado, sin disnea ni dolor torácico) es evaluado en la sala de emergencias. ¿Cuál es el tratamiento farmacológico antiarrítmico intravenoso de primera línea para intentar la cardioversión farmacológica de la arritmia?",
+   "opciones": {
+    "a": "Adenosina en bolo directo de 20 mg por vía intramuscular profunda.",
+    "b": "Amiodarona IV (150 mg en 10 min seguido de infusión) o Procainamida IV.",
+    "c": "Flecainida en bolo rápido en paciente con infarto transmural antiguo.",
+    "d": "Digoxina IV combinada con atenolol oral a dosis máximas."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En el algoritmo de manejo de la TAQUICARDIA VENTRICULAR MONOMÓRFICA SOSTENIDA: 1) Si hay inestabilidad hemodinámica: Cardioversión Eléctrica Sincronizada inmediata; Y 2) PACIENTE ESTABLE HEMODINÁMICAMENTE (normotenso, consciente, sin isquemia ni congestión): Se indica la CARDIOVERSIÓN FARMACOLÓGICA INTRAVENOSA. Los fármacos de elección recomendados por las guías son la AMIODARONA INTRAVENOSA (bolo inicial de 150 mg infundido en 10 minutos, repetible según necesidad, seguido de infusión continua de 1 mg/min durante 6 horas y 0,5 mg/min las 18 horas restantes) o la PROCAINAMIDA INTRAVENOSA (especialmente en ausencia de falla sistólica severa). La adenosina (opción A) es para TPSV. La digoxina (opción D) no revierte TV. La Flecainida (opción C) está contraindicada en infarto previo por proarritmia. La opción B es la conducta correcta."
+  },
+  {
+   "id": "SIAM-UP6-069",
+   "numero": 69,
+   "pregunta": "En el estudio de las bradiarritmias en el adulto mayor, se evalúa la etiología de los bloqueos de rama y bloqueos auriculoventricular degenerativos crónicos. ¿Cómo se denomina a la entidad clínica degenerativa idiopática caracterizada por la esclerosis y calcificación progresiva del esqueleto fibroso del corazón que compromete al sistema de conducción His-Purkinje?",
+   "opciones": {
+    "a": "Enfermedad de Takayasu.",
+    "b": "Enfermedad de Lenègre o Enfermedad de Lev.",
+    "c": "Síndrome de Dressler.",
+    "d": "Síndrome de Leriche."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En la etiología de los trastornos de la conducción intracardíaca (bloqueos de rama, bifasciculares y BAV de alto grado/completo) en la población geriátrica: 1) ENFERMEDAD DE LEV: Corresponde a la esclerosis y calcificación degenerativa idiopática del ESQUELETO FIBROSO DEL CORAZÓN (anillos valvulares mitral y aórtico, trígono fibroso y tabique interventricular central) que se extiende e invade secundariamente al Haz de His o sus ramas; Y 2) ENFERMEDAD DE LENÈGRE: Corresponde a un proceso degenerativo y esclerodistrófico idiopático primario y selectivo del PROPIO SISTEMA DE CONDUCCIÓN HIS-PURKINJE, sin calcificación del esqueleto fibroso circundante. Ambas entidades constituyen las causas no isquémicas más frecuentes de Bloqueo AV Completo en adultos mayores y representan una indicación clásica de Marcapasos definitivo. El síndrome de Dressler (opción C) es pericarditis post-IAM. Takayasu (opción A) es arteritis. Leriche (opción D) es oclusión aorto-ilíaca."
+  },
+  {
+   "id": "SIAM-UP6-070",
+   "numero": 70,
+   "pregunta": "Un paciente de 75 años internado en la Unidad Coronaria tras ser desfibrilado por una Fibrilación Ventricular presenta extrasístoles ventriculares frecuentes. Se inicia una infusión continua de Lidocaína (Antiarrítmico Clase IB). ¿Cuál es la vía de eliminación de la Lidocaína, su vida media y el signo de toxicidad en el Sistema Nervioso Central que exige suspender la infusión?",
+   "opciones": {
+    "a": "Inactivación por la saliva; la toxicidad se manifiesta por hiperpigmentación de la piel y uñas.",
+    "b": "Excreción renal pura sin metabolismo; la toxicidad produce retención urinaria aguda y ceguera.",
+    "c": "Metabolismo hepático casi exclusivo; la toxicidad en el SNC se manifiesta por parestesias peribucales, disartria, temblor, desorientación y convulsiones.",
+    "d": "Eliminación pulmonar por espiración; la toxicidad produce asma bronquial reactivo irreversible."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La LIDOCAÍNA es un antiarrítmico perteneciente a la CLASE IB de Vaughan Williams, administrado por vía parenteral. FARMACOCINÉTICA: Sufre un intenso efecto de primer paso hepático, por lo que NO se administra por vía oral. Se metaboliza en un 90-95% en el HÍGADO mediante el citocromo P450 (CYP3A4) transformándose en metabolitos activos (monoetilglicinexilidida). Su vida media es de aproximadamente 1,5 a 2 horas (prolongada en insuficiencia hepática o shock). TOXICIDAD SISTÉMICA (Especialmente en SNC por atravesar la barrera hematoencefálica): Las concentraciones plasmáticas elevadas (>5 μ g/mL) producen TOXICIDAD NEUROLÓGICA progresiva caracterizada por parestesias peribucales y linguales, mareos, somnolencia, disartria, ataxia, temblor e, en niveles severos, CONVULSIONES TÓNICO-CLÓNICAS Y PARO RESPIRATORIO. Exige suspender la infusión y administrar diazepam/midazolam. La opción C detalla con precisión este perfil farmacológico."
+  },
+  {
+   "id": "SIAM-UP6-071",
+   "numero": 71,
+   "pregunta": "¿Cuáles son las características electrocardiográficas normales de la onda T en un trazado sinusal normal y qué indica la presencia de Ondas T Invertidas, simétricas y profundas en derivaciones precordiales (V2-V4)?",
+   "opciones": {
+    "a": "Normal: negativa en todas las derivaciones precordiales; Ondas T picudas simétricas indican hipotensión idiopática.",
+    "b": "Normal: duración de 5 segundos; Ondas T invertidas indican presencia de marcapasos auricular intacto.",
+    "c": "La onda T representa la despolarización de las aurículas y no cambia en la isquemia miocárdica.",
+    "d": "Normal: positiva en casi todas las derivaciones (salvo aVR y V1); Ondas T Invertidas simétricas en V2-V4 indican Isquemia Miocárdica Subepicárdica (Síndrome de Wellens/Afectación de la DA)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La ONDA T del electrocardiograma representa la repolarización ventricular. CARACTERÍSTICAS FISIOLÓGICAS NORMALES: Asimétrica (rama ascendente lenta y descendente rápida), de deflexión POSITIVA en la mayoría de las derivaciones (DI, DII, V3 a V6) e Invertida fisiológicamente en aVR y V1 (e a veces en DIII/aVF en jóvenes). SIGNIFICADO PATOLÓGICO DE LA ONDA T INVERTIDA SIMÉTRICA Y PROFUNDA (en V2-V4): Constituye un signo electrocardiográfico clásico de ISQUEMIA MIOCÁRDICA SUBEPICÁRDICA o regional. En las derivaciones precordiales (V₂-V₄), este patrón (Patrón o Síndrome de Wellens Tipo B) indica una estenosis severa y crítica en la arteria Coronaria Descendente Anterior (DA) proximal, con alto riesgo de infarto anterior extenso inminente si no se revasculariza. Las opciones A, B y C contienen errores semiológicos y fisiológicos básicos."
+  },
+  {
+   "id": "SIAM-UP6-072",
+   "numero": 72,
+   "pregunta": "¿Cómo se define el RIN (Razón Internacional Normatizada), cómo se calcula y cuál es el rango terapéutico objetivo estándar para la prevención de eventos tromboembólicos en Fibrilación Auricular?",
+   "opciones": {
+    "a": "Es la suma del tiempo de sangría y tiempo de coagulación; el rango meta es RIN 0,1 a 0,5.",
+    "b": "Es una estandarización del Tiempo de Protrombina (TP) ajustado por el Índice de Sensibilidad Internacional (ISI); el rango meta estándar en FA es RIN 2,0 a 3,0.",
+    "c": "Es un marcador de necrosis tubular renal; el rango meta es independiente de los anticoagulantes orales.",
+    "d": "Es la medición directa del fibrinógeno en heces; el rango meta es RIN 10,0 a 15,0 en todos los pacientes."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El RIN (Razón Internacional Normatizada / INR) es el parámetro de laboratorio estandarizado internacionalmente para el monitoreo y ajuste de la dosis de los Antagonistas de la Vitamina K (Acenocumarol y Warfarina). CONCEPTO Y FÓRMULA: El Tiempo de Protrombina (TP) crudo varía entre laboratorios según el tipo y reactividad de la tromboplastina utilizada. Para eliminar esta variabilidad, se calcula el RIN mediante la fórmula: RIN = (TP paciente / TP control)ᴵˢᴵ, donde ISI es el Índice de Sensibilidad Internacional del reactivo. RANGO TERAPÉUTICO OBJETIVO ESTÁNDAR: Para la prevención de ACV y embolias en Fibrilación Auricular, Flutter auricular, TVP y TEP, EL RANGO META DE RIN ES DE 2,0 A 3,0 (óptimo 2,5). En pacientes con válvulas cardíacas mecánicas aórticas o mitrales, el rango meta puede elevarse a 2,5-3,5. Las opciones A, C y D citan fórmulas y rangos erróneos."
+  },
+  {
+   "id": "SIAM-UP6-073",
+   "numero": 73,
+   "pregunta": "Un paciente de 72 años con antecedente de hipertiroidismo y enfermedad pulmonar obstructiva crónica (EPOC) ingresa con una Taquicardia Supraventricular Multifocal (Taquicardia Auricular Multifocal - TAM). En el ECG se observa un ritmo irregular a 130 bpm con presencia de al menos tres morfologías distintas de onda P en la misma derivación e intervalos P-P y P-R variables. ¿Cuál es la patología respiratoria subyacente asociada y el tratamiento de elección?",
+   "opciones": {
+    "a": "Asociada a neumotórax espontáneo a tensión; se trata con marcapasos ventricular definitivo.",
+    "b": "Asociada a embolia grasa cerebral pura; se trata con aspirina en dosis de 10 gramos orales.",
+    "c": "Asociada a fibrosis miocárdica por Chagas; se trata con benznidazol por 12 años.",
+    "d": "Asociada a EPOC descompensado o cor pulmonale; se trata optimizando la función respiratoria y administrando Calcioantagonistas no dihidropiridínicos (Verapamilo/Diltiazem)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La TAQUICARDIA AURICULAR MULTIFOCAL (TAM) es una taquiarritmia supraventricular caracterizada en el ECG por: 1) Frecuencia cardíaca mayor a 100 latidos/minuto (habitualmente 100-150 bpm); 2) Presencia de AL MENOS TRES MORFOLOGÍAS DISTINTAS DE ONDA P en una misma derivación electrocardiográfica; 3) Intervalos P-P, P-R y R-R totalmente desiguales y variables; Y 4) Presencia de una línea isoeléctrica entre las ondas P (diferenciándola de la FA). ETIOLOGÍA CLÁSICA: Ocurre característicamente en adultos mayores con ENFERMEDAD PULMONAR OBSTRUCTIVA CRÓNICA (EPOC) SEVERA, cor pulmonale, hipoxia, hipercapnia o toxicidad por teofilina/beta-agonistas. TRATAMIENTO DE ELECCIÓN: 1) Corregir la hipoxia y descompensación respiratoria subyacente (pilar principal); Y 2) Tratamiento farmacológico con CALCIOANTAGONISTAS NO DIHIDROPIRIDÍNICOS (Verapamilo o Diltiazem) para frenar la frecuencia. Los betabloqueantes suelen ser de segunda línea por el riesgo de broncospasmo en EPOC. Las opciones A, B y C son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-074",
+   "numero": 74,
+   "pregunta": "En la evaluación electrocardiográfica de la velocidad de conducción y conducción auriculoventricular, se analiza el concepto de 'Bloqueo Bifascicular' y 'Bloqueo Trifascicular'. ¿Cuáles son las dos estructuras de conducción bloqueadas que definen electrocardiográficamente a un Bloqueo Bifascicular?",
+   "opciones": {
+    "a": "Bloqueo Completo de Rama Derecha (BCRD) combinado con Hemibloqueo Anterior Izquierdo (HBAI) o Hemibloqueo Posterior Izquierdo (HBPI).",
+    "b": "Bloqueo de Rama Izquierda combinado con bloqueo sinoauricular de primer grado puro.",
+    "c": "Bloqueo de la vena cava inferior combinado con fibrilación ventricular intermitente.",
+    "d": "Bloqueo del nódulo sinusal combinado con extrasístoles auriculares multifocales."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El sistema de conducción infranodal del corazón consta de tres fascículos principales: la Rama Derecha, el Fascículo Anterior de la Rama Izquierda y el Fascículo Posterior de la Rama Izquierda. CONCEPTO DE BLOQUEO BIFASCICULAR: Ocurre cuando existe una interrupción o bloqueo de la conducción en DOS de estos tres fascículos. La combinación más frecuente y característica en el ECG es: 1) BLOQUEO COMPLETO DE RAMA DERECHA (BCRD) + HEMIBLOQUEO ANTERIOR IZQUIERDO (HBAI, manifestado por desviación extrema del eje del QRS a la izquierda entre -45° e -90°); O 2) BCRD + Hemibloqueo Posterior Izquierdo (HBPI, desviación del eje a la derecha >+90°). SI SE ADICIONA un PR prolongado (Bloqueo AV de 1er grado), se denomina clínicamente Bloqueo Trifascicular. Requieren vigilancia estrecha por riesgo de progresión a Bloqueo AV Completo. La opción A define con precisión el patrón bifascicular."
+  },
+  {
+   "id": "SIAM-UP6-075",
+   "numero": 75,
+   "pregunta": "¿Por qué están CONTRAINDICADOS o no recomendados la mayoría de los Anticoagulantes Orales Directos (Dabigatrán, Rivaroxabán) en insuficiencia renal severa (ClCr <15-30 mL/min) y cuál es el anticoagulante oral de elección recomendado?",
+   "opciones": {
+    "a": "Los ACODs se neutralizan en el riñón perdiendo el 100% de su efecto anticoagulante; se indica aspirina oral a dosis de 1 gramo.",
+    "b": "Los antagonistas de la vitamina K están prohibidos en la falla renal porque destruyen las glándulas suprarrenales.",
+    "c": "La falla renal contraindica toda forma de anticoagulación y exige diálisis sin heparina.",
+    "d": "Los ACODs se acumulan en falla renal por excreción renal incrementando el riesgo de sangrado fatal; el anticoagulante de elección es un Antagonista de la Vitamina K (Warfarina/Acenocumarol) ajustado por RIN."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En pacientes geriátricos con ENFERMEDAD RENAL CRÓNICA AVANZADA O TERMINAL (Estadio 4 y 5, Aclaramiento de Creatinina <15-30 mL/min o en hemodiálisis): 1) CONTRAINDICACIÓN / LIMITACIÓN DE ACODs: Los Anticoagulantes Orales Directos poseen eliminación renal significativa (Dabigatrán 80%, Rivaroxabán 35%, Apixabán 27%). En falla renal severa, el aclaramiento del fármaco disminuye marcadamente, produciendo ACUMULACIÓN PLASMÁTICA TÓXICA y un RIESGO HEMORRÁGICO EXANGUINANTE ELEVADO. Por ello, Dabigatrán y Rivaroxabán están contraindicados si el ClCr es <30 mL/min (o <15 mL/min según ficha técnica); Y 2) FÁRMACO DE ELECCIÓN: Los ANTAGONISTAS DE LA VITAMINA K (Warfarina o Acenocumarol) no dependen del aclaramiento renal para su eliminación (se metabolizan en el hígado) y pueden administrarse con seguridad en falla renal avanzada y hemodiálisis, realizando monitoreo estricto del RIN (2,0-3,0). La opción D es la conducta farmacológica correcta."
+  },
+  {
+   "id": "SIAM-UP6-076",
+   "numero": 76,
+   "pregunta": "En un paciente de 82 años con sospecha de disfunción del nódulo sinusal, el médico realiza un registro electrocardiográfico de Holter de 24 horas. ¿Cuáles son los hallazgos electrocardiográficos característicos del Síndrome del Nódulo Sinusal Enfermo (Enfermedad del Seno) en el Holter?",
+   "opciones": {
+    "a": "Ondas Delta persistentes con intervalo PR corto y taquicardia ventricular polimórfica sostenida de 300 bpm.",
+    "b": "Presencia exclusiva de complejos QRS estrechos con conducción 1:1 e intervalo QTc de 200 ms.",
+    "c": "Bradicardia sinusal severa persistente e inapropiada, pausas o paros sinusales, bloqueos sinoauriculares y síndrome de taquicardia-bradicardia.",
+    "d": "Infradesnivel del ST horizontal de 8 mm en todas las derivaciones con frecuencia cardíaca fija en 180 bpm."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El SÍNDROME DEL NÓDULO SINUSAL ENFERMO (Disfunción Nodal Sinusal o Enfermedad del Seno) es una entidad degenerativa progresiva del marcapasos cardíaco fisiológico muy prevalente en la población geriátrica. HALLAZGOS ELECTROCARDIOGRÁFICOS EN EL HOLTER DE 24 HORAS: 1) BRADICARDIA SINUSAL SEVERA Y PERSISTENTE INAPROPIADA (no responde al ejercicio ni al estrés); 2) PAUSAS O PAROS SINUSALES (pausas asistólicas mayores a 2-3 segundos); 3) BLOQUEO SINOAURICULAR de varios grados; 4) Incompetencia Cronotrópica (incapacidad de elevar la FC con la actividad física); Y 5) SÍNDROME DE TAQUICARDIA-BRADICARDIA (alternancia de bradiarritmias sinusales con episodios paroxísticos de taquiarritmias auriculares como FA o Flutter). Es la causa más frecuente de implante de marcapasos definitivo en ancianos. Las opciones A, B y D describen otras patologías."
+  },
+  {
+   "id": "SIAM-UP6-077",
+   "numero": 77,
+   "pregunta": "Un paciente de 69 años con antecedente de Fibrilación Auricular paroxística acude a control. Se encuentra en tratamiento con Sotalol (120 mg c/12h). En el ECG de control se observa un ritmo sinusal a 58 bpm pero con un intervalo QTc de 520 ms (marcadamente prolongado). ¿Cuál es la clasificación de Vaughan Williams del Sotalol, cuál es su mecanismo de acción dual y cuál es el riesgo de la prolongación del QTc?",
+   "opciones": {
+    "a": "Calcioantagonista dihidropiridínico; produce vasodilatación arterial pura y acortamiento del QT.",
+    "b": "Antiarrítmico de Clase I puro; bloquea exclusivamente los canales de sodio sin alterar el intervalo QTc.",
+    "c": "Glucósido cardíaco inotrópico; aumenta la conducción AV sin riesgo de arritmias ventriculares.",
+    "d": "Antiarrítmico de Clase III con propiedades betabloqueantes (Clase II); bloquea la corriente de potasio IKr prolongando la repolarización, con riesgo de desencadenar Torsades de Pointes."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El SOTALOL es un agente antiarrítmico de características farmacodinámicas particulares. CLASIFICACIÓN Y MECANISMO DE ACCIÓN DUAL: Es una molécula racémica que combina dos propiedades principales: 1) EFECTO CLASE III DE VAUGHAN WILLIAMS: Bloquea la corriente rápida de potasio (IKr) responsable de la repolarización miocárdica (Fase 3), lo que prolonga la duración del potencial de acción y EL INTERVALO QTc en aurículas y ventrículos; Y 2) EFECTO CLASE II (Betabloqueante): Es un antagonista competitivo no selectivo de los receptores β₁ e β₂ adrenérgicos sin actividad simpaticomimética intrínseca. RIESGO PROARRÍTMICO: Debido al bloqueo de los canales de potasio y a la prolongación del QTc, el Sotalol presenta un riesgo dosis-dependiente de desencadenar TORSADES DE POINTES (Taquicardia Ventricular Polimórfica). Si el QTc supera los 500 ms, se debe REDUCIR O SUSPENDER EL FÁRMACO. La opción D describe con precisión este antiarrítmico."
+  },
+  {
+   "id": "SIAM-UP6-078",
+   "numero": 78,
+   "pregunta": "En la evaluación electrocardiográfica de la conducción auriculoventricular, un paciente de 75 años presenta un trazado con frecuencia auricular de 80 bpm y frecuencia ventricular de 80 bpm. El intervalo PR mide 260 ms de forma constante en todos los latidos, y cada onda P es seguida por un complejo QRS estrecho normal. ¿Cuál es el diagnóstico de este trastorno y su requerimiento terapéutico?",
+   "opciones": {
+    "a": "Bloqueo Auriculoventricular de 1er Grado; es benigno y no requiere tratamiento ni marcapasos si el paciente está asintomático.",
+    "b": "Bloqueo Auriculoventricular de 3er grado infranodal; requiere marcapasos definitivo urgente.",
+    "c": "Fibrilación auricular lenta con respuesta ventricular fija e infradesnivel del ST.",
+    "d": "Síndrome de Wolff-Parkinson-White con conducción anómala anterógrada."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El BLOQUEO AURICULOVENTRICULAR (BAV) DE 1ER GRADO es un retraso fisiológico o patológico leve en la conducción del impulso desde las aurículas hacia los ventrículos. CARACTERÍSTICA ELECTROCARDIOGRÁFICA PATOGNOMÓNICA: Prolongación constante y fija del INTERVALO PR MAYOR A 200 ms (>0,20 seg o >5 cuadraditos a 25 mm/s). CARACTERÍSTICA CLAVE: TODAS LAS ONDAS P SON SEGUIDAS DE UN COMPLEJO QRS (conducción 1:1, no hay ondas P bloqueadas). ANATOMÍA Y MANEJO: El retraso se localiza habitualmente DENTRO DEL NÓDULO AV (intranodal). Suele ser asintomático, secundario a hipertonía vagal, envejecimiento del nodo AV o fármacos (betabloqueantes, digoxina, calcioantagonistas). CONDUCTA: Es una condición benigna que NO REQUIERE TRATAMIENTO ESPECÍFICO NI IMPLANTE DE MARCAPASOS en ausencia de síntomas o de PR extremadamente prolongado (>300 ms). Las opciones B, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-079",
+   "numero": 79,
+   "pregunta": "Un paciente de 68 años con Fibrilación Auricular crónica y prótesis valvular cardíaca mecánica aórtica se encuentra en tratamiento con Warfarina. ¿Cuál es el rango de RIN (Razón Internacional Normatizada) objetivo recomendado para pacientes con Válvulas Cardíacas Mecánicas Aórticas o Mitrales?",
+   "opciones": {
+    "a": "Las prótesis mecánicas no requieren anticoagulación y se tratan con aspirina.",
+    "b": "RIN de 2,5 a 3,5 (o RIN 3,0 para prótesis mitrales de alto riesgo).",
+    "c": "RIN de 1,0 a 1,5 en todos los casos sin excepción.",
+    "d": "RIN de 5,0 a 8,0 para disolver el tejido de la prótesis."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Los pacientes con VÁLVULAS CARDÍACAS MECÁNICAS (prótesis mecánicas aórticas o mitrales) presentan un riesgo trombogénico y embolígeno sumamente elevado por la superficie de carbono/metal en contacto directo con la sangre. RECOMENDACIÓN Y RANGO OBJETIVO DE ANTICOAGULACIÓN (Guías AHA/ESC): 1) ANTICOAGULANTE DE ELECCIÓN EXCLUYENTE: Están indicados OBLIGATORIAMENTE los ANTAGONISTAS DE LA VITAMINA K (Warfarina o Acenocumarol). Los Anticoagulantes Orales Directos (ACODs) están ESTRICTAMENTE CONTRAINDICADOS en prótesis mecánicas (estudio RE-ALIGN demostró mayor tasa de trombosis de la prótesis y sangrado con dabigatrán); Y 2) RANGOS META DE RIN: Prótesis Mecánica Aórtica de bajo riesgo: RIN 2,0-3,0 (meta 2,5); Prótesis Mecánica Aórtica de alto riesgo o PRÓTESIS MECÁNICA MITRAL: RANGO META DE RIN DE 2,5 A 3,5 (meta 3,0). Las opciones A, C y D citan rangos o conductas erróneas y peligrosas."
+  },
+  {
+   "id": "SIAM-UP6-080",
+   "numero": 80,
+   "pregunta": "¿Cuál es la secuencia de intervención recomendada paso a paso según las guías clínicas de la AHA/ESC?",
+   "opciones": {
+    "a": "1° Maniobras Vagales (Maniobra de Valsalva modificada / Masaje del Seno Carotídeo); 2° Si persisten, Adenosina IV en bolo rápido (6 mg, luego 12 mg); 3° Si falla, Calcioantagonistas (Verapamilo/Diltiazem) o Betabloqueantes IV; 4° Si hay inestabilidad, Cardioversión Eléctrica.",
+    "b": "1° Reposo en cama sin realizar ninguna maniobra por 15 días consecutivos.",
+    "c": "1° Cardioversión eléctrica inmediata a 360 Joules sin sedación; 2° Digoxina orales a dosis altas.",
+    "d": "1° Flecainida en bolo rápido en shock cardiogénico; 2° Marcapasos transcutáneo inmediato."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El algoritmo escalonado e internacionalmente aceptado para el tratamiento de la Taquicardia Paroxística Supraventricular (TPSV) en el paciente HEMODINÁMICAMENTE ESTABLE sigue una secuencia fisiológica y farmacológica estricta: 1) PRIMERA LÍNEA (NO FARMACOLÓGICA): MANIOBRAS VAGALES (Maniobra de Valsalva Modificada con elevación de piernas, o Masaje del Seno Carotídeo unilateral si no hay soplos). Estimulan el tono vagal, prolongan la refractariedad del nódulo AV e interrumpen el circuito de reentrada en un 30-50% de los casos; 2) SEGUNDA LÍNEA (FARMACOLÓGICA DE PRIMERA ELECCIÓN): ADENOSINA INTRAVENOSA en bolo rápido (6 mg IV rápido seguido de lavado salino; si no convierte en 1-2 min, se administra un segundo bolo de 12 mg IV). Revierte >90% de las TPSV; 3) TERCERA LÍNEA: CALCIOANTAGONISTAS NO DIHIDROPIRIDÍNICOS IV (Verapamilo o Diltiazem) o Betabloqueantes IV; Y 4) EN CUALQUIER MOMENTO SI APARECE INESTABILIDAD HEMODINÁMICA: Cardioversión Eléctrica Sincronizada inmediata. La opción A describe de forma exacta la secuencia clínica aprobada."
+  },
+  {
+   "id": "SIAM-UP6-081",
+   "numero": 81,
+   "pregunta": "Un paciente de 78 años con antecedente de infarto de miocardio antiguo e insuficiencia cardíaca con FEVI 30% ingresa por un cuadro de Taquicardia Ventricular Monomórfica Sostenida a 170 bpm. Tras la cardioversión eléctrica con éxito, se evalúa el inicio de profilaxis antiarrítmica secundaria. ¿Por qué está CONTRAINDICADO el uso de antiarrítmicos de la Clase IC (Flecainida o Propafenona) en este paciente y qué fármaco de la Clase III es la alternativa recomendada?",
+   "opciones": {
+    "a": "Los Clase IC producen hipoglucemia severa e insuficiencia renal aguda en menos de 10 minutos; la alternativa es la Digoxina IV.",
+    "b": "Los Clase IC incrementan la mortalidad por proarritmia y paro cardíaco en presencia de cardiopatía estructural y cicatriz miocárdica (estudio CAST); la alternativa recomendada es la Amiodarona.",
+    "c": "Los Clase IC están indicados únicamente en niños y no se pueden administrar en mayores de 50 años.",
+    "d": "Los Clase IC destruyen las arterias coronarias produciendo espasmo masivo; la alternativa es la Flecainida a dosis triples."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En la selección de fármacos antiarrítmicos para la prevención de recurrencias de Taquicardia Ventricular (TV) o Fibrilación Ventricular (FV) en pacientes con CARDIOPATÍA ESTRUCTURAL SEVERA (secuela de Infarto Agudo de Miocardio, miocardiopatía dilatada o disfunción sistólica del VI): 1) CONTRAINDICACIÓN ABSOLUTA DE CLASE IC: Los antiarrítmicos de la Clase IC (Flecainida y Propafenona) bloquean de forma potente y lenta los canales de Na⁺, enlenteciendo la conducción en el miocardio cicatrizal o isquémico y desencadenando un AUMENTO SIGNIFICATIVO DE LA MORTALIDAD Y MUERTE SÚBITA POR PROARRITMIA (demostrado en el ensayo landmark CAST); Y 2) FÁRMACO DE ELECCIÓN: La AMIODARONA (Clase III con perfil multicanal) es el antiarrítmico más eficaz y seguro en cardiopatía isquémica o IC, ya que no incrementa la mortalidad y suprime eficazmente las arritmias ventriculares reentrantes. Las opciones A, C y D contienen errores conceptuales graves."
+  },
+  {
+   "id": "SIAM-UP6-082",
+   "numero": 82,
+   "pregunta": "En la evaluación de un trazado de Holter de 24 horas de un paciente geriátrico con síncope recurrente, se detecta un bloqueo de la conducción impulsada por el nódulo sinusal en el cual se observa una pausa asistólica ventricular. En el ECG, el intervalo P-P que contiene la pausa es exactamente IGUAL AL DOBLE (2 P-P) o triple del intervalo P-P basal. ¿Cuál es el diagnóstico de este trastorno de conducción?",
+   "opciones": {
+    "a": "Bloqueo Sinoauricular de 2° Grado (Tipo Mobitz II o Tipo Wenckebach).",
+    "b": "Fibrilación auricular de alta respuesta con extrasístoles nodales.",
+    "c": "Síndrome de preexcitación ventricular por Haz de Kent atípico.",
+    "d": "Paro o Parada Sinusal pura no relacionada con la salida del impulso."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El BLOQUEO SINOAURICULAR (BSA) de 2º Grado ocurre cuando el nódulo sinusal genera el impulso de forma rítmica y constante, pero este no logra propagarse a través del tejido perinodal hacia el miocardio auricular: CARACTERÍSTICA ELECTROCARDIOGRÁFICA PATOGNOMÓNICA: La pausa resultante en la línea isoeléctrica (ausencia de onda P y QRS) ES UN MÚLTIPLO MATEMÁTICO EXACTO del intervalo P-P sinusal de base (2 P-P, 3 P-P, 4 P-P). A diferencia del Paro Sinusal (donde el nódulo cesa su automatismo y la pausa no es múltiplo exacto), en el BSA de 2° grado la periodicidad matemática demuestra que el marcapasos sinusal continuó descargando puntualmente 'a puerta cerrada'. Es una manifestación clásica de la Disfunción del Nódulo Sinusal (Enfermedad del Seno) que requiere Marcapasos definitivo si es sintomático. Las opciones B, C y D corresponden a otros diagnósticos."
+  },
+  {
+   "id": "SIAM-UP6-083",
+   "numero": 83,
+   "pregunta": "Un paciente de 82 años con Fibrilación Auricular permanente se encuentra en tratamiento con Verapamilo (80 mg c/8h) para el control de la frecuencia cardíaca. Durante un cuadro infeccioso respiratorio se le prescribe Claritromicina (Macrólido). A los 3 días ingresa con bradicardia severa a 35 bpm, hipotensión y bloqueo AV completo. ¿Cuál es la causa de esta interacción farmacológica grave?",
+   "opciones": {
+    "a": "Inducción masiva del citocromo P450 que destruye al verapamilo eliminando su efecto.",
+    "b": "Destrucción de la pared auricular por la claritromicina con sepsis pericárdica.",
+    "c": "Inhibición del enzima CYP3A4 y de la P-gp por la Claritromicina, aumentando dramáticamente la concentración de Verapamilo y potenciando su bloqueo en el nodo AV.",
+    "d": "La claritromicina bloquea los receptores de dopamina produciendo rigidez extrema."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La combinación de VERAPAMILO (o Diltiazem) con MACRÓLIDOS INHIBIDORES POTENTES DEL CYP3A4 (Claritromicina, Eritromicina) representa una INTERACCIÓN FARMACOLÓGICA GRAVE Y FRECUENTE en la población geriátrica: MECANISMO MOLECULAR: El Verapamilo se metaboliza intensamente en el hígado a través de la isoenzima CYP3A4 y se transporta por la Glicoproteína-P (P-gp). La Claritromicina es un INHIBIDOR POTENTE DE AMBAS VÍAS (CYP3A4 y P-gp). Al coadministrarse, la claritromicina bloquea el metabolismo del verapamilo, AUMENTANDO SUS NIVELES PLASMÁTICOS HASTA 3 A 5 VECES y prolongando su vida media. Esto exacerba exponencialmente su efecto bloqueante de canales de calcio en el nódulo AV, desencadenando bradicardia extrema, bloqueo AV de alto grado o completo y shock hemodinámico. Se debe evitar esta combinación o usar azitromicina (no inhibidora). Las opciones A, B y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-084",
+   "numero": 84,
+   "pregunta": "En un paciente de 72 años con insuficiencia cardíaca y antecedente de Fibrilación Auricular se decide realizar un control de frecuencia con Digoxina. Se programa la dosificación considerando la vida media y la vía de eliminación de la droga. ¿Cuál es la vida media de eliminación promedio de la Digoxina en un paciente con función renal normal y cómo se modifica en la Insuficiencia Renal Crónica (TFG <30 mL/min)?",
+   "opciones": {
+    "a": "Vida media normal: 6 meses; no se modifica por la función renal ya que se expulsa por aire.",
+    "b": "La digoxina no posee vida media y se destruye instantáneamente en la sangre.",
+    "c": "Vida media normal: 36 a 48 horas; en Insuficiencia Renal Crónica se prolonga a 3,5 a 5 días (80-100 horas), exigiendo reducción de dosis.",
+    "d": "Vida media normal: 10 segundos; en insuficiencia renal se acorta a 1 segundo."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La DIGOXINA es un glucósido cardíaco de estrecho margen terapéutico (0,5-0,9 ng/mL). FARMACOCINÉTICA Y ELIMINACIÓN: Se elimina predominantemente por VÍA RENAL (entre un 60-80% se excreta inalterada por filtración glomerular y secreción tubular mediante P-gp). 1) Paciente con Función Renal Normal: Posee una VIDA MEDIA PLASMÁTICA PROLONGADA de 36 a 48 horas (1,5 a 2 días); Y 2) Paciente con Insuficiencia Renal Crónica: Al reducirse la filtración glomerular, el aclaramiento renal de la digoxina cae proporcionalmente, PROLONGANDO SU VIDA MEDIA A 3,5 A 5 DÍAS (80 a 100 horas). Si no se reduce la dosis de mantenimiento y el intervalo de administración en la falla renal, la digoxina se acumula progresivamente, alcanzando rápidamente niveles tóxicos (>2,0 ng/mL) y provocando arritmias letales. La opción C detalla con precisión esta regla farmacocinética."
+  },
+  {
+   "id": "SIAM-UP6-085",
+   "numero": 85,
+   "pregunta": "Un paciente de 65 años con antecedente de Fibrilación Auricular paroxística tratada con Flecainida acude a la guardia por palpitaciones muy rápidas pero regulares. En el ECG se observa un Flutter Auricular a 300 bpm con conducción AV 2:1 y respuesta ventricular regular a 150 bpm, con un complejo QRS marcadamente ensanchado (160 ms) por conducción aberrante. ¿Cuál es el fenómeno denominado 'Flutter por Flecainida' y cómo se previene su aparición?",
+   "opciones": {
+    "a": "El flutter por flecainida es una arritmia benigna que se trata aumentando la dosis de flecainida al triple.",
+    "b": "La Flecainida enlentece la frecuencia auricular del flutter pero facilita la conducción AV 1:1 o 2:1 a altas frecuencias; se previene asociando siempre un fármaco bloqueante del nodo AV (Betabloqueante o Diltiazem/Verapamilo).",
+    "c": "Se produce por la falta de vitamina D en el miocardio atrial derecho.",
+    "d": "Es una reacción alérgica a la cápsula de plástico del comprimido de flecainida."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El 'FLUTTER POR FLECAINIDA' (o efecto proarrítmico auricular de los fármacos Clase IC) es una complicación electrocardiográfica bien documentada: MECANISMO ELECTROFISIOLÓGICO: Cuando un paciente en Fibrilación Auricular recibe Flecainida (o Propafenona) sin una adecuada frenación nodal previa, el fármaco enlentece la frecuencia auricular de la arritmia (ej. reduce el aleteo de 350 a 200-220 bpm). Al ser la frecuencia auricular más lenta, EL NÓDULO AV DEJA DE GENERAR EL BLOQUEO FISIOLÓGICO Y PASA A CONDUCIR EN RELACIÓN 1:1 O 2:1 HACIA LOS VENTRÍCULOS. Esto dispara la frecuencia ventricular a 200 bpm o 150 bpm con complejos QRS anchos (por el propio bloqueo de sodio de la flecainida), simulando una taquicardia ventricular y produciendo colapso hemodinámico. PREVENCIÓN OBLIGATORIA: Antes de indicar Flecainida o Propafenona en FA/Flutter, es OBLIGATORIO ASOCIAR UN FÁRMACO BLOQUEANTE DEL NÓDULO AV (Betabloqueante o Calcioantagonista no dihidropiridínico) para prevenir la conducción AV masiva 1:1. La opción B describe con precisión este concepto."
+  },
+  {
+   "id": "SIAM-UP6-086",
+   "numero": 86,
+   "pregunta": "En un paciente de 70 años sin cardiopatía previa que ingresa por una Taquicardia Paroxística Supraventricular (TPSV) sostenida a 190 bpm, el médico realiza un Masaje del Seno Carotídeo (MSC). ¿Cuáles son las dos contraindicaciones absolutas para realizar el masaje del seno carotídeo como maniobra vagal en la población geriátrica?",
+   "opciones": {
+    "a": "Presencia de hipertensión arterial leve y antecedentes de artrosis de rodilla.",
+    "b": "Presencia de glaucoma de ángulo abierto y diabetes mellitus tipo 2.",
+    "c": "Presencia de soplo carotídeo a la auscultación o antecedente de Accidente Cerebrovascular (ACV) / AIT en los últimos 3 meses.",
+    "d": "El masaje del seno carotídeo no presenta contraindicaciones en ninguna edad."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El MASAJE DEL SENO CAROTÍDEO (MSC) es una maniobra vagal terapéutica útil para interrumpir las taquicardias supraventriculares por reentrada (TRNAV/NAV). Sin embargo, en la población geriátrica exige precauciones y contraindicaciones estrictas: CONTRAINDICACIONES ABSOLUTAS (por riesgo de desprendimiento de embolias aterotrombóticas y ACV isquémico): 1) PRESENCIA DE SOPLO CAROTÍDEO a la auscultación cervical (indica probable placa aterosclerótica en la bifurcación carotídea); 2) Antecedente de ACCIDENTE CEREBROVASCULAR (ACV) o Ataque Isquémico Transitorio (AIT) reciente (últimos 3 meses); y 3) Enfermedad carotídea conocida con estenosis severa. En estos pacientes se deben usar otras maniobras vagales (Valsalva modificada con elevación de piernas) o pasar directamente a la Adenosina IV. Las opciones A, B y D no son contraindicaciones absolutas."
+  },
+  {
+   "id": "SIAM-UP6-087",
+   "numero": 87,
+   "pregunta": "Un paciente de 75 años internado por un síndrome coronario agudo desarrolla en el monitor un cuadro de Taquicardia Ventricular Polimórfica en Torsades de Pointes. El laboratorio urgente revela una cifra de Potasio sérico de 2,8 mEq/L (Hipopotasemia severa). ¿Cuál es la conducta de corrección electrolítica y farmacológica combinada e inmediata?",
+   "opciones": {
+    "a": "Inyección de insulina corriente sin glucosado para bajar aún más el potasio.",
+    "b": "Administración de furosemida a dosis altas por vía endovenosa rápida.",
+    "c": "Administración de Sulfato de Magnesio IV en bolo, reposición endovenosa de Cloruro de Potasio y suspensión de fármacos que prolonguen el QT.",
+    "d": "Infusión de flecainida continua sin corrección de electrolitos."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Torsades de Pointes (Taquicardia en Puntas Torcidas) es desencadenada o exacerbada de forma crítica por los trastornos electrolíticos que retrasan la repolarización ventricular (Fase 3), especialmente la HIPOPOTASEMIA (K⁺ <3,5 mEq/L) y la HIPOMAGNESEMIA (Mg²⁺ <1,8 mg/dL). TRATAMIENTO COMBINADO DE EMERGENCIA: 1) FARMACOLÓGICO DE PRIMERA LÍNEA: Administrar SULFATO DE MAGNESIO IV (1-2 g IV en 1-2 minutos), el cual suprime las posdespolarizaciones precoces y estabiliza la membrana miocárdica de forma hiperaguda, incluso si los niveles de magnesio sérico son normales; 2) CORRECCIÓN ELECTROLÍTICA: Infusión endovenosa de CLORURO DE POTASIO (KCl) para elevar y mantener los niveles de K⁺ en el rango alto de la normalidad (4,5-5,0 mEq/L); Y 3) MEDIDA GENERAL: Suspender de inmediato todos los fármacos inductores de prolongación del QT. Administrar furosemida (opción B) empeoraría catastróficamente la hipopotasemia. La opción C es la respuesta correcta."
+  },
+  {
+   "id": "SIAM-UP6-088",
+   "numero": 88,
+   "pregunta": "En el electrocardiograma de un paciente de 80 años con marcapasos cardíaco definitivo en modo VVI (estimulación ventricular pura), se observa la presencia de una 'Espícula' o Spike eléctrico precediendo a cada complejo QRS ancho. De forma súbita, se observa que aparecen espículas de marcapasos cayendo en cualquier momento del ciclo cardíaco (sobre la onda T o segmento ST), sin ser inhibidas por los latidos propios del paciente y sin lograr capturar ni despolarizar al ventrículo. ¿Cuáles son los dos fallos de funcionamiento del marcapasos identificados?",
+   "opciones": {
+    "a": "Fallo de Batería pura con hiperestimulación simpática supraventricular.",
+    "b": "Fallo de Detección (Sensing) y Fallo de Captura (Pacing); exigen revisión urgente del umbral y del electrodo del marcapasos.",
+    "c": "Fallo de conducción en la arteria femoral derecha.",
+    "d": "Funcionamiento normal y fisiológico de la batería en modo ahorro de energía."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Los Marcapasos Artificiales pueden presentar dos tipos de disfunción o fallo de funcionamiento principales reconocibles en el ECG: 1) FALLO DE DETECCIÓN (Sensing Failure / Subdetección): El marcapasos NO es capaz de 'ver' o detectar la actividad eléctrica propia del corazón del paciente. Como no detecta los latidos intrínsecos, no se inhibe y emite espículas de forma inoportuna y 'a ciegas' en cualquier momento del ciclo (incluso sobre la onda T, con riesgo de fenómeno de R sobre T); Y 2) FALLO DE CAPTURA (Pacing / Capture Failure): El marcapasos emite la espícula eléctrica (spike), pero esta energía es insuficiente o el tejido es inexcitable, por lo que LA ESPÍCULA NO ES SEGUIDA DE UN COMPLEX QRS (no logra capturar al ventrículo). La coexistencia de subdetección y fallo de captura exige la REVISIÓN URGENTE DEL DISPOSITIVO (revisar posición del electrodo, umbral de estimulación/sensibilidad o agotamiento de batería). Las opciones A, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-089",
+   "numero": 89,
+   "pregunta": "Un paciente de 72 años en tratamiento con Amiodarona (200 mg/día) por Fibrilación Auricular acude a control. Refiere tos seca progresiva, disnea de esfuerzo y astenia de 2 meses de evolución. En la tomografía de tórax de alta resolución se observan opacidades reticulonodulares en vidrio esmerilado y áreas de consolidación periféricas. Las pruebas funcionales muestran un patrón restrictivo con caída de la DLCO. ¿Cuál es la complicación visceral más grave de la amiodarona y la conducta obligatoria?",
+   "opciones": {
+    "a": "Infección por tuberculosis cavitada; exige quimioterapia tuberculosa por 10 años.",
+    "b": "Toxicidad Pulmonar por Amiodarona (Neumonitis intersticial / Fibrosis pulmonar); exige la SUSPENSIÓN INMEDIATA de la amiodarona e inicio de Corticoides orales.",
+    "c": "Asma bronquial alérgica por polen; se trata con salbutamol inhalado y se mantiene la amiodarona.",
+    "d": "Efecto benigno transitorio; se indica aumentar la dosis de amiodarona al doble."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La TOXICIDAD PULMONAR POR AMIODARONA (Neumonitis Intersticial / Fibrosis Pulmonar por Amiodarona) es la complicación adversa MÁS GRAVE Y POTENCIALMENTE LETAL de este antiarrítmico de Clase III (ocurre en el 1-5% de los usuarios crónicos, siendo dosis-acumulativa, generalmente con dosis >400 mg/día o tras meses/años de uso). FISIOPATOLOGÍA Y CLÍNICA: Ocurre por toxicidad citotóxica directa y reacción de hipersensibilidad, acumulándose fosfolípidos en los neumocitos. Cursa con tos seca, disnea progresiva, astenia e infiltrados intersticiales bilateral en TAC con alteración de la difusión de monóxido de carbono (DLCO). CONDUCTA OBLIGATORIA: 1) SUSPENDER INMEDIATAMENTE Y DE FORMA DEFINITIVA LA AMIODARONA; Y 2) Iniciar tratamiento inmunosupresor con CORTICOIDES ORALES (Meprednisona 40-60 mg/día) en pauta descendente durante varios meses para mitigar la fibrosis. Las opciones A, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP6-090",
+   "numero": 90,
+   "pregunta": "En la evaluación electrocardiográfica de la Fibrilación Auricular en el adulto mayor, se analiza el concepto de 'Fibrilación Auricular Fina' frente a 'Fibrilación Auricular Gruesa'. ¿Cuáles son las características electrocardiográficas de las ondas 'f' en la FA Gruesa y su significación en la Aurícula Izquierda?",
+   "opciones": {
+    "a": "FA Gruesa: Ausencia total de actividad eléctrica con asistolia completa.",
+    "b": "FA Gruesa: Ondas 'F' continuas en serrucho a 300 bpm con intervalos R-R fijos.",
+    "c": "FA Gruesa: Ondas P normales sinusales de 5 mm de altura en todas las derivaciones.",
+    "d": "FA Gruesa: Ondas 'f' de fibrilación con amplitud mayor a 1 mm en V1, indicativa de dilatación e hipertrofia de la Aurícula Izquierda."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En el trazado electrocardiográfico de la Fibrilación Auricular (FA), las oscilaciones de la línea isoeléctrica producidas por las despolarizaciones caóticas auriculares se denominan Ondas 'f' (de fibrilación). CLASIFICACIÓN SEGÚN EL VOLTAJE DE LAS ONDAS 'f' EN DERIVACIÓN V1: 1) FIBRILACIÓN AURICULAR GRUESA (Coarse AF): Ondas 'f' bien visibles y de AMPLIUD MAYOR A 1 mm (>0,1 mV) en V₁. SIGNIFICACIÓN: Se asocia a la presencia de DILATACIÓN E HIPERTROFIA SIGNIFICATIVA DE LA AURÍCULA IZQUIERDA (o aurícula derecha) con mayor masa muscular fibrilante (frecuente en valvulopatía mitral o hipertensa); Y 2) Fibrilación Auricular Fina (Fine AF): Ondas 'f' de muy baja amplitud (<1 mm) o casi imperceptibles, indicativa de fibrosis extensa y atrofia del miocardio auricular de larga evolución. La opción D describe con precisión la FA gruesa."
+  },
+  {
+   "id": "SIAM-UP6-091",
+   "numero": 91,
+   "pregunta": "¿Cuál es el mecanismo de acción directo del Rivaroxabán, cuál es la posología estándar y cuál es el criterio de reducción de dosis a 15 mg/día por función renal?",
+   "opciones": {
+    "a": "Fibrinolítico puro; se administra por vía subcutánea abdominal cada 2 años.",
+    "b": "Inhibidor del factor IIa; dosis de 1000 mg cada hora sin ajuste renal.",
+    "c": "Inhibidor de la vitamina K; dosis estándar de 500 mg/día; se reduce si consume espinacas.",
+    "d": "Inhibidor directo del Factor Xa; dosis estándar de 20 mg/día en la cena; se reduce a 15 mg/día si el Aclaramiento de Creatinina se ubica entre 15 y 49 mL/min."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El RIVAROXABÁN es un Anticoagulante Oral Directo (ACOD). MECANISMO MOLECULAR: Inhibidor directo, altamente selectivo y reversible del FACTOR Xa libre y unido al coágulo, interrumpiendo la vía intrínseca y extrínseca de la cascada de coagulación. POSOLOGÍA Y AJUSTE RENAL ESTÁNDAR EN FA: 1) Dosis Estándar: 20 mg UNa Vez AL DÍA (administrado obligatoriamente con la comida principal / cena para asegurar una biodisponibilidad del 100%); Y 2) AJUSTE POR FUNCIÓN RENAL: Debido a que un 35% del fármaco activo se elimina por vía renal, si el Aclaramiento de Creatinina (ClCr) del paciente se encuentra disminuido ENTRE 15 Y 49 mL/min, LA DOSIS SE REDUCE OBLIGATORIAMENTE A 15 mg UNA VEZ AL DÍA. Si el ClCr es <15 mL/min, no se recomienda. La opción D detalla la posología aprobada."
+  },
+  {
+   "id": "SIAM-UP6-092",
+   "numero": 92,
+   "pregunta": "En la evaluación de la toxicidad por antiarrítmicos, la Quinidina (Clase IA de Vaughan Williams) es un agente histórico que producía un síndrome neuro-sensorial y digestivo característico por sobredosis o niveles elevados. ¿Cómo se denomina a este síndrome de intoxicación por Quinidina y cuáles son sus manifestaciones clínicas principales?",
+   "opciones": {
+    "a": "Síndrome de Cinconismo (Cinconismo); caracterizado por acúfenos (zumbidos de oídos), disminución de la agudeza auditiva, cefalea, visión borrosa, náuseas y diarrea.",
+    "b": "Síndrome de Reye por ingesta de aspirina.",
+    "c": "Síndrome de Guillain-Barré agudo ascendente.",
+    "d": "Síndrome de Cushing iatrogénico con estrías violáceas."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La QUINIDINA es un fármaco antiarrítmico prototipo perteneciente a la CLASE IA de Vaughan Williams (obtenido originalmente de la corteza del árbol de la Chinchona / Cinchona). SÍNDROME DE CINCONISMO (Cinconismo): Es el cuadro clínico característico de toxicidad e intoxicación por quinidina o derivados de la quina. MANIFESTACIONES NEURO-SENSORIALES Y DIGESTIVAS: 1) Auditivas: Tinnitus / ACÚFENOS (zumbidos de oídos persistentes) e Hipoacusia / sordera transitoria; 2) Oculares: Visión borrosa, fotofobia y diplopía; 3) Neurológicas: Cefalea, mareos y vértigo; Y 4) Gastrointestinales: Náuseas, vómitos, dolor abdominal y DIARREA SEVERA (causa más frecuente de abandono del fármaco). Además, produce la temida 'Síncope por Quinidina' por Torsades de Pointes. La opción A define con precisión el cinconismo."
+  },
+  {
+   "id": "SIAM-UP6-093",
+   "numero": 93,
+   "pregunta": "Un paciente de 80 años sin antecedentes de diabetes presenta en la guardia un cuadro de alteración de la conciencia y palpitaciones. En el ECG se registra una Taquicardia Ventricular Monomórfica a 160 bpm. El laboratorio de urgencia muestra una Glucemia de 28 mg/dL (Hipoglucemia severa). Tras administrar Dextrosa al 50% IV de inmediato, el ritmo revierte espontáneamente a ritmo sinusal en 1 minuto. ¿Cuál es el mecanismo de la hipoglucemia como desencadenante de arritmias ventriculares?",
+   "opciones": {
+    "a": "La hipoglucemia no produce arritmias ni altera el electrocardiograma.",
+    "b": "La falta de glucosa destruye la arteria aorta en segundos impidiendo el flujo.",
+    "c": "La glucosa baja estimula al nervio vago produciendo fibrilación auricular gigante.",
+    "d": "La hipoglucemia desencadena una descarga masiva de catecolaminas e hipopotasemia intracelular, prolongando la repolarización e induciendo posdespolarizaciones precoces y automatismo aumentado."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La HIPOGLUCEMIA SEVERA (Glucemia <50 mg/dL) constituye una causa metabólica y neuroendocrina bien documentada de desencadenamiento de arritmias cardíacas graves (incluyendo taquicardia ventricular, fibrilación auricular y muerte súbita) en pacientes geriátricos: MECANISMO FISIOPATOLÓGICO Y ARRITMOGÉNICO: 1) DESCARGA SIMPÁTICO-ADRENAL MASIVA: Como respuesta neuroendocrina de contrarregulación ante el déficit de glucosa cerebral, se produce una liberación masiva de Adrenalina y Noradrenalina; 2) CAMBIOS ELECTROLÍTICOS: La adrenalina estimula la bomba Na⁺/K⁺ ATPasa y los receptores β₂, forzando la ENTRADA MASIVA DE POTASIO AL INTERIOR CELULAR (provocando HIPOPOTASEMIA transitoria); Y 3) ALTERACIÓN DE LA REPOLARIZACIÓN: La suma del exceso de catecolaminas y la hipopotasemia PROLONGA EL INTERVALO QTc, incrementa la dispersión de la repolarización e induce POSDESPOLARIZACIONES PRECOCES Y AUTOMATISMO AUMENTADO, gatillando Taquicardia Ventricular o Torsades de Pointes. Su corrección rápida con glucosa es curativa. La opción D explica la fisiopatología."
+  },
+  {
+   "id": "SIAM-UP6-094",
+   "numero": 94,
+   "pregunta": "En la evaluación de un trazado electrocardiográfico durante un seminario de arritmias, el docente muestra un electrocardiograma con complejos QRS anchos precedidos por una onda P con PR normal, observándose en las derivaciones V1 y V2 un patrón en rS' con S muescada y en V5-V6 una onda R ancha con muesca superior. ¿Cómo se diferencia un Bloqueo Incompleto de Rama de un Bloqueo Completo de Rama según la duración del complejo QRS?",
+   "opciones": {
+    "a": "La duración del QRS es idéntica en ambos bloqueos y no permite diferenciarlos.",
+    "b": "Bloqueo Incompleto de Rama: QRS de 500 ms; Bloqueo Completo: QRS de 10 ms.",
+    "c": "Bloqueo Incompleto de Rama: ausente en el ECG; Bloqueo Completo: requiere marcapasos auricular de forma obligatoria.",
+    "d": "Bloqueo Incompleto de Rama: QRS entre 100 ms y 119 ms; Bloqueo Completo de Rama: QRS mayor o igual a 120 ms (≥3 cuadraditos)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En la clasificación electrocardiográfica de los Trastornos de la Conducción Intraventricular (Bloqueos de Rama Derecha e Izquierda): 1) BLOQUEO INCOMPLETO DE RAMA (Derecha o Izquierda): Se observa la morfología y patrón característico del bloqueo de rama (ej. rsR' en V₁ para rama derecha o muesca en V₆ para izquierda), pero la DURACIÓN TOTAL DEL COMPLEX QRS ES MAYOR A LA NORMALIDAD PERO MENOR A 120 ms (QRS ENTRE 100 Y 119 ms o de 2,5 a 3 cuadraditos a 25 mm/s); Y 2) BLOQUEO COMPLETO DE RAMA: Se observa la morfología característica Y LA DURACIÓN TOTAL DEL COMPLEX QRS ES MAYOR O IGUAL A 120 ms (≥ 0,12 seg o ≥ 3 cuadraditos). La opción D establece con precisión el criterio electrocardiográfico de corte."
+  },
+  {
+   "id": "SIAM-UP6-095",
+   "numero": 95,
+   "pregunta": "Un paciente de 75 años con Fibrilación Auricular permanente tratada con Atenolol (50 mg/día) acude a control. En el examen físico se ausculta un ritmo cardíaco completamente irregular con una frecuencia cardíaca central (auscultada en el ápex) de 110 latidos por minuto, mientras que el pulso arterial radial palpado en la muñeca es de solo 88 pulsaciones por minuto. ¿Cómo se denomina esta diferencia entre la frecuencia cardíaca auscultada y el pulso percibido y cuál es su explicación hemodinámica?",
+   "opciones": {
+    "a": "Déficit de oxigenación tisular; producido por la oclusión completa de la arteria subclavia bilateral.",
+    "b": "Signo de Musset verdadero; producido por insuficiencia tricúspide masiva.",
+    "c": "'Déficit de Pulso'; producido porque muchos latidos ventriculares prematuros o débiles en la FA expulsan un volumen sistólico insuficiente para generar una onda de pulso palpable periféricamente.",
+    "d": "Fenómeno de Raynaud vascular; producido por el uso de atenolol."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El 'DÉFICIT DE PULSO' (Pulse Déficit) es un hallazgo semiológico cardiovascular patognomónico y clásico de la Fibrilación Auricular (FA) de alta o moderada respuesta ventricular: DEFINICIÓN SEMIOLÓGICA: Se define como la DIFERENCIA O DISCREPANCIA NUMÉRICA entre la Frecuencia Cardíaca Central (auscultada directamente en el foco apexiano con el estetoscopio) y la Frecuencia del Pulso Periférico (palpada simultáneamente en la arteria radial). EXPLICACIÓN HEMODINÁMICA: En la FA, debido a la irregularidad absoluta de los intervalos R-R, algunos diástoles ventriculares son extremadamente cortos. Durante un diástole muy corto, el Ventrículo Izquierdo no dispone de tiempo suficiente para llenarse de sangre (bajo volumen telediastólico). Cuando el VI se contrae, expulsa un VOLUMEN SISTÓLICO TAN PEQUEÑO que no logra abrir con fuerza la válvula aórtica ni generar una onda de presión perceptible en la arteria radial periférica (latido auscultado pero no palpado). A mayor déficit de pulso, peor es el control de la frecuencia. La opción C explica la semiología."
+  },
+  {
+   "id": "SIAM-UP6-096",
+   "numero": 96,
+   "pregunta": "En el tratamiento farmacológico de las arritmias cardíacas, se evalúan las diferencias entre los bloqueantes de canales de sodio según su cinética de unión y disociación del canal (INa). ¿Cuál de las clases de Vaughan Williams (IA, IB o IC) presenta la cinética de disociación MÁS LENTA del receptor de sodio, ejerciendo un marcado efecto 'dependiente del uso' (use-dependence) y ensanchando el QRS incluso a frecuencias cardíacas normales?",
+   "opciones": {
+    "a": "Clase IA (Quinidina, Procainamida).",
+    "b": "Clase II (Propranolol, Atenolol).",
+    "c": "Clase IB (Lidocaína, Mexiletina).",
+    "d": "Clase IC (Flecainida, Propafenona)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La clasificación de los antiarrítmicos del Grupo I de Vaughan Williams se basa en la velocidad o constante de tiempo de disociación (τ disociación) del fármaco desde su sitio de unión en el canal de sodio rápido (INa): 1) CLASE IC (Flecainida, Propafenona): Poseen una CINÉTICA DE DISOCIACIÓN EXTREMADAMENTE LENTA (τ >10 segundos). Debido a que el fármaco permanece unido al canal durante un tiempo muy prolongado, se produce una acumulación del bloqueo canalicular latido a latido, produciendo una marcada depresión de la Fase 0, enlentecimiento de la velocidad de conducción y ENSANCHAMIENTO DEL COMPLEX QRS incluso a frecuencias cardíacas normales o bajas (efecto use-dependence masivo); 2) Clase IB (Lidocaína): Cinética muy rápida (τ <1 segundo), no altera el QRS en ritmo sinusal normal; y 3) Clase IA (Procainamida): Cinética intermedia (τ 1-8 segundos). La opción D es la respuesta correcta."
+  },
+  {
+   "id": "SIAM-UP6-097",
+   "numero": 97,
+   "pregunta": "¿Cuáles son los criterios clínicos y farmacológicos obligatorios para REDUCIR LA DOSIS de Edoxabán a 30 mg una vez al día según la Ficha Técnica y estudios clínicos (ENGAGE AF-TIMI 48)?",
+   "opciones": {
+    "a": "Aclaramiento de Creatinina de 15 a 50 mL/min, Peso corporal ≤60 kg o uso concomitante de inhibidores potentes de la P-gp (Dronedarona, Ketoconazol, Eritromicina).",
+    "b": "Consumo de más de 3 litros de agua al día sin alteraciones renales.",
+    "c": "Edad menor a 40 años y peso mayor a 120 kg de forma aislada.",
+    "d": "El edoxabán no se debe reducir en ningún caso y se mantiene a 100 mg."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El EDOXABÁN es un Anticoagulante Oral Directo (ACOD) inhibidor del Factor Xa. DOSIFICACIÓN ESTÁNDAR Y CRITERIOS DE REDUCCIÓN DE DOSIS (Estudio ENGAGE AF-TIMI 48): La dosis estándar en FA es de 60 mg UNA VEZ AL DÍA por vía oral. Se debe REDUCIR OBLIGATORIAMENTE LA DOSIS A 30 mg UNA VEZ AL DÍA si el paciente presenta AL MENOS UNO de los siguientes criterios: 1) DISFUNCIÓN RENAL MODERADA A SEVERA: Aclaramiento de Creatinina (ClCr) entre 15 y 50 mL/min; 2) BAJO PESO CORPORAL: Peso ≤ 60 kg; O 3) USO CONCOMITANTE DE INHIBIDORES POTENTES DE LA GLICOPROTEÍNA-P (P-gp) como Dronedarona, Ketoconazol, Ciclosporina o Eritromicina. Esta reducción disminuye el riesgo de hemorragia manteniendo la eficacia preventiva de ACV. La opción A es la respuesta correcta."
+  },
+  {
+   "id": "SIAM-UP6-098",
+   "numero": 98,
+   "pregunta": "¿Qué fármaco agonista beta-adrenérgico se utiliza de segunda línea cuando la Atropina no ha sido eficaz?",
+   "opciones": {
+    "a": "Esmolol en microgoteo por 24 horas.",
+    "b": "Propranolol en bolo rápido endovenoso.",
+    "c": "Adrenalina (Epinefrina) en infusión continua o Isoprenalina.",
+    "d": "Amiodarona a dosis de carga saturante."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. En el manejo de la BRADICARDIA SEVERA O BLOQUEO AV DE ALTO GRADO / MOBITZ II INESTABLE (según los algoritmos de Soporte Vital Cardiovascular Avanzado - ACLS / AHA): 1) Primera Línea: Atropina IV (1 mg IV en bolo, repetible hasta 3 mg). Si la Atropina no es eficaz (habitualmente ocurre en bloqueos infranodales Mobitz II o BAV completo) o mientras se instala el marcapasos transcutáneo/transvenoso; 2) SEGUNDA LÍNEA FARMACOLÓGICA DE PUENTE: Infusión intravenosa continua de CATECOLAMINAS AGONISTAS BETA-ADRENÉRGICAS: ADRENALINA (Epinefrina, 2-10 μ g/min) o ISOPRENALINA (2-10 μ g/min) o Dopamina (5-20 μ g/kg/min). Estos fármacos estimulan los receptores β₁ adrenérgicos en el tejido de conducción y miocardio, aumentando la automaticidad del marcapasos de escape y acelerando la frecuencia ventricular. Administrar Propranolol o Esmolol (opciones A y B) o Amiodarona (opción D) agravaría y colapsaría al paciente."
+  },
+  {
+   "id": "SIAM-UP6-099",
+   "numero": 99,
+   "pregunta": "En la evaluación de la Fisiopatología de la Fibrilación Auricular, se analiza el proceso de 'Remodelado Auricular' (Remodelado Eléctrico, Estructural y Autonómico). ¿Cuál es el aforismo o regla clínica clásica propuesta por Allessie que sintetiza la naturaleza progresiva y autoperpetuante de la Fibrilación Auricular?",
+   "opciones": {
+    "a": "'Toda arritmia auricular es producida por la válvula aórtica'.",
+    "b": "'La Fibrilación Auricular cura la Fibrilación Auricular'.",
+    "c": "'La Fibrilación Auricular engendra Fibrilación Auricular' (AF begets AF).",
+    "d": "'El nódulo sinusal destruye la conducción ventricular'."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El concepto de REMODELADO AURICULAR en la Fibrilación Auricular (FA) explica por qué la arritmia tiende a progresar desde episodios paroxísticos breves hacia formas persistentes y permanentes. AFORISMO CLÁSICOM DE ALLESSIE (1995): 'LA FIBRILACIÓN AURICULAR ENGENDRA FIBRILACIÓN AURICULAR' (AF begets AF). MECANISMO FISIOPATOLÓGICO: La propia presencia de la FA a alta frecuencia auricular (300-600 bpm) desencadena: 1) Remodelado Eléctrico: Acortamiento del período refractario auricular y pérdida de la adaptación a la frecuencia por sobrecarga celular de calcio; 2) Remodelado Estructural: Dilatación auricular, hipertrofia de miocitos, apoptosis y fibrosis intersticial masiva; Y 3) Remodelado Autonómico. Este tejido remodelado y fibrótico facilita y perpetúa la aparición de nuevas microrreentradas, haciendo que cuanto más tiempo pasa el paciente en FA, más difícil resulta restaurar y mantener el ritmo sinusal. La opción C es la regla patogénica de referencia."
+  }
+ ]
+}

@@ -854,6 +854,15 @@ const TEMATICA_POR_MATERIA = {
             }
         ],
         global: { label: 'Examen Integrador', sub: 'Integra las 8 secciones (UP 1 a UP 4).', icono: '🎓', tematica: 'Examen Integrador (Al azar / Todas las UP)' }
+    },
+    siam: {
+        totalUP: 9,
+        upSubtitulos: {},
+        parciales: [
+            { label: 'Primer Parcial', sub: 'UP 1 a la 5.', icono: '📄', claseIcono: 'ic-blue', tematica: 'Primer Parcial (UP 1 a 5)', rango: 'UP 1 a 5', unidadesParcial: ['UP1', 'UP2', 'UP3', 'UP4', 'UP5'] },
+            { label: 'Segundo Parcial', sub: 'UP 6 a la 9.', icono: '📚', claseIcono: 'ic-purple', tematica: 'Segundo Parcial (UP 6 a 9)', rango: 'UP 6 a 9', unidadesParcial: ['UP6', 'UP7', 'UP8', 'UP9'] }
+        ],
+        global: { label: 'Examen Final', sub: 'Integra las 9 unidades (UP 1 a UP 9).', icono: '🎓', claseIcono: 'ic-green', tematica: 'Examen Final (Todas las UP)' }
     }
 };
 
@@ -905,6 +914,25 @@ Necesitás conexión al momento de entregar y la corrección es orientativa.`
             malas_noticias: 'Aplicá el protocolo SPIKES para comunicar diagnósticos adversos de manera empática y profesional.',
             auditoria_hc: 'Analizá y criticá la documentación de un caso clínico buscando errores u omisiones médico-legales.'
         }
+    },
+    siam: {
+        escrito: {
+            normal: `## ✍️ De qué se trata
+Preguntas de desarrollo de Salud Integral del Adulto Mayor, como un examen escrito de la cátedra: respondés con tus palabras (tipeando o dictando con el micrófono, hasta 6.000 caracteres por respuesta) y un tribunal de IA corrige cada una contra los puntos clave.
+
+## 📚 Qué temas entran (los elegís en el próximo paso)
+- **Primer Parcial:** UP 1 a UP 5.
+- **Segundo Parcial:** UP 6 a UP 9.
+- **Examen Final:** las 9 unidades.
+- **UP Específica:** una Unidad Problema puntual.
+Por defecto son 10 preguntas en 60 minutos, con un máximo de 30 preguntas por examen.
+
+## 🧾 Cómo se corrige
+Recibís nota por pregunta, rúbrica y feedback detallado. Las respuestas flojas quedan marcadas "para reforzar" y podés reintentarlas.
+> Si tu respuesta incluye un error peligroso para el paciente, la nota de esa pregunta queda limitada a 5.
+
+Necesitás conexión al momento de entregar y la corrección es orientativa.`
+        }
     }
 };
 
@@ -932,6 +960,19 @@ const CHOICE_UNIDADES_POR_MATERIA = {
         { id: 'UP3_sec_4', archivo: 'data/UP3_sec_4_ginecologia.json', label: 'UP 3 · Sección 4: Atención Integral de la Mujer en el Embarazo' },
         { id: 'UP3_sec_5', archivo: 'data/UP3_sec_5_ginecologia.json', label: 'UP 3 · Sección 5: Atención Integral del Parto y Puerperio' },
         { id: 'UP4',       archivo: 'data/UP4_ginecologia.json',       label: 'UP 4: Salud Integral de la Adulta Mayor' },
+    ],
+    // S.I.A.M. (Salud Integral del Adulto Mayor): 9 UP. `parcial` indica a qué parcial pertenece cada una
+    // (examen.html filtra con eso: Parcial 1 = UP1 a UP5, Parcial 2 = UP6 a UP9; el Final usa todas).
+    siam: [
+        { id: 'UP1', parcial: 1, archivo: 'data/UP1_siam.json', label: 'UP 1: El adulto mayor y el agua' },
+        { id: 'UP2', parcial: 1, archivo: 'data/UP2_siam.json', label: 'UP 2: El adulto mayor en su vida cotidiana I' },
+        { id: 'UP3', parcial: 1, archivo: 'data/UP3_siam.json', label: 'UP 3: El adulto mayor en su vida cotidiana II' },
+        { id: 'UP4', parcial: 1, archivo: 'data/UP4_siam.json', label: 'UP 4: El adulto mayor en su vida cotidiana III' },
+        { id: 'UP5', parcial: 1, archivo: 'data/UP5_siam.json', label: 'UP 5: El adulto mayor en su vida cotidiana IV' },
+        { id: 'UP6', parcial: 2, archivo: 'data/UP6_siam.json', label: 'UP 6: El adulto mayor y su corazón I' },
+        { id: 'UP7', parcial: 2, archivo: 'data/UP7_siam.json', label: 'UP 7: El adulto mayor y su corazón II' },
+        { id: 'UP8', parcial: 2, archivo: 'data/UP8_siam.json', label: 'UP 8: El adulto mayor, la sexualidad y el descanso' },
+        { id: 'UP9', parcial: 2, archivo: 'data/UP9_siam.json', label: 'UP 9: El adulto mayor y el final de la vida' },
     ]
 };
 

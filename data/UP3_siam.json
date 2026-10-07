@@ -1,0 +1,1308 @@
+{
+ "modulo": "siam",
+ "unidad": "UP3",
+ "seccion": "Endocrinología, Dermatología, Neurología, Reumatología y Farmacología",
+ "titulo": "El adulto mayor en su vida cotidiana II",
+ "preguntas": [
+  {
+   "id": "SIAM-UP3-001",
+   "numero": 1,
+   "pregunta": "Un paciente de 67 años asintomático presenta en un laboratorio de rutina una calcemia total de 11,8 mg/dL (VN: 8,5-10,5 mg/dL) y una fosfatemia de 2,1 mg/dL (VN: 2,5-4,5 mg/dL). La hormona paratiroidea intacta (PTHi) se encuentra en 125 pg/mL (VN: 15-65 pg/mL). La ecografía de cuello revela un adenoma solitario en la glándula paratiroides inferior derecha. ¿Cuál es el diagnóstico metabólico y el mecanismo de la hipercalcemia?",
+   "opciones": {
+    "a": "Hipercalcemia humoral maligna mediada por la secreción tumoral del péptido relacionado con la PTH (PTHrp) con supresión completa de la PTHi endógena.",
+    "b": "Hiperparatiroidismo primario por adenoma paratiroideo; la PTH elevada estimula la resorción ósea, la reabsorción tubular de calcio y la síntesis de calcitriol.",
+    "c": "Hipoparatiroidismo primario secundario a la destrucción autoinmune del tejido paratiroideo por anticuerpos dirigidos contra los receptores sensores de calcio.",
+    "d": "Hiperparatiroidismo secundario por insuficiencia renal crónica terminal con osteodistrofia renal e hiperfosfatemia severa con calcio iónico bajo."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Hiperparatiroidismo Primario (HPTP) es la causa más frecuente de hipercalcemia ambulatoria en el adulto mayor, siendo originado en un 80-85% de los casos por un adenoma solitario benigno de la glándula paratiroides. La secreción autónoma e inapropiadamente elevada de Parathormona (PTH) desencadena la tríada metabólica clásica: 1) Hipercalcemia (por estímulo directo de los osteoclastos en el hueso y por reabsorción activa de calcio en el túbulo contorneado distal renal); 2) Hipofosfatemia (por inhibición de los cotransportadores Na/Pi en el túbulo proximal, aumentando la fosfaturia); y 3) Elevación del Calcitriol / 1,25-(OH)2-Vitamina D3 (por estímulo de la enzima 1-alfa-hidroxilasa renal, aumentando la absorción intestinal de calcio). La opción C es INCORRECTA porque el hipoparatiroidismo cursa con hipocalcemia y PTH baja. La opción A es INCORRECTA porque en la hipercalcemia tumoral por PTHrp, la PTHi endógena se encuentra completamente suprimida (<10 pg/mL). La opción D es INCORRECTA porque el hiperparatiroidismo secundario cursa con hipo o normocalcemia e hiperfosfatemia por falla renal."
+  },
+  {
+   "id": "SIAM-UP3-002",
+   "numero": 2,
+   "pregunta": "Una paciente de 62 años que fue sometida a una tiroidectomía total por bocio multinodular presenta a las 36 horas del posoperatorio parestesias peribucales y en acroestusias, espasmo carpopedio al inflar el manguito del tensiómetro (signo de Trousseau) y contracción de músculos faciales al percutir el nervio facial (signo de Chvostek). ¿Cuál es el diagnóstico y el perfil del laboratorio de control?",
+   "opciones": {
+    "a": "Tirotoxicosis aguda idiopática posquirúrgica; presenta calcemia normal con hipofosfatemia severa y alcalosis metabólica hiperclorémica.",
+    "b": "Hipoparatiroidismo post-quirúrgico; presenta hipocalcemia total/iónica, hiperfosfatemia y niveles séricos de hormona paratiroidea (PTH) indetectables o muy bajos.",
+    "c": "Pseudohipoparatiroidismo hereditario tipo 1A; presenta hipercalcemia refractaria con PTH extremadamente elevada e hipofosfatemia por resistencia tisular.",
+    "d": "Síndrome de Hueso Hambriento fulminante; presenta hipercalcemia masiva con hiperfosfatemia marcada y niveles reducidos de calcitonina tiroidea."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La causa más frecuente de Hipoparatiroidismo en el adulto es la exéresis o daño isquémico iatrogénico de las glándulas paratiroides durante una cirugía tiroidea o de cuello (tiroidectomía total). La deficiencia de PTH impide la movilización ósea de calcio, la reabsorción tubular de calcio y la activación de la vitamina D, originando Hipocalcemia e Hiperfosfatemia (al perderse el efecto fosfatúrico de la PTH) con PTH indetectable. Clínicamente se manifiesta por signos de hiperexcitabilidad neuromuscular (parestesias, tetania, espasmos), destacándose el Signo de Trousseau (isquemia inducida por esfingomanómetro que provoca espasmo flexor del carpo y dedos en 'mano de partero') y el Signo de Chvostek (percusión del nervio facial por delante del conducto auditivo que desencadena contracción de la comisura labial/ala nasal). La opción C es INCORRECTA porque el pseudohipoparatiroidismo es un trastorno congénito con PTH alta por resistencia al receptor. La opción D es INCORRECTA porque el hueso hambriento causa hipocalcemia sostenida por remineralización ósea rápida, no hipercalcemia. La opción A es INCORRECTA porque la tirotoxicosis no explica los signos de tetania hipocalcémica."
+  },
+  {
+   "id": "SIAM-UP3-003",
+   "numero": 3,
+   "pregunta": "Un paciente de 38 años presenta lesiones eritemato-vesiculosas acrales simétricas en diana (lesiones en escarapela con tres zonas concéntricas) en dorso de manos y antebrazos, tras un episodio de herpes labial recurrente hace 10 días. No presenta compromiso de mucosas ni desprendimiento epidérmico (Nikolsky negativo). ¿Cuál es el diagnóstico?",
+   "opciones": {
+    "a": "Eritema Polimorfo Minor (o multiforme minor), desencadenado en la mayoría de los casos por el Virus del Herpes Simple (HSV).",
+    "b": "Pénfigo Vulgar autoinmune por anticuerpos contra desmogleína 3 con compromiso ampollar mucoso difuso generalizado.",
+    "c": "Síndrome de Stevens-Johnson con afectación epidérmica extensa del 40% de la superficie corporal y signo de Nikolsky positivo.",
+    "d": "Necrólisis Epidérmica Tóxica (Síndrome de Lyell) grave mediada por reacción idiopática de hipersensibilidad a la sulfas."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El Eritema Polimorfo Minor (o Multiforme Minor) es una dermatosis inflamatoria aguda autofijada caracterizada por la presencia de lesiones elementales en 'diana' o 'escarapela' típicas (con tres zonas concéntricas: centro violáceo o vesiculoso, anillo pálido edematoso y halo eritematoso externo) localizadas preferentemente en regiones acrales (manos, antebrazos, pies). La etiología principal en más del 70-80% de los casos es la infección previa por el Virus del Herpes Simple (HSV-1 o HSV-2). Se diferencia del Eritema Polimorfo Major y del Síndrome de Stevens-Johnson porque NO presenta compromiso sistémico severo, el compromiso de mucosas es mínimo o nulo y afecta menos del 10% de la superficie corporal sin signo de Nikolsky. La opción D es INCORRECTA porque el síndrome de Lyell afecta >30% de ASC con Nikolsky positivo y compromiso mucoso masivo. La opción C es INCORRECTA porque el SSJ afecta <10% de ASC pero con compromiso mucoso severo y causa farmacológica. La opción B es INCORRECTA porque el pénfigo cursa con ampollas flácidas e histología acantolítica."
+  },
+  {
+   "id": "SIAM-UP3-004",
+   "numero": 4,
+   "pregunta": "Una paciente de 65 años iniciada en Alopurinol hace 3 semanas consulta por fiebre alta, malestar general, dolor cutáneo difuso y erosiones sangrantes en mucosa oral, ocular y genital. Al examen presenta exantema con ampollas flácidas y desprendimiento epidérmico en láminas que abarca el 35% de la Superficie Corporal Total (signo de Nikolsky positivo). ¿Cuál es el diagnóstico y el pilar del manejo?",
+   "opciones": {
+    "a": "Síndrome de Stevens-Johnson limitado; requiere únicamente la reducción de la dosis de Alopurinol a la mitad sin internación.",
+    "b": "Pénfigo Ampollar Benigno de la infancia; requiere fototerapia con radiación ultravioleta B e higiene con jabón neutro.",
+    "c": "Eritema Polimorfo Minor vesicular acral; requiere tratamiento ambulatorio con aciclovir oral y crema con corticoides.",
+    "d": "Necrólisis Epidérmica Tóxica (Síndrome de Lyell); requiere suspensión inmediata del fármaco y manejo en Unidad de Quemados/UTI."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Necrólisis Epidérmica Tóxica (NET o Síndrome de Lyell) y el Síndrome de Stevens-Johnson (SSJ) son variantes de una misma patología dermatológica grave inducida por fármacos (reacción de hipersensibilidad citotóxica mediada por linfocitos T que induce apoptosis masiva de queratinocitos). Se clasifican según el porcentaje de Área de Superficie Corporal (ASC) con desprendimiento epidérmico (Signo de Nikolsky positivo): 1) SSJ: afecta menos del 10% de ASC; 2) Overlap SSJ/NET: afecta del 10 al 30% de ASC; y 3) NET / Lyell: afecta MÁS DEL 30% de ASC (en este caso, 35%). Los fármacos más frecuentemente implicados son Alopurinol, Anticonvulsivantes (Carbamazepina, Fenitoína, Lamotrigina), AINEs y Sulfonamidas. El pilar del tratamiento includes la SUSPENSIÓN INMEDIATA del fármaco causal, la internación urgente en Unidad de Quemados o UTI, soporte hidroelectrolítico, reposición de barrera cutánea y prevención de sepsis. Las opciones A, B y C subestiman la gravedad o se equivocan en el diagnóstico y la conducta médica."
+  },
+  {
+   "id": "SIAM-UP3-005",
+   "numero": 5,
+   "pregunta": "¿Cuál es el sustrato neuropatológico cardinal y la tríada motora diagnóstica de la Enfermedad de Parkinson?",
+   "opciones": {
+    "a": "Desmielinización inflamatoria autoinmune focal de la sustancia blanca periventricular; tríada: nistagmo, temblor intencional y palabra escandida.",
+    "b": "Atrofia progresiva de la vía corticoespinal en el asta anterior medular; tríada: espasticidad, hiperreflexia y Babinski bilateral.",
+    "c": "Degeneración de neuronas dopaminérgicas en la sustancia negra pars compacta con cuerpos de Lewy; tríada: bradicinesia, rigidez y temblor de reposo.",
+    "d": "Destrucción de las neuronas GABAérgicas del núcleo caudado por expansión de tripletes CAG; tríada: corea, demencia y ataxia."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Enfermedad de Parkinson es un trastorno neurodegenerativo crónico y progresivo. Su pilar neuropatológico es la pérdida y degeneración progresiva de las neuronas dopaminérgicas de la Sustancia Negra Pars Compacta (SNpc) del mesencéfalo que proyectan hacia el cuerpo estriado (vía nigroestriada), acompañada de la presencia de inclusiones citoplasmáticas eosinofílicas neuronales compuestas por alfa-sinucleína denominadas Cuerpos de Lewy. La TRÍADA MOTORA CARDINAL está compuesta por: 1) Bradicinesia (lentitud motora y disminución de la amplitud de movimientos, requisito indispensable); 2) Rigidez muscular (aumento del tono hiperatónico con fenómeno de 'rueda dentada' o 'caño de plomo'); y 3) Temblor de Reposo (asimétrico, de 4 a 6 Hz, característicamente en 'cuentamonedas' que disminuye con el movimiento voluntario). La opción D corresponde a la Enfermedad de Huntington. La opción B corresponde a la ELA / vía piramidal. La opción A corresponde a la Tríada de Charcot en Esclerosis Múltiple."
+  },
+  {
+   "id": "SIAM-UP3-006",
+   "numero": 6,
+   "pregunta": "En el tratamiento de la Enfermedad de Parkinson, se prescribe la asociación de Levodopa con Carbidopa o Benserazida. ¿Cuál es la razón farmacocinética obligatoria de esta combinación y qué precaución dietética se debe indicar al paciente respecto a las comidas?",
+   "opciones": {
+    "a": "La Carbidopa estimula la absorción intestinal de levodopa; se debe administrar con dietas ricas en lípidos saturados para evitar la diarrea.",
+    "b": "La Carbidopa destruye las enzimas del citocromo P450 renales; se debe administrar junto con jugos cítricos hiperácidos.",
+    "c": "La Carbidopa inhibe a la dopa-descarboxilasa periférica permitiendo mayor paso de levodopa al SNC; se debe separar de las comidas ricas en proteínas.",
+    "d": "La Carbidopa bloquea los receptores muscarínicos M1 del estómago; se debe tomar conjuntamente con suplementos de calcio y hierro."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Levodopa es el precursor metabólico inmediato de la dopamina y atraviesa la barrera hematoencefálica (BHE) mediante un sistema de transporte activo de aminoácidos neutros. Dado que la dopa-descarboxilasa periférica convierte masivamente a la levodopa en dopamina en los tejidos extracerebrales (causando náuseas, vómitos e hipotensión), la Levodopa debe administrarse indefectiblemente asociada a un inhibidor de la dopa-descarboxilasa periférica que NO cruza la BHE (Carbidopa o Benserazida). Esto aumenta la vida media y la cantidad de levodopa disponible para entrar al cerebro (del 1% al 10%) reduciendo la toxicidad sistémica. Desde el punto de vista farmacocinético, los aminoácidos de las proteínas de la dieta (carnes, lácteos) compiten con la levodopa por el mismo transportador de absorción intestinal y de pasaje por la BHE; por lo tanto, se debe indicar al paciente tomar la Levodopa al menos 30-60 minutos ANTES o 2 horas DESPUÉS de las comidas (o redistribuir la ingesta proteica hacia la noche) para evitar fluctuaciones motoras. Las opciones A, B y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-007",
+   "numero": 7,
+   "pregunta": "Un paciente con Enfermedad de Parkinson de 68 años en tratamiento con Levodopa/Carbidopa comienza a presentar fluctuaciones motoras con acortamiento del efecto de la dosis (fenómeno de wearing-off o 'deterioro de fin de dosis'). Se decide agregar Entacapona o Rasagilina. ¿Cuál es el mecanismo de acción de estos fármacos?",
+   "opciones": {
+    "a": "La Entacapona estimula la síntesis de GABA en el núcleo subtalámico; la Rasagilina bloquea los receptores beta-2 bronquiales.",
+    "b": "La Entacapona inhibe a la enzima COMT periférica; la Rasagilina inhibe de forma selectiva e irreversible a la enzima MAO-B central.",
+    "c": "Ambos fármacos aumentan la depuración renal de dopamina impidiendo la formación de metabólicos tóxicos tofo-ácidos.",
+    "d": "Ambos fármacos actúan como agonistas muscarínicos puros en los ganglios de la base reduciendo la acetilcolina estriatal."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Cuando la Enfermedad de Parkinson progresa, la pérdida de terminales dopaminérgicos reduce la capacidad del estriado para almacenar dopamina, apareciendo fluctuaciones motoras como el 'wearing-off' (deterioro de fin de dosis, donde el efecto de la levodopa se agota antes de la siguiente toma). Para controlar esto se utilizan adyuvantes enzimáticos: 1) Inhibidores de la COMT (Catecol-O-Metiltransferasa, ej. Entacapona, Tolcapona): inhiben la degradación periférica de levodopa a 3-O-metildopa, prolongando la vida media plasmática de la levodopa y aumentando la duración de su efecto motor 'On'; y 2) Inhibidores de la MAO-B (Monoaminooxidasa tipo B, ej. Selegilina, Rasagilina): inhiben de forma selectiva e irreversible la degradación central de la dopamina en el estriado, incrementando la disponibilidad de dopamina endógena y exógena. La opción A, C y D señalan mecanismos falsos."
+  },
+  {
+   "id": "SIAM-UP3-008",
+   "numero": 8,
+   "pregunta": "Un paciente de 65 años consulta por inestabilidad en la marcha. Al examen físico presenta marcha atáxica (marcha de ebrio con aumento de la base de sustentación), nistagmo, habla escandida o explosiva, e hipotonía muscular. Al realizar la prueba índice-nariz y talón-rodilla con la mano y pierna derechas presenta vacilación y temblor al final del movimiento (dismetría) e imposibilidad para realizar movimientos alternantes rápidos (adiadococinesia). ¿Dónde se ubica la lesión?",
+   "opciones": {
+    "a": "Núcleo caudado bilateral por oclusión de las arterias lenticuloestriadas profundas del tálamo.",
+    "b": "Lóbulo frontal derecho en el área motora suplementaria y corteza prefrontal orbitofrontal.",
+    "c": "Hemisferio cerebeloso derecho, dado que las manifestaciones apendiculares cerebelosas son homolaterales a la lesión.",
+    "d": "Hemisferio cerebeloso izquierdo, por decusación doble de las vías cortico-espinales en el bulbo."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El Síndrome Cerebeloso agrupa los signos y síntomas derivados de la disfunción del cerebelo o de sus vías aferentes/eferentes. Se caracteriza por: Ataxia (de la marcha y del tronco), Dismetría (incapacidad para ajustar la distancia y velocidad de los movimientos, temblor intencional), Adiadococinesia (dificultad para realizar movimientos alternantes rápidos como la pronosupinación), Asinergia, Hipotonía muscular, Nistagmo y Disartria / habla escandida. Una regla de oro de la semiología neurológica de SIAM establece que las lesiones de un Hemisferio Cerebeloso producen signos de ataxia, dismetría y adiadococinesia APENDICULARES (en los miembros) strictly HOMOLATERALES (del mismo lado) de la lesión (es decir, lesión en el hemisferio cerebeloso derecho causa dismetría y adiadococinesia en los miembros derechos). Las opciones A, B y D señalan topografías erróneas o contralaterales."
+  },
+  {
+   "id": "SIAM-UP3-009",
+   "numero": 9,
+   "pregunta": "Una paciente de 62 años consulta por vértigo rotatorio súbito e intenso de 24 horas de evolución, acompañado de náuseas, vómitos, acúfenos e hipoacusia en el oído izquierdo. Al examen físico presenta nistagmo horizontal-rotatorio cuya fase rápida bate hacia la derecha (lado sano) y se inhibe con la fijación de la mirada, y signo de Romberg positivo con lateralización constante hacia la izquierda (lado afectado). ¿Cuál es la clasificación del síndrome vestibular?",
+   "opciones": {
+    "a": "Síndrome Vestibular Central Disonante, por infarto isquémico masivo del lóbulo occipital ipsilateral.",
+    "b": "Síndrome Vestibular Periférico Armónico (destructivo izquierdo), por afectación del laberinto o nervio vestibulococlear (VIII par).",
+    "c": "Síndrome Cerebeloso puro, por degeneración espinocerebelosa autoinmune asociada a la edad.",
+    "d": "Síndrome Extrapiramidal Rígido, por oclusión de la arteria cerebral media en su segmento M1."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El diagnóstico diferencial entre Síndrome Vestibular Periférico y Central es un tema evaluado de forma excluyente en SIAM: 1) Síndrome Vestibular Periférico (daño en laberinto o VIII par craneal): Es Armónico o Sistemático (todas las desviaciones del cuerpo -Romberg, marcha en estrella, prueba de índices- ocurren hacia el lado afectado o hipovalente, mientras que la fase rápida del nistagmo bate hacia el lado sano opuesto). El nistagmo es unidireccional (horizontal/rotatorio), se inhibe con la fijación de la mirada, cursa con vértigo intenso, cortejo vegetativo (náuseas/vómitos) y frecuentemente se acompaña de síntomas auditivos (hipoacusia/acúfenos). 2) Síndrome Vestibular Central (daño en núcleos del tronco o cerebelo): Es Disonante o No Armónico (las desviaciones no coinciden), el nistagmo puede ser multidireccional o vertical puro, NO se inhibe con la fijación de la mirada, el vértigo es menos intenso pero cursa con otros signos neurológicos de tronco. En este caso, la concordancia y los síntomas auditivos confirman el origen periférico. Las opciones A, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP3-010",
+   "numero": 10,
+   "pregunta": "Un paciente de 60 años presenta movimientos involuntarios bruscos, breves, arrítmicos, rápidos y desordenados que 'migran' continuamente de una parte del cuerpo a otra (de la cara a los miembros superiores), imitando gestos o movimientos intencionados, acompañados de hipotonía. ¿Cómo se denomina semiológicamente este trastorno hipercinético del movimiento?",
+   "opciones": {
+    "a": "Temblor de acción cinético por hipotiroidismo primario refractario.",
+    "b": "Distonía focal primaria por contracción muscular sustained antagonista.",
+    "c": "Mioclonía de acción positiva por descarga cortical epiléptica sincronizada.",
+    "d": "Corea (movimientos coreicos) por hiperactividad dopaminérgica o lesión del cuerpo estriado."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los trastornos hipercinéticos del movimiento se diferencian semiológicamente por sus características temporales y espaciales: 1) Corea: Movimientos involuntarios rápidos, breves, bruscos, arrítmicos, desordenados e impredecibles que fluyen/migran de un segmento corporal a otro (cara, tronco, extremidades); el paciente intenta a menudo disimularlos incorporándolos a movimientos voluntarios. Se acompañan de hipotonía y se deben a disfunción del cuerpo estriado (núcleo caudado/putamen) con hiperactividad dopaminérgica o pérdida de neuronas GABAérgicas (ej. Corea de Huntington, Corea de Sydenham, causas farmacológicas/metabólicas). 2) Atetosis: Movimientos lentos, reptantes, contorsionados (frecuentemente distales en manos). 3) Distonía: Contracción muscular sostenida e involuntaria que causa posturas anómalas o torceduras. 4) Mioclonías: Sacudidas musculares breves y bruscas tipo 'descarga eléctrica'. La opción D define exactamente los movimientos coreicos."
+  },
+  {
+   "id": "SIAM-UP3-011",
+   "numero": 11,
+   "pregunta": "Un paciente varón de 64 años con antecedente de hipertensión e hiperuricemia consulta por dolor extremo, eritema, calor y tumefacción de inicio brusco nocturno en la primera articulación metatarsofalángica del pie derecho (podagra). La artrocentesis del líquido sinovial muestra cristales intra y extracelulares en forma de aguja con fuerte birrefringencia negativa. ¿Cuál es el diagnóstico y el tratamiento de primera línea del brote agudo?",
+   "opciones": {
+    "a": "Artritis Reumatoide seropositiva erosiva; tratamiento inmediato con Metotrexato e Infliximab por vía subcutánea.",
+    "b": "Condrocalcinosis por Cristales de Pirofosfato de Calcio (Pseudogota); tratamiento con antibióticos intravenosos de amplio espectro.",
+    "c": "Artritis séptica por Staphylococcus aureus; tratamiento con Alopurinol en dosis de carga de 600 mg e inmovilización.",
+    "d": "Artritis Gotosa Aguda (Gota); tratamiento inicial con AINEs (ej. Indometacina/Naproxeno), Colchicina o Corticoides."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Gota es una artropatía microcristalina producida por el depósito de cristales de Urato Monosódico (UMS) en las articulaciones y tejidos periarticulares, secundaria a una hiperuricemia crónica (ácido úrico en sangre >6,8 mg/dL). El brote agudo (Artritis Gotosa Aguda) suele ser monoarticular, de inicio brusco e intenso (frecuentemente nocturno), afectando clásicamente a la primera articulación metatarsofalángica (Podagra en >50% de los primeros episodios), tobillos o rodillas. El diagnóstico de certeza se realiza mediante el análisis del líquido sinovial por microscopía de luz polarizada, observándose cristales de urato en forma de aguja con birrefringencia negativa intensa. El tratamiento del brote agudo busca reducir la inflamación y el dolor: se indican AINEs a dosis plenas (Naproxeno, Indometacina), Colchicina (dosis bajas 1 mg seguido de 0,5 mg a la hora) o Corticoides sistémicos/intraarticulares si existen contraindicaciones renales o digestivas para AINEs/colchicina. La opción A, B y C señalan diagnósticos o tratamientos erróneos."
+  },
+  {
+   "id": "SIAM-UP3-012",
+   "numero": 12,
+   "pregunta": "Un paciente con antecedente de tres brotes de artritis gotosa en el último año y tofos gotosos en codos presenta una uricemia de 9,5 mg/dL. Se decide iniciar Terapia Hipouricemiante con Alopurinol. ¿Cuál es el mecanismo de acción de la droga, la meta de uricemia y la pauta de profilaxis de brote al iniciar el tratamiento?",
+   "opciones": {
+    "a": "Inhibe a la enzima convertidora de angiotensina; la meta es uricemia <10 mg/dL sin requerir profilaxis.",
+    "b": "Inactiva a la enzima ciclooxigenasa-2; la meta es uricemia de 4 mg/dL administrando antibióticos orales.",
+    "c": "Inhibe a la enzima Xantino Oxidasa; la meta es uricemia <6 mg/dL (o <5 mg/dL en tofos) y requiere profilaxis con Colchicina a dosis baja durante los primeros 3 a 6 meses.",
+    "d": "Estimula la reabsorción tubular proximal de urato; la meta es uricemia de 8 mg/dL usando dosis altas de aspirina."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El Alopurinol es el fármaco de primera línea para la Terapia Hipouricemiante (THU) crónica en la gota. Es un análogo de la purina que inhibe competitivamente a la enzima Xantino Oxidasa, bloqueando la conversión de hipoxantina a xantina y de xantina a ácido úrico, reduciendo los niveles plasmáticos y urinarios de ácido úrico. Las metas terapéuticas internacionales y de SIAM son reducir la uricemia a menos de 6 mg/dL (360 umol/L) en todos los pacientes con gota, o menos de 5 mg/dL en presencia de tofos graves, para lograr la disolución de los cristales tisulares. REGLA CLÍNICA OBLIGATORIA: El descenso rápido de la uricemia al iniciar la THU moviliza los depósitos de urato articular y puede desencadenar brotes agudos repetidos de gota; por ello, la THU debe iniciarse siempre a dosis bajas con titulación progresiva y asociarse obligatoriamente a PROFILAXIS DE BROTES con Colchicina a dosis reducidas (0,5 a 1 mg/día) o AINEs a dosis bajas durante los primeros 3 a 6 meses de tratamiento. Las opciones A, B y D señalan mecanismos o metas incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-013",
+   "numero": 13,
+   "pregunta": "Una paciente posmenopáusica de 72 años asintomática realiza una Densitometría Ósea (DXA) que reporta un T-score de -2,8 en cuello femoral y -3,1 en columna lumbar. No presenta antecedentes de fracturas. ¿Cómo se clasifica el hallazgo, cuál es el fármaco de primera línea y sus instrucciones estrictas de administración oral?",
+   "opciones": {
+    "a": "Osteomalacia senil; se indica Calcitonina nasal a dosis diarias elevadas junto con diuréticos tiazídicos en dosis altas.",
+    "b": "Osteoporosis; se indica un Bisfosfonato (Alendronato 70 mg/semana); tomar en ayunas con vaso lleno de agua y mantener bipedestación/sedestación 30 min.",
+    "c": "Osteopenia leve; se indica únicamente terapia física con calor local sin requerir suplementos ni fármacos antirresortivos.",
+    "d": "Enfermedad de Paget ósea; se indica teriparatida diaria durante 10 años en infusión intravenosa continua."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Según los criterios de la OMS y las guías de SIAM, la Densitometría Ósea (DXA) clasifica el estado de la masa ósea según el T-score (desviación estándar respecto a la masa ósea de la población joven sana): 1) Normal: T-score ≥ -1,0; 2) Osteopenia: T-score entre -1,0 y -2,5; y 3) Osteoporosis: T-score ≤ -2,5 (en este caso -2,8 y -3,1). La presencia de osteoporosis densitométrica o de una fractura por fragilidad es indicación formal de tratamiento farmacológico antirresortivo. Los Bisfosfonatos orales (Alendronato 70 mg semanal o Risedronato 35 mg semanal) son los fármacos de primera elección. Debido a su extremadamente baja biodisponibilidad oral (<1%) y su potencial toxicidad esofágica (esofagitis erosiva/ulcerativa), exigen pautas de administración estrictas: tomar inmediatamente al levantarse en ayunas, con un vaso completo de agua de la canilla (sin jugos, café ni agua mineral con calcio), y permanecer en posición erguida (de pie o sentado, sin acostarse) durante al menos 30 a 60 minutos sin ingerir alimentos ni otros medicamentos. Las opciones A, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP3-014",
+   "numero": 14,
+   "pregunta": "Una paciente de 75 años con osteoporosis severa en tratamiento con Alendronato oral desde hace 6 años consulta por dolor sordo en muslo derecho de 2 meses de evolución. La radiografía de fémur muestra engrosamiento cortical focal y una línea de fractura transversal en la diáfisis femoral. ¿Cuál es el diagnóstico de este efecto adverso raro asociado al uso prolongado de bisfosfonatos?",
+   "opciones": {
+    "a": "Miositis osificante traumática secundaria a caídas repetidas desapercibidas.",
+    "b": "Fractura femoral atípica por supresión severa y prolongada del recambio óseo (remodelado).",
+    "c": "Osteonecrosis avascular de la cabeza femoral por hipercoagulabilidad sintomática.",
+    "d": "Fractura patológica por metástasis osteolítica de carcinoma papilar de tiroides."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Los Bisfosfonatos son potentes inhibidores de la resorción ósea osteoclástica (inducen apoptosis de osteoclastos). Sin embargo, el uso ininterrumpido a muy largo plazo (generalmente más de 3 a 5 años) puede suprimir excesivamente el remodelado óseo fisiológico, impidiendo la reparación de microfracturas por fatiga y aumentando la rigidez/fragilidad del hueso cortical. Esto predispone al desarrollo de dos efectos adversos raros pero graves reconocidos en SIAM: 1) Fracturas Femorales Atípicas (subtrocantéricas o diafisarias, de trazo transversal o shor-oblicuo, precedidas por dolor sordo prodrómico en muslo/ingle); y 2) Osteonecrosis de la Mandíbula / Maxilar (ONM, especialmente tras procedimientos dentales invasivos). Ante una fractura atípica, se debe suspender inmediatamente el bisfosfonato, evaluar la pierna contralateral y considerar terapias osteoformadoras (Teriparatida). Para minimizar estos riesgos se recomiendan las 'vacaciones terapéuticas' (evaluar suspensión temporal a los 3-5 años). Las opciones A, C y D no corresponden al efecto adverso del fármaco."
+  },
+  {
+   "id": "SIAM-UP3-015",
+   "numero": 15,
+   "pregunta": "Una paciente de 70 años consulta por dolor mecánico en ambas rodillas (gonartrosis) que aumenta con la deambulación y bajar escaleras y cede con el reposo, acompañado de rigidez matutina de 15 minutos de duración y crujidos articulares. Al examen físico se palpan engrosamientos óseos indoloros en las articulaciones interfalángicas distales de las manos. ¿Cómo se denominan estos nódulos y cuál es el pilar del tratamiento sintomático inicial?",
+   "opciones": {
+    "a": "Eritema nodoso pretibial; se trata con antibióticos betalactámicos y reposo en cama.",
+    "b": "Nódulos de Bouchard; se trata con metotrexato oral y terapia biológica anti-TNF.",
+    "c": "Nódulos de Heberden; el pilar inicial incluye educación, descenso de peso, ejercicio y Paracetamol / AINEs tópicos.",
+    "d": "Tofos gotosos sinoviales; se trata con alopurinol en dosis de carga y diálisis urgente."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Artrosis (Osteoartritis) es la artropatía degenerativa más frecuente en el adulto mayor, caracterizada por la pérdida progresiva del cartílago articular, esclerosis subcondral, formación de osteofitos marginales y remodelado óseo. Clínicamente cursa con dolor de ritmo mecánico (empeora con el uso/carga articular, mejora con el reposo), rigidez matutina breve (<30 minutos, a diferencia de la artritis reumatoide que supera 1 hora), crepitación y limitación funcional. En las manos, la proliferación osteofítica produce los Nódulos de Heberden (en las articulaciones interfalángicas distales - IFD) y los Nódulos de Bouchard (en las interfalángicas proximales - IFP). El tratamiento no farmacológico (educación, descenso de peso, fisioterapia, fortalecimiento del cuádriceps, bastón) es la base indispensable. El tratamiento farmacológico inicial sintomático de primera línea incluye Paracetamol y AINEs tópicos (ej. Diclofenac gel), progresando a AINEs orales a la menor dosis y tiempo posible por la toxicidad geriátrica. La opción B confunde los nódulos (Bouchard es IFP) y el fármaco. Las opciones A y D son patologías ajenas."
+  },
+  {
+   "id": "SIAM-UP3-016",
+   "numero": 16,
+   "pregunta": "Una paciente de 62 años consulta por dolor musculoesquelético generalizado difuso de más de 6 meses de evolución, acompañado de astenia crónica, sueño no reparador, rigidez matutina difusa y trastornos del ánimo. Al examen físico presenta dolor a la palpación en múltiples puntos sensibles (tender points) sin signos inflamatorios articulares (no hay sinovitis). Los reactantes de fase aguda (VSG y PCR) y autoanticuerpos son normales. ¿Cuál es el diagnóstico y el grupo farmacológico neuromodulador indicado de primera línea?",
+   "opciones": {
+    "a": "Artritis Reumatoide seronegativa; se indica prednisona 60 mg/día de forma indefinida.",
+    "b": "Polimialgia Reumática pura; se indica profilaxis con antibióticos de amplio espectro.",
+    "c": "Lupus Eritematoso Sistémico grave; se indica ciclofosfamina endovenosa en bolos mensuales.",
+    "d": "Fibromialgia; se indica abordaje no farmacológico junto con neuromoduladores (ej. Duloxetina o Pregabalina)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Fibromialgia es un síndrome de dolor musculoesquelético crónico difuso no inflamatorio de causa nociplástica (sensibilización central del procesamiento del dolor en el SNC), caracterizado por dolor en múltiples regiones corporales, fatiga crónica, alteraciones del sueño (sueño no reparador por intrusión de ondas alfa en sueño lento), síntomas cognitivos y somáticos. Una característica analítica fundamental en SIAM es que los laboratorios de laboratorio general, reactantes de fase aguda (VSG, PCR) e inmunológicos (ANA, FR) son COMPLETAMENTE NORMALES, descartando enfermedad inflamatoria o autoinmune sistémica. Los analgésicos convencionales (AINEs) y los OPIOIDES mayoritariamente carecen de eficacia y están CONTRAINDICADOS. El tratamiento de primera línea combina terapia cognitivo-conductual, ejercicio aeróbico progresivo y neuromoduladores centrales que regulan las vías descendentes del dolor, como los Inhibidores de la Recaptación de Serotonina y Noradrenalina (Duloxetina) o los Ligandos de la subunidad alfa-2-delta de los canales de calcio (Pregabalina o Gabapentina). Las opciones A, B y C son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-017",
+   "numero": 17,
+   "pregunta": "Al prescribir un AINE no selectivo (ej. Indometacina, Ketorolac, Naproxeno) a un paciente hipertenso de 72 años con enfermedad renal crónica, ¿cuál es el mecanismo enzimático de su toxicidad renal y gastrointestinal?",
+   "opciones": {
+    "a": "Inhiben a la COX-1 y COX-2; reducen las prostaglandinas renales (PGE2/PGI2) causando vasoconstricción aferente y disminuyen el moco gástrico.",
+    "b": "Estimulan la síntesis de tromboxano A2 en los miocitos; causan vasodilatación eferente masiva con alcalosis metabólica.",
+    "c": "Inactivan a la anhidrasa carbónica tubular; causan hipercalciuria severa con atonía vesical y diarrea.",
+    "d": "Bloquean los receptores beta-1 cardíacos; causan bradicardia sinusal refractaria con hipoglucemia."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Los Antiinflamatorios No Esteroideos (AINEs) actúan inhibiendo a la enzima Ciclooxigenasa (COX), bloqueando la conversión del ácido araquidónico en prostaglandinas y tromboxanos. La isoforma COX-1 es constitutiva y produce prostaglandinas citoprotectoras (PGE2, PGI2) en la mucosa gástrica (estimulan la secreción de moco y bicarbonato) y tromboxano A2 en plaquetas. La isoforma COX-2 es inducible en sitios de inflamación, pero también CONSTITUTIVA en el riñón y endotelio. La inhibición de la COX gástrica por AINEs tradicionales produce erosiones, úlceras y sangrado digestivo. A nivel renal, las prostaglandinas vasodilatadoras (PGE2 y PGI2) mantienen la perfusión glomerular al vasodilatar la arteriola aferente (especialmente en ancianos, hipertensos o con depleción de volumen). Los AINEs (tanto no selectivos como coxibes) inhiben la síntesis de estas prostaglandinas, desencadenando vasoconstricción de la arteriola aferente, caída del filtrado glomerular, retención de sodio y agua (edemas, elevación de la PA) e hiperpotasemia. Las opciones B, C y D citan mecanismos falsos."
+  },
+  {
+   "id": "SIAM-UP3-018",
+   "numero": 18,
+   "pregunta": "Un paciente de 68 años recibe tratamiento crónico con Meprednisona 40 mg/día desde hace 8 meses por una vasculitis. Presenta facies de 'luna llena', giba dorsal, estrías violáceas en abdomen, hiperglucemia de 210 mg/dL e hipertensión arterial. ¿Cuáles son los efectos adversos metabólicos y endocrinos del uso prolongado de glucocorticoides y el riesgo de la suspensión abrupta?",
+   "opciones": {
+    "a": "Inducen hipoglucemia severa por destrucción pancreática; la suspensión abrupta causa hipercalciuria masiva.",
+    "b": "Estimulan la fijación de calcio en el hueso; la suspensión causa hiperparatiroidismo primario por adenoma.",
+    "c": "Inducen catabolismo proteico, gluconeogénesis, redistribución grasa e insulinoresistencia; la suspensión abrupta desencadena una Crisis Suprarrenal Aguda por supresión del eje HH-Suprarrenal.",
+    "d": "Aumentan la masa muscular por anabolismo proteico; la suspensión causa tiroiditis autoinmune silente."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Los Glucocorticoides (Prednisona, Meprednisona, Dexametasona) son potentes antiinflamatorios e inmunosupresores. Sin embargo, su administración sistémica prolongada (más de 2-3 semanas a dosis suprofisiológicas) produce efectos adversos multiorgánicos graves: 1) Metabólicos: estimulación de la gluconeogénesis hepática, inhibición de la captación periférica de glucosa (insulinoresistencia e hiperglucemia/diabetes esteroidea), catabolismo proteico (atrofia muscular, piel fina, estrías violáceas) y redistribución de la grasa corporal (obesidad central, facies de luna llena, giba búfalo); 2) Óseos: osteoporosis esteroidea por inhibición de osteoblastos y menor absorción de calcio; y 3) Cardiovasculares: retención hidrosalina y HTA. REGLA DE ORO DE SEGURIDAD: El uso prolongado suprime por retroalimentación negativa al eje Hipotálamo-Hipófiso-Suprarrenal (HHS) con atrofia de la corteza suprarrenal; la SUSPENSIÓN ABRUPTA provoca una CRISIS SUPRARRENAL AGUDÍSIMA (insuficiencia suprarrenal secundaria con colapso hemodinámico, shock y muerte). El retiro debe ser siempre gradual y escalonado. Las opciones A, B y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-019",
+   "numero": 19,
+   "pregunta": "Un paciente de 78 años sufre una caída desde su propia altura en el domicilio sin presentar fracturas óseas. A partir del evento, desarrolla un temor intenso a volver a caerse, rechaza deambular, se limita a la cama o sillón y presenta pérdida progresiva de la autonomía física e interacción social. ¿Cómo se denomina este síndrome psicosocial geriátrico y qué aspecto del proceso de envejecimiento refleja?",
+   "opciones": {
+    "a": "Síndrome de Munchausen geriátrico; refleja la simulación consciente de déficit motor con fines de ganancia económica.",
+    "b": "Agnosia visual pura de la marcha; refleja la destrucción de las áreas de Wernicke y Broca en el lóbulo temporal.",
+    "c": "Demencia pugilística de inicio tardío; refleja la acumulación de proteína tau en los núcleos subtalámicos.",
+    "d": "Síndrome Post-Caída (o Miedo a Caerse - Ptofobia); refleja la dificultad para elaborar el duelo por la pérdida de capacidades físicas y de la imagen corporal autopercibida."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El Síndrome Post-Caída (o Ptofobia / Miedo a Volver a Caer) es una complicación psicológica y funcional muy frecuente en el adulto mayor tras sufrir un evento de caída. Consiste en la aparición de un temor desproporcionado e invalidante a caerse nuevamente al ponerse de pie o intentar caminar. Esto desencadena una autorrestricción drástica de la movilidad voluntaria, pérdida de confianza, marcha cautelosa inestable, dependencia para las actividades de la vida diaria, aislamiento social, atrofia por desuso y mayor riesgo de caídas futuras. Desde la perspectiva psicológica y gerontológica de SIAM (unidad de duelos e imagen corporal), refleja la crisis desencadenada por la vivencia de vulnerabilidad, el impacto narcisista del deterioro físico y la dificultad para elaborar el duelo por la pérdida de la juventud, la agilidad y la autonomía corporal previa. Las opciones A, B y C representan concepciones desatinadas."
+  },
+  {
+   "id": "SIAM-UP3-020",
+   "numero": 20,
+   "pregunta": "El Paracetamol es el analgésico y antipirético de primera línea recomendado en el adulto mayor debido a su perfil de seguridad digestiva y renal a dosis terapéuticas. ¿Cuál es su mecanismo de acción principal y cuál es el mecanismo de hepatotoxicidad severa en caso de sobredosis?",
+   "opciones": {
+    "a": "Bloquea los receptores opioides mu; causa necrosis hepática por acumulación de fosfato de calcio intracelular.",
+    "b": "Inhibición central de la síntesis de prostaglandinas; en sobredosis agota el glutatión hepático acumulando el metabolito tóxico NAPQI.",
+    "c": "Inhibe irreversiblemente a la COX-1 plaquetaria; causa hepatitis autoinmune mediada por anticuerpos anti-LKM1.",
+    "d": "Inactiva a la enzima xantino oxidasa; causa estearatosis hepática por deficiencia de vitamina B12."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Paracetamol (Acetaminofén) posee propiedades analgésicas y antipiréticas potentes con escasa o nula acción antiinflamatoria periférica y sin el efecto antiagregante ni la toxicidad gastrorrenal severa de los AINEs. Su mecanismo de acción se atribuye a la inhibición central de la ciclooxigenasa (COX) en el SNC y a la modulación de vías serotoninérgicas descendentes del dolor. A dosis terapéuticas (máximo 3 a 4 g/día en adultos, reduciéndose a 2 g/día en ancianos frágiles o con hepatopatía), la mayor parte se metaboliza en el hígado por glucuronidación y sulfatación. Una pequeña fracción es metabolizada por el citocromo P450 (CYP2E1) formando un metabolito altamente reactivo y hepatotóxico: el N-acetil-p-benzoquinona imina (NAPQI), el cual es neutralizado y desintoxicado por conjugación con el Glutatión hepático. En caso de SOBREDOSIS (o ingesta de más de 7,5 a 10 g) o en alcohólicos/desnutridos con depleción de glutatión, las reservas de glutatión se agotan; el exceso de NAPQI libre se une covalentemente a las proteínas de los hepatocitos, desencadenando Necrosis Hepática Masiva e Insuficiencia Hepática Aguda. Su antídoto específico es la N-Acetilcisteína (NAC). Las opciones A, C y D son falsas."
+  },
+  {
+   "id": "SIAM-UP3-021",
+   "numero": 21,
+   "pregunta": "Un paciente de 68 años consulta por gonalgia derecha de ritmo mecánico. En la radiografía simple de ambas rodillas de pie (frente y perfil), ¿cuál de las siguientes opciones describe el conjunto de hallazgos radiológicos clásicos (tétrada de la artrosis)?",
+   "opciones": {
+    "a": "Ausencia de osteofitos, ensanchamiento simétrico del espacio articular, periostitis laminar difusa y calcificación meniscal.",
+    "b": "Osteopenia difusa en vidrio esmerilado, geodas gigantes permeativas, erosiones centrales en 'alas de gaviota' y anquilosis ósea.",
+    "c": "Osteofitos marginales, pinzamiento del espacio articular asimétrico, esclerosis subcondral y quistes o geodas subcondrales.",
+    "d": "Esclerosis subcondral, pinzamiento del espacio articular simétrico, erosiones marginales en sacabocados y osteopenia yuxtaarticular."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La alteración estructural en la osteoartrosis involucra la degradación del cartílago hialino y la respuesta reactiva del hueso subcondral. Radiológicamente, esto se manifiesta por la tétrada clásica: 1) Pinzamiento del espacio articular de distribución ASIMÉTRICA (por mayor carga en un compartimento); 2) Formación de Osteofitos marginales (proliferación óseo-cartilaginosa adaptativa); 3) Esclerosis subcondral (remodelado y mayor densidad del hueso trabecular subyacente); y 4) Quistes o Geodas subcondrales (por microfracturas y penetración de líquido sinovial). La opción D es INCORRECTA porque el pinzamiento de la artrosis es asimétrico y las erosiones marginales en sacabocados con osteopenia yuxtaarticular son típicas de artropatías inflamatorias como la artritis reumatoide. Las opciones A y B describen hallazgos ausentes o ajenos al proceso osteoartrósico."
+  },
+  {
+   "id": "SIAM-UP3-022",
+   "numero": 22,
+   "pregunta": "Ante un paciente de 65 años que consulta por un derrame articular agudo e inflamatorio monoarticular en la rodilla derecha, ¿cuál es el estudio complementario de primera línea y más definitivo para diferenciar una artritis por microcristales (Gota agudizada) de un empuje inflamatorio por artrosis?",
+   "opciones": {
+    "a": "Artrocentesis con análisis del líquido sinovial (microscopía de luz polarizada, recuento celular y cultivo).",
+    "b": "Resonancia magnética nuclear de rodilla con gadolinio endovenoso para evaluar el grosor del cartílago hialino articular.",
+    "c": "Dosaje sérico cuantitativo de anticuerpos antipéptidos cíclicos citrulinados (Anti-CCP) y factor reumatoideo por ELISA.",
+    "d": "Solicitud de dosaje de uricemia y uricosuria de 24 horas en ayunas junto con radiografía articular de frente y perfil."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Ante toda monoartritis aguda, el análisis del líquido sinovial obtenido por Artrocentesis es el patrón de oro (Gold Standard) para confirmar la etiología y descartar patología séptica. El examen bajo microscopio de luz polarizada permite la identificación patognomónica de cristales de urato monosódico (en forma de aguja con birrefringencia negativa intensa) o de pirofosfato de calcio, estableciendo el diagnóstico definitivo de artropatía cristalina frente a un trasudado o derrame mecánico por artrosis. La opción D es INCORRECTA porque los niveles de uricemia pueden ser completamente normales o incluso bajos durante la fase aguda del ataque de gota por precipitación e hiperuricosuria. La opción C evalúa artritis reumatoide. La opción B no discrimina la presencia de microcristales en el líquido sinovial."
+  },
+  {
+   "id": "SIAM-UP3-023",
+   "numero": 23,
+   "pregunta": "Una paciente de 69 años es diagnosticada de Osteoporosis Primaria Posmenopáusica mediante Densitometría Ósea (T-score: -2,9). En la evaluación analítica metabólica inicial de laboratorio, ¿cuál es el patrón bioquímico esperado en la forma primaria no complicada?",
+   "opciones": {
+    "a": "Calcemia sérica normal, fosfatemia normal y calciuria de 24 horas dentro de límites normales, con niveles de PTHi normales.",
+    "b": "Calcemia disminuida con fosfatemia elevada y calciuria de 24 horas masiva secundaria a hiperparatiroidismo primario.",
+    "c": "Hormona paratiroidea intacta (PTHi) marcadamente elevada, calcemia total alta e hipofosfatemia severa con calciuria elevada.",
+    "d": "Calcemia sérica severamente baja, fosfatemia elevada y niveles de 1,25-(OH)2-vitamina D3 indetectables con fosfatasa alcalina baja."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. En la Osteoporosis Primaria (involutiva senil o posmenopáusica), el trastorno fisiopatológico reside en un desequilibrio entre la resorción y la formación ósea a nivel microestructural trabecular y cortical, manteniéndose los mecanismos homeostáticos sistémicos. Por lo tanto, los parámetros bioquímicos del metabolismo fosfocálcico en sangre y orina (calcemia, fosfatemia, calciuria de 24 horas y niveles de PTHi) se encuentran estrictamente DENTRO DE LOS LÍMITES NORMALES. La presencia de alteraciones en la calcemia o elevación de la PTHi obliga a descartar causas secundarias como Hiperparatiroidismo Primario (opción C), Osteomalacia o Enfermedad Renal Crónica (opción B y D)."
+  },
+  {
+   "id": "SIAM-UP3-024",
+   "numero": 24,
+   "pregunta": "En la historia natural de la Enfermedad de Parkinson, la fase neurodegenerativa prodrómica o pre-motora precede en años a la aparición de los síntomas motores clásicos. ¿Cuál es el síntoma no motor más frecuentemente observado durante esta etapa temprana?",
+   "opciones": {
+    "a": "Pérdida progresiva de la agudeza auditiva de conducción secundaria a esclerosis del estribo.",
+    "b": "Aparición de hiperreflexia osteotendinosa masiva con signo de Babinski bilateral en miembros inferiores.",
+    "c": "Desarrollo de ataxia de la marcha con temblor de acción intencional al intentar tomar objetos.",
+    "d": "Anosmia o hiposmia (pérdida de la capacidad olfatoria) independiente del consumo de fármacos."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Según el modelo de estadios neuropatológicos de Braak, la acumulación e inclusión de agregados de alfa-sinucleína (cuerpos de Lewy) en la Enfermedad de Parkinson se inicia tempranamente en el núcleo olfatorio anterior y en el núcleo motor dorsal del vago (Estadio 1) antes de progresar hacia la sustancia negra mesencefálica (Estadios 3 y 4). Esto explica por qué la Anosmia o Hiposmia representa uno de los marcadores prodrómicos no motores más precoces y prevalentes, precediendo al debut de la bradicinesia y del temblor de reposo en más de una década. Las opciones A, B y C representan alteración coclear, compromiso de vía piramidal o disfunción cerebelosa, las cuales no forman parte de la fisiopatología parkinsoniana."
+  },
+  {
+   "id": "SIAM-UP3-025",
+   "numero": 25,
+   "pregunta": "Respecto a la indicación de Alopurinol durante la fase AGUDA de la artritis gotosa, ¿cuál es la pauta de manejo adecuada?",
+   "opciones": {
+    "a": "El Alopurinol NO debe iniciarse durante el brote agudo; la variación brusca de la uricemia desestabiliza los cristales e intensifica la inflamación.",
+    "b": "Iniciar Alopurinol a dosis de carga inmediata de 600 mg/día para disolver velozmente el tofo articular.",
+    "c": "Reemplazar el Alopurinol por tiazidas intravenosas para acelerar la excreción de urato mediante diuresis forzada.",
+    "d": "Administrar Alopurinol junto con aspirina a dosis bajas para bloquear de forma selectiva a la tromboxano sintetasa."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El Alopurinol es un inhibidor de la xantino oxidasa indicado exclusivamente para la terapia hipouricemiante de mantenimiento a largo plazo. En la fase hiperaguda de la artritis gotosa, el inicio brusco de fármacos hipouricemiantes provoca un descenso rápido de los niveles de ácido úrico plasmático, lo que induce la disolución parcial y movilización de los depósitos de urato en el cartílago, re-exponiendo los cristales al sistema inmune y perpetuando la respuesta inflamatoria sinovial. Por ello, el brote agudo debe tratarse con AINEs, Colchicina o Corticoides, difiriéndose el inicio del alopurinol hasta la resolución completa del dolor agudo (asociando siempre profilaxis). Las opciones B, C y D representan conductas terapéuticas erróneas e irrazonables."
+  },
+  {
+   "id": "SIAM-UP3-026",
+   "numero": 26,
+   "pregunta": "Un paciente presenta un síndrome cerebeloso caracterizado por marcada inestabilidad en la estación de pie (astasia), marcha atáxica con aumento de la base de sustentación y titubeo del tronco, pero SIN dismetría ni adiadococinesia en las extremidades. ¿Dónde se ubica la lesión?",
+   "opciones": {
+    "a": "En el núcleo lenticular derecho afectando exclusivamente al globo pálido medial y al putamen.",
+    "b": "En la corteza parietal posterior del hemisferio cerebral izquierdo involucrando el área de Wernicke.",
+    "c": "En el hemisferio cerebeloso lateral derecho afectando las vías eferentes del núcleo dentado.",
+    "d": "En la región central del cerebelo correspondiente al Vermis Cerebeloso (síndrome cerebeloso axial o del vermis)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El Vermis Cerebeloso (archicerebelo y paleocerebelo) se encarga de la integración vestíbulo-cerebelosa y del control de la musculatura axial y postural. Su lesión genera un Síndrome Cerebeloso Vermiano o Axial, caracterizado por ataxia del tronco, astasia e inestabilidad de la marcha (marcha de ebrio) sin compromiso de la coordinación fina de los miembros. En contraste, las lesiones de los Hemisferios Cerebelosos (neocerebelo, opción C) alteran la planificación motora apendicular, produciendo dismetría, adiadococinesia y temblor intencional en las extremidades ipsilaterales. Las opciones A y B corresponden a corteza cerebral y ganglios de la base."
+  },
+  {
+   "id": "SIAM-UP3-027",
+   "numero": 27,
+   "pregunta": "¿Cuáles son los sitios anatómicos estandarizados de elección para la determinación de la Densidad Mineral Ósea (DMO)?",
+   "opciones": {
+    "a": "Calcáneo izquierdo mediante ultrasonido cuantitativo y articulación acromioclavicular sin contraste.",
+    "b": "Columna lumbar (L1 a L4) en proyección anteroposterior y cadera (fémur proximal total y cuello femoral).",
+    "c": "Calota craneal completa y tibia distal del miembro inferior no dominante en proyección lateral.",
+    "d": "Húmero proximal del miembro dominante y falanges distales de la mano derecha en proyección oblicua."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La Densitometría Ósea por absorciometría de rayos X de doble energía (DXA) es el método de referencia estandarizado para el diagnóstico de osteoporosis y la estratificación del riesgo de fracturas. Las guías reumatológicas e internacionales establecen que la valoración debe realizarse en la Columna Lumbar (cuerpos vertebrales L1 a L4 en proyección AP) y en la Cadera Central (Fémur Proximal: cuello femoral y cadera total), por ser sitios con alto contenido de hueso trabecular y cortical expuestos a fracturas por fragilidad. Las opciones A, C y D no constituyen regiones anatómicas normadas para el diagnóstico densitométrico según los criterios de la OMS."
+  },
+  {
+   "id": "SIAM-UP3-028",
+   "numero": 28,
+   "pregunta": "¿Cuál de las siguientes afirmaciones es CORRECTA respecto al Síndrome Vestibular Central?",
+   "opciones": {
+    "a": "Cursa de forma constante con hipoacusia severa, otalgia, acúfenos agudos e inhibición completa con la fijación ocular.",
+    "b": "El nistagmo es unidireccional y horizontal puro, batiendo siempre hacia el lado opuesto a la desviación corporal.",
+    "c": "La inestabilidad suele ser menos intensa que en el periférico, el inicio es gradual y la sensación vertiginosa es más prolongada.",
+    "d": "Está provocado de forma exclusiva por la presencia de otolitos libres en el conducto semicircular posterior."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El Síndrome Vestibular Central resulta de la afectación de los núcleos vestibulares del tronco encefálico o de las conexiones cerebelosas. A diferencia del periférico, suele ser de inicio insidioso, con ilusión de vértigo menos paroxística pero más continua e incapacitante a largo plazo debido a la lentitud del reordenamiento compensatorio central. El nistagmo central no se frena con la fijación de la mirada (puede ser vertical puro o pendiente de la dirección) y se caracteriza por la AUSENCIA de compromiso coclear (sin hipoacusia ni acúfenos). La opción A describe un cuadro periférico. Las opciones B y D corresponden a características clásicas del laberinto membranoso periférico."
+  },
+  {
+   "id": "SIAM-UP3-029",
+   "numero": 29,
+   "pregunta": "En un paciente con hiperuricemia asintomática e hipertensión arterial, ¿qué combinación de fármacos de uso frecuente en la práctica clínica se asocia directamente con el AUMENTO de los niveles séricos de ácido úrico al reducir su eliminación renal?",
+   "opciones": {
+    "a": "Diuréticos tiazídicos/de asa y Ácido Acetilsalicílico (Aspirina a dosis bajas).",
+    "b": "Estatinas de alta potencia (Atorvastatina) y Metformina de liberación prolongada.",
+    "c": "Beta-bloqueantes cardioselectivos (Bisoprolol) e Inmunoglobulina intravenosa.",
+    "d": "Antagonistas del calcio (Amlodipina) e Inhibidores de la ECA (Enalapril)."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Tanto los diuréticos tiazídicos (Hidroclorotiazida, Indapamida) como los de asa (Furosemida) reducen la volemia, estimulando secundariamente la reabsorción pasiva de sodio y urato en el túbulo contorneado proximal, y compitiendo directamente por el transportador de aniones orgánicos. Por su parte, el Ácido Acetilsalicílico (Aspirina) en dosis bajas antiagregantes (75 a 325 mg/día) inhibe la secreción tubular de ácido úrico, provocando retención e hiperuricemia. La combinación de ambos fármacos exige vigilancia estricta en pacientes con riesgo de artritis gotosa. Las opciones B, C y D no alteran significativamente el aclaramiento de urato."
+  },
+  {
+   "id": "SIAM-UP3-030",
+   "numero": 30,
+   "pregunta": "En el manejo de un paciente de 58 años con Enfermedad de Parkinson de reciente diagnóstico en quien se busca retrasar el inicio de la Levodopa para prevenir la aparición temprana de motor fluctuaciones y discinesias, ¿cuál de los siguientes fármacos es un AGONISTA DOPAMINÉRGICO NO ERGOLÍNICO de primera elección?",
+   "opciones": {
+    "a": "Pramipexol (o Ropinirol) administrado por vía oral.",
+    "b": "Trihexifenidilo en monoterapia por vía subcutánea profunda.",
+    "c": "Bromocriptina en dosis elevadas diarias por vía intravenosa.",
+    "d": "Pregabalina en comprimidos de liberación entérica diurna."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Los Agonistas Dopaminérgicos No Ergolínicos (Pramipexol, Ropinirol, Rotigotina) estimulan de forma directa los receptores dopaminérgicos D2 y D3 postsinápticos en el estriado. Su vida media más prolongada proporciona una estimulación dopaminérgica más continua que la levodopa, reduciendo el riesgo de desarrollo precoz de discinesias y fenómeno 'wearing-off'. Por ello, constituyen la primera línea farmacológica en pacientes jóvenes o menores de 60-65 años. La Bromocriptina (opción C) es un derivado ergolínico con mayor riesgo de fibrosis pleuropulmonar y valvular. La Pregabalina (opción D) es un neuromodulador anticonvulsivante. El Trihexifenidilo (opción B) es un anticolinérgico."
+  },
+  {
+   "id": "SIAM-UP3-031",
+   "numero": 31,
+   "pregunta": "Una paciente de 66 años consulta por deformidad indolora progresiva en las manos. En la evaluación reumatológica de la Artrosis de manos, ¿cuáles son las articulaciones preferentemente afectadas y cuáles son sus hallazgos nodulares característicos?",
+   "opciones": {
+    "a": "Afecta de forma exclusiva las articulaciones del carpo con erosiones marginales simétricas y anquilosis fibrosa.",
+    "b": "Afecta predominantemente las articulaciones metacarpofalángicas, produciendo la desviación cubital en 'ráfaga'.",
+    "c": "Afecta las articulaciones interfalángicas distales (Nódulos de Heberden) e interfalángicas proximales (Nódulos de Bouchard).",
+    "d": "Afecta únicamente la articulación temporomandibular bilateral con reabsorción del cóndilo mandibular."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El patrón de compromiso articular en la Artrosis de manos es predominantemente interfalángico: afecta las articulaciones Interfalángicas Distales (IFD), originando los Nódulos de Heberden, y las articulaciones Interfalángicas Proximales (IFP), originando los Nódulos de Bouchard, además de la primera articulación trapeciometacarpiana (Rizartrosis). A diferencia de la Artritis Reumatoide, la osteoartrosis RESPETA de forma característica a las articulaciones Metacarpofalángicas (MCF, opción B). Las opciones A y D no representan el compromiso osteoartrósico primario de las manos."
+  },
+  {
+   "id": "SIAM-UP3-032",
+   "numero": 32,
+   "pregunta": "En la psicología del envejecimiento, Salvarezza analiza la función de la 'Reminiscencia' en el adulto mayor. ¿Cuál es la finalidad instrumental e integradora de este proceso psíquico ante las pérdidas corporales y sociales propias de la vejez?",
+   "opciones": {
+    "a": "Reafirmar la autoestima y la integridad del Yo cuando las capacidades psicofísicas y relacionales pierden vitalidad.",
+    "b": "Fomentar la negación psicótica de la realidad obligando al paciente a revivir episodios traumáticos de la infancia.",
+    "c": "Permitir al sujeto abandonar sus proyectos de vida al asociar la muerte como un colapso inminente.",
+    "d": "Inducir una regresión infantil permanente para delegar la toma de decisiones civiles a los familiares."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La reminiscencia es una función psíquica adaptativa mediante la cual el adulto mayor evoca el pasado para resignificar su historia de vida. Permite sostener la identidad, elaborar los duelos derivados del deterioro físico o la pérdida de roles sociales y mantener la continuidad del narcisismo. Su finalidad instrumental es la Integración del Yo y la reafirmación de la autoestima cuando las capacidades psicofísicas y relacionales pierden la vitalidad de etapas previas. Las opciones B, C y D distorsionan el concepto adaptativo, otorgándole una connotación patológica e incorrecta."
+  },
+  {
+   "id": "SIAM-UP3-033",
+   "numero": 33,
+   "pregunta": "Un paciente de 75 años con osteoporosis severa y antecedentes de múltiples fracturas vertebrales por fragilidad es iniciado en tratamiento con Teriparatida (análogo recombinante de la PTH 1-34). ¿Cuál es su mecanismo de acción y el límite de tiempo recomendado de uso continuo?",
+   "opciones": {
+    "a": "Inhibe a los osteoclastos de forma irreversible; se debe administrar ininterrumpidamente durante 15 a 20 años.",
+    "b": "Inactiva la síntesis de colágeno tipo I en la médula ósea; se utiliza únicamente por vía intraarticular durante 6 meses.",
+    "c": "Estimula la formación ósea por los osteoblastos mediante administración intermitente; el uso no debe superar los 2 años.",
+    "d": "Bloquea la reabsorción intestinal de fosfato y calcio; se indica por un período máximo de 3 semanas por vía oral."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Teriparatida es un agente osteoformador o anabólico constituido por el fragmento 1-34 de la parathormona humana. A diferencia de la PTH elevada constantemente (que estimula la resorción), la administración subcutánea diaria e intermitente de teriparatida estimula preferencialmente la diferenciación y actividad de los osteoblastos, incrementando el volumen de hueso trabecular. Debido al riesgo teórico de desarrollo de osteosarcoma observado en estudios preclínicos prolongados, la duración máxima recomendada de tratamiento en la vida de un paciente es de 24 meses (2 años). Las opciones A, B y D señalan mecanismos y vías de administración erróneas."
+  },
+  {
+   "id": "SIAM-UP3-034",
+   "numero": 34,
+   "pregunta": "Las caídas desde la propia altura representan un síndrome geriátrico de gran impacto funcional. En los pacientes que padecen Enfermedad de Parkinson, ¿cuál representa la causa motora específica más frecuente de caídas repetidas?",
+   "opciones": {
+    "a": "La hipertonía espástica con clono agotable en la articulación del tobillo.",
+    "b": "La inestabilidad postural y los episodios de bloqueo de la marcha (Freezing o congelamiento).",
+    "c": "La presencia de hiporreflexia osteotendinosa masiva en miembros inferiores.",
+    "d": "El desarrollo de atrofia muscular espinal simétrica de inicio proximal."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. En estadios moderados a avanzados de la Enfermedad de Parkinson, la pérdida de los reflejos de enderezamiento (Inestabilidad Postural) y la aparición del 'Freezing' o congelamiento de la marcha (bloqueo brusco e involuntario de los pies al iniciar el paso o al girar) provocan que el centro de gravedad del cuerpo continúe desplazándose hacia adelante mientras la base permanece fija, resultando en caídas de alta energía. Las opciones A, C y D corresponden a arreflexia, lesión de vía piramidal o patología de segunda neurona, no características de la enfermedad."
+  },
+  {
+   "id": "SIAM-UP3-035",
+   "numero": 35,
+   "pregunta": "Respecto al uso de Corticoides Intraarticulares en la Artrosis, ¿cuál es la pauta correcta de indicación?",
+   "opciones": {
+    "a": "Son una opción terapéutica válida para el alivio sintomático a corto plazo en brotes agudos con derrame articular.",
+    "b": "Tienen como objetivo principal la regresión completa de los osteofitos y la regeneración total del cartílago hialino.",
+    "c": "Se deben aplicar semanalmente de forma indefinida durante un mínimo de 5 años ininterrumpidos.",
+    "d": "Están formalmente contraindicados de forma absoluta en la artrosis por acelerar la destrucción del hueso subcondral."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La infiltración intraarticular de corticoides de depósito (Triamcinolona, Betametasona) está indicada en la artrosis para el control sintomático rápido de brotes inflamatorios agudos acompañados de derrame sinovial y dolor refractario a analgesia oral. Brinda un alivio sintomático efectivo a corto plazo (de 2 a 4 semanas). No está contraindicada (opción D), pero su uso debe limitarse a no más de 3-4 infiltraciones al año en la misma articulación para evitar atrofia o daño del cartílago. La opción B le atribuye una capacidad regenerativa que los corticoides no poseen."
+  },
+  {
+   "id": "SIAM-UP3-036",
+   "numero": 36,
+   "pregunta": "Además de la sintomatología motora, la Enfermedad de Parkinson afecta de forma prevalente al sistema nervioso autónomo. ¿Cuáles son las manifestaciones autonómicas gastrointestinales y genitourinarias más frecuentes?",
+   "opciones": {
+    "a": "Hipersecreción gástrica hiperácida e hipertrofia del esfínter vesical interno.",
+    "b": "Estreñimiento (constipación por enlentecimiento del tránsito colónico) e hiperreflexia del detrusor (urgencia y nocturia).",
+    "c": "Acalasia cricofaríngea aislada con anuria urémica obstructiva aguda.",
+    "d": "Diarrea secretora acuosa profusa e incontinencia urinaria por rebosamiento arreflexico."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La neurodegeneración autonómica periférica y central en el Parkinson altera el plexo mientérico de Auerbach y Meissner, produciendo una severa disminución del peristaltismo que se manifiesta como Estreñimiento o Constipación crónica (presente en más del 70% de los pacientes). A nivel vesical, la alteración del control inhibitorio causa Hiperreflexia del Detrusor, clínicamente expresada por urgencia miccional, polaquiuria y nocturia. Las opciones A, C y D señalan síntomas ajenos a la disautonomía parkinsoniana típica."
+  },
+  {
+   "id": "SIAM-UP3-037",
+   "numero": 37,
+   "pregunta": "En el estudio inmunogenético de las artropatías inflamatorias se evalúa la presencia del antígeno HLA-B27. ¿Cuál de las siguientes afirmaciones respecto al HLA-B27 es INCORRECTA?",
+   "opciones": {
+    "a": "Se encuentra presente en aproximadamente el 7-8% de la población caucásica sana.",
+    "b": "Constituye por sí solo un marcador patognomónico y diagnóstico absoluto de Espondilitis Anquilosante.",
+    "c": "Se asocia a formas de enfermedad con uveítis anterior y sacroileítis más severas.",
+    "d": "Se encuentra presente en más del 90-95% de los pacientes diagnosticados con Espondilitis Anquilosante."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la INCORRECTA (y por lo tanto la respuesta requerida). El antígeno HLA-B27 es un marcador de susceptibilidad genética fuertemente asociado al grupo de las espondiloartritis seronegativas. Si bien está presente en más del 90% de los pacientes con Espondilitis Anquilosante (opción D), NO es un marcador diagnóstico absoluto ni patognomónico per se, dado que el 7-8% de la población sana lo posee (opción A) y la gran mayoría de las personas portadoras del antígeno jamás desarrollan la patología. Las opciones A, C y D son aseveraciones biológicamente correctas."
+  },
+  {
+   "id": "SIAM-UP3-038",
+   "numero": 38,
+   "pregunta": "Un paciente de 64 años sufre un infarto isquémico en el hemisferio cerebeloso derecho. ¿Cuál es el hallazgo motor apendicular característico derivado de esta disfunción?",
+   "opciones": {
+    "a": "Trastorno aislado del tono autonómico vesical sin afectación de la coordinación motora.",
+    "b": "Hemiparesia espástica contralateral con signo de Babinski y clonus extensor.",
+    "c": "Ataxia de las extremidades homolaterales (dismetría y adiadococinesia en miembros derechos).",
+    "d": "Rigidez acrocelular simétrica en 'caño de plomo' con temblor de reposo de 4 Hz."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Las vías eferentes cerebelosas que se originan en los núcleos profundos de un hemisferio se cruzan en el pedúnculo cerebeloso superior hacia el tálamo contralateral, pero las vías descendentes motoras vuelven a decusarse, resultando en un control motor de la coordinación APENDICULAR puramente HOMOLATERAL. Por ende, una lesión hemisférica cerebelosa derecha produce dismetría, adiadococinesia e hipotonía en las extremidades derechas. La opción A no aborda el sistema motor voluntario. La opción B corresponde a vía piramidal (corteza/cápsula). La opción D corresponde a síndrome extrapiramidal."
+  },
+  {
+   "id": "SIAM-UP3-039",
+   "numero": 39,
+   "pregunta": "Respecto al perfil de seguridad de los Bisfosfonatos orales, ¿cuál es la afirmación correcta?",
+   "opciones": {
+    "a": "Deben tomarse siempre inmediatamente antes de acostarse a la noche junto con leche entera tibia.",
+    "b": "Carecen por completo de efectos adversos digestivos, siendo la hepatotoxicidad fulminante su única complicación.",
+    "c": "Se asocian a irritación local y esofagitis si no se respetan las pautas estrictas de ingesta en ayunas y bipedestación.",
+    "d": "Producen ulceración gastroduodenal por estimulación directa de la enzima ciclooxigenasa-1 (COX-1)."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Los Bisfosfonatos orales (Alendronato, Risedronato) ejercen un efecto irritante químico directo de elevada causticidad sobre la mucosa del tracto digestivo superior. Si el comprimido se detiene en el esófago (por ingesta con escaso volumen de agua o por acostarse tras la toma), induce erosiones y ulceraciones profundas (esofagitis inducida por fármacos). Para prevenir esta complicación es indispensable consumirlos con un vaso lleno de agua de la canilla y mantener la posición erguida (de pie o sentado) durante al menos 30 a 60 minutos. La opción B es falsa. La opción A incrementa el riesgo lesivo. La opción D describe el mecanismo de los AINEs."
+  },
+  {
+   "id": "SIAM-UP3-040",
+   "numero": 40,
+   "pregunta": "Un paciente de 65 años consulta por gonalgia derecha leve de 15 meses de evolución que aparece al caminar y cede con el reposo, acompañada de rigidez articular breve tras la inmovilidad. Afebril y sin antecedentes traumáticos. ¿Cuál es la conducta de evaluación y manejo inicial integral más adecuada?",
+   "opciones": {
+    "a": "Indicar artrocentesis de urgencia e internación para antibioticoterapia empírica de amplio espectro.",
+    "b": "Prescribir Metotrexato subcutáneo junto con corticoides sistémicos a dosis altas de forma indefinida.",
+    "c": "Solicitar de inmediato Resonancia Magnética de rodilla con contraste e indicar infiltración articular con opioides.",
+    "d": "Realizar anamnesis completa y examen físico articular minucioso, e indicar analgésicos a demanda evaluando la respuesta clínica."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Ante la presentación clínica típica de una osteoartrosis de rodilla no complicada en un adulto mayor (dolor mecánico, rigidez breve, ausencia de signos de atrofia o infección), la conducta de elección consiste en una anamnesis exhaustiva, un examen físico articular completo e iniciar un esquema sintomático analgésico a demanda (ej. Paracetamol) junto a medidas no farmacológicas (descenso de peso, ejercicio adaptado). No se justifican de entrada estudios complejos de alto costo como la RMN (opción C), procedimientos invasivos de urgencia (opción A) ni inmunosupresores (opción B)."
+  },
+  {
+   "id": "SIAM-UP3-041",
+   "numero": 41,
+   "pregunta": "En la regulación endocrina del metabolismo fosfocálcico, la Calcitonina actúa como hormona hipocalcemiante. ¿Cuál es su sitio celular de síntesis, el estímulo fisiológico para su liberación y sus acciones contrapuestas a la PTH a nivel óseo y renal?",
+   "opciones": {
+    "a": "Sintetizada por los osteoblastos de la diáfisis femoral ante el estrés mecánico; induce la secreción tubular proximal de renina y aldosterona.",
+    "b": "Sintetizada por las células acinares del páncreas en respuesta a la hipofosfatemia; promueve la precipitación de hidroxiapatita en el músculo liso.",
+    "c": "Sintetizada por las células C o parafoliculares de la tiroides ante la hipercalcemia; inhibe la resorción osteoclástica y promueve la excreción renal de calcio y fosfato.",
+    "d": "Sintetizada por las células principales de la paratiroides ante la hipocalcemia; estimula la actividad de la 1-alfa-hidroxilasa renal aumentando la absorción de calcio."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Calcitonina es una hormona peptídica sintetizada y secretada por las células C (o parafoliculares) de la glándula tiroides en respuesta directa a la elevación de los niveles de calcio iónico plasmático (hipercalcemia). Su función fisiológica es proteger al organismo contra picos hipercalcémicos agudos. Sus órganos blanco son el hueso y el riñón: 1) A nivel óseo, se une a receptores específicos en la membrana de los osteoclastos e inhibe de forma inmediata la resorción ósea y la liberación de calcio e hidroxiprolina a la circulación; 2) A nivel renal, reduce la reabsorción tubular de calcio y fosfato, incrementando la calciuria y fosfaturia. Es el antagonista fisiológico directo de la PTH. Las opciones A, B y D describen orígenes y acciones erróneas."
+  },
+  {
+   "id": "SIAM-UP3-042",
+   "numero": 42,
+   "pregunta": "En el tratamiento farmacológico de la osteoartrosis se utilizan los Fármacos Antiartrósicos de Acción Lenta (SYSADOA, ej. Condroitín Sulfato y Glucosamina). ¿Cuál es su perfil farmacodinámico de latencia, efecto remanente y mecanismo sobre el cartílago articular?",
+   "opciones": {
+    "a": "Producen analgesia inmediata a los 15 minutos de la toma oral por inhibición irreversible de la enzima COX-2 en la membrana sinovial.",
+    "b": "Destruyen la matriz extracelular del hueso subcondral, requiriendo infusión continua IV de solución fisiológica para prevenir edemas.",
+    "c": "Bloquean los receptores opioides mu en el cuerno posterior de la médula espinal, induciendo tolerancia rápida a las 48 horas.",
+    "d": "Presentan una latencia de respuesta sintomática de 2 a 4 semanas, efecto remanente (carry-over) tras su suspensión y estimulan la síntesis de proteoglicanos e inhiben metaloproteasas."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los SYSADOA (Symptomatic Slow-Acting Drugs in Osteoarthritis), como el Condroitín Sulfato, la Glucosamina y el Diacereína, constituyen una categoría de fármacos diseñados para el manejo sintomático de la artrosis. Su característica farmacocinética cardinal es un período de latencia de 2 a 4 semanas para alcanzar su máximo beneficio analgésico y antiinflamatorio (a diferencia de los AINEs de acción rápida). Tras suspender la medicación, mantienen un 'efecto remanente' o 'carry-over' por 2 a 3 meses. A nivel celular, estimulan la síntesis de proteoglicanos y ácido hialurónico por los condrocitos, e inhiben a las enzimas proteolíticas (metaloproteasas) y citoquinas proinflamatorias (IL-1beta) que degradan la matriz cartilaginosa. Las opciones A, B y C le atribuyen propiedades falsas."
+  },
+  {
+   "id": "SIAM-UP3-043",
+   "numero": 43,
+   "pregunta": "El espectro de reacciones cutáneas graves por fármacos abarca el Síndrome de Stevens-Johnson (SSJ) y la Necrólisis Epidérmica Tóxica (NET o Síndrome de Lyell). ¿Cuál es el criterio estricto de porcentaje de Área de Superficie Corporal (ASC) con desprendimiento epidérmico (Nikolsky +) que define al cuadro de 'Superposición o Overlap SSJ/NET'?",
+   "opciones": {
+    "a": "Desprendimiento epidérmico mayor al 80% con preservación estricta de la cara y el tórax.",
+    "b": "Desprendimiento epidérmico de entre el 10% y el 30% de la superficie corporal total.",
+    "c": "Desprendimiento epidérmico menor al 2% de la superficie corporal total sin compromiso de mucosas.",
+    "d": "Presencia de lesiones en diana típicas acrales en menos del 5% del ASC sin despegamiento epidérmico."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Síndrome de Stevens-Johnson (SSJ) y la Necrólisis Epidérmica Tóxica (NET) son variantes inmunológicas de una misma entidad de hipersensibilidad citotóxica inducida por drogas, caracterizada por la necrosis y apoptosis masiva de queratinocitos. El consenso internacional las clasifica estrictamente según la extensión del área cutánea con desprendimiento epidérmico (Signo de Nikolsky positivo): 1) SSJ: afecta menos del 10% del ASC (con compromiso mucoso severo); 2) Superposición o Overlap SSJ/NET: afecta entre el 10% y el 30% del ASC; y 3) NET (Síndrome de Lyell): afecta más del 30% del ASC. Esta distinción es fundamental porque la mortalidad se incrementa exponencialmente según la extensión de la denudación epidérmica. Las opciones A, C y D señalan porcentajes incorrectos."
+  },
+  {
+   "id": "SIAM-UP3-044",
+   "numero": 44,
+   "pregunta": "Dentro de los trastornos hipercinéticos del movimiento, las Mioclonías se definen por sus características electromiográficas y clínicas. ¿Cuál es la diferencia fisiopatológica y semiológica entre una 'mioclonía positiva' y una 'mioclonía negativa' (asterixis)?",
+   "opciones": {
+    "a": "Las positivas ocurren únicamente durante la fase REM del sueño; las negativas cursan con fasciculaciones linguales.",
+    "b": "Las positivas son sacudidas por contracciones musculares activas breves; las negativas son pausas breves e involuntarias del tono muscular postural.",
+    "c": "Las positivas se acompañan de rigidez en rueda dentada; las negativas producen hipertonía espástica con clonus.",
+    "d": "Las positivas derivan de descargas del nervio vago; las negativas son causadas por contracción voluntaria tetánica."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Las Mioclonías son movimientos involuntarios repentinos, breves (duración <100 ms) y bruscos, causados por alteraciones en el SNC (corteza, subcorteza, tronco o médula). Se dividen en: 1) Mioclonías Positivas: producidas por la contracción muscular activa y repentina de un grupo muscular (sacudida tipo 'descarga eléctrica'); 2) Mioclonías Negativas (Asterixis o Flapping tremor): producidas por la pérdida o interrupción súbita e involuntaria de la actividad electromiográfica y del tono en músculos que sostienen una postura (ej. al extender las muñecas), lo que provoca una caída brusca de la mano seguida de una recuperación rápida. Las mioclonías negativas son patognomónicas de encefalopatías metabólicas (hepática, urémica, hipercapnia). Las opciones A, C y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP3-045",
+   "numero": 45,
+   "pregunta": "En la evaluación neurológica de urgencia de un paciente que ingresa por un Síndrome Vestibular Agudo continuo (vértigo, náuseas, ataxia de la marcha), se aplica el protocolo HINTS (Head Impulse, Nystagmus, Test of Skew). ¿Qué tríada de hallazgos sugiere fuertemente un evento vascular CENTRAL (ej. infarto cerebeloso/tronco) en lugar de una neuritis vestibular periférica?",
+   "opciones": {
+    "a": "Prueba de Impulsión Cefálica normal (sin sacada correctora), Nistagmo vertical o que cambia de dirección, y presencia de Skew deviation (desviación vertical ocular).",
+    "b": "Ausencia completa de nistagmo al quitar la fijación de la mirada con reflejo vestíbulo-ocular hiperactivo bilateral.",
+    "c": "Presencia de hipoacusia severa unilateral de conducción con otoscopia normal y marcha en estrella conservada.",
+    "d": "Prueba de Impulsión Cefálica alterada con sacada de fijación, Nistagmo horizontal unidireccional y ausencia de Skew deviation."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El examen HINTS posee mayor sensibilidad que la TC de cráneo inicial para diferenciar un ACV isquémico de tronco/cerebelo de una neuritis vestibular periférica en las primeras 24 horas. La tríada HINTS sugestiva de origen CENTRAL (regla INFARCT) comprende: 1) Head Impulse (Impulsión Cefálica): NORMAL (el RVO está intacto porque el laberinto y VIII par están sanos, por lo que los ojos se mantienen fijos sin sacada correctora); 2) Nystagmus (Nistagmo): que cambia de dirección según la mirada (dirección-cambiante) o es vertical puro / rotatorio; y 3) Test of Skew (Alineamiento ocular vertical): POSITIVO (presencia de desalineación o desviación vertical de los ojos al ocluir/desocluir). Por el contrario, la opción D (Impulsión alterada + nistagmo unidireccional + sin Skew) define el patrón PERIFÉRICO. Las opciones B y C son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-046",
+   "numero": 46,
+   "pregunta": "Un paciente con antecedentes de Insuficiencia Renal Crónica en hemodiálisis de 10 años de evolución presenta en los controles analíticos una calcemia de 11,2 mg/dL (hipercalcemia), fosfatemia de 6,5 mg/dL y un nivel de PTH intacta de 1.200 pg/mL. La ecografía muestra hiperplasia nodular masiva de las cuatro glándulas paratiroides. ¿Cuál es el diagnóstico metabólico?",
+   "opciones": {
+    "a": "Hiperparatiroidismo Terciario por autonomía funcional irreversible del tejido paratiroideo hiperplásico.",
+    "b": "Hiperparatiroidismo Secundario controlado mediante dieta hipoproteica pura.",
+    "c": "Hiperparatiroidismo Primario por adenoma tiroideo secretor de calcitonina.",
+    "d": "Hipoparatiroidismo autoinmune secundario a la formación de anticuerpos anti-calceocitos."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El Hiperparatiroidismo Terciario es la evolución final de un hiperparatiroidismo secundario no controlado en pacientes con Insuficiencia Renal Crónica avanzada de muy larga duración. A causa del estímulo continuo de la hipocalcemia, la retención de fósforo y la deficiencia de calcitriol, las glándulas paratiroides sufren una hiperplasia difusa que luego progresa a una hiperplasia nodular autónoma. En esta fase, los receptores sensores de calcio (CaSR) y de Vitamina D se pierden en el tejido nodular, haciendo que la secreción de PTH se vuelva completamente AUTÓNOMA e insensible a la calcemia. Esto transforma el cuadro de hipo/normocalcemia previo en una HIPERCALCEMIA SEVERA con hiperfosfatemia e hiperparatiroidismo masivo, requiriendo frecuentemente tratamiento quirúrgico (paratiroidectomía). Las opciones B, C y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-047",
+   "numero": 47,
+   "pregunta": "En el tratamiento del brote agudo de gota, la Colchicina es un fármaco de uso frecuente. ¿Cuál es su mecanismo de acción celular específico y cuál es el síntoma precoz indicador de toxicidad gastrointestinal que limita su dosis?",
+   "opciones": {
+    "a": "Bloquea los canales de calcio vasculares; su signo tóxico es la hipertensión endocraneana con edema papilar.",
+    "b": "Inhibe a la xantino oxidasa en los fagocitos; su signo tóxico es la sialorrea con ulceración lingual.",
+    "c": "Inhibe irreversiblemente a la ciclooxigenasa-1; su signo tóxico es el estreñimiento pertinaz con íleo paralítico.",
+    "d": "Se une a la tubulina e impide la polimerización de microtúbulos, bloqueando la quimiotaxis y degranulación de neutrófilos; su signo tóxico inicial es la diarrea acuosa profusa."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Colchicina es un alcaloide que se une a las dímeras de tubulina, inhibiendo la polimerización de los microtúbulos del citoesqueleto celular. Al alterar la dinámica microtubular, interfiere con la migración, quimiotaxis, adhesión y degranulación de los polimorfonucleares (neutrófilos) hacia la articulación, además de inhibir la activación del inflamasoma NLRP3 desencadenada por los cristales de urato monosódico. Dado que el epitelio intestinal presenta una elevada tasa de recambio mitótico dependiente del huso acromático microtubular, la toxicidad intestinal ocurre precozmente al sobrepasar la dosis terapéutica, manifestándose como náuseas, vómitos, dolor abdominal cólico y DIARREA ACUOSA PROFUSA. La aparición de diarrea indica el techo de tolerancia clínica y exige suspender inmediatamente el fármaco. Las opciones A, B y C son erróneas."
+  },
+  {
+   "id": "SIAM-UP3-048",
+   "numero": 48,
+   "pregunta": "Un paciente de 74 años consulta por dolor e inflamación agudos en la rodilla izquierda. La artrocentesis revela un líquido sinovial inflamatorio con presencia de cristales de forma romboidal o rectangular que exhiben birrefringencia positiva débil bajo el microscopio de luz polarizada. La radiografía muestra una línea calcificada paralela al hueso subcondral en el cartílago hialino y meniscos. ¿Cuál es el diagnóstico?",
+   "opciones": {
+    "a": "Artropatía por Cristales de Pirofosfato de Calcio (Pseudogota / Condrocalcinosis).",
+    "b": "Artritis Gotosa Aguda por depósito de cristales de urato monosódico.",
+    "c": "Osteosarcoma condroblástico de la epífisis femoral distal.",
+    "d": "Artritis Reumatoide seropositiva con nódulos reumatoides intraarticulares."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La enfermedad por depósito de cristales de Pirofosfato de Calcio (Dihidrato) comprende varias formas clínicas, siendo la más característica la Pseudogota o Artritis Aguda por Pirofosfato (que simula un ataque de gota) y la Condrocalcinosis. Es la artropatía microcristalina más frecuente en el adulto mayor (>65-70 años), afectando predominantemente articulaciones grandes como la rodilla y la muñeca. Se diagnostica mediante: 1) Análisis del líquido sinovial: Cristales ROMBOIDALES o poligonales de Pirofosfato de Calcio que muestran BIRREFRINGENCIA POSITIVA DÉBIL (a diferencia de los de urato que son agujas con birrefringencia negativa fuerte); y 2) Radiografía: presencia de CONDROCALCINOSIS (calcificación del fibrocartílago meniscal o del cartílago hialino articular). Las opciones B, C y D corresponden a otras patologías con características ópticas y radiológicas opuestas."
+  },
+  {
+   "id": "SIAM-UP3-049",
+   "numero": 49,
+   "pregunta": "En el desarrollo de las Unidades Problema de gerontología y psicología, se aborda el impacto de la pérdida de la imagen corporal y de las funciones motoras en el adulto mayor. ¿Cuál es el efecto psíquico central sobre la economía narcisista cuando el paciente no logra elaborar el 'duelo por el cuerpo joven y autónomo'?",
+   "opciones": {
+    "a": "Desencadena una fase de euforia maniacal permanente con hipersexualidad y conducta impulsiva.",
+    "b": "Produce la curación espontánea de todas las comorbilidades osteoarticulares mediante catarsis.",
+    "c": "Favorece la aparición de hipermnesia ejecutiva compensatoria con aceleración del tránsito colónico.",
+    "d": "Induce una retracción del narcisismo con vivencia de inutilidad, apatía, dependencia funcional y riesgo de depresión."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La vivencia del envejecimiento exige al sujeto realizar un trabajo psíquico de elaboración de duelos sucesivos: duelo por la pérdida del rol laboral/social, duelo por la pérdida de seres queridos y, fundamentalmente, el duelo por el 'cuerpo joven lost', es decir, la aceptación de las limitaciones físicas, la lentificación motora y el cambio en la apariencia estética. Cuando el adulto mayor no logra procesar emocionalmente la brecha entre el 'cuerpo ideal/imaginado' de la juventud y el 'cuerpo real del envejecimiento', se produce una herida narcisista grave. Esto se traduce en retracción de la libido, pérdida de la autoestima, vivencias de inutilidad, aislamiento, sometimiento pasivo al deterioro, depresión y mayor declive funcional. Las opciones A, B y C representan conceptos psicológicamente falsos."
+  },
+  {
+   "id": "SIAM-UP3-050",
+   "numero": 50,
+   "pregunta": "Un paciente de 55 años con Enfermedad de Parkinson incipiente que presenta un temblor de reposo muy severo e incapacitante es iniciado en tratamiento con Trihexifenidilo (anticolinérgico central). ¿Por qué este grupo farmacológico está estrictamente CONTRAINDICADO en pacientes adultos mayores (>65-70 años) o con deterioro cognitivo?",
+   "opciones": {
+    "a": "Because aumenta la síntesis de hemoglobina causando poliglobulia severa con trombosis arterial.",
+    "b": "Because induce la formación inmediata de tofos úricos a nivel de la cáscara renal.",
+    "c": "Because inactiva la acción de la insulina induciendo cetoacidosis diabética no cetósica.",
+    "d": "Because produce un bloqueo colinérgico central y periférico grave, desencadenando confusión agudísima, deterioro de memoria, alucinaciones, retención urinaria y glaucoma."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los anticolinérgicos centrales (Trihexifenidilo, Biperideno) bloquean los receptores muscarínicos en los ganglios de la base, restaurando el equilibrio entre la señalización dopaminérgica (deficitaria) y colinérgica (hiperactiva), lo que los hace eficaces únicamente para controlar el temblor de reposo en pacientes jóvenes (<60 años). Sin embargo, en el adulto mayor están estrictamente CONTRAINDICADOS debido a su elevada neurotoxicidad y perfil anticolinérgico (incluidos en los Criterios de Beers): 1) A nivel del SNC: producen deterioro cognitivo acelerado, amnesia de fijación, delirium / síndrome confusional agudo, alucinaciones visuales y sedación; 2) A nivel sistémico/periférico: desencadenan retención aguda de orina (especialmente si hay HBP), constipación severa / íleo, sequedad bucal y precipitación de glaucoma de ángulo estrecho. Las opciones A, B y C son erróneas."
+  },
+  {
+   "id": "SIAM-UP3-051",
+   "numero": 51,
+   "pregunta": "Un paciente de 62 años consulta por presentar involuntariamente una inclinación y rotación sostenida y dolorosa de la cabeza hacia el lado derecho (tortícolis espasmódica), que se intensifica con el estrés y mejora parcialmente con el toque táctil suave sobre la barbilla (truco sensitivo). ¿Cuál es la clasificación del trastorno del movimiento y el tratamiento focal de primera línea?",
+   "opciones": {
+    "a": "Mioclonía espinal segmentaria; el tratamiento de elección es la fenobarbital oral en dosis de carga.",
+    "b": "Distonía focal (tortícolis cervical); el tratamiento de elección es la inyección local de Toxina Botulínica en los músculos hiperactivos.",
+    "c": "Chorea de Sydenham senil; el tratamiento de elección es la administración de haloperidol IV a dosis altas.",
+    "d": "Tic motor complejo voluntario; el tratamiento de elección es la psicoterapia psicoanalítica en monoterapia."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Las Distonías son trastornos del movimiento hipercinéticos caracterizados por contracciones musculares involuntarias sostenidas o intermitentes que causan torceduras, movimientos repetitivos o posturas anómalas (posturas distónicas). La Tortícolis Espasmódica o Distonía Cervical es la distonía focal más frecuente en el adulto. Un rasgo patognomónico es la presencia de 'gestos antagónicos' o 'trucos sensitivos' (ej. tocar suavemente la cara o barbilla para reducir temporalmente el espasmo). El tratamiento farmacológico sistémico suele tener eficacia limitada. Por ello, el TRATAMIENTO DE PRIMERA LÍNEA para las distonías focales es la infiltración local periódica de TOXINA BOTULÍNICA (tipo A) en los músculos afectados (ej. esternocleidomastoideo, esplenio), la cual bloquea la liberación presináptica de acetilcolina en la unión neuromuscular, denervando temporalmente el músculo hiperactivo. Las opciones A, C y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-052",
+   "numero": 52,
+   "pregunta": "Al seleccionar un analgésico antiinflamatorio para un paciente con antecedentes de gastritis erosiva que requiere tratamiento por artrosis, se considera el uso de un Inhibidor Selectivo de la COX-2 (Coxib, ej. Celecoxib o Etoricoxib). ¿Cuál es su ventaja sobre la mucosa gástrica y cuál es el riesgo cardiovascular derivado de su mecanismo de acción?",
+   "opciones": {
+    "a": "Destruye a las plaquetas; su riesgo es la púrpura trombocitopénica autoinmune fulminante.",
+    "b": "Aumenta el moco gástrico; su riesgo cardiovascular es la bradicardia sinusal refractaria.",
+    "c": "Inhibe la síntesis de renina; su riesgo es la rotura espontánea de la arteria aorta ascendente.",
+    "d": "Preserva la COX-1 constitutiva gástrica reduciendo ulceraciones; su riesgo es pro-trombótico al inhibir la PGI2 endotelial sin bloquear el TXA2 plaquetario."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los inhibidores selectivos de la COX-2 (Coxibes: Celecoxib, Etoricoxib) se diseñaron para inhibir de forma electiva a la isoforma inducible de la ciclooxigenasa en sitios de inflamación (COX-2), respetando a la isoforma constitutiva (COX-1) responsable de la síntesis de prostaglandinas citoprotectoras en la mucosa gástrica (PGE2, PGI2). Esto reduce significativamente la incidencia de erosiones, úlceras y sangrado digestivo en comparación con los AINEs clásicos no selectivos. Sin embargo, a nivel vascular, la COX-2 endotelial produce Prostaciclina (PGI2, potente vasodilatador e inhibidor de la agregación plaquetaria). Al inhibir selectivamente a la COX-2 sin bloquear a la COX-1 plaquetaria (que produce Tromboxano A2 / TXA2, proagregante y vasoconstrictor), los coxibes rompen el equilibrio endotelio-plaquetario hacia un estado PRO-TROMBÓTICO. Esto incrementa significativamente el riesgo de eventos aterotrombóticos (infarto de miocardio, ACV) e hipertensión, por lo que están contraindicados en pacientes con cardiopatía isquémica o enfermedad cerebrovascular establecida. Las opciones A, B y C son falsas."
+  },
+  {
+   "id": "SIAM-UP3-053",
+   "numero": 53,
+   "pregunta": "Una paciente de 67 años consulta por dolor sordo localizado en la base del primer dedo de la mano derecha que se desencadena al realizar actividades cotidianas como escurrir un trapo, abrir un frasco o girar una llave, y cede con el reposo. Al examen se evidencia deformidad en 'cuadrado' de la articulación trapeciometacarpiana y dolor a la maniobra de molienda (Grind test). ¿Cuál es el diagnóstico?",
+   "opciones": {
+    "a": "Artritis Gotosa tofácea de la articulación escafolunar.",
+    "b": "Tenosinovitis de De Quervain del extensor corto del pulgar.",
+    "c": "Síndrome del Túnel Carpiano compresivo del nervio mediano.",
+    "d": "Rizartrosis (Artrosis de la primera articulación trapeciometacarpiana)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Rizartrosis es la osteoartrosis que afecta a la primera articulación trapeciometacarpiana (base del pulgar). Es una entidad extremadamente frecuente en mujeres posmenopáusicas y adultos mayores. Se caracteriza por dolor mecánico en la base del pulgar que se exacerba al realizar la 'pinza digital' o movimientos de torsión (girar llaves, abrir frascos, sujetar utensilios), provocando una gran incapacidad funcional para las actividades de la vida diaria. A la inspección genera una prominencia ósea que le da a la muñeca/base del pulgar un aspecto en 'mano en cuadrado'. La maniobra de molienda o test de Grind (rotación axial con compresión del metacarpiano sobre el trapecio) desencadena dolor y crepitación patognomónica. La opción C cursa con parestesias nocturnas en territorio mediano. La opción B afecta el retináculo extensor (Finkelstein +). La opción A no presenta el cuadro degenerativo típico."
+  },
+  {
+   "id": "SIAM-UP3-054",
+   "numero": 54,
+   "pregunta": "En un paciente con Hipoparatiroidismo severo, la caída brusca de la concentración de Calcio iónico plasmático origina parestesias, espasmo carpopedio y tetania. Desde el punto de vista biofísico celular, ¿cuál es el mecanismo electrofisiológico que explica esta hiperactividad neuromuscular hipocalcémica?",
+   "opciones": {
+    "a": "La hipocalcemia bloquea la acetilcolinesterasa muscular destruyendo los receptores nicotínicos.",
+    "b": "La hipocalcemia hiperpolariza la membrana axónica impidiendo la apertura de los canales de potasio.",
+    "c": "La hipocalcemia disminuye el umbral de excitación axónica al aumentar la permeabilidad de los canales de sodio dependientes de voltaje, generando descargas espontáneas.",
+    "d": "La hipocalcemia estimula la captación masiva de glucosa por los astrocitos del asta posterior medular."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El calcio iónico extracelular (Ca²⁺) ejerce un efecto estabilizador crítico sobre las membranas excitable (nerviosas y musculares). Las cargas positivas del calcio iónico en el medio extracelular interactúan con las cargas del canal de sodio dependiente de voltaje, manteniendo el umbral de despolarización en su nivel fisiológico normal. Cuando ocurre HIPOCALCEMIA, disminuye la neutralización de cargas externas; esto altera el campo eléctrico del canal de sodio, provocando que los canales de sodio se abran a un potencial de membrana en reposo mucho menos negativo (es decir, SE REDUCE EL UMBRAL DE EXCITACIÓN). La membrana celular se vuelve extremada e inestablemente permeable al sodio, lo que desencadena descargas eléctricas auto-sostenidas y espontáneas repetitivas en los nervios periféricos sensitivos (parestesias) y motores (espasmos, tetania, signo de Chvostek/Trousseau). Las opciones A, B y D señalan procesos falsos."
+  },
+  {
+   "id": "SIAM-UP3-055",
+   "numero": 55,
+   "pregunta": "En la Necrólisis Epidérmica Tóxica (NET o Síndrome de Lyell), la pérdida masiva de la barrera cutánea epidermal genera una falla multisistémica. ¿Cuáles son las dos complicaciones sistémicas agudas más frecuentes que constituyen la principal causa de mortalidad en esta emergencia dermatológica?",
+   "opciones": {
+    "a": "Sepsis de origen cutáneo/pulmonar y desequilibrio hidroelectrolítico masivo con shock hipovolémico.",
+    "b": "Cáncer epidermoide metastásico de colon e hipotiroidismo terciario.",
+    "c": "Glomerulonefritis membranosa autoinmune e íleo biliar obstructivo.",
+    "d": "Hipertrofia prostática benigna fulminante e hipertensión pulmonar primaria."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. En la Necrólisis Epidérmica Tóxica (NET), el desprendimiento de más del 30% de la epidermis (frecuentemente >50-70%) equivale fisiopatológicamente a un paciente con quemaduras de segundo grado extensas. La pérdida completa de la función de barrera de la piel desencadena dos grandes complicaciones letales: 1) SEPSIS Y SHOCK SÉPTICO: La superficie cutánea denudada y las erosiones de las mucosas digestiva y respiratoria son colonizadas masivamente por bacterias (Staphylococcus aureus, Pseudomonas aeruginosa) y hongos, siendo la sepsis la causa directa de muerte en más del 50% de los casos; y 2) DESHIDRATACIÓN Y SHOCK HIPOVOLÉMICO: Pérdida masiva e incalculable de agua, electrolitos y proteínas por plasmaféresis transcutánea, con desequilibrio hidroelectrolítico agudo y falla renal prerrenal. Su manejo requiere Unidad de Quemados/UTI. Las opciones B, C y D no corresponden a las causas de muerte de la NET."
+  },
+  {
+   "id": "SIAM-UP3-056",
+   "numero": 56,
+   "pregunta": "Un paciente de 72 años con Enfermedad de Parkinson avanzada presenta episodios de bloqueo motor acinético súbito e impredecible (fenómeno 'Off' brusco o congelamiento severo) refractarios al ajuste de levodopa oral. Se decide utilizar Apomorfina por vía subcutánea. ¿Cuál es su indicación y qué fármaco antiemético periférico se debe administrar de forma obligatoria días antes de su inicio?",
+   "opciones": {
+    "a": "Es un bloqueante cálcico muscular; requiere premedicación con Ondansetrón intravenoso.",
+    "b": "Es un inhibidor de la monoaminooxidasa; requiere premedicación con Metoclopramida a dosis altas.",
+    "c": "Es un agonista dopaminérgico de rescate rápido; requiere premedicación con Domperidona para prevenir emesis severa.",
+    "d": "Es un analgésico opioide mayor; requiere premedicación con atropina sublingual."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Apomorfina es un potente agonista dopaminérgico D1/D2 no ergolínico de acción ultra-rápida administrado por vía subcutánea (mediante pluma inyectable o bomba de infusión). Su indicación clínica precisa en la Enfermedad de Parkinson avanzada es como 'fármaco de rescate' para la reversión rápida de los episodios 'Off' acinéticos graves, prolongados o impredecibles no controlados con medicación oral (inicia su efecto motor en 5 a 15 minutos). REGLA FARMACOLÓGICA OBLIGATORIA: Debido a que la apomorfina estimula intensamente la zona gatillo quimiorreceptora del área postrema (fuera de la BHE), produce náuseas y vómitos hiperagudos e intolerables e hipotensión severa. Por ello, se debe pre-tratar obligatoriamente al paciente con DOMPERIDONA oral (10-20 mg 3 veces/día) durante los 3 días previos y continuarlo al inicio. CONTRAINDICACIÓN ABSOLUTA: No debe usarse Metoclopramida (opción B) porque es un antagonista dopaminérgico D2 que cruza la BHE y empeora masivamente el parkinsonismo. Las opciones A y D son erróneas."
+  },
+  {
+   "id": "SIAM-UP3-057",
+   "numero": 57,
+   "pregunta": "El examen semiológico de la marcha en el adulto mayor permite orientar el diagnóstico etiológico. ¿Cuáles son las características dinámicas cardinales que definen a la 'Marcha Parkinsoniana' o festinante?",
+   "opciones": {
+    "a": "Marcha en 'segador' o helicópoda, con extensión rígida y circunducción del miembro inferior paralizado.",
+    "b": "Marcha estepante o en 'steppage', con elevación exagerada de la rodilla por caída del antepié (flácido).",
+    "c": "Marcha con aumento exagerado de la base de sustentación, taloneo ruidoso y Romberg positivo con ojos cerrados.",
+    "d": "Marcha a pasos cortos, lentos y arrastrados, tronco inclinado hacia adelante (antepulsión), pérdida del braceo y festinación (aceleración del paso)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Marcha Parkinsoniana es el resultado de la bradicinesia, la rigidez y la pérdida de los reflejos de adaptación postural. Sus características semiológicas cardinales son: 1) Inflexión del tronco hacia adelante (antepulsión / postura en flexión); 2) Pasos muy cortos, lentos y arrastrando los pies; 3) Disminución o pérdida del braceo fisiológico (asociado asimétricamente al inicio); 4) Dificultad para iniciar la marcha (acinesia de inicio) y congelamiento en los giros; y 5) FESTINACIÓN: ante el desplazamiento involuntario del centro de gravedad hacia adelante, el paciente acelera involuntariamente el ritmo de sus pequeños pasos como 'corriendo tras su propio centro de gravedad' para no caer. La opción C es la marcha atáxica sensorial/tabética. La opción A es la marcha hemipléjica piramidal. La opción B es la marcha estepante por parálisis del nervio ciático poplíteo externo."
+  },
+  {
+   "id": "SIAM-UP3-058",
+   "numero": 58,
+   "pregunta": "En el tratamiento farmacológico de la Osteoporosis severa se utiliza Denosumab. ¿Cuál es su mecanismo de acción biológico dirigidos a los osteoclastos, su vía/frecuencia de administración y la precaución analítica obligatoria antes de cada aplicación?",
+   "opciones": {
+    "a": "Es un corticoide sintético de depósito; se aplica intraarticular semanalmente y exige medir la TFG.",
+    "b": "Es un anticuerpo monoclonal humano anti-RANKL; se administra por vía subcutánea cada 6 meses y exige verificar previamente la ausencia de hipocalcemia.",
+    "c": "Es un análogo de la PTH; se administra diariamente vía oral y exige medir la glucemia en ayunas.",
+    "d": "Es un inhibidor de la transcriptasa reversa; se administra por vía intramuscular mensual y exige dosar bilirrubina total."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Denosumab es un anticuerpo monoclonal humano (IgG2) con potente efecto antirresortivo óseo. Su mecanismo de acción imita la función de la osteoprotegerina endógena: se une con alta afinidad y especificidad al Ligando del Receptor Activador del Factor Nuclear Kappa-B (RANKL), impidiendo que el RANKL se una a su receptor RANK ubicado en la superficie de los precursores osteoclásticos y osteoclastos maduros. Esto bloquea la formación, función y supervivencia de los osteoclastos, inhibiendo la resorción ósea en hueso trabecular y cortical. Se administra por vía SUBCUTÁNEA en dosis de 60 mg UNA VEZ CADA 6 MESES. PRECAUCIÓN OBLIGATORIA: Debido a su potente y rápida inhibición del recambio óseo, puede desencadenar HIPOCALCEMIA SEVERA; por lo tanto, es requisito estricto medir y corregir la calcemia (y asegurar adecuada ingesta de Calcio y Vitamina D) ANTES de administrar cada dosis. Las opciones A, C y D son falsas."
+  },
+  {
+   "id": "SIAM-UP3-059",
+   "numero": 59,
+   "pregunta": "¿Cuál es la diferencia farmacodinámica entre el Febuxostat y el Alopurinol en la inhibición de la Xantino Oxidasa?",
+   "opciones": {
+    "a": "El Febuxostat es un uricosúrico directo que actúa bloqueando al cotransportador URAT-1 en el asa de Henle.",
+    "b": "El Febuxostat es un inhibidor selectivo no purínico de la Xantino Oxidasa que bloquea las formas reducida y oxidada de la enzima sin requerir ajuste estricto en ERC leve-moderada.",
+    "c": "El Febuxostat destruye al ácido úrico en la circulación convirtiéndolo en alantoína mediante lisis enzimática.",
+    "d": "El Febuxostat inhibe a la ciclooxigenasa-2 de los neutrófilos impidiendo la fagocitosis de cristales."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Febuxostat es un agente hipouricemiante de segunda generación. A diferencia del Alopurinol (que es un análogo purínico que requiere conversión al metabolito activo oxipurinol), el Febuxostat es un inhibidor potente y selectivo NO PURÍNICO de la Xantino Oxidasa. Se une al canal que conduce al sitio activo de la enzima y bloquea de forma selectiva tanto la forma oxidada como la reducida de la xantino oxidasa, impidiendo la síntesis de ácido úrico. Debido a que su eliminación se realiza mediante metabolización hepática amplia (glucuronidación y oxidación) y solo una pequeña fracción se excreta de forma renal inalterada, es una alternativa muy eficaz en pacientes con Insuficiencia Renal Crónica leve a moderada o que presentan hipersensibilidad / intolerancia al alopurinol. La opción A describe a la Benzbromarona/Lesinurad. La opción C describe a la Rasburicasa/Pegloticasa (uricasas). La opción D es incorrecta."
+  },
+  {
+   "id": "SIAM-UP3-060",
+   "numero": 60,
+   "pregunta": "Al examinar a un paciente joven de 18 años que consulta por movimientos involuntarios rápidos y repentinos en parpadeo y sacudidas de hombros, acompañados de carraspeo vocal (Síndrome de Gilles de la Tourette), ¿cuál es la característica clínica cardinal que diferencia a los Tics de la chorea o las mioclonías?",
+   "opciones": {
+    "a": "Los tics son imposibles de suprimir voluntariamente bajo ninguna circunstancia y ocurren únicamente durante el sueño profundo.",
+    "b": "Los tics causan hipotensión ortostática severa con pérdida del conocimiento y clonus exhaustivo.",
+    "c": "Los tics son precedidos por un impulso interno o sensación premonitoria molesta y pueden ser suprimidos voluntariamente de forma temporal.",
+    "d": "Los tics se acompañan de parálisis de la mirada vertical hacia abajo con atrofia muscular lingual."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Los Tics son movimientos (tics motores) o sonidos (tics vocales) involuntarios, breves, repentinos, estereotipados y recurrentes. A diferencia de la chorea, las mioclonías o la atetosis, los tics poseen dos características clínicas patognomónicas que permiten su diagnóstico diferencial: 1) Impulso Premonitorio: el paciente experimenta una sensación corporal o necesidad física molesta e imperiosa previa que precede al tic (ej. picazón en párpados, tensión en cuello); la ejecución del tic alivia temporalmente esta sensación; y 2) SUPRESIBILIDAD VOLUNTARIA TEMPORAL: el paciente puede reprimir o postergar voluntariamente la aparición del tic durante segundos o minutos (ej. durante la consulta médica o en clase), a expensas de un aumento de la tensión interna que finalmente desencadena una 'descarga' compensatoria de tics. Las opciones A, B y D representan aseveraciones falsas."
+  },
+  {
+   "id": "SIAM-UP3-061",
+   "numero": 61,
+   "pregunta": "En el metabolismo fosfocálcico, la activación de la Vitamina D a su forma hormonalmente activa (1,25-(OH)2-D3 o Calcitriol) ocurre en el riñón. ¿Cuál es la enzima responsable de este paso metabólico, sus estímulos fisiológicos directos y sus acciones sobre la absorción intestinal y renal de calcio y fósforo?",
+   "opciones": {
+    "a": "Enzima 1-alfa-hidroxilasa renal; estimulada por la PTH y la hipofosfatemia; aumenta la absorción intestinal y la reabsorción renal de calcio y fósforo.",
+    "b": "Enzima 24-hidroxilasa hepática; estimulada por la calcitonina y la hipercalcemia; inhibe la fijación de calcio en el tejido osteoide.",
+    "c": "Enzima fosfatasa alcalina ósea; estimulada por los corticoides sistémicos; promueve la resorción osteoclástica del hueso compacto.",
+    "d": "Enzima 25-hidroxilasa pancreática; estimulada por la insulina y la glucemia elevada; induce la eliminación urinaria masiva de fosfato."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La conversión de la 25-hidroxivitamina D3 (calcidiol) en la molécula activa 1,25-dihidroxivitamina D3 (Calcitriol) ocurre en las células del túbulo contorneado proximal renal por acción de la enzima mitocondrial 1-alfa-hidroxilasa. La actividad de esta enzima está estrechamente regulada: es estimulada directamente por la Hormona Paratiroidea (PTH) y por los niveles bajos de fosfato sérico (hipofosfatemia), e inhibida por el propio calcitriol, la hipercalcemia y el FGF-23. El Calcitriol actúa uniéndose a su receptor nuclear (VDR) para: 1) Aumentar drásticamente la absorción intestinal activa de calcio y fosfato mediante la inducción de la proteína calbindina-D; 2) Promover la reabsorción tubular renal de calcio y fosfato; y 3) Facilitar la mineralización adecuada de la matriz ósea. Las opciones B, C y D citan enzimas, sitios u órganos incorrectos."
+  },
+  {
+   "id": "SIAM-UP3-062",
+   "numero": 62,
+   "pregunta": "La Indometacina es un AINE tradicionalmente utilizado en el tratamiento de la artritis gotosa aguda y en diversas patologías reumáticas. ¿A qué familia química pertenece, cuál es su potencia antiinflamatoria y cuál es el efecto adverso neurológico característico que limita frecuentemente su uso a dosis elevadas?",
+   "opciones": {
+    "a": "Salicilato no acetilado; produce sordera de conducción reversible con neuropatía motora periférica.",
+    "b": "Derivado del ácido propiónico; produce sedación profunda con paresia del III par craneal.",
+    "c": "Derivado del ácido acético (indolacético); es un potente inhibidor de COX y causa cefalea frontal severa, vértigo y mareos en hasta un 25-50% de los pacientes.",
+    "d": "Oxicam selectivo; produce parestesias generalizadas con convulsiones focales de origen temporal."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Indometacina es un derivado del ácido indolacético de elevada potencia inhibidora de las isoenzimas COX-1 y COX-2, además de inhibir la motilidad de polimorfonucleares y la fosfolipasa A2. Aunque posee una eficacia antiinflamatoria y analgésica muy alta (utilizada clásicamente en crisis de gota o espondiloartritis), presenta una elevada incidencia de efectos adversos. A nivel del Sistema Nervioso Central, produce de forma característica CEFALEA FRONTAL INTENSA (a menudo pulsátil, matutina) acompañada de mareos, vértigo, confusión o aturdimiento en un 25% a 50% de los pacientes que reciben dosis elevadas. Además, presenta una alta gastrolesividad. Las opciones A, B y D señalan grupos químicos o cuadros neurológicos erróneos."
+  },
+  {
+   "id": "SIAM-UP3-063",
+   "numero": 63,
+   "pregunta": "Un paciente de 58 años consulta por temblor en ambas manos que aparece cuando intenta sostener una taza de café o escribir, y empeora con la ansiedad. No presenta rigidez muscular, bradicinesia ni inestabilidad postural. Refiere que su padre padecía un cuadro similar y que el temblor disminuye notablemente tras la ingesta de pequeñas cantidades de alcohol. ¿Cuál es el diagnóstico más probable y el fármaco beta-bloqueante de elección?",
+   "opciones": {
+    "a": "Temblor Esencial (familiar); el tratamiento de primera línea es el Propranolol (o Primidona).",
+    "b": "Enfermedad de Parkinson idiopática; el tratamiento de primera línea es la Levodopa con Benserazida.",
+    "c": "Temblor Fisiológico exacerbado por hiperparatiroidismo; el tratamiento es el Calcitriol oral.",
+    "d": "Temblor Cerebeloso intencional; el tratamiento de primera línea es la Fenitoína intravenosa."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El Temblor Esencial es el trastorno del movimiento más frecuente en el adulto. Se diferencia claramente de la Enfermedad de Parkinson por sus características semiológicas: 1) Es un temblor de Acción / Postural y Cinético (8 a 12 Hz), que se manifiesta al mantener una postura (sostener los brazos elevados) o durante el movimiento voluntario (escribir, tomar un vaso), mientras que el de Parkinson es de Reposo (4 a 6 Hz); 2) Es bilateral y simétrico, afectando manos, cabeza (movimiento de 'no-no') o voz, sin rigidez ni bradicinesia; 3) Frecuentemente presenta herencia autosómica dominante (historia familiar positiva) y atenúa característicamente con el consumo moderado de etanol; y 4) El tratamiento de primera línea para reducir su amplitud incluye el Propranolol (bloqueante beta no selectivo) o la Primidona (anticonvulsivante). Las opciones B, C y D corresponden a otros tipos de temblor."
+  },
+  {
+   "id": "SIAM-UP3-064",
+   "numero": 64,
+   "pregunta": "El Eritema Polimorfo Minor es una reacción cutánea aguda que debe diferenciarse de los cuadros ampollosos graves. ¿Cuáles son las características clínicas de sus lesiones cutáneas, el grado de afección de mucosas y su principal desencadenante infeccioso?",
+   "opciones": {
+    "a": "Pápulas descamativas en placa que respetan las extremidades; afecta mucosa ocular y genital y es desencadenado por Mycobacterium tuberculosis.",
+    "b": "Ampollas flácidas con signo de Nikolsky positivo en más del 50% de la piel; afecta tres mucosas y es desencadenado por Staphylococcus aureus.",
+    "c": "Lesiones en diana o escarapela típicas acrales simétricas; el compromiso mucoso es nulo o limitado a una sola mucosa (ej. oral leve) y es desencadenado principalmente por el Virus del Herpes Simple (HSV).",
+    "d": "Eritema difuso escarlatiniforme sin necrosis; respeta la mucosa oral y es producido por reacciones alérgicas a la insulina."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El Eritema Polimorfo Minor (o Multiforme Minor) es un síndrome inflamatorio agudo autofijado. Su lesión patognomónica es la 'lesión en diana o escarapela típica' (con tres zonas bien definidas: centro purpúrico/vesiculoso, anillo edematoso claro y halo eritematoso externo) con distribución acral y simétrica (manos, pies, codos, rodillas). A diferencia del Eritema Polimorfo Major y del Síndrome de Stevens-Johnson, el Eritema Polimorfo Minor NO cursa con síntomas sistémicos graves, NO presenta desprendimiento epidérmico difuso (Nikolsky negativo) y el compromiso mucoso está ausente o se limita a erosiones leves en una sola mucosa (generalmente la mucosa oral). El factor etiológico desencadenante en más del 80% de los casos es la reactivación del Virus del Herpes Simple (HSV-1 o HSV-2). Las opciones A, B y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-065",
+   "numero": 65,
+   "pregunta": "En el análisis gerontológico de la imagen corporal y los duelos en la vejez (Morabes/Salvarezza), la disminución de la fuerza, la lentificación motora y las alteraciones estéticas obligan al adulto mayor a una reestructuración psíquica. ¿Cuál es la diferencia entre una vivencia adaptativa y un procesamiento no elaborado (replegamiento) ante estas pérdidas físicas?",
+   "opciones": {
+    "a": "Ambas situaciones conducen inevitablemente a la demencia senil irreversible por atrofia del cuerpo calloso.",
+    "b": "La adaptación permite integrar el 'cuerpo del envejecimiento' y mantener proyectos de vida; el replegamiento no elaborado conduce a la vivencia de inutilidad, aislamiento y depresión.",
+    "c": "La adaptación implica la negación maníaca de la edad; el replegamiento produce la curación espontánea del desgaste articular.",
+    "d": "La adaptación induce mutismo selectivo; el replegamiento genera hiperactividad psicomotriz con alucinaciones primarias."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Desde la perspectiva psicogerontológica, el envejecimiento enfrenta al sujeto con la pérdida progresiva de la imagen corporal juvenil e idealizada y de ciertas capacidades funcionales. La elaboración adaptativa de estos duelos exige al individuo aceptar y cathectizar el 'cuerpo real del envejecimiento', reorganizando sus metas y proyectos en función de sus posibilidades actuales, lo que preserva su autoestima e integración psíquica. Por el contrario, cuando la pérdida del cuerpo joven es vivida como una herida narcisista insuperable y los duelos no son elaborados, el sujeto entra en un estado de replegamiento sobre sí mismo, experimentado vivencias de minusvalía, inutilidad, desesperanza y aislamiento social, favoreciendo el desarrollo de cuadros depresivos y el abandono del autocuidado. Las opciones A, C y D distorsionan la dinámica psicológica."
+  },
+  {
+   "id": "SIAM-UP3-066",
+   "numero": 66,
+   "pregunta": "La enfermedad por depósito de cristales de Pirofosfato de Calcio (Pseudogota / Condrocalcinosis) es una causa frecuente de artritis aguda en el anciano. ¿Con qué alteraciones endocrino-metabólicas y sistémicas se asocia clásicamente y obliga a realizar su despistaje diagnóstico?",
+   "opciones": {
+    "a": "Hipotiroidismo congénito, déficit de Vitamina K y cetoacidosis diabética.",
+    "b": "Enfermedad de Celíaca, asma bronquial refractario e hipertrofia tímica.",
+    "c": "Glaucoma de ángulo cerrado, psoriasis vulgar e insuficiencia pancreática exocrina.",
+    "d": "Hemocromatosis, Hiperparatiroidismo Primario, Hipomagnesemia e Hipofosfatasia."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Aunque la mayoría de los casos de Condrocalcinosis o Artritis por Cristales de Pirofosfato de Calcio (PFC) son idiopáticos o asociados al envejecimiento articular, su aparición (especialmente si ocurre en personas menores de 60 años o con afectación poliarticular) obliga a descartar patologías metabólicas subyacentes bien establecidas: 1) Hemocromatosis (el exceso de hierro inhibe a la pirofosfatasa sinovial); 2) Hiperparatiroidismo Primario (la hipercalcemia favorece la precipitación de pirofosfato); 3) Hipomagnesemia (el magnesio es un cofactor que aumenta la solubilidad de los cristales de PFC); y 4) Hipofosfatasia. Las opciones A, B y C citan patologías sin relación fisiopatológica demostrada con la condrocalcinosis."
+  },
+  {
+   "id": "SIAM-UP3-067",
+   "numero": 67,
+   "pregunta": "Un paciente presenta movimientos involuntarios continuos, lentos, contorsionados, de carácter reptante y sinuoso, que afectan predominantemente las regiones distales de los miembros superiores (manos y dedos) y la musculatura facial. ¿Cómo se denomina este trastorno hipercinético y en qué estructura de los ganglios de la base se localiza la disfunción?",
+   "opciones": {
+    "a": "Atetosis (movimientos atetósicos); se origina por disfunción o lesión en el cuerpo estriado (núcleo caudado y putamen).",
+    "b": "Hemibalismo; se origina por destrucción irreversible de la corteza occipital primaria.",
+    "c": "Tic vocal complejo; se origina por atrofia pura del cordón posterior medular.",
+    "d": "Mioclonía de acción; se origina por lisis endotelial de la arteria espinal anterior."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La Atetosis se define como un trastorno del movimiento hipercinético caracterizado por movimientos involuntarios lentos, continuos, fluidos, contorsionados y reptantes, con una marcada preferencia por las porciones distales de las extremidades (dedos de las manos y pies, 'movimientos en pulpo') y la cara. A menudo se combina con la corea (Coreoatetosis). Fisiopatológicamente, se debe a una alteración en los circuitos de los ganglios de la base, afectando primariamente al Cuerpo Estriado (núcleo caudado y putamen), lo que rompe la modulación de las vías directa e indirecta hacia el tálamo y la corteza motora. La opción B (hemibalismo) cursa con movimientos rápidos, violentos y proximales. Las opciones C y D corresponden a otros trastornos."
+  },
+  {
+   "id": "SIAM-UP3-068",
+   "numero": 68,
+   "pregunta": "Un paciente de 54 años con Hiperparatiroidismo Primario asintomático es evaluado en forma ambulatoria. Según los consensos internacionales y las guías clínicas, ¿cuál de los siguientes hallazgos analíticos u óseos constituye una indicación formal para recomendar la cirugía (Paratiroidectomía)?",
+   "opciones": {
+    "a": "Edad del paciente mayor a 85 años con aclaramiento de creatinina de 110 mL/min.",
+    "b": "Nivel de Calcemia total de 0,1 mg/dL por encima del límite superior normal sin osteopenia.",
+    "c": "Densidad Mineral Ósea con T-score de -0,5 en columna lumbar y calciuria de 100 mg/día.",
+    "d": "Concentración de Calcio sérico mayor a 1,0 mg/dL por encima del límite superior normal, o un T-score de Osteoporosis (≤ -2,5) en DXA."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En el Hiperparatiroidismo Primario Asintomático, la decisión de indicar Paratiroidectomía Quirúrgica se basa en la presencia de al menos uno de los siguientes criterios de progresión o daño de órgano blanco: 1) Calcemia total mayor a 1,0 mg/dL (0,25 mmol/L) por encima del límite superior del rango de referencia; 2) Evidencia de osteoporosis en la Densitometría Ósea (T-score ≤ -2,5 en columna, cadera o radio 33%) o presencia de fractura por fragilidad; 3) Compromiso renal: Tasa de Filtración Glomerular <60 mL/min/1,73m2, calciuria de 24 horas >400 mg/día o presencia de nefrolitiasis/nefrocalcinosis en imágenes; y 4) Edad menor a 50 años. Las opciones A, B y C presentan valores normales o criterios inversos que indican conducta conservadora de vigilancia."
+  },
+  {
+   "id": "SIAM-UP3-069",
+   "numero": 69,
+   "pregunta": "Al comparar la farmacodinámica de los Glucocorticoides sistémicos (Hidrocortisona, Prednisona, Meprednisona, Dexametasona), ¿cuál de ellos posee la mayor potencia antiinflamatoria relativa y la menor (nula) actividad mineralocorticoide / de retención de sodio?",
+   "opciones": {
+    "a": "Hidrocortisona (Cortisol).",
+    "b": "Fludrocortisona.",
+    "c": "Prednisona.",
+    "d": "Dexametasona."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La modificación de la estructura química esteroidea altera tanto la potencia antiinflamatoria (vía receptores de glucocorticoides) como la retención hidrosalina (vía receptores de mineralocorticoides): 1) Hidrocortisona: tiene potencia antiinflamatoria de 1 y alta retención de sodio (potencia mineralocorticoide 1); 2) Prednisona/Meprednisona: tienen una potencia antiinflamatoria 4 a 5 veces superior a la hidrocortisona y moderadamente menor retención de sodio; 3) Dexametasona: es un glucocorticoide de acción prolongada de alta potencia (25 a 30 veces más potente que la hidrocortisona) y posee una actividad mineralocorticoide prácticamente NULA (0), por lo que no produce retención de sodio ni edemas; y 4) Fludrocortisona: posee un altísimo efecto mineralocorticoide (utilizada para restituir aldosterona). La opción D responde a la combinación de máxima potencia antiinflamatoria sin efecto mineralocorticoide."
+  },
+  {
+   "id": "SIAM-UP3-070",
+   "numero": 70,
+   "pregunta": "Un paciente de 67 años consulta por dificultad para caminar. Al observarlo deambular, se evidencia que al levantar el pie derecho debe flexionar y elevar exageradamente la rodilla hacia arriba para evitar que la punta del pie tropiece contra el suelo, cayendo luego el antepié de forma brusca (marcha en 'Steppage' o estepante). ¿Cuál es la alteración neurológica causante?",
+   "opciones": {
+    "a": "Paresia o parálisis de los músculos dorsiflexores del pie por lesión del nervio Peroneo Común (Poplíteo Externo) o raíz L5.",
+    "b": "Hipertonía espástica del cuádriceps por sección completa de la médula cervical C3.",
+    "c": "Disfunción de las vellosidades aracnoideas con hidrocefalia normotensiva.",
+    "d": "Atrofia del lóbulo occipital izquierdo con destrucción del área motora primaria."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La Marcha en 'Steppage' o Estepante es la consecuencia motora de la imposibilidad para realizar la dorsiflexión del pie (pie caído o péndulo). Durante la fase de oscilación de la marcha, el paciente no puede elevar la punta del pie, por lo que compensa elevando o flexionando exageradamente la cadera y la rodilla ('como marchando o subiendo escalones') para que los dedos no arrastren contra el suelo, cayendo el antepié con un golpe ruidoso. Se debe al compromiso del Nervio Peroneo Común (o Poplíteo Externo), que inerva a los músculos tibial anterior, extensor largo de los dedos y extensor largo del hálux, o a una radiculopatía L5 / polineuropatía distal. La opción B, C y D corresponden a marcha hemipléjica, espástica o apráxica."
+  },
+  {
+   "id": "SIAM-UP3-071",
+   "numero": 71,
+   "pregunta": "El Ácido Zoledrónico es un bisfosfonato nitrogenado de muy alta potencia utilizado en el tratamiento de la Osteoporosis severa. ¿Cuál es su esquema de administración, su principal vía de eliminación y la medida preventiva indicada para mitigar la 'reacción de fase aguda' tras su infusión?",
+   "opciones": {
+    "a": "Administración subcutánea diaria; eliminación biliar; profilaxis con antibióticos betalactámicos.",
+    "b": "Administración por infusión intravenosa de 5 mg una vez al AÑO; eliminación renal; profilaxis con Paracetamol e hidratación para prevenir síntomas pseudogripales.",
+    "c": "Administración oral semanal en ayunas; eliminación hepática; profilaxis con vitamina B12.",
+    "d": "Administración intraarticular mensual; eliminación pulmonar; profilaxis con insulina rápida."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Ácido Zoledrónico es un bisfosfonato intravenoso de tercera generación que inhibe de forma potente a la enzima farnesil pirofosfato sintasa en los osteoclastos. Su prolongada afinidad por el tejido óseo permite un esquema de dosificación muy cómodo: una única infusión IV de 5 mg administrada UNA VEZ AL AÑO para el tratamiento de la osteoporosis. Su eliminación es estrictamente RENAL por filtración glomerular, por lo que está contraindicado si la TFG es <35 mL/min. REACCIÓN DE FASE AGUDA: En el 30% de los pacientes, la primera infusión desencadena una reacción sistémica transitoria (fiebre, mialgias, artralgias, cefalea) mediada por la liberación de citoquinas por linfocitos T gamma/delta. Para prevenirla o atenuarla, se recomienda la administración de Paracetamol o Ibuprofeno durante las 72 horas posteriores a la infusión, asegurando una adecuada eufuncionalidad hídrica. Las opciones A, C y D son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-072",
+   "numero": 72,
+   "pregunta": "Un paciente de 69 años sin antecedentes neurológicos previos inicia tratamiento con Haloperidol (o Metoclopramida a dosis altas). A las pocas semanas desarrolla de forma simétrica temblor de acción/reposo, rigidez e hipocinesia. ¿Cómo se denomina este cuadro, cuál es su fisiopatología y cuál es la medida terapéutica inicial?",
+   "opciones": {
+    "a": "Enfermedad de Alzheimer familiar; se debe a placas seniles y exige iniciar inmediatamente rivastigmina.",
+    "b": "Parkinsonismo Farmacológico (Secundario); se debe al bloqueo de receptores dopaminérgicos D2 estriatales; la medida inicial es suspender o rotar el fármaco causal.",
+    "c": "Distonía focal tensional; se debe a hiperactividad de la noradrenalina y exige la indicación de beta-agonistas.",
+    "d": "Ataxia Espinocerebelosa de inicio tardío; se debe a mutación de la ataxina 1 y exige fisioterapia intensiva."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Parkinsonismo Farmacológico o Inducido por Drogas es la causa más frecuente de parkinsonismo secundario en el adulto mayor. Se desencadena por la administración de fármacos que antagonizan a los receptores de Dopamina D2 en el cuerpo estriado, fundamentalmente Antipsicóticos Típicos (Haloperidol, Clorpromazina), Antipsicóticos Atípicos a dosis altas (Risperidona) y Procinéticos / Antieméticos que cruzan la BHE (Metoclopramida, Sulpirida). A diferencia de la Enfermedad de Parkinson idiopática, el cuadro suele ser de inicio subagudo, de presentación SIMÉTRICA, no cursa con anosmia previa y presenta una pobre respuesta a la levodopa. La medida primaria e indispensable es la SUSPENSIÓN GRADUAL o ROTACIÓN del fármaco responsable (sustituyendo antipsicóticos por Quetiapina o Clozapina si se requiere antipsychotic therapy). Las opciones A, C y D corresponden a diagnósticos no relacionados con el fármaco."
+  },
+  {
+   "id": "SIAM-UP3-073",
+   "numero": 73,
+   "pregunta": "En la fisiología del metabolismo del fosfato y la regulación mineral ósea, el Factor de Crecimiento de Fibroblastos 23 (FGF-23) y su co-receptor Klotho juegan un rol central. ¿Cuál es la célula responsable de la síntesis de FGF-23, el estímulo para su liberación y su efecto renal sobre el fosfato y el Calcitriol?",
+   "opciones": {
+    "a": "Sintetizado por los Osteocitos en respuesta a la hiperfosfatemia; inhibe a los cotransportadores Na/Pi en el túbulo proximal (induce fosfaturia) e inhibe a la 1-alfa-hidroxilasa.",
+    "b": "Sintetizado por los hepatocitos en respuesta a la hipoglicemia; promueve la fijación de calcio en las arterias coronarias.",
+    "c": "Sintetizado por las células C tiroideas ante la hipocalcemia; aumenta la reabsorción tubular de fósforo y estimula a la vitamina D.",
+    "d": "Sintetizado por las neuronas del hipotálamo posterior ante la deshidratación; estimula la síntesis de PTH."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El FGF-23 es una hormona fosfatúrica sintetizada principalmente por los Osteocitos y osteoblastos del hueso. Su liberación se estimula en respuesta al AUMENTO de los niveles de FÓSFORO sérico (hiperfosfatemia), el calcitriol y la PTH. A nivel renal, al unirse al complejo receptor FGFR1-Klotho en el túbulo proximal, ejerce dos acciones clave: 1) Inhibe la expresión de los cotransportadores de Sodio-Fosfato NaPi-2a y NaPi-2c en la membrana luminal, AUMENTANDO LA EXCRECIÓN URINARIA DE FÓSFORO (fosfaturia); y 2) Inhibe a la enzima 1-alfa-hidroxilasa y estimula a la 24-hidroxilasa, reduciendo la síntesis de Calcitriol (1,25-(OH)2-D3). Es un regulador endocrino indispensable de la fosfatemia. Las opciones B, C y D citan orígenes o efectos falsos."
+  },
+  {
+   "id": "SIAM-UP3-074",
+   "numero": 74,
+   "pregunta": "En el manejo integral del paciente con Síndrome de Stevens-Johnson (SSJ) o Necrólisis Epidérmica Tóxica (NET) internado en la Unidad de Quemados o UTI, ¿cuáles son las medidas de soporte general no farmacológicas e interdisciplinarias críticas para prevenir la ceguera y la falla multiorgánica?",
+   "opciones": {
+    "a": "Restricción hídrica absoluta de 200 mL/día, exposición directa a luz solar ultravioleta y uso de jabones alcalinos concentrados.",
+    "b": "Soporte hidroelectrolítico y térmico estricto, nutrición entérica precoz, cuidados antisépticos cutáneos no adherentes y evaluación oftalmológica diaria con lubricación para prevenir el simbléfaron.",
+    "c": "Suspensión de todo fluido parenteral, indicación de diuréticos de asa a dosis máximas e inyección intralesional de adrenalina.",
+    "d": "Uso rutinario de antibióticos sistémicos profilácticos de amplio espectro, desbridamiento quirúrgico traumático e inmovilización total."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. Debido a la pérdida masiva de la barrera cutánea en el SSJ/NET, el tratamiento exige un manejo de soporte de alta complejidad: 1) Reposición hidroelectrolítica rigurosa (calculada según la superficie afectada) para evitar el shock hipovolémico; 2) Control de la temperatura ambiental (30-32 °C) para evitar la hipotermia por pérdida calórica; 3) Nutrición entérica precoz para frenar el hipercatabolismo; 4) Manejo de las erosiones cutáneas mediante curaciones no adherentes en condiciones asépticas; y 5) CUIDADO OFTALMOLÓGICO DIARIO DESDE EL INICIO: la afectación ocular (conjuntivitis erosiva, seudomembranas) puede dejar secuelas irreversibles como simbléfaron, entropión, ulceración corneal y ceguera. Exige lubricación continua, colirios antisépticos/esteroides y liberación de adherencias por oftalmología. REGLA CLÍNICA: NO se recomiendan los antibióticos sistémicos profilácticos rutinarios (opción D) porque seleccionan cepas resistentes; solo se usan ante evidencia de infección/sepsis. Las opciones A y C son peligrosas."
+  },
+  {
+   "id": "SIAM-UP3-075",
+   "numero": 75,
+   "pregunta": "Una paciente de 64 años consulta por dolor y deformidad progresiva en las manos de años de evolución. La radiografía simple muestra pinzamiento del espacio articular, esclerosis subcondral y erosiones centrales en 'alas de gaviota' en las articulaciones interfalángicas distales y proximales. ¿Qué variante clínica de la osteoartrosis presenta?",
+   "opciones": {
+    "a": "Artritis Reumatoide juvenil seropositiva.",
+    "b": "Artrosis Erosiva de Manos.",
+    "c": "Artritis Psoriásica eritrodérmica.",
+    "d": "Gota tofácea aguda de carpo."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La Artrosis Erosiva de Manos es una variante o subtipo agresivo de osteoartrosis de inicio perimenopáusico o en la tercera edad, con marcada predisposición hereditaria femenina. A diferencia de la artrosis nodal común, se caracteriza por episodios recurrentes de dolor agudo inflamatorio, tumefacción, eritema y deformidad articular rápida en las articulaciones Interfalángicas Distales (IFD) e Interfalángicas Proximales (IFP). Su hallazgo radiológico patognomónico es la presencia de erosiones subcondrales centrales que alteran la superficie articular, produciendo la clásica imagen en 'ALAS DE GAVIOTA' (gull-wing sign) en la radiografía AP de manos. Muestra una velocidad de sedimentación (VSG) discretamente elevada en los brotes pero con factor reumatoide negativo. Las opciones A, C y D presentan otros patrones erosivos e inflamatorios."
+  },
+  {
+   "id": "SIAM-UP3-076",
+   "numero": 76,
+   "pregunta": "La Prueba de Romberg es una maniobra semiológica clave en la evaluación de los trastornos del equilibrio. ¿Cómo se ejecuta correctamente, cuál es la respuesta que define un 'Romberg Positivo' y qué sistema de la sensibilidad / equilibrio se encuentra alterado en este caso?",
+   "opciones": {
+    "a": "Paciente caminando de talones; si pierde el braceo es Romberg Positivo; indica destrucción del nervio auditivo.",
+    "b": "Paciente en decúbito dorsal; si presenta nistagmo vertical al elevar las piernas es Romberg Positivo; indica fallo metabólico hepático.",
+    "c": "Paciente sentado con brazos cruzados; si cae hacia atrás al ABRIR los ojos es Romberg Positivo; indica lesión del lóbulo occipital.",
+    "d": "Paciente de pie con pies juntos; si oscila o cae inmediatamente al CERRAR los ojos es Romberg Positivo; indica alteración Propioceptiva o Vestibular Periférica."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La maniobra de Romberg evalúa el control postural de la estación de pie, el cual depende de la integración de tres sistemas aferencia: la visión, la propiocepción (cordones posteriores) y el sistema vestibular. Se realiza solicitando al paciente mantenerse erguido con ambos pies juntos y los brazos extendidos o a los lados. Si el paciente se mantiene estable con los ojos abiertos, pero al SOLICITARLE CERRAR LOS OJOS (retirando el control visual) presenta oscilaciones marcadas o desequilibrio con tendencia a la caída, el signo de Romberg es POSITIVO. Esto indica una pérdida de las aferencias sensitivas propioceptivas (vía cordonal posterior / polineuropatía) o un trastorno vestibular periférico. REGLA SEMIOLÓGICA: En el Síndrome Cerebeloso puro, la inestabilidad está presente tanto con ojos abiertos como cerrados, por lo que el signo de Romberg es NEGATIVO o no aplicable. Las opciones A, B y C citan ejecuciones e interpretaciones erróneas."
+  },
+  {
+   "id": "SIAM-UP3-077",
+   "numero": 77,
+   "pregunta": "En el tratamiento de la hiperuricemia crónica en pacientes con gota, el Febuxostat es un inhibidor de la xantino oxidasa de segunda línea. ¿Cuál es la advertencia de seguridad o precaución especial sobre su perfil cardiovascular descrita en los consensos clínicos?",
+   "opciones": {
+    "a": "Produce un incremento del riesgo de eventos y mortalidad cardiovascular en pacientes con enfermedad cardiovascular grave o cardiopatía isquémica preexistente.",
+    "b": "Produce miocarditis infecciosa por Chagas agudo reactivado.",
+    "c": "Causa hipotensión ortostática refractaria con síncope permanente en todos los usuarios.",
+    "d": "Inhibe irreversiblemente al nodo sinusal requiriendo colocación preventiva de marcapasos."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Aunque el Febuxostat es un inhibidor potente de la xantino oxidasa no purínico muy útil en pacientes con insuficiencia renal o alergia al alopurinol, ensayos clínicos de seguridad cardiovascular a gran escala (como el estudio CARES) mostraron una mayor tasa de mortalidad por todas las causas y de mortalidad cardiovascular en pacientes tratados con febuxostat en comparación con alopurinol, particularmente en aquellos que presentaban antecedente de patología cardiovascular mayor (cardiopatía isquémica, insuficiencia cardíaca o ACV). Por ello, las agencias reguladoras y guías clínicas recomiendan evitar el febuxostat en pacientes con enfermedad cardiovascular grave establecida, a menos que no existan otras alternativas terapéuticas válidas. Las opciones B, C y D son aseveraciones falsas."
+  },
+  {
+   "id": "SIAM-UP3-078",
+   "numero": 78,
+   "pregunta": "Los Tofos Gotosos son la manifestación patognomónica de la Gota Tofácea Crónica no tratada o mal controlada. ¿Cuál es la composición histopatológica y ultraestructural de un tofo y cuáles son sus localizaciones anatómicas de aparición más frecuentes?",
+   "opciones": {
+    "a": "Proliferación de tejido adiposo maduro no inflamatorio; se ubican en la mucosa del colon sigmoides.",
+    "b": "Depósitos de cristales de fosfato de calcio rodeados por tejido necrótico sin inflamación; se ubican en la córnea y la esclerótica.",
+    "c": "Acúmulos nodulares de cristales de Urato Monosódico rodeados por una respuesta inflamatoria granulomatosa de cuerpo extraño con células gigantes; se ubican en hélice del pabellón auricular, bursas olecranianas y tendón de Aquiles.",
+    "d": "Infiltrado de amiloide AL con células tumorales; se ubican preferentemente en la corteza suprarrenal."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Un Tofo Gotoso es un depósito nodular voluminoso constituido por la agregación de millones de cristales de Urato Monosódico (UMS) en la dermis, tejido subcutáneo, sinovial o estructuras periarticulares. Histológicamente, el núcleo de cristales está rodeado por una intensa reacción inflamatoria granulomatosa de tipo 'cuerpo extraño', compuesta por macrófagos, células gigantes multinucleadas, linfocitos y un envoltura de tejido fibroso reactivo. Se desarrollan tras años de hiperuricemia crónica no controlada (>10-15 años). Sus localizaciones más características son: el hélice y antehélice del pabellón auricular, la bursa olecraniana (en codos), las articulaciones interfalángicas de manos y pies, y el tendón de Aquiles o bursa prerrotuliana. Las opciones A, B y D no corresponden a la histología del tofo."
+  },
+  {
+   "id": "SIAM-UP3-079",
+   "numero": 79,
+   "pregunta": "En la evaluación multidimensional del adulto mayor, las caídas desde la propia altura constituyen un gran síndrome geriátrico. Al analizar los factores desencadenantes, ¿cuál representa un 'factor de riesgo extrínseco o ambiental' que debe corregirse en el domicilio del paciente?",
+   "opciones": {
+    "a": "Presencia de catarata senil con disminución de la agudeza visual.",
+    "b": "Presencia de hipotensión ortostática por polifarmacia.",
+    "c": "Disminución de la masa muscular (sarcopenia) e inestabilidad postural.",
+    "d": "Deficiente iluminación en pasillos y escaleras, alfombras sueltas, calzado inadecuado y ausencia de agarraderas en el baño."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Las caídas en el adulto mayor son de origen multifactorial, resultando de la interacción entre factores intrínsecos y extrínsecos: 1) Factores Intrínsecos: son los propios del paciente (ej. sarcopenia, deterioro visual por cataratas, hipotensión ortostática, trastornos de la marcha, neuropatía); 2) Factores Extrínsecos o Ambientales: son los elementos del entorno físico que facilitan el tropezón, la pérdida de equilibrio o el resbalón (iluminación deficiente o encandilante, presencia de alfombras o cables sueltos, suelos resbaladizos, desniveles sin señalizar, ausencia de barras de apoyo en el inodoro/ducha, y uso de calzado destalonado o inapropiado). La modificación de los factores extrínsecos en el hogar es la medida preventiva más costo-efectiva. Las opciones A, B y C corresponden a factores intrínsecos."
+  },
+  {
+   "id": "SIAM-UP3-080",
+   "numero": 80,
+   "pregunta": "¿Cuál es la estrategia farmacológica indicada para prevenir las recurrencias del Eritema Polimorfo?",
+   "opciones": {
+    "a": "Uso de Alopurinol en dosis de carga al primer síntoma cutáneo.",
+    "b": "Tratamiento profiláctico supresor crónico con un antiviral oral (Aciclovir o Valaciclovir) durante 6 a 12 meses.",
+    "c": "Aplicación de inmunoglobulina intravenosa semanal e inmovilización de miembros.",
+    "d": "Administración de corticoides orales en dosis altas de forma continua durante 5 años."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Eritema Polimorfo Minor asociado al HSV (HAEM: Herpes Associated Erythema Multiforme) suele ser un cuadro autolimitado. Sin embargo, un subgrupo de pacientes presenta brotes recurrentes e incapacitantes (múltiples episodios al año) secundarios a reactivaciones subclínicas o clínicas periódicas del HSV. Dado que las lesiones cutáneas son una respuesta inmunológica tardía desencadenada por el ADN del virus herpes en la piel, el tratamiento antiviral una vez que aparecen las lesiones cutáneas no suele frenar el brote actual. Por ello, la estrategia de elección demostrada para PREVENIR LAS RECURRENCIAS es la terapia profiláctica supresora continua a largo plazo con un Antiviral Oral (ej. Aciclovir 400 mg cada 12 horas o Valaciclovir 500 mg/día) durante un período de 6 a 12 meses. Las opciones A, C y D no están indicadas y agregan toxicidad."
+  },
+  {
+   "id": "SIAM-UP3-081",
+   "numero": 81,
+   "pregunta": "En el metabolismo proteico del adulto mayor, la Sarcopenia se define como un síndrome geriátrico caracterizado por la pérdida progresiva y generalizada de la masa, fuerza y rendimiento muscular. ¿Cuál es su mecanismo fisiopatológico central y la recomendación nutricional proteica para su prevención?",
+   "opciones": {
+    "a": "Acumulación masiva de glucógeno intracelular en los miocitos; requiere la administración de corticoides sistémicos a dosis altas.",
+    "b": "Destrucción autoinmune selectiva de las fibras musculares de tipo I por anticuerpos anti-miosina; requiere restricción proteica estricta a <0,4 g/kg/día.",
+    "c": "Desequilibrio entre la síntesis y degradación proteica por resistencia anabólica, denervación e inflamación crónica de bajo grado; requiere un aporte proteico de 1,2 a 1,5 g/kg/día.",
+    "d": "Ausencia de síntesis de mioblastos por deficiencia de calcitonina; requiere únicamente reposo prolongado en cama."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Sarcopenia es un trastorno músculo-esquelético progresivo caracterizado por la disminución acelerada de la masa muscular, la fuerza (dinapenia) y la funcionalidad física. Su fisiopatología es multifactorial: 1) Resistencia anabólica (menor respuesta de la síntesis proteica muscular ante la ingesta de aminoácidos y el ejercicio); 2) Inflamación sistémica crónica de bajo grado asociada al envejecimiento ('inflammaging' con elevación de IL-6 y TNF-alfa); 3) Pérdida de motoneuronas alfa del asta anterior; y 4) Cambios hormonales (descenso de GH, IGF-1 y testosterona). Para contrarrestar la resistencia anabólica y preservar la masa magra en el anciano, las guías internacionales recomiendan optimizar la ingesta proteica a 1,2 - 1,5 g/kg/día (distribuida en las comidas principales y rica en leucina) combinada con ejercicio de fuerza progresivo. Las opciones A, B y D representan aseveraciones falsas."
+  },
+  {
+   "id": "SIAM-UP3-082",
+   "numero": 82,
+   "pregunta": "En el diagnóstico diferencial del paciente con hipercalcemia e hiperparatiroidismo, se debe distinguir el Hiperparatiroidismo Primario (HPTP) de la Hipercalcemia Hipocalciúrica Familiar (FHH). ¿Cuál es el parámetro urinario de laboratorio clave para diferenciar ambas entidades?",
+   "opciones": {
+    "a": "La presencia de proteinuria de Bence-Jones en la tira reactiva.",
+    "b": "El Índice de Aclaramiento de Calcio/Creatinina (FECa); en la FHH es <0,01, mientras que en el HPTP es generalmente >0,02.",
+    "c": "El nivel de glucosuria de 24 horas en ayunas.",
+    "d": "El dosaje de ácido vanilmandelico en orina de 24 horas."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. La Hipercalcemia Hipocalciúrica Familiar (FHH) es un trastorno autosómico dominante benigno causado por una mutación inactivadora en el gen del Receptor Sensor de Calcio (CaSR). Afecta el punto de ajuste del CaSR en las paratiroides y en el riñón, lo que provoca que el riñón reabsorba masivamente calcio a pesar de la hipercalcemia. Para diferenciar la FHH del Hiperparatiroidismo Primario (que requiere cirugía), se calcula la Fracción de Excreción o Índice de Aclaramiento Calcio/Creatinina en orina de 24 hs (FECa = (Ca orina × Cr plasma)/(Ca plasma × Cr orina)): 1) FECa < 0,01 (hipocalciuria marcada) confirma FHH y evita paratiroidectomías innecesarias; 2) FECa > 0,02 es característico del HPTP. Las opciones A, C y D no evalúan el manejo tubular del calcio."
+  },
+  {
+   "id": "SIAM-UP3-083",
+   "numero": 83,
+   "pregunta": "¿Cuál es el diagnóstico diferencial más probable dentro de los Parkinsonismos Atípicos?",
+   "opciones": {
+    "a": "Síndrome de Guillain-Barré con diplejía facial.",
+    "b": "Enfermedad de Parkinson idiopática esporádica pura.",
+    "c": "Atrofia Multisistémica (MSA / Síndrome de Shy-Drager).",
+    "d": "Enfermedad de Alzheimer de inicio amnésico temprano."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Atrofia Multisistémica (MSA) es una alfasinucleinopatía neurodegenerativa atípica caracterizada por la combinación de: 1) Parkinsonismo simétrico de rápida progresión con escasa o nula respuesta a la Levodopa; 2) Disfunción Autonómica Precoz y Severa (Hipotensión ortostática sintomática, incontinencia urinaria temprana o disfunción eréctil, conocida históricamente como Síndrome de Shy-Drager); y 3) Signos cerebelosos (ataxia) o piramidales (hiperreflexia, Babinski). La presencia de fallo autonómico precoz y la refractariedad a la levodopa descartan la Enfermedad de Parkinson idiopática (opción B). Las opciones A y D presentan características ajenas al cuadro."
+  },
+  {
+   "id": "SIAM-UP3-084",
+   "numero": 84,
+   "pregunta": "En la evolución aguda y subaguda del Síndrome de Stevens-Johnson (SSJ) y de la Necrólisis Epidérmica Tóxica (NET), la afectación de las mucosas ocular y palpebral es muy prevalente. ¿Cuáles son las complicaciones oculares crónicas más graves y la conducta profiláctica obligatoria desde el ingreso?",
+   "opciones": {
+    "a": "Formación de seudomembranas, simbléfaron, triquiasis, neovascularización corneal y ceguera; prevenibles con lubricación continua, colirios antisépticos/esteroides y liberación diaria de adherencias.",
+    "b": "Glaucoma neovascular agudo; requiere únicamente la oclusión ocular binaural con parches secos.",
+    "c": "Desprendimiento retinal exudativo; requiere fotocoagulación con láser de forma ambulatoria.",
+    "d": "Catarata nuclear bilateral; requiere facoemulsificación quirúrgica de urgencia en las primeras 6 horas."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La afectación ocular ocurre en más del 80% de los pacientes con SSJ/NET. La necrosis y denudación del epitelio conjuntival y palpebral desencadena la formación de seudomembranas y sinequias entre la conjuntiva bulbar y palpebral (Simbléfaron). Si no se trata precozmente, evoluciona hacia cicatrización aberrante, triquiasis (pestañas hacia adentro que erosiónan la córnea), ojo seco severo, cicatrización corneal, ulceración y ceguera irreversible. El manejo profiláctico obligatorio requiere la evaluación diaria por Oftalmología, lubricación ocular intensiva con lágrimas artificiales sin conservantes, colirios antibióticos/corticoides y la liberación mecánica diaria de las adherencias conjuntivales con bastoncillo. Las opciones B, C y D representan abordajes erróneos o irrelevantes."
+  },
+  {
+   "id": "SIAM-UP3-085",
+   "numero": 85,
+   "pregunta": "En la patogenia de la Artritis Gotosa Aguda, el depósito de cristales de Urato Monosódico (UMS) en la cavidad articular desencadena un potente cuadro inflamatorio. ¿Cuál es el mecanismo celular e inmunológico específico que inicia esta cascada inflamatoria sinovial?",
+   "opciones": {
+    "a": "Fagocitosis de los cristales por los macrófagos sinoviales con activación del Inflamasoma NLRP3 y posterior liberación masiva de Interleuquina-1 beta (IL-1β).",
+    "b": "Inhibición directa de la enzima ciclooxigenasa-2 con supresión de la prostaglandina E2.",
+    "c": "Activación de la vía del complemento por la vía alternativa con lisis pura de los osteoblastos.",
+    "d": "Estimulación de los receptores muscarínicos M3 en los condrocitos con secreción de calcitonina."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La inflamación gotosa aguda es el modelo clásico de inmunidad innata activada por cristales. Los cristales de Urato Monosódico (UMS) son fagocitados por los macrófagos residentes de la membrana sinovial. Dentro del citoplasma celular, los cristales desestabilizan el lisosoma y estimulan la plataforma proteica intracelular denominada INFLAMASOMA NLRP3. La activación del inflamasoma NLRP3 recluta e inactiva a la enzima caspasa-1, la cual escinde proteolíticamente al precursor inactivo pro-IL-1β convirtiéndolo en su forma activa secretada: la Interleuquina-1 beta (IL-1β). La IL-1β es la citoquina clave de la gota que induce la vasodilatación, el dolor y el reclutamiento masivo de neutrófilos hacia el espacio articular. Las opciones B, C y D no explican el mecanismo del inflamasoma."
+  },
+  {
+   "id": "SIAM-UP3-086",
+   "numero": 86,
+   "pregunta": "Una paciente de 68 años inicia tratamiento con Meprednisona 20 mg/día por una arteritis de células gigantes. Respecto a la Osteoporosis Inducida por Glucocorticoides, ¿cuál es su fisiopatología celular y el criterio para iniciar profilaxis ósea con Bisfosfonatos?",
+   "opciones": {
+    "a": "Estimulan la síntesis de colágeno óseo; la profilaxis solo se indica si la calcemia supera los 15 mg/dL.",
+    "b": "Aumentan la reabsorción intestinal de calcio; la profilaxis exige el uso de diuréticos tiazídicos a dosis altas.",
+    "c": "Inducen la apoptosis de osteoblastos y osteocitos e incrementan el RANKL; la profilaxis con bisfosfonatos está indicada en pacientes que reciban prednisona ≥5 mg/día por ≥3 meses con riesgo elevado de fractura.",
+    "d": "Inhiben de forma irreversible a los osteoclastos; no se requiere profilaxis ni suplementación de calcio."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. La Osteoporosis Inducida por Glucocorticoides (OIG) es la causa más frecuente de osteoporosis secundaria e iatrogénica. Los corticoides producen daño óseo por un doble mecanismo: 1) Directo: inhiben la diferenciación y estimulan la apoptosis de los osteoblastos y osteocitos (disminuyendo la formación ósea) e incrementan la expresión del RANKL favoreciendo la resorción; y 2) Indirecto: disminuyen la absorción intestinal de calcio e incrementan la calciuria. Las pérdidas de masa ósea son más aceleradas durante los primeros 3 a 6 meses de tratamiento. Según las guías reumatológicas, todo paciente que inicie tratamiento con corticoides sistémicos a dosis equivalentes a Prednisona ≥ 5 mg/día durante 3 meses o más debe ser evaluado para iniciar prevención farmacológica con Bisfosfonatos (Alendronato/Risedronato o Zoledrónico) junto a suplementación de Calcio y Vitamina D. Las opciones A, B y D señalan procesos opuestos."
+  },
+  {
+   "id": "SIAM-UP3-087",
+   "numero": 87,
+   "pregunta": "Un paciente de 66 años consulta por episodios de vértigo rotatorio súbito y breve (duración <1 minuto) que se desencadenan exclusivamente al girar la cabeza en la cama o al extender el cuello para mirar hacia arriba. No presenta acúfenos ni hipoacusia. ¿Cuál es el diagnóstico más probable, la maniobra diagnóstica y la maniobra de tratamiento de elección?",
+   "opciones": {
+    "a": "Neuritis Vestibular aguda; diagnóstico por audiometría; tratamiento con aciclovir oral.",
+    "b": "Enfermedad de Menière; diagnóstico por electrocochleografía; tratamiento con dieta hiper-sódica.",
+    "c": "ACV isquémico de la arteria basilar; diagnóstico por radiografía de tórax; tratamiento con aspirina.",
+    "d": "Vértigo Posicional Paroxístico Benigno (VPPB) del conducto semicircular posterior; diagnóstico mediante Maniobra de Dix-Hallpike y tratamiento mediante Maniobra de Reposicionamiento de Epley."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. El Vértigo Posicional Paroxístico Benigno (VPPB) es la causa más frecuente de vértigo periférico en el adulto mayor. Se debe a la Canalitiasis (desprendimiento de otoconias de carbonato de calcio de la mácula utricular que flotan libremente en la endolinfa de un conducto semicircular, predominantemente el Posterior). Clínicamente cursa con episodios paroxísticos de vértigo rotatorio breve (<60 segundos), provocados por cambios en la posición de la cabeza respecto a la gravedad (al acostarse, girar en la cama o mirar hacia arriba), sin síntomas auditivos. EL DIAGNÓSTICO SE CONFIRMA con la Maniobra de Dix-Hallpike (desencadena nistagmo geotrópico con latencia, fatigabilidad y vértigo). EL TRATAMIENTO DE ELECCIÓN no es farmacológico, sino las Maniobras de Reposicionamiento de Otolitos (Maniobra de Epley o de Semont), que desplazan los otolitos fuera del conducto de regreso al utrículo con una eficacia >90%. Las opciones A, B y C son incorrectas."
+  },
+  {
+   "id": "SIAM-UP3-088",
+   "numero": 88,
+   "pregunta": "En la farmacoterapia de la Enfermedad de Parkinson con Levodopa u Agonistas Dopaminérgicos, ¿cuál es el riesgo clínico grave de suspender bruscamente la medicación o reducir drásticamente sus dosis?",
+   "opciones": {
+    "a": "Desarrollo de un Síndrome de Acinesia Aguda / Síndrome Neuroléptico Maligno-Like con rigidez severa, hipertermia, disautonomía y elevación de CPK.",
+    "b": "Precipitación de una crisis tirotoxicósica con exoftalmos bilateral.",
+    "c": "Desarrollo de condrocalcinosis masiva en ambas articulaciones temporomandibulares.",
+    "d": "Aparición de hipoglicemia severa con alcalosis respiratoria pura."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La suspensión repentina, la interrupción por cirugía o la reducción drástica de la dosis de Levodopa o de agonistas dopaminérgicos en pacientes parkinsonianos puede desencadenar una urgencia neurológica potencialmente mortal conocida como Síndrome de Acinesia Aguda / Síndrome de Hipertermia-Acinesia (o Síndrome Neuroléptico Maligno-Like). Fisiopatológicamente, la deprivación agudísima de la transmisión dopaminérgica estriatal y del tronco genera un cuadro caracterizado por: rigidez muscular extrema ('caño de plomo'), acinesia total, hipertermia / fiebre elevada, alteración del estado mental (estupor/coma), inestabilidad autonómica (taquicardia, PA fluctuante) y rabdomiólisis secundaria con elevación marcada de Creatinquinasa (CPK) y riesgo de falla renal. REGLA CLÍNICA: La medicación antiparkinsoniana NUNCA debe suspenderse bruscamente. Las opciones B, C y D son afecciones sin relación con la deprivación dopaminérgica."
+  },
+  {
+   "id": "SIAM-UP3-089",
+   "numero": 89,
+   "pregunta": "En el abordaje de la Salud Integral del Adulto Mayor (SIAM), los trastornos de la marcha y el miedo a caer (ptofobia) alteran la imagen corporal. Desde la perspectiva psicológica del duelo por la función motora perdida, ¿qué consecuencia psíquica sobre la autonomía personal genera la falta de reelaboración narcisista?",
+   "opciones": {
+    "a": "El desarrollo de hiperbulia con conducta atlética de alto riesgo.",
+    "b": "La pérdida irreversible de la capacidad lingüística de comprensión del lenguaje escrito.",
+    "c": "La aparición de aislamiento social, sobre-dependencia de terceros, inhibición del desplazamiento y aceleración del deterioro funcional.",
+    "d": "La curación espontánea de las lesiones del sistema extrapiramidal mediante hipermnesia."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Cuando el adulto mayor sufre un deterioro físico (ej. parkinsonismo, artrosis, caídas) y no logra procesar psicológicamente el duelo por la pérdida de la agilidad y autonomía del 'cuerpo joven', la brecha entre su capacidad física real y su esquema corporal imaginado desencadena una crisis narcisista. La falta de reelaboración psíquica conduce a la fijación en el temor (ptofobia), replegamiento afectivo, aislamiento, renuncia a la libertad de movimiento, sobre-dependencia funcional de los cuidadores e inhibición motora. Esto cierra un círculo vicioso de atrofia por desuso y mayor declive cognitivo y somático. Las opciones A, B y D representan conceptos erróneos o imposibles."
+  },
+  {
+   "id": "SIAM-UP3-090",
+   "numero": 90,
+   "pregunta": "Un paciente de 72 años con antecedente de enfermedad úlcero-péptica e hipertensión arterial padece gonartrosis sintomática monoarticular. Al seleccionar la terapia antiinflamatoria, se opta por un AINE Tópico (ej. Diclofenac gel al 1%). ¿Cuál es la fundamentación farmacocinética y de seguridad de esta elección?",
+   "opciones": {
+    "a": "Aumenta la filtración glomerular al bloquear los receptores de aldosterona.",
+    "b": "Se metaboliza de forma exclusiva en el líquido cefalorraquídeo sin pasar a la circulación.",
+    "c": "Destruye las fibras nociceptivas tipo C de forma irreversible en la corteza parietal.",
+    "d": "Ofrece concentraciones plasmáticas sistémicas <10% respecto a la vía oral, brindando analgesia local con mínimo riesgo de toxicidad gastrointestinal, renal y cardiovascular."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los AINEs Tópicos (ej. Diclofenac gel o solución) penetran a través de la piel alcanzando concentraciones terapéuticas efectivas en el tejido periarticular, la membrana sinovial y el líquido articular de articulaciones superficiales (rodillas, manos, tobillos). Su gran ventaja farmacocinética en geriatría es que su absorción sistémica es mínima, produciendo niveles plasmáticos sistémicos de sólo un 1% a 10% comparados con la administración oral de la misma droga. Por esta razón, reducen significativamente el riesgo de efectos adversos sistémicos graves (hemorragia digestiva, insuficiencia renal agudizada, elevación de la PA y eventos trombóticos), constituyendo la terapia antiinflamatoria inicial de preferencia en ancianos o pacientes con comorbilidades. Las opciones A, B y C son aseveraciones falsas."
+  },
+  {
+   "id": "SIAM-UP3-091",
+   "numero": 91,
+   "pregunta": "La Parathormona (PTH) regula los niveles de calcio iónico uniéndose al receptor de membrana PTH1R. ¿A qué familia de receptores pertenece el PTH1R y cuáles son sus vías de señalización intracelular acopladas en las células diana (osteoblastos y túbulo renal)?",
+   "opciones": {
+    "a": "Receptor con actividad Tirosina Quinasa intrínseca; fosforila directamente al sustrato IRS-1.",
+    "b": "Receptor acoplado a Proteína G (GPCR); activa a la Adenilil Ciclasa aumentando el AMPc/PKA y a la Fosfolipasa C aumentando el IP3/DAG y Calcio intracelular.",
+    "c": "Receptor nuclear citoplasmático que se une a secuencias de respuesta a esteroides.",
+    "d": "Canal iónico dependiente de ligando que permite la entrada masiva de cloro celular."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El receptor de la PTH (PTH1R) es un receptor transmembrana de siete dominios perteneciente a la familia de Receptores Acoplados a Proteína G (GPCR). Al unirse la PTH (o el teriparatide), el receptor estimula dos vías efectoras intracelulares principales: 1) Vía Proteína Gs / Adenilil Ciclasa: incrementa la síntesis de AMP cíclico (AMPc) y activa a la Proteína Quinasa A (PKA), responsable de la mayoría de sus efectos en hueso y riñón (ej. inhibición del transporte de fosfato); y 2) Vía Proteína Gq / Fosfolipasa C (PLC): hidroliza PIP2 produciendo Inositol Trifosfato (IP₃) y Diacilglicerol (DAG), movilizando calcio del retículo endoplásmico. Las opciones A, C y D describen otros tipos de receptores."
+  },
+  {
+   "id": "SIAM-UP3-092",
+   "numero": 92,
+   "pregunta": "¿Cuál es el diagnóstico diferencial dermatológico frente al Eritema Polimorfo?",
+   "opciones": {
+    "a": "Exantema Fijo por Drogas (Erupción Fija Medicamentosa).",
+    "b": "Eritema Polimorfo Minor vesicular acral.",
+    "c": "Pénfigo Vulgar mucocutáneo autoinmune.",
+    "d": "Necrólisis Epidérmica Tóxica extensa."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. El Exantema Fijo por Drogas (o Erupción Fija Medicamentosa) es una reacción adversa cutánea a fármacos muy característica. Su hallazgo patognomónico es la reaparición de una o varias pápulas/placas eritematovioláceas redondeadas o numulares (que pueden ampollarse o erosionarse) exactamente en la MISMA LOCALIZACIÓN ANATÓMICA de la piel o mucosa cada vez que el paciente se expone al fármaco causal (frecuentemente sulfonamidas, AINEs, tetraciclinas o anticonvulsivantes), dejando una hiperpigmentación postinflamatoria residual. A diferencia del Eritema Polimorfo Minor (opción B), las lesiones no son dianas típicas simétricas acrales múltiples ni están desencadenadas por virus herpes. Las opciones C y D son patologías ampollosas más graves no circunscritas de forma fija recurrente."
+  },
+  {
+   "id": "SIAM-UP3-093",
+   "numero": 93,
+   "pregunta": "Un paciente de 58 años que fue reanimado exitosamente tras un paro cardiorrespiratorio por fibrilación ventricular presenta a las 48 horas en la UTI sacudidas musculares breves, arítmicas e involuntarias que se desencadenan al intentar mover los brazos o ante estímulos auditivos (mioclonías de acción y de intención posanóxicas). ¿Cómo se denomina este síndrome neuro-anóxico y cuáles son los fármacos antiepilépticos de elección?",
+   "opciones": {
+    "a": "Síndrome de Guillain-Barré axonal; se trata con plasmaféresis y corticoides.",
+    "b": "Síndrome de Lance-Adams (Mioclonía Posanóxica Crónica); se trata con Ácido Valproico, Levetiracetam o Clonazepam.",
+    "c": "Corea de Huntington juvenil; se trata con haloperidol intravenoso a dosis de carga.",
+    "d": "Distonía focal torsionante; se trata con trihexifenidilo por vía subcutánea."
+   },
+   "respuesta_correcta": "b",
+   "justificacion": "La opción B es la CORRECTA. El Síndrome de Lance-Adams es una complicación neurológica caracterizada por la aparición de mioclonías de acción, posturales e intencionales multifocales en pacientes que han sufrido una encefalopatía anóxica grave tras recuperarse de un paro cardiorrespiratorio o evento de asfixia. Las mioclonías se intensifican al intentar realizar actos motores voluntarios o ante estímulos táctiles/sonoros, provocando una severa inestabilidad de la marcha y caídas. Se atribuye a la pérdida de interneuronas GABAérgicas en la corteza y tálamo. El tratamiento sintomático de elección para controlar las mioclonías posanóxicas incluye fármacos antiepilépticos neuromoduladores como el Ácido Valproico, Levetiracetam o Benzodiacepinas (Clonazepam). Las opciones A, C y D son cuadros ajenos a la anoxia cerebral."
+  },
+  {
+   "id": "SIAM-UP3-094",
+   "numero": 94,
+   "pregunta": "En la intoxicación aguda por Ácido Acetilsalicílico (Aspirina / Salicilismo), la alteración del equilibrio ácido-base sigue un patrón bifásico característico. ¿Cuáles son los dos trastornos ácido-base sucesivos y el mecanismo metabólico subyacente?",
+   "opciones": {
+    "a": "Acidosis Respiratoria pura por parálisis frénica seguida de alcalosis metabólica hiperclorémica.",
+    "b": "Alcalosis Metabólica pura por vómitos sin compromiso de la ventilación pulmonar.",
+    "c": "Acidosis Tubular Renal tipo 2 aislada con bicarbonaturia constante.",
+    "d": "Alcalosis Respiratoria inicial (por estimulación directa del centro respiratorio bulbar) seguida de Acidosis Metabólica con anión gap aumentado (por desacoplamiento de la fosforilación oxidativa y acumulación de ácidos orgánicos)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. Los salicilatos (Aspirina) en dosis tóxicas alteran profundamente el metabolismo celular y la respiración: 1) Fase Inicial: estimulan directamente el centro respiratorio medular en el bulbo, desencadenando hiperventilación central (taquipnea e hiperpnea) que produce ALCALOSIS RESPIRATORIA; 2) Fase Posterior / Severa: los salicilatos desacoplan la fosforilación oxidativa mitocondrial e inhiben deshidrogenasas del ciclo de Krebs. Esto bloquea la producción de ATP e induce el metabolismo anaeróbico con acumulación masiva de ácido láctico, pirúvico y cetoácidos, sumado a la disociación del propio ácido salicílico. Esto desencadena una ACIDOSIS METABÓLICA CON ANIÓN GAP AUMENTADO (brecha aniónica elevada). En adultos es característico encontrar este trastorno mixto (Alcalosis Respiratoria + Acidosis Metabólica). Las opciones A, B y C son erróneas."
+  },
+  {
+   "id": "SIAM-UP3-095",
+   "numero": 95,
+   "pregunta": "En la evaluación y diagnóstico de la Fibromialgia, los criterios diagnósticos de la ACR han evolucionado. ¿Qué herramientas clínicas han sustituido a la palpación obligatoria de los '18 puntos dolorosos' (tender points) para su diagnóstico?",
+   "opciones": {
+    "a": "El Índice de Dolor Difuso (WPI - Widespread Pain Index) y la Escala de Gravedad de Síntomas (SSS - Symptom Severity Scale).",
+    "b": "La velocidad de sedimentación globular y la biopsia de nervio sural.",
+    "c": "La electromiografía de cuatro miembros y la ecografía articular.",
+    "d": "El dosaje de anticuerpos antinucleares y la resonancia magnética de columna cervical."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. Los criterios clásicos de la ACR de 1990 exigían la presencia de dolor al palpado manual en al menos 11 de 18 'puntos dolorosos específicos'. Los criterios diagnósticos actualizados de la ACR (2010/2016) eliminaron la necesidad del examen de puntos dolorosos y los sustituyeron por dos escalas auto-administradas y validadas: 1) Índice de Dolor Difuso (WPI): cuantitativo, mide en cuántas de las 19 regiones corporales predefinidas el paciente ha presentado dolor en las últimas semanas; y 2) Escala de Gravedad de Síntomas (SSS): evalúa la intensidad de tres síntomas cardinales (fatiga, sueño no reparador y síntomas cognitivos/fisiológicos). El diagnóstico requiere un WPI ≥ 7 y SSS ≥ 5 (o WPI 3-6 y SSS ≥ 9) con síntomas persistentes por más de 3 meses en ausencia de otra patología que lo explique. Las opciones B, C y D son estudios normales en la fibromialgia."
+  },
+  {
+   "id": "SIAM-UP3-096",
+   "numero": 96,
+   "pregunta": "En la neuroanatomía y fisiología del cerebelo, el Pedúnculo Cerebeloso Medio (Brachium Pontis) cumple un rol fundamental en el circuito motor. ¿Cuál es el origen de sus fibras, su carácter y la función del circuito que integra?",
+   "opciones": {
+    "a": "Fibras autonómicas simpáticas que inervan a las glándulas sudoríparas palmares.",
+    "b": "Fibras sensitivas primarias del tracto espinotalamico lateral.",
+    "c": "Fibras AFERENTES puras originadas en los núcleos del puente (vía corticopontocerebelosa); integran la planificación y modulación motora neocerebelosa.",
+    "d": "Fibras EFERENTES puras que se dirigen desde el núcleo dentado hacia la médula espinal lumbar."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. El Pedúnculo Cerebeloso Medio es la más voluminosa de las tres conexiones del cerebelo. Está constituido EXCLUSIVAMENTE por fibras AFERENTES (de entrada) pontocerebelosas. Estas fibras se originan en los núcleos pontinos contralaterales (los cuales reciben información de la corteza motora y premotoras mediante la vía corticopontina) y cruzan la línea media para ingresar al neocerebelo (hemisferios cerebelosos). Su función es transmitir la copia de la orden motora e intención del movimiento desde la corteza cerebral hacia el cerebelo para permitir la comparación, planificación y ajuste fino de la coordinación apendicular. La opción D corresponde a la eferencia del pedúnculo cerebeloso superior. Las opciones A y B son vías ajenas."
+  },
+  {
+   "id": "SIAM-UP3-097",
+   "numero": 97,
+   "pregunta": "En el tratamiento de la hiperuricemia refractaria o en el Síndrome de Lisis Tumoral agudo, se utilizan enzimas Uricasas Recombinantes (Rasburicasa o Pegloticasa). ¿Cuál es su mecanismo de acción biocatalítico y su ventaja en la eliminación del ácido úrico?",
+   "opciones": {
+    "a": "Estimulan la excreción biliar de ácido úrico mediante la vía de los ácidos biliares.",
+    "b": "Bloquean al cotransportador URAT-1 en el túbulo contorneado proximal.",
+    "c": "Inhiben a la enzima xantino oxidasa impidiendo la síntesis de xantina.",
+    "d": "Catalizan la conversión metabólica directa del ácido úrico en Alantoína, un producto inactivo y 5 a 10 veces más soluble que se elimina fácilmente por orina."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. La Rasburicasa y la Pegloticasa son formas recombinantes de la enzima Urato Oxidasa (Uricasa), presente fisiológicamente en la mayoría de los mamíferos pero ausente genéticamente en la especie humana. Su mecanismo de acción consiste en catalizar la descomposición enzimática directa del Ácido Úrico plasmático e intratisular, convirtiéndolo en ALANTOÍNA. La alantoína es un metabólico inactivo, neutro y extremadamente soluble en agua (5 a 10 veces más soluble que el ácido úrico), el cual es excretado pasiva e inofensivamente por filtración glomerular sin riesgo de precipitación o cristalización renal. Producen un descenso de la uricemia en pocas horas. Las opciones A, B y C señalan mecanismos pertenecientes a alopurinol, uricosúricos o vías inexistentes."
+  },
+  {
+   "id": "SIAM-UP3-098",
+   "numero": 98,
+   "pregunta": "En el manejo del Hipoparatiroidismo Crónico con sales de calcio orales y Calcitriol, ¿cuál es el riesgo renal e intraparenquimatoso derivado del sobretratamiento cuando se intenta forzar la normocalcemia estricta?",
+   "opciones": {
+    "a": "Desarrollo de necrosis hepática difusa con hipertensión portal no cirrótica.",
+    "b": "Glomerulonefritis rápidamente progresiva por depósitos de complejos inmunes IgG4.",
+    "c": "Aparición de diabetes insípida nefrogénica por destrucción del túbulo colector.",
+    "d": "Desarrollo de Hipercalciuria masiva con riesgo de nefrocalcinosis, litiasis renal e insuficiencia renal, además de calcificación de los ganglios de la base (Enfermedad de Fahr)."
+   },
+   "respuesta_correcta": "d",
+   "justificacion": "La opción D es la CORRECTA. En el Hipoparatiroidismo, la ausencia de PTH priva al riñón de su efecto fisiológico de reabsorción activa de calcio en el túbulo distal. Al administrar dosis elevadas de Calcio y Calcitriol oral para elevar la calcemia, todo el calcio absorbido que circula en sangre es filtrado libremente por el glomérulo pero NO reabsorbido distalmente (por falta de PTH). Esto desencadena una HIPERCALCIURIA SEVERA. Si se intenta mantener al paciente en niveles de calcemia normal-altos, la hipercalciuria sostenida provoca precipitación de fosfato de calcio en el parénquima renal (Nefrocalcinosis), nefrolitiasis e insuficiencia renal crónica. Asimismo, el producto calcio x fósforo elevado favorece la calcificación de los ganglios de la base (Síndrome de Fahr). Por ello, la META TERAPÉUTICA OBLIGATORIA es mantener al paciente asintomático con una calcemia en el LÍMITE INFERIOR DE LO NORMAL (8,0 a 8,5 mg/dL) y controlar periódicamente la calciuria de 24 horas (<300 mg/día). Las opciones A, B y C no corresponden a este efecto adverso."
+  },
+  {
+   "id": "SIAM-UP3-099",
+   "numero": 99,
+   "pregunta": "Un paciente de 76 años con Enfermedad de Parkinson avanzada en tratamiento multidroga comienza a presentar alucinaciones visuales complejas bien estructuradas (ve personas en la habitación) y agitación psicomotriz. Tras descartar causas intercurrentes (infecciones, deshidratación), ¿cuál es la secuencia correcta de retiro gradual de la medicación antiparkinsoniana y el antipsicótico de elección si la psicosis persiste?",
+   "opciones": {
+    "a": "Retirar primero la Levodopa; si persisten alucinaciones indicar Haloperidol IV a dosis altas.",
+    "b": "Aumentar al doble la dosis de Levodopa e indicar Risperidona 4 mg/día.",
+    "c": "Retirar de forma gradual: 1° anticolinérgicos, 2° iMAO-B/amantadina, 3° agonistas dopaminérgicos; si la psicosis persiste, indicar Quetiapina o Clozapina.",
+    "d": "Suspender toda la medicación en un solo día e indicar electroconvulsivoterapia."
+   },
+   "respuesta_correcta": "c",
+   "justificacion": "La opción C es la CORRECTA. Las alucinaciones y la psicosis en la Enfermedad de Parkinson avanzada son desencadenadas por la combinación de la neurodegeneración cortical y la sobre-estimulación dopaminérgica/anticolinérgica farmacológica. El protocolo de manejo clínico establece: 1) Descartar cuadros intercurrentes (infecciones urinarias/respiratorias, dolor, desequilibrio hidroelectrolítico); 2) Retirar escalonadamente los fármacos antiparkinsonianos con mayor potencial psicotogénico y menor eficacia motora, en el siguiente orden estricto: primero Anticolinérgicos, luego Amantadina y Selegilina/Rasagilina, seguidos de los Agonistas Dopaminérgicos e ICOMT, dejando como ÚLTIMO pilar a la Levodopa en la menor dosis eficaz; y 3) Si la psicosis persiste tras ajustar la levodopa, el tratamiento farmacológico de elección son los antipsicóticos con NULO o MÍNIMO efecto de bloqueo D2 estriatal: QUETIAPINA o CLOZAPINA. REGLA DE ORO: Están CONTRAINDICADOS los antipsicóticos típicos (Haloperidol) y la Risperidona a dosis usuales por exacerbar severamente el parkinsonismo. Las opciones A, B y D son conductas erróneas y peligrosas."
+  },
+  {
+   "id": "SIAM-UP3-100",
+   "numero": 100,
+   "pregunta": "En la farmacología geriátrica y la clínica médica del adulto mayor, el concepto de 'Cascada de Prescripción' representa un evento adverso evitable de alta relevancia. ¿Cómo se define este fenómeno y cuál es un ejemplo clásico en la UP3 de SIAM?",
+   "opciones": {
+    "a": "Ocurre cuando el efecto adverso de un fármaco es malinterpretado como una nueva condición médica, induciendo la prescripción innecesaria de un segundo medicamento (ej. AINEs que elevan la PA e inducen el inicio de antihipertensivos, o Metoclopramida que causa parkinsonismo e induce el inicio de Levodopa).",
+    "b": "Ocurre cuando se administran vacunas virales en dosis pediátricas a un paciente joven.",
+    "c": "Ocurre cuando se suspenden los antibióticos al segundo día de tratamiento.",
+    "d": "Ocurre cuando el paciente olvida tomar sus remedios durante el fin de semana."
+   },
+   "respuesta_correcta": "a",
+   "justificacion": "La opción A es la CORRECTA. La 'Cascada de Prescripción' es un proceso iatrogénico grave e inadvertido en la atención del adulto mayor polimedicado. Ocurre cuando un fármaco inicial provoca un Efecto Adverso o signo secundario; este síntoma no es reconocido como un efecto no deseado de la droga, sino malinterpretado por el médico como una 'nueva enfermedad' o empeoramiento clínico, lo que lleva a la prescripción de un SEGUNDO FÁRMACO para tratar dicho efecto adverso. El segundo fármaco, a su vez, expone al anciano a nuevos efectos adversos e interacciones, perpetuando la cascada. Ejemplos típicos en la UP3: 1) El uso de AINEs o Corticoides eleva la presión arterial o causa edemas → se prescribe un Antihipotensivo o Diurético; 2) El uso de Metoclopramida/Flunarizina induce parkinsonismo farmacológico → se prescribe Levodopa/Carbidopa; y 3) El uso de Levodopa/Agonistas induce psicosis → se prescribe un Antipsicótico. Las opciones B, C y D representan definiciones ajenas o incorrectas."
+  }
+ ]
+}

@@ -1476,7 +1476,7 @@
     <script src="data/banco_trauma_superior.js"></script>
     <script src="data/banco_trauma_inferior.js"></script>
     <script src="data/banco_suturas.js"></script>
-    <script src="js/examModesConfig.js"></script>
+    <script src="js/examModesConfig.js?v=2"></script>
 
     <script>
         // ================= ESTADO GLOBAL =================
@@ -1734,7 +1734,7 @@
             if (unidadesMateria) {
                 upsToFetch = (selectedMode === 'up_especifica')
                     ? [document.getElementById('specific-up').value]
-                    : unidadesMateria.map((u) => u.id); // parcial_1 (único parcial), final, residencia, flash: todas las unidades de la materia
+                    : unidadesDeModoMateria(unidadesMateria, selectedMode).map((u) => u.id); // parcial_1/parcial_2 (si la materia los define), final, residencia, flash
             } else if (selectedMode === 'parcial_1') upsToFetch = [1,2,3,4,5];
             else if (selectedMode === 'parcial_2') upsToFetch = [6,7,8,9,10,11];
             else if (selectedMode === 'up_especifica') upsToFetch = [parseInt(document.getElementById('specific-up').value)];
@@ -2262,6 +2262,14 @@ Preguntas de opción múltiple de Salud Integral de la Mujer (Ginecología y Obs
         function getUnidadesChoiceMateria() {
             const porMateria = (typeof CHOICE_UNIDADES_POR_MATERIA !== 'undefined') ? CHOICE_UNIDADES_POR_MATERIA : (window.CHOICE_UNIDADES_POR_MATERIA || {});
             return porMateria[getModuloActual()] || null;
+        }
+        // Unidades que entran en un modo. Si el catálogo marca `parcial: 1|2` en sus unidades (ej. S.I.A.M.),
+        // Parcial 1 / Parcial 2 filtran por eso; si no (ej. Ginecología, un único parcial), son todas las unidades.
+        function unidadesDeModoMateria(unidades, modo) {
+            if ((modo === 'parcial_1' || modo === 'parcial_2') && unidades.some((u) => u.parcial)) {
+                return unidades.filter((u) => u.parcial === (modo === 'parcial_2' ? 2 : 1));
+            }
+            return unidades;
         }
         // Catálogo de unidades para el selector "UP específica" del examen Escrito
         // (Desarrollo Escrito Base). Antes generaba IDs NUMÉRICOS simples (1..totalUP)
@@ -4293,8 +4301,14 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
 
             if (unidades) {
                 // Sin "Segundo Parcial" ni bancos locales de especialidad para esta materia.
-                [cardParcial2, cardTrauma, cardSuturas].forEach((c) => { if (c) c.style.display = 'none'; });
                 const cfg = getTematicaCfgMateria();
+                const tieneParcial2 = !!(cfg && cfg.parciales && cfg.parciales.length > 1);
+                [cardTrauma, cardSuturas].forEach((c) => { if (c) c.style.display = 'none'; });
+                if (cardParcial2) {
+                    cardParcial2.style.display = tieneParcial2 ? '' : 'none';
+                    const info2 = cardParcial2.querySelector('.mode-info');
+                    if (tieneParcial2 && info2) { const p2 = cfg.parciales[1]; info2.innerHTML = `<h4>${escaparHtml(p2.label || 'Segundo Parcial')}</h4><p>${escaparHtml(p2.sub || '')}</p>`; }
+                }
                 const parcial = cfg && cfg.parciales && cfg.parciales[0];
                 if (cardParcial1Info) {
                     cardParcial1Info.innerHTML = `<h4>${escaparHtml((parcial && parcial.label) || 'Examen Parcial')}</h4><p>${escaparHtml((parcial && parcial.sub) || `UP 1 a la ${unidades.length}.`)}</p>`;
@@ -4305,7 +4319,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                 if (selectUp) selectUp.innerHTML = unidades.map((u) => `<option value="${escaparHtml(u.id)}">${escaparHtml(u.label)}</option>`).join('');
                 // Si venía de Cirugía con "Segundo Parcial"/Trauma/Suturas seleccionado,
                 // esa tarjeta ya no existe para esta materia: recaemos en Primer Parcial.
-                if (['parcial_2', 'trauma', 'suturas'].includes(selectedMode)) {
+                if (['trauma', 'suturas'].includes(selectedMode) || (selectedMode === 'parcial_2' && !tieneParcial2)) {
                     selectMode('parcial_1', document.querySelector('#config-screen .mode-card[data-mode="parcial_1"]'));
                 }
             } else if (_config3OriginalesCirugia) {
@@ -4435,9 +4449,11 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
                     ups = [1, 2, 3, 4, 5]; // Cirugía: UP 1 a 5
                 }
             } else if (selectedMode === 'parcial_2') {
-                // Solo existe para materias con el esquema de Cirugía: para las
-                // demás esta tarjeta queda oculta (ver ajustarConfigScreenParaMateria).
-                ups = [6, 7, 8, 9, 10, 11];
+                // Esquema de Cirugía (UP 6 a 11) o materia con segundo parcial propio (ej. S.I.A.M.: parciales[1].unidadesParcial).
+                const parcial2 = cfgEscritoParcial && cfgEscritoParcial.parciales && cfgEscritoParcial.parciales[1];
+                ups = (unidadesMateria && parcial2 && Array.isArray(parcial2.unidadesParcial))
+                    ? parcial2.unidadesParcial
+                    : [6, 7, 8, 9, 10, 11];
             } else if (selectedMode === 'final') {
                 // Examen Final/Integrador: todas las UP/secciones de la materia activa
                 // (ej. Ginecología: UP1 a UP4, las 8 secciones). Sin esto caía en la
@@ -5185,8 +5201,9 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             });
 
             let modeText = "Modalidad Específica";
-            if (selectedMode === 'parcial_1') modeText = "Primer Parcial (UP 1 a 5)";
-            else if (selectedMode === 'parcial_2') modeText = "Segundo Parcial (UP 6 a 11)";
+            const _cfgModo = getTematicaCfgMateria();
+            if (selectedMode === 'parcial_1') modeText = (_cfgModo && _cfgModo.parciales && _cfgModo.parciales[0]) ? `${_cfgModo.parciales[0].label} (${_cfgModo.parciales[0].rango || ''})`.replace(' ()', '') : "Primer Parcial (UP 1 a 5)";
+            else if (selectedMode === 'parcial_2') modeText = (_cfgModo && _cfgModo.parciales && _cfgModo.parciales[1]) ? `${_cfgModo.parciales[1].label} (${_cfgModo.parciales[1].rango || ''})`.replace(' ()', '') : "Segundo Parcial (UP 6 a 11)";
             else if (selectedMode === 'final') modeText = "Examen Final Integral";
             else if (selectedMode === 'residencia') modeText = "Simulacro Estilo Residencia";
             else if (selectedMode === 'flash') modeText = "Examen Flash (Demo/Azar)";
