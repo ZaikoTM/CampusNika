@@ -25,7 +25,7 @@ ORTOGRAFIA = {
     'cremacíon': 'cremación', 'embolico': 'embólico', 'electrólitos': 'electrolitos', 'ileo': 'íleo', 'uremica': 'urémica',
     'lucido': 'lúcido', 'hipertonica': 'hipertónica', 'fovea': 'fóvea', 'meningea': 'meníngea', 'diafisis': 'diáfisis',
     'cuadríceps': 'cuádriceps', 'estrias': 'estrías', 'origenes': 'orígenes', 'celiaca': 'celíaca', 'proctorrágia': 'proctorragia',
-    'cuadruple': 'cuádruple', 'sínergico': 'sinérgico', 'cinetico': 'cinético', 'eversion': 'eversión', 'subclinica': 'subclínica',
+    'because': 'porque', 'cuadruple': 'cuádruple', 'sínergico': 'sinérgico', 'cinetico': 'cinético', 'eversion': 'eversión', 'subclinica': 'subclínica',
     'peristaltica': 'peristáltica', 'autolisis': 'autólisis', 'taquiarrítmias': 'taquiarritmias', 'épicárdicas': 'epicárdicas',
     'digitalica': 'digitálica', 'contínuas': 'continuas', 'catetérismo': 'cateterismo', 'potenciacíón': 'potenciación',
     'vísceromegalias': 'visceromegalias', 'aurículoventricular': 'auriculoventricular', 'perdida': None,   # None = solo por frase

@@ -168,7 +168,7 @@
     "a": "Estimulan la salida masiva de potasio en la fase 3, indicados exclusivamente en el bloqueo AV completo.",
     "b": "Inhiben la corriente rápida de sodio en tejidos de respuesta rápida, indicados en fibrilación ventricular.",
     "c": "Inhiben la enzima anhidrasa carbónica renal, indicados en el tratamiento de la taquicardia sinusal.",
-    "d": "Inhiben la corriente de entrada de calcio (fase 0 y fase 2) en tejidos de respuesta lenta, indicados en el control de frecuencia en FA y TPSV."
+    "d": "Inhiben la entrada de calcio (fases 0 y 2) en tejidos de respuesta lenta; se usan para controlar la frecuencia en FA y TPSV."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. Los Calcioantagonistas No Dihidropiridínicos (VERAPAMILO Y DILTIAZEM) constituyen la CLASE IV de Vaughan Williams. MECANISMO DE ACCIÓN: Bloquean de forma selectiva los canales de Calcio lentos tipo L (ICa-L) dependientes de voltaje en los tejidos de respuesta lenta (Nódulo Sinusal y Nódulo Auriculoventricular). EFECTOS ELECTROFISIOLÓGICOS: Enlentecen la Fase 0 de despolarización dependiente de calcio en el nódulo AV y prolongan la conducción y el período refractario nodal. INDICACIONES: 1) Tratamiento agudo para la conversión de la Taquicardia Paroxística Supraventricular (TPSV); y 2) Control de la frecuencia ventricular en el Flutter y la Fibrilación Auricular. CONTRAINDICACIONES ESTRICTAS: Síndrome de WPW con FA preexcitada, disfunción sistólica severa del VI y Bloqueos AV de 2° o 3er grado. Las opciones A, B y C corresponden a la Clase I, Clase III o diuréticos."
@@ -324,7 +324,7 @@
     "a": "Presencia de 2 latidos ventriculares aislados con intervalo PR corto de más de 60 segundos.",
     "b": "Taquicardia de complejos estrechos que dura más de 24 horas continuas sin pausas.",
     "c": "Presencia de un solo latido auricular ectópico que se prolonga por más de 10 minutos.",
-    "d": "Presencia de 3 o más latidos ventriculares consecutivos a más de 100 bpm que finaliza espontáneamente en menos de 30 segundos."
+    "d": "3 o más latidos ventriculares consecutivos a más de 100 lpm que terminan espontáneamente en menos de 30 s."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. La TAQUICARDIA VENTRICULAR NO SOSTENIDA (TVNS) se define electrocardiográficamente por la presencia de TRES O MÁS LATIDOS CONSECUTIVOS de origen ventricular (complejos QRS anchos >120 ms) a una frecuencia cardíaca mayor a 100 latidos por minuto, que CESA E INTERRUMPE SU ACTIVIDAD DE FORMA ESPONTÁNEA EN UN TIEMPO MENOR A 30 SEGUNDOS, sin causar colapso hemodinámico inmediato. Si la taquicardia persiste por más de 30 segundos o exige una intervención hiperaguda (cardioversión/desfibrilación) por colapso, pasa a denominarse Taquicardia Ventricular Sostenida (TVS). La identificación de TVNS en pacientes con miocardiopatía o infarto previo es un marcador de riesgo elevado de muerte súbita. Las opciones A, B y C citan parámetros falsos."
@@ -348,7 +348,7 @@
    "pregunta": "En la auscultación y evaluación clínica de los Bloqueos Auriculoventricular de 3er grado o Completos, se puede detectar en la inspección del pulso venoso yugular la presencia de las denominadas 'Ondas a Gigantes en Cañón'. ¿Cuál es el mecanismo fisiológico de formación de la onda 'a' en cañón?",
    "opciones": {
     "a": "La contracción masiva del ventrículo izquierdo expulsa sangre directamente hacia la yugular externa.",
-    "b": "La sístole de la aurícula derecha ocurre contra la válvula tricúspide cerrada por la sístole ventricular simultánea e independiente.",
+    "b": "La aurícula derecha se contrae contra la tricúspide cerrada por la sístole ventricular, que es independiente de la auricular.",
     "c": "El flujo retrógrado de la aorta choca directamente contra la vena cava superior en la diástole.",
     "d": "El colapso de la arteria pulmonar produce un aumento del llenado pasivo de la vena cava inferior."
    },
@@ -373,10 +373,10 @@
    "numero": 29,
    "pregunta": "Una paciente de 78 años en tratamiento con Amiodarona (200 mg/día) desde hace 2 años por Fibrilación Auricular acude a control. Refiere astenia progresiva, intolerancia al frío, piel seca, estreñimiento y aumento de peso. El laboratorio muestra una TSH de 14,5 mUI/L (elevada) y T4 libre disminuida. ¿Cuál es el mecanismo de la disfunción tiroidea inducida por amiodarona y cuál es la conducta recomendada?",
    "opciones": {
-    "a": "Falsa alteración de laboratorio; se suspende la levotiroxina y se aumenta la amiodarona a 1000 mg.",
-    "b": "Cáncer anaplásico de tiroides; se inicia quimioterapia con cisplatino endovenoso.",
-    "c": "Hipotiroidismo por la alta carga de yodo de la amiodarona (Efecto Wolff-Chaikoff); se inicia sustitución con Levotiroxina sin necesidad de suspender la amiodarona si es eficaz.",
-    "d": "Hipertiroidismo autoinmune agudo por destrucción de la glándula; se realiza tiroidectomía de urgencia."
+    "a": "Falsa alteración de laboratorio; se suspende la levotiroxina y se aumenta la amiodarona a 1000 mg por día.",
+    "b": "Cáncer anaplásico de tiroides; se inicia de inmediato quimioterapia con cisplatino endovenoso y radioterapia cervical.",
+    "c": "Hipotiroidismo por la carga de yodo de la amiodarona (efecto Wolff-Chaikoff); se inicia levotiroxina sin suspender la amiodarona.",
+    "d": "Hipertiroidismo autoinmune agudo por destrucción de la glándula; se realiza tiroidectomía de urgencia en el día."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. El HIPOTIROIDISMO INDUCIDO POR AMIODARONA es la complicación endocrina más frecuente del uso crónico de este antiarrítmico (ocurre en el 6-13% de los pacientes, especialmente en zonas con suficiencia de yodo). MECANISMO FISIOPATOLÓGICO: Una dosis diaria de 200 mg de amiodarona libera más de 6 mg de yodo inorgánico libre al día (más de 50 veces el requerimiento diario). El exceso de yodo inhibe la síntesis y liberación de hormonas tiroideas en una glándula vulnerable (EFECTO WOLFF-CHAIKOFF), además de que la amiodarona inhibe a la enzima 5'-deyodasa tipo 1 (impidiendo la conversión periférica de T4 a T3). MANEJO CLÍNICO PRACTICO: A diferencia del hipertiroidismo (AIT), el Hipotiroidismo por amiodarona ES FÁCIL DE MANEJAR. NO EXIGE LA SUSPENSIÓN OBLIGATORIA DE LA AMIODARONA si esta es indispensable para controlar una arritmia grave; se mantiene el antiarrítmico y se inicia suplementación exógena con LEVOTIROXINA graduando la dosis según el nivel de TSH. Las opciones A, B y D representan conductas erróneas."
@@ -387,7 +387,7 @@
    "pregunta": "Un paciente de 67 años con diagnóstico de Flutter Auricular típico de reciente comienzo y buena tolerancia hemodinámica va a ser sometido a una Cardioversión Eléctrica o Farmacológica electiva. La arritmia tiene una duración no precisada (presumiblemente mayor a 48 horas). ¿Cuál es la regla de anticoagulación profiláctica pre y post-cardioversión obligatoria para prevenir un evento embólico?",
    "opciones": {
     "a": "Anticoagulación con dosis altas de vitamina K oral 1 hora antes de la descarga.",
-    "b": "Anticoagulación previa por al menos 3 semanas antes de la cardioversión y mantenerla por al menos 4 semanas posteriores al procedimiento.",
+    "b": "Anticoagulación al menos 3 semanas antes de la cardioversión y por al menos 4 semanas después.",
     "c": "Anticoagulación únicamente durante los 5 minutos que dura la descarga eléctrica.",
     "d": "No requiere anticoagulación debido a que el flutter no genera trombos en la aurícula."
    },
@@ -399,10 +399,10 @@
    "numero": 31,
    "pregunta": "Un paciente de 80 años en tratamiento con Digoxina (0,25 mg/día) por Fibrilación Auricular crónica e Insuficiencia Renal leve acude a la guardia por náuseas, vómitos, visión amarillenta (xantopsia) y palpitaciones. El ECG muestra una Taquicardia Auricular con Bloqueo AV variable y extrasístoles ventriculares frecuentes. Se confirma Intoxicación Digitálica. ¿Cuáles son los factores hidroelectrolíticos desencadenantes y el antídoto de neutralización en casos graves?",
    "opciones": {
-    "a": "La intoxicación digitálica no posee antídoto y exige diálisis peritoneal inmediata.",
-    "b": "La Hiperpotasemia pura inactiva la digoxina; el antídoto específico es el cloruro de potasio anhidro.",
-    "c": "La Hipopotasemia, la Hipomagnesemia y la Hipercalcemia potencian la toxicidad digitálica; en intoxicación grave con arritmias letales se utiliza el antídoto de Anticuerpos Específicos Anti-Digoxina (Fragmentos Fab / DigiFab).",
-    "d": "La hipernatremia extrema destruye el glucósido; el antídoto es la insulina corriente endovenosa."
+    "a": "La intoxicación digitálica no posee antídoto y exige diálisis peritoneal inmediata y continua hasta la mejoría clínica.",
+    "b": "La hiperpotasemia pura inactiva la digoxina; el antídoto específico es el cloruro de potasio anhidro por vía oral.",
+    "c": "Hipopotasemia, hipomagnesemia e hipercalcemia potencian la toxicidad digitálica; en la intoxicación grave se usan anticuerpos Fab anti-digoxina.",
+    "d": "La hipernatremia extrema destruye el glucósido; el antídoto es la insulina corriente endovenosa en bolo rápido."
    },
    "respuesta_correcta": "c",
    "justificacion": "La opción C es la CORRECTA. La Intoxicación Digitálica es una complicación clásica por el estrecho margen terapéutico de la Digoxina (0,5-0,9 ng/mL rango óptimo): 1) MANIFESTACIONES CLÍNICAS: Digestivas (anorexia, náuseas, vómitos), Neuro-Oftalmológicas (visión borrosa, XANTOPSIA o visión amarillento-verdosa, confusión) y Cardíacas (extrasístoles ventriculares, bigeminismo, Taquicardia Auricular con Bloqueo AV, ritmo de la unión, o BAV completo); 2) FACTORES ELECTROLÍTICOS PREDISPONENTES: La HIPOPOTASEMIA (potenciada por diuréticos de asa/tiazidas) aumenta la unión de la digoxina a la Na⁺/K⁺ ATPasa; la HIPOMAGNESEMIA y la HIPERCALCEMIA incrementan dramáticamente la arritmogenia y toxicidad digitálica a niveles plasmáticos incluso normales; y 3) ANTÍDOTO ESPECÍFICO: En arritmias ventriculares letales o hiperpotasemia severa, el tratamiento de elección es la administración de FRAGMENTOS DE ANTICUERPOS ESPECÍFICOS ANTI-DIGOXINA (DigiFab / Fab anti-digoxina). Las opciones A, B y D son falsas."
@@ -412,10 +412,10 @@
    "numero": 32,
    "pregunta": "¿Cuál es el patrón electrocardiográfico patognomónico del Síndrome de Brugada Tipo 1 en las derivaciones precordiales derechas (V1-V2) y cuál es el riesgo clínico asociado?",
    "opciones": {
-    "a": "Ondas P bifásicas en DII con presencia de bloqueo completo de rama izquierda puro.",
-    "b": "Intervalo PR prolongado de 400 ms con QRS estrecho e intervalo QT acortado a 200 ms.",
-    "c": "Infradesnivel del ST horizontal de 5 mm en V5-V6 con ondas T picudas simétricas.",
-    "d": "Elevación del segmento ST ≥2 mm en 'alero de tejado' (coved-type) seguida de onda T negativa en V1-V2; con riesgo de Muerte Súbita por Fibrilación Ventricular."
+    "a": "Ondas P bifásicas en DII con presencia de bloqueo completo de rama izquierda puro y eje desviado.",
+    "b": "Intervalo PR prolongado de 400 ms con QRS estrecho e intervalo QT acortado a 200 ms de forma fija.",
+    "c": "Infradesnivel del ST horizontal de 5 mm en V5-V6 con ondas T picudas simétricas y QT largo.",
+    "d": "Elevación del ST ≥2 mm en 'alero de tejado' (coved) seguida de T negativa en V1-V2; riesgo de muerte súbita por FV."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. El SÍNDROME DE BRUGADA es una canalopatía cardíaca hereditaria de herencia autosómica dominante (frecuentemente por mutaciones en el gen SCN5A del canal de sodio Nav1.5) que predispone a arritmias ventriculares polimórficas letales en corazones estructuralmente sanos. PATRÓN ECG TIPO 1 (PATOGNOMÓNICO): Se observa en las derivaciones precordiales derechas (V₁, V₂ o posicionado en 2° espacio intercostal) una ELEVACIÓN DEL SEGMENTO ST ≥ 2 mm CON MORFOLOGÍA CONVEXA O EN 'ALERO DE TEJADO' (coved-type), que se continúa con una ONDA T INVERTIDA O NEGATIVA. RIESGO CLÍNICO: Desencadenamiento de Taquicardia Ventricular Polimórfica y Fibrilación Ventricular (típicamente en reposo o durante el sueño, o desencadenado por la fiebre), produciendo síncope o Muerte Súbita Cardíaca. Tratamiento: Implante de Cardiodesfibrilador Automático (CDI). Las opciones A, B y C no corresponden al Brugada."
@@ -425,10 +425,10 @@
    "numero": 33,
    "pregunta": "En la clasificación de las arritmias de la unión auriculoventricular, la Taquicardia No Paroxística de la Unión AV es una arritmia producida por automatismo aumentado. ¿Cuál es la causa etiológica más frecuente de esta arritmia en la práctica clínica y sus características en el ECG?",
    "opciones": {
-    "a": "Bloqueo completo de rama derecha en deportistas de alto rendimiento.",
-    "b": "Intoxicación por Digoxina; se caracteriza por un ritmo nodal regular a 70-130 bpm con ondas P retrógradas (invertidas en DII, DIII, aVF) o disociadas.",
-    "c": "Miopatía congénita del diafragma con hipercalcemia primaria.",
-    "d": "Consumo excesivo de vitamina C; caracterizado por asistolia ventricular permanente."
+    "a": "Bloqueo completo de rama derecha en deportistas de alto rendimiento, sin cardiopatía estructural asociada.",
+    "b": "Intoxicación digitálica; ritmo nodal regular a 70-130 lpm con ondas P retrógradas (invertidas en DII, DIII, aVF).",
+    "c": "Miopatía congénita del diafragma con hipercalcemia primaria y compromiso respiratorio restrictivo.",
+    "d": "Consumo excesivo de vitamina C; se caracteriza por asistolia ventricular permanente y shock."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. LA TAQUICARDIA NO PAROXÍSTICA DE LA UNIÓN AURICULOVENTRICULAR (o Ritmo de la Unión Acelerado) es una arritmia automática supraventricular. ETIOLOGÍA CLÁSICA Y PRINCIPAL: La causa más característica en la práctica clínica es la INTOXICACIÓN DIGITÁLICA. Otras causas incluyen el infarto agudo de miocardio de cara inferior, miocarditis, la cirugía cardíaca y el exceso de catecolaminas. CARACTERÍSTICAS ELECTROCARDIOGRÁFICAS: 1) Frecuencia ventricular entre 70 y 130 latidos por minuto (superior al ritmo de escape nodal normal de 40-60 bpm, pero menor a la TPSV paroxística >150 bpm); 2) Incomienzo y fin graduales (a diferencia del inicio súbito paroxístico); y 3) Ondas P retrógradas (invertidas en derivaciones inferiores DII, DIII, aVF) situadas inmediatamente antes, dentro o después del complejo QRS estrecho, o disociación AV con el nódulo sinusal. Las opciones A, C y D citan etiologías y hallazgos falsos."
@@ -451,10 +451,10 @@
    "numero": 35,
    "pregunta": "¿Cuál es el mecanismo de acción de la Atropina y por qué es INEFICAZ en los bloqueos auriculoventricular infranodales (Mobitz II o Bloqueo Completo con QRS ancho)?",
    "opciones": {
-    "a": "Es un agonista directo de los canales de sodio; es ineficaz porque se destruye en el estómago.",
-    "b": "Es un bloqueante de la anhidrasa carbónica; es ineficaz porque actúa únicamente en la retina.",
-    "c": "Es un sedante central puro; es ineficaz porque aumenta la presión intracraneal.",
-    "d": "Es un antagonista competitivo de los receptores muscarínicos M2; es ineficaz infranodalmente porque las fibras del sistema His-Purkinje carecen de inervación vagal parasimpática significativa."
+    "a": "Es un agonista directo de los canales de sodio; es ineficaz porque se destruye en el estómago al ingerirse.",
+    "b": "Es un bloqueante de la anhidrasa carbónica; es ineficaz porque actúa únicamente en la retina y el cristalino.",
+    "c": "Es un sedante central puro; es ineficaz porque aumenta la presión intracraneal y deprime el centro respiratorio.",
+    "d": "Antagonista competitivo de receptores muscarínicos M2; ineficaz en bloqueos infranodales porque el His-Purkinje carece de inervación vagal."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. La ATROPINA es un fármaco parasimpaticolítico (antimuscárico). MECANISMO DE ACCIÓN: Inhibe de forma competitiva a los receptores muscarínicos M2 de acetilcolina en el corazón, bloqueando el tono vagal inhibitorio sobre el nódulo sinusal y el nódulo AV. Esto aumenta la frecuencia sinusal y acelera la velocidad de conducción AV. POR QUÉ ES INEFICAZ EN BLOQUEOS INFRANODALES (Mobitz II o BAV Completo infranodal): La inervación vagal (parasimpática) y la densidad de receptores M2 se concentran casi exclusivamente en las aurículas y los NÓDULOS SINUSAL Y AURICULOVENTRICULAR (estructuras supranodales). El sistema His-Purkinje y los ventrículos (infranodal) CARECEN DE INERVACIÓN VAGAL DIRECTA SIGNIFICATIVA. Por lo tanto, la atropina no logra mejorar la conducción cuando el bloqueo se ubica por debajo del nodo AV, e incluso al aumentar la frecuencia auricular sin mejorar el His, puede empeorar el grado de bloqueo. Las opciones A, B y C son falsas."
@@ -464,10 +464,10 @@
    "numero": 36,
    "pregunta": "Un paciente de 68 años consulta por episodios de síncope relacionados con giros bruscos del cuello o al abotonarse el cuello de la camisa. Se realiza un masaje del seno carotídeo bajo monitoreo electrocardiográfico continuo, registrándose una pausa asistólica ventricular de 4,5 segundos. ¿Cuál es el diagnóstico de este trastorno reflejo y el criterio de positividad?",
    "opciones": {
-    "a": "Síndrome del Seno Carotídeo Hiperinsensible (Respuesta de Tipo Cardioinhibitorio); positivo si la pausa es mayor a 3 segundos o cae la PAS >50 mmHg.",
-    "b": "Síndrome de la Vena Cava Superior; positivo si aparece edema en esclavina y cianosis.",
-    "c": "Espasmo de la arteria carótida primitiva; positivo si la frecuencia sube a 200 bpm.",
-    "d": "Ataque Isquémico Transitorio vertebrobasilar puro; positivo si no hay cambios en el ECG."
+    "a": "Hipersensibilidad del seno carotídeo (cardioinhibitoria); positivo si la pausa es >3 s o la PAS cae >50 mmHg.",
+    "b": "Síndrome de la vena cava superior; positivo si aparece edema en esclavina y cianosis facial.",
+    "c": "Espasmo de la arteria carótida primitiva; positivo si la frecuencia sube a 200 lpm con hipotensión.",
+    "d": "Ataque isquémico transitorio vertebrobasilar puro; positivo si no hay cambios en el ECG ni en el pulso."
    },
    "respuesta_correcta": "a",
    "justificacion": "La opción A es la CORRECTA. El SÍNDROME DEL SENO CAROTÍDEO HIPERINFLABLE (HSC) es una causa de síncope reflejo neuromediado frecuente en adultos mayores por hipersensibilidad de los barorreceptores del seno carotídeo. PRUEBA DIAGNÓSTICA (Masaje del Seno Carotídeo - MSC): Se realiza compresión firme unilateral del seno carotídeo durante 5 a 10 segundos con monitoreo de ECG y PA. CRITERIOS DE POSITIVIDAD Y VARIANTES: 1) RESPUESTA CARDIOINHIBITORIA (más frecuente): Asistolia o PAUSA VENTRICULAR MAYOR A 3 SEGUNDOS por paro sinusal o bloqueo AV; 2) Respuesta Vasodepresora: Caída de la Presión Arterial Sistólica mayor a 50 mmHg sin bradicardia significativa; y 3) Respuesta Mixta. La reproducción del síncope coincidente con la pausa confirma el diagnóstico, siendo una indicación de implante de Marcapasos definitivo si es de tipo cardioinhibitorio sintomático. Las opciones B, C y D citan entidades ajenas."
@@ -477,10 +477,10 @@
    "numero": 37,
    "pregunta": "En la evaluación electrocardiográfica de la hipertrofia y crecimiento de las cavidades auriculares en pacientes con arritmias, ¿cuáles son los criterios electrocardiográficos para diagnosticar Crecimiento de Aurícula Izquierda (P Mitrale) frente a Crecimiento de Aurícula Derecha (P Pulmonale) en la derivación DII?",
    "opciones": {
-    "a": "P Mitrale (AI): ausente por completo; P Pulmonale (AD): reemplazada por ondas T gigantes.",
-    "b": "Ambas hipertrofias presentan trazados idénticos sin alteraciones en la onda P.",
+    "a": "P mitrale (AI): ausente por completo; P pulmonale (AD): reemplazada por ondas T gigantes en precordiales.",
+    "b": "Ambas hipertrofias presentan trazados idénticos sin alteraciones en la onda P ni en el segmento PR.",
     "c": "P Mitrale (AI): onda P picuda de 5 mm de alto; P Pulmonale (AD): onda P negativa invertida en todas las derivaciones.",
-    "d": "P Mitrale (AI): onda P muescada o bífida con duración prolongada ≥120 ms en DII; P Pulmonale (AD): onda P alta y picuda con amplitud ≥2,5 mm en DII."
+    "d": "P mitrale (AI): P muescada o bífida de ≥120 ms en DII; P pulmonale (AD): P alta y picuda ≥2,5 mm en DII."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. La despolarización auricular normal genera la onda P en el ECG (los primeros 2/3 corresponden a la Aurícula Derecha y los últimos 2/3 a la Aurícula Izquierda). CRITERIOS EN DERIVACIÓN DII: 1) CRECIMIENTO DE AURÍCULA IZQUIERDA (P Mitrale): Dado que la AI despolariza al final, su dilatación prolonga el tiempo total de la despolarización auricular. Genera una ONDA P ANCHA O MUESCADA (bífida, con 'dos jorobas') de DURACIÓN EN ANCHO ≥120 ms (≥3 cuadraditos) en DII, y una fase negativa prominente en V1; y 2) CRECIMIENTO DE AURÍCULA DERECHA (P Pulmonale): Como la AD se despolariza al inicio, su hipertrofia/dilatación aumenta el voltaje o amplitud del vector inicial sin prolongar la duración total. Genera una ONDA P ALTA Y PICUDA DE ALTURA ≥2,5 mm (≥2.5 cuadraditos) en DII, DIII y aVF. La opción D contrapone con precisión ambos hallazgos."
@@ -490,10 +490,10 @@
    "numero": 38,
    "pregunta": "Un paciente de 75 años con antecedente de Fibrilación Auricular permanente se encuentra en tratamiento con Acenocumarol. Sufre un accidente de tránsito con traumatismo cerrado de abdomen e ingresa con hemorragia intraabdominal masiva e inestabilidad hemodinámica (shock). El RIN de ingreso es de 4,2. ¿Cuál es el esquema de REVERSIÓN INMEDIATA e hiperaguda de la anticoagulación indicado en esta emergencia vital?",
    "opciones": {
-    "a": "Hemodiálisis de flujo alto durante 12 horas con filtros de celulosa.",
-    "b": "Vitamina K1 orales únicamente en dosis de 1 mg y reevaluar en 72 horas.",
+    "a": "Hemodiálisis de flujo alto durante 12 horas con filtros de celulosa y reposición de plasma.",
+    "b": "Vitamina K1 oral únicamente en dosis de 1 mg y reevaluar en 72 horas, sin otras medidas.",
     "c": "Infusión de heparina no fraccionada en bolo de 50.000 UI para neutralizar el cumarínico.",
-    "d": "Concentrado de Complejo Protrombínico (CCP) o Plasma Fresco Congelado (PFC) asociado a Vitamina K1 intravenosa lenta."
+    "d": "Concentrado de complejo protrombínico (CCP) o plasma fresco congelado, más vitamina K1 intravenosa lenta."
    },
    "respuesta_correcta": "d",
    "justificacion": "La opción D es la CORRECTA. En la emergencia de un SANGRADO MAYOR QUE AMENAZA LA VIDA o hemorragia exanguinante en un paciente anticoagulado con Antagonistas de la Vitamina K (Acenocumarol / Warfarina): 1) MEDIDA HIPERAGUDA DE REEMPLAZO INMEDIATO: Administrar de forma urgente CONCENTRADO DE COMPLEJO PROTROMBÍNICO (CCP - factores II, VII, IX y X activados/inactivos), el cual restaura los factores de coagulación en minutos y normaliza el RIN inmediatamente. Si no hay CCP disponible, se infunde PLASMA FRESCO CONGELADO (PFC); Y 2) REVERSIÓN SOSTENIDA A LARGO PLAZO: Administrar VITAMINA K1 INTRAVENOSA (5 a 10 mg en infusión lenta) para estimular la síntesis hepática endógena de nuevos factores de coagulación (cuyo efecto inicia a las 4-6 horas). Administrar solo vitamina K1 oral (opción B) demoraría 12-24 horas en actuar, lo que sería letal en shock hemorrágico. La heparina (opción C) empeoraría el sangrado."
@@ -503,10 +503,10 @@
    "numero": 39,
    "pregunta": "¿Cuál es la posología y esquema típico de 'Dosis de Carga' y 'Dosis de Mantenimiento' orales de la Amiodarona en adultos?",
    "opciones": {
-    "a": "Carga: no requiere carga y se da 1 mg cada 10 días por vía oral.",
-    "b": "Carga: 600 a 1000 mg/día por 1 a 3 semanas; Mantenimiento: 200 mg/día (con días de descanso o continua).",
-    "c": "Carga: 10 mg/día por 1 año; Mantenimiento: 5000 mg/día cada 2 horas.",
-    "d": "Carga: 100 gramos de bolo directo; Mantenimiento: suspensión completa del fármaco."
+    "a": "Carga: no requiere carga y se da 1 mg cada 10 días por vía oral de forma permanente.",
+    "b": "Carga: 600 a 1000 mg/día por 1 a 3 semanas; mantenimiento: 200 mg/día (continuo o con días de descanso).",
+    "c": "Carga: 10 mg/día por 1 año; mantenimiento: 5000 mg/día cada 2 horas por vía oral.",
+    "d": "Carga: 100 gramos de bolo directo; mantenimiento: suspensión completa del fármaco al tercer día."
    },
    "respuesta_correcta": "b",
    "justificacion": "La opción B es la CORRECTA. La AMIODARONA posee propiedades farmacocinéticas sumamente singulares: su elevada lipofilia genera un VOLUMEN DE DISTRIBUCIÓN EXTREMADAMENTE ALTO (se acumula masivamente en el tejido adiposo, hígado y pulmones), lo que exige la administración obligatoria de una DOSIS DE CARGA inicial para saturar los depósitos tisulares y alcanzar niveles plasmáticos terapéuticos: 1) DOSIS DE CARGA ORAL: 600 a 1000 mg/día (divididos en 2 o 3 tomas al día) durante 1 a 3 semanas (hasta alcanzar una dosis acumulada total de 8 a 10 gramos); y 2) DOSIS DE MANTENIMIENTO ORAL: Una vez saturados los tejidos, se reduce la dosis a la menor cifra eficaz, habitualmente 200 mg/día (o 100 a 200 mg/día, a veces descansando sábados y domingos). Las opciones A, C y D citan esquemas y dosis químicamente imposibles o peligrosas."
