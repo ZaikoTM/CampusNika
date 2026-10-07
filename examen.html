@@ -417,6 +417,17 @@
         .escrito-wrap { display: flex; flex-direction: column; gap: 10px; }
         .escrito-label { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
         .escrito-textarea { width: 100%; min-height: 320px; padding: 18px 20px; border: 2px solid var(--border); border-radius: 12px; background: var(--card-bg); color: var(--text-main); font-family: inherit; font-size: 1rem; line-height: 1.7; resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+        .caso-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-page, #f8fafc); margin-bottom: 14px; overflow: hidden; }
+        .caso-card summary { cursor: pointer; padding: 10px 14px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: .5px; color: var(--nika-primary); list-style: none; }
+        .caso-card summary::-webkit-details-marker { display: none; }
+        .caso-card summary small { text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--text-muted); margin-left: 6px; }
+        .caso-txt { padding: 2px 16px 14px; font-size: 0.93rem; line-height: 1.6; font-weight: 500; color: var(--text-main); max-height: 34vh; overflow-y: auto; }
+        .consigna-card { border: 1px solid rgba(2, 132, 199, 0.35); background: rgba(2, 132, 199, 0.05); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; }
+        .consigna-tit { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: .5px; color: var(--nika-primary); margin-bottom: 8px; }
+        .consigna-lista { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+        .consigna-lista li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; line-height: 1.5; font-weight: 600; color: var(--text-main); }
+        .consigna-lista .cl { flex: 0 0 22px; height: 22px; border-radius: 50%; background: var(--nika-primary); color: #fff; font-size: 0.72rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; margin-top: 1px; }
+        .escrito-textarea { min-height: 240px; }
         .escrito-textarea:focus { border-color: var(--nika-primary); box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12); }
         .escrito-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.8rem; color: var(--text-muted); font-weight: 700; }
         .btn-mic { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; font-family: inherit; transition: 0.15s; }
@@ -2001,7 +2012,7 @@
                         <button class="btn-flag ${isFlagged ? 'active' : ''}" onclick="toggleFlag()">${isFlagged ? '🚩 Desmarcar' : '⛳ Marcar'}</button>
                     </div>
                     <div class="q-content-col">
-                        <div class="q-text">${esEscrito ? escaparHtml(q.q) : q.q}</div><div class="options-container">${optionsHtml}</div>
+                        ${esEscrito ? htmlCasoEscrito(q.q) : `<div class="q-text">${q.q}</div>`}<div class="options-container">${optionsHtml}</div>
                         <div class="q-tools"${esEscrito ? ' style="display:none"' : ''}><button class="btn-text-tool" onclick="toggleNotes()">📝 Notas Privadas</button><button class="btn-text-tool" onclick="openShareToChatModal()">📤 Compartir al Chat</button><button class="btn-text-tool" style="color:var(--danger);" onclick="openReportModal()">⚠️ Reportar Error</button></div>
                         <div class="notes-area" id="notes-area" ${currentNote ? 'style="display:block;"' : ''}><textarea placeholder="Escribe aquí apuntes rápidos..." onkeyup="saveNote(this.value)">${currentNote}</textarea></div>
                     </div>
@@ -2232,7 +2243,20 @@ Preguntas de opción múltiple de Salud Integral de la Mujer (Ginecología y Obs
 - **Estilo Residencia:** 100 preguntas en 120 minutos con formato de examen de residencias médicas en Tocoginecología.
 - **Unidad Específica:** Entrenamiento focalizado en la Unidad Problema o temática que elijas.
 - **Flash:** 10 preguntas al azar en 10 minutos.
-- **Obstetricia y Urgencias:** Módulo intensivo de control prenatal, preeclampsia, hemorragias y parto: 20 preguntas en 30 minutos.`
+- **Obstetricia y Urgencias:** Módulo intensivo de control prenatal, preeclampsia, hemorragias y parto: 20 preguntas en 30 minutos.`,
+            siam: `## 🎯 De qué se trata
+Preguntas de opción múltiple de Salud Integral del Adulto Mayor (S.I.A.M.) con reloj, como un parcial o un final de cátedra. Al terminar recibís tu nota, un rango según tu porcentaje de aciertos y una revisión pregunta por pregunta con la justificación detallada.
+
+## 📚 Qué temas entran (los elegís en el próximo paso)
+- **Primer Parcial:** UP 1 a 5 (el adulto mayor y el agua; el adulto mayor en su vida cotidiana I a IV).
+- **Segundo Parcial:** UP 6 a 9 (el adulto mayor y su corazón I y II; sexualidad y descanso; el final de la vida).
+- **Examen Final:** las 9 UP integradas, 100 preguntas en 120 minutos por defecto.
+- **Estilo Residencia:** 100 preguntas en 120 minutos, con formato de examen de residencia.
+- **UP Específica:** entrenamiento focalizado en la Unidad Problema que elijas.
+- **Flash:** 10 preguntas al azar en 10 minutos.
+
+## ⏱️ Durante el examen
+Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, marcado de preguntas para revisar y notas propias. Podés ajustar la cantidad de preguntas y el tiempo antes de empezar.`
         };
         function getDescripcionChoiceMateria(modoId) {
             if (modoId !== 'choice') return null; // solo pisa el modal de Choice Clásico
@@ -4519,6 +4543,21 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             }
         }
 
+        // Enunciado del escrito: separa el caso clínico de la consigna (a, b, c…) para leerlo de a partes.
+        // Solo cambia la presentación; el texto que se evalúa es el mismo.
+        function htmlCasoEscrito(texto) {
+            const t = String(texto || '').replace(/\s+/g, ' ').trim();
+            const ini = t.search(/(?:^|[\s:.])a\)\s/);
+            if (ini < 0) return `<div class="q-text">${escaparHtml(t)}</div>`;
+            let caso = t.slice(0, ini + 1).trim(), resto = t.slice(ini + 1).trim();
+            let encabezado = 'Desarrollá';
+            const mk = /\s*(Desarrolle|Desarrolla|Desarrollar|Se solicita|Se pide|Responda|Explique|Justifique)\s*:?\s*$/i.exec(caso);
+            if (mk) caso = caso.slice(0, mk.index).trim();
+            const items = resto.split(/\s+(?=[b-h]\)\s)/).map((x) => x.replace(/^[a-h]\)\s*/, '').trim()).filter(Boolean);
+            if (items.length < 2) return `<div class="q-text">${escaparHtml(t)}</div>`;
+            return `<details class="caso-card" open><summary>📋 Caso clínico <small>(tocá para ocultar o mostrar)</small></summary><div class="caso-txt">${escaparHtml(caso)}</div></details>
+                <div class="consigna-card"><div class="consigna-tit">✍️ ${encabezado} (${items.length} puntos)</div><ol class="consigna-lista">${items.map((x, i) => `<li><span class="cl">${String.fromCharCode(97 + i)}</span><span>${escaparHtml(x)}</span></li>`).join('')}</ol></div>`;
+        }
         function htmlEscritoTextarea(idx) {
             const valor = userAnswers[idx] || '';
             const mic = EscritoMic.soportado()
@@ -4527,7 +4566,7 @@ REGLA CRÍTICA DE EVALUACIÓN: Si el texto del alumno está vacío, si solo cont
             return `<div class="escrito-wrap">
                 <label class="escrito-label" for="respuesta-escrita">Tu desarrollo</label>
                 <textarea id="respuesta-escrita" class="escrito-textarea" maxlength="${ESCRITO_CFG.maxChars}" spellcheck="true" lang="es" oninput="onEscritoInput(this)" placeholder="Desarrollá la respuesta como lo harías ante el tribunal: definición, clínica, diagnóstico, conducta…">\n${escaparHtml(valor)}</textarea>
-                <div class="escrito-meta"><span id="escrito-contador">${contarPalabras(valor)} palabras</span>${mic}</div>
+                <div class="escrito-meta"><span id="escrito-contador">${contarPalabras(valor)} palabras</span><span class="escrito-guardado">💾 Se guarda solo</span>${mic}</div>
             </div>`;
         }
 

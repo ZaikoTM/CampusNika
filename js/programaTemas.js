@@ -221,6 +221,91 @@ const PROGRAMA_TEMAS = {
       ],
     },
   },
+  siam: {
+    'UP 1': {
+      titulo: "El adulto mayor y el agua",
+      temas: [
+        "Medicina Interna · Nefro-Urología: Hematuria; Nefro-urolitiasis (composición de los cálculos); Nefropatía obstructiva; Infecciones del tracto urinario (E. coli, Klebsiella, Proteus, Enterococcus, Staphylococcus); Prostatitis; Hiperplasia benigna de próstata; Tumores renales y de vías urinarias; Tumores de vejiga; Insuficiencia renal crónica.",
+        "Farmacología: AINEs: salicilatos, paracetamol, ácido acético, propiónico, oxicamos y COX-2 selectivos; Antibióticos β-lactámicos: penicilinas, cefalosporinas, otros β-lactámicos e inhibidores de β-lactamasas; Antibióticos no β-lactámicos: tetraciclinas, macrólidos y quinolonas; Diuréticos: inhibidores de anhidrasa carbónica, SGLT2, del asa, tiazidas, ahorradores de K+, osmóticos, vaptanos y ureareticos.",
+      ],
+    },
+    'UP 2': {
+      titulo: "El adulto mayor en su vida cotidiana I",
+      temas: [
+        "Medicina Interna · Cardiología: Síndrome metabólico; Obesidad; Hipertensión arterial; Dislipemias.",
+        "Medicina Interna · Neurología: Accidentes cerebrovasculares (isquemia/TIA, infarto, hemorragia); Síndromes focales del encéfalo (frontal, parietal, temporal, occipital) y trastornos del lenguaje; Síndromes de pérdida de fuerza muscular y botulismo; Enfermedades desmielinizantes, miastenia gravis y tétanos.",
+        "Farmacología: Antihipertensivos: bloqueantes α/β, bloqueantes del SRAA, antagonistas del calcio y de acción central; Hipolipemiantes: omega 3, ezetimibe, estatinas, fibratos, resinas, lomitapide, ácido bempedoico, inhibidores de PCSK9 y evinacumab; Vasodilatadores; Neurotrópicos.",
+        "Medicina Legal: Capacidad e incapacidad civil y certificado de incapacidad.",
+      ],
+    },
+    'UP 3': {
+      titulo: "El adulto mayor en su vida cotidiana II",
+      temas: [
+        "Fisiología: Metabolismo fosfo-cálcico y proteico; hormonas hiper e hipocalcemiantes.",
+        "Medicina Interna · Endocrinología: Hipo e hiperparatiroidismo.",
+        "Medicina Interna · Dermatología: Eritema polimorfo minor; Síndrome de Stevens-Johnson; Necrólisis epidérmica tóxica (síndrome de Lyell).",
+        "Medicina Interna · Neurología: Trastornos motores: temblores, corea, atetosis, mioclonías, distonías y tics; Síndrome vestibular: sordera, acúfenos y vértigos; Síndrome cerebeloso; Síndrome extrapiramidal: enfermedad de Parkinson.",
+        "Medicina Interna · Reumatología: Artrosis; Osteoporosis; Artritis microcristalinas (gota); Fibromialgia y síndromes sensitivos.",
+        "Psicología: Duelos por la imagen corporal, pérdidas y caídas desde la propia altura.",
+        "Farmacología: AINEs y analgesia no opiácea; Corticoides; Antiartrósicos; Antigotosos; Antiparkinsonianos: anticolinérgicos, levodopa/carbidopa y otros dopaminérgicos.",
+      ],
+    },
+    'UP 4': {
+      titulo: "El adulto mayor en su vida cotidiana III",
+      temas: [
+        "Psicología: El adulto mayor en el ámbito domiciliario-familiar; Diagnóstico diferencial: depresión vs no depresión; trastornos mnésicos vs reminiscencia.",
+        "Medicina Interna · Neurología / Psiquiatría: Delirios; Demencia y Mini-Mental Test; Enfermedad de Alzheimer; Otras enfermedades neurodegenerativas.",
+        "Medicina Interna · Cardiología: Valvulopatías estenosantes; Estenosis aórtica; Estenosis mitral; Otras valvulopatías estenóticas.",
+        "Oftalmología: Disminución de la agudeza visual: catarata, glaucoma y degeneración macular asociada a la edad.",
+        "Farmacología: Fármacos de los trastornos cognitivos y memantina; Fármacos de los trastornos conductuales; Antidemenciales.",
+      ],
+    },
+    'UP 5': {
+      titulo: "El adulto mayor en su vida cotidiana IV",
+      temas: [
+        "Medicina Interna · Cardiología: Valvulopatías regurgitantes; Insuficiencia aórtica; Insuficiencia mitral; Otras valvulopatías regurgitantes.",
+        "Medicina Interna · Flebología: Insuficiencia venosa periférica; Enfermedad tromboembólica y trombosis venosa profunda.",
+        "Medicina Interna · Cardiología / Neumonología: Tromboembolismo pulmonar.",
+        "Medicina Interna · Dermatología: Precursores de melanoma; Melanoma.",
+        "Medicina Interna · Gastroenterología: Enfermedad hemorroidal.",
+        "Medicina Interna · Reumatología: Osteoporosis.",
+        "Farmacología: Calcio, vitamina D y fijadores del calcio; Venotónicos; Antihemorroidales; Anticoagulantes y fibrinolíticos.",
+      ],
+    },
+    'UP 6': {
+      titulo: "El adulto mayor y su corazón I",
+      temas: [
+        "Medicina Interna · Cardiología: Miocardiopatías: clasificación; Miocardiopatía genética; Miocardiopatía hipertrófica; Miocardiopatía dilatada; Miocardiopatía restrictiva; Miocardiopatía en el embarazo y chagásica; Insuficiencia cardíaca (clasificación funcional, tratamiento, digitálicos y diuréticos).",
+        "Medicina Interna · Infectología: Enfermedad de Chagas.",
+      ],
+    },
+    'UP 7': {
+      titulo: "El adulto mayor y su corazón II",
+      temas: [
+        "Medicina Interna · Cardiología: Arritmias: síndrome del nódulo sinusal enfermo, paro y bradicardia sinusal, taquicardias; Flutter y fibrilación auricular; Taquicardia paroxística supraventricular y extrasístoles; Bloqueos AV; Taquicardia y fibrilación ventricular, QT largo; Wolf-Parkinson-White; Marcapasos, cardioversión eléctrica y desfibrilación.",
+        "Farmacología: Antiarrítmicos: clasificación, mecanismos, indicaciones, reacciones adversas e interacciones.",
+      ],
+    },
+    'UP 8': {
+      titulo: "El adulto mayor, la sexualidad y el descanso",
+      temas: [
+        "Fisiología: El sueño normal y sus patrones; el sueño en el adulto mayor.",
+        "Medicina Interna · Neurología: Insomnio; Somnolencia: narcolepsia, hipersomnia y síndrome de apneas del sueño; Otros trastornos del ciclo sueño-vigilia.",
+        "Medicina Interna · Urología: Disfunciones sexuales: deseo, excitación, dolor y parafilias.",
+        "Psicología: La sexualidad en el adulto mayor.",
+        "Farmacología: Hipnóticos; Inhibidores de la fosfodiesterasa (disfunción eréctil).",
+      ],
+    },
+    'UP 9': {
+      titulo: "El adulto mayor y el final de la vida",
+      temas: [
+        "Medicina Interna · Dermatología: Pénfigos; Úlceras por presión.",
+        "Medicina Interna · Gastroenterología y cuidados paliativos: Cáncer de esófago; Cáncer de estómago; Paciente terminal y cuidados paliativos; Dolor: vías de percepción, analgesia endógena y tratamiento; Coma; Ética médica y sufrimiento humano; Paro cardiorrespiratorio.",
+        "Psicología: Rol del médico en el final de la vida; asistencia al moribundo y su familia.",
+        "Medicina Legal: Muerte, diagnóstico de muerte y certificado de defunción; Tanatología: autopsia, cronotanatodiagnóstico, inhumación, embalsamamiento, cremación y exhumación; Testamento.",
+      ],
+    },
+  },
 };
 
 const ProgramaTemas = (() => {

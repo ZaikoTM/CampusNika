@@ -562,25 +562,33 @@ function renderUpDetail(unit) {
 
     const contentsList = document.getElementById('up-contents-list');
     if (contentsList && unit.contents) {
-        contentsList.innerHTML = unit.contents.map(content => `
-            <li>
+        // "Área: tema; tema; tema" -> título + temas en píldoras chicas (menos pared de texto)
+        const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        contentsList.innerHTML = unit.contents.map(content => {
+            const m = /^([^:]{3,60}):\s+(.+)$/.exec(content);
+            const cuerpo = m && /;/.test(m[2])
+                ? `<b class="ct-area">${esc(m[1])}</b><span class="ct-temas">${m[2].replace(/\.$/, '').split(/;\s*/).map(t => `<span class="ct-tema">${esc(t)}</span>`).join('')}</span>`
+                : `<span>${content}</span>`;
+            return `<li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>${content}</span>
-            </li>
-        `).join('');
+                <div class="ct-cuerpo">${cuerpo}</div>
+            </li>`;
+        }).join('');
     }
+
+    const objNote = document.getElementById('up-objectives-note');
+    if (objNote) { objNote.textContent = unit.objectivesNote || ''; objNote.style.display = unit.objectivesNote ? '' : 'none'; }
 
     const biblioList = document.getElementById('up-biblio-list');
     if (biblioList && unit.bibliography) {
-        const booksRepo = (typeof EstudioState !== 'undefined' && EstudioState.data && EstudioState.data.booksRepository) 
-            ? EstudioState.data.booksRepository 
+        const booksRepo = (typeof EstudioState !== 'undefined' && EstudioState.data && EstudioState.data.booksRepository)
+            ? EstudioState.data.booksRepository
             : {};
-        biblioList.innerHTML = unit.bibliography.map(key => `
-            <div class="biblio-chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
-                ${booksRepo[key] || key}
-            </div>
-        `).join('');
+        const icono = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>';
+        const chips = (arr) => arr.map(key => `<div class="biblio-chip">${icono}<span>${booksRepo[key] || key}</span></div>`).join('');
+        const alt = unit.bibliographyAlt || [];
+        biblioList.innerHTML = (unit.bibliography.length ? (alt.length ? '<div class="biblio-sub">Obligatoria</div>' : '') + chips(unit.bibliography) : '')
+            + (alt.length ? '<div class="biblio-sub">Alternativa y de consulta</div>' + chips(alt) : '');
     }
 
     const materiales = unit.materiales || [];
