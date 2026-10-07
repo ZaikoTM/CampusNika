@@ -4,7 +4,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { crearBrazosPaciente } from './brazos3d.js?v=1';
+import { crearBrazosPaciente } from './brazos3d.js?v=2';
 
 export const TIPOS = {};
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -115,12 +115,53 @@ function crearAntebrazo(mat) {
   return g;
 }
 
+// ---- manos desnudas: textura de piel fina y uñas que siguen la pose de cada dedo
+let BUMP_PIEL = null;
+function bumpPiel() {
+  if (BUMP_PIEL || typeof document === 'undefined') return BUMP_PIEL;
+  const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d');
+  x.fillStyle = '#808080'; x.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 5200; i++) { const v = 110 + Math.random() * 60; x.fillStyle = `rgba(${v},${v},${v},0.5)`; x.fillRect(Math.random() * 256, Math.random() * 256, 1 + Math.random() * 1.6, 1 + Math.random() * 1.6); }   // poros
+  for (let i = 0; i < 260; i++) { const px = Math.random() * 256, py = Math.random() * 256, l = 8 + Math.random() * 20; x.strokeStyle = 'rgba(70,70,70,0.28)'; x.lineWidth = 0.7; x.beginPath(); x.moveTo(px, py); x.lineTo(px + l, py + (Math.random() - 0.5) * 4); x.stroke(); }   // pliegues finos
+  BUMP_PIEL = new THREE.CanvasTexture(c); BUMP_PIEL.wrapS = BUMP_PIEL.wrapT = THREE.RepeatWrapping; BUMP_PIEL.repeat.set(3, 3);
+  return BUMP_PIEL;
+}
+// vértices de la malla (mano_real.glb, sin rotar) que son la punta de cada dedo; d0 = dirección del dedo en reposo
+const PUNTAS = [{ i: 2283, d0: [0, 1, 0] }, { i: 2270, d0: [0, 1, 0] }, { i: 2261, d0: [0, 1, 0] }, { i: 2285, d0: [0, 1, 0] }];
+function crearUnas(real, matUnas) {
+  const geo = real.geometry; const pos = geo.attributes.position; const morph = geo.morphAttributes.position || [];
+  const base = (i) => V(pos.getX(i), pos.getY(i), pos.getZ(i));
+  const dedos = PUNTAS.map((P) => {
+    const tip = base(P.i), d0 = V(...P.d0).normalize(); const objetivo = tip.clone().addScaledVector(d0, -1.25);
+    let ref = P.i, mejor = 1e9; for (let k = 0; k < pos.count; k++) { const d = base(k).distanceToSquared(objetivo); if (d < mejor && Math.abs(pos.getZ(k) - tip.z) < 0.9) { mejor = d; ref = k; } }
+    const m = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 10), matUnas); m.scale.set(0.52, 0.7, 0.075); m.renderOrder = 1; m.frustumCulled = false; real.add(m);
+    return { P, ref, m };
+  });
+  const posePunto = (i) => { const p = base(i); const inf = real.morphTargetInfluences; morph.forEach((att, k) => { const w = inf[k]; if (w) p.add(V(att.getX(i), att.getY(i), att.getZ(i)).multiplyScalar(w)); }); return p; };
+  return () => {                                         // se llama cada vez que cambia la pose
+    dedos.forEach((D) => {
+      const t = posePunto(D.P.i), r = posePunto(D.ref); const d = t.clone().sub(r).normalize();
+      const n = V(0, -d.z, d.y).normalize(); if (n.z < 0 && D.P.d0[0] === 0) n.negate();           // normal dorsal (en el plano del dedo)
+      const ux = new THREE.Vector3().crossVectors(d, n).normalize();
+      D.m.position.copy(t).addScaledVector(d, -0.78).addScaledVector(n, 0.55);
+      D.m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(ux, d, n));
+    });
+  };
+}
+
 export function crearMano(mat, lado = 1, opts = {}) {
   const piel = !!opts.piel;
-  const guante = piel ? mat : materialGuante(mat);
+  let matUnas = null, matPiel = null;
+  if (piel) {
+    matPiel = mat.clone(); matPiel.userData = Object.assign({}, mat.userData); const t = bumpPiel(); if (t) { matPiel.bumpMap = t; matPiel.bumpScale = 0.22; }
+    matUnas = mat.clone(); matUnas.userData = Object.assign({}, mat.userData); matUnas.color = new THREE.Color('#f1c9c0'); matUnas.roughness = 0.2; matUnas.clearcoat = 1; matUnas.clearcoatRoughness = 0.12;
+  }
+  const guante = piel ? matPiel : materialGuante(mat);
   const g = crearManoProc(guante, lado); const poseProc = g.pose; let real = null; let ultima = ['plana', 1];
+  let unasFn = null;
   g.pose = (nombre, k = 1) => { ultima = [nombre, k]; if (!real) { poseProc(nombre, k); return; }
-    const inf = real.morphTargetInfluences; inf.fill(0); const i = real.morphTargetDictionary[nombre]; if (i !== undefined) inf[i] = Math.max(0, Math.min(1, k)); };
+    const inf = real.morphTargetInfluences; inf.fill(0); const i = real.morphTargetDictionary[nombre]; if (i !== undefined) inf[i] = Math.max(0, Math.min(1, k)); if (unasFn) unasFn(); };
+  if (piel) g.userData.matsExtra = [matPiel, matUnas];
   const hold0 = g.userData.hold; const muneca0 = hold0.children.find((c) => c.geometry && c.geometry.type === 'CylinderGeometry');
   if (muneca0) hold0.remove(muneca0);
   if (!piel) { const brazo = crearAntebrazo(guante); brazo.userData.esBrazo = true; brazo.position.x = -1.8 * lado; hold0.add(brazo); }   // la muñeca de la malla está desplazada 1.8 cm en x
@@ -130,7 +171,7 @@ export function crearMano(mat, lado = 1, opts = {}) {
     // la malla viene con los dedos hacia +Y y la palma hacia −Z; la escena espera dedos hacia +Z y palma hacia +Y (hacia la piel): giro de 90° en X
     real.rotation.x = Math.PI / 2; real.scale.set(lado < 0 ? -1 : 1, 1, 1);
     const hold = g.userData.hold; hold.children.slice().forEach((c) => { if (!c.userData.esBrazo) hold.remove(c); });
-    hold.add(real); g.pose(...ultima); });
+    hold.add(real); if (piel) unasFn = crearUnas(real, matUnas); g.pose(...ultima); });
   return g;
 }
 
@@ -542,7 +583,7 @@ TIPOS.mam = (visor, ins, cfg, C) => {
     // brazos de la paciente: reposo → manos en la cintura → manos detrás de la cabeza (misma piel que el torso)
     if (!brazosP && C.skinMats && C.skinMats.length) {
       const base = C.skinMats[0]; const matB = base.clone(); matB.userData = Object.assign({}, base.userData); C.skinMats.push(matB); if (C.mats) C.mats.push(matB);
-      brazosP = crearBrazosPaciente({ matPiel: matB, crearMano, capa: C.capas.piel });
+      brazosP = crearBrazosPaciente({ matPiel: matB, crearMano, capa: C.capas.piel, registrarMat: (m) => { C.skinMats.push(m); if (C.mats) C.mats.push(m); } });
       brazosP.lados.forEach((L) => L.g.traverse((o) => { if (o.isMesh) o.userData.capa = 'piel'; }));
     }
     if (brazosP) {

@@ -17,14 +17,14 @@ const POSES = (sx) => ({
   alto: { W: V(sx * 6.8, 57, -19.5), polo: V(sx * 1, 0.5, 0.35), palma: V(0, 0, 1) },                     // manos detrás de la cabeza/nuca, codos hacia afuera
 });
 
-export function crearBrazosPaciente({ matPiel, crearMano, capa }) {
+export function crearBrazosPaciente({ matPiel, crearMano, capa, registrarMat }) {
   const lados = [-1, 1].map((sx) => {
     const g = new THREE.Group(); capa.add(g);
     const sup = new THREE.Mesh(new THREE.CylinderGeometry(3.45, 4.5, 1, 28, 1), matPiel);
     const codo = new THREE.Mesh(new THREE.SphereGeometry(3.5, 20, 14), matPiel);
     const hombro = new THREE.Mesh(new THREE.SphereGeometry(4.6, 20, 14), matPiel);
     const ant = new THREE.Mesh(new THREE.CylinderGeometry(3.3, 3.95, 1, 28, 1), matPiel);       // arriba (+y local) = muñeca, abajo = codo
-    const mano = crearMano(matPiel, sx, { piel: true }); mano.pose('suave');
+    const mano = crearMano(matPiel, sx, { piel: true }); mano.pose('suave'); (mano.userData.matsExtra || []).forEach((m) => registrarMat && registrarMat(m));
     g.add(sup, codo, hombro, ant, mano);
     const P = POSES(sx);
     const act = { W: P.reposo.W.clone(), polo: P.reposo.polo.clone(), palma: P.reposo.palma.clone() };
