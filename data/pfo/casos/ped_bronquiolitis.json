@@ -131,15 +131,15 @@
       "max": 10,
       "texto": "Alimentación e hidratación",
       "regular": "Indica continuar con la lactancia",
-      "suficiente": "Indica lactancia fraccionada según tolerancia; si la frecuencia respiratoria supera 60 a 80 por minuto o hay tiraje marcado, suspende la vía oral y usa sonda nasogástrica o plan de hidratación parenteral"
+      "suficiente": "Indica lactancia fraccionada según tolerancia; si la frecuencia respiratoria supera 60 por minuto o hay tiraje marcado que dificulta alimentarse, usa sonda nasogástrica o plan de hidratación parenteral sin superar los 100 ml/kg/día para evitar la hiponatremia"
     },
     {
       "id": 13,
       "bloque": "Tratamiento",
       "max": 10,
-      "texto": "Broncodilatadores",
-      "regular": "Indica salbutamol sin criterio",
-      "suficiente": "No lo indica de rutina; puede realizar una prueba terapéutica de salbutamol y la suspende si no hay respuesta clínica"
+      "texto": "Broncodilatadores (salbutamol)",
+      "regular": "No indica salbutamol, pero no lo fundamenta o lo indica como prueba terapéutica",
+      "suficiente": "No indica salbutamol y lo fundamenta: no está recomendado ni es eficaz en lactantes del primer semestre (menores de 6 meses) y no reduce la internación ni el requerimiento de oxígeno"
     },
     {
       "id": 14,
@@ -159,8 +159,11 @@
     }
   ],
   "errores_criticos": [
-    "Indicar corticoides sistémicos o antibióticos de rutina",
-    "Omitir la monitorización de la saturación",
-    "No reconocer los signos de gravedad (apnea, cianosis, rechazo de tomas) que obligan a internar"
+    "Indicar corticoides (sistémicos o inhalados) o antibióticos de rutina en una bronquiolitis sin sobreinfección bacteriana",
+    "Indicar salbutamol o nebulizaciones broncodilatadoras de rutina en un lactante menor de 6 meses",
+    "Omitir la monitorización de la saturación o no reconocer los signos de gravedad (apnea, cianosis, rechazo de tomas) que obligan a internar"
+  ],
+  "pendientes": [
+    "Escala de Tal modificada: se usan frecuencia respiratoria, sibilancias y tiraje (la frecuencia cardíaca no se incluye)."
   ]
 }
