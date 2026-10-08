@@ -1,7 +1,7 @@
 {
   "id": "mf_depresion",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Desgano, decaimiento y palpitaciones: sospecha de trastorno del ánimo",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -22,12 +22,16 @@
     {
       "clave": "laboratorio",
       "texto": "[BORRADOR] Hemograma normal (hemoglobina 12,8 g/dl), glucemia 88 mg/dl, urea 24 mg/dl, creatinina 0,7 mg/dl, ionograma normal, orina completa normal, hepatograma normal, TSH 2,3 mUI/L, T4 libre 1,1 ng/dl, beta-HCG negativa (se informan cuando vuelva con los resultados)."
+    },
+    {
+      "clave": "electrocardiograma",
+      "texto": "[BORRADOR] Electrocardiograma (si lo solicita): ritmo sinusal a 96 por minuto, sin arritmias ni alteraciones del intervalo QT."
     }
   ],
   "umbral_aprobacion": 60,
   "errores_criticos": [
     "No evaluar el riesgo suicida ante un cuadro depresivo",
-    "Indicar benzodiacepinas de modo crónico o sin un diagnóstico claro",
+    "Indicar benzodiacepinas de modo crónico, prolongado o como único tratamiento del cuadro depresivo",
     "No descartar causas orgánicas (hipotiroidismo, anemia, embarazo, diabetes) antes del diagnóstico psiquiátrico"
   ],
   "rubrica": [
@@ -93,7 +97,7 @@
       "max": 5,
       "texto": "Impresión diagnóstica",
       "regular": "Menciona un cuadro psicológico",
-      "suficiente": "Plantea un cuadro psicológico agudo con síntomas ansiosos y depresivos (probable trastorno de ansiedad generalizada con síntomas depresivos) a estudiar, y la necesidad de descartar causas orgánicas"
+      "suficiente": "Plantea un episodio depresivo mayor (leve a moderado) o un trastorno adaptativo secundario a estresores, descartando ansiedad generalizada por el tiempo de evolución (menos de 6 meses); fundamenta la necesidad de descartar causas orgánicas"
     },
     {
       "id": 9,
@@ -101,7 +105,7 @@
       "max": 10,
       "texto": "Estudios complementarios",
       "regular": "Solicita algunos",
-      "suficiente": "Solicita hemograma, glucemia, urea, creatinina, ionograma, orina completa, hepatograma, TSH, T4 libre y beta-HCG"
+      "suficiente": "Solicita hemograma, glucemia, función renal, ionograma, hepatograma, TSH, T4 libre, beta-HCG y un electrocardiograma para evaluar las palpitaciones"
     },
     {
       "id": 10,
@@ -125,7 +129,7 @@
       "max": 10,
       "texto": "Tratamiento farmacológico",
       "regular": "Indica un fármaco sin justificar",
-      "suficiente": "Explica que no inicia fármacos aún por no tener diagnóstico certero y que se reevaluará según los estudios y el equipo de salud mental; si indica uno, que sea justificado y por tiempo corto"
+      "suficiente": "Explica que adoptará una conducta de espera activa sin antidepresivos hasta tener los laboratorios, o bien inicia un ISRS explicando su latencia; si indica una benzodiacepina para el insomnio o la angustia, justifica que será por un tiempo muy corto"
     },
     {
       "id": 13,
@@ -133,7 +137,7 @@
       "max": 10,
       "texto": "Seguimiento y pautas de alarma",
       "regular": "Cita sin plazo",
-      "suficiente": "Cita a control cuando tenga los resultados (o a los 15 días si no los tiene) y da pautas de alarma para consultar antes, especialmente por ideas de muerte"
+      "suficiente": "Cita a control a corto plazo (7 a 15 días) para ver los resultados y la evolución, y da pautas de alarma claras (consultar por guardia si aparecen ideas activas de muerte o un plan suicida)"
     },
     {
       "id": 14,
