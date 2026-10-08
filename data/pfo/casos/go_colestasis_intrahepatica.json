@@ -1,13 +1,13 @@
 {
   "id": "go_colestasis_intrahepatica",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
-  "nombre": "Prurito palmoplantar a las 34 semanas: colestasis intrahepática del embarazo",
+  "estado": "auditado",
+  "nombre": "Prurito palmoplantar a las 33 semanas: colestasis intrahepática del embarazo",
   "duracionMin": 10,
   "tipo": "dinámica",
   "contexto": "Guardia",
   "instrumento": "Paciente estandarizado",
-  "situacion": "Laura Pérez, de 32 años, G2 P1 (una cesárea previa), se encuentra cursando un embarazo de 34+2 semanas (confirmadas por FUM y por ecografía del primer trimestre). Acude a la guardia por presentar prurito generalizado que afecta principalmente las palmas y las plantas, de inicio hace 7 días, con incremento progresivo. Se presenta especialmente por las noches y ha comenzado a interrumpir el sueño. Sin otras lesiones cutáneas. Como antecedentes personales destaca hipotiroidismo controlado con levotiroxina 50 µg por día y antecedente de colestasis intrahepática en el embarazo anterior, resuelta tras el parto. Refiere buen control prenatal en el embarazo actual, con crecimiento fetal adecuado en una ecografía reciente (33 semanas). Signos vitales: TA 120/80 mmHg, FC 82 por minuto, temperatura 36,8 °C.",
+  "situacion": "Laura Pérez, de 32 años, G2 P1 (una cesárea previa), se encuentra cursando un embarazo de 33+5 semanas (confirmadas por FUM y por ecografía del primer trimestre). Acude a la guardia por presentar prurito generalizado que afecta principalmente las palmas y las plantas, de inicio hace 7 días, con incremento progresivo. Se presenta especialmente por las noches y ha comenzado a interrumpir el sueño. Sin otras lesiones cutáneas. Como antecedentes personales destaca hipotiroidismo controlado con levotiroxina 50 µg por día y antecedente de colestasis intrahepática en el embarazo anterior, resuelta tras el parto. Refiere buen control prenatal en el embarazo actual, con crecimiento fetal adecuado en una ecografía reciente (33 semanas). Signos vitales: TA 120/80 mmHg, FC 82 por minuto, temperatura 36,8 °C.",
   "objetivos": [
     "Reconocer el cuadro clínico y plantear el diagnóstico presuntivo.",
     "Solicitar los estudios complementarios y los diagnósticos diferenciales.",
@@ -15,12 +15,12 @@
     "Indicar el tratamiento y el plan de seguimiento."
   ],
   "interlocutor": "Laura Pérez, 32 años, administrativa (habla ella, en primera persona; agotada por el picor y el insomnio)",
-  "guion_paciente": "Laura Pérez, 32 años, empleada administrativa. G2 P1 C1 (primer hijo por cesárea hace 3 años por podálica). Cursa 34 semanas y 2 días. Hace 7 días tiene un picor intenso en las palmas de las manos y las plantas de los pies, que se extendió al resto del cuerpo; empeora de noche y no la deja dormir; se rasca hasta lastimarse; no hay manchas ni granitos en la piel. Orina algo oscura desde hace 2 días y heces claras; sin ictericia visible, aunque las conjuntivas parecen algo amarillentas. Sin fiebre, dolor abdominal, vómitos ni cefalea; sin visión borrosa. Siente al bebé como siempre; sin pérdida de líquido ni sangre; sin contracciones. Nuevo producto: no usa cremas ni medicación nueva.\nAntecedentes: en el embarazo anterior tuvo el mismo prurito a las 36 semanas, le dijeron «colestasis», resolvió después del parto. Hipotiroidismo desde hace 4 años (levotiroxina 50 µg, TSH controlada). Sin hepatitis, sin cálculos biliares, sin alergias. Peso 72 kg. Hisopado vaginorrectal para estreptococo del grupo B: aún no. Grupo A Rh positivo. Toma levotiroxina y hierro.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
-  "datos_clinicos": "TA 120/80 mmHg, FC 82 por minuto, temperatura 36,8 °C, peso 72 kg. Buen estado general. Piel con excoriaciones por rascado en brazos, abdomen y piernas, sin exantema ni lesiones primarias. Escleróticas con leve subictericia. Abdomen blando; cicatriz de cesárea previa; altura uterina 34 cm; feto único, longitudinal, cefálico; frecuencia cardíaca fetal 140 por minuto; sin dinámica uterina; hígado no palpable, sin dolor en hipocondrio derecho. Sin edemas.",
+  "guion_paciente": "Laura Pérez, 32 años, empleada administrativa. G2 P1 C1 (primer hijo por cesárea hace 3 años por podálica). Cursa 33 semanas y 5 días. Hace 7 días tiene un picor intenso en las palmas de las manos y las plantas de los pies, que se extendió al resto del cuerpo; empeora de noche y no la deja dormir; se rasca hasta lastimarse; no hay manchas ni granitos en la piel. Orina algo oscura desde hace 2 días y heces claras; sin ictericia visible, aunque las conjuntivas parecen algo amarillentas. Sin fiebre, dolor abdominal, vómitos ni cefalea; sin visión borrosa. Siente al bebé como siempre; sin pérdida de líquido ni sangre; sin contracciones. Nuevo producto: no usa cremas ni medicación nueva.\nAntecedentes: en el embarazo anterior tuvo el mismo prurito a las 36 semanas, le dijeron «colestasis», resolvió después del parto. Hipotiroidismo desde hace 4 años (levotiroxina 50 µg, TSH controlada). Sin hepatitis, sin cálculos biliares, sin alergias. Peso 72 kg. Hisopado vaginorrectal para estreptococo del grupo B: aún no. Grupo A Rh positivo. Toma levotiroxina y hierro.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 120/80 mmHg, FC 82 por minuto, temperatura 36,8 °C, peso 72 kg. Buen estado general. Piel con excoriaciones por rascado en brazos, abdomen y piernas, sin exantema ni lesiones primarias. Escleróticas con leve subictericia. Abdomen blando; cicatriz de cesárea previa; altura uterina 33 cm; feto único, longitudinal, cefálico; frecuencia cardíaca fetal 140 por minuto; sin dinámica uterina; hígado no palpable, sin dolor en hipocondrio derecho. Sin edemas.",
   "estudios": [
     {
       "clave": "laboratorio",
-      "texto": "Laboratorio: GOT 88 U/L, GPT 98 U/L, LDH 879 U/L, ácidos biliares 76 µmol/L, hemoglobina 12,3 g/dl, hematocrito 43 %. [BORRADOR] Bilirrubina total 2,4 mg/dl (directa 1,6), fosfatasa alcalina 280 U/L, plaquetas 210.000/mm³, coagulograma normal (RIN 1,0), creatinina 0,6 mg/dl, uricemia 3,8 mg/dl, proteinuria negativa, serologías de hepatitis A, B y C negativas."
+      "texto": "Laboratorio: GOT 88 U/L, GPT 98 U/L, LDH 250 U/L, ácidos biliares 76 µmol/L, hemoglobina 12,3 g/dl, hematocrito 43 %. [BORRADOR] Bilirrubina total 2,4 mg/dl (directa 1,6), fosfatasa alcalina 280 U/L, plaquetas 210.000/mm³, coagulograma normal (RIN 1,0), creatinina 0,6 mg/dl, uricemia 3,8 mg/dl, proteinuria negativa, serologías de hepatitis A, B y C negativas."
     },
     {
       "clave": "monitoreo_fetal_ecografia",
@@ -80,7 +80,7 @@
       "max": 5,
       "texto": "Interpretación del laboratorio",
       "regular": "Reconoce uno",
-      "suficiente": "Interpreta ácidos biliares de 76 µmol/L (mayor de 10 confirma), transaminasas elevadas y LDH alta"
+      "suficiente": "Interpreta ácidos biliares de 76 µmol/L (mayor de 10 confirma), transaminasas elevadas y LDH normal (descarta hemólisis y HELLP)"
     },
     {
       "id": 7,
@@ -128,7 +128,7 @@
       "max": 10,
       "texto": "Maduración pulmonar y finalización",
       "regular": "La menciona",
-      "suficiente": "Evalúa corticoides para la maduración pulmonar fetal (34+2 semanas, previo control de glucemia) y plantea la finalización del embarazo entre las 36 y 37 semanas según la gravedad"
+      "suficiente": "Evalúa corticoides para la maduración pulmonar fetal (33+5 semanas, previo control de glucemia) y plantea la finalización del embarazo entre las 36 y 37 semanas según la gravedad"
     },
     {
       "id": 13,
