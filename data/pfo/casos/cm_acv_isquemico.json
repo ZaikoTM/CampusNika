@@ -1,7 +1,7 @@
 {
   "id": "cm_acv_isquemico",
   "area": "clinica_medica",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Hemiparesia y disartria de inicio agudo: ACV isquémico",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -135,8 +135,8 @@
       "bloque": "Conducta",
       "max": 10,
       "texto": "Antitrombóticos y estatina",
-      "regular": "Indica antiagregación",
-      "suficiente": "Indica aspirina 300 mg y clopidogrel 600 mg (a las 24 horas si recibió alteplasa, de inmediato en caso contrario) y atorvastatina 80 mg; evalúa la anticoagulación a las 24 horas según CHA2DS2-VASc y NIHSS"
+      "regular": "Indica antiagregación sin tener en cuenta la fibrinólisis o la gravedad",
+      "suficiente": "Indica aspirina 300 mg (de inmediato si no recibe fibrinólisis; a las 24 horas, tras repetir la neuroimagen de control sin sangrado, si recibió alteplasa), no indica doble antiagregación de rutina por tratarse de un ACV moderado con NIHSS 14, indica atorvastatina 80 mg y difiere la anticoagulación (4 a 14 días según la gravedad y la etiología)"
     },
     {
       "id": 13,
