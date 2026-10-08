@@ -1,0 +1,148 @@
+{
+  "id": "ped_vacunas_atrasadas",
+  "area": "pediatria",
+  "estado": "borrador",
+  "nombre": "Vacunas atrasadas en una lactante de 8 meses con diarrea",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado (la madre)",
+  "situacion": "Juana, de 35 años, vino sola a la consulta pediátrica. Tiene una hija, Zoe, de 8 meses de edad, a quien solo le colocó las vacunas del nacimiento. Tiene miedo de colocarle las vacunas y no sabe si son necesarias; prefiere no hacerlo, pero en el jardín se las piden para ingresar. Zoe en este momento tiene diarrea y vómitos desde hace 24 horas.",
+  "objetivos": [
+    "Explique la importancia de las vacunas.",
+    "Indique cuáles debe colocarse por su edad para recuperar el calendario de vacunación.",
+    "Indique cuáles son las próximas vacunas para Zoe."
+  ],
+  "interlocutor": "Juana, 35 años, madre de Zoe (habla ella; Zoe está con ella, tranquila)",
+  "guion_paciente": "Zoe, 8 meses, mujer, 7,8 kg. Mamá: Juana, que tiene miedo de las vacunas y dudas sobre si son necesarias («me dijeron que le pueden hacer mal»). Está a la defensiva al principio, pero se tranquiliza si el médico la escucha, le pregunta qué la preocupa, le explica con claridad y le propone un plan; si la despachan con autoridad, desconfía más.\nAntecedentes: embarazo controlado, parto vaginal a las 39 semanas, peso de nacimiento 3.100 g, internación conjunta; recibió BCG y hepatitis B antes del alta. No recibió ninguna otra vacuna. Nunca tuvo una reacción grave ni alergias; sin enfermedades de base, sin medicación, sin corticoides ni inmunodeficiencias; sin internaciones. Lactancia materna y comida casera desde los 6 meses. Convivientes sanos (mamá, papá y abuela); nadie está inmunodeprimido ni embarazada.\nEnfermedad actual: hace 24 horas empezó con diarrea líquida (5 deposiciones, sin sangre) y vomitó dos veces; no tuvo fiebre alta (máximo 37,6 °C), toma el pecho y agua, orina con normalidad (6 pañales mojados hoy), está activa y juguetona. Nadie más en la casa está enfermo. No viajaron.\nCarnet: lo trajo; solo figura BCG y hepatitis B del nacimiento. En el jardín le piden las vacunas para ingresar.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Peso 7,8 kg. Temperatura 37,4 °C, FC 125 por minuto, FR 30 por minuto, saturación 98 %. Buen estado general, activa, reactiva. Mucosas húmedas, ojos normales, llora con lágrimas, pliegue cutáneo que se deshace rápido, llenado capilar menor de 2 segundos, fontanela normotensa. Abdomen blando, sin dolor. Sin signos de deshidratación (corresponde Plan A).",
+  "estudios": [
+    {
+      "clave": "carnet",
+      "texto": "Carnet de vacunación: BCG y hepatitis B del recién nacido. No tiene registradas otras dosis."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis y evaluación",
+      "max": 5,
+      "texto": "Escucha y motivo de consulta",
+      "regular": "Pregunta el motivo de la consulta",
+      "suficiente": "Saluda, se presenta, valida las dudas y los miedos de la madre y le pregunta qué la preocupa"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis y evaluación",
+      "max": 5,
+      "texto": "Carnet de vacunas",
+      "regular": "Solicita el carnet",
+      "suficiente": "Solicita el carnet, verifica que solo tiene las vacunas del recién nacido y detecta las dosis atrasadas"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis y evaluación",
+      "max": 5,
+      "texto": "Estado actual de Zoe",
+      "regular": "Pregunta por la diarrea o la fiebre",
+      "suficiente": "Indaga diarrea, vómitos, fiebre, tolerancia a líquidos, diuresis, estado general, y evalúa la hidratación"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis y evaluación",
+      "max": 5,
+      "texto": "Antecedentes y contraindicaciones",
+      "regular": "Indaga alergias o enfermedades",
+      "suficiente": "Indaga reacciones previas a vacunas, alergias, enfermedades de base, inmunodeficiencias, corticoides y convivientes inmunodeprimidos o embarazadas"
+    },
+    {
+      "id": 5,
+      "bloque": "Importancia de las vacunas",
+      "max": 5,
+      "texto": "Protección individual",
+      "regular": "Dice que protegen a Zoe",
+      "suficiente": "Explica que fortalecen el sistema inmune de Zoe y previenen enfermedades graves y sus complicaciones"
+    },
+    {
+      "id": 6,
+      "bloque": "Importancia de las vacunas",
+      "max": 5,
+      "texto": "Protección comunitaria",
+      "regular": "Menciona a otros niños",
+      "suficiente": "Explica la protección de la comunidad, incluidos quienes no pueden vacunarse, y que las enfermedades pueden volver si se deja de vacunar"
+    },
+    {
+      "id": 7,
+      "bloque": "Importancia de las vacunas",
+      "max": 5,
+      "texto": "Seguridad y calendario",
+      "regular": "Dice que son seguras",
+      "suficiente": "Explica que están en el Calendario Nacional, son gratuitas, seguras y obligatorias, y que el beneficio es mayor que el riesgo"
+    },
+    {
+      "id": 8,
+      "bloque": "Importancia de las vacunas",
+      "max": 5,
+      "texto": "Efectos adversos y signos de alarma",
+      "regular": "Menciona efectos leves",
+      "suficiente": "Explica los efectos leves esperables y transitorios (dolor local, fiebre leve) y los signos de alarma: fiebre mayor de 39,5 °C, llanto inconsolable por más de 3 horas, dificultad para respirar, ronchas, convulsiones"
+    },
+    {
+      "id": 9,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Vacunar hoy a pesar de la diarrea",
+      "regular": "Decide sin fundamentar",
+      "suficiente": "Decide vacunar hoy fundamentándolo: la diarrea leve sin deshidratación ni fiebre alta es una falsa contraindicación; si estuviera muy deshidratada o en mal estado, difiere"
+    },
+    {
+      "id": 10,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Vacunas para recuperar el esquema",
+      "regular": "Indica algunas vacunas",
+      "suficiente": "Indica quíntuple (con la hepatitis B), IPV, neumococo conjugada y meningococo, y antigripal desde los 6 meses (dos dosis con 4 semanas de intervalo)"
+    },
+    {
+      "id": 11,
+      "bloque": "Indicaciones",
+      "max": 8,
+      "texto": "Rotavirus",
+      "regular": "No lo indica, sin fundamentar",
+      "suficiente": "No indica rotavirus y lo fundamenta: la primera dosis tiene límite de 14 semanas y 6 días y la segunda de 8 meses"
+    },
+    {
+      "id": 12,
+      "bloque": "Indicaciones",
+      "max": 8,
+      "texto": "Reglas del esquema atrasado",
+      "regular": "Menciona un principio",
+      "suficiente": "Aclara que el esquema no se reinicia, que el intervalo mínimo entre dosis es de 4 semanas, y que se pueden aplicar varias vacunas el mismo día en sitios distintos"
+    },
+    {
+      "id": 13,
+      "bloque": "Indicaciones",
+      "max": 8,
+      "texto": "Próximas vacunas",
+      "regular": "Menciona alguna vacuna del año",
+      "suficiente": "Indica que a los 12 meses corresponden triple viral, hepatitis A y refuerzo de neumococo; a los 15 meses varicela y refuerzo de meningococo; y refuerzo de quíntuple entre 15 y 18 meses"
+    },
+    {
+      "id": 14,
+      "bloque": "Indicaciones",
+      "max": 8,
+      "texto": "Manejo de la diarrea actual",
+      "regular": "Indica líquidos o signos de alarma",
+      "suficiente": "Indica Plan A: continuar lactancia y alimentación, sales de rehidratación 10 ml/kg tras cada deposición o vómito, sin antidiarreicos, y pautas de alarma (falta de orina, somnolencia, vómitos persistentes)"
+    },
+    {
+      "id": 15,
+      "bloque": "Indicaciones",
+      "max": 8,
+      "texto": "Turno, carnet y cierre",
+      "regular": "Da un turno o un cierre",
+      "suficiente": "Da un turno cercano o indica que puede ir al vacunatorio, recuerda llevar el carnet, resume el plan con lenguaje claro y pregunta si quedaron dudas"
+    }
+  ]
+}

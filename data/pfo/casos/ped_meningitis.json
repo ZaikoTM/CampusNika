@@ -1,0 +1,44 @@
+{
+  "id": "ped_meningitis",
+  "area": "pediatria",
+  "estado": "borrador",
+  "nombre": "Meningitis bacteriana aguda en una niña de 5 años",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado (la madre) y maniquí",
+  "situacion": "Usted es médico/a de la guardia del Hospital Justo José de Urquiza y atiende a Kiara Retamar, de 5 años, que concurre con su madre, Rosana, porque hace 24 horas tiene fiebre, dolor de cabeza intenso y vómitos, y desde esta mañana está decaída y somnolienta. Se solicitó una punción lumbar y la madre le entrega el resultado del líquido cefalorraquídeo.",
+  "objetivos": [
+    "Realizar la anamnesis orientada a la enfermedad actual.",
+    "Evaluar los signos meníngeos y descartar signos de hipertensión endocraneana o de inestabilidad.",
+    "Interpretar el resultado del líquido cefalorraquídeo y definir su diagnóstico.",
+    "Comunicar el caso al médico de planta.",
+    "Definir la conducta a seguir y explicarla de manera clara a la madre, incluyendo la profilaxis de los contactos."
+  ],
+  "interlocutor": "Rosana Retamar, 32 años, madre de Kiara (habla ella; Kiara es el maniquí)",
+  "guion_paciente": "Kiara Retamar, 5 años, 20 kg. Mamá: Rosana.\nEnfermedad actual: hace 24 horas empezó con fiebre de 39 °C (se la midió con termómetro; le dio paracetamol dos veces pero la fiebre vuelve). Desde anoche se queja de dolor de cabeza fuerte, que empezó de golpe y es continuo, y también le duele el cuello; no quiere que le prendan la luz. Vomitó cuatro veces, en proyectil, sin comida. Esta mañana la ve decaída, más dormida de lo habitual, llorona e irritable. No tuvo convulsiones. No tiene manchas violetas en la piel. No tiene tos, ni mocos, ni dolor de garganta ni de oído. Hizo pis dos veces hoy, algo concentrado. No tomó antibióticos. Hace un mes tuvo un resfrío común.\nAntecedentes epidemiológicos: va al jardín (preescolar); en la sala no sabe de otros casos; nadie en la casa está enfermo; no viajaron; en la casa nadie fuma; hay buena accesibilidad al hospital.\nAntecedentes perinatales: embarazo controlado y sin complicaciones, parto vaginal a las 39 semanas, internación conjunta, sin oxígeno, pesquisas normales.\nAntecedentes personales: sano, sin enfermedades crónicas, sin cirugías, traumatismos ni internaciones; sin alergias a medicamentos. Medicación crónica: ninguna.\nVacunas: carnet completo para la edad, con neumococo, meningococo y Haemophilus influenzae tipo b (quíntuple). Vive con sus padres y un hermano de 2 años (dormían en la misma habitación).\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Peso 20 kg. Temperatura 39,2 °C, FC 128 por minuto, FR 26 por minuto, TA 95/60 mmHg, saturación de oxígeno 97 %. Regular estado general, somnolienta pero reactiva, irritable. Rigidez de nuca. Signos de Kernig y Brudzinski positivos. Pupilas isocóricas y reactivas, sin focalidad neurológica ni signos de hipertensión endocraneana (sin papiledema, sin alteración del patrón respiratorio). Sin petequias ni púrpura. Hemodinámicamente compensada, llenado capilar 2 segundos. Mucosas semihúmedas. Faringe y oídos sin particularidades.",
+  "estudios": [
+    { "clave": "lcr", "texto": "Líquido cefalorraquídeo: aspecto antes de centrifugar, cristal de roca; sobrenadante después de centrifugar, turbio. Glucorraquia 35 mg/dl (glucemia simultánea 95 mg/dl). Proteinorraquia 60 mg/dl. Leucocitos 80/mm3 con predominio polimorfonuclear. Gram: diplococos gramnegativos (meningococo). Valores normales del LCR: células menos de 5/mm3, proteínas 15 a 45 mg/dl, glucosa más de 50 mg/dl." },
+    { "clave": "laboratorio", "texto": "Hemograma: hemoglobina 12,1 g/dl, leucocitos 21.500/mm3 con neutrofilia, plaquetas 210.000/mm3. PCR 180 mg/l. Glucemia 95 mg/dl. Ionograma, urea y creatinina normales. Coagulograma normal. Hemocultivos por 2 y urocultivo en curso." },
+    { "clave": "tc", "texto": "Tomografía de cráneo (solo si hay signos de hipertensión endocraneana o focalidad, que acá no están presentes): no indicada en este caso." }
+  ],
+  "umbral_aprobacion": 60,
+  "rubrica": [
+    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Enfermedad actual y fiebre", "regular": "Indaga el inicio o la fiebre", "suficiente": "Indaga el inicio brusco o progresivo, la fiebre medida, la medicación recibida y si tomó antibióticos" },
+    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Cefalea y vómitos", "regular": "Indaga cefalea o vómitos", "suficiente": "Indaga cefalea (inicio, intensidad, localización, dolor de cuello) y características de los vómitos (en proyectil, rechazo alimentario)" },
+    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Signos de meningitis y gravedad", "regular": "Indaga uno o dos signos", "suficiente": "Indaga erupción o manchas violetas, somnolencia, irritabilidad, fotofobia, convulsiones y menor reactividad" },
+    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Vacunas", "regular": "Indaga si tiene el carnet de vacunas", "suficiente": "Indaga vacunas contra neumococo, meningococo y Haemophilus influenzae tipo b" },
+    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Contexto epidemiológico y antecedentes", "regular": "Indaga contactos enfermos o antecedentes personales", "suficiente": "Indaga contactos, jardín, convivientes y habitación compartida, viajes, antecedentes perinatales y personales" },
+    { "id": 6, "bloque": "Plan diagnóstico", "max": 5, "texto": "Examen físico y signos de hipertensión endocraneana", "regular": "Solicita signos meníngeos o examen neurológico", "suficiente": "Solicita Kernig, Brudzinski, examen neurológico y pupilas, y descarta hipertensión endocraneana y shock antes de la punción lumbar" },
+    { "id": 7, "bloque": "Plan diagnóstico", "max": 5, "texto": "Estudios complementarios", "regular": "Solicita laboratorio sin hemocultivos, o punción lumbar sin laboratorio", "suficiente": "Solicita laboratorio con hemocultivos por 2 y urocultivo, y punción lumbar con las contraindicaciones consideradas (tomografía solo si hay signos de hipertensión endocraneana)" },
+    { "id": 8, "bloque": "Plan diagnóstico", "max": 5, "texto": "Interpretación del líquido cefalorraquídeo", "regular": "Reconoce hipoglucorraquia o hiperproteinorraquia", "suficiente": "Reconoce hipoglucorraquia, hiperproteinorraquia leve, predominio polimorfonuclear y el Gram con diplococos gramnegativos (meningococo)" },
+    { "id": 9, "bloque": "Plan diagnóstico", "max": 5, "texto": "Diagnóstico y comunicación al médico de planta", "regular": "Refiere meningitis sin el germen o sin comunicar a la planta", "suficiente": "Refiere meningitis bacteriana por meningococo, emergencia médica, y comunica al médico de planta con aislamiento y protección personal" },
+    { "id": 10, "bloque": "Tratamiento", "max": 10, "texto": "Internación y aislamiento", "regular": "Indica internación", "suficiente": "Indica internación en Sala de Pediatría y aislamiento respiratorio hasta cumplir 24 horas de tratamiento antibiótico" },
+    { "id": 11, "bloque": "Tratamiento", "max": 10, "texto": "Antibiótico", "regular": "Indica ceftriaxona sin dosis", "suficiente": "Indica ceftriaxona 100 mg/kg/día por vía endovenosa cada 12 horas (2 g por día para 20 kg), 7 días si es meningococo, sin demorar el inicio" },
+    { "id": 12, "bloque": "Tratamiento", "max": 10, "texto": "Corticoide", "regular": "Indica dexametasona sin dosis", "suficiente": "Indica dexametasona 0,15 mg/kg/dosis cada 6 horas (3 mg por dosis), junto con o 15 a 20 minutos antes de la primera dosis de antibiótico" },
+    { "id": 13, "bloque": "Tratamiento", "max": 10, "texto": "Medidas de sostén y antitérmico", "regular": "Indica una de estas medidas", "suficiente": "Indica control de signos vitales, plan de hidratación con solución fisiológica a necesidades basales, oxígeno si la saturación es menor de 92 %, y paracetamol 10 a 15 mg/kg/dosis; no indica metoclopramida" },
+    { "id": 14, "bloque": "Tratamiento", "max": 10, "texto": "Profilaxis de los contactos", "regular": "Menciona profilaxis sin fármaco", "suficiente": "Indica profilaxis a los convivientes y quienes durmieron en la misma habitación: rifampicina 10 mg/kg/dosis cada 12 horas por 2 días (máximo 600 mg por dosis) o ceftriaxona intramuscular en dosis única" },
+    { "id": 15, "bloque": "Tratamiento", "max": 10, "texto": "Explicación a la madre y eventualidades", "regular": "Explica sin lenguaje claro o sin pautas", "suficiente": "Explica con lenguaje claro y empático qué es la meningitis, por qué se interna y cómo se trata; indica avisar convulsiones, hipotensión y saturación menor de 92 %" }
+  ]
+}

@@ -68,18 +68,20 @@
     p += `
 
 ## 9. NIVEL DE EGRESO (ECOE FINAL de grado)
-Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL de la carrera de Medicina de la UNER (acreditada por CONEAU): el último examen antes de recibirse. El alumno rinde varias estaciones seguidas con especialidades distintas. La exigencia es SUPERIOR a la de 5.° año: un 6 significa que cumplió lo mínimo con seguridad y un 8 o más exige un manejo completo y ordenado.
+Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL de la carrera de Medicina: el último examen antes de recibirse. El alumno rinde varias estaciones seguidas con especialidades distintas. La exigencia es SUPERIOR a la de 5.° año: un 6 significa que cumplió lo mínimo con seguridad y un 8 o más exige un manejo completo y ordenado.
 - Exigí respuestas completas y precisas, nunca vagas: no aceptes "le doy un antibiótico" sin principio activo, dosis, vía, frecuencia y duración; ni "pido estudios" sin decir cuáles ni para qué.
 - Esperá diferenciales razonados, estudios justificados, conducta con criterio de gravedad, pautas de alarma, consentimiento informado y comunicación empática con lenguaje claro.
 - Un error crítico de seguridad baja el pilar afectado a 4 o menos aunque el resto esté bien. No infles ninguna nota.
 - No existe el Abogado del Diablo en esta instancia. Si el sistema te avisa que se agotó el tiempo, cerrá la estación con la evaluación.
 - En "revision_detallada" incluí UN ítem por cada uno de los 9 dominios y en "respuesta_modelo" el plan completo ideal de este caso, con las opciones válidas.`;
-    p += bloqueCaso(i);
+    const bc = bloqueCaso(i);
+    if (bc) p = p.replace(/## 0\. SORTEO[\s\S]*?(?=## 2\. ROL DUAL)/, '## 0 y 1. CASO DE LA ESTACIÓN\nEl caso es el que figura en la sección 10 (caso oficial o situación de partida). No sortees ni cambies el cuadro; la unidad temática y los sorteos de otras secciones no se aplican.\n\n');
+    p += bc;
     return p + '\n\n' + (window.FORMATO_EVALUACION_FINAL || '');
   }
-  // Caso OFICIAL (con guion y rúbrica de la cátedra) o situación de partida oficial: pasan a ser la fuente única de verdad de la estación
+  // Caso OFICIAL (con guion y rúbrica propios) o situación de partida: pasan a ser la fuente única de verdad de la estación
   function bloqueCaso(i) {
-    const E = S && S.estaciones[i]; const e = CFG.estaciones[E ? E.ref : i]; const c = e.caso_oficial ? CASOS[e.id] : null;
+    const E = S && S.estaciones[i]; const e = CFG.estaciones[E ? E.ref : i]; const c = E && E.casoId ? CASOS[E.casoId] : null;
     if (c) {
       const filas = c.rubrica.map((r) => `${r.id}. [${r.bloque}] ${r.texto} — REGULAR (${r.max / 2} pts): ${r.regular} — SUFICIENTE (${r.max} pts): ${r.suficiente}`).join('\n');
       return `
@@ -145,7 +147,7 @@ ${sm.imagen ? `- ESTUDIO POR IMAGEN: el alumno ya ve en pantalla ${sm.imagen_tit
     guardar(); vistaEstacion(false);
   }
 
-  const minutosDe = (cfgE) => (CASOS[cfgE.id] && CASOS[cfgE.id].duracionMin) || CFG.criterios.minutosPorEstacion;
+  const minutosDe = (cfgE, E) => { const id = (E && E.casoId) || (cfgE.casos_oficiales && cfgE.casos_oficiales[0]); return (id && CASOS[id] && CASOS[id].duracionMin) || CFG.criterios.minutosPorEstacion; };
   function estActual() { return S.estaciones[S.idx]; }
   function vistaEstacion(restaurar) {
     const E = estActual(); const cfgE = CFG.estaciones[E.ref];
@@ -161,9 +163,10 @@ ${sm.imagen ? `- ESTUDIO POR IMAGEN: el alumno ya ve en pantalla ${sm.imagen_tit
     $('#pfo-env').addEventListener('click', enviar);
     $('#pfo-txt').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) enviar(); });
     $('#pfo-term').addEventListener('click', () => { if (!pendiente && confirm('¿Terminar esta estación ahora? No se puede volver a ella.')) cerrarEstacion('manual'); });
+    if (E.casoId === undefined) { const cs = (cfgE.casos_oficiales || []).filter((id) => CASOS[id]); E.casoId = cs.length ? cs[Math.floor(Math.random() * cs.length)] : null; }
     if (E.semilla === undefined) { const sm = cfgE.semillas || []; E.semilla = sm.length ? Math.floor(Math.random() * sm.length) : 0; }
-    if (!E.fin) E.fin = Date.now() + minutosDe(cfgE) * 60000;
-    if (!E.tema) { const u = perfilEstacion(cfgE).unidades || []; const t = u[Math.floor(Math.random() * u.length)] || ''; E.tema = String(t).replace(/^UP\d+\s*—\s*/, ''); }
+    if (!E.fin) E.fin = Date.now() + minutosDe(cfgE, E) * 60000;
+    if (!E.tema && !E.casoId && !(cfgE.semillas && cfgE.semillas.length)) { const u = perfilEstacion(cfgE).unidades || []; const t = u[Math.floor(Math.random() * u.length)] || ''; E.tema = String(t).replace(/^UP\d+\s*—\s*/, ''); }
     guardar(); contador(); clearInterval(timer); timer = setInterval(tic, 500);
     if (!E.hist.length) iniciarEstacion(); else { fijar(true); }
   }
@@ -203,7 +206,7 @@ ${sm.imagen ? `- ESTUDIO POR IMAGEN: el alumno ya ve en pantalla ${sm.imagen_tit
   }
   // Estaciones con rúbrica oficial: el puntaje lo calcula el sistema a partir del nivel que la IA asignó a cada ítem (insuficiente 0, regular mitad, suficiente máximo)
   function aplicarRubrica(E, ev) {
-    const c = CASOS[CFG.estaciones[E.ref].id]; if (!c || !Array.isArray(ev.rubrica)) return;
+    const c = E.casoId ? CASOS[E.casoId] : null; if (!c || !Array.isArray(ev.rubrica)) return;
     const porId = {}; ev.rubrica.forEach((r) => { if (r && r.id != null) porId[String(r.id)] = r; });
     const bloques = {}; let total = 0;
     ev.rubrica_detalle = c.rubrica.map((it) => {
@@ -305,10 +308,16 @@ ${sm.imagen ? `- ESTUDIO POR IMAGEN: el alumno ya ve en pantalla ${sm.imagen_tit
       if (!esAdmin()) { vistaRestringida(); return; }
       const r = await fetch('data/pfo/ecoe_final.json', { cache: 'no-cache' }); CFG = await r.json();
       if (!window.PROMPTS_MATERIAS_BUILDERS) throw new Error('No se cargó el generador de estaciones.');
-      await Promise.all(CFG.estaciones.filter((e) => e.caso_oficial).map(async (e) => { try { const rr = await fetch(e.caso_oficial, { cache: 'no-cache' }); CASOS[e.id] = await rr.json(); } catch (_) { /* si falla, la estación usa la situación de partida o el sorteo */ } }));
+      await Promise.all(CFG.estaciones.flatMap((e) => (e.casos_oficiales || []).map(async (id) => { try { const rr = await fetch('data/pfo/casos/' + id + '.json', { cache: 'no-cache' }); CASOS[id] = await rr.json(); } catch (_) { /* si falla, la estación usa la situación de partida o el sorteo */ } })));
       vistaIntro();
     } catch (e) { main.innerHTML = `<div class="pfo-cargando">No se pudo cargar el examen (${esc(e && e.message)}). Recargá la página.</div>`; }
   }
   window.addEventListener('beforeunload', (e) => { if (S && !S.estaciones.every((x) => x.cerrada)) { guardar(); e.preventDefault(); e.returnValue = ''; } });
+  // Utilidad de auditoría: devuelve el prompt completo que recibe la IA para un caso (lo usa tools/exportar_pfo_casos.js)
+  window.__PFO = { async prompt(estId, casoId) {
+    while (!CFG) await new Promise((ok) => setTimeout(ok, 20));
+    const prev = S; S = { idx: 0, estaciones: CFG.estaciones.map((e, k) => ({ ref: k, casoId: e.id === estId ? casoId : null, semilla: 0, tema: '' })) };
+    try { const k = CFG.estaciones.findIndex((e) => e.id === estId); return promptEstacion(k) + temaPrompt(''); } finally { S = prev; }
+  }, cfg: () => CFG, casos: () => CASOS };
   iniciar();
 })();

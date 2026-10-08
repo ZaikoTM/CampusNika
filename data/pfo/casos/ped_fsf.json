@@ -1,0 +1,45 @@
+{
+  "id": "ped_fsf",
+  "area": "pediatria",
+  "estado": "borrador",
+  "nombre": "Fiebre sin foco en el lactante de 40 días",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado (la madre) y maniquí",
+  "situacion": "Usted es médico/a general del Hospital Justo José de Urquiza, comienza su turno y asiste a Valentina Gómez, de 1 mes y 10 días. Su madre, María, consulta porque Valentina hace dos días empezó con fiebre y hoy agrega rechazo a la alimentación y decaimiento. Le entrega los resultados de laboratorio solicitados en el turno previo por la pediatra.",
+  "objetivos": [
+    "Realizar la anamnesis orientada a la enfermedad actual.",
+    "Evaluar los análisis clínicos y explicarlos con lenguaje comprensible a la madre.",
+    "Comunicar al médico de planta el resultado del laboratorio y su diagnóstico presuntivo.",
+    "Solicitar, si lo considera necesario, otros exámenes complementarios.",
+    "Definir la conducta a seguir y explicarla de manera clara a María."
+  ],
+  "interlocutor": "María Gómez, madre de Valentina (habla ella; la bebé es el maniquí y llora durante el examen)",
+  "guion_paciente": "Valentina Gómez, 1 mes y 10 días, mujer, 5 kg. Mamá: María, 27 años.\nEnfermedad actual: hace dos días empezó con fiebre, que le midió con termómetro axilar (hasta 38,8 °C) y no bajó con nada porque no le dio medicación. Hoy rechaza el pecho, está decaída, duerme más de lo habitual y está pálida. No tuvo vómitos ni diarrea; hizo pis poco hoy (dos pañales mojados). No tiene tos, ni mocos, ni dificultad para respirar, ni secreción por el oído, ni manchas en la piel ni convulsiones. Nadie en la casa está enfermo; no viajaron.\nAntecedentes perinatales: embarazo controlado (5 controles) sin complicaciones; en el último control le hicieron el hisopado para estreptococo, que no recuerda el resultado; bolsa rota en el momento del trabajo de parto; no recibió antibióticos. Parto vaginal a las 39 semanas, lloró al nacer, internación conjunta 48 horas, sin oxígeno. Pesquisa del talón, otoemisiones, reflejo rojo y ecografía de caderas normales.\nAntecedentes personales: sin internaciones ni cirugías; sin medicación ni antibióticos previos; sin alergias. Lactancia materna exclusiva. Vacunas: solo las del recién nacido (BCG y hepatitis B); todavía no tiene las de los 2 meses.\nHábitos: toma pecho a libre demanda; agua potable. Fiebre sin foco aparente: no hay datos de otra causa.\nPara datos no especificados: respondé con valores normales y negativos, sin inventar enfermedades.",
+  "datos_clinicos": "Pesa 5 kg. Regular a mal estado general, palidez, mucosas semihúmedas, temperatura axilar 39 °C. Hemodinámicamente compensada. Llanto persistente durante el examen físico. FC 150 por minuto, FR 40 por minuto, saturación de oxígeno 97 %. Fontanela anterior normotensa, sin petequias ni exantemas; faringe y oídos sin particularidades; examen cardiopulmonar y abdominal sin particularidades. Resto del examen físico sin particularidades.",
+  "estudios": [
+    { "clave": "laboratorio", "texto": "Hemograma: hemoglobina 10,8 g/dl, leucocitos 18.700/mm3 con 12 % de neutrófilos en cayado (2.244/mm3), plaquetas 380.000/mm3. PCR 62 mg/l. Glucemia 78 mg/dl. Urea y creatinina normales. Ionograma normal." },
+    { "clave": "orina", "texto": "Orina completa por sondaje vesical: leucocitos 30 por campo, nitritos positivos, sin proteinuria. El urocultivo queda en curso (resultado a las 48 a 72 horas)." },
+    { "clave": "rx_torax", "texto": "Radiografía de tórax de frente: sin infiltrados ni consolidaciones." },
+    { "clave": "lcr", "texto": "Líquido cefalorraquídeo (si el alumno lo solicita antes de iniciar los antibióticos): aspecto claro, leucocitos 2/mm3, glucorraquia 52 mg/dl, proteinorraquia 40 mg/dl, Gram sin gérmenes." }
+  ],
+  "umbral_aprobacion": 60,
+  "rubrica": [
+    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Enfermedad actual y fiebre", "regular": "Indaga el inicio de la fiebre o su medición", "suficiente": "Indaga cuándo empezó la fiebre, si la midió con termómetro, si bajó y si recibió medicación" },
+    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Síntomas de alarma y foco", "regular": "Indaga rechazo alimentario o decaimiento", "suficiente": "Indaga rechazo alimentario, decaimiento, somnolencia, irritabilidad, manchas en la piel y convulsiones" },
+    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Búsqueda de foco", "regular": "Indaga un aparato (respiratorio, digestivo o urinario)", "suficiente": "Indaga síntomas respiratorios, digestivos, urinarios (cantidad de pañales) y oído" },
+    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes perinatales", "regular": "Indaga embarazo o parto", "suficiente": "Indaga controles del embarazo, hisopado para estreptococo B, ruptura de bolsa, tipo de parto, internación, oxígeno y pesquisas" },
+    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Vacunas y contexto epidemiológico", "regular": "Indaga vacunas o contactos enfermos", "suficiente": "Indaga el carnet de vacunas, contactos enfermos, viajes, lactancia, medicación y antibióticos previos" },
+    { "id": 6, "bloque": "Plan diagnóstico", "max": 5, "texto": "Interpretación del laboratorio", "regular": "Reconoce leucocitosis o PCR elevada", "suficiente": "Interpreta leucocitosis con cayados aumentados (más de 1.500/mm3), PCR elevada y piuria con nitritos; concluye que no cumple los criterios de bajo riesgo" },
+    { "id": 7, "bloque": "Plan diagnóstico", "max": 5, "texto": "Diagnóstico presuntivo", "regular": "Refiere síndrome febril sin foco", "suficiente": "Refiere fiebre sin foco de alto riesgo de infección bacteriana grave en un lactante de 1 a 3 meses, con probable infección urinaria" },
+    { "id": 8, "bloque": "Plan diagnóstico", "max": 5, "texto": "Estudios complementarios", "regular": "Solicita uno o dos estudios adicionales", "suficiente": "Solicita hemocultivos por 2, urocultivo por sondaje o punción suprapúbica, punción lumbar y radiografía de tórax según clínica" },
+    { "id": 9, "bloque": "Plan diagnóstico", "max": 5, "texto": "Comunicación al médico de planta", "regular": "Comunica el caso sin los datos de laboratorio", "suficiente": "Se presenta, comunica edad, cuadro clínico, resultados del laboratorio, diagnóstico presuntivo y la internación solicitada" },
+    { "id": 10, "bloque": "Tratamiento", "max": 10, "texto": "Internación", "regular": "Indica internación sin fundamentarla", "suficiente": "Indica internación en sala de Pediatría para control evolutivo y tratamiento endovenoso, por el alto riesgo" },
+    { "id": 11, "bloque": "Tratamiento", "max": 10, "texto": "Muestras antes del antibiótico", "regular": "Indica algunas muestras", "suficiente": "Indica hemocultivos por 2, urocultivo y punción lumbar antes de iniciar los antibióticos, sin demorarlos" },
+    { "id": 12, "bloque": "Tratamiento", "max": 10, "texto": "Antibiótico empírico", "regular": "Indica un antibiótico endovenoso sin dosis", "suficiente": "Indica ceftriaxona 100 mg/kg/día por vía endovenosa (500 mg por día para 5 kg) y no la indica en menores de 28 días" },
+    { "id": 13, "bloque": "Tratamiento", "max": 10, "texto": "Antitérmico", "regular": "Indica paracetamol sin dosis", "suficiente": "Indica paracetamol 10 a 15 mg/kg/dosis cada 6 horas, sin alternar con otro antitérmico" },
+    { "id": 14, "bloque": "Tratamiento", "max": 10, "texto": "Medidas de sostén", "regular": "Indica una de estas medidas", "suficiente": "Indica control de signos vitales, oxígeno si lo requiere, plan de hidratación con solución fisiológica a necesidades basales y continuar la lactancia" },
+    { "id": 15, "bloque": "Tratamiento", "max": 10, "texto": "Explicación a la madre y pautas", "regular": "Explica el plan sin lenguaje claro o sin pautas", "suficiente": "Explica a María con lenguaje claro el motivo de la internación y los estudios, indica avisar eventualidades y pautas de alarma (mal estado general, manchas en la piel, vómitos, deshidratación, no moja el pañal)" }
+  ]
+}

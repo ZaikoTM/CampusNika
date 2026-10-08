@@ -1,6 +1,5 @@
 {
   "id": "ped_bor",
-  "fuente": "Estación ECOE oficial de Pediatría (carpeta PFO de la cátedra): CASO CLINICO PEDIATRICO.docx",
   "nombre": "Reagudización de BOR",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -16,26 +15,142 @@
   "guion_paciente": "Matías Ramírez, 4 años, consulta por tos, agitación y vómitos de 24 horas de evolución. Mamá: Carla Maldonado (25 años).\nAntecedentes personales: cesárea por falta de progresión, primera gesta; recién nacido pretérmino de 36 semanas, peso adecuado (2500 g), Apgar 8/9. Embarazo bien controlado (5 controles). Tabaquismo durante el embarazo. Infección urinaria en el segundo trimestre, recibió tratamiento ambulatorio. Serologías negativas. Internación conjunta. Otoemisiones acústicas y evaluación oftalmológica normales. Alimentación: pecho exclusivo hasta los 4 meses, luego complemento con leche maternizada en polvo; toma 1 litro de leche por día y come poca carne. Desarrollo madurativo acorde.\nAntecedente patológico personal: a los 4 meses lo internaron por bronquiolitis; estuvo 2 días en ese hospital y lo derivaron a Paraná porque necesitaba terapia intensiva; estuvo con un tubito en la boca por 3 días; volvieron a la semana; le hicieron el estudio de los mocos y salió positivo para un virus que la madre no recuerda (el más frecuente en las bronquiolitis). Después, cada vez que se resfriaba le sentía un chillido en el pecho, lo llevaba a la guardia, le hacían aerosoles y volvía a casa. Este año ya vino 5 veces a la guardia, siempre agitado; las últimas veces lo dejaron en observación con aerosoles y le pusieron una inyección 'para que pudiera respirar mejor'. Este último mes lo trae todas las semanas. Este año lo escuchó toser de noche, y cuando corre casi siempre tose y se agita.\nEnfermedad actual: empezó ayer con tos a la mañana y a la noche lo vio agitado; fiebre NO tuvo; la semana pasada estuvo resfriado. Le hizo un disparo de aerosol anoche pero hoy, como no mejoraba, lo trajo. Le preocupa que tiene vómitos: desde ayer a la noche no le queda nada de lo que le da y desde la mañana vomitó dos veces.\nVacunas completas. Asiste a guardería desde los 2 años; actualmente va al jardín cuatro horas a la mañana.\nAntecedentes familiares: mamá sana; papá con asma en tratamiento con budesonide.\nConvivientes: mamá fumadora de 5 cigarrillos por día dentro de la casa, papá y abuela materna hipotiroidea.\nVivienda: tienen venta de productos de limpieza; casa de tres ambientes; piso de material; calle de tierra; todos los servicios; recolección de basura 4 veces por semana; tienen un gato.",
   "datos_clinicos": "Peso 18 kg. Temperatura 37 °C. Frecuencia cardíaca 125 por minuto. Frecuencia respiratoria 35 por minuto. Saturación de oxígeno 88 %. Hemodinámicamente compensado. Tiraje generalizado. No se ausculta sibilancias al examen físico. Responde con palabras, no con frases. Carnet de vacunas completo.",
   "estudios": [
-    { "clave": "laboratorio", "texto": "Hemograma: hemoglobina 7 g/dl, hematocrito 21 %, plaquetas 250.000/mm3, leucocitos 11.280/mm3 (neutrófilos en cayado 0 %, neutrófilos 65 %, eosinófilos 9 %, basófilos 0 %, linfocitos 22 %, monocitos 4 %). Glucemia 80 mg/dl. Uremia 30 mg/dl." },
-    { "clave": "eab", "texto": "Ácido-base en sangre arterial: pH 7,38; PCO2 42; PO2 68; bicarbonato 22; exceso de bases -3,0; saturación de oxígeno 85 %." },
-    { "clave": "rx_torax", "texto": "Radiografía de tórax de frente: horizontalización costal, aumento de los espacios intercostales y aplanamiento de los hemidiafragmas (signos de atrapamiento aéreo)." }
+    {
+      "clave": "laboratorio",
+      "texto": "Hemograma: hemoglobina 7 g/dl, hematocrito 21 %, plaquetas 250.000/mm3, leucocitos 11.280/mm3 (neutrófilos en cayado 0 %, neutrófilos 65 %, eosinófilos 9 %, basófilos 0 %, linfocitos 22 %, monocitos 4 %). Glucemia 80 mg/dl. Uremia 30 mg/dl."
+    },
+    {
+      "clave": "eab",
+      "texto": "Ácido-base en sangre arterial: pH 7,38; PCO2 42; PO2 68; bicarbonato 22; exceso de bases -3,0; saturación de oxígeno 85 %."
+    },
+    {
+      "clave": "rx_torax",
+      "texto": "Radiografía de tórax de frente: horizontalización costal, aumento de los espacios intercostales y aplanamiento de los hemidiafragmas (signos de atrapamiento aéreo)."
+    }
   ],
   "umbral_aprobacion": 60,
   "rubrica": [
-    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Frecuencia de exacerbaciones", "regular": "Indaga la frecuencia de las exacerbaciones", "suficiente": "Precisa la frecuencia de las exacerbaciones (diarias, semanales o mensuales)" },
-    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Síntomas acompañantes", "regular": "Indaga tos al correr o jugar, o tos nocturna (uno)", "suficiente": "Indaga al menos 2 síntomas: tos al correr o jugar, tos nocturna" },
-    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Internaciones previas", "regular": "Indaga el antecedente de internaciones", "suficiente": "Indaga internaciones y especifica el pase a UTI y/o la necesidad de asistencia respiratoria mecánica" },
-    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Broncodilatadores y consultas en guardia", "regular": "Indaga el uso de broncodilatadores y/o las consultas en guardia", "suficiente": "Indaga el uso de broncodilatadores y las consultas en guardia en los últimos 12 meses" },
-    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Contaminantes ambientales", "regular": "Indaga alguno (tabaquismo, medio ambiente o concurrencia al jardín)", "suficiente": "Indaga tabaquismo, medio ambiente y concurrencia al jardín" },
-    { "id": 6, "bloque": "Plan diagnóstico", "max": 5, "texto": "Reagudización de BOR", "regular": "Refiere reagudización de BOR", "suficiente": "Refiere reagudización de BOR sin tratamiento preventivo" },
-    { "id": 7, "bloque": "Plan diagnóstico", "max": 5, "texto": "Anemia", "regular": "Refiere serie roja baja", "suficiente": "Refiere anemia" },
-    { "id": 8, "bloque": "Plan diagnóstico", "max": 5, "texto": "Equilibrio ácido-base (EAB)", "regular": "Refiere oxígeno bajo", "suficiente": "Refiere hipoxemia" },
-    { "id": 9, "bloque": "Plan diagnóstico", "max": 5, "texto": "Descripción de la radiografía de tórax", "regular": "Refiere uno de: horizontalización costal, aumento de espacios intercostales o aplanamiento diafragmático", "suficiente": "Refiere dos o más de esos signos" },
-    { "id": 10, "bloque": "Tratamiento", "max": 10, "texto": "Internación y plan de hidratación parenteral (PHP)", "regular": "Indica internación y/o PHP", "suficiente": "Indica internación + PHP" },
-    { "id": 11, "bloque": "Tratamiento", "max": 10, "texto": "Oxigenoterapia", "regular": "Indica oxígeno", "suficiente": "Oxígeno humidificado para saturar más de 92 %" },
-    { "id": 12, "bloque": "Tratamiento", "max": 10, "texto": "Serie con salbutamol + bromuro de ipratropio", "regular": "Indica salbutamol o ipratropio", "suficiente": "Salbutamol 4 a 8-10 puff + bromuro de ipratropio 2-4 puff cada 20 minutos durante 1 hora" },
-    { "id": 13, "bloque": "Tratamiento", "max": 10, "texto": "Budesonide (tratamiento preventivo)", "regular": "Budesonide 1 puff cada 12 horas", "suficiente": "Budesonide 200 mcg cada 12 horas" },
-    { "id": 14, "bloque": "Tratamiento", "max": 10, "texto": "Corticoterapia", "regular": "Refiere hidrocortisona o dexametasona", "suficiente": "Hidrocortisona EV 5-10 mg/kg/dosis o dexametasona EV 0,6 mg/kg/día" },
-    { "id": 15, "bloque": "Tratamiento", "max": 10, "texto": "Transfusión de glóbulos rojos", "regular": "Indica transfusión de GR desplasmatizados", "suficiente": "Transfusión de GR desplasmatizados 10 ml/kg o 180 ml" }
-  ]
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Frecuencia de exacerbaciones",
+      "regular": "Indaga la frecuencia de las exacerbaciones",
+      "suficiente": "Precisa la frecuencia de las exacerbaciones (diarias, semanales o mensuales)"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Síntomas acompañantes",
+      "regular": "Indaga tos al correr o jugar, o tos nocturna (uno)",
+      "suficiente": "Indaga al menos 2 síntomas: tos al correr o jugar, tos nocturna"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Internaciones previas",
+      "regular": "Indaga el antecedente de internaciones",
+      "suficiente": "Indaga internaciones y especifica el pase a UTI y/o la necesidad de asistencia respiratoria mecánica"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Broncodilatadores y consultas en guardia",
+      "regular": "Indaga el uso de broncodilatadores y/o las consultas en guardia",
+      "suficiente": "Indaga el uso de broncodilatadores y las consultas en guardia en los últimos 12 meses"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Contaminantes ambientales",
+      "regular": "Indaga alguno (tabaquismo, medio ambiente o concurrencia al jardín)",
+      "suficiente": "Indaga tabaquismo, medio ambiente y concurrencia al jardín"
+    },
+    {
+      "id": 6,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Reagudización de BOR",
+      "regular": "Refiere reagudización de BOR",
+      "suficiente": "Refiere reagudización de BOR sin tratamiento preventivo"
+    },
+    {
+      "id": 7,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Anemia",
+      "regular": "Refiere serie roja baja",
+      "suficiente": "Refiere anemia"
+    },
+    {
+      "id": 8,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Equilibrio ácido-base (EAB)",
+      "regular": "Refiere oxígeno bajo",
+      "suficiente": "Refiere hipoxemia"
+    },
+    {
+      "id": 9,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Descripción de la radiografía de tórax",
+      "regular": "Refiere uno de: horizontalización costal, aumento de espacios intercostales o aplanamiento diafragmático",
+      "suficiente": "Refiere dos o más de esos signos"
+    },
+    {
+      "id": 10,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Internación y plan de hidratación parenteral (PHP)",
+      "regular": "Indica internación y/o PHP",
+      "suficiente": "Indica internación + PHP"
+    },
+    {
+      "id": 11,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Oxigenoterapia",
+      "regular": "Indica oxígeno",
+      "suficiente": "Oxígeno humidificado para saturar más de 92 %"
+    },
+    {
+      "id": 12,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Serie con salbutamol + bromuro de ipratropio",
+      "regular": "Indica salbutamol o ipratropio",
+      "suficiente": "Salbutamol 4 a 8-10 puff + bromuro de ipratropio 2-4 puff cada 20 minutos durante 1 hora"
+    },
+    {
+      "id": 13,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Budesonide (tratamiento preventivo)",
+      "regular": "Budesonide 1 puff cada 12 horas",
+      "suficiente": "Budesonide 200 mcg cada 12 horas"
+    },
+    {
+      "id": 14,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Corticoterapia",
+      "regular": "Refiere hidrocortisona o dexametasona",
+      "suficiente": "Hidrocortisona EV 5-10 mg/kg/dosis o dexametasona EV 0,6 mg/kg/día"
+    },
+    {
+      "id": 15,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Transfusión de glóbulos rojos",
+      "regular": "Indica transfusión de GR desplasmatizados",
+      "suficiente": "Transfusión de GR desplasmatizados 10 ml/kg o 180 ml"
+    }
+  ],
+  "area": "pediatria",
+  "estado": "borrador"
 }

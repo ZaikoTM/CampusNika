@@ -1,0 +1,44 @@
+{
+  "id": "ped_gea_deshidratacion",
+  "area": "pediatria",
+  "estado": "borrador",
+  "nombre": "Gastroenteritis aguda con deshidratación moderada en un lactante de 12 meses",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado (la madre) y maniquí",
+  "situacion": "Usted es médico/a general del Hospital Justo J. de Urquiza, comienza su turno y asiste a Nicolás Mansilla, de 12 meses de edad. Su madre, Mariana, consulta porque hace 48 horas Nicolás comenzó con fiebre, diarrea, vómitos y decaimiento. Datos clínicos: peso 9 kg; regular estado general, mucosas secas, hemodinámicamente compensado, el pliegue de la piel se deshace lentamente, relleno capilar de 3 a 5 segundos. Signos vitales: temperatura 38,5 °C, FC 100 por minuto, FR 28 por minuto, saturación 97 %.",
+  "objetivos": [
+    "Realizar la anamnesis orientada a la enfermedad actual.",
+    "Definir sus diagnósticos presuntivos.",
+    "Solicitar, si lo considera necesario, exámenes complementarios.",
+    "Definir la conducta a seguir y explicarla de manera clara a la madre.",
+    "Explicar en forma detallada a Mariana los pasos del tratamiento y lo que precise para realizarlo, tanto del proceso agudo como de los pasos a seguir luego.",
+    "Indicar las pautas de alarma."
+  ],
+  "interlocutor": "Mariana Mansilla, 26 años, madre de Nicolás (habla ella; el bebé es el maniquí y llora con poca fuerza)",
+  "guion_paciente": "Nicolás Mansilla, 12 meses, varón, 9 kg. Mamá: Mariana.\nEnfermedad actual: hace 48 horas empezó con fiebre (hasta 38,8 °C, la midió con termómetro), diarrea líquida sin sangre, unas 8 o 9 deposiciones por día y de volumen abundante, y vómitos (unos 6 por día, de comida y líquido, no en proyectil). Hoy tomó muy poco, el pecho y el agua los vomita. Está decaído, llorón, con mucha sed, los ojitos hundidos y sin lágrimas al llorar; hizo pis una sola vez en las últimas 8 horas y concentrado. No tiene tos ni mocos, ni manchas en la piel, ni convulsiones. Un primo que va con él a la guardería tuvo diarrea la semana pasada. No viajaron ni tomaron agua de río. No le dio ninguna medicación para la diarrea; le dio paracetamol una vez.\nAntecedentes: nació de término, parto vaginal, embarazo controlado, sin internaciones, sin alergias, sin medicación crónica ni antibióticos recientes. Vacunas completas para la edad (le faltan las del año). Come papillas y toma pecho. Agua potable en la casa.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Peso 9 kg. Temperatura 38,5 °C, FC 100 por minuto (pulso conservado), FR 28 por minuto, saturación 97 %. Regular estado general, irritable, con sed. Ojos hundidos, mucosas secas, fontanela anterior deprimida, sin lágrimas. Pliegue cutáneo que se deshace lentamente. Llenado capilar entre 3 y 5 segundos. Abdomen blando, depresible, con ruidos hidroaéreos aumentados, sin defensa. Hemodinámicamente compensado, sin signos de shock. Examen neurológico sin focalidad.",
+  "estudios": [
+    { "clave": "laboratorio", "texto": "Hemograma: hemoglobina 12,6 g/dl, leucocitos 13.800/mm3. Glucemia 82 mg/dl, urea 42 mg/dl, creatinina 0,4 mg/dl. Ionograma: sodio 137, potasio 3,6, cloro 104 mEq/l. Ácido-base venoso: pH 7,31, bicarbonato 17 mEq/l." },
+    { "clave": "materia_fecal", "texto": "Examen en fresco de materia fecal: leucocitos escasos, sin parásitos. Coprocultivo en curso (resultado a las 48 a 72 horas)." }
+  ],
+  "umbral_aprobacion": 60,
+  "rubrica": [
+    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Características de la diarrea y la fiebre", "regular": "Indaga la diarrea o la fiebre", "suficiente": "Indaga inicio, número, consistencia y volumen de las deposiciones, presencia de sangre o moco, y fiebre (valor, medicación)" },
+    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Vómitos y tolerancia", "regular": "Indaga los vómitos", "suficiente": "Indaga número y características de los vómitos y la tolerancia a los líquidos y al pecho" },
+    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Hidratación referida", "regular": "Indaga la orina o la sed", "suficiente": "Indaga sed, última micción y cantidad de pañales, estado general, ojos hundidos, lágrimas, y reactividad" },
+    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes epidemiológicos", "regular": "Indaga un antecedente epidemiológico", "suficiente": "Indaga contactos con diarrea, guardería, viajes, río o pileta, alimentos y agua potable" },
+    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes personales y vacunas", "regular": "Indaga vacunas o medicación", "suficiente": "Indaga antecedentes perinatales, enfermedades, medicación y antibióticos, alergias y el carnet de vacunas" },
+    { "id": 6, "bloque": "Plan diagnóstico", "max": 5, "texto": "Evaluación del estado de hidratación", "regular": "Evalúa uno o dos signos", "suficiente": "Evalúa mucosas, ojos, fontanela, pliegue, llenado capilar, pulso y estado general, y descarta signos de shock" },
+    { "id": 7, "bloque": "Plan diagnóstico", "max": 5, "texto": "Diagnóstico presuntivo", "regular": "Refiere gastroenteritis aguda", "suficiente": "Refiere gastroenteritis aguda con deshidratación leve a moderada, fiebre y sin signos de shock" },
+    { "id": 8, "bloque": "Plan diagnóstico", "max": 5, "texto": "Estudios complementarios", "regular": "Solicita un estudio", "suficiente": "Solicita hemograma, glucemia, ionograma, urea y creatinina y estado ácido-base, y coprocultivo por la fiebre alta" },
+    { "id": 9, "bloque": "Plan diagnóstico", "max": 5, "texto": "Interpretación del laboratorio", "regular": "Reconoce una alteración", "suficiente": "Interpreta la acidosis metabólica leve por pérdidas digestivas con ionograma sin hipernatremia, y la relaciona con la deshidratación" },
+    { "id": 10, "bloque": "Tratamiento", "max": 10, "texto": "Plan B: rehidratación oral", "regular": "Indica sales de rehidratación sin plan", "suficiente": "Indica Plan B: sales de rehidratación oral de baja osmolaridad 50 a 100 ml/kg en 4 horas (450 a 900 ml), fraccionadas y bajo observación; si vomita, espera 10 minutos y reinicia" },
+    { "id": 11, "bloque": "Tratamiento", "max": 10, "texto": "Reevaluación y criterios de falla", "regular": "Indica reevaluar", "suficiente": "Indica reevaluar a las 4 horas; si hay vómitos incoercibles (más de 4 por hora), no toma la solución o falta acompañante: sonda nasogástrica con gastroclisis a 20 ml/kg/hora" },
+    { "id": 12, "bloque": "Tratamiento", "max": 10, "texto": "Shock y vía endovenosa", "regular": "Menciona la vía endovenosa", "suficiente": "Aclara que si hay shock o fracaso de la rehidratación oral se indica Plan C: expansión con solución fisiológica o Ringer lactato 20 ml/kg en 15 a 20 minutos, nunca con soluciones glucosadas hipotónicas" },
+    { "id": 13, "bloque": "Tratamiento", "max": 10, "texto": "Alimentación", "regular": "Indica continuar con la alimentación", "suficiente": "Indica continuar con la lactancia y alimentación precoz y fraccionada; evita gaseosas, jugos, caramelos, frituras, y alimentos con mucha sal o azúcar" },
+    { "id": 14, "bloque": "Tratamiento", "max": 10, "texto": "Antitérmico y fármacos contraindicados", "regular": "Indica paracetamol sin dosis o evita fármacos", "suficiente": "Indica paracetamol 10 a 15 mg/kg/dosis cada 6 horas (90 a 135 mg) y evita antidiarreicos y metoclopramida; no indica ibuprofeno en la deshidratación" },
+    { "id": 15, "bloque": "Tratamiento", "max": 10, "texto": "Explicación, alta con Plan A y pautas de alarma", "regular": "Da el plan sin explicar o sin pautas", "suficiente": "Explica a la madre con lenguaje claro y, una vez rehidratado, indica Plan A por escrito, sales con su preparación, cita en 24 a 48 horas y pautas de alarma (fiebre mayor de 48 horas, más de 4 vómitos en 1 hora, diarrea con sangre, somnolencia, boca seca, sin lágrimas, no moja el pañal por 6 horas, distensión abdominal)" }
+  ]
+}

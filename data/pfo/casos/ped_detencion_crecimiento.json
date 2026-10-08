@@ -1,0 +1,45 @@
+{
+  "id": "ped_detencion_crecimiento",
+  "area": "pediatria",
+  "estado": "borrador",
+  "nombre": "Detención del crecimiento con anemia e infección urinaria",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado (la madre) y maniquí",
+  "situacion": "Usted es médico/a en el centro de salud Rocamora, donde está realizando consultorio. Concurre a control Sofía con su hijo Nicolás, de 4 meses. En el examen físico usted constata que Nicolás presenta palidez de piel; tiene un peso de 6.200 kg (percentilo 10/25), el mismo peso que a los 3 meses (percentilo 25/50); talla 63 cm (percentilo 25/50); perímetro cefálico 40,5 cm (percentilo 10/25).",
+  "objetivos": [
+    "Realizar la anamnesis.",
+    "Solicitar los estudios complementarios y explicar su necesidad a la madre.",
+    "Definir la conducta y los tratamientos, y explicarlos con claridad."
+  ],
+  "interlocutor": "Sofía, 24 años, madre de Nicolás (habla ella; el bebé es el maniquí)",
+  "guion_paciente": "Nicolás, 4 meses, varón. Mamá: Sofía.\nMotivo: viene a control y le preocupa que lo ve pálido y que no aumenta de peso como antes. Ya lo pesaron el mes pasado y le dijeron que estaba bien; hoy pesa lo mismo.\nEnfermedad actual: desde hace un mes toma menos pecho, se cansa en las tomas y lo ve más irritable. Tuvo dos picos de fiebre baja (37,8 y 38 °C) hace 10 y 4 días que cedieron solos; la orina le huele fuerte. Vomita a veces después de comer. No tiene diarrea, tos ni mocos. Hace pis unas cuatro o cinco veces por día. No ha tomado antibióticos.\nAntecedentes perinatales: nació por cesárea a las 34 semanas por rotura prematura de membranas; peso de nacimiento 2.200 g; Apgar 8/9; estuvo 10 días en neonatología sin oxígeno. Embarazo con 4 controles y una infección urinaria tratada. No le indicaron hierro al alta (la madre no recuerda que se lo dieran). Pesquisa neonatal y otoemisiones normales.\nAlimentación: pecho materno, complementado con fórmula (biberón) porque la madre cree que no le alcanza; prepara la fórmula con una medida de más de agua para que rinda más. Todavía no come otros alimentos. Toma vitamina D.\nAntecedentes personales: sin internaciones posteriores al alta. Vacunas: al día para los 2 y 4 meses. Antecedentes familiares: sin enfermedades conocidas.\nVivienda: casa de material, agua potable. Nadie fuma en la casa.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Peso 6,200 kg (percentilo 10/25), igual que a los 3 meses. Talla 63 cm (percentilo 25/50). Perímetro cefálico 40,5 cm (percentilo 10/25). Palidez de piel y mucosas. Temperatura axilar 37,4 °C, FC 138 por minuto, FR 36 por minuto, saturación 98 %. Activo, hidratado, sin edemas. Abdomen blando, sin visceromegalias. Examen cardiopulmonar y neurológico sin particularidades. Genitales sin particularidades.",
+  "estudios": [
+    { "clave": "hemograma", "texto": "Hemoglobina 8,6 g/dl, hematocrito 27 %, VCM 66 fl, HCM disminuida, ADE 17 %, leucocitos 14.200/mm3 con neutrofilia, plaquetas 480.000/mm3. Reticulocitos 0,9 %." },
+    { "clave": "hierro", "texto": "Ferritina 7 ng/ml (disminuida). Ferremia disminuida, saturación de transferrina 9 %." },
+    { "clave": "orina", "texto": "Orina completa obtenida por cateterismo vesical: leucocitos 40 por campo, nitritos positivos. Urocultivo en curso. (Una muestra por bolsa colectora no es válida para confirmar el diagnóstico.)" },
+    { "clave": "quimica", "texto": "Glucemia 80 mg/dl, urea 20 mg/dl, creatinina 0,3 mg/dl, hepatograma normal, ionograma normal." },
+    { "clave": "parasitologico", "texto": "Coproparasitológico: negativo." },
+    { "clave": "ecografia", "texto": "Ecografía renal y vesical (si la solicita): riñones de tamaño y ecogenicidad normales, sin dilatación de la vía urinaria." }
+  ],
+  "umbral_aprobacion": 60,
+  "rubrica": [
+    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Crecimiento", "regular": "Indaga el peso o los controles previos", "suficiente": "Indaga la evolución del peso y la talla en los controles previos y reconoce la ausencia de ganancia de peso" },
+    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Alimentación", "regular": "Indaga si toma pecho o fórmula", "suficiente": "Indaga lactancia, fórmula (cantidad y preparación), tomas, suplementos de vitamina D y hierro" },
+    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Síntomas de infección urinaria", "regular": "Indaga fiebre o vómitos", "suficiente": "Indaga fiebre, irritabilidad, olor de la orina, número de micciones y vómitos" },
+    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Síntomas de anemia y antecedentes perinatales", "regular": "Indaga palidez o prematurez", "suficiente": "Indaga cansancio en las tomas, prematurez y peso de nacimiento, internación en neonatología y suplementación con hierro" },
+    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Otras causas de detención del crecimiento", "regular": "Indaga alguna otra causa", "suficiente": "Indaga diarrea, infecciones respiratorias, parasitosis, enfermedades de base, vacunas y contexto social" },
+    { "id": 6, "bloque": "Plan diagnóstico", "max": 5, "texto": "Antropometría y diagnóstico presuntivo", "regular": "Reconoce que el peso no aumentó", "suficiente": "Reconoce la detención del crecimiento (peso estancado) y plantea como causas la anemia, la infección urinaria, la desnutrición y la parasitosis" },
+    { "id": 7, "bloque": "Plan diagnóstico", "max": 5, "texto": "Estudios complementarios", "regular": "Solicita hemograma o estudios de orina", "suficiente": "Solicita hemograma, ferritina, glucemia, urea, creatinina, sedimento de orina y urocultivo por cateterismo o punción suprapúbica, hepatograma y coproparasitológico" },
+    { "id": 8, "bloque": "Plan diagnóstico", "max": 5, "texto": "Muestra de orina válida", "regular": "Solicita urocultivo sin la técnica", "suficiente": "Aclara que la bolsa colectora no sirve para confirmar el diagnóstico y solicita cateterismo vesical o punción suprapúbica" },
+    { "id": 9, "bloque": "Plan diagnóstico", "max": 5, "texto": "Interpretación del laboratorio", "regular": "Reconoce la anemia o la infección urinaria", "suficiente": "Interpreta anemia microcítica e hipocrómica con ferritina baja (ferropénica) e infección urinaria por piuria y nitritos" },
+    { "id": 10, "bloque": "Tratamiento", "max": 10, "texto": "Tratamiento de la anemia", "regular": "Indica sulfato ferroso sin dosis", "suficiente": "Indica sulfato ferroso 3 a 6 mg/kg/día de hierro elemental (1 a 2 gotas por kilo), en 1 o 2 tomas" },
+    { "id": 11, "bloque": "Tratamiento", "max": 10, "texto": "Administración y control del hierro", "regular": "Indica una de estas pautas", "suficiente": "Indica tomarlo alejado de las comidas y de los lácteos, con vitamina C; control de hemograma y de reticulocitos; continuar el mismo tiempo que tarde en normalizar para llenar las reservas" },
+    { "id": 12, "bloque": "Tratamiento", "max": 10, "texto": "Tratamiento de la infección urinaria", "regular": "Indica un antibiótico sin dosis", "suficiente": "Indica cefalexina 50 a 100 mg/kg/día cada 6 horas por 7 días, o amoxicilina-clavulánico 40 mg/kg/día cada 8 horas por 7 días, después de tomar el urocultivo" },
+    { "id": 13, "bloque": "Tratamiento", "max": 10, "texto": "Estudios por imágenes y control", "regular": "Indica la ecografía o el urocultivo de control", "suficiente": "Indica ecografía renal y vesical y urocultivo de control a los 7 días de terminar el tratamiento; cistouretrografía solo si la ecografía es patológica o la infección es atípica o recurrente" },
+    { "id": 14, "bloque": "Tratamiento", "max": 10, "texto": "Alimentación y educación", "regular": "Da una pauta de alimentación", "suficiente": "Corrige la preparación de la fórmula, indica continuar la lactancia y vitamina D, y explica la necesidad de los estudios para encontrar la causa" },
+    { "id": 15, "bloque": "Tratamiento", "max": 10, "texto": "Pautas de alarma y nueva consulta", "regular": "Indica control o pautas de alarma", "suficiente": "Indica nueva consulta con los resultados y antes si hay fiebre, rechazo alimentario, dificultad para despertar, irritabilidad, más de 6 horas sin mojar el pañal o diarrea con sangre" }
+  ]
+}
