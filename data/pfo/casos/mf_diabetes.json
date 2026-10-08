@@ -1,7 +1,7 @@
 {
   "id": "mf_diabetes",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Diabetes tipo 2: control, objetivos y cuidado del pie",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -34,7 +34,7 @@
     "Indicar ayuno o una dieta de hambre para bajar la glucemia",
     "Indicar un hipoglucemiante sin evaluar la función renal",
     "No evaluar ni indicar cuidados de los pies de un paciente diabético",
-    "No explicar el riesgo de hipoglucemia al indicar un fármaco que puede producirla"
+    "Indicar sulfonilureas o insulina sin explicar el riesgo de hipoglucemia y cómo actuar"
   ],
   "rubrica": [
     {
@@ -83,7 +83,7 @@
       "max": 5,
       "texto": "Interpretación del laboratorio",
       "regular": "Reconoce la hiperglucemia",
-      "suficiente": "Interpreta glucemia en ayunas y hemoglobina glicosilada, función renal normal, albuminuria normal y dislipemia con LDL mayor de 114"
+      "suficiente": "Interpreta glucemia en ayunas y hemoglobina glicosilada, función renal normal, albuminuria normal y dislipemia con LDL fuera de meta (mayor de 100 mg/dl)"
     },
     {
       "id": 7,
@@ -107,7 +107,7 @@
       "max": 10,
       "texto": "Metas terapéuticas",
       "regular": "Menciona algunas metas",
-      "suficiente": "Explica las siete metas: tensión arterial menor de 140/90, no fumar, glucemia en ayunas 90 a 130, glucemia posprandial menor de 180, hemoglobina glicosilada menor de 7 %, LDL menor de 114 e índice de masa corporal menor de 25, de manera progresiva"
+      "suficiente": "Explica las siete metas: tensión arterial menor de 140/90, no fumar, glucemia en ayunas 90 a 130, glucemia posprandial menor de 180, hemoglobina glicosilada menor de 7 %, LDL menor de 100 e índice de masa corporal menor de 25, de manera progresiva"
     },
     {
       "id": 10,
@@ -147,7 +147,7 @@
       "max": 10,
       "texto": "Prevención, interconsultas y control",
       "regular": "Indica control o interconsultas",
-      "suficiente": "Indica vacunas (antigripal anual, antineumocócica, doble bacteriana, hepatitis B), interconsultas (nutrición, oftalmología, odontología), estatina por LDL elevado y control a los 7 días y al mes; da signos de alarma"
+      "suficiente": "Indica vacunas (antigripal anual, antineumocócica, doble bacteriana, hepatitis B), interconsultas (nutrición, oftalmología, odontología), estatina de moderada intensidad por ser diabético mayor de 40 años, y control a los 7 días y al mes; da signos de alarma"
     }
   ]
 }
