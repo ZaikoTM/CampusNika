@@ -1,13 +1,13 @@
 {
   "id": "mf_dengue",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Síndrome febril agudo: dengue sin signos de alarma",
   "duracionMin": 10,
   "tipo": "dinámica",
   "contexto": "Guardia",
   "instrumento": "Paciente estandarizado",
-  "situacion": "Ricardo, de 25 años, concurre al Centro de Salud Giacomotti trayendo un laboratorio hecho en la guardia, por un cuadro que se inició hace 6 días con dolor de cabeza y malestar general; horas después se agregaron escalofríos, dolores musculares y articulares. Hoja de enfermería: peso 75 kg, talla 1,70 m, TA 120/80 mmHg, temperatura 39 °C, saturación 98 %.",
+  "situacion": "Ricardo, de 25 años, concurre al Centro de Salud Giacomotti trayendo un laboratorio hecho en la guardia, por un cuadro que se inició hace 4 días con dolor de cabeza y malestar general; horas después se agregaron escalofríos, dolores musculares y articulares. Hoja de enfermería: peso 75 kg, talla 1,70 m, TA 120/80 mmHg, temperatura 39 °C, saturación 98 %.",
   "objetivos": [
     "Nombrar en voz alta las posibles causas del cuadro clínico.",
     "Identificar si se trata de una enfermedad de denuncia inmediata y obligatoria.",
@@ -17,7 +17,7 @@
     "Indicar medidas de prevención comunitaria y pautas de alarma, y fijar un nuevo control clínico y de laboratorio."
   ],
   "interlocutor": "Ricardo Fernández, 25 años, repartidor (habla él; molesto por el malestar pero colaborador)",
-  "guion_paciente": "Ricardo Fernández, 25 años, repartidor de una pizzería; vive en el barrio San Cayetano con sus padres y una hermana, en una casa con patio con baldes y neumáticos viejos. Hace 6 días empezó con dolor de cabeza fuerte (detrás de los ojos), malestar general; a las pocas horas, escalofríos y dolores musculares y articulares en todo el cuerpo. La fiebre le llegó a 39 °C; tomó ibuprofeno 400 mg el segundo y el tercer día (le bajó un poco), no tomó otra cosa. Tuvo un episodio de vómito el primer día, ahora tolera líquidos y comida. Sin dolor abdominal, sin sangrado de encías, nariz ni en la orina o las heces, sin somnolencia ni irritabilidad, sin dificultad para respirar, sin manchas en la piel. No viajó. Una prima del barrio tuvo dengue hace dos semanas.\nAntecedentes: sano, sin enfermedades crónicas ni medicación, sin alergias; vacunas al día; no fuma; alcohol ocasional. Familiares sin enfermedades relevantes.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "guion_paciente": "Ricardo Fernández, 25 años, repartidor de una pizzería; vive en el barrio San Cayetano con sus padres y una hermana, en una casa con patio con baldes y neumáticos viejos. Hace 4 días empezó con dolor de cabeza fuerte (detrás de los ojos), malestar general; a las pocas horas, escalofríos y dolores musculares y articulares en todo el cuerpo. La fiebre le llegó a 39 °C; tomó ibuprofeno 400 mg el segundo y el tercer día (le bajó un poco), no tomó otra cosa. Tuvo un episodio de vómito el primer día, ahora tolera líquidos y comida. Sin dolor abdominal, sin sangrado de encías, nariz ni en la orina o las heces, sin somnolencia ni irritabilidad, sin dificultad para respirar, sin manchas en la piel. No viajó. Una prima del barrio tuvo dengue hace dos semanas.\nAntecedentes: sano, sin enfermedades crónicas ni medicación, sin alergias; vacunas al día; no fuma; alcohol ocasional. Familiares sin enfermedades relevantes.\nPara datos no especificados: respondé con valores normales y negativos.",
   "datos_clinicos": "Temperatura 39 °C, TA 120/80 mmHg, FC 92 por minuto, saturación 98 %. Vigil, orientado, buen estado de hidratación (mucosas húmedas, pliegue negativo, diuresis conservada). Fauces sin exudados. Pulmones limpios. Abdomen blando, depresible, indoloro, sin visceromegalias (hígado no palpable). Sin petequias ni rash. Prueba del lazo negativa (menos de 30 petequias en 5 minutos) si la realiza.",
   "estudios": [
     {
@@ -106,7 +106,7 @@
       "max": 10,
       "texto": "Estudios específicos y de control",
       "regular": "Solicita algunos estudios",
-      "suficiente": "Solicita laboratorio completo (hemograma, coagulograma, hepatograma, función renal, ionograma), NS1 o PCR si tiene menos de 3 días y IgM si tiene más de 3 días, y ecografía abdominal; control de laboratorio a las 24 a 48 horas"
+      "suficiente": "Solicita laboratorio completo (hemograma, coagulograma, hepatograma, función renal, ionograma), NS1 o PCR (porque tiene menos de 5 días de evolución; la serología IgM se reserva para más de 5 días) y ecografía abdominal; control de laboratorio en 24 horas"
     },
     {
       "id": 10,
@@ -122,7 +122,7 @@
       "max": 10,
       "texto": "Tratamiento farmacológico y no farmacológico",
       "regular": "Indica una medida",
-      "suficiente": "Indica hidratación oral de 2 a 3 litros por día, reposo relativo y paracetamol 500 mg cada 6 horas solo con fiebre (máximo 2 g por día)"
+      "suficiente": "Indica hidratación oral abundante (2 a 3 litros por día), reposo relativo y paracetamol 500 mg cada 6 horas solo con fiebre (máximo 2 g por día); ordena suspender el ibuprofeno"
     },
     {
       "id": 12,
@@ -146,7 +146,7 @@
       "max": 10,
       "texto": "Control e internación",
       "regular": "Cita a control sin criterios",
-      "suficiente": "Cita a control en 48 horas con laboratorio y explica los criterios de internación (signos de alarma, comorbilidades, riesgo social); pregunta si hay dudas"
+      "suficiente": "Cita a control clínico y de laboratorio en 24 horas (explicando que el riesgo mayor es cuando cae la fiebre) y detalla los criterios de internación (signos de alarma, intolerancia oral, comorbilidades); pregunta si hay dudas"
     }
   ]
 }
