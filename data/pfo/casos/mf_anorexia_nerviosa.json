@@ -1,7 +1,7 @@
 {
   "id": "mf_anorexia_nerviosa",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Amenorrea y pérdida de peso: anorexia nerviosa en una adolescente",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -73,7 +73,7 @@
       "max": 5,
       "texto": "Síntomas, antecedentes y ánimo",
       "regular": "Indaga síntomas físicos",
-      "suficiente": "Indaga mareos, frío, dolor abdominal, concentración, aislamiento, ánimo y riesgo suicida; antecedentes personales y familiares y consultas previas a salud mental"
+      "suficiente": "Indaga mareos, intolerancia al frío, dolor abdominal, problemas de concentración, aislamiento social y ánimo, e indaga de forma directa y explícita el riesgo suicida; revisa antecedentes personales y familiares y consultas previas a salud mental"
     },
     {
       "id": 6,
@@ -129,7 +129,7 @@
       "max": 10,
       "texto": "Criterios de internación",
       "regular": "Menciona que podría internarse",
-      "suficiente": "Evalúa los criterios de internación (IMC menor de 14 o 15, bradicardia menor de 45, hipopotasemia, arritmias, hipotensión, rechazo a comer, riesgo suicida) y explica por qué ahora corresponde manejo ambulatorio"
+      "suficiente": "Evalúa los criterios estrictos de internación (IMC menor de 14 a 15, bradicardia menor de 45 por minuto, hipopotasemia severa, inestabilidad hemodinámica, rechazo absoluto a la ingesta o riesgo suicida) y justifica por qué en este caso corresponde el manejo ambulatorio controlado"
     },
     {
       "id": 13,
@@ -137,7 +137,7 @@
       "max": 10,
       "texto": "Seguimiento y familia",
       "regular": "Cita sin plazo o sin la familia",
-      "suficiente": "Programa seguimiento periódico de peso, frecuencia cardíaca y laboratorio, incorpora a la familia con su consentimiento y advierte sobre el síndrome de realimentación"
+      "suficiente": "Programa un seguimiento clínico periódico estricto (peso, frecuencia cardíaca, ionograma), incorpora a la familia con el consentimiento de la paciente y advierte de forma preventiva sobre el síndrome de realimentación"
     },
     {
       "id": 14,
