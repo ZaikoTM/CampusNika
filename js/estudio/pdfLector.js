@@ -603,6 +603,7 @@
       await cargarMarcas(fileId);
       if (S !== mi) return;
       mi.leidas = new Set((mi.prog && mi.prog.leidas) || []);
+      if (mi.prog && mi.prog.total_paginas === 0 && mi.leidas.size) mi.leidas = new Set(Array.from({ length: mi.n }, (_, i) => i + 1));   // marcado como leído a mano desde la lista
       const p1 = await mi.pdf.getPage(1); const v1 = p1.getViewport({ scale: 1 });
       const ancho = Math.max(280, wrapper.clientWidth - 28);
       mi.escala = Math.max(0.6, Math.min(1.8, ancho / v1.width)); mi.base = { w: v1.width, h: v1.height };

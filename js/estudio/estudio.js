@@ -201,10 +201,38 @@ function injectNaturalScrollingStyles() {
 .up-continuar>span:first-child{font-size:1.1rem}
 @keyframes nkContIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .res-prog,.res-prog span{text-transform:none!important;letter-spacing:0!important}.res-prog{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:.74rem;font-weight:700}
-.res-prog .rp-ok{color:#15803d}.res-prog .rp-curso{color:#b45309}.res-prog .rp-no{color:#94a3b8}
+.res-prog{position:relative}
+.res-prog .rp-txt{cursor:pointer;transition:color .2s,transform .2s}
+.res-prog .rp-txt:hover{transform:translateX(2px)}
+.res-prog .rp-txt.rp-ok{color:#15803d}.res-prog .rp-txt.rp-curso{color:#b45309}.res-prog .rp-txt.rp-no{color:#94a3b8}
+.rp-chk{flex:0 0 auto;width:20px;height:20px;padding:0;border-radius:7px;border:2px solid #cbd5e1;background:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s,box-shadow .2s;min-height:0!important}
+.rp-chk:hover{transform:scale(1.12);border-color:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.18)}
+.rp-chk:active{transform:scale(.9)}
+.rp-chk svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .35s ease .05s}
+.rp-chk.rp-ok{background:linear-gradient(135deg,#22c55e,#16a34a);border-color:#16a34a}
+.rp-chk.rp-ok:hover{box-shadow:0 0 0 4px rgba(34,197,94,.22)}
+.rp-chk.rp-ok svg{stroke-dashoffset:0}
+.rp-chk.rp-curso{border-color:#f59e0b;background:linear-gradient(135deg,#fef3c7,#fde68a)}
+.rp-chk.rp-curso::after{content:'';width:8px;height:8px;border-radius:50%;background:#f59e0b;animation:rpLat 1.6s ease-in-out infinite}
+.rp-chk.rp-curso svg{display:none}
+.rp-chk.rp-pop{animation:rpPop .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes rpPop{0%{transform:scale(.5) rotate(-12deg)}60%{transform:scale(1.28) rotate(6deg)}100%{transform:none}}
+@keyframes rpLat{0%,100%{transform:scale(.7);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+.rp-aro{position:absolute;left:0;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;border:2px solid #22c55e;pointer-events:none;animation:rpAro .75s ease-out forwards}
+@keyframes rpAro{from{transform:scale(1);opacity:.9}to{transform:scale(3);opacity:0}}
+.rp-barra b{transition:width .5s cubic-bezier(.22,1,.36,1)}
+.resource-item.rp-flash-ok{animation:rpFlashOk .9s ease}
+.resource-item.rp-flash-no{animation:rpFlashNo .6s ease}
+@keyframes rpFlashOk{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}40%{box-shadow:0 0 0 7px rgba(34,197,94,.22);background-color:#f0fdf4}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+@keyframes rpFlashNo{0%{transform:translateX(0)}30%{transform:translateX(-3px)}60%{transform:translateX(3px)}100%{transform:none}}
+body.dark-mode .rp-chk{background:#1e293b;border-color:#475569}
+body.dark-mode .rp-chk.rp-ok{background:linear-gradient(135deg,#22c55e,#16a34a);border-color:#16a34a}
+body.dark-mode .rp-chk.rp-curso{background:rgba(245,158,11,.18);border-color:#f59e0b}
+body.dark-mode .res-prog .rp-txt.rp-ok{color:#4ade80}body.dark-mode .res-prog .rp-txt.rp-curso{color:#fbbf24}
+@media (prefers-reduced-motion:reduce){.rp-chk,.rp-chk svg,.rp-barra b,.res-prog .rp-txt{transition:none}.rp-chk.rp-pop,.rp-aro,.resource-item.rp-flash-ok,.resource-item.rp-flash-no,.rp-chk.rp-curso::after{animation:none}}
 .rp-barra{display:block;flex:0 0 70px;height:5px;border-radius:5px;background:rgba(148,163,184,.35);overflow:hidden}.rp-barra b{display:block;height:100%;background:#f59e0b}
 body.dark-mode .up-continuar{background:rgba(250,204,21,.12);border-color:rgba(250,204,21,.35);color:#fde68a}
-body.dark-mode .res-prog .rp-ok{color:#4ade80}body.dark-mode .res-prog .rp-curso{color:#fbbf24}`;
+`;
         document.head.appendChild(st);
     }
     if (document.getElementById('nika-natural-scroll-style')) return;
@@ -834,6 +862,33 @@ async function nikaProgresoPdfs(ids) {
 }
 
 let _progPdfTimer = null;
+let _progPdfRecien = null;
+
+async function nikaAlternarLeido(item, estabaLeido) {
+    const fid = item.dataset.fid;
+    const titulo = decodeURIComponent(item.dataset.title || '');
+    const mapa = await nikaProgresoPdfs([fid]);
+    const r = mapa[fid] || {};
+    const total = r.total_paginas > 0 ? r.total_paginas : null;
+    let p;
+    if (estabaLeido) p = { ultima_pagina: 1, total_paginas: total, leidas: [] };
+    else if (total) p = { ultima_pagina: 1, total_paginas: total, leidas: Array.from({ length: total }, (_, i) => i + 1) };
+    else p = { ultima_pagina: 1, total_paginas: 0, leidas: [0] };   // 0 = marcado a mano sin conocer el largo; el lector lo interpreta como "todo leído"
+    let guardado = false;
+    try {
+        const c = window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client);
+        if (c && c.auth) {
+            const { data: ses } = await c.auth.getSession();
+            if (ses && ses.session) {
+                const { error } = await c.from('pdf_progreso').upsert({ file_id: fid, titulo, ...p, updated_at: new Date().toISOString() }, { onConflict: 'user_id,file_id' });
+                guardado = !error;
+            }
+        }
+    } catch (_) {}
+    if (!guardado) { try { localStorage.setItem('nika_pdf_prog_' + fid, JSON.stringify(p)); } catch (_) {} }
+    _progPdfRecien = fid;
+    actualizarProgresoRecursos();
+}
 function actualizarProgresoRecursos() {
     clearTimeout(_progPdfTimer);
     _progPdfTimer = setTimeout(async () => {
@@ -850,15 +905,29 @@ function actualizarProgresoRecursos() {
             if (!tag) return;
             const total = (r && r.total_paginas) || 0;
             const leidas = r && Array.isArray(r.leidas) ? r.leidas.length : 0;
+            const manual = !!(r && r.total_paginas === 0 && leidas > 0);   // marcado a mano sin haberlo abierto
             const pct = total ? Math.round(leidas / total * 100) : 0;
-            let html;
-            if (total && leidas >= total) html = '<span class="rp rp-ok">✅ Leído completo</span>';
-            else if (leidas > 0 || (r && r.ultima_pagina > 1)) {
-                html = `<span class="rp rp-curso">⏳ En curso · ${leidas}/${total} págs (${pct}%)</span><i class="rp-barra"><b style="width:${pct}%"></b></i>`;
+            const completo = manual || (total > 0 && leidas >= total);
+            const enCurso = !completo && (leidas > 0 || (r && r.ultima_pagina > 1));
+            const estado = completo ? 'ok' : enCurso ? 'curso' : 'no';
+            const txt = completo ? 'Leído completo' : enCurso ? `En curso · ${leidas}/${total} págs (${pct}%)` : 'Sin leer';
+            const barra = enCurso ? `<i class="rp-barra"><b style="width:${pct}%"></b></i>` : '';
+            tag.dataset.estado = estado;
+            tag.innerHTML = `<button type="button" class="rp-chk rp-${estado}" aria-pressed="${completo}" title="${completo ? 'Marcar como no leído' : 'Marcar como leído'}" aria-label="${completo ? 'Marcar como no leído' : 'Marcar como leído'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="rp-txt rp-${estado}">${txt}</span>${barra}`;
+            if (_progPdfRecien === it.dataset.fid) {
+                _progPdfRecien = null;
+                const chk = tag.querySelector('.rp-chk'); chk.classList.add('rp-pop');
+                it.classList.add(completo ? 'rp-flash-ok' : 'rp-flash-no'); setTimeout(() => it.classList.remove('rp-flash-ok', 'rp-flash-no'), 900);
+                if (completo) { const ring = document.createElement('i'); ring.className = 'rp-aro'; tag.appendChild(ring); setTimeout(() => ring.remove(), 800); }
+            }
+            if (!tag._nikaListo) {
+                tag._nikaListo = true;
+                tag.addEventListener('click', (e) => { e.stopPropagation(); const rs = tag.dataset; if (e.target.closest('.rp-chk, .rp-txt')) nikaAlternarLeido(it, rs.estado === 'ok'); });
+            }
+            if (enCurso) {
                 const t = r.updated_at ? Date.parse(r.updated_at) : 0;
                 if (!mejor || t > mejor.t) mejor = { it, r, t };
-            } else html = '<span class="rp rp-no">⬜ Sin leer</span>';
-            tag.innerHTML = html;
+            }
         });
         if (mejor) {
             const b = document.createElement('div');
