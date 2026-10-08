@@ -20,6 +20,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Campus Nika">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://pswjmouuyaxueaqqglko.supabase.co" crossorigin>
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -965,7 +969,7 @@
     </style>
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
     <link rel="stylesheet" href="css/examen-integridad.css">
-    <link rel="stylesheet" href="css/examen-navbar.css">
+    <link rel="stylesheet" href="css/examen-navbar.css?v=2">
     <link rel="stylesheet" href="css/micro.css?v=1">
 </head>
 <body>
@@ -1272,7 +1276,7 @@
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 40px;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 40px;">
                     <button class="btn btn-outline" onclick="generateWhatsAppReport()">📱 Compartir Nota</button>
                     <button class="btn btn-outline" id="btn-retry-errors" style="display: none; color: var(--warning); border-color: var(--warning);" onclick="retryErrors()">🔄 Reintentar Errores</button>
                     <button class="btn btn-primary" onclick="location.href='campus.html'">Volver al Inicio</button>
@@ -1483,6 +1487,7 @@
 <script src="js/atajos.js"></script>
     <script src="js/examen.js"></script>
     <script src="js/examIntegridad.js"></script>
+    <script src="js/examNavbarMovil.js?v=1" defer></script>
     <script src="js/programaTemas.js?v=72"></script>
     <script src="js/casosPacientes.js"></script>
     <script src="js/pwa-update.js"></script>
@@ -2048,7 +2053,7 @@
         // ================= MODALES =================
         function openHelpModal() { document.getElementById('help-modal').style.display = 'flex'; }
         function closeHelpModal() { document.getElementById('help-modal').style.display = 'none'; }
-        function openReportModal() { document.getElementById('report-modal').style.display = 'flex'; }
+        function openReportModal() { abrirReporteErrata(currentIndex); }   // mismo flujo que la revisión: se guarda en la cola y llega a la bandeja de erratas del admin
         function closeReportModal() { document.getElementById('report-modal').style.display = 'none'; }
         function submitReport() {
             const text = document.getElementById('report-text').value.trim();

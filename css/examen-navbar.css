@@ -70,3 +70,25 @@
   .nav-tool-btn, .nav-cancel-btn, .btn-back, .nb-ic, .btn-back .nb-arrow, .brand-title { transition: none; }
   .nav-tool-btn::after, .nav-cancel-btn::after, .btn-back::after { display: none; }
 }
+
+/* ===== Celular: la barra se compacta (menú ☰) y se oculta al bajar para no tapar la pregunta ===== */
+.nb-burger { display: none; }
+@media (max-width: 768px) {
+  .navbar { transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .25s; padding: 8px 14px !important; row-gap: 0 !important; align-items: center; }
+  .navbar .brand-slogan { display: none; }
+  .navbar .brand-title { font-size: 1.05rem; }
+  .navbar.nb-oculta { transform: translateY(-110%); box-shadow: none; }
+  .nb-burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 4px; width: 42px; height: 38px; padding: 0 11px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .08); cursor: pointer; transition: background .2s, transform .2s; }
+  .nb-burger:active { transform: scale(.94); }
+  .nb-burger span { display: block; height: 2px; border-radius: 2px; background: #e2e8f0; transition: transform .3s, opacity .2s; }
+  .navbar.abierta .nb-burger { background: rgba(56, 189, 248, .22); }
+  .navbar.abierta .nb-burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .navbar.abierta .nb-burger span:nth-child(2) { opacity: 0; }
+  .navbar.abierta .nb-burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .navbar .navbar-actions { display: none !important; width: 100%; padding-top: 10px; }
+  .navbar.abierta .navbar-actions { display: flex !important; animation: nb-abre .25s ease-out; }
+  @keyframes nb-abre { from { opacity: 0; transform: translateY(-6px); } }
+  .navbar-actions > * { animation: none; }
+  .navbar-actions .nav-tool-btn, .navbar-actions .nav-cancel-btn, .navbar-actions .btn-back { padding: 10px 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .navbar, .nb-burger span { transition: none; } }

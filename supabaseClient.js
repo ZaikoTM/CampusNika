@@ -623,7 +623,7 @@ async function reportarErrata(preguntaTexto, justificacion) {
             reporter_username: usuarioLocal.username || "Usuario",
             question_text: preguntaTexto,
             justification: justificacion,
-            status: "pendiente"
+            status: "pending"
         });
 
     if (error) {
