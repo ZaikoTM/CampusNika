@@ -1,7 +1,7 @@
 {
   "id": "go_anticoncepcion_lactancia",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Anticoncepción en la lactancia: asesoramiento y elección del método",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -19,7 +19,7 @@
   "estudios": [
     {
       "clave": "estudios",
-      "texto": "Para el implante no se necesita estudio previo. Si el alumno pide BHCG por seguridad: negativa. Para DIU o SIU: BHCG, ecografía transvaginal y laboratorio con hemograma."
+      "texto": "Para el implante, el DIU o el SIU no se requieren ecografías ni laboratorios previos (estudio innecesario para la práctica; informarlo así si el alumno los pide). Si el alumno pide BHCG por seguridad: negativa."
     }
   ],
   "umbral_aprobacion": 60,
@@ -99,7 +99,7 @@
       "max": 10,
       "texto": "Implante e inyectable",
       "regular": "Describe uno",
-      "suficiente": "Explica el implante subdérmico (etonogestrel o levonorgestrel, duración de 3 a 5 años, se coloca en el centro de salud hasta los 24 años) y el inyectable de medroxiprogesterona trimestral (ventana de aplicación)"
+      "suficiente": "Explica el implante subdérmico (etonogestrel o levonorgestrel, duración de 3 a 5 años, se puede colocar en el centro de salud) y el inyectable de medroxiprogesterona trimestral (ventana de aplicación)"
     },
     {
       "id": 10,
@@ -107,7 +107,7 @@
       "max": 10,
       "texto": "DIU y SIU",
       "regular": "Describe uno",
-      "suficiente": "Explica DIU de cobre (10 años) y SIU con levonorgestrel (5 años), que se colocan a partir de las 4 semanas posparto, con BHCG, ecografía y laboratorio previos"
+      "suficiente": "Explica DIU de cobre (10 años) y SIU con levonorgestrel (5 años), que se colocan a partir de las 4 semanas posparto, aclarando que no requieren ecografía ni laboratorios previos"
     },
     {
       "id": 11,
