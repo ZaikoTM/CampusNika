@@ -82,6 +82,9 @@ Esta estación es la número ${(pos != null ? pos : S && S.idx != null ? S.idx :
 - Un error crítico de seguridad baja el pilar afectado a 4 o menos aunque el resto esté bien. No infles ninguna nota.
 - No existe el Abogado del Diablo en esta instancia. Si el sistema te avisa que se agotó el tiempo, cerrá la estación con la evaluación.
 - En "revision_detallada" incluí UN ítem por cada uno de los 9 dominios y en "respuesta_modelo" el plan completo ideal de este caso, con las opciones válidas.
+- RETENCIÓN ABSOLUTA (regla máxima): respondé ÚNICAMENTE lo que el alumno pidió o preguntó en SU ÚLTIMO mensaje, de forma breve. Prohibido adelantar, completar o "regalar" datos: si pide "signos vitales" entregás solo tensión, frecuencia cardíaca, frecuencia respiratoria, temperatura y saturación (no glucemia, no peso, no examen físico); si pide "hemograma" entregás solo el hemograma (no ionograma, no PCR, no otros laboratorios, no imágenes, no hisopados ni tests rápidos). Un pedido genérico ("laboratorio", "estudios", "examen físico completo") se responde [Evaluador: Especifique qué determinaciones o maniobras solicita.]. Lo que el alumno no pide, no existe.
+- NO CIERRES NUNCA la estación por tu cuenta ni emitas el JSON de evaluación: aunque el alumno explique el tratamiento final, la cirugía o el alta, seguí respondiendo como paciente, familiar o evaluador hasta que el sistema te envíe el mensaje de cierre. Ese es el único momento en que devolvés el JSON.
+- Sos un evaluador de examen de egreso MUY exigente: no regalás puntos, no asumís nada que el alumno no haya escrito y no inventás pedidos ni indicaciones que no figuren en sus intervenciones.
 - PARTE PRÁCTICA (documentos): al cerrar la estación el alumno puede tener que redactar documentos médicos (receta, solicitud de estudios, certificado). El mensaje de cierre del sistema te pasa su texto y la nota de FORMA: juzgá el CONTENIDO (fármaco, dosis, vía, estudios pedidos, lo que constata) contra el caso y tené en cuenta la forma y las omisiones.`;
     const bc = bloqueCaso(i);
     if (bc) p = p.replace(/## 0\. SORTEO[\s\S]*?(?=## 2\. ROL DUAL)/, '## 0 y 1. CASO DE LA ESTACIÓN\nEl caso es el que figura en la sección 10 (caso oficial). No sortees ni cambies el cuadro; la unidad temática y los sorteos de otras secciones no se aplican.\n\n');
@@ -102,20 +105,24 @@ Nombre de la estación: ${c.nombre}. Duración: ${c.duracionMin} minutos. Tipo: 
 - INTERLOCUTOR: respondés como ${c.interlocutor}, SOLO con los datos del guion, en lenguaje coloquial argentino y sin términos médicos. Si te preguntan algo que el guion no contiene, respondé "no" o "no sé", de forma coherente con el caso. Nunca inventes antecedentes ni regales datos.
 - GUION DEL PACIENTE:
 ${c.guion_paciente}
-- DATOS CLÍNICOS (se entregan SOLO si el alumno examina o pide los signos, entre corchetes con el formato [Evaluador: ...]): ${c.datos_clinicos}
-- ESTUDIOS (se entregan SOLO cuando el alumno los pide y los resultados del laboratorio con sus unidades):
+- DATOS CLÍNICOS (BANCO DE DATOS: nunca se entregan en bloque): ${c.datos_clinicos}
+  Entregá SOLO el fragmento que corresponde exactamente a la maniobra o al signo que el alumno pida (uno por vez), con el formato [Evaluador: ...]. No sumes otros signos, otros sistemas ni otros estudios.
+- ESTUDIOS (BANCO DE RESULTADOS: nunca se entregan en bloque; los resultados del laboratorio llevan sus unidades). Entregá SOLO el estudio que el alumno nombre y, dentro de un informe, SOLO las determinaciones que nombre: si pide "hemograma" no des ionograma, glucemia, urea, PCR ni otros valores del mismo informe; si pide "PCR" dá solo la PCR. Todo lo que no pidió, no existe:
 ${c.estudios.map((x) => '  · ' + x.texto).join('\n')}
 - MANIOBRAS Y ESTUDIOS NO CONTEMPLADOS: si el alumno pide una maniobra de examen que no figura en los datos clínicos, respondé [Evaluador: Sin particularidades.]; si pide un estudio que no figura entre los estudios del caso, respondé [Evaluador: Estudio no disponible en esta estación.]. Nunca des pistas ni juzgues la indicación.
 - RÚBRICA OFICIAL (puntaje total 100; umbral de aprobación ${c.umbral_aprobacion}). Los ítems valen 0 (insuficiente), la mitad (regular) o el máximo (suficiente):
 ${filas}
 - ERRORES CRÍTICOS (conductas que ponen en riesgo al paciente): ${(c.errores_criticos || []).map((x, k) => (k + 1) + ') ' + x).join(' ')}. Si el alumno comete alguno, incluí en el JSON el campo "errores_criticos_cometidos" con una lista de textos breves (vacía si no cometió ninguno).
-- AL CERRAR LA ESTACIÓN: además del formato de evaluación final, incluí en el JSON el campo "rubrica": una lista con UN objeto por cada ítem de la rúbrica, con "id" (número), "nivel" ("insuficiente", "regular" o "suficiente") y "evidencia" (qué dijo o hizo el alumno, en una línea). Calificá cada ítem SOLO con lo que el alumno dijo o hizo en la conversación: no asumas nada. Lo que no hizo es "insuficiente". El sistema calcula el puntaje; no lo calcules vos. En "revision_detallada" explicá cada ítem no logrado y en "respuesta_modelo" dejá la conducta completa esperada.${pr ? `
+- AL CERRAR LA ESTACIÓN: además del formato de evaluación final, incluí en el JSON el campo "rubrica": una lista con UN objeto por cada ítem de la rúbrica, con "id" (número), "nivel" ("insuficiente", "regular" o "suficiente") y "evidencia" (cita textual breve de lo que dijo el alumno, entre comillas, o "no lo hizo"). El campo "rubrica" es OBLIGATORIO y tiene que traer TODOS los ítems. Sos un evaluador de examen de egreso MUY exigente: calificá cada ítem SOLO con lo que el alumno dijo o hizo en la conversación. "suficiente" exige TODOS los elementos de la columna SUFICIENTE, con dosis, valores o conductas concretas cuando se piden; "regular" solo si cumple más de la mitad de esos elementos; lo que hizo a medias no es suficiente; lo que no hizo o no dijo es "insuficiente". Si no podés citar una frase del alumno que lo demuestre, el ítem es insuficiente. El sistema calcula el puntaje; no lo calcules vos. En "revision_detallada" explicá cada ítem no logrado y en "respuesta_modelo" dejá la conducta completa esperada.${pr ? `
 - PARTE PRÁCTICA (PROCEDIMIENTO ESCRITO): esta estación incluye el procedimiento «${pr.titulo}». Al cerrar, el mensaje del sistema trae el texto que el alumno escribió y la lista de cotejo numerada. Incluí también en el JSON el campo "procedimiento": {"cumple":[números de los pasos descriptos completa y correctamente],"parcial":[números de los pasos descriptos de forma incompleta o desordenada]}; los pasos que no figuren en ninguna lista cuentan como no cumplidos. Calificá SOLO con lo escrito, aceptando sinónimos y descripciones equivalentes (no exijas las palabras textuales). No agregues evidencia por paso.` : ''}`;
   }
   const temaPrompt = (tema) => (tema ? '\n\nTEMA DE LA ESTACIÓN SORTEADO POR EL SISTEMA (obligatorio y fijo durante todo el caso): ' + tema + '. Elegí un cuadro concreto dentro de este tema y respetá todas las reglas de tu rol.' : '');
   // Mensaje de cierre: si hubo procedimiento escrito, se le pasa a la IA el texto y la lista de cotejo
   function mensajeCierre(E) {
-    let m = MSG_CIERRE; const pr = procDe(E);
+    let m = MSG_CIERRE; const pr = procDe(E); const cs = casoDe(E);
+    const ints = E.hist.filter((h) => h.rol === 'usuario' && !h.sis).map((h, k) => `${k + 1}. «${String(h.texto).replace(/\s+/g, ' ').slice(0, 500)}»`).join('\n');
+    m += `\n\nINTERVENCIONES LITERALES DEL ALUMNO (es la ÚNICA fuente de lo que dijo, pidió o indicó: todo lo que afirmes que hizo tiene que figurar acá o en los documentos y el procedimiento de abajo; no inventes pedidos, estudios ni indicaciones):\n${ints || '(ninguna)'}`;
+    if (cs && cs.rubrica) m += `\n\nOBLIGATORIO: el JSON debe incluir el campo "rubrica" con un objeto por CADA uno de los ${cs.rubrica.length} ítems (ids ${cs.rubrica.map((r) => r.id).join(', ')}), cada uno con "id", "nivel" y "evidencia" (cita textual breve del alumno o "no lo hizo"). Sé un evaluador muy exigente.`;
     if (E.docs && E.docs.length) {
       const f = (a) => (a && a.length ? a.join('; ') : 'ninguna');
       m += `\n\n[Sistema — PARTE PRÁCTICA: DOCUMENTOS] ` + E.docs.map((d) => { const def = DOCS.find((x) => x[0] === d.tipo); const nom = def ? def[2].toLowerCase() : d.tipo;
@@ -148,7 +155,7 @@ ${filas}
   // ------------------------------------------------------------------ integridad ("machete"): las mismas reglas que el resto de los exámenes
   function iniciarIntegridad(reanudando) {
     if (!window.ExamIntegridad) return;
-    if (esAdmin()) { toast('Cuenta admin: se rinde sin vigilancia anti-trampa para que puedas probar. Los demás usuarios sí la tienen.'); return; }
+
     const hooks = { onForzarEntrega: forzarEntrega, permitirCaptura: false };
     try {
       if (reanudando && ExamIntegridad.reanudar(hooks)) return;
@@ -211,7 +218,7 @@ ${filas}
           <li><b>Nada de capturas:</b> sacar una captura de pantalla o imprimir el examen también dispara la advertencia.</li>
           <li><b>Advertencia:</b> a la 3.ª incidencia aparece un aviso amarillo. Si después de eso reincidís, <b>el examen se entrega solo</b> y queda <b>en revisión</b>.</li>
           <li><b>Escrito:</b> podés tipear, pero no pegar texto copiado de otro lado.</li>
-          <li>Al terminar te explicamos qué detectó el sistema. <b>Sé honesto:</b> este simulacro es para que midas tu nivel real.</li>${esAdmin() ? '<li><b>Cuenta admin:</b> se rinde sin vigilancia para que puedas probar el examen; el resto de los usuarios sí la tiene.</li>' : ''}</ul></div>
+          <li>Al terminar te explicamos qué detectó el sistema. <b>Sé honesto:</b> este simulacro es para que midas tu nivel real.</li></ul></div>
         <div class="pfo-bloque"><h3>🎓 Al aprobar te felicitamos como</h3><div class="pfo-trat" role="radiogroup" aria-label="Tratamiento"><button type="button" role="radio" data-t="Doctora" class="${nTrat === 'Doctora' ? 'on' : ''}" aria-checked="${nTrat === 'Doctora'}">👩‍⚕️ Doctora</button><button type="button" role="radio" data-t="Doctor" class="${nTrat === 'Doctor' ? 'on' : ''}" aria-checked="${nTrat === 'Doctor'}">👨‍⚕️ Doctor</button></div></div>
         <label class="pfo-ok"><input type="checkbox" id="pfo-acepto"> <span>Leí las reglas y me comprometo a rendir con honestidad.</span></label>
       </div>
@@ -234,7 +241,7 @@ ${filas}
   }
   function montarPractica(root, bloqueado) {
     const sel = {};   // i -> casoId ('' = al azar)
-    const refrescar = () => { const n = Object.keys(sel).length; $('#pr-go', root).disabled = !n || bloqueado; $('#pr-res', root).textContent = bloqueado ? 'Terminá o descartá lo que tenés en curso' : n ? `${n} ${n === 1 ? 'especialidad elegida' : 'especialidades elegidas'}` : 'Elegí al menos una especialidad'; };
+    const refrescar = () => { const n = Object.keys(sel).length; $('#pr-go', root).disabled = !n || bloqueado; $('#pr-res', root).textContent = bloqueado ? 'Terminá o descartá lo que tenés en curso' : n ? 'Vas a practicar: ' + Object.keys(sel).sort().map((k) => CFG.estaciones[k].icono + ' ' + CFG.estaciones[k].nombre).join(' · ') : 'Elegí al menos una especialidad'; };
     const marcar = (t, on) => { const i = t.dataset.i; t.classList.toggle('on', on); t.querySelector('.pfo-pr-sel').setAttribute('aria-pressed', String(on)); if (on) { if (!(i in sel)) sel[i] = ''; } else { delete sel[i]; t.classList.remove('abierto'); } };
     root.querySelectorAll('.pfo-pr-t').forEach((t) => {
       t.querySelector('.pfo-pr-sel').addEventListener('click', () => { marcar(t, !t.classList.contains('on')); refrescar(); });
@@ -288,7 +295,7 @@ ${filas}
       const mo = bt.dataset.m; tg.dataset.m = mo; tg.querySelectorAll('button').forEach((x) => { const on = x === bt; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); });
       $('#pane-exam').classList.toggle('on', mo === 'exam'); $('#pane-prac').classList.toggle('on', mo === 'prac');
     }));
-    b('#pfo-retomar', () => { S = leerGuardado(); if (S.modo !== 'practica') iniciarIntegridad(true); S.estaciones.forEach((E) => { E.evaluando = false; }); vistaEstacionSegunFase(); });
+    b('#pfo-retomar', () => { S = leerGuardado(); iniciarIntegridad(true); S.estaciones.forEach((E) => { E.evaluando = false; }); vistaEstacionSegunFase(); });
     b('#pfo-descartar', () => { if (confirm('Se pierde lo que tenías en curso. ¿Descartarlo?')) { limpiarGuardado(); try { window.ExamIntegridad && ExamIntegridad.abandonar(); } catch (_) {} vistaIntro(); } });
     if (!main._acord) main.addEventListener('click', (e) => { const hd = e.target.closest('.pfo-acord-h'); if (!hd) return; const a = hd.parentElement; const on = !a.classList.contains('abierto'); a.classList.toggle('abierto', on); hd.setAttribute('aria-expanded', String(on)); });
     main._acord = true;
@@ -307,13 +314,14 @@ ${filas}
   }
 
   // Modo práctica: las estaciones y casos que elige el alumno, sin reglas anti-trampa y con revisión al terminar cada estación
-  function nuevaPractica(sel, conReloj) {
+  async function nuevaPractica(sel, conReloj) {
     if (!tieneAcceso()) { toast('Acceso restringido.'); return; }
+    if (window.ExamIntegridad) { const ok = await ExamIntegridad.pedirAceptacion({ escrito: true }); if (!ok) return; }   // mismas reglas anti-trampa que el examen
     S = { modo: 'practica', sinReloj: !conReloj, idx: 0, creado: Date.now(), forzado: false, estaciones: sel.map((x) => {
       const cfgE = CFG.estaciones[x.ref]; const cs = (cfgE.casos_oficiales || []).filter((id) => CASOS[id]);
       return { id: cfgE.id, ref: x.ref, casoId: x.casoId && CASOS[x.casoId] ? x.casoId : (cs.length ? cs[Math.floor(Math.random() * cs.length)] : null), hist: [], tema: '', fin: 0, fase: 'caso', resultado: null, cerrada: false, docs: [], proc: null };
     }) };
-    guardar(); vistaEstacion(false); window.scrollTo({ top: 0 });
+    guardar(); iniciarIntegridad(false); vistaEstacion(false); window.scrollTo({ top: 0 });
   }
   function vistaEstacionSegunFase() {
     const E = estActual();
@@ -328,10 +336,10 @@ ${filas}
     main.innerHTML = `
       ${barraHtml(cfgE)}
       <div class="pfo-chat" id="pfo-chat" aria-live="polite"></div>
-      <div class="pfo-in"><textarea id="pfo-txt" placeholder="Escribí lo que le preguntás o indicás al paciente, o la maniobra que realizás…" maxlength="2500"></textarea><button class="pfo-btn" id="pfo-env">Enviar ➤</button></div>
+      <div class="pfo-in"><textarea id="pfo-txt" placeholder="Escribí lo que le preguntás o indicás al paciente, o la maniobra que realizás…" maxlength="2500"></textarea><div class="pfo-in-act"><div id="pfo-mic-slot"></div><button class="pfo-btn" id="pfo-env">Enviar ➤</button></div></div>
       <div class="pfo-acc"><small>El evaluador solo responde lo que pedís. No hay pistas.${S.modo === 'practica' ? '' : ' Examen protegido: no salgas de la pantalla ni copies.'}</small><button class="pfo-link" id="pfo-term">Terminar esta estación</button></div>`;
     E.hist.forEach((m) => (m.sis ? burbuja('sistema', m.vista || 'Documento entregado.') : burbuja(m.rol, m.texto)));
-    $('#pfo-env').addEventListener('click', enviar);
+    $('#pfo-env').addEventListener('click', enviar); montarMic('pfo-txt', 'pfo-mic-slot');
     $('#pfo-txt').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) enviar(); });
     $('#pfo-term').addEventListener('click', () => { if (!pendiente && confirm('¿Terminar esta estación ahora? No se puede volver a ella.')) cerrarEstacion('manual'); });
     if (!E.fin && !S.sinReloj) E.fin = Date.now() + minutosDe(cfgE, E) * 60000;
@@ -364,6 +372,7 @@ ${filas}
   function tic() {
     if (!S || S.forzado) return; const E = estActual(); if (!E || E.cerrada || E.terminada) return;
     if (E.fase === 'docs') { const e0 = $('#pfo-timer'); if (e0) e0.textContent = '📝'; return; }
+    if (E._pausaDesde) return;   // la IA está respondiendo: el reloj espera
     if (S.sinReloj) { const el0 = $('#pfo-timer'); if (el0 && el0.textContent !== 'Sin reloj') el0.textContent = 'Sin reloj'; return; }
     const fin = E.fase === 'proc' ? E.procFin : E.fin; if (!fin || E.fase === 'eval') return;
     const resto = Math.max(0, Math.round((fin - Date.now()) / 1000)); const el = $('#pfo-timer'); if (!el) return;
@@ -375,12 +384,22 @@ ${filas}
   }
   const pensando = (on) => { const c = $('#pfo-chat'); if (!c) return; const v = $('#pfo-pens'); if (v) v.remove(); if (on) { const d = document.createElement('div'); d.id = 'pfo-pens'; d.className = 'pfo-pensando'; d.innerHTML = '<i></i><i></i><i></i>'; c.appendChild(d); c.scrollTop = c.scrollHeight; } };
 
+  const RECORDATORIO = '\n\n[Recordatorio del sistema, no lo menciones: respondé SOLO lo que el alumno pidió o preguntó en este mensaje, de forma breve; no agregues datos, estudios ni valores que no pidió, y no cierres ni evalúes la estación.]';
+  const pareceEvaluacion = (t) => /^\s*(```\w*\s*)?\{/.test(String(t)) && /"nota_final"|"semiologia"/.test(String(t));
+  // El reloj de la estación se frena mientras la IA piensa: la demora del servidor no le descuenta tiempo al alumno
+  const pausarReloj = () => { const E = estActual(); if (E && !E._pausaDesde) E._pausaDesde = Date.now(); };
+  const seguirReloj = () => { const E = estActual(); if (E && E._pausaDesde) { if (E.fin) E.fin += Date.now() - E._pausaDesde; E._pausaDesde = 0; guardar(); } };
   async function turno(mensaje) {
-    const E = estActual(); pendiente = true; fijar(false); pensando(true);
+    const E = estActual(); pendiente = true; pausarReloj(); fijar(false); pensando(true);
     try {
       const previo = E.hist.slice(0, -1);
       const primero = S.idx === 0 && previo.length === 0;
-      const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref) + temaPrompt(E.tema), historial: previo.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje, es_primer_turno: !!primero });
+      const base = { modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref) + temaPrompt(E.tema) };
+      let d = await llamarIA(Object.assign({}, base, { historial: previo.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje: mensaje + RECORDATORIO, es_primer_turno: !!primero }));
+      if (pareceEvaluacion(d.texto)) {   // la IA quiso cerrar sola la estación: se la corrige sin mostrarle nada al alumno
+        d = await llamarIA(Object.assign({}, base, { historial: E.hist.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje: '[Instrucción de sistema — no la menciones] La estación NO terminó. Respondé solo como paciente, familiar o evaluador a lo último que dijo el alumno, de forma breve, sin evaluación ni JSON.', es_primer_turno: false }));
+        if (pareceEvaluacion(d.texto)) d = { texto: '[Evaluador: Continúe con la consigna de la estación.]' };
+      }
       pensando(false);
       if (!S || S.forzado) return;
       E.hist.push({ rol: 'ia', texto: d.texto }); burbuja('ia', d.texto); guardar(); contador(); fijar(true);
@@ -389,26 +408,37 @@ ${filas}
       pensando(false); const msg = (err && err.message) ? err.message : 'No se pudo contactar al simulador.';
       fijar(true); burbuja('sistema', '⚠️ ' + msg + ' Volvé a enviar tu mensaje.');
       const t = $('#pfo-txt'); if (t && E.hist.length && E.hist[E.hist.length - 1].rol === 'usuario' && !E.hist[E.hist.length - 1].sis) { t.value = E.hist.pop().texto; guardar(); }
-    } finally { pendiente = false; }
+    } finally { pendiente = false; seguirReloj(); }
   }
+  // Estaciones con rúbrica oficial: el puntaje lo calcula el sistema a partir del nivel que la IA asignó a cada ítem (insuficiente 0, regular mitad, suficiente máximo)
+  const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ');
+  const textoAlumno = (E) => norm([...E.hist.filter((m) => m.rol === 'usuario' && !m.sis).map((m) => m.texto), ...(E.docs || []).map((d) => d.texto || ''), E.proc ? E.proc.texto : ''].join(' '));
+  // La evidencia que cita la IA tiene que encontrarse en lo que el alumno escribió; si no, el ítem baja un nivel
+  function evidenciaOk(evid, hay, minimo) {
+    const e = norm(evid).trim(); if (!e || /^(no|ninguna|nada|sin )/.test(e)) return false;
+    const toks = [...new Set(e.split(/\s+/).filter((w) => w.length > 3))]; if (!toks.length) return false;
+    return toks.filter((w) => hay.includes(w)).length / toks.length >= (minimo || 0.25);
+  }
+  const PILAR = { 'Anamnesis': 'semiologia', 'Anamnesis y evaluación': 'semiologia', 'Valoración': 'semiologia', 'Evaluación': 'diagnostico', 'Plan diagnóstico': 'diagnostico', 'Conducta': 'terapeutica', 'Tratamiento': 'terapeutica', 'Indicaciones': 'terapeutica', 'Importancia de las vacunas': 'terapeutica' };
   // Estaciones con rúbrica oficial: el puntaje lo calcula el sistema a partir del nivel que la IA asignó a cada ítem (insuficiente 0, regular mitad, suficiente máximo)
   function aplicarRubrica(E, ev) {
     const c = casoDe(E); if (!c || !Array.isArray(ev.rubrica)) return;
     const porId = {}; ev.rubrica.forEach((r) => { if (r && r.id != null) porId[String(r.id)] = r; });
-    const bloques = {}; let total = 0;
+    const hay = textoAlumno(E); const pil = {}; let total = 0;
     ev.rubrica_detalle = c.rubrica.map((it) => {
-      const r = porId[String(it.id)] || {}; const nivel = /^suf/i.test(r.nivel || '') ? 'suficiente' : /^reg/i.test(r.nivel || '') ? 'regular' : 'insuficiente';
+      const r = porId[String(it.id)] || {}; let nivel = /^suf/i.test(r.nivel || '') ? 'suficiente' : /^reg/i.test(r.nivel || '') ? 'regular' : 'insuficiente'; let verificada = true;
+      if (nivel === 'suficiente' && !evidenciaOk(r.evidencia, hay, 0.4)) { nivel = evidenciaOk(r.evidencia, hay, 0.25) ? 'regular' : 'insuficiente'; verificada = false; }
+      else if (nivel === 'regular' && !evidenciaOk(r.evidencia, hay, 0.25)) { nivel = 'insuficiente'; verificada = false; }
       const pts = nivel === 'suficiente' ? it.max : nivel === 'regular' ? it.max / 2 : 0; total += pts;
-      const b = bloques[it.bloque] || (bloques[it.bloque] = { o: 0, m: 0 }); b.o += pts; b.m += it.max;
-      return { id: it.id, bloque: it.bloque, texto: it.texto, nivel, pts, max: it.max, evidencia: String(r.evidencia || ''), esperado: it.suficiente };
+      const k = PILAR[it.bloque]; if (k) { const b = pil[k] || (pil[k] = { o: 0, m: 0 }); b.o += pts; b.m += it.max; }
+      return { id: it.id, bloque: it.bloque, texto: it.texto, nivel, pts, max: it.max, evidencia: String(r.evidencia || ''), esperado: it.suficiente, verificada };
     });
     const maxTotal = c.rubrica.reduce((a, b) => a + b.max, 0);
     ev.errores_criticos_cometidos = Array.isArray(ev.errores_criticos_cometidos) ? ev.errores_criticos_cometidos.filter((x) => typeof x === 'string' && x.trim()).slice(0, 6) : [];
     ev.puntaje = Math.round(total * 10) / 10; ev.puntaje_max = maxTotal; ev.nota_caso = Math.round((total / maxTotal) * 100) / 10; ev.nota_final = ev.nota_caso;
-    const dec = (b) => (bloques[b] ? Math.round((bloques[b].o / bloques[b].m) * 100) / 10 : null);
-    if (dec('Anamnesis') != null) ev.semiologia = dec('Anamnesis'); if (dec('Plan diagnóstico') != null) ev.diagnostico = dec('Plan diagnóstico'); if (dec('Tratamiento') != null) ev.terapeutica = dec('Tratamiento');
+    ['semiologia', 'diagnostico', 'terapeutica'].forEach((k) => { ev[k] = pil[k] ? Math.round((pil[k].o / pil[k].m) * 100) / 10 : ev.nota_caso; });
+    ev.vocabulario = ev.nota_caso;
   }
-  // Parte práctica escrita: cada paso de la lista de cotejo vale 1 (los críticos 2); cumple = completo, parcial = mitad
   function aplicarProcedimiento(E, ev) {
     const pr = procDe(E); if (!pr || !E.proc) return;
     const o = ev.procedimiento || {}; const lis = (a) => new Set((Array.isArray(a) ? a : []).map((x) => String(x)));
@@ -419,6 +449,8 @@ ${filas}
       max += w; pts += nivel === 'cumple' ? w : nivel === 'parcial' ? w / 2 : 0;
       return { n: p.n, texto: p.texto, critico: p.critico, nivel };
     });
+    const palabras = norm(E.proc.texto).split(/\s+/).filter(Boolean).length; const afirmados = cumple.size + parcial.size; const permitido = Math.max(1, Math.floor(palabras / 4));
+    if (afirmados > permitido) pts *= permitido / afirmados;   // no se pueden dar por cumplidos más pasos de los que el texto alcanza a describir
     ev.procedimiento_detalle = { id: pr.id, titulo: pr.titulo, icono: pr.icono, pasos, nota: Math.round((pts / max) * 100) / 10, vacio };
   }
   // Nota final de la estación: caso (y procedimiento, si lo hay) con los topes de error crítico y de parte práctica sin resolver
@@ -428,21 +460,44 @@ ${filas}
     if (pd) nota = (1 - w) * ev.nota_caso + w * pd.nota;
     nota = Math.round(nota * 10) / 10;
     if (ev.errores_criticos_cometidos && ev.errores_criticos_cometidos.length) nota = Math.min(nota, 5);   // un error crítico desaprueba la estación aunque el puntaje sea alto
-    if (pd && pd.vacio) nota = Math.min(nota, CFG.criterios.topeSinPractica || 5);                          // sin parte práctica no se aprueba la estación
+    if (pd && pd.vacio) nota = Math.min(nota, CFG.criterios.topeSinPractica || 5);
+    if (E.hist.filter((m) => m.rol === 'usuario' && !m.sis).length < 3) nota = Math.min(nota, 4);   // con menos de 3 intervenciones no hay desempeño suficiente para aprobar                          // sin parte práctica no se aprueba la estación
     ev.nota_final = nota;
+  }
+  // Dictado por voz (mismo módulo que el resto de los simuladores)
+  let micCtrl = null;
+  function soltarMic() { try { if (micCtrl) { micCtrl.destroy(); micCtrl = null; } } catch (_) { micCtrl = null; } }
+  function montarMic(taId, slotId) {
+    soltarMic();
+    try { if (typeof SpeechManager === 'undefined' || !SpeechManager.soportado()) return; micCtrl = SpeechManager.attach({ textareaId: taId, mountId: slotId, lang: 'es-AR', maxChars: 2500 }); } catch (_) { micCtrl = null; }
   }
   async function iniciarEstacion() { await turnoApertura(); }
   async function turnoApertura() {
-    const E = estActual(); pendiente = true; fijar(false); pensando(true);
+    const E = estActual(); pendiente = true; pausarReloj(); fijar(false); pensando(true);
     try {
       const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref) + temaPrompt(E.tema), historial: [], mensaje: MSG_INICIO, es_primer_turno: S.idx === 0 });
       E.hist = [{ rol: 'ia', texto: d.texto }]; pensando(false); burbuja('ia', d.texto); guardar(); contador(); fijar(true);
     } catch (err) { E.hist = []; pensando(false); burbuja('sistema', '⚠️ ' + (err && err.message ? err.message : 'No se pudo iniciar la estación.')); const c = $('#pfo-chat'); const b = document.createElement('button'); b.className = 'pfo-btn sec'; b.textContent = '🔄 Reintentar'; b.addEventListener('click', () => { b.remove(); turnoApertura(); }); c.appendChild(b); }
-    finally { pendiente = false; }
+    finally { pendiente = false; seguirReloj(); }
+  }
+  // "Examen físico completo", "laboratorio", "estudios": hay que aclarar qué se pide; el evaluador nunca lo completa por el alumno
+  const ESPECIFICO_FIS = /(signos vitales|tension|presion|frecuencia|temperatura|saturacion|auscult|palp|percu|inspecc|neurolog|glasgow|pupila|abdomen|torax|cardio|pulmon|cuello|extremidad|piel|blumberg|mcburney|rovsing|psoas|tacto|fosa|hipocondrio|epigastr|hemiabdomen|campos|ruidos|reflej|meninge|kernig|brudzinski|fondo de ojo|otoscop|faring|orofaring|mama|especulo|ginecolog|obstetric|altura uterina|leopold|peso|talla|perimetro)/;
+  const ESPECIFICO_LAB = /(hemograma|glucemia|glicemia|urea|creatinin|ionograma|sodio|potasio|calcio|proteina c|eritrosed|orina|sedimento|urocultivo|hemocultivo|cultivo|hepatograma|transaminasa|bilirrubina|fosfatasa|amilasa|lipasa|coagulograma|gasometria|lactato|troponina|colesterol|trigliceridos|hemoglobina|ecograf|radiograf|tomograf|resonancia|electrocardiograma|baciloscopia|esputo|vdrl|serolog|hisopado|test rapido|liquido cefalo|bicarbonato|perfil lipidico|ferritina|hierro|prolactina|citologia|colposcopia|mamografia|grupo sanguineo|bhcg)|(pcr|vsg|rx|tac|ecg|ck|ph|lh|fsh|tsh|t4|hiv|elisa|ns1|pap|kptt|rin|tp|ldh|gram|hba1c)/;
+  function respuestaGenerica(texto) {
+    const t = norm(texto);
+    const fis = /(examen fisico|examino|examen general|exploro|evaluo al paciente|reviso al paciente|examen clinico)/.test(t) && !ESPECIFICO_FIS.test(t);
+    const lab = /(laboratorio|analisis|estudios|examenes complementarios|pido todo|todos los estudios|batería|bateria|perfil)/.test(t) && !ESPECIFICO_LAB.test(t);
+    if (fis && lab) return '[Evaluador: Especifique qué región y maniobras de examen físico realiza y qué determinaciones o estudios solicita.]';
+    if (fis) return '[Evaluador: Especifique qué región y qué maniobras de examen físico realiza.]';
+    if (lab) return '[Evaluador: Especifique qué determinaciones de laboratorio o qué estudios solicita.]';
+    return null;
   }
   function enviar() {
     if (pendiente) return; const t = $('#pfo-txt'); const v = (t.value || '').trim(); if (!v) return;
-    const E = estActual(); E.hist.push({ rol: 'usuario', texto: v }); burbuja('usuario', v); t.value = ''; guardar(); contador(); turno(v);
+    const E = estActual(); E.hist.push({ rol: 'usuario', texto: v }); burbuja('usuario', v); t.value = '';
+    const g = respuestaGenerica(v);
+    if (g) { E.hist.push({ rol: 'ia', texto: g }); burbuja('ia', g); guardar(); contador(); if (turnosUsados() >= CFG.criterios.maxIntervencionesPorEstacion) cerrarEstacion('turnos'); return; }
+    guardar(); contador(); turno(v);
   }
 
   // ------------------------------------------------------------------ documentos médicos: paso secuencial al cerrar la estación (recetario en modo examen, en un iframe)
@@ -494,7 +549,7 @@ ${filas}
   // ------------------------------------------------------------------ cierre de la estación: procedimiento escrito (si lo hay) y paso a la siguiente
   // La nota y la revisión NO se muestran hasta terminar todo el circuito; mientras el alumno sigue, la IA corrige las estaciones ya cerradas en segundo plano.
   function cerrarEstacion(motivo) {
-    const E = estActual(); if (E.terminada || pendiente) return; clearInterval(timer); cerrarOverlayDoc();
+    const E = estActual(); if (E.terminada || pendiente) return; clearInterval(timer); cerrarOverlayDoc(); soltarMic();
     if (!E.hist.some((m) => m.rol === 'usuario' && !m.sis && m.texto !== MSG_INICIO)) { // sin ninguna intervención: no hay nada que evaluar
       E.terminada = true; E.resultado = resultadoNulo('No hubo intervenciones en esta estación.'); E.cerrada = true; guardar(); siguienteOFin(); return;
     }
@@ -510,9 +565,9 @@ ${filas}
         <div class="pfo-proc-h"><span class="ic">${pr.icono}</span><div><h2>Parte práctica · ${esc(pr.titulo)}</h2><small>Procedimiento escrito · ${S.sinReloj ? 'sin límite de tiempo' : `hasta ${max} minutos o hasta que lo entregues`}</small></div></div>
         <p>Describí, <b>en orden y con el mayor detalle posible</b>, cómo realizás este procedimiento sobre el paciente de la estación: preparación y materiales, comunicación y consentimiento, bioseguridad, la técnica paso a paso, el cierre y el registro. Se corrige contra la lista de cotejo: no se acepta nada que no esté escrito.</p>
         <textarea id="pfo-proc-txt" maxlength="6000" placeholder="1) Me presento y le explico el procedimiento…&#10;2) …"></textarea>
-        <div class="pfo-proc-f"><small>Sin ayudas. Cuando se acabe el tiempo se entrega lo que hayas escrito.</small><button class="pfo-btn pulso" id="pfo-proc-ok">Entregar y continuar ➤</button></div>
+        <div class="pfo-proc-f"><small>Sin ayudas. Cuando se acabe el tiempo se entrega lo que hayas escrito.</small><span class="pfo-in-act" style="flex-direction:row;align-items:center"><span id="pfo-mic-slot2"></span><button class="pfo-btn pulso" id="pfo-proc-ok">Entregar y continuar ➤</button></span></div>
       </section>`;
-    const t = $('#pfo-proc-txt'); t.value = E.procBorrador || ''; t.addEventListener('input', () => { E.procBorrador = t.value; clearTimeout(t._g); t._g = setTimeout(guardar, 400); }); t.focus();
+    const t = $('#pfo-proc-txt'); t.value = E.procBorrador || ''; montarMic('pfo-proc-txt', 'pfo-mic-slot2'); t.addEventListener('input', () => { E.procBorrador = t.value; clearTimeout(t._g); t._g = setTimeout(guardar, 400); }); t.focus();
     $('#pfo-proc-ok').addEventListener('click', () => {
       if (t.value.trim().length < 30 && !confirm('Casi no escribiste nada: si lo entregás así, la estación no puede superar 5. ¿Entregar igual?')) return;
       entregarProcedimiento('manual');
@@ -526,7 +581,7 @@ ${filas}
     finalizarEstacionAlumno(E.motivoCierre || motivo);
   }
   function finalizarEstacionAlumno(motivo) {
-    const E = estActual(); clearInterval(timer); E.fase = 'eval'; E.terminada = true; E.motivoCierre = motivo; guardar();
+    const E = estActual(); clearInterval(timer); soltarMic(); E.fase = 'eval'; E.terminada = true; E.motivoCierre = motivo; guardar();
     evaluarSegundoPlano(S.idx); siguienteOFin();
   }
   const todasCorregidas = () => S.estaciones.every((E) => E.cerrada);
@@ -534,8 +589,16 @@ ${filas}
   async function evaluarSegundoPlano(i) {
     const E = S.estaciones[i]; if (!E || E.cerrada || E.evaluando) return; E.evaluando = true; E.evalError = null;
     try {
-      const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref, i) + temaPrompt(E.tema), historial: E.hist.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje: mensajeCierre(E), es_primer_turno: false, accion: 'evaluar_caso' });
-      const ev = parsearEvaluacion(d.texto); if (!ev) throw new Error('No se pudo generar la evaluación de la estación.');
+      const c = casoDe(E); const pr = procDe(E); let ev = null, extra = '';
+      for (let intento = 0; intento < 3 && !ev; intento++) {
+        const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref, i) + temaPrompt(E.tema), historial: E.hist.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje: mensajeCierre(E) + extra, es_primer_turno: false, accion: 'evaluar_caso' });
+        const o = parsearEvaluacion(d.texto);
+        const okRub = !c || (o && Array.isArray(o.rubrica) && o.rubrica.length >= Math.ceil(c.rubrica.length * 0.8));
+        const okProc = !(pr && E.proc) || (o && o.procedimiento && typeof o.procedimiento === 'object');
+        if (o && okRub && okProc) ev = o;
+        else extra = `\n\n[Sistema] Tu respuesta anterior ${o ? 'estaba incompleta' : 'no fue un JSON válido'}: ${!okRub && c ? `falta el campo "rubrica" con un objeto por cada uno de los ${c.rubrica.length} ítems (ids ${c.rubrica.map((r) => r.id).join(', ')}).` : ''} ${!okProc ? 'Falta el campo "procedimiento" con {"cumple":[...],"parcial":[...]}.' : ''} Devolvé el objeto JSON COMPLETO, sin texto adicional.`;
+      }
+      if (!ev) throw new Error('La corrección no devolvió la rúbrica completa. Reintentá.');
       aplicarRubrica(E, ev); aplicarProcedimiento(E, ev); cerrarNota(E, ev); E.resultado = ev; E.cerrada = true;
     } catch (err) { E.evalError = (err && err.message) || 'No se pudo corregir la estación.'; }
     finally { E.evaluando = false; if (S) { guardar(); alCorregir(); } }
@@ -592,7 +655,7 @@ ${filas}
     const lbl = { suficiente: 'Suficiente', regular: 'Regular', insuficiente: 'Insuficiente' };
     const crit = (r.errores_criticos_cometidos || []).length ? `<div class="pfo-mod" style="background:rgba(239,68,68,.12);border:1px solid #ef4444;border-style:solid"><b>⛔ Error crítico: la estación no puede superar 5.</b><br>${r.errores_criticos_cometidos.map((x) => '• ' + esc(x)).join('<br>')}</div>` : '';
     return crit + `<div class="pfo-mod" style="background:rgba(245,158,11,.1);border-color:#f59e0b"><b>📋 Rúbrica de la estación: ${fmtNota(r.puntaje)} de ${r.puntaje_max} puntos</b></div>`
-      + r.rubrica_detalle.map((x) => `<div class="pfo-rv" style="border-left-color:${col(x.nivel)}"><div class="h"><span>${esc(x.bloque)} · ${esc(x.texto)}</span><span style="color:${col(x.nivel)}">${lbl[x.nivel]} · ${fmtNota(x.pts)}/${x.max}</span></div>${x.evidencia ? `<div style="margin-top:5px">🗣️ <b>Lo que hiciste:</b> ${esc(x.evidencia)}</div>` : ''}${x.nivel !== 'suficiente' ? `<div style="margin-top:5px">💡 <b>Para el puntaje completo:</b> ${esc(x.esperado)}</div>` : ''}</div>`).join('');
+      + r.rubrica_detalle.map((x) => `<div class="pfo-rv" style="border-left-color:${col(x.nivel)}"><div class="h"><span>${esc(x.bloque)} · ${esc(x.texto)}</span><span style="color:${col(x.nivel)}">${lbl[x.nivel]} · ${fmtNota(x.pts)}/${x.max}</span></div>${x.evidencia ? `<div style="margin-top:5px">🗣️ <b>Lo que hiciste:</b> ${esc(x.evidencia)}</div>` : ''}${x.verificada === false ? '<div style="margin-top:5px;color:#d97706">⚠️ No se encontró esa evidencia en lo que escribiste: se bajó un nivel.</div>' : ''}${x.nivel !== 'suficiente' ? `<div style="margin-top:5px">💡 <b>Para el puntaje completo:</b> ${esc(x.esperado)}</div>` : ''}</div>`).join('');
   }
   function renderProcedimiento(r) {
     const p = r.procedimiento_detalle; if (!p) return '';
@@ -642,7 +705,7 @@ ${filas}
     const rp = $('#pfo-rep'); if (rp) { const sel = S.estaciones.map((E) => ({ ref: E.ref, casoId: E.casoId })), rl = !S.sinReloj; rp.addEventListener('click', () => nuevaPractica(sel, rl)); }
     if (!practica) try { const h = hist(); h.push({ fecha: new Date().toLocaleDateString('es-AR'), global: Math.round(global * 10) / 10, aprobado, revision: forzado, notas, casos: S.estaciones.map((E) => E.casoId) }); localStorage.setItem(LS_HIST(), JSON.stringify(h.slice(-20))); } catch (_) {}
     try { if (window.NikaRendimiento && !forzado) window.NikaRendimiento.guardarExamen({ modulo: 'clinica', mode: practica ? 'ecoe_final_pfo_practica' : 'ecoe_final_pfo', total: S.estaciones.length, correct: notas.filter((n) => n >= C.notaMinEstacion).length, blank: 0, score: Math.round(global * 10) / 10, scorePct: Math.round(global * 10), durationSeconds: Math.round((Date.now() - S.creado) / 1000) }); } catch (_) {}
-    if (!practica) cerrarIntegridad();
+    cerrarIntegridad();
     limpiarGuardado(); if (aprobado && !practica) celebrar(); window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   // Cierra el intento de integridad y, si el sistema registró algo, explica qué detectó (igual que en los demás exámenes)
