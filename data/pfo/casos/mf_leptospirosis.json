@@ -1,7 +1,7 @@
 {
   "id": "mf_leptospirosis",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Retorno al hogar tras una inundación: leptospirosis y quimioprofilaxis en una embarazada",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -116,7 +116,7 @@
       "max": 10,
       "texto": "Quimioprofilaxis de la embarazada",
       "regular": "Indica amoxicilina sin dosis",
-      "suficiente": "Indica amoxicilina 500 mg cada 8 horas durante 3 días y fundamenta que la doxiciclina está contraindicada en el embarazo"
+      "suficiente": "Indica amoxicilina 500 mg cada 8 horas durante 3 días y fundamenta que la doxiciclina está contraindicada durante el embarazo por riesgo de toxicidad fetal"
     },
     {
       "id": 12,
@@ -124,7 +124,7 @@
       "max": 10,
       "texto": "Quimioprofilaxis de los hijos y del marido",
       "regular": "Indica correctamente a uno",
-      "suficiente": "Indica a Nacho (1 año) amoxicilina 125 mg (1,25 ml de la suspensión 500 mg en 5 ml) cada 8 horas durante 3 días, a Ana (9 años) doxiciclina 100 mg en dosis única y a Pedro doxiciclina 200 mg en dosis única"
+      "suficiente": "Indica a Nacho (1 año, 10 kg) amoxicilina 125 mg cada 8 horas por 3 días (2,5 ml de suspensión de 250 mg en 5 ml, o 1,25 ml de la de 500 mg en 5 ml); a Ana (9 años) doxiciclina 100 mg en dosis única (ya superó los 8 años de edad) y a Pedro doxiciclina 200 mg en dosis única"
     },
     {
       "id": 13,
