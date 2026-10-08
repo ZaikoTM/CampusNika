@@ -48,11 +48,7 @@ vm.runInContext(leer('js/pfoEcoe.js'), sandbox);
     md += `## Interlocutor\n${c.interlocutor}\n\n## Guion del paciente\n${c.guion_paciente}\n\n## Datos clínicos (se entregan solo si el alumno examina)\n${c.datos_clinicos}\n\n`;
     md += `## Estudios (se entregan solo si el alumno los pide)\n${c.estudios.map((e) => '- **' + e.clave + ':** ' + e.texto).join('\n')}\n\n`;
     md += `## Rúbrica (100 puntos; umbral ${c.umbral_aprobacion})\n\n| N.º | Bloque | Ítem | Máx. | Regular (mitad) | Suficiente (máximo) |\n|---|---|---|---|---|---|\n${c.rubrica.map((r) => `| ${r.id} | ${r.bloque} | ${r.texto} | ${r.max} | ${r.regular} | ${r.suficiente} |`).join('\n')}\n\n`;
-    md += `## Errores críticos (si el alumno comete uno, la estación no supera 5)
-${(c.errores_criticos || []).map((x) => '- ' + x).join('
-')}
-
-`;
+    md += `## Errores críticos (si el alumno comete uno, la estación no supera 5)\n${(c.errores_criticos || []).map((x) => '- ' + x).join('\n')}\n\n`;
     md += `## Prompt completo que recibe la IA\n\n\`\`\`\n${prompt}\n\`\`\`\n`;
     fs.writeFileSync(path.join(salida, id + '.md'), md);
     indice.push(`- [${c.nombre}](${id}.md) — ${c.duracionMin} min, ${c.rubrica.length} ítems`);
