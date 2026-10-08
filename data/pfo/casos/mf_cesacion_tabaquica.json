@@ -1,7 +1,7 @@
 {
   "id": "mf_cesacion_tabaquica",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Consejería breve y tratamiento de la cesación tabáquica",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -15,7 +15,7 @@
     "Brindar medidas conductuales y de prevención, y pautar el seguimiento."
   ],
   "interlocutor": "Mario Acosta, 52 años, remisero (habla él; motivado pero ansioso, ya intentó dejar una vez)",
-  "guion_paciente": "Mario Acosta, 52 años, remisero. Fuma desde los 18 años, 20 cigarrillos por día (un paquete por día; 34 paquetes-año). Prende el primer cigarrillo dentro de los 10 minutos de levantarse. Tiene tos matinal con flemas desde hace 2 años, a veces le falta el aire al subir escaleras; sin dolor de pecho. Intentó dejar hace 3 años «de golpe», aguantó dos semanas y recayó por el estrés y el nerviosismo. Ahora quiere dejarlo dentro del mes, porque su hija está embarazada y no quiere fumar cerca de su nieto.\nAntecedentes: hipertensión arterial hace 5 años, con enalapril 10 mg cada 12 horas; sin diabetes ni dislipemia conocida; sin convulsiones ni epilepsia; sin traumatismos de cráneo; sin trastornos de la conducta alimentaria; sin antecedentes psiquiátricos ni depresión; no toma antidepresivos ni IMAO. Padre fallecido de cáncer de pulmón. Alcohol: un vaso de vino con la comida, sin abuso. Sin alergias. Duerme 6 horas. Sedentario.\nEstá dispuesto a probar parches o pastillas; no quiere internarse ni ir a un grupo si no es necesario.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "guion_paciente": "Mario Acosta, 52 años, remisero. Fuma desde los 18 años, 20 cigarrillos por día (un paquete por día; 34 paquetes-año). Prende el primer cigarrillo apenas se levanta (en los primeros 5 minutos). Tiene tos matinal con flemas desde hace 2 años, a veces le falta el aire al subir escaleras; sin dolor de pecho. Intentó dejar hace 3 años «de golpe», aguantó dos semanas y recayó por el estrés y el nerviosismo. Ahora quiere dejarlo dentro del mes, porque su hija está embarazada y no quiere fumar cerca de su nieto.\nAntecedentes: hipertensión arterial hace 5 años, con enalapril 10 mg cada 12 horas; sin diabetes ni dislipemia conocida; sin convulsiones ni epilepsia; sin traumatismos de cráneo; sin trastornos de la conducta alimentaria; sin antecedentes psiquiátricos ni depresión; no toma antidepresivos ni IMAO. Padre fallecido de cáncer de pulmón. Alcohol: un vaso de vino con la comida, sin abuso. Sin alergias. Duerme 6 horas. Sedentario.\nEstá dispuesto a probar parches o pastillas; no quiere internarse ni ir a un grupo si no es necesario.\nPara datos no especificados: respondé con valores normales y negativos.",
   "datos_clinicos": "TA 138/86 mmHg, FC 80 por minuto, peso 84 kg, talla 1,72 m, IMC 28,4 kg/m², saturación 95 % al aire ambiente. Tórax con espiración prolongada y algunos roncus aislados; resto del examen sin particularidades.",
   "estudios": [
     {
@@ -88,7 +88,7 @@
       "max": 5,
       "texto": "Estudios",
       "regular": "Menciona la espirometría",
-      "suficiente": "Indica espirometría por tos crónica y más de 34 paquetes-año, y evalúa el riesgo cardiovascular global"
+      "suficiente": "Indica espirometría fundamentando la sospecha de EPOC (enfermedad pulmonar obstructiva crónica) por la edad, los síntomas y la alta carga tabáquica (más de 34 paquetes-año), y evalúa el riesgo cardiovascular global"
     },
     {
       "id": 8,
@@ -120,7 +120,7 @@
       "max": 10,
       "texto": "Tratamiento farmacológico",
       "regular": "Ofrece un fármaco sin dosis",
-      "suficiente": "Ofrece parches de nicotina de 21 mg por día durante 8 semanas (rotando el sitio), con chicles o comprimidos de rescate, o bupropión 150 mg por día iniciado 1 a 2 semanas antes del día D si no tiene contraindicaciones"
+      "suficiente": "Ofrece terapia de reemplazo de nicotina combinada (parches de 21 mg más rescates con chicles o comprimidos) como primera elección por la hipertensión, o bupropión 150 mg por día (aumentando luego a cada 12 horas) con control estricto de la tensión arterial, iniciado 1 a 2 semanas antes del día D"
     },
     {
       "id": 12,
@@ -128,7 +128,7 @@
       "max": 10,
       "texto": "Seguridad del fármaco",
       "regular": "Menciona un efecto adverso",
-      "suficiente": "Explica contraindicaciones y efectos adversos del fármaco elegido (convulsiones, insomnio y boca seca con bupropión; irritación local con parches)"
+      "suficiente": "Explica contraindicaciones y efectos adversos: irritación local o insomnio con los parches; y, con bupropión, contraindicaciones absolutas (convulsiones, anorexia o bulimia), insomnio, boca seca y picos hipertensivos"
     },
     {
       "id": 13,
