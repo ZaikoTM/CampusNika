@@ -250,7 +250,13 @@ ${filas}
     });
     $('#pr-todas', root).addEventListener('click', () => { root.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, true)); refrescar(); });
     $('#pr-ninguna', root).addEventListener('click', () => { root.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, false)); refrescar(); });
-    $('#pr-go', root).addEventListener('click', () => { const r = Object.keys(sel).map(Number).sort((a, b) => a - b).map((i) => ({ ref: i, casoId: sel[i] || null })); nuevaPractica(r, $('#pr-reloj', root).checked); });
+    $('#pr-go', root).addEventListener('click', () => {   // la selección sale de lo que está marcado en pantalla (única fuente de verdad)
+      const r = [...root.querySelectorAll('.pfo-pr-t.on')].map((t) => { const op = t.querySelector('.op.on'); return { ref: +t.dataset.i, casoId: (op && op.dataset.v) || null }; });
+      if (!r.length) return;
+      const lista = r.map((x) => CFG.estaciones[x.ref].icono + ' ' + CFG.estaciones[x.ref].nombre + (x.casoId ? ' (' + CASOS[x.casoId].nombre + ')' : ' (caso al azar)')).join('\n');
+      if (!confirm('Vas a practicar:\n' + lista + '\n\n¿Empezamos?')) return;
+      nuevaPractica(r, $('#pr-reloj', root).checked);
+    });
     refrescar();
   }
 
@@ -469,7 +475,10 @@ ${filas}
   function soltarMic() { try { if (micCtrl) { micCtrl.destroy(); micCtrl = null; } } catch (_) { micCtrl = null; } }
   function montarMic(taId, slotId) {
     soltarMic();
-    try { if (typeof SpeechManager === 'undefined' || !SpeechManager.soportado()) return; micCtrl = SpeechManager.attach({ textareaId: taId, mountId: slotId, lang: 'es-AR', maxChars: 2500 }); } catch (_) { micCtrl = null; }
+    try {
+      if (typeof SpeechManager === 'undefined' || !SpeechManager.soportado()) { const sl = document.getElementById(slotId); if (sl) sl.innerHTML = '<button type="button" class="pfo-mic-off" aria-disabled="true" title="Tu navegador no permite dictar por voz (Brave lo bloquea). Probá en Chrome o Edge.">🎤</button>'; return; }
+      micCtrl = SpeechManager.attach({ textareaId: taId, mountId: slotId, lang: 'es-AR', maxChars: 2500 });
+    } catch (_) { micCtrl = null; }
   }
   async function iniciarEstacion() { await turnoApertura(); }
   async function turnoApertura() {

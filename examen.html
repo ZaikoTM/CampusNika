@@ -4646,7 +4646,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             const valor = userAnswers[idx] || '';
             const mic = EscritoMic.soportado()
                 ? `<button type="button" class="btn-mic" id="btn-mic" onclick="EscritoMic.alternar()" title="Dictá tu respuesta con el micrófono">🎤 Dictar</button>`
-                : '';
+                : `<button type="button" class="btn-mic" id="btn-mic" disabled style="opacity:.55;cursor:not-allowed" title="Tu navegador no permite dictar por voz (Brave lo bloquea). Probá en Chrome o Edge.">🎤 Dictado no disponible</button>`;
             return `<div class="escrito-wrap">
                 <label class="escrito-label" for="respuesta-escrita">Tu desarrollo</label>
                 <textarea id="respuesta-escrita" class="escrito-textarea" maxlength="${ESCRITO_CFG.maxChars}" spellcheck="true" lang="es" oninput="onEscritoInput(this)" placeholder="Desarrollá la respuesta como lo harías ante el tribunal: definición, clínica, diagnóstico, conducta…">\n${escaparHtml(valor)}</textarea>

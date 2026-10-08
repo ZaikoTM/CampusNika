@@ -349,3 +349,5 @@ body.ei-protegido #pfo-main { -webkit-user-select: none; user-select: none; } bo
 @media (max-width: 640px) { .pfo-toggle button { min-width: 0; padding: 10px 16px; } .pfo-sel { justify-content: center; } }
 
 .pfo-in-act { display: flex; flex-direction: column; gap: 8px; align-items: stretch; } .pfo-in-act #pfo-mic-slot, .pfo-in-act #pfo-mic-slot2 { display: flex; justify-content: center; }
+
+.pfo-mic-off { width: 44px; height: 44px; border-radius: 50%; border: 1px dashed var(--pf-bd); background: var(--pf-card2); color: var(--pf-mut); font-size: 1.1rem; cursor: not-allowed; opacity: .7; }
