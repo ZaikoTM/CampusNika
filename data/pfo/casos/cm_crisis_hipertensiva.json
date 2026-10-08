@@ -1,7 +1,7 @@
 {
   "id": "cm_crisis_hipertensiva",
   "area": "clinica_medica",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Cefalea con presión arterial de 195/120: crisis hipertensiva",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -29,7 +29,7 @@
     },
     {
       "clave": "control_tension",
-      "texto": "Controles posteriores (a medida que el alumno trata): a los 30 minutos de enalapril 10 mg y reposo, TA 178/112 mmHg; a los 60 minutos, 168/104 mmHg; a las 3 horas, 150/94 mmHg."
+      "texto": "Controles posteriores (a medida que el alumno trata): tras 60 minutos de reposo, TA 188/116 mmHg; a las 2 horas de enalapril 10 mg por vía oral, 168/104 mmHg; a las 3 horas, 150/94 mmHg. Si el alumno repite el enalapril antes de las 2 horas, la presión cae bruscamente a las 4 horas (130/80 con mareo)."
     }
   ],
   "umbral_aprobacion": 60,
@@ -109,7 +109,7 @@
       "max": 10,
       "texto": "Reposo y medidas iniciales",
       "regular": "Indica reposo",
-      "suficiente": "Indica reposo en un lugar tranquilo durante 10 a 30 minutos como mínimo, sin diclofenac, y control de presión cada 30 minutos"
+      "suficiente": "Indica reposo en un lugar tranquilo durante 30 a 60 minutos como mínimo, sin diclofenac, y control de la presión cada 30 minutos"
     },
     {
       "id": 10,
@@ -117,7 +117,7 @@
       "max": 10,
       "texto": "Tratamiento farmacológico en observación",
       "regular": "Indica un fármaco sin dosis",
-      "suficiente": "Indica enalapril 10 mg por vía oral (repetible cada 30 minutos hasta 2 o 3 veces) y amlodipina 5 mg si no responde; diazepam 5 mg si hay ansiedad"
+      "suficiente": "Indica enalapril 10 mg por vía oral (o amlodipina 5 mg), explica que el descenso debe ser gradual, aguarda el tiempo de acción del fármaco (1 a 2 horas) y evita repetir dosis de forma precipitada; diazepam 5 mg si hay ansiedad"
     },
     {
       "id": 11,
@@ -125,7 +125,7 @@
       "max": 10,
       "texto": "Meta de descenso",
       "regular": "Menciona el descenso",
-      "suficiente": "Explica que debe bajar un 25 a 30 % de la presión arterial media en 6 a 12 horas (calcula la presión arterial media) y evita descensos bruscos"
+      "suficiente": "Explica que el descenso debe ser gradual y no mayor al 20 a 25 % de la presión arterial media en las primeras horas (calcula la presión arterial media), con una meta de control en 24 a 48 horas (se acepta 25 a 30 % en 6 a 12 horas si lo justifica), y evita descensos bruscos"
     },
     {
       "id": 12,
