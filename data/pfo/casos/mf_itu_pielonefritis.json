@@ -1,0 +1,150 @@
+{
+  "id": "mf_itu_pielonefritis",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Infección urinaria que no mejora: pielonefritis en una paciente diabética con litiasis",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia / centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted atiende a Claudia Zubizarreta, de 35 años, que consulta por fiebre persistente de 39 °C, escalofríos y dolor en la región lumbar derecha de 48 horas de evolución. Hace cinco días le diagnosticaron una cistitis no complicada y recibió ciprofloxacina 500 mg cada 12 horas, pero no mejoró y ahora tiene náuseas, vómitos y malestar general. Niega síntomas respiratorios o digestivos. Tiene litiasis renal diagnosticada hace 5 años, asintomática, y diabetes tipo 2 (tratada con metformina). Signos vitales: TA 100/60 mmHg, FC 110 por minuto, FR 22 por minuto, temperatura 39 °C, saturación 98 % al aire ambiente.",
+  "objetivos": [
+    "Realizar anamnesis y examen físico dirigidos al motivo de consulta.",
+    "Evaluar los estudios que trae la paciente (laboratorio).",
+    "Formular una impresión diagnóstica y una conducta terapéutica.",
+    "Explicar a la paciente con términos claros y sencillos."
+  ],
+  "interlocutor": "Claudia Zubizarreta, 35 años, maestra (habla ella; está decaída, con escalofríos)",
+  "guion_paciente": "Claudia Zubizarreta, 35 años, maestra jardinera. Hace 5 días tuvo ardor al orinar y ganas de orinar muy seguido; en la guardia le dijeron cistitis y le dieron ciprofloxacina 500 mg cada 12 horas. Casi no mejoró. Hace 2 días empezó con fiebre alta, escalofríos intensos y dolor en la espalda, abajo, del lado derecho, que se va hacia adelante; ahora tiene náuseas y vomitó 3 veces hoy (alimento, sin sangre), puede tomar pocos sorbos de agua. Orina poco, concentrada, con ardor leve; sin sangre visible. Malestar general, mareo al pararse. Sin tos ni diarrea.\nEs el segundo episodio de infección urinaria en el último año; el anterior fue tratado en forma ambulatoria sin urocultivo. Cálculos en el riñón derecho diagnosticados hace 5 años (una ecografía mostró litiasis, nunca tuvo cólicos). Diabetes tipo 2 hace 3 años, con metformina 850 mg dos veces por día, que hoy no pudo tomar por los vómitos; su última hemoglobina glicosilada fue 7,4 % hace 4 meses. Sin hipertensión; sin alergias a medicamentos (no tuvo reacciones a antibióticos); sin cirugías. FUM hace 3 semanas, ciclos regulares, usa preservativo; sin embarazo posible. Flujo habitual, sin cambios ni picazón. Vacunas al día.\nHábitos: toma poca agua, a veces aguanta la orina en el trabajo; no fuma; sin alcohol.\nLaboratorio que trae (de la guardia, de hoy): ver estudios.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 100/60 mmHg, FC 110 por minuto, FR 22 por minuto, temperatura 39 °C, saturación 98 %, glucemia capilar 245 mg/dl. Vigil, orientada, con aspecto de enferma, piel caliente y mucosas secas, signo del pliegue positivo, relleno capilar de 3 segundos. Aparato cardiovascular y respiratorio sin particularidades. Abdomen blando, depresible, con dolor leve a la palpación profunda en flanco derecho y puntos ureterales superior y medio derechos; sin defensa ni reacción peritoneal; ruidos hidroaéreos presentes. Puño percusión lumbar derecha muy positiva (Giordano); izquierda negativa. Sin lesiones en la piel.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 18.500/mm³ con 88 % de neutrófilos (desviación a la izquierda), hemoglobina 12,6 g/dl, plaquetas 210.000/mm³. Glucemia 245 mg/dl. Urea 40 mg/dl, creatinina 1,0 mg/dl, sodio 135 mEq/L, potasio 4,0 mEq/L. Estado ácido-base: pH 7,38, bicarbonato 21 mEq/L. Orina completa: leucocitos incontables por campo, bacterias abundantes, nitritos positivos, cilindros leucocitarios presentes, proteínas 1+, cetonas negativas, sin hematíes significativos. Urocultivo con antibiograma y hemocultivos por dos: pendientes de toma."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía renovesical: riñón derecho de tamaño conservado con leve dilatación pielocalicial y una imagen hiperecogénica de 6 mm en el cáliz inferior; riñón izquierdo sin particularidades; vejiga sin alteraciones (si la solicita)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Dar el alta con el mismo antibiótico en una paciente con falla de tratamiento, fiebre, vómitos y factores de complicación",
+    "No indicar internación ni tratamiento endovenoso en una paciente con pielonefritis, litiasis y diabetes con intolerancia oral",
+    "Indicar un antibiótico al que la paciente es alérgica o que está contraindicado"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Enfermedad actual y respuesta al tratamiento",
+      "regular": "Indaga los síntomas actuales sin el tratamiento previo",
+      "suficiente": "Indaga tiempo de evolución, respuesta al tratamiento recibido, síntomas actuales (disuria, polaquiuria, fiebre, dolor lumbar) y cambios en la orina"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Vómitos y tolerancia oral",
+      "regular": "Pregunta si vomitó",
+      "suficiente": "Indaga características y cantidad de vómitos y si puede tomar líquidos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes urológicos y de ITU",
+      "regular": "Indaga la litiasis o las ITU previas",
+      "suficiente": "Indaga ITU previas (fecha, tratamiento, internación), litiasis renal (lado, tiempo, controles) y ecografías previas"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Comorbilidades, alergias y gineco-obstétricos",
+      "regular": "Indaga diabetes o alergias",
+      "suficiente": "Indaga diabetes y medicación, alergias a antibióticos, embarazo posible, FUM, método anticonceptivo, flujo y antecedentes de cirugías"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y estado general",
+      "regular": "Interpreta algunos valores",
+      "suficiente": "Reconoce taquicardia, fiebre, taquipnea e hipotensión relativa, y evalúa hidratación y estabilidad hemodinámica"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal y lumbar",
+      "regular": "Realiza solo la palpación",
+      "suficiente": "Realiza inspección, auscultación, palpación (puntos ureterales superior y medio) y puño percusión lumbar bilateral"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce leucocitosis o piuria",
+      "suficiente": "Interpreta leucocitosis con neutrofilia, hiperglucemia, orina con piuria, nitritos y cilindros leucocitarios, y función renal conservada"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea infección urinaria",
+      "suficiente": "Plantea pielonefritis aguda complicada (falla del tratamiento ambulatorio, litiasis, diabetes), con riesgo de sepsis"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y estudios",
+      "regular": "Indica internación sin estudios",
+      "suficiente": "Indica internación en sala general, control de signos vitales y glucemia, urocultivo con antibiograma, hemocultivos por dos, laboratorio completo y ecografía renovesical para descartar obstrucción"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Hidratación",
+      "regular": "Indica hidratación sin esquema",
+      "suficiente": "Indica hidratación parenteral con solución fisiológica 0,9 % (21 gotas por minuto) y reevalúa"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibiótico",
+      "regular": "Indica un antibiótico adecuado sin dosis",
+      "suficiente": "Indica ceftriaxona 1 g cada 12 horas (o 1 a 2 g cada 24 horas) por vía endovenosa"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Sintomáticos y medicación habitual",
+      "regular": "Indica antitérmicos sin analgésicos",
+      "suficiente": "Indica antitérmico (dipirona o paracetamol 500 mg cada 6 horas) y analgésico (ketorolac 30 mg cada 8 horas) y ajusta la medicación habitual de la diabetes durante la internación"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Criterios de alta e interconsulta",
+      "regular": "Menciona la interconsulta o el alta",
+      "suficiente": "Pauta el alta con paciente afebril 24 a 48 horas, tolerancia oral y mejoría clínica, con tratamiento total de 10 a 14 días; pide interconsulta con clínica médica y urología"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Educación y signos de alarma",
+      "regular": "Explica sin pautas de alarma",
+      "suficiente": "Explica el cuadro con lenguaje claro, indica hidratación de 2 a 3 litros por día, higiene, no aguantar la orina y control en 48 a 72 horas, y da pautas de alarma"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "id": "mf_hipotiroidismo",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Somnolencia, aumento de peso y caída del cabello: hipotiroidismo",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a y los miércoles atiende en el centro de salud de San Cipriano. Como en todo pueblo pequeño, todos se conocen. Concurre Emilia, que siente ganas de dormir todo el tiempo, aumento de peso a pesar de comer siempre lo mismo, y ha observado caída del cabello y trastornos menstruales. Al interrogatorio está apática, indiferente, con voz ronca y sin demasiado interés. Presenta mucha ropa a pesar de no hacer tanto frío. Usted observa facies edematosas, cabello reseco, uñas quebradizas y piel seca. A los controles vitales se encuentra tendiente a la hipotensión y a la bradicardia. Trae un laboratorio hecho de forma ambulatoria.",
+  "objetivos": [
+    "Interpretar correctamente la signo-sintomatología y elaborar una impresión diagnóstica.",
+    "Solicitar e interpretar correctamente los estudios complementarios traídos por la paciente.",
+    "Solicitar un estudio por imágenes.",
+    "Establecer una conducta terapéutica adecuada.",
+    "Comunicar de forma clara a la familia el diagnóstico presuntivo y las características del cuadro."
+  ],
+  "interlocutor": "Emilia Ríos, 44 años, almacenera (habla ella, en primera persona; lenta, poco expresiva; su marido la acompaña)",
+  "guion_paciente": "Emilia Ríos, 44 años, atiende un almacén en San Cipriano. Hace casi un año está cada vez más cansada y con sueño todo el día; tiene frío todo el tiempo; aumentó 9 kg sin cambiar lo que come; se le cae el pelo y la piel está seca; tiene constipación (va al baño cada 3 días); la voz más ronca; los ciclos menstruales se volvieron irregulares y abundantes; está más lenta, con poca memoria y algo deprimida. Nunca consultó antes («se me pasa»). Sin dolor de pecho ni palpitaciones, sin problemas cardíacos conocidos. Hace un mes tuvo ardor de estómago y le dijeron que tomara omeprazol; está algo pálida.\nAntecedentes: no tiene enfermedades crónicas conocidas; no toma medicación fija (solo omeprazol 20 mg por su cuenta); sin amiodarona ni litio ni anticonceptivos; sin cirugías del cuello; sin radioterapia ni yodo; madre con enfermedad de la tiroides. Sin alergias. No fuma ni toma alcohol. Vacunas: no recuerda.\nEl marido pregunta si es grave y si «se la va a pasar».\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Signos vitales: TA 100/60 mmHg, FC 52 por minuto, FR 14, temperatura 36,0 °C, saturación 97 %, peso 82 kg, talla 1,60 m, IMC 32 kg/m². Facies inexpresiva con edema periorbitario y pérdida de la cola de las cejas; piel seca, fría y áspera; cabello ralo y reseco; uñas quebradizas. Cuello: tiroides algo aumentada de tamaño (bocio difuso pequeño), consistencia firme, sin nódulos. Auscultación cardíaca con ruidos hipofonéticos, sin soplos; pulmonar normal. Reflejo aquiliano con relajación lenta. Sin edema con fóvea.",
+  "estudios": [
+    {
+      "clave": "laboratorio_traido",
+      "texto": "[BORRADOR] TSH 62 µUI/ml (valor normal 0,4 a 4,5), T4 libre 0,3 ng/dl (disminuida), T3 disminuida. Anticuerpos antiperoxidasa (ATPO) positivos y antitiroglobulina positivos. Hemograma: hemoglobina 10,2 g/dl, VCM 76 fl (anemia microcítica), ferritina 8 ng/ml. Colesterol total 290 mg/dl, LDL 190, triglicéridos 230, HDL 45. CPK 320 U/L. Glucemia 92 mg/dl. Creatinina 0,8 mg/dl. Hepatograma normal."
+    },
+    {
+      "clave": "ecografia_tiroidea",
+      "texto": "[BORRADOR] Ecografía de tiroides: glándula aumentada de tamaño con ecoestructura heterogénea e hipoecogénica difusa compatible con tiroiditis crónica; sin nódulos."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: bradicardia sinusal a 50 por minuto, bajo voltaje, sin otras alteraciones."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar levotiroxina a dosis altas de inicio sin ajustar a la edad, el peso o las comorbilidades, o sin plan de control",
+    "Tratar el hipotiroidismo con dieta o suplementos sin solicitar TSH y T4 libre",
+    "Indicar levotiroxina junto con hierro, calcio u omeprazol sin separar las tomas"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas de hipotiroidismo",
+      "regular": "Indaga dos síntomas",
+      "suficiente": "Indaga somnolencia, aumento de peso, intolerancia al frío, constipación, caída del cabello, piel seca, ronquera, menstruación y estado de ánimo"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Tiempo de evolución y consultas previas",
+      "regular": "Pregunta cuánto hace",
+      "suficiente": "Indaga tiempo de evolución, si consultó, si fue medicada por problemas de tiroides y estudios previos de cuello"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y medicación",
+      "regular": "Indaga uno de los dos",
+      "suficiente": "Indaga enfermedades crónicas (autoinmunes), medicación (amiodarona, litio, anticonceptivos, omeprazol), cirugías de cuello, radioterapia y antecedentes familiares de tiroides"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas cardíacos y hábitos",
+      "regular": "Indaga uno de los dos",
+      "suficiente": "Indaga problemas cardíacos, dolor de pecho y palpitaciones, tabaco, alcohol y vacunación"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Mide signos vitales, peso, talla e IMC, inspecciona facies, piel y faneras, palpa la tiroides (por detrás, con deglución), ausculta el corazón y los pulmones"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce TSH elevada",
+      "suficiente": "Interpreta TSH elevada con T4 libre y T3 bajas (hipotiroidismo primario), ATPO positivos (Hashimoto), anemia ferropénica y dislipemia"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Impresión diagnóstica",
+      "regular": "Plantea hipotiroidismo",
+      "suficiente": "Plantea hipotiroidismo primario probablemente autoinmune (tiroiditis de Hashimoto) de larga data"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estudio por imágenes",
+      "regular": "Menciona una ecografía",
+      "suficiente": "Solicita ecografía de tiroides y cuello para evaluar la estructura (nódulos, bocio) y explica que no es necesaria para iniciar el tratamiento"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Levotiroxina: inicio y dosis",
+      "regular": "Indica levotiroxina sin dosis",
+      "suficiente": "Indica levotiroxina a dosis baja de inicio (25 a 50 µg por día) con ajuste progresivo hasta el eutiroidismo (dosis de reemplazo 1,6 µg/kg por día), con cautela por edad y cardiopatía"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Forma de toma e interacciones",
+      "regular": "Menciona la toma en ayunas",
+      "suficiente": "Indica tomarla en ayunas con agua, 30 a 60 minutos antes del desayuno, y separarla del hierro, el calcio y el omeprazol"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Anemia y medicación asociada",
+      "regular": "Menciona la anemia",
+      "suficiente": "Indica tratar la anemia con sulfato ferroso con las comidas y vitamina C, separado 4 horas de la levotiroxina, y reevalúa el omeprazol"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento no farmacológico",
+      "regular": "Indica una medida",
+      "suficiente": "Aconseja actividad física, alimentación saludable y bajar de peso gradualmente, aclarando que el hipotiroidismo no es la única causa del sobrepeso"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento",
+      "regular": "Cita sin plazo",
+      "suficiente": "Cita en 6 a 8 semanas (o al mes) con TSH y T4 libre para ajustar la dosis, y luego cada 4 a 6 meses una vez alcanzado el eutiroidismo"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación con la familia",
+      "regular": "Explica pero sin verificar la comprensión",
+      "suficiente": "Explica con lenguaje claro y empático la enfermedad, que es tratable de por vida con una pastilla diaria, tranquiliza al marido y pregunta si hay dudas"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "id": "mf_gea_adulto_mayor",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Diarrea aguda con deshidratación en una adulta mayor hipertensa y diabética",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Lorena Méndez, de 65 años, consulta por diarrea de 3 días de evolución, caracterizada por evacuaciones líquidas abundantes (aproximadamente 8 a 10 episodios al día), sin sangre ni moco. Refiere náuseas y episodios de vómito, además de debilidad generalizada y mareo al ponerse de pie. Es hipertensa diagnosticada hace 10 años (enalapril 10 mg por día) y diabética (metformina 850 mg cada 12 horas). Signos vitales: TA 90/60 mmHg, temperatura 37,3 °C, FC 110 por minuto, FR 20 por minuto, saturación 98 %. Examen físico: lúcida, con astenia; mucosas secas; turgencia cutánea disminuida; signo del pliegue positivo; ruidos intestinales aumentados; extremidades frías con llenado capilar prolongado (más de 3 segundos).",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Realizar una impresión diagnóstica.",
+    "Plantear diagnósticos diferenciales.",
+    "Comunicar a la paciente la conducta a seguir y el tratamiento."
+  ],
+  "interlocutor": "Lorena Méndez, 65 años, jubilada (habla ella, en primera persona; débil, con voz baja)",
+  "guion_paciente": "Lorena Méndez, 65 años, ama de casa jubilada. Hace 3 días tiene diarrea acuosa abundante, 8 a 10 veces por día, sin sangre, moco ni pus. Empezó después de comer una ensalada con mayonesa casera en un cumpleaños; su hija también tuvo diarrea más leve, ya está bien. Tiene náuseas y vomitó 3 veces ayer (restos de comida); hoy no tolera casi nada. Dolor de panza tipo retorcijón, leve, difuso. Fiebre baja (37,3 °C). Mareos al pararse, mucha sed, debilidad; orina poco y oscura desde ayer. Sin confusión, pero algo somnolienta. Sin viajes recientes; toma agua de red; no tomó antibióticos recientemente; no tomó antidiarreicos.\nAntecedentes: hipertensa hace 10 años (enalapril 10 mg por día, que sigue tomando) y diabética tipo 2 (metformina 850 mg cada 12 horas hace 8 años, sin cambios de dosis); sin dislipemia ni enfermedad renal ni cardíaca conocidas; sin cirugías abdominales; sin alergias. Última internación hace 15 años (colecistectomía). Vacunas: antigripal y antineumocócica al día. No fuma, no toma alcohol.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 90/60 mmHg, FC 110 por minuto, FR 20, temperatura 37,3 °C, saturación 98 %, glucemia capilar 138 mg/dl. Lúcida, con astenia y somnolencia leve. Mucosas secas, lengua saburral, signo del pliegue positivo, ojos hundidos, extremidades frías con llenado capilar mayor de 3 segundos. Abdomen blando, depresible, doloroso a la palpación profunda de forma difusa y leve, sin defensa ni reacción peritoneal, ruidos hidroaéreos aumentados, sin masas. Neurológico: sin focalidad. Sin edemas.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 11.200/mm³, hematocrito 48 % (hemoconcentración), hemoglobina 15 g/dl. Glucemia 142 mg/dl. Urea 78 mg/dl, creatinina 1,6 mg/dl (valor previo 0,8, lesión renal aguda prerrenal). Sodio 133 mEq/L, potasio 3,2 mEq/L, cloro 98. Estado ácido-base: pH 7,31, bicarbonato 17 mEq/L (acidosis metabólica con anión restante normal), lactato 2,6 mmol/L."
+    },
+    {
+      "clave": "coprocultivo",
+      "texto": "[BORRADOR] Coprocultivo y coproparasitológico: se toman las muestras; resultados pendientes (sin antibióticos hasta confirmar etiología bacteriana)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No reconocer ni tratar la deshidratación moderada a grave con hipotensión en una paciente con comorbilidades",
+    "Continuar la metformina y el enalapril en una paciente hipovolémica con riesgo de lesión renal aguda",
+    "Indicar antibióticos de forma sistemática o antidiarreicos que frenan el tránsito"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Características de la diarrea",
+      "regular": "Indaga algunas características",
+      "suficiente": "Indaga tiempo de evolución, número de deposiciones, consistencia, volumen, sangre, moco o pus, y su relación con comidas"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados y signos de alarma",
+      "regular": "Indaga fiebre o vómitos",
+      "suficiente": "Indaga dolor abdominal (ALICIA), fiebre, náuseas y vómitos, diuresis, confusión, somnolencia, debilidad y tolerancia oral"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Epidemiología y alimentación",
+      "regular": "Indaga uno de los dos",
+      "suficiente": "Indaga alimentos de los últimos días, agua, convivientes o contactos con los mismos síntomas y viajes"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y medicación",
+      "regular": "Indaga la medicación",
+      "suficiente": "Indaga hipertensión, diabetes, enfermedad renal, medicación (metformina, enalapril, tiempo y dosis), antibióticos recientes, alergias y vacunación"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y hemodinamia",
+      "regular": "Menciona la presión baja",
+      "suficiente": "Reconoce hipotensión, taquicardia, y evalúa llenado capilar y perfusión"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estado de hidratación",
+      "regular": "Evalúa mucosas o pliegue",
+      "suficiente": "Evalúa mucosas, sed, diuresis, signo del pliegue y llenado capilar, y clasifica la deshidratación como moderada a grave"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal y neurológico",
+      "regular": "Examina el abdomen",
+      "suficiente": "Realiza inspección, auscultación, palpación (defensa) y percusión del abdomen, y evalúa el estado de conciencia"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Plantea gastroenteritis",
+      "suficiente": "Diagnostica gastroenteritis aguda con deshidratación moderada a grave e hipovolemia, y plantea diferenciales (viral, bacteriana, osmótica, colitis isquémica, diarrea por metformina)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación e hidratación",
+      "regular": "Indica internación sin reposición",
+      "suficiente": "Indica internación, acceso venoso e hidratación parenteral con solución fisiológica 0,9 % en bolo de 500 ml con reevaluación, y control estricto de diuresis"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (ionograma, hemograma, glucemia, urea, creatinina, estado ácido-base) y coprocultivo si se sospecha causa bacteriana"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Medicación habitual",
+      "regular": "Menciona la metformina o el enalapril",
+      "suficiente": "Suspende temporalmente la metformina y el enalapril por hipovolemia y riesgo de lesión renal aguda y acidosis láctica, y controla la glucemia"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Sintomáticos y antibióticos",
+      "regular": "Indica antiemético o antitérmico",
+      "suficiente": "Indica metoclopramida 10 mg si hay vómitos y paracetamol 500 mg cada 6 horas; explica que no se indican antibióticos por ser un cuadro probablemente viral, salvo disentería o compromiso sistémico"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Dieta y criterios de alarma",
+      "regular": "Da una de las dos",
+      "suficiente": "Indica dieta astringente progresiva, 2 a 3 litros de líquido por día luego de cada deposición, y pautas de alarma (sangre en las heces, fiebre persistente, vómitos incoercibles, oliguria, somnolencia)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con claridad por qué se interna, qué se hará, que es autolimitado (2 a 5 días) y pregunta si tiene dudas"
+    }
+  ]
+}

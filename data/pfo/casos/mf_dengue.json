@@ -1,0 +1,152 @@
+{
+  "id": "mf_dengue",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Síndrome febril agudo: dengue sin signos de alarma",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Ricardo, de 25 años, concurre al Centro de Salud Giacomotti trayendo un laboratorio hecho en la guardia, por un cuadro que se inició hace 6 días con dolor de cabeza y malestar general; horas después se agregaron escalofríos, dolores musculares y articulares. Hoja de enfermería: peso 75 kg, talla 1,70 m, TA 120/80 mmHg, temperatura 39 °C, saturación 98 %.",
+  "objetivos": [
+    "Nombrar en voz alta las posibles causas del cuadro clínico.",
+    "Identificar si se trata de una enfermedad de denuncia inmediata y obligatoria.",
+    "Identificar y nombrar en voz alta los parámetros de laboratorio alterados.",
+    "Indicar la conducta terapéutica de acuerdo con el cuadro clínico.",
+    "Nombrar los estudios que solicitaría para el síndrome febril agudo y los controles a las 24 a 48 horas.",
+    "Indicar medidas de prevención comunitaria y pautas de alarma, y fijar un nuevo control clínico y de laboratorio."
+  ],
+  "interlocutor": "Ricardo Fernández, 25 años, repartidor (habla él; molesto por el malestar pero colaborador)",
+  "guion_paciente": "Ricardo Fernández, 25 años, repartidor de una pizzería; vive en el barrio San Cayetano con sus padres y una hermana, en una casa con patio con baldes y neumáticos viejos. Hace 6 días empezó con dolor de cabeza fuerte (detrás de los ojos), malestar general; a las pocas horas, escalofríos y dolores musculares y articulares en todo el cuerpo. La fiebre le llegó a 39 °C; tomó ibuprofeno 400 mg el segundo y el tercer día (le bajó un poco), no tomó otra cosa. Tuvo un episodio de vómito el primer día, ahora tolera líquidos y comida. Sin dolor abdominal, sin sangrado de encías, nariz ni en la orina o las heces, sin somnolencia ni irritabilidad, sin dificultad para respirar, sin manchas en la piel. No viajó. Una prima del barrio tuvo dengue hace dos semanas.\nAntecedentes: sano, sin enfermedades crónicas ni medicación, sin alergias; vacunas al día; no fuma; alcohol ocasional. Familiares sin enfermedades relevantes.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Temperatura 39 °C, TA 120/80 mmHg, FC 92 por minuto, saturación 98 %. Vigil, orientado, buen estado de hidratación (mucosas húmedas, pliegue negativo, diuresis conservada). Fauces sin exudados. Pulmones limpios. Abdomen blando, depresible, indoloro, sin visceromegalias (hígado no palpable). Sin petequias ni rash. Prueba del lazo negativa (menos de 30 petequias en 5 minutos) si la realiza.",
+  "estudios": [
+    {
+      "clave": "laboratorio_traido",
+      "texto": "Hemograma: plaquetas 115.000/mm³ (plaquetopenia), leucocitos 2.500/mm³ (leucopenia); fórmula: neutrófilos 40 % (1.000/mm³, neutropenia moderada), eosinófilos 2 %, basófilos 0 %, linfocitos 54 % (1.350/mm³, linfocitosis relativa), monocitos 4 %. Es decir, bicitopenia. Glucemia 98 mg/dl. Uremia 18 mg/dl. Creatinina 1,02 mg/dl. Sodio 138 mEq/L, potasio 4,3 mEq/L."
+    },
+    {
+      "clave": "estudios_dengue",
+      "texto": "[BORRADOR] Si solicita estudios: hematocrito 45 % (sin hemoconcentración), GOT 48 U/L, GPT 52 U/L; NS1 y PCR y serología IgM: se toman, resultados pendientes (la confirmación es para vigilancia epidemiológica). Ecografía abdominal: sin líquido libre ni derrame pleural, hígado de tamaño normal."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar aspirina, ibuprofeno, diclofenac o corticoides en un paciente con sospecha de dengue",
+    "Indicar un antibiótico en forma sistemática para un cuadro viral",
+    "No identificar los signos de alarma ni notificar la enfermedad de denuncia obligatoria"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas de la enfermedad actual",
+      "regular": "Indaga cefalea o dolores",
+      "suficiente": "Indaga cefalea (localización), mialgias y artralgias, fiebre medida con termómetro, vómitos, diarrea y erupciones"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Medicación y exposición",
+      "regular": "Indaga la medicación o el entorno",
+      "suficiente": "Indaga medicación recibida y cuándo, domicilio y vectores (agua estancada), convivientes o vecinos con síntomas y viajes recientes"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Comorbilidades",
+      "regular": "Indaga enfermedades o medicación",
+      "suficiente": "Indaga enfermedades crónicas, medicación habitual (anticoagulantes), alergias y antecedentes familiares"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Signos de alarma",
+      "regular": "Indaga dos o tres signos",
+      "suficiente": "Indaga dolor abdominal intenso y sostenido, vómitos persistentes, sangrado de mucosas, alteración de la conciencia, aumento del hígado y dificultad respiratoria (derrame seroso)"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Toma signos vitales, evalúa hidratación (ingresos y egresos, mucosas, pliegue), fauces, aparato respiratorio y abdomen, y realiza la prueba del lazo"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Nombra uno o dos",
+      "suficiente": "Nombra en voz alta dengue, zika, chikungunya, leptospirosis y hantavirus, y fundamenta el dengue por el cuadro clínico y el nexo epidemiológico"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce la plaquetopenia o la leucopenia",
+      "suficiente": "Identifica plaquetopenia, leucopenia con neutropenia y linfocitosis relativa (bicitopenia) y explica que la plaquetopenia sola no es criterio de gravedad"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Notificación",
+      "regular": "Dice que se notifica",
+      "suficiente": "Explica que es una enfermedad de denuncia obligatoria, que se completa la ficha y que se realiza el bloqueo sanitario del domicilio y el barrio"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios específicos y de control",
+      "regular": "Solicita algunos estudios",
+      "suficiente": "Solicita laboratorio completo (hemograma, coagulograma, hepatograma, función renal, ionograma), NS1 o PCR si tiene menos de 3 días y IgM si tiene más de 3 días, y ecografía abdominal; control de laboratorio a las 24 a 48 horas"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Clasificación y manejo ambulatorio",
+      "regular": "Indica manejo ambulatorio sin justificar",
+      "suficiente": "Clasifica como dengue sin signos de alarma ni comorbilidades (grupo A) y justifica el manejo ambulatorio por tolerar la vía oral"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento farmacológico y no farmacológico",
+      "regular": "Indica una medida",
+      "suficiente": "Indica hidratación oral de 2 a 3 litros por día, reposo relativo y paracetamol 500 mg cada 6 horas solo con fiebre (máximo 2 g por día)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Medicación contraindicada",
+      "regular": "Menciona alguna",
+      "suficiente": "Prohíbe aspirina, ibuprofeno, diclofenac y corticoides por el riesgo hemorrágico, y aclara que no se usan antibióticos"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Prevención y signos de alarma",
+      "regular": "Da una de las dos",
+      "suficiente": "Indica eliminar recipientes con agua estancada, repelente, mosquiteros y ropa clara, y enseña las pautas de alarma para consultar de inmediato"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Control e internación",
+      "regular": "Cita a control sin criterios",
+      "suficiente": "Cita a control en 48 horas con laboratorio y explica los criterios de internación (signos de alarma, comorbilidades, riesgo social); pregunta si hay dudas"
+    }
+  ]
+}

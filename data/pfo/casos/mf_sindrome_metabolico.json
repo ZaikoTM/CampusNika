@@ -1,0 +1,151 @@
+{
+  "id": "mf_sindrome_metabolico",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Síndrome metabólico: primera consulta de un paciente poco adherente",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted atiende en su consultorio particular a un paciente que concurre por primera vez. Golpea la puerta y usted lo hace pasar. Se llama José Portillo, tiene 50 años, evidente sobrepeso, es tabaquista severo y tiene antecedentes de hipertensión arterial no tratada, dislipemia y diabetes tipo 2. Abandonó la medicación y no recuerda qué tomaba. Refiere que viene por presión familiar y que «no es muy amigo de los médicos». Se sincera: es poco adherente al tratamiento farmacológico, pero esta vez quiere hacer las cosas bien. Trae consigo controles de tensión arterial que se realizó antes de concurrir.",
+  "objetivos": [
+    "Realizar ordenadamente una anamnesis completa y elaborar una impresión diagnóstica.",
+    "Interpretar los estudios traídos por el paciente (controles de tensión arterial) y solicitar laboratorio.",
+    "Establecer una conducta terapéutica adecuada.",
+    "Estimular hábitos higiénico-dietéticos adecuados para el paciente.",
+    "Citar para control en 3 meses."
+  ],
+  "interlocutor": "José Portillo, 50 años, comerciante (habla él, en primera persona; desconfiado al comienzo, se abre si lo tratan con respeto y sin retarlo)",
+  "guion_paciente": "José Portillo, 50 años, dueño de un kiosco. Vino «porque mi señora me trajo». Hace 6 años le dijeron que tenía presión alta, el colesterol alto y azúcar, y le dieron pastillas; las tomó unos meses y las dejó porque «me sentía bien» y se olvidaba. Nunca más se controló. No recuerda los nombres de los remedios.\nHoy no tiene síntomas: sin sed excesiva, sin orinar de más, sin pérdida de peso, sin dolor de pecho, falta de aire, palpitaciones, dolor de cabeza intenso ni cambios en la visión; sin hormigueos ni heridas en los pies; sin tos ni fiebre. Sin hipoglucemias. Los controles de presión que trajo (hechos en la farmacia en los últimos días): 158/98, 162/100 y 154/96 mmHg.\nAntecedentes: padre falleció de un infarto a los 58 años; madre diabética. Sin cirugías ni internaciones; sin alergias; sin cáncer. Vacunas: no sabe, no tiene carnet.\nHábitos: fuma 20 cigarrillos por día desde los 16 años (unos 34 paquetes-año); toma 2 a 3 vasos de vino por día y cerveza los fines de semana; sin otras drogas. Come mucho: facturas, empanadas, milanesas, fiambres, pan, gaseosa común (1,5 litros por día), casi sin verduras ni frutas; come a cualquier hora. No hace ninguna actividad física (está todo el día en el kiosco). Duerme 5 a 6 horas, ronca. Se siente cansado. Trabaja muchas horas y está estresado por las deudas.\nActitud: acepta el tratamiento si se lo explican con claridad y si ve que hay un plan simple; no quiere «muchas pastillas».\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Peso 112 kg, talla 1,72 m, IMC 37,9 kg/m² (obesidad grado II), cintura 124 cm. TA 160/100 mmHg (en el consultorio), FC 84 por minuto, saturación 97 %, glucemia capilar 214 mg/dl. Acantosis nigricans en cuello y axilas. Auscultación cardíaca y pulmonar normales. Abdomen globoso, sin visceromegalias palpables. Pulsos periféricos presentes y simétricos. Sensibilidad en los pies conservada; sin lesiones.",
+  "estudios": [
+    {
+      "clave": "laboratorio_pedido",
+      "texto": "[BORRADOR] Resultados (si el alumno solicita el laboratorio, se informan como pendientes de retiro; si pide verlos en el consultorio, usar estos valores): glucemia en ayunas 186 mg/dl, hemoglobina glicosilada 8,2 %, colesterol total 262 mg/dl, LDL 168 mg/dl, HDL 34 mg/dl, triglicéridos 310 mg/dl, creatinina 0,9 mg/dl, filtrado glomerular mayor de 90 ml/min, uricemia 8,1 mg/dl, hepatograma con GPT 52 U/L, TSH 2,4 mUI/L, orina sin proteínas, relación albuminuria/creatininuria 22 mg/g."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: ritmo sinusal, 84 por minuto, sin signos de isquemia ni de hipertrofia ventricular (si lo solicita)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No iniciar ningún tratamiento ni estratificar el riesgo cardiovascular en un paciente con hipertensión, diabetes y dislipemia",
+    "Indicar un antihipertensivo contraindicado o duplicar bloqueantes del sistema renina-angiotensina",
+    "Juzgar o retar al paciente por no haber tomado la medicación, rompiendo la alianza terapéutica"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivo de consulta y abandono del tratamiento",
+      "regular": "Pregunta una de las dos cosas",
+      "suficiente": "Indaga cuánto hace que lo diagnosticaron, qué medicación tomaba, cuándo y por qué abandonó el tratamiento y cuándo se controló por última vez"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas actuales y complicaciones",
+      "regular": "Indaga síntomas de una sola esfera",
+      "suficiente": "Indaga síntomas de diabetes (poliuria, polidipsia, polifagia, pérdida de peso), cardiovasculares, neurológicos, visuales y lesiones o infecciones en los pies; hipoglucemias"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales y familiares",
+      "regular": "Indaga antecedentes sin la medicación crónica",
+      "suficiente": "Indaga enfermedades crónicas, medicación, alergias, cirugías, internaciones, antecedentes familiares de enfermedad cardiovascular precoz y vacunación"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos",
+      "regular": "Indaga dos hábitos",
+      "suficiente": "Indaga sueño, alimentación, actividad física, tabaco, alcohol y otras sustancias, y estrés"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Control de la tensión arterial traída",
+      "regular": "Menciona que están elevadas",
+      "suficiente": "Interpreta los controles de tensión arterial como hipertensión (140/90 mmHg o más) y confirma la medición en el consultorio"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Mide peso, talla, índice de masa corporal, cintura, tensión arterial y glucemia capilar, y examina el aparato cardiovascular, el abdomen, los pulsos y los pies"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Laboratorio y estudios",
+      "regular": "Solicita laboratorio incompleto",
+      "suficiente": "Solicita glucemia, hemoglobina glicosilada, perfil lipídico, función renal, microalbuminuria, hepatograma, orina y electrocardiograma (y fondo de ojo)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Menciona las enfermedades por separado",
+      "suficiente": "Plantea síndrome metabólico (obesidad abdominal, hipertensión, dislipemia y diabetes) y riesgo cardiovascular global muy alto, y lo explica con lenguaje claro"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cambios del estilo de vida",
+      "regular": "Indica una o dos medidas",
+      "suficiente": "Indica cesación tabáquica, reducir el alcohol, bajar de peso, actividad física, dieta hiposódica con frutas, verduras y agua, y evitar gaseosas y snacks"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Diabetes",
+      "regular": "Indica metformina sin dosis",
+      "suficiente": "Indica metformina 500 mg cada 12 horas después de las comidas, con control diario y registro de la glucemia capilar"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Hipertensión",
+      "regular": "Indica un antihipertensivo sin dosis",
+      "suficiente": "Indica un esquema de bajas dosis en una toma diaria (por ejemplo losartán 25 mg más amlodipina 2,5 mg) y explica la meta de tensión"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Dislipemia y antiagregación",
+      "regular": "Indica una de las dos",
+      "suficiente": "Indica atorvastatina 40 mg por día y aspirina 100 mg por día (esta última con la presión controlada)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Interconsultas y control",
+      "regular": "Cita sin interconsultas o interconsulta sin cita",
+      "suficiente": "Indica nutrición y cesación tabáquica, y cita a control en 3 meses (con control más precoz de la tolerancia al tratamiento)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y alianza terapéutica",
+      "regular": "Explica pero no escucha ni consensúa",
+      "suficiente": "No juzga, valida su decisión de cambiar, explica riesgos y beneficios con lenguaje claro, consensúa un plan simple y pregunta si tiene dudas"
+    }
+  ]
+}

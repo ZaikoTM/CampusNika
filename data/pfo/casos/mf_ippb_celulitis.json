@@ -1,0 +1,151 @@
+{
+  "id": "mf_ippb_celulitis",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Infección de piel y partes blandas de un miembro inferior",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted realiza un reemplazo a un colega en la guardia externa del hospital de su ciudad. Consulta Juan Domínguez, de 40 años, con leve sobrepeso y sin otros antecedentes de jerarquía, que refiere haber comenzado con una infección en el miembro inferior izquierdo. En el examen físico: en la cara externa del tercio distal del miembro inferior izquierdo, una lesión eritematosa, caliente, con secreción purulenta. Signos vitales: TA 130/70 mmHg, FC 105 por minuto, temperatura 37,5 °C, saturación 96 % sin oxígeno.",
+  "objetivos": [
+    "Realizar ordenadamente una anamnesis completa.",
+    "Elaborar una impresión diagnóstica.",
+    "Realizar un examen físico breve orientado a la clínica del paciente.",
+    "Considerar la internación o no.",
+    "Establecer una conducta terapéutica adecuada."
+  ],
+  "interlocutor": "Juan Domínguez, 40 años, albañil (habla él, en primera persona; dolorido pero entero)",
+  "guion_paciente": "Juan Domínguez, 40 años, albañil. Hace 4 días se lastimó la pierna izquierda con un alambre en la obra (raspón en la cara externa, tobillo); se lavó con agua y puso un parche. Hace 2 días la zona se puso roja, caliente e hinchada, con dolor que aumenta al apoyar, y hoy salió pus amarillento de una pequeña herida. Tuvo escalofríos y se sintió afiebrado ayer (no se midió). La rojez se extendió unos centímetros en el último día. Sin olor feo, sin ampollas ni manchas oscuras, sin otras lesiones. No viajó; no tuvo picaduras de arañas o víboras. No tomó antibióticos ni usó cremas, solo ibuprofeno 400 mg. Sin tos ni resfrío previos.\nAntecedentes: primer episodio similar; sin diabetes, hipertensión ni enfermedad vascular conocida; no tiene várices; sin cirugías, sin internaciones, sin tratamiento oncológico; sin alergias a medicamentos (no sabe si a sulfas); tétanos: no sabe cuándo se vacunó. Fuma 10 cigarrillos por día; alcohol ocasional. Orina normal.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Impresión general: vigil, orientado, hemodinámicamente compensado; FC 105 por minuto, temperatura 37,5 °C, saturación 96 %, TA 130/70 mmHg. Miembro inferior izquierdo: placa eritematosa de 8 x 6 cm en la cara externa del tercio distal de la pierna, de bordes difusos, caliente, edematosa y dolorosa, con una pequeña solución de continuidad central por la que drena material purulento; piel de naranja leve; sin crepitación, ampollas, necrosis ni dolor desproporcionado; sin fluctuación evidente al palpar; pulsos pedios y tibiales presentes; sin signo de Godet; movilidad conservada; espacios interdigitales sin micosis; adenopatía inguinal izquierda de 1 cm, dolorosa; sin linfangitis. Miembro derecho normal.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Si lo solicita: leucocitos 12.800/mm³ con neutrofilia, hemoglobina 14,6 g/dl, glucemia 96 mg/dl, creatinina 0,9 mg/dl, PCR 48 mg/L. Cultivo de la secreción con antibiograma: pendiente (toma de muestra)."
+    },
+    {
+      "clave": "ecografia_partes_blandas",
+      "texto": "[BORRADOR] Ecografía de partes blandas (si la solicita): engrosamiento y edema del tejido celular subcutáneo en patrón «empedrado», sin colección."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No indicar tratamiento antibiótico adecuado a una infección con secreción purulenta y fiebre",
+    "Dar el alta a un paciente con signos de sepsis o sospecha de fascitis necrotizante sin internación",
+    "Indicar un antibiótico al que el paciente es alérgico o que está contraindicado"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Evolución y características de la lesión",
+      "regular": "Indaga tiempo de evolución",
+      "suficiente": "Indaga cuándo empezó, cambios en color, tamaño y temperatura, dolor, secreción (color, olor) y capacidad de apoyar"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Mecanismo y puertas de entrada",
+      "regular": "Indaga un golpe",
+      "suficiente": "Indaga golpes, cortes, picaduras, viajes, edema previo, micosis y lesiones similares en otros sitios"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas sistémicos y tratamientos previos",
+      "regular": "Indaga fiebre",
+      "suficiente": "Indaga fiebre y escalofríos, síntomas respiratorios previos, medicación, antibióticos y cremas utilizadas"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y comorbilidades",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga episodios previos, diabetes, inmunodepresión, enfermedad vascular, cáncer, internaciones, alergias a medicamentos, tabaco y vacuna antitetánica"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Impresión general y signos vitales",
+      "regular": "Interpreta algunos valores",
+      "suficiente": "Reconoce taquicardia leve y febrícula, estado hemodinámico compensado y ausencia de signos de sepsis"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico de la lesión",
+      "regular": "Inspecciona sin comparar",
+      "suficiente": "Se lava las manos y se coloca guantes, compara con el otro miembro, evalúa bordes (netos o difusos), edema, necrosis, ampollas, secreción, pulsos, Godet, espacios interdigitales y adenopatías"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea infección de piel",
+      "suficiente": "Diagnostica celulitis con foco purulento (probable Staphylococcus aureus, considerando SAMR de la comunidad)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Nombra uno o dos",
+      "suficiente": "Considera erisipela, paniculitis, linfangitis, tromboflebitis, absceso y fascitis necrotizante"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Clasificación y decisión de internación",
+      "regular": "Indica manejo ambulatorio sin justificar",
+      "suficiente": "Clasifica al paciente (estable, sin comorbilidades, sin signos de sepsis ni colección) y justifica el manejo ambulatorio; menciona los criterios de internación (hipotensión, necrosis, colección, comorbilidades, sospecha de sepsis)"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibiótico",
+      "regular": "Indica un antibiótico sin dosis",
+      "suficiente": "Indica trimetoprima-sulfametoxazol 800/160 mg cada 12 horas por vía oral durante 7 a 10 días (o doxiciclina 100 mg cada 12 horas), pensando en SAMR por la lesión purulenta"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios y tratamiento local",
+      "regular": "Solicita un estudio",
+      "suficiente": "Solicita hemograma y glucemia, toma cultivo de la secreción y evalúa drenaje si hay colección; higiene local de la herida"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Analgesia y medidas no farmacológicas",
+      "regular": "Indica una medida",
+      "suficiente": "Indica paracetamol 500 mg cada 6 horas para la fiebre y el dolor, elevación del miembro y reposo, y vacunación antitetánica"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Signos de alarma y control",
+      "regular": "Da una de las dos",
+      "suficiente": "Da pautas de alarma (fiebre persistente, dolor que no mejora en 3 días, secreción fétida, cambio de coloración, ampollas, compromiso del estado general) y cita a control en 48 horas"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro el diagnóstico y el tratamiento, la importancia de completar el antibiótico y pregunta si tiene dudas"
+    }
+  ]
+}

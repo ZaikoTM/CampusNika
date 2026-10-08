@@ -1,0 +1,147 @@
+{
+  "id": "mf_violencia_genero",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Dolor en el antebrazo y sospecha de violencia de género",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y familiar del CAPS Giacomotti. Debe atender a Claudia Peralta, de 45 años, que concurre por dolor en el antebrazo.",
+  "objetivos": [
+    "Realizar una breve anamnesis.",
+    "Evaluar el mecanismo del trauma y decidir si tutear o no.",
+    "Realizar un examen físico dirigido.",
+    "Realizar un diagnóstico.",
+    "Indicar tratamiento y asesoramiento."
+  ],
+  "interlocutor": "Claudia Peralta, 45 años, empleada de comercio (habla ella; evasiva, tensa, mira hacia la puerta; su marido espera afuera)",
+  "guion_paciente": "Claudia Peralta, 45 años, trabaja en una tienda. Viene acompañada por su marido, que se queda en la sala de espera. Dice que le duele el antebrazo izquierdo desde ayer a la noche; empezó de golpe, el dolor es fijo, punzante, de 7 sobre 10, empeora al mover la mano y no se va a ningún lado. Tomó un paracetamol 500 mg, sin alivio. Al principio dice que «se golpeó con la puerta del placard». Si el médico no pregunta por el mecanismo con cuidado, no lo cuenta. Si la médica pregunta con empatía, a solas y sin juzgar, y le dice que no está sola, termina contando que su marido la sujetó fuerte del brazo y la empujó contra la pared en una discusión; que no es la primera vez (hace 3 meses la empujó; hace 1 año la insultó y la golpeó), la última vez fue ayer. Tiene miedo, se siente culpable. Tiene una hermana que vive cerca y a la que no le contó. No tiene familia que la pueda alojar. Tiene dos hijos adolescentes que viven en la casa. No hizo denuncia nunca.\nAntecedentes: sin enfermedades crónicas, sin medicación, sin alergias, sin cirugías. Duerme mal. Sin consumo de sustancias.\nSi se le pide un abordaje privado, acepta que el marido espere afuera. Si el médico la tutea sin pedir permiso, se sorprende; prefiere el trato de «usted» al comienzo.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Signos vitales normales: TA 130/80 mmHg, FC 92 por minuto. Se muestra tensa y evita el contacto visual. Antebrazo izquierdo: hematomas redondeados de 2 a 3 cm en la cara interna (marcas de dedos) de distintas coloraciones (violáceos y amarillentos), edema leve y dolor a la palpación del tercio medio; sin crepitación ni deformidad; movilidad activa y pasiva conservada con dolor; pulsos radial y cubital presentes; sensibilidad y fuerza conservadas; relleno capilar normal. En el brazo derecho, una equimosis amarillenta de 4 cm (de hace unos días). Sin otras lesiones visibles en cabeza, cuello ni tronco.",
+  "estudios": [
+    {
+      "clave": "radiografia",
+      "texto": "[BORRADOR] Radiografía de antebrazo izquierdo, frente y perfil (si la solicita): sin fracturas ni lesiones óseas; edema de partes blandas."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar ni explorar la violencia de género ante lesiones con mecanismo incompatible y relato evasivo",
+    "No garantizar la confidencialidad ni la privacidad en la entrevista, o culpabilizar a la paciente",
+    "Obligar a la paciente a denunciar o a tomar una decisión que ella no quiere tomar"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Datos y contexto",
+      "regular": "Pregunta nombre y edad",
+      "suficiente": "Pregunta nombre, edad, ocupación y con quién vive"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Características del dolor",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga inicio, localización, irradiación, calidad, intensidad, factores que lo modifican, síntomas asociados y medicación tomada"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga enfermedades crónicas, medicación diaria y alergias"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Entrevista privada y confidencialidad",
+      "regular": "Atiende con el marido presente o lo pide sin explicar",
+      "suficiente": "Solicita hablar a solas, garantiza la privacidad y la confidencialidad y ofrece apoyo emocional con escucha activa"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Mecanismo del trauma",
+      "regular": "Pregunta cómo se lastimó",
+      "suficiente": "Pregunta con preguntas abiertas y no invasivas cómo se produjo la lesión y si fue accidental, autoinfligida o provocada por otra persona"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Exploración de la violencia",
+      "regular": "Pregunta si alguien le hizo daño",
+      "suficiente": "Explora la violencia con sensibilidad: si es la primera vez, cuándo fue la última, el entorno seguro, y si hay amenazas, armas o hijos en riesgo"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Examina solo el antebrazo",
+      "suficiente": "Examina el antebrazo (inspección, palpación, movilidad, pulsos, sensibilidad y fuerza) y busca otras lesiones en zonas no habituales para accidentes"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea contusión o dolor",
+      "suficiente": "Plantea contusión de partes blandas por probable episodio de violencia interpersonal (violencia de género), descartando fractura"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento del dolor",
+      "regular": "Indica analgésico sin dosis",
+      "suficiente": "Indica ibuprofeno 600 mg cada 6 a 8 horas por vía oral y hielo local; solicita radiografía si hay sospecha de fractura"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Asesoramiento y derechos",
+      "regular": "Da apoyo sin informar derechos",
+      "suficiente": "Le transmite que nadie tiene derecho a lastimarla, que la violencia no es su culpa, y le informa sobre sus derechos y recursos (línea 144, área de la mujer)"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Respeto a la decisión y evaluación de riesgo",
+      "regular": "Menciona la denuncia sin respetar tiempos",
+      "suficiente": "Respeta sus tiempos y su decisión sobre la denuncia, evalúa el riesgo inmediato y, si lo hay, deriva al equipo interdisciplinario (trabajo social, psicología, medicina legal)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Registro en la historia clínica",
+      "regular": "Registra la lesión sin las palabras de la paciente",
+      "suficiente": "Registra textualmente sus palabras y describe objetivamente las lesiones, sin juicios de valor"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento",
+      "regular": "Cita sin plazo",
+      "suficiente": "Programa un control en una semana, deja las puertas abiertas para antes y evalúa la red de sostén (hermana, amigas)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación empática",
+      "regular": "Es empática en parte",
+      "suficiente": "No juzga ni culpabiliza, usa el trato de usted salvo que ella lo pida, mantiene contacto visual y cierra preguntando si quiere compartir algo más"
+    }
+  ]
+}

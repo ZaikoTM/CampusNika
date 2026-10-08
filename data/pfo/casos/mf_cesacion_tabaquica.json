@@ -1,0 +1,150 @@
+{
+  "id": "mf_cesacion_tabaquica",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Consejería breve y tratamiento de la cesación tabáquica",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y familiar del CAPS Giacomotti. Atiende a Mario Acosta, de 52 años, que concurre porque tiene tos crónica y «quiere dejar de fumar de una vez». Debe realizar una intervención breve sobre el tabaquismo, evaluar la dependencia y la motivación, y acordar un tratamiento.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida (carga tabáquica, dependencia, motivación y antecedentes).",
+    "Explicar los riesgos del tabaco y los beneficios de dejar de fumar.",
+    "Proponer el día D y un tratamiento farmacológico seguro para este paciente.",
+    "Brindar medidas conductuales y de prevención, y pautar el seguimiento."
+  ],
+  "interlocutor": "Mario Acosta, 52 años, remisero (habla él; motivado pero ansioso, ya intentó dejar una vez)",
+  "guion_paciente": "Mario Acosta, 52 años, remisero. Fuma desde los 18 años, 20 cigarrillos por día (un paquete por día; 34 paquetes-año). Prende el primer cigarrillo dentro de los 10 minutos de levantarse. Tiene tos matinal con flemas desde hace 2 años, a veces le falta el aire al subir escaleras; sin dolor de pecho. Intentó dejar hace 3 años «de golpe», aguantó dos semanas y recayó por el estrés y el nerviosismo. Ahora quiere dejarlo dentro del mes, porque su hija está embarazada y no quiere fumar cerca de su nieto.\nAntecedentes: hipertensión arterial hace 5 años, con enalapril 10 mg cada 12 horas; sin diabetes ni dislipemia conocida; sin convulsiones ni epilepsia; sin traumatismos de cráneo; sin trastornos de la conducta alimentaria; sin antecedentes psiquiátricos ni depresión; no toma antidepresivos ni IMAO. Padre fallecido de cáncer de pulmón. Alcohol: un vaso de vino con la comida, sin abuso. Sin alergias. Duerme 6 horas. Sedentario.\nEstá dispuesto a probar parches o pastillas; no quiere internarse ni ir a un grupo si no es necesario.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 138/86 mmHg, FC 80 por minuto, peso 84 kg, talla 1,72 m, IMC 28,4 kg/m², saturación 95 % al aire ambiente. Tórax con espiración prolongada y algunos roncus aislados; resto del examen sin particularidades.",
+  "estudios": [
+    {
+      "clave": "test_fagerstrom",
+      "texto": "Test de Fagerström (si el alumno lo aplica): primer cigarrillo antes de 5 minutos 3 puntos; el más difícil de abandonar es el primero de la mañana 1 punto; 20 cigarrillos por día 2 puntos; fuma más por la mañana 1 punto; fuma estando enfermo 1 punto; no le cuesta no fumar en lugares prohibidos 0 puntos. Total 8 puntos: dependencia alta."
+    },
+    {
+      "clave": "espirometria",
+      "texto": "[BORRADOR] Más de 34 paquetes-año: se sugiere espirometría. Si la solicita, informar que no está disponible en el centro y que se da turno (resultado pendiente)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar bupropión a un paciente con antecedentes de convulsiones, trastornos de la conducta alimentaria, uso de IMAO o alcoholismo activo",
+    "No indagar los antecedentes que contraindican el fármaco antes de prescribirlo",
+    "No aconsejar dejar de fumar ni abordar el tabaquismo en un fumador con tos crónica"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Consumo de tabaco",
+      "regular": "Pregunta cuántos cigarrillos fuma",
+      "suficiente": "Pregunta si fuma, cuántos cigarrillos por día y desde qué edad, y calcula los paquetes-año (más de 40 indica espirometría)"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dependencia a la nicotina",
+      "regular": "Pregunta el primer cigarrillo del día",
+      "suficiente": "Evalúa el tiempo hasta el primer cigarrillo o aplica el test de Fagerström y reconoce la dependencia alta (más de 20 cigarrillos o primer cigarrillo en menos de 30 minutos)"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivación e intentos previos",
+      "regular": "Indaga solo la motivación",
+      "suficiente": "Indaga si pensó en dejar en el próximo mes, 6 o 12 meses, intentos previos y causa de las recaídas"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Contraindicaciones del tratamiento",
+      "regular": "Indaga alguna contraindicación",
+      "suficiente": "Indaga epilepsia o convulsiones, traumatismo de cráneo grave, trastornos de la conducta alimentaria, IMAO y alcoholismo activo antes de prescribir"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y factores de riesgo cardiovascular",
+      "regular": "Indaga alguno de los dos",
+      "suficiente": "Indaga enfermedades crónicas, medicación, alergias y antecedentes familiares, y otros factores de riesgo cardiovascular"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza solo signos vitales",
+      "suficiente": "Toma tensión arterial, índice de masa corporal y saturación, y examina el aparato respiratorio"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estudios",
+      "regular": "Menciona la espirometría",
+      "suficiente": "Indica espirometría por tos crónica y más de 34 paquetes-año, y evalúa el riesgo cardiovascular global"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Riesgos y beneficios",
+      "regular": "Menciona riesgos o beneficios",
+      "suficiente": "Explica que el tabaco es la primera causa evitable de muerte y enfermedad (pulmón, corazón, ACV, cáncer) y los beneficios por plazos: días, semanas, 1 a 5 años y más de 10 años"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Intervención breve en las 5 A",
+      "regular": "Aplica algunos pasos",
+      "suficiente": "Averigua, aconseja de manera firme y personalizada, evalúa la disposición, ayuda con el plan y acuerda el seguimiento"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Día D",
+      "regular": "Menciona el día D sin acordarlo",
+      "suficiente": "Acuerda con el paciente una fecha concreta de cesación total (día D) dentro del mes"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento farmacológico",
+      "regular": "Ofrece un fármaco sin dosis",
+      "suficiente": "Ofrece parches de nicotina de 21 mg por día durante 8 semanas (rotando el sitio), con chicles o comprimidos de rescate, o bupropión 150 mg por día iniciado 1 a 2 semanas antes del día D si no tiene contraindicaciones"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguridad del fármaco",
+      "regular": "Menciona un efecto adverso",
+      "suficiente": "Explica contraindicaciones y efectos adversos del fármaco elegido (convulsiones, insomnio y boca seca con bupropión; irritación local con parches)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Prevención y entorno",
+      "regular": "Da una indicación",
+      "suficiente": "Indica no fumar en espacios cerrados ni cerca de niños o embarazadas, explica que el fumador pasivo tiene el mismo daño y aconseja el apoyo de la familia"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento",
+      "regular": "Cita sin plazo",
+      "suficiente": "Cita al paciente a la semana y al mes del día D, ofrece intervención intensiva si recae y pregunta si hay dudas"
+    }
+  ]
+}

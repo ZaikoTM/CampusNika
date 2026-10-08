@@ -1,0 +1,150 @@
+{
+  "id": "mf_rcv",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Riesgo cardiovascular global y dislipemia",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y familiar del CAPS Giacomotti. Atiende a Raúl Benítez, de 58 años, fumador e hipertenso, que concurre a mostrarle un análisis de laboratorio. Debe estratificar su riesgo cardiovascular y definir el tratamiento.",
+  "objetivos": [
+    "Realizar una breve anamnesis dirigida a los factores de riesgo cardiovascular.",
+    "Evaluar el laboratorio y estimar el riesgo cardiovascular global a 10 años.",
+    "Definir el tratamiento farmacológico y no farmacológico y las metas, y explicarlos con claridad.",
+    "Citar para un nuevo control."
+  ],
+  "interlocutor": "Raúl Benítez, 58 años, albañil jubilado (habla él, en primera persona)",
+  "guion_paciente": "Raúl Benítez, 58 años, ex albañil, jubilado. Concurre porque su médico anterior le pidió análisis y le dijo que tenía el colesterol alto.\nAntecedentes: hipertensión arterial hace 8 años, en tratamiento con enalapril 10 mg cada 12 horas, que toma irregularmente. No tiene diabetes. Fuma 20 cigarrillos por día desde los 18 años (unos 40 paquetes-año). No hace actividad física. Come mucha grasa, fiambres, frituras y poca verdura; toma 2 litros de gaseosa por semana. Alcohol: un vaso de vino en las comidas. Sin infarto, ACV ni problemas en las piernas (no le duelen al caminar). Padre fallecido de infarto a los 60 años; madre hipertensa. No toma otra medicación ni aspirina; sin alergias; sin enfermedad renal conocida.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Controles de enfermería: TA 154/94 mmHg, FC 78 por minuto, peso 84 kg, talla 1,68 m, IMC 29,8 kg/m² (sobrepeso), cintura 104 cm. Examen cardiopulmonar sin particularidades. Pulsos periféricos presentes y simétricos. Sin soplos carotídeos.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Colesterol total 268 mg/dl, LDL 182 mg/dl, HDL 36 mg/dl, triglicéridos 250 mg/dl. Glucemia en ayunas 98 mg/dl. Creatinina 0,9 mg/dl, filtrado glomerular estimado mayor de 90 ml/min. Orina completa sin proteinuria."
+    },
+    {
+      "clave": "rcvg",
+      "texto": "[BORRADOR] Con los datos del paciente (varón, 58 años, fumador, tensión sistólica 154 mmHg, colesterol total 268 mg/dl, sin diabetes), el riesgo cardiovascular global a 10 años corresponde a la categoría ALTO (20 a 30 %). Se confirma en la tabla de estratificación cuando el alumno la usa."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar una estatina sin evaluar el riesgo cardiovascular global ni el resto de los factores de riesgo",
+    "Indicar aspirina sin controlar la presión arterial",
+    "No indicar la cesación tabáquica ni el control de la hipertensión en un paciente de riesgo alto"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Factores de riesgo cardiovascular",
+      "regular": "Indaga uno o dos factores",
+      "suficiente": "Indaga hipertensión, diabetes, tabaquismo (paquetes-año), dislipemia, sedentarismo, alimentación y antecedentes familiares de infarto temprano"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Enfermedad cardiovascular establecida",
+      "regular": "Indaga infarto o ACV, no ambos",
+      "suficiente": "Indaga infarto, ACV, angina, claudicación intermitente, enfermedad renal y medicación actual con adherencia"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Examen físico y medidas",
+      "regular": "Registra tensión arterial o peso",
+      "suficiente": "Registra tensión arterial, índice de masa corporal, cintura y pulsos periféricos"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos y adherencia",
+      "regular": "Indaga un hábito",
+      "suficiente": "Indaga alimentación, actividad física, alcohol y la adherencia al enalapril"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce el colesterol elevado",
+      "suficiente": "Interpreta colesterol total, LDL elevado, HDL bajo y triglicéridos elevados, con glucemia y función renal normales"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Variables para el riesgo cardiovascular",
+      "regular": "Menciona algunas",
+      "suficiente": "Identifica las variables de la tabla: sexo, edad, diabetes, tabaquismo, tensión sistólica y colesterol"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estratificación",
+      "regular": "Dice que es de riesgo elevado sin la categoría",
+      "suficiente": "Estratifica el riesgo como alto (20 a 30 % a 10 años) y explica su significado"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico integral",
+      "regular": "Menciona la dislipemia o la hipertensión",
+      "suficiente": "Plantea dislipemia mixta con hipertensión mal controlada y tabaquismo, de riesgo cardiovascular alto"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento no farmacológico",
+      "regular": "Indica una medida",
+      "suficiente": "Indica cesación tabáquica, alimentación saludable (menos grasas, sal y azúcar), actividad aeróbica 30 minutos por día 3 días por semana y bajar de peso"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estatina",
+      "regular": "Indica una estatina sin dosis",
+      "suficiente": "Indica atorvastatina 40 mg por día por la noche (o equivalente de intensidad alta) y explica el mecanismo (inhibe la HMG-CoA reductasa) y sus efectos adversos"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antihipertensivo y aspirina",
+      "regular": "Menciona el control de la presión o la aspirina",
+      "suficiente": "Refuerza el tratamiento antihipertensivo para llegar a menos de 140/90 mmHg y explica que la aspirina 100 mg por día se indica cuando el riesgo es muy alto y la presión está controlada"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Metas terapéuticas",
+      "regular": "Menciona una meta",
+      "suficiente": "Explica las metas: tensión arterial menor de 140/90, colesterol total menor de 185, LDL menor de 100, HDL mayor de 40, triglicéridos menores de 150, índice de masa corporal menor de 25 y no fumar"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento",
+      "regular": "Indica control sin plazo",
+      "suficiente": "Pauta control cada 3 meses (riesgo alto), con laboratorio para evaluar la respuesta a la estatina"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin lenguaje claro",
+      "suficiente": "Explica con lenguaje claro y empático, decide el plan con el paciente, resume y pregunta si tiene dudas"
+    }
+  ]
+}

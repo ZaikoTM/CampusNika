@@ -1,0 +1,153 @@
+{
+  "id": "mf_diabetes",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Diabetes tipo 2: control, objetivos y cuidado del pie",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y familiar del CAPS Giacomotti. Debe atender a Rosendo Gómez, de 46 años, que concurre para mostrarle un análisis de laboratorio que le solicitó otro profesional en una consulta anterior. Controles de enfermería: TA 120/80 mmHg, saturación 98 %, temperatura 36,2 °C, peso 81 kg, talla 1,70 m, índice de masa corporal 28 (sobrepeso), glucemia capilar 162 mg/dl.",
+  "objetivos": [
+    "Realizar una breve anamnesis orientada al problema que llevó a su colega a solicitar el estudio.",
+    "Evaluar el estudio de laboratorio y explicarlo con lenguaje comprensible a Rosendo.",
+    "Asesorar a Rosendo sobre los objetivos terapéuticos de su enfermedad.",
+    "Si debe prescribir tratamiento médico o modificar el que viene realizando, decirlo en voz alta y explicarlo con lenguaje claro.",
+    "Aconsejar sobre medidas preventivas y cuidados de los pies.",
+    "Citar para un nuevo control."
+  ],
+  "interlocutor": "Rosendo Gómez, 46 años, taxista (habla él, en primera persona)",
+  "guion_paciente": "Rosendo Gómez, 46 años, taxista. Su médico anterior le pidió análisis por «el azúcar» porque tenía sed y orinaba mucho.\nEnfermedad actual: desde hace unos 3 meses (progresivo) tiene mucha sed, orina varias veces de noche, algo de hambre y bajó 3 kg sin proponérselo; está cansado. No tiene fiebre, tos, dolor de pecho ni palpitaciones, ni náuseas ni vómitos. No tiene lesiones en los pies, ni hormigueos ni dolor en las piernas al caminar; ve bien con anteojos para lectura; no tuvo infecciones urinarias ni heridas que no cicatricen. No tuvo hipoglucemias. Es la primera vez que le hablan de diabetes: no toma ninguna medicación y no se mide la glucemia.\nAntecedentes: padre con diabetes tipo 2, madre hipertensa. Sin hipertensión ni dislipemia conocidas, sin enfermedad renal; sin cirugías, internaciones ni alergias. Fuma 10 cigarrillos por día; toma alcohol los fines de semana (cerveza). Come mucho pan, facturas y gaseosas; poca verdura; maneja todo el día y no hace actividad física. No usa insulina. Última visita médica: hace 3 meses (le pidieron análisis, electrocardiograma y fondo de ojo, que todavía no se hizo). Sueño: duerme 6 horas; diuresis aumentada; catarsis normal.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Peso 81 kg, talla 1,70 m, IMC 28, TA 120/80 mmHg, FC 76 por minuto, glucemia capilar 162 mg/dl. Agudeza visual conservada. Obesidad abdominal (cintura 102 cm), acantosis nigricans en el cuello. Auscultación cardíaca y pulmonar normales. Abdomen sin particularidades. Pulsos pedios y tibiales posteriores presentes y simétricos; sensibilidad con monofilamento conservada; reflejos osteotendinosos normales; pies sin lesiones, con piel hidratada y uñas sin distrofia.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Glucemia en ayunas 168 mg/dl (confirmada en dos determinaciones), hemoglobina glicosilada 7,6 %, creatinina 0,8 mg/dl, filtrado glomerular estimado mayor de 90 ml/min/1,73 m², relación albuminuria/creatininuria 14 mg/g, orina completa sin cetonas ni glucosuria significativa. Colesterol total 218 mg/dl, LDL 128 mg/dl, HDL 38 mg/dl, triglicéridos 210 mg/dl. Hemograma, hepatograma, ionograma y TSH normales."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma normal: ritmo sinusal, sin alteraciones del ST (si lo solicita)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar ayuno o una dieta de hambre para bajar la glucemia",
+    "Indicar un hipoglucemiante sin evaluar la función renal",
+    "No evaluar ni indicar cuidados de los pies de un paciente diabético",
+    "No explicar el riesgo de hipoglucemia al indicar un fármaco que puede producirla"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas de diabetes",
+      "regular": "Indaga uno o dos síntomas",
+      "suficiente": "Indaga tiempo y forma de comienzo y poliuria, polidipsia, polifagia y pérdida de peso"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Complicaciones",
+      "regular": "Indaga una complicación",
+      "suficiente": "Indaga lesiones en los pies, alteraciones visuales, síntomas urinarios, hormigueos, dolor en las piernas al caminar, infecciones y cicatrización"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y medicación",
+      "regular": "Indaga antecedentes o medicación",
+      "suficiente": "Indaga tipo y tiempo de diagnóstico, medicación y adherencia, hipoglucemias, otras enfermedades crónicas, antecedentes familiares, alergias e internaciones"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos",
+      "regular": "Indaga alimentación o actividad física",
+      "suficiente": "Indaga alimentación y plan nutricional, actividad física, tabaco, alcohol y registro de glucemias"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico y pie",
+      "regular": "Indica el examen de los pies sin sensibilidad ni pulsos",
+      "suficiente": "Evalúa presión arterial, índice de masa corporal, agudeza visual, acantosis, pulsos pedios y tibiales, sensibilidad con monofilamento, reflejos y estado de piel y uñas"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce la hiperglucemia",
+      "suficiente": "Interpreta glucemia en ayunas y hemoglobina glicosilada, función renal normal, albuminuria normal y dislipemia con LDL mayor de 114"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Refiere diabetes sin criterios",
+      "suficiente": "Diagnostica diabetes tipo 2 con criterios (dos glucemias en ayunas de 126 mg/dl o más, o hemoglobina glicosilada de 6,5 % o más) y calcula el riesgo cardiovascular"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Explicación a Rosendo",
+      "regular": "Explica la enfermedad con términos técnicos",
+      "suficiente": "Explica con lenguaje claro que es una enfermedad crónica que afecta a todo el organismo, sus complicaciones y descompensaciones y que se controla con un tratamiento de por vida"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Metas terapéuticas",
+      "regular": "Menciona algunas metas",
+      "suficiente": "Explica las siete metas: tensión arterial menor de 140/90, no fumar, glucemia en ayunas 90 a 130, glucemia posprandial menor de 180, hemoglobina glicosilada menor de 7 %, LDL menor de 114 e índice de masa corporal menor de 25, de manera progresiva"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento farmacológico",
+      "regular": "Indica metformina sin dosis o sin plan",
+      "suficiente": "Indica metformina 500 mg con la cena (o después de las comidas) y titula hasta 850 a 1000 mg cada 12 horas (máximo 2.550 mg por día), con control en 7 días por intolerancia digestiva"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguridad de la metformina",
+      "regular": "Menciona una precaución",
+      "suficiente": "Aclara que está contraindicada con filtrado glomerular menor de 30 ml/min, alcohol severo o insuficiencia hepática, y explica sus efectos adversos"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento no farmacológico",
+      "regular": "Indica una medida",
+      "suficiente": "Indica alimentación según el semáforo, actividad aeróbica 30 minutos por día 3 a 5 días por semana, registro de alimentación y glucemias, reducir alcohol y dejar de fumar, y aclara que no debe hacer ayuno"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cuidados del pie",
+      "regular": "Da algunas pautas",
+      "suficiente": "Indica calzado cómodo, medias claras de algodón, lavado con agua tibia y jabón neutro, secado entre los dedos, hidratar sin la zona interdigital, no usar alicate ni tijera y revisión diaria; control del pie cada 3 meses"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Prevención, interconsultas y control",
+      "regular": "Indica control o interconsultas",
+      "suficiente": "Indica vacunas (antigripal anual, antineumocócica, doble bacteriana, hepatitis B), interconsultas (nutrición, oftalmología, odontología), estatina por LDL elevado y control a los 7 días y al mes; da signos de alarma"
+    }
+  ]
+}

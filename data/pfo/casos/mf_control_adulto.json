@@ -1,0 +1,152 @@
+{
+  "id": "mf_control_adulto",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Control de salud de una mujer adulta",
+  "duracionMin": 15,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a del Centro de Salud «Tomás de Rocamora». Guillermina Prado, de 28 años, concurre con su hijo Nicolás, de 12 meses, a quien ya se le realizó el control. Usted le propone hacerle a ella también un control de salud, y Guillermina acepta.",
+  "objetivos": [
+    "Realizar la anamnesis y los controles básicos de una adulta sana (último control, estudios previos, presión arterial, índice de masa corporal, controles odontológico y oftalmológico).",
+    "Brindar consejería sobre alimentación, actividad física, seguridad vial, alcohol, tabaco, violencia y estado de ánimo.",
+    "Pesquisar infecciones de transmisión sexual, métodos anticonceptivos y deseo de embarazo.",
+    "Indagar antecedentes de enfermedades crónicas y calcular el riesgo cardiovascular, y los antecedentes y el rastreo de cáncer.",
+    "Revisar las vacunas del adulto, indicar los estudios y los turnos correspondientes y pautar el próximo control."
+  ],
+  "interlocutor": "Guillermina Prado, 28 años, madre de Nicolás (habla ella; su hijo está en brazos, tranquilo)",
+  "guion_paciente": "Guillermina Prado, 28 años, empleada administrativa. Casada, vive con su marido (31 años) y su hijo Nicolás. Viene «solo a control», sin molestias ni síntomas.\nÚltimo control de salud: hace dos años, durante el embarazo; en ese momento le hicieron laboratorio y serologías que estaban normales (no recuerda cuáles). Hoy pasó por enfermería: le tomaron la presión y la pesaron (resultados abajo). Nunca fue al dentista en los últimos tres años ni al oculista (nunca se controló la vista).\nAlimentación: desayuna mate con facturas, almuerza comida casera (carne, fideos, arroz, poca verdura), merienda galletitas, cena liviana; toma agua y a veces gaseosa; sin alergias alimentarias. Actividad física: no hace ninguna; le gustaría caminar. En casa su marido fuma 10 cigarrillos por día, a veces dentro de la casa; ella no fuma. Toman alcohol los fines de semana (ella una o dos copas, ocasionalmente). Sin otras sustancias. Se lleva bien con su marido; se siente de ánimo bien, algo cansada por el bebé; no sufre violencia ni maltrato. Usa cinturón de seguridad y casco en moto.\nSalud sexual: inicio de relaciones a los 18 años, una sola pareja estable. Usa preservativo a veces; no usa otro método anticonceptivo. En el embarazo le pidieron serologías (hepatitis B, VIH, sífilis, toxoplasmosis, Chagas) y fueron negativas. Piensa tener otro hijo dentro de un año. Sin antecedentes de ITS.\nAntecedentes: G1 P1 (parto vaginal sin complicaciones). Sin enfermedades crónicas, cirugías ni alergias; sin medicación. Familiares: la madre tiene hipertensión arterial; el padre tiene diabetes tipo 2; abuela materna con cáncer de mama a los 70 años; sin cáncer de colon ni de útero. Colesterol: nunca se lo midió. Se hizo un PAP hace dos años, normal. Vacunas: tiene doble bacteriana de la escuela hace 12 años; triple viral una sola dosis en la infancia; hepatitis B: dos dosis de niña; antigripal no.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Controles de enfermería: TA 110/70 mmHg, FC 74 por minuto, peso 62 kg, talla 1,62 m, IMC 23,6 kg/m² (normal), cintura 78 cm. Buen estado general. Examen cardiopulmonar y abdominal sin particularidades. Examen mamario sin nódulos (si lo solicita). Sin lesiones de piel.",
+  "estudios": [
+    {
+      "clave": "carnet_vacunas",
+      "texto": "Carnet de vacunación de Guillermina: doble bacteriana a los 16 años (hace 12 años); triple viral, 1 dosis; hepatitis B, 2 dosis; sin antigripal."
+    },
+    {
+      "clave": "estudios_previos",
+      "texto": "Laboratorio y serologías del embarazo (hace dos años): normales y negativas. PAP de hace dos años: sin lesiones. Sin mamografía (no corresponde por edad)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar estudios de rastreo innecesarios o contraindicados (mamografía, rastreo de cáncer de próstata o de pulmón) sin criterio",
+    "No pesquisar las infecciones de transmisión sexual ni dar consejería sobre el preservativo en una mujer con relaciones y sin método anticonceptivo",
+    "Omitir la indicación de ácido fólico a una mujer que planea un embarazo",
+    "No respetar la confidencialidad ni indagar con escucha activa el estado de ánimo y la violencia"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivo, último control y controles",
+      "regular": "Indaga el último control o los estudios, no ambos",
+      "suficiente": "Indaga motivo de consulta, último control, estudios previos y sus resultados, y revisa presión arterial e índice de masa corporal de enfermería"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Controles odontológico y oftalmológico",
+      "regular": "Indaga uno de los dos",
+      "suficiente": "Indaga el último control odontológico y oftalmológico y da turno si nunca los hizo"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Consejería: alimentación y actividad física",
+      "regular": "Indaga alimentación o actividad física",
+      "suficiente": "Indaga alimentación (comidas, frutas y verduras, bebidas) y actividad física, y recomienda actividad aeróbica 30 minutos por día al menos 3 días por semana"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Tabaco, alcohol, violencia y ánimo",
+      "regular": "Indaga tabaco y alcohol, pero no violencia ni ánimo",
+      "suficiente": "Indaga tabaquismo en el hogar, alcohol y sustancias, vínculo de pareja y estado de ánimo, con escucha activa y empática y confidencialidad; aconseja cesación y no fumar cerca del niño"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Salud sexual y pesquisa de ITS",
+      "regular": "Pregunta por el método anticonceptivo o las serologías",
+      "suficiente": "Indaga método anticonceptivo, parejas y antecedentes de ITS, aclara que solo el preservativo previene las ITS y ofrece repetir las serologías (hepatitis B y C, VIH, sífilis, toxoplasmosis, Chagas)"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Enfermedades crónicas y riesgo cardiovascular",
+      "regular": "Indaga antecedentes familiares o estudios de colesterol",
+      "suficiente": "Indaga antecedentes personales y familiares de hipertensión, diabetes, dislipemia, enfermedad renal, EPOC, asma y osteoporosis, y estudios de colesterol; estima el riesgo cardiovascular bajo"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Cáncer: antecedentes y rastreo",
+      "regular": "Indaga antecedentes de cáncer o el PAP",
+      "suficiente": "Indaga antecedentes familiares de cáncer de mama, colon y cuello uterino, y el último PAP; reconoce que corresponde repetir el PAP y que la mamografía y el rastreo de colon no corresponden por edad"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Inmunizaciones del adulto",
+      "regular": "Revisa el carnet sin indicar las faltantes",
+      "suficiente": "Revisa el carnet e indica completar triple viral (2 dosis), refuerzo de doble bacteriana cada 10 años y completar el esquema de hepatitis B 0-1-6 meses; aclara que antigripal y antineumococo no corresponden por edad"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios y turnos",
+      "regular": "Indica algunos estudios",
+      "suficiente": "Indica laboratorio con perfil lipídico y glucemia, serologías, PAP (con o sin test de HPV según edad) y turnos de odontología y oftalmología"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Ácido fólico y deseo de embarazo",
+      "regular": "Menciona el embarazo sin indicar",
+      "suficiente": "Indica ácido fólico y consejería preconcepcional porque planea un embarazo"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Anticoncepción y prevención de ITS",
+      "regular": "Da una de las dos indicaciones",
+      "suficiente": "Aconseja el uso del preservativo en todas las relaciones y ofrece un método anticonceptivo hasta el momento del embarazo"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Aspirina y otras indicaciones",
+      "regular": "Menciona la aspirina sin fundamentar",
+      "suficiente": "Explica que la aspirina no corresponde por la edad y los factores de riesgo"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación, cierre y próximo control",
+      "regular": "Cierra sin pautar el control o sin preguntar dudas",
+      "suficiente": "Resume el plan con lenguaje claro y empático, entrega los turnos, pide que traiga los resultados, pauta el control anual y pregunta si le quedaron dudas"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Habilidades comunicacionales de la consulta",
+      "regular": "Cumple solo algunas",
+      "suficiente": "Saluda, se presenta, la llama por su nombre, no interrumpe, muestra interés, considera su situación familiar y social, y decide el plan con ella"
+    }
+  ]
+}

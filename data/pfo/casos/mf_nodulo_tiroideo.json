@@ -1,0 +1,154 @@
+{
+  "id": "mf_nodulo_tiroideo",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Bulto en el cuello, disfonía y disfagia: nódulo tiroideo en un radiólogo",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Consultorio",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Juan Carlos tiene 57 años, es radiólogo y ha ejercido su profesión por más de 30 años. Consulta con su médico clínico de cabecera porque en los últimos 3 meses comenzó a notar un bulto por encima del manubrio esternal. Niega dolor. Le preocupa que le cambió la voz, impresiona disfónico, sin mejoría. Se queja además de que se ahoga con la ingesta de líquidos fundamentalmente.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Realizar una impresión diagnóstica.",
+    "Comunicar al paciente la conducta a seguir."
+  ],
+  "interlocutor": "Juan Carlos Sosa, 57 años, médico radiólogo (habla él, en primera persona; preocupado, pensando en cáncer)",
+  "guion_paciente": "Juan Carlos Sosa, 57 años, médico radiólogo desde hace más de 30 años. Hace 3 meses notó un bulto en la base del cuello, sobre el esternón; creció algo en este tiempo, no duele, no tiene cambios de color ni de temperatura. Desde entonces tiene la voz ronca, que no mejora, y se ahoga al tomar líquidos (con sólidos no tanto), sin dolor al tragar. No tiene falta de aire. Perdió 3 kg; se cansa algo; sin intolerancia al frío o al calor, ni sudoración ni temblor. No se hizo estudios de cuello. Nunca tomó medicación para la tiroides. Trabajó con protección plomada y con dosímetro la mayor parte del tiempo, pero al comienzo de su carrera, no siempre. Antecedente de irradiación en el cuello: ninguna conocida. Padre con cáncer de tiroides a los 60 años. Sin otras enfermedades, sin alergias, sin cirugías. No fuma; alcohol ocasional.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Signos vitales normales (TA 128/80 mmHg, FC 76 por minuto). Voz ronca. Cuello: tumoración de 3 cm en la región infraangular anterior derecha, por encima del manubrio esternal, indolora, de consistencia dura, irregular, con movimiento a la deglución parcialmente limitado, sin latido ni calor, piel sin cambios. Adenopatía yugulocarotídea derecha de 1 cm, dura, indolora. Tráquea levemente desviada a la izquierda. Sin otras adenopatías. Resto del examen normal.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Si el alumno lo solicita, quedan pendientes: TSH 1,8 µUI/ml, T4 libre 1,1 ng/dl, tiroglobulina 55 ng/ml, anticuerpos ATPO negativos. Resto normal."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía de cuello: nódulo sólido hipoecogénico de 3,2 cm en el lóbulo derecho con bordes irregulares y microcalcificaciones, más alto que ancho, con vascularización intranodular; adenopatía yugulocarotídea derecha de 1,2 cm con pérdida del hilio. Indicación de punción con aguja fina bajo ecografía."
+    },
+    {
+      "clave": "laringoscopia",
+      "texto": "[BORRADOR] Laringoscopia: parálisis de la cuerda vocal derecha en posición paramediana."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar malignidad en un nódulo tiroideo duro con disfonía, adenopatías y antecedentes de riesgo",
+    "Indicar levotiroxina o tratamiento médico sin punción-aspiración con aguja fina",
+    "No solicitar laringoscopia ante disfonía asociada a un nódulo de cuello"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Características del bulto",
+      "regular": "Indaga tamaño o crecimiento",
+      "suficiente": "Indaga inicio, crecimiento, dolor, cambios de color o temperatura, otros bultos y ganglios"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Voz y deglución",
+      "regular": "Indaga la disfonía o el ahogo",
+      "suficiente": "Indaga el cambio de voz (inicio y relación con el bulto), ahogo con líquidos o sólidos, odinofagia y disnea"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Exposición y antecedentes de tiroides",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga exposición ocupacional a radiación (protección, dosímetro), estudios previos del cuello, medicación por problemas de tiroides y antecedentes familiares"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas generales y función tiroidea",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga pérdida de peso, cansancio, caída del cabello, palidez, intolerancia al frío o al calor"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Inspección del cuello",
+      "regular": "Inspecciona sin detalle",
+      "suficiente": "Inspecciona el bulto, la piel, adenopatías laterales y desviación de la tráquea o del cartílago tiroideo"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Palpación",
+      "regular": "Palpa sin detalle",
+      "suficiente": "Palpa desde atrás del paciente, con deglución, valorando consistencia, movilidad, adherencia, latido y calor, y palpa las cadenas ganglionares (submandibular, supraclavicular, yugulocarotídea)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Impresión diagnóstica",
+      "regular": "Nombra bocio",
+      "suficiente": "Plantea nódulo o bocio tiroideo con sospecha de malignidad (disfonía, adenopatía y consistencia dura) y lo explica con lenguaje claro"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Nombra uno o dos",
+      "suficiente": "Considera quiste branquial, quiste tirogloso, divertículo de Zenker, metástasis cervicales y tumor de esófago, laringe o tiroides"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Ecografía de cuello y punción",
+      "regular": "Solicita la ecografía",
+      "suficiente": "Solicita ecografía de cuello y explica que si el nódulo mide más de 1 cm (más de 5 mm con factores de riesgo) se realiza punción-aspiración con aguja fina bajo ecografía para citología"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Laboratorio",
+      "regular": "Solicita algunos estudios",
+      "suficiente": "Solicita TSH, T4, tiroglobulina, anticuerpos antitiroideos (ATPO y antitiroglobulina), hemograma, glucemia, urea, creatinina, ionograma y coagulograma"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Laringoscopia",
+      "regular": "La menciona",
+      "suficiente": "Solicita laringoscopia por la disfonía, para valorar la movilidad de las cuerdas vocales"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Interconsulta y seguimiento",
+      "regular": "Cita sin plazo",
+      "suficiente": "Cita cuando tenga los resultados y deriva a cirugía de cabeza y cuello o endocrinología según los resultados"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Evita tranquilizar en falso",
+      "regular": "Tranquiliza sin estudiar",
+      "suficiente": "Comunica que hace falta completar los estudios antes de definir el diagnóstico, sin descartar ni confirmar malignidad prematuramente"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y empatía",
+      "regular": "Explica sin verificar la comprensión",
+      "suficiente": "Explica con claridad y empatía, valida su preocupación y pregunta si tiene dudas"
+    }
+  ]
+}

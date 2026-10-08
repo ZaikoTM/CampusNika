@@ -1,0 +1,147 @@
+{
+  "id": "mf_depresion",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Desgano, decaimiento y palpitaciones: sospecha de trastorno del ánimo",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Andrea Méndez, de 26 años, acude a la consulta en el CAPS porque hace unas semanas observa en ella desgano, decaimiento y menos apetito. Dice que el corazón le late más rápido y por momentos siente angustia.",
+  "objetivos": [
+    "Realizar una anamnesis breve.",
+    "Solicitar estudios complementarios, en caso de creerlo necesario.",
+    "Comunicarle su impresión diagnóstica.",
+    "Indicar tratamiento en caso de creerlo necesario.",
+    "Indicar seguimiento."
+  ],
+  "interlocutor": "Andrea Méndez, 26 años, empleada de un banco (habla ella, en primera persona; ánimo bajo, voz suave, llora fácilmente)",
+  "guion_paciente": "Andrea Méndez, 26 años, trabaja en un banco. Hace unas 4 semanas está desganada, sin ganas de salir con amigas ni de hacer lo que le gustaba (entrenar); está cansada todo el día y come menos; bajó unos 3 kg sin proponérselo. Le cuesta dormirse (se despierta a las 4) y concentrarse en el trabajo. A veces siente que el corazón le late rápido, sobre todo de noche y cuando piensa en el trabajo; dura minutos y se pasa solo, sin dolor de pecho ni desmayos. Siente angustia y preocupación constante por el trabajo y por su futuro. Se siente culpable «porque no rinde». Sin náuseas, vómitos, fiebre ni temblores; sin calor ni frío intolerable; el cabello normal.\nDesencadenante: hace dos meses terminó con su pareja de tres años; y hace un mes la cambiaron de sector con más presión. Vive con una amiga, se lleva bien. Ciclo menstrual regular (FUM hace 2 semanas), usa pastillas anticonceptivas; no cree estar embarazada. Último control ginecológico hace un año, normal.\nPensamientos de muerte: si se lo preguntan de forma directa, dice que a veces piensa que «sería más fácil no despertar», pero que no tiene ideas de hacerse daño ni plan; no tiene intentos previos. Si no se lo preguntan, no lo dice.\nAntecedentes: sin enfermedades crónicas; una tía con depresión; sin tratamiento psicológico previo; sin cirugías; sin alergias. Toma café (4 por día) y fuma 5 cigarrillos por día; alcohol los fines de semana (2 copas); sin otras drogas. No hace actividad física últimamente. Trabaja, pero con menos rendimiento.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Signos vitales: TA 115/70 mmHg, FC 96 por minuto, regular, temperatura 36,6 °C, saturación 99 %, peso 56 kg, talla 1,64 m, IMC 20,8. Tristeza evidente, llanto contenido, lenguaje coherente y orientada. Tiroides no palpable. Auscultación cardíaca normal, sin soplos. Sin temblor. Abdomen sin particularidades.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma normal (hemoglobina 12,8 g/dl), glucemia 88 mg/dl, urea 24 mg/dl, creatinina 0,7 mg/dl, ionograma normal, orina completa normal, hepatograma normal, TSH 2,3 mUI/L, T4 libre 1,1 ng/dl, beta-HCG negativa (se informan cuando vuelva con los resultados)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No evaluar el riesgo suicida ante un cuadro depresivo",
+    "Indicar benzodiacepinas de modo crónico o sin un diagnóstico claro",
+    "No descartar causas orgánicas (hipotiroidismo, anemia, embarazo, diabetes) antes del diagnóstico psiquiátrico"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Temporalidad y síntomas principales",
+      "regular": "Indaga uno de los síntomas",
+      "suficiente": "Indaga tiempo de evolución, si es la primera vez, el desgano, el decaimiento, el apetito y la pérdida de peso"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Palpitaciones",
+      "regular": "Pregunta si le late rápido",
+      "suficiente": "Indaga características, momento del día, desencadenantes, duración, dolor de pecho y síncope"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Criterios de depresión y ansiedad",
+      "regular": "Indaga dos síntomas",
+      "suficiente": "Indaga ánimo deprimido, anhedonia, sueño, concentración, culpa, preocupación excesiva, y ánimo con ideas de muerte"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Riesgo suicida",
+      "regular": "Pregunta de manera indirecta",
+      "suficiente": "Pregunta de manera directa por ideas de muerte o de hacerse daño, plan, intento previo y factores de riesgo"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Desencadenantes y funcionalidad",
+      "regular": "Indaga uno de los dos",
+      "suficiente": "Indaga desencadenantes recientes (duelos, pareja, trabajo, estudios) y cómo afectan el trabajo y las actividades diarias"
+    },
+    {
+      "id": 6,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y hábitos",
+      "regular": "Indaga antecedentes o hábitos",
+      "suficiente": "Indaga enfermedades, medicación, antecedentes familiares de salud mental, tratamientos previos, ciclo menstrual y embarazo, tabaco, alcohol, drogas, actividad física, alimentación y sueño"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico y estado mental",
+      "regular": "Mide los signos vitales",
+      "suficiente": "Toma signos vitales, evalúa peso, tiroides, auscultación cardíaca y observa el estado mental"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Impresión diagnóstica",
+      "regular": "Menciona un cuadro psicológico",
+      "suficiente": "Plantea un cuadro psicológico agudo con síntomas ansiosos y depresivos (probable trastorno de ansiedad generalizada con síntomas depresivos) a estudiar, y la necesidad de descartar causas orgánicas"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita hemograma, glucemia, urea, creatinina, ionograma, orina completa, hepatograma, TSH, T4 libre y beta-HCG"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Interconsulta con salud mental",
+      "regular": "La menciona sin explicar",
+      "suficiente": "Deriva al equipo de salud mental, explica que podrá hablar con total confidencialidad y que le ayudarán con herramientas"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Indicaciones no farmacológicas",
+      "regular": "Indica una medida",
+      "suficiente": "Aconseja mantener actividades placenteras, ejercicio, tiempo con familia y amigos, higiene del sueño y reducir café y tabaco"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento farmacológico",
+      "regular": "Indica un fármaco sin justificar",
+      "suficiente": "Explica que no inicia fármacos aún por no tener diagnóstico certero y que se reevaluará según los estudios y el equipo de salud mental; si indica uno, que sea justificado y por tiempo corto"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento y pautas de alarma",
+      "regular": "Cita sin plazo",
+      "suficiente": "Cita a control cuando tenga los resultados (o a los 15 días si no los tiene) y da pautas de alarma para consultar antes, especialmente por ideas de muerte"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y empatía",
+      "regular": "Es empática en parte",
+      "suficiente": "Garantiza la confidencialidad, escucha con empatía, resume el plan con lenguaje claro y pregunta si le quedaron dudas"
+    }
+  ]
+}

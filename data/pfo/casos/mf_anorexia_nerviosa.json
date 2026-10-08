@@ -1,0 +1,151 @@
+{
+  "id": "mf_anorexia_nerviosa",
+  "area": "medicina_familiar",
+  "estado": "borrador",
+  "nombre": "Amenorrea y pérdida de peso: anorexia nerviosa en una adolescente",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted atiende en el centro de salud a María González, de 18 años, estudiante universitaria, que concurre acompañada por su madre, preocupada. Consulta por irregularidades menstruales y fatiga persistente. La madre refiere que perdió peso de manera significativa en los últimos seis meses. La paciente dice que está «tratando de cuidarse» y que «todavía tiene peso de más». Controles previos: FC 56 por minuto, TA 100/60 mmHg, temperatura 37 °C.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida y breve, evaluando los factores psicosociales relacionados.",
+    "Realizar un examen físico dirigido.",
+    "Formular el diagnóstico y solicitar los exámenes complementarios que considere.",
+    "Explicar un plan de tratamiento y seguimiento adecuado."
+  ],
+  "interlocutor": "María González, 18 años (habla ella, en primera persona; su madre espera adentro hasta que el médico pida hablar a solas)",
+  "guion_paciente": "María González, 18 años, estudia Nutrición en la universidad. Vino con su madre, que dice que adelgazó mucho y que pasa horas en el gimnasio. María minimiza: «estoy bien, solo quiero sentirme bien con mi cuerpo; todavía tengo peso de más». Si el médico pide hablar a solas y garantiza la confidencialidad, relata:\nHace unos 6 meses empezó una dieta: dejó los hidratos de carbono, las grasas, los lácteos y los dulces; come verduras, claras de huevo, café y mate; saltea comidas y evita comer frente a otros (dice que comió antes). Se pesa varias veces al día. Hace gimnasio 2 horas por día, 6 días por semana, y camina. Le da miedo engordar y se ve «gorda» en el espejo. No se induce vómitos ni usa laxantes ni diuréticos ni pastillas para adelgazar; sin atracones. Menarca a los 13 años, ciclos regulares hasta hace 4 meses; amenorrea desde entonces. No tiene relaciones sexuales, no usa anticonceptivos, no hay posibilidad de embarazo.\nSíntomas: cansancio, mareos al pararse, frío constante, irritabilidad, se aisló de sus amigas, le cuesta concentrarse en el estudio, algo de dolor abdominal después de comer. Sin dolor de pecho ni desmayos. Ánimo bajo, pero sin ideas de muerte ni de hacerse daño (si se lo preguntan directamente).\nAntecedentes: sin enfermedades crónicas ni medicación; una tía con trastorno alimentario; sin consultas previas con salud mental. No fuma, no toma alcohol, sin drogas.\nAnte el diagnóstico: duda, dice que no está enferma, pero acepta ser acompañada si siente que no la juzgan y si no la obligan a engordar de golpe.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "FC 56 por minuto, TA 100/60 mmHg, temperatura 37 °C, peso 45 kg, talla 1,65 m, IMC 16,5 kg/m². Delgadez marcada con atrofia muscular, extremidades frías, piel seca, cabello fino y quebradizo, uñas quebradizas; lanugo leve en la espalda. Sin edemas. Auscultación cardíaca sin soplos; abdomen excavado, sin dolor. Cambios ortostáticos leves (FC sube 12 por minuto al ponerse de pie).",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: hemoglobina 11,5 g/dl, leucocitos 3.800/mm³, plaquetas 180.000/mm³. Glucemia 68 mg/dl. Urea 38 mg/dl, creatinina 0,6 mg/dl. Sodio 137, potasio 3,4 mEq/L (levemente bajo), magnesio 1,7 mg/dl, fósforo 3,0 mg/dl. Hepatograma: GOT 42, GPT 46 U/L. Colesterol total 238 mg/dl (elevado, por adaptación al ayuno), HDL 70, LDL 150. TSH 3,1 mUI/L, T4 libre 0,8 ng/dl, T3 baja-normal. FSH y LH bajas, estradiol bajo (hipogonadismo hipogonadotrópico). Prolactina normal. Test de embarazo negativo."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: bradicardia sinusal a 52 por minuto, QTc 440 ms, sin arritmias."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No explorar el diagnóstico de trastorno de la conducta alimentaria ante pérdida de peso, amenorrea y miedo a engordar",
+    "No evaluar el riesgo suicida ni indagar de forma directa el ánimo en una adolescente con trastorno alimentario",
+    "Indicar fármacos para adelgazar, laxantes o una dieta restrictiva",
+    "Minimizar o juzgar a la paciente, o violar la confidencialidad con la madre sin motivo"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivo de consulta e irregularidades menstruales",
+      "regular": "Pregunta una de las dos cosas",
+      "suficiente": "Indaga menarca, regularidad, tiempo de amenorrea, método anticonceptivo y posibilidad de embarazo"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Entrevista a solas y confidencialidad",
+      "regular": "Habla a solas sin explicar la confidencialidad",
+      "suficiente": "Pide hablar a solas, garantiza la confidencialidad, ofrece apoyo emocional y escucha sin juzgar"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Conductas alimentarias",
+      "regular": "Indaga alimentación sin conductas compensatorias",
+      "suficiente": "Indaga restricción, alimentos evitados, tiempo sin comer, comer a solas, atracones y purgas (vómitos, laxantes, diuréticos, fármacos)"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Imagen corporal y ejercicio",
+      "regular": "Indaga uno de los dos",
+      "suficiente": "Indaga percepción corporal y miedo a engordar, y la frecuencia e intensidad del ejercicio"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas, antecedentes y ánimo",
+      "regular": "Indaga síntomas físicos",
+      "suficiente": "Indaga mareos, frío, dolor abdominal, concentración, aislamiento, ánimo y riesgo suicida; antecedentes personales y familiares y consultas previas a salud mental"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico dirigido",
+      "regular": "Mide peso o signos vitales",
+      "suficiente": "Evalúa signos vitales (bradicardia, hipotensión, temperatura), peso, talla e IMC, piel, cabello, uñas, extremidades, atrofia muscular y cambios ortostáticos, pidiendo el consentimiento"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea un trastorno alimentario",
+      "suficiente": "Diagnostica anorexia nerviosa de tipo restrictivo (restricción, miedo a engordar y alteración de la imagen corporal) con gravedad moderada por IMC 16 a 16,99"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Menciona uno",
+      "suficiente": "Descarta causas orgánicas de pérdida de peso y amenorrea (hipotiroidismo, hipertiroidismo, embarazo, diabetes, celiaquía, enfermedad inflamatoria intestinal, depresión)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Exámenes complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita hemograma, glucemia, ionograma, urea y creatinina, hepatograma, perfil lipídico, TSH y T4 libre, hormonas (FSH, LH, prolactina, estradiol), test de embarazo y electrocardiograma"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Explicación del diagnóstico",
+      "regular": "Explica con términos técnicos",
+      "suficiente": "Explica con lenguaje claro y empático que es un trastorno multifactorial, que existe tratamiento y que el objetivo es recuperar la salud y la relación con la comida, no solo el peso"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Equipo interdisciplinario",
+      "regular": "Menciona la derivación a un profesional",
+      "suficiente": "Propone un equipo con médico, nutricionista y psicólogo (psiquiatra si corresponde) y psicoterapia cognitivo-conductual"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Criterios de internación",
+      "regular": "Menciona que podría internarse",
+      "suficiente": "Evalúa los criterios de internación (IMC menor de 14 o 15, bradicardia menor de 45, hipopotasemia, arritmias, hipotensión, rechazo a comer, riesgo suicida) y explica por qué ahora corresponde manejo ambulatorio"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento y familia",
+      "regular": "Cita sin plazo o sin la familia",
+      "suficiente": "Programa seguimiento periódico de peso, frecuencia cardíaca y laboratorio, incorpora a la familia con su consentimiento y advierte sobre el síndrome de realimentación"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación empática",
+      "regular": "Es empático en parte",
+      "suficiente": "Mantiene el contacto visual, no juzga, valida su sentir, acuerda el plan con ella y pregunta si tiene dudas"
+    }
+  ]
+}
