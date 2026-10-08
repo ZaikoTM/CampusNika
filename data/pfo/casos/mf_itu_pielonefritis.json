@@ -1,7 +1,7 @@
 {
   "id": "mf_itu_pielonefritis",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Infección urinaria que no mejora: pielonefritis en una paciente diabética con litiasis",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -104,7 +104,7 @@
       "max": 10,
       "texto": "Internación y estudios",
       "regular": "Indica internación sin estudios",
-      "suficiente": "Indica internación en sala general, control de signos vitales y glucemia, urocultivo con antibiograma, hemocultivos por dos, laboratorio completo y ecografía renovesical para descartar obstrucción"
+      "suficiente": "Indica internación en sala general, control de signos vitales y de glucemia, laboratorio completo, ecografía renovesical, urocultivo con antibiograma y hemocultivos por dos (aclarando que deben tomarse antes de iniciar el antibiótico)"
     },
     {
       "id": 10,
@@ -128,7 +128,7 @@
       "max": 10,
       "texto": "Sintomáticos y medicación habitual",
       "regular": "Indica antitérmicos sin analgésicos",
-      "suficiente": "Indica antitérmico (dipirona o paracetamol 500 mg cada 6 horas) y analgésico (ketorolac 30 mg cada 8 horas) y ajusta la medicación habitual de la diabetes durante la internación"
+      "suficiente": "Indica antitérmico (dipirona o paracetamol 500 mg cada 6 horas) y analgésico endovenoso (ketorolac 30 mg cada 8 horas), y suspende explícitamente la metformina por el riesgo de acidosis láctica, indicando corrección de la glucemia con insulina"
     },
     {
       "id": 13,
