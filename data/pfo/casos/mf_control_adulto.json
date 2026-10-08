@@ -1,7 +1,7 @@
 {
   "id": "mf_control_adulto",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Control de salud de una mujer adulta",
   "duracionMin": 15,
   "tipo": "dinámica",
@@ -98,7 +98,7 @@
       "max": 5,
       "texto": "Inmunizaciones del adulto",
       "regular": "Revisa el carnet sin indicar las faltantes",
-      "suficiente": "Revisa el carnet e indica completar triple viral (2 dosis), refuerzo de doble bacteriana cada 10 años y completar el esquema de hepatitis B 0-1-6 meses; aclara que antigripal y antineumococo no corresponden por edad"
+      "suficiente": "Revisa el carnet e indica aplicar la segunda dosis faltante de triple viral, la tercera dosis faltante de hepatitis B (no se reinician los esquemas) y el refuerzo de doble bacteriana; advierte que tras la triple viral debe evitar el embarazo por un mes; aclara que antigripal y antineumococo no corresponden"
     },
     {
       "id": 9,
@@ -114,7 +114,7 @@
       "max": 10,
       "texto": "Ácido fólico y deseo de embarazo",
       "regular": "Menciona el embarazo sin indicar",
-      "suficiente": "Indica ácido fólico y consejería preconcepcional porque planea un embarazo"
+      "suficiente": "Indica ácido fólico profiláctico (0,4 a 1 mg por día) y consejería preconcepcional porque planea un embarazo a mediano plazo"
     },
     {
       "id": 11,
