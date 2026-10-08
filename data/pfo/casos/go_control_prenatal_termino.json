@@ -1,7 +1,7 @@
 {
   "id": "go_control_prenatal_termino",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Miedos al final del embarazo: signos de trabajo de parto y pautas de alarma",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -15,7 +15,7 @@
     "Dar otras pautas de alarma que puedan poner en riesgo su embarazo."
   ],
   "interlocutor": "Sonia Cabrera, 28 años, empleada administrativa (habla ella, en primera persona; ansiosa y con muchas preguntas)",
-  "guion_paciente": "Sonia Cabrera, 28 años, empleada administrativa. Segundo embarazo (G2 P1 A0 C0; primer parto vaginal a término hace 4 años, sin complicaciones). Cursa 39 semanas y media por FUM confiable y ecografía del primer trimestre. Se atendió hasta ahora con otro médico en otra localidad y se mudó hace dos semanas, por eso viene por primera vez. Está ansiosa: no sabe distinguir las contracciones de verdad de las de práctica, se le cayó parte del «tapón» hace dos días y teme no darse cuenta de que está de parto y que le pase algo al bebé. Siente al bebé moverse menos que antes («tiene menos lugar»), pero se mueve varias veces al día. Contracciones esporádicas, en la parte baja de la panza, que duran más de un minuto y desaparecen con el reposo. Sin pérdida de líquido, sin sangrado, sin dolor de cabeza, visión borrosa, zumbidos ni hinchazón de cara o manos, sin fiebre, sin ardor al orinar, sin flujo anormal.\nCarnet perinatal (si se lo piden, se lee): grupo A Rh positivo; 8 controles; hemoglobina 12,1 g/dl a las 20 semanas y 11,8 a las 34; glucemia en ayunas 82 mg/dl; PTOG a las 26 semanas normal; VDRL, VIH, hepatitis B, toxoplasmosis (inmune) y Chagas negativos; urocultivo negativo a las 35 semanas; hisopado vagino-rectal para estreptococo del grupo B a las 36 semanas: negativo; ecografías del primer, segundo y tercer trimestre normales (cefálico, placenta fúndica, líquido normal); TA siempre entre 100/60 y 120/75; peso previo 62 kg, actual 74 kg; vacunas: antigripal, dTpa a las 24 semanas y vacuna contra el virus sincicial respiratorio a las 34 semanas; recibe hierro y ácido fólico. Altura uterina 35 cm. Latidos fetales 140 por minuto.\nAntecedentes: sin enfermedades crónicas, sin cirugías, sin alergias; no fuma ni toma alcohol; vive con su pareja y su hija; tiene apoyo. Quiere amamantar. Pide que le dejen la información por escrito.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "guion_paciente": "Sonia Cabrera, 28 años, empleada administrativa. Segundo embarazo (G2 P1 A0 C0; primer parto vaginal a término hace 4 años, sin complicaciones). Cursa 39 semanas y media por FUM confiable y ecografía del primer trimestre. Se atendió hasta ahora con otro médico en otra localidad y se mudó hace dos semanas, por eso viene por primera vez. Está ansiosa: no sabe distinguir las contracciones de verdad de las de práctica, se le cayó parte del «tapón» hace dos días y teme no darse cuenta de que está de parto y que le pase algo al bebé. Pregunta qué pasa si llega a la fecha probable (40 semanas) y no nace. Siente al bebé moverse menos que antes («tiene menos lugar»), pero se mueve varias veces al día. Contracciones esporádicas, en la parte baja de la panza, que duran más de un minuto y desaparecen con el reposo. Sin pérdida de líquido, sin sangrado, sin dolor de cabeza, visión borrosa, zumbidos ni hinchazón de cara o manos, sin fiebre, sin ardor al orinar, sin flujo anormal.\nCarnet perinatal (si se lo piden, se lee): grupo A Rh positivo; 8 controles; hemoglobina 12,1 g/dl a las 20 semanas y 11,8 a las 34; glucemia en ayunas 82 mg/dl; PTOG a las 26 semanas normal; VDRL, VIH, hepatitis B, toxoplasmosis (inmune) y Chagas negativos; urocultivo negativo a las 35 semanas; hisopado vagino-rectal para estreptococo del grupo B a las 36 semanas: negativo; ecografías del primer, segundo y tercer trimestre normales (cefálico, placenta fúndica, líquido normal); TA siempre entre 100/60 y 120/75; peso previo 62 kg, actual 74 kg; vacunas: antigripal, dTpa a las 24 semanas y vacuna contra el virus sincicial respiratorio a las 34 semanas; recibe hierro y ácido fólico. Altura uterina 35 cm. Latidos fetales 140 por minuto.\nAntecedentes: sin enfermedades crónicas, sin cirugías, sin alergias; no fuma ni toma alcohol; vive con su pareja y su hija; tiene apoyo. Quiere amamantar. Pide que le dejen la información por escrito.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
   "datos_clinicos": "TA 112/70 mmHg, FC 84 por minuto, peso 74 kg. Examen obstétrico: altura uterina 35 cm, feto único, longitudinal, cefálico, dorso a la izquierda, cabeza encajada; latidos fetales 142 por minuto regulares; dinámica uterina esporádica (contracciones irregulares de Braxton Hicks); cuello no valorado en esta consulta; edemas maleolares leves sin signos de preeclampsia.",
   "estudios": [
     {
@@ -100,7 +100,7 @@
       "max": 10,
       "texto": "Signos de trabajo de parto",
       "regular": "Menciona dos",
-      "suficiente": "Explica los signos de trabajo de parto: contracciones cada vez más frecuentes y dolorosas (una cada 10 minutos o menos, de unos 60 segundos, que no ceden con reposo) y salida de líquido claro a chorro"
+      "suficiente": "Explica los signos de trabajo de parto: contracciones regulares, cada vez más frecuentes y dolorosas (al menos 2 a 3 en 10 minutos, que no ceden con el reposo) y salida de líquido claro a chorro"
     },
     {
       "id": 10,
@@ -124,7 +124,7 @@
       "max": 10,
       "texto": "Movimientos fetales y embarazo prolongado",
       "regular": "Menciona uno",
-      "suficiente": "Explica el conteo de movimientos fetales y que debe internarse si supera las 40 semanas"
+      "suficiente": "Explica el conteo de movimientos fetales y que, si llega a las 40 semanas sin haber parido, deberá realizar controles fetales estrictos (no internarse aún) y planificar la inducción recién a las 41 semanas"
     },
     {
       "id": 13,
