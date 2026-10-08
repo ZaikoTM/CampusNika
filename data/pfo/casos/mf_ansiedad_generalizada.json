@@ -1,7 +1,7 @@
 {
   "id": "mf_ansiedad_generalizada",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Preocupaciones constantes e incontrolables: trastorno de ansiedad generalizada",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -100,7 +100,7 @@
       "max": 10,
       "texto": "Estudios complementarios",
       "regular": "Solicita algunos",
-      "suficiente": "Solicita laboratorio con TSH y T4 libre, glucemia, hemograma y electrocardiograma para descartar causa orgánica"
+      "suficiente": "Solicita laboratorio (con TSH, T4 libre y glucemia) y electrocardiograma para descartar causa orgánica, o bien rescata e interpreta correctamente los estudios normales de hace 6 meses para fundamentar que la causa orgánica ya está descartada"
     },
     {
       "id": 10,
@@ -116,7 +116,7 @@
       "max": 10,
       "texto": "ISRS de primera línea",
       "regular": "Indica un ISRS sin dosis",
-      "suficiente": "Indica sertralina 25 a 50 mg por día (o escitalopram 10 mg por día) y explica la latencia de 2 a 4 semanas y los efectos adversos iniciales"
+      "suficiente": "Indica sertralina iniciando con 25 mg por día (para evitar el empeoramiento inicial de la ansiedad) y subiendo luego a 50 mg (o escitalopram 5 a 10 mg); explica la latencia de respuesta (2 a 4 semanas) y advierte sobre los efectos adversos iniciales (gastrointestinales o inquietud)"
     },
     {
       "id": 12,
@@ -124,7 +124,7 @@
       "max": 10,
       "texto": "Benzodiacepinas",
       "regular": "Menciona la posibilidad",
-      "suficiente": "Si las usa, solo como puente por 2 a 4 semanas (clonazepam 0,5 mg por la noche) y advierte el riesgo de dependencia; no más de 1 a 2 meses"
+      "suficiente": "No las indica, o si las usa para el insomnio o la ansiedad severa inicial lo hace estrictamente como puente temporal por 2 a 4 semanas (por ejemplo clonazepam 0,5 a 1 mg por la noche), advirtiendo el riesgo de tolerancia y dependencia"
     },
     {
       "id": 13,
