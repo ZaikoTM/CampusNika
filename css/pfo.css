@@ -186,6 +186,17 @@ body.ei-protegido #pfo-main { -webkit-user-select: none; user-select: none; } bo
 .pfo-riel i { font-style: normal; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--pf-card2); border: 2px solid var(--pf-bd); font-size: 1.05rem; transition: transform .3s; }
 .pfo-riel i.hecha { border-color: var(--pf-ok); background: rgba(22, 163, 74, .12); } .pfo-riel i.sig { border-color: var(--pf-gold); transform: scale(1.18); animation: pfLate 1.6s ease-in-out infinite; }
 
+/* ---- corrección en segundo plano y paso entre estaciones ---- */
+.pfo-bg { margin: 12px auto 14px; display: inline-flex; align-items: center; gap: 8px; font-size: .82rem; font-weight: 700; color: var(--pf-mut); padding: 7px 14px; border-radius: 999px; background: var(--pf-card2); border: 1px solid var(--pf-bd); } .pfo-bg:empty { display: none; }
+.pfo-barra-c { width: min(320px, 80%); height: 8px; margin: 16px auto 8px; border-radius: 99px; background: rgba(148, 163, 184, .3); overflow: hidden; } .pfo-barra-c b { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #38bdf8, #f59e0b); transition: width .6s var(--mi-ease); }
+.pfo-wipe { position: fixed; inset: 0; z-index: 9950; display: grid; place-items: center; background: linear-gradient(135deg, #0f2a5c, #1e3a8a 55%, #4c1d95); animation: pfWipeIn .55s cubic-bezier(.77, 0, .18, 1) forwards; }
+.pfo-wipe.sale { animation: pfWipeOut .6s cubic-bezier(.77, 0, .18, 1) forwards; }
+@keyframes pfWipeIn { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes pfWipeOut { from { transform: none; opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+.pfo-wipe-c { text-align: center; color: #fff; padding: 20px; } .pfo-wipe-c .ic { font-size: clamp(4rem, 14vw, 6.5rem); display: inline-block; animation: pfPop .7s cubic-bezier(.2, .9, .3, 1.4) .25s backwards; filter: drop-shadow(0 12px 22px rgba(0, 0, 0, .4)); }
+.pfo-wipe-c small { display: block; margin-top: 10px; letter-spacing: .3em; text-transform: uppercase; font-weight: 800; color: #fde68a; animation: pfIn .5s ease .4s backwards; } .pfo-wipe-c h2 { margin: 6px 0 0; font-size: clamp(1.5rem, 5vw, 2.4rem); animation: pfIn .5s ease .5s backwards; }
+.pfo-wipe-b { width: 160px; height: 4px; margin: 20px auto 0; border-radius: 4px; background: rgba(255, 255, 255, .2); overflow: hidden; } .pfo-wipe-b b { display: block; height: 100%; background: linear-gradient(90deg, #fde68a, #f59e0b); animation: pfCarga .9s ease-in-out .5s backwards; transform-origin: left; } @keyframes pfCarga { from { transform: scaleX(0); } }
+
 /* ---- resultado final ---- */
 .pfo-fin { position: relative; text-align: center; border-radius: 26px; padding: clamp(28px, 5vw, 44px) 20px; border: 1px solid var(--pf-bd); background: var(--pf-card); overflow: hidden; box-shadow: var(--pf-sh); }
 .pfo-fin > * { position: relative; z-index: 1; }

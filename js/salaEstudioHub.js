@@ -68,6 +68,12 @@
     const cont = $('#se-contenido');
     if (!y.materias.length) { cont.innerHTML = `<div class="ns-vacio ns-fade"><b>🚧</b>${esc(y.aviso || 'Pronto sumaremos contenido para este año.')}</div>`; return; }
     cont.innerHTML = `<div class="se-grid">${y.materias.map(tarjeta).join('')}</div>`;
+    // En tablet y celular (y en general) toda la tarjeta abre la sala: no hace falta apuntarle al botón «Entrar»
+    cont.querySelectorAll('.se-card:not(.off)').forEach((c) => {
+      const ir = c.querySelector('.se-entrar[href]'); if (!ir) return;
+      c.style.cursor = 'pointer';
+      c.addEventListener('click', (e) => { if (e.target.closest('a, button')) return; location.href = ir.getAttribute('href'); });
+    });
   }
 
   // atajos: continuar donde quedó (último módulo abierto en la sala de estudio)

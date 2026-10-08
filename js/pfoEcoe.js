@@ -66,7 +66,7 @@
   }
   const casoDe = (E) => (E && E.casoId ? CASOS[E.casoId] : null);
   const procDe = (E) => { const c = casoDe(E); return c && c.procedimiento && PROC[c.procedimiento] ? PROC[c.procedimiento] : null; };
-  function promptEstacion(i) {
+  function promptEstacion(i, pos) {
     const e = CFG.estaciones[i]; const P = perfilEstacion(e); const B = window.PROMPTS_MATERIAS_BUILDERS;
     const max = CFG.criterios.maxIntervencionesPorEstacion;
     let p = B.ecoe(P)
@@ -75,7 +75,7 @@
     p += `
 
 ## 9. NIVEL DE EGRESO (ECOE FINAL de grado)
-Esta estación es la número ${(S && S.idx != null ? S.idx : i) + 1} de ${S && S.estaciones ? S.estaciones.length : CFG.estaciones.length} del ECOE FINAL de la carrera de Medicina: el último examen antes de recibirse. El alumno rinde varias estaciones seguidas con especialidades distintas. La exigencia es SUPERIOR a la de 5.° año: un 6 significa que cumplió lo mínimo con seguridad y un 8 o más exige un manejo completo y ordenado.
+Esta estación es la número ${(pos != null ? pos : S && S.idx != null ? S.idx : i) + 1} de ${S && S.estaciones ? S.estaciones.length : CFG.estaciones.length} del ECOE FINAL de la carrera de Medicina: el último examen antes de recibirse. El alumno rinde varias estaciones seguidas con especialidades distintas. La exigencia es SUPERIOR a la de 5.° año: un 6 significa que cumplió lo mínimo con seguridad y un 8 o más exige un manejo completo y ordenado.
 - Exigí respuestas completas y precisas, nunca vagas: no aceptes "le doy un antibiótico" sin principio activo, dosis, vía, frecuencia y duración; ni "pido estudios" sin decir cuáles ni para qué.
 - Esperá diferenciales razonados, estudios justificados, conducta con criterio de gravedad, pautas de alarma, consentimiento informado y comunicación empática con lenguaje claro.
 - Un error crítico de seguridad baja el pilar afectado a 4 o menos aunque el resto esté bien. No infles ninguna nota.
@@ -154,8 +154,8 @@ ${filas}
   function forzarEntrega() {
     if (!S || S.forzado) return;
     S.forzado = true; clearInterval(timer); cerrarOverlayDoc();
-    S.estaciones.forEach((E) => { if (!E.cerrada) { E.cerrada = true; E.noEvaluada = true; E.resultado = resultadoNulo('Estación no evaluada: el examen se entregó por incumplir las reglas.'); } });
-    guardar(); vistaFinal();
+    S.estaciones.forEach((E) => { if (!E.terminada && !E.cerrada) { E.terminada = true; E.cerrada = true; E.noEvaluada = true; E.resultado = resultadoNulo('Estación no evaluada: el examen se entregó por incumplir las reglas.'); } });
+    guardar(); irAlFinal();
   }
 
   // ------------------------------------------------------------------ vistas
@@ -183,7 +183,7 @@ ${filas}
         ${CFG.borrador_hasta_rubrica ? `<div class="pfo-aviso bor">📝 ${esc(CFG.nota_rubrica)}</div>` : ''}</section>
       ${h.length ? `<section class="pfo-sec"><h2>🗂️ Tus intentos</h2><div class="pfo-hist">${h.slice(-5).reverse().map((x) => `<div class="pfo-hist-i"><span>${esc(x.fecha)}</span><span>Nota global <b class="${x.aprobado ? 'ok' : 'mal'}">${fmtNota(x.global)}</b> · ${x.aprobado ? 'Aprobado' : x.revision ? 'En revisión' : 'A reforzar'}</span></div>`).join('')}</div></section>` : ''}
       ${g ? '' : `<section class="pfo-sec" id="pfo-prac"><h2>🎯 Modo práctica</h2>
-        <p style="color:var(--pf-mut);font-size:.88rem;line-height:1.55;margin:0 0 12px">Practicá con las mismas reglas del examen pero a tu medida: elegí una o varias especialidades (y, si querés, el caso exacto), con o sin reloj. Al terminar cada estación ves al instante la rúbrica, en qué te equivocaste y cómo sería la resolución modelo. No cuenta como intento del examen.</p>
+        <p style="color:var(--pf-mut);font-size:.88rem;line-height:1.55;margin:0 0 12px">Practicá con las mismas reglas del examen pero a tu medida: elegí una o varias especialidades (y, si querés, el caso exacto), con o sin reloj. Al terminar todas las estaciones ves la nota, la rúbrica, en qué te equivocaste y cómo sería la resolución modelo. No cuenta como intento del examen.</p>
         <div class="pfo-pr-acc"><button type="button" class="pfo-btn sec" id="pfo-pr-todas">Todas las áreas</button><button type="button" class="pfo-btn sec" id="pfo-pr-ninguna">Limpiar</button><label class="pfo-pr-reloj"><input type="checkbox" id="pfo-pr-reloj" checked> ⏱️ Con reloj</label></div>
         <div class="pfo-pr-grid">${CFG.estaciones.map((e, i) => { const ids = (e.casos_oficiales || []).filter((id) => CASOS[id]).sort((a, b) => CASOS[a].nombre.localeCompare(CASOS[b].nombre)); return `<div class="pfo-pr-c" data-i="${i}"><label class="pfo-pr-t"><input type="checkbox" data-i="${i}"><span class="ic">${e.icono}</span><b>${esc(e.nombre)}</b><small>${ids.length} casos</small></label><select data-c="${i}" aria-label="Caso de ${esc(e.nombre)}"><option value="">🎲 Caso al azar</option>${ids.map((id) => `<option value="${id}">${esc(CASOS[id].nombre)}</option>`).join('')}</select></div>`; }).join('')}</div>
         <div style="text-align:center;margin-top:14px"><button class="pfo-btn" id="pfo-practicar" disabled>Elegí al menos un área para practicar</button></div></section>`}
@@ -206,7 +206,7 @@ ${filas}
       $('#pfo-pr-ninguna').addEventListener('click', () => { pr.querySelectorAll('.pfo-pr-t input').forEach((x) => { x.checked = false; }); refrescar(); });
       $('#pfo-practicar').addEventListener('click', () => nuevaPractica(marcadas().map((i) => ({ ref: i, casoId: pr.querySelector(`select[data-c="${i}"]`).value || null })), $('#pfo-pr-reloj').checked));
     }
-    b('#pfo-retomar', () => { S = leerGuardado(); if (S.modo !== 'practica') iniciarIntegridad(true); vistaEstacionSegunFase(); });
+    b('#pfo-retomar', () => { S = leerGuardado(); if (S.modo !== 'practica') iniciarIntegridad(true); S.estaciones.forEach((E) => { E.evaluando = false; }); vistaEstacionSegunFase(); });
     b('#pfo-descartar', () => { if (confirm('Se pierde el examen en curso. ¿Empezar uno nuevo?')) { limpiarGuardado(); try { window.ExamIntegridad && ExamIntegridad.abandonar(); } catch (_) {} nuevoExamen(); } });
     document.querySelectorAll('.pfo-trat button').forEach((btn) => btn.addEventListener('click', () => {
       try { localStorage.setItem(LS_TRAT, btn.dataset.t); } catch (_) {}
@@ -240,7 +240,8 @@ ${filas}
   }
   function vistaEstacionSegunFase() {
     const E = estActual();
-    if (E && E.fase === 'proc' && !E.proc) vistaProcedimiento(true); else vistaEstacion(true);
+    S.estaciones.forEach((x, i) => { if (x.terminada && !x.cerrada) evaluarSegundoPlano(i); });   // corrige lo que quedó pendiente
+    if (E && E.terminada) siguienteOFin(); else if (E && E.fase === 'proc' && !E.proc) vistaProcedimiento(true); else vistaEstacion(true);
   }
   const DOCS = [['receta', '💊', 'Receta médica', 'La prescripción de tu tratamiento'], ['examenes', '🧪', 'Solicitud de estudios', 'Laboratorio, imágenes, ECG…'], ['certificado', '📄', 'Certificado médico', 'Constancia de lo que constataste']];
   let cerrarMenuDocs = null;
@@ -263,7 +264,7 @@ ${filas}
     cerrarMenuDocs = () => { if (menu && !menu.hidden) menu.hidden = true; }; document.addEventListener('click', cerrarMenuDocs);
     if (!E.fin && !S.sinReloj) E.fin = Date.now() + minutosDe(cfgE, E) * 60000;
     guardar(); contador(); clearInterval(timer); timer = setInterval(tic, 500); tic();
-    if (!E.hist.length) iniciarEstacion(); else { fijar(true); if (E.fase === 'eval') { fijar(false); evaluar(E.motivoCierre || 'manual'); } }
+    if (!E.hist.length) iniciarEstacion(); else fijar(true);
   }
   function actualizarMenuDocs() { const E = estActual(); document.querySelectorAll('#pfo-docs-m [data-doc]').forEach((b) => { b.disabled = !!E.docs.some((x) => x.tipo === b.dataset.doc); }); }
   function burbuja(rol, texto) {
@@ -275,7 +276,7 @@ ${filas}
   const turnosUsados = () => estActual().hist.filter((m) => m.rol === 'usuario' && !m.sis).length;
   function contador() { const el = $('#pfo-turnos'); if (el) el.textContent = `Intervenciones ${turnosUsados()}/${CFG.criterios.maxIntervencionesPorEstacion}`; }
   function tic() {
-    if (!S || S.forzado) return; const E = estActual(); if (!E || E.cerrada) return;
+    if (!S || S.forzado) return; const E = estActual(); if (!E || E.cerrada || E.terminada) return;
     if (S.sinReloj) { const el0 = $('#pfo-timer'); if (el0 && el0.textContent !== 'Sin reloj') el0.textContent = 'Sin reloj'; return; }
     const fin = E.fase === 'proc' ? E.procFin : E.fin; if (!fin || E.fase === 'eval') return;
     const resto = Math.max(0, Math.round((fin - Date.now()) / 1000)); const el = $('#pfo-timer'); if (!el) return;
@@ -287,22 +288,18 @@ ${filas}
   }
   const pensando = (on) => { const c = $('#pfo-chat'); if (!c) return; const v = $('#pfo-pens'); if (v) v.remove(); if (on) { const d = document.createElement('div'); d.id = 'pfo-pens'; d.className = 'pfo-pensando'; d.innerHTML = '<i></i><i></i><i></i>'; c.appendChild(d); c.scrollTop = c.scrollHeight; } };
 
-  async function turno(mensaje, cierre) {
+  async function turno(mensaje) {
     const E = estActual(); pendiente = true; fijar(false); pensando(true);
     try {
-      const previo = cierre ? E.hist.slice() : E.hist.slice(0, -1);
-      const primero = S.idx === 0 && previo.length === 0 && !cierre;
-      const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref) + temaPrompt(E.tema), historial: previo.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje, es_primer_turno: !!primero, accion: cierre ? 'evaluar_caso' : undefined });
+      const previo = E.hist.slice(0, -1);
+      const primero = S.idx === 0 && previo.length === 0;
+      const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref) + temaPrompt(E.tema), historial: previo.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje, es_primer_turno: !!primero });
       pensando(false);
       if (!S || S.forzado) return;
-      const ev = parsearEvaluacion(d.texto);
-      if (ev) { aplicarRubrica(E, ev); aplicarProcedimiento(E, ev); cerrarNota(E, ev); E.resultado = ev; E.cerrada = true; guardar(); siguienteOFin(); return; }
-      if (cierre) { falloEvaluacion('No se pudo generar la evaluación de la estación.'); return; }
       E.hist.push({ rol: 'ia', texto: d.texto }); burbuja('ia', d.texto); guardar(); contador(); fijar(true);
       if (turnosUsados() >= CFG.criterios.maxIntervencionesPorEstacion) cerrarEstacion('turnos');
     } catch (err) {
       pensando(false); const msg = (err && err.message) ? err.message : 'No se pudo contactar al simulador.';
-      if (cierre) { falloEvaluacion(msg); return; }
       fijar(true); burbuja('sistema', '⚠️ ' + msg + ' Volvé a enviar tu mensaje.');
       const t = $('#pfo-txt'); if (t && E.hist.length && E.hist[E.hist.length - 1].rol === 'usuario' && !E.hist[E.hist.length - 1].sis) { t.value = E.hist.pop().texto; guardar(); }
     } finally { pendiente = false; }
@@ -358,7 +355,7 @@ ${filas}
   }
   function enviar() {
     if (pendiente) return; const t = $('#pfo-txt'); const v = (t.value || '').trim(); if (!v) return;
-    const E = estActual(); E.hist.push({ rol: 'usuario', texto: v }); burbuja('usuario', v); t.value = ''; guardar(); contador(); turno(v, false);
+    const E = estActual(); E.hist.push({ rol: 'usuario', texto: v }); burbuja('usuario', v); t.value = ''; guardar(); contador(); turno(v);
   }
 
   // ------------------------------------------------------------------ documentos médicos (recetario en modo examen, dentro de un iframe)
@@ -391,19 +388,20 @@ ${filas}
     E.docs.push({ tipo, pct: d.pct, nivel: d.nivel, fallas: d.fallas || [], graves: d.graves || [], texto: d.texto || '' });
     const txt = `[Sistema — parte práctica] El alumno redactó ${def[2].toLowerCase()} en el recetario en modo examen (${d.motivo === 'tiempo' ? 'se agotó el tiempo' : 'entregado a tiempo'}, ${Math.floor(seg / 60)} min ${seg % 60} s de ${CFG.criterios.documentoMin}). Puntaje de forma y legalidad: ${d.pct}/100 (${d.nivel}; ${d.ok} de ${d.total} criterios). Fallas de forma: ${f(d.fallas)}. Errores graves: ${f(d.graves)}. Texto redactado: «${String(d.texto || '').replace(/\n+/g, ' / ')}». Respondé solo [Evaluador: Documento recibido.] y continuá la estación; al evaluar, juzgá el CONTENIDO contra el caso y tené en cuenta la forma.`;
     const vista = `📝 ${def[2]} entregada · forma ${d.pct}/100 (${d.nivel})`;
-    E.hist.push({ rol: 'usuario', texto: txt, sis: true, vista }); burbuja('sistema', vista); guardar(); contador(); turno(txt, false);
+    E.hist.push({ rol: 'usuario', texto: txt, sis: true, vista }); burbuja('sistema', vista); guardar(); contador(); turno(txt);
   }
   window.addEventListener('message', (e) => { if (e.origin !== location.origin || !e.data || e.data.nika !== 'recetario-ecoe') return; documentoEntregado(e.data); });
 
-  // ------------------------------------------------------------------ cierre de la estación: procedimiento escrito (si lo hay) y evaluación
+  // ------------------------------------------------------------------ cierre de la estación: procedimiento escrito (si lo hay) y paso a la siguiente
+  // La nota y la revisión NO se muestran hasta terminar todo el circuito; mientras el alumno sigue, la IA corrige las estaciones ya cerradas en segundo plano.
   function cerrarEstacion(motivo) {
-    const E = estActual(); if (E.cerrada || pendiente) return; clearInterval(timer); cerrarOverlayDoc();
+    const E = estActual(); if (E.terminada || pendiente) return; clearInterval(timer); cerrarOverlayDoc();
     if (!E.hist.some((m) => m.rol === 'usuario' && !m.sis && m.texto !== MSG_INICIO)) { // sin ninguna intervención: no hay nada que evaluar
-      E.resultado = resultadoNulo('No hubo intervenciones en esta estación.'); E.cerrada = true; guardar(); siguienteOFin(); return;
+      E.terminada = true; E.resultado = resultadoNulo('No hubo intervenciones en esta estación.'); E.cerrada = true; guardar(); siguienteOFin(); return;
     }
     E.motivoCierre = motivo;
     if (procDe(E) && !E.proc) { E.fase = 'proc'; guardar(); vistaProcedimiento(false); return; }
-    evaluar(motivo);
+    finalizarEstacionAlumno(motivo);
   }
   function vistaProcedimiento(restaurar) {
     const E = estActual(); const cfgE = CFG.estaciones[E.ref]; const pr = procDe(E); const max = CFG.criterios.procedimientoMin;
@@ -425,50 +423,62 @@ ${filas}
   function entregarProcedimiento(motivo) {
     const E = estActual(); if (pendiente || E.fase !== 'proc' || E.proc) return; clearInterval(timer);
     const t = $('#pfo-proc-txt'); const texto = (t ? t.value : E.procBorrador || '').trim().slice(0, 6000);
-    E.proc = { texto, motivo, seg: Math.max(0, Math.round((Date.now() - (E.procIni || Date.now())) / 1000)) }; E.fase = 'eval'; guardar();
-    evaluar(E.motivoCierre || motivo);
+    E.proc = { texto, motivo, seg: Math.max(0, Math.round((Date.now() - (E.procIni || Date.now())) / 1000)) };
+    finalizarEstacionAlumno(E.motivoCierre || motivo);
   }
-  function vistaEvaluando(error) {
-    main.innerHTML = `<div class="pfo-trans"><div class="ic">📋</div><h2>${error ? 'No se pudo evaluar la estación' : 'Evaluando tu estación…'}</h2><p>${error ? esc(error) : 'El tribunal está revisando tu desempeño con la rúbrica. Puede tardar unos segundos.'}</p>${error ? '<button class="pfo-btn" id="pfo-reint">🔄 Reintentar la evaluación</button>' : '<div class="pfo-pensando" style="display:inline-flex"><i></i><i></i><i></i></div>'}</div>`;
-    const b = $('#pfo-reint'); if (b) b.addEventListener('click', () => evaluar(estActual().motivoCierre || 'manual'));
+  function finalizarEstacionAlumno(motivo) {
+    const E = estActual(); clearInterval(timer); E.fase = 'eval'; E.terminada = true; E.motivoCierre = motivo; guardar();
+    evaluarSegundoPlano(S.idx); siguienteOFin();
   }
-  function falloEvaluacion(msg) {
-    const c = $('#pfo-chat');
-    if (c) { burbuja('sistema', '⚠️ ' + msg + ' Tocá "Reintentar" para volver a pedir la evaluación.'); const b = document.createElement('button'); b.className = 'pfo-btn sec'; b.textContent = '🔄 Reintentar la evaluación'; b.addEventListener('click', () => { b.remove(); evaluar(estActual().motivoCierre || 'manual'); }); c.appendChild(b); c.scrollTop = c.scrollHeight; }
-    else vistaEvaluando(msg);
+  const todasCorregidas = () => S.estaciones.every((E) => E.cerrada);
+  // Corrección de una estación ya terminada, sin bloquear al alumno
+  async function evaluarSegundoPlano(i) {
+    const E = S.estaciones[i]; if (!E || E.cerrada || E.evaluando) return; E.evaluando = true; E.evalError = null;
+    try {
+      const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref, i) + temaPrompt(E.tema), historial: E.hist.map((m) => ({ rol: m.rol, texto: m.texto })), mensaje: mensajeCierre(E), es_primer_turno: false, accion: 'evaluar_caso' });
+      const ev = parsearEvaluacion(d.texto); if (!ev) throw new Error('No se pudo generar la evaluación de la estación.');
+      aplicarRubrica(E, ev); aplicarProcedimiento(E, ev); cerrarNota(E, ev); E.resultado = ev; E.cerrada = true;
+    } catch (err) { E.evalError = (err && err.message) || 'No se pudo corregir la estación.'; }
+    finally { E.evaluando = false; if (S) { guardar(); alCorregir(); } }
   }
-  function evaluar(motivo) {
-    const E = estActual(); if (E.cerrada) return; E.fase = 'eval'; clearInterval(timer); guardar();
-    if (!$('#pfo-chat')) vistaEvaluando(); else { fijar(false); burbuja('sistema', motivo === 'tiempo' ? '⌛ Tiempo agotado. Evaluando la estación…' : motivo === 'turnos' ? 'Alcanzaste el máximo de intervenciones. Evaluando la estación…' : 'Estación terminada. Evaluando…'); }
-    turno(mensajeCierre(E), true);
+  function alCorregir() {
+    const chip = $('#pfo-bg'); if (chip) chip.innerHTML = estadoCorreccion();
+    if (S.esperando) { if (todasCorregidas()) { S.esperando = false; vistaFinal(); } else vistaEspera(); }
   }
-
+  function estadoCorreccion() {
+    const t = S.estaciones.filter((E) => E.terminada); const ok = t.filter((E) => E.cerrada).length; const err = t.some((E) => E.evalError && !E.cerrada && !E.evaluando);
+    if (!t.length) return '';
+    return err ? '⚠️ Una estación no se pudo corregir: se reintenta al final.' : ok === t.length ? `✅ ${ok} ${ok === 1 ? 'estación corregida' : 'estaciones corregidas'} (la nota se muestra al final)` : `<span class="pfo-spin"></span> Corrigiendo tus estaciones en segundo plano… ${ok}/${t.length}`;
+  }
+  // Al pasar de estación: animación de transición con la próxima especialidad
+  function animarPaso(cfgE, n, total, listo) {
+    if (reducido()) { listo(); return; }
+    const w = document.createElement('div'); w.className = 'pfo-wipe'; w.setAttribute('aria-hidden', 'true');
+    w.innerHTML = `<div class="pfo-wipe-c"><div class="ic">${cfgE.icono}</div><small>Estación ${n} de ${total}</small><h2>${esc(cfgE.nombre)}</h2><div class="pfo-wipe-b"><b></b></div></div>`;
+    document.body.appendChild(w); setTimeout(listo, 850); setTimeout(() => { w.classList.add('sale'); setTimeout(() => w.remove(), 600); }, 1700);
+  }
   function siguienteOFin() {
     clearInterval(timer); const ult = S.idx >= S.estaciones.length - 1;
-    if (S.modo === 'practica') { vistaResultadoEstacion(ult); return; }
-    if (ult) { vistaFinal(); return; }
+    if (ult) { irAlFinal(); return; }
     const sig = CFG.estaciones[S.estaciones[S.idx + 1].ref];
     const riel = S.estaciones.map((x, i) => { const c = CFG.estaciones[x.ref]; return `<i class="${i <= S.idx ? 'hecha' : i === S.idx + 1 ? 'sig' : ''}" title="${esc(c.nombre)}">${i <= S.idx ? '✓' : c.icono}</i>`; }).join('');
-    main.innerHTML = `<div class="pfo-trans"><div class="pfo-tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Estación ${S.idx + 1} completada</h2><p>Tomá aire. Como en el examen real, no se muestra la nota hasta el final del circuito.</p><div class="pfo-riel">${riel}</div><p>Próxima estación: <b>${sig.icono} ${esc(sig.nombre)}</b></p><button class="pfo-btn pulso" id="pfo-sig">Pasar a la siguiente estación ➤</button></div>`;
-    $('#pfo-sig').addEventListener('click', () => { S.idx++; guardar(); vistaEstacion(false); });
+    main.innerHTML = `<div class="pfo-trans"><div class="pfo-tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Estación ${S.idx + 1} completada</h2><p>Tomá aire. Como en el examen real, no se puede volver atrás y la nota se muestra recién al terminar todo el circuito.</p><div class="pfo-riel">${riel}</div><p>Próxima estación: <b>${sig.icono} ${esc(sig.nombre)}</b></p><div class="pfo-bg" id="pfo-bg">${estadoCorreccion()}</div><button class="pfo-btn pulso" id="pfo-sig">Pasar a la siguiente estación ➤</button></div>`;
+    $('#pfo-sig').addEventListener('click', () => { const b = $('#pfo-sig'); if (b) b.disabled = true; animarPaso(sig, S.idx + 2, S.estaciones.length, () => { S.idx++; guardar(); vistaEstacion(false); window.scrollTo({ top: 0 }); }); });
+  }
+  function irAlFinal() { if (todasCorregidas()) vistaFinal(); else { S.esperando = true; vistaEspera(); } }
+  function vistaEspera() {
+    S.esperando = true; const t = S.estaciones.filter((E) => E.terminada); const ok = t.filter((E) => E.cerrada).length;
+    const fallo = S.estaciones.filter((E) => E.terminada && !E.cerrada && !E.evaluando && E.evalError);
+    S.estaciones.forEach((E, i) => { if (E.terminada && !E.cerrada && !E.evaluando && !E.evalError) evaluarSegundoPlano(i); });
+    main.innerHTML = `<div class="pfo-trans"><div class="ic" style="animation:pfFlota 3s ease-in-out infinite">📋</div><h2>${fallo.length ? 'No se pudo corregir una estación' : 'Terminaste el circuito'}</h2><p>${fallo.length ? esc(fallo[0].evalError) : 'El tribunal está terminando de corregir tus estaciones con la rúbrica. En unos segundos ves tu nota y la revisión completa.'}</p>
+      ${fallo.length ? '<button class="pfo-btn" id="pfo-reint">🔄 Reintentar la corrección</button>' : `<div class="pfo-barra-c"><b style="width:${t.length ? Math.round((ok / t.length) * 100) : 0}%"></b></div><small style="color:var(--pf-mut)">${ok} de ${t.length} estaciones corregidas</small>`}</div>`;
+    const b = $('#pfo-reint'); if (b) b.addEventListener('click', () => { S.estaciones.forEach((E) => { if (!E.cerrada) E.evalError = null; }); vistaEspera(); });
   }
 
   // ------------------------------------------------------------------ resultado final
   function detalleEstacion(E, abierto) {
     const C = CFG.criterios; const c = CFG.estaciones[E.ref]; const r = E.resultado || resultadoNulo(''); const n = Math.max(0, Math.min(10, Number(r.nota_final) || 0));
     return `<details class="pfo-det" ${abierto ? 'open' : ''}><summary>${c.icono} ${esc(c.nombre)} · ${fmtNota(n)}/10${r.principal_debilidad ? ' — ' + esc(r.principal_debilidad) : ''}</summary>${r.devolucion_docente ? `<p style="line-height:1.55;font-size:.88rem">${esc(r.devolucion_docente).replace(/\\n|\n/g, '<br>')}</p>` : ''}${renderRubricaOficial(r)}${renderProcedimiento(r)}${renderDocs(E)}${renderRevision(r)}</details>`;
-  }
-  // Modo práctica: al terminar cada estación se ve la nota, la rúbrica, en qué se equivocó y la resolución modelo
-  function vistaResultadoEstacion(ult) {
-    const C = CFG.criterios; const E = estActual(); const c = CFG.estaciones[E.ref]; const cs = casoDe(E); const r = E.resultado || resultadoNulo('');
-    const n = Math.max(0, Math.min(10, Number(r.nota_final) || 0)); const ok = n >= C.notaMinEstacion;
-    const sig = ult ? null : CFG.estaciones[S.estaciones[S.idx + 1].ref];
-    main.innerHTML = `<section class="pfo-fin ${ok ? 'no' : 'no'}" style="padding-bottom:22px"><div class="medal">${ok ? '✅' : '🎯'}</div><h1>${ok ? 'Estación superada' : 'Estación para reforzar'}</h1><p>${c.icono} ${esc(c.nombre)}${cs ? ' · ' + esc(cs.nombre) : ''}</p>
-      <div class="pfo-nota" style="color:${colorNota(n)}">${fmtNota(n)}<small> / 10</small></div><div class="sub">${ok ? `Alcanzaste el mínimo de ${C.notaMinEstacion}` : `Para aprobar la estación necesitás ${C.notaMinEstacion} o más`}</div>
-      <div class="pfo-cta" style="margin-top:18px;background:none;border:0;padding:0;flex-direction:row;flex-wrap:wrap;justify-content:center"><button class="pfo-btn pulso" id="pfo-pr-sig">${ult ? 'Ver el resumen de la práctica ➤' : `Siguiente: ${sig.icono} ${esc(sig.nombre)} ➤`}</button></div></section>
-      ${detalleEstacion(E, true)}`;
-    $('#pfo-pr-sig').addEventListener('click', () => { if (ult) vistaFinal(); else { S.idx++; guardar(); vistaEstacion(false); window.scrollTo({ top: 0 }); } });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   function renderRevision(d) {
     const items = Array.isArray(d.revision_detallada) ? d.revision_detallada.filter((i) => i && (i.fallo_o_falto || i.hizo_bien || i.como_debia_hacerlo)) : [];
