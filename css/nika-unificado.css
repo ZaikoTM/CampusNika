@@ -284,3 +284,23 @@ body.dark-mode .dm-inbox-live.on { color: #4ade80; }
 @media (hover: none) and (pointer: coarse) {
   button, .btn, [role="button"], select { min-height: 40px; }
 }
+
+/* ===== Tablets e iPad (táctil) ===== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (hover: none) and (pointer: coarse) {
+  /* iOS hace zoom al enfocar campos de menos de 16 px: se evita sin bloquear el pellizco para ampliar */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea { font-size: max(16px, 1em); }
+  /* sin retraso de doble toque y con blancos de toque de 44 px (guía de Apple) */
+  a, button, [role="button"], summary, label, select, input, .sidebar-link { touch-action: manipulation; -webkit-tap-highlight-color: rgba(2, 132, 199, .18); }
+  button, .btn, [role="button"], select { min-height: 44px; }
+  /* efectos de "mouse encima" que se quedan pegados al tocar */
+  .up-card:hover, .hub-card:hover, .resource-item:hover { transform: none; }
+}
+/* Tablet (vertical y horizontal): menú lateral del campus más angosto para dar lugar al contenido */
+@media (min-width: 901px) and (max-width: 1180px) {
+  .sidebar { width: 260px; }
+  .main-content { margin-left: 260px; width: calc(100% - 260px); }
+  .main-content.expanded { margin-left: 0; width: 100%; }
+}
+/* Tablet horizontal con poca altura: los modales y paneles no se salen de la pantalla */
+@media (max-height: 820px) and (min-width: 901px) { .modal-content { max-height: 90vh; max-height: 90dvh; overflow-y: auto; } }
