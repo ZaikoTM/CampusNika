@@ -602,9 +602,9 @@ const NikaRendimiento = (() => {
       cursor = new Date(cursor.getTime() - DAY_MS);
     }
 
-    // Área favorita: la que más Pomodoros completados tiene (desempata por minutos)
+    // Área favorita: la que más tiempo de estudio acumula en Pomodoros completados (desempata por cantidad de Pomodoros)
     const conPomodoros = Object.values(porModulo).filter((o) => o.pomodoros > 0)
-      .sort((a, b) => (b.pomodoros - a.pomodoros) || (b.minutos - a.minutos));
+      .sort((a, b) => (b.minutos - a.minutos) || (b.pomodoros - a.pomodoros));
     const favorita = conPomodoros[0] || null;
 
     // Radar Clínico: tiempo de estudio vs % de aciertos, por área

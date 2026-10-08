@@ -1238,7 +1238,7 @@
     <script src="js/offlineStorage.js"></script>
     <script src="js/syncManager.js"></script>
     <script src="js/guardiaModal.js"></script>
-    <script src="js/rendimiento.js?v=2"></script>
+    <script src="js/rendimiento.js?v=3"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="js/chatManager.js?v=4"></script>
     <script src="js/pomodoroSyncManager.js?v=4"></script>
@@ -2046,7 +2046,7 @@
                 tiempo:      ['⏱️ Tiempo de estudio total', 'Cuánto estudiaste, en qué áreas y cómo viene tu última semana.', () => _htmlDetalleTiempo(r, datos)],
                 hoy:         ['⚡ Estudio de hoy', 'Las sesiones Pomodoro que completaste hoy.', () => _htmlDetalleHoy(r, datos)],
                 racha:       ['🔥 Racha activa', 'Días consecutivos con al menos un Pomodoro o un simulacro.', () => _htmlDetalleRacha(r, datos)],
-                favorita:    ['⭐ Área favorita', 'Ranking de áreas según tus Pomodoros completados.', () => _htmlDetalleFavorita(r, datos)],
+                favorita:    ['⭐ Área favorita', 'Ranking de áreas según tu tiempo de estudio en Pomodoros completados.', () => _htmlDetalleFavorita(r, datos)],
             };
             const v = vistas[tipo] || vistas.olvido;
             titulo.textContent = v[0];
@@ -2172,7 +2172,7 @@
 
         function _htmlDetalleFavorita(r, datos) {
             if (!r.kpis.favorita) return _vacioR('Todavía no completaste ningún Pomodoro, así que no hay área favorita.');
-            const conPomo = r.radar.filter(a => a.minutos > 0);
+            const conPomo = r.radar.filter(a => a.minutos > 0).sort((x, y) => y.minutos - x.minutos);
             const maxMin = Math.max(1, ...conPomo.map(a => a.minutos));
             const fav = r.kpis.favorita;
             return `<div style="text-align:center;"><div style="font-size:1.6rem; font-weight:800; color:var(--nika-primary);">⭐ ${_escR(fav.label)}</div>
