@@ -1,7 +1,7 @@
 {
   "id": "go_tep_embarazo",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Disnea súbita y dolor torácico a las 28 semanas con pierna hinchada: tromboembolismo pulmonar",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -32,7 +32,7 @@
     },
     {
       "clave": "wells",
-      "texto": "Escala utilizada por el material: dolor y edema unilateral en miembro inferior (+1), taquicardia mayor de 100 por minuto (+1), antecedente familiar de trombosis (+1): total 3 puntos. El material la califica como probabilidad alta; el alumno puede justificar la probabilidad como probable y proceder con estudios por imágenes."
+      "texto": "Escala de Wells para tromboembolismo pulmonar: signos clínicos de trombosis venosa profunda (+3) y taquicardia mayor de 100 por minuto (+1,5). Total: 4,5 puntos. El alumno debe justificar que el cuadro corresponde a un \"TEP probable\" (más de 4 puntos) o de probabilidad clínica moderada o alta, y proceder directamente con los estudios por imágenes."
     }
   ],
   "umbral_aprobacion": 60,
@@ -96,7 +96,7 @@
       "max": 5,
       "texto": "Probabilidad clínica",
       "regular": "Menciona la escala",
-      "suficiente": "Estima la probabilidad pretest de tromboembolismo pulmonar con la escala (alta o probable) y la justifica"
+      "suficiente": "Estima la probabilidad clínica de tromboembolismo pulmonar (alta o \"TEP probable\" por signos de trombosis venosa profunda y taquicardia) y justifica el paso a imágenes sin depender del dímero D"
     },
     {
       "id": 8,
