@@ -1,38 +1,45 @@
 {
   "titulo": "ECOE FINAL · Práctica Final Obligatoria",
   "subtitulo": "Tu último examen antes del título de médico/a",
-  "borrador_hasta_rubrica": true,
-  "nota_rubrica": "Los casos, las estaciones, los puntajes y los criterios de este simulador son un borrador de trabajo: se ajustan a medida que se valida el contenido de cada estación.",
+  "borrador_hasta_rubrica": false,
   "criterios": {
     "notaMinEstacion": 6,
     "notaMinGlobal": null,
     "pilarMin": 6,
     "maxIntervencionesPorEstacion": 14,
-    "minutosPorEstacion": 12,
-    "regla": "aprobar_todas_las_estaciones"
+    "regla": "aprobar_todas_las_estaciones",
+    "procedimientoMin": 5,
+    "documentoMin": 5,
+    "pesoProcedimiento": 0.25,
+    "topeSinPractica": 5,
+    "minutosPorEstacion": 10
   },
   "textos": {
-    "intro": "Llegaste al final de una carrera larga. Este examen reúne todo lo que aprendiste: interrogar, examinar, decidir y comunicar, con pacientes de distintas especialidades, uno detrás de otro y sin ayudas.",
+    "intro": "El ECOE FINAL (Examen Clínico Objetivo Estructurado) es la instancia con la que se cierra la Práctica Final Obligatoria. Reúne todo lo que aprendiste: interrogar, examinar, decidir y comunicar, con pacientes de distintas especialidades, una estación detrás de otra y sin ayudas.",
     "motivacion": "Cada estación es una oportunidad de mostrar el médico o la médica que ya sos. No buscamos respuestas de memoria: buscamos criterio, seguridad y trato humano. Respirá, ordená tu razonamiento y confiá en tu preparación.",
     "como_funciona": [
-      "Recorrés varias estaciones seguidas, cada una con una especialidad distinta.",
-      "En cada una hay un paciente estandarizado y un evaluador silencioso: solo recibís los datos que pedís.",
-      "Cada estación tiene tiempo límite y un máximo de intervenciones. Al terminar pasás a la siguiente.",
-      "Al final recibís la nota global, la revisión detallada de cada estación y la respuesta modelo."
+      "Recorrés seis estaciones seguidas, una por especialidad, y en cada una te toca un caso sorteado al azar.",
+      "En cada estación hay un paciente estandarizado y un evaluador silencioso: solo recibís los datos que pedís.",
+      "Cada estación tiene tiempo límite y un máximo de intervenciones. Al terminar pasás a la siguiente y no podés volver.",
+      "Algunas estaciones suman una parte práctica: un documento médico o un procedimiento escrito, de hasta 5 minutos.",
+      "Al final recibís la nota global, la revisión de cada ítem de la rúbrica y la conducta modelo."
     ],
     "reglas": [
+      "Es un examen secuencial: no se puede volver a una estación anterior, pausar ni reiniciar una en curso.",
       "No hay pistas ni correcciones durante el examen: el evaluador no confirma ni descarta tu diagnóstico.",
       "Si no preguntás, examinás o pedís algo, ese dato no existe. Sé específico.",
-      "Un error crítico de seguridad (indicación peligrosa, omitir una medida vital) baja la nota de la estación aunque el resto esté bien.",
-      "No se puede volver a una estación anterior ni reiniciar una en curso.",
+      "Un error crítico de seguridad (indicación peligrosa, omitir una medida vital) limita la nota de la estación a 5, aunque el resto esté bien.",
+      "Tampoco hay ayudas externas: se registran los cambios de pestaña, el copiado y pegado y las capturas de pantalla.",
       "Es una evaluación exigente, más que las de 5.° año: no se infla la nota."
     ],
     "aprobacion": "Para aprobar el ECOE FINAL tenés que superar la totalidad de las estaciones: 6 o más en cada una. Si una estación queda por debajo de 6, el examen no está aprobado. Es una evaluación estricta: un 6 significa que cumplís lo esencial con seguridad.",
-    "felicitaciones_titulo": "¡Felicitaciones, colega!",
-    "felicitaciones": "Superaste la totalidad de las estaciones del ECOE FINAL. Detrás de este resultado hay años de estudio, guardias, esfuerzo y vocación. Con el ECOE aprobado, te falta un último paso: la defensa de tu Trabajo de Inicio a la Investigación. ¡Ya casi sos médico/a!",
-    "reintento_titulo": "Todavía no, pero estás cerca",
-    "reintento": "Esta vez alguna estación no alcanzó el 6, y eso es parte del camino: el próximo llamado es una nueva oportunidad. Revisá el detalle de cada estación, reforzá los puntos marcados y volvé a practicar.",
-    "contexto": "El ECOE FINAL consiste en estaciones clínicas simuladas y se aprueba superando la totalidad de las estaciones. Quienes lo aprueban quedan habilitados para defender el Trabajo de Inicio a la Investigación y luego acceden al título de Médico/a. Hay cuatro llamados por año: marzo, junio, septiembre y diciembre."
+    "felicitaciones_titulo": "¡Felicitaciones, {tratamiento}!",
+    "felicitaciones": "Aprobaste el ECOE FINAL: superaste todas las estaciones. Detrás de este resultado hay años de estudio, guardias, noches sin dormir, mates compartidos y mucha vocación. Hoy demostraste que sabés interrogar, decidir y cuidar con criterio y con humanidad. Ya sos médico/a en lo que importa: tu forma de pensar y de cuidar. Te queda un último paso, la defensa de tu Trabajo de Inicio a la Investigación. ¡Disfrutá este momento, te lo ganaste!",
+    "reintento_titulo": "Todavía no, pero estás en camino",
+    "reintento": "Esta vez alguna estación no alcanzó el 6, y eso es parte del camino: nadie se recibe sin tropezar alguna vez. Mirá el detalle de cada estación, reforzá los puntos marcados y volvé a intentarlo cuando quieras: cada intento te deja más cerca. Vos podés, ya recorriste lo más difícil.",
+    "contexto": "El ECOE FINAL consiste en estaciones clínicas simuladas y se aprueba superando la totalidad de las estaciones. Quienes lo aprueban quedan habilitados para defender el Trabajo de Inicio a la Investigación y luego acceden al título de Médico/a. Hay cuatro llamados por año: marzo, junio, septiembre y diciembre. Quien no aprueba se presenta al llamado siguiente.",
+    "forzado_titulo": "Examen entregado por incumplir las reglas",
+    "forzado": "Después de la advertencia volvió a detectarse una infracción, así que el sistema entregó el examen. Quedó marcado como en revisión y no cuenta como aprobado. Rendí con honestidad, sin salir de la pantalla ni copiar: el resultado tiene que reflejar tu nivel real."
   },
   "estaciones": [
     {
@@ -67,16 +74,6 @@
         "alumno": "doctor/a",
         "genero": "el/la paciente"
       },
-      "semillas": [
-        {
-          "situacion": "Usted es médico/a general y se encuentra de guardia. Recibe a un paciente de aproximadamente 20 años que sufrió un accidente automovilístico: choque frontal a gran velocidad contra un camión; murieron dos ocupantes del auto. Es traído por el servicio de emergencias a la guardia en coma, con respiración ruidosa y signos externos de trauma de cráneo y facial. Presenta una herida abierta en el hemitórax izquierdo por la cual se percibe salida de aire, y además deformidad en la pierna izquierda y en el antebrazo derecho. Signos vitales: FC 110, FR 26, TA 90/50.",
-          "objetivos": [
-            "Efectuar la evaluación primaria del paciente.",
-            "Reconocer las lesiones que ponen en riesgo la vida.",
-            "Realizar el tratamiento de dichas lesiones."
-          ]
-        }
-      ],
       "casos_oficiales": [
         "em_paro_cardiorrespiratorio",
         "em_emergencia_extrahospitalaria",
@@ -163,16 +160,6 @@
         "alumno": "doctor/a",
         "genero": "la paciente"
       },
-      "semillas": [
-        {
-          "situacion": "Usted es médico/a y debe atender en el consultorio del Centro de Salud a María, de 65 años, que refiere haber tenido un episodio de sangrado de 2 días de duración hace 4 días.",
-          "objetivos": [
-            "Realizar una breve anamnesis relacionada con el motivo de consulta.",
-            "Realizar el examen físico correspondiente al motivo de consulta de María.",
-            "Interpretar en voz alta los estudios médicos que trae María a la consulta."
-          ]
-        }
-      ],
       "casos_oficiales": [
         "go_epia",
         "go_pap_sangrado_poscoital",
@@ -225,14 +212,6 @@
         "alumno": "doctor/a",
         "genero": "el/la paciente"
       },
-      "semillas": [
-        {
-          "situacion": "Usted es médico/a general y familiar del CAPS Giacomotti. Debe atender a Guillermo Prado, de 52 años, con antecedentes de diabetes tipo 2, que concurre para realizarse el control anual de salud.",
-          "objetivos": [
-            "Realizar medidas de promoción y prevención."
-          ]
-        }
-      ],
       "casos_oficiales": [
         "mf_control_adulto",
         "mf_rcv",
@@ -285,18 +264,6 @@
         "alumno": "doctor/a",
         "genero": "el/la paciente"
       },
-      "semillas": [
-        {
-          "situacion": "Usted es médico/a general de la guardia del Hospital J. J. Urquiza. Deberá atender a Germán Lírico, de 50 años, que consulta por fiebre, dolor torácico y tos.",
-          "objetivos": [
-            "Interpretar correctamente el examen complementario del paciente.",
-            "Verbalizar su diagnóstico e indicar la terapéutica si lo considera necesario."
-          ],
-          "imagen": "assets/pfo/caso_imagen_image1.png",
-          "imagen_titulo": "Radiografía de tórax de frente del paciente",
-          "lectura_esperada": "BORRADOR A VALIDAR POR LA CÁTEDRA: opacidades de ocupación alveolar con aspecto de consolidación en regiones perihiliares y basales, compatibles con neumonía de la comunidad en un paciente con fiebre, tos y dolor torácico."
-        }
-      ],
       "casos_oficiales": [
         "cm_cetoacidosis_diabetica",
         "cm_crisis_hipertensiva",
@@ -319,16 +286,6 @@
       "icono": "🔪",
       "descripcion": "Paciente quirúrgico o con trauma: semiología del abdomen agudo, decisión quirúrgica, manejo inicial y consentimiento informado.",
       "perfil_de": "cirugia",
-      "semillas": [
-        {
-          "situacion": "Usted es médico/a general y se encuentra en la guardia del hospital. Recibe a una paciente de 65 años, de género femenino, que concurre a la guardia por presentar dolor abdominal. Signos vitales controlados por la enfermera: TA 130/90, temperatura axilar 38 °C, FC 98 por minuto, FR 16 por minuto, saturación 98 %.",
-          "objetivos": [
-            "Realizar anamnesis dirigida sobre el cuadro.",
-            "Realizar los diferentes diagnósticos diferenciales justificando cada uno.",
-            "Indicar la conducta o decisión a realizar para confirmar los diagnósticos."
-          ]
-        }
-      ],
       "casos_oficiales": [
         "cx_apendicitis_aguda",
         "cx_sindrome_coledociano",
@@ -340,6 +297,75 @@
         "cx_retencion_aguda_orina",
         "cx_arteriopatia_aneurisma_aorta",
         "cx_fractura_cadera"
+      ]
+    }
+  ],
+  "secciones": [
+    {
+      "ico": "🏛️",
+      "titulo": "Qué es el ECOE FINAL",
+      "parrafos": [
+        "El ECOE consiste en estaciones clínicas simuladas. En cada una resolvés un caso de una especialidad, con un paciente estandarizado, y un instrumento de evaluación (rúbrica) mide tu desempeño de forma objetiva y consistente.",
+        "Es imperativo superar las estaciones para obtener la aprobación. Quienes aprueban quedan habilitados para defender el Trabajo de Inicio a la Investigación y, luego, acceden al título de Médico/a.",
+        "Hay cuatro llamados por año: marzo, junio, septiembre y diciembre. Quien no aprueba se presenta al llamado siguiente."
+      ]
+    },
+    {
+      "ico": "📋",
+      "titulo": "Para rendir el examen real",
+      "items": [
+        "Haber regularizado todas las rotaciones por Atención Primaria (CAPS) y por Hospital.",
+        "Haber regularizado las Prácticas Integradas Simuladas.",
+        "Haber regularizado la Escuela de Salud Pública.",
+        "Inscribirte al llamado por el sistema de la facultad."
+      ],
+      "nota": "Este simulador es práctica: no reemplaza ni acredita el examen oficial."
+    },
+    {
+      "ico": "🎲",
+      "titulo": "Cómo se arma tu circuito",
+      "items": [
+        "Pasás por una estación de cada especialidad: Emergentología, Pediatría, Ginecología y Obstetricia, Medicina General y Familiar, Clínica Médica y Clínica Quirúrgica.",
+        "En cada una te toca un caso al azar, entre los {n_casos} casos del banco. Tratamos de que no se repita el caso de tu intento anterior.",
+        "Es un examen secuencial: las estaciones se rinden una tras otra y no se puede volver atrás."
+      ]
+    },
+    {
+      "ico": "🎭",
+      "titulo": "Cómo funciona cada estación",
+      "items": [
+        "Paciente estandarizado: te responde en primera persona y con lenguaje coloquial, sin términos médicos. A veces el interlocutor es un familiar o acompañante.",
+        "Evaluador silencioso: cuando indicás una maniobra, pedís signos vitales o solicitás un estudio, responde entre corchetes [Evaluador: …] con el dato objetivo, sin interpretarlo y sin pistas.",
+        "Retención absoluta de información: si no lo preguntás o no lo pedís, el dato no se da. Sé específico: «palpo la fosa ilíaca derecha» o «pido hemograma» funcionan; «examen físico completo» o «pido estudios» te piden que precises.",
+        "Tampoco te confirman ni descartan diagnósticos. La estación cierra cuando terminás, cuando se acaba el tiempo o cuando llegás al máximo de intervenciones."
+      ]
+    },
+    {
+      "ico": "🧪",
+      "titulo": "Qué se evalúa",
+      "items": [
+        "Cada estación tiene su rúbrica oficial de 100 puntos con 14 ítems: anamnesis, evaluación (examen físico y estudios), conducta y comunicación.",
+        "Cada ítem se califica como suficiente (puntaje completo), regular (mitad) o insuficiente (cero), solo con lo que quedó escrito en la conversación.",
+        "Los errores críticos (conductas que ponen en riesgo al paciente) limitan la estación a 5, aunque el puntaje sea alto.",
+        "Al final ves cada ítem con lo que hiciste y lo que faltaba para el puntaje completo."
+      ]
+    },
+    {
+      "ico": "🛠️",
+      "titulo": "Parte práctica: documentos y procedimientos",
+      "items": [
+        "Documentos: en cualquier estación podés abrir el recetario y redactar una receta, una solicitud de estudios o un certificado médico. Tenés hasta 5 minutos, sin ayudas; se corrige la forma legal y el tribunal juzga el contenido.",
+        "Procedimientos: en las estaciones que lo requieren, al terminar el caso describís por escrito, paso a paso, cómo realizás el procedimiento (por ejemplo, colocar una sonda vesical o hacer un examen obstétrico). Tenés hasta 5 minutos o hasta que decidas entregarlo, y se corrige contra la lista de cotejo.",
+        "El procedimiento vale el 25 % de la nota de la estación. Si no lo resolvés, la estación no puede superar 5."
+      ]
+    },
+    {
+      "ico": "👀",
+      "titulo": "Integridad del examen",
+      "items": [
+        "Se registran los cambios de pestaña o de ventana, el copiado, pegado y menú contextual, las herramientas de inspección y las capturas de pantalla.",
+        "La primera advertencia es un aviso. Si reincidís, el examen se entrega automáticamente y queda en revisión.",
+        "Rendí con honestidad: el simulador existe para que midas cuánto sabés de verdad."
       ]
     }
   ]

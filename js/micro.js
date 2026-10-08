@@ -25,7 +25,7 @@
   }
 
   // ------------------------------------------------------------ ondas al tocar un botón
-  const BOTONES = '.btn, .btn-primary, .btn-outline, .btn-secondary, .btn-hub, .btn-module, .pl-btn, .nav-tool-btn, .prof-btn, .pp-btn, .filter-btn, .nika-pomo-btn';
+  const BOTONES = '.btn, .btn-primary, .btn-outline, .btn-secondary, .btn-hub, .btn-module, .pl-btn, .nav-tool-btn, .prof-btn, .pp-btn, .filter-btn, .nika-pomo-btn, .pfo-btn, .pfo-btn-top';
   document.addEventListener('pointerdown', (e) => {
     const b = e.target.closest && e.target.closest(BOTONES); if (!b || b.disabled) return;
     const r = b.getBoundingClientRect(); const d = Math.max(r.width, r.height) * 2;

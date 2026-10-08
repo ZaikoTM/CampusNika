@@ -91,6 +91,7 @@ const NikaRecetarios = (() => {
   }
 
   function corregirCertificado(d, c) {
+    if (c.ecoe) return corregirCertificadoEcoe(c);
     const h = hojas.c1 || {}; const t = N(h.cuerpo); const out = [];
     const inicio = t.replace(/^rp\.?\/?\s*/, '');
     out.push({ ok: /^(certifico que|dejo constancia que)/.test(inicio), peso: 8, label: 'Comienza con «Certifico que…» o «Dejo constancia que…»', tip: 'El texto debe empezar sobre el margen izquierdo con «Certifico que…» o «Dejo constancia que…».' });
@@ -178,6 +179,34 @@ const NikaRecetarios = (() => {
     chequeoFinal('r1', false, out);
     return out;
   }
+  // ECOE FINAL: solicitud de estudios y certificado libres. Igual que con la receta, acá solo se corrige la FORMA;
+  // qué estudios pidió o qué constató (y si corresponde) lo juzga el tribunal de IA, que conoce el caso.
+  function corregirExamenesEcoe(c) {
+    const h = hojas.r1 || {}; const t = N(h.cuerpo); const out = [];
+    cabeceraPaciente(h.encabezado, c.p, out);
+    out.push({ ok: /^solicito\b/.test(t), peso: 8, label: 'Comienza con «Solicito» en el margen izquierdo', tip: 'Escribí la palabra «Solicito» (sin abreviaturas) sobre el margen izquierdo.' });
+    out.push({ ok: t.replace(/^solicito\b/, '').trim().length > 6, peso: 8, label: 'Hay al menos un estudio pedido', tip: 'Escribí el estudio que solicitás a continuación de «Solicito».' });
+    out.push({ ok: !R.GENERICOS_PROHIBIDOS.some((g) => t.includes(g)), peso: 6, label: 'Sin terminología genérica (perfil lipídico, perfil renal…)', tip: 'No uses términos genéricos: pedí cada determinación por separado.' });
+    const crudo = /\b(glucosa|urea|creatinina|trigliceridos|hierro serico|ferritina|colesterol total)\b/.test(t) && !/emia/.test(t);
+    out.push({ ok: !crudo, peso: 6, label: 'Concentraciones séricas con sufijo «-emia»', tip: 'Las concentraciones séricas llevan el sufijo «-emia»: glucemia, uremia, creatininemia, trigliceridemia…' });
+    out.push({ ok: /(motivo|diagnostico)/.test(t), peso: 10, label: '«Motivo» / «Diagnóstico presuntivo»', tip: 'Agregá el motivo del pedido o el diagnóstico presuntivo.' });
+    out.push({ ok: !ABREV.test(h.cuerpo || ''), peso: 4, label: 'Sin abreviaturas confusas', tip: 'Evitá abreviaturas y siglas.' });
+    chequeoFinal('r1', true, out);
+    return out;
+  }
+  function corregirCertificadoEcoe(c) {
+    const h = hojas.c1 || {}; const t = N(h.cuerpo); const out = [];
+    const inicio = t.replace(/^rp\.?\/?\s*/, '');
+    out.push({ ok: /^(certifico que|dejo constancia que)/.test(inicio), peso: 8, label: 'Comienza con «Certifico que…» o «Dejo constancia que…»', tip: 'El texto debe empezar sobre el margen izquierdo con «Certifico que…» o «Dejo constancia que…».' });
+    const nom = tieneNombreEnOrden(h.cuerpo, c.p); out.push({ ok: nom.ok, peso: 10, label: 'Apellido/s y nombre/s en ese orden', tip: nom.tip });
+    out.push({ ok: tieneDni(h.cuerpo, c.p), peso: 6, label: 'Número de documento del evaluado', tip: `Falta el número de documento (${c.p.dniTxt}).` });
+    out.push({ ok: /\b(dni|documento nacional de identidad|documento)\b/.test(t), peso: 3, label: 'Tipo de documento (DNI)', tip: 'Aclará el tipo de documento: DNI (documento nacional de identidad).' });
+    out.push({ ok: /al momento (de la consulta|del examen|de este examen)/.test(t) || /reposo/.test(t), peso: 8, label: 'Constatación presente («al momento de la consulta») o indicación de reposo', tip: 'El certificado es presente: escribí «al momento de la consulta» (o la indicación de reposo con sus horas o días).' });
+    out.push({ ok: /(ante|a) quien corresponda|presentado ante/.test(t), peso: 6, label: '«Para ser presentado ante quien corresponda»', tip: 'Consigná «Para ser presentado ante quien corresponda» (o la autoridad).' });
+    out.push({ ok: !ABREV.test(h.cuerpo || ''), peso: 4, label: 'Sin abreviaturas ni siglas', tip: 'Evitá abreviaturas y siglas (Dr., Dx, Px, Hs…): el certificado debe ser legible para cualquiera.' });
+    chequeoFinal('c1', true, out);
+    return out;
+  }
   function corregirReceta(d, c) {
     if (c.ecoe) return corregirRecetaEcoe(c);
     const h = hojas.r1 || {}; const out = [];
@@ -198,6 +227,7 @@ const NikaRecetarios = (() => {
     return out;
   }
   function corregirExamenes(d, c) {
+    if (c.ecoe) return corregirExamenesEcoe(c);
     const h = hojas.r1 || {}; const t = N(h.cuerpo); const out = [];
     cabeceraPaciente(h.encabezado, c.p, out);
     out.push({ ok: /^solicito\b/.test(t), peso: 8, label: 'Comienza con «Solicito» en el margen izquierdo', tip: 'Escribí la palabra «Solicito» (sin abreviaturas) sobre el margen izquierdo.' });
@@ -661,7 +691,7 @@ const NikaRecetarios = (() => {
       : (graves.length ? `<div class="rz-ex-res">⛔ <b>Errores graves que impiden aprobar:</b> ${graves.map((c) => esc(c.label)).join(' · ')}</div>` : (pct < UMBRAL_APROBADO ? `<div class="rz-ex-res">Para aprobar se necesitan al menos ${UMBRAL_APROBADO} puntos.</div>` : ''));
     ultimo = { pct, nivel: nivel[0], checks, segundos: seg };
     const mal = checks.filter((c) => !c.ok); const areas = porAreas(checks); const sug = sugerencias(doc, checks, areas);
-    if (EMBED) { const h1 = hojas.r1 || {}; aPadre({ estado: 'entregado', texto: [h1.encabezado, h1.cuerpo].filter(Boolean).join('\n').slice(0, 1500), pct, nivel: nivel[0], aprobado, vacia, segundos: seg, motivo: (opts && opts.motivo) || 'manual', graves: graves.map((c) => c.label), fallas: mal.slice(0, 8).map((c) => c.label), total: checks.length, ok: checks.length - mal.length }); return; }
+    if (EMBED) { const h1 = hojas.r1 || hojas.c1 || {}; aPadre({ estado: 'entregado', doc: (caso && caso.ecoeDoc) || 'receta', texto: [h1.encabezado, h1.cuerpo].filter(Boolean).join('\n').slice(0, 1500), pct, nivel: nivel[0], aprobado, vacia, segundos: seg, motivo: (opts && opts.motivo) || 'manual', graves: graves.map((c) => c.label), fallas: mal.slice(0, 8).map((c) => c.label), total: checks.length, ok: checks.length - mal.length }); return; }
     mostrarModal(cartelExamen(seg) + integ + extraVeredicto + `<div class="rz-res-h ${aprobado ? 'ok' : 'mal'}"><div class="rz-anillo" style="--p:${pct}"><b>${pct}</b><small>/100</small></div><div><b>${nivel[1]} ${nivel[0]}</b><small>${checks.length - mal.length} de ${checks.length} criterios cumplidos · ${Math.floor(seg / 60)} min ${seg % 60} s</small></div><span class="rz-sello-res ${aprobado ? 'ok' : 'mal'}">${aprobado ? 'APROBADO' : 'DESAPROBADO'}</span></div>
       <div class="rz-compartir"><div class="rz-comp-t">📤 Compartí tu resolución</div><div class="rz-comp-b">
         <button type="button" class="rz-wa" onclick="RecetariosShare.abrir('whatsapp')"><span class="rz-wa-ic">${WA_SVG}</span><span>Compartir por WhatsApp</span></button>
@@ -714,8 +744,17 @@ const NikaRecetarios = (() => {
       let est = {}; try { est = JSON.parse(sessionStorage.getItem('nika_ecoe_receta') || '{}') || {}; } catch (_) {}
       const edad = Number.isInteger(est.edad) && est.edad > 0 && est.edad < 111 ? est.edad : null;
       const pac = R.paciente({ sexo: est.sexo === 'F' || est.sexo === 'M' ? est.sexo : undefined, edadMin: edad || 20, edadMax: edad || 75, conOS: true });
-      const c = { tipo: 'receta', ecoe: true, p: pac, d: { dci: '', dosis: '', forma: '', unidades: 1, dx: '', posologia: '', marcas: [] },
-        texto: `Paciente de la estación: ${pac.nombreCompleto} (${pac.edad} años, DNI ${pac.dniTxt}, obra social ${pac.obraSocial}, afiliado N.° ${pac.afiliado}). Redactá la receta con el tratamiento que indicaste en la estación, sin ayudas.` };
+      const quien = `${pac.nombreCompleto} (${pac.edad} años, DNI ${pac.dniTxt}, obra social ${pac.obraSocial}, afiliado N.° ${pac.afiliado})`;
+      if (est.doc === 'examenes') {
+        const c = { tipo: 'examenes', ecoe: true, ecoeDoc: 'examenes', p: pac, c: { req: [], items: [], dxp: '', motivo: '' }, texto: `Paciente de la estación: ${quien}. Redactá la solicitud de estudios que indicaste en la estación, sin ayudas.` };
+        abrir('examenes', false, c, 'examen'); return;
+      }
+      if (est.doc === 'certificado') {
+        const c = { tipo: 'reposo', ecoe: true, ecoeDoc: 'certificado', p: pac, d: { dx: '', kw: [], h: 0 }, aut: null, texto: `Paciente de la estación: ${quien}. Redactá el certificado médico que corresponde según lo que constataste en la estación, sin ayudas.` };
+        abrir('reposo', false, c, 'examen'); return;
+      }
+      const c = { tipo: 'receta', ecoe: true, ecoeDoc: 'receta', p: pac, d: { dci: '', dosis: '', forma: '', unidades: 1, dx: '', posologia: '', marcas: [] },
+        texto: `Paciente de la estación: ${quien}. Redactá la receta con el tratamiento que indicaste en la estación, sin ayudas.` };
       abrir('receta', false, c, 'examen'); return;
     }
     const docParam = p.get('doc');

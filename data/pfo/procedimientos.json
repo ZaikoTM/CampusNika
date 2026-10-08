@@ -1,0 +1,1992 @@
+{
+ "version": 1,
+ "tiempo_max_min": 5,
+ "procedimientos": {
+  "sv": {
+   "id": "sv",
+   "area": "siam",
+   "titulo": "Colocación de sonda vesical",
+   "icono": "🧪",
+   "umbral": 60,
+   "criterios_texto": "Desaprueba si no comprueba la indemnidad del balón (paso 18), si omite el consentimiento (6), el lavado de manos (13), los guantes estériles con técnica cerrada (14) o el registro (30). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Reúne la totalidad de los materiales necesarios y los prepara en una “Mesa Alta” de traslado.",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Verifica: Apellido y nombres del paciente, solicitud del procedimiento, etc.",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Lleva la totalidad de los materiales necesarios al lado del paciente.",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Saluda y se presenta",
+     "fase": "Comunicación",
+     "critico": false
+    },
+    {
+     "n": 5,
+     "texto": "Explica el procedimiento utilizando un lenguaje claro y sencillo (Incluye en la explicación los motivos por los que se realiza la práctica, sus riesgos y beneficios, etc.).",
+     "fase": "Comunicación",
+     "critico": false
+    },
+    {
+     "n": 6,
+     "texto": "Solicita la firma del consentimiento informado y lo anexa (firmado) a la Planilla de Registro de la Actividad y a su correspondiente Historia Clínica.",
+     "fase": "Comunicación",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "Solicita al paciente que se ubique en la posición más adecuada para la práctica: Posición ginecológica (en mujeres) / Decúbito supino (en varones).",
+     "fase": "Posición y asepsia",
+     "critico": false
+    },
+    {
+     "n": 8,
+     "texto": "Retira la ropa interior del paciente y cubre el área genital con sábana ó paño clínico no estéril",
+     "fase": "Posición y asepsia",
+     "critico": false
+    },
+    {
+     "n": 9,
+     "texto": "Se coloca guantes no estériles",
+     "fase": "Posición y asepsia",
+     "critico": false
+    },
+    {
+     "n": 10,
+     "texto": "Higieniza la zona genital y adyacencias con Iodo-Povidona jabonoso.",
+     "fase": "Posición y asepsia",
+     "critico": false
+    },
+    {
+     "n": 11,
+     "texto": "Solicita al paciente que eleve levemente los muslos y le coloca debajo 1 (un) paño clínico no estéril.",
+     "fase": "Posición y asepsia",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Se quita los guantes",
+     "fase": "Posición y asepsia",
+     "critico": false
+    },
+    {
+     "n": 13,
+     "texto": "Se lava las manos con técnica clínica",
+     "fase": "Posición y asepsia",
+     "critico": true
+    },
+    {
+     "n": 14,
+     "texto": "Se coloca guantes estériles con técnica cerrada",
+     "fase": "Campo estéril",
+     "critico": true
+    },
+    {
+     "n": 15,
+     "texto": "Coloca 1 (una)  paño clínico estéril cubriendo la región pelviana y genital.",
+     "fase": "Campo estéril",
+     "critico": false
+    },
+    {
+     "n": 16,
+     "texto": "Coloca (próximo a la región de la practica), 1 (un) paño clínico adicional y ubica sobre él, el conjunto de los elementos necesarios para realización de la misma.",
+     "fase": "Campo estéril",
+     "critico": false
+    },
+    {
+     "n": 17,
+     "texto": "Abre el pack estéril que contiene la sonda utilizando la mano dominante y la retira enrollándola progresivamente y evitando que se contamine.",
+     "fase": "Campo estéril",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Comprueba la indemnidad de la Sonda a utilizar inflando-desinflando el balón con aire.",
+     "fase": "Técnica",
+     "critico": true
+    },
+    {
+     "n": 19,
+     "texto": "Toma la Sonda por uno de sus extremos y coloca sobre él: Lidocaina-gel.",
+     "fase": "Técnica",
+     "critico": false
+    },
+    {
+     "n": 20,
+     "texto": "Informar al/la paciente el comienzo del procedimiento.",
+     "fase": "Técnica",
+     "critico": false
+    },
+    {
+     "n": 21,
+     "texto": "Introduce la sonda contemplando las recomendaciones normatizadas para sondaje masculino-femenino, resistencia-no resistencia a su introducción, etc.",
+     "fase": "Técnica",
+     "critico": false
+    },
+    {
+     "n": 22,
+     "texto": "Infla el balón de la sonda con agua bidestilada.",
+     "fase": "Técnica",
+     "critico": false
+    },
+    {
+     "n": 23,
+     "texto": "Tracciona levemente  la sonda hasta sentir una leve resistencia.",
+     "fase": "Técnica",
+     "critico": false
+    },
+    {
+     "n": 24,
+     "texto": "Conecta la sonda a la bolsa colectora y se asegura que la orina fluye hacia la misma.",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 25,
+     "texto": "Para el caso de sondajes masculinos: Vuelve la piel del prepucio a su lugar.",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 26,
+     "texto": "Cuelga la bolsa colectora con el ganchillo a la cama.",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 27,
+     "texto": "Sujeta (con cinta hipo-alergénica) una parte de la sonda a la cara interna muslo del paciente y verifica su estabilidad y la de la bolsa colectora",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 28,
+     "texto": "Informa al paciente el final del procedimiento y los cuidados que debe mantener",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 29,
+     "texto": "Retira todos los elementos de la cama del paciente y desecha los utilizados.",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 30,
+     "texto": "Registra el procedimiento en la Historia Clínica del paciente.",
+     "fase": "Cierre",
+     "critico": true
+    }
+   ]
+  },
+  "tr": {
+   "id": "tr",
+   "area": "siam",
+   "titulo": "Tacto rectal",
+   "icono": "🖐️",
+   "umbral": 60,
+   "criterios_texto": "Desaprueba si omite: la explicación y el consentimiento (5, 6); el lavado de manos y los guantes (7, 8, 22, 23); la lubricación (13); la introducción suave y orientada hacia el ombligo (15, 16, 17); o la inspección previa, el examen del guante y el registro (12, 21, 25). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Reúne la totalidad de los materiales necesarios para la ejecución de la práctica",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Prepara los materiales sobre una mesa alta de traslado",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Lleva el carro de transporte (con los materiales necesarios) al lado del paciente",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Saluda y se presenta",
+     "fase": "Comunicación",
+     "critico": false
+    },
+    {
+     "n": 5,
+     "texto": "Explica el procedimiento a realizar utilizando un lenguaje claro y sencillo.",
+     "fase": "Comunicación",
+     "critico": true
+    },
+    {
+     "n": 6,
+     "texto": "Solicita el consentimiento del paciente y su colaboración en el procedimiento",
+     "fase": "Comunicación",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "Se lava las manos con técnica clínica",
+     "fase": "Bioseguridad y posición",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Se coloca los guantes (ó manoplas) de látex",
+     "fase": "Bioseguridad y posición",
+     "critico": true
+    },
+    {
+     "n": 9,
+     "texto": "Solicita al paciente que se descubra la ropa de la cintura para abajo",
+     "fase": "Bioseguridad y posición",
+     "critico": false
+    },
+    {
+     "n": 10,
+     "texto": "Solicita al paciente que se ubique en la posición más adecuada para la práctica.",
+     "fase": "Bioseguridad y posición",
+     "critico": false
+    },
+    {
+     "n": 11,
+     "texto": "Separa las nalgas del paciente valiéndose de ambas manos ó de los dedos índice y pulgar de la mano no dominante dependiendo de la posición de exploración elegida.",
+     "fase": "Bioseguridad y posición",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Inspecciona la región y describe sus hallazgos.",
+     "fase": "Inspección y técnica",
+     "critico": true
+    },
+    {
+     "n": 12.5,
+     "texto": "Constata la contraindicación absoluta y NO realiza el tacto rectal: informa al paciente y lo deriva para su tratamiento.",
+     "fase": "Inspección y técnica",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Lubrica el dedo índice con vaselina (liquida ó gel) ó lidocaína gel.",
+     "fase": "Inspección y técnica",
+     "critico": true
+    },
+    {
+     "n": 14,
+     "texto": "Informa al paciente el inicio del procedimiento.",
+     "fase": "Inspección y técnica",
+     "critico": false
+    },
+    {
+     "n": 15,
+     "texto": "Apoya el dedo índice sobre el margen anal con su extremo distal en dirección al ombligo.",
+     "fase": "Inspección y técnica",
+     "critico": true
+    },
+    {
+     "n": 16,
+     "texto": "Aplica una presión suave (y sostenida por un breve momento) sobre el esfínter anal hasta lograr su relajación.",
+     "fase": "Inspección y técnica",
+     "critico": true
+    },
+    {
+     "n": 17,
+     "texto": "Introduce el dedo índice siguiendo la dirección hacia el ombligo.",
+     "fase": "Inspección y técnica",
+     "critico": true
+    },
+    {
+     "n": 18,
+     "texto": "Desplaza el pulpejo del dedo índice por la superficie mucosa del recto realizando un “barrido” en el mismo sentido y en sentido contrario al giro de las agujas del reloj reconociendo las estructuras anatómicas locales normales, diferenciándolas de las patológicas y describiéndolas.",
+     "fase": "Inspección y técnica",
+     "critico": false
+    },
+    {
+     "n": 19,
+     "texto": "Solicita al paciente que realice fuerza “como para apretar el dedo” y constata el tono del esfínter anal.",
+     "fase": "Inspección y técnica",
+     "critico": false
+    },
+    {
+     "n": 20,
+     "texto": "Retira el dedo del canal ano-rectal.",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 21,
+     "texto": "Examina en el guante (ó manopla) la presencia-ausencia de materia fecal adherida y/o presencia-ausencia de moco, pus ó sangre en la misma, etc.",
+     "fase": "Cierre",
+     "critico": true
+    },
+    {
+     "n": 22,
+     "texto": "Se quita los guantes ó manoplas de látex.",
+     "fase": "Cierre",
+     "critico": true
+    },
+    {
+     "n": 23,
+     "texto": "Se lava las manos nuevamente",
+     "fase": "Cierre",
+     "critico": true
+    },
+    {
+     "n": 24,
+     "texto": "Informa al paciente la finalización del procedimiento y sus resultados.",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 25,
+     "texto": "Registra el procedimiento en la Historia Clínica del paciente.",
+     "fase": "Cierre",
+     "critico": true
+    }
+   ]
+  },
+  "iet": {
+   "id": "iet",
+   "area": "siam",
+   "titulo": "Intubación endotraqueal",
+   "icono": "🫁",
+   "umbral": 60,
+   "criterios_texto": "Desaprueba si omite: el lavado de manos y la ropa estéril (3, 4); la verificación del laringoscopio y del balón del tubo (5, 6); la saturometría continua y la ventilación con ambú antes de laringoscopiar (9, 12); la visualización de las cuerdas antes de pasar el tubo (18, 20); o la posición del balón, su inflado y la verificación de la colocación (21, 23, 24). Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Reúne la totalidad de los materiales necesarios para la práctica y los prepara en una “Mesa Alta” de traslado.",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Lleva la totalidad de los materiales al lado del paciente.",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Se lava las manos con técnica clínica.",
+     "fase": "Preparación",
+     "critico": true
+    },
+    {
+     "n": 4,
+     "texto": "Se viste con ropa estéril.",
+     "fase": "Preparación",
+     "critico": true
+    },
+    {
+     "n": 5,
+     "texto": "Verifica el laringoscopio",
+     "fase": "Verificación del equipo",
+     "critico": true
+    },
+    {
+     "n": 6,
+     "texto": "Verifica el correcto funcionamiento del globo del Tubo Endo-Traqueal (TET) elegido",
+     "fase": "Verificación del equipo",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "Acomoda al paciente:",
+     "fase": "Posición y monitoreo",
+     "critico": false
+    },
+    {
+     "n": 8,
+     "texto": "Se ubica a la cabecera del paciente.",
+     "fase": "Posición y monitoreo",
+     "critico": false
+    },
+    {
+     "n": 9,
+     "texto": "Coloca el saturometro manteniendo la ejecución de la saturometria durante todo el procedimiento",
+     "fase": "Posición y monitoreo",
+     "critico": true
+    },
+    {
+     "n": 10,
+     "texto": "Hiper-extiende la cabeza del paciente llevándola a posterior y elevándole el mentón.",
+     "fase": "Posición y monitoreo",
+     "critico": false
+    },
+    {
+     "n": 10.5,
+     "texto": "Con sospecha de trauma cervical: realiza la tracción o subluxación mandibular manteniendo la inmovilización cervical en eje, sin hiperextender el cuello.",
+     "fase": "Posición y monitoreo",
+     "critico": true
+    },
+    {
+     "n": 11,
+     "texto": "Remueve prótesis dentales (si las hubiere).",
+     "fase": "Posición y monitoreo",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Inicia la ventilación con máscara de ambú a una frecuencia de 15-18 ventilaciones por minuto.",
+     "fase": "Oxigenación",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Solicita al asistente que presione el cartílago cricoides hacia posterior. manteniendo ésta conducta hasta finalizado el procedimiento",
+     "fase": "Oxigenación",
+     "critico": false
+    },
+    {
+     "n": 14,
+     "texto": "Sostiene el laringoscopio con su mano izquierda y con la derecha, abre la boca y acomodar la comisura labial.",
+     "fase": "Laringoscopia",
+     "critico": false
+    },
+    {
+     "n": 15,
+     "texto": "Ingresa con la hoja del laringoscopio del lado derecho de la lengua y empuja la misma hacia la izquierda dejando la hoja del mismo en la línea media.",
+     "fase": "Laringoscopia",
+     "critico": false
+    },
+    {
+     "n": 16,
+     "texto": "Desciende hasta la base de la lengua y realiza un movimiento continuo hacia arriba y adelante",
+     "fase": "Laringoscopia",
+     "critico": false
+    },
+    {
+     "n": 17,
+     "texto": "Deja el  mango del laringoscopio mirando hacia el techo en un ángulo de 45°.",
+     "fase": "Laringoscopia",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Visualiza las cuerdas vocales.",
+     "fase": "Laringoscopia",
+     "critico": true
+    },
+    {
+     "n": 19,
+     "texto": "Solicitar (al asistente) el TET y lo toma con la mano derecha sin retirar la mirada de las cuerdas vocales",
+     "fase": "Intubación",
+     "critico": false
+    },
+    {
+     "n": 20,
+     "texto": "Desliza el TET por la hoja del laringoscopio hasta superar las cuerdas vocales",
+     "fase": "Intubación",
+     "critico": true
+    },
+    {
+     "n": 21,
+     "texto": "Ubica el balón 3 a 4 cm por debajo de las cuerdas vocales.",
+     "fase": "Intubación",
+     "critico": true
+    },
+    {
+     "n": 22,
+     "texto": "Retira el laringoscopio.",
+     "fase": "Intubación",
+     "critico": false
+    },
+    {
+     "n": 23,
+     "texto": "Infla el balón a través del piloto con la jeringa de 10 cc",
+     "fase": "Intubación",
+     "critico": true
+    },
+    {
+     "n": 24,
+     "texto": "Verifica la correcta colocación del TET:",
+     "fase": "Verificación",
+     "critico": true
+    },
+    {
+     "n": 25,
+     "texto": "Ventila con Bolsa de ambú para ventilación manual a una frecuencia de 15-18 ventilaciones por minuto verificando permanentemente la Saturación de Oxigeno (Sat O2)",
+     "fase": "Verificación",
+     "critico": false
+    },
+    {
+     "n": 26,
+     "texto": "Asegura el TET pegándolo (con cinta adhesiva hipo-alergénica) a las mejillas.",
+     "fase": "Verificación",
+     "critico": false
+    }
+   ]
+  },
+  "rcp": {
+   "id": "rcp",
+   "area": "siam",
+   "titulo": "RCP avanzado",
+   "icono": "❤️‍🔥",
+   "umbral": 60,
+   "criterios_texto": "Desaprueba si omite: los guantes (3); la lectura del ritmo y la comprobación de la ausencia de respuesta (4, 8, 9); las compresiones de calidad: sitio, posición, 100–120 por minuto y 5–6 cm (12, 13, 17); la continuidad y el relevo (18, 19, 21); o el algoritmo según el ritmo: descarga si es desfibrilable, adrenalina si no lo es. Se aprueba con al menos 60 % del puntaje y ningún paso crítico fallido.",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Saluda y se presenta",
+     "fase": "Evaluación inicial",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Indaga acerca de la situación que determinó su llamado",
+     "fase": "Evaluación inicial",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Se coloca guantes con técnica clínica",
+     "fase": "Evaluación inicial",
+     "critico": true
+    },
+    {
+     "n": 4,
+     "texto": "Observa el monitor multiparamétrico y determina el ritmo cardiaco",
+     "fase": "Evaluación inicial",
+     "critico": true
+    },
+    {
+     "n": 5,
+     "texto": "Solicita colaboración del equipo de trabajo (determinando capacidad máxima permitida de personas en el shock room) y delega funciones",
+     "fase": "Organización del equipo",
+     "critico": false
+    },
+    {
+     "n": 6,
+     "texto": "Da indicaciones generales al personal de enfermería según corresponda: Colocación de vía periférica, sondaje vesical, kit de vía aérea, preparación de medicación, cardio-desfibrilación, etc.",
+     "fase": "Organización del equipo",
+     "critico": false
+    },
+    {
+     "n": 7,
+     "texto": "Determina la necesidad de dispositivos de vía aérea avanzada y protocolo de oxigenación",
+     "fase": "Organización del equipo",
+     "critico": false
+    },
+    {
+     "n": 8,
+     "texto": "Comprueba el nivel de conciencia del paciente recurriendo a estímulos verbales y dolorosos",
+     "fase": "Evaluación inicial",
+     "critico": true
+    },
+    {
+     "n": 9,
+     "texto": "Informa en voz alta el inicio del protocolo de reanimación avanzada",
+     "fase": "Organización del equipo",
+     "critico": true
+    },
+    {
+     "n": 10,
+     "texto": "Se coloca a un lado del paciente a la atura del tórax",
+     "fase": "Compresiones torácicas",
+     "critico": false
+    },
+    {
+     "n": 11,
+     "texto": "Localiza el apéndice xifoides",
+     "fase": "Compresiones torácicas",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Localiza el sitio correcto para la realización de las compresiones.",
+     "fase": "Compresiones torácicas",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Ubica el talón de la mano dominante sobre el sitio elegido para las compresiones",
+     "fase": "Compresiones torácicas",
+     "critico": true
+    },
+    {
+     "n": 14,
+     "texto": "Entrelaza los dedos de la mano no dominante con los dedos de la mano dominante hacia la palma",
+     "fase": "Compresiones torácicas",
+     "critico": false
+    },
+    {
+     "n": 15,
+     "texto": "Extiende los codos en su totalidad",
+     "fase": "Compresiones torácicas",
+     "critico": false
+    },
+    {
+     "n": 16,
+     "texto": "Se inclina hacia adelante formando un ángulo de 90º con el tórax del paciente",
+     "fase": "Compresiones torácicas",
+     "critico": false
+    },
+    {
+     "n": 17,
+     "texto": "Inicia compresiones torácicas a una frecuencia de 100 a 120 por minuto con una profundidad de 5 a 6 cm permitiendo la descompresión entre compresiones.",
+     "fase": "Compresiones torácicas",
+     "critico": true
+    },
+    {
+     "n": 18,
+     "texto": "Continúa las compresiones de manera rítmica y sin detenerse. En el caso de contar con ayudante: Realiza 30 compresiones e indica 2 ventilaciones",
+     "fase": "Compresiones torácicas",
+     "critico": true
+    },
+    {
+     "n": 18.1,
+     "texto": "Solicita el desfibrilador, selecciona la energía (bifásico 200 J) y carga mientras se continúan las compresiones.",
+     "fase": "Algoritmo",
+     "critico": true
+    },
+    {
+     "n": 18.2,
+     "texto": "Avisa «¡todos fuera!», verifica que nadie toque al paciente, entrega la descarga y vuelve a comprimir de inmediato.",
+     "fase": "Algoritmo",
+     "critico": true
+    },
+    {
+     "n": 18.3,
+     "texto": "Indica adrenalina 1 mg EV/IO, que se repite cada 3 a 5 minutos.",
+     "fase": "Algoritmo",
+     "critico": true
+    },
+    {
+     "n": 18.4,
+     "texto": "Busca y trata las causas reversibles (5H y 5T).",
+     "fase": "Algoritmo",
+     "critico": false
+    },
+    {
+     "n": 18.7,
+     "texto": "Tras la segunda descarga indica adrenalina 1 mg EV/IO, que se repite cada 3 a 5 minutos.",
+     "fase": "Algoritmo",
+     "critico": false
+    },
+    {
+     "n": 18.8,
+     "texto": "Tras el tercer choque indica amiodarona 300 mg EV.",
+     "fase": "Algoritmo",
+     "critico": false
+    },
+    {
+     "n": 19,
+     "texto": "Realiza reevaluación constante de signos vitales en monitor multiparamétrico",
+     "fase": "Reevaluación",
+     "critico": true
+    },
+    {
+     "n": 20,
+     "texto": "Determina la necesidad de continuar maniobras de reanimación y lo comunica a su equipo.",
+     "fase": "Reevaluación",
+     "critico": false
+    },
+    {
+     "n": 21,
+     "texto": "Releva la reanimación cada 2 minutos y continuando pasos 18-20 hasta obtener respuesta",
+     "fase": "Reevaluación",
+     "critico": true
+    },
+    {
+     "n": 22,
+     "texto": "En caso de obtener retorno de la circulación espontánea: Determinar cuidados post-paro.",
+     "fase": "Cierre",
+     "critico": true
+    },
+    {
+     "n": 22.5,
+     "texto": "En caso de no responder u observar signos de muerte: Determinar hora de la muerte.",
+     "fase": "Cierre",
+     "critico": true
+    },
+    {
+     "n": 23,
+     "texto": "Comunicar la evolución del paciente de manera respetuosa al familiar u acompañante",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 24,
+     "texto": "Registrar los procedimientos realizados en la Historia Clínica",
+     "fase": "Cierre",
+     "critico": true
+    }
+   ]
+  },
+  "artro": {
+   "id": "artro",
+   "area": "siam",
+   "titulo": "Artrocentesis",
+   "icono": "🦵",
+   "umbral": 60,
+   "criterios_texto": "Desaprueba si omite o realiza mal: la asepsia (primera antisepsia, lavado de manos, guantes, paño fenestrado y segunda antisepsia del centro hacia afuera); si no indaga alergias y contraindicaciones o punza ante una contraindicación; si elige un sitio incorrecto, no punza en horizontal o no aspira antes de inyectar; si no fracciona la muestra en tubos con y sin heparina, no la rotula o no la envía al laboratorio; o si no presenta las pautas de alarma.",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Asegura que el ambiente sea el adecuado para la práctica",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Certifica la correcta solicitud de la intervención",
+     "fase": "Preparación",
+     "critico": true
+    },
+    {
+     "n": 3,
+     "texto": "Reúne todos los materiales necesarios para la práctica en una mesa de transporte",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Lleva la mesa con los materiales y la ubica en un lugar próximo y cómodo",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 5,
+     "texto": "Saluda cordialmente",
+     "fase": "Presentación y consentimiento",
+     "critico": false
+    },
+    {
+     "n": 6,
+     "texto": "Se presenta con nombre y apellido",
+     "fase": "Presentación y consentimiento",
+     "critico": false
+    },
+    {
+     "n": 7,
+     "texto": "Confirma los datos filiatorios de la persona a la que se le realizará la práctica",
+     "fase": "Presentación y consentimiento",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Realiza una breve anamnesis",
+     "fase": "Presentación y consentimiento",
+     "critico": true
+    },
+    {
+     "n": 9,
+     "texto": "Explica el procedimiento que se realizará con un lenguaje claro y sencillo",
+     "fase": "Presentación y consentimiento",
+     "critico": false
+    },
+    {
+     "n": 10,
+     "texto": "Solicita la firma del consentimiento informado y colaboración para la práctica",
+     "fase": "Presentación y consentimiento",
+     "critico": true
+    },
+    {
+     "n": 11,
+     "texto": "Solicita al paciente que se ubique en decúbito dorsal con las piernas extendidas y en posición cómoda",
+     "fase": "Posición y examen",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Toma la presión arterial antes de comenzar con la realización del procedimiento",
+     "fase": "Posición y examen",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Se ubica a un lado del paciente, sentado y a una altura que permita la cómoda realización de la práctica",
+     "fase": "Posición y examen",
+     "critico": false
+    },
+    {
+     "n": 14,
+     "texto": "Realiza una exploración física completa de la articulación a punzar",
+     "fase": "Posición y examen",
+     "critico": false
+    },
+    {
+     "n": 15,
+     "texto": "Selecciona el sitio más adecuado para la punción",
+     "fase": "Posición y examen",
+     "critico": true
+    },
+    {
+     "n": 15.5,
+     "texto": "Constata la contraindicación y NO realiza la artrocentesis: informa al paciente, lo deriva para su resolución y lo registra",
+     "fase": "Posición y examen",
+     "critico": true
+    },
+    {
+     "n": 16,
+     "texto": "Realiza una primera antisepsia con algodón embebido en alcohol etílico al 70 % v/v o iodo-povidona",
+     "fase": "Asepsia y campo estéril",
+     "critico": true
+    },
+    {
+     "n": 17,
+     "texto": "Se lava las manos con técnica clínica",
+     "fase": "Asepsia y campo estéril",
+     "critico": true
+    },
+    {
+     "n": 18,
+     "texto": "Se coloca guantes o manoplas de látex",
+     "fase": "Asepsia y campo estéril",
+     "critico": true
+    },
+    {
+     "n": 19,
+     "texto": "Coloca un paño fenestrado estéril con su ventana sobre el sitio de punción seleccionado",
+     "fase": "Asepsia y campo estéril",
+     "critico": true
+    },
+    {
+     "n": 20,
+     "texto": "Realiza correctamente una segunda antisepsia utilizando gasa o algodón embebido en alcohol etílico al 70 % v/v o iodo-povidona",
+     "fase": "Asepsia y campo estéril",
+     "critico": true
+    },
+    {
+     "n": 21,
+     "texto": "Palpa nuevamente el sitio de punción",
+     "fase": "Asepsia y campo estéril",
+     "critico": false
+    },
+    {
+     "n": 22,
+     "texto": "Carga jeringa de 10 cc (equipada con una aguja adecuada a la contextura física del paciente y a la articulación a punzar) con 5 cc de lidocaína al 1 %",
+     "fase": "Anestesia local",
+     "critico": false
+    },
+    {
+     "n": 23,
+     "texto": "Coloca anestesia introduciendo la aguja de forma horizontal, por debajo de la rótula y a la mitad de la misma (o ligeramente hacia el polo superior), aplicando el anestésico de a 0,25 cc en cada uno de los planos que van desde la piel hasta la proximidad de la cavidad articular",
+     "fase": "Anestesia local",
+     "critico": true
+    },
+    {
+     "n": 24,
+     "texto": "Espera que comience a hacer efecto el anestésico",
+     "fase": "Anestesia local",
+     "critico": false
+    },
+    {
+     "n": 25,
+     "texto": "Toma jeringa equipada con aguja calibre 21 o 25",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 26,
+     "texto": "Comienza la punción propiamente dicha introduciendo la aguja de forma horizontal, por debajo de la rótula y a la mitad de la misma o ligeramente hacia el polo superior",
+     "fase": "Punción y extracción",
+     "critico": true
+    },
+    {
+     "n": 27,
+     "texto": "Progresa lentamente con la punción hasta sentir el ingreso en la cavidad articular",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 28,
+     "texto": "Retrae suavemente el émbolo de la jeringa a fin de confirmar la obtención de débito sinovial",
+     "fase": "Punción y extracción",
+     "critico": true
+    },
+    {
+     "n": 29,
+     "texto": "Identifica las características macroscópicas del líquido",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 30,
+     "texto": "Retrae el émbolo lenta y progresivamente y va obteniendo muestra del líquido sinovial",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 30.5,
+     "texto": "Si el derrame es importante (o el débito es hemático): conecta una jeringa de 20 o 60 mL a una llave de 3 vías y aspira lenta y progresivamente, descargando lo evacuado en un frasco plástico",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 31,
+     "texto": "Repite el paso anterior hasta que se deje de obtener líquido de aspirado",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 32,
+     "texto": "Retira suavemente la aguja",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 33,
+     "texto": "Presiona firmemente el sitio de punción con un apósito, gasa estéril o algodón embebido en alcohol etílico al 70 % v/v",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 34,
+     "texto": "Cubre el sitio de punción con apósito o gasa estéril y lo fija con cinta hipoalergénica",
+     "fase": "Punción y extracción",
+     "critico": false
+    },
+    {
+     "n": 35,
+     "texto": "Coloca 3 a 5 ml de líquido sinovial en cada uno de los tubos estériles (3 o 4)",
+     "fase": "Muestras y cierre",
+     "critico": true
+    },
+    {
+     "n": 35.1,
+     "texto": "Con débito escaso: fracciona el volumen mínimo útil (0,5 mL para cultivo y 1 a 2 mL para recuento celular)",
+     "fase": "Muestras y cierre",
+     "critico": true
+    },
+    {
+     "n": 36,
+     "texto": "Informa al paciente la finalización del procedimiento",
+     "fase": "Muestras y cierre",
+     "critico": false
+    },
+    {
+     "n": 37,
+     "texto": "Rotula los tubos con todos los datos de importancia",
+     "fase": "Muestras y cierre",
+     "critico": true
+    },
+    {
+     "n": 38,
+     "texto": "Solicita al paciente que permanezca en reposo articular por 6 a 24 hs",
+     "fase": "Muestras y cierre",
+     "critico": false
+    },
+    {
+     "n": 39,
+     "texto": "Indica hielo local y/o analgésicos (según dolor)",
+     "fase": "Muestras y cierre",
+     "critico": false
+    },
+    {
+     "n": 40,
+     "texto": "Presentar al paciente las «pautas de alarma» frente a las cuales debe consultar",
+     "fase": "Muestras y cierre",
+     "critico": true
+    },
+    {
+     "n": 41,
+     "texto": "Desecha la totalidad de los elementos utilizados",
+     "fase": "Muestras y cierre",
+     "critico": false
+    },
+    {
+     "n": 42,
+     "texto": "Se quita los guantes y los descarta",
+     "fase": "Muestras y cierre",
+     "critico": false
+    },
+    {
+     "n": 43,
+     "texto": "Se lava las manos nuevamente",
+     "fase": "Muestras y cierre",
+     "critico": true
+    },
+    {
+     "n": 44,
+     "texto": "Registra el procedimiento realizado",
+     "fase": "Muestras y cierre",
+     "critico": true
+    },
+    {
+     "n": 45,
+     "texto": "Envía las muestras al laboratorio para su procesamiento y evaluación",
+     "fase": "Muestras y cierre",
+     "critico": true
+    }
+   ]
+  },
+  "anamg": {
+   "id": "anamg",
+   "area": "sim",
+   "titulo": "Anamnesis ginecológica",
+   "icono": "🗂️",
+   "umbral": 60,
+   "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la comunicación (presentación, escucha sin interrumpir), la cobertura del relato y de los antecedentes gineco-obstétricos y personales, y el registro (propuesto, a validar).",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Se presenta, saluda a la paciente y acompañante",
+     "fase": "Recepción",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Invita a tomar asiento",
+     "fase": "Recepción",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Interroga sobre datos filiatorios, personales y los registra",
+     "fase": "Recepción",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Invita a la paciente a relatar el motivo que la lleva a la consulta y lo registra",
+     "fase": "Motivo y enfermedad actual",
+     "critico": false
+    },
+    {
+     "n": 5,
+     "texto": "Invita a la paciente a relatar la enfermedad actual",
+     "fase": "Motivo y enfermedad actual",
+     "critico": false
+    },
+    {
+     "n": 6,
+     "texto": "Escucha atentamente el relato",
+     "fase": "Motivo y enfermedad actual",
+     "critico": false
+    },
+    {
+     "n": 7,
+     "texto": "Induce o interrumpe el relato con preguntas o aportes (NO debe hacerlo)",
+     "fase": "Motivo y enfermedad actual",
+     "critico": false
+    },
+    {
+     "n": 8,
+     "texto": "Pregunta cuándo se inició el padecimiento",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 9,
+     "texto": "Pregunta cómo empezó el cuadro",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 10,
+     "texto": "Pregunta sobre la evolución y el desarrollo de los síntomas y signos",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 11,
+     "texto": "Pregunta si es la primera vez que presenta este padecimiento o si presentó un cuadro parecido antes",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Pregunta si hizo alguna consulta médica previa",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 13,
+     "texto": "Pregunta si le hicieron estudios complementarios",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 14,
+     "texto": "Pregunta si se le hizo algún diagnóstico",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 15,
+     "texto": "Pregunta si realizó tratamientos",
+     "fase": "Interrogatorio dirigido",
+     "critico": false
+    },
+    {
+     "n": 16,
+     "texto": "Pregunta sobre la menarca",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 17,
+     "texto": "Pregunta sobre el inicio de relaciones sexuales",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Pregunta sobre el número de parejas sexuales",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 19,
+     "texto": "Pregunta sobre la paridad",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 20,
+     "texto": "Pregunta sobre infecciones de transmisión sexual (ITS)",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 21,
+     "texto": "Pregunta sobre genitorragia",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 22,
+     "texto": "Pregunta sobre la fecha de la última menstruación (FUM)",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 23,
+     "texto": "Pregunta (si amerita el caso) sobre el uso de anticoncepción",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 24,
+     "texto": "Pregunta sobre enfermedades previas",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 25,
+     "texto": "Pregunta sobre traumatismos y cirugías previas",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 26,
+     "texto": "Interroga sobre hábitos",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 27,
+     "texto": "Interroga sobre el uso de medicamentos",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 28,
+     "texto": "Pregunta sobre aspectos sociales, laborales, culturales y ambientales",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 29,
+     "texto": "Pregunta sobre antecedentes familiares",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 30,
+     "texto": "Construye un familigrama breve",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 31,
+     "texto": "Se despide del paciente",
+     "fase": "Cierre",
+     "critico": false
+    }
+   ]
+  },
+  "anamo": {
+   "id": "anamo",
+   "area": "sim",
+   "titulo": "Anamnesis obstétrica",
+   "icono": "🤰",
+   "umbral": 60,
+   "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la comunicación, el uso del carnet perinatal, la FUM y la edad gestacional, los antecedentes de riesgo, el grupo y factor, las vacunas y la toma de peso y tensión arterial (propuesto, a validar).",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Se presenta, saluda a la paciente y acompañante",
+     "fase": "Recepción",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Invita a tomar asiento",
+     "fase": "Recepción",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Interroga sobre datos filiatorios, personales y los registra",
+     "fase": "Recepción",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Invita a la paciente a relatar el motivo que la lleva a la consulta y lo registra",
+     "fase": "Motivo y enfermedad actual",
+     "critico": false
+    },
+    {
+     "n": 5,
+     "texto": "Escucha atentamente el relato",
+     "fase": "Motivo y enfermedad actual",
+     "critico": false
+    },
+    {
+     "n": 6,
+     "texto": "Solicita el carnet perinatal",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "Pregunta sobre la FUM e interroga sobre la edad gestacional",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Pregunta sobre embarazos previos",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 9,
+     "texto": "Pregunta sobre el uso de anticoncepción",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 10,
+     "texto": "Pregunta si fue un embarazo deseado o no",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 11,
+     "texto": "Pregunta sobre un Papanicolau previo",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Pregunta sobre genitorragia",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Pregunta por antecedentes personales: TBC, DBT, HTA, preeclampsia, cirugías previas, infertilidad, cardiopatías y otras",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 14,
+     "texto": "Interroga sobre hábitos: tabaco, alcohol, drogas y violencia",
+     "fase": "Otros antecedentes",
+     "critico": true
+    },
+    {
+     "n": 15,
+     "texto": "Interroga sobre el uso de medicamentos",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 16,
+     "texto": "Pregunta sobre aspectos sociales, laborales y culturales: actividad física, actividad laboral y recreación",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 17,
+     "texto": "Pregunta sobre antecedentes familiares: TBC, DBT, HTA, preeclampsia, cirugías, infertilidad, cardiopatías y otras",
+     "fase": "Otros antecedentes",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Pregunta sobre grupo y factor sanguíneo",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 19,
+     "texto": "Pregunta sobre la vigencia de las vacunas: antirrubeólica, antitetánica y antigripal",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 20,
+     "texto": "Pesa a la paciente",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": false
+    },
+    {
+     "n": 21,
+     "texto": "Toma la tensión arterial",
+     "fase": "Antecedentes gineco-obstétricos",
+     "critico": true
+    },
+    {
+     "n": 22,
+     "texto": "Saluda y se despide",
+     "fase": "Cierre",
+     "critico": false
+    }
+   ]
+  },
+  "egfpp": {
+   "id": "egfpp",
+   "area": "sim",
+   "titulo": "Cálculo de EG y FPP",
+   "icono": "📅",
+   "umbral": 60,
+   "criterios_texto": "La guía no define criterios de desaprobación automática; el simulador califica la obtención y verificación de la FUM, el cálculo de la edad gestacional en semanas y días, la FPP por la regla de Naegele, la datación por ecografía cuando la FUM no es confiable y el registro (propuesto, a validar).",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Interroga a la paciente sobre la fecha del primer día de su última menstruación (FUM)",
+     "fase": "Datos de la paciente",
+     "critico": true
+    },
+    {
+     "n": 2,
+     "texto": "Verifica que la FUM sea confiable: ciclos regulares de 28 días, sin anticonceptivos hormonales recientes ni sangrados dudosos",
+     "fase": "Datos de la paciente",
+     "critico": true
+    },
+    {
+     "n": 2.5,
+     "texto": "Corrige la FUM según la duración del ciclo (ciclo de 35 días: se suman 7 días)",
+     "fase": "Datos de la paciente",
+     "critico": true
+    },
+    {
+     "n": 3,
+     "texto": "Establece la fecha de la consulta (fecha de referencia del cálculo)",
+     "fase": "Datos de la paciente",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Calcula los días transcurridos desde la FUM hasta la fecha de la consulta",
+     "fase": "Cálculo",
+     "critico": true
+    },
+    {
+     "n": 5,
+     "texto": "Expresa la edad gestacional en semanas y días (días transcurridos ÷ 7)",
+     "fase": "Cálculo",
+     "critico": true
+    },
+    {
+     "n": 6,
+     "texto": "Calcula la fecha probable de parto (FPP) con la regla de Naegele: FUM + 7 días − 3 meses (+ 1 año)",
+     "fase": "Cálculo",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "Confirma o corrige la edad gestacional con la ecografía del primer trimestre (longitud cráneo-caudal)",
+     "fase": "Cálculo",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Clasifica el embarazo según la edad gestacional (pretérmino, de término o postérmino) y el trimestre",
+     "fase": "Interpretación y registro",
+     "critico": false
+    },
+    {
+     "n": 9,
+     "texto": "Registra la edad gestacional y la FPP en el carnet perinatal y en la historia clínica",
+     "fase": "Interpretación y registro",
+     "critico": true
+    }
+   ]
+  },
+  "exgin": {
+   "id": "exgin",
+   "area": "sim",
+   "titulo": "Examen ginecológico, PAP y tacto bimanual",
+   "icono": "🔬",
+   "umbral": 60,
+   "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la bioseguridad y la intimidad, la técnica de introducción del espéculo, la toma y la fijación de las muestras del PAP y el tacto bimanual (propuesto, a validar).",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Saluda y se presenta",
+     "fase": "Recepción y preparación",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Invita a sentarse a la paciente y al familiar",
+     "fase": "Recepción y preparación",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Inicia el interrogatorio y pregunta por antecedentes de patología ginecológica",
+     "fase": "Recepción y preparación",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Informa a la paciente y a su acompañante sobre el procedimiento que realizará",
+     "fase": "Recepción y preparación",
+     "critico": true
+    },
+    {
+     "n": 5,
+     "texto": "Invita e indica cómo colocarse en posición ginecológica",
+     "fase": "Recepción y preparación",
+     "critico": false
+    },
+    {
+     "n": 6,
+     "texto": "Cubre a la paciente resguardando su intimidad y le pide que se libere de la ropa, incluida la interior",
+     "fase": "Recepción y preparación",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "Utiliza guantes de látex y luz",
+     "fase": "Examen de genitales externos",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Observa y reconoce los genitales externos",
+     "fase": "Examen de genitales externos",
+     "critico": true
+    },
+    {
+     "n": 9,
+     "texto": "Entreabre la vulva a la altura del introito con los dedos índice y pulgar de la mano hábil",
+     "fase": "Examen de genitales externos",
+     "critico": true
+    },
+    {
+     "n": 10,
+     "texto": "Introduce el espéculo cerrado con la articulación hacia abajo, apoyándolo sobre la horquilla, ligeramente inclinado hacia la izquierda, y lo rota 90° en sentido horario a medida que avanza",
+     "fase": "Examen con espéculo y toma de PAP",
+     "critico": true
+    },
+    {
+     "n": 11,
+     "texto": "Mantiene el espéculo en posición presionando la valva superior con el pulgar de la mano izquierda y separa las valvas",
+     "fase": "Examen con espéculo y toma de PAP",
+     "critico": true
+    },
+    {
+     "n": 12,
+     "texto": "Ubica y reconoce el cuello uterino",
+     "fase": "Examen con espéculo y toma de PAP",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Toma la muestra del exocérvix con espátula de Ayre y extiende el material en el portaobjetos",
+     "fase": "Examen con espéculo y toma de PAP",
+     "critico": true
+    },
+    {
+     "n": 14,
+     "texto": "Toma la muestra del endocérvix con citobrush y extiende el material en otro portaobjetos",
+     "fase": "Examen con espéculo y toma de PAP",
+     "critico": true
+    },
+    {
+     "n": 15,
+     "texto": "Fija las muestras con spray",
+     "fase": "Examen con espéculo y toma de PAP",
+     "critico": true
+    },
+    {
+     "n": 16,
+     "texto": "Cierra el espéculo y lo retira de la vagina",
+     "fase": "Examen con espéculo y toma de PAP",
+     "critico": true
+    },
+    {
+     "n": 17,
+     "texto": "Explica a la paciente que procederá a realizar el tacto vaginal bimanual",
+     "fase": "Tacto vaginal bimanual",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Entreabre la vulva a la altura del introito con los dedos índice y pulgar de la mano que no realizará el tacto (mano menos hábil)",
+     "fase": "Tacto vaginal bimanual",
+     "critico": false
+    },
+    {
+     "n": 19,
+     "texto": "Introduce el dedo medio de la mano hábil apoyándolo sobre la horquilla, presiona en dirección al sacro y luego hace penetrar el índice recorriendo la vagina en toda su longitud",
+     "fase": "Tacto vaginal bimanual",
+     "critico": true
+    },
+    {
+     "n": 20,
+     "texto": "Aplica la mano libre sobre el hipogastrio y luego sobre ambas fosas ilíacas, presionando suavemente y abarcando con ambas manos los diversos órganos",
+     "fase": "Tacto vaginal bimanual",
+     "critico": true
+    },
+    {
+     "n": 21,
+     "texto": "Retira suavemente la mano examinadora de la vagina",
+     "fase": "Tacto vaginal bimanual",
+     "critico": false
+    },
+    {
+     "n": 22,
+     "texto": "Descarta el material descartable y los guantes",
+     "fase": "Finalización",
+     "critico": true
+    },
+    {
+     "n": 23,
+     "texto": "Comunica a la paciente que finalizó el examen y le indica que se vista y tome asiento",
+     "fase": "Finalización",
+     "critico": false
+    },
+    {
+     "n": 24,
+     "texto": "Escucha y responde a las preguntas, preocupaciones y molestias de la paciente",
+     "fase": "Finalización",
+     "critico": false
+    },
+    {
+     "n": 25,
+     "texto": "Le indica cómo retirar el resultado del PAP",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 26,
+     "texto": "Concierta una nueva cita para ver los resultados",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 27,
+     "texto": "Saluda y se despide",
+     "fase": "Cierre",
+     "critico": false
+    }
+   ]
+  },
+  "exmam": {
+   "id": "exmam",
+   "area": "sim",
+   "titulo": "Examen mamario",
+   "icono": "🎀",
+   "umbral": 60,
+   "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la información y la intimidad, la inspección en dos posiciones, la palpación ordenada por cuadrantes de ambas mamas, la exploración del pezón y la axila y la enseñanza del autoexamen (propuesto, a validar).",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Saluda y se presenta",
+     "fase": "Recepción y preparación",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Invita a sentarse a la paciente y al familiar",
+     "fase": "Recepción y preparación",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Inicia el interrogatorio y pregunta sobre antecedentes de patología mamaria",
+     "fase": "Recepción y preparación",
+     "critico": true
+    },
+    {
+     "n": 4,
+     "texto": "Informa a la paciente y a su acompañante sobre el procedimiento que realizará para palpar las mamas y procede al lavado de manos",
+     "fase": "Recepción y preparación",
+     "critico": true
+    },
+    {
+     "n": 5,
+     "texto": "Resguarda la intimidad y privacidad de la paciente: le indica que se coloque una bata y se ubique detrás del biombo",
+     "fase": "Recepción y preparación",
+     "critico": true
+    },
+    {
+     "n": 6,
+     "texto": "Invita a la paciente a sentarse con las manos en la cintura, descubrirse hasta la cintura y observa ambas mamas, el pezón y la areola",
+     "fase": "Inspección",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "En la misma posición, con los brazos en alto, inspecciona la región axilar y supraclavicular",
+     "fase": "Inspección",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Registra y observa su tamaño y conformación, prominencias o depresiones, edemas y procesos inflamatorios visibles en la superficie de la mama",
+     "fase": "Inspección",
+     "critico": true
+    },
+    {
+     "n": 9,
+     "texto": "Identifica los cambios de pigmentación en el pezón, las areolas y las grietas",
+     "fase": "Inspección",
+     "critico": false
+    },
+    {
+     "n": 10,
+     "texto": "Reconoce la existencia de los tubérculos de Montgomery en la areola primaria y la red venosa de Haller en la superficie de la glándula mamaria",
+     "fase": "Inspección",
+     "critico": false
+    },
+    {
+     "n": 11,
+     "texto": "Le pide que se coloque en decúbito dorsal con las manos debajo de la región cervical y palpa cuidadosa y ordenadamente cada mama por cuadrantes, desde el pezón hacia la periferia y de regreso",
+     "fase": "Palpación",
+     "critico": true
+    },
+    {
+     "n": 12,
+     "texto": "Realiza la palpación de la areola y el pezón, presionando el pezón entre los dedos pulgar e índice",
+     "fase": "Palpación",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Observa si al presionar existe algún tipo de secreción",
+     "fase": "Palpación",
+     "critico": true
+    },
+    {
+     "n": 14,
+     "texto": "Levanta el pezón junto con la areola para comprobar si hay buena movilidad o adherencia",
+     "fase": "Palpación",
+     "critico": true
+    },
+    {
+     "n": 15,
+     "texto": "Enseña a la paciente a realizar el autoexamen de mamas",
+     "fase": "Educación y cierre",
+     "critico": true
+    },
+    {
+     "n": 16,
+     "texto": "Invita a la paciente a vestirse",
+     "fase": "Educación y cierre",
+     "critico": false
+    },
+    {
+     "n": 17,
+     "texto": "Escucha y responde las preguntas, preocupaciones y molestias de la paciente",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Saluda y se despide",
+     "fase": "Cierre",
+     "critico": false
+    }
+   ]
+  },
+  "exobs": {
+   "id": "exobs",
+   "area": "sim",
+   "titulo": "Examen obstétrico",
+   "icono": "🫄",
+   "umbral": 60,
+   "criterios_texto": "Desaprueba si omite o realiza mal: el punto de partida y la técnica de medición de la altura uterina (pasos 5 a 8) o su registro en la curva (10); las cuatro maniobras de Leopold (11, 12, 14 y 16); o la auscultación de la frecuencia cardíaca fetal con el estetoscopio de Pinard durante un minuto (13).",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Preséntese a la embarazada",
+     "fase": "Presentación y preparación",
+     "critico": false
+    },
+    {
+     "n": 2,
+     "texto": "Informe a la embarazada sobre el procedimiento que realizará con el objetivo de medir la altura uterina",
+     "fase": "Presentación y preparación",
+     "critico": false
+    },
+    {
+     "n": 3,
+     "texto": "Invitar a la embarazada a colocarse en decúbito dorsal",
+     "fase": "Presentación y preparación",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Colóquese al lado derecho de la paciente, mirando a la mujer",
+     "fase": "Presentación y preparación",
+     "critico": false
+    },
+    {
+     "n": 5,
+     "texto": "Palpe el borde superior del pubis con el dedo índice y mayor de la mano derecha",
+     "fase": "Medición de la altura uterina",
+     "critico": true
+    },
+    {
+     "n": 6,
+     "texto": "Al mismo tiempo fijar el extremo de la cinta métrica en el borde superior del pubis en la numeración 0 de la cinta (0 el inicio)",
+     "fase": "Medición de la altura uterina",
+     "critico": true
+    },
+    {
+     "n": 7,
+     "texto": "Deslice entre los dedos índice y mayor de la mano izquierda la cinta hasta alcanzar el fondo uterino con el borde cubital de la mano",
+     "fase": "Medición de la altura uterina",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Observe el número que marque con los dedos lo que representará la altura uterina en cm",
+     "fase": "Medición de la altura uterina",
+     "critico": true
+    },
+    {
+     "n": 9,
+     "texto": "Dígalo a la embarazada y pregunte si recuerda la medición anterior",
+     "fase": "Medición de la altura uterina",
+     "critico": false
+    },
+    {
+     "n": 10,
+     "texto": "Registre los datos hallados en el gráfico de la curva de incremento de la Altura Uterina",
+     "fase": "Medición de la altura uterina",
+     "critico": true
+    },
+    {
+     "n": 11,
+     "texto": "Primera maniobra de Leopold: coloque sus manos a los lados del fondo uterino y doble los dedos alrededor de la parte superior (borde cubital). Palpe la forma, el tamaño, la consistencia, la movilidad",
+     "fase": "Maniobras de Leopold y auscultación",
+     "critico": true
+    },
+    {
+     "n": 12,
+     "texto": "Segunda maniobra de Leopold: una mano a cada lado del útero, a mitad de camino entre la sínfisis y el fondo; presión a un lado empujando al feto hacia el otro y palpe el lado contrario; repita a la inversa",
+     "fase": "Maniobras de Leopold y auscultación",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Coloque el estetoscopio de Pinard sobre el abdomen en ángulo recto, en la zona del dorso fetal (foco máximo de auscultación), con la oreja en firme contacto; cuente los latidos en un minuto con reloj con segundero y tome el pulso materno",
+     "fase": "Maniobras de Leopold y auscultación",
+     "critico": true
+    },
+    {
+     "n": 14,
+     "texto": "Tercera maniobra de Leopold: con el pulgar y el índice agarre la parte inferior del abdomen, inmediatamente por arriba de la sínfisis; presione con delicadeza y firmeza para palpar la parte presentada",
+     "fase": "Maniobras de Leopold y auscultación",
+     "critico": true
+    },
+    {
+     "n": 15,
+     "texto": "Oriéntese mirando hacia los pies de la mujer, asegurándose de que tenga las rodillas dobladas",
+     "fase": "Maniobras de Leopold y auscultación",
+     "critico": false
+    },
+    {
+     "n": 16,
+     "texto": "Cuarta maniobra de Leopold: una mano a cada lado del útero, palmas justo por debajo del ombligo y dedos dirigidos hacia la sínfisis; presione profundamente con las yemas y mueva los dedos hacia la entrada pélvica",
+     "fase": "Maniobras de Leopold y auscultación",
+     "critico": true
+    },
+    {
+     "n": 17,
+     "texto": "Comunica a la paciente que finalizó el examen y le indica que se vista y tome asiento",
+     "fase": "Fin del examen",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Escucha y responde a las preguntas, preocupaciones y molestias de la paciente",
+     "fase": "Cierre",
+     "critico": false
+    },
+    {
+     "n": 19,
+     "texto": "Saluda y se despide",
+     "fase": "Cierre",
+     "critico": false
+    }
+   ]
+  },
+  "lav": {
+   "id": "lav",
+   "area": "cir",
+   "titulo": "Lavado de manos quirúrgico y colocación de guantes",
+   "icono": "🧼",
+   "umbral": 60,
+   "criterios_texto": "La lista de cotejo no define criterios de desaprobación automática; el simulador califica la barrera quirúrgica, el cepillado y el lavado de distal a proximal, el secado estéril con las manos en alto y la técnica de enguantado sin contaminar (propuesto, a validar).",
+   "pasos": [
+    {
+     "n": 1,
+     "texto": "Se viste con ambo quirúrgico, gorro, botas y/o cofia y barbijo",
+     "fase": "Preparación",
+     "critico": true
+    },
+    {
+     "n": 2,
+     "texto": "Se quita los accesorios de las manos (anillos, pulseras, reloj)",
+     "fase": "Preparación",
+     "critico": true
+    },
+    {
+     "n": 3,
+     "texto": "Abre la canilla de agua corriente",
+     "fase": "Preparación",
+     "critico": false
+    },
+    {
+     "n": 4,
+     "texto": "Moja las manos con agua corriente",
+     "fase": "Lavado",
+     "critico": false
+    },
+    {
+     "n": 5,
+     "texto": "Aplica jabón líquido con dosificador y lo aplica sobre la esponja del cepillo",
+     "fase": "Lavado",
+     "critico": false
+    },
+    {
+     "n": 6,
+     "texto": "Si fuera necesario, quita los detritus de debajo de las uñas",
+     "fase": "Lavado",
+     "critico": false
+    },
+    {
+     "n": 7,
+     "texto": "Lava palmas, dorso de las manos y dedos, y cepilla las uñas",
+     "fase": "Lavado",
+     "critico": true
+    },
+    {
+     "n": 8,
+     "texto": "Lava los antebrazos en forma circular, de distal a proximal, hasta 2,5 cm por encima del codo (primer tiempo), evitando volver a las áreas ya lavadas",
+     "fase": "Lavado",
+     "critico": true
+    },
+    {
+     "n": 9,
+     "texto": "Se enjuaga con abundante agua desde la porción distal hasta la proximal",
+     "fase": "Enjuague y secado",
+     "critico": true
+    },
+    {
+     "n": 10,
+     "texto": "Repite el procedimiento llegando hasta 3 cm por debajo del codo, enjuaga (segundo lavado)",
+     "fase": "Lavado",
+     "critico": false
+    },
+    {
+     "n": 11,
+     "texto": "Repite el procedimiento llegando hasta 3 cm por encima de la muñeca, enjuaga (tercer lavado)",
+     "fase": "Lavado",
+     "critico": false
+    },
+    {
+     "n": 12,
+     "texto": "Mantiene las manos en alto, por encima del codo y fuera del ambo quirúrgico",
+     "fase": "Enjuague y secado",
+     "critico": true
+    },
+    {
+     "n": 13,
+     "texto": "Cierra la canilla con el codo cuando es manual",
+     "fase": "Enjuague y secado",
+     "critico": false
+    },
+    {
+     "n": 14,
+     "texto": "Se seca perfectamente con compresas estériles",
+     "fase": "Enjuague y secado",
+     "critico": true
+    },
+    {
+     "n": 15,
+     "texto": "Se coloca los guantes estériles solo o con ayuda de la instrumentadora",
+     "fase": "Guantes estériles",
+     "critico": false
+    },
+    {
+     "n": 16,
+     "texto": "Coloca los guantes estériles en el campo, sobre la mesa",
+     "fase": "Guantes estériles",
+     "critico": false
+    },
+    {
+     "n": 17,
+     "texto": "Abre el envoltorio",
+     "fase": "Guantes estériles",
+     "critico": false
+    },
+    {
+     "n": 18,
+     "texto": "Toma el envoltorio por las puntas para poder abrirlo",
+     "fase": "Guantes estériles",
+     "critico": false
+    },
+    {
+     "n": 19,
+     "texto": "Toma un guante por la zona más próxima (doblada) e introduce la mano, sin terminar de estirarlo",
+     "fase": "Guantes estériles",
+     "critico": true
+    },
+    {
+     "n": 20,
+     "texto": "Introduce los dedos en el segundo guante, sin contaminar el guante colocado",
+     "fase": "Guantes estériles",
+     "critico": true
+    },
+    {
+     "n": 21,
+     "texto": "Coloca el segundo guante estirándolo por completo",
+     "fase": "Guantes estériles",
+     "critico": false
+    },
+    {
+     "n": 22,
+     "texto": "Estira por completo el primer guante, por el doblez",
+     "fase": "Guantes estériles",
+     "critico": false
+    }
+   ]
+  }
+ }
+}

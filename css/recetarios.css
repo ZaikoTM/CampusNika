@@ -429,3 +429,5 @@ body.dark-mode .rz-cancelar { color: #fca5a5 !important; }
 /* Modo embebido en el ECOE (iframe): sin barra superior, sin chat ni asistente, sin botón de volver */
 html.rz-embed .pl-top, html.rz-embed .rz-volver, html.rz-embed #nika-assistant-btn, html.rz-embed .cf-fab, html.rz-embed #cf-panel, html.rz-embed [id^='nika-assistant'], html.rz-embed .rz-modo-tag { display: none !important; }
 html.rz-embed .pl-main { padding-top: 8px; }
+
+html.rz-embed .rz-corresponde, html.rz-embed .rz-nuevo { display: none !important; }
