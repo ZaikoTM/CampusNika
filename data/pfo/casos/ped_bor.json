@@ -1,19 +1,19 @@
 {
   "id": "ped_bor",
-  "nombre": "Reagudización de BOR",
+  "nombre": "Crisis asmática grave (reagudización de BOR) con anemia severa",
   "duracionMin": 10,
   "tipo": "dinámica",
-  "contexto": "Guardia",
+  "contexto": "Guardia de emergencias pediátricas",
   "instrumento": "Maniquí y paciente estandarizado (la madre)",
-  "situacion": "Usted es médico/a de guardia y atiende a Matías Ramírez, de 4 años, que consulta por tos, agitación y vómitos de 24 horas de evolución, acompañado por su madre Carla. Es un niño con antecedentes de varios broncoespasmos, sin tratamiento preventivo. Luego de la evaluación usted le indica laboratorio y radiografía de tórax.",
+  "situacion": "Usted es médico/a de guardia y atiende a Matías Ramírez, de 4 años (18 kg), que consulta por tos, agitación y vómitos de 24 horas de evolución, acompañado por su madre, Carla. Es un niño con antecedentes de varios broncoespasmos, sin tratamiento preventivo. Luego de la evaluación usted le indica laboratorio y radiografía de tórax.",
   "objetivos": [
-    "Realizar anamnesis orientada a la enfermedad actual.",
-    "Explicar sus diagnósticos presuntivos a la madre.",
-    "Explicar a la madre, en forma detallada, su conducta a seguir."
+    "Realizar la anamnesis orientada a la enfermedad actual, a los antecedentes respiratorios y a los factores ambientales.",
+    "Evaluar el examen físico, jerarquizar la gravedad y explicar sus diagnósticos presuntivos a la madre.",
+    "Explicar a la madre, en forma detallada, la conducta a seguir: tratamiento de la crisis con dosis calculadas para 18 kg, manejo de la anemia y plan preventivo."
   ],
   "interlocutor": "Carla Maldonado, 25 años, madre de Matías (habla ella; el niño es el maniquí)",
-  "guion_paciente": "Matías Ramírez, 4 años, consulta por tos, agitación y vómitos de 24 horas de evolución. Mamá: Carla Maldonado (25 años).\nAntecedentes personales: cesárea por falta de progresión, primera gesta; recién nacido pretérmino de 36 semanas, peso adecuado (2500 g), Apgar 8/9. Embarazo bien controlado (5 controles). Tabaquismo durante el embarazo. Infección urinaria en el segundo trimestre, recibió tratamiento ambulatorio. Serologías negativas. Internación conjunta. Otoemisiones acústicas y evaluación oftalmológica normales. Alimentación: pecho exclusivo hasta los 4 meses, luego complemento con leche maternizada en polvo; toma 1 litro de leche por día y come poca carne. Desarrollo madurativo acorde.\nAntecedente patológico personal: a los 4 meses lo internaron por bronquiolitis; estuvo 2 días en ese hospital y lo derivaron a Paraná porque necesitaba terapia intensiva; estuvo con un tubito en la boca por 3 días; volvieron a la semana; le hicieron el estudio de los mocos y salió positivo para un virus que la madre no recuerda (el más frecuente en las bronquiolitis). Después, cada vez que se resfriaba le sentía un chillido en el pecho, lo llevaba a la guardia, le hacían aerosoles y volvía a casa. Este año ya vino 5 veces a la guardia, siempre agitado; las últimas veces lo dejaron en observación con aerosoles y le pusieron una inyección 'para que pudiera respirar mejor'. Este último mes lo trae todas las semanas. Este año lo escuchó toser de noche, y cuando corre casi siempre tose y se agita.\nEnfermedad actual: empezó ayer con tos a la mañana y a la noche lo vio agitado; fiebre NO tuvo; la semana pasada estuvo resfriado. Le hizo un disparo de aerosol anoche pero hoy, como no mejoraba, lo trajo. Le preocupa que tiene vómitos: desde ayer a la noche no le queda nada de lo que le da y desde la mañana vomitó dos veces.\nVacunas completas. Asiste a guardería desde los 2 años; actualmente va al jardín cuatro horas a la mañana.\nAntecedentes familiares: mamá sana; papá con asma en tratamiento con budesonide.\nConvivientes: mamá fumadora de 5 cigarrillos por día dentro de la casa, papá y abuela materna hipotiroidea.\nVivienda: tienen venta de productos de limpieza; casa de tres ambientes; piso de material; calle de tierra; todos los servicios; recolección de basura 4 veces por semana; tienen un gato.",
-  "datos_clinicos": "Peso 18 kg. Temperatura 37 °C. Frecuencia cardíaca 125 por minuto. Frecuencia respiratoria 35 por minuto. Saturación de oxígeno 88 %. Hemodinámicamente compensado. Tiraje generalizado. No se ausculta sibilancias al examen físico. Responde con palabras, no con frases. Carnet de vacunas completo.",
+  "guion_paciente": "Matías Ramírez, 4 años, consulta por tos, agitación y vómitos de 24 horas de evolución. Mamá: Carla Maldonado (25 años).\nAntecedentes personales: cesárea por falta de progresión, primera gesta; recién nacido pretérmino de 36 semanas, peso adecuado (2500 g), Apgar 8/9. Embarazo bien controlado (5 controles). Tabaquismo durante el embarazo. Infección urinaria en el segundo trimestre, recibió tratamiento ambulatorio. Serologías negativas. Internación conjunta. Otoemisiones acústicas y evaluación oftalmológica normales. Alimentación: pecho exclusivo hasta los 4 meses, luego complemento con leche maternizada en polvo; toma 1 litro de leche por día y come poca carne. Desarrollo madurativo acorde.\nAntecedente patológico personal: a los 4 meses lo internaron por bronquiolitis; estuvo 2 días en ese hospital y lo derivaron a Paraná porque necesitaba terapia intensiva; estuvo con un tubito en la boca por 3 días; volvieron a la semana; le hicieron el estudio de los mocos y salió positivo para un virus que la madre no recuerda (el más frecuente en las bronquiolitis). Después, cada vez que se resfriaba le sentía un chillido en el pecho, lo llevaba a la guardia, le hacían aerosoles y volvía a casa. Este año ya vino 5 veces a la guardia, siempre agitado; las últimas veces lo dejaron en observación con aerosoles y le pusieron una inyección 'para que pudiera respirar mejor'. Este último mes lo trae todas las semanas. Este año lo escuchó toser de noche, y cuando corre casi siempre tose y se agita.\nEnfermedad actual: empezó ayer con tos a la mañana y a la noche lo vio agitado; fiebre NO tuvo; la semana pasada estuvo resfriado. Le hizo un disparo de aerosol anoche pero hoy, como no mejoraba, lo trajo. Le preocupa que tiene vómitos: desde ayer a la noche no le queda nada de lo que le da y desde la mañana vomitó dos veces.\nVacunas completas. Asiste a guardería desde los 2 años; actualmente va al jardín cuatro horas a la mañana.\nAntecedentes familiares: mamá sana; papá con asma en tratamiento con budesonide.\nConvivientes: mamá fumadora de 5 cigarrillos por día dentro de la casa, papá y abuela materna hipotiroidea.\nVivienda: tienen venta de productos de limpieza; casa de tres ambientes; piso de material; calle de tierra; todos los servicios; recolección de basura 4 veces por semana; tienen un gato.\nDatos adicionales si el alumno pregunta: anoche le hizo un solo disparo de salbutamol sin mejoría; hoy vomitó dos veces por la mañana y no le queda nada de lo que le da, ni siquiera líquidos. De bebé tuvo la piel muy seca y roja en los pliegues; nunca le hicieron pruebas de alergia. No ronca ni hace pausas al dormir. No toma ninguna medicación todos los días; solo el aerosol de salbutamol cuando se agita. En la casa hay estufa eléctrica y de tiro balanceado; hay un poco de humedad en el techo del baño. Mamá fuma 5 cigarrillos por día dentro de la casa (en la cocina); el papá no fuma. El gato duerme arriba de la cama con Matías. Le da té con galletitas a la tarde. No tuvo diarrea ni manchas en la piel; el abdomen no le duele. Sabe usar poco la aerocámara: le hace un disparo y se la saca porque llora. Los controles de salud están al día.",
+  "datos_clinicos": "Peso 18 kg. Temperatura 37 °C. Frecuencia cardíaca 125 por minuto. Frecuencia respiratoria 35 por minuto. Saturación de oxígeno 88 % al aire ambiente. Hemodinámicamente compensado. Tiraje generalizado (intercostal, subcostal y supraesternal). Responde con palabras, no con frases. Mala entrada de aire bilateral y no se ausculta sibilancias (hipoventilación). Carnet de vacunas completo.",
   "estudios": [
     {
       "clave": "laboratorio",
@@ -26,6 +26,10 @@
     {
       "clave": "rx_torax",
       "texto": "Radiografía de tórax de frente: horizontalización costal, aumento de los espacios intercostales y aplanamiento de los hemidiafragmas (signos de atrapamiento aéreo)."
+    },
+    {
+      "clave": "indices_anemia",
+      "texto": "[BORRADOR] Volumen corpuscular medio 68 fl, ADE 17 %, ferritina 8 ng/ml, reticulocitos 1 % (anemia microcítica e hipocrómica ferropénica), compatible con el consumo de 1 litro de leche de vaca por día y la poca ingesta de carne. Solo si el alumno los solicita."
     }
   ],
   "umbral_aprobacion": 60,
@@ -34,129 +38,126 @@
       "id": 1,
       "bloque": "Anamnesis",
       "max": 4,
-      "texto": "Frecuencia de exacerbaciones",
-      "regular": "Indaga la frecuencia de las exacerbaciones",
-      "suficiente": "Precisa la frecuencia de las exacerbaciones (diarias, semanales o mensuales)"
+      "texto": "Enfermedad actual y síntomas de la crisis",
+      "regular": "Indaga la tos y la agitación, pero omite los vómitos o la respuesta al aerosol",
+      "suficiente": "Indaga inicio, evolución de la tos y la agitación, fiebre, vómitos, tolerancia a líquidos y respuesta al salbutamol"
     },
     {
       "id": 2,
       "bloque": "Anamnesis",
       "max": 4,
-      "texto": "Síntomas acompañantes",
-      "regular": "Indaga tos al correr o jugar, o tos nocturna (uno)",
-      "suficiente": "Indaga al menos 2 síntomas: tos al correr o jugar, tos nocturna"
+      "texto": "Antecedentes de broncoespasmo y gravedad previa",
+      "regular": "Averigua los episodios previos, pero no el número ni las internaciones",
+      "suficiente": "Indaga número de episodios en el año, consultas a guardia, internaciones en sala o terapia intensiva y asistencia respiratoria mecánica previa"
     },
     {
       "id": 3,
       "bloque": "Anamnesis",
       "max": 4,
-      "texto": "Internaciones previas",
-      "regular": "Indaga el antecedente de internaciones",
-      "suficiente": "Indaga internaciones y especifica el pase a UTI y/o la necesidad de asistencia respiratoria mecánica"
+      "texto": "Síntomas de intercrisis y control",
+      "regular": "Indaga solo el uso de aerosoles de rescate",
+      "suficiente": "Indaga tos nocturna, tos con el ejercicio o la risa, y la ausencia de tratamiento preventivo"
     },
     {
       "id": 4,
       "bloque": "Anamnesis",
       "max": 4,
-      "texto": "Broncodilatadores y consultas en guardia",
-      "regular": "Indaga el uso de broncodilatadores y/o las consultas en guardia",
-      "suficiente": "Indaga el uso de broncodilatadores y las consultas en guardia en los últimos 12 meses"
+      "texto": "Factores ambientales y alimentación",
+      "regular": "Indaga el tabaquismo, pero no las mascotas ni la dieta",
+      "suficiente": "Indaga tabaquismo en el hogar, mascotas, humedad, productos de limpieza, y el consumo de leche de vaca y de carne"
     },
     {
       "id": 5,
       "bloque": "Anamnesis",
       "max": 4,
-      "texto": "Contaminantes ambientales",
-      "regular": "Indaga alguno (tabaquismo, medio ambiente o concurrencia al jardín)",
-      "suficiente": "Indaga tabaquismo, medio ambiente y concurrencia al jardín"
+      "texto": "Antecedentes familiares, perinatales y vacunas",
+      "regular": "Indaga el asma familiar o las vacunas, no ambos",
+      "suficiente": "Indaga asma del padre y su tratamiento, atopia, antecedentes perinatales (prematurez) y el carnet de vacunación"
     },
     {
       "id": 6,
       "bloque": "Plan diagnóstico",
       "max": 5,
-      "texto": "Reagudización de BOR",
-      "regular": "Refiere reagudización de BOR",
-      "suficiente": "Refiere reagudización de BOR sin tratamiento preventivo"
+      "texto": "Signos vitales y gravedad",
+      "regular": "Registra frecuencia respiratoria y cardíaca, pero no clasifica la gravedad",
+      "suficiente": "Jerarquiza la saturación de 88 %, la taquipnea, el tiraje y el habla con palabras, y clasifica la crisis como grave"
     },
     {
       "id": 7,
       "bloque": "Plan diagnóstico",
       "max": 5,
-      "texto": "Anemia",
-      "regular": "Refiere serie roja baja",
-      "suficiente": "Refiere anemia"
+      "texto": "Auscultación y tórax silente",
+      "regular": "Ausculta, pero no reconoce el significado de la ausencia de sibilancias",
+      "suficiente": "Ausculta ambos campos y reconoce que la ausencia de sibilancias con mala entrada de aire indica hipoventilación grave"
     },
     {
       "id": 8,
       "bloque": "Plan diagnóstico",
       "max": 5,
-      "texto": "Equilibrio ácido-base (EAB)",
-      "regular": "Refiere oxígeno bajo",
-      "suficiente": "Refiere hipoxemia"
+      "texto": "Radiografía de tórax",
+      "regular": "Solicita la radiografía sin describir los hallazgos",
+      "suficiente": "Solicita la radiografía de tórax y describe los signos de atrapamiento aéreo (horizontalización costal, aumento de los espacios intercostales, aplanamiento diafragmático), descartando neumonía"
     },
     {
       "id": 9,
       "bloque": "Plan diagnóstico",
       "max": 5,
-      "texto": "Descripción de la radiografía de tórax",
-      "regular": "Refiere uno de: horizontalización costal, aumento de espacios intercostales o aplanamiento diafragmático",
-      "suficiente": "Refiere dos o más de esos signos"
+      "texto": "Laboratorio, ácido-base y anemia",
+      "regular": "Solicita laboratorio, pero no interpreta los gases ni la anemia",
+      "suficiente": "Interpreta la hipoxemia del estado ácido-base y reconoce la anemia severa (hemoglobina 7 g/dl) con su probable origen ferropénico"
     },
     {
       "id": 10,
       "bloque": "Tratamiento",
-      "max": 10,
-      "texto": "Internación y plan de hidratación parenteral (PHP)",
-      "regular": "Indica internación y/o PHP",
-      "suficiente": "Indica internación + PHP"
+      "max": 12,
+      "texto": "Oxigenoterapia e internación",
+      "regular": "Indica oxígeno sin definir la meta o el dispositivo",
+      "suficiente": "Decide la internación e indica oxígeno humidificado por cánula o máscara con reservorio para saturar por encima de 94 % (como mínimo más de 92 %)"
     },
     {
       "id": 11,
       "bloque": "Tratamiento",
-      "max": 10,
-      "texto": "Oxigenoterapia",
-      "regular": "Indica oxígeno",
-      "suficiente": "Oxígeno humidificado para saturar más de 92 %"
+      "max": 12,
+      "texto": "Salbutamol más bromuro de ipratropio",
+      "regular": "Indica salbutamol sin ipratropio o sin la serie de la primera hora",
+      "suficiente": "Indica salbutamol 4 a 10 puff más bromuro de ipratropio 2 a 4 puff cada 20 minutos durante 1 hora con aerocámara (o nebulizados: salbutamol 0,15 mg/kg = 2,7 mg e ipratropio 250 mcg)"
     },
     {
       "id": 12,
       "bloque": "Tratamiento",
-      "max": 10,
-      "texto": "Serie con salbutamol + bromuro de ipratropio",
-      "regular": "Indica salbutamol o ipratropio",
-      "suficiente": "Salbutamol 4 a 8-10 puff + bromuro de ipratropio 2-4 puff cada 20 minutos durante 1 hora"
+      "max": 12,
+      "texto": "Corticoide sistémico por vía parenteral",
+      "regular": "Indica corticoide por vía oral pese a los vómitos, o solo budesonide inhalado",
+      "suficiente": "Indica por vía endovenosa hidrocortisona 5 a 10 mg/kg/dosis (90 a 180 mg cada 6 horas) o dexametasona 0,6 mg/kg (10,8 mg)"
     },
     {
       "id": 13,
       "bloque": "Tratamiento",
-      "max": 10,
-      "texto": "Budesonide (tratamiento preventivo)",
-      "regular": "Budesonide 1 puff cada 12 horas",
-      "suficiente": "Budesonide 200 mcg cada 12 horas"
+      "max": 12,
+      "texto": "Hidratación y anemia severa",
+      "regular": "Indica la hidratación o aborda la anemia, no ambas",
+      "suficiente": "Indica plan de hidratación parenteral por los vómitos y aborda la anemia con hemoglobina de 7 g/dl: transfusión de glóbulos rojos desplasmatizados 10 ml/kg (180 ml) fundamentada en la hipoxemia, o ferroterapia (sulfato ferroso 3 a 6 mg/kg/día) con la justificación"
     },
     {
       "id": 14,
       "bloque": "Tratamiento",
-      "max": 10,
-      "texto": "Corticoterapia",
-      "regular": "Refiere hidrocortisona o dexametasona",
-      "suficiente": "Hidrocortisona EV 5-10 mg/kg/dosis o dexametasona EV 0,6 mg/kg/día"
-    },
-    {
-      "id": 15,
-      "bloque": "Tratamiento",
-      "max": 10,
-      "texto": "Transfusión de glóbulos rojos",
-      "regular": "Indica transfusión de GR desplasmatizados",
-      "suficiente": "Transfusión de GR desplasmatizados 10 ml/kg o 180 ml"
+      "max": 12,
+      "texto": "Plan preventivo, comunicación y pautas de alarma",
+      "regular": "Explica a la madre, pero omite el tratamiento preventivo o las pautas de alarma",
+      "suficiente": "Explica con lenguaje claro y empático; indica budesonide 200 mcg cada 12 horas como controlador, uso de la aerocámara, control del humo de tabaco y de las mascotas, plan por escrito y pautas de alarma"
     }
   ],
   "area": "pediatria",
   "estado": "borrador",
   "errores_criticos": [
-    "No indicar oxígeno en un niño con saturación de 88 %",
-    "Dar el alta o tratar de forma ambulatoria a un niño con tiraje generalizado, saturación de 88 % y habla entrecortada",
-    "No reconocer la anemia severa (hemoglobina 7 g/dl) ni indicar su corrección",
-    "Indicar antibióticos de rutina sin signos de neumonía"
+    "Omitir la administración inmediata de oxígeno y del rescate broncodilatador en un niño con saturación de 88 %, tiraje generalizado e hipoventilación.",
+    "Dar el alta o indicar tratamiento ambulatorio a un niño con crisis asmática grave no resuelta.",
+    "Indicar solo corticoides inhalados (budesonide) como tratamiento de la crisis, sin broncodilatador de rescate ni corticoide sistémico.",
+    "Indicar sedantes, antitusivos, antihistamínicos o mucolíticos durante la crisis.",
+    "No reconocer ni abordar la anemia severa (hemoglobina 7 g/dl) en un niño con hipoxemia."
+  ],
+  "respuesta_modelo": "Matías presenta una crisis asmática grave: saturación de 88 %, tiraje generalizado, habla con palabras e hipoventilación. Requiere internación inmediata. 1) Oxígeno humidificado por cánula o máscara con reservorio para saturar por encima de 94 %. 2) Salbutamol 4 a 10 puff más bromuro de ipratropio 2 a 4 puff cada 20 minutos durante la primera hora con aerocámara bivalvulada (o nebulizados: salbutamol 2,7 mg e ipratropio 250 mcg). 3) Corticoide sistémico por vía endovenosa por los vómitos: hidrocortisona 5 a 10 mg/kg/dosis (90 a 180 mg cada 6 horas) o dexametasona 0,6 mg/kg (10,8 mg). 4) Plan de hidratación parenteral a necesidades basales. 5) Radiografía de tórax (atrapamiento aéreo, sin consolidación) y laboratorio con estado ácido-base. 6) Anemia severa con hemoglobina de 7 g/dl e hipoxemia: transfusión de glóbulos rojos desplasmatizados 10 ml/kg (180 ml); si el alumno lo fundamenta de otra manera, se acepta ferroterapia (sulfato ferroso 3 a 6 mg/kg/día) con la justificación, y se investiga la causa (exceso de leche, poca carne). 7) Reevaluar a la hora: si responde, espaciar el salbutamol y mantener la internación; si no responde, sulfato de magnesio al 25 % EV 25 a 50 mg/kg (450 a 900 mg) y pase a terapia intensiva. 8) Al alta: salbutamol de rescate, corticoide oral por 3 a 5 días, budesonide 200 mcg cada 12 horas con aerocámara, control del humo de tabaco y de las mascotas, plan por escrito y pautas de alarma.",
+  "pendientes": [
+    "A VALIDAR: la transfusión de glóbulos rojos con hemoglobina de 7 g/dl e hipoxemia figura en la rúbrica original; se mantiene como conducta aceptada junto con la alternativa de ferroterapia fundamentada."
   ]
 }

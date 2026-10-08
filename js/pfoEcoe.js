@@ -95,6 +95,7 @@ ${c.guion_paciente}
 - DATOS CLÍNICOS (se entregan SOLO si el alumno examina o pide los signos, entre corchetes con el formato [Evaluador: ...]): ${c.datos_clinicos}
 - ESTUDIOS (se entregan SOLO cuando el alumno los pide y los resultados del laboratorio con sus unidades):
 ${c.estudios.map((x) => '  · ' + x.texto).join('\n')}
+- MANIOBRAS Y ESTUDIOS NO CONTEMPLADOS: si el alumno pide una maniobra de examen que no figura en los datos clínicos, respondé [Evaluador: Sin particularidades.]; si pide un estudio que no figura entre los estudios del caso, respondé [Evaluador: Estudio no disponible en esta estación.]. Nunca des pistas ni juzgues la indicación.
 - RÚBRICA OFICIAL (puntaje total 100; umbral de aprobación ${c.umbral_aprobacion}). Los ítems valen 0 (insuficiente), la mitad (regular) o el máximo (suficiente):
 ${filas}
 - ERRORES CRÍTICOS (conductas que ponen en riesgo al paciente): ${(c.errores_criticos || []).map((x, k) => (k + 1) + ') ' + x).join(' ')}. Si el alumno comete alguno, incluí en el JSON el campo "errores_criticos_cometidos" con una lista de textos breves (vacía si no cometió ninguno).
