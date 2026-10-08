@@ -1,0 +1,209 @@
+{
+  "titulo": "ECOE FINAL · Práctica Final Obligatoria",
+  "subtitulo": "Tu último examen antes del título de médico/a",
+  "borrador_hasta_rubrica": true,
+  "nota_rubrica": "Las estaciones, los temas y los criterios de este simulador son un borrador de trabajo basado en el formato ECOE. Se ajustan cuando se cargue la rúbrica oficial de contenidos de la UNER.",
+  "criterios": {
+    "notaMinEstacion": 6,
+    "notaMinGlobal": 7,
+    "pilarMin": 6,
+    "maxIntervencionesPorEstacion": 14,
+    "minutosPorEstacion": 12
+  },
+  "textos": {
+    "intro": "Llegaste al final de una carrera larga. Este examen reúne todo lo que aprendiste: interrogar, examinar, decidir y comunicar, con pacientes de distintas especialidades, uno detrás de otro y sin ayudas.",
+    "motivacion": "Cada estación es una oportunidad de mostrar el médico o la médica que ya sos. No buscamos respuestas de memoria: buscamos criterio, seguridad y trato humano. Respirá, ordená tu razonamiento y confiá en tu preparación.",
+    "como_funciona": [
+      "Recorrés varias estaciones seguidas, cada una con una especialidad distinta.",
+      "En cada una hay un paciente estandarizado y un evaluador silencioso: solo recibís los datos que pedís.",
+      "Cada estación tiene tiempo límite y un máximo de intervenciones. Al terminar pasás a la siguiente.",
+      "Al final recibís la nota global, la revisión detallada de cada estación y la respuesta modelo."
+    ],
+    "reglas": [
+      "No hay pistas ni correcciones durante el examen: el evaluador no confirma ni descarta tu diagnóstico.",
+      "Si no preguntás, examinás o pedís algo, ese dato no existe. Sé específico.",
+      "Un error crítico de seguridad (indicación peligrosa, omitir una medida vital) baja la nota de la estación aunque el resto esté bien.",
+      "No se puede volver a una estación anterior ni reiniciar una en curso.",
+      "Es una evaluación exigente, más que las de 5.° año: no se infla la nota."
+    ],
+    "aprobacion": "Para aprobar el ECOE FINAL en este simulador necesitás una nota global de 7 o más y no desaprobar (menos de 6) ninguna estación. Son criterios de práctica, referenciales hasta cargar la rúbrica oficial.",
+    "felicitaciones_titulo": "¡Felicitaciones, colega!",
+    "felicitaciones": "Superaste el ECOE FINAL. Detrás de esta nota hay años de estudio, guardias, esfuerzo y vocación. Estás listo/a para dar el paso final: ¡a recibirte!",
+    "reintento_titulo": "Todavía no, pero estás cerca",
+    "reintento": "Esta vez no alcanzó, y eso es parte del camino. Revisá el detalle de cada estación, reforzá los puntos marcados y volvé a intentarlo: cada práctica te acerca al título."
+  },
+  "estaciones": [
+    {
+      "id": "emergentologia",
+      "nombre": "Emergentología",
+      "icono": "🚑",
+      "descripcion": "Paciente crítico o con riesgo de vida: evaluación inicial ordenada, estabilización y decisión rápida.",
+      "unidades": [
+        "Trauma y politraumatizado: evaluación primaria A-B-C-D-E, shock hemorrágico, trauma de tórax y abdomen",
+        "Dolor torácico: síndrome coronario agudo, tromboembolismo pulmonar, disección aórtica, neumotórax",
+        "Paro cardiorrespiratorio y arritmias con inestabilidad hemodinámica: soporte vital y cardioversión",
+        "Alteraciones neurológicas agudas: ACV, convulsiones, alteración del sensorio, hipoglucemia",
+        "Shock y sepsis, anafilaxia, intoxicaciones y sobredosis, quemaduras y golpe de calor",
+        "Dificultad respiratoria aguda: asma, EPOC reagudizada, edema agudo de pulmón, neumonía grave"
+      ],
+      "ecoe": {
+        "servicio": "EMERGENTOLOGÍA — guardia de urgencias de adultos, para un alumno de fin de carrera (ECOE FINAL de grado)",
+        "corto": "Emergentología",
+        "maniobras": "evaluación primaria A-B-C-D-E, signos vitales completos, auscultación cardiopulmonar, examen neurológico rápido (Glasgow, pupilas, focalidad), examen abdominal, examen de extremidades y piel",
+        "anamnesis": "mecanismo y tiempo de evolución, síntomas principales, antecedentes personales y quirúrgicos, medicación habitual (anticoagulantes), alergias, última ingesta (regla AMPLIA)",
+        "estudios": "ECG, glucemia capilar, laboratorio, gasometría, radiografía de tórax, ecografía FAST, tomografía, troponinas",
+        "conducta": "medidas de reanimación y estabilización inmediatas, oxígeno, accesos venosos, fármacos con dosis y vía, monitoreo, interconsultas, derivación o internación en el nivel adecuado, comunicación con la familia",
+        "seguridad": "prioriza la vía aérea, la ventilación y la circulación antes de los estudios; indaga alergias y anticoagulación antes de fármacos o procedimientos; reconoce los signos de inestabilidad y pide ayuda a tiempo; no indica nada riesgoso",
+        "criticos": "no asegurar la vía aérea o la hemodinamia antes de estudios complejos, demorar una medida salvadora, indicar un fármaco contraindicado, no reconocer un shock, un síndrome coronario agudo o un ACV en ventana",
+        "debilidad": "Secuencia de evaluación primaria y priorización de las medidas salvavidas",
+        "paciente": "primera persona, lenguaje coloquial argentino, sin términos médicos, 1 a 3 oraciones, con la emoción acorde (miedo, dolor, angustia); si el paciente está con alteración del sensorio, hablá como el acompañante o el personal de ambulancia",
+        "ejemploBreve": [
+          "Me aprieta el pecho desde hace una hora, doctor/a, y me falta el aire.",
+          "Realizo evaluación primaria. → [Evaluador: Vía aérea permeable. Respira con FR 26 por minuto. Pulso radial presente, TA 90/60 mmHg, FC 118 lpm.]",
+          "Pido ECG de 12 derivaciones. → [Evaluador: Supradesnivel del ST de 3 mm en derivaciones inferiores.]"
+        ],
+        "alumno": "doctor/a",
+        "genero": "el/la paciente"
+      }
+    },
+    {
+      "id": "pediatria",
+      "nombre": "Pediatría",
+      "icono": "🧒",
+      "descripcion": "Niño o adolescente con un familiar como interlocutor: semiología pediátrica, dosis por peso y comunicación con la familia.",
+      "unidades": [
+        "Fiebre en el lactante y en el niño: fiebre sin foco, infección urinaria, otitis, faringoamigdalitis",
+        "Patología respiratoria: bronquiolitis, crisis asmática, neumonía, laringitis, dificultad respiratoria",
+        "Gastroenteritis y deshidratación: plan de hidratación y signos de alarma",
+        "Control del niño sano: crecimiento y desarrollo, alimentación, vacunas, pesquisa neonatal",
+        "Urgencias pediátricas: convulsión febril, intoxicaciones, traumatismos, quemaduras, anafilaxia",
+        "Maltrato, abuso y detección de riesgo social; adolescencia, sexualidad y salud mental"
+      ],
+      "ecoe": {
+        "servicio": "PEDIATRÍA — consultorio y guardia pediátrica, para un alumno de fin de carrera (ECOE FINAL de grado)",
+        "corto": "Pediatría",
+        "maniobras": "signos vitales según la edad, peso y talla, examen general con signos de hidratación, auscultación cardiopulmonar, examen de oídos y fauces, examen abdominal, examen neurológico y del desarrollo, piel",
+        "anamnesis": "edad y peso, motivo de consulta, tiempo de evolución, fiebre, alimentación y diuresis, antecedentes perinatales, vacunas, alergias, medicación, contactos y convivientes",
+        "estudios": "hemograma, orina completa y urocultivo, radiografía de tórax, saturometría, glucemia, ionograma",
+        "conducta": "medidas generales, antitérmicos y fármacos con dosis calculada por peso (mg/kg), vía y frecuencia, plan de hidratación, criterios de internación, pautas de alarma, controles y vacunas",
+        "seguridad": "calcula las dosis por peso y verifica la máxima, indaga alergias y vacunas, reconoce los signos de gravedad del niño (rechazo del alimento, letargo, tiraje, deshidratación) y los pone en palabras para los padres; detecta señales de maltrato",
+        "criticos": "dosis errónea o por encima de la máxima por peso, no reconocer un niño con signos de gravedad, omitir la hidratación en una deshidratación, dar un fármaco contraindicado para la edad",
+        "debilidad": "Cálculo de dosis por peso y reconocimiento de los signos de alarma en el niño",
+        "paciente": "el interlocutor es el padre, la madre o el acompañante del niño, en primera persona, lenguaje coloquial argentino, 1 a 3 oraciones, con la emoción acorde (preocupación, cansancio); un adolescente puede hablar por sí mismo; no uses términos médicos",
+        "ejemploBreve": [
+          "Mi bebé tiene fiebre desde ayer y hoy no quiere tomar la teta, doctor/a.",
+          "Examino la hidratación y las fontanelas. → [Evaluador: Mucosas secas, llanto sin lágrimas, fontanela anterior levemente deprimida, llenado capilar 3 segundos.]",
+          "Pido peso y temperatura. → [Evaluador: Peso 8,4 kg. Temperatura axilar 38,9 °C.]"
+        ],
+        "alumno": "doctor/a",
+        "genero": "el niño o la niña"
+      }
+    },
+    {
+      "id": "gineco_obstetricia",
+      "nombre": "Ginecología y Obstetricia",
+      "icono": "🤰",
+      "descripcion": "Salud de la mujer y embarazo: control prenatal, urgencias obstétricas, ginecología, anticoncepción y comunicación sensible.",
+      "unidades": [
+        "Control prenatal y embarazo de bajo y alto riesgo: edad gestacional, controles, laboratorio y ecografías",
+        "Urgencias obstétricas: hemorragias de la primera y segunda mitad del embarazo, preeclampsia y eclampsia, trabajo de parto, amenaza de parto prematuro",
+        "Puerperio y lactancia: hemorragia posparto, fiebre puerperal, mastitis",
+        "Ginecología: sangrado uterino anormal, dolor pélvico, enfermedad inflamatoria pélvica, vulvovaginitis, ITS",
+        "Anticoncepción, interrupción legal del embarazo y consejería en salud sexual",
+        "Pesquisa del cáncer cervicouterino y de mama; climaterio y menopausia"
+      ],
+      "ecoe": {
+        "servicio": "GINECOLOGÍA Y OBSTETRICIA — consultorio y guardia de salud de la mujer, para un alumno de fin de carrera (ECOE FINAL de grado)",
+        "corto": "Ginecología y Obstetricia",
+        "maniobras": "signos vitales, examen abdominal y altura uterina, maniobras de Leopold, auscultación de latidos fetales, examen mamario, examen ginecológico con espéculo y tacto bimanual, examen de miembros inferiores",
+        "anamnesis": "fecha de última menstruación y edad gestacional, antecedentes gineco-obstétricos (gestas, partos, cesáreas, abortos), controles prenatales, método anticonceptivo, ciclos menstruales, antecedentes personales y familiares, medicación, alergias",
+        "estudios": "test de embarazo, laboratorio, ecografía obstétrica o ginecológica, monitoreo fetal, urocultivo, citología y colposcopía",
+        "conducta": "medidas de urgencia (hipertensión, hemorragia), fármacos compatibles con el embarazo con dosis, vía y frecuencia, internación o seguimiento, anticoncepción, derechos y consejería, pautas de alarma",
+        "seguridad": "verifica el embarazo antes de indicar fármacos o estudios, usa solo fármacos seguros en el embarazo, reconoce la preeclampsia y la hemorragia como emergencias, respeta la confidencialidad, la autonomía y la intimidad de la paciente",
+        "criticos": "indicar un fármaco contraindicado en el embarazo, no reconocer una preeclampsia grave o una hemorragia con inestabilidad, omitir la confirmación del embarazo, vulnerar la confidencialidad o los derechos de la paciente",
+        "debilidad": "Reconocimiento de las urgencias obstétricas y uso de fármacos seguros en el embarazo",
+        "paciente": "primera persona, lenguaje coloquial argentino, sin términos médicos, 1 a 3 oraciones, con la emoción acorde (angustia, vergüenza, miedo); respetá la intimidad y respondé con naturalidad a las preguntas sobre la vida sexual",
+        "ejemploBreve": [
+          "Estoy de ocho meses y desde anoche me duele mucho la cabeza y veo lucecitas, doctor/a.",
+          "Controlo la presión arterial. → [Evaluador: TA 165/110 mmHg en dos tomas separadas por 15 minutos.]",
+          "Pido proteinuria en orina. → [Evaluador: Proteinuria con tira reactiva 3+.]"
+        ],
+        "alumno": "doctor/a",
+        "genero": "la paciente"
+      }
+    },
+    {
+      "id": "medicina_familiar",
+      "nombre": "Medicina General y Familiar",
+      "icono": "🏘️",
+      "descripcion": "Atención primaria: consulta frecuente en el primer nivel, prevención, enfermedades crónicas y contexto familiar y social.",
+      "unidades": [
+        "Hipertensión arterial, diabetes tipo 2, dislipemias y riesgo cardiovascular: control y metas",
+        "Consultas frecuentes del primer nivel: lumbalgia, cefalea, infecciones respiratorias y urinarias, dermatología básica",
+        "Prevención y promoción de la salud: vacunas del adulto, tamizajes, hábitos, tabaquismo y alcohol",
+        "Salud mental en el primer nivel: depresión, ansiedad, consumo problemático, riesgo suicida",
+        "Adulto mayor y cuidados paliativos: polifarmacia, caídas, deterioro cognitivo, final de la vida",
+        "Enfoque familiar y comunitario: determinantes sociales, violencia, certificados y aspectos médico-legales"
+      ],
+      "ecoe": {
+        "servicio": "MEDICINA GENERAL Y FAMILIAR — centro de atención primaria de la salud, para un alumno de fin de carrera (ECOE FINAL de grado)",
+        "corto": "Medicina General y Familiar",
+        "maniobras": "signos vitales, peso, talla e índice de masa corporal, examen cardiovascular, respiratorio, abdominal y neurológico, examen de piel y osteoarticular, evaluación de factores de riesgo",
+        "anamnesis": "motivo de consulta, síntomas y tiempo de evolución, antecedentes personales y familiares, medicación habitual (polifarmacia), hábitos (tabaco, alcohol, actividad física), contexto familiar, laboral y social, red de apoyo",
+        "estudios": "laboratorio de rutina, glucemia, perfil lipídico, ECG, radiografía, tamizajes según edad y sexo",
+        "conducta": "diagnóstico y plan de tratamiento (medidas no farmacológicas y fármacos con dosis, vía y frecuencia), metas de control, educación y adherencia, derivación, seguimiento, prevención y vacunas",
+        "seguridad": "indaga alergias y medicación habitual antes de indicar fármacos, reconoce los signos de alarma que requieren derivación urgente, respeta la confidencialidad y el consentimiento informado, evalúa el riesgo de violencia o suicidio cuando corresponde",
+        "criticos": "no reconocer un signo de alarma que requiere derivación urgente, indicar un fármaco contraindicado o con interacción peligrosa, no evaluar el riesgo suicida ante un cuadro depresivo, vulnerar el secreto profesional",
+        "debilidad": "Abordaje integral del paciente crónico y prevención en el primer nivel de atención",
+        "paciente": "primera persona, lenguaje coloquial argentino, sin términos médicos, 1 a 3 oraciones, con la emoción acorde; puede minimizar sus síntomas, olvidarse de la medicación o ocultar un problema familiar hasta que se lo pregunten bien",
+        "ejemploBreve": [
+          "Vengo porque hace un mes duermo mal y estoy muy cansado, doctor/a.",
+          "Pregunto por el estado de ánimo y el interés por las actividades. → [Evaluador: El paciente refiere tristeza casi todos los días y pérdida de interés desde hace seis semanas.]",
+          "Pido TSH y hemograma. → [Evaluador: TSH 2,1 mUI/L. Hemograma sin alteraciones.]"
+        ],
+        "alumno": "doctor/a",
+        "genero": "el/la paciente"
+      }
+    },
+    {
+      "id": "clinica_medica",
+      "nombre": "Clínica Médica",
+      "icono": "🩺",
+      "descripcion": "Paciente adulto con un cuadro clínico de complejidad media: razonamiento diagnóstico, estudios y tratamiento fundamentados.",
+      "unidades": [
+        "Síndromes cardiovasculares: insuficiencia cardíaca, fibrilación auricular, hipertensión arterial complicada, endocarditis",
+        "Síndromes respiratorios: neumonía, EPOC, asma, derrame pleural, tromboembolismo pulmonar",
+        "Síndromes digestivos y hepáticos: hemorragia digestiva, hepatopatías, pancreatitis, enfermedad inflamatoria intestinal",
+        "Endocrinología y metabolismo: diabetes y sus complicaciones agudas, tiroides, alteraciones del medio interno",
+        "Infectología: sepsis, infecciones del sistema nervioso, VIH, tuberculosis, infecciones de piel y partes blandas",
+        "Nefrología, hematología y reumatología: injuria renal, anemias, trombosis, lupus y artritis"
+      ],
+      "ecoe": {
+        "servicio": "CLÍNICA MÉDICA — consultorio e internación de adultos, para un alumno de fin de carrera (ECOE FINAL de grado)",
+        "corto": "Clínica Médica",
+        "maniobras": "signos vitales, examen cardiovascular, respiratorio, abdominal, neurológico, de piel, linfático y osteoarticular, examen de miembros inferiores",
+        "anamnesis": "motivo de consulta, semiología del síntoma principal (inicio, características, intensidad, factores que lo modifican, síntomas asociados), antecedentes personales y familiares, medicación habitual, alergias, hábitos, viajes y contactos",
+        "estudios": "laboratorio, ECG, radiografía, ecografía, tomografía, cultivos, gasometría, ecocardiograma, espirometría",
+        "conducta": "diagnóstico y diferenciales, estudios dirigidos, tratamiento con fármacos (dosis, vía, frecuencia y duración), criterio de internación o seguimiento ambulatorio, educación del paciente y controles",
+        "seguridad": "indaga alergias, medicación habitual y función renal antes de indicar fármacos, ajusta las dosis a la comorbilidad, reconoce los signos de gravedad y los prioriza, y no indica nada riesgoso",
+        "criticos": "indicar un fármaco contraindicado o sin ajustar a la función renal, no reconocer un cuadro grave (sepsis, insuficiencia respiratoria, descompensación cardíaca), omitir una medida vital",
+        "debilidad": "Integración del razonamiento diagnóstico y ajuste del tratamiento a las comorbilidades",
+        "paciente": "primera persona, lenguaje coloquial argentino, sin términos médicos, 1 a 3 oraciones, con la emoción acorde (cansancio, miedo, preocupación); puede ser vago al principio y precisar solo con preguntas dirigidas",
+        "ejemploBreve": [
+          "Hace una semana que tengo fiebre y tos con flema, y desde ayer me duele el costado al respirar, doctor/a.",
+          "Ausculto el tórax. → [Evaluador: Matidez y crepitantes en la base pulmonar derecha, soplo tubario.]",
+          "Pido radiografía de tórax y hemograma. → [Evaluador: Radiografía: consolidación en el lóbulo inferior derecho. Leucocitos 17.500/mm3 con neutrofilia.]"
+        ],
+        "alumno": "doctor/a",
+        "genero": "el/la paciente"
+      }
+    },
+    {
+      "id": "cirugia",
+      "nombre": "Cirugía",
+      "icono": "🔪",
+      "descripcion": "Paciente quirúrgico o con trauma: semiología del abdomen agudo, decisión quirúrgica, manejo inicial y consentimiento informado.",
+      "perfil_de": "cirugia"
+    }
+  ]
+}

@@ -72,3 +72,4 @@ body.sala-estudio::before { background: radial-gradient(900px 520px at 85% -8%, 
 
 @media (max-width: 760px) { .se-hero { flex-direction: column; text-align: center; } .se-libro { width: 130px; } .se-atajos { justify-content: center; } .se-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .se-hero, .se-estrellas, .se-flota, .se-sombra, .se-pagina, .se-chispa, .se-card, .se-banda::before, .se-banda::after { animation: none !important; } }
+.se-card.pfo { --se-c1: #f59e0b; --se-c2: #b45309; --se-glow: rgba(251, 191, 36, .5); }
