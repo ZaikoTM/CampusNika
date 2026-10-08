@@ -177,10 +177,11 @@
     if (!s || !s.n) return;
     const p = { ultima_pagina: s.actual, total_paginas: s.n, leidas: Array.from(s.leidas).sort((a, b) => a - b) };
     s.prog = p;
+    const avisar = () => { try { document.dispatchEvent(new CustomEvent('nika-pdf-progreso')); } catch (_) {} };
     if (s.uid && s.remoto !== false) {
-      try { await cliente().from('pdf_progreso').upsert({ file_id: s.fileId, titulo: s.title, ...p, updated_at: new Date().toISOString() }, { onConflict: 'user_id,file_id' }); return; } catch (_) {}
+      try { await cliente().from('pdf_progreso').upsert({ file_id: s.fileId, titulo: s.title, ...p, updated_at: new Date().toISOString() }, { onConflict: 'user_id,file_id' }); avisar(); return; } catch (_) {}
     }
-    lsSet('prog', s.fileId, p);
+    lsSet('prog', s.fileId, p); avisar();
   }
   function guardarProgreso() {
     clearTimeout(_t);
@@ -725,7 +726,8 @@
 
     marcarColor(); actualizarBarra(); actualizarFs();
     const ult = mi.prog && mi.prog.ultima_pagina;
-    if (ult && ult > 1 && ult <= mi.n) toast(`Seguías en la página ${ult} de ${mi.n}`, 'Continuar', () => irA(ult, true));
+    if (ult && ult > 1 && ult <= mi.n && window._nikaReanudar) { window._nikaReanudar = false; irA(ult, true); }
+    else if (ult && ult > 1 && ult <= mi.n) toast(`Seguías en la página ${ult} de ${mi.n}`, 'Continuar', () => irA(ult, true));
     else if (!mi.marcas.length) toast('Probá la herramienta Subrayar: seleccioná un texto y queda guardado en tu cuenta', 'Probar', () => modo('sub'));
     mi.actual = 1;
   }

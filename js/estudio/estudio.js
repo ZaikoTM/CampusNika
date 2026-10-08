@@ -194,6 +194,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Forzar desplazamiento natural y adaptaciones responsivas para celulares y tablets
 function injectNaturalScrollingStyles() {
+    if (!document.getElementById('nika-prog-style')) {
+        const st = document.createElement('style'); st.id = 'nika-prog-style';
+        st.textContent = `.up-continuar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px 14px;border-radius:12px;background:#fef9c3;border:1px solid #fde68a;color:#854d0e;font-size:.88rem;cursor:pointer;transition:transform .15s,box-shadow .15s;animation:nkContIn .4s ease both}
+.up-continuar:hover{transform:translateY(-1px);box-shadow:0 6px 16px -8px rgba(202,138,4,.6)}
+.up-continuar>span:first-child{font-size:1.1rem}
+@keyframes nkContIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.res-prog,.res-prog span{text-transform:none!important;letter-spacing:0!important}.res-prog{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:.74rem;font-weight:700}
+.res-prog .rp-ok{color:#15803d}.res-prog .rp-curso{color:#b45309}.res-prog .rp-no{color:#94a3b8}
+.rp-barra{display:block;flex:0 0 70px;height:5px;border-radius:5px;background:rgba(148,163,184,.35);overflow:hidden}.rp-barra b{display:block;height:100%;background:#f59e0b}
+body.dark-mode .up-continuar{background:rgba(250,204,21,.12);border-color:rgba(250,204,21,.35);color:#fde68a}
+body.dark-mode .res-prog .rp-ok{color:#4ade80}body.dark-mode .res-prog .rp-curso{color:#fbbf24}`;
+        document.head.appendChild(st);
+    }
     if (document.getElementById('nika-natural-scroll-style')) return;
     const style = document.createElement('style');
     style.id = 'nika-natural-scroll-style';
@@ -599,6 +612,8 @@ function renderUpDetail(unit) {
             : `<div class="placeholder-panel">No hay materiales cargados aún para esta unidad.</div>`;
     }
 
+    actualizarProgresoRecursos();
+
     const videos = unit.videos || [];
     const videosListEl = document.getElementById('up-videos-list');
     if (videosListEl) {
@@ -796,19 +811,85 @@ function badgeObligatorioHtml(resource) {
     return `<span style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#166534; background:#dcfce7; border-radius:999px; vertical-align:middle;">OBLIGATORIO</span>`;
 }
 
+// ================= PROGRESO DE LECTURA DE LOS PDF (checklist + "continuá donde lo dejaste") =================
+
+function nikaDriveId(url) {
+    return (url || '').includes('drive.google.com/file/d/') ? ((url.split('/file/d/')[1] || '').split('/')[0] || null) : null;
+}
+
+async function nikaProgresoPdfs(ids) {
+    const mapa = {};
+    ids.forEach(id => { try { const v = localStorage.getItem('nika_pdf_prog_' + id); if (v) mapa[id] = JSON.parse(v); } catch (_) {} });
+    try {
+        const c = window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client);
+        if (c && c.auth) {
+            const { data: ses } = await c.auth.getSession();
+            if (ses && ses.session) {
+                const { data } = await c.from('pdf_progreso').select('file_id,ultima_pagina,total_paginas,leidas,updated_at').in('file_id', ids);
+                (data || []).forEach(r => { mapa[r.file_id] = r; });
+            }
+        }
+    } catch (_) {}
+    return mapa;
+}
+
+let _progPdfTimer = null;
+function actualizarProgresoRecursos() {
+    clearTimeout(_progPdfTimer);
+    _progPdfTimer = setTimeout(async () => {
+        const items = [...document.querySelectorAll('#up-materiales-list .resource-item[data-fid]')];
+        const lista = document.getElementById('up-materiales-list');
+        if (!lista) return;
+        const prev = document.getElementById('up-continuar'); if (prev) prev.remove();
+        if (!items.length) return;
+        const mapa = await nikaProgresoPdfs([...new Set(items.map(i => i.dataset.fid))]);
+        let mejor = null;
+        items.forEach(it => {
+            const r = mapa[it.dataset.fid];
+            const tag = it.querySelector('.res-prog');
+            if (!tag) return;
+            const total = (r && r.total_paginas) || 0;
+            const leidas = r && Array.isArray(r.leidas) ? r.leidas.length : 0;
+            const pct = total ? Math.round(leidas / total * 100) : 0;
+            let html;
+            if (total && leidas >= total) html = '<span class="rp rp-ok">✅ Leído completo</span>';
+            else if (leidas > 0 || (r && r.ultima_pagina > 1)) {
+                html = `<span class="rp rp-curso">⏳ En curso · ${leidas}/${total} págs (${pct}%)</span><i class="rp-barra"><b style="width:${pct}%"></b></i>`;
+                const t = r.updated_at ? Date.parse(r.updated_at) : 0;
+                if (!mejor || t > mejor.t) mejor = { it, r, t };
+            } else html = '<span class="rp rp-no">⬜ Sin leer</span>';
+            tag.innerHTML = html;
+        });
+        if (mejor) {
+            const b = document.createElement('div');
+            b.id = 'up-continuar'; b.className = 'up-continuar'; b.setAttribute('role', 'button'); b.tabIndex = 0;
+            const t = decodeURIComponent(mejor.it.dataset.title || '');
+            b.innerHTML = `<span>↪</span><span><b>Continuá donde lo dejaste:</b> ${t.replace(/</g, '&lt;')} · página ${mejor.r.ultima_pagina || 1} de ${mejor.r.total_paginas || '?'}</span>`;
+            const ir = () => { window._nikaReanudar = true; mejor.it.click(); };
+            b.addEventListener('click', ir); b.addEventListener('keydown', e => { if (e.key === 'Enter') ir(); });
+            lista.parentElement.insertBefore(b, lista);
+        }
+    }, 150);
+}
+document.addEventListener('nika-pdf-progreso', actualizarProgresoRecursos);
+
 function renderResourceItem(resource) {
     const meta = getResourceMeta(resource);
     const isActive = EstudioState.activeResourceUrl === resource.url ? 'active-resource' : '';
     const actionAttr = `onclick="openInlineViewer('${resource.url}', '${resource.title.replace(/'/g, "\\'")}', this)" style="cursor:pointer;"`;
 
+    const fid = nikaDriveId(resource.url);
+    const fidAttr = fid ? ` data-fid="${fid}" data-title="${encodeURIComponent(resource.title)}"` : '';
+    const progHtml = fid ? `<span class="res-prog" data-fid="${fid}"></span>` : '';
+
     return `
-        <div class="resource-item ${isActive}" ${actionAttr} data-url="${resource.url}">
+        <div class="resource-item ${isActive}" ${actionAttr} data-url="${resource.url}"${fidAttr}>
             <div class="resource-icon" style="width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: ${meta.bg}; color: ${meta.color}; flex-shrink: 0;">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
             </div>
             <div class="resource-info">
                 <h5>${resource.title}${badgeObligatorioHtml(resource)}</h5>
-                <span>${meta.label}</span>
+                <span>${meta.label}</span>${progHtml}
             </div>
             <div class="resource-open-btn">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
