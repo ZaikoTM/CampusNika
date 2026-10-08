@@ -2,13 +2,14 @@
   "titulo": "ECOE FINAL · Práctica Final Obligatoria",
   "subtitulo": "Tu último examen antes del título de médico/a",
   "borrador_hasta_rubrica": true,
-  "nota_rubrica": "Las estaciones, los temas y los criterios de este simulador son un borrador de trabajo basado en el formato ECOE. Se ajustan cuando se cargue la rúbrica oficial de contenidos de la UNER.",
+  "nota_rubrica": "Datos del Reglamento General de la PFO 2024 (UNER): el ECOE consiste en estaciones clínicas simuladas y se aprueba superando la totalidad de las estaciones. Todavía no se cargaron las rúbricas oficiales de cada estación, los tiempos ni la cantidad exacta de estaciones: son valores de práctica que se ajustan cuando se carguen.",
   "criterios": {
     "notaMinEstacion": 6,
-    "notaMinGlobal": 6,
+    "notaMinGlobal": null,
     "pilarMin": 6,
     "maxIntervencionesPorEstacion": 14,
-    "minutosPorEstacion": 12
+    "minutosPorEstacion": 12,
+    "regla": "aprobar_todas_las_estaciones"
   },
   "textos": {
     "intro": "Llegaste al final de una carrera larga. Este examen reúne todo lo que aprendiste: interrogar, examinar, decidir y comunicar, con pacientes de distintas especialidades, uno detrás de otro y sin ayudas.",
@@ -26,11 +27,12 @@
       "No se puede volver a una estación anterior ni reiniciar una en curso.",
       "Es una evaluación exigente, más que las de 5.° año: no se infla la nota."
     ],
-    "aprobacion": "Para aprobar el ECOE FINAL necesitás una nota de 6 o más, tanto en el global como en cada estación: ninguna estación puede quedar por debajo de 6. La evaluación es estricta: un 6 significa que cumplís lo esencial con seguridad.",
+    "aprobacion": "Para aprobar el ECOE FINAL tenés que superar la totalidad de las estaciones: 6 o más en cada una. Si una estación queda por debajo de 6, el examen no está aprobado. Es una evaluación estricta: un 6 significa que cumplís lo esencial con seguridad.",
     "felicitaciones_titulo": "¡Felicitaciones, colega!",
-    "felicitaciones": "Superaste el ECOE FINAL. Detrás de esta nota hay años de estudio, guardias, esfuerzo y vocación. Estás listo/a para dar el paso final: ¡a recibirte!",
+    "felicitaciones": "Superaste la totalidad de las estaciones del ECOE FINAL. Detrás de este resultado hay años de estudio, guardias, esfuerzo y vocación. Con el ECOE aprobado, te falta un último paso: la defensa de tu Trabajo de Inicio a la Investigación. ¡Ya casi sos médico/a!",
     "reintento_titulo": "Todavía no, pero estás cerca",
-    "reintento": "Esta vez no alcanzó, y eso es parte del camino. Revisá el detalle de cada estación, reforzá los puntos marcados y volvé a intentarlo: cada práctica te acerca al título."
+    "reintento": "Esta vez alguna estación no alcanzó el 6, y eso es parte del camino: el próximo llamado es una nueva oportunidad. Revisá el detalle de cada estación, reforzá los puntos marcados y volvé a practicar.",
+    "contexto": "Según el Reglamento de la PFO (UNER): el ECOE se rinde en estaciones clínicas simuladas en el CISS; se aprueba superando todas las estaciones; quienes lo aprueban quedan habilitados para defender el Trabajo de Inicio a la Investigación y luego acceden al título de Médico/a. Llamados: marzo, junio, septiembre y diciembre."
   },
   "estaciones": [
     {
@@ -64,11 +66,22 @@
         ],
         "alumno": "doctor/a",
         "genero": "el/la paciente"
-      }
+      },
+      "semillas": [
+        {
+          "fuente": "CASO EMERGENCIA.docx (carpeta PFO)",
+          "situacion": "Usted es médico/a general y se encuentra de guardia. Recibe a un paciente de aproximadamente 20 años que sufrió un accidente automovilístico: choque frontal a gran velocidad contra un camión; murieron dos ocupantes del auto. Es traído por el servicio de emergencias a la guardia en coma, con respiración ruidosa y signos externos de trauma de cráneo y facial. Presenta una herida abierta en el hemitórax izquierdo por la cual se percibe salida de aire, y además deformidad en la pierna izquierda y en el antebrazo derecho. Signos vitales: FC 110, FR 26, TA 90/50.",
+          "objetivos": [
+            "Efectuar la evaluación primaria del paciente.",
+            "Reconocer las lesiones que ponen en riesgo la vida.",
+            "Realizar el tratamiento de dichas lesiones."
+          ]
+        }
+      ]
     },
     {
       "id": "pediatria",
-      "nombre": "Pediatría",
+      "nombre": "Clínica Pediátrica",
       "icono": "🧒",
       "descripcion": "Niño o adolescente con un familiar como interlocutor: semiología pediátrica, dosis por peso y comunicación con la familia.",
       "unidades": [
@@ -97,7 +110,8 @@
         ],
         "alumno": "doctor/a",
         "genero": "el niño o la niña"
-      }
+      },
+      "caso_oficial": "data/pfo/casos/ped_bor.json"
     },
     {
       "id": "gineco_obstetricia",
@@ -130,7 +144,18 @@
         ],
         "alumno": "doctor/a",
         "genero": "la paciente"
-      }
+      },
+      "semillas": [
+        {
+          "fuente": "CASO CLINICO GINECOLOGICO.docx (carpeta PFO)",
+          "situacion": "Usted es médico/a y debe atender en el consultorio del Centro de Salud a María, de 65 años, que refiere haber tenido un episodio de sangrado de 2 días de duración hace 4 días.",
+          "objetivos": [
+            "Realizar una breve anamnesis relacionada con el motivo de consulta.",
+            "Realizar el examen físico correspondiente al motivo de consulta de María.",
+            "Interpretar en voz alta los estudios médicos que trae María a la consulta."
+          ]
+        }
+      ]
     },
     {
       "id": "medicina_familiar",
@@ -163,7 +188,16 @@
         ],
         "alumno": "doctor/a",
         "genero": "el/la paciente"
-      }
+      },
+      "semillas": [
+        {
+          "fuente": "CASO CLINICO DBT.docx (carpeta PFO)",
+          "situacion": "Usted es médico/a general y familiar del CAPS Giacomotti. Debe atender a Guillermo Prado, de 52 años, con antecedentes de diabetes tipo 2, que concurre para realizarse el control anual de salud.",
+          "objetivos": [
+            "Realizar medidas de promoción y prevención."
+          ]
+        }
+      ]
     },
     {
       "id": "clinica_medica",
@@ -196,14 +230,38 @@
         ],
         "alumno": "doctor/a",
         "genero": "el/la paciente"
-      }
+      },
+      "semillas": [
+        {
+          "fuente": "CASO INTERPRETACION IMAGEN- DX Y TX.docx (carpeta PFO)",
+          "situacion": "Usted es médico/a general de la guardia del Hospital J. J. Urquiza. Deberá atender a Germán Lírico, de 50 años, que consulta por fiebre, dolor torácico y tos.",
+          "objetivos": [
+            "Interpretar correctamente el examen complementario del paciente.",
+            "Verbalizar su diagnóstico e indicar la terapéutica si lo considera necesario."
+          ],
+          "imagen": "assets/pfo/caso_imagen_image1.png",
+          "imagen_titulo": "Radiografía de tórax de frente del paciente",
+          "lectura_esperada": "BORRADOR A VALIDAR POR LA CÁTEDRA: opacidades de ocupación alveolar con aspecto de consolidación en regiones perihiliares y basales, compatibles con neumonía de la comunidad en un paciente con fiebre, tos y dolor torácico."
+        }
+      ]
     },
     {
       "id": "cirugia",
-      "nombre": "Cirugía",
+      "nombre": "Clínica Quirúrgica",
       "icono": "🔪",
       "descripcion": "Paciente quirúrgico o con trauma: semiología del abdomen agudo, decisión quirúrgica, manejo inicial y consentimiento informado.",
-      "perfil_de": "cirugia"
+      "perfil_de": "cirugia",
+      "semillas": [
+        {
+          "fuente": "CASO CLINICO DOLOR ABDOMINAL.docx (carpeta PFO)",
+          "situacion": "Usted es médico/a general y se encuentra en la guardia del hospital. Recibe a una paciente de 65 años, de género femenino, que concurre a la guardia por presentar dolor abdominal. Signos vitales controlados por la enfermera: TA 130/90, temperatura axilar 38 °C, FC 98 por minuto, FR 16 por minuto, saturación 98 %.",
+          "objetivos": [
+            "Realizar anamnesis dirigida sobre el cuadro.",
+            "Realizar los diferentes diagnósticos diferenciales justificando cada uno.",
+            "Indicar la conducta o decisión a realizar para confirmar los diagnósticos."
+          ]
+        }
+      ]
     }
   ]
 }

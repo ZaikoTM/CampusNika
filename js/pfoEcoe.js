@@ -5,7 +5,7 @@
   const $ = (s, r) => (r || document).querySelector(s);
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const main = $('#pfo-main');
-  let CFG = null, S = null, timer = null, pendiente = false;
+  let CFG = null, S = null, timer = null, pendiente = false; const CASOS = {};   // CASOS: casos oficiales cargados por id
   const LS = () => `nika_pfo_ecoe_${(window.NikaAuth && window.NikaAuth.userId) || 'anon'}`;
   const LS_HIST = () => `nika_pfo_ecoe_hist_${(window.NikaAuth && window.NikaAuth.userId) || 'anon'}`;
   const toast = (m) => { const t = $('#pfo-toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2600); };
@@ -74,7 +74,39 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
 - Un error crítico de seguridad baja el pilar afectado a 4 o menos aunque el resto esté bien. No infles ninguna nota.
 - No existe el Abogado del Diablo en esta instancia. Si el sistema te avisa que se agotó el tiempo, cerrá la estación con la evaluación.
 - En "revision_detallada" incluí UN ítem por cada uno de los 9 dominios y en "respuesta_modelo" el plan completo ideal de este caso, con las opciones válidas.`;
+    p += bloqueCaso(i);
     return p + '\n\n' + (window.FORMATO_EVALUACION_FINAL || '');
+  }
+  // Caso OFICIAL (con guion y rúbrica de la cátedra) o situación de partida oficial: pasan a ser la fuente única de verdad de la estación
+  function bloqueCaso(i) {
+    const E = S && S.estaciones[i]; const e = CFG.estaciones[E ? E.ref : i]; const c = e.caso_oficial ? CASOS[e.id] : null;
+    if (c) {
+      const filas = c.rubrica.map((r) => `${r.id}. [${r.bloque}] ${r.texto} — REGULAR (${r.max / 2} pts): ${r.regular} — SUFICIENTE (${r.max} pts): ${r.suficiente}`).join('\n');
+      return `
+
+## 10. CASO OFICIAL DE LA ESTACIÓN (FUENTE ÚNICA DE VERDAD; reemplaza al sorteo de las secciones 0 y 1)
+Nombre de la estación: ${c.nombre}. Duración: ${c.duracionMin} minutos. Tipo: ${c.tipo}. Contexto: ${c.contexto}. Instrumento: ${c.instrumento}.
+- APERTURA: tu primer mensaje lleva entre corchetes la SITUACIÓN DE PARTIDA y los OBJETIVOS, textuales, y en otra línea la primera frase de ${c.interlocutor}. Situación de partida: ${c.situacion} Objetivos: ${c.objetivos.map((o, k) => (k + 1) + ') ' + o).join(' ')}
+- INTERLOCUTOR: respondés como ${c.interlocutor}, SOLO con los datos del guion, en lenguaje coloquial argentino y sin términos médicos. Si te preguntan algo que el guion no contiene, respondé "no" o "no sé", de forma coherente con el caso. Nunca inventes antecedentes ni regales datos.
+- GUION DEL PACIENTE:
+${c.guion_paciente}
+- DATOS CLÍNICOS (se entregan SOLO si el alumno examina o pide los signos, entre corchetes con el formato [Evaluador: ...]): ${c.datos_clinicos}
+- ESTUDIOS (se entregan SOLO cuando el alumno los pide y los resultados del laboratorio con sus unidades):
+${c.estudios.map((x) => '  · ' + x.texto).join('\n')}
+- RÚBRICA OFICIAL (puntaje total 100; umbral de aprobación ${c.umbral_aprobacion}). Los ítems valen 0 (insuficiente), la mitad (regular) o el máximo (suficiente):
+${filas}
+- AL CERRAR LA ESTACIÓN: además del formato de evaluación final, incluí en el JSON el campo "rubrica": una lista con UN objeto por cada ítem de la rúbrica, con "id" (número), "nivel" ("insuficiente", "regular" o "suficiente") y "evidencia" (qué dijo o hizo el alumno, en una línea). Calificá cada ítem SOLO con lo que el alumno dijo o hizo en la conversación: no asumas nada. Lo que no hizo es "insuficiente". El sistema calcula el puntaje; no lo calcules vos. En "revision_detallada" explicá cada ítem no logrado y en "respuesta_modelo" dejá la conducta completa esperada.`;
+    }
+    const sm = e.semillas && e.semillas.length ? e.semillas[(E && E.semilla) || 0] : null;
+    if (!sm) return '';
+    return `
+
+## 10. SITUACIÓN DE PARTIDA OFICIAL (reemplaza al sorteo de las secciones 0 y 1)
+Fuente: ${sm.fuente}. La estación DEBE construirse sobre esta situación, sin cambiar la edad, el sexo, el lugar ni el motivo de consulta.
+- SITUACIÓN DE PARTIDA: ${sm.situacion}
+- OBJETIVOS DE LA ESTACIÓN (son lo que se evalúa; calificá especialmente estos puntos en la revisión detallada): ${sm.objetivos.map((o, k) => (k + 1) + ') ' + o).join(' ')}
+- Tu primer mensaje lleva entre corchetes la situación de partida y los objetivos, textuales (sin los datos que no se dan al inicio), y en otra línea la primera frase del paciente o del acompañante. Los datos clínicos que no figuran acá los definís vos con coherencia y los entregás SOLO si el alumno los pide.
+${sm.imagen ? `- ESTUDIO POR IMAGEN: el alumno ya ve en pantalla ${sm.imagen_titulo}. No la describas ni la interpretes: si el alumno pregunta por ella, respondé [Evaluador: La imagen está disponible en pantalla; interprétela en voz alta.]. Evaluá su interpretación contra esta lectura esperada: ${sm.lectura_esperada}` : ''}`;
   }
   const temaPrompt = (tema) => (tema ? '\n\nTEMA DE LA ESTACIÓN SORTEADO POR EL SISTEMA (obligatorio y fijo durante todo el caso): ' + tema + '. Elegí un cuadro concreto dentro de este tema y respetá todas las reglas de tu rol.' : '');
 
@@ -89,9 +121,10 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
         <p class="mot">${esc(T.motivacion)}</p>
       </section>
       <section class="pfo-sec"><h2>🧭 Cómo funciona</h2><div class="pfo-pasos">${T.como_funciona.map((x) => `<div class="pfo-paso">${esc(x)}</div>`).join('')}</div></section>
-      <section class="pfo-sec"><h2>🏥 Estaciones del circuito</h2><div class="pfo-est">${CFG.estaciones.map((e) => `<div class="pfo-est-c"><span class="n">${CFG.criterios.minutosPorEstacion} min</span><div class="ic">${e.icono}</div><h3>${esc(e.nombre)}</h3><p>${esc(e.descripcion)}</p></div>`).join('')}</div></section>
+      <section class="pfo-sec"><h2>🏥 Estaciones del circuito</h2><div class="pfo-est">${CFG.estaciones.map((e) => `<div class="pfo-est-c"><span class="n">${minutosDe(e)} min</span><div class="ic">${e.icono}</div><h3>${esc(e.nombre)}</h3><p>${esc(e.descripcion)}</p></div>`).join('')}</div></section>
       <section class="pfo-sec"><h2>📜 Reglas del examen</h2><ul class="pfo-reglas">${T.reglas.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
         <div class="pfo-aviso apr">✅ ${esc(T.aprobacion)}</div>
+        ${T.contexto ? `<div class="pfo-aviso apr" style="background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.35);color:#bae6fd">🏛️ ${esc(T.contexto)}</div>` : ''}
         ${CFG.borrador_hasta_rubrica ? `<div class="pfo-aviso bor">📝 ${esc(CFG.nota_rubrica)}</div>` : ''}</section>
       ${h.length ? `<section class="pfo-sec"><h2>🗂️ Tus intentos</h2><div class="pfo-hist">${h.slice(-5).reverse().map((x) => `<div class="pfo-hist-i"><span>${esc(x.fecha)}</span><span>Nota global <b class="${x.aprobado ? 'ok' : 'mal'}">${fmtNota(x.global)}</b> · ${x.aprobado ? 'Aprobado' : 'A reforzar'}</span></div>`).join('')}</div></section>` : ''}
       <section class="pfo-cta">
@@ -112,6 +145,7 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
     guardar(); vistaEstacion(false);
   }
 
+  const minutosDe = (cfgE) => (CASOS[cfgE.id] && CASOS[cfgE.id].duracionMin) || CFG.criterios.minutosPorEstacion;
   function estActual() { return S.estaciones[S.idx]; }
   function vistaEstacion(restaurar) {
     const E = estActual(); const cfgE = CFG.estaciones[E.ref];
@@ -119,6 +153,7 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
     main.innerHTML = `
       <div class="pfo-bar"><div class="est">${cfgE.icono} Estación ${S.idx + 1} de ${S.estaciones.length} · ${esc(cfgE.nombre)}<small>ECOE FINAL · sin ayudas</small></div>
         <div class="pfo-turnos" id="pfo-turnos"></div><div class="pfo-timer" id="pfo-timer">--:--</div><div class="pfo-puntos">${puntos}</div></div>
+      ${panelImagen(cfgE, E)}
       <div class="pfo-chat" id="pfo-chat" aria-live="polite"></div>
       <div class="pfo-in"><textarea id="pfo-txt" placeholder="Escribí lo que le preguntás o indicás al paciente, o la maniobra que realizás…" maxlength="2500"></textarea><button class="pfo-btn" id="pfo-env">Enviar ➤</button></div>
       <div class="pfo-acc"><small>El evaluador solo responde lo que pedís. No hay pistas.</small><button class="pfo-link" id="pfo-term">Terminar esta estación</button></div>`;
@@ -126,10 +161,15 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
     $('#pfo-env').addEventListener('click', enviar);
     $('#pfo-txt').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) enviar(); });
     $('#pfo-term').addEventListener('click', () => { if (!pendiente && confirm('¿Terminar esta estación ahora? No se puede volver a ella.')) cerrarEstacion('manual'); });
-    if (!E.fin) E.fin = Date.now() + CFG.criterios.minutosPorEstacion * 60000;
+    if (E.semilla === undefined) { const sm = cfgE.semillas || []; E.semilla = sm.length ? Math.floor(Math.random() * sm.length) : 0; }
+    if (!E.fin) E.fin = Date.now() + minutosDe(cfgE) * 60000;
     if (!E.tema) { const u = perfilEstacion(cfgE).unidades || []; const t = u[Math.floor(Math.random() * u.length)] || ''; E.tema = String(t).replace(/^UP\d+\s*—\s*/, ''); }
     guardar(); contador(); clearInterval(timer); timer = setInterval(tic, 500);
     if (!E.hist.length) iniciarEstacion(); else { fijar(true); }
+  }
+  function panelImagen(cfgE, E) {
+    const sm = (cfgE.semillas || [])[E.semilla || 0]; if (!sm || !sm.imagen) return '';
+    return `<details class="pfo-img" open><summary>🩻 ${esc(sm.imagen_titulo || 'Estudio complementario')}</summary><img src="${esc(sm.imagen)}" alt="${esc(sm.imagen_titulo || 'Estudio complementario')}" loading="lazy"></details>`;
   }
   function burbuja(rol, texto) {
     const c = $('#pfo-chat'); if (!c) return;
@@ -154,12 +194,28 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
       const d = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref) + temaPrompt(E.tema), historial: previo, mensaje, es_primer_turno: !!primero, accion: cierre ? 'evaluar_caso' : undefined });
       pensando(false);
       const ev = parsearEvaluacion(d.texto);
-      if (ev) { E.resultado = ev; E.cerrada = true; guardar(); siguienteOFin(); return; }
+      if (ev) { aplicarRubrica(E, ev); E.resultado = ev; E.cerrada = true; guardar(); siguienteOFin(); return; }
       if (cierre) { fijar(true); burbuja('sistema', 'No se pudo generar la evaluación de la estación. Tocá "Terminar esta estación" para reintentar.'); return; }
       E.hist.push({ rol: 'ia', texto: d.texto }); burbuja('ia', d.texto); guardar(); contador(); fijar(true);
       if (turnosUsados() >= CFG.criterios.maxIntervencionesPorEstacion) cerrarEstacion('turnos');
     } catch (err) { pensando(false); fijar(true); burbuja('sistema', '⚠️ ' + (err && err.message ? err.message : 'No se pudo contactar al simulador.') + ' Volvé a enviar tu mensaje.'); if (!cierre) { const t = $('#pfo-txt'); if (t && E.hist.length && E.hist[E.hist.length - 1].rol === 'usuario') { t.value = E.hist.pop().texto; guardar(); const l = $('#pfo-chat'); if (l && l.lastChild && l.lastChild.classList.contains('yo')) { /* se deja visible el aviso; el mensaje vuelve al cuadro */ } } } }
     finally { pendiente = false; }
+  }
+  // Estaciones con rúbrica oficial: el puntaje lo calcula el sistema a partir del nivel que la IA asignó a cada ítem (insuficiente 0, regular mitad, suficiente máximo)
+  function aplicarRubrica(E, ev) {
+    const c = CASOS[CFG.estaciones[E.ref].id]; if (!c || !Array.isArray(ev.rubrica)) return;
+    const porId = {}; ev.rubrica.forEach((r) => { if (r && r.id != null) porId[String(r.id)] = r; });
+    const bloques = {}; let total = 0;
+    ev.rubrica_detalle = c.rubrica.map((it) => {
+      const r = porId[String(it.id)] || {}; const nivel = /^suf/i.test(r.nivel || '') ? 'suficiente' : /^reg/i.test(r.nivel || '') ? 'regular' : 'insuficiente';
+      const pts = nivel === 'suficiente' ? it.max : nivel === 'regular' ? it.max / 2 : 0; total += pts;
+      const b = bloques[it.bloque] || (bloques[it.bloque] = { o: 0, m: 0 }); b.o += pts; b.m += it.max;
+      return { id: it.id, bloque: it.bloque, texto: it.texto, nivel, pts, max: it.max, evidencia: String(r.evidencia || ''), esperado: it.suficiente };
+    });
+    const maxTotal = c.rubrica.reduce((a, b) => a + b.max, 0);
+    ev.puntaje = Math.round(total * 10) / 10; ev.puntaje_max = maxTotal; ev.nota_final = Math.round((total / maxTotal) * 100) / 10;
+    const dec = (b) => (bloques[b] ? Math.round((bloques[b].o / bloques[b].m) * 100) / 10 : null);
+    if (dec('Anamnesis') != null) ev.semiologia = dec('Anamnesis'); if (dec('Plan diagnóstico') != null) ev.diagnostico = dec('Plan diagnóstico'); if (dec('Tratamiento') != null) ev.terapeutica = dec('Tratamiento');
   }
   async function iniciarEstacion() { await turnoApertura(); }
   async function turnoApertura() {
@@ -199,13 +255,20 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
     return items.map((i) => `<div class="pfo-rv" style="border-left-color:${col(String(i.resultado || ''))}"><div class="h"><span>${esc(i.dominio || '')}</span><span style="color:${col(String(i.resultado || ''))}">${esc(i.resultado || '')}</span></div>${fila('✅', 'Hiciste bien', i.hizo_bien)}${fila('❌', 'Falló o faltó', i.fallo_o_falto)}${fila('💡', 'Cómo debías hacerlo', i.como_debia_hacerlo)}</div>`).join('')
       + (d.respuesta_modelo ? `<div class="pfo-mod"><b>📘 Respuesta modelo:</b> ${esc(d.respuesta_modelo)}</div>` : '');
   }
+  function renderRubricaOficial(r) {
+    if (!r.rubrica_detalle) return '';
+    const col = (n) => (n === 'suficiente' ? '#22c55e' : n === 'regular' ? '#fbbf24' : '#f87171');
+    const lbl = { suficiente: 'Suficiente', regular: 'Regular', insuficiente: 'Insuficiente' };
+    return `<div class="pfo-mod" style="background:rgba(251,191,36,.08);border-color:#fbbf24"><b>📋 Rúbrica de la estación: ${fmtNota(r.puntaje)} de ${r.puntaje_max} puntos</b></div>`
+      + r.rubrica_detalle.map((x) => `<div class="pfo-rv" style="border-left-color:${col(x.nivel)}"><div class="h"><span>${esc(x.bloque)} · ${esc(x.texto)}</span><span style="color:${col(x.nivel)}">${lbl[x.nivel]} · ${fmtNota(x.pts)}/${x.max}</span></div>${x.evidencia ? `<div style="margin-top:5px">🗣️ <b>Lo que hiciste:</b> ${esc(x.evidencia)}</div>` : ''}${x.nivel !== 'suficiente' ? `<div style="margin-top:5px">💡 <b>Para el puntaje completo:</b> ${esc(x.esperado)}</div>` : ''}</div>`).join('');
+  }
   function vistaFinal() {
     const C = CFG.criterios, T = CFG.textos;
     const res = S.estaciones.map((E) => E.resultado || { nota_final: 1, semiologia: 1, diagnostico: 1, terapeutica: 1, vocabulario: 1 });
     const notas = res.map((r) => Math.max(0, Math.min(10, Number(r.nota_final) || 0)));
     const global = notas.reduce((a, b) => a + b, 0) / notas.length;
     const desaprobadas = notas.filter((n) => n < C.notaMinEstacion).length;
-    const aprobado = global >= C.notaMinGlobal && desaprobadas === 0;
+    const aprobado = desaprobadas === 0 && (C.notaMinGlobal == null || global >= C.notaMinGlobal);   // reglamento PFO: se aprueba superando la totalidad de las estaciones
     const pilares = [['semiologia', '🩺 Semiología'], ['diagnostico', '🎯 Diagnóstico'], ['terapeutica', '💊 Terapéutica'], ['vocabulario', '📚 Vocabulario']];
     const prom = (k) => res.reduce((a, r) => a + (Number(r[k]) || 0), 0) / res.length;
     main.innerHTML = `
@@ -219,7 +282,7 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
         <div class="pfo-tabla">${S.estaciones.map((E, i) => { const c = CFG.estaciones[E.ref]; return `<div class="pfo-fila"><span>${c.icono} ${esc(c.nombre)}</span><b class="n" style="color:${colorNota(notas[i])}">${fmtNota(notas[i])}</b></div>`; }).join('')}</div>
         <div class="pfo-cta" style="margin-top:20px;background:none;border:0;padding:0"><button class="pfo-btn" id="pfo-otra">${aprobado ? '🔁 Rendir otro ECOE de práctica' : '🔁 Volver a intentarlo'}</button><a class="pfo-btn sec" href="campus.html">Volver al Campus</a></div>
       </section>
-      ${S.estaciones.map((E, i) => { const c = CFG.estaciones[E.ref]; const r = res[i]; return `<details class="pfo-det" ${notas[i] < C.notaMinEstacion ? 'open' : ''}><summary>${c.icono} ${esc(c.nombre)} · ${fmtNota(notas[i])}/10${r.principal_debilidad ? ' — ' + esc(r.principal_debilidad) : ''}</summary>${r.devolucion_docente ? `<p style="line-height:1.55;font-size:.88rem">${esc(r.devolucion_docente).replace(/\\n|\n/g, '<br>')}</p>` : ''}${renderRevision(r)}</details>`; }).join('')}`;
+      ${S.estaciones.map((E, i) => { const c = CFG.estaciones[E.ref]; const r = res[i]; return `<details class="pfo-det" ${notas[i] < C.notaMinEstacion ? 'open' : ''}><summary>${c.icono} ${esc(c.nombre)} · ${fmtNota(notas[i])}/10${r.principal_debilidad ? ' — ' + esc(r.principal_debilidad) : ''}</summary>${r.devolucion_docente ? `<p style="line-height:1.55;font-size:.88rem">${esc(r.devolucion_docente).replace(/\\n|\n/g, '<br>')}</p>` : ''}${renderRubricaOficial(r)}${renderRevision(r)}</details>`; }).join('')}`;
     $('#pfo-otra').addEventListener('click', () => { limpiarGuardado(); S = null; vistaIntro(); });
     try { const h = hist(); h.push({ fecha: new Date().toLocaleDateString('es-AR'), global: Math.round(global * 10) / 10, aprobado, notas }); localStorage.setItem(LS_HIST(), JSON.stringify(h.slice(-20))); } catch (_) {}
     try { if (window.NikaRendimiento) window.NikaRendimiento.guardarExamen({ modulo: 'clinica', mode: 'ecoe_final_pfo', total: S.estaciones.length, correct: notas.filter((n) => n >= C.notaMinEstacion).length, blank: 0, score: Math.round(global * 10) / 10, scorePct: Math.round(global * 10), durationSeconds: Math.round((Date.now() - S.creado) / 1000) }); } catch (_) {}
@@ -242,6 +305,7 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
       if (!esAdmin()) { vistaRestringida(); return; }
       const r = await fetch('data/pfo/ecoe_final.json', { cache: 'no-cache' }); CFG = await r.json();
       if (!window.PROMPTS_MATERIAS_BUILDERS) throw new Error('No se cargó el generador de estaciones.');
+      await Promise.all(CFG.estaciones.filter((e) => e.caso_oficial).map(async (e) => { try { const rr = await fetch(e.caso_oficial, { cache: 'no-cache' }); CASOS[e.id] = await rr.json(); } catch (_) { /* si falla, la estación usa la situación de partida o el sorteo */ } }));
       vistaIntro();
     } catch (e) { main.innerHTML = `<div class="pfo-cargando">No se pudo cargar el examen (${esc(e && e.message)}). Recargá la página.</div>`; }
   }
