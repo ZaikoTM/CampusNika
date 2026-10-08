@@ -1,7 +1,7 @@
 {
   "id": "mf_sindrome_metabolico",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Síndrome metabólico: primera consulta de un paciente poco adherente",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -121,7 +121,7 @@
       "max": 10,
       "texto": "Hipertensión",
       "regular": "Indica un antihipertensivo sin dosis",
-      "suficiente": "Indica un esquema de bajas dosis en una toma diaria (por ejemplo losartán 25 mg más amlodipina 2,5 mg) y explica la meta de tensión"
+      "suficiente": "Indica un esquema combinado en una sola toma diaria para favorecer la adherencia (por ejemplo losartán 50 mg más amlodipina 5 mg) y explica la meta de tensión (menor de 140/90)"
     },
     {
       "id": 12,
@@ -129,7 +129,7 @@
       "max": 10,
       "texto": "Dislipemia y antiagregación",
       "regular": "Indica una de las dos",
-      "suficiente": "Indica atorvastatina 40 mg por día y aspirina 100 mg por día (esta última con la presión controlada)"
+      "suficiente": "Indica una estatina de alta intensidad (por ejemplo atorvastatina 40 mg por día) y explica explícitamente que no indicará aspirina por el momento por el riesgo de sangrado con la presión alta"
     },
     {
       "id": 13,
