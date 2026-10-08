@@ -5,7 +5,7 @@
   "nota_rubrica": "Las estaciones, los temas y los criterios de este simulador son un borrador de trabajo basado en el formato ECOE. Se ajustan cuando se cargue la rúbrica oficial de contenidos de la UNER.",
   "criterios": {
     "notaMinEstacion": 6,
-    "notaMinGlobal": 7,
+    "notaMinGlobal": 6,
     "pilarMin": 6,
     "maxIntervencionesPorEstacion": 14,
     "minutosPorEstacion": 12
@@ -26,7 +26,7 @@
       "No se puede volver a una estación anterior ni reiniciar una en curso.",
       "Es una evaluación exigente, más que las de 5.° año: no se infla la nota."
     ],
-    "aprobacion": "Para aprobar el ECOE FINAL en este simulador necesitás una nota global de 7 o más y no desaprobar (menos de 6) ninguna estación. Son criterios de práctica, referenciales hasta cargar la rúbrica oficial.",
+    "aprobacion": "Para aprobar el ECOE FINAL necesitás una nota de 6 o más, tanto en el global como en cada estación: ninguna estación puede quedar por debajo de 6. La evaluación es estricta: un 6 significa que cumplís lo esencial con seguridad.",
     "felicitaciones_titulo": "¡Felicitaciones, colega!",
     "felicitaciones": "Superaste el ECOE FINAL. Detrás de esta nota hay años de estudio, guardias, esfuerzo y vocación. Estás listo/a para dar el paso final: ¡a recibirte!",
     "reintento_titulo": "Todavía no, pero estás cerca",
