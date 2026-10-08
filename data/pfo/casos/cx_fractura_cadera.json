@@ -1,7 +1,7 @@
 {
   "id": "cx_fractura_cadera",
   "area": "cirugia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Caída desde su altura con la pierna rotada hacia afuera: fractura de cadera y de muñeca",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -133,7 +133,7 @@
       "max": 10,
       "texto": "Analgesia y profilaxis",
       "regular": "Indica una",
-      "suficiente": "Indica analgésicos y profilaxis tromboembólica con heparina de bajo peso molecular (enoxaparina o bemiparina 3.500 UI cada 24 horas)"
+      "suficiente": "Indica analgésicos y profilaxis tromboembólica con heparina de bajo peso molecular en dosis profiláctica (enoxaparina 40 mg por día por vía subcutánea o bemiparina 3.500 UI cada 24 horas); no se exige la dosis de 1 mg/kg, que es terapéutica"
     },
     {
       "id": 13,
