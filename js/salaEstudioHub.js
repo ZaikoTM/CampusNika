@@ -19,6 +19,7 @@
       chips: ['11 Unidades Problema', '1.100 preguntas', 'Estaciones ECOE'],
       estudio: 'estudio.html?modulo=cirugia', simulador: 'examen.html?modulo=cirugia', duelos: 'versus.html', atlas: 'acreditaciones.html?area=cir' },
   ];
+  const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
   const pronto = (...n) => n.map((nombre) => ({ nombre, pronto: true }));
   const AÑOS = [
     { id: '1ro', nombre: '1° Año', materias: pronto('Salud Individual', 'Salud Colectiva', 'Crecimiento y Desarrollo') },
@@ -26,7 +27,7 @@
     { id: '3ro', nombre: '3° Año', materias: pronto('Injuria', 'Defensa') },
     { id: '4to', nombre: '4° Año', materias: pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven', 'Medicina Legal') },
     { id: '5to', nombre: '5° Año', materias: MATERIAS_5 },
-    { id: '6to', nombre: '6° Año (PFO)', materias: [{ pfo: true, id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · ECOE FINAL', nombre: 'Práctica Final Obligatoria', desc: 'El examen de egreso: un circuito de estaciones de distintas especialidades (emergentología, pediatría, ginecología y obstetricia, medicina familiar, clínica y cirugía) con evaluación estricta y revisión detallada. Exclusivo NikaMed+.', chips: ['ECOE FINAL', 'Estaciones cronometradas', 'NikaMed+'], entrar: 'pfo_ecoe.html' }] },
+    { id: '6to', nombre: '6° Año (PFO)', materias: [{ pfo: true, soloAdmin: true, id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · ECOE FINAL', nombre: 'Práctica Final Obligatoria', desc: 'El examen de egreso: un circuito de estaciones de distintas especialidades (emergentología, pediatría, ginecología y obstetricia, medicina familiar, clínica y cirugía) con evaluación estricta y revisión detallada. Exclusivo NikaMed+.', chips: ['ECOE FINAL', 'Estaciones cronometradas', 'NikaMed+'], entrar: 'pfo_ecoe.html' }] },
   ];
 
   const S = { year: '5to' };
@@ -42,7 +43,8 @@
         <div class="se-cuerpo"><span class="ns-pill dev">En desarrollo</span><h4>${esc(m.nombre)}</h4><p>Estamos preparando el contenido de esta materia.</p>
         <span class="se-entrar off">Próximamente</span></div></article>`;
     }
-    if (m.pfo) return `<article class="se-card pfo" style="--i:${i}"><div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div><div class="se-cuerpo"><h4>${esc(m.nombre)}</h4><p>${esc(m.desc)}</p><div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ok">${esc(c)}</span>`).join('')}</div><a class="se-entrar" href="${m.entrar}">🎓 Rendir el ECOE FINAL <i>→</i></a></div></article>`;
+    if (m.pfo && !esAdmin()) return `<article class="se-card off" style="--i:${i}"><div class="se-banda"><span class="se-ico">🔒</span></div><div class="se-cuerpo"><span class="ns-pill dev">Restringido</span><h4>Práctica Final Obligatoria</h4><p>Esta sección todavía no está disponible.</p><span class="se-entrar off">No disponible</span></div></article>`;
+    if (m.pfo) return `<article class="se-card pfo" style="--i:${i}"><div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div><div class="se-cuerpo"><h4>${esc(m.nombre)}</h4><p>${esc(m.desc)}</p><div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ok">${esc(c)}</span>`).join('')}</div><span class="ns-pill dev">Solo administrador</span><a class="se-entrar" href="${m.entrar}">🎓 Abrir el ECOE FINAL <i>→</i></a></div></article>`;
     return `<article class="se-card ${m.color}" style="--i:${i}">
       <div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div>
       <div class="se-cuerpo">

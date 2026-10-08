@@ -15,7 +15,12 @@
   const hist = () => { try { return JSON.parse(localStorage.getItem(LS_HIST()) || '[]'); } catch (_) { return []; } };
   const fmtNota = (n) => (Math.round(n * 10) / 10).toString().replace('.', ',');
   const colorNota = (n) => (n >= 8 ? '#22c55e' : n >= 6 ? '#fbbf24' : '#f87171');
-  const esPlus = () => { try { return !!(window.NikaAcceso && window.NikaAcceso.tieneAccesoCompleto()); } catch (_) { return false; } };
+  // Acceso RESTRINGIDO: por ahora solo administradores (rol del perfil verificado contra el servidor por NikaAcceso).
+  const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
+  const esPlus = esAdmin;
+  function vistaRestringida() {
+    main.innerHTML = '<div class="pfo-trans"><div class="ic">🔒</div><h2>Acceso restringido</h2><p>Esta sección todavía no está disponible.</p><a class="pfo-btn" href="sala_estudio.html">Volver a la Sala de Estudio</a></div>';
+  }
 
   // ------------------------------------------------------------------ llamada a la IA (misma Edge Function que el resto de los simuladores)
   async function llamarIA(payload) {
@@ -78,7 +83,7 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
     const T = CFG.textos, plus = esPlus(), g = leerGuardado(), h = hist();
     main.innerHTML = `
       <section class="pfo-hero">
-        <span class="pfo-chip">🎓 Práctica Final Obligatoria · NikaMed+</span>
+        <span class="pfo-chip">🎓 Práctica Final Obligatoria · Acceso de administrador</span>
         <h1>ECOE <em>FINAL</em><br>${esc(CFG.subtitulo)}</h1>
         <p>${esc(T.intro)}</p>
         <p class="mot">${esc(T.motivacion)}</p>
@@ -90,8 +95,7 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
         ${CFG.borrador_hasta_rubrica ? `<div class="pfo-aviso bor">📝 ${esc(CFG.nota_rubrica)}</div>` : ''}</section>
       ${h.length ? `<section class="pfo-sec"><h2>🗂️ Tus intentos</h2><div class="pfo-hist">${h.slice(-5).reverse().map((x) => `<div class="pfo-hist-i"><span>${esc(x.fecha)}</span><span>Nota global <b class="${x.aprobado ? 'ok' : 'mal'}">${fmtNota(x.global)}</b> · ${x.aprobado ? 'Aprobado' : 'A reforzar'}</span></div>`).join('')}</div></section>` : ''}
       <section class="pfo-cta">
-        ${!plus ? `<h2>🔒 Exclusivo para NikaMed+</h2><small>El ECOE FINAL es una instancia completa de preparación para el egreso. Activá NikaMed+ para rendirlo.</small><a class="pfo-btn plus" href="nikamed-plus.html">Conocer NikaMed+</a>`
-          : g ? `<h2>⏳ Tenés un examen en curso</h2><small>Estación ${g.idx + 1} de ${g.estaciones.length}. Podés retomarlo donde lo dejaste.</small><button class="pfo-btn" id="pfo-retomar">Retomar examen</button><button class="pfo-link" id="pfo-descartar">Descartar y empezar de nuevo</button>`
+        ${g ? `<h2>⏳ Tenés un examen en curso</h2><small>Estación ${g.idx + 1} de ${g.estaciones.length}. Podés retomarlo donde lo dejaste.</small><button class="pfo-btn" id="pfo-retomar">Retomar examen</button><button class="pfo-link" id="pfo-descartar">Descartar y empezar de nuevo</button>`
           : `<h2>¿Listo/a para empezar?</h2><small>Buscá un lugar tranquilo: son ${CFG.estaciones.length} estaciones de ${CFG.criterios.minutosPorEstacion} minutos, seguidas. No se puede pausar ni volver atrás.</small><button class="pfo-btn" id="pfo-empezar">Comenzar el ECOE FINAL</button>`}
       </section>`;
     const b = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
@@ -101,7 +105,7 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
   }
 
   function nuevoExamen() {
-    if (!esPlus()) { toast('El ECOE FINAL es exclusivo para NikaMed+.'); return; }
+    if (!esAdmin()) { toast('Acceso restringido.'); return; }
     if (!confirm('Vas a comenzar el ECOE FINAL. No se puede pausar ni volver atrás. ¿Empezamos?')) return;
     const orden = CFG.estaciones.map((e, i) => i);
     S = { idx: 0, creado: Date.now(), estaciones: orden.map((i) => ({ id: CFG.estaciones[i].id, ref: i, hist: [], tema: '', fin: 0, resultado: null, cerrada: false })) };
@@ -232,11 +236,13 @@ Esta estación es la número ${i + 1} de ${CFG.estaciones.length} del ECOE FINAL
   // ------------------------------------------------------------------ arranque
   async function iniciar() {
     try {
-      const r = await fetch('data/pfo/ecoe_final.json', { cache: 'no-cache' }); CFG = await r.json();
       if (window.NikaAuth && window.NikaAuth.ready) { try { await window.NikaAuth.ready; } catch (_) {} }
+      // el rol se confirma con el servidor antes de mostrar nada
+      await new Promise((ok) => { if (window.NikaAcceso && window.NikaAcceso.alVerificarPerfil) { let listo = false; const fin = () => { if (!listo) { listo = true; ok(); } }; window.NikaAcceso.alVerificarPerfil(fin); setTimeout(fin, 6000); } else ok(); });
+      if (!esAdmin()) { vistaRestringida(); return; }
+      const r = await fetch('data/pfo/ecoe_final.json', { cache: 'no-cache' }); CFG = await r.json();
       if (!window.PROMPTS_MATERIAS_BUILDERS) throw new Error('No se cargó el generador de estaciones.');
       vistaIntro();
-      if (window.NikaAcceso && window.NikaAcceso.alVerificarPerfil) window.NikaAcceso.alVerificarPerfil(() => { if (!S) vistaIntro(); });
     } catch (e) { main.innerHTML = `<div class="pfo-cargando">No se pudo cargar el examen (${esc(e && e.message)}). Recargá la página.</div>`; }
   }
   window.addEventListener('beforeunload', (e) => { if (S && !S.estaciones.every((x) => x.cerrada)) { guardar(); e.preventDefault(); e.returnValue = ''; } });
