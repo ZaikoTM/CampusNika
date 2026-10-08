@@ -1,7 +1,7 @@
 {
   "id": "go_epia",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Dolor hipogástrico y fiebre: enfermedad pélvica inflamatoria aguda con absceso tuboovárico",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -124,7 +124,7 @@
       "max": 10,
       "texto": "Antibióticos endovenosos",
       "regular": "Indica un esquema incompleto",
-      "suficiente": "Indica clindamicina 900 mg cada 8 horas más gentamicina (240 mg por día o 2 mg/kg de carga y 1,5 mg/kg cada 8 horas) por vía endovenosa, con metronidazol 500 mg cada 12 horas si el esquema lo incluye"
+      "suficiente": "Indica clindamicina 900 mg cada 8 horas más gentamicina (monodosis de 5 mg/kg por día o esquema clásico de 1,5 mg/kg cada 8 horas) por vía endovenosa; se aceptan esquemas alternativos como ceftriaxona más doxiciclina más metronidazol"
     },
     {
       "id": 12,
@@ -140,7 +140,7 @@
       "max": 10,
       "texto": "Interconsulta y pareja",
       "regular": "Menciona uno",
-      "suficiente": "Solicita interconsulta con cirugía por el absceso (probable drenaje laparoscópico) y trata a la pareja sexual con ceftriaxona 250 mg intramuscular más azitromicina 1 g por vía oral en dosis única"
+      "suficiente": "Solicita interconsulta con ginecología o cirugía para el seguimiento estrecho del absceso (aclarando que por su tamaño el manejo inicial es médico con antibióticos y que el drenaje se reserva para abscesos grandes, rotura o falla a las 48 a 72 horas) y trata a la pareja con ceftriaxona 250 a 500 mg intramuscular más azitromicina 1 g por vía oral en dosis única"
     },
     {
       "id": 14,
