@@ -82,7 +82,7 @@ Esta estación es la número ${(pos != null ? pos : S && S.idx != null ? S.idx :
 - Un error crítico de seguridad baja el pilar afectado a 4 o menos aunque el resto esté bien. No infles ninguna nota.
 - No existe el Abogado del Diablo en esta instancia. Si el sistema te avisa que se agotó el tiempo, cerrá la estación con la evaluación.
 - En "revision_detallada" incluí UN ítem por cada uno de los 9 dominios y en "respuesta_modelo" el plan completo ideal de este caso, con las opciones válidas.
-- PARTE PRÁCTICA (documentos): el alumno puede redactar una receta, una solicitud de estudios o un certificado en el recetario. Cuando lo haga, el sistema te pasa el texto y la nota de FORMA entre corchetes [Sistema — parte práctica]: respondé solo [Evaluador: Documento recibido.] y seguí la estación. Al evaluar, juzgá el CONTENIDO (fármaco, dosis, vía, estudios pedidos, lo que constata) contra el caso.`;
+- PARTE PRÁCTICA (documentos): al cerrar la estación el alumno puede tener que redactar documentos médicos (receta, solicitud de estudios, certificado). El mensaje de cierre del sistema te pasa su texto y la nota de FORMA: juzgá el CONTENIDO (fármaco, dosis, vía, estudios pedidos, lo que constata) contra el caso y tené en cuenta la forma y las omisiones.`;
     const bc = bloqueCaso(i);
     if (bc) p = p.replace(/## 0\. SORTEO[\s\S]*?(?=## 2\. ROL DUAL)/, '## 0 y 1. CASO DE LA ESTACIÓN\nEl caso es el que figura en la sección 10 (caso oficial). No sortees ni cambies el cuadro; la unidad temática y los sorteos de otras secciones no se aplican.\n\n');
     p += bc;
@@ -116,6 +116,12 @@ ${filas}
   // Mensaje de cierre: si hubo procedimiento escrito, se le pasa a la IA el texto y la lista de cotejo
   function mensajeCierre(E) {
     let m = MSG_CIERRE; const pr = procDe(E);
+    if (E.docs && E.docs.length) {
+      const f = (a) => (a && a.length ? a.join('; ') : 'ninguna');
+      m += `\n\n[Sistema — PARTE PRÁCTICA: DOCUMENTOS] ` + E.docs.map((d) => { const def = DOCS.find((x) => x[0] === d.tipo); const nom = def ? def[2].toLowerCase() : d.tipo;
+        return d.omitido ? `No redactó ${nom} (omisión).` : `${nom}: forma y legalidad ${d.pct}/100 (${d.nivel}); fallas de forma: ${f(d.fallas)}; errores graves: ${f(d.graves)}. Texto redactado: «${String(d.texto || '').replace(/\n+/g, ' / ')}».`; }).join('\n')
+        + '\nJuzgá el CONTENIDO (fármaco, dosis, vía, estudios, constatación) contra el caso y tené en cuenta la forma y las omisiones.';
+    }
     if (pr && E.proc) {
       const lista = pr.pasos.map((p) => `${p.n}. ${p.critico ? '(CRÍTICO) ' : ''}${p.texto}`).join('\n');
       m += `\n\n[Sistema — PARTE PRÁCTICA: PROCEDIMIENTO ESCRITO] El alumno describió por escrito cómo realiza el procedimiento «${pr.titulo}» sobre el paciente de la estación (${E.proc.motivo === 'tiempo' ? 'se agotó el tiempo' : 'lo entregó'}, ${Math.floor((E.proc.seg || 0) / 60)} min ${(E.proc.seg || 0) % 60} s).\nTEXTO DEL ALUMNO: «${E.proc.texto || '(en blanco)'}»\nLISTA DE COTEJO (los pasos marcados CRÍTICO son imprescindibles):\n${lista}\nIncluí en el JSON final el campo "procedimiento": {"cumple":[...],"parcial":[...]} con los números de paso según lo escrito.`;
@@ -142,6 +148,7 @@ ${filas}
   // ------------------------------------------------------------------ integridad ("machete"): las mismas reglas que el resto de los exámenes
   function iniciarIntegridad(reanudando) {
     if (!window.ExamIntegridad) return;
+    if (esAdmin()) { toast('Cuenta admin: se rinde sin vigilancia anti-trampa para que puedas probar. Los demás usuarios sí la tienen.'); return; }
     const hooks = { onForzarEntrega: forzarEntrega, permitirCaptura: false };
     try {
       if (reanudando && ExamIntegridad.reanudar(hooks)) return;
@@ -151,12 +158,18 @@ ${filas}
   const pausarIntegridad = () => { try { if (window.ExamIntegridad && ExamIntegridad.estado) ExamIntegridad.desactivar(); } catch (_) {} };
   const reanudarIntegridad = () => { try { if (window.ExamIntegridad && ExamIntegridad.estado && S && !S.forzado) ExamIntegridad.activar({ onForzarEntrega: forzarEntrega, permitirCaptura: false }); } catch (_) {} };
   const resultadoNulo = (txt) => ({ semiologia: 1, diagnostico: 1, terapeutica: 1, vocabulario: 1, nota_final: 1, devolucion_docente: txt, principal_debilidad: 'Estación sin resolver', revision_detallada: [], respuesta_modelo: '' });
-  // Reincidió tras la advertencia: el examen se entrega y queda en revisión (las estaciones que faltaban no se evalúan)
+  // Reincidió tras la advertencia: el examen se entrega y queda en revisión. Las estaciones en las que el alumno intervino igual se corrigen y se revisan.
   function forzarEntrega() {
     if (!S || S.forzado) return;
     S.forzado = true; clearInterval(timer); cerrarOverlayDoc();
-    S.estaciones.forEach((E) => { if (!E.terminada && !E.cerrada) { E.terminada = true; E.cerrada = true; E.noEvaluada = true; E.resultado = resultadoNulo('Estación no evaluada: el examen se entregó por incumplir las reglas.'); } });
-    guardar(); irAlFinal();
+    S.estaciones.forEach((E) => {
+      if (E.terminada || E.cerrada) return;
+      const intento = E.hist.some((m) => m.rol === 'usuario' && !m.sis && m.texto !== MSG_INICIO);
+      E.terminada = true;
+      if (intento) { E.fase = 'eval'; E.motivoCierre = 'forzada'; }
+      else { E.cerrada = true; E.noEvaluada = true; E.resultado = resultadoNulo('Estación no evaluada: el examen se entregó antes de que intervinieras.'); }
+    });
+    guardar(); S.estaciones.forEach((E, i) => { if (E.terminada && !E.cerrada) evaluarSegundoPlano(i); }); irAlFinal();
   }
 
   // ------------------------------------------------------------------ vistas
@@ -198,7 +211,7 @@ ${filas}
           <li><b>Nada de capturas:</b> sacar una captura de pantalla o imprimir el examen también dispara la advertencia.</li>
           <li><b>Advertencia:</b> a la 3.ª incidencia aparece un aviso amarillo. Si después de eso reincidís, <b>el examen se entrega solo</b> y queda <b>en revisión</b>.</li>
           <li><b>Escrito:</b> podés tipear, pero no pegar texto copiado de otro lado.</li>
-          <li>Al terminar te explicamos qué detectó el sistema. <b>Sé honesto:</b> este simulacro es para que midas tu nivel real.</li></ul></div>
+          <li>Al terminar te explicamos qué detectó el sistema. <b>Sé honesto:</b> este simulacro es para que midas tu nivel real.</li>${esAdmin() ? '<li><b>Cuenta admin:</b> se rinde sin vigilancia para que puedas probar el examen; el resto de los usuarios sí la tiene.</li>' : ''}</ul></div>
         <div class="pfo-bloque"><h3>🎓 Al aprobar te felicitamos como</h3><div class="pfo-trat" role="radiogroup" aria-label="Tratamiento"><button type="button" role="radio" data-t="Doctora" class="${nTrat === 'Doctora' ? 'on' : ''}" aria-checked="${nTrat === 'Doctora'}">👩‍⚕️ Doctora</button><button type="button" role="radio" data-t="Doctor" class="${nTrat === 'Doctor' ? 'on' : ''}" aria-checked="${nTrat === 'Doctor'}">👨‍⚕️ Doctor</button></div></div>
         <label class="pfo-ok"><input type="checkbox" id="pfo-acepto"> <span>Leí las reglas y me comprometo a rendir con honestidad.</span></label>
       </div>
@@ -210,26 +223,28 @@ ${filas}
     go.addEventListener('click', () => { cerrarModal(); setTimeout(nuevoExamen, 240); });
   }
   // Modo práctica: elegir especialidades (y el caso exacto, si se quiere), con o sin reloj
-  function modalPractica() {
-    const casosDe = (e) => (e.casos_oficiales || []).filter((id) => CASOS[id]).sort((a, b) => CASOS[a].nombre.localeCompare(CASOS[b].nombre));
-    const ov = modal(`<div class="pfo-modal-h"><span class="ic">🎯</span><div><h2>Armá tu práctica</h2><small>Elegí una o varias especialidades: rendís solo esas estaciones</small></div></div>
-      <div class="pfo-modal-b">
-        <div class="pfo-pr-top"><button type="button" class="pfo-chipb" id="pr-todas">Todas</button><button type="button" class="pfo-chipb" id="pr-ninguna">Ninguna</button><label class="pfo-sw"><input type="checkbox" id="pr-reloj" checked><i></i><span>⏱️ Con reloj</span></label></div>
-        <div class="pfo-pr-g">${CFG.estaciones.map((e, i) => `<div class="pfo-pr-t" data-i="${i}" style="--d:${i}"><button type="button" class="pfo-pr-sel" aria-pressed="false"><span class="ic">${e.icono}</span><span class="n"><b>${esc(e.nombre)}</b><small>${casosDe(e).length} casos</small></span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
-          <div class="pfo-pr-caso"><button type="button" class="pfo-pr-cb" data-i="${i}"><span class="v">🎲 Caso al azar</span><i class="chev"></i></button><div class="pfo-pr-lista"><div class="in"><button type="button" class="op on" data-v="">🎲 Caso al azar</button>${casosDe(e).map((id) => `<button type="button" class="op" data-v="${id}">${esc(CASOS[id].nombre)}</button>`).join('')}</div></div></div></div>`).join('')}</div>
-      </div>
-      <div class="pfo-modal-f"><span class="pfo-pr-res" id="pr-res">Elegí al menos una especialidad</span><button type="button" class="pfo-btn pulso" id="pr-go" disabled>Comenzar práctica</button></div>`, 'ancho');
+  const casosDeEst = (e) => (e.casos_oficiales || []).filter((id) => CASOS[id]).sort((a, b) => CASOS[a].nombre.localeCompare(CASOS[b].nombre));
+  function practicaHtml() {
+    return `<div class="pfo-pane-c prac">
+      <div class="pfo-pane-h"><span class="ic">🎯</span><div><h3>Armá tu práctica</h3><p>Elegí una o varias especialidades y rendís solo esas estaciones, con el caso que quieras o al azar. Al terminar ves la nota, la rúbrica, en qué te equivocaste y la resolución modelo. No cuenta como intento del examen.</p></div></div>
+      <div class="pfo-pr-top"><button type="button" class="pfo-chipb" id="pr-todas">Todas</button><button type="button" class="pfo-chipb" id="pr-ninguna">Ninguna</button><label class="pfo-sw"><input type="checkbox" id="pr-reloj" checked><i></i><span>⏱️ Con reloj</span></label></div>
+      <div class="pfo-pr-g">${CFG.estaciones.map((e, i) => `<div class="pfo-pr-t" data-i="${i}" style="--d:${i}"><button type="button" class="pfo-pr-sel" aria-pressed="false"><span class="ic">${e.icono}</span><span class="n"><b>${esc(e.nombre)}</b><small>${casosDeEst(e).length} casos</small></span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+        <div class="pfo-pr-caso"><button type="button" class="pfo-pr-cb" data-i="${i}"><span class="v">🎲 Caso al azar</span><i class="chev"></i></button><div class="pfo-pr-lista"><div class="in"><button type="button" class="op on" data-v="">🎲 Caso al azar</button>${casosDeEst(e).map((id) => `<button type="button" class="op" data-v="${id}">${esc(CASOS[id].nombre)}</button>`).join('')}</div></div></div></div>`).join('')}</div>
+      <div class="pfo-pr-bar"><span class="pfo-pr-res" id="pr-res">Elegí al menos una especialidad</span><button type="button" class="pfo-btn pulso" id="pr-go" disabled>Comenzar práctica ➤</button></div></div>`;
+  }
+  function montarPractica(root, bloqueado) {
     const sel = {};   // i -> casoId ('' = al azar)
-    const refrescar = () => { const n = Object.keys(sel).length; $('#pr-go', ov).disabled = !n; $('#pr-res', ov).textContent = n ? `${n} ${n === 1 ? 'especialidad elegida' : 'especialidades elegidas'}` : 'Elegí al menos una especialidad'; };
+    const refrescar = () => { const n = Object.keys(sel).length; $('#pr-go', root).disabled = !n || bloqueado; $('#pr-res', root).textContent = bloqueado ? 'Terminá o descartá lo que tenés en curso' : n ? `${n} ${n === 1 ? 'especialidad elegida' : 'especialidades elegidas'}` : 'Elegí al menos una especialidad'; };
     const marcar = (t, on) => { const i = t.dataset.i; t.classList.toggle('on', on); t.querySelector('.pfo-pr-sel').setAttribute('aria-pressed', String(on)); if (on) { if (!(i in sel)) sel[i] = ''; } else { delete sel[i]; t.classList.remove('abierto'); } };
-    ov.querySelectorAll('.pfo-pr-t').forEach((t) => {
+    root.querySelectorAll('.pfo-pr-t').forEach((t) => {
       t.querySelector('.pfo-pr-sel').addEventListener('click', () => { marcar(t, !t.classList.contains('on')); refrescar(); });
-      t.querySelector('.pfo-pr-cb').addEventListener('click', () => { if (!t.classList.contains('on')) marcar(t, true); ov.querySelectorAll('.pfo-pr-t.abierto').forEach((x) => { if (x !== t) x.classList.remove('abierto'); }); t.classList.toggle('abierto'); refrescar(); });
+      t.querySelector('.pfo-pr-cb').addEventListener('click', () => { root.querySelectorAll('.pfo-pr-t.abierto').forEach((x) => { if (x !== t) x.classList.remove('abierto'); }); t.classList.toggle('abierto'); });
       t.querySelectorAll('.op').forEach((op) => op.addEventListener('click', () => { sel[t.dataset.i] = op.dataset.v; t.querySelectorAll('.op').forEach((x) => x.classList.toggle('on', x === op)); t.querySelector('.pfo-pr-cb .v').textContent = op.dataset.v ? '📌 ' + CASOS[op.dataset.v].nombre : '🎲 Caso al azar'; t.classList.remove('abierto'); }));
     });
-    $('#pr-todas', ov).addEventListener('click', () => { ov.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, true)); refrescar(); });
-    $('#pr-ninguna', ov).addEventListener('click', () => { ov.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, false)); refrescar(); });
-    $('#pr-go', ov).addEventListener('click', () => { const r = Object.keys(sel).map(Number).sort((a, b) => a - b).map((i) => ({ ref: i, casoId: sel[i] || null })); const rl = $('#pr-reloj', ov).checked; cerrarModal(); setTimeout(() => nuevaPractica(r, rl), 240); });
+    $('#pr-todas', root).addEventListener('click', () => { root.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, true)); refrescar(); });
+    $('#pr-ninguna', root).addEventListener('click', () => { root.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, false)); refrescar(); });
+    $('#pr-go', root).addEventListener('click', () => { const r = Object.keys(sel).map(Number).sort((a, b) => a - b).map((i) => ({ ref: i, casoId: sel[i] || null })); nuevaPractica(r, $('#pr-reloj', root).checked); });
+    refrescar();
   }
 
   function vistaIntro() {
@@ -248,10 +263,13 @@ ${filas}
         <div class="pfo-hero-stats"><span>🧭 ${CFG.estaciones.length} estaciones</span><span>🎲 ${nCasos} casos</span><span>⏱️ ${minT}–${maxT} min</span><span>✅ 6 o más en cada una</span></div>
       </section>
       ${g ? `<section class="pfo-resume pfo-rv-w"><span class="ic">⏳</span><div><b>Tenés ${g.modo === 'practica' ? 'una práctica' : 'un examen'} en curso</b><small>Estación ${g.idx + 1} de ${g.estaciones.length}. Podés retomarlo donde lo dejaste.</small></div><button class="pfo-btn pulso" id="pfo-retomar">Retomar</button><button class="pfo-link" id="pfo-descartar">Descartar</button></section>` : ''}
-      <section class="pfo-modos">
-        <button type="button" class="pfo-modo exam pfo-rv-w" id="m-exam" style="--d:0"${g ? ' disabled' : ''}><span class="ic">🏁</span><b>Rendir el ECOE FINAL</b><small>${CFG.estaciones.length} estaciones, una por especialidad. La nota llega al final.</small><span class="go">Comenzar <i>→</i></span></button>
-        <button type="button" class="pfo-modo prac pfo-rv-w" id="m-prac" style="--d:1"${g ? ' disabled' : ''}><span class="ic">🎯</span><b>Modo práctica</b><small>Elegí las especialidades y los casos que querés entrenar.</small><span class="go">Armar práctica <i>→</i></span></button>
-        <button type="button" class="pfo-modo real pfo-rv-w" id="m-real" style="--d:2"><span class="ic">📖</span><b>¿Cómo es el ECOE FINAL real?</b><small>Reglamento, llamados y cómo se rinde el examen oficial.</small><span class="go">Ver cómo es <i>→</i></span></button>
+      <section class="pfo-sel pfo-rv-w">
+        <div class="pfo-toggle" role="tablist" aria-label="Modo" data-m="exam"><span class="pill" aria-hidden="true"></span><button type="button" role="tab" data-m="exam" class="on" aria-selected="true"><span>🏁</span> Examen</button><button type="button" role="tab" data-m="prac" aria-selected="false"><span>🎯</span> Práctica</button></div>
+        <button type="button" class="pfo-real" id="m-real">📖 ¿Cómo es el ECOE FINAL real?</button>
+      </section>
+      <section class="pfo-panes">
+        <div class="pfo-pane on" id="pane-exam"><div class="pfo-pane-c exam"><div class="pfo-pane-h"><span class="ic">🏁</span><div><h3>Rendí el ECOE FINAL</h3><p>${CFG.estaciones.length} estaciones seguidas, una por especialidad, con un caso sorteado al azar. No se puede volver atrás y la nota llega recién al terminar todo el circuito.</p><div class="chips"><span>🧭 ${CFG.estaciones.length} estaciones</span><span>⏱️ ${minT}–${maxT} min</span><span>🤖 Corrige la IA</span><span>👀 Con reglas anti-trampa</span></div></div></div><button type="button" class="pfo-btn pulso" id="m-exam"${g ? ' disabled' : ''}>Comenzar el examen ➤</button></div></div>
+        <div class="pfo-pane" id="pane-prac">${practicaHtml()}</div>
       </section>
       <section class="pfo-sec"><h2>🧩 Sobre este simulador</h2><div class="pfo-acords">
         ${acord('🧭', 'Cómo funciona', lista(T.como_funciona))}
@@ -264,7 +282,12 @@ ${filas}
       </div></section>
       ${h.length ? `<section class="pfo-sec"><h2>🏅 Tus intentos</h2><div class="pfo-hist">${h.slice(-5).reverse().map((x) => `<div class="pfo-hist-i"><span>${esc(x.fecha)}</span><span>Nota global <b class="${x.aprobado ? 'ok' : 'mal'}">${fmtNota(x.global)}</b> · ${x.aprobado ? 'Aprobado' : x.revision ? 'En revisión' : 'A reforzar'}</span></div>`).join('')}</div></section>` : ''}`;
     const b = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
-    b('#m-exam', modalAntes); b('#m-prac', modalPractica); b('#m-real', modalReal);
+    b('#m-exam', modalAntes); b('#m-real', modalReal);
+    montarPractica($('#pane-prac'), !!g);
+    const tg = $('.pfo-toggle'); tg.querySelectorAll('button').forEach((bt) => bt.addEventListener('click', () => {
+      const mo = bt.dataset.m; tg.dataset.m = mo; tg.querySelectorAll('button').forEach((x) => { const on = x === bt; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); });
+      $('#pane-exam').classList.toggle('on', mo === 'exam'); $('#pane-prac').classList.toggle('on', mo === 'prac');
+    }));
     b('#pfo-retomar', () => { S = leerGuardado(); if (S.modo !== 'practica') iniciarIntegridad(true); S.estaciones.forEach((E) => { E.evaluando = false; }); vistaEstacionSegunFase(); });
     b('#pfo-descartar', () => { if (confirm('Se pierde lo que tenías en curso. ¿Descartarlo?')) { limpiarGuardado(); try { window.ExamIntegridad && ExamIntegridad.abandonar(); } catch (_) {} vistaIntro(); } });
     if (!main._acord) main.addEventListener('click', (e) => { const hd = e.target.closest('.pfo-acord-h'); if (!hd) return; const a = hd.parentElement; const on = !a.classList.contains('abierto'); a.classList.toggle('abierto', on); hd.setAttribute('aria-expanded', String(on)); });
@@ -295,42 +318,52 @@ ${filas}
   function vistaEstacionSegunFase() {
     const E = estActual();
     S.estaciones.forEach((x, i) => { if (x.terminada && !x.cerrada) evaluarSegundoPlano(i); });   // corrige lo que quedó pendiente
-    if (E && E.terminada) siguienteOFin(); else if (E && E.fase === 'proc' && !E.proc) vistaProcedimiento(true); else vistaEstacion(true);
+    if (E && E.terminada) siguienteOFin(); else if (E && E.fase === 'docs') vistaDocumento(); else if (E && E.fase === 'proc' && !E.proc) vistaProcedimiento(true); else vistaEstacion(true);
   }
   const DOCS = [['receta', '💊', 'Receta médica', 'La prescripción de tu tratamiento'], ['examenes', '🧪', 'Solicitud de estudios', 'Laboratorio, imágenes, ECG…'], ['certificado', '📄', 'Certificado médico', 'Constancia de lo que constataste']];
-  let cerrarMenuDocs = null;
+  const TEXTO_DOC = { receta: 'Redactá la receta con el tratamiento que indicaste para el paciente de la estación.', examenes: 'Redactá la solicitud de los estudios que corresponden a este paciente, con el motivo o el diagnóstico presuntivo.', certificado: 'Redactá el certificado médico que corresponde según lo que constataste en la estación.' };
   function vistaEstacion(restaurar) {
     const E = estActual(); const cfgE = CFG.estaciones[E.ref];
     if (E.casoId === undefined) { const cs = (cfgE.casos_oficiales || []).filter((id) => CASOS[id]); E.casoId = cs.length ? cs[Math.floor(Math.random() * cs.length)] : null; }
     main.innerHTML = `
-      ${barraHtml(cfgE, `<div class="pfo-docs"><button type="button" class="pfo-btn sec pfo-btn-doc" id="pfo-docs-b" style="padding:7px 12px;font-size:.78rem" aria-haspopup="true" aria-expanded="false">📝 Documentos ▾</button><div class="pfo-docs-menu" id="pfo-docs-m" hidden>${DOCS.map(([id, ic, t, d]) => `<button type="button" data-doc="${id}"><span style="font-size:1.2rem">${ic}</span><span>${t}<small>${d}</small></span></button>`).join('')}</div></div>`)}
+      ${barraHtml(cfgE)}
       <div class="pfo-chat" id="pfo-chat" aria-live="polite"></div>
       <div class="pfo-in"><textarea id="pfo-txt" placeholder="Escribí lo que le preguntás o indicás al paciente, o la maniobra que realizás…" maxlength="2500"></textarea><button class="pfo-btn" id="pfo-env">Enviar ➤</button></div>
-      <div class="pfo-acc"><small>El evaluador solo responde lo que pedís. No hay pistas. Examen protegido: no salgas de la pantalla ni copies.</small><button class="pfo-link" id="pfo-term">Terminar esta estación</button></div>`;
+      <div class="pfo-acc"><small>El evaluador solo responde lo que pedís. No hay pistas.${S.modo === 'practica' ? '' : ' Examen protegido: no salgas de la pantalla ni copies.'}</small><button class="pfo-link" id="pfo-term">Terminar esta estación</button></div>`;
     E.hist.forEach((m) => (m.sis ? burbuja('sistema', m.vista || 'Documento entregado.') : burbuja(m.rol, m.texto)));
     $('#pfo-env').addEventListener('click', enviar);
     $('#pfo-txt').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) enviar(); });
     $('#pfo-term').addEventListener('click', () => { if (!pendiente && confirm('¿Terminar esta estación ahora? No se puede volver a ella.')) cerrarEstacion('manual'); });
-    const menu = $('#pfo-docs-m'), bd = $('#pfo-docs-b');
-    bd.addEventListener('click', (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; bd.setAttribute('aria-expanded', String(!menu.hidden)); actualizarMenuDocs(); });
-    menu.addEventListener('click', (e) => { const x = e.target.closest('[data-doc]'); if (x && !x.disabled) { menu.hidden = true; abrirDocumento(x.dataset.doc); } });
-    if (cerrarMenuDocs) document.removeEventListener('click', cerrarMenuDocs);
-    cerrarMenuDocs = () => { if (menu && !menu.hidden) menu.hidden = true; }; document.addEventListener('click', cerrarMenuDocs);
     if (!E.fin && !S.sinReloj) E.fin = Date.now() + minutosDe(cfgE, E) * 60000;
     guardar(); contador(); clearInterval(timer); timer = setInterval(tic, 500); tic();
     if (!E.hist.length) iniciarEstacion(); else fijar(true);
   }
-  function actualizarMenuDocs() { const E = estActual(); document.querySelectorAll('#pfo-docs-m [data-doc]').forEach((b) => { b.disabled = !!E.docs.some((x) => x.tipo === b.dataset.doc); }); }
+  // Mensajes con colores y rótulos propios: consigna (tarjeta destacada), paciente, evaluador y vos
   function burbuja(rol, texto) {
     const c = $('#pfo-chat'); if (!c) return;
-    const d = document.createElement('div'); const ev = rol === 'ia' && /^\s*\[Evaluador/i.test(texto);
-    d.className = 'pfo-msg ' + (rol === 'usuario' ? 'yo' : rol === 'sistema' ? 'sis' : 'ia' + (ev ? ' ev' : '')); d.textContent = texto; c.appendChild(d); c.scrollTop = c.scrollHeight;
+    const add = (cls, quien, html) => { const d = document.createElement('div'); d.className = 'pfo-msg ' + cls; d.innerHTML = (quien ? `<span class="who">${quien}</span>` : '') + html; c.appendChild(d); };
+    const t = String(texto || '').trim();
+    if (rol === 'usuario') add('yo', 'Vos', `<div class="tx">${esc(t)}</div>`);
+    else if (rol === 'sistema') add('sis', '', esc(t));
+    else {
+      const m = t.match(/^\[([\s\S]*?)\]\s*([\s\S]*)$/);
+      if (m) {
+        const dentro = m[1].replace(/^\s*Evaluador\s*:\s*/i, '').trim(), resto = m[2].trim();
+        if (/Objetivos?\s*:/i.test(dentro)) {
+          const k = dentro.search(/Objetivos?\s*:/i); const sit = dentro.slice(0, k).trim(); const objs = dentro.slice(k).replace(/^Objetivos?\s*:/i, '').split(/\s*\d+\)\s*/).map((x) => x.trim()).filter(Boolean);
+          add('consigna', '📋 Consigna de la estación', `<p class="sit">${esc(sit)}</p><div class="obj"><b>🎯 Objetivos</b><ol>${objs.map((o) => `<li>${esc(o)}</li>`).join('')}</ol></div>`);
+        } else add('ev', '🩺 Evaluador', `<div class="tx">${esc(dentro)}</div>`);
+        if (resto) add('pac', '🧑 Paciente', `<div class="tx">${esc(resto)}</div>`);
+      } else add('pac', '🧑 Paciente', `<div class="tx">${esc(t)}</div>`);
+    }
+    c.scrollTop = c.scrollHeight;
   }
   const fijar = (on) => { const t = $('#pfo-txt'), b = $('#pfo-env'); if (t) t.disabled = !on; if (b) b.disabled = !on; if (on && t) t.focus(); };
   const turnosUsados = () => estActual().hist.filter((m) => m.rol === 'usuario' && !m.sis).length;
   function contador() { const el = $('#pfo-turnos'); if (el) el.textContent = `Intervenciones ${turnosUsados()}/${CFG.criterios.maxIntervencionesPorEstacion}`; }
   function tic() {
     if (!S || S.forzado) return; const E = estActual(); if (!E || E.cerrada || E.terminada) return;
+    if (E.fase === 'docs') { const e0 = $('#pfo-timer'); if (e0) e0.textContent = '📝'; return; }
     if (S.sinReloj) { const el0 = $('#pfo-timer'); if (el0 && el0.textContent !== 'Sin reloj') el0.textContent = 'Sin reloj'; return; }
     const fin = E.fase === 'proc' ? E.procFin : E.fin; if (!fin || E.fase === 'eval') return;
     const resto = Math.max(0, Math.round((fin - Date.now()) / 1000)); const el = $('#pfo-timer'); if (!el) return;
@@ -412,20 +445,36 @@ ${filas}
     const E = estActual(); E.hist.push({ rol: 'usuario', texto: v }); burbuja('usuario', v); t.value = ''; guardar(); contador(); turno(v);
   }
 
-  // ------------------------------------------------------------------ documentos médicos (recetario en modo examen, dentro de un iframe)
+  // ------------------------------------------------------------------ documentos médicos: paso secuencial al cerrar la estación (recetario en modo examen, en un iframe)
   let docAbierto = null;
+  const docsDe = (E) => { const c = casoDe(E); return c && Array.isArray(c.documentos) ? c.documentos : []; };
+  function vistaDocumento() {
+    const E = estActual(); const cfgE = CFG.estaciones[E.ref];
+    if (!E.docsPend || !E.docsPend.length) { despuesDeDocumentos(); return; }
+    const tipo = E.docsPend[0]; const def = DOCS.find((d) => d[0] === tipo); const total = docsDe(E).length; const k = total - E.docsPend.length + 1;
+    main.innerHTML = `${barraHtml(cfgE)}
+      <section class="pfo-proc">
+        <div class="pfo-proc-h"><span class="ic">${def[1]}</span><div><h2>Parte práctica · ${esc(def[2])}</h2><small>Documento ${k} de ${total} · hasta ${CFG.criterios.documentoMin} minutos</small></div></div>
+        <p>${esc(TEXTO_DOC[tipo])} Se abre el recetario en modo examen: se corrige la forma legal y el tribunal juzga el contenido.</p>
+        <div class="pfo-proc-f"><small>Sin ayudas. Si el tiempo se agota se entrega lo que hayas escrito.</small><button class="pfo-btn pulso" id="pfo-doc-ok">Abrir el recetario ➤</button></div>
+      </section>`;
+    $('#pfo-doc-ok').addEventListener('click', () => abrirDocumento(tipo));
+    clearInterval(timer); timer = setInterval(tic, 500); tic();
+  }
+  function despuesDeDocumentos() {
+    const E = estActual();
+    if (procDe(E) && !E.proc) { E.fase = 'proc'; guardar(); vistaProcedimiento(false); } else finalizarEstacionAlumno(E.motivoCierre || 'manual');
+  }
   async function abrirDocumento(tipo) {
-    const E = estActual(); if (!E || E.cerrada || pendiente || docAbierto) return;
-    if (E.docs.some((x) => x.tipo === tipo)) { toast('Ya redactaste ese documento en esta estación.'); return; }
-    pendiente = true; fijar(false); toast('Preparando el recetario…');
+    const E = estActual(); if (!E || docAbierto) return;
+    const b = $('#pfo-doc-ok'); if (b) { b.disabled = true; b.textContent = 'Preparando el recetario…'; }
     let est = {};
     try {   // se le pide a la IA solo la edad y el sexo del paciente de la estación, para que el documento sea de ese paciente
-      const r = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref) + temaPrompt(E.tema), historial: E.hist.map((m) => ({ rol: m.rol, texto: m.texto })), es_primer_turno: false,
+      const r = await llamarIA({ modo: 'ecoe_final', submodo: 'estacion_aleatoria', system_prompt: promptEstacion(E.ref, S.idx) + temaPrompt(E.tema), historial: E.hist.map((m) => ({ rol: m.rol, texto: m.texto })), es_primer_turno: false,
         mensaje: '[Instrucción de sistema — no es un turno del alumno] Respondé ÚNICAMENTE con un objeto JSON {"edad": número, "sexo": "F" o "M"} con la edad y el sexo del paciente de esta estación, sin ninguna otra palabra y sin evaluación.' });
       const m = /\{[^{}]*\}/.exec(String((r && r.texto) || '')); if (m) est = JSON.parse(m[0]);
     } catch (e) { console.warn('[PFO] no se pudo obtener edad y sexo del paciente:', e && e.message); }
-    pendiente = false;
-    if (!S || S.forzado || E.cerrada) return;
+    if (!S || S.forzado) return;
     try { sessionStorage.setItem('nika_ecoe_receta', JSON.stringify({ edad: Number(est.edad) || null, sexo: est.sexo === 'F' || est.sexo === 'M' ? est.sexo : null, doc: tipo })); } catch (_) {}
     const def = DOCS.find((d) => d[0] === tipo);
     const ov = document.createElement('div'); ov.id = 'pfo-ov'; ov.className = 'pfo-ov'; ov.dataset.tipo = tipo;
@@ -433,16 +482,12 @@ ${filas}
     document.body.appendChild(ov); docAbierto = tipo; pausarIntegridad();   // hacer clic dentro del iframe le saca el foco a esta ventana: no cuenta como infracción
   }
   function cerrarOverlayDoc() { const ov = $('#pfo-ov'); if (ov) ov.remove(); if (docAbierto) { docAbierto = null; reanudarIntegridad(); } }
-  async function documentoEntregado(d) {
+  function documentoEntregado(d) {
     const tipo = docAbierto; cerrarOverlayDoc();
-    if (!tipo || !S || S.forzado) return; const E = estActual(); if (!E || E.cerrada) return;
-    const def = DOCS.find((x) => x[0] === tipo);
-    if (!d || d.estado !== 'entregado') { toast('Documento cancelado: podés volver a abrirlo.'); fijar(true); return; }
-    const f = (arr) => (arr && arr.length ? arr.join('; ') : 'ninguna'); const seg = d.segundos || 0;
-    E.docs.push({ tipo, pct: d.pct, nivel: d.nivel, fallas: d.fallas || [], graves: d.graves || [], texto: d.texto || '' });
-    const txt = `[Sistema — parte práctica] El alumno redactó ${def[2].toLowerCase()} en el recetario en modo examen (${d.motivo === 'tiempo' ? 'se agotó el tiempo' : 'entregado a tiempo'}, ${Math.floor(seg / 60)} min ${seg % 60} s de ${CFG.criterios.documentoMin}). Puntaje de forma y legalidad: ${d.pct}/100 (${d.nivel}; ${d.ok} de ${d.total} criterios). Fallas de forma: ${f(d.fallas)}. Errores graves: ${f(d.graves)}. Texto redactado: «${String(d.texto || '').replace(/\n+/g, ' / ')}». Respondé solo [Evaluador: Documento recibido.] y continuá la estación; al evaluar, juzgá el CONTENIDO contra el caso y tené en cuenta la forma.`;
-    const vista = `📝 ${def[2]} entregada · forma ${d.pct}/100 (${d.nivel})`;
-    E.hist.push({ rol: 'usuario', texto: txt, sis: true, vista }); burbuja('sistema', vista); guardar(); contador(); turno(txt);
+    if (!tipo || !S || S.forzado) return; const E = estActual(); if (!E || E.cerrada || E.fase !== 'docs') return;
+    if (!d || d.estado !== 'entregado') E.docs.push({ tipo, omitido: true });
+    else E.docs.push({ tipo, pct: d.pct, nivel: d.nivel, fallas: d.fallas || [], graves: d.graves || [], texto: d.texto || '', motivo: d.motivo, seg: d.segundos || 0 });
+    E.docsPend.shift(); guardar(); vistaDocumento();
   }
   window.addEventListener('message', (e) => { if (e.origin !== location.origin || !e.data || e.data.nika !== 'recetario-ecoe') return; documentoEntregado(e.data); });
 
@@ -454,8 +499,8 @@ ${filas}
       E.terminada = true; E.resultado = resultadoNulo('No hubo intervenciones en esta estación.'); E.cerrada = true; guardar(); siguienteOFin(); return;
     }
     E.motivoCierre = motivo;
-    if (procDe(E) && !E.proc) { E.fase = 'proc'; guardar(); vistaProcedimiento(false); return; }
-    finalizarEstacionAlumno(motivo);
+    const dd = docsDe(E); if (dd.length && !E.docsHechos) { E.docsHechos = true; E.docsPend = dd.slice(); E.docs = []; E.fase = 'docs'; guardar(); vistaDocumento(); return; }
+    despuesDeDocumentos();
   }
   function vistaProcedimiento(restaurar) {
     const E = estActual(); const cfgE = CFG.estaciones[E.ref]; const pr = procDe(E); const max = CFG.criterios.procedimientoMin;
@@ -559,7 +604,7 @@ ${filas}
   }
   function renderDocs(E) {
     if (!E.docs || !E.docs.length) return '';
-    return `<div class="pfo-mod" style="background:rgba(2,132,199,.08);border-color:#0284c7"><b>📝 Documentos redactados:</b><br>${E.docs.map((d) => { const def = DOCS.find((x) => x[0] === d.tipo); return `${def ? def[1] + ' ' + def[2] : esc(d.tipo)}: forma ${d.pct}/100 (${esc(d.nivel)})${d.fallas && d.fallas.length ? ' · a revisar: ' + d.fallas.map(esc).join(', ') : ''}`; }).join('<br>')}</div>`;
+    return `<div class="pfo-mod" style="background:rgba(2,132,199,.08);border-color:#0284c7"><b>📝 Documentos redactados:</b><br>${E.docs.map((d) => { const def = DOCS.find((x) => x[0] === d.tipo); if (d.omitido) return `${def ? def[1] + ' ' + def[2] : esc(d.tipo)}: no redactado (omisión)`; return `${def ? def[1] + ' ' + def[2] : esc(d.tipo)}: forma ${d.pct}/100 (${esc(d.nivel)})${d.fallas && d.fallas.length ? ' · a revisar: ' + d.fallas.map(esc).join(', ') : ''}`; }).join('<br>')}</div>`;
   }
   function vistaFinal() {
     const C = CFG.criterios, T = CFG.textos;

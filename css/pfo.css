@@ -311,3 +311,39 @@ body.ei-protegido #pfo-main { -webkit-user-select: none; user-select: none; } bo
 .pfo-pr-lista .op { display: block; width: 100%; text-align: left; border: 0; background: transparent; color: var(--pf-tx); font: inherit; font-size: .76rem; line-height: 1.35; padding: 9px 12px; cursor: pointer; transition: background .15s, padding-left .2s; } .pfo-pr-lista .op:hover { background: var(--pf-hov); padding-left: 16px; } .pfo-pr-lista .op.on { font-weight: 800; color: var(--pf-or); }
 .pfo-pr-res { margin-right: auto; font-size: .82rem; font-weight: 700; color: var(--pf-mut); }
 @media (max-width: 640px) { .pfo-modal { padding: 0; align-items: flex-end; } .pfo-modal-c, .pfo-modal-c.ancho { width: 100%; max-height: 92vh; border-radius: 22px 22px 0 0; } .pfo-acords { grid-template-columns: 1fr; } }
+
+/* =====================  v2: interruptor Examen / Práctica, mensajes con colores y práctica en línea  ===================== */
+.pfo-sel { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.pfo-toggle { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 5px; border-radius: 999px; background: var(--pf-card); border: 1px solid var(--pf-bd); box-shadow: var(--pf-sh); }
+.pfo-toggle .pill { position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px); border-radius: 999px; background: linear-gradient(135deg, #fde68a, #f59e0b); box-shadow: 0 8px 20px -8px rgba(245, 158, 11, .9); transition: transform .45s cubic-bezier(.34, 1.4, .5, 1), background .3s; }
+.pfo-toggle[data-m="prac"] .pill { transform: translateX(100%); background: linear-gradient(135deg, #c4b5fd, #7c3aed); box-shadow: 0 8px 20px -8px rgba(124, 58, 237, .9); }
+.pfo-toggle button { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 150px; padding: 11px 22px; border: 0; background: transparent; color: var(--pf-mut); font: inherit; font-weight: 800; font-size: .92rem; border-radius: 999px; cursor: pointer; transition: color .25s, transform .2s; }
+.pfo-toggle button:hover { transform: translateY(-1px); } .pfo-toggle button.on { color: #1c1917; } .pfo-toggle[data-m="prac"] button.on { color: #fff; }
+.pfo-toggle button span { display: inline-block; transition: transform .4s cubic-bezier(.34, 1.56, .64, 1); } .pfo-toggle button.on span { transform: scale(1.25) rotate(-8deg); }
+.pfo-real { border: 1px solid var(--pf-bd); background: var(--pf-card); color: var(--pf-tx); font: inherit; font-weight: 800; font-size: .84rem; padding: 11px 18px; border-radius: 999px; cursor: pointer; box-shadow: var(--pf-sh); transition: transform .25s var(--mi-ease), border-color .2s, background .2s; } .pfo-real:hover { transform: translateY(-2px); border-color: var(--pf-az); background: var(--pf-hov); }
+.pfo-panes { margin-top: 14px; }
+.pfo-pane { display: none; } .pfo-pane.on { display: block; animation: pfPane .45s var(--mi-ease); }
+@keyframes pfPane { from { opacity: 0; transform: translateY(14px) scale(.985); } }
+.pfo-pane-c { padding: 20px 22px; border-radius: 22px; background: var(--pf-card); border: 1px solid var(--pf-bd); box-shadow: var(--pf-sh); position: relative; overflow: hidden; }
+.pfo-pane-c::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, #f59e0b, #fde68a); } .pfo-pane-c.prac::before { background: linear-gradient(90deg, #7c3aed, #38bdf8); }
+.pfo-pane-c.exam { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; } .pfo-pane-c.exam .pfo-pane-h { flex: 1; min-width: 260px; }
+.pfo-pane-h { display: flex; gap: 14px; align-items: flex-start; } .pfo-pane-h .ic { font-size: 2.2rem; animation: pfFlota 4s ease-in-out infinite; }
+.pfo-pane-h h3 { margin: 0 0 4px; font-size: 1.12rem; } .pfo-pane-h p { margin: 0 0 8px; color: var(--pf-mut); font-size: .88rem; line-height: 1.55; }
+.pfo-pane-h .chips { display: flex; gap: 7px; flex-wrap: wrap; } .pfo-pane-h .chips span { font-size: .74rem; font-weight: 800; padding: 5px 11px; border-radius: 999px; background: var(--pf-card2); border: 1px solid var(--pf-bd); }
+.pfo-pane-c.prac .pfo-pr-top { margin: 14px 0 10px; }
+.pfo-pr-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--pf-bd); }
+.pfo-pr-bar .pfo-pr-res { margin: 0; }
+/* mensajes del examen: cada voz con su color y rótulo */
+.pfo-msg { display: flex; flex-direction: column; gap: 4px; }
+.pfo-msg .who { font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+.pfo-msg .tx { white-space: pre-wrap; }
+.pfo-msg.pac { align-self: flex-start; background: var(--pf-card2); border: 1px solid var(--pf-bd); border-left: 4px solid #14b8a6; color: var(--pf-tx); } .pfo-msg.pac .who { color: #0d9488; }
+.pfo-msg.ev { align-self: flex-start; background: linear-gradient(135deg, #1e1b4b, #312e81); border: 1px solid #4338ca; color: #e0e7ff; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .86rem; } .pfo-msg.ev .who { color: #fcd34d; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.pfo-msg.yo .who { color: #bfdbfe; text-align: right; }
+.pfo-msg.consigna { align-self: stretch; max-width: 100%; white-space: normal; background: linear-gradient(135deg, #0f2a5c, #1e3a8a 60%, #4c1d95); border: 1px solid rgba(245, 158, 11, .6); color: #e8efff; box-shadow: 0 16px 30px -18px rgba(30, 58, 138, .9); }
+.pfo-msg.consigna .who { color: #fde68a; font-size: .74rem; }
+.pfo-msg.consigna .sit { margin: 4px 0 8px; line-height: 1.6; font-size: .92rem; }
+.pfo-msg.consigna .obj { padding: 10px 14px; border-radius: 12px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16); } .pfo-msg.consigna .obj b { color: #fde68a; font-size: .8rem; }
+.pfo-msg.consigna ol { margin: 6px 0 0; padding-left: 0; list-style: none; counter-reset: o; } .pfo-msg.consigna li { counter-increment: o; position: relative; padding: 4px 0 4px 30px; font-size: .86rem; line-height: 1.45; }
+.pfo-msg.consigna li::before { content: counter(o); position: absolute; left: 0; top: 3px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .74rem; font-weight: 800; color: #1c1917; background: linear-gradient(135deg, #fde68a, #f59e0b); }
+@media (max-width: 640px) { .pfo-toggle button { min-width: 0; padding: 10px 16px; } .pfo-sel { justify-content: center; } }
