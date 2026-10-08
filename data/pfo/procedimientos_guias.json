@@ -1,0 +1,2150 @@
+{
+ "pd": {
+  "id": "pd",
+  "area": "pfo",
+  "titulo": "Paracentesis diagnóstica",
+  "icono": "💧",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Verificar la solicitud del procedimiento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Reunir la totalidad de los materiales necesarios para la ejecución de la práctica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Preparar los materiales sobre una mesa alta de traslado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Llevar el carro de transporte (con todos los materiales necesarios) al lado del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Saludar y presentarse.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Verificar los datos personales del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Explicar el procedimiento (con todos sus beneficios y sus riesgos) utilizando un lenguaje claro y sencillo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Solicitar la firma del consentimiento informado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Solicitar la colaboración del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Acomodar la cabecera de la cama inclinada en ángulo cefálico de 30-45°.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Acomodar al paciente en posición decúbito dorsal y con los brazos a los lados del cuerpo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Realizar semiología general del abdomen inspeccionando, palpando y percutiéndolo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "Identificar el sitio de punción de elección. Se recomiendan 2 (dos) sitios preferenciales: A nivel de la Fosa Ilíaca Izquierda: Tomar como reparos anatómicos al ombligo y a la espina ilíaca antero-superior izquierda. Trazar una línea imaginaria que los una. En el punto de contacto entre el 1/3",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "externo y los 2/3 internos de la antes mencionada línea; se ubicará el sitio de punción. Paramedial: A 2 (dos) cm de la línea media en un punto equidistante entre el ombligo y el pubis. Marcar el sitio de punción con un lápiz demográfico (NO en simuladores)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Lavarse las manos con técnica clínica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Colocarse los guantes con técnica abierta.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Vestirse con ropa estéril.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Esterilizar la zona pincelando con solución antiséptica (de iodo-povidona) un área de piel (de aproximadamente 5 cm alrededor del sitio de punción) realizando movimientos excéntricos (desde",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "adentro hacia fuera). Colocar el paño fenestrado sobre el abdomen del paciente haciendo coincidir su ventana con el sitio de punción.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Tomar una aguja 20 ó 25 G y montarla sobre una jeringa de 10 cc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "Cargar la jeringa con 7 u 8 cc de Lidocaína 2%.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Colocar anestesia local subcutánea con 1 cc de Lidocaína 2% desde la periferia del sitio de punción.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "Esperar unos segundos para que haga efecto el anestésico.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Colocar anestesia sobre los tejidos profundos inyectando 3-5 cc de Lidocaína 2%.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Retirar la aguja de aplicación del anestésico y descartar el material.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Montar la aguja 20 ó 25 G sobre una jeringa de 20 ó 50-60 cc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 27,
+    "texto": "Esperar un tiempo prudencial para que haga efecto la anestesia verificando Sensibilidad/No sensibilidad en el sitio de punción.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 28,
+    "texto": "Apoyar la aguja perpendicularmente al plano de la pared abdominal sobre el sitio de punción.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 29,
+    "texto": "Introducir la aguja (con la mano dominante) de manera suave pero firme.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 30,
+    "texto": "Progresar lentamente con la punción (a razón de unos 3 mm por vez) mientras se mantiene estable la aguja con la mano no dominante, sosteniendo la jeringa con la mano dominante y realizando aspiraciones suaves e intermitentes hasta alcanzar la cavidad peritoneal (al ingresar a la misma Ud.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 31,
+    "texto": "percibirá una disminución de la resistencia de los tejidos). Retraer el émbolo de la jeringa a fin de obtener Líquido Peritoneal… Si no se obtiene Líquido Peritoneal → Paso 32.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 32,
+    "texto": "Si se obtiene Líquido Peritoneal → Paso 33. Retraer la aguja hasta el Tejido Celular Subcutáneo (TCS), re-direccionar y volver a punzar (Paso 30)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 33,
+    "texto": "Conectar el catéter a una jeringa de 50-60 cc a fin de obtener una muestra de líquido peritoneal en tubos de ensayo estériles y rotular para su envío a laboratorio.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 34,
+    "texto": "Retirar la aguja-catéter traccionando de manera suave pero firme.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 35,
+    "texto": "Presionar el sitio de punción con un apósito o gasa estéril hasta verificar ausencia de drenaje.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 36,
+    "texto": "Desechar el apósito o gasa utilizado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 37,
+    "texto": "Colocar un vendaje oclusivo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 38,
+    "texto": "Informar al paciente el final del procedimiento solicitándole que permanezca en la misma posición durante aproximadamente 1 hora.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 39,
+    "texto": "Eliminar todos los elementos desechables que aún no se hayan descartado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 40,
+    "texto": "Quitarse los guantes.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 41,
+    "texto": "Lavarse las manos nuevamente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 42,
+    "texto": "Registrar el procedimiento en la Historia Clínica del paciente.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "pt": {
+  "id": "pt",
+  "area": "pfo",
+  "titulo": "Paracentesis terapéutica",
+  "icono": "💧",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Verificar la solicitud del procedimiento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Reunir la totalidad de los materiales necesarios para la ejecución de la práctica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Preparar los materiales sobre una mesa alta de traslado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Llevar el carro de transporte (con todos los materiales necesarios) al lado del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Saludar y presentarse.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Verificar los datos personales del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Explicar el procedimiento (con todos sus beneficios y sus riesgos) utilizando un lenguaje claro y sencillo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Solicitar la firma del consentimiento informado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Solicitar la colaboración del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Solicitar al paciente que orine y/o defeque antes de iniciar el procedimiento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Verificar que el paciente cuente con acceso venoso periférico.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Acomodar la cabecera de la cama inclinada en ángulo cefálico de 30-45°.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "Acomodar al paciente en posición decúbito dorsal y con los brazos a los lados del cuerpo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "Realizar semiología general del abdomen inspeccionando, palpando y percutiéndolo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Identificar el sitio de punción de elección. Se recomiendan 2 (dos) sitios preferenciales: A nivel de la Fosa Ilíaca Izquierda: Tomar como reparos anatómicos al ombligo y a la espina ilíaca antero-superior izquierda. Trazar una línea imaginaria que los una. En el punto de contacto entre el 1/3",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "externo y los 2/3 internos de la antes mencionada línea; se ubicará el sitio de punción. Paramedial: A 2 (dos) cm de la línea media en un punto equidistante entre el ombligo y el pubis. Marcar el sitio de punción con un lápiz demográfico (No en simuladores)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Lavarse las manos con técnica clínica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Colocarse los guantes con técnica abierta.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Vestirse con ropa estéril.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Esterilizar la zona pincelando con solución antiséptica (de iodo-povidona) un área de piel (de aproximadamente 5 cm alrededor del sitio de punción) realizando movimientos excéntricos (desde",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "adentro hacia fuera). Colocar el paño fenestrado sobre el abdomen del paciente haciendo coincidir su ventana con el sitio de punción.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Tomar una aguja 20 ó 25 G y montarla sobre una jeringa de 10 cc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "Cargar la jeringa con 7 u 8 cc de Lidocaína 2%.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Colocar anestesia local subcutánea con 1 cc de Lidocaína 2% desde la periferia del sitio de punción.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Esperar unos segundos para que haga efecto el anestésico.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Colocar anestesia sobre los tejidos profundos inyectando 3-5 cc de Lidocaína 2%.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 27,
+    "texto": "Retirar la aguja de aplicación del anestésico y descartar el material.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 28,
+    "texto": "Montar el catéter a una jeringa de 50-60 cc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 29,
+    "texto": "Esperar un tiempo prudencial para que haga efecto la anestesia verificando Sensibilidad/No",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 30,
+    "texto": "sensibilidad en el sitio de punción. Realizar (sobre el sitio de punción) una incisión de 1 mm utilizando una de hoja de bisturí N° 11.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 31,
+    "texto": "Introducir el catéter siguiendo la Técnica de Punción “en ángulo” ó “en Z” Técnica de Punción “en ángulo”: Ingresar el catéter en ángulo de 45° caudal. Técnica de Punción “en Z”: Ingresar el catéter en línea recta, mientras se tracciona la piel unos 2 cm,",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 32,
+    "texto": "hasta ingresar a la cavidad peritoneal. Progresar lentamente con la punción (a razón de unos 3 mm por vez) mientras se mantiene estable la aguja con la mano no dominante, sosteniendo la jeringa con la mano dominante y realizando aspiraciones suaves e intermitentes hasta alcanzar la cavidad peritoneal (al ingresar a la misma Ud.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 33,
+    "texto": "percibirá una disminución de la resistencia de los tejidos). Retraer el émbolo de la jeringa a fin de obtener Líquido Peritoneal… Si no se obtiene Líquido Peritoneal → Paso 34",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 34,
+    "texto": "Si se obtiene Líquido Peritoneal → Paso 35. Retraer la aguja-catéter hasta el Tejido Celular Subcutáneo (TCS), re-direccionar y volver a punzar (Paso 32).",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 35,
+    "texto": "Retirar la jeringa y/o el mandril-fiador del catéter.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 36,
+    "texto": "Conectar el catéter a una jeringa de 60 cc a fin de obtener una muestra para análisis de laboratorio.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 37,
+    "texto": "Separar la jeringa del catéter y colectar la muestra en tubos de ensayos estériles.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 38,
+    "texto": "Conectar el catéter a una guía de suero y ésta a un contenedor vacío. Opcional: Conectar 1 llave de 3 (tres) vías al extremo del catéter, girar la llave a posición de “Flujo” y",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 39,
+    "texto": "dar comienzo a la evacuación. Fijar la guía a la piel del paciente con cinta hipoalergénica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 40,
+    "texto": "Permitir el drenaje de líquido peritoneal en el contenedor. Recordar nunca extraer más de 4 a 5 litros de líquido peritoneal.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 41,
+    "texto": "Retirar la fijación del catéter.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 42,
+    "texto": "Retirar el catéter traccionando de manera suave pero firme.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 43,
+    "texto": "Presionar el sitio de punción con un apósito o gasa estéril hasta verificar ausencia de drenaje.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 44,
+    "texto": "Desechar el apósito o gasa utilizado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 45,
+    "texto": "Colocar vendaje oclusivo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 46,
+    "texto": "Informar al paciente el final del procedimiento solicitándole que permanezca en la misma posición durante aproximadamente 1 hora.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 47,
+    "texto": "Eliminar todos los elementos desechables que aún no se hayan descartado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 48,
+    "texto": "Rotular los tubos y enviarlos al laboratorio para su análisis.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 49,
+    "texto": "Quitarse los guantes y lavarse las manos nuevamente.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "pl": {
+  "id": "pl",
+  "area": "pfo",
+  "titulo": "Punción lumbar (raquicentesis)",
+  "icono": "🦴",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Reunir la totalidad de los materiales necesarios para la ejecución de la practica",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Preparar los materiales sobre una mesa alta de traslado",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Llevar el carro de transporte (con todos los materiales necesarios) al lado del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Saludar y presentarse",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Verificar la indicación del procedimiento y los datos personales del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Explicar el procedimiento (con todos sus beneficios y sus riesgos) utilizando un lenguaje claro y sencillo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Solicitar la firma del consentimiento informado",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Solicitar la colaboración del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Acomodar al paciente en posición decúbito lateral arqueada hacia adelante (posición fetal)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Identificar el sitio de punción a nivel del espacio intervertebral L3-L4 Para ello se deberán tomar como reparos anatómicos ambas crestas iliacas y trazar una línea imaginaria bi-ilíaca. Esta línea pasará a la altura de L4. Identificar; luego las apófisis espinosas de L4 y su",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "inmediata superior (L3), allí se ubicará el sitio de punción. Marcar el sitio de punción con un marcador (No realizarlo en el simulador)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Lavarse las manos con técnica clínica",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "Colocarse los guantes con técnica cerrada",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "Vestirse con ropa estéril",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Colocar el paño fenestrado sobre la región lumbar del paciente haciendo coincidir su ventana con el sitio de punción",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Pincelar con solución antiséptica (de iodo-povidona) un área de piel (de aproximadamente 5 cm alrededor del sitio de punción) realizando movimientos excéntricos (de adentro hacia fuera).",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Colocar anestesia local subcutánea en la periferia del sitio de punción",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Esperar un tiempo prudencial para que haga efecto la anestesia verificando Sensibilidad/No sensibilidad en el sitio de punción",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Apoyar el Trócar sobre el sitio de punción con el bisel orientado hacia el plano sagital",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Introducir el Trocar en ángulo de 15 grados (hacia el lado que no apoya) hasta alcanzar el Espacio Sub- Aracnoideo: Si no se obtiene LCR → Paso 21",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "Si se obtiene LCR → Paso 22 Retraer el trocar hasta Tejido Celular Subcutáneo (TCS), re-direccionar y volver a punzar",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Retirar el mandril",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "Solicitar al paciente inmovilidad absoluta",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Colocar Tubos de ensayos estériles dejando fluir el LCR gota a gota hasta recolectar la cantidad necesaria. Si la salida de LCR se vuelve escasa ó nula, girar el trocar en 90°.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Colocar nuevamente el mandril dentro del trocar",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Retirar el trócar",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 27,
+    "texto": "Presionar el sitio de punción con un apósito o gasa estéril",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 28,
+    "texto": "Informar al paciente el final del procedimiento",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 29,
+    "texto": "Solicitar al paciente que permanezca en la misma posición por un tiempo mas",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 30,
+    "texto": "Eliminar todos los elementos desechables",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 31,
+    "texto": "Rotular los tubos",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 32,
+    "texto": "Enviar los tubos de ensayo al laboratorio para su procesamiento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 33,
+    "texto": "Quitarse los guantes",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 34,
+    "texto": "Lavarse las manos nuevamente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 35,
+    "texto": "Registrar el procedimiento en la Historia Clínica del paciente",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "sng": {
+  "id": "sng",
+  "area": "pfo",
+  "titulo": "Colocación de sonda nasogástrica",
+  "icono": "🧵",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Reunir y preparar la totalidad de los materiales necesarios",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Llevar la totalidad de los materiales al lado del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Saludar y presentarse",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Explicar el procedimiento a realizar con un lenguaje claro y sencillo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Solicitar al paciente la firma del Consentimiento Informado",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Colocar al paciente en posición de Semi-Fowler",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Colocar una toalla sobre el tórax del paciente y a su lado un recipiente tipo palangana o fuentón",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Vestirse con ropa estéril (cofia, antiparras, camisolín, botas)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Lavarse las manos con técnica clínica",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Colocarse los guantes con técnica cerrada",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Retirar prótesis dentarias si las hubiera",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Evaluar la permeabilidad de los orificios nasales",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "Abrir el pack con la sonda estéril y verifica su integridad sin contaminar",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "Medir la longitud de la sonda a introducir utilizando los reparos Nariz-Lóbulo de la oreja-Apéndice xifoides.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Sumar 5 cm más y marcarlo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Lubricar aproximadamente unos 15 cm del extremo de la sonda que se va a introducir con gel hidrosoluble",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Elevar la punta de la nariz e introducir suavemente la sonda por la narina seleccionada",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Desplazar la sonda con movimientos rotatorios suaves (dirigiéndola hacia abajo y hacia la oreja del mismo lado) hasta la nasofaringe",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Solicitar la colaboración del paciente pidiéndole que se relaje, que incline la cabeza hacia adelante y que realice una deglución (de saliva ó de agua)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Acompañar el proceso deglutorio deslizando suavemente la sonda hacia adelante hasta llegar a destino (marca de la sonda a la altura de la fosa nasal) y pasa al Paso N° 23",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "Si el paciente experimenta Tos, Disnea ó Cianosis: Retirar la sonda y (luego de un breve descanso), volver a iniciar el procedimiento (en la misma ó en la otra fosa nasal) a partir del Paso N° 16",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Si se enfrenta a una obstrucción, no aplicar fuerza. Solo continuar desplazando la sonda hacia adelante con movimientos rotatorios suaves hasta sortearla. Si no la sortea: Retirar la sonda y (luego de un breve descanso), volver a iniciar el procedimiento (en la",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "misma ó en la otra fosa nasal) a partir del Paso N° 16 Confirmar la correcta ubicación del extremo distal de la sonda",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Informar al paciente la finalización del procedimiento",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Fijar la sonda a la piel con cinta adhesiva hipoalergénica",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Registrar el procedimiento",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "vp": {
+  "id": "vp",
+  "area": "pfo",
+  "titulo": "Extracción de sangre venosa",
+  "icono": "🩸",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Desinfectarse las manos.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Pedirle al paciente que se siente o se acueste (para minimizar el riesgo de desmayo).",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Utilizar guantes desechables.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Colocar la extremidad por debajo del nivel del corazón sobre una almohadilla impermeable.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Colocar el torniquete.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Desinfectar la zona de punción y dejar secar. Por razones de higiene, no volver a tocar el punto de punción.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Utilizar el pulgar de la mano libre para tensar la piel y mantener la vena en posición. Realizar la punción en un ángulo de 30° con el bisel de la aguja hacia arriba.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Venas difíc iles: pedir al paciente que cierre el puño. Golpear suavemente la vena. Las venas más adecuadas son fácilmente palpables, flexibles, fácilmente visibles y, preferiblemente, bifurca das para una fijación óptima.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Realizar la punción y aflojar el torniquete. Tirar suavemente del émbolo. Cuando utilizamos agujas de diámetro pequeño retirar el émbolo lentamente para prevenir la hemólisis. Si el flujo de sangre se detiene, interrumpir brevemente la aspiración y continuar tirando del émbolo suavemente después de una pequeña pausa. Si es necesario, reconducir la punta de la aguja o tensar nuevamente el torn iquete para resaltar la vena.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Utilizar un algodón para cubrir el punto de punción. Retirar la aguja de la vena. Presionar el algodón y pedir al paciente que lo mantenga presionado durante 5 minutos para evitar el flujo de sangre residual. Informar al paciente que no debe doblar el brazo, sino extender y mantener por encima del nivel del corazón para evitar hematomas en el punto de punción. En caso necesario, aplic ar un apósito una vez el flujo sanguíneo se ha detenido.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Descartar apropiadamente los materiales utilizados. Precaución: “Bombear” con el puño provoca un aumento de K+ y Mg2+ en el fluido sanguíneo por aumento de actividad muscular. Una constricción prol una hemoconcentración que deriva en el cambio de otros parámetros. Si bien la vena cubital es la que se utiliza con más frecuencia en la punción venosa ya que es grande, está cercana a la piel y es la menos dolorosa, en pacientes con venas difíciles, maltratadas por haber sufrido extracciones frecuentes o por haber recibido tratamientos intravenosos, obesos o niños, se utilizan otras venas de la parte posterior del brazo, las muñecas, las manos, el cuello, los tobillos o el pie. Recordar que una vez extraída la sangre sufre un proceso de coagulación que comienza espontáneamente, para evitar este proceso se utilizan distintos anticoagulantes. Los anticoagulantes deben intentar que las células sanguíneas se encuentren en el estado más parecido al fisiológico, como cuando se encuentran en el torrente sanguíneo.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "oto": {
+  "id": "oto",
+  "area": "pfo",
+  "titulo": "Otoscopía",
+  "icono": "👂",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Reunir y preparar la totalidad de los materiales necesarios para la práctica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Verificar el correcto funcionamiento del otoscopio.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Llevar los materiales al lado de la persona que se evaluará",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Saludar cordialmente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Presentarse con nombre y apellido",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Explicar (con un lenguaje claro y sencillo) el procedimiento a realizar.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Aplicarse alcohol en gel en ambas manos (palmas, dorso y pliegues interdigitales)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Seleccionar el oído menos comprometido para comenzar la evaluación",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Inspeccionar la región que se evaluará (región peri-auricular, pabellones auriculares, etc.)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Palpar la piel de la región que se evaluara (supra-auricular, retro-auricular, infra-auricular, pre-auricular)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Movilizar suavemente el pabellón auricular",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Buscar (por palpación activa) la presencia de “Puntos dolorosos regionales” (“Antral”, “de la emisaria”, “Mastoideo”, “del trago”, etc.)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "Palpar la región d el cuello a nivel occipital, retro -auricular, pre-auricular, sub-ángulo- mandibular, sub-maxilar y a lo largo de toda la cadena ganglionar latero-cervical en busca de adenopatías regionales.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "Elegir el cono adecuado para la exploración física del oído de la persona que se desea evaluar",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Tomar el otoscopio con la mano no dominante",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Colocar el cono elegido en el otoscopio imprimiéndole movimientos rotatorios en sentido de giro de la agujas del reloj hasta percibir el tope de ajuste.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Informar al paciente el comienzo del procedimiento",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Encender la fuente de luz del otoscopio",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Traccionar (con la mano no dominante) el pabellón auri cular en sentido postero -superior a fin de rectificar el Conducto Auditivo Externo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Introducir el cono del otoscopio a través del or ificio externo del Conducto Auditivo Externo con una maniobra suave a fin de no despertar dolor.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "Observar las características del Conducto Auditivo Externo: Diámetro, c olor, presencia/ausencia de descamación, secreciones, cerumen, etc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Observar la Membrana Timp ánica y describirla en relación a su ubicación/disposición, aspecto, color, movilidad, triángulo luminoso, etc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "Retirar con cuidado el otoscopio dejando de ejercer tracción sobre el pabellón auricular.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Informar al paciente acerca de la continuidad del procedimiento en el oído contralateral",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Inspeccionar la región que se evaluará (región peri-auricular, pabellones auriculares, etc.)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Palpar la piel de la región que se evaluara (supra-auricular, retro-auricular, infra-auricular, pre-auricular)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 27,
+    "texto": "Movilizar suavemente el pabellón auricular",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 28,
+    "texto": "Buscar (por palpación activa) la presencia de “Puntos dolorosos regionales”: Antral, De la emisaria, Mastoideo, del Trago, etc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 29,
+    "texto": "Palpar la región d el cuello a nivel occipital, retro -auricular, pre-auricular, sub-ángulo- mandibular, sub-maxilar y a lo largo de toda la cadena ganglionar latero-cervical en busca de adenopatías regionales.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 30,
+    "texto": "Traccionar (con la mano no dominante) el pabellón auri cular en sentido postero -superior a fin de rectificar el Conducto Auditivo Externo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 31,
+    "texto": "Introducir el cono del otoscopio a través del or ificio externo del Conducto Auditivo Externo con una maniobra suave a fin de no despertar dolor.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 32,
+    "texto": "Observar las características del Conducto Auditivo Externo: Diámetro, c olor, presencia/ausencia de descamación, secreciones, cerumen, etc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 33,
+    "texto": "Observar la Membrana Timp ánica y describirla en relación a su ubicación/disposición, aspecto, color, movilidad, triángulo luminoso, etc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 34,
+    "texto": "Retirar con cuidado el otoscopio dejando de ejercer tracción sobre el pabellón auricular.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 35,
+    "texto": "Apagar la luz del otoscopio",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 36,
+    "texto": "Informar al paciente el final del procedimiento y sus resultados",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 37,
+    "texto": "Limpiar con torundas de algodón, el ó los cono/s utilizado/s y separarlos del otoscopio para su posterior limpieza y desinfección",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 38,
+    "texto": "Registrar los resultados del procedimiento en la Historia Clínica del paciente.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "hisf": {
+  "id": "hisf",
+  "area": "pfo",
+  "titulo": "Hisopado uretral femenino",
+  "icono": "🧪",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Saludar y presentarse.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Corroborar la solicitud de hisopado uretral.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Corroborar el cumplimiento (por parte de la paciente) de las indicaciones para una correcta toma de muestra: Absstinencia sexual de al menos 24 hs, no haber realizado higiene local ni haber utilizado",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "antisépticos ni cremas locales, no haber consumido antibióticos en los últimos 7-8 días, etc. Explicar a la paciente el procedimiento que se realizará con un lenguaje claro y sencillo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Reunir la totalidad de los materiales necesarios para la práctica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Preparar la totalidad de los materiales necesarios para la práctica: Rotular la solicitud con etiquetas de la paciente, Rotular el portaobjetos en la zona esmerilada con lápiz (No utilizar bolígrafo ni",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "rotulador) Llevar los materiales al lado de la paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Lavarse las manos con técnica clínica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Colocarse manoplas o guantes",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Abrir el pack estéril que contiene el/los hisopo/s y dejarlo/s al alcance de la mano.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Abrir (con la mano no dominante) los labios de la vulva en su tercio superior y observar la presencia/ausencia de secreción espontánea. En caso de presencia de secreción espontánea: Recoger el exudado objetivado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "En caso de ausencia de secreción espontánea: Pase el punto 12 Promover la obtención de una muestra de secreción inducida: Presionar (con la mano no dominante y de una manera suave y simultánea), la región lateral (superior-inferior y/ó derecha-izquierda) de la carúncula uretral.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "En caso de no obtenerse muestra inducida, pase al punto 13 Presionar (con la mano no dominante y de una manera suave y simultanea), las caras superior e inferior de la carúncula uretral y/o sus caras laterales (derecha e izquierda) a fin de obtener la",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "apertura del meato. Tomar (con la mano dominante), 1 (uno) de los hisopos a fin de obtener muestra para tinción de Gram",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Introducir el hisopo (con maniobra suave) por el meato uretral hasta 2 cm de profundidad y rotarlo suavemente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Extender la muestra obtenida deslizando el hisopo sobre la superficie del portabjetos",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Colocar el portaobjetos en una caja de portaobjetos para su remisión",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Descartar el hisopo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Tomar (con la mano dominante), un segundo hisopo a fin de obtener nueva muestra para realizar cultivo bacteriano/gonococo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Introducir el hisopo (con maniobra suave) por el meato uretral hasta 2 cm de profundidad y rotarlo suavemente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "Colocar la torunda en medio de transporte",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Etiquetar la muestra con los datos del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "Tomar (con la mano dominante), un tercer hisopos a fin de obtener una tercera muestra para estudio semicuantitativo de micoplasmas genitales, Chlamydias y virus",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Introducir el hisopo (con maniobra suave) por el meato uretral hasta 2 cm de profundidad y rotarlo vigorosamente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Sumergir el hisopo en un vial para estudio semicuantitativo de micoplasmas genitales y suspender suavemente en el liquido",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Sumergir el hisopo en un vial con medio líquido para estudio de Chlamydia Trachomatis y virus.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 27,
+    "texto": "Cortar con tijeras la varilla sobrante de éste último vial y cerrarlo con tapón",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 28,
+    "texto": "Etiquetar los viales con los datos del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 29,
+    "texto": "Remitir las 3 muestras al laboratorio dentro de las 2 horas de obtenida la muestra.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 30,
+    "texto": "Informar al paciente el final del procedimiento y sus resultados.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "hism": {
+  "id": "hism",
+  "area": "pfo",
+  "titulo": "Hisopado uretral masculino",
+  "icono": "🧪",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Saludar y presentarse.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Corroborar la solicitud de hisopado uretral.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Corroborar el cumplimiento (por parte del paciente) de las indicaciones para una correcta toma de muestra: Absstinencia sexual de al menos 24 hs, no haber realizado higiene local ni haber utilizado",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "antisépticos ni cremas locales, no haber consumido antibióticos en los últimos 7-8 días, etc. Explicar al paciente el procedimiento que se realizará con un lenguaje claro y sencillo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Reunir los materiales necesarios para la práctica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Preparar la totalidad de los materiales: Rotular la solicitud con etiquetas del paciente, Rotular el portaobjetos en la zona esmerilada con lápiz (No utilizar bolígrafo ni rotulador)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Llevar los materiales al lado del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Lavarse las manos con técnica clínica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Colocarse manoplas o guantes",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Abrir el pack que contiene el/los hisopo/s y dejarlo/s al alcance de la mano.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Retraer prepucio con la mano no dominante y observar la presencia/ausencia de secreción espontánea. En caso de presencia de secreción espontánea: Recoger el exudado objetivado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "En caso de ausencia de secreción espontánea: Pase el punto 12 Promover la obtención de una muestra de secreción inducida: Presionar (con la mano no dominante y de una manera suave y simultanea), las caras superior e inferior del glande y/o sus caras laterales (derecha e izquierda).",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "En caso de no obtenerse muestra inducida, pase al punto 13 Presionar (con la mano no dominante y de una manera suave y simultanea), las caras superior e inferior del glande y/o sus caras laterales (derecha e izquierda) a fin de obtener la apertura del meato",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "uretral Tomar (con la mano dominante), 1 (uno) de los hisopos a fin de obtener muestra para tinción de Gram",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Introducir el hisopo (con maniobra suave) por el meato uretral hasta 2 cm de profundidad y rotarlo suavemente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Extender la muestra obtenida deslizando el hisopo sobre la superficie del portabjetos",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Colocar el portaobjetos en una caja de portaobjetos para su remisión",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Descartar el hisopo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Tomar (con la mano dominante), un segundo hisopo a fin de obtener nueva muestra para realizar cultivo bacteriano/gonococo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Introducir el hisopo (con maniobra suave) por el meato uretral hasta 2 cm de profundidad y rotarlo suavemente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "Colocar la torunda en medio de transporte para su remisión",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Etiquetar la muestra con los datos del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "Tomar (con la mano dominante), un tercer hisopos a fin de obtener una tercera muestra para estudio de micoplasmas genitales, Chlamydias y virus",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Introducir el hisopo (con maniobra suave) por el meato uretral hasta 2 cm de profundidad y rotarlo vigorosamente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Sumergir el hisopo en un vial para estudio semicuantitativo de micoplasmas genitales y suspender suavemente en el liquido",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Sumergir el hisopo en un vial con medio líquido para estudio de Chlamydia Trachomatis y virus.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 27,
+    "texto": "Cortar con tijeras la varilla sobrante de éste último vial y cerrarlo con tapón",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 28,
+    "texto": "Etiquetar los viales con los datos del paciente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 29,
+    "texto": "Remitir al laboratorio las 3 muestras obtenidas dentro de las 2 horas de su recoleccion.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 30,
+    "texto": "Informar al paciente el final del procedimiento.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "hisfa": {
+  "id": "hisfa",
+  "area": "pfo",
+  "titulo": "Hisopado de fauces",
+  "icono": "🧪",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Saludar y presentarse.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Corroborar la solicitud de hisopado y el cumplimiento (por parte del paciente) de las indicaciones para una correcta toma de muestra: Concurrir en ayunas y con cepillado de dientes, no haber consumido antibióticos en los últimos 7-8 días, no haber realizado gargarismos ni haber utilizado",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "antisépticos locales, etc.). Explicar al paciente el procedimiento que se realizará con un lenguaje claro y sencillo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Reunir y preparar la totalidad de los materiales necesarios para la práctica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Llevar los materiales al lado del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Lavarse las manos con técnica clínica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Colocarse manoplas o guantes",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Abrir el pack estéril que contiene el/los hisopo/s y dejarlo/s al alcance de la mano.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Solicitar al paciente que abra la boca y que diga un “Ahhhh” prolongado (ello permite ascender el velo del paladar para una mejor visualización y procedimiento; como así también, permite",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "amortiguar el Reflejo Nauseoso desencadenado por el estímulo mecánico local) Tomar un bajalenguas con la mano no dominante por uno de sus extremos.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Apoyar (de plano) la cara inferior del extremo libre del bajalenguas sobre la superficie de la lengua.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Deprimir suavemente la lengua con el bajalenguas",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "Inspeccionar la faringe identificando estructuras anatómicas y lesiones locales. La inspección debe realizarse en un ambiente cálido, con buena iluminación y con el paciente en una posición cómoda. Deberán evaluarse las estructuras anatómicas presentes y describir los hallazgos observados.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "La misma conducta deberá adoptarse con las lesiones faríngeas constatadas: eritemas, pápulas, vesículas, pústulas, membranas, etc. Tomar el/los hisopo/s (con la mano dominante) por su región medial sin contaminar sus extremos",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Introducir el extremo libre del hisopo hasta la región donde se ubican las lesiones faríngeas evitando contactar con estructuras anatómicas adyacentes que pudieren contaminar la muestra.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Tomar la muestra de todas las regiones lesionales con movimientos suaves de barrido, de atrás hacia adelante y de arriba hacia abajo. No omitir dicha conducta sobre la superficie amigdalina ó sobre su fosa correspondiente, sobre la",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "pared posterior de la faringe, etc. Retirar el/los hisopo/s cuidando no tocar las paredes laterales de la orofaringe, la úvula, la lengua, encías, dientes, cara interna de las mejillas, etc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Para los casos de Cultivo de Fauces: Colocar (de manera inmediata) el/los hisopo/s dentro de tubos de ensayo estériles para su posterior transporte al laboratorio.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Para los casos de Test rápidos: Realizar la práctica de manera inmediata. Informar al paciente el final del procedimiento y sus resultados.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "hisnf": {
+  "id": "hisnf",
+  "area": "pfo",
+  "titulo": "Hisopado nasofaríngeo",
+  "icono": "🧪",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Lavarse las manos con técnica clínica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Colocarse los guantes de látex",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Colocarse el Equipo de Protección Personal (EPP) correctamente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Saludar y presentarse.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Completar la Ficha Clínico-Epidemiológica",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Explicar al paciente el procedimiento que se realizará con un lenguaje claro y sencillo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Reunir y preparar la totalidad de los materiales necesarios para la práctica.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Llevar los materiales al lado del paciente.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Colocarse un segundo par de guantes",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Tomar un tubo de centrifuga con la mano no-dominante",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Retirar (con la mano dominante) el tapón del tubo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Colocar 2 cc de Solución Fisiológica estéril dentro del tubo de centrifuga",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 13,
+    "texto": "Tapar nuevamente el tubo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 14,
+    "texto": "Rotularlo correctamente con lápiz indeleble.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 15,
+    "texto": "Abrir el pack estéril que contiene el/los hisopo/s y dejarlo/s al alcance de la mano.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 16,
+    "texto": "Solicitar al paciente que abra la boca y que diga un “Ahhhh” prolongado (ello permite ascender el velo del paladar para una mejor visualización y procedimiento; como así también, permite amortiguar el Reflejo Nauseoso desencadenado por el estímulo mecánico local)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 17,
+    "texto": "Tomar un bajalenguas con la mano no dominante por uno de sus extremos teniendo la precaución de no contaminar el otro. El uso de bajalenguas para la práctica de hisopado naso-faríngeo es opcional. Para los casos en los que se elige el uso de bajalenguas: Apoyar (de plano) la cara inferior del extremo libre del bajalenguas sobre la superficie de la lengua. Deprimir suavemente la lengua con el bajalenguas Para los casos donde se opta por no usar bajalenguas: Continuar con el Paso Nº 18",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 18,
+    "texto": "Tomar el hisopo (con la mano dominante) por su región medio -distal sin contaminar el extremo de dacron",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 19,
+    "texto": "Introducir el extremo libre del hisopo hasta la pared posterior de la faringe evitando contactar con estructuras anatómicas adyacentes que pudieren diluir la muestra con saliva.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 20,
+    "texto": "Tomar la muestra de exudado f aríngeo imprimiéndole al hisopo, movimientos suaves de barrido, de atrás hacia adelante y de arriba hacia abajo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 21,
+    "texto": "Retirar el hisopo cuidando no tocar las paredes laterales de la orofaringe, la úvula, la lengua, encías, dientes, cara interna de las mejillas, etc.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 22,
+    "texto": "Destapar el tubo de ensayo estéril",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 23,
+    "texto": "Colocar (de manera inmediata) el hisopo dentro del tubo de ensayo estéril quebrando el plástico del cuerpo del hisopo de manera que permita taparlo nuevamente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 24,
+    "texto": "Tapar el tubo de ensayo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 25,
+    "texto": "Informar al paciente la finalización de la toma de muestra faríngea y la continuidad del procedimiento ahora a nivel de las fosas nasales",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 26,
+    "texto": "Tomar otro hisopo estéril",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 27,
+    "texto": "Solicitarle al paciente que incline la cabeza levemente hacia atrás y que permanezca inmóvil a pesar de que pueda sentir cierto nivel de incomodidad. Puede resultar útil pedirle al paciente que ante cualquier incomodidad levante la mano pero que no mueva su cabeza",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 28,
+    "texto": "Introducir suavemente el hisopo por la narina derecha y de forma paralela al p iso de la nariz hasta alcanzar la naso-faringe (9 a 10 cm aproximadamente)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 29,
+    "texto": "Tomar la muestra de exudado aplicándole al hisopo 5 a 6 movimientos rotatorios suaves",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 30,
+    "texto": "Introducir suavemente el mismo hisopo utilizado en el paso anterior pero por la narina izquierda (siempre de forma paralela al piso de la nariz hasta alcanzar la naso-faringe)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 31,
+    "texto": "Tomar la muestra de exudado aplicándole al hisopo 5 a 6 movimientos rotatorios suaves",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 32,
+    "texto": "Destapar el tubo de ensayo que contiene la muestra de hisopado faríngeo",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 33,
+    "texto": "Colocar el segundo hisopo dentro del tubo de ensayo quebrando el plástico de su cuerpo de manera que permita taparlo nuevamente",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 34,
+    "texto": "Tapar nuevamente el tubo de ensayo (con su tapa a rosca)",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 35,
+    "texto": "Con la mano libre, tomar (desde la muñeca) el guante de la mano que sostiene el tubo y “darlo vuelta” envolviendo al mismo, para luego hacerle un nudo (como globo de carnaval).",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 36,
+    "texto": "Colocar la muestra en la gradilla correspondiente dentro del refrigerador",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 37,
+    "texto": "Informar al paciente el final del procedimiento",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "ecgn": {
+  "id": "ecgn",
+  "area": "pfo",
+  "titulo": "Lectura de un ECG normal",
+  "icono": "📈",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Observar el trazado electrocardiográfico con detenimiento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Identificar y describir la Onda “P” 2.1.- Describir su forma y su significado electrofisiológico (parcial y total). 2.2.- Calcular su duración. 2.3.- Calcular su amplitud e identificar el voltaje alcanzado. 2.4.- Identificar (si las hubiere) variantes electro-fisiológicas de la Onda.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Identificar y describir el Complejo “QRS” 3.1.- Identificar la Onda “Q” y describir su forma. 3.2.- Identificar la Onda “R” y describir su forma. 3.3.- Identificar al Onda “S” y describir su forma. 3.4.- Describir las características morfológicas del complejo resultante. 3.5.- Calcular la duración total del Complejo “QRS”. 3.6.- Calcular la amplitud total del complejo y definirlo como Positivo ó Negativo 3.7.- Describir el significado electro-fisiológico (individual y total) del Complejo “QRS” 3.8.- Identificar (si las hubiere), variantes electrofisiológicas del complejo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Identificar y describir la Onda “T” 4.1.- Describir su forma y su significado electrofisiológico (parcial y total). 4.2.- Calcular su duración. 4.3.- Calcular su amplitud e identificar el voltaje alcanzado. 4.4.- Identificar (si las hubiere) variantes electro-fisiológicas de la Onda.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Identificar y describir los “Segmentos” electrocardiográficos. 5.1.- Identificar y describir el Segmento “PR”. 5.1.1.- Describir sus características morfológicas: iso-electricidad, extensión, etc. 5.1.2.- Describir su significado electrofisiológico. 5.1.3.- Identificar (si las hubiere) variantes electro-fisiológicas del Segmento. 5.2.- Identificar y describir el Segmento “ST”. 5.2.1.- Describir sus características morfológicas: iso-electricidad, extensión, etc. 5.2.2.- Describir su significado electrofisiológico. 5.2.3.- Identificar (si las hubiere) variantes electro-fisiológicas del Segmento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Reconocer la existencia de “Intervalos” electrocardiográficos y su significado. 6.1.- Identificar y describir el Intervalo “PR”. 6.1.1.- Describir sus características. 6.1.2.- Medir su extensión. 6.1.3.- Describir su significado electrofisiológico. 6.1.4.- Identificar (si las hubiere), variantes electro-fisiológicas del Intervalo. 6.2.- Identificar y describir el Intervalo “RR”. 6.2.1.- Describir sus características. 6.2.2.- Medir su extensión. 6.2.3.- Describir su significado electrofisiológico. 6.2.4.- Identificar (si las hubiere), variantes electro-fisiológicas del Intervalo. 6.3.- Identificar y describir el Intervalo “QT”. 6.3.1.- Describir sus características. 6.3.2.- Medir su extensión. 6.3.3.- Describir su significado electrofisiológico. 6.3.4.- Calcular QT corregido por frecuencia. 6.3.5.- Identificar (si las hubiere), variantes electro-fisiológicas del Intervalo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Determinar el Ritmo (sinusal o no sinusal) del trazado electrocardiográfico.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Calcular la Frecuencia del trazado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Determinar el eje del impulso eléctrico cardíaco.",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ },
+ "ecgsca": {
+  "id": "ecgsca",
+  "area": "pfo",
+  "titulo": "Lectura de un ECG en síndrome coronario agudo",
+  "icono": "📈",
+  "umbral": 60,
+  "criterios_texto": "",
+  "pasos": [
+   {
+    "n": 1,
+    "texto": "Observar el trazado electrocardiográfico con detenimiento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 2,
+    "texto": "Identificar y describir la Onda “P” 2.1.- Describir su forma y su significado electrofisiológico (parcial y total). 2.2.- Calcular su duración. 2.3.- Calcular su amplitud e identificar el voltaje alcanzado. 2.4.- Identificar (si las hubiere) variantes electro-fisiológicas de la Onda.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 3,
+    "texto": "Identificar y describir el Complejo “QRS” 3.1.- Identificar la Onda “Q” y describir su forma. 3.2.- Identificar la Onda “R” y describir su forma. 3.3.- Identificar al Onda “S” y describir su forma. 3.4.- Describir las características morfológicas del complejo resultante. 3.5.- Calcular la duración total del Complejo “QRS”. 3.6.- Calcular la amplitud total del complejo y definirlo como Positivo ó Negativo 3.7.- Describir el significado electro-fisiológico (individual y total) del Complejo “QRS” 3.8.- Identificar (si las hubiere), variantes electrofisiológicas del complejo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 4,
+    "texto": "Identificar y describir la Onda “T” 4.1.- Describir su forma y su significado electrofisiológico (parcial y total). 4.2.- Calcular su duración. 4.3.- Calcular su amplitud e identificar el voltaje alcanzado. 4.4.- Identificar (si las hubiere) variantes electro-fisiológicas de la Onda.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 5,
+    "texto": "Identificar y describir los “Segmentos” electrocardiográficos. 5.1.- Identificar y describir el Segmento “PR”. 5.1.1.- Describir sus características morfológicas: iso-electricidad, extensión, etc. 5.1.2.- Describir su significado electrofisiológico. 5.1.3.- Identificar (si las hubiere) variantes electro-fisiológicas del Segmento. 5.2.- Identificar y describir el Segmento “ST”. 5.2.1.- Describir sus características morfológicas: iso-electricidad, extensión, etc. 5.2.2.- Describir su significado electrofisiológico. 5.2.3.- Identificar (si las hubiere) variantes electro-fisiológicas del Segmento.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 6,
+    "texto": "Reconocer la existencia de “Intervalos” electrocardiográficos y su significado. 6.1.- Identificar y describir el Intervalo “PR”. 6.1.1.- Describir sus características. 6.1.2.- Medir su extensión. 6.1.3.- Describir su significado electrofisiológico. 6.1.4.- Identificar (si las hubiere), variantes electro-fisiológicas del Intervalo. 6.2.- Identificar y describir el Intervalo “RR”. 6.2.1.- Describir sus características. 6.2.2.- Medir su extensión. 6.2.3.- Describir su significado electrofisiológico. 6.2.4.- Identificar (si las hubiere), variantes electro-fisiológicas del Intervalo. 6.3.- Identificar y describir el Intervalo “QT”. 6.3.1.- Describir sus características. 6.3.2.- Medir su extensión. 6.3.3.- Describir su significado electrofisiológico. 6.3.4.- Calcular QT corregido por frecuencia. 6.3.5.- Identificar (si las hubiere), variantes electro-fisiológicas del Intervalo.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 7,
+    "texto": "Determinar el Ritmo (sinusal o no sinusal) del trazado electrocardiográfico.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 8,
+    "texto": "Calcular la Frecuencia del trazado.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 9,
+    "texto": "Determinar el eje del impulso eléctrico cardíaco.",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 10,
+    "texto": "Reconocer la presencia-ausencia de signos de isquemia aguda",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 11,
+    "texto": "Reconocer la presencia-ausencia de signos de isquemia antigua",
+    "fase": "",
+    "critico": false
+   },
+   {
+    "n": 12,
+    "texto": "Ante signos isquémicos: Identificar las caras comprometidas según derivaciones",
+    "fase": "",
+    "critico": false
+   }
+  ]
+ }
+}

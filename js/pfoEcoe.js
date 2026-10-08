@@ -22,9 +22,10 @@
   const tratamiento = () => { try { const v = localStorage.getItem(LS_TRAT); return v === 'Doctora' || v === 'Doctor' ? v : ''; } catch (_) { return ''; } };
   const nombreUsuario = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return String((u && (u.fullname || u.username)) || '').trim(); } catch (_) { return ''; } };
   // Acceso RESTRINGIDO: por ahora solo administradores (rol del perfil verificado contra el servidor por NikaAcceso).
+  const tieneAcceso = () => esAdmin() || !!(window.NikaAcceso && NikaAcceso.tieneAccesoCompleto && NikaAcceso.tieneAccesoCompleto());
   const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
   function vistaRestringida() {
-    main.innerHTML = '<div class="pfo-trans"><div class="ic">🔒</div><h2>Acceso restringido</h2><p>Esta sección todavía no está disponible.</p><a class="pfo-btn" href="sala_estudio.html">Volver a la Sala de Estudio</a></div>';
+    main.innerHTML = '<div class="pfo-trans"><div class="ic">🔒</div><h2>ECOE FINAL · exclusivo <span class="pfo-plus-t">NikaMed+</span></h2><p>El examen de egreso con una estación de cada especialidad, modo práctica y revisión detallada está disponible para cuentas NikaMed+.</p><a class="pfo-btn plus" href="nikamed-plus.html">💜 Ver planes de NikaMed+</a> <a class="pfo-btn sec" href="sala_estudio.html">Volver a la Sala de Estudio</a></div>';
   }
 
   // ------------------------------------------------------------------ llamada a la IA (misma Edge Function que el resto de los simuladores)
@@ -159,68 +160,121 @@ ${filas}
   }
 
   // ------------------------------------------------------------------ vistas
+  // ---- ventanas
+  function cerrarModal() { const ov = $('#pfo-modal'); if (!ov) return; document.removeEventListener('keydown', ov._esc); document.body.style.overflow = ''; ov.classList.add('sale'); setTimeout(() => ov.remove(), 220); }
+  function modal(html, cls) {
+    cerrarModal(); const ov = document.createElement('div'); ov.className = 'pfo-modal'; ov.id = 'pfo-modal';
+    ov.innerHTML = `<div class="pfo-modal-c ${cls || ''}" role="dialog" aria-modal="true"><button type="button" class="pfo-modal-x" aria-label="Cerrar">×</button>${html}</div>`;
+    ov.addEventListener('click', (e) => { if (e.target === ov || e.target.closest('.pfo-modal-x') || e.target.closest('[data-cerrar]')) cerrarModal(); });
+    ov._esc = (e) => { if (e.key === 'Escape') cerrarModal(); }; document.addEventListener('keydown', ov._esc);
+    document.body.appendChild(ov); document.body.style.overflow = 'hidden'; return ov;
+  }
+  const tema = (u) => { const m = String(u).match(/^(.*?)(?::|\s—\s)(.*)$/); return m ? `<b>${esc(m[1].trim())}</b> ${esc(m[2].trim())}` : esc(u); };
+  const lista = (a) => (a && a.length ? `<ul>${a.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '');
+  const acord = (ico, titulo, cuerpo, abierto) => `<div class="pfo-acord pfo-rv-w ${abierto ? 'abierto' : ''}"><button type="button" class="pfo-acord-h" aria-expanded="${!!abierto}"><span class="ic">${ico}</span><span class="t">${esc(titulo)}</span><i class="chev" aria-hidden="true"></i></button><div class="pfo-acord-b"><div class="in">${cuerpo}</div></div></div>`;
+
+  // "¿Cómo es el ECOE FINAL real?": reglamento y funcionamiento del examen oficial
+  function modalReal() {
+    const sec = (CFG.secciones || []); const q = sec.find((x) => x.titulo === 'Qué es el ECOE FINAL'), r = sec.find((x) => x.titulo === 'Para rendir el examen real');
+    modal(`<div class="pfo-modal-h"><span class="ic">📖</span><div><h2>¿Cómo es el ECOE FINAL real?</h2><small>Así funciona el examen oficial de egreso de la Práctica Final Obligatoria</small></div></div>
+      <div class="pfo-modal-b">
+        <div class="pfo-bloque"><h3>🏛️ Qué es</h3>${(q ? q.parrafos : []).map((x) => `<p>${esc(x)}</p>`).join('')}</div>
+        <div class="pfo-bloque"><h3>📅 Los cuatro llamados del año</h3><div class="pfo-mes">${['Marzo', 'Junio', 'Septiembre', 'Diciembre'].map((m, k) => `<span style="--d:${k}">${m}</span>`).join('')}</div><p>Quien no aprueba se presenta al llamado siguiente.</p></div>
+        <div class="pfo-bloque"><h3>✅ Para poder rendirlo</h3>${lista(r && r.items)}</div>
+        <div class="pfo-bloque"><h3>🧭 Después del ECOE</h3><div class="pfo-camino"><span>🩺 ECOE aprobado</span><i>→</i><span>🔬 Defensa del Trabajo de Inicio a la Investigación</span><i>→</i><span>🎓 Título de Médico/a</span></div><p>La defensa es pública, ante un comité de tres integrantes, y se evalúa con rúbrica.</p></div>
+        <div class="pfo-bloque nika"><h3>✨ Y en Nika</h3><p>Este simulador reproduce el formato del examen oficial: ${CFG.estaciones.length} estaciones clínicas, un paciente estandarizado, rúbrica por estación y la exigencia de superarlas todas. ${esc(CFG.textos.aprobacion)}</p></div>
+      </div>`, 'ancho');
+  }
+  // "Antes de rendir": cómo es, cómo corrige la IA y las reglas anti-trampa (las mismas de los demás exámenes), con aceptación
+  function modalAntes() {
+    const nTrat = tratamiento(); const rangos = CFG.estaciones.map(rangoMin); const minT = rangos.reduce((a, r) => a + r[0], 0), maxT = rangos.reduce((a, r) => a + r[1], 0);
+    const ov = modal(`<div class="pfo-modal-h"><span class="ic">🏁</span><div><h2>Antes de rendir el ECOE FINAL</h2><small>Leé con calma: se aplica desde el momento en que empezás</small></div></div>
+      <div class="pfo-modal-b">
+        <div class="pfo-bloque"><h3>🧭 Cómo es</h3>${lista([`${CFG.estaciones.length} estaciones seguidas, una por especialidad, con un caso sorteado al azar (${minT}–${maxT} minutos en total, más la parte práctica).`, 'Es secuencial: no se puede pausar ni volver a una estación anterior.', 'Cada estación tiene tiempo límite y un máximo de intervenciones.', 'Se aprueba con 6 o más en cada estación.'])}</div>
+        <div class="pfo-bloque ia"><h3>🤖 Cómo corrige la IA</h3>${lista(['La IA hace de paciente y de evaluador silencioso, y califica cada ítem de la rúbrica solo con lo que escribiste.', 'La nota y la revisión detallada (qué hiciste, qué faltó y la conducta modelo) aparecen recién al terminar todo el circuito; mientras tanto se corrige en segundo plano.', 'Es una herramienta de práctica: puede equivocarse y no reemplaza a un tribunal humano.'])}</div>
+        <div class="pfo-bloque machete"><h3>👀 Reglas del examen (integridad)</h3><ul>
+          <li><b>No salgas de la pantalla:</b> cambiar de pestaña, minimizar o pasar a otra aplicación queda registrado.</li>
+          <li><b>No copies ni pegues:</b> el clic derecho, copiar, cortar, pegar y las herramientas de inspección (F12, Ctrl+U, Ctrl+Shift+I) están bloqueados y también cuentan como incidencia.</li>
+          <li><b>Nada de capturas:</b> sacar una captura de pantalla o imprimir el examen también dispara la advertencia.</li>
+          <li><b>Advertencia:</b> a la 3.ª incidencia aparece un aviso amarillo. Si después de eso reincidís, <b>el examen se entrega solo</b> y queda <b>en revisión</b>.</li>
+          <li><b>Escrito:</b> podés tipear, pero no pegar texto copiado de otro lado.</li>
+          <li>Al terminar te explicamos qué detectó el sistema. <b>Sé honesto:</b> este simulacro es para que midas tu nivel real.</li></ul></div>
+        <div class="pfo-bloque"><h3>🎓 Al aprobar te felicitamos como</h3><div class="pfo-trat" role="radiogroup" aria-label="Tratamiento"><button type="button" role="radio" data-t="Doctora" class="${nTrat === 'Doctora' ? 'on' : ''}" aria-checked="${nTrat === 'Doctora'}">👩‍⚕️ Doctora</button><button type="button" role="radio" data-t="Doctor" class="${nTrat === 'Doctor' ? 'on' : ''}" aria-checked="${nTrat === 'Doctor'}">👨‍⚕️ Doctor</button></div></div>
+        <label class="pfo-ok"><input type="checkbox" id="pfo-acepto"> <span>Leí las reglas y me comprometo a rendir con honestidad.</span></label>
+      </div>
+      <div class="pfo-modal-f"><button type="button" class="pfo-btn sec" data-cerrar>Cancelar</button><button type="button" class="pfo-btn pulso" id="pfo-comenzar" disabled>Acepto y comenzar</button></div>`, 'ancho');
+    const chk = $('#pfo-acepto', ov), go = $('#pfo-comenzar', ov);
+    const refrescar = () => { go.disabled = !(chk.checked && tratamiento()); go.title = !tratamiento() ? 'Elegí Doctora o Doctor' : ''; };
+    chk.addEventListener('change', refrescar);
+    ov.querySelectorAll('.pfo-trat button').forEach((btn) => btn.addEventListener('click', () => { try { localStorage.setItem(LS_TRAT, btn.dataset.t); } catch (_) {} ov.querySelectorAll('.pfo-trat button').forEach((x) => { const on = x === btn; x.classList.toggle('on', on); x.setAttribute('aria-checked', String(on)); }); refrescar(); }));
+    go.addEventListener('click', () => { cerrarModal(); setTimeout(nuevoExamen, 240); });
+  }
+  // Modo práctica: elegir especialidades (y el caso exacto, si se quiere), con o sin reloj
+  function modalPractica() {
+    const casosDe = (e) => (e.casos_oficiales || []).filter((id) => CASOS[id]).sort((a, b) => CASOS[a].nombre.localeCompare(CASOS[b].nombre));
+    const ov = modal(`<div class="pfo-modal-h"><span class="ic">🎯</span><div><h2>Armá tu práctica</h2><small>Elegí una o varias especialidades: rendís solo esas estaciones</small></div></div>
+      <div class="pfo-modal-b">
+        <div class="pfo-pr-top"><button type="button" class="pfo-chipb" id="pr-todas">Todas</button><button type="button" class="pfo-chipb" id="pr-ninguna">Ninguna</button><label class="pfo-sw"><input type="checkbox" id="pr-reloj" checked><i></i><span>⏱️ Con reloj</span></label></div>
+        <div class="pfo-pr-g">${CFG.estaciones.map((e, i) => `<div class="pfo-pr-t" data-i="${i}" style="--d:${i}"><button type="button" class="pfo-pr-sel" aria-pressed="false"><span class="ic">${e.icono}</span><span class="n"><b>${esc(e.nombre)}</b><small>${casosDe(e).length} casos</small></span><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+          <div class="pfo-pr-caso"><button type="button" class="pfo-pr-cb" data-i="${i}"><span class="v">🎲 Caso al azar</span><i class="chev"></i></button><div class="pfo-pr-lista"><div class="in"><button type="button" class="op on" data-v="">🎲 Caso al azar</button>${casosDe(e).map((id) => `<button type="button" class="op" data-v="${id}">${esc(CASOS[id].nombre)}</button>`).join('')}</div></div></div></div>`).join('')}</div>
+      </div>
+      <div class="pfo-modal-f"><span class="pfo-pr-res" id="pr-res">Elegí al menos una especialidad</span><button type="button" class="pfo-btn pulso" id="pr-go" disabled>Comenzar práctica</button></div>`, 'ancho');
+    const sel = {};   // i -> casoId ('' = al azar)
+    const refrescar = () => { const n = Object.keys(sel).length; $('#pr-go', ov).disabled = !n; $('#pr-res', ov).textContent = n ? `${n} ${n === 1 ? 'especialidad elegida' : 'especialidades elegidas'}` : 'Elegí al menos una especialidad'; };
+    const marcar = (t, on) => { const i = t.dataset.i; t.classList.toggle('on', on); t.querySelector('.pfo-pr-sel').setAttribute('aria-pressed', String(on)); if (on) { if (!(i in sel)) sel[i] = ''; } else { delete sel[i]; t.classList.remove('abierto'); } };
+    ov.querySelectorAll('.pfo-pr-t').forEach((t) => {
+      t.querySelector('.pfo-pr-sel').addEventListener('click', () => { marcar(t, !t.classList.contains('on')); refrescar(); });
+      t.querySelector('.pfo-pr-cb').addEventListener('click', () => { if (!t.classList.contains('on')) marcar(t, true); ov.querySelectorAll('.pfo-pr-t.abierto').forEach((x) => { if (x !== t) x.classList.remove('abierto'); }); t.classList.toggle('abierto'); refrescar(); });
+      t.querySelectorAll('.op').forEach((op) => op.addEventListener('click', () => { sel[t.dataset.i] = op.dataset.v; t.querySelectorAll('.op').forEach((x) => x.classList.toggle('on', x === op)); t.querySelector('.pfo-pr-cb .v').textContent = op.dataset.v ? '📌 ' + CASOS[op.dataset.v].nombre : '🎲 Caso al azar'; t.classList.remove('abierto'); }));
+    });
+    $('#pr-todas', ov).addEventListener('click', () => { ov.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, true)); refrescar(); });
+    $('#pr-ninguna', ov).addEventListener('click', () => { ov.querySelectorAll('.pfo-pr-t').forEach((t) => marcar(t, false)); refrescar(); });
+    $('#pr-go', ov).addEventListener('click', () => { const r = Object.keys(sel).map(Number).sort((a, b) => a - b).map((i) => ({ ref: i, casoId: sel[i] || null })); const rl = $('#pr-reloj', ov).checked; cerrarModal(); setTimeout(() => nuevaPractica(r, rl), 240); });
+  }
+
   function vistaIntro() {
     const T = CFG.textos, g = leerGuardado(), h = hist(); const nCasos = Object.keys(CASOS).length;
     const rangos = CFG.estaciones.map(rangoMin); const minT = rangos.reduce((a, r) => a + r[0], 0), maxT = rangos.reduce((a, r) => a + r[1], 0);
-    const nTrat = tratamiento();
     const sub = (t) => String(t).replace(/\{n_casos\}/g, nCasos);
+    const simulador = (CFG.secciones || []).filter((x) => x.titulo !== 'Qué es el ECOE FINAL' && x.titulo !== 'Para rendir el examen real');
+    const tile = (x) => acord(x.ico, x.titulo, `${(x.parrafos || []).map((p) => `<p>${esc(sub(p))}</p>`).join('')}${lista((x.items || []).map(sub))}${x.nota ? `<p class="nota">${esc(x.nota)}</p>` : ''}`);
     main.innerHTML = `
       <section class="pfo-hero">
-        <div class="pfo-hero-deco" aria-hidden="true"><i style="left:6%;top:14%;font-size:2.4rem;--t:7s">🎓</i><i style="right:9%;top:10%;font-size:2rem;--t:9s;--w:-2s">🩺</i><i style="right:24%;bottom:20%;font-size:2.2rem;--t:8s;--w:-4s">📜</i><i style="left:30%;bottom:14%;font-size:1.8rem;--t:10s;--w:-1s">🥼</i></div>
+        <div class="pfo-hero-deco" aria-hidden="true"><i style="left:5%;top:16%;font-size:1.8rem;--t:7s">🎓</i><i style="right:7%;top:12%;font-size:1.6rem;--t:9s;--w:-2s">🩺</i><i style="right:26%;bottom:22%;font-size:1.5rem;--t:8s;--w:-4s">📜</i></div>
         <svg class="pfo-ecg" viewBox="0 0 900 56" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 H120 l12 -4 l10 4 H230 l8 6 l12 -34 l14 44 l10 -16 H380 l10 -5 l12 5 H520 l8 6 l12 -34 l14 44 l10 -16 H680 l10 -5 l12 5 H900"/></svg>
-        <span class="pfo-chip">🎓 Práctica Final Obligatoria · Acceso de administrador</span>
-        <h1>ECOE <em>FINAL</em><br>${esc(CFG.subtitulo)}</h1>
-        <p>${esc(T.intro)}</p>
-        <p class="mot">${esc(T.motivacion)}</p>
-        <div class="pfo-hero-stats"><span>🧭 ${CFG.estaciones.length} estaciones</span><span>🎲 ${nCasos} casos en el banco</span><span>⏱️ ${minT}–${maxT} min</span><span>📋 Rúbrica de 100 puntos</span><span>✅ 6 o más en cada una</span></div>
+        <span class="pfo-chip plus">💜 Práctica Final Obligatoria · NikaMed+</span>
+        <h1>ECOE <em>FINAL</em></h1>
+        <p class="sub">${esc(CFG.subtitulo)}</p>
+        <div class="pfo-hero-stats"><span>🧭 ${CFG.estaciones.length} estaciones</span><span>🎲 ${nCasos} casos</span><span>⏱️ ${minT}–${maxT} min</span><span>✅ 6 o más en cada una</span></div>
       </section>
-      <section class="pfo-sec"><h2>🧭 Cómo funciona</h2><div class="pfo-pasos">${T.como_funciona.map((x, i) => `<div class="pfo-paso pfo-rv-w" style="--d:${i}">${esc(x)}</div>`).join('')}</div></section>
-      <section class="pfo-sec"><h2>📖 Todo lo que tenés que saber</h2><div class="pfo-info">${(CFG.secciones || []).map((s, i) => `<article class="pfo-info-c pfo-rv-w" style="--d:${i % 4}"><h3><span class="ic">${s.ico}</span>${esc(s.titulo)}</h3>${(s.parrafos || []).map((p) => `<p>${esc(sub(p))}</p>`).join('')}${s.items ? `<ul>${s.items.map((x) => `<li>${esc(sub(x))}</li>`).join('')}</ul>` : ''}${s.nota ? `<p class="nota">${esc(s.nota)}</p>` : ''}</article>`).join('')}</div></section>
-      <section class="pfo-sec"><h2>🏥 Estaciones del circuito</h2><div class="pfo-est">${CFG.estaciones.map((e, i) => `<div class="pfo-est-c pfo-rv-w" style="--d:${i % 4}"><span class="n">${txtRango(rangos[i])}</span><div class="ic">${e.icono}</div><h3>${esc(e.nombre)}</h3><p>${esc(e.descripcion)}</p></div>`).join('')}</div></section>
-      <section class="pfo-sec"><h2>📜 Reglas del examen</h2><ul class="pfo-reglas pfo-rv-w">${T.reglas.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-        <div class="pfo-aviso apr pfo-rv-w">✅ ${esc(T.aprobacion)}</div>
-        ${T.contexto ? `<div class="pfo-aviso inf pfo-rv-w">🏛️ ${esc(T.contexto)}</div>` : ''}
-        ${CFG.borrador_hasta_rubrica ? `<div class="pfo-aviso bor">📝 ${esc(CFG.nota_rubrica)}</div>` : ''}</section>
-      ${h.length ? `<section class="pfo-sec"><h2>🗂️ Tus intentos</h2><div class="pfo-hist">${h.slice(-5).reverse().map((x) => `<div class="pfo-hist-i"><span>${esc(x.fecha)}</span><span>Nota global <b class="${x.aprobado ? 'ok' : 'mal'}">${fmtNota(x.global)}</b> · ${x.aprobado ? 'Aprobado' : x.revision ? 'En revisión' : 'A reforzar'}</span></div>`).join('')}</div></section>` : ''}
-      ${g ? '' : `<section class="pfo-sec" id="pfo-prac"><h2>🎯 Modo práctica</h2>
-        <p style="color:var(--pf-mut);font-size:.88rem;line-height:1.55;margin:0 0 12px">Practicá con las mismas reglas del examen pero a tu medida: elegí una o varias especialidades (y, si querés, el caso exacto), con o sin reloj. Al terminar todas las estaciones ves la nota, la rúbrica, en qué te equivocaste y cómo sería la resolución modelo. No cuenta como intento del examen.</p>
-        <div class="pfo-pr-acc"><button type="button" class="pfo-btn sec" id="pfo-pr-todas">Todas las áreas</button><button type="button" class="pfo-btn sec" id="pfo-pr-ninguna">Limpiar</button><label class="pfo-pr-reloj"><input type="checkbox" id="pfo-pr-reloj" checked> ⏱️ Con reloj</label></div>
-        <div class="pfo-pr-grid">${CFG.estaciones.map((e, i) => { const ids = (e.casos_oficiales || []).filter((id) => CASOS[id]).sort((a, b) => CASOS[a].nombre.localeCompare(CASOS[b].nombre)); return `<div class="pfo-pr-c" data-i="${i}"><label class="pfo-pr-t"><input type="checkbox" data-i="${i}"><span class="ic">${e.icono}</span><b>${esc(e.nombre)}</b><small>${ids.length} casos</small></label><select data-c="${i}" aria-label="Caso de ${esc(e.nombre)}"><option value="">🎲 Caso al azar</option>${ids.map((id) => `<option value="${id}">${esc(CASOS[id].nombre)}</option>`).join('')}</select></div>`; }).join('')}</div>
-        <div style="text-align:center;margin-top:14px"><button class="pfo-btn" id="pfo-practicar" disabled>Elegí al menos un área para practicar</button></div></section>`}
-      <section class="pfo-cta pfo-rv-w">
-        ${g ? `<h2>⏳ Tenés un examen en curso</h2><small>Estación ${g.idx + 1} de ${g.estaciones.length}. Podés retomarlo donde lo dejaste.</small><button class="pfo-btn pulso" id="pfo-retomar">Retomar examen</button><button class="pfo-link" id="pfo-descartar">Descartar y empezar de nuevo</button>`
-          : `<h2>¿Listo/a para empezar?</h2><small>Buscá un lugar tranquilo: son ${CFG.estaciones.length} estaciones seguidas (${minT}–${maxT} minutos en total, más la parte práctica). No se puede pausar ni volver atrás.</small>
-          <span class="pfo-trat-t">Al aprobar te vamos a felicitar como:</span>
-          <div class="pfo-trat" role="radiogroup" aria-label="Tratamiento"><button type="button" role="radio" data-t="Doctora" class="${nTrat === 'Doctora' ? 'on' : ''}" aria-checked="${nTrat === 'Doctora'}">👩‍⚕️ Doctora</button><button type="button" role="radio" data-t="Doctor" class="${nTrat === 'Doctor' ? 'on' : ''}" aria-checked="${nTrat === 'Doctor'}">👨‍⚕️ Doctor</button></div>
-          <button class="pfo-btn pulso" id="pfo-empezar" ${nTrat ? '' : 'disabled'}>Comenzar el ECOE FINAL</button><small id="pfo-trat-aviso" ${nTrat ? 'hidden' : ''}>Elegí una opción para habilitar el examen.</small>`}
-      </section>`;
+      ${g ? `<section class="pfo-resume pfo-rv-w"><span class="ic">⏳</span><div><b>Tenés ${g.modo === 'practica' ? 'una práctica' : 'un examen'} en curso</b><small>Estación ${g.idx + 1} de ${g.estaciones.length}. Podés retomarlo donde lo dejaste.</small></div><button class="pfo-btn pulso" id="pfo-retomar">Retomar</button><button class="pfo-link" id="pfo-descartar">Descartar</button></section>` : ''}
+      <section class="pfo-modos">
+        <button type="button" class="pfo-modo exam pfo-rv-w" id="m-exam" style="--d:0"${g ? ' disabled' : ''}><span class="ic">🏁</span><b>Rendir el ECOE FINAL</b><small>${CFG.estaciones.length} estaciones, una por especialidad. La nota llega al final.</small><span class="go">Comenzar <i>→</i></span></button>
+        <button type="button" class="pfo-modo prac pfo-rv-w" id="m-prac" style="--d:1"${g ? ' disabled' : ''}><span class="ic">🎯</span><b>Modo práctica</b><small>Elegí las especialidades y los casos que querés entrenar.</small><span class="go">Armar práctica <i>→</i></span></button>
+        <button type="button" class="pfo-modo real pfo-rv-w" id="m-real" style="--d:2"><span class="ic">📖</span><b>¿Cómo es el ECOE FINAL real?</b><small>Reglamento, llamados y cómo se rinde el examen oficial.</small><span class="go">Ver cómo es <i>→</i></span></button>
+      </section>
+      <section class="pfo-sec"><h2>🧩 Sobre este simulador</h2><div class="pfo-acords">
+        ${acord('🧭', 'Cómo funciona', lista(T.como_funciona))}
+        ${simulador.map(tile).join('')}
+        ${acord('📜', 'Reglas del examen', lista(T.reglas))}
+        ${acord('✅', 'Cómo se aprueba', `<p>${esc(T.aprobacion)}</p>`)}
+      </div></section>
+      <section class="pfo-sec"><h2>🗂️ Temas que entran en cada estación</h2><div class="pfo-acords">
+        ${CFG.estaciones.map((e, i) => acord(e.icono, `${e.nombre} · ${txtRango(rangos[i])}`, `<p>${esc(e.descripcion)}</p><h4>Temas del programa</h4><ul class="temas">${(e.unidades || []).map((u) => `<li>${tema(u)}</li>`).join('')}</ul><h4>Casos del banco (${(e.casos_oficiales || []).filter((id) => CASOS[id]).length})</h4><div class="pfo-casos">${(e.casos_oficiales || []).filter((id) => CASOS[id]).map((id) => `<span>${esc(CASOS[id].nombre)}</span>`).join('')}</div>`)).join('')}
+      </div></section>
+      ${h.length ? `<section class="pfo-sec"><h2>🏅 Tus intentos</h2><div class="pfo-hist">${h.slice(-5).reverse().map((x) => `<div class="pfo-hist-i"><span>${esc(x.fecha)}</span><span>Nota global <b class="${x.aprobado ? 'ok' : 'mal'}">${fmtNota(x.global)}</b> · ${x.aprobado ? 'Aprobado' : x.revision ? 'En revisión' : 'A reforzar'}</span></div>`).join('')}</div></section>` : ''}`;
     const b = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
-    b('#pfo-empezar', nuevoExamen);
-    const pr = $('#pfo-prac');
-    if (pr) {
-      const marcadas = () => [...pr.querySelectorAll('.pfo-pr-t input:checked')].map((x) => +x.dataset.i);
-      const refrescar = () => { const m = marcadas(); const bt = $('#pfo-practicar'); bt.disabled = !m.length; bt.textContent = m.length ? `Comenzar práctica (${m.length} ${m.length === 1 ? 'estación' : 'estaciones'})` : 'Elegí al menos un área para practicar'; pr.querySelectorAll('.pfo-pr-c').forEach((c) => c.classList.toggle('on', m.includes(+c.dataset.i))); };
-      pr.querySelectorAll('.pfo-pr-t input').forEach((x) => x.addEventListener('change', refrescar));
-      pr.querySelectorAll('select').forEach((x) => x.addEventListener('change', () => { if (x.value) { const k = pr.querySelector(`.pfo-pr-t input[data-i="${x.dataset.c}"]`); if (k && !k.checked) { k.checked = true; refrescar(); } } }));
-      $('#pfo-pr-todas').addEventListener('click', () => { pr.querySelectorAll('.pfo-pr-t input').forEach((x) => { x.checked = true; }); refrescar(); });
-      $('#pfo-pr-ninguna').addEventListener('click', () => { pr.querySelectorAll('.pfo-pr-t input').forEach((x) => { x.checked = false; }); refrescar(); });
-      $('#pfo-practicar').addEventListener('click', () => nuevaPractica(marcadas().map((i) => ({ ref: i, casoId: pr.querySelector(`select[data-c="${i}"]`).value || null })), $('#pfo-pr-reloj').checked));
-    }
+    b('#m-exam', modalAntes); b('#m-prac', modalPractica); b('#m-real', modalReal);
     b('#pfo-retomar', () => { S = leerGuardado(); if (S.modo !== 'practica') iniciarIntegridad(true); S.estaciones.forEach((E) => { E.evaluando = false; }); vistaEstacionSegunFase(); });
-    b('#pfo-descartar', () => { if (confirm('Se pierde el examen en curso. ¿Empezar uno nuevo?')) { limpiarGuardado(); try { window.ExamIntegridad && ExamIntegridad.abandonar(); } catch (_) {} nuevoExamen(); } });
-    document.querySelectorAll('.pfo-trat button').forEach((btn) => btn.addEventListener('click', () => {
-      try { localStorage.setItem(LS_TRAT, btn.dataset.t); } catch (_) {}
-      document.querySelectorAll('.pfo-trat button').forEach((x) => { const on = x === btn; x.classList.toggle('on', on); x.setAttribute('aria-checked', String(on)); });
-      const e = $('#pfo-empezar'); if (e) e.disabled = false; const av = $('#pfo-trat-aviso'); if (av) av.hidden = true;
-    }));
+    b('#pfo-descartar', () => { if (confirm('Se pierde lo que tenías en curso. ¿Descartarlo?')) { limpiarGuardado(); try { window.ExamIntegridad && ExamIntegridad.abandonar(); } catch (_) {} vistaIntro(); } });
+    if (!main._acord) main.addEventListener('click', (e) => { const hd = e.target.closest('.pfo-acord-h'); if (!hd) return; const a = hd.parentElement; const on = !a.classList.contains('abierto'); a.classList.toggle('abierto', on); hd.setAttribute('aria-expanded', String(on)); });
+    main._acord = true;
     revelar();
   }
 
   async function nuevoExamen() {
-    if (!esAdmin()) { toast('Acceso restringido.'); return; }
+    if (!tieneAcceso()) { toast('Acceso restringido.'); return; }
     if (!tratamiento()) { toast('Elegí cómo querés que te felicitemos: Doctora o Doctor.'); return; }
-    if (!confirm('Vas a comenzar el ECOE FINAL. No se puede pausar ni volver atrás. ¿Empezamos?')) return;
-    if (window.ExamIntegridad) { const ok = await ExamIntegridad.pedirAceptacion({ escrito: true }); if (!ok) return; }
     const ult = hist().slice(-1)[0]; const previos = new Set((ult && ult.casos) || []);   // se evita repetir el caso del intento anterior
     S = { idx: 0, creado: Date.now(), forzado: false, estaciones: CFG.estaciones.map((cfgE, i) => {
       const cs = (cfgE.casos_oficiales || []).filter((id) => CASOS[id]); const libres = cs.filter((id) => !previos.has(id)); const pool = libres.length ? libres : cs;
@@ -231,7 +285,7 @@ ${filas}
 
   // Modo práctica: las estaciones y casos que elige el alumno, sin reglas anti-trampa y con revisión al terminar cada estación
   function nuevaPractica(sel, conReloj) {
-    if (!esAdmin()) { toast('Acceso restringido.'); return; }
+    if (!tieneAcceso()) { toast('Acceso restringido.'); return; }
     S = { modo: 'practica', sinReloj: !conReloj, idx: 0, creado: Date.now(), forzado: false, estaciones: sel.map((x) => {
       const cfgE = CFG.estaciones[x.ref]; const cs = (cfgE.casos_oficiales || []).filter((id) => CASOS[id]);
       return { id: cfgE.id, ref: x.ref, casoId: x.casoId && CASOS[x.casoId] ? x.casoId : (cs.length ? cs[Math.floor(Math.random() * cs.length)] : null), hist: [], tema: '', fin: 0, fase: 'caso', resultado: null, cerrada: false, docs: [], proc: null };
@@ -585,10 +639,11 @@ ${filas}
       if (window.NikaAuth && window.NikaAuth.ready) { try { await window.NikaAuth.ready; } catch (_) {} }
       // el rol se confirma con el servidor antes de mostrar nada
       await new Promise((ok) => { if (window.NikaAcceso && window.NikaAcceso.alVerificarPerfil) { let listo = false; const fin = () => { if (!listo) { listo = true; ok(); } }; window.NikaAcceso.alVerificarPerfil(fin); setTimeout(fin, 6000); } else ok(); });
-      if (!esAdmin()) { vistaRestringida(); return; }
-      const [r, rp] = await Promise.all([fetch('data/pfo/ecoe_final.json', { cache: 'no-cache' }), fetch('data/pfo/procedimientos.json', { cache: 'no-cache' }).catch(() => null)]);
+      if (!tieneAcceso()) { vistaRestringida(); return; }
+      const [r, rp, rg] = await Promise.all([fetch('data/pfo/ecoe_final.json', { cache: 'no-cache' }), fetch('data/pfo/procedimientos.json', { cache: 'no-cache' }).catch(() => null), fetch('data/pfo/procedimientos_guias.json', { cache: 'no-cache' }).catch(() => null)]);
       CFG = await r.json();
       try { PROC = rp && rp.ok ? (await rp.json()).procedimientos || {} : {}; } catch (_) { PROC = {}; }
+      try { if (rg && rg.ok) PROC = Object.assign({}, await rg.json(), PROC); } catch (_) { /* las guías de la carpeta de la PFO son un complemento */ }
       if (!window.PROMPTS_MATERIAS_BUILDERS) throw new Error('No se cargó el generador de estaciones.');
       await Promise.all(CFG.estaciones.flatMap((e) => (e.casos_oficiales || []).map(async (id) => { try { const rr = await fetch('data/pfo/casos/' + id + '.json', { cache: 'no-cache' }); CASOS[id] = await rr.json(); } catch (_) { /* si falla, ese caso no entra al sorteo */ } })));
       LISTO = true;

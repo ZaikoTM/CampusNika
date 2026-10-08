@@ -2224,11 +2224,13 @@
         // de la materia activa para ese submodo, o null si no existe (en ese caso
         // quien llame debe caer al fallback de la descripción "genérica de Cirugía":
         // sub.descripcion_larga → modo.descripcion_larga → modo.descripcion).
-        function getDescripcionPropiaMateria(modoId, submodoId) {
+        function getDescripcionPropiaMateria(modoId, submodoId, corta) {
             const porMateria = (typeof DESCRIPCIONES_POR_MATERIA !== 'undefined') ? DESCRIPCIONES_POR_MATERIA : (window.DESCRIPCIONES_POR_MATERIA || {});
             const deLaMateria = porMateria[getModuloActual()];
             const delModo = deLaMateria && deLaMateria[modoId];
-            return (delModo && submodoId && delModo[submodoId]) || null;
+            const v = (delModo && submodoId && delModo[submodoId]) || null;
+            // las descripciones de las materias nuevas son { corta, larga }: nunca se muestra el objeto
+            return v && typeof v === 'object' ? ((corta ? v.corta : v.larga) || v.larga || v.corta || null) : v;
         }
         // Contenido fijo del modal informativo de "Choice Clásico" (abrirModalPreExamen)
         // por materia. Choice no tiene submodo (sub === null), así que
@@ -2648,7 +2650,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
                 // Fallback en cascada: descripción propia de la materia activa para
                 // este submodo → descripción corta del submodo (si existiera) →
                 // descripción base del modo (la que ya existía antes de este cambio).
-                const descripcionCard = conMateriaActiva(getDescripcionPropiaMateria(modo.id, sub.id) || sub.descripcion || modo.descripcion || '');
+                const descripcionCard = conMateriaActiva(getDescripcionPropiaMateria(modo.id, sub.id, true) || sub.descripcion || modo.descripcion || '');
                 return `
                 <div class="funnel-card" onclick="seleccionarSubmodo('${modo.id}', '${sub.id}')">
                     <div class="mode-icon">${modo.icono}</div>
@@ -4324,18 +4326,26 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
 
         function renderAnios(modulos) {
             const anios = [...new Set(modulos.map((m) => m['año']))].sort((a, b) => a - b);
+            if (!anios.includes(6)) anios.push(6);   // 6.° año (PFO): ECOE FINAL de egreso
             const fila = document.getElementById('year-row');
             fila.innerHTML = anios.map((a) =>
-                `<button type="button" class="year-chip ${funnelCtx.anio === a ? 'active' : ''}" data-anio="${a}" onclick="elegirAnio(${a})">${a}.º Año</button>`
+                `<button type="button" class="year-chip ${funnelCtx.anio === a ? 'active' : ''}" data-anio="${a}" onclick="elegirAnio(${a})">${a}.º Año${a === 6 ? ' (PFO)' : ''}</button>`
             ).join('');
             if (funnelCtx.anio) elegirAnio(funnelCtx.anio);
-            else if (anios.length === 1) elegirAnio(anios[0]);   // un solo año disponible: se preselecciona
+            else if (anios.filter((x) => x !== 6).length === 1) elegirAnio(anios.find((x) => x !== 6));   // un solo año de cursada disponible: se preselecciona
         }
 
         function elegirAnio(anio) {
             document.querySelectorAll('#year-row .year-chip').forEach((b) => b.classList.toggle('active', Number(b.dataset.anio) === Number(anio)));
             const areas = (_modulosCache || []).filter((m) => Number(m['año']) === Number(anio));
             document.getElementById('area-block').style.display = 'block';
+            if (Number(anio) === 6) {
+                document.getElementById('area-grid').innerHTML = `<div class="funnel-card" onclick="playSound('click'); location.href='pfo_ecoe.html'">
+                    <div class="mode-icon">🎓</div>
+                    <div class="mode-info"><h4>Práctica Final Obligatoria · ECOE FINAL <span class="badge-soon" style="background:rgba(168,85,247,.16);color:#a855f7">NikaMed+</span></h4><p>El examen de egreso: una estación de cada especialidad, con modo práctica y revisión detallada.</p></div>
+                </div>`;
+                return;
+            }
             document.getElementById('area-grid').innerHTML = areas.map((m) => {
                 const activo = m.estado === 'activo';
                 return `<div class="funnel-card ${activo ? '' : 'disabled'}" ${activo ? `onclick="elegirArea('${escaparHtml(m.id)}')"` : ''}>

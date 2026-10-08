@@ -20,6 +20,7 @@
       estudio: 'estudio.html?modulo=cirugia', simulador: 'examen.html?modulo=cirugia', duelos: 'versus.html', atlas: 'acreditaciones.html?area=cir' },
   ];
   const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
+  const esPlus = () => esAdmin() || !!(window.NikaAcceso && NikaAcceso.tieneAccesoCompleto && NikaAcceso.tieneAccesoCompleto());
   const pronto = (...n) => n.map((nombre) => ({ nombre, pronto: true }));
   const AÑOS = [
     { id: '1ro', nombre: '1° Año', materias: pronto('Salud Individual', 'Salud Colectiva', 'Crecimiento y Desarrollo') },
@@ -34,7 +35,7 @@
   const leerHash = () => { const y = decodeURIComponent(location.hash.replace(/^#/, '')); S.year = AÑOS.some((a) => a.id === y) ? y : '5to'; };
 
   function pintarAnios() {
-    $('#ns-years').innerHTML = AÑOS.map((y) => `<button type="button" class="ns-year ${y.id === S.year ? 'on' : ''}" role="tab" aria-selected="${y.id === S.year}" data-y="${y.id}">${esc(y.nombre)}</button>`).join('');
+    $('#ns-years').innerHTML = AÑOS.map((y) => `<button type="button" class="ns-year ${y.id === S.year ? 'on' : ''}" role="tab" aria-selected="${y.id === S.year}" data-y="${y.id}">${y.materias.some((m) => !m.pronto) ? '<i class="ns-dot" title="Disponible"></i>' : ''}${esc(y.nombre)}</button>`).join('');
   }
 
   function tarjeta(m, i) {
@@ -43,8 +44,8 @@
         <div class="se-cuerpo"><span class="ns-pill dev">En desarrollo</span><h4>${esc(m.nombre)}</h4><p>Estamos preparando el contenido de esta materia.</p>
         <span class="se-entrar off">Próximamente</span></div></article>`;
     }
-    if (m.pfo && !esAdmin()) return `<article class="se-card off" style="--i:${i}"><div class="se-banda"><span class="se-ico">🔒</span></div><div class="se-cuerpo"><span class="ns-pill dev">Restringido</span><h4>Práctica Final Obligatoria</h4><p>Esta sección todavía no está disponible.</p><span class="se-entrar off">No disponible</span></div></article>`;
-    if (m.pfo) return `<article class="se-card pfo" style="--i:${i}"><div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div><div class="se-cuerpo"><h4>${esc(m.nombre)}</h4><p>${esc(m.desc)}</p><div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ok">${esc(c)}</span>`).join('')}</div><span class="ns-pill dev">Solo administrador</span><a class="se-entrar" href="${m.entrar}">🎓 Abrir el ECOE FINAL <i>→</i></a></div></article>`;
+    if (m.pfo && !esPlus()) return `<article class="se-card pfo" style="--i:${i}"><div class="se-banda"><span class="se-ico">🔒</span><span class="se-sigla">${esc(m.sigla)}</span></div><div class="se-cuerpo"><span class="ns-pill plus">NikaMed+</span><h4>Práctica Final Obligatoria</h4><p>El examen de egreso con una estación de cada especialidad, modo práctica y revisión detallada. Exclusivo <b class="se-plus">NikaMed+</b>.</p><a class="se-entrar" href="nikamed-plus.html">💜 Ver planes de NikaMed+ <i>→</i></a></div></article>`;
+    if (m.pfo) return `<article class="se-card pfo" style="--i:${i}"><div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div><div class="se-cuerpo"><h4>${esc(m.nombre)}</h4><p>${esc(m.desc).replace('NikaMed+', '<b class="se-plus">NikaMed+</b>')}</p><div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ${c === 'NikaMed+' ? 'plus' : 'ok'}">${esc(c)}</span>`).join('')}</div><a class="se-entrar" href="${m.entrar}">🎓 Abrir el ECOE FINAL <i>→</i></a></div></article>`;
     return `<article class="se-card ${m.color}" style="--i:${i}">
       <div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div>
       <div class="se-cuerpo">

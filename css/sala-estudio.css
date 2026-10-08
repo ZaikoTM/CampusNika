@@ -73,3 +73,10 @@ body.sala-estudio::before { background: radial-gradient(900px 520px at 85% -8%, 
 @media (max-width: 760px) { .se-hero { flex-direction: column; text-align: center; } .se-libro { width: 130px; } .se-atajos { justify-content: center; } .se-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .se-hero, .se-estrellas, .se-flota, .se-sombra, .se-pagina, .se-chispa, .se-card, .se-banda::before, .se-banda::after { animation: none !important; } }
 .se-card.pfo { --se-c1: #f59e0b; --se-c2: #b45309; --se-glow: rgba(251, 191, 36, .5); }
+
+/* años con contenido disponible: puntito verde; NikaMed+ en violeta (su color) */
+.ns-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #22c55e; margin-right: 8px; box-shadow: 0 0 0 0 rgba(34, 197, 94, .6); animation: seDot 2s ease-out infinite; vertical-align: 1px; }
+@keyframes seDot { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .55); } 70%, 100% { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); } }
+.ns-pill.plus { background: rgba(168, 85, 247, .16); color: #9333ea; } body.dark-mode .ns-pill.plus { color: #d8b4fe; }
+.se-plus { color: #a855f7; font-weight: 800; } body.dark-mode .se-plus { color: #c084fc; }
+@media (prefers-reduced-motion: reduce) { .ns-dot { animation: none; } }
