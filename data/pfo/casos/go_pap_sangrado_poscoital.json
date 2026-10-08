@@ -1,7 +1,7 @@
 {
   "id": "go_pap_sangrado_poscoital",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Sangrado después de las relaciones sexuales: anamnesis y toma de Papanicolaou",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -119,7 +119,7 @@
       "max": 10,
       "texto": "Diagnóstico presuntivo y estudios",
       "regular": "Menciona un estudio",
-      "suficiente": "Plantea una lesión cervical a descartar (incluye cáncer de cuello) y solicita colposcopía, test de HPV, exudado vaginal con ITS y serologías (VDRL, VIH, hepatitis B y C)"
+      "suficiente": "Plantea una lesión cervical a descartar (incluye alta sospecha de cáncer de cuello) y solicita colposcopía con biopsia dirigida, test de HPV, exudado vaginal con ITS y serologías (VDRL, VIH, hepatitis B y C)"
     },
     {
       "id": 12,
