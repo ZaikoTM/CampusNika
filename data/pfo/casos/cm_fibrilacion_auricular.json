@@ -1,7 +1,7 @@
 {
   "id": "cm_fibrilacion_auricular",
   "area": "clinica_medica",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Palpitaciones irregulares de inicio súbito: fibrilación auricular",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -132,8 +132,8 @@
       "bloque": "Conducta",
       "max": 10,
       "texto": "Anticoagulación al alta",
-      "regular": "Indica anticoagulación sin fundamento",
-      "suficiente": "Indica anticoagulación oral (rivaroxabán u otro anticoagulante directo, según función renal) y la mantiene según el riesgo, no solo por 3 meses"
+      "regular": "Indica anticoagulación sin dosis plena o sin definir su duración",
+      "suficiente": "Indica anticoagulación oral a dosis plenas terapéuticas con un anticoagulante directo (por ejemplo rivaroxabán 20 mg por día, 15 mg si hay insuficiencia renal moderada, o apixabán 5 mg cada 12 horas según la función renal) y la mantiene de forma prolongada o indefinida por el alto riesgo tromboembólico (CHA2DS2-VASc de 5); no la limita a 3 meses"
     },
     {
       "id": 13,
