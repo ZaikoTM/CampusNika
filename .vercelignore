@@ -1,0 +1,31 @@
+# Lo que NO forma parte del sitio publicado: no se sube en cada deploy (ahorra espacio en Vercel).
+# El sitio es estático: todo lo que usan las páginas (html, css, js, data, assets, icons, sw.js, manifest) sigue publicándose.
+
+# dependencias y entornos locales
+node_modules
+.venv
+.claude
+.git
+campus-nika
+package.json
+package-lock.json
+
+# herramientas, pruebas y base de datos (solo para desarrollo)
+tools
+tests
+sql
+supabase
+backend_pagos
+/*.sql
+/verify-admin_index.ts
+/subir.js
+/rescate_sesiones.js
+
+# documentos de trabajo en la raíz (no los lee ninguna página)
+/*.md
+/*.docx
+/UP*.txt
+/PARCIAL*
+/Resumen*
+/proyecto*
+/gemini_files_*.json
