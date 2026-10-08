@@ -1,7 +1,7 @@
 {
   "id": "mf_rcv",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Riesgo cardiovascular global y dislipemia",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -112,7 +112,7 @@
       "max": 10,
       "texto": "Estatina",
       "regular": "Indica una estatina sin dosis",
-      "suficiente": "Indica atorvastatina 40 mg por día por la noche (o equivalente de intensidad alta) y explica el mecanismo (inhibe la HMG-CoA reductasa) y sus efectos adversos"
+      "suficiente": "Indica atorvastatina 20 a 40 mg por día (o equivalente de intensidad moderada a alta), explica con palabras sencillas para qué sirve (bajar el colesterol y proteger las arterias) y advierte los efectos adversos comunes (por ejemplo dolores musculares)"
     },
     {
       "id": 11,
@@ -120,7 +120,7 @@
       "max": 10,
       "texto": "Antihipertensivo y aspirina",
       "regular": "Menciona el control de la presión o la aspirina",
-      "suficiente": "Refuerza el tratamiento antihipertensivo para llegar a menos de 140/90 mmHg y explica que la aspirina 100 mg por día se indica cuando el riesgo es muy alto y la presión está controlada"
+      "suficiente": "Ajusta o refuerza el tratamiento antihipertensivo (enalapril) para llegar a una meta menor de 140/90 mmHg y aclara expresamente que la aspirina hoy no está indicada (riesgo de sangrado con la presión mal controlada)"
     },
     {
       "id": 12,
