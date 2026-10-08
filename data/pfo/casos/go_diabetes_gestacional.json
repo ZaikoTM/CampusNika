@@ -1,7 +1,7 @@
 {
   "id": "go_diabetes_gestacional",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Control obstétrico de las 25 semanas con laboratorio alterado: diabetes gestacional e infección urinaria",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -19,7 +19,7 @@
   "estudios": [
     {
       "clave": "laboratorio_traido",
-      "texto": "Hematíes 4.900.000/mm³, hemoglobina 13,2 g/dl, hematocrito 39 %, plaquetas 258.000/mm³, leucocitos 5.300/mm³, creatinina 1,00 mg/dl, ácido úrico 1,00 mg/dl, urea 30 mg/dl, bilirrubina total 0,67 mg/dl, TGP 18, TGO 14, fosfatasa alcalina 115, HDL 71 mg/dl, TSH 0,91 µUI/ml, colesterol total 180 mg/dl, triglicéridos 78 mg/dl, LDL 165 mg/dl (elevado), KPTT 32 s, TP 12 s; VDRL, VIH, Chagas, HBsAg y toxoplasmosis negativos. Sedimento urinario: 2-3 células por campo, 20 a 30 leucocitos por campo (leucocituria) y 20 a 30 piocitos por campo (piocituria). Prueba de tolerancia oral a la glucosa (PTOG): glucemia basal 115 mg/dl (patológica) y a las 2 horas 165 mg/dl (patológica)."
+      "texto": "Hematíes 4.900.000/mm³, hemoglobina 13,2 g/dl, hematocrito 39 %, plaquetas 258.000/mm³, leucocitos 5.300/mm³, creatinina 1,00 mg/dl, ácido úrico 1,00 mg/dl, urea 30 mg/dl, bilirrubina total 0,67 mg/dl, TGP 18, TGO 14, fosfatasa alcalina 115, HDL 71 mg/dl, TSH 0,91 µUI/ml, colesterol total 180 mg/dl, triglicéridos 78 mg/dl, LDL 165 mg/dl (valor esperable en el embarazo), KPTT 32 s, TP 12 s; VDRL, VIH, Chagas, HBsAg y toxoplasmosis negativos. Sedimento urinario: 2-3 células por campo, 20 a 30 leucocitos por campo (leucocituria) y 20 a 30 piocitos por campo (piocituria). Prueba de tolerancia oral a la glucosa (PTOG): glucemia basal 95 mg/dl y a las 2 horas 165 mg/dl (patológica)."
     }
   ],
   "umbral_aprobacion": 60,
@@ -75,7 +75,7 @@
       "max": 5,
       "texto": "Interpretación del laboratorio",
       "regular": "Reconoce una alteración",
-      "suficiente": "Identifica la prueba de tolerancia oral a la glucosa patológica, el sedimento con leucocituria y piocituria, el LDL elevado, y que el resto es normal"
+      "suficiente": "Identifica la prueba de tolerancia oral a la glucosa patológica, el sedimento con leucocituria y piocituria, que el perfil lipídico (LDL 165) es fisiológico para el embarazo y que el resto es normal"
     },
     {
       "id": 7,
@@ -83,7 +83,7 @@
       "max": 5,
       "texto": "Diagnóstico de diabetes gestacional",
       "regular": "Menciona diabetes",
-      "suficiente": "Diagnostica diabetes gestacional (se manifestó luego de las 20 semanas, glucemia en ayunas mayor de 100 mg/dl y a las 2 horas mayor de 140) y la diferencia de la diabetes pregestacional"
+      "suficiente": "Diagnostica diabetes gestacional (aparece después de las 20 semanas; glucemia a las 2 horas de la carga de 75 g mayor o igual de 140 mg/dl, o glucemia en ayunas de 100 mg/dl o más en dos tomas) y la diferencia de la diabetes pregestacional"
     },
     {
       "id": 8,
