@@ -1,7 +1,7 @@
 {
   "id": "mf_ippb_celulitis",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Infección de piel y partes blandas de un miembro inferior",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -73,7 +73,7 @@
       "max": 5,
       "texto": "Impresión general y signos vitales",
       "regular": "Interpreta algunos valores",
-      "suficiente": "Reconoce taquicardia leve y febrícula, estado hemodinámico compensado y ausencia de signos de sepsis"
+      "suficiente": "Reconoce febrícula y taquicardia leve (SIRS leve), pero justifica que, al estar hemodinámicamente compensado, sin alteración del sensorio ni comorbilidades, no hay signos de sepsis grave"
     },
     {
       "id": 6,
@@ -105,7 +105,7 @@
       "max": 10,
       "texto": "Clasificación y decisión de internación",
       "regular": "Indica manejo ambulatorio sin justificar",
-      "suficiente": "Clasifica al paciente (estable, sin comorbilidades, sin signos de sepsis ni colección) y justifica el manejo ambulatorio; menciona los criterios de internación (hipotensión, necrosis, colección, comorbilidades, sospecha de sepsis)"
+      "suficiente": "Clasifica al paciente como infección moderada (clase II) y justifica el manejo ambulatorio con pautas estrictas; menciona los criterios de internación (hipotensión, necrosis, colección grande, progresión rápida, sospecha de sepsis grave)"
     },
     {
       "id": 10,
@@ -129,7 +129,7 @@
       "max": 10,
       "texto": "Analgesia y medidas no farmacológicas",
       "regular": "Indica una medida",
-      "suficiente": "Indica paracetamol 500 mg cada 6 horas para la fiebre y el dolor, elevación del miembro y reposo, y vacunación antitetánica"
+      "suficiente": "Indica paracetamol o ibuprofeno para el dolor y la fiebre, elevación del miembro, reposo y profilaxis antitetánica completa (vacuna doble de adultos más inmunoglobulina antitetánica) por ser una herida sucia con esquema desconocido"
     },
     {
       "id": 13,
