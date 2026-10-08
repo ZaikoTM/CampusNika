@@ -1,7 +1,7 @@
 {
   "id": "go_endometritis_puerperal",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Dolor abdominal, loquios fétidos y fiebre a los 17 días de una cesárea: endometritis puerperal",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -128,7 +128,7 @@
       "max": 10,
       "texto": "Antibióticos",
       "regular": "Indica uno",
-      "suficiente": "Indica clindamicina 900 mg cada 8 horas más gentamicina (1,5 mg/kg cada 8 horas o 240 mg por día) por vía endovenosa hasta la remisión sintomática y 24 a 48 horas sin fiebre"
+      "suficiente": "Indica clindamicina 900 mg cada 8 horas más gentamicina por vía endovenosa (idealmente monodosis de 5 mg/kg cada 24 horas, o el esquema clásico de 1,5 mg/kg cada 8 horas) hasta la remisión sintomática y 24 a 48 horas sin fiebre"
     },
     {
       "id": 13,
