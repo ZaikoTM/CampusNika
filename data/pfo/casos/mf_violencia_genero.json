@@ -1,7 +1,7 @@
 {
   "id": "mf_violencia_genero",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Dolor en el antebrazo y sospecha de violencia de género",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -77,7 +77,7 @@
       "max": 5,
       "texto": "Exploración de la violencia",
       "regular": "Pregunta si alguien le hizo daño",
-      "suficiente": "Explora la violencia con sensibilidad: si es la primera vez, cuándo fue la última, el entorno seguro, y si hay amenazas, armas o hijos en riesgo"
+      "suficiente": "Explora la violencia con sensibilidad: indaga si es la primera vez, cuándo fue el último episodio, si hay escalada de la violencia, presencia de armas en el hogar y si los hijos adolescentes también la sufren o la presencian"
     },
     {
       "id": 7,
@@ -117,7 +117,7 @@
       "max": 10,
       "texto": "Respeto a la decisión y evaluación de riesgo",
       "regular": "Menciona la denuncia sin respetar tiempos",
-      "suficiente": "Respeta sus tiempos y su decisión sobre la denuncia, evalúa el riesgo inmediato y, si lo hay, deriva al equipo interdisciplinario (trabajo social, psicología, medicina legal)"
+      "suficiente": "Respeta su autonomía y sus tiempos (no la obliga a denunciar), evalúa el riesgo inminente para su vida y planifica la derivación y el abordaje conjunto con el equipo interdisciplinario (trabajo social, psicología)"
     },
     {
       "id": 12,
@@ -125,7 +125,7 @@
       "max": 10,
       "texto": "Registro en la historia clínica",
       "regular": "Registra la lesión sin las palabras de la paciente",
-      "suficiente": "Registra textualmente sus palabras y describe objetivamente las lesiones, sin juicios de valor"
+      "suficiente": "Describe objetivamente las lesiones (tamaño, color, forma, ubicación) y registra el relato de la paciente textualmente entre comillas, sin emitir juicios de valor ni diagnósticos legales presuntivos"
     },
     {
       "id": 13,
