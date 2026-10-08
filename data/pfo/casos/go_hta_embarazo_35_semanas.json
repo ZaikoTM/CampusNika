@@ -1,7 +1,7 @@
 {
   "id": "go_hta_embarazo_35_semanas",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Embarazada hipertensa de 35 semanas: control, estudios y pautas de alarma",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -115,7 +115,7 @@
       "max": 10,
       "texto": "Tratamiento y control",
       "regular": "Menciona la medicación",
-      "suficiente": "Mantiene alfametildopa 500 mg cada 12 horas (máximo 2 g por día), aspirina 100 mg por día hasta las 36 semanas y control diario de la presión en el domicilio; sin IECA ni ARA II"
+      "suficiente": "Mantiene alfametildopa 500 mg cada 12 horas (máximo 2 g por día) o rota a labetalol 200 mg cada 12 horas (máximo 1.200 mg por día); indica suspender la aspirina a las 36 semanas y control de la presión en el domicilio; no usa IECA ni ARA II"
     },
     {
       "id": 12,
