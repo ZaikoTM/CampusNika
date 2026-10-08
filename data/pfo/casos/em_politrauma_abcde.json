@@ -1,0 +1,158 @@
+{
+  "id": "em_politrauma_abcde",
+  "area": "emergentologia",
+  "estado": "borrador",
+  "nombre": "Abordaje inicial del politraumatizado: ABCDE en el shock room",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Shock room",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es el/la médico/a coordinador/a del shock room. Ingresa en ambulancia un paciente masculino de 28 años, politraumatizado tras un choque de moto contra un camión, sin casco. El paramédico refiere que estaba inconsciente en el lugar, que respira ruidosamente y que tiene el abdomen distendido y una pierna deformada con sangrado. Presión arterial en la ambulancia: 80/50 mmHg. Es una emergencia: las acciones son ordenadas pero simultáneas; las dos prioridades son la vía aérea y la hemorragia.",
+  "objetivos": [
+    "Realizar de forma oral e imperativa el abordaje inicial (ABCDE) con el equipo del shock room.",
+    "Detectar e indicar el manejo inmediato de las lesiones con riesgo vital inminente.",
+    "Definir los estudios complementarios y la conducta (cirugía, traslado).",
+    "Comunicar a cirugía y a los familiares."
+  ],
+  "interlocutor": "Paramédico Hernán (habla él con claridad; el resto del equipo del shock room ejecuta las indicaciones)",
+  "guion_paciente": "Hernán, paramédico del SEM. Datos de la entrega: varón de unos 28 años, chocó en moto contra un camión hace 35 minutos, salió despedido, sin casco; lo encontraron inconsciente (Glasgow 8) y con respiración ruidosa; le colocaron collar cervical y lo trajeron con oxígeno por máscara; tiene sangrado de la pierna derecha (fémur deformado) que se comprimió con vendaje; abdomen distendido y doloroso; no se conocen antecedentes; sin alergias conocidas; última comida desconocida; olor a alcohol. TA 80/50 mmHg, FC 128 por minuto, saturación 90 % con máscara. No hay familiares presentes; su esposa viene en camino.\nLos otros integrantes del equipo (enfermera, kinesiólogo, residente) ejecutan lo que se les indica: monitor, accesos venosos, sangre del banco, radiografías.\nEs una emergencia: el alumno debe actuar de inmediato, con un ABCDE simultáneo, y hacer la anamnesis muy breve. Las acciones que el alumno verbaliza se ejecutan en el momento y los resultados (monitor, ritmo, saturación) se informan después de cada acción.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Vía aérea: gorgoteo con sangre y secreciones en la boca; Glasgow 8 (ocular 2, verbal 2, motor 4); sin movilidad cervical (collar). Ventilación: FR 30, sin ruidos respiratorios en el hemitórax derecho, hiperresonancia, ingurgitación yugular y desviación traqueal hacia la izquierda (neumotórax a tensión derecho), equimosis torácica derecha. Circulación: pálido, frío, sudoroso, pulso radial débil 128 por minuto, TA 80/50 mmHg, relleno capilar de 4 segundos; fractura abierta de fémur derecho con hemorragia que cede con compresión; abdomen distendido y doloroso con defensa; pelvis dolorosa con inestabilidad. Discapacidad: pupilas isocóricas reactivas, Glasgow 8 (AVDI D). Exposición: hematomas en flanco izquierdo, escoriaciones, temperatura 35,4 °C.",
+  "estudios": [
+    {
+      "clave": "ecofast",
+      "texto": "Ecografía FAST: líquido libre en el espacio esplenorrenal y en el fondo de saco de Douglas (hemoperitoneo); sin derrame pericárdico. Sin neumotórax pleural izquierdo."
+    },
+    {
+      "clave": "radiografias",
+      "texto": "[BORRADOR] Radiografías (solo pelvis si inestable): fractura de ramas del pubis con diástasis de la sínfisis mayor de 1,5 cm (fractura de pelvis inestable). Radiografía de tórax: neumotórax derecho a tensión, fractura de costillas 4 a 7 derechas. Radiografía lateral de columna cervical: sin lesión visible (no descarta)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemoglobina 8,2 g/dl, hematocrito 25 %, plaquetas 140.000/mm³, RIN 1,4, lactato 6,8 mmol/L, déficit de base -11 (grave), pH 7,22, glucemia 140 mg/dl, creatinina 1,1, grupo O Rh positivo, BHCG no corresponde, alcoholemia positiva."
+    },
+    {
+      "clave": "evolucion",
+      "texto": "Respuesta a la infusión inicial de 1.000 ml de cristaloides: transitoria (20 a 40 % de pérdida de volemia); requiere transfusión y control del foco quirúrgico. Tras la descompresión del neumotórax a tensión mejora la saturación al 96 %."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No descomprimir un neumotórax a tensión (aguja y tubo de drenaje pleural) con shock obstructivo",
+    "Demorar la cirugía por estudios de imagen en un paciente inestable con ECOFAST positivo",
+    "No proteger la vía aérea y la columna cervical (Glasgow menor de 8) ni controlar la hemorragia externa"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Presentación y entrega del paramédico",
+      "regular": "Pregunta qué pasó",
+      "suficiente": "Se presenta, pregunta qué le pasó, quién lo trajo y el mecanismo, el tiempo y las intervenciones prehospitalarias"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Examen rápido (miro-escucho-siento)",
+      "regular": "Realiza una parte",
+      "suficiente": "Pregunta ¿me escuchás?, evalúa respuesta y clasifica al paciente como inestable en 1 a 2 minutos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Vía aérea y columna cervical (A)",
+      "regular": "Evalúa una",
+      "suficiente": "Se coloca en la cabecera, mantiene el collar cervical, aspira secreciones, eleva el mentón o traciona la mandíbula, cánula de Mayo y oxígeno"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Vía aérea definitiva",
+      "regular": "Menciona la intubación",
+      "suficiente": "Indica intubación por Glasgow menor de 8, con secuencia rápida (midazolam, ketamina o propofol más succinilcolina), plan B y control cervical"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Ventilación (B)",
+      "regular": "Realiza una",
+      "suficiente": "Expone el tórax, ausculta, percute y reconoce el neumotórax a tensión; saturación, estado ácido-base y oxígeno con reservorio"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Lesiones torácicas con riesgo vital",
+      "regular": "Menciona una",
+      "suficiente": "Menciona neumotórax a tensión, neumotórax abierto, hemotórax masivo, taponamiento cardíaco, tórax inestable y trauma penetrante"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Circulación (C): reconocimiento del shock",
+      "regular": "Reconoce uno",
+      "suficiente": "Reconoce el shock hemorrágico (taquicardia, hipotensión, palidez, frialdad) y estima la pérdida de volemia"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Control de hemorragias y ECOFAST",
+      "regular": "Realiza uno",
+      "suficiente": "Controla la hemorragia externa con compresión (y torniquete si es necesario) e indica ECOFAST (epigastrio, esplenorrenal, hepatorrenal, Douglas)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Descompresión del neumotórax",
+      "regular": "Menciona el drenaje",
+      "suficiente": "Indica descompresión con aguja en el 5.° espacio intercostal línea axilar media y colocación de tubo de drenaje pleural"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Accesos y reposición",
+      "regular": "Indica uno",
+      "suficiente": "Indica dos vías periféricas gruesas (14 a 18 G), cristaloides tibios 1.000 ml (volúmenes pequeños de 250 a 500 ml), sin vías centrales en urgencias"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Transfusión y laboratorio",
+      "regular": "Indica uno",
+      "suficiente": "Indica hemoterapia con glóbulos rojos 0 negativo, protocolo de transfusión masiva en proporción 1:1:1 y laboratorio (hemograma, coagulograma, grupo y factor, lactato, estado ácido-base, ionograma)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pelvis, discapacidad y exposición (D y E)",
+      "regular": "Menciona uno",
+      "suficiente": "Inmoviliza la pelvis con cincha, evalúa Glasgow y AVDI, expone al paciente y evita la hipotermia (mantas, líquidos tibios)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios y cirugía",
+      "regular": "Menciona uno",
+      "suficiente": "Solicita radiografías de pelvis (y de tórax y columna cervical si es posible), evita la tomografía hasta estabilizar, y llama a cirugía para laparotomía exploradora por hemoperitoneo"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Evaluación secundaria, sonda y comunicación",
+      "regular": "Menciona uno",
+      "suficiente": "Indica examen cefalocaudal (AMPLIA), sonda vesical con cuidado por sospecha de lesión uretral y SNG si no hay fractura de base del cráneo, y comunica a cirugía y a la familia"
+    }
+  ]
+}

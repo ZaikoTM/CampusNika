@@ -1,0 +1,150 @@
+{
+  "id": "em_status_convulsivo",
+  "area": "emergentologia",
+  "estado": "borrador",
+  "nombre": "Convulsión que no cede: manejo escalonado del estatus convulsivo en un niño de 30 kg",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a de la guardia. Ingresa por emergencia un niño en brazos de su madre, que presenta una convulsión generalizada en curso. El niño pesa aproximadamente 30 kilos. Practique las dosis, dé las indicaciones a enfermería y dialogue con la familia.",
+  "objetivos": [
+    "Realizar la anamnesis dirigida a la familia (edad, peso, inicio, características, fiebre, trauma, tóxicos, antecedentes) en simultáneo con el manejo.",
+    "Iniciar el ABCDE y administrar el tratamiento escalonado con las dosis calculadas para 30 kg.",
+    "Dar las indicaciones a enfermería.",
+    "Dialogar con la familia y definir la derivación."
+  ],
+  "interlocutor": "Marta, madre del niño (habla ella, muy asustada; la enfermera Silvia ejecuta las indicaciones)",
+  "guion_paciente": "Marta, 36 años, madre de Lautaro, de 9 años (30 kg). Hace unos 5 minutos, mientras jugaba, el niño cayó al piso, perdió el conocimiento y empezó con movimientos de todo el cuerpo (sacudidas de los cuatro miembros) con los ojos hacia arriba y la boca apretada; no para; se puso morado. Llegó en auto a la guardia en 8 minutos. Es la primera vez que convulsiona de este modo; hace dos años tuvo una convulsión con fiebre (breve). Hoy tuvo fiebre de 38,6 °C desde la mañana, con tos y dolor de garganta; vómitos 2 veces; sin diarrea; refirió dolor de cabeza y de cuello; no se golpeó la cabeza; no ingirió productos tóxicos ni medicación de la casa (la madre toma antidepresivos y los guarda en la mesa de luz; no sabe si los abrió). Sin enfermedades de base, sin medicación diaria. Vacunas completas. Sin antecedentes familiares de epilepsia (su tío tuvo convulsiones febriles).\nLa madre responde con apuro y pregunta si se va a morir.\nCronología simulada (se informa según el tiempo que va transcurriendo en la simulación): sigue convulsionando hasta que se administra la segunda dosis de benzodiacepina; luego cesa por 2 minutos y reaparece; la segunda línea (fenitoína) la termina.\nEs una emergencia: el alumno debe actuar de inmediato, con un ABCDE simultáneo, y hacer la anamnesis muy breve. Las acciones que el alumno verbaliza se ejecutan en el momento y los resultados (monitor, ritmo, saturación) se informan después de cada acción.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Convulsión tónico-clónica generalizada en curso, cianosis perioral, saturación 88 %, FC 150 por minuto, FR 36, temperatura 38,9 °C, glucemia capilar 112 mg/dl, TA 110/70 mmHg. Pupilas medias poco reactivas; sin signos de trauma craneal; leve rigidez de nuca cuando cesan las convulsiones; sin petequias;. Tras la cesación: Glasgow 10 con recuperación progresiva.",
+  "estudios": [
+    {
+      "clave": "dosis_30kg",
+      "texto": "Dosis esperadas para 30 kg: diazepam endovenoso 0,2 mg/kg = 6 mg (máximo 10 mg); diazepam rectal 0,5 mg/kg = 15 mg; lorazepam 0,1 mg/kg = 3 mg (máximo 4 mg); midazolam intramuscular o endovenoso 0,15 mg/kg = 4,5 mg (máximo 10 mg); fenitoína 20 mg/kg = 600 mg en 20 minutos (máximo 1.500 mg); ácido valproico 20 mg/kg = 600 mg; levetiracetam 30 a 60 mg/kg = 900 a 1.500 mg (máximo 1.500 mg); paracetamol o dipirona 10 mg/kg = 300 mg. Si hipoglucemia: dextrosa al 10 % 2,5 ml/kg = 75 ml."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 18.500/mm³ con neutrofilia; glucemia 112 mg/dl, ionograma normal (sodio 138, calcio 9,2), urea 24, creatinina 0,6, gases venosos con acidosis respiratoria leve (pH 7,28), PCR 85 mg/L. Punción lumbar (cuando se estabiliza): líquido turbio con 1.500 células (80 % polimorfonucleares), proteínas 180 mg/dl, glucosa 25 mg/dl; Gram: diplococos grampositivos (sospecha de meningitis neumocócica). TAC de cerebro previa a la punción: sin lesiones."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No iniciar la secuencia con el soporte vital (ABCDE) y no tratar la convulsión luego de 5 minutos con una benzodiacepina",
+    "Administrar una dosis de benzodiacepina o de fenitoína incorrecta para el peso o sin considerar el máximo",
+    "No sospechar infección del sistema nervioso central (meningitis) en una convulsión febril con rigidez de nuca ni realizar punción lumbar y cultivos"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Edad y peso",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta la edad y el peso aproximado para calcular las dosis"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Características de la crisis",
+      "regular": "Pregunta una",
+      "suficiente": "Pregunta cuándo comenzó, cómo fue (todo el cuerpo o una parte), cuánto dura y si es la primera vez"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Desencadenantes",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta fiebre, traumatismo craneal, vómitos, diarrea, cefalea o dolor de nuca y de espalda"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Tóxicos y antecedentes",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta si ingirió tóxicos o medicación, antecedentes personales, medicación diaria y familiares"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "ABCDE inicial",
+      "regular": "Realiza algunos",
+      "suficiente": "Asegura la escena, posición lateral, aspira secreciones, oxígeno, acceso venoso (intraóseo si no hay vía), monitor, Glasgow, pupilas, signos meníngeos y exposición"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Glucemia y signos vitales",
+      "regular": "Toma uno",
+      "suficiente": "Toma temperatura, saturación y glucemia capilar de inmediato, y corrige la hipoglucemia con dextrosa al 10 % 2,5 ml/kg"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Fiebre",
+      "regular": "Menciona la fiebre",
+      "suficiente": "Indica antitérmico (paracetamol o dipirona 10 mg/kg por dosis) si hay fiebre"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Reevaluación",
+      "regular": "Reevalúa una vez",
+      "suficiente": "Reevalúa el ABCDE después de cada dosis y cada 5 minutos mientras continúe la convulsión"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Primera línea a los 5 minutos",
+      "regular": "Indica una benzodiacepina sin dosis",
+      "suficiente": "Indica diazepam 0,2 mg/kg endovenoso (6 mg), o lorazepam 0,1 mg/kg (3 mg), o midazolam 0,15 mg/kg (4,5 mg), con dosis calculadas para 30 kg"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Segunda dosis a los 10 minutos",
+      "regular": "Menciona repetir",
+      "suficiente": "Repite la benzodiacepina a los 10 minutos si persiste la convulsión y define la causa mientras tanto"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Segunda línea a los 15 a 20 minutos",
+      "regular": "Indica fenitoína sin dosis",
+      "suficiente": "Indica fenitoína 20 mg/kg (600 mg) en 20 minutos con monitoreo (máximo 1 mg/kg/min) y menciona alternativas (ácido valproico 20 mg/kg o levetiracetam 30 a 60 mg/kg)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estatus refractario",
+      "regular": "Menciona la UTI",
+      "suficiente": "Reconoce el estatus a los 30 minutos y, si no cede, traslada a terapia intensiva con intubación y midazolam en infusión continua"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios y causa",
+      "regular": "Solicita algunos",
+      "suficiente": "Una vez controlada la crisis, solicita laboratorio, cultivos, punción lumbar y TAC (o resonancia) por sospecha de infección del sistema nervioso central"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Indicaciones a enfermería y a la familia",
+      "regular": "Hace una",
+      "suficiente": "Da indicaciones claras y verifica la dosis con enfermería, y habla con la madre con empatía y lenguaje claro sobre lo que ocurre y lo que se hace"
+    }
+  ]
+}

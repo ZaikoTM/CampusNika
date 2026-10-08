@@ -1,0 +1,154 @@
+{
+  "id": "cx_retencion_aguda_orina",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Dolor hipogástrico y 18 horas sin orinar: retención aguda de orina",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Juan Rulfo, paciente de 70 años, concurre a la guardia del hospital por presentar dolor abdominal, náuseas, disuria y polaquiuria, y desde hace 18 horas no puede orinar. Antecedentes de diabetes e hipertensión. El dolor comenzó siendo centroabdominal pero ahora lo refiere en el hemiabdomen inferior; cedió parcialmente con analgésicos autoadministrados, pero en las últimas horas se hizo intolerable y se acompaña de náuseas. Al examen físico presenta dolor en el hemiabdomen inferior.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Realizar la impresión diagnóstica.",
+    "Comunicar al paciente la conducta a seguir."
+  ],
+  "interlocutor": "Juan Rulfo, 70 años, jubilado (habla él, en primera persona; inquieto, con dolor, se agarra el vientre)",
+  "guion_paciente": "Juan Rulfo, 70 años, jubilado. Hace unos meses tiene el chorro de la orina débil, tarda en empezar, se levanta 3 veces por la noche y siente que no vacía del todo. Hace 3 días empezó con ardor y ganas de orinar muy seguido, en poca cantidad. Hace 18 horas no puede orinar nada, aunque tiene muchas ganas y hace fuerza; tiene un dolor cada vez más fuerte en la parte baja de la panza, náuseas, sudoración. Tomó dos comprimidos de ibuprofeno y un antigripal (con pseudoefedrina) hace 24 horas. Sin fiebre, sin sangre en la orina (no orinó), sin cólico lumbar, sin traumatismos ni sondajes recientes, sin deposiciones desde ayer (constipado). Es la primera vez que le pasa esto.\nAntecedentes: diabetes tipo 2 (metformina 850 mg cada 12 horas), hipertensión (enalapril 10 mg cada 12 horas); sin cirugías; sin cálculos renales conocidos; sin antecedentes prostáticos diagnosticados ni PSA (nunca fue al urólogo); sin infecciones urinarias; sin alergias; no fuma; alcohol ocasional. Sin antecedentes neurológicos.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 160/95 mmHg, FC 100 por minuto, FR 20, temperatura 37,6 °C, saturación 97 %. Inquieto, con dolor. Abdomen: globo vesical palpable y doloroso hasta 4 cm por debajo del ombligo (matidez a la percusión suprapúbica); sin defensa; ruidos hidroaéreos presentes; sin masas. Puño percusión negativa. Tacto rectal: próstata aumentada de tamaño (grado II), de consistencia elástica, lisa, simétrica, levemente dolorosa; tono del esfínter normal; sin fecaloma (heces blandas); sin sangre. Genitales externos normales, meato sin secreción ni sangre.",
+  "estudios": [
+    {
+      "clave": "ecografia_traida",
+      "texto": "Ecografía abdominal: vejiga distendida (volumen estimado 850 ml); próstata de 55 ml; riñones sin hidronefrosis."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 12.400/mm³. Glucemia 220 mg/dl. Urea 56, creatinina 1,4 mg/dl, ionograma normal. Sedimento urinario (luego del sondaje): 20 a 30 leucocitos por campo, nitritos positivos. PSA total 4,2 ng/ml (puede estar elevado por la retención; repetir luego)."
+    },
+    {
+      "clave": "sondaje",
+      "texto": "Si el alumno indica sondaje vesical: Foley 16 a 18 Fr con técnica aséptica, drena 850 ml de orina clara en forma fraccionada; el dolor cede de inmediato. Si la evacuación es brusca: hematuria ex vacuo leve."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar el sondaje vesical sin descartar sospecha de trauma uretral cuando hay uretrorragia, hematoma perineal o fractura de pelvis",
+    "Evacuar el globo vesical de manera brusca sin fraccionar, produciendo hematuria ex vacuo",
+    "Administrar analgésicos o medicación que empeoran la retención (anticolinérgicos, descongestivos) o no sondar a un paciente con retención aguda de orina"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Retención y síntomas urinarios",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga la hora de la última micción, el deseo miccional, el chorro, la nicturia, la disuria, la polaquiuria, la hematuria y los cambios de la orina"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor y síntomas asociados",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga el dolor con ALICIA, náuseas, vómitos, fiebre, cólicos lumbares y constipación"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes urológicos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga enfermedad prostática, infecciones urinarias, litiasis, sondajes previos, cirugías, traumatismos y enfermedades neurológicas"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Medicación y comorbilidades",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga fármacos que precipitan la retención (anticolinérgicos, descongestivos, antiinflamatorios), diabetes, hipertensión, alergias y hábitos"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y estado general",
+      "regular": "Reconoce uno",
+      "suficiente": "Reconoce taquicardia, hipertensión por dolor y fiebre baja"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección, auscultación, percusión (matidez suprapúbica) y palpación del globo vesical, y puño percusión"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Tacto rectal y genitales",
+      "regular": "Realiza uno",
+      "suficiente": "Explica y realiza el tacto rectal (próstata, tono, fecaloma) y examina los genitales y el meato uretral"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Plantea retención",
+      "suficiente": "Diagnostica retención aguda de orina probablemente por hiperplasia prostática benigna con infección urinaria, y plantea diferenciales (prostatitis, fecaloma, litiasis, estenosis uretral, lesión neurológica, neoplasia)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Observación e indicaciones generales",
+      "regular": "Indica internación",
+      "suficiente": "Indica observación, nada por boca, vía periférica con hidratación, control de signos vitales, protector gástrico y antiemético"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Sondaje vesical",
+      "regular": "Indica la sonda",
+      "suficiente": "Indica sondaje vesical simple con sonda Foley 16 a 18 Fr, con técnica aséptica, descartando antes trauma uretral, e informa que es la única medida que alivia el dolor"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Evacuación fraccionada y alternativas",
+      "regular": "Menciona una",
+      "suficiente": "Evacúa de manera gradual (500 a 800 ml, pinzando 15 a 20 minutos) para evitar hematuria ex vacuo, y si no puede sondar indica punción suprapúbica o cistostomía"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (hemograma, glucemia, ionograma, urea, creatinina, sedimento urinario y urocultivo), ecografía renovesical y prostática, y PSA diferido"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento posterior",
+      "regular": "Menciona uno",
+      "suficiente": "Plantea tratamiento antibiótico si hay infección, alfa bloqueantes (tamsulosina), control de la diuresis posobstructiva y la interconsulta con urología"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro qué es la retención aguda de orina, para qué sirve la sonda y el seguimiento, y pregunta si tiene dudas"
+    }
+  ]
+}

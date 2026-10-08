@@ -1,0 +1,154 @@
+{
+  "id": "cx_diverticulitis_no_complicada",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Dolor en la fosa ilíaca izquierda sin fiebre: diverticulitis no complicada",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Ricardo Fernández, de 58 años, comerciante, consulta a la guardia por dolor abdominal en la fosa ilíaca izquierda de inicio progresivo hace 48 horas, sin irradiación. Se acompaña de distensión abdominal leve y cambios en el hábito intestinal (episodios alternantes de diarrea y constipación). Niega fiebre, náuseas, vómitos o sangrado digestivo. Antecedentes: hipertensión arterial en tratamiento con enalapril; sin cirugías previas; dieta pobre en fibra. Signos vitales: TA 125/80 mmHg, FC 85 por minuto, FR 18 por minuto, temperatura 37,2 °C, saturación 98 %. Examen abdominal: dolor a la palpación en la fosa ilíaca izquierda, sin defensa ni signos peritoneales.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida y un examen físico focalizado.",
+    "Interpretar los métodos complementarios.",
+    "Formular el diagnóstico y los diagnósticos diferenciales.",
+    "Establecer la conducta (manejo ambulatorio o internación) y comunicarla al paciente."
+  ],
+  "interlocutor": "Ricardo Fernández, 58 años, comerciante (habla él, en primera persona; con molestia, tranquilo)",
+  "guion_paciente": "Ricardo Fernández, 58 años, dueño de un negocio. Hace 48 horas tiene un dolor en la parte baja izquierda de la panza, que empezó leve y fue aumentando, constante, de 5 sobre 10, que no se va a ningún lado; empeora al toser y con el movimiento. Se siente distendido, alterna entre deposiciones blandas y constipación; no tuvo fiebre, vómitos, sangre en las heces, ni baja de peso; orina normal; elimina gases; tolera la dieta. Hace 5 años le hicieron una colonoscopía que mostró «divertículos»; no volvió a controlarse. Sin tratamiento previo. Antecedentes: hipertensión (enalapril 10 mg cada 12 horas); sin diabetes; sin cirugías; sin alergias; fuma 10 cigarrillos por día; poco movimiento; come pocas verduras y mucha carne. Familiares: padre con cáncer de colon a los 70 años.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 125/80 mmHg, FC 85 por minuto, FR 18, temperatura 37,2 °C, saturación 98 %. Abdomen: leve distensión, ruidos hidroaéreos normales, timpánico; dolor a la palpación en la fosa ilíaca izquierda, sin defensa, sin Blumberg ni signos de irritación peritoneal; sin masas. Tacto rectal: sin masas, sin sangre, ampolla con materia fecal.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "Laboratorio: leucocitosis leve (12.000/mm³), PCR elevada."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "Ecografía abdominal: engrosamiento parietal en el sigma con aumento de la ecogenicidad pericólica; ausencia de absceso."
+    },
+    {
+      "clave": "tac",
+      "texto": "Tomografía de abdomen con contraste (estudio de elección): engrosamiento de la pared colónica (más de 4 mm), aumento de la densidad de la grasa pericólica, sin colección ni aire libre. Diagnóstico: diverticulitis aguda no complicada (Hinchey 0)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar una colonoscopía durante el episodio agudo de diverticulitis (riesgo de perforación)",
+    "Internar o indicar cirugía de urgencia para una diverticulitis no complicada sin criterios",
+    "No dar pautas de alarma ni cita de control"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor abdominal",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga inicio, localización, calidad, intensidad, irradiación, factores que lo modifican y medicación"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábito intestinal y síntomas asociados",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga cambios del tránsito, sangre, gases, fiebre, náuseas, vómitos, distensión y síntomas urinarios"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes digestivos y familiares",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga divertículos conocidos, colonoscopías previas, pólipos, cáncer de colon, cirugías y antecedentes familiares"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos y comorbilidades",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga alimentación, fibra, tabaco, alcohol, actividad física, enfermedades crónicas, medicación y alergias"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección, auscultación, percusión y palpación, buscando Blumberg, defensa y masas, y tacto rectal"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de los estudios",
+      "regular": "Interpreta uno",
+      "suficiente": "Interpreta la leucocitosis leve con PCR elevada y los hallazgos de la ecografía y la tomografía (estudio de elección)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y estadificación",
+      "regular": "Plantea diverticulitis",
+      "suficiente": "Diagnostica diverticulitis aguda no complicada (Hinchey 0) y explica la clasificación"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Menciona uno",
+      "suficiente": "Plantea apendicitis, cáncer de colon, colitis isquémica, enfermedad inflamatoria intestinal, patología ginecológica y urológica"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Criterios de manejo ambulatorio",
+      "regular": "Indica manejo ambulatorio",
+      "suficiente": "Justifica el manejo ambulatorio (sin fiebre, sin signos peritoneales, tolera vía oral, sin comorbilidades graves) y menciona los criterios de internación"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibióticos",
+      "regular": "Indica uno",
+      "suficiente": "Indica ciprofloxacina 500 mg cada 12 horas más metronidazol 500 mg cada 8 horas por vía oral durante 7 a 10 días"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Dieta y analgesia",
+      "regular": "Indica una",
+      "suficiente": "Indica dieta líquida inicial con progresión según tolerancia, y paracetamol (o antiinflamatorio si no hay contraindicación) para el dolor"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Colonoscopía diferida",
+      "regular": "Menciona la colonoscopía",
+      "suficiente": "Explica que la colonoscopía está contraindicada en la fase aguda y que se realiza a las 6 a 8 semanas"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pautas de alarma y control",
+      "regular": "Menciona una",
+      "suficiente": "Da pautas de alarma (fiebre, dolor persistente, vómitos que impiden tomar agua, sangre en las heces) y cita a control clínico en 48 a 72 horas"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Prevención y comunicación",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Aconseja dieta con fibra, hidratación, ejercicio y dejar de fumar, y pregunta si tiene dudas"
+    }
+  ]
+}

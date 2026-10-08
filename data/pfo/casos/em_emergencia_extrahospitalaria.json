@@ -1,0 +1,151 @@
+{
+  "id": "em_emergencia_extrahospitalaria",
+  "area": "emergentologia",
+  "estado": "borrador",
+  "nombre": "Choque entre un auto y una moto: seguridad de la escena y triage",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Vía pública",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted se encuentra de turno en el servicio de emergencias médicas (SEM) y recibe el llamado de una persona que le relata un accidente en la vía pública entre un auto y una moto; refiere que la persona que conduce la moto se encuentra tirada en la calle, sin respuesta. Al llegar al lugar, se encuentra con mucha gente alrededor de una persona recostada en la calle, y otra persona atrapada en el interior de un auto.",
+  "objetivos": [
+    "Asegurar la escena del lugar.",
+    "Realizar el triage.",
+    "Solicitar ayuda a terceros.",
+    "Realizar acciones de colocación de elementos de seguridad (inmovilización y control de hemorragias).",
+    "Organizar el traslado de la o las personas comprometidas."
+  ],
+  "interlocutor": "Voz del escenario (un policía de tránsito y un testigo, Raúl; hablan con calma pero con apuro; ejecutan lo que el médico les delega)",
+  "guion_paciente": "Escenario: una esquina de una avenida, a las 21:00 h, con poca luz. Un auto compacto chocó contra una moto en el cruce. Raúl, un testigo, dice que el motociclista salió despedido unos 10 metros, quedó tirado en la calle, sin casco, y que «no se mueve»; el conductor del auto quedó atrapado en el asiento por la puerta deformada, está consciente y grita de dolor, con el airbag desplegado; hay vidrios en la calle y combustible derramado debajo del auto (olor a nafta); hay un poste con cables caídos a unos 3 metros del auto. Muchos curiosos que se acercan y filman. Un policía de tránsito llegó hace un minuto con un chaleco y una linterna. Nadie llamó aún a la ambulancia ni a bomberos. Usted es el único médico del SEM, con un conductor y una enfermera en camino a 4 minutos.\nEl testigo puede decir (si se le pregunta): el motociclista respiraba ruidosamente y tiene mucha sangre en la pierna; el conductor del auto hablaba con él al principio y estaba lúcido.\nEs una emergencia: el alumno debe actuar de inmediato, con un ABCDE simultáneo, y hacer la anamnesis muy breve. Las acciones que el alumno verbaliza se ejecutan en el momento y los resultados (monitor, ritmo, saturación) se informan después de cada acción.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Motociclista (varón joven): no responde a estímulos verbales, responde al dolor con gemidos (AVDI D), respira con ronquidos y sangre en la boca, FR 28, pulso radial ausente y carotídeo rápido (130 por minuto), piel pálida y fría; hemorragia arterial pulsátil activa en el muslo derecho con fractura abierta de fémur; deformidad en la pelvis; sin casco; herida en el cuero cabelludo. Conductor del auto (varón de 45 años): consciente y orientado, Glasgow 15, FR 20, pulso radial presente 100 por minuto, dolor en el tórax derecho y en la rodilla izquierda atrapada, sin hemorragia externa importante.",
+  "estudios": [
+    {
+      "clave": "triage",
+      "texto": "Criterio esperado: el motociclista tiene lesiones graves con posibilidad de sobrevivir al traslado (vía aérea comprometida, shock hemorrágico por fractura abierta de fémur) y es el primero en recibir atención; el conductor del auto atrapado, estable, es segundo (prioridad inmediata una vez liberado)."
+    },
+    {
+      "clave": "recursos",
+      "texto": "Recursos disponibles que el alumno puede pedir: collar cervical, tabla larga, guantes, torniquete, vendas compresivas, bolsa-válvula-máscara y oxígeno, férulas, desfibrilador. Bomberos y policía pueden llegar en 5 minutos si se los llama."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No asegurar la escena (cables, fuego, vidrios, combustible) antes de acercarse a las víctimas",
+    "Atender primero a la víctima menos grave o con mayor facilidad en lugar de realizar un triage",
+    "No inmovilizar la columna cervical ni controlar una hemorragia arterial activa en la víctima de un choque"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Seguridad de la escena",
+      "regular": "Menciona la seguridad",
+      "suficiente": "Asegura la escena: perímetro de seguridad, aleja a los curiosos, evalúa cables caídos, fuego, combustible y vidrios, y se coloca guantes y elementos de protección"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Llamada de ayuda",
+      "regular": "Pide ambulancia",
+      "suficiente": "Pide a un tercero que llame a la ambulancia, bomberos y policía, indicando que hay 2 víctimas, choque auto-moto y un solo médico"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Información breve",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta brevemente a los testigos el mecanismo, el tiempo, el estado inicial de las víctimas y si están atrapadas"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Liderazgo y delegación",
+      "regular": "Delega una tarea",
+      "suficiente": "Se presenta como médico a cargo y delega tareas a los presentes (aislar la zona, sostener la cabeza, llamar, compresión de la hemorragia)"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Triage",
+      "regular": "Nombra el triage",
+      "suficiente": "Realiza el triage priorizando a quien tenga lesiones graves con posibilidad de sobrevivir al traslado (motociclista) y justifica el orden"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Evaluación primaria de la víctima crítica (A y B)",
+      "regular": "Evalúa una",
+      "suficiente": "Evalúa la vía aérea con control de la columna cervical, aspira sangre, abre la vía con tracción mandibular y administra oxígeno"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Circulación y hemorragia (C)",
+      "regular": "Evalúa una",
+      "suficiente": "Identifica la hemorragia arterial del muslo y la controla con compresión directa y, si no basta, torniquete"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estado neurológico y exposición",
+      "regular": "Evalúa uno",
+      "suficiente": "Evalúa el nivel de conciencia (Glasgow, AVDI), pupilas, expone para buscar otras lesiones y evita la hipotermia"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Inmovilización",
+      "regular": "Coloca el collar",
+      "suficiente": "Coloca collar cervical y tabla larga para el motociclista, con movilización en bloque"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pelvis y fracturas",
+      "regular": "Menciona una",
+      "suficiente": "Inmoviliza la pelvis (cincha pélvica) y el miembro fracturado, y evita maniobras bruscas de compresión"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Reposición y acceso",
+      "regular": "Menciona uno",
+      "suficiente": "Coloca vías periféricas gruesas, repone con cristaloides tibios en pequeños volúmenes y prevé la transfusión"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Segunda víctima",
+      "regular": "Evalúa a la segunda",
+      "suficiente": "Evalúa al conductor atrapado (vía aérea, ventilación, circulación), lo estabiliza y espera su liberación por bomberos"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Traslado y comunicación con el hospital",
+      "regular": "Menciona el traslado",
+      "suficiente": "Organiza el traslado al hospital adecuado con aviso previo al shock room y entrega estructurada de la información (qué pasó, lesiones, signos vitales, tratamiento)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Reevaluación y registro",
+      "regular": "Menciona uno",
+      "suficiente": "Reevalúa las víctimas durante el traslado y registra lo ocurrido y la hora de cada intervención"
+    }
+  ]
+}

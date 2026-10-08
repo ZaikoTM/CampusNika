@@ -1,0 +1,154 @@
+{
+  "id": "cx_apendicitis_aguda",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Dolor abdominal que migra a la fosa ilíaca derecha: apendicitis aguda",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Rosa García, de 20 años, concurre a la guardia del hospital consultando por dolor abdominal en el hemiabdomen superior de 6 horas de evolución, acompañado de vómitos e hiporexia. Antecedentes personales: obesa, hipertensa y diabética. Signos vitales (enfermería): TA 140/100 mmHg, FR 23 por minuto, FC 110 por minuto, temperatura 38 °C, saturación 98 % al aire ambiente.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado (hay que realizarlo aunque el paciente no lo pida).",
+    "Formular la impresión diagnóstica y solicitar los estudios complementarios.",
+    "Comunicar a la paciente la conducta a seguir."
+  ],
+  "interlocutor": "Rosa García, 20 años, estudiante (habla ella, en primera persona; con dolor, náuseas, encorvada)",
+  "guion_paciente": "Rosa García, 20 años, estudiante universitaria, obesa, con hipertensión y diabetes tipo 2 diagnosticada hace un año (metformina 850 mg cada 12 horas y enalapril 5 mg por día). Hace 6 horas empezó con dolor sordo alrededor del ombligo y en la boca del estómago; después de 4 horas, el dolor se corrió hacia abajo, a la derecha, y se hizo punzante, constante, de 8 sobre 10; empeora al toser, caminar y con los saltos del auto; se alivia un poco encogida. Perdió el apetito, tuvo 2 vómitos (alimento, sin sangre), fiebre de 38 °C medida en la guardia, escalofríos. Sin diarrea; última deposición ayer, normal; elimina gases. Sin ardor al orinar. FUM hace 12 días, ciclos regulares; usa preservativo; posibilidad de embarazo: no. Sin flujo anormal. Primera vez que le pasa esto. No tomó analgésicos. Última comida hace 8 horas (comió poco).\nAntecedentes: sin cirugías previas, sin alergias. Sin enfermedad inflamatoria intestinal. No fuma; alcohol social. Alimentación rica en grasas.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 140/100 mmHg, FC 110 por minuto, FR 23, temperatura 38 °C, saturación 98 %, peso 98 kg, talla 1,62 m. Decaída, hidratación conservada, sin ictericia. Abdomen globuloso, ruidos hidroaéreos presentes; dolor a la palpación superficial y profunda en fosa ilíaca derecha, con defensa voluntaria y luego involuntaria; signo de Blumberg positivo; punto de McBurney doloroso; Rovsing positivo; psoas positivo. Puntos ureterales y puño percusión negativos. Murphy negativo. Tacto rectal: doloroso hacia la derecha, sin masas. Tacto vaginal (si lo solicita, para descartar patología ginecológica): sin dolor a la movilización del cuello, anexos libres.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 17.400/mm³ con 88 % de neutrófilos, hemoglobina 13,8 g/dl, plaquetas 340.000/mm³. PCR 96 mg/L. Glucemia 210 mg/dl. Urea 24, creatinina 0,7 mg/dl, ionograma normal, coagulograma normal, grupo O Rh positivo. BHCG negativa. Sedimento urinario: leucocitos 3-4 por campo, sin nitritos."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía abdominal: apéndice no compresible de 10 mm de diámetro, con pared engrosada y grasa periapendicular hiperecogénica; sin colección ni líquido libre. (Las imágenes no son necesarias para el diagnóstico y no deben demorar el tratamiento.)"
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma prequirúrgico: taquicardia sinusal a 110 por minuto, sin otras alteraciones."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar abdomen agudo quirúrgico ni pedir la evaluación por cirugía ante dolor migratorio hacia la fosa ilíaca derecha con fiebre y defensa",
+    "Demorar el tratamiento por esperar estudios o dar el alta",
+    "Administrar analgésicos antes de la evaluación por cirugía de manera que se enmascare el cuadro"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor abdominal",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga inicio, localización inicial, migración, calidad, intensidad, factores que lo modifican, irradiación y medicación tomada (ALICIA)"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga fiebre, náuseas, vómitos, hiporexia, cambios del tránsito, gases, síntomas urinarios, flujo vaginal"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes ginecológicos y quirúrgicos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga FUM, posibilidad de embarazo, método anticonceptivo, cirugías previas y alergias"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales y hábitos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga enfermedades crónicas (hipertensión, diabetes), medicación, última comida, alimentación, tabaco y alcohol"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales e inspección",
+      "regular": "Reconoce uno",
+      "suficiente": "Reconoce taquicardia, fiebre y taquipnea, y evalúa el estado general e hidratación"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección, auscultación, percusión y palpación superficial y profunda, con puntos de McBurney, Blumberg, Rovsing, psoas, Murphy y puntos ureterales"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Tacto rectal y examen ginecológico",
+      "regular": "Menciona uno",
+      "suficiente": "Explica y realiza el tacto rectal y considera el tacto vaginal para descartar causas ginecológicas"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Plantea apendicitis",
+      "suficiente": "Diagnostica abdomen agudo inflamatorio quirúrgico (apendicitis aguda) y plantea diferenciales (diverticulitis, colecistitis, pancreatitis, ITU, litiasis renal, EPI, embarazo ectópico, quiste ovárico)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (hemograma, glucemia, urea, creatinina, ionograma, coagulograma, grupo y factor, BHCG, orina), electrocardiograma y ecografía abdominal, aclarando que no deben demorar el tratamiento"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación e indicaciones iniciales",
+      "regular": "Indica internación",
+      "suficiente": "Indica internación en observación, nada por boca, hidratación con solución fisiológica 0,9 %, control de signos vitales, protector gástrico y antiemético (metoclopramida 10 mg)"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Interconsulta con cirugía y analgesia",
+      "regular": "Solicita la interconsulta",
+      "suficiente": "Solicita la evaluación por cirugía de inmediato y difiere los analgésicos hasta que cirugía la evalúe para no enmascarar el cuadro"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibióticos",
+      "regular": "Menciona un antibiótico",
+      "suficiente": "Indica antibiótico perioperatorio (ampicilina-sulbactam 1,5 g cada 6 horas por vía endovenosa) si va a cirugía"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Manejo de las comorbilidades",
+      "regular": "Menciona una",
+      "suficiente": "Controla la glucemia con insulina corregida y maneja la hipertensión durante la internación, suspendiendo la metformina por vía oral por nada por boca"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Explicación a la paciente",
+      "regular": "Explica con términos técnicos",
+      "suficiente": "Explica con lenguaje claro qué es la apendicitis, que la única solución es la cirugía y por qué necesita internación, y pregunta si tiene dudas"
+    }
+  ]
+}

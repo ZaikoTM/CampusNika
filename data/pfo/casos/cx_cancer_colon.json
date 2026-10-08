@@ -1,0 +1,150 @@
+{
+  "id": "cx_cancer_colon",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Alteración del ritmo evacuatorio, pérdida de peso y palidez: cáncer de colon",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Consultorio",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "María Isabel Martínez, una paciente de 50 años que trabaja en un supermercado, ha notado en el último tiempo que está con trastornos para evacuar el intestino, alternándose diarrea y constipación; ha perdido peso y se encuentra pálida y cansada. Su marido está desocupado y viven en un departamento en el centro de la ciudad; se traslada a su trabajo en colectivo con una hora de viaje. Una vecina que sabe de sus síntomas le aconsejó tomar unos yuyos, pero como no mejora le pide a su esposo, quien tiene bastante mal carácter, que la acompañe a su médico clínico de cabecera.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Formular la impresión diagnóstica.",
+    "Comunicar a la paciente la conducta a seguir."
+  ],
+  "interlocutor": "María Isabel Martínez, 50 años, empleada de supermercado (habla ella, en primera persona; tímida frente a su marido, que la acompaña y responde por ella)",
+  "guion_paciente": "María Isabel Martínez, 50 años, cajera en un supermercado. Hace 5 meses alterna períodos de diarrea y de constipación; las heces son más finas y a veces tiene sangre roja oscura mezclada con moco; siente que no vacía del todo. Perdió 8 kg en 4 meses sin dieta, tiene cansancio y palidez, falta de aire al subir escaleras, falta de apetito y un dolor sordo, no muy intenso, en el abdomen inferior izquierdo. Sin fiebre, sin vómitos. La vecina le recomendó tomar yuyos (una infusión de boldo y cola de caballo) por 3 semanas, sin mejoría; no tomó otra medicación. Su ciclo menstrual es irregular (premenopáusica), sin sangrado anormal; sin flujo.\nAntecedentes: sin enfermedades crónicas; sin cirugías; sin alergias; nunca se hizo una colonoscopía ni sangre oculta en materia fecal; no fuma; sin alcohol; dieta con carnes rojas y pocos vegetales; madre con cáncer de colon a los 62 años; hermano con pólipos. Si el marido está presente, ella minimiza los síntomas y no dice la verdad de la sangre; si el médico pide hablar a solas, cuenta todo y cuenta que el marido es violento verbalmente y que no tienen dinero para estudios.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 105/65 mmHg, FC 96 por minuto, FR 18, temperatura 36,8 °C, peso 54 kg (antes 62), talla 1,60 m, IMC 21. Palidez cutáneo-mucosa marcada. Abdomen: levemente distendido; ruidos hidroaéreos aumentados; dolor leve a la palpación profunda en el flanco y la fosa ilíaca izquierdos, con una masa mal definida de 5 cm en la fosa ilíaca izquierda; hígado de tamaño normal; sin ascitis. Tacto rectal: ampolla con restos de sangre oscura, sin masa palpable accesible. Sin adenopatías supraclaviculares ni inguinales.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemoglobina 8,4 g/dl, VCM 74 fl, ferritina 6 ng/ml (anemia ferropénica), leucocitos 8.200/mm³, plaquetas 480.000/mm³. SOMF positiva. CEA 18 ng/ml. Urea, creatinina, hepatograma y glucemia normales."
+    },
+    {
+      "clave": "videocolonoscopia",
+      "texto": "[BORRADOR] Videocolonoscopía (si la solicita): lesión estenosante, ulcerada, en forma de anillo de servilleta, a 28 cm del margen anal, en el sigma distal, que no permite avanzar el endoscopio; se toma biopsia (adenocarcinoma moderadamente diferenciado). Resultado de la biopsia: pendiente al momento de la consulta."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar cáncer colorrectal en una persona de 50 años con alteración del ritmo evacuatorio, anemia, pérdida de peso y rectorragia",
+    "Atribuir los síntomas a una causa funcional o a la dieta sin estudiarla",
+    "Indicar quimioterapia o un tratamiento oncológico sin diagnóstico histológico"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábito intestinal y rectorragia",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga el ritmo evacuatorio (diarrea y constipación), calibre de las heces, sangre, moco, tenesmo, sensación de evacuación incompleta y gases"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas generales",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga pérdida de peso, apetito, astenia, palidez, fiebre, dolor abdominal y síntomas de anemia"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Medicación y yuyos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga los yuyos que tomó, otra medicación y cambios dietéticos"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y entorno",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga antecedentes familiares de cáncer de colon, pólipos, enfermedades crónicas, cirugías, tabaco, alimentación, SOMF o colonoscopía previas y el contexto familiar y laboral"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Entrevista a solas y trato",
+      "regular": "Atiende con el marido presente",
+      "suficiente": "Solicita hablar a solas para indagar la situación familiar y garantiza la confidencialidad"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección, auscultación, percusión y palpación, buscando masas, visceromegalias y ascitis"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Tacto rectal y examen general",
+      "regular": "Realiza uno",
+      "suficiente": "Explica y realiza el tacto rectal (tono, masas, sangre) y examina palidez y adenopatías"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico presuntivo",
+      "regular": "Plantea una patología de colon",
+      "suficiente": "Plantea cáncer colorrectal (colon izquierdo, tipo estenosante) con anemia ferropénica y diferencia enfermedad diverticular, enfermedad inflamatoria intestinal y síndrome de intestino irritable"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios de diagnóstico",
+      "regular": "Solicita uno",
+      "suficiente": "Solicita videocolonoscopía con biopsia (diagnóstico de certeza) y laboratorio con hemograma, ferritina, SOMF, CEA, hepatograma y función renal"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estadificación",
+      "regular": "Solicita uno",
+      "suficiente": "Solicita tomografía de tórax, abdomen y pelvis para la estadificación"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Medidas y derivación",
+      "regular": "Indica una",
+      "suficiente": "Indica corrección de la anemia (hierro o transfusión si es necesario), derivación urgente a cirugía oncológica y electrocardiograma"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento definitivo",
+      "regular": "Menciona la cirugía",
+      "suficiente": "Explica que el tratamiento es quirúrgico oncológico (hemicolectomía izquierda o sigmoidectomía) y la posibilidad de tratamiento adyuvante"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pesquisa y familia",
+      "regular": "Menciona una",
+      "suficiente": "Explica la pesquisa del cáncer colorrectal (SOMF anual y colonoscopía cada 10 años desde los 50) y el estudio de familiares de primer grado"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y apoyo",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Comunica con empatía y claridad la sospecha, aborda su situación socioeconómica y de violencia con apoyo social, y pregunta si tiene dudas"
+    }
+  ]
+}

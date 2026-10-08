@@ -1,0 +1,155 @@
+{
+  "id": "cx_fractura_cadera",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Caída desde su altura con la pierna rotada hacia afuera: fractura de cadera y de muñeca",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Domicilio / emergencias",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Juan Carlos, un paciente de 71 años de edad que vive con su esposa y está jubilado, al salir del baño se tropieza y cae sobre su mano derecha y su cadera del mismo lado; queda con el miembro inferior en rotación externa y muy dolorido, y además se queja de intenso dolor en la muñeca traumatizada. Vive en una casa de material en un barrio periférico de la ciudad. Su esposa, preocupada al ver que no puede ayudarlo a incorporarse, llama al servicio de emergencia a domicilio para que lo asistan.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Interpretar la radiografía de cadera.",
+    "Realizar la impresión diagnóstica.",
+    "Comunicar al paciente la conducta a seguir."
+  ],
+  "interlocutor": "Juan Carlos Ibarra, 71 años, jubilado (habla él, en primera persona; con intenso dolor, miedo a operarse; su esposa Nelly lo acompaña)",
+  "guion_paciente": "Juan Carlos Ibarra, 71 años, jubilado de la municipalidad. Hace una hora, al salir del baño con el piso mojado, resbaló y cayó de costado sobre la mano y la cadera derechas. Recuerda todo el suceso; no se golpeó la cabeza ni perdió el conocimiento; no sintió mareos ni vértigo antes de caer. No puede levantar la pierna derecha ni apoyarla; dolor intenso en la ingle y en la cadera derechas; la pierna quedó girada hacia afuera. También le duele mucho la muñeca derecha (apoyó la palma de la mano con la muñeca extendida) y tiene deformidad. No le duele el cuello, el tórax ni el abdomen. No tomó analgésicos; los paramédicos le dieron paracetamol endovenoso. Puede mover los dedos del pie y de la mano; sin hormigueos.\nAntecedentes: hipertensión (enalapril 10 mg cada 12 horas); diabetes tipo 2 (metformina 850 mg cada 12 horas); sin infarto ni ACV; visión reducida (cataratas); osteoporosis nunca estudiada; fuma 15 cigarrillos por día hace 40 años; alcohol: no; sin cirugías previas; sin alergias. Vive en una casa de material con piso resbaladizo.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 150/90 mmHg, FC 92 por minuto, FR 18, temperatura 36,6 °C, saturación 96 %. Lúcido, orientado. Cabeza, cuello, tórax y abdomen sin lesiones. Miembro inferior derecho: acortado en 2 cm, en rotación externa de 45° y aducción, equimosis sobre el trocánter mayor, impotencia funcional total (no puede elevar el talón de la cama), dolor a la movilización pasiva de la cadera y a la palpación inguinal; pulsos pedio y tibial posterior presentes; llenado capilar normal; sensibilidad y movilidad de los dedos conservadas; temperatura normal. Muñeca derecha: deformidad en «dorso de tenedor», tumefacción, dolor, impotencia funcional, pulso radial presente. Miembro inferior izquierdo normal.",
+  "estudios": [
+    {
+      "clave": "rx_cadera",
+      "texto": "Radiografía de cadera de frente (en rotación interna): trazo de fractura intertrocantérica (lateral) de fémur derecho, con desplazamiento moderado y varo del cuello (coxa vara), no multifragmentaria; sin fractura de pelvis."
+    },
+    {
+      "clave": "rx_muneca",
+      "texto": "[BORRADOR] Radiografía de muñeca derecha: fractura de la epífisis distal del radio con desplazamiento dorsal (Colles)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemoglobina 12,6 g/dl, glucemia 190 mg/dl, urea 42, creatinina 1,1 mg/dl, ionograma normal, coagulograma normal, grupo O Rh positivo; electrocardiograma con ritmo sinusal y bloqueo de rama derecha leve."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar una fractura de cadera en un adulto mayor con caída, acortamiento y rotación externa del miembro",
+    "Indicar carga o movilización activa del miembro antes de la inmovilización y de la evaluación radiológica",
+    "No indicar la cirugía precoz ni la profilaxis de tromboembolismo"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Mecanismo y recuerdo del suceso",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga cómo y hace cuánto se cayó, si recuerda todo, pérdida de conocimiento y mareos o vértigo previos"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Capacidad funcional y otras lesiones",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga si puede levantar la pierna y mover el pie y los dedos, la mano en la que se apoyó y otros sitios de dolor (cabeza, cuello, tórax, abdomen)"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y medicación",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga enfermedades crónicas (hipertensión, diabetes), infarto o ACV, visión reducida, osteoporosis, medicación, anticoagulantes y alergias"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos y entorno",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga tabaco, alcohol, drogas, cirugías previas, condiciones de la vivienda y apoyo familiar"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y examen general",
+      "regular": "Realiza uno",
+      "suficiente": "Evalúa estado de conciencia, signos vitales y busca equimosis o lesiones en cabeza, tórax, abdomen y miembros superiores"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen del miembro inferior",
+      "regular": "Realiza una parte",
+      "suficiente": "Compara ambos miembros y reconoce acortamiento, rotación externa, aducción, equimosis trocantérica e impotencia funcional, con pulsos, temperatura y sensibilidad distales"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen de la muñeca",
+      "regular": "Realiza uno",
+      "suficiente": "Evalúa deformidad, tumefacción, impotencia funcional, pulso radial y sensibilidad (sospecha de fractura de radio distal)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de la radiografía y diagnóstico",
+      "regular": "Interpreta algunos",
+      "suficiente": "Describe la fractura (localización lateral o medial, trazo, desplazamiento, coxa vara, multifragmentaria) y diagnostica fractura de cadera lateral (intertrocantérica) con fractura de radio distal"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y cirugía precoz",
+      "regular": "Indica internación",
+      "suficiente": "Indica internación y derivación a traumatología para cirugía en menos de 48 horas (osteosíntesis con clavo cefalomedular en las laterales; prótesis en las mediales desplazadas)"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios prequirúrgicos",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita hemograma, glucemia, urea, creatinina, ionograma, coagulograma, grupo y factor, electrocardiograma y radiografía de muñeca"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Inmovilización",
+      "regular": "Indica una",
+      "suficiente": "Inmoviliza el miembro (evitar la rotación, tracción blanda de 4 kg, férula de Braun) y la muñeca (férula o cabestrillo)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Analgesia y profilaxis",
+      "regular": "Indica una",
+      "suficiente": "Indica analgésicos y profilaxis tromboembólica con heparina de bajo peso molecular (enoxaparina o bemiparina 3.500 UI cada 24 horas)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comorbilidades y prevención",
+      "regular": "Menciona una",
+      "suficiente": "Controla la diabetes y la hipertensión, evalúa osteoporosis y prevención de caídas (barras, piso antideslizante, visión)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro y empático por qué se interna y se opera, los riesgos de demorar la cirugía, y pregunta si tienen dudas"
+    }
+  ]
+}

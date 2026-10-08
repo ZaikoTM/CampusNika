@@ -1,0 +1,154 @@
+{
+  "id": "em_shock_septico",
+  "area": "emergentologia",
+  "estado": "borrador",
+  "nombre": "Neumonía que empeora a las 48 horas: shock séptico de foco respiratorio",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Sala de internación / terapia intensiva",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Paciente masculino de 65 años, tabaquista, obeso, diabético sin insuficiencia renal. Ingresó a la institución con un cuadro clínico de varios días de evolución caracterizado por fiebre, tos productiva con expectoración purulenta y disnea progresiva. Al examen físico presentaba taquipnea, taquicardia y signos de trabajo respiratorio aumentado, con crepitantes finos en el hemitórax derecho. Los resultados revelaron leucocitosis con desviación a la izquierda, una radiografía de tórax con infiltrado alveolar en el lóbulo medio e inferior derecho y una gasometría arterial con hipoxemia y acidosis respiratoria. Fue diagnosticado con neumonía adquirida en la comunidad y se inició el tratamiento empírico con ampicilina-sulbactam más claritromicina, además de oxígeno con máscara con reservorio a 10 L/min. Al segundo día de internación evoluciona desfavorablemente: mal estado general, obnubilado, hipotenso (TA 85/55 mmHg), taquicárdico (FC 105 por minuto), taquipneico (FR 40 por minuto), febril (38 °C), con mala mecánica ventilatoria y saturando 85 % a pesar del oxígeno suplementario.",
+  "objetivos": [
+    "Interpretar el cuadro (sepsis, shock séptico).",
+    "Definir la conducta y la unidad de internación.",
+    "Indicar las intervenciones dentro de la primera hora.",
+    "Indicar el seguimiento."
+  ],
+  "interlocutor": "Enfermera Claudia (habla ella; informa los datos y ejecuta las indicaciones)",
+  "guion_paciente": "Claudia, enfermera de la sala de clínica médica. Datos: Roberto Pérez, 65 años, ingresó hace 2 días por neumonía; hoy a la mañana estaba con 38 °C y saturando 91 % con reservorio; en la última hora empeoró: está somnoliento, respira muy rápido y con tiraje, tiene la piel fría y marmórea, orina muy poco (150 ml en 6 horas), la presión bajó de 110/70 a 85/55. Recibió ampicilina-sulbactam 1,5 g cada 6 horas y claritromicina 500 mg cada 12 horas (4 dosis). Diabético (metformina y sin insulina), con glucemia capilar 240 mg/dl; fumador de 40 paquetes-año; peso 90 kg; hipertenso (enalapril). Sin alergias. Ingresó hace 2 días en la guardia; sin cirugías recientes. No tiene familiares a mano; su esposa viene en camino.\nEs una emergencia: el alumno debe actuar de inmediato, con un ABCDE simultáneo, y hacer la anamnesis muy breve. Las acciones que el alumno verbaliza se ejecutan en el momento y los resultados (monitor, ritmo, saturación) se informan después de cada acción.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 85/55 mmHg (TAM 65 mmHg), FC 105 por minuto, FR 40, temperatura 38 °C, saturación 85 % con máscara con reservorio a 10 L/min, glucemia capilar 240 mg/dl. Obnubilado (Glasgow 12), piel fría, moteada, relleno capilar de 4 segundos. Tórax: tiraje intercostal y supraclavicular, respiración superficial, crepitantes y soplo tubario en el hemitórax derecho, hipoventilación en la base. Cardiovascular: taquicardia regular, sin soplos. Abdomen blando. Sin edemas. Quick SOFA: 3 de 3 (taquipnea, alteración mental, hipotensión).",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Leucocitos 22.400/mm³ con 15 % de abastonados; hemoglobina 12,4 g/dl; plaquetas 110.000/mm³; creatinina 1,9 mg/dl (basal 0,9); urea 78; bilirrubina 1,8; lactato 5,4 mmol/L (mayor de 2: criterio de shock séptico); glucemia 240; estado ácido-base (con reservorio): pH 7,26, pCO2 52, pO2 52, bicarbonato 20 (acidosis mixta); PCR 280 mg/L; procalcitonina 18 ng/ml."
+    },
+    {
+      "clave": "rx_torax",
+      "texto": "[BORRADOR] Radiografía de tórax: infiltrado alveolar que ahora compromete el lóbulo medio, el inferior derecho y el superior, con derrame paraneumónico derecho y broncograma aéreo."
+    },
+    {
+      "clave": "evolucion",
+      "texto": "Evolución simulada: tras 30 ml/kg de cristaloides persiste la hipotensión (TAM 58); con noradrenalina logra TAM 65 mmHg o más; tras la intubación mejora la saturación al 94 %; se aísla Streptococcus pneumoniae y Pseudomonas en esputo (resultado posterior)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No reconocer el shock séptico (hipotensión persistente, lactato mayor de 2, vasopresores) ni iniciar la reanimación inmediata dentro de la primera hora",
+    "Retrasar la intubación y el soporte ventilatorio en un paciente con insuficiencia respiratoria y fatiga inminente",
+    "Mantener el mismo antibiótico en un paciente que empeora a las 48 horas y no obtener hemocultivos"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Presentación y datos del enfermero",
+      "regular": "Pregunta uno",
+      "suficiente": "Se presenta y pregunta el tiempo de evolución, el deterioro actual, el tratamiento recibido, los antecedentes y las alergias"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Evolución y respuesta al tratamiento",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta qué antibióticos recibió y desde cuándo, la diuresis y los signos vitales previos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y factores de riesgo",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta diabetes, tabaquismo, obesidad, medicación (enalapril, metformina) e internaciones previas"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Familia y contexto",
+      "regular": "Menciona la familia",
+      "suficiente": "Prevé la comunicación con la familia y la evaluación de los límites terapéuticos"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del cuadro",
+      "regular": "Menciona la sepsis",
+      "suficiente": "Interpreta shock séptico de foco respiratorio (neumonía con hipotensión persistente, hipoperfusión y necesidad de vasopresores)"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Quick SOFA y criterios",
+      "regular": "Menciona uno",
+      "suficiente": "Aplica el quick SOFA (FR mayor de 22, alteración mental, TAS menor de 100: 3 de 3) y los criterios de shock (vasopresor para TAM de 65 o más, lactato mayor de 2)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y examen",
+      "regular": "Reconoce uno",
+      "suficiente": "Reconoce hipotensión, taquicardia, taquipnea, fiebre, hipoxemia, obnubilación y signos de hipoperfusión, y examina el tórax"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Decisión de unidad",
+      "regular": "Menciona la UTI",
+      "suficiente": "Indica traslado a terapia intensiva por necesidad de ventilación mecánica y vasopresores"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Monitoreo y ventilación",
+      "regular": "Indica uno",
+      "suficiente": "Conecta al monitor, preoxigena 2 minutos con bolsa-válvula-máscara, intubación de secuencia rápida (midazolam, propofol o ketamina más succinilcolina) y ventilación mecánica"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Reanimación con fluidos",
+      "regular": "Indica uno",
+      "suficiente": "Coloca dos vías periféricas o una central e indica cristaloides 30 ml/kg (2.700 ml) en la primera hora, reevaluando la sobrecarga"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Vasopresor",
+      "regular": "Menciona la noradrenalina",
+      "suficiente": "Indica noradrenalina en infusión continua (inicio 0,1 a 0,2 µg/kg/min, diluida en dextrosa al 5 % por bomba) para una TAM de 65 mmHg o más"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cultivos y antibiótico",
+      "regular": "Indica uno",
+      "suficiente": "Toma hemocultivos por dos y esputo, y rota a un esquema de mayor espectro (piperacilina-tazobactam 4,5 g cada 8 horas más vancomicina 20 mg/kg) por posible germen intrahospitalario (Pseudomonas, SAMR)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Laboratorio, sonda y estudios",
+      "regular": "Indica uno",
+      "suficiente": "Solicita hemograma, ionograma, glucemia, creatinina, urea, hepatograma, estado ácido-base y lactato; sonda vesical con balance hídrico y tomografía de tórax una vez estabilizado"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento",
+      "regular": "Menciona el monitoreo",
+      "suficiente": "Monitorea estado de conciencia y signos vitales cada 10 a 15 minutos hasta compensar y luego cada hora, con estado ácido-base y lactato cada 6 a 8 horas y laboratorio cada 12 horas"
+    }
+  ]
+}

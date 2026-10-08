@@ -1,0 +1,152 @@
+{
+  "id": "em_estado_postictal",
+  "area": "emergentologia",
+  "estado": "borrador",
+  "nombre": "Niño somnoliento tras una convulsión: estado posictal y búsqueda de la causa",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Tomás García, de 4 años, acude a la guardia junto con su padre, quien refiere que Tomás presentó una crisis convulsiva generalizada tónico-clónica mientras estaban en casa. Duró aproximadamente 2 minutos y ocurrió hace 40 minutos. Al llegar a la consulta, el niño está somnoliento, sin respuesta verbal adecuada.",
+  "objetivos": [
+    "Realizar una breve anamnesis sobre Tomás.",
+    "Realizar el examen físico.",
+    "Solicitar los estudios complementarios.",
+    "Formular el diagnóstico.",
+    "Indicar el tratamiento.",
+    "Explicar a la familia."
+  ],
+  "interlocutor": "Andrés García, 34 años, padre de Tomás (habla él, preocupado y colaborador)",
+  "guion_paciente": "Andrés García, 34 años, padre de Tomás (4 años, 16 kg). Estaban cenando; el niño, que tenía fiebre desde la tarde (38,7 °C medida con termómetro axilar, le dieron paracetamol hace 1 hora), de repente se puso rígido, perdió el conocimiento, los ojos se le fueron hacia arriba y sacudió los cuatro miembros durante unos 2 minutos, con la boca cerrada y los labios algo morados; después quedó dormido y flojo, y no responde bien, aunque abre los ojos si lo llaman, llora y se queja. Hace 40 minutos. No se golpeó la cabeza. Hace 2 días tiene tos y moqueo, sin vómitos ni diarrea, sin dolor de cabeza referido ni rigidez de cuello, sin erupciones. Es la primera convulsión; es la primera vez que tiene fiebre tan alta. No toma medicación diaria; sin enfermedades de base; vacunas completas (trajo el carnet); sin antecedentes familiares de epilepsia (la prima del padre tuvo convulsiones con fiebre de bebé); no ingirió productos tóxicos. No sabe qué le dieron en la ambulancia (llegó por sus medios). Desarrollo normal.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Temperatura 38,5 °C, FC 130 por minuto, FR 28, saturación 97 %, TA 95/60 mmHg, glucemia capilar 98 mg/dl, peso 16 kg. Somnoliento, abre los ojos al llamado, localiza el dolor, Glasgow 13 con mejoría progresiva. Pupilas isocóricas reactivas; pares craneales normales; tono y reflejos normales y simétricos; sin signos meníngeos; sin focalidad; sin traumatismos, petequias ni hepatomegalia. Faringe eritematosa sin exudados; tímpanos normales; pulmones limpios.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 11.200/mm³, fórmula normal; hemoglobina 12,4 g/dl; ionograma normal (sodio 138, calcio 9,5, glucemia 98); urea 20, creatinina 0,5; hepatograma normal; PCR 12 mg/L. Hisopado de fauces para estreptococo: negativo. Test rápido de influenza: positivo para influenza A."
+    },
+    {
+      "clave": "estudios_adicionales",
+      "texto": "Estudios que no se solicitan de rutina en una convulsión febril simple: EEG y neuroimágenes. La punción lumbar se hace si hay signos meníngeos o sospecha de infección del sistema nervioso central; en este paciente (sin signos meníngeos, mejoría del sensorio y vacunado) no corresponde."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No evaluar el sensorio ni descartar infección del sistema nervioso central (meningitis, encefalitis) en un niño febril con convulsión",
+    "Solicitar estudios innecesarios (EEG, neuroimágenes) o iniciar un anticonvulsivante crónico en una convulsión febril simple",
+    "No explicar a la familia la benignidad probable, los signos de alarma y qué hacer ante una nueva convulsión"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "La convulsión",
+      "regular": "Indaga uno o dos aspectos",
+      "suficiente": "Indaga cuándo, cuánto duró, cómo fue (generalizada o focal), si siempre es igual, si es la primera vez y qué medicación recibió"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Estado posictal",
+      "regular": "Pregunta cuánto hace",
+      "suficiente": "Indaga cuánto tiempo hace que está confundido o somnoliento y cómo evoluciona"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Desencadenantes",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga fiebre, traumatismo, diarrea, vómitos, cefalea, dolor de cuello o espalda y tóxicos"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales, familiares y vacunas",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga enfermedades de base, medicación, antecedentes familiares de convulsiones o epilepsia y el carnet de vacunas"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y glucemia",
+      "regular": "Toma uno",
+      "suficiente": "Toma signos vitales, temperatura, saturación y glucemia capilar"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen neurológico",
+      "regular": "Realiza una parte",
+      "suficiente": "Evalúa Glasgow, reflejos, pares craneales, tono, signos meníngeos y focalidad"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen general",
+      "regular": "Realiza uno",
+      "suficiente": "Descarta traumatismos, petequias, hepatomegalia y busca el foco febril (garganta, oídos, pulmones)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Plantea una crisis",
+      "suficiente": "Diagnostica crisis convulsiva en estado posictal, probablemente convulsión febril simple, y plantea diferenciales (epilepsia, meningitis o encefalitis, trauma craneoencefálico, hipoglucemia, intoxicación)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (hemograma, ionograma, glucemia, urea, creatinina, hepatograma, PCR), electrocardiograma y define punción lumbar según los signos meníngeos"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios selectivos",
+      "regular": "Menciona uno",
+      "suficiente": "Aclara que el EEG se pide cuando el niño está estable y que las neuroimágenes se solicitan si hay focalidad; no son de rutina en la convulsión febril simple"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento de la causa y de la fiebre",
+      "regular": "Indica uno",
+      "suficiente": "Trata el factor desencadenante (fiebre con paracetamol 10 a 15 mg/kg, glucemia, foco infeccioso) y explica que los antitérmicos no previenen las recurrencias"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación e interconsultas",
+      "regular": "Menciona una",
+      "suficiente": "Decide la internación si hay sospecha de meningitis o encefalitis, diagnóstico incierto o convulsión focal, o la observación, y pide interconsulta con pediatría, neurología e infectología según corresponda"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Qué hacer ante una nueva convulsión",
+      "regular": "Menciona uno",
+      "suficiente": "Enseña a la familia qué hacer (posición de costado, no introducir objetos en la boca, medir el tiempo, consultar si dura más de 5 minutos)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Explicación a la familia",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro qué es una crisis convulsiva y un estado posictal, los estudios, el pronóstico y los signos de alarma, y pregunta si tienen dudas"
+    }
+  ]
+}

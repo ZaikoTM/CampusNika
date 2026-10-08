@@ -1,0 +1,159 @@
+{
+  "id": "cx_arteriopatia_aneurisma_aorta",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Claudicación a los 100 metros, úlcera en el pie y dolor abdominal: arteriopatía periférica y aneurisma de aorta",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Consultorio externo",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Escenario clínico: consultorio externo del hospital. Nombre del paciente: Daniel Gómez. Situación: Daniel, un paciente de 65 años, mecánico, que vive con su esposa y un hijo, desde hace un tiempo ha empezado a notar que cuando sale a caminar presenta dolor en las pantorrillas a los 100 metros que lo obliga a detenerse; además, su esposa le descubre un orificio en el pie derecho por el cual no siente dolor pero que le moja la media. A su vez le cuenta a la esposa que hace unos días está sintiendo dolor en el abdomen que se le corre para la espalda. Ante todo esto decide consultar con su médico de cabecera.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Formular la impresión diagnóstica e interpretar los estudios del paciente.",
+    "Comunicar al paciente la conducta a seguir.",
+    "Todas las acciones, diagnósticos y conductas deben expresarse verbalmente primero con términos médicos y luego con lenguaje comprensible; si se solicitan estudios o se dan indicaciones, solo se verbalizan."
+  ],
+  "interlocutor": "Daniel Gómez, 65 años, mecánico (habla él, en primera persona; preocupado, minimiza la herida del pie)",
+  "guion_paciente": "Daniel Gómez, 65 años, mecánico retirado. Desde hace 8 meses, al caminar unos 100 metros le duele la pantorrilla derecha como un calambre intenso y tiene que parar; se le pasa a los 2 o 3 minutos de quedarse quieto y puede volver a caminar la misma distancia. No tiene dolor en reposo ni con el pie elevado ni al acostarse. Desde hace un mes tiene una herida redonda e indolora en la planta del pie derecho, que supura un líquido claro y le moja la media; su esposa la vio y lo obligó a venir; no se puso nada (se lavó con agua y puso yodo-povidona). Sin fiebre. Desde hace unos días tiene un dolor sordo en el abdomen, cerca del ombligo, que se corre hacia la espalda, de intensidad moderada, que no cambia con las comidas; sin náuseas, vómitos ni cambios del ritmo intestinal; sin pérdida de peso; sin síncope; sin hematuria.\nAntecedentes: diabetes tipo 2 hace 15 años (metformina 850 mg cada 12 horas; mal control), hipertensión (enalapril 10 mg cada 12 horas), dislipemia sin tratamiento; fuma 30 cigarrillos por día desde los 18 años (40 paquetes-año); sin infartos ni ACV; padre fallecido por rotura de aneurisma de aorta a los 70 años; sin cirugías; sin alergias. Duerme poco, camina en zapatillas, a veces descalzo en la casa.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 160/95 mmHg en brazo derecho y 155/92 en el izquierdo, FC 84 por minuto, FR 16, temperatura 36,7 °C, peso 92 kg. Abdomen: obeso, blando; masa pulsátil, expansiva, indolora a la palpación, en epigastrio y periumbilical, de unos 5 cm; soplo sistólico abdominal; sin signos peritoneales. Miembros inferiores: pulsos femorales presentes; poplíteo derecho disminuido, tibial posterior y pedio derechos ausentes; izquierdos disminuidos; piel fría, brillante, sin vello en ambas piernas; palidez a la elevación (prueba de la hiperemia: relleno tardío); sin edema; úlcera plantar de 1,5 cm de diámetro bajo la cabeza del primer metatarsiano derecho, de bordes callosos, fondo pálido y seco, sin exudado purulento ni olor, sin celulitis; sensibilidad con monofilamento ausente en ambos pies; sin gangrena; movilidad conservada.",
+  "estudios": [
+    {
+      "clave": "ecografia_abdominal",
+      "texto": "Ecografía abdominal adjunta: aneurisma de aorta abdominal infrarrenal fusiforme de 5,2 cm de diámetro máximo, con trombo mural, sin líquido libre retroperitoneal."
+    },
+    {
+      "clave": "doppler_mmii",
+      "texto": "[BORRADOR] Eco-Doppler arterial de miembros inferiores: oclusión de la arteria femoral superficial derecha en el tercio medio con reposición por colaterales en la poplítea; flujo monofásico en las arterias tibiales derechas. Índice tobillo-brazo derecho 0,45 y izquierdo 0,68 (si el alumno lo solicita)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma normal (hemoglobina 13,5), glucemia 240 mg/dl, hemoglobina glicosilada 9,4 %, urea 40, creatinina 1,3 mg/dl, colesterol total 262, LDL 175, HDL 34, triglicéridos 260. Amilasemia, lipasa y hepatograma normales."
+    },
+    {
+      "clave": "rx_pie",
+      "texto": "[BORRADOR] Radiografía de pie derecho: sin signos de osteomielitis."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No reconocer el aneurisma de aorta abdominal con dolor de espalda y masa pulsátil como una posible complicación (fisura inminente)",
+    "Colocar yodo-povidona o curaciones inadecuadas en una úlcera arterial isquémica seca, o dar el alta sin evaluación vascular",
+    "No indicar la interrupción del tabaquismo, antiagregación y estatinas en un paciente con arteriopatía periférica"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Claudicación",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga la distancia de caminata, el alivio al parar, la elevación del pie, el dolor en reposo y la evolución"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Lesión del pie",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga el tiempo de evolución, la localización, el trauma previo, la supuración, el olor, el dolor y los tratamientos locales"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor abdominal",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga inicio, localización, irradiación a la espalda, relación con las comidas, síntomas asociados, síncope y hematuria"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes de riesgo",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga diabetes, hipertensión, dislipemia, tabaquismo (paquetes-año), antecedentes familiares de aneurisma y de enfermedad cardiovascular, medicación y alergias"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza palpación y auscultación del abdomen, identificando una masa pulsátil expansiva con soplo"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen de los miembros inferiores",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección, pulsos (femoral, poplíteo, tibial, pedio), temperatura, relleno capilar, prueba de la hiperemia y las 5 P"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen del pie y sensibilidad",
+      "regular": "Menciona uno",
+      "suficiente": "Evalúa la úlcera (localización, bordes, fondo, infección), la sensibilidad con monofilamento y diapasón, y reconoce un pie neuroisquémico"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea una arteriopatía",
+      "suficiente": "Diagnostica arteriopatía periférica en estadio Fontaine IV (claudicación y lesión trófica) y aneurisma de aorta abdominal de 5,2 cm, y explica ambos con lenguaje claro"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Evaluación del aneurisma",
+      "regular": "Menciona la ecografía",
+      "suficiente": "Interpreta la ecografía (aneurisma mayor de 5 cm: se opera) y solicita tomografía con contraste urgente si hay sospecha de complicación; internación y vigilancia de la presión"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios de la isquemia y laboratorio",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita índice tobillo-brazo, eco-Doppler arterial de miembros inferiores, radiografía del pie para osteomielitis, laboratorio (hemograma, glucemia, hemoglobina glicosilada, función renal, perfil lipídico, amilasemia) y electrocardiograma"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Curación y cuidado del pie",
+      "regular": "Indica uno",
+      "suficiente": "Indica curación con agua y jabón dejando la herida seca y descubierta, sin yodo-povidona, y control estricto de los pies"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento médico",
+      "regular": "Indica uno",
+      "suficiente": "Indica dejar de fumar, control de la presión (preferir IECA), aspirina 100 mg, atorvastatina 40 mg y cilostazol 100 mg cada 12 horas, ejercicio controlado y control de la glucemia"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Derivación",
+      "regular": "Menciona la derivación",
+      "suficiente": "Solicita interconsulta con cirugía cardiovascular y traumatología, y explica la indicación de cirugía del aneurisma (diámetro mayor de 5 cm o crecimiento mayor de 0,5 cm en 6 meses)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Expresa primero con términos médicos y luego con lenguaje claro, resalta los signos de alarma y pregunta si tiene dudas"
+    }
+  ]
+}

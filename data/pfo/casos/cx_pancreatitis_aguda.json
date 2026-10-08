@@ -1,0 +1,155 @@
+{
+  "id": "cx_pancreatitis_aguda",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Dolor epigástrico en cinturón y vómitos: pancreatitis aguda",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Federico Rivera, paciente masculino de 48 años, con antecedentes de etilismo, dislipemia y obesidad, consulta al servicio de emergencias por presentar dolor abdominal persistente de 24 horas de evolución. Inicialmente el dolor se localiza en el hemiabdomen superior y luego se irradia al dorso. En las últimas horas el dolor se intensifica y no cede a pesar de la autoadministración de medicación antiespasmódica. Además refiere episodios de vómitos.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Formular la impresión diagnóstica.",
+    "Interpretar la gravedad.",
+    "Comunicar al paciente la conducta a seguir (el tratamiento es médico: eliminar la etiología, hidratar y tratar el dolor)."
+  ],
+  "interlocutor": "Federico Rivera, 48 años, comerciante (habla él, en primera persona; encorvado, con mucho dolor)",
+  "guion_paciente": "Federico Rivera, 48 años, comerciante. Ayer, después de un asado con mucho vino y cerveza, empezó con un dolor muy fuerte en la boca del estómago que se le va a la espalda, «como una barra»; empeora acostado y mejora algo sentado e inclinado hacia adelante; 9 sobre 10; constante. Tomó un antiespasmódico (hioscina) y ketoprofeno sin alivio. Vómitos repetidos de contenido gástrico y bilioso, sin sangre; distensión abdominal; sin fiebre franca (sensación de escalofríos); sin diarrea; última deposición ayer; sin ictericia. Es el primer episodio igual; hace 2 años tuvo un cólico biliar leve que no se estudió.\nAntecedentes: alcohol diario (más de 100 g por día hace 15 años); dislipemia con triglicéridos altos (no se medica); obesidad; sin diabetes conocida; sin litiasis conocida; sin cirugías; no fuma; sin medicación crónica; sin alergias; sin trauma abdominal ni procedimientos biliares recientes. No toma fármacos asociados a pancreatitis.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 110/70 mmHg, FC 108 por minuto, FR 22, temperatura 37,9 °C, saturación 96 %, peso 98 kg, talla 1,72 m. Decaído, deshidratado (mucosas secas, pliegue positivo). Abdomen distendido, ruidos hidroaéreos disminuidos; dolor intenso a la palpación en epigastrio e hipocondrios, con defensa leve y sin reacción peritoneal franca; sin signos de Cullen ni de Grey-Turner; Murphy negativo; sin masa pulsátil. Escleróticas sin ictericia. Pulmones con hipoventilación en las bases.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Amilasemia 1.250 U/L (valor normal menor de 120), lipasa 1.800 U/L. Leucocitos 15.800/mm³, hematocrito 51 %, glucemia 190 mg/dl, urea 52, creatinina 1,2 mg/dl, calcio 7,9 mg/dl, LDH 420 U/L, GOT 80, GPT 70, bilirrubina 1,0 mg/dl, triglicéridos 520 mg/dl (sin criterio de hipertrigliceridemia grave), colesterol 240. PCR 140 mg/L. Estado ácido-base: pH 7,36, pO2 70 (aire ambiente)."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía abdominal: páncreas aumentado de tamaño, hipoecogénico, con borramiento de los bordes; vesícula con barro biliar, sin litiasis ni dilatación de la vía biliar; sin líquido libre. Mala visualización por interposición gaseosa."
+    },
+    {
+      "clave": "tac",
+      "texto": "[BORRADOR] Tomografía abdominal con contraste (a las 72 horas, solo si hay deterioro o duda): páncreas edematoso sin áreas de necrosis, con pequeñas colecciones peripancreáticas."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar una laparotomía o un tratamiento quirúrgico de urgencia en una pancreatitis aguda sin complicaciones",
+    "Restringir la hidratación o los analgésicos en una pancreatitis aguda",
+    "Subestimar la gravedad ni evaluar la falla orgánica en la primera hora"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga inicio, localización, irradiación al dorso, calidad, intensidad, relación con la posición y la ingesta, y medicación tomada"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga vómitos, distensión, fiebre, ictericia, coluria, acolia y cambios del tránsito"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Etiología",
+      "regular": "Indaga una",
+      "suficiente": "Indaga alcohol, litiasis biliar, hipertrigliceridemia, medicación, traumatismos, procedimientos y antecedentes familiares"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga enfermedades crónicas, medicación, cirugías, alergias, tabaco y diabetes"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y estado general",
+      "regular": "Reconoce uno",
+      "suficiente": "Toma signos vitales, reconoce taquicardia, taquipnea y deshidratación, y busca signos de Cullen y de Grey-Turner"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección, auscultación, percusión y palpación, evaluando la defensa y la irritación peritoneal"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea una pancreatitis",
+      "suficiente": "Diagnostica pancreatitis aguda aplicando los criterios de Atlanta (dos de tres: clínica, amilasa o lipasa mayor de tres veces, imágenes)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Gravedad",
+      "regular": "Menciona la gravedad",
+      "suficiente": "Interpreta la gravedad según Atlanta (leve, moderadamente grave, grave) por falla orgánica y complicaciones locales, y plantea escalas pronósticas (Ranson, BISAP)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (amilasa, lipasa, hemograma, hepatograma, glucemia, ionograma, urea, creatinina, calcio, LDH, triglicéridos, estado ácido-base), ecografía abdominal y tomografía con contraste a los 4 a 7 días si hay complicaciones o duda"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Hidratación y analgesia",
+      "regular": "Indica uno",
+      "suficiente": "Indica internación, hidratación intensiva con Ringer lactato, analgesia efectiva (opioides como meperidina o tramadol) y antiemético"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Nutrición y reposo",
+      "regular": "Menciona una",
+      "suficiente": "Indica reposo digestivo inicial y nutrición enteral precoz, y descarta la necesidad de sonda nasoyeyunal si tolera"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento de la causa",
+      "regular": "Menciona una",
+      "suficiente": "Elimina la etiología: abstinencia alcohólica, tratamiento de la hipertrigliceridemia, y colecistectomía en la misma internación si fuese litiásica"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Complicaciones y derivación",
+      "regular": "Menciona una",
+      "suficiente": "Reconoce las complicaciones (colecciones, necrosis, infección, falla orgánica) y la necesidad de cuidados intensivos y de cirugía solo si se complican"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación al paciente",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro qué es la pancreatitis, que el tratamiento es médico, la importancia de dejar el alcohol, y pregunta si tiene dudas"
+    }
+  ]
+}

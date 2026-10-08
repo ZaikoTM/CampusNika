@@ -76,6 +76,14 @@
             "Realizar el tratamiento de dichas lesiones."
           ]
         }
+      ],
+      "casos_oficiales": [
+        "em_paro_cardiorrespiratorio",
+        "em_emergencia_extrahospitalaria",
+        "em_status_convulsivo",
+        "em_estado_postictal",
+        "em_politrauma_abcde",
+        "em_shock_septico"
       ]
     },
     {
@@ -320,6 +328,18 @@
             "Indicar la conducta o decisión a realizar para confirmar los diagnósticos."
           ]
         }
+      ],
+      "casos_oficiales": [
+        "cx_apendicitis_aguda",
+        "cx_sindrome_coledociano",
+        "cx_pancreatitis_aguda",
+        "cx_colecistitis_aguda",
+        "cx_diverticulitis_no_complicada",
+        "cx_diverticulitis_complicada",
+        "cx_cancer_colon",
+        "cx_retencion_aguda_orina",
+        "cx_arteriopatia_aneurisma_aorta",
+        "cx_fractura_cadera"
       ]
     }
   ]

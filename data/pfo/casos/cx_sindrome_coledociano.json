@@ -1,0 +1,155 @@
+{
+  "id": "cx_sindrome_coledociano",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Ictericia progresiva y pérdida de peso: síndrome coledociano",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Consultorio externo",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "En el consultorio externo del hospital usted se encuentra con Silvana González, ama de casa de 47 años, que presenta un color amarillento de la piel, progresivo, de dos meses de evolución, acompañado de una pérdida de peso de 10 kg en ese mismo período. Tiene dolor abdominal sin náuseas ni vómitos. Es diabética tipo 2 e hipertensa.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar un examen físico focalizado.",
+    "Plantear los diagnósticos diferenciales (colelitiasis, coledocolitiasis, colangitis, neoplasia vesicular, de la vía biliar o periampular).",
+    "Formular la impresión diagnóstica e interpretar los estudios de la paciente.",
+    "Comunicar a la paciente la conducta a seguir."
+  ],
+  "interlocutor": "Silvana González, 47 años, ama de casa (habla ella, en primera persona; preocupada por el cáncer)",
+  "guion_paciente": "Silvana González, 47 años, ama de casa. Hace 2 meses nota que la piel y los ojos se le ponen cada vez más amarillos; la orina es oscura, «color té», y las deposiciones claras, como masilla; siente mucha picazón en todo el cuerpo, sobre todo de noche. Perdió 10 kg en 2 meses sin dieta, con falta de apetito. Tiene un dolor sordo en la boca del estómago y en el lado derecho que a veces se va a la espalda, de intensidad moderada, que aumenta después de comer; no tiene fiebre, ni escalofríos, ni náuseas ni vómitos. Nunca había tenido ictericia. Sin consumo de alcohol; sin hepatitis conocida.\nAntecedentes: diabetes tipo 2 hace 6 años (metformina 850 mg cada 12 horas; empeoró el control en los últimos meses), hipertensión (enalapril 10 mg cada 12 horas), litiasis vesicular conocida desde hace 3 años (nunca se operó), sin cirugías abdominales, sin alergias. Madre fallecida de cáncer de páncreas a los 66 años. No fuma. Sin antecedentes de transfusiones ni tatuajes ni drogas. Quiere saber si es grave.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 130/85 mmHg, FC 78 por minuto, temperatura 36,8 °C, peso 58 kg (antes 68), IMC 21. Ictericia franca de piel y escleróticas, con lesiones de rascado; mucosas pálidas. Abdomen: blando, depresible; masa palpable, lisa, elástica e indolora en el hipocondrio derecho (vesícula distendida: signo de Courvoisier-Terrier); hígado a 3 cm del reborde costal, de borde liso; Murphy negativo; sin ascitis. Sin adenopatías supraclaviculares.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Bilirrubina total 14,2 mg/dl (directa 11,8), fosfatasa alcalina 820 U/L, GGT 640 U/L, GOT 96, GPT 118 U/L, albúmina 3,2 g/dl, RIN 1,4 (déficit de vitamina K). Hemoglobina 10,8 g/dl, leucocitos 7.600/mm³. Glucemia 238 mg/dl. Amilasemia 90 U/L. CA 19-9 elevado (850 U/ml). Serologías de hepatitis A, B y C negativas. Urea y creatinina normales."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía abdominal: vesícula biliar distendida (11 x 5 cm), con litiasis múltiple en su interior; colédoco dilatado de 15 mm; dilatación de la vía biliar intrahepática; masa hipoecoica de 3,5 cm en la cabeza del páncreas; sin ascitis ni metástasis hepáticas evidentes."
+    },
+    {
+      "clave": "tac",
+      "texto": "[BORRADOR] Tomografía de abdomen con contraste: masa hipodensa de 3,4 cm en la cabeza del páncreas con dilatación del colédoco y del conducto de Wirsung (doble signo del conducto) y contacto con la vena mesentérica superior de menos de 180°; sin metástasis hepáticas."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No reconocer un síndrome coledociano con signo de Courvoisier-Terrier como un tumor periampular hasta demostrar lo contrario",
+    "Indicar una intervención quirúrgica o endoscópica sin estudios de imágenes ni estadificación",
+    "Tranquilizar a la paciente afirmando que es un cuadro benigno sin completar el estudio"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Ictericia y tríada colestásica",
+      "regular": "Indaga la ictericia",
+      "suficiente": "Indaga inicio y evolución de la ictericia (ojos o piel primero), coluria, acolia y prurito"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Pérdida de peso y síntomas generales",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga la pérdida de peso (cantidad, involuntaria), apetito, fiebre, escalofríos, astenia y esteatorrea"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor, náuseas y vómitos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga el dolor con ALICIA, su relación con las comidas, náuseas, vómitos y distensión"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes de riesgo",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga litiasis biliar, cirugías, hepatitis, alcohol, diabetes, antecedentes familiares de cáncer, transfusiones y medicación"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico general",
+      "regular": "Realiza uno",
+      "suficiente": "Toma signos vitales, evalúa peso, ictericia, rascado, palidez y adenopatías"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección, auscultación, percusión y palpación, buscando vesícula palpable (Courvoisier), hepatomegalia, Murphy y ascitis"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Nombra dos",
+      "suficiente": "Plantea coledocolitiasis, colangitis, colecistitis, litiasis intrahepática, neoplasia de vesícula, de la vía biliar o periampular, y pancreatitis"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de los estudios",
+      "regular": "Interpreta uno",
+      "suficiente": "Interpreta el patrón colestásico del laboratorio, la dilatación del colédoco mayor de 8 mm, la vesícula distendida y la masa en la cabeza del páncreas"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Diagnóstico presuntivo",
+      "regular": "Plantea una obstrucción",
+      "suficiente": "Plantea síndrome coledociano por probable tumor periampular (cáncer de cabeza de páncreas) con vesícula de Courvoisier, y no por litiasis"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (hepatograma, coagulograma, CA 19-9, serologías, glucemia), tomografía de abdomen con contraste y eventualmente CPRE o resonancia (colangiorresonancia)"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y medidas",
+      "regular": "Indica internación",
+      "suficiente": "Indica internación, hidratación, corrección de la coagulopatía con vitamina K, control de glucemia con insulina, y evita la CPRE sin necesidad"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Conducta definitiva",
+      "regular": "Menciona la cirugía",
+      "suficiente": "Explica la derivación a cirugía hepatobiliar, la estadificación y la posibilidad de duodenopancreatectomía cefálica (operación de Whipple) si es resecable, o drenaje biliar si no lo es"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pronóstico y comunicación a la familia",
+      "regular": "Explica sin pronóstico",
+      "suficiente": "Explica que el pronóstico depende de la causa, con prudencia, sin falsas expectativas"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y empatía",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Usa lenguaje claro y empático, comunica la mala noticia con el protocolo SPIKES, y pregunta si tiene dudas"
+    }
+  ]
+}

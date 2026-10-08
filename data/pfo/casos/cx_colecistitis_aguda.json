@@ -1,0 +1,148 @@
+{
+  "id": "cx_colecistitis_aguda",
+  "area": "cirugia",
+  "estado": "borrador",
+  "nombre": "Dolor en el hipocondrio derecho con fiebre: colecistitis aguda",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "María Rivera, una mujer de 55 años, llega a la sala de urgencias quejándose de un dolor abdominal intenso en el cuadrante superior derecho que ha empeorado gradualmente en los últimos 2 días. También informa náuseas, vómitos y fiebre. Examen físico: usted nota que María está visiblemente incómoda y tiene sensibilidad en el cuadrante superior derecho del abdomen. Trae el informe del laboratorio y la ecografía abdominal solicitadas previamente.",
+  "objetivos": [
+    "Formular la impresión diagnóstica e interpretar los estudios de la paciente.",
+    "Comunicar a la paciente la conducta a seguir."
+  ],
+  "interlocutor": "María Rivera, 55 años, empleada de comercio (habla ella, en primera persona; con dolor, encorvada)",
+  "guion_paciente": "María Rivera, 55 años, empleada. Hace 2 días tiene un dolor continuo, cada vez más fuerte, en la parte superior derecha de la panza, que se va hacia el hombro derecho; empezó después de una comida grasosa; náuseas, 3 vómitos, fiebre de 38,5 °C con escalofríos. Antes tuvo cólicos biliares ocasionales (dolor que dura una hora y cede solo) desde hace 2 años, nunca estudiados. Sin ictericia, sin coluria ni acolia. Sin diarrea. Sin dolor de pecho.\nAntecedentes: obesidad, dislipemia, hipertensión (enalapril 10 mg por día); sin diabetes; sin cirugías abdominales; sin alergias; no fuma; sin alcohol. Trajo el laboratorio y la ecografía de la guardia de ayer.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 130/80 mmHg, FC 100 por minuto, FR 20, temperatura 38,2 °C, saturación 98 %. Visiblemente dolorida. Abdomen: dolor a la palpación y defensa en hipocondrio derecho; signo de Murphy positivo (interrupción de la inspiración al palpar); sin masa palpable ni peritonitis difusa; ruidos hidroaéreos presentes. Escleróticas sin ictericia.",
+  "estudios": [
+    {
+      "clave": "laboratorio_traido",
+      "texto": "[BORRADOR] Leucocitos 16.200/mm³ con desviación a la izquierda; PCR 142 mg/L; bilirrubina total 1,1 mg/dl; GOT 42, GPT 48, fosfatasa alcalina 130 U/L; amilasemia normal; glucemia 108; creatinina 0,8 mg/dl."
+    },
+    {
+      "clave": "ecografia_traida",
+      "texto": "[BORRADOR] Ecografía abdominal: vesícula biliar distendida (9 x 4 cm), con pared engrosada de 5 mm y signo de doble riel, litiasis múltiple con un cálculo impactado en el cuello, líquido perivesicular y Murphy ecográfico positivo; colédoco de 5 mm."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Dar el alta o tratar ambulatoriamente a una paciente con fiebre y signos ecográficos de colecistitis aguda",
+    "Indicar antiinflamatorios o analgésicos que enmascaren el cuadro antes de la evaluación de cirugía",
+    "No indicar la colecistectomía precoz ni la interconsulta con cirugía"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor en el hipocondrio derecho",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga inicio, calidad, irradiación al hombro, relación con las comidas grasas, duración y episodios previos"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga fiebre, escalofríos, náuseas, vómitos, ictericia, coluria y acolia"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga litiasis o cólicos previos, cirugías, enfermedades crónicas, medicación y alergias"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Menciona uno",
+      "suficiente": "Plantea pancreatitis, hepatitis, pielonefritis, síndrome de Mirizzi, úlcera perforada e infarto de cara inferior"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza el examen abdominal con la maniobra de Murphy, buscando defensa y masa, y evalúa la ictericia"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce uno",
+      "suficiente": "Interpreta leucocitosis con PCR elevada y perfil hepático sin colestasis significativa"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de la ecografía",
+      "regular": "Reconoce uno",
+      "suficiente": "Interpreta engrosamiento de la pared (más de 3 mm), signo de doble riel, litiasis impactada, líquido perivesicular y Murphy ecográfico positivo"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y gravedad",
+      "regular": "Plantea colecistitis",
+      "suficiente": "Diagnostica colecistitis aguda litiásica aplicando los criterios de Tokio y descarta colangitis y pancreatitis"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y medidas generales",
+      "regular": "Indica internación",
+      "suficiente": "Indica internación, nada por boca, vía periférica con hidratación, control de signos vitales, protector gástrico y antiemético"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibióticos",
+      "regular": "Indica uno sin dosis",
+      "suficiente": "Indica ampicilina-sulbactam 1,5 g cada 6 horas por vía endovenosa (cefazolina 2 g prequirúrgica)"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Interconsulta y cirugía",
+      "regular": "Menciona la cirugía",
+      "suficiente": "Solicita la interconsulta con cirugía para colecistectomía laparoscópica precoz (menos de 72 horas) y realiza electrocardiograma prequirúrgico"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Analgesia",
+      "regular": "Menciona la analgesia",
+      "suficiente": "Indica analgesia luego de la evaluación por cirugía (por ejemplo diclofenac 75 mg endovenoso) sin enmascarar el cuadro"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Complicaciones y colangitis",
+      "regular": "Menciona una",
+      "suficiente": "Reconoce las complicaciones (gangrena, perforación, colangitis con tríada de Charcot y péntada de Reynolds) y la necesidad de drenaje biliar urgente"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro qué es la colecistitis, por qué se interna y se opera, y pregunta si tiene dudas"
+    }
+  ]
+}

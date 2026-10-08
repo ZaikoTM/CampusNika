@@ -1,0 +1,150 @@
+{
+  "id": "em_paro_cardiorrespiratorio",
+  "area": "emergentologia",
+  "estado": "borrador",
+  "nombre": "Paciente sin respuesta y con respiración agónica: paro cardiorrespiratorio por fibrilación ventricular",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Shock room",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a que atiende en el servicio de urgencias y es llamado/a por un enfermero a la sala de shock room porque el Servicio de Emergencia Médica trajo a un paciente masculino de 50 años que sufrió una descompensación hemodinámica en la vía pública. Presenta: sin respuesta a estímulos, respiración agónica, palidez. El paciente se encuentra con el torso desnudo. El enfermero lo monitorea y lo valora.",
+  "objetivos": [
+    "Recabar toda la información que necesite, preguntando al enfermero.",
+    "Realizar la evaluación inicial con el fin de diagnosticar rápidamente el paro cardiorrespiratorio.",
+    "Delegar las tareas que considere necesarias al equipo interdisciplinario mientras evalúa al paciente.",
+    "Apoyarse en un rápido y adecuado soporte vital básico, una rápida desfibrilación y los cuidados posresucitación."
+  ],
+  "interlocutor": "Enfermero Marcelo (habla él; calmado y colaborador, ejecuta las indicaciones del médico y comunica los datos que el alumno le pide)",
+  "guion_paciente": "Marcelo, enfermero del shock room. Datos que conoce del traslado (si se los preguntan): el paciente es un varón de unos 50 años, recogido en la vía pública hace 12 minutos; un transeúnte lo vio caer de golpe mientras caminaba, quejándose de dolor en el pecho unos minutos antes; el testigo inició compresiones torácicas (RCP) durante unos 6 minutos hasta la llegada del SEM, que lo trajo con compresiones y bolsa; el SEM no pudo desfibrilar en el lugar (el desfibrilador estaba descargado). No se sabe si convulsionó. No hay familiares. Antecedentes: en el bolsillo hay una receta de enalapril y atorvastatina (hipertenso, dislipémico); no se sabe de alergias ni de otros medicamentos; no usa marcapasos. Última comida: desconocida.\nPeso estimado: 80 kg. Llega con una vía periférica (18G) colocada por el SEM en el brazo derecho.\nEs una emergencia: el alumno debe actuar de inmediato, con un ABCDE simultáneo, y hacer la anamnesis muy breve. Las acciones que el alumno verbaliza se ejecutan en el momento y los resultados (monitor, ritmo, saturación) se informan después de cada acción.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Sin respuesta a estímulos (Glasgow 3, AVDI I); respiración agónica (boqueo), sin pulso carotídeo ni femoral palpable; piel pálida y fría; pupilas midriáticas; sin signos de traumatismo; tórax simétrico, sin crepitación ni enfisema subcutáneo; tráquea central; ruidos respiratorios presentes con la bolsa. Monitor: fibrilación ventricular (FV) al conectarlo. Tras la primera descarga persiste FV; tras la segunda descarga y adrenalina persiste FV; tras la tercera descarga y amiodarona, ritmo sinusal con pulso (retorno de la circulación espontánea) a 110 por minuto, TA 90/50 mmHg, saturación 92 % con bolsa, sin respuesta verbal (Glasgow 6), intubado.",
+  "estudios": [
+    {
+      "clave": "ritmo_monitor",
+      "texto": "Ritmo en el monitor al conectarlo: fibrilación ventricular (ondas caóticas sin complejos QRS definidos). Si el alumno aplica correctamente el algoritmo, el retorno de la circulación espontánea se produce después de la tercera descarga."
+    },
+    {
+      "clave": "causas_reversibles",
+      "texto": "[BORRADOR] Estudios posresucitación (si los solicita): ECG de 12 derivaciones con supradesnivel del ST de 4 mm en V1-V5 (infarto con elevación del ST de cara anterior); gases arteriales: pH 7,18, pCO2 52, pO2 70, lactato 7 mmol/L; potasio 4,4 mEq/L, glucemia 160 mg/dl; troponina elevada; ecocardiograma: hipocinesia anterior, FEVI 30 %, sin derrame pericárdico; radiografía de tórax: tubo orotraqueal en posición, sin neumotórax."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No iniciar de inmediato compresiones torácicas de alta calidad ni desfibrilar un ritmo desfibrilable (FV) lo antes posible",
+    "Administrar adrenalina o amiodarona sin respetar el momento del algoritmo (adrenalina tras la segunda descarga, amiodarona tras la tercera)",
+    "Interrumpir las compresiones de manera prolongada o no delegar tareas al equipo"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Presentación y liderazgo",
+      "regular": "Se presenta",
+      "suficiente": "Se presenta al equipo, asume el liderazgo y aclara que es una emergencia con anamnesis breve"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Tiempo y RCP previa",
+      "regular": "Pregunta una",
+      "suficiente": "Pregunta cuánto tiempo pasó desde el colapso y si se realizó RCP o desfibrilación antes de llegar"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Circunstancias del colapso",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta si presenció la caída, dolor torácico previo y convulsiones"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y medicación",
+      "regular": "Pregunta uno",
+      "suficiente": "Pregunta antecedentes cardiovasculares (IAM, ACV, FA, IC, diabetes, hipertensión, marcapasos), alergias y medicación (antiarrítmicos)"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Confirmación del paro",
+      "regular": "Evalúa uno",
+      "suficiente": "Confirma el paro en menos de 10 segundos: estimula (¿me escuchás?), mira-escucha-siente y verifica el pulso carotídeo o femoral"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Inicio del algoritmo y RCP",
+      "regular": "Inicia sin ordenar",
+      "suficiente": "Inicia RCP (30 compresiones y 2 ventilaciones), solicita el monitor-desfibrilador y delega las tareas"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Identificación del ritmo",
+      "regular": "Identifica el ritmo",
+      "suficiente": "Identifica fibrilación ventricular (ritmo desfibrilable) y diferencia las tareas de ritmos desfibrilables y no desfibrilables"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea el paro",
+      "suficiente": "Diagnostica paro cardiorrespiratorio por fibrilación ventricular, con probable causa isquémica"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Desfibrilación",
+      "regular": "Desfibrila sin energía",
+      "suficiente": "Desfibrila con 200 J (bifásico) o 360 J (monofásico) lo antes posible, retomando las compresiones inmediatamente tras cada descarga"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Fármacos",
+      "regular": "Indica uno",
+      "suficiente": "Indica adrenalina 1 mg (1 ampolla) después de la segunda descarga y amiodarona 300 mg (2 ampollas) después de la tercera"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Vía aérea, ventilación y acceso",
+      "regular": "Realiza uno",
+      "suficiente": "Coloca cánula de Mayo, ventila con bolsa-válvula-máscara con oxígeno al 100 %, evalúa intubación y asegura dos vías periféricas"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Causas reversibles",
+      "regular": "Menciona algunas",
+      "suficiente": "Revisa las causas reversibles (hipoxia, hipovolemia, hipo o hiperpotasemia, hipotermia, neumotórax a tensión, taponamiento, tóxicos, trombosis coronaria o pulmonar)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cuidados posresucitación",
+      "regular": "Menciona uno",
+      "suficiente": "Monitoreo continuo, saturación mayor de 94 %, PaCO2 de 35 a 45, soporte hemodinámico, glucemia de 140 a 180, ECG de 12 derivaciones, laboratorio, ecocardiograma e ingreso a terapia intensiva"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación con la familia",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Comunica con un lugar privado, presentándose, qué pasó, cómo está, qué se hizo y cómo se sigue, transmite esperanza realista y pregunta si entienden"
+    }
+  ]
+}
