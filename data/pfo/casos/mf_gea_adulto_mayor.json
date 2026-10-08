@@ -1,7 +1,7 @@
 {
   "id": "mf_gea_adulto_mayor",
   "area": "medicina_familiar",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Diarrea aguda con deshidratación en una adulta mayor hipertensa y diabética",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -97,7 +97,7 @@
       "max": 5,
       "texto": "Diagnóstico y diferenciales",
       "regular": "Plantea gastroenteritis",
-      "suficiente": "Diagnostica gastroenteritis aguda con deshidratación moderada a grave e hipovolemia, y plantea diferenciales (viral, bacteriana, osmótica, colitis isquémica, diarrea por metformina)"
+      "suficiente": "Diagnostica gastroenteritis aguda con deshidratación moderada a grave (hipovolemia) secundaria a probable intoxicación o toxoinfección alimentaria (nexo con la mayonesa casera y la hija con diarrea), y plantea diferenciales (viral, transgresión alimentaria, diarrea por metformina, colitis isquémica)"
     },
     {
       "id": 9,
@@ -105,7 +105,7 @@
       "max": 10,
       "texto": "Internación e hidratación",
       "regular": "Indica internación sin reposición",
-      "suficiente": "Indica internación, acceso venoso e hidratación parenteral con solución fisiológica 0,9 % en bolo de 500 ml con reevaluación, y control estricto de diuresis"
+      "suficiente": "Indica internación en observación, acceso venoso e hidratación parenteral con cristaloides (por ejemplo solución fisiológica 0,9 %) en bolo inicial de 500 ml con reevaluación hemodinámica, control de la diuresis y posterior reposición de potasio una vez recuperada la diuresis"
     },
     {
       "id": 10,
@@ -129,7 +129,7 @@
       "max": 10,
       "texto": "Sintomáticos y antibióticos",
       "regular": "Indica antiemético o antitérmico",
-      "suficiente": "Indica metoclopramida 10 mg si hay vómitos y paracetamol 500 mg cada 6 horas; explica que no se indican antibióticos por ser un cuadro probablemente viral, salvo disentería o compromiso sistémico"
+      "suficiente": "Indica antiemético (metoclopramida) y antitérmico (paracetamol); explica explícitamente que no se indican antibióticos ni antidiarreicos de entrada por tratarse de una probable toxoinfección alimentaria autolimitada, sin criterios de disentería ni sepsis"
     },
     {
       "id": 13,
