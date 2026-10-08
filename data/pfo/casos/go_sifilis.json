@@ -1,0 +1,145 @@
+{
+  "id": "go_sifilis",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Resultado de laboratorio con VDRL y FTA-ABS reactivos: sífilis",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y se encuentra realizando una consulta en el centro de salud. Recibe en la consulta a Carla, de 27 años. Hoy le trae unos resultados de laboratorio que fueron solicitados en el contexto de su control periódico de salud. Laboratorio: VDRL 64 diluciones (positivo); FTA-ABS reactivo; VIH no reactivo.",
+  "objetivos": [
+    "Realizar una breve anamnesis.",
+    "Evaluar y explicar los resultados de los laboratorios.",
+    "Instaurar el tratamiento y el seguimiento de la paciente y de los contactos de acuerdo con el resultado."
+  ],
+  "interlocutor": "Carla Medina, 27 años, empleada de comercio (habla ella, en primera persona; sorprendida y asustada por el resultado)",
+  "guion_paciente": "Carla Medina, 27 años, empleada de una zapatería. Vino a retirar los análisis de su control periódico de salud (se los pidieron por un trámite laboral y por «hacerse un chequeo»); sin síntomas actuales: sin úlceras genitales, sin dolor, sin picazón, sin flujo diferente, sin ardor al orinar, sin ganglios, sin manchas en la piel, sin fiebre ni dolores del cuerpo. Hace 8 meses se hizo un VDRL de rutina, que fue negativo. Hace unos 4 meses tuvo una «ampolla» indolora en la zona genital que se curó sola en un par de semanas (no consultó).\nAntecedentes: sin enfermedades crónicas ni medicación; sin cirugías; sin alergias (nunca tuvo reacción a penicilina); sin embarazo (FUM hace 10 días; usa preservativo a veces y no otro método; test de embarazo negativo si se lo piden); inició relaciones a los 17; 2 parejas en el último año (una estable actualmente, desde hace 6 meses, y otra ocasional hace 5 meses); ITS previas: ninguna conocida; último PAP hace 2 años normal; vacunas: sin carnet. No fuma, alcohol los fines de semana, sin drogas.\nLa pareja estable no tiene síntomas; la otra pareja es un contacto casual del que no tiene teléfono ni dirección. Dice que le avisará a su pareja actual.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 110/70 mmHg, FC 72 por minuto, temperatura 36,5 °C, peso 60 kg, talla 1,62 m, IMC 22,9. Piel y mucosas sin lesiones; sin adenopatías; sin rash palmo-plantar; examen de genitales externos sin chancro ni condilomas (si el alumno lo solicita y la paciente lo acepta). Examen cardiopulmonar y abdominal normales.",
+  "estudios": [
+    {
+      "clave": "estudios_complementarios",
+      "texto": "[BORRADOR] Test de embarazo negativo. Serologías para hepatitis B y C, VIH (ya informado) y exudado endocervical para Chlamydia y gonococo: negativos. Un VDRL previo de hace 8 meses: no reactivo (consta en el carnet de la paciente)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar un esquema de penicilina incompleto o doxiciclina a una paciente no alérgica",
+    "No notificar el caso ni estudiar y tratar a los contactos sexuales",
+    "No advertir la reacción de Jarisch-Herxheimer ni dar pautas de seguimiento serológico"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivo y síntomas",
+      "regular": "Pregunta por el motivo",
+      "suficiente": "Indaga el motivo de los estudios y síntomas: úlceras genitales, secreciones, flujo, ardor, ganglios, manchas en la piel, fiebre y dolores corporales"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Estudios y tratamientos previos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga serologías previas (VDRL anterior), medicación antes o después de ver el resultado y tratamientos previos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes ginecoobstétricos y sexuales",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga parejas, tipo de relaciones, uso de preservativo, método anticonceptivo, ITS previas, FUM, embarazo, PAP"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales y alergias",
+      "regular": "Indaga alergias",
+      "suficiente": "Indaga alergia a la penicilina, enfermedades crónicas, medicación, cirugías, vacunación y hábitos"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza uno",
+      "suficiente": "Toma signos vitales, inspecciona la piel y las mucosas, busca adenopatías, y examina los genitales si refiere lesiones"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de los resultados",
+      "regular": "Menciona que son positivos",
+      "suficiente": "Explica que VDRL (no treponémica, cuantitativa) y FTA-ABS (treponémica, confirmatoria) reactivos confirman sífilis, con VIH no reactivo"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Clasificación del estadio",
+      "regular": "Menciona un estadio",
+      "suficiente": "Clasifica la sífilis como latente temprana (adquirida hace menos de un año, con VDRL negativo hace 8 meses) y justifica el esquema"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Explicación empática",
+      "regular": "Explica con términos técnicos",
+      "suficiente": "Explica con lenguaje claro qué es la sífilis, cómo se transmite y que es curable, sin juzgar, y garantiza la confidencialidad"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Penicilina",
+      "regular": "Indica penicilina sin dosis",
+      "suficiente": "Indica penicilina G benzatínica 2.400.000 UI por vía intramuscular en dosis única, aplicada en el momento"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Reacción de Jarisch-Herxheimer y alternativas",
+      "regular": "Menciona la reacción",
+      "suficiente": "Advierte la reacción de Jarisch-Herxheimer (fiebre, escalofríos, mialgias, cefalea, a las 2 a 24 horas, autolimitada, no es alergia) y su tratamiento con antitérmicos; menciona doxiciclina para alérgicas no embarazadas"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Notificación y abstinencia",
+      "regular": "Menciona una",
+      "suficiente": "Notifica el caso sin revelar datos personales y pauta abstinencia o preservativo hasta la curación de las lesiones"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudio y tratamiento de contactos",
+      "regular": "Menciona a los contactos",
+      "suficiente": "Estudia y trata a los contactos sexuales del último año (sífilis latente temprana), aun con serología negativa, y descarta otras ITS"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento serológico",
+      "regular": "Indica un control",
+      "suficiente": "Indica VDRL a los 1, 3, 6 y 12 meses (y hasta la negativización), define el alta con dos VDRL no reactivas separadas por 6 meses"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Prevención y cierre",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Aconseja preservativo, vacunación (hepatitis B), repetir VIH según el período ventana y pregunta si tiene dudas"
+    }
+  ]
+}

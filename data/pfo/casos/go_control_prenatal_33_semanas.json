@@ -1,0 +1,145 @@
+{
+  "id": "go_control_prenatal_33_semanas",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Control prenatal de una adolescente a las 33 semanas: examen y estudios",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es residente de medicina general y debe atender en el consultorio del centro de salud a Lucía, de 17 años. Concurre al control de su embarazo de 33 semanas, según su última menstruación. Es primigesta y ha realizado varios controles, pero tiene algunas dudas sobre el momento del parto. Trae su carnet perinatal. Los signos vitales y el peso fueron anotados por la enfermera en el carnet perinatal.",
+  "objetivos": [
+    "Realizar el examen abdominal obstétrico completo.",
+    "Solicitar los estudios complementarios correspondientes a la edad gestacional de Lucía.",
+    "Dar pautas de alarma sobre el inicio del trabajo de parto o anormalidades maternas y fetales."
+  ],
+  "interlocutor": "Lucía Fernández, 17 años, estudiante secundaria (habla ella, en primera persona; tímida, viene acompañada de su madre, que espera afuera)",
+  "guion_paciente": "Lucía Fernández, 17 años, cursa el último año del secundario. Primer embarazo, planificado por su pareja (de 19 años) y ella; vive con su madre y su pareja. Cursa 33 semanas por FUM confiable (ecografía del primer trimestre concordante). Hizo 7 controles y se siente bien. Tiene dudas sobre cuándo ir al hospital, cómo es el parto y el dolor. Sin pérdida de líquido ni sangre, sin dolor de cabeza ni visión borrosa, sin hinchazón de cara o manos, sin dolor al orinar, con movimientos fetales presentes. Alguna contracción esporádica.\nCarnet perinatal: grupo O Rh negativo (Coombs indirecta negativa a las 28 semanas; recibió gammaglobulina anti-D a las 28); hemoglobina 11,6 g/dl a las 20 semanas y 11,2 a las 30; glucemia en ayunas 84 mg/dl; PTOG a las 26 semanas normal; VDRL, VIH, hepatitis B, toxoplasmosis y Chagas negativos; urocultivo a las 12 semanas negativo; ecografía del segundo trimestre normal; PAP hace 6 meses normal; vacunas: antigripal sí, dTpa a las 22 semanas, vacuna contra el VSR todavía no; hierro y ácido fólico; TA 100/60 a 112/70. Peso previo 54 kg, actual 65 kg. Altura uterina 32 cm.\nAntecedentes: sin enfermedades crónicas, sin cirugías, sin alergias; no fuma ni toma alcohol; sin violencia (si se lo pregunta a solas); se siente acompañada. Pide hablar a solas con el médico; después autoriza que la madre entre.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 108/68 mmHg, FC 86 por minuto, peso 65 kg. Examen obstétrico: altura uterina 32 cm, feto único, longitudinal, podálico (cabeza en el fondo uterino), dorso a la derecha; frecuencia cardíaca fetal 148 por minuto, regular; sin dinámica uterina; edemas ausentes. Examen mamario sin nódulos.",
+  "estudios": [
+    {
+      "clave": "ecografia_3t",
+      "texto": "[BORRADOR] Si se solicita en el control o ya estaba realizada: ecografía obstétrica de las 32 semanas con feto en presentación podálica, líquido amniótico normal, placenta anterior alta, crecimiento en el percentil 50."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No evaluar el estado Rh negativo ni las acciones preventivas correspondientes (anti-D)",
+    "No dar pautas de alarma ni explicar cuándo consultar por trabajo de parto",
+    "No resguardar la confidencialidad ni los derechos de una adolescente"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Presentación y resguardo de la adolescente",
+      "regular": "Se presenta",
+      "suficiente": "Se presenta, ofrece la consulta a solas, garantiza la confidencialidad y pregunta con quién vive y quién la acompaña"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dudas y síntomas",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga sus dudas sobre el parto y los síntomas actuales: contracciones, pérdida de líquido o sangre, movimientos fetales, cefalea, visión borrosa, síntomas urinarios"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Lectura del carnet",
+      "regular": "Lee algunos datos",
+      "suficiente": "Lee la edad gestacional, el grupo y factor Rh, los laboratorios, las serologías, las ecografías, las vacunas, el peso y la presión"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos y contexto",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga alimentación, suplementación, tabaco, alcohol, violencia, contexto familiar y educativo"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Consentimiento y medidas",
+      "regular": "Pide el permiso",
+      "suficiente": "Pide permiso, toma presión arterial, peso, mide la altura uterina con cinta y la interpreta"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Maniobras de Leopold",
+      "regular": "Realiza algunas",
+      "suficiente": "Realiza las cuatro maniobras relatando lo que palpa (situación longitudinal, presentación podálica, dorso a la derecha)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Frecuencia cardíaca fetal y presentación",
+      "regular": "Ausculta",
+      "suficiente": "Ausculta la frecuencia cardíaca fetal en el foco correspondiente al dorso y reconoce la presentación podálica, informando que puede cambiar hasta el término"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del riesgo",
+      "regular": "Menciona el riesgo",
+      "suficiente": "Estratifica el embarazo (edad adolescente, Rh negativo, presentación podálica) y define el calendario de controles (cada 15 días hasta las 36 y luego semanal)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Laboratorio y ecografía",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio del tercer trimestre (hemograma, glucemia, hepatograma, urea, creatinina, orina completa, urocultivo), serología de ITS y ecografía obstétrica del tercer trimestre"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Rh negativo",
+      "regular": "Menciona el Rh",
+      "suficiente": "Verifica la gammaglobulina anti-D administrada entre las 28 y 32 semanas, solicita Coombs indirecta si corresponde y explica la dosis posparto"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Vacunas y suplementación",
+      "regular": "Menciona una",
+      "suficiente": "Indica la vacuna contra el VSR (desde las 32 semanas), verifica dTpa y antigripal, y continúa hierro y ácido fólico"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Hisopado y estudios próximos",
+      "regular": "Menciona uno",
+      "suficiente": "Programa el hisopado vagino-rectal para estreptococo del grupo B entre las 35 y 37 semanas, NST desde las 37 semanas y PTOG si hay factores de riesgo"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pautas de alarma y trabajo de parto",
+      "regular": "Menciona algunas",
+      "suficiente": "Da pautas de alarma (pérdida de líquido o sangre, flujo maloliente, síntomas urinarios, disminución de movimientos fetales, cefalea, visión borrosa, convulsiones, fiebre) y signos de trabajo de parto"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Consejería y cierre",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Brinda consejería sobre lactancia y método anticonceptivo posparto, cita a control en 15 días y pregunta si tiene dudas"
+    }
+  ]
+}

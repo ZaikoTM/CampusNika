@@ -1,0 +1,145 @@
+{
+  "id": "go_hta_embarazo_35_semanas",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Embarazada hipertensa de 35 semanas: control, estudios y pautas de alarma",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es residente de medicina general y debe atender en el consultorio del centro de salud a Martina, de 27 años. Concurre al control de su embarazo de 35 semanas, según su última menstruación. Es primigesta e hipertensa y ha realizado varios controles, pero tiene algunas dudas sobre el momento del parto. Trae su carnet perinatal. Los signos vitales y el peso fueron anotados por la enfermera en el carnet perinatal.",
+  "objetivos": [
+    "Realizar el examen abdominal obstétrico completo y explicarlo en voz alta.",
+    "Solicitar por escrito los estudios complementarios correspondientes a la edad gestacional de Martina.",
+    "Dar pautas de alarma sobre el inicio del trabajo de parto, anormalidades maternas y fetales, y conductas de riesgo según su patología previa."
+  ],
+  "interlocutor": "Martina Gallo, 27 años, contadora (habla ella, en primera persona; tranquila pero algo ansiosa por el parto)",
+  "guion_paciente": "Martina Gallo, 27 años, contadora. Primer embarazo (G1). Es hipertensa crónica desde los 22 años: antes del embarazo tomaba enalapril 10 mg y al conocer el embarazo (a las 6 semanas) su médica lo cambió a alfametildopa 500 mg cada 12 horas, que toma regularmente; toma además aspirina 100 mg por día desde las 16 semanas. Hizo 9 controles; la presión estuvo entre 120/80 y 135/88; sin proteinuria en los controles. Cursa 35 semanas por FUM y ecografía precoz. Se siente bien: sin dolor de cabeza, visión borrosa, zumbidos, dolor en la boca del estómago, náuseas ni vómitos; sin edemas importantes en cara o manos; siente al bebé; sin pérdida de líquido ni sangrado; sin contracciones. Tiene dudas: quiere saber hasta cuándo puede esperar, si tendrá una cesárea y qué señales deben alarmarla por su hipertensión.\nCarnet: grupo A Rh positivo; hemoglobina 12 g/dl; glucemia 88 mg/dl; PTOG normal; serologías negativas; ecografía de las 32 semanas con crecimiento en el percentil 40, líquido normal y doppler normal; hisopado vagino-rectal para el estreptococo del grupo B todavía no realizado; vacunas completas (antigripal, dTpa, VSR). Peso previo 70 kg, actual 80 kg.\nSin diabetes, sin enfermedad renal, sin convulsiones previas; antecedentes familiares: madre hipertensa y preeclámptica. No fuma ni toma alcohol.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 138/88 mmHg (carnet y consultorio, dos tomas con 15 minutos de diferencia: 138/88 y 136/86), FC 82 por minuto, peso 80 kg. Examen obstétrico: altura uterina 34 cm, feto único, longitudinal, cefálico, dorso a la izquierda, cabeza móvil; frecuencia cardíaca fetal 142 por minuto; sin dinámica; edemas maleolares leves, sin edema facial; reflejos osteotendinosos normales; sin hiperreflexia; sin clonus.",
+  "estudios": [
+    {
+      "clave": "rutina_hipertensiva",
+      "texto": "[BORRADOR] Resultados si los solicita: hemograma (hematocrito 38 %, plaquetas 220.000/mm³), glucemia 86 mg/dl, hepatograma normal (GOT 22, GPT 20), LDH 190 U/L, uricemia 4,2 mg/dl, urea 22, creatinina 0,7 mg/dl, sedimento urinario normal, proteinuria al azar (relación proteína/creatinina) 0,08 g/g (normal), electrocardiograma normal. Ecografía obstétrica: crecimiento adecuado, líquido normal, doppler umbilical normal."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No solicitar la rutina hipertensiva ni controlar la proteinuria en una embarazada hipertensa",
+    "Indicar un IECA o un ARA II en el embarazo",
+    "No dar pautas de alarma de preeclampsia ni la conducta ante presión mayor de 160/110"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hipertensión previa y tratamiento",
+      "regular": "Pregunta por la hipertensión",
+      "suficiente": "Indaga cuándo se diagnosticó, la medicación previa y actual (alfametildopa), la adherencia y si toma aspirina"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas de alarma hipertensivos",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga cefalea, visión borrosa, escotomas, acúfenos, epigastralgia, náuseas, edemas, disminución de orina y movimientos fetales"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes de riesgo",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga antecedentes de preeclampsia, diabetes, enfermedad renal, convulsiones, coagulopatías, embarazo gemelar y antecedentes familiares"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Carnet perinatal",
+      "regular": "Lo lee parcialmente",
+      "suficiente": "Revisa las tomas de presión, la proteinuria, el número de controles, las ecografías, los laboratorios y las vacunas"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Presión arterial y signos vitales",
+      "regular": "Mide una vez",
+      "suficiente": "Mide la presión arterial dos veces con intervalo y toma pulso y peso, interpretando los valores"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Altura uterina y maniobras de Leopold",
+      "regular": "Realiza una parte",
+      "suficiente": "Mide la altura uterina y realiza las cuatro maniobras, relatando cada hallazgo"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Vitalidad fetal y examen general",
+      "regular": "Realiza uno",
+      "suficiente": "Ausculta la frecuencia cardíaca fetal, evalúa dinámica uterina, edemas y reflejos osteotendinosos"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Clasificación del riesgo",
+      "regular": "Menciona alto riesgo",
+      "suficiente": "Clasifica el embarazo como de alto riesgo por hipertensión crónica, define controles semanales y diferencia hipertensión crónica, gestacional y preeclampsia"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Rutina hipertensiva",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita por escrito glucemia, hemograma, coagulograma, hepatograma, uricemia, LDH, urea, creatinina, sedimento urinario, proteinuria (al azar o de 24 horas) y electrocardiograma"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios obstétricos",
+      "regular": "Solicita uno",
+      "suficiente": "Solicita ecografía obstétrica con doppler, NST (monitoreo fetal), urocultivo e hisopado vagino-rectal para estreptococo del grupo B entre las 35 y 37 semanas"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento y control",
+      "regular": "Menciona la medicación",
+      "suficiente": "Mantiene alfametildopa 500 mg cada 12 horas (máximo 2 g por día), aspirina 100 mg por día hasta las 36 semanas y control diario de la presión en el domicilio; sin IECA ni ARA II"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pautas de alarma de preeclampsia",
+      "regular": "Menciona dos",
+      "suficiente": "Explica consultar ante presión mayor de 160/110, cefalea, visión borrosa, dolor epigástrico, edemas bruscos, disminución de orina, convulsiones o movimientos fetales disminuidos"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Trabajo de parto y momento del parto",
+      "regular": "Menciona uno",
+      "suficiente": "Explica los signos de trabajo de parto y de alarma obstétrica, y que el momento de finalización se define con control semanal (según la evolución, a término)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cierre y comunicación",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Resume con lenguaje claro, cita semanalmente, ofrece las indicaciones por escrito y pregunta si tiene dudas"
+    }
+  ]
+}

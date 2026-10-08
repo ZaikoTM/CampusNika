@@ -1,0 +1,150 @@
+{
+  "id": "go_hemorragia_posparto",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Sangrado abundante tras el alumbramiento: hemorragia posparto por atonía uterina",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Sala de partos / guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Ana García, de 30 años, G3 P2 (dos partos vaginales sin complicaciones previas), con edad gestacional de 39+1 semanas (confirmada por FUM y ecografía del primer trimestre), acude a la sala de partos para dar a luz. Tras un parto vaginal de curso normal, expulsa la placenta sin complicaciones evidentes. Sin embargo, 20 minutos después del alumbramiento comienza a presentar sangrado vaginal abundante acompañado de hipotensión, taquicardia, mal estado general, palidez, mareos y dificultad para mantener la presión arterial estable. Ha cursado un embarazo controlado y sin ninguna complicación previa. Signos vitales: TA 85/50 mmHg, FC 120 por minuto, FR 22 por minuto, temperatura 36,7 °C.",
+  "objetivos": [
+    "Reconocer el diagnóstico presuntivo.",
+    "Establecer el diagnóstico de certeza y solicitar las pruebas complementarias si lo considera.",
+    "Realizar el manejo agudo.",
+    "Indicar el tratamiento definitivo."
+  ],
+  "interlocutor": "Ana García, 30 años, ama de casa (responde con voz débil; su pareja, Esteban, está presente y responde por ella)",
+  "guion_paciente": "Ana García, 30 años. Acaba de tener a su tercer bebé, sano. Tuvo un trabajo de parto de 6 horas, parto vaginal sin episiotomía ni desgarros importantes (según la partera). El bebé pesó 3,9 kg. Expulsó la placenta completa hace 20 minutos. Desde hace unos minutos siente que sangra mucho, se marea, tiene mucho frío, sed y visión borrosa. Sin dolor intenso, sin fiebre. Antecedentes: sin enfermedades, sin anticoagulantes, sin trastornos de coagulación ni sangrados previos; los dos partos anteriores sin hemorragia; embarazo controlado, hemoglobina 11,8 g/dl a las 36 semanas; grupo A Rh positivo; recibió oxitocina 10 UI intramuscular tras la salida del hombro anterior (manejo activo del alumbramiento). Sin alergias. Quiere saber si se va a morir; su pareja está asustado.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 85/50 mmHg, FC 120 por minuto, FR 22, temperatura 36,7 °C, saturación 95 %. Pálida, diaforética, con leve desorientación y cansancio extremo; relleno capilar de 3 segundos. Abdomen: útero por encima del ombligo, blando, flácido, poco tónico, que al masaje se contrae brevemente y vuelve a relajarse (no se forma el globo de seguridad de Pinard); doloroso a la palpación. Sangrado vaginal abundante, rojo rutilante con coágulos (pérdida estimada de 1.500 ml). Examen con valvas y bimanual: cérvix cerrado en la zona alta, sin desgarros en el canal vaginal ni en el cuello; placenta y membranas completas al examen; sin restos visibles.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: hemoglobina 8,6 g/dl, hematocrito 26 %, plaquetas 160.000/mm³. Coagulograma: RIN 1,2, fibrinógeno 280 mg/dl. Estado ácido-base: pH 7,30, lactato 4,2 mmol/L. Grupo y factor: A Rh positivo. Hepatograma y función renal normales."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía FAST y transvaginal: cavidad uterina ocupada por coágulos, sin restos placentarios ni líquido libre abdominal."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No iniciar el masaje uterino y los uterotónicos de forma inmediata ante una hemorragia posparto por atonía",
+    "Demorar la reposición con cristaloides y la solicitud de hemoderivados en una paciente en shock",
+    "Indicar metilergonovina en una paciente con hipertensión o preeclampsia"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Reconocimiento y evaluación inicial",
+      "regular": "Reconoce el sangrado",
+      "suficiente": "Reconoce la hemorragia posparto, cuantifica la pérdida de sangre y evalúa la estabilidad hemodinámica (el abordaje en hemorragias activas es C-A-B)"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes relevantes",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga el manejo activo del alumbramiento recibido, antecedentes de hemorragia, coagulopatías, anticoagulantes, factores de riesgo y alergias"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Causas (regla de las 4 T)",
+      "regular": "Menciona una",
+      "suficiente": "Plantea las 4 T: tono (atonía), trauma (desgarros), tejido (restos placentarios), trombina (coagulopatía) y reconoce la atonía como la más probable"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Diagnóstico presuntivo",
+      "regular": "Nombra la hemorragia",
+      "suficiente": "Plantea hemorragia posparto con shock hipovolémico, probablemente secundaria a atonía uterina"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Evaluación de la placenta y del canal",
+      "regular": "Evalúa uno",
+      "suficiente": "Verifica que la placenta esté completa y revisa el canal del parto con valvas buscando desgarros"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen del útero",
+      "regular": "Realiza uno",
+      "suficiente": "Realiza el examen bimanual y palpa el tono uterino (globo de seguridad de Pinard)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita hemograma, coagulograma, estado ácido-base, grupo y factor, hepatograma y ecografía FAST o transvaginal para descartar restos"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Monitoreo",
+      "regular": "Menciona uno",
+      "suficiente": "Indica monitoreo continuo, sonda vesical y cuantificación del sangrado y la diuresis"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Masaje uterino y uterotónico de primera línea",
+      "regular": "Indica uno",
+      "suficiente": "Realiza masaje uterino bimanual e indica oxitocina 20 UI en 500 ml de solución fisiológica en infusión continua (60 gotas por minuto o 100 ml/h)"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Ácido tranexámico y reposición",
+      "regular": "Indica uno",
+      "suficiente": "Indica ácido tranexámico 1 g por vía endovenosa en 10 minutos (dentro de las 3 horas) y dos vías gruesas con cristaloides entibiados 1.000 ml"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Hemoderivados y shock",
+      "regular": "Menciona uno",
+      "suficiente": "Solicita glóbulos rojos 0 (Rh negativo en mujer fértil) si no responde, llama a hemoterapia, evalúa transfusión masiva y vasopresores"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Uterotónicos de segunda línea",
+      "regular": "Menciona uno",
+      "suficiente": "Indica misoprostol 800 a 1.000 µg sublingual o rectal y metilergonovina 0,2 mg intramuscular si la presión lo permite"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento definitivo",
+      "regular": "Menciona la cirugía",
+      "suficiente": "Si persiste el sangrado, explora manualmente el útero, evalúa balón de taponamiento y suturas hemostáticas, y la histerectomía como último recurso"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación a la paciente y la familia",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con calma qué ocurre y qué se hace, tranquiliza sin minimizar, informa a la pareja y pregunta si hay dudas"
+    }
+  ]
+}

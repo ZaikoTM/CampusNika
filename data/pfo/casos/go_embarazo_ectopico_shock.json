@@ -1,0 +1,150 @@
+{
+  "id": "go_embarazo_ectopico_shock",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Dolor hipogástrico súbito y sangrado vaginal con hipotensión: embarazo ectópico complicado",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Mariana López, de 22 años, acude a la guardia por sangrado vaginal activo asociado a un fuerte dolor en el hipogastrio, de inicio súbito hace 1 hora, acompañado de mareo, debilidad y palpitaciones. Presenta sensación de desmayo al estar de pie, sudoración fría y visión borrosa. Niega fiebre y síntomas urinarios o gastrointestinales. No tiene cirugías ginecológicas ni historia conocida de infecciones pélvicas. Examen físico: TA 85/55 mmHg, FC 125 por minuto, FR 24 por minuto, temperatura 37 °C; pálida, diaforética, con desorientación temporal.",
+  "objetivos": [
+    "Formular la impresión diagnóstica.",
+    "Realizar el manejo inmediato (reanimación).",
+    "Solicitar los exámenes complementarios para la confirmación diagnóstica y el manejo.",
+    "Indicar el tratamiento definitivo y comunicar la situación a la paciente."
+  ],
+  "interlocutor": "Mariana López, 22 años, estudiante universitaria (responde con dificultad; está desorientada en el tiempo; su pareja, Julián, responde por ella si ella no puede)",
+  "guion_paciente": "Mariana López, 22 años, estudiante. Su pareja Julián la trajo. Hace una hora, de golpe, tuvo un dolor muy fuerte en la parte baja del abdomen, hacia el lado derecho, que se extiende al hombro; sangrado vaginal oscuro, moderado; se marea al incorporarse y casi se desmaya; transpira frío; ve borroso; siente el corazón muy rápido. Su última menstruación fue hace 7 semanas (FUM cierta); tenía un «retraso» y se hizo un test de embarazo en la farmacia hace 10 días que dio positivo (no consultó). Usa preservativo a veces. Sin ITS conocidas; sin enfermedades crónicas ni cirugías; sin DIU; sin alergias; no fuma ni consume drogas; no tomó alcohol hoy. Última comida hace 6 horas. Grupo sanguíneo: no sabe.\nAnte pregunta del pronóstico, la paciente y la pareja quieren saber qué pasa y piden que se lo expliquen con claridad y calma.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 85/55 mmHg, FC 125 por minuto, FR 24, temperatura 37 °C, saturación 95 % al aire ambiente. Palidez intensa, sudoración fría, relleno capilar de 4 segundos, extremidades frías, desorientación temporal (Glasgow 14). Abdomen: distendido, doloroso a la palpación en hipogastrio y fosa ilíaca derecha, con defensa y reacción peritoneal; ruidos hidroaéreos disminuidos. Genitales: sangrado vaginal oscuro escaso, sin coágulos; cuello cerrado; dolor intenso a la movilización del cuello (Frenkel positivo) y abombamiento del fondo de saco de Douglas. Examen secundario sin otras lesiones.",
+  "estudios": [
+    {
+      "clave": "ecofast",
+      "texto": "[BORRADOR] ECOFAST: líquido libre abundante en el espacio hepatorrenal y en el fondo de saco de Douglas (hemoperitoneo). Ecografía transvaginal: útero vacío, masa anexial derecha de 3 cm."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] BHCG cuantitativa 8.400 mUI/ml. Hemoglobina 7,9 g/dl, hematocrito 24 %, plaquetas 220.000/mm³. Coagulograma normal. Grupo O Rh negativo. Lactato 4,8 mmol/L. Estado ácido-base: pH 7,28, bicarbonato 16 mEq/L. Glucemia 98 mg/dl, urea 22, creatinina 0,7 mg/dl, ionograma normal."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No reconocer ni tratar el shock hipovolémico de una mujer en edad fértil con sangrado, dolor y amenorrea (sospecha de embarazo ectópico roto)",
+    "Postergar la cirugía para realizar estudios o intentar manejo médico (metotrexato) en una paciente inestable",
+    "No solicitar grupo y factor ni reservar hemoderivados (paciente Rh negativo)"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Presentación y estado de conciencia",
+      "regular": "Se presenta",
+      "suficiente": "Se presenta, valora el estado de conciencia (¿me escuchás?) e inicia el ABCDE de inmediato, aclarando que la anamnesis es breve"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Anamnesis breve",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga FUM y posibilidad de embarazo, cuantía del sangrado, dolor, hora de inicio, síntomas de hipovolemia"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes (AMPLIA)",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga alergias, medicamentos, patologías previas (embarazo ectópico, ITS, cirugías), última comida y ambiente"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Diagnóstico presuntivo",
+      "regular": "Nombra el shock",
+      "suficiente": "Plantea embarazo ectópico complicado con shock hipovolémico y menciona diferenciales (aborto, dolor ovárico, EPI, apendicitis)"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Vía aérea y ventilación (A y B)",
+      "regular": "Realiza una",
+      "suficiente": "Evalúa la vía aérea, coloca oxígeno con máscara con reservorio a 10 L/min, monitoreo multiparamétrico y evalúa la necesidad de intubación"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Circulación (C)",
+      "regular": "Realiza una",
+      "suficiente": "Coloca dos vías periféricas gruesas (18G), infunde 1.000 ml de solución fisiológica o Ringer lactato entibiados y evalúa vasopresores si no responde"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Discapacidad y exposición (D y E)",
+      "regular": "Realiza uno",
+      "suficiente": "Evalúa el estado de conciencia (Glasgow, AVDI), expone para buscar lesiones y evita la hipotermia"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal y ECOFAST",
+      "regular": "Realiza uno",
+      "suficiente": "Examina el abdomen y solicita ECOFAST (hemoperitoneo) y ecografía transvaginal"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Laboratorio y hemoderivados",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita BHCG cuantitativa, hemograma, coagulograma, grupo y factor, lactato, estado ácido-base, glucemia, ionograma, urea y creatinina, y llama a hemoterapia para glóbulos rojos 0 negativo"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Transfusión y shock",
+      "regular": "Menciona la transfusión",
+      "suficiente": "Repone con cristaloides y, si no responde, glóbulos rojos desplasmatizados 0 negativo, evaluando el protocolo de transfusión masiva"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento definitivo",
+      "regular": "Menciona la cirugía",
+      "suficiente": "Indica laparotomía exploradora de emergencia con salpingectomía del anexo afectado y lavado peritoneal, y llama a cirugía comunicando el caso"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Evaluación secundaria y sonda vesical",
+      "regular": "Menciona una",
+      "suficiente": "Completa la evaluación secundaria (AMPLIA), coloca sonda vesical (diuresis de 0,5 ml/kg/h) y descarta abuso de sustancias"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Gammaglobulina anti-D y manejo médico",
+      "regular": "Menciona una",
+      "suficiente": "Indica gammaglobulina anti-D por ser Rh negativa y aclara que el metotrexato solo corresponde a pacientes estables con criterios"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación de malas noticias",
+      "regular": "Explica sin protocolo",
+      "suficiente": "Comunica a la paciente y a su pareja el diagnóstico, el tratamiento y los riesgos (recurrencia, fertilidad) con empatía (protocolo SPIKES), y pregunta si tienen dudas"
+    }
+  ]
+}

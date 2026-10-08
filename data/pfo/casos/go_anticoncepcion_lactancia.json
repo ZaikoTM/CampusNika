@@ -1,0 +1,145 @@
+{
+  "id": "go_anticoncepcion_lactancia",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Anticoncepción en la lactancia: asesoramiento y elección del método",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es el/la residente de medicina general y debe atender en el consultorio de planificación familiar del CAPS a Analía, de 21 años, que concurre en busca de un método anticonceptivo. Ella se encuentra en período de lactancia. Signos vitales tomados por la enfermera: TA 110/70 mmHg, FC 65 por minuto, temperatura axilar 36,5 °C.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema por el cual consulta Analía.",
+    "Explicar con lenguaje claro las posibles alternativas de métodos anticonceptivos para Analía.",
+    "Asesorar a la usuaria respecto de conductas saludables relacionadas con el motivo de consulta."
+  ],
+  "interlocutor": "Analía Rojas, 21 años, estudiante y mamá (habla ella, en primera persona; curiosa, con ganas de decidir)",
+  "guion_paciente": "Analía Rojas, 21 años, estudiante de enfermería. Tuvo a su bebé hace 3 meses (parto vaginal sin complicaciones, a término, bebé sano de 3,4 kg). Lo amamanta con lactancia materna exclusiva, a demanda, y todavía no empezó la alimentación complementaria. No tuvo menstruación desde el parto. Vino porque «investigó en internet» sobre pastillas e implante y quiere saber qué le conviene; no quiere otro embarazo por lo menos en 2 años. Antes del embarazo usaba preservativo. Hace 2 semanas retomó las relaciones sexuales con su pareja estable (ambos sin otras parejas). Sin síntomas: sin dolor, flujo, picazón ni sangrado.\nAntecedentes: G1 P1 A0 C0; menarca a los 13; ciclos regulares antes del embarazo; sin ITS; PAP no realizado; sin enfermedades crónicas (sin hipertensión, diabetes, migraña con aura, trombosis, enfermedad hepática ni cáncer de mama), sin cirugías, sin medicación (solo hierro), sin alergias; no fuma; antecedentes familiares: sin trombosis ni cáncer de mama. Alimentación irregular, duerme poco. Acepta que le entreguen preservativos.\nPreferencias: quiere un método que no interfiera con la leche y que no tenga que acordarse todos los días; le da algo de miedo el DIU. Finalmente elige el implante si se lo explican bien.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Controles de enfermería: TA 110/70 mmHg, FC 65 por minuto, temperatura 36,5 °C. Peso 62 kg. Examen físico (si lo realiza): mamas con lactancia, sin nódulos; abdomen normal; sin examen ginecológico necesario para esta consulta.",
+  "estudios": [
+    {
+      "clave": "estudios",
+      "texto": "Para el implante no se necesita estudio previo. Si el alumno pide BHCG por seguridad: negativa. Para DIU o SIU: BHCG, ecografía transvaginal y laboratorio con hemograma."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar anticonceptivos orales combinados (con estrógeno) a una mujer que amamanta a los 3 meses del parto",
+    "No recomendar el preservativo para la prevención de infecciones de transmisión sexual",
+    "Imponer un método sin respetar la elección informada de la usuaria"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivo y conocimientos",
+      "regular": "Pregunta qué método quiere",
+      "suficiente": "Indaga si investigó algún método y cuál le interesa, y pide permiso para hacer preguntas"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales y familiares",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga hipertensión, diabetes, tabaco, trombosis, migraña, enfermedad hepática o cardíaca, cáncer de mama, medicación, cirugías y alergias"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes ginecoobstétricos",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga menarca, ciclos, FUM, paridad, fecha del parto, método anterior, ITS, parejas, PAP y reinicio de las relaciones"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Lactancia",
+      "regular": "Pregunta si amamanta",
+      "suficiente": "Indaga si la lactancia es exclusiva, si el bebé recibe fórmula o alimentación complementaria y si retornó la menstruación"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Criterios de elegibilidad",
+      "regular": "Menciona la lactancia",
+      "suficiente": "Identifica que en la lactancia (menos de 6 meses posparto) corresponden métodos de solo progestágeno y dispositivos intrauterinos, y excluye los combinados"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Preservativo e ITS",
+      "regular": "Menciona el preservativo",
+      "suficiente": "Explica que el preservativo es el único método que previene las ITS, lo entrega y enseña su uso desde el inicio hasta el final de cada relación"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Beneficios, efectos y contraindicaciones",
+      "regular": "Menciona uno",
+      "suficiente": "Explica beneficios, efectos adversos (spotting, amenorrea, sangrado irregular) y contraindicaciones de los métodos propuestos"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Métodos hormonales de progestágeno solo",
+      "regular": "Menciona uno",
+      "suficiente": "Explica minipíldora (levonorgestrel 0,03 mg, se asocia al método de amenorrea de la lactancia), desogestrel 0,075 mg, drospirenona 4 mg, inyectable trimestral e implante, y que no afectan la leche"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Implante e inyectable",
+      "regular": "Describe uno",
+      "suficiente": "Explica el implante subdérmico (etonogestrel o levonorgestrel, duración de 3 a 5 años, se coloca en el centro de salud hasta los 24 años) y el inyectable de medroxiprogesterona trimestral (ventana de aplicación)"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "DIU y SIU",
+      "regular": "Describe uno",
+      "suficiente": "Explica DIU de cobre (10 años) y SIU con levonorgestrel (5 años), que se colocan a partir de las 4 semanas posparto, con BHCG, ecografía y laboratorio previos"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Elección de la usuaria y plan",
+      "regular": "Recomienda sin consultar",
+      "suficiente": "Respeta que la usuaria elige, programa la colocación o entrega del método elegido y se asegura de que se vaya con un método y con preservativos"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Uso correcto y olvidos",
+      "regular": "Explica uno",
+      "suficiente": "Explica el uso correcto del método elegido (por ejemplo, horario de la píldora, control del implante) y la conducta ante olvidos"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Conductas saludables",
+      "regular": "Da una indicación",
+      "suficiente": "Aconseja intervalo intergenésico de 1 a 2 años, lactancia, cuidado nutricional, PAP pendiente y vacunación"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y cierre",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Usa lenguaje claro, ofrece pensarlo y volver, y pregunta si le quedaron dudas o si algún método le interesó"
+    }
+  ]
+}

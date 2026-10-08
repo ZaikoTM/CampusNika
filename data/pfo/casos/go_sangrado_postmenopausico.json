@@ -1,0 +1,155 @@
+{
+  "id": "go_sangrado_postmenopausico",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Sangrado posmenopáusico: estudios y diagnósticos diferenciales",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a y debe atender en el consultorio del centro de salud a María, de 65 años, que refiere haber tenido un episodio de sangrado de 2 días de duración hace 4 días.",
+  "objetivos": [
+    "Realizar una breve anamnesis relacionada con el motivo de consulta.",
+    "Realizar el examen físico correspondiente al motivo de consulta de María.",
+    "Interpretar en voz alta los estudios médicos que trae María a la consulta.",
+    "Plantear los diagnósticos diferenciales correspondientes.",
+    "Solicitar los estudios complementarios correspondientes según el motivo de consulta."
+  ],
+  "interlocutor": "María Benítez, 65 años, jubilada (habla ella, en primera persona; preocupada, asustada por el cáncer)",
+  "guion_paciente": "María Benítez, 65 años, jubilada de un comercio. Hace 4 días tuvo un sangrado vaginal rojo oscuro, escaso, que duró 2 días y se detuvo solo; sin coágulos, sin dolor, sin fiebre, sin mal olor. No sangró antes en estos 14 años. Está en la menopausia desde los 51 años (no tuvo sangrados desde entonces). No mantiene relaciones hace años. Sin pérdida de peso, sin cambios en las deposiciones, sin dolor pélvico, sin síntomas urinarios. Trae estudios que le pidió su médica: una ecografía transvaginal, un PAP de hace 4 años y un laboratorio.\nAntecedentes: obesa (IMC 33), hipertensa (enalapril 10 mg cada 12 horas), diabética tipo 2 (metformina 850 mg cada 12 horas); G3 P3 (partos vaginales); no usa terapia hormonal de reemplazo ni tamoxifeno ni anticoagulantes ni aspirina; PAP regular, el último normal; mamografía hace 2 años normal. Antecedentes familiares: hermana con cáncer de mama a los 60 años; sin cáncer de útero ni de colon. Sin tabaco. Sin alergias; cirugía: colecistectomía.\nAntes de cada examen físico o procedimiento, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 140/85 mmHg, FC 76 por minuto, temperatura 36,5 °C, peso 85 kg, talla 1,60 m (IMC 33). Abdomen globuloso, blando e indoloro, sin masas. Especuloscopía: vagina con mucosa atrófica, sin lesiones; cuello de aspecto normal, sin sangrado activo, sin flujo; no se ve de dónde proviene el sangrado. Tacto vaginal y bimanual: cuello sin lesiones; útero pequeño, móvil, no doloroso; anexos no palpables; sin masas.",
+  "estudios": [
+    {
+      "clave": "ecografia_traida",
+      "texto": "Ecografía transvaginal traída: útero en anteversión de 7 cm con endometrio de 9 mm de espesor, de aspecto heterogéneo; ovarios atróficos; sin líquido libre."
+    },
+    {
+      "clave": "pap_traido",
+      "texto": "PAP traído (hace 4 años): dentro de límites normales."
+    },
+    {
+      "clave": "laboratorio_traido",
+      "texto": "[BORRADOR] Hemoglobina 11,6 g/dl, hematocrito 36 %, glucemia 138 mg/dl, creatinina 0,9 mg/dl, TSH 2,8 mUI/L, coagulograma normal (RIN 1,0; KPTT 30 s)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar cáncer de endometrio ante un sangrado posmenopáusico con endometrio engrosado",
+    "Indicar tratamiento hormonal o hemostático antes de estudiar la causa del sangrado",
+    "Tranquilizar a la paciente descartando estudios por la ausencia de sangrado actual"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Características del sangrado",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga si sangra ahora, color, cantidad, coágulos, duración, relación con relaciones sexuales y si tomó algo"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Tiempo de menopausia y episodios previos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga el tiempo de menopausia, si hubo sangrados previos, si es la primera vez y consultas previas"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga dolor pélvico, flujo y su olor, fiebre, síntomas urinarios y digestivos, pérdida de peso y dispareunia"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Medicación y factores de riesgo",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga terapia hormonal de reemplazo, tamoxifeno, anticoagulantes, obesidad, diabetes, hipertensión, tabaco y paridad"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Cáncer y estudios previos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga antecedentes personales y familiares de cáncer (útero, cuello, mama, colon, ovario) y los estudios previos (PAP, mamografía, ecografía)"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Explica y pide permiso; toma signos vitales, examina el abdomen, y realiza especuloscopía, tacto vaginal monomanual y bimanual"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de los estudios",
+      "regular": "Interpreta uno",
+      "suficiente": "Interpreta en voz alta la ecografía (endometrio de 9 mm, mayor de 4 a 5 mm en posmenopausia), el PAP desactualizado y el laboratorio (anemia leve)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Nombra uno o dos",
+      "suficiente": "Plantea atrofia endometrial, pólipo endometrial, hiperplasia, cáncer de endometrio, cáncer de cuello, miomas, tratamientos hormonales y coagulopatías (estructurales y funcionales)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Diagnóstico de certeza",
+      "regular": "Menciona la biopsia",
+      "suficiente": "Solicita biopsia de endometrio o histeroscopia con biopsia por endometrio mayor de 4 a 5 mm y deriva a ginecología oncológica si es necesario"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Laboratorio",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita hemograma, glucemia, urea, creatinina, coagulograma, ionograma, hepatograma, TSH y perfil hormonal si corresponde"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Otros estudios",
+      "regular": "Solicita uno",
+      "suficiente": "Solicita nuevo PAP (con test de HPV), exudado vaginal con cultivo, mamografía de rastreo y evalúa sangre oculta en materia fecal"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento inicial",
+      "regular": "Indica algo sin justificar",
+      "suficiente": "Explica que no se instaura tratamiento hasta tener los resultados, porque el tratamiento depende de la causa"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pautas de alarma y seguimiento",
+      "regular": "Da una de las dos",
+      "suficiente": "Da pautas de alarma (hemorragia intensa, fiebre, dolor abdominal bajo, mareos o palpitaciones) y cita en una semana para los resultados y de inmediato si hay alarma"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Cierra sin verificar comprensión",
+      "suficiente": "Habla con empatía, reconoce su temor, explica por qué se piden los estudios sin adelantar diagnósticos, y pregunta si tiene dudas"
+    }
+  ]
+}

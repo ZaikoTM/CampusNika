@@ -1,0 +1,158 @@
+{
+  "id": "go_tep_embarazo",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Disnea súbita y dolor torácico a las 28 semanas con pierna hinchada: tromboembolismo pulmonar",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "María López, de 31 años, G3 P2 (partos vaginales), de 28 semanas de gestación (confirmadas por FUM y ecografía del primer trimestre), acude a la guardia por disnea súbita de 1 hora de evolución, asociada a dolor torácico opresivo de moderada intensidad en el hemitórax derecho. Niega tos, expectoración o fiebre. Refirió hinchazón reciente de la pierna izquierda, acompañada de dolor al caminar, iniciado 3 días antes de consultar. No tiene antecedentes personales de relevancia. Refiere antecedente materno de trombosis venosa profunda a los 50 años. Signos vitales: FC 105 por minuto, FR 26 por minuto, saturación 92 % (aire ambiente), TA 110/70 mmHg.",
+  "objetivos": [
+    "Identificar y realizar el diagnóstico presuntivo.",
+    "Decidir la conducta ambulatoria o en internación.",
+    "Solicitar los estudios complementarios e interpretarlos.",
+    "Instaurar el tratamiento oportuno."
+  ],
+  "interlocutor": "María López, 31 años, empleada municipal (habla ella entrecortada, con falta de aire; su pareja responde si ella no puede)",
+  "guion_paciente": "María López, 31 años, empleada municipal. Cursa 28 semanas, tercer embarazo. Hace 3 días empezó con dolor e hinchazón de la pantorrilla izquierda, que al caminar le duele; no lo atribuyó a nada grave. Hace 1 hora, de golpe, le faltó el aire y sintió una opresión en el lado derecho del pecho que aumenta al respirar profundo; sin tos, sin fiebre, sin hemoptisis, sin palpitaciones fuertes, sin mareo ni desmayo. No viajó, no estuvo en reposo prolongado, sin cirugías recientes, sin traumatismos. Sin antecedentes de trombosis; su madre tuvo trombosis venosa profunda a los 50 años. Sin cáncer ni alergias; no fuma. No toma anticoagulantes (solo hierro y ácido fólico). Sobre el bebé: siente movimientos, sin pérdida de líquido ni sangre, sin contracciones, sin cambios en el flujo, sin fiebre previa.\nQuiere saber si el bebé está bien y si le pueden hacer estudios con radiación sin riesgo; acepta si se lo explican.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "FC 105 por minuto, FR 26, saturación 92 % al aire ambiente, TA 110/70 mmHg, temperatura 36,8 °C. Disneica, ansiosa. Cuello: ingurgitación yugular leve. Cardiorrespiratorio: sin estertores ni sibilancias, hipoventilación en el hemitórax derecho; R1 y R2 normofonéticos. Miembros inferiores: pierna izquierda con edema 2+ y signo de Homans positivo (dolor a la dorsiflexión del pie), circunferencia de la pantorrilla izquierda 3 cm mayor que la derecha; pulsos periféricos conservados. Examen obstétrico: altura uterina 28 cm, frecuencia cardíaca fetal 148 por minuto, sin dinámica.",
+  "estudios": [
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: taquicardia sinusal a 105 por minuto; patrón S1Q3T3 poco frecuente (si lo solicita se informa)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma normal (plaquetas 240.000/mm³). Estado ácido-base: pH 7,47, pO2 62, pCO2 30. Coagulograma normal. Dímero D 1.900 ng/ml (el valor se eleva fisiológicamente en el embarazo; poco útil). Hepatograma, urea y creatinina normales. Grupo A Rh positivo. Troponina negativa."
+    },
+    {
+      "clave": "imagenes",
+      "texto": "[BORRADOR] Radiografía de tórax: normal (sirve para descartar otras causas). Eco-Doppler de miembros inferiores: trombosis venosa profunda de la vena femoral común y poplítea izquierdas. Angiotomografía de tórax (si se la solicita y la paciente está estable): defecto de relleno en la arteria pulmonar lobar inferior derecha, sin sobrecarga del ventrículo derecho. Ecografía obstétrica: feto vital, líquido normal."
+    },
+    {
+      "clave": "wells",
+      "texto": "Escala utilizada por el material: dolor y edema unilateral en miembro inferior (+1), taquicardia mayor de 100 por minuto (+1), antecedente familiar de trombosis (+1): total 3 puntos. El material la califica como probabilidad alta; el alumno puede justificar la probabilidad como probable y proceder con estudios por imágenes."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar tromboembolismo pulmonar en una embarazada con disnea súbita, dolor torácico y signos de trombosis venosa profunda",
+    "Indicar anticoagulantes orales cumarínicos (contraindicados en el embarazo) o trombolíticos sin inestabilidad hemodinámica",
+    "Negar los estudios por imágenes por temor a la radiación"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Disnea y dolor torácico",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga inicio, evolución, si ya le pasó, características del dolor torácico (ALICIA), tos y hemoptisis"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Pierna hinchada",
+      "regular": "Pregunta si está hinchada",
+      "suficiente": "Indaga el tiempo de la hinchazón, el dolor, si le ocurrió antes y si le molesta para caminar"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Factores de riesgo de trombosis",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga antecedentes de trombosis, inmovilización, cirugía reciente, cáncer, trombofilias, tabaco, viajes y antecedentes familiares"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Estado del embarazo y medicación",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga movimientos fetales, pérdida de líquido o sangre, contracciones, fiebre previa, flujo, medicación actual y alergias"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales",
+      "regular": "Reconoce uno",
+      "suficiente": "Reconoce taquicardia, taquipnea e hipoxemia leve con presión estable"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Examina yugulares, cardiorrespiratorio, miembros inferiores (edema, Homans, circunferencia) y examen obstétrico"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Probabilidad clínica",
+      "regular": "Menciona la escala",
+      "suficiente": "Estima la probabilidad pretest de tromboembolismo pulmonar con la escala (alta o probable) y la justifica"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Plantea el diagnóstico",
+      "suficiente": "Plantea tromboembolismo pulmonar secundario a trombosis venosa profunda y diferencia neumonía, neumotórax y atelectasia"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y monitoreo",
+      "regular": "Indica internación",
+      "suficiente": "Indica internación, oxígeno por cánula para saturación mayor de 94 %, monitoreo materno (TA, FC, FR, saturación) y fetal (monitoreo cardíaco, ecografía), vía venosa y muestras de laboratorio"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita electrocardiograma, radiografía de tórax, laboratorio con coagulograma y estado ácido-base, eco-Doppler de miembros inferiores y angiotomografía si está estable (con explicación de la seguridad)"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Anticoagulación",
+      "regular": "Menciona heparina",
+      "suficiente": "Indica enoxaparina 1 mg/kg cada 12 horas por vía subcutánea (o heparina no fraccionada 5.000 UI endovenosa si es inestable, reversible con protamina)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Trombolíticos y finalización",
+      "regular": "Menciona uno",
+      "suficiente": "Aclara que los trombolíticos se reservan para el tromboembolismo masivo con inestabilidad (alteplasa, trombectomía o embolectomía) y que el embarazo no se interrumpe por el diagnóstico en sí"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento y anticoagulación prolongada",
+      "regular": "Menciona uno",
+      "suficiente": "Mantiene enoxaparina durante todo el embarazo (suspender unas 24 horas antes del parto programado), retoma al menos 6 semanas posparto (mínimo 3 meses en total), evita anticoagulantes orales y estudia trombofilias tras el parto"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro qué es el tromboembolismo pulmonar, por qué se interna, la seguridad de los estudios y del tratamiento para el bebé, y pregunta si tiene dudas"
+    }
+  ]
+}

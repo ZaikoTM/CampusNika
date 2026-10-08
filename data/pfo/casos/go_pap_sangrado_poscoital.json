@@ -1,0 +1,149 @@
+{
+  "id": "go_pap_sangrado_poscoital",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Sangrado después de las relaciones sexuales: anamnesis y toma de Papanicolaou",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es el/la residente de medicina general que concurre al centro de salud a realizar el consultorio de demanda espontánea. Concurre Mirta, de 45 años, porque refirió haber tenido episodios de sangrado luego de las relaciones sexuales hace aproximadamente 4 semanas, acompañado en algunas oportunidades de «olor feo» en su flujo. Refiere haberse realizado una citología cervical hace 3 años.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema.",
+    "Realizar el examen citológico (toma de Papanicolaou), narrando cada paso.",
+    "Determinar la conducta a seguir con la paciente."
+  ],
+  "interlocutor": "Mirta Villalba, 45 años, empleada doméstica (habla ella, en primera persona; reservada y algo avergonzada)",
+  "guion_paciente": "Mirta Villalba, 45 años, empleada doméstica. Hace unas 4 semanas, después de tener relaciones sexuales, tuvo un sangrado rojo vivo, escaso, que duró unas horas; pasó de nuevo hace 2 semanas y ayer. Desde hace unas semanas nota un flujo con mal olor, a veces amarillento y con hilos de sangre. Sin dolor durante las relaciones, sin dolor en la panza, sin fiebre, sin picazón, sin ardor al orinar. Sin bajar de peso. No sangra entre las reglas, no tiene sangrado hoy.\nAntecedentes ginecoobstétricos: menarca a los 12 años; ciclos regulares cada 28 días (FUM hace 12 días); 4 hijos (G4 P4, partos vaginales); usa preservativo a veces, sin otro método (su pareja no quiere); inició relaciones a los 16 años; tuvo 4 parejas en su vida; la pareja actual es estable hace 8 años; ITS: nunca se testeó; último PAP hace 3 años: «dio normal» (no recuerda si hizo colposcopía ni HPV); no se vacunó contra el HPV. Fuma 10 cigarrillos por día hace 25 años. Sin enfermedades crónicas, sin medicación, sin alergias; madre fallecida de cáncer de cuello de útero a los 58 años. Sin anticoagulantes. No usó óvulos ni cremas en los últimos días; tuvo relaciones hace 4 días; no se hizo duchas.\nAntes de cada examen físico o procedimiento, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 120/80 mmHg, FC 80 por minuto, temperatura 36,6 °C. Abdomen blando, depresible e indoloro. Genitales externos normales. Especuloscopía (se informa recién cuando el alumno la realiza): cuello uterino de aspecto eritematoso, con área friable de 1,5 cm en el labio posterior, sangra al roce de la espátula; flujo amarillento escaso sin mal olor franco; paredes vaginales normales. Tacto vaginal: cuello duro, no doloroso a la movilización; útero de tamaño normal, móvil; anexos libres.",
+  "estudios": [
+    {
+      "clave": "toma_pap",
+      "texto": "Toma del PAP: exocérvix con espátula de Ayre y endocérvix con citobrush; se extiende en el portaobjetos, se fija con spray, se rotula (si el alumno la realiza correctamente se informa muestra adecuada; sangra levemente al contacto)."
+    },
+    {
+      "clave": "estudios_posteriores",
+      "texto": "[BORRADOR] Resultados diferidos (se informan en la próxima consulta): PAP con lesión intraepitelial de alto grado (H-SIL); test de HPV positivo para genotipos de alto riesgo; exudado vaginal con vaginosis bacteriana; serologías para ITS negativas."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No realizar o derivar la toma de Papanicolaou y colposcopía ante un sangrado poscoital en una mujer con factores de riesgo",
+    "Realizar el examen sin consentimiento ni explicación previa y sin resguardar la intimidad",
+    "No indicar el retiro de resultados con fecha ni la consulta para evaluar los resultados"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Sangrado poscoital",
+      "regular": "Pregunta si sangra",
+      "suficiente": "Indaga inicio, cantidad, color, frecuencia, relación con las relaciones sexuales, sangrado actual y medicación para el sangrado"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Flujo y síntomas asociados",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga flujo (color, olor), dolor, dispareunia, picazón, síntomas urinarios y fiebre"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes ginecoobstétricos",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga menarca, ciclos, FUM, paridad, método anticonceptivo, edad de inicio, parejas, ITS, PAP previo y vacunas contra el HPV"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes generales y factores de riesgo",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga tabaco, enfermedades crónicas, medicación, anticoagulantes, alergias y antecedentes familiares de cáncer"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Condiciones para el PAP",
+      "regular": "Menciona una",
+      "suficiente": "Verifica las condiciones: sin relaciones en las últimas 48 horas, sin óvulos ni cremas, sin duchas vaginales y sin menstruación en los últimos 7 días"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Explicación, intimidad y consentimiento",
+      "regular": "Explica pero no pide permiso",
+      "suficiente": "Explica el estudio, sus beneficios, la confidencialidad, que puede interrumpirlo, pide permiso, ofrece bata o biombo y preserva la intimidad"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Preparación y técnica de inspección",
+      "regular": "Realiza una parte",
+      "suficiente": "Se lava las manos, se coloca guantes, indica la posición ginecológica, coloca el campo, enciende la luz y describe los genitales externos"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Especuloscopía y descripción del cuello",
+      "regular": "Realiza la introducción",
+      "suficiente": "Introduce el espéculo con la articulación hacia abajo, rota 90°, lo fija, visualiza y describe el cuello (superficie, color, lesiones, sangrado, secreción)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Toma de muestra",
+      "regular": "Realiza una toma",
+      "suficiente": "Toma la muestra del exocérvix con la espátula de Ayre y del endocérvix con el citobrush, fija con spray, rotula y retira el espéculo con suavidad"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cierre del procedimiento",
+      "regular": "Cierra sin avisar",
+      "suficiente": "Informa que terminó, invita a vestirse, descarta el material y los guantes y se lava las manos"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Diagnóstico presuntivo y estudios",
+      "regular": "Menciona un estudio",
+      "suficiente": "Plantea una lesión cervical a descartar (incluye cáncer de cuello) y solicita colposcopía, test de HPV, exudado vaginal con ITS y serologías (VDRL, VIH, hepatitis B y C)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Resultados y seguimiento",
+      "regular": "Indica uno",
+      "suficiente": "Indica retirar los resultados en 30 a 45 días y volver a la misma consulta para evaluarlos, y da pautas de alarma (sangrado abundante, fiebre, dolor)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Prevención y método anticonceptivo",
+      "regular": "Menciona uno",
+      "suficiente": "Aconseja preservativo, un método anticonceptivo, cesación tabáquica y la vacunación contra el HPV; explica el tamizaje con test de HPV cada 5 años a partir de los 30"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Habla con claridad y respeto, avisa antes de cada maniobra, pide que se relaje y pregunta si le quedaron dudas"
+    }
+  ]
+}

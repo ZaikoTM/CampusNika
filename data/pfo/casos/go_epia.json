@@ -1,0 +1,154 @@
+{
+  "id": "go_epia",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Dolor hipogástrico y fiebre: enfermedad pélvica inflamatoria aguda con absceso tuboovárico",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es el/la residente de medicina general que asiste en la guardia general a Luciana, de 28 años, que concurre por sus propios medios por dolor abdominal en hipogastrio y sensación de estar afiebrada. Trae un análisis de laboratorio y una ecografía ginecológica que le solicitaron en una consulta que realizó hace 2 días por el mismo cuadro. Signos vitales constatados por la enfermera: TA 100/60 mmHg, temperatura 39,2 °C, FC 118 por minuto, regular estado general.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al problema por el cual consulta Luciana.",
+    "Realizar el examen físico correspondiente según el cuadro clínico e interpretar los estudios que trajo.",
+    "Explicar a Luciana los diagnósticos diferenciales y el diagnóstico presuntivo.",
+    "Definir la conducta correcta a seguir y explicársela a la paciente."
+  ],
+  "interlocutor": "Luciana Ferrari, 28 años, docente (habla ella, en primera persona; con dolor, febril, preocupada)",
+  "guion_paciente": "Luciana Ferrari, 28 años, maestra. Hace 5 días tiene dolor en la parte baja de la panza, sordo, constante, de 7 sobre 10, que no se va a ningún lado; se agrava con el movimiento y con las relaciones sexuales (dispareunia profunda). Fiebre de 39 °C medida con termómetro, con escalofríos, mal estado general, náuseas sin vómitos, sin diarrea; flujo vaginal amarillento con mal olor desde hace una semana; sin ardor al orinar; sin sangrado fuera de la regla. Hace 2 días consultó en otra guardia por lo mismo: le hicieron análisis y una ecografía y le dieron ibuprofeno; no volvió a controlarse. No está tomando antibióticos.\nAntecedentes: G0; menarca a los 12 años; ciclos regulares (FUM hace 3 semanas, certera); usa preservativo «a veces»; cambió de pareja hace 2 meses (pareja actual desde entonces, varón; tuvo otra pareja antes); última ITS: clamidia a los 22 años (tratada); PAP hace 1 año normal; sin DIU; sin instrumentación uterina reciente (sin histerosalpingografía ni histeroscopia ni punción de ovocitos); sin cirugías (apéndice presente); sin alergias; sin medicación crónica; no fuma; alcohol social. Embarazo: dice que no (usa preservativo, FUM hace 3 semanas). Su pareja no tiene síntomas.\nAntes de cada examen físico o procedimiento, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 100/60 mmHg, FC 118 por minuto, FR 20, temperatura 39,2 °C, saturación 98 %. Aspecto de enferma, vigil. Abdomen: ruidos hidroaéreos presentes; blando, doloroso a la palpación profunda en hipogastrio y ambas fosas ilíacas, más en la derecha, con defensa leve y sin reacción peritoneal franca; sin dolor en el punto de McBurney específico, puntos ureterales negativos, puño percusión negativa. Genitales externos sin lesiones; glándulas de Bartolino y de Skene sin secreción. Especuloscopía: flujo cervical mucopurulento amarillento, cuello eritematoso, friable; paredes vaginales sin lesiones. Tacto vaginal: dolor a la movilización del cuello uterino (signo de Frenkel positivo), dolor anexial derecho con sensación de empastamiento. Bimanual: útero en anteversión, doloroso, de tamaño normal, anexo derecho doloroso y aumentado de tamaño.",
+  "estudios": [
+    {
+      "clave": "laboratorio_traido",
+      "texto": "[BORRADOR] Hemograma: leucocitos 18.200/mm³ con 86 % de neutrófilos, hemoglobina 11,9 g/dl, plaquetas 380.000/mm³. PCR 180 mg/L, VSG 70 mm. Glucemia 92 mg/dl, urea 24, creatinina 0,7 mg/dl. BHCG cuantitativa negativa. Sedimento urinario con leucocituria leve (5-8 por campo), sin nitritos. VDRL y VIH no reactivos."
+    },
+    {
+      "clave": "ecografia_traida",
+      "texto": "[BORRADOR] Ecografía transvaginal: imagen compleja multiloculada de 5 x 3,8 cm en el anexo derecho, con paredes gruesas y contenido heterogéneo, compatible con absceso tuboovárico; líquido libre escaso en fondo de saco de Douglas. Útero de tamaño normal; ovario izquierdo sin particularidades."
+    },
+    {
+      "clave": "exudado",
+      "texto": "[BORRADOR] Exudado endocervical (si se lo solicita o si se lo ve): PCR positiva para Chlamydia trachomatis; cultivo negativo para Neisseria gonorrhoeae; cultivo con flora polimicrobiana (anaerobios)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Indicar tratamiento ambulatorio a una paciente con fiebre alta, mal estado general y absceso tuboovárico",
+    "No tratar a la pareja sexual",
+    "No descartar embarazo ni solicitar interconsulta con cirugía ante un absceso tuboovárico"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor, fiebre y síntomas genitales",
+      "regular": "Indaga el dolor",
+      "suficiente": "Indaga el dolor con ALICIA, la fiebre (medición, picos), flujo (color, olor), dispareunia, sangrado anormal, síntomas urinarios y digestivos"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Consultas y tratamientos previos",
+      "regular": "Pregunta una",
+      "suficiente": "Indaga la consulta previa, los estudios, el tratamiento recibido y la evolución desde hace 2 días"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes ginecoobstétricos",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga FUM, ciclos, método anticonceptivo (preservativo, DIU), parejas, ITS previas, PAP, paridad y posibilidad de embarazo"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Instrumentación y antecedentes generales",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga instrumentación (histeroscopia, histerosalpingografía, tratamientos de fertilidad), enfermedades crónicas, cirugías (apendicectomía), alergias, hábitos y antecedentes familiares"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Consentimiento y examen abdominal",
+      "regular": "Examina el abdomen sin explicar",
+      "suficiente": "Explica y pide permiso antes de examinar; realiza inspección, auscultación, percusión y palpación (superficial, profunda, McBurney, puntos ureterales)"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen ginecológico",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección y palpación de genitales externos, especuloscopía (cuello, flujo, paredes), tacto vaginal monomanual y bimanual, y describe el signo de Frenkel y los anexos"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de los estudios",
+      "regular": "Interpreta uno",
+      "suficiente": "Interpreta el laboratorio (leucocitosis con neutrofilia, PCR elevada, BHCG negativa) y la ecografía (absceso tuboovárico derecho)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Plantea EPI",
+      "suficiente": "Diagnostica enfermedad pélvica inflamatoria aguda con absceso tuboovárico y plantea diferenciales (apendicitis, diverticulitis, ITU, endometritis, embarazo ectópico, torsión o rotura de quiste)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y explicación",
+      "regular": "Indica internación sin explicar",
+      "suficiente": "Indica internación por mal estado general, fiebre alta y absceso, y lo explica con lenguaje claro, incluyendo las secuelas de no completar el tratamiento (infertilidad, ectópico, dolor crónico)"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Indicaciones generales",
+      "regular": "Indica algunas",
+      "suficiente": "Indica nada por boca, hidratación con solución fisiológica, omeprazol, metoclopramida, hemocultivos por dos, antitérmico (paracetamol 1 g cada 8 horas) y analgesia"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibióticos endovenosos",
+      "regular": "Indica un esquema incompleto",
+      "suficiente": "Indica clindamicina 900 mg cada 8 horas más gentamicina (240 mg por día o 2 mg/kg de carga y 1,5 mg/kg cada 8 horas) por vía endovenosa, con metronidazol 500 mg cada 12 horas si el esquema lo incluye"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Pase a vía oral y duración",
+      "regular": "Menciona la duración",
+      "suficiente": "Rota a vía oral tras 24 horas sin fiebre con doxiciclina 100 mg cada 12 horas y metronidazol 500 mg cada 12 horas hasta completar 14 días"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Interconsulta y pareja",
+      "regular": "Menciona uno",
+      "suficiente": "Solicita interconsulta con cirugía por el absceso (probable drenaje laparoscópico) y trata a la pareja sexual con ceftriaxona 250 mg intramuscular más azitromicina 1 g por vía oral en dosis única"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y seguimiento",
+      "regular": "Cierra sin verificar la comprensión",
+      "suficiente": "Explica el diagnóstico y el plan con empatía, aborda la prevención (preservativo, ITS), el seguimiento y pregunta si tiene dudas"
+    }
+  ]
+}

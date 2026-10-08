@@ -1,0 +1,144 @@
+{
+  "id": "go_examen_obstetrico_edad_gestacional",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Cálculo de edad gestacional y examen abdominal obstétrico completo",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es residente de medicina general y debe atender en el consultorio del centro de salud a Dora, de 25 años. Su última menstruación fue el 20 de agosto de 2024 (la fecha de la consulta es el 12 de marzo de 2025). Es primigesta y ha realizado varios controles. Hoy se ha olvidado el carnet perinatal.",
+  "objetivos": [
+    "Calcular la edad gestacional (por FUM y por ecografía) y la fecha probable de parto.",
+    "Realizar y comentar verbalmente el examen abdominal obstétrico completo, relatando cada maniobra."
+  ],
+  "interlocutor": "Dora Quiroga, 25 años, estudiante de profesorado (habla ella, en primera persona; tranquila, colaboradora)",
+  "guion_paciente": "Dora Quiroga, 25 años, estudiante de profesorado. Primer embarazo (G1 P0). Se olvidó el carnet perinatal. FUM: 20 de agosto de 2024, dato cierto: ciclos regulares cada 28 días, no usaba anticonceptivos hormonales, no estaba amamantando y no tuvo sangrados intercurrentes; por lo tanto, la FUM es cierta y confiable. Recuerda que se hizo una ecografía precoz el 22 de octubre de 2024 que dijo «9 semanas» (longitud céfalo-nalgas concordante con la FUM). Se siente bien; el bebé se mueve; sin pérdida de líquido ni sangrado ni contracciones, sin dolor de cabeza ni visión borrosa. Sin enfermedades crónicas ni medicación (solo hierro y ácido fólico); sin alergias; no fuma. Pide que le expliquen cada maniobra.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 110/70 mmHg, FC 80 por minuto, peso 66 kg. Examen obstétrico: altura uterina 28 cm medida con cinta métrica (desde el borde superior de la sínfisis pubiana hasta el fondo uterino); feto único, longitudinal, cefálico; primera maniobra (Leopold): fondo uterino ocupado por una masa blanda e irregular (nalgas); segunda maniobra: dorso a la izquierda, partes pequeñas a la derecha; tercera maniobra: polo cefálico móvil, sin encajar; cuarta maniobra: convergencia de los dedos hacia la pelvis, cabeza no encajada; foco fetal a la izquierda por debajo del ombligo, 144 por minuto, regular. Sin dinámica uterina. Edemas ausentes.",
+  "estudios": [
+    {
+      "clave": "calculo",
+      "texto": "Cálculo esperado: FUM 20/08/2024; fecha de la consulta 12/03/2025: 204 días = 29 semanas y 1 día (29+1). Fecha probable de parto por regla de Naegele (día + 7, mes - 3, año + 1): 27 de mayo de 2025. Por la ecografía del 22/10/2024 (9 semanas): entre esa fecha y el 12/03/2025 pasaron 141 días = 20 semanas y 1 día, más 9 semanas = 29 semanas y 1 día. La FUM y la ecografía coinciden, por lo tanto se conserva la edad gestacional por FUM."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Calcular la edad gestacional incorrectamente por un error de fecha o de regla de cálculo sin advertirlo",
+    "Auscultar sin ubicar el dorso fetal o medir la altura uterina desde el ombligo",
+    "Realizar el examen sin consentimiento ni explicación previa"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Presentación y consentimiento",
+      "regular": "Se presenta",
+      "suficiente": "Saluda, se presenta, invita a tomar asiento, explica el examen y pide permiso"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Caracterización de la FUM",
+      "regular": "Pregunta la fecha",
+      "suficiente": "Indaga si la FUM es cierta y confiable (ciclos regulares, sin anticonceptivos hormonales ni lactancia, sin sangrados intercurrentes)"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Datos de ecografía precoz",
+      "regular": "Pregunta por una ecografía",
+      "suficiente": "Indaga si tiene una ecografía del primer trimestre y la edad gestacional informada"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas actuales y alarma",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga movimientos fetales, pérdida de líquido o sangre, contracciones, cefalea, visión borrosa y otros signos de alarma"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Cálculo de la edad gestacional por FUM",
+      "regular": "Calcula con un error",
+      "suficiente": "Calcula correctamente 29 semanas y 1 día contando los días desde el primer día de la última menstruación"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Fecha probable de parto",
+      "regular": "Aplica una regla incorrecta",
+      "suficiente": "Calcula la fecha probable de parto (27 de mayo de 2025) con la regla de Naegele (día + 7, mes - 3) o la de Wahl"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Ajuste por ecografía",
+      "regular": "Menciona la ecografía",
+      "suficiente": "Explica que la ecografía precoz concuerda con la FUM y que no corresponde corregir la edad gestacional (diferencia menor de 5 a 7 días)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Inspección y altura uterina",
+      "regular": "Realiza una de las dos",
+      "suficiente": "Inspecciona el abdomen (forma, cicatrices, estrías) y mide la altura uterina con cinta métrica desde el borde superior del pubis, interpretándola"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Primera y segunda maniobra de Leopold",
+      "regular": "Realiza una",
+      "suficiente": "Realiza la primera maniobra (polo que ocupa el fondo) y la segunda (dorso y partes pequeñas), relatando lo que palpa"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tercera y cuarta maniobra de Leopold",
+      "regular": "Realiza una",
+      "suficiente": "Realiza la tercera (polo inferior, movilidad) y la cuarta (de espaldas a la cara de la paciente, convergencia o divergencia y encajamiento), relatando lo que palpa"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Auscultación de la frecuencia cardíaca fetal",
+      "regular": "Ausculta sin contar",
+      "suficiente": "Ubica el foco fetal según el dorso, cuenta la frecuencia durante un minuto (normal 110 a 160) y toma el pulso materno"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Signos vitales y vitalidad fetal",
+      "regular": "Realiza uno",
+      "suficiente": "Toma presión arterial y pulso materno, evalúa movimientos fetales y la ausencia de dinámica uterina"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Conclusiones del examen",
+      "regular": "Resume parcialmente",
+      "suficiente": "Resume: embarazo de 29+1 semanas, feto único longitudinal cefálico, altura uterina acorde, frecuencia cardíaca fetal normal, sin dinámica"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios, indicaciones y cierre",
+      "regular": "Indica algo",
+      "suficiente": "Indica los estudios correspondientes (ecografía obstétrica del tercer trimestre, PTOG y laboratorio, vacunas según el caso), da pautas de alarma, pregunta si tiene dudas y cita al próximo control"
+    }
+  ]
+}

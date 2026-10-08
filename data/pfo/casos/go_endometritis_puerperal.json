@@ -1,0 +1,150 @@
+{
+  "id": "go_endometritis_puerperal",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Dolor abdominal, loquios fétidos y fiebre a los 17 días de una cesárea: endometritis puerperal",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y se encuentra en la guardia. Patricia concurre a los 17 días de una cesárea refiriendo dolor abdominal intenso, loquios fétidos y fiebre. TA 100/60 mmHg, FC 90 por minuto, temperatura alta. Trae laboratorio.",
+  "objetivos": [
+    "Realizar una breve anamnesis.",
+    "Realizar el examen físico correspondiente.",
+    "Interpretar los estudios y establecer el diagnóstico y los diagnósticos diferenciales.",
+    "Indicar el tratamiento y el seguimiento."
+  ],
+  "interlocutor": "Patricia Ortiz, 26 años, ama de casa (habla ella, en primera persona; decaída, con dolor; sostiene a su bebé una acompañante)",
+  "guion_paciente": "Patricia Ortiz, 26 años. Hace 17 días tuvo una cesárea de urgencia (trabajo de parto prolongado de 20 horas con bolsa rota hace 18 horas y tactos vaginales repetidos; bebé sano de 3,2 kg). Desde hace 3 días tiene dolor en la parte baja de la panza que empezó de a poco y ahora es intenso, constante, de 8 sobre 10; los loquios (flujo posparto) pasaron a ser marrón-verdosos con mal olor; fiebre de hasta 38,9 °C con escalofríos; se siente decaída. La herida de la cesárea está seca, sin enrojecimiento ni secreción. Náuseas, sin vómitos. Orina normal, sin ardor. Sin dolor en la pantorrilla, sin tos ni dolor mamario. No se colocó DIU. Amamanta.\nAntecedentes: embarazo controlado, sin diabetes ni hipertensión; sin cirugías previas; sin alergias; hemoglobina 11,5 al ingreso; grupo B Rh positivo; hisopado para estreptococo del grupo B: positivo (recibió penicilina en el trabajo de parto). PAP al día. Usa preservativo desde el parto. Sin enfermedades crónicas.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 100/60 mmHg, FC 90 por minuto (taquicardia relativa), FR 20, temperatura 38,9 °C, saturación 98 %. Decaída, palidez leve, vigil. Abdomen: cicatriz de cesárea (Pfannenstiel) limpia, seca, sin signos inflamatorios ni secreción; útero subinvolucionado (se palpa por encima de la sínfisis), doloroso a la palpación; defensa leve hipogástrica; ruidos hidroaéreos presentes. Ginecológico: loquios purulentos y fétidos; cuello entreabierto; tacto vaginal con dolor a la movilización del cuello y del útero (Frenkel positivo); anexos libres. Mamas sin signos de mastitis. Miembros inferiores sin edema ni dolor.",
+  "estudios": [
+    {
+      "clave": "laboratorio_traido",
+      "texto": "[BORRADOR] Hemograma: leucocitos 17.600/mm³ con 85 % de neutrófilos, hemoglobina 10,4 g/dl, plaquetas 410.000/mm³. PCR 150 mg/L. Glucemia 90 mg/dl, urea 22, creatinina 0,7 mg/dl. Sedimento urinario normal; urocultivo y hemocultivos por dos: se toman (pendientes)."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía abdominal y transvaginal: útero aumentado de tamaño con cavidad ocupada por material heterogéneo (restos o loquios) y líquido; sin colecciones pelvianas ni abscesos; herida uterina sin dehiscencia."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar endometritis puerperal en una puérpera con fiebre, dolor uterino y loquios fétidos",
+    "Indicar tratamiento ambulatorio a una paciente con endometritis grave con compromiso del estado general",
+    "Indicar antibióticos sin cobertura para anaerobios y sin hemocultivos"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga el dolor con ALICIA: inicio (súbito o progresivo), localización, irradiación, intensidad, factores que lo modifican y medicación tomada"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Fiebre, loquios y cesárea",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga fiebre medida, características de los loquios (color, olor, cantidad), estado de la herida y tipo de cesárea (urgencia o programada)"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Factores de riesgo",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga rotura prematura de membranas, trabajo de parto prolongado, tactos vaginales repetidos, desgarros, corioamnionitis, deshidratación y control del embarazo"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Otros síntomas y antecedentes",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga náuseas, vómitos, síntomas urinarios y mamarios, DIU, antecedentes personales, cirugías, ITS, PAP, alergias y hábitos"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estado general y signos vitales",
+      "regular": "Reconoce uno",
+      "suficiente": "Evalúa piel, mucosas, conciencia y signos vitales (fiebre, taquicardia relativa), y los interpreta"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen abdominal y de la herida",
+      "regular": "Realiza uno",
+      "suficiente": "Realiza inspección, auscultación, percusión y palpación, evalúa la involución uterina y revisa la herida quirúrgica"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen ginecológico",
+      "regular": "Realiza uno",
+      "suficiente": "Evalúa los loquios (color, olor, hemorragia), realiza tacto vaginal monomanual (Frenkel) y bimanual"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y clasificación",
+      "regular": "Plantea endometritis",
+      "suficiente": "Diagnostica endometritis puerperal grave (temperatura mayor de 38 °C, loquios fétidos, dolor uterino y compromiso del estado general)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Menciona uno",
+      "suficiente": "Plantea EPI, cervicitis, tromboflebitis séptica, infección de herida, mastitis, apendicitis, peritonitis y sepsis"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita hemograma, glucemia, urea, creatinina, sedimento urinario, urocultivo, hemocultivos por dos y ecografía abdominal o transvaginal"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación",
+      "regular": "Indica la internación",
+      "suficiente": "Indica internación por cuadro grave, con signos vitales, hidratación y control de evolución diario"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibióticos",
+      "regular": "Indica uno",
+      "suficiente": "Indica clindamicina 900 mg cada 8 horas más gentamicina (1,5 mg/kg cada 8 horas o 240 mg por día) por vía endovenosa hasta la remisión sintomática y 24 a 48 horas sin fiebre"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cuadro leve y lactancia",
+      "regular": "Menciona una",
+      "suficiente": "Explica que en cuadros leves el tratamiento ambulatorio es amoxicilina-clavulánico 875/125 mg cada 12 horas por vía oral con control a las 48 horas, y que se puede continuar la lactancia"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y seguimiento",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Explica con lenguaje claro el diagnóstico y el plan, controla diariamente en la internación, da pautas de alarma y pregunta si tiene dudas"
+    }
+  ]
+}

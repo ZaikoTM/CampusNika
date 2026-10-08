@@ -1,0 +1,145 @@
+{
+  "id": "go_diabetes_gestacional",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Control obstétrico de las 25 semanas con laboratorio alterado: diabetes gestacional e infección urinaria",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a y debe atender en el consultorio del centro de salud Bajada Grande a Juliana Andreani, de 21 años, que concurre a realizar su control obstétrico de rutina. Se encuentra cursando un embarazo de 25 semanas, según su última menstruación. Trae estudios complementarios solicitados en una consulta previa. Los signos vitales y el peso fueron anotados por la enfermera en el carnet perinatal.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida al motivo de consulta.",
+    "Evaluar los estudios complementarios y explicárselos con lenguaje comprensible a Juliana.",
+    "Explicar con lenguaje claro a Juliana la conducta a seguir; si lo considera necesario, indicar medidas higiénico-dietéticas y prescribir el tratamiento médico."
+  ],
+  "interlocutor": "Juliana Andreani, 21 años, empleada de un supermercado (habla ella, en primera persona; preocupada por su madre y su tía diabéticas)",
+  "guion_paciente": "Juliana Andreani, 21 años, cajera en un supermercado. Es su segundo embarazo (G2 P1: primer hijo a término a los 19 años, nació con 4,1 kg). Está de 25 semanas por FUM confiable (ecografía del primer trimestre concordante). Viene a su control de rutina y trae el laboratorio que le pidieron hace 10 días. Está preocupada porque su madre y su tía materna son diabéticas y su hermano mayor pesó más de 4 kg al nacer. Se siente bien: sin náuseas, vómitos ni dolor abdominal; tiene ganas de orinar más seguido y algo de ardor al final desde hace 4 días, sin fiebre ni dolor lumbar; sin flujo anormal; sin sed excesiva ni pérdida de peso; sin sangrado ni pérdida de líquido; siente al bebé; sin contracciones.\nControles: 5 controles prenatales, tomó hierro y ácido fólico; recibió antigripal; dTpa aún no. Peso previo 68 kg, actual 76 kg (IMC previo 25,5). PAP hace 1 año normal. Alimentación rica en harinas, gaseosas, facturas y dulces; no hace actividad física. No fuma ni toma alcohol. Sin enfermedades crónicas, sin medicación (solo hierro), sin alergias. Vive con su pareja y su hijo; la acompaña la familia. No lleva registro de glucemias.\nSi le explican con paciencia, acepta el tratamiento y el control con nutricionista; le asusta pincharse.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Controles del carnet: TA 118/72 mmHg, FC 82 por minuto, peso 76 kg. Examen obstétrico: altura uterina 27 cm (acorde a 25 semanas con leve aumento), feto único, longitudinal, cefálico; latidos fetales 144 por minuto; sin dinámica; edemas maleolares leves. Acantosis nigricans leve en cuello. Glucemia capilar en el centro de salud (2 horas después de comer): 168 mg/dl. Pies sin lesiones.",
+  "estudios": [
+    {
+      "clave": "laboratorio_traido",
+      "texto": "Hematíes 4.900.000/mm³, hemoglobina 13,2 g/dl, hematocrito 39 %, plaquetas 258.000/mm³, leucocitos 5.300/mm³, creatinina 1,00 mg/dl, ácido úrico 1,00 mg/dl, urea 30 mg/dl, bilirrubina total 0,67 mg/dl, TGP 18, TGO 14, fosfatasa alcalina 115, HDL 71 mg/dl, TSH 0,91 µUI/ml, colesterol total 180 mg/dl, triglicéridos 78 mg/dl, LDL 165 mg/dl (elevado), KPTT 32 s, TP 12 s; VDRL, VIH, Chagas, HBsAg y toxoplasmosis negativos. Sedimento urinario: 2-3 células por campo, 20 a 30 leucocitos por campo (leucocituria) y 20 a 30 piocitos por campo (piocituria). Prueba de tolerancia oral a la glucosa (PTOG): glucemia basal 115 mg/dl (patológica) y a las 2 horas 165 mg/dl (patológica)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No tratar la diabetes gestacional ni la infección urinaria en el embarazo",
+    "Indicar ayuno, dietas hipocalóricas severas o hipoglucemiantes orales no indicados en el embarazo",
+    "No indicar urocultivo con antibiograma y su control posterior al tratamiento"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivo y sintomatología actual",
+      "regular": "Indaga algunos síntomas",
+      "suficiente": "Indaga náuseas, vómitos, dolor abdominal, edemas, síntomas urinarios (disuria, tenesmo, polaquiuria, fiebre, dolor lumbar), flujo, poliuria, polidipsia y pérdida de peso, y signos de alarma obstétricos"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Embarazo actual y controles",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga FUM y semanas, carnet perinatal y de vacunas, número de controles, estudios, ecografías, vacunas, suplementación, PAP y hisopado, y complicaciones"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes ginecoobstétricos y familiares",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga gestas previas y peso del recién nacido (macrosomía), diabetes gestacional previa y antecedentes familiares de diabetes e hipertensión"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos y contexto",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga ganancia de peso, alimentación, actividad física, tabaco, alcohol, sueño, contención familiar y situación social"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Revisa signos vitales, peso, glucemia capilar, examen obstétrico (altura uterina, Leopold, latidos fetales), acantosis nigricans, edemas y pies"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce una alteración",
+      "suficiente": "Identifica la prueba de tolerancia oral a la glucosa patológica, el sedimento con leucocituria y piocituria, el LDL elevado, y que el resto es normal"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico de diabetes gestacional",
+      "regular": "Menciona diabetes",
+      "suficiente": "Diagnostica diabetes gestacional (se manifestó luego de las 20 semanas, glucemia en ayunas mayor de 100 mg/dl y a las 2 horas mayor de 140) y la diferencia de la diabetes pregestacional"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Explicación con lenguaje claro",
+      "regular": "Explica con términos técnicos",
+      "suficiente": "Explica qué es la diabetes gestacional, por qué ocurre, su riesgo para la madre y el bebé, que puede ser reversible y la importancia del tratamiento, y tranquiliza a Juliana"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento no farmacológico",
+      "regular": "Indica una medida",
+      "suficiente": "Indica plan de alimentación (sin ayuno ni dietas hipocalóricas), ejercicio 30 minutos por día, 2 litros de agua, registro de alimentación y de glucemia en ayunas y 2 horas después de las comidas, y consulta con nutrición"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Insulina y metas",
+      "regular": "Menciona la insulina",
+      "suficiente": "Explica que, si no alcanza las metas, el tratamiento farmacológico es insulina NPH al acostarse 0,1 UI/kg, con rotación de sitios, conservación en heladera e hipoglucemias; metas: ayunas menor de 90 y posprandial menor de 120 mg/dl"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Infección urinaria",
+      "regular": "Menciona la infección",
+      "suficiente": "Indica urocultivo con antibiograma y tratamiento de la bacteriuria o cistitis con cefalexina 500 mg cada 6 horas por 7 días (ceftriaxona endovenosa si hay pielonefritis)"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Otros estudios, vacunas e interconsultas",
+      "regular": "Indica uno",
+      "suficiente": "Solicita ecografía del segundo trimestre (28 a 30 semanas) para macrosomía, fondo de ojo, electrocardiograma y albuminuria; vacunas dTpa a partir de las 20 semanas, antigripal y VSR a partir de las 32; interconsulta con nutrición y odontología"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Signos de alarma y seguimiento",
+      "regular": "Da uno de los dos",
+      "suficiente": "Da pautas de alarma (fiebre, pérdida de líquido o sangre, ausencia de movimientos fetales, vómitos, anuria, dolor lumbar, hipoglucemia) y cita para urocultivo de control a los 7 días y en 15 días en consultorio de alto riesgo"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Reafirma que su preocupación es válida, refuerza los buenos hábitos, trabaja en equipo y pregunta si tiene dudas"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "id": "go_paciente_transgenero",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Consulta de una mujer trans que desea iniciar hormonización",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Concurre a la consulta en el CAPS María, de 30 años, quien refiere querer comenzar con el tratamiento de hormonización, ya que es algo que ha estado investigando y tiene deseos de realizarlo.",
+  "objetivos": [
+    "Reconocer el lenguaje autorreferencial empleado por la paciente, su situación sociolaboral y el apoyo familiar.",
+    "Interrogar acerca del estado actual de salud y los antecedentes personales y familiares.",
+    "Explicar de manera clara y concisa las alternativas de tratamiento no hormonal, hormonal y quirúrgico.",
+    "Solicitar los exámenes complementarios adecuados para el caso."
+  ],
+  "interlocutor": "María Soledad Díaz, 30 años (se presenta como María; mujer trans; habla ella, en primera persona; atenta al trato recibido)",
+  "guion_paciente": "María Soledad Díaz, 30 años. Se presenta como María y pide que se la nombre en femenino; su DNI ya figura con su nombre actual. Trabaja como peluquera con un local propio. Quiere empezar hormonización feminizante: investigó en internet y en un grupo de amigas; nunca tomó hormonas ni se inyectó nada. Vive sola; su madre la apoya y su padre «no habla del tema»; tiene un grupo de amigas trans. Prefiere ser atendida sola. Se siente bien de ánimo, algo ansiosa por la consulta; a veces tristeza por rechazo en su familia extendida; sin ideas de muerte ni de hacerse daño; no sufre violencia actual (tuvo discriminación en el pasado).\nSalud: sin enfermedades crónicas (no hipertensión, diabetes, trombosis, ACV, infarto, migraña con aura ni cáncer); sin medicación; sin cirugías; sin alergias; fuma 8 cigarrillos por día; alcohol los fines de semana; sin drogas. Padre hipertenso; abuela con cáncer de mama. Sexualidad: relaciones con varones; pareja estable desde hace 1 año; usa preservativo a veces; sin ITS previas conocidas; último control hace 2 años (serologías negativas); no se vacunó contra hepatitis B. Sin hijos. No tuvo biopsia ni antecedentes prostáticos. Acepta que le indiquen laboratorio y que firme consentimiento.\nSi le dicen algo que la ofende (por ejemplo, tratarla en masculino), lo señala con calma. Valora que le expliquen que las hormonas no son un método anticonceptivo y que debe seguir usando preservativo.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 120/78 mmHg, FC 74 por minuto, peso 70 kg, talla 1,72 m, IMC 23,7. Examen físico general sin particularidades (adecuar el examen al caso; no es necesario el examen genital en la primera consulta si no hay vínculo de confianza ni motivo).",
+  "estudios": [
+    {
+      "clave": "estudios",
+      "texto": "[BORRADOR] Estudios solicitados quedan pendientes y se informan en la próxima consulta: hemograma, glucemia, perfil lipídico, función hepática y renal, orina, TSH, T4 libre, prolactina, estrógenos, testosterona, LH, FSH, serologías (VDRL, VIH, hepatitis B y C) y electrocardiograma, todos dentro de límites normales."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Utilizar un trato en masculino, el nombre registral o un lenguaje que desconozca la identidad de la paciente, o juzgar su decisión",
+    "Indicar hormonas sin consentimiento informado, laboratorio y evaluación de contraindicaciones (cáncer hormonosensible, trombosis)",
+    "No aclarar que la terapia hormonal no es un método anticonceptivo ni un método de prevención de ITS"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Presentación, nombre y trato",
+      "regular": "Pregunta el nombre pero no cómo prefiere que le digan",
+      "suficiente": "Se presenta, pregunta cómo prefiere que la llamen y usa el nombre y el género que la paciente indica durante toda la consulta"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Motivo y conocimiento previo",
+      "regular": "Pregunta qué quiere",
+      "suficiente": "Indaga qué investigó, qué sabe del tratamiento y si hizo tratamientos previos, y garantiza la confidencialidad"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Red de apoyo y situación sociolaboral",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga si prefiere estar sola, el apoyo familiar y social, el trabajo, la vivienda y la situación en el hogar"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Salud mental y violencia",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga ánimo, estrés, tristeza, ideas de muerte, violencia o discriminación y si tiene con quién hablar"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales y familiares",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga enfermedades crónicas, trombosis, ECV, cáncer hormonosensible, medicación, cirugías, alergias, vacunación y antecedentes familiares"
+    },
+    {
+      "id": 6,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Salud sexual y hábitos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga parejas, métodos de barrera, ITS, controles, tabaco, alcohol, sustancias, alimentación y actividad física"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Toma uno",
+      "suficiente": "Toma signos vitales e índice de masa corporal y adecua el examen al caso, sin exigir el examen genital si no corresponde"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Corrección ante un error",
+      "regular": "Se disculpa sin explicar",
+      "suficiente": "Si ofende sin querer, se disculpa con naturalidad y explica que son preguntas de rutina"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Opciones no hormonales",
+      "regular": "Menciona la psicoterapia",
+      "suficiente": "Explica la psicoterapia y el acompañamiento como complemento del proceso, con otras estrategias no hormonales"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Opciones hormonales",
+      "regular": "Describe una",
+      "suficiente": "Explica la feminización hormonal con antiandrógenos (acetato de ciproterona) y estrógenos (vía oral, parches, gel o inyección), los cambios esperados, el tiempo (inicio a los 3 meses, estabilización en 3 a 5 años) y los riesgos"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Opciones quirúrgicas",
+      "regular": "Menciona alguna",
+      "suficiente": "Explica que las cirugías (mamoplastia, feminización facial, reducción de la nuez, vaginoplastia) son optativas, posteriores y no obligatorias"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Anticoncepción, voz y expectativas",
+      "regular": "Menciona uno",
+      "suficiente": "Aclara que la hormonización no es anticonceptiva y que debe usar preservativo, informa sobre fonoaudiología, y no genera falsas expectativas"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios e interconsultas",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (hemograma, glucemia, perfil lipídico, hepatograma, función renal, orina, TSH, T4 libre, prolactina, hormonas), serologías de ITS con consentimiento y electrocardiograma; interconsultas con psicología, endocrinología, fonoaudiología, oftalmología y odontología"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Consentimiento informado, vacunas y seguimiento",
+      "regular": "Menciona uno",
+      "suficiente": "Informa que firmará un consentimiento antes de iniciar, indica vacunas (hepatitis B, doble bacteriana, antigripal si corresponde) y cita al tener los resultados y luego cada mes, y pregunta si tiene dudas"
+    }
+  ]
+}

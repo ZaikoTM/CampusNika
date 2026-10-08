@@ -1,0 +1,150 @@
+{
+  "id": "go_colestasis_intrahepatica",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Prurito palmoplantar a las 34 semanas: colestasis intrahepática del embarazo",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Laura Pérez, de 32 años, G2 P1 (una cesárea previa), se encuentra cursando un embarazo de 34+2 semanas (confirmadas por FUM y por ecografía del primer trimestre). Acude a la guardia por presentar prurito generalizado que afecta principalmente las palmas y las plantas, de inicio hace 7 días, con incremento progresivo. Se presenta especialmente por las noches y ha comenzado a interrumpir el sueño. Sin otras lesiones cutáneas. Como antecedentes personales destaca hipotiroidismo controlado con levotiroxina 50 µg por día y antecedente de colestasis intrahepática en el embarazo anterior, resuelta tras el parto. Refiere buen control prenatal en el embarazo actual, con crecimiento fetal adecuado en una ecografía reciente (33 semanas). Signos vitales: TA 120/80 mmHg, FC 82 por minuto, temperatura 36,8 °C.",
+  "objetivos": [
+    "Reconocer el cuadro clínico y plantear el diagnóstico presuntivo.",
+    "Solicitar los estudios complementarios y los diagnósticos diferenciales.",
+    "Clasificar la gravedad y decidir la internación.",
+    "Indicar el tratamiento y el plan de seguimiento."
+  ],
+  "interlocutor": "Laura Pérez, 32 años, administrativa (habla ella, en primera persona; agotada por el picor y el insomnio)",
+  "guion_paciente": "Laura Pérez, 32 años, empleada administrativa. G2 P1 C1 (primer hijo por cesárea hace 3 años por podálica). Cursa 34 semanas y 2 días. Hace 7 días tiene un picor intenso en las palmas de las manos y las plantas de los pies, que se extendió al resto del cuerpo; empeora de noche y no la deja dormir; se rasca hasta lastimarse; no hay manchas ni granitos en la piel. Orina algo oscura desde hace 2 días y heces claras; sin ictericia visible, aunque las conjuntivas parecen algo amarillentas. Sin fiebre, dolor abdominal, vómitos ni cefalea; sin visión borrosa. Siente al bebé como siempre; sin pérdida de líquido ni sangre; sin contracciones. Nuevo producto: no usa cremas ni medicación nueva.\nAntecedentes: en el embarazo anterior tuvo el mismo prurito a las 36 semanas, le dijeron «colestasis», resolvió después del parto. Hipotiroidismo desde hace 4 años (levotiroxina 50 µg, TSH controlada). Sin hepatitis, sin cálculos biliares, sin alergias. Peso 72 kg. Hisopado vaginorrectal para estreptococo del grupo B: aún no. Grupo A Rh positivo. Toma levotiroxina y hierro.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 120/80 mmHg, FC 82 por minuto, temperatura 36,8 °C, peso 72 kg. Buen estado general. Piel con excoriaciones por rascado en brazos, abdomen y piernas, sin exantema ni lesiones primarias. Escleróticas con leve subictericia. Abdomen blando; cicatriz de cesárea previa; altura uterina 34 cm; feto único, longitudinal, cefálico; frecuencia cardíaca fetal 140 por minuto; sin dinámica uterina; hígado no palpable, sin dolor en hipocondrio derecho. Sin edemas.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "Laboratorio: GOT 88 U/L, GPT 98 U/L, LDH 879 U/L, ácidos biliares 76 µmol/L, hemoglobina 12,3 g/dl, hematocrito 43 %. [BORRADOR] Bilirrubina total 2,4 mg/dl (directa 1,6), fosfatasa alcalina 280 U/L, plaquetas 210.000/mm³, coagulograma normal (RIN 1,0), creatinina 0,6 mg/dl, uricemia 3,8 mg/dl, proteinuria negativa, serologías de hepatitis A, B y C negativas."
+    },
+    {
+      "clave": "monitoreo_fetal_ecografia",
+      "texto": "[BORRADOR] Monitoreo fetal reactivo. Ecografía obstétrica: crecimiento en percentil 45, líquido amniótico normal, perfil biofísico 10/10, doppler normal."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No confirmar el diagnóstico con ácidos biliares y pruebas hepáticas ni descartar preeclampsia y HELLP",
+    "No indicar tratamiento específico (ácido ursodesoxicólico) ni vigilancia fetal en una colestasis con ácidos biliares elevados",
+    "No considerar el riesgo de muerte fetal intrauterina, parto prematuro y hemorragia posparto"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Características del prurito",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga inicio, localización (palmas y plantas), evolución, predominio nocturno y ausencia de lesiones primarias"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga ictericia, coluria, acolia, dolor en hipocondrio derecho, náuseas, esteatorrea, fiebre, cefalea y visión borrosa"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y factores de riesgo",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga colestasis en un embarazo previo, antecedentes familiares, medicación, hepatopatías, hipotiroidismo y cesárea previa"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Vitalidad fetal",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga movimientos fetales, pérdida de líquido o sangre y contracciones"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Toma signos vitales, examina piel (excoriaciones), escleróticas, abdomen, hígado y realiza examen obstétrico con latidos fetales"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del laboratorio",
+      "regular": "Reconoce uno",
+      "suficiente": "Interpreta ácidos biliares de 76 µmol/L (mayor de 10 confirma), transaminasas elevadas y LDH alta"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Clasificación de gravedad",
+      "regular": "La menciona",
+      "suficiente": "Clasifica la colestasis como moderada (ácidos biliares de 40 a 100 µmol/L), de aparición tardía (más de 32 semanas)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico diferencial",
+      "regular": "Menciona uno",
+      "suficiente": "Descarta preeclampsia y HELLP, hígado graso agudo, hepatitis virales, patología biliar y causas dermatológicas"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Criterios de internación",
+      "regular": "Indica la internación",
+      "suficiente": "Indica internación por ácidos biliares mayores de 40 µmol/L, prurito incapacitante con insomnio y cesárea previa, y la justifica"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios en la internación",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita rutina completa (hemograma, hepatograma, coagulograma, bilirrubina, función renal), ácidos biliares, serologías hepáticas, ecografía hepática y obstétrica, y monitoreo fetal"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento específico",
+      "regular": "Indica ácido ursodesoxicólico sin dosis",
+      "suficiente": "Indica ácido ursodesoxicólico 10 a 15 mg/kg por día (por ejemplo 500 mg cada 12 horas para 72 kg) hasta el parto, y evalúa vitamina K por el riesgo de hemorragia"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Maduración pulmonar y finalización",
+      "regular": "La menciona",
+      "suficiente": "Evalúa corticoides para la maduración pulmonar fetal (34+2 semanas, previo control de glucemia) y plantea la finalización del embarazo entre las 36 y 37 semanas según la gravedad"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Complicaciones y seguimiento",
+      "regular": "Menciona una",
+      "suficiente": "Explica las complicaciones: muerte fetal intrauterina, parto prematuro, asfixia, distrés respiratorio, hemorragia posparto, y recurrencia en próximos embarazos"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación",
+      "regular": "Cierra sin dudas",
+      "suficiente": "Explica con lenguaje claro y empático, ofrece medidas de alivio (cremas, baños frescos), alarmas y pregunta si tiene dudas"
+    }
+  ]
+}

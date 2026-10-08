@@ -1,0 +1,154 @@
+{
+  "id": "go_preeclampsia_grave_hellp",
+  "area": "gineco_obstetricia",
+  "estado": "borrador",
+  "nombre": "Cefalea, escotomas y presión 170/112: preeclampsia con criterios de gravedad y HELLP",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted se encuentra de guardia en la maternidad. Ingresa Verónica, de 29 años, primigesta, de 33 semanas y 3 días de embarazo (confirmadas por FUM y ecografía del primer trimestre), traída por su marido por cefalea intensa de 12 horas, escotomas y dolor en el epigastrio. En el triage: TA 170/112 mmHg (repetida a los 15 minutos: 168/110), FC 96 por minuto, FR 18 por minuto, saturación 97 %, temperatura 36,6 °C. Se trata de una emergencia: la anamnesis es muy breve y luego se amplía.",
+  "objetivos": [
+    "Identificar el cuadro (preeclampsia con criterios de gravedad, síndrome HELLP, eclampsia, colestasis).",
+    "Solicitar los estudios complementarios y el monitoreo materno y fetal.",
+    "Explicar el diagnóstico y la decisión de internación.",
+    "Indicar el tratamiento inicial, incluyendo la prevención de convulsiones y la maduración pulmonar fetal."
+  ],
+  "interlocutor": "Verónica Luna, 29 años, docente (habla ella, en primera persona; con dolor de cabeza, asustada; su marido responde si ella no puede)",
+  "guion_paciente": "Verónica Luna, 29 años, docente. Primer embarazo, de 33 semanas y 3 días por FUM y ecografía del primer trimestre. Hace 12 horas tiene un dolor de cabeza intenso, frontal, que no cede con paracetamol; desde hace 3 horas ve «lucecitas» y manchas; siente un dolor en la boca del estómago que se corre hacia el lado derecho; náuseas, sin vómitos. Aumento de peso y edemas de cara y manos en los últimos 5 días. Sin convulsiones, sin pérdida de conocimiento, sin sangrado ni pérdida de líquido; siente al bebé; sin contracciones; orina menos de lo habitual. Sin prurito.\nAntecedentes: sin enfermedades crónicas; la presión estuvo normal en los 7 controles (110/70 hasta hace 2 semanas; 134/86 en el último control, hace 7 días); su madre tuvo preeclampsia. No toma medicación (hierro y ácido fólico); sin alergias; sin diabetes. Grupo A Rh positivo. Hisopado para estreptococo del grupo B: aún no realizado. No fuma.\nAntes de cada examen físico o maniobra, el alumno debe explicar lo que hará, pedir permiso y preguntar cómo se siente; solo entonces se informan los hallazgos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 170/112 y 168/110 mmHg, FC 96 por minuto, FR 18, saturación 97 %, temperatura 36,6 °C, peso 76 kg. Lúcida, orientada, ansiosa. Edemas faciales y de manos, edema con fóvea en miembros inferiores. Dolor a la palpación en epigastrio e hipocondrio derecho. Reflejos osteotendinosos exaltados con clonus (2 sacudidas). Sin focalidad neurológica. Examen obstétrico: altura uterina 30 cm (algo disminuida para 33 semanas), feto único, longitudinal, cefálico; frecuencia cardíaca fetal 150 por minuto, regular; sin dinámica uterina; sin sangrado.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: hematocrito 35 % (descenso), hemoglobina 11,6 g/dl, plaquetas 82.000/mm³ (HELLP clase 2), frotis con esquistocitos. Coagulograma: RIN 1,1. Hepatograma: GOT 210 U/L, GPT 180 U/L (más de dos veces el límite superior), bilirrubina total 1,8 mg/dl. LDH 780 U/L. Uricemia 6,8 mg/dl. Urea 38, creatinina 1,2 mg/dl. Proteinuria al azar (relación proteína/creatinina) 0,9 g/g (proteinuria 3,2 g en 24 horas). Sedimento: cilindros granulosos. Glucemia 92 mg/dl. Grupo A Rh positivo. Ácidos biliares 6 µmol/L (no colestasis)."
+    },
+    {
+      "clave": "monitoreo_fetal_ecografia",
+      "texto": "[BORRADOR] Monitoreo fetal: línea de base 150 por minuto, variabilidad conservada, sin desaceleraciones. Ecografía obstétrica: crecimiento en percentil 8 (restricción leve), líquido amniótico en el límite inferior, doppler umbilical con resistencia aumentada."
+    },
+    {
+      "clave": "electrocardiograma",
+      "texto": "[BORRADOR] Electrocardiograma: taquicardia sinusal leve, sin signos de isquemia."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No iniciar sulfato de magnesio ni antihipertensivo endovenoso ante una preeclampsia con criterios de gravedad",
+    "Indicar un antihipertensivo contraindicado en el embarazo (IECA o ARA II) o no controlar la toxicidad del magnesio",
+    "Dar el alta o seguir ambulatoriamente a una paciente con síndrome HELLP"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Edad gestacional y síntomas",
+      "regular": "Pregunta la edad gestacional",
+      "suficiente": "Pregunta la edad gestacional y los síntomas: cefalea, escotomas, epigastralgia, edemas, orina, convulsiones"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y medicación",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga hipertensión previa, enfermedades, medicación, preeclampsia en la familia y complicaciones previas"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Signos de la gestación",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga movimientos fetales, pérdida de líquido o sangre, contracciones y controles previos"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Reconocimiento del cuadro",
+      "regular": "Nombra preeclampsia",
+      "suficiente": "Identifica preeclampsia con criterios de gravedad y sospecha síndrome HELLP (anemia, dolor en hipocondrio derecho, hipertensión), y diferencia colestasis y eclampsia"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y examen",
+      "regular": "Toma uno",
+      "suficiente": "Toma presión arterial dos veces, evalúa reflejos osteotendinosos, clonus, edemas, epigastrio y examen obstétrico"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Monitoreo materno y fetal",
+      "regular": "Menciona uno",
+      "suficiente": "Indica monitoreo materno (TA, temperatura, FR, FC, monitor, glucemia) y fetal (monitoreo cardíaco fetal y ecografía obstétrica)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Laboratorio e interpretación",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita rutina hipertensiva (hemograma, glucemia, hepatograma, coagulograma, LDH, uricemia, urea, creatinina, proteinuria, sedimento), grupo y factor, ácidos biliares y electrocardiograma"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y criterios",
+      "regular": "Plantea el diagnóstico",
+      "suficiente": "Diagnostica síndrome HELLP (hemólisis, enzimas hepáticas elevadas, plaquetas menores de 100.000) con preeclampsia grave y explica los criterios"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y explicación a la paciente",
+      "regular": "Indica la internación",
+      "suficiente": "Explica el diagnóstico y los riesgos con lenguaje claro y empático (convulsiones, hemorragia, parto prematuro, hipoxia fetal) y justifica la internación"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antihipertensivo",
+      "regular": "Indica uno",
+      "suficiente": "Indica labetalol 20 mg por vía endovenosa en 10 a 15 minutos, repetible con 40 y 80 mg si no responde, con meta de presión menor de 160/110"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Prevención de convulsiones",
+      "regular": "Menciona el magnesio",
+      "suficiente": "Indica sulfato de magnesio endovenoso (ataque de 4 a 5 g en 10 a 20 minutos y mantenimiento de 1 a 2 g por hora), con control de reflejos, frecuencia respiratoria y diuresis y gluconato de calcio disponible"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Maduración pulmonar fetal",
+      "regular": "La menciona",
+      "suficiente": "Indica corticoides para la maduración pulmonar fetal (dexametasona 6 mg cada 12 horas por 4 dosis o betametasona 12 mg cada 24 horas por 2 dosis) por tener entre 24 y 34 semanas, tras controlar la glucemia"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Finalización del embarazo y transfusión",
+      "regular": "Menciona la finalización",
+      "suficiente": "Plantea la finalización del embarazo tras estabilizar y evalúa transfusión de plaquetas (menos de 20.000, o menos de 50.000 si es cesárea) y profilaxis de estreptococo del grupo B con penicilina si no tiene hisopado"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Interconsultas y vía del parto",
+      "regular": "Menciona una",
+      "suficiente": "Solicita neonatología, anestesiología y cuidados intensivos, y define la vía del parto según el estado materno y fetal"
+    }
+  ]
+}
