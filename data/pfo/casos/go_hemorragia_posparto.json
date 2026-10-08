@@ -1,7 +1,7 @@
 {
   "id": "go_hemorragia_posparto",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Sangrado abundante tras el alumbramiento: hemorragia posparto por atonía uterina",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -31,7 +31,7 @@
   "errores_criticos": [
     "No iniciar el masaje uterino y los uterotónicos de forma inmediata ante una hemorragia posparto por atonía",
     "Demorar la reposición con cristaloides y la solicitud de hemoderivados en una paciente en shock",
-    "Indicar metilergonovina en una paciente con hipertensión o preeclampsia"
+    "Indicar intervenciones quirúrgicas radicales (por ejemplo histerectomía) sin haber intentado antes el tratamiento médico completo (masaje, oxitocina, ácido tranexámico y uterotónicos de segunda línea)"
   ],
   "rubrica": [
     {
