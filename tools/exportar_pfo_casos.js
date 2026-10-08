@@ -38,22 +38,30 @@ vm.runInContext(leer('js/pfoEcoe.js'), sandbox);
 
 (async () => {
   const ids = fs.readdirSync(path.join(raiz, 'data/pfo/casos')).filter((f) => f.endsWith('.json')).map((f) => f.replace('.json', ''));
-  const indice = ['# Auditoría de los casos de Pediatría del ECOE FINAL', '', 'Cada archivo trae: la ficha del caso, la rúbrica con puntaje, las decisiones y datos de borrador, y el prompt completo que recibe la IA.', ''];
+  const porArea = {};
+  const dirNotas = path.join(salida, 'AUDITORIA_NOTAS');
   for (const id of ids) {
     const c = JSON.parse(leer('data/pfo/casos/' + id + '.json'));
     const prompt = await sandbox.__PFO.prompt(c.area, id);
+    const carpeta = path.join(salida, 'AUDITORIA_' + c.area.toUpperCase());
+    fs.mkdirSync(carpeta, { recursive: true });
+    let notas = NOTAS[id];
+    const fn = path.join(dirNotas, id + '.txt');
+    if (fs.existsSync(fn)) notas = fs.readFileSync(fn, 'utf8').split('\n').filter(Boolean);
     let md = `# ${c.nombre}\n\nIdentificador: \`${id}\` · Estación: ${c.area} · Duración: ${c.duracionMin} minutos · Estado: **${c.estado || 'borrador'}**\n\n`;
-    md += `## Notas de borrador y decisiones (para validar)\n${(NOTAS[id] || ['Sin notas.']).map((n) => '- ' + n).join('\n')}\n\n`;
+    md += `## Notas de borrador y decisiones (para validar)\n${(notas || ['Sin notas.']).map((n) => '- ' + n).join('\n')}\n\n`;
     md += `## Situación de partida\n${c.situacion}\n\n## Objetivos\n${c.objetivos.map((o, i) => (i + 1) + '. ' + o).join('\n')}\n\n`;
     md += `## Interlocutor\n${c.interlocutor}\n\n## Guion del paciente\n${c.guion_paciente}\n\n## Datos clínicos (se entregan solo si el alumno examina)\n${c.datos_clinicos}\n\n`;
     md += `## Estudios (se entregan solo si el alumno los pide)\n${c.estudios.map((e) => '- **' + e.clave + ':** ' + e.texto).join('\n')}\n\n`;
     md += `## Rúbrica (100 puntos; umbral ${c.umbral_aprobacion})\n\n| N.º | Bloque | Ítem | Máx. | Regular (mitad) | Suficiente (máximo) |\n|---|---|---|---|---|---|\n${c.rubrica.map((r) => `| ${r.id} | ${r.bloque} | ${r.texto} | ${r.max} | ${r.regular} | ${r.suficiente} |`).join('\n')}\n\n`;
     md += `## Errores críticos (si el alumno comete uno, la estación no supera 5)\n${(c.errores_criticos || []).map((x) => '- ' + x).join('\n')}\n\n`;
     md += `## Prompt completo que recibe la IA\n\n\`\`\`\n${prompt}\n\`\`\`\n`;
-    fs.writeFileSync(path.join(salida, id + '.md'), md);
-    indice.push(`- [${c.nombre}](${id}.md) — ${c.duracionMin} min, ${c.rubrica.length} ítems`);
+    fs.writeFileSync(path.join(carpeta, id + '.md'), md);
+    (porArea[c.area] = porArea[c.area] || []).push(`- [${c.nombre}](${id}.md) — ${c.duracionMin} min, ${c.rubrica.length} ítems, estado: ${c.estado || 'borrador'}`);
   }
-  fs.writeFileSync(path.join(salida, '00_INDICE.md'), indice.join('\n') + '\n');
+  for (const area of Object.keys(porArea)) {
+    fs.writeFileSync(path.join(salida, 'AUDITORIA_' + area.toUpperCase(), '00_INDICE.md'), ['# Auditoría de los casos de ' + area + ' del ECOE FINAL', '', 'Cada archivo trae: la ficha del caso, la rúbrica con puntaje, las decisiones y datos de borrador, y el prompt completo que recibe la IA.', ''].concat(porArea[area]).join('\n') + '\n');
+  }
   console.log('ok', ids.length, 'casos en', salida);
   process.exit(0);
 })().catch((e) => { console.error(e); process.exit(1); });
