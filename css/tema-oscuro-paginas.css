@@ -60,3 +60,7 @@ body.dark-mode .footer strong { color: #e2e8f0; }
 body.dark-mode[data-tema="cirugia_hub"] .navbar, body.dark-mode[data-tema="cirugia_hub"] .footer { background-color: #0b2545; }
 body.dark-mode[data-tema="gineco_hub"] .navbar { background: #0b1220; border-bottom: 1px solid #1e293b; }
 body.dark-mode[data-tema="gineco_hub"] .brand-title { color: #f9a8d4; }
+
+/* Objetivos de la unidad (estudio.html): el texto se pinta en línea con colores de modo claro; en oscuro se legibiliza */
+body.dark-mode .up-objective-checkbox + span { color: #e2e8f0 !important; }
+body.dark-mode .up-objective-checkbox:checked + span { color: #94a3b8 !important; }

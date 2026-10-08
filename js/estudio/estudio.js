@@ -712,7 +712,7 @@ function renderChecklistUI(container, objectives, progressMap, moduleId, upId, u
                 <span style="font-size:0.78rem; font-weight:700; color:#0284c7;">Progreso: ${completedCount}/${total} objetivos</span>
                 <span style="font-size:0.78rem; font-weight:800; color:#16a34a;">${pct}%</span>
             </div>
-            <div style="width:100%; height:6px; background:#e2e8f0; border-radius:6px; overflow:hidden;">
+            <div style="width:100%; height:6px; background:rgba(148,163,184,.35); border-radius:6px; overflow:hidden;">
                 <div style="width:${pct}%; height:100%; background:#16a34a; transition: width 0.3s ease;"></div>
             </div>
         </div>
