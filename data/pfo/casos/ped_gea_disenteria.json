@@ -19,25 +19,141 @@
   "guion_paciente": "Matías Pérez, 7 años, varón, 22 kg. Mamá: María.\nEnfermedad actual: hace 4 días empezó con diarrea líquida con moco y algunas estrías de sangre, unas 6 deposiciones por día, de volumen escaso a moderado, con cólicos y pujo. Hace 48 horas se agregó fiebre (máximo 38,3 °C), que cede con paracetamol. Tuvo un vómito el primer día; hoy no vomita. Toma líquidos, orina con normalidad (cuatro veces hoy, color amarillo). Está alerta, algo cansado. Se bañó en el río hace una semana con sus primos y comió una milanesa de picada mal cocida en un cumpleaños; un primo tuvo diarrea también. No viajó. No tuvo erupciones ni cefalea.\nAntecedentes: sano; embarazo y parto normales; sin internaciones previas, sin cirugías ni alergias; sin medicación crónica ni antibióticos recientes. Vacunas completas. No es frecuente que le pase esto.\nHábitos: come de todo; tiene agua potable en la casa; se lava poco las manos.\nPara datos no especificados: respondé con valores normales y negativos.",
   "datos_clinicos": "Peso 22 kg. Temperatura 37,8 °C, FC 85 por minuto, FR 28 por minuto, saturación 97 %. Buen estado general, alerta, hidratado: mucosas semihúmedas, ojos normales, pliegue cutáneo que se deshace rápido, llenado capilar menor de 2 segundos, pulso normal. Abdomen blando, depresible, doloroso a la palpación profunda en el flanco izquierdo, sin defensa, ruidos hidroaéreos aumentados, timpanismo leve. Examen neurológico normal. Sin signos de deshidratación.",
   "estudios": [
-    { "clave": "coproparasitologico", "texto": "Examen en fresco de materia fecal (solicitado a la mañana): trofozoítos de Entamoeba histolytica con eritrofagocitosis; presencia de leucocitos y glóbulos rojos. Coprocultivo en curso (resultado a las 48 a 72 horas)." },
-    { "clave": "laboratorio", "texto": "Hemograma: hemoglobina 12,4 g/dl, leucocitos 11.600/mm3. Glucemia 88 mg/dl, urea 28 mg/dl, creatinina 0,5 mg/dl, ionograma: sodio 137, potasio 3,9 mEq/l (solo si los solicita)." }
+    {
+      "clave": "coproparasitologico",
+      "texto": "Examen en fresco de materia fecal (solicitado a la mañana): trofozoítos de Entamoeba histolytica con eritrofagocitosis; presencia de leucocitos y glóbulos rojos. Coprocultivo en curso (resultado a las 48 a 72 horas)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "Hemograma: hemoglobina 12,4 g/dl, leucocitos 11.600/mm3. Glucemia 88 mg/dl, urea 28 mg/dl, creatinina 0,5 mg/dl, ionograma: sodio 137, potasio 3,9 mEq/l (solo si los solicita)."
+    }
   ],
   "umbral_aprobacion": 60,
   "rubrica": [
-    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Características de la diarrea", "regular": "Indaga la duración o la frecuencia", "suficiente": "Indaga duración, consistencia, frecuencia, volumen, presencia de sangre, moco o pus y relación con alguna comida" },
-    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Fiebre y otros síntomas", "regular": "Indaga fiebre o vómitos", "suficiente": "Indaga fiebre (valor y medicación), vómitos, dolor abdominal, erupción cutánea y cefalea" },
-    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Estado de hidratación referido", "regular": "Indaga la orina o la sed", "suficiente": "Indaga sed, diuresis (cantidad y color), estado general, tolerancia a los líquidos, y signos de alarma de deshidratación" },
-    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes epidemiológicos", "regular": "Indaga un antecedente epidemiológico", "suficiente": "Indaga contactos con diarrea, viajes, río o pileta, alimentos sospechosos, agua potable y lavado de manos" },
-    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes personales", "regular": "Indaga vacunas o medicación", "suficiente": "Indaga antecedentes perinatales, enfermedades previas, medicación crónica, antibióticos recientes, alergias y vacunas" },
-    { "id": 6, "bloque": "Plan diagnóstico", "max": 5, "texto": "Examen físico e hidratación", "regular": "Evalúa la hidratación sin abdomen", "suficiente": "Evalúa el estado de hidratación (mucosas, pliegue, llenado capilar, pulso) y el examen abdominal y neurológico" },
-    { "id": 7, "bloque": "Plan diagnóstico", "max": 5, "texto": "Estudios complementarios", "regular": "Solicita un estudio", "suficiente": "Solicita examen en fresco y coproparasitológico, y coprocultivo por la disentería; el laboratorio de sangre no es indispensable en este caso" },
-    { "id": 8, "bloque": "Plan diagnóstico", "max": 5, "texto": "Interpretación del estudio de materia fecal", "regular": "Reconoce la presencia de un parásito", "suficiente": "Interpreta trofozoítos de Entamoeba histolytica con eritrofagocitosis y glóbulos rojos y leucocitos: disentería amebiana" },
-    { "id": 9, "bloque": "Plan diagnóstico", "max": 5, "texto": "Diagnóstico y clasificación de la deshidratación", "regular": "Plantea gastroenteritis aguda", "suficiente": "Refiere gastroenteritis aguda con disentería amebiana, sin deshidratación (Plan A), y menciona diagnósticos diferenciales bacterianos" },
-    { "id": 10, "bloque": "Tratamiento", "max": 10, "texto": "Plan A: sales de rehidratación oral", "regular": "Indica sales de rehidratación sin volumen", "suficiente": "Indica Plan A: sales de rehidratación oral 10 ml/kg (220 ml) después de cada deposición líquida o vómito, de manera fraccionada" },
-    { "id": 11, "bloque": "Tratamiento", "max": 10, "texto": "Preparación y líquidos", "regular": "Da una de estas pautas", "suficiente": "Explica preparar 1 sobre en 1 litro de agua hervida a temperatura ambiente (conservar 24 horas a temperatura ambiente o 48 refrigerada), ofrecer agua potable de a sorbos, sin té, jugos ni gaseosas" },
-    { "id": 12, "bloque": "Tratamiento", "max": 10, "texto": "Alimentación", "regular": "Indica continuar con la alimentación", "suficiente": "Indica continuar con la alimentación según tolerancia, dieta liviana progresiva, evitando gaseosas, jugos, caramelos, frituras y verduras crudas de hoja" },
-    { "id": 13, "bloque": "Tratamiento", "max": 10, "texto": "Antiparasitario", "regular": "Indica metronidazol sin dosis", "suficiente": "Indica metronidazol 30 mg/kg/día cada 8 horas por 7 días (660 mg por día para 22 kg; máximo 2 g por día)" },
-    { "id": 14, "bloque": "Tratamiento", "max": 10, "texto": "Antitérmico y fármacos contraindicados", "regular": "Indica paracetamol o evita antidiarreicos", "suficiente": "Indica paracetamol 10 a 15 mg/kg/dosis cada 6 horas y evita antidiarreicos (loperamida contraindicada) y antieméticos de acción central" },
-    { "id": 15, "bloque": "Tratamiento", "max": 10, "texto": "Higiene, pautas de alarma y control", "regular": "Da pautas de alarma o de higiene, no ambas", "suficiente": "Indica higiene de manos y de alimentos; control en 24 a 48 horas; pautas de alarma (fiebre mayor de 48 horas, más de 4 vómitos en 1 hora, diarrea con sangre, somnolencia, boca seca, no orina por más de 6 horas, distensión abdominal)" }
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Características de la diarrea",
+      "regular": "Indaga la duración o la frecuencia",
+      "suficiente": "Indaga duración, consistencia, frecuencia, volumen, presencia de sangre, moco o pus y relación con alguna comida"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Fiebre y otros síntomas",
+      "regular": "Indaga fiebre o vómitos",
+      "suficiente": "Indaga fiebre (valor y medicación), vómitos, dolor abdominal, erupción cutánea y cefalea"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Estado de hidratación referido",
+      "regular": "Indaga la orina o la sed",
+      "suficiente": "Indaga sed, diuresis (cantidad y color), estado general, tolerancia a los líquidos, y signos de alarma de deshidratación"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Antecedentes epidemiológicos",
+      "regular": "Indaga un antecedente epidemiológico",
+      "suficiente": "Indaga contactos con diarrea, viajes, río o pileta, alimentos sospechosos, agua potable y lavado de manos"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Antecedentes personales",
+      "regular": "Indaga vacunas o medicación",
+      "suficiente": "Indaga antecedentes perinatales, enfermedades previas, medicación crónica, antibióticos recientes, alergias y vacunas"
+    },
+    {
+      "id": 6,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Examen físico e hidratación",
+      "regular": "Evalúa la hidratación sin abdomen",
+      "suficiente": "Evalúa el estado de hidratación (mucosas, pliegue, llenado capilar, pulso) y el examen abdominal y neurológico"
+    },
+    {
+      "id": 7,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita un estudio",
+      "suficiente": "Solicita examen en fresco y coproparasitológico, y coprocultivo por la disentería; el laboratorio de sangre no es indispensable en este caso"
+    },
+    {
+      "id": 8,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Interpretación del estudio de materia fecal",
+      "regular": "Reconoce la presencia de un parásito",
+      "suficiente": "Interpreta trofozoítos de Entamoeba histolytica con eritrofagocitosis y glóbulos rojos y leucocitos: disentería amebiana"
+    },
+    {
+      "id": 9,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Diagnóstico y clasificación de la deshidratación",
+      "regular": "Plantea gastroenteritis aguda",
+      "suficiente": "Refiere gastroenteritis aguda con disentería amebiana, sin deshidratación (Plan A), y menciona diagnósticos diferenciales bacterianos"
+    },
+    {
+      "id": 10,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Plan A: sales de rehidratación oral",
+      "regular": "Indica sales de rehidratación sin volumen",
+      "suficiente": "Indica Plan A: sales de rehidratación oral 10 ml/kg (220 ml) después de cada deposición líquida o vómito, de manera fraccionada"
+    },
+    {
+      "id": 11,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Preparación y líquidos",
+      "regular": "Da una de estas pautas",
+      "suficiente": "Explica preparar 1 sobre en 1 litro de agua hervida a temperatura ambiente (conservar 24 horas a temperatura ambiente o 48 refrigerada), ofrecer agua potable de a sorbos, sin té, jugos ni gaseosas"
+    },
+    {
+      "id": 12,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Alimentación",
+      "regular": "Indica continuar con la alimentación",
+      "suficiente": "Indica continuar con la alimentación según tolerancia, dieta liviana progresiva, evitando gaseosas, jugos, caramelos, frituras y verduras crudas de hoja"
+    },
+    {
+      "id": 13,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Antiparasitario",
+      "regular": "Indica metronidazol sin dosis",
+      "suficiente": "Indica metronidazol 30 mg/kg/día cada 8 horas por 7 días (660 mg por día para 22 kg; máximo 2 g por día)"
+    },
+    {
+      "id": 14,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Antitérmico y fármacos contraindicados",
+      "regular": "Indica paracetamol o evita antidiarreicos",
+      "suficiente": "Indica paracetamol 10 a 15 mg/kg/dosis cada 6 horas y evita antidiarreicos (loperamida contraindicada) y antieméticos de acción central"
+    },
+    {
+      "id": 15,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Higiene, pautas de alarma y control",
+      "regular": "Da pautas de alarma o de higiene, no ambas",
+      "suficiente": "Indica higiene de manos y de alimentos; control en 24 a 48 horas; pautas de alarma (fiebre mayor de 48 horas, más de 4 vómitos en 1 hora, diarrea con sangre, somnolencia, boca seca, no orina por más de 6 horas, distensión abdominal)"
+    }
+  ],
+  "errores_criticos": [
+    "Indicar antidiarreicos (loperamida) en un niño con disentería",
+    "No indicar sales de rehidratación oral",
+    "No indicar tratamiento antiparasitario con ameba documentada"
   ]
 }

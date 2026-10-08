@@ -97,6 +97,7 @@ ${c.guion_paciente}
 ${c.estudios.map((x) => '  · ' + x.texto).join('\n')}
 - RÚBRICA OFICIAL (puntaje total 100; umbral de aprobación ${c.umbral_aprobacion}). Los ítems valen 0 (insuficiente), la mitad (regular) o el máximo (suficiente):
 ${filas}
+- ERRORES CRÍTICOS (conductas que ponen en riesgo al paciente): ${(c.errores_criticos || []).map((x, k) => (k + 1) + ') ' + x).join(' ')}. Si el alumno comete alguno, incluí en el JSON el campo "errores_criticos_cometidos" con una lista de textos breves (vacía si no cometió ninguno).
 - AL CERRAR LA ESTACIÓN: además del formato de evaluación final, incluí en el JSON el campo "rubrica": una lista con UN objeto por cada ítem de la rúbrica, con "id" (número), "nivel" ("insuficiente", "regular" o "suficiente") y "evidencia" (qué dijo o hizo el alumno, en una línea). Calificá cada ítem SOLO con lo que el alumno dijo o hizo en la conversación: no asumas nada. Lo que no hizo es "insuficiente". El sistema calcula el puntaje; no lo calcules vos. En "revision_detallada" explicá cada ítem no logrado y en "respuesta_modelo" dejá la conducta completa esperada.`;
     }
     const sm = e.semillas && e.semillas.length ? e.semillas[(E && E.semilla) || 0] : null;
@@ -216,7 +217,9 @@ ${sm.imagen ? `- ESTUDIO POR IMAGEN: el alumno ya ve en pantalla ${sm.imagen_tit
       return { id: it.id, bloque: it.bloque, texto: it.texto, nivel, pts, max: it.max, evidencia: String(r.evidencia || ''), esperado: it.suficiente };
     });
     const maxTotal = c.rubrica.reduce((a, b) => a + b.max, 0);
+    ev.errores_criticos_cometidos = Array.isArray(ev.errores_criticos_cometidos) ? ev.errores_criticos_cometidos.filter((x) => typeof x === 'string' && x.trim()).slice(0, 6) : [];
     ev.puntaje = Math.round(total * 10) / 10; ev.puntaje_max = maxTotal; ev.nota_final = Math.round((total / maxTotal) * 100) / 10;
+    if (ev.errores_criticos_cometidos.length) ev.nota_final = Math.min(ev.nota_final, 5);   // un error crítico desaprueba la estación aunque el puntaje sea alto
     const dec = (b) => (bloques[b] ? Math.round((bloques[b].o / bloques[b].m) * 100) / 10 : null);
     if (dec('Anamnesis') != null) ev.semiologia = dec('Anamnesis'); if (dec('Plan diagnóstico') != null) ev.diagnostico = dec('Plan diagnóstico'); if (dec('Tratamiento') != null) ev.terapeutica = dec('Tratamiento');
   }
@@ -262,7 +265,8 @@ ${sm.imagen ? `- ESTUDIO POR IMAGEN: el alumno ya ve en pantalla ${sm.imagen_tit
     if (!r.rubrica_detalle) return '';
     const col = (n) => (n === 'suficiente' ? '#22c55e' : n === 'regular' ? '#fbbf24' : '#f87171');
     const lbl = { suficiente: 'Suficiente', regular: 'Regular', insuficiente: 'Insuficiente' };
-    return `<div class="pfo-mod" style="background:rgba(251,191,36,.08);border-color:#fbbf24"><b>📋 Rúbrica de la estación: ${fmtNota(r.puntaje)} de ${r.puntaje_max} puntos</b></div>`
+    const crit = (r.errores_criticos_cometidos || []).length ? `<div class="pfo-mod" style="background:rgba(248,113,113,.12);border:1px solid #f87171;border-style:solid"><b>⛔ Error crítico: la estación no puede superar 5.</b><br>${r.errores_criticos_cometidos.map((x) => '• ' + esc(x)).join('<br>')}</div>` : '';
+    return crit + `<div class="pfo-mod" style="background:rgba(251,191,36,.08);border-color:#fbbf24"><b>📋 Rúbrica de la estación: ${fmtNota(r.puntaje)} de ${r.puntaje_max} puntos</b></div>`
       + r.rubrica_detalle.map((x) => `<div class="pfo-rv" style="border-left-color:${col(x.nivel)}"><div class="h"><span>${esc(x.bloque)} · ${esc(x.texto)}</span><span style="color:${col(x.nivel)}">${lbl[x.nivel]} · ${fmtNota(x.pts)}/${x.max}</span></div>${x.evidencia ? `<div style="margin-top:5px">🗣️ <b>Lo que hiciste:</b> ${esc(x.evidencia)}</div>` : ''}${x.nivel !== 'suficiente' ? `<div style="margin-top:5px">💡 <b>Para el puntaje completo:</b> ${esc(x.esperado)}</div>` : ''}</div>`).join('');
   }
   function vistaFinal() {

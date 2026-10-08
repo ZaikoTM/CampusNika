@@ -18,27 +18,149 @@
   "guion_paciente": "Lucas, 4 meses, varón, 6,5 kg. Mamá: Laura.\nEnfermedad actual: hace 3 días empezó con mocos y tos seca; ayer se agregó fiebre de 37,8 °C que ya no tiene. Desde anoche respira más rápido, hace ruidito en el pecho y se le hunden las costillas. Hoy toma el pecho solo unos minutos y se cansa; vomitó una vez con las flemas. Hizo pis 4 veces hoy, el pañal está mojado. No tuvo apneas ni se puso azul. Es la primera vez que le pasa algo así; nunca tuvo silbidos. La hermana de 4 años, que va al jardín, estuvo resfriada la semana pasada.\nAntecedentes perinatales: embarazo controlado sin complicaciones, parto vaginal a las 39 semanas, peso de nacimiento 3.300 g, Apgar 9/10, internación conjunta, sin oxígeno; pesquisas normales; hisopado de estreptococo negativo. Sin internaciones previas, sin cirugías ni alergias; sin medicación crónica ni aerosoles; sin antibióticos. Lactancia materna exclusiva.\nVacunas: al día para su edad (a los 2 y 4 meses; todavía no le toca la de los 6). Antecedentes familiares: papá sano, hermana con resfríos; sin asma. En casa nadie fuma. Hay buena accesibilidad al hospital.\nPara datos no especificados: respondé con valores normales y negativos.",
   "datos_clinicos": "Peso 6,5 kg. Temperatura 37,2 °C, FC 150 por minuto, FR 62 por minuto, saturación 94 % al aire ambiente. Aleteo nasal leve, tiraje intercostal y subcostal generalizado. Auscultación: espiración prolongada, sibilancias inspiratorias y espiratorias y rales finos difusos. Mucosas húmedas, llenado capilar 2 segundos, hemodinámicamente compensado. Faringe con rinorrea clara; oídos sin particularidades. Abdomen sin particularidades. Escala de Tal modificada: frecuencia respiratoria 56 a 70 por minuto (2 puntos), sibilancias inspiratorias y espiratorias (2 puntos), tiraje generalizado (2 puntos): 6 puntos (bronquiolitis moderada).",
   "estudios": [
-    { "clave": "saturometria", "texto": "Saturación de oxígeno 94 % al aire ambiente." },
-    { "clave": "rx_torax", "texto": "Radiografía de tórax de frente (si la solicita): signos de hiperinsuflación (horizontalización de los arcos costales, aplanamiento diafragmático), sin consolidaciones; no cambia la conducta." },
-    { "clave": "anf", "texto": "Aspirado nasofaríngeo (si lo solicita): virus sincicial respiratorio positivo." },
-    { "clave": "laboratorio", "texto": "Hemograma (si lo solicita): leucocitos 12.400/mm3 con neutrofilia leve; no es de utilidad en la bronquiolitis. Gasometría: no indicada salvo distrés respiratorio grave." }
+    {
+      "clave": "saturometria",
+      "texto": "Saturación de oxígeno 94 % al aire ambiente."
+    },
+    {
+      "clave": "rx_torax",
+      "texto": "Radiografía de tórax de frente (si la solicita): signos de hiperinsuflación (horizontalización de los arcos costales, aplanamiento diafragmático), sin consolidaciones; no cambia la conducta."
+    },
+    {
+      "clave": "anf",
+      "texto": "Aspirado nasofaríngeo (si lo solicita): virus sincicial respiratorio positivo."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "Hemograma (si lo solicita): leucocitos 12.400/mm3 con neutrofilia leve; no es de utilidad en la bronquiolitis. Gasometría: no indicada salvo distrés respiratorio grave."
+    }
   ],
   "umbral_aprobacion": 60,
   "rubrica": [
-    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Enfermedad actual", "regular": "Indaga la duración o los síntomas respiratorios", "suficiente": "Indaga inicio, evolución (rinorrea, tos, dificultad respiratoria), fiebre y si es el primer episodio de sibilancias" },
-    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Signos de gravedad y tolerancia oral", "regular": "Indaga la alimentación o las apneas", "suficiente": "Indaga rechazo alimentario, vómitos, apneas, cianosis, letargo o irritabilidad y diuresis" },
-    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Factores de riesgo de enfermedad grave", "regular": "Indaga prematurez o enfermedades de base", "suficiente": "Indaga prematurez, edad menor de 3 meses, enfermedad pulmonar o cardíaca, desnutrición, inmunodeficiencia y factores sociales" },
-    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Contexto epidemiológico", "regular": "Indaga contactos o tabaquismo", "suficiente": "Indaga contactos enfermos, jardín de hermanos, tabaquismo en el hogar y accesibilidad al sistema de salud" },
-    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes personales y vacunas", "regular": "Indaga vacunas o antecedentes perinatales", "suficiente": "Indaga antecedentes perinatales, internaciones previas, medicación, alergias y el carnet de vacunas" },
-    { "id": 6, "bloque": "Plan diagnóstico", "max": 5, "texto": "Evaluación de la gravedad (score de Tal)", "regular": "Solicita la frecuencia respiratoria o el tiraje", "suficiente": "Evalúa frecuencia respiratoria, sibilancias, tiraje y saturación, y clasifica con la escala de Tal como bronquiolitis moderada (5 a 8 puntos)" },
-    { "id": 7, "bloque": "Plan diagnóstico", "max": 5, "texto": "Estudios complementarios", "regular": "Solicita un estudio", "suficiente": "Solicita saturometría siempre; aclara que la radiografía, el hemograma y los estudios virológicos no son de rutina y se piden por indicación específica" },
-    { "id": 8, "bloque": "Plan diagnóstico", "max": 5, "texto": "Diagnóstico y diferenciales", "regular": "Refiere bronquiolitis", "suficiente": "Refiere bronquiolitis por virus sincicial respiratorio (primer episodio de sibilancias en menor de 2 años) y menciona neumonía, cardiopatía y fibrosis quística como diferenciales" },
-    { "id": 9, "bloque": "Plan diagnóstico", "max": 5, "texto": "Criterios de internación y observación", "regular": "Plantea internar o dar el alta", "suficiente": "Fundamenta la observación o internación por el score de 6 puntos, el rechazo parcial de las tomas, el tiraje y la edad, y menciona saturación menor de 92 % como criterio" },
-    { "id": 10, "bloque": "Tratamiento", "max": 10, "texto": "Oxigenoterapia según saturación", "regular": "Indica oxígeno sin fundamentar", "suficiente": "Indica oximetría y oxígeno solo si la saturación es menor de 92 % (cánula nasal 1 a 2 litros por minuto); aclara que con 94 % no lo necesita y que el oxígeno es el único tratamiento con eficacia comprobada" },
-    { "id": 11, "bloque": "Tratamiento", "max": 10, "texto": "Medidas de sostén", "regular": "Indica una medida", "suficiente": "Indica posición semisentada a 45°, desobstrucción nasal con solución fisiológica antes de comer, control de signos vitales y saturación" },
-    { "id": 12, "bloque": "Tratamiento", "max": 10, "texto": "Alimentación e hidratación", "regular": "Indica continuar con la lactancia", "suficiente": "Indica lactancia fraccionada según tolerancia; si la frecuencia respiratoria supera 60 a 80 por minuto o hay tiraje marcado, suspende la vía oral y usa sonda nasogástrica o plan de hidratación parenteral" },
-    { "id": 13, "bloque": "Tratamiento", "max": 10, "texto": "Broncodilatadores", "regular": "Indica salbutamol sin criterio", "suficiente": "No lo indica de rutina; puede realizar una prueba terapéutica de salbutamol y la suspende si no hay respuesta clínica" },
-    { "id": 14, "bloque": "Tratamiento", "max": 10, "texto": "Tratamientos que no están indicados", "regular": "Evita uno de ellos", "suficiente": "Evita corticoides (sistémicos o inhalados), antibióticos sin complicación bacteriana, kinesioterapia de rutina, sedantes y antihistamínicos" },
-    { "id": 15, "bloque": "Tratamiento", "max": 10, "texto": "Explicación, seguimiento y prevención", "regular": "Da pautas de alarma o de prevención, no ambas", "suficiente": "Explica a la madre con lenguaje claro; control a las 48 horas; pautas de alarma (apnea, rechazo de tomas, cianosis, tiraje marcado, letargo); lavado de manos y evitar humo; antigripal desde los 6 meses y próximas vacunas" }
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Enfermedad actual",
+      "regular": "Indaga la duración o los síntomas respiratorios",
+      "suficiente": "Indaga inicio, evolución (rinorrea, tos, dificultad respiratoria), fiebre y si es el primer episodio de sibilancias"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Signos de gravedad y tolerancia oral",
+      "regular": "Indaga la alimentación o las apneas",
+      "suficiente": "Indaga rechazo alimentario, vómitos, apneas, cianosis, letargo o irritabilidad y diuresis"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Factores de riesgo de enfermedad grave",
+      "regular": "Indaga prematurez o enfermedades de base",
+      "suficiente": "Indaga prematurez, edad menor de 3 meses, enfermedad pulmonar o cardíaca, desnutrición, inmunodeficiencia y factores sociales"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Contexto epidemiológico",
+      "regular": "Indaga contactos o tabaquismo",
+      "suficiente": "Indaga contactos enfermos, jardín de hermanos, tabaquismo en el hogar y accesibilidad al sistema de salud"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Antecedentes personales y vacunas",
+      "regular": "Indaga vacunas o antecedentes perinatales",
+      "suficiente": "Indaga antecedentes perinatales, internaciones previas, medicación, alergias y el carnet de vacunas"
+    },
+    {
+      "id": 6,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Evaluación de la gravedad (score de Tal)",
+      "regular": "Solicita la frecuencia respiratoria o el tiraje",
+      "suficiente": "Evalúa frecuencia respiratoria, sibilancias, tiraje y saturación, y clasifica con la escala de Tal como bronquiolitis moderada (5 a 8 puntos)"
+    },
+    {
+      "id": 7,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita un estudio",
+      "suficiente": "Solicita saturometría siempre; aclara que la radiografía, el hemograma y los estudios virológicos no son de rutina y se piden por indicación específica"
+    },
+    {
+      "id": 8,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Refiere bronquiolitis",
+      "suficiente": "Refiere bronquiolitis por virus sincicial respiratorio (primer episodio de sibilancias en menor de 2 años) y menciona neumonía, cardiopatía y fibrosis quística como diferenciales"
+    },
+    {
+      "id": 9,
+      "bloque": "Plan diagnóstico",
+      "max": 5,
+      "texto": "Criterios de internación y observación",
+      "regular": "Plantea internar o dar el alta",
+      "suficiente": "Fundamenta la observación o internación por el score de 6 puntos, el rechazo parcial de las tomas, el tiraje y la edad, y menciona saturación menor de 92 % como criterio"
+    },
+    {
+      "id": 10,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Oxigenoterapia según saturación",
+      "regular": "Indica oxígeno sin fundamentar",
+      "suficiente": "Indica oximetría y oxígeno solo si la saturación es menor de 92 % (cánula nasal 1 a 2 litros por minuto); aclara que con 94 % no lo necesita y que el oxígeno es el único tratamiento con eficacia comprobada"
+    },
+    {
+      "id": 11,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Medidas de sostén",
+      "regular": "Indica una medida",
+      "suficiente": "Indica posición semisentada a 45°, desobstrucción nasal con solución fisiológica antes de comer, control de signos vitales y saturación"
+    },
+    {
+      "id": 12,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Alimentación e hidratación",
+      "regular": "Indica continuar con la lactancia",
+      "suficiente": "Indica lactancia fraccionada según tolerancia; si la frecuencia respiratoria supera 60 a 80 por minuto o hay tiraje marcado, suspende la vía oral y usa sonda nasogástrica o plan de hidratación parenteral"
+    },
+    {
+      "id": 13,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Broncodilatadores",
+      "regular": "Indica salbutamol sin criterio",
+      "suficiente": "No lo indica de rutina; puede realizar una prueba terapéutica de salbutamol y la suspende si no hay respuesta clínica"
+    },
+    {
+      "id": 14,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Tratamientos que no están indicados",
+      "regular": "Evita uno de ellos",
+      "suficiente": "Evita corticoides (sistémicos o inhalados), antibióticos sin complicación bacteriana, kinesioterapia de rutina, sedantes y antihistamínicos"
+    },
+    {
+      "id": 15,
+      "bloque": "Tratamiento",
+      "max": 10,
+      "texto": "Explicación, seguimiento y prevención",
+      "regular": "Da pautas de alarma o de prevención, no ambas",
+      "suficiente": "Explica a la madre con lenguaje claro; control a las 48 horas; pautas de alarma (apnea, rechazo de tomas, cianosis, tiraje marcado, letargo); lavado de manos y evitar humo; antigripal desde los 6 meses y próximas vacunas"
+    }
+  ],
+  "errores_criticos": [
+    "Indicar corticoides sistémicos o antibióticos de rutina",
+    "Omitir la monitorización de la saturación",
+    "No reconocer los signos de gravedad (apnea, cianosis, rechazo de tomas) que obligan a internar"
   ]
 }

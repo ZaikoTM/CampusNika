@@ -20,24 +20,137 @@
   "guion_paciente": "Nicolás Almeida, 12 meses. Primer y único hijo. Guillermina tiene 28 años.\nAntecedentes perinatales: embarazo único, bien controlado (7 controles), sin complicaciones ni internaciones, sin medicación salvo ácido fólico y hierro. Nació por parto vaginal a las 39 semanas, lloró al nacer, Apgar 9/10, estuvo en internación conjunta 48 horas. Recibió las vacunas del recién nacido antes del alta. Le hicieron la pesquisa neonatal del talón (resultado normal), las otoemisiones acústicas (normales), el reflejo rojo (normal) y la ecografía de caderas (normal).\nAntecedentes personales: controles de salud mensuales hasta los 6 meses y luego cada dos o tres meses; no tuvo internaciones, cirugías ni traumatismos; fue una sola vez a la guardia por un resfrío, sin medicación. No toma ninguna medicación todos los días salvo las gotas de vitamina D y de hierro que le indicó la pediatra. Sin alergias conocidas.\nAntecedentes familiares: papá sano de 31 años; mamá sana; abuela paterna con diabetes. Convive con mamá y papá.\nNeurodesarrollo: sostuvo la cabeza a los 3 meses, sonrió a los 2 meses, se sentó solo a los 6 meses, gateó a los 8 meses, balbucea («mamá», «papá» con significado desde hace un mes), entiende el «no», juega a esconderse y aparecer, se para sosteniéndose de los muebles y da pasos de costado; todavía no camina solo. Hace pinza con el índice y el pulgar.\nAlimentación: lactancia materna exclusiva hasta los 6 meses; desde entonces incorporó papillas de verduras, frutas, carne de pollo y vacuna bien cocida, yema de huevo, legumbres; sigue tomando pecho 4 veces al día. Come con cuchara, cuatro comidas por día. No le dan miel, ni sal ni azúcar agregados, ni jugos ni gaseosas. Todavía no toma leche de vaca. Le da las gotas de vitamina D y de hierro todos los días. No tiene alergias alimentarias. Lo alimenta ella.\nVacunas: trae el carnet. Tiene BCG y hepatitis B del recién nacido; quíntuple, IPV y neumococo a los 2, 4 meses (quíntuple e IPV también a los 6); rotavirus a los 2 y 4 meses; meningococo a los 3 y 5 meses; antigripal a los 6 meses con refuerzo al mes. Le faltan las vacunas de los 12 meses.\nVivienda: casa de material con agua potable, luz y gas de red. Vive con mamá y papá. No va a guardería: lo cuida ella durante el día. Nadie fuma en la casa. Duerme en cuna con barandas, boca arriba, en su cuarto; el colchón es firme y usa una frazada fina. Viajan en auto, él en una silla de bebé en el asiento de atrás; el padre a veces usa moto sin él. Todavía no usa pantallas. Se acerca la época de calor y mosquitos.",
   "datos_clinicos": "Peso 9,8 kg (percentilo 50). Longitud 75 cm (percentilo 50). Perímetro cefálico 46 cm (percentilo 50). Curva de crecimiento sin cambios de carril. Buen estado general, activo, sin signos de enfermedad. Se para sosteniéndose y da pasos laterales.",
   "estudios": [
-    { "clave": "carnet", "texto": "Carnet de vacunación: BCG y hepatitis B (recién nacido); quíntuple a los 2, 4 y 6 meses; IPV a los 2, 4 y 6 meses; neumococo conjugada a los 2 y 4 meses; rotavirus a los 2 y 4 meses; meningococo a los 3 y 5 meses; antigripal a los 6 meses y refuerzo al mes. Faltan las vacunas de los 12 meses." }
+    {
+      "clave": "carnet",
+      "texto": "Carnet de vacunación: BCG y hepatitis B (recién nacido); quíntuple a los 2, 4 y 6 meses; IPV a los 2, 4 y 6 meses; neumococo conjugada a los 2 y 4 meses; rotavirus a los 2 y 4 meses; meningococo a los 3 y 5 meses; antigripal a los 6 meses y refuerzo al mes. Faltan las vacunas de los 12 meses."
+    }
   ],
   "umbral_aprobacion": 60,
   "rubrica": [
-    { "id": 1, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes obstétricos y perinatales", "regular": "Indaga el embarazo y el parto, o los antecedentes neonatales, pero no ambos", "suficiente": "Indaga embarazo (controles, complicaciones), parto, edad gestacional, Apgar, internación y vacunas del recién nacido" },
-    { "id": 2, "bloque": "Anamnesis", "max": 4, "texto": "Pesquisas neonatales y controles de salud", "regular": "Indaga la pesquisa neonatal o los controles de salud", "suficiente": "Indaga pesquisa del talón, otoemisiones, reflejo rojo, caderas y la frecuencia de los controles" },
-    { "id": 3, "bloque": "Anamnesis", "max": 4, "texto": "Antecedentes personales y familiares", "regular": "Indaga uno de estos: internaciones, guardia, medicación, alergias o antecedentes familiares", "suficiente": "Indaga internaciones, guardia, medicación habitual, cirugías o traumatismos, alergias y enfermedades familiares" },
-    { "id": 4, "bloque": "Anamnesis", "max": 4, "texto": "Alimentación", "regular": "Indaga el tipo de lactancia o la alimentación complementaria", "suficiente": "Indaga lactancia, edad y tipo de alimentos incorporados, preparación, bebidas y quién alimenta" },
-    { "id": 5, "bloque": "Anamnesis", "max": 4, "texto": "Hitos madurativos", "regular": "Indaga uno o dos hitos (sostén cefálico, sedestación, balbuceo o marcha)", "suficiente": "Indaga los hitos de las cuatro áreas: motor grueso, motor fino, lenguaje y social" },
-    { "id": 6, "bloque": "Valoración", "max": 5, "texto": "Crecimiento", "regular": "Solicita peso o talla", "suficiente": "Solicita peso, longitud y perímetro cefálico, y los interpreta en las curvas (percentilos, sin cambio de carril)" },
-    { "id": 7, "bloque": "Valoración", "max": 5, "texto": "Neurodesarrollo", "regular": "Concluye que el desarrollo es acorde sin fundamentarlo", "suficiente": "Concluye que el desarrollo es acorde a los 12 meses y lo fundamenta con los hitos referidos" },
-    { "id": 8, "bloque": "Valoración", "max": 5, "texto": "Carnet de vacunas", "regular": "Solicita el carnet", "suficiente": "Solicita el carnet, verifica las dosis aplicadas y detecta las que corresponden a los 12 meses" },
-    { "id": 9, "bloque": "Valoración", "max": 5, "texto": "Estado nutricional y suplementos", "regular": "Valora la alimentación o los suplementos", "suficiente": "Valora la alimentación complementaria y la suplementación con vitamina D (hasta los 12 meses) y con hierro profiláctico" },
-    { "id": 10, "bloque": "Indicaciones", "max": 10, "texto": "Vacunas de los 12 meses", "regular": "Indica algunas de las vacunas de los 12 meses", "suficiente": "Indica triple viral, hepatitis A y refuerzo de neumococo, y explica los beneficios individuales y colectivos y su seguridad" },
-    { "id": 11, "bloque": "Indicaciones", "max": 10, "texto": "Pautas de alimentación", "regular": "Da una pauta de alimentación", "suficiente": "Indica alimentación variada con comidas fraccionadas; sin miel, sal ni azúcar agregados; sin jugos ni gaseosas; continuar la lactancia; leche de vaca recién desde los 12 meses" },
-    { "id": 12, "bloque": "Indicaciones", "max": 10, "texto": "Sueño seguro y accidentes domésticos", "regular": "Da una pauta (sueño seguro, enchufes, medicamentos o piletas)", "suficiente": "Indica sueño boca arriba con colchón firme, sin almohadas ni peluches, cuna con barandas altas, y vigilancia de enchufes, medicamentos, hornallas, químicos y agua" },
-    { "id": 13, "bloque": "Indicaciones", "max": 10, "texto": "Transporte, sol y mosquitos", "regular": "Da una de estas pautas", "suficiente": "Indica silla de retención en el asiento trasero, evitar la moto, protector solar cada 2 horas y repelente con menos de 30 % de DEET, ropa clara y mosquiteros" },
-    { "id": 14, "bloque": "Indicaciones", "max": 10, "texto": "Tabaquismo, pantallas y estimulación", "regular": "Da una de estas pautas", "suficiente": "Recuerda los riesgos del tabaco pasivo, indica cero pantallas antes de los 2 años y estimulación con juego, lectura y vínculo" },
-    { "id": 15, "bloque": "Indicaciones", "max": 10, "texto": "Próximo control y comunicación", "regular": "Indica el próximo control o cierra con una duda", "suficiente": "Indica el próximo control, explica con lenguaje claro y empático, entrega pautas de alarma y pregunta si quedaron dudas" }
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Antecedentes obstétricos y perinatales",
+      "regular": "Indaga el embarazo y el parto, o los antecedentes neonatales, pero no ambos",
+      "suficiente": "Indaga embarazo (controles, complicaciones), parto, edad gestacional, Apgar, internación y vacunas del recién nacido"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Pesquisas neonatales y controles de salud",
+      "regular": "Indaga la pesquisa neonatal o los controles de salud",
+      "suficiente": "Indaga pesquisa del talón, otoemisiones, reflejo rojo, caderas y la frecuencia de los controles"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Antecedentes personales y familiares",
+      "regular": "Indaga uno de estos: internaciones, guardia, medicación, alergias o antecedentes familiares",
+      "suficiente": "Indaga internaciones, guardia, medicación habitual, cirugías o traumatismos, alergias y enfermedades familiares"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Alimentación",
+      "regular": "Indaga el tipo de lactancia o la alimentación complementaria",
+      "suficiente": "Indaga lactancia, edad y tipo de alimentos incorporados, preparación, bebidas y quién alimenta"
+    },
+    {
+      "id": 5,
+      "bloque": "Anamnesis",
+      "max": 4,
+      "texto": "Hitos madurativos",
+      "regular": "Indaga uno o dos hitos (sostén cefálico, sedestación, balbuceo o marcha)",
+      "suficiente": "Indaga los hitos de las cuatro áreas: motor grueso, motor fino, lenguaje y social"
+    },
+    {
+      "id": 6,
+      "bloque": "Valoración",
+      "max": 5,
+      "texto": "Crecimiento",
+      "regular": "Solicita peso o talla",
+      "suficiente": "Solicita peso, longitud y perímetro cefálico, y los interpreta en las curvas (percentilos, sin cambio de carril)"
+    },
+    {
+      "id": 7,
+      "bloque": "Valoración",
+      "max": 5,
+      "texto": "Neurodesarrollo",
+      "regular": "Concluye que el desarrollo es acorde sin fundamentarlo",
+      "suficiente": "Concluye que el desarrollo es acorde a los 12 meses y lo fundamenta con los hitos referidos"
+    },
+    {
+      "id": 8,
+      "bloque": "Valoración",
+      "max": 5,
+      "texto": "Carnet de vacunas",
+      "regular": "Solicita el carnet",
+      "suficiente": "Solicita el carnet, verifica las dosis aplicadas y detecta las que corresponden a los 12 meses"
+    },
+    {
+      "id": 9,
+      "bloque": "Valoración",
+      "max": 5,
+      "texto": "Estado nutricional y suplementos",
+      "regular": "Valora la alimentación o los suplementos",
+      "suficiente": "Valora la alimentación complementaria y la suplementación con vitamina D (hasta los 12 meses) y con hierro profiláctico"
+    },
+    {
+      "id": 10,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Vacunas de los 12 meses",
+      "regular": "Indica algunas de las vacunas de los 12 meses",
+      "suficiente": "Indica triple viral, hepatitis A y refuerzo de neumococo, y explica los beneficios individuales y colectivos y su seguridad"
+    },
+    {
+      "id": 11,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Pautas de alimentación",
+      "regular": "Da una pauta de alimentación",
+      "suficiente": "Indica alimentación variada con comidas fraccionadas; sin miel, sal ni azúcar agregados; sin jugos ni gaseosas; continuar la lactancia; leche de vaca recién desde los 12 meses"
+    },
+    {
+      "id": 12,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Sueño seguro y accidentes domésticos",
+      "regular": "Da una pauta (sueño seguro, enchufes, medicamentos o piletas)",
+      "suficiente": "Indica sueño boca arriba con colchón firme, sin almohadas ni peluches, cuna con barandas altas, y vigilancia de enchufes, medicamentos, hornallas, químicos y agua"
+    },
+    {
+      "id": 13,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Transporte, sol y mosquitos",
+      "regular": "Da una de estas pautas",
+      "suficiente": "Indica silla de retención en el asiento trasero, evitar la moto, protector solar cada 2 horas y repelente con menos de 30 % de DEET, ropa clara y mosquiteros"
+    },
+    {
+      "id": 14,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Tabaquismo, pantallas y estimulación",
+      "regular": "Da una de estas pautas",
+      "suficiente": "Recuerda los riesgos del tabaco pasivo, indica cero pantallas antes de los 2 años y estimulación con juego, lectura y vínculo"
+    },
+    {
+      "id": 15,
+      "bloque": "Indicaciones",
+      "max": 10,
+      "texto": "Próximo control y comunicación",
+      "regular": "Indica el próximo control o cierra con una duda",
+      "suficiente": "Indica el próximo control, explica con lenguaje claro y empático, entrega pautas de alarma y pregunta si quedaron dudas"
+    }
+  ],
+  "errores_criticos": [
+    "Indicar miel, sal o azúcar agregados o leche de vaca antes de los 12 meses",
+    "Indicar posición para dormir distinta de boca arriba o almohadas y peluches en la cuna",
+    "Contraindicar las vacunas que corresponden por falsas contraindicaciones"
   ]
 }

@@ -152,5 +152,11 @@
     }
   ],
   "area": "pediatria",
-  "estado": "borrador"
+  "estado": "borrador",
+  "errores_criticos": [
+    "No indicar oxígeno en un niño con saturación de 88 %",
+    "Dar el alta o tratar de forma ambulatoria a un niño con tiraje generalizado, saturación de 88 % y habla entrecortada",
+    "No reconocer la anemia severa (hemoglobina 7 g/dl) ni indicar su corrección",
+    "Indicar antibióticos de rutina sin signos de neumonía"
+  ]
 }
