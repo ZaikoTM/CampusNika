@@ -876,7 +876,7 @@ function openInlineViewer(url, title, element) {
             videoId = url.split('watch?v=')[1]?.split('&')[0];
         }
         if (videoId) {
-            embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1`;
+            embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1`;
         }
     } 
     // 2. Detección de Google Drive PDF
@@ -905,6 +905,11 @@ function openInlineViewer(url, title, element) {
     } else {
         configurarModoVisor(null);
         if (iframe) iframe.src = embedUrl;
+    }
+    // Al sacar el mouse del video, el iframe pierde el foco: así YouTube oculta el icono de pausa y los controles y se puede tomar apuntes sin estorbo.
+    if (iframe && !iframe._nikaSinFoco) {
+        iframe._nikaSinFoco = true;
+        iframe.addEventListener('mouseleave', () => { try { window.focus(); if (document.activeElement === iframe) iframe.blur(); } catch (_) {} });
     }
     if (container) {
         container.style.display = 'block';
