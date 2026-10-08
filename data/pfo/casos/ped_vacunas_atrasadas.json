@@ -1,7 +1,7 @@
 {
   "id": "ped_vacunas_atrasadas",
   "area": "pediatria",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Vacunas atrasadas en una lactante de 8 meses con diarrea",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -102,7 +102,7 @@
       "max": 10,
       "texto": "Vacunas para recuperar el esquema",
       "regular": "Indica algunas vacunas",
-      "suficiente": "Indica quíntuple (con la hepatitis B), IPV, neumococo conjugada y meningococo, y antigripal desde los 6 meses (dos dosis con 4 semanas de intervalo)"
+      "suficiente": "Indica quíntuple (con la hepatitis B), IPV, neumococo conjugada (primera dosis hoy, segunda a las 4 semanas y refuerzo desde los 12 meses, con al menos 8 semanas desde la segunda) y meningococo; y antigripal desde los 6 meses (dos dosis con 4 semanas de intervalo)"
     },
     {
       "id": 11,
