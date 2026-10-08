@@ -1,7 +1,7 @@
 {
   "id": "cx_arteriopatia_aneurisma_aorta",
   "area": "cirugia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Claudicación a los 100 metros, úlcera en el pie y dolor abdominal: arteriopatía periférica y aneurisma de aorta",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -105,7 +105,7 @@
       "max": 5,
       "texto": "Diagnóstico",
       "regular": "Plantea una arteriopatía",
-      "suficiente": "Diagnostica arteriopatía periférica en estadio Fontaine IV (claudicación y lesión trófica) y aneurisma de aorta abdominal de 5,2 cm, y explica ambos con lenguaje claro"
+      "suficiente": "Diagnostica arteriopatía periférica en estadio Fontaine IV (o isquemia crítica de miembros inferiores / Rutherford 5, se acepta cualquier nomenclatura válida) y aneurisma de aorta abdominal de 5,2 cm sintomático, y explica ambos con lenguaje claro"
     },
     {
       "id": 9,
