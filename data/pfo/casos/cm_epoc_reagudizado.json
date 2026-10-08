@@ -1,0 +1,158 @@
+{
+  "id": "cm_epoc_reagudizado",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Aumento de la disnea y esputo purulento en un paciente con EPOC",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Carlos Gutiérrez, de 68 años, jubilado, ex fumador con antecedente de 40 paquetes-año, consulta en la guardia por aumento progresivo de la disnea en los últimos tres días, asociada a tos con expectoración amarillenta y mayor fatiga. Refiere que usualmente presenta disnea al caminar varias cuadras, pero en esta ocasión le cuesta incluso moverse dentro de su casa. Niega fiebre, dolor torácico o hemoptisis. Refiere EPOC moderado-severo diagnosticado hace 8 años e hipertensión en tratamiento con losartán 50 mg cada 12 horas. Signos vitales: TA 135/80 mmHg, FC 105 por minuto, FR 28 por minuto, saturación 86 % basal (sin oxígeno), temperatura 37 °C.",
+  "objetivos": [
+    "Realizar una anamnesis breve y formular la impresión diagnóstica.",
+    "Realizar el examen físico dirigido.",
+    "Solicitar los exámenes complementarios si lo requiere.",
+    "Decidir el tratamiento."
+  ],
+  "interlocutor": "Carlos Gutiérrez, 68 años, jubilado (habla él, en primera persona; disneico, habla con frases cortas)",
+  "guion_paciente": "Carlos Gutiérrez, 68 años, ex carpintero. Hace 3 días tiene más falta de aire que de costumbre y más tos con flemas amarillentas, más abundantes que antes; antes caminaba 5 cuadras antes de agitarse, ahora le cuesta moverse dentro de la casa. Se siente muy cansado. Sin fiebre (se midió 37,2 °C), sin dolor de pecho, sin hemoptisis, sin piernas hinchadas, sin dolor de pantorrillas. Usa el aerosol de salbutamol de rescate (6 puff por día, antes 1 o 2) sin mucha mejoría y tiotropio una vez por día; no usa oxígeno en casa. Hace 15 días tuvo un resfrío. Última exacerbación hace 1 año, que requirió corticoides orales sin internación. Dejó de fumar hace 5 años.\nAntecedentes: EPOC moderado-grave hace 8 años (no sabe su VEF1); hipertensión con losartán 50 mg cada 12 horas; sin diabetes, sin cardiopatía conocida, sin cáncer; sin alergias. Vacunas: antigripal el año pasado, antineumocócica nunca. Vive con su esposa; ambiente sin humo. Alcohol: no. Sin cirugías.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 135/80 mmHg, FC 105 por minuto, FR 28, saturación 86 % sin oxígeno, temperatura 37 °C. Sentado, inclinado hacia adelante, uso de músculos accesorios, espiración prolongada con labios fruncidos, sin cianosis central franca; vigil y orientado. Tórax en tonel, expansión disminuida, hipersonoridad a la percusión sin matidez, roncus y sibilancias difusas bilaterales, murmullo vesicular disminuido. Cardiovascular: taquicardia regular, sin soplos ni ingurgitación yugular. Miembros inferiores sin edemas. Sin adenopatías.",
+  "estudios": [
+    {
+      "clave": "eab",
+      "texto": "[BORRADOR] Estado ácido-base (aire ambiente): pH 7,33, pCO2 56 mmHg, pO2 52 mmHg, bicarbonato 29 mEq/L, saturación 86 % (acidosis respiratoria leve con hipoxemia)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 13.200/mm³ con 82 % de neutrófilos, hemoglobina 16,8 g/dl (policitemia leve), glucemia 104 mg/dl, urea 38, creatinina 0,9 mg/dl, ionograma normal, PCR 62 mg/L, hepatograma normal."
+    },
+    {
+      "clave": "rx_torax",
+      "texto": "[BORRADOR] Radiografía de tórax: hiperinsuflación con diafragmas aplanados, aumento del espacio retroesternal; sin condensaciones, derrame ni neumotórax."
+    },
+    {
+      "clave": "cultivos",
+      "texto": "[BORRADOR] Hemocultivos por dos y cultivo de esputo: se toman, resultados pendientes. Electrocardiograma: taquicardia sinusal, sin signos de isquemia."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Administrar oxígeno a alto flujo sin objetivo de saturación en un paciente con EPOC e hipercapnia",
+    "No indicar broncodilatadores, corticoides sistémicos y antibiótico en una reagudización grave con esputo purulento",
+    "No internar a un paciente con saturación de 86 %, taquipnea y falla del tratamiento habitual"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Disnea",
+      "regular": "Indaga uno o dos aspectos",
+      "suficiente": "Indaga tiempo de evolución, relación con el reposo y el esfuerzo, uso de rescate y oxígeno domiciliario, y respuesta al tratamiento"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Tos y esputo",
+      "regular": "Indaga la tos",
+      "suficiente": "Indaga tiempo, horario, color y cantidad del esputo, hemoptisis y cambios respecto del habitual"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga fiebre, dolor torácico, palpitaciones, edemas, pérdida de peso y síntomas de otros aparatos"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y tratamiento",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga exacerbaciones e internaciones previas, medicación inhalatoria, comorbilidades, alergias, vacunas, tabaco, exposición y vivienda"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y gravedad",
+      "regular": "Menciona la saturación",
+      "suficiente": "Reconoce taquipnea, taquicardia e hipoxemia grave (saturación 86 %) y clasifica la gravedad"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico respiratorio",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza inspección (músculos accesorios, cianosis), palpación, percusión y auscultación (roncus, sibilancias), y busca adenopatías"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Criterios de Anthonisen",
+      "regular": "Menciona alguno",
+      "suficiente": "Aplica los criterios de Anthonisen (aumento de la disnea, del volumen y de la purulencia del esputo: 3 de 3) y concluye que corresponde antibiótico"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea EPOC",
+      "suficiente": "Diagnostica reagudización grave de EPOC con insuficiencia respiratoria hipoxémica (probablemente infecciosa) y la explica con lenguaje claro"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio con estado ácido-base, PCR, hemocultivos por dos, cultivo de esputo y radiografía de tórax, y evalúa la necesidad de VNI si hay acidosis respiratoria"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Oxigenoterapia controlada",
+      "regular": "Indica oxígeno",
+      "suficiente": "Indica oxígeno con máscara Venturi al 24 a 28 % con objetivo de saturación de 88 a 92 %, evitando la hiperoxia, y evalúa ventilación no invasiva si pH menor de 7,35 y pCO2 mayor de 45"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Broncodilatadores",
+      "regular": "Indica uno",
+      "suficiente": "Indica salbutamol más ipratropio nebulizados o en puff con aerocámara cada 20 minutos por 3 veces"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Corticoides sistémicos",
+      "regular": "Menciona corticoides",
+      "suficiente": "Indica prednisona o meprednisona 40 mg por vía oral (o hidrocortisona 100 a 200 mg endovenosa si es grave) por 5 a 7 días"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibiótico",
+      "regular": "Indica antibiótico sin dosis",
+      "suficiente": "Indica ceftriaxona 1 g cada 24 horas endovenosa o amoxicilina-clavulánico 875/125 mg cada 12 horas por 7 a 10 días (levofloxacina si hay factores de riesgo o alergia)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación, alta y educación",
+      "regular": "Menciona la internación o el alta",
+      "suficiente": "Indica internación (hipoxemia persistente y falla del tratamiento ambulatorio), medicación habitual, kinesioterapia, y al alta vacunas, cese tabáquico, rehabilitación pulmonar y signos de alarma"
+    }
+  ]
+}

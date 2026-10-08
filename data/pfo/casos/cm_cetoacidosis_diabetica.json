@@ -1,0 +1,155 @@
+{
+  "id": "cm_cetoacidosis_diabetica",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Poliuria, polidipsia y pérdida de peso: cetoacidosis diabética en un debut",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted se encuentra en la guardia externa del hospital. Ingresa un paciente llamado Carlos Sánchez, de 23 años, tabaquista y estilista ocasional según refiere. Al interrogatorio le comenta que hace un par de semanas viene notando que tiene más sed de lo habitual y por ello orina con mayor frecuencia, asociado a una llamativa pérdida de peso, pero con creciente apetito. Asimismo, relata cansancio y mal hábito del sueño. No refiere antecedentes personales ni familiares conocidos. Signos vitales: TA 100/70 mmHg, FC 105 por minuto, temperatura 36 °C, saturación 96 % sin oxígeno.",
+  "objetivos": [
+    "Realizar ordenadamente una anamnesis completa del paciente y elaborar una impresión diagnóstica.",
+    "Realizar un examen físico breve orientado a la clínica del paciente.",
+    "Solicitar correctamente los estudios complementarios.",
+    "Considerar la internación.",
+    "Establecer una conducta terapéutica adecuada."
+  ],
+  "interlocutor": "Carlos Sánchez, 23 años, estilista (habla él, en primera persona; cansado, con la boca seca, algo somnoliento pero orientado)",
+  "guion_paciente": "Carlos Sánchez, 23 años, estilista ocasional. Hace unas 2 semanas tiene mucha sed (toma más de 4 litros de agua y gaseosa por día) y orina muchísimo, también de noche (5 a 6 veces). Come más que antes y aun así bajó unos 8 kg en un mes; se le queda grande la ropa. Está cansado, con el sueño desordenado. Desde ayer tiene náuseas, vomitó dos veces y siente dolor en la panza, difuso; respira «más profundo y rápido». Sin fiebre, tos, dolor de pecho ni palpitaciones, sin diarrea; orina sin ardor ni dolor. Sin cambios de la visión, sin lesiones. No se midió nunca la glucemia.\nAntecedentes: sano, sin enfermedades crónicas ni medicación; sin cirugías ni alergias; sin antecedentes familiares conocidos de diabetes (pero no conoce a su padre biológico). Fuma 8 cigarrillos por día; alcohol los fines de semana; probó cocaína hace meses, ahora no consume. Última comida: ayer a la noche (poca); hoy solo tomó gaseosa. No realiza actividad física. Duerme 5 a 6 horas. Si está en edad fértil: no corresponde.\nNo tuvo infecciones recientes ni tomó corticoides ni diuréticos.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 100/70 mmHg, FC 105 por minuto, FR 28 por minuto profunda (respiración de Kussmaul), temperatura 36 °C, saturación 96 %, peso 70 kg, talla 1,75 m, glucemia capilar «HI» (mayor de 500 mg/dl). Vigil, orientado en tiempo y espacio, lengua seca y saburral, mucosas secas, signo del pliegue positivo, relleno capilar de 3 segundos, aliento cetósico (olor a manzana). Sin acantosis nigricans. Auscultación cardíaca taquicárdica regular, sin soplos; pulmones limpios, con hiperventilación. Abdomen blando, depresible, con dolor leve difuso a la palpación, sin defensa ni reacción peritoneal, ruidos hidroaéreos presentes.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Glucemia 560 mg/dl. Estado ácido-base arterial: pH 7,12, bicarbonato 8 mEq/L, pCO2 20 mmHg, anión restante elevado (28). Cetonemia (beta-hidroxibutirato) 6,5 mmol/L; cetonuria +++. Sodio 130 mEq/L (corregido 137), potasio 4,8 mEq/L, cloro 96. Urea 52 mg/dl, creatinina 1,3 mg/dl. Hemograma: leucocitos 14.000/mm³ (reacción de estrés), hemoglobina 15,5 g/dl. Hepatograma normal. Orina: glucosuria y cetonuria, sin leucocituria."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: taquicardia sinusal a 108 por minuto, ondas T picudas leves; sin otras alteraciones."
+    },
+    {
+      "clave": "rx_urocultivo_hemocultivo",
+      "texto": "[BORRADOR] Radiografía de tórax normal. Urocultivo y hemocultivos por dos: se toman, resultados pendientes (se buscan causas desencadenantes; el cuadro corresponde a un debut diabético)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No internar ni tratar con insulina e hidratación endovenosa a un paciente con cetoacidosis diabética",
+    "Administrar insulina sin conocer el potasio sérico, o continuar con insulina con potasio menor de 3,5 mEq/L",
+    "Indicar bicarbonato en forma sistemática o dar el alta a un paciente con acidosis metabólica"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas cardinales de diabetes",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga tiempo y modo de comienzo, poliuria, polidipsia, polifagia y pérdida de peso (si fue involuntaria)"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Otros síntomas y causas desencadenantes",
+      "regular": "Indaga fiebre o vómitos",
+      "suficiente": "Indaga fiebre, disnea, tos, dolor torácico, náuseas, vómitos, dolor abdominal, diarrea, síntomas urinarios, alteraciones neurológicas y visuales, infecciones o fármacos recientes"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes personales y familiares",
+      "regular": "Indaga uno de los dos",
+      "suficiente": "Indaga enfermedades crónicas, medicación, alergias, cirugías, internaciones previas y antecedentes familiares de diabetes"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga alimentación (última comida), sueño, actividad física, tabaco, alcohol y drogas (cocaína)"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y glucemia capilar",
+      "regular": "Toma signos vitales",
+      "suficiente": "Toma TA, FC, FR, saturación y temperatura y realiza glucemia capilar"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico dirigido",
+      "regular": "Examina una parte",
+      "suficiente": "Evalúa sensorio, hidratación y perfusión (pliegue, mucosas, relleno capilar), aliento cetósico, respiración de Kussmaul, aparatos cardiovascular y respiratorio y abdomen"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea diabetes",
+      "suficiente": "Plantea cetoacidosis diabética como debut de diabetes (probablemente tipo 1) y explica los criterios (glucemia mayor de 250, pH menor de 7,3, bicarbonato menor de 18, cetosis)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de estudios",
+      "regular": "Reconoce la hiperglucemia",
+      "suficiente": "Interpreta la acidosis metabólica con anión restante elevado, cetonemia, hiponatremia por dilución, potasio y función renal"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita laboratorio (hemograma, glucemia, urea, creatinina, ionograma, estado ácido-base, hepatograma, cetonemia, orina con cetonuria), electrocardiograma y, para buscar la causa, radiografía de tórax, urocultivo y hemocultivos"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y monitoreo",
+      "regular": "Indica internación sin monitoreo",
+      "suficiente": "Indica internación (unidad de cuidados intensivos si pH menor de 7,0, alteración del sensorio o inestabilidad), nada por boca, signos vitales cada 2 horas, monitoreo cardíaco, glucemia capilar cada 1 a 2 horas y sonda vesical con diuresis estricta"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Hidratación",
+      "regular": "Indica solución fisiológica sin esquema",
+      "suficiente": "Indica solución fisiológica 0,9 % 1.000 a 1.500 ml en las primeras 1 a 2 horas y, cuando la glucemia es menor de 250 mg/dl, pasar a dextrosa al 5 %"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Insulina",
+      "regular": "Indica insulina sin dosis",
+      "suficiente": "Indica insulina regular 0,1 UI/kg por vía endovenosa (unas 7 UI) seguida de infusión continua de 0,1 UI/kg por hora, luego de conocer el potasio"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Potasio y bicarbonato",
+      "regular": "Menciona el potasio",
+      "suficiente": "Repone potasio si es de 3,5 a 5,2 mEq/L (por ejemplo 3 ampollas en 300 ml de solución fisiológica en 3 horas), suspende la insulina si es menor de 3,5, no repone si es mayor de 5,2, y limita el bicarbonato a pH menor de 6,9 a 7,0"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación al paciente",
+      "regular": "Explica con términos técnicos",
+      "suficiente": "Explica con lenguaje claro qué es la cetoacidosis, por qué es grave, por qué debe quedar internado y qué se hará, y pregunta si tiene dudas"
+    }
+  ]
+}

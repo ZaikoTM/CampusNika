@@ -1,0 +1,145 @@
+{
+  "id": "cm_asma_control_postcrisis",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Control posterior a una crisis asmática: uso de aerocámara y radiografía",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y familiar del CAPS Giacomotti. Debe atender a Julián Garmendia, de 15 años, que concurre para control luego de haber superado una crisis asmática hace 3 días. Le comenta que le cuesta realizar los aerosoles y que su primo le prestó una aerocámara y no sabe usarla. Al examen físico usted constata sibilancias inspiratorias y espiratorias en ambos campos pulmonares y leve tiraje subcostal. Signos vitales: temperatura 36 °C, peso 60 kg, talla 1,60 m, saturación 97 %, TA 120/60 mmHg.",
+  "objetivos": [
+    "Explicar el adecuado uso de aerosoles utilizando la aerocámara.",
+    "Evaluar y explicar la radiografía de tórax que trae Julián.",
+    "Establecer el tratamiento y el plan de seguimiento."
+  ],
+  "interlocutor": "Julián Garmendia, 15 años, estudiante secundario (habla él, en primera persona; algo tímido; su madre espera afuera, pero él decide si quiere que entre)",
+  "guion_paciente": "Julián Garmendia, 15 años, estudiante. Tiene asma desde los 5 años; hace 3 días tuvo una crisis (tos, silbidos y falta de aire después de jugar al fútbol con frío) y lo vieron en la guardia: le dieron salbutamol y un corticoide (meprednisona 40 mg) y se fue con una receta que no retiró entera. Ahora tiene tos nocturna leve y silbidos, usa el salbutamol de rescate 3 o 4 veces por día. Sin fiebre, dolor de pecho ni mocos amarillos. Trae una radiografía de tórax de frente de la guardia. Su primo le prestó una aerocámara pero «no sabe usarla»: dispara varias veces seguidas y respira rápido; no la lava.\nAntecedentes: asma persistente sin tratamiento de base; eccema y rinitis alérgica; padre asmático. Alergias: ácaros y pelo de gato (por pruebas del colegio). En su casa hay una mascota (perro) y una alfombra; su padre fuma dentro de la casa. Vacunas: calendario completo; antigripal no. Sin internaciones previas. No fuma.\nLe cuesta recordar los pasos; quiere un plan escrito. Si le piden que repita la técnica, la hace bien solo si se la explicaron paso a paso.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Temperatura 36 °C, peso 60 kg, talla 1,60 m, saturación 97 %, TA 120/60 mmHg, FC 92 por minuto, FR 20. Habla en frases completas. Tiraje subcostal leve. Sibilancias inspiratorias y espiratorias en ambos campos pulmonares, buena entrada de aire. Cardiovascular normal. Rinitis alérgica (cornetes pálidos). Sin cianosis.",
+  "estudios": [
+    {
+      "clave": "rx_torax",
+      "texto": "Radiografía de tórax de frente: signos de atrapamiento aéreo e hiperinsuflación pulmonar (aumento de la translucidez, diafragmas aplanados y descendidos, aumento de los espacios intercostales, horizontalización de las costillas y trama vascular disminuida); sin consolidaciones ni infiltrados alveolares (no hay neumonía)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No evaluar la técnica de inhalación ni corregirla en un paciente que no logra usar la aerocámara",
+    "Indicar solo corticoide oral sin tratamiento de base ni plan escrito ni control",
+    "No reconocer los signos de alarma ni explicar cuándo consultar de inmediato"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Control posterior a la crisis",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga síntomas actuales, necesidad de rescate, medicación recibida en la guardia (corticoide, aerosoles, oxígeno) y si cumplió"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Desencadenantes y entorno",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga alérgenos, tabaquismo en la casa, mascotas, ejercicio, frío, infecciones y antecedentes personales y familiares atópicos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y vacunas",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga internaciones, enfermedades de base, alergias a fármacos y vacunación (antigripal, antineumocócica)"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Técnica actual de inhalación",
+      "regular": "Pregunta si usa el aerosol",
+      "suficiente": "Pregunta cómo usa el inhalador y la aerocámara (que le prestó su primo) y observa o evalúa su técnica"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y examen respiratorio",
+      "regular": "Realiza una parte",
+      "suficiente": "Toma saturación, FR y FC, y examina el tórax (tiraje, sibilancias, entrada de aire)"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Gravedad",
+      "regular": "Clasifica sin criterios",
+      "suficiente": "Clasifica la gravedad de la crisis (leve: saturación mayor de 95 %, habla en frases completas, sin tiraje importante) y fundamenta el manejo ambulatorio"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de la radiografía",
+      "regular": "Describe un hallazgo",
+      "suficiente": "Describe la hiperinsuflación y el atrapamiento aéreo y la ausencia de consolidaciones, y explica que no hay neumonía"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea asma",
+      "suficiente": "Diagnostica crisis asmática leve en resolución (asma persistente no controlado) y lo explica con lenguaje claro"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Técnica de la aerocámara (primera parte)",
+      "regular": "Explica algunos pasos",
+      "suficiente": "Explica lavarse las manos, armar la aerocámara, sacudir el aerosol, colocarlo en la aerocámara y apoyar la mascarilla o boquilla con buen sellado, sentado"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Técnica de la aerocámara (segunda parte)",
+      "regular": "Explica algunos pasos",
+      "suficiente": "Explica disparar una vez y realizar una inhalación lenta y profunda de 3 a 5 segundos, retener o respirar 3 a 4 veces, esperar 1 minuto entre dosis, enjuagar la boca y lavarse las manos"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Cuidado del dispositivo y verificación",
+      "regular": "Menciona una",
+      "suficiente": "Explica que debe lavar la aerocámara cada 15 días en agua tibia con una gota de detergente sin retirar la válvula, secar al aire, pregunta si se entiende y le pide que repita la técnica"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento",
+      "regular": "Indica un fármaco",
+      "suficiente": "Indica salbutamol 2 puff cada 4 a 6 horas, budesonide 2 puff cada 12 horas y meprednisona 40 mg por vía oral durante 7 días"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Plan escrito, prevención y vacunas",
+      "regular": "Da una indicación",
+      "suficiente": "Entrega un plan escrito, un dispositivo de aerocámara, aconseja evitar desencadenantes (humo, tabaco, alérgenos), indica vacunas (antigripal y antineumocócica) y controla enfermedades de base"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Seguimiento y signos de alarma",
+      "regular": "Cita sin plazo",
+      "suficiente": "Cita a control en 7 a 10 días, solicita interconsulta con neumonología, clínica o pediatría, y explica los signos de alarma (aumento de síntomas o de la necesidad de rescate)"
+    }
+  ]
+}

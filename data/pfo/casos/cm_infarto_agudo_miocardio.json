@@ -1,0 +1,157 @@
+{
+  "id": "cm_infarto_agudo_miocardio",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Dolor torácico opresivo: infarto agudo de miocardio",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Juan Pérez, de 58 años, empleado administrativo, acude a la guardia por dolor en el pecho de inicio súbito hace aproximadamente 45 minutos. Describe el dolor como una opresión intensa en la región retroesternal, con irradiación al brazo izquierdo y a la mandíbula. El dolor no cede con el reposo y se acompaña de sudoración profusa y sensación de falta de aire. Niega síncope, pero menciona un episodio de náuseas. Antecedentes: hipertensión arterial hace 10 años (enalapril 10 mg cada 12 horas), dislipemia (atorvastatina 20 mg por día), diabetes tipo 2 (metformina 850 mg cada 12 horas), tabaquismo activo (30 paquetes-año) y sedentarismo. Signos vitales: TA 140/90 mmHg, FC 92 por minuto, FR 20 por minuto, saturación 96 % al aire ambiente, temperatura 36,5 °C.",
+  "objetivos": [
+    "Realizar un diagnóstico presuntivo basado en la clínica y los antecedentes.",
+    "Indicar los estudios complementarios de urgencia.",
+    "Decidir la conducta terapéutica inicial."
+  ],
+  "interlocutor": "Juan Pérez, 58 años, empleado administrativo (habla él, en primera persona; con dolor intenso, sudoroso, ansioso)",
+  "guion_paciente": "Juan Pérez, 58 años, empleado administrativo. Hace 45 minutos, estando sentado en la oficina, empezó con un dolor opresivo en el centro del pecho, intensidad 9 sobre 10, que se va al brazo izquierdo y a la mandíbula, no cambia con la respiración ni con el movimiento ni con la posición; con sudor frío, falta de aire y náuseas (un episodio de vómito). Nunca tuvo algo similar antes. No tomó nada. Sin fiebre ni tos.\nAntecedentes: hipertensión (enalapril 10 mg cada 12 horas), dislipemia (atorvastatina 20 mg por día), diabetes tipo 2 (metformina 850 mg cada 12 horas); fuma 20 cigarrillos por día hace 30 años; sedentario; padre falleció de un infarto a los 60 años. Sin ACV ni AIT, sin sangrados, sin úlcera ni cirugías recientes (último año), sin traumatismo de cráneo, sin cáncer ni aneurismas, sin anticoagulantes, sin alergias medicamentosas conocidas (nunca recibió estreptoquinasa). Sin consumo de cocaína. Alcohol: social.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 140/90 mmHg en ambos brazos (sin diferencia), FC 92 por minuto regular, FR 20, saturación 96 %, temperatura 36,5 °C. Ansioso, sudoroso, pálido, con dolor. Cardiovascular: ruidos normofonéticos, sin soplos ni frote, pulsos simétricos. Respiratorio: murmullo vesicular conservado, sin ruidos agregados. Pared torácica sin dolor a la palpación. Miembros inferiores: sin edemas, pulsos presentes. Abdomen: sin particularidades.",
+  "estudios": [
+    {
+      "clave": "ecg",
+      "texto": "Electrocardiograma de 12 derivaciones (primeros 10 minutos): ritmo sinusal a 92 por minuto, elevación del segmento ST de 3 mm en V1 a V4 con imagen en espejo (descenso de ST) en cara inferior. IAM con elevación del ST de cara anterior."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Troponina I 0,2 ng/ml (inicialmente baja, se eleva), CPK 180 U/L, CPK-MB 22 U/L, glucemia 210 mg/dl, hemograma normal, ionograma normal, coagulograma normal, urea 38, creatinina 1,0 mg/dl, estado ácido-base normal."
+    },
+    {
+      "clave": "contexto_reperfusion",
+      "texto": "[BORRADOR] El hospital no cuenta con servicio de hemodinamia; el centro con angioplastia más cercano está a más de 120 minutos de traslado. Por eso corresponde fibrinólisis con estreptoquinasa, sin contraindicaciones en este paciente. Si el alumno pregunta por disponibilidad de angioplastia, se informa esto."
+    },
+    {
+      "clave": "rx_torax",
+      "texto": "[BORRADOR] Radiografía de tórax (si se solicita en segunda instancia): sin cardiomegalia, mediastino normal, campos pulmonares limpios."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No obtener el electrocardiograma en los primeros 10 minutos ni definir reperfusión urgente en un paciente con dolor torácico típico",
+    "Administrar fibrinolíticos sin interrogar las contraindicaciones o sin realizar el electrocardiograma",
+    "Administrar nitroglicerina o betabloqueantes sin controlar la tensión arterial o ante signos de falla ventricular, shock o bloqueo"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Dolor torácico",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga inicio, circunstancias, calidad, localización, irradiación, intensidad, factores que lo modifican, medicación y si es la primera vez"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga disnea, sudoración, náuseas, síncope, palpitaciones, cefalea, fiebre y alteraciones neurológicas"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y factores de riesgo",
+      "regular": "Indaga algunos",
+      "suficiente": "Indaga hipertensión, diabetes, dislipemia, tabaco, cardiopatías, ACV, medicación, adherencia, cocaína, antecedentes familiares y alergias"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Contraindicaciones de la fibrinólisis",
+      "regular": "Indaga una",
+      "suficiente": "Indaga ACV o AIT, sangrado activo, úlcera péptica, cirugía o traumatismo reciente, lesiones intracraneales, anticoagulantes y embarazo"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Toma signos vitales, examina el aparato cardiovascular, respiratorio, la pared torácica, los pulsos y los miembros inferiores"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Electrocardiograma",
+      "regular": "Lo solicita",
+      "suficiente": "Solicita electrocardiograma de 12 derivaciones en los primeros 10 minutos, lo repite si es normal con síntomas y lo interpreta (elevación del ST de V1 a V4)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Laboratorio y estudios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita troponinas, CPK, CPK-MB, hemograma, glucemia, ionograma, coagulograma, función renal y estado ácido-base, sin esperar los resultados para reperfundir"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico y diferenciales",
+      "regular": "Plantea infarto",
+      "suficiente": "Diagnostica IAM con elevación del ST de cara anterior y plantea diferenciales (pericarditis, disección aórtica, tromboembolismo pulmonar, condritis, reflujo, neumotórax, ansiedad)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Medidas generales",
+      "regular": "Indica internación",
+      "suficiente": "Indica internación en observación o cuidados coronarios, nada por boca, dos vías periféricas, monitoreo continuo, oxígeno si la saturación es menor de 92 %, sonda vesical y control de glucemia"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antiagregación y estatina",
+      "regular": "Indica uno de los dos",
+      "suficiente": "Indica aspirina 300 mg masticada, clopidogrel 300 a 600 mg y atorvastatina 80 mg"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Anticoagulación y analgesia",
+      "regular": "Indica uno",
+      "suficiente": "Indica anticoagulación (heparina de bajo peso molecular o no fraccionada), nitroglicerina sublingual o endovenosa si la presión lo permite, y morfina si el dolor persiste"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Reperfusión",
+      "regular": "Menciona la reperfusión",
+      "suficiente": "Indica reperfusión inmediata: angioplastia si es posible en menos de 120 minutos o estreptoquinasa 1.500.000 UI en 150 ml de solución fisiológica en 30 a 60 minutos (con hidrocortisona y antihistamínico previos)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Control del resultado de la reperfusión",
+      "regular": "Menciona un control",
+      "suficiente": "Controla electrocardiograma cada hora y evalúa el éxito de la fibrinólisis (descenso del ST de más de 50 % a los 90 minutos y desaparición del dolor); si falla, angioplastia"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación a la familia",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Se presenta, explica qué le pasó, cómo está, qué se hizo y cómo se sigue con lenguaje claro y empático (sin prometer curación), y pregunta si tienen dudas"
+    }
+  ]
+}

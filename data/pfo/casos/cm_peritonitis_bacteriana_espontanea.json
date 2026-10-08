@@ -1,0 +1,159 @@
+{
+  "id": "cm_peritonitis_bacteriana_espontanea",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Cirrótico descompensado con hipotensión: peritonitis bacteriana espontánea",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted se encuentra de guardia en el hospital. Ingresa por el servicio de emergencias Juan, de 61 años, traído por su hija Laura. Su hija trae la epicrisis de una internación previa. El paciente tiene antecedentes de cirrosis (Child-Pugh C) con varias internaciones por descompensación, es ex tabaquista y ex etilista (abandono hace aproximadamente 3 meses) e hipertenso con mala adherencia. Desde hace 72 horas presenta desorientación, astenia, adinamia, dolor y distensión abdominal, y en las últimas 24 horas dificultad respiratoria. Ingresa con deshidratación moderada a grave, hiporreactivo, desorientado globalmente, hipotenso (80/40 mmHg), saturando 94 % con cánula nasal a 3 litros. Luego de 1500 ml de solución fisiológica mejora el estado de conciencia, pero persiste la hipotensión.",
+  "objetivos": [
+    "Realizar una anamnesis dirigida a la hija y revisar la epicrisis.",
+    "Realizar el examen físico y solicitar los estudios complementarios.",
+    "Interpretar el análisis del líquido ascítico y establecer el diagnóstico.",
+    "Indicar el tratamiento adecuado.",
+    "Explicar a la familia la situación, el pronóstico y los límites terapéuticos."
+  ],
+  "interlocutor": "Laura Pérez, 34 años, hija del paciente (habla ella; angustiada, colaboradora; el paciente está somnoliento y responde con dificultad)",
+  "guion_paciente": "Laura Pérez, 34 años, hija de Juan Pérez, de 61 años. Su padre tiene cirrosis hace 5 años por alcohol; lo internaron varias veces por «agua en la panza» (la última, en febrero, por descompensación y celulitis en las piernas). Dejó el alcohol hace unos 3 meses. Hace 3 días empezó a estar confundido, muy decaído, con la panza más hinchada y dolorida, casi no comió ni tomó líquidos. Desde ayer respira peor. Tuvo escalofríos y quizás fiebre: «creo que sí, pero no se tomó la temperatura». Orina muy poco. Heces normales; no hubo sangre en vómitos ni melena. Antes tomaba espironolactona y furosemida, pero «lo dejó hace una semana porque se sentía mal»; no toma antibióticos. No tomó alcohol de nuevo, según ella. Hipertenso con enalapril que no toma seguido. Sin alergias. Cirugía por varicocele a los 16 años. Nunca estuvo en terapia intensiva.\nLa hija entiende que es grave y quiere saber qué pasa. Acepta que se priorice el confort si el estado empeora.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 80/40 mmHg (persiste hipotensión luego de 1500 ml de solución fisiológica), FC 95 por minuto, FR 21 con mecánica abdominal, temperatura 36,7 °C, saturación 94 % con cánula nasal a 3 L/min. Regular estado general, vigil, bradipsíquico, orientado globalmente, comprende y ejecuta órdenes simples; sin focalidad ni signos meníngeos. Mucosas secas, palidez cutáneo-mucosa, múltiples hematomas en ambos miembros superiores. Cardiovascular: R1 y R2 normofonéticos, sin soplos. Respiratorio: buena entrada bilateral, sin ruidos agregados. Abdomen globuloso con hernia umbilical y circulación colateral, matidez a la percusión, onda ascítica, ruidos hidroaéreos disminuidos, dolor difuso a la palpación sin reacción peritoneal franca; puño percusión negativa. Sin edemas periféricos.",
+  "estudios": [
+    {
+      "clave": "epicrisis",
+      "texto": "Epicrisis de la internación previa: internación en sala general por síndrome ascítico edematoso y cirrosis descompensada, Child-Pugh C, egreso 17/10/2023. Última internación en sala por cirrosis descompensada sin PBE y celulitis en miembros inferiores, egreso 9/2/2024."
+    },
+    {
+      "clave": "liquido_ascitico",
+      "texto": "Análisis del líquido ascítico (paracentesis diagnóstica y evacuadora de 2.000 ml): amarillo, ligeramente turbio, límpido con botón rosa; glucosa 42 mg/dl, LDH 143 U/L, albúmina 0,6 g/dl, leucocitos 3.500/mm³ con 70 % de polimorfonucleares (2.450 PMN/mm³), GASA 1,3 g/dl. Diagnóstico: PBE (PMN mayor de 250 por mm³) con hipertensión portal (GASA mayor de 1,1)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: leucocitos 14.800/mm³, hemoglobina 9,6 g/dl, plaquetas 68.000/mm³. Coagulograma: RIN 1,9. Hepatograma: bilirrubina total 4,2 mg/dl, albúmina sérica 2,2 g/dl, GOT 88, GPT 42. Glucemia 82 mg/dl. Urea 92 mg/dl, creatinina 1,9 mg/dl (basal 0,9: lesión renal aguda). Sodio 128 mEq/L, potasio 3,4. Estado ácido-base: pH 7,32, bicarbonato 16, lactato 3,8 mmol/L. PCR 98 mg/L. Sedimento urinario sin infección. Hemocultivos por dos: tomados, pendientes."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: ritmo sinusal a 96 por minuto, bajo voltaje, sin signos de isquemia."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No realizar la paracentesis diagnóstica ni indicar antibióticos de forma inmediata ante un cirrótico con ascitis, dolor abdominal y deterioro clínico",
+    "No administrar albúmina en una PBE con insuficiencia renal o hipotensión",
+    "Continuar los diuréticos y la medicación antihipertensiva en un paciente hipotenso con lesión renal aguda"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Evolución y diferencias con la internación previa",
+      "regular": "Indaga el tiempo",
+      "suficiente": "Indaga el inicio, las diferencias con la internación anterior, fiebre, escalofríos y medicación recibida"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas actuales",
+      "regular": "Indaga dos",
+      "suficiente": "Indaga disnea (inicio, reposo), dolor y distensión abdominal, náuseas, vómitos, diuresis, apetito, edemas y sangrado digestivo"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Alcohol, infección y medicación",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga alcohol, infecciones recientes, antibióticos, diuréticos (para el hígado o el corazón), controles y quién controla la cirrosis"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes de la cirrosis",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga tiempo de diagnóstico, internaciones previas y complicaciones, enfermedades crónicas, cirugías, alergias y vacunas"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y shock",
+      "regular": "Reconoce la hipotensión",
+      "suficiente": "Reconoce hipotensión persistente luego de la reposición, hipoperfusión y riesgo de shock; calcula la presión arterial media"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico",
+      "regular": "Realiza una parte",
+      "suficiente": "Realiza examen cardiorrespiratorio, abdominal completo (inspección, auscultación, palpación, percusión con matidez y onda ascítica), neurológico y de miembros"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación del líquido ascítico",
+      "regular": "Reconoce que es infeccioso",
+      "suficiente": "Interpreta más de 250 PMN por mm³ (2.450), GASA de 1,3 (hipertensión portal), LDH normal y concluye peritonitis bacteriana espontánea, diferenciándola de la peritonitis secundaria"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita hemograma, coagulograma, hepatograma, glucemia, ionograma, urea, creatinina, estado ácido-base, LDH, PCR, sedimento urinario, hemocultivos por dos y electrocardiograma"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Reanimación hemodinámica",
+      "regular": "Indica líquidos",
+      "suficiente": "Indica internación con monitoreo, acceso venoso, reposición de volumen (solución fisiológica 1.000 ml en bolo y luego titulada), sonda vesical con diuresis de 0,5 ml/kg/h o más, oxígeno para saturación mayor de 92 %"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Vasopresor",
+      "regular": "Menciona la noradrenalina",
+      "suficiente": "Si persiste la hipotensión indica noradrenalina 0,05 a 0,1 µg/kg/min en infusión, titulando para una presión arterial media de 65 mmHg o más"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antibiótico empírico",
+      "regular": "Indica un antibiótico",
+      "suficiente": "Indica ceftriaxona 1 a 2 g cada 24 horas por vía endovenosa (5 a 7 días); el metronidazol se agrega si se sospecha peritonitis secundaria"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Albúmina y paracentesis",
+      "regular": "Menciona una",
+      "suficiente": "Indica albúmina humana endovenosa (1,5 g/kg en las primeras 6 horas y 1 g/kg al tercer día) para prevenir el síndrome hepatorrenal, y paracentesis evacuadora con análisis"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Medicación habitual e interconsulta",
+      "regular": "Menciona la interconsulta",
+      "suficiente": "Suspende diuréticos y antihipertensivos por hipotensión y lesión renal, indica antitérmico si hay fiebre y solicita interconsulta con clínica médica y hepatología"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación a la familia y techo terapéutico",
+      "regular": "Explica sin pronóstico",
+      "suficiente": "Explica con empatía qué es la descompensación de la cirrosis, qué se hace y por qué, que no hay cura, que existe un techo terapéutico y un pronóstico reservado, y pregunta si tienen dudas"
+    }
+  ]
+}

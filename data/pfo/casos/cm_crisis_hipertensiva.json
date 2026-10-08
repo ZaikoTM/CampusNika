@@ -1,0 +1,155 @@
+{
+  "id": "cm_crisis_hipertensiva",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Cefalea con presión arterial de 195/120: crisis hipertensiva",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Usted es médico/a general y familiar del centro de salud. Recibe a Pedro Domínguez, de 45 años, tabaquista, sin antecedentes patológicos de jerarquía, que consulta por cefalea de 24 horas de evolución sin síntomas asociados. Signos vitales: FC 85 por minuto, FR 16 por minuto, TA 195/120 mmHg, temperatura 36,5 °C.",
+  "objetivos": [
+    "Realizar una muy breve anamnesis y un examen físico dirigidos al problema.",
+    "Realizar un electrocardiograma e interpretarlo, si no lo trae el paciente.",
+    "Realizar el diagnóstico y explicarlo al paciente con palabras claras y con términos médicos para el evaluador.",
+    "Instituir el tratamiento adecuado, explicarlo con palabras claras al paciente y con términos médicos para el evaluador.",
+    "Si deriva a un centro de mayor complejidad, explicar la necesidad al paciente y resumir al colega los datos relevantes; indicar contrarreferencia por escrito."
+  ],
+  "interlocutor": "Pedro Domínguez, 45 años, camionero (habla él, en primera persona; molesto por el dolor de cabeza)",
+  "guion_paciente": "Pedro Domínguez, 45 años, camionero. Desde ayer tiene un dolor de cabeza opresivo, de intensidad moderada, en la frente y la nuca, que no cede del todo con un paracetamol de 500 mg. Sin visión borrosa, vómitos, mareos, debilidad ni hormigueos, sin dolor de pecho, falta de aire, palpitaciones, dolor abdominal ni edemas; orina normal. Nunca se controló la presión. No tiene fiebre ni rigidez de nuca. No trajo estudios.\nAntecedentes: sin enfermedades conocidas; madre hipertensa; padre falleció de un ACV a los 62 años. No toma medicación ni drogas ni antiinflamatorios ni descongestivos. Fuma 20 cigarrillos por día; alcohol 3 a 4 cervezas por día; come mucha sal y comidas rápidas; sedentario; duerme poco por el trabajo; está estresado. Sin alergias.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 195/120 mmHg (brazo derecho) y 192/118 (izquierdo), FC 85 por minuto, FR 16, temperatura 36,5 °C, saturación 98 %. Lúcido, orientado; sin focalidad motora ni sensitiva, pupilas isocóricas reactivas, sin signos meníngeos. Cardiovascular: ruidos normofonéticos, sin soplos, pulsos simétricos. Pulmonar: sin rales. Abdomen: sin soplos aórticos ni renales. Edemas ausentes. Fondo de ojo: estrechamiento arteriolar, sin hemorragias, exudados ni papiledema.",
+  "estudios": [
+    {
+      "clave": "ecg",
+      "texto": "Electrocardiograma (si lo solicita o lo realiza): ritmo sinusal a 85 por minuto, sin signos de isquemia ni arritmias; criterios de Sokolow-Lyon en el límite (34 mm)."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Si lo solicita: hemograma normal, glucemia 98 mg/dl, creatinina 0,9 mg/dl, urea 28 mg/dl, ionograma normal (potasio 4,2), orina sin proteínas ni hematuria; no se dispone de troponina ni de tomografía en el centro de salud."
+    },
+    {
+      "clave": "control_tension",
+      "texto": "Controles posteriores (a medida que el alumno trata): a los 30 minutos de enalapril 10 mg y reposo, TA 178/112 mmHg; a los 60 minutos, 168/104 mmHg; a las 3 horas, 150/94 mmHg."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Descender la presión arterial de forma brusca con fármacos sublinguales o endovenosos potentes en una urgencia hipertensiva sin daño de órgano blanco",
+    "No buscar daño de órgano blanco (fondo de ojo, neurológico, cardiovascular) antes de definir urgencia o emergencia",
+    "Dar el alta sin indicar tratamiento ni control en 24 horas"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Cefalea",
+      "regular": "Indaga dos características",
+      "suficiente": "Indaga con ALICIA: inicio, localización, calidad, intensidad, factores que la modifican, medicación utilizada y antecedentes de migraña o lentes"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados y daño de órgano",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga visión borrosa, disnea, dolor de pecho, dolor abdominal, debilidad, vómitos, síntomas urinarios y edemas"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y medicación",
+      "regular": "Indaga antecedentes sin la medicación",
+      "suficiente": "Indaga hipertensión, diabetes, enfermedad cardíaca, renal, ACV, tiroides, medicación o abandono del tratamiento, sustancias, antecedentes quirúrgicos y alergias"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hábitos y estrés",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga alimentación (sal, grasas), tabaco, alcohol y situaciones de estrés"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Medición correcta de la presión",
+      "regular": "Mide la presión una vez",
+      "suficiente": "Mide la presión con la técnica correcta, en ambos brazos y repetida con reposo"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico dirigido",
+      "regular": "Examina un aparato",
+      "suficiente": "Examina el aparato neurológico, el cardiovascular, el respiratorio, el abdomen (soplos), los miembros inferiores y el estado de hidratación"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estudios y electrocardiograma",
+      "regular": "Solicita uno",
+      "suficiente": "Solicita electrocardiograma, fondo de ojo y laboratorio (según la clínica) e interpreta que no hay repercusión (sin hipertrofia ni isquemia)"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Clasificación",
+      "regular": "Nombra crisis hipertensiva",
+      "suficiente": "Diagnostica urgencia hipertensiva (TA mayor de 180/120 mmHg sin daño agudo de órgano blanco) y diferencia de emergencia hipertensiva"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Reposo y medidas iniciales",
+      "regular": "Indica reposo",
+      "suficiente": "Indica reposo en un lugar tranquilo durante 10 a 30 minutos como mínimo, sin diclofenac, y control de presión cada 30 minutos"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento farmacológico en observación",
+      "regular": "Indica un fármaco sin dosis",
+      "suficiente": "Indica enalapril 10 mg por vía oral (repetible cada 30 minutos hasta 2 o 3 veces) y amlodipina 5 mg si no responde; diazepam 5 mg si hay ansiedad"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Meta de descenso",
+      "regular": "Menciona el descenso",
+      "suficiente": "Explica que debe bajar un 25 a 30 % de la presión arterial media en 6 a 12 horas (calcula la presión arterial media) y evita descensos bruscos"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Criterios de derivación o alta",
+      "regular": "Menciona uno",
+      "suficiente": "Deriva a un centro de mayor complejidad si no baja en 3 horas, si aparece daño de órgano, y da el alta si desciende el 20 % de la presión arterial media; explica la derivación y resume los datos al colega, con contrarreferencia escrita"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Indicaciones al alta y seguimiento",
+      "regular": "Indica control sin plazo",
+      "suficiente": "Indica tratamiento antihipertensivo, medidas higiénico-dietéticas (no fumar, poca sal, ejercicio paulatino, agua), control en 24 horas, a los 7 días, MAPA o MDPA, y control mensual hasta lograr cifras estables"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y signos de alarma",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro y con términos médicos, da pautas de alarma (cefalea, visión borrosa, vómitos, dolor de pecho, disnea) y pregunta si tiene dudas"
+    }
+  ]
+}

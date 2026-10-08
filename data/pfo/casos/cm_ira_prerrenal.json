@@ -1,0 +1,155 @@
+{
+  "id": "cm_ira_prerrenal",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Diarrea de una semana y disminución de la diuresis: insuficiencia renal aguda prerrenal",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Concurre a las 15 horas Roberto Agüero, de 80 años, hipertenso, ex tabaquista. El paciente presenta desde hace una semana diarrea acuosa, náuseas y vómitos. Relata haber notado una disminución franca del ritmo diurético. Signos vitales: TA 100/60 mmHg, FC 105 por minuto, FR 23 por minuto, temperatura 36,8 °C, saturación 96 % al aire ambiente.",
+  "objetivos": [
+    "Realizar ordenadamente una anamnesis completa del paciente y elaborar una impresión diagnóstica.",
+    "Realizar un examen físico breve orientado a la patología del paciente.",
+    "Solicitar e interpretar estudios complementarios para arribar al diagnóstico definitivo.",
+    "Establecer una conducta terapéutica adecuada.",
+    "Explicar al paciente lo sucedido con lenguaje claro y comprensible."
+  ],
+  "interlocutor": "Roberto Agüero, 80 años, jubilado (habla él, en primera persona; débil, voz baja, algo desorientado en el tiempo)",
+  "guion_paciente": "Roberto Agüero, 80 años, ex comerciante, jubilado. Hace una semana tiene diarrea acuosa, 5 a 6 veces por día, sin sangre; náuseas y vómitos varias veces al día. Casi no tolera líquidos ni comida. Desde hace 3 días orina muy poco (una o dos veces por día, oscura, unos 300 ml). Está muy débil y se marea al pararse. Sin fiebre, sin dolor al orinar ni dificultad (algo de chorro débil desde hace años). Sin dolor de pecho ni falta de aire. Se tomó 2 comprimidos de ibuprofeno por dolor de rodilla hace 4 días.\nAntecedentes: hipertensión arterial hace 25 años con enalapril 10 mg cada 12 horas e hidroclorotiazida 25 mg por día (los siguió tomando); ex fumador (suspendió hace 15 años); próstata «agrandada» en seguimiento; no diabético; sin enfermedad renal previa conocida (creatinina previa 0,9 mg/dl hace 6 meses); sin cirugías; sin alergias; sin internaciones recientes ni antibióticos. Sin alcohol. Vive con su hija.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 100/60 mmHg, FC 105 por minuto, FR 23, temperatura 36,8 °C, saturación 96 %. Lúcido, algo adormilado y desorientado en tiempo. Mucosas secas, lengua seca, ojos hundidos, signo del pliegue positivo, relleno capilar de 3 segundos, extremidades frías. Yugulares planas. Cardiopulmonar: taquicardia regular, sin soplos, pulmones limpios. Abdomen blando, depresible, sin dolor ni masas; sin globo vesical. Sin edemas. Sin asterixis.",
+  "estudios": [
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: hematocrito 50 %, leucocitos 10.800/mm³. Glucemia 98 mg/dl. Urea 160 mg/dl, creatinina 3,1 mg/dl (basal 0,9; aumento mayor a 1,5 veces: IRA estadio 3 por KDIGO), relación urea/creatinina mayor de 20. Sodio 146 mEq/L, potasio 5,6 mEq/L, cloro 108. Estado ácido-base: pH 7,30, bicarbonato 16 mEq/L (acidosis metabólica). Orina: densidad 1.025, sodio urinario 12 mEq/L, FENa menor de 1 %, sedimento sin cilindros, sin proteínas ni hematíes."
+    },
+    {
+      "clave": "ecografia",
+      "texto": "[BORRADOR] Ecografía renovesical: riñones de tamaño y ecogenicidad conservados, sin hidronefrosis; vejiga vacía; próstata levemente aumentada."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: taquicardia sinusal a 104 por minuto, ondas T picudas leves en precordiales; sin ensanchamiento del QRS."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No suspender el IECA, el diurético ni los antiinflamatorios en un paciente con insuficiencia renal aguda y deshidratación",
+    "Indicar un diurético de asa o restricción de líquidos en un paciente hipovolémico con IRA prerrenal",
+    "No corregir la hiperpotasemia ni controlar el balance hídrico durante la rehidratación"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Diarrea, vómitos y deshidratación",
+      "regular": "Indaga la diarrea",
+      "suficiente": "Indaga tiempo, número de deposiciones, vómitos, tolerancia oral, sed, mareos y pérdida de peso"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Diuresis",
+      "regular": "Pregunta si orina menos",
+      "suficiente": "Indaga cantidad, color, frecuencia y características de la orina, disuria, dificultad miccional y síntomas prostáticos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Fármacos nefrotóxicos",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga IECA, diuréticos, antiinflamatorios (ibuprofeno), antibióticos, contrastes y otra medicación"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y hábitos",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga hipertensión, diabetes, enfermedad renal o prostática, creatinina previa, cirugías, internaciones, alergias, tabaco y alcohol"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y volemia",
+      "regular": "Menciona la hipotensión o la taquicardia",
+      "suficiente": "Reconoce hipotensión, taquicardia y taquipnea, y evalúa la hidratación (mucosas, pliegue, relleno capilar, yugulares, edemas)"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico dirigido",
+      "regular": "Examina una parte",
+      "suficiente": "Realiza auscultación cardiorrespiratoria, examen abdominal, búsqueda de globo vesical y signos de uremia"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Criterios diagnósticos y laboratorio",
+      "regular": "Solicita creatinina",
+      "suficiente": "Solicita laboratorio (hemograma, urea, creatinina, ionograma, estado ácido-base, glucemia, orina completa y sedimento, sodio urinario/FENa), electrocardiograma y ecografía renovesical"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea insuficiencia renal",
+      "suficiente": "Diagnostica insuficiencia renal aguda prerrenal por deshidratación (criterios KDIGO; FENa menor de 1 %) con hiperpotasemia y acidosis metabólica, y plantea los otros tipos (parenquimatosa y posrenal)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Internación y monitoreo",
+      "regular": "Indica internación",
+      "suficiente": "Indica internación, control de presión cada 2 horas, sonda vesical y control estricto de diuresis cada 2 horas"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Rehidratación",
+      "regular": "Indica hidratación sin esquema",
+      "suficiente": "Indica solución fisiológica 0,9 %: 500 ml en bolo y 1 litro en 4 horas, ajustando según respuesta clínica (aproximadamente 35 gotas por minuto de mantenimiento)"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Suspensión de medicación",
+      "regular": "Suspende uno",
+      "suficiente": "Suspende el enalapril, la hidroclorotiazida y los antiinflamatorios hasta recuperar la función renal"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Hiperpotasemia y acidosis",
+      "regular": "Menciona el potasio",
+      "suficiente": "Controla el potasio y el electrocardiograma, trata la hiperpotasemia (gluconato de calcio, insulina con glucosa) si es necesario y repite ionograma y creatinina a las 24 horas, corrigiendo la acidosis"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Vigilancia de sobrecarga y criterios de diálisis",
+      "regular": "Menciona uno",
+      "suficiente": "Vigila la sobrecarga de volumen (yugulares, galope, crepitantes) y reconoce las indicaciones de diálisis (acidosis refractaria, potasio mayor de 6,5, sobrecarga, uremia)"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación y educación al alta",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Explica con lenguaje claro que los riñones dejaron de funcionar por la pérdida de líquidos y se recuperan con tratamiento, y educa sobre hidratación en cuadros digestivos, signos de alarma y evitar antiinflamatorios"
+    }
+  ]
+}

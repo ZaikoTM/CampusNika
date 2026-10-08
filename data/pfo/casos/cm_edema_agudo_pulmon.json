@@ -1,0 +1,158 @@
+{
+  "id": "cm_edema_agudo_pulmon",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Disnea súbita con esputo rosado y espumoso: edema agudo de pulmón",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Ramón Rodríguez, de 68 años, concurre a la guardia acompañado por su hija Fátima, de 40 años, quien refiere que hace 1 hora su padre comenzó con dificultad respiratoria intensa, de inicio súbito, que empeoró progresivamente y lo obligó a mantenerse sentado para respirar mejor. También presenta sensación de opresión torácica y tos con esputo espumoso y rosado. Es hipertenso mal controlado desde hace 20 años. Hace 5 años sufrió un infarto agudo de miocardio. Su último ecocardiograma mostró una FEVI de 35 %. Medicación habitual (a veces la toma): enalapril 20 mg por día, furosemida 40 mg por día, atorvastatina 20 mg por día y bisoprolol 2,5 mg por día. Signos vitales: TA 190/120 mmHg, FC 115 por minuto (irregular), FR 26 por minuto, saturación 89 % al aire ambiente, temperatura 36,5 °C.",
+  "objetivos": [
+    "Realizar una breve anamnesis al paciente o al familiar.",
+    "Solicitar los estudios complementarios si lo considera necesario.",
+    "Explicar a la familia la impresión diagnóstica.",
+    "Indicar el tratamiento adecuado."
+  ],
+  "interlocutor": "Fátima, 40 años, hija del paciente (habla ella; asustada; el paciente solo responde con frases cortas)",
+  "guion_paciente": "Fátima Rodríguez, 40 años, hija del paciente, que lo trajo en auto. Hace una hora su padre se despertó ahogado, sin poder respirar acostado, y se sentó; tose y larga un esputo espumoso y rosado. Tiene sensación de opresión en el pecho. Sudoroso y muy asustado. No usa oxígeno en casa. Es la primera vez que tiene algo así tan fuerte, pero en el último año se internó una vez «por el corazón» (hace 6 meses). Hasta hace unos días podía hacer sus cosas en casa (caminar, ir a la esquina). Las piernas están hinchadas desde hace unos días. Hace 3 días tuvo tos y flemas con algo de fiebre (se medicó con paracetamol); ahora sin fiebre. Dejó el bisoprolol y el enalapril hace una semana («se le acabaron») y no los compró. Nunca le dijeron que tuviera EPOC o asma. No tomó antiinflamatorios. No tiene alergias conocidas.\nEl paciente, con voz entrecortada, solo confirma lo que dice su hija.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Paciente en posición de trípode, ansioso, sudoroso, con cianosis distal. TA 190/120 mmHg, FC 115 por minuto irregular, FR 26 por minuto con tiraje, saturación 89 %, temperatura 36,5 °C. Ingurgitación yugular marcada a 45°. Pulmones: crepitantes bilaterales hasta los campos medios, matidez bilateral en las bases, con algunos sibilantes. Cardíaco: ritmo irregular, R3, sin soplos. Miembros inferiores: edemas hasta las rodillas, extremidades calientes y húmedas (perfil «caliente y húmedo»), pulsos distales presentes y simétricos.",
+  "estudios": [
+    {
+      "clave": "ecg",
+      "texto": "Electrocardiograma: fibrilación auricular con respuesta ventricular rápida a 120 por minuto; ondas T invertidas en precordiales izquierdas."
+    },
+    {
+      "clave": "rx_torax",
+      "texto": "Radiografía de tórax: cardiomegalia; infiltrados alveolares bilaterales en «alas de mariposa»; posible derrame pleural secundario."
+    },
+    {
+      "clave": "hgt",
+      "texto": "Glucemia capilar: 156 mg/dl."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Estado ácido-base: pH 7,33, pCO2 36, pO2 54, bicarbonato 20, lactato 2,4. Troponina I 0,09 ng/ml (levemente elevada; repetir a las 3 horas), CPK normal, CPK-MB normal. Hemograma: leucocitos 11.500/mm³, hemoglobina 12,8 g/dl. Glucemia 158 mg/dl. Urea 58 mg/dl, creatinina 1,4 mg/dl, sodio 134 mEq/L, potasio 4,2 mEq/L."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No iniciar de inmediato oxígeno, diurético endovenoso y posición sentada ante un edema agudo de pulmón",
+    "Indicar un betabloqueante endovenoso o un antiarrítmico con efecto inotrópico negativo en un paciente con edema agudo de pulmón y fracción de eyección reducida",
+    "Indicar líquidos endovenosos en cargas de volumen"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Inicio y evolución",
+      "regular": "Indaga el inicio",
+      "suficiente": "Indaga cuándo y cómo empezó, la ortopnea, si es la primera vez, internaciones y limitación previa"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Causa de la descompensación",
+      "regular": "Indaga una causa",
+      "suficiente": "Indaga adherencia o abandono de medicación, infección reciente (fiebre, tos), medicación diferente a la habitual, dolor de pecho y palpitaciones"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Diagnósticos diferenciales",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga antecedentes de EPOC, asma y uso de oxígeno domiciliario; edemas"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Eficiencia en la emergencia",
+      "regular": "Hace la anamnesis antes de actuar",
+      "suficiente": "Aclara que tratará la emergencia mientras pregunta, sin demorar el tratamiento"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y monitoreo",
+      "regular": "Menciona algún signo",
+      "suficiente": "Reconoce hipertensión grave, taquicardia irregular, taquipnea e hipoxemia, y solicita monitoreo con electrocardiograma continuo y saturación"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen físico dirigido",
+      "regular": "Realiza una parte",
+      "suficiente": "Observa la posición, cianosis, yugulares, crepitantes, matidez en bases, ritmo y ruidos cardíacos, edemas y perfusión periférica"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Estudios complementarios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita electrocardiograma, radiografía de tórax, glucemia capilar y laboratorio con estado ácido-base, troponinas y rutina"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico",
+      "regular": "Plantea insuficiencia cardíaca",
+      "suficiente": "Diagnostica edema agudo de pulmón por insuficiencia cardíaca descompensada, agravada por hipertensión grave y fibrilación auricular con respuesta ventricular rápida, y lo explica a la familia"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Posición y oxígeno",
+      "regular": "Indica oxígeno",
+      "suficiente": "Posición sentada a 45° con las piernas colgando y oxígeno con máscara con reservorio al 100 % para saturación mayor de 90 %, considerando ventilación no invasiva si no responde"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Furosemida y sonda vesical",
+      "regular": "Indica furosemida sin dosis",
+      "suficiente": "Indica furosemida 40 a 80 mg por vía endovenosa en bolo y sonda vesical con control de ingresos y egresos"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Vasodilatador y morfina",
+      "regular": "Indica uno",
+      "suficiente": "Indica nitroglicerina endovenosa (inicio 10 µg por minuto, titulando por la tensión arterial) por la hipertensión, y morfina 2 mg por vía endovenosa"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Fibrilación auricular y enfermedad de base",
+      "regular": "Menciona el control del ritmo",
+      "suficiente": "Controla la frecuencia o el ritmo con un fármaco adecuado al cuadro (por ejemplo amiodarona o digoxina, evitando los inotrópicos negativos) y trata la enfermedad de base (hipertensión, isquemia, infección)"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Escalada y derivación",
+      "regular": "Menciona la derivación",
+      "suficiente": "Prevé hipotensión (dobutamina), necesidad de ventilación no invasiva o intubación, internación en cuidados críticos e interconsulta con cardiología"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación a la familia",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Se presenta, explica qué le pasó, cómo está, qué se hizo y cómo se sigue con lenguaje claro y empático, y pregunta si tienen dudas"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "id": "cm_tuberculosis",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Tos de tres semanas en un trabajador forestal: tuberculosis pulmonar",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Centro de salud",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Se acerca a la consulta el señor Julio Chávez, de 29 años, porque desde hace aproximadamente 3 semanas está con mucha tos; incluso se quedó sin trabajo en el monte (es jornalero de una cuadrilla forestal motosierrista) porque el patrón lo veía siempre sentado y no podía seguir el ritmo habitual de trabajo. Controles de enfermería: temperatura 37,7 °C, FC 90 por minuto, TA 110/60 mmHg, FR 24 por minuto, saturación 95 %, peso 61 kg, talla 1,74 m, IMC 20. Examen físico: adenopatías cervicales levemente dolorosas; aparato respiratorio con rales subcrepitantes bilaterales a predominio derecho e hipoventilación en el campo medio y superior derecho; abdomen sin organomegalias.",
+  "objetivos": [
+    "Realizar una breve anamnesis.",
+    "Solicitar los estudios complementarios en caso de creerlo necesario.",
+    "Indicar tratamiento y seguimiento.",
+    "Indicar, si fuera necesario, algún estudio a los contactos."
+  ],
+  "interlocutor": "Julio Chávez, 29 años, jornalero forestal (habla él, en primera persona; tose durante la consulta, avergonzado por haber perdido el trabajo)",
+  "guion_paciente": "Julio Chávez, 29 años, motosierrista en una cuadrilla forestal. Hace 3 semanas tose mucho; al principio seca, ahora con catarro amarillento y algunas veces con un hilito de sangre. Se levanta empapado de transpiración por las noches, tiene fiebre por las tardes (no se la midió), perdió unos 6 kg en dos meses, está muy cansado y le falta un poco el aire al esfuerzo. Sin dolor de pecho importante, sin vómitos ni diarrea, sin lesiones en la piel. Consultó hace 10 días en una salita y le dieron amoxicilina 500 mg por 7 días: no mejoró. No le hicieron radiografía ni análisis. Nunca tuvo tuberculosis. Compañero de la cuadrilla con tos hace meses (no sabe si se trató).\nAntecedentes: sin enfermedades crónicas conocidas (no sabe si tiene HIV, nunca se testeó), sin medicación, sin alergias, sin cirugías. BCG: tiene la cicatriz en el brazo. Fuma 10 cigarrillos por día hace 10 años; toma alcohol los fines de semana (varios litros de cerveza); sin otras drogas. Relaciones sexuales con su pareja estable.\nVivienda: vive en un rancho de dos ambientes con su pareja, Lorena (26), y su hijo Tomás, de 2 años; duermen todos en la misma habitación; tiene un hermano que lo visita seguido. En el monte duerme en un campamento con otros 8 trabajadores. Puede dar teléfono y dirección. Acepta que lo visite un agente sanitario.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "Controles: temperatura 37,7 °C, FC 90 por minuto, TA 110/60 mmHg, FR 24, saturación 95 %, peso 61 kg, talla 1,74 m, IMC 20. Aspecto delgado, tose con frecuencia. Adenopatías cervicales levemente dolorosas (submandibulares y laterales, de 1 cm). Respiratorio: rales subcrepitantes bilaterales a predominio derecho; hipoventilación y submatidez en campo medio y superior derecho. Cardiovascular normal. Abdomen sin organomegalias. Sin lesiones de piel.",
+  "estudios": [
+    {
+      "clave": "baciloscopia",
+      "texto": "[BORRADOR] Baciloscopía de esputo (Ziehl-Neelsen): primera muestra positiva (++), segunda muestra positiva (+++). Se informa si el alumno pide el resultado."
+    },
+    {
+      "clave": "rx_torax",
+      "texto": "[BORRADOR] Radiografía de tórax: infiltrados nodulares con cavitación en el lóbulo superior derecho, retracción hiliar derecha; sin derrame pleural."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: hemoglobina 12,3 g/dl, leucocitos 9.800/mm³, VSG 85 mm en la primera hora. Glucemia 92 mg/dl. Urea 26, creatinina 0,8 mg/dl. Hepatograma: GOT 28, GPT 30 U/L (basal para el tratamiento). LDH levemente aumentada. Serologías: HIV no reactivo, VDRL no reactivo, hepatitis B y C negativas."
+    },
+    {
+      "clave": "ppd",
+      "texto": "PPD (si la realiza): se lee a las 48 a 72 horas; induración de 14 mm (positiva)."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "No sospechar tuberculosis en un sintomático respiratorio con tos de más de 15 días, sudoración nocturna y pérdida de peso",
+    "Indicar un esquema antituberculoso incorrecto o dosis sin ajustar al peso",
+    "No indicar el estudio de contactos y la notificación, sobre todo con un niño pequeño conviviente"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Tos y fiebre",
+      "regular": "Indaga la tos",
+      "suficiente": "Indaga tiempo de evolución, características de la tos y del esputo, hemoptisis, fiebre vespertina, sudoración nocturna y tratamientos o consultas previas"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas generales",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga pérdida de peso, astenia, disnea, dolor torácico, adenopatías y síntomas de otros aparatos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y factores de riesgo",
+      "regular": "Indaga uno o dos",
+      "suficiente": "Indaga tuberculosis previa o contacto, VIH, diabetes, BCG, medicación, alergias, tabaco, alcohol y otras sustancias"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Vivienda y contactos",
+      "regular": "Indaga con quién vive",
+      "suficiente": "Indaga con quién vive, dónde duerme, ventilación, trabajo, contactos enfermos, y pide teléfono y dirección para el seguimiento"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Interpretación de signos vitales y examen físico",
+      "regular": "Interpreta algunos",
+      "suficiente": "Interpreta fiebre baja, taquipnea, bajo peso, rales y submatidez apical derecha, y adenopatías"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Diagnóstico presuntivo",
+      "regular": "Plantea una infección pulmonar",
+      "suficiente": "Plantea tuberculosis pulmonar y la explica con lenguaje claro (infección por Mycobacterium tuberculosis, transmisión aérea, tratable)"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Baciloscopías",
+      "regular": "Solicita la baciloscopía",
+      "suficiente": "Solicita dos baciloscopías (una en la consulta y otra matinal) y explica cómo tomar la muestra"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Otros estudios",
+      "regular": "Solicita algunos",
+      "suficiente": "Solicita radiografía de tórax, laboratorio con hepatograma y serologías (VIH, VDRL, hepatitis), PPD y, si la baciloscopía es negativa, cultivo y antibiograma (o GeneXpert)"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Esquema terapéutico",
+      "regular": "Indica fármacos sin fases",
+      "suficiente": "Indica 2 meses con isoniazida, rifampicina, pirazinamida y etambutol (en un solo comprimido) y 4 meses con isoniazida y rifampicina, una toma diaria"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Dosis por peso",
+      "regular": "Menciona algunas dosis",
+      "suficiente": "Calcula las dosis para 61 kg: isoniazida 5 mg/kg (300 mg), rifampicina 10 mg/kg (600 mg), pirazinamida 25 a 30 mg/kg y etambutol 15 a 20 mg/kg, respetando los máximos"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Tratamiento supervisado y controles",
+      "regular": "Menciona uno",
+      "suficiente": "Indica tratamiento directamente observado por un agente sanitario y controles clínicos mensuales, y radiografía, laboratorio y baciloscopía a los 2 y 6 meses"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Notificación y recomendaciones",
+      "regular": "Da una de las dos",
+      "suficiente": "Notifica el caso confirmado y recomienda barbijo, habitación separada, ventilación, higiene de manos, no compartir objetos y no fumar"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Estudio de contactos",
+      "regular": "Menciona a los contactos",
+      "suficiente": "Estudia a los convivientes de los últimos 3 meses con PPD y radiografía, y explica la quimioprofilaxis (isoniazida 5 mg/kg por día, 10 mg/kg en niños, durante 6 meses) para el hijo y los contactos sin enfermedad activa"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Efectos adversos y comunicación",
+      "regular": "Menciona uno",
+      "suficiente": "Advierte efectos adversos (hepatotoxicidad, neuropatía, neuritis óptica, artralgias), la importancia de no abandonar, la vitamina B6 si corresponde, y pregunta si tiene dudas"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "id": "cm_acv_isquemico",
+  "area": "clinica_medica",
+  "estado": "borrador",
+  "nombre": "Hemiparesia y disartria de inicio agudo: ACV isquémico",
+  "duracionMin": 10,
+  "tipo": "dinámica",
+  "contexto": "Guardia",
+  "instrumento": "Paciente estandarizado",
+  "situacion": "Son las 11:10 horas. Usted se encuentra de guardia en el servicio de guardia externa del hospital. Informan desde recepción que en la sala de espera se encuentra un paciente llamado Miguel López, de 65 años, tabaquista severo, con antecedentes de hipertensión arterial, dislipemia y diabetes tipo 2. La familia refiere que es poco adherente al tratamiento farmacológico. Al interrogatorio, el paciente tiene dificultad para expresarse y el familiar cuenta que siente pesado el lado izquierdo del cuerpo, le cuesta hablar y nota que la saliva se escurre por el labio izquierdo. Signos vitales: TA 210/120 mmHg, FC 100 por minuto, saturación 98 % al aire ambiente, temperatura 37 °C.",
+  "objetivos": [
+    "Interpretar correctamente la signo-sintomatología del paciente y elaborar una impresión diagnóstica.",
+    "Solicitar e interpretar correctamente los estudios complementarios dirigidos a la patología.",
+    "Establecer una conducta terapéutica adecuada.",
+    "Comunicar de forma clara a la familia el diagnóstico presuntivo y las características del cuadro."
+  ],
+  "interlocutor": "Rosa López, 62 años, esposa del paciente (habla ella; angustiada; el paciente emite palabras sueltas y no puede dar la hora de inicio)",
+  "guion_paciente": "Rosa López, 62 años, esposa. A las 10:00 su marido estaba bien, tomando mate y mirando el noticiero en el comedor (lo vio normal, hablando con ella). Hacia las 10:15 se levantó a servirse agua, se le cayó el vaso de la mano izquierda, la cara se le torció hacia la derecha y empezó a hablar «enredado»; el lado izquierdo del cuerpo está pesado y flojo; no puede levantar el brazo ni la pierna izquierdos; babea. No se golpeó la cabeza. Sin convulsiones, sin vómitos, sin pérdida del conocimiento, sin dolor de cabeza previo ni visión doble. Es la primera vez que le pasa. Lo trajo en el auto de su hijo y llegaron a las 11:05.\nAntecedentes: hipertensión hace 15 años (enalapril, lo toma a veces), dislipemia, diabetes tipo 2 (metformina, la deja seguido); fuma 30 cigarrillos por día hace 40 años; alcohol moderado. Sin infarto ni fibrilación auricular conocidos. No toma anticoagulantes (ni aspirina). Sin cirugías ni traumatismos recientes (último año), sin sangrados digestivos, sin ACV previo ni aneurismas, sin cáncer. Sin alergias. Última consulta médica hace un año. Tiene dos hijos, uno de ellos está en la sala de espera.\nPara datos no especificados: respondé con valores normales y negativos.",
+  "datos_clinicos": "TA 210/120 mmHg, FC 100 por minuto (regular), saturación 98 %, temperatura 37 °C, glucemia capilar 188 mg/dl. Despierto, desorientado en tiempo, orientado en persona; obedece órdenes simples. Mirada conjugada hacia la derecha, hemianopsia homónima izquierda, paresia facial central izquierda, paresia braquiocrural izquierda (fuerza 2/5 en brazo y 3/5 en pierna) con signo de Babinski izquierdo, hipoestesia izquierda, disartria, heminegligencia izquierda. NIHSS aproximado: 14. Escala de Cincinnati: 3 de 3 (paresia facial, caída del brazo, alteración del lenguaje). Cardiovascular: ruidos regulares, sin soplos; soplo carotídeo derecho. Respiratorio normal. Abdomen normal.",
+  "estudios": [
+    {
+      "clave": "hgt",
+      "texto": "Glucemia capilar: 188 mg/dl (valor ideal en la fase aguda: 140 a 180)."
+    },
+    {
+      "clave": "tac",
+      "texto": "[BORRADOR] Tomografía de encéfalo sin contraste (en la primera hora): sin hemorragia; signo de la arteria cerebral media derecha hiperdensa; borramiento de surcos y pérdida de la diferenciación entre sustancia gris y blanca en el territorio de la arteria cerebral media derecha (ASPECTS 8). Sin efecto de masa."
+    },
+    {
+      "clave": "laboratorio",
+      "texto": "[BORRADOR] Hemograma: plaquetas 240.000/mm³. Coagulograma: RIN 1,0, KPTT normal. Glucemia 190 mg/dl. Urea 36, creatinina 1,0 mg/dl, ionograma normal. CPK y troponinas normales. Colesterol total 230 mg/dl. Estado ácido-base normal. Sedimento urinario normal."
+    },
+    {
+      "clave": "ecg",
+      "texto": "[BORRADOR] Electrocardiograma: ritmo sinusal a 98 por minuto, hipertrofia ventricular izquierda, sin fibrilación auricular ni signos de isquemia aguda."
+    }
+  ],
+  "umbral_aprobacion": 60,
+  "errores_criticos": [
+    "Administrar antiagregantes o anticoagulantes antes de realizar la tomografía y de definir la candidatura a fibrinólisis",
+    "No determinar la hora de inicio (hora 0) ni verificar las contraindicaciones antes de indicar el activador tisular del plasminógeno",
+    "Descender bruscamente o dejar sin control la presión arterial, en especial con valores superiores a 185/110 mmHg si va a recibir fibrinólisis"
+  ],
+  "rubrica": [
+    {
+      "id": 1,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Hora de inicio (hora 0)",
+      "regular": "Pregunta cuándo empezó",
+      "suficiente": "Determina la última vez que lo vieron bien (hora 0), cómo empezó, qué empezó primero, dónde estaba y si fue súbito"
+    },
+    {
+      "id": 2,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Síntomas asociados",
+      "regular": "Indaga dos o tres",
+      "suficiente": "Indaga cefalea previa, palpitaciones, visión borrosa, dolor de cuello, fiebre, convulsiones, alteración de la conciencia, síncope y vómitos"
+    },
+    {
+      "id": 3,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Contraindicaciones de la fibrinólisis",
+      "regular": "Indaga algunas",
+      "suficiente": "Indaga ACV o AIT en los últimos 3 meses, anticoagulantes, sangrado activo, cirugías y traumatismos recientes, cáncer o aneurismas, lesiones intracraneales y embarazo"
+    },
+    {
+      "id": 4,
+      "bloque": "Anamnesis",
+      "max": 5,
+      "texto": "Antecedentes y adherencia",
+      "regular": "Indaga uno",
+      "suficiente": "Indaga enfermedades crónicas, medicación y adherencia, tabaco, alcohol, cocaína, internaciones previas, alergias y última consulta"
+    },
+    {
+      "id": 5,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Signos vitales y glucemia",
+      "regular": "Toma uno",
+      "suficiente": "Toma signos vitales, glucemia capilar de inmediato (menor de 50 o mayor de 400 contraindica) y reconoce la hipertensión severa"
+    },
+    {
+      "id": 6,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Examen neurológico (NIHSS)",
+      "regular": "Examina alguna función",
+      "suficiente": "Evalúa conciencia, órdenes, mirada, campo visual, paresia facial, fuerza de los miembros, ataxia, sensibilidad, lenguaje, disartria y heminegligencia, y calcula la escala NIHSS"
+    },
+    {
+      "id": 7,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Impresión diagnóstica",
+      "regular": "Plantea un ACV",
+      "suficiente": "Plantea ACV isquémico agudo en el territorio de la arteria cerebral media derecha (cualquier déficit focal súbito es un ACV hasta que se demuestre lo contrario) y menciona los imitadores"
+    },
+    {
+      "id": 8,
+      "bloque": "Evaluación",
+      "max": 5,
+      "texto": "Imágenes y estudios",
+      "regular": "Solicita la tomografía",
+      "suficiente": "Solicita tomografía de encéfalo sin contraste en la primera hora, electrocardiograma, laboratorio con coagulograma y, si corresponde, angiotomografía o resonancia"
+    },
+    {
+      "id": 9,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Manejo inicial",
+      "regular": "Indica internación",
+      "suficiente": "Indica ABCDE, internación en observación, nada por boca, dos vías periféricas (no en el brazo parético), signos vitales, sonda vesical y oxígeno si lo necesita"
+    },
+    {
+      "id": 10,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Control de la presión arterial",
+      "regular": "Menciona la meta",
+      "suficiente": "Con fibrinólisis mantiene la presión menor de 180/110 mmHg con labetalol 20 mg por vía endovenosa; sin fibrinólisis permite hasta 220/120 mmHg"
+    },
+    {
+      "id": 11,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Fibrinólisis",
+      "regular": "Menciona alteplasa",
+      "suficiente": "Dentro de las 4,5 horas y sin contraindicaciones, indica alteplasa 0,9 mg/kg (máximo 90 mg): 10 % en 1 minuto y 90 % en 60 minutos, tras la tomografía, y explica trombectomía mecánica si hay oclusión de gran vaso"
+    },
+    {
+      "id": 12,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Antitrombóticos y estatina",
+      "regular": "Indica antiagregación",
+      "suficiente": "Indica aspirina 300 mg y clopidogrel 600 mg (a las 24 horas si recibió alteplasa, de inmediato en caso contrario) y atorvastatina 80 mg; evalúa la anticoagulación a las 24 horas según CHA2DS2-VASc y NIHSS"
+    },
+    {
+      "id": 13,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Glucemia, rehabilitación e interconsulta",
+      "regular": "Menciona una",
+      "suficiente": "Controla la glucemia (objetivo de 140 a 180), indica la medicación habitual (insulina corregida) y solicita neurología, cardiología y rehabilitación motora precoz"
+    },
+    {
+      "id": 14,
+      "bloque": "Conducta",
+      "max": 10,
+      "texto": "Comunicación a la familia",
+      "regular": "Explica sin verificar comprensión",
+      "suficiente": "Se presenta, explica qué es un ACV isquémico, por qué las primeras horas son cruciales, qué se hizo y cómo se sigue, con lenguaje claro y empático, y pregunta si tienen dudas"
+    }
+  ]
+}
