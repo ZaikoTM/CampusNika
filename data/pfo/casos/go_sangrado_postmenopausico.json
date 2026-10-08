@@ -1,7 +1,7 @@
 {
   "id": "go_sangrado_postmenopausico",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Sangrado posmenopáusico: estudios y diagnósticos diferenciales",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -109,7 +109,7 @@
       "max": 10,
       "texto": "Diagnóstico de certeza",
       "regular": "Menciona la biopsia",
-      "suficiente": "Solicita biopsia de endometrio o histeroscopia con biopsia por endometrio mayor de 4 a 5 mm y deriva a ginecología oncológica si es necesario"
+      "suficiente": "Solicita biopsia de endometrio (o derivación para histeroscopia con biopsia) explicando que un endometrio mayor de 4 mm en la posmenopausia requiere estudio histológico, y deriva a ginecología si es necesario"
     },
     {
       "id": 10,
@@ -117,7 +117,7 @@
       "max": 10,
       "texto": "Laboratorio",
       "regular": "Solicita algunos",
-      "suficiente": "Solicita hemograma, glucemia, urea, creatinina, coagulograma, ionograma, hepatograma, TSH y perfil hormonal si corresponde"
+      "suficiente": "Solicita hemograma, glucemia, urea, creatinina, coagulograma, ionograma, hepatograma y TSH (sin perfil hormonal, que no aporta en la posmenopausia)"
     },
     {
       "id": 11,
