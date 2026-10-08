@@ -5506,11 +5506,22 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
                 const just = ta.value.trim();
                 if (just.length < 10) { showToast('Contanos un poco más el error (mínimo 10 caracteres).'); return; }
                 if (!window.SyncManager || !SyncManager.userIdCacheado()) { showToast('Iniciá sesión para reportar una errata.'); return; }
+                // Envío directo: así el alumno ve el error real si algo falla. Solo sin señal se guarda en la cola para reintentar.
+                const payload = { preguntaTexto: `[${etiquetaUp}] ${q.q}`, justificacion: just };
+                const btnEnviar = document.getElementById('errata-send'); btnEnviar.disabled = true;
                 try {
-                    await SyncManager.encolar('errata', { preguntaTexto: `[${etiquetaUp}] ${q.q}`, justificacion: just });
-                    ov.style.display = 'none';
-                    showToast(SyncManager.estaOffline() ? '🚩 Errata guardada. Se enviará al volver la señal.' : '🚩 ¡Gracias! Errata enviada.');
+                    let enviada = false, detalle = '';
+                    if (!SyncManager.estaOffline() && window.NikaSupabase && typeof NikaSupabase.reportarErrata === 'function') {
+                        const r = await NikaSupabase.reportarErrata(payload.preguntaTexto, payload.justificacion);
+                        if (r && !r.error) enviada = true; else detalle = (r && r.error && (r.error.message || r.error.details)) || 'error desconocido';
+                    }
+                    if (enviada) { ov.style.display = 'none'; showToast('🚩 ¡Gracias! Errata enviada al administrador.'); }
+                    else if (SyncManager.estaOffline() || /fetch|network|failed to|load failed/i.test(detalle)) {
+                        await SyncManager.encolar('errata', payload); ov.style.display = 'none';
+                        showToast('🚩 Errata guardada. Se enviará al volver la señal.');
+                    } else showToast('No se pudo enviar la errata: ' + detalle);
                 } catch (e) { showToast('No se pudo registrar la errata: ' + e.message); }
+                finally { btnEnviar.disabled = false; }
             };
         }
 
@@ -5827,6 +5838,8 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             toggleFlag, toggleNotes, saveNote, openHelpModal, closeHelpModal, openReportModal,
             closeReportModal, submitReport, triggerConfetti, confirmarCancelacionExamen, toggleRevisionDetallada
         });
+        // Una vez por sesión se reintenta lo que quedó trabado en la cola (por ejemplo erratas que antes fallaban)
+        window.addEventListener('load', () => setTimeout(() => { try { if (window.SyncManager && !sessionStorage.getItem('nika_sync_reintento')) { sessionStorage.setItem('nika_sync_reintento', '1'); SyncManager.sincronizarAhora({ manual: true }); } } catch (_) {} }, 4000));
 
         // ==========================================
         // BLINDAJE MODO DEMO: Interceptar navegación
