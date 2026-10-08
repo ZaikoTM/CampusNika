@@ -1,7 +1,7 @@
 {
   "id": "go_sifilis",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Resultado de laboratorio con VDRL y FTA-ABS reactivos: sífilis",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -26,7 +26,7 @@
   "errores_criticos": [
     "Indicar un esquema de penicilina incompleto o doxiciclina a una paciente no alérgica",
     "No notificar el caso ni estudiar y tratar a los contactos sexuales",
-    "No advertir la reacción de Jarisch-Herxheimer ni dar pautas de seguimiento serológico"
+    "No dar pautas de seguimiento serológico cuantitativo (VDRL), lo que impide confirmar la curación o detectar una reinfección"
   ],
   "rubrica": [
     {
