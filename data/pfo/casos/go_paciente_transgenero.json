@@ -1,7 +1,7 @@
 {
   "id": "go_paciente_transgenero",
   "area": "gineco_obstetricia",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Consulta de una mujer trans que desea iniciar hormonización",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -108,7 +108,7 @@
       "max": 10,
       "texto": "Opciones hormonales",
       "regular": "Describe una",
-      "suficiente": "Explica la feminización hormonal con antiandrógenos (acetato de ciproterona) y estrógenos (vía oral, parches, gel o inyección), los cambios esperados, el tiempo (inicio a los 3 meses, estabilización en 3 a 5 años) y los riesgos"
+      "suficiente": "Explica la feminización hormonal con antiandrógenos (espironolactona o ciproterona) y estrógenos (vía oral, parches o gel), advirtiendo el riesgo tromboembólico asociado a su tabaquismo (sugiriendo cesación o vía transdérmica), y los tiempos de los cambios físicos"
     },
     {
       "id": 11,
@@ -131,8 +131,8 @@
       "bloque": "Conducta",
       "max": 10,
       "texto": "Estudios e interconsultas",
-      "regular": "Solicita algunos",
-      "suficiente": "Solicita laboratorio (hemograma, glucemia, perfil lipídico, hepatograma, función renal, orina, TSH, T4 libre, prolactina, hormonas), serologías de ITS con consentimiento y electrocardiograma; interconsultas con psicología, endocrinología, fonoaudiología, oftalmología y odontología"
+      "regular": "Solicita algunos estudios",
+      "suficiente": "Solicita laboratorio basal (hemograma, glucemia, perfil lipídico, hepatograma, función renal, orina, prolactina, hormonas), serologías de ITS y electrocardiograma; ofrece derivación a endocrinología o fonoaudiología si la paciente lo desea (no exige evaluación psicológica previa)"
     },
     {
       "id": 14,
