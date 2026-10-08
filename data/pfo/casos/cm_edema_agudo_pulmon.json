@@ -1,7 +1,7 @@
 {
   "id": "cm_edema_agudo_pulmon",
   "area": "clinica_medica",
-  "estado": "borrador",
+  "estado": "auditado",
   "nombre": "Disnea súbita con esputo rosado y espumoso: edema agudo de pulmón",
   "duracionMin": 10,
   "tipo": "dinámica",
@@ -38,7 +38,7 @@
   "umbral_aprobacion": 60,
   "errores_criticos": [
     "No iniciar de inmediato oxígeno, diurético endovenoso y posición sentada ante un edema agudo de pulmón",
-    "Indicar un betabloqueante endovenoso o un antiarrítmico con efecto inotrópico negativo en un paciente con edema agudo de pulmón y fracción de eyección reducida",
+    "Indicar verapamilo, diltiazem o un betabloqueante endovenoso para controlar la frecuencia en un paciente con edema agudo de pulmón y fracción de eyección reducida",
     "Indicar líquidos endovenosos en cargas de volumen"
   ],
   "rubrica": [
@@ -136,7 +136,7 @@
       "max": 10,
       "texto": "Fibrilación auricular y enfermedad de base",
       "regular": "Menciona el control del ritmo",
-      "suficiente": "Controla la frecuencia o el ritmo con un fármaco adecuado al cuadro (por ejemplo amiodarona o digoxina, evitando los inotrópicos negativos) y trata la enfermedad de base (hipertensión, isquemia, infección)"
+      "suficiente": "Controla la frecuencia de la fibrilación auricular con amiodarona endovenosa o digoxina (no usa verapamilo ni diltiazem por su efecto inotrópico negativo con fracción de eyección de 35 %) y trata la enfermedad de base (hipertensión, isquemia, infección); no indica broncodilatadores de rutina"
     },
     {
       "id": 13,
