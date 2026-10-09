@@ -283,6 +283,13 @@
   }
 
   // ------------------------------------------------------------------ casos clínicos de práctica (estaciones)
+  // Fuentes y justificación de las respuestas modelo
+  function fuentesHtml(c) {
+    const est = c.verificacion || 'catedra';
+    const rot = { guia: ['ok', '✅ Contrastado con guías nacionales'], parcial: ['mid', '🟡 Parcialmente contrastado con guías nacionales'], catedra: ['no', '⚠️ Por ahora solo contrastado con el material de la cátedra'] }[est] || ['no', '⚠️ Sin contrastar'];
+    const lis = (c.fuentes || []).map((f) => `<li><a href="${esc(f.u)}" target="_blank" rel="noopener">${esc(f.t)}</a><span>${esc(f.d)}</span></li>`).join('');
+    return `<div class="pc-fuentes ${rot[0]}"><b>${rot[1]}</b>${lis ? `<ul>${lis}</ul>` : '<p>Faltan las guías profesionales de referencia: estas respuestas se basan en el material cargado de la cátedra y deben contrastarse antes de darlas por cerradas.</p>'}</div>`;
+  }
   let CASOS = [];
   function vistaCaso(id) {
     const c = CASOS.find((x) => x.id === id);
@@ -294,14 +301,14 @@
         <div class="pc-grid">
           <div class="pc-col">
             <article class="pc-card pc-sit"><h3>📋 Situación de partida</h3><p>${esc(c.situacion)}</p></article>
-            ${c.datos.length ? `<article class="pc-card"><h3>🩺 Datos clínicos</h3><div class="pc-datos">${c.datos.map((d, i) => `<div style="--d:${i}"><small>${esc(d.k)}</small><b>${esc(d.v)}</b></div>`).join('')}</div></article>` : ''}
+            ${c.datos.length ? `<article class="pc-card"><h3>🩺 Datos clínicos</h3><div class="pc-datos">${c.datos.map((d, i) => `<div style="--d:${i}${d.v.length > 40 ? ';grid-column:1/-1' : ''}"><small>${esc(d.k)}</small><b>${esc(d.v)}</b></div>`).join('')}</div></article>` : ''}
             ${c.laboratorio.length ? `<article class="pc-card"><h3>🧪 Estudios complementarios</h3><table class="pc-lab">${c.laboratorio.map((d) => `<tr><th>${esc(d.k)}</th><td>${esc(d.v)}</td></tr>`).join('')}</table></article>` : ''}
             ${c.recursos.length ? `<article class="pc-card"><h3>📚 Para repasar este caso</h3><div class="pc-rec">${c.recursos.map((r) => `<a href="${esc(r.url)}" target="_blank" rel="noopener">📄 ${esc(r.title)}</a>`).join('')}</div></article>` : ''}
           </div>
           <div class="pc-col">
             <article class="pc-card pc-est"><div class="pc-est-h"><h3>🎯 Tu estación</h3><button type="button" class="pfo-btn sec" id="pc-reloj"><span id="pc-t">▶ Empezar con reloj · ${c.minutos} min</span></button></div>
               <div class="pc-barra"><i id="pc-b"></i></div><small id="pc-p" class="pc-prog"></small>
-              <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label>${c.respuestas && c.respuestas[i] ? `<button type="button" class="pc-ver" data-r="${i}" aria-expanded="false">👁 Ver respuesta modelo</button><div class="pc-resp" id="pc-r${i}" hidden><div class="pc-borr">🧪 Borrador en revisión</div><ul>${c.respuestas[i].puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}</li>`).join('')}</ol>${c.verificar ? `<p class="pc-ver-nota">📖 <b>Para verificar:</b> ${esc(c.verificar)}</p>` : ''}
+              <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label>${c.respuestas && c.respuestas[i] ? `<button type="button" class="pc-ver" data-r="${i}" aria-expanded="false">👁 Ver respuesta modelo</button><div class="pc-resp" id="pc-r${i}" hidden><div class="pc-borr">🧪 Borrador en revisión</div><ul>${c.respuestas[i].puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}</li>`).join('')}</ol>${c.verificar ? `<p class="pc-ver-nota">📖 <b>Para verificar:</b> ${esc(c.verificar)}</p>` : ''}${fuentesHtml(c)}
               <p class="pc-nota">${c.tareasGenericas ? 'Este caso no trae consignas específicas: usá la estructura habitual de una estación. ' : ''}Resolvé cada punto <b>en voz alta</b>, como frente al evaluador, y tildalo cuando lo hayas dicho completo. No hay respuestas modelo: contrastá lo que dijiste con la bibliografía.</p>
               <div class="pc-fin" id="pc-fin" hidden><div class="big">🎉</div><h3>¡Estación completa!</h3><p>Resolviste todas las consignas. Ahora repasá la bibliografía y ponete a prueba con el simulador.</p><div class="pe-nav" style="justify-content:center"><a class="pfo-btn" href="pfo_ecoe.html">📝 Practicar en el simulador ECOE</a><a class="pfo-btn sec" href="estudio.html?modulo=pfo">Volver a la Sala de Estudio</a></div></div>
             </article>

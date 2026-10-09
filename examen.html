@@ -1017,6 +1017,7 @@
         <div class="card" id="funnel-step-1" style="display: none;">
             <div class="card-header">Paso 1 · ¿Qué querés rendir?</div>
             <div class="card-body">
+                <div id="funnel-pendiente" style="display:none;margin-bottom:16px;padding:12px 16px;border-radius:14px;background:rgba(14,165,233,.1);border:1px dashed rgba(14,165,233,.5);font-weight:700;font-size:.9rem"></div>
                 <p class="funnel-section-title">Año de cursada</p>
                 <div class="year-row" id="year-row"></div>
                 <div id="area-block" style="display: none;">
@@ -4360,11 +4361,26 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             }).join('');
         }
 
+        // Simulador elegido desde el menú lateral o la ventana de Simuladores del campus: primero se elige año y área,
+        // y recién entonces se sigue con ese simulador (con la misma configuración de siempre).
+        let _modalidadPendiente = null;
+        const SIMULADORES_CON_HUB = { choice: 'Simulador Choice', escrito: 'Simulador Escrito', pase_sala: 'Pase de Sala', shock_room: 'Shock Room', consultorio_legales: 'Consultorios y Legales' };
+        function reanudarModalidadPendiente() {
+            const mod = _modalidadPendiente; _modalidadPendiente = null;
+            const av = document.getElementById('funnel-pendiente'); if (av) av.style.display = 'none';
+            if (mod === 'choice' || mod === 'escrito') {
+                examMode = mod; aplicarModalidad(); mostrarPaso(3);
+            } else {
+                mostrarPaso(2);
+                seleccionarModoPrincipal(mod);
+            }
+        }
         function elegirArea(id) {
             const m = (_modulosCache || []).find((x) => x.id === id && x.estado === 'activo');
             if (!m) return;
             playSound('click');
             fijarContexto(m);
+            if (_modalidadPendiente) { reanudarModalidadPendiente(); return; }
             mostrarPaso(2);
         }
 
@@ -4489,6 +4505,19 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
                 const upParam = params.get('up');
                 if (upParam && document.querySelector(`#specific-up option[value="${upParam}"]`)) document.getElementById('specific-up').value = upParam;
                 mostrarPaso(3, { scroll: false });
+            } else if (SIMULADORES_CON_HUB[modalidadParam] && !deLaUrl && !funnelCtx.modulo && !(MODALIDADES_IA_DEEPLINK.includes(modalidadParam) && NikaCasoPersistencia.cargar())) {
+                // Acceso directo desde el menú o la ventana de Simuladores: primero año y área.
+                if (modoEsPremiumBloqueado(modalidadParam)) { irANikaMedPlus(); return; }
+                _modalidadPendiente = modalidadParam;
+                if (MODALIDADES_IA_DEEPLINK.includes(modalidadParam)) {
+                    // un F5 no debe volver a lanzar (ni cobrar) otro caso
+                    params.delete('modalidad');
+                    const qs = params.toString();
+                    history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
+                }
+                const av = document.getElementById('funnel-pendiente');
+                if (av) { av.innerHTML = '🎯 Vas a rendir <b>' + escaparHtml(SIMULADORES_CON_HUB[modalidadParam]) + '</b>. Elegí tu año y tu área para seguir.'; av.style.display = 'block'; }
+                mostrarPaso(1, { scroll: false });
             } else if (modalidadParam === 'choice' || modalidadParam === 'escrito') {
                 // Acceso directo desde el sidebar: salta Paso 1/2 y va directo a la
                 // configuración con la modalidad ya elegida (usa el último módulo

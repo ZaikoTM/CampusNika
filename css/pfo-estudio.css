@@ -167,3 +167,12 @@
 .pc-resp ul{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:.88rem;line-height:1.5}
 .pc-borr{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:#f59e0b;color:#fff}
 .pc-ver-nota{margin:12px 2px 0;padding:10px 12px;border-radius:12px;font-size:.8rem;line-height:1.5;background:color-mix(in srgb,#f59e0b 12%,transparent)}
+
+.pc-fuentes{margin-top:12px;padding:12px 14px;border-radius:14px;font-size:.82rem;line-height:1.5;border-left:4px solid #94a3b8;background:color-mix(in srgb,#94a3b8 10%,transparent)}
+.pc-fuentes.ok{border-color:#10b981;background:color-mix(in srgb,#10b981 10%,transparent)}
+.pc-fuentes.mid{border-color:#f59e0b;background:color-mix(in srgb,#f59e0b 11%,transparent)}
+.pc-fuentes.no{border-color:#ef4444;background:color-mix(in srgb,#ef4444 8%,transparent)}
+.pc-fuentes ul{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.pc-fuentes li a{font-weight:700;color:inherit;text-decoration:underline}
+.pc-fuentes li span{display:block;opacity:.85;margin-top:2px}
+.pc-fuentes p{margin:6px 0 0}

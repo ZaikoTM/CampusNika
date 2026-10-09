@@ -1162,6 +1162,8 @@ function openInlineViewer(url, title, element) {
 
     let embedUrl = url;
     let driveId = null;
+    let altVisores = null;     // visores alternativos para Slides y Docs
+    let abrirExterno = null;   // enlace para abrir el original en Google
 
     // 1. Detección de YouTube
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
@@ -1187,7 +1189,27 @@ function openInlineViewer(url, title, element) {
     else if (url.includes('docs.google.com/presentation/d/')) {
         const presId = url.split('/presentation/d/')[1]?.split('/')[0];
         if (presId) {
-            embedUrl = `https://docs.google.com/presentation/d/${presId}/embed?start=false&loop=false&delayms=3000`;
+            // Las presentaciones de la cátedra son archivos de Drive: el visor de archivo anda aun sin "publicar en la web".
+            // Si uno falla, el alumno puede probar el siguiente desde la barra de ayuda.
+            altVisores = [
+                { n: 'Visor de Drive', u: `https://drive.google.com/file/d/${presId}/preview` },
+                { n: 'Vista previa de Slides', u: `https://docs.google.com/presentation/d/${presId}/preview` },
+                { n: 'Presentación incrustada', u: `https://docs.google.com/presentation/d/${presId}/embed?start=false&loop=false&delayms=3000` }
+            ];
+            abrirExterno = `https://docs.google.com/presentation/d/${presId}/edit`;
+            embedUrl = altVisores[0].u;
+        }
+    }
+    // 4. Google Docs (documentos): la URL de edición no se puede incrustar; la vista previa sí
+    else if (url.includes('docs.google.com/document/d/')) {
+        const docId = url.split('/document/d/')[1]?.split('/')[0];
+        if (docId) {
+            altVisores = [
+                { n: 'Vista previa del documento', u: `https://docs.google.com/document/d/${docId}/preview` },
+                { n: 'Visor de Drive', u: `https://drive.google.com/file/d/${docId}/preview` }
+            ];
+            abrirExterno = `https://docs.google.com/document/d/${docId}/edit`;
+            embedUrl = altVisores[0].u;
         }
     }
 
@@ -1202,6 +1224,7 @@ function openInlineViewer(url, title, element) {
         configurarModoVisor(null);
         if (iframe) iframe.src = embedUrl;
     }
+    configurarAyudaVisor(altVisores, abrirExterno, iframe, wrapperEl);
     // Al sacar el mouse del video, el iframe pierde el foco: así YouTube oculta el icono de pausa y los controles y se puede tomar apuntes sin estorbo.
     if (iframe && !iframe._nikaSinFoco) {
         iframe._nikaSinFoco = true;
@@ -1214,6 +1237,26 @@ function openInlineViewer(url, title, element) {
         container.style.zIndex = '1';
         container.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
+}
+
+// Barra de ayuda para presentaciones y documentos de Google, que a veces no cargan embebidos
+function configurarAyudaVisor(alts, externo, iframe, wrapperEl) {
+    let barra = document.getElementById('nika-visor-ayuda');
+    if (!alts || !wrapperEl || !iframe) { if (barra) barra.style.display = 'none'; return; }
+    if (!barra) {
+        barra = document.createElement('div');
+        barra.id = 'nika-visor-ayuda';
+        barra.style.cssText = 'display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 14px;font-size:.8rem;background:rgba(14,165,233,.08);border-top:1px solid rgba(14,165,233,.25)';
+        wrapperEl.parentNode.insertBefore(barra, wrapperEl.nextSibling);
+    }
+    barra.style.display = 'flex';
+    const btn = 'border:1px solid rgba(14,165,233,.5);background:transparent;color:inherit;border-radius:999px;padding:5px 12px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .2s,background .2s';
+    barra.innerHTML = '<span style="font-weight:700">¿No carga? Probá otro visor:</span>' +
+        alts.map((v, i) => `<button type="button" data-i="${i}" style="${btn}">${v.n}</button>`).join('') +
+        (externo ? `<a href="${externo}" target="_blank" rel="noopener" style="${btn}">Abrir en Google ↗</a>` : '');
+    const marcar = (i) => barra.querySelectorAll('button').forEach((b) => { const on = Number(b.dataset.i) === i; b.style.background = on ? 'rgba(14,165,233,.22)' : 'transparent'; });
+    marcar(0);
+    barra.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { const i = Number(b.dataset.i); iframe.style.display = ''; iframe.src = alts[i].u; marcar(i); }));
 }
 
 // Selector "Lector NikaMed | Visor Drive": se puede ir y volver entre los dos cuando se quiera.
@@ -1262,6 +1305,7 @@ function closeInlineViewer() {
     if (window.NikaPdf) window.NikaPdf.cerrar();
     configurarModoVisor(null);
     if (iframe) { iframe.src = ''; iframe.style.display = ''; }
+    const ayuda = document.getElementById('nika-visor-ayuda'); if (ayuda) ayuda.style.display = 'none';
     if (container) {
         container.style.display = 'none';
         const rightSidePanel = document.querySelector('.study-right-column') || document.querySelector('.right-column') || document.querySelector('.col-right');

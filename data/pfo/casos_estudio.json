@@ -47,7 +47,9 @@
      ]
     }
    ],
-   "verificar": "Este caso no trae la radiografía. Esquemas, puntos de corte de CURB-65 y criterios de Light según la guía de neumonía de la sociedad de infectología y el material de neumonía cargados; revisá además que el esquema coincida con tu guía local."
+   "verificar": "Este caso no trae la radiografía. Esquemas, puntos de corte de CURB-65 y criterios de Light según la guía de neumonía de la sociedad de infectología y el material de neumonía cargados; revisá además que el esquema coincida con tu guía local.",
+   "fuentes": [],
+   "verificacion": "catedra"
   },
   {
    "id": "pediatria-bronquiolitis",
@@ -159,11 +161,13 @@
     },
     {
      "puntos": [
-      "Para 18 kg, en la primera hora: oxígeno humidificado para saturar más de 94 %; salbutamol 6 a 8 puffs con aerocámara cada 20 minutos (o 2,7 mg nebulizado en 3 ml de suero); bromuro de ipratropio 4 puffs (80 µg) cada 20 minutos (o 250 µg nebulizado).",
-      "Corticoide: por los vómitos, hidrocortisona endovenosa 5 a 10 mg/kg cada 6 horas (90 a 180 mg) o dexametasona 0,3 a 0,6 mg/kg (hasta 10,8 mg). Si no responde en la primera hora: sulfato de magnesio 25 a 50 mg/kg (450 a 900 mg) en infusión de 15 a 30 minutos.",
-      "Hidratación parenteral a necesidades basales; radiografía de tórax; monitoreo continuo y reevaluación; considerar terapia intensiva si no revierte.",
-      "Anemia: con Hb 7 y el niño compensado, se prioriza la crisis y se inicia hierro oral (3 a 6 mg/kg por día de hierro elemental, 54 a 108 mg por día) al tolerar la vía oral. La transfusión de glóbulos rojos (10 ml/kg, unos 180 ml) se reserva para descompensación hemodinámica o hipoxemia refractaria.",
-      "Al alta, con saturación de más de 94 % sin oxígeno por 2 a 4 horas: salbutamol de rescate (2 puffs cada 4 a 6 horas), meprednisona 1 a 2 mg/kg por día durante 3 a 5 días y tratamiento controlador (budesonida 200 µg cada 12 horas con aerocámara). Cesación del tabaquismo en el hogar, alejar el gato del dormitorio y control a las 24 a 48 horas."
+      "Gravedad: con saturación menor de 91 % y puntaje clínico de 7 a 9 la exacerbación es grave y se maneja en internación. Oxígeno calentado y humidificado (cánula o máscara simple) para mantener una saturación de 94 a 98 %.",
+      "Primera hora: serie de salbutamol 4 a 10 puff (100 µg por puff) según gravedad, asociado a bromuro de ipratropio 2 a 4 puff (20 µg por puff) con aerocámara cada 20 minutos durante una hora; o nebulizado con oxígeno (salbutamol 0,15 a 0,25 mg/kg por dosis, hasta 5 mg por dosis en menores de 20 kg; ipratropio 125 a 250 µg).",
+      "Corticoide sistémico precoz, de preferencia endovenoso por los vómitos: hidrocortisona 5 a 10 mg/kg por dosis cada 6 horas (90 a 180 mg para 18 kg; máximo 300 mg por dosis) o dexametasona 0,3 a 0,6 mg/kg por día en una dosis (5,4 a 10,8 mg; máximo 16 mg).",
+      "Si la respuesta no es favorable luego de las primeras 2 horas: sulfato de magnesio 25 a 50 mg/kg (450 a 900 mg para 18 kg; máximo 2 g) en infusión lenta de 15 a 30 minutos, con monitoreo cardíaco y de la presión arterial.",
+      "Hidratación parenteral, radiografía de tórax y monitoreo continuo con reevaluación; en refractarios, cánula nasal de alto flujo y terapia intensiva.",
+      "Anemia: con Hb 7 g/dL y el niño compensado, se prioriza la crisis y se inicia hierro oral cuando tolere la vía oral. Transfundir solo si hay descompensación hemodinámica o hipoxemia refractaria.",
+      "Al alta, una vez estable sin oxígeno: corticoide oral (metilprednisona 1 a 2 mg/kg por día, máximo 40 mg por día, durante 3 a 5 días, sin descenso gradual), salbutamol de rescate con aerocámara, tratamiento controlador según la guía, control ambiental (sin humo de tabaco, alejar el gato del dormitorio) y control a las 24 a 48 horas."
      ]
     },
     {
@@ -174,7 +178,15 @@
      ]
     }
    ],
-   "verificar": "Dosis para 18 kg según la guía de asma bronquial en niños de la Sociedad Argentina de Pediatría (actualización 2021) y los consensos de anemia ferropénica cargados: verificá cada dosis y los criterios de transfusión. Los antecedentes detallados de la anamnesis salen del documento completo del caso."
+   "verificar": "Gravedad, dosis de salbutamol, ipratropio, corticoides y sulfato de magnesio contrastados con la Guía de asma bronquial en niños preescolares de la Sociedad Argentina de Pediatría (2025), porque el niño tiene 4 años. Quedan por verificar en la guía la dosis del controlador (budesonida) y el esquema de hierro; la anemia grave conviene discutirla con Hematología.",
+   "fuentes": [
+    {
+     "t": "Guía de diagnóstico y tratamiento del asma bronquial en niños preescolares · Comité de Neumonología, Sociedad Argentina de Pediatría, 2025",
+     "d": "Clasificación de gravedad por puntaje y saturación; serie de salbutamol 4 a 10 puff con ipratropio 2 a 4 puff cada 20 minutos; corticoides parenterales (hidrocortisona 5 a 10 mg/kg, dexametasona 0,3 a 0,6 mg/kg); sulfato de magnesio 25 a 50 mg/kg tras las primeras 2 horas; saturación objetivo de 94 a 98 %.",
+     "u": "https://www.sap.org.ar/docs/pdf/consensos_guia-de-diagnostico-y-tratamiento-del-asma-bronquial-en-ninos-preescolares-153.pdf"
+    }
+   ],
+   "verificacion": "guia"
   },
   {
    "id": "quirurgica-dolor-abdominal",
@@ -248,7 +260,9 @@
      ]
     }
    ],
-   "verificar": "Esquemas antibióticos, dosis y plan de hidratación según los materiales de abdomen agudo y diverticulitis cargados en Clínica Quirúrgica; confirmá que el esquema coincida con tu guía local."
+   "verificar": "Esquemas antibióticos, dosis y plan de hidratación según los materiales de abdomen agudo y diverticulitis cargados en Clínica Quirúrgica; confirmá que el esquema coincida con tu guía local.",
+   "fuentes": [],
+   "verificacion": "catedra"
   },
   {
    "id": "emergencia-politrauma",
@@ -315,7 +329,9 @@
      ]
     }
    ],
-   "verificar": "Contrastá cada paso con el material ATLS y las guías de RCP y trauma de Emergentología. Verificá especialmente las metas de TA en TEC y la profilaxis antibiótica de las fracturas expuestas."
+   "verificar": "Contrastá cada paso con el material ATLS y las guías de RCP y trauma de Emergentología. Verificá especialmente las metas de TA en TEC y la profilaxis antibiótica de las fracturas expuestas.",
+   "fuentes": [],
+   "verificacion": "catedra"
   },
   {
    "id": "gineco-sangrado",
@@ -365,7 +381,9 @@
      ]
     }
    ],
-   "verificar": "Contrastá el umbral del espesor endometrial y la conducta con el consenso FASGO 2022 de sangrado uterino anormal y con el material de cáncer de endometrio cargados en Ginecología."
+   "verificar": "Contrastá el umbral del espesor endometrial y la conducta con el consenso FASGO 2022 de sangrado uterino anormal y con el material de cáncer de endometrio cargados en Ginecología.",
+   "fuentes": [],
+   "verificacion": "catedra"
   },
   {
    "id": "sf-dbt-control",
@@ -396,15 +414,38 @@
    "respuestas": [
     {
      "puntos": [
-      "Controles clínicos: peso, IMC, perímetro de cintura, tensión arterial, examen de los pies y valoración de la sensibilidad.",
-      "Laboratorio: HbA1c, perfil lipídico, creatinina con filtrado glomerular y albuminuria; fondo de ojo.",
-      "Prevención cardiovascular: tabaco, alimentación, actividad física, estatinas según riesgo, antihipertensivos si corresponde.",
-      "Vacunas del adulto con diabetes (influenza anual, neumococo, hepatitis B, dT/dTpa, COVID-19) y salud mental.",
-      "Educación diabetológica: autocontrol glucémico, hipoglucemias, cuidados del pie y signos de alarma."
+      "Antropometría: peso, talla, IMC (meta menor de 25), perímetro de cintura (menor de 102 cm en varones) y tensión arterial en ambos brazos (meta menor de 140/90; menor de 130/80 si hay albuminuria o riesgo cardiovascular muy alto).",
+      "Pie diabético (cada 3 a 4 meses y evaluación completa anual): inspección de piel, uñas, deformidades e hiperqueratosis; pulsos pedio y tibial posterior y temperatura; sensibilidad protectora con monofilamento de 10 g en pulpejo del 1.º dedo y cabezas del 1.º y 5.º metatarsiano (o diapasón de 128 Hz en el hallux).",
+      "Examen odontológico anual.",
+      "Laboratorio: HbA1c cada 3 a 6 meses (meta menor de 7 %, o menor de 8 % con comorbilidad grave o hipoglucemias); perfil lipídico anual (LDL menor de 100 mg/dL, o menor de 70 si es de muy alto riesgo; triglicéridos menores de 150); creatinina con filtrado glomerular (CKD-EPI) y cociente albúmina/creatinina en la primera orina de la mañana (normal menor de 30 mg/g).",
+      "Fondo de ojo con midriasis anual (cada 2 años si es normal) y ECG de 12 derivaciones anual.",
+      "Prevención cardiovascular: no fumar (intervención breve de las 5 A), alimentación cardioprotectora (grasas saturadas menores del 7 % de las calorías, sal menor de 5 g por día), 150 minutos por semana de actividad aeróbica, estatina según riesgo (atorvastatina 20 a 40 mg por día) y IECA (enalapril 10 a 20 mg) o ARA-II (losartán 50 a 100 mg) si la TA es de 140/90 o más, o con albuminuria.",
+      "Aspirina: no es de rutina; se considera de forma individualizada si el riesgo cardiovascular es alto y el riesgo de sangrado bajo, tras conversarlo con el paciente (ADA 2025: 75 a 162 mg por día).",
+      "Vacunas: influenza anual (la diabetes es factor de riesgo en el Calendario Nacional); neumococo con 1 dosis de VCN20 (esquema vigente para personas de 5 a 64 años con diabetes; si ya recibió VCN13, la alternativa es VPN23); dT o dTpa cada 10 años; hepatitis B (0, 1 y 6 meses); COVID-19 según el esquema nacional.",
+      "Salud mental: tamizaje de depresión y ansiedad (PHQ-2 o PHQ-9) y de la carga del autocuidado, que condicionan la adherencia.",
+      "Educación diabetológica: automonitoreo (preprandial 90 a 130 y posprandial menor de 180 mg/dL), regla de los 15 ante glucemia menor de 70 (15 g de hidratos simples, esperar 15 minutos y repetir si persiste), cuidados diarios del pie (autoinspección con espejo, lavado con agua tibia, secado interdigital, calzado holgado y medias sin costura, nunca descalzo), y signos de alarma (lesión, ampolla, enrojecimiento o secreción en el pie, fiebre, vómitos persistentes o síntomas neuroglucopénicos)."
      ]
     }
    ],
-   "verificar": "Contrastá con las guías de diabetes y de cuidado del pie diabético cargadas en la sección Semanas 9 y 10."
+   "verificar": "Auditado con el material de la cátedra y corregido en aspirina y neumococo con fuentes nacionales. Metas de LDL, TA y esquema de estatinas: confirmar con las guías de diabetes y dislipemias cargadas en Semanas 9 y 10.",
+   "fuentes": [
+    {
+     "t": "Standards of Care in Diabetes 2025, sección 10 · American Diabetes Association",
+     "d": "Aspirina en prevención primaria: decisión individualizada.",
+     "u": "https://diabetesjournals.org/care/article/48/Supplement_1/S207/157549/10-Cardiovascular-Disease-and-Risk-Management"
+    },
+    {
+     "t": "Vacuna contra el neumococo · Ministerio de Salud de la Nación",
+     "d": "Diabetes: 1 dosis de VCN20; con VCN13 previo, VPN23 como alternativa.",
+     "u": "https://www.argentina.gob.ar/salud/vacunas/neumococo"
+    },
+    {
+     "t": "Lineamientos técnicos de vacunación antigripal 2026 · Ministerio de Salud de la Nación",
+     "d": "Personas con factores de riesgo incluidas en la población objetivo.",
+     "u": "https://www.argentina.gob.ar/sites/default/files/2018/02/lineamientos_vacuna_antigripal_-_2026.pdf"
+    }
+   ],
+   "verificacion": "parcial"
   },
   {
    "id": "sf-s1-dengue",
@@ -474,20 +515,35 @@
     },
     {
      "puntos": [
-      "Paracetamol 500 mg por vía oral cada 6 horas solo si hay fiebre o dolor, con un máximo de 2 g por día (según la guía de la cátedra). Contraindicados AINEs (ibuprofeno, diclofenac, naproxeno), aspirina, corticoides, antibióticos y la vía intramuscular.",
-      "Reposo relativo, hidratación oral de 2 a 3 litros por día de líquidos seguros (agua, sales de rehidratación), y aislamiento con repelente y mosquitero mientras tenga fiebre.",
-      "Laboratorio: en brote, el diagnóstico es clínico-epidemiológico. Si se pide confirmación: NS1 o PCR (hasta el día 5) o IgM ELISA (desde el día 5). Hemograma recomendable en el grupo A; obligatorio y diario en el grupo B1.",
-      "Salud pública: notificación individual inmediata (SNVS 2.0, ficha C2-L2) y bloqueo sanitario peridomiciliario con descacharrización y fumigación en un radio de 9 manzanas (unos 100 metros)."
+      "Paracetamol 500 a 1000 mg por vía oral cada 6 horas, con un máximo de 4 g por día en adultos (en niños, 10 mg/kg cada 6 horas, máximo 60 mg/kg por día). La dipirona (500 mg cada 6 horas) es una alternativa.",
+      "Contraindicados: aspirina y AINEs, antibióticos, corticoides y medicación por vía intramuscular.",
+      "Grupo A, en domicilio: reposo, dieta normal e hidratación abundante de 3000 a 4000 ml por día; aislamiento con repelente y mosquitero mientras tenga fiebre.",
+      "Laboratorio: en contexto de brote el diagnóstico es clínico-epidemiológico. Si se pide confirmación: NS1 o PCR en los primeros días de la enfermedad e IgM desde el día 5 aproximadamente. El hemograma con plaquetas se hace al ingreso y a diario en el grupo B1; en el grupo A, según criterio clínico.",
+      "Salud pública: notificación individual inmediata (SNVS 2.0) y acciones de bloqueo y control vectorial en el domicilio y su entorno."
      ]
     },
     {
      "puntos": [
-      "Pautas de alarma para consultar de inmediato: dolor abdominal intenso y continuo, vómitos persistentes, sangrado de mucosas, encías o nariz, acumulación de líquidos, somnolencia o irritabilidad, y empeoramiento coincidente con la caída de la fiebre.",
-      "Control médico diario hasta pasadas 48 horas sin fiebre (es el período de mayor riesgo de fase crítica). Medidas de control del vector en el hogar."
+      "Pautas de alarma para consultar de inmediato: dolor abdominal intenso y continuo, vómitos persistentes, sangrado de mucosas, acumulación de líquidos, somnolencia o irritabilidad, y empeoramiento coincidente con la caída de la fiebre.",
+      "Control médico cada 24 a 48 horas y hasta 48 horas después de que baje la fiebre sin antitérmicos; evaluar signos de alarma en cada consulta. Alta con 48 horas sin fiebre sin antipiréticos, buen estado general, hemodinamia y diuresis normales.",
+      "Medidas de control del mosquito en el hogar (repelente, mosquitero, eliminar recipientes con agua)."
      ]
     }
    ],
-   "verificar": "La dosis máxima de paracetamol (2 g por día) y los plazos de laboratorio vienen de las guías cargadas: contrastalos con el algoritmo clínico de dengue 2025, el de clasificación de casos y la ficha de notificación de Semanas 1 y 2. Muchas guías habituales aceptan hasta 4 g por día."
+   "verificar": "Las dosis, la hidratación y el seguimiento están contrastados con el Algoritmo clínico de dengue 2025 y la guía de práctica clínica nacional (2024). Los tiempos exactos de NS1, PCR e IgM y la técnica de la prueba del lazo se toman del material de la cátedra; revisalos contra la versión completa de la guía.",
+   "fuentes": [
+    {
+     "t": "Algoritmo clínico de dengue 2025 · Ministerio de Salud de la Nación (publicado por la provincia de Santa Fe)",
+     "d": "Paracetamol 500 a 1000 mg cada 6 horas con máximo de 4 g por día; hidratación de 3000 a 4000 ml por día; control cada 24 a 48 horas hasta 48 horas sin fiebre; no usar aspirina, AINEs, antibióticos, corticoides ni vía intramuscular.",
+     "u": "https://www.santafe.gov.ar/index.php/web/content/download/283091/1464587/file/Algoritmo%20Cl%C3%ADnico%20de%20Dengue.pdf"
+    },
+    {
+     "t": "Guía de práctica clínica sobre diagnóstico y tratamiento del dengue, versión breve · Argentina, noviembre de 2024 (adaptación de la guía de la OPS)",
+     "d": "Recomendación 8: paracetamol o dipirona en lugar de AINEs, antihistamínicos o esteroides; en pediatría, 10 mg/kg por dosis cada 6 horas.",
+     "u": "https://www.mendoza.gov.ar/wp-content/uploads/sites/7/2025/01/gpc_dengue_vb_1012025_breve.pdf"
+    }
+   ],
+   "verificacion": "guia"
   },
   {
    "id": "sf-s3-inundaciones",
@@ -544,7 +600,9 @@
      ]
     }
    ],
-   "verificar": "Dosis y esquemas tomados del protocolo cargado: verificalos contra el PROTOCOLO INUNDACIONES 2026 y el manual de normas de notificación de la sección Semanas 3 y 4, sobre todo la dosis pediátrica de Nacho y el cambio de esquema en embarazo."
+   "verificar": "Dosis y esquemas tomados del protocolo cargado: verificalos contra el PROTOCOLO INUNDACIONES 2026 y el manual de normas de notificación de la sección Semanas 3 y 4, sobre todo la dosis pediátrica de Nacho y el cambio de esquema en embarazo.",
+   "fuentes": [],
+   "verificacion": "catedra"
   },
   {
    "id": "sf-s5-preventivas",
@@ -604,7 +662,15 @@
      ]
     }
    ],
-   "verificar": "Los intervalos y las edades de cada rastreo y el calendario de vacunas deben contrastarse con el consenso FASGO 2024 de control ginecológico, el consenso de vacunas en la mujer y el manual de cuidado integral de la sección Semanas 5 y 6."
+   "verificar": "Los intervalos y las edades de cada rastreo y el calendario de vacunas deben contrastarse con el consenso FASGO 2024 de control ginecológico, el consenso de vacunas en la mujer y el manual de cuidado integral de la sección Semanas 5 y 6.",
+   "fuentes": [
+    {
+     "t": "Lineamientos técnicos de vacunación antigripal 2026 · Ministerio de Salud de la Nación",
+     "d": "La vacuna no se indica de rutina entre los 19 y 64 años: solo con factores de riesgo, embarazo o personal de salud.",
+     "u": "https://www.argentina.gob.ar/sites/default/files/2018/02/lineamientos_vacuna_antigripal_-_2026.pdf"
+    }
+   ],
+   "verificacion": "parcial"
   },
   {
    "id": "sf-s5-rcvg",
@@ -669,12 +735,30 @@
       "Presión arterial: meta menor de 140/90 mmHg. Iniciar un IECA (enalapril 10 a 20 mg por día) o un ARA-II (losartán 50 a 100 mg por día); si no controla en unas 4 semanas, asociar amlodipina 5 a 10 mg.",
       "Lípidos: estatina de alta intensidad (atorvastatina 40 a 80 mg por día, o simvastatina 40 mg según el algoritmo del Ministerio). Meta de LDL: reducción de al menos 50 % del valor basal o menos de 100 mg/dL (menos de 70 si se considera riesgo muy alto).",
       "Diabetes: HbA1c menor de 7 %, glucemia preprandial de 90 a 130 y posprandial menor de 180 mg/dL; metformina 500 mg cada 12 horas con las comidas, a escalar según tolerancia.",
-      "Antiagregación: aspirina 100 mg por día en prevención primaria según la guía de la cátedra, una vez controlada la TA.",
-      "Controles: pie diabético con monofilamento de 10 g y pulsos cada 3 a 6 meses, fondo de ojo anual, creatinina con filtrado y albuminuria anual; vacunas (influenza anual, neumococo secuencial, dT cada 10 años, hepatitis B); control en 3 a 4 meses y luego cada 6."
+      "Controles: pie diabético con monofilamento de 10 g y pulsos cada 3 a 6 meses, fondo de ojo anual, creatinina con filtrado y albuminuria anual; vacunas (influenza anual, neumococo con 1 dosis de VCN20, dT cada 10 años, hepatitis B); control en 3 a 4 meses y luego cada 6.",
+      "Antiagregación: la aspirina en prevención primaria no se indica de rutina; con riesgo alto en una persona con diabetes se puede considerar (75 a 162 mg por día) solo tras conversar con la paciente los beneficios frente al riesgo de sangrado, y una vez controlada la TA."
      ]
     }
    ],
-   "verificar": "Verificá con la serie RCVG (fascículos 1 y 2), el manual de enfermedades crónicas y las guías de HTA y diabetes: en particular el uso de aspirina en prevención primaria (hoy se indica con mucha más cautela en muchas guías) y las metas de LDL."
+   "verificar": "Contrastado con las Standards of Care in Diabetes 2025 de la ADA (recomendación sobre aspirina en prevención primaria: individualizada, tras discutir riesgo y beneficio) y con la serie RCVG del Ministerio de Salud. Metas de TA, LDL y dosis de estatinas e IECA, a confirmar con las guías cargadas de Semanas 5 y 6.",
+   "fuentes": [
+    {
+     "t": "Standards of Care in Diabetes 2025, sección 10 · American Diabetes Association (Diabetes Care 2025;48 supl. 1)",
+     "d": "Aspirina de 75 a 162 mg por día en prevención primaria solo si se considera, tras conversar beneficios y riesgo de sangrado en personas con riesgo cardiovascular aumentado.",
+     "u": "https://diabetesjournals.org/care/article/48/Supplement_1/S207/157549/10-Cardiovascular-Disease-and-Risk-Management"
+    },
+    {
+     "t": "Lineamientos técnicos de vacunación antigripal 2026 · Ministerio de Salud de la Nación",
+     "d": "Personas de 24 meses a 64 años con factores de riesgo forman parte de la población objetivo.",
+     "u": "https://www.argentina.gob.ar/sites/default/files/2018/02/lineamientos_vacuna_antigripal_-_2026.pdf"
+    },
+    {
+     "t": "Vacuna contra el neumococo · Ministerio de Salud de la Nación",
+     "d": "Personas de 5 a 64 años con diabetes: 1 dosis de VCN20.",
+     "u": "https://www.argentina.gob.ar/salud/vacunas/neumococo"
+    }
+   ],
+   "verificacion": "parcial"
   },
   {
    "id": "sf-s7-hta",
@@ -758,7 +842,9 @@
      ]
     }
    ],
-   "verificar": "Verificá dosis y metas de descenso con la guía breve de HTA 2026 y el material de crisis y emergencias hipertensivas de Semanas 7 y 8."
+   "verificar": "Verificá dosis y metas de descenso con la guía breve de HTA 2026 y el material de crisis y emergencias hipertensivas de Semanas 7 y 8.",
+   "fuentes": [],
+   "verificacion": "catedra"
   },
   {
    "id": "sf-s9-dbt",
@@ -861,13 +947,26 @@
      "puntos": [
       "Metas: HbA1c menor de 7 %; glucemia preprandial 90 a 130 y posprandial menor de 180 mg/dL; TA menor de 140/90; LDL menor de 100 mg/dL.",
       "Pie: inspección diaria, secado interdigital, calzado holgado, no andar descalzo; monofilamento de 10 g y diapasón de 128 Hz cada 3 a 6 meses. Fondo de ojo anual.",
-      "Vacunas: influenza anual, neumococo secuencial (VCN13 y VPN23 al año), dT cada 10 años y hepatitis B.",
+      "Vacunas: influenza anual (la diabetes es factor de riesgo), neumococo con 1 dosis de VCN20, dT cada 10 años y hepatitis B.",
       "Educación sobre hipoglucemias (síntomas, regla de los 15 g de hidratos simples) y automonitoreo.",
       "Primer control en 7 a 14 días (tolerancia a la metformina y cuaderno de glucemias); HbA1c a los 3 meses."
      ]
     }
    ],
-   "verificar": "Revisá el IMC del documento original (la consigna dice 24,2 pero con peso y talla da 30,5). Esquema, dosis y criterios de insulinización según las guías de Semanas 9 y 10; ajustá si la guía nacional indica otra cosa."
+   "verificar": "Corregí el IMC del documento original (consigna 24,2; calculado 30,5). Vacunas contrastadas con el Calendario Nacional (influenza para personas con factores de riesgo; neumococo: 1 dosis de VCN20 en personas de 5 a 64 años con diabetes). Esquema inicial de metformina y criterios de insulinización: contrastar con las guías de diabetes de Semanas 9 y 10 y las Standards of Care de la ADA.",
+   "fuentes": [
+    {
+     "t": "Vacuna contra el neumococo · Ministerio de Salud de la Nación",
+     "d": "Diabetes entre las condiciones de riesgo sin inmunocompromiso: 1 dosis de VCN20.",
+     "u": "https://www.argentina.gob.ar/salud/vacunas/neumococo"
+    },
+    {
+     "t": "Lineamientos técnicos de vacunación antigripal 2026 · Ministerio de Salud de la Nación",
+     "d": "Personas con factores de riesgo incluidas en la población objetivo.",
+     "u": "https://www.argentina.gob.ar/sites/default/files/2018/02/lineamientos_vacuna_antigripal_-_2026.pdf"
+    }
+   ],
+   "verificacion": "parcial"
   },
   {
    "id": "sf-s11-tabaco",
@@ -919,7 +1018,9 @@
      ]
     }
    ],
-   "verificar": "Clasificación de dependencia y fármacos para la etapa de acción según la guía breve de tabaco 2024 y el abordaje integral del tabaquismo de Semanas 11 y 12."
+   "verificar": "Clasificación de dependencia y fármacos para la etapa de acción según la guía breve de tabaco 2024 y el abordaje integral del tabaquismo de Semanas 11 y 12.",
+   "fuentes": [],
+   "verificacion": "catedra"
   },
   {
    "id": "sf-s13-tbc",
@@ -1003,23 +1104,32 @@
     },
     {
      "puntos": [
-      "Confirmación: baciloscopía de esputo en 2 muestras (una inmediata y otra matinal) y test molecular rápido (Xpert MTB/RIF, detecta resistencia a rifampicina); cultivo si la baciloscopía es negativa o hay sospecha de resistencia. Radiografía de tórax.",
+      "Confirmación: baciloscopía de esputo en 2 muestras (una inmediata y otra matinal) y test molecular rápido (Xpert MTB/RIF, que detecta resistencia a rifampicina); cultivo y pruebas de sensibilidad según resultado. Radiografía de tórax.",
       "Laboratorio basal: serología de VIH (obligatoria), glucemia, hepatograma, hemograma, creatinina y urea.",
-      "Esquema para casos nuevos: 2 meses de HRZE (isoniazida 5 mg/kg, rifampicina 10, pirazinamida 25 a 30, etambutol 15 a 20) y 4 meses de HR; con dosis fija combinada, para 61 kg corresponden 4 comprimidos juntos por la mañana en ayunas en la fase inicial y 2 comprimidos en la de continuación.",
-      "Tratamiento acortado estrictamente supervisado (TAES). Notificación obligatoria inmediata (SNVS 2.0).",
-      "Contactos: censar a los convivientes y compañeros de cuadrilla de los últimos 3 meses; evaluarlos con clínica, PPD y radiografía; quimioprofilaxis con isoniazida 5 mg/kg por día durante 6 meses a contactos asintomáticos con PPD positiva o menores de 15 años, tras descartar enfermedad activa."
+      "Esquema estandarizado para TB pulmonar sensible: fase inicial de 2 meses con HRZE y fase de continuación de 4 meses con HR, diarias. Dosis en adultos: isoniacida 5 mg/kg (máximo 300 mg), rifampicina 10 mg/kg (máximo 600 mg), pirazinamida 25 mg/kg (máximo 2000 mg) y etambutol 20 mg/kg (máximo 1600 mg).",
+      "Dosis fijas combinadas: con 55 kg o más corresponden 4 comprimidos de HRZE (75/150/400/275 mg) por día en la fase inicial y 2 comprimidos de HR (150/300 mg) por día en la de continuación. Julio pesa 61 kg.",
+      "Tratamiento supervisado y notificación obligatoria al SNVS 2.0.",
+      "Contactos: estudiar a convivientes y compañeros de trabajo. El tratamiento preventivo (TPT) tiene varios esquemas: 6H (isoniacida 300 mg por día durante 6 meses) o la opción acortada preferida 3HR (isoniacida y rifampicina durante 3 meses), o 4R. En menores de 5 años se inicia independientemente de la PPD."
      ]
     },
     {
      "puntos": [
       "Es una enfermedad curable si completa el tratamiento sin interrupciones; el abandono genera resistencia.",
-      "Barbijo y ventilación o luz solar en la habitación durante las primeras 2 semanas.",
-      "Seguimiento: control clínico mensual (peso, adherencia, hepatotoxicidad: ictericia, coluria, náuseas); baciloscopía al final del 2.º, 4.º y 6.º mes; radiografía al inicio, al 2.º y al 6.º mes.",
-      "Apoyo social y laboral: viáticos, alimentación, licencia hasta que negativice el esputo."
+      "Barbijo, ventilación y luz solar en la habitación durante las primeras semanas.",
+      "Seguimiento: baciloscopía de control al finalizar la fase intensiva (2.º mes). Si es negativa, continúa con la fase de continuación y se piden controles al 4.º y 6.º mes. Si sigue positiva al 2.º mes se extiende la fase intensiva hasta contar con la sensibilidad; si persiste positiva al 5.º o 6.º mes se pide cultivo y pruebas de sensibilidad y se clasifica como fracaso terapéutico.",
+      "Controles clínicos periódicos (peso, adherencia y reacciones adversas: ictericia, coluria, náuseas); apoyo social y laboral."
      ]
     }
    ],
-   "verificar": "Esquema, dosis por peso y cronograma de controles según las pautas técnicas de tuberculosis en la Argentina 2026 de la sección Semanas 13 y 14. Valores de corte de PPD (10 mm en población general, 5 mm en VIH o inmunodeprimidos) también de esa fuente."
+   "verificar": "Dosis, comprimidos por peso, controles y esquemas de tratamiento preventivo están contrastados con las Pautas técnicas de tuberculosis en la Argentina 2026. Los puntos de corte de la PPD (5 mm en contacto reciente, VIH, desnutrición grave o inmunosupresión; 10 mm en otros factores de riesgo) figuran en la tabla 34 de esa guía.",
+   "fuentes": [
+    {
+     "t": "Pautas técnicas de tuberculosis en la Argentina, 5.ª edición · Ministerio de Salud de la Nación, 2026",
+     "d": "Tabla 4 (dosis de H, R, Z y E), tabla 5 (comprimidos de dosis fija combinada por peso), esquema 2HRZE/4HR, figura 7 (controles bacteriológicos al 2.º, 4.º y 6.º mes), tabla 34 (lectura de la PPD) y sección 8.6 (esquemas de tratamiento preventivo).",
+     "u": "https://www.argentina.gob.ar/sites/default/files/pautas_tecnicas_de_tuberculosis_en_la_argentina_2026.pdf"
+    }
+   ],
+   "verificacion": "guia"
   },
   {
    "id": "sf-s15-violencia",
@@ -1084,7 +1194,9 @@
      ]
     }
    ],
-   "verificar": "Verificá con el material de violencia contra las mujeres (MEP) y con la normativa de tu jurisdicción qué situaciones obligan a denunciar o notificar y cuáles no (por ejemplo, ante riesgo grave o menores involucrados)."
+   "verificar": "Verificá con el material de violencia contra las mujeres (MEP) y con la normativa de tu jurisdicción qué situaciones obligan a denunciar o notificar y cuáles no (por ejemplo, ante riesgo grave o menores involucrados).",
+   "fuentes": [],
+   "verificacion": "catedra"
   }
  ]
 }
