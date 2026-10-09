@@ -1,0 +1,202 @@
+{
+ "nombre": "PFO · Procedimientos",
+ "area": "pfo",
+ "volver": "estudio.html?modulo=pfo",
+ "subtitulo": "Todos los procedimientos de la PFO en un solo lugar. Los que ya tienen modelo 3D se practican acá; los demás se pueden estudiar con su tutorial paso a paso y el modelado 3D se va sumando de a uno.",
+ "acreditaciones": [
+  {
+   "id": "sv",
+   "titulo": "Colocación de sonda vesical",
+   "icono": "🧪",
+   "pasos": 30,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=siam&id=sv"
+  },
+  {
+   "id": "iet",
+   "titulo": "Intubación endotraqueal",
+   "icono": "🫁",
+   "pasos": 27,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=siam&id=iet",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/iet"
+  },
+  {
+   "id": "tr",
+   "titulo": "Tacto rectal",
+   "icono": "🖐️",
+   "pasos": 26,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=siam&id=tr",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/tr"
+  },
+  {
+   "id": "rcp",
+   "titulo": "RCP avanzado",
+   "icono": "❤️‍🔥",
+   "pasos": 31,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=siam&id=rcp"
+  },
+  {
+   "id": "artro",
+   "titulo": "Artrocentesis",
+   "icono": "🦵",
+   "pasos": 48,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=siam&id=artro"
+  },
+  {
+   "id": "lav",
+   "titulo": "Lavado de manos quirúrgico y colocación de guantes",
+   "icono": "🧼",
+   "pasos": 22,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=cir&id=lav"
+  },
+  {
+   "id": "anamg",
+   "titulo": "Anamnesis ginecológica",
+   "icono": "🗂️",
+   "pasos": 31,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=sim&id=anamg"
+  },
+  {
+   "id": "anamo",
+   "titulo": "Anamnesis obstétrica",
+   "icono": "🤰",
+   "pasos": 22,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=sim&id=anamo"
+  },
+  {
+   "id": "egfpp",
+   "titulo": "Cálculo de EG y FPP",
+   "icono": "📅",
+   "pasos": 10,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=sim&id=egfpp"
+  },
+  {
+   "id": "exgin",
+   "titulo": "Examen ginecológico, PAP y tacto bimanual",
+   "icono": "🔬",
+   "pasos": 27,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=sim&id=exgin"
+  },
+  {
+   "id": "exmam",
+   "titulo": "Examen mamario",
+   "icono": "🎀",
+   "pasos": 18,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=sim&id=exmam"
+  },
+  {
+   "id": "exobs",
+   "titulo": "Examen obstétrico",
+   "icono": "🫄",
+   "pasos": 19,
+   "estado": "activo",
+   "href": "acreditaciones.html?area=sim&id=exobs"
+  },
+  {
+   "id": "pd",
+   "titulo": "Paracentesis diagnóstica",
+   "icono": "💧",
+   "pasos": 42,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/pd"
+  },
+  {
+   "id": "pt",
+   "titulo": "Paracentesis terapéutica",
+   "icono": "💧",
+   "pasos": 49,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/pt"
+  },
+  {
+   "id": "pl",
+   "titulo": "Punción lumbar (raquicentesis)",
+   "icono": "🦴",
+   "pasos": 35,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/pl"
+  },
+  {
+   "id": "sng",
+   "titulo": "Colocación de sonda nasogástrica",
+   "icono": "🧵",
+   "pasos": 26,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/sng"
+  },
+  {
+   "id": "vp",
+   "titulo": "Extracción de sangre venosa",
+   "icono": "🩸",
+   "pasos": 11,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/vp"
+  },
+  {
+   "id": "oto",
+   "titulo": "Otoscopía",
+   "icono": "👂",
+   "pasos": 38,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/oto"
+  },
+  {
+   "id": "hisf",
+   "titulo": "Hisopado uretral femenino",
+   "icono": "🧪",
+   "pasos": 30,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/hisf"
+  },
+  {
+   "id": "hism",
+   "titulo": "Hisopado uretral masculino",
+   "icono": "🧪",
+   "pasos": 30,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/hism"
+  },
+  {
+   "id": "hisfa",
+   "titulo": "Hisopado de fauces",
+   "icono": "🧪",
+   "pasos": 19,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/hisfa"
+  },
+  {
+   "id": "hisnf",
+   "titulo": "Hisopado nasofaríngeo",
+   "icono": "🧪",
+   "pasos": 37,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/procedimientos/hisnf"
+  },
+  {
+   "id": "ecgn",
+   "titulo": "Lectura de un ECG normal",
+   "icono": "📈",
+   "pasos": 9,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/ecg/ecgn"
+  },
+  {
+   "id": "ecgsca",
+   "titulo": "Lectura de un ECG en síndrome coronario agudo",
+   "icono": "📈",
+   "pasos": 12,
+   "estado": "proximamente",
+   "tutorial": "pfo_estudio.html#clinica_medica/ecg/ecgsca"
+  }
+ ]
+}

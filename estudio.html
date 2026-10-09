@@ -615,7 +615,7 @@
     <script src="js/pomodoroSyncManager.js?v=4"></script>
 
     <!-- 4. Lógica de Estudio -->
-    <script src="js/estudio/estudio.js?v=83"></script>
+    <script src="js/estudio/estudio.js?v=84"></script>
     <script src="js/estudio/pdfLector.js?v=8"></script>
 
     <!-- 5. Asistente IA y Módulos Sociales -->
@@ -667,7 +667,7 @@
             let m = null;
             try { m = (window.EstudioState && window.EstudioState.modulo) || null; } catch (_) {}
             if (!m) m = new URLSearchParams(location.search).get('modulo') || 'cirugia';
-            return { siam: 'siam', ginecologia: 'sim', cirugia: 'cir', pfo: 'siam' }[m] || null;
+            return { siam: 'siam', ginecologia: 'sim', cirugia: 'cir', pfo: 'pfo' }[m] || null;
         }
         function nikaIrAlAtlas(e) {
             const area = nikaAreaAtlas();

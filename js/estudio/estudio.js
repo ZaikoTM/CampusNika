@@ -376,6 +376,7 @@ function renderUpBentoGrid(units) {
         return;
     }
 
+    injectHubStyles();
     grid.innerHTML = units.map(unit => {
         // Las UPs con "secciones" (ej. UP3 de Ginecología) no tienen materiales/
         // videos/objetivos propios: hay que sumarlos entre sus 5 secciones.
@@ -392,12 +393,13 @@ function renderUpBentoGrid(units) {
         const totalRecursos = matCount + vidCount;
 
         return `
-        <div class="up-card" onclick="openUP('${unit.id}')">
+        <div class="up-card has-c" style="--c:${colorPara(unit, unit.number - 1)};animation:hubUp .5s ${0.04 * (unit.number - 1)}s backwards" onclick="openUP('${unit.id}')">
             <div class="up-card-top">
-                <span class="up-card-number">${unit.etiqueta ? unit.etiqueta + " " : "UP"}${unit.number}</span>
+                <span style="display:inline-flex;align-items:center"><span class="uc-ic">${iconoPara(unit, unit.number - 1)}</span><span class="up-card-number">${unit.etiqueta ? unit.etiqueta + " " : "UP"}${unit.number}</span></span>
                 <svg class="up-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </div>
             <div class="up-card-title">${unit.title}</div>
+            ${(unit.desc || unit.secciones) ? `<div class="uc-desc">${esc2(unit.desc || (unit.secciones.length + ' secciones: ' + unit.secciones.slice(0, 3).map(x => x.title.replace(/^Caso clínico de práctica: /, 'Caso: ')).join(' · ') + (unit.secciones.length > 3 ? ' · y más' : '')))}</div>` : ''}
             <div class="up-card-meta">
                 <span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -506,9 +508,13 @@ function filterResources(query) {
 // ================= RUTEO ENTRE VISTAS =================
 
 function showDashboard() {
+    const actual = EstudioState.unitsById[EstudioState.currentUpId];
+    const padre = actual && actual.parentId ? EstudioState.unitsById[actual.parentId] : null;
     EstudioState.currentUpId = null;
     closeInlineViewer();
     document.getElementById('view-up-detail').style.display = 'none';
+    if (padre && padre.secciones) { abrirModalSeccionesUP(padre); return; }   // desde una sección vuelve al hub de la unidad
+    cerrarModalSeccionesUP();
     document.getElementById('view-dashboard').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -536,41 +542,121 @@ function openUP(upId) {
     openUpReal(upId, unit);
 }
 
-// Muestra el submenú (modal) de subsecciones de una UP, ej. UP3 de Ginecología.
+// ================= ÍCONOS, COLORES Y HUB DE SECCIONES =================
+
+const ICONOS_TEMA = [
+    [/adolescen/i, '🌸'], [/adulta joven|ginecolog|mama|mamaria/i, '🩺'], [/urgencia|guardia|emergenc/i, '🚨'],
+    [/embarazo|prenatal|obstetric/i, '🤰'], [/parto|puerperio/i, '👶'], [/consenso|guia|guía|bibliograf|norma|protocolo/i, '📚'],
+    [/caso cl[ií]nico/i, '🧩'], [/procedimiento|tutorial/i, '🛠️'], [/ecg|electrocardio|arritmia/i, '💓'],
+    [/imagen|radiograf|tomograf/i, '🩻'], [/farmaco/i, '💊'], [/oftalm|ojo|visual/i, '👁️'], [/internaci|segundo nivel/i, '🏥'],
+    [/laboratorio|generalidades|utilidad/i, '🧪'], [/diabet|pie diab/i, '🩸'], [/hipertens|hta/i, '❤️'],
+    [/coronari|sca|infarto|shock|paro|rcp/i, '🫀'], [/edema|eap|ventilaci|vni|respirator|asma|neumon/i, '🫁'],
+    [/epilep|convuls|neurolog|estatus/i, '🧠'], [/acido|ácido/i, '⚗️'], [/anemia|hierro/i, '🩸'], [/urinari|renal|itu|prostat|ascit|coledoc/i, '🫘'],
+    [/fiebre|infecci|antibi|dengue|covid|sexual|tuberculosis/i, '🦠'], [/diarrea|fluido|hidrataci/i, '💧'], [/adulto mayor|anciano/i, '🧓'],
+    [/tabaq|violencia|salud mental|cronic|semana|salud familiar|promoci/i, '🏘️'], [/clases virtuales|video/i, '🎬'], [/pedi[aá]tric/i, '🧸'],
+    [/quir[uú]rgic|abdomen/i, '🔪'], [/m[eé]dica/i, '⚕️'], [/emergentolog/i, '🚑']
+];
+const COLORES_TEMA = ['#0ea5e9', '#8b5cf6', '#f59e0b', '#10b981', '#ec4899', '#ef4444', '#14b8a6', '#6366f1', '#f97316', '#84cc16'];
+function iconoPara(item, i) {
+    if (item && item.icono) return item.icono;
+    const t = (item && item.title) || '';
+    for (const [rx, ic] of ICONOS_TEMA) if (rx.test(t)) return ic;
+    return ['📘', '📗', '📙', '📕', '📒'][(i || 0) % 5];
+}
+function colorPara(item, i) { return (item && item.color) || COLORES_TEMA[(i || 0) % COLORES_TEMA.length]; }
+function esc2(t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+function injectHubStyles() {
+    if (document.getElementById('hub-secciones-css')) return;
+    const st = document.createElement('style');
+    st.id = 'hub-secciones-css';
+    st.textContent = `
+      @keyframes hubUp{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+      @keyframes hubPop{0%{transform:scale(.6) rotate(-12deg);opacity:0}70%{transform:scale(1.12) rotate(4deg)}100%{transform:none;opacity:1}}
+      @keyframes hubFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+      #view-secciones-hub{display:none;max-width:1100px;margin:0 auto;padding:0 0 60px}
+      .hub-head{position:relative;overflow:hidden;border-radius:20px;padding:26px 26px 22px;margin:8px 0 22px;color:#fff;background:linear-gradient(135deg,var(--hc,#0ea5e9),color-mix(in srgb,var(--hc,#0ea5e9) 45%,#0f172a));box-shadow:0 18px 40px -18px var(--hc,#0ea5e9);animation:hubUp .5s backwards}
+      .hub-head:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.12)}
+      .hub-head .hub-ic{font-size:44px;display:inline-block;animation:hubFloat 3.2s ease-in-out infinite}
+      .hub-head .chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;background:rgba(255,255,255,.2);padding:4px 10px;border-radius:999px;margin-bottom:8px}
+      .hub-head h2{margin:0 0 6px;font-size:1.7rem;font-weight:800;color:#fff}
+      .hub-head p{margin:0;max-width:640px;opacity:.92;font-size:.95rem;line-height:1.5}
+      .hub-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+      .hub-stats span{background:rgba(255,255,255,.18);padding:5px 12px;border-radius:999px;font-size:.78rem;font-weight:700}
+      .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(310px,100%),1fr));gap:16px}
+      .hub-card{position:relative;text-align:left;cursor:pointer;border:1px solid var(--border,#e2e8f0);background:var(--card-bg,#fff);color:var(--text-main,#0f172a);border-radius:18px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;overflow:hidden;font-family:inherit;animation:hubUp .5s cubic-bezier(.2,.8,.2,1) backwards;transition:transform .22s,box-shadow .22s,border-color .22s}
+      .hub-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c);opacity:.9}
+      .hub-card:hover{transform:translateY(-5px);box-shadow:0 20px 34px -16px var(--c);border-color:var(--c)}
+      .hub-card:active{transform:translateY(-2px) scale(.99)}
+      .hub-card .top{display:flex;align-items:center;gap:12px}
+      .hub-card .ic{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:25px;flex-shrink:0;background:color-mix(in srgb,var(--c) 16%,transparent);animation:hubPop .55s backwards;transition:transform .25s}
+      .hub-card:hover .ic{transform:rotate(-8deg) scale(1.12)}
+      .hub-card .n{font-size:.68rem;font-weight:800;letter-spacing:.08em;color:var(--c)}
+      .hub-card h4{margin:0;font-size:1.02rem;font-weight:800;line-height:1.25}
+      .hub-card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px}
+      .hub-card li{font-size:.8rem;color:var(--text-muted,#64748b);padding-left:16px;position:relative;line-height:1.4}
+      .hub-card li:before{content:"›";position:absolute;left:3px;color:var(--c);font-weight:900}
+      .hub-card .lbl{font-size:.68rem;font-weight:800;letter-spacing:.07em;color:var(--text-dim,#94a3b8);text-transform:uppercase}
+      .hub-card .foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+      .hub-card .pill{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--c) 13%,transparent);color:var(--c)}
+      .hub-card .go{margin-left:auto;font-weight:800;font-size:.8rem;color:var(--c);transition:transform .2s}
+      .hub-card:hover .go{transform:translateX(5px)}
+      .up-card .uc-ic{width:42px;height:42px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;font-size:21px;background:color-mix(in srgb,var(--c) 16%,transparent);margin-right:8px;transition:transform .25s}
+      .up-card:hover .uc-ic{transform:rotate(-8deg) scale(1.14)}
+      .up-card .uc-desc{font-size:.8rem;line-height:1.45;color:var(--text-muted,#64748b);margin:6px 0 10px}
+      .up-card.has-c{border-top:4px solid var(--c)}
+      .up-card.has-c .up-card-number{color:var(--c)}
+      @media (prefers-reduced-motion:reduce){.hub-card,.hub-head,.hub-head .hub-ic,.hub-card .ic,.up-card{animation:none!important;opacity:1!important}}
+    `;
+    document.head.appendChild(st);
+}
+
+// Hub de una unidad con secciones: pantalla propia con una tarjeta explicada por sección
 function abrirModalSeccionesUP(unit) {
-    let overlay = document.getElementById('modal-secciones-up');
-    if (!overlay) {
-        const html = `
-        <div id="modal-secciones-up" class="nika-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:9998; align-items:center; justify-content:center;"
-             onclick="if (event.target === this) cerrarModalSeccionesUP();">
-          <div class="nika-modal-card" style="background:#fff; border-radius:14px; padding:26px 24px; max-width:460px; width:92%; max-height:85vh; overflow-y:auto;">
-            <h3 id="secciones-up-titulo" style="margin:0 0 4px 0; font-size:19px; font-weight:800; color:#0f172a;"></h3>
-            <p style="margin:0 0 18px 0; font-size:13px; color:#64748b;">Elegí la sección que querés estudiar.</p>
-            <div id="secciones-up-lista" style="display:flex; flex-direction:column; gap:10px;"></div>
-            <button type="button" onclick="cerrarModalSeccionesUP()" style="margin-top:18px; width:100%; padding:10px; border:1px solid #e2e8f0; background:#f8fafc; border-radius:8px; font-weight:600; cursor:pointer;">Cancelar</button>
-          </div>
-        </div>`;
-        document.body.insertAdjacentHTML('beforeend', html);
-        overlay = document.getElementById('modal-secciones-up');
+    injectHubStyles();
+    let view = document.getElementById('view-secciones-hub');
+    if (!view) {
+        view = document.createElement('div');
+        view.id = 'view-secciones-hub';
+        const dash = document.getElementById('view-dashboard');
+        dash.parentNode.insertBefore(view, dash.nextSibling);
     }
-
-    document.getElementById('secciones-up-titulo').innerText = `${sigUnit(unit)}: ${unit.title}`;
-    const lista = document.getElementById('secciones-up-lista');
-    const accent = getComputedStyle(document.documentElement).getPropertyValue('--nika-primary').trim() || '#0f6cbf';
-    lista.innerHTML = unit.secciones.map((sec, i) => `
-        <button type="button" onclick="abrirSeccionUP('${unit.id}', ${i})"
-                style="text-align:left; padding:14px 16px; border:1px solid #e2e8f0; border-radius:10px; background:#fff; cursor:pointer; font-size:0.9rem; font-weight:700; color:#0f172a; transition: all .15s;"
-                onmouseover="this.style.borderColor='${accent}'" onmouseout="this.style.borderColor='#e2e8f0'">
-            ${i + 1}. ${sec.title}
-        </button>
-    `).join('');
-
-    overlay.style.display = 'flex';
+    const idx = Math.max(0, (EstudioState.data.units || []).findIndex(u => u.id === unit.id));
+    const c = colorPara(unit, idx);
+    const secs = unit.secciones;
+    const nMat = secs.reduce((a, x) => a + (x.materiales || []).length, 0);
+    const nVid = secs.reduce((a, x) => a + (x.videos || []).length, 0);
+    const nObj = secs.reduce((a, x) => a + (x.objectives || []).length, 0);
+    const intro = unit.desc || 'Elegí una sección para estudiar sus objetivos, contenidos, bibliografía y material. Cada tarjeta te cuenta qué abarca.';
+    view.style.setProperty('--hc', c);
+    view.innerHTML = `
+      <button type="button" onclick="showDashboard()" style="margin:6px 0 4px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border:1px solid var(--border,#e2e8f0);background:var(--card-bg,#fff);color:var(--text-main,#0f172a);border-radius:12px;padding:9px 14px;font-weight:700;font-family:inherit;transition:transform .2s" onmouseover="this.style.transform='translateX(-4px)'" onmouseout="this.style.transform='none'">← Volver al listado</button>
+      <div class="hub-head">
+        <span class="chip">${esc2(sigUnit(unit))}</span>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><span class="hub-ic">${iconoPara(unit, idx)}</span><h2>${esc2(unit.title)}</h2></div>
+        <p>${esc2(intro)}</p>
+        <div class="hub-stats"><span>📂 ${secs.length} secciones</span><span>🎯 ${nObj} objetivos</span><span>📄 ${nMat} materiales</span>${nVid ? `<span>🎬 ${nVid} videos</span>` : ''}</div>
+      </div>
+      <div class="hub-grid">${secs.map((sec, i) => {
+          const col = colorPara(sec, i + idx);
+          const temas = (sec.contents || []).filter(Boolean);
+          const lista = temas.slice(0, 4).map(t => `<li>${esc2(String(t).length > 130 ? String(t).slice(0, 127) + '…' : t)}</li>`).join('') + (temas.length > 4 ? `<li>y ${temas.length - 4} temas más</li>` : '');
+          const nm = (sec.materiales || []).length, nv = (sec.videos || []).length, no = (sec.objectives || []).length;
+          return `<button type="button" class="hub-card" style="--c:${col};animation-delay:${0.05 * i}s" onclick="abrirSeccionUP('${unit.id}', ${i})">
+            <div class="top"><span class="ic" style="animation-delay:${0.05 * i + 0.15}s">${iconoPara(sec, i)}</span><div><div class="n">SECCIÓN ${i + 1}</div><h4>${esc2(sec.title)}</h4></div></div>
+            ${lista ? `<div class="lbl">Qué abarca</div><ul>${lista}</ul>` : ''}
+            <div class="foot">${no ? `<span class="pill">🎯 ${no} objetivos</span>` : ''}${nm ? `<span class="pill">📄 ${nm} materiales</span>` : ''}${nv ? `<span class="pill">🎬 ${nv} videos</span>` : ''}<span class="go">Abrir →</span></div>
+          </button>`;
+      }).join('')}</div>`;
+    document.getElementById('view-dashboard').style.display = 'none';
+    document.getElementById('view-up-detail').style.display = 'none';
+    view.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function cerrarModalSeccionesUP() {
-    const overlay = document.getElementById('modal-secciones-up');
-    if (overlay) overlay.style.display = 'none';
+    const v = document.getElementById('view-secciones-hub');
+    if (v) v.style.display = 'none';
 }
 
 // Construye una "unit" sintética a partir de la UP padre + la sección elegida

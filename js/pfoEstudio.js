@@ -41,7 +41,7 @@
         <span class="pfo-chip plus">🎓 Práctica Final Obligatoria</span>
         <h1>Sala de <em>Estudio</em> PFO</h1>
         <p>Todo para preparar tu último año en un solo lugar: el recorrido por el reglamento, los contenidos de cada rotación, procedimientos paso a paso y la bibliografía actualizada.</p>
-        <div class="pe-hero-acc"><a href="#generalidades">🧭 Empezar por el recorrido</a><a class="plus" href="pfo_ecoe.html">📝 Simulador: ECOE FINAL</a><a href="nikasim.html">🥽 NikaSim 3D</a></div>
+        <div class="pe-hero-acc"><a href="#generalidades">🧭 Empezar por el recorrido</a><a class="plus" href="pfo_ecoe.html">📝 Simulador: ECOE FINAL</a><a href="acreditaciones.html?area=pfo">🥽 NikaSim · Procedimientos</a></div>
       </section>
       <div class="pe-grid">${D.modulos.map((m, i) => {
         const prog = m.id === 'generalidades' ? Math.round((vistos.length / nPasos) * 100) : null;

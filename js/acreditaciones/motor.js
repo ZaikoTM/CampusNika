@@ -34,17 +34,18 @@
 
   // ------------------------------------------------------------------ listado
   async function vistaLista() {
-    volver.href = area === 'siam' ? 'siam_hub.html' : area === 'sim' ? 'gineco_hub.html' : area === 'cir' ? 'cirugia_hub.html' : 'campus.html';
     const idx = await getJSON(`${base}/index.json`);
+    volver.href = idx.volver || (area === 'siam' ? 'siam_hub.html' : area === 'sim' ? 'gineco_hub.html' : area === 'cir' ? 'cirugia_hub.html' : 'campus.html');
     const res = leerRes();
     app.innerHTML = `
       <h1 class="acr-h1">🩺 Atlas de acreditaciones · ${esc(idx.nombre)}</h1>
-      <p class="acr-sub">Anatomía 3D interactiva de cada acreditación. Practicá paso a paso con feedback inmediato y rendí el examen a ciegas, con tiempo y corrección estricta según la lista de cotejo de la cátedra.</p>
+      <p class="acr-sub">${esc(idx.subtitulo || 'Anatomía 3D interactiva de cada acreditación. Practicá paso a paso con feedback inmediato y rendí el examen a ciegas, con tiempo y corrección estricta según la lista de cotejo de la cátedra.')}</p>
       <div class="acr-lista">${idx.acreditaciones.map((a) => {
         const on = a.estado === 'activo';
         const r = res[`${area}/${a.id}`] && res[`${area}/${a.id}`].examen;
         const estado = !on ? '<span class="acr-pill">Próximamente</span>' : r ? `<span class="acr-pill ${r.aprobado ? 'ok' : 'bad'}">${r.aprobado ? 'Acreditada' : 'No acreditada'} · mejor ${r.mejor}%</span>` : '<span class="acr-pill">Disponible</span>';
-        return `<${on ? `a href="acreditaciones.html?area=${area}&id=${a.id}"` : 'div'} class="acr-card ${on ? 'on' : 'off'}"><div class="ico">${a.icono}</div><h3>${esc(a.titulo)}</h3><small>${a.pasos} pasos en la lista de cotejo</small>${estado}</${on ? 'a' : 'div'}>`;
+        const tut = a.tutorial ? `<a class="acr-pill ok" style="text-decoration:none;margin-top:8px;display:inline-block" href="${a.tutorial}" onclick="event.stopPropagation()">🎬 Tutorial paso a paso</a>` : '';
+        return `<${on ? `a href="${a.href || `acreditaciones.html?area=${area}&id=${a.id}`}"` : 'div'} class="acr-card ${on ? 'on' : 'off'}"><div class="ico">${a.icono}</div><h3>${esc(a.titulo)}</h3><small>${a.pasos} pasos en la lista de cotejo</small>${estado}${tut}</${on ? 'a' : 'div'}>`;
       }).join('')}</div>`;
   }
 

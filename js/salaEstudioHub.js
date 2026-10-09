@@ -28,7 +28,7 @@
     { id: '3ro', nombre: '3° Año', materias: pronto('Injuria', 'Defensa') },
     { id: '4to', nombre: '4° Año', materias: pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven', 'Medicina Legal') },
     { id: '5to', nombre: '5° Año', materias: MATERIAS_5 },
-    { id: '6to', nombre: '6° Año (PFO)', materias: [{ id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · SALA DE ESTUDIO', nombre: 'Práctica Final Obligatoria', desc: 'Todo para preparar el último año: recorrido por el reglamento, contenidos de cada rotación, procedimientos paso a paso con práctica en NikaSim y bibliografía actualizada.', chips: ['8 módulos', 'Procedimientos paso a paso', 'Bibliografía actualizada'], estudio: 'estudio.html?modulo=pfo', simulador: 'pfo_ecoe.html', atlas: 'acreditaciones.html?area=siam', hub: 'estudio.html?modulo=pfo' }] },
+    { id: '6to', nombre: '6° Año (PFO)', materias: [{ id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · SALA DE ESTUDIO', nombre: 'Práctica Final Obligatoria', desc: 'Todo para preparar el último año: recorrido por el reglamento, contenidos de cada rotación, procedimientos paso a paso con práctica en NikaSim y bibliografía actualizada.', chips: ['8 módulos', 'Procedimientos paso a paso', 'Bibliografía actualizada'], estudio: 'estudio.html?modulo=pfo', simulador: 'pfo_ecoe.html', atlas: 'acreditaciones.html?area=pfo', hub: 'estudio.html?modulo=pfo' }] },
   ];
 
   const S = { year: '5to' };
