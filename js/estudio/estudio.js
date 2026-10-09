@@ -356,6 +356,11 @@ async function initEstudio() {
                 if (EstudioState.unitsById[id]) openUP(id);
             }
         } catch (e) { console.warn('[Estudio] ?up= inválido:', e); }
+        // Deep-link a un material: estudio.html?modulo=pfo&abrir=<url> abre la unidad que lo contiene y lo muestra en el visor NikaMed
+        try {
+            const abrir = new URLSearchParams(window.location.search).get('abrir');
+            if (abrir) abrirRecursoDirecto(abrir);
+        } catch (e) { console.warn('[Estudio] ?abrir= inválido:', e); }
     } catch (err) {
         console.error('[Estudio] Error al inicializar:', err);
         const grid = document.getElementById('up-bento-grid');
@@ -363,6 +368,30 @@ async function initEstudio() {
             grid.innerHTML = `<div class="up-empty-state">No pudimos cargar el contenido de esta materia. Probá recargar la página.</div>`;
         }
     }
+}
+
+// Abre un recurso por su URL: busca la unidad (o sección) que lo contiene, va a "Material de estudio" y lo abre en el visor integrado.
+function abrirRecursoDirecto(url) {
+    const units = (EstudioState.data && EstudioState.data.units) || [];
+    for (const u of units) {
+        let titulo = null, sec = -1;
+        const buscar = (lista) => { const m = (lista || []).find((x) => x.url === url); return m ? m.title : null; };
+        if (Array.isArray(u.secciones) && u.secciones.length) {
+            for (let i = 0; i < u.secciones.length; i++) {
+                const t = buscar(u.secciones[i].materiales) || buscar(u.secciones[i].videos);
+                if (t) { titulo = t; sec = i; break; }
+            }
+        } else { titulo = buscar(u.materiales) || buscar(u.videos); }
+        if (!titulo) continue;
+        if (sec >= 0) abrirSeccionUP(u.id, sec); else openUP(u.id);
+        setTimeout(() => {
+            const tab = [...document.querySelectorAll('.up-tab-btn')].find((b) => /showUpTab\('material'/.test(b.getAttribute('onclick') || ''));
+            if (tab) showUpTab('material', tab);
+            openInlineViewer(url, titulo, null);
+        }, 250);
+        return true;
+    }
+    return false;
 }
 
 // ================= RENDER: DASHBOARD =================

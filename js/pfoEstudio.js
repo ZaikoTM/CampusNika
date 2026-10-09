@@ -303,7 +303,7 @@
             <article class="pc-card pc-sit"><h3>📋 Situación de partida</h3><p>${esc(c.situacion)}</p></article>
             ${c.datos.length ? `<article class="pc-card"><h3>🩺 Datos clínicos</h3><div class="pc-datos">${c.datos.map((d, i) => `<div style="--d:${i}${d.v.length > 40 ? ';grid-column:1/-1' : ''}"><small>${esc(d.k)}</small><b>${esc(d.v)}</b></div>`).join('')}</div></article>` : ''}
             ${c.laboratorio.length ? `<article class="pc-card"><h3>🧪 Estudios complementarios</h3><table class="pc-lab">${c.laboratorio.map((d) => `<tr><th>${esc(d.k)}</th><td>${esc(d.v)}</td></tr>`).join('')}</table></article>` : ''}
-            ${c.recursos.length ? `<article class="pc-card"><h3>📚 Para repasar este caso</h3><div class="pc-rec">${c.recursos.map((r) => `<a href="${esc(r.url)}" target="_blank" rel="noopener">📄 ${esc(r.title)}</a>`).join('')}</div></article>` : ''}
+            ${c.recursos.length ? `<article class="pc-card"><h3>📚 Para repasar este caso</h3><div class="pc-rec">${c.recursos.map((r) => `<a href="estudio.html?modulo=pfo&abrir=${encodeURIComponent(r.url)}">📄 ${esc(r.title)} <small style="opacity:.7">· leer en el visor NikaMed</small></a>`).join('')}</div></article>` : ''}
           </div>
           <div class="pc-col">
             <article class="pc-card pc-est"><div class="pc-est-h"><h3>🎯 Tu estación</h3><button type="button" class="pfo-btn sec" id="pc-reloj"><span id="pc-t">▶ Empezar con reloj · ${c.minutos} min</span></button></div>
