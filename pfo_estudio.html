@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala de Estudio PFO | Campus Nika</title>
+    <meta name="description" content="Sala de Estudio de la Práctica Final Obligatoria: recorrido por el reglamento, contenidos por rotación, procedimientos paso a paso y bibliografía actualizada.">
+    <meta name="theme-color" content="#0f2a5c">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/pfo.css?v=9">
+    <link rel="stylesheet" href="css/pfo-estudio.css?v=2">
+    <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
+    <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
+    <link rel="stylesheet" href="css/micro.css?v=2">
+</head>
+<body class="pfo pfo-sala">
+    <script>
+      // Tema claro por defecto; el modo oscuro del campus se respeta sin destello (NikaMed+/admin lo maneja js/campusTema.js)
+      try { if (localStorage.getItem('nika_theme') === 'dark') document.body.classList.add('dark-mode'); } catch (_) {}
+      window.pl_alternarTema = function () {
+        var oscuro = document.body.classList.toggle('dark-mode');
+        try { localStorage.setItem('nika_theme', oscuro ? 'dark' : 'light'); } catch (_) {}
+        var b = document.getElementById('pl-tema'); if (b) b.textContent = oscuro ? '☀️' : '🌙';
+      };
+    </script>
+
+    <header class="pfo-top">
+        <a class="pfo-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA"><span><b>CAMPUS NIKA</b><small>6.° año · Sala de Estudio PFO</small></span>
+        </a>
+        <div class="pfo-top-r ns-acc">
+            <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+            <a class="pfo-btn-top" href="sala_estudio.html#6to">📚 <span class="lbl">Salas de estudio</span></a>
+            <a class="pfo-btn-top" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+        </div>
+    </header>
+
+    <main class="pfo-main pe-main" id="pe-main" aria-live="polite">
+        <div class="pfo-cargando"><span class="pfo-spin"></span> Preparando la sala de estudio…</div>
+    </main>
+
+    <div class="pfo-toast" id="pfo-toast" role="status"></div>
+
+    <script>
+      (function () { var b = document.getElementById('pl-tema'); if (b && document.body.classList.contains('dark-mode')) b.textContent = '☀️'; })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/nikaAcceso.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/pfoEstudio.js?v=1"></script>
+    <script src="js/campusTema.js?v=3"></script>
+    <script src="js/campusEspacio.js?v=1"></script>
+    <script src="js/micro.js?v=2" defer></script>
+</body>
+</html>

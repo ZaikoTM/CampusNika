@@ -28,7 +28,7 @@
     { id: '3ro', nombre: '3° Año', materias: pronto('Injuria', 'Defensa') },
     { id: '4to', nombre: '4° Año', materias: pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven', 'Medicina Legal') },
     { id: '5to', nombre: '5° Año', materias: MATERIAS_5 },
-    { id: '6to', nombre: '6° Año (PFO)', materias: [{ pfo: true, soloAdmin: true, id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · ECOE FINAL', nombre: 'Práctica Final Obligatoria', desc: 'El examen de egreso: un circuito de estaciones de distintas especialidades (emergentología, pediatría, ginecología y obstetricia, medicina familiar, clínica y cirugía) con evaluación estricta y revisión detallada. Exclusivo NikaMed+.', chips: ['ECOE FINAL', 'Estaciones cronometradas', 'NikaMed+'], entrar: 'pfo_ecoe.html' }] },
+    { id: '6to', nombre: '6° Año (PFO)', materias: [{ id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · SALA DE ESTUDIO', nombre: 'Práctica Final Obligatoria', desc: 'Todo para preparar el último año: recorrido por el reglamento, contenidos de cada rotación, procedimientos paso a paso con práctica en NikaSim y bibliografía actualizada.', chips: ['8 módulos', 'Procedimientos paso a paso', 'Bibliografía actualizada'], estudio: 'pfo_estudio.html', simulador: 'pfo_ecoe.html', atlas: 'nikasim.html', hub: 'pfo_estudio.html' }] },
   ];
 
   const S = { year: '5to' };
@@ -44,7 +44,6 @@
         <div class="se-cuerpo"><span class="ns-pill dev">En desarrollo</span><h4>${esc(m.nombre)}</h4><p>Estamos preparando el contenido de esta materia.</p>
         <span class="se-entrar off">Próximamente</span></div></article>`;
     }
-    if (m.pfo) return `<article class="se-card pfo" style="--i:${i}"><div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div><div class="se-cuerpo"><h4>${esc(m.nombre)}</h4><p>${esc(m.desc).replace('NikaMed+', '<b class="se-plus">NikaMed+</b>')}</p><div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ${c === 'NikaMed+' ? 'plus' : 'ok'}">${esc(c)}</span>`).join('')}</div>${esPlus() ? `<a class="se-entrar" href="${m.entrar}">🎓 Abrir el ECOE FINAL <i>→</i></a>` : `<a class="se-entrar" href="nikamed-plus.html" style="background:linear-gradient(135deg,#7e22ce,#a855f7 60%,#6366f1)">💜 Ver planes para el ECOE FINAL <i>→</i></a>`}</div></article>`;
     return `<article class="se-card ${m.color}" style="--i:${i}">
       <div class="se-banda"><span class="se-ico">${m.icono}</span><span class="se-sigla">${esc(m.sigla)}</span></div>
       <div class="se-cuerpo">
@@ -53,8 +52,8 @@
         <div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ok">${esc(c)}</span>`).join('')}</div>
         <a class="se-entrar" href="${m.estudio}">📖 Entrar a la Sala de Estudio <i>→</i></a>
         <div class="se-rapido" aria-label="Accesos rápidos">
-          <a href="${m.simulador}" title="Simulador de exámenes"><span>📝</span>Simulador</a>
-          <a href="${m.duelos}" title="Duelos 1vs1"><span>⚔️</span>Duelos</a>
+          <a href="${m.simulador}" title="${m.id === 'pfo' ? 'Simulador: ECOE FINAL (NikaMed+)' : 'Simulador de exámenes'}"><span>📝</span>Simulador</a>
+          ${m.duelos ? `<a href="${m.duelos}" title="Duelos 1vs1"><span>⚔️</span>Duelos</a>` : ''}
           <a href="${m.atlas}" title="Atlas 3D de acreditaciones"><span>🥽</span>NikaSim</a>
           <a href="${m.hub}" title="Menú completo de la materia"><span>🧭</span>Menú</a>
         </div>

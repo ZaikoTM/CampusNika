@@ -1,0 +1,1241 @@
+{
+  "modulos": [
+    {
+      "id": "generalidades",
+      "icono": "🧭",
+      "titulo": "Generalidades",
+      "color": "#0ea5e9",
+      "estado": "activo",
+      "desc": "Qué es la PFO y cómo se cursa: recorrido interactivo por el reglamento, con juego de repaso al final."
+    },
+    {
+      "id": "clinica_medica",
+      "icono": "🩺",
+      "titulo": "Clínica Médica",
+      "color": "#6366f1",
+      "estado": "activo",
+      "desc": "Bibliografía, internación, laboratorio, imágenes, ECG, oftalmología y procedimientos de la rotación.",
+      "secciones": [
+        {
+          "id": "bibliografia",
+          "icono": "📖",
+          "titulo": "Bibliografía sugerida",
+          "desc": "Textos y consensos recomendados para la rotación, agrupados por tema.",
+          "tipo": "bibliografia",
+          "bibliografia": [
+            {
+              "tema": "Textos de base",
+              "icono": "📘",
+              "refs": [
+                "Harrison. Principios de Medicina Interna.",
+                "Farreras-Rozman. Medicina Interna.",
+                "Goldman-Cecil. Tratado de Medicina Interna.",
+                "Goodman & Gilman. Las bases farmacológicas de la terapéutica.",
+                "Guías ALAD y guías de práctica clínica."
+              ]
+            },
+            {
+              "tema": "Respiratorio y vías aéreas altas",
+              "icono": "🫁",
+              "refs": [
+                "Lopardo G, Pensotti C, Scapellato P, et al. Consenso intersociedades para el manejo de infecciones respiratorias: bronquitis aguda y EPOC. Medicina (B Aires), 2013.",
+                "Lopardo G, Calmaggi A, Clara L, et al. Consenso sobre diagnóstico y tratamiento de infecciones de vías respiratorias altas. Medicina (B Aires), 2012.",
+                "Ministerio de Salud de la Nación. Boletín integrado de vigilancia, 2013.",
+                "Gonzales R, Steiner JF, Lum A, Barrett PH Jr. Decreasing antibiotic use in ambulatory practice: treatment of uncomplicated acute bronchitis in adults. JAMA 1999; 281: 1512-9.",
+                "Organización Mundial de la Salud. Plan de acción mundial sobre la resistencia a los antimicrobianos."
+              ]
+            },
+            {
+              "tema": "Neurología: ACV",
+              "icono": "🧠",
+              "refs": [
+                "Consenso sobre accidente cerebrovascular isquémico agudo. Medicina (Buenos Aires) 2019; 79 (supl. II): 1-46."
+              ]
+            },
+            {
+              "tema": "Diabetes",
+              "icono": "🩸",
+              "refs": [
+                "Tébar Massó FJ, Escobar Jiménez F. La diabetes mellitus en la práctica clínica. Panamericana, 2009.",
+                "Addie-Gentle P, Azok J, Azzarello J, Edelman M. Diabetes mellitus. Guía para el manejo del paciente. Williams & Wilkins, 2007.",
+                "Jordán Valenzuela M, Miralles García MD, Ramos Morcillo A, Torres García M. Intervenciones enfermeras ante el paciente diabético. Logoss, 2009.",
+                "Rodergas i Pagès J. Cuidados de enfermería al paciente diabético. Fuden, 2009."
+              ]
+            },
+            {
+              "tema": "Piel y partes blandas",
+              "icono": "🦠",
+              "refs": [
+                "Consenso SADI-SAM-SAD-CACCV. Guía para el manejo racional de las infecciones de piel y partes blandas, partes I, II y III. Rev Panam Infectol 2009; 11(3): 47-65 y 2010; 12(1): 60-74."
+              ]
+            },
+            {
+              "tema": "Infección urinaria",
+              "icono": "🚽",
+              "refs": [
+                "Nemirovsky C, López Furst MJ, Pryluka D, et al. Consenso argentino intersociedades de infección urinaria 2018-2019, partes I y II. Medicina (Buenos Aires) 2020; 80: 229-240.",
+                "López Furst MJ, Mykietiuk A, Pessacq P, et al. Community-acquired uncomplicated urinary tract infections: current etiology and antimicrobial susceptibility in Argentina. Int J Infect Dis 2018."
+              ]
+            },
+            {
+              "tema": "Insuficiencia renal aguda",
+              "icono": "🫘",
+              "refs": [
+                "Gaínza de los Ríos FJ. Insuficiencia renal aguda. En: Nefrología al día. nefrologiaaldia.org/317.",
+                "Novis BK, Roizen MF, Aronson S, Thisted RA. Association of preoperative risk factors with postoperative acute renal failure. Anesth Analg 1994; 78(1): 143-9.",
+                "Peerapornratana S, Manrique-Caballero CL, Gómez H, Kellum JA. Acute kidney injury from sepsis: current concepts. Kidney Int 2019; 96(5): 1083-99.",
+                "Levey AS, James MT. Acute kidney injury. Ann Intern Med 2017; 167(9): ITC66-ITC80.",
+                "Yoon SY, Kim JS, Jeong KH, Kim SK. Acute kidney injury: biomarker-guided diagnosis and management. Medicina (Kaunas) 2022; 58(3): 340."
+              ]
+            },
+            {
+              "tema": "Síndrome metabólico",
+              "icono": "⚖️",
+              "refs": [
+                "Huang PL. A comprehensive definition for metabolic syndrome. Dis Model Mech 2009; 2(5-6): 231-7.",
+                "Saklayen MG. The global epidemic of the metabolic syndrome. Curr Hypertens Rep 2018; 20(2): 12.",
+                "Lemieux I, Després JP. Metabolic syndrome: past, present and future. Nutrients 2020; 12(11): 3501.",
+                "Sherling DH, Perumareddi P, Hennekens CH. Metabolic syndrome. J Cardiovasc Pharmacol Ther 2017; 22(4): 365-7.",
+                "Després JP, Lemieux I. Abdominal obesity and metabolic syndrome. Nature 2006; 444(7121): 881-7.",
+                "Ruilope LM, Nunes Filho ACB, Nadruz W Jr, et al. Obesity and hypertension in Latin America. Hipertens Riesgo Vasc 2018; 35(2): 70-6.",
+                "Hernández Ruiz de Eguilaz M, Batlle MA, Martínez de Morentin B, et al. Cambios alimentarios y de estilo de vida como estrategia en la prevención del síndrome metabólico y la diabetes tipo 2. An Sist Sanit Navar 2016; 39(2): 269-89."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "internacion",
+          "icono": "🛏️",
+          "titulo": "El segundo nivel: la internación",
+          "desc": "Cómo se escribe la historia clínica y cómo se evalúa a un paciente internado.",
+          "items": [
+            {
+              "titulo": "Historia Clínica",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1OBTXw4vpnfILDApvIuBrd8tUsvySp9bL/view?usp=drive_link",
+              "icono": "📋"
+            },
+            {
+              "titulo": "Pasos de evaluación PFO",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1ZTCBuP14QJkBorscRrM8lb8Rhwf2k15j/view?usp=drive_link",
+              "icono": "🧭"
+            }
+          ]
+        },
+        {
+          "id": "farmacologia",
+          "icono": "💊",
+          "titulo": "Farmacología clínica: aspectos generales",
+          "desc": "18 clases en video: analgésicos, antibióticos, antihipertensivos, insulinas y más.",
+          "videos": [
+            {
+              "titulo": "Analgésicos / Anti-inflamatorios I - Dr. Mauricio Tournour",
+              "yt": "2nIBuy4KO6M"
+            },
+            {
+              "titulo": "Analgésicos / Anti-inflamatorios II - Dr. Mauricio Tournour",
+              "yt": "Ib4FvI3NLnU"
+            },
+            {
+              "titulo": "Farmacología de los corticoides - Dr. Mauricio Tournour",
+              "yt": "510IWUfSsIo"
+            },
+            {
+              "titulo": "Farmacoterapia antiagregante y trombolítica - Dr. Mauricio Tournour",
+              "yt": "0X8kNsAhD9s"
+            },
+            {
+              "titulo": "Farmacoterapia antibiótica: Generalidades - Dr. Mauricio Tournour",
+              "yt": "hLMVUS7IbyI"
+            },
+            {
+              "titulo": "Antibióticos Beta-Lactamicos - Dr. Mauricio Tournour",
+              "yt": "CRwN0ALFCnQ"
+            },
+            {
+              "titulo": "Otras familias antibióticas - Dr. Mauricio Tournour",
+              "yt": "T4CYK5hBLv8"
+            },
+            {
+              "titulo": "Farmacoterapia de las diarreas - Dr. Mauricio Tournour",
+              "yt": "YnzOtZGaTck"
+            },
+            {
+              "titulo": "Antieméticos - Dr. Mauricio Tournour",
+              "yt": "TlWc05Wur6E"
+            },
+            {
+              "titulo": "Farmacoterapia anti-hipertensiva - Dr. Mauricio Tournour",
+              "yt": "KPA-_ZOENbw"
+            },
+            {
+              "titulo": "Hipoglucemiantes orales - Dr. Mauricio Tournour",
+              "yt": "Pp4raPqO8F8"
+            },
+            {
+              "titulo": "Insulina y análogos - Dr. Mauricio Tournour",
+              "yt": "GOfzl8IfK5w"
+            },
+            {
+              "titulo": "Farmacoterapia anticomicial - Dr. Mauricio Tournour",
+              "yt": "J-gYFKOGDUU"
+            },
+            {
+              "titulo": "Farmacología de los anti-ácidos, anti-secretores y gastro-protectores - Dr. Mauricio Tournour",
+              "yt": "8lyBtMXaCXw"
+            },
+            {
+              "titulo": "Farmacología de los procineticos - Dr. Mauricio Tournour",
+              "yt": "Pt1bvmULkvc"
+            },
+            {
+              "titulo": "Farmacoterapia de las tiroideopatias - Dr. Mauricio Tournour",
+              "yt": "dkbzVyY5BCY"
+            },
+            {
+              "titulo": "Farmacología de las enzimas digestivas - Dr. Mauricio Tournour",
+              "yt": "0WGKXEmXxhY"
+            },
+            {
+              "titulo": "Farmacología del Hierro, la Vitamina B12 y el Acido Fólico - Dr. Mauricio Tournour",
+              "yt": "oK6HOfbjS1g"
+            }
+          ]
+        },
+        {
+          "id": "generalidades_cm",
+          "icono": "🧪",
+          "titulo": "Generalidades de utilidad para la práctica clínica",
+          "desc": "Cómo interpretar el laboratorio y cómo redactar recetas, certificados y pedidos.",
+          "items": [
+            {
+              "titulo": "Hemograma: interpretación",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1jZV3RW-WEGk0fjizSwDr6USeFDoYWKxW/view?usp=drive_link",
+              "icono": "🩸"
+            },
+            {
+              "titulo": "Hepatograma: interpretación",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1BDtSM81wfoPRcuZZP1jP9cYcxhzT-QA0/view?usp=drive_link",
+              "icono": "🧫"
+            },
+            {
+              "titulo": "Perfil metabólico",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1YXSfPkTLx9kP5Dy1VmXT4CyxxOTqf-GZ/view?usp=drive_link",
+              "icono": "⚖️"
+            },
+            {
+              "titulo": "Perfil renal: interpretación",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1SldCs7Mt7ZWEM_VS--gppOKjF-Vip1Oj/view?usp=drive_link",
+              "icono": "🫘"
+            },
+            {
+              "titulo": "Otros laboratorios: interpretación",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1TQuste6uq5eSQ4Gb3ktUROKga28w0qvp/view?usp=drive_link",
+              "icono": "🔬"
+            },
+            {
+              "titulo": "Certificado de ausentismo: guía",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1h-Xo7jBQzuMMwUmrxktV3ywnUpPxtQF3/view?usp=drive_link",
+              "icono": "📄"
+            },
+            {
+              "titulo": "Prescripción de psicofármacos: desarrollo del procedimiento",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1Tll_WaEQQ3LInIRYVkexw02mQeb66Th6/view?usp=drive_link",
+              "icono": "🧠"
+            },
+            {
+              "titulo": "Recetario en blanco",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1csRdNp2-ngoH5n9y-mLD_nK14IH8pywI/view?usp=drive_link",
+              "icono": "🗒️"
+            },
+            {
+              "titulo": "Solicitud de exámenes complementarios: desarrollo del procedimiento",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1sJLJUpUENV-mG4PIw2sDWMgk8GcEnld2/view?usp=drive_link",
+              "icono": "🧾"
+            }
+          ],
+          "videos": [
+            {
+              "titulo": "PRESCRIBIENDO PSICOFARMACOS",
+              "yt": "Jx3HRSpB5gA"
+            }
+          ],
+          "acciones": [
+            {
+              "icono": "📝",
+              "texto": "Practicá recetas y certificados",
+              "href": "recetarios.html"
+            }
+          ]
+        },
+        {
+          "id": "imagenes",
+          "icono": "🩻",
+          "titulo": "Lectura e interpretación en diagnóstico por imágenes",
+          "desc": "Radiografías, tomografía y estudios contrastados, con clases en video.",
+          "items": [
+            {
+              "titulo": "Radiografía de tórax",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1Knz1laiZWHxzBfu6OHFZWw6c32SGnSq0/view?usp=drive_link",
+              "icono": "🫁"
+            },
+            {
+              "titulo": "Radiografía de abdomen",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1d22KiSuQo0bxQwqmFjLySB22Yv7Arwr1/view?usp=drive_link",
+              "icono": "🩻"
+            },
+            {
+              "titulo": "Radiografía de cavum y vía aérea superior",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1enaxGVIKlQV2b3qNZPR2NFH6WKBvJpk9/view?usp=drive_link",
+              "icono": "👃"
+            },
+            {
+              "titulo": "Radiografía de senos paranasales",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1oC95ZauEE1kBZCEWSVDjPHSiW1IzEvMm/view?usp=drive_link",
+              "icono": "😮‍💨"
+            },
+            {
+              "titulo": "Radiografía ósea",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1GyrgXQINgiJnU9Qr_iWuhgfZg70UBtff/view?usp=drive_link",
+              "icono": "🦴"
+            },
+            {
+              "titulo": "Solicitud de radiografía ósea",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1q8VBmOaH_JSEO-pEaaf6-y4mZB63z7rj/view?usp=drive_link",
+              "icono": "🧾"
+            },
+            {
+              "titulo": "Tomografía computada (TC)",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1bMaLzYAb9qEdCIIWcOpQ5L8JrNi_zeBP/view?usp=drive_link",
+              "icono": "🧠"
+            },
+            {
+              "titulo": "Tomografía computada (TAC)",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1Z5fA1mmZbMYjFGRVnTitbFwNkPQXoXN6/view?usp=drive_link",
+              "icono": "🧠"
+            },
+            {
+              "titulo": "Urograma excretor",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1cDd8bvfl3ASWw_8l5xKlrEebrI3CY-Mw/view?usp=drive_link",
+              "icono": "💧"
+            },
+            {
+              "titulo": "Ecografía",
+              "tipo": "pronto"
+            },
+            {
+              "titulo": "Estudios con contraste",
+              "tipo": "pronto"
+            }
+          ],
+          "videos": [
+            {
+              "titulo": "Tomografía Computada Cráneo-Encefálica - Dr. Fernando Parra",
+              "yt": "EfK4roi6kDo"
+            },
+            {
+              "titulo": "Tomografía Computada de Tórax 1 - Dr. Fernando Parra",
+              "yt": "-VG3NC2__vM"
+            },
+            {
+              "titulo": "Tomografía Computada de Tórax 2 - Dr. Fernando Parra",
+              "yt": "-z8x0VoXsbA"
+            },
+            {
+              "titulo": "Tomografía Computada de Tórax 3 - Dr. Fernando Parra",
+              "yt": "CZff69kjzps"
+            },
+            {
+              "titulo": "Tomografía de abdomen - Dr. Fernando Parra",
+              "yt": "-Lhzf-7_2FE"
+            },
+            {
+              "titulo": "Seriada Esófago-Gastro-Duodenal I - Tec. Rad. Maria Daniela Kleman",
+              "yt": "L9SMKNKCXew"
+            },
+            {
+              "titulo": "Seriada Esófago-Gastro-Duodenal II - Tec. Rad. Maria Daniela Kleman",
+              "yt": "KdkXqGbX1MI"
+            },
+            {
+              "titulo": "Colon por enema I - Tec. Rad. Maria Daniela Kleman",
+              "yt": "rRAT09tSXVs"
+            },
+            {
+              "titulo": "Colon por enema II - Tec. Rad. Maria Daniela Kleman",
+              "yt": "AWQ7aAuLVK8"
+            }
+          ]
+        },
+        {
+          "id": "ecg",
+          "icono": "📈",
+          "titulo": "Lectura e interpretación de trazados electrocardiográficos",
+          "desc": "Guías paso a paso para leer un ECG y clases en video.",
+          "items": [
+            {
+              "titulo": "ECG normal: guía del procedimiento",
+              "tipo": "proc",
+              "proc": "ecgn",
+              "icono": "📈",
+              "guia": "https://drive.google.com/file/d/18CDsdSyT6RR3sVx1-ymt6pUwCsstOC-Y/view?usp=drive_link"
+            },
+            {
+              "titulo": "ECG en síndrome coronario agudo: guía del procedimiento",
+              "tipo": "proc",
+              "proc": "ecgsca",
+              "icono": "❤️‍🔥",
+              "guia": "https://drive.google.com/file/d/1rZ9TbqQHxAH9r4Sgy0QaQGwUitTtYiew/view?usp=drive_link"
+            },
+            {
+              "titulo": "Electrocardiografía práctica (Dubin)",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1ajNEOiBsbRkgTVrGHVP6FPKLfi1etpwV/view?usp=drive_link",
+              "icono": "📘"
+            }
+          ],
+          "videos": [
+            {
+              "titulo": "Electrogénesis I - Dr. Marcelo Ríos",
+              "yt": "2rnB6-h3OtE"
+            },
+            {
+              "titulo": "Electrogénesis II - Dr. Marcelo Ríos",
+              "yt": "12PotKad6d0"
+            },
+            {
+              "titulo": "Electrogénesis III - Dr. Marcelo Ríos",
+              "yt": "fsa2QsZcPxk"
+            },
+            {
+              "titulo": "Electrogénesis IV - Dr. Marcelo Ríos",
+              "yt": "8CTqsKCQgco"
+            },
+            {
+              "titulo": "Electrocardiograma normal I - Dr. Marcelo Rios",
+              "yt": "vDWyZbzayuA"
+            },
+            {
+              "titulo": "Electrocardiograma normal II - Dr. Marcelo Rios",
+              "yt": "EhRdvYj15MI"
+            },
+            {
+              "titulo": "Arritmias I - Dr. Marcelo Ríos",
+              "yt": "FEt19tF6258"
+            },
+            {
+              "titulo": "Arritmias II - Dr. Marcelo Rios",
+              "yt": "XLjUqgq5SKQ"
+            },
+            {
+              "titulo": "Arritmias III - Dr. Marcelo Ríos",
+              "yt": "VVSwrMnJK6s"
+            },
+            {
+              "titulo": "Trastornos de la conducción I - Dr. Marcelo Ríos",
+              "yt": "fH_bAh4WLfs"
+            },
+            {
+              "titulo": "Trastornos de la conducción II - Dr. Marcelo Ríos",
+              "yt": "rBtqJCyAfow"
+            }
+          ]
+        },
+        {
+          "id": "oftalmo",
+          "icono": "👁️",
+          "titulo": "Procedimientos oftalmológicos para el médico general",
+          "desc": "Agudeza visual y oftalmoscopia directa, con material y videos.",
+          "items": [
+            {
+              "titulo": "Agudeza visual",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1gES1txzccfRodIIxZnx2tV11kbCszmj2/view?usp=drive_link",
+              "icono": "👓"
+            },
+            {
+              "titulo": "Oftalmoscopia directa: guía del procedimiento",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1JHT_6IdEVmTWkIUSU9kVukO-tT_rlwDz/view?usp=drive_link",
+              "icono": "🔦"
+            },
+            {
+              "titulo": "Oftalmoscopia directa",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1I6GTgMEHNQVYfg7rZBBdMECY_KbIgCZF/view?usp=drive_link",
+              "icono": "👁️"
+            }
+          ],
+          "videos": [
+            {
+              "titulo": "Oftalmoscopia Directa: La técnica - Dra. Celeste Gadea",
+              "yt": "qt9KLE8nHjc"
+            },
+            {
+              "titulo": "Ophthalmoscopy",
+              "yt": "BG7PbX4i-Y4"
+            },
+            {
+              "titulo": "Oftalmoscopia",
+              "yt": "cUxUIWsI2HI"
+            },
+            {
+              "titulo": "El edema de papila - Dra. Celeste Gadea",
+              "yt": "ZROm4ke2XSs"
+            },
+            {
+              "titulo": "Edema bilateral de papila",
+              "yt": "jcqJV35VE2I"
+            }
+          ]
+        },
+        {
+          "id": "procedimientos",
+          "icono": "🛠️",
+          "titulo": "Procedimientos relevantes para la clínica médica",
+          "desc": "Tutorial paso a paso de cada procedimiento, con teoría complementaria y práctica en NikaSim.",
+          "items": [
+            {
+              "titulo": "Intubación endotraqueal",
+              "tipo": "proc",
+              "proc": "iet",
+              "icono": "🫁",
+              "guia": "https://drive.google.com/file/d/1SP41Up1HmdmzTb_NzundvIs3nN2ccUFp/view?usp=drive_link",
+              "nikasim": {
+                "area": "siam",
+                "id": "iet"
+              }
+            },
+            {
+              "titulo": "Paracentesis diagnóstica",
+              "tipo": "proc",
+              "proc": "pd",
+              "icono": "💧",
+              "guia": "https://drive.google.com/file/d/1KvZWdeQaO3TKne3YoQgn9orptjUtG4Z4/view?usp=drive_link"
+            },
+            {
+              "titulo": "Paracentesis terapéutica",
+              "tipo": "proc",
+              "proc": "pt",
+              "icono": "💧",
+              "guia": "https://drive.google.com/file/d/1-T50J5frIV4ypeooIKkgLBsGowpvjLfH/view?usp=drive_link"
+            },
+            {
+              "titulo": "Punción lumbar (raquicentesis)",
+              "tipo": "proc",
+              "proc": "pl",
+              "icono": "🦴",
+              "guia": "https://drive.google.com/file/d/14Koo4W3NOYY8CJXKpXiY4PhZWnEx-AOC/view?usp=drive_link",
+              "teoria": {
+                "titulo": "Raquicentesis: apunte teórico",
+                "url": "https://drive.google.com/file/d/1kP0NdhLyaoFTafzQS3r_1F8lc0yX-DLZ/view?usp=drive_link"
+              }
+            },
+            {
+              "titulo": "Colocación de sonda nasogástrica",
+              "tipo": "proc",
+              "proc": "sng",
+              "icono": "🧵",
+              "guia": "https://drive.google.com/file/d/1upeeidHIv4xdFtrywSpLdgQAp1YqvPmo/view?usp=drive_link",
+              "teoria": {
+                "titulo": "Sonda nasogástrica: apunte teórico",
+                "url": "https://drive.google.com/file/d/1TSWaOjytXXwkijMx0JjOaHatM5_E1h4N/view?usp=drive_link"
+              }
+            },
+            {
+              "titulo": "Tacto rectal",
+              "tipo": "proc",
+              "proc": "tr",
+              "icono": "🖐️",
+              "guia": "https://drive.google.com/file/d/1XI8-z01kjG5pl80iZqlxR3h3hshqf-z5/view?usp=drive_link",
+              "teoria": {
+                "titulo": "Tacto rectal: apunte teórico",
+                "url": "https://drive.google.com/file/d/1p1XMIZHxXWr2bietBdjLTNGEH50eduxJ/view?usp=drive_link"
+              },
+              "nikasim": {
+                "area": "siam",
+                "id": "tr"
+              }
+            },
+            {
+              "titulo": "Extracción de sangre venosa",
+              "tipo": "proc",
+              "proc": "vp",
+              "icono": "🩸",
+              "guia": "https://drive.google.com/file/d/1TQH5q-uwQXeDt1ng3CgULcZ1qGSIS0he/view?usp=drive_link"
+            },
+            {
+              "titulo": "Otoscopía",
+              "tipo": "proc",
+              "proc": "oto",
+              "icono": "👂",
+              "guia": "https://drive.google.com/file/d/1ZRSAvaR_T3toepzV-ULMOH0M6N8vIWRd/view?usp=drive_link",
+              "teoria": {
+                "titulo": "Otoscopía: apunte teórico",
+                "url": "https://drive.google.com/file/d/1lYyZvb5whr2Amryu4XrM4DfNjQElnofa/view?usp=drive_link"
+              }
+            },
+            {
+              "titulo": "Hisopado de fauces",
+              "tipo": "proc",
+              "proc": "hisfa",
+              "icono": "🧪",
+              "guia": "https://drive.google.com/file/d/1Gy9vE5CF__xGHVN_-5_nMYDZcI0c-k_G/view?usp=drive_link"
+            },
+            {
+              "titulo": "Hisopado nasofaríngeo",
+              "tipo": "proc",
+              "proc": "hisnf",
+              "icono": "🧪",
+              "guia": "https://drive.google.com/file/d/1se94VJEUgIjXjAKQd9Z9VTKzCkzYBOiY/view?usp=drive_link"
+            },
+            {
+              "titulo": "Hisopado uretral femenino",
+              "tipo": "proc",
+              "proc": "hisf",
+              "icono": "🧪",
+              "guia": "https://drive.google.com/file/d/18K9S-O-bxT4cnWbAs50NQTRzDLtnma6p/view?usp=drive_link"
+            },
+            {
+              "titulo": "Hisopado uretral masculino",
+              "tipo": "proc",
+              "proc": "hism",
+              "icono": "🧪",
+              "guia": "https://drive.google.com/file/d/1KLDB9NDUwNpScTBKtNFxxBO4GvQA0vex/view?usp=drive_link"
+            },
+            {
+              "titulo": "Toracocentesis (punción pleural): apunte teórico",
+              "tipo": "pdf",
+              "url": "https://drive.google.com/file/d/1f1YkQoMMvFuaKdvIjG9iskVX2fnH23h0/view?usp=drive_link",
+              "icono": "🫁"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clinica_pediatrica",
+      "icono": "🧒",
+      "titulo": "Clínica Pediátrica",
+      "color": "#f59e0b",
+      "estado": "pronto",
+      "desc": "Fiebre, convulsiones, dificultad respiratoria, diarrea y consensos de pediatría."
+    },
+    {
+      "id": "clinica_quirurgica",
+      "icono": "🔪",
+      "titulo": "Clínica Quirúrgica",
+      "color": "#ef4444",
+      "estado": "pronto",
+      "desc": "Abdomen agudo, retención de orina, patología biliar, pie diabético y más."
+    },
+    {
+      "id": "emergentologia",
+      "icono": "🚑",
+      "titulo": "Emergentología",
+      "color": "#dc2626",
+      "estado": "pronto",
+      "desc": "Politrauma, RCP, SCA, TEP, arritmias, crisis hipertensivas y estatus epiléptico."
+    },
+    {
+      "id": "gineco_obstetricia",
+      "icono": "🤰",
+      "titulo": "Ginecología y Obstetricia",
+      "color": "#ec4899",
+      "estado": "pronto",
+      "desc": "Control preconcepcional, prenatal y puerperal; sangrado uterino anormal; evaluación mamaria."
+    },
+    {
+      "id": "salud_familiar",
+      "icono": "🏘️",
+      "titulo": "Salud Familiar y General",
+      "color": "#10b981",
+      "estado": "pronto",
+      "desc": "Atención primaria, enfermedades crónicas, tabaquismo, adulto mayor y prevención."
+    },
+    {
+      "id": "bibliografia",
+      "icono": "📚",
+      "titulo": "Bibliografía actualizada",
+      "color": "#8b5cf6",
+      "estado": "pronto",
+      "desc": "Guías y consensos vigentes: hipertensión, piel y partes blandas, infecciones de transmisión sexual."
+    }
+  ],
+  "recorrido": {
+    "titulo": "Recorrido por la PFO",
+    "subtitulo": "Todo lo que tenés que saber de la Práctica Final Obligatoria, paso a paso",
+    "pasos": [
+      {
+        "id": "que_es",
+        "icono": "🎓",
+        "titulo": "¿Qué es la PFO?",
+        "tipo": "hero",
+        "parrafos": [
+          "La Práctica Final Obligatoria (PFO) se ubica en el sexto año de la carrera de Medicina, después del ciclo de «Diagnóstico, Tratamiento y Recuperación de la enfermedad».",
+          "Se estructura en rotaciones por las grandes áreas de la práctica médica, en distintos efectores de salud (hospitales y centros de salud) y en la sede de la facultad, en el Centro Interdisciplinario de Simulación en Salud (CISS).",
+          "Es la oportunidad de usar e integrar todos los recursos y herramientas que adquiriste a lo largo de la carrera, con la metodología del aprendizaje basado en problemas y la enseñanza por competencias."
+        ],
+        "cifras": [
+          {
+            "n": 37,
+            "label": "semanas continuas"
+          },
+          {
+            "n": 1832,
+            "label": "horas en total"
+          },
+          {
+            "n": 8,
+            "label": "rotaciones y espacios"
+          },
+          {
+            "n": 2,
+            "label": "ingresos por año"
+          }
+        ],
+        "dato": "Teoría y práctica juntas: 132 horas teóricas y 1700 horas prácticas."
+      },
+      {
+        "id": "rotaciones",
+        "icono": "🗺️",
+        "titulo": "Tus rotaciones",
+        "tipo": "rotaciones",
+        "intro": "Tocá una barra para ver el detalle y cambiá la medida para comparar semanas y horas.",
+        "rotaciones": [
+          {
+            "nombre": "Medicina Familiar y General",
+            "icono": "🏘️",
+            "ambito": "CAPS / comunidad",
+            "semanas": 16,
+            "teoricas": 32,
+            "practicas": 640,
+            "total": 672,
+            "color": "#10b981"
+          },
+          {
+            "nombre": "Emergentología",
+            "icono": "🚑",
+            "ambito": "Hospital (transversal)",
+            "semanas": 24,
+            "teoricas": 48,
+            "practicas": 240,
+            "total": 288,
+            "color": "#ef4444",
+            "nota": "Es transversal: se cursa en paralelo a las otras rotaciones, con una guardia semanal de 10 horas."
+          },
+          {
+            "nombre": "Clínica Médica",
+            "icono": "🩺",
+            "ambito": "Hospital",
+            "semanas": 4,
+            "teoricas": 8,
+            "practicas": 160,
+            "total": 168,
+            "color": "#6366f1"
+          },
+          {
+            "nombre": "Clínica Pediátrica",
+            "icono": "🧒",
+            "ambito": "Hospital",
+            "semanas": 4,
+            "teoricas": 8,
+            "practicas": 160,
+            "total": 168,
+            "color": "#f59e0b"
+          },
+          {
+            "nombre": "Gineco-Obstetricia",
+            "icono": "🤰",
+            "ambito": "Hospital",
+            "semanas": 4,
+            "teoricas": 8,
+            "practicas": 160,
+            "total": 168,
+            "color": "#ec4899"
+          },
+          {
+            "nombre": "Clínica Quirúrgica",
+            "icono": "🔪",
+            "ambito": "Hospital",
+            "semanas": 4,
+            "teoricas": 8,
+            "practicas": 160,
+            "total": 168,
+            "color": "#f97316"
+          },
+          {
+            "nombre": "Escuela de Salud Pública",
+            "icono": "🔬",
+            "ambito": "Facultad y virtual (transversal)",
+            "semanas": 5,
+            "teoricas": 10,
+            "practicas": 90,
+            "total": 100,
+            "color": "#0ea5e9",
+            "nota": "Aquí se diseña y desarrolla el Trabajo de Inicio a la Investigación (TII)."
+          },
+          {
+            "nombre": "Prácticas Integradas",
+            "icono": "🥽",
+            "ambito": "Facultad (CISS, transversal)",
+            "semanas": 5,
+            "teoricas": 10,
+            "practicas": 90,
+            "total": 100,
+            "color": "#8b5cf6",
+            "nota": "Simulación de casos clínicos de las áreas básicas."
+          }
+        ],
+        "totales": {
+          "teoricas": 132,
+          "practicas": 1700,
+          "total": 1832
+        }
+      },
+      {
+        "id": "ambitos",
+        "icono": "🏥",
+        "titulo": "Dónde se cursa",
+        "tipo": "ambitos",
+        "intro": "La PFO se reparte en tres ámbitos. Elegí uno para ver qué se hace en cada uno.",
+        "ambitos": [
+          {
+            "id": "caps",
+            "icono": "🏘️",
+            "titulo": "Centros de Salud",
+            "dato": "16 semanas",
+            "rotacion": "Salud Familiar y General",
+            "texto": "Las prácticas son tuteladas e intensivas en Centros de Atención Primaria de la Salud (CAPS), provinciales o municipales.",
+            "actividades": [
+              "Atención en el CAPS",
+              "Actividades en territorio",
+              "Diagnóstico de situación de salud",
+              "Actividades de intervención comunitaria"
+            ]
+          },
+          {
+            "id": "hospital",
+            "icono": "🏥",
+            "titulo": "Hospital",
+            "dato": "4 semanas por área",
+            "rotacion": "Clínica · Pediatría · Cirugía · Ginecología y Obstetricia · Emergentología",
+            "texto": "Las prácticas son tuteladas e intensivas en los servicios hospitalarios. Emergentología se cursa de forma transversal.",
+            "actividades": [
+              "Tutorías",
+              "Presentación y discusión de casos",
+              "Laboratorio de habilidades",
+              "Consulta con expertos"
+            ]
+          },
+          {
+            "id": "facultad",
+            "icono": "🎓",
+            "titulo": "Facultad",
+            "dato": "5 + 5 semanas",
+            "rotacion": "Escuela de Salud Pública · Prácticas Integradas",
+            "texto": "En la sede de la facultad se cursa la Escuela de Salud Pública y las Prácticas Integradas en el CISS.",
+            "actividades": [
+              "Trabajo de Inicio a la Investigación (TII)",
+              "Simulación de casos clínicos",
+              "Prácticas integradas simuladas de las áreas básicas",
+              "Actividades de la Escuela de Salud Pública"
+            ]
+          }
+        ],
+        "nodos": "Los nodos docentes están en distintas ciudades, con docentes que supervisan tu formación."
+      },
+      {
+        "id": "ritmo",
+        "icono": "📆",
+        "titulo": "El ritmo de cursada",
+        "tipo": "ritmo",
+        "intro": "Además de las prácticas en los servicios, hay encuentros y actividades fijas.",
+        "tarjetas": [
+          {
+            "icono": "💻",
+            "titulo": "Encuentros virtuales",
+            "dato": "2 h por semana",
+            "texto": "En cada rotación, los estudiantes de todos los nodos se reúnen de forma sincrónica para presentar y discutir casos clínicos, actualizar bibliografía y consensos."
+          },
+          {
+            "icono": "🤝",
+            "titulo": "Encuentros presenciales",
+            "dato": "Cada 15 días",
+            "texto": "En cada nodo, cada rotación realiza encuentros presenciales para discutir y simular casos clínicos."
+          },
+          {
+            "icono": "🚨",
+            "titulo": "Guardias de Emergentología",
+            "dato": "10 h por semana · 24 semanas",
+            "texto": "Un día fijo de lunes a viernes, de 9:00 a 17:00, en la guardia (urgencias y emergencias) de cada hospital, transversal a las otras rotaciones."
+          },
+          {
+            "icono": "🥽",
+            "titulo": "Prácticas simuladas",
+            "dato": "1 vez por mes · 8 meses",
+            "texto": "Prácticas de emergentología en el CISS una vez al mes durante los primeros 8 meses, y de forma intensiva en las últimas 5 semanas."
+          },
+          {
+            "icono": "🧑‍🏫",
+            "titulo": "Tutorías y expertos",
+            "dato": "Cada 15 días",
+            "texto": "Espacio tutorial virtual quincenal y consulta con expertos para las prácticas integradas de clínica, pediatría, cirugía, gineco-obstetricia, emergentología y para el diseño del TII."
+          },
+          {
+            "icono": "🏁",
+            "titulo": "Las 5 semanas finales",
+            "dato": "Todos los días",
+            "texto": "Prácticas integradas simuladas de las áreas básicas y actividades de la Escuela de Salud Pública, en la sede de la facultad."
+          }
+        ]
+      },
+      {
+        "id": "ingreso",
+        "icono": "🚪",
+        "titulo": "Ingreso y calendario",
+        "tipo": "ingreso",
+        "intro": "Marcá lo que ya cumplís y mirá cuándo podés empezar.",
+        "requisitos": [
+          "Tener aprobada la totalidad de las áreas, instrumentales y electivas de los ciclos previos del plan de estudios vigente.",
+          "Inscribirte al ciclo de PFO por el sistema de autogestión de la facultad."
+        ],
+        "ingresos": [
+          {
+            "mes": "Marzo",
+            "icono": "🌱",
+            "titulo": "Primer ingreso",
+            "quienes": "Quienes cumplieron las condiciones en los turnos de noviembre-diciembre del año anterior o de febrero-marzo del año en curso.",
+            "inicio": "Primer día hábil de la 4.ª semana de marzo",
+            "fin": "Último día de la 4.ª semana de noviembre"
+          },
+          {
+            "mes": "Agosto",
+            "icono": "☀️",
+            "titulo": "Segundo ingreso",
+            "quienes": "Quienes cumplieron las condiciones en el turno de julio del año en curso.",
+            "inicio": "Primer día hábil de la 4.ª semana de agosto",
+            "fin": "Último día de la 4.ª semana de mayo"
+          }
+        ],
+        "vacantes": {
+          "titulo": "¿Cómo se reparten las vacantes de cada nodo?",
+          "texto": "Tiene prioridad quien es originario de la ciudad base del nodo y vivió allí los últimos 10 años. Si hay más aspirantes que lugares, se aplican estos criterios en orden:",
+          "criterios": [
+            "Procedencia de departamentos (u otras provincias o países) que no cuentan con nodos docentes.",
+            "Promedio de cursado de la carrera, con aplazos incluidos.",
+            "Actividad docente en la facultad, con una antigüedad mínima de 1 año al concluir 5.º año.",
+            "Sorteo."
+          ]
+        },
+        "cambios": {
+          "titulo": "¿Se puede cambiar de grupo de rotación?",
+          "items": [
+            "Solo con otro estudiante y de manera inmediata.",
+            "Con una solicitud escrita a la Coordinación de la PFO, justificada y firmada por los dos estudiantes.",
+            "Una vez iniciada la rotación no se permite ningún cambio, bajo ninguna circunstancia."
+          ]
+        }
+      },
+      {
+        "id": "aprobacion",
+        "icono": "✅",
+        "titulo": "Regularidad y aprobación",
+        "tipo": "aprobacion",
+        "intro": "Cada espacio tiene sus propias condiciones. Elegí uno para ver qué tenés que cumplir.",
+        "espacios": [
+          {
+            "id": "mfyg",
+            "icono": "🏘️",
+            "titulo": "Medicina Familiar (CAPS)",
+            "requisitos": [
+              "Cumplir satisfactoriamente el 80 % de las actividades de la rotación en el CAPS.",
+              "Aprobar la evaluación de desempeño en el Primer Nivel de Atención.",
+              "Presentar y aprobar el Trabajo de Intervención Comunitaria (TIC).",
+              "Aprobar la evaluación escrita y resolver el caso clínico orientado a la atención primaria.",
+              "Acreditar el 80 % de la asistencia a las actividades académicas programadas."
+            ]
+          },
+          {
+            "id": "hospital",
+            "icono": "🏥",
+            "titulo": "Rotaciones hospitalarias",
+            "requisitos": [
+              "Acreditar el 80 % de la asistencia a todas las prácticas hospitalarias y actividades académicas programadas.",
+              "Cumplir satisfactoriamente el 80 % de las actividades académicas y de las actividades hospitalarias del programa de cada rotación.",
+              "Aprobar la evaluación «en proceso»: conceptual, actitudinal y procedimental.",
+              "Aprobar la evaluación con el paciente (ver el recorrido de abajo).",
+              "Aprobar la evaluación escrita."
+            ],
+            "paciente": [
+              {
+                "icono": "📝",
+                "titulo": "Elección y consentimiento",
+                "texto": "El equipo docente elige un paciente real, que firma el consentimiento informado."
+              },
+              {
+                "icono": "🩺",
+                "titulo": "Anamnesis y examen físico completo",
+                "texto": "Los docentes observan en silencio unos 20 a 30 minutos y completan la Sección I de la planilla."
+              },
+              {
+                "icono": "🗣️",
+                "titulo": "Presentación del caso",
+                "texto": "En otra dependencia, presentás y comentás el caso y respondés preguntas aclaratorias (Parte II). Dura unos 15 minutos."
+              },
+              {
+                "icono": "⚖️",
+                "titulo": "Debate y devolución",
+                "texto": "El tribunal decide si aprobaste y te hace una devolución sobre tu desempeño."
+              }
+            ],
+            "nota": "La nota de regularidad sale del promedio entre la evaluación en proceso, la evaluación con el paciente y la evaluación escrita, siempre que las tres estén aprobadas. Todo se valora con rúbricas según la escala del Reglamento General Académico.",
+            "recuperatorios": [
+              {
+                "icono": "🗣️",
+                "titulo": "Recuperatorio oral",
+                "texto": "Si desaprobás la evaluación con el paciente, se establece un recuperatorio de instancia oral."
+              },
+              {
+                "icono": "🎯",
+                "titulo": "Recuperatorio especial",
+                "texto": "Si aun así desaprobás, podés rendirlo solo si adeudás una única instancia recuperatoria. Se programa durante las Prácticas Intensivas."
+              },
+              {
+                "icono": "🔁",
+                "titulo": "Si no se aprueba",
+                "texto": "Perdés la condición de alumno regular en esa rotación y la recursás con la cohorte inmediata siguiente."
+              }
+            ],
+            "tribunal": "El equipo evaluador tiene 2 o más integrantes: coordinador o tutor de rotación, jefe de servicio, instructor o jefe de residentes del servicio donde rotás."
+          },
+          {
+            "id": "escuela",
+            "icono": "🔬",
+            "titulo": "Escuela y Prácticas Integradas",
+            "requisitos": [
+              "Escuela de Salud Pública: acreditar el 80 % de la asistencia a las actividades obligatorias durante toda la PFO.",
+              "Escuela de Salud Pública: que tu Trabajo de Inicio a la Investigación (TII) sea reconocido como «Satisfactorio desde el punto de vista metodológico».",
+              "Prácticas Integradas: asistir al 100 % de las actividades simuladas previstas.",
+              "Prácticas Integradas: aprobar el 100 % de los laboratorios de simulación realizados durante toda la cursada."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ecoe",
+        "icono": "🏆",
+        "titulo": "ECOE y título",
+        "tipo": "ecoe",
+        "intro": "El final del camino: ECOE, defensa del trabajo y título de Médico/a.",
+        "camino": [
+          {
+            "icono": "📋",
+            "titulo": "Regularizar todo",
+            "texto": "Rotaciones por CAPS y Hospital, Prácticas Integradas y Escuela de Salud Pública, más la inscripción al llamado."
+          },
+          {
+            "icono": "🎯",
+            "titulo": "Rendir el ECOE",
+            "texto": "Estaciones clínicas simuladas en las dependencias de la facultad, en especial en el CISS. Es imperativo superarlas para aprobar. Cada estación se evalúa con rúbrica."
+          },
+          {
+            "icono": "🔬",
+            "titulo": "Defender el TII",
+            "texto": "Con el ECOE aprobado, presentás tu Trabajo de Inicio a la Investigación en una defensa pública, ante un comité de tres integrantes."
+          },
+          {
+            "icono": "🩺",
+            "titulo": "Título de Médico/a",
+            "texto": "La aprobación de la defensa te permite acceder al título de Médico/a."
+          }
+        ],
+        "llamados": [
+          "Marzo",
+          "Junio",
+          "Septiembre",
+          "Diciembre"
+        ],
+        "llamadosTexto": "El ECOE tiene cuatro llamados por año. Quien no lo aprueba debe presentarse al próximo llamado.",
+        "comite": [
+          "1 integrante del equipo docente de la Escuela de Salud Pública",
+          "1 integrante del equipo de gestión de la facultad",
+          "1 integrante disciplinar relacionado con la temática del trabajo"
+        ],
+        "comiteTexto": "Durante la defensa tenés un tiempo predefinido para presentar el trabajo, y después un tiempo abierto a preguntas y a la devolución del comité.",
+        "finalizacion": "La cursada de cada cohorte termina el último día de la 4.ª semana de noviembre o de mayo, según el ingreso."
+      },
+      {
+        "id": "derechos",
+        "icono": "⚖️",
+        "titulo": "Derechos y deberes",
+        "tipo": "derechos",
+        "intro": "Tocá cada tarjeta para darla vuelta.",
+        "tarjetas": [
+          {
+            "icono": "🛡️",
+            "titulo": "Tus derechos",
+            "items": [
+              "Recibir trato respetuoso de docentes, compañeros, personal y equipo de salud.",
+              "Recibir información previa de objetivos, competencias, cronograma, servicios, criterios y fechas de evaluación, y de los trabajos a presentar.",
+              "Recibir los protocolos de bioseguridad de la institución.",
+              "Contar con el acompañamiento del tutor en las actividades docente-asistenciales.",
+              "Conocer oportunamente los resultados de tus evaluaciones.",
+              "Disponer de los equipos y elementos necesarios para atender a los pacientes.",
+              "Tener protección en situaciones de riesgo biológico y atención médica si la necesitás.",
+              "Exponer ante el tutor, el coordinador o la Coordinación de la PFO cualquier inconveniente del servicio donde rotás."
+            ]
+          },
+          {
+            "icono": "🧑‍⚕️",
+            "titulo": "Tus deberes",
+            "items": [
+              "Conocer, aceptar y poner en práctica el reglamento.",
+              "Concurrir con la credencial identificatoria en lugar visible.",
+              "Tener el esquema de vacunación completo y al día, visado por Bienestar Estudiantil.",
+              "Usar siempre los elementos de protección y bioseguridad.",
+              "Cuidar el aseo: ropa limpia, cabello corto o recogido, barba arreglada, uñas cortas y limpias.",
+              "Vestir ambo de colores claros y calzado clínico o zapatos bajos en la rotación hospitalaria.",
+              "Cumplir el horario y la carga horaria, los 5 días de la semana.",
+              "Respetar las normas de cada servicio y la privacidad del paciente."
+            ]
+          },
+          {
+            "icono": "🚧",
+            "titulo": "Sanciones",
+            "items": [
+              "Las sanciones van desde el apercibimiento hasta la exclusión de la rotación.",
+              "Las faltas disciplinarias las considera el servicio, el Comité de Docencia del hospital o centro de salud y la Coordinación de la Carrera.",
+              "Se remiten al director del hospital y al decano de la facultad para su estudio."
+            ]
+          },
+          {
+            "icono": "🔄",
+            "titulo": "Recuperar prácticas",
+            "items": [
+              "Si faltás por causas justificadas, las prácticas se recuperan.",
+              "Se hacen en turnos supervisados, en horarios distintos.",
+              "Los programa el tutor de la rotación, con el visto bueno del jefe de servicio."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "juego",
+        "icono": "🎮",
+        "titulo": "Poné a prueba lo aprendido",
+        "tipo": "quiz",
+        "intro": "Ocho preguntas para repasar el recorrido.",
+        "preguntas": [
+          {
+            "q": "¿Cuántas semanas continuas dura el ciclo de PFO?",
+            "o": [
+              "24 semanas",
+              "37 semanas",
+              "52 semanas",
+              "16 semanas"
+            ],
+            "c": 1,
+            "e": "El ciclo dura 37 semanas continuas, con una carga horaria total de 1832 horas."
+          },
+          {
+            "q": "¿Cuántas horas tiene la PFO en total, entre teoría y práctica?",
+            "o": [
+              "1200 horas",
+              "1700 horas",
+              "1832 horas",
+              "2000 horas"
+            ],
+            "c": 2,
+            "e": "Son 1832 horas: 132 teóricas y 1700 prácticas."
+          },
+          {
+            "q": "¿Qué rotación dura 16 semanas y se cursa en los CAPS?",
+            "o": [
+              "Clínica Médica",
+              "Emergentología",
+              "Medicina Familiar y General",
+              "Clínica Pediátrica"
+            ],
+            "c": 2,
+            "e": "Medicina Familiar y General se cursa 16 semanas en Centros de Atención Primaria de la Salud."
+          },
+          {
+            "q": "¿Cómo son las guardias de Emergentología?",
+            "o": [
+              "24 horas por mes",
+              "10 horas semanales durante 24 semanas",
+              "12 horas cada 15 días",
+              "8 horas diarias"
+            ],
+            "c": 1,
+            "e": "Son guardias semanales de 10 horas (de 9 a 17), transversales a las otras rotaciones, durante 24 semanas."
+          },
+          {
+            "q": "¿En qué meses se puede ingresar a la PFO?",
+            "o": [
+              "Marzo y agosto",
+              "Abril y septiembre",
+              "Febrero y julio",
+              "Solo en marzo"
+            ],
+            "c": 0,
+            "e": "Hay dos ingresos por año: marzo y agosto."
+          },
+          {
+            "q": "¿Qué porcentaje de las actividades de la rotación hay que cumplir para regularizar?",
+            "o": [
+              "50 %",
+              "60 %",
+              "70 %",
+              "80 %"
+            ],
+            "c": 3,
+            "e": "Hay que cumplir el 80 % de las actividades y de la asistencia, además de aprobar las evaluaciones."
+          },
+          {
+            "q": "¿Cuánto dura aproximadamente la parte con el paciente real en la evaluación hospitalaria?",
+            "o": [
+              "5 a 10 minutos",
+              "20 a 30 minutos",
+              "45 a 60 minutos",
+              "2 horas"
+            ],
+            "c": 1,
+            "e": "Los docentes observan unos 20 a 30 minutos y luego se presenta y comenta el caso."
+          },
+          {
+            "q": "¿Qué habilita aprobar el ECOE?",
+            "o": [
+              "Recibir el título directamente",
+              "Defender el Trabajo de Inicio a la Investigación",
+              "Pasar a otra cohorte",
+              "Rendir un recuperatorio especial"
+            ],
+            "c": 1,
+            "e": "Quienes aprueban el ECOE quedan habilitados para defender el TII y, aprobada la defensa, acceden al título de Médico/a."
+          }
+        ]
+      }
+    ]
+  }
+}
