@@ -27,27 +27,27 @@
    "respuestas": [
     {
      "puntos": [
-      "Describí la placa de forma sistemática: calidad técnica (proyección, rotación, penetración, inspiración), partes blandas y óseas, pleura, parénquima, hilios, mediastino, silueta cardíaca y diafragmas.",
-      "Nombrá el patrón: por ejemplo consolidación lobar con broncograma aéreo, infiltrado intersticial, derrame pleural (velamiento del seno costofrénico, menisco), neumotórax.",
-      "Decí dónde está (lóbulo o segmento) y qué signos radiológicos lo sostienen (silueta, broncograma aéreo)."
+      "Calidad técnica: identificación y lado; incidencia posteroanterior en bipedestación (burbuja gástrica bajo el hemidiafragma izquierdo); centrado (clavículas equidistantes de las apófisis espinosas); inspiración (9 a 10 arcos posteriores sobre el hemidiafragma derecho); penetración (se adivinan las vértebras dorsales detrás del mediastino).",
+      "Estructuras: marco óseo y partes blandas; mediastino, tráquea e hilios; silueta cardíaca (índice cardiotorácico de 0,50 o menos); parénquima; pleura y senos costofrénicos.",
+      "Hallazgo patológico típico para este cuadro: opacidad homogénea de bordes algodonosos en un lóbulo o segmento (síndrome de condensación) con signo del broncograma aéreo, y opacidad basal en menisco (línea de Damoiseau-Ellis) con borramiento del seno costofrénico si hay derrame."
      ]
     },
     {
      "puntos": [
-      "Con fiebre, dolor torácico de tipo pleurítico y tos, un patrón de condensación sugiere neumonía adquirida en la comunidad; si hay derrame asociado, pensá en neumonía complicada (paraneumónico).",
-      "Mencioná diferenciales: TEP con infarto, pleuritis, tuberculosis, tumor con neumonitis obstructiva."
+      "Diagnóstico: neumonía adquirida en la comunidad, complicada con derrame pleural paraneumónico si hay derrame.",
+      "Diferenciales: tromboembolismo pulmonar con infarto, pleuritis tuberculosa o tuberculosis pulmonar, carcinoma bronquial con neumonitis obstructiva, atelectasia o absceso pulmonar."
      ]
     },
     {
      "puntos": [
-      "Estratificá la gravedad (por ejemplo CURB-65 o criterios de internación) para decidir ambulatorio vs internación.",
-      "Tratamiento empírico según guía local de neumonía del adulto; hidratación, analgesia y control de saturación.",
-      "Si hay derrame significativo: toracocentesis diagnóstica y estudio del líquido (criterios de Light, pH, glucosa, LDH).",
-      "Pautas de alarma y control a las 48–72 h; control radiológico posterior."
+      "Gravedad con CURB-65: confusión, urea mayor de 42 mg/dL, FR de 30 o más, PAS menor de 90 o PAD de 60 o menos, edad de 65 o más. 0 a 1 punto: ambulatorio; 2 puntos: sala general; 3 o más: terapia intensiva.",
+      "Ambulatorio (menor de 65 años y sin comorbilidades): amoxicilina 875 a 1000 mg cada 12 horas durante 5 a 7 días (con comorbilidades o 65 años o más: amoxicilina/clavulánico 875/125 mg cada 12 horas). En internación en sala general: ampicilina/sulbactam 1,5 g cada 6 horas endovenosa más claritromicina 500 mg cada 12 horas (o ceftriaxona 1 a 2 g cada 24 horas más claritromicina), por 7 a 10 días.",
+      "Derrame: toracocentesis diagnóstica si es mayor de 10 mm de espesor. Exudado si cumple al menos un criterio de Light (proteínas líquido/plasma mayor de 0,5; LDH líquido/plasma mayor de 0,6; LDH del líquido mayor de 2/3 del límite superior plasmático). Drenaje pleural si el líquido es purulento, tiene gérmenes, pH menor de 7,20, glucosa menor de 60 mg/dL o LDH mayor de 1000 UI/L.",
+      "Soporte: oxígeno para saturar más de 92 %, hidratación y paracetamol. Antibiótico hasta 48 horas después de lograr estabilidad, mínimo 5 a 7 días. Control a las 48 a 72 horas, pautas de alarma y radiografía de control al mes."
      ]
     }
    ],
-   "verificar": "Los estudios se contrastan con la guía de neumonía adquirida en la comunidad que uses en tu servicio. Este caso no trae la imagen cargada: practicá la descripción con cualquier placa de tórax del material de imágenes."
+   "verificar": "Este caso no trae la radiografía. Esquemas, puntos de corte de CURB-65 y criterios de Light según la guía de neumonía de la sociedad de infectología y el material de neumonía cargados; revisá además que el esquema coincida con tu guía local."
   },
   {
    "id": "pediatria-bronquiolitis",
@@ -143,37 +143,38 @@
    "respuestas": [
     {
      "puntos": [
-      "Motivo de consulta y tiempo de evolución: tos, agitación, vómitos desde hace 24 h; fiebre; dificultad para respirar, tiraje, silbidos, dificultad para hablar o alimentarse.",
-      "Antecedentes de broncoespasmos: cuántos, edad de inicio, internaciones (UTI/ARM), consultas a guardia y uso de broncodilatadores en el último año; tratamiento preventivo previo.",
-      "Síntomas acompañantes: tos con el juego o nocturna; atopía (rinitis, eccema); desencadenantes; contacto con enfermos; aspiración de cuerpo extraño.",
-      "Contaminantes y entorno: tabaquismo en el hogar, humedad, mascotas, concurrencia a jardín; vacunas; alimentación y antecedentes de anemia o hierro."
+      "Enfermedad actual: tos y agitación de 24 horas tras un resfrío; respuesta a un disparo de salbutamol hecho por la madre; vómitos (imposibilidad de retener líquidos); signos de alarma (cianosis, somnolencia, irritabilidad, no puede hablar en frases, rechaza líquidos).",
+      "Antecedentes respiratorios: edad de inicio (en este caso, bronquiolitis a los 4 meses con internación en terapia intensiva y asistencia respiratoria mecánica), consultas a guardia (5 en el último año con nebulizaciones y corticoide inyectable, y consultas semanales el último mes), tos nocturna o con el ejercicio o el llanto, y si recibe corticoides inhalados preventivos (no los recibe).",
+      "Ambiente y familia: tabaquismo materno en el hogar, productos de limpieza, calle de tierra, gato; padre con asma (índice predictivo de asma).",
+      "Nutrición: lactancia exclusiva hasta los 4 meses, 1 litro de leche de vaca por día y poca carne (causa de anemia ferropénica). Vacunas completas."
      ]
     },
     {
      "puntos": [
-      "Presunción principal: crisis asmática grave (el niño habla solo con palabras, tiraje generalizado, saturación 88 % y tórax sin sibilancias por poco flujo de aire, un signo de gravedad).",
-      "Diferenciales: neumonía, cuerpo extraño, otras causas de obstrucción de la vía aérea.",
-      "Hallazgo asociado: anemia importante (Hb 7 g/dl, Hto 21 %), probablemente ferropénica; eosinofilia relativa que orienta a atopía.",
-      "Explicalo con palabras simples: «los bronquios se cierran y le cuesta entrar aire; necesita oxígeno y medicación ahora»."
+      "Matías tiene una crisis asmática grave: saturación de 88 %, tiraje generalizado, habla solo con palabras, y tórax silente (sin sibilancias porque casi no entra aire, un signo ominoso).",
+      "Diferenciales: neumonía (radiografía y reactantes), aspiración de cuerpo extraño y obstrucción de la vía aérea superior (sin estridor).",
+      "Hallazgos asociados: anemia ferropénica grave (Hb 7 g/dL, Hto 21 %) por la dieta hiperláctea y la baja ingesta de hierro, y eosinofilia relativa de 9 % por atopía.",
+      "Explicale a Carla con palabras simples: «Matías tiene una crisis de asma grave, sus bronquios están muy cerrados y su oxígeno está bajo. Tiene que quedarse en la guardia: le vamos a dar oxígeno, aerosoles con aerocámara y una medicación por suero que desinflama los pulmones. Además vimos que está muy pálido por tener pocos glóbulos rojos (anemia), y lo vamos a tratar con hierro cuando mejore. Lo vamos a controlar de cerca»."
      ]
     },
     {
      "puntos": [
-      "Es una urgencia: oxígeno para saturar ≥ 94 %, monitoreo continuo y vía periférica.",
-      "Broncodilatador inhalado en serie (salbutamol con aerocámara o nebulizado), anticolinérgico asociado, corticoide sistémico precoz; considerar sulfato de magnesio si no responde.",
-      "Radiografía de tórax para descartar neumotórax o neumonía; reevaluar a los 20 minutos y decidir la internación en cuidados intermedios o intensivos según respuesta.",
-      "Explicale a la madre la internación, los riesgos, qué vas a hacer y cuándo la vas a volver a informar. Después: plan de control, tratamiento preventivo y manejo de la anemia."
+      "Para 18 kg, en la primera hora: oxígeno humidificado para saturar más de 94 %; salbutamol 6 a 8 puffs con aerocámara cada 20 minutos (o 2,7 mg nebulizado en 3 ml de suero); bromuro de ipratropio 4 puffs (80 µg) cada 20 minutos (o 250 µg nebulizado).",
+      "Corticoide: por los vómitos, hidrocortisona endovenosa 5 a 10 mg/kg cada 6 horas (90 a 180 mg) o dexametasona 0,3 a 0,6 mg/kg (hasta 10,8 mg). Si no responde en la primera hora: sulfato de magnesio 25 a 50 mg/kg (450 a 900 mg) en infusión de 15 a 30 minutos.",
+      "Hidratación parenteral a necesidades basales; radiografía de tórax; monitoreo continuo y reevaluación; considerar terapia intensiva si no revierte.",
+      "Anemia: con Hb 7 y el niño compensado, se prioriza la crisis y se inicia hierro oral (3 a 6 mg/kg por día de hierro elemental, 54 a 108 mg por día) al tolerar la vía oral. La transfusión de glóbulos rojos (10 ml/kg, unos 180 ml) se reserva para descompensación hemodinámica o hipoxemia refractaria.",
+      "Al alta, con saturación de más de 94 % sin oxígeno por 2 a 4 horas: salbutamol de rescate (2 puffs cada 4 a 6 horas), meprednisona 1 a 2 mg/kg por día durante 3 a 5 días y tratamiento controlador (budesonida 200 µg cada 12 horas con aerocámara). Cesación del tabaquismo en el hogar, alejar el gato del dormitorio y control a las 24 a 48 horas."
      ]
     },
     {
      "puntos": [
-      "Hemograma: anemia con Hb 7 g/dl y Hto 21 %, plaquetas y leucocitos normales (11.280), con eosinofilia relativa del 9 %.",
-      "Gasometría: pH 7,38, pCO₂ 42 y HCO₃ 22. Aparentemente normal, pero en un niño taquipneico una pCO₂ «normal» significa fatiga y riesgo de falla respiratoria. pO₂ 68 con saturación de 85 % confirma hipoxemia.",
-      "Conclusión: hipoxemia con riesgo de fallo ventilatorio; la anemia grave agrava el transporte de oxígeno y requiere estudio (ferremia, ferritina, reticulocitos) y tratamiento."
+      "Hemograma: anemia microcítica e hipocrómica grave (Hb 7 g/dL, Hto 21 %) que reduce el transporte de oxígeno y agrava el trabajo cardiorrespiratorio; leucocitos normales (11.280) con eosinofilia relativa de 9 %; plaquetas normales.",
+      "Gasometría: pH 7,38, pCO₂ 42, pO₂ 68, HCO₃ 22, EB −3 y saturación 85 %. La pO₂ y la saturación confirman hipoxemia por desacople ventilación/perfusión.",
+      "La trampa del caso: en un niño con FR de 35 la pCO₂ debería estar baja por hiperventilación; una pCO₂ de 42 con pH normal indica fatiga muscular y riesgo inminente de falla ventilatoria. Una pCO₂ de 45 o más en una crisis grave exige monitoreo continuo y valorar terapia intensiva."
      ]
     }
    ],
-   "verificar": "Contrastá con: guía de asma bronquial en niños (actualización 2021), oxigenoterapia y manejo de la vía aérea, y los materiales de anemia y hierro. Las dosis exactas de salbutamol, corticoides y magnesio se toman de la guía."
+   "verificar": "Dosis para 18 kg según la guía de asma bronquial en niños de la Sociedad Argentina de Pediatría (actualización 2021) y los consensos de anemia ferropénica cargados: verificá cada dosis y los criterios de transfusión. Los antecedentes detallados de la anamnesis salen del documento completo del caso."
   },
   {
    "id": "quirurgica-dolor-abdominal",
@@ -223,28 +224,31 @@
    "respuestas": [
     {
      "puntos": [
-      "Caracterizá el dolor: inicio (brusco o gradual), localización inicial y migración, tipo (cólico, continuo, punzante), intensidad, irradiación, factores que lo alivian o agravan.",
-      "Síntomas asociados: náuseas, vómitos, fiebre, escalofríos, tránsito intestinal (diarrea, constipación, gases), ictericia, coluria, síntomas urinarios y ginecológicos.",
-      "Antecedentes: cirugías previas, litiasis biliar, diverticulosis, anticoagulantes, fibrilación auricular, enfermedad cardiovascular, diabetes, inmunosupresión, medicación (AINEs, corticoides)."
+      "Aparición y evolución: hora de inicio y tiempo transcurrido (más de 6 a 12 horas sin mejoría orienta a causa quirúrgica); inicio brusco (perforación) o gradual (proceso inflamatorio).",
+      "Localización inicial y migración (epigastrio o periumbilical a fosa ilíaca derecha; fosa ilíaca izquierda, hipocondrio derecho), tipo (cólico que pasa a continuo, punzante), intensidad, irradiación (cinturón hacia el dorso, escápula derecha, flanco o genitales) y factores que agravan (tos, movimiento) o alivian.",
+      "Cronología de Murphy: en los cuadros quirúrgicos el dolor precede a los vómitos; en los médicos suelen preceder los vómitos.",
+      "Síntomas asociados: náuseas, vómitos, fiebre, escalofríos, ictericia, coluria, acolia, tránsito intestinal (constipación, detención de gases, diarrea, sangre o melena), síntomas urinarios y ginecológicos.",
+      "Antecedentes: cirugías abdominales, colelitiasis, diverticulosis, hipertensión, diabetes, fibrilación auricular, enfermedad vascular, hábitos alimentarios recientes (comidas copiosas o grasas), alcohol, tabaco y medicación (anticoagulantes, antiagregantes, AINEs, corticoides, inmunosupresores)."
      ]
     },
     {
      "puntos": [
-      "Pensá por cuadrantes y agrupá: colecistitis o colangitis, diverticulitis (más aún con fiebre en una mujer de 65 años), apendicitis, obstrucción intestinal, pancreatitis, isquemia mesentérica (siempre en mayores), úlcera perforada.",
-      "No olvides las causas no quirúrgicas o extraabdominales: pielonefritis o cólico renal, patología ginecológica, aneurisma de aorta, infarto inferior, neumonía basal.",
-      "Justificá cada una con los datos del caso: edad, fiebre de 38 °C, TA 130/90 y frecuencia cardíaca de 98 por minuto."
+      "Quirúrgicos: diverticulitis aguda (primera sospecha por edad, fiebre de 38 °C y probable dolor en fosa ilíaca izquierda); apendicitis atípica o pelviana; colecistitis o colangitis (hipocondrio derecho, fiebre; tríada de Charcot); isquemia mesentérica o colitis isquémica (65 años con factores vasculares); pancreatitis aguda (epigastralgia en cinturón); úlcera perforada (dolor súbito con contractura); obstrucción intestinal (cólico, distensión, detención de gases).",
+      "No quirúrgicos o extraabdominales: pielonefritis (fiebre, flanco, disuria), neumonía basal, infarto de cara inferior, aneurisma de aorta abdominal complicado (hipertensa de 65 años), gastroenteritis.",
+      "Integrá los signos vitales: la fiebre de 38 °C confirma un proceso inflamatorio o infeccioso; la FC de 98 es taquicardia limítrofe (respuesta inflamatoria sistémica inicial); TA 130/90, FR 16 y saturación 98 % indican estabilidad sin shock ni compromiso respiratorio inmediato."
      ]
     },
     {
      "puntos": [
-      "Examen físico abdominal completo (defensa, rebote, Murphy, puntos dolorosos) y evaluación hemodinámica.",
-      "Laboratorio: hemograma, PCR, función renal, hepatograma, amilasa/lipasa, lactato, orina completa; ECG.",
-      "Imágenes: radiografía de abdomen y ecografía; TC de abdomen y pelvis con contraste si persiste la duda o hay sospecha de complicación.",
-      "Ayuno, hidratación, analgesia, antibióticos si hay sospecha de foco infeccioso, e interconsulta temprana con Cirugía."
+      "Examen físico: signos vitales y estado de hidratación; auscultación abdominal antes de palpar (ruidos en lucha o silencio); palpación comenzando por el cuadrante menos doloroso (defensa, contractura, Blumberg, Murphy, McBurney, Rovsing, psoas, obturador); orificios herniarios inguinales y crurales; tacto rectal (fondo de saco de Douglas, sangre o melena); puño-percusión lumbar.",
+      "Laboratorio: hemograma, PCR, urea, creatinina e ionograma, hepatograma completo, amilasa y lipasa, lactato y estado ácido-base, orina completa, coagulograma (TP y KPTT), glucemia, grupo y factor. ECG de 12 derivaciones.",
+      "Imágenes: radiografía de tórax de pie (neumoperitoneo, neumonía basal) y radiografía de abdomen; ecografía para patología hepatobiliar, ginecológica o urinaria; tomografía de abdomen y pelvis con contraste endovenoso como estudio de elección a esta edad ante sospecha de diverticulitis, isquemia o colecciones.",
+      "Conducta: ayuno, hidratación parenteral (cristaloides, unos 2000 a 3000 ml en 24 horas), control de signos vitales y diuresis; analgesia preferentemente después de que el cirujano la evalúe, para no enmascarar el cuadro.",
+      "Antibióticos endovenosos si hay sospecha de foco infeccioso: ciprofloxacina 400 mg cada 12 horas más metronidazol 500 mg cada 8 horas (o ceftriaxona 1 a 2 g cada 24 horas más metronidazol; o ampicilina/sulbactam 1,5 a 3 g cada 6 horas). Interconsulta urgente con Cirugía."
      ]
     }
    ],
-   "verificar": "Contrastá con el material de abdomen agudo quirúrgico de la sección de Clínica Quirúrgica. Los criterios de cada diagnóstico se toman del material."
+   "verificar": "Esquemas antibióticos, dosis y plan de hidratación según los materiales de abdomen agudo y diverticulitis cargados en Clínica Quirúrgica; confirmá que el esquema coincida con tu guía local."
   },
   {
    "id": "emergencia-politrauma",
@@ -286,31 +290,32 @@
    "respuestas": [
     {
      "puntos": [
-      "Aplicá la secuencia ABCDE con control de la columna cervical desde el inicio.",
-      "A: vía aérea con inmovilización cervical; paciente en coma con respiración ruidosa, por lo que se asegura la vía aérea (aspirado, maniobras, intubación orotraqueal según corresponda).",
-      "B: respiración y ventilación, oxigenoterapia y valoración de tórax: la herida abierta con salida de aire sugiere neumotórax abierto.",
-      "C: circulación y control de hemorragias, dos accesos venosos gruesos, reposición y evaluación del shock (TA 90/50, FC 110, FR 26 indican shock hemorrágico probable).",
-      "D: Glasgow, pupilas y glucemia. E: exposición completa con prevención de hipotermia."
+      "xABCDE: x, control de hemorragias externas masivas (compresión directa o torniquete).",
+      "A: inmovilización cervical manual en línea con collarín rígido. Coma (Glasgow 8) con respiración ruidosa y trauma facial: indicación absoluta de vía aérea definitiva con intubación orotraqueal; antes, aspirar sangre y secreciones, elevar el mentón o traccionar la mandíbula, oxigenar y colocar cánula orofaríngea.",
+      "B: oxígeno a alto flujo con máscara con reservorio (10 a 15 L/min) y oximetría continua; semiología torácica (herida soplante en hemitórax izquierdo, murmullo vesicular disminuido, hiperresonancia) para confirmar el neumotórax abierto y vigilar signos de tensión.",
+      "C: dos vías periféricas gruesas (14 o 16 G) en fosas antecubitales, sin vía central en la revisión primaria; muestras (hemograma, coagulograma, grupo y factor, estado ácido-base, lactato, ionograma); bolo de 1000 ml de cristaloides entibiados. TA 90/50, FC 110, FR 26 y alteración del sensorio son un shock hemorrágico clase III (pérdida del 30 al 40 % de la volemia).",
+      "D: Glasgow (8 sobre 15), pupilas (tamaño y reactividad), AVDI y glucemia. E: desvestir al paciente y examinarlo de pies a cabeza, evitando la hipotermia con mantas térmicas, ambiente tibio y fluidos entibiados."
      ]
     },
     {
      "puntos": [
-      "Obstrucción de la vía aérea (coma con respiración ruidosa).",
-      "Neumotórax abierto (herida torácica «aspirante») con riesgo de evolucionar a neumotórax a tensión.",
-      "Shock hemorrágico probable.",
-      "Traumatismo craneoencefálico grave y fracturas de pierna y antebrazo (hemorragia y compromiso vascular)."
+      "Obstrucción de la vía aérea e insuficiencia respiratoria por coma y trauma maxilofacial.",
+      "Neumotórax abierto izquierdo (herida aspirante), con riesgo de bamboleo mediastínico y evolución a neumotórax a tensión.",
+      "Shock hemorrágico clase III con hipoperfusión.",
+      "Traumatismo craneoencefálico grave (Glasgow 8) con riesgo de hipertensión endocraneana y daño secundario.",
+      "Fracturas de pierna izquierda y de antebrazo derecho: hemorragia oculta, lesión neurovascular, posible fractura expuesta (Gustilo) y síndrome compartimental."
      ]
     },
     {
      "puntos": [
-      "Neumotórax abierto: apósito oclusivo fijado por tres lados, seguido de drenaje pleural (tubo de tórax) a distancia de la herida.",
-      "Shock: control de hemorragia, reposición con cristaloides según protocolo y sangre precoz; evitar la hipotensión permisiva en TEC.",
-      "Fracturas: alineación e inmovilización, control de pulsos distales.",
-      "Estudios y destino: FAST, radiografía de tórax y de pelvis, TC según estabilidad; interconsulta con cirugía de trauma y neurocirugía, traslado a UTI."
+      "Neumotórax abierto: apósito oclusivo estéril fijado por tres lados (válvula unidireccional que evita la tensión) y, de inmediato, tubo de avenamiento pleural en otro sitio (5.º espacio intercostal, línea axilar media), seguido de la reparación quirúrgica de la pared.",
+      "Shock: control de la hemorragia y reposición; si la respuesta es nula o transitoria, sangre precoz (0 Rh negativo) y protocolo de transfusión masiva (1:1:1). En el TEC grave está contraindicada la hipotensión permisiva: mantener PAS de 100 a 110 mmHg y TAM de 80 o más para sostener la presión de perfusión cerebral.",
+      "Fracturas: alinear e inmovilizar con férulas, controlar pulsos y llenado capilar distales; si hay fractura expuesta, lavado, antibiótico endovenoso de amplio espectro (cefazolina con gentamicina) y profilaxis antitetánica.",
+      "Estudios y destino: radiografías de tórax, pelvis y columna cervical lateral; eFAST; sonda orogástrica (no nasogástrica por la sospecha de fractura de base de cráneo) y sonda vesical si no hay uretrorragia ni hematoma perineal. TC de cráneo y pan-TC solo si está estable; si sigue inestable con FAST positivo, quirófano (cirugía de control de daños). Interconsulta con cirugía de trauma, neurocirugía y traumatología, y pase a terapia intensiva."
      ]
     }
    ],
-   "verificar": "Contrastá cada paso con el material ATLS (soporte vital en trauma) y las directrices de RCP cargadas en la sección de Emergentología."
+   "verificar": "Contrastá cada paso con el material ATLS y las guías de RCP y trauma de Emergentología. Verificá especialmente las metas de TA en TEC y la profilaxis antibiótica de las fracturas expuestas."
   },
   {
    "id": "gineco-sangrado",
@@ -339,26 +344,28 @@
    "respuestas": [
     {
      "puntos": [
-      "Edad de menopausia, tiempo transcurrido sin menstruar y características del sangrado (cantidad, color, coágulos, dolor asociado).",
-      "Antecedentes ginecológicos y obstétricos, terapia hormonal, uso de tamoxifeno o anticoagulantes, último PAP y mamografía.",
-      "Factores de riesgo de cáncer de endometrio: obesidad, diabetes, hipertensión, nuliparidad, antecedentes familiares; síntomas de alarma (pérdida de peso, dolor pelviano)."
+      "Edad de la menopausia, tiempo sin menstruar y características del sangrado (cantidad, color, coágulos, dolor pélvico).",
+      "Antecedentes ginecológicos y obstétricos (paridad, nuliparidad), terapia hormonal, estrógenos sin oposición, tamoxifeno o anticoagulantes, y fecha y resultado del último PAP y de la mamografía.",
+      "Factores de riesgo de cáncer de endometrio: obesidad, diabetes, hipertensión, nuliparidad, menopausia tardía (más de 55 años) y antecedentes familiares de cáncer de endometrio, ovario, mama o colon (síndrome de Lynch). Signos de alarma: pérdida de peso, dolor pelviano o secreción fétida."
      ]
     },
     {
      "puntos": [
-      "Inspección y palpación abdominal; especuloscopía para ver el origen del sangrado (vulva, vagina, cuello) con toma de PAP si corresponde.",
-      "Tacto bimanual: tamaño, consistencia y movilidad del útero y los anexos."
+      "Signos vitales (TA y FC), explicar el procedimiento y pedir consentimiento.",
+      "Inspección y palpación abdominal; inspección de genitales externos y vulva (atrofia, lesiones sangrantes, meato uretral) antes de colocar el espéculo.",
+      "Especuloscopía sin lubricantes grasos para ver el origen del sangrado (vulva, vagina, cuello o salida por el orificio cervical interno) y toma de PAP si corresponde.",
+      "Tacto bimanual: movilidad del cuello (signo de Frenkel), tamaño, forma, consistencia y movilidad del útero, fondos de saco (Douglas), parametrios y anexos."
      ]
     },
     {
      "puntos": [
-      "Todo sangrado en una mujer posmenopáusica obliga a descartar patología endometrial maligna hasta demostrar lo contrario.",
-      "Describí en voz alta cada estudio que trae (ecografía transvaginal con espesor endometrial, PAP, laboratorio) y qué hallazgo cambia la conducta.",
-      "Ante un endometrio engrosado o persistencia del sangrado: biopsia endometrial o histeroscopia con estudio anatomopatológico, y derivación a Ginecología."
+      "Todo sangrado posmenopáusico obliga a descartar patología endometrial maligna o premaligna hasta demostrar lo contrario; la causa más frecuente es la atrofia (30 a 50 %).",
+      "Interpretá en voz alta: ecografía transvaginal con espesor endometrial (más de 4 a 5 mm en posmenopáusica sintomática es patológico y exige biopsia; 4 mm o menos sugiere atrofia, pero si el sangrado persiste o recurre la biopsia igual es obligatoria); PAP (atipias cervicales o células endometriales atípicas); hemograma para ver anemia.",
+      "Con endometrio engrosado o sangrado persistente: biopsia endometrial ambulatoria (cánula de Pipelle) o histeroscopia con biopsia dirigida (estándar de oro), y derivación a Ginecología."
      ]
     }
    ],
-   "verificar": "Contrastá con el consenso FASGO 2022 de sangrado uterino anormal, cargado en la sección Consensos de ginecología. El umbral del espesor endometrial se toma del consenso."
+   "verificar": "Contrastá el umbral del espesor endometrial y la conducta con el consenso FASGO 2022 de sangrado uterino anormal y con el material de cáncer de endometrio cargados en Ginecología."
   },
   {
    "id": "sf-dbt-control",
@@ -445,39 +452,42 @@
    "respuestas": [
     {
      "puntos": [
-      "Epidemiología: zona de residencia o viaje, contactos febriles, criaderos, días de fiebre y forma de inicio.",
-      "Síntomas: cefalea retroorbitaria, mialgias, artralgias, rash, náuseas, vómitos, dolor abdominal, sangrados.",
-      "Comorbilidades, embarazo, anticoagulantes, edad y capacidad de hidratación oral."
+      "Epidemiología: zona de residencia, viajes recientes a áreas con transmisión, convivientes o vecinos febriles, criaderos de mosquitos en el hogar.",
+      "Tiempo de evolución con la fecha de inicio de síntomas (FIS) exacta: ya está en el día 4. Define la fase (febril antes del día 5, crítica entre los días 3 y 7) y la técnica de laboratorio (NS1 o PCR en los primeros 3 a 5 días; IgM después del día 4 o 5).",
+      "Síntomas: cefalea retroorbitaria, mialgias, artralgias, exantema, náuseas, vómitos, diarrea, dolor abdominal y sangrados espontáneos.",
+      "Factores de riesgo para clasificar: embarazo, diabetes, hipertensión, obesidad, insuficiencia renal, edad, anticoagulantes o antiagregantes, vivir solo o dificultad para acceder al sistema de salud, y si tolera la hidratación oral."
      ]
     },
     {
      "puntos": [
-      "Signos vitales, estado de hidratación, perfusión, TA y frecuencia cardíaca.",
-      "Prueba del lazo, petequias, hepatomegalia, derrame (ascitis o pleural), dolor abdominal intenso."
+      "Signos vitales: temperatura, TA (hipotensión o presión de pulso convergente), FC, FR, estado de hidratación y llenado capilar.",
+      "Prueba del lazo: inflar el manguito a la presión arterial media (entre sistólica y diastólica) durante 5 minutos. Es positiva con 20 petequias o más por pulgada cuadrada (2,5 cm²).",
+      "Piel y mucosas (petequias, equimosis, exantema), palpación abdominal (hepatomegalia mayor de 2 cm, dolor intenso) y auscultación cardiopulmonar para descartar derrames (pleural o ascitis)."
      ]
     },
     {
      "puntos": [
-      "Cuadro compatible con dengue: síndrome febril agudo con mialgias y cefalea en contexto epidemiológico.",
-      "Diferenciales: gripe, COVID-19, chikungunya, zika, leptospirosis, otras virosis.",
-      "Clasificá según el algoritmo vigente (con o sin signos de alarma y con o sin comorbilidades) para decidir el manejo ambulatorio o la internación."
+      "Diagnóstico presuntivo: dengue (síndrome febril agudo inespecífico) en contexto epidemiológico: fiebre de menos de 7 días sin síntomas de vías aéreas, con cefalea, mialgias y artralgias.",
+      "Diferenciales: gripe, COVID-19, chikungunya, zika, leptospirosis, hantavirus y fiebre amarilla.",
+      "Clasificación: Ricardo (25 años, febril, sin signos de alarma ni comorbilidades) es dengue sin signos de alarma y sin comorbilidades (grupo A): manejo ambulatorio."
      ]
     },
     {
      "puntos": [
-      "Si no hay signos de alarma: hidratación oral abundante, paracetamol para la fiebre; evitar AINEs y aspirina.",
-      "Si hay comorbilidades o riesgo, hemograma para seguimiento (hematocrito y plaquetas) y control programado.",
-      "Notificación obligatoria del caso."
+      "Paracetamol 500 mg por vía oral cada 6 horas solo si hay fiebre o dolor, con un máximo de 2 g por día (según la guía de la cátedra). Contraindicados AINEs (ibuprofeno, diclofenac, naproxeno), aspirina, corticoides, antibióticos y la vía intramuscular.",
+      "Reposo relativo, hidratación oral de 2 a 3 litros por día de líquidos seguros (agua, sales de rehidratación), y aislamiento con repelente y mosquitero mientras tenga fiebre.",
+      "Laboratorio: en brote, el diagnóstico es clínico-epidemiológico. Si se pide confirmación: NS1 o PCR (hasta el día 5) o IgM ELISA (desde el día 5). Hemograma recomendable en el grupo A; obligatorio y diario en el grupo B1.",
+      "Salud pública: notificación individual inmediata (SNVS 2.0, ficha C2-L2) y bloqueo sanitario peridomiciliario con descacharrización y fumigación en un radio de 9 manzanas (unos 100 metros)."
      ]
     },
     {
      "puntos": [
-      "Pautas de alarma: dolor abdominal intenso o persistente, vómitos persistentes, sangrados, somnolencia o irritabilidad, descenso brusco de la fiebre con empeoramiento.",
-      "Control diario hasta pasados 48 h sin fiebre; reposo y medidas de control del mosquito en el hogar."
+      "Pautas de alarma para consultar de inmediato: dolor abdominal intenso y continuo, vómitos persistentes, sangrado de mucosas, encías o nariz, acumulación de líquidos, somnolencia o irritabilidad, y empeoramiento coincidente con la caída de la fiebre.",
+      "Control médico diario hasta pasadas 48 horas sin fiebre (es el período de mayor riesgo de fase crítica). Medidas de control del vector en el hogar."
      ]
     }
    ],
-   "verificar": "Contrastá con el algoritmo clínico de dengue 2025, el algoritmo de clasificación de casos, el de síndrome febril y la ficha de notificación cargados en Semanas 1 y 2."
+   "verificar": "La dosis máxima de paracetamol (2 g por día) y los plazos de laboratorio vienen de las guías cargadas: contrastalos con el algoritmo clínico de dengue 2025, el de clasificación de casos y la ficha de notificación de Semanas 1 y 2. Muchas guías habituales aceptan hasta 4 g por día."
   },
   {
    "id": "sf-s3-inundaciones",
@@ -510,28 +520,31 @@
    "respuestas": [
     {
      "puntos": [
-      "Agua segura: hervir o clorar el agua antes de beber y para la higiene de alimentos.",
-      "Limpieza y desinfección de la vivienda con lavandina; descartar alimentos que estuvieron en contacto con el agua.",
-      "Evitar el contacto con agua estancada y barro sin protección (botas, guantes); lavado frecuente de manos.",
-      "Control de roedores y de criaderos de mosquitos.",
-      "Qué vigilar: fiebre, mialgias, ictericia, diarrea, lesiones de piel; consultar sin demora si aparecen."
+      "Agua segura: hervir de 3 a 5 minutos o agregar 2 gotas de lavandina por litro de agua y dejar reposar 30 minutos antes de beber, cocinar o lavar utensilios.",
+      "Vivienda: desinfectar con lavandina (1 taza en 9 tazas de agua), ventilar y esperar 30 minutos antes de entrar; limpiar con botas de goma, guantes y barbijo. Si el piso es de tierra, esparcir cal.",
+      "Alimentos: descartar todo lo que tocó el agua de la inundación, latas abolladas u oxidadas y envases de cartón o plástico hinchados; guardar el resto en recipientes cerrados y secos.",
+      "Ambiente: evitar que adultos, niños y mascotas anden descalzos o jueguen en barro o aguas estancadas; poner mallas en rejillas y desagües contra roedores, desmalezar y eliminar recipientes con agua estancada.",
+      "Pautas de alarma: fiebre, dolor de cabeza, dolor muscular intenso (sobre todo en pantorrillas), ojos rojos sin secreción, ictericia, diarrea, vómitos, lesiones de piel o menos orina. Consultar de inmediato ante cualquiera."
      ]
     },
     {
      "puntos": [
-      "La quimioprofilaxis es la indicación de un antibiótico a personas expuestas con alto riesgo de contagio (por ejemplo, de leptospirosis) antes de que enfermen.",
-      "Se indica a los adultos y niños expuestos que cumplan los criterios del protocolo; el criterio de edad y el esquema para cada integrante de la familia se toman del protocolo.",
-      "Antes de prescribirla descartá: cuadro febril o síntomas actuales (en ese caso se estudia y se trata, no se hace profilaxis), embarazo o lactancia, alergias al antibiótico y contraindicaciones por edad o función renal o hepática."
+      "Qué es: administrar un antibiótico de forma preventiva a las personas expuestas, para bloquear la infección por Leptospira tras el contacto con agua o suelo contaminados.",
+      "A quién: corresponde a todo el grupo familiar (Sonia, Pedro, Ana y Nacho) por haber regresado a una zona inundada.",
+      "Qué descartar antes de prescribir: fiebre o síntomas actuales (en ese caso no se hace profilaxis: se toman muestras y se trata); embarazo o lactancia en Sonia (cambia la doxiciclina por amoxicilina); edad de los niños (la doxiciclina no se usa en menores de 8 años); alergias a betalactámicos o tetraciclinas y compromiso de la función renal o hepática."
      ]
     },
     {
      "puntos": [
-      "El antibiótico, la dosis y la duración dependen de la edad y de si hay embarazo; usá los esquemas del protocolo vigente.",
-      "Explicale a Sonia cómo tomarlo, para qué sirve y qué efectos adversos puede tener; reforzá las pautas de alarma."
+      "Sonia, si no está embarazada ni amamantando: doxiciclina 200 mg por vía oral en dosis única semanal (dos comprimidos de 100 mg juntos, con abundante agua y alimentos). Si está embarazada o amamantando: amoxicilina 500 mg cada 8 horas durante 3 días.",
+      "Pedro (40 años): doxiciclina 200 mg por vía oral en dosis única semanal.",
+      "Ana (9 años): doxiciclina 100 mg por vía oral en dosis única semanal (un comprimido).",
+      "Nacho (1 año): amoxicilina 125 mg por vía oral cada 8 horas durante 3 días (1,25 ml de la suspensión de 500 mg cada 5 ml).",
+      "Explicale que el antibiótico previene pero no reemplaza las medidas de higiene; que la doxiciclina puede dar molestias gástricas y no hay que acostarse después de tomarla; y que ante cualquier síntoma febril consulte de inmediato."
      ]
     }
    ],
-   "verificar": "Las indicaciones de antibióticos, dosis y duración deben contrastarse con el PROTOCOLO INUNDACIONES 2026 y las recomendaciones para la población cargados en Semanas 3 y 4."
+   "verificar": "Dosis y esquemas tomados del protocolo cargado: verificalos contra el PROTOCOLO INUNDACIONES 2026 y el manual de normas de notificación de la sección Semanas 3 y 4, sobre todo la dosis pediátrica de Nacho y el cambio de esquema en embarazo."
   },
   {
    "id": "sf-s5-preventivas",
@@ -561,29 +574,37 @@
    "respuestas": [
     {
      "puntos": [
-      "Tensión arterial, peso, talla, IMC y perímetro de cintura.",
-      "Glucemia y perfil lipídico según factores de riesgo; examen odontológico y visual si corresponde."
+      "Tensión arterial en cada consulta; peso, talla, IMC y perímetro de cintura.",
+      "Laboratorio preventivo cada 3 años desde los 35 a 45 años (o más seguido si hay factores de riesgo): glucemia en ayunas o HbA1c, y perfil lipídico completo (colesterol total, HDL, LDL y triglicéridos).",
+      "Examen ginecológico y mamario clínico; evaluación odontológica y visual según antecedentes."
      ]
     },
     {
      "puntos": [
-      "Cáncer de cuello uterino (PAP o test de HPV según el esquema vigente), cáncer de mama (mamografía según guía) y cáncer colorrectal a partir de los 50 años.",
-      "Diabetes, dislipemia, hipertensión, depresión y consumo de tabaco y alcohol."
+      "Cáncer de cuello uterino: test de VPH cada 5 años si es negativo (mujeres de 30 a 64 años), o PAP cada 3 años tras dos citologías anuales negativas.",
+      "Cáncer de mama: mamografía cada 1 a 2 años desde los 40 años según el consenso FASGO 2024, o cada 1 a 2 años entre los 50 y 69 según el Ministerio de Salud.",
+      "Cáncer colorrectal: a los 46 años todavía no corresponde el rastreo de riesgo promedio; se inicia a los 50 (hasta los 75) con sangre oculta en materia fecal o videocolonoscopía cada 10 años, salvo antecedentes familiares directos.",
+      "Hipertensión, diabetes, dislipemia, depresión y consumo de tabaco, alcohol y otras sustancias."
      ]
     },
     {
      "puntos": [
-      "Alimentación saludable, actividad física regular, no fumar, consumo responsable de alcohol, fotoprotección.",
-      "Salud sexual y reproductiva (anticoncepción, prevención de ITS) y detección de violencia."
+      "Alimentación saludable, actividad física aeróbica (al menos 150 minutos por semana), no fumar, alcohol responsable y fotoprotección.",
+      "Salud sexual y reproductiva: prevención de ITS con preservativo y anticoncepción hasta confirmar la menopausia (12 meses seguidos sin menstruar); orientación sobre perimenopausia y climaterio.",
+      "Pesquisa de incontinencia urinaria o disfunción del piso pelviano y detección de violencia."
      ]
     },
     {
      "puntos": [
-      "Calendario del adulto: dT o dTpa con refuerzo cada 10 años, influenza anual, COVID-19, hepatitis B si no completó el esquema, triple viral si no está inmunizada."
+      "dT o dTpa con refuerzo cada 10 años (con al menos una dosis de dTpa en la vida adulta).",
+      "Hepatitis B: esquema de 3 dosis (0, 1 y 6 meses) si no está inmunizada.",
+      "Triple viral o doble viral: acreditar 2 dosis si nació desde 1965.",
+      "COVID-19 según el esquema vigente.",
+      "Influenza: en una mujer de 46 años sana no está indicada de rutina; se indica solo con factores de riesgo o comorbilidades (diabetes, enfermedad cardiovascular o respiratoria, inmunocompromiso)."
      ]
     }
    ],
-   "verificar": "Los intervalos y las edades de cada rastreo se contrastan con el manual de cuidado integral de personas con enfermedades crónicas y con la guía vigente del Ministerio de Salud."
+   "verificar": "Los intervalos y las edades de cada rastreo y el calendario de vacunas deben contrastarse con el consenso FASGO 2024 de control ginecológico, el consenso de vacunas en la mujer y el manual de cuidado integral de la sección Semanas 5 y 6."
   },
   {
    "id": "sf-s5-rcvg",
@@ -637,20 +658,23 @@
    "respuestas": [
     {
      "puntos": [
-      "Usá la tabla de riesgo cardiovascular global adaptada a tu región con los datos del caso: edad, sexo, diabetes, tabaquismo, TA sistólica y colesterol total.",
-      "Con diabetes, hipertensión no controlada (155/90), tabaquismo y colesterol total elevado, la paciente queda en una categoría de riesgo alto; confirmalo con la tabla."
+      "Con la tabla OMS/Ministerio de Salud (mujer de 63 años, diabética, fumadora, TA sistólica de 155 mmHg y colesterol total de 250 mg%), Laura queda en riesgo alto (20 a menos de 30 %) o muy alto (30 % o más) a 10 años.",
+      "Además, un LDL de 215 mg% (190 o más) la ubica por sí solo en alto riesgo cardiovascular, sin necesidad de la tabla."
      ]
     },
     {
      "puntos": [
-      "Cesación tabáquica con intervención breve y tratamiento si hay disposición.",
-      "Control de la presión arterial con objetivo según guía y plan de tratamiento farmacológico con antihipertensivos de primera línea.",
-      "Estatina en dosis adecuada al riesgo y metas de LDL según la guía, con ajuste de la dieta y de la actividad física.",
-      "Control glucémico (HbA1c), cuidado del pie y fondo de ojo; vacunas del adulto; seguimiento programado."
+      "Cesación tabáquica: intervención breve de las 5 A (averiguar, aconsejar, apreciar, ayudar y acompañar); evaluar vareniclina, bupropión o reemplazo de nicotina si hay disposición.",
+      "Estilo de vida: sodio menor de 2 g por día (sal menor de 5 g), grasas saturadas menores del 7 % de las calorías, más fibra y frutas y verduras; IMC menor de 25 y cintura menor de 88 cm; 30 minutos diarios de actividad aeróbica (al menos 150 por semana).",
+      "Presión arterial: meta menor de 140/90 mmHg. Iniciar un IECA (enalapril 10 a 20 mg por día) o un ARA-II (losartán 50 a 100 mg por día); si no controla en unas 4 semanas, asociar amlodipina 5 a 10 mg.",
+      "Lípidos: estatina de alta intensidad (atorvastatina 40 a 80 mg por día, o simvastatina 40 mg según el algoritmo del Ministerio). Meta de LDL: reducción de al menos 50 % del valor basal o menos de 100 mg/dL (menos de 70 si se considera riesgo muy alto).",
+      "Diabetes: HbA1c menor de 7 %, glucemia preprandial de 90 a 130 y posprandial menor de 180 mg/dL; metformina 500 mg cada 12 horas con las comidas, a escalar según tolerancia.",
+      "Antiagregación: aspirina 100 mg por día en prevención primaria según la guía de la cátedra, una vez controlada la TA.",
+      "Controles: pie diabético con monofilamento de 10 g y pulsos cada 3 a 6 meses, fondo de ojo anual, creatinina con filtrado y albuminuria anual; vacunas (influenza anual, neumococo secuencial, dT cada 10 años, hepatitis B); control en 3 a 4 meses y luego cada 6."
      ]
     }
    ],
-   "verificar": "Las metas de TA, de LDL y las dosis exactas se toman de la serie RCVG (fascículos 1 y 2) y las guías de HTA y diabetes cargadas en Semanas 5 a 10."
+   "verificar": "Verificá con la serie RCVG (fascículos 1 y 2), el manual de enfermedades crónicas y las guías de HTA y diabetes: en particular el uso de aspirina en prevención primaria (hoy se indica con mucha más cautela en muchas guías) y las metas de LDL."
   },
   {
    "id": "sf-s7-hta",
@@ -702,37 +726,39 @@
    "respuestas": [
     {
      "puntos": [
-      "Caracterizá la cefalea y buscá síntomas de daño de órgano blanco: neurológicos (confusión, déficit focal, convulsiones), visuales, dolor torácico, disnea, edema.",
-      "Antecedentes de HTA, adherencia al tratamiento, drogas simpaticomiméticas, AINEs, tabaquismo, antecedentes familiares."
+      "Caracterizá la cefalea con la semiología habitual (inicio, localización, carácter, intensidad) y buscá síntomas de daño agudo de órgano blanco: neurológicos (confusión, convulsiones, déficit focal), visuales, dolor torácico, disnea, oliguria y edemas.",
+      "Antecedentes y desencadenantes: HTA previa y adherencia, AINEs, descongestivos, corticoides, cocaína o anfetaminas, tabaquismo y antecedentes familiares."
      ]
     },
     {
      "puntos": [
-      "Repetí la medición de la TA en ambos brazos con técnica correcta.",
-      "Fondo de ojo, examen neurológico, auscultación cardíaca y pulmonar, pulsos periféricos y búsqueda de soplos."
+      "Repetí la TA en ambos brazos con técnica correcta, tras 5 a 10 minutos de reposo.",
+      "Fondo de ojo (hemorragias, exudados o edema de papila), examen neurológico completo (pares craneales, fuerza, sensibilidad, signos meníngeos), auscultación cardiopulmonar (R3, R4, soplos, rales) y pulsos periféricos."
      ]
     },
     {
      "puntos": [
-      "TA 195/120 con cefalea: es una crisis hipertensiva. Si hay daño agudo de órgano blanco, es una emergencia hipertensiva; si no lo hay, es una urgencia hipertensiva.",
-      "Diferenciales de la cefalea: causas primarias, ACV, hemorragia subaracnoidea."
+      "TA 195/120 con cefalea es una crisis hipertensiva (PAS 180 o más o PAD 120 o más). Sin daño agudo de órgano blanco es una urgencia hipertensiva (o una pseudocrisis reactiva al dolor); con daño es una emergencia hipertensiva.",
+      "Diferenciales de la cefalea: primaria (migraña o tensional), ACV isquémico o hemorrágico, hemorragia subaracnoidea y encefalopatía hipertensiva."
      ]
     },
     {
      "puntos": [
-      "Emergencia: derivar a emergencias o a una unidad de cuidados intensivos para reducción controlada con antihipertensivos intravenosos.",
-      "Urgencia sin daño: descenso gradual con medicación oral y control en 24 a 72 h; evitar el descenso brusco y no usar nifedipina sublingual.",
-      "ECG, creatinina y orina como estudio inicial."
+      "Urgencia: reposo de 10 a 30 minutos en ambiente tranquilo; analgesia con paracetamol 500 a 1000 mg por vía oral; si hay ansiedad, diazepam 5 mg por vía oral; luego antihipertensivo oral de acción lenta (enalapril 10 mg, repetible a los 30 minutos si persiste; o amlodipina 5 a 10 mg; o labetalol 100 a 200 mg).",
+      "Objetivo: bajar de forma gradual un 20 a 25 % en 24 a 48 horas, sin bajar de 160/100 en las primeras horas. No usar nifedipina sublingual.",
+      "Emergencia (si hubiera daño): internación en terapia con antihipertensivos endovenosos titulables (labetalol, nitroprusiato; nitroglicerina en edema agudo de pulmón o síndrome coronario).",
+      "Estudios iniciales: ECG, creatinina, urea, ionograma, glucemia y orina completa."
      ]
     },
     {
      "puntos": [
-      "Cesación del tabaco, reducción de sal, actividad física, adherencia y automonitoreo de la TA.",
-      "Pautas de alarma y control programado."
+      "Dejar de fumar, restringir la sal (menos de 5 g por día), actividad aeróbica, moderar el alcohol, adherencia y automonitoreo de la TA.",
+      "Pautas de alarma: cefalea intensa e incoercible, visión borrosa, dolor torácico, falta de aire, debilidad o adormecimiento facial o de miembros, confusión.",
+      "Control ambulatorio en 24 a 48 horas para iniciar o ajustar el tratamiento crónico."
      ]
     }
    ],
-   "verificar": "Contrastá con la guía breve de HTA 2026 y con el material de emergencias hipertensivas cargados en Semanas 7 y 8."
+   "verificar": "Verificá dosis y metas de descenso con la guía breve de HTA 2026 y el material de crisis y emergencias hipertensivas de Semanas 7 y 8."
   },
   {
    "id": "sf-s9-dbt",
@@ -774,7 +800,7 @@
     },
     {
      "k": "IMC",
-     "v": "24,2"
+     "v": "30,5 (obesidad grado I)"
     }
    ],
    "laboratorio": [],
@@ -804,36 +830,44 @@
    "respuestas": [
     {
      "puntos": [
-      "Poliuria, polidipsia, polifagia con pérdida de peso, mareos: pensá en hiperglucemia sintomática.",
-      "Antecedentes familiares de diabetes, otros síntomas (visión borrosa, infecciones), náuseas, vómitos o dolor abdominal (cetosis), fármacos."
+      "Síntomas cardinales: poliuria, polidipsia, polifagia y pérdida de peso, además de los mareos y el sabor amargo.",
+      "Complicaciones agudas: náuseas, vómitos, dolor abdominal, astenia marcada, somnolencia o respiración dificultosa (cetoacidosis).",
+      "Antecedentes familiares de diabetes, infecciones recientes (piel, urinarias, orales), alimentación, actividad física y fármacos hiperglucemiantes (corticoides, tiazidas)."
      ]
     },
     {
      "puntos": [
-      "Estado de hidratación, respiración y aliento, TA, índice de masa corporal y examen de pies.",
-      "Signos de cetoacidosis o descompensación hiperosmolar que obliguen a derivar."
+      "Antropometría: con 86 kg y 1,68 m el IMC es 30,5 kg/m² (obesidad grado I); el documento del caso consigna 24,2, que no coincide con esos datos. Perímetro de cintura (más de 102 cm en varones).",
+      "Hidratación y sensorio: turgencia, mucosas, hipotensión ortostática; aliento cetónico y respiración de Kussmaul.",
+      "Piel y pies: acantosis nigricans, micosis interdigitales, lesiones tróficas, pulsos pedio y tibial posterior."
      ]
     },
     {
      "puntos": [
-      "Una glucemia al azar de 268 mg/dl con síntomas cardinales es compatible con diabetes mellitus.",
-      "Descartá cetoacidosis o estado hiperosmolar con cetonuria o cetonemia y evaluación clínica."
+      "Una glucemia al azar de 268 mg/dL con síntomas clásicos confirma diabetes mellitus tipo 2 de debut (no necesita una segunda determinación).",
+      "Descartar cetoacidosis o estado hiperosmolar con la clínica y la cetonuria o cetonemia.",
+      "Diagnóstico nutricional asociado: obesidad grado I."
      ]
     },
     {
      "puntos": [
-      "Laboratorio de base: glucemia en ayunas, HbA1c, creatinina, perfil lipídico y orina completa con albuminuria.",
-      "Plan terapéutico: modificación del estilo de vida y tratamiento farmacológico de inicio según la guía; educación diabetológica.",
-      "Si hay cetosis, deshidratación o compromiso general, derivar."
+      "Laboratorio de base: HbA1c, glucemia en ayunas, creatinina, urea, ionograma, perfil lipídico, hepatograma, orina completa y cociente albúmina/creatinina.",
+      "Metformina 500 mg cada 12 horas con las comidas (o 500 mg en la cena la primera semana), subiendo de a 500 mg por semana hasta 1500 a 2000 mg por día (máximo 2550) para reducir la intolerancia digestiva.",
+      "Plan alimentario hipocalórico (300 a 500 kcal menos por día), rico en fibra y bajo en azúcares simples; 150 minutos por semana de actividad aeróbica.",
+      "Derivar si hay cetosis, deshidratación, compromiso general o glucemia sostenida mayor de 300 mg/dL: hidratación e insulinización. En general se insuliniza con glucemia en ayunas mayor de 240, al azar mayor de 300, HbA1c mayor de 9,5 % o cetonuria."
      ]
     },
     {
      "puntos": [
-      "Cuidado del pie, fondo de ojo, vacunas y autocontrol; metas de HbA1c y de TA; seguimiento y detección de hipoglucemias."
+      "Metas: HbA1c menor de 7 %; glucemia preprandial 90 a 130 y posprandial menor de 180 mg/dL; TA menor de 140/90; LDL menor de 100 mg/dL.",
+      "Pie: inspección diaria, secado interdigital, calzado holgado, no andar descalzo; monofilamento de 10 g y diapasón de 128 Hz cada 3 a 6 meses. Fondo de ojo anual.",
+      "Vacunas: influenza anual, neumococo secuencial (VCN13 y VPN23 al año), dT cada 10 años y hepatitis B.",
+      "Educación sobre hipoglucemias (síntomas, regla de los 15 g de hidratos simples) y automonitoreo.",
+      "Primer control en 7 a 14 días (tolerancia a la metformina y cuaderno de glucemias); HbA1c a los 3 meses."
      ]
     }
    ],
-   "verificar": "Contrastá con las guías de tratamiento de la diabetes, manejo de hipoglucemias y cuidado del pie cargadas en Semanas 9 y 10; el esquema inicial exacto se toma de la guía."
+   "verificar": "Revisá el IMC del documento original (la consigna dice 24,2 pero con peso y talla da 30,5). Esquema, dosis y criterios de insulinización según las guías de Semanas 9 y 10; ajustá si la guía nacional indica otra cosa."
   },
   {
    "id": "sf-s11-tabaco",
@@ -870,20 +904,22 @@
    "respuestas": [
     {
      "puntos": [
-      "Test de Fagerström: cuántos cigarrillos por día y cuánto tarda en fumar el primero después de despertar; 20 cigarrillos por día desde los 16 años indican dependencia al menos moderada.",
-      "Registrá además años de consumo, intentos previos de dejar y desencadenantes."
+      "Carga tabáquica: 20 cigarrillos por día durante 20 años son 20 paquetes por año.",
+      "Dependencia: con 20 cigarrillos por día y consumo temprano al despertar (test de Fagerström) corresponde alta dependencia física a la nicotina. Registrá edad de inicio (16), años de consumo, intentos previos y desencadenantes (estrés laboral)."
      ]
     },
     {
      "puntos": [
-      "Estadio de Prochaska: la paciente dice que no quiere dejar el hábito por ahora, así que está en precontemplación.",
-      "Intervención breve y motivacional: aconsejar con claridad, preguntar por el estrés, explorar sus resistencias y remarcar los beneficios personales sin presionar.",
-      "No se indica tratamiento farmacológico a quien no quiere dejar; se ofrece ayuda cuando decida, se registra el consejo y se reevalúa en cada consulta.",
-      "La odinofagia con faringe congestiva sin placas orienta a una causa viral: tratamiento sintomático y pautas de alarma."
+      "Estadio de Prochaska: precontemplación (no piensa dejar en los próximos 6 meses).",
+      "Intervención breve motivacional con las 5 R: relevancia (vincularlo con su odinofagia y su salud), riesgos, recompensas (respiración, menos infecciones, ahorro), resistencias (el estrés laboral: aclarar que la nicotina es un estimulante y que el alivio es el fin de la abstinencia; proponer pausas activas, respiración y ejercicio) y repetición en cada consulta.",
+      "Recomendar ambientes libres de humo (casa, auto, trabajo) mientras madura la decisión.",
+      "No se indica tratamiento farmacológico a quien no quiere dejar; se ofrece acompañamiento para cuando decida avanzar a la preparación. Registrar la intervención en la historia clínica.",
+      "Odinofagia: faringoamigdalitis aguda congestiva viral (Centor 0 a 1): paracetamol 500 a 1000 mg cada 6 a 8 horas o ibuprofeno 400 a 600 mg cada 8 horas con las comidas, reposo foniátrico, hidratación y gárgaras. No indicar antibióticos.",
+      "Pautas de alarma: fiebre mayor de 38,5 °C por más de 48 a 72 horas, dificultad para tragar líquidos, dificultad respiratoria o dolor asimétrico intenso (flemón periamigdalino). Control en 48 a 72 horas si no mejora y reevaluar la motivación en 1 a 3 meses."
      ]
     }
    ],
-   "verificar": "Contrastá con la guía de práctica clínica breve de tabaco 2024 y el material de abordaje integral del tabaquismo cargados en Semanas 11 y 12."
+   "verificar": "Clasificación de dependencia y fármacos para la etapa de acción según la guía breve de tabaco 2024 y el abordaje integral del tabaquismo de Semanas 11 y 12."
   },
   {
    "id": "sf-s13-tbc",
@@ -947,36 +983,43 @@
    "respuestas": [
     {
      "puntos": [
-      "Duración de la tos, expectoración, hemoptisis, fiebre vespertina, sudoración nocturna, pérdida de peso, contacto con personas con tuberculosis.",
-      "Condiciones de vida y trabajo, consumo de alcohol, tabaco y drogas, antecedentes de VIH y diabetes, vacunación BCG."
+      "Confirmar el criterio de sintomático respiratorio (tos y expectoración de más de 15 días; acá llevan unas 3 semanas) y preguntar por hemoptisis o dolor pleurítico.",
+      "Síndrome de impregnación bacilar: febrícula vespertina, sudoración nocturna, astenia, anorexia y pérdida de peso.",
+      "Epidemiología: contacto con personas con tos crónica o tuberculosis, condiciones de trabajo (cuadrilla forestal) y vivienda, consumo de tabaco, alcohol o drogas, antecedentes de diabetes, VIH o desnutrición, y cicatriz de BCG."
      ]
     },
     {
      "puntos": [
-      "Examen respiratorio: rales subcrepitantes bilaterales con hipoventilación en el campo superior derecho.",
-      "Adenopatías cervicales dolorosas; estado nutricional (IMC 20, peso 61 kg)."
+      "Signos vitales (febrícula de 37,7 °C) y saturación de oxígeno; estado nutricional (peso 61 kg, talla 1,74 m, IMC 20,1).",
+      "Ganglios: palpar cadenas cervicales, axilares y supraclaviculares (tamaño, consistencia y sensibilidad) para pensar en tuberculosis ganglionar.",
+      "Pulmón: submatidez apical derecha, rales subcrepitantes bilaterales, hipoventilación en campo medio y superior derecho, búsqueda de soplo tubario o cavernoso. Abdomen sin organomegalias."
      ]
     },
     {
      "puntos": [
-      "Sintomático respiratorio con signos de compromiso pulmonar: sospechá tuberculosis pulmonar con posible compromiso ganglionar.",
-      "Diferenciales: neumonía bacteriana, micosis, neoplasia, sarcoidosis."
+      "Tuberculosis pulmonar activa con probable compromiso ganglionar cervical: sintomático respiratorio con síndrome de impregnación bacilar y signos focales en el vértice derecho.",
+      "Diferenciales: neumonía bacteriana o atípica subaguda, micosis profundas (histoplasmosis, paracoccidioidomicosis), neoplasia de pulmón o linfoma, sarcoidosis y absceso pulmonar."
      ]
     },
     {
      "puntos": [
-      "Baciloscopía de esputo (y cultivo o test molecular según disponibilidad), radiografía de tórax, test de VIH y glucemia.",
-      "Notificación obligatoria, estudio de contactos y tratamiento acortado supervisado según el esquema del programa nacional.",
-      "No iniciar tratamiento específico sin confirmar, salvo indicación del programa en casos de alta sospecha."
+      "Confirmación: baciloscopía de esputo en 2 muestras (una inmediata y otra matinal) y test molecular rápido (Xpert MTB/RIF, detecta resistencia a rifampicina); cultivo si la baciloscopía es negativa o hay sospecha de resistencia. Radiografía de tórax.",
+      "Laboratorio basal: serología de VIH (obligatoria), glucemia, hepatograma, hemograma, creatinina y urea.",
+      "Esquema para casos nuevos: 2 meses de HRZE (isoniazida 5 mg/kg, rifampicina 10, pirazinamida 25 a 30, etambutol 15 a 20) y 4 meses de HR; con dosis fija combinada, para 61 kg corresponden 4 comprimidos juntos por la mañana en ayunas en la fase inicial y 2 comprimidos en la de continuación.",
+      "Tratamiento acortado estrictamente supervisado (TAES). Notificación obligatoria inmediata (SNVS 2.0).",
+      "Contactos: censar a los convivientes y compañeros de cuadrilla de los últimos 3 meses; evaluarlos con clínica, PPD y radiografía; quimioprofilaxis con isoniazida 5 mg/kg por día durante 6 meses a contactos asintomáticos con PPD positiva o menores de 15 años, tras descartar enfermedad activa."
      ]
     },
     {
      "puntos": [
-      "Explicá que la enfermedad es curable con el tratamiento completo y supervisado; adherencia, medidas de control de infección (barbijo y ventilación), seguimiento bacteriológico y apoyo social y laboral."
+      "Es una enfermedad curable si completa el tratamiento sin interrupciones; el abandono genera resistencia.",
+      "Barbijo y ventilación o luz solar en la habitación durante las primeras 2 semanas.",
+      "Seguimiento: control clínico mensual (peso, adherencia, hepatotoxicidad: ictericia, coluria, náuseas); baciloscopía al final del 2.º, 4.º y 6.º mes; radiografía al inicio, al 2.º y al 6.º mes.",
+      "Apoyo social y laboral: viáticos, alimentación, licencia hasta que negativice el esputo."
      ]
     }
    ],
-   "verificar": "Contrastá con las pautas técnicas de tuberculosis en la Argentina 2026 cargadas en Semanas 13 y 14; el esquema y la duración se toman de allí."
+   "verificar": "Esquema, dosis por peso y cronograma de controles según las pautas técnicas de tuberculosis en la Argentina 2026 de la sección Semanas 13 y 14. Valores de corte de PPD (10 mm en población general, 5 mm en VIH o inmunodeprimidos) también de esa fuente."
   },
   {
    "id": "sf-s15-violencia",
@@ -1007,34 +1050,41 @@
    "respuestas": [
     {
      "puntos": [
-      "Entrevistá en privado, con escucha empática y sin juzgar.",
-      "Preguntá por cómo ocurrió la lesión con preguntas abiertas y sin presionar; indagá si hubo episodios previos."
+      "Entrevista en un espacio privado y confidencial, con escucha empática, validación emocional y sin juzgar.",
+      "Preguntas abiertas sobre cómo ocurrió la lesión, sin presionar; indagar episodios previos de golpes o agresiones.",
+      "Riesgo inminente: amenazas de muerte, armas en el hogar, consumo problemático de sustancias del agresor, hijos o hijas expuestos. Explorar con respeto el contexto de la relación y el impacto emocional (aislamiento, culpa, impotencia)."
      ]
     },
     {
      "puntos": [
-      "Mecanismo del trauma: compatibilidad entre lo referido y la lesión; un golpe defensivo en el antebrazo es característico, y lo que no concuerda debe llamar la atención."
+      "Compatibilidad entre el relato y la lesión: un golpe en el borde cubital del antebrazo es una lesión típica de defensa al proteger el rostro.",
+      "Discordancia temporal entre la agresión y la consulta (el retraso por miedo o control del agresor es frecuente) y lesiones en distintas etapas de evolución (hematomas de varios colores)."
      ]
     },
     {
      "puntos": [
-      "Examen físico dirigido y completo, con registro detallado de todas las lesiones (con consentimiento, fotografías).",
-      "Radiografía del antebrazo ante sospecha de fractura; evaluación de otras lesiones ocultas."
+      "Pedí consentimiento informado antes del examen y del registro fotográfico.",
+      "Examen físico completo, buscando lesiones ocultas por la ropa (cuero cabelludo, cuello, tórax, abdomen, espalda, mamas y zona genital), con registro detallado de cada una.",
+      "Radiografía de antebrazo (frente y perfil) ante sospecha de fractura."
      ]
     },
     {
      "puntos": [
-      "Lesión traumática de antebrazo en un contexto de sospecha de violencia de género: la violencia es un problema de salud y debe ser nombrado."
+      "Lesión traumática de antebrazo (contusión o sospecha de fractura) en un contexto de sospecha de violencia de género.",
+      "Nombrar la violencia como un problema de salud y una vulneración de derechos."
      ]
     },
     {
      "puntos": [
-      "Tratamiento de la lesión, evaluación del riesgo y plan de seguridad, derivación al equipo interdisciplinario y a servicios de apoyo.",
-      "Registro en la historia clínica y notificación según el protocolo; respetá la autonomía de la paciente y ofrecé acompañamiento y recursos (línea 144)."
+      "Tratar la lesión (inmovilización, analgesia, curación).",
+      "Plan de seguridad construido con ella: personas de confianza, lugar seguro, resguardo de documentos y dinero.",
+      "Derivación articulada al equipo interdisciplinario (trabajo social, salud mental, medicina legal o asesoría jurídica).",
+      "Registro objetivo y confidencial en la historia clínica y notificación según el protocolo de tu jurisdicción.",
+      "En una mujer adulta y capaz, respetar su autonomía y la confidencialidad sobre la denuncia: ofrecer información y acompañamiento (línea 144, centros de la mujer) sin forzarla."
      ]
     }
    ],
-   "verificar": "Contrastá con el material de violencia contra las mujeres (MEP) y con el protocolo de tu jurisdicción para las obligaciones de denuncia y notificación."
+   "verificar": "Verificá con el material de violencia contra las mujeres (MEP) y con la normativa de tu jurisdicción qué situaciones obligan a denunciar o notificar y cuáles no (por ejemplo, ante riesgo grave o menores involucrados)."
   }
  ]
 }
