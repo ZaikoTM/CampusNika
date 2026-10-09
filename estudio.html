@@ -615,7 +615,7 @@
     <script src="js/pomodoroSyncManager.js?v=4"></script>
 
     <!-- 4. Lógica de Estudio -->
-    <script src="js/estudio/estudio.js?v=81"></script>
+    <script src="js/estudio/estudio.js?v=83"></script>
     <script src="js/estudio/pdfLector.js?v=8"></script>
 
     <!-- 5. Asistente IA y Módulos Sociales -->
@@ -702,6 +702,17 @@
 <script>
     // En la sala de la PFO, "Salas de estudio" vuelve a las salas de 6.° año
     (function () { var m = new URLSearchParams(location.search).get('modulo'); var b = document.getElementById('btn-back-salas'); if (b && m === 'pfo') b.href = 'sala_estudio.html#6to'; })();
+</script>
+<script>
+    // En la PFO las unidades se llaman "módulos"
+    (function () {
+      if (new URLSearchParams(location.search).get('modulo') !== 'pfo') return;
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('p').forEach(function (e) { e.innerHTML = e.innerHTML.replace('elegí una Unidad Problema', 'elegí un módulo'); });
+        var i = document.getElementById('search-up-input'); if (i) i.placeholder = 'Buscar módulo por título o palabra clave...';
+        var t = document.getElementById('up-detail-title'); if (t) t.textContent = 'Título del módulo';
+      });
+    })();
 </script>
 </body>
 </html>

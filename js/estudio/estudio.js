@@ -1003,11 +1003,19 @@ function renderResourceItem(resource) {
     const fidAttr = fid ? ` data-fid="${fid}" data-title="${encodeURIComponent(resource.title)}"` : '';
     const progHtml = fid ? `<span class="res-prog" data-fid="${fid}"></span>` : '';
 
+    // Clases de YouTube: miniatura real del video (si no carga, queda el ícono de siempre)
+    const ytm = String(resource.url).match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    const iconoHtml = ytm
+        ? `<div class="resource-thumb" style="position:relative;width:72px;height:44px;border-radius:8px;overflow:hidden;flex-shrink:0;background:${meta.bg};">
+                <img src="https://i.ytimg.com/vi/${ytm[1]}/mqdefault.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.remove()">
+                <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span style="width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;">&#9654;</span></span>
+            </div>`
+        : `<div class="resource-icon" style="width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: ${meta.bg}; color: ${meta.color}; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
+            </div>`;
     return `
         <div class="resource-item ${isActive}" ${actionAttr} data-url="${resource.url}"${fidAttr}>
-            <div class="resource-icon" style="width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: ${meta.bg}; color: ${meta.color}; flex-shrink: 0;">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
-            </div>
+            ${iconoHtml}
             <div class="resource-info">
                 <h5>${resource.title}${badgeObligatorioHtml(resource)}</h5>
                 <span>${meta.label}</span>${progHtml}
