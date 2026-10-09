@@ -1712,12 +1712,70 @@
    "parcial": "PFO",
    "objectives": [],
    "contents": [
-    "Control preconcepcional, prenatal y puerperal; sangrado uterino anormal; evaluación mamaria."
+    "Mama y control prenatal",
+    "Consensos de ginecología"
    ],
    "bibliography": [],
    "materiales": [],
    "videos": [],
-   "objectivesNote": "Este módulo se está armando: pronto vas a encontrar acá los contenidos, procedimientos y bibliografía de la rotación."
+   "secciones": [
+    {
+     "id": "pfo6-1",
+     "title": "Mama y control prenatal",
+     "objectives": [
+      "Estudiar: Manual operativo de evaluación clínica mamaria",
+      "Estudiar: Control preconcepcional, prenatal y puerperal"
+     ],
+     "contents": [
+      "2 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Manual operativo de evaluación clínica mamaria",
+       "url": "https://drive.google.com/file/d/1AVemIh_3spB7IhGfUa5Bsi0CZn0VjQlU/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Control preconcepcional, prenatal y puerperal",
+       "url": "https://drive.google.com/file/d/1i66kEP5GQdnmmmkQ65rFRht8G-1xlniF/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo6-2",
+     "title": "Consensos de ginecología",
+     "objectives": [
+      "Estudiar: Consenso FASGO 2022: sangrado uterino anormal",
+      "Estudiar: Consenso SOGIBA 2021: screening en ginecología, qué no hay que pedir",
+      "Estudiar: Documento de clase de ginecología"
+     ],
+     "contents": [
+      "3 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Consenso FASGO 2022: sangrado uterino anormal",
+       "url": "https://drive.google.com/file/d/1kuZRfCFp8H8zmUni9wTIr8PPMcqDliz5/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Consenso SOGIBA 2021: screening en ginecología, qué no hay que pedir",
+       "url": "https://drive.google.com/file/d/1K7N1-wCSUm6KV4-0d4j-0lpJr7bnwbk3/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Documento de clase de ginecología",
+       "url": "https://docs.google.com/document/d/1gZnWnKZzPWdpyYYdo7Or79zgWd1grNSV/edit",
+       "type": "doc"
+      }
+     ],
+     "videos": []
+    }
+   ]
   },
   {
    "id": "pfo7",
