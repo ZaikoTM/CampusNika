@@ -282,12 +282,56 @@
     ir(0);
   }
 
+  // ------------------------------------------------------------------ casos clínicos de práctica (estaciones)
+  let CASOS = [];
+  function vistaCaso(id) {
+    const c = CASOS.find((x) => x.id === id);
+    if (!c) { location.replace('estudio.html?modulo=pfo'); return; }
+    const est = leer(); est.casos = est.casos || {}; const hechas = new Set(est.casos[c.id] || []);
+    main.innerHTML = `<a class="pe-back" href="estudio.html?modulo=pfo">← Sala de Estudio PFO</a>
+      <section class="pe-caso">
+        <header class="pc-hero"><span class="pc-ic">${c.icono}</span><div><div class="pc-chips"><span>🧩 Caso clínico</span><span>${esc(c.tema)}</span>${c.semana ? `<span>${esc(c.semana)}</span>` : ''}<span>📍 ${esc(c.lugar)}</span></div><h1>${esc(c.titulo)}</h1></div></header>
+        <div class="pc-grid">
+          <div class="pc-col">
+            <article class="pc-card pc-sit"><h3>📋 Situación de partida</h3><p>${esc(c.situacion)}</p></article>
+            ${c.datos.length ? `<article class="pc-card"><h3>🩺 Datos clínicos</h3><div class="pc-datos">${c.datos.map((d, i) => `<div style="--d:${i}"><small>${esc(d.k)}</small><b>${esc(d.v)}</b></div>`).join('')}</div></article>` : ''}
+            ${c.laboratorio.length ? `<article class="pc-card"><h3>🧪 Estudios complementarios</h3><table class="pc-lab">${c.laboratorio.map((d) => `<tr><th>${esc(d.k)}</th><td>${esc(d.v)}</td></tr>`).join('')}</table></article>` : ''}
+            ${c.recursos.length ? `<article class="pc-card"><h3>📚 Para repasar este caso</h3><div class="pc-rec">${c.recursos.map((r) => `<a href="${esc(r.url)}" target="_blank" rel="noopener">📄 ${esc(r.title)}</a>`).join('')}</div></article>` : ''}
+          </div>
+          <div class="pc-col">
+            <article class="pc-card pc-est"><div class="pc-est-h"><h3>🎯 Tu estación</h3><button type="button" class="pfo-btn sec" id="pc-reloj"><span id="pc-t">▶ Empezar con reloj · ${c.minutos} min</span></button></div>
+              <div class="pc-barra"><i id="pc-b"></i></div><small id="pc-p" class="pc-prog"></small>
+              <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label></li>`).join('')}</ol>
+              <p class="pc-nota">${c.tareasGenericas ? 'Este caso no trae consignas específicas: usá la estructura habitual de una estación. ' : ''}Resolvé cada punto <b>en voz alta</b>, como frente al evaluador, y tildalo cuando lo hayas dicho completo. No hay respuestas modelo: contrastá lo que dijiste con la bibliografía.</p>
+              <div class="pc-fin" id="pc-fin" hidden><div class="big">🎉</div><h3>¡Estación completa!</h3><p>Resolviste todas las consignas. Ahora repasá la bibliografía y ponete a prueba con el simulador.</p><div class="pe-nav" style="justify-content:center"><a class="pfo-btn" href="pfo_ecoe.html">📝 Practicar en el simulador ECOE</a><a class="pfo-btn sec" href="estudio.html?modulo=pfo">Volver a la Sala de Estudio</a></div></div>
+            </article>
+          </div>
+        </div>
+      </section>`;
+    const chk = $$('.pc-tarea input'); let iv = null, resto = c.minutos * 60;
+    const pintar = () => {
+      const n = chk.filter((x) => x.checked).length; $('#pc-b').style.width = (n / chk.length * 100) + '%';
+      $('#pc-p').textContent = `${n} de ${chk.length} consignas resueltas`;
+      chk.forEach((x) => x.closest('.pc-tarea').classList.toggle('ok', x.checked));
+      const fin = $('#pc-fin'); const completa = n === chk.length; if (completa && fin.hidden) { fin.hidden = false; fin.classList.add('on'); toast('🎉 ¡Estación completa!'); if (iv) { clearInterval(iv); iv = null; } } else if (!completa) fin.hidden = true;
+    };
+    chk.forEach((x, i) => { x.checked = hechas.has(i); x.addEventListener('change', () => { const e2 = leer(); e2.casos = e2.casos || {}; e2.casos[c.id] = chk.map((y, k) => (y.checked ? k : -1)).filter((k) => k >= 0); guardar(e2); pintar(); }); });
+    pintar();
+    $('#pc-reloj').addEventListener('click', () => {
+      const t = $('#pc-t');
+      if (iv) { clearInterval(iv); iv = null; resto = c.minutos * 60; t.textContent = `▶ Empezar con reloj · ${c.minutos} min`; $('#pc-reloj').classList.remove('urge'); return; }
+      const pt = () => { const m = Math.floor(resto / 60), sg = resto % 60; t.textContent = `⏱ ${m}:${String(sg).padStart(2, '0')} · tocá para reiniciar`; $('#pc-reloj').classList.toggle('urge', resto <= 60); };
+      pt(); iv = setInterval(() => { resto--; if (resto <= 0) { clearInterval(iv); iv = null; t.textContent = '⏰ Se acabó el tiempo'; toast('⏰ Se acabó el tiempo de la estación'); return; } pt(); }, 1000);
+    });
+  }
+
   // ------------------------------------------------------------------ rutas
   function ruta() {
     document.onkeydown = null; cerrarModal();
     const [mid, sid, pid] = decodeURIComponent(location.hash.replace(/^#/, '')).split('/');
     if (!D) return;
     // Esta pantalla solo muestra los recorridos y tutoriales interactivos; el resto vive en la Sala de Estudio completa
+    if (mid === 'caso' && sid) { vistaCaso(sid); window.scrollTo({ top: 0 }); return; }
     if (!(mid === 'generalidades' || (mid && sid && pid))) { location.replace('estudio.html?modulo=pfo'); return; }
     if (!mid) { vistaHub(); } else {
       const m = modulo(mid); if (!m) { vistaHub(); } else if (!sid) vistaModulo(m); else {
@@ -298,7 +342,8 @@
   }
   async function iniciar() {
     try {
-      const [a, b, c] = await Promise.all([fetch('data/pfo/estudio.json', { cache: 'no-cache' }), fetch('data/pfo/procedimientos_guias.json', { cache: 'no-cache' }).catch(() => null), fetch('data/pfo/procedimientos.json', { cache: 'no-cache' }).catch(() => null)]);
+      const [a, b, c, k] = await Promise.all([fetch('data/pfo/estudio.json', { cache: 'no-cache' }), fetch('data/pfo/procedimientos_guias.json', { cache: 'no-cache' }).catch(() => null), fetch('data/pfo/procedimientos.json', { cache: 'no-cache' }).catch(() => null), fetch('data/pfo/casos_estudio.json', { cache: 'no-cache' }).catch(() => null)]);
+      try { if (k && k.ok) CASOS = (await k.json()).casos || []; } catch (_) {}
       D = await a.json();
       try { if (b && b.ok) PROC = Object.assign(PROC, await b.json()); } catch (_) {}
       try { if (c && c.ok) PROC = Object.assign(PROC, (await c.json()).procedimientos || {}); } catch (_) {}

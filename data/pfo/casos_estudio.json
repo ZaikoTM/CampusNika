@@ -1,0 +1,642 @@
+{
+ "casos": [
+  {
+   "id": "clinica-imagen",
+   "modulo": 2,
+   "semana": null,
+   "titulo": "Fiebre, dolor torácico y tos",
+   "icono": "🩻",
+   "tema": "Interpretación de imágenes",
+   "lugar": "Guardia del hospital",
+   "situacion": "Sos médico/a general de la guardia y debés atender a un varón de 50 años que consulta por fiebre, dolor torácico y tos.",
+   "datos": [],
+   "laboratorio": [],
+   "tareas": [
+    "Interpretar correctamente el examen complementario del paciente",
+    "Verbalizar el diagnóstico",
+    "Indicar la terapéutica, si la considerás necesaria"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Radiografía de tórax",
+     "url": "https://drive.google.com/file/d/1Knz1laiZWHxzBfu6OHFZWw6c32SGnSq0/view?usp=drive_link"
+    }
+   ]
+  },
+  {
+   "id": "pediatria-bronquiolitis",
+   "modulo": 3,
+   "semana": null,
+   "titulo": "Niño de 4 años con tos, agitación y vómitos",
+   "icono": "🧸",
+   "tema": "Pediatría de guardia",
+   "lugar": "Guardia",
+   "situacion": "Sos médico/a de guardia y atendés a Matías, de 4 años, que consulta con su madre por tos, agitación y vómitos de 24 horas de evolución. Tiene antecedentes de varios broncoespasmos sin tratamiento preventivo y el carnet de vacunas completo. Tras la evaluación pedís laboratorio y radiografía de tórax.",
+   "datos": [
+    {
+     "k": "Peso",
+     "v": "18 kg"
+    },
+    {
+     "k": "Temperatura",
+     "v": "37 °C"
+    },
+    {
+     "k": "FC",
+     "v": "125 /min"
+    },
+    {
+     "k": "FR",
+     "v": "35 /min"
+    },
+    {
+     "k": "Saturación",
+     "v": "88 %"
+    },
+    {
+     "k": "Estado",
+     "v": "Hemodinámicamente compensado"
+    },
+    {
+     "k": "Examen",
+     "v": "Tiraje generalizado, sin sibilancias; responde con palabras, no frases"
+    }
+   ],
+   "laboratorio": [
+    {
+     "k": "Hemoglobina",
+     "v": "7 g/dl"
+    },
+    {
+     "k": "Hematocrito",
+     "v": "21 %"
+    },
+    {
+     "k": "Plaquetas",
+     "v": "250.000 /mm³"
+    },
+    {
+     "k": "Leucocitos",
+     "v": "11.280 /mm³ (neutrófilos 65 %, eosinófilos 9 %, linfocitos 22 %, monocitos 4 %)"
+    },
+    {
+     "k": "Glucemia",
+     "v": "80 mg/dl"
+    },
+    {
+     "k": "Uremia",
+     "v": "30 mg/dl"
+    },
+    {
+     "k": "Gasometría arterial",
+     "v": "pH 7,38 · pCO₂ 42 · pO₂ 68 · HCO₃ 22 · EB −3 · sat. 85 %"
+    }
+   ],
+   "tareas": [
+    "Realizar la anamnesis orientada a la enfermedad actual",
+    "Explicar a la madre tus diagnósticos presuntivos",
+    "Explicar a la madre, en forma detallada, la conducta a seguir",
+    "Interpretar el hemograma y el estado ácido-base del niño"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Guía de diagnóstico y tratamiento asma bronquial en niños ≥ 6 años. Actualización 2021",
+     "url": "https://drive.google.com/file/d/1gWqb3MSvDvwvg7rQULYNDJMzqOnKEBJT/view"
+    },
+    {
+     "title": "Oxigenoterapia y manejo de la vía aérea - HNRG 2023",
+     "url": "https://drive.google.com/file/d/1x3tGVxhD5YtW0IMazcOPFoOeskBFnwcA/view"
+    },
+    {
+     "title": "PRONAP MÓDULO 2 • Capítulo 3 ABORDAJE DE LA ANEMIA",
+     "url": "https://drive.google.com/file/d/1C7SRnuRpaoojFE9XuJk3saPS0yk5Re2j/view"
+    }
+   ]
+  },
+  {
+   "id": "quirurgica-dolor-abdominal",
+   "modulo": 4,
+   "semana": null,
+   "titulo": "Dolor abdominal en la guardia",
+   "icono": "🔪",
+   "tema": "Abdomen agudo",
+   "lugar": "Guardia del hospital",
+   "situacion": "Sos médico/a general y recibís en la guardia a una mujer de 65 años que consulta por dolor abdominal.",
+   "datos": [
+    {
+     "k": "TA",
+     "v": "130/90"
+    },
+    {
+     "k": "Temperatura axilar",
+     "v": "38 °C"
+    },
+    {
+     "k": "FC",
+     "v": "98 /min"
+    },
+    {
+     "k": "FR",
+     "v": "16 /min"
+    },
+    {
+     "k": "Saturación",
+     "v": "98 %"
+    }
+   ],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar la anamnesis dirigida al cuadro",
+    "Plantear los diagnósticos diferenciales, justificando cada uno",
+    "Definir la conducta o decisión para confirmar los diagnósticos"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Frecuencia de abdomen agudo quirúrgico en pacientes que consultan al servicio de urgencias",
+     "url": "https://drive.google.com/file/d/18UYTPA_P8kb8XoDCDROUai0VRZP3mcrX/view"
+    }
+   ]
+  },
+  {
+   "id": "emergencia-politrauma",
+   "modulo": 5,
+   "semana": null,
+   "titulo": "Politraumatizado tras un choque frontal",
+   "icono": "🚑",
+   "tema": "Trauma y emergencias",
+   "lugar": "Guardia",
+   "situacion": "Un joven de unos 20 años sufrió un choque frontal a gran velocidad contra un camión; murieron dos ocupantes del auto. El servicio de emergencias lo trae a la guardia en coma, con respiración ruidosa, signos externos de trauma de cráneo y cara, una herida abierta en el hemitórax izquierdo por la que se percibe salida de aire, y deformidad en la pierna izquierda y en el antebrazo derecho.",
+   "datos": [
+    {
+     "k": "FC",
+     "v": "110 /min"
+    },
+    {
+     "k": "FR",
+     "v": "26 /min"
+    },
+    {
+     "k": "TA",
+     "v": "90/50"
+    }
+   ],
+   "laboratorio": [],
+   "tareas": [
+    "Efectuar la evaluación primaria del paciente",
+    "Reconocer las lesiones que ponen en riesgo la vida",
+    "Realizar el tratamiento de esas lesiones"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "ATLS SOPORTE VITAL EN TRAUMA",
+     "url": "https://drive.google.com/file/d/15oaGgiRMl8xnHwNEEq_DyryfvefMa7AT/view"
+    }
+   ]
+  },
+  {
+   "id": "gineco-sangrado",
+   "modulo": 6,
+   "semana": null,
+   "titulo": "Sangrado en una mujer de 65 años",
+   "icono": "🩺",
+   "tema": "Ginecología",
+   "lugar": "Consultorio del centro de salud",
+   "situacion": "Atendés en el consultorio del centro de salud a María, de 65 años, que refiere un episodio de sangrado de 2 días de duración ocurrido hace 4 días.",
+   "datos": [],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar una breve anamnesis relacionada con el motivo de consulta",
+    "Realizar el examen físico correspondiente al motivo de consulta",
+    "Interpretar en voz alta los estudios médicos que trae María"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Consenso FASGO 2022: sangrado uterino anormal",
+     "url": "https://drive.google.com/file/d/1kuZRfCFp8H8zmUni9wTIr8PPMcqDliz5/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-dbt-control",
+   "modulo": 7,
+   "semana": null,
+   "titulo": "Control anual de un paciente con diabetes tipo 2",
+   "icono": "🩸",
+   "tema": "Promoción y prevención",
+   "lugar": "Centro de salud",
+   "situacion": "Sos médico/a general y de familia del centro de salud y debés atender a Guillermo, de 52 años, con diabetes tipo 2, que concurre para su control anual de salud.",
+   "datos": [],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar medidas de promoción y prevención"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Presentación de clase: Complicaciones de la Diabetes (1)",
+     "url": "https://docs.google.com/presentation/d/1nxuAq73oGyv6qmMgpgTzvQBgJC4kXAUq/edit"
+    },
+    {
+     "title": "Protocolo Pie DBT",
+     "url": "https://drive.google.com/file/d/1r-2dVV-oQ8vTA6vQV73nZSkADLzU15_V/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s1-dengue",
+   "modulo": 7,
+   "semana": "Semanas 1 y 2",
+   "titulo": "Cefalea, mialgias y fiebre de 4 días",
+   "icono": "🦟",
+   "tema": "Síndrome febril · dengue",
+   "lugar": "Centro de salud",
+   "situacion": "Recibís a Ricardo, de 25 años, que consulta por un cuadro de 4 días de evolución con dolor de cabeza, mialgias, artralgias y malestar general. Al examen físico está en regular estado general y febril; el resto del examen no muestra particularidades.",
+   "datos": [
+    {
+     "k": "Temperatura",
+     "v": "38,7 °C"
+    },
+    {
+     "k": "Estado general",
+     "v": "Regular"
+    }
+   ],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar una anamnesis dirigida al motivo de consulta",
+    "Realizar un examen físico dirigido",
+    "Plantear el diagnóstico y los diagnósticos diferenciales, justificándolos",
+    "Definir la conducta y el tratamiento",
+    "Dar indicaciones y consejería al paciente"
+   ],
+   "tareasGenericas": true,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "covid_dengue",
+     "url": "https://drive.google.com/file/d/1UHnb4YyI5vmBtFyFbBJxDUmc_3fdhuOw/view"
+    },
+    {
+     "title": "Sindrome Coledociano",
+     "url": "https://drive.google.com/file/d/1FhsJ6Qmq5uwe2fVswMKT8ZgXysPuFmjb/view"
+    },
+    {
+     "title": "Ficha de notificación",
+     "url": "https://drive.google.com/file/d/1A5WE0EfMFtSXqO6-xjW7h2bqBxy9OW6o/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s3-inundaciones",
+   "modulo": 7,
+   "semana": "Semanas 3 y 4",
+   "titulo": "Familia que vuelve a su casa tras una inundación",
+   "icono": "🌊",
+   "tema": "Protocolo de inundaciones",
+   "lugar": "Ronda sanitaria · domicilio",
+   "situacion": "Hacés una ronda sanitaria y vas al domicilio de Sonia, de 32 años, que regresó a su casa tras 3 semanas evacuada con su familia (Pedro, de 40; Ana, de 9; y Nacho, de 1 año) en un centro de evacuados por la creciente del río.",
+   "datos": [],
+   "laboratorio": [],
+   "tareas": [
+    "Aconsejar a la paciente sobre las medidas sanitarias que deben tomarse ante esta situación",
+    "Explicar si corresponde la quimioprofilaxis en este caso, qué es, a quién del grupo familiar la indicarías y qué debés descartar antes de prescribirla",
+    "Explicar a Sonia qué antibióticos usarías, con qué dosis y por cuánto tiempo"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Protocolo inundaciones 2026",
+     "url": "https://drive.google.com/file/d/1qvo419V1e8ax27gO_UxisCfgygYvwy4_/view"
+    },
+    {
+     "title": "Recomendaciones para la Evaluación de los Niños con Cuadros Febriles",
+     "url": "https://drive.google.com/file/d/1Sety4FLQFNNF7-c3zP38NaBsYJdLlMbM/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s5-preventivas",
+   "modulo": 7,
+   "semana": "Semanas 5 y 6",
+   "titulo": "Control de salud de una mujer de 46 años",
+   "icono": "🛡️",
+   "tema": "Medidas preventivas",
+   "lugar": "Consultorio",
+   "situacion": "Debés atender a Laura, de 46 años, que consulta para realizar un control de salud.",
+   "datos": [],
+   "laboratorio": [],
+   "tareas": [
+    "Indicar qué CONTROLES debe realizarse Laura en el consultorio",
+    "Indicar qué enfermedades RASTREARÍAS en Laura",
+    "Indicar qué CONSEJERÍA debería recibir Laura",
+    "Indicar qué vacunas debería tener Laura"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Manual para el cuidado integral de personas con enfermedades crónicas no transmisibles",
+     "url": "https://drive.google.com/file/d/1QiQ47HqNUpBOdIl0RdtPKbTlPYAEnfh7/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s5-rcvg",
+   "modulo": 7,
+   "semana": "Semanas 5 y 6",
+   "titulo": "Riesgo cardiovascular global en una mujer de 63 años",
+   "icono": "❤️",
+   "tema": "RCVG",
+   "lugar": "Consultorio",
+   "situacion": "Recibís a Laura, de 63 años, que consulta por control de salud y trae los análisis que le pediste en la consulta anterior. Tiene diabetes e hipertensión y fuma 20 cigarrillos por día.",
+   "datos": [
+    {
+     "k": "TA",
+     "v": "155/90 mmHg"
+    }
+   ],
+   "laboratorio": [
+    {
+     "k": "Glucemia",
+     "v": "145 mg%"
+    },
+    {
+     "k": "Colesterol total",
+     "v": "250 mg%"
+    },
+    {
+     "k": "HDL-c",
+     "v": "25 mg%"
+    },
+    {
+     "k": "LDL-c",
+     "v": "215 mg%"
+    },
+    {
+     "k": "Triglicéridos",
+     "v": "250 mg%"
+    }
+   ],
+   "tareas": [
+    "Calcular el RCVG",
+    "Realizar las indicaciones de promoción, prevención y tratamiento según su RCVG"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Serie RCVG Fascículo 2",
+     "url": "https://drive.google.com/file/d/1kW_Bb7s4ropDiwhMWWdCScVMwKBGoEiI/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s7-hta",
+   "modulo": 7,
+   "semana": "Semanas 7 y 8",
+   "titulo": "Cefalea de 24 horas con tensión muy elevada",
+   "icono": "🩺",
+   "tema": "Hipertensión arterial",
+   "lugar": "Consultorio",
+   "situacion": "Recibís a Pedro, de 45 años, tabaquista y sin antecedentes patológicos de jerarquía, que consulta por cefalea de 24 horas de evolución sin síntomas asociados.",
+   "datos": [
+    {
+     "k": "FC",
+     "v": "85 lpm"
+    },
+    {
+     "k": "FR",
+     "v": "16 rpm"
+    },
+    {
+     "k": "TA",
+     "v": "195/120"
+    },
+    {
+     "k": "Temperatura",
+     "v": "36,5 °C"
+    }
+   ],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar una anamnesis dirigida al motivo de consulta",
+    "Realizar un examen físico dirigido",
+    "Plantear el diagnóstico y los diagnósticos diferenciales, justificándolos",
+    "Definir la conducta y el tratamiento",
+    "Dar indicaciones y consejería al paciente"
+   ],
+   "tareasGenericas": true,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Traduccion-de-las-Guías-de-HTA-de-la-ACC-AHA-2017d",
+     "url": "https://drive.google.com/file/d/1BePqClh9bkUAan3w8JyUJHUoqvK6rYDQ/view"
+    },
+    {
+     "title": "Emergencias Hipertensivas",
+     "url": "https://drive.google.com/file/d/1xNMJbESVXrbitgDBhjNnp6qpu9dknVYX/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s9-dbt",
+   "modulo": 7,
+   "semana": "Semanas 9 y 10",
+   "titulo": "Mareos, sed y pérdida de peso",
+   "icono": "🍬",
+   "tema": "Diabetes mellitus",
+   "lugar": "Centro de salud",
+   "situacion": "Atendés a Rosendo, de 46 años, sin antecedentes patológicos de jerarquía, que consulta por mareos de 24 horas de evolución. Refiere además pérdida de peso a pesar de tener más apetito, mucha sed y sabor amargo en la boca.",
+   "datos": [
+    {
+     "k": "TA",
+     "v": "130/80"
+    },
+    {
+     "k": "FR",
+     "v": "20 rpm"
+    },
+    {
+     "k": "FC",
+     "v": "85 lpm"
+    },
+    {
+     "k": "Temperatura",
+     "v": "36,5 °C"
+    },
+    {
+     "k": "HGT",
+     "v": "268 mg/dl"
+    },
+    {
+     "k": "Peso",
+     "v": "86 kg"
+    },
+    {
+     "k": "Talla",
+     "v": "1,68 m"
+    },
+    {
+     "k": "IMC",
+     "v": "24,2"
+    }
+   ],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar una anamnesis dirigida al motivo de consulta",
+    "Realizar un examen físico dirigido",
+    "Plantear el diagnóstico y los diagnósticos diferenciales, justificándolos",
+    "Definir la conducta y el tratamiento",
+    "Dar indicaciones y consejería al paciente"
+   ],
+   "tareasGenericas": true,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Presentación de clase: Complicaciones de la Diabetes (1)",
+     "url": "https://docs.google.com/presentation/d/1nxuAq73oGyv6qmMgpgTzvQBgJC4kXAUq/edit"
+    },
+    {
+     "title": "Manejo de hipoglucemias",
+     "url": "https://drive.google.com/file/d/1j3WSnBk00dsvy0mU8bz-u8e7pRHcmCJe/view"
+    },
+    {
+     "title": "Pautas para la prevencion del pie diabetico",
+     "url": "https://drive.google.com/file/d/1PyXS6yBuO2bUhB1siwAufAQLt72tgPZ4/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s11-tabaco",
+   "modulo": 7,
+   "semana": "Semanas 11 y 12",
+   "titulo": "Odinofagia en una fumadora que no quiere dejar",
+   "icono": "🚬",
+   "tema": "Tabaquismo",
+   "lugar": "Centro de salud",
+   "situacion": "Recibís a Nancy, de 36 años, que consulta por odinofagia y congestión nasal. Fuma 20 cigarrillos por día desde los 16 años; cuando le preguntás si pensó en dejar de fumar, responde que por ahora no quiere, porque la ayuda a relajarse en sus momentos de mucho estrés laboral.",
+   "datos": [
+    {
+     "k": "Examen físico",
+     "v": "Faringe levemente congestiva, sin placas; resto sin particularidades"
+    }
+   ],
+   "laboratorio": [],
+   "tareas": [
+    "Evaluar el nivel de dependencia a la nicotina",
+    "Según su nivel motivacional (Prochaska), realizar una intervención breve o indicar tratamiento para la cesación tabáquica, según corresponda"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "gpc-tabaco-breve-2024",
+     "url": "https://drive.google.com/file/d/1FlWUVoRVacVLi3cnYh8GK2K1TWXfctqq/view"
+    },
+    {
+     "title": "Tabaquismo",
+     "url": "https://drive.google.com/file/d/1sLBmdxOUw_o5S7XdQAW0KToVvwZ7tatG/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s13-tbc",
+   "modulo": 7,
+   "semana": "Semanas 13 y 14",
+   "titulo": "Tos persistente en un jornalero forestal",
+   "icono": "🫁",
+   "tema": "Tuberculosis",
+   "lugar": "Centro de salud",
+   "situacion": "Se acerca a la consulta Julio, de 29 años, jornalero de una cuadrilla forestal, porque tiene mucha tos; incluso se quedó sin trabajo porque el patrón lo veía siempre sentado y no podía seguir el ritmo habitual.",
+   "datos": [
+    {
+     "k": "Temperatura",
+     "v": "37,7 °C"
+    },
+    {
+     "k": "FC",
+     "v": "90 /min"
+    },
+    {
+     "k": "TA",
+     "v": "110/60"
+    },
+    {
+     "k": "FR",
+     "v": "18 /min"
+    },
+    {
+     "k": "Peso",
+     "v": "61 kg"
+    },
+    {
+     "k": "Talla",
+     "v": "1,74 m"
+    },
+    {
+     "k": "IMC",
+     "v": "20"
+    },
+    {
+     "k": "Examen físico",
+     "v": "Adenopatías cervicales levemente dolorosas; rales subcrepitantes bilaterales a predominio derecho, con hipoventilación en campo medio y superior derecho; abdomen sin organomegalias"
+    }
+   ],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar una anamnesis dirigida al motivo de consulta",
+    "Realizar un examen físico dirigido",
+    "Plantear el diagnóstico y los diagnósticos diferenciales, justificándolos",
+    "Definir la conducta y el tratamiento",
+    "Dar indicaciones y consejería al paciente"
+   ],
+   "tareasGenericas": true,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "pautas_tecnicas_de_tuberculosis_en_la_argentina_2026",
+     "url": "https://drive.google.com/file/d/1Urta4cjDD8qLKVMkg1eM6F8B-P19xx5x/view"
+    }
+   ]
+  },
+  {
+   "id": "sf-s15-violencia",
+   "modulo": 7,
+   "semana": "Semanas 15 y 16",
+   "titulo": "Dolor en el antebrazo de una mujer de 45 años",
+   "icono": "🟣",
+   "tema": "Violencia contra las mujeres",
+   "lugar": "Centro de salud",
+   "situacion": "Debés atender a Claudia, de 45 años, que concurre por dolor en el antebrazo. Tenés 10 minutos para resolver la consulta.",
+   "datos": [],
+   "laboratorio": [],
+   "tareas": [
+    "Realizar una breve anamnesis",
+    "Evaluar el mecanismo del trauma",
+    "Realizar un examen físico dirigido",
+    "Realizar un diagnóstico",
+    "Indicar el tratamiento y el asesoramiento"
+   ],
+   "tareasGenericas": false,
+   "minutos": 10,
+   "recursos": [
+    {
+     "title": "Violencia contra las mujeres",
+     "url": "https://drive.google.com/file/d/1oDPmc2nqpeohn1a-9uOyTBTe9PseA88F/view"
+    }
+   ]
+  }
+ ]
+}

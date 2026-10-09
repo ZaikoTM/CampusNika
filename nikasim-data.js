@@ -91,8 +91,42 @@ const NIKASIM_DATABASE = {
     {
       id: '6to',
       name: '6° Año (PFO)',
-      areas: [],
-      aviso: 'La Práctica Final Obligatoria tendrá su propio centro de destrezas. Estamos preparándolo.'
+      areas: [
+        {
+          id: 'pfo',
+          name: 'PFO',
+          fullName: 'PFO · Procedimientos de la Práctica Final Obligatoria',
+          icon: '🎓',
+          description: 'Todos los procedimientos de la PFO en un solo lugar: los que ya tienen modelo 3D se practican y se rinden acá; el resto tiene su tutorial paso a paso y suma su 3D próximamente.',
+          tours3D: [],
+          acreditaciones: [
+            { id: 'sv', area: 'siam', title: "Colocación de sonda vesical", icon: '🧪', steps: 30, status: 'Disponible' },
+            { id: 'iet', area: 'siam', title: "Intubación endotraqueal", icon: '🫁', steps: 27, status: 'Disponible' },
+            { id: 'tr', area: 'siam', title: "Tacto rectal", icon: '🖐️', steps: 26, status: 'Disponible' },
+            { id: 'rcp', area: 'siam', title: "RCP avanzado", icon: '❤️‍🔥', steps: 31, status: 'Disponible' },
+            { id: 'artro', area: 'siam', title: "Artrocentesis", icon: '🦵', steps: 48, status: 'Disponible' },
+            { id: 'lav', area: 'cir', title: "Lavado de manos quirúrgico y colocación de guantes", icon: '🧼', steps: 22, status: 'Disponible' },
+            { id: 'anamg', area: 'sim', title: "Anamnesis ginecológica", icon: '🗂️', steps: 31, status: 'Disponible' },
+            { id: 'anamo', area: 'sim', title: "Anamnesis obstétrica", icon: '🤰', steps: 22, status: 'Disponible' },
+            { id: 'egfpp', area: 'sim', title: "Cálculo de EG y FPP", icon: '📅', steps: 10, status: 'Disponible' },
+            { id: 'exgin', area: 'sim', title: "Examen ginecológico, PAP y tacto bimanual", icon: '🔬', steps: 27, status: 'Disponible' },
+            { id: 'exmam', area: 'sim', title: "Examen mamario", icon: '🎀', steps: 18, status: 'Disponible' },
+            { id: 'exobs', area: 'sim', title: "Examen obstétrico", icon: '🫄', steps: 19, status: 'Disponible' },
+            { id: 'pd', area: 'pfo', title: "Paracentesis diagnóstica", icon: '💧', steps: 42, status: 'Próximamente' },
+            { id: 'pt', area: 'pfo', title: "Paracentesis terapéutica", icon: '💧', steps: 49, status: 'Próximamente' },
+            { id: 'pl', area: 'pfo', title: "Punción lumbar (raquicentesis)", icon: '🦴', steps: 35, status: 'Próximamente' },
+            { id: 'sng', area: 'pfo', title: "Colocación de sonda nasogástrica", icon: '🧵', steps: 26, status: 'Próximamente' },
+            { id: 'vp', area: 'pfo', title: "Extracción de sangre venosa", icon: '🩸', steps: 11, status: 'Próximamente' },
+            { id: 'oto', area: 'pfo', title: "Otoscopía", icon: '👂', steps: 38, status: 'Próximamente' },
+            { id: 'hisf', area: 'pfo', title: "Hisopado uretral femenino", icon: '🧪', steps: 30, status: 'Próximamente' },
+            { id: 'hism', area: 'pfo', title: "Hisopado uretral masculino", icon: '🧪', steps: 30, status: 'Próximamente' },
+            { id: 'hisfa', area: 'pfo', title: "Hisopado de fauces", icon: '🧪', steps: 19, status: 'Próximamente' },
+            { id: 'hisnf', area: 'pfo', title: "Hisopado nasofaríngeo", icon: '🧪', steps: 37, status: 'Próximamente' },
+            { id: 'ecgn', area: 'pfo', title: "Lectura de un ECG normal", icon: '📈', steps: 9, status: 'Próximamente' },
+            { id: 'ecgsca', area: 'pfo', title: "Lectura de un ECG en síndrome coronario agudo", icon: '📈', steps: 12, status: 'Próximamente' }
+          ]
+        }
+      ]
     }
   ]
 };

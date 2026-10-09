@@ -266,6 +266,7 @@
       "Estudiar: Prescripción de psicofármacos: desarrollo del procedimiento",
       "Estudiar: Recetario en blanco",
       "Estudiar: Solicitud de exámenes complementarios: desarrollo del procedimiento",
+      "Estudiar: Practicá recetas y certificados",
       "Ver la clase: PRESCRIBIENDO PSICOFARMACOS"
      ],
      "contents": [
@@ -458,8 +459,10 @@
      "id": "clinica_medica-ecg",
      "title": "Lectura e interpretación de trazados electrocardiográficos",
      "objectives": [
-      "Practicar con el tutorial: ECG normal: guía del procedimiento",
-      "Practicar con el tutorial: ECG en síndrome coronario agudo: guía del procedimiento",
+      "Estudiar: Tutorial interactivo: ECG normal: guía del procedimiento",
+      "Estudiar: ECG normal: guía del procedimiento: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: ECG en síndrome coronario agudo: guía del procedimiento",
+      "Estudiar: ECG en síndrome coronario agudo: guía del procedimiento: guía paso a paso (PDF)",
       "Estudiar: Electrocardiografía práctica (Dubin)",
       "Ver la clase: Electrogénesis I - Dr. Marcelo Ríos",
       "Ver la clase: Electrogénesis II - Dr. Marcelo Ríos",
@@ -628,18 +631,34 @@
      "id": "clinica_medica-procedimientos",
      "title": "Procedimientos relevantes para la clínica médica",
      "objectives": [
-      "Practicar con el tutorial: Intubación endotraqueal",
-      "Practicar con el tutorial: Paracentesis diagnóstica",
-      "Practicar con el tutorial: Paracentesis terapéutica",
-      "Practicar con el tutorial: Punción lumbar (raquicentesis)",
-      "Practicar con el tutorial: Colocación de sonda nasogástrica",
-      "Practicar con el tutorial: Tacto rectal",
-      "Practicar con el tutorial: Extracción de sangre venosa",
-      "Practicar con el tutorial: Otoscopía",
-      "Practicar con el tutorial: Hisopado de fauces",
-      "Practicar con el tutorial: Hisopado nasofaríngeo",
-      "Practicar con el tutorial: Hisopado uretral femenino",
-      "Practicar con el tutorial: Hisopado uretral masculino",
+      "Estudiar: Tutorial interactivo: Intubación endotraqueal",
+      "Estudiar: Intubación endotraqueal: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: Paracentesis diagnóstica",
+      "Estudiar: Paracentesis diagnóstica: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: Paracentesis terapéutica",
+      "Estudiar: Paracentesis terapéutica: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: Punción lumbar (raquicentesis)",
+      "Estudiar: Punción lumbar (raquicentesis): guía paso a paso (PDF)",
+      "Estudiar: Raquicentesis: apunte teórico",
+      "Estudiar: Tutorial interactivo: Colocación de sonda nasogástrica",
+      "Estudiar: Colocación de sonda nasogástrica: guía paso a paso (PDF)",
+      "Estudiar: Sonda nasogástrica: apunte teórico",
+      "Estudiar: Tutorial interactivo: Tacto rectal",
+      "Estudiar: Tacto rectal: guía paso a paso (PDF)",
+      "Estudiar: Tacto rectal: apunte teórico",
+      "Estudiar: Tutorial interactivo: Extracción de sangre venosa",
+      "Estudiar: Extracción de sangre venosa: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: Otoscopía",
+      "Estudiar: Otoscopía: guía paso a paso (PDF)",
+      "Estudiar: Otoscopía: apunte teórico",
+      "Estudiar: Tutorial interactivo: Hisopado de fauces",
+      "Estudiar: Hisopado de fauces: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: Hisopado nasofaríngeo",
+      "Estudiar: Hisopado nasofaríngeo: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: Hisopado uretral femenino",
+      "Estudiar: Hisopado uretral femenino: guía paso a paso (PDF)",
+      "Estudiar: Tutorial interactivo: Hisopado uretral masculino",
+      "Estudiar: Hisopado uretral masculino: guía paso a paso (PDF)",
       "Estudiar: Toracocentesis (punción pleural): apunte teórico"
      ],
      "contents": [
@@ -796,19 +815,22 @@
      "videos": []
     },
     {
-     "id": "pfo2-caso1",
-     "title": "Caso clínico de práctica: Fiebre, dolor torácico y tos",
+     "id": "pfo2-caso-clinica-imagen",
+     "title": "Caso clínico de práctica",
      "objectives": [
-      "Interpretar correctamente el examen complementario del paciente",
-      "Verbalizar el diagnóstico",
-      "Indicar la terapéutica si corresponde"
+      "Practicar el caso clínico: Fiebre, dolor torácico y tos"
      ],
      "contents": [
-      "Situación de partida: Sos médico/a general de guardia y atendés a un varón de 50 años que consulta por fiebre, dolor torácico y tos.",
-      "Practicalo en voz alta, como en la estación real: anamnesis, examen físico, diagnósticos diferenciales justificados, conducta y comunicación con el paciente o la familia."
+      "Fiebre, dolor torácico y tos"
      ],
      "bibliography": [],
-     "materiales": [],
+     "materiales": [
+      {
+       "title": "Caso clínico: Fiebre, dolor torácico y tos",
+       "url": "pfo_estudio.html#caso/clinica-imagen",
+       "type": "tutorial"
+      }
+     ],
      "videos": []
     }
    ],
@@ -852,7 +874,12 @@
       "Estudiar: Actualización en antibióticos"
      ],
      "contents": [
-      "6 materiales"
+      "Recomendaciones para la Evaluación de los Niños con Cuadros Febriles",
+      "Meningoencefalitis viral",
+      "covid_dengue",
+      "CONVULSIONES FEBRILES",
+      "Consenso para el uso adecuado de antibióticos en el niño menor de 36 meses con fiebre sin foco de infección evidente",
+      "Actualización en antibióticos"
      ],
      "bibliography": [],
      "materiales": [
@@ -899,7 +926,10 @@
       "Estudiar: Complicaciones de la neumonía adquirida en la comunidad derrame pleural, neumonía necrotizante, absceso pulmonar y pioneumotórax"
      ],
      "contents": [
-      "4 materiales"
+      "Recomendaciones para el manejo de las infecciones respiratorias agudas bajas en menores de 2 años. Actualización 2021",
+      "NEUMONÍA ADQUIRIDA EN LA COMUNIDAD El Pediatra de Atención Primaria y la Neumonía",
+      "Guía de diagnóstico y tratamiento asma bronquial en niños ≥ 6 años. Actualización 2021",
+      "Complicaciones de la neumonía adquirida en la comunidad derrame pleural, neumonía necrotizante, absceso pulmonar y pioneumotórax"
      ],
      "bibliography": [],
      "materiales": [
@@ -936,7 +966,10 @@
       "Estudiar: ABORDAJE DE LA ANEMIA"
      ],
      "contents": [
-      "4 materiales"
+      "PRONAP MÓDULO 2 • Capítulo 3 ABORDAJE DE LA ANEMIA",
+      "ITU Y ANEMIA",
+      "Deficiencia de hierro y anemia ferropénica. Guía para su prevención, diagnóstico y tratamiento",
+      "ABORDAJE DE LA ANEMIA"
      ],
      "bibliography": [],
      "materiales": [
@@ -970,7 +1003,7 @@
       "Estudiar: Infección urinaria"
      ],
      "contents": [
-      "1 materiales"
+      "Infección urinaria"
      ],
      "bibliography": [],
      "materiales": [
@@ -990,7 +1023,8 @@
       "Estudiar: DIARREA AGUDA EN LA INFANCIA. Actualización sobre criterios de diagnóstico y tratamiento"
      ],
      "contents": [
-      "2 materiales"
+      "Fluidoterapia intravenosa de mantenimiento en el niño hospitalizado",
+      "DIARREA AGUDA EN LA INFANCIA. Actualización sobre criterios de diagnóstico y tratamiento"
      ],
      "bibliography": [],
      "materiales": [
@@ -1016,7 +1050,9 @@
       "Estudiar: Documento de clase: Otros temas de pediatría (2)"
      ],
      "contents": [
-      "3 materiales"
+      "Documento de clase: Otros temas de pediatría (1)",
+      "Presentación de clase: Otros temas de pediatría (1)",
+      "Documento de clase: Otros temas de pediatría (2)"
      ],
      "bibliography": [],
      "materiales": [
@@ -1047,7 +1083,9 @@
       "Estudiar: ASMA"
      ],
      "contents": [
-      "3 materiales"
+      "Oxigenoterapia y manejo de la vía aérea - HNRG 2023",
+      "Oxigenoterapia - Ped Integral 2021",
+      "ASMA"
      ],
      "bibliography": [],
      "materiales": [
@@ -1070,20 +1108,22 @@
      "videos": []
     },
     {
-     "id": "pfo3-caso1",
-     "title": "Caso clínico de práctica: Niño de 4 años con tos, agitación y vómitos",
+     "id": "pfo3-caso-pediatria-bronquiolitis",
+     "title": "Caso clínico de práctica",
      "objectives": [
-      "Realizar la anamnesis orientada a la enfermedad actual",
-      "Explicar a la madre tus diagnósticos presuntivos",
-      "Explicar en forma detallada la conducta a seguir",
-      "Interpretar el hemograma y el estado ácido-base del niño"
+      "Practicar el caso clínico: Niño de 4 años con tos, agitación y vómitos"
      ],
      "contents": [
-      "Situación de partida: Sos médico/a de guardia y atendés a un niño de 4 años con tos, agitación y vómitos de 24 h, con antecedentes de varios broncoespasmos sin tratamiento preventivo. Peso 18 kg, FC 125, FR 35, saturación 88 %, tiraje generalizado, responde con palabras. Pedís laboratorio y radiografía de tórax.",
-      "Practicalo en voz alta, como en la estación real: anamnesis, examen físico, diagnósticos diferenciales justificados, conducta y comunicación con el paciente o la familia."
+      "Niño de 4 años con tos, agitación y vómitos"
      ],
      "bibliography": [],
-     "materiales": [],
+     "materiales": [
+      {
+       "title": "Caso clínico: Niño de 4 años con tos, agitación y vómitos",
+       "url": "pfo_estudio.html#caso/pediatria-bronquiolitis",
+       "type": "tutorial"
+      }
+     ],
      "videos": []
     }
    ],
@@ -1123,7 +1163,11 @@
       "Estudiar: ABORDAJE Y MANEJO INICIAL EN EL SERVICIO DE URGENCIAS DEL PACIENTE ADULTO CON RETENCION DE ORINA"
      ],
      "contents": [
-      "5 materiales"
+      "Retención urinaria aguda por cálculo prostático a propósito de un caso",
+      "RETENCION URINARIA AGUDA EN EL SERVICIO DE EMERGENCIA 2014",
+      "Manejo urgente de las complicaciones urológicas en el paciente tumoral",
+      "Frecuencia de abdomen agudo quirúrgico en pacientes que consultan al servicio de urgencias",
+      "ABORDAJE Y MANEJO INICIAL EN EL SERVICIO DE URGENCIAS DEL PACIENTE ADULTO CON RETENCION DE ORINA"
      ],
      "bibliography": [],
      "materiales": [
@@ -1163,7 +1207,8 @@
       "Estudiar: Pie Diabético"
      ],
      "contents": [
-      "2 materiales"
+      "Protocolo Pie DBT",
+      "Pie Diabético"
      ],
      "bibliography": [],
      "materiales": [
@@ -1188,7 +1233,8 @@
       "Estudiar: Enfoque Actualizado Sindrome Coledociano"
      ],
      "contents": [
-      "2 materiales"
+      "Sindrome Coledociano",
+      "Enfoque Actualizado Sindrome Coledociano"
      ],
      "bibliography": [],
      "materiales": [
@@ -1216,7 +1262,11 @@
       "Estudiar: Ascitis"
      ],
      "contents": [
-      "5 materiales"
+      "Sindrome Ascitico Edematoso",
+      "Sindrome Ascitico Edematoso por HP",
+      "Patogenesis de la Hipertension Portal",
+      "Clasificación Hipertensión Portal",
+      "Ascitis"
      ],
      "bibliography": [],
      "materiales": [
@@ -1249,19 +1299,22 @@
      "videos": []
     },
     {
-     "id": "pfo4-caso1",
-     "title": "Caso clínico de práctica: Dolor abdominal en guardia",
+     "id": "pfo4-caso-quirurgica-dolor-abdominal",
+     "title": "Caso clínico de práctica",
      "objectives": [
-      "Realizar la anamnesis dirigida al cuadro",
-      "Plantear diagnósticos diferenciales justificando cada uno",
-      "Definir la conducta para confirmar el diagnóstico"
+      "Practicar el caso clínico: Dolor abdominal en la guardia"
      ],
      "contents": [
-      "Situación de partida: Sos médico/a general de guardia y recibís a una mujer de 65 años con dolor abdominal. Signos vitales: TA 130/90, temperatura axilar 38 °C, FC 98, FR 16, saturación 98 %.",
-      "Practicalo en voz alta, como en la estación real: anamnesis, examen físico, diagnósticos diferenciales justificados, conducta y comunicación con el paciente o la familia."
+      "Dolor abdominal en la guardia"
      ],
      "bibliography": [],
-     "materiales": [],
+     "materiales": [
+      {
+       "title": "Caso clínico: Dolor abdominal en la guardia",
+       "url": "pfo_estudio.html#caso/quirurgica-dolor-abdominal",
+       "type": "tutorial"
+      }
+     ],
      "videos": []
     }
    ],
@@ -1304,15 +1357,19 @@
      "title": "Material general",
      "objectives": [
       "Estudiar: Presentación de clase: Material general (1)",
-      "Ver la clase: BODY ESPINAL- FERNO KED",
-      "Ver la clase: RETIRADA DEL CASCO EN ACCIDENTES",
       "Estudiar: Directrices para la evaluación y el tratamiento del estado epiléptico",
       "Estudiar: Consenso de Enfermedad Tromboembólica Aguda",
       "Estudiar: ATLS SOPORTE VITAL EN TRAUMA",
-      "Estudiar: ASPECTOS DESTACADOS RCP Y ACE"
+      "Estudiar: ASPECTOS DESTACADOS RCP Y ACE",
+      "Ver la clase: BODY ESPINAL- FERNO KED",
+      "Ver la clase: RETIRADA DEL CASCO EN ACCIDENTES"
      ],
      "contents": [
-      "5 materiales y 2 videos"
+      "Presentación de clase: Material general (1)",
+      "Directrices para la evaluación y el tratamiento del estado epiléptico",
+      "Consenso de Enfermedad Tromboembólica Aguda",
+      "ATLS SOPORTE VITAL EN TRAUMA",
+      "ASPECTOS DESTACADOS RCP Y ACE"
      ],
      "bibliography": [],
      "materiales": [
@@ -1363,7 +1420,8 @@
       "Estudiar: Presentación de clase: Bradiarritmias (1)"
      ],
      "contents": [
-      "2 materiales"
+      "S0300893212001789",
+      "Presentación de clase: Bradiarritmias (1)"
      ],
      "bibliography": [],
      "materiales": [
@@ -1389,7 +1447,9 @@
       "Estudiar: Presentación de clase: Clases virtuales Emergentología (3)"
      ],
      "contents": [
-      "3 materiales"
+      "Presentación de clase: Clases virtuales Emergentología (1)",
+      "Presentación de clase: Clases virtuales Emergentología (2)",
+      "Presentación de clase: Clases virtuales Emergentología (3)"
      ],
      "bibliography": [],
      "materiales": [
@@ -1421,7 +1481,10 @@
       "Estudiar: CAD en niños"
      ],
      "contents": [
-      "4 materiales"
+      "Presentación de clase: Complicaciones de la Diabetes (1)",
+      "Presentación de clase: Complicaciones de la Diabetes (2)",
+      "CECSATI - Cetoacidosis diabetica",
+      "CAD en niños"
      ],
      "bibliography": [],
      "materiales": [
@@ -1458,7 +1521,10 @@
       "Estudiar: 13045397"
      ],
      "contents": [
-      "4 materiales"
+      "Urgencia hipertensiva Ministerio de Salud Nacion",
+      "Traduccion-de-las-Guías-de-HTA-de-la-ACC-AHA-2017d",
+      "Presentación de clase: Crisis hipertensiva (1)",
+      "13045397"
      ],
      "bibliography": [],
      "materiales": [
@@ -1496,7 +1562,11 @@
       "Estudiar: Documento de clase: EAP (edema agudo de pulmón) (1)"
      ],
      "contents": [
-      "5 materiales"
+      "Patogénesis del edema pulmonar cardiogénico secundario a hipertensión arterial nejm200101043440103",
+      "Insuf Cardíaca y Edema agudo de pulmón",
+      "Edema pulmonar Cardiogénico dobbe2019",
+      "Presentación de clase: EAP (edema agudo de pulmón) (1)",
+      "Documento de clase: EAP (edema agudo de pulmón) (1)"
      ],
      "bibliography": [],
      "materiales": [
@@ -1537,7 +1607,9 @@
       "Estudiar: Documento de clase: Estatus epiléptico (1)"
      ],
      "contents": [
-      "3 materiales"
+      "Spanish_translation_SE_Guidelines_NCS (1) status",
+      "Presentación de clase: Estatus epiléptico (1)",
+      "Documento de clase: Estatus epiléptico (1)"
      ],
      "bibliography": [],
      "materiales": [
@@ -1569,7 +1641,10 @@
       "Estudiar: 1-s2.0-S2444340917000103-main"
      ],
      "contents": [
-      "4 materiales"
+      "Presentación de clase: Ventilación no invasiva (VNI) (1)",
+      "Guia VNI en IRA",
+      "Consenso_Argentino_De_Ventilacion_No_Invasiva",
+      "1-s2.0-S2444340917000103-main"
      ],
      "bibliography": [],
      "materiales": [
@@ -1603,7 +1678,7 @@
       "Estudiar: Algoritmos-AHA-2025-Ebook-Urgencias-y-Emergencias"
      ],
      "contents": [
-      "1 materiales"
+      "Algoritmos-AHA-2025-Ebook-Urgencias-y-Emergencias"
      ],
      "bibliography": [],
      "materiales": [
@@ -1627,7 +1702,12 @@
       "Estudiar: consenso-scasest-2019 (1)"
      ],
      "contents": [
-      "6 materiales"
+      "SindromesCoronariosAgudos2018_final (1)",
+      "Presentación de clase: Síndromes coronarios agudos (1)",
+      "SCASEST_Proceso_20170104_Final (1)",
+      "Presentación de clase: Síndromes coronarios agudos (2)",
+      "GUÍA ESC SCACST IAM ST 2017",
+      "consenso-scasest-2019 (1)"
      ],
      "bibliography": [],
      "materiales": [
@@ -1676,7 +1756,12 @@
       "Estudiar: Actualización del manejo del shock cardiogénico en sindrome coronario agudo bagai2019"
      ],
      "contents": [
-      "6 materiales"
+      "Presentación de clase: Shock cardiogénico (1)",
+      "Manejo del Shock Cardiogénico por objetivos chakravarthy2018",
+      "Manejo del Shock Cardiogénico en el síndrome coronario agudo rathod2019",
+      "INOTRÓPICOS Y VASOPRESORES",
+      "Hemodinamia del Shock Cardiogénico furer2017",
+      "Actualización del manejo del shock cardiogénico en sindrome coronario agudo bagai2019"
      ],
      "bibliography": [],
      "materiales": [
@@ -1720,7 +1805,7 @@
       "Estudiar: Presentación de clase: Taquiarritmias (1)"
      ],
      "contents": [
-      "1 materiales"
+      "Presentación de clase: Taquiarritmias (1)"
      ],
      "bibliography": [],
      "materiales": [
@@ -1743,7 +1828,11 @@
       "Estudiar: Comparación de dos enfoques para el análisis de los trastornos acido-base"
      ],
      "contents": [
-      "5 materiales"
+      "Trastornos de equilibrio acido base SATI",
+      "Trastornos acido-base",
+      "Presentación de clase: Trastornos ácido-base (1)",
+      "Comprendiendo los estados acido-base gomez2015",
+      "Comparación de dos enfoques para el análisis de los trastornos acido-base"
      ],
      "bibliography": [],
      "materiales": [
@@ -1776,19 +1865,22 @@
      "videos": []
     },
     {
-     "id": "pfo5-caso1",
-     "title": "Caso clínico de práctica: Politraumatizado tras choque frontal",
+     "id": "pfo5-caso-emergencia-politrauma",
+     "title": "Caso clínico de práctica",
      "objectives": [
-      "Efectuar la evaluación primaria del paciente",
-      "Reconocer las lesiones que ponen en riesgo la vida",
-      "Realizar el tratamiento de esas lesiones"
+      "Practicar el caso clínico: Politraumatizado tras un choque frontal"
      ],
      "contents": [
-      "Situación de partida: Llega a la guardia, traído por el servicio de emergencias, un joven de unos 20 años en coma tras un choque frontal a alta velocidad: respiración ruidosa, trauma de cráneo y cara, herida abierta en hemitórax izquierdo con salida de aire y deformidad en pierna izquierda y antebrazo derecho. FC 110, FR 26, TA 90/50.",
-      "Practicalo en voz alta, como en la estación real: anamnesis, examen físico, diagnósticos diferenciales justificados, conducta y comunicación con el paciente o la familia."
+      "Politraumatizado tras un choque frontal"
      ],
      "bibliography": [],
-     "materiales": [],
+     "materiales": [
+      {
+       "title": "Caso clínico: Politraumatizado tras un choque frontal",
+       "url": "pfo_estudio.html#caso/emergencia-politrauma",
+       "type": "tutorial"
+      }
+     ],
      "videos": []
     }
    ],
@@ -1844,7 +1936,8 @@
       "Estudiar: Control preconcepcional, prenatal y puerperal"
      ],
      "contents": [
-      "2 materiales"
+      "Manual operativo de evaluación clínica mamaria",
+      "Control preconcepcional, prenatal y puerperal"
      ],
      "bibliography": [],
      "materiales": [
@@ -1870,7 +1963,9 @@
       "Estudiar: Documento de clase de ginecología"
      ],
      "contents": [
-      "3 materiales"
+      "Consenso FASGO 2022: sangrado uterino anormal",
+      "Consenso SOGIBA 2021: screening en ginecología, qué no hay que pedir",
+      "Documento de clase de ginecología"
      ],
      "bibliography": [],
      "materiales": [
@@ -1893,19 +1988,22 @@
      "videos": []
     },
     {
-     "id": "pfo6-caso1",
-     "title": "Caso clínico de práctica: Sangrado en una mujer de 65 años",
+     "id": "pfo6-caso-gineco-sangrado",
+     "title": "Caso clínico de práctica",
      "objectives": [
-      "Realizar una breve anamnesis relacionada con el motivo de consulta",
-      "Realizar el examen físico correspondiente",
-      "Interpretar en voz alta los estudios que trae la paciente"
+      "Practicar el caso clínico: Sangrado en una mujer de 65 años"
      ],
      "contents": [
-      "Situación de partida: En el consultorio del centro de salud atendés a una mujer de 65 años que tuvo un episodio de sangrado de 2 días de duración hace 4 días.",
-      "Practicalo en voz alta, como en la estación real: anamnesis, examen físico, diagnósticos diferenciales justificados, conducta y comunicación con el paciente o la familia."
+      "Sangrado en una mujer de 65 años"
      ],
      "bibliography": [],
-     "materiales": [],
+     "materiales": [
+      {
+       "title": "Caso clínico: Sangrado en una mujer de 65 años",
+       "url": "pfo_estudio.html#caso/gineco-sangrado",
+       "type": "tutorial"
+      }
+     ],
      "videos": []
     }
    ],
@@ -1942,6 +2040,25 @@
    "videos": [],
    "secciones": [
     {
+     "id": "pfo7-casos",
+     "title": "Casos clínicos de práctica",
+     "objectives": [
+      "Practicar el caso clínico: Control anual de un paciente con diabetes tipo 2"
+     ],
+     "contents": [
+      "Control anual de un paciente con diabetes tipo 2"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Caso clínico: Control anual de un paciente con diabetes tipo 2",
+       "url": "pfo_estudio.html#caso/sf-dbt-control",
+       "type": "tutorial"
+      }
+     ],
+     "videos": []
+    },
+    {
      "id": "pfo7-1",
      "title": "Material general de Salud Familiar",
      "objectives": [
@@ -1960,7 +2077,14 @@
       "Estudiar: Abordaje integral del tabaquismo"
      ],
      "contents": [
-      "13 materiales"
+      "Violencia contra las mujeres",
+      "Traps salud mental",
+      "Talleres modelo",
+      "Tabaquismo",
+      "Salud familiar y general",
+      "Prevencion y cuidados del pie en personas con diabetes",
+      "Pautas para la prevencion del pie diabetico",
+      "Material preliminar"
      ],
      "bibliography": [],
      "materiales": [
@@ -2041,7 +2165,9 @@
       "Estudiar: Caídas en los ancianos"
      ],
      "contents": [
-      "3 materiales"
+      "MEP queja cognitiva y demencia 2017",
+      "MEP Evaluación funcional del adulto mayor 2017",
+      "Caídas en los ancianos"
      ],
      "bibliography": [],
      "materiales": [
@@ -2071,7 +2197,8 @@
       "Estudiar: Talleres modelo"
      ],
      "contents": [
-      "2 materiales"
+      "Instructivo-talleres-sumar---telesalud-2022",
+      "Talleres modelo"
      ],
      "bibliography": [],
      "materiales": [
@@ -2092,23 +2219,23 @@
      "id": "pfo7-4",
      "title": "Semanas 1 y 2",
      "objectives": [
-      "Estudiar: Caso clínico / documento de trabajo (semanas 1 y 2) 1",
       "Estudiar: algoritmo_clinico_dengue_2025",
       "Estudiar: algoritmo_clasificacion_de_casos_2025",
       "Estudiar: AccionesTerritoriales",
       "Estudiar: Ficha de notificación",
-      "Estudiar: AlgoritmoSindromeFebril"
+      "Estudiar: AlgoritmoSindromeFebril",
+      "Practicar el caso clínico: Cefalea, mialgias y fiebre de 4 días"
      ],
      "contents": [
-      "6 materiales"
+      "algoritmo_clinico_dengue_2025",
+      "algoritmo_clasificacion_de_casos_2025",
+      "AccionesTerritoriales",
+      "Ficha de notificación",
+      "AlgoritmoSindromeFebril",
+      "Caso clínico: Cefalea, mialgias y fiebre de 4 días"
      ],
      "bibliography": [],
      "materiales": [
-      {
-       "title": "Caso clínico / documento de trabajo (semanas 1 y 2) 1",
-       "url": "https://docs.google.com/document/d/1BHJ6jMrobMl5IuWem8aWOM3yXF_uWg3V/edit",
-       "type": "doc"
-      },
       {
        "title": "algoritmo_clinico_dengue_2025",
        "url": "https://drive.google.com/file/d/1Ws-4oELYyYsRL1bR_UheGXokVrw72x51/view",
@@ -2133,6 +2260,11 @@
        "title": "AlgoritmoSindromeFebril",
        "url": "https://drive.google.com/file/d/1bK5f09v_qImboPBO5-PkoseWdClOMN4l/view",
        "type": "pdf"
+      },
+      {
+       "title": "Caso clínico: Cefalea, mialgias y fiebre de 4 días",
+       "url": "pfo_estudio.html#caso/sf-s1-dengue",
+       "type": "tutorial"
       }
      ],
      "videos": []
@@ -2143,10 +2275,12 @@
      "objectives": [
       "Estudiar: Recomendaciones para la población",
       "Estudiar: Protocolo inundaciones 2026",
-      "Estudiar: Caso clínico / documento de trabajo (semanas 3 y 4) 1"
+      "Practicar el caso clínico: Familia que vuelve a su casa tras una inundación"
      ],
      "contents": [
-      "3 materiales"
+      "Recomendaciones para la población",
+      "Protocolo inundaciones 2026",
+      "Caso clínico: Familia que vuelve a su casa tras una inundación"
      ],
      "bibliography": [],
      "materiales": [
@@ -2161,9 +2295,9 @@
        "type": "pdf"
       },
       {
-       "title": "Caso clínico / documento de trabajo (semanas 3 y 4) 1",
-       "url": "https://docs.google.com/document/d/1VJ15Hk2t5EHxB3HsU3llXKQZAdMoM5OZ/edit",
-       "type": "doc"
+       "title": "Caso clínico: Familia que vuelve a su casa tras una inundación",
+       "url": "pfo_estudio.html#caso/sf-s3-inundaciones",
+       "type": "tutorial"
       }
      ],
      "videos": []
@@ -2172,27 +2306,21 @@
      "id": "pfo7-6",
      "title": "Semanas 5 y 6",
      "objectives": [
-      "Estudiar: Caso clínico / documento de trabajo (semanas 5 y 6) 1",
-      "Estudiar: Caso clínico / documento de trabajo (semanas 5 y 6) 2",
       "Estudiar: Serie RCVG Fascículo 2",
       "Estudiar: Serie RCVG Fasciculo 1",
-      "Estudiar: Manual para el cuidado integral de personas con enfermedades crónicas no transmisibles"
+      "Estudiar: Manual para el cuidado integral de personas con enfermedades crónicas no transmisibles",
+      "Practicar el caso clínico: Control de salud de una mujer de 46 años",
+      "Practicar el caso clínico: Riesgo cardiovascular global en una mujer de 63 años"
      ],
      "contents": [
-      "5 materiales"
+      "Serie RCVG Fascículo 2",
+      "Serie RCVG Fasciculo 1",
+      "Manual para el cuidado integral de personas con enfermedades crónicas no transmisibles",
+      "Caso clínico: Control de salud de una mujer de 46 años",
+      "Caso clínico: Riesgo cardiovascular global en una mujer de 63 años"
      ],
      "bibliography": [],
      "materiales": [
-      {
-       "title": "Caso clínico / documento de trabajo (semanas 5 y 6) 1",
-       "url": "https://docs.google.com/document/d/1snxodVY_ihOwJJUUIfSwakr1wISl5HHs/edit",
-       "type": "doc"
-      },
-      {
-       "title": "Caso clínico / documento de trabajo (semanas 5 y 6) 2",
-       "url": "https://docs.google.com/document/d/1fl4PCRVZwgWlZuPRAWSbK25fK7s0gigd/edit",
-       "type": "doc"
-      },
       {
        "title": "Serie RCVG Fascículo 2",
        "url": "https://drive.google.com/file/d/1kW_Bb7s4ropDiwhMWWdCScVMwKBGoEiI/view",
@@ -2207,6 +2335,16 @@
        "title": "Manual para el cuidado integral de personas con enfermedades crónicas no transmisibles",
        "url": "https://drive.google.com/file/d/1QiQ47HqNUpBOdIl0RdtPKbTlPYAEnfh7/view",
        "type": "pdf"
+      },
+      {
+       "title": "Caso clínico: Control de salud de una mujer de 46 años",
+       "url": "pfo_estudio.html#caso/sf-s5-preventivas",
+       "type": "tutorial"
+      },
+      {
+       "title": "Caso clínico: Riesgo cardiovascular global en una mujer de 63 años",
+       "url": "pfo_estudio.html#caso/sf-s5-rcvg",
+       "type": "tutorial"
       }
      ],
      "videos": []
@@ -2217,10 +2355,12 @@
      "objectives": [
       "Estudiar: guia-breve-hta-2026-14-05",
       "Estudiar: Emergencias Hipertensivas",
-      "Estudiar: Caso clínico / documento de trabajo (semanas 7 y 8) 1"
+      "Practicar el caso clínico: Cefalea de 24 horas con tensión muy elevada"
      ],
      "contents": [
-      "3 materiales"
+      "guia-breve-hta-2026-14-05",
+      "Emergencias Hipertensivas",
+      "Caso clínico: Cefalea de 24 horas con tensión muy elevada"
      ],
      "bibliography": [],
      "materiales": [
@@ -2235,9 +2375,9 @@
        "type": "pdf"
       },
       {
-       "title": "Caso clínico / documento de trabajo (semanas 7 y 8) 1",
-       "url": "https://docs.google.com/document/d/1cr4DVnxjZKYZ5Qc7e1SiCFSgz5-G_w0f/edit",
-       "type": "doc"
+       "title": "Caso clínico: Cefalea de 24 horas con tensión muy elevada",
+       "url": "pfo_estudio.html#caso/sf-s7-hta",
+       "type": "tutorial"
       }
      ],
      "videos": []
@@ -2252,12 +2392,19 @@
       "Estudiar: heartsdiabetes2024",
       "Estudiar: Guía de Práctica Clínica Nacional sobre Prevención, Diagnóstico y Tratamiento de la Diabetes Mellitus Tipo 2 (DM2) 2019",
       "Estudiar: Guía de Práctica Clínica Nacional sobre detección y manejo ambulatorio de complicaciones microvasculares de la Diabetes Mellitus",
-      "Estudiar: Caso clínico / documento de trabajo (semanas 9 y 10) 1",
       "Estudiar: 2025_msal_examenpiediabetico_qr_or",
-      "Estudiar: Manual de prevencion y cuidado del pie en personas diabéticas"
+      "Estudiar: Manual de prevencion y cuidado del pie en personas diabéticas",
+      "Practicar el caso clínico: Mareos, sed y pérdida de peso"
      ],
      "contents": [
-      "9 materiales"
+      "Tratamiento de la Diabetes Mellitus2",
+      "Pautas",
+      "Manejo de hipoglucemias",
+      "heartsdiabetes2024",
+      "Guía de Práctica Clínica Nacional sobre Prevención, Diagnóstico y Tratamiento de la Diabetes Mellitus Tipo 2 (DM2) 2019",
+      "Guía de Práctica Clínica Nacional sobre detección y manejo ambulatorio de complicaciones microvasculares de la Diabetes Mellitus",
+      "2025_msal_examenpiediabetico_qr_or",
+      "Manual de prevencion y cuidado del pie en personas diabéticas"
      ],
      "bibliography": [],
      "materiales": [
@@ -2292,11 +2439,6 @@
        "type": "pdf"
       },
       {
-       "title": "Caso clínico / documento de trabajo (semanas 9 y 10) 1",
-       "url": "https://docs.google.com/document/d/1mLjSeSvlNK9gsHwAh4Cp_hMffFi8OsIW/edit",
-       "type": "doc"
-      },
-      {
        "title": "2025_msal_examenpiediabetico_qr_or",
        "url": "https://drive.google.com/file/d/1U1rbrthorL2L2xh-BjpuFo4bBs-07e6L/view",
        "type": "pdf"
@@ -2305,6 +2447,11 @@
        "title": "Manual de prevencion y cuidado del pie en personas diabéticas",
        "url": "https://drive.google.com/file/d/14FjR1xBZIz25HiP2aLzea8rrFwWUal9r/view",
        "type": "pdf"
+      },
+      {
+       "title": "Caso clínico: Mareos, sed y pérdida de peso",
+       "url": "pfo_estudio.html#caso/sf-s9-dbt",
+       "type": "tutorial"
       }
      ],
      "videos": []
@@ -2316,10 +2463,13 @@
       "Estudiar: gpc-tabaco-breve-2024",
       "Estudiar: GOLD-Pocket-Guide-2026-v1.1-20Nov2025_WMV2",
       "Estudiar: Gold epoc 2026",
-      "Estudiar: Caso clínico / documento de trabajo (semanas 11 y 12) 1"
+      "Practicar el caso clínico: Odinofagia en una fumadora que no quiere dejar"
      ],
      "contents": [
-      "4 materiales"
+      "gpc-tabaco-breve-2024",
+      "GOLD-Pocket-Guide-2026-v1.1-20Nov2025_WMV2",
+      "Gold epoc 2026",
+      "Caso clínico: Odinofagia en una fumadora que no quiere dejar"
      ],
      "bibliography": [],
      "materiales": [
@@ -2339,9 +2489,9 @@
        "type": "pdf"
       },
       {
-       "title": "Caso clínico / documento de trabajo (semanas 11 y 12) 1",
-       "url": "https://docs.google.com/document/d/1Tz6b3s5hVzLA-hT98igzK-HpmG7CpCxx/edit",
-       "type": "doc"
+       "title": "Caso clínico: Odinofagia en una fumadora que no quiere dejar",
+       "url": "pfo_estudio.html#caso/sf-s11-tabaco",
+       "type": "tutorial"
       }
      ],
      "videos": []
@@ -2351,10 +2501,11 @@
      "title": "Semanas 13 y 14",
      "objectives": [
       "Estudiar: pautas_tecnicas_de_tuberculosis_en_la_argentina_2026",
-      "Estudiar: Caso clínico / documento de trabajo (semanas 13 y 14) 1"
+      "Practicar el caso clínico: Tos persistente en un jornalero forestal"
      ],
      "contents": [
-      "2 materiales"
+      "pautas_tecnicas_de_tuberculosis_en_la_argentina_2026",
+      "Caso clínico: Tos persistente en un jornalero forestal"
      ],
      "bibliography": [],
      "materiales": [
@@ -2364,9 +2515,9 @@
        "type": "pdf"
       },
       {
-       "title": "Caso clínico / documento de trabajo (semanas 13 y 14) 1",
-       "url": "https://docs.google.com/document/d/1CztdqLpM5oeBrhIfvDjURYTsPT07n4nT/edit",
-       "type": "doc"
+       "title": "Caso clínico: Tos persistente en un jornalero forestal",
+       "url": "pfo_estudio.html#caso/sf-s13-tbc",
+       "type": "tutorial"
       }
      ],
      "videos": []
@@ -2376,10 +2527,11 @@
      "title": "Semanas 15 y 16",
      "objectives": [
       "Estudiar: MEP Violencia contra las mujeres",
-      "Estudiar: Caso clínico / documento de trabajo (semanas 15 y 16) 1"
+      "Practicar el caso clínico: Dolor en el antebrazo de una mujer de 45 años"
      ],
      "contents": [
-      "2 materiales"
+      "MEP Violencia contra las mujeres",
+      "Caso clínico: Dolor en el antebrazo de una mujer de 45 años"
      ],
      "bibliography": [],
      "materiales": [
@@ -2389,25 +2541,11 @@
        "type": "pdf"
       },
       {
-       "title": "Caso clínico / documento de trabajo (semanas 15 y 16) 1",
-       "url": "https://docs.google.com/document/d/1C2gSfTJjh09JHCF-EUKhszNjAf7FT8Iw/edit",
-       "type": "doc"
+       "title": "Caso clínico: Dolor en el antebrazo de una mujer de 45 años",
+       "url": "pfo_estudio.html#caso/sf-s15-violencia",
+       "type": "tutorial"
       }
      ],
-     "videos": []
-    },
-    {
-     "id": "pfo7-caso1",
-     "title": "Caso clínico de práctica: Control anual de un paciente con diabetes tipo 2",
-     "objectives": [
-      "Realizar medidas de promoción y prevención"
-     ],
-     "contents": [
-      "Situación de partida: Sos médico/a general y de familia en un centro de atención primaria y atendés a un varón de 52 años con diabetes tipo 2 que viene al control anual de salud.",
-      "Practicalo en voz alta, como en la estación real: anamnesis, examen físico, diagnósticos diferenciales justificados, conducta y comunicación con el paciente o la familia."
-     ],
-     "bibliography": [],
-     "materiales": [],
      "videos": []
     }
    ],

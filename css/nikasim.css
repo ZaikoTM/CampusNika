@@ -107,3 +107,7 @@ body.dark-mode .ns-pill.cian { color: #67e8f9; } body.dark-mode .ns-pill.ok { co
   .ns-hero { flex-direction: column; text-align: center; } .ns-burbuja p { margin: 0 auto; } .ns-nika { width: 104px; height: 122px; }
 }
 @media (prefers-reduced-motion: reduce) { .ns-card, .ns-fade, .ns-hero::after, .ns-tour .ns-vista span, .nk-todo, .nk-propul, .nk-sombra, .nk-ojo, .nk-ant, .nk-ant-halo, .nk-cruz, .nk-brazo-q, .nk-brazo-s { animation: none !important; } }
+
+.ns-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #22c55e; margin-right: 8px; animation: nsDot 2s ease-out infinite; vertical-align: 1px; }
+@keyframes nsDot { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .55); } 70%, 100% { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); } }
+@media (prefers-reduced-motion: reduce) { .ns-dot { animation: none; } }

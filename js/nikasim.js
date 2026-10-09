@@ -29,7 +29,7 @@
 
   // ---- nivel 1
   function pintarAnios() {
-    $('#ns-years').innerHTML = DB.years.map((y) => `<button type="button" class="ns-year ${y.id === S.year ? 'on' : ''}" role="tab" aria-selected="${y.id === S.year}" data-y="${y.id}">${esc(y.name)}</button>`).join('');
+    $('#ns-years').innerHTML = DB.years.map((y) => `<button type="button" class="ns-year ${y.id === S.year ? 'on' : ''}" role="tab" aria-selected="${y.id === S.year}" data-y="${y.id}">${y.areas.length ? '<i class="ns-dot" title="Disponible"></i>' : ''}${esc(y.name)}</button>`).join('');
   }
 
   // ---- tarjeta de acreditación (idéntica en espíritu a acreditaciones.html)
