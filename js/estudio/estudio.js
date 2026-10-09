@@ -1198,6 +1198,7 @@ function openInlineViewer(url, title, element) {
             ];
             abrirExterno = `https://docs.google.com/presentation/d/${presId}/edit`;
             embedUrl = altVisores[0].u;
+            driveId = presId;   // se abre primero en el lector NikaMed; si no se puede, cae al visor de Drive
         }
     }
     // 4. Google Docs (documentos): la URL de edición no se puede incrustar; la vista previa sí
@@ -1210,6 +1211,7 @@ function openInlineViewer(url, title, element) {
             ];
             abrirExterno = `https://docs.google.com/document/d/${docId}/edit`;
             embedUrl = altVisores[0].u;
+            driveId = docId;
         }
     }
 

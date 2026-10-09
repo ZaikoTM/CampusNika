@@ -91,7 +91,17 @@
         .nav-tool-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 700; transition: 0.2s; }
         .nav-tool-btn:hover { background: rgba(255,255,255,0.25); }
         .btn-back { background: var(--nika-primary); color: white; padding: 6px 16px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; border: none; transition: 0.2s;}
-        .btn-back:hover { background: #0369a1; }
+        .btn-back:hover { background: #0369a1; transform: translateY(-2px); box-shadow: 0 8px 18px -8px rgba(2,132,199,.7); }
+        .btn-back:active { transform: translateY(0) scale(.97); }
+        .btn-back { display: inline-flex; align-items: center; gap: 6px; transition: transform .2s, box-shadow .2s, background .2s; }
+        .btn-back .mi-ic { display: inline-block; transition: transform .25s; }
+        .btn-back:hover .mi-ic { transform: translateX(-5px); }
+        .navbar-actions > * { animation: navIn .45s cubic-bezier(.2,.8,.2,1) backwards; }
+        .navbar-actions > *:nth-child(2) { animation-delay: .05s; } .navbar-actions > *:nth-child(3) { animation-delay: .1s; }
+        .navbar-actions > *:nth-child(4) { animation-delay: .15s; } .navbar-actions > *:nth-child(5) { animation-delay: .2s; }
+        .navbar-actions > *:nth-child(6) { animation-delay: .25s; } .navbar-actions > *:nth-child(7) { animation-delay: .3s; }
+        @keyframes navIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { .navbar-actions > * { animation: none !important; } }
 
         /* ================= CONTENEDOR CENTRAL ================= */
         .container { max-width: 1200px; margin: 30px auto; padding: 0 30px; flex: 1; width: 100%; }
@@ -987,7 +997,7 @@
             <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
             <button class="nav-tool-btn" onclick="toggleFocusMode()" title="Modo Enfoque (Pantalla Completa)">🔍 Enfoque</button>
             <button class="nav-tool-btn" onclick="openHelpModal()" title="Atajos de Teclado">❓ Atajos</button>
-            <a href="cirugia_hub.html" class="btn-back" id="btn-menu-materia">← Menú Cirugía</a>
+            <a href="campus.html" class="btn-back" id="btn-menu-materia" title="Volver al campus">← Volver al Campus</a>
         </div>
     </header>
 
@@ -2387,8 +2397,8 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             if (!btn) return;
             const id = getModuloActual();
             const slug = HUB_SLUG_POR_MATERIA[id] || id;
-            btn.href = `${slug}_hub.html`;
-            btn.textContent = `← Menú ${getModuloNombreActual()}`;
+            // El botón de la barra siempre vuelve al campus (el menú de la materia queda en las migas del embudo)
+            btn.href = 'campus.html';
         }
 
         function mostrarPaso(paso, opciones) {
@@ -4348,7 +4358,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             if (Number(anio) === 6) {
                 document.getElementById('area-grid').innerHTML = `<div class="funnel-card" onclick="playSound('click'); location.href='pfo_ecoe.html'">
                     <div class="mode-icon">🎓</div>
-                    <div class="mode-info"><h4>Práctica Final Obligatoria · ECOE FINAL <span class="badge-soon" style="background:rgba(168,85,247,.16);color:#a855f7">NikaMed+</span></h4><p>El examen de egreso: una estación de cada especialidad, con modo práctica y revisión detallada.</p></div>
+                    <div class="mode-info"><h4>Práctica Final Obligatoria · ECOE FINAL <span class="badge-soon" style="background:linear-gradient(135deg,#a855f7,#c084fc);color:#fff">NikaMed+</span></h4><p>El examen de egreso: una estación de cada especialidad, con modo práctica y revisión detallada.</p></div>
                 </div>`;
                 return;
             }

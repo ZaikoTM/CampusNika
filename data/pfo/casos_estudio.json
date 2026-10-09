@@ -376,13 +376,19 @@
     {
      "puntos": [
       "Todo sangrado posmenopáusico obliga a descartar patología endometrial maligna o premaligna hasta demostrar lo contrario; la causa más frecuente es la atrofia (30 a 50 %).",
-      "Interpretá en voz alta: ecografía transvaginal con espesor endometrial (más de 4 a 5 mm en posmenopáusica sintomática es patológico y exige biopsia; 4 mm o menos sugiere atrofia, pero si el sangrado persiste o recurre la biopsia igual es obligatoria); PAP (atipias cervicales o células endometriales atípicas); hemograma para ver anemia.",
+      "Interpretá en voz alta: ecografía transvaginal con espesor endometrial (el umbral clásico es 4 mm, aunque las guías varían entre 3 y 5 mm; un endometrio engrosado exige biopsia; si el sangrado persiste o recurre la biopsia es obligatoria aunque el espesor sea bajo); PAP (atipias cervicales o células endometriales atípicas); hemograma para ver anemia.",
       "Con endometrio engrosado o sangrado persistente: biopsia endometrial ambulatoria (cánula de Pipelle) o histeroscopia con biopsia dirigida (estándar de oro), y derivación a Ginecología."
      ]
     }
    ],
-   "verificar": "Contrastá el umbral del espesor endometrial y la conducta con el consenso FASGO 2022 de sangrado uterino anormal y con el material de cáncer de endometrio cargados en Ginecología.",
-   "fuentes": [],
+   "verificar": "El umbral de 4 mm es el clásico, pero otras guías usan 3 a 5 mm, y una actualización de 2026 del ACOG (según un resumen periodístico) propone combinar ecografía con biopsia en la mayoría de las pacientes. Contrastá con el texto del consenso FASGO 2022 de sangrado uterino anormal.",
+   "fuentes": [
+    {
+     "t": "Consenso FASGO 2022 de sangrado uterino anormal (cargado en la sala; no pude acceder a su texto)",
+     "d": "Fuente de referencia de la cátedra: confirmar umbral de espesor endometrial y conducta.",
+     "u": "https://www.fasgo.org.ar"
+    }
+   ],
    "verificacion": "catedra"
   },
   {
@@ -414,7 +420,7 @@
    "respuestas": [
     {
      "puntos": [
-      "Antropometría: peso, talla, IMC (meta menor de 25), perímetro de cintura (menor de 102 cm en varones) y tensión arterial en ambos brazos (meta menor de 140/90; menor de 130/80 si hay albuminuria o riesgo cardiovascular muy alto).",
+      "Antropometría: peso, talla, IMC (meta menor de 25), perímetro de cintura (menor de 102 cm en varones) y tensión arterial en ambos brazos (meta de menos de 130/80 mmHg según el consenso argentino de HTA 2025; la guía nacional de 2019 usaba menos de 140/90).",
       "Pie diabético (cada 3 a 4 meses y evaluación completa anual): inspección de piel, uñas, deformidades e hiperqueratosis; pulsos pedio y tibial posterior y temperatura; sensibilidad protectora con monofilamento de 10 g en pulpejo del 1.º dedo y cabezas del 1.º y 5.º metatarsiano (o diapasón de 128 Hz en el hallux).",
       "Examen odontológico anual.",
       "Laboratorio: HbA1c cada 3 a 6 meses (meta menor de 7 %, o menor de 8 % con comorbilidad grave o hipoglucemias); perfil lipídico anual (LDL menor de 100 mg/dL, o menor de 70 si es de muy alto riesgo; triglicéridos menores de 150); creatinina con filtrado glomerular (CKD-EPI) y cociente albúmina/creatinina en la primera orina de la mañana (normal menor de 30 mg/g).",
@@ -443,6 +449,11 @@
      "t": "Lineamientos técnicos de vacunación antigripal 2026 · Ministerio de Salud de la Nación",
      "d": "Personas con factores de riesgo incluidas en la población objetivo.",
      "u": "https://www.argentina.gob.ar/sites/default/files/2018/02/lineamientos_vacuna_antigripal_-_2026.pdf"
+    },
+    {
+     "t": "Consenso argentino de hipertensión arterial 2025 · SAHA, SAC y FAC (según nota periodística del 22/05/2025)",
+     "d": "El diagnóstico sigue en 140/90 mmHg; la meta terapéutica en hipertensos pasa a menos de 130/80 mmHg. No leí el texto del consenso: solo su resumen en prensa.",
+     "u": "https://www.diariouno.com.ar/sociedad/hipertension-arterial-argentina-acuerdan-redefinir-los-valores-prevenir-infartos-y-acv-n1439188"
     }
    ],
    "verificacion": "parcial"
@@ -592,17 +603,28 @@
     },
     {
      "puntos": [
-      "Sonia, si no está embarazada ni amamantando: doxiciclina 200 mg por vía oral en dosis única semanal (dos comprimidos de 100 mg juntos, con abundante agua y alimentos). Si está embarazada o amamantando: amoxicilina 500 mg cada 8 horas durante 3 días.",
-      "Pedro (40 años): doxiciclina 200 mg por vía oral en dosis única semanal.",
-      "Ana (9 años): doxiciclina 100 mg por vía oral en dosis única semanal (un comprimido).",
-      "Nacho (1 año): amoxicilina 125 mg por vía oral cada 8 horas durante 3 días (1,25 ml de la suspensión de 500 mg cada 5 ml).",
-      "Explicale que el antibiótico previene pero no reemplaza las medidas de higiene; que la doxiciclina puede dar molestias gástricas y no hay que acostarse después de tomarla; y que ante cualquier síntoma febril consulte de inmediato."
+      "Sonia, si no está embarazada ni amamantando: doxiciclina 200 mg por vía oral una vez por semana (dos comprimidos de 100 mg). Si está embarazada o amamantando: amoxicilina 500 mg cada 8 horas durante 3 días (no usar si es alérgica a la penicilina).",
+      "Pedro (40 años): doxiciclina 200 mg por vía oral una vez por semana.",
+      "Ana (9 años) y Nacho (1 año): se indica profilaxis con dosis ajustada a la edad y al peso. La doxiciclina no se usa en menores de 8 años; en esos casos se utiliza amoxicilina. Tomá las dosis exactas del protocolo vigente (no pudieron confirmarse en las guías consultadas).",
+      "La profilaxis se puede hacer hasta 24 a 48 horas después del contacto con el agua y no se repite cada semana salvo que las personas sigan expuestas (por ejemplo, si vuelven a zonas anegadas).",
+      "Explicale que el antibiótico previene pero no reemplaza las medidas de higiene; que la doxiciclina puede dar molestias gástricas y no hay que acostarse después de tomarla; y que ante cualquier síntoma febril consulte de inmediato, aunque haya recibido la profilaxis."
      ]
     }
    ],
-   "verificar": "Dosis y esquemas tomados del protocolo cargado: verificalos contra el PROTOCOLO INUNDACIONES 2026 y el manual de normas de notificación de la sección Semanas 3 y 4, sobre todo la dosis pediátrica de Nacho y el cambio de esquema en embarazo.",
-   "fuentes": [],
-   "verificacion": "catedra"
+   "verificar": "Doxiciclina 200 mg semanal y amoxicilina 500 mg cada 8 horas por 3 días en embarazo y lactancia coinciden con las guías de Santa Fe y Entre Ríos. Faltan las dosis pediátricas de la guía nacional: buscalas en el protocolo de inundaciones 2026 cargado y en la guía de leptospirosis del Ministerio.",
+   "fuentes": [
+    {
+     "t": "Profilaxis y tratamiento de la leptospirosis · Ministerio de Salud de Entre Ríos",
+     "d": "Indicación a quienes permanecen o limpian en zonas inundadas; embarazo y lactancia: amoxicilina 500 mg cada 8 horas por 3 días; profilaxis hasta 24 a 48 horas del contacto y sin repetición semanal salvo reexposición.",
+     "u": "https://www.entrerios.gov.ar/msalud/wp-content/uploads/2018/11/profilaxis-y-tratamiento-leptospirosis.pdf"
+    },
+    {
+     "t": "Guía de leptospirosis · Ministerio de Salud de Santa Fe",
+     "d": "Doxiciclina de 100 mg por comprimido, 200 mg por semana; consultar de inmediato ante síntomas aun con profilaxis.",
+     "u": "https://www.santafe.gov.ar/index.php/web/content/download/136016/672002/file/leptospirosis"
+    }
+   ],
+   "verificacion": "parcial"
   },
   {
    "id": "sf-s5-preventivas",
@@ -639,9 +661,9 @@
     },
     {
      "puntos": [
-      "Cáncer de cuello uterino: test de VPH cada 5 años si es negativo (mujeres de 30 a 64 años), o PAP cada 3 años tras dos citologías anuales negativas.",
-      "Cáncer de mama: mamografía cada 1 a 2 años desde los 40 años según el consenso FASGO 2024, o cada 1 a 2 años entre los 50 y 69 según el Ministerio de Salud.",
-      "Cáncer colorrectal: a los 46 años todavía no corresponde el rastreo de riesgo promedio; se inicia a los 50 (hasta los 75) con sangre oculta en materia fecal o videocolonoscopía cada 10 años, salvo antecedentes familiares directos.",
+      "Cáncer de cuello uterino: Papanicolaou desde los 25 años, cada 3 años tras dos resultados anuales negativos; donde esté disponible el test de VPH, desde los 30 años, cada 5 años si es negativo, hasta los 64 o 65 años.",
+      "Cáncer de mama: mamografía cada 1 a 2 años entre los 50 y 69 años en mujeres sin síntomas ni antecedentes, junto con el examen mamario. Antes de los 50, o con antecedentes familiares, el inicio se decide de forma individual con el médico (el consenso FASGO 2024 la adelanta a los 40).",
+      "Cáncer colorrectal: a los 46 años todavía no corresponde el rastreo de riesgo promedio; se inicia a los 50 y hasta los 75 con test de sangre oculta en materia fecal cada 2 años o colonoscopía, salvo antecedentes familiares directos.",
       "Hipertensión, diabetes, dislipemia, depresión y consumo de tabaco, alcohol y otras sustancias."
      ]
     },
@@ -662,12 +684,17 @@
      ]
     }
    ],
-   "verificar": "Los intervalos y las edades de cada rastreo y el calendario de vacunas deben contrastarse con el consenso FASGO 2024 de control ginecológico, el consenso de vacunas en la mujer y el manual de cuidado integral de la sección Semanas 5 y 6.",
+   "verificar": "Cuello uterino y mamografía contrastados con las recomendaciones de la Presidencia de la Nación e INC (Pap desde los 25, VPH desde los 30; mamografía de 50 a 69 años). Colorrectal (SOMF cada 2 años de 50 a 75): confirmado solo en fuentes provinciales; no encontré el documento nacional. Calendario de vacunas y metas metabólicas: ver los otros casos.",
    "fuentes": [
     {
      "t": "Lineamientos técnicos de vacunación antigripal 2026 · Ministerio de Salud de la Nación",
      "d": "La vacuna no se indica de rutina entre los 19 y 64 años: solo con factores de riesgo, embarazo o personal de salud.",
      "u": "https://www.argentina.gob.ar/sites/default/files/2018/02/lineamientos_vacuna_antigripal_-_2026.pdf"
+    },
+    {
+     "t": "Prevención del cáncer de cuello uterino y de mama · Presidencia de la Nación / Ministerio de Salud",
+     "d": "Pap desde los 25 años cada 3 años tras dos negativos; test de VPH desde los 30 cada 5 años; mamografía de 50 a 69 años cada 1 o 2 años.",
+     "u": "https://www.argentina.gob.ar/node/127614"
     }
    ],
    "verificacion": "parcial"
@@ -732,7 +759,7 @@
      "puntos": [
       "Cesación tabáquica: intervención breve de las 5 A (averiguar, aconsejar, apreciar, ayudar y acompañar); evaluar vareniclina, bupropión o reemplazo de nicotina si hay disposición.",
       "Estilo de vida: sodio menor de 2 g por día (sal menor de 5 g), grasas saturadas menores del 7 % de las calorías, más fibra y frutas y verduras; IMC menor de 25 y cintura menor de 88 cm; 30 minutos diarios de actividad aeróbica (al menos 150 por semana).",
-      "Presión arterial: meta menor de 140/90 mmHg. Iniciar un IECA (enalapril 10 a 20 mg por día) o un ARA-II (losartán 50 a 100 mg por día); si no controla en unas 4 semanas, asociar amlodipina 5 a 10 mg.",
+      "Presión arterial: el consenso argentino de HTA de 2025 (SAHA, SAC y FAC) fija una meta de menos de 130/80 mmHg en personas hipertensas; la guía nacional de 2019 usaba menos de 140/90. Iniciar un IECA (enalapril 10 a 20 mg por día) o un ARA-II (losartán 50 a 100 mg por día); si no controla en unas 4 semanas, asociar amlodipina 5 a 10 mg.",
       "Lípidos: estatina de alta intensidad (atorvastatina 40 a 80 mg por día, o simvastatina 40 mg según el algoritmo del Ministerio). Meta de LDL: reducción de al menos 50 % del valor basal o menos de 100 mg/dL (menos de 70 si se considera riesgo muy alto).",
       "Diabetes: HbA1c menor de 7 %, glucemia preprandial de 90 a 130 y posprandial menor de 180 mg/dL; metformina 500 mg cada 12 horas con las comidas, a escalar según tolerancia.",
       "Controles: pie diabético con monofilamento de 10 g y pulsos cada 3 a 6 meses, fondo de ojo anual, creatinina con filtrado y albuminuria anual; vacunas (influenza anual, neumococo con 1 dosis de VCN20, dT cada 10 años, hepatitis B); control en 3 a 4 meses y luego cada 6.",
@@ -756,6 +783,11 @@
      "t": "Vacuna contra el neumococo · Ministerio de Salud de la Nación",
      "d": "Personas de 5 a 64 años con diabetes: 1 dosis de VCN20.",
      "u": "https://www.argentina.gob.ar/salud/vacunas/neumococo"
+    },
+    {
+     "t": "Consenso argentino de hipertensión arterial 2025 · SAHA, SAC y FAC (según nota periodística del 22/05/2025)",
+     "d": "El diagnóstico sigue en 140/90 mmHg; la meta terapéutica en hipertensos pasa a menos de 130/80 mmHg. No leí el texto del consenso: solo su resumen en prensa.",
+     "u": "https://www.diariouno.com.ar/sociedad/hipertension-arterial-argentina-acuerdan-redefinir-los-valores-prevenir-infartos-y-acv-n1439188"
     }
    ],
    "verificacion": "parcial"
@@ -842,8 +874,14 @@
      ]
     }
    ],
-   "verificar": "Verificá dosis y metas de descenso con la guía breve de HTA 2026 y el material de crisis y emergencias hipertensivas de Semanas 7 y 8.",
-   "fuentes": [],
+   "verificar": "No encontré el capítulo de crisis hipertensiva (urgencia y emergencia) en la guía nacional breve ni en otra fuente argentina. Dosis y metas de descenso salen del material de la cátedra: contrastalas con el consenso de HTA de las sociedades argentinas.",
+   "fuentes": [
+    {
+     "t": "Consenso argentino de hipertensión arterial 2025 · SAHA, SAC y FAC (según nota periodística del 22/05/2025)",
+     "d": "El diagnóstico sigue en 140/90 mmHg; la meta terapéutica en hipertensos pasa a menos de 130/80 mmHg. No leí el texto del consenso: solo su resumen en prensa.",
+     "u": "https://www.diariouno.com.ar/sociedad/hipertension-arterial-argentina-acuerdan-redefinir-los-valores-prevenir-infartos-y-acv-n1439188"
+    }
+   ],
    "verificacion": "catedra"
   },
   {
@@ -964,6 +1002,11 @@
      "t": "Lineamientos técnicos de vacunación antigripal 2026 · Ministerio de Salud de la Nación",
      "d": "Personas con factores de riesgo incluidas en la población objetivo.",
      "u": "https://www.argentina.gob.ar/sites/default/files/2018/02/lineamientos_vacuna_antigripal_-_2026.pdf"
+    },
+    {
+     "t": "Consenso argentino de hipertensión arterial 2025 · SAHA, SAC y FAC (según nota periodística del 22/05/2025)",
+     "d": "El diagnóstico sigue en 140/90 mmHg; la meta terapéutica en hipertensos pasa a menos de 130/80 mmHg. No leí el texto del consenso: solo su resumen en prensa.",
+     "u": "https://www.diariouno.com.ar/sociedad/hipertension-arterial-argentina-acuerdan-redefinir-los-valores-prevenir-infartos-y-acv-n1439188"
     }
    ],
    "verificacion": "parcial"
@@ -1018,8 +1061,14 @@
      ]
     }
    ],
-   "verificar": "Clasificación de dependencia y fármacos para la etapa de acción según la guía breve de tabaco 2024 y el abordaje integral del tabaquismo de Semanas 11 y 12.",
-   "fuentes": [],
+   "verificar": "Clasificación de dependencia y fármacos para la etapa de acción según la guía breve de tabaco 2024 y el abordaje integral del tabaquismo de Semanas 11 y 12. Identifiqué la guía nacional 2024 pero no pude leer su contenido: verificá ahí la clasificación de dependencia y los fármacos de la etapa de acción.",
+   "fuentes": [
+    {
+     "t": "Guía de práctica clínica nacional de tratamiento de la adicción al tabaco, versión breve · Ministerio de Salud de la Nación, agosto de 2024",
+     "d": "Estructura de las 5 A (averiguar, aconsejar, asistir, ayudar, acompañar). Documento oficial de referencia: no verifiqué dosis ni la estrategia de las 5 R dentro del texto.",
+     "u": "https://argentina.gob.ar/sites/default/files/gpc-tabaco-breve-08-2024.pdf"
+    }
+   ],
    "verificacion": "catedra"
   },
   {
