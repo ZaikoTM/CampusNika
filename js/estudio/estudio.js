@@ -14,12 +14,16 @@ const EstudioState = {
     activeResourceUrl: null // URL del recurso actualmente visualizándose
 };
 
+// Rótulo corto de una unidad: «UP3» en 5.° año, «MÓDULO 2» en la PFO (unit.etiqueta)
+function sigUnit(u) { return u && u.etiqueta ? u.etiqueta + ' ' + u.number : 'UP' + (u ? u.number : ''); }
+
 // Mapeo módulo → archivo de datos. Si un módulo no está acá, se intenta
 // data/<modulo>.json por defecto (ver initEstudio).
 const DATA_FILE_MAP = {
     cirugia: 'data/cirugia.json',
     ginecologia: 'data/gineco_data.json',
-    siam: 'data/siam_data.json'
+    siam: 'data/siam_data.json',
+    pfo: 'data/pfo_data.json'
 };
 
 // Paleta por módulo: variables CSS que se inyectan sobre :root cuando
@@ -29,6 +33,18 @@ const DATA_FILE_MAP = {
 // exclusivamente como acento: botones, bordes activos y detalles — nunca
 // como color de fondo de página ni de tarjetas.
 const MODULE_THEMES = {
+    pfo: {
+        '--nika-primary': '#d97706',   // acento ámbar (botones, tab activa, focus)
+        '--nika-accent': '#f59e0b',
+        '--nika-dark': '#78350f',      // títulos
+        '--bg-body': '#fffaf0',
+        '--bg-page': '#fffaf0',
+        '--border': '#fde8c4',
+        '--text-main': '#1e293b',
+        '--text-muted': '#64748b',
+        '--text-dim': '#94a3b8',
+        '--card-bg': '#ffffff'
+    },
     siam: {
         '--nika-primary': '#0d9488',   // acento verde azulado (botones, tab activa, focus)
         '--nika-accent': '#06b6d4',    // acento cian
@@ -137,6 +153,32 @@ function aplicarTemaModulo(modulo) {
                 color: var(--nika-primary);
                 border-bottom-color: var(--nika-primary);
             }
+            body[data-modulo="pfo"] {
+                background:
+                    radial-gradient(circle at 12% 8%, rgba(245,158,11,0.07), transparent 40%),
+                    radial-gradient(circle at 88% 92%, rgba(30,58,138,0.06), transparent 40%),
+                    var(--bg-body);
+            }
+            body[data-modulo="pfo"] .up-card:hover,
+            body[data-modulo="pfo"] .resource-item:hover {
+                background: #fff;
+                box-shadow: 0 12px 24px -10px rgba(217,119,6,0.25);
+            }
+            body[data-modulo="pfo"] .btn-hub,
+            body[data-modulo="pfo"] .btn-continue-action,
+            body[data-modulo="pfo"] #btn-agendar-repaso {
+                background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+                color: #fff !important;
+                border: none;
+            }
+            body[data-modulo="pfo"] .up-card:hover,
+            body[data-modulo="pfo"] .content-block:hover {
+                border-color: var(--nika-primary);
+            }
+            body[data-modulo="pfo"] .up-tab-btn.active {
+                color: var(--nika-primary);
+                border-bottom-color: var(--nika-primary);
+            }
         `;
         document.head.appendChild(style);
     }
@@ -147,6 +189,14 @@ function getResourceMeta(resource) {
     const titleLower = (resource.title || '').toLowerCase();
     const url = (resource.url || '').toLowerCase();
 
+    if (resource.type === 'tutorial') {
+        return {
+            label: 'Tutorial interactivo',
+            bg: '#ede9fe',
+            color: '#7c3aed',
+            icon: '<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>'
+        };
+    }
     if (resource.type === 'pdf') {
         return {
             label: 'PDF',
@@ -344,7 +394,7 @@ function renderUpBentoGrid(units) {
         return `
         <div class="up-card" onclick="openUP('${unit.id}')">
             <div class="up-card-top">
-                <span class="up-card-number">UP${unit.number}</span>
+                <span class="up-card-number">${unit.etiqueta ? unit.etiqueta + " " : "UP"}${unit.number}</span>
                 <svg class="up-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </div>
             <div class="up-card-title">${unit.title}</div>
@@ -405,7 +455,7 @@ function filterResources(query) {
                 const videos = sec.videos || [];
                 [...materiales, ...videos].forEach(res => {
                     if (res.title.toLowerCase().includes(q) || (res.type && res.type.toLowerCase().includes(q))) {
-                        allResources.push({ ...res, unitTitle: `UP${unit.number}: ${sec.title}`, unitId: unit.id });
+                        allResources.push({ ...res, unitTitle: `${sigUnit(unit)}: ${sec.title}`, unitId: unit.id });
                     }
                 });
             });
@@ -417,7 +467,7 @@ function filterResources(query) {
         
         [...materiales, ...videos].forEach(res => {
             if (res.title.toLowerCase().includes(q) || (res.type && res.type.toLowerCase().includes(q))) {
-                allResources.push({ ...res, unitTitle: `UP${unit.number}: ${unit.title}`, unitId: unit.id });
+                allResources.push({ ...res, unitTitle: `${sigUnit(unit)}: ${unit.title}`, unitId: unit.id });
             }
         });
     });
@@ -504,7 +554,7 @@ function abrirModalSeccionesUP(unit) {
         overlay = document.getElementById('modal-secciones-up');
     }
 
-    document.getElementById('secciones-up-titulo').innerText = `UP${unit.number}: ${unit.title}`;
+    document.getElementById('secciones-up-titulo').innerText = `${sigUnit(unit)}: ${unit.title}`;
     const lista = document.getElementById('secciones-up-lista');
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--nika-primary').trim() || '#0f6cbf';
     lista.innerHTML = unit.secciones.map((sec, i) => `
@@ -580,7 +630,7 @@ function openUpReal(upId, unit) {
 
     // Presence: le avisa a los amigos qué UP está mirando ("Estudiando UPx...")
     if (window.PomodoroSyncManager) {
-        window.PomodoroSyncManager.actualizarEstado({ up: `UP${unit.number}` });
+        window.PomodoroSyncManager.actualizarEstado({ up: `${sigUnit(unit)}` });
     }
 
     // Widget "📅 Mi Cronograma de Repaso" (ver PARTE 3 del pedido)
@@ -596,7 +646,7 @@ function renderUpDetail(unit) {
 
     const numEl = document.getElementById('up-detail-number');
     const titleEl = document.getElementById('up-detail-title');
-    if (numEl) numEl.innerText = `UP${unit.number}`;
+    if (numEl) numEl.innerText = `${sigUnit(unit)}`;
     if (titleEl) titleEl.innerText = unit.title;
 
     renderObjectivesChecklist(unit);
@@ -737,7 +787,7 @@ function renderChecklistUI(container, objectives, progressMap, moduleId, upId, u
         localStorage.setItem(`nika_surgery_global_pct_${activeUsername}`, pct);
         
         const currentUnit = (typeof EstudioState !== 'undefined' && EstudioState.unitsById) ? EstudioState.unitsById[upId] : null;
-        const upName = currentUnit ? `UP${currentUnit.number}` : upId.toUpperCase();
+        const upName = currentUnit ? `${sigUnit(currentUnit)}` : upId.toUpperCase();
 
         localStorage.setItem(`nika_last_study_progress_${activeUsername}`, JSON.stringify({
             modulo: 'Cirugía',
@@ -945,7 +995,9 @@ document.addEventListener('nika-pdf-progreso', actualizarProgresoRecursos);
 function renderResourceItem(resource) {
     const meta = getResourceMeta(resource);
     const isActive = EstudioState.activeResourceUrl === resource.url ? 'active-resource' : '';
-    const actionAttr = `onclick="openInlineViewer('${resource.url}', '${resource.title.replace(/'/g, "\\'")}', this)" style="cursor:pointer;"`;
+    const actionAttr = resource.type === 'tutorial'
+        ? `onclick="location.href='${resource.url}'" style="cursor:pointer;"`   // tutoriales y recorridos interactivos de la PFO: se abren en su propia pantalla
+        : `onclick="openInlineViewer('${resource.url}', '${resource.title.replace(/'/g, "\\'")}', this)" style="cursor:pointer;"`;
 
     const fid = nikaDriveId(resource.url);
     const fidAttr = fid ? ` data-fid="${fid}" data-title="${encodeURIComponent(resource.title)}"` : '';
@@ -1289,7 +1341,7 @@ function initModuleChat() {
     // UP activa en formato "UP1", "UP2", etc.
     function unidadActivaLabel() {
         const unit = EstudioState.currentUpId ? EstudioState.unitsById[EstudioState.currentUpId] : null;
-        if (unit && unit.number) return `UP${unit.number}`;
+        if (unit && unit.number) return `${sigUnit(unit)}`;
         if (EstudioState.currentUpId) return EstudioState.currentUpId.toUpperCase();
         return 'UP1';
     }
@@ -1600,7 +1652,7 @@ function abrirModalAgendarRepaso() {
     const subtitulo = document.getElementById('modal-agendar-subtitulo');
     const fechaInput = document.getElementById('input-fecha-repaso');
 
-    subtitulo.textContent = `${({ ginecologia: 'Ginecología', siam: 'S.I.A.M.' }[RepasoState.moduloActual] || 'Cirugía')} · ${RepasoState.upLabelActual || RepasoState.upActual}`;
+    subtitulo.textContent = `${({ ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO' }[RepasoState.moduloActual] || 'Cirugía')} · ${RepasoState.upLabelActual || RepasoState.upActual}`;
 
     // Sugerencia por defecto: hoy + 3 días (el usuario la puede cambiar libremente).
     const sugerida = new Date();
@@ -1740,6 +1792,7 @@ function inyectarModalEditarEventoSiHaceFalta() {
                         <option value="cirugia">Cirugía</option>
                         <option value="ginecologia">Ginecología</option>
                         <option value="siam">S.I.A.M.</option>
+                        <option value="pfo">PFO</option>
                     </select></div>
                 <div style="flex:1;"><label style="${label}">UP (número)</label>
                     <input type="number" id="edit-ev-up" min="1" max="99" placeholder="Ej: 7" style="${campo}"></div>
@@ -1861,7 +1914,7 @@ async function guardarRepasoDesdeModal() {
         return;
     }
 
-    const nombreModulo = ({ ginecologia: 'Ginecología', siam: 'S.I.A.M.' })[RepasoState.moduloActual] || 'Cirugía';
+    const nombreModulo = ({ ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO' })[RepasoState.moduloActual] || 'Cirugía';
 
     btn.disabled = true;
     btn.textContent = 'Guardando...';
@@ -2076,9 +2129,9 @@ async function eliminarBloqueTimeboxing(id) {
 }
 
 function etiquetaModuloUp(b) {
-    const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.' };
+    const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO' };
     const unit = (EstudioState.unitsById || {})[b.up_id];
-    const up = unit ? `UP${unit.number}` : (b.up_id ? String(b.up_id).toUpperCase() : '');
+    const up = unit ? `${sigUnit(unit)}` : (b.up_id ? String(b.up_id).toUpperCase() : '');
     return [nombres[b.modulo] || b.modulo, up].filter(Boolean).join(' · ');
 }
 

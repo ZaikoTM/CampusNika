@@ -1,0 +1,1754 @@
+{
+ "nombre": "Práctica Final Obligatoria (PFO)",
+ "units": [
+  {
+   "id": "pfo1",
+   "number": 1,
+   "etiqueta": "MÓDULO",
+   "title": "Generalidades",
+   "parcial": "PFO",
+   "objectives": [
+    "Completar el recorrido interactivo por la PFO",
+    "Conocer las rotaciones y su carga horaria",
+    "Conocer las condiciones de regularidad y aprobación",
+    "Conocer el camino al ECOE y al título",
+    "Superar el juego de repaso final"
+   ],
+   "contents": [
+    "Qué es la PFO y cómo se cursa",
+    "Rotaciones, ámbitos y ritmo de cursada",
+    "Ingreso, calendario y distribución en los nodos",
+    "Regularidad y aprobación de cada espacio",
+    "ECOE, defensa del TII y título",
+    "Derechos, deberes y sanciones"
+   ],
+   "bibliography": [],
+   "materiales": [
+    {
+     "title": "Recorrido interactivo por la PFO",
+     "url": "pfo_estudio.html#generalidades",
+     "type": "tutorial"
+    }
+   ],
+   "videos": []
+  },
+  {
+   "id": "pfo2",
+   "number": 2,
+   "etiqueta": "MÓDULO",
+   "title": "Clínica Médica",
+   "parcial": "PFO",
+   "objectives": [],
+   "contents": [
+    "Bibliografía sugerida",
+    "El segundo nivel: la internación",
+    "Farmacología clínica: aspectos generales",
+    "Generalidades de utilidad para la práctica clínica",
+    "Lectura e interpretación en diagnóstico por imágenes",
+    "Lectura e interpretación de trazados electrocardiográficos",
+    "Procedimientos oftalmológicos para el médico general",
+    "Procedimientos relevantes para la clínica médica"
+   ],
+   "bibliography": [],
+   "materiales": [],
+   "videos": [],
+   "secciones": [
+    {
+     "id": "clinica_medica-bibliografia",
+     "title": "Bibliografía sugerida",
+     "objectives": [
+      "Conocer la bibliografía de cada tema de la rotación"
+     ],
+     "contents": [
+      "Textos de base: 5 referencias",
+      "Respiratorio y vías aéreas altas: 5 referencias",
+      "Neurología: ACV: 1 referencia",
+      "Diabetes: 4 referencias",
+      "Piel y partes blandas: 1 referencia",
+      "Infección urinaria: 2 referencias",
+      "Insuficiencia renal aguda: 5 referencias",
+      "Síndrome metabólico: 7 referencias"
+     ],
+     "bibliography": [
+      "Textos de base · Harrison. Principios de Medicina Interna.",
+      "Textos de base · Farreras-Rozman. Medicina Interna.",
+      "Textos de base · Goldman-Cecil. Tratado de Medicina Interna.",
+      "Textos de base · Goodman & Gilman. Las bases farmacológicas de la terapéutica.",
+      "Textos de base · Guías ALAD y guías de práctica clínica.",
+      "Respiratorio y vías aéreas altas · Lopardo G, Pensotti C, Scapellato P, et al. Consenso intersociedades para el manejo de infecciones respiratorias: bronquitis aguda y EPOC. Medicina (B Aires), 2013.",
+      "Respiratorio y vías aéreas altas · Lopardo G, Calmaggi A, Clara L, et al. Consenso sobre diagnóstico y tratamiento de infecciones de vías respiratorias altas. Medicina (B Aires), 2012.",
+      "Respiratorio y vías aéreas altas · Ministerio de Salud de la Nación. Boletín integrado de vigilancia, 2013.",
+      "Respiratorio y vías aéreas altas · Gonzales R, Steiner JF, Lum A, Barrett PH Jr. Decreasing antibiotic use in ambulatory practice: treatment of uncomplicated acute bronchitis in adults. JAMA 1999; 281: 1512-9.",
+      "Respiratorio y vías aéreas altas · Organización Mundial de la Salud. Plan de acción mundial sobre la resistencia a los antimicrobianos.",
+      "Neurología: ACV · Consenso sobre accidente cerebrovascular isquémico agudo. Medicina (Buenos Aires) 2019; 79 (supl. II): 1-46.",
+      "Diabetes · Tébar Massó FJ, Escobar Jiménez F. La diabetes mellitus en la práctica clínica. Panamericana, 2009.",
+      "Diabetes · Addie-Gentle P, Azok J, Azzarello J, Edelman M. Diabetes mellitus. Guía para el manejo del paciente. Williams & Wilkins, 2007.",
+      "Diabetes · Jordán Valenzuela M, Miralles García MD, Ramos Morcillo A, Torres García M. Intervenciones enfermeras ante el paciente diabético. Logoss, 2009.",
+      "Diabetes · Rodergas i Pagès J. Cuidados de enfermería al paciente diabético. Fuden, 2009.",
+      "Piel y partes blandas · Consenso SADI-SAM-SAD-CACCV. Guía para el manejo racional de las infecciones de piel y partes blandas, partes I, II y III. Rev Panam Infectol 2009; 11(3): 47-65 y 2010; 12(1): 60-74.",
+      "Infección urinaria · Nemirovsky C, López Furst MJ, Pryluka D, et al. Consenso argentino intersociedades de infección urinaria 2018-2019, partes I y II. Medicina (Buenos Aires) 2020; 80: 229-240.",
+      "Infección urinaria · López Furst MJ, Mykietiuk A, Pessacq P, et al. Community-acquired uncomplicated urinary tract infections: current etiology and antimicrobial susceptibility in Argentina. Int J Infect Dis 2018.",
+      "Insuficiencia renal aguda · Gaínza de los Ríos FJ. Insuficiencia renal aguda. En: Nefrología al día. nefrologiaaldia.org/317.",
+      "Insuficiencia renal aguda · Novis BK, Roizen MF, Aronson S, Thisted RA. Association of preoperative risk factors with postoperative acute renal failure. Anesth Analg 1994; 78(1): 143-9.",
+      "Insuficiencia renal aguda · Peerapornratana S, Manrique-Caballero CL, Gómez H, Kellum JA. Acute kidney injury from sepsis: current concepts. Kidney Int 2019; 96(5): 1083-99.",
+      "Insuficiencia renal aguda · Levey AS, James MT. Acute kidney injury. Ann Intern Med 2017; 167(9): ITC66-ITC80.",
+      "Insuficiencia renal aguda · Yoon SY, Kim JS, Jeong KH, Kim SK. Acute kidney injury: biomarker-guided diagnosis and management. Medicina (Kaunas) 2022; 58(3): 340.",
+      "Síndrome metabólico · Huang PL. A comprehensive definition for metabolic syndrome. Dis Model Mech 2009; 2(5-6): 231-7.",
+      "Síndrome metabólico · Saklayen MG. The global epidemic of the metabolic syndrome. Curr Hypertens Rep 2018; 20(2): 12.",
+      "Síndrome metabólico · Lemieux I, Després JP. Metabolic syndrome: past, present and future. Nutrients 2020; 12(11): 3501.",
+      "Síndrome metabólico · Sherling DH, Perumareddi P, Hennekens CH. Metabolic syndrome. J Cardiovasc Pharmacol Ther 2017; 22(4): 365-7.",
+      "Síndrome metabólico · Després JP, Lemieux I. Abdominal obesity and metabolic syndrome. Nature 2006; 444(7121): 881-7.",
+      "Síndrome metabólico · Ruilope LM, Nunes Filho ACB, Nadruz W Jr, et al. Obesity and hypertension in Latin America. Hipertens Riesgo Vasc 2018; 35(2): 70-6.",
+      "Síndrome metabólico · Hernández Ruiz de Eguilaz M, Batlle MA, Martínez de Morentin B, et al. Cambios alimentarios y de estilo de vida como estrategia en la prevención del síndrome metabólico y la diabetes tipo 2. An Sist Sanit Navar 2016; 39(2): 269-89."
+     ],
+     "materiales": [],
+     "videos": []
+    },
+    {
+     "id": "clinica_medica-internacion",
+     "title": "El segundo nivel: la internación",
+     "objectives": [
+      "Estudiar: Historia Clínica",
+      "Estudiar: Pasos de evaluación PFO"
+     ],
+     "contents": [
+      "Cómo se escribe la historia clínica y cómo se evalúa a un paciente internado."
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Historia Clínica",
+       "url": "https://drive.google.com/file/d/1OBTXw4vpnfILDApvIuBrd8tUsvySp9bL/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Pasos de evaluación PFO",
+       "url": "https://drive.google.com/file/d/1ZTCBuP14QJkBorscRrM8lb8Rhwf2k15j/view?usp=drive_link",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "clinica_medica-farmacologia",
+     "title": "Farmacología clínica: aspectos generales",
+     "objectives": [
+      "Ver la clase: Analgésicos / Anti-inflamatorios I - Dr. Mauricio Tournour",
+      "Ver la clase: Analgésicos / Anti-inflamatorios II - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacología de los corticoides - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacoterapia antiagregante y trombolítica - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacoterapia antibiótica: Generalidades - Dr. Mauricio Tournour",
+      "Ver la clase: Antibióticos Beta-Lactamicos - Dr. Mauricio Tournour",
+      "Ver la clase: Otras familias antibióticas - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacoterapia de las diarreas - Dr. Mauricio Tournour",
+      "Ver la clase: Antieméticos - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacoterapia anti-hipertensiva - Dr. Mauricio Tournour",
+      "Ver la clase: Hipoglucemiantes orales - Dr. Mauricio Tournour",
+      "Ver la clase: Insulina y análogos - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacoterapia anticomicial - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacología de los anti-ácidos, anti-secretores y gastro-protectores - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacología de los procineticos - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacoterapia de las tiroideopatias - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacología de las enzimas digestivas - Dr. Mauricio Tournour",
+      "Ver la clase: Farmacología del Hierro, la Vitamina B12 y el Acido Fólico - Dr. Mauricio Tournour"
+     ],
+     "contents": [
+      "18 clases en video: analgésicos, antibióticos, antihipertensivos, insulinas y más."
+     ],
+     "bibliography": [],
+     "materiales": [],
+     "videos": [
+      {
+       "title": "Analgésicos / Anti-inflamatorios I - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=2nIBuy4KO6M",
+       "type": "video"
+      },
+      {
+       "title": "Analgésicos / Anti-inflamatorios II - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=Ib4FvI3NLnU",
+       "type": "video"
+      },
+      {
+       "title": "Farmacología de los corticoides - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=510IWUfSsIo",
+       "type": "video"
+      },
+      {
+       "title": "Farmacoterapia antiagregante y trombolítica - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=0X8kNsAhD9s",
+       "type": "video"
+      },
+      {
+       "title": "Farmacoterapia antibiótica: Generalidades - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=hLMVUS7IbyI",
+       "type": "video"
+      },
+      {
+       "title": "Antibióticos Beta-Lactamicos - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=CRwN0ALFCnQ",
+       "type": "video"
+      },
+      {
+       "title": "Otras familias antibióticas - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=T4CYK5hBLv8",
+       "type": "video"
+      },
+      {
+       "title": "Farmacoterapia de las diarreas - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=YnzOtZGaTck",
+       "type": "video"
+      },
+      {
+       "title": "Antieméticos - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=TlWc05Wur6E",
+       "type": "video"
+      },
+      {
+       "title": "Farmacoterapia anti-hipertensiva - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=KPA-_ZOENbw",
+       "type": "video"
+      },
+      {
+       "title": "Hipoglucemiantes orales - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=Pp4raPqO8F8",
+       "type": "video"
+      },
+      {
+       "title": "Insulina y análogos - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=GOfzl8IfK5w",
+       "type": "video"
+      },
+      {
+       "title": "Farmacoterapia anticomicial - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=J-gYFKOGDUU",
+       "type": "video"
+      },
+      {
+       "title": "Farmacología de los anti-ácidos, anti-secretores y gastro-protectores - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=8lyBtMXaCXw",
+       "type": "video"
+      },
+      {
+       "title": "Farmacología de los procineticos - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=Pt1bvmULkvc",
+       "type": "video"
+      },
+      {
+       "title": "Farmacoterapia de las tiroideopatias - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=dkbzVyY5BCY",
+       "type": "video"
+      },
+      {
+       "title": "Farmacología de las enzimas digestivas - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=0WGKXEmXxhY",
+       "type": "video"
+      },
+      {
+       "title": "Farmacología del Hierro, la Vitamina B12 y el Acido Fólico - Dr. Mauricio Tournour",
+       "url": "https://www.youtube.com/watch?v=oK6HOfbjS1g",
+       "type": "video"
+      }
+     ]
+    },
+    {
+     "id": "clinica_medica-generalidades_cm",
+     "title": "Generalidades de utilidad para la práctica clínica",
+     "objectives": [
+      "Estudiar: Hemograma: interpretación",
+      "Estudiar: Hepatograma: interpretación",
+      "Estudiar: Perfil metabólico",
+      "Estudiar: Perfil renal: interpretación",
+      "Estudiar: Otros laboratorios: interpretación",
+      "Estudiar: Certificado de ausentismo: guía",
+      "Estudiar: Prescripción de psicofármacos: desarrollo del procedimiento",
+      "Estudiar: Recetario en blanco",
+      "Estudiar: Solicitud de exámenes complementarios: desarrollo del procedimiento",
+      "Ver la clase: PRESCRIBIENDO PSICOFARMACOS"
+     ],
+     "contents": [
+      "Cómo interpretar el laboratorio y cómo redactar recetas, certificados y pedidos."
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Hemograma: interpretación",
+       "url": "https://drive.google.com/file/d/1jZV3RW-WEGk0fjizSwDr6USeFDoYWKxW/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Hepatograma: interpretación",
+       "url": "https://drive.google.com/file/d/1BDtSM81wfoPRcuZZP1jP9cYcxhzT-QA0/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Perfil metabólico",
+       "url": "https://drive.google.com/file/d/1YXSfPkTLx9kP5Dy1VmXT4CyxxOTqf-GZ/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Perfil renal: interpretación",
+       "url": "https://drive.google.com/file/d/1SldCs7Mt7ZWEM_VS--gppOKjF-Vip1Oj/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Otros laboratorios: interpretación",
+       "url": "https://drive.google.com/file/d/1TQuste6uq5eSQ4Gb3ktUROKga28w0qvp/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Certificado de ausentismo: guía",
+       "url": "https://drive.google.com/file/d/1h-Xo7jBQzuMMwUmrxktV3ywnUpPxtQF3/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Prescripción de psicofármacos: desarrollo del procedimiento",
+       "url": "https://drive.google.com/file/d/1Tll_WaEQQ3LInIRYVkexw02mQeb66Th6/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Recetario en blanco",
+       "url": "https://drive.google.com/file/d/1csRdNp2-ngoH5n9y-mLD_nK14IH8pywI/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Solicitud de exámenes complementarios: desarrollo del procedimiento",
+       "url": "https://drive.google.com/file/d/1sJLJUpUENV-mG4PIw2sDWMgk8GcEnld2/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Practicá recetas y certificados",
+       "url": "recetarios.html",
+       "type": "tutorial"
+      }
+     ],
+     "videos": [
+      {
+       "title": "PRESCRIBIENDO PSICOFARMACOS",
+       "url": "https://www.youtube.com/watch?v=Jx3HRSpB5gA",
+       "type": "video"
+      }
+     ]
+    },
+    {
+     "id": "clinica_medica-imagenes",
+     "title": "Lectura e interpretación en diagnóstico por imágenes",
+     "objectives": [
+      "Estudiar: Radiografía de tórax",
+      "Estudiar: Radiografía de abdomen",
+      "Estudiar: Radiografía de cavum y vía aérea superior",
+      "Estudiar: Radiografía de senos paranasales",
+      "Estudiar: Radiografía ósea",
+      "Estudiar: Solicitud de radiografía ósea",
+      "Estudiar: Tomografía computada (TC)",
+      "Estudiar: Tomografía computada (TAC)",
+      "Estudiar: Urograma excretor",
+      "Ver la clase: Tomografía Computada Cráneo-Encefálica - Dr. Fernando Parra",
+      "Ver la clase: Tomografía Computada de Tórax 1 - Dr. Fernando Parra",
+      "Ver la clase: Tomografía Computada de Tórax 2 - Dr. Fernando Parra",
+      "Ver la clase: Tomografía Computada de Tórax 3 - Dr. Fernando Parra",
+      "Ver la clase: Tomografía de abdomen - Dr. Fernando Parra",
+      "Ver la clase: Seriada Esófago-Gastro-Duodenal I - Tec. Rad. Maria Daniela Kleman",
+      "Ver la clase: Seriada Esófago-Gastro-Duodenal II - Tec. Rad. Maria Daniela Kleman",
+      "Ver la clase: Colon por enema I - Tec. Rad. Maria Daniela Kleman",
+      "Ver la clase: Colon por enema II - Tec. Rad. Maria Daniela Kleman"
+     ],
+     "contents": [
+      "Radiografías, tomografía y estudios contrastados, con clases en video."
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Radiografía de tórax",
+       "url": "https://drive.google.com/file/d/1Knz1laiZWHxzBfu6OHFZWw6c32SGnSq0/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Radiografía de abdomen",
+       "url": "https://drive.google.com/file/d/1d22KiSuQo0bxQwqmFjLySB22Yv7Arwr1/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Radiografía de cavum y vía aérea superior",
+       "url": "https://drive.google.com/file/d/1enaxGVIKlQV2b3qNZPR2NFH6WKBvJpk9/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Radiografía de senos paranasales",
+       "url": "https://drive.google.com/file/d/1oC95ZauEE1kBZCEWSVDjPHSiW1IzEvMm/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Radiografía ósea",
+       "url": "https://drive.google.com/file/d/1GyrgXQINgiJnU9Qr_iWuhgfZg70UBtff/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Solicitud de radiografía ósea",
+       "url": "https://drive.google.com/file/d/1q8VBmOaH_JSEO-pEaaf6-y4mZB63z7rj/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tomografía computada (TC)",
+       "url": "https://drive.google.com/file/d/1bMaLzYAb9qEdCIIWcOpQ5L8JrNi_zeBP/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tomografía computada (TAC)",
+       "url": "https://drive.google.com/file/d/1Z5fA1mmZbMYjFGRVnTitbFwNkPQXoXN6/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Urograma excretor",
+       "url": "https://drive.google.com/file/d/1cDd8bvfl3ASWw_8l5xKlrEebrI3CY-Mw/view?usp=drive_link",
+       "type": "pdf"
+      }
+     ],
+     "videos": [
+      {
+       "title": "Tomografía Computada Cráneo-Encefálica - Dr. Fernando Parra",
+       "url": "https://www.youtube.com/watch?v=EfK4roi6kDo",
+       "type": "video"
+      },
+      {
+       "title": "Tomografía Computada de Tórax 1 - Dr. Fernando Parra",
+       "url": "https://www.youtube.com/watch?v=-VG3NC2__vM",
+       "type": "video"
+      },
+      {
+       "title": "Tomografía Computada de Tórax 2 - Dr. Fernando Parra",
+       "url": "https://www.youtube.com/watch?v=-z8x0VoXsbA",
+       "type": "video"
+      },
+      {
+       "title": "Tomografía Computada de Tórax 3 - Dr. Fernando Parra",
+       "url": "https://www.youtube.com/watch?v=CZff69kjzps",
+       "type": "video"
+      },
+      {
+       "title": "Tomografía de abdomen - Dr. Fernando Parra",
+       "url": "https://www.youtube.com/watch?v=-Lhzf-7_2FE",
+       "type": "video"
+      },
+      {
+       "title": "Seriada Esófago-Gastro-Duodenal I - Tec. Rad. Maria Daniela Kleman",
+       "url": "https://www.youtube.com/watch?v=L9SMKNKCXew",
+       "type": "video"
+      },
+      {
+       "title": "Seriada Esófago-Gastro-Duodenal II - Tec. Rad. Maria Daniela Kleman",
+       "url": "https://www.youtube.com/watch?v=KdkXqGbX1MI",
+       "type": "video"
+      },
+      {
+       "title": "Colon por enema I - Tec. Rad. Maria Daniela Kleman",
+       "url": "https://www.youtube.com/watch?v=rRAT09tSXVs",
+       "type": "video"
+      },
+      {
+       "title": "Colon por enema II - Tec. Rad. Maria Daniela Kleman",
+       "url": "https://www.youtube.com/watch?v=AWQ7aAuLVK8",
+       "type": "video"
+      }
+     ]
+    },
+    {
+     "id": "clinica_medica-ecg",
+     "title": "Lectura e interpretación de trazados electrocardiográficos",
+     "objectives": [
+      "Practicar con el tutorial: ECG normal: guía del procedimiento",
+      "Practicar con el tutorial: ECG en síndrome coronario agudo: guía del procedimiento",
+      "Estudiar: Electrocardiografía práctica (Dubin)",
+      "Ver la clase: Electrogénesis I - Dr. Marcelo Ríos",
+      "Ver la clase: Electrogénesis II - Dr. Marcelo Ríos",
+      "Ver la clase: Electrogénesis III - Dr. Marcelo Ríos",
+      "Ver la clase: Electrogénesis IV - Dr. Marcelo Ríos",
+      "Ver la clase: Electrocardiograma normal I - Dr. Marcelo Rios",
+      "Ver la clase: Electrocardiograma normal II - Dr. Marcelo Rios",
+      "Ver la clase: Arritmias I - Dr. Marcelo Ríos",
+      "Ver la clase: Arritmias II - Dr. Marcelo Rios",
+      "Ver la clase: Arritmias III - Dr. Marcelo Ríos",
+      "Ver la clase: Trastornos de la conducción I - Dr. Marcelo Ríos",
+      "Ver la clase: Trastornos de la conducción II - Dr. Marcelo Ríos"
+     ],
+     "contents": [
+      "Guías paso a paso para leer un ECG y clases en video."
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Tutorial interactivo: ECG normal: guía del procedimiento",
+       "url": "pfo_estudio.html#clinica_medica/ecg/ecgn",
+       "type": "tutorial"
+      },
+      {
+       "title": "ECG normal: guía del procedimiento: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/18CDsdSyT6RR3sVx1-ymt6pUwCsstOC-Y/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: ECG en síndrome coronario agudo: guía del procedimiento",
+       "url": "pfo_estudio.html#clinica_medica/ecg/ecgsca",
+       "type": "tutorial"
+      },
+      {
+       "title": "ECG en síndrome coronario agudo: guía del procedimiento: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1rZ9TbqQHxAH9r4Sgy0QaQGwUitTtYiew/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Electrocardiografía práctica (Dubin)",
+       "url": "https://drive.google.com/file/d/1ajNEOiBsbRkgTVrGHVP6FPKLfi1etpwV/view?usp=drive_link",
+       "type": "pdf"
+      }
+     ],
+     "videos": [
+      {
+       "title": "Electrogénesis I - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=2rnB6-h3OtE",
+       "type": "video"
+      },
+      {
+       "title": "Electrogénesis II - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=12PotKad6d0",
+       "type": "video"
+      },
+      {
+       "title": "Electrogénesis III - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=fsa2QsZcPxk",
+       "type": "video"
+      },
+      {
+       "title": "Electrogénesis IV - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=8CTqsKCQgco",
+       "type": "video"
+      },
+      {
+       "title": "Electrocardiograma normal I - Dr. Marcelo Rios",
+       "url": "https://www.youtube.com/watch?v=vDWyZbzayuA",
+       "type": "video"
+      },
+      {
+       "title": "Electrocardiograma normal II - Dr. Marcelo Rios",
+       "url": "https://www.youtube.com/watch?v=EhRdvYj15MI",
+       "type": "video"
+      },
+      {
+       "title": "Arritmias I - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=FEt19tF6258",
+       "type": "video"
+      },
+      {
+       "title": "Arritmias II - Dr. Marcelo Rios",
+       "url": "https://www.youtube.com/watch?v=XLjUqgq5SKQ",
+       "type": "video"
+      },
+      {
+       "title": "Arritmias III - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=VVSwrMnJK6s",
+       "type": "video"
+      },
+      {
+       "title": "Trastornos de la conducción I - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=fH_bAh4WLfs",
+       "type": "video"
+      },
+      {
+       "title": "Trastornos de la conducción II - Dr. Marcelo Ríos",
+       "url": "https://www.youtube.com/watch?v=rBtqJCyAfow",
+       "type": "video"
+      }
+     ]
+    },
+    {
+     "id": "clinica_medica-oftalmo",
+     "title": "Procedimientos oftalmológicos para el médico general",
+     "objectives": [
+      "Estudiar: Agudeza visual",
+      "Estudiar: Oftalmoscopia directa: guía del procedimiento",
+      "Estudiar: Oftalmoscopia directa",
+      "Ver la clase: Oftalmoscopia Directa: La técnica - Dra. Celeste Gadea",
+      "Ver la clase: Ophthalmoscopy",
+      "Ver la clase: Oftalmoscopia",
+      "Ver la clase: El edema de papila - Dra. Celeste Gadea",
+      "Ver la clase: Edema bilateral de papila"
+     ],
+     "contents": [
+      "Agudeza visual y oftalmoscopia directa, con material y videos."
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Agudeza visual",
+       "url": "https://drive.google.com/file/d/1gES1txzccfRodIIxZnx2tV11kbCszmj2/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Oftalmoscopia directa: guía del procedimiento",
+       "url": "https://drive.google.com/file/d/1JHT_6IdEVmTWkIUSU9kVukO-tT_rlwDz/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Oftalmoscopia directa",
+       "url": "https://drive.google.com/file/d/1I6GTgMEHNQVYfg7rZBBdMECY_KbIgCZF/view?usp=drive_link",
+       "type": "pdf"
+      }
+     ],
+     "videos": [
+      {
+       "title": "Oftalmoscopia Directa: La técnica - Dra. Celeste Gadea",
+       "url": "https://www.youtube.com/watch?v=qt9KLE8nHjc",
+       "type": "video"
+      },
+      {
+       "title": "Ophthalmoscopy",
+       "url": "https://www.youtube.com/watch?v=BG7PbX4i-Y4",
+       "type": "video"
+      },
+      {
+       "title": "Oftalmoscopia",
+       "url": "https://www.youtube.com/watch?v=cUxUIWsI2HI",
+       "type": "video"
+      },
+      {
+       "title": "El edema de papila - Dra. Celeste Gadea",
+       "url": "https://www.youtube.com/watch?v=ZROm4ke2XSs",
+       "type": "video"
+      },
+      {
+       "title": "Edema bilateral de papila",
+       "url": "https://www.youtube.com/watch?v=jcqJV35VE2I",
+       "type": "video"
+      }
+     ]
+    },
+    {
+     "id": "clinica_medica-procedimientos",
+     "title": "Procedimientos relevantes para la clínica médica",
+     "objectives": [
+      "Practicar con el tutorial: Intubación endotraqueal",
+      "Practicar con el tutorial: Paracentesis diagnóstica",
+      "Practicar con el tutorial: Paracentesis terapéutica",
+      "Practicar con el tutorial: Punción lumbar (raquicentesis)",
+      "Practicar con el tutorial: Colocación de sonda nasogástrica",
+      "Practicar con el tutorial: Tacto rectal",
+      "Practicar con el tutorial: Extracción de sangre venosa",
+      "Practicar con el tutorial: Otoscopía",
+      "Practicar con el tutorial: Hisopado de fauces",
+      "Practicar con el tutorial: Hisopado nasofaríngeo",
+      "Practicar con el tutorial: Hisopado uretral femenino",
+      "Practicar con el tutorial: Hisopado uretral masculino",
+      "Estudiar: Toracocentesis (punción pleural): apunte teórico"
+     ],
+     "contents": [
+      "Tutorial paso a paso de cada procedimiento, con teoría complementaria y práctica en NikaSim."
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Tutorial interactivo: Intubación endotraqueal",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/iet",
+       "type": "tutorial"
+      },
+      {
+       "title": "Intubación endotraqueal: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1SP41Up1HmdmzTb_NzundvIs3nN2ccUFp/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Paracentesis diagnóstica",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/pd",
+       "type": "tutorial"
+      },
+      {
+       "title": "Paracentesis diagnóstica: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1KvZWdeQaO3TKne3YoQgn9orptjUtG4Z4/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Paracentesis terapéutica",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/pt",
+       "type": "tutorial"
+      },
+      {
+       "title": "Paracentesis terapéutica: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1-T50J5frIV4ypeooIKkgLBsGowpvjLfH/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Punción lumbar (raquicentesis)",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/pl",
+       "type": "tutorial"
+      },
+      {
+       "title": "Punción lumbar (raquicentesis): guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/14Koo4W3NOYY8CJXKpXiY4PhZWnEx-AOC/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Raquicentesis: apunte teórico",
+       "url": "https://drive.google.com/file/d/1kP0NdhLyaoFTafzQS3r_1F8lc0yX-DLZ/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Colocación de sonda nasogástrica",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/sng",
+       "type": "tutorial"
+      },
+      {
+       "title": "Colocación de sonda nasogástrica: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1upeeidHIv4xdFtrywSpLdgQAp1YqvPmo/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Sonda nasogástrica: apunte teórico",
+       "url": "https://drive.google.com/file/d/1TSWaOjytXXwkijMx0JjOaHatM5_E1h4N/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Tacto rectal",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/tr",
+       "type": "tutorial"
+      },
+      {
+       "title": "Tacto rectal: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1XI8-z01kjG5pl80iZqlxR3h3hshqf-z5/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tacto rectal: apunte teórico",
+       "url": "https://drive.google.com/file/d/1p1XMIZHxXWr2bietBdjLTNGEH50eduxJ/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Extracción de sangre venosa",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/vp",
+       "type": "tutorial"
+      },
+      {
+       "title": "Extracción de sangre venosa: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1TQH5q-uwQXeDt1ng3CgULcZ1qGSIS0he/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Otoscopía",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/oto",
+       "type": "tutorial"
+      },
+      {
+       "title": "Otoscopía: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1ZRSAvaR_T3toepzV-ULMOH0M6N8vIWRd/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Otoscopía: apunte teórico",
+       "url": "https://drive.google.com/file/d/1lYyZvb5whr2Amryu4XrM4DfNjQElnofa/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Hisopado de fauces",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/hisfa",
+       "type": "tutorial"
+      },
+      {
+       "title": "Hisopado de fauces: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1Gy9vE5CF__xGHVN_-5_nMYDZcI0c-k_G/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Hisopado nasofaríngeo",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/hisnf",
+       "type": "tutorial"
+      },
+      {
+       "title": "Hisopado nasofaríngeo: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1se94VJEUgIjXjAKQd9Z9VTKzCkzYBOiY/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Hisopado uretral femenino",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/hisf",
+       "type": "tutorial"
+      },
+      {
+       "title": "Hisopado uretral femenino: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/18K9S-O-bxT4cnWbAs50NQTRzDLtnma6p/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Tutorial interactivo: Hisopado uretral masculino",
+       "url": "pfo_estudio.html#clinica_medica/procedimientos/hism",
+       "type": "tutorial"
+      },
+      {
+       "title": "Hisopado uretral masculino: guía paso a paso (PDF)",
+       "url": "https://drive.google.com/file/d/1KLDB9NDUwNpScTBKtNFxxBO4GvQA0vex/view?usp=drive_link",
+       "type": "pdf"
+      },
+      {
+       "title": "Toracocentesis (punción pleural): apunte teórico",
+       "url": "https://drive.google.com/file/d/1f1YkQoMMvFuaKdvIjG9iskVX2fnH23h0/view?usp=drive_link",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "pfo3",
+   "number": 3,
+   "etiqueta": "MÓDULO",
+   "title": "Clínica Pediátrica",
+   "parcial": "PFO",
+   "objectives": [],
+   "contents": [
+    "Fiebre, infecciones y antibióticos",
+    "Respiratorio",
+    "Anemia y hierro",
+    "Infección urinaria",
+    "Diarrea e hidratación",
+    "Otros temas de pediatría",
+    "Urgencias respiratorias"
+   ],
+   "bibliography": [],
+   "materiales": [],
+   "videos": [],
+   "secciones": [
+    {
+     "id": "pfo3-1",
+     "title": "Fiebre, infecciones y antibióticos",
+     "objectives": [
+      "Estudiar: Recomendaciones para la Evaluación de los Niños con Cuadros Febriles",
+      "Estudiar: Meningoencefalitis viral",
+      "Estudiar: covid_dengue",
+      "Estudiar: CONVULSIONES FEBRILES",
+      "Estudiar: Consenso para el uso adecuado de antibióticos en el niño menor de 36 meses con fiebre sin foco de infección evidente",
+      "Estudiar: Actualización en antibióticos"
+     ],
+     "contents": [
+      "6 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Recomendaciones para la Evaluación de los Niños con Cuadros Febriles",
+       "url": "https://drive.google.com/file/d/1Sety4FLQFNNF7-c3zP38NaBsYJdLlMbM/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Meningoencefalitis viral",
+       "url": "https://drive.google.com/file/d/1-ydoeTuUA48gHE095HSdRvfsbiNEREde/view",
+       "type": "pdf"
+      },
+      {
+       "title": "covid_dengue",
+       "url": "https://drive.google.com/file/d/1UHnb4YyI5vmBtFyFbBJxDUmc_3fdhuOw/view",
+       "type": "pdf"
+      },
+      {
+       "title": "CONVULSIONES FEBRILES",
+       "url": "https://drive.google.com/file/d/1eW9pHSgRUq_3tOVipiPvq2XazGGDsS2P/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Consenso para el uso adecuado de antibióticos en el niño menor de 36 meses con fiebre sin foco de infección evidente",
+       "url": "https://drive.google.com/file/d/1x_keklWabeJ61CNNj7EqllDFBZpss9tn/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Actualización en antibióticos",
+       "url": "https://drive.google.com/file/d/1O1-7FCOGLxlOT--hk4IoNTm_MdP1AN9e/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo3-2",
+     "title": "Respiratorio",
+     "objectives": [
+      "Estudiar: Recomendaciones para el manejo de las infecciones respiratorias agudas bajas en menores de 2 años. Actualización 2021",
+      "Estudiar: NEUMONÍA ADQUIRIDA EN LA COMUNIDAD El Pediatra de Atención Primaria y la Neumonía",
+      "Estudiar: Guía de diagnóstico y tratamiento asma bronquial en niños ≥ 6 años. Actualización 2021",
+      "Estudiar: Complicaciones de la neumonía adquirida en la comunidad derrame pleural, neumonía necrotizante, absceso pulmonar y pioneumotórax"
+     ],
+     "contents": [
+      "4 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Recomendaciones para el manejo de las infecciones respiratorias agudas bajas en menores de 2 años. Actualización 2021",
+       "url": "https://drive.google.com/file/d/18STkYly69pXnlr9KUtNqEf3mAQU2XXOU/view",
+       "type": "pdf"
+      },
+      {
+       "title": "NEUMONÍA ADQUIRIDA EN LA COMUNIDAD El Pediatra de Atención Primaria y la Neumonía",
+       "url": "https://drive.google.com/file/d/1OiT0s3NbF3HKBga6n7qXk2UXKDAGCH5N/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Guía de diagnóstico y tratamiento asma bronquial en niños ≥ 6 años. Actualización 2021",
+       "url": "https://drive.google.com/file/d/1gWqb3MSvDvwvg7rQULYNDJMzqOnKEBJT/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Complicaciones de la neumonía adquirida en la comunidad derrame pleural, neumonía necrotizante, absceso pulmonar y pioneumotórax",
+       "url": "https://drive.google.com/file/d/11tE-GTaUlkD2F95kFmnnztrgnXVUC3YW/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo3-3",
+     "title": "Anemia y hierro",
+     "objectives": [
+      "Estudiar: PRONAP MÓDULO 2 • Capítulo 3 ABORDAJE DE LA ANEMIA",
+      "Estudiar: ITU Y ANEMIA",
+      "Estudiar: Deficiencia de hierro y anemia ferropénica. Guía para su prevención, diagnóstico y tratamiento",
+      "Estudiar: ABORDAJE DE LA ANEMIA"
+     ],
+     "contents": [
+      "4 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "PRONAP MÓDULO 2 • Capítulo 3 ABORDAJE DE LA ANEMIA",
+       "url": "https://drive.google.com/file/d/1C7SRnuRpaoojFE9XuJk3saPS0yk5Re2j/view",
+       "type": "pdf"
+      },
+      {
+       "title": "ITU Y ANEMIA",
+       "url": "https://drive.google.com/file/d/1P8UM3_LfV9xtfilwGbfH5gdAYHjRZy6g/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Deficiencia de hierro y anemia ferropénica. Guía para su prevención, diagnóstico y tratamiento",
+       "url": "https://drive.google.com/file/d/1jr4E8JUD9HoCM2uD9ht6iNcBwvJCOPd_/view",
+       "type": "pdf"
+      },
+      {
+       "title": "ABORDAJE DE LA ANEMIA",
+       "url": "https://drive.google.com/file/d/127xzaCSu6C6-eBjIERHpPQDeLb9NmW0w/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo3-4",
+     "title": "Infección urinaria",
+     "objectives": [
+      "Estudiar: Infección urinaria"
+     ],
+     "contents": [
+      "1 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Infección urinaria",
+       "url": "https://drive.google.com/file/d/1TuhM87eoPiBmBWpPSDv6jTjkCMLdiUHU/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo3-5",
+     "title": "Diarrea e hidratación",
+     "objectives": [
+      "Estudiar: Fluidoterapia intravenosa de mantenimiento en el niño hospitalizado",
+      "Estudiar: DIARREA AGUDA EN LA INFANCIA. Actualización sobre criterios de diagnóstico y tratamiento"
+     ],
+     "contents": [
+      "2 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Fluidoterapia intravenosa de mantenimiento en el niño hospitalizado",
+       "url": "https://drive.google.com/file/d/10UPZo97GX-jJBUQgNgh9XG61jxPJ1mj3/view",
+       "type": "pdf"
+      },
+      {
+       "title": "DIARREA AGUDA EN LA INFANCIA. Actualización sobre criterios de diagnóstico y tratamiento",
+       "url": "https://drive.google.com/file/d/1vFs5wOxz_pnJ37gT_PgjP0CR6IsA7RSR/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo3-6",
+     "title": "Otros temas de pediatría",
+     "objectives": [
+      "Estudiar: Documento de clase: Otros temas de pediatría (1)",
+      "Estudiar: Presentación de clase: Otros temas de pediatría (1)",
+      "Estudiar: Documento de clase: Otros temas de pediatría (2)"
+     ],
+     "contents": [
+      "3 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Documento de clase: Otros temas de pediatría (1)",
+       "url": "https://docs.google.com/document/d/1ZVaXLe3OxekN21u2B18aE8zdlqLGmmZq/edit",
+       "type": "doc"
+      },
+      {
+       "title": "Presentación de clase: Otros temas de pediatría (1)",
+       "url": "https://docs.google.com/presentation/d/1R_0ZZXzFOXJMpg1A9YaFLg6OMxtRibcU/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Documento de clase: Otros temas de pediatría (2)",
+       "url": "https://docs.google.com/document/d/15Jq03Ow5R3SHsctW9kxjRwmH2ThhIYqU/edit",
+       "type": "doc"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo3-7",
+     "title": "Urgencias respiratorias",
+     "objectives": [
+      "Estudiar: Oxigenoterapia y manejo de la vía aérea - HNRG 2023",
+      "Estudiar: Oxigenoterapia - Ped Integral 2021",
+      "Estudiar: ASMA"
+     ],
+     "contents": [
+      "3 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Oxigenoterapia y manejo de la vía aérea - HNRG 2023",
+       "url": "https://drive.google.com/file/d/1x3tGVxhD5YtW0IMazcOPFoOeskBFnwcA/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Oxigenoterapia - Ped Integral 2021",
+       "url": "https://drive.google.com/file/d/1kf1W-KamcFnTE-K_2GlSZ1GViuJ6M4l0/view",
+       "type": "pdf"
+      },
+      {
+       "title": "ASMA",
+       "url": "https://drive.google.com/file/d/1vqS5BR4UToqZx1ZqinwBXRY-5Iqmk6-f/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "pfo4",
+   "number": 4,
+   "etiqueta": "MÓDULO",
+   "title": "Clínica Quirúrgica",
+   "parcial": "PFO",
+   "objectives": [],
+   "contents": [
+    "Material general",
+    "Pie diabético",
+    "Síndrome coledociano",
+    "Síndrome Ascitico Edematoso - Hipertensión Portal"
+   ],
+   "bibliography": [],
+   "materiales": [],
+   "videos": [],
+   "secciones": [
+    {
+     "id": "pfo4-1",
+     "title": "Material general",
+     "objectives": [
+      "Estudiar: Retención urinaria aguda por cálculo prostático a propósito de un caso",
+      "Estudiar: RETENCION URINARIA AGUDA EN EL SERVICIO DE EMERGENCIA 2014",
+      "Estudiar: Manejo urgente de las complicaciones urológicas en el paciente tumoral",
+      "Estudiar: Frecuencia de abdomen agudo quirúrgico en pacientes que consultan al servicio de urgencias",
+      "Estudiar: ABORDAJE Y MANEJO INICIAL EN EL SERVICIO DE URGENCIAS DEL PACIENTE ADULTO CON RETENCION DE ORINA"
+     ],
+     "contents": [
+      "5 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Retención urinaria aguda por cálculo prostático a propósito de un caso",
+       "url": "https://drive.google.com/file/d/1vKwAjJt0pxm5ADjfe2YtVGsJNc_cQCvP/view",
+       "type": "pdf"
+      },
+      {
+       "title": "RETENCION URINARIA AGUDA EN EL SERVICIO DE EMERGENCIA 2014",
+       "url": "https://drive.google.com/file/d/1Jw3cneKMk_D_3QdzGQvGXhrvRostJmJi/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Manejo urgente de las complicaciones urológicas en el paciente tumoral",
+       "url": "https://drive.google.com/file/d/1Xm17oEbFhXVCMDcW00Ot_4d0RLjnyKwa/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Frecuencia de abdomen agudo quirúrgico en pacientes que consultan al servicio de urgencias",
+       "url": "https://drive.google.com/file/d/18UYTPA_P8kb8XoDCDROUai0VRZP3mcrX/view",
+       "type": "pdf"
+      },
+      {
+       "title": "ABORDAJE Y MANEJO INICIAL EN EL SERVICIO DE URGENCIAS DEL PACIENTE ADULTO CON RETENCION DE ORINA",
+       "url": "https://drive.google.com/file/d/13bBOfhd6O6XdK2qUUmn19hlY7A-DC9Me/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo4-2",
+     "title": "Pie diabético",
+     "objectives": [
+      "Estudiar: Protocolo Pie DBT",
+      "Estudiar: Pie Diabético"
+     ],
+     "contents": [
+      "2 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Protocolo Pie DBT",
+       "url": "https://drive.google.com/file/d/1r-2dVV-oQ8vTA6vQV73nZSkADLzU15_V/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Pie Diabético",
+       "url": "https://drive.google.com/file/d/188sdaq6ZBQ7LpQmxneyFE27JYq7IW-H6/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo4-3",
+     "title": "Síndrome coledociano",
+     "objectives": [
+      "Estudiar: Sindrome Coledociano",
+      "Estudiar: Enfoque Actualizado Sindrome Coledociano"
+     ],
+     "contents": [
+      "2 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Sindrome Coledociano",
+       "url": "https://drive.google.com/file/d/1FhsJ6Qmq5uwe2fVswMKT8ZgXysPuFmjb/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Enfoque Actualizado Sindrome Coledociano",
+       "url": "https://drive.google.com/file/d/1U6PA1V4zbkond2PVX6KiaYJbtt13lgmF/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo4-4",
+     "title": "Síndrome Ascitico Edematoso - Hipertensión Portal",
+     "objectives": [
+      "Estudiar: Sindrome Ascitico Edematoso",
+      "Estudiar: Sindrome Ascitico Edematoso por HP",
+      "Estudiar: Patogenesis de la Hipertension Portal",
+      "Estudiar: Clasificación Hipertensión Portal",
+      "Estudiar: Ascitis"
+     ],
+     "contents": [
+      "5 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Sindrome Ascitico Edematoso",
+       "url": "https://drive.google.com/file/d/12rCxAmoFGP1idiAFikEUFVLpTW5V6lQV/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Sindrome Ascitico Edematoso por HP",
+       "url": "https://drive.google.com/file/d/1FVwoKZ5uVgZzScMZl4CQYe3jw_HzLvR_/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Patogenesis de la Hipertension Portal",
+       "url": "https://drive.google.com/file/d/1MB_61XaobXwgN75ZiAncSVRm5Hkf1Gis/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Clasificación Hipertensión Portal",
+       "url": "https://drive.google.com/file/d/1RMQEZqFJfS6GbbGPyzr7xJkfM4AUUv3u/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Ascitis",
+       "url": "https://drive.google.com/file/d/11KStVF7QCA5Zw5f5H-TKEmrQzq66gqqv/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "pfo5",
+   "number": 5,
+   "etiqueta": "MÓDULO",
+   "title": "Emergentología",
+   "parcial": "PFO",
+   "objectives": [],
+   "contents": [
+    "Material general",
+    "Bradiarritmias",
+    "Clases virtuales Emergentología",
+    "Complicaciones de la Diabetes",
+    "Crisis hipertensiva",
+    "EAP (edema agudo de pulmón)",
+    "Estatus epiléptico",
+    "Ventilación no invasiva (VNI)",
+    "Paro cardíaco",
+    "Síndromes coronarios agudos",
+    "Shock cardiogénico",
+    "Taquiarritmias",
+    "Trastornos ácido-base"
+   ],
+   "bibliography": [],
+   "materiales": [],
+   "videos": [],
+   "secciones": [
+    {
+     "id": "pfo5-1",
+     "title": "Material general",
+     "objectives": [
+      "Estudiar: Presentación de clase: Material general (1)",
+      "Ver la clase: BODY ESPINAL- FERNO KED",
+      "Ver la clase: RETIRADA DEL CASCO EN ACCIDENTES",
+      "Estudiar: Directrices para la evaluación y el tratamiento del estado epiléptico",
+      "Estudiar: Consenso de Enfermedad Tromboembólica Aguda",
+      "Estudiar: ATLS SOPORTE VITAL EN TRAUMA",
+      "Estudiar: ASPECTOS DESTACADOS RCP Y ACE"
+     ],
+     "contents": [
+      "5 materiales y 2 videos"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Presentación de clase: Material general (1)",
+       "url": "https://docs.google.com/presentation/d/1mGOVHOXrYwCCAvxWyuFSmHBlTsJtxQ_F/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Directrices para la evaluación y el tratamiento del estado epiléptico",
+       "url": "https://drive.google.com/file/d/1DKPiPZdwFu1A8aGAiFPd9NIC9OFb1bZ-/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Consenso de Enfermedad Tromboembólica Aguda",
+       "url": "https://drive.google.com/file/d/1rC_B83dq9mSXe28g2IiJtOfwXs5sQbQ0/view",
+       "type": "pdf"
+      },
+      {
+       "title": "ATLS SOPORTE VITAL EN TRAUMA",
+       "url": "https://drive.google.com/file/d/15oaGgiRMl8xnHwNEEq_DyryfvefMa7AT/view",
+       "type": "pdf"
+      },
+      {
+       "title": "ASPECTOS DESTACADOS RCP Y ACE",
+       "url": "https://drive.google.com/file/d/1brj6CsIxxubs-2vrLBhJpXiCY6sDQFgS/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": [
+      {
+       "title": "BODY ESPINAL- FERNO KED",
+       "url": "https://www.youtube.com/watch?v=yPQ-RzYs-RE",
+       "type": "video"
+      },
+      {
+       "title": "RETIRADA DEL CASCO EN ACCIDENTES",
+       "url": "https://www.youtube.com/watch?v=DUjUprzz8lQ",
+       "type": "video"
+      }
+     ]
+    },
+    {
+     "id": "pfo5-2",
+     "title": "Bradiarritmias",
+     "objectives": [
+      "Estudiar: S0300893212001789",
+      "Estudiar: Presentación de clase: Bradiarritmias (1)"
+     ],
+     "contents": [
+      "2 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "S0300893212001789",
+       "url": "https://drive.google.com/file/d/11kwOipbH73ReM969CjSI_5xg4i20t4Bq/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Presentación de clase: Bradiarritmias (1)",
+       "url": "https://docs.google.com/presentation/d/1SYnDtsjky2OTWOUm01QIGYNaA4pFXdxN/edit",
+       "type": "ppt"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-3",
+     "title": "Clases virtuales Emergentología",
+     "objectives": [
+      "Estudiar: Presentación de clase: Clases virtuales Emergentología (1)",
+      "Estudiar: Presentación de clase: Clases virtuales Emergentología (2)",
+      "Estudiar: Presentación de clase: Clases virtuales Emergentología (3)"
+     ],
+     "contents": [
+      "3 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Presentación de clase: Clases virtuales Emergentología (1)",
+       "url": "https://docs.google.com/presentation/d/1QsM-K9nVQYr2-FhcJYMF5I6TAfxx2sop/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Presentación de clase: Clases virtuales Emergentología (2)",
+       "url": "https://docs.google.com/presentation/d/1MNQaZPDDq0cTUsqO7ZcHvgq-Wh1g-VG_/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Presentación de clase: Clases virtuales Emergentología (3)",
+       "url": "https://docs.google.com/presentation/d/191q1GlZej6LJhe5gVfYsDiThR_jSJ7jY/edit",
+       "type": "ppt"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-4",
+     "title": "Complicaciones de la Diabetes",
+     "objectives": [
+      "Estudiar: Presentación de clase: Complicaciones de la Diabetes (1)",
+      "Estudiar: Presentación de clase: Complicaciones de la Diabetes (2)",
+      "Estudiar: CECSATI - Cetoacidosis diabetica",
+      "Estudiar: CAD en niños"
+     ],
+     "contents": [
+      "4 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Presentación de clase: Complicaciones de la Diabetes (1)",
+       "url": "https://docs.google.com/presentation/d/1nxuAq73oGyv6qmMgpgTzvQBgJC4kXAUq/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Presentación de clase: Complicaciones de la Diabetes (2)",
+       "url": "https://docs.google.com/presentation/d/1Nr9kX5eAsz2rDIePWRxNy3qIOJSmfH-T/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "CECSATI - Cetoacidosis diabetica",
+       "url": "https://drive.google.com/file/d/1SkGluAwGkiWB1LrbhkN5hG3N0xR0_g_W/view",
+       "type": "pdf"
+      },
+      {
+       "title": "CAD en niños",
+       "url": "https://drive.google.com/file/d/1sU5qyeMmJ5sdKAixK02k5FLFCXciRB80/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-5",
+     "title": "Crisis hipertensiva",
+     "objectives": [
+      "Estudiar: Urgencia hipertensiva Ministerio de Salud Nacion",
+      "Estudiar: Traduccion-de-las-Guías-de-HTA-de-la-ACC-AHA-2017d",
+      "Estudiar: Presentación de clase: Crisis hipertensiva (1)",
+      "Estudiar: 13045397"
+     ],
+     "contents": [
+      "4 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Urgencia hipertensiva Ministerio de Salud Nacion",
+       "url": "https://drive.google.com/file/d/1Ur6WOe3uPA7OBbZFnNp5zRbTh_oiPvPj/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Traduccion-de-las-Guías-de-HTA-de-la-ACC-AHA-2017d",
+       "url": "https://drive.google.com/file/d/1BePqClh9bkUAan3w8JyUJHUoqvK6rYDQ/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Presentación de clase: Crisis hipertensiva (1)",
+       "url": "https://docs.google.com/presentation/d/1GWeywYLgTXIzTugxOlSO77jhcBNEdTWY/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "13045397",
+       "url": "https://drive.google.com/file/d/1PZHxXFQWf4y9JJOxlSc8HZgORFaREghP/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-6",
+     "title": "EAP (edema agudo de pulmón)",
+     "objectives": [
+      "Estudiar: Patogénesis del edema pulmonar cardiogénico secundario a hipertensión arterial nejm200101043440103",
+      "Estudiar: Insuf Cardíaca y Edema agudo de pulmón",
+      "Estudiar: Edema pulmonar Cardiogénico dobbe2019",
+      "Estudiar: Presentación de clase: EAP (edema agudo de pulmón) (1)",
+      "Estudiar: Documento de clase: EAP (edema agudo de pulmón) (1)"
+     ],
+     "contents": [
+      "5 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Patogénesis del edema pulmonar cardiogénico secundario a hipertensión arterial nejm200101043440103",
+       "url": "https://drive.google.com/file/d/1Rs7ge5-0KOr3njLmHYwK-vC1GF1mCzHm/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Insuf Cardíaca y Edema agudo de pulmón",
+       "url": "https://drive.google.com/file/d/1j9iLwr_aykvM63oq_Wpux8rvYpNmw3hA/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Edema pulmonar Cardiogénico dobbe2019",
+       "url": "https://drive.google.com/file/d/1u4gGa-Ji_G8WAUd2MsTrZkU_KEqTSWOS/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Presentación de clase: EAP (edema agudo de pulmón) (1)",
+       "url": "https://docs.google.com/presentation/d/1QZCfgclHLYhnUuT97sHQZP-DH5mcvOIC/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Documento de clase: EAP (edema agudo de pulmón) (1)",
+       "url": "https://docs.google.com/document/d/1xVUyN2WmpCbHnswRWv5DkCw53pRoxjkS/edit",
+       "type": "doc"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-7",
+     "title": "Estatus epiléptico",
+     "objectives": [
+      "Estudiar: Spanish_translation_SE_Guidelines_NCS (1) status",
+      "Estudiar: Presentación de clase: Estatus epiléptico (1)",
+      "Estudiar: Documento de clase: Estatus epiléptico (1)"
+     ],
+     "contents": [
+      "3 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Spanish_translation_SE_Guidelines_NCS (1) status",
+       "url": "https://drive.google.com/file/d/1yYuXibLBA2MFD_-t2BHkRhapJezIHdSx/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Presentación de clase: Estatus epiléptico (1)",
+       "url": "https://docs.google.com/presentation/d/1pzUHzt4-78PpZ42RW7ikZwHGKm5RctPX/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Documento de clase: Estatus epiléptico (1)",
+       "url": "https://docs.google.com/document/d/1iUaeEE0_t7g4vl-41VE1RkhBlTKr5qtR/edit",
+       "type": "doc"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-8",
+     "title": "Ventilación no invasiva (VNI)",
+     "objectives": [
+      "Estudiar: Presentación de clase: Ventilación no invasiva (VNI) (1)",
+      "Estudiar: Guia VNI en IRA",
+      "Estudiar: Consenso_Argentino_De_Ventilacion_No_Invasiva",
+      "Estudiar: 1-s2.0-S2444340917000103-main"
+     ],
+     "contents": [
+      "4 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Presentación de clase: Ventilación no invasiva (VNI) (1)",
+       "url": "https://docs.google.com/presentation/d/1TXlGkXhRDPzG9X8sys87lkaDRrveeOWg/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Guia VNI en IRA",
+       "url": "https://drive.google.com/file/d/1WNcsDfd8A7nhLKAFM5yTZS8zzb-ew2bh/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Consenso_Argentino_De_Ventilacion_No_Invasiva",
+       "url": "https://drive.google.com/file/d/1JnuoiI3-xrrESIRHFsz7A_ALl9UX_10E/view",
+       "type": "pdf"
+      },
+      {
+       "title": "1-s2.0-S2444340917000103-main",
+       "url": "https://drive.google.com/file/d/1mwlThfhj4yRFPlQCKbzaw88n0mIIuBG6/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-9",
+     "title": "Paro cardíaco",
+     "objectives": [
+      "Estudiar: Algoritmos-AHA-2025-Ebook-Urgencias-y-Emergencias"
+     ],
+     "contents": [
+      "1 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Algoritmos-AHA-2025-Ebook-Urgencias-y-Emergencias",
+       "url": "https://drive.google.com/file/d/1O1z3gDNWS7mtGrzfZeEEcKm0s8mxCw3I/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-10",
+     "title": "Síndromes coronarios agudos",
+     "objectives": [
+      "Estudiar: SindromesCoronariosAgudos2018_final (1)",
+      "Estudiar: Presentación de clase: Síndromes coronarios agudos (1)",
+      "Estudiar: SCASEST_Proceso_20170104_Final (1)",
+      "Estudiar: Presentación de clase: Síndromes coronarios agudos (2)",
+      "Estudiar: GUÍA ESC SCACST IAM ST 2017",
+      "Estudiar: consenso-scasest-2019 (1)"
+     ],
+     "contents": [
+      "6 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "SindromesCoronariosAgudos2018_final (1)",
+       "url": "https://drive.google.com/file/d/1N8htn4Q-5mPGRpJ46CVRGN0FxwiNSx-t/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Presentación de clase: Síndromes coronarios agudos (1)",
+       "url": "https://docs.google.com/presentation/d/1LQpVYHDkqs2NsJQpnT8V7fF5B-ciPtoo/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "SCASEST_Proceso_20170104_Final (1)",
+       "url": "https://drive.google.com/file/d/1vtGk9bX2wgJOrcdKdqfryuPY-cgqGRlA/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Presentación de clase: Síndromes coronarios agudos (2)",
+       "url": "https://docs.google.com/presentation/d/1HFdYV-WiIthLLsdch58tJbq97YDpkQn6/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "GUÍA ESC SCACST IAM ST 2017",
+       "url": "https://drive.google.com/file/d/1Yvdidas4wz_j9ItgivQDvLBQN0tCgVGY/view",
+       "type": "pdf"
+      },
+      {
+       "title": "consenso-scasest-2019 (1)",
+       "url": "https://drive.google.com/file/d/1Toge86GRCkZ57cUsdRThw7A6hrOHU57C/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-11",
+     "title": "Shock cardiogénico",
+     "objectives": [
+      "Estudiar: Presentación de clase: Shock cardiogénico (1)",
+      "Estudiar: Manejo del Shock Cardiogénico por objetivos chakravarthy2018",
+      "Estudiar: Manejo del Shock Cardiogénico en el síndrome coronario agudo rathod2019",
+      "Estudiar: INOTRÓPICOS Y VASOPRESORES",
+      "Estudiar: Hemodinamia del Shock Cardiogénico furer2017",
+      "Estudiar: Actualización del manejo del shock cardiogénico en sindrome coronario agudo bagai2019"
+     ],
+     "contents": [
+      "6 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Presentación de clase: Shock cardiogénico (1)",
+       "url": "https://docs.google.com/presentation/d/1Z5WLt9vKvXcUOy50ktsICKiNQfx5jtYy/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Manejo del Shock Cardiogénico por objetivos chakravarthy2018",
+       "url": "https://drive.google.com/file/d/1gU5vgOq4joeslH39rxx3NDqSfmvaRp2t/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Manejo del Shock Cardiogénico en el síndrome coronario agudo rathod2019",
+       "url": "https://drive.google.com/file/d/1EooiwP74nmHyOmw0xOO31jKZ-dhf2xNT/view",
+       "type": "pdf"
+      },
+      {
+       "title": "INOTRÓPICOS Y VASOPRESORES",
+       "url": "https://drive.google.com/file/d/14TqZIczG2e3GemW7vP6ouCvjx_hM_SRZ/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Hemodinamia del Shock Cardiogénico furer2017",
+       "url": "https://drive.google.com/file/d/1XOgs4TxH7yiG9Foox479QLvJLJyzkSB4/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Actualización del manejo del shock cardiogénico en sindrome coronario agudo bagai2019",
+       "url": "https://drive.google.com/file/d/1PXZPHIaHlPuv3kvao39mp5MVcnCjJ0Hg/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-12",
+     "title": "Taquiarritmias",
+     "objectives": [
+      "Estudiar: Presentación de clase: Taquiarritmias (1)"
+     ],
+     "contents": [
+      "1 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Presentación de clase: Taquiarritmias (1)",
+       "url": "https://docs.google.com/presentation/d/1mKvkbm1C8t9RcEXY-2RKrHkKoU3fTZ08/edit",
+       "type": "ppt"
+      }
+     ],
+     "videos": []
+    },
+    {
+     "id": "pfo5-13",
+     "title": "Trastornos ácido-base",
+     "objectives": [
+      "Estudiar: Trastornos de equilibrio acido base SATI",
+      "Estudiar: Trastornos acido-base",
+      "Estudiar: Presentación de clase: Trastornos ácido-base (1)",
+      "Estudiar: Comprendiendo los estados acido-base gomez2015",
+      "Estudiar: Comparación de dos enfoques para el análisis de los trastornos acido-base"
+     ],
+     "contents": [
+      "5 materiales"
+     ],
+     "bibliography": [],
+     "materiales": [
+      {
+       "title": "Trastornos de equilibrio acido base SATI",
+       "url": "https://drive.google.com/file/d/194t-6j5LbLe2zq1DN2mCiXT1D3XF8sYW/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Trastornos acido-base",
+       "url": "https://drive.google.com/file/d/1OmjEcBEdN-ihCXsThgMoTdZ2GxX36MUq/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Presentación de clase: Trastornos ácido-base (1)",
+       "url": "https://docs.google.com/presentation/d/1a7e3-H9xg-PeyKPDx5QjXfhjR_cB4cvD/edit",
+       "type": "ppt"
+      },
+      {
+       "title": "Comprendiendo los estados acido-base gomez2015",
+       "url": "https://drive.google.com/file/d/1ybcqkyDW5fJ4UKZxpIh7Ez-XwqAOv0iF/view",
+       "type": "pdf"
+      },
+      {
+       "title": "Comparación de dos enfoques para el análisis de los trastornos acido-base",
+       "url": "https://drive.google.com/file/d/1Ug2Ev-ltCd6mVp0eE4rop0Re8f6BQ5xM/view",
+       "type": "pdf"
+      }
+     ],
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "pfo6",
+   "number": 6,
+   "etiqueta": "MÓDULO",
+   "title": "Ginecología y Obstetricia",
+   "parcial": "PFO",
+   "objectives": [],
+   "contents": [
+    "Control preconcepcional, prenatal y puerperal; sangrado uterino anormal; evaluación mamaria."
+   ],
+   "bibliography": [],
+   "materiales": [],
+   "videos": [],
+   "objectivesNote": "Este módulo se está armando: pronto vas a encontrar acá los contenidos, procedimientos y bibliografía de la rotación."
+  },
+  {
+   "id": "pfo7",
+   "number": 7,
+   "etiqueta": "MÓDULO",
+   "title": "Salud Familiar y General",
+   "parcial": "PFO",
+   "objectives": [],
+   "contents": [
+    "Atención primaria, enfermedades crónicas, tabaquismo, adulto mayor y prevención."
+   ],
+   "bibliography": [],
+   "materiales": [],
+   "videos": [],
+   "objectivesNote": "Este módulo se está armando: pronto vas a encontrar acá los contenidos, procedimientos y bibliografía de la rotación."
+  },
+  {
+   "id": "pfo8",
+   "number": 8,
+   "etiqueta": "MÓDULO",
+   "title": "Bibliografía actualizada",
+   "parcial": "PFO",
+   "objectives": [],
+   "contents": [
+    "Guías y consensos vigentes: hipertensión, piel y partes blandas, infecciones de transmisión sexual."
+   ],
+   "bibliography": [],
+   "materiales": [],
+   "videos": [],
+   "objectivesNote": "Este módulo se está armando: pronto vas a encontrar acá los contenidos, procedimientos y bibliografía de la rotación."
+  }
+ ],
+ "booksRepository": {}
+}

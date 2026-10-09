@@ -87,7 +87,7 @@
         if (it.tipo === 'pdf') return `<a class="${claseItem(it)} ok" href="${esc(it.url)}" target="_blank" rel="noopener" style="--d:${i}"><span class="ic">${ic}</span><span class="t">${esc(it.titulo)}</span><span class="ch">PDF ↗</span></a>`;
         return `<div class="${claseItem(it)}" style="--d:${i}"><span class="ic">${ic}</span><span class="t">${esc(it.titulo)}</span><span class="ch">Próximamente</span></div>`;
       }).join('')}</div>`;
-      if (s.videos && s.videos.length) cuerpo += `<h3 class="pe-sub">🎬 Clases en video</h3><div class="pe-videos">${s.videos.map((v, i) => `<button type="button" class="pe-video" data-yt="${esc(v.yt)}" data-t="${esc(v.titulo)}" style="--d:${i}"><span class="mi" style="background-image:url(${ytThumb(v.yt)})"><i>▶</i></span><span class="tt">${esc(v.titulo)}</span></button>`).join('')}</div>`;
+      if (s.videos && s.videos.length) cuerpo += `<h3 class="pe-sub">🎬 Clases en video</h3><div class="pe-videos">${s.videos.map((v, i) => `<button type="button" class="pe-video" data-yt="${esc(v.yt)}" data-t="${esc(v.titulo)}" style="--d:${i}"><span class="pe-mini" style="background-image:url(${ytThumb(v.yt)})"><i>▶</i></span><span class="tt">${esc(v.titulo)}</span></button>`).join('')}</div>`;
     }
     main.innerHTML = volver + cab + cuerpo;
     $$('.pe-video', main).forEach((b) => b.addEventListener('click', () => reproducir(b.dataset.yt, b.dataset.t)));
@@ -103,7 +103,7 @@
     const t0 = Date.now(); const iv = setInterval(() => { x.clearRect(0, 0, W, H); P.forEach((p) => { p.x += p.vx; p.y += p.vy; p.r += p.vr; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore(); }); if (Date.now() - t0 > 3500) { clearInterval(iv); cv.remove(); } }, 33);
   }
   function vistaProc(m, s, it) {
-    const pr = PROC[it.proc]; const volver = `<a class="pe-back" href="#${m.id}/${s.id}">← ${esc(s.titulo)}</a>`;
+    const pr = PROC[it.proc]; const volver = `<a class="pe-back" href="estudio.html?modulo=pfo">← Sala de Estudio PFO</a>`;
     if (!pr) { main.innerHTML = volver + '<div class="pe-aviso">Este procedimiento todavía no tiene los pasos cargados.</div>'; return; }
     const pasos = pr.pasos.map((p) => ({ n: p.n, t: limpio(p.texto), fase: p.fase || '', crit: !!p.critico }));
     const k = 'proc_' + it.proc; const est = leer(); const mio = est[k] || { checks: [], hecho: 0 }; const guardarMio = () => { const e = leer(); e[k] = mio; guardar(e); };
@@ -186,7 +186,7 @@
   // ------------------------------------------------------------------ recorrido de Generalidades
   function vistaRecorrido() {
     const R = D.recorrido; const est = leer(); est.tour = est.tour || { vistos: [], mejor: 0 }; let idx = 0;
-    main.innerHTML = `<a class="pe-back" href="#">← Todos los módulos</a>
+    main.innerHTML = `<a class="pe-back" href="estudio.html?modulo=pfo">← Sala de Estudio PFO</a>
       <div class="pe-mod-h" style="--c:#0ea5e9"><span class="ic">🧭</span><div><h2>${esc(R.titulo)}</h2><p>${esc(R.subtitulo)}</p></div></div>
       <div class="pe-prog-top" style="margin-top:16px"><b id="pe-pt"></b></div>
       <div class="pe-tour"><nav class="pe-rail" aria-label="Pasos del recorrido">${R.pasos.map((p, i) => `<button type="button" data-i="${i}"><span class="ic">${p.icono}</span><span class="t">${esc(p.titulo)}</span><span class="ok">✓</span></button>`).join('')}</nav><div><div class="pe-stage" id="pe-stage"></div><div class="pe-nav"><button type="button" class="pfo-btn sec" id="pe-ant">← Anterior</button><span class="cnt" id="pe-cnt"></span><button type="button" class="pfo-btn pulso" id="pe-sig">Siguiente ➜</button></div></div></div>`;
@@ -268,7 +268,7 @@
         let q = 0, ok = 0;
         const pintar = () => {
           if (q >= p.preguntas.length) { const mejor = Math.max(est.tour.mejor || 0, ok); est.tour.mejor = mejor; p.preguntas.forEach(() => {}); R.pasos.forEach((x) => marcar(x.id)); guardar(est); barra(); if (ok >= 6) confeti();
-            c.innerHTML = `<div class="pe-fin"><div class="big">${ok === p.preguntas.length ? '🏆' : ok >= 6 ? '🎉' : '📚'}</div><h3>${ok} de ${p.preguntas.length} correctas</h3><p>${ok === p.preguntas.length ? '¡Perfecto! Dominás cómo funciona la PFO.' : ok >= 6 ? '¡Muy bien! Repasá el recorrido para pulir los detalles.' : 'Repasá el recorrido y volvé a intentarlo: ya tenés todo a mano.'} Tu mejor resultado: ${mejor} de ${p.preguntas.length}.</p><div class="pe-nav" style="justify-content:center"><button class="pfo-btn" id="pq-otra">↺ Jugar de nuevo</button><a class="pfo-btn sec" href="#">Ver otros módulos</a></div></div>`; $('#pq-otra').addEventListener('click', () => { q = 0; ok = 0; pintar(); }); return; }
+            c.innerHTML = `<div class="pe-fin"><div class="big">${ok === p.preguntas.length ? '🏆' : ok >= 6 ? '🎉' : '📚'}</div><h3>${ok} de ${p.preguntas.length} correctas</h3><p>${ok === p.preguntas.length ? '¡Perfecto! Dominás cómo funciona la PFO.' : ok >= 6 ? '¡Muy bien! Repasá el recorrido para pulir los detalles.' : 'Repasá el recorrido y volvé a intentarlo: ya tenés todo a mano.'} Tu mejor resultado: ${mejor} de ${p.preguntas.length}.</p><div class="pe-nav" style="justify-content:center"><button class="pfo-btn" id="pq-otra">↺ Jugar de nuevo</button><a class="pfo-btn sec" href="estudio.html?modulo=pfo">Volver a la Sala de Estudio</a></div></div>`; $('#pq-otra').addEventListener('click', () => { q = 0; ok = 0; pintar(); }); return; }
           const x = p.preguntas[q];
           c.innerHTML = `<div class="pe-prog-top"><b style="width:${Math.round((q / p.preguntas.length) * 100)}%"></b></div><small style="font-weight:800;color:var(--pf-mut)">Pregunta ${q + 1} de ${p.preguntas.length} · ${ok} correctas</small><div class="pe-q">${esc(x.q)}</div><div class="pe-ops">${x.o.map((t, i) => `<button type="button" data-i="${i}">${esc(t)}</button>`).join('')}</div><div id="pq-e"></div>`;
           $$('.pe-ops button', c).forEach((b) => b.addEventListener('click', () => {
@@ -287,6 +287,8 @@
     document.onkeydown = null; cerrarModal();
     const [mid, sid, pid] = decodeURIComponent(location.hash.replace(/^#/, '')).split('/');
     if (!D) return;
+    // Esta pantalla solo muestra los recorridos y tutoriales interactivos; el resto vive en la Sala de Estudio completa
+    if (!(mid === 'generalidades' || (mid && sid && pid))) { location.replace('estudio.html?modulo=pfo'); return; }
     if (!mid) { vistaHub(); } else {
       const m = modulo(mid); if (!m) { vistaHub(); } else if (!sid) vistaModulo(m); else {
         const s = (m.secciones || []).find((x) => x.id === sid); if (!s) vistaModulo(m); else if (pid) { const it = (s.items || []).find((x) => x.proc === pid); it ? vistaProc(m, s, it) : vistaSeccion(m, s); } else vistaSeccion(m, s);
