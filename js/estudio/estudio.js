@@ -642,10 +642,12 @@ function abrirModalSeccionesUP(unit) {
           const temas = (sec.contents || []).filter(Boolean);
           const lista = temas.slice(0, 4).map(t => `<li>${esc2(String(t).length > 130 ? String(t).slice(0, 127) + '…' : t)}</li>`).join('') + (temas.length > 4 ? `<li>y ${temas.length - 4} temas más</li>` : '');
           const nm = (sec.materiales || []).length, nv = (sec.videos || []).length, no = (sec.objectives || []).length;
-          return `<button type="button" class="hub-card" style="--c:${col};animation-delay:${0.05 * i}s" onclick="abrirSeccionUP('${unit.id}', ${i})">
+          // si la sección es un único tour interactivo (caso clínico), el mosaico lo abre directo
+          const directo = (sec.materiales || []).length === 1 && !(sec.videos || []).length && sec.materiales[0].type === 'tutorial' ? sec.materiales[0].url : null;
+          return `<button type="button" class="hub-card" style="--c:${col};animation-delay:${0.05 * i}s" onclick="${directo ? `location.href='${directo}'` : `abrirSeccionUP('${unit.id}', ${i})`}">
             <div class="top"><span class="ic" style="animation-delay:${0.05 * i + 0.15}s">${iconoPara(sec, i)}</span><div><div class="n">SECCIÓN ${i + 1}</div><h4>${esc2(sec.title)}</h4></div></div>
             ${lista ? `<div class="lbl">Qué abarca</div><ul>${lista}</ul>` : ''}
-            <div class="foot">${no ? `<span class="pill">🎯 ${no} objetivos</span>` : ''}${nm ? `<span class="pill">📄 ${nm} materiales</span>` : ''}${nv ? `<span class="pill">🎬 ${nv} videos</span>` : ''}<span class="go">Abrir →</span></div>
+            <div class="foot">${no ? `<span class="pill">🎯 ${no} objetivos</span>` : ''}${nm ? `<span class="pill">📄 ${nm} materiales</span>` : ''}${nv ? `<span class="pill">🎬 ${nv} videos</span>` : ''}<span class="go">${directo ? 'Empezar el tour →' : 'Abrir →'}</span></div>
           </button>`;
       }).join('')}</div>`;
     document.getElementById('view-dashboard').style.display = 'none';
