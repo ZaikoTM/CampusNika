@@ -301,7 +301,7 @@
           <div class="pc-col">
             <article class="pc-card pc-est"><div class="pc-est-h"><h3>🎯 Tu estación</h3><button type="button" class="pfo-btn sec" id="pc-reloj"><span id="pc-t">▶ Empezar con reloj · ${c.minutos} min</span></button></div>
               <div class="pc-barra"><i id="pc-b"></i></div><small id="pc-p" class="pc-prog"></small>
-              <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label></li>`).join('')}</ol>
+              <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label>${c.respuestas && c.respuestas[i] ? `<button type="button" class="pc-ver" data-r="${i}" aria-expanded="false">👁 Ver respuesta modelo</button><div class="pc-resp" id="pc-r${i}" hidden><div class="pc-borr">🧪 Borrador en revisión</div><ul>${c.respuestas[i].puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}</li>`).join('')}</ol>${c.verificar ? `<p class="pc-ver-nota">📖 <b>Para verificar:</b> ${esc(c.verificar)}</p>` : ''}
               <p class="pc-nota">${c.tareasGenericas ? 'Este caso no trae consignas específicas: usá la estructura habitual de una estación. ' : ''}Resolvé cada punto <b>en voz alta</b>, como frente al evaluador, y tildalo cuando lo hayas dicho completo. No hay respuestas modelo: contrastá lo que dijiste con la bibliografía.</p>
               <div class="pc-fin" id="pc-fin" hidden><div class="big">🎉</div><h3>¡Estación completa!</h3><p>Resolviste todas las consignas. Ahora repasá la bibliografía y ponete a prueba con el simulador.</p><div class="pe-nav" style="justify-content:center"><a class="pfo-btn" href="pfo_ecoe.html">📝 Practicar en el simulador ECOE</a><a class="pfo-btn sec" href="estudio.html?modulo=pfo">Volver a la Sala de Estudio</a></div></div>
             </article>
@@ -316,6 +316,7 @@
       const fin = $('#pc-fin'); const completa = n === chk.length; if (completa && fin.hidden) { fin.hidden = false; fin.classList.add('on'); toast('🎉 ¡Estación completa!'); if (iv) { clearInterval(iv); iv = null; } } else if (!completa) fin.hidden = true;
     };
     chk.forEach((x, i) => { x.checked = hechas.has(i); x.addEventListener('change', () => { const e2 = leer(); e2.casos = e2.casos || {}; e2.casos[c.id] = chk.map((y, k) => (y.checked ? k : -1)).filter((k) => k >= 0); guardar(e2); pintar(); }); });
+    $$('.pc-ver').forEach((bt) => bt.addEventListener('click', () => { const bx = $('#pc-r' + bt.dataset.r); const ab = bx.hidden; bx.hidden = !ab; bt.setAttribute('aria-expanded', String(ab)); bt.textContent = ab ? '🙈 Ocultar respuesta modelo' : '👁 Ver respuesta modelo'; if (ab) bx.classList.add('on'); }));
     pintar();
     $('#pc-reloj').addEventListener('click', () => {
       const t = $('#pc-t');
