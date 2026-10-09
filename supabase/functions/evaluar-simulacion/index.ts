@@ -62,6 +62,7 @@ const COSTO_POR_SIMULADOR: Record<string, number> = {
     'pase_sala': 3,
     'shock_room': 3,
     'consultorio_legales': 3,
+    'caso_pfo': 0,   // práctica con el evaluador en los casos clínicos de la PFO: exclusivo NikaMed+, no descuenta créditos (ver el chequeo de plan más abajo)
 };
 const COSTO_DEFAULT = 1;
 
@@ -275,6 +276,22 @@ Deno.serve(withCors(async (req: Request) => {
     if (typeof mensaje !== "string" || !mensaje.trim()) {
         return jsonResponse(400, { error: "mensaje_requerido", mensaje: "Falta el mensaje del turno." });
     }
+    // ---- Práctica de casos clínicos de la PFO: EXCLUSIVO NikaMed+ (o admin), forzado en el servidor ----
+    // No hay usos de cortesía ni créditos para este modo: si la cuenta no es ilimitada, se rechaza antes de tocar a Gemini.
+    if (modo === "caso_pfo") {
+        const planPfo = await consultarPlan(supabaseAuth);
+        if (!planPfo.ok) {
+            return jsonResponse(503, { error: "plan_no_verificable", mensaje: "No pudimos verificar tu plan. Reintentá en unos segundos." });
+        }
+        if (!planPfo.ilimitado) {
+            return jsonResponse(403, { error: "requiere_nikamed_plus", mensaje: "La práctica con el evaluador es exclusiva de NikaMed+." });
+        }
+        // Topes de tamaño para que nadie use el endpoint como un chat libre.
+        if (typeof system_prompt !== "string" || system_prompt.length > 30000 || mensaje.length > 4000 || (Array.isArray(historial) && historial.length > 70)) {
+            return jsonResponse(400, { error: "solicitud_excedida", mensaje: "La solicitud supera los límites de la práctica." });
+        }
+    }
+
     // Nota: `es_cortesia_gratis` (si vino) se ignora a propósito como fuente de
     // verdad — es solo una pista informativa del cliente. Quién decide si hay
     // cortesía disponible es siempre el servidor (ver más abajo).

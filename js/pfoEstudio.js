@@ -309,12 +309,14 @@
             <article class="pc-card pc-est"><div class="pc-est-h"><h3>🎯 Tu estación</h3><button type="button" class="pfo-btn sec" id="pc-reloj"><span id="pc-t">▶ Empezar con reloj · ${c.minutos} min</span></button></div>
               <div class="pc-barra"><i id="pc-b"></i></div><small id="pc-p" class="pc-prog"></small>
               <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label>${c.respuestas && c.respuestas[i] ? `<button type="button" class="pc-ver" data-r="${i}" aria-expanded="false">👁 Ver respuesta modelo</button><div class="pc-resp" id="pc-r${i}" hidden><div class="pc-borr">🧪 Borrador en revisión</div><ul>${c.respuestas[i].puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}</li>`).join('')}</ol>${c.verificar ? `<p class="pc-ver-nota">📖 <b>Para verificar:</b> ${esc(c.verificar)}</p>` : ''}${fuentesHtml(c)}
-              <p class="pc-nota">${c.tareasGenericas ? 'Este caso no trae consignas específicas: usá la estructura habitual de una estación. ' : ''}Resolvé cada punto <b>en voz alta</b>, como frente al evaluador, y tildalo cuando lo hayas dicho completo. No hay respuestas modelo: contrastá lo que dijiste con la bibliografía.</p>
+              <p class="pc-nota">${c.tareasGenericas ? 'Este caso no trae consignas específicas: usá la estructura habitual de una estación. ' : ''}Resolvé cada punto <b>en voz alta</b>, como frente al evaluador, y tildalo cuando lo hayas dicho completo. Después de resolverlo, mirá la respuesta modelo de cada consigna (en revisión) y contrastala con las fuentes.</p>
               <div class="pc-fin" id="pc-fin" hidden><div class="big">🎉</div><h3>¡Estación completa!</h3><p>Resolviste todas las consignas. Ahora repasá la bibliografía y ponete a prueba con el simulador.</p><div class="pe-nav" style="justify-content:center"><a class="pfo-btn" href="pfo_ecoe.html">📝 Practicar en el simulador ECOE</a><a class="pfo-btn sec" href="estudio.html?modulo=pfo">Volver a la Sala de Estudio</a></div></div>
             </article>
+            <div id="pc-chat"></div>
           </div>
         </div>
       </section>`;
+    if (window.PfoCasoChat) window.PfoCasoChat.montar($('#pc-chat'), c);
     const chk = $$('.pc-tarea input'); let iv = null, resto = c.minutos * 60;
     const pintar = () => {
       const n = chk.filter((x) => x.checked).length; $('#pc-b').style.width = (n / chk.length * 100) + '%';
