@@ -223,10 +223,13 @@
     return { nuevos: fechas.slice(0, fechas.length - nRep), repaso: fechas.slice(fechas.length - nRep), todos: fechas };
   }
   const horasDeFecha = (w, f) => { const g = aFecha(f).getDay(); return (g === 0 || g === 6) ? w.horasFS : w.horasLV; };
+  // días de repaso que conviene dejar: ~15 % de los días del plan (entre 1 y 7)
+  const repasoObjetivo = (n) => Math.min(7, Math.max(1, Math.round(n * 0.15)));
   function recomendar(w) {
-    const T = nTemasWiz(w), pf = planDeFechas(w);
-    const nEst = Math.max(1, pf.nuevos.length), total = Math.max(6, horasNecesariasWiz(w));
-    return { T, nEst, total, h: Math.min(10, Math.max(2, redond05(total / nEst))) };
+    const T = nTemasWiz(w), todos = planDeFechas(Object.assign({}, w, { repaso: 0 })).todos.length;
+    const rep = todos > 1 ? Math.min(repasoObjetivo(todos), todos - 1) : 0;
+    const nEst = Math.max(1, todos - rep), total = Math.max(6, horasNecesariasWiz(w));
+    return { T, nEst, total, rep, h: Math.min(10, Math.max(2, redond05(total / nEst))) };
   }
   const KW_ALTA = /diagn|tratamiento|criterio|clasificaci|algoritmo|urgenc|hemorrag|emergenc|conducta|complicaci|eclamps|ect[óo]pic|infecci|c[áa]ncer|neoplas|tamizaje|screening|shock|trauma|s[íi]ndrome|abdomen agudo|control prenatal|parto|anticoncep|vph|sangrado|dolor/i;
   const KW_APOYO = /generalidades|anatom|histolog|fisiolog|epidemiolog|historia cl|introducci|conceptos|salud integral de la mujer en el curso/i;
@@ -510,6 +513,7 @@
     const r = recomendar(w);
     const h = Math.min(24, Math.max(1.5, redond05(r.h * (factor || 1))));
     w.horasLV = h; w.horasFS = Math.max(1, redond05(h * 0.75));
+    if (!factor || factor === 1) w.repaso = r.rep;   // más días disponibles = más días de repaso (se recalcula solo)
     // el ritmo recomendado tiene que alcanzar de verdad: si por redondeo quedó corto, se sube de a media hora
     if (!factor || factor === 1) { let g = 0; while (!estimarWiz(w).alcanza && w.horasLV < 24 && g++ < 60) { w.horasLV = redond05(w.horasLV + 0.5); w.horasFS = Math.max(1, redond05(w.horasLV * 0.75)); } }
   }
@@ -552,7 +556,7 @@
             <div class="pe-field"><label for="pe-hlv">Horas por día (lun a vie)</label><input type="number" id="pe-hlv" data-act="hlv" value="${w.horasLV}" min="0.5" max="24" step="0.5"></div>
             <div class="pe-field"><label for="pe-hfs">Horas por día (sáb y dom)</label><input type="number" id="pe-hfs" data-act="hfs" value="${w.horasFS}" min="0" max="24" step="0.5"></div>
             <div class="pe-field"><label for="pe-desc">Día de descanso</label><select id="pe-desc" data-act="desc"><option value="-1" ${w.descanso < 0 ? 'selected' : ''}>Ninguno</option>${DIAS_LARGO.map((n, i) => `<option value="${i}" ${w.descanso === i ? 'selected' : ''}>${n[0].toUpperCase() + n.slice(1)}</option>`).join('')}</select></div>
-            <div class="pe-field"><label for="pe-rep">Días finales de repaso</label><select id="pe-rep" data-act="rep">${[0, 1, 2, 3].map((n) => `<option value="${n}" ${w.repaso === n ? 'selected' : ''}>${n === 0 ? 'Ninguno' : n + (n === 1 ? ' día' : ' días')}</option>`).join('')}</select></div>
+            <div class="pe-field"><label for="pe-rep">Días finales de repaso</label><select id="pe-rep" data-act="rep">${[...new Set([0, 1, 2, 3, 5, 7, 10, w.repaso])].sort((x, y) => x - y).map((n) => `<option value="${n}" ${w.repaso === n ? 'selected' : ''}>${n === 0 ? 'Ninguno' : n + (n === 1 ? ' día' : ' días')}</option>`).join('')}</select></div>
           </div>
         </div>
         <div class="pe-resumen" id="pe-resumen">${resumenWizard()}</div>`;
@@ -621,12 +625,12 @@
       if (plan) plan.practica = T.practica || null;
       return { w, plan };
     };
-    const { m, cerrar } = modal(`<div class="pe-tour-top"><span class="pe-tour-k">Recorrido virtual</span><h3>${esc(T.titulo)}</h3><p class="pe-sub">${esc(T.subtitulo || '')}</p></div>
+    const { m, cerrar } = modal(`<div class="pe-tour-top"><span class="pe-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="pe-tour-k">Recorrido virtual</span><h3>${esc(T.titulo)}</h3><p class="pe-sub">${esc(T.subtitulo || '')}</p></div>
       <div class="pe-tour-pasos" role="tablist">${PASOS.map((p, i) => `<button type="button" role="tab" data-i="${i}" class="${i === 0 ? 'on' : ''}"><i>${p[0]}</i><span>${p[1]}</span></button>`).join('')}</div>
       <div class="pe-tour-bar"><i id="pe-tour-fill"></i></div>
       <div class="pe-prev-ctl">
         <label>Empezás el<input type="date" id="pe-pv-ini" value="${est.inicio}" min="${hoy}"></label>
-        <label class="grow">¿En cuántos días lo querés hacer?<span class="pe-prev-slider"><input type="range" id="pe-pv-n" min="3" max="60" value="${est.n}"><output id="pe-pv-out"></output></span></label>
+        <label class="grow">¿En cuántos días lo querés hacer?<span class="pe-prev-slider"><input type="range" id="pe-pv-n" min="3" max="60" value="${est.n}"><output id="pe-pv-out"></output></span><small class="pe-pv-ritmo" id="pe-pv-ritmo"></small></label>
         <label>Día de descanso<select id="pe-pv-desc"><option value="-1">Ninguno</option>${DIAS_LARGO.map((n, i) => `<option value="${i}">${n[0].toUpperCase() + n.slice(1)}</option>`).join('')}</select></label>
       </div>
       <div id="pe-prev-body" class="pe-prev-body"></div>
@@ -640,12 +644,13 @@
       const ult = conT[conT.length - 1], repaso = ult ? plan.dias.filter((d) => d.fecha > ult.fecha).length : 0;
       return { temas: plan.dias.reduce((a, d) => a + (d.temas || []).length, 0), horas: Math.round(horasPlan(plan)), hdia: Math.round(horasPlan(plan) / Math.max(1, plan.dias.length) * 2) / 2, fin: ult ? ult.fecha : null, repaso };
     };
-    const sPrep = (plan) => {
+    const sPrep = (plan, w) => {
       const k = kpis(plan);
       const porU = []; plan.dias.forEach((d) => { const u = (String(d.unidad || '').split(' + ')[0]) || 'Otros'; let g = porU.find((x) => x.u === u); if (!g) { g = { u, dias: 0 }; porU.push(g); } g.dias++; });
       return `<div class="pe-prev-kpis">
           <div><b>${plan.dias.length}</b><span>días de estudio</span></div><div><b>${k.temas}</b><span>temas</span></div><div><b>${k.horas}</b><span>horas en total</span></div><div><b>${fmtH(k.hdia)}</b><span>por día aprox.</span></div></div>
-        <p class="pe-estim">${k.fin ? `⏳ Empezás el <b>${fmtLarga(plan.dias[0].fecha)}</b>, terminás los temas el <b>${fmtLarga(k.fin)}</b> y te ${k.repaso === 1 ? 'queda' : 'quedan'} <b>${k.repaso} ${k.repaso === 1 ? 'día' : 'días'}</b> de repaso hasta el simulacro final.` : ''}${k.hdia > 12 ? '<br>⚠️ Son muchas horas por día: probá con más días para estudiar más tranquilo.' : ''}</p>
+        <div class="pe-ritmo-box"><div><i>⏱️</i><b>${fmtH(w.horasLV)}</b><span>por día, de lunes a viernes</span></div><div><i>🌤️</i><b>${fmtH(w.horasFS)}</b><span>por día, sábados y domingos</span></div><div><i>🔁</i><b>${k.repaso}</b><span>${k.repaso === 1 ? 'día' : 'días'} de repaso al final</span></div></div>
+        <p class="pe-estim">${k.fin ? `⏳ Empezás el <b>${fmtLarga(plan.dias[0].fecha)}</b>, terminás los temas el <b>${fmtLarga(k.fin)}</b> y te ${k.repaso === 1 ? 'queda' : 'quedan'} <b>${k.repaso} ${k.repaso === 1 ? 'día' : 'días'}</b> de repaso hasta el simulacro final.` : ''}${w.horasLV > 12 ? '<br>⚠️ Son muchas horas por día: probá con más días para estudiar más tranquilo.' : ''}</p>
         <p class="pe-sub">${esc(T.descripcion || '')}</p>
         <h4 class="pe-prev-h">📚 Unidades que vas a preparar</h4>
         <div class="pe-prev-uni">${porU.map((g) => `<span class="pe-prev-chip" style="--c:${colorUP(g.u)}"><i></i><b>${esc(g.u)}</b> · ${g.dias} ${g.dias === 1 ? 'día' : 'días'}</span>`).join('')}</div>
@@ -662,7 +667,8 @@
           const f = iso(new Date(y, mm, n)), x = mapa[f];
           const u = x ? (String(x.d.unidad || '').split(' + ')[0]) : '';
           const integ = x && x.d.unidad === 'Integración';
-          c += x ? `<button type="button" class="d on ${integ ? 'integ' : ''} ${est.sel === f ? 'sel' : ''}" data-f="${f}" style="--c:${integ ? '#ef4444' : colorUP(u)}" title="${esc(x.d.titulo)}"><b>${n}</b><small>Día ${x.n}</small></button>`
+          const repasoD = integ && x.n !== plan.dias.length;
+          c += x ? `<button type="button" class="d on ${integ ? 'integ' : ''} ${repasoD ? 'repaso' : ''} ${est.sel === f ? 'sel' : ''}" data-f="${f}" style="--c:${repasoD ? '#f59e0b' : (integ ? '#ef4444' : colorUP(u))}" title="${esc(x.d.titulo)} · ${fmtH(x.d.horas || 0)}"><b>${n}</b><small>${repasoD ? 'Repaso' : (integ ? 'Simulacro' : 'Día ' + x.n)}</small><em>${fmtH(x.d.horas || 0)}</em></button>`
             : `<span class="d ${f === ex ? 'ex' : ''} ${aFecha(f).getDay() === est.descanso && f > primero && f < ex ? 'desc' : ''}"><b>${n}</b>${f === ex ? '<small>Examen</small>' : ''}</span>`;
         }
         return `<div class="pe-pv-mes"><div class="pe-pv-mh">${MESES[mm][0].toUpperCase() + MESES[mm].slice(1)} ${y}</div><div class="pe-pv-g"><u>L</u><u>M</u><u>M</u><u>J</u><u>V</u><u>S</u><u>D</u>${c}</div></div>`;
@@ -672,7 +678,7 @@
           <ul>${(sel.d.temas || []).slice(0, 6).map((t) => `<li>${esc(t.texto.length > 80 ? t.texto.slice(0, 78) + '…' : t.texto)}</li>`).join('')}</ul></div>`
         : '<div class="pe-pv-det vacio">Tocá un día del calendario para ver qué estudiarías ese día. Así quedaría tu plan, con tu fecha de inicio y tus días.</div>';
       const unis = (T.unidades || []).map((u) => `<span class="pe-prev-chip" style="--c:${colorUP(u)}"><i></i>${esc(u)}</span>`).join('');
-      return `<p class="pe-sub">Cada color es una unidad. Los días de descanso quedan libres y el último día es el simulacro final.</p><div class="pe-pv-cal">${grids}</div>${det}<div class="pe-prev-uni" style="margin-top:10px">${unis}<span class="pe-prev-chip" style="--c:#ef4444"><i></i>Integración / simulacro</span></div>`;
+      return `<p class="pe-sub">Cada color es una unidad. Los días de descanso quedan libres y el último día es el simulacro final.</p><div class="pe-pv-cal">${grids}</div>${det}<div class="pe-prev-uni" style="margin-top:10px">${unis}<span class="pe-prev-chip" style="--c:#f59e0b"><i></i>Repaso</span><span class="pe-prev-chip" style="--c:#ef4444"><i></i>Simulacro final</span></div>`;
     };
     const sDia = (plan) => {
       const mu = plan.dias.find((d) => (d.temas || []).length >= 3 && (d.datos_duros || []).length && d.unidad !== 'Integración') || plan.dias[0];
@@ -714,10 +720,12 @@
     };
     const pintar = () => {
       const n = est.n; out.textContent = `${n} ${n === 1 ? 'día' : 'días'}`;
-      const { plan } = armar();
+      const { plan, w } = armar();
+      const rt = m.querySelector('#pe-pv-ritmo');
+      if (rt && plan) { const kk = kpis(plan); rt.textContent = `≈ ${fmtH(w.horasLV)} por día (lun a vie) · ${fmtH(w.horasFS)} sáb y dom · ${kk.repaso} ${kk.repaso === 1 ? 'día' : 'días'} de repaso`; }
       let html;
       if (!plan || !plan.dias.length) html = '<p class="pe-warn">Con esas fechas no se puede armar el plan. Probá con más días.</p>';
-      else html = [sPrep, sCal, sDia, sRec, sPrac, sHerr, sFin][est.paso](plan);
+      else html = [sPrep, sCal, sDia, sRec, sPrac, sHerr, sFin][est.paso](plan, w);
       body.innerHTML = html; body.scrollTop = 0;
       body.classList.remove('pe-tour-anim'); void body.offsetWidth; body.classList.add('pe-tour-anim');
       m.querySelectorAll('.pe-tour-pasos button').forEach((b, i) => { b.classList.toggle('on', i === est.paso); b.classList.toggle('ok', i < est.paso); });

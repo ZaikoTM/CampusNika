@@ -192,3 +192,23 @@ body.dark-mode .pe-pomo-chip, body.tema-premium .pe-pomo-chip { color: #fca5a5; 
 .pe-kpi--pomo b { color: #ef4444; }
 .pe-pomo-info { margin: 12px 0 0; padding: 10px 14px; border-radius: 14px; font-size: .84rem; border: 1px solid rgba(239, 68, 68, .35); background: rgba(239, 68, 68, .07); }
 .pe-pomo-info + .pe-herr-row { margin-top: 8px; }
+
+/* recorrido: encabezado violeta degradado animado, horas por día y repaso visibles */
+.pe-modal-c.pe-prev { overflow-x: hidden; }
+.pe-tour-top { position: relative; overflow: hidden; margin: -22px -22px 14px; padding: 22px 56px 18px 22px; color: #fff; border-radius: 20px 20px 0 0;
+  background: radial-gradient(520px 200px at 0% 0%, rgba(56, 189, 248, .55), transparent 60%), radial-gradient(520px 220px at 100% 100%, rgba(236, 72, 153, .55), transparent 60%), linear-gradient(135deg, #3b0764 0%, #6d28d9 50%, #a21caf 100%);
+  background-size: 140% 140%, 140% 140%, 100% 100%; animation: peAurora 12s ease-in-out infinite; }
+.pe-tour-top::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .13) 50%, transparent 65%); transform: translateX(-120%); animation: peBrillo 5.5s ease-in-out infinite; pointer-events: none; }
+.pe-tour-top h3 { color: #fff; position: relative; z-index: 1; font-size: 1.25rem; }
+.pe-tour-top .pe-sub { color: #e9d5ff; position: relative; z-index: 1; }
+.pe-tour-top .pe-tour-k { position: relative; z-index: 1; background: rgba(255, 255, 255, .18); border: 1px solid rgba(255, 255, 255, .35); backdrop-filter: blur(6px); }
+.pe-modal-c.pe-prev .pe-modal-x { z-index: 3; color: #fff; border-color: rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .12); }
+.pe-pv-ritmo { font-size: .72rem; font-weight: 800; color: #7c3aed; margin-top: 2px; }
+.pe-ritmo-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 10px 0; }
+.pe-ritmo-box > div { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; align-items: center; padding: 10px 12px; border-radius: 14px; border: 1px solid rgba(124, 58, 237, .4); background: linear-gradient(135deg, rgba(124, 58, 237, .12), rgba(14, 165, 233, .06)); }
+.pe-ritmo-box i { grid-row: 1 / 3; font-style: normal; font-size: 1.5rem; animation: peFlota 4.5s ease-in-out infinite; }
+.pe-ritmo-box b { font-size: 1.15rem; font-weight: 900; color: #7c3aed; } .pe-ritmo-box span { font-size: .72rem; font-weight: 700; opacity: .85; }
+.pe-pv-g .d.on em { font-style: normal; font-size: .54rem; font-weight: 800; opacity: .9; }
+.pe-pv-g button.d.repaso { background: repeating-linear-gradient(135deg, color-mix(in srgb, #f59e0b 22%, transparent) 0 6px, color-mix(in srgb, #f59e0b 10%, transparent) 6px 12px); border-style: dashed; }
+.pe-pv-g .d, .pe-pv-g .v { min-height: 50px; }
+@media (prefers-reduced-motion: reduce) { .pe-tour-top, .pe-tour-top::after, .pe-ritmo-box i { animation: none; } }
