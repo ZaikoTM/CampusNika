@@ -2334,3 +2334,12 @@ body.dark-mode .prof-check.ok { color: #4ade80; }
 .pr-x { position: absolute; top: 6px; right: 8px; border: 0; background: none; font-size: 1.2rem; color: var(--text-muted, #64748b); cursor: pointer; line-height: 1; }
 @media (prefers-reduced-motion: reduce) { .perfil-recordatorio, .perfil-recordatorio .pr-ico { animation: none !important; } }
 @media (max-width: 560px) { .perfil-recordatorio { right: 12px; bottom: 84px; } }
+
+/* NikaPlan en el campus: botón de la tarjeta de planificación y acceso desde cada examen */
+.plan-card-btns { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.plan-btn-nikaplan { text-decoration: none; background: linear-gradient(135deg, #7c3aed, #ec4899); box-shadow: 0 6px 16px -8px rgba(124, 58, 237, .8); }
+.plan-btn-nikaplan:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.plan-item-plan { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-weight: 800; font-size: 0.76rem; padding: 7px 12px; border-radius: 999px; color: var(--text-main, #0f172a);
+  border: 1px solid var(--border, #cbd5e1); background: var(--card-bg, #fff); transition: transform .2s, border-color .2s, box-shadow .2s; }
+.plan-item-plan:hover { transform: translateY(-1px); border-color: #7c3aed; box-shadow: 0 6px 14px -8px rgba(124, 58, 237, .8); }
+.plan-item-plan.is-nuevo { color: #fff; border-color: transparent; background: linear-gradient(135deg, #7c3aed, #ec4899); }

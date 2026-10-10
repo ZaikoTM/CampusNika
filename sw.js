@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v142";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v143";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
@@ -29,7 +29,7 @@ const TIMEOUT_DATOS_MS = 5000;
 const TIMEOUT_VADEMECUM_MS = 9000;      // ~4 MB: más margen con señal floja
 
 const PRECACHE_URLS = [
-    "index.html", "campus.html", "nikasim.html", "sala_estudio.html", "css/sala-estudio.css", "js/salaEstudioHub.js", "nikasim-data.js", "js/nikasim.js", "css/nikasim.css", "recetarios.html", "js/recetarios.js", "css/tema-oscuro-paginas.css", "js/temaOscuro.js", "js/chatFlotante.js", "js/recetariosExamen.js", "js/examIntegridad.js", "css/examen-integridad.css", "js/recetariosShare.js", "js/recetariosData.js", "css/recetarios.css", "assets/TEXTO%20VECTOR%20NIKA.png", "liga.html", "foro.html", "ateneos.html", "estudio.html", "examen.html", "versus.html", "cirugia_hub.html", "nikafarma.html",
+    "index.html", "campus.html", "plan_examen.html", "css/plan-examen.css", "js/planExamen.js", "js/programaTemas.js", "data/pfo_data.json", "nikasim.html", "sala_estudio.html", "css/sala-estudio.css", "js/salaEstudioHub.js", "nikasim-data.js", "js/nikasim.js", "css/nikasim.css", "recetarios.html", "js/recetarios.js", "css/tema-oscuro-paginas.css", "js/temaOscuro.js", "js/chatFlotante.js", "js/recetariosExamen.js", "js/examIntegridad.js", "css/examen-integridad.css", "js/recetariosShare.js", "js/recetariosData.js", "css/recetarios.css", "assets/TEXTO%20VECTOR%20NIKA.png", "liga.html", "foro.html", "ateneos.html", "estudio.html", "examen.html", "versus.html", "cirugia_hub.html", "nikafarma.html",
     "terminos.html", "privacidad.html", "reembolsos.html", "offline.html", "manifest.json", "styles.css", "favicon.ico",
     "supabaseClient.js",
     "js/auth-guard.js", "js/assistant.js", "js/social.js", "js/moderacion.js",

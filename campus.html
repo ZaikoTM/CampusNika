@@ -181,6 +181,7 @@
             <li><button onclick="window.location.href='ateneos.html'" class="sidebar-link" id="sidebar-ateneos-btn">📹 Sala de Ateneos</button></li>
 
             <div class="sidebar-category">Practicar y simular</div>
+            <li><button onclick="window.location.href='plan_examen.html'" class="sidebar-link" id="sidebar-plan-btn" title="NikaPlan · Prepará tu examen">🗓️ Prepará tu examen <span class="sidebar-live" style="position:static;transform:none;display:inline-flex;vertical-align:middle;height:auto;min-width:0;font-size:.6rem;padding:2px 7px;margin-left:8px;" aria-label="Nuevo">NUEVO</span></button></li>
             <li><button onclick="window.location.href='nikasim.html'" class="sidebar-link" id="sidebar-nikasim-btn" title="NikaSim · Centro de Simulación 3D">🥽 NikaSim · Simulación 3D</button></li>
             <li><button onclick="NikaAcceso.abrirSimulador('choice')" class="sidebar-link">🩺 Simulador Choice</button></li>
             <li><button onclick="NikaAcceso.abrirSimulador('escrito')" class="sidebar-link">✍️ Simulador Escrito</button></li>
@@ -311,6 +312,7 @@
         <div id="exam-countdown-banner" style="display:none; align-items:center; gap:12px; background:linear-gradient(120deg, rgba(244,114,182,0.10), rgba(192,132,252,0.06)); border:1px solid rgba(244,114,182,0.3); color:#f1f5f9; font-weight:600; font-size:0.88rem; padding:13px 16px; border-radius:10px; margin-bottom:18px;">
             <span style="font-size:1.15rem;">🔔</span>
             <span id="exam-countdown-text" style="flex:1;"></span>
+            <a id="exam-countdown-plan" href="plan_examen.html" style="display:inline-flex; align-items:center; gap:6px; flex-shrink:0; text-decoration:none; color:#fff; font-weight:800; font-size:0.8rem; padding:7px 14px; border-radius:999px; background:linear-gradient(135deg,#0ea5e9,#7c3aed);">🗓️ Ver plan de estudio</a>
             <button type="button" onclick="descartarBannerExamen()" title="Descartar"
                     style="background:none; border:none; color:#94a3b8; font-size:1rem; cursor:pointer; line-height:1; padding:2px 6px;">✕</button>
         </div>
@@ -332,7 +334,10 @@
             <div class="plan-card" id="plan-card">
                 <div class="plan-card-header">
                     <h4>📅 Próximos eventos y planificación</h4>
-                    <button type="button" class="plan-btn-balance" onclick="abrirBalanceDia()"><span class="plan-btn-icon">📊</span> Cierre del día</button>
+                    <span class="plan-card-btns">
+                        <a class="plan-btn-balance plan-btn-nikaplan" href="plan_examen.html" title="Armá tu plan de estudio día a día hasta el examen"><span class="plan-btn-icon">🗓️</span> Prepará tu examen</a>
+                        <button type="button" class="plan-btn-balance" onclick="abrirBalanceDia()"><span class="plan-btn-icon">📊</span> Cierre del día</button>
+                    </span>
                 </div>
                 <div class="plan-card-cols">
                     <div class="plan-col">
@@ -1397,6 +1402,38 @@
         const up = _upNumero(ev.up_id);
         return `estudio.html?modulo=${encodeURIComponent(modulo)}${up ? `&up=${up}` : ''}`;
     }
+    // NikaPlan: planes guardados en este dispositivo (planes_examen_v1_<usuario>); se usan para enlazar cada examen con su plan
+    function _planesLocales(userId) {
+        try { return JSON.parse(localStorage.getItem('nika_planes_examen_v1_' + userId) || '[]'); } catch (_) { return []; }
+    }
+    function _planDeEvento(userId, ev) {
+        const l = _planesLocales(userId);
+        return l.find(p => p.evento_id === ev.id) || l.find(p => p.fecha_examen === ev.fecha && p.materia === ev.modulo) || null;
+    }
+    function _resumenPlan(p) {
+        try {
+            const hoy = _fechaLocalISO();
+            const tot = p.dias.reduce((a, d) => a + (d.horas || 0), 0) || 1;
+            const prog = (d) => { const it = (d.temas || []).concat(d.checklist || []); return it.length ? it.filter(x => x.hecho).length / it.length : 0; };
+            const hechas = p.dias.reduce((a, d) => a + (d.horas || 0) * prog(d), 0);
+            const venc = p.dias.filter(d => d.fecha < hoy);
+            const hv = venc.reduce((a, d) => a + (d.horas || 0), 0), cv = venc.reduce((a, d) => a + (d.horas || 0) * prog(d), 0);
+            const falta = Math.max(0, tot - hechas), dias = Math.max(1, p.dias.filter(d => d.fecha >= hoy).length), hdia = falta / dias, prom = tot / Math.max(1, p.dias.length);
+            if (hechas >= tot - 0.01 || hv === 0) return { ico: '🟢', pct: Math.round(hechas / tot * 100) };
+            const r = cv / hv;
+            const nivel = (r >= 0.85 && hdia <= prom * 1.25) ? '🟢' : (r >= 0.55 && hdia <= prom * 1.8) ? '🟡' : '🔴';
+            return { ico: nivel, pct: Math.round(hechas / tot * 100) };
+        } catch (_) { return null; }
+    }
+    function _botonPlanExamen(userId, ev) {
+        const p = _planDeEvento(userId, ev);
+        if (p) {
+            const r = _resumenPlan(p);
+            return `<a class="plan-item-plan" href="plan_examen.html?plan=${encodeURIComponent(p.id)}" onclick="event.stopPropagation()" title="Ver tu plan de estudio para este examen">${r ? r.ico : '🗓️'} Ver plan${r ? ' · ' + r.pct + '%' : ''}</a>`;
+        }
+        const q = new URLSearchParams({ nuevo: '1', materia: ev.modulo || '', fecha: ev.fecha });
+        return `<a class="plan-item-plan is-nuevo" href="plan_examen.html?${q.toString()}" onclick="event.stopPropagation()" title="Armá tu plan de estudio día a día para este examen">🗓️ Armar plan</a>`;
+    }
     function _etiquetaEv(ev) {
         const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.' };
         const up = _upNumero(ev.up_id);
@@ -1476,6 +1513,7 @@
                         <button type="button" class="plan-icon-btn" title="Editar" onclick="event.stopPropagation(); editarEvento('${e.id}')">✏️</button>
                         <button type="button" class="plan-icon-btn is-danger" title="Eliminar" onclick="event.stopPropagation(); eliminarEvento('${e.id}')">🗑️</button>
                     </span>
+                    ${e.tipo === 'examen' ? _botonPlanExamen(user.id, e) : ''}
                     <a class="plan-item-go" href="${_urlEstudio(e)}" onclick="event.stopPropagation()">Ir <span class="plan-arrow">→</span></a>
                 </div>`;
             }).join('') : '<span class="plan-vacio">No tenés eventos futuros agendados.</span>';
@@ -1722,6 +1760,11 @@
 
             textEl.innerHTML = `⏳ Recordatorio: tenés un <strong>${tipoLabel}</strong>${moduloLabel ? ` de <strong>${moduloLabel}</strong>` : ''} el ${fechaLegible} (${cuando})`;
             banner.dataset.eventId = evento.id;
+            const pl = _planDeEvento(user.id, evento), lk = document.getElementById('exam-countdown-plan');
+            if (lk) {
+                if (pl) { const r = _resumenPlan(pl); lk.href = 'plan_examen.html?plan=' + encodeURIComponent(pl.id); lk.textContent = `${r ? r.ico + ' ' : '🗓️ '}Ver plan de estudio${r ? ' · ' + r.pct + '%' : ''}`; }
+                else { lk.href = 'plan_examen.html?' + new URLSearchParams({ nuevo: '1', materia: evento.modulo || '', fecha: evento.fecha }).toString(); lk.textContent = '🗓️ Armar plan de estudio'; }
+            }
             banner.style.display = 'flex';
         } catch (err) {
             console.warn('[Banner Examen] No se pudo actualizar:', err);

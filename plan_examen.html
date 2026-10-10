@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>NikaPlan · Prepará tu examen | NikaMed</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=2">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/campus-premium.css?v=3">
+    <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
+    <link rel="stylesheet" href="css/plan-examen.css?v=1">
+</head>
+<body class="pagina-lateral" data-pagina="plan">
+
+    <header class="pl-top">
+        <a class="pl-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span>CAMPUS NIKA<small>NikaPlan · Prepará tu examen</small></span>
+        </a>
+        <div class="pl-acciones">
+            <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+            <a class="pl-btn" href="estudio.html" title="Sala de estudio">📚 <span class="lbl">Sala de estudio</span></a>
+            <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+        </div>
+    </header>
+
+    <main class="pl-main pe-main">
+        <div id="pe-root" aria-live="polite"></div>
+    </main>
+
+    <div id="toast">Notificación</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/paginaLateral.js"></script>
+    <script src="js/campusTema.js?v=3"></script>
+    <script src="js/programaTemas.js"></script>
+    <script src="js/planExamen.js?v=1"></script>
+    <script src="js/chatFlotante.js?v=7"></script>
+    <script src="js/assistant.js?v=3"></script>
+    <script src="js/nikaMusic.js?v=7"></script>
+</body>
+</html>
