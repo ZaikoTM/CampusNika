@@ -207,3 +207,14 @@ main a:visited { color: var(--primary-glow); }
 .g-chip { color: #ddd6fe; }
 .g-stat span, .g-note, .legal-meta { color: #b6c2d3; }
 .g-callout { color: #e2e8f0; }
+
+/* ---------- guías relacionadas: tarjetas con ícono y flecha ---------- */
+.legal-card a.rel-link, .rel-link { display: flex; align-items: center; gap: 14px; padding: 14px 16px; }
+.rel-link .ri { flex: 0 0 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; font-style: normal; font-size: 1.35rem; background: linear-gradient(135deg, rgba(56,189,248,.16), rgba(168,85,247,.2)); border: 1px solid rgba(168,85,247,.4); animation: gFloat 4.5s ease-in-out infinite; }
+.rel-link:nth-child(2n) .ri { animation-delay: -1.5s; } .rel-link:nth-child(3n) .ri { animation-delay: -3s; }
+.rel-link .rt { flex: 1; min-width: 0; }
+.rel-link .rt b { display: block; font-weight: 800; font-size: .9rem; line-height: 1.3; color: #fff; }
+.rel-link .rt em { display: block; font-style: normal; font-weight: 600; font-size: .78rem; color: #b6c2d3; margin-top: 3px; }
+.rel-link .ra { font-style: normal; font-weight: 900; color: var(--violet-glow); transition: transform .25s; }
+.rel-link:hover .ra { transform: translateX(5px); }
+@media (prefers-reduced-motion: reduce) { .rel-link .ri { animation: none; } }

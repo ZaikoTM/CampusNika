@@ -180,6 +180,16 @@
   /* quiz */
   $$('.g-quiz').forEach(function (box) {
     var data = JSON.parse($('script', box).textContent), i = 0, ok = 0, bloqueado = false;
+    /* mezcla las opciones y el orden de las preguntas en cada intento: la correcta no tiene posición fija */
+    function mezclar(arr) { for (var k = arr.length - 1; k > 0; k--) { var r = Math.floor(Math.random() * (k + 1)), t = arr[k]; arr[k] = arr[r]; arr[r] = t; } return arr; }
+    function prepara() {
+      data.forEach(function (q) {
+        if (!q._o) { q._o = q.o.slice(); q._g = q.o[q.c]; }
+        q.o = mezclar(q._o.slice()); q.c = q.o.indexOf(q._g);
+      });
+      mezclar(data);
+    }
+    prepara();
     var body = $('.g-q-body', box), pb = $('.g-q-bar i', box), cnt = $('.g-q-count', box);
     function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
     function show() {
@@ -214,7 +224,7 @@
           s.style.animationDelay = (Math.random() * 0.3) + 's'; c.appendChild(s);
         }
       }
-      $('.g-again', body).addEventListener('click', function () { i = 0; ok = 0; show(); });
+      $('.g-again', body).addEventListener('click', function () { i = 0; ok = 0; prepara(); show(); });
     }
     show();
   });
