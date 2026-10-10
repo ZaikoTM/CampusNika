@@ -279,11 +279,28 @@ Deno.serve(withCors(async (req: Request) => {
     // ---- Práctica de casos clínicos de la PFO: EXCLUSIVO NikaMed+ (o admin), forzado en el servidor ----
     // No hay usos de cortesía ni créditos para este modo: si la cuenta no es ilimitada, se rechaza antes de tocar a Gemini.
     if (modo === "caso_pfo") {
-        const planPfo = await consultarPlan(supabaseAuth);
-        if (!planPfo.ok) {
+        // 1) El plan según la función simulador_usos (la misma fuente que usa el resto del sitio); 2) si falla, el perfil leído con service_role.
+        let esPlus: boolean | null = null;
+        try {
+            const { data: usos, error: usosErr } = await supabaseAuth.rpc("simulador_usos");
+            if (usosErr || !usos) console.error("[evaluar-simulacion] simulador_usos falló:", usosErr?.message ?? "sin datos");
+            else esPlus = usos.ilimitado === true;
+        } catch (e) { console.error("[evaluar-simulacion] simulador_usos excepción:", (e as Error).message); }
+        if (esPlus === null) {
+            try {
+                const { data: perfil, error: perfErr } = await supabaseAdmin.from("profiles").select("role, tipo_cuenta").eq("id", userId).maybeSingle();
+                if (perfErr) console.error("[evaluar-simulacion] perfil no legible:", perfErr.message);
+                else if (perfil) {
+                    const rol = String(perfil.role ?? "").toLowerCase();
+                    const tipo = String(perfil.tipo_cuenta ?? "").toLowerCase();
+                    esPlus = rol === "admin" || tipo === "vip" || tipo === "premium";
+                }
+            } catch (e) { console.error("[evaluar-simulacion] perfil excepción:", (e as Error).message); }
+        }
+        if (esPlus === null) {
             return jsonResponse(503, { error: "plan_no_verificable", mensaje: "No pudimos verificar tu plan. Reintentá en unos segundos." });
         }
-        if (!planPfo.ilimitado) {
+        if (!esPlus) {
             return jsonResponse(403, { error: "requiere_nikamed_plus", mensaje: "La práctica con el evaluador es exclusiva de NikaMed+." });
         }
         // Topes de tamaño para que nadie use el endpoint como un chat libre.

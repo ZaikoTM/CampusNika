@@ -204,3 +204,22 @@
 .pcc-pie{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 @keyframes pccPunto{0%,80%,100%{transform:scale(.6);opacity:.5}40%{transform:scale(1);opacity:1}}
 @media (prefers-reduced-motion:reduce){.pcc-card,.pcc-b,.pcc-punto,.pcc-lock .pcc-ic{animation:none!important}}
+
+.pc-fuentes.cat{border-color:#0ea5e9;background:color-mix(in srgb,#0ea5e9 9%,transparent)}
+.pc-chat-wrap{margin-top:18px}
+.pcc-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:-18px -20px 14px;padding:16px 20px;border-radius:17px 17px 0 0;color:#fff;background:linear-gradient(135deg,#7c3aed,#4338ca);position:relative;overflow:hidden}
+.pcc-top:after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.12)}
+.pcc-av{width:48px;height:48px;border-radius:16px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;animation:pcFlota 3s ease-in-out infinite}
+.pcc-tt{flex:1;min-width:180px;position:relative;z-index:1}.pcc-tt small{display:block;font-size:.66rem;font-weight:800;letter-spacing:.08em;opacity:.85}.pcc-tt h3{margin:2px 0 0;font-size:1.05rem;color:#fff}
+.pcc-chips{display:flex;gap:8px;align-items:center;position:relative;z-index:1}.pcc-top .pcc-plus{margin:0;background:rgba(255,255,255,.22)}.pcc-top .pcc-cnt{background:rgba(255,255,255,.2);color:#fff}
+.pcc-body{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:16px;align-items:start}
+@media(max-width:860px){.pcc-body{grid-template-columns:1fr}}
+.pcc-caso{display:flex;flex-direction:column;gap:12px;position:sticky;top:76px}
+@media(max-width:860px){.pcc-caso{position:static}}
+.pcc-sec{background:var(--pf-card2);border:1px solid var(--pf-bd);border-radius:14px;padding:12px 14px}
+.pcc-sec>b{display:block;font-size:.8rem;margin-bottom:6px}.pcc-sec p{margin:0;font-size:.85rem;line-height:1.55}
+.pcc-sec ol{margin:0;padding-left:20px;font-size:.84rem;line-height:1.5;display:flex;flex-direction:column;gap:5px;font-weight:600}
+.pcc-datos{display:flex;flex-wrap:wrap;gap:6px}.pcc-dato{background:color-mix(in srgb,#a855f7 11%,transparent);border-radius:10px;padding:5px 9px;font-size:.78rem}.pcc-dato small{display:block;font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;opacity:.7}
+.pcc-tip{margin:0;font-size:.76rem;line-height:1.5;color:var(--pf-mut);padding:0 4px}
+.pcc-main{min-width:0}
+.pcc-msgs{min-height:260px;background:color-mix(in srgb,#a855f7 4%,transparent);border:1px solid var(--pf-bd);border-radius:14px;padding:12px}

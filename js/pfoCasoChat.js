@@ -112,12 +112,27 @@ Sé MUY exigente: si el alumno escribió poco o preguntó poco, la nota es baja.
     let E = leer(caso.id) || { hist: [], fin: null };
     let pendiente = false, mic = null;
     const nIntervenciones = () => E.hist.filter((m) => m.rol === 'usuario').length;
+    const datosHtml = (caso.datos || []).map((d) => `<span class="pcc-dato"><small>${esc(d.k)}</small><b>${esc(d.v)}</b></span>`).join('');
     cont.innerHTML = `<div class="pcc-card pcc-chat">
-      <div class="pcc-h"><div><h3>💬 Practicá con el evaluador <span class="pcc-plus">NikaMed+</span></h3><small>Hacés de médico/a: la IA es el paciente y el tribunal. La corrección llega recién al finalizar.</small></div><span class="pcc-cnt" id="pcc-cnt"></span></div>
-      <div class="pcc-msgs" id="pcc-msgs" aria-live="polite"></div>
-      <div class="pcc-in" id="pcc-in"><textarea id="pcc-ta" rows="2" maxlength="${MAX_CARACTERES}" placeholder="Escribí lo que le decís o le pedís al paciente (por ejemplo: «¿Desde cuándo tiene la tos?», «Pido saturación y frecuencia respiratoria»…)"></textarea>
-        <div class="pcc-bt"><span id="pcc-mic"></span><button type="button" class="pfo-btn" id="pcc-send">Enviar ➤</button></div></div>
-      <div class="pcc-pie"><button type="button" class="pfo-btn sec" id="pcc-fin">🏁 Finalizar y corregir</button><button type="button" class="pfo-btn sec" id="pcc-reset">↺ Empezar de nuevo</button></div></div>`;
+      <header class="pcc-top">
+        <span class="pcc-av">${esc(caso.icono || '🩺')}</span>
+        <div class="pcc-tt"><small>ESTACIÓN DE PRÁCTICA · ${esc(caso.tema)}</small><h3>${esc(caso.titulo)}</h3></div>
+        <div class="pcc-chips"><span class="pcc-plus">NikaMed+</span><span class="pcc-cnt" id="pcc-cnt"></span></div>
+      </header>
+      <div class="pcc-body">
+        <aside class="pcc-caso" aria-label="El caso a resolver">
+          <div class="pcc-sec"><b>📋 Tu caso</b><p>${esc(caso.situacion)}</p></div>
+          ${datosHtml ? `<div class="pcc-sec"><b>🩺 Datos que tenés</b><div class="pcc-datos">${datosHtml}</div></div>` : ''}
+          <div class="pcc-sec"><b>🎯 Qué tenés que resolver</b><ol>${caso.tareas.map((t) => `<li>${esc(t)}</li>`).join('')}</ol></div>
+          <p class="pcc-tip">Hacés de médico/a: preguntale al paciente, pedí signos vitales, examen físico y estudios (uno por vez, con nombre) y decí tu diagnóstico y conducta. La corrección llega recién al finalizar.</p>
+        </aside>
+        <div class="pcc-main">
+          <div class="pcc-msgs" id="pcc-msgs" aria-live="polite"></div>
+          <div class="pcc-in" id="pcc-in"><textarea id="pcc-ta" rows="2" maxlength="${MAX_CARACTERES}" placeholder="Escribí lo que le decís o le pedís al paciente (por ejemplo: «¿Desde cuándo tiene la tos?», «Pido saturación y frecuencia respiratoria»…)"></textarea>
+            <div class="pcc-bt"><span id="pcc-mic"></span><button type="button" class="pfo-btn" id="pcc-send">Enviar ➤</button></div></div>
+          <div class="pcc-pie"><button type="button" class="pfo-btn sec" id="pcc-fin">🏁 Finalizar y corregir</button><button type="button" class="pfo-btn sec" id="pcc-reset">↺ Empezar de nuevo</button></div>
+        </div>
+      </div></div>`;
     const msgs = $('#pcc-msgs', cont), ta = $('#pcc-ta', cont), send = $('#pcc-send', cont), fin = $('#pcc-fin', cont), reset = $('#pcc-reset', cont);
     const burbuja = (rol, texto, extra) => { const d = document.createElement('div'); d.className = 'pcc-b ' + rol + (extra ? ' ' + extra : ''); d.innerHTML = rol === 'ia' || rol === 'corr' ? md(texto) : esc(texto); msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; return d; };
     const contador = () => { $('#pcc-cnt', cont).textContent = nIntervenciones() + ' / ' + MAX_INTERVENCIONES + ' intervenciones'; };

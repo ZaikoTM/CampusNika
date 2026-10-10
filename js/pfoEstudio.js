@@ -286,9 +286,9 @@
   // Fuentes y justificación de las respuestas modelo
   function fuentesHtml(c) {
     const est = c.verificacion || 'catedra';
-    const rot = { guia: ['ok', '✅ Contrastado con guías nacionales'], parcial: ['mid', '🟡 Parcialmente contrastado con guías nacionales'], catedra: ['no', '⚠️ Por ahora solo contrastado con el material de la cátedra'] }[est] || ['no', '⚠️ Sin contrastar'];
+    const rot = { guia: ['ok', '✅ Contrastado con guías nacionales'], parcial: ['mid', '🟡 Parcialmente contrastado con guías nacionales'], catedra: ['cat', '📘 Revisado con el material de la cátedra'] }[est] || ['no', '⚠️ Sin contrastar'];
     const lis = (c.fuentes || []).map((f) => `<li><a href="${esc(f.u)}" target="_blank" rel="noopener">${esc(f.t)}</a><span>${esc(f.d)}</span></li>`).join('');
-    return `<div class="pc-fuentes ${rot[0]}"><b>${rot[1]}</b>${lis ? `<ul>${lis}</ul>` : '<p>Faltan las guías profesionales de referencia: estas respuestas se basan en el material cargado de la cátedra y deben contrastarse antes de darlas por cerradas.</p>'}</div>`;
+    return `<div class="pc-fuentes ${rot[0]}"><b>${rot[1]}</b>${lis ? `<ul>${lis}</ul>` : '<p>Respuestas revisadas con el material de la cátedra. Las cifras todavía no se contrastaron con guías nacionales.</p>'}</div>`;
   }
   let CASOS = [];
   function vistaCaso(id) {
@@ -312,9 +312,9 @@
               <p class="pc-nota">${c.tareasGenericas ? 'Este caso no trae consignas específicas: usá la estructura habitual de una estación. ' : ''}Resolvé cada punto <b>en voz alta</b>, como frente al evaluador, y tildalo cuando lo hayas dicho completo. Después de resolverlo, mirá la respuesta modelo de cada consigna (en revisión) y contrastala con las fuentes.</p>
               <div class="pc-fin" id="pc-fin" hidden><div class="big">🎉</div><h3>¡Estación completa!</h3><p>Resolviste todas las consignas. Ahora repasá la bibliografía y ponete a prueba con el simulador.</p><div class="pe-nav" style="justify-content:center"><a class="pfo-btn" href="pfo_ecoe.html">📝 Practicar en el simulador ECOE</a><a class="pfo-btn sec" href="estudio.html?modulo=pfo">Volver a la Sala de Estudio</a></div></div>
             </article>
-            <div id="pc-chat"></div>
           </div>
         </div>
+        <div id="pc-chat" class="pc-chat-wrap"></div>
       </section>`;
     if (window.PfoCasoChat) window.PfoCasoChat.montar($('#pc-chat'), c);
     const chk = $$('.pc-tarea input'); let iv = null, resto = c.minutos * 60;
