@@ -19,10 +19,11 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v132";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v133";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
+const GUARDIA_CACHE = "nika-guardia";   // descargas del Modo Guardia: NO se borra al actualizar la app
 const TIMEOUT_SHELL_MS = 3000;      // HTML/JS/CSS: si la red tarda más, se usa la copia guardada
 const TIMEOUT_DATOS_MS = 5000;
 const TIMEOUT_VADEMECUM_MS = 9000;      // ~4 MB: más margen con señal floja
@@ -44,6 +45,8 @@ const PRECACHE_URLS = [
     "data/cirugia.json", "preguntas.json", "db_cirugia_organizado.json",
     "assets/icons/icon-192.png", "assets/icons/icon-512.png",
     "assets/icons/favicon-32.png", "assets/icons/favicon-192.png",
+    // Archivos que cargan las páginas principales (agregado al reinventar el Modo Guardia)
+    "acreditaciones.html", "admin.html", "assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png", "assets/N%20NIKA.png", "assets/icons/apple-touch-icon.png", "css/acreditaciones.css", "css/campus-premium-espacio.css", "css/campus-premium.css", "css/examen-navbar.css", "css/micro.css", "css/nika-navbar.css", "css/pfo-estudio.css", "css/pfo.css", "css/productividad.css", "css/sidebar-grupos.css", "css/tema-premium-salas.css", "duelosManager.js", "gineco_hub.html", "js/acreditaciones/fx.js", "js/acreditaciones/monitor.js", "js/acreditaciones/motor.js", "js/avisoVencimiento.js", "js/campusEspacio.js", "js/campusTema.js", "js/casosPacientes.js", "js/estudio/pdfLector.js", "js/examModesConfig.js", "js/examNavbarMovil.js", "js/examPromptsMaterias.js", "js/formatoEvaluacion.js", "js/micro.js", "js/nikaAcceso.js", "js/novedadesAviso.js", "js/perfilRedes.js", "js/pfoCasoChat.js", "js/pfoEcoe.js", "js/pfoEstudio.js", "js/pomodoroBar.js", "js/presenciaCampus.js", "js/programaTemas.js", "js/salaEstudio.js", "js/sidebarGrupos.js", "js/speechManager.js", "js/splashNika.js", "nikamed-plus.html", "notificacionesManager.js", "pfo_ecoe.html", "pfo_estudio.html", "siam_hub.html",
 ];
 
 const CDN_HOSTS = ["cdn.jsdelivr.net", "cdnjs.cloudflare.com", "fonts.googleapis.com", "fonts.gstatic.com"];
@@ -62,7 +65,7 @@ self.addEventListener("activate", (event) => {
     const vigentes = [STATIC_CACHE, DATA_CACHE, CDN_CACHE];
     event.waitUntil(
         caches.keys().then((keys) =>
-            Promise.all(keys.filter((k) => k.startsWith("nika-") && !vigentes.includes(k)).map((k) => caches.delete(k)))
+            Promise.all(keys.filter((k) => k.startsWith("nika-") && !vigentes.includes(k) && k !== GUARDIA_CACHE).map((k) => caches.delete(k)))
         )
     );
     self.clients.claim();
@@ -127,11 +130,11 @@ async function shellRedPrimero(event, request, key, fallbackFinal) {
     try {
         return await conTimeout(red, TIMEOUT_SHELL_MS);
     } catch (_) {
-        let cacheada = await cache.match(key);
+        let cacheada = await cache.match(key) || await caches.match(key);   // también busca en las descargas del Modo Guardia
         if (!cacheada && esNavegacionHTML(request)) {
             // URLs "limpias" (/campus en vez de /campus.html)
             const u = new URL(request.url);
-            if (!/\.\w+$/.test(u.pathname)) cacheada = await cache.match(new Request(u.origin + u.pathname + ".html"));
+            if (!/\.\w+$/.test(u.pathname)) cacheada = await cache.match(new Request(u.origin + u.pathname + ".html")) || await caches.match(new Request(u.origin + u.pathname + ".html"));
         }
         if (cacheada) {
             event.waitUntil(red.catch(() => {}));   // la descarga sigue y deja la caché al día
@@ -217,29 +220,64 @@ self.addEventListener("message", (event) => {
 
     if (d.type === "SKIP_WAITING") { self.skipWaiting(); return; }
 
-    // CACHE_URLS: {urls:[...]} -> descarga y guarda; responde progreso por el MessageChannel
+    // CACHE_URLS: {urls:[...]} -> descarga y guarda en la caché persistente del Modo Guardia; responde progreso por el MessageChannel
     if (d.type === "CACHE_URLS" && Array.isArray(d.urls)) {
         event.waitUntil((async () => {
-            const staticC = await caches.open(STATIC_CACHE);
-            const dataC = await caches.open(DATA_CACHE);
+            const guardia = await caches.open(GUARDIA_CACHE);
             const fallidas = [];
-            let hechas = 0;
+            let hechas = 0, bytes = 0;
             for (const u of d.urls) {
                 try {
                     const req = new Request(u, { cache: "reload" });
                     const url = new URL(req.url);
                     const resp = await fetch(req);
                     if (!resp.ok) throw new Error("HTTP " + resp.status);
-                    const destino = (esVademecum(url) || esDatoJSON(url)) ? dataC : staticC;
-                    await destino.put(esNavegacionHTMLPath(url) ? claveNavegacion(url) : req, resp.clone());
+                    const copia = resp.clone();
+                    try { bytes += (await resp.clone().arrayBuffer()).byteLength; } catch (_) {}
+                    await guardia.put(esNavegacionHTMLPath(url) ? claveNavegacion(url) : new Request(url.href), copia);
                 } catch (e) {
                     fallidas.push(u);
                 }
                 hechas++;
-                if (puerto) puerto.postMessage({ type: "progress", hechas, total: d.urls.length, url: u });
+                if (puerto) puerto.postMessage({ type: "progress", hechas, total: d.urls.length, url: u, bytes });
             }
-            if (puerto) puerto.postMessage({ type: "done", ok: fallidas.length === 0, fallidas });
+            if (puerto) puerto.postMessage({ type: "done", ok: fallidas.length === 0, fallidas, bytes });
         })());
+        return;
+    }
+
+    // UNCACHE_URLS: {urls:[...]} -> saca esas descargas de la caché del Modo Guardia
+    if (d.type === "UNCACHE_URLS" && Array.isArray(d.urls)) {
+        event.waitUntil((async () => {
+            const guardia = await caches.open(GUARDIA_CACHE);
+            let borradas = 0;
+            for (const u of d.urls) {
+                try {
+                    const url = new URL(u, self.location.origin);
+                    const ok = await guardia.delete(esNavegacionHTMLPath(url) ? claveNavegacion(url) : new Request(url.href));
+                    if (ok) borradas++;
+                } catch (_) {}
+            }
+            if (puerto) puerto.postMessage({ type: "done", borradas });
+        })());
+        return;
+    }
+
+    // HAS_URLS: {urls:[...]} -> cuáles están guardadas en el Modo Guardia
+    if (d.type === "HAS_URLS" && Array.isArray(d.urls)) {
+        event.waitUntil((async () => {
+            const guardia = await caches.open(GUARDIA_CACHE);
+            const presentes = [];
+            for (const u of d.urls) {
+                try {
+                    const url = new URL(u, self.location.origin);
+                    const m = await guardia.match(esNavegacionHTMLPath(url) ? claveNavegacion(url) : new Request(url.href));
+                    if (m) presentes.push(u);
+                } catch (_) {}
+            }
+            if (puerto) puerto.postMessage({ type: "done", presentes });
+        })());
+        return;
     }
 });
 
