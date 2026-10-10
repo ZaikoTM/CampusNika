@@ -118,8 +118,23 @@ const ExamIntegridad = (() => {
   const fueForzada = () => !!(st && st.forzada);
 
   // ------------------------------------------------------------------ detectores
+  // En el celular pasan cosas normales que no son trampa: el dictado por voz, el panel de notificaciones, un aviso
+  // de WhatsApp o rotar la pantalla sacan la página de primer plano un instante. Ahí solo se cuenta una salida
+  // LARGA (más de 12 s) y nunca el foco perdido, la selección de texto ni el menú contextual.
+  const TACTIL = (() => { try { return (window.matchMedia && matchMedia('(pointer: coarse)').matches) || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || ''); } catch (_) { return false; } })();
+  const SALIDA_LARGA_MS = 12000;
+  let ocultoDesde = 0;
   function onVisibilidad() {
     if (!activo) return;
+    if (TACTIL) {
+      if (document.hidden) { ocultoDesde = Date.now(); return; }
+      const fuera = ocultoDesde ? Date.now() - ocultoDesde : 0; ocultoDesde = 0;
+      if (fuera >= SALIDA_LARGA_MS) {
+        if (st) { st.segundosFuera += Math.round(fuera / 1000); persistir(); }
+        contarIncidencia('cambio_pestana', { evento: 'visibilitychange', segundos: Math.round(fuera / 1000), pregunta: st && st.preguntaActual });
+      }
+      return;
+    }
     if (document.hidden) inicioSegundoPlano('cambio_pestana', { evento: 'visibilitychange' });
     else finSegundoPlano();
   }
@@ -132,7 +147,7 @@ const ExamIntegridad = (() => {
   let timerBlur = null;
   let ultimaCaptura = 0;
   function onBlur() {
-    if (!activo || document.hidden) return;
+    if (!activo || document.hidden || TACTIL) return;
     clearTimeout(timerBlur);
     timerBlur = setTimeout(() => {
       timerBlur = null;
@@ -158,6 +173,7 @@ const ExamIntegridad = (() => {
   function bloquear(e, motivo, extra) {
     if (!activo) return;
     e.preventDefault(); e.stopPropagation();
+    if (TACTIL && motivo !== 'atajo') return;   // en el celular una pulsación larga o el menú de selección no es trampa: se bloquea sin contar
     contarIncidencia('copia_bloqueada', { motivo, ...(extra || {}) });
   }
   const onCtx = (e) => bloquear(e, 'menu_contextual');

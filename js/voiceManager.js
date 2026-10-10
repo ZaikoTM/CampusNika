@@ -11,7 +11,10 @@
 //  • VAD: detección de voz con AnalyserNode (halo verde) y latencia real desde getStats().
 
 const VoiceManager = (() => {
-  const ICE_CONFIG = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+  const ICE_CONFIG = { iceServers: [
+    { urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'] },
+    { urls: 'stun:stun.cloudflare.com:3478' },
+  ] };
   const MAX_PARTICIPANTES = 4;
   const UMBRAL_VOZ = 0.035;          // RMS a partir del cual se considera que habla
   const RETENCION_VOZ_MS = 450;      // el halo no parpadea entre sílabas
@@ -52,6 +55,7 @@ const VoiceManager = (() => {
       makingOffer: false, ignoreOffer: false, colaIce: [], videoSender: null,
     };
     peers.set(id, p);
+    iniciarVigia();
 
     // Audio: mi micrófono si existe; si no, solo recibo
     if (micTrack) pc.addTrack(micTrack, new MediaStream([micTrack]));
@@ -63,6 +67,7 @@ const VoiceManager = (() => {
 
     pc.ontrack = (e) => {
       if (!p.stream.getTracks().includes(e.track)) p.stream.addTrack(e.track);
+      if (e.track.kind === 'audio') conectarAudio(p);
       e.track.onended = () => { try { p.stream.removeTrack(e.track); } catch (_) {} emit('onPeers', listaPeers()); };
       monitorizar(p.id, p.stream);
       emit('onStream', p.id, p.stream);
@@ -79,6 +84,11 @@ const VoiceManager = (() => {
     pc.onconnectionstatechange = () => {
       emit('onPeers', listaPeers());
       if (pc.connectionState === 'failed') { try { pc.restartIce(); } catch (_) {} }
+      // una caída momentánea de red: se da unos segundos y, si no vuelve sola, se reinicia el camino de medios
+      if (pc.connectionState === 'disconnected') {
+        clearTimeout(p.tCaida);
+        p.tCaida = setTimeout(() => { if (pc.connectionState === 'disconnected') { try { pc.restartIce(); } catch (_) {} } }, 4000);
+      }
     };
     emit('onPeers', listaPeers());
     return p;
@@ -108,9 +118,50 @@ const VoiceManager = (() => {
     try { await p.pc.addIceCandidate(cand); } catch (err) { if (!p.ignoreOffer) console.warn('[Voice] ice', err); }
   }
 
+  // Audio remoto: un <audio> oculto por compañero. Así el sonido no depende del mosaico de video (que se mueve,
+  // se oculta o cambia de pista cuando alguien prende la cámara), y se reintenta si el navegador lo frena.
+  function conectarAudio(p) {
+    try {
+      if (!p.audioEl) {
+        const a = document.createElement('audio');
+        a.autoplay = true; a.playsInline = true; a.setAttribute('playsinline', ''); a.style.display = 'none';
+        document.body.appendChild(a); p.audioEl = a;
+      }
+      const pistas = p.stream.getAudioTracks();
+      p.audioEl.srcObject = new MediaStream(pistas);
+      const r = p.audioEl.play();
+      if (r && r.catch) r.catch(() => { audioBloqueado = true; if (cbAudio) cbAudio(true); });
+    } catch (err) { console.warn('[Voice] audio remoto', err); }
+  }
+  let audioBloqueado = false, vigiaAudio = null, cbAudio = null;
+  function reanudarAudio() {
+    try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); } catch (_) {}
+    peers.forEach((p) => {
+      if (!p.audioEl) return;
+      if (p.audioEl.paused || !p.audioEl.srcObject) { const r = p.audioEl.play(); if (r && r.catch) r.catch(() => {}); }
+      p.audioEl.muted = false; p.audioEl.volume = 1;
+    });
+    if (audioBloqueado) { audioBloqueado = false; if (cbAudio) cbAudio(false); }
+  }
+  ['pointerdown', 'keydown', 'touchstart'].forEach((ev) => document.addEventListener(ev, reanudarAudio, { passive: true }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) reanudarAudio(); });
+  function iniciarVigia() {
+    if (vigiaAudio) return;
+    vigiaAudio = setInterval(() => {
+      peers.forEach((p) => {
+        const vivas = p.stream.getAudioTracks().filter((t) => t.readyState === 'live');
+        if (!vivas.length) return;
+        if (!p.audioEl || !p.audioEl.srcObject || p.audioEl.srcObject.getAudioTracks().length !== vivas.length) { conectarAudio(p); return; }
+        if (p.audioEl.paused) { const r = p.audioEl.play(); if (r && r.catch) r.catch(() => {}); }
+      });
+    }, 3000);
+  }
+
   function cerrarPeer(id) {
     const p = peers.get(id);
     if (!p) return;
+    clearTimeout(p.tCaida);
+    if (p.audioEl) { try { p.audioEl.pause(); p.audioEl.srcObject = null; p.audioEl.remove(); } catch (_) {} p.audioEl = null; }
     try { p.pc.close(); } catch (_) {}
     peers.delete(id);
     const m = monitores.get(id); if (m) { try { m.src.disconnect(); } catch (_) {} monitores.delete(id); emit('onSpeaking', id, false); }
@@ -327,6 +378,7 @@ const VoiceManager = (() => {
 
   return {
     soportado, unirse, salir, alternarMic, alternarCamara, alternarPantalla, expulsar, hostId, soyHost,
+    reanudarAudio, alBloqueoAudio(fn) { cbAudio = fn; },
     get sala() { return roomId; }, get yo() { return yo; }, get silenciosa() { return silenciosa; },
     get micActivo() { return !!(micTrack && micTrack.enabled); },
     get camActiva() { return !!camTrack; }, get pantallaActiva() { return !!screenTrack; },

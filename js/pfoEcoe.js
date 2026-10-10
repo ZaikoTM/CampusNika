@@ -100,9 +100,9 @@ Esta estación es la número ${(pos != null ? pos : S && S.idx != null ? S.idx :
     return `
 
 ## 10. CASO OFICIAL DE LA ESTACIÓN (FUENTE ÚNICA DE VERDAD; reemplaza al sorteo de las secciones 0 y 1)
-Nombre de la estación: ${c.nombre}. Duración: ${c.duracionMin} minutos. Tipo: ${c.tipo}. Contexto: ${c.contexto}. Instrumento: ${c.instrumento}.
+Nombre de la estación: ${c.nombre}. Duración: ${Math.max(15, Number(c.duracionMin) || 0)} minutos. Tipo: ${c.tipo}. Contexto: ${c.contexto}. Instrumento: ${c.instrumento}.
 - APERTURA: tu primer mensaje lleva entre corchetes la SITUACIÓN DE PARTIDA y los OBJETIVOS, textuales, y en otra línea la primera frase de ${c.interlocutor}. Situación de partida: ${c.situacion} Objetivos: ${c.objetivos.map((o, k) => (k + 1) + ') ' + o).join(' ')}
-- INTERLOCUTOR: respondés como ${c.interlocutor}, SOLO con los datos del guion, en lenguaje coloquial argentino y sin términos médicos. Si te preguntan algo que el guion no contiene, respondé "no" o "no sé", de forma coherente con el caso. Nunca inventes antecedentes ni regales datos.
+- INTERLOCUTOR: respondés como ${c.interlocutor}, SOLO con los datos del guion, en lenguaje coloquial argentino y sin términos médicos. Si te preguntan algo que el guion no contiene, respondé "no" o "no sé", de forma coherente con el caso. Nunca inventes antecedentes ni regales datos. Si el paciente trae o retira estudios, SABE nombrarlos (por ejemplo «un análisis de sangre y una ecografía»): si el alumno le pregunta cuáles son, se los nombra el paciente (nunca respondas [Evaluador: Especifique...] a una pregunta dirigida al paciente); los RESULTADOS se entregan solo cuando el alumno los pide por su nombre, y ante «los resultados» a secas el [Evaluador] le informa la lista de estudios disponibles (solo nombres, sin valores).
 - GUION DEL PACIENTE:
 ${c.guion_paciente}
 - DATOS CLÍNICOS (BANCO DE DATOS: nunca se entregan en bloque): ${c.datos_clinicos}
@@ -137,9 +137,11 @@ ${filas}
   }
 
   // ------------------------------------------------------------------ utilidades de vista
-  const rangoMin = (cfgE) => { const d = (cfgE.casos_oficiales || []).map((id) => CASOS[id] && CASOS[id].duracionMin).filter(Boolean); return d.length ? [Math.min(...d), Math.max(...d)] : [CFG.criterios.minutosPorEstacion, CFG.criterios.minutosPorEstacion]; };
+  const MIN_ESTACION = 15;   // piso de tiempo por estación: nunca menos de 15 minutos
+  const minEfectivo = (m) => Math.max(MIN_ESTACION, Number(m) || 0);
+  const rangoMin = (cfgE) => { const d = (cfgE.casos_oficiales || []).map((id) => CASOS[id] && CASOS[id].duracionMin).filter(Boolean).map(minEfectivo); const base = minEfectivo(CFG.criterios.minutosPorEstacion); return d.length ? [Math.min(...d), Math.max(...d)] : [base, base]; };
   const txtRango = (r) => (r[0] === r[1] ? `${r[0]} min` : `${r[0]}–${r[1]} min`);
-  const minutosDe = (cfgE, E) => { const c = casoDe(E); return (c && c.duracionMin) || rangoMin(cfgE)[0]; };
+  const minutosDe = (cfgE, E) => { const c = casoDe(E); return (c && c.duracionMin) ? minEfectivo(c.duracionMin) : rangoMin(cfgE)[0]; };
   const estActual = () => S.estaciones[S.idx];
   function revelar() {
     const els = [...document.querySelectorAll('.pfo-rv-w')]; if (!els.length) return;

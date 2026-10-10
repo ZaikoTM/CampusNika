@@ -327,9 +327,22 @@ Deno.serve(withCors(async (req: Request) => {
     // reintento automático del cliente no duplica el cobro. Mirar sin reservar tampoco permite que
     // alguien sin créditos gaste el cupo de los suscriptores (el 402 sale antes de reservar).
     let modelo = MODELO_BASE;
-    if (MODELO_GRATIS !== MODELO_PREMIUM) {   // solo vale la pena consultar el plan si los modelos difieren
+    // Plan de la cuenta: NikaMed+ y admin son ILIMITADOS y nunca se les descuentan créditos de simulación.
+    let esIlimitado = false;
+    {
         const plan = await consultarPlan(supabaseAuth);
-        if (plan.ok && !plan.ilimitado) modelo = MODELO_GRATIS;
+        if (plan.ok) {
+            esIlimitado = plan.ilimitado;
+            if (MODELO_GRATIS !== MODELO_PREMIUM && !plan.ilimitado) modelo = MODELO_GRATIS;
+        } else {
+            // simulador_usos no respondió: se mira el perfil con service_role para no cobrarle a un NikaMed+ por un fallo de lectura
+            try {
+                const { data: perfil } = await supabaseAdmin.from("profiles").select("role, tipo_cuenta").eq("id", userId).maybeSingle();
+                const rol = String(perfil?.role ?? "").toLowerCase();
+                const tipo = String(perfil?.tipo_cuenta ?? "").toLowerCase();
+                esIlimitado = rol === "admin" || tipo === "vip" || tipo === "premium";
+            } catch (e) { console.error("[evaluar-simulacion] perfil excepción:", (e as Error).message); }
+        }
     }
     let libre = await cupoLibre(supabaseAdmin, modelo);
     if (libre !== 0 && MODELO_RESPALDO && MODELO_RESPALDO !== modelo && (await cupoLibre(supabaseAdmin, MODELO_RESPALDO)) === 0) {
@@ -344,7 +357,8 @@ Deno.serve(withCors(async (req: Request) => {
     }
 
     // ---- Validación previa: descontar créditos ANTES de llamar a Gemini -------
-    const costo = costoSimulador(modo, esPrimerTurno, accion);
+    // Las cuentas ilimitadas (NikaMed+ / admin) no consumen créditos ni usos de cortesía.
+    const costo = esIlimitado ? 0 : costoSimulador(modo, esPrimerTurno, accion);
 
     if (costo > 0) {
         const { data: alcanzo, error: rpcErr } = await supabaseAdmin.rpc("descontar_creditos", {

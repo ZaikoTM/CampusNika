@@ -118,6 +118,11 @@ const NikaAteneos = (() => {
       .at-tile-n { position: absolute; left: 6px; bottom: 6px; max-width: calc(100% - 40px); padding: 2px 8px; border-radius: 999px; font-size: .68rem; font-weight: 700; background: rgba(0,0,0,.6); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .at-tile-m { position: absolute; right: 6px; bottom: 6px; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: .7rem; background: #ef4444; }
       .at-tile.muted .at-tile-m { display: flex; }
+      .ats-stage:fullscreen, .ats-stage.ats-full { position: fixed; inset: 0; z-index: 99999; width: 100vw; height: 100vh; max-height: none; padding: 12px; background: #000; display: flex; flex-direction: column; border-radius: 0; }
+      .ats-stage:fullscreen .ats-grid, .ats-stage.ats-full .ats-grid { flex: 1; height: 100%; max-height: none; }
+      .ats-stage .ats-fs-btn { position: absolute; right: 12px; top: 12px; z-index: 5; width: 40px; height: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,.3); background: rgba(15,23,42,.65); color: #fff; font-size: 1.1rem; cursor: pointer; backdrop-filter: blur(6px); transition: transform .2s, background .2s; }
+      .ats-stage .ats-fs-btn:hover { transform: scale(1.08); background: rgba(124,58,237,.7); }
+      .ats-audio-aviso { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 0; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(245,158,11,.6); background: rgba(245,158,11,.12); font-size: .84rem; font-weight: 700; }
       .at-tile.hablando { box-shadow: inset 0 0 0 3px #22c55e, 0 0 14px rgba(34,197,94,.6); }
       .at-tile-e { position: absolute; left: 6px; top: 6px; font-size: .62rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; background: rgba(2,132,199,.85); display: none; }
       .at-tile.pantalla .at-tile-e { display: block; }
@@ -486,7 +491,7 @@ const NikaAteneos = (() => {
     t = document.createElement('div');
     t.className = 'at-tile sinvideo' + (esLocal ? ' local' : '');
     t.dataset.id = id;
-    t.innerHTML = `<video autoplay playsinline ${esLocal ? 'muted' : ''}></video><div class="at-tile-av"><img alt="" src=""></div><span class="at-tile-e">🖥️ Pantalla</span><span class="at-tile-h">👑 Anfitrión</span><button type="button" class="at-tile-k">🚪 Expulsar</button><span class="at-tile-n"></span><span class="at-tile-m">🔇</span>`;
+    t.innerHTML = `<video autoplay playsinline muted></video><div class="at-tile-av"><img alt="" src=""></div><span class="at-tile-e">🖥️ Pantalla</span><span class="at-tile-h">👑 Anfitrión</span><button type="button" class="at-tile-k">🚪 Expulsar</button><span class="at-tile-n"></span><span class="at-tile-m">🔇</span>`;
     t.querySelector('.at-tile-k').onclick = () => { if (id !== 'yo') expulsar(id); };
     tiles.set(id, t);
     contenedorTiles().appendChild(t);
@@ -584,7 +589,9 @@ const NikaAteneos = (() => {
             ${info.codigo ? `<button type="button" class="ats-chip" id="ats-cod" title="Copiar código">🔒 Código ${esc(info.codigo)} 📋</button>` : ''}
             <button type="button" class="ats-chip" id="ats-link" title="Copiar enlace de invitación">🔗 Copiar enlace</button>
           </div>
-          <div class="ats-stage">
+          <div class="ats-audio-aviso" id="ats-audio-aviso" style="display:none">🔈 El navegador bloqueó el sonido de la sala. <button type="button" class="at-btn" id="ats-audio-on">Activar sonido</button></div>
+          <div class="ats-stage" id="ats-stage">
+            <button type="button" class="ats-fs-btn" id="ats-fs" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
             <div class="ats-grid" id="at-stage-grid" data-n="1"></div>
             <div class="ats-vacio" id="ats-vacio" style="display:none">Estás solo en la sala. <b>Invitá compañeros</b> desde el panel de la derecha o compartí el enlace.</div>
           </div>
@@ -592,6 +599,7 @@ const NikaAteneos = (() => {
             <button type="button" class="ats-cb" id="ats-mic"><i>🎤</i><span>Micrófono</span></button>
             <button type="button" class="ats-cb" id="ats-cam"><i>📷</i><span>Cámara</span></button>
             <button type="button" class="ats-cb" id="ats-scr"><i>🖥️</i><span>Pantalla</span></button>
+            <button type="button" class="ats-cb" id="ats-fs2"><i>⛶</i><span>Completa</span></button>
             <button type="button" class="ats-cb solo-movil" id="ats-panel"><i>👥</i><span>Gente</span></button>
             <button type="button" class="ats-cb salir" id="ats-out"><i>📞</i><span>Salir</span></button>
           </div>
@@ -610,6 +618,24 @@ const NikaAteneos = (() => {
     $('#ats-cam').onclick = async () => { const r = await VoiceManager.alternarCamara(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#ats-scr').onclick = async () => { const r = await VoiceManager.alternarPantalla(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#ats-out').onclick = desconectar;
+    // pantalla completa de la sala (con respaldo para navegadores que no la permiten en elementos, como iPhone)
+    const stage = $('#ats-stage');
+    const enFull = () => !!(document.fullscreenElement || document.webkitFullscreenElement) || stage.classList.contains('ats-full');
+    const salirFull = () => { stage.classList.remove('ats-full'); try { if (document.fullscreenElement) document.exitFullscreen(); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); } catch (_) {} };
+    const alternarFull = async () => {
+      if (enFull()) { salirFull(); return; }
+      try {
+        if (stage.requestFullscreen) await stage.requestFullscreen();
+        else if (stage.webkitRequestFullscreen) stage.webkitRequestFullscreen();
+        else stage.classList.add('ats-full');
+      } catch (_) { stage.classList.add('ats-full'); }
+    };
+    $('#ats-fs').onclick = alternarFull; $('#ats-fs2').onclick = alternarFull;
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && stage.classList.contains('ats-full')) salirFull(); });
+    // si el navegador frena el audio automático, un toque lo activa
+    const avisoA = $('#ats-audio-aviso');
+    try { VoiceManager.alBloqueoAudio((b) => { if (avisoA) avisoA.style.display = b ? 'flex' : 'none'; }); } catch (_) {}
+    const bOn = $('#ats-audio-on'); if (bOn) bOn.onclick = () => { try { VoiceManager.reanudarAudio(); } catch (_) {} if (avisoA) avisoA.style.display = 'none'; };
     $('#ats-panel').onclick = () => { panelMovil = !panelMovil; $('#ats-side').classList.toggle('abierto', panelMovil); };
     $('#ats-link').onclick = () => copiar(enlaceSala(), 'Enlace copiado: pegalo donde quieras.');
     const cod = $('#ats-cod'); if (cod) cod.onclick = () => copiar(info.codigo, 'Código copiado.');
