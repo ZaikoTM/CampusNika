@@ -604,7 +604,8 @@ const NikaMusic = (() => {
       if (abierto && !minimizado) cerrar(); else abrir();
       if (window.innerWidth <= 900) { const sb = document.getElementById('appSidebar'); if (sb && sb.classList.contains('sidebar-open') && typeof window.toggleSidebar === 'function') window.toggleSidebar(); }
     });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && abierto && !minimizado) cerrar(); });
+    // Esc oculta la ventana (si algo suena queda la barra minimizada); ✕ la cierra y detiene la música
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && abierto && !minimizado) { if (fuente) minimizar(); else cerrar(); } });
     window.addEventListener('nika:alerta-sonido', () => duck(2600));
     window.addEventListener('nika:music-share', () => { ultPub = '\u0000'; publicar(); render(); });
     window.addEventListener('resize', () => { acomodarPosicion(); acoplarEmbed(); posicionPill(); });
@@ -800,6 +801,13 @@ const NikaMusic = (() => {
     pintarEstado();
   }
 
+  // ✕: cierra la ventana Y detiene todo (ruido, playlist y Spotify); para dejarla sonando se usa _ (minimizar)
+  function cerrarYDetener() {
+    detenerTodo();
+    try { localStorage.setItem(K_ACTIVA, '0'); sessionStorage.removeItem(K_SESS); } catch (_) {}
+    cerrar();
+  }
+
   function cambiarVista(v) {
     desacoplarEmbed();
     vista = v; guardarUi({ vista: v }); render();
@@ -814,7 +822,7 @@ const NikaMusic = (() => {
     const conectado = !!leerTokens();
     const cabecera = `
       <div class="nm-h"><div><b>${SPOTIFY_SVG(16)} NikaMusic <span class="nm-eq ${sonando ? 'sonando' : ''}" id="nm-hdr-eq"><i></i><i></i><i></i><i></i></span></b></div>
-        <div class="nm-hb"><button type="button" id="nm-min" title="Minimizar" aria-label="Minimizar">_</button><button type="button" id="nm-x" title="Cerrar (la música sigue)" aria-label="Cerrar">✕</button></div></div>
+        <div class="nm-hb"><button type="button" id="nm-min" title="Minimizar" aria-label="Minimizar">_</button><button type="button" id="nm-x" title="Cerrar y detener la música" aria-label="Cerrar y detener la música">✕</button></div></div>
       <div class="nm-tabs"><button type="button" class="nm-tab ${vista === 'ambiente' ? 'on' : ''}" data-v="ambiente">🌿 Sin login</button><button type="button" class="nm-tab ${vista === 'spotify' ? 'on' : ''}" data-v="spotify">${SPOTIFY_SVG(13)} Mi Spotify</button></div>`;
 
     let cuerpo;
@@ -867,7 +875,7 @@ const NikaMusic = (() => {
     panel.innerHTML = cabecera + `<div class="nm-body" tabindex="0" aria-label="Contenido de NikaMusic (usá las flechas para desplazarte)">${cuerpo}</div>`;
     const chk = $('#nm-share'); if (chk) chk.addEventListener('change', () => { try { localStorage.setItem(K_SHARE, chk.checked ? '1' : '0'); } catch (_) {} ultPub = '\u0000'; publicar(); });
 
-    $('#nm-x').onclick = cerrar; $('#nm-min').onclick = minimizar;
+    $('#nm-x').onclick = cerrarYDetener; $('#nm-min').onclick = minimizar;
     panel.querySelectorAll('.nm-tab').forEach((bt) => bt.addEventListener('click', () => cambiarVista(bt.dataset.v)));
     activarArrastre();
 
