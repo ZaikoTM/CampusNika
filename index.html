@@ -249,6 +249,7 @@
         .color-y3::before { background: #fbbf24; }
         .color-y4::before { background: #f472b6; }
         .color-y5::before { background: #c084fc; }
+        .color-y6::before { background: #f59e0b; }
 
         /* ================= 2. ENTORNO DE ESTUDIO ================= */
         .box-study { grid-column: span 8; display: flex; flex-direction: column; justify-content: space-between; }
@@ -991,7 +992,7 @@
             <img src="assets/N%20NIKA%20MAXIMA%20CALIDAD%20POSIBLE.png" alt="NikaMed - Campus Nika" onerror="this.src='assets/N%20NIKA.png'">
         </div>
         <h1 class="hero-heading">NikaMed: aprobá cada materia de Medicina<span class="hero-heading-sub">Campus Nika · simulación clínica y estudio con IA</span></h1>
-        <p class="hero-lead">Tu aliado definitivo durante toda la carrera de Medicina. Organizá tus apuntes desde primer año, simulá exámenes bajo presión y resolvé casos complejos con asistencia inteligente.</p>
+        <p class="hero-lead">Tu aliado definitivo durante toda la carrera de Medicina, hasta la Práctica Final Obligatoria. Estudiá por año y materia, practicá procedimientos paso a paso, simulá exámenes bajo presión y resolvé casos clínicos con asistencia inteligente.</p>
         
         <!-- Grupo de CTAs en línea con animaciones uniformes -->
         <div class="hero-cta-group" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin-top: 10px;">
@@ -1015,7 +1016,7 @@
         <div class="hero-stats">
             <div class="hero-stat"><strong>+1.500</strong><span>preguntas de cátedra clasificadas por Área</span></div>
             <div class="hero-stat"><strong>6</strong><span>simuladores clínicos</span></div>
-            <div class="hero-stat"><strong>5 años</strong><span>de carrera cubiertos</span></div>
+            <div class="hero-stat"><strong>6 años</strong><span>de carrera, hasta la PFO</span></div>
             <div class="hero-stat"><strong>Gratis</strong><span>para empezar, sin tarjeta</span></div>
         </div>
     </header>
@@ -1088,7 +1089,7 @@
             <div class="f-head">
                 <span class="f-tag" style="--tag: var(--violet-glow);">6 simuladores clínicos</span>
                 <h2 class="f-title">Seis simuladores de simulación clínica para el examen real.</h2>
-                <p class="f-text">Del choice masivo a la estación ECOE: cada simulador reproduce un formato de evaluación distinto de la carrera.</p>
+                <p class="f-text">Del choice masivo a la estación ECOE: cada simulador reproduce un formato de evaluación distinto de la carrera. Elegís tu año y tu materia antes de cada uno.</p>
             </div>
             <div class="sim-grid">
                 <article class="sim-card ">
@@ -1100,7 +1101,7 @@
                 <article class="sim-card c-violet">
                     <div class="sim-ico">✍️</div>
                     <h3>Simulador Escrito</h3>
-                    <p>Respuestas a desarrollo corregidas con rúbrica docente.</p>
+                    <p>Respuestas a desarrollo de Cirugía, Ginecología y SIAM, corregidas con rúbrica docente.</p>
                     <div class="sim-badges"><span class="badge">IA</span><span class="badge">Rúbrica docente</span><span class="badge plan">NikaMed+</span></div>
                 </article>
                 <article class="sim-card c-emerald">
@@ -1123,9 +1124,9 @@
                 </article>
                 <article class="sim-card c-indigo">
                     <div class="sim-ico">🎯</div>
-                    <h3>Examen Final ECOE</h3>
-                    <p>Estación clínica completa de alta exigencia.</p>
-                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Alta exigencia</span><span class="badge plan">NikaMed+</span></div>
+                    <h3>ECOE FINAL · 6.º año</h3>
+                    <p>El examen de egreso de la PFO: una estación de cada especialidad, con modo práctica y revisión detallada al final.</p>
+                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Procedimientos y documentos</span><span class="badge plan">NikaMed+</span></div>
                 </article>
             </div>
             <div class="cta-row" style="justify-content:center; margin-top:40px;">
@@ -1151,6 +1152,7 @@
                     <button class="year-tab-btn" onclick="showCurriculumYear(3, this)">3° Año</button>
                     <button class="year-tab-btn" onclick="showCurriculumYear(4, this)">4° Año</button>
                     <button class="year-tab-btn" onclick="showCurriculumYear(5, this)">5° Año</button>
+                    <button class="year-tab-btn" onclick="showCurriculumYear(6, this)">6° Año · PFO</button>
                 </div>
 
                 <!-- Año 1 -->
@@ -1183,6 +1185,17 @@
                     <div class="subject-card color-y5"><div class="subject-name">Salud Integral de la Mujer</div></div>
                     <div class="subject-card color-y5"><div class="subject-name">Especialidades Clínico-Quirúrgicas</div></div>
                 </div>
+                <!-- Año 6 · PFO -->
+                <div class="year-content" id="year-6">
+                    <div class="subject-card color-y6"><div class="subject-name">Generalidades · recorrido interactivo</div></div>
+                    <div class="subject-card color-y6"><div class="subject-name">Clínica Médica</div></div>
+                    <div class="subject-card color-y6"><div class="subject-name">Clínica Pediátrica</div></div>
+                    <div class="subject-card color-y6"><div class="subject-name">Clínica Quirúrgica</div></div>
+                    <div class="subject-card color-y6"><div class="subject-name">Emergentología</div></div>
+                    <div class="subject-card color-y6"><div class="subject-name">Ginecología y Obstetricia</div></div>
+                    <div class="subject-card color-y6"><div class="subject-name">Salud Familiar y General</div></div>
+                    <div class="subject-card color-y6"><div class="subject-name">Bibliografía actualizada</div></div>
+                </div>
             </div>
         </div>
     </section>
@@ -1194,7 +1207,7 @@
                     <span class="f-tag">Suite de estudio</span>
                     <h2 class="f-title">Cada Unidad Problema, con su bibliografía a mano.</h2>
                     <p class="f-text">Estudiá con la estructura oficial de la cátedra: cada tema indexado a los libros que te van a tomar.</p>
-                    <ul class="f-list"><li>Avance visible por Unidad Problema</li><li>Bibliografía indexada a cada tema</li><li>Toda la cursada en un solo lugar</li></ul>
+                    <ul class="f-list"><li>Avance visible por Unidad Problema</li><li>Lector NikaMed: subrayá, marcá y seguí tu progreso en cada PDF</li><li>PFO de 6.º año con casos clínicos, procedimientos y bibliografía</li><li>Toda la cursada en un solo lugar</li></ul>
                     <button class="btn-primary" style="padding: 13px 26px;" onclick="openAuthModal('register')">Crear cuenta gratis</button>
                 </div>
                 <div class="f-visual">
@@ -1445,7 +1458,7 @@
                 <article class="sim-card c-emerald">
                     <div class="sim-ico">🎵</div>
                     <h3>NikaMusic</h3>
-                    <p>Playlists de Spotify para concentrarte y sonidos de lluvia, café o ruido blanco, en una ventana que se arrastra y se minimiza.</p>
+                    <p>Playlists de Spotify y sonidos de lluvia, café o ruido blanco, en una ventana que se arrastra y se minimiza, y que te sigue por todas las salas. Tus amigos pueden ver lo que escuchás, y lo podés ocultar cuando quieras.</p>
                     <div class="sim-badges"><span class="badge">Spotify</span><span class="badge">Sonidos ambientales</span><span class="badge plan">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-emerald">
@@ -1459,6 +1472,30 @@
                     <h3>Duelos 1vs1 con chat</h3>
                     <p>Competí en tiempo real con un compañero, con chat rápido y ELO. Respondé con las teclas 1 a 4.</p>
                     <div class="sim-badges"><span class="badge">Tiempo real</span><span class="badge plan">NikaMed · Gratis</span></div>
+                </article>
+                <article class="sim-card c-indigo">
+                    <div class="sim-ico">🎓</div>
+                    <h3>PFO · 6.º año</h3>
+                    <p>Sala de estudio con 8 módulos, tutoriales de procedimientos y casos clínicos como estaciones, con respuesta modelo y fuentes. Con NikaMed+ practicás cada caso con un paciente y evaluador por IA.</p>
+                    <div class="sim-badges"><span class="badge">Casos clínicos</span><span class="badge">Procedimientos</span><span class="badge plan">Gratis · chat IA en NikaMed+</span></div>
+                </article>
+                <article class="sim-card c-emerald">
+                    <div class="sim-ico">🥽</div>
+                    <h3>NikaSim · Atlas de procedimientos</h3>
+                    <p>Practicá cada procedimiento paso a paso con feedback inmediato y rendí el examen con corrección estricta. Los que ya tienen modelo 3D se practican en pantalla; el resto suma el suyo próximamente.</p>
+                    <div class="sim-badges"><span class="badge">3D</span><span class="badge">Listas de cotejo</span><span class="badge plan">NikaMed · Gratis</span></div>
+                </article>
+                <article class="sim-card c-amber">
+                    <div class="sim-ico">🛡️</div>
+                    <h3>Modo Guardia · sin conexión</h3>
+                    <p>Descargá por materia tus salas de estudio, bancos de preguntas, casos de la PFO, atlas, NikaFarma y recetarios. Lo que hagas sin señal se sube solo al volver internet.</p>
+                    <div class="sim-badges"><span class="badge">Offline</span><span class="badge">Por materia</span><span class="badge plan">NikaMed · Gratis</span></div>
+                </article>
+                <article class="sim-card c-violet">
+                    <div class="sim-ico">📝</div>
+                    <h3>Recetarios y certificados</h3>
+                    <p>Escribí recetas, pedidos de estudios y certificados sobre un recetario real y recibí corrección de forma y contenido.</p>
+                    <div class="sim-badges"><span class="badge">Parte documental</span><span class="badge plan">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-amber">
                     <div class="sim-ico">📈</div>
@@ -1566,7 +1603,10 @@
                 <div class="plan-price">Gratis<span> / para empezar</span></div>
                 <p class="plan-desc">Todo para organizar y sostener la cursada desde primer año: estudio, comunidad y herramientas de guardia.</p>
                 <ul class="plan-features">
-                    <li><span class="plan-check">✓</span> Sala de estudio con Pomodoro, notas y planificador de bloques con alertas</li>
+                    <li><span class="plan-check">✓</span> Salas de estudio de 1.º a 6.º año (con la PFO, sus casos y procedimientos), Pomodoro, notas y planificador</li>
+                    <li><span class="plan-check">✓</span> NikaSim: atlas de procedimientos paso a paso y en 3D</li>
+                    <li><span class="plan-check">✓</span> Modo Guardia: descargas por materia para usar sin conexión</li>
+                    <li><span class="plan-check">✓</span> Recetarios y certificados de práctica</li>
                     <li><span class="plan-check">✓</span> Calendario de eventos y Cierre del día (planificado vs. cumplido)</li>
                     <li><span class="plan-check">✓</span> Racha diaria y Liga Pomodoro con rangos médicos argentinos</li>
                     <li><span class="plan-check">✓</span> Sala de Ateneos: videollamadas de estudio y casos clínicos (hasta 4)</li>
@@ -1593,7 +1633,8 @@
                     <li><span class="plan-check violet">✓</span> Pase de Sala</li>
                     <li><span class="plan-check violet">✓</span> Shock Room</li>
                     <li><span class="plan-check violet">✓</span> Consultorios y Legales</li>
-                    <li><span class="plan-check violet">✓</span> Examen Final ECOE</li>
+                    <li><span class="plan-check violet">✓</span> ECOE FINAL de 6.º año (PFO)</li>
+                    <li><span class="plan-check violet">✓</span> Chat de práctica con paciente y evaluador por IA en cada caso clínico de la PFO</li>
                     <li><span class="plan-check violet">✓</span> Asistente Nika (NotebookLM)</li>
                 </ul>
                 <a href="nikamed-plus.html" class="plan-cta filled" style="text-decoration:none; display:block; text-align:center;">Quiero NikaMed+</a>
@@ -1754,7 +1795,7 @@
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Qué diferencia hay entre NikaMed y NikaMed+? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><div class="faq-answer-inner">NikaMed (gratis) te da todo para organizarte y sostener la cursada: Sala de Estudio con Pomodoro y planificador, Cierre del día, Racha y Liga Pomodoro, Sala de Ateneos, Foro Académico, NikaMusic (Spotify y sonidos ambientales), NikaFarma con scores y modo Emergencias, Duelos 1vs1, Simulador de Choices y tu Rendimiento Académico. NikaMed+ incluye todo eso y suma la artillería pesada con Inteligencia Artificial: Simulador Escrito con IA, Pase de Sala, Shock Room, Consultorios y Legales, el Examen Final ECOE y el Asistente Nika con NotebookLM, para una preparación integral pensada para los años más exigentes de la carrera.</div></div>
+                <div class="faq-answer"><div class="faq-answer-inner">NikaMed (gratis) te da todo para organizarte y sostener la cursada: Sala de Estudio con Pomodoro y planificador, Cierre del día, Racha y Liga Pomodoro, Sala de Ateneos, Foro Académico, NikaMusic (Spotify y sonidos ambientales), NikaFarma con scores y modo Emergencias, NikaSim (atlas de procedimientos), la sala de estudio de la PFO con sus casos y procedimientos, Modo Guardia sin conexión, Recetarios, Duelos 1vs1, Simulador de Choices y tu Rendimiento Académico. NikaMed+ incluye todo eso y suma la artillería pesada con Inteligencia Artificial: Simulador Escrito con IA, Pase de Sala, Shock Room, Consultorios y Legales, el ECOE FINAL de 6.º año, el chat de práctica de los casos clínicos de la PFO y el Asistente Nika con NotebookLM, para una preparación integral pensada para los años más exigentes de la carrera.</div></div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Cómo funcionan las correcciones con Inteligencia Artificial? <span class="faq-icon">+</span></button>
@@ -1762,7 +1803,7 @@
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Puedo practicar desde el celular? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><div class="faq-answer-inner">Sí, Campus Nika Med es 100% responsive y funciona perfecto desde el celular, ya sea entre clases o en el colectivo. Además tiene modo offline, así podés repasar tu material y tus apuntes guardados aunque no tengas conexión a internet.</div></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Sí, Campus Nika Med es 100% responsive y funciona perfecto desde el celular, ya sea entre clases o en el colectivo. Además tiene Modo Guardia: descargás por materia tus salas de estudio, bancos de preguntas, casos de la PFO, atlas, NikaFarma y recetarios, y los usás sin conexión. Lo que hagas sin señal se sube solo cuando vuelve internet. La corrección con IA, los videos y los PDF de Drive sí necesitan conexión.</div></div>
             </div>
         </div>
     </section>
@@ -1831,7 +1872,7 @@
                             <p>Del choice clásico a la estación ECOE: entrená cada formato de evaluación real.</p>
                             <ul class="nt-feats inline"><li>Corrección con IA</li><li>Bibliografía de cátedra</li><li>Contra reloj</li></ul>
                         </div>
-                        <div class="nt-stage"><div class="nt-sims"><div class="nt-sim "><div class="nt-sim-top"><span class="nt-sim-ico">🩺</span><strong>Choice Clásico</strong></div><p>Práctica cronometrada con justificación bibliográfica.</p><div class="mini-opts"><i>A</i><i class="ok">B</i><i>C</i><i>D</i></div></div><div class="nt-sim c-violet"><div class="nt-sim-top"><span class="nt-sim-ico">✍️</span><strong>Escrito con IA</strong></div><p>Desarrollo evaluado con rúbrica docente.</p><div class="mini-lines"><i></i><i></i><i></i></div><span class="mini-chip">Rúbrica 8/10</span></div><div class="nt-sim c-emerald"><div class="nt-sim-top"><span class="nt-sim-ico">🛏️</span><strong>Pase de Sala</strong></div><p>Interrogá e interactuá con la cama del paciente.</p><span class="mini-chip">Cama 4 · Interrogatorio</span></div><div class="nt-sim c-red"><div class="nt-sim-top"><span class="nt-sim-ico">🚨</span><strong>Shock Room</strong></div><p>Urgencias críticas con cronómetro y monitor de signos vitales.</p><div class="ecg"><svg viewBox="0 0 250 40" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M0 20H30L36 20L40 6L45 34L50 20H95L101 20L105 6L110 34L115 20H160L166 20L170 6L175 34L180 20H250"/></svg></div><div class="vitals"><span>FC 128</span><span>TA 80/50</span><span>SpO₂ 88%</span><span class="crit" id="nt-shock">⏱ 02:47</span></div></div><div class="nt-sim c-amber"><div class="nt-sim-top"><span class="nt-sim-ico">⚖️</span><strong>Consultorio y Peritaje Legal</strong></div><p>Comunicación, malas noticias y peritajes.</p><span class="mini-chip">Comunicación de malas noticias</span></div><div class="nt-sim c-indigo"><div class="nt-sim-top"><span class="nt-sim-ico">🎯</span><strong>Examen Final ECOE</strong></div><p>Estación clínica completa de alta exigencia.</p><div class="stations"><i class="d"></i><i class="d"></i><i class="d"></i><i class="a"></i><i></i><i></i></div></div></div></div>
+                        <div class="nt-stage"><div class="nt-sims"><div class="nt-sim "><div class="nt-sim-top"><span class="nt-sim-ico">🩺</span><strong>Choice Clásico</strong></div><p>Práctica cronometrada con justificación bibliográfica.</p><div class="mini-opts"><i>A</i><i class="ok">B</i><i>C</i><i>D</i></div></div><div class="nt-sim c-violet"><div class="nt-sim-top"><span class="nt-sim-ico">✍️</span><strong>Escrito con IA</strong></div><p>Desarrollo evaluado con rúbrica docente.</p><div class="mini-lines"><i></i><i></i><i></i></div><span class="mini-chip">Rúbrica 8/10</span></div><div class="nt-sim c-emerald"><div class="nt-sim-top"><span class="nt-sim-ico">🛏️</span><strong>Pase de Sala</strong></div><p>Interrogá e interactuá con la cama del paciente.</p><span class="mini-chip">Cama 4 · Interrogatorio</span></div><div class="nt-sim c-red"><div class="nt-sim-top"><span class="nt-sim-ico">🚨</span><strong>Shock Room</strong></div><p>Urgencias críticas con cronómetro y monitor de signos vitales.</p><div class="ecg"><svg viewBox="0 0 250 40" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M0 20H30L36 20L40 6L45 34L50 20H95L101 20L105 6L110 34L115 20H160L166 20L170 6L175 34L180 20H250"/></svg></div><div class="vitals"><span>FC 128</span><span>TA 80/50</span><span>SpO₂ 88%</span><span class="crit" id="nt-shock">⏱ 02:47</span></div></div><div class="nt-sim c-amber"><div class="nt-sim-top"><span class="nt-sim-ico">⚖️</span><strong>Consultorio y Peritaje Legal</strong></div><p>Comunicación, malas noticias y peritajes.</p><span class="mini-chip">Comunicación de malas noticias</span></div><div class="nt-sim c-indigo"><div class="nt-sim-top"><span class="nt-sim-ico">🎯</span><strong>ECOE FINAL · 6.º año</strong></div><p>Una estación de cada especialidad, con revisión al final.</p><div class="stations"><i class="d"></i><i class="d"></i><i class="d"></i><i class="a"></i><i></i><i></i></div></div></div></div>
                     </section>
 
                     <!-- PASO 3 -->
@@ -2192,11 +2233,11 @@
         }
 
         const nikaFloatKB = [
-            { k: ['plan', 'planes', 'diferencia', 'precio', 'costo'], a: 'NikaMed (gratis) incluye Sala de Estudio con planificador, Liga Pomodoro, Sala de Ateneos, Foro Académico, NikaMusic, NikaFarma potenciado, Duelos 1vs1, Simulador de Choices y tu Rendimiento Académico. NikaMed+ tiene todas las funciones y suma toda la artillería con IA: Simulador Escrito, Pase de Sala, Shock Room, Consultorios y Legales, Examen Final ECOE y el Asistente Nika con NotebookLM. Podés ver el detalle completo en la sección "Planes" de esta página.' },
+            { k: ['plan', 'planes', 'diferencia', 'precio', 'costo'], a: 'NikaMed (gratis) incluye salas de estudio de 1.º a 6.º año con la PFO, NikaSim, Modo Guardia, Liga Pomodoro, Sala de Ateneos, Foro Académico, NikaMusic, NikaFarma potenciado, Recetarios, Duelos 1vs1, Simulador de Choices y tu Rendimiento Académico. NikaMed+ tiene todas las funciones y suma toda la artillería con IA: Simulador Escrito, Pase de Sala, Shock Room, Consultorios y Legales, ECOE FINAL de 6.º año, el chat de práctica de los casos de la PFO y el Asistente Nika con NotebookLM. Podés ver el detalle completo en la sección "Planes" de esta página.' },
             { k: ['simulador', 'simuladores', 'caso', 'clinico', 'clínico'], a: 'Los simuladores plantean casos clínicos reales basados en bibliografía de cátedra. Elegís una conducta, recibís corrección inmediata con el razonamiento correcto, y podés practicar en modalidad Choice, Escrito con IA, Traumatología o Suturas.' },
             { k: ['registro', 'cuenta', 'registrarme', 'gratis', 'probar', 'demo'], a: 'Sí, podés probar el simulador con preguntas de demo sin crear una cuenta desde el botón "Probá la Demo" en la parte superior. Para guardar tu progreso y estadísticas, en algún momento vas a necesitar registrarte gratis.' },
             { k: ['pomodoro', 'tiempo', 'estudio'], a: 'El Pomodoro integrado te deja medir cuánto tiempo real le dedicás a cada Unidad Problema, para que sepas en qué temas tenés que reforzar el repaso.' },
-            { k: ['ecoe'], a: 'El Examen Final ECOE es una de las herramientas de NikaMed+: te permite practicar de forma integral las distintas estaciones que se toman en el examen final.' },
+            { k: ['ecoe'], a: 'El ECOE FINAL de 6.º año es una de las herramientas de NikaMed+: una estación de cada especialidad, con modo práctica, parte de procedimientos y documentos, y revisión detallada al final.' },
             { k: ['bibliografia', 'bibliografía', 'fuente', 'libro'], a: 'Todas las justificaciones del Asistente Nika y los casos clínicos se extraen exclusivamente de los libros de cátedra oficiales de cada materia, no de fuentes genéricas de internet.' }
         ];
 
