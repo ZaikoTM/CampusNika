@@ -1,0 +1,968 @@
+{
+ "id": "siam_parcial1_up1_5",
+ "materia": "siam",
+ "tipo": "parcial",
+ "titulo": "Primer parcial · SIAM (UP 1 a 5)",
+ "subtitulo": "Guía sugerida · Unidades 1 a 5",
+ "descripcion": "Medicina interna, farmacología geriátrica y acreditaciones prácticas de las unidades 1 a 5, con lo que más preguntan en cada tema, entrenamiento de justificación de falsas y oratoria.",
+ "nota": "Es una guía de estudio orientativa. Verificá siempre cifras, clasificaciones y conductas con el material y la bibliografía vigentes de tu cátedra.",
+ "unidades": [
+  "UP 1",
+  "UP 2",
+  "UP 3",
+  "UP 4",
+  "UP 5"
+ ],
+ "practica": {
+  "modulo": "siam",
+  "mode": "parcial_1"
+ },
+ "dias": [
+  {
+   "titulo": "Urología Obstructiva y Procedimientos",
+   "horas": 9,
+   "unidad": "UP 1",
+   "caso": "Redactar por qué es falsa la afirmación: \"El balón de la sonda Foley se insufla con solución fisiológica antes de constatar el retorno de orina\".",
+   "temas": [
+    {
+     "texto": "Prostatitis Aguda vs. Hiperplasia Benigna de Próstata (HBP)",
+     "prio": "alta",
+     "detalle": "Tacto rectal: HBP es de consistencia fibroelástica, lisa e indolora. Cáncer es de consistencia pétrea/nodular. Prostatitis es extremadamente dolorosa y caliente. · Sondaje vesical: Manejo de la descompresión en la Retención Aguda de Orina (RAO). Debe ser paulatina para evitar hemorragia ex vacuo y hematuria macroscópica. Insuflar el balón de Foley con agua destilada (nunca solución fisiológica) y reponer el prepucio para prevenir parafimosis.",
+     "trampa": "Regla K.O. de Examen: Está contraindicado realizar masaje prostático en la prostatitis aguda por riesgo de desencadenar bacteriemia y shock séptico.",
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Cáncer de Próstata y Farmacología (Tamsulosina / Finasteride)",
+     "prio": "sec",
+     "detalle": "Diferencia de mecanismo entre α1-bloqueantes (relajan estroma, acción rápida) e inhibidores de 5-α-reductasa (reducen volumen prostático a largo plazo).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Medicina Interna: Retención Aguda de Orina",
+     "prio": "media",
+     "detalle": "Retención Aguda de Orina (RAO), Hiperplasia Benigna de Próstata (HBP), Prostatitis aguda/crónica y Cáncer de Próstata. Fisiopatología de la uropatía obstructiva baja.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Retención Aguda de Orina (RAO), Hiperplasia Benigna de Próstata (HBP), Prostatitis aguda/crónica y Cáncer de Próstata. Fisiopatología de la uropatía obstructiva baja."
+    },
+    {
+     "bloque": "Procedimientos y Acreditaciones",
+     "horas": "",
+     "tarea": "Colocación de Sonda Vesical (técnica aséptica en el varón, insuflado del balón con agua destilada, prevención de hemorragia ex vacuo y descompresión paulatina, reposición del prepucio para evitar parafimosis iatrogénica) y Tacto Rectal (semiología prostática: fibroelástica vs. pétrea)."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "α1-bloqueantes (Tamsulosina) e Inhibidores de la 5-α-reductasa (Finasteride)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    },
+    {
+     "texto": "Redactar por qué es falsa la afirmación: \"El balón de la sonda Foley se insufla con solución fisiológica antes de constatar el retorno de orina\"."
+    }
+   ]
+  },
+  {
+   "titulo": "Infectología Urológica y Sepsis",
+   "horas": 9,
+   "unidad": "UP 1",
+   "caso": "Justificación de la falsedad de: \"La bacteriuria asintomática en el adulto mayor institucionalizado siempre debe recibir tratamiento antibiótico\".",
+   "temas": [
+    {
+     "texto": "Infección del Tracto Urinario (ITU) y Pielonefritis",
+     "prio": "alta",
+     "detalle": "Sedimento urinario: Un recuento ≥10leucocitos/campo es indicativo de ITU. · Pielonefritis: No existe clínica patognomónica de pielonefritis (pregunta clásica de choice). En el geronte suele presentarse de forma atípica como Delirium (Síndrome Confusional Agudo), caídas o hipotensión sin fiebre. Criterios de internación y antibioticoterapia parenteral (Ceftriaxona / Ciprofloxacina). · Bacteriuria asintomática: No se trata en el adulto mayor salvo procedimientos urológicos invasivos inminentes.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Medicina Interna: Infección del Tracto Urinario",
+     "prio": "media",
+     "detalle": "Infección del Tracto Urinario (ITU) alta y baja en el adulto mayor. Pielonefritis aguda y Urosepsis. Presentación atípica en el geronte (Delirium, caídas, ausencia de fiebre).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Farmacología: Antibioticoterapia empírica y dirigida",
+     "prio": "media",
+     "detalle": "Antibioticoterapia empírica y dirigida (β-lactámicos, Ceftriaxona, Ciprofloxacina/Norfloxacina, Nitrofurantoína). Ajuste estricto por Tasa de Filtrado Glomerular (TFG).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Infección del Tracto Urinario (ITU) alta y baja en el adulto mayor. Pielonefritis aguda y Urosepsis. Presentación atípica en el geronte (Delirium, caídas, ausencia de fiebre)."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Antibioticoterapia empírica y dirigida (β-lactámicos, Ceftriaxona, Ciprofloxacina/Norfloxacina, Nitrofurantoína). Ajuste estricto por Tasa de Filtrado Glomerular (TFG)."
+    },
+    {
+     "bloque": "Acreditación",
+     "horas": "",
+     "tarea": "Interpretación de Urocultivo y Antibiograma."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    },
+    {
+     "texto": "Justificación de la falsedad de: \"La bacteriuria asintomática en el adulto mayor institucionalizado siempre debe recibir tratamiento antibiótico\"."
+    }
+   ]
+  },
+  {
+   "titulo": "Nefrología Aguda/Crónica, Litiasis y Farmacología Renal",
+   "horas": 9,
+   "unidad": "UP 1",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Toxicidad por AINEs y Diuréticos en Geriatría",
+     "prio": "alta",
+     "detalle": "AINEs: Bloquean la síntesis de prostaglandinas, impidiendo la vasodilatación fisiológica de la arteriola aferente → inducen Insuficiencia Renal Aguda (IRA) Prerrenal e hiperpotasemia. · Diuréticos: Las tiazidas (Hidroclorotiazida) son causa frecuente de hiponatremia severa en ancianas. Los diuréticos de asa (Furosemida) y la aspirina aumentan los niveles séricos de ácido úrico.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Litiasis Renal e IRA vs. IRC",
+     "prio": "media",
+     "detalle": "La Tomografía Computada (TAC) sin contraste es el estudio de elección (Gold Standard) para litiasis renal. Diferencia de EFNa (<1% en Prerrenal vs. >2% en Parenquimatosa).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Medicina Interna: Insuficiencia Renal Aguda",
+     "prio": "media",
+     "detalle": "Insuficiencia Renal Aguda (IRA: Prerrenal vs. Parenquimatosa/NTA vs. Post-renal; índices urinarios EFNa y Relación U/Cr), Enfermedad Renal Crónica (ERC) y Nefrolitiasis (Uro-TC sin contraste).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 1"
+    }
+   ],
+   "datos_duros": [
+    "Retención Aguda de Orina (RAO) e Hiperplasia Benigna de Próstata (HBP): Clínica, descompresión vesical paulatina por sonda Foley (prevención de la hemorragia ex vacuo)1415. Tacto rectal (consistencia fibroelástica de la HBP vs. pétrea del cáncer)14.",
+    "Infección Urinaria y Urosepsis: Etiología (E. coli), antibioticoterapia parenteral y ajuste por Filtrado Glomerular.",
+    "Toxicidad Renal por AINEs y Diuréticos: Vasoconstricción de la arteriola aferente por bloqueo de prostaglandinas. Riesgo de hiponatremia por Tiazidas e hiperpotasemia por Espironolactona."
+   ],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Insuficiencia Renal Aguda (IRA: Prerrenal vs. Parenquimatosa/NTA vs. Post-renal; índices urinarios EFNa y Relación U/Cr), Enfermedad Renal Crónica (ERC) y Nefrolitiasis (Uro-TC sin contraste)."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Toxicidad renal por AINEs (inhibición de prostaglandinas y vasoconstricción de arteriola aferente), Diuréticos de asa (Furosemida), Tiazidas (Hidroclorotiazida e hiponatremia en el anciano) y Ahorradores de potasio (Espironolactona e hiperpotasemia)."
+    },
+    {
+     "bloque": "Procedimiento",
+     "horas": "",
+     "tarea": "Urograma Excretor (fases y contraindicación por contraste)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Cardiometabólico y Riesgo Vascular",
+   "horas": 9,
+   "unidad": "UP 2",
+   "caso": "Justificación técnica de opciones falsas sobre metas de PA en ancianos frágiles y manejo de crisis hipertensivas.",
+   "temas": [
+    {
+     "texto": "Criterios de Síndrome Metabólico e HTA",
+     "prio": "alta",
+     "detalle": "Criterios diagnósticos comparados ATP III (3 de 5 componentes: Cintura >102cm H / >88cm M, TG ≥150, HDL bajo, TA ≥130/85, Glucemia ≥100) vs. IDF (cintura obligatoria + 2 componentes). Metas antihipertensivas en el anciano frágil y efectos adversos de IECAs (tos, angioedema, hiperpotasemia).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Dislipemia e Hipolipemiantes",
+     "prio": "sec",
+     "detalle": "Mecanismo de acción de Estatinas (inhibición de HMG-CoA reductasa) y monitoreo de enzimas hepáticas/CK.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Medicina Interna: Síndrome Metabólico, Obesidad en la vejez, Hipertensión Arterial",
+     "prio": "media",
+     "detalle": "Síndrome Metabólico, Obesidad en la vejez, Hipertensión Arterial (HTA en el geronte, metas de PA) y Dislipemias.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Síndrome Metabólico, Obesidad en la vejez, Hipertensión Arterial (HTA en el geronte, metas de PA) y Dislipemias."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Antihipertensivos (IECAs/ARA-II, Bloqueantes de Canales de Calcio como Amlodipina, Tiazidas) e Hipolipemiantes (Estatinas: Atorvastatina/Rosuvastatina, Ezetimibe)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    },
+    {
+     "texto": "Justificación técnica de opciones falsas sobre metas de PA en ancianos frágiles y manejo de crisis hipertensivas."
+    }
+   ]
+  },
+  {
+   "titulo": "Neurología Vascular (Código ACV)",
+   "horas": 9,
+   "unidad": "UP 2",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Prioridad 1 (★★★★★ - MÁXIMA IMPORTANCIA)",
+     "prio": "media",
+     "detalle": "Accidente Cerebrovascular (ACV)",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Algoritmo de Guardia",
+     "prio": "media",
+     "detalle": "Solicitud inmediata de TC de cráneo sin contraste (para descartar hemorragia intracraneal antes de cualquier medida) y Glucemia capilar/HGT (la hipoglucemia es el principal mimic o simulador de ACV).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Terapia Fibrinolítica (rt-PA / Alteplasa)",
+     "prio": "media",
+     "detalle": "Ventana terapéutica estricta de 4. horas. Dosis exacta: 0.9mg/kg (10% en bolo en 1 min, 90% restante en infusión de 60 min).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Manejo de Tensión Arterial",
+     "prio": "media",
+     "detalle": "Para administrar rt-PA, la TA debe ser <185/110mmHg. Si no es candidato a trombólisis, NO se baja la PA salvo que supere 220/120mmHg.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Accidente Cerebrovascular (ACV) Isquémico y Hemorrágico. Síndromes vasculares (ACM, ACA, circulación posterior). Escala NIHSS. Algoritmo de guardia: TC de cráneo sin contraste inmediata para descartar sangrado y HGT para descartar hipoglucemia."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Fibrinólisis con rt-PA/Alteplasa (dosis 0.9mg/kg, ventana 4.5hs, contraindicaciones absolutas) y manejo de la PA pre/post reperfusión."
+    },
+    {
+     "bloque": "Procedimiento",
+     "horas": "",
+     "tarea": "Interpretación de TC de cráneo normal y patológica (isquemia vs. hemorragia)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Neurología Neuromuscular y Medicina Legal I",
+   "horas": 9,
+   "unidad": "UP 2",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Capacidad Civil y Certificado de Discapacidad (CUD)",
+     "prio": "media",
+     "detalle": "Marcas normativas de la Ley de Discapacidad (Ley 22. / 24.901), cobertura del 100% de prestaciones y evaluación por Junta Interdisciplinaria.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Miastenia Gravis, Botulismo y Síndromes Focales",
+     "prio": "sec",
+     "detalle": "Clínica de la unión neuromuscular (fatigabilidad fluctuante con ptosis/diplopía en Miastenia) y parálisis descendente en Botulismo.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Medicina Interna: Miastenia Gravis",
+     "prio": "media",
+     "detalle": "Miastenia Gravis (crisis miasténica), Botulismo, Tétanos y Síndromes focales del encéfalo (Frontal, Parietal, Temporal, Occipital).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 2"
+    }
+   ],
+   "datos_duros": [
+    "Neurología Vascular: ACV Isquémico vs. Hemorrágico, escala NIHSS, ventana de fibrinolíticos.",
+    "Síndrome Metabólico e Hipertensión: Criterios ATP III (3 de 5) e IDF9. Antihipertensivos e hipolipemiantes en geriatría.",
+    "Medicina Legal: Tramitación del Certificado Único de Discapacidad (CUD) (Ley 22.431/24.901) y Capacidad Civil."
+   ],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Miastenia Gravis (crisis miasténica), Botulismo, Tétanos y Síndromes focales del encéfalo (Frontal, Parietal, Temporal, Occipital)."
+    },
+    {
+     "bloque": "Medicina Legal / Derecho Sanitario",
+     "horas": "",
+     "tarea": "Determinación de Capacidad e Incapacidad Civil (Código Civil y Comercial) y tramitación del Certificado Único de Discapacidad (CUD - Ley 22. / Ley 24.901)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Metabolismo Fosfocálcico y Hueso",
+   "horas": 9,
+   "unidad": "UP 3",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Densitometría Ósea (DXA) y Bisfosfonatos",
+     "prio": "alta",
+     "detalle": "Densitometría: El estudio inicial estándar es Columna lumbar L1-L4 anteroposterior + Cadera bilateral. Criterio de Osteoporosis: T-score ≤-2.5. · Bisfosfonatos (Alendronato): Indicaciones de toma estricta (en ayunas, vaso de agua lleno, bipedestación/sedestación 30 min por riesgo de esofagitis). Contraindicados en Tasa de Filtrado Glomerular <30-35ml/min. Teriparatide no debe usarse por más de 2 años.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Osteoporosis, Metabolismo Fosfocálcico, Hiperparatiroidismo primario y secundario…",
+     "prio": "media",
+     "detalle": "Osteoporosis, Metabolismo Fosfocálcico, Hiperparatiroidismo primario y secundario, Hipoparatiroidismo (signos de Chvostek y Trousseau).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Farmacología: Bisfosfonatos",
+     "prio": "media",
+     "detalle": "Bisfosfonatos (Alendronato, Risedronato, Zoledrónico - pautas estrictas de toma en ayunas y bipedestación -), Denosumab, Teriparatida, Calcio y Vitamina D.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Osteoporosis, Metabolismo Fosfocálcico, Hiperparatiroidismo primario y secundario, Hipoparatiroidismo (signos de Chvostek y Trousseau)."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Bisfosfonatos (Alendronato, Risedronato, Zoledrónico - pautas estrictas de toma en ayunas y bipedestación -), Denosumab, Teriparatida, Calcio y Vitamina D."
+    },
+    {
+     "bloque": "Acreditación",
+     "horas": "",
+     "tarea": "Lectura de Densitometría Ósea (DEXA: T-score ≤-2.5) y Radiografía de Esqueleto Óseo (fracturas por aplastamiento vertebral)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Artropatías e Inmuno-Dermatología Grave",
+   "horas": 9,
+   "unidad": "UP 3",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Gota Aguda vs. Crónica y Artrosis",
+     "prio": "alta",
+     "detalle": "Gota: El diagnóstico de certeza y diferenciación con artrosis se realiza mediante Arthrocentesis y estudio del líquido sinovial (cristales de urato monosódico en aguja con birrefringencia negativa). El diagnóstico NO se hace solo con uricemia >7 mg/dl. · Artrosis: Nódulos de Heberden (IFD) y Bouchard (IFP). Corticoides intraarticulares NO están contraindicados en brotes.",
+     "trampa": "Regla K.O. de Alopurinol: NUNCA iniciar ni suspender Alopurinol durante el ataque agudo de gota (desencadena o empeora la crisis).",
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Dermatosis Ampollares (SSJ / NET)",
+     "prio": "media",
+     "detalle": "Signo de Nikolsky positivo. Diferencia por % de Área de Superficie Corporal (ASC): <10% SSJ, >30% NET (Síndrome de Lyell). Fármacos desencadenantes: Alopurinol, sulfas, anticonvulsivantes.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Medicina Interna: Gota aguda vs. crónica",
+     "prio": "media",
+     "detalle": "Gota aguda vs. crónica (podagra, tofos, microscopía de líquido sinovial con cristales UMS), Artrosis (nódulos de Heberden y Bouchard), Fibromialgia y Artritis en el anciano.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Gota aguda vs. crónica (podagra, tofos, microscopía de líquido sinovial con cristales UMS), Artrosis (nódulos de Heberden y Bouchard), Fibromialgia y Artritis en el anciano."
+    },
+    {
+     "bloque": "Dermatología Grave",
+     "horas": "",
+     "tarea": "Eritema Polimorfo, Síndrome de Stevens-Johnson (SSJ) y Necrólisis Epidérmica Tóxica (NET/Lyell - Nikolsky positivo, % de ASC -) y Pénfigo Vulgar vs. Penfigoide Ampollar."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Colchicina, AINEs, Corticoides y Alopurinol (regla estricta: NUNCA iniciar Alopurinol durante la crisis aguda)."
+    },
+    {
+     "bloque": "Procedimiento",
+     "horas": "",
+     "tarea": "Acreditación de Arthrocentesis / Punción articular."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Trastornos del Movimiento, Equilibrio y Caídas",
+   "horas": 9,
+   "unidad": "UP 3",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Enfermedad de Parkinson",
+     "prio": "alta",
+     "detalle": "Tétrada motora (Bradicinesia + Temblor de reposo + Rigidez + Inestabilidad). La anosmia es un síntoma no motor temprano característico. Levodopa + Carbidopa debe tomarse distanciado de comidas ricas en proteínas. Evitar anticolinérgicos en el adulto mayor.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Medicina Interna: Enfermedad de Parkinson",
+     "prio": "media",
+     "detalle": "Enfermedad de Parkinson (tétrada motora: bradicinesia, temblor de reposo, rigidez en rueda dentada e inestabilidad postural), Síndrome Vestibular (periférico vs. central), Síndrome Cerebeloso, Caídas e Inestabilidad en la vejez.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    },
+    {
+     "texto": "Farmacología: Levodopa + Carbidopa",
+     "prio": "media",
+     "detalle": "Levodopa + Carbidopa (interacción con proteínas de la dieta), Agonistas Dopaminérgicos (Pramipexol), Entacapona y Selegilina.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 3"
+    }
+   ],
+   "datos_duros": [
+    "Enfermedad de Parkinson: Tétrada motora (bradicinesia, temblor de reposo, rigidez, inestabilidad)17. Farmacología con Levodopa + Carbidopa (interacción proteica en la absorción)11.",
+    "Artropatías: Gota Aguda (Arthrocentesis, cristales de urato monosódico en aguja con birrefringencia negativa)18. Regla K.O.: Prohibido iniciar o suspender Alopurinol en la crisis aguda. Artrosis (nódulos de Heberden y Bouchard).",
+    "Metabolismo Óseo: Osteoporosis, Densitometría Ósea (T-score ≤-2.5)1920 y pautas estrictas de administración de Bisfosfonatos (Alendronato en ayunas, vaso con agua, bipedestación por 30 minutos)."
+   ],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Enfermedad de Parkinson (tétrada motora: bradicinesia, temblor de reposo, rigidez en rueda dentada e inestabilidad postural), Síndrome Vestibular (periférico vs. central), Síndrome Cerebeloso, Caídas e Inestabilidad en la vejez."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Levodopa + Carbidopa (interacción con proteínas de la dieta), Agonistas Dopaminérgicos (Pramipexol), Entacapona y Selegilina."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Neuropsiquiatría I - Demencias y Alzheimer",
+   "horas": 9,
+   "unidad": "UP 4",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Mini-Mental (MMSE) y Tratamiento Antidemencial",
+     "prio": "alta",
+     "detalle": "Dominios que evalúa el MMSE (orientación, fijación, atención/cálculo, evocación, lenguaje, visoconstrucción) y cortes de deterioro (≤23/24). Farmacología: Inhibidores de Acetilcolinesterasa (Donepezilo) en estadios leves/moderados; Memantina (antagonista NMDA) en estadios moderados/severos para prevenir la excitotoxicidad por glutamato.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Medicina Interna: Deterioro Cognitivo Leve",
+     "prio": "media",
+     "detalle": "Deterioro Cognitivo Leve (DCL) vs. Demencias. Enfermedad de Alzheimer (fisiopatología: amiloide y proteína Tau) y Demencia Vascular.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Valoración Geriátrica Integral: Mini-Mental State Examination",
+     "prio": "media",
+     "detalle": "Mini-Mental State Examination (MMSE - dominios y cortes según escolaridad) y Cuestionario de Pfeffer.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Deterioro Cognitivo Leve (DCL) vs. Demencias. Enfermedad de Alzheimer (fisiopatología: amiloide y proteína Tau) y Demencia Vascular."
+    },
+    {
+     "bloque": "Valoración Geriátrica Integral",
+     "horas": "",
+     "tarea": "Mini-Mental State Examination (MMSE - dominios y cortes según escolaridad) y Cuestionario de Pfeffer."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Inhibidores de la Acetilcolinesterasa (Donepezilo, Rivastigmina, Galantamina - efectos adversos colinérgicos -) y Memantina (antagonista NMDA)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Neuropsiquiatría II, Oftalmología y Psicofarmacología",
+   "horas": 9,
+   "unidad": "UP 4",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Delirium vs. Demencia vs. Depresión",
+     "prio": "alta",
+     "detalle": "Criterios CAM para Delirium (inicio agudo y curso fluctuante, inatención, pensamiento desorganizado/nivel de conciencia alterado). Quetiapina como antipsicótico de elección en agitación con Parkinson.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Oftalmología Geriátrica",
+     "prio": "sec",
+     "detalle": "La disminución de la agudeza visual NO es una característica temprana del glaucoma (afecta primero el campo visual periférico).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Diagnóstico diferencial entre Depresión, Delirium/Síndrome Confusional Agudo",
+     "prio": "media",
+     "detalle": "Diagnóstico diferencial entre Depresión, Delirium/Síndrome Confusional Agudo (Criterios CAM, formas hiper/hipoactivas) y Demencia. Oftalmología: Catarata, Glaucoma de ángulo abierto/cerrado y Degeneración Macular Asociada a la Edad (DMAE).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Diagnóstico diferencial entre Depresión, Delirium/Síndrome Confusional Agudo (Criterios CAM, formas hiper/hipoactivas) y Demencia. Oftalmología: Catarata, Glaucoma de ángulo abierto/cerrado y Degeneración Macular Asociada a la Edad (DMAE)."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Antipsicóticos típicos (Haloperidol) y atípicos (Quetiapina - de elección en Parkinson -), Antidepresivos (ISRS: Sertralina), Benzodiacepinas y sus riesgos en geriatría (caídas, deterioro cognitivo, efecto paradójico)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Valvulopatías Estenosantes",
+   "horas": 9,
+   "unidad": "UP 4",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Estenosis Aórtica (EAo)",
+     "prio": "alta",
+     "detalle": "Tríada clásica: Angina, Síncope, Disnea. · Auscultación: Soplo sistólico eyectivo en diamante irradiado a carótidas con segundo ruido (R2) disminuido o ausente. · Ecocardiograma Doppler: Método de elección (Gold Standard) para medir gradientes y área valvular (<1cm²). · Red Flag: Vasodilatadores puros están contraindicados por riesgo de colapso hemodinámico.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Medicina Interna: Estenosis Aórtica",
+     "prio": "media",
+     "detalle": "Estenosis Aórtica (tríada clásica: Angina, Síncope, Disnea; pulso parvus et tardus, R2 disminuido/ausente, soplo sistólico eyectivo romboidal irradiado a carótidas) y Estenosis Mitral.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    },
+    {
+     "texto": "Estructura Diagnóstica: Ecocardiograma Doppler",
+     "prio": "media",
+     "detalle": "Ecocardiograma Doppler (Gold Standard: gradientes y área valvular <1cm²), indicación de Reemplazo Valvular / TAVI y fármacos contraindicados (hipotensores puros).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 4"
+    }
+   ],
+   "datos_duros": [
+    "Demencias y Enfermedad de Alzheimer: Evaluación con el Mini-Mental State Examination (MMSE)21. Tratamiento con IACEs (Donepezilo, Rivastigmina) y Memantina (antagonista NMDA)1.",
+    "Delirium (Síndrome Confusional Agudo) vs. Depresión: Criterios CAM (inicio agudo, curso fluctuante, inatención)1. Manejo no farmacológico y antipsicóticos a dosis bajas (Quetiapina en Parkinson)21.",
+    "Valvulopatías Estenosantes: Estenosis Aórtica (Tríada: Angina, Síncope, Disnea; soplo sistólico eyectivo irradiado a carótidas con R2 disminuido o ausente; confirmación por Ecocardiograma Doppler)622."
+   ],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Estenosis Aórtica (tríada clásica: Angina, Síncope, Disnea; pulso parvus et tardus, R2 disminuido/ausente, soplo sistólico eyectivo romboidal irradiado a carótidas) y Estenosis Mitral."
+    },
+    {
+     "bloque": "Estructura Diagnóstica",
+     "horas": "",
+     "tarea": "Ecocardiograma Doppler (Gold Standard: gradientes y área valvular <1cm²), indicación de Reemplazo Valvular / TAVI y fármacos contraindicados (hipotensores puros)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Enfermedad Tromboembólica Venosa (Foco Crítico de Repaso)",
+   "horas": 9,
+   "unidad": "UP 5",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "TVP y TEP Masivo vs. Submasivo",
+     "prio": "alta",
+     "detalle": "Score de Wells: Determina la probabilidad clínica. · Dímero D: Su elevación (>500 mg/L) NO es diagnóstica de TEP (falso concepto frecuente); tiene alto Valor Predictivo Negativo (VPN) para descartar en probabilidad baja/intermedia. · Estudio de Confirmación: Angio-TC de tórax (o Ecografía Doppler venosa si se evalúa TVP en alta probabilidad). · Tratamiento TEP Masivo Inestable: Alteplasa (rt-PA) 100 mg a pasar en 2 horas (es falso usar combinaciones con estreptoquinasa). · Anticoagulación en Cáncer: El tratamiento anticoagulante es indefinido.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Medicina Interna: Trombosis Venosa Profunda",
+     "prio": "media",
+     "detalle": "Trombosis Venosa Profunda (TVP) y Tromboembolismo Pulmonar (TEP masivo con inestabilidad hemodinámica vs. submasivo). Tríada de Virchow. Score de Wells para TVP y TEP. Algoritmo diagnóstico: Dímero D (alto valor predictivo negativo en baja probabilidad) y Angio-TC de tórax.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Farmacología Antitrombótica: Heparinas de Bajo Peso Molecular",
+     "prio": "media",
+     "detalle": "Heparinas de Bajo Peso Molecular (Enoxaparina 1mg/kg c/12h SC), Heparina No Fraccionada (HNF con monitoreo de KPTT 1.5-2.5×), Anticoagulantes Orales Directos (ACOD: Apixabán, Rivaroxabán, Dabigatrán), Antagonistas de Vitamina K (Acenocumarol - RIN 2-3 -) y Fibrinólisis (rt-PA 100mg en 2 hs en TEP masivo).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Trombosis Venosa Profunda (TVP) y Tromboembolismo Pulmonar (TEP masivo con inestabilidad hemodinámica vs. submasivo). Tríada de Virchow. Score de Wells para TVP y TEP. Algoritmo diagnóstico: Dímero D (alto valor predictivo negativo en baja probabilidad) y Angio-TC de tórax."
+    },
+    {
+     "bloque": "Farmacología Antitrombótica",
+     "horas": "",
+     "tarea": "Heparinas de Bajo Peso Molecular (Enoxaparina 1mg/kg c/12h SC), Heparina No Fraccionada (HNF con monitoreo de KPTT 1.5-2.5×), Anticoagulantes Orales Directos (ACOD: Apixabán, Rivaroxabán, Dabigatrán), Antagonistas de Vitamina K (Acenocumarol - RIN 2-3 -) y Fibrinólisis (rt-PA 100mg en 2 hs en TEP masivo)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Valvulopatías Regurgitantes",
+   "horas": 9,
+   "unidad": "UP 5",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Insuficiencia Aórtica (IAo) y Mitral (IMi)",
+     "prio": "media",
+     "detalle": "IAo: Soplo holodiastólico, Soplo de Austin-Flint (retumbo presistólico/diastólico en ápex por choque del chorro regurgitante contra la valva anterior mitral), Signo de Hill (diferencia de TAS entre miembros inferiores y superiores >20mmHg). · IMi: Soplo holosistólico irradiado típicamente a la axila.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Medicina Interna: Insuficiencia Aórtica",
+     "prio": "media",
+     "detalle": "Insuficiencia Aórtica (soplo holodiastólico, soplo de Austin-Flint, semiología periférica: Signo de Hill, pulso celer en martillo de agua) e Insuficiencia Mitral (soplo holosistólico irradiado a axila).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Ecocardiograma Doppler, manejo de la sobrecarga de volumen y vasodilatadores.",
+     "prio": "media",
+     "detalle": "",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Insuficiencia Aórtica (soplo holodiastólico, soplo de Austin-Flint, semiología periférica: Signo de Hill, pulso celer en martillo de agua) e Insuficiencia Mitral (soplo holosistólico irradiado a axila)."
+    },
+    {
+     "bloque": "Diagnóstico e Integración",
+     "horas": "",
+     "tarea": "Ecocardiograma Doppler, manejo de la sobrecarga de volumen y vasodilatadores."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Dermatología Oncológica, Proctología y Nutrición Esquelética",
+   "horas": 9,
+   "unidad": "UP 5",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Melanoma, Insuficiencia Venosa Periférica",
+     "prio": "media",
+     "detalle": "Melanoma (ABCDE, Espesor de Breslow). Insuficiencia Venosa: tratamiento con flavonoides, contraindicada la bipedestación prolongada o cruzar las piernas; dormir con elevación de miembros inferiores a 15°.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Medicina Interna: Melanoma Maligno",
+     "prio": "media",
+     "detalle": "Melanoma Maligno (Regla del ABCDE, Espesor de Breslow, biopsia escisional excéntrica) y Enfermedad Hemorroidal.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    },
+    {
+     "texto": "Venotónicos, Antihemorroidales tópicos, Calcio y Vitamina D3 (Colecalciferol).",
+     "prio": "media",
+     "detalle": "",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 5"
+    }
+   ],
+   "datos_duros": [
+    "Enfermedad Tromboembólica Venosa: TVP y TEP masivo vs. submasivo. Algoritmo con Wells, Dímero D y Angio-TC12.",
+    "Valvulopatías Regurgitantes: Insuficiencia Aórtica (soplo holodiastólico, soplo de Austin-Flint, Signo de Hill) e Insuficiencia Mitral (soplo holosistólico en axila)1.",
+    "Dermatología Oncológica: Melanoma Maligno (Regla del ABCDE y Espesor de Breslow)23."
+   ],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Melanoma Maligno (Regla del ABCDE, Espesor de Breslow, biopsia escisional excéntrica) y Enfermedad Hemorroidal."
+    },
+    {
+     "bloque": "Farmacología y Suplementación",
+     "horas": "",
+     "tarea": "Venotónicos, Antihemorroidales tópicos, Calcio y Vitamina D3 (Colecalciferol)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Integración y ensayo técnico: Primer parcial (UP 1 a 5)",
+   "horas": 8,
+   "unidad": "Integración",
+   "caso": "Examen escrito (choice con justificación de falsas) y oral integrador.",
+   "temas": [
+    {
+     "texto": "Integración de casos complejos multi-órgano",
+     "prio": "alta",
+     "detalle": "Armá el mapa de interconexiones clínicas entre las unidades (por ejemplo: HTA y síndrome metabólico que desarrolla ERC, hace fibrilación auricular y un ACV cardioembólico).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Maratón de justificación de falsas contra reloj",
+     "prio": "alta",
+     "detalle": "Mínimo 30 enunciados corregidos con lenguaje médico formal. Estructura: \"La afirmación es falsa porque [mecanismo fisiopatológico o norma farmacológica correcta]…\".",
+     "trampa": "",
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Simulacro de exposición oral integradora de 15 minutos",
+     "prio": "alta",
+     "detalle": "Sin apuntes, como frente al tribunal.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "Integración"
+    }
+   ],
+   "datos_duros": [
+    "Los siguientes temas encabezan las evaluaciones de la materia y aparecen de forma recurrente tanto en el primer parcial escrito como en las mesas finales orales:",
+    "Accidente Cerebrovascular (ACV Isquémico / Hemorrágico) (UP 2):",
+    "Foco de evaluación: Protocolo completo de Código ACV, indicación y contraindicaciones de Alteplasa (rt-PA) a dosis de 0.9mg/kg en ventana estricta de 4. horas, manejo de la Tensión Arterial (meta <185/110mmHg pre-trombólisis) y descartar hipoglucemia por HGT como principal mimic. Diagnóstico por TC de cráneo sin contraste.",
+    "Fibrilación Auricular (FA) y Anticoagulación (UP 7 / UP 5):",
+    "Foco de evaluación: Manejo agudo de la FA inestable (cardioversión eléctrica) vs. FA crónica estable (control de frecuencia con BB/digoxina vs. ritmo)56. Estratificación de riesgo embólico con CHA2DS2-VASc y riesgo hemorrágico con HAS-BLED. Selección entre ACOD (Apixabán, Rivaroxabán) y AVK (Acenocumarol, RIN 2.0–3.0)56.",
+    "Infección del Tracto Urinario (ITU), Pielonefritis y Prostatitis (UP 1):",
+    "Foco de evaluación: Presentación atípica en el geronte (Delirium, caídas, inapetencia sin fiebre). Criterios del sedimento urinario (≥10leucocitos/campo) y urocultivo. Criterio estricto: La bacteriuria asintomática NO se trata en el geronte. En Prostatitis Aguda está contraindicado el masaje prostático por riesgo de bacteriemia/sepsis.",
+    "Insuficiencia Cardíaca (IC) y Edema Agudo de Pulmón (EAP) (UP 6):",
+    "Foco de evaluación: Los 4 pilares del tratamiento con evidencia en mortalidad (IECA/ARA-II → ARNI, Betabloqueantes cardioselectivos, Antagonistas de Mineralocorticoides e iSGLT)6. Criterios mayores y menores de Framingham. El Edema Agudo de Pulmón es una pregunta fija de urgencia (oxígeno, Furosemida EV, Vasodilatadores/Nitratos y VNI)711.",
+    "Enfermedad Tromboembólica Venosa (TVP y TEP) (UP 5):",
+    "Foco de evaluación: Aplicación del Score de Wells. Utilidad del Dímero D (alto Valor Predictivo Negativo para descartar en baja probabilidad, nunca como confirmador directo)12. Confirmación por Angio-TC de tórax y Ecografía Doppler. Fibrinólisis con Alteplasa (100mg en 2 hs) en TEP Masivo con inestabilidad hemodinámica.",
+    "De cara a tu Primer Parcial (UP 1 a UP 5), la cátedra estructura las preguntas escritas (choice con justificación) y los casos prácticos sobre los siguientes ejes prioritarios:"
+   ],
+   "agenda": [
+    {
+     "bloque": "Mañana",
+     "horas": "",
+     "tarea": "Mapa conceptual de interconexiones clínicas."
+    },
+    {
+     "bloque": "Tarde",
+     "horas": "",
+     "tarea": "Maratón de redacción de justificaciones de falsas."
+    },
+    {
+     "bloque": "Noche",
+     "horas": "",
+     "tarea": "Exposición oral integradora de 15 minutos sin apuntes."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Corregí al menos 30 enunciados falsos con justificación."
+    },
+    {
+     "texto": "Expuse el caso integrador en voz alta sin apuntes."
+    },
+    {
+     "texto": "Repasé las reglas K.O. y las contraindicaciones absolutas."
+    }
+   ]
+  }
+ ]
+}

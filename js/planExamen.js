@@ -84,7 +84,7 @@
       S.catalogo.pfo = (j.units || []).map((u) => ({ id: u.etiqueta || ('Módulo ' + u.number), titulo: u.title, temas: (u.contents || []).map(String) }));
     } catch (_) { S.catalogo.pfo = []; }
     try {
-      const nombres = ['gineco_integrador_up1_3', 'gineco_final_up1_4', 'gineco_unidad4_final'];
+      const nombres = ['gineco_integrador_up1_3', 'gineco_final_up1_4', 'gineco_unidad4_final', 'cirugia_parcial1_up1_5', 'cirugia_parcial2_up6_11', 'cirugia_final_up1_11', 'siam_parcial1_up1_5', 'siam_parcial2_up6_9', 'siam_final_up1_9'];
       S.plantillas = (await Promise.all(nombres.map((n) => fetch('data/planes/' + n + '.json').then((r) => (r.ok ? r.json() : null)).catch(() => null)))).filter(Boolean);
     } catch (_) { S.plantillas = []; }
     S.catalogo._ok = true;
@@ -568,15 +568,78 @@
         <div class="pe-sug-i">📘</div>
         <div class="pe-sug-t"><span class="pe-sug-tag">${t.tipo === 'final' ? 'Guía sugerida · Final (escrito + oral)' : 'Guía sugerida · Parcial'}</span><b>${esc(t.titulo)}</b><small>${esc(t.subtitulo)} · ${t.dias.length} días · ${temas} temas · ${fmtH(horas)}</small>
           <small>${esc(t.descripcion)}</small></div>
-        <div class="pe-sug-a">${w.plantilla === t.id
-          ? '<button type="button" class="pe-btn pe-btn--sm" data-act="quitar-plantilla">✕ No usarla</button>'
-          : `<button type="button" class="pe-btn pe-btn--sm pe-btn--pri" data-act="usar-plantilla" data-id="${esc(t.id)}">✨ Usar esta guía</button>`}</div>
+        <div class="pe-sug-a">
+          <button type="button" class="pe-btn pe-btn--sm" data-act="previa-plantilla" data-id="${esc(t.id)}">👁️ Ver cómo sería este plan</button>
+          ${w.plantilla === t.id
+            ? '<button type="button" class="pe-btn pe-btn--sm" data-act="quitar-plantilla">✕ No usarla</button>'
+            : `<button type="button" class="pe-btn pe-btn--sm pe-btn--pri" data-act="usar-plantilla" data-id="${esc(t.id)}">✨ Usar esta guía</button>`}</div>
       </div>`; }).join('');
   }
   function notaPlantilla(w) {
     const T = plantillaPorId(w.plantilla); if (!T) return '';
     return `<div class="pe-ctx pe-rv">📘 Vas a usar la <b>${esc(T.titulo)}</b> (${T.dias.length} días). Trae sus temas, prioridades, datos duros y casos; las <b>horas salen de tu ritmo</b>: si estudiás más por día, terminás antes y te sobran días de repaso. ${esc(T.nota || '')}
       <button type="button" class="pe-mini" data-act="quitar-plantilla">Armar el mío en lugar de la guía</button></div>`;
+  }
+  // Vista previa de una guía sugerida: qué se prepara, cómo es un día y el recorrido completo; con selector de días.
+  function modalPrevia(id) {
+    const T = plantillaPorId(id); if (!T) return;
+    const contenido = T.dias.slice(0, -1);
+    const temas = T.dias.reduce((a, d) => a + (d.temas || []).length, 0);
+    const horasC = contenido.reduce((a, d) => a + (d.horas || 0), 0);
+    const porUnidad = [];
+    contenido.forEach((d) => { const u = (String(d.unidad || '').split(' + ')[0]) || 'Otros'; let g = porUnidad.find((x) => x.u === u); if (!g) { g = { u, dias: 0, temas: 0 }; porUnidad.push(g); } g.dias++; g.temas += (d.temas || []).length; });
+    const muestra = contenido.find((d) => (d.temas || []).length >= 3 && (d.datos_duros || []).length) || contenido.find((d) => (d.temas || []).length >= 2) || contenido[0];
+    const w = S.wiz;
+    const diasEst = (w && w.fecha_examen && w.inicio) ? Math.max(3, planDeFechas(Object.assign({}, w, { repaso: 0 })).todos.length) : T.dias.length;
+    const ini = Math.min(60, Math.max(3, T.dias.length));
+    const { m, cerrar } = modal(`<h3>👁️ Así sería este plan</h3>
+      <p class="pe-sub"><b>${esc(T.titulo)}</b> · ${esc(T.subtitulo || '')}</p>
+      <div class="pe-prev-kpis">
+        <div><b>${T.dias.length}</b><span>días en la guía</span></div><div><b>${temas}</b><span>temas</span></div><div><b>${Math.round(horasC)}</b><span>horas de estudio</span></div>
+        <div><b>${porUnidad.length}</b><span>${porUnidad.length === 1 ? 'unidad' : 'unidades'}</span></div></div>
+      <p class="pe-sub">${esc(T.descripcion || '')}</p>
+      <h4 class="pe-prev-h">📚 Qué vas a preparar</h4>
+      <div class="pe-prev-uni">${porUnidad.map((g) => `<span class="pe-prev-chip"><b>${esc(g.u)}</b> · ${g.dias} ${g.dias === 1 ? 'día' : 'días'} · ${g.temas} temas</span>`).join('')}</div>
+      <h4 class="pe-prev-h">🗓️ Cómo es un día</h4>
+      <div class="pe-prev-dia">
+        <b>${esc(muestra.titulo)}</b><small>${esc(muestra.unidad || '')} · ${fmtH(muestra.horas || 0)}</small>
+        ${(muestra.agenda || []).length ? `<ul>${muestra.agenda.map((a) => `<li><b>${esc(a.bloque)}</b>${a.horas ? ' · ' + esc(a.horas) : ''}: ${esc((a.tarea || '').slice(0, 110))}${(a.tarea || '').length > 110 ? '…' : ''}</li>`).join('')}</ul>` : ''}
+        <div class="pe-prev-temas">${(muestra.temas || []).slice(0, 5).map((t) => `<span><i style="--c:${(PRIO[t.prio] || PRIO.media).c}">${(PRIO[t.prio] || PRIO.media).t}</i>${esc(t.texto.length > 70 ? t.texto.slice(0, 68) + '…' : t.texto)}</span>`).join('')}</div>
+        <small>Cada día trae sus temas con prioridad, datos duros, caso o práctica y un checklist de cierre.</small>
+      </div>
+      <h4 class="pe-prev-h">📋 Recorrido de la guía</h4>
+      <div class="pe-prev-lista">${T.dias.map((d, i) => `<details><summary><span class="n">${i + 1}</span><span class="t">${esc(d.titulo)}</span><span class="h">${(d.temas || []).length} temas</span></summary>
+        <ul>${(d.temas || []).slice(0, 8).map((t) => `<li>${esc(t.texto)}</li>`).join('')}${(d.temas || []).length > 8 ? `<li>… y ${(d.temas || []).length - 8} más</li>` : ''}</ul></details>`).join('')}</div>
+      <h4 class="pe-prev-h">⚙️ Hacelo en los días que quieras</h4>
+      <p class="pe-sub">La guía está pensada para <b>${T.dias.length} días</b>, pero la podés estirar o comprimir. Probá cuántos días tenés:</p>
+      <div class="pe-prev-slider">
+        <input type="range" id="pe-prev-dias" min="3" max="60" value="${ini}" aria-label="Cantidad de días">
+        <output id="pe-prev-out"></output>
+      </div>
+      <p class="pe-estim" id="pe-prev-msg"></p>
+      <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-m="usar">✨ Usar esta guía</button><button type="button" class="pe-btn" data-cerrar>Cerrar</button></div>`, 'ancho pe-prev');
+    const sl = m.querySelector('#pe-prev-dias'), out = m.querySelector('#pe-prev-out'), msg = m.querySelector('#pe-prev-msg');
+    const pintar = () => {
+      const n = +sl.value, hd = horasC / Math.max(1, n - 1);
+      out.textContent = `${n} ${n === 1 ? 'día' : 'días'}`;
+      const horasTxt = fmtH(Math.round(hd * 2) / 2);
+      let txt;
+      if (n === T.dias.length) txt = `Con ${n} días es la guía tal cual: unas ${horasTxt} por día.`;
+      else if (n > T.dias.length) txt = `Con ${n} días estudiás más tranquilo: unas ${horasTxt} por día y te sobran ${n - T.dias.length} días para repasar antes del simulacro final.`;
+      else txt = `Con ${n} días necesitás unas ${horasTxt} por día: los días de la guía se juntan para que entre todo el contenido.`;
+      msg.textContent = txt; msg.classList.toggle('mal', hd > 14);
+    };
+    sl.addEventListener('input', pintar); pintar();
+    m.addEventListener('click', (e) => {
+      if (!e.target.closest('[data-m="usar"]')) return;
+      const n = +sl.value, w2 = S.wiz;
+      cerrar();
+      if (!w2) return;
+      // si el usuario movió el selector y el plan no está atado a un examen del calendario, la fecha del examen se ajusta a sus días
+      if (n !== T.dias.length && !w2.evento_id) w2.fecha_examen = sumaDias(w2.inicio, n + 1);
+      w2.plantilla = T.id; w2.unidades = T.unidades.slice(); w2.titulo = T.titulo; w2.paso = 3; w2.auto = true; aplicarRecomendado(w2, 1);
+      render();
+    });
   }
   function presetsHtml(w) {
     const r = recomendar(w);
@@ -1134,6 +1197,7 @@
       case 'materia': S.wiz.materia = el.dataset.m; S.wiz.unidades = []; S.wiz.plantilla = null; S.wiz.paso = 2; return render();
       case 'usar-plantilla': { const T = plantillaPorId(el.dataset.id); if (!T) return; S.wiz.plantilla = T.id; S.wiz.unidades = T.unidades.slice(); S.wiz.titulo = T.titulo; S.wiz.paso = 3; S.wiz.auto = true; aplicarRecomendado(S.wiz, 1); return render(); }
       case 'quitar-plantilla': S.wiz.plantilla = null; S.wiz.paso = 2; return render();
+      case 'previa-plantilla': return modalPrevia(el.dataset.id);
       case 'todas': { const cat = S.catalogo[S.wiz.materia] || []; const todas = cat.every((u) => S.wiz.unidades.includes(u.id)); S.wiz.unidades = todas ? [] : cat.map((u) => u.id); return render(); }
       case 'sig': {
         if (S.wiz.paso === 2 && !S.wiz.unidades.length && !String(S.wiz.extra || '').trim()) return toast('Elegí al menos una unidad');

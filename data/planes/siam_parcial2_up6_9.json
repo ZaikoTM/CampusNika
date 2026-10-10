@@ -1,0 +1,908 @@
+{
+ "id": "siam_parcial2_up6_9",
+ "materia": "siam",
+ "tipo": "parcial",
+ "titulo": "Segundo parcial · SIAM (UP 6 a 9)",
+ "subtitulo": "Guía sugerida · Unidades 6 a 9",
+ "descripcion": "Insuficiencia cardíaca, arritmias, sueño y sexualidad, y el final de la vida: lo que más preguntan, las reglas K.O. y el entrenamiento de justificación de falsas y oratoria.",
+ "nota": "Es una guía de estudio orientativa. Verificá siempre cifras, clasificaciones y conductas con el material y la bibliografía vigentes de tu cátedra.",
+ "unidades": [
+  "UP 6",
+  "UP 7",
+  "UP 8",
+  "UP 9"
+ ],
+ "practica": {
+  "modulo": "siam",
+  "mode": "parcial_2"
+ },
+ "dias": [
+  {
+   "titulo": "Insuficiencia Cardíaca I (Fisiopatología y Diagnóstico)",
+   "horas": 9,
+   "unidad": "UP 6",
+   "caso": "Justificar por qué es falsa la afirmación: \"Un nivel de NT-proBNP de 200 pg/ml confirma de forma excluyente la presencia de EAP\".",
+   "temas": [
+    {
+     "texto": "Criterios de Framingham",
+     "prio": "alta",
+     "detalle": "Diagnóstico clínico con 2 Criterios Mayores o 1 Mayor + 2 Menores. (Pregunta fija de choice y oral).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Biomarcadores (Péptidos Natriuréticos)",
+     "prio": "alta",
+     "detalle": "El punto de corte para considerar poco probable la presencia de IC es un NT-proBNP<125pg/ml (o BNP<35pg/ml). ¡Atención!",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Perfiles Hemodinámicos de Stevenson",
+     "prio": "alta",
+     "detalle": "Identificación rápida del perfil Caliente y Húmedo (Perfil B) como el más frecuente, frente al Frío y Húmedo (Perfil C) que presenta hipoperfusión periférica y requiere soporte inotrópico.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Fisiopatología de la Nicturia temprana",
+     "prio": "alta",
+     "detalle": "Se produce por la mejora de la perfusión renal durante el decúbito al disminuir el tono simpático.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Cuadro de disnea brusca, estertores crepitantes en \"marea montante\", expectoración…",
+     "prio": "alta",
+     "detalle": "Cuadro de disnea brusca, estertores crepitantes en \"marea montante\", expectoración rosada; tratamiento con oxígeno, Furosemida EV, vasodilatadores y VNI6.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Insuficiencia Cardíaca Crónica (IC-FEr, IC-FEir, IC-FEp) y Aguda descompensada. Fisiopatología de la remodelación ventricular. Criterios de Framingham (mayores y menores). Perfiles Hemodinámicos de Stevenson (Caliente/Húmedo, Frío/Húmedo). Edema Agudo de Pulmón (EAP)."
+    },
+    {
+     "bloque": "Biomarcadores y Diagnóstico",
+     "horas": "",
+     "tarea": "Péptidos Natriuréticos (NT-proBNP: el valor <125pg/ml permite considerar poco probable la IC con alto valor predictivo negativo)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    },
+    {
+     "texto": "Justificar por qué es falsa la afirmación: \"Un nivel de NT-proBNP de 200 pg/ml confirma de forma excluyente la presencia de EAP\"."
+    }
+   ]
+  },
+  {
+   "titulo": "Insuficiencia Cardíaca II (Cuádruple Terapia y Farmacología Cardio-Renal)",
+   "horas": 9,
+   "unidad": "UP 6",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Los 4 Pilares del Tratamiento con evidencia en supervivencia",
+     "prio": "alta",
+     "detalle": "1) ARNI (Sacubitrilo/Valsartán) o IECA/ARA-II, 2) Betabloqueantes cardioselectivos (Bisoprolol, Carvedilol), 3) Antagonistas del Receptor de Mineralocorticoides (Espironolactona/Eplerenona) y 4) iSGLT (Dapagliflozina/Empagliflozina).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Mecanismo Celular de la Digoxina",
+     "prio": "alta",
+     "detalle": "Inhibición directa de la bomba Na⁺/K⁺⁻ATPasa, lo que aumenta la concentración intracelular de sodio y reduce el intercambio Na⁺/Ca²⁺, incrementando el Ca²⁺ libre intracitoplasmático (efecto inotrópico positivo)2. Su toxicidad (xantopsia, arritmias) es favorecida por la hipopotasemia.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Efectos Adversos de Diuréticos",
+     "prio": "alta",
+     "detalle": "Disfunción eréctil por Tiazidas; hipopotasemia e hiperuricemia por Furosemida. El Manitol está contraindicado en anuria por ERC grave y hemorragia craneal activa.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Los 4 Pilares con Evidencia en Sobrevida: ARNI (Sacubitrilo/Valsartán) / IECA / ARA-II, Betabloqueantes cardioselectivos (Carvedilol, Bisoprolol), Antagonistas del Receptor de Mineralocorticoides - ARM (Espironolactona, Eplerenona) e iSGLT (Dapagliflozina, Empagliflozina)."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Diuréticos de Asa (Furosemida): Manejo de la sobrecarga de volumen."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Glucósidos Cardíacos (Digoxina): Mecanismo de acción celular exacto (inhibición de la bomba Na⁺/K⁺⁻ATPasa, aumentando el Na⁺ intracelular y secundariamente el Ca²⁺ libre intracitoplasmático). Rango terapéutico estrecho (0.5–0. ng/ml). Intoxicación digitálica (xantopsia, arritmias) favorecida por hipopotasemia."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Miocardiopatías y Enfermedad de Chagas (Infectología Regional)",
+   "horas": 9,
+   "unidad": "UP 6",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Cardiopatía Chagásica Crónica (T. cruzi)",
+     "prio": "alta",
+     "detalle": "Confirmación diagnóstica con al menos 2 pruebas serológicas distintas reactivas (ELISA, IFI, HAI)12.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Hallazgo Ecocardiográfico Patognomónico",
+     "prio": "alta",
+     "detalle": "Aneurisma Apical del Ventrículo Izquierdo.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Tratamiento Etiológico y Sintomático",
+     "prio": "alta",
+     "detalle": "Benznidazol (5–7 mg/kg/día por 30–60 días) o Nifurtimox. Manejo de arritmias ventriculares complejas con Amiodarona o CDI.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Miocardiopatías (Dilatada, Hipertrófica, Restrictiva). Enfermedad de Chagas (Trypanosoma cruzi): Fases de la enfermedad, diagnóstico serológico (2 pruebas distintas reactivas). Cardiopatía Chagásica Crónica: Fisiopatología, arritmias por alteración del sistema de conducción y hallazgo patognomónico ecocardiográfico: Aneurisma Apical del Ventrículo Izquierdo."
+    },
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Antiparasitarios (Benznidazol 5–7 mg/kg/día por 30–60 días o Nifurtimox)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Acreditaciones Prácticas y Taller Cardio-Respiratorio",
+   "horas": 9,
+   "unidad": "UP 6",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Radiografía de Tórax en IC",
+     "prio": "media",
+     "detalle": "Signos clásicos de congestión (Líneas B de Kerley, cardiomegalia con ICT >0.50, redistribución de flujo en \"alas de mariposa\" y derrame pleural)9.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    },
+    {
+     "texto": "Acreditaciones: Lectura de Radiografía de Tórax en IC",
+     "prio": "media",
+     "detalle": "Lectura de Radiografía de Tórax en IC (Índice Cartiotorácico >0.50, redistribución de flujo, Líneas B de Kerley, infiltrado perihiliar en \"alas de mariposa\" y derrame pleural) y Ecocardiograma Doppler (FEVI por método de Simpson).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 6"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Acreditaciones",
+     "horas": "",
+     "tarea": "Lectura de Radiografía de Tórax en IC (Índice Cartiotorácico >0.50, redistribución de flujo, Líneas B de Kerley, infiltrado perihiliar en \"alas de mariposa\" y derrame pleural) y Ecocardiograma Doppler (FEVI por método de Simpson)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Fibrilación Auricular (FA) y Prevención Tromboembólica",
+   "horas": 9,
+   "unidad": "UP 7",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Criterios en ECG",
+     "prio": "alta",
+     "detalle": "Ausencia de onda P, ondas \"f\" en la línea de base y ritmo R-R absolutamente irregular.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Manejo Agudo",
+     "prio": "alta",
+     "detalle": "Inestabilidad hemodinámica → Cardioversión Eléctrica Sincronizada (CVE) inmediata.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Anticoagulación",
+     "prio": "alta",
+     "detalle": "Cálculo del riesgo embólico por CHA2DS2-VASc (inicio si ≥2 en hombres / ≥3 en mujeres) y riesgo hemorrágico por HAS-BLED. Elección de ACOD (Apixabán, Rivaroxabán) vs. AVK (Acenocumarol, RIN 2.0–3.0)714. La Aspirina NO está indicada para prevención de embolias en FA.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Fibrilación Auricular (FA) y Flutter Auricular. Criterios electrocardiográficos (ausencia de onda P, ondas \"f\", R-R absolutamente irregular)."
+    },
+    {
+     "bloque": "Manejo Agudo",
+     "horas": "",
+     "tarea": "Inestabilidad hemodinámica → Cardioversión Eléctrica Sincronizada (CVE) inmediata."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Control de Frecuencia vs. Ritmo: Betabloqueantes, Diltiazem/Verapamilo (contraindicados si FEVI <40%), Digoxina y Amiodarona."
+    },
+    {
+     "bloque": "Estratificación y Anticoagulación",
+     "horas": "",
+     "tarea": "Scores CHA2DS2-VASc (indicación de anticoagulación si ≥2 H / ≥3 M) y HAS-BLED. ACOD (Apixabán, Rivaroxabán, Dabigatrán) vs. AVK (Acenocumarol, RIN 2.0–3.0). La Aspirina NO está indicada para prevención embólica en FA."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Taquiarritmias, Bradiarritmias y Alteraciones de Conducción",
+   "horas": 9,
+   "unidad": "UP 7",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Bloqueos AV en ECG",
+     "prio": "media",
+     "detalle": "Diagnóstico de BAV 1° Grado (PR largo constante), BAV 2° Grado Mobitz I (Wenckebach) vs. Mobitz II (alto riesgo de colapso) y BAV 3° Grado (disociación AV completa). Indicaciones de marcapasos definitivo.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Bradiarritmias: Síndrome del Nódulo Sinusal Enfermo, Bloqueos AV",
+     "prio": "media",
+     "detalle": "Síndrome del Nódulo Sinusal Enfermo, Bloqueos AV (1° Grado, 2° Grado Mobitz I / Wenckebach, 2° Grado Mobitz II, y 3° Grado / Completo con disociación AV). Indicación de Marcapasos definitivo.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Taquiarritmias: Taquicardia Supraventricular, Taquicardia Ventricular",
+     "prio": "media",
+     "detalle": "Taquicardia Supraventricular, Taquicardia Ventricular (TV monomórfica/polimórfica), Fibrilación Ventricular (FV), Síndrome de Wolff-Parkinson-White (WPW) y Síndrome de QT Largo.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Bradiarritmias",
+     "horas": "",
+     "tarea": "Síndrome del Nódulo Sinusal Enfermo, Bloqueos AV (1° Grado, 2° Grado Mobitz I / Wenckebach, 2° Grado Mobitz II, y 3° Grado / Completo con disociación AV). Indicación de Marcapasos definitivo."
+    },
+    {
+     "bloque": "Taquiarritmias",
+     "horas": "",
+     "tarea": "Taquicardia Supraventricular, Taquicardia Ventricular (TV monomórfica/polimórfica), Fibrilación Ventricular (FV), Síndrome de Wolff-Parkinson-White (WPW) y Síndrome de QT Largo."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Farmacología Antiarrítmica y Terapias de Emergencia",
+   "horas": 9,
+   "unidad": "UP 7",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Amiodarona (Clase III)",
+     "prio": "alta",
+     "detalle": "Antiarrítmico de elección en cardiopatía estructural y Chagas. Monitoreo estricto de toxicidad crónico (fibrosis pulmonar, disfunción tiroidea, microdepósitos corneales, fotosensibilidad azuloja).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Diferencia Técnica",
+     "prio": "alta",
+     "detalle": "Cardioversión Eléctrica Sincronizada (descarga coordinada sobre la onda R) vs. Desfibrilación (descarga asincrónica indicada en Fibrilación Ventricular o Taquicardia Ventricular sin pulso).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Clasificación de Vaughan-Williams (Clase I, II, III, IV). Amiodarona (Clase III)",
+     "prio": "media",
+     "detalle": "Antiarrítmico de elección en cardiopatía estructural y Chagas. Efectos adversos crónicos a vigilar: Fibrosis pulmonar, disfunción tiroidea (hipo/hipertiroidismo), microdepósitos corneales, fotosensibilidad azuloja y hepatotoxicidad.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Farmacología",
+     "horas": "",
+     "tarea": "Clasificación de Vaughan-Williams (Clase I, II, III, IV). Amiodarona (Clase III): Antiarrítmico de elección en cardiopatía estructural y Chagas. Efectos adversos crónicos a vigilar: Fibrosis pulmonar, disfunción tiroidea (hipo/hipertiroidismo), microdepósitos corneales, fotosensibilidad azuloja y hepatotoxicidad."
+    },
+    {
+     "bloque": "Procedimientos de Emergencia",
+     "horas": "",
+     "tarea": "Cardioversión Eléctrica Sincronizada (descarga sobre la onda R) vs. Desfibrilación (descarga no sincronizada en FV/TVSP)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Taller de Electrocardiografía (ECG) de Arritmias",
+   "horas": 9,
+   "unidad": "UP 7",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Lectura práctica de trazados",
+     "prio": "media",
+     "detalle": "FA, Flutter auricular, BAV de 2° y 3° grado, y Taquicardia Ventricular.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    },
+    {
+     "texto": "Taller intensivo de lectura de trazados electrocardiográficos arrítmicos",
+     "prio": "media",
+     "detalle": "Taller intensivo de lectura de trazados electrocardiográficos arrítmicos (identificación de FA, BAV de 2° y 3° grado, TV, FV y extrasístoles).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 7"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Acreditación",
+     "horas": "",
+     "tarea": "Taller intensivo de lectura de trazados electrocardiográficos arrítmicos (identificación de FA, BAV de 2° y 3° grado, TV, FV y extrasístoles)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Fisiología y Trastornos del Sueño",
+   "horas": 9,
+   "unidad": "UP 8",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Arquitectura del Sueño",
+     "prio": "media",
+     "detalle": "Cambios fisiológicos en la vejez (disminución del sueño profundo/fase N3 y fragmentación del descanso). Criterios diagnósticos del Síndrome de Apneas-Hipopneas Obstructivas del Sueño (SAOS) e indicación de Polisomnografía.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Medicina Interna: Arquitectura del sueño normal y cambios fisiológicos en la vejez",
+     "prio": "media",
+     "detalle": "Arquitectura del sueño normal y cambios fisiológicos en la vejez (disminución del sueño profundo/fase N3 y aumento de despertares). Insomnio (conciliación vs. mantenimiento), Síndrome de Apneas-Hipopneas Obstructivas del Sueño (SAOS), Narcolepsia e Hipersomnia.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Diagnóstico: Polisomnografía y Test de Latencias Múltiples del Sueño.",
+     "prio": "media",
+     "detalle": "",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Arquitectura del sueño normal y cambios fisiológicos en la vejez (disminución del sueño profundo/fase N3 y aumento de despertares). Insomnio (conciliación vs. mantenimiento), Síndrome de Apneas-Hipopneas Obstructivas del Sueño (SAOS), Narcolepsia e Hipersomnia."
+    },
+    {
+     "bloque": "Diagnóstico",
+     "horas": "",
+     "tarea": "Polisomnografía y Test de Latencias Múltiples del Sueño."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Disfunciones Sexuales y Salud Integral",
+   "horas": 9,
+   "unidad": "UP 8",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Disfunción Eréctil",
+     "prio": "media",
+     "detalle": "Diferenciación entre causa orgánica/vascular y psicógena. Evaluación del impacto psicosocial y asociación con HBP15.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Medicina Interna: Sexualidad en la vejez",
+     "prio": "media",
+     "detalle": "Sexualidad en la vejez (mitos y cambios fisiológicos). Disfunción Eréctil (etiología vascular/orgánica vs. psicógena), trastornos del deseo, dispareunia y vaginismo. Abordaje psicoterapéutico y de pareja.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Sexualidad en la vejez (mitos y cambios fisiológicos). Disfunción Eréctil (etiología vascular/orgánica vs. psicógena), trastornos del deseo, dispareunia y vaginismo. Abordaje psicoterapéutico y de pareja."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Psicofarmacología de la UP8 y Contraindicaciones Absolutas",
+   "horas": 9,
+   "unidad": "UP 8",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Hipnóticos",
+     "prio": "alta",
+     "detalle": "Benzodiacepinas vs. Fármacos Z (Zolpidem)14. Criterios de Beers y riesgos en el geronte (caídas, confusión matinal, efecto paradójico)14.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Regla K.O. Letal",
+     "prio": "alta",
+     "detalle": "Contraindicación absoluta del uso simultáneo de iPDE-5 (Sildenafil, Tadalafilo) con Nitratos (Nitroglicerina, Dinitrato de Isosorbide) debido al riesgo de vasodilatación masiva y colapso hemodinámico refractario.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    },
+    {
+     "texto": "Hipnóticos: Benzodiacepinas",
+     "prio": "media",
+     "detalle": "Benzodiacepinas (BZD) vs. No-Benzodiacepínicos / Fármacos Z (Zolpidem). Riesgos geriátricos: caídas, confusión matinal, tolerancia, dependencia y efecto paradójico.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 8"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Hipnóticos",
+     "horas": "",
+     "tarea": "Benzodiacepinas (BZD) vs. No-Benzodiacepínicos / Fármacos Z (Zolpidem). Riesgos geriátricos: caídas, confusión matinal, tolerancia, dependencia y efecto paradójico."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Inhibidores de la Fosfodiesterasa-5 (iPDE-5): Sildenafil, Tadalafilo. Mecanismo vasodilatador mediado por GMPc."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Regla K.O. de la Cátedra: Contraindicación absoluta y letal del uso concomitante de iPDE-5 con Nitratos (Nitroglicerina, Isosorbide) por riesgo de colapso hemodinámico e hipotensión severa e refractaria."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Dermatología Ampollar y Úlceras por Presión (UPP)",
+   "horas": 9,
+   "unidad": "UP 9",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Dermatosis Ampollares Autoinmunes",
+     "prio": "alta",
+     "detalle": "Pénfigo Vulgar (ampollas flácidas, intraepidérmicas, Signo de Nikolsky positivo, compromiso mucoso oral) vs. Penfigoide Ampollar (ampollas tensas, subepidérmicas, Nikolsky negativo, prurito intenso)12.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Úlceras por Presión (UPP - PriCUPP)",
+     "prio": "alta",
+     "detalle": "Fisiopatología por presión/fricción/cizallamiento. Estadificación I al IV. Cura húmeda: hidrogeles para desbridar tejido necrótico; alginato de calcio para heridas con exudado abundante.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Dermatología: Pénfigo Vulgar",
+     "prio": "media",
+     "detalle": "Pénfigo Vulgar (ampollas flácidas, intraepidérmicas, Nikolsky +, afectación oral) vs. Penfigoide Ampollar (ampollas tensas, subepidérmicas, Nikolsky -).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Dermatología",
+     "horas": "",
+     "tarea": "Pénfigo Vulgar (ampollas flácidas, intraepidérmicas, Nikolsky +, afectación oral) vs. Penfigoide Ampollar (ampollas tensas, subepidérmicas, Nikolsky -)."
+    },
+    {
+     "bloque": "Lesiones por Presión",
+     "horas": "",
+     "tarea": "Fisiopatología (presión, fricción, cizallamiento). Estadificación NPUAP/EPUAP (Estadios I al IV)."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Manejo Local (Consenso PriCUPP): Cambios posturales c/2 hs, colchón de aire alternante, desbridamiento de tejido necrótico y cura húmeda (hidrogeles vs. alginato de calcio para exudado)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Oncología Digestiva Geriátrica",
+   "horas": 9,
+   "unidad": "UP 9",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Cáncer de Esófago",
+     "prio": "media",
+     "detalle": "Carcinoma epidermoide (tercio superior/medio, tabaco/alcohol) vs. Adenocarcinoma (tercio inferior, Esófago de Barrett)6.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Cáncer de Estómago",
+     "prio": "media",
+     "detalle": "Adenocarcinoma gástrico, síntomas de alarma (disfagia progresiva lógica, pérdida de peso, anemia, saciedad precoz)6. Confirmación por Videoendoscopía Digestiva Alta (VEDA) con biopsia.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Medicina Interna: Cáncer de Esófago",
+     "prio": "media",
+     "detalle": "Cáncer de Esófago (carcinoma epidermoide vs. adenocarcinoma) y Cáncer de Estómago (adenocarcinoma gástrico).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Cáncer de Esófago (carcinoma epidermoide vs. adenocarcinoma) y Cáncer de Estómago (adenocarcinoma gástrico)."
+    },
+    {
+     "bloque": "Clínica y Diagnóstico",
+     "horas": "",
+     "tarea": "Síntomas de alarma (disfagia progresiva lógica, pérdida de peso involuntaria, anemia ferropénica, saciedad precoz). Confirmación por Videoendoscopía Digestiva Alta (VEDA) con biopsia."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Cuidados Paliativos, Coma y Manejo del Dolor",
+   "horas": 9,
+   "unidad": "UP 9",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "Dolor en el Geronte",
+     "prio": "alta",
+     "detalle": "Predominio del dolor mixto (nociceptivo + neuropático)17. Escalera analgésica de la OMS16.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Uso de Morfina",
+     "prio": "alta",
+     "detalle": "Opioide de elección para dolor severo. Regla de Oro: Prevención obligatoria de la constipación asociando laxantes osmóticos (Lactulosa/PEG) desde el primer día, ya que la constipación por opioides NO genera tolerancia.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Medicina Interna: Paciente en fase terminal, Evaluación del nivel de conciencia",
+     "prio": "media",
+     "detalle": "Paciente en fase terminal, Evaluación del nivel de conciencia (Escala de Glasgow, Estupor y Coma).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Medicina Interna",
+     "horas": "",
+     "tarea": "Paciente en fase terminal, Evaluación del nivel de conciencia (Escala de Glasgow, Estupor y Coma)."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Paso 1: Paracetamol, Dipirona, AINEs."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Paso 2: Opioides débiles (Tramadol, Codeína)."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Paso 3: Opioides fuertes (Morfina, Fentanilo). Dosis, titulación y prevención obligatoria de la constipación con laxantes osmóticos (Lactulosa/Polietilenglicol)."
+    },
+    {
+     "bloque": "Estudio",
+     "horas": "",
+     "tarea": "Co-analgésicos: Pregabalina/Gabapentina (dolor neuropático) y Corticoides."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Emergencias Finales, Tanatología y Medicina Legal",
+   "horas": 9,
+   "unidad": "UP 9",
+   "caso": "",
+   "temas": [
+    {
+     "texto": "RCP Avanzado",
+     "prio": "alta",
+     "detalle": "Ritmos desfibrilables (FV/TVSP) vs. No desfibrilables (Asistolia/AESP). Identificación de 5H y 5T. Rotación de compresores cada 2 minutos.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Confección del Certificado de Defunción",
+     "prio": "alta",
+     "detalle": "Confección del Certificado de Defunción (Dr. Causa Directa (Línea a) vs. Causas Antecedentes. PROHIBIDO escribir \"Paro Cardiorrespiratorio\" como causa de muerte.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    },
+    {
+     "texto": "Muerte Dudosa o Violenta",
+     "prio": "alta",
+     "detalle": "Prohibición absoluta de firmar el certificado por el médico tratante; derivación inmediata al Médico Forense.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "UP 9"
+    }
+   ],
+   "datos_duros": [],
+   "agenda": [
+    {
+     "bloque": "Emergencias",
+     "horas": "",
+     "tarea": "Paro Cardiorrespiratorio (PCR). RCP Avanzado (Guías AHA): Ritmos desfibrilables (FV/TVSP) vs. No desfibrilables (Asistolia/AESP). Identificación de causas reversibles (5H y 5T)."
+    },
+    {
+     "bloque": "Confección del Certificado de Defunción",
+     "horas": "",
+     "tarea": "Llenado legal correcto. Causa Directa (Línea a) vs. Causas Antecedentes (Líneas b/c) e Intervinientes (Parte II). PROHIBIDO colocar \"Paro Cardiorrespiratorio\" como causa de muerte."
+    },
+    {
+     "bloque": "Muerte Violenta o Dudosa",
+     "horas": "",
+     "tarea": "Prohibición absoluta de firmar el certificado por el médico tratante; derivación obligatoria al Médico Forense para autopsia de ley."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Redactar la justificación de 3 opciones falsas del tema del día"
+    },
+    {
+     "texto": "Exponer el tema en voz alta, con terminología formal y sin leer"
+    }
+   ]
+  },
+  {
+   "titulo": "Integración y ensayo técnico: Segundo parcial (UP 6 a 9)",
+   "horas": 8,
+   "unidad": "Integración",
+   "caso": "Examen escrito (choice con justificación de falsas) y oral integrador.",
+   "temas": [
+    {
+     "texto": "Integración de casos complejos multi-órgano",
+     "prio": "alta",
+     "detalle": "Armá el mapa de interconexiones clínicas entre las unidades (por ejemplo: HTA y síndrome metabólico que desarrolla ERC, hace fibrilación auricular y un ACV cardioembólico).",
+     "trampa": "",
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Maratón de justificación de falsas contra reloj",
+     "prio": "alta",
+     "detalle": "Mínimo 30 enunciados corregidos con lenguaje médico formal. Estructura: \"La afirmación es falsa porque [mecanismo fisiopatológico o norma farmacológica correcta]…\".",
+     "trampa": "",
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Simulacro de exposición oral integradora de 15 minutos",
+     "prio": "alta",
+     "detalle": "Sin apuntes, como frente al tribunal.",
+     "trampa": "",
+     "manual": false,
+     "unidad": "Integración"
+    }
+   ],
+   "datos_duros": [
+    "Insuficiencia Cardíaca y EAP (UP6): Criterios de Framingham, Cuádruple terapia (dosis/fármacos), Digoxina (mecanismo Na+/K+-ATPasa e intoxicación) y Péptidos Natriuréticos (NT-proBNP <125 pg/ml).",
+    "Fibrilación Auricular y Anticoagulación (UP7): Criterios en ECG, cálculo de CHA2DS2-VASc y HAS-BLED, indicación de ACOD vs. Acenocumarol.",
+    "Cardiopatía Chagásica Crónica (UP6): Diagnóstico serológico (2 pruebas), ECG (BRD + HAI) y Aneurisma Apical del VI en Ecocardiograma.",
+    "Certificado de Defunción y Medicina Legal (UP9): Confección de Causa Directa vs. Antecedente (error fatal: escribir Paro Cardiorrespiratorio) y conducta ante Muerte Dudosa.",
+    "Farmacología de Urgencia e Interacciones Mortales (UP7/UP8/UP9): Contraindicación de iPDE-5 + Nitratos, dosis de Morfina y RCP Avanzado (ritmos desfibrilables vs. no desfibrilables)."
+   ],
+   "agenda": [
+    {
+     "bloque": "Mañana",
+     "horas": "",
+     "tarea": "Mapa conceptual de interconexiones clínicas."
+    },
+    {
+     "bloque": "Tarde",
+     "horas": "",
+     "tarea": "Maratón de redacción de justificaciones de falsas."
+    },
+    {
+     "bloque": "Noche",
+     "horas": "",
+     "tarea": "Exposición oral integradora de 15 minutos sin apuntes."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Corregí al menos 30 enunciados falsos con justificación."
+    },
+    {
+     "texto": "Expuse el caso integrador en voz alta sin apuntes."
+    },
+    {
+     "texto": "Repasé las reglas K.O. y las contraindicaciones absolutas."
+    }
+   ]
+  }
+ ]
+}
