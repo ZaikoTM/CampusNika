@@ -398,14 +398,14 @@
       });
     }
     marcarCierre(dias[dias.length - 1]);
-    return { id: uid(), titulo: w.titulo || T.titulo, materia: T.materia, fecha_examen: w.fecha_examen, unidades: T.unidades.slice(), inicio: w.inicio, evento_id: null, plantilla_id: T.id, practica: T.practica || null,
+    return { id: uid(), titulo: w.titulo || T.titulo, materia: T.materia, fecha_examen: w.fecha_examen, unidades: T.unidades.slice(), inicio: w.inicio, evento_id: null, plantilla_id: T.id, practica: T.practica || null, pomodoro: w.pomodoro !== false,
       dias, creado_en: new Date().toISOString(), actualizado_en: new Date().toISOString() };
   }
   function planDesdeWizard(w) {
     if (w.plantilla) return planDesdePlantilla(w);
     const dias = generarDias(w);
     if (!dias) return null;
-    return { id: uid(), titulo: w.titulo, materia: w.materia, fecha_examen: w.fecha_examen, unidades: w.unidades.slice(), inicio: w.inicio, evento_id: null,
+    return { id: uid(), titulo: w.titulo, materia: w.materia, fecha_examen: w.fecha_examen, unidades: w.unidades.slice(), inicio: w.inicio, evento_id: null, pomodoro: w.pomodoro !== false,
       dias, creado_en: new Date().toISOString(), actualizado_en: new Date().toISOString() };
   }
 
@@ -465,7 +465,7 @@
       return `<article class="pe-card pe-plan pe-rv" data-act="abrir" data-id="${p.id}" tabindex="0" style="--m:${M.color}">
         <div class="pe-plan-top"><span class="pe-mat">${M.ico} ${esc(M.corto)}</span>${chipSemaforo(r)}</div>
         <h3>${esc(p.titulo)}</h3>
-        <p class="pe-sub">${fmtLarga(p.fecha_examen)} · ${p.dias.length} días · ${fmtH(horasPlan(p))}</p>
+        <p class="pe-sub">${fmtLarga(p.fecha_examen)} · ${p.dias.length} días · ${fmtH(horasPlan(p))}${p.pomodoro ? ' · <span class="pe-pomo-chip">🍅 Pomodoro activo</span>' : ''}</p>
         <div class="pe-plan-foot">${anillo(prog, 60)}${contador(c)}</div>
         ${p.evento_id && eventoPorId(p.evento_id) ? '<span class="pe-vinc">📅 En tu calendario</span>' : '<span class="pe-vinc no">🔗 Sin vincular a un examen</span>'}
       </article>`;
@@ -559,6 +559,7 @@
             <div class="pe-field"><label for="pe-rep">Días finales de repaso</label><select id="pe-rep" data-act="rep">${[...new Set([0, 1, 2, 3, 5, 7, 10, w.repaso])].sort((x, y) => x - y).map((n) => `<option value="${n}" ${w.repaso === n ? 'selected' : ''}>${n === 0 ? 'Ninguno' : n + (n === 1 ? ' día' : ' días')}</option>`).join('')}</select></div>
           </div>
         </div>
+        <label class="pe-pomo-check pe-rv"><input type="checkbox" data-act="pomo" ${w.pomodoro !== false ? 'checked' : ''}><span class="pe-box">✓</span><span><b>🍅 Contar mi Pomodoro en este plan</b><small>Cada bloque de foco que termines en la sala de estudio de la materia descuenta horas del plan. Podés cambiarlo cuando quieras.</small></span></label>
         <div class="pe-resumen" id="pe-resumen">${resumenWizard()}</div>`;
     }
     const sig = w.paso < 3 ? `<button type="button" class="pe-btn pe-btn--pri" data-act="sig" ${w.paso === 1 && !w.materia ? 'disabled' : ''}>Siguiente →</button>` : `<button type="button" class="pe-btn pe-btn--pri pe-btn--lg" data-act="crear">🚀 Crear mi plan</button>`;
@@ -593,7 +594,7 @@
   const HERRAMIENTAS = {
     conectado: [
       ['📅', 'Calendario de eventos', 'El examen queda agendado en tu calendario y aparece en “Próximos eventos” del campus, con la alerta de cuenta regresiva y el botón “Ver plan”.'],
-      ['🍅', 'Pomodoro', 'Cada bloque de foco que terminás en la sala de estudio descuenta horas del día de hoy en tu plan, solo: sin tildar nada.'],
+      ['🍅', 'Pomodoro', 'Elegís en qué planes contar tu Pomodoro: cada bloque de foco que terminás en la sala de estudio descuenta horas del día de hoy, solo, sin tildar nada.'],
       ['🚦', 'Semáforo de ritmo', 'Compara lo que cumpliste con lo planificado y te avisa si vas a llegar: verde, amarillo o rojo, también en el campus.'],
       ['📚', 'Sala de estudio', 'Cada día tiene un acceso directo a la unidad que toca estudiar, con su bibliografía y materiales.'],
       ['🩺', 'Simulador Choice', 'Choices de la unidad del día y simulacro del examen completo (parcial o final), gratis.'],
@@ -846,7 +847,12 @@
     const sala = p.materia === 'pfo' ? 'pfo_estudio.html' : `estudio.html?modulo=${encodeURIComponent(p.materia)}`;
     const L = [['🍅', 'Pomodoro', sala, 'Estudiá por bloques de foco y medí el tiempo real por unidad'], ['🏆', 'Liga Pomodoro', 'liga.html', 'Tu estudio suma a la Liga y a tu racha'],
                ['📹', 'Sala de Ateneos', 'ateneos.html', 'Estudiá acompañado en video'], ['📊', 'Cierre del día', 'campus.html', 'Compará lo planificado con lo cumplido'], ['💊', 'NikaFarma', 'nikafarma.html', 'Vademécum y scores']];
-    return `<div class="pe-pomo-info pe-rv">🍅 <b>Pomodoro conectado:</b> cada bloque de foco que termines en la sala de estudio descuenta horas de este plan automáticamente (hoy: <b>${fmtH((p.dias.find((d) => d.fecha === hoyISO()) || {}).estudiado || 0)}</b>).</div>
+    const on = p.pomodoro === true;
+    return `<div class="pe-pomo-info pe-rv ${on ? 'on' : ''}">
+      <div class="pe-pomo-txt">🍅 <b>Contar mi Pomodoro en este plan</b><small>${on
+        ? `Activado: cada bloque de foco que termines en la sala de estudio de ${esc((MATERIAS[p.materia] || {}).corto || 'esta materia')} descuenta horas de este plan (hoy: <b>${fmtH((p.dias.find((d) => d.fecha === hoyISO()) || {}).estudiado || 0)}</b>).`
+        : 'Desactivado: tu Pomodoro no suma a este plan. Activalo si es el que estás estudiando ahora.'}</small></div>
+      <button type="button" class="pe-switch ${on ? 'on' : ''}" role="switch" aria-checked="${on}" data-act="pomodoro-toggle" aria-label="Contar mi Pomodoro en este plan"><i></i></button></div>
       <div class="pe-herr-row pe-rv"><span class="pe-herr-t">🧰 Usalo junto al plan</span>${L.map((x) => `<a class="pe-herr" href="${x[2]}" title="${esc(x[3])}"><i>${x[0]}</i>${x[1]}</a>`).join('')}</div>`;
   }
   function modalEscrito(url) {
@@ -1355,6 +1361,7 @@
         (d.datos_duros = d.datos_duros || []).push(v); guardar(p); S.diaId = d.id; return render();
       }
       case 'quitar-dato': { const d = buscarDia(el.dataset.d); if (!d) return; d.datos_duros.splice(+el.dataset.k, 1); guardar(p); return render(); }
+      case 'pomodoro-toggle': { p.pomodoro = !p.pomodoro; guardar(p); toast(p.pomodoro ? '🍅 Tu Pomodoro ahora cuenta en este plan' : 'Tu Pomodoro ya no suma a este plan'); return render(); }
       case 'pendientes': return modalPendientes();
       case 'escrito': return modalEscrito(el.dataset.url);
       case 'completar': {
@@ -1407,6 +1414,7 @@
     if (a === 'hfs') { w.auto = false; w.horasFS = Math.max(0, num(el.value, 3)); actualizarWizardVivo(); return; }
     if (a === 'desc') { w.descanso = parseInt(el.value, 10); if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
     if (a === 'rep') { w.repaso = parseInt(el.value, 10); if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
+    if (a === 'pomo') { w.pomodoro = el.checked; return; }
     if (a === 'titulo') { w.titulo = el.value; return; }
     if (a === 'extra') { w.extra = el.value; actualizarWizardVivo(); return; }
   }
