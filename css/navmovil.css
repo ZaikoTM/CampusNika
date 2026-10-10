@@ -1,0 +1,46 @@
+/* Menú hamburguesa para celular y tablet (hasta 900 px). Reutiliza los enlaces de .nav-links. */
+.nm-burger { display: none; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); cursor: pointer; padding: 0; position: relative; transition: background .25s, border-color .25s; -webkit-tap-highlight-color: transparent; }
+.nm-burger:hover { border-color: rgba(168,85,247,.7); background: rgba(168,85,247,.14); }
+.nm-burger:focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; }
+.nm-burger i { position: absolute; left: 10px; right: 10px; height: 2px; border-radius: 2px; background: #fff; transition: transform .3s cubic-bezier(.2,.8,.2,1), opacity .2s, top .3s; }
+.nm-burger i:nth-child(1) { top: 13px; } .nm-burger i:nth-child(2) { top: 19px; } .nm-burger i:nth-child(3) { top: 25px; }
+.nm-burger[aria-expanded="true"] i:nth-child(1) { top: 19px; transform: rotate(45deg); }
+.nm-burger[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
+.nm-burger[aria-expanded="true"] i:nth-child(3) { top: 19px; transform: rotate(-45deg); }
+
+.nm-panel { position: fixed; left: 0; right: 0; top: 0; z-index: 990; padding: 84px 5% 22px; background: rgba(2,6,23,.96); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(168,85,247,.45); box-shadow: 0 30px 60px -20px rgba(0,0,0,.7);
+  transform: translateY(-110%); visibility: hidden; transition: transform .38s cubic-bezier(.2,.8,.2,1), visibility 0s linear .38s; }
+.nm-panel.open { transform: none; visibility: visible; transition: transform .38s cubic-bezier(.2,.8,.2,1); }
+.nm-panel a { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-top: 8px; border-radius: 14px; text-decoration: none; font-weight: 800; font-size: 1rem; color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,.08); background: rgba(15,23,42,.7); opacity: 0; transform: translateY(-8px); transition: opacity .3s, transform .3s, border-color .2s, background .2s; }
+.nm-panel.open a { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 45ms + 80ms); }
+.nm-panel a::after { content: '→'; color: #c084fc; font-weight: 900; transition: transform .2s; }
+.nm-panel a:hover, .nm-panel a:focus-visible { border-color: rgba(168,85,247,.6); background: rgba(168,85,247,.14); color: #fff; outline: none; }
+.nm-panel a:hover::after { transform: translateX(4px); }
+.nm-panel a.nm-hi { border-color: rgba(168,85,247,.55); background: linear-gradient(135deg, rgba(56,189,248,.16), rgba(168,85,247,.2)); }
+.nm-veil { position: fixed; inset: 0; z-index: 980; background: rgba(2,6,23,.55); opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s linear .3s; }
+.nm-veil.open { opacity: 1; visibility: visible; transition: opacity .3s; }
+.public-nav { z-index: 1000; }
+
+@media (max-width: 900px) { .nm-burger { display: block; } }
+@media (min-width: 901px) { .nm-panel, .nm-veil { display: none; } }
+@media (prefers-reduced-motion: reduce) { .nm-panel, .nm-panel a, .nm-burger i, .nm-veil { transition: none !important; } }
+
+/* en pantallas angostas, el botón de ingreso queda solo con el ícono para que entre el nombre de la marca */
+@media (max-width: 520px) {
+  .public-nav .nav-actions { gap: 8px; }
+  .public-nav .nav-login > span, .public-nav .btn-ghost { font-size: 0; }
+  .public-nav .nav-login { padding-left: 10px; padding-right: 10px; }
+  .public-nav .nav-login svg { margin: 0; }
+  .public-nav .btn-ghost { padding: 8px 12px; }
+  .public-nav .btn-ghost::before { content: 'Ingresar'; font-size: .78rem; }
+}
+@media (max-width: 520px) {
+  .public-nav { gap: 8px; }
+  .public-nav .nav-brand { gap: 8px; }
+  .public-nav .nav-brand img { height: 30px; }
+  .public-nav .nav-brand-text { font-size: .8rem; letter-spacing: -.3px; overflow: visible; text-overflow: clip; }
+  .public-nav .nav-brand-text span { font-size: .62rem; margin-left: 3px; }
+  .public-nav .nav-signup { padding-left: 10px; padding-right: 10px; }
+}
