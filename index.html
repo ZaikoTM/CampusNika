@@ -445,6 +445,15 @@
         .testimonial-meta { font-size: 0.72rem; color: var(--text-dim); font-weight: 600; }
 
         /* ================= FAQ (con animación fade + slide) ================= */
+        /* ---------- Guías de estudio ---------- */
+        .guias-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+        .guia-card { display: block; text-decoration: none; background: var(--bg-card); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; padding: 20px; transition: transform .25s var(--ease), border-color .25s, box-shadow .25s; }
+        .guia-card:hover { transform: translateY(-4px); border-color: var(--violet-glow); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
+        .guia-card .g-ico { font-size: 1.5rem; display: inline-block; animation: icoFlota 4.2s ease-in-out infinite; }
+        .guia-card h3 { font-size: .98rem; color: #fff; margin: 10px 0 6px; font-weight: 800; line-height: 1.3; }
+        .guia-card p { font-size: .82rem; color: var(--text-body); margin: 0; }
+        .guias-more { text-align: center; margin-top: 22px; }
+        @media (prefers-reduced-motion: reduce) { .guia-card .g-ico { animation: none; } }
         .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
         .faq-item { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 14px; overflow: hidden; transition: border-color 0.25s; }
         .faq-item.open { border-color: var(--border-bright); }
@@ -1816,6 +1825,22 @@
     </section>
 
     <!-- FAQ -->
+    <!-- GUÍAS DE ESTUDIO (contenido público indexable) -->
+    <section class="section-wrap" id="guias">
+        <span class="section-eyebrow">Recursos</span>
+        <h2 class="section-title">Guías de estudio para Medicina</h2>
+        <p class="section-sub">Métodos y estrategias para estudiar mejor y llegar a cada examen con un plan.</p>
+        <div class="guias-grid">
+            <a class="guia-card" href="guia-como-estudiar-medicina.html"><span class="g-ico">🧠</span><h3>Cómo estudiar Medicina</h3><p>Repaso activo, repetición espaciada y Pomodoro.</p></a>
+            <a class="guia-card" href="guia-ecoe-medicina.html"><span class="g-ico">🎯</span><h3>ECOE: qué es y cómo prepararlo</h3><p>El examen por estaciones, tiempos y errores comunes.</p></a>
+            <a class="guia-card" href="guia-pfo-practica-final-obligatoria.html"><span class="g-ico">🩺</span><h3>PFO: qué es y cómo prepararte</h3><p>Qué se espera en 6.º año y cómo organizar el estudio.</p></a>
+            <a class="guia-card" href="guia-preguntas-choice-medicina.html"><span class="g-ico">✅</span><h3>Cómo resolver preguntas choice</h3><p>Leer el enunciado y descartar distractores.</p></a>
+            <a class="guia-card" href="guia-procedimientos-ecoe-lista-de-cotejo.html"><span class="g-ico">🧤</span><h3>Procedimientos y listas de cotejo</h3><p>Pasos críticos y cómo practicar la técnica.</p></a>
+            <a class="guia-card" href="guia-casos-clinicos-razonamiento.html"><span class="g-ico">📋</span><h3>Cómo resolver un caso clínico</h3><p>Un método paso a paso, de la consulta a la conducta.</p></a>
+        </div>
+        <div class="guias-more"><a class="btn-ghost" href="guias.html" style="text-decoration:none; display:inline-block; padding:12px 22px;">Ver todas las guías</a></div>
+    </section>
+
     <section class="section-wrap" id="faq">
         <span class="section-eyebrow">Dudas frecuentes</span>
         <h2 class="section-title">Preguntas frecuentes sobre NikaMed</h2>
@@ -2197,7 +2222,7 @@
                 <h5>Recursos</h5>
                 <ul>
                     <li><a href="#programa">Guías por materia</a></li>
-                    <li><a href="#recursos">Artículos</a></li>
+                    <li><a href="guias.html">Guías de estudio</a></li>
                     <li><a href="glosario.html">Glosario médico</a></li>
                     <li><a href="#faq">Preguntas frecuentes</a></li>
                 </ul>
