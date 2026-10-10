@@ -560,6 +560,7 @@
                 <p class="status-motivational-text" id="modal-profile-msg">
                     Completá tus datos institucionales para validar tu identidad académica en los simulacros y en el ranking de duelos.
                 </p>
+                <div id="modal-profile-checklist" class="prof-checks" aria-label="Qué te falta para completar tu perfil"></div>
             </div>
 
             <button type="button" class="friends-inline-pill" onclick="closeProfileModal(); openFriendsModal();">
@@ -621,6 +622,15 @@
             <section class="prof-card">
                 <h4 class="prof-card-tit"><span>🌐</span> Redes sociales <small>(las ven tus compañeros)</small></h4>
                 <div id="prof-redes-editor" class="rs-editor"></div>
+            </section>
+
+            <!-- Privacidad y actividad -->
+            <section class="prof-card prof-card--priv">
+                <h4 class="prof-card-tit"><span>🔒</span> Privacidad y actividad</h4>
+                <label class="prof-switch-row" for="prof-share-music">
+                    <span class="prof-switch-txt"><b>Mostrar lo que estoy escuchando</b><small>Tus amigos ven en tu estado la canción o playlist de NikaMusic que suena ahora, con el logo de Spotify. Viene activado; podés apagarlo cuando quieras.</small></span>
+                    <span class="prof-switch"><input type="checkbox" id="prof-share-music" checked onchange="cambiarCompartirMusica(this.checked)"><i></i></span>
+                </label>
             </section>
 
             <!-- Barra de acciones fija -->
@@ -1248,7 +1258,7 @@
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js"></script>
     <script src="js/ateneos.js"></script>
-    <script src="js/nikaMusic.js?v=3"></script>
+    <script src="js/nikaMusic.js?v=4"></script>
     <script src="js/rachas.js"></script>
     <script src="js/atajos.js"></script>
 
@@ -2926,6 +2936,18 @@ function actualizarProgresoModalPerfil() {
     if (bar) bar.style.width = `${pct}%`;
     if (textPct) textPct.textContent = `${pct}%`;
 
+    // Qué falta, con acceso directo a cada campo
+    const foco = (id) => () => { const el = document.getElementById(id); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => el.focus(), 250); } };
+    window._profGo = [
+        { ok: hasAvatar, ico: '📷', txt: 'Foto de perfil', go: () => { const f = document.getElementById('prof-avatar-file'); if (f) f.click(); } },
+        { ok: hasName, ico: '🪪', txt: 'Nombre y apellido', go: foco('prof-fullname') },
+        { ok: hasAnio, ico: '🎓', txt: 'Año de cursada', go: foco('prof-anio-cursada') },
+        { ok: hasBio, ico: '✍️', txt: 'Biografía', go: foco('prof-bio') },
+        { ok: hasSocial, ico: '🌐', txt: 'Una red social', go: () => { const e = document.getElementById('prof-redes-editor'); if (e) e.scrollIntoView({ behavior: 'smooth', block: 'center' }); } },
+    ];
+    const lista = document.getElementById('modal-profile-checklist');
+    if (lista) lista.innerHTML = window._profGo.map((it, i) => `<button type="button" class="prof-check ${it.ok ? 'ok' : ''}" onclick="window._profGo[${i}].go()"><span class="pc-ico">${it.ok ? '✓' : it.ico}</span>${it.txt}</button>`).join('');
+
     if (msg) {
         if (pct === 100) {
             msg.innerHTML = "✨ <strong>Ficha médica completa.</strong> Identidad validada al 100% para simulacros y duelos 1vs1.";
@@ -2983,6 +3005,8 @@ async function openProfileModal() {
     if (modal) modal.style.display = 'flex';
 
     actualizarProgresoModalPerfil();
+    const swMusica = document.getElementById('prof-share-music');
+    if (swMusica) { let on = true; try { on = localStorage.getItem('nika_music_share') !== '0'; } catch (_) {} swMusica.checked = on; }
 
     // Contador de amigos (pastilla "🤝 N amigos en tu red")
     if (window.NikaFriends) {
@@ -3024,7 +3048,57 @@ async function openProfileModal() {
     }
 }
 
-function closeProfileModal() { 
+// ---- Privacidad: mostrar lo que escuchás (activado por defecto; se guarda en el dispositivo y en tu cuenta)
+function cambiarCompartirMusica(v) {
+    try { localStorage.setItem('nika_music_share', v ? '1' : '0'); } catch (_) {}
+    window.dispatchEvent(new CustomEvent('nika:music-share'));
+    try {
+        const cl = window.NikaSupabase && window.NikaSupabase.client;
+        if (cl && cl.auth && cl.auth.updateUser) cl.auth.updateUser({ data: { share_music: !!v } }).catch(() => {});
+    } catch (_) {}
+    showToast(v ? '🎵 Tus amigos ven lo que escuchás.' : '🔇 Tu música ya no se muestra a tus amigos.');
+}
+function sincronizarPreferenciasPerfil(user) {
+    const md = user && user.user_metadata;
+    if (md && typeof md.share_music === 'boolean') { try { localStorage.setItem('nika_music_share', md.share_music ? '1' : '0'); } catch (_) {} }
+}
+
+// ---- Recordatorio: quien no completó su perfil lo ve cada vez que entra (una vez por visita)
+async function recordatorioPerfil() {
+    try {
+        if (sessionStorage.getItem('nika_perfil_recordado')) return;
+        const cl = window.NikaSupabase && window.NikaSupabase.client;
+        if (!cl) return;
+        const { data: { session } } = await cl.auth.getSession();
+        if (!session) return;
+        const { data: p } = await cl.from('profiles').select('fullname, avatar, anio_cursada, cursada, bio, instagram, whatsapp, redes').eq('id', session.user.id).maybeSingle();
+        if (!p) return;
+        const redes = p.redes && typeof p.redes === 'object' ? Object.values(p.redes).filter(Boolean).length : 0;
+        const falt = [];
+        if (!p.avatar || /svg\+xml|default/i.test(p.avatar)) falt.push('tu foto');
+        if (!String(p.fullname || '').trim()) falt.push('tu nombre');
+        if (!(p.anio_cursada || p.cursada)) falt.push('tu año de cursada');
+        if (!String(p.bio || '').trim()) falt.push('tu biografía');
+        if (!(p.instagram || p.whatsapp || redes)) falt.push('una red social');
+        if (!falt.length) return;
+        sessionStorage.setItem('nika_perfil_recordado', '1');
+        const pct = Math.round(((5 - falt.length) / 5) * 100);
+        const card = document.createElement('div');
+        card.className = 'perfil-recordatorio'; card.setAttribute('role', 'status');
+        card.innerHTML = `<button type="button" class="pr-x" aria-label="Cerrar">×</button>
+            <div class="pr-ico">👋</div>
+            <div class="pr-body"><b>Completá tu perfil</b>
+            <p>Tus compañeros te van a reconocer mejor. Te falta: ${falt.join(', ')}.</p>
+            <div class="pr-bar"><i style="width:${pct}%"></i></div>
+            <div class="pr-act"><button type="button" class="pr-go">Completar ahora</button><button type="button" class="pr-later">Más tarde</button></div></div>`;
+        document.body.appendChild(card);
+        const cerrar = () => { card.classList.add('sale'); setTimeout(() => card.remove(), 300); };
+        card.querySelector('.pr-x').onclick = cerrar; card.querySelector('.pr-later').onclick = cerrar;
+        card.querySelector('.pr-go').onclick = () => { cerrar(); openProfileModal(); };
+    } catch (e) { console.warn('[recordatorioPerfil]', e && e.message); }
+}
+
+function closeProfileModal() {
     const modal = document.getElementById('profile-modal');
     if (modal) modal.style.display = 'none'; 
 }
@@ -5779,6 +5853,8 @@ async function handleLogout() {
                 if (user) {
                     cargarNotificaciones(user.id);
                     cargarDirectorioUsuarios(user.id);
+                    sincronizarPreferenciasPerfil(user);
+                    setTimeout(recordatorioPerfil, 3500);
 
                     if (window.NikaFriends) {
                         window.NikaFriends.startRealtime();

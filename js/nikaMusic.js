@@ -576,6 +576,7 @@ const NikaMusic = (() => {
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && abierto && !minimizado) cerrar(); });
     window.addEventListener('nika:alerta-sonido', () => duck(2600));
+    window.addEventListener('nika:music-share', () => { ultPub = '\u0000'; publicar(); render(); });
     window.addEventListener('resize', () => { acomodarPosicion(); acoplarEmbed(); posicionPill(); });
     window.addEventListener('pagehide', () => { saliendo = true; guardarSesion(); });
 
