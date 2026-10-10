@@ -1431,7 +1431,7 @@
             const r = _resumenPlan(p);
             return `<a class="plan-item-plan" href="plan_examen.html?plan=${encodeURIComponent(p.id)}" onclick="event.stopPropagation()" title="Ver tu plan de estudio para este examen">${r ? r.ico : '🗓️'} Ver plan${r ? ' · ' + r.pct + '%' : ''}</a>`;
         }
-        const q = new URLSearchParams({ nuevo: '1', materia: ev.modulo || '', fecha: ev.fecha });
+        const q = new URLSearchParams({ nuevo: '1', materia: ev.modulo || '', fecha: ev.fecha, evento: ev.id });
         return `<a class="plan-item-plan is-nuevo" href="plan_examen.html?${q.toString()}" onclick="event.stopPropagation()" title="Armá tu plan de estudio día a día para este examen">🗓️ Armar plan</a>`;
     }
     function _etiquetaEv(ev) {
@@ -1763,7 +1763,7 @@
             const pl = _planDeEvento(user.id, evento), lk = document.getElementById('exam-countdown-plan');
             if (lk) {
                 if (pl) { const r = _resumenPlan(pl); lk.href = 'plan_examen.html?plan=' + encodeURIComponent(pl.id); lk.textContent = `${r ? r.ico + ' ' : '🗓️ '}Ver plan de estudio${r ? ' · ' + r.pct + '%' : ''}`; }
-                else { lk.href = 'plan_examen.html?' + new URLSearchParams({ nuevo: '1', materia: evento.modulo || '', fecha: evento.fecha }).toString(); lk.textContent = '🗓️ Armar plan de estudio'; }
+                else { lk.href = 'plan_examen.html?' + new URLSearchParams({ nuevo: '1', materia: evento.modulo || '', fecha: evento.fecha, evento: evento.id }).toString(); lk.textContent = '🗓️ Armar plan de estudio'; }
             }
             banner.style.display = 'flex';
         } catch (err) {

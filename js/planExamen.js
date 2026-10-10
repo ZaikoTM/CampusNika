@@ -2,7 +2,7 @@
    Plan de estudio día a día hasta un examen (uno o varios temas/unidades), con agenda, checklist con
    progreso, semáforo de ritmo y vistas Agenda / Tabla / Calendario. Gratis para todos.
    Guarda en el dispositivo (localStorage) y sincroniza con la tabla "planes_examen" de Supabase cuando existe.
-   Se enlaza con "calendario_eventos": al crear un plan se agenda el examen y aparece en Próximos eventos. */
+   Se enlaza con "calendario_eventos": cada plan puede vincularse al examen que ya agendaste. */
 (function () {
   'use strict';
 
@@ -15,9 +15,11 @@
   };
   const PRIO = { alta: { t: 'Alta', c: '#ef4444' }, media: { t: 'Media', c: '#f59e0b' }, sec: { t: 'Apoyo', c: '#38bdf8' } };
   const DIAS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+  const DIAS_LARGO = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
   const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const H_POR_TEMA = 1.5;   // referencia orientativa: lectura + práctica de un tema
 
-  const S = { user: null, planes: [], plan: null, vista: 'agenda', diaId: null, wiz: null, nube: false, catalogo: {}, filtro: 'todos', mes: null };
+  const S = { user: null, planes: [], plan: null, vista: 'agenda', diaId: null, wiz: null, nube: false, catalogo: {}, filtro: 'todos', mes: null, admin: false, examenes: [] };
   let root = null, tSubida = null;
 
   // ---------- utilidades ----------
@@ -32,8 +34,11 @@
   const fmtLarga = (s) => { const d = aFecha(s); return `${DIAS[d.getDay()]} ${d.getDate()} de ${MESES[d.getMonth()]}`; };
   const num = (x, def = 0) => { const n = parseFloat(String(x).replace(',', '.')); return isFinite(n) ? n : def; };
   const fmtH = (h) => (Math.round(h * 10) / 10).toString().replace('.', ',') + ' h';
+  const redond05 = (x) => Math.round(x * 2) / 2;
   const toast = (m) => { try { (window.showToast || alert)(m); } catch (_) {} };
   const db = () => window.NikaSupabase?.client || window.NikaSupabase?.supabase || window.supabaseClient || window.supabase;
+  // color de la cuenta regresiva: verde con tiempo de sobra → amarillo → rojo a 3 días o menos
+  const colorDias = (n) => { const h = n <= 3 ? 0 : n >= 21 ? 160 : Math.round((n - 3) / 18 * 160); return `hsl(${h} 88% 52%)`; };
 
   // ---------- progreso y ritmo ----------
   function itemsDia(d) { return (d.temas || []).concat(d.checklist || []); }
@@ -60,22 +65,16 @@
     const hdia = falta / diasUtiles;
     const prom = total / Math.max(1, p.dias.length);
     let nivel, titulo, texto;
-    if (cumplido >= 0.85 && hdia <= prom * 1.25) {
-      nivel = 'verde'; titulo = 'Venís a buen ritmo'; texto = 'Así vamos a llegar al examen. Sostené el plan.';
-    } else if (cumplido >= 0.55 && hdia <= prom * 1.8) {
-      nivel = 'amarillo'; titulo = 'Te falta estudiar un poco más'; texto = 'Con un poco más por día vamos a llegar. Priorizá los temas de prioridad alta.';
-    } else {
-      nivel = 'rojo'; titulo = 'Necesitamos estudiar YA'; texto = 'Estás atrasado/a respecto del plan. Reordená los días y empezá por lo más importante.';
-    }
-    return { nivel, ico: nivel === 'verde' ? '🟢' : nivel === 'amarillo' ? '🟡' : '🔴', titulo, texto, pct: cumplido, falta, hdia, diasFalta };
+    if (cumplido >= 0.85 && hdia <= prom * 1.25) { nivel = 'verde'; titulo = 'Venís a buen ritmo'; texto = 'Así vamos a llegar al examen. Sostené el plan.'; }
+    else if (cumplido >= 0.55 && hdia <= prom * 1.8) { nivel = 'amarillo'; titulo = 'Te falta estudiar un poco más'; texto = 'Con un poco más por día vamos a llegar. Priorizá los temas de prioridad alta.'; }
+    else { nivel = 'rojo'; titulo = 'Necesitamos estudiar YA'; texto = 'Estás atrasado/a respecto del plan. Reordená los días y empezá por lo más importante.'; }
+    return { ...base, nivel, ico: nivel === 'verde' ? '🟢' : nivel === 'amarillo' ? '🟡' : '🔴', titulo, texto, pct: cumplido, hdia };
   }
 
   // ---------- catálogo (temas por unidad) ----------
   async function cargarCatalogo() {
     if (S.catalogo._ok) return;
-    try {
-      if (!window.PROGRAMA_TEMAS) await cargarScript('js/programaTemas.js');
-    } catch (_) {}
+    try { if (!window.PROGRAMA_TEMAS) await cargarScript('js/programaTemas.js'); } catch (_) {}
     const P = window.PROGRAMA_TEMAS || {};
     ['ginecologia', 'cirugia', 'siam'].forEach((m) => {
       S.catalogo[m] = Object.keys(P[m] || {}).map((k) => ({ id: k, titulo: P[m][k].titulo, temas: P[m][k].temas.slice() }));
@@ -86,15 +85,14 @@
     } catch (_) { S.catalogo.pfo = []; }
     S.catalogo._ok = true;
   }
-  function cargarScript(src) {
-    return new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
-  }
+  function cargarScript(src) { return new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }); }
   function upNumero(id) { const m = String(id || '').match(/(\d+)/); return m ? m[1] : ''; }
   function urlSala(materia, unidad) {
     const M = MATERIAS[materia]; if (!M) return 'campus.html';
     if (materia === 'pfo') return M.sala;
     const n = upNumero(unidad); return M.sala + (n ? '&up=' + n : '');
   }
+  const unidadCat = (materia, id) => (S.catalogo[materia] || []).find((u) => u.id === id) || null;
 
   // ---------- persistencia ----------
   const claveLocal = () => LS + '_' + (S.user ? S.user.id : 'anon');
@@ -116,7 +114,6 @@
       remotos.forEach((r) => { const l = mapa[r.id]; if (!l || String(r.actualizado_en) >= String(l.actualizado_en || '')) mapa[r.id] = r; });
       S.planes = Object.keys(mapa).map((k) => mapa[k]);
       guardarLocal();
-      // lo que solo existía en este dispositivo se sube
       const ids = new Set(remotos.map((r) => r.id));
       S.planes.filter((p) => !ids.has(p.id)).forEach(subir);
     } catch (e) { S.nube = false; }
@@ -133,37 +130,99 @@
   async function borrarNube(id) { if (!S.nube) return; try { await db().from('planes_examen').delete().eq('id', id).eq('user_id', S.user.id); } catch (_) {} }
 
   // ---------- calendario_eventos ----------
+  async function cargarExamenes() {
+    const c = db(); if (!c || !S.user) return;
+    try {
+      const { data, error } = await c.from('calendario_eventos').select('id, titulo, tipo, modulo, up_id, fecha').eq('user_id', S.user.id).eq('tipo', 'examen').gte('fecha', hoyISO()).order('fecha', { ascending: true });
+      if (error) throw error;
+      S.examenes = data || [];
+    } catch (_) { S.examenes = []; }
+  }
+  const eventoPorId = (id) => S.examenes.find((e) => e.id === id) || null;
+  function eventoCoincidente(p) {
+    // un examen del calendario que ya esté libre (sin plan) el mismo día y de la misma materia
+    return S.examenes.find((e) => e.fecha === p.fecha_examen && (!e.modulo || e.modulo === p.materia) && !S.planes.some((q) => q.id !== p.id && q.evento_id === e.id)) || null;
+  }
+  const planDeEvento = (evId) => S.planes.find((p) => p.evento_id === evId) || null;
   async function crearEvento(p) {
     const c = db(); if (!c || !S.user) return null;
     try {
       const up = p.unidades && p.unidades[0] ? 'up' + upNumero(p.unidades[0]) : null;
       const { data, error } = await c.from('calendario_eventos').insert({ user_id: S.user.id, titulo: p.titulo, tipo: 'examen', modulo: p.materia, up_id: up, fecha: p.fecha_examen }).select('id').single();
-      if (error) throw error; return data && data.id;
+      if (error) throw error;
+      p.evento_propio = true;
+      return data && data.id;
     } catch (_) { return null; }
+  }
+  // Vincula con el examen que ya está en el calendario (si hay) o agenda uno nuevo. Nunca duplica.
+  async function vincularOCrearEvento(p, eventoId) {
+    const ya = (eventoId && eventoPorId(eventoId)) || eventoCoincidente(p);
+    if (ya) { p.evento_id = ya.id; p.evento_propio = false; return ya; }
+    const id = await crearEvento(p);
+    if (id) { p.evento_id = id; await cargarExamenes(); }
+    return null;
   }
   async function moverEvento(p) {
     const c = db(); if (!c || !S.user || !p.evento_id) return;
-    try { await c.from('calendario_eventos').update({ fecha: p.fecha_examen, titulo: p.titulo }).eq('id', p.evento_id).eq('user_id', S.user.id); } catch (_) {}
+    try { await c.from('calendario_eventos').update({ fecha: p.fecha_examen }).eq('id', p.evento_id).eq('user_id', S.user.id); } catch (_) {}
   }
-  async function borrarEvento(p) {
-    const c = db(); if (!c || !S.user || !p.evento_id) return;
-    try { await c.from('calendario_eventos').delete().eq('id', p.evento_id).eq('user_id', S.user.id); } catch (_) {}
+  async function borrarEventoPorId(id) {
+    const c = db(); if (!c || !S.user || !id) return;
+    try { await c.from('calendario_eventos').delete().eq('id', id).eq('user_id', S.user.id); } catch (_) {}
+  }
+  // Limpia duplicados que pudo dejar una versión anterior: planes idénticos y exámenes repetidos creados por NikaPlan.
+  async function limpiarDuplicados() {
+    let cambios = false, quitados = 0;
+    const vistos = new Map();
+    S.planes.slice().forEach((p) => {
+      const k = [p.titulo, p.fecha_examen, p.materia, (p.dias || []).length].join('|'), o = vistos.get(k);
+      if (!o) { vistos.set(k, p); return; }
+      const keep = progresoPlan(p) > progresoPlan(o) ? p : o, drop = keep === p ? o : p;
+      if (!keep.evento_id && drop.evento_id) keep.evento_id = drop.evento_id;
+      vistos.set(k, keep);
+      S.planes = S.planes.filter((x) => x.id !== drop.id); borrarNube(drop.id); cambios = true; quitados++;
+    });
+    for (const p of S.planes) {
+      const ev = p.evento_id && eventoPorId(p.evento_id); if (!ev) continue;
+      const otro = S.examenes.find((e) => e.id !== ev.id && e.fecha === ev.fecha && e.modulo === ev.modulo && e.titulo !== p.titulo && !S.planes.some((q) => q.evento_id === e.id));
+      if (otro && ev.titulo === p.titulo) {   // el examen repetido lo había creado NikaPlan con el nombre del plan
+        await borrarEventoPorId(ev.id); p.evento_id = otro.id; p.evento_propio = false; guardar(p); cambios = true; quitados++;
+      }
+    }
+    if (cambios) { guardarLocal(); await cargarExamenes(); }
+    return quitados;
   }
 
   // ---------- generación del plan ----------
+  function nTemasWiz(w) {
+    const cat = (S.catalogo[w.materia] || []).filter((u) => w.unidades.includes(u.id));
+    return cat.reduce((a, u) => a + u.temas.length, 0) + String(w.extra || '').split('\n').filter((s) => s.trim()).length;
+  }
+  function fechasWiz(w) { const f = []; for (let x = w.inicio; x < w.fecha_examen; x = sumaDias(x, 1)) f.push(x); return f; }
+  // días de estudio efectivos: sin día de descanso; los últimos "repaso" días son de integración
+  function planDeFechas(w) {
+    let fechas = fechasWiz(w);
+    if (w.descanso >= 0) { const sin = fechas.filter((f) => aFecha(f).getDay() !== w.descanso); if (sin.length >= 2) fechas = sin; }
+    const nRep = Math.min(Math.max(0, w.repaso), Math.max(0, fechas.length - 1));
+    return { nuevos: fechas.slice(0, fechas.length - nRep), repaso: fechas.slice(fechas.length - nRep), todos: fechas };
+  }
+  const horasDeFecha = (w, f) => { const g = aFecha(f).getDay(); return (g === 0 || g === 6) ? w.horasFS : w.horasLV; };
+  function recomendar(w) {
+    const T = nTemasWiz(w), pf = planDeFechas(w);
+    const nEst = Math.max(1, pf.nuevos.length), total = Math.max(6, T * H_POR_TEMA);
+    return { T, nEst, total, h: Math.min(8, Math.max(2, redond05(total / nEst))) };
+  }
   function generarDias(w) {
-    const catalogo = (S.catalogo[w.materia] || []).filter((u) => w.unidades.includes(u.id));
+    const cat = (S.catalogo[w.materia] || []).filter((u) => w.unidades.includes(u.id));
     const temas = [];
-    catalogo.forEach((u) => u.temas.forEach((t) => temas.push({ texto: t, unidad: u.id, utitulo: u.titulo, manual: false })));
-    String(w.extra || '').split('\n').map((s) => s.trim()).filter(Boolean).forEach((t) => temas.push({ texto: t, unidad: 'Mis temas', utitulo: 'Temas propios', manual: true }));
-    const fechas = []; for (let f = w.inicio; f < w.fecha_examen; f = sumaDias(f, 1)) fechas.push(f);
-    if (fechas.length < 1) return null;
-    const horasDe = (f) => { const g = aFecha(f).getDay(); return (g === 0 || g === 6) ? w.horasFS : w.horasLV; };
-    const estudio = fechas.length > 1 ? fechas.slice(0, -1) : fechas;
-    const cap = estudio.map(horasDe), capTot = cap.reduce((a, b) => a + b, 0) || 1;
-    const dias = estudio.map((f, i) => ({ id: uid(), fecha: f, titulo: '', horas: cap[i], unidad: '', caso: '', temas: [], checklist: [], datos_duros: [], agenda: [], notas: '' }));
-    let acum = 0, di = 0, limites = [];
-    cap.forEach((c) => { acum += c; limites.push(acum / capTot); });
+    cat.forEach((u) => u.temas.forEach((t) => temas.push({ texto: t, unidad: u.id, manual: false })));
+    String(w.extra || '').split('\n').map((s) => s.trim()).filter(Boolean).forEach((t) => temas.push({ texto: t, unidad: 'Mis temas', manual: true }));
+    const pf = planDeFechas(w);
+    if (!pf.todos.length) return null;
+    const nuevos = pf.nuevos.length ? pf.nuevos : pf.todos;
+    const cap = nuevos.map((f) => horasDeFecha(w, f)), capTot = cap.reduce((a, b) => a + b, 0) || 1;
+    const dias = nuevos.map((f, i) => ({ id: uid(), fecha: f, titulo: '', horas: cap[i], unidad: '', caso: '', temas: [], checklist: [], datos_duros: [], agenda: [], notas: '' }));
+    let acum = 0, di = 0; const limites = cap.map((c) => (acum += c) / capTot);
     temas.forEach((t, k) => {
       const frac = (k + 0.5) / Math.max(1, temas.length);
       while (di < dias.length - 1 && frac > limites[di]) di++;
@@ -177,12 +236,13 @@
       d.checklist = [{ id: uid(), texto: 'Resolver preguntas del Choice de lo estudiado hoy', hecho: false }, { id: uid(), texto: 'Anotar y repasar lo que fallé', hecho: false }];
       if (i >= 2) d.checklist.push({ id: uid(), texto: 'Repaso corto de lo de ayer, de memoria', hecho: false });
     });
-    // último día: integración
-    const ultimo = fechas.length > 1 ? fechas[fechas.length - 1] : null;
-    if (ultimo) dias.push({ id: uid(), fecha: ultimo, titulo: 'Integración y simulacro', horas: horasDe(ultimo), unidad: 'Integración', caso: '', datos_duros: [], agenda: [], notas: '',
-      temas: [{ id: uid(), texto: 'Repasar tus datos duros y tablas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' },
-              { id: uid(), texto: 'Simulacro de choices con tiempo', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' }],
-      checklist: [{ id: uid(), texto: 'Justificar en voz alta las opciones falsas', hecho: false }, { id: uid(), texto: 'Preparar lo que necesito para el día del examen', hecho: false }] });
+    if (pf.nuevos.length) pf.repaso.forEach((f, i) => {
+      const ult = i === pf.repaso.length - 1;
+      dias.push({ id: uid(), fecha: f, titulo: ult ? 'Integración y simulacro' : 'Repaso integrador', horas: horasDeFecha(w, f), unidad: 'Integración', caso: '', datos_duros: [], agenda: [], notas: '',
+        temas: [{ id: uid(), texto: 'Repasar tus datos duros y tablas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' },
+                { id: uid(), texto: ult ? 'Simulacro de choices con tiempo' : 'Resolver choices de las unidades más flojas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' }],
+        checklist: [{ id: uid(), texto: 'Justificar en voz alta las opciones falsas', hecho: false }, { id: uid(), texto: ult ? 'Dejar listo lo del día del examen' : 'Repasar los errores acumulados', hecho: false }] });
+    });
     return dias;
   }
   function planDesdeWizard(w) {
@@ -194,16 +254,16 @@
 
   // ---------- render ----------
   function anillo(p, size) {
-    const pct = Math.round(p * 100);
-    return `<div class="pe-ring" style="--p:${pct};--s:${size || 64}px"><i>${pct}%</i></div>`;
+    return `<div class="pe-ring" data-p="${Math.round(p * 100)}" style="--p:0;--s:${size || 64}px"><i data-count="${Math.round(p * 100)}" data-suf="%">0%</i></div>`;
   }
   function chipSemaforo(r) { return `<span class="pe-sem pe-sem--${r.nivel}">${r.ico} ${esc(r.titulo)}</span>`; }
   function cuentaAtras(p) {
     const n = difDias(p.fecha_examen, hoyISO());
-    if (n < 0) return { n: 0, t: 'Rendido', cls: 'fin' };
-    if (n === 0) return { n: 0, t: '¡Es hoy!', cls: 'hoy' };
-    return { n, t: n === 1 ? 'día' : 'días', cls: n <= 3 ? 'urg' : '' };
+    if (n < 0) return { n: 0, t: 'Rendido', cls: 'fin', color: '#94a3b8' };
+    if (n === 0) return { n: 0, t: '¡Es hoy!', cls: 'hoy', color: colorDias(0) };
+    return { n, t: n === 1 ? 'día' : 'días', cls: n <= 3 ? 'urg' : '', color: colorDias(n) };
   }
+  const contador = (c, big) => `<div class="pe-count ${c.cls} ${big ? 'pe-count--big' : ''}" style="--cd:${c.color}"><b ${c.n ? `data-count="${c.n}"` : ''}>${c.n || (c.cls === 'hoy' ? '🎯' : '✓')}</b><span>${esc(c.t)}${c.n && big ? ' para el examen' : ''}</span></div>`;
 
   function render() {
     if (!root) return;
@@ -213,10 +273,32 @@
     animarEntrada();
   }
   function animarEntrada() {
-    root.querySelectorAll('.pe-rv').forEach((el, i) => { el.style.animationDelay = Math.min(i * 40, 400) + 'ms'; });
+    root.querySelectorAll('.pe-rv').forEach((el, i) => { el.style.animationDelay = Math.min(i * 45, 450) + 'ms'; });
     root.querySelectorAll('.pe-bar > i').forEach((b) => { const w = b.dataset.w; b.style.width = '0'; requestAnimationFrame(() => requestAnimationFrame(() => { b.style.width = w; })); });
+    root.querySelectorAll('.pe-ring[data-p]').forEach((r) => requestAnimationFrame(() => requestAnimationFrame(() => r.style.setProperty('--p', r.dataset.p))));
+    root.querySelectorAll('[data-count]').forEach((el) => {
+      const to = +el.dataset.count, suf = el.dataset.suf || ''; if (!isFinite(to)) return;
+      if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = to + suf; return; }
+      const t0 = performance.now(), dur = 900;
+      (function f(now) { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(to * e) + suf; if (k < 1) requestAnimationFrame(f); })(t0);
+    });
   }
 
+  // ---- barra de navegación (volver siempre visible)
+  function barraNav(migas) {
+    const partes = migas.map((m, i) => i < migas.length - 1
+      ? `<button type="button" class="pe-miga" data-act="${m.act}">${m.t}</button><span class="pe-sep">›</span>`
+      : `<span class="pe-miga on">${m.t}</span>`).join('');
+    let act = 'campus', txt = 'Volver al campus';
+    if (S.wiz) { act = S.wiz.paso > 1 ? 'ant' : 'hub'; txt = S.wiz.paso > 1 ? 'Paso anterior' : 'Mis planes'; }
+    else if (S.plan) { act = 'hub'; txt = 'Mis planes'; }
+    return `<div class="pe-navbar pe-rv">
+      <button type="button" class="pe-back" data-act="${act}"><span class="pe-back-ico">←</span><span>${esc(txt)}</span></button>
+      <nav class="pe-migas" aria-label="Ubicación">${partes}</nav>
+    </div>`;
+  }
+
+  // ---- hub
   function vistaHub() {
     const ord = S.planes.slice().sort((a, b) => a.fecha_examen.localeCompare(b.fecha_examen));
     const hoy = hoyISO();
@@ -227,41 +309,58 @@
         <div class="pe-plan-top"><span class="pe-mat">${M.ico} ${esc(M.corto)}</span>${chipSemaforo(r)}</div>
         <h3>${esc(p.titulo)}</h3>
         <p class="pe-sub">${fmtLarga(p.fecha_examen)} · ${p.dias.length} días · ${fmtH(horasPlan(p))}</p>
-        <div class="pe-plan-foot">
-          ${anillo(prog, 58)}
-          <div class="pe-count ${c.cls}"><b>${c.n || (c.cls === 'hoy' ? '🎯' : '✓')}</b><span>${esc(c.t)}</span></div>
-        </div>
+        <div class="pe-plan-foot">${anillo(prog, 60)}${contador(c)}</div>
+        ${p.evento_id && eventoPorId(p.evento_id) ? '<span class="pe-vinc">📅 En tu calendario</span>' : '<span class="pe-vinc no">🔗 Sin vincular a un examen</span>'}
       </article>`;
     };
-    return `<section class="pe-hero pe-rv">
+    const sinPlan = S.examenes.filter((e) => !planDeEvento(e.id));
+    const examenCard = (e) => {
+      const n = difDias(e.fecha, hoy), M = MATERIAS[e.modulo];
+      return `<article class="pe-card pe-exam pe-rv" style="--cd:${colorDias(n)}">
+        <div class="pe-exam-d"><b>${n}</b><span>${n === 1 ? 'día' : 'días'}</span></div>
+        <div class="pe-exam-i"><h3>📝 ${esc(e.titulo || 'Examen')}</h3><p class="pe-sub">${fmtLarga(e.fecha)}${M ? ' · ' + esc(M.corto) : ''} · Todavía sin plan de estudio</p></div>
+        <div class="pe-exam-a"><button type="button" class="pe-btn pe-btn--pri pe-btn--sm" data-act="plan-de-evento" data-e="${e.id}">✨ Armar plan</button>
+          ${S.planes.some((p) => !p.evento_id || !eventoPorId(p.evento_id)) ? `<button type="button" class="pe-btn pe-btn--sm" data-act="adjuntar" data-e="${e.id}">📎 Adjuntar plan</button>` : ''}</div>
+      </article>`;
+    };
+    return `${barraNav([{ t: 'Mis planes', act: 'hub' }])}
+      <section class="pe-hero pe-rv">
+        <span class="pe-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
         <div class="pe-hero-ico">🗓️</div>
-        <div>
+        <div class="pe-hero-txt">
           <span class="pe-eyebrow">NikaPlan · Gratis para todos</span>
           <h1>Prepará tu examen</h1>
           <p>Armá tu plan día a día hasta el parcial o el final, con todas las unidades que entran. Tildá lo que estudiás y NikaPlan te avisa si vas a llegar.</p>
         </div>
         <div class="pe-hero-cta">
           <button type="button" class="pe-btn pe-btn--pri" data-act="nuevo">✨ Nuevo plan de examen</button>
-          <button type="button" class="pe-btn" data-act="importar">📥 Importar plan</button>
-          <input type="file" id="pe-file" accept="application/json,.json" hidden>
+          <button type="button" class="pe-btn pe-btn--glass" data-act="guia">📖 Cómo armar un buen plan</button>
+          <button type="button" class="pe-btn pe-btn--glass" data-act="modelo">🧭 Ver un plan modelo</button>
+          ${S.admin ? '<button type="button" class="pe-btn pe-btn--glass" data-act="importar" title="Solo visible para administradores">📥 Importar plan (admin)</button><input type="file" id="pe-file" accept="application/json,.json" hidden>' : ''}
         </div>
       </section>
       ${!S.nube && S.user ? '<div class="pe-aviso pe-rv">💾 Tus planes se guardan en este dispositivo. Se sincronizan con tu cuenta cuando el servicio esté disponible.</div>' : ''}
-      ${activos.length ? `<h2 class="pe-h2 pe-rv">Próximos exámenes</h2><div class="pe-grid">${activos.map(tarjeta).join('')}</div>` :
-        `<div class="pe-vacio pe-rv"><div class="pe-vacio-ico">🧭</div><h3>Todavía no tenés ningún plan</h3><p>Creá el primero en menos de un minuto: elegís la materia, las unidades y la fecha, y NikaPlan reparte los temas por día.</p><button type="button" class="pe-btn pe-btn--pri" data-act="nuevo">Crear mi primer plan</button></div>`}
+      ${sinPlan.length ? `<h2 class="pe-h2 pe-rv">📅 Tus exámenes sin plan</h2><div class="pe-stack">${sinPlan.map(examenCard).join('')}</div>` : ''}
+      ${activos.length ? `<h2 class="pe-h2 pe-rv">Mis planes de estudio</h2><div class="pe-grid">${activos.map(tarjeta).join('')}</div>` :
+        (sinPlan.length ? '' : `<div class="pe-vacio pe-rv"><div class="pe-vacio-ico">🧭</div><h3>Todavía no tenés ningún plan</h3><p>Creá el primero en menos de un minuto: elegís la materia, las unidades y la fecha, y NikaPlan reparte los temas por día.</p><button type="button" class="pe-btn pe-btn--pri" data-act="nuevo">Crear mi primer plan</button></div>`)}
       ${pasados.length ? `<h2 class="pe-h2 pe-rv">Anteriores</h2><div class="pe-grid pe-grid--past">${pasados.map(tarjeta).join('')}</div>` : ''}`;
   }
 
   // ---- asistente de creación
   function nuevoWizard(parcial) {
     const hoy = hoyISO();
-    S.wiz = Object.assign({ paso: 1, materia: null, unidades: [], extra: '', titulo: '', fecha_examen: sumaDias(hoy, 16), inicio: hoy, horasLV: 4, horasFS: 3 }, parcial || {});
-    S.plan = null; render();
+    S.wiz = Object.assign({ paso: 1, materia: null, unidades: [], extra: '', titulo: '', fecha_examen: sumaDias(hoy, 16), inicio: hoy, horasLV: 4, horasFS: 3, descanso: -1, repaso: 1, auto: true, evento_id: null }, parcial || {});
+    S.plan = null; nav(); render();
+  }
+  function aplicarRecomendado(w, factor) {
+    const r = recomendar(w);
+    const h = Math.min(10, Math.max(1.5, redond05(r.h * (factor || 1))));
+    w.horasLV = h; w.horasFS = Math.max(1, redond05(h * 0.75));
   }
   function vistaWizard() {
     const w = S.wiz, M = w.materia ? MATERIAS[w.materia] : null;
     const pasos = ['Materia', 'Unidades', 'Fechas y ritmo'];
-    const barra = `<ol class="pe-steps">${pasos.map((t, i) => `<li class="${w.paso === i + 1 ? 'on' : w.paso > i + 1 ? 'ok' : ''}"><i>${w.paso > i + 1 ? '✓' : i + 1}</i><span>${t}</span></li>`).join('')}</ol>`;
+    const barra = `<ol class="pe-steps pe-rv">${pasos.map((t, i) => `<li class="${w.paso === i + 1 ? 'on' : w.paso > i + 1 ? 'ok' : ''}"><i>${w.paso > i + 1 ? '✓' : i + 1}</i><span>${t}</span></li>`).join('')}</ol>`;
     let cuerpo = '';
     if (w.paso === 1) {
       cuerpo = `<h2 class="pe-h2">¿Qué materia vas a rendir?</h2><div class="pe-grid pe-grid--mat">${Object.keys(MATERIAS).map((k) => {
@@ -269,10 +368,16 @@
         return `<button type="button" class="pe-card pe-mat-card pe-rv ${w.materia === k ? 'on' : ''}" data-act="materia" data-m="${k}" style="--m:${m.color}"><span class="pe-mat-ico">${m.ico}</span><b>${esc(m.nombre)}</b><small>${n} unidades</small></button>`; }).join('')}</div>`;
     } else if (w.paso === 2) {
       const cat = S.catalogo[w.materia] || [];
+      const todas = cat.length && cat.every((u) => w.unidades.includes(u.id));
       cuerpo = `<h2 class="pe-h2">¿Qué unidades entran en el examen?</h2>
-        <p class="pe-sub">Podés marcar una o varias. Un parcial integrador suele abarcar más de una unidad.</p>
+        <p class="pe-sub">Podés marcar una o varias: un parcial integrador suele abarcar más de una unidad. Tocá “¿Qué temas tiene?” para ver el detalle de cada una.</p>
+        <div class="pe-tools"><button type="button" class="pe-mini" data-act="todas">${todas ? 'Quitar todas' : 'Marcar todas'}</button><span class="pe-sub" id="pe-contador-u">${w.unidades.length} de ${cat.length} marcadas · ${nTemasWiz(w)} temas</span></div>
         <div class="pe-units">${cat.map((u) => { const on = w.unidades.includes(u.id);
-          return `<label class="pe-unit pe-rv ${on ? 'on' : ''}"><input type="checkbox" data-act="unidad" data-u="${esc(u.id)}" ${on ? 'checked' : ''}><span class="pe-box">✓</span><span class="pe-unit-t"><b>${esc(u.id)}</b> · ${esc(u.titulo)}<small>${u.temas.length} temas</small></span></label>`; }).join('')}</div>
+          return `<div class="pe-unit-wrap pe-rv ${on ? 'on' : ''}">
+            <label class="pe-unit"><input type="checkbox" data-act="unidad" data-u="${esc(u.id)}" ${on ? 'checked' : ''}><span class="pe-box">✓</span><span class="pe-unit-t"><b>${esc(u.id)}</b> · ${esc(u.titulo)}<small>${u.temas.length} temas</small></span></label>
+            <details class="pe-temas"><summary>¿Qué temas tiene esta unidad problema?</summary>
+              <ol class="pe-temas-lista">${u.temas.map((t) => `<li>${esc(t)}</li>`).join('')}</ol></details>
+          </div>`; }).join('')}</div>
         <div class="pe-field"><label for="pe-extra">Temas propios (opcional, uno por línea)</label>
           <textarea id="pe-extra" data-act="extra" rows="3" placeholder="Si algo que te toman no está en el programa, agregalo acá">${esc(w.extra)}</textarea></div>`;
     } else {
@@ -281,28 +386,51 @@
           <div class="pe-field"><label for="pe-titulo">Nombre del plan</label><input id="pe-titulo" data-act="titulo" value="${esc(w.titulo || ('Parcial · ' + (M ? M.corto : '')))}" maxlength="80"></div>
           <div class="pe-field"><label for="pe-fex">Fecha del examen</label><input type="date" id="pe-fex" data-act="fex" value="${w.fecha_examen}" min="${sumaDias(hoyISO(), 1)}"></div>
           <div class="pe-field"><label for="pe-ini">Empiezo a estudiar</label><input type="date" id="pe-ini" data-act="ini" value="${w.inicio}" min="${hoyISO()}"></div>
-          <div class="pe-field"><label for="pe-hlv">Horas por día (lunes a viernes)</label><input type="number" id="pe-hlv" data-act="hlv" value="${w.horasLV}" min="0.5" max="16" step="0.5"></div>
-          <div class="pe-field"><label for="pe-hfs">Horas por día (sábado y domingo)</label><input type="number" id="pe-hfs" data-act="hfs" value="${w.horasFS}" min="0" max="16" step="0.5"></div>
+        </div>
+        <div class="pe-config pe-rv">
+          <div class="pe-config-h"><b>⏱️ Ritmo de estudio</b><span class="pe-sub">Elegí un ritmo o ajustalo a mano</span></div>
+          <div class="pe-presets" id="pe-presets">${presetsHtml(w)}</div>
+          <div class="pe-form pe-form--4">
+            <div class="pe-field"><label for="pe-hlv">Horas por día (lun a vie)</label><input type="number" id="pe-hlv" data-act="hlv" value="${w.horasLV}" min="0.5" max="14" step="0.5"></div>
+            <div class="pe-field"><label for="pe-hfs">Horas por día (sáb y dom)</label><input type="number" id="pe-hfs" data-act="hfs" value="${w.horasFS}" min="0" max="14" step="0.5"></div>
+            <div class="pe-field"><label for="pe-desc">Día de descanso</label><select id="pe-desc" data-act="desc"><option value="-1" ${w.descanso < 0 ? 'selected' : ''}>Ninguno</option>${DIAS_LARGO.map((n, i) => `<option value="${i}" ${w.descanso === i ? 'selected' : ''}>${n[0].toUpperCase() + n.slice(1)}</option>`).join('')}</select></div>
+            <div class="pe-field"><label for="pe-rep">Días finales de repaso</label><select id="pe-rep" data-act="rep">${[0, 1, 2, 3].map((n) => `<option value="${n}" ${w.repaso === n ? 'selected' : ''}>${n === 0 ? 'Ninguno' : n + (n === 1 ? ' día' : ' días')}</option>`).join('')}</select></div>
+          </div>
         </div>
         <div class="pe-resumen" id="pe-resumen">${resumenWizard()}</div>`;
     }
-    const sig = w.paso < 3 ? `<button type="button" class="pe-btn pe-btn--pri" data-act="sig" ${w.paso === 1 && !w.materia ? 'disabled' : ''}>Siguiente →</button>` : `<button type="button" class="pe-btn pe-btn--pri" data-act="crear">🚀 Crear mi plan</button>`;
-    return `<div class="pe-wiz">
-      <button type="button" class="pe-link" data-act="hub">← Mis planes</button>
-      ${barra}${cuerpo}
-      <div class="pe-wiz-foot">${w.paso > 1 ? '<button type="button" class="pe-btn" data-act="ant">← Atrás</button>' : '<span></span>'}${sig}</div>
-    </div>`;
+    const sig = w.paso < 3 ? `<button type="button" class="pe-btn pe-btn--pri" data-act="sig" ${w.paso === 1 && !w.materia ? 'disabled' : ''}>Siguiente →</button>` : `<button type="button" class="pe-btn pe-btn--pri pe-btn--lg" data-act="crear">🚀 Crear mi plan</button>`;
+    const ev = w.evento_id && eventoPorId(w.evento_id);
+    const ctx = ev ? `<div class="pe-ctx pe-rv">📅 Vas a armar el plan para: <b>${esc(ev.titulo || 'tu examen')}</b> · ${fmtLarga(ev.fecha)}. Quedará vinculado a tu calendario.</div>` : '';
+    return `${barraNav([{ t: 'Mis planes', act: 'hub' }, { t: 'Nuevo plan', act: '' }])}
+      <div class="pe-wiz">${ctx}${barra}${cuerpo}
+      <div class="pe-wiz-foot">${w.paso > 1 ? '<button type="button" class="pe-btn" data-act="ant">← Atrás</button>' : '<button type="button" class="pe-btn" data-act="hub">✕ Cancelar</button>'}${sig}</div></div>`;
+  }
+  function presetsHtml(w) {
+    const r = recomendar(w);
+    const P = [['suave', '🌿 Suave', 0.75], ['reco', '⭐ Recomendado', 1], ['int', '🔥 Intensivo', 1.35]];
+    return P.map(([k, t, f]) => {
+      const h = Math.min(10, Math.max(1.5, redond05(r.h * f)));
+      const on = Math.abs(w.horasLV - h) < 0.01;
+      return `<button type="button" class="pe-preset ${on ? 'on' : ''} ${k === 'reco' ? 'reco' : ''}" data-act="preset" data-f="${f}"><b>${t}</b><span>${fmtH(h)} por día</span><small>≈ ${Math.max(1, Math.floor(h * 60 / 30))} bloques pomodoro</small></button>`;
+    }).join('');
   }
   function resumenWizard() {
     const w = S.wiz; if (!w.materia) return '';
-    const cat = (S.catalogo[w.materia] || []).filter((u) => w.unidades.includes(u.id));
-    const nTemas = cat.reduce((a, u) => a + u.temas.length, 0) + String(w.extra || '').split('\n').filter((s) => s.trim()).length;
     const dias = difDias(w.fecha_examen, w.inicio);
     if (dias < 1) return '<span class="pe-warn">Elegí una fecha de examen posterior a la de inicio.</span>';
-    let h = 0; for (let i = 0; i < dias - 1; i++) { const g = aFecha(sumaDias(w.inicio, i)).getDay(); h += (g === 0 || g === 6) ? w.horasFS : w.horasLV; }
-    const hd = dias > 1 ? h / (dias - 1) : 0;
-    return `<div class="pe-res-grid"><div><b>${dias}</b><span>días hasta el examen</span></div><div><b>${nTemas}</b><span>temas a repartir</span></div><div><b>${Math.round(h)}</b><span>horas de estudio</span></div><div><b>${nTemas ? (nTemas / Math.max(1, dias - 1)).toFixed(1).replace('.', ',') : '0'}</b><span>temas por día</span></div></div>
-      <p class="pe-sub">El último día queda para integración y simulacro.${hd && nTemas / Math.max(1, hd) > 6 ? ' ⚠️ Son muchos temas por hora: considerá sumar horas o días.' : ''}</p>`;
+    const T = nTemasWiz(w), pf = planDeFechas(w), r = recomendar(w);
+    let h = 0; pf.todos.forEach((f) => { h += horasDeFecha(w, f); });
+    const hTema = T ? (pf.nuevos.reduce((a, f) => a + horasDeFecha(w, f), 0) / T) : 0;
+    const avisos = [];
+    if (T === 0) avisos.push('Elegí al menos una unidad en el paso anterior.');
+    if (T && hTema < 0.8) avisos.push('⚠️ Tenés menos de 1 h por tema: sumá horas, días o sacá unidades.');
+    else if (T && hTema < H_POR_TEMA * 0.9) avisos.push(`💡 Para estudiar cada tema con calma conviene tener cerca de ${fmtH(H_POR_TEMA)} por tema. Recomendado: ${fmtH(r.h)} por día.`);
+    if (w.horasLV > 8) avisos.push('⚠️ Más de 8 h netas por día baja mucho el rendimiento. Mejor sumá días o descansá un día.');
+    if (w.repaso === 0) avisos.push('💡 Conviene dejar al menos un día final para integrar y simular.');
+    if (dias > 3 && w.descanso < 0) avisos.push('💡 Un día de descanso por semana ayuda a sostener el ritmo.');
+    return `<div class="pe-res-grid"><div><b>${dias}</b><span>días hasta el examen</span></div><div><b>${T}</b><span>temas a repartir</span></div><div><b>${Math.round(h)}</b><span>horas de estudio</span></div><div><b>${T ? (T / Math.max(1, pf.nuevos.length)).toFixed(1).replace('.', ',') : '0'}</b><span>temas por día</span></div></div>
+      ${avisos.length ? `<ul class="pe-avisos">${avisos.map((a) => `<li>${a}</li>`).join('')}</ul>` : '<p class="pe-ok">✅ Tu plan está bien balanceado.</p>'}`;
   }
 
   // ---- plan
@@ -314,30 +442,34 @@
     if (S.vista === 'tabla') cuerpo = vistaTabla(p);
     else if (S.vista === 'calendario') cuerpo = vistaCalendario(p);
     else cuerpo = vistaAgenda(p, S.vista === 'hoy');
-    return `<div class="pe-plan-view" style="--m:${M.color}">
-      <button type="button" class="pe-link" data-act="hub">← Mis planes</button>
+    const ev = p.evento_id ? eventoPorId(p.evento_id) : null;
+    const vinc = ev
+      ? `<div class="pe-vinc-bar ok pe-rv">📅 Vinculado a tu calendario: <b>${esc(ev.titulo || 'Examen')}</b> · ${fmtLarga(ev.fecha)}${ev.fecha !== p.fecha_examen ? ' <button type="button" class="pe-mini" data-act="sync-fecha">Usar la fecha del calendario</button>' : ''}</div>`
+      : (S.examenes.length ? `<div class="pe-vinc-bar pe-rv">🔗 Este plan no está vinculado a ningún examen de tu calendario. <button type="button" class="pe-btn pe-btn--sm pe-btn--pri" data-act="vincular">Vincular con un examen</button></div>` : '');
+    return `${barraNav([{ t: 'Mis planes', act: 'hub' }, { t: esc(p.titulo.length > 38 ? p.titulo.slice(0, 36) + '…' : p.titulo), act: '' }])}
+      <div class="pe-plan-view" style="--m:${M.color}">
       <header class="pe-plan-head pe-rv">
+        <span class="pe-stars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <div class="pe-plan-info">
-          <span class="pe-mat">${M.ico} ${esc(M.nombre)}</span>
-          <h1 id="pe-titulo-h" ${''}>${esc(p.titulo)}</h1>
+          <span class="pe-mat pe-mat--on">${M.ico} ${esc(M.nombre)}</span>
+          <h1>${esc(p.titulo)}</h1>
           <p class="pe-sub">${fmtLarga(p.fecha_examen)} · ${(p.unidades || []).map(esc).join(', ') || 'Temas propios'}</p>
           <div class="pe-plan-kpis">
             <div class="pe-kpi"><b>${hechos}/${p.dias.length}</b><span>días completos</span></div>
             <div class="pe-kpi"><b>${fmtH(horasHechas(p))}</b><span>de ${fmtH(horasPlan(p))}</span></div>
-            <div class="pe-kpi"><b>${r.falta != null ? fmtH(r.falta) : '—'}</b><span>por hacer</span></div>
+            <div class="pe-kpi"><b>${fmtH(r.falta)}</b><span>por hacer</span></div>
           </div>
         </div>
-        <div class="pe-plan-side">
-          <div class="pe-count pe-count--big ${c.cls}"><b>${c.n || (c.cls === 'hoy' ? '🎯' : '✓')}</b><span>${esc(c.t)}${c.n ? ' para el examen' : ''}</span></div>
-          ${anillo(progresoPlan(p), 84)}
-        </div>
+        <div class="pe-plan-side">${contador(c, true)}${anillo(progresoPlan(p), 88)}</div>
       </header>
+      ${vinc}
       <div class="pe-alerta pe-alerta--${r.nivel} pe-rv" role="status"><span class="pe-alerta-ico">${r.ico}</span><div><b>${esc(r.titulo)}</b><p>${esc(r.texto)}${r.hdia && r.nivel !== 'verde' ? ` Te quedan ${fmtH(r.falta)} en ${r.diasFalta} ${r.diasFalta === 1 ? 'día' : 'días'} (unas ${fmtH(r.hdia)} por día).` : ''}</p></div></div>
       <nav class="pe-tabs pe-rv" role="tablist">${tabs.map((t) => `<button type="button" role="tab" class="${S.vista === t[0] ? 'on' : ''}" data-act="vista" data-v="${t[0]}"><span>${t[1]}</span> ${t[2]}</button>`).join('')}
         <span class="pe-tabs-sp"></span>
-        <button type="button" class="pe-mini" data-act="editar" title="Cambiar nombre o fecha del examen">⚙️ Ajustes</button>
+        <button type="button" class="pe-mini" data-act="editar" title="Cambiar nombre, fecha o vínculo del examen">⚙️ Ajustes</button>
       </nav>
       ${cuerpo}
+      <div class="pe-pie"><button type="button" class="pe-btn" data-act="hub">← Volver a mis planes</button></div>
     </div>`;
   }
 
@@ -357,7 +489,6 @@
       ${abierto ? detalleDia(p, d) : ''}
     </article>`;
   }
-
   function detalleDia(p, d) {
     const filaTema = (t) => `<li class="pe-item ${t.hecho ? 'ok' : ''}" data-t="${t.id}">
         <label><input type="checkbox" data-act="tema" data-d="${d.id}" data-t="${t.id}" ${t.hecho ? 'checked' : ''}><span class="pe-box">✓</span>
@@ -369,10 +500,16 @@
     const filaCheck = (c) => `<li class="pe-item ${c.hecho ? 'ok' : ''}">
         <label><input type="checkbox" data-act="check" data-d="${d.id}" data-t="${c.id}" ${c.hecho ? 'checked' : ''}><span class="pe-box">✓</span><span class="pe-item-t">${esc(c.texto)}</span></label>
         <button type="button" class="pe-x" data-act="quitar-check" data-d="${d.id}" data-t="${c.id}" aria-label="Quitar">✕</button></li>`;
+    // temas completos de cada unidad problema que entra ese día
+    const unidades = [];
+    (d.temas || []).forEach((t) => { if (t.unidad && unidades.indexOf(t.unidad) < 0) unidades.push(t.unidad); });
+    const desplegables = unidades.map((id) => unidadCat(p.materia, id)).filter(Boolean).map((u) =>
+      `<details class="pe-temas"><summary>¿Qué temas tiene ${esc(u.id)}?</summary><ol class="pe-temas-lista">${u.temas.map((t) => `<li>${esc(t)}</li>`).join('')}</ol></details>`).join('');
     return `<div class="pe-dia-body">
       ${d.caso ? `<div class="pe-caso"><b>🧪 Caso tipo para resolver al final del día</b><p>${esc(d.caso)}</p></div>` : ''}
       <h4>Temas del día</h4>
       <ul class="pe-items">${(d.temas || []).map(filaTema).join('') || '<li class="pe-vacio-li">Todavía no hay temas en este día.</li>'}</ul>
+      ${desplegables}
       <div class="pe-add"><input type="text" data-add="tema" data-d="${d.id}" placeholder="Agregar un tema (si no está en el programa, escribilo)" maxlength="140"><button type="button" class="pe-btn pe-btn--sm" data-act="add-tema" data-d="${d.id}">＋ Agregar</button></div>
       <h4>Checklist de cierre</h4>
       <ul class="pe-items">${(d.checklist || []).map(filaCheck).join('') || '<li class="pe-vacio-li">Sin tareas de cierre.</li>'}</ul>
@@ -390,7 +527,6 @@
       </div>
     </div>`;
   }
-
   function vistaAgenda(p, soloHoy) {
     const hoy = hoyISO();
     let lista = p.dias;
@@ -406,7 +542,6 @@
     return `<div class="pe-agenda">${lista.map((d) => diaCard(p, d, d.id === S.diaId)).join('')}
       <button type="button" class="pe-btn pe-btn--add" data-act="nuevo-dia">＋ Agregar un día</button></div>`;
   }
-
   function vistaTabla(p) {
     const f = S.filtro;
     const pasa = (d) => f === 'todos' || estadoDia(d) === f || (f === 'atras' && d.fecha < hoyISO() && estadoDia(d) !== 'listo');
@@ -426,11 +561,10 @@
             <td><span class="pe-bar"><i data-w="${Math.round(progresoDia(d) * 100)}%"></i></span></td></tr>`; }).join('') || '<tr><td colspan="8" class="pe-vacio-li">No hay días con este filtro.</td></tr>'}</tbody>
       </table></div></div>`;
   }
-
   function vistaCalendario(p) {
     const ref = S.mes || aFecha(p.dias[0] ? p.dias[0].fecha : p.fecha_examen);
     const y = ref.getFullYear(), m = ref.getMonth();
-    const primero = new Date(y, m, 1), nDias = new Date(y, m + 1, 0).getDate(), off = (primero.getDay() + 6) % 7;   // semana desde lunes
+    const primero = new Date(y, m, 1), nDias = new Date(y, m + 1, 0).getDate(), off = (primero.getDay() + 6) % 7;
     const mapa = {}; p.dias.forEach((d) => { mapa[d.fecha] = d; });
     const hoy = hoyISO();
     let celdas = ''; for (let i = 0; i < off; i++) celdas += '<div class="pe-cal-c vacio"></div>';
@@ -447,9 +581,87 @@
     </div>`;
   }
 
+  // ---------- guía y modelo ----------
+  function modal(html, clase) {
+    const m = document.createElement('div'); m.className = 'pe-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+    m.innerHTML = `<div class="pe-modal-c ${clase || ''}"><button type="button" class="pe-modal-x" aria-label="Cerrar">✕</button>${html}</div>`;
+    const cerrar = () => { m.remove(); document.removeEventListener('keydown', onEsc); };
+    const onEsc = (e) => { if (e.key === 'Escape') cerrar(); };
+    document.addEventListener('keydown', onEsc);
+    m.addEventListener('click', (e) => { if (e.target === m || e.target.closest('.pe-modal-x') || e.target.closest('[data-cerrar]')) cerrar(); });
+    document.body.appendChild(m); return { m, cerrar };
+  }
+  function modalGuia() {
+    const pasos = [
+      ['📆', 'Contá hacia atrás', 'Anotá la fecha del examen y contá los días reales que tenés. Sacá los que no podés estudiar (turnos, viajes, trabajo).'],
+      ['📚', 'Listá todo lo que entra', 'Marcá las unidades y los temas del parcial. Si algo no está en el programa, agregalo a mano. Ordená por prioridad: lo que más se toma, primero.'],
+      ['⏱️', 'Estimá el tiempo real', `Contá entre 1 y 2 horas por tema (leer y practicar). Usamos ${fmtH(H_POR_TEMA)} como referencia y sumá un 20 % de margen para lo que sale mal.`],
+      ['🧩', 'Repartí por días', 'Poné los temas difíciles al principio y mezclá unidades. Evitá pasar de 6 a 8 h netas por día: rinde más estudiar menos horas todos los días.'],
+      ['🔁', 'Reservá repaso', 'Dejá un repaso corto de lo de ayer cada día y al menos un día final para integrar y simular el examen con tiempo.'],
+      ['😴', 'Incluí descanso', 'Un día más liviano por semana y dormir bien valen más que un día extra de estudio. El cerebro consolida mientras descansás.'],
+      ['✅', 'Cerrá cada día', 'Tildá lo que cumpliste y reacomodá lo pendiente. Si te atrasás, reordená el plan en el momento: no lo acumules.'],
+      ['🎯', 'Practicá como en el examen', 'Resolvé choices con tiempo y justificá en voz alta por qué las otras opciones son falsas.'],
+    ];
+    const { m } = modal(`<h3>📖 Cómo armar un buen plan de estudio</h3>
+      <p class="pe-sub">Ocho pasos simples. Son recomendaciones generales de organización del estudio, no una regla fija.</p>
+      <ol class="pe-guia">${pasos.map((p, i) => `<li style="--i:${i}"><span class="pe-guia-ico">${p[0]}</span><div><b>${i + 1}. ${p[1]}</b><p>${p[2]}</p></div></li>`).join('')}</ol>
+      <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-act-m="nuevo">✨ Armar mi plan</button><button type="button" class="pe-btn" data-cerrar>Cerrar</button></div>`, 'ancho');
+    m.addEventListener('click', (e) => { if (e.target.closest('[data-act-m="nuevo"]')) { m.remove(); nuevoWizard(); } });
+  }
+  function modalModelo() {
+    const { m } = modal(`<h3>🧭 Plan modelo: cómo se ve un buen día</h3>
+      <p class="pe-sub">Ejemplo de un día de estudio de 10 h (de lunes a viernes) de un parcial integrador de 16 días.</p>
+      <div class="pe-modelo">
+        <div class="pe-modelo-h"><span class="pe-mat">🤰 Gineco</span><b>Día 5 · Infecciones del tracto genital inferior, ITS y EPI</b></div>
+        <div class="pe-modelo-bloques">
+          <div style="--i:0"><span>🌅 Mañana · 4,5 h</span><p>Lectura comprensiva e integración fisiopatológica de los temas del día.</p></div>
+          <div style="--i:1"><span>☀️ Tarde · 4 h</span><p>Memorización de datos duros, criterios y algoritmos. Cuadros comparativos.</p></div>
+          <div style="--i:2"><span>🌙 Noche · 1,5 h</span><p>Choices del día y redacción de justificaciones de las opciones falsas.</p></div>
+        </div>
+        <h4>Temas del día (con prioridad)</h4>
+        <ul class="pe-modelo-lista"><li><i style="--c:#ef4444">Alta</i> Criterios de Amsel para vaginosis bacteriana</li><li><i style="--c:#ef4444">Alta</i> EPI: criterios de internación</li><li><i style="--c:#f59e0b">Media</i> Tricomoniasis y tratamiento de la pareja</li><li><i style="--c:#38bdf8">Apoyo</i> Flujo vaginal: diagnóstico diferencial</li></ul>
+        <h4>Checklist de cierre</h4>
+        <ul class="pe-modelo-lista"><li>☑️ Enunciar de memoria los criterios de Amsel</li><li>☑️ Resolver el caso tipo del día</li><li>☑️ Justificar por escrito 3 opciones falsas</li></ul>
+        <h4>Cómo se reparten los 16 días</h4>
+        <div class="pe-modelo-linea"><span style="--w:12%;--c:#0ea5e9">Días 1–2<br><small>Base</small></span><span style="--w:56%;--c:#7c3aed">Días 3–13<br><small>Unidades por día</small></span><span style="--w:19%;--c:#f59e0b">Días 14–15<br><small>Temas finales</small></span><span style="--w:13%;--c:#ef4444">Día 16<br><small>Integración</small></span></div>
+      </div>
+      <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-act-m="nuevo">✨ Usar este modelo para mi examen</button><button type="button" class="pe-btn" data-cerrar>Cerrar</button></div>`, 'ancho');
+    m.addEventListener('click', (e) => { if (e.target.closest('[data-act-m="nuevo"]')) { m.remove(); nuevoWizard(); } });
+  }
+  function modalAdjuntar(eventoId) {
+    const libres = S.planes.filter((p) => !p.evento_id || !eventoPorId(p.evento_id));
+    const ev = eventoPorId(eventoId);
+    const { m } = modal(`<h3>📎 Adjuntar un plan a este examen</h3>
+      <p class="pe-sub">${ev ? esc(ev.titulo || 'Examen') + ' · ' + fmtLarga(ev.fecha) : ''}</p>
+      <div class="pe-lista-sel">${libres.map((p) => `<button type="button" class="pe-sel" data-p="${p.id}"><b>${esc(p.titulo)}</b><small>${fmtLarga(p.fecha_examen)} · ${p.dias.length} días</small></button>`).join('') || '<p class="pe-sub">No tenés planes para adjuntar.</p>'}</div>
+      <div class="pe-modal-acc"><button type="button" class="pe-btn" data-cerrar>Cancelar</button></div>`);
+    m.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-p]'); if (!b) return;
+      const p = S.planes.find((x) => x.id === b.dataset.p); m.remove(); if (p) await vincular(p, eventoId, true);
+    });
+  }
+  function modalVincular(p) {
+    const { m } = modal(`<h3>🔗 Vincular con un examen de tu calendario</h3>
+      <p class="pe-sub">Así el plan aparece en “Próximos eventos” del campus y la alerta del examen te lleva directo acá.</p>
+      <div class="pe-lista-sel">${S.examenes.map((e) => `<button type="button" class="pe-sel ${p.evento_id === e.id ? 'on' : ''}" data-e="${e.id}"><b>📝 ${esc(e.titulo || 'Examen')}</b><small>${fmtLarga(e.fecha)} · faltan ${Math.max(0, difDias(e.fecha, hoyISO()))} días</small></button>`).join('') || '<p class="pe-sub">No tenés exámenes futuros en tu calendario.</p>'}</div>
+      <div class="pe-modal-acc"><button type="button" class="pe-btn" data-cerrar>Cancelar</button></div>`);
+    m.addEventListener('click', async (e) => { const b = e.target.closest('[data-e]'); if (!b) return; m.remove(); await vincular(p, b.dataset.e, true); });
+  }
+  async function vincular(p, eventoId, usarFechaEvento) {
+    const ev = eventoPorId(eventoId); if (!ev) return toast('No encontré ese examen');
+    const viejo = p.evento_id;
+    if (viejo && viejo !== eventoId && p.evento_propio) await borrarEventoPorId(viejo);   // el examen auxiliar que había creado NikaPlan
+    p.evento_id = eventoId; p.evento_propio = false;
+    if (usarFechaEvento && ev.fecha && ev.fecha !== p.fecha_examen) {
+      const ult = p.dias.length ? p.dias[p.dias.length - 1].fecha : null;
+      p.fecha_examen = ev.fecha;
+      if (ult && ult >= ev.fecha) toast('⚠️ Algunos días del plan quedan después del examen: reacomodalos.');
+    }
+    guardar(p); await cargarExamenes(); render(); toast('🔗 Plan vinculado a tu examen');
+  }
+
   // ---------- acciones ----------
-  function planActual() { return S.plan; }
-  function buscarDia(id) { return S.plan && S.plan.dias.find((d) => d.id === id); }
+  const buscarDia = (id) => S.plan && S.plan.dias.find((d) => d.id === id);
   function celebrar(el) {
     if (!el) return;
     const em = ['🎉', '✨', '💜', '⭐', '🩺'];
@@ -457,8 +669,7 @@
     for (let i = 0; i < 14; i++) { const s = document.createElement('i'); s.textContent = em[i % em.length]; s.style.left = (10 + Math.random() * 80) + '%'; s.style.setProperty('--x', (Math.random() * 120 - 60) + 'px'); s.style.setProperty('--r', (Math.random() * 360) + 'deg'); s.style.animationDelay = (Math.random() * .2) + 's'; c.appendChild(s); }
     el.appendChild(c); setTimeout(() => c.remove(), 1700);
   }
-  function refrescarProgreso(dia, el) {
-    // actualiza cabecera, semáforo y barra sin redibujar toda la vista (así no se corta la animación del tilde)
+  function refrescarProgreso(dia) {
     const p = S.plan, r = ritmo(p);
     const alerta = root.querySelector('.pe-alerta');
     if (alerta) {
@@ -471,7 +682,7 @@
     }
     const ring = root.querySelector('.pe-plan-side .pe-ring'); if (ring) { const pct = Math.round(progresoPlan(p) * 100); ring.style.setProperty('--p', pct); ring.querySelector('i').textContent = pct + '%'; }
     const k = root.querySelectorAll('.pe-kpi b');
-    if (k.length === 3) { k[0].textContent = p.dias.filter((d) => estadoDia(d) === 'listo').length + '/' + p.dias.length; k[1].textContent = fmtH(horasHechas(p)); k[2].textContent = r.falta != null ? fmtH(r.falta) : '—'; }
+    if (k.length === 3) { k[0].textContent = p.dias.filter((d) => estadoDia(d) === 'listo').length + '/' + p.dias.length; k[1].textContent = fmtH(horasHechas(p)); k[2].textContent = fmtH(r.falta); }
     if (dia) {
       const card = root.querySelector('#dia-' + dia.id);
       if (card) {
@@ -482,19 +693,42 @@
       }
     }
   }
-  function enc(id) { return root.querySelector('[data-t="' + id + '"]'); }
 
-  async function abrirPlan(id) {
+  // navegación con historial (el botón atrás del navegador y del teléfono funciona)
+  let ultimaUrl = null;
+  function urlActual() {
+    if (S.wiz) return location.pathname + '?nuevo=1';
+    if (S.plan) return location.pathname + '?plan=' + encodeURIComponent(S.plan.id);
+    return location.pathname;
+  }
+  function nav() {
+    const u = urlActual();
+    if (u === ultimaUrl) return;
+    try { history.pushState({ pe: 1 }, '', u); } catch (_) {}
+    ultimaUrl = u;
+  }
+  function desdeURL() {
+    const q = new URLSearchParams(location.search);
+    S.wiz = null; S.plan = null; S.diaId = null;
+    const pid = q.get('plan');
+    if (pid && S.planes.some((p) => p.id === pid)) { S.plan = S.planes.find((p) => p.id === pid); S.vista = 'agenda'; }
+    else if (q.get('nuevo')) {
+      const mat = MATERIAS[q.get('materia')] ? q.get('materia') : null;
+      const ev = q.get('evento');
+      S.wiz = { paso: mat ? 2 : 1, materia: mat, unidades: [], extra: '', titulo: '', fecha_examen: q.get('fecha') || sumaDias(hoyISO(), 16), inicio: hoyISO(), horasLV: 4, horasFS: 3, descanso: -1, repaso: 1, auto: true, evento_id: ev || null };
+      // sin id de evento: se busca el examen del calendario de esa fecha y materia
+      if (!ev) { const e = S.examenes.find((x) => x.fecha === S.wiz.fecha_examen && (!mat || x.modulo === mat) && !planDeEvento(x.id)); if (e) S.wiz.evento_id = e.id; }
+      const e2 = S.wiz.evento_id && eventoPorId(S.wiz.evento_id);
+      if (e2) { S.wiz.fecha_examen = e2.fecha; if (!S.wiz.titulo) S.wiz.titulo = e2.titulo || ''; }
+    }
+    ultimaUrl = urlActual();
+  }
+  function abrirPlan(id) {
     const p = S.planes.find((x) => x.id === id); if (!p) return;
     S.plan = p; S.vista = 'agenda'; S.diaId = null; S.mes = null; S.wiz = null;
-    try { history.replaceState(null, '', location.pathname + '?plan=' + encodeURIComponent(id)); } catch (_) {}
-    render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    nav(); render(); window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  function volverHub() {
-    S.plan = null; S.wiz = null;
-    try { history.replaceState(null, '', location.pathname); } catch (_) {}
-    render();
-  }
+  function volverHub() { S.plan = null; S.wiz = null; nav(); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
   async function crearDesdeWizard() {
     const w = S.wiz;
@@ -504,64 +738,60 @@
     const p = planDesdeWizard(w);
     if (!p) return toast('No se pudo armar el plan con esas fechas');
     p.titulo = (w.titulo || '').trim() || `Examen · ${MATERIAS[w.materia].corto}`;
-    p.evento_id = await crearEvento(p);
+    const ya = await vincularOCrearEvento(p, w.evento_id);
     S.planes.push(p); guardar(p);
     S.wiz = null; S.plan = p; S.vista = 'agenda'; S.diaId = null;
-    try { history.replaceState(null, '', location.pathname + '?plan=' + encodeURIComponent(p.id)); } catch (_) {}
-    render(); window.scrollTo({ top: 0, behavior: 'smooth' });
-    toast(p.evento_id ? '📅 Plan creado y examen agendado en tu calendario' : '📅 Plan creado');
+    nav(); render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast(ya ? '🔗 Plan creado y vinculado a tu examen del calendario' : (p.evento_id ? '📅 Plan creado y examen agendado' : '📅 Plan creado'));
   }
 
-  function importarJSON(texto) {
+  async function importarJSON(texto) {
+    if (!S.admin) return;
     let j; try { j = JSON.parse(texto); } catch (_) { return toast('El archivo no es un plan válido'); }
     const lista = Array.isArray(j) ? j : [j];
     let n = 0;
-    lista.forEach((x) => {
-      if (!x || !Array.isArray(x.dias) || !x.fecha_examen) return;
+    for (const x of lista) {
+      if (!x || !Array.isArray(x.dias) || !x.fecha_examen) continue;
       const p = Object.assign({}, x, { id: uid(), materia: MATERIAS[x.materia] ? x.materia : 'ginecologia', titulo: x.titulo || 'Plan importado', evento_id: null,
         creado_en: new Date().toISOString(), actualizado_en: new Date().toISOString(), unidades: x.unidades || [], inicio: x.inicio || (x.dias[0] && x.dias[0].fecha) });
       p.dias = x.dias.map((d) => Object.assign({ horas: 0, temas: [], checklist: [], datos_duros: [], agenda: [], notas: '', caso: '', unidad: '' }, d, { id: uid(),
         temas: (d.temas || []).map((t) => Object.assign({ prio: 'media', hecho: false, manual: false, detalle: '', trampa: '' }, t, { id: uid() })),
         checklist: (d.checklist || []).map((c) => Object.assign({ hecho: false }, c, { id: uid() })) }));
-      S.planes.push(p); guardar(p); crearEvento(p).then((id) => { if (id) { p.evento_id = id; guardar(p); } }); n++;
-    });
+      await vincularOCrearEvento(p, null);   // si ya hay un examen ese día, se vincula (no se duplica)
+      S.planes.push(p); guardar(p); n++;
+    }
     if (!n) return toast('No encontré ningún plan en ese archivo');
-    toast(n === 1 ? '📥 Plan importado' : `📥 ${n} planes importados`); render();
+    await limpiarDuplicados();
+    toast(n === 1 ? '📥 Plan importado y vinculado a tu examen' : `📥 ${n} planes importados`); render();
   }
-
   function exportarPlan() {
     const p = S.plan; if (!p) return;
     const blob = new Blob([JSON.stringify(p, null, 1)], { type: 'application/json' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nikaplan-' + (p.titulo || 'plan').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40) + '.json';
     document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
-
   function modalAjustes() {
     const p = S.plan; if (!p) return;
-    const m = document.createElement('div'); m.className = 'pe-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
-    m.innerHTML = `<div class="pe-modal-c"><h3>⚙️ Ajustes del plan</h3>
+    const { m, cerrar } = modal(`<h3>⚙️ Ajustes del plan</h3>
       <div class="pe-field"><label for="aj-t">Nombre</label><input id="aj-t" value="${esc(p.titulo)}" maxlength="80"></div>
       <div class="pe-field"><label for="aj-f">Fecha del examen</label><input type="date" id="aj-f" value="${p.fecha_examen}"></div>
       <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-m="guardar">Guardar</button>
-        <button type="button" class="pe-btn" data-m="exportar">📤 Exportar</button>
-        <button type="button" class="pe-btn pe-btn--peligro" data-m="borrar">🗑️ Eliminar plan</button>
-        <button type="button" class="pe-btn" data-m="cerrar">Cerrar</button></div></div>`;
-    document.body.appendChild(m);
-    const cerrar = () => { m.remove(); document.removeEventListener('keydown', esc); };
-    const esc2 = (e) => { if (e.key === 'Escape') cerrar(); }; const esc = esc2; document.addEventListener('keydown', esc2);
+        <button type="button" class="pe-btn" data-m="vincular">🔗 Vincular examen</button>
+        ${S.admin ? '<button type="button" class="pe-btn" data-m="exportar">📤 Exportar</button>' : ''}
+        <button type="button" class="pe-btn pe-btn--peligro" data-m="borrar">🗑️ Eliminar plan</button></div>`);
     m.addEventListener('click', async (e) => {
-      const b = e.target.closest('[data-m]');
-      if (e.target === m || (b && b.dataset.m === 'cerrar')) return cerrar();
-      if (!b) return;
+      const b = e.target.closest('[data-m]'); if (!b) return;
       if (b.dataset.m === 'guardar') {
         const t = m.querySelector('#aj-t').value.trim(), f = m.querySelector('#aj-f').value;
         if (t) p.titulo = t;
         if (f) p.fecha_examen = f;
         guardar(p); moverEvento(p); cerrar(); render(); toast('Plan actualizado');
-      } else if (b.dataset.m === 'exportar') exportarPlan();
+      } else if (b.dataset.m === 'vincular') { cerrar(); modalVincular(p); }
+      else if (b.dataset.m === 'exportar') exportarPlan();
       else if (b.dataset.m === 'borrar') {
-        if (!confirm('¿Eliminar este plan? Se borra también el examen del calendario.')) return;
-        S.planes = S.planes.filter((x) => x.id !== p.id); guardarLocal(); borrarNube(p.id); borrarEvento(p);
+        if (!confirm('¿Eliminar este plan? El examen del calendario no se borra.')) return;
+        S.planes = S.planes.filter((x) => x.id !== p.id); guardarLocal(); borrarNube(p.id);
+        if (p.evento_propio) borrarEventoPorId(p.evento_id);
         cerrar(); volverHub(); toast('Plan eliminado');
       }
     });
@@ -571,18 +801,29 @@
   function onClick(e) {
     const el = e.target.closest('[data-act]'); if (!el) return;
     const a = el.dataset.act, p = S.plan;
-    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') return;
     switch (a) {
+      case 'campus': location.href = 'campus.html'; return;
       case 'nuevo': return nuevoWizard();
+      case 'guia': return modalGuia();
+      case 'modelo': return modalModelo();
       case 'hub': return volverHub();
       case 'abrir': return abrirPlan(el.dataset.id);
       case 'importar': { const f = root.querySelector('#pe-file'); if (f) f.click(); return; }
-      case 'materia': S.wiz.materia = el.dataset.m; S.wiz.unidades = []; S.wiz.titulo = ''; return render();
+      case 'plan-de-evento': { const ev = eventoPorId(el.dataset.e); if (!ev) return; nuevoWizard({ materia: MATERIAS[ev.modulo] ? ev.modulo : null, paso: MATERIAS[ev.modulo] ? 2 : 1, fecha_examen: ev.fecha, titulo: ev.titulo || '', evento_id: ev.id }); return; }
+      case 'adjuntar': return modalAdjuntar(el.dataset.e);
+      case 'vincular': return modalVincular(p);
+      case 'sync-fecha': { const ev = eventoPorId(p.evento_id); if (ev) { p.fecha_examen = ev.fecha; guardar(p); render(); toast('Fecha actualizada'); } return; }
+      case 'materia': S.wiz.materia = el.dataset.m; S.wiz.unidades = []; S.wiz.paso = 2; return render();
+      case 'todas': { const cat = S.catalogo[S.wiz.materia] || []; const todas = cat.every((u) => S.wiz.unidades.includes(u.id)); S.wiz.unidades = todas ? [] : cat.map((u) => u.id); return render(); }
       case 'sig': {
         if (S.wiz.paso === 2 && !S.wiz.unidades.length && !String(S.wiz.extra || '').trim()) return toast('Elegí al menos una unidad');
-        S.wiz.paso = Math.min(3, S.wiz.paso + 1); return render();
+        S.wiz.paso = Math.min(3, S.wiz.paso + 1);
+        if (S.wiz.paso === 3 && S.wiz.auto) aplicarRecomendado(S.wiz, 1);
+        return render();
       }
       case 'ant': S.wiz.paso = Math.max(1, S.wiz.paso - 1); return render();
+      case 'preset': S.wiz.auto = false; aplicarRecomendado(S.wiz, +el.dataset.f); return render();
       case 'crear': return crearDesdeWizard();
       case 'vista': S.vista = el.dataset.v; return render();
       case 'editar': return modalAjustes();
@@ -614,13 +855,21 @@
       }
     }
   }
+  function sincInputsRitmo() { const w = S.wiz, l = root.querySelector('#pe-hlv'), f = root.querySelector('#pe-hfs'); if (l) l.value = w.horasLV; if (f) f.value = w.horasFS; }
+  function actualizarWizardVivo() {
+    const r = root.querySelector('#pe-resumen'); if (r) r.innerHTML = resumenWizard();
+    const pr = root.querySelector('#pe-presets'); if (pr) pr.innerHTML = presetsHtml(S.wiz);
+    const c = root.querySelector('#pe-contador-u'); if (c) c.textContent = `${S.wiz.unidades.length} de ${(S.catalogo[S.wiz.materia] || []).length} marcadas · ${nTemasWiz(S.wiz)} temas`;
+  }
   function onChange(e) {
-    const el = e.target, a = el.dataset && el.dataset.act; if (!a) return;
+    const el = e.target, a = el.dataset && el.dataset.act;
+    if (el.id === 'pe-file' && el.files && el.files[0]) { const r = new FileReader(); r.onload = () => importarJSON(String(r.result)); r.readAsText(el.files[0]); el.value = ''; return; }
+    if (!a) return;
     const p = S.plan;
     if (a === 'unidad') {
-      const u = el.dataset.u; const w = S.wiz;
+      const u = el.dataset.u, w = S.wiz;
       w.unidades = el.checked ? w.unidades.concat(u).filter((x, i, arr) => arr.indexOf(x) === i) : w.unidades.filter((x) => x !== u);
-      el.closest('.pe-unit').classList.toggle('on', el.checked); return;
+      el.closest('.pe-unit-wrap').classList.toggle('on', el.checked); actualizarWizardVivo(); return;
     }
     if (a === 'tema' || a === 'check') {
       const d = buscarDia(el.dataset.d); if (!d) return;
@@ -635,18 +884,21 @@
     if (a === 'fecha') { const d = buscarDia(el.dataset.d); if (d && el.value) { d.fecha = el.value; p.dias.sort((x, y) => x.fecha.localeCompare(y.fecha)); guardar(p); render(); } return; }
     if (a === 'horas') { const d = buscarDia(el.dataset.d); if (d) { d.horas = Math.max(0, num(el.value)); guardar(p); refrescarProgreso(d); } return; }
     if (a === 'notas') { const d = buscarDia(el.dataset.d); if (d) { d.notas = el.value; guardar(p); } return; }
-    if (a === 'fex') { S.wiz.fecha_examen = el.value; actualizarResumen(); return; }
-    if (a === 'ini') { S.wiz.inicio = el.value; actualizarResumen(); return; }
-    if (a === 'hlv') { S.wiz.horasLV = Math.max(0.5, num(el.value, 4)); actualizarResumen(); return; }
-    if (a === 'hfs') { S.wiz.horasFS = Math.max(0, num(el.value, 3)); actualizarResumen(); return; }
-    if (a === 'titulo') { S.wiz.titulo = el.value; return; }
-    if (a === 'extra') { S.wiz.extra = el.value; return; }
+    const w = S.wiz; if (!w) return;
+    if (a === 'fex') { w.fecha_examen = el.value; if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
+    if (a === 'ini') { w.inicio = el.value; if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
+    if (a === 'hlv') { w.auto = false; w.horasLV = Math.max(0.5, num(el.value, 4)); actualizarWizardVivo(); return; }
+    if (a === 'hfs') { w.auto = false; w.horasFS = Math.max(0, num(el.value, 3)); actualizarWizardVivo(); return; }
+    if (a === 'desc') { w.descanso = parseInt(el.value, 10); if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
+    if (a === 'rep') { w.repaso = parseInt(el.value, 10); if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
+    if (a === 'titulo') { w.titulo = el.value; return; }
+    if (a === 'extra') { w.extra = el.value; actualizarWizardVivo(); return; }
   }
-  function actualizarResumen() { const r = root.querySelector('#pe-resumen'); if (r) r.innerHTML = resumenWizard(); }
   function onInput(e) {
     const el = e.target;
-    if (el.dataset && el.dataset.act === 'extra') S.wiz.extra = el.value;
-    if (el.dataset && el.dataset.act === 'titulo') S.wiz.titulo = el.value;
+    if (!S.wiz || !el.dataset) return;
+    if (el.dataset.act === 'extra') S.wiz.extra = el.value;
+    if (el.dataset.act === 'titulo') S.wiz.titulo = el.value;
   }
   function onKey(e) {
     const el = e.target;
@@ -657,25 +909,33 @@
   }
 
   // ---------- arranque ----------
+  async function esAdmin() {
+    try {
+      const c = db();
+      if (c && S.user) {
+        const { data } = await c.from('profiles').select('role, tipo_cuenta').eq('id', S.user.id).single();
+        if (data) return data.role === 'admin' || data.tipo_cuenta === 'admin';
+      }
+    } catch (_) {}
+    try { return !!(window.NikaAcceso && window.NikaAcceso.tipoCuenta && window.NikaAcceso.tipoCuenta() === 'admin'); } catch (_) { return false; }
+  }
   async function iniciar() {
     root = document.getElementById('pe-root'); if (!root) return;
     root.innerHTML = '<div class="pe-cargando"><span></span><p>Cargando tus planes…</p></div>';
     try { if (window.NikaAuth && window.NikaAuth.ready) await window.NikaAuth.ready; } catch (_) {}
     try { const c = db(); const { data } = c ? await c.auth.getUser() : { data: {} }; S.user = data && data.user; } catch (_) {}
-    if (!S.user) {
-      try { const cu = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); if (cu && cu.id) S.user = { id: cu.id }; } catch (_) {}
-    }
+    if (!S.user) { try { const cu = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); if (cu && cu.id) S.user = { id: cu.id }; } catch (_) {} }
     if (!S.user) { root.innerHTML = '<div class="pe-vacio"><div class="pe-vacio-ico">🔒</div><h3>Iniciá sesión</h3><p>Entrá a tu cuenta desde el campus para armar tus planes.</p><a class="pe-btn pe-btn--pri" href="campus.html">Ir al campus</a></div>'; return; }
     S.planes = leerLocal();
-    await cargarCatalogo();
-    await cargarNube();
+    await Promise.all([cargarCatalogo(), cargarNube(), cargarExamenes()]);
+    S.admin = await esAdmin();
+    const q = await limpiarDuplicados();
     root.addEventListener('click', onClick); root.addEventListener('change', onChange); root.addEventListener('input', onInput); root.addEventListener('keydown', onKey);
-    root.addEventListener('change', (e) => { if (e.target.id === 'pe-file' && e.target.files[0]) { const r = new FileReader(); r.onload = () => importarJSON(String(r.result)); r.readAsText(e.target.files[0]); e.target.value = ''; } });
-    const q = new URLSearchParams(location.search);
-    if (q.get('plan') && S.planes.some((p) => p.id === q.get('plan'))) abrirPlan(q.get('plan'));
-    else if (q.get('nuevo')) nuevoWizard({ materia: MATERIAS[q.get('materia')] ? q.get('materia') : null, fecha_examen: q.get('fecha') || undefined, paso: MATERIAS[q.get('materia')] ? 2 : 1 });
-    else render();
+    window.addEventListener('popstate', () => { desdeURL(); render(); });
+    desdeURL();
+    render();
+    if (q) toast('🧹 Quité un examen o plan repetido');
   }
-  window.NikaPlan = { iniciar, _estado: S, ritmo, planesDe: () => S.planes };
+  window.NikaPlan = { iniciar, _estado: S, ritmo, planesDe: () => S.planes, colorDias, limpiarDuplicados };
   document.addEventListener('DOMContentLoaded', iniciar);
 })();
