@@ -620,7 +620,7 @@
   const MODO_LABEL = {
     ginecologia: { parcial_1: 'Examen Parcial (UP 1 a 3)', final: 'Examen Integrador (UP 1 a 4)' },
     siam: { parcial_1: 'Primer Parcial (UP 1 a 5)', parcial_2: 'Segundo Parcial (UP 6 a 9)', final: 'Examen Final (UP 1 a 9)' },
-    cirugia: { parcial_1: 'Primer Parcial (UP 1 a 5)', parcial_2: 'Segundo Parcial', final: 'Examen Final' },
+    cirugia: { parcial_1: 'Primer Parcial (UP 1 a 5)', parcial_2: 'Segundo Parcial (UP 6 a 11)', final: 'Examen Final (UP 1 a 11)' },
   };
   function upParam(materia, unidadId) {
     if (materia === 'cirugia') { const n = upNum(unidadId); return n ? String(n) : ''; }
