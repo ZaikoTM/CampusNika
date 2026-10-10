@@ -10,7 +10,7 @@
 
 const NikaOnboarding = (() => {
   const STORAGE_KEY = 'nika_onboarding_visto';
-  const VERSION = 2;   // subir si se agregan pasos importantes: el tour manual siempre está disponible
+  const VERSION = 3;   // subir si se agregan pasos importantes: el tour manual siempre está disponible
 
   // selector ausente => tarjeta centrada (bienvenida / cierre)
   const PASOS = [
@@ -18,7 +18,7 @@ const NikaOnboarding = (() => {
       icono: '👋', categoria: 'Bienvenida', color: '#0284c7',
       titulo: '¡Bienvenido a Campus Nika!',
       texto: 'En un par de minutos vas a conocer todo lo que podés hacer acá. Esto es lo nuevo y lo esencial:',
-      lista: ['📅 Planificación diaria y Cierre del día', '🍅 Pomodoro, racha y Liga con rangos médicos', '📹 Sala de Ateneos y 💬 Foro académico', '🎵 NikaMusic, 💊 NikaFarma y ⚔️ Duelos 1vs1'],
+      lista: ['📚 Salas de Estudio de 1.° a 6.° año, con la PFO y sus casos clínicos con IA', '🥽 NikaSim: atlas de procedimientos en 3D', '🩺 Simuladores con año y área a elección, y 🎓 el ECOE FINAL', '📅 Planificación, 🍅 Pomodoro, racha y Liga', '📹 Ateneos, 💬 Foro, 🎵 NikaMusic, 💊 NikaFarma y ⚔️ Duelos'],
     },
     {
       selector: '#appSidebar', icono: '🧭', categoria: 'Navegación', color: '#0284c7', posicion: 'right',
@@ -39,9 +39,21 @@ const NikaOnboarding = (() => {
     },
     {
       selector: '.action-btn-card[onclick*="sala_estudio"]', icono: '📖', categoria: 'Estudio', color: '#0ea5e9', posicion: 'bottom',
-      titulo: 'Sala de Estudio con Pomodoro',
-      texto: 'Elegí una Unidad Problema y estudiá con material, notas y un Pomodoro interactivo.',
-      lista: ['Barra espaciadora: iniciar / pausar el reloj', 'Bloques de estudio con estados y alertas', 'Cronograma de repaso conectado al calendario'],
+      titulo: 'Salas de Estudio de 1.° a 6.° año',
+      texto: 'Elegí tu año y tu materia. Cada sala trae los materiales de la cátedra, notas, Pomodoro y estadísticas.',
+      lista: ['Lector NikaMed: subrayá, marcá y seguí tu progreso en cada PDF y presentación', 'Videos con miniatura y bibliografía en el mismo visor', 'Barra espaciadora: iniciar / pausar el Pomodoro', 'Cronograma de repaso conectado al calendario'],
+    },
+    {
+      selector: '#sidebar-estudio-btn', icono: '🎓', categoria: 'Estudio', color: '#d97706', posicion: 'right',
+      titulo: 'PFO · 6.° año',
+      texto: 'La Práctica Final Obligatoria tiene su propia sala de estudio, separada del resto de la carrera.',
+      lista: ['8 módulos: Generalidades con recorrido interactivo, Clínica Médica, Pediátrica, Quirúrgica, Emergentología, Ginecología, Salud Familiar y Bibliografía actualizada', 'Tutoriales paso a paso de procedimientos', 'Casos clínicos como estaciones: consignas, reloj, respuesta modelo y fuentes', '💜 Con NikaMed+, practicás cada caso en un chat con paciente y evaluador por IA'],
+    },
+    {
+      selector: '#card-nikasim', icono: '🥽', categoria: 'Simulación', color: '#0ea5e9', posicion: 'bottom',
+      titulo: 'NikaSim · Centro de Simulación',
+      texto: 'Atlas de acreditaciones en 3D por año y materia: practicá cada paso y rendí el examen con corrección estricta.',
+      lista: ['La PFO tiene su atlas con todos los procedimientos: los que ya tienen modelo 3D se practican acá y el resto figura como “Próximamente”', 'Cada procedimiento tiene su tutorial paso a paso'],
     },
     {
       selector: '#mi-rendimiento-widget', icono: '📈', categoria: 'Rendimiento', color: '#22c55e', posicion: 'top',
@@ -92,7 +104,14 @@ const NikaOnboarding = (() => {
     {
       selector: '#card-simuladores', icono: '🩺', categoria: 'Exámenes', color: '#0284c7', posicion: 'bottom',
       titulo: 'Simuladores',
-      texto: 'Seis modalidades de examen: Choice (gratis) y los simuladores con IA de NikaMed+.',
+      texto: 'Elegís primero tu año y tu área, y después la modalidad.',
+      lista: ['Choice: gratis e ilimitado', '✍️ Escrito, 🛏️ Pase de Sala, 🚨 Shock Room y 🗣️ Consultorios y Legales: con IA, para NikaMed+', '📝 Recetarios y certificados para practicar la parte documental'],
+    },
+    {
+      selector: '#sidebar-ecoe-btn', icono: '🎓', categoria: 'Exámenes', color: '#7c3aed', posicion: 'right',
+      titulo: 'ECOE FINAL · 6.° año',
+      texto: 'El examen de egreso: una estación de cada especialidad, con modo práctica y revisión detallada.',
+      lista: ['Corrección por IA al final, con respuesta modelo y fuentes', 'Pruebas de procedimientos y documentos dentro de la estación', 'Exclusivo NikaMed+'],
     },
     {
       selector: '#dashboard-community-widget', icono: '🟢', categoria: 'Comunidad', color: '#22c55e', posicion: 'top',
@@ -103,7 +122,7 @@ const NikaOnboarding = (() => {
       icono: '🚀', categoria: 'Listo', color: '#2563eb',
       titulo: '¡Ya está! Atajos que te van a servir',
       texto: 'Podés repetir este recorrido cuando quieras desde “🧭 Recorrido Guiado”, en el menú.',
-      lista: ['Espacio: iniciar / pausar el Pomodoro', '1 · 2 · 3 · 4: elegir la opción A, B, C o D', 'Ctrl + M: silenciar en la Sala de Ateneos', 'Esc: cerrar cualquier ventana'],
+      lista: ['Espacio: iniciar / pausar el Pomodoro', '1 · 2 · 3 · 4: elegir la opción A, B, C o D', 'Ctrl + M: silenciar en la Sala de Ateneos', 'Esc: cerrar cualquier ventana', 'En los simuladores: Ctrl + Enter envía tu respuesta en el chat de práctica'],
     },
   ];
 
