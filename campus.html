@@ -1248,7 +1248,7 @@
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js"></script>
     <script src="js/ateneos.js"></script>
-    <script src="js/nikaMusic.js"></script>
+    <script src="js/nikaMusic.js?v=3"></script>
     <script src="js/rachas.js"></script>
     <script src="js/atajos.js"></script>
 
@@ -3313,11 +3313,13 @@ async function handleLogout() {
                 const estado = estadoPorUsername.get(f.username);
                 const on = enLinea(f);
                 const enPomodoro = estado && estado.pomodoroActivo;
+                const musicaHtml = nikaMusicaHtml(estado && estado.musica);
                 let meta;
                 if (!on) meta = `@${u} · ${esc(NP ? NP.haceTiempo(_ultimaVezAmigos[f.id]) : 'desconectado')}`;
                 else if (enPomodoro) meta = estado.tema ? `🍅 Estudiando: ${esc(estado.tema)}` : '🍅 En Pomodoro activo';
                 else if (estado && estado.up) meta = `📖 Estudiando ${esc(estado.up)}...`;
                 else meta = `@${u} · En línea`;
+                if (on && musicaHtml) meta = `${meta}${(enPomodoro || (estado && estado.up)) ? ' · ' : ' · '}${musicaHtml}`;
                 return `
                     <div class="online-friend-item online-friend-item--link" style="display:flex; align-items:center; justify-content:space-between; gap:8px; cursor:pointer; ${on ? '' : 'opacity:.7;'}" onclick="abrirPerfilPublico('${esc(f.id)}')" title="Ver perfil de ${displayName}">
                         <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:0;">
@@ -3333,6 +3335,14 @@ async function handleLogout() {
             }).join('');
         }
 
+        // Actividad musical (estilo Discord): logo de Spotify/NikaMusic + artista y tema que suena ahora
+        function nikaMusicaHtml(m) {
+            if (!m || !m.t) return '';
+            const esc2 = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            const logo = '<svg viewBox="0 0 24 24" width="13" height="13" style="vertical-align:-2px;margin-right:4px" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path fill="#04130a" d="M17.3 16.7a.75.75 0 0 1-1.03.25c-2.8-1.7-6.3-2.1-10.5-1.15a.75.75 0 1 1-.33-1.46c4.55-1.04 8.45-.6 11.6 1.33.35.22.46.68.26 1.03zm1.47-3.27a.94.94 0 0 1-1.29.31c-3.2-1.97-8.08-2.55-11.86-1.4a.94.94 0 1 1-.55-1.8c4.32-1.31 9.68-.67 13.4 1.6.44.27.58.85.3 1.29zm.13-3.4C15.02 7.7 8.7 7.5 5.03 8.62a1.13 1.13 0 1 1-.66-2.16c4.2-1.28 11.18-1.03 15.6 1.6a1.13 1.13 0 0 1-1.07 1.97z"/></svg>';
+            const detalle = m.o === 'spotify' && m.a ? esc2(m.a) + ' — ' + esc2(m.t) : esc2(m.t) + (m.a ? ' · ' + esc2(m.a) : '');
+            return `<span class="nika-musica-act" style="color:#16a34a;font-weight:700">${logo}Escuchando ${detalle}</span>`;
+        }
         // ---- Usuarios en línea (últimos 5 minutos): js/presenciaCampus.js + sql/presencia_ultima_vez.sql
         async function renderOnlineUsersWidget() {
             const box = document.getElementById('dashboard-online-users');
@@ -5378,7 +5388,11 @@ async function handleLogout() {
                 const username = el.getAttribute('data-presence-user');
                 const estado = estadosPorUsername[username];
                 const fallback = el.getAttribute('data-fallback');
-                if (estado && estado.pomodoroActivo) {
+                if (estado && estado.musica && estado.musica.t) {
+                    const base = estado.pomodoroActivo ? (estado.tema ? `🍅 ${estado.tema}` : '🍅 En Pomodoro') : (estado.up ? `📖 ${estado.up}` : '');
+                    el.innerHTML = (base ? base.replace(/&/g, '&amp;').replace(/</g, '&lt;') + ' · ' : '') + nikaMusicaHtml(estado.musica);
+                    el.style.display = '';
+                } else if (estado && estado.pomodoroActivo) {
                     el.textContent = estado.tema ? `🍅 Estudiando: ${estado.tema}` : '🍅 En Pomodoro activo';
                     el.style.display = '';
                 } else if (estado && estado.up) {

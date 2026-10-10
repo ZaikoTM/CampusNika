@@ -21,11 +21,10 @@
   function marca() {
     const box = document.querySelector('.sidebar-brand-box');
     if (!box) return;
-    let chip = box.querySelector('.brand-chip');
-    if (!chip) { chip = document.createElement('span'); chip.className = 'brand-chip'; box.appendChild(chip); }
+    // La insignia de rol ya se muestra en la tarjeta del perfil: la marca queda limpia y compacta
+    const chip = box.querySelector('.brand-chip'); if (chip) chip.remove();
     box.classList.toggle('brand-plus', elegible());
     box.classList.toggle('brand-admin', cuenta === 'admin');
-    chip.textContent = cuenta === 'admin' ? '👑 Admin' : '✨ NikaMed+';
   }
 
   function ctaGratis(li) {

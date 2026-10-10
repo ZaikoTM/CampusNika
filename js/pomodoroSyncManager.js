@@ -42,7 +42,7 @@ const PomodoroSyncManager = (function () {
     let onInviteReceived = null;     // callback: (payload) => void ("Fulano te invitó a su Pomodoro")
     let onJoinConfirmed = null;      // callback: (payload) => void ("Fulano se unió a tu Pomodoro")
     let onJoinRequest = null;        // callback: (payload) => void ("Fulano pide acompañarte")
-    let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null, tiempoTotal: null, tiempoRestante: null, tema: null, salaCompartida: null, rolPomodoro: null };
+    let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null, tiempoTotal: null, tiempoRestante: null, tema: null, salaCompartida: null, rolPomodoro: null, musica: null };
     let sala = null;                 // sala compartida activa (ver abrirSala)
     let solicitudPendiente = null;   // { to, at }: pedí unirme a ese usuario y espero su invitación
 
@@ -55,6 +55,7 @@ const PomodoroSyncManager = (function () {
             console.warn("[pomodoroSyncManager] No hay usuario logueado, no se inicia presence.");
             return;
         }
+        if (canal) return;   // ya iniciado (la página o NikaMusic pueden pedirlo)
 
         _configurarLimpiezaAlSalir();
 
@@ -178,7 +179,7 @@ const PomodoroSyncManager = (function () {
     //    pausar o cambiar de fase — si uno pisara al otro, uno de los dos
     //    campos se perdería en cada llamada.
     // ------------------------------------------------------------
-    async function actualizarEstado({ up, pomodoroActivo, faseActual, tiempoTotal, tiempoRestante, tema, salaCompartida, rolPomodoro } = {}) {
+    async function actualizarEstado({ up, pomodoroActivo, faseActual, tiempoTotal, tiempoRestante, tema, salaCompartida, rolPomodoro, musica } = {}) {
         estadoLocal = {
             up: up !== undefined ? up : estadoLocal.up,
             pomodoroActivo: pomodoroActivo !== undefined ? pomodoroActivo : estadoLocal.pomodoroActivo,
@@ -188,6 +189,7 @@ const PomodoroSyncManager = (function () {
             tema: tema !== undefined ? tema : estadoLocal.tema,                                         // "UP6 · Título" que se está estudiando
             salaCompartida: salaCompartida !== undefined ? salaCompartida : estadoLocal.salaCompartida,
             rolPomodoro: rolPomodoro !== undefined ? rolPomodoro : estadoLocal.rolPomodoro,             // 'host' | 'guest' | null
+            musica: musica !== undefined ? musica : estadoLocal.musica,                                  // { t: título, a: artista, o: 'spotify' | 'nikamusic' } o null
         };
         if (!canal) return;
 
@@ -509,6 +511,7 @@ const PomodoroSyncManager = (function () {
         abrirSala,
         salirDeSala,
         emitirComando,
+        get activo() { return !!canal; },
         set onFriendsStateChange(cb) {
             onFriendsStateChange = cb;
         },

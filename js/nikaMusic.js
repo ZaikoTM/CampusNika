@@ -25,6 +25,7 @@ const NikaMusic = (() => {
   ].join(' ');
   const K_TOKEN = 'nika_spotify_tokens', K_CFG = 'nika_spotify_cfg', K_ACTIVA = 'nika_music_activa';
   const K_VOL = 'nika_music_vol', K_UI = 'nika_music_ui', K_AMB = 'nika_music_amb_vol';
+  const K_SESS = 'nika_music_sess', K_SHARE = 'nika_music_share';   // sesión entre páginas y "mostrar lo que escucho"
 
   // Playlists oficiales de Spotify para el Embed (sin login)
   const EMBEDS = [
@@ -55,6 +56,7 @@ const NikaMusic = (() => {
   let abierto = false, minimizado = false;
   let fuente = null;                      // { tipo: 'sdk'|'embed'|'ruido', nombre }
   let sonando = false;
+  let saliendo = false, arrastroPill = false;   // la página se está cerrando / se acaba de arrastrar la píldora
   // Spotify SDK
   let player = null, deviceId = null, estado = null, tick = null, sdkCargado = false, baseTs = 0, duckTimer = null;
   // Embed
@@ -159,7 +161,7 @@ const NikaMusic = (() => {
     player.addListener('player_state_changed', (st) => {
       estado = st;
       const suena = !!(st && !st.paused);
-      localStorage.setItem(K_ACTIVA, suena ? '1' : '0');
+      if (!saliendo) localStorage.setItem(K_ACTIVA, suena ? '1' : '0');   // al cambiar de página el SDK avisa "pausado": eso NO es el alumno
       if (suena) {
         detenerOtros('sdk');
         const tr = st.track_window.current_track;
@@ -409,6 +411,19 @@ const NikaMusic = (() => {
       [data-nika-music-toggle].nm-sonando::after { content: ""; position: absolute; top: 8px; right: 10px; width: 8px; height: 8px; border-radius: 50%; background: #1db954; animation: nmPulse2 1.4s ease-out infinite; }
       @keyframes nmPulse2 { from { box-shadow: 0 0 0 0 rgba(29,185,84,.7); } to { box-shadow: 0 0 0 9px rgba(29,185,84,0); } }
 
+      .nm-body { scrollbar-width: thin !important; scrollbar-color: #1db954 rgba(255,255,255,.08) !important; overscroll-behavior: contain; }
+      .nm-body::-webkit-scrollbar { display: block !important; width: 10px !important; }
+      .nm-body::-webkit-scrollbar-track { background: rgba(255,255,255,.07); border-radius: 8px; }
+      .nm-body::-webkit-scrollbar-thumb { background: #1db954; border-radius: 8px; border: 2px solid #0b0e13; }
+      #nm-res { scrollbar-width: thin; scrollbar-color: #1db954 transparent; }
+      .nm-share { display: flex; align-items: center; gap: 8px; font-size: .72rem; color: #94a3b8; cursor: pointer; padding-top: 2px; }
+      .nm-share input { accent-color: #1db954; width: 15px; height: 15px; }
+      #nm-fab { position: fixed; left: 16px; bottom: 18px; z-index: 9990; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(29,185,84,.55); cursor: pointer; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #14181f, #0b0e13); box-shadow: 0 12px 26px -10px rgba(0,0,0,.7), 0 0 18px -6px rgba(29,185,84,.5); transition: transform .18s; padding: 0; }
+      #nm-fab:hover { transform: scale(1.1) rotate(-6deg); }
+      #nm-fab.nm-sonando::after { content: ""; position: absolute; top: 6px; right: 6px; width: 9px; height: 9px; border-radius: 50%; background: #1db954; animation: nmPulse2 1.4s ease-out infinite; }
+      #nm-pill { cursor: grab; touch-action: none; }
+      #nm-pill:active { cursor: grabbing; }
+      .nm-grip { color: #64748b; font-size: .9rem; letter-spacing: -2px; flex-shrink: 0; user-select: none; line-height: 1; }
       #nm-embed-persist { position: fixed; left: -9999px; top: 0; width: 300px; z-index: 9993; opacity: 0; pointer-events: none; border-radius: 12px; overflow: hidden; }
 
       #nm-panel { position: fixed; right: 20px; top: 78px; z-index: 9991; width: 340px; max-width: calc(100vw - 16px); max-height: calc(100vh - 96px); display: flex; flex-direction: column; overflow: hidden;
@@ -530,7 +545,7 @@ const NikaMusic = (() => {
     panel.id = 'nm-panel'; panel.className = 'oculto'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'NikaMusic');
     pill = document.createElement('div');
     pill.id = 'nm-pill';
-    pill.innerHTML = `<span class="nm-eq"><i></i><i></i><i></i><i></i></span><span id="nm-pill-t" title="Abrir NikaMusic">NikaMusic</span>
+    pill.innerHTML = `<span class="nm-grip" title="Arrastrá para moverla">⋮⋮</span><span class="nm-eq"><i></i><i></i><i></i><i></i></span><span id="nm-pill-t" title="Abrir NikaMusic">NikaMusic</span>
       <div class="nm-pill-ctrl">
         <button type="button" id="nm-pill-prev" aria-label="Anterior" title="Anterior">⏮</button>
         <button type="button" id="nm-pill-play" aria-label="Reproducir o pausar" title="Reproducir / pausar">▶</button>
@@ -544,7 +559,8 @@ const NikaMusic = (() => {
     $('#nm-pill-prev', pill).onclick = (e) => { e.stopPropagation(); saltar(-1); };
     $('#nm-pill-next', pill).onclick = (e) => { e.stopPropagation(); saltar(1); };
     $('#nm-pill-x', pill).onclick = () => abrir();
-    $('#nm-pill-t', pill).onclick = () => abrir();
+    $('#nm-pill-t', pill).onclick = () => { if (arrastroPill) return; abrir(); };
+    activarArrastrePill();
     $('#nm-pill-vol', pill).onclick = (e) => { e.stopPropagation(); if (!volumenSoportado()) return; pill.classList.toggle('vol-abierto'); pintarVolumen(); };
     $('#nm-pill-range', pill).addEventListener('input', (e) => fijarVolumen(e.target.value / 100));
     let previoV = 0.5;
@@ -560,12 +576,14 @@ const NikaMusic = (() => {
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && abierto && !minimizado) cerrar(); });
     window.addEventListener('nika:alerta-sonido', () => duck(2600));
-    window.addEventListener('resize', () => { acomodarPosicion(); acoplarEmbed(); });
+    window.addEventListener('resize', () => { acomodarPosicion(); acoplarEmbed(); posicionPill(); });
+    window.addEventListener('pagehide', () => { saliendo = true; guardarSesion(); });
 
     const u = ui();
     vista = u.vista === 'spotify' && leerTokens() ? 'spotify' : 'ambiente';
     render();
     posicionInicial();
+    posicionPill();
   }
 
   // ---- arrastre desde la cabecera ----
@@ -599,6 +617,130 @@ const NikaMusic = (() => {
       };
       h.addEventListener('pointermove', mover); h.addEventListener('pointerup', soltar); h.addEventListener('pointercancel', soltar);
     });
+  }
+
+  // ---- píldora minimizada: arrastrable, abajo por defecto, y recuerda dónde la dejaste ----
+  function posicionPill() {
+    if (!pill) return;
+    if (enCelular()) { pill.style.left = ''; pill.style.top = ''; pill.style.right = ''; pill.style.bottom = ''; return; }
+    const u = ui();
+    if (typeof u.px !== 'number') return;
+    const w = pill.offsetWidth || 340, h = pill.offsetHeight || 52;
+    pill.style.left = Math.min(Math.max(0, u.px), Math.max(0, window.innerWidth - w)) + 'px';
+    pill.style.top = Math.min(Math.max(0, u.py), Math.max(0, window.innerHeight - h)) + 'px';
+    pill.style.right = 'auto'; pill.style.bottom = 'auto';
+  }
+  function activarArrastrePill() {
+    pill.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button') || e.target.closest('input') || enCelular()) return;
+      const r = pill.getBoundingClientRect(), dx = e.clientX - r.left, dy = e.clientY - r.top;
+      let movio = false;
+      try { pill.setPointerCapture(e.pointerId); } catch (_) {}
+      const mover = (ev) => {
+        if (!movio && Math.abs(ev.clientX - (r.left + dx)) < 4 && Math.abs(ev.clientY - (r.top + dy)) < 4) return;
+        movio = true;
+        pill.style.left = Math.min(Math.max(0, ev.clientX - dx), Math.max(0, window.innerWidth - r.width)) + 'px';
+        pill.style.top = Math.min(Math.max(0, ev.clientY - dy), Math.max(0, window.innerHeight - r.height)) + 'px';
+        pill.style.right = 'auto'; pill.style.bottom = 'auto';
+      };
+      const soltar = () => {
+        pill.removeEventListener('pointermove', mover); pill.removeEventListener('pointerup', soltar); pill.removeEventListener('pointercancel', soltar);
+        if (movio) { guardarUi({ px: parseFloat(pill.style.left), py: parseFloat(pill.style.top) }); arrastroPill = true; setTimeout(() => { arrastroPill = false; }, 120); }
+      };
+      pill.addEventListener('pointermove', mover); pill.addEventListener('pointerup', soltar); pill.addEventListener('pointercancel', soltar);
+    });
+    pill.addEventListener('dblclick', (e) => { if (e.target.closest('button') || e.target.closest('input')) return; guardarUi({ px: null, py: null }); pill.style.left = ''; pill.style.top = ''; pill.style.right = ''; pill.style.bottom = ''; });
+  }
+
+  // ---- la sesión sigue al cambiar de página (píldora, fuente y reproducción) ----
+  let sesionLista = false;   // hasta restaurar la sesión anterior no se guarda nada (evita pisarla con el estado vacío del arranque)
+  function guardarSesion() {
+    if (!sesionLista) return;
+    try {
+      if (!fuente) { sessionStorage.removeItem(K_SESS); return; }
+      sessionStorage.setItem(K_SESS, JSON.stringify({ min: minimizado && abierto, sonando: !!sonando, fuente: { tipo: fuente.tipo, nombre: fuente.nombre, id: fuente.tipo === 'ruido' ? ambId : null } }));
+    } catch (_) {}
+  }
+  function restaurarSesion() {
+    let s0 = null; try { s0 = JSON.parse(sessionStorage.getItem(K_SESS) || 'null'); } catch (_) {}
+    sesionLista = true;
+    if (!s0 || !s0.fuente) return;
+    const f = s0.fuente;
+    if (s0.min) { abierto = true; minimizado = true; }
+    try {
+      if (f.tipo === 'ruido' && AMBIENTES.find((a2) => a2.id === f.id)) {
+        if (s0.sonando) {
+          iniciarAmbiente(f.id);
+          if (actx && actx.state === 'suspended') {   // el navegador pide un gesto para sonar: queda en pausa y arranca con el primer toque
+            sonando = false;
+            const reanudar = () => { if (actx) { actx.resume(); sonando = true; pintarEstado(); } };
+            ['pointerdown', 'keydown'].forEach((ev) => window.addEventListener(ev, reanudar, { once: true }));
+          }
+        } else fuente = { tipo: 'ruido', nombre: f.nombre };
+      } else if (f.tipo === 'embed') {
+        const e = EMBEDS.find((x) => x.label === f.nombre);
+        if (e) { embedUri = 'spotify:playlist:' + e.id; fuente = { tipo: 'embed', nombre: e.label }; sonando = false; if (s0.sonando) montarEmbed(embedUri); }
+      } else if (f.tipo === 'sdk') {
+        fuente = { tipo: 'sdk', nombre: f.nombre }; sonando = !!s0.sonando;
+      }
+    } catch (_) {}
+    pintarEstado();
+  }
+
+  // ---- logo de Spotify en los botones de NikaMusic de cada página y botón flotante si la página no tiene uno ----
+  function decorarBotones() {
+    document.querySelectorAll('[data-nika-music-toggle]').forEach((el) => {
+      if (el.id === 'nm-fab' || el.querySelector('.nm-logo') || el.querySelector('svg')) return;
+      const sitio = el.querySelector('.lbl') || el;
+      if (sitio.innerHTML.indexOf('🎧') >= 0) sitio.innerHTML = sitio.innerHTML.replace('🎧', SPOTIFY_SVG(16));
+    });
+    if (!document.querySelector('[data-nika-music-toggle]:not(#nm-fab)') && !document.getElementById('nm-fab')) {
+      const b = document.createElement('button');
+      b.id = 'nm-fab'; b.type = 'button'; b.setAttribute('data-nika-music-toggle', ''); b.title = 'NikaMusic'; b.setAttribute('aria-label', 'Abrir NikaMusic');
+      b.innerHTML = SPOTIFY_SVG(26);
+      document.body.appendChild(b);
+    }
+  }
+
+  // ---- actividad: lo que escuchás aparece en tu estado ante tus amigos (como Discord), con opción para ocultarlo ----
+  let ultPub = '';
+  function datosMusica() {
+    if (!fuente || !sonando) return null;
+    const rec = (t) => String(t || '').slice(0, 80);
+    if (fuente.tipo === 'sdk') {
+      const tr = estado && estado.track_window && estado.track_window.current_track;
+      return tr ? { t: rec(tr.name), a: rec(tr.artists.map((x) => x.name).join(', ')), o: 'spotify' } : null;
+    }
+    if (fuente.tipo === 'embed') return { t: rec(fuente.nombre), a: 'Playlist de Spotify', o: 'spotify' };
+    return { t: rec(fuente.nombre), a: 'Sonido ambiente', o: 'nikamusic' };
+  }
+  function publicar() {
+    let psm = window.PomodoroSyncManager;
+    const d0 = datosMusica();
+    // Si algo suena y esta página no tiene la presencia en marcha, se carga e inicia para que tus amigos vean la actividad
+    if (d0 && localStorage.getItem('nika_currentUser') && window.NikaSupabase && typeof NikaSupabase.getNikaCurrentUsername === 'function') {
+      if (!psm) {
+        if (!window.__nmCargandoPsm) {
+          window.__nmCargandoPsm = true;
+          const sc = document.createElement('script'); sc.src = 'js/pomodoroSyncManager.js?v=4'; sc.async = true;
+          sc.onload = () => { ultPub = '\u0000'; publicar(); };
+          document.head.appendChild(sc);
+        }
+        return;
+      }
+      if (!psm.activo && typeof psm.iniciar === 'function' && !window.__nmIniciandoPsm) {
+        window.__nmIniciandoPsm = true;
+        Promise.resolve(psm.iniciar()).catch(() => {}).then(() => { window.__nmIniciandoPsm = false; ultPub = '\u0000'; publicar(); });
+        return;
+      }
+    }
+    if (!psm || typeof psm.actualizarEstado !== 'function') return;
+    let compartir = true; try { compartir = localStorage.getItem(K_SHARE) !== '0'; } catch (_) {}
+    const d = compartir ? datosMusica() : null;
+    const key = d ? d.t + '|' + d.a : '';
+    if (key === ultPub) return;
+    ultPub = key;
+    try { psm.actualizarEstado({ musica: d }); } catch (_) {}
   }
 
   // ---- abrir / cerrar / minimizar ----
@@ -689,7 +831,10 @@ const NikaMusic = (() => {
         <input type="search" id="nm-q" placeholder="🔍 Buscar canción o álbum" autocomplete="off"><div id="nm-res"></div>
         <button type="button" class="nm-out" id="nm-out">Desconectar Spotify</button>`;
     }
-    panel.innerHTML = cabecera + `<div class="nm-body">${cuerpo}</div>`;
+    const compartir = (() => { try { return localStorage.getItem(K_SHARE) !== '0'; } catch (_) { return true; } })();
+    cuerpo += `<label class="nm-share"><input type="checkbox" id="nm-share" ${compartir ? 'checked' : ''}> Mostrar a mis amigos lo que estoy escuchando</label>`;
+    panel.innerHTML = cabecera + `<div class="nm-body" tabindex="0" aria-label="Contenido de NikaMusic (usá las flechas para desplazarte)">${cuerpo}</div>`;
+    const chk = $('#nm-share'); if (chk) chk.addEventListener('change', () => { try { localStorage.setItem(K_SHARE, chk.checked ? '1' : '0'); } catch (_) {} ultPub = '\u0000'; publicar(); });
 
     $('#nm-x').onclick = cerrar; $('#nm-min').onclick = minimizar;
     panel.querySelectorAll('.nm-tab').forEach((bt) => bt.addEventListener('click', () => cambiarVista(bt.dataset.v)));
@@ -791,6 +936,7 @@ const NikaMusic = (() => {
     document.querySelectorAll('[data-nika-music-toggle]').forEach((el) => el.classList.toggle('nm-sonando', !!sonando));
     const eq = document.getElementById('nm-hdr-eq'); if (eq) eq.classList.toggle('sonando', !!sonando);
     pill.classList.toggle('on', minimizado && abierto && !!fuente);
+    document.querySelectorAll('#nm-fab').forEach((el) => el.classList.toggle('nm-sonando', !!sonando));
     pill.classList.toggle('sonando', !!sonando);
     const t = $('#nm-pill-t', pill); if (t) t.textContent = fuente ? fuente.nombre : 'NikaMusic';
     const pp = $('#nm-pill-play', pill); if (pp) pp.textContent = sonando ? '⏸' : '▶';
@@ -807,6 +953,7 @@ const NikaMusic = (() => {
         $('#nm-dur').textContent = fmt(estado.duration); avanzarProgreso(true);
       }
     }
+    guardarSesion(); publicar();
   }
 
   function avanzarProgreso(reset) {
@@ -820,6 +967,8 @@ const NikaMusic = (() => {
   function init() {
     if (!SPOTIFY_CLIENT_ID) console.info('[NikaMusic] Para activar “Conectar con Spotify” definí el Client ID (window.NIKA_SPOTIFY_CLIENT_ID, <meta name="spotify-client-id"> o CLIENT_ID_FIJO) y registrá ' + location.origin + '/spotify-callback.html como Redirect URI en developer.spotify.com.');
     construir();
+    decorarBotones();
+    restaurarSesion();
     // Si la música de tu cuenta estaba sonando al cambiar de página, el reproductor se reconecta y la retoma
     if (leerTokens() && localStorage.getItem(K_ACTIVA) === '1') cargarSdk();
   }
