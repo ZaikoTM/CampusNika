@@ -283,12 +283,44 @@
   }
 
   // ------------------------------------------------------------------ casos clínicos de práctica (estaciones)
+  // Reporte de errores en las respuestas modelo (misma bandeja de erratas que el resto del sitio)
+  function reportarCaso(c, idx) {
+    cerrarModal();
+    const tarea = idx >= 0 ? c.tareas[idx] : null;
+    const ov = document.createElement('div'); ov.className = 'pfo-modal'; ov.id = 'pfo-modal';
+    ov.innerHTML = `<div class="pfo-modal-c" role="dialog" aria-modal="true"><button type="button" class="pfo-modal-x" aria-label="Cerrar">×</button>
+      <div class="pfo-modal-h"><span class="ic">🚩</span><div><h2 style="font-size:1.02rem">Reportar un error</h2><small style="opacity:.8">${esc(c.titulo)}${tarea ? ' · consigna ' + (idx + 1) : ''}</small></div></div>
+      <div style="padding:6px 18px 4px">${tarea ? `<p style="margin:0 0 8px;font-size:.84rem;opacity:.85"><b>Consigna:</b> ${esc(tarea)}</p>` : ''}
+        <textarea id="rep-txt" rows="5" maxlength="800" placeholder="Contanos qué está mal (dosis, cifra, conducta, dato incompleto) y, si podés, con qué guía o fuente lo fundamentás. Mínimo 10 caracteres." style="width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--pf-bd);background:var(--pf-card2);color:var(--pf-tx);padding:10px 12px;font:inherit;resize:vertical"></textarea>
+        <small style="display:block;margin-top:6px;opacity:.75">Tu reporte le llega al administrador para revisarlo con la bibliografía.</small></div>
+      <div class="pfo-modal-f"><button type="button" class="pfo-btn sec" id="rep-cancel">Cancelar</button><button type="button" class="pfo-btn" id="rep-send">Enviar reporte</button></div></div>`;
+    ov.addEventListener('click', (e) => { if (e.target === ov || e.target.closest('.pfo-modal-x') || e.target.id === 'rep-cancel') cerrarModal(); });
+    ov._esc = (e) => { if (e.key === 'Escape') cerrarModal(); }; document.addEventListener('keydown', ov._esc);
+    document.body.appendChild(ov); document.body.style.overflow = 'hidden';
+    const ta = $('#rep-txt'); ta.focus();
+    $('#rep-send').addEventListener('click', async () => {
+      const just = ta.value.trim();
+      if (just.length < 10) { toast('Contanos un poco más el error (mínimo 10 caracteres).'); return; }
+      // freno simple contra el abuso: hasta 6 reportes por hora desde este navegador
+      let envios = []; try { envios = (JSON.parse(localStorage.getItem('nika_pfo_reportes') || '[]') || []).filter((t) => Date.now() - t < 3600000); } catch (_) {}
+      if (envios.length >= 6) { toast('Llegaste al máximo de reportes por hora. Probá más tarde.'); return; }
+      if (!window.NikaSupabase || typeof NikaSupabase.reportarErrata !== 'function') { toast('No se pudo conectar. Recargá la página.'); return; }
+      const btn = $('#rep-send'); btn.disabled = true; btn.textContent = 'Enviando…';
+      const pt = tarea ? `[Caso PFO · ${c.titulo} · Consigna ${idx + 1}: ${tarea}] Respuesta modelo: ${String((c.respuestas[idx] && c.respuestas[idx].puntos[0]) || '').slice(0, 140)}` : `[Caso PFO · ${c.titulo}] Error general del caso o de una fuente`;
+      try {
+        const r = await NikaSupabase.reportarErrata(pt, just);
+        if (r && !r.error) { envios.push(Date.now()); try { localStorage.setItem('nika_pfo_reportes', JSON.stringify(envios)); } catch (_) {} cerrarModal(); toast('🚩 ¡Gracias! Tu reporte llegó al administrador.'); }
+        else { btn.disabled = false; btn.textContent = 'Enviar reporte'; toast('No se pudo enviar: ' + ((r && r.error && (r.error.message || r.error.details)) || 'error desconocido')); }
+      } catch (e) { btn.disabled = false; btn.textContent = 'Enviar reporte'; toast('No se pudo enviar: ' + (e && e.message ? e.message : 'error de red')); }
+    });
+  }
+
   // Fuentes y justificación de las respuestas modelo
   function fuentesHtml(c) {
     const est = c.verificacion || 'catedra';
     const rot = { guia: ['ok', '✅ Contrastado con guías nacionales'], parcial: ['mid', '🟡 Parcialmente contrastado con guías nacionales'], catedra: ['cat', '📘 Revisado con el material de la cátedra'] }[est] || ['no', '⚠️ Sin contrastar'];
     const lis = (c.fuentes || []).map((f) => `<li><a href="${esc(f.u)}" target="_blank" rel="noopener">${esc(f.t)}</a><span>${esc(f.d)}</span></li>`).join('');
-    return `<div class="pc-fuentes ${rot[0]}"><b>${rot[1]}</b>${lis ? `<ul>${lis}</ul>` : '<p>Respuestas revisadas con el material de la cátedra. Las cifras todavía no se contrastaron con guías nacionales.</p>'}</div>`;
+    return `<div class="pc-fuentes ${rot[0]}"><b>${rot[1]}</b><button type="button" class="pc-rep pc-rep-g" data-rep="-1">🚩 Reportar un error del caso o de una fuente</button>${lis ? `<ul>${lis}</ul>` : '<p>Respuestas revisadas con el material de la cátedra. Las cifras todavía no se contrastaron con guías nacionales.</p>'}</div>`;
   }
   let CASOS = [];
   function vistaCaso(id) {
@@ -308,7 +340,7 @@
           <div class="pc-col">
             <article class="pc-card pc-est"><div class="pc-est-h"><h3>🎯 Tu estación</h3><button type="button" class="pfo-btn sec" id="pc-reloj"><span id="pc-t">▶ Empezar con reloj · ${c.minutos} min</span></button></div>
               <div class="pc-barra"><i id="pc-b"></i></div><small id="pc-p" class="pc-prog"></small>
-              <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label>${c.respuestas && c.respuestas[i] ? `<button type="button" class="pc-ver" data-r="${i}" aria-expanded="false">👁 Ver respuesta modelo</button><div class="pc-resp" id="pc-r${i}" hidden><div class="pc-borr">🧪 Borrador en revisión</div><ul>${c.respuestas[i].puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}</li>`).join('')}</ol>${c.verificar ? `<p class="pc-ver-nota">📖 <b>Para verificar:</b> ${esc(c.verificar)}</p>` : ''}${fuentesHtml(c)}
+              <ol class="pc-tareas">${c.tareas.map((t, i) => `<li><label class="pc-tarea" style="--d:${i}"><input type="checkbox" data-i="${i}"><span class="pc-chk"></span><span class="pc-tt">${esc(t)}</span></label>${c.respuestas && c.respuestas[i] ? `<button type="button" class="pc-ver" data-r="${i}" aria-expanded="false">👁 Ver respuesta modelo</button><div class="pc-resp" id="pc-r${i}" hidden><div class="pc-borr">🧪 Borrador en revisión</div><ul>${c.respuestas[i].puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><button type="button" class="pc-rep" data-rep="${i}">🚩 Reportar un error en esta respuesta</button></div>` : ''}</li>`).join('')}</ol>${c.verificar ? `<p class="pc-ver-nota">📖 <b>Para verificar:</b> ${esc(c.verificar)}</p>` : ''}${fuentesHtml(c)}
               <p class="pc-nota">${c.tareasGenericas ? 'Este caso no trae consignas específicas: usá la estructura habitual de una estación. ' : ''}Resolvé cada punto <b>en voz alta</b>, como frente al evaluador, y tildalo cuando lo hayas dicho completo. Después de resolverlo, mirá la respuesta modelo de cada consigna (en revisión) y contrastala con las fuentes.</p>
               <div class="pc-fin" id="pc-fin" hidden><div class="big">🎉</div><h3>¡Estación completa!</h3><p>Resolviste todas las consignas. Ahora repasá la bibliografía y ponete a prueba con el simulador.</p><div class="pe-nav" style="justify-content:center"><a class="pfo-btn" href="pfo_ecoe.html">📝 Practicar en el simulador ECOE</a><a class="pfo-btn sec" href="estudio.html?modulo=pfo">Volver a la Sala de Estudio</a></div></div>
             </article>
@@ -325,6 +357,7 @@
       const fin = $('#pc-fin'); const completa = n === chk.length; if (completa && fin.hidden) { fin.hidden = false; fin.classList.add('on'); toast('🎉 ¡Estación completa!'); if (iv) { clearInterval(iv); iv = null; } } else if (!completa) fin.hidden = true;
     };
     chk.forEach((x, i) => { x.checked = hechas.has(i); x.addEventListener('change', () => { const e2 = leer(); e2.casos = e2.casos || {}; e2.casos[c.id] = chk.map((y, k) => (y.checked ? k : -1)).filter((k) => k >= 0); guardar(e2); pintar(); }); });
+    $$('.pc-rep').forEach((bt) => bt.addEventListener('click', () => reportarCaso(c, Number(bt.dataset.rep))));
     $$('.pc-ver').forEach((bt) => bt.addEventListener('click', () => { const bx = $('#pc-r' + bt.dataset.r); const ab = bx.hidden; bx.hidden = !ab; bt.setAttribute('aria-expanded', String(ab)); bt.textContent = ab ? '🙈 Ocultar respuesta modelo' : '👁 Ver respuesta modelo'; if (ab) bx.classList.add('on'); }));
     pintar();
     $('#pc-reloj').addEventListener('click', () => {

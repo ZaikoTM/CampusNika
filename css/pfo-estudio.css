@@ -223,3 +223,7 @@
 .pcc-tip{margin:0;font-size:.76rem;line-height:1.5;color:var(--pf-mut);padding:0 4px}
 .pcc-main{min-width:0}
 .pcc-msgs{min-height:260px;background:color-mix(in srgb,#a855f7 4%,transparent);border:1px solid var(--pf-bd);border-radius:14px;padding:12px}
+
+.pc-rep{margin-top:10px;border:1px solid color-mix(in srgb,#ef4444 55%,transparent);background:transparent;color:inherit;font:inherit;font-weight:700;font-size:.76rem;padding:5px 12px;border-radius:999px;cursor:pointer;transition:transform .2s,background .2s}
+.pc-rep:hover{background:color-mix(in srgb,#ef4444 12%,transparent);transform:translateY(-1px)}
+.pc-rep-g{display:block;margin:8px 0 0}
