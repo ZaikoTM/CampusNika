@@ -44,3 +44,19 @@ body.dark-mode .pe-cal-c.pasado-pend .pe-cal-h, body.tema-premium .pe-cal-c.pasa
 body.dark-mode .pe-item-t small.movido, body.tema-premium .pe-item-t small.movido { color: #c4b5fd; }
 
 @media (prefers-reduced-motion: reduce) { .pe-pend-ico, .pe-cal-ok { animation: none; } }
+
+/* guía sugerida, estimación de fin de temas y días de repaso */
+.pe-oculto { display: none; }
+.pe-sug { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; margin: 14px 0; padding: 16px 18px; border-radius: 18px; border: 1px solid rgba(124, 58, 237, .5);
+  background: linear-gradient(135deg, rgba(124, 58, 237, .12), rgba(14, 165, 233, .08)); box-shadow: var(--pe-sombra); }
+.pe-sug.on { border-color: #10b981; background: linear-gradient(135deg, rgba(16, 185, 129, .14), rgba(14, 165, 233, .08)); }
+.pe-sug-i { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; font-size: 1.7rem; background: rgba(124, 58, 237, .18); border: 1px solid rgba(124, 58, 237, .45); animation: peFlota 4.5s ease-in-out infinite; }
+.pe-sug-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pe-sug-t b { font-size: 1rem; font-weight: 900; } .pe-sug-t small { color: var(--pe-mut); font-weight: 600; font-size: .78rem; }
+.pe-sug-tag { align-self: flex-start; font-size: .64rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #fff; padding: 2px 9px; border-radius: 99px; background: linear-gradient(135deg, #7c3aed, #ec4899); }
+@media (max-width: 640px) { .pe-sug { grid-template-columns: auto 1fr; } .pe-sug-a { grid-column: 1 / -1; } }
+.pe-estim { margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; font-size: .88rem; border: 1px solid rgba(16, 185, 129, .5); background: rgba(16, 185, 129, .1); }
+.pe-estim.mal { border-color: rgba(239, 68, 68, .55); background: rgba(239, 68, 68, .1); }
+.pe-fin { margin: 8px 0 0; font-size: .86rem; font-weight: 700; color: #f5d0fe; }
+.pe-fin b { color: #fff; }
+@media (prefers-reduced-motion: reduce) { .pe-sug-i { animation: none; } }

@@ -83,8 +83,13 @@
       const r = await fetch('data/pfo_data.json'); const j = await r.json();
       S.catalogo.pfo = (j.units || []).map((u) => ({ id: u.etiqueta || ('Módulo ' + u.number), titulo: u.title, temas: (u.contents || []).map(String) }));
     } catch (_) { S.catalogo.pfo = []; }
+    try {
+      const r = await fetch('data/planes/gineco_integrador_up1_3.json'); S.plantillas = [await r.json()];
+    } catch (_) { S.plantillas = []; }
     S.catalogo._ok = true;
   }
+  const plantillaDe = (materia) => (S.plantillas || []).filter((t) => t.materia === materia);
+  const plantillaPorId = (id) => (S.plantillas || []).find((t) => t.id === id) || null;
   function cargarScript(src) { return new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }); }
   function upNumero(id) { const m = String(id || '').match(/(\d+)/); return m ? m[1] : ''; }
   function urlSala(materia, unidad) {
@@ -194,7 +199,13 @@
   }
 
   // ---------- generación del plan ----------
+  // horas de estudio que pide el contenido: en la guía sugerida, lo que la guía asigna a sus temas; si no, ~H_POR_TEMA por tema
+  function horasNecesariasWiz(w) {
+    if (w.plantilla) { const T = plantillaPorId(w.plantilla); if (T) return T.dias.slice(0, -1).reduce((a, d) => a + (d.horas || 0), 0); }
+    return nTemasWiz(w) * H_POR_TEMA;
+  }
   function nTemasWiz(w) {
+    if (w.plantilla) { const T = plantillaPorId(w.plantilla); if (T) return T.dias.slice(0, -1).reduce((a, d) => a + (d.temas || []).length, 0); }
     const cat = (S.catalogo[w.materia] || []).filter((u) => w.unidades.includes(u.id));
     return cat.reduce((a, u) => a + u.temas.length, 0) + String(w.extra || '').split('\n').filter((s) => s.trim()).length;
   }
@@ -209,7 +220,7 @@
   const horasDeFecha = (w, f) => { const g = aFecha(f).getDay(); return (g === 0 || g === 6) ? w.horasFS : w.horasLV; };
   function recomendar(w) {
     const T = nTemasWiz(w), pf = planDeFechas(w);
-    const nEst = Math.max(1, pf.nuevos.length), total = Math.max(6, T * H_POR_TEMA);
+    const nEst = Math.max(1, pf.nuevos.length), total = Math.max(6, horasNecesariasWiz(w));
     return { T, nEst, total, h: Math.min(10, Math.max(2, redond05(total / nEst))) };
   }
   const KW_ALTA = /diagn|tratamiento|criterio|clasificaci|algoritmo|urgenc|hemorrag|emergenc|conducta|complicaci|eclamps|ect[óo]pic|infecci|c[áa]ncer|neoplas|tamizaje|screening|shock|trauma|s[íi]ndrome|abdomen agudo|control prenatal|parto|anticoncep|vph|sangrado|dolor/i;
@@ -233,12 +244,19 @@
     const nuevos = pf.nuevos.length ? pf.nuevos : pf.todos;
     const cap = nuevos.map((f) => horasDeFecha(w, f)), capTot = cap.reduce((a, b) => a + b, 0) || 1;
     const dias = nuevos.map((f, i) => ({ id: uid(), fecha: f, titulo: '', horas: cap[i], unidad: '', caso: '', temas: [], checklist: [], datos_duros: [], agenda: [], notas: '' }));
-    let acum = 0, di = 0; const limites = cap.map((c) => (acum += c) / capTot);
+    // Cada tema ocupa ~H_POR_TEMA horas de estudio: con más horas por día se terminan antes y sobran días de repaso.
+    // Si el tiempo no alcanza, se comprime parejo para que entren todos.
+    const necesarias = temas.length * H_POR_TEMA;
+    const escala = necesarias <= capTot ? 1 : capTot / necesarias;
+    const limites = []; { let a = 0; cap.forEach((c) => { a += c; limites.push(a); }); }
+    let di = 0;
     temas.forEach((t, k) => {
-      const frac = (k + 0.5) / Math.max(1, temas.length);
-      while (di < dias.length - 1 && frac > limites[di]) di++;
+      const medio = (k + 0.5) * H_POR_TEMA * escala;
+      while (di < dias.length - 1 && medio > limites[di]) di++;
       dias[di].temas.push({ id: uid(), texto: t.texto, prio: t.manual ? 'alta' : prioSugerida(t.texto), detalle: '', trampa: '', hecho: false, manual: t.manual, unidad: t.unidad });
     });
+    // la carga del día es lo que realmente piden sus temas (hasta lo que el usuario puede estudiar): lo que sobra es tiempo libre
+    dias.forEach((d, i) => { d.horas = d.temas.length ? Math.max(0.5, Math.min(cap[i], redond05(d.temas.length * H_POR_TEMA * escala))) : Math.min(cap[i], 4); });
     // unidad principal de cada día y numeración de las partes (UP 1 · parte 1/2, parte 2/2)
     const principal = (d) => (d.temas[0] ? d.temas[0].unidad : '');
     const totalPorUnidad = {}; dias.forEach((d) => { const u = principal(d); if (u) totalPorUnidad[u] = (totalPorUnidad[u] || 0) + 1; });
@@ -252,7 +270,11 @@
         vistas[u] = (vistas[u] || 0) + 1;
         d.titulo = `${u} · ${tituloUnidad(u)}` + (totalPorUnidad[u] > 1 ? ` (parte ${vistas[u]} de ${totalPorUnidad[u]})` : '');
         d.caso = `Al final del día, resolvé un caso o una consigna integradora de ${u}: planteá el diagnóstico, los diferenciales y la conducta, y explicalo en voz alta como en el examen.`;
-      } else d.titulo = 'Repaso y práctica';
+      } else {   // sin temas nuevos: ya se terminó el contenido, el día queda para repasar
+        d.titulo = 'Repaso integrador'; d.unidad = 'Integración';
+        d.temas = [{ id: uid(), texto: 'Repasar tus datos duros y tablas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' },
+                   { id: uid(), texto: 'Resolver choices de las unidades más flojas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' }];
+      }
       d.agenda = agendaDe(d.horas);
       d.checklist = [
         { id: uid(), texto: `Resolver preguntas del Choice de ${u || 'lo estudiado'} y anotar las que fallé`, hecho: false },
@@ -263,14 +285,116 @@
     });
     if (pf.nuevos.length) pf.repaso.forEach((f, i) => {
       const ult = i === pf.repaso.length - 1;
-      dias.push({ id: uid(), fecha: f, titulo: ult ? 'Integración y simulacro' : 'Repaso integrador', horas: horasDeFecha(w, f), unidad: 'Integración', caso: ult ? 'Simulacro cronometrado de choices de todo el examen y corrección con justificación de cada opción falsa.' : '', datos_duros: [], agenda: agendaDe(horasDeFecha(w, f)), notas: '',
+      dias.push({ id: uid(), fecha: f, titulo: ult ? 'Integración y simulacro' : 'Repaso integrador', horas: Math.min(horasDeFecha(w, f), 5), unidad: 'Integración', caso: ult ? 'Simulacro cronometrado de choices de todo el examen y corrección con justificación de cada opción falsa.' : '', datos_duros: [], agenda: agendaDe(Math.min(horasDeFecha(w, f), 5)), notas: '',
         temas: [{ id: uid(), texto: 'Repasar tus datos duros y tablas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' },
                 { id: uid(), texto: ult ? 'Simulacro de choices con tiempo' : 'Resolver choices de las unidades más flojas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' }],
         checklist: [{ id: uid(), texto: 'Justificar en voz alta las opciones falsas', hecho: false }, { id: uid(), texto: ult ? 'Dejar listo lo del día del examen' : 'Repasar los errores acumulados', hecho: false }] });
     });
+    const ultimo = dias[dias.length - 1];
+    if (ultimo && ultimo.unidad === 'Integración') {
+      ultimo.titulo = 'Integración y simulacro';
+      if (!ultimo.caso) ultimo.caso = 'Simulacro cronometrado de choices de todo el examen y corrección con justificación de cada opción falsa.';
+    }
     return dias;
   }
+
+  // Estimación: con el ritmo elegido, ¿cuándo terminás los temas y cuántos días de repaso te quedan?
+  function estimarWiz(w) {
+    const T = nTemasWiz(w), necesarias = horasNecesariasWiz(w), pf = planDeFechas(w);
+    const dias = pf.nuevos.length ? pf.nuevos : pf.todos;   // los días de repaso que reservó el usuario no cuentan para estudiar temas nuevos
+    let acum = 0, idx = -1;
+    for (let i = 0; i < dias.length; i++) { acum += horasDeFecha(w, dias[i]); if (acum >= necesarias) { idx = i; break; } }
+    const diasEst = dias.length;
+    // horas por día necesarias para dejarte 3 días de repaso
+    const conRepaso = Math.max(1, diasEst - 3);
+    return { T, necesarias, alcanza: idx >= 0, fin: idx >= 0 ? dias[idx] : null, diasUsados: idx + 1, diasRepaso: idx >= 0 ? pf.todos.length - (idx + 1) : 0,
+      falta: idx >= 0 ? 0 : necesarias - acum, hParaRepaso: redond05(necesarias / conRepaso), diasEst };
+  }
+
+  // Guía sugerida (plantilla): trae los TEMAS, prioridades, trampas, datos duros y casos de la guía, pero las horas
+  // salen de lo que el usuario puede estudiar. Cada tema pesa lo que la guía le asigna y se reparte por la capacidad de
+  // cada día; si estudia más, termina antes y le sobran días de repaso.
+  function planDesdePlantilla(w) {
+    const T = plantillaPorId(w.plantilla); if (!T) return null;
+    const pf = planDeFechas(Object.assign({}, w, { repaso: Math.max(1, w.repaso) })); if (!pf.todos.length) return null;
+    const nuevos = pf.nuevos.length ? pf.nuevos : pf.todos;
+    // el último día de la guía es la integración/simulacro: va al final del plan del usuario
+    const contenido = T.dias.slice(0, -1), cierre = T.dias[T.dias.length - 1];
+    const items = [];   // cada tema con su peso en horas y el día de la guía del que viene
+    contenido.forEach((d, di) => {
+      const n = Math.max(1, (d.temas || []).length), peso = (d.horas || 0) / n;
+      (d.temas || []).forEach((t, k) => items.push({ t, d, di, peso: peso || H_POR_TEMA, ultimo: k === (d.temas || []).length - 1 }));
+    });
+    const cap = nuevos.map((f) => horasDeFecha(w, f)), capTot = cap.reduce((a, b) => a + b, 0) || 1;
+    const necesarias = items.reduce((a, x) => a + x.peso, 0);
+    const escala = necesarias <= capTot ? 1 : capTot / necesarias;
+    const limites = []; { let a = 0; cap.forEach((c) => { a += c; limites.push(a); }); }
+    const dias = nuevos.map((f, i) => ({ id: uid(), fecha: f, titulo: '', horas: cap[i], unidad: '', caso: '', temas: [], checklist: [], datos_duros: [], agenda: [], notas: '', _src: [] }));
+    let di = 0, acum = 0;
+    items.forEach((x) => {
+      const medio = (acum + x.peso * escala / 2); acum += x.peso * escala;
+      while (di < dias.length - 1 && medio > limites[di]) di++;
+      const dia = dias[di];
+      dia.temas.push(Object.assign({ prio: 'media', detalle: '', trampa: '', manual: false }, x.t, { id: uid(), hecho: false, unidad: x.t.unidad || x.d.unidad }));
+      dia._carga = (dia._carga || 0) + x.peso * escala;
+      if (dia._src.indexOf(x.di) < 0) dia._src.push(x.di);
+      // el caso tipo y los datos duros de un día de la guía llegan al día donde termina de verse ese bloque
+      if (x.ultimo) {
+        if (x.d.caso && !dia.caso) dia.caso = x.d.caso;
+        (x.d.datos_duros || []).forEach((dd) => dia.datos_duros.push(dd));
+        (x.d.checklist || []).forEach((c) => dia.checklist.push({ id: uid(), texto: c.texto, hecho: false }));
+      }
+    });
+    dias.forEach((d, i) => { d.horas = d._carga ? Math.max(0.5, Math.min(cap[i], redond05(d._carga))) : Math.min(cap[i], 4); delete d._carga; });
+    // títulos, unidad y agenda de cada día
+    const partes = {}; dias.forEach((d) => d._src.forEach((s) => { partes[s] = (partes[s] || 0) + 1; }));
+    const visto = {};
+    dias.forEach((d, i) => {
+      if (!d.temas.length) {   // el contenido ya terminó: día de repaso
+        d.titulo = 'Repaso integrador'; d.unidad = 'Integración';
+        d.temas = [{ id: uid(), texto: 'Repasar tus datos duros y tablas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' },
+                   { id: uid(), texto: 'Resolver choices de las unidades más flojas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' }];
+      } else {
+        const us = []; d.temas.forEach((t) => { if (t.unidad && us.indexOf(t.unidad) < 0) us.push(t.unidad); });
+        d.unidad = us.join(' + ');
+        const ps = d._src.map((s) => { visto[s] = (visto[s] || 0) + 1; const n = partes[s]; return contenido[s].titulo + (n > 1 ? ` (parte ${visto[s]} de ${n})` : ''); });
+        let tt = ps[0] + (ps.length > 1 ? ` + ${ps.length - 1} más` : '');
+        d.titulo = tt.length > 120 ? tt.slice(0, 118) + '…' : tt;
+        if (!d.caso) d.caso = `Al final del día, resolvé un caso o una consigna integradora de ${d.unidad.split(' + ')[0]} y explicalo en voz alta como en el examen.`;
+      }
+      d.agenda = agendaDe(d.horas);
+      const base = [{ id: uid(), texto: 'Resolver preguntas del Choice de lo estudiado hoy y anotar las que fallé', hecho: false }];
+      d.checklist = d.checklist.concat(base);
+      if (i >= 2) d.checklist.push({ id: uid(), texto: 'Repaso corto de lo de ayer, de memoria', hecho: false });
+      delete d._src;
+    });
+    // integración y simulacro final (con los datos de cierre de la guía)
+    const ult = dias[dias.length - 1];
+    const marcarCierre = (d) => {
+      d.titulo = 'Integración y simulacro'; d.unidad = 'Integración';
+      if (cierre) {
+        d.caso = cierre.caso || d.caso;
+        (cierre.datos_duros || []).forEach((dd) => d.datos_duros.push(dd));
+        (cierre.checklist || []).forEach((c) => d.checklist.push({ id: uid(), texto: c.texto, hecho: false }));
+        (cierre.temas || []).forEach((t) => d.temas.push(Object.assign({ prio: 'alta', detalle: '', trampa: '', manual: false }, t, { id: uid(), hecho: false, unidad: 'Integración' })));
+      }
+    };
+    if (pf.repaso.length && pf.nuevos.length) {
+      pf.repaso.forEach((f, i) => {
+        const hr = Math.min(horasDeFecha(w, f), 5);
+        const d = { id: uid(), fecha: f, titulo: 'Repaso integrador', horas: hr, unidad: 'Integración', caso: '', datos_duros: [], agenda: agendaDe(hr), notas: '',
+          temas: [{ id: uid(), texto: 'Repasar tus datos duros y tablas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' },
+                  { id: uid(), texto: 'Resolver choices de las unidades más flojas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' }],
+          checklist: [{ id: uid(), texto: 'Repasar los errores acumulados', hecho: false }, { id: uid(), texto: 'Justificar en voz alta las opciones falsas', hecho: false }] };
+        dias.push(d);
+      });
+    }
+    marcarCierre(dias[dias.length - 1]);
+    return { id: uid(), titulo: w.titulo || T.titulo, materia: T.materia, fecha_examen: w.fecha_examen, unidades: T.unidades.slice(), inicio: w.inicio, evento_id: null, plantilla_id: T.id,
+      dias, creado_en: new Date().toISOString(), actualizado_en: new Date().toISOString() };
+  }
   function planDesdeWizard(w) {
+    if (w.plantilla) return planDesdePlantilla(w);
     const dias = generarDias(w);
     if (!dias) return null;
     return { id: uid(), titulo: w.titulo, materia: w.materia, fecha_examen: w.fecha_examen, unidades: w.unidades.slice(), inicio: w.inicio, evento_id: null,
@@ -379,8 +503,10 @@
   }
   function aplicarRecomendado(w, factor) {
     const r = recomendar(w);
-    const h = Math.min(10, Math.max(1.5, redond05(r.h * (factor || 1))));
+    const h = Math.min(24, Math.max(1.5, redond05(r.h * (factor || 1))));
     w.horasLV = h; w.horasFS = Math.max(1, redond05(h * 0.75));
+    // el ritmo recomendado tiene que alcanzar de verdad: si por redondeo quedó corto, se sube de a media hora
+    if (!factor || factor === 1) { let g = 0; while (!estimarWiz(w).alcanza && w.horasLV < 24 && g++ < 60) { w.horasLV = redond05(w.horasLV + 0.5); w.horasFS = Math.max(1, redond05(w.horasLV * 0.75)); } }
   }
   function vistaWizard() {
     const w = S.wiz, M = w.materia ? MATERIAS[w.materia] : null;
@@ -396,6 +522,7 @@
       const todas = cat.length && cat.every((u) => w.unidades.includes(u.id));
       cuerpo = `<h2 class="pe-h2">¿Qué unidades entran en el examen?</h2>
         <p class="pe-sub">Podés marcar una o varias: un parcial integrador suele abarcar más de una unidad. Tocá “¿Qué temas tiene?” para ver el detalle de cada una.</p>
+        ${tarjetaPlantilla(w)}
         <div class="pe-tools"><button type="button" class="pe-mini" data-act="todas">${todas ? 'Quitar todas' : 'Marcar todas'}</button><span class="pe-sub" id="pe-contador-u">${w.unidades.length} de ${cat.length} marcadas · ${nTemasWiz(w)} temas</span></div>
         <div class="pe-units">${cat.map((u) => { const on = w.unidades.includes(u.id);
           return `<div class="pe-unit-wrap pe-rv ${on ? 'on' : ''}">
@@ -412,12 +539,13 @@
           <div class="pe-field"><label for="pe-fex">Fecha del examen</label><input type="date" id="pe-fex" data-act="fex" value="${w.fecha_examen}" min="${sumaDias(hoyISO(), 1)}"></div>
           <div class="pe-field"><label for="pe-ini">Empiezo a estudiar</label><input type="date" id="pe-ini" data-act="ini" value="${w.inicio}" min="${hoyISO()}"></div>
         </div>
+        ${w.plantilla ? notaPlantilla(w) : ''}
         <div class="pe-config pe-rv">
           <div class="pe-config-h"><b>⏱️ Ritmo de estudio</b><span class="pe-sub">Elegí un ritmo o ajustalo a mano</span></div>
           <div class="pe-presets" id="pe-presets">${presetsHtml(w)}</div>
           <div class="pe-form pe-form--4">
-            <div class="pe-field"><label for="pe-hlv">Horas por día (lun a vie)</label><input type="number" id="pe-hlv" data-act="hlv" value="${w.horasLV}" min="0.5" max="14" step="0.5"></div>
-            <div class="pe-field"><label for="pe-hfs">Horas por día (sáb y dom)</label><input type="number" id="pe-hfs" data-act="hfs" value="${w.horasFS}" min="0" max="14" step="0.5"></div>
+            <div class="pe-field"><label for="pe-hlv">Horas por día (lun a vie)</label><input type="number" id="pe-hlv" data-act="hlv" value="${w.horasLV}" min="0.5" max="24" step="0.5"></div>
+            <div class="pe-field"><label for="pe-hfs">Horas por día (sáb y dom)</label><input type="number" id="pe-hfs" data-act="hfs" value="${w.horasFS}" min="0" max="24" step="0.5"></div>
             <div class="pe-field"><label for="pe-desc">Día de descanso</label><select id="pe-desc" data-act="desc"><option value="-1" ${w.descanso < 0 ? 'selected' : ''}>Ninguno</option>${DIAS_LARGO.map((n, i) => `<option value="${i}" ${w.descanso === i ? 'selected' : ''}>${n[0].toUpperCase() + n.slice(1)}</option>`).join('')}</select></div>
             <div class="pe-field"><label for="pe-rep">Días finales de repaso</label><select id="pe-rep" data-act="rep">${[0, 1, 2, 3].map((n) => `<option value="${n}" ${w.repaso === n ? 'selected' : ''}>${n === 0 ? 'Ninguno' : n + (n === 1 ? ' día' : ' días')}</option>`).join('')}</select></div>
           </div>
@@ -431,11 +559,29 @@
       <div class="pe-wiz">${ctx}${barra}${cuerpo}
       <div class="pe-wiz-foot">${w.paso > 1 ? '<button type="button" class="pe-btn" data-act="ant">← Atrás</button>' : '<button type="button" class="pe-btn" data-act="hub">✕ Cancelar</button>'}${sig}</div></div>`;
   }
+  function tarjetaPlantilla(w) {
+    const ts = plantillaDe(w.materia); if (!ts.length) return '';
+    return ts.map((t) => {
+      const temas = t.dias.reduce((a, d) => a + (d.temas || []).length, 0), horas = t.dias.reduce((a, d) => a + (d.horas || 0), 0);
+      return `<div class="pe-sug pe-rv ${w.plantilla === t.id ? 'on' : ''}">
+        <div class="pe-sug-i">📘</div>
+        <div class="pe-sug-t"><span class="pe-sug-tag">Guía sugerida</span><b>${esc(t.titulo)}</b><small>${esc(t.subtitulo)} · ${t.dias.length} días · ${temas} temas · ${fmtH(horas)}</small>
+          <small>${esc(t.descripcion)}</small></div>
+        <div class="pe-sug-a">${w.plantilla === t.id
+          ? '<button type="button" class="pe-btn pe-btn--sm" data-act="quitar-plantilla">✕ No usarla</button>'
+          : `<button type="button" class="pe-btn pe-btn--sm pe-btn--pri" data-act="usar-plantilla" data-id="${esc(t.id)}">✨ Usar esta guía</button>`}</div>
+      </div>`; }).join('');
+  }
+  function notaPlantilla(w) {
+    const T = plantillaPorId(w.plantilla); if (!T) return '';
+    return `<div class="pe-ctx pe-rv">📘 Vas a usar la <b>${esc(T.titulo)}</b> (${T.dias.length} días). Trae sus temas, prioridades, datos duros y casos; las <b>horas salen de tu ritmo</b>: si estudiás más por día, terminás antes y te sobran días de repaso. ${esc(T.nota || '')}
+      <button type="button" class="pe-mini" data-act="quitar-plantilla">Armar el mío en lugar de la guía</button></div>`;
+  }
   function presetsHtml(w) {
     const r = recomendar(w);
     const P = [['suave', '🌿 Suave', 0.75], ['reco', '⭐ Recomendado', 1], ['int', '🔥 Intensivo', 1.25]];
     return P.map(([k, t, f]) => {
-      const h = Math.min(10, Math.max(1.5, redond05(r.h * f)));
+      const h = Math.min(24, Math.max(1.5, redond05(r.h * f)));
       const on = Math.abs(w.horasLV - h) < 0.01;
       return `<button type="button" class="pe-preset ${on ? 'on' : ''} ${k === 'reco' ? 'reco' : ''}" data-act="preset" data-f="${f}"><b>${t}</b><span>${fmtH(h)} por día</span><small>≈ ${Math.max(1, Math.floor(h * 60 / 30))} bloques pomodoro</small></button>`;
     }).join('');
@@ -447,17 +593,27 @@
     const T = nTemasWiz(w), pf = planDeFechas(w), r = recomendar(w);
     let h = 0; pf.todos.forEach((f) => { h += horasDeFecha(w, f); });
     const hTema = T ? (pf.nuevos.reduce((a, f) => a + horasDeFecha(w, f), 0) / T) : 0;
+    const est = estimarWiz(w);
+    const estHtml = T === 0 ? '' : (est.alcanza
+      ? `<p class="pe-estim">⏳ Con <b>${fmtH(w.horasLV)}</b> por día (${fmtH(w.horasFS)} los fines de semana) terminás todos los temas el <b>${fmtLarga(est.fin)}</b> (día ${est.diasUsados}) y te quedan <b>${est.diasRepaso} ${est.diasRepaso === 1 ? 'día' : 'días'} de repaso</b> antes del examen.${est.diasRepaso < 3 ? ` Para llegar con 3 días de repaso necesitás unas <b>${fmtH(est.hParaRepaso)}</b> por día.` : ''}</p>`
+      : `<p class="pe-estim mal">⚠️ Con este ritmo no llegás a ver todos los temas: te faltan unas <b>${fmtH(est.falta)}</b>. Para terminarlos necesitás unas <b>${fmtH(redond05(est.necesarias / Math.max(1, est.diasEst)))}</b> por día, o sumar días.</p>`);
     const avisos = [];
     if (T === 0) avisos.push('Elegí al menos una unidad en el paso anterior.');
-    if (T && hTema < 0.8) avisos.push('⚠️ Tenés menos de 1 h por tema: sumá horas, días o sacá unidades.');
-    else if (T && hTema < H_POR_TEMA * 0.9) avisos.push(`💡 Para estudiar cada tema con calma conviene tener cerca de ${fmtH(H_POR_TEMA)} por tema. Recomendado: ${fmtH(r.h)} por día.`);
-    if (w.horasLV > 10) avisos.push('⚠️ Más de 10 h netas por día baja mucho el rendimiento. Mejor sumá días o descansá un día.');
+    if (T && !est.alcanza) avisos.push(`💡 Recomendado para este contenido: unas ${fmtH(r.h)} por día. Podés estudiar las horas que quieras: el plan se acomoda.`);
+    if (w.horasLV > 12) avisos.push('💡 Con tantas horas por día conviene planificar pausas largas y dormir bien: el plan lo permite, pero rendís más con descansos.');
     if (w.repaso === 0) avisos.push('💡 Conviene dejar al menos un día final para integrar y simular.');
     if (dias > 3 && w.descanso < 0) avisos.push('💡 Un día de descanso por semana ayuda a sostener el ritmo.');
     return `<div class="pe-res-grid"><div><b>${dias}</b><span>días hasta el examen</span></div><div><b>${T}</b><span>temas a repartir</span></div><div><b>${Math.round(h)}</b><span>horas de estudio</span></div><div><b>${T ? (T / Math.max(1, pf.nuevos.length)).toFixed(1).replace('.', ',') : '0'}</b><span>temas por día</span></div></div>
+      ${estHtml}
       ${avisos.length ? `<ul class="pe-avisos">${avisos.map((a) => `<li>${a}</li>`).join('')}</ul>` : '<p class="pe-ok">✅ Tu plan está bien balanceado.</p>'}`;
   }
 
+  function finTemasHtml(p) {
+    const conT = p.dias.filter((d) => (d.temas || []).some((t) => t.unidad && t.unidad !== 'Integración'));
+    if (!conT.length) return '';
+    const ult = conT[conT.length - 1], repaso = p.dias.filter((d) => d.fecha > ult.fecha).length;
+    return `<p class="pe-fin">📚 Terminás los temas el <b>${fmtLarga(ult.fecha)}</b> · te ${repaso === 1 ? 'queda' : 'quedan'} <b>${repaso}</b> ${repaso === 1 ? 'día' : 'días'} de repaso</p>`;
+  }
   // temas de días que ya pasaron y quedaron sin estudiar
   function pendientes(p) {
     const hoy = hoyISO(), out = [];
@@ -532,6 +688,7 @@
           <span class="pe-mat pe-mat--on">${M.ico} ${esc(M.nombre)}</span>
           <h1>${esc(p.titulo)}</h1>
           <p class="pe-sub">${fmtLarga(p.fecha_examen)} · ${(p.unidades || []).map(esc).join(', ') || 'Temas propios'}</p>
+          ${finTemasHtml(p)}
           <div class="pe-plan-kpis">
             <div class="pe-kpi"><b>${hechos}/${p.dias.length}</b><span>días completos</span></div>
             <div class="pe-kpi"><b>${fmtH(horasHechas(p))}</b><span>de ${fmtH(horasPlan(p))}</span></div>
@@ -899,7 +1056,9 @@
       case 'adjuntar': return modalAdjuntar(el.dataset.e);
       case 'vincular': return modalVincular(p);
       case 'sync-fecha': { const ev = eventoPorId(p.evento_id); if (ev) { p.fecha_examen = ev.fecha; guardar(p); render(); toast('Fecha actualizada'); } return; }
-      case 'materia': S.wiz.materia = el.dataset.m; S.wiz.unidades = []; S.wiz.paso = 2; return render();
+      case 'materia': S.wiz.materia = el.dataset.m; S.wiz.unidades = []; S.wiz.plantilla = null; S.wiz.paso = 2; return render();
+      case 'usar-plantilla': { const T = plantillaPorId(el.dataset.id); if (!T) return; S.wiz.plantilla = T.id; S.wiz.unidades = T.unidades.slice(); S.wiz.titulo = T.titulo; S.wiz.paso = 3; S.wiz.auto = true; aplicarRecomendado(S.wiz, 1); return render(); }
+      case 'quitar-plantilla': S.wiz.plantilla = null; S.wiz.paso = 2; return render();
       case 'todas': { const cat = S.catalogo[S.wiz.materia] || []; const todas = cat.every((u) => S.wiz.unidades.includes(u.id)); S.wiz.unidades = todas ? [] : cat.map((u) => u.id); return render(); }
       case 'sig': {
         if (S.wiz.paso === 2 && !S.wiz.unidades.length && !String(S.wiz.extra || '').trim()) return toast('Elegí al menos una unidad');

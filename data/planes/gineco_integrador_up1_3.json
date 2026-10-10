@@ -1,0 +1,1354 @@
+{
+ "id": "gineco_integrador_up1_3",
+ "materia": "ginecologia",
+ "titulo": "Parcial integrador · Ginecología y Obstetricia",
+ "subtitulo": "Guía sugerida de 16 días · Unidades 1 a 3 (hasta la Sección 5, Parto y puerperio)",
+ "descripcion": "Recorre las unidades 1, 2 y 3 en 16 días: cada día trae un caso tipo, el orden de prioridad de los temas, los datos duros y las trampas de choice más frecuentes, la agenda por bloques y un checklist de cierre. El último día es de integración y simulacro.",
+ "nota": "Es una guía de estudio orientativa. Verificá siempre cifras y criterios con el material y la bibliografía vigentes de tu cátedra.",
+ "unidades": [
+  "UP 1",
+  "UP 2",
+  "UP 3 - Sección 1",
+  "UP 3 - Sección 2",
+  "UP 3 - Sección 3",
+  "UP 3 - Sección 4",
+  "UP 3 - Sección 5"
+ ],
+ "dias": [
+  {
+   "titulo": "Anatomía, fisiología sexual e integración hormonal",
+   "horas": 7.0,
+   "unidad": "UP 1",
+   "caso": "Mujer de 28 años con ciclos regulares de 28 días. Se pide interpretar qué hormona predomina en el día 10 y cuál en el día 21 del ciclo, y qué ocurre con el pico de LH si el estradiol no alcanza 200 pg/mL de forma sostenida. Integrar con teca, granulosa, FSH, LH y cuerpo lúteo.",
+   "temas": [
+    {
+     "texto": "Eje hipotálamo-hipófisis-ovario e integración hormonal",
+     "prio": "alta",
+     "detalle": "Mecanismo del pico preovulatorio de LH (estradiol ≥ 200 pg/mL sostenido 36 hs, retroalimentación positiva), función del cuerpo lúteo (duración fija de 14 días) e histología de la esteroidogénesis (Teoría de las Dos Células: LH actúa en la teca y sintetiza andrógenos; FSH actúa en la granulosa y sintetiza aromatasa).",
+     "trampa": "Afirmar que la progesterona es alta en la fase folicular, o que la LH estimula directamente la aromatasa.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Estrógenos según la etapa de la vida",
+     "prio": "media",
+     "detalle": "Estradiol predomina en la edad fértil; Estrona en la posmenopausia (aromatización periférica en tejido adiposo); Estriol en el embarazo (unidad feto-placentaria).",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Anatomía de órganos genitales internos y mama",
+     "prio": "sec",
+     "detalle": "Irrigación (arterias uterina, ovárica, vaginal), inervación (plexo de Frankenhäuser) y drenaje linfático mamario (ganglios axilares niveles I, II y III de Berg).",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    }
+   ],
+   "datos_duros": [
+    "Ciclo menstrual fisiológico: 24 a 38 días; duración del sangrado ≤ 8 días.",
+    "Pico preovulatorio de estradiol ≥ 200 pg/mL durante 36 hs → retroalimentación positiva → pico de LH → ovulación 24 a 36 hs después.",
+    "Cuerpo lúteo: produce progesterona; vida media fija de 14 días (± 2). Lo variable del ciclo es la fase folicular.",
+    "Teca (LH) → andrógenos. Granulosa (FSH) → aromatasa → estrógenos.",
+    "Fase proliferativa = estradiol. Fase secretora = progesterona."
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,0 hs",
+     "tarea": "Integración de casos clínicos y algoritmos complejos: Eje hipotálamo-hipófisis-ovario e integración hormonal."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "3,0 hs",
+     "tarea": "Repaso de tablas, fórmulas, dosis y datos duros del día."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Dibujar de memoria el esquema de Dos Células con LH, FSH, teca y granulosa.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar las cifras: 24-38 días, ≤ 8 días de sangrado, 200 pg/mL por 36 hs, 14 días.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferenciar estradiol, estrona y estriol según la etapa de la vida.",
+     "hecho": false
+    },
+    {
+     "texto": "Explicar por qué una fase lútea corta no depende del largo del ciclo.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Semiología ginecológica, citología (PAP) e imágenes mamarias",
+   "horas": 7.0,
+   "unidad": "UP 1",
+   "caso": "Mujer de 45 años, asintomática, sin antecedentes familiares. La mamografía informa BIRADS 3. ¿Cuál es la conducta? En paralelo: mujer de 30 años con nódulo mamario palpable, ¿qué estudio por imágenes corresponde en primer lugar y cómo se toma correctamente un PAP?",
+   "temas": [
+    {
+     "texto": "Clasificación BIRADS y algoritmo mamario",
+     "prio": "alta",
+     "detalle": "Indicación de mamografía de tamizaje (anual desde los 40 años según FASGO/SAM) versus ecografía mamaria (elección en menores de 35 años o mamas densas). Conducta ante BIRADS 3 (seguimiento a 6 meses) y BIRADS 4 o 5 (biopsia histológica obligatoria).",
+     "trampa": "Indicar biopsia en BIRADS 3 o seguimiento en BIRADS 4.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Técnica del Papanicolaou (triple toma)",
+     "prio": "alta",
+     "detalle": "Sitio de la toma (zona de transformación y unión escamocolumnar) y la prohibición de usar geles lubricantes antes de la especuloscopía.",
+     "trampa": "Aplicar gel o vaselina en el espéculo antes del PAP.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Estructura de la historia clínica ginecológica",
+     "prio": "media",
+     "detalle": "Fórmula de paridad G P A C, menarca, ritmo, FUM, método anticonceptivo, antecedentes oncoginecológicos.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    },
+    {
+     "texto": "Ecografía transvaginal vs transabdominal y examen mamario",
+     "prio": "sec",
+     "detalle": "Indicaciones de cada vía y pasos del examen mamario (inspección, palpación, axilas).",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 1"
+    }
+   ],
+   "datos_duros": [
+    "Mamografía de tamizaje en mujer sana: anual desde los 40 años (FASGO/SAM) o cada 1-2 años entre 50 y 69 años (Ministerio de Salud).",
+    "Ecografía mamaria: método de elección en < 35 años, mamas densas y para diferenciar nódulo sólido de quístico.",
+    "BIRADS 3: probablemente benigno, control a 6 meses. BIRADS 4 y 5: biopsia.",
+    "Lubricantes grasos o vaselina alteran la fijación celular e invalidan la lectura; solo se permite entibiar con agua o solución fisiológica. Clasificación BIRADS Categoría Significado Conducta 0 Estudio incompleto Completar con otras imágenes o comparar con previas 1 Negativo Tamizaje de rutina 2 Hallazgo benigno Tamizaje de rutina 3 Probablemente benigno Seguimiento a 6 meses 4 Sospechoso Biopsia 5 Altamente sugestivo de malignidad Biopsia 6 Malignidad confirmada por biopsia Tratamiento oncológico"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,0 hs",
+     "tarea": "Integración de casos clínicos y algoritmos complejos: Clasificación BIRADS y algoritmo mamario."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "3,0 hs",
+     "tarea": "Repaso de tablas, fórmulas, dosis y datos duros del día."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Recitar BIRADS 0 a 6 con su conducta.",
+     "hecho": false
+    },
+    {
+     "texto": "Describir los tres sitios de la triple toma y los instrumentos.",
+     "hecho": false
+    },
+    {
+     "texto": "Armar una paridad G P A C a partir de un caso.",
+     "hecho": false
+    },
+    {
+     "texto": "Justificar por escrito por qué no se usa gel antes del PAP.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Pubertad, estadios de Tanner y trastornos de la diferenciación sexual",
+   "horas": 10.0,
+   "unidad": "UP 2",
+   "caso": "Adolescente de 16 años con amenorrea primaria, mamas Tanner M4, vello axilar y pubiano normales y genitales externos femeninos. La ecografía muestra ausencia de útero y de los dos tercios superiores de la vagina. ¿Cuál es el cariotipo esperado y cuál es el diagnóstico diferencial principal?",
+   "temas": [
+    {
+     "texto": "Síndrome de Rokitansky-Küster-Hauser vs. Síndrome de Morris",
+     "prio": "alta",
+     "detalle": "Diagnóstico diferencial de amenorrea primaria con caracteres sexuales secundarios presentes. Rokitansky: 46,XX, ovarios normales, agenesia de vagina y útero. Morris: 46,XY, insensibilidad a andrógenos, ausencia o escasez de vello pubiano y axilar.",
+     "trampa": "Atribuir cariotipo 46,XY y falta de vello a Rokitansky.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Pubertad precoz y retraso puberal",
+     "prio": "media",
+     "detalle": "Edad límite de pubertad precoz (< 8 años), test de estimulación con GnRH (LH > 5 UI/L confirma origen central), definición de retraso puberal y estadios de Tanner M1-M5 y P1-P5.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 2"
+    },
+    {
+     "texto": "Desarrollo, caracteres sexuales secundarios y educación sexual",
+     "prio": "sec",
+     "detalle": "Cambios morfofuncionales del aparato genital de la niñez a la pubertad, secuencia puberal y educación sexual integral en la infancia.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 2"
+    }
+   ],
+   "datos_duros": [
+    "Pubertad precoz: < 8 años. LH > 5 UI/L tras estímulo con análogos de GnRH confirma origen central.",
+    "Menarca: 2 a 2,5 años después de la telarca. Retraso: sin telarca a los 13 años o sin menarca a los 15 años.",
+    "Rokitansky: 46,XX, ovarios normales, vello normal, sin útero ni 2/3 superiores de vagina.",
+    "Morris: 46,XY, testículos, vagina ciega, sin útero ni ovarios, vello pubiano y axilar escaso o ausente."
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Síndrome de Rokitansky-Küster-Hauser vs. Síndrome de Morris»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Completar el cuadro Rokitansky, Morris y Turner sin mirar.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar los límites de edad de pubertad precoz y de retraso puberal.",
+     "hecho": false
+    },
+    {
+     "texto": "Describir Tanner M1-M5 y P1-P5.",
+     "hecho": false
+    },
+    {
+     "texto": "Justificar por escrito por qué una paciente con Morris tiene mamas pero no vello.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Planificación familiar y Criterios de Elegibilidad de la OMS",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 1",
+   "caso": "Mujer de 38 años, fumadora de 20 cigarrillos por día, consulta por anticoncepción y solicita ACO combinados de baja dosis. Otra paciente, puérpera de 4 semanas que amamanta, pide un método. Definir la categoría OMS y el método adecuado para cada una.",
+   "temas": [
+    {
+     "texto": "Criterios Médicos de Elegibilidad de la OMS (Categoría 4)",
+     "prio": "alta",
+     "detalle": "Casos clínicos que buscan la contraindicación absoluta (Categoría 4) de los ACO combinados: tabaquismo ≥ 35 años (≥ 15 cig/día), migraña con aura a cualquier edad, HTA severa (≥ 160/100), antecedente de TVP/TEP y lactancia < 6 semanas posparto.",
+     "trampa": "Autorizar ACO combinados en una fumadora ≥ 35 años o en puerperio de menos de 6 semanas con lactancia.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Requisitos del MELA",
+     "prio": "alta",
+     "detalle": "Lactancia exclusiva a demanda, amenorrea e hijo menor de 6 meses. Los tres requisitos deben cumplirse a la vez.",
+     "trampa": "Sostener MELA hasta el año o con lactancia mixta.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Anticoncepción en la lactancia y complicaciones del DIU",
+     "prio": "media",
+     "detalle": "Progestágenos solos (desogestrel) en lactancia. En el DIU, los trastornos del sangrado y el dolor son las complicaciones más frecuentes; la perforación es rara. DIU de cobre contraindicado (Cat. 4) en EPI actual o sepsis puerperal.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Otros métodos y marco legal",
+     "prio": "sec",
+     "detalle": "Barrera, abstinencia periódica, coitus interruptus, anticoncepción de emergencia, anticoncepción quirúrgica (Ley 26.130), LARCs, consejería en salud sexual y reproductiva, identidad de género.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    }
+   ],
+   "datos_duros": [
+    "Categoría 4 con ACO combinados: fumadora ≥ 35 años con ≥ 15 cig/día; HTA severa (≥ 160/100) o con vasculopatía; antecedente de TVP/TEP o trombofilia; migraña con aura a cualquier edad; lactancia < 6 semanas posparto.",
+    "DIU de cobre Categoría 4: EPI actual y sepsis puerperal.",
+    "MELA: lactancia exclusiva a demanda + amenorrea + bebé < 6 meses.",
+    "AHE: levonorgestrel 1,5 mg dentro de 72 hs. Quirúrgica: Ley 26.130.",
+    "Complicaciones más frecuentes del DIU: trastornos del sangrado y dolor. Resumen de métodos y mecanismos Método Mecanismo / característica clave ACO combinado Inhibe la ovulación; contraindicado en Cat. 4 (trombosis, migraña con aura, fumadora ≥ 35 años) Progestágeno solo (minipíldora, DMPA, implante) Moco espeso y anovulación; opción en lactancia DIU de cobre Efecto espermicida e inflamatorio; sin hormonas SIU levonorgestrel Atrofia endometrial y moco cervical espeso; reduce el sangrado MELA Anovulación por lactancia exclusiva; válido 6 meses AHE Levonorgestrel 1,5 mg ≤ 72 hs"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Criterios Médicos de Elegibilidad de la OMS (Categoría 4)»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Enumerar las cinco situaciones de Cat. 4 para ACO combinados.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferenciar mecanismo del DIU de cobre y del SIU.",
+     "hecho": false
+    },
+    {
+     "texto": "Recitar los tres requisitos del MELA.",
+     "hecho": false
+    },
+    {
+     "texto": "Redactar la justificación de la falsa de la fumadora de 38 años.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Infecciones del tracto genital inferior, ITS y Enfermedad Pelviana Inflamatoria",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 1",
+   "caso": "Mujer de 24 años con flujo blanco-grisáceo fluido y fétido, pH vaginal de 5, olor a pescado al agregar KOH y células guía en el frotis. Otra paciente de 22 años con dolor hipogástrico, fiebre y dolor a la movilización del cérvix. Definir diagnóstico, tratamiento y necesidad de tratar a la pareja.",
+   "temas": [
+    {
+     "texto": "Criterios de Amsel para vaginosis bacteriana",
+     "prio": "alta",
+     "detalle": "Criterios diagnósticos (3 de 4: flujo homogéneo blanco-grisáceo, pH > 4,5, test de aminas/KOH positivo, clue cells > 20 %). Tratamiento: metronidazol 500 mg c/12 h por 7 días.",
+     "trampa": "Exigir tratamiento de la pareja en la vaginosis.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "EPI e indicaciones de internación",
+     "prio": "alta",
+     "detalle": "Criterio diagnóstico mínimo (dolor uterino o anexial más signo de Frenkel positivo o dolor a la movilización cervical) y esquema hospitalario de primera línea (clindamicina 900 mg c/8 h EV + gentamicina).",
+     "trampa": "Omitir cobertura de anaerobios en el esquema ambulatorio.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Tricomoniasis y sífilis",
+     "prio": "media",
+     "detalle": "Tricomoniasis: cérvix en fresa, tratamiento obligatorio a la pareja. Sífilis: chancre indoloro, VDRL, penicilina G benzatínica 2,4 M UI.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Candidiasis, herpes, chancroide y linfogranuloma venéreo",
+     "prio": "sec",
+     "detalle": "Caracterización clínica y tratamiento básico de cada uno.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    }
+   ],
+   "datos_duros": [
+    "Amsel (3 de 4): flujo homogéneo blanco-grisáceo, pH > 4,5, aminas/KOH 10 % positivo, clue cells > 20 %.",
+    "Vaginosis: metronidazol 500 mg c/12 h VO 7 días, sin tratar sistemáticamente a la pareja.",
+    "Tricomoniasis: metronidazol 500 mg c/12 h 7 días o 2 g VO única; tratar a la pareja.",
+    "EPI hospitalaria: clindamicina 900 mg c/8 h EV + gentamicina (carga 2 mg/kg, mantenimiento 1,5 mg/kg c/8 h).",
+    "EPI ambulatoria: ceftriaxona 500 mg IM única + doxiciclina 100 mg c/12 h + metronidazol 500 mg c/12 h, ambos por 14 días."
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Criterios de Amsel para vaginosis bacteriana»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Completar el cuadro de las tres leucorreas.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar los criterios de Amsel y de EPI sin mirar.",
+     "hecho": false
+    },
+    {
+     "texto": "Listar los criterios de internación de la EPI.",
+     "hecho": false
+    },
+    {
+     "texto": "Recitar ambos esquemas de EPI con dosis y duración.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Infección por VPH, lesiones intraepiteliales y vacunación",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 1",
+   "caso": "Mujer de 35 años con Test de VPH de alto riesgo positivo. La citología de triage informa L-SIL. ¿Cuál es la conducta? Comparar con otra paciente de 40 años con Test de VPH negativo: ¿cuándo se repite el tamizaje?",
+   "temas": [
+    {
+     "texto": "Algoritmo de tamizaje con Test de VPH (30 a 64 años)",
+     "prio": "alta",
+     "detalle": "Conducta ante Test VPH negativo (repetir a los 5 años) y ante Test VPH positivo (citología de triage con PAP de la misma muestra).",
+     "trampa": "Indicar conización o histerectomía inmediata por un Test VPH positivo aislado.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Manejo de L-SIL vs. H-SIL",
+     "prio": "alta",
+     "detalle": "L-SIL / CIN 1: conducta expectante con seguimiento citocolposcópico a 6-12 meses. H-SIL / CIN 2-3: biopsia dirigida por colposcopía y tratamiento escisional (LEEP / conización).",
+     "trampa": "Tratar con escisión una lesión L-SIL, o seguir en forma expectante una H-SIL.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Proteínas oncogénicas del VPH y vacunación",
+     "prio": "media",
+     "detalle": "E6 degrada p53; E7 inhibe pRb. Vacuna contra VPH incluida en el Calendario Nacional a los 11 años.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    },
+    {
+     "texto": "Nomenclatura y clínica del cáncer cervical",
+     "prio": "sec",
+     "detalle": "Bethesda (ASC-US, ASC-H, AGC, L-SIL, H-SIL), CIN 1-3, carcinoma in situ y sinusorragia como síntoma clásico del cáncer cervicouterino invasor.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 1"
+    }
+   ],
+   "datos_duros": [
+    "Test VPH (−): repetir a los 5 años. Test VPH (+): PAP de triage de la misma muestra.",
+    "L-SIL / CIN 1: expresión de infección viral transitoria, regresión espontánea alta (> 60-80 %); observación y control a 6-12 meses.",
+    "H-SIL / CIN 2-3: lesión verdadera con riesgo de progresión; biopsia dirigida + tratamiento escisional (LEEP / conización).",
+    "VPH 16 y 18: más del 70 % de los cánceres de cuello. E6 → p53; E7 → pRb. Algoritmo de tamizaje cervical Edad / resultado Conducta 25-29 años PAP: anual por 2 años; si son negativos, cada 3 años 30-64 años, Test VPH negativo Repetir tamizaje a los 5 años 30-64 años, Test VPH positivo PAP de triage de la misma muestra PAP triage negativo Repetir Test de VPH (hoja de ruta: 18 meses) PAP triage positivo (≥ ASC-US) Colposcopía y biopsia L-SIL / CIN 1 Expectante; seguimiento citocolposcópico a 6-12 meses H-SIL / CIN 2-3 Biopsia dirigida y LEEP / conización"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Algoritmo de tamizaje con Test de VPH (30 a 64 años)»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Dibujar el algoritmo de tamizaje de 25-29 y de 30-64 años.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferenciar L-SIL y H-SIL con conducta de cada uno.",
+     "hecho": false
+    },
+    {
+     "texto": "Explicar E6 y E7.",
+     "hecho": false
+    },
+    {
+     "texto": "Justificar la falsa del Test VPH positivo.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Patología mamaria benigna y miomatosis uterina",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 2",
+   "caso": "Mujer de 28 años con nódulo mamario firme, móvil, indoloro y de bordes netos. Otra paciente de 32 años con hipermenorrea e infertilidad, con un mioma submucoso en la ecografía transvaginal. Definir diagnóstico, estudio y conducta en cada una.",
+   "temas": [
+    {
+     "texto": "Clasificación FIGO de miomas e indicaciones",
+     "prio": "alta",
+     "detalle": "Miomas submucosos (FIGO 0, 1 y 2) como causa principal de SUA o menorragia e infertilidad; conducta de elección: resección histeroscópica.",
+     "trampa": "Indicar histerectomía de entrada ante un mioma submucoso sintomático en mujer joven.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Diagnóstico diferencial mamario",
+     "prio": "alta",
+     "detalle": "Papiloma intraductal como causa más frecuente de telorragia serosanguinolenta uniporo; fibroadenoma en jóvenes; mastitis puerperal (cefalexina o dicloxacilina y NUNCA suspender la lactancia).",
+     "trampa": "Suspender la lactancia ante una mastitis.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Quistes mamarios y alteraciones fibroquísticas",
+     "prio": "media",
+     "detalle": "Quiste traslúcido en ecografía, punción si es sintomático; mastalgia cíclica bilateral con induraciones variables con el ciclo.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Anomalías del desarrollo mamario",
+     "prio": "sec",
+     "detalle": "Polimastia, politelia, amastia.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    }
+   ],
+   "datos_duros": [
+    "Telorragia uniporo serosanguinolenta sin masa palpable: papiloma intraductal.",
+    "Fibroadenoma: tumor benigno más frecuente en < 30 años, firme, móvil, indoloro, de bordes netos.",
+    "Miomas FIGO 0, 1 y 2 = submucosos: los que más producen SUA e infertilidad; tratamiento de elección sintomático: resección histeroscópica.",
+    "Mastitis: no se suspende la lactancia; el vaciamiento mamario es parte del tratamiento. Clasificación FIGO de miomas Tipo Localización 0 Submucoso 100 % intracavitario o pediculado 1 Submucoso con < 50 % intramural 2 Submucoso con ≥ 50 % intramural 3-4 Intramurales 5-6 Subserosos con componente intramural (≥ 50 % o < 50 %) 7 Subseroso pediculado 8 Otros (parasitarios, cervicales)"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Clasificación FIGO de miomas e indicaciones»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Recitar la clasificación FIGO y marcar los submucosos.",
+     "hecho": false
+    },
+    {
+     "texto": "Comparar fibroadenoma, quiste, papiloma intraductal y alteración fibroquística.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar el tratamiento de la mastitis y por qué no se suspende la lactancia.",
+     "hecho": false
+    },
+    {
+     "texto": "Escribir la justificación de la falsa de la mastitis.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Síndrome de ovario poliquístico, hiperprolactinemia y algoritmo de amenorreas",
+   "horas": 7.0,
+   "unidad": "UP 3 - Sección 2",
+   "caso": "Mujer de 24 años con oligomenorrea, hirsutismo (Ferriman-Gallwey 12), acné e IMC de 31. La β-hCG es negativa, TSH y prolactina normales. La prueba de progestágenos produce sangrado por deprivación. ¿Cuál es el diagnóstico y el tratamiento?",
+   "temas": [
+    {
+     "texto": "Criterios de Rotterdam para SOP",
+     "prio": "alta",
+     "detalle": "Diagnóstico con 2 de 3 criterios: oligo o anovulación, hiperandrogenismo clínico o bioquímico y ovarios poliquísticos por ecografía (≥ 20 folículos de 2-9 mm en un ovario o volumen > 10 mL).",
+     "trampa": "Exigir los tres criterios, o no descartar otras causas de hiperandrogenismo.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Algoritmo sistemático de amenorrea secundaria",
+     "prio": "alta",
+     "detalle": "Interpretación de la prueba de progestágenos: si sangra (positiva) confirma anovulación con endometrio preparado por estrógenos (SOP); si no sangra, se avanza a la prueba de estrógenos más progestágenos.",
+     "trampa": "Pedir resonancia de silla turca como primer estudio.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Hiperprolactinemia",
+     "prio": "media",
+     "detalle": "Descartar embarazo, hipotiroidismo primario y fármacos (antipsicóticos, metoclopramida); tratamiento con cabergolina.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Insulinorresistencia, hiperandrogenismo y falla ovárica precoz",
+     "prio": "sec",
+     "detalle": "Entran en el programa como Patología ovárica y Trastornos hormonales.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    }
+   ],
+   "datos_duros": [
+    "Rotterdam: 2 de 3. Ferriman-Gallwey ≥ 8; ≥ 20 folículos de 2-9 mm o volumen > 10 mL.",
+    "Prueba de progestágenos positiva (sangra) = anovulación normoestrogénica, típico de SOP.",
+    "Prueba E + P negativa = causa uterina o canalicular (Asherman, estenosis cervical).",
+    "FSH > 30-40 UI/L = hipogonadismo hipergonadotrófico (falla ovárica). FSH baja o normal = causa central.",
+    "Prolactina normal < 25 ng/mL; macroprolactinoma ≥ 10 mm: hemianopsia bitemporal. Algoritmo de amenorrea secundaria Paso Prueba Resultado e interpretación 1 β-hCG, TSH, prolactina Descartar embarazo, hipotiroidismo e hiperprolactinemia 2 Progestágenos (MPA 10 mg/día 5-10 días) Sangra: anovulación normoestrogénica (SOP). No sangra: avanzar 3 Estrógenos + progestágenos No sangra: causa uterina (Asherman, nivel I). Sangra: causa hormonal 4 FSH y LH FSH alta: ovárica (nivel II). FSH baja o normal: hipofisaria o hipotalámica (nivel III-IV)"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,0 hs",
+     "tarea": "Integración de casos clínicos y algoritmos complejos: Criterios de Rotterdam para SOP."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "3,0 hs",
+     "tarea": "Repaso de tablas, fórmulas, dosis y datos duros del día."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Dibujar el algoritmo de amenorrea con los 4 pasos.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar Rotterdam con números.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferenciar niveles I a IV de causa de amenorrea.",
+     "hecho": false
+    },
+    {
+     "texto": "Justificar por escrito la falsa de la resonancia de silla turca.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Endometriosis, adenomiosis, IVE/ILE, infertilidad y abuso sexual",
+   "horas": 7.0,
+   "unidad": "UP 3 - Sección 2",
+   "caso": "Mujer de 29 años con dismenorrea severa progresiva, dispareunia profunda e infertilidad de 2 años. La ecografía muestra un endometrioma ovárico. ¿Cuál es el gold standard diagnóstico? En otra consulta, una paciente de 12 semanas solicita IVE: ¿qué esquema y qué plazo aplican?",
+   "temas": [
+    {
+     "texto": "Ley 27.610 (IVE/ILE) y régimen farmacológico",
+     "prio": "alta",
+     "detalle": "Plazo de IVE (hasta semana 14 inclusive), plazo de respuesta de la institución (10 días corridos) y esquema combinado: mifepristona 200 mg VO + misoprostol 800 µg sublingual o vaginal.",
+     "trampa": "Exigir autorización judicial para ILE por causal violación o riesgo para la salud.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Tríada de endometriosis",
+     "prio": "alta",
+     "detalle": "Dismenorrea severa progresiva + dispareunia profunda + infertilidad. Gold standard diagnóstico: laparoscopía.",
+     "trampa": "Considerar a la ecografía abdominal como gold standard.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Adenomiosis e infertilidad femenina",
+     "prio": "media",
+     "detalle": "Adenomiosis: útero globuloso, menorragia y dismenorrea. Infertilidad: definición, estudio básico y orientación terapéutica.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    },
+    {
+     "texto": "Abuso sexual",
+     "prio": "sec",
+     "detalle": "Atención integral, profilaxis postexposición, anticoncepción de emergencia, notificación y ILE por causal violación.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 2"
+    }
+   ],
+   "datos_duros": [
+    "Tríada patognomónica: dismenorrea severa + dispareunia profunda + infertilidad. Gold standard: laparoscopía con biopsia.",
+    "IVE hasta la semana 14 inclusive; plazo de prestación 10 días corridos.",
+    "Mifepristona 200 mg VO + misoprostol 800 µg sublingual, bucal o vaginal a las 24-48 hs.",
+    "Dienogest 2 mg/día: progestágeno continuo para endometriosis.",
+    "Infertilidad: 12 meses de relaciones sin protección (6 meses si ≥ 35 años). Endometriosis vs. adenomiosis Endometriosis Adenomiosis Localización Fuera del útero (ovario, Douglas, peritoneo) Dentro del miometrio Útero Normal o fijo y retroverso Aumentado, globuloso y blando Clínica Dismenorrea progresiva, dispareunia profunda, infertilidad Menorragia y dismenorrea Diagnóstico Laparoscopía con biopsia (gold standard) Ecografía TV y RM; histología definitiva"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,0 hs",
+     "tarea": "Integración de casos clínicos y algoritmos complejos: Ley 27.610 (IVE/ILE) y régimen farmacológico."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "3,0 hs",
+     "tarea": "Repaso de tablas, fórmulas, dosis y datos duros del día."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Enunciar la tríada y el gold standard de endometriosis.",
+     "hecho": false
+    },
+    {
+     "texto": "Recitar el esquema farmacológico de IVE/ILE con dosis.",
+     "hecho": false
+    },
+    {
+     "texto": "Describir el estudio básico de infertilidad.",
+     "hecho": false
+    },
+    {
+     "texto": "Enumerar los pasos de la atención del abuso sexual.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Urgencias ginecológicas: SUA, embarazo ectópico y abdomen agudo",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 3",
+   "caso": "Mujer de 26 años con amenorrea de 6 semanas, dolor pélvico agudo y metrorragia escasa. Está hemodinámicamente estable, β-hCG 3500 mUI/mL, masa anexial de 3 cm y sin actividad cardíaca embrionaria. ¿Qué tratamiento corresponde? ¿Y si presenta hipotensión y abombamiento del fondo de saco de Douglas?",
+   "temas": [
+    {
+     "texto": "Embarazo ectópico: Metotrexato vs. tratamiento quirúrgico",
+     "prio": "alta",
+     "detalle": "Criterios para metotrexato (50 mg/m² IM): paciente hemodinámicamente estable, β-hCG < 5000 mUI/mL, masa < 4 cm y sin actividad cardíaca. Si hay inestabilidad o hemoperitoneo: laparotomía de urgencia.",
+     "trampa": "Indicar metotrexato con β-hCG de 8000 mUI/mL o con latidos cardíacos fetales.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 3"
+    },
+    {
+     "texto": "Sistema PALM-COEIN",
+     "prio": "alta",
+     "detalle": "Clasificación de las causas estructurales (Pólipo, Adenomiosis, Leiomioma, Malignidad/hiperplasia) y no estructurales (Coagulopatía, disfunción Ovulatoria, Endometrial, Iatrogénica, No clasificada).",
+     "trampa": "Clasificar al leiomioma como causa no estructural.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 3"
+    },
+    {
+     "texto": "Abdomen agudo ginecológico",
+     "prio": "media",
+     "detalle": "Torsión anexial, ruptura de quiste folicular o hemorrágico, EPI complicada con absceso tubo-ovárico y ectópico roto.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 3"
+    },
+    {
+     "texto": "Notificación de malas noticias en ginecología",
+     "prio": "sec",
+     "detalle": "Comunicación empática de diagnósticos adversos; protocolo SPIKES.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 3"
+    }
+   ],
+   "datos_duros": [
+    "Metotrexato: 50 mg/m² IM dosis única. Criterios: estable, β-hCG < 5000, masa < 4 cm, sin LCF, sin hemoperitoneo significativo.",
+    "Inestabilidad hemodinámica o abombamiento de Douglas (grito del Douglas, signo de Proust) = laparotomía de urgencia.",
+    "Zona discriminatoria: β-hCG 1500-2000 mUI/mL por Eco TV.",
+    "Tríada del ectópico: amenorrea + dolor + metrorragia escasa amarronada.",
+    "Ácido tranexámico 1 g EV en SUA agudo severo. Metotrexato vs. cirugía en ectópico Criterio Metotrexato Cirugía Estabilidad hemodinámica Estable Inestable o shock (laparotomía) β-hCG < 5000 mUI/mL > 5000 mUI/mL Masa anexial < 4 cm ≥ 4 cm Actividad cardíaca embrionaria Ausente Presente Hemoperitoneo Ausente o no significativo Significativo"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Embarazo ectópico: Metotrexato vs. tratamiento quirúrgico»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Enunciar PALM-COEIN con significado de cada letra.",
+     "hecho": false
+    },
+    {
+     "texto": "Recitar los 5 criterios de metotrexato y su dosis.",
+     "hecho": false
+    },
+    {
+     "texto": "Listar los diagnósticos diferenciales de abdomen agudo ginecológico.",
+     "hecho": false
+    },
+    {
+     "texto": "Describir los pasos del protocolo SPIKES.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Control prenatal, cálculo de EG/FPP, modificaciones fisiológicas e inmunizaciones",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 4",
+   "caso": "Gestante con FUM dudosa y ecografía de 10 semanas (CRL) que difiere 7 días de la FUM. ¿Qué fecha se adopta? Además: es Rh negativa no sensibilizada con Coombs indirecta negativa, cursa 28 semanas y planea recibir sus vacunas. ¿Cuáles y cuándo?",
+   "temas": [
+    {
+     "texto": "Cálculo de EG y ajuste ecográfico",
+     "prio": "alta",
+     "detalle": "Regla de Naegele (+7 días / −3 meses). Criterio de ajuste: si la ecografía del primer trimestre (CRL < 14 semanas) difiere en más de 5 días con la FUM, se refunda la edad gestacional por ecografía.",
+     "trampa": "Mantener la FUM cuando la ecografía precoz muestra discordancia > 5 días.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Vacunación en el embarazo",
+     "prio": "alta",
+     "detalle": "dTpa obligatoria en CADA embarazo desde la semana 20; antigripal en cualquier trimestre; VSR entre las semanas 32 y 36; vacunas a virus vivos contraindicadas. Gammaglobulina anti-D a las 28 semanas y dentro de las 72 hs posparto en Rh negativas.",
+     "trampa": "Omitir la dTpa por haberla recibido el año previo; indicar triple viral en el embarazo.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Modificaciones fisiológicas maternas",
+     "prio": "media",
+     "detalle": "Aumento del gasto cardíaco y de la volemia con anemia dilucional; mínimo tensional a las 20-24 semanas; aumento del filtrado glomerular; dilatación pielocalicial derecha.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Control prenatal, nutrición, diagnóstico del embarazo y embarazo adolescente",
+     "prio": "sec",
+     "detalle": "Cuidados preconcepcionales, contenidos del control, examen obstétrico, ficha CLAP y abordaje del embarazo adolescente.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    }
+   ],
+   "datos_duros": [
+    "dTpa: 1 dosis en cada embarazo desde la semana 20. Antigripal: cualquier trimestre. VSR: semanas 32 a 36,6. Virus vivos: contraindicados.",
+    "Anti-D 300 µg IM: 28 semanas y ≤ 72 hs posparto (RN Rh positivo), en Rh negativas con Coombs indirecta negativa.",
+    "Ajuste ecográfico: CRL antes de la semana 14 y discordancia > 5 días con la FUM → fecha por ecografía. Margen de error: ± 3 a 5 días.",
+    "Mínimo de 5 controles prenatales. FCF normal 110-160 lpm.",
+    "Anemia fisiológica = dilucional, no por déficit de hierro. Inmunizaciones en la gestante Vacuna Momento Nota dTpa (triple bacteriana acelular) Desde la semana 20, en cada embarazo Protección transplacentaria contra pertussis Antigripal Cualquier trimestre 1 dosis VSR Semanas 32 a 36,6 1 dosis Triple viral, varicela, fiebre amarilla Contraindicadas Virus vivos atenuados Gammaglobulina anti-D 28 semanas y ≤ 72 hs posparto Rh negativa no sensibilizada"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Cálculo de EG y ajuste ecográfico»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Calcular FPP con Naegele y con Wahl en un caso.",
+     "hecho": false
+    },
+    {
+     "texto": "Aplicar el criterio de ajuste ecográfico.",
+     "hecho": false
+    },
+    {
+     "texto": "Recitar el calendario de vacunas con semanas.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar los cambios cardiovasculares y renales con cifras.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Hemorragias de la primera y segunda mitad del embarazo",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 4",
+   "caso": "Gestante de 32 semanas con metrorragia roja brillante, indolora, útero relajado y feto con frecuencia cardíaca normal, sin ecografía previa. ¿Qué diagnóstico es el más probable y qué maniobra está prohibida hasta confirmarlo? Contrastar con otra paciente con hipertensión, dolor intenso y útero en tabla.",
+   "temas": [
+    {
+     "texto": "Placenta previa vs. DPPNI (cuadro comparativo clásico)",
+     "prio": "alta",
+     "detalle": "Placenta previa: sangrado rojo brillante, indoloro, útero relajado, tacto prohibido. DPPNI: sangrado oscuro, doloroso, útero en tabla o hipertónico, asociado a preeclampsia o HTA.",
+     "trampa": "Realizar tacto vaginal ante metrorragia de la segunda mitad sin ecografía.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Mola hidatiforme",
+     "prio": "alta",
+     "detalle": "β-hCG > 100.000 mUI/mL, imagen ecográfica en copos de nieve o racimo de uvas, evacuación por aspiración (AMEU) y seguimiento semanal de β-hCG.",
+     "trampa": "Atribuir tejido fetal a la mola completa.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Aborto: formas clínicas",
+     "prio": "media",
+     "detalle": "Amenaza, en curso, incompleto, retenido, completo y séptico; el estado del OCI define la conducta.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Rotura uterina y aborto séptico",
+     "prio": "sec",
+     "detalle": "Factores de riesgo, clínica y tratamiento inicial.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    }
+   ],
+   "datos_duros": [
+    "Regla de oro: PROHIBIDO el tacto vaginal ante sospecha de placenta previa hasta confirmar con ecografía.",
+    "Placenta previa: rojo brillante + indoloro + útero relajado. DPPNI: oscuro + doloroso + útero en tabla + HTA/preeclampsia.",
+    "Aborto: < 20 semanas o < 500 g. Amenaza: OCI cerrado. En curso: OCI dilatado. Retenido: OCI cerrado, sin LCF.",
+    "Mola completa: 46,XX diándrico, β-hCG > 100.000, sin feto. Mola parcial: triploide, con tejido fetal.",
+    "Seguimiento de mola: β-hCG semanal hasta 3 negativos, luego mensual por 6-12 meses. Placenta previa vs. DPPNI Placenta previa DPPNI Sangre Roja brillante Oscura, con coágulos o hematoma oculto Dolor Indoloro Intenso y agudo Útero Relajado, tono normal Hipertónico, en tabla Estado fetal Sin sufrimiento inicial Sufrimiento agudo o muerte Asociación Cesárea previa, multiparidad HTA y preeclampsia Conducta clave Tacto prohibido; ecografía Estabilizar y finalizar según el caso"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Placenta previa vs. DPPNI (cuadro comparativo clásico)»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Completar el cuadro placenta previa vs. DPPNI.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar las formas clínicas de aborto con el estado del OCI.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferenciar mola completa de parcial.",
+     "hecho": false
+    },
+    {
+     "texto": "Redactar la justificación de la falsa del tacto bimanual.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Trastornos hipertensivos, diabetes gestacional y enfermedades maternas asociadas",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 4",
+   "caso": "Gestante de 34 semanas con TA 160/110 en dos tomas separadas por 4 hs, proteinuria de 500 mg/24 hs y cefalea. Se indica sulfato de magnesio. A las horas presenta pérdida del reflejo patelar y frecuencia respiratoria de 10 por minuto. ¿Cuál es el antídoto y qué fármacos antihipertensivos corresponden?",
+   "temas": [
+    {
+     "texto": "Preeclampsia, HELLP y sulfato de magnesio",
+     "prio": "alta",
+     "detalle": "Criterios de preeclampsia (TA ≥ 140/90 después de la semana 20 con proteinuria o disfunción de órgano diana). Esquema de sulfato de magnesio (4 g de ataque, 1-2 g/h de mantenimiento) y su antídoto (gluconato de calcio 1 g EV). Fármacos permitidos: labetalol, nifedipina y alfa-metildopa; IECA y ARA II contraindicados.",
+     "trampa": "Indicar enalapril o losartán en la gestante.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Criterios de diabetes gestacional (ALAD / FASGO)",
+     "prio": "alta",
+     "detalle": "Primer trimestre: 2 glucemias en ayunas ≥ 100 mg/dL (diagnóstico directo). Segundo trimestre (semanas 24-28): PTOG 75 g con valor a las 2 hs ≥ 140 mg/dL.",
+     "trampa": "Exigir PTOG en el primer trimestre cuando ya hay 2 ayunas ≥ 100 mg/dL.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Anemia, colestasis intrahepática y enfermedad hemolítica perinatal",
+     "prio": "media",
+     "detalle": "Entran en el programa como enfermedades maternas que complican el embarazo.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Insulina, reclasificación posparto y metas glucémicas",
+     "prio": "sec",
+     "detalle": "NPH 0,1-0,2 UI/kg/día; PTOG 75 g a las 6 semanas posparto.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    }
+   ],
+   "datos_duros": [
+    "Preeclampsia: TA ≥ 140/90 después de la semana 20 + proteinuria o disfunción de órgano diana.",
+    "Sulfato de Mg: 4 g ataque / 1-2 g por hora. Antídoto: gluconato de calcio 1 g EV.",
+    "Antihipertensivos: labetalol, nifedipina, alfa-metildopa. IECA/ARA II contraindicados.",
+    "DG primer trimestre: 2 ayunas ≥ 100 mg/dL. DG semanas 24-28: PTOG 75 g ≥ 140 mg/dL a las 2 hs.",
+    "Metas: ayunas 70-90; 1 h < 140; 2 h < 120. Insulina NPH 0,1-0,2 UI/kg/día. Clasificación de los THE Entidad Definición clave HTA crónica Previa al embarazo o antes de la semana 20 HTA gestacional Después de la semana 20, sin proteinuria ni daño orgánico; normaliza antes de 12 semanas posparto Preeclampsia HTA después de la semana 20 con proteinuria o disfunción de órgano diana Eclampsia Convulsiones tónico-clónicas en preeclampsia HELLP Hemólisis, enzimas hepáticas elevadas y plaquetas bajas HTA crónica + preeclampsia Preeclampsia sobreimpuesta a HTA previa"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Preeclampsia, HELLP y sulfato de magnesio»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Recitar los criterios de severidad de la preeclampsia.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar el esquema de sulfato de magnesio y los signos de toxicidad.",
+     "hecho": false
+    },
+    {
+     "texto": "Escribir los criterios diagnósticos de DG por trimestre.",
+     "hecho": false
+    },
+    {
+     "texto": "Resumir anemia, colestasis y EHP en una línea cada una.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Infecciones perinatales, RCIU, RPM, parto prematuro y líquido amniótico",
+   "horas": 10.0,
+   "unidad": "UP 3 - Sección 4",
+   "caso": "Gestante de 30 semanas con pérdida de líquido claro hace 6 horas, sin fiebre ni contracciones. La especuloscopía confirma salida de líquido por el OCI. ¿Cuál es el manejo según la edad gestacional, el esquema de maduración pulmonar y la profilaxis antibiótica?",
+   "temas": [
+    {
+     "texto": "Tamizaje y profilaxis de estreptococo B (EGB)",
+     "prio": "alta",
+     "detalle": "Hisopado vagino-rectal universal a las semanas 35-37. Profilaxis intraparto con penicilina G o ampicilina EV.",
+     "trampa": "Realizar el hisopado entre las semanas 20 y 24.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Manejo de la RPM pretérmino",
+     "prio": "alta",
+     "detalle": "Maduración pulmonar con betametasona 12 mg IM c/24 h (2 dosis) entre las semanas 24 y 34,6; profilaxis antibiótica con ampicilina/amoxicilina más eritromicina.",
+     "trampa": "Indicar tocolíticos de mantenimiento por 14 días.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "RCIU y otras infecciones perinatales",
+     "prio": "media",
+     "detalle": "RCIU (PFE < P10, Doppler), sífilis congénita, toxoplasmosis, VIH y Chagas.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    },
+    {
+     "texto": "Parto prematuro, polihidramnios, oligoamnios, COVID-19 y maternidades seguras",
+     "prio": "sec",
+     "detalle": "Entran en el programa dentro del embarazo patológico.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 4"
+    }
+   ],
+   "datos_duros": [
+    "EGB: hisopado vagino-rectal semanas 35-37. Penicilina G 5 M UI EV y 2,5 M UI c/4 hs.",
+    "Maduración pulmonar: betametasona 12 mg IM c/24 h × 2 entre las semanas 24 y 34,6.",
+    "RPM 24-33,6 semanas: conservador; tocolíticos máximo 48 hs. Neuroprotección con Mg si < 32 semanas.",
+    "RCIU: PFE < P10; severo < P3. PEG constitucional: Doppler normal.",
+    "VIH: cesárea electiva a las 38 semanas si CV > 1000 copias/mL; lactancia contraindicada. RPM según edad gestacional Edad gestacional Conducta ≥ 37 semanas Finalización o inducción del trabajo de parto 34 a 36,6 semanas Finalización o conducta conservadora si no hay infección 24 a 33,6 semanas Conservador en internación: betametasona, antibióticos de latencia < 32 semanas Agregar sulfato de magnesio para neuroprotección Corioamnionitis Antibióticos y finalizar el embarazo"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,5 hs",
+     "tarea": "Lectura comprensiva e integración fisiopatológica; empezar por «Tamizaje y profilaxis de estreptococo B (EGB)»."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "4,0 hs",
+     "tarea": "Memorización de datos duros, criterios y algoritmos; completar el cuadro del día."
+    },
+    {
+     "bloque": "Bloque 3 · Noche",
+     "horas": "1,5 hs",
+     "tarea": "Resolución de choices y redacción de la justificación de las opciones falsas."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Recitar el esquema de maduración pulmonar con semanas.",
+     "hecho": false
+    },
+    {
+     "texto": "Enunciar la conducta de la RPM por rango de edad gestacional.",
+     "hecho": false
+    },
+    {
+     "texto": "Comparar RCIU y PEG con Doppler.",
+     "hecho": false
+    },
+    {
+     "texto": "Listar causas de polihidramnios y de oligoamnios.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Parto normal, monitoreo fetal, MATPP, hemorragia posparto y puerperio",
+   "horas": 7.0,
+   "unidad": "UP 3 - Sección 5",
+   "caso": "Primípara de 24 años cursa un parto vaginal. Tras la salida del hombro anterior, ¿qué se administra? A los 20 minutos sangra abundantemente con útero blando y sin tono: ¿cuál es la causa más frecuente y cuál es el paquete de manejo inicial? ¿Qué uterotónico se evita si la paciente es hipertensa?",
+   "temas": [
+    {
+     "texto": "Manejo activo del tercer período (MATPP)",
+     "prio": "alta",
+     "detalle": "Oxitocina 10 UI IM al nacer el hombro anterior, tracción controlada del cordón y masaje uterino.",
+     "trampa": "Administrar la oxitocina luego del alumbramiento.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 5"
+    },
+    {
+     "texto": "Hemorragia posparto (regla de las 4 T)",
+     "prio": "alta",
+     "detalle": "Etiología más frecuente: atonía uterina (70 %). Paquete E-MOTIVE (masaje, oxitocina 20 UI EV, ácido tranexámico 1 g EV). Trampa: ergometrina contraindicada en hipertensas.",
+     "trampa": "Usar ergometrina en una paciente con preeclampsia.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 5"
+    },
+    {
+     "texto": "Monitoreo fetal intraparto",
+     "prio": "alta",
+     "detalle": "DIP I (benigno, compresión cefálica) vs. DIP II (patológico, insuficiencia placentaria e hipoxia).",
+     "trampa": "Interpretar los DIP II como fisiológicos.",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 5"
+    },
+    {
+     "texto": "Mecanismo del parto y puerperio",
+     "prio": "media",
+     "detalle": "Tiempos del mecanismo en cefálica de vértice, períodos del parto, planos de Hodge, etapas y patología del puerperio.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 5"
+    },
+    {
+     "texto": "Factores de iniciación del parto y fenómenos activos y pasivos",
+     "prio": "sec",
+     "detalle": "Contracciones uterinas (activos) y modificaciones cervicales, segmento inferior y bolsa de aguas (pasivos).",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "UP 3 - Sección 5"
+    }
+   ],
+   "datos_duros": [
+    "MATPP: oxitocina 10 UI IM al nacer el hombro anterior + tracción controlada + masaje uterino.",
+    "HPP: > 500 mL (vaginal) o > 1000 mL (cesárea). Causa más frecuente: atonía uterina (70 %).",
+    "E-MOTIVE: masaje, oxitocina 20 UI EV, ácido tranexámico 1 g EV. Ergometrina contraindicada en HTA y preeclampsia.",
+    "DIP I: compresión cefálica, benigno. DIP II: insuficiencia placentaria, patológico. DIP III: cordón.",
+    "Endometritis: causa más frecuente de fiebre puerperal; clindamicina 900 mg c/8 h EV + gentamicina. Desaceleraciones de la FCF Tipo Relación con la contracción Causa Significado DIP I / precoz Coincide Compresión cefálica Benigno DIP II / tardío Con decalaje Insuficiencia placentaria e hipoxia Patológico DIP III / variable Variable Compresión del cordón Según gravedad"
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,0 hs",
+     "tarea": "Integración de casos clínicos y algoritmos complejos: Manejo activo del tercer período (MATPP)."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "3,0 hs",
+     "tarea": "Repaso de tablas, fórmulas, dosis y datos duros del día."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Enunciar los pasos del MATPP y el momento exacto de la oxitocina.",
+     "hecho": false
+    },
+    {
+     "texto": "Recitar la regla de las 4 T con porcentajes.",
+     "hecho": false
+    },
+    {
+     "texto": "Diferenciar DIP I, II y III.",
+     "hecho": false
+    },
+    {
+     "texto": "Ordenar los tiempos del mecanismo de parto en cefálica de vértice.",
+     "hecho": false
+    }
+   ]
+  },
+  {
+   "titulo": "Integración total y simulacro de justificación de falsas",
+   "horas": 7.0,
+   "unidad": "Integración",
+   "caso": "Simulacro de 10 choices de integración: anticoncepción en fumadora, tamizaje con VPH, amenorrea secundaria, ectópico estable, datación del embarazo, placenta previa, sulfato de magnesio, RPM pretérmino, MATPP y atonía uterina.",
+   "temas": [
+    {
+     "texto": "Tabla maestra de datos duros",
+     "prio": "alta",
+     "detalle": "Recitar sin mirar todas las cifras de la tabla maestra de la guía.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Simulacro cronometrado de 10 choices de integración",
+     "prio": "alta",
+     "detalle": "Resolver el simulacro y corregir con justificación escrita de cada opción falsa.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Método de justificación de opciones falsas",
+     "prio": "media",
+     "detalle": "Explicar por qué cada distractor es falso, con la fisiopatología o la cifra que lo desmiente.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "Integración"
+    },
+    {
+     "texto": "Fórmulas: Naegele, Wahl y Pinard",
+     "prio": "media",
+     "detalle": "Repaso de cuadros comparativos de cada día y fórmulas.",
+     "trampa": "",
+     "hecho": false,
+     "manual": false,
+     "unidad": "Integración"
+    }
+   ],
+   "datos_duros": [
+    "Rotterdam: ≥ 20 folículos por ovario o volumen > 10 mL (algunos textos aceptan ≥ 12 folículos). Seguir lo que indique la cátedra.",
+    "PAP de triage negativo: repetir VPH a los 18 meses según la guía; el Programa Nacional puede indicar control al año. Confirmar en el material vigente.",
+    "Ley de estreptococo B: Ley 26.369 (la hoja de ruta citaba la 26.639).",
+    "IVE: hasta la semana 14 inclusive (el protocolo la interpreta hasta 14 semanas y 6 días); ILE desde la 15.0.",
+    "Ajuste ecográfico: > 5 días hasta la semana 14 (otros criterios usan > 5 días hasta 8+6 y > 7 días de 9 a 13+6).",
+    "Ectópico: 95-98 % es tubario; la porción ampular es la más frecuente.",
+    "Fuera de alcance: metrorragia de la posmenopausia y atrofia endometrial (Unidad 4)."
+   ],
+   "agenda": [
+    {
+     "bloque": "Bloque 1 · Mañana",
+     "horas": "4,0 hs",
+     "tarea": "Simulacro cronometrado de choices y de choices históricos del campus; corrección con justificación escrita de cada falsa."
+    },
+    {
+     "bloque": "Bloque 2 · Tarde",
+     "horas": "3,0 hs",
+     "tarea": "Repaso de la tabla maestra, cuadros comparativos de cada día y fórmulas (Naegele, Wahl, Pinard)."
+    }
+   ],
+   "checklist": [
+    {
+     "texto": "Recité sin mirar todas las cifras de la tabla maestra.",
+     "hecho": false
+    },
+    {
+     "texto": "Resolví el simulacro y justifiqué por escrito cada opción falsa.",
+     "hecho": false
+    },
+    {
+     "texto": "Repasé los puntos a verificar con el material de la cátedra.",
+     "hecho": false
+    },
+    {
+     "texto": "Dejé listo lo del lunes y cerré el estudio temprano.",
+     "hecho": false
+    }
+   ]
+  }
+ ]
+}
