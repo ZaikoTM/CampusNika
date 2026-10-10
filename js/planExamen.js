@@ -160,14 +160,20 @@
   }
   const planDeEvento = (evId) => S.planes.find((p) => p.evento_id === evId) || null;
   async function crearEvento(p) {
-    const c = db(); if (!c || !S.user) return null;
-    try {
-      const up = p.unidades && p.unidades[0] ? 'up' + upNumero(p.unidades[0]) : null;
-      const { data, error } = await c.from('calendario_eventos').insert({ user_id: S.user.id, titulo: p.titulo, tipo: 'examen', modulo: p.materia, up_id: up, fecha: p.fecha_examen }).select('id').single();
-      if (error) throw error;
-      p.evento_propio = true;
-      return data && data.id;
-    } catch (_) { return null; }
+    const c = db(); if (!c || !S.user) { S.errEvento = 'sin sesión'; return null; }
+    const ref = p.area && p.area !== 'todas' ? p.area : (p.unidades && p.unidades[0]);
+    const n = ref ? upNumero(ref) : '';
+    const base = { user_id: S.user.id, titulo: p.titulo, tipo: 'examen', modulo: p.materia, fecha: p.fecha_examen };
+    const intentos = n ? [Object.assign({ up_id: 'up' + n }, base), Object.assign({ up_id: n }, base), base] : [base];
+    for (const fila of intentos) {
+      try {
+        const { data, error } = await c.from('calendario_eventos').insert(fila).select('id').single();
+        if (error) throw error;
+        p.evento_propio = true; S.errEvento = '';
+        return data && data.id;
+      } catch (e) { S.errEvento = (e && (e.message || e.details)) || 'error desconocido'; console.warn('[NikaPlan] no se pudo agendar el examen:', S.errEvento); }
+    }
+    return null;
   }
   // Vincula con el examen que ya está en el calendario (si hay) o agenda uno nuevo. Nunca duplica.
   async function vincularOCrearEvento(p, eventoId) {
@@ -550,7 +556,8 @@
       cuerpo = `<h2 class="pe-h2">Fechas y ritmo de estudio</h2>
         <div class="pe-form">
           <div class="pe-field"><label for="pe-titulo">Nombre del plan</label><input id="pe-titulo" data-act="titulo" value="${esc(w.titulo || ('Parcial · ' + (M ? M.corto : '')))}" maxlength="80"></div>
-          <div class="pe-field"><label for="pe-fex">Fecha del examen</label><input type="date" id="pe-fex" data-act="fex" value="${w.fecha_examen}" min="${sumaDias(hoyISO(), 1)}"></div>
+          <div class="pe-field pe-field--exam"><label for="pe-fex">📅 ¿Qué día rendís?</label><input type="date" id="pe-fex" data-act="fex" value="${w.fecha_examen}" min="${sumaDias(hoyISO(), 1)}"><small class="pe-sub">Se agenda solo en tu calendario y en “Próximos eventos” del campus.</small></div>
+          <div class="pe-field pe-field--exam"><label for="pe-area">🎯 ¿Qué área te toca rendir?</label><select id="pe-area" data-act="area"><option value="">Todas las unidades del plan (${w.unidades.length})</option>${w.unidades.map((u) => { const x = (S.catalogo[w.materia] || []).find((y) => y.id === u); return `<option value="${esc(u)}" ${w.area === u ? 'selected' : ''}>${esc(u)}${x ? ' · ' + esc(x.titulo) : ''}</option>`; }).join('')}</select><small class="pe-sub">El examen queda en el calendario asociado a esa unidad.</small></div>
           <div class="pe-field"><label for="pe-ini">Empiezo a estudiar</label><input type="date" id="pe-ini" data-act="ini" value="${w.inicio}" min="${hoyISO()}"></div>
         </div>
         ${w.plantilla ? notaPlantilla(w) : ''}
@@ -1254,11 +1261,12 @@
     const p = planDesdeWizard(w);
     if (!p) return toast('No se pudo armar el plan con esas fechas');
     p.titulo = (w.titulo || '').trim() || `Examen · ${MATERIAS[w.materia].corto}`;
+    p.area = w.area && p.unidades.includes(w.area) ? w.area : '';
     const ya = await vincularOCrearEvento(p, w.evento_id);
     S.planes.push(p); guardar(p); if (p.pomodoro) elegirPomodoro(p);
     S.wiz = null; S.plan = p; S.vista = 'agenda'; S.diaId = null;
     nav(); render(); window.scrollTo({ top: 0, behavior: 'smooth' });
-    toast(ya ? '🔗 Plan creado y vinculado a tu examen del calendario' : (p.evento_id ? '📅 Plan creado y examen agendado' : '📅 Plan creado'));
+    toast(ya ? '🔗 Plan creado y vinculado a tu examen del calendario' : (p.evento_id ? '📅 Plan creado y examen agendado en tu calendario' : '⚠️ Plan creado, pero no pude agendar el examen en tu calendario (' + (S.errEvento || 'sin conexión') + '). Se reintenta al abrir NikaPlan.'));
   }
 
   async function importarJSON(texto) {
@@ -1420,6 +1428,7 @@
     if (a === 'desc') { w.descanso = parseInt(el.value, 10); if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
     if (a === 'rep') { w.repaso = parseInt(el.value, 10); if (w.auto) aplicarRecomendado(w, 1); actualizarWizardVivo(); sincInputsRitmo(); return; }
     if (a === 'pomo') { w.pomodoro = el.checked; return; }
+    if (a === 'area') { w.area = el.value; return; }
     if (a === 'titulo') { w.titulo = el.value; return; }
     if (a === 'extra') { w.extra = el.value; actualizarWizardVivo(); return; }
   }
@@ -1459,6 +1468,13 @@
     S.planes = leerLocal();
     await Promise.all([cargarCatalogo(), cargarNube(), cargarExamenes()]);
     S.admin = await esAdmin();
+    // planes con examen futuro que quedaron sin agendar: se vinculan (o agendan) ahora
+    for (const p of S.planes) {
+      if (p.fecha_examen >= hoyISO() && !p.evento_id) {
+        await vincularOCrearEvento(p, null);
+        if (p.evento_id) guardar(p);
+      }
+    }
     const q = await limpiarDuplicados();
     root.addEventListener('click', onClick); root.addEventListener('change', onChange); root.addEventListener('input', onInput); root.addEventListener('keydown', onKey);
     window.addEventListener('popstate', () => { desdeURL(); render(); });
