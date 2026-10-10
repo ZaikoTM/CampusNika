@@ -28,10 +28,11 @@
     const hoy = hoyISO();
     const modulo = String(detalle.moduleId || '').toLowerCase();
     // solo cuentan los planes que el usuario eligió (p.pomodoro === true), vigentes y de esa materia
-    const elegidos = planes.filter((p) => p && p.pomodoro === true && p.fecha_examen >= hoy && Array.isArray(p.dias) && p.dias.length && (!modulo || modulo === 'general' || p.materia === modulo));
+    const elegidos = planes.filter((p) => p && p.pomodoro === true && p.fecha_examen >= hoy && Array.isArray(p.dias) && p.dias.length && (!modulo || modulo === 'general' || p.materia === modulo))
+      .sort((a, b) => String(a.fecha_examen).localeCompare(String(b.fecha_examen)));
     if (!elegidos.length) return;
     const titulos = []; let cambio = false;
-    for (const p of elegidos) {
+    for (const p of elegidos.slice(0, 1)) {   // un solo plan por materia (el examen más cercano si hubiera datos viejos)
       let dia = p.dias.find((d) => d.fecha === hoy);
       if (!dia) dia = p.dias.filter((d) => d.fecha < hoy && progresoDia(d) < 1).sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
       if (!dia) continue;

@@ -106,6 +106,11 @@
   // ---------- persistencia ----------
   const claveLocal = () => LS + '_' + (S.user ? S.user.id : 'anon');
   function leerLocal() { try { return JSON.parse(localStorage.getItem(claveLocal()) || '[]'); } catch (_) { return []; } }
+  // un solo plan por materia recibe el Pomodoro: al elegir uno, los demás de esa materia se apagan
+  function elegirPomodoro(p) {
+    S.planes.forEach((x) => { if (x !== p && x.materia === p.materia && x.pomodoro) { x.pomodoro = false; guardar(x); } });
+    p.pomodoro = true; guardar(p);
+  }
   function guardarLocal() { try { localStorage.setItem(claveLocal(), JSON.stringify(S.planes)); } catch (_) {} }
   function aFila(p) {
     const { id, titulo, materia, fecha_examen, creado_en, actualizado_en, ...datos } = p;
@@ -559,7 +564,7 @@
             <div class="pe-field"><label for="pe-rep">Días finales de repaso</label><select id="pe-rep" data-act="rep">${[...new Set([0, 1, 2, 3, 5, 7, 10, w.repaso])].sort((x, y) => x - y).map((n) => `<option value="${n}" ${w.repaso === n ? 'selected' : ''}>${n === 0 ? 'Ninguno' : n + (n === 1 ? ' día' : ' días')}</option>`).join('')}</select></div>
           </div>
         </div>
-        <label class="pe-pomo-check pe-rv"><input type="checkbox" data-act="pomo" ${w.pomodoro !== false ? 'checked' : ''}><span class="pe-box">✓</span><span><b>🍅 Contar mi Pomodoro en este plan</b><small>Cada bloque de foco que termines en la sala de estudio de la materia descuenta horas del plan. Podés cambiarlo cuando quieras.</small></span></label>
+        <label class="pe-pomo-check pe-rv"><input type="checkbox" data-act="pomo" ${w.pomodoro !== false ? 'checked' : ''}><span class="pe-box">✓</span><span><b>🍅 Contar mi Pomodoro en este plan</b><small>Cada bloque de foco que termines en la sala de estudio de la materia descuenta horas del plan. Solo un plan por materia recibe el Pomodoro: si ya tenés otro, este lo reemplaza. Podés cambiarlo cuando quieras.</small></span></label>
         <div class="pe-resumen" id="pe-resumen">${resumenWizard()}</div>`;
     }
     const sig = w.paso < 3 ? `<button type="button" class="pe-btn pe-btn--pri" data-act="sig" ${w.paso === 1 && !w.materia ? 'disabled' : ''}>Siguiente →</button>` : `<button type="button" class="pe-btn pe-btn--pri pe-btn--lg" data-act="crear">🚀 Crear mi plan</button>`;
@@ -851,7 +856,7 @@
     return `<div class="pe-pomo-info pe-rv ${on ? 'on' : ''}">
       <div class="pe-pomo-txt">🍅 <b>Contar mi Pomodoro en este plan</b><small>${on
         ? `Activado: cada bloque de foco que termines en la sala de estudio de ${esc((MATERIAS[p.materia] || {}).corto || 'esta materia')} descuenta horas de este plan (hoy: <b>${fmtH((p.dias.find((d) => d.fecha === hoyISO()) || {}).estudiado || 0)}</b>).`
-        : 'Desactivado: tu Pomodoro no suma a este plan. Activalo si es el que estás estudiando ahora.'}</small></div>
+        : 'Desactivado: tu Pomodoro no suma a este plan. Activalo si es el que estás estudiando ahora (solo un plan por materia recibe el Pomodoro: los demás se apagan).'}</small></div>
       <button type="button" class="pe-switch ${on ? 'on' : ''}" role="switch" aria-checked="${on}" data-act="pomodoro-toggle" aria-label="Contar mi Pomodoro en este plan"><i></i></button></div>
       <div class="pe-herr-row pe-rv"><span class="pe-herr-t">🧰 Usalo junto al plan</span>${L.map((x) => `<a class="pe-herr" href="${x[2]}" title="${esc(x[3])}"><i>${x[0]}</i>${x[1]}</a>`).join('')}</div>`;
   }
@@ -1250,7 +1255,7 @@
     if (!p) return toast('No se pudo armar el plan con esas fechas');
     p.titulo = (w.titulo || '').trim() || `Examen · ${MATERIAS[w.materia].corto}`;
     const ya = await vincularOCrearEvento(p, w.evento_id);
-    S.planes.push(p); guardar(p);
+    S.planes.push(p); guardar(p); if (p.pomodoro) elegirPomodoro(p);
     S.wiz = null; S.plan = p; S.vista = 'agenda'; S.diaId = null;
     nav(); render(); window.scrollTo({ top: 0, behavior: 'smooth' });
     toast(ya ? '🔗 Plan creado y vinculado a tu examen del calendario' : (p.evento_id ? '📅 Plan creado y examen agendado' : '📅 Plan creado'));
@@ -1361,7 +1366,7 @@
         (d.datos_duros = d.datos_duros || []).push(v); guardar(p); S.diaId = d.id; return render();
       }
       case 'quitar-dato': { const d = buscarDia(el.dataset.d); if (!d) return; d.datos_duros.splice(+el.dataset.k, 1); guardar(p); return render(); }
-      case 'pomodoro-toggle': { p.pomodoro = !p.pomodoro; guardar(p); toast(p.pomodoro ? '🍅 Tu Pomodoro ahora cuenta en este plan' : 'Tu Pomodoro ya no suma a este plan'); return render(); }
+      case 'pomodoro-toggle': { if (p.pomodoro) { p.pomodoro = false; guardar(p); } else elegirPomodoro(p); toast(p.pomodoro ? '🍅 Tu Pomodoro ahora cuenta en este plan' : 'Tu Pomodoro ya no suma a este plan'); return render(); }
       case 'pendientes': return modalPendientes();
       case 'escrito': return modalEscrito(el.dataset.url);
       case 'completar': {
