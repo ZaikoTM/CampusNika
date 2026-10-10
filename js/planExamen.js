@@ -17,7 +17,7 @@
   const DIAS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
   const DIAS_LARGO = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
   const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-  const H_POR_TEMA = 1.5;   // referencia orientativa: lectura + práctica de un tema
+  const H_POR_TEMA = 3;   // referencia orientativa: lectura + datos duros + práctica de un tema (un plan de 16 días suele rondar 2 a 3 h por tema)
 
   const S = { user: null, planes: [], plan: null, vista: 'agenda', diaId: null, wiz: null, nube: false, catalogo: {}, filtro: 'todos', mes: null, admin: false, examenes: [] };
   let root = null, tSubida = null;
@@ -210,7 +210,18 @@
   function recomendar(w) {
     const T = nTemasWiz(w), pf = planDeFechas(w);
     const nEst = Math.max(1, pf.nuevos.length), total = Math.max(6, T * H_POR_TEMA);
-    return { T, nEst, total, h: Math.min(8, Math.max(2, redond05(total / nEst))) };
+    return { T, nEst, total, h: Math.min(10, Math.max(2, redond05(total / nEst))) };
+  }
+  const KW_ALTA = /diagn|tratamiento|criterio|clasificaci|algoritmo|urgenc|hemorrag|emergenc|conducta|complicaci|eclamps|ect[óo]pic|infecci|c[áa]ncer|neoplas|tamizaje|screening|shock|trauma|s[íi]ndrome|abdomen agudo|control prenatal|parto|anticoncep|vph|sangrado|dolor/i;
+  const KW_APOYO = /generalidades|anatom|histolog|fisiolog|epidemiolog|historia cl|introducci|conceptos|salud integral de la mujer en el curso/i;
+  const prioSugerida = (t) => (KW_ALTA.test(t) ? 'alta' : KW_APOYO.test(t) ? 'sec' : 'media');
+  function agendaDe(h) {
+    const m = Math.max(0.5, redond05(h * 0.45)), t = Math.max(0.5, redond05(h * 0.40)), n = Math.max(0.5, redond05(h - m - t));
+    return [
+      { bloque: 'Bloque 1 · Mañana', horas: fmtH(m), tarea: 'Lectura comprensiva e integración fisiopatológica de los temas del día.' },
+      { bloque: 'Bloque 2 · Tarde', horas: fmtH(t), tarea: 'Memorización de datos duros, criterios y algoritmos; armá un cuadro comparativo.' },
+      { bloque: 'Bloque 3 · Noche', horas: fmtH(n), tarea: 'Choices del día y justificación escrita de las opciones falsas.' },
+    ];
   }
   function generarDias(w) {
     const cat = (S.catalogo[w.materia] || []).filter((u) => w.unidades.includes(u.id));
@@ -226,19 +237,33 @@
     temas.forEach((t, k) => {
       const frac = (k + 0.5) / Math.max(1, temas.length);
       while (di < dias.length - 1 && frac > limites[di]) di++;
-      dias[di].temas.push({ id: uid(), texto: t.texto, prio: 'media', detalle: '', trampa: '', hecho: false, manual: t.manual, unidad: t.unidad });
+      dias[di].temas.push({ id: uid(), texto: t.texto, prio: t.manual ? 'alta' : prioSugerida(t.texto), detalle: '', trampa: '', hecho: false, manual: t.manual, unidad: t.unidad });
     });
+    // unidad principal de cada día y numeración de las partes (UP 1 · parte 1/2, parte 2/2)
+    const principal = (d) => (d.temas[0] ? d.temas[0].unidad : '');
+    const totalPorUnidad = {}; dias.forEach((d) => { const u = principal(d); if (u) totalPorUnidad[u] = (totalPorUnidad[u] || 0) + 1; });
+    const vistas = {};
+    const tituloUnidad = (id) => { const u = (S.catalogo[w.materia] || []).find((x) => x.id === id); return u ? u.titulo : (id === 'Mis temas' ? 'Temas propios' : id); };
     dias.forEach((d, i) => {
       const us = []; d.temas.forEach((t) => { if (t.unidad && us.indexOf(t.unidad) < 0) us.push(t.unidad); });
       d.unidad = us.join(' + ');
-      const prim = d.temas[0];
-      d.titulo = prim ? (prim.texto.length > 70 ? prim.texto.slice(0, 68) + '…' : prim.texto) + (d.temas.length > 1 ? ` y ${d.temas.length - 1} más` : '') : 'Repaso y práctica';
-      d.checklist = [{ id: uid(), texto: 'Resolver preguntas del Choice de lo estudiado hoy', hecho: false }, { id: uid(), texto: 'Anotar y repasar lo que fallé', hecho: false }];
+      const u = principal(d);
+      if (u) {
+        vistas[u] = (vistas[u] || 0) + 1;
+        d.titulo = `${u} · ${tituloUnidad(u)}` + (totalPorUnidad[u] > 1 ? ` (parte ${vistas[u]} de ${totalPorUnidad[u]})` : '');
+        d.caso = `Al final del día, resolvé un caso o una consigna integradora de ${u}: planteá el diagnóstico, los diferenciales y la conducta, y explicalo en voz alta como en el examen.`;
+      } else d.titulo = 'Repaso y práctica';
+      d.agenda = agendaDe(d.horas);
+      d.checklist = [
+        { id: uid(), texto: `Resolver preguntas del Choice de ${u || 'lo estudiado'} y anotar las que fallé`, hecho: false },
+        { id: uid(), texto: 'Escribir los datos duros del día (cifras, criterios, algoritmos) en una hoja', hecho: false },
+        { id: uid(), texto: 'Justificar en voz alta por qué las otras opciones son falsas', hecho: false },
+      ];
       if (i >= 2) d.checklist.push({ id: uid(), texto: 'Repaso corto de lo de ayer, de memoria', hecho: false });
     });
     if (pf.nuevos.length) pf.repaso.forEach((f, i) => {
       const ult = i === pf.repaso.length - 1;
-      dias.push({ id: uid(), fecha: f, titulo: ult ? 'Integración y simulacro' : 'Repaso integrador', horas: horasDeFecha(w, f), unidad: 'Integración', caso: '', datos_duros: [], agenda: [], notas: '',
+      dias.push({ id: uid(), fecha: f, titulo: ult ? 'Integración y simulacro' : 'Repaso integrador', horas: horasDeFecha(w, f), unidad: 'Integración', caso: ult ? 'Simulacro cronometrado de choices de todo el examen y corrección con justificación de cada opción falsa.' : '', datos_duros: [], agenda: agendaDe(horasDeFecha(w, f)), notas: '',
         temas: [{ id: uid(), texto: 'Repasar tus datos duros y tablas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' },
                 { id: uid(), texto: ult ? 'Simulacro de choices con tiempo' : 'Resolver choices de las unidades más flojas', prio: 'alta', detalle: '', trampa: '', hecho: false, manual: true, unidad: 'Integración' }],
         checklist: [{ id: uid(), texto: 'Justificar en voz alta las opciones falsas', hecho: false }, { id: uid(), texto: ult ? 'Dejar listo lo del día del examen' : 'Repasar los errores acumulados', hecho: false }] });
@@ -408,7 +433,7 @@
   }
   function presetsHtml(w) {
     const r = recomendar(w);
-    const P = [['suave', '🌿 Suave', 0.75], ['reco', '⭐ Recomendado', 1], ['int', '🔥 Intensivo', 1.35]];
+    const P = [['suave', '🌿 Suave', 0.75], ['reco', '⭐ Recomendado', 1], ['int', '🔥 Intensivo', 1.25]];
     return P.map(([k, t, f]) => {
       const h = Math.min(10, Math.max(1.5, redond05(r.h * f)));
       const on = Math.abs(w.horasLV - h) < 0.01;
@@ -426,11 +451,64 @@
     if (T === 0) avisos.push('Elegí al menos una unidad en el paso anterior.');
     if (T && hTema < 0.8) avisos.push('⚠️ Tenés menos de 1 h por tema: sumá horas, días o sacá unidades.');
     else if (T && hTema < H_POR_TEMA * 0.9) avisos.push(`💡 Para estudiar cada tema con calma conviene tener cerca de ${fmtH(H_POR_TEMA)} por tema. Recomendado: ${fmtH(r.h)} por día.`);
-    if (w.horasLV > 8) avisos.push('⚠️ Más de 8 h netas por día baja mucho el rendimiento. Mejor sumá días o descansá un día.');
+    if (w.horasLV > 10) avisos.push('⚠️ Más de 10 h netas por día baja mucho el rendimiento. Mejor sumá días o descansá un día.');
     if (w.repaso === 0) avisos.push('💡 Conviene dejar al menos un día final para integrar y simular.');
     if (dias > 3 && w.descanso < 0) avisos.push('💡 Un día de descanso por semana ayuda a sostener el ritmo.');
     return `<div class="pe-res-grid"><div><b>${dias}</b><span>días hasta el examen</span></div><div><b>${T}</b><span>temas a repartir</span></div><div><b>${Math.round(h)}</b><span>horas de estudio</span></div><div><b>${T ? (T / Math.max(1, pf.nuevos.length)).toFixed(1).replace('.', ',') : '0'}</b><span>temas por día</span></div></div>
       ${avisos.length ? `<ul class="pe-avisos">${avisos.map((a) => `<li>${a}</li>`).join('')}</ul>` : '<p class="pe-ok">✅ Tu plan está bien balanceado.</p>'}`;
+  }
+
+  // temas de días que ya pasaron y quedaron sin estudiar
+  function pendientes(p) {
+    const hoy = hoyISO(), out = [];
+    p.dias.forEach((d) => {
+      if (d.fecha >= hoy) return;
+      const sin = (d.temas || []).filter((t) => !t.hecho);
+      if (sin.length) out.push({ dia: d, temas: sin });
+    });
+    return out;
+  }
+  function alertaPendientes(p) {
+    const pen = pendientes(p); if (!pen.length) return '';
+    const n = pen.reduce((a, x) => a + x.temas.length, 0);
+    const ej = pen[0].temas.slice(0, 2).map((t) => esc(t.texto.length > 60 ? t.texto.slice(0, 58) + '…' : t.texto)).join(' · ');
+    return `<div class="pe-pend pe-rv" role="alert"><span class="pe-pend-ico">⚠️</span>
+      <div><b>Te quedaron ${n} ${n === 1 ? 'tema' : 'temas'} sin estudiar de ${pen.length} ${pen.length === 1 ? 'día anterior' : 'días anteriores'}</b>
+      <p>${ej}${n > 2 ? ' …' : ''}</p></div>
+      <button type="button" class="pe-btn pe-btn--sm pe-btn--pri" data-act="pendientes">📆 Reorganizar</button></div>`;
+  }
+  function modalPendientes() {
+    const p = S.plan; if (!p) return;
+    const pen = pendientes(p); if (!pen.length) return toast('No tenés temas pendientes 🎉');
+    const hoy = hoyISO();
+    const destinos = p.dias.filter((d) => d.fecha >= hoy);
+    const { m, cerrar } = modal(`<h3>📆 Temas que te faltaron</h3>
+      <p class="pe-sub">Elegí qué pasar a otro día. Los temas se mueven con su prioridad y sus notas.</p>
+      <div class="pe-pend-lista">${pen.map(({ dia, temas }) => `<div class="pe-pend-dia"><b>${fmtCorta(dia.fecha)} · ${esc(dia.titulo || 'Día de estudio')}</b>
+        ${temas.map((t) => `<label class="pe-pend-t"><input type="checkbox" data-pt="${t.id}" data-pd="${dia.id}" checked><span class="pe-box">✓</span><span>${esc(t.texto)}</span></label>`).join('')}</div>`).join('')}</div>
+      <div class="pe-field"><label for="pe-dest">Pasarlos a</label>
+        <select id="pe-dest">${destinos.length ? `<option value="auto">✨ Repartir solo en los próximos días</option>` : ''}${destinos.map((d) => `<option value="${d.id}">${fmtCorta(d.fecha)}${d.fecha === hoy ? ' (hoy)' : ''} · ${esc((d.titulo || '').slice(0, 40))} · ${fmtH(d.horas || 0)}</option>`).join('')}${destinos.length ? '' : '<option value="">No quedan días: agregá uno en la agenda</option>'}</select></div>
+      <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-m="mover" ${destinos.length ? '' : 'disabled'}>Mover los marcados</button><button type="button" class="pe-btn" data-m="cerrar">Ahora no</button></div>`, 'ancho');
+    m.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-m]'); if (!b) return;
+      if (b.dataset.m === 'cerrar') return cerrar();
+      const sel = [...m.querySelectorAll('input[data-pt]:checked')].map((i) => ({ t: i.dataset.pt, d: i.dataset.pd }));
+      if (!sel.length) return toast('Marcá al menos un tema');
+      const dest = m.querySelector('#pe-dest').value;
+      const cola = [];
+      sel.forEach(({ t, d }) => { const src = p.dias.find((x) => x.id === d); if (!src) return; const i = src.temas.findIndex((x) => x.id === t); if (i >= 0) cola.push({ tema: src.temas.splice(i, 1)[0], de: src.fecha }); });
+      cola.forEach((c) => {
+        let target;
+        if (dest === 'auto') {
+          // al día con menos temas por hora entre los que quedan (sin cargar el último de integración mientras haya otros)
+          const cand = destinos.length > 1 ? destinos.slice(0, -1) : destinos;
+          target = cand.slice().sort((a, b) => (a.temas.length / Math.max(1, a.horas || 1)) - (b.temas.length / Math.max(1, b.horas || 1)))[0];
+        } else target = p.dias.find((x) => x.id === dest);
+        if (!target) return;
+        c.tema.hecho = false; c.tema.movidoDe = c.de; target.temas.push(c.tema);
+      });
+      guardar(p); cerrar(); render(); toast(`📆 Moviste ${cola.length} ${cola.length === 1 ? 'tema' : 'temas'} a tus próximos días`);
+    });
   }
 
   // ---- plan
@@ -463,6 +541,7 @@
         <div class="pe-plan-side">${contador(c, true)}${anillo(progresoPlan(p), 88)}</div>
       </header>
       ${vinc}
+      ${alertaPendientes(p)}
       <div class="pe-alerta pe-alerta--${r.nivel} pe-rv" role="status"><span class="pe-alerta-ico">${r.ico}</span><div><b>${esc(r.titulo)}</b><p>${esc(r.texto)}${r.hdia && r.nivel !== 'verde' ? ` Te quedan ${fmtH(r.falta)} en ${r.diasFalta} ${r.diasFalta === 1 ? 'día' : 'días'} (unas ${fmtH(r.hdia)} por día).` : ''}</p></div></div>
       <nav class="pe-tabs pe-rv" role="tablist">${tabs.map((t) => `<button type="button" role="tab" class="${S.vista === t[0] ? 'on' : ''}" data-act="vista" data-v="${t[0]}"><span>${t[1]}</span> ${t[2]}</button>`).join('')}
         <span class="pe-tabs-sp"></span>
@@ -480,7 +559,7 @@
     const estTxt = est === 'listo' ? '✅ Listo' : est === 'curso' ? '⏳ En curso' : (d.fecha < hoy ? '⚠️ Atrasado' : '⚪ Sin empezar');
     return `<article class="${cls}" id="dia-${d.id}">
       <button type="button" class="pe-dia-head" data-act="dia" data-d="${d.id}" aria-expanded="${abierto ? 'true' : 'false'}">
-        <span class="pe-dia-n">${n}</span>
+        <span class="pe-dia-n" title="Día ${n} de ${p.dias.length} del plan"><small>DÍA</small>${n}</span>
         <span class="pe-dia-t"><b>${esc(d.titulo || 'Día de estudio')}</b><small>${fmtCorta(d.fecha)}${d.fecha === hoy ? ' · HOY' : ''} · ${fmtH(d.horas || 0)}${d.unidad ? ' · ' + esc(d.unidad) : ''}</small></span>
         <span class="pe-dia-est">${estTxt}</span>
         <span class="pe-bar"><i data-w="${Math.round(pr * 100)}%"></i></span>
@@ -492,7 +571,7 @@
   function detalleDia(p, d) {
     const filaTema = (t) => `<li class="pe-item ${t.hecho ? 'ok' : ''}" data-t="${t.id}">
         <label><input type="checkbox" data-act="tema" data-d="${d.id}" data-t="${t.id}" ${t.hecho ? 'checked' : ''}><span class="pe-box">✓</span>
-          <span class="pe-item-t">${esc(t.texto)}${t.detalle ? `<small>${esc(t.detalle)}</small>` : ''}${t.trampa ? `<small class="trampa">⚠️ Trampa de choice: ${esc(t.trampa)}</small>` : ''}</span></label>
+          <span class="pe-item-t">${esc(t.texto)}${t.movidoDe ? `<small class="movido">↪ Pasado desde el ${fmtCorta(t.movidoDe)}</small>` : ''}${t.detalle ? `<small>${esc(t.detalle)}</small>` : ''}${t.trampa ? `<small class="trampa">⚠️ Trampa de choice: ${esc(t.trampa)}</small>` : ''}</span></label>
         <span class="pe-prio" style="--c:${(PRIO[t.prio] || PRIO.media).c}" data-act="prio" data-d="${d.id}" data-t="${t.id}" title="Cambiar prioridad">${(PRIO[t.prio] || PRIO.media).t}</span>
         ${t.manual ? '<span class="pe-prop" title="Tema agregado por vos">✎</span>' : ''}
         <button type="button" class="pe-x" data-act="quitar-tema" data-d="${d.id}" data-t="${t.id}" aria-label="Quitar tema">✕</button>
@@ -514,7 +593,9 @@
       <h4>Checklist de cierre</h4>
       <ul class="pe-items">${(d.checklist || []).map(filaCheck).join('') || '<li class="pe-vacio-li">Sin tareas de cierre.</li>'}</ul>
       <div class="pe-add"><input type="text" data-add="check" data-d="${d.id}" placeholder="Agregar una tarea de cierre" maxlength="140"><button type="button" class="pe-btn pe-btn--sm" data-act="add-check" data-d="${d.id}">＋ Agregar</button></div>
-      ${(d.datos_duros || []).length ? `<h4>📌 Datos duros</h4><ul class="pe-datos">${d.datos_duros.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+      <h4>📌 Datos duros</h4>
+      <ul class="pe-datos">${(d.datos_duros || []).map((x, k) => `<li>${esc(x)} <button type="button" class="pe-x" data-act="quitar-dato" data-d="${d.id}" data-k="${k}" aria-label="Quitar">✕</button></li>`).join('') || '<li class="pe-vacio-li">Anotá acá las cifras, criterios y algoritmos que tenés que saber de memoria.</li>'}</ul>
+      <div class="pe-add"><input type="text" data-add="dato" data-d="${d.id}" placeholder="Agregar un dato duro (ej.: Ciclo menstrual: 24 a 38 días)" maxlength="200"><button type="button" class="pe-btn pe-btn--sm" data-act="add-dato" data-d="${d.id}">＋ Agregar</button></div>
       ${(d.agenda || []).length ? `<h4>🕒 Agenda del día</h4><ul class="pe-datos">${d.agenda.map((a) => `<li><b>${esc(a.bloque || '')}</b> ${a.horas ? '· ' + esc(a.horas) : ''} — ${esc(a.tarea || '')}</li>`).join('')}</ul>` : ''}
       <h4>Notas</h4>
       <textarea class="pe-notas" data-act="notas" data-d="${d.id}" rows="2" placeholder="Anotá dudas, errores o lo que te falta repasar">${esc(d.notas || '')}</textarea>
@@ -571,12 +652,16 @@
     for (let n = 1; n <= nDias; n++) {
       const f = iso(new Date(y, m, n)), d = mapa[f], ex = f === p.fecha_examen;
       const est = d ? estadoDia(d) : '';
-      celdas += `<div class="pe-cal-c ${d ? 'con-dia est-' + est : ''} ${f === hoy ? 'hoy' : ''} ${ex ? 'examen' : ''}" ${d ? `data-act="dia-tabla" data-d="${d.id}" tabindex="0"` : ''}>
-        <span class="pe-cal-n">${n}</span>${ex ? '<span class="pe-cal-tag">📝 Examen</span>' : ''}
-        ${d ? `<span class="pe-cal-tit">${esc((d.titulo || '').slice(0, 34))}</span><span class="pe-cal-h">${fmtH(d.horas || 0)} · ${Math.round(progresoDia(d) * 100)}%</span>` : ''}</div>`;
+      const pasado = d && f < hoy;
+      const pend = pasado ? (d.temas || []).filter((t) => !t.hecho).length : 0;
+      const marca = pasado ? (est === 'listo' ? 'pasado-ok' : (pend ? 'pasado-pend' : 'pasado-ok')) : '';
+      celdas += `<div class="pe-cal-c ${d ? 'con-dia est-' + est : ''} ${marca} ${f === hoy ? 'hoy' : ''} ${ex ? 'examen' : ''}" ${d ? `data-act="dia-tabla" data-d="${d.id}" tabindex="0"` : ''}>
+        <span class="pe-cal-n">${n}${marca === 'pasado-ok' ? ' <i class="pe-cal-ok">✓</i>' : ''}</span>${ex ? '<span class="pe-cal-tag">📝 Examen</span>' : ''}
+        ${d ? `<span class="pe-cal-tit">${esc((d.titulo || '').slice(0, 34))}</span><span class="pe-cal-h">${marca === 'pasado-pend' ? `⚠️ ${pend} ${pend === 1 ? 'tema' : 'temas'} sin estudiar` : `${fmtH(d.horas || 0)} · ${Math.round(progresoDia(d) * 100)}%`}</span>` : ''}</div>`;
     }
-    return `<div class="pe-cal pe-rv">
+    return `${alertaPendientes(p)}<div class="pe-cal pe-rv">
       <div class="pe-cal-head"><button type="button" class="pe-mini" data-act="mes" data-n="-1">‹</button><b>${MESES[m][0].toUpperCase() + MESES[m].slice(1)} ${y}</b><button type="button" class="pe-mini" data-act="mes" data-n="1">›</button></div>
+      <div class="pe-cal-leyenda"><span><i class="ok"></i>Día cumplido</span><span><i class="pend"></i>Quedaron temas</span><span><i class="hoy"></i>Hoy</span><span><i class="ex"></i>Examen</span></div>
       <div class="pe-cal-grid"><div class="pe-cal-d">Lun</div><div class="pe-cal-d">Mar</div><div class="pe-cal-d">Mié</div><div class="pe-cal-d">Jue</div><div class="pe-cal-d">Vie</div><div class="pe-cal-d">Sáb</div><div class="pe-cal-d">Dom</div>${celdas}</div>
     </div>`;
   }
@@ -595,8 +680,8 @@
     const pasos = [
       ['📆', 'Contá hacia atrás', 'Anotá la fecha del examen y contá los días reales que tenés. Sacá los que no podés estudiar (turnos, viajes, trabajo).'],
       ['📚', 'Listá todo lo que entra', 'Marcá las unidades y los temas del parcial. Si algo no está en el programa, agregalo a mano. Ordená por prioridad: lo que más se toma, primero.'],
-      ['⏱️', 'Estimá el tiempo real', `Contá entre 1 y 2 horas por tema (leer y practicar). Usamos ${fmtH(H_POR_TEMA)} como referencia y sumá un 20 % de margen para lo que sale mal.`],
-      ['🧩', 'Repartí por días', 'Poné los temas difíciles al principio y mezclá unidades. Evitá pasar de 6 a 8 h netas por día: rinde más estudiar menos horas todos los días.'],
+      ['⏱️', 'Estimá el tiempo real', `Contá entre 2 y 3 horas por tema (leer, memorizar los datos duros y practicar). Usamos ${fmtH(H_POR_TEMA)} como referencia y sumá un 20 % de margen para lo que sale mal.`],
+      ['🧩', 'Repartí por días', 'Poné los temas difíciles al principio y mezclá unidades. Evitá pasar de 10 h netas por día: rinde más estudiar parejo todos los días que atracarse un día solo.'],
       ['🔁', 'Reservá repaso', 'Dejá un repaso corto de lo de ayer cada día y al menos un día final para integrar y simular el examen con tiempo.'],
       ['😴', 'Incluí descanso', 'Un día más liviano por semana y dormir bien valen más que un día extra de estudio. El cerebro consolida mientras descansás.'],
       ['✅', 'Cerrá cada día', 'Tildá lo que cumpliste y reacomodá lo pendiente. Si te atrasás, reordená el plan en el momento: no lo acumules.'],
@@ -841,6 +926,13 @@
         else d.checklist.push({ id: uid(), texto: v, hecho: false });
         guardar(p); S.diaId = d.id; return render();
       }
+      case 'add-dato': {
+        const d = buscarDia(el.dataset.d); const inp = root.querySelector(`[data-add="dato"][data-d="${el.dataset.d}"]`);
+        const v = inp && inp.value.trim(); if (!d || !v) return;
+        (d.datos_duros = d.datos_duros || []).push(v); guardar(p); S.diaId = d.id; return render();
+      }
+      case 'quitar-dato': { const d = buscarDia(el.dataset.d); if (!d) return; d.datos_duros.splice(+el.dataset.k, 1); guardar(p); return render(); }
+      case 'pendientes': return modalPendientes();
       case 'completar': {
         const d = buscarDia(el.dataset.d); if (!d) return;
         const todo = itemsDia(d).every((x) => x.hecho);
@@ -904,7 +996,8 @@
     const el = e.target;
     if (e.key === 'Enter' && el.dataset && el.dataset.add) {
       e.preventDefault();
-      const b = root.querySelector(`[data-act="${el.dataset.add === 'tema' ? 'add-tema' : 'add-check'}"][data-d="${el.dataset.d}"]`); if (b) b.click();
+      const acc = { tema: 'add-tema', check: 'add-check', dato: 'add-dato' }[el.dataset.add];
+      const b = root.querySelector(`[data-act="${acc}"][data-d="${el.dataset.d}"]`); if (b) b.click();
     } else if ((e.key === 'Enter' || e.key === ' ') && el.matches && el.matches('.pe-plan[data-act], tr[data-act], .pe-cal-c[data-act]')) { e.preventDefault(); el.click(); }
   }
 

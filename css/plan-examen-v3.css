@@ -1,0 +1,46 @@
+/* NikaPlan v3: número de día claro, estados legibles en la tabla, calendario con avance y alerta de pendientes. */
+
+/* número de día: "DÍA 1" */
+.pe-dia-n { flex-direction: column; line-height: 1; width: 44px; height: 44px; border-radius: 13px; gap: 1px; }
+.pe-dia-n small { font-size: .5rem; font-weight: 900; letter-spacing: 1.2px; opacity: .85; }
+.pe-dia-head { grid-template-columns: 46px 1fr auto 130px 22px; }
+.pe-dia-n { display: flex; align-items: center; justify-content: center; font-size: 1.05rem; }
+
+/* estados en la tabla: chip en una sola línea, con color */
+.pe-est { display: inline-block; white-space: nowrap; padding: 4px 12px; border-radius: 99px; font-size: .74rem; font-weight: 800; border: 1px solid transparent; }
+.pe-est.est-nuevo { color: var(--pe-mut); background: color-mix(in srgb, var(--pe-mut) 14%, transparent); border-color: color-mix(in srgb, var(--pe-mut) 30%, transparent); }
+.pe-est.est-curso { color: #b45309; background: rgba(245, 158, 11, .16); border-color: rgba(245, 158, 11, .45); }
+.pe-est.est-listo { color: #047857; background: rgba(16, 185, 129, .16); border-color: rgba(16, 185, 129, .5); }
+.pe-est.atrasado { color: #b91c1c; background: rgba(239, 68, 68, .14); border-color: rgba(239, 68, 68, .5); }
+body.dark-mode .pe-est.est-curso, body.tema-premium .pe-est.est-curso { color: #fcd34d; }
+body.dark-mode .pe-est.est-listo, body.tema-premium .pe-est.est-listo { color: #6ee7b7; }
+body.dark-mode .pe-est.atrasado, body.tema-premium .pe-est.atrasado { color: #fca5a5; }
+.pe-tabla td:nth-child(7), .pe-tabla th:nth-child(7) { white-space: nowrap; }
+
+/* calendario: días cumplidos en verde, con temas pendientes en ámbar */
+.pe-cal-leyenda { display: flex; gap: 14px; flex-wrap: wrap; margin: 0 0 12px; font-size: .74rem; font-weight: 800; color: var(--pe-mut); }
+.pe-cal-leyenda i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
+.pe-cal-leyenda i.ok { background: #10b981; } .pe-cal-leyenda i.pend { background: #f59e0b; } .pe-cal-leyenda i.hoy { background: transparent; box-shadow: inset 0 0 0 2px var(--pe-acc); } .pe-cal-leyenda i.ex { background: #ef4444; }
+.pe-cal-c.pasado-ok { background: rgba(16, 185, 129, .22); border-color: rgba(16, 185, 129, .65); }
+.pe-cal-c.pasado-pend { background: rgba(245, 158, 11, .2); border-color: rgba(245, 158, 11, .7); }
+.pe-cal-ok { font-style: normal; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: #10b981; color: #fff; font-size: .62rem; margin-left: 4px; vertical-align: 1px; animation: pePop .4s ease both; }
+.pe-cal-c.pasado-pend .pe-cal-h { color: #b45309; font-weight: 800; }
+body.dark-mode .pe-cal-c.pasado-pend .pe-cal-h, body.tema-premium .pe-cal-c.pasado-pend .pe-cal-h { color: #fcd34d; }
+
+/* alerta de temas sin estudiar */
+.pe-pend { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 14px 0; padding: 14px 18px; border-radius: 16px; border: 1px solid rgba(245, 158, 11, .7);
+  background: linear-gradient(135deg, rgba(245, 158, 11, .18), rgba(239, 68, 68, .1)); }
+.pe-pend > div { flex: 1; min-width: 220px; }
+.pe-pend b { font-size: .96rem; font-weight: 900; }
+.pe-pend p { margin: 3px 0 0; font-size: .84rem; opacity: .85; }
+.pe-pend-ico { font-size: 1.7rem; animation: peLate 1.8s ease-in-out infinite; }
+.pe-pend-lista { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; max-height: 40vh; overflow-y: auto; }
+.pe-pend-dia { padding: 10px 12px; border-radius: 14px; border: 1px solid var(--border, #cbd5e1); }
+.pe-pend-dia > b { display: block; font-size: .84rem; margin-bottom: 6px; }
+.pe-pend-t { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; font-size: .86rem; cursor: pointer; }
+.pe-pend-t input { position: absolute; opacity: 0; pointer-events: none; }
+.pe-modal-c .pe-field select { width: 100%; font: inherit; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border, #cbd5e1); background: transparent; color: inherit; }
+.pe-item-t small.movido { color: #7c3aed; font-weight: 800; }
+body.dark-mode .pe-item-t small.movido, body.tema-premium .pe-item-t small.movido { color: #c4b5fd; }
+
+@media (prefers-reduced-motion: reduce) { .pe-pend-ico, .pe-cal-ok { animation: none; } }
