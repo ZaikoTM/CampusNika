@@ -187,34 +187,11 @@
     .footer-brand-line { font-size: 1.05rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
     .footer-brand-line span { color: var(--violet-glow); }
     .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #94a3b8; line-height: 1.7; }
-
-    /* ================= GUÍAS ================= */
-    .art-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-    .art-lead { font-size: 1.02rem; color: var(--text-body); margin-top: 12px; }
-    .art-toc { margin: 18px 0 8px; }
-    .art-toc a { display: block; color: var(--primary-glow); text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 4px 0; }
-    .art-toc a:hover { color: #fff; }
-    .legal-card h3 { font-size: 0.98rem; color: #fff; margin: 16px 0 6px; }
-    .legal-card ol { margin: 10px 0 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .legal-card ol li { font-size: 0.9rem; color: var(--text-body); }
-    .cta-card { text-align: center; border-color: var(--border-bright); background: linear-gradient(160deg, rgba(168,85,247,0.10), rgba(15,23,42,0.7)); }
-    .cta-card h2 { justify-content: center; }
-    .cta-card .btn-primary { margin-top: 16px; }
-    .rel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
-    .rel-link { display: block; padding: 14px 16px; border: 1px solid var(--border-subtle); border-radius: 12px; color: #fff !important; text-decoration: none; font-weight: 800; font-size: 0.88rem; transition: .2s; background: rgba(15,23,42,.6); }
-    .rel-link span { display: block; color: var(--text-dim); font-weight: 600; font-size: 0.78rem; margin-top: 4px; }
-    .rel-link:hover { border-color: var(--violet-glow); transform: translateY(-2px); text-decoration: none !important; }
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-    .hub-card { display: block; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 22px; text-decoration: none; transition: .25s; }
-    .hub-card:hover { border-color: var(--violet-glow); transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
-    .hub-card .ic { font-size: 1.6rem; }
-    .hub-card h2 { font-size: 1.02rem; color: #fff; margin: 10px 0 6px; font-weight: 900; }
-    .hub-card p { font-size: .85rem; color: var(--text-body); }
-    .hub-card .more { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--primary-glow); }
-    @media (prefers-reduced-motion: reduce) { .hub-card, .rel-link { transition: none; } }
 </style>
+<link rel="stylesheet" href="css/guias.css?v=1">
 </head>
 <body>
+<div id="g-progress" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="public-nav">
@@ -234,23 +211,36 @@
         </div>
     </nav>
 
-    <header class="legal-hero art-hero">
-        <span class="legal-eyebrow">Guía de estudio</span>
+    <header class="legal-hero art-hero g-hero">
+        <span class="g-orb a"></span><span class="g-orb b"></span>
+        <div class="g-hero-ico">✅</div>
+        <span class="legal-eyebrow">Guía de estudio interactiva</span>
         <h1>Cómo resolver preguntas choice de Medicina</h1>
-        <p class="legal-meta">Actualizado el 10 de octubre de 2026 · Lectura de 4 minutos</p>
+        <p class="legal-meta">Actualizado el 10 de octubre de 2026</p>
+        <div class="g-chips"><span class="g-chip">Leer</span><span class="g-chip">Descartar</span><span class="g-chip">Corregir</span><span class="g-chip">Practicar</span></div>
     </header>
 
     <main>
         <a class="back-link" href="guias.html">← Todas las guías</a>
-        <div class="glass-box summary"><p>Las preguntas de opción múltiple miden más que memoria: piden aplicar criterios a un caso. Estas estrategias ayudan a leer mejor, descartar opciones y aprender de los errores.</p><div class="art-toc"><a href="#s1">Antes de mirar las opciones</a><a href="#s2">Cómo descartar</a><a href="#s3">Aprender de cada error</a><a href="#s4">Cómo te ayuda NikaMed</a></div></div>
-        <div class="legal-card" id="s1"><h2>Antes de mirar las opciones</h2><ul><li>Leé el enunciado completo y subrayá mentalmente el dato clave (edad, tiempo de evolución, signo distintivo).</li><li>Identificá qué te pregunta: diagnóstico, conducta inicial, estudio de elección o complicación.</li><li>Pensá tu respuesta antes de ver las opciones, para que los distractores no te condicionen.</li></ul></div>
-        <div class="legal-card" id="s2"><h2>Cómo descartar</h2><ul><li>Eliminá las opciones que contradicen un dato del caso.</li><li>Desconfiá de las respuestas con “siempre” o “nunca”.</li><li>Si piden la “conducta inicial”, fijate el orden: estabilizar y evaluar antes de tratar o derivar.</li><li>Entre dos opciones parecidas, buscá el detalle que el enunciado resalta.</li></ul></div>
-        <div class="legal-card" id="s3"><h2>Aprender de cada error</h2><p>Después de cada práctica, no te quedes con “estaba mal”. Preguntate por qué elegiste esa opción y qué dato pasaste por alto. Anotá el criterio, no la respuesta suelta.</p>
-                <ul><li>Clasificá tus errores: no sabía, no leí bien o dudé entre dos.</li><li>Repasá primero los de “no sabía” con la bibliografía.</li><li>Volvé a resolver esas preguntas pasados unos días.</li></ul></div>
-        <div class="legal-card" id="s4"><h2>Cómo te ayuda NikaMed</h2><p>El Simulador Choice de NikaMed tiene un banco de más de 1.500 preguntas de cátedra clasificadas por área y Unidad Problema, con tiempo y justificación bibliográfica para entender el porqué de cada respuesta.</p></div>
-        <div class="legal-card cta-card"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
-        <div class="legal-card"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-como-estudiar-medicina.html">Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro<span>Un método simple para estudiar menos horas con más retención.</span></a><a class="rel-link" href="guia-plan-de-estudio-finales-medicina.html">Plan de estudio para parciales y finales de Medicina<span>Cómo repartir las semanas antes de un examen.</span></a><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a></div></div>
-        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada o la evaluación de tu cátedra.</p>
+        <div class="glass-box summary g-rv"><p>Las preguntas de opción múltiple miden más que memoria: piden aplicar criterios a un caso. Estas estrategias te ayudan a leer mejor, descartar opciones y aprender de cada error.</p><nav class="art-toc" aria-label="Contenido"><a href="#s1">Antes de mirar las opciones</a><a href="#s2">Cómo descartar</a><a href="#s3">Aprender de cada error</a><a href="#s4">Poné a prueba lo aprendido</a></nav></div>
+        <div class="legal-card g-sec g-rv" id="s1"><h2><span class="num">1</span>Antes de mirar las opciones</h2>
+                <ol class="g-steps"><li class="g-rv"><span class="n">1</span><b>Leé el enunciado completo</b><span>Marcá mentalmente el dato clave: edad, tiempo de evolución, signo distintivo.</span></li><li class="g-rv"><span class="n">2</span><b>Identificá qué te pregunta</b><span>Diagnóstico, conducta inicial, estudio de elección o complicación.</span></li><li class="g-rv"><span class="n">3</span><b>Pensá tu respuesta</b><span>Hacelo antes de ver las opciones, para que los distractores no te condicionen.</span></li></ol>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s2"><h2><span class="num">2</span>Cómo descartar</h2>
+                <div class="g-acord"><details><summary>Contradicen un dato del caso<span class="ch">▾</span></summary><div class="body">Eliminá toda opción que choque con la edad, el antecedente o el hallazgo del enunciado.</div></details><details><summary>Absolutos<span class="ch">▾</span></summary><div class="body">Desconfiá de «siempre» y «nunca»: en Medicina casi todo tiene excepciones.</div></details><details><summary>«Conducta inicial»<span class="ch">▾</span></summary><div class="body">Fijate el orden: estabilizar y evaluar antes de tratar o derivar.</div></details><details><summary>Dos opciones parecidas<span class="ch">▾</span></summary><div class="body">Buscá el detalle que el enunciado resalta; suele ser lo que las separa.</div></details></div>
+                <div class="g-callout"><span class="i">🧪</span><div>Los lineamientos de redacción de ítems de opción múltiple recomiendan que los distractores sean plausibles pero claramente incorrectos: si dudás entre dos, la diferencia suele estar en un dato del enunciado.</div></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s3"><h2><span class="num">3</span>Aprender de cada error</h2>
+                <p>Después de cada práctica, no te quedes con «estaba mal». Preguntate por qué elegiste esa opción y qué dato pasaste por alto. Anotá el criterio, no la respuesta suelta.</p>
+                <div class="g-check" data-key="errores"><div class="g-check-top"><div class="g-ring"><i>0%</i></div><div class="g-check-msg"></div></div><ul><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Clasifiqué mis errores: no sabía, no leí bien o dudé entre dos.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Repasé primero los de «no sabía» con la bibliografía.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Volví a resolver esas preguntas pasados unos días.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Anoté el criterio que me faltaba, no solo la respuesta.</span></label></li></ul></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s4"><h2><span class="num">4</span>Poné a prueba lo aprendido</h2>
+                <div class="g-quiz"><div class="g-q-head"><span class="g-q-count"></span><span>Quiz rápido</span></div><div class="g-q-bar"><i></i></div><div class="g-q-body"></div><script type="application/json">[{"q": "El enunciado pregunta por la «conducta inicial». ¿Qué priorizás?", "o": ["El tratamiento definitivo", "Estabilizar y evaluar antes de decidir", "Pedir todos los estudios posibles", "Derivar sin evaluar"], "c": 1, "e": "La conducta inicial ordena primero la estabilización y la evaluación del paciente."}, {"q": "Una opción dice «siempre debe indicarse…». ¿Qué hacés?", "o": ["La marcás sin dudar", "La mirás con desconfianza y la comparás con los datos del caso", "La descartás siempre", "Cambiás de pregunta"], "c": 1, "e": "Los absolutos suelen ser distractores, aunque hay que contrastarlos con el caso."}, {"q": "¿Cuándo conviene pensar tu respuesta?", "o": ["Después de leer todas las opciones", "Antes de mirar las opciones", "Nunca, hay que ir por descarte", "Solo si sobra tiempo"], "c": 1, "e": "Pensarla antes evita que los distractores condicionen tu razonamiento."}]</script></div>
+            </div>
+        <div class="legal-card g-sec g-rv"><h2><span class="num">★</span>Fuentes y referencias</h2><ul class="g-src"><li>Haladyna TM, Downing SM, Rodriguez MC. A review of multiple-choice item-writing guidelines for classroom assessment. <em>Applied Measurement in Education</em> 2002;15(3):309-334.</li><li>Dunlosky J, Rawson KA, Marsh EJ, Nathan MJ, Willingham DT. Improving students’ learning with effective learning techniques. <em>Psychological Science in the Public Interest</em> 2013;14(1):4-58.</li></ul></div>
+        <div class="legal-card cta-card g-rv"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
+        <div class="legal-card g-rv"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-como-estudiar-medicina.html">Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro<span>Un método simple para estudiar menos horas con más retención.</span></a><a class="rel-link" href="guia-plan-de-estudio-finales-medicina.html">Plan de estudio para parciales y finales de Medicina<span>Armá tu cronograma con un planificador interactivo.</span></a><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a></div></div>
+        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada, las guías de práctica clínica vigentes ni la evaluación de tu cátedra.</p>
     </main>
 
     <!-- FOOTER INSTITUCIONAL -->
@@ -297,5 +287,6 @@
         </div>
     </footer>
 
+<script src="js/guias.js?v=1" defer></script>
 </body>
 </html>

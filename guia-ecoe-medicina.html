@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>ECOE en Medicina: qué es y cómo prepararlo | NikaMed</title>
-<meta name="description" content="Qué es el ECOE (Examen Clínico Objetivo Estructurado), cómo se evalúa por estaciones y una guía para prepararlo: tiempos, listas de cotejo y errores comunes.">
+<meta name="description" content="Qué es el ECOE (Examen Clínico Objetivo Estructurado), cómo se evalúa por estaciones y una guía interactiva para prepararlo: tiempos, listas de cotejo y errores comunes.">
 <link rel="canonical" href="https://nikamed.com.ar/guia-ecoe-medicina.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="NikaMed | Campus Nika">
 <meta property="og:locale" content="es_AR">
 <meta property="og:title" content="ECOE en Medicina: qué es y cómo prepararlo">
-<meta property="og:description" content="Qué es el ECOE (Examen Clínico Objetivo Estructurado), cómo se evalúa por estaciones y una guía para prepararlo: tiempos, listas de cotejo y errores comunes.">
+<meta property="og:description" content="Qué es el ECOE (Examen Clínico Objetivo Estructurado), cómo se evalúa por estaciones y una guía interactiva para prepararlo: tiempos, listas de cotejo y errores comunes.">
 <meta property="og:url" content="https://nikamed.com.ar/guia-ecoe-medicina.html">
 <meta property="og:image" content="https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,7 @@
   {
    "@type": "Article",
    "headline": "ECOE en Medicina: qué es y cómo prepararlo",
-   "description": "Qué es el ECOE (Examen Clínico Objetivo Estructurado), cómo se evalúa por estaciones y una guía para prepararlo: tiempos, listas de cotejo y errores comunes.",
+   "description": "Qué es el ECOE (Examen Clínico Objetivo Estructurado), cómo se evalúa por estaciones y una guía interactiva para prepararlo: tiempos, listas de cotejo y errores comunes.",
    "inLanguage": "es-AR",
    "datePublished": "2026-10-10",
    "dateModified": "2026-10-10",
@@ -187,34 +187,11 @@
     .footer-brand-line { font-size: 1.05rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
     .footer-brand-line span { color: var(--violet-glow); }
     .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #94a3b8; line-height: 1.7; }
-
-    /* ================= GUÍAS ================= */
-    .art-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-    .art-lead { font-size: 1.02rem; color: var(--text-body); margin-top: 12px; }
-    .art-toc { margin: 18px 0 8px; }
-    .art-toc a { display: block; color: var(--primary-glow); text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 4px 0; }
-    .art-toc a:hover { color: #fff; }
-    .legal-card h3 { font-size: 0.98rem; color: #fff; margin: 16px 0 6px; }
-    .legal-card ol { margin: 10px 0 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .legal-card ol li { font-size: 0.9rem; color: var(--text-body); }
-    .cta-card { text-align: center; border-color: var(--border-bright); background: linear-gradient(160deg, rgba(168,85,247,0.10), rgba(15,23,42,0.7)); }
-    .cta-card h2 { justify-content: center; }
-    .cta-card .btn-primary { margin-top: 16px; }
-    .rel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
-    .rel-link { display: block; padding: 14px 16px; border: 1px solid var(--border-subtle); border-radius: 12px; color: #fff !important; text-decoration: none; font-weight: 800; font-size: 0.88rem; transition: .2s; background: rgba(15,23,42,.6); }
-    .rel-link span { display: block; color: var(--text-dim); font-weight: 600; font-size: 0.78rem; margin-top: 4px; }
-    .rel-link:hover { border-color: var(--violet-glow); transform: translateY(-2px); text-decoration: none !important; }
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-    .hub-card { display: block; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 22px; text-decoration: none; transition: .25s; }
-    .hub-card:hover { border-color: var(--violet-glow); transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
-    .hub-card .ic { font-size: 1.6rem; }
-    .hub-card h2 { font-size: 1.02rem; color: #fff; margin: 10px 0 6px; font-weight: 900; }
-    .hub-card p { font-size: .85rem; color: var(--text-body); }
-    .hub-card .more { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--primary-glow); }
-    @media (prefers-reduced-motion: reduce) { .hub-card, .rel-link { transition: none; } }
 </style>
+<link rel="stylesheet" href="css/guias.css?v=1">
 </head>
 <body>
+<div id="g-progress" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="public-nav">
@@ -234,24 +211,42 @@
         </div>
     </nav>
 
-    <header class="legal-hero art-hero">
-        <span class="legal-eyebrow">Guía de estudio</span>
+    <header class="legal-hero art-hero g-hero">
+        <span class="g-orb a"></span><span class="g-orb b"></span>
+        <div class="g-hero-ico">🎯</div>
+        <span class="legal-eyebrow">Guía de estudio interactiva</span>
         <h1>ECOE en Medicina: qué es y cómo prepararlo</h1>
-        <p class="legal-meta">Actualizado el 10 de octubre de 2026 · Lectura de 4 minutos</p>
+        <p class="legal-meta">Actualizado el 10 de octubre de 2026</p>
+        <div class="g-chips"><span class="g-chip">Estaciones</span><span class="g-chip">Lista de cotejo</span><span class="g-chip">Pasos críticos</span><span class="g-chip">Comunicación</span></div>
     </header>
 
     <main>
         <a class="back-link" href="guias.html">← Todas las guías</a>
-        <div class="glass-box summary"><p>El ECOE (Examen Clínico Objetivo Estructurado, conocido internacionalmente como OSCE) evalúa habilidades clínicas en un circuito de estaciones cronometradas. A diferencia de un choice, no alcanza con “saber”: hay que <strong>saber hacer y decir</strong> frente a un evaluador.</p><div class="art-toc"><a href="#s1">Cómo funciona</a><a href="#s2">Qué suele evaluarse</a><a href="#s3">Cómo prepararlo</a><a href="#s4">Errores frecuentes</a><a href="#s5">Cómo te ayuda NikaMed</a></div></div>
-        <div class="legal-card" id="s1"><h2>Cómo funciona</h2><p>Rotás por varias estaciones de pocos minutos cada una. En cada una enfrentás una situación concreta: una anamnesis, un examen físico, la comunicación de una mala noticia, un procedimiento o la interpretación de estudios.</p>
-                <ul><li>Cada estación tiene una consigna breve y un tiempo fijo.</li><li>Un evaluador puntúa con una lista de cotejo: pasos concretos que sumás o no.</li><li>Algunos pasos son críticos: omitirlos puede desaprobar la estación aunque el resto salga bien.</li></ul></div>
-        <div class="legal-card" id="s2"><h2>Qué suele evaluarse</h2><ul><li>Anamnesis y examen físico dirigido.</li><li>Razonamiento clínico y conducta inicial.</li><li>Procedimientos (técnica, bioseguridad, orden de los pasos).</li><li>Comunicación: empatía, claridad, consentimiento, malas noticias.</li><li>Documentación: historia clínica, recetas, certificados y pedidos de estudios.</li></ul></div>
-        <div class="legal-card" id="s3"><h2>Cómo prepararlo</h2><ol><li><strong>Leé la consigna dos veces</strong> y respondé solo lo que pide, no más.</li><li><strong>Practicá en voz alta</strong> y con cronómetro: el tiempo se nota recién cuando lo medís.</li><li><strong>Estudiá con la lista de cotejo</strong> de cada procedimiento y memorizá los pasos críticos.</li><li><strong>Verbalizá</strong> lo que hacés (“me lavo las manos”, “verifico la identidad del paciente”): si no lo decís, el evaluador no lo ve.</li><li><strong>Simulá con otra persona</strong> que haga de paciente y de evaluador.</li></ol></div>
-        <div class="legal-card" id="s4"><h2>Errores frecuentes</h2><ul><li>Saltear el lavado de manos o la presentación al paciente.</li><li>Ir directo a la técnica sin explicar ni pedir consentimiento.</li><li>Quedarse sin tiempo por detenerse en un solo paso.</li><li>No cerrar la estación (no resumir, no indicar los pasos siguientes).</li></ul></div>
-        <div class="legal-card" id="s5"><h2>Cómo te ayuda NikaMed</h2><p>NikaMed incluye simuladores con tiempo, el ECOE FINAL de 6.º año con una estación de cada especialidad, y NikaSim, con los procedimientos paso a paso y sus listas de cotejo. Sirve para entrenar la forma del examen; la evaluación real depende de tu cátedra.</p></div>
-        <div class="legal-card cta-card"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
-        <div class="legal-card"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-procedimientos-ecoe-lista-de-cotejo.html">Procedimientos en el ECOE: listas de cotejo y pasos críticos<span>Cómo estudiar una técnica para que salga completa y en orden.</span></a><a class="rel-link" href="guia-pfo-practica-final-obligatoria.html">PFO (Práctica Final Obligatoria): qué es y cómo prepararte<span>Qué se espera en 6.º año y cómo organizar el estudio.</span></a><a class="rel-link" href="guia-casos-clinicos-razonamiento.html">Cómo resolver un caso clínico: método paso a paso<span>Un orden simple para razonar desde la consulta hasta la conducta.</span></a></div></div>
-        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada o la evaluación de tu cátedra.</p>
+        <div class="glass-box summary g-rv"><p>El ECOE (Examen Clínico Objetivo Estructurado, internacionalmente <em>OSCE</em>) evalúa habilidades clínicas en un circuito de estaciones cronometradas. A diferencia de un choice, no alcanza con «saber»: hay que <strong>saber hacer y decir</strong> frente a un evaluador.</p><nav class="art-toc" aria-label="Contenido"><a href="#s1">Cómo funciona</a><a href="#s2">Recorrido de una estación</a><a href="#s3">Qué suele evaluarse</a><a href="#s4">Antes del examen</a><a href="#s5">Errores frecuentes</a><a href="#s6">Poné a prueba lo aprendido</a></nav></div>
+        <div class="legal-card g-sec g-rv" id="s1"><h2><span class="num">1</span>Cómo funciona</h2>
+                <p>Rotás por varias estaciones de pocos minutos cada una. En cada una enfrentás una situación concreta con una consigna breve y un tiempo fijo. Un evaluador puntúa con una <strong>lista de cotejo</strong>: pasos concretos que sumás o no.</p>
+                <div class="g-stats"><div class="g-stat"><b data-count="4" data-suf="">4</b><span>llamados por año en el ejemplo de reglamento de la PFO</span></div><div class="g-stat"><b data-count="100" data-suf="%">100%</b><span>de estaciones a superar en ese reglamento</span></div><div class="g-stat"><b data-count="1975" data-suf="">1975</b><span>primera descripción publicada del OSCE</span></div></div>
+                <div class="g-callout warn"><span class="i">⚠️</span><div>Algunos pasos son <strong>críticos</strong>: omitirlos puede desaprobar la estación aunque el resto salga bien. En el ejemplo de reglamento que usamos como referencia, «es imperativo superar las estaciones» para aprobar el examen final.</div></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s2"><h2><span class="num">2</span>Recorrido de una estación</h2>
+                <ol class="g-steps"><li class="g-rv"><span class="n">1</span><b>Leé la consigna dos veces</b><span>Respondé solo lo que pide, ni más ni menos.</span></li><li class="g-rv"><span class="n">2</span><b>Presentate</b><span>Nombre, rol y verificación de la identidad del paciente.</span></li><li class="g-rv"><span class="n">3</span><b>Explicá y pedí consentimiento</b><span>Decí qué vas a hacer y por qué, con palabras simples.</span></li><li class="g-rv"><span class="n">4</span><b>Hacé y verbalizá</b><span>Lo que no decís en voz alta, el evaluador no lo ve.</span></li><li class="g-rv"><span class="n">5</span><b>Cerrá la estación</b><span>Resumí, indicá los pasos siguientes y preguntá si hay dudas.</span></li></ol>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s3"><h2><span class="num">3</span>Qué suele evaluarse</h2>
+                <div class="g-acord"><details><summary>Anamnesis y examen físico<span class="ch">▾</span></summary><div class="body">Orden, pertinencia de las preguntas y maniobras correctas y completas.</div></details><details><summary>Razonamiento clínico<span class="ch">▾</span></summary><div class="body">Síndrome, diagnósticos diferenciales y conducta inicial justificada.</div></details><details><summary>Procedimientos<span class="ch">▾</span></summary><div class="body">Técnica, bioseguridad y orden de los pasos.</div></details><details><summary>Comunicación<span class="ch">▾</span></summary><div class="body">Empatía, claridad, consentimiento y malas noticias.</div></details><details><summary>Documentación<span class="ch">▾</span></summary><div class="body">Historia clínica, recetas, certificados y pedidos de estudios.</div></details></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s4"><h2><span class="num">4</span>Antes del examen</h2>
+                <div class="g-check" data-key="preecoe"><div class="g-check-top"><div class="g-ring"><i>0%</i></div><div class="g-check-msg"></div></div><ul><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Practiqué cada estación en voz alta y con cronómetro.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Conozco los pasos críticos de los procedimientos más frecuentes.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Ensayé la presentación y el cierre de la estación.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Simulé con otra persona que hace de paciente y de evaluador.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Repasé la parte documental (recetas, certificados, derivaciones).</span></label></li></ul></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s5"><h2><span class="num">5</span>Errores frecuentes</h2>
+                <ul><li>Saltear el lavado de manos o la presentación al paciente.</li><li>Ir directo a la técnica sin explicar ni pedir consentimiento.</li><li>Quedarse sin tiempo por detenerse en un solo paso.</li><li>No cerrar la estación (no resumir ni indicar los pasos siguientes).</li></ul>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s6"><h2><span class="num">6</span>Poné a prueba lo aprendido</h2>
+                <div class="g-quiz"><div class="g-q-head"><span class="g-q-count"></span><span>Quiz rápido</span></div><div class="g-q-bar"><i></i></div><div class="g-q-body"></div><script type="application/json">[{"q": "Un paso crítico de la lista de cotejo se omite. ¿Qué puede pasar?", "o": ["Nada, solo resta un punto", "Puede desaprobarse la estación aunque el resto salga bien", "Se repite la estación sin penalidad", "Se suma tiempo extra"], "c": 1, "e": "Los pasos críticos pueden desaprobar la estación por sí solos."}, {"q": "Hacés correctamente la técnica pero no decís nada en voz alta. ¿Qué riesgo corrés?", "o": ["Ninguno", "Que el evaluador no registre pasos que sí realizaste", "Que te sumen puntos", "Que el paciente se asuste"], "c": 1, "e": "Si no lo verbalizás, el evaluador no puede puntuarlo."}, {"q": "¿Qué conviene hacer primero al entrar a una estación?", "o": ["Empezar la técnica de inmediato", "Leer bien la consigna y presentarte", "Pedir más tiempo", "Hacer preguntas al evaluador"], "c": 1, "e": "Leer la consigna y presentarte ordena la estación y evita responder de más o de menos."}]</script></div>
+            </div>
+        <div class="legal-card g-sec g-rv"><h2><span class="num">★</span>Fuentes y referencias</h2><ul class="g-src"><li>Harden RM, Stevenson M, Downie WW, Wilson GM. Assessment of clinical competence using objective structured examination. <em>BMJ</em> 1975;1:447-451.</li><li>Ministerio de Educación de la Nación. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-132311/texto" target="_blank" rel="noopener">Resolución 1314/2007</a> (contenidos, carga horaria e intensidad de la formación práctica de Medicina) y <a href="https://usal.edu.ar/acreditacion/wp-content/uploads/sites/4/2024/08/798-2022-Estandares-de-Medicina-Resolucion-Ministerial.pdf" target="_blank" rel="noopener">Resolución 798/2022</a> (modificatoria de sus anexos).</li><li>Reglamento de la Práctica Final Obligatoria de una facultad nacional (fuente del ejemplo de ECOE final): ver la guía de la PFO.</li></ul></div>
+        <div class="legal-card cta-card g-rv"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
+        <div class="legal-card g-rv"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-procedimientos-ecoe-lista-de-cotejo.html">Procedimientos en el ECOE: listas de cotejo y pasos críticos<span>Cómo estudiar una técnica para que salga completa y en orden.</span></a><a class="rel-link" href="guia-pfo-practica-final-obligatoria.html">PFO (Práctica Final Obligatoria): qué es y cómo prepararte<span>Qué se espera en 6.º año, con un reglamento real como ejemplo.</span></a><a class="rel-link" href="guia-casos-clinicos-razonamiento.html">Cómo resolver un caso clínico: método paso a paso<span>Un orden simple para razonar desde la consulta hasta la conducta.</span></a></div></div>
+        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada, las guías de práctica clínica vigentes ni la evaluación de tu cátedra.</p>
     </main>
 
     <!-- FOOTER INSTITUCIONAL -->
@@ -298,5 +293,6 @@
         </div>
     </footer>
 
+<script src="js/guias.js?v=1" defer></script>
 </body>
 </html>

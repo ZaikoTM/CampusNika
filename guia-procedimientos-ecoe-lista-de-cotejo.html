@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>Procedimientos en el ECOE: listas de cotejo y pasos críticos | NikaMed</title>
-<meta name="description" content="Cómo estudiar procedimientos médicos para el ECOE: qué es una lista de cotejo, qué son los pasos críticos y cómo practicar la técnica en orden.">
+<meta name="description" content="Cómo estudiar procedimientos médicos para el ECOE: qué es una lista de cotejo, qué son los pasos críticos, los 5 momentos de higiene de manos y cómo practicar en orden.">
 <link rel="canonical" href="https://nikamed.com.ar/guia-procedimientos-ecoe-lista-de-cotejo.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="NikaMed | Campus Nika">
 <meta property="og:locale" content="es_AR">
 <meta property="og:title" content="Procedimientos en el ECOE: listas de cotejo y pasos críticos">
-<meta property="og:description" content="Cómo estudiar procedimientos médicos para el ECOE: qué es una lista de cotejo, qué son los pasos críticos y cómo practicar la técnica en orden.">
+<meta property="og:description" content="Cómo estudiar procedimientos médicos para el ECOE: qué es una lista de cotejo, qué son los pasos críticos, los 5 momentos de higiene de manos y cómo practicar en orden.">
 <meta property="og:url" content="https://nikamed.com.ar/guia-procedimientos-ecoe-lista-de-cotejo.html">
 <meta property="og:image" content="https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,7 @@
   {
    "@type": "Article",
    "headline": "Procedimientos en el ECOE: listas de cotejo y pasos críticos",
-   "description": "Cómo estudiar procedimientos médicos para el ECOE: qué es una lista de cotejo, qué son los pasos críticos y cómo practicar la técnica en orden.",
+   "description": "Cómo estudiar procedimientos médicos para el ECOE: qué es una lista de cotejo, qué son los pasos críticos, los 5 momentos de higiene de manos y cómo practicar en orden.",
    "inLanguage": "es-AR",
    "datePublished": "2026-10-10",
    "dateModified": "2026-10-10",
@@ -187,34 +187,11 @@
     .footer-brand-line { font-size: 1.05rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
     .footer-brand-line span { color: var(--violet-glow); }
     .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #94a3b8; line-height: 1.7; }
-
-    /* ================= GUÍAS ================= */
-    .art-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-    .art-lead { font-size: 1.02rem; color: var(--text-body); margin-top: 12px; }
-    .art-toc { margin: 18px 0 8px; }
-    .art-toc a { display: block; color: var(--primary-glow); text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 4px 0; }
-    .art-toc a:hover { color: #fff; }
-    .legal-card h3 { font-size: 0.98rem; color: #fff; margin: 16px 0 6px; }
-    .legal-card ol { margin: 10px 0 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .legal-card ol li { font-size: 0.9rem; color: var(--text-body); }
-    .cta-card { text-align: center; border-color: var(--border-bright); background: linear-gradient(160deg, rgba(168,85,247,0.10), rgba(15,23,42,0.7)); }
-    .cta-card h2 { justify-content: center; }
-    .cta-card .btn-primary { margin-top: 16px; }
-    .rel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
-    .rel-link { display: block; padding: 14px 16px; border: 1px solid var(--border-subtle); border-radius: 12px; color: #fff !important; text-decoration: none; font-weight: 800; font-size: 0.88rem; transition: .2s; background: rgba(15,23,42,.6); }
-    .rel-link span { display: block; color: var(--text-dim); font-weight: 600; font-size: 0.78rem; margin-top: 4px; }
-    .rel-link:hover { border-color: var(--violet-glow); transform: translateY(-2px); text-decoration: none !important; }
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-    .hub-card { display: block; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 22px; text-decoration: none; transition: .25s; }
-    .hub-card:hover { border-color: var(--violet-glow); transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
-    .hub-card .ic { font-size: 1.6rem; }
-    .hub-card h2 { font-size: 1.02rem; color: #fff; margin: 10px 0 6px; font-weight: 900; }
-    .hub-card p { font-size: .85rem; color: var(--text-body); }
-    .hub-card .more { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--primary-glow); }
-    @media (prefers-reduced-motion: reduce) { .hub-card, .rel-link { transition: none; } }
 </style>
+<link rel="stylesheet" href="css/guias.css?v=1">
 </head>
 <body>
+<div id="g-progress" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="public-nav">
@@ -234,22 +211,38 @@
         </div>
     </nav>
 
-    <header class="legal-hero art-hero">
-        <span class="legal-eyebrow">Guía de estudio</span>
+    <header class="legal-hero art-hero g-hero">
+        <span class="g-orb a"></span><span class="g-orb b"></span>
+        <div class="g-hero-ico">🧤</div>
+        <span class="legal-eyebrow">Guía de estudio interactiva</span>
         <h1>Procedimientos en el ECOE: listas de cotejo y pasos críticos</h1>
-        <p class="legal-meta">Actualizado el 10 de octubre de 2026 · Lectura de 4 minutos</p>
+        <p class="legal-meta">Actualizado el 10 de octubre de 2026</p>
+        <div class="g-chips"><span class="g-chip">Lista de cotejo</span><span class="g-chip">Bioseguridad</span><span class="g-chip">Orden</span><span class="g-chip">Práctica</span></div>
     </header>
 
     <main>
         <a class="back-link" href="guias.html">← Todas las guías</a>
-        <div class="glass-box summary"><p>En un procedimiento, el orden y la bioseguridad cuentan tanto como la técnica. Estudiarlo con una <strong>lista de cotejo</strong> te permite saber exactamente qué se evalúa.</p><div class="art-toc"><a href="#s1">Qué es una lista de cotejo</a><a href="#s2">Estructura típica de un procedimiento</a><a href="#s3">Cómo practicarlo</a><a href="#s4">Cómo te ayuda NikaMed</a></div></div>
-        <div class="legal-card" id="s1"><h2>Qué es una lista de cotejo</h2><p>Es un listado ordenado de los pasos de una técnica con el que el evaluador puntúa. Cada paso se cumple o no se cumple. Algunos pasos son <strong>críticos</strong>: omitirlos puede desaprobar la estación.</p></div>
-        <div class="legal-card" id="s2"><h2>Estructura típica de un procedimiento</h2><ol><li>Presentación y verificación de la identidad del paciente.</li><li>Explicación del procedimiento y pedido de consentimiento.</li><li>Preparación: higiene de manos, elementos y equipo de protección.</li><li>Técnica, en el orden correcto y cuidando la asepsia.</li><li>Cierre: descarte de residuos, registro y indicaciones al paciente.</li></ol></div>
-        <div class="legal-card" id="s3"><h2>Cómo practicarlo</h2><ul><li>Estudiá los pasos en orden y repetilos en voz alta, como si estuvieras frente al evaluador.</li><li>Practicalo con cronómetro y con otra persona que marque la lista de cotejo.</li><li>Poné atención al primer y último paso: son los que más se olvidan.</li><li>Si podés, practicá con material real (simulador, maniquí o elementos del taller).</li></ul></div>
-        <div class="legal-card" id="s4"><h2>Cómo te ayuda NikaMed</h2><p>En NikaSim practicás cada procedimiento paso a paso con feedback inmediato y rendís un examen con corrección estricta. Los que ya tienen modelo 3D se practican en pantalla. Es un entrenamiento complementario: no sustituye la práctica supervisada.</p></div>
-        <div class="legal-card cta-card"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
-        <div class="legal-card"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a><a class="rel-link" href="guia-pfo-practica-final-obligatoria.html">PFO (Práctica Final Obligatoria): qué es y cómo prepararte<span>Qué se espera en 6.º año y cómo organizar el estudio.</span></a><a class="rel-link" href="guia-como-estudiar-medicina.html">Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro<span>Un método simple para estudiar menos horas con más retención.</span></a></div></div>
-        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada o la evaluación de tu cátedra.</p>
+        <div class="glass-box summary g-rv"><p>En un procedimiento, el orden y la bioseguridad cuentan tanto como la técnica. Estudiarlo con una <strong>lista de cotejo</strong> te permite saber exactamente qué se evalúa.</p><nav class="art-toc" aria-label="Contenido"><a href="#s1">Qué es una lista de cotejo</a><a href="#s2">Los 5 momentos de la higiene de manos (OMS)</a><a href="#s3">Estructura típica de un procedimiento</a><a href="#s4">Antes de rendir</a><a href="#s5">Poné a prueba lo aprendido</a></nav></div>
+        <div class="legal-card g-sec g-rv" id="s1"><h2><span class="num">1</span>Qué es una lista de cotejo</h2>
+                <p>Es un listado ordenado de los pasos de una técnica con el que el evaluador puntúa. Cada paso se cumple o no se cumple. Algunos son <strong>críticos</strong>: omitirlos puede desaprobar la estación.</p>
+                <div class="g-callout warn"><span class="i">🧼</span><div>Un paso que casi siempre es crítico es la <strong>higiene de manos</strong>. La OMS define cinco momentos en los que corresponde hacerla.</div></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s2"><h2><span class="num">2</span>Los 5 momentos de la higiene de manos (OMS)</h2>
+                <ol class="g-steps"><li class="g-rv"><span class="n">1</span><b>Antes de tocar al paciente</b><span>Protege al paciente de gérmenes que llevás en las manos.</span></li><li class="g-rv"><span class="n">2</span><b>Antes de un procedimiento limpio o aséptico</b><span>Evita introducir gérmenes en zonas del cuerpo que deben estar libres de ellos.</span></li><li class="g-rv"><span class="n">3</span><b>Después del riesgo de exposición a fluidos corporales</b><span>Te protege a vos y al entorno.</span></li><li class="g-rv"><span class="n">4</span><b>Después de tocar al paciente</b><span>Evita llevar gérmenes del paciente al resto del servicio.</span></li><li class="g-rv"><span class="n">5</span><b>Después de tocar el entorno del paciente</b><span>Camas, barandas, equipos: también cuentan.</span></li></ol>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s3"><h2><span class="num">3</span>Estructura típica de un procedimiento</h2>
+                <ol class="g-steps"><li class="g-rv"><span class="n">1</span><b>Presentación e identidad</b><span>Verificá la identidad del paciente.</span></li><li class="g-rv"><span class="n">2</span><b>Explicación y consentimiento</b><span>Decí qué vas a hacer y pedí que acepte.</span></li><li class="g-rv"><span class="n">3</span><b>Preparación</b><span>Higiene de manos, elementos y equipo de protección.</span></li><li class="g-rv"><span class="n">4</span><b>Técnica</b><span>En el orden correcto y cuidando la asepsia.</span></li><li class="g-rv"><span class="n">5</span><b>Cierre</b><span>Descartá residuos (cortopunzantes en su descartador), registrá e indicá pautas al paciente.</span></li></ol>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s4"><h2><span class="num">4</span>Antes de rendir</h2>
+                <div class="g-check" data-key="procs"><div class="g-check-top"><div class="g-ring"><i>0%</i></div><div class="g-check-msg"></div></div><ul><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Me sé el orden completo y puedo decirlo en voz alta.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Practiqué con cronómetro y con otra persona que marque la lista.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">No me olvido del primer paso (identidad y consentimiento) ni del último (descarte y registro).</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Conozco los pasos críticos de cada técnica que me toca.</span></label></li></ul></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s5"><h2><span class="num">5</span>Poné a prueba lo aprendido</h2>
+                <div class="g-quiz"><div class="g-q-head"><span class="g-q-count"></span><span>Quiz rápido</span></div><div class="g-q-bar"><i></i></div><div class="g-q-body"></div><script type="application/json">[{"q": "¿Cuál de estos es un momento de higiene de manos según la OMS?", "o": ["Antes de firmar la historia clínica", "Antes de un procedimiento limpio o aséptico", "Al entrar al hospital", "Al terminar la guardia"], "c": 1, "e": "Antes de un procedimiento limpio o aséptico es uno de los cinco momentos de la OMS."}, {"q": "Si un paso es crítico y se omite…", "o": ["Solo resta un punto", "Puede desaprobarse la estación", "Se compensa con la técnica", "No pasa nada"], "c": 1, "e": "Los pasos críticos pueden desaprobar la estación por sí solos."}, {"q": "¿Cuál es el último paso de la estructura típica?", "o": ["Presentarse", "Cierre: descarte, registro e indicaciones", "Pedir consentimiento", "Preparar el material"], "c": 1, "e": "Se cierra descartando residuos, registrando e indicando pautas al paciente."}]</script></div>
+            </div>
+        <div class="legal-card g-sec g-rv"><h2><span class="num">★</span>Fuentes y referencias</h2><ul class="g-src"><li>Organización Mundial de la Salud. <em>Guía de la OMS sobre higiene de las manos en la atención de la salud</em>, 2009 (los «5 momentos»).</li><li>Harden RM, Stevenson M, Downie WW, Wilson GM. Assessment of clinical competence using objective structured examination. <em>BMJ</em> 1975;1:447-451.</li></ul></div>
+        <div class="legal-card cta-card g-rv"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
+        <div class="legal-card g-rv"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a><a class="rel-link" href="guia-pfo-practica-final-obligatoria.html">PFO (Práctica Final Obligatoria): qué es y cómo prepararte<span>Qué se espera en 6.º año, con un reglamento real como ejemplo.</span></a><a class="rel-link" href="guia-como-estudiar-medicina.html">Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro<span>Un método simple para estudiar menos horas con más retención.</span></a></div></div>
+        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada, las guías de práctica clínica vigentes ni la evaluación de tu cátedra.</p>
     </main>
 
     <!-- FOOTER INSTITUCIONAL -->
@@ -296,5 +289,6 @@
         </div>
     </footer>
 
+<script src="js/guias.js?v=1" defer></script>
 </body>
 </html>

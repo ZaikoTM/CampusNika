@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>Guías de estudio de Medicina | NikaMed</title>
-<meta name="description" content="Guías de estudio para estudiantes de Medicina: cómo estudiar, preparar el ECOE y la PFO, resolver preguntas choice y casos clínicos, y armar un plan para parciales y finales.">
+<meta name="description" content="Guías de estudio interactivas para estudiantes de Medicina: cómo estudiar, preparar el ECOE y la PFO, resolver preguntas choice y casos clínicos, y armar un plan para parciales y finales.">
 <link rel="canonical" href="https://nikamed.com.ar/guias.html">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:site_name" content="NikaMed | Campus Nika">
 <meta property="og:locale" content="es_AR">
 <meta property="og:title" content="Guías de estudio de Medicina">
-<meta property="og:description" content="Guías de estudio para estudiantes de Medicina: cómo estudiar, preparar el ECOE y la PFO, resolver preguntas choice y casos clínicos, y armar un plan para parciales y finales.">
+<meta property="og:description" content="Guías de estudio interactivas para estudiantes de Medicina: cómo estudiar, preparar el ECOE y la PFO, resolver preguntas choice y casos clínicos, y armar un plan para parciales y finales.">
 <meta property="og:url" content="https://nikamed.com.ar/guias.html">
 <meta property="og:image" content="https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,12 +24,9 @@
  "@context": "https://schema.org",
  "@type": "CollectionPage",
  "name": "Guías de estudio de Medicina",
- "description": "Guías de estudio para estudiantes de Medicina: cómo estudiar, preparar el ECOE y la PFO, resolver preguntas choice y casos clínicos, y armar un plan para parciales y finales.",
+ "description": "Guías de estudio interactivas para estudiantes de Medicina: cómo estudiar, preparar el ECOE y la PFO, resolver preguntas choice y casos clínicos, y armar un plan para parciales y finales.",
  "url": "https://nikamed.com.ar/guias.html",
  "inLanguage": "es-AR",
- "isPartOf": {
-  "@id": "https://nikamed.com.ar/#website"
- },
  "hasPart": [
   {
    "@type": "Article",
@@ -184,34 +181,11 @@
     .footer-brand-line { font-size: 1.05rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
     .footer-brand-line span { color: var(--violet-glow); }
     .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #94a3b8; line-height: 1.7; }
-
-    /* ================= GUÍAS ================= */
-    .art-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-    .art-lead { font-size: 1.02rem; color: var(--text-body); margin-top: 12px; }
-    .art-toc { margin: 18px 0 8px; }
-    .art-toc a { display: block; color: var(--primary-glow); text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 4px 0; }
-    .art-toc a:hover { color: #fff; }
-    .legal-card h3 { font-size: 0.98rem; color: #fff; margin: 16px 0 6px; }
-    .legal-card ol { margin: 10px 0 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .legal-card ol li { font-size: 0.9rem; color: var(--text-body); }
-    .cta-card { text-align: center; border-color: var(--border-bright); background: linear-gradient(160deg, rgba(168,85,247,0.10), rgba(15,23,42,0.7)); }
-    .cta-card h2 { justify-content: center; }
-    .cta-card .btn-primary { margin-top: 16px; }
-    .rel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
-    .rel-link { display: block; padding: 14px 16px; border: 1px solid var(--border-subtle); border-radius: 12px; color: #fff !important; text-decoration: none; font-weight: 800; font-size: 0.88rem; transition: .2s; background: rgba(15,23,42,.6); }
-    .rel-link span { display: block; color: var(--text-dim); font-weight: 600; font-size: 0.78rem; margin-top: 4px; }
-    .rel-link:hover { border-color: var(--violet-glow); transform: translateY(-2px); text-decoration: none !important; }
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-    .hub-card { display: block; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 22px; text-decoration: none; transition: .25s; }
-    .hub-card:hover { border-color: var(--violet-glow); transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
-    .hub-card .ic { font-size: 1.6rem; }
-    .hub-card h2 { font-size: 1.02rem; color: #fff; margin: 10px 0 6px; font-weight: 900; }
-    .hub-card p { font-size: .85rem; color: var(--text-body); }
-    .hub-card .more { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--primary-glow); }
-    @media (prefers-reduced-motion: reduce) { .hub-card, .rel-link { transition: none; } }
 </style>
+<link rel="stylesheet" href="css/guias.css?v=1">
 </head>
 <body>
+<div id="g-progress" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="public-nav">
@@ -231,24 +205,26 @@
         </div>
     </nav>
 
-    <header class="legal-hero art-hero">
+    <header class="legal-hero art-hero g-hero">
+        <span class="g-orb a"></span><span class="g-orb b"></span>
+        <div class="g-hero-ico">📚</div>
         <span class="legal-eyebrow">Recursos</span>
         <h1>Guías de estudio para estudiantes de Medicina</h1>
-        <p class="art-lead">Métodos, estrategias y explicaciones claras para estudiar mejor, preparar el ECOE y la PFO, y llegar a cada examen con un plan.</p>
+        <p class="art-lead">Métodos, estrategias y herramientas interactivas para estudiar mejor, preparar el ECOE y la PFO, y llegar a cada examen con un plan.</p>
     </header>
 
     <main style="max-width: 1000px;">
         <a class="back-link" href="index.html">← Volver al inicio</a>
         <div class="hub-grid">
-            <a class="hub-card" href="guia-como-estudiar-medicina.html"><div class="ic">🧠</div><h2>Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro</h2><p>Un método simple para estudiar menos horas con más retención.</p><span class="more">Leer la guía →</span></a>
-            <a class="hub-card" href="guia-ecoe-medicina.html"><div class="ic">🎯</div><h2>ECOE en Medicina: qué es y cómo prepararlo</h2><p>Cómo funciona el examen por estaciones y cómo entrenarlo.</p><span class="more">Leer la guía →</span></a>
-            <a class="hub-card" href="guia-pfo-practica-final-obligatoria.html"><div class="ic">🩺</div><h2>PFO (Práctica Final Obligatoria): qué es y cómo prepararte</h2><p>Qué se espera en 6.º año y cómo organizar el estudio.</p><span class="more">Leer la guía →</span></a>
-            <a class="hub-card" href="guia-preguntas-choice-medicina.html"><div class="ic">✅</div><h2>Cómo resolver preguntas choice de Medicina</h2><p>Estrategias para leer el enunciado y descartar distractores.</p><span class="more">Leer la guía →</span></a>
-            <a class="hub-card" href="guia-procedimientos-ecoe-lista-de-cotejo.html"><div class="ic">🧤</div><h2>Procedimientos en el ECOE: listas de cotejo y pasos críticos</h2><p>Cómo estudiar una técnica para que salga completa y en orden.</p><span class="more">Leer la guía →</span></a>
-            <a class="hub-card" href="guia-casos-clinicos-razonamiento.html"><div class="ic">📋</div><h2>Cómo resolver un caso clínico: método paso a paso</h2><p>Un orden simple para razonar desde la consulta hasta la conducta.</p><span class="more">Leer la guía →</span></a>
-            <a class="hub-card" href="guia-plan-de-estudio-finales-medicina.html"><div class="ic">📅</div><h2>Plan de estudio para parciales y finales de Medicina</h2><p>Cómo repartir las semanas antes de un examen.</p><span class="more">Leer la guía →</span></a>
+            <a class="hub-card g-rv" href="guia-como-estudiar-medicina.html"><div class="ic">🧠</div><h2>Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro</h2><p>Un método simple para estudiar menos horas con más retención.</p><span class="more">Leer la guía →</span></a>
+            <a class="hub-card g-rv" href="guia-ecoe-medicina.html"><div class="ic">🎯</div><h2>ECOE en Medicina: qué es y cómo prepararlo</h2><p>Cómo funciona el examen por estaciones y cómo entrenarlo.</p><span class="more">Leer la guía →</span></a>
+            <a class="hub-card g-rv" href="guia-pfo-practica-final-obligatoria.html"><div class="ic">🩺</div><h2>PFO (Práctica Final Obligatoria): qué es y cómo prepararte</h2><p>Qué se espera en 6.º año, con un reglamento real como ejemplo.</p><span class="more">Leer la guía →</span></a>
+            <a class="hub-card g-rv" href="guia-preguntas-choice-medicina.html"><div class="ic">✅</div><h2>Cómo resolver preguntas choice de Medicina</h2><p>Estrategias para leer el enunciado y descartar distractores.</p><span class="more">Leer la guía →</span></a>
+            <a class="hub-card g-rv" href="guia-procedimientos-ecoe-lista-de-cotejo.html"><div class="ic">🧤</div><h2>Procedimientos en el ECOE: listas de cotejo y pasos críticos</h2><p>Cómo estudiar una técnica para que salga completa y en orden.</p><span class="more">Leer la guía →</span></a>
+            <a class="hub-card g-rv" href="guia-casos-clinicos-razonamiento.html"><div class="ic">📋</div><h2>Cómo resolver un caso clínico: método paso a paso</h2><p>Un orden simple para razonar desde la consulta hasta la conducta.</p><span class="more">Leer la guía →</span></a>
+            <a class="hub-card g-rv" href="guia-plan-de-estudio-finales-medicina.html"><div class="ic">📅</div><h2>Plan de estudio para parciales y finales de Medicina</h2><p>Armá tu cronograma con un planificador interactivo.</p><span class="more">Leer la guía →</span></a>
             </div>
-        <div class="legal-card cta-card" style="margin-top:26px;"><h2>Pasá de la teoría a la práctica</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
+        <div class="legal-card cta-card g-rv" style="margin-top:26px;"><h2>Pasá de la teoría a la práctica</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
         <p class="legal-meta" style="text-align:center; margin-top:18px;">También podés consultar el <a href="glosario.html" style="color:var(--primary-glow);">glosario médico</a> y las <a href="index.html#faq" style="color:var(--primary-glow);">preguntas frecuentes</a>.</p>
     </main>
 
@@ -296,5 +272,6 @@
         </div>
     </footer>
 
+<script src="js/guias.js?v=1" defer></script>
 </body>
 </html>

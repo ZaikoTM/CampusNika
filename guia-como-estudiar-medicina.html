@@ -187,34 +187,11 @@
     .footer-brand-line { font-size: 1.05rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
     .footer-brand-line span { color: var(--violet-glow); }
     .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #94a3b8; line-height: 1.7; }
-
-    /* ================= GUÍAS ================= */
-    .art-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-    .art-lead { font-size: 1.02rem; color: var(--text-body); margin-top: 12px; }
-    .art-toc { margin: 18px 0 8px; }
-    .art-toc a { display: block; color: var(--primary-glow); text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 4px 0; }
-    .art-toc a:hover { color: #fff; }
-    .legal-card h3 { font-size: 0.98rem; color: #fff; margin: 16px 0 6px; }
-    .legal-card ol { margin: 10px 0 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .legal-card ol li { font-size: 0.9rem; color: var(--text-body); }
-    .cta-card { text-align: center; border-color: var(--border-bright); background: linear-gradient(160deg, rgba(168,85,247,0.10), rgba(15,23,42,0.7)); }
-    .cta-card h2 { justify-content: center; }
-    .cta-card .btn-primary { margin-top: 16px; }
-    .rel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
-    .rel-link { display: block; padding: 14px 16px; border: 1px solid var(--border-subtle); border-radius: 12px; color: #fff !important; text-decoration: none; font-weight: 800; font-size: 0.88rem; transition: .2s; background: rgba(15,23,42,.6); }
-    .rel-link span { display: block; color: var(--text-dim); font-weight: 600; font-size: 0.78rem; margin-top: 4px; }
-    .rel-link:hover { border-color: var(--violet-glow); transform: translateY(-2px); text-decoration: none !important; }
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-    .hub-card { display: block; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 22px; text-decoration: none; transition: .25s; }
-    .hub-card:hover { border-color: var(--violet-glow); transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
-    .hub-card .ic { font-size: 1.6rem; }
-    .hub-card h2 { font-size: 1.02rem; color: #fff; margin: 10px 0 6px; font-weight: 900; }
-    .hub-card p { font-size: .85rem; color: var(--text-body); }
-    .hub-card .more { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--primary-glow); }
-    @media (prefers-reduced-motion: reduce) { .hub-card, .rel-link { transition: none; } }
 </style>
+<link rel="stylesheet" href="css/guias.css?v=1">
 </head>
 <body>
+<div id="g-progress" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="public-nav">
@@ -234,26 +211,43 @@
         </div>
     </nav>
 
-    <header class="legal-hero art-hero">
-        <span class="legal-eyebrow">Guía de estudio</span>
+    <header class="legal-hero art-hero g-hero">
+        <span class="g-orb a"></span><span class="g-orb b"></span>
+        <div class="g-hero-ico">🧠</div>
+        <span class="legal-eyebrow">Guía de estudio interactiva</span>
         <h1>Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro</h1>
-        <p class="legal-meta">Actualizado el 10 de octubre de 2026 · Lectura de 4 minutos</p>
+        <p class="legal-meta">Actualizado el 10 de octubre de 2026</p>
+        <div class="g-chips"><span class="g-chip">Repaso activo</span><span class="g-chip">Repetición espaciada</span><span class="g-chip">Pomodoro</span><span class="g-chip">Plan semanal</span></div>
     </header>
 
     <main>
         <a class="back-link" href="guias.html">← Todas las guías</a>
-        <div class="glass-box summary"><p>La carrera de Medicina tiene mucho volumen y poco margen para estudiar “a ciegas”. Esta guía resume un método simple, basado en técnicas de estudio con respaldo en la psicología del aprendizaje, para que cada hora rinda más.</p><div class="art-toc"><a href="#s1">Por qué releer no alcanza</a><a href="#s2">Repetición espaciada: repasar justo antes de olvidar</a><a href="#s3">La técnica Pomodoro y el registro de tiempo</a><a href="#s4">Cómo armar una semana de estudio</a><a href="#s5">Cómo te ayuda NikaMed</a></div></div>
-        <div class="legal-card" id="s1"><h2>Por qué releer no alcanza</h2><p>Subrayar y releer da una sensación de familiaridad, pero no garantiza que puedas recuperar la información el día del examen. Lo que más ayuda a retener es <strong>intentar recordar</strong> sin mirar el material.</p>
-                <ul><li>Cerrá el apunte y escribí o decí en voz alta lo que recordás de un tema.</li><li>Resolvé preguntas y casos sobre el tema antes de releerlo: el error te marca qué te falta.</li><li>Corregí con la bibliografía y anotá solo lo que fallaste.</li></ul></div>
-        <div class="legal-card" id="s2"><h2>Repetición espaciada: repasar justo antes de olvidar</h2><p>Olvidamos rápido lo que vimos una sola vez. Repasar el mismo tema en intervalos crecientes (por ejemplo, al día siguiente, a la semana y al mes) fija mucho mejor que repetirlo todo el mismo día.</p>
-                <ul><li>Priorizá los temas donde más te equivocás, no los que ya dominás.</li><li>Dejá marcadas las unidades que se acercan al parcial y repasalas en tandas cortas.</li><li>Mezclá temas distintos en una misma sesión: cuesta más, pero se recuerda mejor.</li></ul></div>
-        <div class="legal-card" id="s3"><h2>La técnica Pomodoro y el registro de tiempo</h2><p>La técnica Pomodoro alterna bloques de estudio con descansos cortos (el formato clásico es de 25 minutos de foco y 5 de pausa). Sirve para sostener la atención y para <strong>medir cuánto tiempo real le dedicás a cada unidad</strong>.</p>
-                <p>Mirar ese registro por unidad te muestra algo incómodo pero útil: dónde estás invirtiendo horas que no se convierten en puntos. Con esa información podés reorganizar el repaso a tiempo.</p></div>
-        <div class="legal-card" id="s4"><h2>Cómo armar una semana de estudio</h2><ol><li>Elegí 2 o 3 unidades prioritarias según la fecha de tu próximo parcial.</li><li>Dividí cada una en bloques de 25 a 50 minutos con un objetivo concreto (“resolver 20 preguntas de X”).</li><li>Cerrá el día anotando qué planificaste y qué cumpliste.</li><li>Reservá un bloque semanal para repasar errores anteriores.</li></ol></div>
-        <div class="legal-card" id="s5"><h2>Cómo te ayuda NikaMed</h2><p>En NikaMed organizás el estudio por año, materia y Unidad Problema, medís tu tiempo con el Pomodoro integrado, practicás con preguntas y casos de cátedra y ves tu rendimiento por tema. Es un complemento: el método lo ponés vos.</p></div>
-        <div class="legal-card cta-card"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
-        <div class="legal-card"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-plan-de-estudio-finales-medicina.html">Plan de estudio para parciales y finales de Medicina<span>Cómo repartir las semanas antes de un examen.</span></a><a class="rel-link" href="guia-preguntas-choice-medicina.html">Cómo resolver preguntas choice de Medicina<span>Estrategias para leer el enunciado y descartar distractores.</span></a><a class="rel-link" href="guia-casos-clinicos-razonamiento.html">Cómo resolver un caso clínico: método paso a paso<span>Un orden simple para razonar desde la consulta hasta la conducta.</span></a></div></div>
-        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada o la evaluación de tu cátedra.</p>
+        <div class="glass-box summary g-rv"><p>La carrera tiene mucho volumen y poco margen para estudiar «a ciegas». Esta guía reúne las técnicas de estudio con mejor respaldo en la investigación sobre aprendizaje y las convierte en un método que podés probar hoy, con herramientas interactivas.</p><nav class="art-toc" aria-label="Contenido"><a href="#s1">Por qué releer no alcanza</a><a href="#s2">Repetición espaciada: repasar justo antes de olvidar</a><a href="#s3">Probá la técnica Pomodoro</a><a href="#s4">Tu semana de estudio</a><a href="#s5">Poné a prueba lo aprendido</a></nav></div>
+        <div class="legal-card g-sec g-rv" id="s1"><h2><span class="num">1</span>Por qué releer no alcanza</h2>
+                <p>Subrayar y releer da una sensación de familiaridad, pero no asegura que puedas recuperar la información el día del examen. Lo que más ayuda a retener es <strong>intentar recordar</strong> sin mirar el material.</p>
+                <div class="g-callout"><span class="i">📚</span><div>Una revisión muy citada de diez técnicas de estudio (Dunlosky y col., 2013) calificó la <strong>práctica con pruebas</strong> y la <strong>práctica distribuida</strong> como de alta utilidad, y el subrayado y la relectura como de baja utilidad.</div></div>
+                <div class="g-acord"><details><summary>Repaso activo (recuperación)<span class="ch">▾</span></summary><div class="body">Cerrá el apunte y escribí o decí en voz alta lo que recordás. Después corregí con la bibliografía y anotá solo lo que fallaste. Resolver preguntas y casos <em>antes</em> de releer te marca qué te falta.</div></details><details><summary>Práctica distribuida<span class="ch">▾</span></summary><div class="body">Repartí el estudio de un tema en varias sesiones separadas en el tiempo en lugar de concentrarlo en una sola.</div></details><details><summary>Intercalado<span class="ch">▾</span></summary><div class="body">Mezclar temas distintos dentro de una sesión cuesta más, pero mejora la capacidad de distinguir cuál criterio aplicar a cada problema.</div></details><details><summary>Explicarlo con tus palabras<span class="ch">▾</span></summary><div class="body">Si no podés explicar un mecanismo o una conducta en pocas frases, todavía no lo tenés.</div></details></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s2"><h2><span class="num">2</span>Repetición espaciada: repasar justo antes de olvidar</h2>
+                <p>Olvidamos rápido lo que vimos una sola vez. Repasar el mismo tema en intervalos crecientes fija mucho mejor que repetirlo todo el mismo día.</p>
+                <ol class="g-steps"><li class="g-rv"><span class="n">1</span><b>Día 1</b><span>Estudiás el tema y resolvés preguntas.</span></li><li class="g-rv"><span class="n">2</span><b>Día 2 o 3</b><span>Primer repaso corto, de memoria.</span></li><li class="g-rv"><span class="n">3</span><b>A la semana</b><span>Segundo repaso: solo lo que fallaste.</span></li><li class="g-rv"><span class="n">4</span><b>A las 3–4 semanas</b><span>Repaso final con preguntas mezcladas de otras unidades.</span></li></ol>
+                <div class="g-callout"><span class="i">💡</span><div>Priorizá los temas donde más te equivocás, no los que ya dominás. Es la parte que más cuesta y la que más rinde.</div></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s3"><h2><span class="num">3</span>Probá la técnica Pomodoro</h2>
+                <p>Alterna bloques de foco con descansos cortos (el formato clásico es de 25 minutos de foco y 5 de pausa). Además de sostener la atención, te permite <strong>medir cuánto tiempo real le dedicás a cada unidad</strong>. Probalo acá:</p>
+                <div class="g-pomo"><div class="g-pomo-ring"><i>25:00</i></div><div class="g-pomo-info"><b class="g-pomo-lab">Bloque de foco</b><span>25 minutos de foco y 5 de pausa. Es una demostración: no guarda tu tiempo.</span><div><button type="button" class="g-btn g-go">Empezar</button><button type="button" class="g-btn ghost g-rs">Reiniciar</button></div></div></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s4"><h2><span class="num">4</span>Tu semana de estudio</h2>
+                <p>Marcá lo que ya hacés. Se guarda en tu navegador para que sigas más tarde.</p>
+                <div class="g-check" data-key="semana"><div class="g-check-top"><div class="g-ring"><i>0%</i></div><div class="g-check-msg"></div></div><ul><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Elegí 2 o 3 unidades prioritarias según la fecha de tu próximo parcial.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Dividí cada una en bloques de 25 a 50 minutos con un objetivo concreto («resolver 20 preguntas de…»).</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Hacé preguntas o casos antes de releer el material.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Cerrá el día comparando lo planificado con lo cumplido.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Reservá un bloque semanal para repasar tus errores anteriores.</span></label></li></ul></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s5"><h2><span class="num">5</span>Poné a prueba lo aprendido</h2>
+                <div class="g-quiz"><div class="g-q-head"><span class="g-q-count"></span><span>Quiz rápido</span></div><div class="g-q-bar"><i></i></div><div class="g-q-body"></div><script type="application/json">[{"q": "¿Qué técnica de estudio tiene mejor respaldo que subrayar y releer?", "o": ["Copiar el apunte a mano completo", "Intentar recordar y resolver preguntas sin mirar", "Leer el mismo capítulo varias veces seguidas", "Escuchar el material de fondo"], "c": 1, "e": "La recuperación activa (práctica con pruebas) mejora la retención a largo plazo más que releer o subrayar."}, {"q": "Tenés 6 horas para un tema. ¿Qué conviene?", "o": ["Las 6 horas del tirón", "Repartirlas en varias sesiones en distintos días", "Dejarlas para la noche anterior", "Solo leer sin practicar"], "c": 1, "e": "La práctica distribuida fija mejor que concentrar todo en una sola sesión."}, {"q": "El registro de tiempo por unidad sirve sobre todo para…", "o": ["Presumir horas de estudio", "Ver dónde invertís tiempo que no se convierte en resultados y reorganizar el repaso", "Estudiar sin pausas", "Reemplazar la práctica"], "c": 1, "e": "Medir por unidad muestra qué temas absorben horas sin rendir, y permite corregir a tiempo."}]</script></div>
+            </div>
+        <div class="legal-card g-sec g-rv"><h2><span class="num">★</span>Fuentes y referencias</h2><ul class="g-src"><li>Dunlosky J, Rawson KA, Marsh EJ, Nathan MJ, Willingham DT. Improving students’ learning with effective learning techniques. <em>Psychological Science in the Public Interest</em> 2013;14(1):4-58.</li><li>Roediger HL, Karpicke JD. Test-enhanced learning: taking memory tests improves long-term retention. <em>Psychological Science</em> 2006;17(3):249-255.</li></ul></div>
+        <div class="legal-card cta-card g-rv"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
+        <div class="legal-card g-rv"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-plan-de-estudio-finales-medicina.html">Plan de estudio para parciales y finales de Medicina<span>Armá tu cronograma con un planificador interactivo.</span></a><a class="rel-link" href="guia-preguntas-choice-medicina.html">Cómo resolver preguntas choice de Medicina<span>Estrategias para leer el enunciado y descartar distractores.</span></a><a class="rel-link" href="guia-casos-clinicos-razonamiento.html">Cómo resolver un caso clínico: método paso a paso<span>Un orden simple para razonar desde la consulta hasta la conducta.</span></a></div></div>
+        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada, las guías de práctica clínica vigentes ni la evaluación de tu cátedra.</p>
     </main>
 
     <!-- FOOTER INSTITUCIONAL -->
@@ -300,5 +294,6 @@
         </div>
     </footer>
 
+<script src="js/guias.js?v=1" defer></script>
 </body>
 </html>

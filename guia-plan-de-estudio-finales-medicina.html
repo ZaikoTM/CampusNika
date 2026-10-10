@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>Plan de estudio para parciales y finales de Medicina | NikaMed</title>
-<meta name="description" content="Cómo armar un plan de estudio para parciales y finales de Medicina: cronograma por semanas, prioridades por unidad y cierre del día.">
+<meta name="description" content="Cómo armar un plan de estudio para parciales y finales de Medicina: planificador interactivo por semanas, prioridades por unidad y cierre del día.">
 <link rel="canonical" href="https://nikamed.com.ar/guia-plan-de-estudio-finales-medicina.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="NikaMed | Campus Nika">
 <meta property="og:locale" content="es_AR">
 <meta property="og:title" content="Plan de estudio para parciales y finales de Medicina">
-<meta property="og:description" content="Cómo armar un plan de estudio para parciales y finales de Medicina: cronograma por semanas, prioridades por unidad y cierre del día.">
+<meta property="og:description" content="Cómo armar un plan de estudio para parciales y finales de Medicina: planificador interactivo por semanas, prioridades por unidad y cierre del día.">
 <meta property="og:url" content="https://nikamed.com.ar/guia-plan-de-estudio-finales-medicina.html">
 <meta property="og:image" content="https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,7 @@
   {
    "@type": "Article",
    "headline": "Plan de estudio para parciales y finales de Medicina",
-   "description": "Cómo armar un plan de estudio para parciales y finales de Medicina: cronograma por semanas, prioridades por unidad y cierre del día.",
+   "description": "Cómo armar un plan de estudio para parciales y finales de Medicina: planificador interactivo por semanas, prioridades por unidad y cierre del día.",
    "inLanguage": "es-AR",
    "datePublished": "2026-10-10",
    "dateModified": "2026-10-10",
@@ -187,34 +187,11 @@
     .footer-brand-line { font-size: 1.05rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
     .footer-brand-line span { color: var(--violet-glow); }
     .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #94a3b8; line-height: 1.7; }
-
-    /* ================= GUÍAS ================= */
-    .art-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-    .art-lead { font-size: 1.02rem; color: var(--text-body); margin-top: 12px; }
-    .art-toc { margin: 18px 0 8px; }
-    .art-toc a { display: block; color: var(--primary-glow); text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 4px 0; }
-    .art-toc a:hover { color: #fff; }
-    .legal-card h3 { font-size: 0.98rem; color: #fff; margin: 16px 0 6px; }
-    .legal-card ol { margin: 10px 0 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .legal-card ol li { font-size: 0.9rem; color: var(--text-body); }
-    .cta-card { text-align: center; border-color: var(--border-bright); background: linear-gradient(160deg, rgba(168,85,247,0.10), rgba(15,23,42,0.7)); }
-    .cta-card h2 { justify-content: center; }
-    .cta-card .btn-primary { margin-top: 16px; }
-    .rel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
-    .rel-link { display: block; padding: 14px 16px; border: 1px solid var(--border-subtle); border-radius: 12px; color: #fff !important; text-decoration: none; font-weight: 800; font-size: 0.88rem; transition: .2s; background: rgba(15,23,42,.6); }
-    .rel-link span { display: block; color: var(--text-dim); font-weight: 600; font-size: 0.78rem; margin-top: 4px; }
-    .rel-link:hover { border-color: var(--violet-glow); transform: translateY(-2px); text-decoration: none !important; }
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-    .hub-card { display: block; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 22px; text-decoration: none; transition: .25s; }
-    .hub-card:hover { border-color: var(--violet-glow); transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
-    .hub-card .ic { font-size: 1.6rem; }
-    .hub-card h2 { font-size: 1.02rem; color: #fff; margin: 10px 0 6px; font-weight: 900; }
-    .hub-card p { font-size: .85rem; color: var(--text-body); }
-    .hub-card .more { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--primary-glow); }
-    @media (prefers-reduced-motion: reduce) { .hub-card, .rel-link { transition: none; } }
 </style>
+<link rel="stylesheet" href="css/guias.css?v=1">
 </head>
 <body>
+<div id="g-progress" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="public-nav">
@@ -234,23 +211,36 @@
         </div>
     </nav>
 
-    <header class="legal-hero art-hero">
-        <span class="legal-eyebrow">Guía de estudio</span>
+    <header class="legal-hero art-hero g-hero">
+        <span class="g-orb a"></span><span class="g-orb b"></span>
+        <div class="g-hero-ico">📅</div>
+        <span class="legal-eyebrow">Guía de estudio interactiva</span>
         <h1>Plan de estudio para parciales y finales de Medicina</h1>
-        <p class="legal-meta">Actualizado el 10 de octubre de 2026 · Lectura de 4 minutos</p>
+        <p class="legal-meta">Actualizado el 10 de octubre de 2026</p>
+        <div class="g-chips"><span class="g-chip">Planificador</span><span class="g-chip">Prioridades</span><span class="g-chip">Cierre del día</span></div>
     </header>
 
     <main>
         <a class="back-link" href="guias.html">← Todas las guías</a>
-        <div class="glass-box summary"><p>Un buen plan no es el que tiene más horas, sino el que está ajustado a la fecha del examen y a tus puntos débiles. Esta es una forma simple de armarlo.</p><div class="art-toc"><a href="#s1">Paso 1: contá hacia atrás desde la fecha</a><a href="#s2">Paso 2: ordená las unidades por prioridad</a><a href="#s3">Paso 3: repartí por semanas</a><a href="#s4">Paso 4: cerrá cada día</a><a href="#s5">Cómo te ayuda NikaMed</a></div></div>
-        <div class="legal-card" id="s1"><h2>Paso 1: contá hacia atrás desde la fecha</h2><p>Anotá la fecha del examen y calculá cuántas semanas tenés. Reservá la última semana para repasar y simular, no para estudiar temas nuevos.</p></div>
-        <div class="legal-card" id="s2"><h2>Paso 2: ordená las unidades por prioridad</h2><ul><li>Alta: temas que pesan más y donde tuviste errores.</li><li>Media: temas que dominás a medias.</li><li>Baja: temas que ya resolvés bien (solo repaso corto).</li></ul></div>
-        <div class="legal-card" id="s3"><h2>Paso 3: repartí por semanas</h2><ul><li>Semanas iniciales: estudio y práctica por unidad, con preguntas y casos.</li><li>Semanas intermedias: repaso de errores y repetición espaciada.</li><li>Última semana: simulacros con tiempo y repaso de lo que falló.</li></ul></div>
-        <div class="legal-card" id="s4"><h2>Paso 4: cerrá cada día</h2><p>Al terminar, compará lo que planificaste con lo que cumpliste y ajustá el día siguiente. Ese balance diario evita llegar al examen con sorpresas.</p></div>
-        <div class="legal-card" id="s5"><h2>Cómo te ayuda NikaMed</h2><p>NikaMed tiene planificador de bloques con alertas, calendario de parciales y un cierre del día que compara lo planificado con lo cumplido, junto con la racha diaria y la Liga Pomodoro para sostener el hábito.</p></div>
-        <div class="legal-card cta-card"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
-        <div class="legal-card"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-como-estudiar-medicina.html">Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro<span>Un método simple para estudiar menos horas con más retención.</span></a><a class="rel-link" href="guia-preguntas-choice-medicina.html">Cómo resolver preguntas choice de Medicina<span>Estrategias para leer el enunciado y descartar distractores.</span></a><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a></div></div>
-        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada o la evaluación de tu cátedra.</p>
+        <div class="glass-box summary g-rv"><p>Un buen plan no es el que tiene más horas, sino el que está ajustado a la fecha del examen y a tus puntos débiles. Usá el planificador para ver cómo repartir tus semanas.</p><nav class="art-toc" aria-label="Contenido"><a href="#s1">Tu planificador</a><a href="#s2">Ordená las unidades por prioridad</a><a href="#s3">Cerrá cada día</a><a href="#s4">Poné a prueba lo aprendido</a></nav></div>
+        <div class="legal-card g-sec g-rv" id="s1"><h2><span class="num">1</span>Tu planificador</h2>
+                <p>Elegí la fecha del examen, cuántas unidades tenés que cubrir y cuántas horas por semana podés estudiar. El plan se arma solo y reserva la última semana para simulacros.</p>
+                <div class="g-planner"><div class="g-pl-form"><label>Fecha del examen<input type="date" name="fecha"></label><label>Unidades a cubrir<input type="number" name="uni" min="1" max="60" value="8"></label><label>Horas por semana<input type="number" name="hs" min="1" max="80" value="12"></label></div><div class="g-pl-out" aria-live="polite"></div></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s2"><h2><span class="num">2</span>Ordená las unidades por prioridad</h2>
+                <div class="g-acord"><details><summary>Alta<span class="ch">▾</span></summary><div class="body">Temas que pesan más en el examen y donde tuviste errores.</div></details><details><summary>Media<span class="ch">▾</span></summary><div class="body">Temas que dominás a medias: práctica y repaso espaciado.</div></details><details><summary>Baja<span class="ch">▾</span></summary><div class="body">Temas que ya resolvés bien: repaso corto antes del examen.</div></details></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s3"><h2><span class="num">3</span>Cerrá cada día</h2>
+                <p>Al terminar, compará lo que planificaste con lo que cumpliste y ajustá el día siguiente. Ese balance diario evita llegar al examen con sorpresas.</p>
+                <div class="g-check" data-key="cierre"><div class="g-check-top"><div class="g-ring"><i>0%</i></div><div class="g-check-msg"></div></div><ul><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Anoté qué había planificado para hoy.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Marqué qué cumplí y qué no.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Reubiqué lo pendiente en los próximos días.</span></label></li><li><label><input type="checkbox"><span class="box">✓</span><span class="tx">Dejé un bloque corto para repasar un error de hoy.</span></label></li></ul></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s4"><h2><span class="num">4</span>Poné a prueba lo aprendido</h2>
+                <div class="g-quiz"><div class="g-q-head"><span class="g-q-count"></span><span>Quiz rápido</span></div><div class="g-q-bar"><i></i></div><div class="g-q-body"></div><script type="application/json">[{"q": "¿Para qué conviene reservar la última semana?", "o": ["Para estudiar temas nuevos", "Para simulacros con tiempo y repaso de errores", "Para descansar sin repasar", "Para armar el plan"], "c": 1, "e": "La última semana se usa para simular el examen y repasar lo que falló, no para temas nuevos."}, {"q": "¿Qué unidades van primero en el plan?", "o": ["Las que ya dominás", "Las de mayor peso donde más te equivocás", "Las más cortas", "Las que menos te gustan"], "c": 1, "e": "Priorizá por peso y por errores: es donde más rinde cada hora."}]</script></div>
+            </div>
+        <div class="legal-card g-sec g-rv"><h2><span class="num">★</span>Fuentes y referencias</h2><ul class="g-src"><li>Dunlosky J, Rawson KA, Marsh EJ, Nathan MJ, Willingham DT. Improving students’ learning with effective learning techniques. <em>Psychological Science in the Public Interest</em> 2013;14(1):4-58.</li><li>Roediger HL, Karpicke JD. Test-enhanced learning: taking memory tests improves long-term retention. <em>Psychological Science</em> 2006;17(3):249-255.</li></ul></div>
+        <div class="legal-card cta-card g-rv"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
+        <div class="legal-card g-rv"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-como-estudiar-medicina.html">Cómo estudiar Medicina: repaso activo, repetición espaciada y Pomodoro<span>Un método simple para estudiar menos horas con más retención.</span></a><a class="rel-link" href="guia-preguntas-choice-medicina.html">Cómo resolver preguntas choice de Medicina<span>Estrategias para leer el enunciado y descartar distractores.</span></a><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a></div></div>
+        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada, las guías de práctica clínica vigentes ni la evaluación de tu cátedra.</p>
     </main>
 
     <!-- FOOTER INSTITUCIONAL -->
@@ -297,5 +287,6 @@
         </div>
     </footer>
 
+<script src="js/guias.js?v=1" defer></script>
 </body>
 </html>

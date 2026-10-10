@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>Cómo resolver un caso clínico: método paso a paso | NikaMed</title>
-<meta name="description" content="Método paso a paso para resolver un caso clínico en Medicina: datos clave, síndrome, diagnósticos diferenciales, estudios y conducta inicial.">
+<meta name="description" content="Método paso a paso para resolver un caso clínico en Medicina: datos clave, síndrome, diagnósticos diferenciales, sesgos cognitivos, conducta inicial y cómo dar malas noticias (SPIKES).">
 <link rel="canonical" href="https://nikamed.com.ar/guia-casos-clinicos-razonamiento.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="NikaMed | Campus Nika">
 <meta property="og:locale" content="es_AR">
 <meta property="og:title" content="Cómo resolver un caso clínico: método paso a paso">
-<meta property="og:description" content="Método paso a paso para resolver un caso clínico en Medicina: datos clave, síndrome, diagnósticos diferenciales, estudios y conducta inicial.">
+<meta property="og:description" content="Método paso a paso para resolver un caso clínico en Medicina: datos clave, síndrome, diagnósticos diferenciales, sesgos cognitivos, conducta inicial y cómo dar malas noticias (SPIKES).">
 <meta property="og:url" content="https://nikamed.com.ar/guia-casos-clinicos-razonamiento.html">
 <meta property="og:image" content="https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,7 @@
   {
    "@type": "Article",
    "headline": "Cómo resolver un caso clínico: método paso a paso",
-   "description": "Método paso a paso para resolver un caso clínico en Medicina: datos clave, síndrome, diagnósticos diferenciales, estudios y conducta inicial.",
+   "description": "Método paso a paso para resolver un caso clínico en Medicina: datos clave, síndrome, diagnósticos diferenciales, sesgos cognitivos, conducta inicial y cómo dar malas noticias (SPIKES).",
    "inLanguage": "es-AR",
    "datePublished": "2026-10-10",
    "dateModified": "2026-10-10",
@@ -187,34 +187,11 @@
     .footer-brand-line { font-size: 1.05rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
     .footer-brand-line span { color: var(--violet-glow); }
     .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #94a3b8; line-height: 1.7; }
-
-    /* ================= GUÍAS ================= */
-    .art-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-    .art-lead { font-size: 1.02rem; color: var(--text-body); margin-top: 12px; }
-    .art-toc { margin: 18px 0 8px; }
-    .art-toc a { display: block; color: var(--primary-glow); text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 4px 0; }
-    .art-toc a:hover { color: #fff; }
-    .legal-card h3 { font-size: 0.98rem; color: #fff; margin: 16px 0 6px; }
-    .legal-card ol { margin: 10px 0 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .legal-card ol li { font-size: 0.9rem; color: var(--text-body); }
-    .cta-card { text-align: center; border-color: var(--border-bright); background: linear-gradient(160deg, rgba(168,85,247,0.10), rgba(15,23,42,0.7)); }
-    .cta-card h2 { justify-content: center; }
-    .cta-card .btn-primary { margin-top: 16px; }
-    .rel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
-    .rel-link { display: block; padding: 14px 16px; border: 1px solid var(--border-subtle); border-radius: 12px; color: #fff !important; text-decoration: none; font-weight: 800; font-size: 0.88rem; transition: .2s; background: rgba(15,23,42,.6); }
-    .rel-link span { display: block; color: var(--text-dim); font-weight: 600; font-size: 0.78rem; margin-top: 4px; }
-    .rel-link:hover { border-color: var(--violet-glow); transform: translateY(-2px); text-decoration: none !important; }
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-    .hub-card { display: block; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 22px; text-decoration: none; transition: .25s; }
-    .hub-card:hover { border-color: var(--violet-glow); transform: translateY(-4px); box-shadow: 0 18px 40px -14px rgba(168,85,247,.4); }
-    .hub-card .ic { font-size: 1.6rem; }
-    .hub-card h2 { font-size: 1.02rem; color: #fff; margin: 10px 0 6px; font-weight: 900; }
-    .hub-card p { font-size: .85rem; color: var(--text-body); }
-    .hub-card .more { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--primary-glow); }
-    @media (prefers-reduced-motion: reduce) { .hub-card, .rel-link { transition: none; } }
 </style>
+<link rel="stylesheet" href="css/guias.css?v=1">
 </head>
 <body>
+<div id="g-progress" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="public-nav">
@@ -234,24 +211,36 @@
         </div>
     </nav>
 
-    <header class="legal-hero art-hero">
-        <span class="legal-eyebrow">Guía de estudio</span>
+    <header class="legal-hero art-hero g-hero">
+        <span class="g-orb a"></span><span class="g-orb b"></span>
+        <div class="g-hero-ico">📋</div>
+        <span class="legal-eyebrow">Guía de estudio interactiva</span>
         <h1>Cómo resolver un caso clínico: método paso a paso</h1>
-        <p class="legal-meta">Actualizado el 10 de octubre de 2026 · Lectura de 4 minutos</p>
+        <p class="legal-meta">Actualizado el 10 de octubre de 2026</p>
+        <div class="g-chips"><span class="g-chip">Datos clave</span><span class="g-chip">Diferenciales</span><span class="g-chip">Sesgos</span><span class="g-chip">Comunicación</span></div>
     </header>
 
     <main>
         <a class="back-link" href="guias.html">← Todas las guías</a>
-        <div class="glass-box summary"><p>Un caso clínico se resuelve mejor con un orden fijo. Seguir siempre la misma secuencia evita saltar a una conclusión y te ayuda a justificar cada decisión.</p><div class="art-toc"><a href="#s1">Reconocer los datos clave</a><a href="#s2">Agruparlos en un síndrome o problema</a><a href="#s3">Pensar diagnósticos diferenciales</a><a href="#s4">Elegir estudios y conducta inicial</a><a href="#s5">Comunicar y documentar</a><a href="#s6">Cómo te ayuda NikaMed</a></div></div>
-        <div class="legal-card" id="s1"><h2>1. Reconocer los datos clave</h2><p>Separá lo que importa: edad, sexo, motivo de consulta, tiempo de evolución, antecedentes, signos vitales y hallazgos del examen. Preguntate qué dato cambia la conducta.</p></div>
-        <div class="legal-card" id="s2"><h2>2. Agruparlos en un síndrome o problema</h2><p>En lugar de enumerar síntomas, agrupalos en un problema (por ejemplo, un dolor abdominal agudo con signos peritoneales) que te permita razonar.</p></div>
-        <div class="legal-card" id="s3"><h2>3. Pensar diagnósticos diferenciales</h2><p>Empezá por lo más probable y por lo más grave que no podés dejar pasar. Justificá por qué una opción sí y otra no, con los datos del caso.</p></div>
-        <div class="legal-card" id="s4"><h2>4. Elegir estudios y conducta inicial</h2><ul><li>Priorizá la estabilidad del paciente antes de completar el diagnóstico.</li><li>Pedí solo los estudios que cambian la conducta.</li><li>Indicá el tratamiento inicial, el lugar de atención y las pautas de alarma.</li></ul></div>
-        <div class="legal-card" id="s5"><h2>5. Comunicar y documentar</h2><p>Explicale al paciente lo que sucede con palabras simples y dejá registrado el razonamiento y la conducta. En un examen oral o ECOE, decirlo en voz alta es parte de la respuesta.</p></div>
-        <div class="legal-card" id="s6"><h2>Cómo te ayuda NikaMed</h2><p>Los casos clínicos de NikaMed te piden resolver cada etapa y te muestran una respuesta modelo con sus fuentes. Con NikaMed+, un chat con paciente y evaluador por IA permite practicar la entrevista y recibir una corrección orientativa.</p></div>
-        <div class="legal-card cta-card"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
-        <div class="legal-card"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a><a class="rel-link" href="guia-preguntas-choice-medicina.html">Cómo resolver preguntas choice de Medicina<span>Estrategias para leer el enunciado y descartar distractores.</span></a><a class="rel-link" href="guia-pfo-practica-final-obligatoria.html">PFO (Práctica Final Obligatoria): qué es y cómo prepararte<span>Qué se espera en 6.º año y cómo organizar el estudio.</span></a></div></div>
-        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada o la evaluación de tu cátedra.</p>
+        <div class="glass-box summary g-rv"><p>Un caso clínico se resuelve mejor con un orden fijo. Seguir siempre la misma secuencia evita saltar a una conclusión y te ayuda a justificar cada decisión.</p><nav class="art-toc" aria-label="Contenido"><a href="#s1">Los cinco pasos</a><a href="#s2">Sesgos que te hacen errar</a><a href="#s3">Malas noticias: el protocolo SPIKES</a><a href="#s4">Poné a prueba lo aprendido</a></nav></div>
+        <div class="legal-card g-sec g-rv" id="s1"><h2><span class="num">1</span>Los cinco pasos</h2>
+                <ol class="g-steps"><li class="g-rv"><span class="n">1</span><b>Reconocer los datos clave</b><span>Edad, sexo, motivo de consulta, evolución, antecedentes, signos vitales y hallazgos. ¿Qué dato cambia la conducta?</span></li><li class="g-rv"><span class="n">2</span><b>Agruparlos en un problema o síndrome</b><span>En lugar de enumerar síntomas, definí el problema que te permite razonar.</span></li><li class="g-rv"><span class="n">3</span><b>Pensar diagnósticos diferenciales</b><span>Primero lo más probable y lo más grave que no podés dejar pasar; justificá cada uno con datos del caso.</span></li><li class="g-rv"><span class="n">4</span><b>Elegir estudios y conducta inicial</b><span>Priorizá la estabilidad del paciente y pedí solo los estudios que cambian la conducta.</span></li><li class="g-rv"><span class="n">5</span><b>Comunicar y documentar</b><span>Explicá con palabras simples y dejá registrado el razonamiento y la conducta.</span></li></ol>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s2"><h2><span class="num">2</span>Sesgos que te hacen errar</h2>
+                <p>Gran parte de los errores diagnósticos tienen que ver con el razonamiento, no con el conocimiento (Croskerry, 2003). Conocer los sesgos ayuda a frenarlos:</p>
+                <div class="g-acord"><details><summary>Anclaje<span class="ch">▾</span></summary><div class="body">Quedarte con la primera impresión aunque aparezcan datos que no la sostienen.</div></details><details><summary>Cierre prematuro<span class="ch">▾</span></summary><div class="body">Dejar de buscar cuando encontraste «una» explicación.</div></details><details><summary>Sesgo de confirmación<span class="ch">▾</span></summary><div class="body">Buscar solo lo que confirma lo que pensás y descartar lo que lo contradice.</div></details><details><summary>Cómo frenarlos<span class="ch">▾</span></summary><div class="body">Preguntate: «¿qué más podría ser?» y «¿qué dato no me cierra?» antes de decidir.</div></details></div>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s3"><h2><span class="num">3</span>Malas noticias: el protocolo SPIKES</h2>
+                <p>En una estación de comunicación, el protocolo SPIKES ordena la conversación en seis pasos:</p>
+                <ol class="g-steps"><li class="g-rv"><span class="n">1</span><b>S · Setting</b><span>Preparar el lugar: privacidad, sentarse, sin interrupciones.</span></li><li class="g-rv"><span class="n">2</span><b>P · Perception</b><span>Preguntar qué sabe y qué entiende el paciente.</span></li><li class="g-rv"><span class="n">3</span><b>I · Invitation</b><span>Averiguar cuánta información quiere recibir.</span></li><li class="g-rv"><span class="n">4</span><b>K · Knowledge</b><span>Dar la información en lenguaje simple y en porciones.</span></li><li class="g-rv"><span class="n">5</span><b>E · Emotions</b><span>Reconocer y responder con empatía a las emociones.</span></li><li class="g-rv"><span class="n">6</span><b>S · Strategy</b><span>Resumir y acordar los pasos siguientes.</span></li></ol>
+            </div>
+        <div class="legal-card g-sec g-rv" id="s4"><h2><span class="num">4</span>Poné a prueba lo aprendido</h2>
+                <div class="g-quiz"><div class="g-q-head"><span class="g-q-count"></span><span>Quiz rápido</span></div><div class="g-q-bar"><i></i></div><div class="g-q-body"></div><script type="application/json">[{"q": "Encontrás una explicación posible y dejás de buscar otras. ¿Qué sesgo es?", "o": ["Anclaje", "Cierre prematuro", "Sesgo de confirmación", "Ninguno"], "c": 1, "e": "El cierre prematuro es dejar de considerar alternativas al encontrar una explicación."}, {"q": "En SPIKES, la «P» corresponde a…", "o": ["Plan de tratamiento", "Perception: preguntar qué sabe el paciente", "Pronóstico", "Prescripción"], "c": 1, "e": "La P es Perception: explorar qué entiende el paciente de su situación."}, {"q": "¿Qué priorizás al elegir la conducta inicial?", "o": ["Completar todos los estudios", "La estabilidad del paciente", "Confirmar el diagnóstico exacto", "Derivar siempre"], "c": 1, "e": "La estabilidad del paciente va primero; los estudios se piden si cambian la conducta."}]</script></div>
+            </div>
+        <div class="legal-card g-sec g-rv"><h2><span class="num">★</span>Fuentes y referencias</h2><ul class="g-src"><li>Croskerry P. The importance of cognitive errors in diagnosis and strategies to minimize them. <em>Academic Medicine</em> 2003;78(8):775-780.</li><li>Baile WF, Buckman R, Lenzi R, et al. SPIKES: a six-step protocol for delivering bad news. <em>The Oncologist</em> 2000;5(4):302-311.</li><li>Ministerio de Salud de la Nación. <em>Guías de práctica clínica nacionales</em> (sección de guías en argentina.gob.ar/salud): por ejemplo, atención prenatal de bajo riesgo (Res. 4173/2023), prevención cardiovascular (2023), diabetes mellitus tipo 2 (2019) y EPOC. Consultá siempre la guía nacional vigente de cada patología.</li></ul></div>
+        <div class="legal-card cta-card g-rv"><h2>Practicá lo que acabás de leer</h2><p>Armá tu cuenta en NikaMed y practicá con simuladores, bancos de preguntas y casos de cátedra.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezá gratis</a></div>
+        <div class="legal-card g-rv"><h2>Guías relacionadas</h2><div class="rel-grid"><a class="rel-link" href="guia-ecoe-medicina.html">ECOE en Medicina: qué es y cómo prepararlo<span>Cómo funciona el examen por estaciones y cómo entrenarlo.</span></a><a class="rel-link" href="guia-preguntas-choice-medicina.html">Cómo resolver preguntas choice de Medicina<span>Estrategias para leer el enunciado y descartar distractores.</span></a><a class="rel-link" href="guia-pfo-practica-final-obligatoria.html">PFO (Práctica Final Obligatoria): qué es y cómo prepararte<span>Qué se espera en 6.º año, con un reglamento real como ejemplo.</span></a></div></div>
+        <p class="legal-meta" style="text-align:center; margin-top:18px;">Material educativo orientativo. No constituye consejo médico ni reemplaza la formación supervisada, las guías de práctica clínica vigentes ni la evaluación de tu cátedra.</p>
     </main>
 
     <!-- FOOTER INSTITUCIONAL -->
@@ -298,5 +287,6 @@
         </div>
     </footer>
 
+<script src="js/guias.js?v=1" defer></script>
 </body>
 </html>
