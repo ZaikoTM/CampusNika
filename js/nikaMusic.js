@@ -607,7 +607,7 @@ const NikaMusic = (() => {
     // Esc oculta la ventana (si algo suena queda la barra minimizada); ✕ la cierra y detiene la música
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && abierto && !minimizado) { if (fuente) minimizar(); else cerrar(); } });
     window.addEventListener('nika:alerta-sonido', () => duck(2600));
-    window.addEventListener('nika:music-share', () => { ultPub = '\u0000'; publicar(); render(); });
+    window.addEventListener('nika:music-share', () => { ultPub = '\u0000'; if (localStorage.getItem(K_SHARE) === '0') extActual = null; publicar(); render(); consultarExterno(); });
     window.addEventListener('resize', () => { acomodarPosicion(); acoplarEmbed(); posicionPill(); });
     window.addEventListener('pagehide', () => { saliendo = true; guardarSesion(); });
 
@@ -736,8 +736,35 @@ const NikaMusic = (() => {
 
   // ---- actividad: lo que escuchás aparece en tu estado ante tus amigos (como Discord), con opción para ocultarlo ----
   let ultPub = '';
+  // Lo que suena en la app de Spotify (otro dispositivo de la cuenta conectada): se consulta cada tanto
+  let extActual = null, extTimer = null, extFallos = 0;
+  async function consultarExterno() {
+    if (document.hidden) return;
+    let compartir = true; try { compartir = localStorage.getItem(K_SHARE) !== '0'; } catch (_) {}
+    if (!compartir || !leerTokens() || (fuente && sonando)) {
+      if (extActual) { extActual = null; ultPub = '\u0001'; publicar(); }
+      return;
+    }
+    try {
+      const r = await api('/me/player/currently-playing?additional_types=track');
+      extFallos = 0;
+      const it = r && r.is_playing && r.item && (r.currently_playing_type === 'track' || r.item.type === 'track') ? r.item : null;
+      const nuevo = it ? { t: String(it.name || '').slice(0, 80), a: String((it.artists || []).map((x) => x.name).join(', ')).slice(0, 80), o: 'spotify' } : null;
+      const k = (x) => (x ? x.t + '|' + x.a : '');
+      if (k(nuevo) !== k(extActual)) { extActual = nuevo; ultPub = '\u0001'; publicar(); }
+    } catch (_) {
+      if (++extFallos >= 4) { clearInterval(extTimer); extTimer = null; extActual = null; }   // sesión vencida o cuenta no habilitada: se deja de insistir
+    }
+  }
+  function iniciarSondeoExterno() {
+    if (extTimer || !leerTokens()) return;
+    extTimer = setInterval(consultarExterno, 12000);
+    setTimeout(consultarExterno, 2500);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) consultarExterno(); });
+  }
+
   function datosMusica() {
-    if (!fuente || !sonando) return null;
+    if (!fuente || !sonando) return extActual;   // si no suena nada en NikaMusic, vale lo que suena en tu app de Spotify
     const rec = (t) => String(t || '').slice(0, 80);
     if (fuente.tipo === 'sdk') {
       const tr = estado && estado.track_window && estado.track_window.current_track;
@@ -1008,6 +1035,7 @@ const NikaMusic = (() => {
     construir();
     decorarBotones();
     restaurarSesion();
+    iniciarSondeoExterno();
     // Si la música de tu cuenta estaba sonando al cambiar de página, el reproductor se reconecta y la retoma
     if (leerTokens() && localStorage.getItem(K_ACTIVA) === '1') cargarSdk();
   }
