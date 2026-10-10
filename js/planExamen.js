@@ -84,7 +84,7 @@
       S.catalogo.pfo = (j.units || []).map((u) => ({ id: u.etiqueta || ('Módulo ' + u.number), titulo: u.title, temas: (u.contents || []).map(String) }));
     } catch (_) { S.catalogo.pfo = []; }
     try {
-      const nombres = ['gineco_integrador_up1_3', 'gineco_final_up1_4', 'gineco_unidad4_final', 'cirugia_parcial1_up1_5', 'cirugia_parcial2_up6_11', 'cirugia_final_up1_11', 'siam_parcial1_up1_5', 'siam_parcial2_up6_9', 'siam_final_up1_9'];
+      const nombres = ['gineco_integrador_up1_3', 'gineco_final_up1_4', 'cirugia_parcial1_up1_5', 'cirugia_parcial2_up6_11', 'cirugia_final_up1_11', 'siam_parcial1_up1_5', 'siam_parcial2_up6_9', 'siam_final_up1_9'];
       S.plantillas = (await Promise.all(nombres.map((n) => fetch('data/planes/' + n + '.json').then((r) => (r.ok ? r.json() : null)).catch(() => null)))).filter(Boolean);
     } catch (_) { S.plantillas = []; }
     S.catalogo._ok = true;
@@ -580,66 +580,170 @@
     return `<div class="pe-ctx pe-rv">📘 Vas a usar la <b>${esc(T.titulo)}</b> (${T.dias.length} días). Trae sus temas, prioridades, datos duros y casos; las <b>horas salen de tu ritmo</b>: si estudiás más por día, terminás antes y te sobran días de repaso. ${esc(T.nota || '')}
       <button type="button" class="pe-mini" data-act="quitar-plantilla">Armar el mío en lugar de la guía</button></div>`;
   }
-  // Vista previa de una guía sugerida: qué se prepara, cómo es un día y el recorrido completo; con selector de días.
+  // Vista previa de una guía sugerida: resumen, calendario real, recorrido y herramientas conectadas.
+  const PALETA_UP = ['#0ea5e9', '#7c3aed', '#ec4899', '#f97316', '#10b981', '#eab308', '#ef4444', '#14b8a6', '#6366f1', '#84cc16', '#f43f5e'];
+  const HERRAMIENTAS = {
+    conectado: [
+      ['📅', 'Calendario de eventos', 'El examen queda agendado en tu calendario y aparece en “Próximos eventos” del campus, con la alerta de cuenta regresiva y el botón “Ver plan”.'],
+      ['🚦', 'Semáforo de ritmo', 'Compara lo que cumpliste con lo planificado y te avisa si vas a llegar: verde, amarillo o rojo, también en el campus.'],
+      ['📚', 'Sala de estudio', 'Cada día tiene un acceso directo a la unidad que toca estudiar, con su bibliografía y materiales.'],
+      ['🩺', 'Simulador Choice', 'Choices de la unidad del día y simulacro del examen completo (parcial o final), gratis.'],
+      ['✍️', 'Examen escrito con IA', 'Respondés por escrito y recibís corrección con rúbrica (NikaMed+; con plan gratis tenés usos de prueba).'],
+      ['📆', 'Reorganizar pendientes', 'Si un día se te complica, mové los temas que faltaron a otros días con un toque o repartilos solos.'],
+      ['📴', 'Sin conexión', 'El plan y la guía se guardan en tu dispositivo: podés tildar temas aunque no tengas señal.'],
+    ],
+    juntos: [
+      ['🍅', 'Pomodoro', 'Estudiá cada bloque del día con el Pomodoro de la sala de estudio: te muestra cuánto tiempo real le dedicás a cada unidad.'],
+      ['🏆', 'Liga Pomodoro y racha', 'Las horas de estudio suman a tu racha diaria y a tu posición en la Liga.'],
+      ['📊', 'Cierre del día', 'Al terminar, compará lo planificado con lo cumplido y ajustá el día siguiente.'],
+      ['📹', 'Sala de Ateneos', 'Estudiá acompañado en video con hasta 4 compañeros y ensayen la parte oral entre ustedes.'],
+      ['🛡️', 'Modo Guardia', 'Descargá tus salas de estudio y bancos de preguntas para repasar sin conexión.'],
+      ['🧠', 'Asistente Nika', 'Preguntale dudas del tema del día con la bibliografía de tu cátedra.'],
+    ],
+  };
   function modalPrevia(id) {
     const T = plantillaPorId(id); if (!T) return;
-    const contenido = T.dias.slice(0, -1);
-    const temas = T.dias.reduce((a, d) => a + (d.temas || []).length, 0);
-    const horasC = contenido.reduce((a, d) => a + (d.horas || 0), 0);
-    const porUnidad = [];
-    contenido.forEach((d) => { const u = (String(d.unidad || '').split(' + ')[0]) || 'Otros'; let g = porUnidad.find((x) => x.u === u); if (!g) { g = { u, dias: 0, temas: 0 }; porUnidad.push(g); } g.dias++; g.temas += (d.temas || []).length; });
-    const muestra = contenido.find((d) => (d.temas || []).length >= 3 && (d.datos_duros || []).length) || contenido.find((d) => (d.temas || []).length >= 2) || contenido[0];
-    const w = S.wiz;
-    const diasEst = (w && w.fecha_examen && w.inicio) ? Math.max(3, planDeFechas(Object.assign({}, w, { repaso: 0 })).todos.length) : T.dias.length;
-    const ini = Math.min(60, Math.max(3, T.dias.length));
-    const { m, cerrar } = modal(`<h3>👁️ Así sería este plan</h3>
-      <p class="pe-sub"><b>${esc(T.titulo)}</b> · ${esc(T.subtitulo || '')}</p>
-      <div class="pe-prev-kpis">
-        <div><b>${T.dias.length}</b><span>días en la guía</span></div><div><b>${temas}</b><span>temas</span></div><div><b>${Math.round(horasC)}</b><span>horas de estudio</span></div>
-        <div><b>${porUnidad.length}</b><span>${porUnidad.length === 1 ? 'unidad' : 'unidades'}</span></div></div>
-      <p class="pe-sub">${esc(T.descripcion || '')}</p>
-      <h4 class="pe-prev-h">📚 Qué vas a preparar</h4>
-      <div class="pe-prev-uni">${porUnidad.map((g) => `<span class="pe-prev-chip"><b>${esc(g.u)}</b> · ${g.dias} ${g.dias === 1 ? 'día' : 'días'} · ${g.temas} temas</span>`).join('')}</div>
-      <h4 class="pe-prev-h">🗓️ Cómo es un día</h4>
-      <div class="pe-prev-dia">
-        <b>${esc(muestra.titulo)}</b><small>${esc(muestra.unidad || '')} · ${fmtH(muestra.horas || 0)}</small>
-        ${(muestra.agenda || []).length ? `<ul>${muestra.agenda.map((a) => `<li><b>${esc(a.bloque)}</b>${a.horas ? ' · ' + esc(a.horas) : ''}: ${esc((a.tarea || '').slice(0, 110))}${(a.tarea || '').length > 110 ? '…' : ''}</li>`).join('')}</ul>` : ''}
-        <div class="pe-prev-temas">${(muestra.temas || []).slice(0, 5).map((t) => `<span><i style="--c:${(PRIO[t.prio] || PRIO.media).c}">${(PRIO[t.prio] || PRIO.media).t}</i>${esc(t.texto.length > 70 ? t.texto.slice(0, 68) + '…' : t.texto)}</span>`).join('')}</div>
-        <small>Cada día trae sus temas con prioridad, datos duros, caso o práctica y un checklist de cierre.</small>
-      </div>
-      <h4 class="pe-prev-h">📋 Recorrido de la guía</h4>
-      <div class="pe-prev-lista">${T.dias.map((d, i) => `<details><summary><span class="n">${i + 1}</span><span class="t">${esc(d.titulo)}</span><span class="h">${(d.temas || []).length} temas</span></summary>
-        <ul>${(d.temas || []).slice(0, 8).map((t) => `<li>${esc(t.texto)}</li>`).join('')}${(d.temas || []).length > 8 ? `<li>… y ${(d.temas || []).length - 8} más</li>` : ''}</ul></details>`).join('')}</div>
-      <h4 class="pe-prev-h">⚙️ Hacelo en los días que quieras</h4>
-      <p class="pe-sub">La guía está pensada para <b>${T.dias.length} días</b>, pero la podés estirar o comprimir. Probá cuántos días tenés:</p>
-      <div class="pe-prev-slider">
-        <input type="range" id="pe-prev-dias" min="3" max="60" value="${ini}" aria-label="Cantidad de días">
-        <output id="pe-prev-out"></output>
-      </div>
-      <p class="pe-estim" id="pe-prev-msg"></p>
-      <div class="pe-modal-acc"><button type="button" class="pe-btn pe-btn--pri" data-m="usar">✨ Usar esta guía</button><button type="button" class="pe-btn" data-cerrar>Cerrar</button></div>`, 'ancho pe-prev');
-    const sl = m.querySelector('#pe-prev-dias'), out = m.querySelector('#pe-prev-out'), msg = m.querySelector('#pe-prev-msg');
-    const pintar = () => {
-      const n = +sl.value, hd = horasC / Math.max(1, n - 1);
-      out.textContent = `${n} ${n === 1 ? 'día' : 'días'}`;
-      const horasTxt = fmtH(Math.round(hd * 2) / 2);
-      let txt;
-      if (n === T.dias.length) txt = `Con ${n} días es la guía tal cual: unas ${horasTxt} por día.`;
-      else if (n > T.dias.length) txt = `Con ${n} días estudiás más tranquilo: unas ${horasTxt} por día y te sobran ${n - T.dias.length} días para repasar antes del simulacro final.`;
-      else txt = `Con ${n} días necesitás unas ${horasTxt} por día: los días de la guía se juntan para que entre todo el contenido.`;
-      msg.textContent = txt; msg.classList.toggle('mal', hd > 14);
+    const base = S.wiz || {}, hoy = hoyISO();
+    const est = {
+      n: Math.min(60, Math.max(3, base.fecha_examen && base.inicio ? difDias(base.fecha_examen, base.inicio) : T.dias.length)),
+      inicio: base.inicio || hoy, descanso: base.descanso != null ? base.descanso : -1, paso: 0, sel: null,
     };
-    sl.addEventListener('input', pintar); pintar();
-    m.addEventListener('click', (e) => {
-      if (!e.target.closest('[data-m="usar"]')) return;
-      const n = +sl.value, w2 = S.wiz;
-      cerrar();
-      if (!w2) return;
-      // si el usuario movió el selector y el plan no está atado a un examen del calendario, la fecha del examen se ajusta a sus días
-      if (n !== T.dias.length && !w2.evento_id) w2.fecha_examen = sumaDias(w2.inicio, n + 1);
+    const PASOS = [['🎯', 'Qué vas a preparar'], ['📅', 'Tu calendario'], ['🔎', 'Un día por dentro'], ['📋', 'Todo el recorrido'], ['🎓', 'Practicá'], ['🧰', 'Herramientas'], ['✅', 'Empezá']];
+    const colorUP = (u) => { const i = (T.unidades || []).indexOf(String(u || '').split(' + ')[0]); return i >= 0 ? PALETA_UP[i % PALETA_UP.length] : '#94a3b8'; };
+    const armar = () => {
+      const w = { materia: T.materia, plantilla: T.id, unidades: T.unidades.slice(), inicio: est.inicio, fecha_examen: sumaDias(est.inicio, est.n), horasLV: 4, horasFS: 3, descanso: est.descanso, repaso: 1, extra: '', auto: true, titulo: T.titulo };
+      aplicarRecomendado(w, 1);
+      const plan = planDesdePlantilla(w);
+      if (plan) plan.practica = T.practica || null;
+      return { w, plan };
+    };
+    const { m, cerrar } = modal(`<div class="pe-tour-top"><span class="pe-tour-k">Recorrido virtual</span><h3>${esc(T.titulo)}</h3><p class="pe-sub">${esc(T.subtitulo || '')}</p></div>
+      <div class="pe-tour-pasos" role="tablist">${PASOS.map((p, i) => `<button type="button" role="tab" data-i="${i}" class="${i === 0 ? 'on' : ''}"><i>${p[0]}</i><span>${p[1]}</span></button>`).join('')}</div>
+      <div class="pe-tour-bar"><i id="pe-tour-fill"></i></div>
+      <div class="pe-prev-ctl">
+        <label>Empezás el<input type="date" id="pe-pv-ini" value="${est.inicio}" min="${hoy}"></label>
+        <label class="grow">¿En cuántos días lo querés hacer?<span class="pe-prev-slider"><input type="range" id="pe-pv-n" min="3" max="60" value="${est.n}"><output id="pe-pv-out"></output></span></label>
+        <label>Día de descanso<select id="pe-pv-desc"><option value="-1">Ninguno</option>${DIAS_LARGO.map((n, i) => `<option value="${i}">${n[0].toUpperCase() + n.slice(1)}</option>`).join('')}</select></label>
+      </div>
+      <div id="pe-prev-body" class="pe-prev-body"></div>
+      <div class="pe-tour-nav"><button type="button" class="pe-btn" data-t="ant">← Anterior</button><span id="pe-tour-pos"></span>
+        <button type="button" class="pe-btn pe-btn--pri" data-t="sig">Siguiente →</button></div>`, 'ancho pe-prev');
+    const body = m.querySelector('#pe-prev-body'), sl = m.querySelector('#pe-pv-n'), out = m.querySelector('#pe-pv-out');
+    m.querySelector('#pe-pv-desc').value = String(est.descanso);
+
+    const kpis = (plan) => {
+      const conT = plan.dias.filter((d) => (d.temas || []).some((t) => t.unidad && t.unidad !== 'Integración'));
+      const ult = conT[conT.length - 1], repaso = ult ? plan.dias.filter((d) => d.fecha > ult.fecha).length : 0;
+      return { temas: plan.dias.reduce((a, d) => a + (d.temas || []).length, 0), horas: Math.round(horasPlan(plan)), hdia: Math.round(horasPlan(plan) / Math.max(1, plan.dias.length) * 2) / 2, fin: ult ? ult.fecha : null, repaso };
+    };
+    const sPrep = (plan) => {
+      const k = kpis(plan);
+      const porU = []; plan.dias.forEach((d) => { const u = (String(d.unidad || '').split(' + ')[0]) || 'Otros'; let g = porU.find((x) => x.u === u); if (!g) { g = { u, dias: 0 }; porU.push(g); } g.dias++; });
+      return `<div class="pe-prev-kpis">
+          <div><b>${plan.dias.length}</b><span>días de estudio</span></div><div><b>${k.temas}</b><span>temas</span></div><div><b>${k.horas}</b><span>horas en total</span></div><div><b>${fmtH(k.hdia)}</b><span>por día aprox.</span></div></div>
+        <p class="pe-estim">${k.fin ? `⏳ Empezás el <b>${fmtLarga(plan.dias[0].fecha)}</b>, terminás los temas el <b>${fmtLarga(k.fin)}</b> y te ${k.repaso === 1 ? 'queda' : 'quedan'} <b>${k.repaso} ${k.repaso === 1 ? 'día' : 'días'}</b> de repaso hasta el simulacro final.` : ''}${k.hdia > 12 ? '<br>⚠️ Son muchas horas por día: probá con más días para estudiar más tranquilo.' : ''}</p>
+        <p class="pe-sub">${esc(T.descripcion || '')}</p>
+        <h4 class="pe-prev-h">📚 Unidades que vas a preparar</h4>
+        <div class="pe-prev-uni">${porU.map((g) => `<span class="pe-prev-chip" style="--c:${colorUP(g.u)}"><i></i><b>${esc(g.u)}</b> · ${g.dias} ${g.dias === 1 ? 'día' : 'días'}</span>`).join('')}</div>
+        <p class="pe-sub" style="margin-top:12px">${esc(T.nota || '')}</p>`;
+    };
+    const sCal = (plan) => {
+      const mapa = {}; plan.dias.forEach((d, i) => { mapa[d.fecha] = { d, n: i + 1 }; });
+      const primero = plan.dias[0].fecha, ex = plan.fecha_examen, a0 = aFecha(primero), a1 = aFecha(ex);
+      const meses = []; for (let y = a0.getFullYear(), mm = a0.getMonth(); y < a1.getFullYear() || (y === a1.getFullYear() && mm <= a1.getMonth()); mm++) { if (mm > 11) { mm = 0; y++; } meses.push([y, mm]); if (meses.length >= 4) break; }
+      const grids = meses.map(([y, mm]) => {
+        const off = (new Date(y, mm, 1).getDay() + 6) % 7, nd = new Date(y, mm + 1, 0).getDate();
+        let c = ''; for (let i = 0; i < off; i++) c += '<i class="v"></i>';
+        for (let n = 1; n <= nd; n++) {
+          const f = iso(new Date(y, mm, n)), x = mapa[f];
+          const u = x ? (String(x.d.unidad || '').split(' + ')[0]) : '';
+          const integ = x && x.d.unidad === 'Integración';
+          c += x ? `<button type="button" class="d on ${integ ? 'integ' : ''} ${est.sel === f ? 'sel' : ''}" data-f="${f}" style="--c:${integ ? '#ef4444' : colorUP(u)}" title="${esc(x.d.titulo)}"><b>${n}</b><small>Día ${x.n}</small></button>`
+            : `<span class="d ${f === ex ? 'ex' : ''} ${aFecha(f).getDay() === est.descanso && f > primero && f < ex ? 'desc' : ''}"><b>${n}</b>${f === ex ? '<small>Examen</small>' : ''}</span>`;
+        }
+        return `<div class="pe-pv-mes"><div class="pe-pv-mh">${MESES[mm][0].toUpperCase() + MESES[mm].slice(1)} ${y}</div><div class="pe-pv-g"><u>L</u><u>M</u><u>M</u><u>J</u><u>V</u><u>S</u><u>D</u>${c}</div></div>`;
+      }).join('');
+      const sel = est.sel && mapa[est.sel];
+      const det = sel ? `<div class="pe-pv-det"><b>Día ${sel.n} · ${fmtCorta(sel.d.fecha)}</b><span>${esc(sel.d.titulo)}</span><small>${fmtH(sel.d.horas || 0)} · ${(sel.d.temas || []).length} temas</small>
+          <ul>${(sel.d.temas || []).slice(0, 6).map((t) => `<li>${esc(t.texto.length > 80 ? t.texto.slice(0, 78) + '…' : t.texto)}</li>`).join('')}</ul></div>`
+        : '<div class="pe-pv-det vacio">Tocá un día del calendario para ver qué estudiarías ese día. Así quedaría tu plan, con tu fecha de inicio y tus días.</div>';
+      const unis = (T.unidades || []).map((u) => `<span class="pe-prev-chip" style="--c:${colorUP(u)}"><i></i>${esc(u)}</span>`).join('');
+      return `<p class="pe-sub">Cada color es una unidad. Los días de descanso quedan libres y el último día es el simulacro final.</p><div class="pe-pv-cal">${grids}</div>${det}<div class="pe-prev-uni" style="margin-top:10px">${unis}<span class="pe-prev-chip" style="--c:#ef4444"><i></i>Integración / simulacro</span></div>`;
+    };
+    const sDia = (plan) => {
+      const mu = plan.dias.find((d) => (d.temas || []).length >= 3 && (d.datos_duros || []).length && d.unidad !== 'Integración') || plan.dias[0];
+      const ag = (mu.agenda || []).map((a, i) => `<div class="pe-dia-ag" style="--i:${i}"><span>${esc(a.bloque)}${a.horas ? ' · ' + esc(a.horas) : ''}</span><p>${esc((a.tarea || '').slice(0, 130))}${(a.tarea || '').length > 130 ? '…' : ''}</p></div>`).join('');
+      const tm = (mu.temas || []).slice(0, 5).map((t, i) => `<li style="--i:${i}"><span class="bx"></span><span class="tx">${esc(t.texto.length > 80 ? t.texto.slice(0, 78) + '…' : t.texto)}${t.trampa ? `<small>⚠️ ${esc(t.trampa.slice(0, 90))}${t.trampa.length > 90 ? '…' : ''}</small>` : ''}</span><i class="pr" style="--c:${(PRIO[t.prio] || PRIO.media).c}">${(PRIO[t.prio] || PRIO.media).t}</i></li>`).join('');
+      const dd = (mu.datos_duros || []).slice(0, 3).map((x) => `<li>${esc(x.length > 110 ? x.slice(0, 108) + '…' : x)}</li>`).join('');
+      return `<p class="pe-sub">Así se ve un día adentro del plan. Todo es tildable y el semáforo te avisa si vas a llegar.</p>
+        <div class="pe-dia-mock"><div class="pe-dm-h"><span class="n"><small>DÍA</small>${plan.dias.indexOf(mu) + 1}</span><div><b>${esc(mu.titulo)}</b><small>${fmtCorta(mu.fecha)} · ${fmtH(mu.horas || 0)} · ${esc(mu.unidad || '')}</small></div></div>
+          ${mu.caso ? `<div class="pe-dm-caso"><b>🧪 Caso o práctica del día</b><p>${esc(mu.caso.slice(0, 190))}${mu.caso.length > 190 ? '…' : ''}</p></div>` : ''}
+          <h5>Temas del día</h5><ul class="pe-dm-temas">${tm}</ul>
+          ${ag ? `<h5>🕒 Agenda del día</h5><div class="pe-dm-ag">${ag}</div>` : ''}
+          ${dd ? `<h5>📌 Datos duros</h5><ul class="pe-dm-dd">${dd}</ul>` : ''}
+          <h5>✅ Checklist de cierre</h5><ul class="pe-dm-temas">${(mu.checklist || []).slice(0, 3).map((c, i) => `<li style="--i:${i}"><span class="bx"></span><span class="tx">${esc(c.texto.length > 90 ? c.texto.slice(0, 88) + '…' : c.texto)}</span></li>`).join('')}</ul></div>`;
+    };
+    const sRec = (plan) => `<p class="pe-sub">Los ${plan.dias.length} días del plan, con sus fechas. Tocá uno para ver sus temas.</p><div class="pe-prev-lista">${plan.dias.map((d, i) => `<details><summary><span class="n" style="background:${d.unidad === 'Integración' ? '#ef4444' : colorUP(String(d.unidad || '').split(' + ')[0])}">${i + 1}</span><span class="t">${esc(d.titulo)}</span><span class="h">${fmtCorta(d.fecha)} · ${fmtH(d.horas || 0)}</span></summary>
+        <ul>${(d.temas || []).slice(0, 8).map((t) => `<li>${esc(t.texto)}</li>`).join('')}${(d.temas || []).length > 8 ? `<li>… y ${(d.temas || []).length - 8} más</li>` : ''}</ul></details>`).join('')}</div>`;
+    const sPrac = () => {
+      const pr = T.practica || {};
+      const label = (MODO_LABEL[pr.modulo] || {})[pr.mode] || 'el examen';
+      return `<p class="pe-sub">Estudiar es la mitad: el plan te lleva directo a practicar <b>${esc(label)}</b>.</p>
+        <div class="pe-prev-herr grande">
+          <div><i>🩺</i><b>Examen choice <span class="pe-gratis">Gratis</span></b><span>Simulá ${esc(label)} con tiempo y corrección, o resolvé los choices de la unidad del día con un toque.</span></div>
+          <div><i>✍️</i><b>Examen escrito con IA <span class="pe-plus">NikaMed+</span></b><span>Respondés por escrito y un tribunal de IA te corrige con rúbrica. Si tu plan es gratuito, te mostramos qué incluye NikaMed+ y podés usar tus usos de prueba.</span></div>
+          ${pr.mode === 'final' ? '<div><i>🗣️</i><b>Tribunal oral</b><span>El último día incluye el ensayo del caso integrador para defender el “porqué” de cada conducta en voz alta.</span></div>' : ''}
+          <div><i>🚦</i><b>Semáforo de ritmo</b><span>Mientras estudiás: <b class="v">🟢 venís a buen ritmo</b> · <b class="a">🟡 te falta un poco</b> · <b class="r">🔴 estudiá YA</b>.</span></div>
+        </div>`;
+    };
+    const sHerr = () => `<p class="pe-sub">NikaPlan no es una lista aislada: se conecta con el resto de NikaMed.</p>
+      <h4 class="pe-prev-h">🔗 Conectado al plan</h4>
+      <div class="pe-prev-herr">${HERRAMIENTAS.conectado.map((h) => `<div><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span></div>`).join('')}</div>
+      <h4 class="pe-prev-h">🤝 Para usar junto al plan</h4>
+      <div class="pe-prev-herr">${HERRAMIENTAS.juntos.map((h) => `<div><i>${h[0]}</i><b>${h[1]}</b><span>${h[2]}</span></div>`).join('')}</div>`;
+    const sFin = (plan) => {
+      const k = kpis(plan);
+      return `<div class="pe-fin-prev"><div class="big">🚀</div><h4>Listo para empezar</h4>
+        <p>Vas a preparar <b>${esc(T.titulo)}</b> en <b>${plan.dias.length} días</b> (${fmtH(k.hdia)} por día aprox.), desde el <b>${fmtLarga(plan.dias[0].fecha)}</b> hasta el <b>${fmtLarga(plan.fecha_examen)}</b>.</p>
+        <p class="pe-sub">Podés cambiar los días, el ritmo, el día de descanso y los días de repaso en el paso siguiente, y editar cualquier día cuando quieras.</p>
+        <button type="button" class="pe-btn pe-btn--pri pe-btn--lg" data-t="usar">✨ Usar esta guía con estos días</button></div>`;
+    };
+    const pintar = () => {
+      const n = est.n; out.textContent = `${n} ${n === 1 ? 'día' : 'días'}`;
+      const { plan } = armar();
+      let html;
+      if (!plan || !plan.dias.length) html = '<p class="pe-warn">Con esas fechas no se puede armar el plan. Probá con más días.</p>';
+      else html = [sPrep, sCal, sDia, sRec, sPrac, sHerr, sFin][est.paso](plan);
+      body.innerHTML = html; body.scrollTop = 0;
+      body.classList.remove('pe-tour-anim'); void body.offsetWidth; body.classList.add('pe-tour-anim');
+      m.querySelectorAll('.pe-tour-pasos button').forEach((b, i) => { b.classList.toggle('on', i === est.paso); b.classList.toggle('ok', i < est.paso); });
+      m.querySelector('#pe-tour-fill').style.width = ((est.paso + 1) / PASOS.length * 100) + '%';
+      m.querySelector('#pe-tour-pos').textContent = `Paso ${est.paso + 1} de ${PASOS.length}`;
+      m.querySelector('[data-t="ant"]').style.visibility = est.paso === 0 ? 'hidden' : 'visible';
+      const sg = m.querySelector('[data-t="sig"]'); sg.textContent = est.paso === PASOS.length - 1 ? '✨ Usar esta guía' : 'Siguiente →';
+    };
+    const usar = () => {
+      const w2 = S.wiz; cerrar(); if (!w2) return;
+      w2.inicio = est.inicio; w2.descanso = est.descanso;
+      if (!w2.evento_id) w2.fecha_examen = sumaDias(est.inicio, est.n);
       w2.plantilla = T.id; w2.unidades = T.unidades.slice(); w2.titulo = T.titulo; w2.paso = 3; w2.auto = true; aplicarRecomendado(w2, 1);
       render();
+    };
+    sl.addEventListener('input', () => { est.n = +sl.value; est.sel = null; pintar(); });
+    m.querySelector('#pe-pv-ini').addEventListener('change', (e) => { if (e.target.value) { est.inicio = e.target.value < hoy ? hoy : e.target.value; est.sel = null; pintar(); } });
+    m.querySelector('#pe-pv-desc').addEventListener('change', (e) => { est.descanso = parseInt(e.target.value, 10); est.sel = null; pintar(); });
+    m.addEventListener('click', (e) => {
+      const pb = e.target.closest('.pe-tour-pasos button'); if (pb) { est.paso = +pb.dataset.i; pintar(); return; }
+      const nb = e.target.closest('[data-t]');
+      if (nb) {
+        if (nb.dataset.t === 'ant') { est.paso = Math.max(0, est.paso - 1); pintar(); }
+        else if (nb.dataset.t === 'sig') { if (est.paso === PASOS.length - 1) usar(); else { est.paso++; pintar(); } }
+        else if (nb.dataset.t === 'usar') usar();
+        return;
+      }
+      const d = e.target.closest('.d.on'); if (d) { est.sel = d.dataset.f; pintar(); }
     });
+    pintar();
   }
   function presetsHtml(w) {
     const r = recomendar(w);
@@ -725,6 +829,12 @@
         <button type="button" class="pe-prac-card esc" data-act="escrito" data-url="${urlEscrito(pr)}"><i>✍️</i><b>Examen escrito ${free ? '🔒' : ''}</b><small>Respondé por escrito y recibí corrección con rúbrica. <span class="pe-plus">NikaMed+</span></small></button>
         ${pr.mode === 'final' ? '<div class="pe-prac-card oral"><i>🗣️</i><b>Tribunal oral</b><small>Ensayá en voz alta el caso integrador del último día: problema, fisiopatología, estudio y conducta.</small></div>' : ''}
       </div></section>`;
+  }
+  function panelHerramientas(p) {
+    const sala = p.materia === 'pfo' ? 'pfo_estudio.html' : `estudio.html?modulo=${encodeURIComponent(p.materia)}`;
+    const L = [['🍅', 'Pomodoro', sala, 'Estudiá por bloques de foco y medí el tiempo real por unidad'], ['🏆', 'Liga Pomodoro', 'liga.html', 'Tu estudio suma a la Liga y a tu racha'],
+               ['📹', 'Sala de Ateneos', 'ateneos.html', 'Estudiá acompañado en video'], ['📊', 'Cierre del día', 'campus.html', 'Compará lo planificado con lo cumplido'], ['💊', 'NikaFarma', 'nikafarma.html', 'Vademécum y scores']];
+    return `<div class="pe-herr-row pe-rv"><span class="pe-herr-t">🧰 Usalo junto al plan</span>${L.map((x) => `<a class="pe-herr" href="${x[2]}" title="${esc(x[3])}"><i>${x[0]}</i>${x[1]}</a>`).join('')}</div>`;
   }
   function modalEscrito(url) {
     if (!esFree()) { location.href = url; return; }
@@ -826,6 +936,7 @@
       ${vinc}
       ${alertaPendientes(p)}
       ${panelPractica(p)}
+      ${panelHerramientas(p)}
       <div class="pe-alerta pe-alerta--${r.nivel} pe-rv" role="status"><span class="pe-alerta-ico">${r.ico}</span><div><b>${esc(r.titulo)}</b><p>${esc(r.texto)}${r.hdia && r.nivel !== 'verde' ? ` Te quedan ${fmtH(r.falta)} en ${r.diasFalta} ${r.diasFalta === 1 ? 'día' : 'días'} (unas ${fmtH(r.hdia)} por día).` : ''}</p></div></div>
       <nav class="pe-tabs pe-rv" role="tablist">${tabs.map((t) => `<button type="button" role="tab" class="${S.vista === t[0] ? 'on' : ''}" data-act="vista" data-v="${t[0]}"><span>${t[1]}</span> ${t[2]}</button>`).join('')}
         <span class="pe-tabs-sp"></span>
