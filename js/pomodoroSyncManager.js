@@ -158,12 +158,15 @@ const PomodoroSyncManager = (function () {
         const ahora = Date.now();
         const resultado = {};
         Object.entries(presenceState).forEach(([username, metas]) => {
-            const meta = metas[0]; // solo la última pestaña/instancia
-            if (!meta) return;
-            const ts = meta.updated_at ? new Date(meta.updated_at).getTime() : 0;
+            // Una persona puede tener varias pestañas o dispositivos: se toma la instancia más reciente y,
+            // si ésta no informa música pero otra instancia vigente sí, se conserva la actividad musical.
+            const vigentes = (metas || []).filter((m) => m && (ahora - (m.updated_at ? new Date(m.updated_at).getTime() : 0)) <= STALE_MS);
             // Sin heartbeat reciente: lo tratamos como Offline aunque Supabase
             // todavía no haya limpiado su presencia (conexión cortada de golpe).
-            if (ahora - ts > STALE_MS) return;
+            if (!vigentes.length) return;
+            vigentes.sort((x, y) => new Date(y.updated_at || 0) - new Date(x.updated_at || 0));
+            const meta = Object.assign({}, vigentes[0]);
+            if (!meta.musica) { const conMusica = vigentes.find((m) => m.musica && m.musica.t); if (conMusica) meta.musica = conMusica.musica; }
             resultado[username] = meta;
         });
         return resultado;

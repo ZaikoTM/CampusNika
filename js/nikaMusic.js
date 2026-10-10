@@ -206,13 +206,36 @@ const NikaMusic = (() => {
     cont.innerHTML = '<div class="nm-vacio">Buscando...</div>';
     try {
       const r = await api('/search?type=track,album&limit=6&q=' + encodeURIComponent(q));
-      const fila = (uri, img, t1, t2, alb) => `<button type="button" class="nm-item" data-uri="${esc(uri)}" data-album="${alb ? 1 : 0}"><img src="${esc(img || '')}" alt=""><span><b>${esc(t1)}</b><small>${alb ? '💿 ' : ''}${esc(t2)}</small></span></button>`;
+      const fila = (uri, img, t1, t2, alb, ctx) => `<button type="button" class="nm-item" data-uri="${esc(uri)}" data-album="${alb ? 1 : 0}" data-ctx="${esc(ctx || '')}"><img src="${esc(img || '')}" alt=""><span><b>${esc(t1)}</b><small>${alb ? '💿 ' : ''}${esc(t2)}</small></span></button>`;
       cont.innerHTML = [
-        ...((r.tracks && r.tracks.items) || []).map((t) => fila(t.uri, t.album.images.slice(-1)[0]?.url, t.name, t.artists.map((a) => a.name).join(', '), false)),
+        ...((r.tracks && r.tracks.items) || []).map((t) => fila(t.uri, t.album.images.slice(-1)[0]?.url, t.name, t.artists.map((a) => a.name).join(', '), false, t.album && t.album.uri)),
         ...((r.albums && r.albums.items) || []).map((a) => fila(a.uri, a.images.slice(-1)[0]?.url, a.name, a.artists.map((x) => x.name).join(', '), true)),
       ].join('') || '<div class="nm-vacio">Sin resultados.</div>';
-      cont.querySelectorAll('.nm-item').forEach((b) => b.addEventListener('click', () => reproducirSdk(b.dataset.album === '1' ? { context_uri: b.dataset.uri } : { uris: [b.dataset.uri] })));
+      cont.querySelectorAll('.nm-item').forEach((b) => b.addEventListener('click', () => (b.dataset.album === '1' ? abrirAlbum(b.dataset.uri, q) : (b.dataset.ctx ? reproducirSdk({ context_uri: b.dataset.ctx, offset: { uri: b.dataset.uri } }) : reproducirSdk({ uris: [b.dataset.uri] })))));
     } catch (err) { cont.innerHTML = `<div class="nm-vacio">${esc(err.message)}</div>`; }
+  }
+
+  // Álbum: lista de canciones para elegir una (o reproducir todo desde el principio)
+  async function abrirAlbum(uri, consulta) {
+    const cont = $('#nm-res'); if (!cont) return;
+    const id = String(uri).split(':').pop();
+    cont.innerHTML = '<div class="nm-vacio">Cargando álbum...</div>';
+    cont.classList.add('nm-album-vista');
+    try {
+      const al = await api('/albums/' + encodeURIComponent(id));
+      const items = (al && al.tracks && al.tracks.items) || [];
+      const dur = (ms) => fmt(ms);
+      cont.innerHTML = `<div class="nm-album-cab">
+          <button type="button" class="nm-atras" id="nm-alb-back" aria-label="Volver a los resultados">←</button>
+          <img src="${esc((al.images && al.images.slice(-1)[0] && al.images.slice(-1)[0].url) || '')}" alt="">
+          <span><b>${esc(al.name)}</b><small>${esc((al.artists || []).map((x) => x.name).join(', '))} · ${items.length} canciones</small></span>
+          <button type="button" class="nm-albplay" id="nm-alb-play" title="Reproducir el álbum completo">▶</button>
+        </div>
+        ${items.map((t, i) => `<button type="button" class="nm-item nm-trk" data-uri="${esc(t.uri)}"><b class="nm-n">${i + 1}</b><span><b>${esc(t.name)}</b><small>${esc((t.artists || []).map((x) => x.name).join(', '))}</small></span><em>${dur(t.duration_ms)}</em></button>`).join('')}`;
+      $('#nm-alb-back').onclick = () => { cont.classList.remove('nm-album-vista'); const q = $('#nm-q'); if (q) { q.value = consulta || q.value; buscar(); } };
+      $('#nm-alb-play').onclick = () => reproducirSdk({ context_uri: uri });
+      cont.querySelectorAll('.nm-trk').forEach((b) => b.addEventListener('click', () => reproducirSdk({ context_uri: uri, offset: { uri: b.dataset.uri } })));
+    } catch (err) { cont.classList.remove('nm-album-vista'); cont.innerHTML = `<div class="nm-vacio">${esc(err.message)}</div>`; }
   }
 
   // ============================================================ Embed de Spotify (sin login)
@@ -416,6 +439,13 @@ const NikaMusic = (() => {
       .nm-body::-webkit-scrollbar-track { background: rgba(255,255,255,.07); border-radius: 8px; }
       .nm-body::-webkit-scrollbar-thumb { background: #1db954; border-radius: 8px; border: 2px solid #0b0e13; }
       #nm-res { scrollbar-width: thin; scrollbar-color: #1db954 transparent; }
+      #nm-res.nm-album-vista { max-height: 300px; }
+      .nm-album-cab { display: flex; align-items: center; gap: 10px; padding: 4px 4px 8px; position: sticky; top: 0; background: #0f131a; z-index: 1; }
+      .nm-album-cab img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #1f2630; }
+      .nm-album-cab span { flex: 1; min-width: 0; } .nm-album-cab b { display: block; font-size: .84rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .nm-album-cab small { color: #94a3b8; font-size: .7rem; }
+      .nm-atras, .nm-albplay { border: none; cursor: pointer; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.1); color: #e2e8f0; font-size: 1rem; flex-shrink: 0; }
+      .nm-albplay { background: #1db954; color: #04130a; } .nm-atras:hover { background: rgba(255,255,255,.22); }
+      .nm-trk { align-items: center; } .nm-trk .nm-n { width: 22px; text-align: center; color: #64748b; font-size: .74rem; flex-shrink: 0; } .nm-trk em { margin-left: auto; font-style: normal; color: #64748b; font-size: .7rem; flex-shrink: 0; }
       .nm-share { display: flex; align-items: center; gap: 8px; font-size: .72rem; color: #94a3b8; cursor: pointer; padding-top: 2px; }
       .nm-share input { accent-color: #1db954; width: 15px; height: 15px; }
       #nm-fab { position: fixed; left: 16px; bottom: 18px; z-index: 9990; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(29,185,84,.55); cursor: pointer; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #14181f, #0b0e13); box-shadow: 0 12px 26px -10px rgba(0,0,0,.7), 0 0 18px -6px rgba(29,185,84,.5); transition: transform .18s; padding: 0; }
@@ -723,7 +753,7 @@ const NikaMusic = (() => {
       if (!psm) {
         if (!window.__nmCargandoPsm) {
           window.__nmCargandoPsm = true;
-          const sc = document.createElement('script'); sc.src = 'js/pomodoroSyncManager.js?v=4'; sc.async = true;
+          const sc = document.createElement('script'); sc.src = 'js/pomodoroSyncManager.js?v=5'; sc.async = true;
           sc.onload = () => { ultPub = '\u0000'; publicar(); };
           document.head.appendChild(sc);
         }
