@@ -334,6 +334,8 @@ const PomodoroEngine = (() => {
     const modulo = moduleId || 'general';
     const up = upId || 'general';
     const completedAt = new Date().toISOString();
+    // NikaPlan: el tiempo de foco descuenta horas del plan activo (js/planPomodoro.js)
+    try { window.dispatchEvent(new CustomEvent('nika:pomodoro-minutos', { detail: { moduleId: modulo, upId: up, minutes, completed } })); } catch (_) {}
     // 1) Se suma al instante en las tarjetas; 2) se guarda; 3) se avisa con el dato real
     let optId = null;
     try { if (window.NikaRendimiento && window.NikaRendimiento.registrarOptimista) optId = window.NikaRendimiento.registrarOptimista({ modulo, up_id: up, duration_minutes: minutes, completed, completed_at: completedAt }); } catch (_) {}

@@ -45,14 +45,17 @@
   function progresoDia(d) { const it = itemsDia(d); if (!it.length) return 0; return it.filter((x) => x.hecho).length / it.length; }
   function estadoDia(d) { const p = progresoDia(d); return p >= 1 ? 'listo' : p > 0 ? 'curso' : 'nuevo'; }
   function horasPlan(p) { return p.dias.reduce((a, d) => a + (d.horas || 0), 0); }
-  function horasHechas(p) { return p.dias.reduce((a, d) => a + (d.horas || 0) * progresoDia(d), 0); }
+  // horas realmente hechas de un día: lo que marcó en el checklist o lo que estudió con el Pomodoro, lo que sea mayor
+  function horasHechasDia(d) { const h = d.horas || 0; return Math.max(h * progresoDia(d), Math.min(h, d.estudiado || 0)); }
+  function horasHechas(p) { return p.dias.reduce((a, d) => a + horasHechasDia(d), 0); }
+  const horasPomodoro = (p) => p.dias.reduce((a, d) => a + (d.estudiado || 0), 0);
   function progresoPlan(p) { const h = horasPlan(p); return h ? horasHechas(p) / h : 0; }
 
   // Semáforo: compara lo cumplido con lo que debería estar hecho hasta ayer y mira cuánto falta por día.
   function ritmo(p) {
     const hoy = hoyISO(), total = horasPlan(p), hechas = horasHechas(p);
     const vencidas = p.dias.filter((d) => d.fecha < hoy).reduce((a, d) => a + (d.horas || 0), 0);
-    const hechasVenc = p.dias.filter((d) => d.fecha < hoy).reduce((a, d) => a + (d.horas || 0) * progresoDia(d), 0);
+    const hechasVenc = p.dias.filter((d) => d.fecha < hoy).reduce((a, d) => a + horasHechasDia(d), 0);
     const diasFalta = difDias(p.fecha_examen, hoy);
     const base = { falta: Math.max(0, total - hechas), diasFalta };
     if (diasFalta < 0) return { ...base, nivel: 'fin', ico: '🏁', titulo: 'Examen rendido', texto: 'Cerrá el plan y anotá cómo te fue.', pct: 1 };
@@ -122,6 +125,7 @@
       guardarLocal();
       const ids = new Set(remotos.map((r) => r.id));
       S.planes.filter((p) => !ids.has(p.id)).forEach(subir);
+      remotos.forEach((r) => { const l = S.planes.find((x) => x.id === r.id); if (l && String(l.actualizado_en || '') > String(r.actualizado_en || '')) subir(l); });
     } catch (e) { S.nube = false; }
   }
   async function subir(p) {
@@ -585,6 +589,7 @@
   const HERRAMIENTAS = {
     conectado: [
       ['📅', 'Calendario de eventos', 'El examen queda agendado en tu calendario y aparece en “Próximos eventos” del campus, con la alerta de cuenta regresiva y el botón “Ver plan”.'],
+      ['🍅', 'Pomodoro', 'Cada bloque de foco que terminás en la sala de estudio descuenta horas del día de hoy en tu plan, solo: sin tildar nada.'],
       ['🚦', 'Semáforo de ritmo', 'Compara lo que cumpliste con lo planificado y te avisa si vas a llegar: verde, amarillo o rojo, también en el campus.'],
       ['📚', 'Sala de estudio', 'Cada día tiene un acceso directo a la unidad que toca estudiar, con su bibliografía y materiales.'],
       ['🩺', 'Simulador Choice', 'Choices de la unidad del día y simulacro del examen completo (parcial o final), gratis.'],
@@ -593,7 +598,6 @@
       ['📴', 'Sin conexión', 'El plan y la guía se guardan en tu dispositivo: podés tildar temas aunque no tengas señal.'],
     ],
     juntos: [
-      ['🍅', 'Pomodoro', 'Estudiá cada bloque del día con el Pomodoro de la sala de estudio: te muestra cuánto tiempo real le dedicás a cada unidad.'],
       ['🏆', 'Liga Pomodoro y racha', 'Las horas de estudio suman a tu racha diaria y a tu posición en la Liga.'],
       ['📊', 'Cierre del día', 'Al terminar, compará lo planificado con lo cumplido y ajustá el día siguiente.'],
       ['📹', 'Sala de Ateneos', 'Estudiá acompañado en video con hasta 4 compañeros y ensayen la parte oral entre ustedes.'],
@@ -834,7 +838,8 @@
     const sala = p.materia === 'pfo' ? 'pfo_estudio.html' : `estudio.html?modulo=${encodeURIComponent(p.materia)}`;
     const L = [['🍅', 'Pomodoro', sala, 'Estudiá por bloques de foco y medí el tiempo real por unidad'], ['🏆', 'Liga Pomodoro', 'liga.html', 'Tu estudio suma a la Liga y a tu racha'],
                ['📹', 'Sala de Ateneos', 'ateneos.html', 'Estudiá acompañado en video'], ['📊', 'Cierre del día', 'campus.html', 'Compará lo planificado con lo cumplido'], ['💊', 'NikaFarma', 'nikafarma.html', 'Vademécum y scores']];
-    return `<div class="pe-herr-row pe-rv"><span class="pe-herr-t">🧰 Usalo junto al plan</span>${L.map((x) => `<a class="pe-herr" href="${x[2]}" title="${esc(x[3])}"><i>${x[0]}</i>${x[1]}</a>`).join('')}</div>`;
+    return `<div class="pe-pomo-info pe-rv">🍅 <b>Pomodoro conectado:</b> cada bloque de foco que termines en la sala de estudio descuenta horas de este plan automáticamente (hoy: <b>${fmtH((p.dias.find((d) => d.fecha === hoyISO()) || {}).estudiado || 0)}</b>).</div>
+      <div class="pe-herr-row pe-rv"><span class="pe-herr-t">🧰 Usalo junto al plan</span>${L.map((x) => `<a class="pe-herr" href="${x[2]}" title="${esc(x[3])}"><i>${x[0]}</i>${x[1]}</a>`).join('')}</div>`;
   }
   function modalEscrito(url) {
     if (!esFree()) { location.href = url; return; }
@@ -929,6 +934,7 @@
             <div class="pe-kpi"><b>${hechos}/${p.dias.length}</b><span>días completos</span></div>
             <div class="pe-kpi"><b>${fmtH(horasHechas(p))}</b><span>de ${fmtH(horasPlan(p))}</span></div>
             <div class="pe-kpi"><b>${fmtH(r.falta)}</b><span>por hacer</span></div>
+            <div class="pe-kpi pe-kpi--pomo" title="Los bloques de foco del Pomodoro descuentan horas de este plan automáticamente"><b>🍅 ${fmtH(horasPomodoro(p))}</b><span>con Pomodoro</span></div>
           </div>
         </div>
         <div class="pe-plan-side">${contador(c, true)}${anillo(progresoPlan(p), 88)}</div>
@@ -955,7 +961,7 @@
     return `<article class="${cls}" id="dia-${d.id}">
       <button type="button" class="pe-dia-head" data-act="dia" data-d="${d.id}" aria-expanded="${abierto ? 'true' : 'false'}">
         <span class="pe-dia-n" title="Día ${n} de ${p.dias.length} del plan"><small>DÍA</small>${n}</span>
-        <span class="pe-dia-t"><b>${esc(d.titulo || 'Día de estudio')}</b><small>${fmtCorta(d.fecha)}${d.fecha === hoy ? ' · HOY' : ''} · ${fmtH(d.horas || 0)}${d.unidad ? ' · ' + esc(d.unidad) : ''}</small></span>
+        <span class="pe-dia-t"><b>${esc(d.titulo || 'Día de estudio')}</b><small>${fmtCorta(d.fecha)}${d.fecha === hoy ? ' · HOY' : ''} · ${fmtH(d.horas || 0)}${d.unidad ? ' · ' + esc(d.unidad) : ''}${d.estudiado ? ` · <span class="pe-pomo-chip">🍅 ${fmtH(d.estudiado)} estudiadas</span>` : ''}</small></span>
         <span class="pe-dia-est">${estTxt}</span>
         <span class="pe-bar"><i data-w="${Math.round(pr * 100)}%"></i></span>
         <span class="pe-chev">▾</span>
@@ -1173,7 +1179,7 @@
     }
     const ring = root.querySelector('.pe-plan-side .pe-ring'); if (ring) { const pct = Math.round(progresoPlan(p) * 100); ring.style.setProperty('--p', pct); ring.querySelector('i').textContent = pct + '%'; }
     const k = root.querySelectorAll('.pe-kpi b');
-    if (k.length === 3) { k[0].textContent = p.dias.filter((d) => estadoDia(d) === 'listo').length + '/' + p.dias.length; k[1].textContent = fmtH(horasHechas(p)); k[2].textContent = fmtH(r.falta); }
+    if (k.length >= 3) { k[0].textContent = p.dias.filter((d) => estadoDia(d) === 'listo').length + '/' + p.dias.length; k[1].textContent = fmtH(horasHechas(p)); k[2].textContent = fmtH(r.falta); }
     if (dia) {
       const card = root.querySelector('#dia-' + dia.id);
       if (card) {
@@ -1435,6 +1441,15 @@
     const q = await limpiarDuplicados();
     root.addEventListener('click', onClick); root.addEventListener('change', onChange); root.addEventListener('input', onInput); root.addEventListener('keydown', onKey);
     window.addEventListener('popstate', () => { desdeURL(); render(); });
+    // el Pomodoro (en otra pestaña o página) acredita horas al plan: se recarga lo guardado y se redibuja sin pisar lo que se escribe
+    window.addEventListener('storage', (e) => {
+      if (e.key !== claveLocal()) return;
+      const ae = document.activeElement; if (ae && /INPUT|TEXTAREA|SELECT/.test(ae.tagName)) return;
+      S.planes = leerLocal();
+      if (S.plan) S.plan = S.planes.find((x) => x.id === S.plan.id) || null;
+      render();
+    });
+    window.addEventListener('nika:plan-pomodoro', () => { S.planes = leerLocal(); if (S.plan) S.plan = S.planes.find((x) => x.id === S.plan.id) || S.plan; render(); });
     desdeURL();
     render();
     if (q) toast('🧹 Quité un examen o plan repetido');

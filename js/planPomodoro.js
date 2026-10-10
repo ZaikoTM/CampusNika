@@ -1,0 +1,49 @@
+/* NikaPlan ↔ Pomodoro: cada bloque de foco que termina (o se corta con tiempo cumplido) descuenta horas del plan.
+   Se carga en las páginas que tienen el Pomodoro. El motor avisa con el evento "nika:pomodoro-minutos".
+   Regla: el tiempo se acredita al plan activo de esa materia (el de examen más cercano) en el día de HOY; si hoy no
+   hay día de estudio, se acredita al primer día anterior que quedó pendiente. Los planes viven en localStorage
+   (nika_planes_examen_v1_<usuario>) y la página de NikaPlan los sincroniza con la nube. */
+(function () {
+  'use strict';
+  const PREFIJO = 'nika_planes_examen_v1_';
+  const hoyISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+
+  function claveUsuario() {
+    try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); if (u && u.id && localStorage.getItem(PREFIJO + u.id) != null) return PREFIJO + u.id; } catch (_) {}
+    const claves = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.indexOf(PREFIJO) === 0) claves.push(k); } } catch (_) {}
+    if (claves.length === 1) return claves[0];
+    try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); if (u && u.id) return PREFIJO + u.id; } catch (_) {}
+    return null;
+  }
+  function progresoDia(d) {
+    const it = (d.temas || []).concat(d.checklist || []);
+    return it.length ? it.filter((x) => x.hecho).length / it.length : 0;
+  }
+  function acreditar(detalle) {
+    const minutos = Number(detalle && detalle.minutes);
+    if (!(minutos >= 1)) return;
+    const k = claveUsuario(); if (!k) return;
+    let planes; try { planes = JSON.parse(localStorage.getItem(k) || '[]'); } catch (_) { return; }
+    if (!Array.isArray(planes) || !planes.length) return;
+    const hoy = hoyISO();
+    const modulo = String(detalle.moduleId || '').toLowerCase();
+    // planes vigentes de esa materia (si el Pomodoro no tiene materia, cualquiera): el examen más cercano primero
+    const vigentes = planes.filter((p) => p && p.fecha_examen >= hoy && Array.isArray(p.dias) && p.dias.length && (!modulo || modulo === 'general' || p.materia === modulo))
+      .sort((a, b) => String(a.fecha_examen).localeCompare(String(b.fecha_examen)));
+    for (const p of vigentes) {
+      let dia = p.dias.find((d) => d.fecha === hoy);
+      if (!dia) dia = p.dias.filter((d) => d.fecha < hoy && progresoDia(d) < 1).sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
+      if (!dia) continue;
+      dia.estudiado = Math.round(((dia.estudiado || 0) + minutos / 60) * 100) / 100;
+      p.actualizado_en = new Date().toISOString();
+      try { localStorage.setItem(k, JSON.stringify(planes)); } catch (_) { return; }
+      try {
+        window.dispatchEvent(new CustomEvent('nika:plan-pomodoro', { detail: { plan: p.id, dia: dia.id, minutos, titulo: p.titulo } }));
+        if (typeof window.showToast === 'function') window.showToast(`🍅 +${minutos} min a tu plan «${String(p.titulo).slice(0, 40)}»`);
+      } catch (_) {}
+      return;   // se acredita a un solo plan
+    }
+  }
+  window.addEventListener('nika:pomodoro-minutos', (e) => { try { acreditar(e.detail); } catch (err) { console.warn('[PlanPomodoro]', err && err.message); } });
+  window.NikaPlanPomodoro = { acreditar };
+})();

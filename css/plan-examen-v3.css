@@ -185,3 +185,10 @@ a.pe-prac-card:hover, button.pe-prac-card:hover { transform: translateY(-4px); b
 .pe-fin-prev .big { font-size: 3rem; animation: peFlota 3.6s ease-in-out infinite; }
 .pe-fin-prev h4 { margin: 4px 0 8px; font-size: 1.15rem; }
 @media (prefers-reduced-motion: reduce) { .pe-tour-anim, .pe-dm-temas li, .pe-dia-ag, .pe-dm-temas .bx, .pe-fin-prev .big { animation: none !important; } .pe-tour-bar i { transition: none; } }
+
+/* Pomodoro conectado al plan */
+.pe-pomo-chip { display: inline-block; font-weight: 800; color: #b91c1c; background: rgba(239, 68, 68, .12); border: 1px solid rgba(239, 68, 68, .35); padding: 0 8px; border-radius: 99px; font-size: .7rem; }
+body.dark-mode .pe-pomo-chip, body.tema-premium .pe-pomo-chip { color: #fca5a5; }
+.pe-kpi--pomo b { color: #ef4444; }
+.pe-pomo-info { margin: 12px 0 0; padding: 10px 14px; border-radius: 14px; font-size: .84rem; border: 1px solid rgba(239, 68, 68, .35); background: rgba(239, 68, 68, .07); }
+.pe-pomo-info + .pe-herr-row { margin-top: 8px; }
