@@ -470,9 +470,34 @@
         .footer-bottom { max-width: 1300px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.75rem; color: #475569; line-height: 1.7; }
 
         /* ================= WIDGET FLOTANTE NIKA IA (libre, sin login) ================= */
-        .nika-float-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--violet)); border: none; cursor: pointer; z-index: 5000; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; box-shadow: 0 8px 24px rgba(14,165,233,0.4); transition: transform 0.25s; }
-        .nika-float-btn:hover { transform: scale(1.08); }
-        .nika-float-panel { position: fixed; bottom: 96px; right: 24px; width: 330px; max-width: calc(100vw - 32px); background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 5000; display: flex; flex-direction: column; overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(16px) scale(0.97); transition: all 0.25s ease; }
+        .nika-float-btn { position: fixed; bottom: 8px; right: 14px; width: 66px; height: 76px; padding: 0; border: none; border-radius: 22px; background: none; cursor: pointer; z-index: 5000; -webkit-tap-highlight-color: transparent; animation: nkaEntra .6s cubic-bezier(.3,1.5,.5,1) both; }
+        .nika-float-btn .nka { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 14px rgba(2,20,50,.4)); transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+        .nika-float-btn:hover .nka { transform: scale(1.12) rotate(-3deg); }
+        .nika-float-btn:active .nka { transform: scale(.94); }
+        .nika-float-btn:focus-visible { outline: 3px solid #38bdf8; outline-offset: 3px; }
+        @keyframes nkaEntra { from { opacity: 0; transform: translateY(40px) scale(.6); } to { opacity: 1; transform: none; } }
+        .nka-todo { animation: nkaFlota 3.6s ease-in-out infinite; transform-origin: 100px 210px; }
+        .nka-sombra { animation: nkaSombra 3.6s ease-in-out infinite; transform-origin: 100px 218px; }
+        .nka-ojos { transform: translate(var(--ex, 0px), var(--ey, 0px)); transition: transform .12s ease-out; }
+        .nka-ojo { transform-box: fill-box; transform-origin: 50% 100%; animation: nkaParpadeo 5s infinite; }
+        .nka-cruz { animation: nkaLate 1.6s ease-in-out infinite; transform-origin: 100px 190px; }
+        .nka-brazo-s { transform-origin: 138px 136px; } .nka-brazo-q { transform-origin: 62px 136px; animation: nkaRespira 3.6s ease-in-out infinite; }
+        .nika-float-btn:hover .nka-brazo-s, .nika-float-btn.saluda .nka-brazo-s { animation: nkaSaluda .7s ease-in-out infinite; }
+        .nika-float-btn.has-unread .nka-todo { animation: nkaSalto .9s ease-in-out infinite; }
+        .nika-float-btn.feliz .nka-ojo { animation: nkaFeliz .7s ease-in-out; }
+        @keyframes nkaFlota { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+        @keyframes nkaSombra { 0%,100% { transform: scale(1); opacity: .35; } 50% { transform: scale(.82); opacity: .22; } }
+        @keyframes nkaParpadeo { 0%,92%,100% { transform: scaleY(1); } 95% { transform: scaleY(.08); } }
+        @keyframes nkaLate { 0%,100% { transform: scale(1); } 50% { transform: scale(1.14); } }
+        @keyframes nkaRespira { 0%,100% { transform: rotate(0); } 50% { transform: rotate(2.5deg); } }
+        @keyframes nkaSaluda { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(-135deg); } }
+        @keyframes nkaSalto { 0%,100% { transform: translateY(0); } 40% { transform: translateY(-16px); } }
+        @keyframes nkaFeliz { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25,.55); } }
+        @media (prefers-reduced-motion: reduce) { .nika-float-btn, .nika-float-btn * { animation: none !important; } }
+        .nika-float-btn .nka-boca { transform-box: fill-box; transform-origin: 50% 0%; }
+        .nika-float-avatar { width: 30px; height: 34px; flex: 0 0 30px; }
+        .nika-float-avatar .nka { width: 100%; height: 100%; overflow: visible; }
+        .nika-float-panel { position: fixed; bottom: 92px; right: 24px; width: 330px; max-width: calc(100vw - 32px); background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 5000; display: flex; flex-direction: column; overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(16px) scale(0.97); transition: all 0.25s ease; }
         .nika-float-panel.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
         .nika-float-head { background: linear-gradient(90deg, var(--primary), var(--violet)); padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
         .nika-float-head span.nika-float-title { font-weight: 900; color: #fff; font-size: 0.88rem; }
@@ -644,7 +669,7 @@
         .exam-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 24px; border-top: 1px solid rgba(255,255,255,.06); font-size: .78rem; color: var(--text-dim); min-height: 62px; }
         @media (max-width: 520px) { .exam-body { padding: 18px; } .exam-foot { padding: 12px 18px; } .exam-bar { padding: 12px 16px; } }
 
-        /* ---------- Showcase de 6 simuladores ---------- */
+        /* ---------- Showcase de simuladores ---------- */
         .sim-section { padding: 90px 0; }
         .sim-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         @media (max-width: 1000px) { .sim-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -661,6 +686,29 @@
         .sim-badges { display: flex; flex-wrap: wrap; gap: 7px; }
         .badge { font-size: .7rem; font-weight: 800; padding: 4px 10px; border-radius: 99px; color: rgb(var(--c)); background: rgba(var(--c), .1); border: 1px solid rgba(var(--c), .35); }
         .badge.plan { color: var(--text-dim); background: transparent; border-color: rgba(255,255,255,.14); }
+        .badge.plan.plan-plus { color: #1c1300; background: linear-gradient(135deg, #fde68a, #f59e0b); border-color: #f59e0b; box-shadow: 0 0 14px rgba(245,158,11,.35); }
+        .badge.plan.plan-free { color: #6ee7b7; background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.4); }
+        .sim-card.c-cyan { --c: 34,211,238; } .sim-card.c-pink { --c: 236,72,153; } .sim-card.c-lime { --c: 132,204,22; }
+        .nt-sim.c-cyan { --c: 34,211,238; } .nt-sim.c-pink { --c: 236,72,153; } .nt-sim.c-lime { --c: 132,204,22; }
+        /* iconos con vida: flotan y se inclinan, cada tarjeta con su propio ritmo */
+        @keyframes icoFlota { 0%,100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-4px) rotate(-5deg); } 75% { transform: translateY(2px) rotate(4deg); } }
+        @keyframes icoAnillo { 0% { box-shadow: 0 0 0 0 rgba(var(--c), .45); } 70%,100% { box-shadow: 0 0 0 12px rgba(var(--c), 0); } }
+        .sim-ico { animation: icoFlota 4.2s ease-in-out infinite, icoAnillo 3.2s ease-out infinite; }
+        .sim-card:nth-child(2n) .sim-ico { animation-delay: -1.1s, -.8s; } .sim-card:nth-child(3n) .sim-ico { animation-delay: -2.2s, -1.6s; } .sim-card:nth-child(5n) .sim-ico { animation-delay: -3.1s, -2.4s; }
+        .sim-card:hover .sim-ico { animation-play-state: paused; }
+        .nt-sim-ico { display: inline-block; animation: icoFlota 4s ease-in-out infinite; }
+        .nt-sim:nth-child(2n) .nt-sim-ico { animation-delay: -1.3s; } .nt-sim:nth-child(3n) .nt-sim-ico { animation-delay: -2.4s; }
+        /* Sala de Ateneos: el micrófono "salta" de mosaico en mosaico */
+        @keyframes ateHabla { 0%,22%,100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); transform: scale(1); } 4%,18% { box-shadow: inset 0 0 0 3px #22c55e, 0 0 18px rgba(34,197,94,.55); transform: scale(1.03); } }
+        @keyframes ateRespira { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        .ate-t { animation: ateHabla 8s ease-in-out infinite; position: relative; overflow: hidden; }
+        .ate-t:nth-child(2) { animation-delay: 2s; } .ate-t:nth-child(3) { animation-delay: 4s; } .ate-t:nth-child(4) { animation-delay: 6s; }
+        .ate-t::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.07) 50%, transparent 65%); transform: translateX(-100%); animation: ateBrillo 5s ease-in-out infinite; }
+        .ate-t:nth-child(2)::after { animation-delay: 1.2s; } .ate-t:nth-child(3)::after { animation-delay: 2.4s; } .ate-t:nth-child(4)::after { animation-delay: 3.6s; }
+        @keyframes ateBrillo { 0% { transform: translateX(-100%); } 40%,100% { transform: translateX(100%); } }
+        .ate-ctl { animation: ateRespira 3s ease-in-out infinite; }
+        .ate-ctl:nth-child(2) { animation-delay: -.7s; } .ate-ctl:nth-child(3) { animation-delay: -1.4s; }
+        @media (prefers-reduced-motion: reduce) { .sim-ico, .nt-sim-ico, .ate-t, .ate-t::after, .ate-ctl { animation: none !important; } }
         .sim-card.c-violet { --c: 168,85,247; } .sim-card.c-emerald { --c: 16,185,129; } .sim-card.c-red { --c: 239,68,68; }
         .sim-card.c-amber { --c: 245,158,11; } .sim-card.c-indigo { --c: 99,102,241; }
 
@@ -767,8 +815,11 @@
         .nt-modal { position: relative; width: 100%; max-width: 850px; max-height: 94vh; display: flex; flex-direction: column; border-radius: 22px; background: rgba(15,23,42,.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 30px 90px -20px rgba(0,0,0,.85), 0 0 90px -30px rgba(168,85,247,.55); overflow: hidden; animation: ntPop .55s var(--ease); }
         .nt-modal::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none; z-index: 5; background: linear-gradient(135deg, #a855f7, #38bdf8 45%, #a855f7); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; }
         .nt-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px 14px; }
-        .nt-steps { flex: 1; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
-        .nt-steps::-webkit-scrollbar { display: none; }
+        .nt-steps { position: relative; flex: 1; min-width: 0; display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(168,85,247,.75) rgba(255,255,255,.06); }
+        .nt-steps::-webkit-scrollbar { height: 6px; }
+        .nt-steps::-webkit-scrollbar-track { background: rgba(255,255,255,.06); border-radius: 99px; }
+        .nt-steps::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #a855f7, #38bdf8); border-radius: 99px; }
+        .nt-pill { flex: 0 0 auto; }
         .nt-pill { font: inherit; font-size: .76rem; font-weight: 800; white-space: nowrap; color: var(--text-dim); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 99px; padding: 7px 14px; cursor: pointer; transition: all .3s; }
         .nt-pill:hover { color: #fff; border-color: rgba(56,189,248,.6); }
         .nt-pill.done { color: #c4b5fd; border-color: rgba(168,85,247,.4); }
@@ -1015,7 +1066,7 @@
 
         <div class="hero-stats">
             <div class="hero-stat"><strong>+1.500</strong><span>preguntas de cátedra clasificadas por Área</span></div>
-            <div class="hero-stat"><strong>6</strong><span>simuladores clínicos</span></div>
+            <div class="hero-stat"><strong>9</strong><span>simuladores y prácticas clínicas</span></div>
             <div class="hero-stat"><strong>6 años</strong><span>de carrera, hasta la PFO</span></div>
             <div class="hero-stat"><strong>Gratis</strong><span>para empezar, sin tarjeta</span></div>
         </div>
@@ -1087,46 +1138,64 @@
     <section class="sim-section" id="ecosistema">
         <div class="wrap">
             <div class="f-head">
-                <span class="f-tag" style="--tag: var(--violet-glow);">6 simuladores clínicos</span>
-                <h2 class="f-title">Seis simuladores de simulación clínica para el examen real.</h2>
-                <p class="f-text">Del choice masivo a la estación ECOE: cada simulador reproduce un formato de evaluación distinto de la carrera. Elegís tu año y tu materia antes de cada uno.</p>
+                <span class="f-tag" style="--tag: var(--violet-glow);">9 simuladores y prácticas clínicas</span>
+                <h2 class="f-title">Nueve simuladores y prácticas clínicas para el examen real.</h2>
+                <p class="f-text">Del choice masivo a la estación ECOE, pasando por los casos de la PFO, los procedimientos y los recetarios: cada uno reproduce un formato de evaluación distinto de la carrera. Elegís tu año y tu materia antes de cada uno.</p>
             </div>
             <div class="sim-grid">
                 <article class="sim-card ">
                     <div class="sim-ico">🩺</div>
                     <h3>Simulador Choice</h3>
                     <p>Práctica masiva cronometrada con justificación bibliográfica.</p>
-                    <div class="sim-badges"><span class="badge">Cronometrado</span><span class="badge">Bibliografía oficial</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Cronometrado</span><span class="badge">Bibliografía oficial</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-violet">
                     <div class="sim-ico">✍️</div>
                     <h3>Simulador Escrito</h3>
                     <p>Respuestas a desarrollo de Cirugía, Ginecología y SIAM, corregidas con rúbrica docente.</p>
-                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Rúbrica docente</span><span class="badge plan">NikaMed+</span></div>
+                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Rúbrica docente</span><span class="badge plan plan-plus">★ NikaMed+</span></div>
                 </article>
                 <article class="sim-card c-emerald">
                     <div class="sim-ico">🛏️</div>
                     <h3>Pase de Sala</h3>
                     <p>Recorrida hospitalaria interactuando con la cama del paciente.</p>
-                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Caso interactivo</span><span class="badge plan">NikaMed+</span></div>
+                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Caso interactivo</span><span class="badge plan plan-plus">★ NikaMed+</span></div>
                 </article>
                 <article class="sim-card c-red">
                     <div class="sim-ico">🚨</div>
                     <h3>Shock Room</h3>
                     <p>Urgencias críticas en tiempo real, contra reloj.</p>
-                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Tiempo real</span><span class="badge plan">NikaMed+</span></div>
+                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Tiempo real</span><span class="badge plan plan-plus">★ NikaMed+</span></div>
                 </article>
                 <article class="sim-card c-amber">
                     <div class="sim-ico">⚖️</div>
                     <h3>Consultorios &amp; Legales</h3>
                     <p>Habilidades de comunicación, malas noticias y peritajes.</p>
-                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Comunicación</span><span class="badge plan">NikaMed+</span></div>
+                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Comunicación</span><span class="badge plan plan-plus">★ NikaMed+</span></div>
                 </article>
                 <article class="sim-card c-indigo">
                     <div class="sim-ico">🎯</div>
                     <h3>ECOE FINAL · 6.º año</h3>
                     <p>El examen de egreso de la PFO: una estación de cada especialidad, con modo práctica y revisión detallada al final.</p>
-                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Procedimientos y documentos</span><span class="badge plan">NikaMed+</span></div>
+                    <div class="sim-badges"><span class="badge">IA</span><span class="badge">Procedimientos y documentos</span><span class="badge plan plan-plus">★ NikaMed+</span></div>
+                </article>
+                <article class="sim-card c-cyan">
+                    <div class="sim-ico">🎓</div>
+                    <h3>PFO · 6.º año</h3>
+                    <p>Sala de estudio con 8 módulos, tutoriales de procedimientos y casos clínicos como estaciones, con respuesta modelo y fuentes. Con NikaMed+ practicás cada caso con un paciente y evaluador por IA.</p>
+                    <div class="sim-badges"><span class="badge">Casos clínicos</span><span class="badge">Procedimientos</span><span class="badge plan plan-free">Gratis · chat IA con NikaMed+</span></div>
+                </article>
+                <article class="sim-card c-pink">
+                    <div class="sim-ico">🥽</div>
+                    <h3>NikaSim · Atlas de procedimientos</h3>
+                    <p>Practicá cada procedimiento paso a paso con feedback inmediato y rendí el examen con corrección estricta. Los que ya tienen modelo 3D se practican en pantalla; el resto suma el suyo próximamente.</p>
+                    <div class="sim-badges"><span class="badge">3D</span><span class="badge">Listas de cotejo</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
+                </article>
+                <article class="sim-card c-lime">
+                    <div class="sim-ico">📝</div>
+                    <h3>Recetarios y certificados</h3>
+                    <p>Escribí recetas, pedidos de estudios y certificados sobre un recetario real y recibí corrección de forma y contenido.</p>
+                    <div class="sim-badges"><span class="badge">Parte documental</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
             </div>
             <div class="cta-row" style="justify-content:center; margin-top:40px;">
@@ -1187,14 +1256,12 @@
                 </div>
                 <!-- Año 6 · PFO -->
                 <div class="year-content" id="year-6">
-                    <div class="subject-card color-y6"><div class="subject-name">Generalidades · recorrido interactivo</div></div>
                     <div class="subject-card color-y6"><div class="subject-name">Clínica Médica</div></div>
                     <div class="subject-card color-y6"><div class="subject-name">Clínica Pediátrica</div></div>
                     <div class="subject-card color-y6"><div class="subject-name">Clínica Quirúrgica</div></div>
                     <div class="subject-card color-y6"><div class="subject-name">Emergentología</div></div>
                     <div class="subject-card color-y6"><div class="subject-name">Ginecología y Obstetricia</div></div>
                     <div class="subject-card color-y6"><div class="subject-name">Salud Familiar y General</div></div>
-                    <div class="subject-card color-y6"><div class="subject-name">Bibliografía actualizada</div></div>
                 </div>
             </div>
         </div>
@@ -1429,79 +1496,61 @@
                     <div class="sim-ico">📅</div>
                     <h3>Planificador y Cierre del día</h3>
                     <p>Bloques de estudio con estados y alertas, calendario de parciales y un balance diario de lo planificado contra lo cumplido.</p>
-                    <div class="sim-badges"><span class="badge">Alertas</span><span class="badge">Calendario</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Alertas</span><span class="badge">Calendario</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-amber">
                     <div class="sim-ico">🔥</div>
                     <h3>Racha diaria</h3>
                     <p>Sumá un día por cada jornada con Pomodoro o simulacro y mirá tus últimos 7 días de un vistazo.</p>
-                    <div class="sim-badges"><span class="badge">Constancia</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Constancia</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-red">
                     <div class="sim-ico">🍅</div>
                     <h3>Liga Pomodoro</h3>
                     <p>Ranking de estudio por día, semana o mes, con rangos de Ciclo Clínico a Jefe de Residentes y sesiones auditables.</p>
-                    <div class="sim-badges"><span class="badge">Ranking</span><span class="badge">Rangos médicos</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Ranking</span><span class="badge">Rangos médicos</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-violet">
                     <div class="sim-ico">📹</div>
                     <h3>Sala de Ateneos</h3>
                     <p>Videollamadas de hasta 4 compañeros para discutir casos, estudiar en silencio o preparar mesas. Pantalla compartida incluida.</p>
-                    <div class="sim-badges"><span class="badge">Voz y video</span><span class="badge">Salas privadas</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Voz y video</span><span class="badge">Salas privadas</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-indigo">
                     <div class="sim-ico">💬</div>
                     <h3>Foro Académico</h3>
                     <p>Un muro de casos clínicos, dudas y apuntes con reacciones, comentarios en hilo y adjuntos de imagen o PDF.</p>
-                    <div class="sim-badges"><span class="badge">Comunidad</span><span class="badge">Adjuntos</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Comunidad</span><span class="badge">Adjuntos</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-emerald">
                     <div class="sim-ico">🎵</div>
                     <h3>NikaMusic</h3>
                     <p>Playlists de Spotify y sonidos de lluvia, café o ruido blanco, en una ventana que se arrastra y se minimiza, y que te sigue por todas las salas. Tus amigos pueden ver lo que escuchás, y lo podés ocultar cuando quieras.</p>
-                    <div class="sim-badges"><span class="badge">Spotify</span><span class="badge">Sonidos ambientales</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Spotify</span><span class="badge">Sonidos ambientales</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-emerald">
                     <div class="sim-ico">💊</div>
                     <h3>NikaFarma potenciado</h3>
                     <p>Tratamiento rápido por síndrome, scores (CURB-65, qSOFA, Wells), modo Emergencias y dosis pediátricas por peso.</p>
-                    <div class="sim-badges"><span class="badge">Guardia</span><span class="badge">Calculadoras</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Guardia</span><span class="badge">Calculadoras</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-red">
                     <div class="sim-ico">⚔️</div>
                     <h3>Duelos 1vs1 con chat</h3>
                     <p>Competí en tiempo real con un compañero, con chat rápido y ELO. Respondé con las teclas 1 a 4.</p>
-                    <div class="sim-badges"><span class="badge">Tiempo real</span><span class="badge plan">NikaMed · Gratis</span></div>
-                </article>
-                <article class="sim-card c-indigo">
-                    <div class="sim-ico">🎓</div>
-                    <h3>PFO · 6.º año</h3>
-                    <p>Sala de estudio con 8 módulos, tutoriales de procedimientos y casos clínicos como estaciones, con respuesta modelo y fuentes. Con NikaMed+ practicás cada caso con un paciente y evaluador por IA.</p>
-                    <div class="sim-badges"><span class="badge">Casos clínicos</span><span class="badge">Procedimientos</span><span class="badge plan">Gratis · chat IA en NikaMed+</span></div>
-                </article>
-                <article class="sim-card c-emerald">
-                    <div class="sim-ico">🥽</div>
-                    <h3>NikaSim · Atlas de procedimientos</h3>
-                    <p>Practicá cada procedimiento paso a paso con feedback inmediato y rendí el examen con corrección estricta. Los que ya tienen modelo 3D se practican en pantalla; el resto suma el suyo próximamente.</p>
-                    <div class="sim-badges"><span class="badge">3D</span><span class="badge">Listas de cotejo</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Tiempo real</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-amber">
                     <div class="sim-ico">🛡️</div>
                     <h3>Modo Guardia · sin conexión</h3>
                     <p>Descargá por materia tus salas de estudio, bancos de preguntas, casos de la PFO, atlas, NikaFarma y recetarios. Lo que hagas sin señal se sube solo al volver internet.</p>
-                    <div class="sim-badges"><span class="badge">Offline</span><span class="badge">Por materia</span><span class="badge plan">NikaMed · Gratis</span></div>
-                </article>
-                <article class="sim-card c-violet">
-                    <div class="sim-ico">📝</div>
-                    <h3>Recetarios y certificados</h3>
-                    <p>Escribí recetas, pedidos de estudios y certificados sobre un recetario real y recibí corrección de forma y contenido.</p>
-                    <div class="sim-badges"><span class="badge">Parte documental</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Offline</span><span class="badge">Por materia</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-amber">
                     <div class="sim-ico">📈</div>
                     <h3>Rendimiento académico</h3>
                     <p>Tiempo de estudio, efectividad, Curva del Olvido y un desglose completo de cada tarjeta.</p>
-                    <div class="sim-badges"><span class="badge">Métricas</span><span class="badge plan">NikaMed · Gratis</span></div>
+                    <div class="sim-badges"><span class="badge">Métricas</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
             </div>
         </div>
@@ -1547,15 +1596,15 @@
                 <div class="f-visual">
                     <div class="bento-box">
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
-                            <div style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; box-shadow:inset 0 0 0 3px #22c55e, 0 0 16px rgba(34,197,94,.5); font-size:1.8rem;">🩺</div>
-                            <div style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.8rem;">👩‍⚕️</div>
-                            <div style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.8rem;">🖥️</div>
-                            <div style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.8rem;">👨‍⚕️</div>
+                            <div class="ate-t" style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; box-shadow:inset 0 0 0 3px #22c55e, 0 0 16px rgba(34,197,94,.5); font-size:1.8rem;">🩺</div>
+                            <div class="ate-t" style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.8rem;">👩‍⚕️</div>
+                            <div class="ate-t" style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.8rem;">🖥️</div>
+                            <div class="ate-t" style="aspect-ratio:16/10; border-radius:14px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.8rem;">👨‍⚕️</div>
                         </div>
                         <div style="display:flex; justify-content:center; gap:8px;">
-                            <span style="width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.1);">🎤</span>
-                            <span style="width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.1);">📷</span>
-                            <span style="width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.1);">🖥️</span>
+                            <span class="ate-ctl" style="width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.1);">🎤</span>
+                            <span class="ate-ctl" style="width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.1);">📷</span>
+                            <span class="ate-ctl" style="width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.1);">🖥️</span>
                             <span style="padding:0 16px; height:40px; border-radius:999px; display:grid; place-items:center; background:#dc2626; color:#fff; font-weight:800; font-size:.8rem;">Salir</span>
                         </div>
                     </div>
@@ -1714,7 +1763,7 @@
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">FP</div>
                     <div>
-                        <div class="testimonial-name">Fabricio Ponti</div>
+                        <div class="testimonial-name">Fabricio P.</div>
                         <div class="testimonial-meta">Salud Integral de la Mujer</div>
                     </div>
                 </div>
@@ -1725,7 +1774,7 @@
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">ER</div>
                     <div>
-                        <div class="testimonial-name">Eugenio Rauld</div>
+                        <div class="testimonial-name">Eugenio R.</div>
                         <div class="testimonial-meta">Salud Integral del Adulto Mayor</div>
                     </div>
                 </div>
@@ -1736,7 +1785,7 @@
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">GV</div>
                     <div>
-                        <div class="testimonial-name">German Veron</div>
+                        <div class="testimonial-name">German V.</div>
                         <div class="testimonial-meta">Salud Integral del Adulto Joven</div>
                     </div>
                 </div>
@@ -1747,7 +1796,7 @@
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">EA</div>
                     <div>
-                        <div class="testimonial-name">Elías Acosta</div>
+                        <div class="testimonial-name">Elías A.</div>
                         <div class="testimonial-meta">Medicina Legal</div>
                     </div>
                 </div>
@@ -1758,7 +1807,7 @@
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">RR</div>
                     <div>
-                        <div class="testimonial-name">Roldán Ramiro</div>
+                        <div class="testimonial-name">Ramiro R.</div>
                         <div class="testimonial-meta">ECOE Final</div>
                     </div>
                 </div>
@@ -1775,7 +1824,7 @@
         <div class="faq-list" id="faq-list">
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Qué es Campus Nika Med? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><div class="faq-answer-inner">Campus Nika Med es una plataforma de estudio pensada exclusivamente para estudiantes de la carrera de Medicina en Argentina. Te acompaña durante toda la cursada: organiza tu material de estudio por Unidad Problema (UP) siguiendo la bibliografía oficial de cátedra, te permite simular casos clínicos y exámenes bajo presión tal como los vas a rendir, y te da un seguimiento medible de tu progreso año por año. La idea es que dejes de estudiar "a ciegas" y entrenes con el mismo formato con el que después te van a evaluar.</div></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Campus Nika Med es una plataforma de estudio pensada exclusivamente para estudiantes de la carrera de Medicina en Argentina. Te acompaña durante toda la cursada: organiza tu material de estudio por Unidad Problema (UP) siguiendo la bibliografía oficial de cátedra, te permite simular casos clínicos y exámenes bajo presión tal como los vas a rendir, y te da un seguimiento medible de tu progreso año por año, de primero a sexto, hasta la Práctica Final Obligatoria. La idea es que dejes de estudiar "a ciegas" y entrenes con el mismo formato con el que después te van a evaluar.</div></div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Cómo me preparo para los parciales y finales de la carrera? <span class="faq-icon">+</span></button>
@@ -1783,11 +1832,11 @@
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿De dónde salen las preguntas y casos clínicos? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><div class="faq-answer-inner">Tenemos un banco propio de preguntas y casos clínicos, desarrollado e indexado por unidad, directamente en base a la bibliografía oficial de cátedra (Michans, Giménez, Ramos Vértiz, entre otros según la materia). No son preguntas genéricas de internet: están armadas para que lo que practiques en Nika sea lo más parecido posible a lo que te van a tomar en la mesa de examen.</div></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Tenemos un banco propio de preguntas y casos clínicos, desarrollado e indexado por unidad, directamente en base a la bibliografía oficial de cátedra (Michans, Giménez, Ramos Vértiz, entre otros según la materia). No son preguntas genéricas de internet: están armadas para que lo que practiques en Nika sea lo más parecido posible a lo que te van a tomar en la mesa de examen. En la PFO, los casos suman además guías nacionales vigentes, con las fuentes citadas en cada respuesta modelo.</div></div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Las preguntas y casos están actualizados? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><div class="faq-answer-inner">Sí. El banco de preguntas y casos se revisa y actualiza de forma constante a medida que cambian los programas, la bibliografía de cátedra o los criterios de evaluación de cada materia, para que siempre estés entrenando con contenido vigente.</div></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Sí. El banco de preguntas y casos se revisa y actualiza de forma constante a medida que cambian los programas, la bibliografía de cátedra o los criterios de evaluación de cada materia, para que siempre estés entrenando con contenido vigente. Si ves algo para corregir, podés reportarlo desde la propia pregunta o caso.</div></div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Cuánto cuesta y cómo funciona la suscripción con Mercado Pago? <span class="faq-icon">+</span></button>
@@ -1799,11 +1848,43 @@
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Cómo funcionan las correcciones con Inteligencia Artificial? <span class="faq-icon">+</span></button>
-                <div class="faq-answer"><div class="faq-answer-inner">En las modalidades escritas y orales, redactás o respondés tu conducta clínica como lo harías en un examen real. La IA compara tu respuesta contra la bibliografía de cátedra y te devuelve una corrección con el razonamiento clínico correcto, no solo si acertaste o no, para que entiendas el "por qué" detrás de cada conducta.</div></div>
+                <div class="faq-answer"><div class="faq-answer-inner">En las modalidades escritas y orales, redactás o respondés tu conducta clínica como lo harías en un examen real. La IA compara tu respuesta contra la bibliografía de cátedra y te devuelve una corrección con el razonamiento clínico correcto, no solo si acertaste o no, para que entiendas el "por qué" detrás de cada conducta. Es una ayuda para estudiar: la corrección es orientativa y no equivale a la evaluación de tu cátedra.</div></div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaqItem(this)">¿Puedo practicar desde el celular? <span class="faq-icon">+</span></button>
                 <div class="faq-answer"><div class="faq-answer-inner">Sí, Campus Nika Med es 100% responsive y funciona perfecto desde el celular, ya sea entre clases o en el colectivo. Además tiene Modo Guardia: descargás por materia tus salas de estudio, bancos de preguntas, casos de la PFO, atlas, NikaFarma y recetarios, y los usás sin conexión. Lo que hagas sin señal se sube solo cuando vuelve internet. La corrección con IA, los videos y los PDF de Drive sí necesitan conexión.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Qué años y materias cubre? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Toda la carrera, de 1.º a 6.º año. Cada año tiene su sala de estudio con las materias y Unidades Problema organizadas con la bibliografía de cátedra, y el 6.º año (la Práctica Final Obligatoria) tiene su propia sala con módulos de Clínica Médica, Pediátrica, Quirúrgica, Emergentología, Ginecología y Obstetricia y Salud Familiar.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Qué es la PFO en Campus Nika y cómo se estudia? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Es la sala de 6.º año: cada módulo reúne material de estudio, tutoriales de procedimientos y casos clínicos para resolver como una estación real, con respuesta modelo y las fuentes de donde sale. Con NikaMed+ además podés practicar cada caso en un chat donde la IA hace de paciente y de evaluador, y rendir el ECOE FINAL con una estación de cada especialidad.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Qué es NikaSim? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Es el atlas de procedimientos: practicás cada técnica paso a paso con feedback inmediato y rendís un examen con corrección estricta contra la lista de cotejo. Los procedimientos que ya tienen modelo 3D se practican en pantalla; el resto va sumando el suyo.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Puedo usar la plataforma sin conexión? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Sí, con el Modo Guardia: descargás por materia las salas de estudio, los bancos de preguntas, los casos de la PFO, el atlas, NikaFarma y los recetarios, y los usás sin señal. Lo que hagas sin conexión se sube solo cuando vuelve internet. La corrección con IA, los videos y los PDF de Drive sí necesitan conexión.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Cómo funciona NikaMusic y qué ven mis compañeros? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">NikaMusic reproduce playlists de Spotify (con tu cuenta Premium) y sonidos ambientales, y te acompaña en todas las salas. Tus contactos pueden ver lo que escuchás como un estado de actividad; podés apagarlo cuando quieras en Mi Perfil · Privacidad y actividad.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Qué hago si encuentro un error en una pregunta, caso o respuesta? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Usá el botón «Reportar error» que está en los simuladores y en los casos clínicos: lo revisamos y corregimos la base. Los casos de la PFO indican además su estado de verificación y sus fuentes, y las respuestas son orientativas: no reemplazan la evaluación de tu cátedra.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Cómo cancelo NikaMed+ o pido un reembolso? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Podés cancelar la renovación cuando quieras desde tu perfil, sin costo. Si contrataste a distancia tenés 10 días corridos para arrepentirte y recibir el reembolso total. Todo el detalle está en la <a href="reembolsos.html" style="color:var(--primary-glow);">Política de Reembolsos</a>.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaqItem(this)">¿Qué datos guardan y quién los ve? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Guardamos tu progreso, tus resultados y las preferencias que configurás; el pago lo procesa Mercado Pago y nosotros no almacenamos datos de tarjeta. Lo que escribís en el asistente y en el chat de práctica se envía a un servicio de IA para responderte. Lo detallamos en la <a href="privacidad.html" style="color:var(--primary-glow);">Política de Privacidad</a>.</div></div>
             </div>
         </div>
     </section>
@@ -1868,11 +1949,11 @@
                     <section class="nt-slide wide">
                         <div class="nt-info">
                             <span class="nt-kicker">Paso 2 · Hub Completo de Simuladores</span>
-                            <h3>6 simuladores, un solo campus</h3>
-                            <p>Del choice clásico a la estación ECOE: entrená cada formato de evaluación real.</p>
+                            <h3>9 simuladores, un solo campus</h3>
+                            <p>Del choice clásico a la estación ECOE, los casos de la PFO, los procedimientos y los recetarios: entrená cada formato de evaluación real.</p>
                             <ul class="nt-feats inline"><li>Corrección con IA</li><li>Bibliografía de cátedra</li><li>Contra reloj</li></ul>
                         </div>
-                        <div class="nt-stage"><div class="nt-sims"><div class="nt-sim "><div class="nt-sim-top"><span class="nt-sim-ico">🩺</span><strong>Choice Clásico</strong></div><p>Práctica cronometrada con justificación bibliográfica.</p><div class="mini-opts"><i>A</i><i class="ok">B</i><i>C</i><i>D</i></div></div><div class="nt-sim c-violet"><div class="nt-sim-top"><span class="nt-sim-ico">✍️</span><strong>Escrito con IA</strong></div><p>Desarrollo evaluado con rúbrica docente.</p><div class="mini-lines"><i></i><i></i><i></i></div><span class="mini-chip">Rúbrica 8/10</span></div><div class="nt-sim c-emerald"><div class="nt-sim-top"><span class="nt-sim-ico">🛏️</span><strong>Pase de Sala</strong></div><p>Interrogá e interactuá con la cama del paciente.</p><span class="mini-chip">Cama 4 · Interrogatorio</span></div><div class="nt-sim c-red"><div class="nt-sim-top"><span class="nt-sim-ico">🚨</span><strong>Shock Room</strong></div><p>Urgencias críticas con cronómetro y monitor de signos vitales.</p><div class="ecg"><svg viewBox="0 0 250 40" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M0 20H30L36 20L40 6L45 34L50 20H95L101 20L105 6L110 34L115 20H160L166 20L170 6L175 34L180 20H250"/></svg></div><div class="vitals"><span>FC 128</span><span>TA 80/50</span><span>SpO₂ 88%</span><span class="crit" id="nt-shock">⏱ 02:47</span></div></div><div class="nt-sim c-amber"><div class="nt-sim-top"><span class="nt-sim-ico">⚖️</span><strong>Consultorio y Peritaje Legal</strong></div><p>Comunicación, malas noticias y peritajes.</p><span class="mini-chip">Comunicación de malas noticias</span></div><div class="nt-sim c-indigo"><div class="nt-sim-top"><span class="nt-sim-ico">🎯</span><strong>ECOE FINAL · 6.º año</strong></div><p>Una estación de cada especialidad, con revisión al final.</p><div class="stations"><i class="d"></i><i class="d"></i><i class="d"></i><i class="a"></i><i></i><i></i></div></div></div></div>
+                        <div class="nt-stage"><div class="nt-sims"><div class="nt-sim "><div class="nt-sim-top"><span class="nt-sim-ico">🩺</span><strong>Choice Clásico</strong></div><p>Práctica cronometrada con justificación bibliográfica.</p><div class="mini-opts"><i>A</i><i class="ok">B</i><i>C</i><i>D</i></div></div><div class="nt-sim c-violet"><div class="nt-sim-top"><span class="nt-sim-ico">✍️</span><strong>Escrito con IA</strong></div><p>Desarrollo evaluado con rúbrica docente.</p><div class="mini-lines"><i></i><i></i><i></i></div><span class="mini-chip">Rúbrica 8/10</span></div><div class="nt-sim c-emerald"><div class="nt-sim-top"><span class="nt-sim-ico">🛏️</span><strong>Pase de Sala</strong></div><p>Interrogá e interactuá con la cama del paciente.</p><span class="mini-chip">Cama 4 · Interrogatorio</span></div><div class="nt-sim c-red"><div class="nt-sim-top"><span class="nt-sim-ico">🚨</span><strong>Shock Room</strong></div><p>Urgencias críticas con cronómetro y monitor de signos vitales.</p><div class="ecg"><svg viewBox="0 0 250 40" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M0 20H30L36 20L40 6L45 34L50 20H95L101 20L105 6L110 34L115 20H160L166 20L170 6L175 34L180 20H250"/></svg></div><div class="vitals"><span>FC 128</span><span>TA 80/50</span><span>SpO₂ 88%</span><span class="crit" id="nt-shock">⏱ 02:47</span></div></div><div class="nt-sim c-amber"><div class="nt-sim-top"><span class="nt-sim-ico">⚖️</span><strong>Consultorio y Peritaje Legal</strong></div><p>Comunicación, malas noticias y peritajes.</p><span class="mini-chip">Comunicación de malas noticias</span></div><div class="nt-sim c-indigo"><div class="nt-sim-top"><span class="nt-sim-ico">🎯</span><strong>ECOE FINAL · 6.º año</strong></div><p>Una estación de cada especialidad, con revisión al final.</p><div class="stations"><i class="d"></i><i class="d"></i><i class="d"></i><i class="a"></i><i></i><i></i></div></div><div class="nt-sim c-cyan"><div class="nt-sim-top"><span class="nt-sim-ico">📋</span><strong>Casos clínicos de la PFO</strong></div><p>Estaciones con respuesta modelo, fuentes y chat con paciente IA.</p><span class="mini-chip">Respuesta modelo + fuentes</span></div><div class="nt-sim c-pink"><div class="nt-sim-top"><span class="nt-sim-ico">🥽</span><strong>NikaSim · Atlas</strong></div><p>Procedimientos paso a paso, con listas de cotejo y modelos 3D.</p><span class="mini-chip">Práctica y examen</span></div><div class="nt-sim c-lime"><div class="nt-sim-top"><span class="nt-sim-ico">📝</span><strong>Recetarios y certificados</strong></div><p>Recetas y certificados sobre un recetario real, con corrección.</p><span class="mini-chip">Parte documental</span></div></div></div>
                     </section>
 
                     <!-- PASO 3 -->
@@ -1975,10 +2056,10 @@
                         </div>
                         <div class="nt-stage"><div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:18px; padding:20px;">
                             <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
-                                <div style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem; box-shadow:inset 0 0 0 3px #22c55e, 0 0 14px rgba(34,197,94,.5);">🩺</div>
-                                <div style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem;">👩‍⚕️</div>
-                                <div style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem;">🖥️</div>
-                                <div style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem;">👨‍⚕️</div>
+                                <div class="ate-t" style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem; box-shadow:inset 0 0 0 3px #22c55e, 0 0 14px rgba(34,197,94,.5);">🩺</div>
+                                <div class="ate-t" style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem;">👩‍⚕️</div>
+                                <div class="ate-t" style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem;">🖥️</div>
+                                <div class="ate-t" style="aspect-ratio:16/10; border-radius:12px; background:linear-gradient(135deg,#1e293b,#0f172a); display:grid; place-items:center; font-size:1.6rem;">👨‍⚕️</div>
                             </div>
                             <div style="display:flex; justify-content:center; align-items:center; gap:8px; font-size:.75rem; color:var(--text-dim);"><span style="width:8px; height:8px; border-radius:50%; background:#22c55e;"></span> 42 ms · 4/4 personas</div>
                         </div></div>
@@ -2139,10 +2220,10 @@
     </footer>
 
     <!-- WIDGET FLOTANTE NIKA IA — libre, sin login, disponible para cualquier visitante -->
-    <button class="nika-float-btn" onclick="toggleNikaFloat()" aria-label="Abrir Asistente Nika">🤖</button>
+    <button class="nika-float-btn" id="nika-float-btn" onclick="toggleNikaFloat()" aria-label="Abrir Asistente Nika"><svg viewBox="0 0 200 230" class="nka" aria-hidden="true" focusable="false"><defs><linearGradient id="nkaB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#eef2f7"/><stop offset="1" stop-color="#cdd7e3"/></linearGradient><linearGradient id="nkaC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9c5d3"/><stop offset=".5" stop-color="#e9eef4"/><stop offset="1" stop-color="#aebbca"/></linearGradient><linearGradient id="nkaV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16395f"/><stop offset=".55" stop-color="#0c2140"/><stop offset="1" stop-color="#08162b"/></linearGradient><radialGradient id="nkaG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".8"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient></defs><ellipse class="nka-sombra" cx="100" cy="222" rx="36" ry="6.5" fill="#020617" opacity=".32"/><g class="nka-todo"><g class="nka-brazo-q"><path d="M62 134 C48 136 38 152 40 172 C41 183 53 185 59 176 C66 162 68 146 68 138 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M50 150 C48 160 49 168 51 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g><g class="nka-brazo-s"><path d="M138 134 C152 136 162 152 160 172 C159 183 147 185 141 176 C134 162 132 146 132 138 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M150 150 C152 160 151 168 149 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g><path d="M62 152 C62 130 80 122 100 122 C120 122 138 130 138 152 C138 184 124 208 100 208 C76 208 62 184 62 152 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M70 170 L91 170 L95 177 L116 177 L130 170" stroke="#b6c3d1" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="82" cy="146" rx="9" ry="16" fill="#fff" opacity=".7" transform="rotate(14 82 146)"/><g class="nka-cruz" opacity=".9"><circle cx="100" cy="190" r="6.5" fill="#38bdf8"/><path d="M100 186v8M96 190h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></g><rect x="22" y="64" width="19" height="40" rx="9.5" fill="url(#nkaC)" stroke="#b3c0ce" stroke-width="1.4"/><rect x="159" y="64" width="19" height="40" rx="9.5" fill="url(#nkaC)" stroke="#b3c0ce" stroke-width="1.4"/><ellipse cx="100" cy="40" rx="24" ry="7" fill="#dfe6ee" stroke="#c4d0dd" stroke-width="1.4"/><rect x="32" y="38" width="136" height="90" rx="42" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M48 50 C60 42 84 40 100 40" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/><rect x="45" y="52" width="110" height="64" rx="30" fill="url(#nkaV)"/><path d="M58 60 C76 54 124 54 142 60" stroke="#fff" stroke-opacity=".16" stroke-width="5" stroke-linecap="round" fill="none"/><g class="nka-cara"><g class="nka-ojos"><path class="nka-ojo" d="M66 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path class="nka-ojo" d="M106 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path d="M71 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/><path d="M111 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/></g><path class="nka-boca" d="M91 99 Q100 112 109 99 Q100 103 91 99 Z" fill="#35e0f7" stroke="#35e0f7" stroke-width="2" stroke-linejoin="round"/></g></g></svg></button>
     <div class="nika-float-panel" id="nika-float-panel">
         <div class="nika-float-head">
-            <span>🤖</span>
+            <span class="nika-float-avatar"><svg viewBox="0 0 200 230" class="nka" style="pointer-events:none" aria-hidden="true" focusable="false"><defs><linearGradient id="nkaB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#eef2f7"/><stop offset="1" stop-color="#cdd7e3"/></linearGradient><linearGradient id="nkaC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9c5d3"/><stop offset=".5" stop-color="#e9eef4"/><stop offset="1" stop-color="#aebbca"/></linearGradient><linearGradient id="nkaV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16395f"/><stop offset=".55" stop-color="#0c2140"/><stop offset="1" stop-color="#08162b"/></linearGradient><radialGradient id="nkaG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".8"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient></defs><ellipse class="nka-sombra" cx="100" cy="222" rx="36" ry="6.5" fill="#020617" opacity=".32"/><g class="nka-todo"><g class="nka-brazo-q"><path d="M62 134 C48 136 38 152 40 172 C41 183 53 185 59 176 C66 162 68 146 68 138 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M50 150 C48 160 49 168 51 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g><g class="nka-brazo-s"><path d="M138 134 C152 136 162 152 160 172 C159 183 147 185 141 176 C134 162 132 146 132 138 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M150 150 C152 160 151 168 149 174" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".75"/></g><path d="M62 152 C62 130 80 122 100 122 C120 122 138 130 138 152 C138 184 124 208 100 208 C76 208 62 184 62 152 Z" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M70 170 L91 170 L95 177 L116 177 L130 170" stroke="#b6c3d1" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="82" cy="146" rx="9" ry="16" fill="#fff" opacity=".7" transform="rotate(14 82 146)"/><g class="nka-cruz" opacity=".9"><circle cx="100" cy="190" r="6.5" fill="#38bdf8"/><path d="M100 186v8M96 190h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></g><rect x="22" y="64" width="19" height="40" rx="9.5" fill="url(#nkaC)" stroke="#b3c0ce" stroke-width="1.4"/><rect x="159" y="64" width="19" height="40" rx="9.5" fill="url(#nkaC)" stroke="#b3c0ce" stroke-width="1.4"/><ellipse cx="100" cy="40" rx="24" ry="7" fill="#dfe6ee" stroke="#c4d0dd" stroke-width="1.4"/><rect x="32" y="38" width="136" height="90" rx="42" fill="url(#nkaB)" stroke="#c4d0dd" stroke-width="1.6"/><path d="M48 50 C60 42 84 40 100 40" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/><rect x="45" y="52" width="110" height="64" rx="30" fill="url(#nkaV)"/><path d="M58 60 C76 54 124 54 142 60" stroke="#fff" stroke-opacity=".16" stroke-width="5" stroke-linecap="round" fill="none"/><g class="nka-cara"><g class="nka-ojos"><path class="nka-ojo" d="M66 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path class="nka-ojo" d="M106 92 a14 14 0 0 1 28 0 Z" fill="#35e0f7"/><path d="M71 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/><path d="M111 86 a9 9 0 0 1 14 -3" stroke="#bff6ff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".8"/></g><path class="nka-boca" d="M91 99 Q100 112 109 99 Q100 103 91 99 Z" fill="#35e0f7" stroke="#35e0f7" stroke-width="2" stroke-linejoin="round"/></g></g></svg></span>
             <span class="nika-float-title">Asistente Nika</span>
             <button class="nika-float-close" onclick="toggleNikaFloat()">✕</button>
         </div>
@@ -2230,7 +2311,20 @@
         // ================= WIDGET FLOTANTE NIKA IA (libre, sin login) =================
         function toggleNikaFloat() {
             document.getElementById('nika-float-panel').classList.toggle('open');
+            var b = document.getElementById('nika-float-btn');
+            if (b) { b.classList.add('feliz'); setTimeout(function () { b.classList.remove('feliz'); }, 750); }
         }
+        (function () {   // los ojos de Nika siguen el cursor y saluda de vez en cuando
+            var b = document.getElementById('nika-float-btn');
+            if (!b || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+            document.addEventListener('pointermove', function (e) {
+                var r = b.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.4);
+                var d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260);
+                b.style.setProperty('--ex', (dx / d * 5 * k).toFixed(1) + 'px'); b.style.setProperty('--ey', (dy / d * 3.5 * k).toFixed(1) + 'px');
+            }, { passive: true });
+            function saludar() { b.classList.add('saluda'); setTimeout(function () { b.classList.remove('saluda'); }, 2200); }
+            setTimeout(saludar, 1500); setInterval(function () { if (!document.hidden) saludar(); }, 45000);
+        })();
 
         const nikaFloatKB = [
             { k: ['plan', 'planes', 'diferencia', 'precio', 'costo'], a: 'NikaMed (gratis) incluye salas de estudio de 1.º a 6.º año con la PFO, NikaSim, Modo Guardia, Liga Pomodoro, Sala de Ateneos, Foro Académico, NikaMusic, NikaFarma potenciado, Recetarios, Duelos 1vs1, Simulador de Choices y tu Rendimiento Académico. NikaMed+ tiene todas las funciones y suma toda la artillería con IA: Simulador Escrito, Pase de Sala, Shock Room, Consultorios y Legales, ECOE FINAL de 6.º año, el chat de práctica de los casos de la PFO y el Asistente Nika con NotebookLM. Podés ver el detalle completo en la sección "Planes" de esta página.' },
@@ -2238,6 +2332,11 @@
             { k: ['registro', 'cuenta', 'registrarme', 'gratis', 'probar', 'demo'], a: 'Sí, podés probar el simulador con preguntas de demo sin crear una cuenta desde el botón "Probá la Demo" en la parte superior. Para guardar tu progreso y estadísticas, en algún momento vas a necesitar registrarte gratis.' },
             { k: ['pomodoro', 'tiempo', 'estudio'], a: 'El Pomodoro integrado te deja medir cuánto tiempo real le dedicás a cada Unidad Problema, para que sepas en qué temas tenés que reforzar el repaso.' },
             { k: ['ecoe'], a: 'El ECOE FINAL de 6.º año es una de las herramientas de NikaMed+: una estación de cada especialidad, con modo práctica, parte de procedimientos y documentos, y revisión detallada al final.' },
+            { k: ['pfo', 'sexto', '6to', 'practica final', 'práctica final', 'internado'], a: 'La PFO tiene su propia sala de 6.º año con módulos de Clínica Médica, Pediátrica, Quirúrgica, Emergentología, Ginecología y Salud Familiar: material, tutoriales de procedimientos y casos clínicos con respuesta modelo y fuentes. Con NikaMed+ practicás cada caso en un chat con paciente y evaluador por IA.' },
+            { k: ['offline', 'sin conexion', 'sin conexión', 'guardia', 'internet', 'señal'], a: 'El Modo Guardia te deja descargar por materia salas de estudio, bancos, casos de la PFO, atlas, NikaFarma y recetarios para usarlos sin conexión. Lo que hagas sin señal se sube solo cuando vuelve internet.' },
+            { k: ['musica', 'música', 'spotify', 'nikamusic'], a: 'NikaMusic reproduce playlists de Spotify y sonidos ambientales en todas las salas. Tus contactos pueden ver lo que escuchás y lo podés ocultar desde Mi Perfil.' },
+            { k: ['error', 'reportar', 'incorrecto'], a: 'Si encontrás un error, usá el botón Reportar error en el simulador o en el caso clínico y lo revisamos.' },
+            { k: ['reembolso', 'cancelar', 'baja', 'arrepentimiento'], a: 'Podés cancelar cuando quieras desde tu perfil y, si contrataste a distancia, tenés 10 días corridos para arrepentirte y recibir el reembolso total. Detalle en la Política de Reembolsos.' },
             { k: ['bibliografia', 'bibliografía', 'fuente', 'libro'], a: 'Todas las justificaciones del Asistente Nika y los casos clínicos se extraen exclusivamente de los libros de cátedra oficiales de cada materia, no de fuentes genéricas de internet.' }
         ];
 
@@ -2622,6 +2721,8 @@
                 slides.forEach(function (s, k) { s.classList.toggle('active', k === idx); s.setAttribute('aria-hidden', k !== idx); });
                 pills.forEach(function (p, k) { p.classList.toggle('active', k === idx); p.classList.toggle('done', k < idx); });
                 fill.style.width = ((idx + 1) / N * 100) + '%';
+                var pa = pills[idx], box = pa && pa.parentNode;
+                if (box) box.scrollTo({ left: Math.max(0, pa.offsetLeft - (box.clientWidth - pa.offsetWidth) / 2), behavior: 'smooth' });
                 prev.style.visibility = idx === 0 ? 'hidden' : 'visible';
                 count.textContent = 'Paso ' + (idx + 1) + ' de ' + N;
                 var last = idx === N - 1;
