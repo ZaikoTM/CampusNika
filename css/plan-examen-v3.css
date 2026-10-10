@@ -60,3 +60,20 @@ body.dark-mode .pe-item-t small.movido, body.tema-premium .pe-item-t small.movid
 .pe-fin { margin: 8px 0 0; font-size: .86rem; font-weight: 700; color: #f5d0fe; }
 .pe-fin b { color: #fff; }
 @media (prefers-reduced-motion: reduce) { .pe-sug-i { animation: none; } }
+
+/* práctica del examen: choices (gratis) y escrito (NikaMed+) */
+.pe-prac { margin: 14px 0; padding: 16px 18px; border-radius: 18px; border: 1px solid var(--pe-bord); background: var(--pe-card); box-shadow: var(--pe-sombra); }
+.pe-prac-h { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline; margin-bottom: 12px; }
+.pe-prac-h b { font-size: 1rem; font-weight: 900; } .pe-prac-h span { font-size: .8rem; font-weight: 800; color: var(--pe-acc); }
+.pe-prac-b { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.pe-prac-card { display: flex; flex-direction: column; gap: 4px; text-align: left; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--pe-bord); background: var(--pe-card2); color: var(--pe-txt); text-decoration: none; cursor: pointer; font-family: inherit;
+  transition: transform .25s cubic-bezier(.2, .8, .2, 1), border-color .25s, box-shadow .25s; }
+a.pe-prac-card:hover, button.pe-prac-card:hover { transform: translateY(-4px); border-color: var(--pe-acc); box-shadow: 0 16px 32px -18px var(--pe-acc); }
+.pe-prac-card i { font-style: normal; font-size: 1.6rem; display: inline-block; animation: peFlota 4.6s ease-in-out infinite; }
+.pe-prac-card b { font-size: .94rem; font-weight: 900; } .pe-prac-card small { font-size: .78rem; color: var(--pe-mut); font-weight: 600; line-height: 1.4; }
+.pe-prac-card.esc { border-color: rgba(245, 158, 11, .55); background: linear-gradient(135deg, rgba(245, 158, 11, .12), var(--pe-card2)); }
+.pe-prac-card.oral { cursor: default; border-style: dashed; }
+.pe-plus { display: inline-block; font-size: .64rem; font-weight: 900; padding: 1px 8px; border-radius: 99px; color: #1c1300; background: linear-gradient(135deg, #fde68a, #f59e0b); }
+.pe-gratis { display: inline-block; font-size: .64rem; font-weight: 900; padding: 1px 8px; border-radius: 99px; color: #047857; background: rgba(16, 185, 129, .16); border: 1px solid rgba(16, 185, 129, .45); }
+.pe-plus-lista { margin: 10px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: .88rem; }
+@media (prefers-reduced-motion: reduce) { .pe-prac-card i { animation: none; } }

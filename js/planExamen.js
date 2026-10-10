@@ -84,7 +84,8 @@
       S.catalogo.pfo = (j.units || []).map((u) => ({ id: u.etiqueta || ('Módulo ' + u.number), titulo: u.title, temas: (u.contents || []).map(String) }));
     } catch (_) { S.catalogo.pfo = []; }
     try {
-      const r = await fetch('data/planes/gineco_integrador_up1_3.json'); S.plantillas = [await r.json()];
+      const nombres = ['gineco_integrador_up1_3', 'gineco_final_up1_4', 'gineco_unidad4_final'];
+      S.plantillas = (await Promise.all(nombres.map((n) => fetch('data/planes/' + n + '.json').then((r) => (r.ok ? r.json() : null)).catch(() => null)))).filter(Boolean);
     } catch (_) { S.plantillas = []; }
     S.catalogo._ok = true;
   }
@@ -390,7 +391,7 @@
       });
     }
     marcarCierre(dias[dias.length - 1]);
-    return { id: uid(), titulo: w.titulo || T.titulo, materia: T.materia, fecha_examen: w.fecha_examen, unidades: T.unidades.slice(), inicio: w.inicio, evento_id: null, plantilla_id: T.id,
+    return { id: uid(), titulo: w.titulo || T.titulo, materia: T.materia, fecha_examen: w.fecha_examen, unidades: T.unidades.slice(), inicio: w.inicio, evento_id: null, plantilla_id: T.id, practica: T.practica || null,
       dias, creado_en: new Date().toISOString(), actualizado_en: new Date().toISOString() };
   }
   function planDesdeWizard(w) {
@@ -565,7 +566,7 @@
       const temas = t.dias.reduce((a, d) => a + (d.temas || []).length, 0), horas = t.dias.reduce((a, d) => a + (d.horas || 0), 0);
       return `<div class="pe-sug pe-rv ${w.plantilla === t.id ? 'on' : ''}">
         <div class="pe-sug-i">📘</div>
-        <div class="pe-sug-t"><span class="pe-sug-tag">Guía sugerida</span><b>${esc(t.titulo)}</b><small>${esc(t.subtitulo)} · ${t.dias.length} días · ${temas} temas · ${fmtH(horas)}</small>
+        <div class="pe-sug-t"><span class="pe-sug-tag">${t.tipo === 'final' ? 'Guía sugerida · Final (escrito + oral)' : 'Guía sugerida · Parcial'}</span><b>${esc(t.titulo)}</b><small>${esc(t.subtitulo)} · ${t.dias.length} días · ${temas} temas · ${fmtH(horas)}</small>
           <small>${esc(t.descripcion)}</small></div>
         <div class="pe-sug-a">${w.plantilla === t.id
           ? '<button type="button" class="pe-btn pe-btn--sm" data-act="quitar-plantilla">✕ No usarla</button>'
@@ -614,6 +615,68 @@
     const ult = conT[conT.length - 1], repaso = p.dias.filter((d) => d.fecha > ult.fecha).length;
     return `<p class="pe-fin">📚 Terminás los temas el <b>${fmtLarga(ult.fecha)}</b> · te ${repaso === 1 ? 'queda' : 'quedan'} <b>${repaso}</b> ${repaso === 1 ? 'día' : 'días'} de repaso</p>`;
   }
+  // ---- práctica del examen: choices (gratis) y examen escrito (NikaMed+) ----
+  const upNum = (id) => { const m = String(id || '').match(/(\d+)/); return m ? +m[1] : null; };
+  const MODO_LABEL = {
+    ginecologia: { parcial_1: 'Examen Parcial (UP 1 a 3)', final: 'Examen Integrador (UP 1 a 4)' },
+    siam: { parcial_1: 'Primer Parcial (UP 1 a 5)', parcial_2: 'Segundo Parcial (UP 6 a 9)', final: 'Examen Final (UP 1 a 9)' },
+    cirugia: { parcial_1: 'Primer Parcial (UP 1 a 5)', parcial_2: 'Segundo Parcial', final: 'Examen Final' },
+  };
+  function upParam(materia, unidadId) {
+    if (materia === 'cirugia') { const n = upNum(unidadId); return n ? String(n) : ''; }
+    const m = String(unidadId || '').match(/UP\s*(\d+)(?:\s*-\s*Secci[oó]n\s*(\d+))?/i);
+    if (!m) return '';
+    return m[2] ? `UP${m[1]}_sec_${m[2]}` : `UP${m[1]}`;
+  }
+  function practicaDe(p) {
+    if (p.practica && (p.practica.modulo || p.practica.ecoe)) return p.practica;
+    const m = p.materia;
+    if (m === 'pfo') return { modulo: 'pfo', ecoe: true };
+    if (!MODO_LABEL[m]) return null;
+    const nums = (p.unidades || []).map(upNum).filter((n) => n != null);
+    if (!nums.length) return { modulo: m, mode: 'final' };
+    const max = Math.max(...nums), min = Math.min(...nums);
+    let mode = 'final';
+    if (m === 'ginecologia') mode = max <= 3 ? 'parcial_1' : 'final';
+    else mode = max <= 5 ? 'parcial_1' : (min >= 6 ? 'parcial_2' : 'final');
+    return { modulo: m, mode };
+  }
+  const urlChoice = (pr) => `examen.html?modulo=${pr.modulo}&mode=${pr.mode}`;
+  const urlEscrito = (pr) => `examen.html?modulo=${pr.modulo}&modalidad=escrito`;
+  function urlChoiceUP(materia, unidad) { const up = upParam(materia, unidad); return up ? `examen.html?modulo=${materia}&mode=up_especifica&up=${encodeURIComponent(up)}` : null; }
+  function esFree() { try { return !!(window.NikaAcceso && NikaAcceso.esUsuarioFree && NikaAcceso.esUsuarioFree()); } catch (_) { return false; } }
+  function panelPractica(p) {
+    const pr = practicaDe(p); if (!pr) return '';
+    if (pr.ecoe) {
+      return `<section class="pe-prac pe-rv"><div class="pe-prac-h"><b>🎯 Practicá este examen</b><span>ECOE FINAL · 6.º año</span></div>
+        <div class="pe-prac-b">
+          <a class="pe-prac-card" href="pfo_ecoe.html"><i>🎓</i><b>ECOE FINAL</b><small>Una estación de cada especialidad, con tiempo y rúbrica. <span class="pe-plus">NikaMed+</span></small></a>
+          <a class="pe-prac-card" href="pfo_estudio.html"><i>📋</i><b>Casos y procedimientos</b><small>Estaciones para resolver con respuesta modelo y fuentes.</small></a>
+        </div></section>`;
+    }
+    const label = (MODO_LABEL[pr.modulo] || {})[pr.mode] || 'Examen';
+    const free = esFree();
+    return `<section class="pe-prac pe-rv"><div class="pe-prac-h"><b>🎯 Practicá este examen</b><span>${esc(label)}</span></div>
+      <div class="pe-prac-b">
+        <a class="pe-prac-card" href="${urlChoice(pr)}"><i>🩺</i><b>Examen choice</b><small>Simulá el ${esc(label)} con tiempo y corrección. <span class="pe-gratis">Gratis</span></small></a>
+        <button type="button" class="pe-prac-card esc" data-act="escrito" data-url="${urlEscrito(pr)}"><i>✍️</i><b>Examen escrito ${free ? '🔒' : ''}</b><small>Respondé por escrito y recibí corrección con rúbrica. <span class="pe-plus">NikaMed+</span></small></button>
+        ${pr.mode === 'final' ? '<div class="pe-prac-card oral"><i>🗣️</i><b>Tribunal oral</b><small>Ensayá en voz alta el caso integrador del último día: problema, fisiopatología, estudio y conducta.</small></div>' : ''}
+      </div></section>`;
+  }
+  function modalEscrito(url) {
+    if (!esFree()) { location.href = url; return; }
+    modal(`<h3>✍️ El examen escrito es de NikaMed+</h3>
+      <p class="pe-sub">Respondés con tus palabras, como en el examen real, y un tribunal de IA te corrige con rúbrica y feedback por pregunta, marcando lo que tenés que reforzar.</p>
+      <ul class="pe-plus-lista">
+        <li>✍️ Simulador Escrito con corrección por IA, sin límites</li>
+        <li>🛏️ Pase de Sala, 🚨 Shock Room y 🗣️ Consultorios y Legales</li>
+        <li>🎓 ECOE FINAL de 6.º año y chat de práctica con paciente y evaluador por IA</li>
+        <li>🧠 Asistente Nika con la bibliografía de tu cátedra</li>
+      </ul>
+      <p class="pe-sub">Con tu plan gratuito tenés usos de prueba por simulador. ¿Querés usar uno ahora?</p>
+      <div class="pe-modal-acc"><a class="pe-btn pe-btn--pri" href="nikamed-plus.html">⭐ Ver NikaMed+</a><a class="pe-btn" href="${esc(url)}">Usar un uso de prueba</a><button type="button" class="pe-btn" data-cerrar>Ahora no</button></div>`, 'ancho');
+  }
+
   // temas de días que ya pasaron y quedaron sin estudiar
   function pendientes(p) {
     const hoy = hoyISO(), out = [];
@@ -699,6 +762,7 @@
       </header>
       ${vinc}
       ${alertaPendientes(p)}
+      ${panelPractica(p)}
       <div class="pe-alerta pe-alerta--${r.nivel} pe-rv" role="status"><span class="pe-alerta-ico">${r.ico}</span><div><b>${esc(r.titulo)}</b><p>${esc(r.texto)}${r.hdia && r.nivel !== 'verde' ? ` Te quedan ${fmtH(r.falta)} en ${r.diasFalta} ${r.diasFalta === 1 ? 'día' : 'días'} (unas ${fmtH(r.hdia)} por día).` : ''}</p></div></div>
       <nav class="pe-tabs pe-rv" role="tablist">${tabs.map((t) => `<button type="button" role="tab" class="${S.vista === t[0] ? 'on' : ''}" data-act="vista" data-v="${t[0]}"><span>${t[1]}</span> ${t[2]}</button>`).join('')}
         <span class="pe-tabs-sp"></span>
@@ -760,10 +824,21 @@
         <label class="pe-mini-f">Fecha <input type="date" data-act="fecha" data-d="${d.id}" value="${d.fecha}"></label>
         <label class="pe-mini-f">Horas <input type="number" data-act="horas" data-d="${d.id}" value="${d.horas || 0}" min="0" max="16" step="0.5"></label>
         <a class="pe-btn pe-btn--sm" href="${urlSala(p.materia, (d.temas[0] && d.temas[0].unidad) || (p.unidades || [])[0])}">📚 Ir a la sala de estudio</a>
-        <a class="pe-btn pe-btn--sm" href="campus.html">🩺 Simuladores</a>
+        ${botonesPractica(p, d)}
         <button type="button" class="pe-btn pe-btn--sm pe-btn--ok" data-act="completar" data-d="${d.id}">✔ Marcar el día completo</button>
       </div>
     </div>`;
+  }
+  function botonesPractica(p, d) {
+    const pr = practicaDe(p);
+    if (!pr) return '<a class="pe-btn pe-btn--sm" href="campus.html">🩺 Simuladores</a>';
+    if (pr.ecoe) return '<a class="pe-btn pe-btn--sm" href="pfo_ecoe.html">🎓 Practicar el ECOE</a>';
+    const u = (d.temas && d.temas[0] && d.temas[0].unidad) || '';
+    const urlUP = u && u !== 'Integración' && u !== 'Mis temas' ? urlChoiceUP(p.materia, u) : null;
+    const choice = urlUP
+      ? `<a class="pe-btn pe-btn--sm" href="${urlUP}">🩺 Choices de ${esc(u)}</a>`
+      : `<a class="pe-btn pe-btn--sm" href="${urlChoice(pr)}">🩺 Simulacro del examen</a>`;
+    return `${choice}<button type="button" class="pe-btn pe-btn--sm" data-act="escrito" data-url="${urlEscrito(pr)}">✍️ Examen escrito${esFree() ? ' 🔒' : ''}</button>`;
   }
   function vistaAgenda(p, soloHoy) {
     const hoy = hoyISO();
@@ -1092,6 +1167,7 @@
       }
       case 'quitar-dato': { const d = buscarDia(el.dataset.d); if (!d) return; d.datos_duros.splice(+el.dataset.k, 1); guardar(p); return render(); }
       case 'pendientes': return modalPendientes();
+      case 'escrito': return modalEscrito(el.dataset.url);
       case 'completar': {
         const d = buscarDia(el.dataset.d); if (!d) return;
         const todo = itemsDia(d).every((x) => x.hecho);
