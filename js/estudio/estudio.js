@@ -353,6 +353,14 @@ async function initEstudio() {
         if (!res.ok) throw new Error(`No se pudo cargar ${dataFile} (HTTP ${res.status})`);
 
         EstudioState.data = await res.json();
+        // videos marcados como "oculto": solo los ve el administrador
+        try {
+            const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
+            if (!(u && String(u.role || '').toLowerCase() === 'admin')) {
+                const limpiar = (x) => { if (x && Array.isArray(x.videos)) x.videos = x.videos.filter((v) => !v.oculto); };
+                (EstudioState.data.units || []).forEach((un) => { limpiar(un); (un.secciones || []).forEach(limpiar); });
+            }
+        } catch (_) {}
         EstudioState.unitsById = Object.fromEntries(
             EstudioState.data.units.map(u => [u.id, u])
         );

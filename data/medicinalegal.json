@@ -142,11 +142,6 @@
       ],
       "videos": [
         {
-          "title": "Ejercicio legal e ilegal · casos clínicos",
-          "url": "https://www.youtube.com/watch?v=fLx8_j2ntTw",
-          "type": "video"
-        },
-        {
           "title": "Ejercicio legal e ilegal de la medicina",
           "url": "https://www.youtube.com/watch?v=92BqCwf6pEU",
           "type": "video"
@@ -225,11 +220,6 @@
           "title": "Consentimiento informado",
           "url": "https://www.youtube.com/watch?v=iMS0eMbC_ms",
           "type": "video"
-        },
-        {
-          "title": "Casos problema de Medicina Legal",
-          "url": "https://www.youtube.com/watch?v=v7we45Vtg6M",
-          "type": "video"
         }
       ]
     },
@@ -277,13 +267,7 @@
           "type": "doc"
         }
       ],
-      "videos": [
-        {
-          "title": "Actividad pericial médica",
-          "url": "https://www.youtube.com/watch?v=BaszTgJdv2U",
-          "type": "video"
-        }
-      ]
+      "videos": []
     },
     {
       "id": "up5",
@@ -377,12 +361,13 @@
       ],
       "videos": [
         {
-          "title": "Lesiones · clase 1",
+          "title": "Lesiones",
           "url": "https://www.youtube.com/watch?v=Kofnbonm6UA",
-          "type": "video"
+          "type": "video",
+          "oculto": true
         },
         {
-          "title": "Lesiones · clase 2",
+          "title": "Lesiones",
           "url": "https://www.youtube.com/watch?v=qoAibKvqq7k",
           "type": "video"
         },
@@ -473,7 +458,8 @@
         {
           "title": "Psicopatología forense",
           "url": "https://www.youtube.com/watch?v=zRNSS9lfF9U",
-          "type": "video"
+          "type": "video",
+          "oculto": true
         },
         {
           "title": "Psiquiatría legal",
@@ -483,7 +469,8 @@
         {
           "title": "Actividad pericial con perspectiva de género",
           "url": "https://www.youtube.com/watch?v=y9Ej_MDi4r0",
-          "type": "video"
+          "type": "video",
+          "oculto": true
         }
       ]
     },

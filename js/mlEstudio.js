@@ -134,6 +134,10 @@
     try {
       const [a, b] = await Promise.all([fetch('data/medicinalegal_recorrido.json'), fetch('data/medicinalegal.json')]);
       R = await a.json(); SALA_DATA = b.ok ? await b.json() : null;
+      try {
+        const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
+        if (SALA_DATA && !(u && String(u.role || '').toLowerCase() === 'admin')) SALA_DATA.units.forEach((x) => { x.videos = (x.videos || []).filter((v) => !v.oculto); });
+      } catch (_) {}
       vistaRecorrido();
     } catch (e) {
       console.error('[MedLegal]', e);

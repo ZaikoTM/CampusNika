@@ -593,7 +593,10 @@
     const volver = (motivo) => { if (S !== mi) return; const f = mi.fallback; cerrar(); if (iframe) iframe.style.display = ''; if (f) f(motivo); };
     try {
       await cargarLib();
-      const resp = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media&key=${API_KEY}`);
+      // PDF subido a Drive: descarga directa. Presentaciones y documentos de Google (nativos): se exportan a PDF.
+      const base = `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`;
+      let resp = await fetch(`${base}?alt=media&key=${API_KEY}`);
+      if (!resp.ok) resp = await fetch(`${base}/export?mimeType=application%2Fpdf&key=${API_KEY}`);
       if (!resp.ok) throw new Error('drive ' + resp.status);
       const buf = new Uint8Array(await resp.arrayBuffer());
       if (String.fromCharCode(buf[0], buf[1], buf[2], buf[3]) !== '%PDF') throw new Error('no es un PDF');
