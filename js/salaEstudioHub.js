@@ -28,12 +28,17 @@
   const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
   const esPlus = () => esAdmin() || !!(window.NikaAcceso && NikaAcceso.tieneAccesoCompleto && NikaAcceso.tieneAccesoCompleto());
   const pronto = (...n) => n.map((nombre) => ({ nombre, pronto: true }));
+  // electivas que se cursan en 4.° o 5.° año: aparecen en ambos
+  const ELECTIVAS_PRONTO = [
+    { nombre: 'Medicina Deportiva', icono: '🏃', pronto: true, etiqueta: 'Próximamente', desc: 'Materia electiva de 4.° y 5.° año. Estamos preparando su sala de estudio.' },
+    { nombre: 'Administración y Gestión de Instituciones de Salud', icono: '🏥', pronto: true, etiqueta: 'Próximamente', desc: 'Materia electiva de 4.° y 5.° año. Estamos preparando su sala de estudio.' },
+  ];
   const AÑOS = [
     { id: '1ro', nombre: '1° Año', materias: pronto('Salud Individual', 'Salud Colectiva', 'Crecimiento y Desarrollo') },
     { id: '2do', nombre: '2° Año', materias: pronto('Nutrición', 'Sexualidad, Género y Reproducción', 'Trabajo y Tiempo Libre', 'El Ser Humano y su Medio') },
     { id: '3ro', nombre: '3° Año', materias: pronto('Injuria', 'Defensa') },
-    { id: '4to', nombre: '4° Año', materias: [MED_LEGAL, ...pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven')] },
-    { id: '5to', nombre: '5° Año', materias: MATERIAS_5 },
+    { id: '4to', nombre: '4° Año', materias: [MED_LEGAL, ...ELECTIVAS_PRONTO, ...pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven')] },
+    { id: '5to', nombre: '5° Año', materias: [...MATERIAS_5, ...ELECTIVAS_PRONTO] },
     { id: '6to', nombre: '6° Año (PFO)', materias: [{ id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · SALA DE ESTUDIO', nombre: 'Práctica Final Obligatoria', desc: 'Todo para preparar el último año: recorrido por el reglamento, contenidos de cada rotación, procedimientos paso a paso con práctica en NikaSim y bibliografía actualizada.', chips: ['8 módulos', 'Procedimientos paso a paso', 'Bibliografía actualizada'], estudio: 'estudio.html?modulo=pfo', simulador: 'pfo_ecoe.html', atlas: 'acreditaciones.html?area=pfo', hub: 'estudio.html?modulo=pfo' }] },
   ];
 
@@ -46,8 +51,8 @@
 
   function tarjeta(m, i) {
     if (m.pronto) {
-      return `<article class="se-card off" style="--i:${i}"><div class="se-banda"><span class="se-ico">🚧</span></div>
-        <div class="se-cuerpo"><span class="ns-pill dev">En desarrollo</span><h4>${esc(m.nombre)}</h4><p>Estamos preparando el contenido de esta materia.</p>
+      return `<article class="se-card off" style="--i:${i}"><div class="se-banda"><span class="se-ico">${m.icono || '🚧'}</span></div>
+        <div class="se-cuerpo"><span class="ns-pill dev">${esc(m.etiqueta || 'En desarrollo')}</span><h4>${esc(m.nombre)}</h4><p>${esc(m.desc || 'Estamos preparando el contenido de esta materia.')}</p>
         <span class="se-entrar off">Próximamente</span></div></article>`;
     }
     return `<article class="se-card ${m.color}" style="--i:${i}">
