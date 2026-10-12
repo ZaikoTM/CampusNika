@@ -40,14 +40,14 @@
   const esRepaso = (p, d) => d.unidad === 'Integración' && p.dias.indexOf(d) !== p.dias.length - 1;
   const esFinal = (p, d) => p.dias.indexOf(d) === p.dias.length - 1;
 
-  // ---- QR (qrcode-generator, desde CDN; si no carga, la hoja sale sin QR) ----
+  // ---- QR (qrcode-generator, alojado en js/vendor: funciona sin conexión a servidores externos) ----
   let qrLib = null;
   function cargarQR() {
     if (qrLib) return qrLib;
     qrLib = new Promise((ok) => {
       if (window.qrcode) return ok(window.qrcode);
       const s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+      s.src = 'js/vendor/qrcode-generator.min.js?v=1';
       s.onload = () => ok(window.qrcode || null); s.onerror = () => ok(null); document.head.appendChild(s);
     });
     return qrLib;
@@ -155,7 +155,6 @@ body.bn .pie .marca i { background: #000; }
     const colores = {}; unidades.forEach((u, i) => { colores[u] = o.bn ? mezcla('#111111', '#9a9a9a', unidades.length > 1 ? i / (unidades.length - 1) : 0) : mezcla(T.c1, T.c2, unidades.length > 1 ? i / (unidades.length - 1) : 0); });
     const colU = (u) => colores[String(u || '').split(' + ')[0]] || (o.bn ? '#555' : T.c2);
     const logo = new URL('assets/N%20NIKA.png', location.href).href;
-    const link = `${location.origin}/plan_examen.html?plan=${encodeURIComponent(p.id)}`;
     const hojas = []; let numero = 0;
     const total = () => hojas.length;
     const hoja = (seccion, cuerpo) => { numero++; hojas.push(`<section class="hoja"><div class="cab"><img src="${logo}" alt="NikaMed"><div class="t"><b>${esc(p.titulo)}</b><small>NikaMed · ${esc(T.nombre)} · examen ${esc(fLarga(p.fecha_examen))}</small></div><span class="sec">${esc(seccion)}</span></div>${cuerpo}<div class="pie"><span class="marca"><i></i><b>NikaMed</b> · nikamed.com.ar · NikaPlan</span><span>${esc(p.titulo)}</span><span class="pg">${numero}</span></div></section>`); };
@@ -173,7 +172,7 @@ body.bn .pie .marca i { background: #000; }
         <div class="uni">${unidades.map((u) => `<span style="background:${colores[u]}">${esc(u)}</span>`).join('')}</div>
         ${r && tildes ? `<div class="sem ${esc(r.nivel)}">${r.ico} ${esc(r.titulo)}. ${esc(r.texto)}</div>` : ''}
         <div class="fila"><div class="caja"><b>Cómo usar esta carpeta</b><br>1. En el <b>calendario</b> ves todo el plan de un vistazo.<br>2. La <b>agenda</b> te dice qué estudiar cada día; tildá cada tema al terminarlo.<br>3. La hoja de <b>hoy</b> es para llevar encima.<br>4. Los <b>datos duros</b> son para la noche anterior al examen.</div>
-        ${o.qr ? `<div class="qr">${o.qrSvg || ''}<div>Escaneá para abrir tu plan en NikaPlan</div></div>` : ''}</div>
+        ${o.qr ? `<div class="qr">${o.qrSvg || ''}<div>Escaneá y conocé NikaMed</div></div>` : ''}</div>
         <p class="leyenda">Plan armado en <b>NikaMed</b> (NikaPlan). Impreso el ${esc(fLarga(hoyISO()))}.</p>`);
     }
 
@@ -330,7 +329,7 @@ body.bn .pie .marca i { background: #000; }
     x.font = '600 24px "Plus Jakarta Sans", Arial'; x.fillStyle = '#4b5563'; x.fillText('NikaPlan · calendario, agenda, hoy y repaso final', 48, base + 82);
     if (o.qr && lib) {
       try {
-        const svg = qrSvg(lib, `${location.origin}/plan_examen.html`, '#000');
+        const svg = qrSvg(lib, 'https://nikamed.com.ar', '#000');
         const img = await new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); });
         if (img) { x.fillStyle = '#fff'; x.fillRect(W - 220, base - 4, 180, 180); x.drawImage(img, W - 210, base + 6, 160, 160); }
       } catch (_) {}
@@ -367,7 +366,7 @@ body.bn .pie .marca i { background: #000; }
           ${ch('duros', 'Datos duros dentro de cada día', 'Siempre salen en «Hoy» y en «Repaso final»')}
           ${ch('bloques', 'Bloques de horas de cada día')}
           ${ch('tildes', 'Incluir mis tildes y progreso', 'Si lo apagás, sale en limpio para tildar a mano')}
-          ${ch('qr', 'Código QR para volver al plan')}
+          ${ch('qr', 'Código QR de NikaMed', 'Lleva a nikamed.com.ar')}
           <h4>Estilo</h4>
           <div class="ppi-modo"><button type="button" data-bn="0" class="${o.bn ? '' : 'on'}">🎨 Color · ${esc(T.nombre)}</button><button type="button" data-bn="1" class="${o.bn ? 'on' : ''}">⚫ Blanco y negro</button></div>
         </div>
@@ -379,7 +378,7 @@ body.bn .pie .marca i { background: #000; }
     let lib = null;
     const render = async () => {
       if (o.qr && !lib) lib = await cargarQR();
-      o.qrSvg = o.qr ? qrSvg(lib, `${location.origin}/plan_examen.html?plan=${encodeURIComponent(p.id)}`, o.bn ? '#000' : T.ink) : '';
+      o.qrSvg = o.qr ? qrSvg(lib, 'https://nikamed.com.ar', o.bn ? '#000' : T.ink) : '';
       fr.srcdoc = documento(p, o);
       try { localStorage.setItem('nika_plan_imprimir', JSON.stringify(Object.assign({}, o, { qrSvg: undefined }))); } catch (_) {}
     };
@@ -408,7 +407,7 @@ body.bn .pie .marca i { background: #000; }
           if (a.dataset.a === 'imagen') {
             const u = URL.createObjectURL(blob), l = document.createElement('a'); l.href = u; l.download = nombre; document.body.appendChild(l); l.click(); l.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); toast('🖼️ Imagen descargada');
           } else {
-            const texto = `Mi plan de estudio en NikaMed: ${p.titulo}. Examen: ${fLarga(p.fecha_examen)}. Armá el tuyo gratis en https://nikamed.com.ar/plan_examen.html`;
+            const texto = `Mi plan de estudio en NikaMed: ${p.titulo}. Examen: ${fLarga(p.fecha_examen)}. Armá el tuyo gratis en https://nikamed.com.ar`;
             const file = new File([blob], nombre, { type: 'image/png' });
             if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], text: texto, title: 'Mi plan · NikaMed' }); } catch (_) {} }
             else {
