@@ -616,7 +616,7 @@
     <script src="js/pomodoroSyncManager.js?v=5"></script>
 
     <!-- 4. Lógica de Estudio -->
-    <script src="js/estudio/estudio.js?v=90"></script>
+    <script src="js/estudio/estudio.js?v=91"></script>
     <script src="js/estudio/pdfLector.js?v=8"></script>
 
     <!-- 5. Asistente IA y Módulos Sociales -->
@@ -721,7 +721,7 @@
       if (new URLSearchParams(location.search).get('modulo') !== 'medicinalegal') return;
       var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'css/ml-estudio.css?v=1'; document.head.appendChild(l);
       document.addEventListener('DOMContentLoaded', function () {
-        var b = document.getElementById('btn-back-salas'); if (b) b.href = 'sala_estudio.html#5to';
+        var b = document.getElementById('btn-back-salas'); var an = '5to'; try { an = localStorage.getItem('nika_ml_anio') === '4to' ? '4to' : '5to'; } catch (_) {} if (b) b.href = 'sala_estudio.html#' + an;
         document.querySelectorAll('p').forEach(function (e) { e.innerHTML = e.innerHTML.replace('Programa completo de la cátedra — elegí una Unidad Problema', 'Programa completo de la cátedra — elegí una unidad').replace('elegí una Unidad Problema', 'elegí una unidad'); });
         var i = document.getElementById('search-up-input'); if (i) i.placeholder = 'Buscar unidad por título o palabra clave...';
         var t = document.getElementById('up-detail-title'); if (t) t.textContent = 'Título de la unidad';

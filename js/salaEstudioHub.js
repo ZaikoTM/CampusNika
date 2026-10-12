@@ -20,10 +20,11 @@
       estudio: 'estudio.html?modulo=cirugia', simulador: 'examen.html?modulo=cirugia', duelos: 'versus.html', atlas: 'acreditaciones.html?area=cir' },
   ];
   // Medicina Legal: sala de estudio y recorrido virtual (simulador y atlas, más adelante)
-  MATERIAS_5.push({ id: 'legal', nombre: 'Medicina Legal', sigla: 'Medicina Legal', icono: '⚖️', color: 'legal', hub: 'ml_estudio.html',
+  const MED_LEGAL = ({ id: 'legal', nombre: 'Medicina Legal', sigla: 'Medicina Legal', icono: '⚖️', color: 'legal', hub: 'ml_estudio.html',
     desc: 'Las 7 unidades con presentaciones, lecturas, normas y videos, más un recorrido virtual del programa: cómo se cursa, cómo se aprueba y por dónde empezar.',
     chips: ['7 unidades', 'Recorrido virtual', 'Material y videos'],
-    estudio: 'estudio.html?modulo=medicinalegal', recorrido: 'ml_estudio.html' });
+    estudio: 'estudio.html?modulo=medicinalegal', recorrido: 'ml_estudio.html', anios: 'Se cursa en 4.° o 5.° año' });
+  MATERIAS_5.push(MED_LEGAL);
   const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
   const esPlus = () => esAdmin() || !!(window.NikaAcceso && NikaAcceso.tieneAccesoCompleto && NikaAcceso.tieneAccesoCompleto());
   const pronto = (...n) => n.map((nombre) => ({ nombre, pronto: true }));
@@ -31,7 +32,7 @@
     { id: '1ro', nombre: '1° Año', materias: pronto('Salud Individual', 'Salud Colectiva', 'Crecimiento y Desarrollo') },
     { id: '2do', nombre: '2° Año', materias: pronto('Nutrición', 'Sexualidad, Género y Reproducción', 'Trabajo y Tiempo Libre', 'El Ser Humano y su Medio') },
     { id: '3ro', nombre: '3° Año', materias: pronto('Injuria', 'Defensa') },
-    { id: '4to', nombre: '4° Año', materias: pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven') },
+    { id: '4to', nombre: '4° Año', materias: [MED_LEGAL, ...pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven')] },
     { id: '5to', nombre: '5° Año', materias: MATERIAS_5 },
     { id: '6to', nombre: '6° Año (PFO)', materias: [{ id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · SALA DE ESTUDIO', nombre: 'Práctica Final Obligatoria', desc: 'Todo para preparar el último año: recorrido por el reglamento, contenidos de cada rotación, procedimientos paso a paso con práctica en NikaSim y bibliografía actualizada.', chips: ['8 módulos', 'Procedimientos paso a paso', 'Bibliografía actualizada'], estudio: 'estudio.html?modulo=pfo', simulador: 'pfo_ecoe.html', atlas: 'acreditaciones.html?area=pfo', hub: 'estudio.html?modulo=pfo' }] },
   ];
@@ -54,10 +55,10 @@
       <div class="se-cuerpo">
         <h4>${esc(m.nombre)}</h4>
         <p>${esc(m.desc)}</p>
-        <div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ok">${esc(c)}</span>`).join('')}</div>
+        <div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ok">${esc(c)}</span>`).join('')}${m.anios ? `<span class="ns-pill dev" title="Tu progreso y tus estadísticas son los mismos en 4.° y en 5.° año">🔁 ${esc(m.anios)}</span>` : ''}</div>
         <a class="se-entrar" href="${m.estudio}">📖 Entrar a la Sala de Estudio <i>→</i></a>
         <div class="se-rapido" aria-label="Accesos rápidos">
-          ${m.recorrido ? `<a href="${m.recorrido}" title="Recorrido virtual del programa"><span>🧭</span>Recorrido</a>` : ''}
+          ${m.recorrido ? `<a href="${m.recorrido}" title="Recorrido virtual del programa"><span>🧭</span>Recorrido</a><a href="${m.estudio}" title="Las 7 unidades con material y videos"><span>📚</span>Unidades</a><a class="off" href="#" onclick="return false" title="El simulador llega pronto"><span>📝</span>Simulador · pronto</a>` : ''}
           ${m.simulador ? `<a href="${m.simulador}" title="${m.id === 'pfo' ? 'Simulador: ECOE FINAL (NikaMed+)' : 'Simulador de exámenes'}"><span>📝</span>Simulador</a>` : ''}
           ${m.duelos ? `<a href="${m.duelos}" title="Duelos 1vs1"><span>⚔️</span>Duelos</a>` : ''}
           ${m.atlas ? `<a href="${m.atlas}" title="Atlas 3D de acreditaciones"><span>🥽</span>NikaSim</a>` : ''}
@@ -105,8 +106,13 @@
   // recordar el último módulo que se abrió desde acá
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a.se-entrar'); if (!a) return;
-    const m = /modulo=([a-z]+)/.exec(a.getAttribute('href') || ''); try { if (m) localStorage.setItem('nika_ultimo_modulo_estudio', m[1]); } catch (_) {}
+    const m = /modulo=([a-z]+)/.exec(a.getAttribute('href') || ''); try { if (m) localStorage.setItem('nika_ultimo_modulo_estudio', m[1]); if (m && m[1] === 'medicinalegal') localStorage.setItem('nika_ml_anio', S.year); } catch (_) {}
   });
 
+  // Medicina Legal: el recorrido también recuerda el año desde el que se entró
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href*="medicinalegal"], a[href*="ml_estudio"]'); if (!a) return;
+    try { localStorage.setItem('nika_ml_anio', S.year); } catch (_) {}
+  });
   render(); atajos();
 })();

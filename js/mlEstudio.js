@@ -11,6 +11,8 @@
   const leer = () => { try { return JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch (_) { return {}; } };
   const guardar = (o) => { try { localStorage.setItem(LS, JSON.stringify(o)); } catch (_) {} };
   const SALA = 'estudio.html?modulo=medicinalegal';
+  let ANIO = '5to'; try { ANIO = localStorage.getItem('nika_ml_anio') === '4to' ? '4to' : '5to'; } catch (_) {}
+  $$('a[href="sala_estudio.html#5to"]').forEach((x) => { x.href = 'sala_estudio.html#' + ANIO; });
   let R = null, SALA_DATA = null;
 
   function contar(el, hasta, ms) {
@@ -32,7 +34,7 @@
         <span class="pfo-chip plus">⚖️ Medicina Legal</span>
         <h1>${esc(R.titulo).replace('Medicina Legal', '<em>Medicina Legal</em>')}</h1>
         <p>${esc(R.subtitulo)}</p>
-        <div class="pe-hero-acc"><a class="plus" href="${SALA}">📖 Ir a las 7 unidades</a><a href="sala_estudio.html#5to">📚 Salas de estudio</a></div>
+        <div class="pe-hero-acc"><a class="plus" href="${SALA}">📖 Ir a las 7 unidades</a><a href="sala_estudio.html#${ANIO}">📚 Salas de estudio</a></div>
       </section>
       <div class="pe-prog-top" style="margin-top:18px"><b id="pe-pt"></b></div>
       <div class="pe-tour"><nav class="pe-rail" aria-label="Pasos del recorrido">${R.pasos.map((p, i) => `<button type="button" data-i="${i}"><span class="ic">${p.icono}</span><span class="t">${esc(p.titulo)}</span><span class="ok">✓</span></button>`).join('')}</nav>
