@@ -353,13 +353,19 @@ async function initEstudio() {
         if (!res.ok) throw new Error(`No se pudo cargar ${dataFile} (HTTP ${res.status})`);
 
         EstudioState.data = await res.json();
-        // videos marcados como "oculto": solo los ven el administrador y los usuarios NikaMed+
+        // videos de beneficio NikaMed+: viven en un archivo aparte que solo se pide si el usuario es admin o NikaMed+
         try {
             const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
             const plus = !!(window.NikaAcceso && typeof window.NikaAcceso.tieneAccesoCompleto === 'function' && window.NikaAcceso.tieneAccesoCompleto());
-            if (!plus && !(u && String(u.role || '').toLowerCase() === 'admin')) {
-                const limpiar = (x) => { if (x && Array.isArray(x.videos)) x.videos = x.videos.filter((v) => !v.oculto); };
-                (EstudioState.data.units || []).forEach((un) => { limpiar(un); (un.secciones || []).forEach(limpiar); });
+            if (plus || (u && String(u.role || '').toLowerCase() === 'admin')) {
+                const rp = await fetch(`data/plus/${EstudioState.modulo}_videos.json`);
+                if (rp.ok) {
+                    const extra = (await rp.json()).units || {};
+                    (EstudioState.data.units || []).forEach((un) => {
+                        const v = extra[String(un.number)];
+                        if (Array.isArray(v) && v.length) un.videos = (un.videos || []).concat(v.map((x) => Object.assign({ plus: true }, x)));
+                    });
+                }
             }
         } catch (_) {}
         EstudioState.unitsById = Object.fromEntries(

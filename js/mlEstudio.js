@@ -148,6 +148,19 @@
       try {
         const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
         const plus = !!(window.NikaAcceso && typeof window.NikaAcceso.tieneAccesoCompleto === 'function' && window.NikaAcceso.tieneAccesoCompleto());
+        if (SALA_DATA && (plus || (u && String(u.role || '').toLowerCase() === 'admin'))) {
+          const rp = await fetch(`data/plus/${MOD}_videos.json`);
+          if (rp.ok) { const extra = (await rp.json()).units || {}; SALA_DATA.units.forEach((x) => { const v = extra[String(x.number)]; if (Array.isArray(v)) x.videos = (x.videos || []).concat(v); }); }
+        }
+      } catch (_) {}
+      if (R.sala) SALA = R.sala; if (R.ls) LS = R.ls;
+      if (R.tema) { const t = R.tema, st = document.body.style; st.setProperty('--rc-a', t.a); st.setProperty('--rc-b', t.b); st.setProperty('--rc-c', t.c); st.setProperty('--rc-main', t.main); st.setProperty('--rc-dark', t.dark); st.setProperty('--rc-gold', t.gold); }
+      if (R.marca) { const sm = document.querySelector('.pfo-brand small'); if (sm) sm.textContent = R.marca; }
+      if (R.nombreMateria) document.title = R.nombreMateria + ' · Recorrido virtual | Campus Nika';
+      if (R.salasHref && MOD !== 'medicinalegal') { $$('a.pfo-btn-top[href^="sala_estudio.html"]').forEach((x) => { x.href = R.salasHref; }); }
+      try {
+        const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
+        const plus = !!(window.NikaAcceso && typeof window.NikaAcceso.tieneAccesoCompleto === 'function' && window.NikaAcceso.tieneAccesoCompleto());
         if (SALA_DATA && !plus && !(u && String(u.role || '').toLowerCase() === 'admin')) SALA_DATA.units.forEach((x) => { x.videos = (x.videos || []).filter((v) => !v.oculto); });
       } catch (_) {}
       vistaRecorrido();
