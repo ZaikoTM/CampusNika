@@ -13,7 +13,7 @@
     { id: 'gineco', nombre: 'Salud Integral de la Mujer', sigla: 'Ginecología y Obstetricia', icono: '🤰', color: 'gineco', hub: 'gineco_hub.html',
       desc: 'Ginecología, obstetricia y salud de la mujer en todo el curso de vida: estudio por unidad, simulador, duelos y examen mamario, obstétrico y ginecológico en 3D.',
       chips: ['4 UP · 8 secciones', '800 preguntas', '6 acreditaciones 3D'],
-      estudio: 'estudio.html?modulo=ginecologia', simulador: 'examen.html?modulo=ginecologia', duelos: 'versus.html?modulo=ginecologia', atlas: 'acreditaciones.html?area=sim' },
+      estudio: 'estudio.html?modulo=ginecologia', simulador: 'examen.html?modulo=ginecologia', duelos: 'versus.html?modulo=ginecologia', atlas: 'acreditaciones.html?area=sim', recorrido: 'recorrido.html?m=ginecologia' },
     { id: 'cirugia', nombre: 'Introducción a las Especialidades Clínico-Quirúrgicas', sigla: 'Cirugía', icono: '🔪', color: 'cirugia', hub: 'cirugia_hub.html',
       desc: 'Las 11 Unidades Problema de cirugía: programa, material, simulador de exámenes y duelos, más asepsia y lavado quirúrgico en el atlas 3D.',
       chips: ['11 Unidades Problema', '1.100 preguntas', 'Estaciones ECOE'],
@@ -63,11 +63,12 @@
         <div class="se-chips">${m.chips.map((c) => `<span class="ns-pill ok">${esc(c)}</span>`).join('')}${m.anios ? `<span class="ns-pill dev" title="Tu progreso y tus estadísticas son los mismos en 4.° y en 5.° año">🔁 ${esc(m.anios)}</span>` : ''}</div>
         <a class="se-entrar" href="${m.estudio}">📖 Entrar a la Sala de Estudio <i>→</i></a>
         <div class="se-rapido" aria-label="Accesos rápidos">
-          ${m.recorrido ? `<a href="${m.recorrido}" title="Recorrido virtual del programa"><span>🧭</span>Recorrido</a><a href="${m.estudio}" title="Las 7 unidades con material y videos"><span>📚</span>Unidades</a><a class="off" href="#" onclick="return false" title="El simulador llega pronto"><span>📝</span>Simulador · pronto</a>` : ''}
+          ${m.recorrido ? `<a href="${m.recorrido}" title="Recorrido virtual del programa"><span>🧭</span>Recorrido</a>` : ''}
+          ${m.recorrido && !m.simulador ? `<a href="${m.estudio}" title="Las 7 unidades con material y videos"><span>📚</span>Unidades</a><a class="off" href="#" onclick="return false" title="El simulador llega pronto"><span>📝</span>Simulador · pronto</a>` : ''}
           ${m.simulador ? `<a href="${m.simulador}" title="${m.id === 'pfo' ? 'Simulador: ECOE FINAL (NikaMed+)' : 'Simulador de exámenes'}"><span>📝</span>Simulador</a>` : ''}
           ${m.duelos ? `<a href="${m.duelos}" title="Duelos 1vs1"><span>⚔️</span>Duelos</a>` : ''}
           ${m.atlas ? `<a href="${m.atlas}" title="Atlas 3D de acreditaciones"><span>🥽</span>NikaSim</a>` : ''}
-          ${m.recorrido ? '' : `<a href="${m.hub}" title="Menú completo de la materia"><span>🧭</span>Menú</a>`}
+          ${m.recorrido && !m.simulador ? '' : `<a href="${m.hub}" title="Menú completo de la materia"><span>🗂️</span>Menú</a>`}
         </div>
       </div></article>`;
   }

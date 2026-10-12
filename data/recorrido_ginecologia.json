@@ -1,0 +1,148 @@
+{
+  "modulo": "ginecologia",
+  "nombreMateria": "Ginecología y Obstetricia",
+  "chip": "🤰 Salud Integral de la Mujer",
+  "icono": "🤰",
+  "titulo": "Recorrido virtual por Ginecología y Obstetricia",
+  "destacar": "Ginecología y Obstetricia",
+  "subtitulo": "Entendé cómo se organiza el área, cómo se cursa, cómo se regulariza y por dónde empezar. Un paso a la vez, a tu ritmo.",
+  "sala": "estudio.html?modulo=ginecologia",
+  "datos": "data/gineco_data.json",
+  "etiquetaUnidad": "Unidad",
+  "salasHref": "sala_estudio.html#5to",
+  "marca": "Ginecología · Recorrido virtual",
+  "ls": "nika_rec_ginecologia",
+  "tema": { "a": "#3b0a2a", "b": "#9d174d", "c": "#7e22ce", "main": "#db2777", "dark": "#9d174d", "gold": "#c084fc" },
+  "acciones": [
+    { "texto": "📖 Ir a las unidades", "href": "estudio.html?modulo=ginecologia", "plus": true },
+    { "texto": "📝 Simulador de exámenes", "href": "examen.html?modulo=ginecologia" },
+    { "texto": "🥽 NikaSim", "href": "acreditaciones.html?area=sim" }
+  ],
+  "pasos": [
+    {
+      "id": "bienvenida", "icono": "🤰", "titulo": "Bienvenida", "tipo": "hero",
+      "intro": "Salud Integral de la Mujer acompaña a la mujer a lo largo del curso de vida: desde la infancia hasta la adultez mayor, pasando por el embarazo, el parto y el puerperio.",
+      "parrafos": [
+        "El área mira la salud desde lo biológico, lo psicológico y lo social. La mujer es sujeto de derechos, inmersa en realidades socio-culturales distintas, y esa mirada guía toda la cursada.",
+        "En Obstetricia el eje es el binomio madre-hijo con enfoque perinatal, atención centrada en la familia y respeto por la cultura local."
+      ],
+      "cifras": [
+        { "n": 140, "label": "horas reloj en el cuatrimestre" },
+        { "n": 56, "label": "horas teóricas" },
+        { "n": 84, "label": "horas prácticas" },
+        { "n": 4, "label": "unidades temáticas" }
+      ],
+      "dato": "Se cursa en el segundo cuatrimestre de 5.º año, dentro del ciclo Diagnóstico, tratamiento y recuperación."
+    },
+    {
+      "id": "para-que", "icono": "🧭", "titulo": "Para qué sirve", "tipo": "tabs",
+      "intro": "Tocá cada pestaña: el área tiene un enfoque, un perfil de egresado y un lugar dentro de la carrera.",
+      "tabs": [
+        {
+          "icono": "💜", "titulo": "Enfoque", "dato": "Perspectiva integral y de derechos",
+          "texto": "Abordar la salud de la mujer desde una perspectiva integral, de la diversidad sexual, cultural y corporal, con enfoque de derechos y centrado en la familia.",
+          "items": ["Salud bio-psico-social en cada etapa de la vida", "Perspectiva de género y de derechos en la atención", "Atención materno-infantil centrada en la familia", "Enfoque intercultural, que respeta la cultura local"]
+        },
+        {
+          "icono": "🩺", "titulo": "Perfil del egresado", "dato": "Médico generalista orientado a la APS",
+          "texto": "Se busca un profesional que comprenda la salud de la mujer dentro de su entramado socio-cultural y que reconozca las situaciones donde sus derechos son vulnerados.",
+          "items": ["Realizar la historia clínica perinatal y las maniobras semiológicas", "Atender consultas ginecológicas: interrogatorio, semiología y diagnóstico sindrómico", "Saber cuándo y cómo referir a la paciente", "Cuidar la intimidad y la privacidad de la paciente"]
+        },
+        {
+          "icono": "🔗", "titulo": "Dentro de la carrera", "dato": "Previa y posterior",
+          "texto": "El área se articula con las materias que la preceden y con la que viene después.",
+          "items": ["Antes: Salud del Niño y del Adolescente y Salud Integral del Adulto Joven y Mayor I", "A la par: Anatomía, Medicina Legal, Medicina y Sociedad y Salud Mental", "Después: la Práctica Final Obligatoria", "Se apoya en Ginecología de 2.º año (Sexualidad, Género y Reproducción)"]
+        }
+      ]
+    },
+    {
+      "id": "unidades", "icono": "🗺️", "titulo": "Las 4 unidades", "tipo": "unidades",
+      "intro": "Dale la vuelta a cada tarjeta para ver los temas y entrar a la unidad en la sala de estudio. La unidad 3 tiene cinco secciones.",
+      "unidades": [
+        { "n": 1, "icono": "🌸", "titulo": "Generalidades", "programa": "Unidad 1", "temas": ["Anatomía del aparato genital y de la mama", "Fisiología sexual femenina", "Relación médico-paciente en la consulta", "Control ginecológico: citología y examen mamario", "Morbimortalidad materna y perinatal"] },
+        { "n": 2, "icono": "🧒", "titulo": "Salud integral de las niñeces e infancias", "programa": "Unidad 2", "temas": ["Crecimiento y desarrollo; pubertad", "Pubertad precoz y retraso puberal", "Trastornos de la diferenciación sexual", "Estadios de Tanner", "Educación sexual en la infancia"] },
+        { "n": 3, "icono": "🤰", "titulo": "Adolescente y adulta joven", "programa": "Unidad 3 · 5 secciones", "temas": ["1 · Adolescente: anticoncepción, ITS, patología cervical, HPV", "2 · Adulta joven: patología mamaria, ovárica y uterina, endometriosis, amenorreas", "3 · Urgencias ginecológicas en guardia", "4 · Embarazo: control prenatal y embarazo patológico", "5 · Parto y puerperio"] },
+        { "n": 4, "icono": "🌿", "titulo": "Salud integral de la adulta mayor", "programa": "Unidad 4", "temas": ["Climaterio y cambios fisiológicos", "Patología del endometrio", "Cáncer de cuello de útero y de mama", "Incontinencia de orina y prolapso genital", "Educación en salud sexual en la adulta mayor"] }
+      ]
+    },
+    {
+      "id": "competencias", "icono": "🎯", "titulo": "Qué vas a saber hacer", "tipo": "competencias",
+      "intro": "Tildá las que ya sentís dominadas. Es el mapa de lo que el área espera de vos al terminar.",
+      "lista": [
+        "Reconocer el proceso salud-enfermedad-atención de las mujeres como sujetos de derecho",
+        "Realizar la historia clínica perinatal y las maniobras semiológicas del control del embarazo",
+        "Hacer la atención ginecológica: interrogatorio, anamnesis, semiología y diagnóstico sindrómico",
+        "Clasificar los motivos de consulta ginecológica y obstétrica más frecuentes en cada etapa de la vida",
+        "Explicar los cambios anatómicos y fisiológicos de cada etapa del desarrollo de la mujer",
+        "Identificar la prevención y detección precoz de las patologías ginecológicas y obstétricas prevalentes",
+        "Desarrollar la consejería en salud sexual y reproductiva y conocer los derechos y las leyes que los garantizan",
+        "Analizar el parto, el alumbramiento y el puerperio, normal y patológico",
+        "Reconocer las complicaciones del embarazo y sus algoritmos diagnósticos",
+        "Integrar la perspectiva de género y de derechos con una actitud abierta al trabajo interdisciplinario"
+      ]
+    },
+    {
+      "id": "cursada", "icono": "🗓️", "titulo": "Cómo se cursa", "tipo": "tarjetas",
+      "intro": "La cursada trabaja en dos ejes que se articulan todo el tiempo: construir el conocimiento y desarrollar las competencias.",
+      "tarjetas": [
+        { "icono": "📚", "titulo": "Construcción del conocimiento", "dato": "Aula, presencial o híbrida", "texto": "Seminarios, talleres, proyecciones, estudio de casos y foros de consulta, con consultas a expertos y actividades de introducción a la investigación." },
+        { "icono": "💻", "titulo": "Herramientas digitales", "dato": "Campus virtual del área", "texto": "Cuestionarios en línea, entrega de tareas, foros y edición de documentos para fomentar el autoaprendizaje y el trabajo colaborativo." },
+        { "icono": "🧪", "titulo": "Simulación", "dato": "Gabinetes del hospital simulado", "texto": "Talleres con maquetas y escenarios simulados, en grupos reducidos con guías, listas de cotejo y rúbricas. Cada instancia termina con un debriefing." },
+        { "icono": "🗣️", "titulo": "Relación médico-paciente", "dato": "Juego de roles", "texto": "Talleres de anamnesis y comunicación en cada etapa de la vida: niñez, adolescencia, adultez joven y adultez mayor." },
+        { "icono": "🏘️", "titulo": "Prácticas en terreno", "dato": "Centros de atención primaria", "texto": "Rotación por el servicio de ginecología y obstetricia de efectores del primer nivel, con guías de observación y listas de cotejo." },
+        { "icono": "🤝", "titulo": "Proceso tutorial", "dato": "Durante toda la cursada", "texto": "Acompañamiento tutorial que también cuenta para la regularidad del área." }
+      ]
+    },
+    {
+      "id": "evaluacion", "icono": "📝", "titulo": "Cómo se aprueba", "tipo": "evaluacion",
+      "intro": "Elegí cada instancia y tildá lo que ya tenés claro.",
+      "espacios": [
+        {
+          "id": "regularidad", "icono": "✅", "titulo": "Regularidad",
+          "requisitos": ["Haber asistido al 80 % de las unidades problema", "Haber aprobado el proceso tutorial durante toda la cursada", "Aprobar el total de los parciales programados", "Haber acreditado el 100 % de las prácticas en terreno y en el gabinete de habilidades y competencias"],
+          "nota": "Ser alumno regular es lo que te habilita a rendir el examen final oral."
+        },
+        {
+          "id": "parciales", "icono": "🧪", "titulo": "Parciales escritos",
+          "requisitos": ["Son 2 exámenes parciales escritos", "Cada uno tiene su recuperatorio", "Las producciones escritas se evalúan con rúbricas de corrección", "Hay evaluación continua en seminarios y talleres: observación, informes y cuestionarios"],
+          "nota": "Las rúbricas las conocés de antemano: son el criterio con el que se corrige."
+        },
+        {
+          "id": "practica", "icono": "🩺", "titulo": "Competencia práctica",
+          "requisitos": ["Un examen de competencia práctica al final de la cursada", "Se rinde en los gabinetes de simulación", "Tiene su recuperatorio", "Se evalúa con listas de cotejo e instrumentos diseñados para cada instancia"],
+          "nota": "Practicá las maniobras y los procedimientos con NikaSim antes de la instancia."
+        },
+        {
+          "id": "final", "icono": "🎓", "titulo": "Examen final",
+          "requisitos": ["Es un examen final oral", "Solo lo rinde quien tiene la condición de alumno regular", "Integra los contenidos de las cuatro unidades"],
+          "nota": "Practicá el relato oral de cada tema con el simulador y los duelos."
+        }
+      ]
+    },
+    {
+      "id": "bibliografia", "icono": "📖", "titulo": "Bibliografía de cada unidad", "tipo": "normas",
+      "intro": "Tocá cada tarjeta para ver los textos esenciales y complementarios.",
+      "tarjetas": [
+        { "icono": "🌸", "titulo": "Unidad 1 · Generalidades", "items": ["Esencial: Ginecología de Gori (Panamericana, 2016), cap. 1, 6, 9", "Esencial: Testa, Ginecología. Fundamentos para la práctica clínica (2020), parte 1", "Complementaria: Cabero Roura, Tratado de Ginecología y Obstetricia (2013), tomo 1"] },
+        { "icono": "🧒", "titulo": "Unidad 2 · Niñeces e infancias", "items": ["Esencial: Ginecología de Gori, cap. 3 y 7", "Esencial: Testa (2020), parte 2, sección 1", "Complementaria: Cabero Roura (2013), tomo 1"] },
+        { "icono": "🤰", "titulo": "Unidad 3 · Secciones 1 a 3", "items": ["Esencial: Ginecología de Gori y Testa (2020), partes 2 y 3", "Complementaria: criterios médicos de elegibilidad de anticonceptivos (OMS, 2015)", "Complementaria: Consenso de Endometriosis (FASGO, 2019) y PROAGO", "Complementaria: entrega de malas noticias en la práctica clínica"] },
+        { "icono": "👶", "titulo": "Unidad 3 · Secciones 4 y 5", "items": ["Esencial: Obstetricia de Fescina, Schwarcz y Duverges (El Ateneo, 2016)", "Esencial: recomendaciones del Ministerio de Salud para el control preconcepcional, prenatal y puerperal", "Esencial: consenso de hemorragia postparto (FASGO, 2019)", "Complementaria: Cabero Roura (2013), tomo 2"] },
+        { "icono": "🌿", "titulo": "Unidad 4 · Adulta mayor", "items": ["Esencial: Ginecología de Gori, cap. 8, 32, 34, 38 y 42", "Esencial: Testa, parte 3, sección 4", "Complementaria: consenso de cáncer de endometrio (FASGO, 2019)", "Complementaria: Cabero Roura (2013), tomo 1"] }
+      ]
+    },
+    {
+      "id": "quiz", "icono": "🏆", "titulo": "Poné a prueba lo que viste", "tipo": "quiz",
+      "intro": "Ocho preguntas sobre cómo funciona el área. Si acertás 6 o más, completás todo el recorrido.",
+      "preguntas": [
+        { "q": "¿Cuántas horas reloj tiene la carga horaria total del cuatrimestre?", "o": ["80", "100", "140", "200"], "c": 2, "e": "El área tiene 140 horas reloj: 56 teóricas y 84 prácticas." },
+        { "q": "¿Cuál es el eje de la Obstetricia actual en el área?", "o": ["El profesional como centro", "El binomio madre-hijo con enfoque perinatal", "La internación", "El diagnóstico por imágenes"], "c": 1, "e": "La Obstetricia se centra en el binomio madre-hijo, con jerarquización de los vínculos y enfoque intercultural." },
+        { "q": "¿En qué momento de la carrera se cursa el área?", "o": ["Primer cuatrimestre de 4.º año", "Segundo cuatrimestre de 5.º año", "Durante la PFO", "En 6.º año"], "c": 1, "e": "Se desarrolla durante el segundo cuatrimestre del quinto año, en el ciclo Diagnóstico, tratamiento y recuperación." },
+        { "q": "¿Qué porcentaje de asistencia a las unidades problema se pide para regularizar?", "o": ["50 %", "60 %", "80 %", "100 %"], "c": 2, "e": "Hay que haber asistido al 80 % de las unidades problema, además de aprobar tutorial, parciales y prácticas." },
+        { "q": "¿Cuántos parciales escritos tiene el área?", "o": ["Uno", "Dos", "Tres", "Cuatro"], "c": 1, "e": "Son dos parciales escritos, cada uno con su recuperatorio." },
+        { "q": "¿Qué pasa al final de cada instancia de simulación?", "o": ["Se da la nota por mail", "Se hace un debriefing con el grupo", "Se repite el escenario", "Nada, se pasa a la siguiente unidad"], "c": 1, "e": "Después de cada simulación el equipo docente se reúne con el grupo para analizar lo positivo y lo mejorable." },
+        { "q": "¿Qué habilita la condición de alumno regular?", "o": ["Rendir el examen final oral", "Saltear los parciales", "Hacer la PFO", "Cursar sin prácticas"], "c": 0, "e": "La regularidad permite acceder al examen final oral." },
+        { "q": "¿Qué porcentaje de las prácticas en terreno y de gabinete hay que acreditar?", "o": ["50 %", "70 %", "80 %", "100 %"], "c": 3, "e": "Se exige el 100 % de las prácticas en terreno y de las prácticas en el gabinete de habilidades y competencias." }
+      ]
+    }
+  ]
+}

@@ -61,7 +61,7 @@ body.sala-estudio::before { background: radial-gradient(900px 520px at 85% -8%, 
 .se-entrar:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 14px 28px -10px var(--se-glow, rgba(0, 0, 0, .35)); }
 .se-entrar:hover i { transform: translateX(5px); }
 .se-entrar.off { background: var(--bg-body); color: var(--text-muted); box-shadow: none; border: 1px dashed var(--border); cursor: default; }
-.se-rapido { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.se-rapido { display: grid; grid-template-columns: repeat(auto-fit, minmax(68px, 1fr)); gap: 6px; }
 .se-rapido a { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px; border-radius: 12px; text-decoration: none; font-size: .7rem; font-weight: 700; color: var(--text-muted);
   background: var(--bg-body); border: 1px solid var(--border); transition: transform .18s, background .18s, color .18s, border-color .18s; }
 .se-rapido a span { font-size: 1.15rem; transition: transform .2s; }

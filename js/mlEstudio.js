@@ -7,10 +7,11 @@
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const main = $('#pe-main');
   const reducido = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const LS = 'nika_ml_estudio';
+  const MOD = (new URLSearchParams(location.search).get('m') || 'medicinalegal').replace(/[^a-z]/g, '');
+  let LS = 'nika_ml_estudio';
   const leer = () => { try { return JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch (_) { return {}; } };
   const guardar = (o) => { try { localStorage.setItem(LS, JSON.stringify(o)); } catch (_) {} };
-  const SALA = 'estudio.html?modulo=medicinalegal';
+  let SALA = 'estudio.html?modulo=' + MOD;
   let ANIO = '5to'; try { ANIO = localStorage.getItem('nika_ml_anio') === '4to' ? '4to' : '5to'; } catch (_) {}
   $$('a[href="sala_estudio.html#5to"]').forEach((x) => { x.href = 'sala_estudio.html#' + ANIO; });
   let R = null, SALA_DATA = null;
@@ -31,10 +32,10 @@
     main.innerHTML = `
       <section class="pe-hero ml-hero">
         <span class="ml-balanza" aria-hidden="true"><i class="b"></i><i class="p"></i><i class="l"></i><i class="r"></i></span>
-        <span class="pfo-chip plus">⚖️ Medicina Legal</span>
-        <h1>${esc(R.titulo).replace('Medicina Legal', '<em>Medicina Legal</em>')}</h1>
+        <span class="pfo-chip plus">${esc(R.chip || '⚖️ Medicina Legal')}</span>
+        <h1>${esc(R.titulo).replace(esc(R.destacar || 'Medicina Legal'), '<em>' + esc(R.destacar || 'Medicina Legal') + '</em>')}</h1>
         <p>${esc(R.subtitulo)}</p>
-        <div class="pe-hero-acc"><a class="plus" href="${SALA}">📖 Ir a las 7 unidades</a><a href="sala_estudio.html#${ANIO}">📚 Salas de estudio</a></div>
+        <div class="pe-hero-acc">${(R.acciones || [{ texto: '📖 Ir a las 7 unidades', href: SALA, plus: true }]).map((a) => `<a class="${a.plus ? 'plus' : ''}" href="${esc(a.href)}">${esc(a.texto)}</a>`).join('')}<a href="${MOD === 'medicinalegal' ? 'sala_estudio.html#' + ANIO : (R.salasHref || 'sala_estudio.html#5to')}">📚 Salas de estudio</a></div>
       </section>
       <div class="pe-prog-top" style="margin-top:18px"><b id="pe-pt"></b></div>
       <div class="pe-tour"><nav class="pe-rail" aria-label="Pasos del recorrido">${R.pasos.map((p, i) => `<button type="button" data-i="${i}"><span class="ic">${p.icono}</span><span class="t">${esc(p.titulo)}</span><span class="ok">✓</span></button>`).join('')}</nav>
@@ -59,7 +60,11 @@
     $$('.pe-rail button', main).forEach((b) => b.addEventListener('click', () => ir(+b.dataset.i)));
     document.onkeydown = (e) => { if (/INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || '')) return; if (e.key === 'ArrowRight') ir(idx + 1); else if (e.key === 'ArrowLeft') ir(idx - 1); };
 
-    const conteoUnidad = (n) => { const u = SALA_DATA && SALA_DATA.units.find((x) => x.number === n); return u ? { m: (u.materiales || []).length, v: (u.videos || []).length } : { m: 0, v: 0 }; };
+    const conteoUnidad = (n) => {
+      const u = SALA_DATA && SALA_DATA.units.find((x) => x.number === n); if (!u) return { m: 0, v: 0 };
+      const ss = (u.secciones || []);
+      return { m: (u.materiales || []).length + ss.reduce((a, x) => a + (x.materiales || []).length, 0), v: (u.videos || []).length + ss.reduce((a, x) => a + (x.videos || []).length, 0) };
+    };
     const RENDER = {
       hero(p, c) {
         c.innerHTML = `${p.parrafos.map((t) => `<p class="pr">${esc(t)}</p>`).join('')}<div class="pe-cifras">${p.cifras.map((x) => `<div class="pe-cifra"><b data-n="${x.n}">0</b><span>${esc(x.label)}</span></div>`).join('')}</div><div class="pe-aviso">💡 ${esc(p.dato)}</div>`;
@@ -75,8 +80,8 @@
       },
       unidades(p, c) {
         c.innerHTML = `<div class="pe-cards ml-unidades">${p.unidades.map((u, i) => { const k = conteoUnidad(u.n);
-          return `<div class="pe-flip ml-flip" style="--d:${i}" tabindex="0" role="button" aria-label="Unidad ${u.n}: ${esc(u.titulo)}"><div class="cara"><div class="f"><span class="ic">${u.icono}</span><span class="ml-num">Unidad ${u.n}</span><b>${esc(u.titulo)}</b><small>Tocá para ver los temas</small></div>
-            <div class="b"><h4>${u.icono} Unidad ${u.n}</h4><ul>${u.temas.map((t) => `<li>${esc(t)}</li>`).join('')}</ul><div class="ml-meta"><span>📄 ${k.m} materiales</span><span>🎬 ${k.v} videos</span></div><div class="ml-prog">Corresponde a: ${esc(u.programa)}</div><a class="ml-ir" href="${SALA}&up=${u.n}">Entrar a la unidad →</a></div></div></div>`; }).join('')}</div>`;
+          return `<div class="pe-flip ml-flip" style="--d:${i}" tabindex="0" role="button" aria-label="${esc(R.etiquetaUnidad || 'Unidad')} ${u.n}: ${esc(u.titulo)}"><div class="cara"><div class="f"><span class="ic">${u.icono}</span><span class="ml-num">${esc(R.etiquetaUnidad || 'Unidad')} ${u.n}</span><b>${esc(u.titulo)}</b><small>Tocá para ver los temas</small></div>
+            <div class="b"><h4>${u.icono} ${esc(R.etiquetaUnidad || 'Unidad')} ${u.n}</h4><ul>${u.temas.map((t) => `<li>${esc(t)}</li>`).join('')}</ul><div class="ml-meta"><span>📄 ${k.m} materiales</span><span>🎬 ${k.v} videos</span></div><div class="ml-prog">Corresponde a: ${esc(u.programa)}</div><a class="ml-ir" href="${SALA}&up=${u.n}">Entrar a la unidad →</a></div></div></div>`; }).join('')}</div>`;
         $$('.pe-flip', c).forEach((el) => {
           el.addEventListener('click', (e) => { if (e.target.closest('a')) return; el.classList.toggle('vuelta'); });
           el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.classList.toggle('vuelta'); } });
@@ -112,7 +117,7 @@
           if (q >= p.preguntas.length) {
             const mejor = Math.max(est.tour.mejor || 0, ok); est.tour.mejor = mejor; R.pasos.forEach((x) => marcar(x.id)); guardar(est); barra(); if (ok >= 6) confeti();
             c.innerHTML = `<div class="pe-fin"><div class="big ml-sello">${ok === p.preguntas.length ? '🏆' : ok >= 6 ? '🎉' : '📚'}</div><h3>${ok} de ${p.preguntas.length} correctas</h3><p>${ok === p.preguntas.length ? '¡Perfecto! Ya sabés cómo funciona la materia.' : ok >= 6 ? '¡Muy bien! Repasá el recorrido para pulir los detalles.' : 'Repasá el recorrido y volvé a intentarlo.'} Tu mejor resultado: ${mejor} de ${p.preguntas.length}.</p>
-              <div class="pe-nav" style="justify-content:center"><button class="pfo-btn" id="pq-otra">↺ Jugar de nuevo</button><a class="pfo-btn sec" href="${SALA}">📖 Empezar por la Unidad 1</a></div></div>`;
+              <div class="pe-nav" style="justify-content:center"><button class="pfo-btn" id="pq-otra">↺ Jugar de nuevo</button><a class="pfo-btn sec" href="${SALA}">📖 Empezar por la unidad 1</a></div></div>`;
             $('#pq-otra').addEventListener('click', () => { q = 0; ok = 0; pintar(); }); return;
           }
           const x = p.preguntas[q];
@@ -132,8 +137,14 @@
 
   async function init() {
     try {
-      const [a, b] = await Promise.all([fetch('data/medicinalegal_recorrido.json'), fetch('data/medicinalegal.json')]);
-      R = await a.json(); SALA_DATA = b.ok ? await b.json() : null;
+      const archivo = MOD === 'medicinalegal' ? 'data/medicinalegal_recorrido.json' : `data/recorrido_${MOD}.json`;
+      const a = await fetch(archivo); R = await a.json();
+      const b = await fetch(R.datos || 'data/medicinalegal.json'); SALA_DATA = b.ok ? await b.json() : null;
+      if (R.sala) SALA = R.sala; if (R.ls) LS = R.ls;
+      if (R.tema) { const t = R.tema, st = document.body.style; st.setProperty('--rc-a', t.a); st.setProperty('--rc-b', t.b); st.setProperty('--rc-c', t.c); st.setProperty('--rc-main', t.main); st.setProperty('--rc-dark', t.dark); st.setProperty('--rc-gold', t.gold); }
+      if (R.marca) { const sm = document.querySelector('.pfo-brand small'); if (sm) sm.textContent = R.marca; }
+      if (R.nombreMateria) document.title = R.nombreMateria + ' · Recorrido virtual | Campus Nika';
+      if (R.salasHref && MOD !== 'medicinalegal') { $$('a.pfo-btn-top[href^="sala_estudio.html"]').forEach((x) => { x.href = R.salasHref; }); }
       try {
         const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
         if (SALA_DATA && !(u && String(u.role || '').toLowerCase() === 'admin')) SALA_DATA.units.forEach((x) => { x.videos = (x.videos || []).filter((v) => !v.oculto); });
