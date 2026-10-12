@@ -977,6 +977,7 @@
       <div class="pe-alerta pe-alerta--${r.nivel} pe-rv" role="status"><span class="pe-alerta-ico">${r.ico}</span><div><b>${esc(r.titulo)}</b><p>${esc(r.texto)}${r.hdia && r.nivel !== 'verde' ? ` Te quedan ${fmtH(r.falta)} en ${r.diasFalta} ${r.diasFalta === 1 ? 'día' : 'días'} (unas ${fmtH(r.hdia)} por día).` : ''}</p></div></div>
       <nav class="pe-tabs pe-rv" role="tablist">${tabs.map((t) => `<button type="button" role="tab" class="${S.vista === t[0] ? 'on' : ''}" data-act="vista" data-v="${t[0]}"><span>${t[1]}</span> ${t[2]}</button>`).join('')}
         <span class="pe-tabs-sp"></span>
+        <button type="button" class="pe-mini pe-imprimir" data-act="imprimir" title="Imprimir tu plan o guardarlo como PDF, en color o en blanco y negro">🖨️ Imprimir / PDF</button>
         <button type="button" class="pe-mini" data-act="editar" title="Cambiar nombre, fecha o vínculo del examen">⚙️ Ajustes</button>
       </nav>
       ${cuerpo}
@@ -1379,6 +1380,7 @@
         (d.datos_duros = d.datos_duros || []).push(v); guardar(p); S.diaId = d.id; return render();
       }
       case 'quitar-dato': { const d = buscarDia(el.dataset.d); if (!d) return; d.datos_duros.splice(+el.dataset.k, 1); guardar(p); return render(); }
+      case 'imprimir': { if (window.NikaPlanImprimir) window.NikaPlanImprimir.abrir(p); else toast('La impresión se está cargando, probá de nuevo'); return; }
       case 'pomodoro-toggle': { if (p.pomodoro) { p.pomodoro = false; guardar(p); } else elegirPomodoro(p); toast(p.pomodoro ? '🍅 Tu Pomodoro ahora cuenta en este plan' : 'Tu Pomodoro ya no suma a este plan'); return render(); }
       case 'pendientes': return modalPendientes();
       case 'escrito': return modalEscrito(el.dataset.url);
