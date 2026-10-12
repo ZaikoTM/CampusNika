@@ -616,7 +616,7 @@
     <script src="js/pomodoroSyncManager.js?v=5"></script>
 
     <!-- 4. Lógica de Estudio -->
-    <script src="js/estudio/estudio.js?v=89"></script>
+    <script src="js/estudio/estudio.js?v=90"></script>
     <script src="js/estudio/pdfLector.js?v=8"></script>
 
     <!-- 5. Asistente IA y Módulos Sociales -->
@@ -668,7 +668,7 @@
             let m = null;
             try { m = (window.EstudioState && window.EstudioState.modulo) || null; } catch (_) {}
             if (!m) m = new URLSearchParams(location.search).get('modulo') || 'cirugia';
-            return { siam: 'siam', ginecologia: 'sim', cirugia: 'cir', pfo: 'pfo' }[m] || null;
+            return { siam: 'siam', ginecologia: 'sim', cirugia: 'cir', pfo: 'pfo' }[m] || null;   // Medicina Legal: sin atlas todavía
         }
         function nikaIrAlAtlas(e) {
             const area = nikaAreaAtlas();
@@ -712,6 +712,25 @@
         document.querySelectorAll('p').forEach(function (e) { e.innerHTML = e.innerHTML.replace('elegí una Unidad Problema', 'elegí un módulo'); });
         var i = document.getElementById('search-up-input'); if (i) i.placeholder = 'Buscar módulo por título o palabra clave...';
         var t = document.getElementById('up-detail-title'); if (t) t.textContent = 'Título del módulo';
+      });
+    })();
+</script>
+<script>
+    // Medicina Legal: vuelve a las salas de 5.° año, las unidades se llaman "unidades" y hay un recorrido virtual del programa
+    (function () {
+      if (new URLSearchParams(location.search).get('modulo') !== 'medicinalegal') return;
+      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'css/ml-estudio.css?v=1'; document.head.appendChild(l);
+      document.addEventListener('DOMContentLoaded', function () {
+        var b = document.getElementById('btn-back-salas'); if (b) b.href = 'sala_estudio.html#5to';
+        document.querySelectorAll('p').forEach(function (e) { e.innerHTML = e.innerHTML.replace('Programa completo de la cátedra — elegí una Unidad Problema', 'Programa completo de la cátedra — elegí una unidad').replace('elegí una Unidad Problema', 'elegí una unidad'); });
+        var i = document.getElementById('search-up-input'); if (i) i.placeholder = 'Buscar unidad por título o palabra clave...';
+        var t = document.getElementById('up-detail-title'); if (t) t.textContent = 'Título de la unidad';
+        var hero = document.querySelector('#view-dashboard .suite-hero');
+        if (hero && !document.querySelector('.ml-banner')) {
+          var a = document.createElement('a'); a.className = 'ml-banner'; a.href = 'ml_estudio.html';
+          a.innerHTML = '<span class="ico">⚖️</span><span><b>Recorrido virtual por Medicina Legal</b><small>De qué se trata, cómo se cursa, cómo se aprueba y por dónde empezar</small></span><span class="go">Empezar el recorrido →</span>';
+          hero.parentNode.insertBefore(a, hero);
+        }
       });
     })();
 </script>

@@ -1,0 +1,549 @@
+{
+  "nombre": "Medicina Legal",
+  "units": [
+    {
+      "id": "up1",
+      "number": 1,
+      "etiqueta": "UNIDAD",
+      "title": "Medicina Legal: concepto, evolución y actividad pericial",
+      "parcial": "Parcial",
+      "icono": "⚖️",
+      "objectives": [
+        "Conocer el alcance teórico-práctico de la Medicina Legal, su evolución histórica, metodología y finalidades.",
+        "Ubicar a la Medicina Legal dentro de las ciencias de la salud y sus relaciones con otras disciplinas (multi, inter y transdisciplina).",
+        "Adquirir nociones jurídicas para buscar e interpretar las normas vinculadas a la actividad médica.",
+        "Reconocer el proceso técnico del diagnóstico, la causalidad, el pronóstico y las consecuencias jurídico-legales de la salud y la enfermedad.",
+        "Distinguir al perito: concepto, condiciones, clases, obligaciones, deberes y derechos."
+      ],
+      "contents": [
+        "Concepto de Medicina Legal y evolución histórica hasta su paradigma actual",
+        "Ubicación en la medicina y relación con otras disciplinas científicas",
+        "Especificidad del saber médico-legal: áreas temáticas y aplicaciones",
+        "Juicio probabilístico y obligación legal",
+        "Multidisciplina, interdisciplina y transdisciplina; subespecialidad de especialidades médicas",
+        "Elementos jurídicos: caracteres de la normatividad legal y administrativa, interpretación y fines",
+        "Actividad pericial: sujetos, finalidad y requisitos de idoneidad",
+        "Perito: concepto, condiciones esenciales, clases, obligaciones, deberes y derechos",
+        "Informe pericial verbal y escrito: formalidades, contenido y elaboración de conclusiones",
+        "Trabajo práctico: áreas de la Medicina Legal; organización del Departamento Médico Forense"
+      ],
+      "bibliography": [
+        "Gisbert Calabuig. Medicina Legal y Toxicología, 7.ª ed. Enrique Villanueva Cañadas. Elsevier, 2019.",
+        "Medicina Legal y forense para estudiantes de Medicina, 2.ª ed. José A. Menéndez de Luca. Elsevier, 2020.",
+        "Medicina Legal, Criminalística, Criminología, Violencia doméstica y Psiquiatría Forense en imágenes, tomos I y II. Juan José Dal Lago. Salerno, 2022.",
+        "Código Civil y Comercial de la Nación (infoleg.gob.ar)."
+      ],
+      "materiales": [
+        {
+          "title": "Programa de la materia",
+          "url": "https://drive.google.com/file/d/1aFSGNkIbcZsdDMDqbUjCTrHi3o-MHya7/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Gisbert Calabuig · Medicina Legal y Toxicología (6.ª ed.)",
+          "url": "https://drive.google.com/file/d/1o8xhiSvcVTAZuuHgQKCFD069QOEa2L8I/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Resumen de Medicina Legal",
+          "url": "https://drive.google.com/file/d/1O1Hg-mExoqTkzN1p9tfB9vKcXEEaA9Gs/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Unidad 1 · Presentación de la clase",
+          "url": "https://docs.google.com/presentation/d/1FcyMAKkxsajQD173mx1rr4Rkk_SZbnK0/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Medicina Legal y forense (lectura)",
+          "url": "https://drive.google.com/file/d/1N4yhg_2vVlsBHAkI40dBuZQckU4rJ9NW/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Importancia de la Medicina Legal en la práctica médica",
+          "url": "https://drive.google.com/file/d/1XUMAnSJoeFY7sGT0TMzW4NKAW691i-xX/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Lectura recomendada · Unidad 1",
+          "url": "https://drive.google.com/file/d/1hDBvZSGdUG11ZIJOgGNfhhPjMCuRFVVu/view?usp=drive_link",
+          "type": "pdf"
+        }
+      ],
+      "videos": []
+    },
+    {
+      "id": "up2",
+      "number": 2,
+      "etiqueta": "UNIDAD",
+      "title": "Ejercicio de la medicina, confidencialidad y certificados",
+      "parcial": "Parcial",
+      "icono": "🩺",
+      "objectives": [
+        "Ajustar el ejercicio de la medicina, en todas sus modalidades, a las normas legales y administrativas vigentes.",
+        "Comprender la regulación legal del ejercicio de la medicina y asumir los deberes y obligaciones exigibles en la práctica.",
+        "Elaborar los documentos médicos que establecen las normas, incluidos certificados e historia clínica.",
+        "Asumir los principios de confidencialidad y consentimiento informado como parte de la práctica asistencial."
+      ],
+      "contents": [
+        "Ley de ejercicio profesional: derechos, obligaciones y prohibiciones",
+        "Deber de confidencialidad y sus límites",
+        "Consentimiento informado en la práctica asistencial y en la investigación médica",
+        "Certificados y constancias médicas: nacimiento, enfermedades de denuncia obligatoria, prenupcial y defunción",
+        "Habilitación para el ejercicio de la profesión y de las especialidades reconocidas",
+        "Actividades de colaboración de la medicina",
+        "Historia clínica: regulación legal, tipos y obligaciones de los profesionales",
+        "Ejercicio ilegal de la medicina y delitos vinculados",
+        "Trabajo práctico: elenco de normas de la profesión médica en el Código Penal; estructura de un informe pericial en el CPCC de Entre Ríos"
+      ],
+      "bibliography": [
+        "Gisbert Calabuig. Medicina Legal y Toxicología, 7.ª ed. Enrique Villanueva Cañadas. Elsevier, 2019.",
+        "Medicina Legal y forense para estudiantes de Medicina, 2.ª ed. José A. Menéndez de Luca. Elsevier, 2020.",
+        "Ley nacional 17.132 (ejercicio de la medicina) y Ley 3818 de la Provincia de Entre Ríos (infoleg.gob.ar).",
+        "Código Penal Argentino (infoleg.gob.ar).",
+        "Código Civil y Comercial de la Nación (infoleg.gob.ar)."
+      ],
+      "materiales": [
+        {
+          "title": "Unidad 2 · Presentación de la clase",
+          "url": "https://docs.google.com/presentation/d/1l5ixw3ehhwMWQPlZR2MEZQ87T__gqNZM/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Clase 2 · Ley del ejercicio de la medicina",
+          "url": "https://drive.google.com/file/d/1-uyyzkFGOYrdmJF7177TVm0UX0kJ4os0/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Prueba pericial en los códigos procesales de Entre Ríos",
+          "url": "https://docs.google.com/document/d/1oUDRAHzXfT2K1sluxvsjNsj9BClK4ssB/edit?usp=drive_link",
+          "type": "doc"
+        },
+        {
+          "title": "Ejercicio ilegal · Pensamiento penal",
+          "url": "https://drive.google.com/file/d/1n63sEaES2Ngl_jeSWnHMz18NW3nY8Qk8/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Ley 3818 y sus modificaciones",
+          "url": "https://docs.google.com/document/d/1lrbQeJZz58PK6P4GxSd-3dsQ8rU25Evj/edit?usp=drive_link",
+          "type": "doc"
+        },
+        {
+          "title": "Ejercicio ilegal de la medicina",
+          "url": "https://drive.google.com/file/d/1fce13Z0rCgXF_GfG_7XmuKJztTgGI6uI/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Clase 2 · Ley de ejercicio de la medicina y delitos",
+          "url": "https://drive.google.com/file/d/1l8qyRPVF9cYkIzND9MeIOluo25KXDVKB/view?usp=drive_link",
+          "type": "pdf"
+        }
+      ],
+      "videos": [
+        {
+          "title": "Ejercicio legal e ilegal · casos clínicos",
+          "url": "https://www.youtube.com/watch?v=fLx8_j2ntTw",
+          "type": "video"
+        },
+        {
+          "title": "Ejercicio legal e ilegal de la medicina",
+          "url": "https://www.youtube.com/watch?v=92BqCwf6pEU",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "id": "up3",
+      "number": 3,
+      "etiqueta": "UNIDAD",
+      "title": "Derechos del paciente y responsabilidad profesional",
+      "parcial": "Parcial",
+      "icono": "🤝",
+      "objectives": [
+        "Asumir valores éticos y principios deontológicos: autonomía del paciente, consentimiento informado y confidencialidad.",
+        "Reconocer los derechos del paciente y los deberes de los profesionales de la salud.",
+        "Distinguir los tipos de responsabilidad profesional médica: civil, penal y administrativa.",
+        "Identificar cómo se prueba la responsabilidad y qué requisitos tiene la prueba pericial médica."
+      ],
+      "contents": [
+        "Derechos del paciente con especial protección legal; el paciente como usuario-consumidor",
+        "El derecho a la salud en el plexo normativo argentino",
+        "Responsabilidad profesional médica: concepto, límites y tipos",
+        "Responsabilidad civil subjetiva y objetiva: elementos constitutivos y prueba",
+        "Responsabilidad penal: tipos penales y prueba",
+        "Responsabilidad administrativa y sanciones: concepto, tipos y alcances",
+        "Prueba pericial médica en responsabilidad profesional: requisitos, régimen de control, informe",
+        "Casos especiales: equipo médico, contratos con terceros, prestaciones periódicas, testimonio del médico",
+        "Deontología y diceología médica; objeción de conciencia y sus limitaciones",
+        "Trabajo práctico: responsabilidad civil médica en el CCyC; caso denunciado como homicidio culposo por mala praxis"
+      ],
+      "bibliography": [
+        "Gisbert Calabuig. Medicina Legal y Toxicología, 7.ª ed. Enrique Villanueva Cañadas. Elsevier, 2019.",
+        "Medicina Legal y forense para estudiantes de Medicina, 2.ª ed. José A. Menéndez de Luca. Elsevier, 2020.",
+        "Código Civil y Comercial de la Nación (infoleg.gob.ar).",
+        "Código Penal Argentino (infoleg.gob.ar).",
+        "Responsabilidad profesional. Médicos y otros profesionales. Luis A. Rodríguez Saiach. Gowa, 2017.",
+        "Los derechos del paciente. Ley 26.529. Walter David Pelle. Eudem, 2021.",
+        "Responsabilidad civil médica, 2 tomos. Carlos A. Calvo Costa. La Ley, 2021.",
+        "La responsabilidad penal médica. Mala praxis. Aspectos sustantivos y procesales. José Daniel Cesano. BdeF, 2018."
+      ],
+      "materiales": [
+        {
+          "title": "Unidad 3 · Presentación de la clase",
+          "url": "https://docs.google.com/presentation/d/1Y9wv-lbnnBkMscdmJhx_Wr8YvDAGNJxY/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Derecho y medicina",
+          "url": "https://docs.google.com/presentation/d/1CMuW0ywgCe3U_H_5NYAUXQrCP_dFj0vO/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Responsabilidad médica penal",
+          "url": "https://drive.google.com/file/d/1_m_RUisk6tJBoFe5-Yhi1_4hksXIZ30j/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Responsabilidad médica en el Código Civil y Comercial",
+          "url": "https://drive.google.com/file/d/1X8anPJPO1vw-ODJf9pOGERsTLp47YR2y/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Material de lectura · Unidad 3",
+          "url": "https://docs.google.com/document/d/1P2rgfim5TxScX54huqyBMsfzKVmeLq6l/edit?usp=drive_link",
+          "type": "doc"
+        },
+        {
+          "title": "Ley de derechos del paciente",
+          "url": "https://drive.google.com/file/d/1jIvIvAWsCSnb84FK2cACnQCyR8JJg17H/view?usp=drive_link",
+          "type": "pdf"
+        }
+      ],
+      "videos": [
+        {
+          "title": "Consentimiento informado",
+          "url": "https://www.youtube.com/watch?v=iMS0eMbC_ms",
+          "type": "video"
+        },
+        {
+          "title": "Casos problema de Medicina Legal",
+          "url": "https://www.youtube.com/watch?v=v7we45Vtg6M",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "id": "up4",
+      "number": 4,
+      "etiqueta": "UNIDAD",
+      "title": "Prueba pericial médica",
+      "parcial": "Parcial",
+      "icono": "📑",
+      "objectives": [
+        "Reconocer la prueba pericial médica como medio de prueba y sus requisitos formales.",
+        "Elaborar la estructura de un informe pericial de acuerdo con los códigos procesales de la provincia.",
+        "Distinguir las clases de perito, sus condiciones esenciales, obligaciones, deberes y derechos.",
+        "Aplicar los criterios de objetividad, imparcialidad y fundamentación científica en las conclusiones."
+      ],
+      "contents": [
+        "Prueba pericial médica: concepto, finalidad y valoración",
+        "Perito: concepto, condiciones esenciales, clases, obligaciones, deberes y derechos",
+        "Prueba pericial en la responsabilidad profesional médica: requisitos, régimen de control e informe",
+        "Informe pericial escrito y exposición oral: formalidades y contenido",
+        "Elaboración de conclusiones: fundamentos y juicio probabilístico",
+        "Prueba pericial en los códigos procesales de la provincia de Entre Ríos"
+      ],
+      "bibliography": [
+        "Gisbert Calabuig. Medicina Legal y Toxicología, 7.ª ed. Enrique Villanueva Cañadas. Elsevier, 2019.",
+        "Medicina Legal y forense para estudiantes de Medicina, 2.ª ed. José A. Menéndez de Luca. Elsevier, 2020.",
+        "Código Procesal Penal de la Provincia de Entre Ríos (infoleg.gob.ar).",
+        "Código Civil y Comercial de la Nación (infoleg.gob.ar)."
+      ],
+      "materiales": [
+        {
+          "title": "Unidad 4 · Presentación de la clase",
+          "url": "https://docs.google.com/presentation/d/19-PU7PjGTtUk1ZEwEEWnnpHlH657jO3X/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Prueba pericial médica",
+          "url": "https://drive.google.com/file/d/13-3LU3lTgxsdtkz0ytI8Wl95qFKG44g9/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Prueba pericial en los códigos procesales de Entre Ríos (lectura)",
+          "url": "https://docs.google.com/document/d/1C7yhdjXkf53ZIog2X_1XaTl3QnEdF48V/edit?usp=drive_link",
+          "type": "doc"
+        }
+      ],
+      "videos": [
+        {
+          "title": "Actividad pericial médica",
+          "url": "https://www.youtube.com/watch?v=BaszTgJdv2U",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "id": "up5",
+      "number": 5,
+      "etiqueta": "UNIDAD",
+      "title": "Lesiones, muerte y autopsia médico-legal",
+      "parcial": "Parcial",
+      "icono": "🕯️",
+      "objectives": [
+        "Realizar el diagnóstico médico-legal de las lesiones vitales y post-mortem y de la muerte violenta o sospechosa de criminalidad.",
+        "Diagnosticar el inicio y el fin de la vida humana desde el punto de vista médico-legal.",
+        "Conocer las reglas de una autopsia médico-legal suficiente, los estudios complementarios y la cadena de custodia.",
+        "Identificar el marco legal del fin de la existencia humana: muerte, trasplante y dignidad al final de la vida."
+      ],
+      "contents": [
+        "Lesiones: concepto médico y médico-legal; criterios de clasificación",
+        "Tipos de lesión en el Código Penal Argentino",
+        "Lesiones vitales y post-mortem: distinción anatomopatológica",
+        "Método descriptivo semiológico; heridas por arma blanca y por proyectil de arma de fuego",
+        "Asfixias: concepto, tipos y elementos semiológicos básicos",
+        "Concepto y diagnóstico de muerte; regulación legal del fin de la existencia humana",
+        "Autopsia médico-legal: características, requisitos y estudios complementarios",
+        "Fenómenos cadavéricos e intervalo post-mortem",
+        "Identificación médico-legal: odontología y antropología forenses",
+        "Evidencias: toma, conservación y cadena de custodia",
+        "Autopsia por presunta mala praxis: recomendaciones y particularidades",
+        "Trasplante de órganos, dignidad en el tramo final de la vida y muerte bajo custodia"
+      ],
+      "bibliography": [
+        "Gisbert Calabuig. Medicina Legal y Toxicología, 7.ª ed. Enrique Villanueva Cañadas. Elsevier, 2019.",
+        "Medicina Legal y forense para estudiantes de Medicina, 2.ª ed. José A. Menéndez de Luca. Elsevier, 2020.",
+        "Medicina Legal, Criminalística, Criminología, Violencia doméstica y Psiquiatría Forense en imágenes, tomos I y II. Juan José Dal Lago. Salerno, 2022.",
+        "Código Penal Argentino (infoleg.gob.ar)."
+      ],
+      "materiales": [
+        {
+          "title": "Unidad 5 · Presentación de la clase (parte 1)",
+          "url": "https://docs.google.com/presentation/d/1ESldVwyy7AYaRKsyYoUr5ChnuDBO0cuR/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Unidad 5 · Presentación de la clase (parte 2)",
+          "url": "https://docs.google.com/presentation/d/1qj1-HBa-Y2VfQzNrirk-keGGA7reXeFv/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Trasplante de órganos, tejidos y células",
+          "url": "https://docs.google.com/presentation/d/10L3lwC_gU0LrTLCzsgzQVn02RTFIxK8Q/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "La dignidad en el tramo final de la vida",
+          "url": "https://docs.google.com/presentation/d/1IXQH8RuJxrqTdiPHT-ZpmTZM2lgEAnb0/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Muerte bajo custodia",
+          "url": "https://drive.google.com/file/d/1u9kXcU1k62TJ6BONLuNzP3xC_T00xqbN/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Ley 27447 · Trasplante de órganos",
+          "url": "https://drive.google.com/file/d/1TjHow_Go1kzS70dngGeBjHw2Avt9r5ND/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Decreto 19/2019 · Reglamentación de la ley de trasplante",
+          "url": "https://drive.google.com/file/d/1R5hZ6nlzA5W8KSsQ6Y2Zh7LzMAERKORn/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Lesiones I",
+          "url": "https://drive.google.com/file/d/1I_FP7XgsFsI_AaF3BI-rtIJWJfDb_HSV/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Lesiones II",
+          "url": "https://drive.google.com/file/d/19mMgXDEuwfjkiCzPaGKxn9qOpid0dOQV/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Fenómenos cadavéricos",
+          "url": "https://drive.google.com/file/d/1EBrSfcUq3gEvMSPZMp94qmSJX_9jVeaL/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Autopsias",
+          "url": "https://drive.google.com/file/d/1Ry8_U1SWAlS5P6wKg2mFmC3u-h10Tb7H/view?usp=drive_link",
+          "type": "pdf"
+        }
+      ],
+      "videos": [
+        {
+          "title": "Lesiones · clase 1",
+          "url": "https://www.youtube.com/watch?v=Kofnbonm6UA",
+          "type": "video"
+        },
+        {
+          "title": "Lesiones · clase 2",
+          "url": "https://www.youtube.com/watch?v=qoAibKvqq7k",
+          "type": "video"
+        },
+        {
+          "title": "Trasplante, muerte digna y VIH/sida",
+          "url": "https://www.youtube.com/watch?v=1fT_GyRbPtg",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "id": "up6",
+      "number": 6,
+      "etiqueta": "UNIDAD",
+      "title": "Salud mental, violencia y género",
+      "parcial": "Parcial",
+      "icono": "🛡️",
+      "objectives": [
+        "Realizar el diagnóstico médico-legal de salud y enfermedad mental y de sus consecuencias en la capacidad civil y penal.",
+        "Indicar medidas de protección y tratamiento según la normativa vigente.",
+        "Diagnosticar situaciones de auto y heteroagresividad con perspectiva de género.",
+        "Apreciar el daño emergente y adoptar medidas de contención, mitigación y reparación.",
+        "Reconocer indicadores físicos y psíquicos de abuso sexual y aplicar los protocolos obligatorios."
+      ],
+      "contents": [
+        "Psico-psiquiatría forense: concepto, alcance y método",
+        "Diagnóstico de salud y enfermedad mental; legislación vigente y tratamiento institucional",
+        "Capacidad civil de las personas y restricciones; determinación de la capacidad de culpabilidad penal",
+        "Conducta violenta: factores de incidencia, tipos y relación víctima-victimario",
+        "Autoagresividad, autolesionismo y autólisis; predicción y valoración de riesgos",
+        "Violencia doméstica: concepto, legislación de Entre Ríos y obligaciones de los profesionales",
+        "Violencia de género y feminicidio: diagnóstico precoz, apreciación del daño y protocolos",
+        "Abuso sexual y abuso sexual infantil: indicadores, evaluación integral y protocolo provincial",
+        "Identidad de género y parto humanizado: marco legal",
+        "Trabajo práctico: ley de violencia doméstica provincial; análisis de un caso de violencia de género"
+      ],
+      "bibliography": [
+        "Gisbert Calabuig. Medicina Legal y Toxicología, 7.ª ed. Enrique Villanueva Cañadas. Elsevier, 2019.",
+        "Medicina Legal y forense para estudiantes de Medicina, 2.ª ed. José A. Menéndez de Luca. Elsevier, 2020.",
+        "Medicina Legal, Criminalística, Criminología, Violencia doméstica y Psiquiatría Forense en imágenes, tomos I y II. Juan José Dal Lago. Salerno, 2022.",
+        "Psiquiatría Legal y Forense. Santiago Delgado Bueno y col. Bosch, 2019.",
+        "Violencia familiar y violencia de género, 2.ª ed. Teresa S. Furriol. Estudio, 2022.",
+        "Sexología Forense. Juan C. Romi. DosyUna, 2017."
+      ],
+      "materiales": [
+        {
+          "title": "Unidad 6 · Presentación de la clase",
+          "url": "https://docs.google.com/presentation/d/1jUVxUxxsorjysy6YyH9cbu9rcyrC6nIq/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Violencia de género y ejercicio de la medicina",
+          "url": "https://docs.google.com/presentation/d/1aC5E_-exOH2GQM2UGACyCwL6FiL-FQzR/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Delitos",
+          "url": "https://docs.google.com/presentation/d/1EqGoEq5OEtjPh_ULDSIIHG9JyCCa1LuT/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Ley y decreto de salud mental",
+          "url": "https://drive.google.com/file/d/1G8QCU36E99Z_lFoBtzQAHAU5mWKs6Lh3/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Ley de identidad de género",
+          "url": "https://docs.google.com/presentation/d/1EJqgLYOi-NlPYeOmx0WXYLP12TENRF9p/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Decreto reglamentario 2035/15 de la Ley 25.929",
+          "url": "https://docs.google.com/document/d/1gBU-BPNiphz6MZ4BMkOCfsWI0xSp_4HY/edit?usp=drive_link",
+          "type": "doc"
+        },
+        {
+          "title": "Ley 25.929 · Parto humanizado",
+          "url": "https://docs.google.com/document/d/1PYhLOMvKjoMxAdIYMkKaEQoBcbxpJ1lM/edit?usp=drive_link",
+          "type": "doc"
+        },
+        {
+          "title": "Daño psíquico en la violencia de género",
+          "url": "https://docs.google.com/document/d/1-_-3uSAHe3JgSBloZ1UFPgXZlGryzaKz/edit?usp=drive_link",
+          "type": "doc"
+        }
+      ],
+      "videos": [
+        {
+          "title": "Psicopatología forense",
+          "url": "https://www.youtube.com/watch?v=zRNSS9lfF9U",
+          "type": "video"
+        },
+        {
+          "title": "Psiquiatría legal",
+          "url": "https://www.youtube.com/watch?v=0IF-73lVkrE",
+          "type": "video"
+        },
+        {
+          "title": "Actividad pericial con perspectiva de género",
+          "url": "https://www.youtube.com/watch?v=y9Ej_MDi4r0",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "id": "up7",
+      "number": 7,
+      "etiqueta": "UNIDAD",
+      "title": "Sustancias psicoactivas, adicciones y alcohol",
+      "parcial": "Parcial",
+      "icono": "🍷",
+      "objectives": [
+        "Evaluar desde lo médico-legal los casos de uso, abuso y dependencia de sustancias, e indicar medidas de seguridad.",
+        "Aplicar la Ley Nacional de Salud Mental en casos de uso indebido de sustancias psicoactivas.",
+        "Reconocer las formas clínicas y las consecuencias médico-legales de la ebriedad y del alcoholismo.",
+        "Conocer la oportunidad y eficacia de las disciplinas contributivas: genética, odontología, antropología, toxicología y psicología forenses.",
+        "Reconocer el concepto de capacidad e incapacidad laboral y los roles del médico frente al trabajo."
+      ],
+      "contents": [
+        "Uso de sustancias: conceptos básicos en la normativa nacional y en la literatura médica",
+        "Clasificaciones de drogas según la legislación y según el efecto neurotóxico",
+        "Uso, abuso y dependencia: evaluación médico-legal y medidas de seguridad",
+        "Ley Nacional de Salud Mental frente al consumo problemático",
+        "Alcohol: formas clínicas, ebriedad y alcoholismo; consecuencias médico-legales",
+        "Relación droga-delito y accidentes de tránsito",
+        "Prueba pericial en adicciones",
+        "Medicina Legal del trabajo: capacidad e incapacidad laboral, baremos, accidentes y enfermedades profesionales",
+        "Disciplinas contributivas: genética, toxicología, odontología y psicología forenses; criminalística y criminología",
+        "Trabajo práctico: tablas de incapacidad laboral utilizadas en la República Argentina"
+      ],
+      "bibliography": [
+        "Gisbert Calabuig. Medicina Legal y Toxicología, 7.ª ed. Enrique Villanueva Cañadas. Elsevier, 2019.",
+        "Medicina Legal y forense para estudiantes de Medicina, 2.ª ed. José A. Menéndez de Luca. Elsevier, 2020.",
+        "Medicina Legal, Criminalística, Criminología, Violencia doméstica y Psiquiatría Forense en imágenes, tomos I y II. Juan José Dal Lago. Salerno, 2022.",
+        "Psiquiatría Legal y Forense. Santiago Delgado Bueno y col. Bosch, 2019."
+      ],
+      "materiales": [
+        {
+          "title": "Unidad 7 · Presentación de la clase",
+          "url": "https://docs.google.com/presentation/d/1fnUdk4haHDV9L5psoh-BMBU0Rr_Y3nzC/edit?usp=drive_link",
+          "type": "ppt"
+        },
+        {
+          "title": "Adicciones",
+          "url": "https://drive.google.com/file/d/1o8-egEzR9K_7QMlbuIx5UE4IH-tZgwfz/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Prueba pericial en adicciones",
+          "url": "https://drive.google.com/file/d/1anuzS1BxYmaO-D4ESIrvqnpo3dFo4mMO/view?usp=drive_link",
+          "type": "pdf"
+        }
+      ],
+      "videos": [
+        {
+          "title": "Ebriedad alcohólica",
+          "url": "https://www.youtube.com/watch?v=4DOFCx_SEN8",
+          "type": "video"
+        }
+      ]
+    }
+  ],
+  "booksRepository": {}
+}

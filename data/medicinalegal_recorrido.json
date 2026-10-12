@@ -1,0 +1,125 @@
+{
+  "titulo": "Recorrido virtual por Medicina Legal",
+  "subtitulo": "Entendé de qué se trata la materia, cómo se cursa, cómo se aprueba y por dónde empezar. Un paso a la vez, a tu ritmo.",
+  "pasos": [
+    {
+      "id": "bienvenida", "icono": "⚖️", "titulo": "Bienvenida", "tipo": "hero",
+      "intro": "Medicina Legal es la materia donde la salud y el derecho se cruzan. Es el último tramo de la carrera porque usa todo lo que ya sabés.",
+      "parrafos": [
+        "Estudia la salud humana en su proyección social: las relaciones jurídicas que establecen las personas entre sí y con las cosas, desde el inicio hasta el fin de la vida.",
+        "No es una materia solo para peritos: ninguna forma de ejercer la medicina está exenta de contenido médico-legal. Historia clínica, consentimiento informado, certificados y confidencialidad aparecen en cualquier consultorio."
+      ],
+      "cifras": [
+        { "n": 7, "label": "unidades temáticas" },
+        { "n": 120, "label": "min por clase presencial" },
+        { "n": 90, "label": "min por clase virtual" },
+        { "n": 6, "label": "nota mínima para aprobar" }
+      ],
+      "dato": "La Medicina Legal pertenece a las ciencias de la salud: no es un auxiliar del saber jurídico, tiene marco teórico, metodología y finalidad propios."
+    },
+    {
+      "id": "para-que", "icono": "🧭", "titulo": "Para qué sirve", "tipo": "tabs",
+      "intro": "Tocá cada pestaña: la materia cumple funciones preventivas, generales y una función particular y esencial.",
+      "tabs": [
+        {
+          "icono": "📚", "titulo": "Qué es", "dato": "Conjunto de conocimientos y prácticas",
+          "texto": "Es el conjunto de conocimientos y prácticas que estudian la salud humana en su dimensión jurídica. Investiga los aspectos biológicos, psicológicos, antropológicos y sociales del ser y el hacer humano.",
+          "items": ["Marco teórico propio y metodología particular", "Método interdisciplinario y criterio de subespecialidad", "Su paradigma actual se estructura sobre un eje bioético", "La técnica está al servicio del derecho y este, de la persona"]
+        },
+        {
+          "icono": "🛡️", "titulo": "Funciones generales", "dato": "Acciones preventivas",
+          "texto": "Son acciones de carácter general, es decir, preventivas: ayudan a que el ejercicio de la medicina sea correcto antes de que haya un conflicto.",
+          "items": ["Configurar la lex artis médica, en lo que hace a su normatividad positiva", "Participar en la elaboración de normas con contenido biopsicológico", "Asesorar a los efectores de salud en su organización y actividades"]
+        },
+        {
+          "icono": "🔬", "titulo": "Función particular", "dato": "Producir prueba",
+          "texto": "Es la función esencial: producir prueba y brindar asesoramiento técnico cuando lo disponen los órganos jurisdiccionales, en procesos judiciales y administrativos.",
+          "items": ["Pericias médicas y autopsias por disposición de la justicia", "Respeto por las normas procedimentales vigentes", "Objetivo garantizador de derechos de la persona", "Una convocatoria que alcanza a todo médico por su calidad académica"]
+        }
+      ]
+    },
+    {
+      "id": "unidades", "icono": "🗺️", "titulo": "Las 7 unidades", "tipo": "unidades",
+      "intro": "Dale la vuelta a cada tarjeta para ver los temas y entrar a la unidad en la sala de estudio.",
+      "unidades": [
+        { "n": 1, "icono": "⚖️", "titulo": "Concepto, evolución y actividad pericial", "programa": "Unidad temática 1", "temas": ["Concepto e historia de la disciplina", "Relación con otras ciencias", "Juicio probabilístico", "El perito y el informe pericial"] },
+        { "n": 2, "icono": "🩺", "titulo": "Ejercicio de la medicina, confidencialidad y certificados", "programa": "Unidad temática 2", "temas": ["Ley de ejercicio profesional", "Confidencialidad y sus límites", "Consentimiento informado", "Certificados e historia clínica"] },
+        { "n": 3, "icono": "🤝", "titulo": "Derechos del paciente y responsabilidad profesional", "programa": "Unidad temática 3", "temas": ["Derechos del paciente", "Responsabilidad civil, penal y administrativa", "Prueba pericial en mala praxis", "Objeción de conciencia"] },
+        { "n": 4, "icono": "📑", "titulo": "Prueba pericial médica", "programa": "Unidades temáticas 1 y 3", "temas": ["La prueba pericial como medio de prueba", "Requisitos y régimen de control", "Estructura del informe pericial", "Códigos procesales de Entre Ríos"] },
+        { "n": 5, "icono": "🕯️", "titulo": "Lesiones, muerte y autopsia médico-legal", "programa": "Unidad temática 4", "temas": ["Lesiones vitales y post-mortem", "Armas blancas y de fuego, asfixias", "Diagnóstico de muerte y autopsia", "Cadena de custodia y trasplantes"] },
+        { "n": 6, "icono": "🛡️", "titulo": "Salud mental, violencia y género", "programa": "Unidades temáticas 5 y 6", "temas": ["Psiquiatría forense y capacidad", "Violencia doméstica y de género", "Abuso sexual y protocolos", "Identidad de género y parto humanizado"] },
+        { "n": 7, "icono": "🍷", "titulo": "Sustancias psicoactivas, adicciones y alcohol", "programa": "Unidades temáticas 5 y 7", "temas": ["Uso, abuso y dependencia", "Ebriedad y alcoholismo", "Droga, delito y tránsito", "Capacidad laboral y disciplinas contributivas"] }
+      ]
+    },
+    {
+      "id": "competencias", "icono": "🎯", "titulo": "Qué vas a saber hacer", "tipo": "competencias",
+      "intro": "Tildá las que ya sentís dominadas. Es tu mapa de lo que la materia espera de vos al terminar.",
+      "lista": [
+        "Ajustar mi práctica médica a las normas legales y administrativas vigentes",
+        "Redactar certificados, historia clínica y un informe pericial",
+        "Respetar la autonomía del paciente, el consentimiento informado y la confidencialidad",
+        "Distinguir lesiones vitales de post-mortem y reconocer una muerte sospechosa de criminalidad",
+        "Conocer cómo se hace una autopsia médico-legal y cómo se preserva la cadena de custodia",
+        "Evaluar la capacidad civil y penal de una persona con enfermedad mental",
+        "Detectar situaciones de violencia doméstica y de género y saber a quién notificar",
+        "Reconocer cuándo corresponde pedir ayuda de la genética, la toxicología, la odontología o la psicología forense"
+      ]
+    },
+    {
+      "id": "cursada", "icono": "🗓️", "titulo": "Cómo se cursa", "tipo": "tarjetas",
+      "intro": "Cada unidad se desarrolla en dos clases sucesivas, siempre con el mismo docente.",
+      "tarjetas": [
+        { "icono": "🏛️", "titulo": "Clase presencial", "dato": "120 minutos", "texto": "Clase magistral participativa con exposición explicativa de imágenes y otros recursos. Al final se asigna el tema de la clase virtual siguiente." },
+        { "icono": "💻", "titulo": "Clase virtual", "dato": "90 minutos", "texto": "45 minutos para el tema que estudiaste por tu cuenta (modalidad inversa) y el resto para trabajos prácticos." },
+        { "icono": "🔁", "titulo": "Una por semana", "dato": "Alternadas", "texto": "Semana presencial, semana virtual. Cada unidad ocupa dos semanas seguidas." },
+        { "icono": "🧩", "titulo": "Análisis de casos", "dato": "En lugar de pericias reales", "texto": "Las pericias no pueden ser presenciadas por ajenos al proceso judicial. Por eso se aprende con casos, resguardando la confidencialidad." },
+        { "icono": "🗂️", "titulo": "Práctica directa", "dato": "Lo que sí se practica", "texto": "Se elaboran informes y registros médicos y se usan instrumentos de resguardo de la confidencialidad." }
+      ]
+    },
+    {
+      "id": "evaluacion", "icono": "📝", "titulo": "Cómo se aprueba", "tipo": "evaluacion",
+      "intro": "Elegí cada instancia y tildá lo que ya tenés claro.",
+      "espacios": [
+        {
+          "id": "regularidad", "icono": "✅", "titulo": "Regularidad",
+          "requisitos": ["Asistir a más del 80 % de las actividades de aprendizaje", "Tener nota de 6 o más en alguna de las instancias evaluativas", "Si no se cumple alguna condición, se extingue la regularidad"],
+          "nota": "Sin regularidad no se puede llegar al examen final."
+        },
+        {
+          "id": "parcial", "icono": "🧪", "titulo": "Parcial y recuperatorio",
+          "requisitos": ["El parcial se toma una vez, al finalizar la cuarta unidad temática del programa", "Se puntúa de 1 a 10 y se aprueba con 6 o más", "Con menos de 6 hay un recuperatorio al finalizar la última unidad (también se aprueba con 6)", "Si tampoco se aprueba, hay una última posibilidad según la normativa académica"],
+          "nota": "El parcial indaga los contenidos conceptuales desarrollados hasta ese momento. En la sala, equivale a los módulos 1 al 5."
+        },
+        {
+          "id": "final", "icono": "🎓", "titulo": "Examen final",
+          "requisitos": ["Desarrollo expositivo de los contenidos de las unidades temáticas", "Resolución de situaciones problemáticas vinculadas a esos contenidos", "Se necesita un mínimo de 6 puntos para aprobar la materia"],
+          "nota": "Estudiá cada unidad con casos: el final no es solo repetir definiciones."
+        }
+      ]
+    },
+    {
+      "id": "normas", "icono": "📖", "titulo": "Las normas que más vas a usar", "tipo": "normas",
+      "intro": "Tocá cada tarjeta para ver para qué se usa.",
+      "tarjetas": [
+        { "icono": "🩺", "titulo": "Ley 17.132 y Ley 3818 (Entre Ríos)", "items": ["Regulan el ejercicio de la medicina", "Derechos, obligaciones y prohibiciones", "Base de la Unidad 2"] },
+        { "icono": "📜", "titulo": "Código Civil y Comercial", "items": ["Responsabilidad civil médica", "Subjetiva y objetiva, y su prueba", "Capacidad de las personas"] },
+        { "icono": "⚖️", "titulo": "Código Penal Argentino", "items": ["Tipos de lesiones", "Ejercicio ilegal de la medicina", "Delitos y responsabilidad penal médica"] },
+        { "icono": "🏛️", "titulo": "Código Procesal Penal de Entre Ríos", "items": ["Cómo se produce la prueba pericial", "Requisitos y régimen de control", "Estructura del informe pericial"] }
+      ]
+    },
+    {
+      "id": "quiz", "icono": "🏆", "titulo": "Poné a prueba lo que viste", "tipo": "quiz",
+      "intro": "Ocho preguntas sobre cómo funciona la materia. Si acertás 6 o más, desbloqueás todo el recorrido.",
+      "preguntas": [
+        { "q": "¿Cuántas unidades temáticas tiene el programa de Medicina Legal?", "o": ["Cinco", "Siete", "Nueve", "Once"], "c": 1, "e": "El programa tiene 7 unidades temáticas, cada una desarrollada en dos clases sucesivas." },
+        { "q": "¿Cómo se alternan las clases de cada unidad?", "o": ["Dos clases presenciales seguidas", "Una presencial de 120 minutos y una virtual de 90", "Solo clases virtuales", "Una clase grabada y una consulta"], "c": 1, "e": "Cada unidad tiene una clase presencial (120 min) y una virtual (90 min), a cargo del mismo docente." },
+        { "q": "¿Qué se necesita para mantener la condición de alumno regular?", "o": ["Solo asistir al 50 %", "Más del 80 % de asistencia y nota de 6 o más en alguna instancia", "Aprobar el final en el primer intento", "Entregar un trabajo escrito"], "c": 1, "e": "Hacen falta asistencia superior al 80 % y haber obtenido 6 o más en alguna de las instancias evaluativas." },
+        { "q": "¿Con qué nota se aprueba el parcial?", "o": ["4", "5", "6", "8"], "c": 2, "e": "La escala va de 1 a 10 y se aprueba con 6 o más." },
+        { "q": "¿Cuándo se toma el recuperatorio del parcial?", "o": ["Al día siguiente del parcial", "Al finalizar la última unidad temática", "Solo en el examen final", "No existe recuperatorio"], "c": 1, "e": "Quien no aprueba el parcial puede recuperar al finalizar la última unidad temática." },
+        { "q": "¿Por qué las pericias reales no se presencian en clase?", "o": ["Porque duran demasiado", "Por un impedimento normativo: solo las presencian quienes participan del proceso judicial", "Porque no hay peritos disponibles", "Porque son confidenciales solo en Entre Ríos"], "c": 1, "e": "Las prácticas periciales están alcanzadas por el impedimento de ser presenciadas por ajenos al proceso, por eso se usa el análisis de casos." },
+        { "q": "¿Cuál es la función particular y esencial de la Medicina Legal?", "o": ["Reemplazar al derecho", "Producir prueba y asesoramiento técnico cuando lo disponen los órganos jurisdiccionales", "Diseñar tratamientos", "Controlar a las obras sociales"], "c": 1, "e": "Su función esencial es la producción de prueba y el asesoramiento técnico por disposición de los órganos jurisdiccionales." },
+        { "q": "¿Cómo se ubica la Medicina Legal respecto de las ciencias?", "o": ["Como auxiliar del saber jurídico", "Dentro de las ciencias de la salud, con jerarquía autónoma", "Como una rama de la criminología", "Como parte de la ética"], "c": 1, "e": "La literatura médica la ubica dentro de las ciencias de la salud, con nota autonómica conceptual, académica y normativa." }
+      ]
+    }
+  ]
+}

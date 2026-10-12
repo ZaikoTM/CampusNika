@@ -23,7 +23,8 @@ const DATA_FILE_MAP = {
     cirugia: 'data/cirugia.json',
     ginecologia: 'data/gineco_data.json',
     siam: 'data/siam_data.json',
-    pfo: 'data/pfo_data.json'
+    pfo: 'data/pfo_data.json',
+    medicinalegal: 'data/medicinalegal.json'
 };
 
 // Paleta por módulo: variables CSS que se inyectan sobre :root cuando
@@ -33,6 +34,18 @@ const DATA_FILE_MAP = {
 // exclusivamente como acento: botones, bordes activos y detalles — nunca
 // como color de fondo de página ni de tarjetas.
 const MODULE_THEMES = {
+    medicinalegal: {
+        '--nika-primary': '#be123c',   // bordó forense (botones, tab activa, focus)
+        '--nika-accent': '#d4a017',    // dorado de la balanza
+        '--nika-dark': '#4c0519',      // títulos
+        '--bg-body': '#fff8f8',
+        '--bg-page': '#fff8f8',
+        '--border': '#f6d9de',
+        '--text-main': '#1e293b',
+        '--text-muted': '#64748b',
+        '--text-dim': '#94a3b8',
+        '--card-bg': '#ffffff'
+    },
     pfo: {
         '--nika-primary': '#d97706',   // acento ámbar (botones, tab activa, focus)
         '--nika-accent': '#f59e0b',
@@ -1506,6 +1519,7 @@ function initModuleChat() {
         const m = (EstudioState.modulo || '').toLowerCase();
         if (m.startsWith('gine')) return 'Ginecologia';
         if (m.startsWith('cirug')) return 'Cirugia';
+        if (m === 'medicinalegal') return 'Medicina Legal';
         return EstudioState.modulo || '';
     }
 
@@ -1823,7 +1837,7 @@ function abrirModalAgendarRepaso() {
     const subtitulo = document.getElementById('modal-agendar-subtitulo');
     const fechaInput = document.getElementById('input-fecha-repaso');
 
-    subtitulo.textContent = `${({ ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO' }[RepasoState.moduloActual] || 'Cirugía')} · ${RepasoState.upLabelActual || RepasoState.upActual}`;
+    subtitulo.textContent = `${({ ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO', medicinalegal: 'Medicina Legal' }[RepasoState.moduloActual] || 'Cirugía')} · ${RepasoState.upLabelActual || RepasoState.upActual}`;
 
     // Sugerencia por defecto: hoy + 3 días (el usuario la puede cambiar libremente).
     const sugerida = new Date();
@@ -1964,6 +1978,7 @@ function inyectarModalEditarEventoSiHaceFalta() {
                         <option value="ginecologia">Ginecología</option>
                         <option value="siam">S.I.A.M.</option>
                         <option value="pfo">PFO</option>
+                        <option value="medicinalegal">Medicina Legal</option>
                     </select></div>
                 <div style="flex:1;"><label style="${label}">UP (número)</label>
                     <input type="number" id="edit-ev-up" min="1" max="99" placeholder="Ej: 7" style="${campo}"></div>
@@ -2085,7 +2100,7 @@ async function guardarRepasoDesdeModal() {
         return;
     }
 
-    const nombreModulo = ({ ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO' })[RepasoState.moduloActual] || 'Cirugía';
+    const nombreModulo = ({ ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO', medicinalegal: 'Medicina Legal' })[RepasoState.moduloActual] || 'Cirugía';
 
     btn.disabled = true;
     btn.textContent = 'Guardando...';
@@ -2300,7 +2315,7 @@ async function eliminarBloqueTimeboxing(id) {
 }
 
 function etiquetaModuloUp(b) {
-    const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO' };
+    const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO', medicinalegal: 'Medicina Legal' };
     const unit = (EstudioState.unitsById || {})[b.up_id];
     const up = unit ? `${sigUnit(unit)}` : (b.up_id ? String(b.up_id).toUpperCase() : '');
     return [nombres[b.modulo] || b.modulo, up].filter(Boolean).join(' · ');

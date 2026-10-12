@@ -12,6 +12,7 @@
     cirugia: { nombre: 'Cirugía', corto: 'Cirugía', ico: '🔪', color: '#f97316', sala: 'estudio.html?modulo=cirugia' },
     siam: { nombre: 'S.I.A.M.', corto: 'SIAM', ico: '🧓', color: '#0ea5e9', sala: 'estudio.html?modulo=siam' },
     pfo: { nombre: 'PFO · 6.º año', corto: 'PFO', ico: '🎓', color: '#8b5cf6', sala: 'pfo_estudio.html' },
+    medicinalegal: { nombre: 'Medicina Legal', corto: 'Med. Legal', ico: '⚖️', color: '#be123c', sala: 'estudio.html?modulo=medicinalegal' },
   };
   const PRIO = { alta: { t: 'Alta', c: '#ef4444' }, media: { t: 'Media', c: '#f59e0b' }, sec: { t: 'Apoyo', c: '#38bdf8' } };
   const DIAS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
@@ -86,6 +87,10 @@
       const r = await fetch('data/pfo_data.json'); const j = await r.json();
       S.catalogo.pfo = (j.units || []).map((u) => ({ id: u.etiqueta || ('Módulo ' + u.number), titulo: u.title, temas: (u.contents || []).map(String) }));
     } catch (_) { S.catalogo.pfo = []; }
+    try {
+      const r = await fetch('data/medicinalegal.json'); const j = await r.json();
+      S.catalogo.medicinalegal = (j.units || []).map((u) => ({ id: 'UP' + u.number, titulo: u.title, temas: (u.contents || []).map(String) }));
+    } catch (_) { S.catalogo.medicinalegal = []; }
     try {
       const nombres = ['gineco_integrador_up1_3', 'gineco_final_up1_4', 'cirugia_parcial1_up1_5', 'cirugia_parcial2_up6_11', 'cirugia_final_up1_11', 'siam_parcial1_up1_5', 'siam_parcial2_up6_9', 'siam_final_up1_9'];
       S.plantillas = (await Promise.all(nombres.map((n) => fetch('data/planes/' + n + '.json').then((r) => (r.ok ? r.json() : null)).catch(() => null)))).filter(Boolean);

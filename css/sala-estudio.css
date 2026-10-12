@@ -80,3 +80,4 @@ body.sala-estudio::before { background: radial-gradient(900px 520px at 85% -8%, 
 .ns-pill.plus { background: rgba(168, 85, 247, .16); color: #9333ea; } body.dark-mode .ns-pill.plus { color: #d8b4fe; }
 .se-plus { color: #a855f7; font-weight: 800; } body.dark-mode .se-plus { color: #c084fc; }
 @media (prefers-reduced-motion: reduce) { .ns-dot { animation: none; } }
+.se-card.legal { --se-c1: #be123c; --se-c2: #d4a017; --se-glow: rgba(190, 18, 60, .5); }
