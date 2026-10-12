@@ -616,7 +616,7 @@
     <script src="js/pomodoroSyncManager.js?v=5"></script>
 
     <!-- 4. Lógica de Estudio -->
-    <script src="js/estudio/estudio.js?v=92"></script>
+    <script src="js/estudio/estudio.js?v=93"></script>
     <script src="js/estudio/pdfLector.js?v=9"></script>
 
     <!-- 5. Asistente IA y Módulos Sociales -->
@@ -719,7 +719,9 @@
     // Medicina Legal: vuelve a las salas de 5.° año, las unidades se llaman "unidades" y hay un recorrido virtual del programa
     (function () {
       var __m = new URLSearchParams(location.search).get('modulo');
-      var __REC = { medicinalegal: 'ml_estudio.html', ginecologia: 'recorrido.html?m=ginecologia' };
+      var __REC = { medicinalegal: 'ml_estudio.html', ginecologia: 'recorrido.html?m=ginecologia', cirugia: 'recorrido.html?m=cirugia' };
+      var __INFO = { medicinalegal: ['⚖️', 'Medicina Legal'], ginecologia: ['🤰', 'Ginecología y Obstetricia'], cirugia: ['🔪', 'Cirugía'] };
+      var __TEMA = { ginecologia: ['#3b0a2a', '#9d174d', '#7e22ce', '#c084fc'], cirugia: ['#0f1b4d', '#4338ca', '#7c3aed', '#22d3ee'] };
       if (!__REC[__m]) return;
       var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'css/ml-estudio.css?v=3'; document.head.appendChild(l);
       document.addEventListener('DOMContentLoaded', function () {
@@ -732,8 +734,8 @@
         var hero = document.querySelector('#view-dashboard .suite-hero');
         if (hero && !document.querySelector('.ml-banner')) {
           var a = document.createElement('a'); a.className = 'ml-banner'; a.href = __REC[__m];
-          if (__m === 'ginecologia') { a.style.setProperty('--rc-a', '#3b0a2a'); a.style.setProperty('--rc-b', '#9d174d'); a.style.setProperty('--rc-c', '#7e22ce'); a.style.setProperty('--rc-gold', '#c084fc'); }
-          a.innerHTML = '<span class="ico">' + (__m === 'ginecologia' ? '🤰' : '⚖️') + '</span><span><b>Recorrido virtual por ' + (__m === 'ginecologia' ? 'Ginecología y Obstetricia' : 'Medicina Legal') + '</b><small>De qué se trata, cómo se cursa, cómo se aprueba y por dónde empezar</small></span><span class="go">Empezar el recorrido →</span>';
+          if (__TEMA[__m]) { a.style.setProperty('--rc-a', __TEMA[__m][0]); a.style.setProperty('--rc-b', __TEMA[__m][1]); a.style.setProperty('--rc-c', __TEMA[__m][2]); a.style.setProperty('--rc-gold', __TEMA[__m][3]); }
+          a.innerHTML = '<span class="ico">' + __INFO[__m][0] + '</span><span><b>Recorrido virtual por ' + __INFO[__m][1] + '</b><small>De qué se trata, cómo se cursa, cómo se aprueba y por dónde empezar</small></span><span class="go">Empezar el recorrido →</span>';
           hero.parentNode.insertBefore(a, hero);
         }
       });

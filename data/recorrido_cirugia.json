@@ -1,0 +1,166 @@
+{
+  "modulo": "cirugia",
+  "nombreMateria": "Introducción a las Especialidades Clínico-Quirúrgicas",
+  "chip": "🔪 Cirugía · Especialidades Clínico-Quirúrgicas",
+  "icono": "🔪",
+  "titulo": "Recorrido virtual por Cirugía",
+  "destacar": "Cirugía",
+  "subtitulo": "Las 11 Unidades Problema, cómo se cursa con ABP, cómo se aprueba y por dónde empezar. Un paso a la vez, a tu ritmo.",
+  "sala": "estudio.html?modulo=cirugia",
+  "datos": "data/cirugia.json",
+  "etiquetaUnidad": "UP",
+  "salasHref": "sala_estudio.html#5to",
+  "marca": "Cirugía · Recorrido virtual",
+  "ls": "nika_rec_cirugia",
+  "tema": { "a": "#0f1b4d", "b": "#4338ca", "c": "#7c3aed", "main": "#4f46e5", "dark": "#3730a3", "gold": "#22d3ee" },
+  "acciones": [
+    { "texto": "📖 Ir a las 11 UP", "href": "estudio.html?modulo=cirugia", "plus": true },
+    { "texto": "📝 Simulador de exámenes", "href": "examen.html?modulo=cirugia" },
+    { "texto": "🥽 NikaSim", "href": "acreditaciones.html?area=cir" }
+  ],
+  "pasos": [
+    {
+      "id": "bienvenida", "icono": "🔪", "titulo": "Bienvenida", "tipo": "hero",
+      "intro": "Introducción a las Especialidades Clínico-Quirúrgicas es el área donde aprendés a evaluar al paciente que puede necesitar cirugía: antes, durante y después de operarse.",
+      "parrafos": [
+        "No es solo técnica operatoria: es valorar al paciente en forma integral, tomar decisiones con base en la evidencia, evaluar el riesgo y manejar el pre, intra y postoperatorio.",
+        "El área promueve el razonamiento clínico, el trabajo en equipo interdisciplinario, la bioética y la comunicación efectiva, tanto en escenarios reales como simulados."
+      ],
+      "cifras": [
+        { "n": 11, "label": "unidades problema" },
+        { "n": 14, "label": "semanas de cursada" },
+        { "n": 2, "label": "parciales escritos" },
+        { "n": 80, "label": "% de asistencia mínima" }
+      ],
+      "dato": "Se cursa en el segundo cuatrimestre de 5.º año, dentro del ciclo Diagnóstico, tratamiento y recuperación de la enfermedad."
+    },
+    {
+      "id": "para-que", "icono": "🧭", "titulo": "Para qué sirve", "tipo": "tabs",
+      "intro": "Tocá cada pestaña para ver qué aporta el área a tu perfil de médico.",
+      "tabs": [
+        {
+          "icono": "🩺", "titulo": "Aporte al perfil", "dato": "Decisiones en situaciones agudas",
+          "texto": "Da herramientas para decidir en situaciones agudas, a menudo complejas y críticas, que piden un abordaje rápido, eficaz y ético.",
+          "items": ["Diagnóstico y tratamiento de patologías que requieren cirugía", "Razonamiento clínico y trabajo en equipo interdisciplinario", "Compromiso con la recuperación funcional del paciente", "Respeto por la dignidad humana y la atención primaria"]
+        },
+        {
+          "icono": "🛠️", "titulo": "Qué vas a hacer", "dato": "Competencias del área",
+          "texto": "Las competencias combinan lo clínico, lo técnico y lo humano.",
+          "items": ["Anamnesis dirigida, evaluación semiológica y diagnóstico sindrómico", "Aplicar procedimientos quirúrgicos básicos de forma segura y ética", "Elaborar el consentimiento informado en el paciente quirúrgico", "Reconocer el rol de cada profesional del equipo de salud"]
+        },
+        {
+          "icono": "🌍", "titulo": "Cómo se integra", "dato": "Con el resto de la carrera",
+          "texto": "El área se articula con disciplinas clínicas y básicas, y prepara para trabajar en distintos niveles de atención.",
+          "items": ["Integración horizontal y vertical con el currículo", "Base científica sólida y compromiso con la salud pública", "Criterios de derivación para las urgencias", "Preparación para continuar la formación de posgrado"]
+        }
+      ]
+    },
+    {
+      "id": "unidades", "icono": "🗺️", "titulo": "Las 11 Unidades Problema", "tipo": "unidades",
+      "intro": "Dale la vuelta a cada tarjeta para ver los temas, el seminario y el trabajo práctico, y entrá a la UP en la sala de estudio.",
+      "unidades": [
+        { "n": 1, "icono": "✋", "titulo": "Trauma de miembro superior en adulto joven", "programa": "Semana 1 · Primer parcial", "temas": ["Asepsia, antisepsia e instrumental quirúrgico", "Anestesia, preoperatorio y postoperatorio", "Heridas y cicatrización", "Seminario: patología traumatológica de miembro superior", "TP: instrumental y suturas"] },
+        { "n": 2, "icono": "🤕", "titulo": "Evaluación del abdomen agudo", "programa": "Semana 2 · Primer parcial", "temas": ["Abdomen agudo como urgencia médico-quirúrgica", "Clasificación y fisiopatología del dolor abdominal", "Estrés y ansiedad preoperatoria", "Seminario: abdomen agudo", "TP: diagnóstico por imágenes en el abdomen agudo"] },
+        { "n": 3, "icono": "🍽️", "titulo": "Disfagia: de los síntomas a la sospecha clínica", "programa": "Semana 3 · Primer parcial", "temas": ["Disfagia orgánica y funcional", "Hemorragia digestiva alta", "Patología esofágica y gástrica benigna", "Seminario: patología esofagogastroduodenal", "TP: seriada esofagogastroduodenal"] },
+        { "n": 4, "icono": "🫃", "titulo": "Enfermedad colorrectal en el adulto mayor", "programa": "Semana 4 · Primer parcial", "temas": ["Anatomía y semiología del colon", "Enfermedad diverticular e inflamatoria", "Hemorragia digestiva baja", "Seminario: hemorragia digestiva baja", "TP: atención al paciente con ostomía"] },
+        { "n": 5, "icono": "🫀", "titulo": "Patología hepatobiliar en adultos", "programa": "Semana 5 · Primer parcial", "temas": ["Anatomía quirúrgica y semiología hepática", "Abscesos, quiste hidatídico, tumores", "Hipertensión portal y vía biliar", "Seminario: patología hepatobiliar", "TP: paracentesis diagnóstica y terapéutica"] },
+        { "n": 6, "icono": "🔻", "titulo": "Dolor inguinal: diagnóstico diferencial", "programa": "Semana 7 · Segundo parcial", "temas": ["Pared abdominal y hernias", "Hernias frecuentes e infrecuentes", "Complicaciones y eventraciones", "Seminario: patología quirúrgica de la pared abdominal", "TP: hernias, exploración física y diagnóstico"] },
+        { "n": 7, "icono": "🧣", "titulo": "Tumoración cervical", "programa": "Semana 8 · Segundo parcial", "temas": ["Estructuras anatómicas del cuello", "Bocio nodular y nódulo tiroideo", "Adenomas y carcinomas tiroideos", "Seminario: patología quirúrgica de la glándula tiroides", "TP: estrés laboral y síndrome de burnout"] },
+        { "n": 8, "icono": "🦴", "titulo": "Patología musculoesquelética de miembros inferiores", "programa": "Semana 9 · Segundo parcial", "temas": ["Biología ósea y diagnóstico por imágenes", "Traumatismos de pelvis y miembros inferiores", "Columna vertebral", "Seminario: patología traumatológica de miembros inferiores", "TP: interpretación de radiografías con fracturas"] },
+        { "n": 9, "icono": "🚑", "titulo": "Trauma: de la atención prehospitalaria a la procuración", "programa": "Semana 10 · Segundo parcial", "temas": ["Politraumatizado y protocolo ATLS", "Evaluación primaria y secundaria", "Quemado y neurotrauma", "Seminario: atención inicial del politraumatizado", "TP: manejo integral de la vía aérea"] },
+        { "n": 10, "icono": "🩸", "titulo": "Enfermedad vascular periférica", "programa": "Semana 11 · Segundo parcial", "temas": ["Sistema arterial periférico", "Isquemia aguda y crónica", "Embolia, trombosis y traumatismos arteriales", "Seminario: patología vascular de miembros", "TP: curación de úlceras por presión"] },
+        { "n": 11, "icono": "💧", "titulo": "Obstrucción urinaria baja en el adulto mayor", "programa": "Semana 12 · Segundo parcial", "temas": ["Patología general del aparato urogenital", "Obstrucción urinaria y litiasis", "Patología prostática y oncológica", "Seminario: obstrucción urinaria en el adulto mayor", "TP: cistostomía, técnica y cuidados"] }
+      ]
+    },
+    {
+      "id": "calendario", "icono": "📅", "titulo": "Calendario de semanas", "tipo": "tarjetas",
+      "intro": "El área se desarrolla durante 14 semanas. Así se reparten las UP, los parciales y las recuperaciones.",
+      "tarjetas": [
+        { "icono": "1️⃣", "titulo": "Semanas 1 a 5", "dato": "UP 1 a 5", "texto": "Trauma de miembro superior, abdomen agudo, disfagia, enfermedad colorrectal y patología hepatobiliar." },
+        { "icono": "📝", "titulo": "Semana 6", "dato": "Primer parcial", "texto": "Primera evaluación presencial de opción múltiple, después de las primeras cinco UP." },
+        { "icono": "2️⃣", "titulo": "Semanas 7 a 12", "dato": "UP 6 a 11", "texto": "Dolor inguinal, tumoración cervical, miembros inferiores, trauma, enfermedad vascular y obstrucción urinaria." },
+        { "icono": "🏁", "titulo": "Semana 13", "dato": "Segundo parcial", "texto": "Segunda evaluación presencial de opción múltiple, después de las UP 6 a 11." },
+        { "icono": "🔁", "titulo": "Semana 14", "dato": "Recuperatorios", "texto": "Recuperatorios de parciales y de trabajos prácticos." },
+        { "icono": "⭐", "titulo": "Semana 15", "dato": "Recuperatorios especiales", "texto": "Última instancia de recuperación." }
+      ]
+    },
+    {
+      "id": "competencias", "icono": "🎯", "titulo": "Qué vas a saber hacer", "tipo": "competencias",
+      "intro": "Tildá las que ya sentís dominadas. Es el mapa de lo que el área espera de vos al terminar.",
+      "lista": [
+        "Identificar las enfermedades clínico-quirúrgicas más frecuentes, con criterios epidemiológicos",
+        "Hacer una anamnesis dirigida, una evaluación semiológica integral y un diagnóstico sindrómico",
+        "Evaluar el riesgo quirúrgico y la preparación preoperatoria, incluida la clasificación ASA",
+        "Elegir la anestesia local, el instrumental básico y la sutura adecuados a cada herida",
+        "Elaborar el consentimiento informado garantizando la comprensión y la autonomía del paciente",
+        "Aplicar el abordaje inicial del politraumatizado según el protocolo ATLS",
+        "Reconocer urgencias y aplicar criterios de derivación",
+        "Educar al paciente sobre cuidados domiciliarios y signos de alarma en el postoperatorio",
+        "Trabajar con el resto del equipo de salud con una mirada transdisciplinaria",
+        "Valorar el ambiente físico, social y cultural como condicionante de la salud"
+      ]
+    },
+    {
+      "id": "cursada", "icono": "🗓️", "titulo": "Cómo se cursa", "tipo": "tarjetas",
+      "intro": "La cursada se basa en el Aprendizaje Basado en Problemas (ABP): trabajás en grupo pequeño guiado por un tutor.",
+      "tarjetas": [
+        { "icono": "👥", "titulo": "Tutorías", "dato": "Grupos pequeños con tutor", "texto": "El tutor facilita el aprendizaje, orienta y estimula la reflexión. Vos sos el protagonista del proceso." },
+        { "icono": "🎤", "titulo": "Seminarios", "dato": "Una por UP", "texto": "Cada UP tiene un seminario que profundiza el tema central." },
+        { "icono": "🧠", "titulo": "Consultas a expertos", "dato": "Espacio de consulta", "texto": "Un espacio para consultar a especialistas sobre los problemas que trabajás." },
+        { "icono": "💻", "titulo": "Campus virtual", "dato": "Semana a semana", "texto": "Cronograma, contenidos, bibliografía y materiales para ampliar cada tema." },
+        { "icono": "🧪", "titulo": "Simulación y trabajos prácticos", "dato": "Centro Interdisciplinario de Simulación", "texto": "Los trabajos prácticos y las actividades de simulación desarrollan, siguen y evalúan tus competencias." },
+        { "icono": "👔", "titulo": "Normas del área", "dato": "Respeto y presencia", "texto": "Guardapolvo blanco o ambo en toda actividad académica y tarjeta identificatoria en las prácticas fuera de la facultad." }
+      ]
+    },
+    {
+      "id": "evaluacion", "icono": "📝", "titulo": "Cómo se aprueba", "tipo": "evaluacion",
+      "intro": "Elegí cada instancia y tildá lo que ya tenés claro.",
+      "espacios": [
+        {
+          "id": "tutorias", "icono": "👥", "titulo": "En tutorías",
+          "requisitos": ["Asistir al 80 % de las tutorías", "Justificar las ausencias con certificado médico, ante el tutor y hasta 5 días hábiles después", "Llegar a horario: más de 15 minutos de demora impiden acceder a la tutoría", "Participar activamente, con escucha atenta y lenguaje académico", "Aportar al menos una fuente bibliográfica novedosa, distinta de las sugeridas"],
+          "nota": "El desempeño individual en tutorías es parte de la evaluación: integrar lo biológico, lo psicológico y lo social cuenta."
+        },
+        {
+          "id": "parciales", "icono": "🧪", "titulo": "Parciales",
+          "requisitos": ["Son dos parciales presenciales, cada uno con un cuestionario de opción múltiple", "Para presentarte hay que tener 80 % de asistencia a las tutorías", "También hay que tener acreditado el 100 % de los trabajos prácticos hasta la fecha del examen", "Cada parcial tiene su recuperatorio y hay recuperatorios especiales"],
+          "nota": "Practicá con el simulador de exámenes: reproduce el formato de opción múltiple."
+        },
+        {
+          "id": "regularidad", "icono": "✅", "titulo": "Regularidad",
+          "requisitos": ["Asistencia mínima del 80 % a las UP y a las tutorías", "Aprobar el proceso tutorial completo", "Aprobar la totalidad de los parciales programados", "Acreditar el 100 % de los trabajos prácticos"],
+          "nota": "Regularizar la cursada te habilita a rendir el examen final."
+        },
+        {
+          "id": "final", "icono": "🎓", "titulo": "Examen final",
+          "requisitos": ["Es presencial y consiste en un cuestionario de opción múltiple", "Si lo aprobás, pasás a una instancia oral presencial", "Solo lo rinde quien regularizó la cursada"],
+          "nota": "Para la oral, practicá explicar en voz alta cada UP con casos."
+        }
+      ]
+    },
+    {
+      "id": "bibliografia", "icono": "📖", "titulo": "Bibliografía", "tipo": "normas",
+      "intro": "Tocá cada tarjeta para ver los textos del área. La bibliografía se discrimina en esencial, complementaria y necesaria.",
+      "tarjetas": [
+        { "icono": "🔪", "titulo": "UP 1 a 5 · Cirugía general", "items": ["Esencial: Cirugía de Michans (Ferraina y Oría, 2021)", "Esencial: Cirugía. Fundamentos para la práctica clínico-quirúrgica (Giménez, 2025)", "Esencial: Técnicas quirúrgicas básicas (Qayumi, 2012)", "Complementaria: Manual de Suturas Ethicon"] },
+        { "icono": "🦴", "titulo": "UP 1 y 8 · Traumatología", "items": ["Esencial: Compendio de Traumatología (Ramos Vértiz, 2008)", "Esencial: Ortopedia y Traumatología (Silberman, 3.ª ed.)", "Complementaria: Ortopedia y Traumatología Básica (Orrego y Morán, 2014)"] },
+        { "icono": "🩸", "titulo": "UP 10 · Vascular", "items": ["Esencial: Cirugía. Fundamentos para la práctica clínico-quirúrgica (Giménez, 2025)", "Esencial: Rutherford's Vascular Surgery and Endovascular Therapy (9.ª ed., 2019)"] },
+        { "icono": "💧", "titulo": "UP 11 · Urología", "items": ["Esencial: Smith y Tanagho, Urología General (18.ª ed.)", "Esencial: Manual de Urología (2.ª ed., 2020), de acceso libre en línea"] }
+      ]
+    },
+    {
+      "id": "quiz", "icono": "🏆", "titulo": "Poné a prueba lo que viste", "tipo": "quiz",
+      "intro": "Ocho preguntas sobre cómo funciona el área. Si acertás 6 o más, completás todo el recorrido.",
+      "preguntas": [
+        { "q": "¿Cuántas Unidades Problema tiene el área?", "o": ["Siete", "Nueve", "Once", "Catorce"], "c": 2, "e": "El área aborda 11 unidades problema, centradas en patologías del adulto con enfoque clínico-quirúrgico, traumatológico y urológico." },
+        { "q": "¿Qué metodología organiza la cursada?", "o": ["Clases magistrales exclusivamente", "Aprendizaje Basado en Problemas con tutor", "Solo trabajos prácticos", "Aprendizaje autodirigido sin tutor"], "c": 1, "e": "Se basa en ABP: pequeños grupos guiados por un tutor que facilita el aprendizaje." },
+        { "q": "¿Cuántos parciales hay y cómo son?", "o": ["Uno oral", "Dos presenciales de opción múltiple", "Tres escritos a desarrollar", "Cuatro virtuales"], "c": 1, "e": "Son dos parciales presenciales, cada uno con un cuestionario de opción múltiple y su recuperatorio." },
+        { "q": "¿Qué porcentaje de asistencia a tutorías se pide?", "o": ["50 %", "60 %", "80 %", "100 %"], "c": 2, "e": "Hay que acreditar un 80 % de asistencia a las tutorías." },
+        { "q": "¿Cuántos minutos de demora impiden acceder a una tutoría?", "o": ["5", "10", "15", "30"], "c": 2, "e": "Las llegadas tarde superiores a 15 minutos, salvo fuerza mayor, son motivo para no acceder." },
+        { "q": "¿Qué porcentaje de trabajos prácticos hay que tener acreditado para rendir un parcial?", "o": ["50 %", "70 %", "90 %", "100 %"], "c": 3, "e": "Se exige el 100 % de los trabajos prácticos realizados hasta la fecha del examen." },
+        { "q": "¿Cómo es el examen final?", "o": ["Solo oral", "Opción múltiple presencial y, si se aprueba, instancia oral", "Un trabajo escrito", "Una práctica en quirófano"], "c": 1, "e": "Es un cuestionario de opción múltiple presencial; si se aprueba, se avanza a una instancia oral presencial." },
+        { "q": "¿Qué protocolo se usa para el abordaje inicial del politraumatizado?", "o": ["ACLS", "ATLS", "PALS", "BLS"], "c": 1, "e": "La UP 9 enseña el abordaje inicial según el protocolo ATLS: evaluación primaria (ABCDE), secundaria y revaluación." }
+      ]
+    }
+  ]
+}

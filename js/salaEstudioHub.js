@@ -17,7 +17,7 @@
     { id: 'cirugia', nombre: 'Introducción a las Especialidades Clínico-Quirúrgicas', sigla: 'Cirugía', icono: '🔪', color: 'cirugia', hub: 'cirugia_hub.html',
       desc: 'Las 11 Unidades Problema de cirugía: programa, material, simulador de exámenes y duelos, más asepsia y lavado quirúrgico en el atlas 3D.',
       chips: ['11 Unidades Problema', '1.100 preguntas', 'Estaciones ECOE'],
-      estudio: 'estudio.html?modulo=cirugia', simulador: 'examen.html?modulo=cirugia', duelos: 'versus.html', atlas: 'acreditaciones.html?area=cir' },
+      estudio: 'estudio.html?modulo=cirugia', simulador: 'examen.html?modulo=cirugia', duelos: 'versus.html', atlas: 'acreditaciones.html?area=cir', recorrido: 'recorrido.html?m=cirugia' },
   ];
   // Medicina Legal: sala de estudio y recorrido virtual (simulador y atlas, más adelante)
   const MED_LEGAL = ({ id: 'legal', nombre: 'Medicina Legal', sigla: 'Medicina Legal', icono: '⚖️', color: 'legal', hub: 'ml_estudio.html',
