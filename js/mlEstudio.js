@@ -147,7 +147,8 @@
       if (R.salasHref && MOD !== 'medicinalegal') { $$('a.pfo-btn-top[href^="sala_estudio.html"]').forEach((x) => { x.href = R.salasHref; }); }
       try {
         const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null');
-        if (SALA_DATA && !(u && String(u.role || '').toLowerCase() === 'admin')) SALA_DATA.units.forEach((x) => { x.videos = (x.videos || []).filter((v) => !v.oculto); });
+        const plus = !!(window.NikaAcceso && typeof window.NikaAcceso.tieneAccesoCompleto === 'function' && window.NikaAcceso.tieneAccesoCompleto());
+        if (SALA_DATA && !plus && !(u && String(u.role || '').toLowerCase() === 'admin')) SALA_DATA.units.forEach((x) => { x.videos = (x.videos || []).filter((v) => !v.oculto); });
       } catch (_) {}
       vistaRecorrido();
     } catch (e) {
