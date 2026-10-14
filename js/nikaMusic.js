@@ -1,9 +1,10 @@
 // js/nikaMusic.js
 // CAMPUS NIKA — NikaMusic: reproductor flotante para estudiar (campus y sala de estudio)
 //
-//  • "Sin login" (por defecto): playlists de concentración con el Embed oficial de Spotify y sonidos
-//    ambientales generados en el navegador (ruido blanco/marrón, lluvia, cafetería). Suena con un clic.
-//  • "Mi Spotify": conexión opcional de la cuenta (OAuth PKCE + Web Playback SDK, requiere Premium).
+//  • "Sin login" (para todos): playlists lofi con el reproductor oficial de YouTube (compacto y visible) y sonidos
+//    ambientales reales de licencia libre (olas, lluvia, tormenta, cafetería, bosque, arroyo) + ruido blanco.
+//  • "Mi Spotify" (solo NikaMed+): conexión opcional de la cuenta (OAuth PKCE + Web Playback SDK, requiere Premium).
+//  • Al iniciar un Pomodoro aparece un cartel para acompañarlo con música relajante.
 //  • Ventana flotante: se arrastra desde la cabecera, se minimiza a una píldora con ecualizador y
 //    se puede cerrar SIN cortar el audio.
 //  • Las alertas del campus (evento 'nika:alerta-sonido') bajan la música un instante y nunca se pisan.
@@ -35,12 +36,29 @@ const NikaMusic = (() => {
     { id: '37i9dQZF1DWWEJlAGA9gs0', icono: '🎻', label: 'Clásica para estudiar' },
     { id: '37i9dQZF1DX4sWSpwq3LiO', icono: '🎹', label: 'Peaceful Piano' },
   ];
+  // Sonidos ambientales: grabaciones reales de licencia libre (ver assets/audio/CREDITOS.txt)
   const AMBIENTES = [
+    { id: 'olas', icono: '🌊', label: 'Olas del mar', archivo: 'assets/audio/olas-del-mar.mp3' },
+    { id: 'lluvia', icono: '🌧️', label: 'Lluvia suave', archivo: 'assets/audio/lluvia.mp3' },
+    { id: 'tormenta', icono: '⛈️', label: 'Tormenta', archivo: 'assets/audio/tormenta.mp3' },
+    { id: 'cafe', icono: '☕', label: 'Cafetería', archivo: 'assets/audio/cafeteria.mp3' },
+    { id: 'bosque', icono: '🌲', label: 'Bosque', archivo: 'assets/audio/bosque.mp3' },
+    { id: 'arroyo', icono: '💧', label: 'Arroyo', archivo: 'assets/audio/arroyo.mp3' },
     { id: 'blanco', icono: '🌫️', label: 'Ruido blanco' },
-    { id: 'marron', icono: '🌊', label: 'Ruido marrón' },
-    { id: 'lluvia', icono: '🌧️', label: 'Lluvia' },
-    { id: 'cafe', icono: '☕', label: 'Cafetería' },
   ];
+  // Playlists lofi de YouTube (reproductor oficial; el video queda visible en tamaño compacto)
+  const YT_LISTA = [
+    { id: '_jH2oTNRe7g', icono: '🍂', label: 'Cozy autumn' },
+    { id: 'CBSlu_VMS9U', icono: '🎷', label: 'Jazz lofi mix' },
+    { id: '4WIMyqBG9gs', icono: '⚔️', label: 'Medieval lofi' },
+    { id: 'tn80RiPe0s8', icono: '🏮', label: 'Retro Japanese town' },
+    { id: 'vYIYIVmOo3Q', icono: '🌧️', label: 'Rain lofi' },
+  ];
+  const K_ASK = 'nika_music_pomo_ask';   // 'nunca' = no volver a preguntar al iniciar un Pomodoro
+  const esPlus = () => {
+    try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); if (u && String(u.role || '').toLowerCase() === 'admin') return true; } catch (_) {}
+    return !!(window.NikaAcceso && typeof NikaAcceso.tieneAccesoCompleto === 'function' && NikaAcceso.tieneAccesoCompleto());
+  };
   const PLAYLISTS_CUENTA = [
     { icono: '🎧', label: 'Lofi Hip Hop', q: 'Lofi Hip Hop' },
     { icono: '🧠', label: 'Deep Focus', q: 'Deep Focus' },
@@ -63,6 +81,8 @@ const NikaMusic = (() => {
   let embedCtrl = null, embedApi = null, embedUri = null;
   // Ambiente
   let actx = null, master = null, ambNodos = [], ambTimers = [], ambId = null, ambGain = null;
+  let ambAudio = null;                    // sonido ambiente real (<audio> en bucle: suena en segundo plano en el celular)
+  let ytCtrl = null, ytIdx = -1, ytApiCbs = [];   // reproductor de YouTube
 
   const $ = (s, r = panel) => (r ? r.querySelector(s) : null);
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -296,14 +316,17 @@ const NikaMusic = (() => {
     const host = document.getElementById('nm-embed-persist'); if (!host) return;
     const slot = $('#nm-embed');
     if (!slot || !abierto || minimizado || vista !== 'ambiente') { desacoplarEmbed(); return; }
+    if (!fuente || fuente.tipo !== 'embed') { host.style.left = '-9999px'; host.style.opacity = '0'; host.style.pointerEvents = 'none'; acoplarYt(); return; }
     slot.style.display = 'block';
     const r = slot.getBoundingClientRect();
     host.style.left = r.left + 'px'; host.style.top = r.top + 'px'; host.style.width = r.width + 'px';
     host.style.opacity = '1'; host.style.pointerEvents = 'auto';
+    acoplarYt();
   }
   function desacoplarEmbed() {
-    const host = document.getElementById('nm-embed-persist'); if (!host) return;
-    host.style.left = '-9999px'; host.style.top = '0px'; host.style.opacity = '0'; host.style.pointerEvents = 'none';
+    const host = document.getElementById('nm-embed-persist');
+    if (host) { host.style.left = '-9999px'; host.style.top = '0px'; host.style.opacity = '0'; host.style.pointerEvents = 'none'; }
+    acoplarYt();
   }
 
   // ============================================================ Sonidos ambientales (WebAudio)
@@ -343,61 +366,126 @@ const NikaMusic = (() => {
     ambTimers = [];
     ambNodos.forEach((n) => { try { n.stop && n.stop(); } catch (_) {} try { n.disconnect(); } catch (_) {} });
     ambNodos = []; ambId = null; ambGain = null;
+    if (ambAudio) { try { ambAudio.pause(); ambAudio.removeAttribute('src'); ambAudio.load(); } catch (_) {} ambAudio = null; }
   }
 
   function iniciarAmbiente(id) {
     detenerOtros('ruido');
     detenerAmbiente();
+    const def = AMBIENTES.find((x) => x.id === id);
+    if (def && def.archivo) {   // grabación real en bucle, por <audio> (sigue sonando con la pantalla bloqueada)
+      const a = new Audio(def.archivo);
+      a.loop = true; a.preload = 'auto'; a.volume = Math.min(1, parseFloat(localStorage.getItem(K_AMB) || '0.5') * 1.2);
+      ambAudio = a; ambId = id;
+      fuente = { tipo: 'ruido', nombre: def.label }; sonando = true;
+      const p = a.play();
+      if (p && p.catch) p.catch(() => { if (ambAudio === a) { sonando = false; pintarEstado(); } });
+      a.addEventListener('play', () => { if (ambAudio === a) { sonando = true; pintarEstado(); } });
+      a.addEventListener('pause', () => { if (ambAudio === a && !a.ended) { sonando = false; pintarEstado(); } });
+      mediaSesion(def.label, def.icono);
+      return;
+    }
     const c = audioCtx();
     if (c.state === 'suspended') c.resume();
     const g = c.createGain(); g.gain.value = parseFloat(localStorage.getItem(K_AMB) || '0.5') * 0.6; g.connect(master);
     ambNodos.push(g); ambGain = g; ambId = id;
 
     if (id === 'blanco') { const s = fuenteRuido('blanco'); const f = c.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 9000; s.connect(f); f.connect(g); ambNodos.push(f); }
-    else if (id === 'marron') { const s = fuenteRuido('marron'); s.connect(g); }
-    else if (id === 'lluvia') {
-      const s = fuenteRuido('rosa'); const hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 500;
-      const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 8000;
-      s.connect(hp); hp.connect(lp); lp.connect(g); ambNodos.push(hp, lp);
-      ambTimers.push(setInterval(() => { // gotas sueltas
-        if (!actx || actx.state !== 'running') return;
-        const o = c.createBufferSource(), bb = c.createBuffer(1, Math.floor(c.sampleRate * 0.05), c.sampleRate), dd = bb.getChannelData(0);
-        for (let i = 0; i < dd.length; i++) dd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / dd.length, 3);
-        o.buffer = bb; const bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2500 + Math.random() * 3500; bp.Q.value = 2;
-        const gg = c.createGain(); gg.gain.value = 0.25 + Math.random() * 0.35; o.connect(bp); bp.connect(gg); gg.connect(g); o.start();
-      }, 70));
-    } else if (id === 'cafe') {
-      const s = fuenteRuido('marron'); const bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 500; bp.Q.value = 0.6;
-      const mod = c.createGain(); mod.gain.value = 0.9;
-      const lfo = c.createOscillator(); lfo.frequency.value = 0.35; const lfoG = c.createGain(); lfoG.gain.value = 0.25; lfo.connect(lfoG); lfoG.connect(mod.gain); lfo.start();
-      s.connect(bp); bp.connect(mod); mod.connect(g); ambNodos.push(bp, mod, lfo, lfoG);
-      [[700, 0.4], [1200, 0.3], [2300, 0.18]].forEach(([fq, gain], i) => { // murmullo de voces
-        const sv = fuenteRuido('rosa'); const f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = fq; f.Q.value = 3;
-        const vg = c.createGain(); vg.gain.value = gain * 0.35;
-        const l2 = c.createOscillator(); l2.frequency.value = 0.6 + i * 0.37; const l2g = c.createGain(); l2g.gain.value = gain * 0.3; l2.connect(l2g); l2g.connect(vg.gain); l2.start();
-        sv.connect(f); f.connect(vg); vg.connect(g); ambNodos.push(f, vg, l2, l2g);
-      });
-      const tintin = () => { // tintineo ocasional de tazas
-        if (!actx || ambId !== 'cafe') return;
-        if (actx.state === 'running') {
-          const o = c.createOscillator(), gg = c.createGain(); o.type = 'sine'; o.frequency.value = 2200 + Math.random() * 1400;
-          gg.gain.setValueAtTime(0.0001, c.currentTime); gg.gain.exponentialRampToValueAtTime(0.06, c.currentTime + 0.01); gg.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.35);
-          o.connect(gg); gg.connect(g); o.start(); o.stop(c.currentTime + 0.4);
-        }
-        ambTimers.push(setTimeout(tintin, 4000 + Math.random() * 6000));
-      };
-      ambTimers.push(setTimeout(tintin, 2500));
-    }
+
     fuente = { tipo: 'ruido', nombre: AMBIENTES.find((x) => x.id === id).label };
     sonando = true;
   }
 
-  function pausarAmbiente() { if (actx && actx.state === 'running') actx.suspend(); sonando = false; pintarEstado(); }
-  function reanudarAmbiente() { if (actx) actx.resume(); sonando = true; pintarEstado(); }
+  function pausarAmbiente() { if (ambAudio) { try { ambAudio.pause(); } catch (_) {} } else if (actx && actx.state === 'running') actx.suspend(); sonando = false; pintarEstado(); }
+  function reanudarAmbiente() { if (ambAudio) { const p = ambAudio.play(); if (p && p.catch) p.catch(() => {}); } else if (actx) actx.resume(); sonando = true; pintarEstado(); }
+
+  // Controles del sistema (pantalla bloqueada / notificaciones) con el nombre de lo que suena
+  function mediaSesion(titulo, icono) {
+    try {
+      if (!('mediaSession' in navigator)) return;
+      navigator.mediaSession.metadata = new MediaMetadata({ title: titulo, artist: 'NikaMusic', album: 'Para estudiar' });
+      navigator.mediaSession.setActionHandler('play', () => alternarReproduccion());
+      navigator.mediaSession.setActionHandler('pause', () => alternarReproduccion());
+      navigator.mediaSession.setActionHandler('previoustrack', () => saltar(-1));
+      navigator.mediaSession.setActionHandler('nexttrack', () => saltar(1));
+    } catch (_) {}
+  }
+
+  // ============================================================ YouTube (sin login)
+  function cargarYtApi(cb) {
+    if (window.YT && window.YT.Player) { cb(); return; }
+    ytApiCbs.push(cb);
+    if (window.__nmYtCargando) return;
+    window.__nmYtCargando = true;
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => { try { if (prev) prev(); } catch (_) {} ytApiCbs.splice(0).forEach((f) => { try { f(); } catch (_) {} }); };
+    const sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api'; sc.async = true;
+    sc.onerror = () => { window.__nmYtCargando = false; ytApiCbs = []; setMensaje('No se pudo cargar YouTube (¿bloqueador de anuncios o sin conexión?).'); };
+    document.head.appendChild(sc);
+  }
+  function contenedorYt() {
+    let host = document.getElementById('nm-yt-persist');
+    if (!host) { host = document.createElement('div'); host.id = 'nm-yt-persist'; host.className = 'nm-yt-oculto'; document.body.appendChild(host); }
+    return host;
+  }
+  function volYt() { return Math.round(Math.min(1, parseFloat(localStorage.getItem(K_AMB) || '0.5')) * 100); }
+  function reproducirYt(i) {
+    const it = YT_LISTA[((i % YT_LISTA.length) + YT_LISTA.length) % YT_LISTA.length];
+    detenerOtros('yt');
+    ytIdx = YT_LISTA.indexOf(it);
+    fuente = { tipo: 'yt', nombre: it.label };
+    sonando = true;
+    const host = contenedorYt();
+    cargarYtApi(() => {
+      if (!fuente || fuente.tipo !== 'yt') return;
+      if (ytCtrl && ytCtrl.loadVideoById) { try { ytCtrl.loadVideoById(it.id); ytCtrl.setVolume(volYt()); } catch (_) {} return; }
+      host.innerHTML = '<div id="nm-yt-div"></div>';
+      ytCtrl = new window.YT.Player('nm-yt-div', {
+        width: '100%', height: '100%', videoId: it.id,
+        playerVars: { autoplay: 1, controls: 0, rel: 0, modestbranding: 1, playsinline: 1, iv_load_policy: 3, disablekb: 1, fs: 0, origin: location.origin },
+        events: {
+          onReady: (e) => { try { e.target.setVolume(volYt()); e.target.playVideo(); } catch (_) {} },
+          onStateChange: (e) => {
+            if (!fuente || fuente.tipo !== 'yt') return;
+            if (e.data === 1) { detenerOtros('yt'); sonando = true; pintarEstado(); }
+            else if (e.data === 2) { sonando = false; pintarEstado(); }
+            else if (e.data === 0) reproducirYt(ytIdx + 1);
+          },
+          onError: () => { setMensaje('Ese video no se puede reproducir acá. Probamos con el siguiente.'); setTimeout(() => { if (fuente && fuente.tipo === 'yt') reproducirYt(ytIdx + 1); }, 1200); },
+        },
+      });
+    });
+    mediaSesion(it.label, it.icono);
+    render();
+  }
+  // El reproductor de YouTube queda SIEMPRE visible (política de YouTube): grande en la ventana, miniatura al minimizar o cerrar.
+  function acoplarYt() {
+    const host = document.getElementById('nm-yt-persist'); if (!host) return;
+    if (!fuente || fuente.tipo !== 'yt') { host.className = 'nm-yt-oculto'; return; }
+    const slot = $('#nm-yt');
+    if (abierto && !minimizado && vista === 'ambiente') {
+      if (!slot) return;   // la ventana se está redibujando
+      const r = slot.getBoundingClientRect();
+      host.className = 'nm-yt-grande';
+      host.style.left = r.left + 'px'; host.style.top = r.top + 'px'; host.style.width = r.width + 'px'; host.style.height = r.height + 'px';
+      host.style.right = 'auto'; host.style.bottom = 'auto';
+      return;
+    }
+    host.className = 'nm-yt-mini';
+    host.style.width = ''; host.style.height = '';
+    if (pill && pill.classList.contains('on')) {
+      const r = pill.getBoundingClientRect();
+      host.style.left = Math.max(8, Math.min(r.left, window.innerWidth - 176)) + 'px';
+      host.style.top = Math.max(8, r.top - 98) + 'px';
+      host.style.right = 'auto'; host.style.bottom = 'auto';
+    } else { host.style.left = '16px'; host.style.top = 'auto'; host.style.right = 'auto'; host.style.bottom = '78px'; }
+  }
+
 
   // Solo suena una fuente a la vez
   function detenerOtros(mantener) {
     if (mantener !== 'ruido' && ambId) detenerAmbiente();
+    if (mantener !== 'yt' && ytCtrl) { try { ytCtrl.pauseVideo(); } catch (_) {} }
     if (mantener !== 'embed' && embedCtrl) { try { embedCtrl.pause(); } catch (_) {} }
     if (mantener !== 'sdk' && player && estado && !estado.paused) { try { player.pause(); } catch (_) {} }
   }
@@ -406,13 +494,21 @@ const NikaMusic = (() => {
   async function alternarReproduccion() {
     if (!fuente) return;
     if (fuente.tipo === 'ruido') { if (sonando) pausarAmbiente(); else reanudarAmbiente(); }
+    else if (fuente.tipo === 'yt') { try { if (sonando) ytCtrl.pauseVideo(); else ytCtrl.playVideo(); } catch (_) {} }
     else if (fuente.tipo === 'embed') { try { embedCtrl && embedCtrl.togglePlay(); } catch (_) {} }
     else if (fuente.tipo === 'sdk') { try { if (player.activateElement) await player.activateElement(); await player.togglePlay(); } catch (_) {} }
   }
 
   // Las alertas del campus bajan la música un momento (nunca la pausan ni se tapan)
   function duck(ms) {
-    if (master && actx && sonando && fuente && fuente.tipo === 'ruido') {
+    if (ambAudio && sonando) {
+      const v0 = ambAudio.volume; ambAudio.volume = Math.max(0.02, v0 * 0.25);
+      setTimeout(() => { if (ambAudio) ambAudio.volume = Math.min(1, parseFloat(localStorage.getItem(K_AMB) || '0.5') * 1.2); }, ms);
+    }
+    if (ytCtrl && fuente && fuente.tipo === 'yt' && sonando) {
+      try { ytCtrl.setVolume(Math.max(2, Math.round(volYt() * 0.25))); setTimeout(() => { try { ytCtrl.setVolume(volYt()); } catch (_) {} }, ms); } catch (_) {}
+    }
+    if (master && actx && sonando && fuente && fuente.tipo === 'ruido' && !ambAudio) {
       master.gain.setTargetAtTime(0.2, actx.currentTime, 0.05);
       setTimeout(() => { if (master && actx) master.gain.setTargetAtTime(1, actx.currentTime, 0.4); }, ms);
     }
@@ -455,6 +551,37 @@ const NikaMusic = (() => {
       #nm-pill:active { cursor: grabbing; }
       .nm-grip { color: #64748b; font-size: .9rem; letter-spacing: -2px; flex-shrink: 0; user-select: none; line-height: 1; }
       #nm-embed-persist { position: fixed; left: -9999px; top: 0; width: 300px; z-index: 9993; opacity: 0; pointer-events: none; border-radius: 12px; overflow: hidden; }
+      /* NikaMusic · degradé verde/turquesa, YouTube compacto y chips animados */
+      .nm-h { background: linear-gradient(120deg, rgba(29,185,84,.42), rgba(20,184,166,.28) 55%, rgba(99,102,241,.22)) !important; background-size: 200% 100%; animation: nmFluye 10s ease-in-out infinite alternate; }
+      @keyframes nmFluye { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+      .nm-lock { font-size: .6rem; font-weight: 800; background: rgba(251,191,36,.2); color: #fde68a; border-radius: 99px; padding: 1px 6px; margin-left: 4px; }
+      #nm-yt-persist { position: fixed; z-index: 9993; overflow: hidden; background: #000; transition: opacity .2s, transform .25s cubic-bezier(.22,1,.36,1); }
+      #nm-yt-persist iframe { width: 100%; height: 100%; border: 0; display: block; }
+      #nm-yt-persist.nm-yt-oculto { left: -9999px; top: 0; width: 160px; height: 90px; opacity: 0; pointer-events: none; }
+      #nm-yt-persist.nm-yt-grande { border-radius: 14px; box-shadow: 0 0 0 1px rgba(29,185,84,.6), 0 14px 30px -12px rgba(0,0,0,.7); pointer-events: none; }
+      #nm-yt-persist.nm-yt-mini { width: 160px; height: 90px; border-radius: 12px; box-shadow: 0 0 0 2px rgba(29,185,84,.75), 0 16px 30px -12px rgba(0,0,0,.8); animation: nmMini .35s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+      @keyframes nmMini { from { opacity: 0; transform: translateY(10px) scale(.85); } }
+      .nm-yt-slot { flex: 0 0 150px; min-height: 150px; height: 150px; border-radius: 14px; margin: 6px 0 2px; background: linear-gradient(135deg, #0f172a, #14532d); position: relative; }
+      .nm-yt-nota { flex: 0 0 auto; font-size: .66rem; color: #94a3b8; text-align: center; margin-bottom: 6px; }
+      .nm-yt-b, .nm-amb { animation: nmChip .4s cubic-bezier(.34,1.56,.64,1) both; animation-delay: calc(var(--d, 0) * 45ms); transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s, background .18s; }
+      .nm-yt-b { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.07); color: #e2e8f0; border-radius: 999px; padding: 7px 12px; font: inherit; font-size: .76rem; font-weight: 700; cursor: pointer; }
+      .nm-yt-b:hover, .nm-amb:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 10px 18px -10px rgba(29,185,84,.7); }
+      .nm-yt-b.on { background: linear-gradient(135deg, #1db954, #14b8a6); color: #04130a; border-color: transparent; font-weight: 800; }
+      @keyframes nmChip { from { opacity: 0; transform: translateY(8px) scale(.9); } }
+      /* cartel al iniciar un Pomodoro */
+      .nm-ask { position: fixed; inset: 0; z-index: 9996; display: flex; align-items: center; justify-content: center; padding: 14px; background: rgba(2,6,23,.6); backdrop-filter: blur(4px); animation: nmFade .2s ease; }
+      @keyframes nmFade { from { opacity: 0; } }
+      .nm-ask-c { width: min(420px, 100%); border-radius: 22px; overflow: hidden; background: linear-gradient(180deg, #14181f, #0b0e13); color: #f1f5f9; border: 1px solid rgba(29,185,84,.5); box-shadow: 0 30px 70px -16px rgba(0,0,0,.8), 0 0 50px -14px rgba(29,185,84,.5); animation: nmIn .3s cubic-bezier(.34,1.56,.64,1); }
+      .nm-ask-h { padding: 18px 18px 14px; background: linear-gradient(120deg, rgba(29,185,84,.5), rgba(20,184,166,.35) 55%, rgba(99,102,241,.3)); }
+      .nm-ask-h .e { font-size: 2rem; display: inline-block; animation: nmFlota 3s ease-in-out infinite; } @keyframes nmFlota { 50% { transform: translateY(-5px) rotate(-6deg); } }
+      .nm-ask-h h3 { margin: 6px 0 2px; font-size: 1.08rem; } .nm-ask-h p { margin: 0; font-size: .8rem; opacity: .9; }
+      .nm-ask-b { padding: 14px 16px 16px; }
+      .nm-ask-b h4 { margin: 8px 0 6px; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: #94a3b8; }
+      .nm-ask-b .nm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+      .nm-ask-f { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+      .nm-ask-f label { font-size: .72rem; color: #94a3b8; display: flex; gap: 6px; align-items: center; cursor: pointer; } .nm-ask-f input { accent-color: #1db954; }
+      .nm-ask-no { border: 1px solid rgba(255,255,255,.2); background: transparent; color: #e2e8f0; border-radius: 999px; padding: 8px 16px; font: inherit; font-weight: 700; font-size: .8rem; cursor: pointer; }
+      @media (prefers-reduced-motion: reduce) { .nm-h, .nm-yt-b, .nm-amb, .nm-ask-h .e, #nm-yt-persist.nm-yt-mini { animation: none !important; } }
 
       #nm-panel { position: fixed; right: 20px; top: 78px; z-index: 9991; width: 340px; max-width: calc(100vw - 16px); max-height: calc(100vh - 96px); display: flex; flex-direction: column; overflow: hidden;
         background: linear-gradient(180deg, #14181f, #0b0e13); color: #f1f5f9; border: 1px solid rgba(29,185,84,.4); border-radius: 20px;
@@ -612,7 +739,7 @@ const NikaMusic = (() => {
     window.addEventListener('pagehide', () => { saliendo = true; guardarSesion(); });
 
     const u = ui();
-    vista = u.vista === 'spotify' && leerTokens() ? 'spotify' : 'ambiente';
+    vista = u.vista === 'spotify' && leerTokens() && esPlus() ? 'spotify' : 'ambiente';
     render();
     posicionInicial();
     posicionPill();
@@ -690,7 +817,7 @@ const NikaMusic = (() => {
     if (!sesionLista) return;
     try {
       if (!fuente) { sessionStorage.removeItem(K_SESS); return; }
-      sessionStorage.setItem(K_SESS, JSON.stringify({ min: minimizado && abierto, sonando: !!sonando, fuente: { tipo: fuente.tipo, nombre: fuente.nombre, id: fuente.tipo === 'ruido' ? ambId : null } }));
+      sessionStorage.setItem(K_SESS, JSON.stringify({ min: minimizado && abierto, sonando: !!sonando, fuente: { tipo: fuente.tipo, nombre: fuente.nombre, id: fuente.tipo === 'ruido' ? ambId : null, yt: fuente.tipo === 'yt' ? ytIdx : null } }));
     } catch (_) {}
   }
   function restaurarSesion() {
@@ -709,6 +836,12 @@ const NikaMusic = (() => {
             ['pointerdown', 'keydown'].forEach((ev) => window.addEventListener(ev, reanudar, { once: true }));
           }
         } else fuente = { tipo: 'ruido', nombre: f.nombre };
+      } else if (f.tipo === 'yt') {
+        const k = YT_LISTA.findIndex((x) => x.label === f.nombre);
+        if (k >= 0) {
+          fuente = { tipo: 'yt', nombre: YT_LISTA[k].label }; ytIdx = k; sonando = false;
+          if (s0.sonando) { reproducirYt(k); const reanudar = () => { if (ytCtrl && sonando === false) { try { ytCtrl.playVideo(); } catch (_) {} } }; ['pointerdown', 'keydown'].forEach((ev) => window.addEventListener(ev, reanudar, { once: true })); }
+        }
       } else if (f.tipo === 'embed') {
         const e = EMBEDS.find((x) => x.label === f.nombre);
         if (e) { embedUri = 'spotify:playlist:' + e.id; fuente = { tipo: 'embed', nombre: e.label }; sonando = false; if (s0.sonando) montarEmbed(embedUri); }
@@ -770,6 +903,7 @@ const NikaMusic = (() => {
       const tr = estado && estado.track_window && estado.track_window.current_track;
       return tr ? { t: rec(tr.name), a: rec(tr.artists.map((x) => x.name).join(', ')), o: 'spotify' } : null;
     }
+    if (fuente.tipo === 'yt') return { t: rec(fuente.nombre), a: 'Lofi para estudiar', o: 'nikamusic' };
     if (fuente.tipo === 'embed') return { t: rec(fuente.nombre), a: 'Playlist de Spotify', o: 'spotify' };
     return { t: rec(fuente.nombre), a: 'Sonido ambiente', o: 'nikamusic' };
   }
@@ -836,6 +970,10 @@ const NikaMusic = (() => {
   }
 
   function cambiarVista(v) {
+    if (v === 'spotify' && !esPlus()) {   // Mi Spotify es un beneficio NikaMed+
+      try { if (window.NikaAcceso && NikaAcceso.mostrarModalSoloVip) { NikaAcceso.mostrarModalSoloVip('musica'); return; } } catch (_) {}
+      setMensaje('Mi Spotify es exclusivo de NikaMed+.'); return;
+    }
     desacoplarEmbed();
     vista = v; guardarUi({ vista: v }); render();
     if (v === 'spotify' && leerTokens() && !sdkCargado) { cargarSdk(); setMensaje('Conectando el reproductor...'); }
@@ -850,32 +988,34 @@ const NikaMusic = (() => {
     const cabecera = `
       <div class="nm-h"><div><b>${SPOTIFY_SVG(16)} NikaMusic <span class="nm-eq ${sonando ? 'sonando' : ''}" id="nm-hdr-eq"><i></i><i></i><i></i><i></i></span></b></div>
         <div class="nm-hb"><button type="button" id="nm-min" title="Minimizar" aria-label="Minimizar">_</button><button type="button" id="nm-x" title="Cerrar y detener la música" aria-label="Cerrar y detener la música">✕</button></div></div>
-      <div class="nm-tabs"><button type="button" class="nm-tab ${vista === 'ambiente' ? 'on' : ''}" data-v="ambiente">🌿 Sin login</button><button type="button" class="nm-tab ${vista === 'spotify' ? 'on' : ''}" data-v="spotify">${SPOTIFY_SVG(13)} Mi Spotify</button></div>`;
+      <div class="nm-tabs"><button type="button" class="nm-tab ${vista === 'ambiente' ? 'on' : ''}" data-v="ambiente">🌿 Lofi y ambiente</button><button type="button" class="nm-tab ${vista === 'spotify' ? 'on' : ''}" data-v="spotify">${SPOTIFY_SVG(13)} Mi Spotify ${esPlus() ? '' : '<span class="nm-lock" title="Exclusivo NikaMed+">🔒 Plus</span>'}</button></div>`;
 
     let cuerpo;
     if (vista === 'ambiente') {
       const ambVol = Math.round(parseFloat(localStorage.getItem(K_AMB) || '0.5') * 100);
       const activa = fuente && fuente.tipo !== 'sdk';
       const esEmbed = activa && fuente.tipo === 'embed';
+      const esYt = activa && fuente.tipo === 'yt';
       const esRuido = activa && fuente.tipo === 'ruido';
       const np = activa ? `
         <div class="nm-np">
           <div class="nm-np-t"><span class="nm-eq ${sonando ? 'sonando' : ''}"><i></i><i></i><i></i><i></i></span><b>${esc(fuente.nombre)}</b></div>
           <div class="nm-bigctrl">
-            ${esEmbed ? '<button type="button" id="nm-embprev" class="med" title="Playlist anterior" aria-label="Playlist anterior">⏮</button>' : ''}
+            ${(esEmbed || esYt) ? '<button type="button" id="nm-embprev" class="med" title="Playlist anterior" aria-label="Playlist anterior">⏮</button>' : ''}
             <button type="button" id="nm-npplay" class="grande" title="Reproducir / pausar" aria-label="Reproducir o pausar">${sonando ? '⏸' : '▶'}</button>
-            ${esEmbed ? '<button type="button" id="nm-embnext" class="med" title="Playlist siguiente" aria-label="Playlist siguiente">⏭</button>' : ''}
+            ${(esEmbed || esYt) ? '<button type="button" id="nm-embnext" class="med" title="Playlist siguiente" aria-label="Playlist siguiente">⏭</button>' : ''}
             <button type="button" id="nm-npstop" class="med" title="Detener" aria-label="Detener">⏹</button>
           </div>
-          ${esRuido ? `<div class="nm-volrow"><button type="button" class="nm-mute" id="nm-ambmute" aria-label="Silenciar">🔈</button><input type="range" id="nm-ambvol" min="0" max="100" value="${ambVol}" aria-label="Volumen"><b id="nm-ambvol-n">${ambVol}</b></div>` : ''}
+          ${(esRuido || esYt) ? `<div class="nm-volrow"><button type="button" class="nm-mute" id="nm-ambmute" aria-label="Silenciar">🔈</button><input type="range" id="nm-ambvol" min="0" max="100" value="${ambVol}" aria-label="Volumen"><b id="nm-ambvol-n">${ambVol}</b></div>` : ''}
         </div>` : '';
       cuerpo = `
         ${np}
+        ${esYt ? '<div id="nm-yt" class="nm-yt-slot"></div><div class="nm-yt-nota">Video oficial de YouTube · tocá ▶ para empezar</div>' : ''}
         ${esEmbed ? '<div id="nm-embed"></div>' : ''}
-        <div class="nm-sec">Playlists</div>
-        <div class="nm-chips">${EMBEDS.map((e, i) => `<button type="button" class="nm-emb ${esEmbed && fuente.nombre === e.label ? 'on' : ''}" data-i="${i}">${e.icono} ${e.label}</button>`).join('')}</div>
-        <div class="nm-sec">Ambiente</div>
-        <div class="nm-chips">${AMBIENTES.map((a2) => `<button type="button" class="nm-amb ${ambId === a2.id && sonando ? 'on' : ''}" data-id="${a2.id}">${a2.icono} ${a2.label}</button>`).join('')}</div>`;
+        <div class="nm-sec">🎶 Lofi para estudiar</div>
+        <div class="nm-chips">${YT_LISTA.map((e, i) => `<button type="button" class="nm-yt-b ${esYt && fuente.nombre === e.label ? 'on' : ''}" data-i="${i}" style="--d:${i}">${e.icono} ${e.label}</button>`).join('')}</div>
+        <div class="nm-sec">🌿 Sonidos de la naturaleza</div>
+        <div class="nm-chips">${AMBIENTES.map((a2, i) => `<button type="button" class="nm-amb ${ambId === a2.id && sonando ? 'on' : ''}" data-id="${a2.id}" style="--d:${i}">${a2.icono} ${a2.label}</button>`).join('')}</div>`;
     } else if (!conectado) {
       cuerpo = `
         <div class="nm-conectar">Conectá tu cuenta de <b>Spotify</b> para usar tus playlists y buscar canciones.<br><small style="color:#94a3b8">Requiere Spotify Premium. Por ahora las cuentas se habilitan de a poco (beta): si no podés conectar, usá “Sin login”, que funciona para todos.</small><br>
@@ -907,18 +1047,22 @@ const NikaMusic = (() => {
     activarArrastre();
 
     if (vista === 'ambiente') {
-      panel.querySelectorAll('.nm-emb').forEach((bt) => bt.addEventListener('click', () => reproducirEmbed(EMBEDS[bt.dataset.i])));
+      panel.querySelectorAll('.nm-yt-b').forEach((bt) => bt.addEventListener('click', () => {
+        if (fuente && fuente.tipo === 'yt' && ytIdx === +bt.dataset.i) { alternarReproduccion(); return; }
+        reproducirYt(+bt.dataset.i);
+      }));
       panel.querySelectorAll('.nm-amb').forEach((bt) => bt.addEventListener('click', () => {
         if (ambId === bt.dataset.id && sonando) { detenerAmbiente(); fuente = null; sonando = false; render(); return; }
         iniciarAmbiente(bt.dataset.id); render();
       }));
       const idx = fuente && fuente.tipo === 'embed' ? EMBEDS.findIndex((e) => e.label === fuente.nombre) : -1;
+      const esYt2 = fuente && fuente.tipo === 'yt';
       if ($('#nm-npplay')) $('#nm-npplay').onclick = alternarReproduccion;
-      if ($('#nm-embprev')) $('#nm-embprev').onclick = () => reproducirEmbed(EMBEDS[(idx - 1 + EMBEDS.length) % EMBEDS.length]);
-      if ($('#nm-embnext')) $('#nm-embnext').onclick = () => reproducirEmbed(EMBEDS[(idx + 1) % EMBEDS.length]);
+      if ($('#nm-embprev')) $('#nm-embprev').onclick = () => (esYt2 ? reproducirYt(ytIdx - 1) : reproducirEmbed(EMBEDS[(idx - 1 + EMBEDS.length) % EMBEDS.length]));
+      if ($('#nm-embnext')) $('#nm-embnext').onclick = () => (esYt2 ? reproducirYt(ytIdx + 1) : reproducirEmbed(EMBEDS[(idx + 1) % EMBEDS.length]));
       if ($('#nm-npstop')) $('#nm-npstop').onclick = detenerTodo;
       if ($('#nm-ambvol')) {
-        $('#nm-ambvol').addEventListener('input', (e) => { const v = e.target.value / 100; localStorage.setItem(K_AMB, String(v)); if (ambGain) ambGain.gain.value = v * 0.6; $('#nm-ambvol-n').textContent = e.target.value; $('#nm-ambmute').textContent = v === 0 ? '🔇' : '🔈'; });
+        $('#nm-ambvol').addEventListener('input', (e) => { const v = e.target.value / 100; localStorage.setItem(K_AMB, String(v)); if (ambAudio) ambAudio.volume = Math.min(1, v * 1.2); if (ytCtrl && fuente && fuente.tipo === 'yt') { try { ytCtrl.setVolume(Math.round(v * 100)); } catch (_) {} } if (ambGain) ambGain.gain.value = v * 0.6; $('#nm-ambvol-n').textContent = e.target.value; $('#nm-ambmute').textContent = v === 0 ? '🔇' : '🔈'; });
         let previo = 0.5;
         $('#nm-ambmute').onclick = () => {
           const r = $('#nm-ambvol'); const actual = r.value / 100;
@@ -926,7 +1070,7 @@ const NikaMusic = (() => {
           r.value = Math.round(nuevo * 100); r.dispatchEvent(new Event('input'));
         };
       }
-      if (fuente && fuente.tipo === 'embed') requestAnimationFrame(acoplarEmbed);
+      if (fuente && (fuente.tipo === 'embed' || fuente.tipo === 'yt')) requestAnimationFrame(acoplarEmbed);
       panel.querySelector('.nm-body').addEventListener('scroll', acoplarEmbed);
     } else if (!conectado) {
       $('#nm-conn').onclick = conectar;
@@ -954,7 +1098,7 @@ const NikaMusic = (() => {
   }
 
   // ---- Volumen unificado (ruido ambiente o cuenta de Spotify; el embed no expone volumen)
-  function volumenSoportado() { return !!fuente && (fuente.tipo === 'ruido' || fuente.tipo === 'sdk'); }
+  function volumenSoportado() { return !!fuente && (fuente.tipo === 'ruido' || fuente.tipo === 'sdk' || fuente.tipo === 'yt'); }
   function volumenActual() {
     return fuente && fuente.tipo === 'sdk' ? parseFloat(localStorage.getItem(K_VOL) || '0.5') : parseFloat(localStorage.getItem(K_AMB) || '0.5');
   }
@@ -962,7 +1106,8 @@ const NikaMusic = (() => {
     if (!fuente) return;
     v = Math.max(0, Math.min(1, v));
     if (fuente.tipo === 'sdk') { localStorage.setItem(K_VOL, String(v)); if (player) player.setVolume(v); }
-    else if (fuente.tipo === 'ruido') { localStorage.setItem(K_AMB, String(v)); if (ambGain) ambGain.gain.value = v * 0.6; }
+    else if (fuente.tipo === 'ruido') { localStorage.setItem(K_AMB, String(v)); if (ambAudio) ambAudio.volume = Math.min(1, v * 1.2); if (ambGain) ambGain.gain.value = v * 0.6; }
+    else if (fuente.tipo === 'yt') { localStorage.setItem(K_AMB, String(v)); try { ytCtrl.setVolume(Math.round(v * 100)); } catch (_) {} }
     pintarVolumen();
   }
   function pintarVolumen() {
@@ -977,6 +1122,7 @@ const NikaMusic = (() => {
   function saltar(delta) {
     if (!fuente) return;
     if (fuente.tipo === 'sdk') { if (player) (delta < 0 ? player.previousTrack() : player.nextTrack()); return; }
+    if (fuente.tipo === 'yt') { reproducirYt(ytIdx + delta); return; }
     if (fuente.tipo === 'embed') {
       const i = EMBEDS.findIndex((e) => e.label === fuente.nombre);
       reproducirEmbed(EMBEDS[(i + delta + EMBEDS.length) % EMBEDS.length]); return;
@@ -990,6 +1136,7 @@ const NikaMusic = (() => {
   // Detiene cualquier fuente activa (botón ⏹)
   function detenerTodo() {
     detenerAmbiente();
+    if (ytCtrl) { try { ytCtrl.stopVideo(); } catch (_) {} }
     if (embedCtrl) { try { embedCtrl.pause(); } catch (_) {} }
     if (player && estado && !estado.paused) { try { player.pause(); } catch (_) {} }
     fuente = null; sonando = false; embedUri = null;
@@ -1019,6 +1166,7 @@ const NikaMusic = (() => {
         $('#nm-dur').textContent = fmt(estado.duration); avanzarProgreso(true);
       }
     }
+    acoplarYt();
     guardarSesion(); publicar();
   }
 
@@ -1030,18 +1178,63 @@ const NikaMusic = (() => {
     const seek = $('#nm-seek'); if (document.activeElement !== seek) seek.value = estado.duration ? Math.round((p / estado.duration) * 1000) : 0;
   }
 
+  // ---- Cartel al iniciar un Pomodoro: "¿Querés acompañarlo con música relajante?" ----
+  function cartelPomodoro() {
+    if (document.getElementById('nm-ask')) return;
+    try { if (localStorage.getItem(K_ASK) === 'nunca') return; } catch (_) {}
+    if (fuente && sonando) return;   // ya hay música: no molestar
+    const ov = document.createElement('div'); ov.id = 'nm-ask'; ov.className = 'nm-ask';
+    ov.innerHTML = `<div class="nm-ask-c" role="dialog" aria-modal="true" aria-label="Música para tu Pomodoro">
+      <div class="nm-ask-h"><span class="e">🎧</span><h3>¿Querés acompañar el Pomodoro con música relajante?</h3><p>Elegí algo suave para concentrarte. Podés cambiarlo cuando quieras en NikaMusic.</p></div>
+      <div class="nm-ask-b">
+        <h4>🎶 Lofi</h4><div class="nm-chips">${YT_LISTA.map((e, i) => `<button type="button" class="nm-yt-b" data-yt="${i}" style="--d:${i}">${e.icono} ${e.label}</button>`).join('')}</div>
+        <h4>🌿 Sonidos de la naturaleza</h4><div class="nm-chips">${AMBIENTES.map((a2, i) => `<button type="button" class="nm-amb nm-yt-b" data-amb="${a2.id}" style="--d:${i}">${a2.icono} ${a2.label}</button>`).join('')}</div>
+        <div class="nm-ask-f"><label><input type="checkbox" id="nm-ask-never"> No volver a preguntar</label><button type="button" class="nm-ask-no" id="nm-ask-no">No, gracias</button></div>
+      </div></div>`;
+    const cerrarAsk = () => {
+      const nunca = ov.querySelector('#nm-ask-never'); if (nunca && nunca.checked) { try { localStorage.setItem(K_ASK, 'nunca'); } catch (_) {} }
+      ov.remove();
+    };
+    ov.addEventListener('click', (e) => {
+      if (e.target === ov || e.target.closest('#nm-ask-no')) return cerrarAsk();
+      const y = e.target.closest('[data-yt]'), a = e.target.closest('[data-amb]');
+      if (y) { cerrarAsk(); minimizarAlElegir(() => reproducirYt(+y.dataset.yt)); }
+      else if (a) { cerrarAsk(); minimizarAlElegir(() => { iniciarAmbiente(a.dataset.amb); render(); }); }
+    });
+    document.addEventListener('keydown', function esc(e) { if (!document.getElementById('nm-ask')) { document.removeEventListener('keydown', esc); return; } if (e.key === 'Escape') cerrarAsk(); });
+    document.body.appendChild(ov);
+  }
+  // Al elegir desde el cartel, la música suena y queda la píldora (no se tapa la pantalla de estudio)
+  function minimizarAlElegir(fn) { try { fn(); } catch (_) {} abierto = true; minimizado = true; panel.classList.add('oculto'); pintarEstado(); acoplarYt(); }
+
+  function vigilarPomodoro() {
+    const E = window.PomodoroEngine;
+    if (!E || !E.on) { setTimeout(vigilarPomodoro, 800); return; }
+    let previo = E.getState().status;
+    const revisar = () => {
+      const st = E.getState();
+      const arranco = previo === 'idle' && st.status === 'running' && st.mode === 'work';
+      previo = st.status;
+      if (arranco) setTimeout(cartelPomodoro, 350);
+    };
+    E.on('change', revisar);
+    E.on('tick', revisar);
+    setInterval(revisar, 700);   // algunos cambios de estado no emiten evento (reinicio silencioso)
+  }
+
   function init() {
     if (!SPOTIFY_CLIENT_ID) console.info('[NikaMusic] Para activar “Conectar con Spotify” definí el Client ID (window.NIKA_SPOTIFY_CLIENT_ID, <meta name="spotify-client-id"> o CLIENT_ID_FIJO) y registrá ' + location.origin + '/spotify-callback.html como Redirect URI en developer.spotify.com.');
     construir();
     decorarBotones();
     restaurarSesion();
     iniciarSondeoExterno();
+    vigilarPomodoro();
     // Si la música de tu cuenta estaba sonando al cambiar de página, el reproductor se reconecta y la retoma
     if (leerTokens() && localStorage.getItem(K_ACTIVA) === '1') cargarSdk();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
-  return { abrir, cerrar, minimizar, alternar: () => (abierto && !minimizado ? cerrar() : abrir()), duck, conectar, desconectar };
+  return { abrir, cerrar, minimizar, alternar: () => (abierto && !minimizado ? cerrar() : abrir()), duck, conectar, desconectar, sugerirMusica: cartelPomodoro };
 })();
 
 window.NikaMusic = NikaMusic;

@@ -58,6 +58,7 @@
 
     const FUNCIONES_VIP = {
         asistente: { nombre: 'Asistente Nika (NotebookLM)' },
+        musica: { nombre: 'Mi Spotify en NikaMusic' },
     };
 
     const esc = (t) => String(t == null ? '' : t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
