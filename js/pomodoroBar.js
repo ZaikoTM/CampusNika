@@ -96,8 +96,10 @@ const NikaPomoBar = (() => {
             .nika-pomo-bar-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
             .nika-pomo-bar-btn.main { width: 36px; height: 36px; border-radius: 50%; padding: 0; background: #fff; color: #be185d; font-size: .95rem; border: 0; box-shadow: 0 6px 14px -6px rgba(0,0,0,.55); }
             .nika-pomo-bar-btn.main:hover { background: #fff; transform: scale(1.1); }
-            .nika-pomo-bar-btn.leave { background: rgba(0,0,0,.28); border-color: rgba(255,255,255,.5); }
+            .nika-pomo-bar-btn .lbl { white-space: nowrap; font-size: .72rem; font-weight: 800; line-height: 1; }
+            .nika-pomo-bar-btn.leave, .nika-pomo-bar-btn.cancel { height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(0,0,0,.26); border-color: rgba(255,255,255,.45); }
             .nika-pomo-bar-btn.leave:hover { background: #ef4444; border-color: #ef4444; }
+            .nika-pomo-bar-btn.cancel:hover { background: #f59e0b; border-color: #f59e0b; color: #1c1917; }
             /* confirmación de salida */
             .nika-pomo-leave { display: none; position: absolute; top: calc(100% + 8px); right: 12px; width: min(320px, calc(100vw - 24px)); background: var(--card-bg, #fff); color: var(--text-main, #0f172a); border: 1px solid var(--border, #e2e8f0); border-radius: 16px; padding: 14px; box-shadow: 0 24px 50px -14px rgba(0,0,0,.55); z-index: 2600; font-weight: 700; }
             .nika-pomo-leave.is-open { display: block; animation: nikaCfgIn .2s cubic-bezier(.22,1,.36,1); }
@@ -117,6 +119,7 @@ const NikaPomoBar = (() => {
             @media (max-width: 760px) {
                 .nika-pomo-bar-inner { font-size: .74rem; padding: 5px 9px; gap: 6px; }
                 .nika-pomo-bar-partner, .nika-pomo-bar-role .txt, .nika-pomo-bar-btn .lbl, .nika-pomo-conn .lbl { display: none; }
+                .nika-pomo-bar-btn.leave, .nika-pomo-bar-btn.cancel { width: 32px; padding: 0; }
                 .nika-pomo-bar-time { font-size: 1.05rem; }
                 .nika-pomo-ring { flex-basis: 34px; width: 34px; height: 34px; }
                 .nika-pomo-bar-phase { padding: 3px 8px; }
@@ -155,7 +158,8 @@ const NikaPomoBar = (() => {
                 <span class="nika-pomo-conn" id="nika-pomo-conn" style="display:none;"><i></i><span class="lbl" id="nika-pomo-conn-t">Conectado</span></span>
                 <button type="button" class="nika-pomo-bar-btn main" id="nika-pomo-bar-toggle" title="Pausar / reanudar" aria-label="Pausar o reanudar">⏸️</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-room" title="Abrir la sala de estudio" style="display:none;">🍅<span class="lbl">Sala</span></button>
-                <button type="button" class="nika-pomo-bar-btn leave" id="nika-pomo-bar-leave" title="Salir de la sala compartida" style="display:none;">🚪<span class="lbl">Salir de la sala</span></button>
+                <button type="button" class="nika-pomo-bar-btn cancel" id="nika-pomo-bar-cancel" title="Cancelar este Pomodoro" aria-label="Cancelar el Pomodoro" style="display:none;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/></svg><span class="lbl">Cancelar</span></button>
+                <button type="button" class="nika-pomo-bar-btn leave" id="nika-pomo-bar-leave" title="Salir de la sala compartida" aria-label="Salir de la sala compartida" style="display:none;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span class="lbl">Salir</span></button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-cfg" title="Configurar tiempos" aria-label="Configurar tiempos">⚙️</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-min" title="Minimizar" aria-label="Minimizar">—</button>
             </div>
@@ -163,6 +167,11 @@ const NikaPomoBar = (() => {
                 <h4>🚪 ¿Salir de la sala compartida?</h4>
                 <p id="nika-pomo-leave-txt">Tu tiempo estudiado se guarda. Podés volver cuando te inviten de nuevo.</p>
                 <div class="fila"><button type="button" class="no" id="nika-pomo-leave-no">Seguir estudiando</button><button type="button" class="si" id="nika-pomo-leave-si">Sí, salir</button></div>
+            </div>
+            <div class="nika-pomo-leave" id="nika-pomo-cancel" role="dialog" aria-label="Cancelar el Pomodoro">
+                <h4>⏹ ¿Cancelar este Pomodoro?</h4>
+                <p id="nika-pomo-cancel-txt">El reloj vuelve a cero. Si ya estudiaste unos minutos, se guardan en tu historial.</p>
+                <div class="fila"><button type="button" class="no" id="nika-pomo-cancel-no">Seguir estudiando</button><button type="button" class="si" id="nika-pomo-cancel-si">Sí, cancelar</button></div>
             </div>
             <div class="nika-pomo-cfg" id="nika-pomo-cfg" role="dialog" aria-label="Configurar Pomodoro">
                 <h4>⚙️ Configurar Pomodoro</h4>
@@ -191,13 +200,33 @@ const NikaPomoBar = (() => {
             const cfg = document.getElementById('nika-pomo-cfg'); if (cfg) cfg.classList.remove('is-open');
             panelSalir.classList.toggle('is-open');
         });
+        const panelCancelar = document.getElementById('nika-pomo-cancel');
+        document.getElementById('nika-pomo-bar-cancel').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const cfg = document.getElementById('nika-pomo-cfg'); if (cfg) cfg.classList.remove('is-open');
+            panelSalir.classList.remove('is-open');
+            const st = window.PomodoroEngine && window.PomodoroEngine.getState();
+            const txt = document.getElementById('nika-pomo-cancel-txt');
+            if (txt) txt.textContent = st && st.shared
+                ? 'El reloj vuelve a cero para toda la sala y las personas invitadas quedan en espera. Lo que ya estudiaste se guarda.'
+                : 'El reloj vuelve a cero. Si ya estudiaste unos minutos, se guardan en tu historial.';
+            panelCancelar.classList.toggle('is-open');
+        });
+        document.getElementById('nika-pomo-cancel-no').addEventListener('click', () => panelCancelar.classList.remove('is-open'));
+        document.getElementById('nika-pomo-cancel-si').addEventListener('click', () => {
+            panelCancelar.classList.remove('is-open');
+            if (window.PomodoroEngine) window.PomodoroEngine.reset();
+        });
         document.getElementById('nika-pomo-leave-no').addEventListener('click', () => panelSalir.classList.remove('is-open'));
         document.getElementById('nika-pomo-leave-si').addEventListener('click', () => {
             panelSalir.classList.remove('is-open');
             if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: 'manual', notify: true });
         });
-        document.addEventListener('click', (e) => { if (panelSalir && panelSalir.classList.contains('is-open') && !e.target.closest('#nika-pomo-leave') && !e.target.closest('#nika-pomo-bar-leave')) panelSalir.classList.remove('is-open'); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && panelSalir) panelSalir.classList.remove('is-open'); });
+        document.addEventListener('click', (e) => {
+            if (panelSalir && panelSalir.classList.contains('is-open') && !e.target.closest('#nika-pomo-leave') && !e.target.closest('#nika-pomo-bar-leave')) panelSalir.classList.remove('is-open');
+            if (panelCancelar && panelCancelar.classList.contains('is-open') && !e.target.closest('#nika-pomo-cancel') && !e.target.closest('#nika-pomo-bar-cancel')) panelCancelar.classList.remove('is-open');
+        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (panelSalir) panelSalir.classList.remove('is-open'); if (panelCancelar) panelCancelar.classList.remove('is-open'); } });
 
         document.getElementById('nika-pomo-bar-toggle').addEventListener('click', () => {
             if (!window.PomodoroEngine) return;
@@ -389,6 +418,7 @@ const NikaPomoBar = (() => {
         toggle.style.display = (esInvitado && enEspera) ? 'none' : '';
         toggle.title = esInvitado ? `Controlado por @${sh.partner || 'el Host'}` : 'Pausar / reanudar';
         document.getElementById('nika-pomo-bar-leave').style.display = sh ? '' : 'none';
+        document.getElementById('nika-pomo-bar-cancel').style.display = (!esInvitado && !enEspera) ? '' : 'none';
         document.getElementById('nika-pomo-bar-room').style.display = (sh && (enEspera || !esInvitado) && window.abrirSalaEstudio) ? '' : 'none';   // sala de espera abierta
         document.getElementById('nika-pomo-bar-cfg').style.display = esInvitado ? 'none' : '';   // el Invitado no toca el reloj del Host
         if (esInvitado) { const pc = document.getElementById('nika-pomo-cfg'); if (pc) pc.classList.remove('is-open'); }
