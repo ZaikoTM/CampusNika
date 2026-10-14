@@ -191,7 +191,10 @@
     const fraseDe = (q) => { const c = casoActual(); return (q.frases_caso && c && q.frases_caso[c.id]) || q.frase; };
 
     // ---- reconocimiento de lo que el alumno escribe en la bitácora (palabras clave por paso y por acción incorrecta)
-    const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+    const norm0 = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+    // sinónimos habituales: lo que se dice distinto pero significa lo mismo se unifica antes de buscar palabras clave
+    const SINON = [[/\bespejo( vaginal)?\b/g, 'especulo'], [/\bhigieniz\w*/g, 'lavo'], [/\bme aseo\b/g, 'lavo'], [/\bguantes? de (latex|nitrilo|examen)\b/g, 'guantes'], [/\bpapanicolau\b/g, 'pap'], [/\bhisopo\b/g, 'cepillo']];
+    const norm = (s) => SINON.reduce((t, [re, to]) => t.replace(re, to), norm0(s));
     function reconocer(texto, sexo) {
       const tx = norm(texto).replace(/\bno desfibrilable/g, ' nodesfib ').replace(/\b(no|sin) (fuerzo|forzo|forzar|forzando|fuerza)\b/g, ' ').replace(/\b(no|sin) (descarg\w*|desfibril\w*|shock|choque|cardiovert\w*)/g, ' '); if (tx.length < 3) return null;
       const puntaje = (claves) => (claves || []).reduce((mx, g) => (g.every((f) => tx.includes(f)) ? Math.max(mx, g.join('').length) : mx), 0);
@@ -210,8 +213,52 @@
       D.pasos.filter((q) => aplica(q, sexo)).forEach((q) => { const s = puntaje((q.claves || []).concat(extra(q))); if (s && (!mejor || s > mejor.s)) mejor = { tipo: 'p', n: q.n, s }; });
       return mejor;
     }
+    // ---- reconocimiento flexible (se suma al de palabras clave): no hace falta decir la lista de cotejo al pie de la letra ----
+    const STOP = new Set('el la los las un una unos unas de del al a en con por para y o e u que se me mi mis su sus lo le les es son voy vamos hago hace hacer luego despues primero entonces ahora si no mas muy ya tambien tengo tenemos esta este eso esa cada sobre desde hasta bien paso pasos'.split(' '));
+    const rad = (w) => { const r = w.replace(/(amente|aciones|ciones|acion|cion|mente|aron|ando|iendo|ados|adas|ado|ada|idos|idas|ido|ida|ar|er|ir|an|en|es|as|os|a|o|s)$/, ''); return r.length >= 3 ? r : w; };
+    const toks = (t) => norm(t).split(' ').filter((w) => w.length > 2 && !STOP.has(w)).map(rad);
+    let INDICE = null;
+    function indice() {
+      if (INDICE) return INDICE;
+      const docs = D.pasos.map((q) => ({ q, t: new Set(toks([q.texto, fraseDe(q), q.claves_texto].filter(Boolean).join(' '))) }));
+      const df = {}; docs.forEach((d) => d.t.forEach((w) => { df[w] = (df[w] || 0) + 1; }));
+      const N = docs.length || 1;
+      INDICE = { docs, idf: (w) => Math.log(1 + N / (df[w] || 0.7)) };
+      return INDICE;
+    }
+    const igual = (a, b) => a === b || (a.length >= 4 && b.length >= 4 && (a.startsWith(b) || b.startsWith(a)));
+    function parecidos(texto, sexo) {
+      const I = indice(); const u = [...new Set(toks(texto))]; if (!u.length) return [];
+      const U = u.reduce((a, w) => a + I.idf(w), 0);
+      return I.docs.filter((d) => aplica(d.q, sexo)).map((d) => {
+        const dt = [...d.t]; const Dw = dt.reduce((a, w) => a + I.idf(w), 0) || 1;
+        const M = u.reduce((a, w) => a + (dt.some((x) => igual(w, x)) ? I.idf(w) : 0), 0);
+        return { n: d.q.n, s: (2 * M) / (U + Dw), cob: M / U };
+      }).filter((x) => x.s > 0).sort((a, b) => b.s - a.s);
+    }
+    function parecido(texto, sexo, hechos) {   // aceptación automática solo si el parecido es claro; entre pasos parecidos gana el primero que falta
+      let p = parecidos(texto, sexo); if (hechos && hechos.has) p = p.filter((x) => !hechos.has(x.n)); if (!p.length) return null;
+      if (p[0].s < 0.5 || p[0].cob < 0.6) return null;
+      const cercanos = p.filter((x) => p[0].s - x.s < 0.08).sort((a, b) => a.n - b.n);
+      return cercanos.length ? { tipo: 'p', n: cercanos[0].n, s: 1, parecido: true } : null;
+    }
+    // una frase puede contener varias acciones o información de más: se reconoce cláusula por cláusula
+    function reconocerVarios(texto, sexo, hechos) {
+      const partes = String(texto || '').split(/[.;,\n]| y luego | y después | y despues | luego | después | despues | entonces | además | ademas | y /i).map((x) => x.trim()).filter((x) => x.length >= 3);
+      const vistos = new Set(); const out = [];
+      const sumar = (r) => { if (!r) return; const k = r.tipo + ':' + (r.n != null ? r.n : r.id); if (vistos.has(k)) return; vistos.add(k); out.push(r); };
+      const yaDichos = () => new Set(out.filter((x) => x.tipo === 'p').map((x) => x.n));
+      // una cláusula que solo reformula un paso ya reconocido en la misma frase no se toma como otro paso
+      const fuzzyNuevo = (txt) => { const ya = yaDichos(); if (ya.size && parecidos(txt, sexo).slice(0, 3).some((x) => ya.has(x.n))) return null; return parecido(txt, sexo, hechos); };
+      if (partes.length > 1) partes.forEach((p) => sumar(reconocer(p, sexo) || fuzzyNuevo(p)));
+      if (!out.length) sumar(reconocer(texto, sexo) || parecido(texto, sexo, hechos));
+      return out;
+    }
+    function sugerencias(texto, sexo, max) {
+      return parecidos(texto, sexo).filter((x) => x.s >= 0.18).slice(0, max || 3).map((x) => x.n);
+    }
     const chatHTML = (msgs, ph, titulo) => `<div class="acr-chat"><div class="acr-fase" style="margin-top:12px">${titulo}</div>
-      <div class="acr-chat-log" id="acr-chat-log">${msgs.length ? msgs.map((m) => `<div class="m ${m.de} ${m.cls || ''}">${esc(m.txt)}</div>`).join('') : '<div class="m vacio">Escribí lo que vas haciendo y cómo lo hacés. Ej.: «me lavo las manos con técnica clínica».</div>'}</div>
+      <div class="acr-chat-log" id="acr-chat-log">${msgs.length ? msgs.map((m) => `<div class="m ${m.de} ${m.cls || ''}">${esc(m.txt)}${(m.sug || []).length ? `<div class="acr-sugs">${m.sug.map((n) => `<button type="button" class="acr-sug" data-sug="${n}">${esc((porN(n) || {}).texto || ('Paso ' + n))}</button>`).join('')}</div>` : ''}</div>`).join('') : '<div class="m vacio">Escribí lo que vas haciendo y cómo lo hacés. Ej.: «me lavo las manos con técnica clínica».</div>'}</div>
       <form id="acr-chat-f" autocomplete="off"><input id="acr-chat-i" type="text" placeholder="${ph}" maxlength="220"><button type="button" id="acr-mic" class="acr-mic" title="Dictar por voz" aria-label="Dictar por voz">🎤</button><button class="acr-btn" type="submit">Enviar</button></form></div>`;
     // ---- dictado por voz (Web Speech API): cada frase reconocida se envía sola a la bitácora
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -242,6 +289,7 @@
       const f = $('#acr-chat-f'); const log = $('#acr-chat-log'); if (log) log.scrollTop = log.scrollHeight;
       VOZ.enviar = alEnviar;
       if (f) f.onsubmit = (e) => { e.preventDefault(); const i = $('#acr-chat-i'); const v = i.value.trim(); if (!v) return; i.value = ''; alEnviar(v); };
+      document.querySelectorAll('.acr-sug').forEach((b) => { b.onclick = () => alEnviar('\u0001' + b.dataset.sug); });
       const mic = $('#acr-mic');
       if (mic) { if (!SR) { mic.classList.add('sin'); mic.title = 'Tu navegador no admite el dictado por voz'; } mic.onclick = () => { if (VOZ.on) detenerMic(); else iniciarMic(); }; pintarMic(); }
     }
@@ -457,10 +505,17 @@
     }
     function guiadoTexto(v) {
       const E = S.ent; if (E.fin) return;
-      const q = E.lista[E.i]; E.chat.push({ de: 'yo', txt: v });
+      const q = E.lista[E.i];
+      let rSug = null;
+      if (v.charAt(0) === '\u0001') { rSug = { tipo: 'p', n: +v.slice(1) }; v = (porN(rSug.n) || {}).texto || v.slice(1); }
+      E.chat.push({ de: 'yo', txt: v });
       if (!E.esperando) { E.chat.push({ de: 'sis', cls: 'neutro', txt: 'Este paso ya está completo. Tocá «Siguiente» para continuar.' }); pintarGuiado(); return; }
-      const r = reconocer(v, S.sexo);
-      if (!r) { E.chat.push({ de: 'sis', cls: 'neutro', txt: 'No reconozco esa acción. Probá contarla con otras palabras (por ejemplo: «saludo y me presento»).' }); pintarGuiado(); return; }
+      const r = rSug || reconocer(v, S.sexo) || parecido(v, S.sexo, E.hechos);
+      if (!r) {
+        const sg = sugerencias(v, S.sexo, 3);
+        E.chat.push({ de: 'sis', cls: 'neutro', txt: sg.length ? 'No estoy seguro de a qué paso te referís. ¿Querías decir alguno de estos? Tocá el que corresponda.' : 'No reconozco esa acción. Probá contarla con otras palabras (por ejemplo: «saludo y me presento»).', sug: sg });
+        pintarGuiado(); return;
+      }
       if (r.tipo === 'd') { const d = D.distractores.find((x) => x.id === r.id); E.errores++; E.chat.push({ de: 'sis', cls: 'mal', txt: '❌ ' + d.porque }); toast('Acción incorrecta', 'mal'); pintarGuiado({ mal: 'Esa acción es incorrecta.' }); return; }
       if (r.n !== q.n && porN(r.n).gemelo === q.n) r.n = q.n;   // acciones que se repiten (p. ej. lavado de manos al inicio y al final)
       if (r.n === q.n) { E.chat.push({ de: 'sis', cls: 'ok', txt: `✅ Paso ${etiquetaPaso(q.n)} registrado.` }); completarPaso(q); return; }
@@ -656,9 +711,17 @@
     }
     function examenTexto(v) {
       const X = S.ex; if (X.fase !== 'curso') return;
-      const r = reconocer(v, X.caso.sexo);
-      if (!r) { X.chat.push({ de: 'yo', txt: v }, { de: 'sis', cls: 'neutro', txt: 'Anotado. No corresponde a ninguna acción del procedimiento.' }); X.sel = null; marcarSel(null); pintarExamen(); return; }
-      examenAccion(r.tipo === 'p' ? 'p:' + r.n : 'd:' + r.id, v);
+      // el alumno tocó una sugerencia: se toma como si lo hubiera dicho con las palabras correctas
+      if (v.charAt(0) === '\u0001') { const n = +v.slice(1); if (porN(n)) examenAccion('p:' + n, porN(n).texto); return; }
+      const rs = reconocerVarios(v, X.caso.sexo, X.hechos);
+      if (!rs.length) {
+        // no se pudo relacionar: se ofrecen los pasos más parecidos (sin penalizar) y se recuerda en qué punto estaba el procedimiento
+        const sg = sugerencias(v, X.caso.sexo, 3);
+        X.pend = { hechos: new Set(X.hechos.keys()), acc: 0, t: Date.now() };
+        X.chat.push({ de: 'yo', txt: v }, { de: 'sis', cls: 'neutro', txt: sg.length ? 'No estoy seguro de a qué paso te referís. ¿Querías decir alguno de estos? Tocá el que corresponda (no se penaliza).' : 'Anotado. No corresponde a ninguna acción del procedimiento. Probá contarlo con otras palabras.', sug: sg });
+        X.sel = null; marcarSel(null); pintarExamen(); return;
+      }
+      rs.forEach((r, i) => examenAccion(r.tipo === 'p' ? 'p:' + r.n : 'd:' + r.id, i === 0 ? v : undefined));
     }
     function examenAccion(cl, textoUsuario) {
       const X = S.ex; const [k, ref] = cl.split(':'); X.aviso = '';
@@ -668,10 +731,19 @@
       if (k === 'p') {
         let n = +ref; if (X.hechos.has(n) && porN(n).gemelo && !X.hechos.has(porN(n).gemelo)) n = porN(n).gemelo;
         const q = porN(n);
-        if (X.hechos.has(n)) { X.log.push({ tipo: 'repetida', n, texto: q.texto, grave: false, porque: 'Acción ya realizada.' }); }
+        if (X.hechos.has(n)) {
+          // ampliar o repetir lo que se acaba de decir (en los segundos siguientes) no es una acción repetida
+          const hace = Date.now() - ((X.tHecho && X.tHecho[n]) || 0);
+          if (hace < 30000) { X.chat.push({ de: 'sis', cls: 'neutro', txt: 'Ya lo tenía registrado. Seguí con el próximo paso.' }); }
+          else X.log.push({ tipo: 'repetida', n, texto: q.texto, grave: false, porque: 'Acción ya realizada.' });
+        }
         else {
           const previos = X.apl.filter((z) => z.n < n && !X.hechos.has(z.n));
-          const enOrden = previos.length === 0;
+          // si lo había dicho en orden y el sistema no lo entendió, al confirmarlo vale en orden
+          const pend = X.pend && X.pend.acc <= 3 && (Date.now() - X.pend.t) < 120000 ? X.pend : null;
+          const previosAlFallar = pend ? X.apl.filter((z) => z.n < n && !pend.hechos.has(z.n)) : null;
+          const enOrden = previos.length === 0 || (!!pend && previosAlFallar.length === 0);
+          X.tHecho = X.tHecho || {}; X.tHecho[n] = Date.now();
           X.hechos.set(n, enOrden ? 'SI' : 'M'); snap.agrego = n; fxPaso(q, false); if (ESC && ESC.enfocar) ESC.enfocar(q.target);
           if (hallazgoTxt(n)) { X.chat.push({ de: 'sis', cls: 'neutro', txt: hallazgoTxt(n) }); hablaPaso(n); }
           if (!enOrden) {
@@ -686,6 +758,7 @@
         X.log.push({ tipo: 'incorrecta', texto: d.texto, grave: !!d.critico, porque: d.porque });
         if (d.critico) { X.graves++; X.aviso = `⚠ Infracción grave: “${esc(d.texto)}”.`; }
       }
+      if (X.pend) { X.pend.acc++; if (X.pend.acc > 3) X.pend = null; }
       X.hist.push(snap);
       X.sel = null; marcarSel(null); pintarExamen();
     }

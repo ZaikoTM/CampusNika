@@ -1027,3 +1027,9 @@ details.acr-crit-wrap[open] > summary { margin-bottom: 10px; }
 
 /* Visor 3D: viñeta suave que da profundidad y enfoca la mirada en el modelo (no intercepta clics) */
 .acr3d-vp::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1; background: radial-gradient(ellipse at 50% 46%, transparent 58%, rgba(2, 8, 24, .38) 100%); border-radius: inherit; }
+
+/* sugerencias cuando no se entiende una frase de la bitácora */
+.acr-sugs { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.acr-sug { text-align: left; border: 1.5px solid var(--acr-borde, rgba(99, 102, 241, .5)); background: rgba(99, 102, 241, .1); color: inherit; border-radius: 12px; padding: 8px 12px; font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; transition: transform .15s, background .15s, box-shadow .15s; }
+.acr-sug:hover { transform: translateX(3px); background: rgba(99, 102, 241, .22); box-shadow: 0 8px 18px -12px rgba(99, 102, 241, .8); }
+.acr-sug::before { content: '➜ '; opacity: .7; }
