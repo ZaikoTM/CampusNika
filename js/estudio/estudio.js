@@ -30,8 +30,11 @@ function guardarUltimoEstudio(upId, pct) {
             const obj = (unit.objectives || []).length;
             pct = obj ? Math.round((Object.values(mapa).filter(Boolean).length / obj) * 100) : 0;
         }
+        const mk = (EstudioState.data && EstudioState.data.marca) || {};   // nombre, ícono y colores salen del archivo de datos de la materia
         localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify({
-            modulo: NOMBRES_MODULO[m] || m, moduloId: m, up: sigUnit(unit), titulo: unit.title || '', porcentaje: pct,
+            modulo: mk.nombre || NOMBRES_MODULO[m] || (EstudioState.data && EstudioState.data.nombre) || m, moduloId: m,
+            icono: mk.icono || '', c1: mk.c1 || '', c2: mk.c2 || '',
+            up: sigUnit(unit), titulo: unit.title || '', porcentaje: pct,
             url: `estudio.html?modulo=${encodeURIComponent(m)}&up=${unit.number}`, t: Date.now(),
         }));
     } catch (_) {}
@@ -44,9 +47,12 @@ function guardarUltimoModulo() {
         const raw = localStorage.getItem('nika_currentUser'); const u = raw ? JSON.parse(raw) : null;
         const key = (u && (u.username || u.email)) || 'invitado';
         const prev = JSON.parse(localStorage.getItem(`nika_last_study_progress_${key}`) || 'null');
-        if (prev && prev.moduloId === m) return;   // ya hay una unidad de esta materia
+        if (prev && prev.moduloId === m && prev.icono) return;   // ya hay una unidad de esta materia (con su marca)
+        const mk = (EstudioState.data && EstudioState.data.marca) || {};
         localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify({
-            modulo: NOMBRES_MODULO[m] || m, moduloId: m, up: 'Elegí tu unidad', titulo: '', porcentaje: 0,
+            modulo: mk.nombre || NOMBRES_MODULO[m] || (EstudioState.data && EstudioState.data.nombre) || m, moduloId: m,
+            icono: mk.icono || '', c1: mk.c1 || '', c2: mk.c2 || '',
+            up: 'Elegí tu unidad', titulo: '', porcentaje: 0,
             url: `estudio.html?modulo=${encodeURIComponent(m)}`, t: Date.now(),
         }));
     } catch (_) {}

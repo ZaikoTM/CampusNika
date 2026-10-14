@@ -1351,8 +1351,9 @@
             cirugia: ['🔪', '#6366f1', '#7c3aed'], ginecologia: ['🤰', '#ec4899', '#a855f7'], siam: ['🫀', '#06b6d4', '#0d9488'],
             pfo: ['🎓', '#f59e0b', '#b45309'], medicinalegal: ['⚖️', '#be123c', '#d4a017'], medicinadeportiva: ['🏃', '#16a34a', '#0ea5e9'],
         };
-        const pintar = (moduloId, modulo, up, titulo, pct, url, t) => {
-            const c = MATERIAS[moduloId] || ['📚', '#0ea5e9', '#6366f1'];
+        const pintar = (moduloId, modulo, up, titulo, pct, url, t, marca) => {
+            const base = MATERIAS[moduloId] || ['📚', '#0ea5e9', '#6366f1'];
+            const c = marca && marca.c1 ? [marca.icono || base[0], marca.c1, marca.c2 || marca.c1] : base;
             if (cardEl) { cardEl.style.setProperty('--cont-c1', c[1]); cardEl.style.setProperty('--cont-c2', c[2]); cardEl.classList.add('con-datos'); }
             if (icoEl) icoEl.textContent = c[0];
             if (titleEl) titleEl.textContent = modulo;
@@ -1368,7 +1369,7 @@
         if (lastProgressData && lastProgressData.url) {
             let moduloId = lastProgressData.moduloId;
             if (!moduloId) { const mm = /modulo=([a-z]+)/.exec(lastProgressData.url); moduloId = mm ? mm[1] : ({ 'Cirugía': 'cirugia' }[lastProgressData.modulo] || ''); }
-            pintar(moduloId, lastProgressData.modulo, lastProgressData.up, lastProgressData.titulo, lastProgressData.porcentaje, lastProgressData.url, lastProgressData.t);
+            pintar(moduloId, lastProgressData.modulo, lastProgressData.up, lastProgressData.titulo, lastProgressData.porcentaje, lastProgressData.url, lastProgressData.t, lastProgressData);
         } else if (savedSurgeryPct > 0) {
             pintar('cirugia', 'Cirugía', '', '', Number(savedSurgeryPct), 'cirugia_hub.html', 0);
         } else {
