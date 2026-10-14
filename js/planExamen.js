@@ -12,7 +12,7 @@
     cirugia: { nombre: 'Cirugía', corto: 'Cirugía', ico: '🔪', color: '#f97316', sala: 'estudio.html?modulo=cirugia' },
     siam: { nombre: 'S.I.A.M.', corto: 'SIAM', ico: '🧓', color: '#0ea5e9', sala: 'estudio.html?modulo=siam' },
     pfo: { nombre: 'PFO · 6.º año', corto: 'PFO', ico: '🎓', color: '#8b5cf6', sala: 'pfo_estudio.html' },
-    medicinadeportiva: { nombre: 'Medicina Deportiva', corto: 'Med. Deportiva', ico: '🏃', color: '#ea580c', sala: 'estudio.html?modulo=medicinadeportiva' },
+    medicinadeportiva: { nombre: 'Medicina Deportiva', corto: 'Med. Deportiva', ico: '🏃', color: '#16a34a', sala: 'estudio.html?modulo=medicinadeportiva' },
     medicinalegal: { nombre: 'Medicina Legal', corto: 'Med. Legal', ico: '⚖️', color: '#be123c', sala: 'estudio.html?modulo=medicinalegal' },
   };
   const PRIO = { alta: { t: 'Alta', c: '#ef4444' }, media: { t: 'Media', c: '#f59e0b' }, sec: { t: 'Apoyo', c: '#38bdf8' } };

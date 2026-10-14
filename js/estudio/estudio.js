@@ -36,12 +36,12 @@ const DATA_FILE_MAP = {
 // como color de fondo de página ni de tarjetas.
 const MODULE_THEMES = {
     medicinadeportiva: {
-        '--nika-primary': '#ea580c',   // naranja deportivo (botones, tab activa, focus)
-        '--nika-accent': '#16a34a',    // verde de cancha
-        '--nika-dark': '#7c2d12',      // títulos
-        '--bg-body': '#fff9f3',
-        '--bg-page': '#fff9f3',
-        '--border': '#fde1cb',
+        '--nika-primary': '#16a34a',   // verde cancha (botones, tab activa, focus)
+        '--nika-accent': '#0ea5e9',    // celeste
+        '--nika-dark': '#14532d',      // títulos
+        '--bg-body': '#f3fbf7',
+        '--bg-page': '#f3fbf7',
+        '--border': '#cdeede',
         '--text-main': '#1e293b',
         '--text-muted': '#64748b',
         '--text-dim': '#94a3b8',

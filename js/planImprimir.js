@@ -24,7 +24,7 @@
     cirugia: { nombre: 'Cirugía', c1: '#38bdf8', c2: '#6366f1', soft: '#f0f9ff', ink: '#1e3a8a', ico: '🔪' },
     siam: { nombre: 'S.I.A.M.', c1: '#06b6d4', c2: '#0d9488', soft: '#ecfeff', ink: '#134e4a', ico: '🫀' },
     pfo: { nombre: 'PFO · 6.º año', c1: '#f59e0b', c2: '#b45309', soft: '#fffbeb', ink: '#78350f', ico: '🎓' },
-    medicinadeportiva: { nombre: 'Medicina Deportiva', c1: '#f97316', c2: '#16a34a', soft: '#fff7ed', ink: '#7c2d12', ico: '🏃' },
+    medicinadeportiva: { nombre: 'Medicina Deportiva', c1: '#22c55e', c2: '#0ea5e9', soft: '#f0fdf4', ink: '#14532d', ico: '🏃' },
     medicinalegal: { nombre: 'Medicina Legal', c1: '#e11d48', c2: '#d4a017', soft: '#fff1f2', ink: '#4c0519', ico: '⚖️' },
   };
   const temaDe = (p) => TEMAS[p.materia] || { nombre: p.materia || 'Plan de estudio', c1: '#6366f1', c2: '#a855f7', soft: '#f5f3ff', ink: '#312e81', ico: '📚' };

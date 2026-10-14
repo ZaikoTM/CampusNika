@@ -28,7 +28,7 @@
   // Medicina Deportiva: sala de estudio (los simuladores llegan más adelante)
   const MED_DEPORT = ({ id: 'deport', nombre: 'Medicina Deportiva', sigla: 'Medicina Deportiva', icono: '🏃', color: 'deport', hub: 'estudio.html?modulo=medicinadeportiva',
     desc: 'Los 9 módulos de la electiva con contenidos, bibliografía, material de lectura y clases en video: fisiología del ejercicio, evaluación, nutrición, psicología y lesiones.',
-    chips: ['9 módulos', 'Material de lectura', 'Clases en video'],
+    chips: ['9 módulos', 'Material de lectura', '7 clases en video'],
     estudio: 'estudio.html?modulo=medicinadeportiva', recorrido: 'recorrido.html?m=medicinadeportiva', proximoSim: true, anios: 'Se cursa en 4.° o 5.° año' });
   const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
   const esPlus = () => esAdmin() || !!(window.NikaAcceso && NikaAcceso.tieneAccesoCompleto && NikaAcceso.tieneAccesoCompleto());
