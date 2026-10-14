@@ -17,6 +17,26 @@ const EstudioState = {
 // Rótulo corto de una unidad: «UP3» en 5.° año, «MÓDULO 2» en la PFO (unit.etiqueta)
 function sigUnit(u) { return u && u.etiqueta ? u.etiqueta + ' ' + u.number : 'UP' + (u ? u.number : ''); }
 
+// "Continuá donde lo dejaste" (campus): qué materia, unidad y avance quedó abierto. Se guarda al abrir cualquier unidad.
+const NOMBRES_MODULO = { cirugia: 'Cirugía', ginecologia: 'Ginecología y Obstetricia', siam: 'S.I.A.M.', pfo: 'PFO', medicinalegal: 'Medicina Legal', medicinadeportiva: 'Medicina Deportiva' };
+function guardarUltimoEstudio(upId, pct) {
+    try {
+        const m = EstudioState.modulo, unit = EstudioState.unitsById && EstudioState.unitsById[upId];
+        if (!m || !unit) return;
+        const raw = localStorage.getItem('nika_currentUser'); const u = raw ? JSON.parse(raw) : null;
+        const key = (u && (u.username || u.email)) || 'invitado';
+        if (pct === undefined) {   // avance de los objetivos de la unidad, si ya hay algo marcado
+            let mapa = {}; try { mapa = JSON.parse(localStorage.getItem(`nika_progress_${key}_${m}_${upId}`) || '{}') || {}; } catch (_) {}
+            const obj = (unit.objectives || []).length;
+            pct = obj ? Math.round((Object.values(mapa).filter(Boolean).length / obj) * 100) : 0;
+        }
+        localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify({
+            modulo: NOMBRES_MODULO[m] || m, moduloId: m, up: sigUnit(unit), titulo: unit.title || '', porcentaje: pct,
+            url: `estudio.html?modulo=${encodeURIComponent(m)}&up=${unit.number}`, t: Date.now(),
+        }));
+    } catch (_) {}
+}
+
 // Mapeo módulo → archivo de datos. Si un módulo no está acá, se intenta
 // data/<modulo>.json por defecto (ver initEstudio).
 const DATA_FILE_MAP = {
@@ -758,6 +778,7 @@ function abrirSeccionUP(parentId, seccionIndex) {
 // (ver abrirSeccionUP) pasen por acá.
 function openUpReal(upId, unit) {
     EstudioState.currentUpId = upId;
+    guardarUltimoEstudio(upId);
     closeInlineViewer();
     renderUpDetail(unit);
     updateModuleChatSubtitle(unit);
@@ -942,17 +963,8 @@ function renderChecklistUI(container, objectives, progressMap, moduleId, upId, u
 
     try {
         const activeUsername = usernameKey || 'invitado';
-        localStorage.setItem(`nika_surgery_global_pct_${activeUsername}`, pct);
-        
-        const currentUnit = (typeof EstudioState !== 'undefined' && EstudioState.unitsById) ? EstudioState.unitsById[upId] : null;
-        const upName = currentUnit ? `${sigUnit(currentUnit)}` : upId.toUpperCase();
-
-        localStorage.setItem(`nika_last_study_progress_${activeUsername}`, JSON.stringify({
-            modulo: 'Cirugía',
-            up: upName,
-            porcentaje: pct,
-            url: 'estudio.html?modulo=cirugia'
-        }));
+        if (moduleId === 'cirugia') localStorage.setItem(`nika_surgery_global_pct_${activeUsername}`, pct);
+        guardarUltimoEstudio(upId, pct);
     } catch(e) {
         console.error("[Progreso] Error sincronizando panel principal:", e);
     }

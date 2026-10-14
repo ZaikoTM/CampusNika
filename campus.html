@@ -22,7 +22,7 @@
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=6">
     <style>
         /* ---- Tarjeta Upsell NikaMed+ (sidebar, solo usuarios free) ----
            No la metemos en styles.css porque ese archivo lo comparten
@@ -319,16 +319,18 @@
         </div>
 
         <div class="action-hub">
-            <div class="continuity-card">
+            <div class="continuity-card" id="continuity-card">
+                <div class="continuity-ico" id="continuity-ico" aria-hidden="true">📚</div>
                 <div class="continuity-info">
                     <h4>Continuá donde lo dejaste</h4>
-                    <span class="continuity-title" id="continuity-title-text">Cirugía · UP3 - Seguir entrenando</span>
+                    <span class="continuity-title" id="continuity-title-text">Cargando tu último estudio…</span>
+                    <span class="continuity-sub" id="continuity-sub-text"></span>
                     <div class="continuity-progress-wrap">
-                        <div class="continuity-progress-track"><div class="continuity-progress-fill" style="width: 82%;"></div></div>
-                        <div class="continuity-progress-label" id="continuity-progress-label">82% completado</div>
+                        <div class="continuity-progress-track"><div class="continuity-progress-fill" id="continuity-fill" style="width: 0%;"></div></div>
+                        <div class="continuity-progress-label" id="continuity-progress-label">0% completado</div>
                     </div>
                 </div>
-                <button class="btn-continue-action" onclick="location.href='cirugia_hub.html'">Seguir entrenando →</button>
+                <button class="btn-continue-action" onclick="location.href='sala_estudio.html'">Ir a Salas de Estudio →</button>
             </div>
 
             <!-- Próximos eventos y planificación (calendario_eventos) -->
@@ -1337,40 +1339,46 @@
         }
         savedSurgeryPct = localStorage.getItem(`nika_surgery_global_pct_${userSuffix}`) || 0;
 
-        // 3. ACTUALIZAR WIDGET PRINCIPAL "CONTINUÁ DONDE LO DEJASTE" (Dinámico)
+        // 3. ACTUALIZAR WIDGET PRINCIPAL "CONTINUÁ DONDE LO DEJASTE" (con la materia y la unidad reales)
         const titleEl = document.getElementById('continuity-title-text');
-        const continuityFill = document.querySelector('.continuity-progress-fill');
+        const subEl = document.getElementById('continuity-sub-text');
+        const continuityFill = document.getElementById('continuity-fill');
         const continuityLabel = document.getElementById('continuity-progress-label');
+        const icoEl = document.getElementById('continuity-ico');
+        const cardEl = document.getElementById('continuity-card');
         const btnEl = document.querySelector('.btn-continue-action');
+        const MATERIAS = {
+            cirugia: ['🔪', '#6366f1', '#7c3aed'], ginecologia: ['🤰', '#ec4899', '#a855f7'], siam: ['🫀', '#06b6d4', '#0d9488'],
+            pfo: ['🎓', '#f59e0b', '#b45309'], medicinalegal: ['⚖️', '#be123c', '#d4a017'], medicinadeportiva: ['🏃', '#16a34a', '#0ea5e9'],
+        };
+        const pintar = (moduloId, modulo, up, titulo, pct, url, t) => {
+            const c = MATERIAS[moduloId] || ['📚', '#0ea5e9', '#6366f1'];
+            if (cardEl) { cardEl.style.setProperty('--cont-c1', c[1]); cardEl.style.setProperty('--cont-c2', c[2]); cardEl.classList.add('con-datos'); }
+            if (icoEl) icoEl.textContent = c[0];
+            if (titleEl) titleEl.textContent = modulo;
+            if (subEl) {
+                const cuando = t ? (() => { const m = Math.round((Date.now() - t) / 60000); return m < 2 ? 'hace un momento' : m < 60 ? `hace ${m} min` : m < 1440 ? `hace ${Math.round(m / 60)} h` : `hace ${Math.round(m / 1440)} d`; })() : '';
+                subEl.textContent = [up, titulo].filter(Boolean).join(' · ') + (cuando ? `  ·  ${cuando}` : '');
+            }
+            if (continuityFill) continuityFill.style.width = `${Math.max(0, Math.min(100, pct || 0))}%`;
+            if (continuityLabel) continuityLabel.innerText = `${Math.round(pct || 0)}% completado`;
+            if (btnEl) { btnEl.textContent = 'Seguir entrenando →'; btnEl.onclick = () => { location.href = url; }; }
+        };
 
-        if (lastProgressData) {
-            if (titleEl) titleEl.textContent = `${lastProgressData.modulo} · ${lastProgressData.up} - Seguir entrenando`;
-            if (continuityFill) continuityFill.style.width = `${lastProgressData.porcentaje}%`;
-            if (continuityLabel) continuityLabel.innerText = `${lastProgressData.porcentaje}% completado`;
-            if (btnEl) {
-                btnEl.textContent = "Seguir entrenando →";
-                btnEl.onclick = () => location.href = lastProgressData.url;
-            }
+        if (lastProgressData && lastProgressData.url) {
+            let moduloId = lastProgressData.moduloId;
+            if (!moduloId) { const mm = /modulo=([a-z]+)/.exec(lastProgressData.url); moduloId = mm ? mm[1] : ({ 'Cirugía': 'cirugia' }[lastProgressData.modulo] || ''); }
+            pintar(moduloId, lastProgressData.modulo, lastProgressData.up, lastProgressData.titulo, lastProgressData.porcentaje, lastProgressData.url, lastProgressData.t);
+        } else if (savedSurgeryPct > 0) {
+            pintar('cirugia', 'Cirugía', '', '', Number(savedSurgeryPct), 'cirugia_hub.html', 0);
         } else {
-            // Lógica de rescate: Si no hay UP exacta, lee el global de cirugía
-            if (savedSurgeryPct > 0) {
-                if (titleEl) titleEl.textContent = `Cirugía - Seguir entrenando`;
-                if (continuityFill) continuityFill.style.width = `${savedSurgeryPct}%`;
-                if (continuityLabel) continuityLabel.innerText = `${savedSurgeryPct}% completado`;
-                if (btnEl) {
-                    btnEl.textContent = "Seguir entrenando →";
-                    btnEl.onclick = () => location.href = 'cirugia_hub.html';
-                }
-            } else {
-                // Si el usuario está en cero total
-                if (titleEl) titleEl.textContent = `Aún no iniciaste ningún módulo`;
-                if (continuityFill) continuityFill.style.width = `0%`;
-                if (continuityLabel) continuityLabel.innerText = `0% completado`;
-                if (btnEl) {
-                    btnEl.textContent = "Ir a Salas de Estudio →";
-                    btnEl.onclick = () => { window.location.href = 'sala_estudio.html'; };
-                }
-            }
+            if (cardEl) cardEl.classList.remove('con-datos');
+            if (icoEl) icoEl.textContent = '🧭';
+            if (titleEl) titleEl.textContent = 'Aún no iniciaste ningún módulo';
+            if (subEl) subEl.textContent = 'Elegí una materia en la Sala de Estudio y empezá por la primera unidad.';
+            if (continuityFill) continuityFill.style.width = '0%';
+            if (continuityLabel) continuityLabel.innerText = '0% completado';
+            if (btnEl) { btnEl.textContent = 'Ir a Salas de Estudio →'; btnEl.onclick = () => { window.location.href = 'sala_estudio.html'; }; }
         }
 
         // 4. ACTUALIZAR TARJETA DEL MÓDULO "CIRUGÍA"

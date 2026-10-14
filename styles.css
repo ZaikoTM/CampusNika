@@ -2343,3 +2343,20 @@ body.dark-mode .prof-check.ok { color: #4ade80; }
   border: 1px solid var(--border, #cbd5e1); background: var(--card-bg, #fff); transition: transform .2s, border-color .2s, box-shadow .2s; }
 .plan-item-plan:hover { transform: translateY(-1px); border-color: #7c3aed; box-shadow: 0 6px 14px -8px rgba(124, 58, 237, .8); }
 .plan-item-plan.is-nuevo { color: #fff; border-color: transparent; background: linear-gradient(135deg, #7c3aed, #ec4899); }
+
+/* ---- Continuá donde lo dejaste: tarjeta con el color de cada materia ---- */
+.continuity-card { --cont-c1: #0ea5e9; --cont-c2: #6366f1; position: relative; overflow: hidden; gap: 18px; border: 1px solid color-mix(in srgb, var(--cont-c1) 38%, var(--border)); }
+.continuity-card::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 6px; background: linear-gradient(180deg, var(--cont-c1), var(--cont-c2)); }
+.continuity-card.con-datos { background: linear-gradient(120deg, color-mix(in srgb, var(--cont-c1) 9%, var(--card-bg)), var(--card-bg) 55%); }
+.continuity-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,.35) 50%, transparent 62%); transform: translateX(-120%); animation: contBrillo 7s ease-in-out infinite; }
+@keyframes contBrillo { 0%, 62% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+.continuity-ico { flex: 0 0 56px; width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; font-size: 1.7rem; color: #fff; background: linear-gradient(135deg, var(--cont-c1), var(--cont-c2)); box-shadow: 0 10px 20px -10px var(--cont-c2); animation: contFlota 4.5s ease-in-out infinite; position: relative; z-index: 1; }
+@keyframes contFlota { 50% { transform: translateY(-3px) rotate(-4deg); } }
+.continuity-info { flex: 1 1 260px; min-width: 0; position: relative; z-index: 1; }
+.continuity-info span.continuity-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 2px; }
+.continuity-sub { display: block; font-size: .84rem; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.continuity-progress-fill { background: linear-gradient(90deg, var(--cont-c1), var(--cont-c2)); transition: width .8s cubic-bezier(.22, 1, .36, 1); }
+.btn-continue-action { position: relative; z-index: 1; background: linear-gradient(135deg, var(--cont-c1), var(--cont-c2)); box-shadow: 0 12px 22px -12px var(--cont-c2); transition: transform .2s cubic-bezier(.34, 1.56, .64, 1), box-shadow .2s; }
+.btn-continue-action:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 16px 26px -12px var(--cont-c2); }
+@media (max-width: 640px) { .continuity-ico { margin: 0 auto; } .continuity-sub { white-space: normal; } }
+@media (prefers-reduced-motion: reduce) { .continuity-card::after, .continuity-ico { animation: none; } }
