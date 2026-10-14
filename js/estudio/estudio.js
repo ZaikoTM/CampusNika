@@ -37,6 +37,21 @@ function guardarUltimoEstudio(upId, pct) {
     } catch (_) {}
 }
 
+// Al entrar a la sala de una materia (sin abrir todavía una unidad) el campus ya la muestra como lo último que estudiaste.
+function guardarUltimoModulo() {
+    try {
+        const m = EstudioState.modulo; if (!m) return;
+        const raw = localStorage.getItem('nika_currentUser'); const u = raw ? JSON.parse(raw) : null;
+        const key = (u && (u.username || u.email)) || 'invitado';
+        const prev = JSON.parse(localStorage.getItem(`nika_last_study_progress_${key}`) || 'null');
+        if (prev && prev.moduloId === m) return;   // ya hay una unidad de esta materia
+        localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify({
+            modulo: NOMBRES_MODULO[m] || m, moduloId: m, up: 'Elegí tu unidad', titulo: '', porcentaje: 0,
+            url: `estudio.html?modulo=${encodeURIComponent(m)}`, t: Date.now(),
+        }));
+    } catch (_) {}
+}
+
 // Mapeo módulo → archivo de datos. Si un módulo no está acá, se intenta
 // data/<modulo>.json por defecto (ver initEstudio).
 const DATA_FILE_MAP = {
@@ -407,6 +422,7 @@ async function initEstudio() {
 
         document.getElementById('dashboard-title').innerText = `Sala de Estudio · ${EstudioState.data.nombre}`;
         renderUpBentoGrid(EstudioState.data.units);
+        guardarUltimoModulo();
 
         iniciarMonitorAlertas();
         // Deep-link desde el campus: estudio.html?modulo=cirugia&up=7 (acepta "7" o "up7")
