@@ -31,9 +31,9 @@ const PomodoroSyncManager = (function () {
     // sin noticias de un usuario antes de tratarlo como Offline en la UI. Esto
     // cubre los casos que untrack() (beforeunload/pagehide) no llega a atajar:
     // se cuelga el navegador, se corta la luz/batería, pierde señal de golpe, etc.
-    const HEARTBEAT_MS = 45 * 1000;
-    const STALE_MS = 2 * 60 * 1000;
-    const HOST_GRACE_MS = 60 * 1000;      // el Invitado espera 1 min a un Host desconectado antes de soltarse
+    const HEARTBEAT_MS = 25 * 1000;
+    const STALE_MS = 5 * 60 * 1000;       // tolera pestañas en segundo plano con temporizadores frenados
+    const HOST_GRACE_MS = 5 * 60 * 1000;  // el Invitado espera 5 min a un Host desconectado antes de soltarse
     const SOLICITUD_TTL_MS = 60 * 1000;   // validez de un pedido "Acompañar en el estudio"
 
     let canal = null;
@@ -45,6 +45,10 @@ const PomodoroSyncManager = (function () {
     let estadoLocal = { up: null, pomodoroActivo: false, faseActual: null, tiempoTotal: null, tiempoRestante: null, tema: null, salaCompartida: null, rolPomodoro: null, musica: null };
     let sala = null;                 // sala compartida activa (ver abrirSala)
     let solicitudPendiente = null;   // { to, at }: pedí unirme a ese usuario y espero su invitación
+    // Conexión continua: el canal global y la sala se vuelven a abrir solos si se caen (red, suspensión, segundo plano)
+    let detenido = false;            // true tras detener(): no se reconecta
+    let canalDesde = 0;              // cuándo se creó el canal global (evita reiniciar uno que todavía está conectando)
+    let reconectando = false, intentosCanal = 0, vigilante = null, oyentesConexion = false, limpiezaConfigurada = false;
 
     // ------------------------------------------------------------
     // 1. Conectarse al canal de presence al entrar a la plataforma
@@ -56,15 +60,21 @@ const PomodoroSyncManager = (function () {
             return;
         }
         if (canal) return;   // ya iniciado (la página o NikaMusic pueden pedirlo)
+        detenido = false;
 
         _configurarLimpiezaAlSalir();
+        _configurarConexionContinua();
 
         canal = sb().channel(SALA_BIBLIOTECA, {
             config: { presence: { key: username } },
         });
+        canalDesde = Date.now();
+        const chGlobal = canal;
 
         canal.on("presence", { event: "sync" }, () => {
             if (onFriendsStateChange) onFriendsStateChange(_snapshotPorUsuario());
+            // un Host revisa si algún invitado ya está en otra sala
+            if (sala && sala.role === "host" && !sala.cerrada) _evaluarSocio(sala);
         });
 
         // Invitación directa a sincronizar Pomodoro con un amigo
@@ -104,12 +114,59 @@ const PomodoroSyncManager = (function () {
         });
 
         await canal.subscribe(async (status) => {
+            if (chGlobal !== canal) return;   // evento de un canal que ya reemplazamos
             if (status === "SUBSCRIBED") {
-                await canal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() });
+                intentosCanal = 0;
+                try { await chGlobal.track({ ...estadoLocal, username, updated_at: new Date().toISOString() }); } catch (_) {}
                 _iniciarHeartbeat();
                 _reabrirSalaSiCorresponde(); // recargué la página en medio de una sesión compartida
+            } else if (status === "CLOSED" || status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+                _programarReconexion();      // se cayó la conexión: la volvemos a abrir sola, sin recargar la página
             }
         });
+    }
+
+    // ---- Conexión continua ----
+    function _programarReconexion() {
+        if (detenido || reconectando) return;
+        reconectando = true;
+        const demora = Math.min(30000, 1500 * Math.pow(2, Math.min(intentosCanal, 5)));
+        intentosCanal++;
+        setTimeout(() => { reconectando = false; _reiniciarCanal().catch(() => {}); }, demora);
+    }
+
+    async function _reiniciarCanal() {
+        if (detenido) return;
+        const vieja = canal;
+        canal = null;
+        if (vieja) { try { await sb().removeChannel(vieja); } catch (_) {} }
+        await iniciar();
+    }
+
+    // Se llama al volver a la pestaña, al recuperar internet, al reanudar la app y cada tanto (vigilante).
+    function _asegurarConexion() {
+        if (detenido || !window.NikaSupabase || !window.NikaSupabase.getNikaCurrentUsername()) return;
+        try {
+            if (!canal) { iniciar().catch(() => {}); }
+            else if (canal.state !== "joined") {
+                if (!(canal.state === "joining" && Date.now() - canalDesde < 15000)) _reiniciarCanal().catch(() => {});
+            } else { _latido(); }
+            const s = sala;
+            if (s && !s.cerrada && s.canal && s.canal.state !== "joined" && !(s.canal.state === "joining" && Date.now() - (s.desde || 0) < 15000)) _reconectarSala(s);
+        } catch (_) {}
+    }
+
+    function _configurarConexionContinua() {
+        if (!oyentesConexion) {
+            oyentesConexion = true;
+            const aviso = () => { if (!document.hidden) _asegurarConexion(); };
+            document.addEventListener("visibilitychange", aviso);
+            window.addEventListener("online", _asegurarConexion);
+            window.addEventListener("focus", aviso);
+            window.addEventListener("pageshow", _asegurarConexion);
+            document.addEventListener("resume", _asegurarConexion);   // reanudación tras congelar la pestaña
+        }
+        if (!vigilante) vigilante = setInterval(_asegurarConexion, 20000);
     }
 
     function _latido() {
@@ -124,6 +181,7 @@ const PomodoroSyncManager = (function () {
         heartbeatInterval = setInterval(_latido, HEARTBEAT_MS);
         // Al volver de segundo plano (laptop que "despertó", cambio de pestaña)
         // mandamos un latido inmediato en vez de esperar hasta el próximo tick.
+        document.removeEventListener('visibilitychange', _onVisibilityChange);
         document.addEventListener('visibilitychange', _onVisibilityChange);
     }
 
@@ -147,9 +205,11 @@ const PomodoroSyncManager = (function () {
     // SDK; canal.untrack() es un envío best-effort (no espera respuesta), así que
     // se dispara en ambos eventos para maximizar las chances de que llegue a tiempo.
     function _configurarLimpiezaAlSalir() {
+        if (limpiezaConfigurada) return;
+        limpiezaConfigurada = true;
         const limpiar = () => { try { if (canal) canal.untrack(); } catch (_) {} };
         window.addEventListener('beforeunload', limpiar);
-        window.addEventListener('pagehide', limpiar);
+        window.addEventListener('pagehide', (e) => { if (e && e.persisted) return; limpiar(); });   // pagehide con bfcache no es un cierre
     }
 
     function _snapshotPorUsuario() {
@@ -307,11 +367,11 @@ const PomodoroSyncManager = (function () {
         return "error";
     }
 
-    async function abrirSala(shared) {
+    async function abrirSala(shared, forzar) {
         if (!shared || !shared.sessionId) return;
         const username = window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername();
         if (!username) return;
-        if (sala && sala.sessionId === shared.sessionId && sala.role === shared.role) return;
+        if (!forzar && sala && sala.sessionId === shared.sessionId && sala.role === shared.role) return;
         await salirDeSala(false);
 
         const nombre = `pomo_sala_${shared.sessionId}`;
@@ -321,7 +381,7 @@ const PomodoroSyncManager = (function () {
         } catch (_) {}
 
         const s = { sessionId: shared.sessionId, role: shared.role, hostUsername: shared.hostUsername, username,
-                    canal: null, helloTimer: null, graceTimer: null, gotCmd: false, cerrada: false, anunciados: new Set() };
+                    canal: null, helloTimer: null, graceTimer: null, gotCmd: false, cerrada: false, anunciados: new Set(), desde: Date.now(), intentos: 0, retry: null };
         sala = s;
         const ch = sb().channel(nombre, { config: { broadcast: { self: false, ack: true }, presence: { key: username } } });
         s.canal = ch;
@@ -329,7 +389,7 @@ const PomodoroSyncManager = (function () {
         // Host -> Invitado: snapshots del reloj
         ch.on("broadcast", { event: "cmd" }, ({ payload }) => {
             if (s.role !== "guest" || !payload || s.cerrada) return;
-            s.gotCmd = true;
+            s.gotCmd = true; s.huboCmd = true; s.noInv = 0;
             _detenerHello(s);
             if (window.PomodoroEngine) window.PomodoroEngine.applyRemoteCommand(payload);
         });
@@ -359,6 +419,12 @@ const PomodoroSyncManager = (function () {
 
         ch.on("broadcast", { event: "rechazo" }, ({ payload }) => {
             if (s.role !== "guest" || !payload || payload.toUsername !== s.username || s.cerrada) return;
+            // Si ya estaba adentro (recibió el reloj antes), un "no figurás" suele ser un desfase del Host: se reintenta unas
+            // veces en lugar de sacarlo de la sala y perder su tiempo.
+            if (payload.motivo === "no_invitado" && s.huboCmd && (s.noInv = (s.noInv || 0) + 1) <= 4) {
+                setTimeout(() => { if (!s.cerrada && sala === s) { s.gotCmd = false; _iniciarHello(s); } }, 4000);
+                return;
+            }
             _notificar({ tipo: payload.motivo === "no_invitado" ? "no_invitado" : "sala_llena", username: s.hostUsername });
             if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: payload.motivo || "sala_llena", notify: false });
         });
@@ -369,19 +435,38 @@ const PomodoroSyncManager = (function () {
         ch.on("presence", { event: "leave" }, evaluar);
 
         await new Promise((resolve) => {
-            const t = setTimeout(() => { console.warn("[pomodoroSyncManager] Timeout abriendo la sala."); resolve(false); }, 10000);
+            let primera = true;
+            const t = setTimeout(() => { console.warn("[pomodoroSyncManager] Timeout abriendo la sala."); if (primera) { primera = false; resolve(false); _reconectarSala(s); } }, 10000);
             ch.subscribe(async (status) => {
+                if (s.cerrada || sala !== s) return;
                 if (status === "SUBSCRIBED") {
                     try { await ch.track({ username, role: s.role, online_at: new Date().toISOString() }); } catch (_) {}
                     clearTimeout(t);
+                    s.intentos = 0;
+                    _cancelarGracia(s);   // si estaba corriendo la espera del Host, esta reconexión la reinicia
                     if (s.role === "guest") { s.gotCmd = false; _iniciarHello(s); }
-                    resolve(true);
-                } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+                    if (primera) { primera = false; resolve(true); }
+                } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") {
                     clearTimeout(t);
-                    resolve(false);
+                    if (primera) { primera = false; resolve(false); }
+                    _reconectarSala(s);
                 }
             });
         });
+    }
+
+    // La sala se volvió a abrir sola si se cayó la conexión (no se pierde el tiempo estudiado ni el lugar).
+    function _reconectarSala(s) {
+        if (!s || s.cerrada || sala !== s || s.retry) return;
+        const demora = Math.min(20000, 1000 * Math.pow(2, Math.min(s.intentos, 4)));
+        s.intentos++;
+        s.retry = setTimeout(() => {
+            s.retry = null;
+            if (s.cerrada || sala !== s) return;
+            const eng = window.PomodoroEngine;
+            const info = eng && eng.getSharedInfo && eng.getSharedInfo();
+            if (info && info.sessionId === s.sessionId) abrirSala(info, true).catch(() => {});
+        }, demora);
     }
 
     // "@x se unió": el aviso puede llegar por Presence o por el 'hello' (el primero que llegue); se anuncia UNA vez.
@@ -399,8 +484,15 @@ const PomodoroSyncManager = (function () {
         if (s.role === "host") {
             const info = eng.getSharedInfo && eng.getSharedInfo();
             const guests = (info && info.guests) || [];
+            const globales = _snapshotPorUsuario();
             guests.filter((g) => g.joined).forEach((g) => {
                 const presente = otros.includes(g.username);
+                // Si el invitado informa que ahora está en OTRA sala, deja de figurar acá (una sola sala por persona)
+                const gl = globales[g.username];
+                if (!presente && gl && gl.salaCompartida && gl.salaCompartida !== s.sessionId) {
+                    if (eng.partnerLeft) eng.partnerLeft(g.username);
+                    return;
+                }
                 eng.setGuestOnline(g.username, presente);
                 if (presente) _anunciarInvitado(s, g.username);
             });
@@ -422,6 +514,9 @@ const PomodoroSyncManager = (function () {
             if (document.hidden || !s.canal || s.canal.state !== "joined") { _iniciarGracia(s); return; }
             const presentes = Object.keys(s.canal.presenceState()).filter((k) => k !== s.username);
             if (presentes.includes(s.hostUsername)) return;
+            // El Host puede seguir conectado aunque la sala no lo muestre (conexión de la sala caída): lo confirma la presencia global
+            const g = _snapshotPorUsuario()[s.hostUsername];
+            if (g && g.salaCompartida === s.sessionId) { _iniciarGracia(s); return; }
             _notificar({ tipo: "host_offline", username: s.hostUsername });
             if (window.PomodoroEngine) window.PomodoroEngine.leaveShared({ reason: "host_offline", notify: false });
         }, HOST_GRACE_MS);
@@ -461,6 +556,7 @@ const PomodoroSyncManager = (function () {
         s.cerrada = true;
         _detenerHello(s);
         _cancelarGracia(s);
+        if (s.retry) { clearTimeout(s.retry); s.retry = null; }
         try { await s.canal.untrack(); } catch (_) {}
         try { await sb().removeChannel(s.canal); } catch (_) {}
     }
@@ -491,6 +587,8 @@ const PomodoroSyncManager = (function () {
     // 5. Salir (al cerrar sesión o navegar fuera de la plataforma)
     // ------------------------------------------------------------
     function detener() {
+        detenido = true;
+        if (vigilante) { clearInterval(vigilante); vigilante = null; }
         _detenerHeartbeat();
         salirDeSala(false).catch(() => {});
         if (canal) {
@@ -515,6 +613,8 @@ const PomodoroSyncManager = (function () {
         salirDeSala,
         emitirComando,
         get activo() { return !!canal; },
+        // 'ok' si el canal está conectado, 'reconectando' si se cayó y se está recuperando solo, 'sin_conexion' si no hay nada
+        estadoConexion() { if (detenido || !canal) return 'sin_conexion'; return canal.state === 'joined' ? 'ok' : 'reconectando'; },
         set onFriendsStateChange(cb) {
             onFriendsStateChange = cb;
         },

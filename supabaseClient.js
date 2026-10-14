@@ -77,6 +77,10 @@ const NikaSupabaseReady = _esperarSDKSupabase()
                 params: {
                     eventsPerSecond: 10, // límite razonable para un duelo 1vs1
                 },
+                // El latido del socket corre en un Web Worker: los navegadores (y las PWA) frenan los temporizadores de
+                // las pestañas en segundo plano y eso cortaba la presencia aunque el sitio siguiera abierto.
+                worker: true,
+                heartbeatIntervalMs: 20000,
             },
         });
         return nikaSupabase;
