@@ -1314,24 +1314,26 @@
             if (client) {
                 const { data: { session } } = await client.auth.getSession();
                 if (session && session.user) {
-                    // Consultamos el progreso guardado en la tabla user_progress
-                    const { data: progressInfo, error } = await client
-                        .from('user_progress')
-                        .select('*')
+                    // Último estudio guardado en la nube (tabla ultimo_estudio): se usa el más reciente entre este dispositivo y la nube
+                    const { data: ult, error: errU } = await client
+                        .from('ultimo_estudio')
+                        .select('datos, actualizado_en')
                         .eq('user_id', session.user.id)
                         .maybeSingle();
-
-                    if (!error && progressInfo) {
-                        // Si existe en la nube, curamos el localStorage para este dispositivo
-                        if (progressInfo.last_study_progress) {
-                            const progStr = typeof progressInfo.last_study_progress === 'string' 
-                                ? progressInfo.last_study_progress 
-                                : JSON.stringify(progressInfo.last_study_progress);
-                            localStorage.setItem(`nika_last_study_progress_${userSuffix}`, progStr);
+                    if (!errU && ult && ult.datos && ult.datos.url) {
+                        let local = null;
+                        try { local = JSON.parse(localStorage.getItem(`nika_last_study_progress_${userSuffix}`) || 'null'); } catch (_) {}
+                        const tNube = Number(ult.datos.t) || new Date(ult.actualizado_en).getTime() || 0;
+                        if (!local || (Number(local.t) || 0) < tNube) {
+                            localStorage.setItem(`nika_last_study_progress_${userSuffix}`, JSON.stringify(ult.datos));
+                        } else if (!local.c1 && ult.datos.c1) {
+                            localStorage.setItem(`nika_last_study_progress_${userSuffix}`, JSON.stringify(ult.datos));
                         }
-                        if (progressInfo.surgery_global_pct !== undefined && progressInfo.surgery_global_pct !== null) {
-                            localStorage.setItem(`nika_surgery_global_pct_${userSuffix}`, progressInfo.surgery_global_pct);
-                        }
+                    } else if (!errU && !ult) {   // la nube todavía no tiene nada: se sube lo que hay en este dispositivo
+                        try {
+                            const l0 = JSON.parse(localStorage.getItem(`nika_last_study_progress_${userSuffix}`) || 'null');
+                            if (l0 && l0.url) await client.from('ultimo_estudio').upsert({ user_id: session.user.id, datos: Object.assign({ t: Date.now() }, l0), actualizado_en: new Date().toISOString() });
+                        } catch (_) {}
                     }
                 }
             }

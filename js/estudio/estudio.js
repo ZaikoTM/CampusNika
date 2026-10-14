@@ -31,13 +31,30 @@ function guardarUltimoEstudio(upId, pct) {
             pct = obj ? Math.round((Object.values(mapa).filter(Boolean).length / obj) * 100) : 0;
         }
         const mk = (EstudioState.data && EstudioState.data.marca) || {};   // nombre, ícono y colores salen del archivo de datos de la materia
-        localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify({
+        const registro = {
             modulo: mk.nombre || NOMBRES_MODULO[m] || (EstudioState.data && EstudioState.data.nombre) || m, moduloId: m,
             icono: mk.icono || '', c1: mk.c1 || '', c2: mk.c2 || '',
             up: sigUnit(unit), titulo: unit.title || '', porcentaje: pct,
             url: `estudio.html?modulo=${encodeURIComponent(m)}&up=${unit.number}`, t: Date.now(),
-        }));
+        };
+        localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify(registro));
+        subirUltimoEstudio(registro);
     } catch (_) {}
+}
+
+// Sincroniza el último estudio con la nube (tabla ultimo_estudio) para verlo en otros dispositivos. Falla en silencio si no existe.
+let _ultimoSubida = null;
+function subirUltimoEstudio(registro) {
+    clearTimeout(_ultimoSubida);
+    _ultimoSubida = setTimeout(async () => {
+        try {
+            const client = window.supabaseClient || (window.NikaSupabase && window.NikaSupabase.client);
+            if (!client || !client.auth) return;
+            const { data: { session } } = await client.auth.getSession();
+            if (!session || !session.user) return;
+            await client.from('ultimo_estudio').upsert({ user_id: session.user.id, datos: registro, actualizado_en: new Date().toISOString() });
+        } catch (_) {}
+    }, 1500);
 }
 
 // Al entrar a la sala de una materia (sin abrir todavía una unidad) el campus ya la muestra como lo último que estudiaste.
@@ -49,12 +66,14 @@ function guardarUltimoModulo() {
         const prev = JSON.parse(localStorage.getItem(`nika_last_study_progress_${key}`) || 'null');
         if (prev && prev.moduloId === m && prev.icono) return;   // ya hay una unidad de esta materia (con su marca)
         const mk = (EstudioState.data && EstudioState.data.marca) || {};
-        localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify({
+        const registro = {
             modulo: mk.nombre || NOMBRES_MODULO[m] || (EstudioState.data && EstudioState.data.nombre) || m, moduloId: m,
             icono: mk.icono || '', c1: mk.c1 || '', c2: mk.c2 || '',
             up: 'Elegí tu unidad', titulo: '', porcentaje: 0,
             url: `estudio.html?modulo=${encodeURIComponent(m)}`, t: Date.now(),
-        }));
+        };
+        localStorage.setItem(`nika_last_study_progress_${key}`, JSON.stringify(registro));
+        subirUltimoEstudio(registro);
     } catch (_) {}
 }
 
