@@ -57,3 +57,12 @@ body.pfo.ml.tema-premium { --pf-az: #e879f9; --pf-or: #fbbf24; }
 .ml-banner .go { margin-left: auto; font-weight: 900; font-size: .82rem; padding: 7px 14px; border-radius: 99px; background: linear-gradient(135deg, var(--rc-gold, #d4a017), #f59e0b); color: var(--rc-a, #2a0a14); }
 
 @media (prefers-reduced-motion: reduce) { .ml-balanza .l, .ml-balanza .r, .ml-ic, .ml-banner::after, .ml-banner .ico, .ml-sello { animation: none; } }
+/* bibliografía por módulo */
+.ml-biblio { display: grid; gap: 8px; }
+.ml-bib { border: 1.5px solid var(--pf-bd); border-radius: 14px; background: var(--pf-card2); overflow: hidden; animation: peEntra .4s var(--mi-ease) both; animation-delay: calc(var(--d, 0) * 50ms); }
+.ml-bib summary { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; list-style: none; font-size: .9rem; }
+.ml-bib summary::-webkit-details-marker { display: none; }
+.ml-bib summary b { flex: 1; } .ml-bib summary small { color: var(--pf-mut); font-weight: 700; } .ml-bib summary .ic { font-size: 1.2rem; }
+.ml-bib summary::after { content: '▾'; transition: transform .25s; opacity: .7; } .ml-bib[open] summary::after { transform: rotate(180deg); }
+.ml-bib[open] { border-color: var(--rc-main, #be123c); box-shadow: 0 10px 22px -16px var(--rc-main, #be123c); }
+.ml-bib ul { margin: 0; padding: 4px 16px 14px 34px; } .ml-bib li { font-size: .84rem; line-height: 1.5; margin: 5px 0; color: var(--pf-tx); }

@@ -25,20 +25,24 @@
     chips: ['7 unidades', 'Recorrido virtual', 'Material y videos'],
     estudio: 'estudio.html?modulo=medicinalegal', recorrido: 'ml_estudio.html', anios: 'Se cursa en 4.° o 5.° año' });
   MATERIAS_5.push(MED_LEGAL);
+  // Medicina Deportiva: sala de estudio (los simuladores llegan más adelante)
+  const MED_DEPORT = ({ id: 'deport', nombre: 'Medicina Deportiva', sigla: 'Medicina Deportiva', icono: '🏃', color: 'deport', hub: 'estudio.html?modulo=medicinadeportiva',
+    desc: 'Los 9 módulos de la electiva con contenidos, bibliografía, material de lectura y clases en video: fisiología del ejercicio, evaluación, nutrición, psicología y lesiones.',
+    chips: ['9 módulos', 'Material de lectura', 'Clases en video'],
+    estudio: 'estudio.html?modulo=medicinadeportiva', recorrido: 'recorrido.html?m=medicinadeportiva', proximoSim: true, anios: 'Se cursa en 4.° o 5.° año' });
   const esAdmin = () => { try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); return !!u && String(u.role || '').toLowerCase() === 'admin'; } catch (_) { return false; } };
   const esPlus = () => esAdmin() || !!(window.NikaAcceso && NikaAcceso.tieneAccesoCompleto && NikaAcceso.tieneAccesoCompleto());
   const pronto = (...n) => n.map((nombre) => ({ nombre, pronto: true }));
   // electivas que se cursan en 4.° o 5.° año: aparecen en ambos
   const ELECTIVAS_PRONTO = [
-    { nombre: 'Medicina Deportiva', icono: '🏃', pronto: true, etiqueta: 'Próximamente', desc: 'Materia electiva de 4.° y 5.° año. Estamos preparando su sala de estudio.' },
     { nombre: 'Administración y Gestión de Instituciones de Salud', icono: '🏥', pronto: true, etiqueta: 'Próximamente', desc: 'Materia electiva de 4.° y 5.° año. Estamos preparando su sala de estudio.' },
   ];
   const AÑOS = [
     { id: '1ro', nombre: '1° Año', materias: pronto('Salud Individual', 'Salud Colectiva', 'Crecimiento y Desarrollo') },
     { id: '2do', nombre: '2° Año', materias: pronto('Nutrición', 'Sexualidad, Género y Reproducción', 'Trabajo y Tiempo Libre', 'El Ser Humano y su Medio') },
     { id: '3ro', nombre: '3° Año', materias: pronto('Injuria', 'Defensa') },
-    { id: '4to', nombre: '4° Año', materias: [MED_LEGAL, ...ELECTIVAS_PRONTO, ...pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven')] },
-    { id: '5to', nombre: '5° Año', materias: [...MATERIAS_5, ...ELECTIVAS_PRONTO] },
+    { id: '4to', nombre: '4° Año', materias: [MED_LEGAL, MED_DEPORT, ...ELECTIVAS_PRONTO, ...pronto('Salud del Niño y del Adolescente', 'Salud Integral del Adulto Joven')] },
+    { id: '5to', nombre: '5° Año', materias: [...MATERIAS_5, MED_DEPORT, ...ELECTIVAS_PRONTO] },
     { id: '6to', nombre: '6° Año (PFO)', materias: [{ id: 'pfo', color: 'pfo', icono: '🎓', sigla: 'PFO · SALA DE ESTUDIO', nombre: 'Práctica Final Obligatoria', desc: 'Todo para preparar el último año: recorrido por el reglamento, contenidos de cada rotación, procedimientos paso a paso con práctica en NikaSim y bibliografía actualizada.', chips: ['8 módulos', 'Procedimientos paso a paso', 'Bibliografía actualizada'], estudio: 'estudio.html?modulo=pfo', simulador: 'pfo_ecoe.html', atlas: 'acreditaciones.html?area=pfo', hub: 'estudio.html?modulo=pfo' }] },
   ];
 
@@ -64,11 +68,11 @@
         <a class="se-entrar" href="${m.estudio}">📖 Entrar a la Sala de Estudio <i>→</i></a>
         <div class="se-rapido" aria-label="Accesos rápidos">
           ${m.recorrido ? `<a href="${m.recorrido}" title="Recorrido virtual del programa"><span>🧭</span>Recorrido</a>` : ''}
-          ${m.recorrido && !m.simulador ? `<a href="${m.estudio}" title="Las 7 unidades con material y videos"><span>📚</span>Unidades</a><a class="off" href="#" onclick="return false" title="El simulador llega pronto"><span>📝</span>Simulador · pronto</a>` : ''}
+          ${(m.recorrido || m.proximoSim) && !m.simulador ? `<a href="${m.estudio}" title="Las 7 unidades con material y videos"><span>📚</span>Unidades</a><a class="off" href="#" onclick="return false" title="El simulador llega pronto"><span>📝</span>Simulador · pronto</a>` : ''}
           ${m.simulador ? `<a href="${m.simulador}" title="${m.id === 'pfo' ? 'Simulador: ECOE FINAL (NikaMed+)' : 'Simulador de exámenes'}"><span>📝</span>Simulador</a>` : ''}
           ${m.duelos ? `<a href="${m.duelos}" title="Duelos 1vs1"><span>⚔️</span>Duelos</a>` : ''}
           ${m.atlas ? `<a href="${m.atlas}" title="Atlas 3D de acreditaciones"><span>🥽</span>NikaSim</a>` : ''}
-          ${m.recorrido && !m.simulador ? '' : `<a href="${m.hub}" title="Menú completo de la materia"><span>🗂️</span>Menú</a>`}
+          ${(m.recorrido || m.proximoSim) && !m.simulador ? '' : `<a href="${m.hub}" title="Menú completo de la materia"><span>🗂️</span>Menú</a>`}
         </div>
       </div></article>`;
   }
@@ -112,12 +116,12 @@
   // recordar el último módulo que se abrió desde acá
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a.se-entrar'); if (!a) return;
-    const m = /modulo=([a-z]+)/.exec(a.getAttribute('href') || ''); try { if (m) localStorage.setItem('nika_ultimo_modulo_estudio', m[1]); if (m && m[1] === 'medicinalegal') localStorage.setItem('nika_ml_anio', S.year); } catch (_) {}
+    const m = /modulo=([a-z]+)/.exec(a.getAttribute('href') || ''); try { if (m) localStorage.setItem('nika_ultimo_modulo_estudio', m[1]); if (m && (m[1] === 'medicinalegal' || m[1] === 'medicinadeportiva')) localStorage.setItem('nika_ml_anio', S.year); } catch (_) {}
   });
 
   // Medicina Legal: el recorrido también recuerda el año desde el que se entró
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href*="medicinalegal"], a[href*="ml_estudio"]'); if (!a) return;
+    const a = e.target.closest('a[href*="medicinalegal"], a[href*="ml_estudio"], a[href*="medicinadeportiva"]'); if (!a) return;
     try { localStorage.setItem('nika_ml_anio', S.year); } catch (_) {}
   });
   render(); atajos();

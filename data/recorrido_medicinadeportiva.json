@@ -1,0 +1,475 @@
+{
+  "modulo": "medicinadeportiva",
+  "nombreMateria": "Medicina Deportiva",
+  "chip": "🏃 Medicina Deportiva",
+  "icono": "🏃",
+  "titulo": "Recorrido virtual por Medicina Deportiva",
+  "destacar": "Medicina Deportiva",
+  "subtitulo": "Los 9 módulos juntos: qué estudia la materia, cómo se ordenan sus contenidos y toda la bibliografía. Un paso a la vez, a tu ritmo.",
+  "sala": "estudio.html?modulo=medicinadeportiva",
+  "datos": "data/medicinadeportiva.json",
+  "etiquetaUnidad": "Módulo",
+  "salasHref": "sala_estudio.html#5to",
+  "marca": "Medicina Deportiva · Recorrido virtual",
+  "ls": "nika_rec_medicinadeportiva",
+  "tema": {
+    "a": "#431407",
+    "b": "#c2410c",
+    "c": "#15803d",
+    "main": "#ea580c",
+    "dark": "#9a3412",
+    "gold": "#4ade80"
+  },
+  "acciones": [
+    {
+      "texto": "📖 Ir a los 9 módulos",
+      "href": "estudio.html?modulo=medicinadeportiva",
+      "plus": true
+    }
+  ],
+  "pasos": [
+    {
+      "id": "bienvenida",
+      "icono": "🏃",
+      "titulo": "Bienvenida",
+      "tipo": "hero",
+      "intro": "Medicina Deportiva reúne lo que hace falta para cuidar la salud de quien se mueve: desde la actividad física como herramienta de salud pública hasta la atención de las lesiones del deportista.",
+      "parrafos": [
+        "La materia define qué es la actividad física, el ejercicio, el entrenamiento y el deporte, y delimita el rol del médico deportólogo y las ciencias que lo sostienen.",
+        "Recorre la fisiología del ejercicio, la evaluación y el entrenamiento, el rendimiento, la nutrición, la psicología, las situaciones especiales y las lesiones, para terminar en los campos de acción del médico deportólogo."
+      ],
+      "cifras": [
+        {
+          "n": 9,
+          "label": "módulos"
+        },
+        {
+          "n": 61,
+          "label": "materiales de estudio"
+        },
+        {
+          "n": 50,
+          "label": "textos de bibliografía"
+        },
+        {
+          "n": 7,
+          "label": "clases en video (NikaMed+)"
+        }
+      ],
+      "dato": "Cada módulo de la sala tiene sus contenidos, su bibliografía esencial, necesaria y complementaria, material de lectura y resúmenes."
+    },
+    {
+      "id": "para-que",
+      "icono": "🧭",
+      "titulo": "Qué estudia",
+      "tipo": "tabs",
+      "intro": "Tocá cada pestaña: la materia combina ciencias del movimiento, clínica y salud pública.",
+      "tabs": [
+        {
+          "icono": "⚕️",
+          "titulo": "La materia",
+          "dato": "Medicina deportiva",
+          "texto": "Se define como el área de la medicina que trabaja con las ciencias que la componen, con incumbencias propias y con modelos de trabajo diferentes según el ámbito.",
+          "items": [
+            "Diferencia entre actividad física y medicina deportiva",
+            "Incumbencias y rol del médico deportólogo",
+            "Modelos de trabajo y desafíos",
+            "Necesidades particulares de los deportistas"
+          ]
+        },
+        {
+          "icono": "🫀",
+          "titulo": "Ciencias del ejercicio",
+          "dato": "Fisiología, entrenamiento y rendimiento",
+          "texto": "Explica cómo responde el cuerpo al ejercicio y cómo se evalúa y se entrena a una persona.",
+          "items": [
+            "Músculo, contracción y sistemas energéticos",
+            "Adaptaciones cardiovasculares, respiratorias y hormonales",
+            "Principios del entrenamiento y periodización",
+            "Evaluaciones precompetitivas, test, baremos y sueño"
+          ]
+        },
+        {
+          "icono": "🩹",
+          "titulo": "Clínica y práctica",
+          "dato": "Del consultorio a la cancha",
+          "texto": "Reúne la nutrición, la psicología, las poblaciones especiales y la atención de las lesiones.",
+          "items": [
+            "Nutrición, hidratación y ayudas ergogénicas",
+            "Psicología del deporte en cada etapa de la vida",
+            "Deporte en la niñez, el adulto mayor, la discapacidad y las patologías crónicas",
+            "Lesiones, imagenología, rehabilitación y retorno seguro"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unidades",
+      "icono": "🗺️",
+      "titulo": "Los 9 módulos",
+      "tipo": "unidades",
+      "intro": "Dale la vuelta a cada tarjeta para ver los temas y entrar al módulo en la sala de estudio.",
+      "unidades": [
+        {
+          "n": 1,
+          "icono": "⚕️",
+          "titulo": "Introducción a la Medicina Deportiva",
+          "programa": "Módulo 1",
+          "temas": [
+            "Actividad física",
+            "La actividad física como herramienta de la salud pública; diferencia con la medicina deportiva",
+            "Medicina deportiva",
+            "Modelos de trabajo, desafíos, generalidades del tratamiento médico y necesidades particulares d…",
+            "Conceptos básicos del movimiento: actividad física, ejercicio físico, entrenamiento y deporte"
+          ]
+        },
+        {
+          "n": 2,
+          "icono": "🫀",
+          "titulo": "Fisiología del ejercicio",
+          "programa": "Módulo 2",
+          "temas": [
+            "El músculo esquelético: tipos de fibras, sarcolema, sarcoplasma, miofibrillas y sarcómero",
+            "La placa neuromuscular y la neurotransmisión química de la placa motora",
+            "La contracción muscular: bases moleculares, tipos de contracción y sistemas energéticos",
+            "Adaptaciones cardiovasculares, respiratorias y hormonales al ejercicio; consumo de oxígeno",
+            "Modificaciones hematológicas: serie roja, serie blanca y hemostasia",
+            "Mujer y deporte"
+          ]
+        },
+        {
+          "n": 3,
+          "icono": "🏋️",
+          "titulo": "Evaluación deportiva y entrenamiento",
+          "programa": "Módulo 3",
+          "temas": [
+            "Principios generales del entrenamiento",
+            "Periodización; variables de la carga (volumen, intensidad, densidad, frecuencia) y tipos de est…",
+            "Evaluaciones precompetitivas: examen físico pre-participativo y reconocimiento cardiológico",
+            "La muerte súbita y sus implicancias; protocolos de evaluación médica",
+            "Aptitud física: criterios y redacción de certificados de aptitud",
+            "Evaluación kinésica y postural: FMS, Flexi-Test, evaluación de la marcha y la carrera"
+          ]
+        },
+        {
+          "n": 4,
+          "icono": "⏱️",
+          "titulo": "Rendimiento deportivo",
+          "programa": "Módulo 4",
+          "temas": [
+            "El atleta de alto rendimiento: importancia de la evaluación, métodos directos e indirectos",
+            "Curva de O2 y umbrales anaeróbico y aeróbico",
+            "Test y evaluaciones: para la salud, de aptitud física y de rendimiento; tipos de test y baremos",
+            "Sueño: definición, calidad de sueño, implicancias en el rendimiento e instrumentos de medición"
+          ]
+        },
+        {
+          "n": 5,
+          "icono": "🥗",
+          "titulo": "Nutrición deportiva",
+          "programa": "Módulo 5",
+          "temas": [
+            "Importancia de la anamnesis en el deportista y evaluación nutricional",
+            "Antropometría y cineantropometría; valoración antropométrica",
+            "Determinación de requerimientos nutricionales y alimentación en entrenamiento y competición",
+            "Hidratación y rendimiento deportivo",
+            "Suplementación y ayudas ergogénicas; rol de la educación alimentaria nutricional"
+          ]
+        },
+        {
+          "n": 6,
+          "icono": "🧠",
+          "titulo": "Psicología y deporte",
+          "programa": "Módulo 6",
+          "temas": [
+            "Importancia del deporte en el desarrollo subjetivo",
+            "Psicología y deporte en la niñez",
+            "En la latencia: reglas, estrategias, control emocional, competencia y colaboración, resiliencia",
+            "De lo familiar a lo social: el deporte como espacio potencial",
+            "En la adolescencia",
+            "En la adultez: estrés, ansiedad, bienestar y prevención de enfermedades crónicas"
+          ]
+        },
+        {
+          "n": 7,
+          "icono": "🌍",
+          "titulo": "Medicina deportiva en el ciclo vital y en situaciones especiales",
+          "programa": "Módulo 7",
+          "temas": [
+            "El deporte en la niñez",
+            "El deporte en el adulto mayor",
+            "El deporte en pacientes con patologías crónicas",
+            "El deporte en personas con discapacidad",
+            "El deporte en la altura y en la profundidad"
+          ]
+        },
+        {
+          "n": 8,
+          "icono": "🩹",
+          "titulo": "Lesiones deportivas",
+          "programa": "Módulo 8",
+          "temas": [
+            "Las lesiones deportivas: definición y epidemiología",
+            "Clínica, diagnóstico y tratamiento inicial de lesiones óseas, articulares, ligamentarias y musc…",
+            "Imagenología de las lesiones deportivas",
+            "Rehabilitación deportiva",
+            "Retorno seguro al deporte"
+          ]
+        },
+        {
+          "n": 9,
+          "icono": "🏟️",
+          "titulo": "El médico deportólogo y sus campos de acción",
+          "programa": "Módulo 9",
+          "temas": [
+            "El médico deportólogo y los distintos campos de acción",
+            "El médico en el campo de juego"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ruta",
+      "icono": "🛣️",
+      "titulo": "Cómo se ordenan",
+      "tipo": "tarjetas",
+      "intro": "Los módulos van de lo general a lo particular. Una forma de leerlos juntos:",
+      "tarjetas": [
+        {
+          "icono": "🧱",
+          "titulo": "Bases",
+          "dato": "Módulos 1 y 2",
+          "texto": "Conceptos de actividad física y medicina deportiva, y la fisiología del ejercicio."
+        },
+        {
+          "icono": "📏",
+          "titulo": "Evaluar y entrenar",
+          "dato": "Módulos 3 y 4",
+          "texto": "Principios del entrenamiento, evaluaciones precompetitivas, test de rendimiento y sueño."
+        },
+        {
+          "icono": "🥗",
+          "titulo": "Cuerpo y mente",
+          "dato": "Módulos 5 y 6",
+          "texto": "Nutrición, hidratación y suplementación, y la psicología del deporte en cada etapa."
+        },
+        {
+          "icono": "🌍",
+          "titulo": "Poblaciones y lesiones",
+          "dato": "Módulos 7 y 8",
+          "texto": "El deporte en distintas etapas y situaciones especiales, y las lesiones deportivas."
+        },
+        {
+          "icono": "🏟️",
+          "titulo": "Práctica profesional",
+          "dato": "Módulo 9",
+          "texto": "El médico deportólogo y sus campos de acción, incluido el campo de juego."
+        }
+      ]
+    },
+    {
+      "id": "bibliografia",
+      "icono": "📖",
+      "titulo": "Bibliografía de todos los módulos",
+      "tipo": "biblio",
+      "intro": "Abrí cada módulo para ver sus textos. Los archivos para leer están en la sala de estudio de cada módulo.",
+      "grupos": [
+        {
+          "icono": "⚕️",
+          "titulo": "Módulo 1 · Introducción a la Medicina Deportiva",
+          "items": [
+            "Brukner, P. & Khan, K. (2010). Clinical Sport Medicine. Cap. I. McGraw-Hill Education.",
+            "López Chicharro, J. L. & Fernández Vaquero, A. (2013). Fisiología del ejercicio. Cap. 2. Editorial Médica Panamericana.",
+            "Márquez, S. & Garatachea Vallejo, N. (2010). Actividad física y salud. Capítulos 1, 2 y 3. Fundación Universitaria Iberoamericana.",
+            "Robles Rodríguez, J.; Abad Robles, T. & Giménez Fuentes-Guerra, F. (2009). Concepto, características, orientaciones y clasificaciones del deporte actual. Efdeportes N.° 138.",
+            "Ministerio de Salud y Desarrollo Social · INDEC (2019). 4.ª Encuesta Nacional de Factores de Riesgo. Resultados definitivos.",
+            "American College of Sports Medicine (2014). ACSM's Guidelines for exercise testing and prescription. Cap. 1. Wolters Kluwer."
+          ]
+        },
+        {
+          "icono": "🫀",
+          "titulo": "Módulo 2 · Fisiología del ejercicio",
+          "items": [
+            "Córdova Martínez, A. (2013). Fisiología deportiva. Capítulos 7, 8, 9 y 13. Editorial Síntesis.",
+            "López Chicharro, J. & Fernández Vaquero, A. (2006). Fisiología del ejercicio. Cap. 36. Editorial Médica Panamericana.",
+            "Billat, V. (2002). Fisiología y metodología del entrenamiento. Cap. 2. Paidotribo.",
+            "Hall, J. & Hall, M. (2021). Guyton & Hall. Tratado de fisiología médica. Cap. 6. Elsevier.",
+            "Aguilar Macías et al. (2017). La mujer, el ciclo menstrual y la actividad física. Rev. Arch Méd Camagüey, 21(2).",
+            "Contreras Pascual, C. (2016). Respuestas y adaptaciones hematológicas al ejercicio. Universidad de Zaragoza.",
+            "Jeukendrup, A. & Gleeson, M. (2019). Nutrición deportiva. Cap. 3."
+          ]
+        },
+        {
+          "icono": "🏋️",
+          "titulo": "Módulo 3 · Evaluación deportiva y entrenamiento",
+          "items": [
+            "American College of Sports Medicine (2014). ACSM's Guidelines for exercise testing and prescription. Capítulos 2 y 3.",
+            "Miller, J., Comfort, P. & McMahon, J. (2023). Laboratory Manual for Strength and Conditioning. Cap. 3. Routledge.",
+            "Sociedad Argentina de Cardiología (2021). Guías para la recomendación y prescripción de actividad física en adultos. Rev. Argent. Cardiol. 89 supl. 4.",
+            "Sociedad Argentina de Cardiología (2007). Consenso Corazón y deporte. Rev. Argent. Cardiol. 75 supl. 4.",
+            "Weineck, J. (2005). Entrenamiento total. Parte I, cap. 2. Paidotribo.",
+            "Barça Innovation Hub (2018). Herramientas y variables para la monitorización de la carga en entrenamiento."
+          ]
+        },
+        {
+          "icono": "⏱️",
+          "titulo": "Módulo 4 · Rendimiento deportivo",
+          "items": [
+            "Alba Berdeal, A. (2010). Test funcionales. Cineantropometría y prescripción del entrenamiento. Cap. 1. Kinesis.",
+            "Martínez López, E. (2002). Pruebas de aptitud física. Capítulos 2 y 3. Paidotribo.",
+            "Gálvez Garrido, J. (2010). Medición y evaluación de la condición física: batería de test Eurofit. Efdeportes N.° 141.",
+            "Mora, V. et al. (2007). Baterías de tests para la valoración de la condición física en mayores. Rev. esp. educ. fís. deporte N.° 6.",
+            "Latorre, R. & Herrador, J. (2003). Valoración de la condición física para la salud. Apunts N.° 73.",
+            "Boyaro, F. & Tío, A. (2014). Evaluación de la condición física en adultos mayores. Rev. univ. educ. fís. deporte N.° 7.",
+            "Gil Soares de Araújo, C. (2005). Flexitest: un método innovador de evaluación de la flexibilidad. Paidotribo."
+          ]
+        },
+        {
+          "icono": "🥗",
+          "titulo": "Módulo 5 · Nutrición deportiva",
+          "items": [
+            "González Gross, M. (2020). Nutrición deportiva: desde la fisiología a la práctica. Editorial Médica Panamericana.",
+            "Holway, F. (2010). Principios básicos de nutrición en el deporte. Composición corporal en nutrición deportiva. Cap. 8.",
+            "MacMillan, N. (2006). Nutrición deportiva. Cap. 1. Ediciones Universitarias de Valparaíso.",
+            "Onzari, M. (2021). Fundamentos de nutrición en el deporte. 3.ª ed. El Ateneo.",
+            "International Society for the Advancement of Kinanthropometry (ISAK): www.isak.global"
+          ]
+        },
+        {
+          "icono": "🧠",
+          "titulo": "Módulo 6 · Psicología y deporte",
+          "items": [
+            "Cachorro, G. (2008). Cuerpo y subjetividad. Rasgos, configuraciones y proyecciones. La Plata.",
+            "Dominici, M. A. (2024). Desarrollo psíquico y deporte. El impacto del deporte en las diferentes etapas del curso de vida. Entre Ríos.",
+            "Dominici, M. A. (2024). Salud mental y deporte. Conceptos fundamentales para medicina de primer nivel de atención. Entre Ríos.",
+            "Gómez, Y. (2024). Aspectos psicológicos en deportes en equipo. Curso superior en medicina del deporte. Buenos Aires."
+          ]
+        },
+        {
+          "icono": "🌍",
+          "titulo": "Módulo 7 · Medicina deportiva en el ciclo vital y en situaciones especiales",
+          "items": [
+            "López Chicharro, J. L. & Fernández Vaquero, A. (2013). Fisiología del ejercicio. Cap. 34, 35, 38 y 39. Editorial Médica Panamericana.",
+            "American College of Sports Medicine (2014). ACSM's Guidelines for exercise testing and prescription. Cap. 9 y 10.",
+            "Brukner, P. & Khan, K. (2010). Clinical Sport Medicine. Cap. 43. McGraw-Hill Education.",
+            "López Chicharro, J. L. & López Mojares, L. M. (2008). Fisiología clínica del ejercicio. Editorial Médica Panamericana.",
+            "Márquez, S. & Garatachea Vallejo, N. (2010). Actividad física y salud. Parte 5. Fundación Universitaria Iberoamericana."
+          ]
+        },
+        {
+          "icono": "🩹",
+          "titulo": "Módulo 8 · Lesiones deportivas",
+          "items": [
+            "Brukner, P. & Khan, K. (2010). Clinical Sport Medicine. Cap. III y IV. McGraw-Hill Education.",
+            "Bueno, A. & Horcajadas, J. L. (2011). Ecografía musculoesquelética esencial. Panamericana.",
+            "Starkey, Brown & Ryan (2010). Patología ortopédica y lesiones deportivas. Guía de examen. 2.ª ed. Panamericana.",
+            "Frontera, W., Herring, S., Micheli, L. & Silver, J. (2008). Medicina deportiva clínica. Tratamiento médico y rehabilitación. Elsevier.",
+            "Hofer, M. (2003). Curso básico de ecografía. Manual de iniciación. 4.ª ed. Panamericana.",
+            "San Román, J. (2017). Manual de diagnóstico por imágenes para alumnos y médicos en formación. Ediciones Journal.",
+            "Servicios Médicos del FC Barcelona (2009). Guía de práctica clínica de las lesiones musculares.",
+            "Sherry, E. & Wilson, S. (2002). Manual Oxford de medicina deportiva. Capítulos 5 a 13. Paidotribo.",
+            "Eastwood, D. & Vishnubala, D. (2023). Sport and exercise medicine. Cap. 3 a 7. CRC Press.",
+            "Kramer, E. et al. (2015). Football Emergency Medicine Manual. FIFA."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz",
+      "icono": "🏆",
+      "titulo": "Poné a prueba lo que viste",
+      "tipo": "quiz",
+      "intro": "Ocho preguntas sobre cómo se organiza la materia. Si acertás 6 o más, completás todo el recorrido.",
+      "preguntas": [
+        {
+          "q": "¿Cuántos módulos tiene la materia?",
+          "o": [
+            "Siete",
+            "Ocho",
+            "Nueve",
+            "Doce"
+          ],
+          "c": 2,
+          "e": "La sala reúne 9 módulos, del 1 (Introducción a la medicina deportiva) al 9 (el médico deportólogo y sus campos de acción)."
+        },
+        {
+          "q": "¿En qué módulo se estudian las lesiones deportivas y su rehabilitación?",
+          "o": [
+            "Módulo 4",
+            "Módulo 6",
+            "Módulo 7",
+            "Módulo 8"
+          ],
+          "c": 3,
+          "e": "El módulo 8 trata las lesiones: clínica, diagnóstico, imagenología, rehabilitación y retorno seguro."
+        },
+        {
+          "q": "¿Qué módulo incluye el sueño y su relación con el rendimiento?",
+          "o": [
+            "Módulo 2",
+            "Módulo 4",
+            "Módulo 5",
+            "Módulo 9"
+          ],
+          "c": 1,
+          "e": "El módulo 4 (Rendimiento deportivo) estudia los test de rendimiento y el sueño como factor de rendimiento."
+        },
+        {
+          "q": "¿Cuál de estos NO es un principio general del entrenamiento del módulo 3?",
+          "o": [
+            "Individualidad",
+            "Especificidad",
+            "Sobrecarga progresiva",
+            "Hidratación"
+          ],
+          "c": 3,
+          "e": "Los principios son individualidad, especificidad, reversibilidad, variación y sobrecarga progresiva. La hidratación se ve en nutrición deportiva."
+        },
+        {
+          "q": "¿Dónde se aborda la hidratación y la suplementación?",
+          "o": [
+            "Módulo 1",
+            "Módulo 5",
+            "Módulo 7",
+            "Módulo 8"
+          ],
+          "c": 1,
+          "e": "El módulo 5 (Nutrición deportiva) incluye hidratación, suplementación y ayudas ergogénicas."
+        },
+        {
+          "q": "¿Qué módulo estudia el deporte en la altura y en la profundidad?",
+          "o": [
+            "Módulo 2",
+            "Módulo 3",
+            "Módulo 7",
+            "Módulo 9"
+          ],
+          "c": 2,
+          "e": "El módulo 7 reúne las etapas del ciclo vital y las situaciones especiales, entre ellas la altura y la profundidad."
+        },
+        {
+          "q": "¿Qué enfoque tiene el módulo 6?",
+          "o": [
+            "Fisiología muscular",
+            "Psicología y deporte en cada etapa de la vida",
+            "Diagnóstico por imágenes",
+            "Certificados de aptitud"
+          ],
+          "c": 1,
+          "e": "El módulo 6 aborda la psicología del deporte desde la niñez hasta la vejez."
+        },
+        {
+          "q": "¿Qué es lo primero que define el módulo 1?",
+          "o": [
+            "La periodización",
+            "Las lesiones ligamentarias",
+            "Actividad física y medicina deportiva",
+            "La cineantropometría"
+          ],
+          "c": 2,
+          "e": "El módulo 1 define la actividad física y la medicina deportiva, y diferencia ejercicio, entrenamiento y deporte."
+        }
+      ]
+    }
+  ]
+}

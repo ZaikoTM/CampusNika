@@ -95,6 +95,9 @@
           $$('.pe-check input', c).forEach((b) => b.addEventListener('change', () => { b.checked ? sel.add(+b.dataset.i) : sel.delete(+b.dataset.i); est.tour.comp = [...sel]; guardar(est); pintar(); if (sel.size === p.lista.length) confeti(); })); };
         pintar();
       },
+      biblio(p, c) {
+        c.innerHTML = `<div class="ml-biblio">${p.grupos.map((g, i) => `<details class="ml-bib" style="--d:${i}"${i === 0 ? ' open' : ''}><summary><span class="ic">${esc(g.icono)}</span><b>${esc(g.titulo)}</b><small>${g.items.length} textos</small></summary><ul>${g.items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></details>`).join('')}</div>`;
+      },
       tarjetas(p, c) { c.innerHTML = `<div class="pe-cards">${p.tarjetas.map((t, i) => `<div class="pe-card ml-card" style="--d:${i}"><span class="ic">${t.icono}</span><h4>${esc(t.titulo)}</h4><span class="dato">${esc(t.dato)}</span><p>${esc(t.texto)}</p></div>`).join('')}</div>`; },
       evaluacion(p, c) {
         let a = 0;
