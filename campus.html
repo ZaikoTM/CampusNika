@@ -22,7 +22,7 @@
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=8">
     <style>
         /* ---- Tarjeta Upsell NikaMed+ (sidebar, solo usuarios free) ----
            No la metemos en styles.css porque ese archivo lo comparten
@@ -320,6 +320,13 @@
 
         <div class="action-hub">
             <div class="continuity-card" id="continuity-card">
+                <div class="continuity-bg" aria-hidden="true">
+                    <svg class="cont-wave w1" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 62 C100 22 200 102 300 62 S500 22 600 62 S800 102 900 62 S1100 22 1200 62 V120 H0 Z"/></svg>
+                    <svg class="cont-wave w2" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 70 C120 110 220 30 300 70 S480 110 600 70 S780 30 900 70 S1080 110 1200 70 V120 H0 Z"/></svg>
+                    <svg class="cont-wave w3" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 80 C150 50 250 110 300 80 S450 50 600 80 S750 110 900 80 S1050 50 1200 80 V120 H0 Z"/></svg>
+                    <span class="cont-marca" id="continuity-marca">📚</span>
+                    <i class="cont-burbuja b1"></i><i class="cont-burbuja b2"></i><i class="cont-burbuja b3"></i>
+                </div>
                 <div class="continuity-ico" id="continuity-ico" aria-hidden="true">📚</div>
                 <div class="continuity-info">
                     <h4>Continuá donde lo dejaste</h4>
@@ -1356,13 +1363,14 @@
             const c = marca && marca.c1 ? [marca.icono || base[0], marca.c1, marca.c2 || marca.c1] : base;
             if (cardEl) { cardEl.style.setProperty('--cont-c1', c[1]); cardEl.style.setProperty('--cont-c2', c[2]); cardEl.classList.add('con-datos'); }
             if (icoEl) icoEl.textContent = c[0];
+            const marcaEl = document.getElementById('continuity-marca'); if (marcaEl) marcaEl.textContent = c[0];
             if (titleEl) titleEl.textContent = modulo;
-            if (subEl) {
-                const cuando = t ? (() => { const m = Math.round((Date.now() - t) / 60000); return m < 2 ? 'hace un momento' : m < 60 ? `hace ${m} min` : m < 1440 ? `hace ${Math.round(m / 60)} h` : `hace ${Math.round(m / 1440)} d`; })() : '';
-                subEl.textContent = [up, titulo].filter(Boolean).join(' · ') + (cuando ? `  ·  ${cuando}` : '');
-            }
+            // subtítulo corto: "UP6 · Dolor inguinal en adultos" (sin el resto del título) y la hora aparte
+            const corto = (txt) => { let x = String(txt || '').split(/[:—–]/)[0].trim(); if (x.length > 46) x = x.slice(0, 45).trimEnd() + '…'; return x; };
+            if (subEl) subEl.textContent = [up, corto(titulo)].filter(Boolean).join(' · ');
+            const cuando = t ? (() => { const m = Math.round((Date.now() - t) / 60000); return m < 2 ? 'hace un momento' : m < 60 ? `hace ${m} min` : m < 1440 ? `hace ${Math.round(m / 60)} h` : `hace ${Math.round(m / 1440)} d`; })() : '';
             if (continuityFill) continuityFill.style.width = `${Math.max(0, Math.min(100, pct || 0))}%`;
-            if (continuityLabel) continuityLabel.innerText = `${Math.round(pct || 0)}% completado`;
+            if (continuityLabel) continuityLabel.innerText = `${Math.round(pct || 0)}% completado` + (cuando ? ` · ${cuando}` : '');
             if (btnEl) { btnEl.textContent = 'Seguir entrenando →'; btnEl.onclick = () => { location.href = url; }; }
         };
 
@@ -1375,6 +1383,7 @@
         } else {
             if (cardEl) cardEl.classList.remove('con-datos');
             if (icoEl) icoEl.textContent = '🧭';
+            const marcaEl0 = document.getElementById('continuity-marca'); if (marcaEl0) marcaEl0.textContent = '🧭';
             if (titleEl) titleEl.textContent = 'Aún no iniciaste ningún módulo';
             if (subEl) subEl.textContent = 'Elegí una materia en la Sala de Estudio y empezá por la primera unidad.';
             if (continuityFill) continuityFill.style.width = '0%';

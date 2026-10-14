@@ -2360,3 +2360,20 @@ body.dark-mode .prof-check.ok { color: #4ade80; }
 .btn-continue-action:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 16px 26px -12px var(--cont-c2); }
 @media (max-width: 640px) { .continuity-ico { margin: 0 auto; } .continuity-sub { white-space: normal; } }
 @media (prefers-reduced-motion: reduce) { .continuity-card::after, .continuity-ico { animation: none; } }
+
+/* ---- fondo de la tarjeta: olas y burbujas con los colores de la materia ---- */
+.continuity-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; border-radius: inherit; }
+.cont-wave { position: absolute; left: 0; bottom: 0; width: 200%; height: 72%; }
+.cont-wave path { fill: var(--cont-c1); }
+.cont-wave.w1 { opacity: .16; animation: contOla 14s linear infinite; }
+.cont-wave.w2 { opacity: .13; height: 58%; animation: contOla 21s linear infinite reverse; } .cont-wave.w2 path { fill: var(--cont-c2); }
+.cont-wave.w3 { opacity: .11; height: 42%; animation: contOla 30s linear infinite; }
+@keyframes contOla { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.cont-marca { position: absolute; right: 190px; top: 50%; transform: translateY(-50%) rotate(-10deg); font-size: 5.6rem; opacity: .08; filter: saturate(1.4); animation: contMarca 9s ease-in-out infinite; user-select: none; }
+@keyframes contMarca { 50% { transform: translateY(-56%) rotate(-4deg) scale(1.05); } }
+.cont-burbuja { position: absolute; bottom: -14px; width: 10px; height: 10px; border-radius: 50%; background: var(--cont-c1); opacity: 0; animation: contBurbuja 7s ease-in infinite; }
+.cont-burbuja.b1 { left: 22%; animation-delay: 0s; } .cont-burbuja.b2 { left: 46%; width: 7px; height: 7px; background: var(--cont-c2); animation-delay: 2.4s; } .cont-burbuja.b3 { left: 71%; width: 12px; height: 12px; animation-delay: 4.6s; }
+@keyframes contBurbuja { 0% { transform: translateY(0) scale(.6); opacity: 0; } 15% { opacity: .35; } 100% { transform: translateY(-96px) scale(1.1); opacity: 0; } }
+.continuity-card .continuity-ico, .continuity-card .continuity-info, .continuity-card .btn-continue-action { z-index: 1; }
+@media (max-width: 640px) { .cont-marca { right: 12px; font-size: 4rem; } }
+@media (prefers-reduced-motion: reduce) { .cont-wave, .cont-marca, .cont-burbuja { animation: none !important; } }
