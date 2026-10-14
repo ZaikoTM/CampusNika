@@ -369,7 +369,7 @@ const NikaMusic = (() => {
     if (ambAudio) { try { ambAudio.pause(); ambAudio.removeAttribute('src'); ambAudio.load(); } catch (_) {} ambAudio = null; }
   }
 
-  function iniciarAmbiente(id) {
+  function iniciarAmbiente(id, inicio) {
     detenerOtros('ruido');
     detenerAmbiente();
     const def = AMBIENTES.find((x) => x.id === id);
@@ -377,6 +377,7 @@ const NikaMusic = (() => {
       const a = new Audio(def.archivo);
       a.loop = true; a.preload = 'auto'; a.volume = Math.min(1, parseFloat(localStorage.getItem(K_AMB) || '0.5') * 1.2);
       ambAudio = a; ambId = id;
+      if (inicio > 0) a.addEventListener('loadedmetadata', () => { try { if (a.duration) a.currentTime = inicio % a.duration; } catch (_) {} }, { once: true });
       fuente = { tipo: 'ruido', nombre: def.label }; sonando = true;
       const p = a.play();
       if (p && p.catch) p.catch(() => { if (ambAudio === a) { sonando = false; pintarEstado(); } });
@@ -429,7 +430,8 @@ const NikaMusic = (() => {
     return host;
   }
   function volYt() { return Math.round(Math.min(1, parseFloat(localStorage.getItem(K_AMB) || '0.5')) * 100); }
-  function reproducirYt(i) {
+  function reproducirYt(i, inicio) {
+    inicio = Math.max(0, Math.floor(inicio || 0));
     const it = YT_LISTA[((i % YT_LISTA.length) + YT_LISTA.length) % YT_LISTA.length];
     detenerOtros('yt');
     ytIdx = YT_LISTA.indexOf(it);
@@ -438,11 +440,11 @@ const NikaMusic = (() => {
     const host = contenedorYt();
     cargarYtApi(() => {
       if (!fuente || fuente.tipo !== 'yt') return;
-      if (ytCtrl && ytCtrl.loadVideoById) { try { ytCtrl.loadVideoById(it.id); ytCtrl.setVolume(volYt()); } catch (_) {} return; }
+      if (ytCtrl && ytCtrl.loadVideoById) { try { ytCtrl.loadVideoById({ videoId: it.id, startSeconds: inicio }); ytCtrl.setVolume(volYt()); } catch (_) {} return; }
       host.innerHTML = '<div id="nm-yt-div"></div>';
       ytCtrl = new window.YT.Player('nm-yt-div', {
         width: '100%', height: '100%', videoId: it.id,
-        playerVars: { autoplay: 1, controls: 0, rel: 0, modestbranding: 1, playsinline: 1, iv_load_policy: 3, disablekb: 1, fs: 0, origin: location.origin },
+        playerVars: { autoplay: 1, controls: 0, rel: 0, modestbranding: 1, playsinline: 1, iv_load_policy: 3, disablekb: 1, fs: 0, start: inicio, origin: location.origin },
         events: {
           onReady: (e) => { try { e.target.setVolume(volYt()); e.target.playVideo(); } catch (_) {} },
           onStateChange: (e) => {
@@ -721,6 +723,18 @@ const NikaMusic = (() => {
       #nm-pill { position: fixed; right: 92px; bottom: 22px; z-index: 9992; display: none; align-items: center; gap: 10px; max-width: min(430px, calc(100vw - 110px)); padding: 6px 8px 6px 14px; border-radius: 9999px;
         background: linear-gradient(135deg, #14181f, #0b0e13); color: #f1f5f9; border: 1px solid rgba(29,185,84,.55); box-shadow: 0 14px 30px -10px rgba(0,0,0,.7), 0 0 22px -6px rgba(29,185,84,.5); font-family: inherit; }
       #nm-pill.on { display: flex; animation: nmIn .2s ease; }
+      /* barra flotante en modo compacto y/o vertical */
+      #nm-pill.nm-compacta { gap: 4px; padding: 5px 6px; max-width: none; }
+      #nm-pill.nm-compacta .nm-grip, #nm-pill.nm-compacta #nm-pill-t, #nm-pill.nm-compacta #nm-pill-prev, #nm-pill.nm-compacta #nm-pill-next, #nm-pill.nm-compacta #nm-pill-vol { display: none; }
+      #nm-pill.nm-compacta #nm-pill-play { width: 36px !important; height: 36px !important; }
+      #nm-pill.nm-vertical { flex-direction: column; border-radius: 26px; padding: 10px 6px; gap: 6px; max-width: none; width: auto; }
+      #nm-pill.nm-vertical .nm-pill-ctrl { flex-direction: column; }
+      #nm-pill.nm-vertical .nm-grip { transform: rotate(90deg); }
+      #nm-pill.nm-vertical #nm-pill-t { writing-mode: vertical-rl; transform: rotate(180deg); max-height: 118px; min-width: 0; flex: 0 1 auto; font-size: .72rem; }
+      #nm-pill.nm-vertical #nm-pill-volbox { right: calc(100% + 10px); bottom: auto; top: 50%; transform: translateY(-50%); }
+      #nm-pill.nm-compacta.nm-vertical #nm-pill-t { display: none; }
+      #nm-pill-comp, #nm-pill-rot { font-size: .8rem !important; }
+      #nm-pill-close { font-size: .8rem !important; } #nm-pill-close:hover { background: #ef4444 !important; color: #fff !important; }
       .nm-eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 16px; flex-shrink: 0; }
       .nm-eq i { width: 3px; height: 4px; background: #1db954; border-radius: 2px; }
       #nm-pill.sonando .nm-eq i, .nm-eq.sonando i { animation: nmEq 0.9s ease-in-out infinite; }
@@ -744,6 +758,7 @@ const NikaMusic = (() => {
         .nm-body { padding: 12px; gap: 12px; }
         .nm-bigctrl .med { width: 50px; height: 50px; } .nm-bigctrl .grande { width: 66px; height: 66px; }
         #nm-pill { left: 10px; right: 72px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); max-width: none; }
+        #nm-pill.nm-compacta, #nm-pill.nm-vertical { left: auto; right: 10px; }
         #nm-pill-t { min-width: 0; } #nm-pill-x { display: none; }
         #nm-pill-volbox { right: 0; width: min(230px, 80vw); }
         body.at-en-llamada #nm-pill { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
@@ -765,6 +780,9 @@ const NikaMusic = (() => {
         <button type="button" id="nm-pill-next" aria-label="Siguiente" title="Siguiente">⏭</button>
         <button type="button" id="nm-pill-vol" aria-label="Volumen" title="Volumen">🔊</button>
         <button type="button" id="nm-pill-x" aria-label="Ampliar" title="Ampliar">⤢</button>
+        <button type="button" id="nm-pill-comp" aria-label="Hacer más chica" title="Más chica / normal">⊟</button>
+        <button type="button" id="nm-pill-rot" aria-label="Girar a vertical" title="Girar: horizontal / vertical">⟳</button>
+        <button type="button" id="nm-pill-close" aria-label="Cerrar NikaMusic y detener la música" title="Cerrar y detener la música">✕</button>
       </div>
       <div id="nm-pill-volbox"><button type="button" id="nm-pill-mute" aria-label="Silenciar">🔊</button><input type="range" id="nm-pill-range" min="0" max="100" value="50" aria-label="Volumen"><b id="nm-pill-n">50</b></div>`;
     document.body.appendChild(panel); document.body.appendChild(pill);
@@ -772,6 +790,9 @@ const NikaMusic = (() => {
     $('#nm-pill-prev', pill).onclick = (e) => { e.stopPropagation(); saltar(-1); };
     $('#nm-pill-next', pill).onclick = (e) => { e.stopPropagation(); saltar(1); };
     $('#nm-pill-x', pill).onclick = () => abrir();
+    $('#nm-pill-comp', pill).onclick = (e) => { e.stopPropagation(); const u = ui().pill || {}; guardarUi({ pill: { ...u, c: !u.c } }); aplicarPill(); };
+    $('#nm-pill-close', pill).onclick = (e) => { e.stopPropagation(); cerrarYDetener(); };
+    $('#nm-pill-rot', pill).onclick = (e) => { e.stopPropagation(); const u = ui().pill || {}; guardarUi({ pill: { ...u, v: !u.v } }); aplicarPill(); };
     $('#nm-pill-t', pill).onclick = () => { if (arrastroPill) return; abrir(); };
     activarArrastrePill();
     $('#nm-pill-vol', pill).onclick = (e) => { e.stopPropagation(); if (!volumenSoportado()) return; pill.classList.toggle('vol-abierto'); pintarVolumen(); };
@@ -798,7 +819,7 @@ const NikaMusic = (() => {
     vista = u.vista === 'spotify' && leerTokens() && esPlus() ? 'spotify' : 'ambiente';
     render();
     posicionInicial();
-    posicionPill();
+    aplicarPill();
   }
 
   // ---- arrastre desde la cabecera ----
@@ -835,6 +856,18 @@ const NikaMusic = (() => {
   }
 
   // ---- píldora minimizada: arrastrable, abajo por defecto, y recuerda dónde la dejaste ----
+  // modo de la barra flotante: normal / compacta, horizontal / vertical (se guarda por dispositivo)
+  function aplicarPill() {
+    if (!pill) return;
+    const u = ui().pill || {};
+    pill.classList.toggle('nm-compacta', !!u.c);
+    pill.classList.toggle('nm-vertical', !!u.v);
+    const bc = $('#nm-pill-comp', pill), br = $('#nm-pill-rot', pill);
+    if (bc) { bc.textContent = u.c ? '⊞' : '⊟'; bc.title = u.c ? 'Volver al tamaño normal' : 'Hacerla más chica'; }
+    if (br) br.title = u.v ? 'Poner en horizontal' : 'Poner en vertical';
+    posicionPill();
+    try { acoplarYt(); } catch (_) {}
+  }
   function posicionPill() {
     if (!pill) return;
     if (enCelular()) { pill.style.left = ''; pill.style.top = ''; pill.style.right = ''; pill.style.bottom = ''; return; }
@@ -869,13 +902,22 @@ const NikaMusic = (() => {
 
   // ---- la sesión sigue al cambiar de página (píldora, fuente y reproducción) ----
   let sesionLista = false;   // hasta restaurar la sesión anterior no se guarda nada (evita pisarla con el estado vacío del arranque)
+  // segundo en el que va lo que suena (para seguir desde el mismo punto al cambiar de página)
+  function posActual() {
+    try {
+      if (fuente && fuente.tipo === 'yt' && ytCtrl && ytCtrl.getCurrentTime) return Math.floor(ytCtrl.getCurrentTime() || 0);
+      if (ambAudio && ambAudio.currentTime) return Math.floor(ambAudio.currentTime);
+    } catch (_) {}
+    return 0;
+  }
   function guardarSesion() {
     if (!sesionLista) return;
     try {
       if (!fuente) { sessionStorage.removeItem(K_SESS); return; }
-      sessionStorage.setItem(K_SESS, JSON.stringify({ min: minimizado && abierto, sonando: !!sonando, fuente: { tipo: fuente.tipo, nombre: fuente.nombre, id: fuente.tipo === 'ruido' ? ambId : null, yt: fuente.tipo === 'yt' ? ytIdx : null } }));
+      sessionStorage.setItem(K_SESS, JSON.stringify({ min: minimizado && abierto, sonando: !!sonando, fuente: { tipo: fuente.tipo, nombre: fuente.nombre, id: fuente.tipo === 'ruido' ? ambId : null, yt: fuente.tipo === 'yt' ? ytIdx : null }, pos: posActual(), ts: Date.now() }));
     } catch (_) {}
   }
+  const posDesdeSesion = (s0) => (Number(s0.pos) || 0) + (s0.sonando && s0.ts ? Math.min(30, Math.max(0, (Date.now() - s0.ts) / 1000)) : 0);
   function restaurarSesion() {
     let s0 = null; try { s0 = JSON.parse(sessionStorage.getItem(K_SESS) || 'null'); } catch (_) {}
     sesionLista = true;
@@ -885,7 +927,7 @@ const NikaMusic = (() => {
     try {
       if (f.tipo === 'ruido' && AMBIENTES.find((a2) => a2.id === f.id)) {
         if (s0.sonando) {
-          iniciarAmbiente(f.id);
+          iniciarAmbiente(f.id, posDesdeSesion(s0));
           if (actx && actx.state === 'suspended') {   // el navegador pide un gesto para sonar: queda en pausa y arranca con el primer toque
             sonando = false;
             const reanudar = () => { if (actx) { actx.resume(); sonando = true; pintarEstado(); } };
@@ -896,7 +938,7 @@ const NikaMusic = (() => {
         const k = YT_LISTA.findIndex((x) => x.label === f.nombre);
         if (k >= 0) {
           fuente = { tipo: 'yt', nombre: YT_LISTA[k].label }; ytIdx = k; sonando = false;
-          if (s0.sonando) { reproducirYt(k); const reanudar = () => { if (ytCtrl && sonando === false) { try { ytCtrl.playVideo(); } catch (_) {} } }; ['pointerdown', 'keydown'].forEach((ev) => window.addEventListener(ev, reanudar, { once: true })); }
+          if (s0.sonando) { reproducirYt(k, posDesdeSesion(s0)); const reanudar = () => { if (ytCtrl && sonando === false) { try { ytCtrl.playVideo(); } catch (_) {} } }; ['pointerdown', 'keydown'].forEach((ev) => window.addEventListener(ev, reanudar, { once: true })); }
         }
       } else if (f.tipo === 'embed') {
         const e = EMBEDS.find((x) => x.label === f.nombre);
@@ -1285,6 +1327,7 @@ const NikaMusic = (() => {
     restaurarSesion();
     iniciarSondeoExterno();
     vigilarPomodoro();
+    setInterval(() => { if (sonando && sesionLista) guardarSesion(); }, 2000);   // la posición queda guardada para la próxima página
     // Si la música de tu cuenta estaba sonando al cambiar de página, el reproductor se reconecta y la retoma
     if (leerTokens() && localStorage.getItem(K_ACTIVA) === '1') cargarSdk();
   }
