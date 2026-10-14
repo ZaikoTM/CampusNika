@@ -2363,7 +2363,7 @@ body.dark-mode .prof-check.ok { color: #4ade80; }
 
 /* ---- fondo de la tarjeta: olas y burbujas con los colores de la materia ---- */
 .continuity-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; border-radius: inherit; }
-.cont-wave { position: absolute; left: 0; bottom: 0; width: 200%; height: 72%; }
+.cont-wave { position: absolute; left: 0; bottom: 0; width: 200%; min-width: 200%; max-width: none !important; height: 72%; display: block; will-change: transform; }
 .cont-wave path { fill: var(--cont-c1); }
 .cont-wave.w1 { opacity: .16; animation: contOla 14s linear infinite; }
 .cont-wave.w2 { opacity: .13; height: 58%; animation: contOla 21s linear infinite reverse; } .cont-wave.w2 path { fill: var(--cont-c2); }
