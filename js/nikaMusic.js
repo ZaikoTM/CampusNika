@@ -471,14 +471,59 @@ const NikaMusic = (() => {
       host.style.right = 'auto'; host.style.bottom = 'auto';
       return;
     }
-    host.className = 'nm-yt-mini';
+    const u = ui().yt || {};
+    const tam = ['normal', 'chica', 'chip'].includes(u.tam) ? u.tam : 'chica';
+    host.className = 'nm-yt-mini t-' + tam;
     host.style.width = ''; host.style.height = '';
-    if (pill && pill.classList.contains('on')) {
+    ovYt(host);
+    const W = tam === 'normal' ? 160 : tam === 'chica' ? 112 : 44, H = tam === 'normal' ? 90 : tam === 'chica' ? 63 : 44;
+    if (typeof u.x === 'number' && typeof u.y === 'number') {   // lugar elegido por la persona (se arrastra libremente)
+      host.style.left = Math.max(0, Math.min(u.x, window.innerWidth - W)) + 'px';
+      host.style.top = Math.max(0, Math.min(u.y, window.innerHeight - H)) + 'px';
+      host.style.right = 'auto'; host.style.bottom = 'auto';
+    } else if (pill && pill.classList.contains('on')) {
       const r = pill.getBoundingClientRect();
-      host.style.left = Math.max(8, Math.min(r.left, window.innerWidth - 176)) + 'px';
-      host.style.top = Math.max(8, r.top - 98) + 'px';
+      if (tam === 'chip') {   // cuadradito pegado a la izquierda de la píldora, como una carátula
+        host.style.left = Math.max(4, r.left - 52) + 'px';
+        host.style.top = Math.max(4, r.top + (r.height - H) / 2) + 'px';
+      } else {
+        host.style.left = Math.max(8, Math.min(r.left, window.innerWidth - W - 16)) + 'px';
+        host.style.top = Math.max(8, r.top - H - 8) + 'px';
+      }
       host.style.right = 'auto'; host.style.bottom = 'auto';
     } else { host.style.left = '16px'; host.style.top = 'auto'; host.style.right = 'auto'; host.style.bottom = '78px'; }
+  }
+  // Capa sobre el video mini: arrastrar, cambiar de tamaño (normal / chica / chip) y ampliar. El video sigue siempre visible.
+  function ovYt(host) {
+    if (host.querySelector('.nm-yt-ov')) return;
+    const ov = document.createElement('div'); ov.className = 'nm-yt-ov'; ov.title = 'Arrastrá para moverla';
+    ov.innerHTML = '<button type="button" class="nm-yt-b1" aria-label="Cambiar tamaño" title="Cambiar tamaño">⤡</button><button type="button" class="nm-yt-b2" aria-label="Ampliar NikaMusic" title="Ampliar NikaMusic">⤢</button>';
+    host.appendChild(ov);
+    ov.querySelector('.nm-yt-b1').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const t = (ui().yt || {}).tam || 'chica', sig = { normal: 'chica', chica: 'chip', chip: 'normal' }[t] || 'chica';
+      guardarUi({ yt: { ...(ui().yt || {}), tam: sig } }); acoplarYt();
+    });
+    ov.querySelector('.nm-yt-b2').addEventListener('click', (e) => { e.stopPropagation(); abrir(); });
+    ov.addEventListener('dblclick', (e) => { if (e.target.closest('button')) return; const y = { ...(ui().yt || {}) }; delete y.x; delete y.y; guardarUi({ yt: y }); acoplarYt(); });
+    ov.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button')) return;
+      const r = host.getBoundingClientRect(), dx = e.clientX - r.left, dy = e.clientY - r.top; let movio = false;
+      try { ov.setPointerCapture(e.pointerId); } catch (_) {}
+      const mover = (ev) => {
+        if (!movio && Math.abs(ev.clientX - e.clientX) < 4 && Math.abs(ev.clientY - e.clientY) < 4) return;
+        movio = true; host.classList.add('moviendo');
+        host.style.left = Math.max(0, Math.min(ev.clientX - dx, window.innerWidth - r.width)) + 'px';
+        host.style.top = Math.max(0, Math.min(ev.clientY - dy, window.innerHeight - r.height)) + 'px';
+        host.style.right = 'auto'; host.style.bottom = 'auto';
+      };
+      const soltar = () => {
+        ov.removeEventListener('pointermove', mover); ov.removeEventListener('pointerup', soltar); ov.removeEventListener('pointercancel', soltar);
+        host.classList.remove('moviendo');
+        if (movio) guardarUi({ yt: { ...(ui().yt || {}), x: parseFloat(host.style.left), y: parseFloat(host.style.top) } });
+      };
+      ov.addEventListener('pointermove', mover); ov.addEventListener('pointerup', soltar); ov.addEventListener('pointercancel', soltar);
+    });
   }
 
 
@@ -559,7 +604,18 @@ const NikaMusic = (() => {
       #nm-yt-persist iframe { width: 100%; height: 100%; border: 0; display: block; }
       #nm-yt-persist.nm-yt-oculto { left: -9999px; top: 0; width: 160px; height: 90px; opacity: 0; pointer-events: none; }
       #nm-yt-persist.nm-yt-grande { border-radius: 14px; box-shadow: 0 0 0 1px rgba(29,185,84,.6), 0 14px 30px -12px rgba(0,0,0,.7); pointer-events: none; }
-      #nm-yt-persist.nm-yt-mini { width: 160px; height: 90px; border-radius: 12px; box-shadow: 0 0 0 2px rgba(29,185,84,.75), 0 16px 30px -12px rgba(0,0,0,.8); animation: nmMini .35s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+      #nm-yt-persist .nm-yt-ov { display: none; }
+      #nm-yt-persist.nm-yt-mini .nm-yt-ov { display: block; position: absolute; inset: 0; z-index: 2; cursor: grab; touch-action: none; border-radius: inherit; }
+      #nm-yt-persist.nm-yt-mini.moviendo .nm-yt-ov { cursor: grabbing; }
+      #nm-yt-persist.nm-yt-mini .nm-yt-ov button { position: absolute; top: 3px; width: 22px; height: 22px; border: 0; border-radius: 7px; background: rgba(0,0,0,.62); color: #fff; font-size: .72rem; line-height: 1; cursor: pointer; opacity: 0; transform: scale(.8); transition: opacity .15s, transform .15s, background .15s; }
+      #nm-yt-persist.nm-yt-mini .nm-yt-b1 { right: 28px; } #nm-yt-persist.nm-yt-mini .nm-yt-b2 { right: 3px; }
+      #nm-yt-persist.nm-yt-mini:hover .nm-yt-ov button, #nm-yt-persist.nm-yt-mini.moviendo .nm-yt-ov button { opacity: 1; transform: none; }
+      #nm-yt-persist.nm-yt-mini .nm-yt-ov button:hover { background: #1db954; color: #04130a; }
+      #nm-yt-persist.nm-yt-mini.t-normal { width: 160px; height: 90px; } #nm-yt-persist.nm-yt-mini.t-chica { width: 112px; height: 63px; }
+      #nm-yt-persist.nm-yt-mini.t-chip { width: 44px; height: 44px; border-radius: 12px; }
+      #nm-yt-persist.nm-yt-mini.t-chip iframe { position: absolute; left: -17px; top: 0; width: 78px; height: 44px; }
+      #nm-yt-persist.nm-yt-mini.t-chip .nm-yt-ov button { top: 1px; width: 16px; height: 16px; font-size: .55rem; } #nm-yt-persist.nm-yt-mini.t-chip .nm-yt-b1 { right: 19px; } #nm-yt-persist.nm-yt-mini.t-chip .nm-yt-b2 { right: 1px; }
+      #nm-yt-persist.nm-yt-mini { width: 160px; height: 90px; border-radius: 12px; box-shadow: 0 0 0 2px rgba(29,185,84,.75), 0 16px 30px -12px rgba(0,0,0,.8); animation: nmMini .35s cubic-bezier(.34,1.56,.64,1); pointer-events: auto; }
       @keyframes nmMini { from { opacity: 0; transform: translateY(10px) scale(.85); } }
       .nm-yt-slot { flex: 0 0 150px; min-height: 150px; height: 150px; border-radius: 14px; margin: 6px 0 2px; background: linear-gradient(135deg, #0f172a, #14532d); position: relative; }
       .nm-yt-nota { flex: 0 0 auto; font-size: .66rem; color: #94a3b8; text-align: center; margin-bottom: 6px; }
