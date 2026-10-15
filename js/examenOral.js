@@ -494,6 +494,7 @@
     const modelo = String(q.justificacion || '').slice(0, 1800);
     return 'Sos un PROFESOR EXAMINADOR de la cátedra de ' + area.nombre + (area.nombreCompleto ? ' (' + area.nombreCompleto + ')' : '') + ' (Medicina, ' + area.anio + '.º año) tomando un EXAMEN ORAL a un estudiante que apunta al 10. '
       + 'Todo lo que escribas se va a LEER EN VOZ ALTA con una voz de síntesis: hablá en español rioplatense con voseo, en frases cortas y naturales, SIN markdown, SIN listas, SIN emojis, SIN paréntesis ni asteriscos ni corchetes (salvo la marca [CIERRE]). Máximo 70 palabras por intervención.\n\n'
+      + '## NIVEL DE ESTA PREGUNTA: ' + (q._nivel === 'basico' ? 'BÁSICO' : q._nivel === 'avanzado' ? 'AVANZADO' : 'INTERMEDIO') + '\n' + (q._nivel === 'basico' ? 'Es una pregunta accesible: pedí lo esencial (definición, concepto central o conducta principal). Con a lo sumo UNA repregunta sencilla alcanza; no pidas detalles finos ni excepciones. Tono amable y alentador.\n' : q._nivel === 'avanzado' ? 'Es una pregunta exigente: podés profundizar, pedir justificación fisiopatológica y conductas en situaciones particulares (máximo 2 repreguntas).\n' : 'Nivel medio: pedí lo importante con algo de justificación; hasta 1 o 2 repreguntas concretas.\n') + '\n'
       + '## LA PREGUNTA (la misma del simulador escrito)\nUnidad: ' + q.up + '\n' + String(q.pregunta).trim() + '\n\n'
       + '## CLAVE DE CORRECCIÓN (CONFIDENCIAL)\nEs solo para que sepas qué debe decir el alumno y para corregir AL FINAL. Jamás la cites, la insinúes ni la dictes durante el examen.\nPUNTOS CLAVE:\n'
       + (claves || '(sin puntos clave: guiate por la respuesta modelo)') + '\n'
@@ -586,13 +587,46 @@
   }
 
   /* ===================== estado y flujo ===================== */
-  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '', preparando: false, soloTexto: (function () { try { return localStorage.getItem('nika_eo_solotexto') === '1'; } catch (_) { return false; } })(), turnoId: 0, cerrando: false, micPausado: false, pre: {} };
+  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '', preparando: false, nivel: (function () { try { return localStorage.getItem('nika_eo_nivel') || 'mixto'; } catch (_) { return 'mixto'; } })(), soloTexto: (function () { try { return localStorage.getItem('nika_eo_solotexto') === '1'; } catch (_) { return false; } })(), turnoId: 0, cerrando: false, micPausado: false, pre: {} };
   const bancos = {};
   async function cargarBanco(m) {
     if (bancos[m]) return bancos[m];
     const r = await fetch('data/escrito_' + m + '.json'); if (!r.ok) throw new Error('No se pudo cargar el banco.');
     const d = await r.json(); bancos[m] = d.filter((q) => q && q.pregunta && Array.isArray(q.puntos_clave) && q.puntos_clave.some((p) => p && !/^pendiente\b/i.test(p)));
     return bancos[m];
+  }
+  // El banco no trae dificultad: se estima con la cantidad de puntos clave, el largo del enunciado y si es un caso clínico.
+  const NIVELES = { basico: { txt: 'Básico', ico: '🟢' }, intermedio: { txt: 'Intermedio', ico: '🟡' }, avanzado: { txt: 'Avanzado', ico: '🔴' } };
+  function puntajeDificultad(q) {
+    const np = clavesDe(q).length, len = String(q.pregunta || '').length;
+    const caso = /\b(paciente|años|consulta|ingresa|antecedentes|examen físico|presenta)\b/i.test(q.pregunta || '') ? 1 : 0;
+    const justif = String(q.justificacion || '').length > 900 ? 0.7 : 0;
+    return np * 1.0 + len / 260 + caso * 1.2 + (q.error_peligroso ? 0.6 : 0) + justif;
+  }
+  function clasificar(pool) {
+    const o = pool.map((q) => ({ q, v: puntajeDificultad(q) })).sort((a, b) => a.v - b.v);
+    const n = o.length;
+    o.forEach((x, i) => { x.q._nivel = i < n / 3 ? 'basico' : i < 2 * n / 3 ? 'intermedio' : 'avanzado'; });
+    return o.map((x) => x.q);
+  }
+  // 'mixto': la mayoría accesibles y algunas exigentes, de menos a más (arranca tranquilo y sube).
+  function armarExamen(pool, n, nivel) {
+    const c = clasificar(pool);
+    const por = { basico: barajar(c.filter((q) => q._nivel === 'basico')), intermedio: barajar(c.filter((q) => q._nivel === 'intermedio')), avanzado: barajar(c.filter((q) => q._nivel === 'avanzado')) };
+    if (nivel !== 'mixto' && por[nivel] && por[nivel].length) {
+      const base = por[nivel].slice(0, n);
+      // si no alcanzan, se completa con el nivel vecino
+      const orden = nivel === 'basico' ? ['intermedio', 'avanzado'] : nivel === 'avanzado' ? ['intermedio', 'basico'] : ['basico', 'avanzado'];
+      orden.forEach((k) => { while (base.length < n && por[k].length) base.push(por[k].shift()); });
+      return base.slice(0, n);
+    }
+    const nb = Math.max(1, Math.round(n * 0.4)), na = n >= 5 ? Math.max(1, Math.round(n * 0.2)) : 0, ni = Math.max(0, n - nb - na);
+    const res = [];
+    const tomar = (k, cant) => { while (cant > 0 && por[k].length) { res.push(por[k].shift()); cant--; } return cant; };
+    let faltan = tomar('basico', nb) + tomar('intermedio', ni) + tomar('avanzado', na);
+    ['intermedio', 'basico', 'avanzado'].forEach((k) => { faltan = tomar(k, faltan); });
+    const rank = { basico: 0, intermedio: 1, avanzado: 2 };
+    return res.sort((a, b) => rank[a._nivel] - rank[b._nivel]);
   }
   const barajar = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const etiquetaUp = (u) => { const a = areaActual(), x = a && a.unidades.find((y) => y.id === String(u)); return x ? x.label : 'UP ' + u; };
@@ -624,7 +658,7 @@
     try {
       const b = await cargarBanco(area.id), pool = poolDelModo(b);
       if (pool.length < 1) { estado.error = 'No hay preguntas para esa selección.'; return pintar(); }
-      estado.preguntas = barajar(pool).slice(0, estado.n);
+      estado.preguntas = armarExamen(pool, estado.n, estado.nivel || 'mixto');
     } catch (e) { estado.error = 'No se pudo cargar el banco de preguntas. Revisá tu conexión.'; return pintar(); }
     estado.i = 0; estado.hist = []; estado.resultados = []; estado.pendientes = []; estado.t0 = Date.now(); estado.mood = 'cordial'; estado.respaldo = false; estado.forzado = false;
     estado.abogado = await debilidadPendiente();
@@ -800,7 +834,7 @@
     let ia = null;
     if (!item.respaldo) {
       try {
-        const d = await llamarIA({ modo: 'examen_oral', submodo: area.id, tematica: String(q.up), system_prompt: conv.sys, historial: conv.hist, mensaje: MSG_EVAL, es_primer_turno: false, accion: 'evaluar_caso' });
+        const d = await llamarIA({ modo: 'examen_oral', submodo: area.id, tematica: String(q.up), system_prompt: conv.sys, historial: conv.hist, mensaje: MSG_EVAL + (q._nivel === 'basico' ? '\nNivel de la pregunta: BÁSICO. Evaluá con criterio proporcionado: si dijo con claridad los conceptos esenciales, la nota debe ser alta aunque falten detalles finos.' : q._nivel === 'avanzado' ? '\nNivel de la pregunta: AVANZADO. Se espera precisión y justificación.' : ''), es_primer_turno: false, accion: 'evaluar_caso' });
         ia = sacaJson(d.texto);
       } catch (_) { ia = null; }
     }
@@ -906,7 +940,7 @@
     raizEl.innerHTML = '<div class="eo-sala" style="--m:' + P.color + '">'
       + '<div class="eo-prog"><i style="width:' + Math.round(estado.i / total * 100) + '%"></i></div>'
       + '<div class="eo-pasos" aria-label="Progreso">' + Array.from({ length: total }, (_, k) => '<i class="' + (k < estado.i ? 'hecha' : k === estado.i ? 'ahora' : '') + '"></i>').join('') + '</div>'
-      + '<div class="eo-cab"><span class="eo-npreg">Pregunta <b>' + (estado.i + 1) + '</b> de ' + total + '</span><span class="eo-reloj" id="eo-reloj">⏱ 00:00</span><span class="eo-estado"><em class="eo-st">' + (preparando ? '⏳ Preparando la pregunta' : hablando ? '🔊 El profesor habla' : ev === 'escucha' ? (estado.micPausado || !escuchando ? '✍️ Tu turno' : '🎙️ Te escucho') : ev === 'evalua' ? '🧠 El profesor piensa' : estado.cerrando ? '➡️ Siguiente pregunta' : '') + '</em><em id="eo-corrigiendo"></em><em id="eo-integridad" class="eo-int"></em></span><span class="eo-animo">' + P.ico + ' ' + P.txt + '</span></div>'
+      + '<div class="eo-cab"><span class="eo-npreg">Pregunta <b>' + (estado.i + 1) + '</b> de ' + total + (q._nivel ? ' · ' + NIVELES[q._nivel].ico + ' ' + NIVELES[q._nivel].txt : '') + '</span><span class="eo-reloj" id="eo-reloj">⏱ 00:00</span><span class="eo-estado"><em class="eo-st">' + (preparando ? '⏳ Preparando la pregunta' : hablando ? '🔊 El profesor habla' : ev === 'escucha' ? (estado.micPausado || !escuchando ? '✍️ Tu turno' : '🎙️ Te escucho') : ev === 'evalua' ? '🧠 El profesor piensa' : estado.cerrando ? '➡️ Siguiente pregunta' : '') + '</em><em id="eo-corrigiendo"></em><em id="eo-integridad" class="eo-int"></em></span><span class="eo-animo">' + P.ico + ' ' + P.txt + '</span></div>'
       + '<div class="eo-prof"><div class="eo-avatar' + (S.hablando ? ' habla' : '') + '" id="eo-avatar"><span class="eo-cara">' + P.ico + '</span><i class="eo-onda"><b></b><b></b><b></b><b></b><b></b></i></div>'
       + '<div class="eo-bocadillo"><div class="eo-quien"><b>Profesor examinador</b><small>' + esc(area.nombre) + ' · ' + esc(etiquetaUp(q.up)) + '</small></div>'
       + (estado.subs ? '<div class="eo-texto' + (nuevoTexto ? '' : ' quieto') + '">' + fmtProfesor(estado.sub) + '</div>' : '<p class="eo-oculto">🎧 Escuchá al profesor…</p>') + '</div></div>'
@@ -1010,6 +1044,7 @@
       + '<li><b>Repreguntas y Abogado del Diablo:</b> el profesor puede repreguntar hasta 2 veces y, si tenés debilidades registradas, ponerte a prueba una vez con una objeción.</li>'
       + '<li><b>Una repetición:</b> podés pedir que repita la pregunta una vez.</li></ul></div>'
       + '<div class="eo-fila"><label class="eo-f"><span>Cantidad de preguntas</span><select id="eo-n">' + [3, 5, 6, 8, 10, 15].map((n) => '<option' + (n === estado.n ? ' selected' : '') + '>' + n + '</option>').join('') + '</select></label>'
+      + '<div class="eo-fila"><label class="eo-f"><span>Dificultad</span><select id="eo-nivel">' + [['mixto', '🎯 Mixta: de menos a más (recomendada)'], ['basico', '🟢 Básica: lo esencial'], ['intermedio', '🟡 Intermedia'], ['avanzado', '🔴 Avanzada: exigente']].map((o) => '<option value="' + o[0] + '"' + (o[0] === (estado.nivel || 'mixto') ? ' selected' : '') + '>' + o[1] + '</option>').join('') + '</select></label></div>'
       + '<div class="eo-f"><span>Preguntas disponibles</span><div class="eo-disp">' + (disp == null ? 'Cargando…' : disp + (disp === 1 ? ' pregunta' : ' preguntas') + ' en este examen') + '</div></div></div>'
       + vozHtml()
       + '<ul class="eo-notas"><li>🎧 Usá <b>auriculares</b> y un lugar tranquilo para que el micrófono no capte al profesor.</li><li>🎙️ El reconocimiento de voz funciona mejor en <b>Chrome o Edge</b>. Si tu navegador no lo permite, respondés escribiendo.</li></ul>'
@@ -1087,6 +1122,7 @@
       else if (a === 'probar') { callar(); pintarEstadoVoz('⏳ Preparando la voz…', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
       else if (a === 'comenzar') {
         if (!estado.plus || estado.preparando) return;
+        const nv = $('eo-nivel'); if (nv) estado.nivel = nv.value;
         const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; const u0 = $('eo-up'); if (u0) estado.up = u0.value;
         estado.preparando = true; estado.error = '';
         const btn = document.querySelector('.eo-comenzar'); if (btn) { btn.disabled = true; btn.classList.add('preparando'); btn.firstChild && (btn.firstChild.textContent = '⏳ Preparando la voz del profesor…'); }
@@ -1123,6 +1159,7 @@
       if (e.target.id === 'eo-subs') { estado.subs = e.target.checked; pintar(); }
       if (e.target.id === 'eo-voz') { const v = S.voces[e.target.value]; if (v) { S.voz = v; S.sel = 'dev'; S.pref = true; guardaPref('nika_eo_vozdev', v.name); guardaPref('nika_eo_voz2', 'dev'); } }
       if (e.target.id === 'eo-n') estado.n = Number(e.target.value) || 6;
+      if (e.target.id === 'eo-nivel') { estado.nivel = e.target.value; guardaPref('nika_eo_nivel', estado.nivel); }
       if (e.target.id === 'eo-solotexto') { estado.soloTexto = e.target.checked; guardaPref('nika_eo_solotexto', estado.soloTexto ? '1' : '0'); }
     });
     document.addEventListener('input', (e) => {
