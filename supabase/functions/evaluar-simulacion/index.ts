@@ -232,6 +232,55 @@ async function llamarGemini(modelo: string, systemPrompt: string, historial: any
     throw ultimoError instanceof Error ? ultimoError : new Error("No se pudo contactar a Gemini.");
 }
 
+// Respuesta en streaming (SSE) para el Simulador Examen oral: el navegador puede empezar a leer en voz alta la primera
+// oración sin esperar el resto. Cada evento es {t: "texto"}; al final {fin: true}. Se pasa por las mismas validaciones
+// (plan, cupo, topes) que la respuesta normal; solo cambia la forma de devolver el texto.
+function respuestaEnStream(modelo: string, systemPrompt: string, historial: any[], mensaje: string, alTerminar: (i: number, o: number) => void): Response {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+    const generationConfig: Record<string, unknown> = { temperature: 0.9, maxOutputTokens: 2048 };
+    if (/^gemini-3/.test(modelo)) generationConfig.thinkingConfig = { thinkingLevel: "minimal" };
+    const body = { system_instruction: { parts: [{ text: systemPrompt || "" }] }, contents: historialAContents(historial, mensaje), generationConfig };
+    const enc = new TextEncoder();
+    const stream = new ReadableStream({
+        async start(ctrl) {
+            const enviar = (o: unknown) => ctrl.enqueue(enc.encode("data: " + JSON.stringify(o) + "\n\n"));
+            const abort = new AbortController();
+            const timer = setTimeout(() => abort.abort(), GEMINI_TIMEOUT_MS);
+            let inT = 0, outT = 0;
+            try {
+                const resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: abort.signal });
+                if (!resp.ok || !resp.body) { enviar({ error: "Gemini respondió con HTTP " + resp.status }); return; }
+                const rd = resp.body.getReader(), dec = new TextDecoder();
+                let buf = "";
+                for (;;) {
+                    const { value, done } = await rd.read();
+                    if (done) break;
+                    buf += dec.decode(value, { stream: true });
+                    let k: number;
+                    while ((k = buf.indexOf("\n")) >= 0) {
+                        const linea = buf.slice(0, k).trim(); buf = buf.slice(k + 1);
+                        if (!linea.startsWith("data:")) continue;
+                        try {
+                            const j = JSON.parse(linea.slice(5));
+                            const t = j?.candidates?.[0]?.content?.parts?.map((p: any) => p.text || "").join("") ?? "";
+                            if (t) enviar({ t });
+                            if (j?.usageMetadata) { inT = Number(j.usageMetadata.promptTokenCount) || inT; outT = Number(j.usageMetadata.candidatesTokenCount) || outT; }
+                        } catch (_) { /* línea parcial: se ignora */ }
+                    }
+                }
+                enviar({ fin: true });
+            } catch (e) {
+                enviar({ error: e instanceof Error ? e.message : "stream_fallo" });
+            } finally {
+                clearTimeout(timer);
+                try { alTerminar(inT, outT); } catch (_) {}
+                ctrl.close();
+            }
+        },
+    });
+    return new Response(stream, { status: 200, headers: { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-cache, no-transform" } });
+}
+
 function calcularCostoUsd(inputTokens: number, outputTokens: number): number {
     const costo = (inputTokens / 1_000_000) * PRECIO_INPUT_POR_MILLON
                 + (outputTokens / 1_000_000) * PRECIO_OUTPUT_POR_MILLON;
@@ -416,6 +465,18 @@ Deno.serve(withCors(async (req: Request) => {
         // Ya se cobró el arranque del caso: no se lo hacemos perder, se llama igual (sobrepasar un poco el
         // tope por minuto es preferible a cobrar y no responder).
         console.warn("[evaluar-simulacion] sin cupo reservado tras cobrar; se llama igual a Gemini.");
+    }
+
+    // ---- Examen oral: respuesta en streaming (sin reintentos; el cliente cae al modo normal si falla) ----
+    if (payload?.stream === true && modo === "examen_oral" && !esEvaluacionDeCierre) {
+        return respuestaEnStream(modelo, system_prompt, historial, mensaje, (inputTokens, outputTokens) => {
+            const registrar = supabaseAdmin.from("ai_usage_logs").insert({
+                user_id: userId, simulador: modo || null, submodo: submodo || null, tematica: tematica || null,
+                input_tokens: inputTokens, output_tokens: outputTokens, costo_estimado_usd: calcularCostoUsd(inputTokens, outputTokens),
+            }).then(({ error }: { error: any }) => { if (error) console.error("[evaluar-simulacion] telemetría stream:", error); });
+            // @ts-ignore — EdgeRuntime existe en el runtime de Supabase Edge Functions
+            if (typeof EdgeRuntime !== "undefined" && EdgeRuntime.waitUntil) { /* @ts-ignore */ EdgeRuntime.waitUntil(registrar); } else registrar.catch(() => {});
+        });
     }
 
     // ---- Llamada a Gemini (con timeout + reintentos) -----------------------------

@@ -266,7 +266,7 @@
   const cacheVoz = new Map();
   function sintetizarCache(clave, trozo) {
     const k = clave + '|' + trozo;
-    if (!cacheVoz.has(k)) { if (cacheVoz.size > 24) cacheVoz.delete(cacheVoz.keys().next().value); const p = VL().sintetizar(clave, trozo); p.catch(() => cacheVoz.delete(k)); cacheVoz.set(k, p); }
+    if (!cacheVoz.has(k)) { if (cacheVoz.size > 48) cacheVoz.delete(cacheVoz.keys().next().value); const p = VL().sintetizar(clave, trozo); p.catch(() => cacheVoz.delete(k)); cacheVoz.set(k, p); }
     return cacheVoz.get(k);
   }
   // Prepara en segundo plano el audio del comienzo de un texto que se va a decir enseguida.
@@ -306,6 +306,7 @@
   }
   async function hablar(texto, mood) {
     if (!texto) return;
+    if (estado.soloTexto) { estado.subs = true; return; }
     const tok = ++S.tok; S.hablando = true; avatar(true); S.fallo = ''; S.via = '';
     try {
       const clave = S.sel.startsWith('loc:') ? S.sel.slice(4) : '';
@@ -428,6 +429,51 @@
     }
   }
 
+  // Igual que llamarIA pero leyendo la respuesta a medida que llega: apenas se completa la primera oración se avisa
+  // para que el profesor empiece a hablar sin esperar el resto. Si el servidor no hace streaming, devuelve el JSON normal.
+  async function llamarIAStream(payload, alPrimera) {
+    if (navigator.onLine === false) throw new Error('Sin conexión.');
+    const sb = window.NikaSupabase;
+    let token = null;
+    try { const { data: { session } } = await sb.client.auth.getSession(); token = session && session.access_token; } catch (_) {}
+    if (!token) throw new Error('Tu sesión no está activa.');
+    const base = (typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL) || 'https://pswjmouuyaxueaqqglko.supabase.co';
+    const key = (typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY) || '';
+    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 45000);
+    let acum = '', avisada = false;
+    try {
+      const r = await fetch(base + '/functions/v1/evaluar-simulacion', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token, apikey: key }, body: JSON.stringify(Object.assign({}, payload, { stream: true })), signal: ctrl.signal });
+      if (!r.ok || !/event-stream/i.test(r.headers.get('content-type') || '') || !r.body) {
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok || d.error || typeof d.texto !== 'string') { const e = new Error(d.mensaje || d.error || 'Error ' + r.status); e.status = r.status; e.codigo = d.error; throw e; }
+        return d;
+      }
+      const rd = r.body.getReader(), dec = new TextDecoder(); let buf = '', fin = false;
+      const revisar = () => {
+        if (avisada) return;
+        const m = acum.trim().match(/^([\s\S]{25,}?[.!?…])\s/);
+        if (m) { avisada = true; try { alPrimera(m[1]); } catch (_) {} }
+      };
+      for (;;) {
+        const { value, done } = await rd.read(); if (done) break;
+        buf += dec.decode(value, { stream: true });
+        let k; while ((k = buf.indexOf('\n\n')) >= 0) {
+          const bloque = buf.slice(0, k); buf = buf.slice(k + 2);
+          const l = bloque.split('\n').find((x) => x.startsWith('data:')); if (!l) continue;
+          let o; try { o = JSON.parse(l.slice(5)); } catch (_) { continue; }
+          if (o.t) { acum += o.t; revisar(); }
+          if (o.fin) fin = true;
+          if (o.error) { if (acum) fin = true; else throw new Error(o.error); }
+        }
+      }
+      if (!acum.trim()) throw new Error('Respuesta vacía.');
+      return { texto: acum, parcial: !fin };
+    } catch (e) {
+      if (acum.trim().length > 40) return { texto: acum, parcial: true };   // algo llegó: se usa lo recibido
+      throw e;
+    } finally { clearTimeout(to); }
+  }
+
   const MSG_INICIO = '[Instrucción de sistema — no la menciones] Arrancá la pregunta ahora: formulala en voz alta, de forma natural, y pedile al alumno que la desarrolle con sus palabras.';
   const MSG_EVAL = '[Instrucción de sistema — no la menciones] La pregunta terminó. Entregá AHORA la corrección. Tu ÚNICA salida es un objeto JSON válido, sin texto antes ni después ni bloques de código, con exactamente estas claves:\n'
     + '{"nota": número de 0 a 10 con un decimal,\n'
@@ -540,7 +586,7 @@
   }
 
   /* ===================== estado y flujo ===================== */
-  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '', preparando: false, turnoId: 0, cerrando: false, micPausado: false, pre: {} };
+  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '', preparando: false, soloTexto: (function () { try { return localStorage.getItem('nika_eo_solotexto') === '1'; } catch (_) { return false; } })(), turnoId: 0, cerrando: false, micPausado: false, pre: {} };
   const bancos = {};
   async function cargarBanco(m) {
     if (bancos[m]) return bancos[m];
@@ -571,7 +617,8 @@
 
   async function iniciar() {
     estado.error = ''; estado.aviso = '';
-    if (!window.speechSynthesis) { estado.error = 'Tu navegador no puede reproducir voz. Probá con Chrome, Edge o Safari.'; return pintar(); }
+    if (estado.soloTexto) { estado.textoLibre = true; estado.subs = true; }
+    else if (!window.speechSynthesis) { estado.error = 'Tu navegador no puede reproducir voz. Probá con Chrome, Edge o Safari.'; return pintar(); }
     const area = areaActual(), modo = modoActual();
     if (modo && modo.tipo === 'up' && !estado.up) { estado.error = 'Elegí la unidad que querés rendir.'; return pintar(); }
     try {
@@ -583,6 +630,7 @@
     estado.abogado = await debilidadPendiente();
     estado.abogadoIdx = estado.abogado ? Math.min(estado.preguntas.length - 1, Math.floor(estado.preguntas.length / 2)) : -1;
     estado.fase = 'examen'; estado.pre = {}; estado.turnoId++; activarIntegridad(); pintar();
+    Object.keys(TRANSICION).forEach((m) => TRANSICION[m].forEach((t) => anticiparVoz(t)));
     precargar(0);                                  // la IA ya prepara la primera pregunta mientras el profesor saluda
     await hablar('Buenos días. Soy su examinador de ' + area.nombre + '. Le voy a hacer ' + estado.preguntas.length + (estado.preguntas.length === 1 ? ' pregunta' : ' preguntas') + '. Desarrolle cada respuesta en voz alta, con claridad y con sus palabras. No se puede volver a una pregunta anterior. Comencemos.', 'cordial');
     preguntar();
@@ -599,9 +647,30 @@
     estado.pre[idx] = { sys, abogado, prom };
   }
 
+  const K_SNAP = 'nika_eo_snap';
+  function guardarSnap() {
+    try {
+      if (estado.fase !== 'examen') return;
+      localStorage.setItem(K_SNAP, JSON.stringify({ ts: Date.now(), anio: estado.anio, materia: estado.materia, modo: estado.modo, up: estado.up, n: estado.n, preguntas: estado.preguntas, i: estado.i, resultados: estado.resultados, hist: estado.hist, t0: estado.t0, abogadoIdx: estado.abogadoIdx, abogado: estado.abogado }));
+    } catch (_) {}
+  }
+  function borrarSnap() { try { localStorage.removeItem(K_SNAP); } catch (_) {} }
+  function leerSnap() {
+    try { const x = JSON.parse(localStorage.getItem(K_SNAP) || 'null'); if (x && Date.now() - x.ts < 12 * 3600 * 1000 && Array.isArray(x.preguntas) && x.i < x.preguntas.length) return x; } catch (_) {}
+    return null;
+  }
+  async function retomar(x) {
+    Object.assign(estado, { anio: x.anio, materia: x.materia, modo: x.modo, up: x.up, n: x.n, preguntas: x.preguntas, i: x.i, resultados: x.resultados || [], hist: x.hist || [], t0: x.t0, abogadoIdx: x.abogadoIdx, abogado: x.abogado, pendientes: [], pre: {}, mood: 'cordial', respaldo: false, forzado: false, fase: 'examen' });
+    if (estado.soloTexto) { estado.textoLibre = true; estado.subs = true; }
+    try { const b = await cargarBanco(areaActual().id); } catch (_) {}
+    activarIntegridad(); pintar();
+    await hablar('Retomamos el examen donde lo dejó. Continuemos.', 'cordial');
+    preguntar();
+  }
+
   async function preguntar() {
     if (estado.fase !== 'examen') return;
-    const turno = ++estado.turnoId; estado.cerrando = false; estado.micPausado = false;
+    const turno = ++estado.turnoId; estado.cerrando = false; estado.micPausado = false; guardarSnap();
     const q = estado.preguntas[estado.i], area = areaActual();
     estado.error = ''; estado.estadoVoz = 'pregunta'; estado.repetidas = 0; estado.limite = false; estado.textoPausado = ''; estado.mood = animo(estado.hist);
     const pre = estado.pre[estado.i]; delete estado.pre[estado.i];
@@ -665,13 +734,30 @@
     const msg = '[Ánimo actual del examinador: ' + PARAMS[estado.mood].txt.toLowerCase() + '] ' + (partes.length ? '(esta es la parte final de una respuesta larga dictada en varios mensajes) ' : '') + (a.t || '(el alumno no dijo nada)')
       + (ultimo ? '\n[Instrucción de sistema — no la menciones: es el último turno de esta pregunta; respondé con la frase de cierre terminada en [CIERRE].]' : '');
     try {
-      const d = await llamarIA({ modo: 'examen_oral', submodo: area.id, tematica: String(q.up), system_prompt: c.sys, historial: c.hist, mensaje: msg, es_primer_turno: false });
+      let primera = '', hPrimera = null;
+      const pl = { modo: 'examen_oral', submodo: area.id, tematica: String(q.up), system_prompt: c.sys, historial: c.hist, mensaje: msg, es_primer_turno: false };
+      let d;
+      try {
+        d = await llamarIAStream(pl, (frase) => {
+          if (turno !== estado.turnoId || estado.fase !== 'examen' || estado.soloTexto) return;
+          primera = limpioHablado(frase); if (!primera) return;
+          estado.sub = primera; estado.estadoVoz = 'pregunta'; pintar();
+          hPrimera = hablar(primera, estado.mood);
+        });
+      } catch (e) {
+        if (primera) throw e;
+        d = await llamarIA(pl);
+      }
       c.hist.push({ rol: 'usuario', texto: msg }, { rol: 'ia', texto: d.texto });
       const cierre = /\[CIERRE\]/i.test(d.texto) || ultimo, dicho = limpioHablado(d.texto);
       if (turno !== estado.turnoId) return;
       estado.sub = dicho; estado.estadoVoz = 'pregunta'; pintar();
-      anticiparVoz(dicho);
-      await hablar(dicho, estado.mood);
+      if (hPrimera) {
+        await hPrimera;
+        if (estado.fase !== 'examen' || turno !== estado.turnoId) return;
+        const resto = dicho.startsWith(primera) ? dicho.slice(primera.length).trim() : '';
+        if (resto) await hablar(resto, estado.mood);
+      } else { anticiparVoz(dicho); await hablar(dicho, estado.mood); }
       if (estado.fase !== 'examen' || turno !== estado.turnoId) return;
       if (cierre) return cerrarPregunta(c, null);
       abrirRespuesta();
@@ -720,7 +806,7 @@
       res = { idx: item.idx, q, nota: r.nota, r, respuesta: conv.alumno || '', ia: null, abogado: conv.abogado, motor: 'local' };
     }
     if (estado.resultados.some((r) => r.idx === res.idx)) return res;
-    estado.resultados.push(res);
+    estado.resultados.push(res); guardarSnap();
     estado.hist.push(res.nota);           // el ánimo del profesor se va ajustando a medida que llegan las correcciones
     pintarProgresoCorreccion();
     return res;
@@ -734,7 +820,7 @@
   async function terminarExamen() {
     if (estado.fase === 'fin' || estado.fase === 'corrigiendo') return;
     detenerEscucha(); callar(); INT.activa = false;
-    estado.fase = 'corrigiendo'; pintar();
+    estado.fase = 'corrigiendo'; borrarSnap(); pintar();
     try { await Promise.all(estado.pendientes); } catch (_) {}
     estado.resultados.sort((a, b) => a.idx - b.idx);
     // preguntas que no llegaron a hacerse cuentan como sin responder
@@ -784,7 +870,7 @@
     const hablando = ev === 'pregunta' && !preparando && !estado.cerrando;
     raizEl.innerHTML = '<div class="eo-sala" style="--m:' + P.color + '">'
       + '<div class="eo-prog"><i style="width:' + Math.round(estado.i / total * 100) + '%"></i></div>'
-      + '<div class="eo-cab"><span>Pregunta <b>' + (estado.i + 1) + '</b> de ' + total + '</span><span class="eo-estado"><em id="eo-corrigiendo"></em><em id="eo-integridad" class="eo-int"></em></span><span class="eo-animo">' + P.ico + ' ' + P.txt + '</span></div>'
+      + '<div class="eo-cab"><span>Pregunta <b>' + (estado.i + 1) + '</b> de ' + total + '</span><span class="eo-estado"><em class="eo-st">' + (preparando ? '⏳ Preparando la pregunta' : hablando ? '🔊 El profesor habla' : ev === 'escucha' ? (estado.micPausado || !escuchando ? '✍️ Tu turno' : '🎙️ Te escucho') : ev === 'evalua' ? '🧠 El profesor piensa' : estado.cerrando ? '➡️ Siguiente pregunta' : '') + '</em><em id="eo-corrigiendo"></em><em id="eo-integridad" class="eo-int"></em></span><span class="eo-animo">' + P.ico + ' ' + P.txt + '</span></div>'
       + '<div class="eo-prof"><div class="eo-avatar' + (S.hablando ? ' habla' : '') + '" id="eo-avatar"><span class="eo-cara">' + P.ico + '</span><i class="eo-onda"><b></b><b></b><b></b><b></b><b></b></i></div>'
       + '<div class="eo-bocadillo"><small>' + esc(area.nombre) + ' · ' + esc(etiquetaUp(q.up)) + '</small>'
       + (estado.subs ? '<p>' + esc(estado.sub || '…') + '</p>' : '<p class="eo-oculto">🎧 Escuchá al profesor…</p>') + '</div></div>'
@@ -861,7 +947,8 @@
         return '<button type="button" class="eo-voz eo-voz-nueva" data-eo="vozdl" data-v="' + k + '"><i>' + v.g + '</i><span><b>' + v.ico + ' ' + v.nombre + '</b><small>⬇ Descargar · ' + v.mb + ' MB · ' + v.detalle + '</small></span></button>';
       }).join('');
     } else loc = '<p class="eo-voz-ayuda">Este navegador no permite descargar voces. Usá la voz del dispositivo.</p>';
-    return '<div class="eo-lbl">Voz del profesor</div><p class="eo-voz-ayuda">' + nota + '</p><div class="eo-voces">' + dev + loc + '</div>'
+    return '<label class="eo-sw eo-solotexto"><input type="checkbox" id="eo-solotexto"' + (estado.soloTexto ? ' checked' : '') + '> 🔇 Rendir solo con texto (sin voz ni micrófono, para lugares donde no se puede hablar)</label>'
+      + '<div class="eo-lbl">Voz del profesor</div><p class="eo-voz-ayuda">' + nota + '</p><div class="eo-voces">' + dev + loc + '</div>'
       + '<div class="eo-vozdev"' + (S.sel === 'dev' ? '' : ' hidden') + '><select id="eo-voz" aria-label="Voz del dispositivo"></select></div>'
       + (!hayVocesDispositivo() && localesOk() ? '<p class="eo-voz-ayuda">Tu navegador no expone voces del sistema' + (navigator.brave ? ' (Brave las oculta con la protección contra rastreo)' : '') + ': descargá una voz de arriba y listo, funciona igual.</p>' : '')
       + '<p class="eo-voz-estado" id="eo-voz-estado" hidden></p>'
@@ -967,7 +1054,7 @@
         const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; const u0 = $('eo-up'); if (u0) estado.up = u0.value;
         estado.preparando = true; estado.error = '';
         const btn = document.querySelector('.eo-comenzar'); if (btn) { btn.disabled = true; btn.classList.add('preparando'); btn.firstChild && (btn.firstChild.textContent = '⏳ Preparando la voz del profesor…'); }
-        let ok = true; try { ok = await prepararVoz(); } catch (_) { ok = true; }
+        let ok = true; try { ok = estado.soloTexto ? true : await prepararVoz(); } catch (_) { ok = true; }
         estado.preparando = false;
         if (!ok) { estado.error = 'No se pudo descargar la voz. Revisá tu conexión o elegí la voz del dispositivo.'; return pintar(); }
         iniciar();
@@ -983,7 +1070,7 @@
       }
       else if (a === 'cancelar') {
         if (!confirm('¿Cancelar el examen? Se pierde el progreso de esta prueba.')) return;
-        estado.turnoId++; detenerEscucha(); callar(); alTerminar = null; INT.activa = false; estado.pre = {}; estado.fase = 'inicio'; estado.paso = 2; estado.conv = null; pintar();
+        estado.turnoId++; detenerEscucha(); callar(); alTerminar = null; INT.activa = false; estado.pre = {}; borrarSnap(); estado.fase = 'inicio'; estado.paso = 2; estado.conv = null; pintar();
       }
       else if (a === 'repetir') { if (estado.repetidas >= 1) return; estado.repetidas++; detenerEscucha(); callar(); estado.estadoVoz = 'pregunta'; pintar(); await hablar(estado.sub, estado.mood); if (estado.fase === 'examen') abrirRespuesta(); }
       else if (a === 'saltar') { detenerEscucha(); callar(); alTerminar = null; const c = estado.conv; if (c) { if (c.turnos === 0) c.alumno = ''; cerrarPregunta(c, 'Muy bien. Pasemos a la siguiente.'); } }
@@ -1000,6 +1087,7 @@
       if (e.target.id === 'eo-subs') { estado.subs = e.target.checked; pintar(); }
       if (e.target.id === 'eo-voz') { const v = S.voces[e.target.value]; if (v) { S.voz = v; S.sel = 'dev'; S.pref = true; guardaPref('nika_eo_vozdev', v.name); guardaPref('nika_eo_voz2', 'dev'); } }
       if (e.target.id === 'eo-n') estado.n = Number(e.target.value) || 6;
+      if (e.target.id === 'eo-solotexto') { estado.soloTexto = e.target.checked; guardaPref('nika_eo_solotexto', estado.soloTexto ? '1' : '0'); }
     });
     document.addEventListener('input', (e) => {
       if (e.target.id === 'eo-vol') { S.vol = Number(e.target.value) / 100; guardaPref('nika_eo_vol', S.vol); document.querySelectorAll('#eo-vol-t,#eo-vol-t2').forEach((x) => { x.textContent = Math.round(S.vol * 100) + '%'; }); aplicarVolumen(); }
@@ -1030,6 +1118,9 @@
     await descubrirAreas();
     if (AREAS.length && !AREAS.find((a) => a.id === estado.materia)) estado.materia = AREAS[0].id;
     pintar();
+    const snap = estado.plus ? leerSnap() : null;
+    if (snap && AREAS.find((a) => a.id === snap.materia) && confirm('Quedó un examen oral sin terminar (pregunta ' + (snap.i + 1) + ' de ' + snap.preguntas.length + '). ¿Querés retomarlo desde ahí?')) retomar(snap);
+    else if (snap) borrarSnap();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arrancar); else arrancar();
 
