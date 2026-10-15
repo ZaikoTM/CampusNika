@@ -97,11 +97,16 @@ const NikaAteneos = (() => {
       .at-d-btns button:disabled { opacity: .4; cursor: not-allowed; transform: none; }
       .at-d-btns button.salir { background: #dc2626; color: #fff; width: auto; padding: 0 14px; border-radius: 9999px; font-size: .8rem; font-weight: 800; }
       .at-d-btns button.salir:hover { background: #b91c1c; }
+      #at-dock, #at-dock * { user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
+      #at-dock img { pointer-events: none; }
+      #at-dock { cursor: grab; }
+      #at-dock button { cursor: pointer; }
       #at-dock { transition: transform .25s ease, opacity .2s, padding .2s, gap .2s; }
       #at-dock .at-min { width: 30px; height: 30px; font-size: .8rem; }
       #at-b-ext { display: none; }
       #at-dock.compacto { gap: 8px; padding: 6px 8px; opacity: .92; }
       #at-dock.compacto .at-d-txt, #at-dock.compacto #at-b-cam, #at-dock.compacto #at-b-scr, #at-dock.compacto #at-b-pip, #at-dock.compacto #at-b-aud { display: none; }
+      body.at-stage #at-b-sala { display: none; }
       #at-dock.compacto #at-b-ext { display: inline-block; width: 34px; height: 34px; }
       #at-dock.compacto:hover { opacity: 1; }
       #at-dock.mini { left: 14px; right: auto; bottom: 96px; top: auto; transform: none; padding: 5px; gap: 0; cursor: pointer; opacity: .9; z-index: 99990; }
@@ -464,13 +469,14 @@ const NikaAteneos = (() => {
     if (dock) return;
     dock = document.createElement('div'); dock.id = 'at-dock';
     dock.innerHTML = `
-      <div class="at-d-info"><span class="at-d-av at-halo" id="at-self-av"><img id="at-self-img" alt="" src=""></span>
+      <div class="at-d-info"><span class="at-d-av at-halo" id="at-self-av"><img id="at-self-img" alt="" src="" draggable="false"></span>
         <div class="at-d-txt"><b id="at-d-name">Ateneo</b><small><i class="at-lat" id="at-lat"></i><span id="at-lat-t">-- ms</span> · <span id="at-n">1/4</span></small></div></div>
       <div class="at-d-btns">
         <button type="button" id="at-b-ext" title="Mostrar todos los controles" aria-label="Más controles">⋯</button>
         <button type="button" id="at-b-mic" title="Micrófono (Ctrl+M)" aria-label="Micrófono">🎤</button>
         <button type="button" id="at-b-cam" title="Cámara" aria-label="Cámara">📷</button>
         <button type="button" id="at-b-scr" title="Compartir pantalla" aria-label="Compartir pantalla">🖥️</button>
+        <button type="button" id="at-b-sala" title="Abrir la sala de Ateneos" aria-label="Abrir la sala">⤢</button>
         <button type="button" id="at-b-aud" title="Audio y ruido" aria-label="Audio y ruido">⚙️</button>
         <button type="button" id="at-b-pip" title="Mostrar u ocultar videos" aria-label="Videos">👥</button>
         <button type="button" class="salir" id="at-b-out" title="Desconectar">Salir</button>
@@ -485,10 +491,10 @@ const NikaAteneos = (() => {
     $('#at-b-scr').onclick = async () => { const r = await VoiceManager.alternarPantalla(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#at-b-pip').onclick = () => mostrarVideo(true);
     $('#at-b-aud').onclick = abrirAjustesAudio;
+    $('#at-b-sala').onclick = () => { if ($('#ateneos-section')) { try { abrir(); } catch (_) {} } else location.href = 'ateneos.html'; };
     $('#at-b-out').onclick = desconectar;
     $('#at-b-min').onclick = () => cambiarModoDock(modoDock === 'completo' ? 'compacto' : 'mini');
     $('#at-b-ext').onclick = () => cambiarModoDock('completo');
-    dock.querySelector('.at-d-info').addEventListener('click', () => { if (modoDock === 'mini' && !dock._arrastro) cambiarModoDock('compacto'); });
     aplicarModoDock();
     // Se puede arrastrar desde cualquier parte que no sea un botón; la posición se recuerda
     const K_POS = 'nika_at_dock_pos';
@@ -510,7 +516,9 @@ const NikaAteneos = (() => {
     const soltar = (e) => {
       if (!arr) return; dock.style.cursor = '';
       if (movido) { const r = dock.getBoundingClientRect(); try { localStorage.setItem(K_POS, JSON.stringify({ x: Math.round(r.left), y: Math.round(r.top) })); } catch (_) {} }
-      dock._arrastro = movido; setTimeout(() => { dock._arrastro = false; }, 0); arr = null;
+      dock._arrastro = movido; setTimeout(() => { dock._arrastro = false; }, 0);
+      const fueClic = !movido; arr = null;
+      if (fueClic && modoDock === 'mini' && e && e.type === 'pointerup') cambiarModoDock('completo');
     };
     dock.addEventListener('pointerup', soltar); dock.addEventListener('pointercancel', soltar);
     dock.addEventListener('dblclick', (e) => { if (e.target.closest('button')) return; try { localStorage.removeItem(K_POS); } catch (_) {} ['left', 'top', 'right', 'bottom', 'transform'].forEach((k) => { dock.style[k] = ''; }); });

@@ -1,5 +1,10 @@
 {
-  "marca": {"nombre": "Ginecología y Obstetricia", "icono": "🤰", "c1": "#ec4899", "c2": "#a855f7"},
+  "marca": {
+    "nombre": "Ginecología y Obstetricia",
+    "icono": "🤰",
+    "c1": "#ec4899",
+    "c2": "#a855f7"
+  },
   "nombre": "Salud Integral de la Mujer (SIM 2026)",
   "units": [
     {
@@ -68,6 +73,21 @@
         {
           "title": "Lista de cotejo mamografía",
           "url": "https://docs.google.com/document/d/1QiXLv-S8wed3lBCBJDuJ1T1w82m5422h/edit?usp=drive_link&ouid=112463194107707929305&rtpof=true&sd=true",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO 2024 · Consenso de control ginecológico en la mujer sana",
+          "url": "https://drive.google.com/file/d/1VJoeDoPmTcxJFvRUNGmAo_B1fwazBK8U/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "SOGIBA 2021 · Consenso de screening en ginecología",
+          "url": "https://drive.google.com/file/d/1GWNqfYe3LLGDvT3iXvD6sAehYh9TND3Z/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO · Consenso de las vacunas en las diferentes etapas de la mujer",
+          "url": "https://drive.google.com/file/d/1b-D4HXlhXndwhGACDzXw_5Md4m8HbIHJ/view?usp=drive_link",
           "type": "pdf"
         }
       ],
@@ -192,6 +212,11 @@
         {
           "title": "Pubertad precoz (material)",
           "url": "https://drive.google.com/file/d/1nRZyoeF-HeF1hjMEJTge-Ryu-BMD4lnQ/edit",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO 2016 · Consenso de ginecología infantojuvenil (actualización)",
+          "url": "https://drive.google.com/file/d/1HVh1lwHm5gHH1nUKno8GXsTBjHBCZNYb/view?usp=drive_link",
           "type": "pdf"
         }
       ],
@@ -355,6 +380,51 @@
               "title": "Reducción en la prevalencia del VPH 16/18",
               "url": "https://drive.google.com/file/d/1_qQ7-w2GYvN68-VDnbaDR_yP7ny0awm2/view?usp=drive_link",
               "type": "pdf"
+            },
+            {
+              "title": "FASGO 2021 · Consenso de anticoncepción libre de estrógenos",
+              "url": "https://drive.google.com/file/d/1clWWa-664ukN3QV8JcjhFI5uorqoJ4gt/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2017 · Consenso de enfermedad pelviana inflamatoria (EPI)",
+              "url": "https://drive.google.com/file/d/1c2u9RKxSjDurSxcMO3qgREgNGmZrtESg/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2023 · Consenso de microbioma vaginal y flujo genital",
+              "url": "https://drive.google.com/file/d/18f7SPno68KSSpsICKhGmCLMj10BHW22p/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2017 · Actualización del consenso de vacunas contra HPV",
+              "url": "https://drive.google.com/file/d/1l7q_ABRhyv82QHtOp72YsJ1vDN83GARX/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SAPTGIyC · SOGIBA · FASGO 2022 · Nueva guía de manejo del tamizaje anormal y de las lesiones histológicas del cuello uterino",
+              "url": "https://drive.google.com/file/d/14LndnfYca4GulDW7Do2uOdRi67VKYEzE/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA · Prevención primaria y secundaria del cáncer cervicouterino: manejo del tamizaje anormal y de las lesiones histológicas",
+              "url": "https://drive.google.com/file/d/12u08nXjx8y_kVfB3jAEFz-aXH9slJPUq/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO · Consenso de manejo de las lesiones intraepiteliales del cuello uterino (versión anterior)",
+              "url": "https://drive.google.com/file/d/1oADf-SIU0Y6tZWlIThiCvj1QYiLtdbs3/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2016 · Consenso de ginecología infantojuvenil (actualización)",
+              "url": "https://drive.google.com/file/d/1HVh1lwHm5gHH1nUKno8GXsTBjHBCZNYb/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2019 · Consenso de embarazo adolescente",
+              "url": "https://drive.google.com/file/d/1eRU5XQn1SU2vRsoNueh7AXrkUyIIOoHr/view?usp=drive_link",
+              "type": "pdf"
             }
           ],
           "videos": [
@@ -510,6 +580,46 @@
             {
               "title": "Guía TP3 Ex Mamario",
               "url": "https://drive.google.com/file/d/1_vS2JYPYAWNHtcTazZbla0o8FLZpi0HK/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2012 · Consenso de síndrome de ovario poliquístico",
+              "url": "https://drive.google.com/file/d/1-NxAZ2xBbr01-u1RT-eooairhFrvcBU0/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2025 · Consenso de síndrome de ovario poliquístico (SOP)",
+              "url": "https://drive.google.com/file/d/1PkNj7FTEmECyVFbZenYo3CUFzDHWMkXc/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2022 · Consenso de sangrado uterino anormal",
+              "url": "https://drive.google.com/file/d/1inXo-toXtyRlnIG-0VZDJ9S9O2N1WEK9/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA · Consenso de sangrado uterino anormal",
+              "url": "https://drive.google.com/file/d/1BokTGfNrjToC0zWUagRVHh6d3QeCcnL4/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2019 · Actualización del consenso de endometriosis",
+              "url": "https://drive.google.com/file/d/180lBGOgl1QhT2AIRacmAuBdYDtPr7-UH/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2012 · Consenso de endometriosis",
+              "url": "https://drive.google.com/file/d/1vkfmpRBCdFLs2NVglTYDmcE_zIxju5Fw/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2013 · Consenso de evaluación de la pareja infértil",
+              "url": "https://drive.google.com/file/d/1M5EkSO0u56c5s-k2PdBqYRVBcxsNAFQ_/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO · Consenso en reproducción humana",
+              "url": "https://drive.google.com/file/d/1oqFlsfPME7gymEc206VxAmvhCcXA5yrY/view?usp=drive_link",
               "type": "pdf"
             }
           ],
@@ -706,6 +816,41 @@
             {
               "title": "Comunicar malas noticias",
               "url": "https://drive.google.com/file/d/1oqp4KtzelCluzaQ3dvuCDKqEfZLu2evd/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2022 · Consenso de sangrado uterino anormal",
+              "url": "https://drive.google.com/file/d/1inXo-toXtyRlnIG-0VZDJ9S9O2N1WEK9/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA · Consenso de sangrado uterino anormal",
+              "url": "https://drive.google.com/file/d/1BokTGfNrjToC0zWUagRVHh6d3QeCcnL4/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2017 · Consenso de enfermedad pelviana inflamatoria (EPI)",
+              "url": "https://drive.google.com/file/d/1c2u9RKxSjDurSxcMO3qgREgNGmZrtESg/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2025 · Consenso de embarazo ectópico",
+              "url": "https://drive.google.com/file/d/1dndVxiBDWXhxSQ4Sfes52k7uiwTqhZvL/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2015 · Consenso de enfermedad trofoblástica gestacional",
+              "url": "https://drive.google.com/file/d/120DWfU3ilSS-_FWkVAyw2XXeluan1JHE/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2018 · Consenso de aborto recurrente",
+              "url": "https://drive.google.com/file/d/1tRAqIUWC6TplLr5XDqC1QOsDCjWKKqnb/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2021 · Consenso de manejo de las masas anexiales",
+              "url": "https://drive.google.com/file/d/1UyqjsiDRFLjMORGS0yiIKLGG2dLCdgDq/view?usp=drive_link",
               "type": "pdf"
             }
           ],
@@ -925,6 +1070,86 @@
               "title": "Control del bienestar fetal intraparto",
               "url": "https://drive.google.com/file/d/1IezGvdRck-Bu1porSPYrqmOPQsodpmy7/view?usp=drive_link",
               "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2019 · Consenso de embarazo adolescente",
+              "url": "https://drive.google.com/file/d/1eRU5XQn1SU2vRsoNueh7AXrkUyIIOoHr/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2024 · Consenso de diabetes gestacional",
+              "url": "https://drive.google.com/file/d/12nL8aP1_w_dmxqjOGQzgmHYGzF1KWkze/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2022 · Consenso de diabetes gestacional",
+              "url": "https://drive.google.com/file/d/15u2TaIfgornrBeO_OkpfDPjrcTA6bQ-B/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2012 · Consenso de diabetes y embarazo",
+              "url": "https://drive.google.com/file/d/1P1iQCNY97wa23C_lfajKLDHlDWvZ-KU_/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2025 · Consenso de trastornos hipertensivos del embarazo",
+              "url": "https://drive.google.com/file/d/1Ue9kOcpzGjUNZwj0cC6tzA4ASl6W_TC9/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2017 · Consenso de hipertensión y embarazo",
+              "url": "https://drive.google.com/file/d/1m2VxAzLAT9zobGsGhJjU4m5-eDV88JUI/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2014 · Consenso de parto pretérmino",
+              "url": "https://drive.google.com/file/d/18F4ugzSo7UsYXv60f_Vr7M91SseycI1w/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2018 · Consenso de prevención del parto prematuro",
+              "url": "https://drive.google.com/file/d/15HbeXlHLrfDUmlvrf33JfxE2reZL9T_K/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO · Predicción y prevención del parto prematuro espontáneo",
+              "url": "https://drive.google.com/file/d/16HAMNgJYpXdF-Vc4MehG3VnlW43NAh3v/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2018 · Consenso de rotura prematura de membranas",
+              "url": "https://drive.google.com/file/d/1mk5RTyMcLamxhiKEAawdCqsQHY2R3eJP/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO · Actualización del consenso de rotura prematura de membranas",
+              "url": "https://drive.google.com/file/d/1tRqq5bhgJkBhqB6KDfJOB5zLgDyfHZwe/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2017 · Consenso de rotura prematura de membranas pretérmino",
+              "url": "https://drive.google.com/file/d/1swJCIMDKkaf2NoRuKXXQkQLC9gBpAebZ/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2017 · Actualización del consenso de restricción del crecimiento intrauterino (RCIU)",
+              "url": "https://drive.google.com/file/d/1AqmxyvVJVs7Iss4zbSUBIWFJFNBQj8VX/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2016 · Consenso de colestasis y embarazo",
+              "url": "https://drive.google.com/file/d/1C0zm-qg-coSwfxtM76loHgNCYLtRtrNG/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2021 · Consenso de colestasis intrahepática del embarazo",
+              "url": "https://drive.google.com/file/d/1T1rkEI-L_OPVyjzhfGy2_QNnn8A0RCQx/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2022 · Consenso de embarazo gemelar",
+              "url": "https://drive.google.com/file/d/1oQdPJ_PPBN2LBKeJP_BRyZwbTcXZxGku/view?usp=drive_link",
+              "type": "pdf"
             }
           ],
           "videos": [
@@ -1110,6 +1335,26 @@
               "title": "Monitoreo fetal",
               "url": "https://drive.google.com/file/d/1ZJfsuU7B8pwlNBW7oHFhV_MZ6J8rJ6y5/view",
               "type": "pdf"
+            },
+            {
+              "title": "FASGO 2019 · Actualización del consenso de inducción al trabajo de parto",
+              "url": "https://drive.google.com/file/d/1uetiiQASLITUkASaReJOe2wzhJImgnB2/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2019 · Consenso de parto vaginal después de una cesárea",
+              "url": "https://drive.google.com/file/d/10ET-fK6iI1jyh0fovZCfmbItL_vdgiZS/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "FASGO 2019 · Consenso de hemorragia posparto",
+              "url": "https://drive.google.com/file/d/1AWxtAuuMX992d9shnLt98sRUhoWUNdoJ/view?usp=drive_link",
+              "type": "pdf"
+            },
+            {
+              "title": "SOGIBA 2018 · Consenso de hemorragia posparto",
+              "url": "https://drive.google.com/file/d/1f4njJ_LCFE3_9T0jqpZ45haRPPEje4G0/view?usp=drive_link",
+              "type": "pdf"
             }
           ],
           "videos": [
@@ -1184,6 +1429,66 @@
         {
           "title": "Cáncer de mama - Consenso intersociedades",
           "url": "https://drive.google.com/file/d/1-KitWE4d-N4PtfZD3JHIUSca097jzjzV/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "SAPTGIyC · SOGIBA · FASGO 2022 · Nueva guía de manejo del tamizaje anormal y de las lesiones histológicas del cuello uterino",
+          "url": "https://drive.google.com/file/d/14LndnfYca4GulDW7Do2uOdRi67VKYEzE/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "SOGIBA · Prevención primaria y secundaria del cáncer cervicouterino: manejo del tamizaje anormal y de las lesiones histológicas",
+          "url": "https://drive.google.com/file/d/12u08nXjx8y_kVfB3jAEFz-aXH9slJPUq/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO · Consenso de manejo de las lesiones intraepiteliales del cuello uterino (versión anterior)",
+          "url": "https://drive.google.com/file/d/1oADf-SIU0Y6tZWlIThiCvj1QYiLtdbs3/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO · Consenso: estado actual del tratamiento en climaterio",
+          "url": "https://drive.google.com/file/d/1Il6GiaTh0YYnj0cAOP4mlHnqlARYalu1/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "SOGIBA 2018 · Consenso de terapia hormonal de la menopausia (THM)",
+          "url": "https://drive.google.com/file/d/1PeX-jsGaEHIGEB4AJzHJqaW5SU8h0UQF/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO 2025 · Consenso de osteoporosis",
+          "url": "https://drive.google.com/file/d/1bCnyFA-cQt93ts1YKNHaaaMsu9V1YvYe/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO 2019 · Consenso de cáncer de endometrio",
+          "url": "https://drive.google.com/file/d/1H0pzo9affqWjfI0CHFmIqFN7bZM6ZCWD/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "SOGIBA · Consenso de cáncer de endometrio",
+          "url": "https://drive.google.com/file/d/1ofJ6KT4ZkFs_RYatOYEMry7aSZe4jQYP/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO · Consenso de manejo terapéutico del carcinoma de cuello uterino",
+          "url": "https://drive.google.com/file/d/1AUryA79zdbPFZAlmNPiMoC_bEl3mX5w7/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "SOGIBA 2019 · Consenso de cáncer de cuello uterino",
+          "url": "https://drive.google.com/file/d/1KCtKKgJSfwTJ3b9w43w4OndXHpitQq5z/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "FASGO · Guía de manejo de las alteraciones del piso pelviano",
+          "url": "https://drive.google.com/file/d/1nRQs4JEIWsH-QUszKWgaKCfAFg_ChfuL/view?usp=drive_link",
+          "type": "pdf"
+        },
+        {
+          "title": "Consenso Intersociedades 2025 · Neoadyuvancia en cáncer de mama",
+          "url": "https://drive.google.com/file/d/1VjxVyEuy_9zW5PSPiGPbGoE0UowKww0a/view?usp=drive_link",
           "type": "pdf"
         }
       ],
