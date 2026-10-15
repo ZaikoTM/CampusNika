@@ -290,3 +290,21 @@ body.dark-mode .fcs-dentro .fcs-input{background:rgba(255,255,255,.85);color:#0f
 .fcs-uni-t{color:#334155;opacity:.85}
 .fcs-resp{font-size:.98rem}
 .fcs-sg{image-rendering:auto}
+
+/* la caja de escribir toma el color del post-it */
+.fcs-in .fcs-input,.fcs-dentro .fcs-input{background:color-mix(in srgb,var(--paper) 45%,#fff);border:2px dashed color-mix(in srgb,var(--paper) 40%,#475569);color:#1e293b}
+.fcs-in .fcs-input:focus,.fcs-dentro .fcs-input:focus{border-style:solid;border-color:color-mix(in srgb,var(--paper) 25%,#334155);background:color-mix(in srgb,var(--paper) 30%,#fff);box-shadow:0 0 0 3px color-mix(in srgb,var(--paper) 55%,transparent)}
+.fcs-in .fcs-input::placeholder{color:color-mix(in srgb,var(--paper) 20%,#64748b)}
+.fcs-guia{background:color-mix(in srgb,var(--paper) 50%,#fff)}
+body.dark-mode .fcs-in .fcs-input,body.dark-mode .fcs-dentro .fcs-input{background:color-mix(in srgb,var(--paper) 45%,#fff);color:#1e293b}
+body.dark-mode .fcs-guia{background:color-mix(in srgb,var(--paper) 50%,#fff);color:#334155}
+
+/* la caja de escribir es la misma hoja rayada con margen rojo que se ve al dar vuelta la tarjeta */
+.fcs-in .fcs-input,.fcs-dentro .fcs-input,body.dark-mode .fcs-in .fcs-input,body.dark-mode .fcs-dentro .fcs-input{
+  border:0;border-radius:6px;padding:4px 10px 6px 34px;line-height:28px;font:600 .96rem/28px 'Plus Jakarta Sans',system-ui,sans-serif;color:#1e293b;min-height:140px;resize:vertical;
+  background-color:rgba(255,255,255,.55);background-attachment:local;
+  background-image:linear-gradient(90deg,transparent 24px,var(--fc-margin,rgba(239,68,68,.45)) 24px,var(--fc-margin,rgba(239,68,68,.45)) 26px,transparent 26px),
+    repeating-linear-gradient(to bottom,transparent 0,transparent 27px,var(--fc-line,rgba(59,130,246,.28)) 27px,var(--fc-line,rgba(59,130,246,.28)) 28px);
+  box-shadow:none}
+.fcs-in .fcs-input:focus,.fcs-dentro .fcs-input:focus{outline:0;background-color:rgba(255,255,255,.75);box-shadow:0 0 0 3px color-mix(in srgb,var(--paper) 60%,transparent)}
+.fcs-in .fcs-input::placeholder{color:rgba(51,65,85,.55);font-weight:600}
