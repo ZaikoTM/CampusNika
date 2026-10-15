@@ -62,6 +62,7 @@ const COSTO_POR_SIMULADOR: Record<string, number> = {
     'pase_sala': 3,
     'shock_room': 3,
     'consultorio_legales': 3,
+    'examen_oral': 0, // Simulador Examen oral (profesor que habla): exclusivo NikaMed+, igual que caso_pfo; no descuenta créditos
     'caso_pfo': 0,   // práctica con el evaluador en los casos clínicos de la PFO: exclusivo NikaMed+, no descuenta créditos (ver el chequeo de plan más abajo)
 };
 const COSTO_DEFAULT = 1;
@@ -278,7 +279,7 @@ Deno.serve(withCors(async (req: Request) => {
     }
     // ---- Práctica de casos clínicos de la PFO: EXCLUSIVO NikaMed+ (o admin), forzado en el servidor ----
     // No hay usos de cortesía ni créditos para este modo: si la cuenta no es ilimitada, se rechaza antes de tocar a Gemini.
-    if (modo === "caso_pfo") {
+    if (modo === "caso_pfo" || modo === "examen_oral") {
         // 1) El plan según la función simulador_usos (la misma fuente que usa el resto del sitio); 2) si falla, el perfil leído con service_role.
         let esPlus: boolean | null = null;
         try {
