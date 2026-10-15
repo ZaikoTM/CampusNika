@@ -315,3 +315,7 @@ body.dark-mode .fcs-guia{background:color-mix(in srgb,var(--paper) 50%,#fff);col
 .fcd-hoja h3{padding-right:100px}
 @media(max-width:560px){.fcd-marca{width:68px;height:68px;top:14px;right:12px}.fcd-hoja h3{padding-right:74px}}
 body.dark-mode .fcd-marca{mix-blend-mode:normal;opacity:.18}
+
+.fc-aviso.libro{background:rgba(14,165,233,.12);border-color:rgba(14,165,233,.4)}
+.fc-tag.lib{background:rgba(14,165,233,.15);color:#075985}
+[data-theme="dark"] .fc-tag.lib{color:#bae6fd}

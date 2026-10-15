@@ -830,7 +830,7 @@ function openUpReal(upId, unit) {
     const firstTabBtn = document.querySelector('.up-tab-btn');
     // Flashcards: solo en las materias con tarjetas cargadas
     const fcBtn = document.getElementById('btn-tab-flashcards');
-    if (fcBtn) fcBtn.style.display = (EstudioState.modulo === 'ginecologia') ? '' : 'none';
+    if (fcBtn) fcBtn.style.display = (EstudioState.modulo === 'ginecologia' || EstudioState.modulo === 'cirugia') ? '' : 'none';
     const fcHost = document.getElementById('up-flashcards-host');
     if (fcHost) { fcHost.dataset.up = ''; fcHost.innerHTML = ''; }
     if (firstTabBtn) showUpTab('temario', firstTabBtn);
@@ -2759,7 +2759,9 @@ function showUpTab(tabName, btn) {
     if (tabName === 'flashcards' && window.NikaFlashcards) {
         const host = document.getElementById('up-flashcards-host');
         const raw = String(EstudioState.currentUpId || '').toLowerCase();
-        const up = raw.replace('__sec', '-sec');           // up3__sec2 -> up3-sec2
+        let up = raw.replace('__sec', '-sec');
+        if (EstudioState.modulo === 'cirugia') up = up.replace(/^up(\d+).*$/, 'cx$1');   // up5 -> cx5
+           // up3__sec2 -> up3-sec2
         const ups = up === 'up3' ? ['up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'] : [up];
         const lk = document.getElementById('fc-practicar-link'); if (lk) lk.href = 'flashcards.html?modo=practicar&up=' + encodeURIComponent(up);
         if (host && host.dataset.up !== up) { host.dataset.up = up; NikaFlashcards.montar(host, { ups, agrupar: false }); }

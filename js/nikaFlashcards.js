@@ -3,10 +3,13 @@
 (function () {
   'use strict';
   const URL_DATOS = 'data/nikafarma_patologias.json';
+  const URL_CX = 'data/flashcards_cirugia.json';
   const KEY_OK = 'nika_fc_ok';
-  const PAPEL = { 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
+  const PAPEL = { 'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe', 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
   const LOGO = 'assets/N%20NIKA.png';
   const PALETA = ['#fff3a3', '#fbcfe8', '#bbf7d0', '#ddd6fe', '#fed7aa', '#bae6fd', '#fecdd3', '#e9d5ff', '#c7f9cc', '#fde68a'];
+  const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : 'ginecologia');
+  const areaDe = (p) => p.area || areaDeUnidad((p.up || [])[0]);
   const colorDe = (p) => { let h = 0; const t = String(p.id); for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return PALETA[h % PALETA.length]; };
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -58,7 +61,18 @@
   function cargar() {
     if (D) return Promise.resolve(D);
     if (cargando) return cargando;
-    cargando = fetch(URL_DATOS, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    const opc = (u) => fetch(u, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    cargando = Promise.all([fetch(URL_DATOS, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }), opc(URL_CX)])
+      .then(([j, cx]) => {
+        (j.patologias || []).forEach((x) => { if (!x.area) x.area = 'ginecologia'; });
+        if (cx && Array.isArray(cx.patologias)) {
+          j.patologias = (j.patologias || []).concat(cx.patologias);
+          j.meta = j.meta || {};
+          j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (cx.meta && cx.meta.unidades) || {});
+          j.meta.tipos = Object.assign({}, j.meta.tipos || {}, (cx.meta && cx.meta.tipos) || {});
+        }
+        return j;
+      })
       .then((j) => sincronizar().then(() => j))
       .then((j) => {
         D = j;
@@ -97,11 +111,14 @@
   function sello(p) {
     const f = p.fuente || {};
     if (f.tipo === 'guia') return '<div class="fc-aviso guia">✔ <span>Basada en guía: ' + esc(f.sociedad) + ' · ' + esc(f.anio) + '</span></div>';
+    if (f.tipo === 'libro') return '<div class="fc-aviso libro">📘 <span>Basada en manual de la cátedra: ' + esc(f.sociedad) + ' · ' + esc(f.anio) + '. Contrastá con las guías vigentes.</span></div>';
     return '<div class="fc-aviso">⚠️ <span>Verificar veracidad con guías actuales. Fuente: ' + esc(f.sociedad) + '</span></div>';
   }
   const etiquetaFuente = (p) => (p.fuente && p.fuente.tipo === 'guia')
     ? '<span class="fc-tag guia">✔ ' + esc((p.fuente.sociedad || '').split('/')[0].trim()) + ' ' + esc(p.fuente.anio || '') + '</span>'
-    : '<span class="fc-tag ver" title="Verificar veracidad con guías actuales">⚠️ Verificar con guías</span>';
+    : (p.fuente && p.fuente.tipo === 'libro')
+      ? '<span class="fc-tag lib" title="Basada en el manual de la cátedra: contrastar con guías vigentes">📘 Manual ' + esc(p.fuente.anio || '') + '</span>'
+      : '<span class="fc-tag ver" title="Verificar veracidad con guías actuales">⚠️ Verificar con guías</span>';
 
   // ---------- tarjeta completa (detalle) ----------
   function textoCompartir(p, ids) {
@@ -319,7 +336,7 @@
 
   const AREAS_MOSAICO = [
     { id: 'ginecologia', nom: 'Ginecología', ico: '🌸', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪' }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃' }
   ];
 
@@ -330,9 +347,14 @@
     host.innerHTML = '<p style="opacity:.7">Preparando flashcards…</p>';
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards. Probá de nuevo más tarde.</div>'; return; }
-      let q = '', fuente = '', area = 'ginecologia', unidad = '';
-      const base = fichasDe(opts.ups);
-      const unidadesTodas = Object.keys(d.meta.unidades || {});
+      let q = '', fuente = '', unidad = '';
+      let area = (opts.ups && opts.ups[0]) ? areaDeUnidad(opts.ups[0]) : (opts.area || 'ginecologia');
+      let base = [], unidadesTodas = [];
+      const prepararArea = () => {
+        base = fichasDe(opts.ups).filter((p) => areaDe(p) === area);
+        unidadesTodas = Object.keys(d.meta.unidades || {}).filter((u) => areaDeUnidad(u) === area);
+      };
+      prepararArea();
       const cuerpoId = 'fc-cuerpo-' + Math.random().toString(36).slice(2, 7);
       const armar = () => {
         host.innerHTML =
@@ -369,7 +391,7 @@
         } else cuerpo.innerHTML = '<div class="fc-grid">' + l.map(tile).join('') + '</div>';
       };
       host.addEventListener('click', (e) => {
-        const a = e.target.closest('[data-fc-area]'); if (a) { area = a.dataset.fcArea; return armar(); }
+        const a = e.target.closest('[data-fc-area]'); if (a) { area = a.dataset.fcArea; unidad = ''; prepararArea(); return armar(); }
         const u = e.target.closest('[data-fc-uni]'); if (u) { unidad = u.dataset.fcUni; host.querySelectorAll('[data-fc-uni]').forEach((b) => b.classList.toggle('on', b === u)); return pintar(); }
         const b = e.target.closest('[data-fc-abrir]'); if (!b) return;
         if (opts.inline) {
@@ -437,7 +459,7 @@
   // ---------- Simulador FlashCard y modo Practicar ----------
   const AREAS = [
     { id: 'ginecologia', nom: 'Ginecología y Obstetricia', ico: '🌸', c: '#ec4899', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9' }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️', c: '#f59e0b' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃', c: '#8b5cf6' }
   ];
   const CONTENIDOS = [
@@ -451,6 +473,11 @@
     { id: 'parcial', ico: '📄', nom: 'Parcial', desc: 'UP1 a UP3, todas las secciones', c: '#0ea5e9' },
     { id: 'final', ico: '🏁', nom: 'Final', desc: 'Todo el temario de la materia', c: '#ec4899' }
   ];
+  const ALCANCES_CX = [
+    { id: 'unidad', ico: '🎯', nom: 'Una unidad problema', desc: 'UP1 a UP11 de Cirugía', c: '#6366f1' },
+    { id: 'parcial', ico: '📄', nom: 'Parcial', desc: 'UP1 a UP6 (primera mitad)', c: '#0ea5e9' },
+    { id: 'final', ico: '🏁', nom: 'Final', desc: 'Todo el temario de la materia', c: '#ec4899' }
+  ];
   // Qué tiene que completar la persona: se arma con las secciones que realmente trae esa ficha
   const guiaDe = (p, c) => {
     const nombres = seccionesDe(c).filter((x) => tieneSec(p, x)).map((x) => x.nom.toLowerCase());
@@ -459,18 +486,20 @@
     return '✍️ ' + pre + (c.id === 'todo' ? '' : 'sobre ') + 'qué tenés que completar → <b>' + esc(lista) + '</b>.';
   };
   const PARCIAL_UPS = ['up1', 'up2', 'up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'];
+  const PARCIAL_CX = ['cx1', 'cx2', 'cx3', 'cx4', 'cx5', 'cx6'];
   const seccionesDe = (c) => c.secs.map((s) => SECS.find((x) => x.id === s)).filter(Boolean);
   const bloquesHtml = (p, c) => seccionesDe(c).filter((s) => tieneSec(p, s)).map((s) => '<div class="fc-bloque"><h5>' + s.ico + ' ' + esc(s.nom) + '</h5>' + s.html(p) + '</div>').join('');
   const barajar = (a) => { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; };
   const poolDe = (st) => {
     let ups = null;
-    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = PARCIAL_UPS;
+    const ar = st.area || 'ginecologia';
+    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ar === 'cirugia' ? PARCIAL_CX : PARCIAL_UPS;
     const c = CONTENIDOS.find((x) => x.id === st.cont);
-    let l = fichasDe(ups).filter((p) => seccionesDe(c).some((s) => tieneSec(p, s)));
+    let l = fichasDe(ups).filter((p) => areaDe(p) === ar && seccionesDe(c).some((s) => tieneSec(p, s)));
     if (st.soloPend) { const ok = leerOk(); l = l.filter((p) => !ok[p.id]); }
     return l;
   };
-  const selUnidad = (d, st) => '<div class="fcs-uni">' + Object.keys(d.meta.unidades).map((u) => '<button type="button" class="fcs-pill' + (st.unidad === u ? ' on' : '') + '" data-unidad="' + u + '" style="--c:' + (PAPEL[u] || '#ddd') + '">' + esc(d.meta.unidades[u]) + '</button>').join('') + '</div>';
+  const selUnidad = (d, st) => '<div class="fcs-uni">' + Object.keys(d.meta.unidades).filter((u) => areaDeUnidad(u) === (st.area || 'ginecologia')).map((u) => '<button type="button" class="fcs-pill' + (st.unidad === u ? ' on' : '') + '" data-unidad="' + u + '" style="--c:' + (PAPEL[u] || '#ddd') + '">' + esc(d.meta.unidades[u]) + '</button>').join('') + '</div>';
   const tiles = (id, arr, st) => '<div class="fcs-tiles">' + arr.map((o) => '<button type="button" class="fcs-tile' + (st[id] === o.id ? ' on' : '') + '" data-set="' + id + '" data-v="' + o.id + '" style="--c:' + o.c + '"><i>' + o.ico + '</i><span><b>' + o.nom + '</b><small>' + o.desc + '</small></span></button>').join('') + '</div>';
 
   function simulador(host, opts) {
@@ -482,8 +511,8 @@
       const setup = () => {
         const total = poolDe(st).length;
         host.innerHTML = '<div class="fcs-setup">' +
-          '<section class="fcs-sec"><h3><span>1</span> Área</h3><div class="fcs-areas">' + AREAS.map((a) => '<button type="button" class="fcs-area' + (a.ok && st.area === a.id ? ' on' : '') + '" style="--c:' + a.c + '" ' + (a.ok ? 'data-area="' + a.id + '"' : 'disabled') + '><i>' + a.ico + '</i><b>' + a.nom + '</b>' + (a.ok ? '<small>' + d.patologias.length + ' flashcards</small>' : '<small>Muy pronto</small><em class="fcs-soon">Próximamente</em>') + '</button>').join('') + '</div></section>' +
-          '<section class="fcs-sec"><h3><span>2</span> Qué rendir</h3>' + tiles('alcance', ALCANCES, st) + (st.alcance === 'unidad' ? selUnidad(d, st) : '') + '</section>' +
+          '<section class="fcs-sec"><h3><span>1</span> Área</h3><div class="fcs-areas">' + AREAS.map((a) => '<button type="button" class="fcs-area' + (a.ok && st.area === a.id ? ' on' : '') + '" style="--c:' + a.c + '" ' + (a.ok ? 'data-area="' + a.id + '"' : 'disabled') + '><i>' + a.ico + '</i><b>' + a.nom + '</b>' + (a.ok ? '<small>' + d.patologias.filter((x) => areaDe(x) === a.id).length + ' flashcards</small>' : '<small>Muy pronto</small><em class="fcs-soon">Próximamente</em>') + '</button>').join('') + '</div></section>' +
+          '<section class="fcs-sec"><h3><span>2</span> Qué rendir</h3>' + tiles('alcance', st.area === 'cirugia' ? ALCANCES_CX : ALCANCES, st) + (st.alcance === 'unidad' ? selUnidad(d, st) : '') + '</section>' +
           '<section class="fcs-sec"><h3><span>3</span> Qué repasar de cada tarjeta</h3>' + tiles('cont', CONTENIDOS, st) + '</section>' +
           '<section class="fcs-sec"><h3><span>4</span> Cantidad</h3><div class="fcs-cant">' + [5, 10, 20, 0].map((n) => '<button type="button" class="fcs-pill' + (st.n === n ? ' on' : '') + '" data-n="' + n + '">' + (n ? n + ' tarjetas' : 'Todas (' + total + ')') + '</button>').join('') +
           '<label class="fcs-chk"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '><span>Solo las que todavía no domino</span></label></div></section>' +
@@ -510,7 +539,7 @@
       };
       host.onclick = (e) => {
         const t = e.target;
-        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; return setup(); }
+        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; st.unidad = st.area === 'cirugia' ? 'cx5' : 'up3-sec4'; return setup(); }
         const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }
         const u = t.closest('[data-unidad]'); if (u) { st.unidad = u.dataset.unidad; return setup(); }
         const n = t.closest('[data-n]'); if (n) { st.n = parseInt(n.dataset.n, 10); return setup(); }
@@ -535,11 +564,13 @@
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards.</div>'; return; }
       const st = Object.assign({ alcance: 'unidad', unidad: 'up3-sec4', cont: 'tx', soloPend: false }, (opts && opts.estado) || {});
+      if (!st.area) st.area = areaDeUnidad(st.unidad);
       let mazo = [], i = 0, vista = false, enMazo = false, miResp = '', res = null;
       const setup = () => {
         const total = poolDe(st).length;
         host.innerHTML = '<div class="fcs-setup"><section class="fcs-sec"><h3><span>1</span> ¿Qué unidad querés practicar?</h3>' +
-          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.alcance === 'final' ? ' on' : '') + '" data-alc="final">Toda la materia</button><button type="button" class="fcs-pill' + (st.alcance === 'parcial' ? ' on' : '') + '" data-alc="parcial">Parcial (UP1–UP3)</button></div>' +
+          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.alcance === 'final' ? ' on' : '') + '" data-alc="final">Toda la materia</button><button type="button" class="fcs-pill' + (st.alcance === 'parcial' ? ' on' : '') + '" data-alc="parcial">' + (st.area === 'cirugia' ? 'Parcial (UP1–UP6)' : 'Parcial (UP1–UP3)') + '</button></div>' +
+          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.area !== 'cirugia' ? ' on' : '') + '" data-parea="ginecologia">🌸 Ginecología y Obstetricia</button><button type="button" class="fcs-pill' + (st.area === 'cirugia' ? ' on' : '') + '" data-parea="cirugia">🔪 Cirugía</button></div>' +
           selUnidad(d, st.alcance === 'unidad' ? st : Object.assign({}, st, { unidad: '' })) + '</section>' +
           '<section class="fcs-sec"><h3><span>2</span> ¿Qué querés ver al dar vuelta la tarjeta?</h3>' + tiles('cont', CONTENIDOS, st) + '</section>' +
           '<div class="fcs-go"><label class="fcs-chk"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '><span>Solo las que todavía no domino</span></label>' +
@@ -561,6 +592,7 @@
       const ir = (k) => { i = Math.max(0, Math.min(mazo.length - 1, i + k)); vista = false; miResp = ''; res = null; mostrar(); };
       host.onclick = (e) => {
         const t = e.target;
+        const pa = t.closest('[data-parea]'); if (pa) { st.area = pa.dataset.parea; st.unidad = st.area === 'cirugia' ? 'cx5' : 'up3-sec4'; st.alcance = 'unidad'; return setup(); }
         const al = t.closest('[data-alc]'); if (al) { st.alcance = al.dataset.alc; return setup(); }
         const u = t.closest('[data-unidad]'); if (u) { st.alcance = 'unidad'; st.unidad = u.dataset.unidad; return setup(); }
         const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }
