@@ -124,17 +124,13 @@
   const leer = (id, f) => { const e = document.getElementById(id), n = e && e.textContent.match(NUM); return n ? f(parseFloat(n[1].replace(',', '.'))) : 0; };
   const ANILLOS = { '.perf-tile--accuracy': () => leer('perf-accuracy', (v) => v), '.perf-tile--streak': () => leer('perf-streak', (v) => v / 7 * 100) };
   function anillos() {
+    const ids = { '.perf-tile--accuracy': 'perf-accuracy', '.perf-tile--streak': 'perf-streak' };
     Object.keys(ANILLOS).forEach((sel) => {
-      const tile = document.querySelector(sel); if (!tile) return;
-      const ic = tile.querySelector('.perf-tile-icon'); if (!ic) return;
-      let r = ic.querySelector('.cv-ring');
-      if (!r) {
-        ic.classList.add('cv-ring-host');
-        ic.insertAdjacentHTML('beforeend', '<svg class="cv-ring" viewBox="0 0 54 54" aria-hidden="true"><circle class="cv-ring-bg" cx="27" cy="27" r="24" pathLength="100"/><circle class="cv-ring-fg" cx="27" cy="27" r="24" pathLength="100" stroke-dasharray="0 100"/></svg>');
-        r = ic.querySelector('.cv-ring');
-      }
-      const v = Math.max(0, Math.min(100, ANILLOS[sel]()));
-      r.querySelector('.cv-ring-fg').setAttribute('stroke-dasharray', v.toFixed(1) + ' 100');
+      const v = document.getElementById(ids[sel]); if (!v || !v.parentElement) return;
+      let b = v.parentElement.querySelector('.cv-barra');
+      if (!b) { b = document.createElement('div'); b.className = 'cv-barra'; b.innerHTML = '<i></i>'; v.parentElement.appendChild(b); }
+      const p = Math.max(0, Math.min(100, ANILLOS[sel]()));
+      b.firstChild.style.width = Math.max(p, p > 0 ? 3 : 0).toFixed(1) + '%';
     });
   }
   function rendimiento() {
