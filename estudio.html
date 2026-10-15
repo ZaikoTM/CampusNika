@@ -540,6 +540,11 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                             Clases y Videos
                         </button>
+                        <!-- Flashcards de tratamientos (solo materias con tarjetas cargadas: Ginecología) -->
+                        <button class="up-tab-btn" id="btn-tab-flashcards" style="display:none" onclick="showUpTab('flashcards', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="14" height="14" rx="2"/><path d="M7 20h12a2 2 0 0 0 2-2V8"/></svg>
+                            🃏 Flashcards
+                        </button>
                         <!-- Exclusivo NikaMed+: los usuarios free ven el candado y, al tocarla, el aviso de suscripción.
                              gateTab() confirma el plan contra la base (por si acaba de pagar) antes de abrir la pestaña. -->
                         <button class="up-tab-btn up-tab-btn--premium" data-vip-tab="notebooklm"
@@ -581,6 +586,15 @@
                         </div>
                     </div>
 
+                    <div class="up-tab-panel" id="tab-flashcards">
+                        <div class="content-block">
+                            <h3>Flashcards de tratamientos</h3>
+                            <p style="margin:0 0 10px;opacity:.75;font-size:.88rem">Tarjetas de esta unidad: tocá una y elegí qué repasar (tratamiento, diagnóstico, estudios, alarmas o el tema completo).
+                               <a href="flashcards.html?modo=sim" style="font-weight:800">Ir al Simulador FlashCard →</a></p>
+                            <div id="up-flashcards-host"></div>
+                        </div>
+                    </div>
+
                     <div class="up-tab-panel" id="tab-notebooklm">
                         <div class="content-block" id="notebooklm-panel">
                             <!-- Se completa dinámicamente desde estudio.js (renderNotebookLmTab) -->
@@ -599,6 +613,8 @@
     </main>
 
 <!-- 1. Supabase SDK (Base de Datos) -->
+    <link rel="stylesheet" href="css/flashcards.css?v=1">
+    <script src="js/nikaFlashcards.js?v=1"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
     <script src="js/presenciaCampus.js"></script>

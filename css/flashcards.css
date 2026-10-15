@@ -1,0 +1,102 @@
+/* Flashcards de tratamientos · NikaMed — mezcla de post-it y recetario */
+.fc-root{--fc-ink:#1e293b;--fc-line:rgba(59,130,246,.28);--fc-margin:rgba(239,68,68,.45);font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:inherit}
+.fc-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 14px}
+.fc-search{flex:1 1 240px;position:relative}
+.fc-search input{width:100%;padding:11px 14px 11px 40px;border-radius:14px;border:1.5px solid rgba(148,163,184,.4);background:var(--fc-input-bg,rgba(255,255,255,.9));color:#0f172a;font:600 .95rem inherit;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s}
+.fc-search input:focus{border-color:#ec4899;box-shadow:0 0 0 4px rgba(236,72,153,.14)}
+.fc-search::before{content:'🔎';position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:1rem}
+.fc-sel{padding:10px 12px;border-radius:12px;border:1.5px solid rgba(148,163,184,.4);background:var(--fc-input-bg,rgba(255,255,255,.9));color:#0f172a;font:600 .85rem inherit;font-family:inherit}
+.fc-prog{display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;opacity:.85}
+.fc-prog i{display:block;width:110px;height:8px;border-radius:99px;background:rgba(148,163,184,.3);overflow:hidden}
+.fc-prog i b{display:block;height:100%;width:0;background:linear-gradient(90deg,#f472b6,#a78bfa);border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.fc-grupo{margin:22px 0 8px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:.95rem}
+.fc-grupo small{font-weight:600;opacity:.65}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;padding:6px 2px 10px}
+.fc-vacio{padding:26px;text-align:center;opacity:.7;border:2px dashed rgba(148,163,184,.4);border-radius:16px}
+
+/* mosaico */
+.fc-tile{--paper:#fff3a3;position:relative;border:0;text-align:left;cursor:pointer;padding:22px 16px 14px;min-height:178px;border-radius:6px 6px 14px 6px;background:var(--paper);color:var(--fc-ink);font-family:inherit;
+  box-shadow:0 1px 1px rgba(0,0,0,.12),0 10px 18px -8px rgba(15,23,42,.35);transform:rotate(var(--rot,0deg));transition:transform .25s cubic-bezier(.2,.9,.3,1.3),box-shadow .25s;display:flex;flex-direction:column;gap:8px;opacity:0;animation:fcIn .45s ease forwards;animation-delay:var(--d,0s);overflow:hidden}
+.fc-tile::after{content:'';position:absolute;right:0;bottom:0;width:30px;height:30px;background:linear-gradient(135deg,transparent 50%,rgba(0,0,0,.09) 50%);border-radius:0 0 14px 0}
+.fc-tile:hover,.fc-tile:focus-visible{transform:rotate(0deg) translateY(-6px) scale(1.03);box-shadow:0 2px 2px rgba(0,0,0,.12),0 20px 28px -10px rgba(15,23,42,.45);outline:none}
+.fc-tile .pin{position:absolute;top:7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fda4af,#e11d48 60%,#9f1239);box-shadow:0 3px 4px rgba(0,0,0,.35)}
+.fc-tile h4{margin:6px 0 0;font:700 1.28rem/1.12 'Caveat',cursive;letter-spacing:.2px}
+.fc-tile .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto}
+.fc-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;font-size:.66rem;font-weight:800;background:rgba(255,255,255,.65);border:1px solid rgba(0,0,0,.08)}
+.fc-tag.guia{background:rgba(255,255,255,.7);color:#0f766e}
+.fc-tag.ver{background:#fef3c7;color:#92400e;border-color:#fcd34d}
+.fc-tile .ok{position:absolute;top:8px;right:9px;font-size:1rem;filter:drop-shadow(0 1px 1px rgba(0,0,0,.2))}
+.fc-tile .hint{font-size:.7rem;font-weight:700;opacity:.6}
+.fc-sello{position:absolute;right:8px;bottom:8px;width:30px;height:30px;border-radius:50%;background:#fff url('../assets/N%20NIKA.png') center/70% no-repeat;border:2px solid rgba(15,23,42,.18);box-shadow:0 1px 3px rgba(0,0,0,.2);opacity:.9}
+@keyframes fcIn{from{opacity:0;transform:translateY(14px) rotate(var(--rot,0deg)) scale(.96)}to{opacity:1;transform:rotate(var(--rot,0deg))}}
+
+/* modal: hoja entre post-it y recetario */
+.fc-modal{position:fixed;inset:0;z-index:9600;display:none;align-items:flex-start;justify-content:center;padding:3vh 12px;background:rgba(2,6,23,.62);backdrop-filter:blur(5px);overflow:auto}
+.fc-modal.on{display:flex}
+.fc-hoja{--paper:#fff3a3;position:relative;width:min(760px,100%);border-radius:8px 8px 18px 8px;background:var(--paper);color:var(--fc-ink);padding:26px 26px 20px;box-shadow:0 30px 70px -20px rgba(0,0,0,.7);animation:fcFlip .45s cubic-bezier(.2,.9,.3,1.1) both;transform-origin:50% 0}
+@keyframes fcFlip{from{opacity:0;transform:perspective(900px) rotateX(-35deg) translateY(-14px)}to{opacity:1;transform:perspective(900px) rotateX(0)}}
+.fc-hoja .pin{position:absolute;top:-8px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fda4af,#e11d48 60%,#9f1239);box-shadow:0 4px 6px rgba(0,0,0,.4)}
+.fc-hoja header{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;border-bottom:2px dashed rgba(0,0,0,.18);padding-bottom:10px;margin-bottom:12px}
+.fc-hoja h3{margin:0;font:700 1.9rem/1.1 'Caveat',cursive}
+.fc-hoja .sub{font-size:.74rem;font-weight:700;opacity:.65;margin-top:4px}
+.fc-x{border:0;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.1);color:inherit;cursor:pointer;font-size:1rem;flex:none}
+.fc-x:hover{background:rgba(0,0,0,.2)}
+.fc-sello-g{width:54px;height:54px;border-radius:50%;background:#fff url('../assets/N%20NIKA.png') center/68% no-repeat;border:3px double rgba(15,23,42,.35);flex:none;transform:rotate(-10deg);box-shadow:0 2px 5px rgba(0,0,0,.25)}
+.fc-elegi{font:700 1.15rem 'Caveat',cursive;margin:2px 0 6px}
+.fc-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.fc-chip{border:2px solid rgba(0,0,0,.18);background:rgba(255,255,255,.55);color:inherit;border-radius:99px;padding:6px 12px;font:800 .78rem inherit;font-family:inherit;cursor:pointer;transition:transform .15s,background .2s,border-color .2s}
+.fc-chip:hover{transform:translateY(-2px)}
+.fc-chip.on{background:#1e293b;color:#fff;border-color:#1e293b}
+.fc-papel{position:relative;padding:4px 6px 6px 34px;border-radius:6px;background:
+  repeating-linear-gradient(to bottom,transparent 0,transparent 27px,var(--fc-line) 27px,var(--fc-line) 28px),rgba(255,255,255,.55);
+  min-height:120px}
+.fc-papel::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:var(--fc-margin)}
+.fc-bloque{animation:fcSec .35s ease both}
+@keyframes fcSec{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.fc-bloque h5{margin:10px 0 2px;font:700 1.35rem 'Caveat',cursive;color:#9d174d}
+.fc-bloque p,.fc-bloque li{font-size:.9rem;line-height:28px;margin:0}
+.fc-bloque ul{margin:0;padding-left:18px}
+.fc-paso{display:flex;gap:10px;line-height:1.35;margin:6px 0;font-size:.9rem}
+.fc-paso b{flex:0 0 86px;font:700 1.05rem 'Caveat',cursive;color:#0f766e;line-height:1.1;padding-top:2px}
+.fc-sub{font-weight:800;font-size:.84rem;margin:10px 0 2px;color:#334155}
+.fc-rojo li::marker{color:#dc2626}
+.fc-pie{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:14px;padding-top:10px;border-top:2px dashed rgba(0,0,0,.18);font-size:.76rem}
+.fc-fuente{flex:1 1 260px;line-height:1.45}
+.fc-aviso{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:10px;background:#fef9c3;border:1px solid #fde047;color:#854d0e;font-size:.78rem;font-weight:700;margin-top:10px}
+.fc-aviso.guia{background:rgba(209,250,229,.8);border-color:#6ee7b7;color:#065f46}
+.fc-btn{border:0;border-radius:99px;padding:9px 16px;font:800 .82rem inherit;font-family:inherit;cursor:pointer;background:linear-gradient(135deg,#ec4899,#6366f1);color:#fff;transition:transform .15s,box-shadow .2s}
+.fc-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px -8px rgba(99,102,241,.8)}
+.fc-btn.sec{background:rgba(0,0,0,.1);color:inherit}
+.fc-btn.ok{background:linear-gradient(135deg,#10b981,#059669)}
+.fc-legal{font-size:.68rem;opacity:.6;margin-top:8px}
+
+/* simulador */
+.fcs-wrap{max-width:980px;margin:0 auto}
+.fcs-paso{margin:18px 0}
+.fcs-paso>h3{margin:0 0 8px;font-size:1rem;font-weight:800}
+.fcs-areas{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.fcs-area,.fcs-op{position:relative;border:2px solid rgba(148,163,184,.35);border-radius:16px;padding:14px;background:rgba(255,255,255,.06);color:inherit;text-align:left;cursor:pointer;font-family:inherit;transition:transform .15s,border-color .2s,background .2s}
+.fcs-area:hover:not(:disabled),.fcs-op:hover{transform:translateY(-3px)}
+.fcs-area.on,.fcs-op.on{border-color:#ec4899;background:rgba(236,72,153,.12)}
+.fcs-area:disabled{opacity:.55;cursor:not-allowed}
+.fcs-area b,.fcs-op b{display:block;font-size:.95rem}
+.fcs-area small,.fcs-op small{display:block;opacity:.7;margin-top:3px;font-size:.76rem;line-height:1.35}
+.fcs-soon{position:absolute;top:8px;right:8px;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:99px;background:rgba(148,163,184,.3)}
+.fcs-ops{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.fcs-mazo{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:10px}
+.fcs-top{width:100%;display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:.85rem}
+.fcs-barra{flex:1;margin:0 12px;height:8px;border-radius:99px;background:rgba(148,163,184,.3);overflow:hidden}
+.fcs-barra b{display:block;height:100%;background:linear-gradient(90deg,#f472b6,#a78bfa);width:0;transition:width .35s}
+.fcs-carta{--paper:#fff3a3;perspective:1100px;width:min(540px,100%);min-height:300px}
+.fcs-in{position:relative;min-height:300px;border-radius:8px 8px 18px 8px;background:var(--paper);color:var(--fc-ink);padding:28px 24px 22px;box-shadow:0 18px 36px -14px rgba(15,23,42,.5);transition:transform .5s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+.fcs-in .pin{position:absolute;top:-8px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fda4af,#e11d48 60%,#9f1239);box-shadow:0 4px 6px rgba(0,0,0,.4)}
+.fcs-q{font:700 2rem/1.1 'Caveat',cursive;margin:6px 0 8px}
+.fcs-pregunta{font-weight:800;font-size:.9rem;color:#9d174d}
+.fcs-resp{margin-top:12px;max-height:46vh;overflow:auto;animation:fcSec .35s ease both}
+.fcs-acc{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fcs-fin{text-align:center;padding:24px}
+.fcs-fin .big{font:700 3rem 'Caveat',cursive;color:#ec4899}
+.fcs-rev{display:grid;gap:8px;margin-top:14px;text-align:left}
+.fcs-rev button{border:1px solid rgba(148,163,184,.4);background:rgba(255,255,255,.06);color:inherit;border-radius:12px;padding:9px 12px;cursor:pointer;font:700 .85rem inherit;font-family:inherit;text-align:left}
+@media(max-width:560px){.fc-hoja{padding:22px 16px 16px}.fc-paso{flex-direction:column;gap:0}.fc-paso b{flex:none}.fc-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}}
+@media (prefers-reduced-motion:reduce){.fc-tile,.fc-hoja,.fc-bloque,.fcs-resp{animation:none;opacity:1}.fc-tile:hover{transform:none}}

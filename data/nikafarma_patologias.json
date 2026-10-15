@@ -2,10 +2,10 @@
   "meta": {
     "version": "0.1.0",
     "actualizado": "2026-10-15",
-    "descargo": "Material educativo para estudiantes de medicina. Resume guías de consenso de sociedades científicas argentinas (FASGO, SOGIBA). No reemplaza la guía vigente completa, el protocolo de la institución ni el juicio del médico tratante. Las fichas en estado «borrador» todavía no fueron revisadas por un profesional. Varias fichas se basan en un apunte de estudiante (Pontelli, SIM 2026) que reúne Gori, Testa y consensos: no es una fuente oficial.",
+    "descargo": "Material educativo para estudiantes de medicina. Resume guías de consenso (FASGO, SOGIBA y otras) y, donde se indica, apuntes de estudio que deben verificarse con guías actuales. No reemplaza la guía vigente completa, el protocolo de la institución ni el juicio del médico tratante.",
     "estados": {
-      "borrador": "Borrador: redactado a partir de la guía citada, pendiente de revisión por un profesional.",
-      "verificada": "Verificada por un profesional.",
+      "guia": "Basada en guía o consenso de sociedad científica.",
+      "verificar": "Basada en material de estudio: verificar veracidad con guías actuales.",
       "sin_guia": "Sin guía en las carpetas provistas."
     },
     "regla": "Cada dato clínico de una ficha proviene de la guía citada en «fuente». Si la guía no lo trae, no se completa de memoria.",
@@ -20,6 +20,16 @@
       "coincide": "Contrastada: coincide",
       "parcial": "Contraste parcial",
       "no_contrastado": "No se pudo contrastar"
+    },
+    "unidades": {
+      "up1": "UP1 · Generalidades",
+      "up2": "UP2 · Niñeces e infancias",
+      "up3-sec1": "UP3 · Adolescente",
+      "up3-sec2": "UP3 · Adulta joven",
+      "up3-sec3": "UP3 · Urgencias",
+      "up3-sec4": "UP3 · Embarazo",
+      "up3-sec5": "UP3 · Parto y puerperio",
+      "up4": "UP4 · Adulta mayor"
     }
   },
   "areas": [
@@ -48,7 +58,7 @@
         "rotterdam"
       ],
       "unidad": "UP3 · Sección 2 — Patología ovárica / Trastornos hormonales",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Endocrinopatía más frecuente en la mujer en edad reproductiva (prevalencia 5–15 % según el criterio diagnóstico). Se diagnostica con al menos 2 de 3 criterios, descartando otras causas.",
       "diagnostico": [
         "Al menos 2 de 3: (1) disfunción ovulatoria, (2) hiperandrogenismo clínico y/o bioquímico, (3) morfología de ovarios poliquísticos por ecografía o HAM elevada (criterio de Rotterdam, recomendado por el NIH 2012).",
@@ -139,7 +149,10 @@
         "nota": "Incorpora las recomendaciones ESHRE 2023.",
         "tipo": "guia"
       },
-      "revisarAntes": "2027-10"
+      "revisarAntes": "2027-10",
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-sua",
@@ -158,7 +171,7 @@
         "palm-coein"
       ],
       "unidad": "UP3 · Sección 2 — Patologías uterinas; Sección 3 — Genitorragia",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "SUA crónico: sangrado del cuerpo uterino anormal en duración, volumen y/o frecuencia, presente la mayor parte de los últimos 6 meses. SUA agudo: episodio de sangrado abundante en mujer no gestante en edad reproductiva que, a criterio médico, requiere intervención inmediata para evitar mayor pérdida.",
       "diagnostico": [
         "Descartar embarazo y evaluar estado hemodinámico antes que nada.",
@@ -251,7 +264,12 @@
         "nota": "Existe también un Consenso SUA de SOGIBA; se tomó el de FASGO por ser el más reciente de los provistos. Cotejar si hace falta.",
         "tipo": "guia"
       },
-      "revisarAntes": "2027-06"
+      "revisarAntes": "2027-06",
+      "up": [
+        "up3-sec2",
+        "up3-sec3",
+        "up4"
+      ]
     },
     {
       "id": "obs-hipertension",
@@ -271,7 +289,7 @@
         "toxemia"
       ],
       "unidad": "UP3 · Sección 4 — Enfermedades maternas inducidas por el embarazo o que lo complican",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Hipertensión que aparece de novo después de las 20 semanas (hipertensión gestacional). Preeclampsia: hipertensión gestacional con una o más de proteinuria, daño renal, hepático, neurológico, hematológico o disfunción uteroplacentaria. La proteinuria ya no es obligatoria y se reemplaza leve/grave por «con o sin signos de severidad».",
       "diagnostico": [
         "Hipertensión crónica: previa al embarazo, diagnosticada antes de las 20 semanas o que persiste pasadas 12 semanas del puerperio.",
@@ -374,7 +392,10 @@
         "nota": "Reemplaza al consenso FASGO 2017 de hipertensión y embarazo.",
         "tipo": "guia"
       },
-      "revisarAntes": "2027-12"
+      "revisarAntes": "2027-12",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "gin-ectopico",
@@ -391,7 +412,7 @@
         "embarazo en cicatriz de cesarea"
       ],
       "unidad": "UP3 · Sección 3 — Motivos de consulta ginecológica de urgencia",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Implantación del embarazo fuera de la cavidad uterina (tubárico en la gran mayoría; también intersticial, cervical, en cicatriz de cesárea y heterotópico).",
       "diagnostico": [
         "Combinación de β-hCG cuantitativa y ecografía transvaginal (sensibilidad 87–99 %, especificidad 94–99 %).",
@@ -474,7 +495,10 @@
         "nota": "Año tomado del nombre del archivo.",
         "tipo": "guia"
       },
-      "revisarAntes": "2028-01"
+      "revisarAntes": "2028-01",
+      "up": [
+        "up3-sec3"
+      ]
     },
     {
       "id": "obs-dg",
@@ -490,7 +514,7 @@
         "insulina en el embarazo"
       ],
       "unidad": "UP3 · Sección 4 — Enfermedades maternas que complican el embarazo (diabetes y embarazo)",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Intolerancia a la glucosa que se detecta por primera vez en el embarazo, con valores que no alcanzan los criterios de diabetes. Valores compatibles con diabetes en el primer trimestre se tratan como diabetes pregestacional.",
       "diagnostico": [
         "Diabetes previa (primer trimestre): glucemia en ayunas ≥126 mg/dl, glucemia al azar ≥200 mg/dl con síntomas, o ≥200 mg/dl a los 120 min de la PTOG.",
@@ -573,7 +597,10 @@
         "nota": "Las metas de glucemia vienen en una tabla mal alineada en el PDF; se interpretó como ayunas / 1 h / 2 h. Revisar contra el original.",
         "tipo": "guia"
       },
-      "revisarAntes": "2027-10"
+      "revisarAntes": "2027-10",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "gin-pubertad-precoz",
@@ -595,7 +622,7 @@
         "leuprolide"
       ],
       "unidad": "UP2 — Pubertad precoz y retraso puberal",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Aparición de caracteres sexuales secundarios antes de los 8 años, con aumento de la velocidad de crecimiento y de la maduración ósea. Puede ser central (dependiente de GnRH), periférica (independiente de GnRH) o incompleta (telarca o pubarca precoz aisladas).",
       "diagnostico": [
         "Central (PPC): activación prematura del eje hipotálamo-hipófiso-gonadal; respeta la cronología puberal. Idiopática (la más frecuente), neurogénica (tumores, malformaciones, infiltrativas, posinfecciosa, traumática), secundaria al tratamiento tardío de hiperplasia suprarrenal congénita, hipotiroidismo.",
@@ -661,7 +688,10 @@
         "tipo": "apunte",
         "nota": "No es una guía de sociedad científica: es el apunte de la materia. La pubertad se desarrolla en el apunte sobre la base de Ginecología de Gori. Cotejar con guía actual de endocrinología pediátrica."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up2"
+      ]
     },
     {
       "id": "gin-retraso-puberal",
@@ -682,7 +712,7 @@
         "retraso constitucional del crecimiento"
       ],
       "unidad": "UP2 — Pubertad precoz y retraso puberal",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Ausencia de desarrollo puberal a partir de 2 desvíos estándar por encima de la media para la edad en la población general (en la práctica, 13 años). Incluye a quienes empiezan a tiempo pero detienen el desarrollo o progresan de forma inadecuada.",
       "diagnostico": [
         "Constitucional del crecimiento: variante normal, con antecedentes familiares; completa el desarrollo y la fertilidad. Afecta más a varones, sin prueba diagnóstica específica.",
@@ -735,7 +765,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante, no guía de sociedad. No incluye dosis de estrógenos para la inducción. Cotejar con una guía actual."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up2"
+      ]
     },
     {
       "id": "gin-endometriosis",
@@ -751,7 +784,7 @@
         "endometriosis profunda"
       ],
       "unidad": "UP3 · Sección 2 — Endometriosis y adenomiosis",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Enfermedad crónica y progresiva, con lesiones endometriósicas superficiales, ováricas (endometriomas) o profundas. El diagnóstico de certeza sigue siendo la cirugía con confirmación histopatológica, pero no hace falta esperarla para tratar.",
       "diagnostico": [
         "Sospechar ante dolor pélvico menstrual invalidante y progresivo y/o dificultad para lograr embarazo (el retraso medio de diagnóstico se estima en 7 años).",
@@ -837,7 +870,10 @@
         "tipo": "guia",
         "nota": "El texto da desogestrel como «75 mg/día» (error de tipeo); se transcribió 75 mcg, que es la dosis habitual del comprimido. Verificar."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-epi",
@@ -854,7 +890,7 @@
         "cervicitis"
       ],
       "unidad": "UP3 · Sección 1 — Patología infecciosa; Sección 3 — Abdomen agudo ginecológico",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Infección del tracto genital superior en mujeres jóvenes, con manifestaciones clínicas muy variadas. El retraso en tratar aumenta el riesgo de secuelas: embarazo ectópico, infertilidad y dolor pelviano crónico.",
       "diagnostico": [
         "Criterios mínimos para iniciar tratamiento empírico: dolor o sensibilidad uterina y/o anexial, y dolor a la movilización cervical.",
@@ -949,7 +985,11 @@
         "tipo": "guia",
         "nota": "Se usa el consenso SOGIBA 2017 y el anexo «Actualización 2024» del apunte de estudiante (Pontelli SIM 2026, pp. 454–455), que coinciden salvo la ventana de la pareja (6 meses en SOGIBA, 60 días en el apunte). El apunte menciona una actualización 2024 sin citar la fuente original; cotejar con la guía nacional."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec1",
+        "up3-sec3"
+      ]
     },
     {
       "id": "obs-hpp",
@@ -971,7 +1011,7 @@
         "las 4 t"
       ],
       "unidad": "UP3 · Sección 5 — Atención del parto y puerperio; Puerperio patológico",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Pérdida de cualquier cantidad de sangre que cause signos de hipovolemia o inestabilidad hemodinámica. Otras definiciones: >500 ml tras parto vaginal o >1000 ml tras cesárea. HPP grave: ≥1000 ml. Primaria: dentro de las 24 h; secundaria: después de las 24 h y hasta las 12 semanas.",
       "diagnostico": [
         "Causas, «las 4 T»: Tono (atonía), Tejido (restos y adherencias placentarias), Trauma (lesiones del tracto genital) y Trombina (trastornos de la coagulación).",
@@ -1048,7 +1088,10 @@
         "tipo": "guia",
         "nota": "Existe también un consenso HPP de SOGIBA 2018. Los textos coinciden en lo general; no se contrastó punto por punto."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec5"
+      ]
     },
     {
       "id": "gin-flujo",
@@ -1076,7 +1119,7 @@
         "infecciones vaginales"
       ],
       "unidad": "UP3 · Sección 1 — Infecciones endógenas; Sección 4 — Infecciones vaginales en el embarazo",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Cuadros de flujo genital por disbiosis o infección: vaginosis bacteriana (VB), candidiasis vulvovaginal (CVV) y tricomoniasis (ITS).",
       "diagnostico": [
         "VB (criterios de Amsel, 3 de 4): flujo blanco-grisáceo, pH >4,5, «células clave» y test de aminas positivo (olor a pescado con KOH 10 %). Tinción de Gram con score de Nugent como patrón de referencia.",
@@ -1168,7 +1211,10 @@
         "tipo": "guia",
         "nota": "El consenso cita las guías de SADI y CDC. Los esquemas de embarazo están en el capítulo de infecciones en la gestación."
       },
-      "revisarAntes": "2027-06"
+      "revisarAntes": "2027-06",
+      "up": [
+        "up3-sec1"
+      ]
     },
     {
       "id": "gin-climaterio",
@@ -1191,7 +1237,7 @@
         "estrogenos locales"
       ],
       "unidad": "UP4 — Climaterio",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Perimenopausia: desde el inicio de los síntomas hasta 1 año después de la última menstruación. Menopausia: confirmada 12 meses tras el último período. Posmenopausia: todos los años siguientes.",
       "diagnostico": [
         "El diagnóstico de menopausia es clínico (12 meses de amenorrea).",
@@ -1272,7 +1318,10 @@
         "tipo": "guia",
         "nota": "El documento no trae año de publicación. Existe también el consenso de THM de SOGIBA 2018, que no se contrastó. Verificar vigencia."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "obs-ppp",
@@ -1299,7 +1348,7 @@
         "atosiban"
       ],
       "unidad": "UP3 · Sección 4 — Embarazo patológico: parto prematuro",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Parto pretérmino: nacimiento de un niño vivo entre las 22.0 y las 36.6 semanas. Amenaza de parto pretérmino: contracciones (1 cada 10 minutos, de 25–30 segundos, durante 60 minutos) con borramiento ≤50 % y dilatación ≤3 cm entre las 22 y las 36.6 semanas.",
       "diagnostico": [
         "Prematuros extremos: <28 semanas; muy prematuros: 28–31.6; moderados: 32–33.6; tardíos: 34–36.6.",
@@ -1362,7 +1411,10 @@
         "tipo": "guia",
         "nota": "Se priorizó SOGIBA 2018 por ser más reciente; los esquemas de corticoides, magnesio y EGB coinciden. El PDF de FASGO sobre predicción y prevención no se pudo leer (imagen)."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-rpm",
@@ -1381,7 +1433,7 @@
         "test de cristalizacion"
       ],
       "unidad": "UP3 · Sección 4 — Rotura prematura de membranas",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Rotura de las membranas ovulares antes del inicio del trabajo de parto. Se presenta en el 8 % de los embarazos de término; en pretérmino, la mayoría nace dentro de los 7 días.",
       "diagnostico": [
         "Salida brusca de líquido por vagina: la observación directa suele bastar; si no, espéculo estéril (líquido en fondo de saco posterior o por el orificio cervical, con Valsalva o maniobra de Tarnier). Evitar el tacto vaginal.",
@@ -1470,7 +1522,10 @@
         "tipo": "guia",
         "nota": "El consenso SOGIBA RPMP 2017 no se contrastó."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "gin-amenorreas",
@@ -1490,7 +1545,7 @@
         "hipogonadismo hipogonadotrofico"
       ],
       "unidad": "UP3 · Sección 2 — Amenorreas primarias y secundarias",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Amenorrea primaria: ausencia de menarca a los 16 años o más con caracteres sexuales desarrollados (0,1–2,5 %). Amenorrea secundaria: ausencia de menstruación por más de 3 meses (ciclo >90 días) tras una menarca espontánea (1–5 %). Es un síntoma, no una enfermedad; la anovulación crónica explica ≈80 %.",
       "diagnostico": [
         "Clasificar por eje: hipotálamo-hipofisario (hipogonadismo hipogonadotrófico: FSH y LH bajas o normales), gonadal (hipergonadotrófico: FSH elevada; pedir cariotipo, p. ej. síndrome de Turner), anatómica del tracto genital, endocrina periférica o enfermedad crónica.",
@@ -1547,7 +1602,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante (recopila Testa, Gori y clases); no es una guía de sociedad. El algoritmo de amenorrea secundaria del apunte es una imagen."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-hiperprolactinemia",
@@ -1565,7 +1623,7 @@
         "macroprolactinemia"
       ],
       "unidad": "UP3 · Sección 2 — Trastornos hormonales",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Aumento persistente de prolactina por encima de 25 ng/ml en una mujer no embarazada que no amamanta. Es la alteración hipotálamo-hipofisaria más frecuente. Prolactinoma: adenoma secretor (microadenoma <1 cm; macroadenoma >1 cm).",
       "diagnostico": [
         "Causas más frecuentes: embarazo, prolactinoma y fármacos (antipsicóticos, antidepresivos, metoclopramida, domperidona, verapamilo, alfametildopa, opioides, estrógenos); también hipotiroidismo primario, SOP, insuficiencia renal o hepática, lesiones del tallo hipofisario.",
@@ -1629,7 +1687,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; no se encontró guía de sociedad en las carpetas."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-fop",
@@ -1644,7 +1705,7 @@
         "falla ovarica prematura"
       ],
       "unidad": "UP3 · Sección 2 — Patología ovárica",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Pérdida del ciclo menstrual antes de los 40 años, al menos por 6 meses, con hipoestrogenismo e hipergonadotrofismo (cese de la función ovárica).",
       "diagnostico": [
         "Dos dosajes de FSH >40 UI/l con intervalo de más de 1 mes, estradiol <20 pg/ml; prueba de progesterona negativa.",
@@ -1705,7 +1766,10 @@
           "Coincide: menor de 40 años, 2 determinaciones de FSH >40 UI/l.",
           "Difiere en la dosis: el consenso indica terapia hormonal sustitutiva (o anticonceptivo) a dosis fisiológica para la edad, continuada hasta la edad de la menopausia natural; los riesgos de la TH de la posmenopausia no se observan en la falla ovárica. El apunte propone estradiol 4 mg/día, una dosis alta."
         ]
-      }
+      },
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-miomatosis",
@@ -1722,7 +1786,7 @@
         "embolizacion uterina"
       ],
       "unidad": "UP3 · Sección 2 — Patologías uterinas",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Tumores benignos más frecuentes de la mujer en edad reproductiva; el 80 % llega a la menopausia con miomas y un tercio presenta síntomas. Son la causa más frecuente de histerectomía.",
       "diagnostico": [
         "Factores de riesgo: edad hasta la menopausia, menarca precoz, nuliparidad, obesidad; estrógeno y progesterona dependientes.",
@@ -1778,7 +1842,10 @@
           "Parcialmente contrastada: el consenso indica miomectomía histeroscópica para submucosos, con tratamiento médico previo (ACO, AINE, ácido tranexámico) para reducir el sangrado y corregir la anemia; menciona miólisis histeroscópica y elagolix en evaluación.",
           "No se contrastó punto por punto la parte de embolización, análogos de GnRH y cirugía no histeroscópica."
         ]
-      }
+      },
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-adenomiosis",
@@ -1790,7 +1857,7 @@
         "endometriosis interna"
       ],
       "unidad": "UP3 · Sección 2 — Endometriosis y adenomiosis",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Glándulas y estroma endometriales dentro del miometrio con hiperplasia e hipertrofia de la fibra muscular lisa. Benigna, estrógeno dependiente; forma difusa (más frecuente) o nodular/focal (adenomioma).",
       "diagnostico": [
         "Más frecuente en multíparas de 40–50 años; 30 % asintomáticas. Útero aumentado de tamaño, sangrado uterino anormal, dismenorrea, dolor pelviano crónico, subfertilidad.",
@@ -1854,7 +1921,10 @@
           "Coincide: histerectomía como tratamiento definitivo y DIU de levonorgestrel para el sangrado.",
           "Difiere: con deseo de embarazo el DIU-LNG es la primera elección y dienogest continuo otra opción; los anticonceptivos combinados tienen escasa evidencia; la embolización de arterias uterinas es alternativa con paridad cumplida o contraindicación quirúrgica; la resección en cuña de adenomiomas aumenta el riesgo de rotura uterina en el embarazo (mayor que la miomectomía)."
         ]
-      }
+      },
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-aborto",
@@ -1879,7 +1949,7 @@
         "genitorragia de la primera mitad"
       ],
       "unidad": "UP3 · Sección 3 — Genitorragia; Aborto",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Gestación que termina antes de la semana 20 o con un feto <500 g. Más del 80 % ocurre en las primeras 12 semanas y más de la mitad por alteraciones cromosómicas. Todos los estadios comparten prueba de embarazo positiva + metrorragia + dolor abdominal. Recurrente: ≥3 pérdidas consecutivas.",
       "diagnostico": [
         "Amenaza: sangrado leve, cuello cerrado y formado, embrión vital en la ecografía.",
@@ -1959,7 +2029,10 @@
           "En síndrome antifosfolípido con aborto recurrente: aspirina en bajas dosis (preconcepcional) más heparina de bajo peso molecular profiláctica mejora la tasa de nacido vivo (evidencia 1a).",
           "El manejo del aborto espontáneo (misoprostol, AMEU) no pudo contrastarse con un consenso de las carpetas; se mantiene lo del apunte y el resumen."
         ]
-      }
+      },
+      "up": [
+        "up3-sec3"
+      ]
     },
     {
       "id": "gin-ive-ile",
@@ -1978,7 +2051,7 @@
         "causales"
       ],
       "unidad": "UP3 · Sección 2 — Interrupción Legal / Voluntaria del Embarazo",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Marco legal argentino de acceso a la interrupción del embarazo (Ley 27.610, sancionada el 30 de diciembre de 2020).",
       "diagnostico": [
         "IVE: toda mujer o persona con capacidad de gestar tiene derecho a interrumpir su embarazo de forma voluntaria hasta la semana 14 inclusive.",
@@ -2016,7 +2089,10 @@
         "tipo": "resumen",
         "nota": "Resumen de un alumno, no la ley ni el protocolo. Consultar el texto de la Ley 27.610 y el Protocolo del Ministerio de Salud."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-etg",
@@ -2038,7 +2114,7 @@
         "metotrexato en mola"
       ],
       "unidad": "UP3 · Sección 3 — Genitorragia: enfermedad trofoblástica gestacional",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Proliferación anormal del trofoblasto. Mola hidatiforme completa o parcial (benigna) y neoplasia trofoblástica gestacional (mola invasora, coriocarcinoma, tumor del sitio placentario, tumor trofoblástico epitelial).",
       "diagnostico": [
         "Mola completa: 46XX en el 90 %, sin tejido fetal; sangrado vaginal en el 97 %, altura uterina mayor a la esperada, hiperémesis, preeclampsia temprana (27 %), hipertiroidismo (7 %), quistes tecaluteínicos (50 %). Progresión a neoplasia en 15–20 % (30 % con factores de alto riesgo: β-hCG >100.000 UI/l, útero muy grande, quistes >6 cm, edad >40).",
@@ -2106,7 +2182,10 @@
         "tipo": "guia",
         "nota": "Año tomado del texto (consenso de Tocoginecología FASGO 2015). La anticoncepción posmolar no figura en el texto relevado."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec3"
+      ]
     },
     {
       "id": "obs-colestasis",
@@ -2124,7 +2203,7 @@
         "prurito en el embarazo"
       ],
       "unidad": "UP3 · Sección 4 — Enfermedades maternas que complican el embarazo",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Colestasis del segundo avanzado y tercer trimestre con prurito y elevación de ácidos biliares; de causa hormonal, genética y ambiental. Alta recurrencia; se asocia a parto pretérmino (≈30 %), meconio y muerte intraútero.",
       "diagnostico": [
         "Prurito con ácidos biliares elevados y/o enzimas hepáticas aumentadas; diferenciar de hepatitis virales, litiasis, esteatosis y dermatosis del embarazo (prurito gravídico, erupción atópica o polimorfa, penfigoide gestacional, prurigo).",
@@ -2198,7 +2277,10 @@
         "tipo": "guia",
         "nota": "Guía de 2016; verificar contra actualizaciones recientes."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-rciu",
@@ -2218,7 +2300,7 @@
         "ductus venoso"
       ],
       "unidad": "UP3 · Sección 4 — Restricción del crecimiento fetal",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Insuficiente expresión del potencial genético de crecimiento fetal. PEG: peso fetal estimado por debajo del percentilo 10 (60 % son constitucionalmente pequeños; 25 % tienen insuficiencia placentaria, los verdaderos RCIU; 15 % por causa extrínseca a la placenta).",
       "diagnostico": [
         "Peso fetal estimado (fórmula de Hadlock: perímetro cefálico, circunferencia abdominal y fémur; error ±15 %) y edad gestacional datada con ecografía del primer trimestre; percentil de crecimiento.",
@@ -2294,7 +2376,10 @@
         "tipo": "guia",
         "nota": "La tabla de estadios del PDF está desalineada; la relación estadio-conducta se reconstruyó de la columna de seguimiento y finalización. Verificar contra el original."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-gemelar",
@@ -2315,7 +2400,7 @@
         "muerte de un gemelo"
       ],
       "unidad": "UP3 · Sección 4 — Embarazo múltiple",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Embarazo con dos fetos. La corionicidad es el principal factor pronóstico (los monocoriales tienen mayor riesgo). Representan 15–25 % de los recién nacidos en cuidados intensivos neonatales.",
       "diagnostico": [
         "Determinar edad gestacional, corionicidad y amnionicidad en el primer trimestre (ecografía precoz o de las 11–14 semanas); en embarazos espontáneos que consultan después de la semana 14 usar el perímetro cefálico del feto más grande.",
@@ -2409,7 +2494,10 @@
         "tipo": "guia",
         "nota": "El PDF es una presentación; algunas tablas de ecografías por corionicidad no se extrajeron."
       },
-      "revisarAntes": "2027-06"
+      "revisarAntes": "2027-06",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-placenta-previa",
@@ -2424,7 +2512,7 @@
         "placenta oclusiva"
       ],
       "unidad": "UP3 · Sección 4 — Hemorragias de la segunda mitad del embarazo",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Inserción de la placenta en el segmento inferior del útero. Tipos: lateral (a 10 cm del orificio cervical interno), marginal (el borde alcanza el OCI) y central o total (lo obtura).",
       "diagnostico": [
         "Hemorragia roja rutilante, indolora, que suele iniciarse durante el sueño y es intermitente; ante sangrado al final del embarazo, placenta previa hasta que se demuestre lo contrario.",
@@ -2463,7 +2551,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; no se encontró guía de sociedad en las carpetas. Capítulo breve sin criterios de interrupción por edad gestacional."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-dppni",
@@ -2478,7 +2569,7 @@
         "hipertonia uterina"
       ],
       "unidad": "UP3 · Sección 4 — Hemorragias de la segunda mitad del embarazo",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Desprendimiento parcial o total, antes del parto, de una placenta normalmente insertada, a partir de las 20 semanas (antes se trata como aborto).",
       "diagnostico": [
         "Lo primero a pensar es preeclampsia (la gran mayoría se asocia); también traumatismos y evacuación brusca de polihidramnios.",
@@ -2524,7 +2615,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-anemia",
@@ -2541,7 +2635,7 @@
         "anemia fisiologica del embarazo"
       ],
       "unidad": "UP3 · Sección 4 — Enfermedades maternas que complican el embarazo",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Hemoglobina <11 g/dl o hematocrito <33 % (OMS). El CDC usa <10,5 g/dl o <32 % en el segundo trimestre. Se asocia a mayor mortalidad materna y fetal, parto prematuro y RCIU.",
       "diagnostico": [
         "Anemia fisiológica: el volumen plasmático aumenta ≈900 ml y la masa globular ≈25 %, por lo que hemoglobina y hematocrito caen entre el 3.º y 5.º mes (mínimos entre el 5.º y 8.º).",
@@ -2585,7 +2679,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Verificar dosis con la normativa vigente (suplementación)."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-ehp",
@@ -2605,7 +2702,7 @@
         "factor rh"
       ],
       "unidad": "UP3 · Sección 4 — Enfermedad hemolítica perinatal",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Afección del feto y recién nacido por pasaje transplacentario de anticuerpos contra el glóbulo rojo fetal. La sensibilización anti-D causa el 80–90 %.",
       "diagnostico": [
         "Factores de riesgo de inmunización: amenaza de aborto, aborto, ectópico, procedimientos invasivos (vellosidades coriales, amniocentesis), versión externa, trauma abdominal, placenta previa sangrante, DPPNI, parto instrumental o cesárea, alumbramiento manual.",
@@ -2656,7 +2753,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; transcribe recomendaciones ministeriales sin fecha. Verificar con la guía vigente."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-vih",
@@ -2676,7 +2776,7 @@
         "lactancia y vih"
       ],
       "unidad": "UP3 · Sección 4 — Infecciones: HIV/sida, transmisión perinatal",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Manejo de la gestante con infección por VIH para prevenir la transmisión vertical. Sin tratamiento la transmisión es del 14–25 % (25–40 % intraútero, 60–75 % intraparto); con TAR, lactancia artificial y las medidas obstétricas baja a <2 % (<0,5–1 % con medidas óptimas). Con TAR y carga viral indetectable sostenida se considera no transmisible. La infección por VIH no es indicación de interrumpir la gestación.",
       "diagnostico": [
         "Cribado universal de VIH en la gestación y retesteo en el tercer trimestre (≈32 semanas) en las negativas; también en el parto o posparto inmediato si no hay resultado, para poder dar profilaxis al recién nacido y contraindicar la lactancia.",
@@ -2772,7 +2872,10 @@
           "Los esquemas del apunte (AZT, nevirapina, cesárea electiva sistemática) quedaron desactualizados: hoy el TAR combinado incluye un inhibidor de integrasa o de proteasa potenciado y la vía de parto depende de la carga viral a las 34–36 semanas.",
           "Coincide: lactancia contraindicada, profilaxis neonatal con zidovudina, retesteo en el tercer trimestre y zidovudina IV intraparto con la pauta ACTG 076."
         ]
-      }
+      },
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-sifilis",
@@ -2789,7 +2892,7 @@
         "sifilis gestacional"
       ],
       "unidad": "UP3 · Sección 4 — Infecciones perinatales; Sección 1 — ITS",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Infección por Treponema pallidum en la gestante, con riesgo de sífilis congénita si no se trata. La penicilina G benzatínica es la droga de elección excluyente.",
       "diagnostico": [
         "Tamizaje con prueba no treponémica (VDRL/RPR) a la gestante y a su pareja; si hay VDRL reactiva y no se dispone de pruebas treponémicas, iniciar el tratamiento sin demoras."
@@ -2842,7 +2945,10 @@
         "tipo": "apunte",
         "nota": "Anexo de actualización del apunte de estudiante; la guía ministerial original no está en tus carpetas."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-torch",
@@ -2868,7 +2974,7 @@
         "infecciones congenitas"
       ],
       "unidad": "UP3 · Sección 4 — Infecciones, TORCH",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Infecciones maternas con riesgo de transmisión vertical y manejo específico en el embarazo.",
       "diagnostico": [
         "Toxoplasmosis: ELISA IgG en la primera consulta; IgG+ e IgM−, infección pasada; IgM+, aguda (PCR en líquido amniótico para infección fetal). Riesgo fetal 6 % en el primer trimestre (50 % enfermedad grave), 30 % en el segundo (10 %) y 75 % en el tercero (0 %). Tétrada de Sabin.",
@@ -2928,7 +3034,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas para toxoplasmosis, Chagas, CMV, rubéola ni varicela. Verificar con la Guía de Infecciones Perinatales del Ministerio de Salud."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-covid",
@@ -2946,7 +3055,7 @@
         "hbpm"
       ],
       "unidad": "UP3 · Sección 4 — Manejo de gestantes y puérperas con infección COVID-19",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Infección por SARS-CoV-2 en la gestación: puede deteriorarse rápido; requiere abordaje multidisciplinario.",
       "diagnostico": [
         "Criterios de ingreso: fiebre persistente >38 °C pese a paracetamol, neumonía en la radiografía o marcadores de severidad (PCR >7 mg/dl, linfopenia <1000/mm³, ferritina >400 ng/ml, LDH >300 U/l), CURB-65 ≥1, o motivos obstétricos (trabajo de parto, amenaza de parto pretérmino)."
@@ -2989,7 +3098,10 @@
         "tipo": "apunte",
         "nota": "Anexo del apunte de estudiante; no hay guía de sociedad en las carpetas. Las recomendaciones de COVID cambian con el tiempo: verificar con la normativa vigente."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "gin-tamizaje-ccu",
@@ -3015,7 +3127,7 @@
         "lsil"
       ],
       "unidad": "UP1 · Control ginecológico, citología cervical; UP3 · Sección 1 — Programa de prevención del cáncer cervicouterino",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Estrategia de prevención secundaria del cáncer de cuello uterino según la Nueva Guía 2022 (SAPTGIyC, SOGIBA, FASGO), con tamizaje primario por test de VPH desde los 30 años.",
       "diagnostico": [
         "Inicio: a los 3 años del comienzo de la actividad sexual o a partir de los 25 años. No usar test de VPH en menores de 30 años (infecciones transitorias, sobrediagnóstico).",
@@ -3065,7 +3177,11 @@
           "Coincide con el apunte: tamizaje con VPH desde los 30 años, repetir a los 5 si es negativo; citología en <30 años; no usar VPH en <30; autotoma; triage con citología y repetir VPH a los 12 meses si Pap negativo; fin a los 65 (VPH) o 70 años (citología) con tamizajes previos negativos.",
           "Amplía: inmunocomprometidas, VIH positivas y trasplantadas mantienen citología anual, y con VPH negativo repiten cada 3 años; VPH positivo 16/18 va directo a colposcopía; triage con tinción dual p16/Ki-67 como alternativa; manejo del CIN 2 con regresión ≈50 % (64 % en <25 años) y conducta según zona de transformación."
         ]
-      }
+      },
+      "up": [
+        "up1",
+        "up3-sec1"
+      ]
     },
     {
       "id": "gin-infertilidad",
@@ -3086,7 +3202,7 @@
         "cotte"
       ],
       "unidad": "UP3 · Sección 2 — Infertilidad femenina",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Incapacidad de lograr un embarazo clínico después de 12 meses de relaciones regulares sin protección en menores de 35 años, o de 6 meses a partir de los 35. Es una consulta de pareja.",
       "diagnostico": [
         "Estudio simultáneo, ordenado y escalonado de la pareja.",
@@ -3128,7 +3244,10 @@
           "Amplía: completar el estudio en no más de 3 ciclos; progesterona plasmática el día 21–24; valores seminales de referencia (volumen 1,5 ml, concentración 15 × 10⁶/ml, motilidad 40 %, morfología 4 %); no se recomienda el test poscoito; videolaparoscopia tras 2 años sin causa aparente o con fallas de FIV; videohisteroscopia ante pólipos, adherencias, miomas submucosos o útero tabicado; la obesidad (IMC >29) empeora la ovulación y la respuesta.",
           "Atención: el consenso es de 2013; los valores seminales de la OMS pudieron actualizarse."
         ]
-      }
+      },
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-masa-anexial",
@@ -3152,7 +3271,7 @@
         "cancer de ovario"
       ],
       "unidad": "UP3 · Sección 3 — Patología anexial",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Toda estructura aumentada de tamaño que compromete trompas u ovarios. La mayoría es benigna; el objetivo de la evaluación es descartar cáncer de ovario y derivar a tiempo.",
       "diagnostico": [
         "Ecografía transvaginal con Doppler como primera opción (sensibilidad 93,5 %, especificidad 91,5 %); clasificar con O-RADS, IOTA Simple Rules o RMI/ROMA. RM como segunda línea (reduce las indeterminadas de 20–25 % a ≈5 %).",
@@ -3211,7 +3330,10 @@
         "tipo": "guia",
         "nota": "Los algoritmos del consenso son imágenes; la conducta por riesgo se tomó del texto."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec3"
+      ]
     },
     {
       "id": "gin-hiperplasia-endometrio",
@@ -3229,7 +3351,7 @@
         "estimulo estrogenico sin oposicion"
       ],
       "unidad": "UP4 — Patología del endometrio",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Proliferación endometrial por estímulo estrogénico sin oposición (anovulación crónica, perimenopausia, obesidad, SOP, tumores ováricos funcionantes). Se clasifica en simple o compleja, con o sin atipia; la atipia es el factor predictivo más importante de progresión.",
       "diagnostico": [
         "Diagnóstico por biopsia endometrial, indicada ante metrorragia de causa desconocida, sangrado posmenopáusico o endometrio engrosado en la ecografía posmenopáusica.",
@@ -3285,7 +3407,10 @@
           "Amplía: en la hiperplasia atípica se encuentra carcinoma coexistente en el 17–48 % al momento de la histerectomía; clasificación OMS 2014 (sin atipia / atípica o neoplasia endometrial intraepitelial).",
           "No se encontraron en estos textos esquemas ni dosis de progestágenos; el apunte tampoco los trae."
         ]
-      }
+      },
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "gin-polipo-endometrial",
@@ -3301,7 +3426,7 @@
         "polipectomia"
       ],
       "unidad": "UP4 — Patología del endometrio: pólipos",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Tumores benignos más frecuentes del endometrio, por hiperplasia focal de la basal; únicos o múltiples, más frecuentes en pre y posmenopausia y asociados a hiperestrogenismo.",
       "diagnostico": [
         "Se descubren con frecuencia por el raspado o la histeroscopía realizados por hemorragia; el diagnóstico es histológico.",
@@ -3354,7 +3479,10 @@
           "Difiere: el apunte menciona el raspado; el consenso indica polipectomía siempre bajo visión histeroscópica para asegurar la remoción completa, incluso en el consultorio con instrumental miniaturizado.",
           "Amplía: indicaciones en premenopáusicas (síntomas, SUA, estudio por esterilidad, factores de riesgo de cáncer, pólipos >1,5 cm, múltiples o que protruyen por el cuello); pólipo asintomático persistente: repetir ecografía posmenstrual a los 4–6 ciclos."
         ]
-      }
+      },
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "gin-cancer-endometrio",
@@ -3371,7 +3499,7 @@
         "linfadenectomia"
       ],
       "unidad": "UP4 — Patología del endometrio: carcinoma de endometrio",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Tipo 1 (80 %): endometroide de bajo grado, estrógeno dependiente, precedido por hiperplasia. Tipo 2: no estrógeno dependiente (endometroide grado 3, seroso, células claras, carcinosarcoma), en endometrio atrófico, con mutación de P53 y comportamiento agresivo.",
       "diagnostico": [
         "Ecografía transvaginal como primer método: espesor normal hasta 4 mm en posmenopausia (hasta 12 mm con TRH); en sintomáticas con 5 mm bajo tamoxifeno o premenopáusica con >12 mm la biopsia es mandatoria.",
@@ -3480,7 +3608,10 @@
           "Difiere: en riesgo intermedio bajo el consenso recomienda observación o braquiterapia (el apunte solo braquiterapia); en intermedio alto, braquiterapia si está bien estadificada con ganglios negativos (el apunte indica radioterapia externa si hay invasión linfovascular).",
           "El apunte omite: ganglio centinela como opción (aún no validado de forma consensuada), abordaje laparoscópico como preferido, preservación ovárica en <45 años con G1 e invasión <50 %, citorreducción en estadio IV, hormonoterapia en recurrencia y pembrolizumab en tumores MSI."
         ]
-      }
+      },
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "gin-cancer-cuello",
@@ -3500,7 +3631,7 @@
         "estadificacion figo cuello"
       ],
       "unidad": "UP4 — Patología cervical: cáncer de cuello uterino",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Cáncer prevenible, causado por infección persistente con VPH de alto riesgo (necesario pero no suficiente). Edad media 51 años, con picos a los 30–39 y a los 60–69. El 75–80 % es escamoso y el 20 % adenocarcinoma.",
       "diagnostico": [
         "Frecuentemente asintomático; primera manifestación: metrorragia poscoital. Flujo serosanguinolento maloliente; dolor pelviano, edema de miembros y síntomas urinarios o rectales en enfermedad avanzada.",
@@ -3575,7 +3706,10 @@
           "Amplía: manejo conservador del IA1 sin invasión linfovascular (conización con márgenes libres o histerectomía simple), IA2 con histerectomía radical o subradical con linfadenectomía, traquelectomía radical en tumores ≤2 cm con deseo de fertilidad, clasificación Querleu-Morrow (C1/C2) en lugar de Piver, manejo en el embarazo (corte a las 22 semanas, finalización a las 32–34).",
           "La estadificación vigente del consenso sigue a FIGO 2009 (clínica, con imágenes opcionales)."
         ]
-      }
+      },
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "gin-mama-benigna",
@@ -3598,7 +3732,7 @@
         "adenoma de pezon"
       ],
       "unidad": "UP3 · Sección 2 — Patología mamaria benigna",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Grupo de lesiones no malignas de la mama: no proliferativas (75 %), proliferativas sin atipia (20 %) y con atipia (5 %). El riesgo de cáncer a 25 años es de 4 % en las proliferativas sin atipia y de ≈8 % (hasta 40 % con historia familiar) en las atípicas.",
       "diagnostico": [
         "Clínica: mastodinia, tensión dolorosa, tumor palpable; en la fase lútea aumentan de tamaño y ceden con la menstruación.",
@@ -3651,7 +3785,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; no hay guía de sociedad en las carpetas. No trata la mastalgia cíclica con esquema terapéutico ni la mastitis puerperal (esta última aparece en el capítulo de puerperio)."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-cancer-mama",
@@ -3676,73 +3813,71 @@
         "lesiones mamarias subclinicas"
       ],
       "unidad": "UP4 — Patología mamaria: cáncer de mama",
-      "estado": "borrador",
-      "definicion": "Tumor más frecuente de la mujer (31 %); riesgo de vida del 8 % y de morir 3,6 %; edad media 53 años. 10–15 % son familiares, 30 % de ellos por BRCA1/2.",
+      "estado": "guia",
+      "definicion": "Tumor maligno más frecuente de la mujer. La edad es el factor de riesgo más importante. Se trata con combinaciones de cirugía, radioterapia, quimioterapia y hormonoterapia según estadio, grado, receptores hormonales, HER2 y tipo histológico.",
       "diagnostico": [
-        "Pesquisa: examen clínico anual desde los 30; mamografía anual desde los 40 (antes si hay antecedentes: 10 años antes del familiar más joven); ecografía complementaria, sobre todo en mamas densas, no es método de tamizaje.",
-        "Clínica: tumor palpable, retracción de piel o pezón, derrame, edema, adenopatía axilar.",
-        "Imágenes sospechosas: nódulo denso espiculado, distorsión arquitectural, microcalcificaciones agrupadas heteromorfas. Clasificación BI-RADS.",
-        "Biopsia con aguja gruesa (core, ≥14 G, 5–10 muestras) guiada por imagen; BRQ para lesiones no palpables.",
-        "Pronóstico: estado axilar (el más importante), tamaño, parámetros histológicos, receptores hormonales (>10 % predice respuesta a hormonoterapia), Ki-67, HER-2 (20–25 %; predice respuesta a trastuzumab)."
+        "Factores de riesgo: envejecimiento, antecedentes familiares, mutaciones en BRCA1 y BRCA2 (5–10 % de los cánceres; riesgo de por vida 40–85 %), alcohol, densidad mamográfica, estrógeno endógeno (menarquia temprana, menopausia tardía), nuliparidad, edad avanzada al primer parto, terapia hormonal combinada, obesidad posmenopáusica, antecedente personal, enfermedad benigna proliferativa y radiación torácica.",
+        "Protectores: ejercicio, embarazo temprano, lactancia, moduladores selectivos del receptor estrogénico, inhibidores de aromatasa, mastectomía u ooforectomía reductoras de riesgo.",
+        "Diagnóstico: mamografía, ecografía, resonancia magnética por indicación clínica y biopsia. Mamografía bilateral al diagnóstico para descartar enfermedad sincrónica.",
+        "Clasificación por receptores: receptor hormonal positivo, HER2 positivo o triple negativo (RE, RP y HER2 negativos). Tipos histológicos favorables: mucinoso, medular y tubular.",
+        "Lesiones subclínicas (no palpables): clasificar con BI-RADS; BR3 (probablemente benigno) con control semestral por 3 años; nódulo nuevo, creciente o en paciente de mayor riesgo requiere histología."
       ],
       "estudios": [
-        "Estadificación TNM; RM con contraste para extensión local, mama operada o irradiada, carcinoma oculto y tamizaje de alto riesgo."
+        "Tamizaje (FASGO 2024): mamografía cada 1–2 años desde los 40 años hasta los 70, con ecografía complementaria en mamas densas ACR C y D. El Programa Nacional del INC sugiere no tamizar a los 40–49 con riesgo promedio y hacerlo cada 1–2 años entre los 50 y 69.",
+        "Biopsia con aguja gruesa (core) de calibre no inferior a 14 G, 5–10 muestras por lesión, bajo control de imágenes; biopsia radioquirúrgica con marcación para lesiones no palpables (confirmar la extracción con imagen de la pieza). Se recomienda la confirmación patológica antes de tratar: solo el 25 % de los hallazgos positivos de resonancia es maligno.",
+        "Pruebas de perfil génico (MammaPrint, Oncotype DX; RS <18 bajo, 18–30 intermedio, ≥31 alto) para decidir adyuvancia en estadios I–II con ganglios negativos."
       ],
       "tratamiento": [
         {
-          "titulo": "Quirúrgico",
+          "titulo": "Principios (NCI PDQ y consensos)",
           "pasos": [
             {
-              "etiqueta": "Conservador",
-              "texto": "Estadios I y II: tumorectomía, segmentectomía o cuadrantectomía con margen sano, más radioterapia de toda la mama (sobreimpresión de 10–20 Gy si márgenes <1 cm). Contraindicado en localmente avanzado, inflamatorio, multicéntrico, relación tumor-mama desfavorable, primer trimestre de embarazo, varón o contraindicación a radioterapia."
+              "etiqueta": "Base",
+              "texto": "Cirugía (conservadora o mastectomía), radioterapia, quimioterapia y hormonoterapia combinadas según las características clínicas y patológicas."
             },
             {
-              "etiqueta": "Axila",
-              "texto": "Ganglio centinela; si es negativo no se vacía la axila; si es positivo o la axila es clínicamente positiva, linfadenectomía (niveles I y II)."
+              "etiqueta": "Hormonal",
+              "texto": "Terapia endocrina en tumores con receptores hormonales positivos; terapia dirigida contra HER2 en tumores HER2 positivos."
             },
             {
-              "etiqueta": "Radical",
-              "texto": "Mastectomía radical modificada (Madden o Patey); simple en carcinoma in situ extenso, profiláctica en alto riesgo o recidivas locales."
-            }
-          ]
-        },
-        {
-          "titulo": "Sistémico",
-          "pasos": [
-            {
-              "etiqueta": "Adyuvante",
-              "texto": "Tras el tratamiento locorregional con intención curativa; la mayoría con axila negativa se cura solo con el tratamiento locorregional. Se decide según beneficio y toxicidad: hormonoterapia en receptores positivos, quimioterapia, y trastuzumab en HER-2 amplificado."
+              "etiqueta": "Lesión no palpable",
+              "texto": "Biopsia percutánea con aguja gruesa o radioquirúrgica; el resultado debe ser concordante con la sospecha por imagen y, si no lo es, repetir con biopsia quirúrgica. Hiperplasia atípica, carcinoma in situ, cicatriz radiada o ciertos papilomas en una biopsia percutánea: biopsia quirúrgica."
             },
             {
-              "etiqueta": "Neoadyuvante",
-              "texto": "Antes de la cirugía; permite evaluar la respuesta in vivo y puede lograr cirugía menos radical."
+              "etiqueta": "Ganglio centinela",
+              "texto": "Biopsia radioguiada con marcación del ganglio centinela asociada a la resección en la misma intervención."
             }
           ]
         }
       ],
       "seguimiento": [
-        "Historia clínica y examen cada 4–6 meses los 3 primeros años, cada 6 meses los 2 siguientes y luego anual; mamografía y ecografía anuales (primer estudio ≥6 meses tras la radioterapia en cirugía conservadora); examen ginecológico anual; ecografía transvaginal solo si hay metrorragia, incluso con tamoxifeno."
+        "Mamografía y examen físico regulares tras cirugía conservadora, para detectar recidiva ipsilateral o segundo primario contralateral (riesgo contralateral a 10 años: 3–10 %, menor con tratamiento endocrino)."
       ],
       "banderas": [
-        "En el apunte el tratamiento sistémico no tiene esquemas ni dosis; es solo orientación."
+        "Portadora de mutación BRCA: también riesgo de cáncer de ovario; derivar a consejería y estudio genético de familiares.",
+        "Adyuvancia con axila negativa: decidir según tamaño tumoral, receptores, HER2 y perfil génico."
       ],
       "fuente": {
-        "guia": "Apunte Salud Integral de la Mujer, UP4 (pp. 431–446), que cita el Consenso Nacional Inter-Sociedades sobre cáncer de mama",
-        "sociedad": "Apunte Pontelli SIM 2026 (resumen de estudiante) / Consenso Inter-Sociedades",
-        "anio": 2026,
-        "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
-        "tipo": "apunte",
-        "nota": "El único consenso de mama en tus carpetas (Intersociedades 2025) trata neoadyuvancia y no se leyó en detalle. Es un tema con cambios frecuentes: contrastar con guías actuales."
+        "guia": "Control ginecológico de la mujer sana (2024); Consenso Nacional Inter-Sociedades sobre lesiones mamarias subclínicas; NCI PDQ Tratamiento del cáncer de mama (profesionales); NCCN Breast Cancer Screening and Diagnosis v2.2023",
+        "sociedad": "FASGO / Consenso Inter-Sociedades / NCI (EE. UU.) / NCCN",
+        "anio": 2024,
+        "archivo": "Consenso_FASGO_2024_Control_Ginecologico_en_la_Mujer_Sana.pdf; Consenso Nacional Inter-Sociedades (lesiones subclínicas).pdf; Cancer_de_mama_Version_Profesionales_de_la_Salud.pdf; GUIA-CA-MAMA.pdf",
+        "tipo": "guia",
+        "nota": "El resumen del PDQ en la carpeta llega hasta los factores pronósticos; los esquemas de cirugía, radioterapia y quimioterapia por estadio no figuran en el texto relevado. NCCN v2.2023 trata tamizaje y diagnóstico (no se resumió completo)."
       },
       "revisarAntes": "2026-12",
       "contraste": {
-        "fuente": "Consenso Intersociedades 2025: Neoadyuvancia en cáncer de mama (SOGIBA y otras)",
-        "estado": "no_contrastado",
+        "fuente": "Guías FASGO 2024, Inter-Sociedades, NCI PDQ y NCCN 2023",
+        "estado": "amplia",
         "puntos": [
-          "El único documento de mama en las carpetas trata la neoadyuvancia y no el cuadro general; no se contrastó punto por punto.",
-          "Las indicaciones de cirugía, ganglio centinela y adyuvancia del apunte deben validarse con una guía actual de mastología."
+          "La ficha anterior se basaba en el apunte; se reescribió con estas guías.",
+          "Amplía: edad de inicio del tamizaje (40 años según FASGO; el INC sugiere 50–69), densidad mamaria, riesgo genético, perfil génico y manejo de lesiones subclínicas."
         ]
-      }
+      },
+      "up": [
+        "up4",
+        "up3-sec2"
+      ]
     },
     {
       "id": "gin-incontinencia",
@@ -3762,7 +3897,7 @@
         "piso pelvico"
       ],
       "unidad": "UP4 — Patología urinaria: incontinencia de orina de esfuerzo",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Pérdida involuntaria de orina; de esfuerzo (la más frecuente), de urgencia (inestabilidad del detrusor) o mixta. Factores: >60 años, posmenopausia, obesidad, multiparidad, tabaquismo.",
       "diagnostico": [
         "Esfuerzo: escape con risa, tos o Valsalva; test de TOT positivo.",
@@ -3834,7 +3969,10 @@
           "Difiere: el sling mediouretral libre de tensión (retropúbico o transobturador) reemplazó a la colposuspensión de Burch como procedimiento de elección en la incontinencia de esfuerzo; la plicatura de Kelly está desaconsejada.",
           "Amplía: mirabegrón (agonista β3, menos boca seca; combinable con antimuscarínicos), y tercera línea para urgencia refractaria con toxina botulínica A intravesical (100 U en 20 puntos) o neuromodulación sacra; el apunte dice que la cirugía no funciona en la urgencia y omite estas opciones."
         ]
-      }
+      },
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "gin-prolapso",
@@ -3854,7 +3992,7 @@
         "colporrafia"
       ],
       "unidad": "UP4 — Patología urinaria: prolapso genital",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Herniación de órganos pélvicos o intraabdominales por las paredes vaginales: anterior (uretrocele, cistocele), posterior (enterocele, rectocele) o ápice (colpocele, histerocele); por pérdida del soporte (niveles de DeLancey). Factores: multiparidad, edad, obesidad, histerectomía.",
       "diagnostico": [
         "Presión o masa vaginal, incontinencia de esfuerzo, dificultad defecatoria, sangrado por ulceración, disfunción sexual.",
@@ -3902,7 +4040,10 @@
           "Coincide: clasificación POP-Q, ejercicios en estadios I–II sintomáticos, pesario como gold standard conservador, colpocleisis para alto riesgo sin vida sexual con penetración.",
           "Amplía: mallas vaginales solo en indicaciones restringidas (recurrencias, alto riesgo de falla) y por cirujanos entrenados; suspensión apical al sacroespinoso y colporrafia posterior en rectocele sintomático."
         ]
-      }
+      },
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "obs-control-prenatal",
@@ -3922,7 +4063,7 @@
         "vacunas en el embarazo"
       ],
       "unidad": "UP3 · Sección 4 — Control prenatal, cuidados preconcepcionales y diagnóstico del embarazo",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Serie de visitas programadas con el equipo de salud para vigilar la evolución del embarazo y preparar el parto y la crianza. Debe ser precoz (antes de las 12 semanas), periódico, completo y de amplia cobertura.",
       "diagnostico": [
         "Frecuencia: mensual hasta las 31 semanas 6 días, cada 15 días hasta las 36 semanas 6 días y luego semanal hasta el parto; mínimo 5 controles en el bajo riesgo.",
@@ -3970,7 +4111,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; la guía ministerial original de control prenatal no está en tus carpetas."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec4"
+      ]
     },
     {
       "id": "obs-puerperio-patologico",
@@ -3992,7 +4136,7 @@
         "hipogalactia"
       ],
       "unidad": "UP3 · Sección 5 — Puerperio patológico",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Complicaciones del puerperio: síndromes infecciosos, hemorrágicos, endocrinos, dolorosos y neuropsíquicos.",
       "diagnostico": [
         "Infección puerperal: invasión de gérmenes en los genitales tras aborto o parto (estreptococos, estafilococos, enterococos, Clostridium, anaerobios, Chlamydia). Factores: RPM, trabajo de parto prolongado, parto distócico, hemorragia, tactos reiterados.",
@@ -4041,7 +4185,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Sin dosis de antibióticos."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec5"
+      ]
     },
     {
       "id": "obs-induccion-parto",
@@ -4064,7 +4211,7 @@
         "pvdc"
       ],
       "unidad": "UP3 · Sección 5 — Atención del parto",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Intervención médica con métodos farmacológicos o mecánicos que genera contracciones regulares y modificaciones cervicales para desencadenar el trabajo de parto.",
       "diagnostico": [
         "Condiciones: certeza de que es la mejor opción, edad gestacional confirmada con ecografía del primer trimestre, evaluación obstétrica completa con score de Bishop y pelvis, y centro con recursos para complicaciones.",
@@ -4127,7 +4274,10 @@
         "tipo": "guia",
         "nota": "El consenso es de inducción, no de atención del trabajo de parto normal (periodos, partograma, mecanismos), que sí está en el apunte. Las dosis de misoprostol aparecen como «mg» en el PDF (error tipográfico)."
       },
-      "revisarAntes": "2026-12"
+      "revisarAntes": "2026-12",
+      "up": [
+        "up3-sec5"
+      ]
     },
     {
       "id": "gin-anticoncepcion-ale",
@@ -4162,7 +4312,7 @@
         "criterios oms"
       ],
       "unidad": "UP3 · Sección 1 — Planificación familiar: métodos anticonceptivos, criterios OMS, LARCs",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Métodos anticonceptivos que no contienen estrógenos: apropiados cuando estos están contraindicados o no se desean.",
       "diagnostico": [
         "Categorías de elegibilidad OMS (1 sin restricción a 4 riesgo inaceptable): en los progestágenos solos el cáncer de mama actual es categoría 4; el antecedente de cáncer de mama >5 años, el sangrado uterino anormal sin causa, y la osteoporosis con inyectables de depósito son categoría 3.",
@@ -4233,7 +4383,10 @@
         "tipo": "guia",
         "nota": "No cubre los anticonceptivos combinados, los métodos de barrera ni los naturales en detalle: esos contenidos están en el apunte de Pontelli y no se resumieron aquí."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec1"
+      ]
     },
     {
       "id": "gin-osteoporosis",
@@ -4257,7 +4410,7 @@
         "vitamina d"
       ],
       "unidad": "UP4 — Salud integral de la adulta mayor: climaterio y osteoporosis",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Enfermedad ósea con mayor riesgo de fractura. En posmenopáusicas se diagnostica con T-score ≤ −2,5 en columna lumbar, cadera total o cuello femoral (OMS: normal ≥ −1,0; osteopenia entre −1,0 y −2,5), o ante una fractura por fragilidad.",
       "diagnostico": [
         "Densitometría (DXA) y riesgo de fractura a 10 años con FRAX (alto: fractura osteoporótica mayor ≥20 % o de cadera ≥3 %).",
@@ -4325,7 +4478,10 @@
         "tipo": "guia",
         "nota": "Consenso extenso (≈190 KB de texto); se resumió el tratamiento. Verificar disponibilidad de cada fármaco en Argentina."
       },
-      "revisarAntes": "2027-10"
+      "revisarAntes": "2027-10",
+      "up": [
+        "up4"
+      ]
     },
     {
       "id": "gin-embarazo-adolescente",
@@ -4343,7 +4499,7 @@
         "plan enia"
       ],
       "unidad": "UP3 · Sección 1 y 4 — Salud integral de la adolescente; embarazo adolescente",
-      "estado": "borrador",
+      "estado": "guia",
       "definicion": "Embarazo entre los 10 y 19 años (OMS), independientemente de la edad ginecológica. Riesgo variable según las condiciones físicas, médicas y socioeconómicas.",
       "diagnostico": [
         "Mayor frecuencia de complicaciones maternas (preeclampsia, eclampsia, HELLP, aborto, infección urinaria, RPM), anemia y parto pretérmino; la cesárea es menos frecuente que en adultas.",
@@ -4390,7 +4546,11 @@
         "tipo": "guia",
         "nota": "Consenso de 90 KB de texto; se resumieron atención prenatal, parto y anticoncepción."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up3-sec1",
+        "up3-sec4"
+      ]
     },
     {
       "id": "gin-malformaciones-mullerianas",
@@ -4414,7 +4574,7 @@
         "anomalias mullerianas"
       ],
       "unidad": "UP2 — Aparato genital femenino; anomalías del desarrollo",
-      "estado": "borrador",
+      "estado": "verificar",
       "definicion": "Alteraciones anatómicas de trompas, útero, cuello y los dos tercios superiores de la vagina por falla de desarrollo, fusión o reabsorción de los conductos de Müller. Prevalencia ≈1 % en la población general y 3 % en abortos recurrentes; se asocian a abortos, partos pretérmino e incompetencia cervical.",
       "diagnostico": [
         "Agenesia/hipoplasia (5–10 %): síndrome de Mayer-Rokitansky-Küster-Hauser con agenesia vaginal y de útero en el 90 %; amenorrea primaria (con dolor cíclico si hay útero rudimentario funcionante).",
@@ -4470,7 +4630,10 @@
         "tipo": "apunte",
         "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas."
       },
-      "revisarAntes": "2027-03"
+      "revisarAntes": "2027-03",
+      "up": [
+        "up2"
+      ]
     }
   ],
   "cobertura": {

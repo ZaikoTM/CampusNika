@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador FlashCard | NikaMed</title>
+    <meta name="description" content="Flashcards de tratamientos y diagnóstico por unidad problema, con simulador para repasar por unidad, parcial o final.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#be185d">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=11">
+    <link rel="stylesheet" href="css/flashcards.css?v=1">
+</head>
+<body class="pagina-lateral" data-pagina="flashcards">
+
+    <header class="pl-top">
+        <a class="pl-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span>CAMPUS NIKA<small>Simulador FlashCard</small></span>
+        </a>
+        <nav class="rz-nav" aria-label="Navegación">
+            <button type="button" id="fcp-explorar" onclick="fcVista('explorar')"><span class="ic">🃏</span><span class="lbl">Explorar</span></button>
+            <button type="button" id="fcp-sim" onclick="fcVista('sim')"><span class="ic">🎯</span><span class="lbl">Simulador</span></button>
+            <a href="nikafarma.html" title="NikaFarma"><span class="ic">💊</span><span class="lbl">NikaFarma</span></a>
+        </nav>
+        <div class="pl-acciones">
+            <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+            <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+        </div>
+    </header>
+
+    <main class="pl-main">
+        <div class="fcs-wrap">
+            <h1 style="margin:6px 0 2px;font-size:1.5rem">🃏 Simulador FlashCard</h1>
+            <p id="fcp-sub" style="margin:0 0 12px;opacity:.75;font-size:.9rem">Buscá cualquier tema o armá tu propio repaso por unidad, parcial o final.</p>
+            <div id="fcp-host"></div>
+        </div>
+    </main>
+
+    <div id="toast">Notificación</div>
+    <script src="js/paginaLateral.js"></script>
+    <script src="js/nikaFlashcards.js?v=1"></script>
+    <script>
+    function fcVista(v) {
+        var host = document.getElementById('fcp-host');
+        host.innerHTML = '';
+        document.getElementById('fcp-explorar').style.opacity = v === 'explorar' ? 1 : .6;
+        document.getElementById('fcp-sim').style.opacity = v === 'sim' ? 1 : .6;
+        if (v === 'sim') NikaFlashcards.simulador(host); else NikaFlashcards.montar(host, {});
+        try { history.replaceState(null, '', 'flashcards.html' + (v === 'sim' ? '?modo=sim' : '')); } catch (_) {}
+    }
+    fcVista(/modo=sim/.test(location.search) ? 'sim' : 'explorar');
+    </script>
+</body>
+</html>

@@ -828,6 +828,11 @@ function openUpReal(upId, unit) {
     document.getElementById('view-up-detail').style.display = 'block';
 
     const firstTabBtn = document.querySelector('.up-tab-btn');
+    // Flashcards: solo en las materias con tarjetas cargadas
+    const fcBtn = document.getElementById('btn-tab-flashcards');
+    if (fcBtn) fcBtn.style.display = (EstudioState.modulo === 'ginecologia') ? '' : 'none';
+    const fcHost = document.getElementById('up-flashcards-host');
+    if (fcHost) { fcHost.dataset.up = ''; fcHost.innerHTML = ''; }
     if (firstTabBtn) showUpTab('temario', firstTabBtn);
 
     const moduleId = EstudioState.modulo;
@@ -2743,6 +2748,13 @@ function showUpTab(tabName, btn) {
     document.querySelectorAll('.up-tab-panel').forEach(p => p.classList.remove('active'));
     const panel = document.getElementById(`tab-${tabName}`);
     if (panel) panel.classList.add('active');
+
+    if (tabName === 'flashcards' && window.NikaFlashcards) {
+        const host = document.getElementById('up-flashcards-host');
+        const up = EstudioState.currentUpId || '';
+        const ups = up === 'up3' ? ['up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'] : [up];
+        if (host && host.dataset.up !== up) { host.dataset.up = up; NikaFlashcards.montar(host, { ups, agrupar: false }); }
+    }
 
     // Recalcular el paywall cada vez que se abre el Asistente: por si el
     // usuario se suscribió a NikaMed+ en el medio de la sesión.

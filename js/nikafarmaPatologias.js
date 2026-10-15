@@ -36,11 +36,11 @@
   .pt-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(99,102,241,.7)}
   .pt-btn.sec{background:rgba(148,163,184,.18);color:inherit}
   .pt-tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.7rem;font-weight:800;letter-spacing:.02em}
-  .pt-tag.borrador{background:rgba(245,158,11,.18);color:#b45309}
+  .pt-tag.borrador,.pt-tag.verificar{background:rgba(250,204,21,.25);color:#854d0e}
   .pt-tag.verificada{background:rgba(16,185,129,.18);color:#047857}
+  .pt-tag.guia{background:rgba(16,185,129,.18);color:#047857}
   .pt-tag.sin_guia{background:rgba(148,163,184,.25)}
   .pt-tag.ficha{background:rgba(99,102,241,.18);color:#4338ca}
-  .pt-tag.guia{background:rgba(14,165,233,.18);color:#0369a1}
   .pt-modal{position:fixed;inset:0;z-index:9500;display:none;align-items:flex-start;justify-content:center;padding:4vh 12px;background:rgba(2,6,23,.62);backdrop-filter:blur(4px);overflow:auto}
   .pt-modal.on{display:flex}
   .pt-box{width:min(820px,100%);background:var(--nf-bg,#0f172a);color:var(--nf-fg,#e2e8f0);border:1px solid rgba(148,163,184,.25);border-radius:20px;padding:20px 22px 24px;box-shadow:0 30px 70px -20px rgba(0,0,0,.7);animation:ptPop .28s cubic-bezier(.2,.9,.3,1.2) both}
@@ -99,7 +99,7 @@
       '<div class="pt-esq">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="pt-paso"><span class="e">' + esc(s.etiqueta) + '</span><span>' + esc(s.texto) + '</span></div>').join('')
     ).join('');
     return '<div class="pt-head"><h2>' + esc(p.titulo) + '</h2><button type="button" class="pt-x" data-pt="cerrar" aria-label="Cerrar">✕</button></div>' +
-      '<div class="pt-meta"><span class="pt-tag ' + esc(p.estado) + '">' + (p.estado === 'verificada' ? '✔ Verificada' : '✎ Borrador') + '</span><span>📚 ' + esc(p.unidad) + '</span></div>' +
+      '<div class="pt-meta"><span class="pt-tag ' + esc(p.estado) + '">' + (p.estado === 'guia' ? '✔ Basada en guía' : '⚠️ Verificar con guías actuales') + '</span><span>📚 ' + esc(p.unidad) + '</span></div>' +
       '<div class="pt-aviso">' + esc(est) + ' ' + esc(D.meta.descargo) + '</div>' +
       (p.definicion ? '<p class="pt-def">' + esc(p.definicion) + '</p>' : '') +
       sec('💊 Esquema de tratamiento', trat, true) +
@@ -172,7 +172,7 @@
       return;
     }
     s.innerHTML = hallados.map((p) =>
-      '<div class="pt-card"><span class="pt-ic">📋</span><span class="pt-tx"><b>' + esc(p.titulo) + '</b><small>Esquema de tratamiento según ' + ((p.fuente || {}).tipo === 'guia' ? esc((p.fuente || {}).sociedad || '') + ' ' + esc((p.fuente || {}).anio || '') : 'apunte de estudiante (no oficial)') + ' · <span class="pt-tag ' + esc(p.estado) + '">' + (p.estado === 'verificada' ? 'Verificada' : 'Borrador') + '</span></small></span><button type="button" class="pt-btn" data-pt="ficha" data-id="' + esc(p.id) + '">Ver esquema</button></div>'
+      '<div class="pt-card"><span class="pt-ic">📋</span><span class="pt-tx"><b>' + esc(p.titulo) + '</b><small>Esquema de tratamiento según ' + ((p.fuente || {}).tipo === 'guia' ? esc((p.fuente || {}).sociedad || '') + ' ' + esc((p.fuente || {}).anio || '') : 'apunte de estudiante (no oficial)') + ' · <span class="pt-tag ' + esc(p.estado) + '">' + (p.estado === 'guia' ? 'Guía' : 'Verificar con guías') + '</span></small></span><button type="button" class="pt-btn" data-pt="ficha" data-id="' + esc(p.id) + '">Ver esquema</button></div>'
     ).join('');
   }
 
