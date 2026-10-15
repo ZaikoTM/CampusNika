@@ -57,7 +57,7 @@
       inv.classList.add('on', 'llamando');
       const apagar = () => { try { if (window.NikaRing) window.NikaRing.stop(); } catch (_) {} inv.classList.remove('on', 'llamando'); };
       const sonar = () => { try { if (window.NikaRing) window.NikaRing.start(quien); } catch (_) {} };
-      if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=2'; sc.onload = sonar; document.head.appendChild(sc); }
+      if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=3'; sc.onload = sonar; document.head.appendChild(sc); }
       clearTimeout(tinv); tinv = setTimeout(apagar, 45000);
       q('ar-no').onclick = apagar;
       q('ar-si').onclick = () => { apagar(); enviar({ cmd: 'unirse', sala: p.sala }); };

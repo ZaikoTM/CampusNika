@@ -1012,7 +1012,7 @@ const NikaAteneos = (() => {
     // tono de llamada entrante (solo suena en una pestaña); la carga es perezosa por si el script no estaba
     const sonar = () => { try { if (window.NikaRing) window.NikaRing.start(quien); } catch (_) {} };
     const apagar = () => { try { if (window.NikaRing) window.NikaRing.stop(); } catch (_) {} t.classList.remove('on', 'llamando'); };
-    if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=2'; sc.onload = sonar; document.head.appendChild(sc); }
+    if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=3'; sc.onload = sonar; document.head.appendChild(sc); }
     clearTimeout(timerInv); timerInv = setTimeout(apagar, 45000);
     $('#at-inv-no').onclick = apagar;
     $('#at-inv-si').onclick = async () => {
@@ -1079,7 +1079,7 @@ const NikaAteneos = (() => {
   }
   function init() {
     css();
-    if (!window.NikaRing) { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=2'; document.head.appendChild(sc); }
+    if (!window.NikaRing) { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=3'; document.head.appendChild(sc); }
     if (SOY_HOST) { iniciarHost(); try { document.body.classList.add('at-host'); } catch (_) {} }
     Promise.resolve(reconectarSiCorresponde()).then(() => { if (SOY_HOST) procesarPendiente(); });
     setTimeout(revisarInvitacion, 700);
