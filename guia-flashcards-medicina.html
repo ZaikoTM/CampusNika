@@ -47,6 +47,15 @@
    "image": "https://nikamed.com.ar/assets/flashcards/flashcards-diabetes-gestacional.webp"
   },
   {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {"@type": "Question", "name": "¿El Simulador FlashCard de NikaMed es gratis?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Está disponible para todas las cuentas sin costo; las flashcards no requieren plan NikaMed+."}},
+    {"@type": "Question", "name": "¿Qué materias incluyen las flashcards?", "acceptedAnswer": {"@type": "Answer", "text": "Ginecología y Obstetricia ya está disponible con sus unidades y secciones; el resto de las áreas de la carrera se va sumando."}},
+    {"@type": "Question", "name": "¿Cómo verifica mi respuesta?", "acceptedAnswer": {"@type": "Answer", "text": "Compara tu respuesta con los puntos importantes de la tarjeta (fármacos, dosis y términos clave) y muestra qué cubriste y qué faltó. Es una verificación orientativa."}},
+    {"@type": "Question", "name": "¿Se pueden usar las flashcards sin conexión?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Se descargan desde el Modo Guardia y se estudian sin señal."}}
+   ]
+  },
+  {
    "@type": "BreadcrumbList",
    "itemListElement": [
     {
@@ -345,13 +354,47 @@
         <div class="glass-box summary g-rv"><p>El <strong>Simulador FlashCard</strong> de NikaMed es una colección de tarjetas clínicas con tratamientos, diagnóstico, estudios, seguimiento y banderas rojas de las patologías más frecuentes, basadas en guías y consensos de sociedades científicas (FASGO, SOGIBA y otras). Es <strong>gratis para todas las cuentas</strong>: podés explorarlas, practicar y rendir el simulador sin pagar.</p></div>
 
         <div class="legal-card g-sec g-rv" id="s1"><h2><span class="num">1</span>Así se ven las tarjetas</h2>
-            <p>Cada tarjeta es un «post-it» con la información ordenada en secciones desplegables, con los datos importantes (dosis, semanas, umbrales) resaltados. Estas imágenes son tarjetas reales de la plataforma, tal como se descargan para compartir o estudiar:</p>
-            <div class="fc-galeria">
-                <figure><img src="assets/flashcards/flashcards-diabetes-gestacional-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de diabetes gestacional con tratamiento, metas de glucemia e insulinas, en NikaMed"><figcaption>Diabetes gestacional · tratamiento</figcaption></figure>
-                <figure><img src="assets/flashcards/flashcards-trastornos-hipertensivos-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de trastornos hipertensivos del embarazo, preeclampsia y eclampsia, con tratamiento y diagnóstico"><figcaption>Trastornos hipertensivos del embarazo</figcaption></figure>
-                <figure><img src="assets/flashcards/flashcards-colestasis-embarazo-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de colestasis intrahepática del embarazo con diagnóstico y tratamiento"><figcaption>Colestasis intrahepática del embarazo</figcaption></figure>
+            <p>Cada tarjeta es un «post-it» con la información ordenada en secciones desplegables, con los datos importantes (dosis, semanas, umbrales) resaltados. Estas imágenes son tarjetas reales de la plataforma, tal como se descargan para compartir o estudiar. Pasá el mouse por encima para ver más de cada una:</p>
+            <div class="fcg-galeria">
+                <figure class="fcg-card" style="--r:-2.4deg"><span class="fcg-pin"></span><div class="fcg-in"><div class="fcg-img"><img src="assets/flashcards/flashcards-diabetes-gestacional-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de diabetes gestacional con tratamiento, metas de glucemia e insulinas, en NikaMed"><span class="fcg-shine"></span></div><figcaption><b>Diabetes gestacional</b><span>Tratamiento · UP3 Embarazo</span></figcaption></div></figure>
+                <figure class="fcg-card" style="--r:1.4deg"><span class="fcg-pin"></span><div class="fcg-in"><div class="fcg-img"><img src="assets/flashcards/flashcards-trastornos-hipertensivos-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de trastornos hipertensivos del embarazo, preeclampsia y eclampsia, con tratamiento y diagnóstico"><span class="fcg-shine"></span></div><figcaption><b>Trastornos hipertensivos</b><span>Preeclampsia y eclampsia · UP3</span></figcaption></div></figure>
+                <figure class="fcg-card" style="--r:-1.2deg"><span class="fcg-pin"></span><div class="fcg-in"><div class="fcg-img"><img src="assets/flashcards/flashcards-colestasis-embarazo-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de colestasis intrahepática del embarazo con diagnóstico y tratamiento"><span class="fcg-shine"></span></div><figcaption><b>Colestasis del embarazo</b><span>Diagnóstico y tratamiento · UP3</span></figcaption></div></figure>
+                <figure class="fcg-card" style="--r:2.2deg"><span class="fcg-pin"></span><div class="fcg-in"><div class="fcg-img"><img src="assets/flashcards/flashcards-hemorragia-posparto-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de hemorragia posparto con medidas de tratamiento y uterotónicos"><span class="fcg-shine"></span></div><figcaption><b>Hemorragia posparto</b><span>Conducta y tratamiento · UP3 Parto y puerperio</span></figcaption></div></figure>
             </div>
-            <style>.fc-galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:16px 0}.fc-galeria figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid rgba(148,163,184,.3);background:#0f172a}.fc-galeria img{display:block;width:100%;height:auto}.fc-galeria figcaption{padding:8px 12px;font-size:.8rem;font-weight:700;color:#cbd5e1}</style>
+            <style>
+                .fcg-galeria{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:20px 0 6px;padding-top:8px}
+                .fcg-card{position:relative;margin:0;transform:rotate(var(--r));transition:transform .45s cubic-bezier(.2,1.2,.3,1)}
+                .fcg-in{border-radius:16px;overflow:hidden;background:#0f172a;border:1px solid rgba(148,163,184,.3);box-shadow:0 22px 40px -24px rgba(0,0,0,.8);transition:box-shadow .3s,border-color .3s}
+                .fcg-card:hover{transform:rotate(0) translateY(-6px) scale(1.03)}
+                .fcg-card:hover .fcg-in{border-color:rgba(236,72,153,.7);box-shadow:0 30px 50px -22px rgba(236,72,153,.5)}
+                .fcg-img{position:relative;aspect-ratio:1/1.08;overflow:hidden;background:#f8fafc}
+                .fcg-img img{display:block;width:100%;height:auto;transition:transform 1.3s cubic-bezier(.2,.8,.2,1)}
+                .fcg-card:hover .fcg-img img{transform:translateY(-13%)}
+                .fcg-img::after{content:'';position:absolute;inset:auto 0 0 0;height:46px;background:linear-gradient(to top,rgba(15,23,42,.9),transparent)}
+                .fcg-shine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.34) 50%,transparent 62%);transform:translateX(-120%);pointer-events:none}
+                .fcg-card:hover .fcg-shine{animation:fcgBrillo .9s ease}
+                @keyframes fcgBrillo{to{transform:translateX(120%)}}
+                .fcg-in figcaption{padding:9px 12px 11px;display:flex;flex-direction:column;gap:1px;background:#0f172a}
+                .fcg-in figcaption b{font-size:.84rem;color:#f8fafc;line-height:1.25}
+                .fcg-in figcaption span{font-size:.7rem;font-weight:700;color:#94a3b8}
+                .fcg-pin{position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;z-index:2;background:radial-gradient(circle at 35% 30%,#fda4af,#e11d48 60%,#9f1239);box-shadow:0 3px 5px rgba(0,0,0,.45)}
+                .fcg-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:18px 0 4px}
+                .fcg-stat{padding:12px 14px;border-radius:14px;background:rgba(15,23,42,.6);border:1px solid rgba(148,163,184,.22);text-align:center}
+                .fcg-stat b{display:block;font-size:1.5rem;font-weight:900;background:linear-gradient(90deg,#38bdf8,#c084fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+                .fcg-stat span{font-size:.74rem;font-weight:700;color:#94a3b8}
+                .fcg-anat{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0 4px}
+                .fcg-anat div{padding:12px 14px;border-radius:14px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.2);transition:transform .3s cubic-bezier(.2,1.3,.4,1),border-color .3s}
+                .fcg-anat div:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.6)}
+                .fcg-anat i{font-style:normal;font-size:1.3rem} .fcg-anat b{display:block;margin:4px 0 2px;font-size:.9rem} .fcg-anat span{font-size:.8rem;color:#94a3b8;line-height:1.45}
+                @media (max-width:640px){.fcg-galeria{grid-template-columns:repeat(2,minmax(0,1fr))}}
+                @media (prefers-reduced-motion:reduce){.fcg-card,.fcg-img img,.fcg-anat div{transition:none}.fcg-card:hover .fcg-shine{animation:none}}
+            </style>
+            <div class="fcg-stats">
+                <div class="fcg-stat"><b>51</b><span>tarjetas clínicas</span></div>
+                <div class="fcg-stat"><b>8</b><span>unidades y secciones</span></div>
+                <div class="fcg-stat"><b>23</b><span>basadas en guías oficiales</span></div>
+                <div class="fcg-stat"><b>$0</b><span>gratis para todos</span></div>
+            </div>
         </div>
 
         <div class="legal-card g-sec g-rv" id="s2"><h2><span class="num">2</span>Tres formas de usarlo</h2>
@@ -371,6 +414,36 @@
                 <li><strong>Compartir:</strong> descargá la tarjeta como imagen en alta definición o enviala por WhatsApp.</li>
                 <li><strong>Progreso sincronizado</strong> entre tus dispositivos al iniciar sesión.</li>
             </ul>
+        </div>
+
+        <div class="legal-card g-sec g-rv" id="s4"><h2><span class="num">4</span>Qué hay dentro de cada tarjeta</h2>
+            <p>Todas siguen el mismo orden para que encuentres rápido lo que necesitás, y se abren en secciones desplegables:</p>
+            <div class="fcg-anat">
+                <div><i>🩺</i><b>Definición y diagnóstico</b><span>Qué es, criterios y cómo se confirma.</span></div>
+                <div><i>🧪</i><b>Estudios</b><span>Qué pedir y cuándo, con los valores que importan.</span></div>
+                <div><i>💊</i><b>Tratamiento</b><span>Esquemas, dosis y vías, con lo que no hay que hacer.</span></div>
+                <div><i>📈</i><b>Seguimiento</b><span>Controles, momento de terminación y puerperio.</span></div>
+                <div><i>🚩</i><b>Banderas rojas</b><span>Signos de alarma que cambian la conducta.</span></div>
+                <div><i>⚖️</i><b>Contraste con consensos</b><span>Diferencias entre el apunte y las guías vigentes.</span></div>
+            </div>
+            <div class="g-callout"><span class="i">✔</span><div>Cada tarjeta muestra su <strong>fuente y año</strong>. Las basadas en guías llevan el sello «Basada en guía»; las armadas desde apuntes avisan «verificar con guías actuales», para que siempre sepas qué tan firme es la información.</div></div>
+        </div>
+
+        <div class="legal-card g-sec g-rv" id="s5"><h2><span class="num">5</span>Cómo sacarles el máximo provecho</h2>
+            <ol class="g-steps">
+                <li class="g-rv"><span class="n">1</span><b>Elegí una unidad</b><span>Empezá por la que tenés más cerca en la cursada, no por la más fácil.</span></li>
+                <li class="g-rv"><span class="n">2</span><b>Escribí antes de mirar</b><span>Respondé con tus palabras y recién después verificá: ahí está el aprendizaje.</span></li>
+                <li class="g-rv"><span class="n">3</span><b>Mirá qué te faltó</b><span>Los puntos ❌ son tus huecos: repasalos y volvé a intentar otro día.</span></li>
+                <li class="g-rv"><span class="n">4</span><b>Repetí espaciado</b><span>Volvé a las que fallaste a los 2 o 3 días. Marcá «La sé» solo cuando salgan sin dudar.</span></li>
+            </ol>
+        </div>
+
+        <div class="legal-card g-sec g-rv" id="s6"><h2><span class="num">6</span>Preguntas frecuentes</h2>
+            <div class="g-acord"><details><summary>¿Es realmente gratis?<span class="ch">▾</span></summary><div class="body">Sí. El Simulador FlashCard está disponible para todas las cuentas sin costo. Con NikaMed+ se suman otras herramientas, pero las flashcards no requieren plan.</div></details>
+            <details><summary>¿Qué materias incluye?<span class="ch">▾</span></summary><div class="body">Ginecología y Obstetricia ya está disponible, con sus unidades y secciones. El resto de las áreas de la carrera se va sumando.</div></details>
+            <details><summary>¿Cómo verifica mi respuesta?<span class="ch">▾</span></summary><div class="body">Compara lo que escribiste con los puntos importantes de la tarjeta (fármacos, dosis, términos clave) y te muestra cuáles cubriste, cuáles dijiste a medias y cuáles faltaron. Es una verificación orientativa: no reemplaza la corrección de un docente.</div></details>
+            <details><summary>¿Puedo usarlas sin conexión?<span class="ch">▾</span></summary><div class="body">Sí. Desde el Modo Guardia podés descargar las flashcards y después estudiar sin señal.</div></details>
+            <details><summary>¿Reemplazan a las guías de práctica clínica?<span class="ch">▾</span></summary><div class="body">No. Son una herramienta de estudio. Para decisiones clínicas hay que consultar siempre las guías vigentes y a tu cátedra.</div></details></div>
         </div>
 
         <div class="legal-card cta-card g-rv"><h2>Probá el Simulador FlashCard gratis</h2><p>Creá tu cuenta en NikaMed y empezá a practicar con tarjetas clínicas en un minuto.</p><a class="btn-primary" href="index.html#crear-cuenta">Empezar gratis</a></div>
