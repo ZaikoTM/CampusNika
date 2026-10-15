@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retos con compañeros | Campus Nika</title>
+    <meta name="description" content="Armá retos de estudio con tus compañeros: una meta compartida y todos suman.">
+    <meta name="theme-color" content="#0a192f">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/pagina-lateral.css">
+    <link rel="stylesheet" href="css/nika-unificado.css?v=11">
+    <link rel="stylesheet" href="css/nikasim.css?v=4">
+    <link rel="stylesheet" href="css/campus-premium.css?v=3">
+    <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
+    <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
+    <link rel="stylesheet" href="css/micro.css?v=1">
+    <link rel="stylesheet" href="css/retos.css?v=1">
+</head>
+<body class="nikasim retos-pg" data-pagina="retos">
+
+    <aside class="ns-side" id="ns-side" aria-label="Navegación">
+        <a class="ns-brand" href="campus.html" title="Volver al Campus">
+            <img src="assets/N%20NIKA.png" alt="NIKA">
+            <span><b>CAMPUS NIKA</b><small>Retos</small></span>
+        </a>
+        <div class="ns-cat">Navegación</div>
+        <a class="ns-link" href="campus.html"><span class="ns-ic">🏠</span><span class="ns-t">Inicio / Dashboard</span></a>
+        <a class="ns-link" href="sala_estudio.html"><span class="ns-ic">📚</span><span class="ns-t">Sala de Estudio</span></a>
+        <a class="ns-link on" href="retos.html" aria-current="page"><span class="ns-ic">🎯</span><span class="ns-t">Retos con compañeros</span></a>
+        <a class="ns-link" href="mis_notas.html"><span class="ns-ic">📝</span><span class="ns-t">Mis notas</span></a>
+        <a class="ns-link" href="liga.html"><span class="ns-ic">🍅</span><span class="ns-t">Liga Pomodoro</span></a>
+        <a class="ns-link" href="nikasim.html"><span class="ns-ic">🥽</span><span class="ns-t">Centro de Simulación</span></a>
+        <button type="button" class="ns-link ns-colapsar" id="ns-colapsar" aria-label="Contraer la barra lateral"><span class="ns-ic">⇤</span><span class="ns-t">Contraer</span></button>
+    </aside>
+
+    <div class="ns-shell">
+        <header class="ns-top">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <button type="button" class="ns-burger" id="ns-burger" aria-label="Abrir menú">☰</button>
+                <h1>🎯 Retos <small style="font-weight:600;color:var(--text-muted);font-size:.78rem;">Una meta compartida, todos suman</small></h1>
+            </div>
+            <div class="ns-acc">
+                <span data-nika-racha-slot></span>
+                <button type="button" class="pl-btn music" data-nika-music-toggle title="NikaMusic" aria-label="Abrir NikaMusic"><span class="lbl">🎧 NikaMusic</span></button>
+                <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+                <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+            </div>
+        </header>
+
+        <main class="ns-main" id="ns-main">
+            <section class="rt-hero">
+                <div>
+                    <small>Estudiar juntos</small>
+                    <h2>Retos entre compañeros</h2>
+                    <p>Armá un reto con una <b>meta compartida</b>: entre todos suman minutos de estudio, sesiones, simulacros o días activos. Nadie compite contra nadie: o llegan todos, o no llega nadie.</p>
+                </div>
+                <button type="button" class="rt-btn rt-btn--grande" id="rt-nuevo">＋ Crear un reto</button>
+            </section>
+
+            <p class="rt-aviso" id="rt-aviso" hidden></p>
+            <section id="rt-invitaciones" hidden><h3 class="rt-t">📩 Te invitaron</h3><div class="rt-lista" id="rt-inv-lista"></div></section>
+            <section><h3 class="rt-t">🔥 Retos activos</h3><div class="rt-lista" id="rt-activos"><p class="rt-vacio">Cargando tus retos…</p></div></section>
+            <section id="rt-hist" hidden><h3 class="rt-t">🏁 Terminados</h3><div class="rt-lista" id="rt-terminados"></div></section>
+        </main>
+    </div>
+
+    <!-- Crear reto -->
+    <div id="rt-modal" class="rt-modal" hidden role="dialog" aria-modal="true" aria-label="Crear un reto">
+        <div class="rt-modal-card">
+            <button type="button" class="rt-x" data-rt="cerrar" aria-label="Cerrar">✕</button>
+            <h3>＋ Nuevo reto</h3>
+            <div class="rt-plantillas" id="rt-plantillas"></div>
+            <label class="rt-f"><span>Nombre del reto</span><input id="rt-titulo" maxlength="60" placeholder="Ej: Semana de 10 horas de Cirugía"></label>
+            <div class="rt-fila">
+                <label class="rt-f"><span>¿Qué suman?</span>
+                    <select id="rt-tipo">
+                        <option value="minutos">⏱️ Horas de estudio</option>
+                        <option value="sesiones">🍅 Sesiones Pomodoro</option>
+                        <option value="simulacros">📝 Simulacros</option>
+                        <option value="dias">🔥 Días activos (suma de todos)</option>
+                    </select></label>
+                <label class="rt-f"><span id="rt-meta-l">Meta entre todos (horas)</span><input id="rt-meta" type="number" min="1" max="2000" value="10"></label>
+            </div>
+            <div class="rt-fila">
+                <label class="rt-f"><span>Duración</span>
+                    <select id="rt-dias"><option value="3">3 días</option><option value="7" selected>1 semana</option><option value="14">2 semanas</option><option value="30">1 mes</option></select></label>
+                <label class="rt-f"><span>Materia</span>
+                    <select id="rt-modulo"><option value="">Todas</option><option value="cirugia">Cirugía</option><option value="ginecologia">Ginecología</option><option value="siam">S.I.A.M.</option><option value="pfo">PFO</option><option value="medicinalegal">Medicina Legal</option><option value="medicinadeportiva">Medicina Deportiva</option></select></label>
+            </div>
+            <div class="rt-f"><span>Invitá a tus amigos</span><div class="rt-amigos" id="rt-amigos"><p class="rt-vacio">Cargando tus amigos…</p></div></div>
+            <p class="rt-error" id="rt-error" hidden></p>
+            <div class="rt-acc"><button type="button" class="rt-btn rt-btn--sec" data-rt="cerrar">Cancelar</button><button type="button" class="rt-btn" id="rt-crear">Crear reto</button></div>
+        </div>
+    </div>
+
+    <div id="toast">Notificación</div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/nikaAcceso.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/rachas.js"></script>
+    <script src="js/nikaMusic.js?v=10"></script>
+    <script src="js/atajos.js"></script>
+    <script src="js/paginaLateral.js"></script>
+    <script src="js/presenciaCampus.js"></script>
+    <script src="js/friendsManager.js"></script>
+    <script src="js/social.js?v=2"></script>
+    <script src="js/moderacion.js"></script>
+    <script src="js/chatManager.js?v=4"></script>
+    <script src="js/retos.js?v=1"></script>
+    <script src="js/chatFlotante.js?v=7"></script>
+    <script src="js/assistant.js?v=3"></script>
+<script src="js/campusTema.js?v=3"></script>
+<script src="js/campusEspacio.js?v=1"></script>
+<script src="js/micro.js?v=1" defer></script>
+<script src="js/nikaAccesibilidad.js?v=1" defer></script>
+<script src="js/nikaMetricas.js?v=1" defer></script>
+</body>
+</html>
