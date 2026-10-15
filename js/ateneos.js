@@ -397,7 +397,15 @@ const NikaAteneos = (() => {
     await VoiceManager.unirse(sala, metaPropia(), {
       silenciosa, micInicial: opciones.micInicial,
       cbs: {
-        onPeers: (l) => { ultimoPeers = l; actualizarTiles(); actualizarDock(); pintarParticipantes(); },
+        onPeers: (l) => {
+          const antes = ultimoPeers.length; ultimoPeers = l;
+          // sonidos: alguien entra / sale; si entra alguien mientras estoy "llamando…", se corta el tono
+          if (window.NikaRing && l.length !== antes) {
+            if (l.length > antes) { window.NikaRing.llamando(false); window.NikaRing.efecto('unirse'); }
+            else window.NikaRing.efecto('salir');
+          }
+          actualizarTiles(); actualizarDock(); pintarParticipantes();
+        },
         onStream: (id, stream) => { const t = tiles.get(id); if (t) t.querySelector('video').srcObject = stream; },
         onPeerLeft: (id) => { const t = tiles.get(id); if (t) { t.remove(); tiles.delete(id); } hablando.delete(id); actualizarTiles(); pintarParticipantes(); },
         onSpeaking: (id, h) => marcarHabla(id, h),
@@ -422,6 +430,7 @@ const NikaAteneos = (() => {
 
   // conservar === true: se corta la conexión de esta página pero se deja la sala guardada (para pasarla a la ventana anfitriona)
   async function desconectar(conservar) {
+    try { if (window.NikaRing) { window.NikaRing.llamando(false); if (conservar !== true && conectado) window.NikaRing.efecto('colgar'); } } catch (_) {}
     if (!SOY_HOST && !conectado && hostVivo()) { alHost({ cmd: 'salir' }); return; }
     await VoiceManager.salir();
     conectado = null; tiles.forEach((t) => t.remove()); tiles.clear(); ultimoPeers = [];
@@ -459,6 +468,7 @@ const NikaAteneos = (() => {
     }
     if (!conectado) await conectarSala('p-' + codigo(), 'Chat de voz con ' + (nombreAmigo || username), false);
     await enviarInvitacion(username, true);
+    try { if (window.NikaRing) window.NikaRing.llamando(true); } catch (_) {}   // tono de "llamando…" hasta que entre la otra persona
   }
   async function unirsePorCodigo() {
     const cod = ($('#at-codigo').value || '').trim().toUpperCase();
@@ -1002,7 +1012,7 @@ const NikaAteneos = (() => {
     // tono de llamada entrante (solo suena en una pestaña); la carga es perezosa por si el script no estaba
     const sonar = () => { try { if (window.NikaRing) window.NikaRing.start(quien); } catch (_) {} };
     const apagar = () => { try { if (window.NikaRing) window.NikaRing.stop(); } catch (_) {} t.classList.remove('on', 'llamando'); };
-    if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=1'; sc.onload = sonar; document.head.appendChild(sc); }
+    if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=2'; sc.onload = sonar; document.head.appendChild(sc); }
     clearTimeout(timerInv); timerInv = setTimeout(apagar, 45000);
     $('#at-inv-no').onclick = apagar;
     $('#at-inv-si').onclick = async () => {
@@ -1065,11 +1075,11 @@ const NikaAteneos = (() => {
     let p = null; try { p = JSON.parse(localStorage.getItem(K_PEND) || 'null'); } catch (_) {}
     if (!p) return;
     try { localStorage.removeItem(K_PEND); } catch (_) {}
-    if (conectado && Date.now() - (p.t || 0) < 60000) { try { await enviarInvitacion(p.username, true); } catch (_) {} }
+    if (conectado && Date.now() - (p.t || 0) < 60000) { try { await enviarInvitacion(p.username, true); if (window.NikaRing) window.NikaRing.llamando(true); } catch (_) {} }
   }
   function init() {
     css();
-    if (!window.NikaRing) { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=1'; document.head.appendChild(sc); }
+    if (!window.NikaRing) { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=2'; document.head.appendChild(sc); }
     if (SOY_HOST) { iniciarHost(); try { document.body.classList.add('at-host'); } catch (_) {} }
     Promise.resolve(reconectarSiCorresponde()).then(() => { if (SOY_HOST) procesarPendiente(); });
     setTimeout(revisarInvitacion, 700);

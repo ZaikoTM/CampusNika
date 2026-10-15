@@ -82,5 +82,36 @@
   try { const bc = new BroadcastChannel('nika-ring'); bc.onmessage = (e) => { if (e.data === 'stop') stop(); }; window.NikaRingBC = bc; } catch (_) {}
   const stopTodos = () => { stop(); try { if (window.NikaRingBC) window.NikaRingBC.postMessage('stop'); } catch (_) {} };
 
-  window.NikaRing = { start, stop: stopTodos, activo: () => activo, probar: () => { desbloquear(); frase(); } };
+  // ---- Efectos de la llamada (originales, sintetizados): sonidos cortos para cada evento ----
+  const EFECTOS = {
+    unirse:  [[659, 0, .12], [880, .1, .2]],                       // alguien entra a la llamada (sube)
+    salir:   [[880, 0, .12], [587, .1, .22]],                      // alguien sale (baja)
+    colgar:  [[659, 0, .14], [494, .13, .14], [392, .26, .3]],     // cortaste la llamada
+    error:   [[311, 0, .22], [233, .26, .38]],                     // la llamada no se pudo hacer
+    mensaje: [[1047, 0, .09], [1319, .1, .16]],                    // mensaje nuevo
+    conectado: [[784, 0, .09], [1047, .09, .14]],                  // un contacto se conectó
+    desconectado: [[1047, 0, .09], [784, .09, .16]],               // un contacto se desconectó
+    rechazada: [[392, 0, .16], [311, .17, .16], [262, .34, .34]]   // te rechazaron la llamada
+  };
+  function efecto(nombre) {
+    try {
+      if (localStorage.getItem(K_OFF) === '1') return;
+      desbloquear(); if (!ctx || ctx.state !== 'running') return;
+      const e = EFECTOS[nombre]; if (!e) return;
+      let vol = 0.18; try { const v = parseFloat(localStorage.getItem(K_VOL)); if (v >= 0 && v <= 1) vol = 0.24 * v; } catch (_) {}
+      const t = ctx.currentTime + 0.02;
+      e.forEach((n) => nota(n[0], t + n[1], n[2] + 0.1, vol));
+    } catch (_) {}
+  }
+  // Tono de "llamando…" para quien llama: suena hasta que atienden, rechazan o pasan 40 s
+  let tonoLlamando = null, tonoTope = null;
+  function llamando(on) {
+    clearInterval(tonoLlamando); clearTimeout(tonoTope); tonoLlamando = tonoTope = null;
+    if (!on) return;
+    try { if (localStorage.getItem(K_OFF) === '1') return; } catch (_) {}
+    const toque = () => { desbloquear(); if (ctx && ctx.state === 'running') { const t = ctx.currentTime + 0.02; [0, 0.45].forEach((d) => { nota(440, t + d, 0.3, 0.1); nota(480, t + d, 0.3, 0.1); }); } };
+    toque(); tonoLlamando = setInterval(toque, 3000); tonoTope = setTimeout(() => llamando(false), 40000);
+  }
+
+  window.NikaRing = { start, stop: stopTodos, activo: () => activo, probar: () => { desbloquear(); frase(); }, efecto, llamando };
 })();
