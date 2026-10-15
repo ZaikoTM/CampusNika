@@ -169,6 +169,20 @@ const NikaAteneos = (() => {
       .at-tile.pantalla .at-tile-e { left: auto; right: 8px; }
       .at-tile-k { position: absolute; right: 8px; top: 8px; border: none; border-radius: 999px; padding: 5px 11px; font-size: .7rem; font-weight: 800; cursor: pointer; background: rgba(220,38,38,.92); color: #fff; display: none; font-family: inherit; }
       .ats-grid .at-tile.puedeExpulsar:hover .at-tile-k { display: block; }
+      /* vista tipo Meet/Discord: un participante grande (fijado, el que habla o la pantalla compartida) y el resto en tiras */
+      .ats-grid.fijo, .ats-grid.fijo[data-n] { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+      .ats-grid.fijo .at-tile.fijado { grid-column: 1 / -1; aspect-ratio: 16 / 9; max-height: 62vh; width: 100%; justify-self: center; }
+      .ats-grid.fijo .at-tile.fijado video { object-fit: contain; background: #000; }
+      .ats-grid.fijo .at-tile:not(.fijado) { aspect-ratio: 16 / 10; }
+      .ats-grid.fijo .at-tile:not(.fijado) .at-tile-av img { width: 46px; height: 46px; }
+      .ats-grid.fijo .at-tile.fijado .at-tile-av img { width: 120px; height: 120px; }
+      .at-tile { transition: box-shadow .2s; }
+      .at-tile-p { position: absolute; left: 8px; top: 8px; border: none; border-radius: 999px; padding: 4px 9px; font-size: .78rem; cursor: pointer; background: rgba(15,23,42,.7); color: #fff; opacity: 0; transition: opacity .15s, transform .15s; z-index: 2; }
+      .at-tile:hover .at-tile-p, .at-tile.fijado .at-tile-p, .at-tile-p:focus-visible { opacity: 1; }
+      .at-tile-p:hover { transform: scale(1.12); background: #7c3aed; }
+      .at-tile.fijado .at-tile-p { background: #7c3aed; }
+      .ats-grid .at-tile.esHost .at-tile-p, .at-tile.esHost.fijado .at-tile-p { top: 36px; }
+      @media (hover: none) { .at-tile-p { opacity: .85; } }
       .ats-vacio { text-align: center; color: #cbd5e1; font-size: .88rem; padding: 6px 12px 2px; }
       .ats-vacio b { color: #fff; }
       .ats-bar { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-radius: 22px; background: rgba(17,19,26,.96); box-shadow: 0 14px 30px -14px rgba(0,0,0,.7); }
@@ -564,6 +578,7 @@ const NikaAteneos = (() => {
     if (id === 'yo') { const a = $('#at-self-av'); if (a) a.classList.toggle('hablando', h); }
     const fila = document.querySelector(`.ats-p[data-id="${id}"]`); if (fila) fila.classList.toggle('hablando', h);
     const t = tiles.get(id); if (t) t.classList.toggle('hablando', h);
+    if (h && id !== ultimoOrador) { ultimoOrador = id; if (vistaSala === 'orador' && !fijadoId) aplicarVista(); }
   }
 
   // ------------------------------------------------------------------ ventana de video (PiP)
@@ -599,13 +614,38 @@ const NikaAteneos = (() => {
     t = document.createElement('div');
     t.className = 'at-tile sinvideo' + (esLocal ? ' local' : '');
     t.dataset.id = id;
-    t.innerHTML = `<video autoplay playsinline muted></video><div class="at-tile-av"><img alt="" src=""></div><span class="at-tile-e">🖥️ Pantalla</span><span class="at-tile-h">👑 Anfitrión</span><button type="button" class="at-tile-k">🚪 Expulsar</button><span class="at-tile-n"></span><span class="at-tile-m">🔇</span>`;
+    t.innerHTML = `<video autoplay playsinline muted></video><div class="at-tile-av"><img alt="" src=""></div><span class="at-tile-e">🖥️ Pantalla</span><span class="at-tile-h">👑 Anfitrión</span><button type="button" class="at-tile-k">🚪 Expulsar</button><span class="at-tile-n"></span><span class="at-tile-m">🔇</span><button type="button" class="at-tile-p" title="Fijar este participante" aria-label="Fijar este participante">📌</button>`;
+    t.querySelector('.at-tile-p').onclick = (e) => { e.stopPropagation(); fijarTile(id); };
+    t.addEventListener('dblclick', () => fijarTile(id));
     t.querySelector('.at-tile-k').onclick = () => { if (id !== 'yo') expulsar(id); };
     tiles.set(id, t);
     contenedorTiles().appendChild(t);
     return t;
   }
 
+  // Vista de la sala: 'grid' (todos iguales) u 'orador' (grande el que habla). Se puede fijar a alguien a mano.
+  let vistaSala = 'grid', fijadoId = null, ultimoOrador = null;
+  try { vistaSala = localStorage.getItem('nika_at_vista') === 'orador' ? 'orador' : 'grid'; } catch (_) {}
+  function fijarTile(id) { fijadoId = fijadoId === id ? null : id; aplicarVista(); }
+  function alternarVista() {
+    if (fijadoId) { fijadoId = null; }
+    else { vistaSala = vistaSala === 'grid' ? 'orador' : 'grid'; try { localStorage.setItem('nika_at_vista', vistaSala); } catch (_) {} }
+    aplicarVista();
+  }
+  function aplicarVista() {
+    const g = $('#at-stage-grid'); if (!g) return;
+    if (fijadoId && !tiles.has(fijadoId)) fijadoId = null;
+    let foco = null;
+    if (tiles.size > 1) {
+      if (fijadoId) foco = fijadoId;
+      else if (vistaSala === 'orador') foco = ([...tiles.values()].find((t) => t.classList.contains('pantalla')) || {}).dataset?.id || (ultimoOrador && tiles.has(ultimoOrador) ? ultimoOrador : null);
+      else foco = ([...tiles.values()].find((t) => t.classList.contains('pantalla')) || {}).dataset?.id || null;
+    }
+    g.classList.toggle('fijo', !!foco);
+    tiles.forEach((t, id) => t.classList.toggle('fijado', id === foco));
+    const b = $('#ats-vista');
+    if (b) b.textContent = fijadoId ? '📌 Fijado · soltar' : vistaSala === 'orador' ? '🔦 Orador activo' : '▦ Cuadrícula';
+  }
   function actualizarTiles() {
     if (!pip || !conectado) return;
     const yoMeta = VoiceManager.yo ? VoiceManager.yo.meta : metaPropia();
@@ -638,6 +678,7 @@ const NikaAteneos = (() => {
     const cont = contenedorTiles();
     if (cont) tiles.forEach((t) => { if (t.parentNode !== cont) { cont.appendChild(t); const vv = t.querySelector('video'); vv.play && vv.play().catch(() => {}); } });
     const g = $('#at-stage-grid'); if (g) { g.dataset.n = n; g.classList.toggle('spot', [...tiles.values()].some((t) => t.classList.contains('pantalla'))); }
+    aplicarVista();
     sincronizarPip();
     if ($('#at-pip-t')) $('#at-pip-t').textContent = `📹 ${conectado.nombre.length > 26 ? conectado.nombre.slice(0, 25) + '…' : conectado.nombre} · ${n}`;
     pintarLatencia(VoiceManager.latencia);
@@ -696,6 +737,7 @@ const NikaAteneos = (() => {
             <span class="ats-chip" title="Participantes">👥 <span id="ats-n">1/4</span></span>
             <span class="ats-chip" title="Latencia"><i class="at-lat" id="ats-lat"></i><span id="ats-lat-t">-- ms</span></span>
             ${info.codigo ? `<button type="button" class="ats-chip" id="ats-cod" title="Copiar código">🔒 Código ${esc(info.codigo)} 📋</button>` : ''}
+            <button type="button" class="ats-chip" id="ats-vista" title="Cambiar la vista: cuadrícula u orador activo. Tocá 📌 en un participante para fijarlo.">▦ Cuadrícula</button>
             <button type="button" class="ats-chip" id="ats-link" title="Copiar enlace de invitación">🔗 Copiar enlace</button>
           </div>
           <div class="ats-audio-aviso" id="ats-audio-aviso" style="display:none">🔈 El navegador bloqueó el sonido de la sala. <button type="button" class="at-btn" id="ats-audio-on">Activar sonido</button></div>
@@ -748,6 +790,7 @@ const NikaAteneos = (() => {
     try { VoiceManager.alBloqueoAudio((b) => { if (avisoA) avisoA.style.display = b ? 'flex' : 'none'; }); } catch (_) {}
     const bOn = $('#ats-audio-on'); if (bOn) bOn.onclick = () => { try { VoiceManager.reanudarAudio(); } catch (_) {} if (avisoA) avisoA.style.display = 'none'; };
     $('#ats-panel').onclick = () => { panelMovil = !panelMovil; $('#ats-side').classList.toggle('abierto', panelMovil); };
+    $('#ats-vista').onclick = alternarVista;
     $('#ats-link').onclick = () => copiar(enlaceSala(), 'Enlace copiado: pegalo donde quieras.');
     const cod = $('#ats-cod'); if (cod) cod.onclick = () => copiar(info.codigo, 'Código copiado.');
     sec.querySelectorAll('.ats-tabs button').forEach((b) => b.addEventListener('click', () => { tabLateral = b.dataset.t; sec.querySelectorAll('.ats-tabs button').forEach((x) => x.classList.toggle('on', x === b)); pintarLateral(); }));

@@ -1102,6 +1102,13 @@ async function toggleObjective(userId, moduleId, upId, index, completed) {
 // Badge verde "Obligatorio" para recursos con resource.obligatorio === true
 // (ver gineco_data.json: bibliografía obligatoria de cada sección de UP3).
 function badgeObligatorioHtml(resource) {
+    // Consensos de sociedades científicas: se marca el año y los más recientes (2022 en adelante)
+    const tit = String(resource.title || '');
+    if (!resource.obligatorio && /(FASGO|SOGIBA|Intersociedades|Consenso)/i.test(tit)) {
+        const m = tit.match(/(20[0-3]\d)/);
+        if (m && Number(m[1]) >= 2022) return `<span title="Consenso de ${m[1]}: de los más actualizados" style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#075985; background:#e0f2fe; border-radius:999px; vertical-align:middle;">🆕 RECIENTE · ${m[1]}</span>`;
+        return '';
+    }
     if (!resource.obligatorio) return '';
     return `<span style="display:inline-block; margin-left:8px; padding:2px 8px; font-size:0.68rem; font-weight:800; letter-spacing:.02em; color:#166534; background:#dcfce7; border-radius:999px; vertical-align:middle;">OBLIGATORIO</span>`;
 }

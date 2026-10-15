@@ -14,6 +14,6 @@
       if (!window.NikaSupabase) await cargar('supabaseClient.js');
     }
     if (!window.VoiceManager) await cargar('js/voiceManager.js?v=3');
-    await cargar('js/ateneos.js?v=8');
+    await cargar('js/ateneos.js?v=9');
   })();
 })();
