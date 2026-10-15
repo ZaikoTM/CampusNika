@@ -354,6 +354,51 @@
   // ------------------------------------------------------------
   // Mosaico: erratas (tabla `erratas`: las envían los alumnos desde los simulacros)
   // ------------------------------------------------------------
+  // ------------------------------------------------------------
+  // Solicitudes de acceso a Mi Spotify (tabla spotify_solicitudes, sql/spotify_solicitudes.sql)
+  // ------------------------------------------------------------
+  let spotify = [];
+  let spotifyFiltro = 'pendiente';
+  async function cargarSpotify() {
+    const { data, error } = await c.from('spotify_solicitudes').select('*').order('creado_en', { ascending: false }).limit(300);
+    spotify = error ? null : (data || []);
+    if (error) console.warn('[Admin] spotify:', error.message);
+    pintarSpotify();
+  }
+  function pintarSpotify() {
+    const lista = $('spotify-lista'); if (!lista) return; lista.textContent = '';
+    const badge = $('badge-spotify');
+    if (spotify === null) { if (badge) badge.textContent = '–'; lista.appendChild(el('div', 'as-vacio', 'No se pudieron leer las solicitudes (¿falta correr sql/spotify_solicitudes.sql?).')); return; }
+    const pend = spotify.filter((r) => r.estado === 'pendiente').length;
+    if (badge) { badge.textContent = String(pend); badge.classList.toggle('alerta', pend > 0); }
+    const filas = spotify.filter((r) => spotifyFiltro === 'todas' || r.estado === spotifyFiltro);
+    if (!filas.length) { lista.appendChild(el('div', 'as-vacio', spotifyFiltro === 'pendiente' ? 'No hay solicitudes pendientes. 🎉' : 'No hay solicitudes.')); return; }
+    filas.forEach((r, i) => {
+      const card = el('div', 'as-errata'); card.style.animationDelay = Math.min(i, 10) * 0.03 + 's';
+      const meta = el('div', 'meta');
+      meta.append(el('span', null, '@' + (r.username || '—') + (r.fullname ? ' · ' + r.fullname : '') + ' · ' + fmtFecha(r.creado_en)), el('span', 'as-tag ' + (r.estado === 'pendiente' ? 'warn' : r.estado === 'agregada' ? 'ok' : 'bad'), r.estado === 'pendiente' ? '🟡 Pendiente' : r.estado === 'agregada' ? '🟢 Agregada' : '🔴 Rechazada'));
+      const mail = el('div', 'q', r.email_spotify);
+      const acc = el('div', 'as-fila'); acc.style.marginTop = '8px';
+      const copiar = el('button', 'as-btn', '📋 Copiar email'); copiar.type = 'button';
+      copiar.addEventListener('click', async () => { try { await navigator.clipboard.writeText(r.email_spotify); toast('Email copiado: pegalo en Spotify for Developers → User Management'); } catch (_) { toast(r.email_spotify); } });
+      acc.appendChild(copiar);
+      const marcar = (estado, txt) => {
+        const b = el('button', 'as-btn' + (estado === 'agregada' ? ' primario' : ''), txt); b.type = 'button';
+        b.addEventListener('click', async () => {
+          b.disabled = true;
+          const { error } = await c.from('spotify_solicitudes').update({ estado, resuelto_en: new Date().toISOString() }).eq('id', r.id);
+          if (error) { toast('No se pudo actualizar: ' + error.message); b.disabled = false; return; }
+          r.estado = estado; pintarSpotify(); toast('Solicitud actualizada');
+        });
+        acc.appendChild(b);
+      };
+      if (r.estado !== 'agregada') marcar('agregada', '✅ Ya lo agregué');
+      if (r.estado === 'pendiente') marcar('rechazada', '✖ Rechazar');
+      card.append(meta, mail, acc);
+      lista.appendChild(card);
+    });
+  }
+
   const ESTADOS_ERRATA = { pending: ['warn', '🟡 Pendiente'], fixed: ['ok', '🟢 Corregido'], rejected: ['bad', '🔴 Descartado'] };
   let erratas = [];
   let erratasFiltro = 'pending';
@@ -558,6 +603,7 @@
 
   async function alAbrir(id) {
     if (id === 'tile-erratas') cargarErratas();
+    if (id === 'tile-spotify') cargarSpotify();
     if (id === 'tile-novedad') cargarNovedades();
     if (id === 'tile-bancos') iniciarBancos();
     if (id === 'tile-fallos' && !cargado.fallos) {
@@ -608,6 +654,12 @@
       document.querySelectorAll('#erratas-filtros .as-chip').forEach((x) => x.classList.toggle('on', x === b));
       pintarErratas();
     });
+    $('spotify-filtros').addEventListener('click', (e) => {
+      const b = e.target.closest('.as-chip'); if (!b) return;
+      spotifyFiltro = b.dataset.f;
+      document.querySelectorAll('#spotify-filtros .as-chip').forEach((x) => x.classList.toggle('on', x === b));
+      pintarSpotify();
+    });
     $('as-refrescar').addEventListener('click', () => recargar(true));
   }
 
@@ -645,6 +697,8 @@
     pintarKpis(null); pintarSubs(); pintarUsuarios();
     const [rep] = await Promise.all([contarReportes(), cargarStats(), cargarErratas(), cargarPagos()]);
     pintarKpis(rep); pintarPagos();
+    cargarSpotify();                                   // el contador de pendientes se ve aunque el mosaico esté cerrado
+    const destino = (location.hash || '').replace('#', ''); if (destino && $(destino)) abrirTile(destino, true);
   }
   iniciar();
 })();

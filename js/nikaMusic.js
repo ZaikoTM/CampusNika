@@ -157,7 +157,7 @@ const NikaMusic = (() => {
         let m;
         if (razon === 'PREMIUM_REQUIRED' || /premium/i.test(t)) m = 'Para reproducir con tu cuenta Spotify necesita Premium. Mientras tanto podés escuchar “Lofi y ambiente”, que funciona para todos.';
         else if (/scope/i.test(t)) m = 'Faltan permisos de Spotify: tocá “Desconectar Spotify” y volvé a conectar tu cuenta aceptando todos los permisos.';
-        else m = 'Spotify no dejó entrar a esta cuenta (403): la app de Campus Nika está en modo de prueba y solo admite cuentas que el administrador autoriza. Escuchá “Lofi y ambiente” mientras se habilita.';
+        else m = 'Spotify todavía no habilitó esta cuenta para Campus Nika. Pedí acceso con el formulario de abajo: el administrador te va a habilitar. Mientras tanto podés escuchar “Lofi y ambiente”.';
         const e = new Error(m); e.spotify403 = true; throw e;
       }
       throw new Error(msg);
@@ -219,8 +219,74 @@ const NikaMusic = (() => {
 
   // Spotify rechazó la cuenta: se vuelve a “Lofi y ambiente” (sin login) con el motivo, así no queda sin música
   function alRechazoSpotify(msg) {
-    if (vista !== 'ambiente') { vista = 'ambiente'; guardarUi({ vista: 'ambiente' }); desacoplarEmbed(); render(); }
-    setMensaje(msg);
+    desconectar();                                   // se descartan los tokens y se vuelve a la pantalla de conexión
+    const m = $('#nm-connmsg'); if (m) { m.style.display = 'block'; m.textContent = msg; }
+  }
+
+  // ---- Solicitud de acceso a Mi Spotify (la app de Spotify solo admite cuentas autorizadas por el administrador) ----
+  let solicitud = undefined;                         // undefined = sin consultar · null = no hay · objeto = última solicitud
+  const sbCli = async () => { const ns = window.NikaSupabase; if (ns && ns.ready) { try { await ns.ready; } catch (_) {} } return ns && ns.client; };
+  async function cargarSolicitud() {
+    try {
+      const c = await sbCli(); const { data: s } = await c.auth.getSession();
+      if (!s || !s.session) { solicitud = null; }
+      else {
+        const { data, error } = await c.from('spotify_solicitudes').select('*').order('creado_en', { ascending: false }).limit(1);
+        solicitud = error ? null : ((data && data[0]) || null);
+      }
+    } catch (_) { solicitud = null; }
+    pintarSolicitud();
+  }
+  async function enviarSolicitud(email) {
+    const u = (() => { try { return JSON.parse(localStorage.getItem('nika_currentUser') || 'null') || {}; } catch (_) { return {}; } })();
+    const c = await sbCli();
+    const { data, error } = await c.from('spotify_solicitudes').insert({ username: u.username || null, fullname: u.fullname || u.nombre || null, email_spotify: email }).select().single();
+    if (error) {
+      if (/relation|does not exist|PGRST205/i.test(error.message + (error.code || ''))) throw new Error('El envío de solicitudes todavía no está habilitado. Avisale al administrador por otro medio.');
+      throw new Error('No se pudo enviar la solicitud. Probá de nuevo en unos minutos.');
+    }
+    return data;
+  }
+  function pintarSolicitud() {
+    const box = $('#nm-solic'); if (!box) return;
+    const st = solicitud && solicitud.estado;
+    const formulario = (titulo, pre) => `<b>${titulo}</b><small>Escribí el email de la cuenta de Spotify con la que querés entrar (con Premium). Lo recibe el administrador para habilitarte.</small>
+      <input type="email" id="nm-sol-mail" placeholder="tu-email@spotify.com" value="${esc(pre || '')}" autocomplete="email" maxlength="120">
+      <button type="button" class="nm-sol-b" id="nm-sol-env">📨 Solicitar acceso</button><div class="nm-sol-m" id="nm-sol-msg" role="status"></div>`;
+    if (solicitud === undefined) { box.innerHTML = '<small>Revisando tu solicitud…</small>'; return; }
+    if (st === 'pendiente') box.innerHTML = `<div class="nm-sol-ok">✅ <b>Tu solicitud fue enviada al administrador</b><small>Pedimos habilitar <b>${esc(solicitud.email_spotify)}</b>. Pronto vas a tener acceso a la herramienta; cuando esté lista, conectá tu Spotify con el botón de arriba.</small></div>`;
+    else if (st === 'agregada') box.innerHTML = `<div class="nm-sol-ok">🎉 <b>¡Ya te habilitamos!</b><small>Conectá tu Spotify con el botón de arriba usando <b>${esc(solicitud.email_spotify)}</b>.</small></div>`;
+    else box.innerHTML = formulario(st === 'rechazada' ? 'Tu solicitud anterior no pudo aprobarse. Probá con otro email' : '¿No te deja conectar? Pedí acceso', (solicitud && solicitud.email_spotify) || '');
+    const b = $('#nm-sol-env');
+    if (b) b.onclick = async () => {
+      const mail = String(($('#nm-sol-mail') || {}).value || '').trim().toLowerCase(), msg = $('#nm-sol-msg');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { msg.textContent = 'Revisá el email: tiene que ser válido.'; msg.className = 'nm-sol-m err'; return; }
+      b.disabled = true; msg.textContent = 'Enviando…'; msg.className = 'nm-sol-m';
+      try { solicitud = await enviarSolicitud(mail); pintarSolicitud(); }
+      catch (e) { msg.textContent = e.message; msg.className = 'nm-sol-m err'; b.disabled = false; }
+    };
+  }
+
+  // ---- Aviso al administrador: solicitudes de Spotify pendientes (al entrar y en tiempo real) ----
+  function avisoAdminSpotify() {
+    try { const u = JSON.parse(localStorage.getItem('nika_currentUser') || 'null'); if (!u || String(u.role || '').toLowerCase() !== 'admin') return; } catch (_) { return; }
+    const mostrar = (txt) => {
+      let t = document.getElementById('nm-adm-toast');
+      if (!t) { t = document.createElement('div'); t.id = 'nm-adm-toast'; t.style.cssText = 'position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:100000;max-width:min(92vw,460px);padding:12px 16px;border-radius:16px;background:#0f172a;color:#f1f5f9;border:1px solid #1DB954;box-shadow:0 20px 40px -16px rgba(0,0,0,.6);font:700 .86rem/1.4 system-ui,sans-serif;display:flex;gap:12px;align-items:center'; document.body.appendChild(t); }
+      t.innerHTML = '<span>🎵 ' + esc(txt) + '</span><a href="admin.html#tile-spotify" style="color:#1DB954;font-weight:800;white-space:nowrap">Ver →</a><button type="button" aria-label="Cerrar" style="background:none;border:0;color:#94a3b8;cursor:pointer;font-size:1rem">✕</button>';
+      t.querySelector('button').onclick = () => t.remove();
+      clearTimeout(t._t); t._t = setTimeout(() => t.remove(), 20000);
+    };
+    (async () => {
+      try {
+        const c = await sbCli(); if (!c) return;
+        const { count } = await c.from('spotify_solicitudes').select('id', { count: 'exact', head: true }).eq('estado', 'pendiente');
+        if (count > 0 && !sessionStorage.getItem('nika_adm_spotify')) { sessionStorage.setItem('nika_adm_spotify', '1'); mostrar(count + (count === 1 ? ' solicitud de Spotify pendiente' : ' solicitudes de Spotify pendientes')); }
+        c.channel('spotify-solicitudes-admin').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'spotify_solicitudes' }, (p) => {
+          const r = p.new || {}; mostrar('Nueva solicitud de Spotify: @' + (r.username || 'usuario') + ' · ' + (r.email_spotify || ''));
+        }).subscribe();
+      } catch (_) {}
+    })();
   }
 
   async function playlistPorNombre(q, btnEl) {
@@ -683,6 +749,13 @@ const NikaMusic = (() => {
       .nm-nota { font-size: .68rem; color: #94a3b8; line-height: 1.4; margin-top: 6px; }
       .nm-ambvol { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: .9rem; } .nm-ambvol input { flex: 1; }
 
+      .nm-solic { margin: 12px 4px 4px; padding: 12px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px dashed rgba(255,255,255,.2); display: flex; flex-direction: column; gap: 6px; font-size: .84rem; color: #e2e8f0; }
+      .nm-solic small { color: #94a3b8; line-height: 1.4; }
+      .nm-solic input { font: inherit; padding: 9px 12px; border-radius: 10px; border: 1.5px solid rgba(255,255,255,.25); background: rgba(0,0,0,.25); color: #fff; }
+      .nm-sol-b { border: 0; cursor: pointer; padding: 10px; border-radius: 10px; font: 800 .85rem inherit; font-family: inherit; color: #04130a; background: #1DB954; transition: transform .15s, filter .15s; }
+      .nm-sol-b:hover { transform: translateY(-1px); filter: brightness(1.08); } .nm-sol-b:disabled { opacity: .6; }
+      .nm-sol-m { font-size: .78rem; min-height: 16px; color: #86efac; } .nm-sol-m.err { color: #fca5a5; }
+      .nm-sol-ok b { color: #86efac; } .nm-sol-ok small { display: block; margin-top: 4px; }
       .nm-conectar { text-align: center; padding: 6px 4px; font-size: .84rem; color: #cbd5e1; line-height: 1.5; }
       .nm-btn-spotify { display: inline-flex; align-items: center; justify-content: center; gap: 9px; margin-top: 14px; border: none; cursor: pointer; padding: 13px 26px; border-radius: 9999px;
         background: #1DB954; color: #04130a; font-weight: 800; font-size: .92rem; font-family: inherit; transition: transform .18s ease, box-shadow .25s ease, filter .2s ease; }
@@ -1133,7 +1206,8 @@ const NikaMusic = (() => {
       cuerpo = `
         <div class="nm-conectar">Conectá tu cuenta de <b>Spotify</b> para usar tus playlists y buscar canciones.<br><small style="color:#94a3b8">Requiere Spotify Premium. Por ahora las cuentas se habilitan de a poco (beta): si no podés conectar, usá “Sin login”, que funciona para todos.</small><br>
           <button type="button" class="nm-btn-spotify" id="nm-conn">${SPOTIFY_SVG(20)} Conectar con Spotify</button>
-          <div id="nm-connmsg"></div></div>`;
+          <div id="nm-connmsg"></div></div>
+        <div class="nm-solic" id="nm-solic"><small>Revisando tu solicitud…</small></div>`;
     } else {
       const vol0 = Math.round(parseFloat(localStorage.getItem(K_VOL) || '0.5') * 100);
       cuerpo = `
@@ -1187,6 +1261,7 @@ const NikaMusic = (() => {
       panel.querySelector('.nm-body').addEventListener('scroll', acoplarEmbed);
     } else if (!conectado) {
       $('#nm-conn').onclick = conectar;
+      if (solicitud === undefined) cargarSolicitud(); else pintarSolicitud();
     } else {
       $('#nm-out').onclick = desconectar;
       $('#nm-play').onclick = alternarReproduccion;
@@ -1345,6 +1420,7 @@ const NikaMusic = (() => {
     setInterval(() => { if (sonando && sesionLista) guardarSesion(); }, 2000);   // la posición queda guardada para la próxima página
     // Si la música de tu cuenta estaba sonando al cambiar de página, el reproductor se reconecta y la retoma
     if (leerTokens() && localStorage.getItem(K_ACTIVA) === '1') cargarSdk();
+    setTimeout(avisoAdminSpotify, 2500);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 

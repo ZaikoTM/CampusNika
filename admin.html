@@ -125,6 +125,26 @@
                 </div></div></div>
             </article>
 
+            <article class="as-tile tone-emerald as-reveal" id="tile-spotify" style="animation-delay:.28s">
+                <button type="button" class="as-head" aria-expanded="false">
+                    <span class="as-ico">🎵</span>
+                    <span class="as-tt"><b>Solicitudes de Spotify</b><small>NikaMed+ que piden usar Mi Spotify: copiá el email y agregalo en Spotify for Developers</small></span>
+                    <span class="as-badge" id="badge-spotify">–</span><span class="as-chev">⌄</span>
+                </button>
+                <div class="as-body"><div class="as-inner"><div class="as-content">
+                    <p class="as-nota">Agregá el email en <b>developer.spotify.com → tu app → User Management</b> y después tocá “Ya lo agregué”: a la persona le aparece que ya está habilitada.</p>
+                    <div class="as-tools">
+                        <div class="as-chips" id="spotify-filtros">
+                            <button type="button" class="as-chip on" data-f="pendiente">Pendientes</button>
+                            <button type="button" class="as-chip" data-f="agregada">Agregadas</button>
+                            <button type="button" class="as-chip" data-f="rechazada">Rechazadas</button>
+                            <button type="button" class="as-chip" data-f="todas">Todas</button>
+                        </div>
+                    </div>
+                    <div class="as-reportes" id="spotify-lista"></div>
+                </div></div></div>
+            </article>
+
             <article class="as-tile tone-orange as-reveal" id="tile-erratas" style="animation-delay:.3s">
                 <button type="button" class="as-head" aria-expanded="false">
                     <span class="as-ico">📥</span>
@@ -196,7 +216,7 @@
     <script src="supabaseClient.js"></script>
     <script src="js/moderacion.js?v=20261001e"></script>
     <script src="js/examModesConfig.js?v=74"></script>
-    <script src="js/admin.js?v=20261007a"></script>
+    <script src="js/admin.js?v=20261016a"></script>
 <script src="js/ateneoGlobal.js" defer></script>
 </body>
 </html>
