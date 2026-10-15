@@ -643,6 +643,7 @@
         <div class="nkpdf-grupo"><span class="nkpdf-pagtxt">pág. <input class="nkpdf-pag" type="number" min="1" max="${mi.n}" value="1" aria-label="Ir a la página"> / ${mi.n}</span>
           <button class="nkpdf-leer" data-accion="leer" title="Marcar esta página como leída">${ICO.ok}<span class="nkpdf-txt">Marcar leída</span></button></div>
         <div class="nkpdf-prog" title="Tu avance de lectura"><i><b></b></i><span></span></div>
+        <div class="nkpdf-grupo"><button data-accion="notas" class="nkpdf-notas" title="Tomar notas mientras leés (se guardan en Mis notas)">📒<span class="nkpdf-txt">Notas</span></button></div>
         <span class="nkpdf-sep"></span>
         <div class="nkpdf-grupo">
           <button data-accion="lista" title="Mis subrayados">${ICO.lista}<span class="nkpdf-txt">Subrayados</span><span class="nkpdf-cnt" style="display:none">0</span></button>
@@ -689,6 +690,7 @@
         case 'ajustar': ajustarAncho(); break;
         case 'leer': if (mi.leidas.has(mi.actual)) mi.leidas.delete(mi.actual); else mi.leidas.add(mi.actual); marcarLeida(mi.pags[mi.actual - 1]); actualizarBarra(); guardarProgreso(); break;
         case 'lista': panel(!mi.panelAbierto); break;
+        case 'notas': if (window.NikaPdfNotas) window.NikaPdfNotas.abrir(mi); else aviso('Las notas no están disponibles en este momento'); break;
         case 'cerrar-lista': panel(false); break;
         case 'fs': pantalla(); break;
         case 'drive': aDrive(); break;
