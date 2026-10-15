@@ -55,7 +55,8 @@
     return '<span class="rs-d ' + (d > 0 ? 'rs-d--sube' : 'rs-d--baja') + '">' + (d > 0 ? '▲ +' : '▼ ') + d + (unidad == null ? '%' : unidad) + '</span>';
   };
   const kpi = (ico, tt, val, extra, c) => '<div class="rs-k" style="--kc:' + c + '"><span class="rs-k-ico">' + ico + '</span><small>' + tt + '</small><b>' + val + '</b>' + extra + '</div>';
-  const tot1 = (a, b) => '<div class="rs-t"><small>' + a + '</small><b>' + b + '</b></div>';
+  const tile = (ico, tt, val, c, extra, pct) => '<div class="rs-t" style="--kc:' + c + '"><span class="rs-t-ico">' + ico + '</span><small>' + tt + '</small><b>' + val + '</b>'
+    + (extra ? '<em class="rs-t-ex">' + extra + '</em>' : '') + (pct == null ? '' : '<span class="rs-t-bar"><i style="--w:' + Math.max(3, Math.min(100, pct)) + '%"></i></span>') + '</div>';
 
   /* ---------- pestaña: semana ---------- */
   function vistaSemana() {
@@ -113,15 +114,16 @@
     return '<div class="rs-chips">' + Object.keys(METRICAS).map((k) => '<button type="button" class="' + (k === metrica ? 'on' : '') + '" data-rs="met" data-k="' + k + '">' + METRICAS[k][0] + '</button>').join('') + '</div>'
       + (sinDatos ? '<p class="rs-vacio">Todavía no hay actividad registrada. Con tus primeros Pomodoros y simulacros vas a ver acá tu evolución semana a semana.</p>'
         : '<div class="rs-evol" role="group" aria-label="Evolución semanal">' + barras + '</div><p class="rs-pista">Tocá una barra para ver esa semana en detalle.</p>')
-      + '<h4 class="rs-sub" style="margin-top:14px">Desde que creaste tu cuenta</h4>'
+      + '<h4 class="rs-sub" style="margin-top:18px">Desde que creaste tu cuenta</h4>'
       + '<div class="rs-tot">'
-      + tot1('Miembro desde', new Date(miembro).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' }))
-      + tot1('Horas totales', hm(tot.min)) + tot1('Sesiones Pomodoro', tot.ses) + tot1('Simulacros', tot.sim)
-      + tot1('Aciertos globales', tot.preg ? Math.round(tot.ok / tot.preg * 100) + '%' : '—')
-      + tot1('Semanas activas', tot.act + ' de ' + semanas.length)
-      + tot1('Promedio semanal', hm(tot.min / Math.max(1, semanas.length)))
-      + tot1('Mejor semana', mejor && mejor.min > 0 ? corto(mejor.inicio) + ' · ' + hm(mejor.min) : '—')
-      + tot1('Notas tomadas', tot.notas)
+      + tile('📅', 'Miembro desde', new Date(miembro).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' }), '#6366f1', 'hace ' + Math.max(1, Math.round((ahora.getTime() - miembro) / 86400000)) + ' días')
+      + tile('⏱️', 'Horas totales', hm(tot.min), '#0ea5e9', 'promedio ' + hm(tot.min / Math.max(1, semanas.length)) + ' por semana')
+      + tile('🍅', 'Sesiones Pomodoro', tot.ses, '#ef4444', tot.ses ? 'promedio ' + hm(tot.min / tot.ses) + ' por sesión' : 'todavía sin sesiones')
+      + tile('📝', 'Simulacros', tot.sim, '#8b5cf6', tot.preg + ' preguntas respondidas')
+      + tile('🎯', 'Aciertos globales', tot.preg ? Math.round(tot.ok / tot.preg * 100) + '%' : '—', '#16a34a', tot.preg ? tot.ok + ' correctas de ' + tot.preg : 'sin simulacros', tot.preg ? tot.ok / tot.preg * 100 : 0)
+      + tile('🔥', 'Semanas activas', tot.act + ' de ' + semanas.length, '#f59e0b', 'constancia ' + Math.round(tot.act / Math.max(1, semanas.length) * 100) + '%', tot.act / Math.max(1, semanas.length) * 100)
+      + tile('🏆', 'Mejor semana', mejor && mejor.min > 0 ? hm(mejor.min) : '—', '#eab308', mejor && mejor.min > 0 ? 'semana del ' + corto(mejor.inicio) : 'a la espera de tu primer récord')
+      + tile('🗒️', 'Notas tomadas', tot.notas, '#14b8a6', '<a href="mis_notas.html">Ver mis notas →</a>')
       + '</div>';
   }
 
@@ -196,8 +198,8 @@
     ancla.insertAdjacentElement('afterend', card);
     raiz = card;
     // aparece con efecto al llegar con el scroll
-    if ('IntersectionObserver' in window) { const io = new IntersectionObserver((es) => { if (es.some((x) => x.isIntersecting)) { card.classList.add('rs-on'); io.disconnect(); } }, { threshold: 0.08 }); io.observe(card); }
-    else card.classList.add('rs-on');
+    card.classList.add('rs-on');
+    if (window.CampusVisual && window.CampusVisual.revelar) window.CampusVisual.revelar(card);
     try {
       const datos = await window.NikaRendimiento.cargarDatos();
       let notas = [], creado = null;

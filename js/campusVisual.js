@@ -13,23 +13,34 @@
     document.body.insertBefore(a, document.body.firstChild);
   }
 
-  const SEL = '.hero-banner, .continuity-card, .plan-card, .action-btn-card, .perf-grid > *, .prof-card, .status-card, .sim-hub-grid > *, .community-widget, .sim-hub-grid';
+  // Mismo efecto que la portada (index): al hacer scroll cada módulo sube y aparece, escalonado.
+  const SEL = 'main.container > *, .action-hub > *, .hero-banner, .continuity-card, .plan-card, .action-btn-card, .perf-grid > *, .prof-card, .status-card, .sim-hub-grid > *, .community-widget, .rs-card, '
+    + '#dashboard-hero-section > *, .plan-grid > *, .community-grid > *, .mapa-card';
+  let ioRv = null;
+  function revelar(n) {
+    if (!n || n.__cvRv || !n.classList || n.classList.contains('cv-aurora')) return;
+    if (!ioRv) return;
+    n.__cvRv = true;
+    const p = n.parentElement; let k = 0; if (p) { k = (p.__cvK = (p.__cvK || 0) + 1) - 1; }
+    n.style.setProperty('--cv-d', String(Math.min(k, 6)));
+    n.classList.add('cv-rv');
+    ioRv.observe(n);
+  }
   function entrada() {
     if (!('IntersectionObserver' in window)) return;
-    const nodos = [...document.querySelectorAll(SEL)].filter((n) => !n.classList.contains('cv-rv'));
-    if (!nodos.length) return;
     document.documentElement.classList.add('cv-on');
-    const orden = new Map();
-    nodos.forEach((n) => { const p = n.parentElement; const k = (orden.get(p) || 0); orden.set(p, k + 1); n.style.setProperty('--cv-d', String(Math.min(k, 8))); n.classList.add('cv-rv'); });
-    const mostrar = (n) => {
-      if (!n.classList.contains('cv-rv')) return;
-      n.classList.add('cv-in');
-      n.addEventListener('animationend', () => { n.classList.remove('cv-rv', 'cv-in'); n.style.removeProperty('--cv-d'); }, { once: true });
-    };
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { mostrar(e.target); io.unobserve(e.target); } }), { threshold: 0.04, rootMargin: '0px 0px -6% 0px' });
-    nodos.forEach((n) => io.observe(n));
+    ioRv = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const n = e.target; ioRv.unobserve(n); n.classList.add('cv-in');
+      const d = 1300 + (parseInt(n.style.getPropertyValue('--cv-d'), 10) || 0) * 90;
+      setTimeout(() => { n.classList.remove('cv-rv', 'cv-in'); n.style.removeProperty('--cv-d'); }, d);
+    }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    const barrer = (raiz) => { (raiz.querySelectorAll ? raiz.querySelectorAll(SEL) : []).forEach(revelar); if (raiz.matches && raiz.matches(SEL)) revelar(raiz); };
+    barrer(document);
+    // contenido que se arma después (comunidad, resumen, etc.) también se revela al llegar
+    try { new MutationObserver((ms) => ms.forEach((m) => m.addedNodes.forEach((x) => { if (x.nodeType === 1) barrer(x); }))).observe(document.querySelector('main.container') || document.body, { childList: true, subtree: true }); } catch (_) {}
     // seguro: pase lo que pase, a los pocos segundos todo se ve
-    setTimeout(() => { document.querySelectorAll('.cv-rv:not(.cv-in)').forEach((n) => { n.classList.remove('cv-rv'); }); }, 3500);
+    setTimeout(() => { document.querySelectorAll('.cv-rv:not(.cv-in)').forEach((n) => { const r = n.getBoundingClientRect(); if (r.top < innerHeight * 1.5) { n.classList.remove('cv-rv'); } }); }, 6000);
   }
 
   function luz() {
@@ -187,7 +198,7 @@
     try { new MutationObserver(() => { clearTimeout(t); t = setTimeout(marcar, 60); }).observe(document.body, { childList: true, subtree: true }); } catch (_) {}
   }
 
-  window.CampusVisual = { confeti };
+  window.CampusVisual = { confeti, revelar };
   /* Modo liviano: equipos con poca memoria o pocos núcleos, "ahorro de datos" o pantallas chicas */
   function liviano() {
     try {

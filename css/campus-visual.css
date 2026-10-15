@@ -39,14 +39,14 @@ body.dark-mode .plan-card, body.dark-mode .action-btn-card, body.dark-mode .prof
 body.tema-premium .plan-card, body.tema-premium .action-btn-card, body.tema-premium .prof-card, body.tema-premium .perf-grid > * { border-color: rgba(168, 85, 247, .32); }
 body.tema-premium .plan-card::after, body.tema-premium .action-btn-card::after, body.tema-premium .perf-grid > *::after { background: radial-gradient(260px circle at var(--cv-x, 50%) var(--cv-y, 0%), rgba(192, 132, 252, .22), transparent 60%); }
 
-/* ---------- 3) Entrada escalonada ---------- */
-.cv-on .cv-rv:not(.cv-in) { opacity: 0; }
-.cv-rv.cv-in { animation: cvEntra .85s cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--cv-d, 0) * 80ms); }
-@keyframes cvEntra { from { opacity: 0; transform: translateY(46px) scale(.97); filter: blur(5px); } to { opacity: 1; transform: none; filter: none; } }
+/* ---------- 3) Entrada al hacer scroll (igual que la portada) ---------- */
+.cv-on .cv-rv { transition: opacity .85s cubic-bezier(.22, 1, .36, 1), transform .85s cubic-bezier(.22, 1, .36, 1); transition-delay: calc(var(--cv-d, 0) * 90ms); }
+.cv-on .cv-rv:not(.cv-in) { opacity: 0; transform: translateY(34px); }
 
 @media (prefers-reduced-motion: reduce) {
   .cv-aurora i { animation: none; }
-  .cv-rv.cv-in { animation: cvSuave .6s ease both; }
+  .cv-on .cv-rv:not(.cv-in) { transform: none; }
+  .cv-on .cv-rv { transition: opacity .5s ease; transition-delay: 0s; }
   .action-btn-card:hover, .perf-grid > *:hover { transform: none; }
 }
 @media (max-width: 640px) { .cv-aurora i { filter: blur(50px); opacity: .42; } .cv-aurora i:nth-child(3) { display: none; } }
