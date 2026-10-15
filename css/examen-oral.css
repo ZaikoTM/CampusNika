@@ -1,0 +1,90 @@
+/* CAMPUS NIKA · Examen oral */
+.examen-oral-pg .ns-main { max-width: 980px; }
+.eo-hero { display: flex; gap: 18px; align-items: center; padding: 24px 26px; border-radius: 26px; color: #fff; margin-bottom: 18px; position: relative; overflow: hidden;
+  background: radial-gradient(circle at 12% 20%, rgba(255,255,255,.2), transparent 45%), linear-gradient(135deg, #0f172a, #4338ca 55%, #a855f7); box-shadow: 0 28px 48px -30px rgba(79,70,229,.9); }
+.eo-hero-ico { font-size: 3rem; width: 78px; height: 78px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 24px; background: rgba(255,255,255,.14); animation: eoLate 2.8s ease-in-out infinite; }
+@keyframes eoLate { 50% { transform: scale(1.08) rotate(-5deg); } }
+.eo-hero small { text-transform: uppercase; letter-spacing: .12em; font-weight: 800; font-size: .7rem; color: #fde68a; }
+.eo-hero h2 { margin: 2px 0 6px; font-size: 1.7rem; } .eo-hero p { margin: 0; line-height: 1.5; opacity: .95; font-size: .93rem; }
+.eo-bloq { padding: 18px 20px; border-radius: 20px; background: linear-gradient(135deg, rgba(245,158,11,.16), rgba(239,68,68,.14)); border: 1px solid rgba(245,158,11,.45); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.eo-bloq p { margin: 0; opacity: .85; }
+.eo-form.eo-off { opacity: .45; pointer-events: none; filter: grayscale(.4); }
+.eo-lbl { font-size: .74rem; font-weight: 800; opacity: .7; text-transform: uppercase; letter-spacing: .06em; margin: 6px 0 8px; }
+.eo-mats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.eo-mat { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 20px; border: 2px solid var(--border, #e2e8f0); background: var(--card-bg, #fff); color: inherit; cursor: pointer; font: inherit; font-weight: 800; text-align: left;
+  transition: transform .25s cubic-bezier(.22, 1.4, .36, 1), border-color .2s, box-shadow .25s, background .2s; }
+.eo-mat i { font-style: normal; font-size: 1.6rem; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; background: color-mix(in srgb, var(--c) 16%, transparent); transition: transform .3s; }
+.eo-mat:hover { transform: translateY(-4px); border-color: var(--c); }
+.eo-mat:hover i { transform: rotate(-8deg) scale(1.1); }
+.eo-mat.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, var(--card-bg, #fff)); box-shadow: 0 16px 26px -18px var(--c); }
+.eo-mat.on i { background: var(--c); }
+.eo-fila { display: flex; gap: 12px; flex-wrap: wrap; } .eo-fila .eo-f { flex: 1 1 220px; }
+.eo-f { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.eo-f > span { font-size: .74rem; font-weight: 800; opacity: .7; text-transform: uppercase; letter-spacing: .06em; }
+.eo-f select, .eo-escribe textarea { font: inherit; padding: 12px 14px; border-radius: 14px; border: 2px solid var(--border, #cbd5e1); background: var(--bg-body, #f8fafc); color: inherit; min-width: 0; }
+.eo-f select:focus, .eo-escribe textarea:focus { outline: 0; border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99,102,241,.22); }
+.eo-vozfila { display: flex; gap: 8px; flex-wrap: wrap; } .eo-vozfila select { flex: 1 1 240px; }
+.eo-notas { margin: 6px 0 16px; padding: 14px 16px 14px 34px; border-radius: 18px; background: rgba(99,102,241,.09); border: 1px solid rgba(99,102,241,.25); font-size: .86rem; line-height: 1.5; display: flex; flex-direction: column; gap: 6px; }
+.eo-btn { font: inherit; font-weight: 800; font-size: .88rem; border: 0; border-radius: 14px; padding: 12px 18px; cursor: pointer; color: #fff; text-decoration: none; background: linear-gradient(135deg, #0284c7, #6366f1); transition: transform .2s cubic-bezier(.22, 1.4, .36, 1), box-shadow .2s; display: inline-block; }
+.eo-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 22px -12px #6366f1; } .eo-btn:active { transform: scale(.94); }
+.eo-btn--sec { background: transparent; color: inherit; border: 2px solid var(--border, #cbd5e1); }
+.eo-comenzar { position: relative; width: 100%; border: 0; cursor: pointer; border-radius: 22px; padding: 18px; font: inherit; font-weight: 800; font-size: 1.05rem; color: #fff; overflow: hidden;
+  background: linear-gradient(120deg, #4338ca, #7c3aed, #db2777, #4338ca); background-size: 240% 100%; animation: eoFluye 6s linear infinite; box-shadow: 0 20px 34px -16px rgba(124,58,237,.9); transition: transform .25s cubic-bezier(.22, 1.4, .36, 1); }
+.eo-comenzar::after { content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(110deg, transparent, rgba(255,255,255,.5), transparent); transform: skewX(-18deg); animation: eoBarre 3.2s ease-in-out infinite; }
+.eo-comenzar:hover { transform: translateY(-3px) scale(1.01); } .eo-comenzar:disabled { opacity: .5; animation: none; cursor: default; }
+@keyframes eoFluye { to { background-position: -240% 0; } } @keyframes eoBarre { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+.eo-error { color: #b91c1c; font-weight: 700; padding: 10px 12px; border-radius: 12px; background: rgba(239,68,68,.1); }
+
+/* sala de examen */
+.eo-sala { --m: #0ea5e9; position: relative; border-radius: 28px; padding: 22px; background: radial-gradient(circle at 80% 0%, color-mix(in srgb, var(--m) 18%, transparent), transparent 55%), var(--card-bg, #fff);
+  border: 2px solid color-mix(in srgb, var(--m) 40%, var(--border, #e2e8f0)); box-shadow: 0 28px 48px -32px var(--m); transition: border-color .6s, box-shadow .6s; }
+.eo-prog { height: 8px; border-radius: 99px; background: rgba(148,163,184,.25); overflow: hidden; margin-bottom: 14px; }
+.eo-prog i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--m), color-mix(in srgb, var(--m) 40%, #fff)); transition: width .7s cubic-bezier(.22, 1, .36, 1), background .6s; }
+.eo-cab { display: flex; justify-content: space-between; align-items: center; font-size: .85rem; margin-bottom: 14px; }
+.eo-animo { padding: 5px 12px; border-radius: 99px; font-weight: 800; background: color-mix(in srgb, var(--m) 16%, transparent); color: var(--m); transition: all .5s; }
+.eo-prof { display: flex; gap: 18px; align-items: center; }
+.eo-avatar { position: relative; width: 120px; height: 120px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, color-mix(in srgb, var(--m) 28%, #fff), color-mix(in srgb, var(--m) 8%, #fff));
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--m) 55%, transparent), 0 20px 30px -14px var(--m); transition: box-shadow .5s; }
+.eo-cara { font-size: 3.6rem; transition: transform .35s cubic-bezier(.22, 1.5, .36, 1); }
+.eo-avatar.habla { animation: eoHabla 1.1s ease-in-out infinite; }
+.eo-avatar.habla .eo-cara { animation: eoBoca .5s ease-in-out infinite; }
+@keyframes eoHabla { 50% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--m) 30%, transparent), 0 20px 30px -14px var(--m); } }
+@keyframes eoBoca { 50% { transform: scale(1.1) rotate(-3deg); } }
+.eo-onda { position: absolute; bottom: -10px; display: flex; gap: 3px; align-items: flex-end; height: 22px; opacity: 0; transition: opacity .3s; }
+.eo-avatar.habla .eo-onda { opacity: 1; }
+.eo-onda b { width: 5px; height: 6px; border-radius: 4px; background: var(--m); animation: eoBarra .7s ease-in-out infinite; }
+.eo-onda b:nth-child(2) { animation-delay: .1s; } .eo-onda b:nth-child(3) { animation-delay: .2s; } .eo-onda b:nth-child(4) { animation-delay: .3s; } .eo-onda b:nth-child(5) { animation-delay: .4s; }
+@keyframes eoBarra { 50% { height: 22px; } }
+.eo-bocadillo { position: relative; flex: 1; padding: 16px 18px; border-radius: 22px 22px 22px 6px; background: color-mix(in srgb, var(--m) 8%, var(--bg-body, #f8fafc)); border: 1px solid color-mix(in srgb, var(--m) 28%, var(--border, #e2e8f0)); animation: eoEntra .5s cubic-bezier(.22, 1, .36, 1); }
+.eo-bocadillo small { font-weight: 800; opacity: .6; } .eo-bocadillo p { margin: 6px 0 0; line-height: 1.55; font-size: .96rem; } .eo-oculto { opacity: .7; font-style: italic; }
+@keyframes eoEntra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.eo-micro { margin-top: 18px; text-align: center; }
+.eo-mic { width: 84px; height: 84px; margin: 0 auto 10px; border-radius: 50%; display: grid; place-items: center; font-size: 2.2rem; background: rgba(148,163,184,.25); transition: all .3s; }
+.eo-mic.on { background: linear-gradient(135deg, #ef4444, #f97316); box-shadow: 0 0 0 0 rgba(239,68,68,.6); animation: eoGrab 1.4s ease-out infinite; }
+@keyframes eoGrab { to { box-shadow: 0 0 0 26px rgba(239,68,68,0); } }
+.eo-trans { min-height: 48px; padding: 12px 16px; border-radius: 16px; background: var(--bg-body, #f8fafc); border: 1px dashed var(--border, #cbd5e1); text-align: left; line-height: 1.5; margin-bottom: 10px; }
+.eo-escribe textarea { width: 100%; box-sizing: border-box; resize: vertical; }
+.eo-acc { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.eo-pensando { padding: 22px; opacity: .75; font-weight: 700; animation: eoLate 1.6s ease-in-out infinite; }
+.eo-feedback { margin-top: 18px; display: flex; gap: 14px; align-items: flex-start; padding: 16px; border-radius: 20px; animation: eoEntra .45s cubic-bezier(.22, 1, .36, 1); }
+.eo-feedback.ok { background: rgba(34,197,94,.13); border: 1px solid rgba(34,197,94,.4); } .eo-feedback.medio { background: rgba(245,158,11,.13); border: 1px solid rgba(245,158,11,.4); } .eo-feedback.mal { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.4); }
+.eo-nota { font-size: 1.5rem; font-weight: 900; min-width: 74px; text-align: center; }
+.eo-feedback p { margin: 0 0 6px; line-height: 1.45; } .eo-feedback .ok { color: #15803d; } .eo-feedback .med { color: #b45309; } .eo-feedback .mal { color: #b91c1c; }
+.eo-pie { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; font-size: .85rem; }
+.eo-sw { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 700; }
+
+/* resultado */
+.eo-fin { --m: #16a34a; text-align: center; padding: 26px; border-radius: 28px; border: 2px solid color-mix(in srgb, var(--m) 45%, var(--border, #e2e8f0)); background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--m) 16%, transparent), transparent 60%), var(--card-bg, #fff); animation: eoEntra .6s cubic-bezier(.22, 1, .36, 1); }
+.eo-fin-n { display: inline-flex; align-items: baseline; gap: 6px; } .eo-fin-n b { font-size: 4.2rem; color: var(--m); line-height: 1; } .eo-fin-n span { font-size: 1.2rem; opacity: .6; font-weight: 800; }
+.eo-fin h3 { margin: 6px 0 4px; font-size: 1.4rem; } .eo-fin > p { margin: 0 0 16px; opacity: .7; }
+.eo-res { text-align: left; display: flex; flex-direction: column; gap: 8px; }
+.eo-r { border-radius: 16px; border: 1px solid var(--border, #e2e8f0); padding: 4px 14px; background: color-mix(in srgb, var(--card-bg, #fff) 70%, transparent); }
+.eo-r summary { cursor: pointer; padding: 10px 0; font-size: .88rem; list-style: none; display: flex; gap: 8px; align-items: baseline; } .eo-r summary::-webkit-details-marker { display: none; } .eo-r summary em { margin-left: auto; font-style: normal; font-weight: 800; }
+.eo-r.ok { border-left: 5px solid #22c55e; } .eo-r.med { border-left: 5px solid #f59e0b; } .eo-r.mal { border-left: 5px solid #ef4444; }
+.eo-r p { margin: 4px 0 8px; font-size: .86rem; line-height: 1.5; } .eo-r .ok { color: #15803d; } .eo-r .med { color: #b45309; } .eo-r .mal { color: #b91c1c; } .eo-resp, .eo-just { opacity: .85; }
+.eo-confeti { position: fixed; inset: 0; z-index: 10001; pointer-events: none; overflow: hidden; }
+.eo-confeti i { position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 2px; animation: eoCae 3s cubic-bezier(.3, .6, .4, 1) forwards; }
+@keyframes eoCae { to { transform: translate(var(--dx), 105vh) rotate(540deg); opacity: .9; } }
+body.dark-mode .eo-error, body.dark-mode .eo-feedback .mal, body.dark-mode .eo-r .mal { color: #fca5a5; } body.dark-mode .eo-feedback .ok, body.dark-mode .eo-r .ok { color: #86efac; } body.dark-mode .eo-feedback .med, body.dark-mode .eo-r .med { color: #fcd34d; }
+@media (max-width: 700px) { .eo-prof { flex-direction: column; text-align: left; } .eo-hero { flex-direction: column; text-align: center; } .eo-feedback { flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .eo-hero-ico, .eo-comenzar, .eo-comenzar::after, .eo-avatar.habla, .eo-cara, .eo-onda b, .eo-mic.on, .eo-pensando, .eo-confeti i { animation: none; } .eo-confeti { display: none; } }
