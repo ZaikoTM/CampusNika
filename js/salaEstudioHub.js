@@ -13,11 +13,11 @@
     { id: 'gineco', nombre: 'Salud Integral de la Mujer', sigla: 'Ginecología y Obstetricia', icono: '🤰', color: 'gineco', hub: 'gineco_hub.html',
       desc: 'Ginecología, obstetricia y salud de la mujer en todo el curso de vida: estudio por unidad, simulador, duelos y examen mamario, obstétrico y ginecológico en 3D.',
       chips: ['4 UP · 8 secciones', '800 preguntas', '6 acreditaciones 3D'],
-      estudio: 'estudio.html?modulo=ginecologia', simulador: 'examen.html?modulo=ginecologia', duelos: 'versus.html?modulo=ginecologia', atlas: 'acreditaciones.html?area=sim', recorrido: 'recorrido.html?m=ginecologia' },
+      flashcards: 'flashcards.html?modo=explorar&area=ginecologia', estudio: 'estudio.html?modulo=ginecologia', simulador: 'examen.html?modulo=ginecologia', duelos: 'versus.html?modulo=ginecologia', atlas: 'acreditaciones.html?area=sim', recorrido: 'recorrido.html?m=ginecologia' },
     { id: 'cirugia', nombre: 'Introducción a las Especialidades Clínico-Quirúrgicas', sigla: 'Cirugía', icono: '🔪', color: 'cirugia', hub: 'cirugia_hub.html',
       desc: 'Las 11 Unidades Problema de cirugía: programa, material, simulador de exámenes y duelos, más asepsia y lavado quirúrgico en el atlas 3D.',
       chips: ['11 Unidades Problema', '1.100 preguntas', 'Estaciones ECOE'],
-      estudio: 'estudio.html?modulo=cirugia', simulador: 'examen.html?modulo=cirugia', duelos: 'versus.html', atlas: 'acreditaciones.html?area=cir', recorrido: 'recorrido.html?m=cirugia' },
+      flashcards: 'flashcards.html?modo=explorar&area=cirugia', estudio: 'estudio.html?modulo=cirugia', simulador: 'examen.html?modulo=cirugia', duelos: 'versus.html', atlas: 'acreditaciones.html?area=cir', recorrido: 'recorrido.html?m=cirugia' },
   ];
   // Medicina Legal: sala de estudio y recorrido virtual (simulador y atlas, más adelante)
   const MED_LEGAL = ({ id: 'legal', nombre: 'Medicina Legal', sigla: 'Medicina Legal', icono: '⚖️', color: 'legal', hub: 'ml_estudio.html',
@@ -72,6 +72,7 @@
           ${m.simulador ? `<a href="${m.simulador}" title="${m.id === 'pfo' ? 'Simulador: ECOE FINAL (NikaMed+)' : 'Simulador de exámenes'}"><span>📝</span>Simulador</a>` : ''}
           ${m.duelos ? `<a href="${m.duelos}" title="Duelos 1vs1"><span>⚔️</span>Duelos</a>` : ''}
           ${m.atlas ? `<a href="${m.atlas}" title="Atlas 3D de acreditaciones"><span>🥽</span>NikaSim</a>` : ''}
+          ${m.flashcards ? `<a href="${m.flashcards}" title="Simulador FlashCard de la materia"><span><img src="assets/N%20NIKA.png" alt="" style="width:1.15rem;height:1.15rem;object-fit:contain"></span>FlashCards</a>` : ''}
           ${(m.recorrido || m.proximoSim) && !m.simulador ? '' : `<a href="${m.hub}" title="Menú completo de la materia"><span>🗂️</span>Menú</a>`}
         </div>
       </div></article>`;

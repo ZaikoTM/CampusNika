@@ -9,6 +9,7 @@
   const LOGO = 'assets/N%20NIKA.png';
   const PALETA = ['#fff3a3', '#fbcfe8', '#bbf7d0', '#ddd6fe', '#fed7aa', '#bae6fd', '#fecdd3', '#e9d5ff', '#c7f9cc', '#fde68a'];
   const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : 'ginecologia');
+  const descargoDe = (d, ar) => ((d.meta.descargos || {})[ar]) || d.meta.descargo;
   const areaDe = (p) => p.area || areaDeUnidad((p.up || [])[0]);
   const colorDe = (p) => { let h = 0; const t = String(p.id); for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return PALETA[h % PALETA.length]; };
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -70,6 +71,7 @@
           j.meta = j.meta || {};
           j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (cx.meta && cx.meta.unidades) || {});
           j.meta.tipos = Object.assign({}, j.meta.tipos || {}, (cx.meta && cx.meta.tipos) || {});
+          j.meta.descargos = { cirugia: cx.meta && cx.meta.descargo };
         }
         return j;
       })
@@ -96,13 +98,13 @@
   }
   const lista = (a, c) => a && a.length ? '<ul' + (c ? ' class="' + c + '"' : '') + '>' + a.map((x) => '<li>' + fmt(x) + '</li>').join('') + '</ul>' : '';
   const SECS = [
-    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => (p.tratamiento || []).map((b) => '<div class="fc-sub">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + fmt(s.texto) + '</span></div>').join('')).join(''),
-      txt: (p) => (p.tratamiento || []).map((b) => b.titulo + '\n' + (b.pasos || []).map((s) => '• ' + s.etiqueta + ': ' + s.texto).join('\n')).join('\n') },
     { id: 'dx', ico: '🩺', nom: 'Diagnóstico y definición', html: (p) => (p.definicion ? '<p class="fc-def">' + fmt(p.definicion) + '</p>' : '') + lista(p.diagnostico),
       txt: (p) => (p.definicion ? p.definicion + '\n' : '') + (p.diagnostico || []).map((x) => '• ' + x).join('\n') },
     { id: 'est', ico: '🧪', nom: 'Estudios', html: (p) => lista(p.estudios), txt: (p) => (p.estudios || []).map((x) => '• ' + x).join('\n') },
-    { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento), txt: (p) => (p.seguimiento || []).map((x) => '• ' + x).join('\n') },
     { id: 'rojo', ico: '🚩', nom: 'Banderas rojas', html: (p) => lista(p.banderas, 'fc-rojo'), txt: (p) => (p.banderas || []).map((x) => '• ' + x).join('\n') },
+    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => (p.tratamiento || []).map((b) => '<div class="fc-sub">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + fmt(s.texto) + '</span></div>').join('')).join(''),
+      txt: (p) => (p.tratamiento || []).map((b) => b.titulo + '\n' + (b.pasos || []).map((s) => '• ' + s.etiqueta + ': ' + s.texto).join('\n')).join('\n') },
+    { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento), txt: (p) => (p.seguimiento || []).map((x) => '• ' + x).join('\n') },
     { id: 'con', ico: '⚖️', nom: 'Contraste con consensos', html: (p) => p.contraste ? '<p class="fc-def"><b>' + esc(((D.meta.contraste || {})[p.contraste.estado]) || '') + '</b> · ' + esc(p.contraste.fuente) + '</p>' + lista(p.contraste.puntos) : '',
       txt: (p) => p.contraste ? p.contraste.fuente + '\n' + (p.contraste.puntos || []).map((x) => '• ' + x).join('\n') : '' }
   ];
@@ -263,14 +265,14 @@
         host.innerHTML = '<article class="fcd" style="--paper:' + papel + '">' +
           '<div class="fcd-cab"><button type="button" class="fcd-btn" data-fcd="volver">← ' + esc(opts.textoVolver || 'Volver') + '</button>' +
           '<span class="fcd-toast"></span></div>' +
-          '<div class="fcd-hoja"><span class="pin"></span><span class="fcd-marca" aria-hidden="true"></span><h3>' + esc(p.titulo) + '</h3><div class="fcd-meta">' + unidades + etiquetaFuente(p) + (ok ? '<span class="fc-tag guia">✅ La sabés</span>' : '') + '</div>' +
+          '<div class="fcd-hoja"><span class="pin"></span><span class="fcd-marca" aria-hidden="true"><img src="assets/N%20NIKA.png" alt=""><img class="v" src="assets/TEXTO%20VECTOR%20NIKA.png" alt=""></span><h3>' + esc(p.titulo) + '</h3><div class="fcd-meta">' + unidades + etiquetaFuente(p) + (ok ? '<span class="fc-tag guia">✅ La sabés</span>' : '') + '</div>' +
           '<div class="fc-elegi">Tocá para desplegar o plegar cada parte</div><div class="fc-chips">' + chips + '</div>' +
           '<div class="fcd-secs">' + secs + '</div>' + sello(p) +
           '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small></div></div>' +
           '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">📋 Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa">💬 WhatsApp (imagen)</button><button type="button" class="fcd-btn" data-fcd="img">⬇️ Descargar imagen</button>' +
           (navigator.share ? '<button type="button" class="fcd-btn" data-fcd="share">📤 Compartir</button>' : '') +
           '<button type="button" class="fcd-btn ' + (ok ? 'sec' : 'ok') + '" data-fcd="ok">' + (ok ? '↩ Marcar para repasar' : '✅ Me lo sé') + '</button></div>' +
-          '<p class="fc-legal">' + esc(d.meta.descargo) + '</p></article>';
+          '<p class="fc-legal">' + esc(descargoDe(d, areaDe(p))) + '</p></article>';
       };
       const ids = () => { const a = Array.from(abiertas); return a.length ? a : disp.map((s) => s.id); };
       pintar();
@@ -363,7 +365,7 @@
           '<select class="fc-sel" aria-label="Tipo de fuente"><option value="">Todas las fuentes</option><option value="guia">Solo guías de sociedad</option><option value="apunte">Solo apuntes (verificar)</option></select>' +
           '<div class="fc-prog"><span class="fc-pt"></span><i><b></b></i></div></div>' +
           (opts.ups ? '' : '<div class="fc-unis"><button type="button" class="fc-uni on" data-fc-uni="">Todas</button>' + unidadesTodas.map((u) => '<button type="button" class="fc-uni" data-fc-uni="' + u + '" style="--c:' + (PAPEL[u] || '#ddd') + '">' + esc(d.meta.unidades[u]) + '</button>').join('') + '</div>') +
-          '<div id="' + cuerpoId + '"></div><div class="fc-legal">' + esc(d.meta.descargo) + '</div>';
+          '<div id="' + cuerpoId + '"></div><div class="fc-legal">' + esc(descargoDe(d, area)) + '</div>';
         const inp = host.querySelector('.fc-search input'); inp.value = q;
         inp.addEventListener('input', (e) => { q = e.target.value; pintar(); });
         host.querySelector('.fc-sel').value = fuente;
@@ -466,7 +468,7 @@
     { id: 'tx', ico: '💊', nom: 'Solo tratamiento', desc: 'Esquemas y conducta terapéutica', secs: ['tx'], q: '¿Cuál es el tratamiento?', c: '#ec4899' },
     { id: 'dx', ico: '🩺', nom: 'Diagnóstico y estudios', desc: 'Criterios, definición y estudios', secs: ['dx', 'est'], q: '¿Cómo se diagnostica y qué se pide?', c: '#0ea5e9' },
     { id: 'alarma', ico: '🚩', nom: 'Seguimiento y alarmas', desc: 'Controles y banderas rojas', secs: ['seg', 'rojo'], q: '¿Qué controlar y qué alertas hay?', c: '#ef4444' },
-    { id: 'todo', ico: '📖', nom: 'Tema completo', desc: 'Definición, diagnóstico, tratamiento y más', secs: ['dx', 'est', 'tx', 'seg', 'rojo'], q: 'Contá el tema completo', c: '#8b5cf6' }
+    { id: 'todo', ico: '📖', nom: 'Tema completo', desc: 'Definición, diagnóstico, tratamiento y más', secs: ['dx', 'est', 'rojo', 'tx', 'seg'], q: 'Contá el tema completo', c: '#8b5cf6' }
   ];
   const ALCANCES = [
     { id: 'unidad', ico: '🎯', nom: 'Una unidad problema', desc: 'UP1, UP2, secciones de UP3 o UP4', c: '#6366f1' },
@@ -507,6 +509,7 @@
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards.</div>'; return; }
       const st = Object.assign({ area: 'ginecologia', alcance: 'final', unidad: 'up3-sec4', cont: 'tx', n: 10, soloPend: false }, (opts && opts.estado) || {});
+      if (st.area === 'cirugia' && !/^cx/.test(st.unidad)) st.unidad = 'cx5';
       let mazo = [], i = 0, vista = false, repasar = [], sabidas = 0, miResp = '', res = null;
       const setup = () => {
         const total = poolDe(st).length;
