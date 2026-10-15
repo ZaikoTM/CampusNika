@@ -5,7 +5,7 @@
   'use strict';
   const COLORES = { cirugia: '#6366f1', ginecologia: '#ec4899', siam: '#06b6d4', pfo: '#f59e0b', medicinalegal: '#be123c', medicinadeportiva: '#16a34a' };
   const NOMBRES = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', pfo: 'PFO', medicinalegal: 'Medicina Legal', medicinadeportiva: 'Medicina Deportiva' };
-  const DIAS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  const DIAS = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'];
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const inicioDia = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
   const lunes = (f) => { const x = inicioDia(new Date(f)); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.getTime(); };

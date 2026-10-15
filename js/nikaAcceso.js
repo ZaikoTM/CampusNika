@@ -61,6 +61,74 @@
         musica: { nombre: 'Mi Spotify en NikaMusic' },
     };
 
+
+    // Mensajes motivacionales por simulador/herramienta: qué es, cómo funciona y en qué ayuda (se muestran a cuentas gratuitas).
+    const PROMO = {
+        examen_oral: {
+            icono: '🎙️', titulo: 'Simulador Examen oral', lema: 'Rendí el oral antes de rendirlo',
+            que: 'Un profesor con voz te toma examen oral: te hace la pregunta en voz alta, te pide que la desarrolles, repregunta y te corrige punto por punto con la misma rúbrica del simulador escrito. Cambia de tono según cómo te vaya.',
+            pasos: ['Elegís tu área, el parcial o la unidad, igual que en el escrito.', 'El profesor pregunta en voz alta y vos desarrollás hablando.', 'Te repregunta y, si tenés debilidades, te pone a prueba con el Abogado del Diablo.', 'Recibís la devolución: en qué te confundiste, cómo deberías haberlo dicho y la justificación de la cátedra.'],
+            beneficios: ['Perdés el miedo a hablar frente al tribunal', 'Aprendés a ordenar tus ideas en voz alta, con precisión', 'Entrenás las repreguntas, donde más se cae un oral real', 'Descubrís tus debilidades antes del examen de verdad'],
+            motivacion: 'Quien practica en voz alta llega al oral con la tranquilidad de haberlo hecho antes. Cada examen simulado te acerca al 10.'
+        },
+        escrito: {
+            icono: '✍️', titulo: 'Simulador Escrito', lema: 'Escribí como en el examen real',
+            que: 'Desarrollás respuestas como en el escrito de la cátedra y un tribunal de IA las corrige punto por punto contra los puntos clave, con nota, rúbrica y feedback.',
+            pasos: ['Elegís área y modalidad: parcial, final o una unidad.', 'Desarrollás cada respuesta con tiempo real.', 'Entregás y el tribunal corrige cada punto clave.', 'Reintentás lo flojo hasta dominarlo.'],
+            beneficios: ['Practicás la redacción clínica bajo reloj', 'Ves exactamente qué puntos clave te faltaron', 'Evitás el error peligroso que te baja la nota', 'Convertís tus puntos débiles en fortalezas'],
+            motivacion: 'El examen escrito premia a quien ya lo escribió antes. Con práctica constante, la nota se vuelve una consecuencia.'
+        },
+        pase_sala: {
+            icono: '🛏️', titulo: 'Pase de Sala', lema: 'Pensá como médico de planta',
+            que: 'Recorrés una sala con pacientes simulados por IA: interrogatorio ciego, evolución, caza de iatrogenias, armado de SOAP y recetario, con un médico exigente que evalúa tu razonamiento.',
+            pasos: ['Elegís el tipo de caso y la temática.', 'Entrevistás, decidís y justificás cada conducta.', 'El médico de planta responde y te repregunta.', 'Recibís una evaluación por 4 pilares con revisión detallada.'],
+            beneficios: ['Ganás razonamiento clínico y criterio', 'Mejorás tu comunicación con el paciente', 'Aprendés a detectar iatrogenias y errores de indicación', 'Ordenás tus evoluciones en formato SOAP'],
+            motivacion: 'La sala se aprende pasando sala. Acá podés equivocarte sin riesgo y salir mejor preparado para la guardia real.'
+        },
+        shock_room: {
+            icono: '🚨', titulo: 'Shock Room', lema: 'Decidí bajo presión',
+            que: 'Urgencias contra reloj: un caso crítico avanza turno a turno y tenés que priorizar, indicar y justificar. Hay cronómetro, triage de múltiples víctimas y giros inesperados.',
+            pasos: ['Elegís el escenario: time attack, triage, CAPS o plot twists.', 'Resolvés cada turno con el reloj en contra.', 'El caso reacciona a tus decisiones.', 'Al final, evaluación por pilares y qué reforzar.'],
+            beneficios: ['Aprendés a priorizar con el ABCDE', 'Ganás seguridad para decidir rápido', 'Entrenás la comunicación en emergencias', 'Detectás lo que te bloquea bajo estrés'],
+            motivacion: 'En una emergencia no hay tiempo de abrir el libro: tiene que salir solo. Esto es repetición con consecuencias controladas.'
+        },
+        consultorio_legales: {
+            icono: '🗣️', titulo: 'Consultorios y Legales', lema: 'Comunicá bien, protegete mejor',
+            que: 'Practicás la comunicación clínica y los aspectos médico-legales: pacientes que "googlearon", malas noticias con protocolo SPIKES y auditorías de historia clínica.',
+            pasos: ['Elegís la situación a practicar.', 'Conversás con el paciente simulado.', 'Aplicás empatía, rigor y documentación correcta.', 'Recibís la evaluación y cómo mejorar tu respuesta.'],
+            beneficios: ['Comunicás malas noticias con empatía', 'Desarmás mitos sin perder al paciente', 'Documentás mejor y reducís riesgos legales', 'Ganás confianza en el consultorio'],
+            motivacion: 'Un buen médico no solo sabe: sabe explicar y dejar todo bien registrado. Eso también se entrena.'
+        },
+        ecoe_final: {
+            icono: '👨‍⚕️', titulo: 'Examen Final ECOE', lema: 'La estación completa, a ciegas',
+            que: 'Una estación ECOE de punta a punta: paciente estandarizado y evaluador silencioso, con auditoría de 9 dominios clínicos, el Abogado del Diablo y una rúbrica final exigente.',
+            pasos: ['Se sortea un caso secreto de la estación.', 'Entrevistás, examinás y decidís la conducta.', 'El evaluador observa en silencio y te pone a prueba.', 'Recibís 9 dominios evaluados y una respuesta modelo completa.'],
+            beneficios: ['Llegás al ECOE real sabiendo cómo es', 'Ordenás anamnesis, examen y conducta en el tiempo justo', 'Corregís tus debilidades con el Abogado del Diablo', 'Entrenás la comunicación con el paciente estandarizado'],
+            motivacion: 'El ECOE se aprueba con método. Cuanto más lo practiques, más natural se vuelve.'
+        },
+        caso_pfo: {
+            icono: '🎓', titulo: 'Práctica con el evaluador (PFO)', lema: 'Resolvé el caso conversando',
+            que: 'Practicás los casos clínicos de la PFO conversando con un paciente y un evaluador de IA, y al finalizar corregís contra la respuesta modelo con sus fuentes.',
+            pasos: ['Elegís el caso.', 'Preguntás, pedís estudios y resolvés las consignas.', 'El evaluador no da pistas durante la práctica.', 'Recibís la corrección punto por punto.'],
+            beneficios: ['Practicás la estación como en la PFO real', 'Aprendés a pedir solo los estudios necesarios', 'Ves qué omitiste y qué fuentes repasar'],
+            motivacion: 'La PFO se prepara resolviendo casos, no solo leyendo. Esto es la práctica que más se parece al examen.'
+        },
+        asistente: {
+            icono: '🤖', titulo: 'Asistente Nika', lema: 'Preguntale a tu material de estudio',
+            que: 'Un asistente que responde sobre el material de la cátedra: resúmenes, explicaciones y repaso a demanda.',
+            pasos: ['Abrís el asistente en la unidad que estás estudiando.', 'Preguntás lo que no entendiste.', 'Recibís explicaciones basadas en el material.'],
+            beneficios: ['Entendés los temas más difíciles más rápido', 'Repasás con preguntas a tu medida', 'Ahorrás horas de búsqueda'],
+            motivacion: 'Estudiar con un tutor disponible a toda hora cambia el ritmo de la cursada.'
+        },
+        musica: {
+            icono: '🎧', titulo: 'Mi Spotify en NikaMusic', lema: 'Estudiá con tu música',
+            que: 'Conectá tu cuenta de Spotify y escuchá tus playlists dentro de NikaMusic mientras estudiás.',
+            pasos: ['Conectás tu cuenta.', 'Elegís tu playlist.', 'Estudiás con tu música de siempre.'],
+            beneficios: ['Concentración con tu ambiente favorito', 'Todo en un solo lugar'],
+            motivacion: 'Estudiar es más fácil cuando suena lo que te gusta.'
+        }
+    };
+
     const esc = (t) => String(t == null ? '' : t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const urlSimulador = (mod) => `examen.html?modalidad=${encodeURIComponent(mod)}`;
     // Navegación en un solo lugar (permite probar el flujo sin recargar la página).
@@ -627,6 +695,22 @@
             .nika-acceso-btn--cta { background: linear-gradient(135deg, #7e22ce, #a855f7 60%, #c084fc); color: #fff; box-shadow: 0 8px 20px -6px rgba(168,85,247,0.65); }
             .nika-acceso-btn--sec { background: transparent; color: var(--text-muted, #475569); border: 1px solid var(--border, #e2e8f0); }
             @keyframes nikaAccesoFade { from { opacity: 0; } to { opacity: 1; } }
+            .nika-acceso-card.nika-promo { max-width: 560px; text-align: left; padding: 0; overflow: hidden; max-height: 92vh; overflow-y: auto; }
+            .nika-promo-head { padding: 26px 26px 18px; color: #fff; background: radial-gradient(circle at 15% 15%, rgba(255,255,255,.22), transparent 45%), linear-gradient(135deg, #5b21b6, #7e22ce 50%, #c026d3); text-align: center; }
+            .nika-promo-head .nika-acceso-ico { font-size: 3rem; margin: 0 0 4px; animation: nikaPromoLate 2.4s ease-in-out infinite; }
+            @keyframes nikaPromoLate { 50% { transform: scale(1.1) rotate(-5deg); } }
+            .nika-promo-head .nika-acceso-tag { background: rgba(255,255,255,.2); margin-bottom: 8px; }
+            .nika-promo-head h3 { color: #fff !important; margin: 0 0 4px !important; font-size: 1.35rem !important; }
+            .nika-promo-head p { color: rgba(255,255,255,.92) !important; margin: 0 !important; font-weight: 700; font-size: .95rem !important; }
+            .nika-promo-body { padding: 18px 26px 6px; }
+            .nika-promo-body h4 { margin: 14px 0 6px; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: #7e22ce; }
+            .nika-promo-body p { margin: 0 0 6px; }
+            .nika-promo-body ol, .nika-promo-body ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: .9rem; line-height: 1.45; color: var(--text-main, #0f172a); }
+            .nika-promo-body ul { list-style: none; padding-left: 0; }
+            .nika-promo-body ul li { padding-left: 26px; position: relative; } .nika-promo-body ul li::before { content: '✔'; position: absolute; left: 0; color: #16a34a; font-weight: 900; }
+            .nika-promo-moti { margin: 16px 0 6px; padding: 12px 14px; border-radius: 14px; background: rgba(168,85,247,.1); border: 1px solid rgba(168,85,247,.35); font-weight: 700; font-size: .9rem; line-height: 1.45; }
+            .nika-promo-card-actions { padding: 14px 26px 22px; }
+            .nika-promo-aviso { margin: 10px 26px 0; padding: 8px 12px; border-radius: 10px; background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.4); font-size: .82rem; font-weight: 700; }
         `;
         document.head.appendChild(style);
     }
@@ -665,10 +749,57 @@
         ov.querySelector('[data-act="cta"]').focus();
     }
 
+    // Modal motivacional por simulador: qué es, cómo funciona y en qué te ayuda + botón al plan NikaMed+.
+    // opts: { aviso, bloqueante, secundario: { texto, alHacerClic } }
+    function mostrarPromoSimulador(id, opts) {
+        const p = PROMO[id]; if (!p) return false;
+        opts = opts || {};
+        _inyectarCss(); cerrarModal();
+        const sec = opts.secundario || { texto: 'Ahora no' };
+        const ov = document.createElement('div');
+        ov.className = 'nika-acceso-overlay';
+        if (opts.bloqueante) ov.dataset.bloqueante = '1';
+        ov.innerHTML = `
+            <div class="nika-acceso-card nika-promo" role="dialog" aria-modal="true" aria-labelledby="nika-acceso-titulo">
+                <div class="nika-promo-head">
+                    <div class="nika-acceso-ico">${p.icono}</div>
+                    <span class="nika-acceso-tag">✨ Exclusivo NikaMed+</span>
+                    <h3 id="nika-acceso-titulo">${esc(p.titulo)}</h3>
+                    <p>${esc(p.lema)}</p>
+                </div>
+                ${opts.aviso ? `<div class="nika-promo-aviso">${esc(opts.aviso)}</div>` : ''}
+                <div class="nika-promo-body">
+                    <h4>¿Qué es?</h4><p>${esc(p.que)}</p>
+                    <h4>Cómo funciona</h4><ol>${p.pasos.map((x) => `<li>${esc(x)}</li>`).join('')}</ol>
+                    <h4>En qué te ayuda</h4><ul>${p.beneficios.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+                    <div class="nika-promo-moti">💜 ${esc(p.motivacion)}</div>
+                </div>
+                <div class="nika-promo-card-actions"><div class="nika-acceso-actions">
+                    <button type="button" class="nika-acceso-btn nika-acceso-btn--sec" data-act="sec">${esc(sec.texto)}</button>
+                    <button type="button" class="nika-acceso-btn nika-acceso-btn--cta" data-act="cta">💜 Quiero NikaMed+</button>
+                </div></div>
+            </div>`;
+        document.body.appendChild(ov);
+        _modalEl = ov;
+        ov.querySelector('[data-act="cta"]').addEventListener('click', () => { _ir(URL_PLAN); });
+        ov.querySelector('[data-act="sec"]').addEventListener('click', () => { if (sec.alHacerClic) sec.alHacerClic(); else cerrarModal(); });
+        if (!opts.bloqueante) ov.addEventListener('click', (e) => { if (e.target === ov) cerrarModal(); });
+        document.addEventListener('keydown', _onTecla);
+        ov.querySelector('[data-act="cta"]').focus();
+        return true;
+    }
+
     // Límite de usos gratuitos alcanzado. (opts.bloqueante = no se puede cerrar; hoy no se usa.)
     function mostrarModalLimite(mod, opts) {
         const bloqueante = !!(opts && opts.bloqueante);
         const meta = SIMULADORES[mod];
+        if (PROMO[mod]) {
+            return mostrarPromoSimulador(mod, {
+                aviso: `Ya usaste tus ${LIMITE_GRATIS} simulaciones gratuitas de este simulador. Con NikaMed+ entrenás sin límites.`,
+                bloqueante,
+                secundario: bloqueante ? { texto: 'Volver al campus', alHacerClic: () => { _ir(URL_CAMPUS); } } : { texto: 'Ahora no' },
+            });
+        }
         _mostrarModal({
             icono: '🔒',
             titulo: meta ? `${meta.titulo}: sin usos gratuitos` : 'Sin usos gratuitos',
@@ -683,6 +814,7 @@
 
     // Herramienta exclusiva para miembros NikaMed+ (p. ej. 'asistente').
     function mostrarModalSoloVip(feature) {
+        if (PROMO[feature] && mostrarPromoSimulador(feature, { secundario: { texto: 'Ahora no' } })) return;
         const f = FUNCIONES_VIP[feature] || { nombre: 'Esta herramienta' };
         _mostrarModal({
             icono: '🔒',
@@ -708,7 +840,7 @@
         // reset manual para pruebas: NikaAcceso.resetearUsosLocal() en la consola
         resetearUsosLocal,
         // herramientas exclusivas
-        gateTab, mostrarModalLimite, mostrarModalSoloVip, cerrarModal,
+        gateTab, mostrarModalLimite, mostrarModalSoloVip, mostrarPromoSimulador, PROMO, cerrarModal,
         // visual
         badgeHTML, aplicarEstadoVip,
         __setNavegador(fn) { _navegar = fn; }, // solo para pruebas automáticas

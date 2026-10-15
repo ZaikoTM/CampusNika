@@ -142,42 +142,127 @@
   }
 
   /* ===================== voz ===================== */
-  const S = { voz: null, voces: [], hablando: false };
+  // Voces de IA (Gemini TTS vía la Edge Function `voz-profesor`): funcionan igual en cualquier navegador. Respaldo: voz del dispositivo.
+  const VOCES_IA = {
+    ar_f: { n: 'Femenina argentina', ico: '🇦🇷', sub: 'Acento rioplatense', g: '👩‍⚕️' },
+    ar_m: { n: 'Masculina argentina', ico: '🇦🇷', sub: 'Acento rioplatense', g: '👨‍⚕️' },
+    int_f: { n: 'Femenina internacional', ico: '🌎', sub: 'Español neutro', g: '👩‍⚕️' },
+    int_m: { n: 'Masculino internacional', ico: '🌎', sub: 'Español neutro', g: '👨‍⚕️' }
+  };
+  const S = { voz: null, voces: [], hablando: false, audio: null, tok: 0, cache: new Map(), vol: 0.9, vel: 1.0, sel: 'ia:ar_f', avisoVoz: '' };
+  (function prefs() {
+    try {
+      const v = localStorage.getItem('nika_eo_voz'); if (v && /^(ia:|dev:)/.test(v)) S.sel = v;
+      const vol = Number(localStorage.getItem('nika_eo_vol')); if (vol >= 0 && vol <= 1 && localStorage.getItem('nika_eo_vol') !== null) S.vol = vol;
+      const vel = Number(localStorage.getItem('nika_eo_vel')); if (vel >= 0.7 && vel <= 1.4) S.vel = vel;
+    } catch (_) {}
+  })();
+  const guardaPref = (k, v) => { try { localStorage.setItem(k, String(v)); } catch (_) {} };
+
   function cargarVoces() {
     try { S.voces = (window.speechSynthesis.getVoices() || []).filter((v) => /^es/i.test(v.lang)); } catch (_) { S.voces = []; }
     S.voces.sort((a, b) => (/es-AR/i.test(b.lang) - /es-AR/i.test(a.lang)) || (/es-(MX|US|419)/i.test(b.lang) - /es-(MX|US|419)/i.test(a.lang)) || a.name.localeCompare(b.name));
     const sel = $('eo-voz'); if (!sel) return;
-    sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">Voz del navegador</option>';
-    let g = null; try { g = localStorage.getItem('nika_eo_voz'); } catch (_) {}
+    sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">No hay voces en este dispositivo</option>';
+    const g = S.sel.startsWith('dev:') ? S.sel.slice(4) : '';
     const k = S.voces.findIndex((v) => v.name === g);
     sel.value = String(k >= 0 ? k : 0); S.voz = S.voces[k >= 0 ? k : 0] || null;
   }
-  function trocear(texto) {
+  function trocear(texto, max) {
     const t = String(texto).replace(/\s+/g, ' ').trim();
     const partes = t.match(/[^.!?;:]+[.!?;:]?/g) || [t];
     const out = []; let acc = '';
-    partes.forEach((p) => { if ((acc + p).length > 170) { if (acc) out.push(acc); acc = p; } else acc += p; });
+    partes.forEach((p) => { if ((acc + p).length > max) { if (acc) out.push(acc); acc = p; } else acc += p; });
     if (acc) out.push(acc);
     return out.map((x) => x.trim()).filter(Boolean);
   }
-  function hablar(texto, mood) {
+  async function tokenSesion() {
+    const sb = window.NikaSupabase;
+    const tomar = async () => { try { const { data: { session } } = await sb.client.auth.getSession(); return session && session.access_token; } catch (_) { return null; } };
+    let token = await tomar();
+    if (!token && sb && sb.restaurarSesionSiExiste) { try { await sb.restaurarSesionSiExiste(); } catch (_) {} token = await tomar(); }
+    return token;
+  }
+  function pcmAWav(b64, rate) {
+    const bin = atob(b64), n = bin.length, buf = new ArrayBuffer(44 + n), v = new DataView(buf);
+    const w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+    w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n, true);
+    const u = new Uint8Array(buf, 44); for (let i = 0; i < n; i++) u[i] = bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+  }
+  async function audioIA(texto, voz, mood) {
+    const key = voz + '|' + mood + '|' + texto;
+    if (S.cache.has(key)) return S.cache.get(key);
+    const token = await tokenSesion(); if (!token) throw new Error('Sin sesión.');
+    const base = (typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL) || 'https://pswjmouuyaxueaqqglko.supabase.co';
+    const apikey = (typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY) || '';
+    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 45000);
+    try {
+      const r = await fetch(base + '/functions/v1/voz-profesor', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token, apikey }, body: JSON.stringify({ texto, voz, animo: mood }), signal: ctrl.signal });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok || !d.audio) { const e = new Error(d.mensaje || d.error || 'Error ' + r.status); e.status = r.status; throw e; }
+      const url = pcmAWav(d.audio, d.rate || 24000);
+      if (S.cache.size > 40) S.cache.clear();
+      S.cache.set(key, url); return url;
+    } finally { clearTimeout(to); }
+  }
+  function reproducir(url, tok) {
+    return new Promise((resolve) => {
+      if (tok !== S.tok) return resolve();
+      const a = new Audio(url); S.audio = a; a.volume = S.vol; a.playbackRate = S.vel;
+      const fin = () => { if (S.audio === a) S.audio = null; resolve(); };
+      a.onended = fin; a.onerror = fin;
+      a.play().catch(fin);
+    });
+  }
+  async function hablarIA(texto, voz, mood, tok) {
+    const trozos = trocear(texto, 380);
+    let sig = audioIA(trozos[0], voz, mood);
+    for (let i = 0; i < trozos.length; i++) {
+      const url = await sig;
+      if (tok !== S.tok) return;
+      if (i + 1 < trozos.length) sig = audioIA(trozos[i + 1], voz, mood).catch((e) => { throw e; });
+      await reproducir(url, tok);
+    }
+  }
+  function hablarDispositivo(texto, mood, tok) {
     return new Promise((resolve) => {
       const synth = window.speechSynthesis;
       if (!synth || !texto) return resolve();
-      const P = PARAMS[mood || 'cordial'], trozos = trocear(texto);
-      let i = 0; S.hablando = true; avatar(true);
+      const P = PARAMS[mood || 'cordial'], trozos = trocear(texto, 170);
+      let i = 0;
       const sig = () => {
-        if (!S.hablando || i >= trozos.length) { S.hablando = false; avatar(false); return resolve(); }
+        if (tok !== S.tok || i >= trozos.length) return resolve();
         const u = new SpeechSynthesisUtterance(trozos[i++]);
         u.lang = (S.voz && S.voz.lang) || 'es-AR'; if (S.voz) u.voice = S.voz;
-        u.rate = P.rate; u.pitch = P.pitch; u.volume = P.vol;
+        u.rate = Math.max(0.5, Math.min(2, P.rate * S.vel)); u.pitch = P.pitch; u.volume = S.vol;
         u.onend = () => setTimeout(sig, 120); u.onerror = () => sig();
         synth.speak(u);
       };
       sig();
     });
   }
-  function callar() { S.hablando = false; try { window.speechSynthesis.cancel(); } catch (_) {} avatar(false); }
+  async function hablar(texto, mood) {
+    if (!texto) return;
+    const tok = ++S.tok; S.hablando = true; avatar(true);
+    try {
+      if (S.sel.startsWith('ia:')) {
+        try { await hablarIA(texto, S.sel.slice(3), mood || 'cordial', tok); }
+        catch (e) {
+          // si la voz IA no está disponible, se sigue con la del dispositivo para no cortar el examen
+          if (tok === S.tok) { S.avisoVoz = 'La voz del profesor (IA) no está disponible ahora' + (e && e.status === 403 ? ' (requiere NikaMed+)' : '') + ': uso la voz del dispositivo.'; estado.aviso = S.avisoVoz; await hablarDispositivo(texto, mood, tok); }
+        }
+      } else await hablarDispositivo(texto, mood, tok);
+    } finally { if (tok === S.tok) { S.hablando = false; avatar(false); } }
+  }
+  function callar() {
+    S.tok++; S.hablando = false;
+    try { if (S.audio) { S.audio.pause(); S.audio = null; } } catch (_) {}
+    try { window.speechSynthesis.cancel(); } catch (_) {}
+    avatar(false);
+  }
+  function aplicarVolumen() { if (S.audio) { S.audio.volume = S.vol; S.audio.playbackRate = S.vel; } }
 
   /* ===================== reconocimiento ===================== */
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -604,7 +689,7 @@
         : ev === 'evalua' ? '<div class="eo-micro"><div class="eo-pensando">El profesor está pensando…</div></div>'
         : '<div class="eo-micro"><div class="eo-pensando">🎧 Escuchá al profesor…</div></div>')
       + (estado.error ? '<p class="eo-error">' + esc(estado.error) + '</p>' : '')
-      + '<div class="eo-pie"><label class="eo-sw"><input type="checkbox" id="eo-subs"' + (estado.subs ? ' checked' : '') + '> Mostrar lo que dice el profesor</label><button type="button" class="eo-btn eo-btn--sec" data-eo="terminar">Terminar examen</button></div>'
+      + '<div class="eo-pie"><label class="eo-sw"><input type="checkbox" id="eo-subs"' + (estado.subs ? ' checked' : '') + '> Mostrar lo que dice el profesor</label><label class="eo-volpie">🔊 <b id="eo-vol-t2">' + Math.round(S.vol * 100) + '%</b><input type="range" id="eo-vol" min="0" max="100" value="' + Math.round(S.vol * 100) + '"></label><button type="button" class="eo-btn eo-btn--sec" data-eo="terminar">Terminar examen</button></div>'
       + '</div>';
     if (ev === 'escucha') pintarTranscripcion();
     pintarProgresoCorreccion(); pintarIntegridad();
@@ -618,7 +703,7 @@
   }
   function hero(plus) {
     return '<div class="eo-hero"><div class="eo-hero-ico">🎙️</div><div><small>Simulador · NikaMed+</small><h2>Simulador Examen oral</h2><p>Un profesor te toma examen <b>hablando</b>: te hace la pregunta en voz alta, te pide que la <b>desarrolles</b>, <b>repregunta</b> y te corrige con la misma rúbrica del simulador escrito. Cambia de tono y de humor según cómo te va.</p></div></div>'
-      + (plus ? '' : '<div class="eo-bloq"><b>🔒 Función exclusiva de NikaMed+</b><p>Hacete NikaMed+ para rendir exámenes orales con el profesor, sin límites.</p><a class="eo-btn" href="nikamed-plus.html">Conocer NikaMed+</a></div>');
+      + (plus ? '' : '<div class="eo-bloq"><b>🔒 Simulador exclusivo de NikaMed+</b><p>Ensayá el oral con un profesor que te pregunta, te repregunta y te corrige. Mirá cómo funciona y en qué te ayuda.</p><div class="eo-bloq-acc"><button type="button" class="eo-btn eo-btn--sec" data-eo="promo">Ver cómo funciona</button><a class="eo-btn" href="nikamed-plus.html">💜 Quiero NikaMed+</a></div></div>');
   }
 
   function pintarPaso1(raizEl) {
@@ -643,6 +728,16 @@
     return desc + (ups.length ? '<ul class="eo-temas">' + ups.map((u) => '<li>' + esc(u.label) + '</li>').join('') + '</ul>' : '<p>Elegí una unidad para ver qué abarca.</p>');
   }
 
+  function vozHtml() {
+    const cards = Object.keys(VOCES_IA).map((k) => '<button type="button" class="eo-voz' + (S.sel === 'ia:' + k ? ' on' : '') + '" data-eo="vozia" data-v="' + k + '"><i>' + VOCES_IA[k].g + '</i><span><b>' + VOCES_IA[k].ico + ' ' + VOCES_IA[k].n + '</b><small>' + VOCES_IA[k].sub + '</small></span></button>').join('');
+    return '<div class="eo-lbl">Voz del profesor</div><div class="eo-voces">' + cards
+      + '<button type="button" class="eo-voz' + (S.sel.startsWith('dev:') ? ' on' : '') + '" data-eo="vozdev"><i>💻</i><span><b>Voz del dispositivo</b><small>Gratis · depende de tu equipo</small></span></button></div>'
+      + '<div class="eo-vozdev"' + (S.sel.startsWith('dev:') ? '' : ' hidden') + '><select id="eo-voz" aria-label="Voz del dispositivo"></select></div>'
+      + '<div class="eo-controles"><label>🔊 Volumen <b id="eo-vol-t">' + Math.round(S.vol * 100) + '%</b><input type="range" id="eo-vol" min="0" max="100" value="' + Math.round(S.vol * 100) + '"></label>'
+      + '<label>⏩ Velocidad <b id="eo-vel-t">' + S.vel.toFixed(2).replace(/\.?0+$/, '') + '×</b><input type="range" id="eo-vel" min="70" max="140" value="' + Math.round(S.vel * 100) + '"></label>'
+      + '<button type="button" class="eo-btn eo-btn--sec" data-eo="probar">▶️ Probar voz</button></div>';
+  }
+
   function pintarPaso2(raizEl) {
     const a = areaActual(); if (!a) { estado.paso = 1; return pintarPaso1(raizEl); }
     if (!a.modos.find((m) => m.id === estado.modo)) estado.modo = a.modos[0].id;
@@ -650,7 +745,7 @@
     raizEl.innerHTML = hero(estado.plus) + '<div class="eo-card eo-paso' + (estado.plus ? '' : ' eo-off') + '"><div class="eo-card-b">'
       + migas(2) + '<button type="button" class="eo-volver" data-eo="volver">← Volver al paso anterior</button>'
       + '<div class="eo-modos">' + a.modos.map((x) => '<button type="button" class="eo-modo' + (x.id === estado.modo ? ' on' : '') + '" style="--c:' + a.c + '" data-eo="modo" data-v="' + x.id + '"><i>' + x.ico + '</i><span><b>' + esc(x.label) + '</b><small>' + esc(x.sub) + '</small></span></button>').join('') + '</div>'
-      + (m && m.tipo === 'up' ? '<label class="eo-f"><span>Unidad Problema</span><select id="eo-up"><option value="">Elegí una unidad…</option>' + a.unidades.map((u) => '<option value="' + esc(u.id) + '"' + (u.id === estado.up ? ' selected' : '') + '>' + esc(u.label) + '</option>').join('') + '</select></label>' : '')
+      + (m && m.tipo === 'up' ? '<div class="eo-lbl">Elegí la Unidad Problema</div><div class="eo-ups">' + a.unidades.map((u) => { const mm = /^(UP\s*)?([^:]+?)\s*:\s*(.*)$/i.exec(u.label); return '<button type="button" class="eo-up' + (u.id === estado.up ? ' on' : '') + '" style="--c:' + a.c + '" data-eo="up" data-v="' + esc(u.id) + '"><b>' + esc(mm ? mm[2].replace(/^UP\s*/i, '') : u.id) + '</b><span>' + esc(mm ? mm[3] : u.label) + '</span></button>'; }).join('') + '</div>' : '')
       + '<details class="eo-det"' + (estado.temas ? ' open' : '') + ' id="eo-temas"><summary>📖 ¿Qué temas abarca este examen?</summary>' + textoTemas(a, m) + '</details>'
       + '<div class="eo-nota-modo">🎙️ <b>Modo oral:</b> el profesor te hace cada pregunta en voz alta y te pide que la <b>desarrolles</b>; después te <b>repregunta</b> sobre lo que falte o quede impreciso. Un tribunal de IA corrige cada pregunta punto por punto contra los puntos clave de la cátedra. Necesitás conexión. La corrección es orientativa.</div>'
       + '<div class="eo-reglas"><div class="eo-reglas-t">📜 Reglas del examen</div><ul>'
@@ -661,7 +756,7 @@
       + '<li><b>Una repetición:</b> podés pedir que repita la pregunta una vez.</li></ul></div>'
       + '<div class="eo-fila"><label class="eo-f"><span>Cantidad de preguntas</span><select id="eo-n">' + [3, 5, 6, 8, 10, 15].map((n) => '<option' + (n === estado.n ? ' selected' : '') + '>' + n + '</option>').join('') + '</select></label>'
       + '<div class="eo-f"><span>Preguntas disponibles</span><div class="eo-disp">' + (disp == null ? 'Cargando…' : disp + (disp === 1 ? ' pregunta' : ' preguntas') + ' en este examen') + '</div></div></div>'
-      + '<label class="eo-f"><span>Voz del profesor</span><div class="eo-vozfila"><select id="eo-voz"></select><button type="button" class="eo-btn eo-btn--sec" data-eo="probar">🔊 Probar voz</button></div></label>'
+      + vozHtml()
       + '<ul class="eo-notas"><li>🎧 Usá <b>auriculares</b> y un lugar tranquilo para que el micrófono no capte al profesor.</li><li>🎙️ El reconocimiento de voz funciona mejor en <b>Chrome o Edge</b>. Si tu navegador no lo permite, respondés escribiendo.</li></ul>'
       + (estado.error ? '<p class="eo-error">' + esc(estado.error) + '</p>' : '')
       + '<button type="button" class="eo-comenzar" data-eo="comenzar"' + (estado.plus ? '' : ' disabled') + '><span>🎓 Comenzar Examen Oral</span></button>'
@@ -721,13 +816,17 @@
     document.addEventListener('click', async (e) => {
       const b = e.target.closest('[data-eo]'); if (!b) return;
       const a = b.dataset.eo;
-      if (a === 'entendido') { const m = $('eo-machete'); if (m) m.classList.remove('on'); INT.gracia = Date.now() + 1500; }
+      if (a === 'promo') { if (window.NikaAcceso && window.NikaAcceso.mostrarPromoSimulador) window.NikaAcceso.mostrarPromoSimulador('examen_oral'); }
+      else if (a === 'entendido') { const m = $('eo-machete'); if (m) m.classList.remove('on'); INT.gracia = Date.now() + 1500; }
       else if (a === 'anio') { estado.anio = Number(b.dataset.v); pintar(); }
       else if (a === 'materia') { if (!estado.plus) return; estado.materia = b.dataset.v; estado.modo = areaActual().modos[0].id; estado.up = ''; estado.paso = 2; estado.error = ''; pintar(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
       else if (a === 'volver') { estado.paso = 1; callar(); pintar(); }
       else if (a === 'modo') { estado.modo = b.dataset.v; estado.up = ''; pintar(); }
-      else if (a === 'probar') { const s = $('eo-voz'); if (s && S.voces[s.value]) { S.voz = S.voces[s.value]; try { localStorage.setItem('nika_eo_voz', S.voz.name); } catch (_) {} } callar(); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
-      else if (a === 'comenzar') { if (!estado.plus) return; const s = $('eo-voz'); if (s && S.voces[s.value]) { S.voz = S.voces[s.value]; try { localStorage.setItem('nika_eo_voz', S.voz.name); } catch (_) {} } const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; const u = $('eo-up'); if (u) estado.up = u.value; iniciar(); }
+      else if (a === 'up') { estado.up = b.dataset.v; const t = $('eo-temas'); if (t) estado.temas = t.open; pintar(); }
+      else if (a === 'vozia') { S.sel = 'ia:' + b.dataset.v; guardaPref('nika_eo_voz', S.sel); callar(); pintar(); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
+      else if (a === 'vozdev') { cargarVoces(); const g = S.voces[0]; S.sel = 'dev:' + (g ? g.name : ''); guardaPref('nika_eo_voz', S.sel); callar(); pintar(); }
+      else if (a === 'probar') { callar(); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
+      else if (a === 'comenzar') { if (!estado.plus) return; const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; iniciar(); }
       else if (a === 'listo') { callar(); if (estado.limite) { const c = estado.conv, t = estado.textoPausado; estado.limite = false; estado.textoPausado = ''; detenerEscucha(); const cb = alTerminar || ((x) => alResponder(x)); alTerminar = null; cb(t); } else terminarEscucha(); }
       else if (a === 'seguir') { callar(); seguirRespuesta(); }
       else if (a === 'repetir') { if (estado.repetidas >= 1) return; estado.repetidas++; detenerEscucha(); callar(); estado.estadoVoz = 'pregunta'; pintar(); await hablar(estado.sub, estado.mood); if (estado.fase === 'examen') abrirRespuesta(); }
@@ -743,8 +842,12 @@
     });
     document.addEventListener('change', (e) => {
       if (e.target.id === 'eo-subs') { estado.subs = e.target.checked; pintar(); }
-      if (e.target.id === 'eo-up') { estado.up = e.target.value; const t = $('eo-temas'); if (t) estado.temas = t.open; pintar(); }
+      if (e.target.id === 'eo-voz') { const v = S.voces[e.target.value]; if (v) { S.voz = v; S.sel = 'dev:' + v.name; guardaPref('nika_eo_voz', S.sel); } }
       if (e.target.id === 'eo-n') estado.n = Number(e.target.value) || 6;
+    });
+    document.addEventListener('input', (e) => {
+      if (e.target.id === 'eo-vol') { S.vol = Number(e.target.value) / 100; guardaPref('nika_eo_vol', S.vol); document.querySelectorAll('#eo-vol-t,#eo-vol-t2').forEach((x) => { x.textContent = Math.round(S.vol * 100) + '%'; }); aplicarVolumen(); }
+      if (e.target.id === 'eo-vel') { S.vel = Number(e.target.value) / 100; guardaPref('nika_eo_vel', S.vel); const t = $('eo-vel-t'); if (t) t.textContent = S.vel.toFixed(2).replace(/\.?0+$/, '') + '×'; aplicarVolumen(); }
     });
     document.addEventListener('toggle', (e) => { if (e.target && e.target.id === 'eo-temas') estado.temas = e.target.open; }, true);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') callar(); });
@@ -765,6 +868,8 @@
       estado.plus = !!(A && A.tieneAccesoCompleto && A.tieneAccesoCompleto());
     } catch (_) { estado.plus = false; }
     pintar();
+    // cuenta gratuita: puede entrar, pero se le explica qué es el simulador y cómo le ayuda, con el acceso al plan
+    if (!estado.plus && window.NikaAcceso && window.NikaAcceso.mostrarPromoSimulador) setTimeout(() => window.NikaAcceso.mostrarPromoSimulador('examen_oral', { secundario: { texto: 'Volver al campus', alHacerClic: () => { location.href = 'campus.html'; } } }), 500);
     await descubrirAreas();
     if (AREAS.length && !AREAS.find((a) => a.id === estado.materia)) estado.materia = AREAS[0].id;
     pintar();
