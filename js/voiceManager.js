@@ -22,6 +22,52 @@ const VoiceManager = (() => {
   let sb = null, channel = null, roomId = null, yo = null, handlers = {}, silenciosa = false;
   let peers = new Map();
   let micTrack = null, camTrack = null, screenTrack = null, videoActual = null;
+
+  // ---- procesamiento del micrófono: supresión de ruido, filtro de teclado y volumen ----
+  const K_AUDIO = 'nika_at_audio';
+  const cfgAudio = Object.assign({ ruido: true, eco: true, agc: true, filtro: 'medio', volumen: 100 }, (() => { try { return JSON.parse(localStorage.getItem(K_AUDIO) || '{}') || {}; } catch (_) { return {}; } })());
+  const UMBRAL = { off: 0, suave: 0.008, medio: 0.02, fuerte: 0.045 };
+  let micCrudo = null, procCtx = null, procNodos = null, procTimer = null;
+  function construirCadena(stream) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const crudo = stream.getAudioTracks()[0];
+    if (!AC) return crudo;
+    try {
+      procCtx = new AC();
+      const src = procCtx.createMediaStreamSource(stream);
+      const hp = procCtx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 110;
+      const lp = procCtx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 7500;
+      const comp = procCtx.createDynamicsCompressor(); comp.threshold.value = -28; comp.ratio.value = 6; comp.attack.value = 0.003; comp.release.value = 0.15;
+      const an = procCtx.createAnalyser(); an.fftSize = 1024;
+      const retardo = procCtx.createDelay(0.2); retardo.delayTime.value = 0.06;     // mira hacia adelante: abre la compuerta antes de la voz
+      const puerta = procCtx.createGain();
+      const vol = procCtx.createGain(); vol.gain.value = Math.max(0, Math.min(1.5, cfgAudio.volumen / 100));
+      const dest = procCtx.createMediaStreamDestination();
+      src.connect(hp); hp.connect(lp); lp.connect(comp); comp.connect(an); comp.connect(retardo); retardo.connect(puerta); puerta.connect(vol); vol.connect(dest);
+      procNodos = { vol, puerta, an };
+      const buf = new Float32Array(an.fftSize); let sobre = 0, abiertoHasta = 0;
+      procTimer = setInterval(() => {
+        const umbral = UMBRAL[cfgAudio.filtro] || 0;
+        const now = procCtx.currentTime;
+        if (!umbral) { puerta.gain.setTargetAtTime(1, now, 0.02); return; }
+        an.getFloatTimeDomainData(buf);
+        let s = 0; for (let i = 0; i < buf.length; i++) s += buf[i] * buf[i];
+        const rms = Math.sqrt(s / buf.length);
+        if (rms > umbral) sobre++; else sobre = 0;
+        if (sobre >= 3) abiertoHasta = performance.now() + 260;        // un golpe de tecla dura menos que 3 mediciones seguidas
+        puerta.gain.setTargetAtTime(performance.now() < abiertoHasta ? 1 : 0.03, now, performance.now() < abiertoHasta ? 0.008 : 0.06);
+      }, 15);
+      if (procCtx.state === 'suspended') procCtx.resume().catch(() => {});
+      return dest.stream.getAudioTracks()[0] || crudo;
+    } catch (_) { procCtx = null; procNodos = null; return crudo; }
+  }
+  function ajustarAudio(parcial) {
+    Object.assign(cfgAudio, parcial || {});
+    try { localStorage.setItem(K_AUDIO, JSON.stringify(cfgAudio)); } catch (_) {}
+    if (procNodos) procNodos.vol.gain.value = Math.max(0, Math.min(1.5, cfgAudio.volumen / 100));
+    if (micCrudo && micCrudo.applyConstraints) micCrudo.applyConstraints({ noiseSuppression: !!cfgAudio.ruido, echoCancellation: !!cfgAudio.eco, autoGainControl: !!cfgAudio.agc }).catch(() => {});
+    return Object.assign({}, cfgAudio);
+  }
   let audioCtx = null, vadTimer = null, statsTimer = null, monitores = new Map();
   let latenciaMs = null;
   const expulsados = new Set();      // usernames que el anfitrión sacó de esta sala (solo en su dispositivo)
@@ -224,8 +270,9 @@ const VoiceManager = (() => {
 
     // Micrófono (si se niega el permiso se entra como oyente)
     try {
-      const st = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }, video: false });
-      micTrack = st.getAudioTracks()[0];
+      const st = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: !!cfgAudio.eco, noiseSuppression: !!cfgAudio.ruido, autoGainControl: !!cfgAudio.agc }, video: false });
+      micCrudo = st.getAudioTracks()[0];
+      micTrack = construirCadena(st);
       micTrack.enabled = !(silenciosa || opts.micInicial === false);
       yo.meta.muted = !micTrack.enabled;
       monitorizar('yo', new MediaStream([micTrack]));
@@ -365,8 +412,9 @@ const VoiceManager = (() => {
     channel = null;
     [...peers.keys()].forEach((id) => { const p = peers.get(id); try { p.pc.close(); } catch (_) {} });
     peers.clear();
-    [micTrack, camTrack, screenTrack].forEach((t) => { try { t && t.stop(); } catch (_) {} });
-    micTrack = camTrack = screenTrack = videoActual = null;
+    [micTrack, micCrudo, camTrack, screenTrack].forEach((t) => { try { t && t.stop(); } catch (_) {} });
+    micTrack = micCrudo = camTrack = screenTrack = videoActual = null;
+    clearInterval(procTimer); procTimer = null; procNodos = null; try { if (procCtx) procCtx.close(); } catch (_) {} procCtx = null;
     clearInterval(vadTimer); vadTimer = null; clearInterval(statsTimer); statsTimer = null;
     monitores.forEach((m) => { try { m.src.disconnect(); } catch (_) {} }); monitores.clear();
     try { if (audioCtx) audioCtx.close(); } catch (_) {}
@@ -377,7 +425,7 @@ const VoiceManager = (() => {
   window.addEventListener('pagehide', () => { if (channel) { try { enviar('leave', '*', null); } catch (_) {} } });
 
   return {
-    soportado, unirse, salir, alternarMic, alternarCamara, alternarPantalla, expulsar, hostId, soyHost,
+    soportado, unirse, salir, alternarMic, ajustarAudio, get audio() { return Object.assign({}, cfgAudio); }, alternarCamara, alternarPantalla, expulsar, hostId, soyHost,
     reanudarAudio, alBloqueoAudio(fn) { cbAudio = fn; },
     get sala() { return roomId; }, get yo() { return yo; }, get silenciosa() { return silenciosa; },
     get micActivo() { return !!(micTrack && micTrack.enabled); },

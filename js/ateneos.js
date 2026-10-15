@@ -101,10 +101,11 @@ const NikaAteneos = (() => {
       #at-dock .at-min { width: 30px; height: 30px; font-size: .8rem; }
       #at-b-ext { display: none; }
       #at-dock.compacto { gap: 8px; padding: 6px 8px; opacity: .92; }
-      #at-dock.compacto .at-d-txt, #at-dock.compacto #at-b-cam, #at-dock.compacto #at-b-scr, #at-dock.compacto #at-b-pip { display: none; }
+      #at-dock.compacto .at-d-txt, #at-dock.compacto #at-b-cam, #at-dock.compacto #at-b-scr, #at-dock.compacto #at-b-pip, #at-dock.compacto #at-b-aud { display: none; }
       #at-dock.compacto #at-b-ext { display: inline-block; width: 34px; height: 34px; }
       #at-dock.compacto:hover { opacity: 1; }
-      #at-dock.mini { left: auto; right: 14px; bottom: 14px; transform: none; padding: 5px; gap: 0; cursor: pointer; opacity: .85; }
+      #at-dock.mini { left: 14px; right: auto; bottom: 96px; top: auto; transform: none; padding: 5px; gap: 0; cursor: pointer; opacity: .9; z-index: 99990; }
+      #at-dock.mini::after { content: '⤢'; position: absolute; right: -4px; top: -6px; width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #04130a; font-size: .7rem; font-weight: 900; display: grid; place-items: center; }
       #at-dock.mini .at-d-txt, #at-dock.mini .at-d-btns { display: none; }
       #at-dock.mini .at-d-av { width: 34px; height: 34px; }
       #at-dock.mini:hover { opacity: 1; }
@@ -409,6 +410,34 @@ const NikaAteneos = (() => {
     })();
   }
 
+  // ------------------------------------------------------------------ ajustes de audio (ruido / teclado / volumen)
+  function abrirAjustesAudio() {
+    let p = document.getElementById('at-audio-panel');
+    if (p) { p.remove(); return; }
+    const c = VoiceManager.audio;
+    p = document.createElement('div'); p.id = 'at-audio-panel';
+    p.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99996;width:min(420px,calc(100vw - 20px));max-height:86vh;overflow:auto;background:#0f172a;color:#f1f5f9;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.8);font-family:inherit';
+    const fila = (id, tit, desc, val) => `<label style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer"><input type="checkbox" data-k="${id}" ${val ? 'checked' : ''} style="width:20px;height:20px;margin-top:2px;accent-color:#22c55e"><span><b style="font-size:.9rem">${tit}</b><br><small style="opacity:.7">${desc}</small></span></label>`;
+    p.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b style="font-size:1.05rem">🎧 Audio y ruido</b><button type="button" id="at-aud-x" style="border:0;border-radius:50%;width:32px;height:32px;cursor:pointer;background:rgba(255,255,255,.12);color:#fff">✕</button></div>
+      <p style="margin:0 0 6px;font-size:.78rem;opacity:.75">Los cambios se aplican al instante y se recuerdan en este dispositivo.</p>
+      ${fila('ruido', 'Supresión de ruido', 'El navegador reduce ruido de fondo (ventilador, tráfico).', c.ruido)}
+      ${fila('eco', 'Cancelación de eco', 'Evita que te escuches con los parlantes.', c.eco)}
+      ${fila('agc', 'Control automático de volumen', 'Iguala el nivel de tu voz.', c.agc)}
+      <div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)"><b style="font-size:.9rem">⌨️ Filtro de teclado y golpes</b><br><small style="opacity:.7">Silencia ruidos secos y cortos (teclas, mouse, golpes de mesa). Con «Fuerte» solo pasa la voz sostenida.</small>
+        <div id="at-aud-filtro" style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">${['off', 'suave', 'medio', 'fuerte'].map((f) => `<button type="button" data-f="${f}" style="border:2px solid ${c.filtro === f ? '#22c55e' : 'rgba(255,255,255,.2)'};background:${c.filtro === f ? 'rgba(34,197,94,.18)' : 'transparent'};color:#fff;border-radius:99px;padding:6px 12px;font-weight:800;font-size:.78rem;cursor:pointer">${{ off: 'Apagado', suave: 'Suave', medio: 'Medio', fuerte: 'Fuerte' }[f]}</button>`).join('')}</div></div>
+      <div style="padding:12px 0"><b style="font-size:.9rem">🔊 Volumen de tu micrófono: <span id="at-aud-vt">${c.volumen}</span>%</b>
+        <input type="range" id="at-aud-vol" min="0" max="150" step="5" value="${c.volumen}" style="width:100%;margin-top:8px;accent-color:#22c55e"></div>
+      <p style="margin:0;font-size:.72rem;opacity:.6">Consejo: si tu teclado suena muy fuerte, probá «Fuerte» y bajá el volumen al 70–80 %. La supresión del navegador se aplica mejor al reconectarte a la sala.</p>`;
+    document.body.appendChild(p);
+    p.querySelector('#at-aud-x').onclick = () => p.remove();
+    p.querySelectorAll('input[data-k]').forEach((i) => i.addEventListener('change', () => VoiceManager.ajustarAudio({ [i.dataset.k]: i.checked })));
+    p.querySelector('#at-aud-filtro').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-f]'); if (!b) return; VoiceManager.ajustarAudio({ filtro: b.dataset.f });
+      p.querySelectorAll('#at-aud-filtro button').forEach((x) => { const on = x === b; x.style.borderColor = on ? '#22c55e' : 'rgba(255,255,255,.2)'; x.style.background = on ? 'rgba(34,197,94,.18)' : 'transparent'; });
+    });
+    p.querySelector('#at-aud-vol').addEventListener('input', (e) => { p.querySelector('#at-aud-vt').textContent = e.target.value; VoiceManager.ajustarAudio({ volumen: parseInt(e.target.value, 10) }); });
+  }
+
   // ------------------------------------------------------------------ dock
   // Modos de la barra: 'compacto' (micrófono + salir, por defecto), 'completo' y 'mini' (un círculo).
   let modoDock = 'compacto';
@@ -420,7 +449,11 @@ const NikaAteneos = (() => {
     const b = $('#at-b-min');
     if (b) { b.textContent = modoDock === 'completo' ? '⌄' : modoDock === 'compacto' ? '⇲' : ''; b.title = modoDock === 'completo' ? 'Reducir la barra' : 'Ocultar la barra'; }
   }
-  function cambiarModoDock(m) { modoDock = m; try { localStorage.setItem('nika_at_dock', m); } catch (_) {} aplicarModoDock(); }
+  function cambiarModoDock(m) {
+    modoDock = m; try { localStorage.setItem('nika_at_dock', m); localStorage.removeItem('nika_at_dock_pos'); } catch (_) {}
+    if (dock) ['left', 'top', 'right', 'bottom', 'transform'].forEach((k) => { dock.style[k] = ''; });
+    aplicarModoDock();
+  }
   function construirDock() {
     if (dock) return;
     dock = document.createElement('div'); dock.id = 'at-dock';
@@ -432,6 +465,7 @@ const NikaAteneos = (() => {
         <button type="button" id="at-b-mic" title="Micrófono (Ctrl+M)" aria-label="Micrófono">🎤</button>
         <button type="button" id="at-b-cam" title="Cámara" aria-label="Cámara">📷</button>
         <button type="button" id="at-b-scr" title="Compartir pantalla" aria-label="Compartir pantalla">🖥️</button>
+        <button type="button" id="at-b-aud" title="Audio y ruido" aria-label="Audio y ruido">⚙️</button>
         <button type="button" id="at-b-pip" title="Mostrar u ocultar videos" aria-label="Videos">👥</button>
         <button type="button" class="salir" id="at-b-out" title="Desconectar">Salir</button>
         <button type="button" id="at-b-min" class="at-min" aria-label="Reducir la barra">⌄</button>
@@ -444,6 +478,7 @@ const NikaAteneos = (() => {
     $('#at-b-cam').onclick = async () => { const r = await VoiceManager.alternarCamara(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#at-b-scr').onclick = async () => { const r = await VoiceManager.alternarPantalla(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#at-b-pip').onclick = () => mostrarVideo(true);
+    $('#at-b-aud').onclick = abrirAjustesAudio;
     $('#at-b-out').onclick = desconectar;
     $('#at-b-min').onclick = () => cambiarModoDock(modoDock === 'completo' ? 'compacto' : 'mini');
     $('#at-b-ext').onclick = () => cambiarModoDock('completo');
@@ -652,6 +687,7 @@ const NikaAteneos = (() => {
             <button type="button" class="ats-cb" id="ats-mic"><i>🎤</i><span>Micrófono</span></button>
             <button type="button" class="ats-cb" id="ats-cam"><i>📷</i><span>Cámara</span></button>
             <button type="button" class="ats-cb" id="ats-scr"><i>🖥️</i><span>Pantalla</span></button>
+            <button type="button" class="ats-cb" id="ats-aud"><i>⚙️</i><span>Audio</span></button>
             <button type="button" class="ats-cb" id="ats-fs2"><i>⛶</i><span>Completa</span></button>
             <button type="button" class="ats-cb solo-movil" id="ats-panel"><i>👥</i><span>Gente</span></button>
             <button type="button" class="ats-cb salir" id="ats-out"><i>📞</i><span>Salir</span></button>
@@ -669,6 +705,7 @@ const NikaAteneos = (() => {
     if (!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia)) $('#ats-scr').style.display = 'none';
     $('#ats-mic').onclick = alternarMic;
     $('#ats-cam').onclick = async () => { const r = await VoiceManager.alternarCamara(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
+    $('#ats-aud').onclick = abrirAjustesAudio;
     $('#ats-scr').onclick = async () => { const r = await VoiceManager.alternarPantalla(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#ats-out').onclick = desconectar;
     // pantalla completa de la sala (con respaldo para navegadores que no la permiten en elementos, como iPhone)
