@@ -5,22 +5,21 @@
   if (window.NikaAteneos || window.__ateneoGlobal) return;
   window.__ateneoGlobal = true;
   // Si la llamada vive en la ventana anfitriona (sin cortes), esta página solo muestra la barra remota
-  try {
-    if (Date.now() - Number(localStorage.getItem('nika_ateneo_host') || 0) < 5000) {
-      const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=3'; document.head.appendChild(sc);
-      return;
-    }
-  } catch (_) {}
+  const hostVivoSync = () => { try { return Date.now() - Number(localStorage.getItem('nika_ateneo_host') || 0) < 15000; } catch (_) { return false; } };
+  const hostConCandado = async () => { try { if (!(navigator.locks && navigator.locks.query)) return false; const q = await navigator.locks.query(); return (q.held || []).some((l) => l.name === 'nika-ateneo-host'); } catch (_) { return false; } };
+  const cargarRemoto = () => { const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=4'; document.head.appendChild(sc); };
+  if (hostVivoSync()) { cargarRemoto(); return; }
   let a = null;
   try { a = JSON.parse(localStorage.getItem('nika_ateneo_activo') || 'null'); } catch (_) {}
   if (!a || Date.now() - (a.t || 0) > 12 * 3600 * 1000) return;
   const cargar = (src) => new Promise((ok) => { const s = document.createElement('script'); s.src = src; s.onload = () => ok(true); s.onerror = () => ok(false); document.head.appendChild(s); });
   (async () => {
+    if (await hostConCandado()) { cargarRemoto(); return; }
     if (!window.NikaSupabase) {
       if (!window.supabase) await cargar('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
       if (!window.NikaSupabase) await cargar('supabaseClient.js');
     }
     if (!window.VoiceManager) await cargar('js/voiceManager.js?v=3');
-    await cargar('js/ateneos.js?v=14');
+    await cargar('js/ateneos.js?v=15');
   })();
 })();

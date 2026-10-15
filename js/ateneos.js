@@ -18,14 +18,17 @@ const NikaAteneos = (() => {
   const K_HOST = 'nika_ateneo_host', K_PEND = 'nika_ateneo_pend_inv', K_HOSTPREF = 'nika_ateneo_host_pref';
   const SOY_HOST = !!window.__ateneoHost;
   let bcHost = null; try { bcHost = new BroadcastChannel('nika-ateneo-host'); } catch (_) {}
-  const hostVivo = () => { if (SOY_HOST) return false; try { return Date.now() - Number(localStorage.getItem(K_HOST) || 0) < 5000; } catch (_) { return false; } };
+  const hostVivo = () => { if (SOY_HOST) return false; try { return Date.now() - Number(localStorage.getItem(K_HOST) || 0) < 15000; } catch (_) { return false; } };
   const ESCRITORIO = !(/Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && window.matchMedia && matchMedia('(pointer: coarse)').matches));
   const hostPref = () => { if (!ESCRITORIO) return false; try { return localStorage.getItem(K_HOSTPREF) === '1'; } catch (_) { return false; } };
+  async function hostConCandado() {
+    try { if (!(navigator.locks && navigator.locks.query)) return false; const q = await navigator.locks.query(); return (q.held || []).some((l) => l.name === 'nika-ateneo-host'); } catch (_) { return false; }
+  }
   const alHost = (m) => { try { if (bcHost) bcHost.postMessage(m); } catch (_) {} };
   const abrirHost = () => { try { return window.open('ateneo-host.html', 'nika-ateneo-host', 'popup=yes,width=440,height=620'); } catch (_) { return null; } };
   function cargarRemoto() {
     if (window.NikaAteneoRemoto) return;
-    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=3'; document.head.appendChild(sc);
+    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=4'; document.head.appendChild(sc);
   }
   // Deja la sala pedida lista en el almacenamiento y abre la ventana anfitriona, que se conecta sola.
   function abrirEnVentana(sala, nombre, silenciosa, mic) {
@@ -741,7 +744,7 @@ const NikaAteneos = (() => {
 
   // ------------------------------------------------------------------ reconexión entre páginas + invitaciones por enlace
   async function reconectarSiCorresponde() {
-    if (!SOY_HOST && hostVivo()) { cargarRemoto(); return; }
+    if (!SOY_HOST && (hostVivo() || await hostConCandado())) { cargarRemoto(); return; }
     let a = null; try { a = JSON.parse(localStorage.getItem(K_ACTIVA) || 'null'); } catch (_) {}
     if (!a || !usuario() || Date.now() - (a.t || 0) > 12 * 3600 * 1000) { try { localStorage.removeItem(K_ACTIVA); } catch (_) {} return; }
     try { await conectarSala(a.sala, a.nombre, a.silenciosa, { micInicial: a.mic, silencioso: true }); }
@@ -1019,9 +1022,16 @@ const NikaAteneos = (() => {
 
   function iniciarHost() {
     const latido = () => { try { localStorage.setItem(K_HOST, String(Date.now())); } catch (_) {} };
-    latido(); setInterval(latido, 1500);
+    latido();
     const estado = () => alHost({ estado: { conectado: !!conectado, nombre: conectado ? conectado.nombre : '', sala: conectado ? conectado.sala : '', mic: !!(window.VoiceManager && VoiceManager.micActivo), cam: !!(window.VoiceManager && VoiceManager.camActiva), n: 1 + ultimoPeers.length, t: Date.now() } });
-    setInterval(estado, 1500);
+    // El latido va por un Worker: si esta ventana se minimiza o queda oculta, los temporizadores normales se frenan
+    // y las demás páginas creerían que la llamada murió (y se conectarían ellas mismas, duplicándola).
+    let pulsos = 0;
+    try {
+      const w = new Worker(URL.createObjectURL(new Blob(['setInterval(function(){postMessage(1)},1000)'], { type: 'application/javascript' })));
+      w.onmessage = () => { latido(); if ((++pulsos) % 2 === 0) estado(); };
+    } catch (_) { setInterval(latido, 1500); setInterval(estado, 1500); }
+    try { if (navigator.locks && navigator.locks.request) navigator.locks.request('nika-ateneo-host', () => new Promise(() => {})); } catch (_) {}   // mientras la ventana viva, el candado sigue tomado
     if (bcHost) bcHost.onmessage = async (e) => {
       const m = e.data || {};
       if (!m.cmd) return;

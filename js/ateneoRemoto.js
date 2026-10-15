@@ -36,7 +36,7 @@
   q('ar-out').onclick = () => enviar({ cmd: 'salir' });
   q('ar-win').onclick = () => { try { const w = window.open('', 'nika-ateneo-host'); if (w) w.focus(); } catch (_) {} };
   function pintar() {
-    const vivo = est && est.conectado && Date.now() - ultimo < 6000;
+    const vivo = est && est.conectado && Date.now() - ultimo < 20000;
     bar.classList.toggle('on', !!vivo);
     if (!vivo) return;
     q('ar-nm').textContent = est.nombre || 'Llamada';
