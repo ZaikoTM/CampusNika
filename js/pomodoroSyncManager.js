@@ -126,6 +126,19 @@ const PomodoroSyncManager = (function () {
         });
     }
 
+    // Reconexión manual (botón "Reconectar" de la barra): reinicia el canal global y vuelve a abrir la sala ya, sin esperas
+    async function reconectar() {
+        detenido = false; intentosCanal = 0; reconectando = false;
+        try { await _reiniciarCanal(); } catch (_) {}
+        const s = sala;
+        if (s && !s.cerrada) {
+            s.intentos = 0; if (s.retry) { clearTimeout(s.retry); s.retry = null; }
+            const eng = window.PomodoroEngine, info = eng && eng.getSharedInfo && eng.getSharedInfo();
+            if (info && info.sessionId === s.sessionId) abrirSala(info, true).catch(() => {});
+        } else { _reabrirSalaSiCorresponde(); }
+        return true;
+    }
+
     // ---- Conexión continua ----
     function _programarReconexion() {
         if (detenido || reconectando) return;
@@ -613,6 +626,7 @@ const PomodoroSyncManager = (function () {
         salirDeSala,
         emitirComando,
         get activo() { return !!canal; },
+        reconectar,
         // 'ok' si el canal está conectado, 'reconectando' si se cayó y se está recuperando solo, 'sin_conexion' si no hay nada
         estadoConexion() { if (detenido || !canal) return 'sin_conexion'; return canal.state === 'joined' ? 'ok' : 'reconectando'; },
         set onFriendsStateChange(cb) {

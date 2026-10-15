@@ -54,7 +54,7 @@ const NikaPomoBar = (() => {
             .nika-pomo-bar--paused { background: linear-gradient(100deg, #475569, #64748b 55%, #7c8aa5); background-size: 100% 100%; animation: none; box-shadow: 0 6px 16px -10px rgba(71,85,105,.8); }
             .nika-pomo-bar--paused::after { display: none; }
             .nika-pomo-bar--break:not(.nika-pomo-bar--paused) { background: linear-gradient(100deg, #0ea5e9, #14b8a6 50%, #22c55e); background-size: 220% 100%; }
-            .nika-pomo-bar-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 10px; padding: 6px 14px; font-size: .82rem; font-weight: 800; }
+            .nika-pomo-bar-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; box-sizing: border-box; padding-left: calc(var(--nika-sb-w, 0px) + 14px) !important; display: flex; align-items: center; gap: 10px; padding: 6px 14px; font-size: .82rem; font-weight: 800; }
             .barra-enfoque { display: flex; align-items: center; flex: 1 1 auto; gap: 10px; min-width: 0; }
             /* anillo de progreso */
             .nika-pomo-ring { --p: 0; position: relative; flex: 0 0 38px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
@@ -81,6 +81,10 @@ const NikaPomoBar = (() => {
             .nika-pomo-av.mas { background: rgba(255,255,255,.25); } .nika-pomo-av.mas::after { display: none; }
             @keyframes npbAv { from { opacity: 0; transform: scale(.3) rotate(-20deg); } }
             /* conexión */
+            button.nika-pomo-conn { border: 0; font-family: inherit; color: inherit; cursor: default; }
+            .nika-pomo-conn.rec, .nika-pomo-conn.sin { cursor: pointer; transition: transform .15s, background .15s; }
+            .nika-pomo-conn.rec:hover, .nika-pomo-conn.sin:hover { transform: translateY(-1px); background: rgba(255,255,255,.28); }
+            .nika-pomo-conn.cargando i { animation: npbParpadeo .6s linear infinite; }
             .nika-pomo-conn { display: inline-flex; align-items: center; gap: 5px; font-size: .68rem; font-weight: 800; padding: 3px 9px; border-radius: 999px; background: rgba(0,0,0,.2); white-space: nowrap; flex-shrink: 0; }
             .nika-pomo-conn i { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; }
             .nika-pomo-conn.rec { background: rgba(251,191,36,.28); } .nika-pomo-conn.rec i { background: #fbbf24; animation: npbParpadeo 1s ease-in-out infinite; }
@@ -126,7 +130,7 @@ const NikaPomoBar = (() => {
             }
 
             /* ---- Modo minimizado: píldora centrada en el borde superior (hover/foco la despliega) ---- */
-            .nika-pomo-bar.is-collapsed { left: 50%; right: auto; width: auto; min-width: 0; transform: translateX(-50%); border-radius: 0 0 18px 18px; }
+            .nika-pomo-bar.is-collapsed { left: calc(var(--nika-sb-w, 0px) + (100% - var(--nika-sb-w, 0px)) / 2); right: auto; width: auto; min-width: 0; transform: translateX(-50%); border-radius: 0 0 18px 18px; }
             .nika-pomo-bar.is-collapsed .nika-pomo-bar-inner { display: none; }
             .nika-pomo-bar-pill { display: none; align-items: center; gap: 8px; padding: 5px 16px 5px 8px; font-size: .74rem; font-weight: 800; font-family: inherit; white-space: nowrap; cursor: pointer; user-select: none; position: relative; z-index: 1; background: none; border: 0; color: #fff; }
             .nika-pomo-bar-pill .mini { --p: 0; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(#fff calc(var(--p) * 1%), rgba(255,255,255,.3) 0); font-size: .7rem; position: relative; }
@@ -141,8 +145,40 @@ const NikaPomoBar = (() => {
         document.head.appendChild(style);
     }
 
+    // Ancho de la barra lateral visible (escritorio): la barra de enfoque se centra en el área que queda a su derecha.
+    function _medirLateral() {
+        let w = 0;
+        try {
+            if (window.innerWidth > 900) {
+                for (const id of ['appSidebar', 'ns-side']) {
+                    const el = document.getElementById(id); if (!el) continue;
+                    const cs = getComputedStyle(el); if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+                    const r = el.getBoundingClientRect();
+                    if (r.width > 100 && r.left > -4 && r.left < 20 && r.right > 80) { w = Math.round(r.right); break; }
+                }
+            }
+        } catch (_) {}
+        document.documentElement.style.setProperty('--nika-sb-w', w + 'px');
+    }
+    let _lateralObs = false;
+    function _vigilarLateral() {
+        if (_lateralObs) return; _lateralObs = true;
+        const medir = () => _medirLateral();
+        window.addEventListener('resize', medir);
+        // la barra lateral se abre y se cierra con animación: se vuelve a medir durante la transición
+        document.addEventListener('click', () => { const t0 = Date.now(); (function paso() { medir(); if (Date.now() - t0 < 700) requestAnimationFrame(paso); })(); }, true);
+        ['appSidebar', 'ns-side'].forEach((id) => {
+            const el = document.getElementById(id); if (!el) return;
+            try { new MutationObserver(medir).observe(el, { attributes: true, attributeFilter: ['class', 'style'] }); } catch (_) {}
+            el.addEventListener('transitionend', medir);
+        });
+        try { document.body && new MutationObserver(medir).observe(document.body, { attributes: true, attributeFilter: ['class'] }); } catch (_) {}
+        medir();
+    }
+
     function _crear() {
         _inyectarCss();
+        _vigilarLateral();
         bar = document.createElement('div');
         bar.className = 'nika-pomo-bar';
         bar.innerHTML = `
@@ -155,7 +191,7 @@ const NikaPomoBar = (() => {
                     <span class="nika-pomo-team" id="nika-pomo-team"></span>
                     <span class="nika-pomo-bar-partner" id="nika-pomo-bar-partner"></span>
                 </div>
-                <span class="nika-pomo-conn" id="nika-pomo-conn" style="display:none;"><i></i><span class="lbl" id="nika-pomo-conn-t">Conectado</span></span>
+                <button type="button" class="nika-pomo-conn" id="nika-pomo-conn" style="display:none;"><i></i><span class="lbl" id="nika-pomo-conn-t">Conectado</span></button>
                 <button type="button" class="nika-pomo-bar-btn main" id="nika-pomo-bar-toggle" title="Pausar / reanudar" aria-label="Pausar o reanudar">⏸️</button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-room" title="Abrir la sala de estudio" style="display:none;">🍅<span class="lbl">Sala</span></button>
                 <button type="button" class="nika-pomo-bar-btn cancel" id="nika-pomo-bar-cancel" title="Cancelar este Pomodoro" aria-label="Cancelar el Pomodoro" style="display:none;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/></svg><span class="lbl">Cancelar</span></button>
@@ -190,6 +226,15 @@ const NikaPomoBar = (() => {
         document.body.prepend(bar);
 
         document.getElementById('nika-pomo-bar-cfg').addEventListener('click', _toggleCfg);
+        document.getElementById('nika-pomo-conn').addEventListener('click', async (e) => {
+            const chip = e.currentTarget, m = window.PomodoroSyncManager;
+            if (!m || typeof m.reconectar !== 'function' || !chip.classList.contains('sin') && !chip.classList.contains('rec')) return;
+            chip.classList.add('cargando');
+            document.getElementById('nika-pomo-conn-t').textContent = 'Conectando…';
+            try { await m.reconectar(); } catch (_) {}
+            setTimeout(() => { chip.classList.remove('cargando'); _render(); }, 1800);
+            if (typeof window.showToast === 'function') { try { window.showToast('🔄 Reconectando la sala…'); } catch (_) {} }
+        });
         document.getElementById('nika-pomo-bar-room').addEventListener('click', () => { if (window.abrirSalaEstudio) window.abrirSalaEstudio(); });
         document.getElementById('nika-cfg-save').addEventListener('click', _guardarCfg);
 
@@ -320,6 +365,7 @@ const NikaPomoBar = (() => {
             return;
         }
         if (!bar) _crear();
+        _medirLateral();
 
         const esDescanso = st.mode === 'break';
         const enEspera = st.status === 'idle';
@@ -407,8 +453,8 @@ const NikaPomoBar = (() => {
             else {
                 connEl.style.display = '';
                 connEl.className = 'nika-pomo-conn' + (est === 'ok' ? '' : est === 'reconectando' ? ' rec' : ' sin');
-                document.getElementById('nika-pomo-conn-t').textContent = est === 'ok' ? 'Conectado' : est === 'reconectando' ? 'Reconectando…' : 'Sin conexión';
-                connEl.title = est === 'ok' ? 'Conectado a la sala' : 'Tu cronómetro sigue corriendo: la sala se reconecta sola';
+                if (!connEl.classList.contains('cargando')) document.getElementById('nika-pomo-conn-t').textContent = est === 'ok' ? 'Conectado' : est === 'reconectando' ? '↻ Reintentar' : '↻ Reconectar';
+                connEl.title = est === 'ok' ? 'Conectado a la sala' : 'Tocá para reconectar la sala ahora. Tu cronómetro sigue corriendo.';
             }
         }
 

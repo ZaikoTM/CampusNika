@@ -1013,7 +1013,7 @@ const NikaMusic = (() => {
       if (!psm) {
         if (!window.__nmCargandoPsm) {
           window.__nmCargandoPsm = true;
-          const sc = document.createElement('script'); sc.src = 'js/pomodoroSyncManager.js?v=6'; sc.async = true;
+          const sc = document.createElement('script'); sc.src = 'js/pomodoroSyncManager.js?v=7'; sc.async = true;
           sc.onload = () => { ultPub = '\u0000'; publicar(); };
           document.head.appendChild(sc);
         }
