@@ -216,3 +216,23 @@
 .nfp-pat:hover{transform:translateY(-3px) scale(1.03)!important}
 .nfp-pat em{font-style:normal;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:99px;background:rgba(255,255,255,.25);margin-left:4px}
 @keyframes fcGlow{0%,100%{box-shadow:0 8px 20px -10px #7c3aed}50%{box-shadow:0 0 0 4px rgba(236,72,153,.22),0 14px 30px -10px #ec4899}}
+
+/* ===== formato del contenido ===== */
+.fc-or{display:block;margin:0 0 5px}
+.fc-or+.fc-or{margin-top:2px}
+.fc-dosis{background:linear-gradient(transparent 55%,rgba(251,191,36,.55) 55%);color:#78350f;font-weight:800;padding:0 2px;border-radius:3px}
+.fc-lead{color:#9d174d}
+.fc-def{font-size:.95rem;line-height:1.6;padding:10px 12px;border-radius:12px;background:rgba(37,99,235,.08);border-left:4px solid #2563eb;margin:0 0 10px!important}
+.fcd-in{line-height:1.55}
+.fcd-in ul{list-style:none;padding-left:0}
+.fcd-in li{position:relative;padding-left:18px;margin:8px 0}
+.fcd-in li::before{content:'';position:absolute;left:2px;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--sc,#6366f1)}
+.fcd-in .fc-paso{display:grid;grid-template-columns:96px 1fr;gap:10px;margin:10px 0;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.06)}
+.fcd-in .fc-paso b{font:700 1.25rem 'Caveat',cursive;color:var(--sc,#be185d);line-height:1.1}
+.fcd-in .fc-sub{display:inline-block;margin:12px 0 2px;padding:4px 12px;border-radius:99px;font-size:.78rem;color:#fff;background:var(--sc,#6366f1)}
+.fcd-sec[data-sec="tx"]{--sc:#db2777}.fcd-sec[data-sec="dx"]{--sc:#2563eb}.fcd-sec[data-sec="est"]{--sc:#059669}
+.fcd-sec[data-sec="seg"]{--sc:#d97706}.fcd-sec[data-sec="rojo"]{--sc:#dc2626}.fcd-sec[data-sec="con"]{--sc:#7c3aed}
+.fcd-sec summary i{background:color-mix(in srgb,var(--sc,#6366f1) 18%,transparent)}
+.fcd-sec[open]{border-color:color-mix(in srgb,var(--sc,#6366f1) 45%,transparent);border-left:5px solid var(--sc,#6366f1)}
+.fcd-sec summary b{color:var(--sc,#1e293b)}
+@media(max-width:560px){.fcd-in{padding-left:14px}.fcd-in .fc-paso{grid-template-columns:1fr}}

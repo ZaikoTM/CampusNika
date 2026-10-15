@@ -6,6 +6,8 @@
   const KEY_OK = 'nika_fc_ok';
   const PAPEL = { 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
   const LOGO = 'assets/N%20NIKA.png';
+  const PALETA = ['#fff3a3', '#fbcfe8', '#bbf7d0', '#ddd6fe', '#fed7aa', '#bae6fd', '#fecdd3', '#e9d5ff', '#c7f9cc', '#fde68a'];
+  const colorDe = (p) => { let h = 0; const t = String(p.id); for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return PALETA[h % PALETA.length]; };
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
   let D = null, cargando = null, modal = null;
@@ -67,16 +69,27 @@
   }
 
   // ---------- contenido por sección ----------
-  const lista = (a, c) => a && a.length ? '<ul' + (c ? ' class="' + c + '"' : '') + '>' + a.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '';
+  // Formato legible: dosis y plazos resaltados, término inicial en negrita y una oración por línea.
+  const RX_DOSIS = /(\d+(?:[.,]\d+)?(?:\s?[–-]\s?\d+(?:[.,]\d+)?)?\s?(?:mg\/kg\/h|mg\/kg\/día|mg\/kg|mg\/día|mg\/m²|mg\/ml|mg|mcg|µg|µg\/kg|UI|mUI\/ml|mU\/min|UI\/l|ml\/h|ml|mL|g\/día|g|U|%|semanas?|días?|horas?|meses|minutos|h|años|cm|mm|mmHg|mg\/dl|ng\/ml|µmol\/l))(?![A-Za-zÁÉÍÓÚáéíóúñ])/g;
+  function fmt(texto) {
+    const partes = String(texto == null ? '' : texto).replace(/\s+/g, ' ').trim().split(/(?<=[.;])\s+(?=[A-ZÁÉÍÓÚÑ¿(])/);
+    return partes.map((o) => {
+      let h = esc(o);
+      h = h.replace(RX_DOSIS, '<mark class="fc-dosis">$1</mark>');
+      h = h.replace(/^([^:<]{2,60}):\s/, '<strong class="fc-lead">$1:</strong> ');
+      return '<span class="fc-or">' + h + '</span>';
+    }).join('');
+  }
+  const lista = (a, c) => a && a.length ? '<ul' + (c ? ' class="' + c + '"' : '') + '>' + a.map((x) => '<li>' + fmt(x) + '</li>').join('') + '</ul>' : '';
   const SECS = [
-    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => (p.tratamiento || []).map((b) => '<div class="fc-sub">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + esc(s.texto) + '</span></div>').join('')).join(''),
+    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => (p.tratamiento || []).map((b) => '<div class="fc-sub">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + fmt(s.texto) + '</span></div>').join('')).join(''),
       txt: (p) => (p.tratamiento || []).map((b) => b.titulo + '\n' + (b.pasos || []).map((s) => '• ' + s.etiqueta + ': ' + s.texto).join('\n')).join('\n') },
-    { id: 'dx', ico: '🩺', nom: 'Diagnóstico y definición', html: (p) => (p.definicion ? '<p>' + esc(p.definicion) + '</p>' : '') + lista(p.diagnostico),
+    { id: 'dx', ico: '🩺', nom: 'Diagnóstico y definición', html: (p) => (p.definicion ? '<p class="fc-def">' + fmt(p.definicion) + '</p>' : '') + lista(p.diagnostico),
       txt: (p) => (p.definicion ? p.definicion + '\n' : '') + (p.diagnostico || []).map((x) => '• ' + x).join('\n') },
     { id: 'est', ico: '🧪', nom: 'Estudios', html: (p) => lista(p.estudios), txt: (p) => (p.estudios || []).map((x) => '• ' + x).join('\n') },
     { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento), txt: (p) => (p.seguimiento || []).map((x) => '• ' + x).join('\n') },
     { id: 'rojo', ico: '🚩', nom: 'Banderas rojas', html: (p) => lista(p.banderas, 'fc-rojo'), txt: (p) => (p.banderas || []).map((x) => '• ' + x).join('\n') },
-    { id: 'con', ico: '⚖️', nom: 'Contraste con consensos', html: (p) => p.contraste ? '<p><b>' + esc(((D.meta.contraste || {})[p.contraste.estado]) || '') + '</b> · ' + esc(p.contraste.fuente) + '</p>' + lista(p.contraste.puntos) : '',
+    { id: 'con', ico: '⚖️', nom: 'Contraste con consensos', html: (p) => p.contraste ? '<p class="fc-def"><b>' + esc(((D.meta.contraste || {})[p.contraste.estado]) || '') + '</b> · ' + esc(p.contraste.fuente) + '</p>' + lista(p.contraste.puntos) : '',
       txt: (p) => p.contraste ? p.contraste.fuente + '\n' + (p.contraste.puntos || []).map((x) => '• ' + x).join('\n') : '' }
   ];
   const tieneSec = (p, s) => { const h = s.html(p); return !!h && h.replace(/<[^>]+>/g, '').trim().length > 0; };
@@ -94,8 +107,8 @@
   function textoCompartir(p, ids) {
     const f = p.fuente || {};
     const unidades = (p.up || []).map((u) => (D.meta.unidades || {})[u] || u).join(' · ');
-    const cuerpo = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s)).map((s) => s.ico + ' ' + s.nom.toUpperCase() + '\n' + s.txt(p)).join('\n\n');
-    return '🃏 ' + p.titulo + '\n' + unidades + '\n\n' + cuerpo + '\n\nFuente: ' + (f.sociedad || '') + ' · ' + (f.guia || '') + ' (' + (f.anio || '') + ')' +
+    const cuerpo = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s)).map((s) => s.ico + ' *' + s.nom.toUpperCase() + '*\n' + s.txt(p)).join('\n\n');
+    return '🃏 *' + p.titulo + '*\n' + unidades + '\n\n' + cuerpo + '\n\nFuente: ' + (f.sociedad || '') + ' · ' + (f.guia || '') + ' (' + (f.anio || '') + ')' +
       (f.tipo === 'guia' ? '' : '\n⚠️ Verificar veracidad con guías actuales.') + '\n\nNikaMed · Flashcards clínicas — nikamed.com.ar';
   }
   function avisoToast(host, msg) {
@@ -107,6 +120,107 @@
     try { const ta = document.createElement('textarea'); ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); return ok; } catch (_) { return false; }
   }
 
+  // ---- imagen de la tarjeta (canvas propio) ----
+  const COL_SEC = { tx: '#db2777', dx: '#2563eb', est: '#059669', seg: '#d97706', rojo: '#dc2626', con: '#7c3aed' };
+  function envolver(ctx, texto, maxW) {
+    const out = [];
+    String(texto || '').split('\n').forEach((par) => {
+      let cur = '';
+      par.split(' ').forEach((w) => { const t = cur ? cur + ' ' + w : w; if (ctx.measureText(t).width > maxW && cur) { out.push(cur); cur = w; } else cur = t; });
+      out.push(cur);
+    });
+    return out;
+  }
+  function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+  async function generarImagen(p, ids) {
+    const W = 1080, PAD = 54, TW = W - PAD * 2 - 40;
+    const logo = await new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = LOGO; });
+    const f = p.fuente || {};
+    const secs = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s));
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = 9000; const c = cv.getContext('2d');
+    const papel = colorDe(p);
+    c.fillStyle = '#f8fafc'; c.fillRect(0, 0, W, 9000);
+    // cabecera NikaMed
+    const g = c.createLinearGradient(0, 0, W, 0); g.addColorStop(0, '#0f172a'); g.addColorStop(1, '#4338ca');
+    c.fillStyle = g; c.fillRect(0, 0, W, 120);
+    if (logo) { c.fillStyle = '#fff'; c.beginPath(); c.arc(PAD + 38, 60, 38, 0, 7); c.fill(); c.drawImage(logo, PAD + 12, 34, 52, 52); }
+    c.fillStyle = '#fff'; c.font = '800 38px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillText('NikaMed', PAD + 96, 58);
+    c.font = '600 22px "Plus Jakarta Sans", system-ui, sans-serif'; c.globalAlpha = .85; c.fillText('Flashcards clínicas · Patologías y tratamiento', PAD + 96, 90); c.globalAlpha = 1;
+    // hoja
+    let y = 156;
+    const hojaTop = y;
+    c.font = '700 64px Caveat, "Segoe Script", cursive';
+    const tit = envolver(c, p.titulo, TW);
+    y += 34;
+    const bloques = [];
+    const unidades = (p.up || []).map((u) => (D.meta.unidades || {})[u] || u).join('  ·  ');
+    // medir y dibujar en dos pasadas: primero el cuerpo en un canvas largo
+    let yy = y;
+    c.fillStyle = '#1e293b';
+    tit.forEach((l) => { yy += 66; });
+    yy += 22; yy += 42; // unidades
+    // dibujo real
+    c.fillStyle = papel; rr(c, PAD - 10, hojaTop, W - (PAD - 10) * 2, 9000 - hojaTop - 10, 26); c.fill();
+    // pin
+    c.fillStyle = '#e11d48'; c.beginPath(); c.arc(W / 2, hojaTop + 4, 12, 0, 7); c.fill();
+    let ty = hojaTop + 74;
+    c.fillStyle = '#1e293b'; c.font = '700 64px Caveat, "Segoe Script", cursive';
+    tit.forEach((l) => { c.fillText(l, PAD + 20, ty); ty += 66; });
+    c.font = '700 22px "Plus Jakarta Sans", system-ui, sans-serif'; c.globalAlpha = .7; c.fillText(unidades, PAD + 20, ty); c.globalAlpha = 1; ty += 22;
+    for (const s of secs) {
+      const col = COL_SEC[s.id] || '#4338ca';
+      ty += 26;
+      rr(c, PAD + 10, ty, W - (PAD + 10) * 2, 52, 14); c.fillStyle = col; c.fill();
+      c.fillStyle = '#fff'; c.font = '800 28px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillText(s.ico + '  ' + s.nom, PAD + 30, ty + 36); ty += 52;
+      const filas = s.id === 'tx' ? (p.tratamiento || []).flatMap((b) => [{ h: b.titulo }].concat((b.pasos || []).map((x) => ({ e: x.etiqueta, t: x.texto }))))
+        : s.id === 'dx' ? (p.definicion ? [{ t: p.definicion }] : []).concat((p.diagnostico || []).map((t) => ({ t, b: 1 })))
+        : s.id === 'est' ? (p.estudios || []).map((t) => ({ t, b: 1 })) : s.id === 'seg' ? (p.seguimiento || []).map((t) => ({ t, b: 1 }))
+        : s.id === 'rojo' ? (p.banderas || []).map((t) => ({ t, b: 1 })) : (p.contraste ? [{ h: p.contraste.fuente }].concat((p.contraste.puntos || []).map((t) => ({ t, b: 1 }))) : []);
+      for (const r of filas) {
+        ty += 14;
+        if (r.h) { c.font = '800 24px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillStyle = '#334155'; envolver(c, r.h, TW).forEach((l) => { ty += 30; c.fillText(l, PAD + 24, ty); }); continue; }
+        let x = PAD + 24, w = TW;
+        if (r.e) { c.font = '700 34px Caveat, cursive'; c.fillStyle = col; c.fillText(r.e, x, ty + 30); x += 150; w = TW - 150; }
+        else if (r.b) { c.fillStyle = col; c.beginPath(); c.arc(x + 6, ty + 14, 5, 0, 7); c.fill(); x += 24; w = TW - 24; }
+        c.font = '500 25px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillStyle = '#1e293b';
+        envolver(c, r.t, w).forEach((l, i) => { ty += i === 0 ? 30 : 33; c.fillText(l, x, ty); });
+        ty += 4;
+      }
+      ty += 6;
+    }
+    ty += 34;
+    c.font = '700 22px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillStyle = '#334155';
+    envolver(c, 'Fuente: ' + (f.guia || '') + ' — ' + (f.sociedad || '') + ' (' + (f.anio || '') + ')', TW).forEach((l) => { ty += 30; c.fillText(l, PAD + 20, ty); });
+    if (f.tipo !== 'guia') { ty += 16; rr(c, PAD + 10, ty, W - (PAD + 10) * 2, 52, 14); c.fillStyle = '#fef9c3'; c.fill(); c.fillStyle = '#854d0e'; c.font = '800 23px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillText('⚠️  Verificar veracidad con guías actuales', PAD + 30, ty + 34); ty += 52; }
+    ty += 26;
+    const fin = ty + 40;
+    // pie
+    c.fillStyle = '#0f172a'; c.fillRect(0, fin, W, 70);
+    c.fillStyle = '#fff'; c.font = '700 24px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillText('NikaMed · Campus Nika — nikamed.com.ar', PAD + 10, fin + 44);
+    const out = document.createElement('canvas'); out.width = W; out.height = fin + 70;
+    const o = out.getContext('2d'); o.fillStyle = '#f8fafc'; o.fillRect(0, 0, W, out.height); o.drawImage(cv, 0, 0, W, out.height, 0, 0, W, out.height);
+    // recorta el fondo del papel sobrante: redibuja el papel hasta el pie
+    return out;
+  }
+  const mensajeCorto = (p) => '🃏 ' + p.titulo + ' — flashcard clínica de NikaMed. Más tratamientos y temas en nikamed.com.ar';
+  const nombreImg = (p) => 'NikaMed-' + norm(p.titulo).replace(/\s+/g, '-').slice(0, 40) + '.png';
+  async function compartirImagen(p, ids, via, host) {
+    const cv = await generarImagen(p, ids);
+    const blob = await new Promise((ok) => cv.toBlob(ok, 'image/png'));
+    if (!blob) return avisoToast(host, 'No se pudo armar la imagen');
+    const file = new File([blob], nombreImg(p), { type: 'image/png' });
+    if (via === 'descargar') { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); return avisoToast(host, '⬇️ Imagen descargada'); }
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], text: mensajeCorto(p), title: p.titulo + ' · NikaMed' }); return avisoToast(host, '📤 Elegí WhatsApp en la lista'); }
+      catch (e) { if (e && e.name === 'AbortError') return; }
+    }
+    let copiada = false;
+    try { if (navigator.clipboard && window.ClipboardItem) { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); copiada = true; } } catch (_) {}
+    if (!copiada) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); }
+    window.open('https://web.whatsapp.com/send?text=' + encodeURIComponent(mensajeCorto(p)), '_blank', 'noopener');
+    avisoToast(host, copiada ? '📋 Imagen copiada: pegala con Ctrl + V en el chat' : '⬇️ Imagen descargada: adjuntala en el chat');
+  }
+
   // Dibuja la tarjeta completa dentro de `host`. opts.alVolver: función del botón «Volver».
   function detalle(host, id, opts) {
     opts = opts || {};
@@ -114,7 +228,7 @@
       const p = d && d.byId[id]; if (!p) return;
       const disp = SECS.filter((s) => tieneSec(p, s));
       const abiertas = new Set(['tx', 'dx'].filter((x) => disp.some((s) => s.id === x)));
-      const papel = PAPEL[(p.up || [])[0]] || '#fff3a3';
+      const papel = colorDe(p);
       const f = p.fuente || {};
       const pintar = () => {
         const ok = leerOk()[p.id];
@@ -129,7 +243,7 @@
           '<div class="fc-elegi">Tocá para desplegar o plegar cada parte</div><div class="fc-chips">' + chips + '</div>' +
           '<div class="fcd-secs">' + secs + '</div>' + sello(p) +
           '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small></div></div>' +
-          '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">📋 Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa">💬 WhatsApp</button>' +
+          '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">📋 Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa">💬 WhatsApp (imagen)</button><button type="button" class="fcd-btn" data-fcd="img">⬇️ Descargar imagen</button>' +
           (navigator.share ? '<button type="button" class="fcd-btn" data-fcd="share">📤 Compartir</button>' : '') +
           '<button type="button" class="fcd-btn ' + (ok ? 'sec' : 'ok') + '" data-fcd="ok">' + (ok ? '↩ Marcar para repasar' : '✅ Me lo sé') + '</button></div>' +
           '<p class="fc-legal">' + esc(d.meta.descargo) + '</p></article>';
@@ -145,8 +259,9 @@
         if (a === 'todo') { if (abiertas.size === disp.length) abiertas.clear(); else disp.forEach((s) => abiertas.add(s.id)); return pintar(); }
         if (a === 'ok') { marcar(p.id, !leerOk()[p.id]); pintar(); if (opts.alCambiar) opts.alCambiar(); return; }
         if (a === 'copiar') return copiar(textoCompartir(p, ids())).then((ok) => avisoToast(host, ok ? '📋 ¡Copiado!' : 'No se pudo copiar'));
-        if (a === 'wa') { const t = encodeURIComponent(textoCompartir(p, ids())); window.open('https://wa.me/?text=' + t, '_blank', 'noopener'); return avisoToast(host, '💬 Abriendo WhatsApp…'); }
-        if (a === 'share') { navigator.share({ title: p.titulo + ' · NikaMed', text: textoCompartir(p, ids()) }).catch(() => {}); return; }
+        if (a === 'wa') { avisoToast(host, '🖼️ Armando la imagen…'); return compartirImagen(p, ids(), 'wa', host); }
+        if (a === 'img') return compartirImagen(p, ids(), 'descargar', host);
+        if (a === 'share') { navigator.share({ title: p.titulo + ' · NikaMed', text: mensajeCorto(p) }).catch(() => {}); return; }
       };
     });
   }
@@ -172,7 +287,7 @@
   function tile(p, i) {
     const ok = leerOk();
     const rot = [-1.6, 1.2, -0.8, 1.8, -1.1, 0.6][i % 6];
-    return '<button type="button" class="fc-tile" data-fc-abrir="' + esc(p.id) + '" style="--paper:' + (PAPEL[(p.up || [])[0]] || '#fff3a3') + ';--rot:' + rot + 'deg;--d:' + Math.min(i, 14) * 0.035 + 's">' +
+    return '<button type="button" class="fc-tile" data-fc-abrir="' + esc(p.id) + '" style="--paper:' + (colorDe(p)) + ';--rot:' + rot + 'deg;--d:' + Math.min(i, 14) * 0.035 + 's">' +
       '<span class="pin"></span>' + (ok[p.id] ? '<span class="ok" title="Ya la sabés">✅</span>' : '') +
       '<h4>' + esc(p.titulo) + '</h4><span class="hint">Tocá para abrir la tarjeta</span>' +
       '<span class="tags">' + etiquetaFuente(p) + '</span><span class="fc-sello" title="NikaMed"></span></button>';
@@ -331,7 +446,7 @@
         if (i >= mazo.length) return fin();
         const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont), pct = Math.round(i * 100 / mazo.length);
         host.innerHTML = '<div class="fcs-run"><div class="fcs-top"><button type="button" class="fcs-salir" data-salir="1">✕ Salir</button><div class="fcs-barra"><b style="width:' + pct + '%"></b></div><span class="fcs-cont">' + (i + 1) + ' / ' + mazo.length + '</span></div>' +
-          '<div class="fcs-escena"><div class="fcs-in' + (vista ? ' vuelta' : '') + '" style="--paper:' + (PAPEL[(p.up || [])[0]] || '#fff3a3') + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
+          '<div class="fcs-escena"><div class="fcs-in' + (vista ? ' vuelta' : '') + '" style="--paper:' + (colorDe(p)) + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
           '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.q) + '</div>' +
           (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p) : '<p class="fcs-pensa">Pensá tu respuesta y después tocá «Mostrar».</p>') + '</div></div>' +
           '<div class="fcs-acc">' + (vista ? '<button type="button" class="fcs-b no" data-r="no">😅 A repasar</button><button type="button" class="fcs-b si" data-r="si">✅ Lo sabía</button>' : '<button type="button" class="fcs-b mostrar" data-mostrar="1">👀 Mostrar respuesta</button>') + '</div></div>';
@@ -381,7 +496,7 @@
       const mostrar = () => {
         const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont), ok = leerOk()[p.id];
         host.innerHTML = '<div class="fcs-run"><div class="fcs-top"><button type="button" class="fcs-salir" data-salir="1">✕ Salir</button><div class="fcs-barra"><b style="width:' + ((i + 1) * 100 / mazo.length) + '%"></b></div><span class="fcs-cont">' + (i + 1) + ' / ' + mazo.length + '</span></div>' +
-          '<div class="fcs-escena" data-voltear="1"><div class="fcs-in fcs-pr' + (vista ? ' vuelta' : '') + '" style="--paper:' + (PAPEL[(p.up || [])[0]] || '#fff3a3') + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
+          '<div class="fcs-escena" data-voltear="1"><div class="fcs-in fcs-pr' + (vista ? ' vuelta' : '') + '" style="--paper:' + (colorDe(p)) + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
           '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + (ok ? ' · ✅ ya la sabés' : '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.nom) + '</div>' +
           (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p) : '<p class="fcs-pensa">Tocá la tarjeta o presioná espacio para darla vuelta.</p>') + '</div></div>' +
           '<div class="fcs-acc"><button type="button" class="fcs-b no" data-prev="1"' + (i ? '' : ' disabled') + '>← Anterior</button><button type="button" class="fcs-b mostrar" data-voltear="1">' + (vista ? '↺ Ver el frente' : '👀 Dar vuelta') + '</button>' +
@@ -417,5 +532,5 @@
     });
   }
 
-  window.NikaFlashcards = { cargar, montar, abrir, detalle, panel, simulador, practicar, datos: () => D };
+  window.NikaFlashcards = { cargar, montar, abrir, detalle, panel, simulador, practicar, generarImagen, datos: () => D };
 })();
