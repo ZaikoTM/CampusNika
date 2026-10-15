@@ -34,8 +34,8 @@
     pintarLista();
   }
 
-  async function guardar(texto, posicion) {
-    const fila = { recurso: ctx.url, recurso_titulo: ctx.titulo || null, modulo: ctx.modulo || null, up_id: ctx.upId || null, tipo: ctx.tipo, posicion: posicion == null ? null : posicion, texto: texto, color: 'amarillo' };
+  async function guardar(texto, posicion, color) {
+    const fila = { recurso: ctx.url, recurso_titulo: ctx.titulo || null, modulo: ctx.modulo || null, up_id: ctx.upId || null, tipo: ctx.tipo, posicion: posicion == null ? null : posicion, texto: texto, color: color || 'amarillo' };
     let ok = false;
     if (await sesion()) {
       try { const { data, error } = await cli().from('notas_estudio').insert(fila).select().single(); if (!error && data) { notas.push(data); ok = true; } } catch (_) {}
@@ -81,32 +81,64 @@
   // ---------- interfaz ----------
   function css() {
     if (document.getElementById('nk-notas-css')) return;
+    if (!document.getElementById('nk-caveat')) { const f = document.createElement('link'); f.id = 'nk-caveat'; f.rel = 'stylesheet'; f.href = 'https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap'; document.head.appendChild(f); }
     const st = document.createElement('style'); st.id = 'nk-notas-css';
     st.textContent = `
-#nk-notas { border-top: 1px solid #cbd5e1; background: var(--card-bg, #fff); color: var(--text-main, #0f172a); padding: 14px 16px; }
-#nk-notas h5 { margin: 0 0 10px; font-size: .95rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-#nk-notas h5 a { margin-left: auto; font-size: .78rem; font-weight: 700; color: #0284c7; text-decoration: none; }
-.nkn-form { display: flex; gap: 8px; align-items: flex-start; flex-wrap: wrap; }
-.nkn-form textarea { flex: 1 1 240px; min-height: 44px; max-height: 140px; resize: vertical; border: 1px solid var(--border, #cbd5e1); background: var(--bg-body, #f8fafc); color: inherit; border-radius: 10px; padding: 9px 11px; font: inherit; font-size: .9rem; }
-.nkn-pos { background: rgba(14, 165, 233, .12); color: #0369a1; border: 1px solid rgba(14, 165, 233, .35); border-radius: 99px; padding: 6px 11px; font-weight: 800; font-size: .8rem; cursor: pointer; white-space: nowrap; font-family: inherit; }
-.nkn-pos[aria-pressed="false"] { opacity: .5; text-decoration: line-through; }
-.nkn-save { background: linear-gradient(135deg, #0284c7, #6366f1); color: #fff; border: 0; border-radius: 10px; padding: 10px 16px; font-weight: 800; cursor: pointer; font-family: inherit; }
-.nkn-lista { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; max-height: 260px; overflow: auto; }
-.nkn-it { display: flex; gap: 9px; align-items: flex-start; background: rgba(250, 204, 21, .14); border-left: 4px solid #facc15; border-radius: 9px; padding: 8px 10px; font-size: .88rem; animation: nknIn .3s ease both; }
-@keyframes nknIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.nkn-it .nkn-chip { flex: 0 0 auto; background: #0ea5e9; color: #fff; border: 0; border-radius: 99px; padding: 3px 9px; font-weight: 800; font-size: .74rem; cursor: pointer; font-family: inherit; }
-.nkn-it .nkn-tx { flex: 1; white-space: pre-wrap; word-break: break-word; }
-.nkn-it .nkn-x { background: transparent; border: 0; cursor: pointer; opacity: .55; font-size: 1rem; color: inherit; }
-.nkn-it .nkn-x:hover { opacity: 1; }
-.nkn-vacio { opacity: .65; font-size: .85rem; margin: 6px 0 0; }
-.nkm { margin-top: 12px; background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 6px; font-size: .85rem; }
-.nkm-it { text-align: left; background: rgba(14, 165, 233, .08); border: 1px solid rgba(14, 165, 233, .25); border-radius: 10px; padding: 7px 10px; cursor: pointer; color: inherit; font-family: inherit; display: flex; flex-direction: column; gap: 2px; }
-.nkm-it:hover { background: rgba(14, 165, 233, .16); }
+#nk-notas { position: relative; margin: 0; padding: 18px 18px 16px; color: var(--text-main, #0f172a);
+  background:
+    linear-gradient(180deg, rgba(14,165,233,.07), transparent 120px),
+    var(--card-bg, #fff);
+  border-top: 0; animation: nknPanel .5s cubic-bezier(.22, 1, .36, 1) both; }
+#nk-notas::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899, #f59e0b, #0ea5e9); background-size: 200% 100%; animation: nknCinta 8s linear infinite; }
+@keyframes nknPanel { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes nknCinta { to { background-position: -200% 0; } }
+#nk-notas h5 { margin: 0 0 12px; font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#nk-notas h5 .nkn-n { background: rgba(14,165,233,.15); color: #0369a1; border-radius: 99px; padding: 1px 9px; font-size: .75rem; }
+#nk-notas h5 a { margin-left: auto; font-size: .78rem; font-weight: 800; color: #fff !important; background: linear-gradient(135deg, #0284c7, #6366f1); border-radius: 99px; padding: 6px 13px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+#nk-notas h5 a:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -8px rgba(99,102,241,.8); }
+
+.nkn-hoja { position: relative; border-radius: 14px; border: 1px solid rgba(148,163,184,.4); background: #fffef7;
+  background-image: repeating-linear-gradient(transparent 0, transparent 27px, rgba(14,165,233,.22) 27px, rgba(14,165,233,.22) 28px);
+  box-shadow: 0 14px 26px -18px rgba(15,23,42,.5), inset 3px 0 0 rgba(239,68,68,.5); padding: 12px 14px 12px 22px; transition: box-shadow .25s, transform .25s; }
+.nkn-hoja:focus-within { transform: translateY(-2px); box-shadow: 0 20px 34px -18px rgba(14,165,233,.6), inset 3px 0 0 rgba(239,68,68,.6); border-color: #38bdf8; }
+.nkn-hoja textarea { width: 100%; box-sizing: border-box; min-height: 84px; max-height: 220px; resize: vertical; border: 0; outline: 0; background: transparent; color: #1e293b; font-family: 'Caveat', 'Segoe Print', cursive; font-size: 1.35rem; line-height: 28px; padding: 0; }
+.nkn-barra { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.nkn-pos { background: rgba(14,165,233,.12); color: #0369a1; border: 1px solid rgba(14,165,233,.4); border-radius: 99px; padding: 6px 12px; font-weight: 800; font-size: .8rem; cursor: pointer; white-space: nowrap; font-family: inherit; transition: transform .15s, opacity .2s; }
+.nkn-pos:hover { transform: scale(1.05); }
+.nkn-pos[aria-pressed="false"] { opacity: .45; text-decoration: line-through; }
+.nkn-cols { display: flex; gap: 6px; }
+.nkn-col { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(15,23,42,.25); cursor: pointer; padding: 0; transition: transform .18s; }
+.nkn-col:hover { transform: scale(1.2); }
+.nkn-col[aria-pressed="true"] { box-shadow: 0 0 0 2px #0ea5e9; transform: scale(1.15); }
+.nkn-save { margin-left: auto; background: linear-gradient(135deg, #0284c7, #6366f1); color: #fff; border: 0; border-radius: 12px; padding: 10px 18px; font-weight: 800; cursor: pointer; font-family: inherit; transition: transform .18s, box-shadow .18s; }
+.nkn-save:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -8px rgba(99,102,241,.8); }
+.nkn-save:active { transform: scale(.96); }
+
+.nkn-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 16px; max-height: 340px; overflow: auto; padding: 6px 4px 10px; }
+.nkn-it { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 14px 12px 10px; border-radius: 4px 4px 14px 4px; font-family: 'Caveat', 'Segoe Print', cursive; font-size: 1.2rem; line-height: 1.2;
+  color: #1e293b; background: var(--nk-c, #fef08a); box-shadow: 0 10px 18px -12px rgba(15,23,42,.55); transform: rotate(var(--nk-r, -1deg)); transition: transform .25s cubic-bezier(.22, 1, .36, 1), box-shadow .25s; animation: nknIn .45s cubic-bezier(.22, 1, .36, 1) both; }
+.nkn-it:nth-child(2n) { --nk-r: 1.2deg; } .nkn-it:nth-child(3n) { --nk-r: -.5deg; }
+.nkn-it::before { content: ''; position: absolute; top: -8px; left: 50%; width: 54px; height: 16px; transform: translateX(-50%) rotate(-3deg); background: rgba(255,255,255,.55); border: 1px solid rgba(0,0,0,.06); }
+.nkn-it:hover { transform: rotate(0) translateY(-4px) scale(1.02); box-shadow: 0 18px 28px -14px rgba(15,23,42,.6); z-index: 2; }
+@keyframes nknIn { from { opacity: 0; transform: translateY(14px) rotate(var(--nk-r, -1deg)) scale(.96); } to { opacity: 1; transform: rotate(var(--nk-r, -1deg)); } }
+.nkn-it .nkn-chip { align-self: flex-start; background: rgba(15,23,42,.78); color: #fff; border: 0; border-radius: 99px; padding: 2px 10px; font-weight: 800; font-size: .72rem; cursor: pointer; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; transition: transform .15s; }
+.nkn-it .nkn-chip:hover { transform: scale(1.08); background: #0284c7; }
+.nkn-it .nkn-tx { white-space: pre-wrap; word-break: break-word; }
+.nkn-it .nkn-x { position: absolute; top: 4px; right: 6px; background: transparent; border: 0; cursor: pointer; opacity: 0; font-size: .9rem; color: #334155; transition: opacity .2s; }
+.nkn-it:hover .nkn-x { opacity: .8; }
+.nkn-c-amarillo { --nk-c: #fef08a; } .nkn-c-rosa { --nk-c: #fbcfe8; } .nkn-c-celeste { --nk-c: #bae6fd; } .nkn-c-verde { --nk-c: #bbf7d0; }
+.nkn-vacio { opacity: .7; font-size: .88rem; margin: 14px 0 0; text-align: center; }
+body.dark-mode #nk-notas .nkn-hoja, body.tema-premium #nk-notas .nkn-hoja { background-color: #1e293b; background-image: repeating-linear-gradient(transparent 0, transparent 27px, rgba(148,163,184,.25) 27px, rgba(148,163,184,.25) 28px); border-color: rgba(148,163,184,.3); }
+body.dark-mode #nk-notas .nkn-hoja textarea, body.tema-premium #nk-notas .nkn-hoja textarea { color: #f1f5f9; }
+@media (prefers-reduced-motion: reduce) { #nk-notas, #nk-notas::before, .nkn-it { animation: none; } }
+
+.nkm { margin-top: 14px; background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 7px; font-size: .85rem; box-shadow: 0 12px 24px -18px rgba(15,23,42,.5); }
+.nkm b { font-weight: 800; }
+.nkm-it { text-align: left; background: rgba(14,165,233,.08); border: 1px solid rgba(14,165,233,.25); border-left: 4px solid #0ea5e9; border-radius: 10px; padding: 7px 10px; cursor: pointer; color: inherit; font-family: inherit; display: flex; flex-direction: column; gap: 2px; transition: transform .18s, background .18s; }
+.nkm-it:hover { background: rgba(14,165,233,.16); transform: translateX(4px); }
 .nkm-r { font-weight: 800; font-size: .76rem; color: #0369a1; }
 .nkm-t { opacity: .9; }
-body.dark-mode #nk-notas, body.tema-premium #nk-notas { border-top-color: rgba(148, 163, 184, .25); }
-body.dark-mode .nkn-it, body.tema-premium .nkn-it { background: rgba(250, 204, 21, .12); }
-@media (prefers-reduced-motion: reduce) { .nkn-it { animation: none; } }`;
+`;
     document.head.appendChild(st);
   }
 
@@ -117,9 +149,11 @@ body.dark-mode .nkn-it, body.tema-premium .nkn-it { background: rgba(250, 204, 2
     if (!p) { p = document.createElement('div'); p.id = 'nk-notas'; cont.appendChild(p); }
     const esVideo = ctx.tipo === 'video';
     p.innerHTML = '<h5>📝 Mis notas de este ' + (esVideo ? 'video' : 'material') + ' <span class="nkn-n"></span><a href="mis_notas.html">Ver todas mis notas →</a></h5>'
-      + '<div class="nkn-form"><button type="button" class="nkn-pos" aria-pressed="true" title="Activá o desactivá el marcador de posición"></button>'
-      + '<textarea maxlength="1200" placeholder="' + (esVideo ? 'Escribí una nota para este minuto…' : 'Escribí una nota (se guarda con la página que estás leyendo)…') + '"></textarea>'
-      + '<button type="button" class="nkn-save">Guardar nota</button></div>'
+      + '<div class="nkn-hoja"><textarea maxlength="1200" placeholder="' + (esVideo ? 'Escribí una nota para este minuto…' : 'Escribí una nota (se guarda con la página que estás leyendo)…') + '"></textarea>'
+      + '<div class="nkn-barra"><button type="button" class="nkn-pos" aria-pressed="true" title="Activá o desactivá el marcador de posición"></button>'
+      + '<span class="nkn-cols" role="group" aria-label="Color de la nota">'
+      + [['amarillo', '#fde047'], ['rosa', '#f9a8d4'], ['celeste', '#7dd3fc'], ['verde', '#86efac']].map((c, i) => '<button type="button" class="nkn-col" data-c="' + c[0] + '" style="background:' + c[1] + '" aria-pressed="' + (i === 0) + '" title="' + c[0] + '"></button>').join('')
+      + '</span><button type="button" class="nkn-save">Guardar nota</button></div></div>'
       + '<div class="nkn-lista"></div>';
     const ta = p.querySelector('textarea'), pos = p.querySelector('.nkn-pos');
     const actualizarPos = () => {
@@ -135,9 +169,10 @@ body.dark-mode .nkn-it, body.tema-premium .nkn-it { background: rgba(250, 204, 2
     const enviar = () => {
       const tx = ta.value.trim(); if (!tx) { ta.focus(); return; }
       const usar = pos.getAttribute('aria-pressed') === 'true' && pos.dataset.v !== '' && !pos.hidden;
-      guardar(tx, usar ? Number(pos.dataset.v) : null); ta.value = '';
+      const col = (p.querySelector('.nkn-col[aria-pressed="true"]') || {}).dataset; guardar(tx, usar ? Number(pos.dataset.v) : null, col && col.c); ta.value = '';
     };
     p.querySelector('.nkn-save').addEventListener('click', enviar);
+    p.querySelectorAll('.nkn-col').forEach((b) => b.addEventListener('click', () => { p.querySelectorAll('.nkn-col').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); }));
     ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); enviar(); } });
     p.querySelector('.nkn-lista').addEventListener('click', (e) => {
       const x = e.target.closest('.nkn-x'), c = e.target.closest('.nkn-chip');
@@ -155,7 +190,7 @@ body.dark-mode .nkn-it, body.tema-premium .nkn-it { background: rgba(250, 204, 2
     const l = p.querySelector('.nkn-lista');
     l.innerHTML = notas.length ? notas.map((n) => {
       const chip = n.posicion == null ? '' : '<button type="button" class="nkn-chip" title="Ir a este punto">' + (n.tipo === 'video' ? '⏱ ' + fmt(n.posicion) : '📄 Pág. ' + n.posicion) + '</button>';
-      return '<div class="nkn-it" data-id="' + esc(n.id) + '">' + chip + '<div class="nkn-tx">' + esc(n.texto) + '</div><button type="button" class="nkn-x" title="Borrar nota" aria-label="Borrar nota">✕</button></div>';
+      return '<div class="nkn-it nkn-c-' + esc(n.color || 'amarillo') + '" data-id="' + esc(n.id) + '">' + chip + '<div class="nkn-tx">' + esc(n.texto) + '</div><button type="button" class="nkn-x" title="Borrar nota" aria-label="Borrar nota">✕</button></div>';
     }).join('') : '<p class="nkn-vacio">Todavía no tomaste notas acá. Escribí la primera: queda guardada con el ' + (ctx.tipo === 'video' ? 'minuto' : 'punto') + ' en el que estás.</p>';
   }
 
