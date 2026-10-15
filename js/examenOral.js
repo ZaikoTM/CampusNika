@@ -862,6 +862,29 @@
   }
 
   /* ===================== interfaz ===================== */
+  function fmtProfesor(t) {
+    const txt = String(t || '').trim();
+    if (!txt || txt === '…') return '<div class="eo-tipeo" aria-label="El profesor está escribiendo"><i></i><i></i><i></i></div>';
+    const fr = txt.split(/(?<=[.!?…])\s+/).filter(Boolean);
+    let html = '', buf = [], n = 0;
+    const volcar = () => { if (buf.length) { html += '<p class="eo-par" style="--d:' + (n++ * 0.14).toFixed(2) + 's">' + esc(buf.join(' ')) + '</p>'; buf = []; } };
+    fr.forEach((x) => {
+      if (/\?/.test(x)) { volcar(); html += '<div class="eo-preg" style="--d:' + (n++ * 0.14).toFixed(2) + 's"><span>❓ Pregunta</span>' + esc(x) + '</div>'; }
+      else { buf.push(x); if (buf.length >= 2) volcar(); }
+    });
+    volcar();
+    return html;
+  }
+  const ANIMOS_TIP = ['Hablá con tus palabras, sin apuro: el profesor evalúa lo que sabés.', 'Ordená la idea: primero qué es, después cómo se diagnostica y cómo se trata.', 'Si dudás, pensá en voz alta: se valora el razonamiento clínico.', 'Mencioná lo más peligroso primero: es lo que más pesa en el examen.', 'Podés pausar el dictado y escribir si necesitás ordenar ideas.'];
+  let relojInt = null;
+  function arrancarReloj() {
+    if (relojInt) return;
+    relojInt = setInterval(() => {
+      const el = $('eo-reloj'); if (!el || estado.fase !== 'examen' || !estado.t0) return;
+      const sg = Math.max(0, Math.floor((Date.now() - estado.t0) / 1000));
+      el.textContent = '⏱ ' + String(Math.floor(sg / 60)).padStart(2, '0') + ':' + String(sg % 60).padStart(2, '0');
+    }, 1000);
+  }
   function avatar(habla) { const a = $('eo-avatar'); if (a) a.classList.toggle('habla', !!habla); }
   function pintarTranscripcion() {
     const t = $('eo-trans'), cnt = $('eo-cont');
@@ -877,21 +900,23 @@
     if (estado.fase === 'fin') return pintarFin(raizEl);
     const prevEsc = $('eo-escrito') ? $('eo-escrito').value : '';
     const P = PARAMS[estado.mood], q = estado.preguntas[estado.i], total = estado.preguntas.length, ev = estado.estadoVoz, area = areaActual();
+    const nuevoTexto = estado.sub !== estado._ultSub; estado._ultSub = estado.sub;
     const preparando = ev === 'pregunta' && (!estado.sub || estado.sub === '…') && !estado.cerrando;
     const hablando = ev === 'pregunta' && !preparando && !estado.cerrando;
     raizEl.innerHTML = '<div class="eo-sala" style="--m:' + P.color + '">'
       + '<div class="eo-prog"><i style="width:' + Math.round(estado.i / total * 100) + '%"></i></div>'
-      + '<div class="eo-cab"><span>Pregunta <b>' + (estado.i + 1) + '</b> de ' + total + '</span><span class="eo-estado"><em class="eo-st">' + (preparando ? '⏳ Preparando la pregunta' : hablando ? '🔊 El profesor habla' : ev === 'escucha' ? (estado.micPausado || !escuchando ? '✍️ Tu turno' : '🎙️ Te escucho') : ev === 'evalua' ? '🧠 El profesor piensa' : estado.cerrando ? '➡️ Siguiente pregunta' : '') + '</em><em id="eo-corrigiendo"></em><em id="eo-integridad" class="eo-int"></em></span><span class="eo-animo">' + P.ico + ' ' + P.txt + '</span></div>'
+      + '<div class="eo-pasos" aria-label="Progreso">' + Array.from({ length: total }, (_, k) => '<i class="' + (k < estado.i ? 'hecha' : k === estado.i ? 'ahora' : '') + '"></i>').join('') + '</div>'
+      + '<div class="eo-cab"><span class="eo-npreg">Pregunta <b>' + (estado.i + 1) + '</b> de ' + total + '</span><span class="eo-reloj" id="eo-reloj">⏱ 00:00</span><span class="eo-estado"><em class="eo-st">' + (preparando ? '⏳ Preparando la pregunta' : hablando ? '🔊 El profesor habla' : ev === 'escucha' ? (estado.micPausado || !escuchando ? '✍️ Tu turno' : '🎙️ Te escucho') : ev === 'evalua' ? '🧠 El profesor piensa' : estado.cerrando ? '➡️ Siguiente pregunta' : '') + '</em><em id="eo-corrigiendo"></em><em id="eo-integridad" class="eo-int"></em></span><span class="eo-animo">' + P.ico + ' ' + P.txt + '</span></div>'
       + '<div class="eo-prof"><div class="eo-avatar' + (S.hablando ? ' habla' : '') + '" id="eo-avatar"><span class="eo-cara">' + P.ico + '</span><i class="eo-onda"><b></b><b></b><b></b><b></b><b></b></i></div>'
-      + '<div class="eo-bocadillo"><small>' + esc(area.nombre) + ' · ' + esc(etiquetaUp(q.up)) + '</small>'
-      + (estado.subs ? '<p>' + esc(estado.sub || '…') + '</p>' : '<p class="eo-oculto">🎧 Escuchá al profesor…</p>') + '</div></div>'
+      + '<div class="eo-bocadillo"><div class="eo-quien"><b>Profesor examinador</b><small>' + esc(area.nombre) + ' · ' + esc(etiquetaUp(q.up)) + '</small></div>'
+      + (estado.subs ? '<div class="eo-texto' + (nuevoTexto ? '' : ' quieto') + '">' + fmtProfesor(estado.sub) + '</div>' : '<p class="eo-oculto">🎧 Escuchá al profesor…</p>') + '</div></div>'
       + (estado.aviso ? '<p class="eo-aviso">' + esc(estado.aviso) + '</p>' : '')
       + (ev === 'escucha' && estado.limite ? '<div class="eo-micro"><div class="eo-limite"><div class="eo-limite-t">📏 Llegaste al límite de este mensaje (' + MAX_TURNO + ' caracteres)</div>'
           + '<p>Si no terminaste la idea, podés <b>seguir en el siguiente mensaje</b>: el profesor no te corrige en el medio y evalúa todo junto cuando envíes.</p>'
           + '<div class="eo-trans">' + esc(corto(estado.textoPausado, 260)) + '</div>'
           + '<div class="eo-acc"><button type="button" class="eo-btn" data-eo="seguir">➕ Seguir en el siguiente mensaje</button><button type="button" class="eo-btn eo-btn--ok" data-eo="listo">✅ Terminé, enviar</button></div>'
           + '<p class="eo-regla">Total de esta pregunta: ' + ((estado.conv && estado.conv.alumno ? estado.conv.alumno.length : 0) + estado.textoPausado.length) + ' / ' + MAX_ALUMNO + ' caracteres</p></div></div>'
-        : ev === 'escucha' ? '<div class="eo-micro"><div class="eo-mic ' + (escuchando ? 'on' : '') + '" data-eo="mic" role="button" title="Encender o apagar el micrófono">' + (estado.micPausado ? '🔇' : '🎙️') + '</div>'
+        : ev === 'escucha' ? '<div class="eo-micro"><div class="eo-tip">💡 ' + ANIMOS_TIP[(estado.i + (estado.conv ? estado.conv.turnos : 0)) % ANIMOS_TIP.length] + '</div><div class="eo-micfila"><i class="eo-ondas' + (escuchando ? ' on' : '') + '"><b></b><b></b><b></b><b></b></i><div class="eo-mic ' + (escuchando ? 'on' : '') + '" data-eo="mic" role="button" title="Encender o apagar el micrófono">' + (estado.micPausado ? '🔇' : '🎙️') + '</div><i class="eo-ondas' + (escuchando ? ' on' : '') + '"><b></b><b></b><b></b><b></b></i></div>'
           + (estado.conv && estado.conv.partes && estado.conv.partes.length ? '<div class="eo-partes">🧩 Respuesta en ' + (estado.conv.partes.length + 1) + ' partes · llevás ' + (estado.conv.alumno || '').length + ' / ' + MAX_ALUMNO + ' caracteres</div>' : '')
           + '<div class="eo-trans" id="eo-trans">Te escucho…</div><div class="eo-cont" id="eo-cont"></div>'
           + '<div class="eo-escribe"><textarea id="eo-escrito" maxlength="' + MAX_TURNO + '" placeholder="O escribí tu respuesta acá…" rows="3"></textarea></div>'
@@ -910,7 +935,7 @@
       + '</div>';
     const nuevo = $('eo-escrito'); if (nuevo && prevEsc) nuevo.value = prevEsc;
     if (ev === 'escucha') pintarTranscripcion();
-    pintarProgresoCorreccion(); pintarIntegridad();
+    pintarProgresoCorreccion(); pintarIntegridad(); arrancarReloj();
   }
 
   const lblAnio = (n) => n + '.º Año';
