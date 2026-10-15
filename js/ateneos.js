@@ -16,7 +16,7 @@ const NikaAteneos = (() => {
   const ALFABETO = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
   let conectado = null;                        // { sala, nombre, silenciosa }
-  let pipMin = false, pipVisible = true;
+  let pipMin = false, pipVisible = false, pipOculto = false;
   let tiles = new Map();
   let dock = null, pip = null;
   let ultimoPeers = [];
@@ -97,6 +97,17 @@ const NikaAteneos = (() => {
       .at-d-btns button:disabled { opacity: .4; cursor: not-allowed; transform: none; }
       .at-d-btns button.salir { background: #dc2626; color: #fff; width: auto; padding: 0 14px; border-radius: 9999px; font-size: .8rem; font-weight: 800; }
       .at-d-btns button.salir:hover { background: #b91c1c; }
+      #at-dock { transition: transform .25s ease, opacity .2s, padding .2s, gap .2s; }
+      #at-dock .at-min { width: 30px; height: 30px; font-size: .8rem; }
+      #at-b-ext { display: none; }
+      #at-dock.compacto { gap: 8px; padding: 6px 8px; opacity: .92; }
+      #at-dock.compacto .at-d-txt, #at-dock.compacto #at-b-cam, #at-dock.compacto #at-b-scr, #at-dock.compacto #at-b-pip { display: none; }
+      #at-dock.compacto #at-b-ext { display: inline-block; width: 34px; height: 34px; }
+      #at-dock.compacto:hover { opacity: 1; }
+      #at-dock.mini { left: auto; right: 14px; bottom: 14px; transform: none; padding: 5px; gap: 0; cursor: pointer; opacity: .85; }
+      #at-dock.mini .at-d-txt, #at-dock.mini .at-d-btns { display: none; }
+      #at-dock.mini .at-d-av { width: 34px; height: 34px; }
+      #at-dock.mini:hover { opacity: 1; }
       @media (max-width: 640px) { #at-dock { gap: 8px; padding: 6px 8px; } .at-d-txt b { max-width: 90px; } .at-d-btns button { width: 36px; height: 36px; } }
 
       /* Ventana de video flotante (PiP) */
@@ -339,7 +350,7 @@ const NikaAteneos = (() => {
     });
     conectado = { sala, nombre, silenciosa };
     try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: !VoiceManager.yo.meta.muted })); } catch (_) {}
-    dock.classList.add('on'); pip.classList.add('on'); pipVisible = true;
+    dock.classList.add('on'); pipVisible = false; pipOculto = false; aplicarModoDock();
     document.body.classList.add('at-en-llamada');
     $('#at-d-name').textContent = nombre;
     actualizarTiles(); actualizarDock();
@@ -399,6 +410,17 @@ const NikaAteneos = (() => {
   }
 
   // ------------------------------------------------------------------ dock
+  // Modos de la barra: 'compacto' (micrófono + salir, por defecto), 'completo' y 'mini' (un círculo).
+  let modoDock = 'compacto';
+  try { modoDock = localStorage.getItem('nika_at_dock') || 'compacto'; } catch (_) {}
+  function aplicarModoDock() {
+    if (!dock) return;
+    dock.classList.toggle('compacto', modoDock === 'compacto');
+    dock.classList.toggle('mini', modoDock === 'mini');
+    const b = $('#at-b-min');
+    if (b) { b.textContent = modoDock === 'completo' ? '⌄' : modoDock === 'compacto' ? '⇲' : ''; b.title = modoDock === 'completo' ? 'Reducir la barra' : 'Ocultar la barra'; }
+  }
+  function cambiarModoDock(m) { modoDock = m; try { localStorage.setItem('nika_at_dock', m); } catch (_) {} aplicarModoDock(); }
   function construirDock() {
     if (dock) return;
     dock = document.createElement('div'); dock.id = 'at-dock';
@@ -406,11 +428,13 @@ const NikaAteneos = (() => {
       <div class="at-d-info"><span class="at-d-av at-halo" id="at-self-av"><img id="at-self-img" alt="" src=""></span>
         <div class="at-d-txt"><b id="at-d-name">Ateneo</b><small><i class="at-lat" id="at-lat"></i><span id="at-lat-t">-- ms</span> · <span id="at-n">1/4</span></small></div></div>
       <div class="at-d-btns">
+        <button type="button" id="at-b-ext" title="Mostrar todos los controles" aria-label="Más controles">⋯</button>
         <button type="button" id="at-b-mic" title="Micrófono (Ctrl+M)" aria-label="Micrófono">🎤</button>
         <button type="button" id="at-b-cam" title="Cámara" aria-label="Cámara">📷</button>
         <button type="button" id="at-b-scr" title="Compartir pantalla" aria-label="Compartir pantalla">🖥️</button>
         <button type="button" id="at-b-pip" title="Mostrar u ocultar videos" aria-label="Videos">👥</button>
         <button type="button" class="salir" id="at-b-out" title="Desconectar">Salir</button>
+        <button type="button" id="at-b-min" class="at-min" aria-label="Reducir la barra">⌄</button>
       </div>`;
     document.body.appendChild(dock);
     $('#at-self-img').src = metaPropia().avatar;
@@ -421,6 +445,10 @@ const NikaAteneos = (() => {
     $('#at-b-scr').onclick = async () => { const r = await VoiceManager.alternarPantalla(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#at-b-pip').onclick = () => mostrarVideo(true);
     $('#at-b-out').onclick = desconectar;
+    $('#at-b-min').onclick = () => cambiarModoDock(modoDock === 'completo' ? 'compacto' : 'mini');
+    $('#at-b-ext').onclick = () => cambiarModoDock('completo');
+    dock.querySelector('.at-d-info').addEventListener('click', () => { if (modoDock === 'mini') cambiarModoDock('compacto'); });
+    aplicarModoDock();
     document.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && !e.altKey && e.key.toLowerCase() === 'm' && conectado) { e.preventDefault(); alternarMic(); } });
   }
 
@@ -465,7 +493,7 @@ const NikaAteneos = (() => {
     pip.innerHTML = `<div class="at-pip-h"><span id="at-pip-t">📹 Ateneo</span><span><button type="button" id="at-pip-min" title="Minimizar">_</button><button type="button" id="at-pip-x" title="Ocultar">✕</button></span></div><div class="at-pip-grid" id="at-pip-grid"></div>`;
     document.body.appendChild(pip);
     $('#at-pip-min').onclick = () => { pipMin = !pipMin; pip.classList.toggle('min', pipMin); };
-    $('#at-pip-x').onclick = () => { pipVisible = false; pip.classList.remove('on'); };
+    $('#at-pip-x').onclick = () => { pipVisible = false; pipOculto = true; pip.classList.remove('on'); };
     // arrastre
     const h = $('.at-pip-h', pip);
     h.addEventListener('pointerdown', (e) => {
@@ -480,7 +508,7 @@ const NikaAteneos = (() => {
 
   function mostrarVideo(alternar) {
     if (!pip || !conectado) return;
-    pipVisible = alternar ? !pipVisible : true;
+    if (alternar) { const abierto = pip.classList.contains('on'); pipVisible = !abierto; pipOculto = abierto; } else { pipVisible = true; pipOculto = false; }
     if (pipVisible) { pipMin = false; pip.classList.remove('min'); }
     sincronizarPip();
   }
@@ -556,7 +584,8 @@ const NikaAteneos = (() => {
   function sincronizarPip() {
     const stage = !!conectado && stageActivo();
     document.body.classList.toggle('at-stage', stage);
-    if (pip) pip.classList.toggle('on', !!conectado && pipVisible && !stage);
+    const hayVideo = [...tiles.values()].some((t) => !t.classList.contains('sinvideo'));
+    if (pip) pip.classList.toggle('on', !!conectado && !stage && (pipVisible || (hayVideo && !pipOculto)));
   }
 
   function infoSala(sala) {
