@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://nikamed.com.ar/</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  
+    <image:image>
+      <image:loc>https://nikamed.com.ar/assets/og/nikamed-og-1200x630.png</image:loc>
+      <image:title>NikaMed | Campus Nika</image:title>
+      <image:caption>Campus de estudio y simuladores de Medicina para estudiantes de Argentina.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nikamed.com.ar/assets/flashcards/flashcards-diabetes-gestacional.webp</image:loc>
+      <image:title>Flashcard de diabetes gestacional</image:title>
+      <image:caption>Tarjeta clínica del Simulador FlashCard de NikaMed: tratamiento, metas de glucemia e insulinas.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nikamed.com.ar/assets/flashcards/flashcards-trastornos-hipertensivos.webp</image:loc>
+      <image:title>Flashcard de trastornos hipertensivos del embarazo</image:title>
+      <image:caption>Tarjeta clínica del Simulador FlashCard de NikaMed: preeclampsia y eclampsia, diagnóstico y tratamiento.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nikamed.com.ar/assets/flashcards/flashcards-colestasis-embarazo.webp</image:loc>
+      <image:title>Flashcard de colestasis intrahepática del embarazo</image:title>
+      <image:caption>Tarjeta clínica del Simulador FlashCard de NikaMed: diagnóstico y tratamiento de la colestasis.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://nikamed.com.ar/nikamed-plus.html</loc>
@@ -47,6 +68,22 @@
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  
+    <image:image>
+      <image:loc>https://nikamed.com.ar/assets/flashcards/flashcards-diabetes-gestacional.webp</image:loc>
+      <image:title>Flashcard de diabetes gestacional</image:title>
+      <image:caption>Tarjeta clínica del Simulador FlashCard de NikaMed: tratamiento, metas de glucemia e insulinas.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nikamed.com.ar/assets/flashcards/flashcards-trastornos-hipertensivos.webp</image:loc>
+      <image:title>Flashcard de trastornos hipertensivos del embarazo</image:title>
+      <image:caption>Tarjeta clínica del Simulador FlashCard de NikaMed: preeclampsia y eclampsia, diagnóstico y tratamiento.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nikamed.com.ar/assets/flashcards/flashcards-colestasis-embarazo.webp</image:loc>
+      <image:title>Flashcard de colestasis intrahepática del embarazo</image:title>
+      <image:caption>Tarjeta clínica del Simulador FlashCard de NikaMed: diagnóstico y tratamiento de la colestasis.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://nikamed.com.ar/guia-como-estudiar-medicina.html</loc>
