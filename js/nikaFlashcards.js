@@ -451,6 +451,13 @@
     { id: 'parcial', ico: '📄', nom: 'Parcial', desc: 'UP1 a UP3, todas las secciones', c: '#0ea5e9' },
     { id: 'final', ico: '🏁', nom: 'Final', desc: 'Todo el temario de la materia', c: '#ec4899' }
   ];
+  // Qué tiene que completar la persona: se arma con las secciones que realmente trae esa ficha
+  const guiaDe = (p, c) => {
+    const nombres = seccionesDe(c).filter((x) => tieneSec(p, x)).map((x) => x.nom.toLowerCase());
+    const lista = nombres.length > 1 ? nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1] : (nombres[0] || '');
+    const pre = c.id === 'todo' ? 'Contá el tema completo: ' : 'Escribí ';
+    return '✍️ ' + pre + (c.id === 'todo' ? '' : 'sobre ') + 'qué tenés que completar → <b>' + esc(lista) + '</b>.';
+  };
   const PARCIAL_UPS = ['up1', 'up2', 'up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'];
   const seccionesDe = (c) => c.secs.map((s) => SECS.find((x) => x.id === s)).filter(Boolean);
   const bloquesHtml = (p, c) => seccionesDe(c).filter((s) => tieneSec(p, s)).map((s) => '<div class="fc-bloque"><h5>' + s.ico + ' ' + esc(s.nom) + '</h5>' + s.html(p) + '</div>').join('');
@@ -489,7 +496,7 @@
         const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont), pct = Math.round(i * 100 / mazo.length);
         host.innerHTML = '<div class="fcs-run"><div class="fcs-top"><button type="button" class="fcs-salir" data-salir="1">✕ Salir</button><div class="fcs-barra"><b style="width:' + pct + '%"></b></div><span class="fcs-cont">' + (i + 1) + ' / ' + mazo.length + '</span></div>' +
           '<div class="fcs-escena"><div class="fcs-in' + (vista ? ' vuelta' : '') + '" style="--paper:' + (colorDe(p)) + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
-          '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.q) + '</div>' +
+          '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.q) + '</div>' + (vista ? '' : '<div class="fcs-guia">' + guiaDe(p, c) + '</div>') +
           (vista ? (res ? resultadoHtml(res, miResp) : '') + '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p)
             : '<textarea class="fcs-input" id="fcs-input" rows="5" maxlength="1500" placeholder="Escribí tu respuesta como la dirías en el examen…" aria-label="Tu respuesta">' + esc(miResp) + '</textarea>') + '</div></div>' +
           '<div class="fcs-acc">' + (vista ? '<button type="button" class="fcs-b no' + (res && res.nota < 0.7 ? ' sug' : '') + '" data-r="no">😅 A repasar</button><button type="button" class="fcs-b si' + (res && res.nota >= 0.7 ? ' sug' : '') + '" data-r="si">✅ Lo sabía</button>'
@@ -542,12 +549,13 @@
         const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont), ok = leerOk()[p.id];
         host.innerHTML = '<div class="fcs-run"><div class="fcs-top"><button type="button" class="fcs-salir" data-salir="1">✕ Salir</button><div class="fcs-barra"><b style="width:' + ((i + 1) * 100 / mazo.length) + '%"></b></div><span class="fcs-cont">' + (i + 1) + ' / ' + mazo.length + '</span></div>' +
           '<div class="fcs-escena" data-voltear="1"><div class="fcs-in fcs-pr' + (vista ? ' vuelta' : '') + '" style="--paper:' + (colorDe(p)) + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
-          '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + (ok ? ' · ✅ ya la sabés' : '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.nom) + '</div>' +
-          (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p) : '<p class="fcs-pensa">Tocá la tarjeta o presioná espacio para darla vuelta.</p>') + '</div></div>' +
+          '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + (ok ? ' · ✅ ya la sabés' : '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.q) + '</div>' + (vista ? '' : '<div class="fcs-guia">' + guiaDe(p, c) + '</div>') +
+          (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p)
+            : '<div class="fcs-escribe fcs-dentro"><textarea class="fcs-input" id="fcs-input" rows="5" maxlength="1500" placeholder="Escribí tu respuesta acá…" aria-label="Tu respuesta">' + esc(miResp) + '</textarea>' +
+              '<button type="button" class="fcs-b si" data-verificar="1">✅ Verificar mi respuesta</button><small>También podés darla vuelta para ver la respuesta sin escribir.</small></div>') + '</div></div>' +
           '<div class="fcs-acc"><button type="button" class="fcs-b no" data-prev="1"' + (i ? '' : ' disabled') + '>← Anterior</button><button type="button" class="fcs-b mostrar" data-voltear="1">' + (vista ? '↺ Ver el frente' : '👀 Dar vuelta') + '</button>' +
           '<button type="button" class="fcs-b si" data-saber="1">' + (ok ? '↩ Repasar' : '✅ La sé') + '</button><button type="button" class="fcs-b no" data-next="1"' + (i < mazo.length - 1 ? '' : ' disabled') + '>Siguiente →</button></div>' +
-          (res ? resultadoHtml(res, miResp) : '<div class="fcs-escribe"><textarea class="fcs-input" id="fcs-input" rows="4" maxlength="1500" placeholder="Escribí acá tu respuesta y verificá si es correcta…" aria-label="Tu respuesta">' + esc(miResp) + '</textarea>' +
-            '<button type="button" class="fcs-b si" data-verificar="1">✅ Verificar mi respuesta</button></div>') +
+          (res ? resultadoHtml(res, miResp) : '') +
           '<p class="fcs-ayuda">Atajos: ← → para moverte · espacio para dar vuelta · S para marcar «La sé»</p></div>';
       };
       const ir = (k) => { i = Math.max(0, Math.min(mazo.length - 1, i + k)); vista = false; miResp = ''; res = null; mostrar(); };
@@ -559,6 +567,7 @@
         const ck = t.closest('[data-chk]'); if (ck) { st.soloPend = ck.checked; return setup(); }
         if (t.closest('[data-go]')) { mazo = poolDe(st); if (!mazo.length) return; i = 0; vista = false; enMazo = true; miResp = ''; res = null; return mostrar(); }
         if (t.closest('[data-verificar]')) { const ta = host.querySelector('#fcs-input'); miResp = ta ? ta.value : ''; res = verificar(mazo[i], CONTENIDOS.find((x) => x.id === st.cont), miResp); vista = true; return mostrar(); }
+        if (t.closest('textarea, .fcs-escribe')) return;       // escribir dentro de la tarjeta no la da vuelta
         if (t.closest('[data-voltear]')) { const ta = host.querySelector('#fcs-input'); if (ta) miResp = ta.value; vista = !vista; return mostrar(); }
         if (t.closest('[data-next]')) return ir(1);
         if (t.closest('[data-prev]')) return ir(-1);

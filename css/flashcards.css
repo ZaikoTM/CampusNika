@@ -271,3 +271,22 @@ body.dark-mode .fcs-escribe .fcs-input { background: #0f172a; border-color: #2b3
 .fc-sello{width:34px;height:34px;image-rendering:auto;opacity:1}
 .fc-tag{font-weight:800;letter-spacing:.1px;background:rgba(255,255,255,.8)}
 @media (-webkit-min-device-pixel-ratio:1.5),(min-resolution:144dpi){.fc-tile{border-width:.5px}}
+
+.fcs-guia{margin-top:6px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.55);font-size:.8rem;font-weight:700;color:#334155;line-height:1.4}
+.fcs-guia b{color:#0f172a}
+.fcs-dentro{margin-top:12px;display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.fcs-dentro .fcs-input{margin-top:0;background:rgba(255,255,255,.8);color:#0f172a;border-color:rgba(15,23,42,.3)}
+.fcs-dentro small{opacity:.7;font-size:.72rem;font-weight:700;text-align:center}
+body.dark-mode .fcs-guia{background:rgba(255,255,255,.7);color:#334155}
+body.dark-mode .fcs-dentro .fcs-input{background:rgba(255,255,255,.85);color:#0f172a}
+
+/* ===== post-it grande (practicar / simulador): texto nítido, sin rotación residual ===== */
+.fcs-in{transform:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:geometricPrecision;backface-visibility:hidden;
+  border:1px solid rgba(0,0,0,.06);background-image:linear-gradient(165deg,rgba(255,255,255,.4),rgba(255,255,255,0) 48%,rgba(0,0,0,.045));box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 24px 40px -16px rgba(15,23,42,.5)}
+@keyframes fcsEntra{from{opacity:0;transform:translateX(36px) rotate(1.6deg)}to{opacity:1;transform:none}}
+@keyframes fcsVuelta{from{transform:rotateY(-70deg)}to{transform:none}}
+.fcs-q{font-size:2rem;line-height:1.1;color:#1e293b}
+.fcs-pq{font-weight:800;font-size:.95rem;color:#9d174d}
+.fcs-uni-t{color:#334155;opacity:.85}
+.fcs-resp{font-size:.98rem}
+.fcs-sg{image-rendering:auto}
