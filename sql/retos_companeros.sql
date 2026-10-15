@@ -22,6 +22,8 @@ create table if not exists public.retos (
 );
 
 alter table public.retos add column if not exists modo text not null default 'todas';
+-- clave de las sesiones del Pomodoro compartido (ya la crea 10_pomodoro_compartido.sql; acá se asegura por si falta)
+alter table public.study_sessions add column if not exists shared_key text;
 
 create table if not exists public.retos_miembros (
   reto_id uuid not null references public.retos(id) on delete cascade,

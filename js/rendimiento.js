@@ -298,6 +298,9 @@ const NikaRendimiento = (() => {
     if (!p || !p.moduleId || !p.upId || minutes <= 0) return { ok: false, motivo: 'datos' };
     if (!_reclamarSesionCompartida(p.sharedKey)) return { ok: true, duplicada: true };
 
+    // NikaPlan: igual que en una sesión en solitario, estas horas descuentan del plan de estudio elegido (js/planPomodoro.js)
+    try { window.dispatchEvent(new CustomEvent('nika:pomodoro-minutos', { detail: { moduleId: p.moduleId, upId: p.upId, minutes, completed: p.completed !== false, compartida: true } })); } catch (_) {}
+
     // Copia local: la misma que escribe pomodoroEngine.js para las sesiones en solitario
     // ("Total en <módulo>" de estudio.html y el cálculo de pendientes de cargarDatos()).
     try {
