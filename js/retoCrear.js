@@ -24,6 +24,21 @@
   const fechaFin = (d) => new Date(Date.now() + d * 86400000).toLocaleDateString('es-AR', { weekday: 'short', day: 'numeric', month: 'short' });
   const etiquetaDias = (d) => (d === 1 ? '1 día · solo hoy' : d + ' días') + ' · hasta el ' + fechaFin(d);
 
+  // Explica con claridad cómo se suma el progreso (se muestra al crear, al recibir la invitación y en cada reto)
+  function explicar(r) {
+    const t = TIPOS[r.tipo] || TIPOS.minutos, mat = r.modulo && MATERIAS[r.modulo] ? MATERIAS[r.modulo][0] : null;
+    const queSuma = { minutos: 'los <b>minutos de estudio</b> de tus Pomodoros terminados', sesiones: 'cada <b>Pomodoro terminado</b>', simulacros: 'cada <b>simulacro</b> que completes', dias: 'cada <b>día en que estudies</b> (un día cuenta una sola vez por persona)' }[r.tipo];
+    const li = [];
+    li.push('Cada integrante suma ' + queSuma + (mat ? ', <b>solo de ' + esc(mat) + '</b>' : ' de <b>cualquier materia</b>') + '.');
+    li.push(r.modo === 'compartidas'
+      ? '<b>Solo cuentan las sesiones compartidas:</b> las que hagan juntos en la sala Pomodoro. Lo que estudies por tu cuenta no suma a este reto.'
+      : 'Se suma <b>solo y automáticamente</b>, estudies solo o acompañado. No hay que cargar nada a mano.');
+    li.push('Si estudian <b>1 hora juntos</b> en la sala, <b>a cada uno le suma 1 hora</b> en su perfil y el reto avanza <b>2 horas</b> (la de cada uno).');
+    li.push('La meta es <b>común</b>: el avance de todos se junta en una sola barra. Es cooperativo, no un ranking.');
+    li.push('Solo cuenta lo hecho <b>desde que empieza el reto</b> hasta su fecha de cierre' + (r.dias ? ' (' + r.dias + (r.dias === 1 ? ' día' : ' días') + ')' : '') + '; y solo de quienes <b>aceptaron</b> la invitación.');
+    return '<div class="rf-como"><div class="rf-como-t">ℹ️ Cómo se suma en este reto</div><ul>' + li.map((x) => '<li>' + x + '</li>').join('') + '</ul></div>';
+  }
+
   function montar(host, opt) {
     opt = opt || {};
     const amigos = opt.amigos || [];
@@ -51,6 +66,7 @@
         + '<div class="rf-lbl">Invitá a tus amigos <small id="rf-n-inv">(' + S.invitados.size + ' elegidos)</small></div><div class="rf-amigos">'
         + (amigos.length ? amigos.map((a) => '<button type="button" class="rf-am' + (S.invitados.has(String(a.id)) ? ' on' : '') + '" data-rf="amigo" data-id="' + esc(a.id) + '"><span class="rf-av">' + avatar(a) + '</span><span class="rf-am-n">' + esc(a.fullname || a.username) + '</span><i>✓</i></button>').join('')
           : '<p class="rf-sinam">Todavía no tenés amigos agregados. Sumalos desde “Comunidad & Amigos”; también podés crear el reto y sumarlos después.</p>') + '</div>'
+        + '<div id="rf-como">' + explicar({ tipo: S.tipo, modo: S.modo, modulo: S.modulo, dias: S.dias }) + '</div>'
         + '<p class="rf-est" id="rf-est"></p>'
         + '<p class="rf-error" id="rf-error" hidden></p>'
         + '<div class="rf-acc"><button type="button" class="rf-btn rf-btn--sec" data-rf="cancelar">Cancelar</button><button type="button" class="rf-btn rf-btn--go" id="rf-crear" data-rf="crear"><span class="rf-go-t">🚀 Crear reto</span><span class="rf-spin" aria-hidden="true"></span></button></div></div>';
@@ -119,6 +135,7 @@
           S.dias = Number(e.target.value) || 1; e.target.style.setProperty('--p', Math.round((S.dias - 1) / 89 * 100) + '%');
           const t = host.querySelector('#rf-dias-t'); if (t) t.textContent = etiquetaDias(S.dias);
           host.querySelectorAll('.rf-chips--dur button').forEach((c) => c.classList.toggle('on', Number(c.dataset.v) === S.dias));
+          const c = host.querySelector('#rf-como'); if (c) c.innerHTML = explicar({ tipo: S.tipo, modo: S.modo, modulo: S.modulo, dias: S.dias });
           estimar();
         }
       });
@@ -127,5 +144,5 @@
     return { destruir() { host.innerHTML = ''; } };
   }
 
-  window.NikaRetoCrear = { montar, TIPOS, MATERIAS, fmtValor };
+  window.NikaRetoCrear = { montar, explicar, TIPOS, MATERIAS, fmtValor };
 })();

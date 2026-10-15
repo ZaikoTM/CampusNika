@@ -104,3 +104,10 @@
 .rf--sala .rf-modo button.on, .rf--sala .rf-am.on { background: rgba(255,255,255,.12); border-color: #fda4af; }
 
 @media (prefers-reduced-motion: reduce) { .rf-head, .rf-ico, .rf-btn--go, .rf-btn--go::after, .tick, .rf-tipo.on, .rf-chips button.on, .rf-error { animation: none; } .rf *, .rf-spin { transition: none; } }
+
+/* explicacion de como se suma */
+.rf-como { margin-top: 16px; padding: 14px 16px; border-radius: 18px; background: linear-gradient(135deg, rgba(14,165,233,.12), rgba(99,102,241,.12)); border: 1px solid rgba(99,102,241,.3); animation: rfTick .4s; }
+.rf-como-t { font-weight: 800; font-size: .88rem; margin-bottom: 6px; }
+.rf-como ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: .84rem; line-height: 1.45; }
+.rf-como li::marker { color: #6366f1; }
+.rf--sala .rf-como { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); }

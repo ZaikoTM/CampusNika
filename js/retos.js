@@ -90,6 +90,8 @@
       + '<div class="rt-numeros"><b>' + fmtValor(r.tipo, r.total) + '</b><span>de ' + metaTxt + ' entre todos</span></div></div></div>'
       + '<div class="rt-barra"><i style="--w:' + pct + '%"></i></div>'
       + (logrado ? '<p class="rt-logro">🎉 ¡Meta compartida cumplida! Lo lograron entre todos.</p>' : '')
+      + (modo === 'inv' ? window.NikaRetoCrear.explicar({ tipo: r.tipo, modo: r.modo, modulo: r.modulo, dias: Math.max(1, Math.round((new Date(r.hasta) - new Date(r.desde)) / 86400000)) })
+        : '<details class="rt-como"><summary>ℹ️ ¿Cómo se suma?</summary>' + window.NikaRetoCrear.explicar({ tipo: r.tipo, modo: r.modo, modulo: r.modulo, dias: Math.max(1, Math.round((new Date(r.hasta) - new Date(r.desde)) / 86400000)) }) + '</details>')
       + '<ul class="rt-gente">' + gente + '</ul>' + pie + '</article>';
   }
 

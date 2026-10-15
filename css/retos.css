@@ -140,3 +140,10 @@ body.dark-mode .rt-logro, body.dark-mode .rt-badge.ok { color: #86efac; } body.d
 @keyframes rtHalo { to { box-shadow: 0 0 0 22px rgba(255,255,255,0); } }
 .rt-modal-card { padding-top: 0; }
 @media (prefers-reduced-motion: reduce) { .rt-crear::before, .rt-crear::after, .rt-crear-halo, .rt-crear.pulso { animation: none; } }
+
+.rt-como { margin-top: 12px; border-radius: 14px; border: 1px solid var(--border, #e2e8f0); padding: 4px 12px; background: color-mix(in srgb, var(--card-bg, #fff) 70%, transparent); }
+.rt-como summary { cursor: pointer; font-weight: 800; font-size: .82rem; padding: 8px 0; list-style: none; }
+.rt-como summary::-webkit-details-marker { display: none; }
+.rt-como[open] summary { color: #6366f1; }
+.rt-como .rf-como { margin: 0 0 10px; }
+.rt-card > .rf-como { margin: 14px 0 0; }
