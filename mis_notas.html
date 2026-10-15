@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
-    <link rel="stylesheet" href="css/mis-notas.css?v=2">
+    <link rel="stylesheet" href="css/mis-notas.css?v=3">
 </head>
 <body class="nikasim mis-notas" data-pagina="mis-notas">
 
@@ -57,21 +57,46 @@
         </header>
 
         <main class="ns-main" id="ns-main">
+            <div class="gn-topmenu">
+                <div class="gn-menuwrap">
+                    <button type="button" class="gn-btn" id="gn-menu-btn" aria-haspopup="menu">☰ Menú <span class="gn-pap-n" hidden></span></button>
+                    <ul class="gn-menu" id="gn-menu" role="menu">
+                        <li role="menuitem" data-menu="biblioteca">📚 Biblioteca de cuadernos</li>
+                        <li role="menuitem" data-menu="papelera">♻️ Papelera de reciclaje <span class="gn-pap-n" hidden></span></li>
+                        <li role="menuitem" data-menu="guia">❓ Guía de uso y funciones</li>
+                    </ul>
+                </div>
+                <button type="button" class="gn-btn" data-menu="papelera">♻️ Papelera <span class="gn-pap-n" hidden></span></button>
+                <button type="button" class="gn-btn" data-menu="guia">❓ Cómo se usa</button>
+            </div>
+
+            <!-- PAPELERA -->
+            <section id="gn-papelera" hidden aria-label="Papelera de reciclaje">
+                <div class="gn-barra">
+                    <button type="button" class="gn-btn" id="gn-pap-volver">← Volver</button>
+                    <h2>♻️ Papelera de reciclaje</h2>
+                    <span class="gn-cuenta">Se vacía sola a los 7 días</span>
+                    <div class="gn-barra-acc"><button type="button" class="gn-btn gn-btn--peligro" id="gn-pap-vaciar" hidden>Vaciar papelera</button></div>
+                </div>
+                <div class="gn-paginas gn-paginas--pap" id="gn-pap-lista"></div>
+            </section>
+
             <!-- BIBLIOTECA -->
             <section id="gn-biblioteca" aria-label="Biblioteca de cuadernos">
                 <div class="gn-hero">
                     <div><small>Biblioteca</small><h2>Tus cuadernos</h2><p>Cada materia tiene su cuaderno. Las notas que tomás sobre videos y materiales llegan solas, y también podés escribir notas sueltas.</p></div>
                     <div class="gn-hero-acc">
                         <input id="gn-q" type="search" placeholder="Buscar en todas tus notas…" aria-label="Buscar en todas tus notas">
-                        <label class="gn-orden"><span>Ordenar</span>
-                            <select id="gn-orden" aria-label="Ordenar cuadernos">
-                                <option value="anio-asc">Por año (4° → 6°)</option>
-                                <option value="anio-desc">Por año (6° → 4°)</option>
-                                <option value="nombre-asc">Nombre (A → Z)</option>
-                                <option value="nombre-desc">Nombre (Z → A)</option>
-                                <option value="recientes">Más recientes</option>
-                            </select>
-                        </label>
+                        <div class="gn-orden">
+                            <button type="button" class="gn-orden-btn" id="gn-orden-btn" aria-haspopup="listbox" aria-expanded="false"><span class="gn-orden-et">Ordenar</span><b id="gn-orden-txt">Por año</b><i aria-hidden="true">▾</i></button>
+                            <ul class="gn-orden-menu" id="gn-orden-menu" role="listbox" aria-label="Ordenar cuadernos">
+                                <li role="option" data-v="anio-asc">Por año (4° → 6°)</li>
+                                <li role="option" data-v="anio-desc">Por año (6° → 4°)</li>
+                                <li role="option" data-v="nombre-asc">Nombre (A → Z)</li>
+                                <li role="option" data-v="nombre-desc">Nombre (Z → A)</li>
+                                <li role="option" data-v="recientes">Más recientes</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <p class="gn-sync" id="gn-sync" role="status" aria-live="polite">Cargando…</p>
@@ -87,8 +112,13 @@
                     <span class="gn-cuenta" id="gn-cuenta"></span>
                     <div class="gn-barra-acc">
                         <input id="gn-q2" type="search" placeholder="Buscar en este cuaderno…" aria-label="Buscar en este cuaderno">
+                        <label class="gn-nc" title="Color de las notas nuevas"><span>Post-it nuevo</span>
+                        <select id="gn-color-nueva" aria-label="Color de las notas nuevas">
+                            <option value="amarillo">🟡 Amarillo</option><option value="rosa">🩷 Rosa</option><option value="celeste">🔵 Celeste</option><option value="verde">🟢 Verde</option>
+                            <option value="naranja">🟠 Naranja</option><option value="lila">🟣 Lila</option><option value="blanco">⚪ Blanco</option><option value="gris">⚫ Gris</option>
+                        </select></label>
                         <button type="button" class="gn-btn" id="gn-nueva">＋ Nueva nota</button>
-                        <button type="button" class="gn-btn" onclick="window.print()">🖨️ Imprimir</button>
+                        <button type="button" class="gn-btn" id="gn-imprimir">🖨️ Imprimir cuaderno</button>
                     </div>
                 </div>
                 <div class="gn-fmt" id="gn-fmt" role="toolbar" aria-label="Formato de texto">
@@ -96,7 +126,7 @@
                         <option value="Caveat">Manuscrita</option><option value="Plus Jakarta Sans">Moderna</option><option value="Arial">Arial</option>
                         <option value="Georgia">Georgia</option><option value="Times New Roman">Times</option><option value="Courier New">Máquina</option>
                         <option value="Comic Sans MS">Comic</option><option value="Segoe Print">Letra a mano</option></select>
-                    <select id="gn-tam" aria-label="Tamaño"><option value="">Tamaño</option><option>12</option><option>14</option><option>16</option><option>18</option><option>22</option><option>26</option><option>32</option><option>40</option></select>
+                    <span class="gn-step" title="Tamaño de letra"><button type="button" data-sz="-1" aria-label="Achicar letra">−</button><input type="number" id="gn-tam" value="18" min="8" max="96" aria-label="Tamaño de letra"><button type="button" data-sz="1" aria-label="Agrandar letra">+</button></span>
                     <span class="gn-sep"></span>
                     <button type="button" data-cmd="bold" title="Negrita"><b>N</b></button>
                     <button type="button" data-cmd="italic" title="Cursiva"><i>C</i></button>
@@ -116,12 +146,7 @@
                     <button type="button" data-cmd="insertUnorderedList" title="Lista con viñetas">•</button>
                     <button type="button" data-cmd="insertOrderedList" title="Lista numerada">1.</button>
                     <button type="button" data-cmd="removeFormat" title="Quitar formato">✕</button>
-                    <span class="gn-sep"></span>
-                    <label class="gn-nc" title="Color de las notas nuevas"><span>Post-it nuevo</span>
-                        <select id="gn-color-nueva" aria-label="Color de las notas nuevas">
-                            <option value="amarillo">🟡 Amarillo</option><option value="rosa">🩷 Rosa</option><option value="celeste">🔵 Celeste</option><option value="verde">🟢 Verde</option>
-                            <option value="naranja">🟠 Naranja</option><option value="lila">🟣 Lila</option><option value="blanco">⚪ Blanco</option><option value="gris">⚫ Gris</option>
-                        </select></label>
+                    
                 </div>
                 <div class="gn-libro">
                     <nav class="gn-indice" id="gn-indice" aria-label="Índice del cuaderno"></nav>
@@ -149,7 +174,7 @@
     <script src="js/pomodoroEngine.js?v=7"></script>
     <script src="js/pomodoroSyncManager.js?v=7"></script>
     <script src="js/pomodoroBar.js?v=8"></script>
-    <script src="js/misNotas.js?v=2"></script>
+    <script src="js/misNotas.js?v=3"></script>
     <script src="js/chatFlotante.js?v=7"></script>
     <script src="js/assistant.js?v=3"></script>
     <script>

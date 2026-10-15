@@ -14,6 +14,10 @@
   const fmt = (s) => { s = Math.max(0, Math.floor(s || 0)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), r = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(r).padStart(2, '0'); };
   const idYT = (u) => { const m = String(u || '').match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/); return m ? m[1] : null; };
 
+  // Mis notas guarda título/formato/papelera empaquetados en "texto": acá se lee el texto plano y se ocultan las eliminadas
+  const desempacar = (n) => { if (typeof n.texto === 'string' && n.texto.indexOf('{"nk":1') === 0) { try { const o = JSON.parse(n.texto); n.texto = o.p || ''; n.eliminada_en = o.d || null; n.titulo = o.t || ''; } catch (_) {} } return n; };
+  const activas = (a) => (a || []).map(desempacar).filter((n) => !n.eliminada_en);
+
   const lsLeer = () => { try { return JSON.parse(localStorage.getItem(LS) || '[]'); } catch (_) { return []; } };
   const lsGuardar = (a) => { try { localStorage.setItem(LS, JSON.stringify(a)); } catch (_) {} };
 
@@ -32,7 +36,7 @@
       } catch (_) {}
       try {
         const { data, error } = await cli().from('notas_estudio').select('*').eq('recurso', ctx.url).order('posicion', { ascending: true, nullsFirst: false }).order('creado_en');
-        if (!error && data) notas = notas.filter((n) => n.local).concat(data);
+        if (!error && data) notas = notas.filter((n) => n.local).concat(activas(data));
       } catch (_) {}
     }
     pintarLista();
@@ -207,7 +211,7 @@ body.dark-mode #nk-notas .nkn-hoja textarea, body.tema-premium #nk-notas .nkn-ho
     if (!box) { box = document.createElement('div'); box.id = 'nk-marcadores'; ph.insertAdjacentElement('afterend', box); }
     let lista = lsLeer().filter((n) => n.modulo === modulo && String(n.up_id) === String(upId));
     if (await sesion()) {
-      try { const { data, error } = await cli().from('notas_estudio').select('*').eq('modulo', modulo).eq('up_id', String(upId)).order('creado_en'); if (!error && data) lista = lista.filter((n) => n.local).concat(data); } catch (_) {}
+      try { const { data, error } = await cli().from('notas_estudio').select('*').eq('modulo', modulo).eq('up_id', String(upId)).order('creado_en'); if (!error && data) lista = lista.filter((n) => n.local).concat(activas(data)); } catch (_) {}
     }
     if (!lista.length) { box.innerHTML = ''; return; }
     box.innerHTML = '<div class="nkm"><b>🔖 Mis marcadores de esta unidad (' + lista.length + ')</b>' + lista.map((n, i) =>
