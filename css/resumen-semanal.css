@@ -1,0 +1,40 @@
+/* CAMPUS NIKA · Tu semana (resumen semanal) */
+.rs-card { position: relative; margin: 18px 0; padding: 20px 22px; border-radius: 20px; overflow: hidden;
+  background: linear-gradient(135deg, color-mix(in srgb, #0ea5e9 9%, var(--card-bg, #fff)), var(--card-bg, #fff) 60%);
+  border: 1px solid color-mix(in srgb, #0ea5e9 30%, var(--border, #e2e8f0)); box-shadow: 0 18px 34px -24px rgba(14, 165, 233, .6); opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s cubic-bezier(.22, 1, .36, 1); }
+.rs-card.rs-on { opacity: 1; transform: none; }
+.rs-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, #0ea5e9, #8b5cf6, #ec4899); }
+.rs-cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.rs-cab small { text-transform: uppercase; letter-spacing: .12em; font-weight: 800; font-size: .68rem; color: #0284c7; }
+.rs-cab h3 { margin: 2px 0; font-size: 1.25rem; }
+.rs-rango { margin: 0; font-size: .8rem; opacity: .7; }
+.rs-ir { align-self: center; padding: 9px 15px; border-radius: 12px; font-weight: 800; font-size: .85rem; text-decoration: none; color: #fff !important; background: linear-gradient(135deg, #0284c7, #6366f1); transition: transform .18s, box-shadow .18s; }
+.rs-ir:hover { transform: translateY(-2px); box-shadow: 0 12px 20px -10px rgba(99, 102, 241, .8); }
+.rs-titular { margin: 12px 0 14px; font-weight: 700; font-size: .98rem; }
+.rs-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.rs-k { padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, var(--card-bg, #fff) 70%, transparent); border: 1px solid var(--border, #e2e8f0); display: flex; flex-direction: column; gap: 3px; }
+.rs-k small { font-size: .72rem; font-weight: 800; opacity: .65; text-transform: uppercase; letter-spacing: .06em; }
+.rs-k b { font-size: 1.5rem; line-height: 1.1; }
+.rs-k b em { font-style: normal; font-size: .9rem; opacity: .6; }
+.rs-d { font-size: .76rem; font-weight: 800; }
+.rs-d--sube { color: #16a34a; } .rs-d--baja { color: #dc2626; } .rs-d--igual { opacity: .65; }
+.rs-fila { display: grid; grid-template-columns: minmax(220px, 1fr) 1.4fr; gap: 18px; margin-top: 16px; align-items: end; }
+.rs-barras { display: flex; align-items: flex-end; gap: 8px; height: 110px; padding: 6px 4px 0; }
+.rs-col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 5px; }
+.rs-col i { display: block; width: 100%; max-width: 30px; height: 0; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, #38bdf8, #6366f1); transition: height .9s cubic-bezier(.22, 1, .36, 1); }
+.rs-anim .rs-col i { height: var(--h); }
+.rs-col.hoy i { background: linear-gradient(180deg, #f59e0b, #ef4444); }
+.rs-col span { font-size: .7rem; font-weight: 800; opacity: .65; }
+.rs-col.hoy span { opacity: 1; color: #ea580c; }
+.rs-dest { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: .86rem; }
+.rs-dest li { display: flex; align-items: flex-start; gap: 8px; line-height: 1.35; }
+.rs-dest a { color: #0284c7; font-weight: 800; text-decoration: none; margin-left: 4px; }
+.rs-pt { flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; }
+.rs-cargando { display: grid; gap: 10px; }
+.rs-cargando i { display: block; height: 42px; border-radius: 12px; background: linear-gradient(100deg, rgba(148,163,184,.16) 30%, rgba(148,163,184,.34) 50%, rgba(148,163,184,.16) 70%) 0 0 / 220% 100%; animation: cvSkel 1.3s linear infinite; }
+body.dark-mode .rs-card, body.tema-premium .rs-card { background: linear-gradient(135deg, rgba(14,165,233,.12), var(--card-bg, #111827) 60%); }
+body.dark-mode .rs-cab small { color: #7dd3fc; } body.dark-mode .rs-dest a { color: #7dd3fc; }
+body.dark-mode .rs-d--sube { color: #4ade80; } body.dark-mode .rs-d--baja { color: #f87171; }
+@media (max-width: 760px) { .rs-fila { grid-template-columns: 1fr; } .rs-card { padding: 16px; } }
+@media (prefers-reduced-motion: reduce) { .rs-card, .rs-col i { transition: none; } .rs-cargando i { animation: none; } }
+@media print { .rs-ir { display: none; } }
