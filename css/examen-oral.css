@@ -133,3 +133,19 @@ body.dark-mode .eo-error, body.dark-mode .eo-feedback .mal, body.dark-mode .eo-r
 .eo-machete-ico { font-size: 2.6rem; animation: eoLate 1.2s ease-in-out infinite; } .eo-machete-card p { line-height: 1.5; margin: 6px 0 16px; }
 body.dark-mode .eo-anio.on { color: #7dd3fc; } body.dark-mode .eo-det summary { color: #7dd3fc; } body.dark-mode .eo-abog { color: #c4b5fd; }
 @media (max-width: 700px) { .eo-pil { grid-template-columns: 110px 1fr 36px; } .eo-modos { grid-template-columns: 1fr; } }
+
+/* respuestas largas: seguir en el siguiente mensaje */
+.eo-limite { text-align: left; padding: 16px; border-radius: 20px; border: 2px solid #f59e0b; background: rgba(245,158,11,.1); animation: eoEntra .35s cubic-bezier(.22, 1.4, .36, 1); }
+.eo-limite-t { font-weight: 800; margin-bottom: 4px; } .eo-limite p { margin: 4px 0 10px; line-height: 1.45; font-size: .9rem; }
+.eo-partes { display: inline-block; margin-bottom: 10px; padding: 6px 14px; border-radius: 99px; background: rgba(99,102,241,.14); color: #4338ca; font-weight: 800; font-size: .8rem; }
+.eo-btn--ok { background: linear-gradient(135deg, #16a34a, #22c55e); }
+/* devolucion final: revision detallada */
+.eo-rev { margin: 10px 0; display: flex; flex-direction: column; gap: 8px; } .eo-rev-t { font-weight: 800; }
+.eo-rev-i { padding: 10px 12px; border-radius: 14px; border: 1px solid var(--border, #e2e8f0); border-left-width: 5px; background: color-mix(in srgb, var(--card-bg, #fff) 70%, transparent); }
+.eo-rev-i.ok { border-left-color: #22c55e; } .eo-rev-i.med { border-left-color: #f59e0b; } .eo-rev-i.mal { border-left-color: #ef4444; }
+.eo-rev-p { display: flex; gap: 8px; align-items: flex-start; font-size: .9rem; } .eo-rev-p span { font-weight: 900; }
+.eo-rev-i p { margin: 6px 0 0; font-size: .86rem; line-height: 1.5; } .eo-rev-i em { font-style: normal; font-weight: 800; opacity: .7; }
+.eo-rev-i .conf { color: #b45309; } .eo-rev-i .deb { color: #0369a1; background: rgba(14,165,233,.08); padding: 8px 10px; border-radius: 10px; }
+.eo-modelo { margin: 10px 0; padding: 12px 14px; border-radius: 14px; background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.35); } .eo-modelo p { margin: 4px 0 0; line-height: 1.5; font-size: .88rem; }
+.eo-just { margin: 10px 0 4px; padding: 12px 14px; border-radius: 14px; background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.25); opacity: 1; } .eo-just p { margin: 4px 0; line-height: 1.55; font-size: .86rem; } .eo-just small { opacity: .65; }
+body.dark-mode .eo-rev-i .conf { color: #fcd34d; } body.dark-mode .eo-rev-i .deb { color: #7dd3fc; } body.dark-mode .eo-partes { color: #a5b4fc; }
