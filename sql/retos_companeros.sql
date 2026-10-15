@@ -15,10 +15,13 @@ create table if not exists public.retos (
   tipo text not null check (tipo in ('minutos', 'sesiones', 'simulacros', 'dias')),
   meta integer not null check (meta > 0),
   modulo text,                              -- null = todas las materias
+  modo text not null default 'todas',       -- 'todas' (cualquier sesión suma) | 'compartidas' (solo sesiones de la sala compartida)
   desde timestamptz not null default now(),
   hasta timestamptz not null,
   creado_en timestamptz not null default now()
 );
+
+alter table public.retos add column if not exists modo text not null default 'todas';
 
 create table if not exists public.retos_miembros (
   reto_id uuid not null references public.retos(id) on delete cascade,
@@ -101,11 +104,13 @@ begin
       when 'minutos' then coalesce((
         select sum(s.duration_minutes) from public.study_sessions s
         where s.user_id::text = m.user_id::text and coalesce(s.completed, true) = true
-          and s.completed_at >= r.desde and s.completed_at < r.hasta and (r.modulo is null or s.modulo = r.modulo)), 0)
+          and s.completed_at >= r.desde and s.completed_at < r.hasta and (r.modulo is null or s.modulo = r.modulo)
+          and (r.modo <> 'compartidas' or s.shared_key is not null)), 0)
       when 'sesiones' then coalesce((
         select count(*) from public.study_sessions s
         where s.user_id::text = m.user_id::text and coalesce(s.completed, true) = true
-          and s.completed_at >= r.desde and s.completed_at < r.hasta and (r.modulo is null or s.modulo = r.modulo)), 0)
+          and s.completed_at >= r.desde and s.completed_at < r.hasta and (r.modulo is null or s.modulo = r.modulo)
+          and (r.modo <> 'compartidas' or s.shared_key is not null)), 0)
       when 'simulacros' then coalesce((
         select count(*) from public.exam_results e
         where e.user_id::text = m.user_id::text
@@ -113,7 +118,8 @@ begin
       when 'dias' then coalesce((
         select count(distinct (s.completed_at at time zone 'America/Argentina/Buenos_Aires')::date) from public.study_sessions s
         where s.user_id::text = m.user_id::text and coalesce(s.completed, true) = true
-          and s.completed_at >= r.desde and s.completed_at < r.hasta and (r.modulo is null or s.modulo = r.modulo)), 0)
+          and s.completed_at >= r.desde and s.completed_at < r.hasta and (r.modulo is null or s.modulo = r.modulo)
+          and (r.modo <> 'compartidas' or s.shared_key is not null)), 0)
       else 0
     end)::integer
   from public.retos_miembros m

@@ -119,3 +119,24 @@ body.dark-mode .rt-aviso.mal, body.dark-mode .rt-error { color: #fca5a5; } body.
 body.dark-mode .rt-logro, body.dark-mode .rt-badge.ok { color: #86efac; } body.dark-mode .rt-badge.inv { color: #7dd3fc; }
 @media (max-width: 760px) { .rt-lista { grid-template-columns: 1fr; } .rt-top { flex-direction: column; text-align: center; } .rt-numeros { justify-content: center; } .rt-gente li { grid-template-columns: 34px 1fr auto; } .rt-aporte { display: none; } }
 @media (prefers-reduced-motion: reduce) { .rt-card, .rt-barra i, .rt-aporte i, .rt-anillo .fg { transition: none; } .rt-barra i::after, .rt-modal-card, .rt-confeti i, .rt-hero::after, .rt-vacio-ico, .rt-card.logrado::after { animation: none; } .rt-confeti { display: none; } }
+
+/* boton "Crear un reto": pildora con borde animado, brillo y micro-animaciones */
+.rt-crear { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 12px; border: 0; cursor: pointer; font: inherit; font-weight: 800; font-size: 1rem; color: #7c2d12;
+  padding: 16px 28px 16px 18px; border-radius: 999px; background: #fff; isolation: isolate;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.55), 0 20px 34px -14px rgba(0,0,0,.5); transition: transform .25s cubic-bezier(.22, 1.5, .36, 1), box-shadow .3s; }
+.rt-crear::before { content: ''; position: absolute; inset: -3px; z-index: -1; border-radius: inherit; padding: 3px;
+  background: conic-gradient(from var(--ang, 0deg), #fde68a, #f472b6, #a78bfa, #38bdf8, #fde68a); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: rtGiraBorde 4s linear infinite; }
+@property --ang { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes rtGiraBorde { to { --ang: 360deg; } }
+.rt-crear::after { content: ''; position: absolute; top: 0; bottom: 0; width: 38%; left: -50%; border-radius: inherit; background: linear-gradient(110deg, transparent, rgba(245,158,11,.35), transparent); transform: skewX(-18deg); animation: rtBarre 3.4s ease-in-out infinite; overflow: hidden; }
+@keyframes rtBarre { 0%, 50% { left: -50%; } 100% { left: 130%; } }
+.rt-crear-mas { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 1.4rem; font-weight: 900; color: #fff; background: linear-gradient(135deg, #f59e0b, #ef4444); box-shadow: 0 8px 14px -6px rgba(239,68,68,.8); transition: transform .45s cubic-bezier(.22, 1.5, .36, 1); }
+.rt-crear:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 0 0 3px rgba(255,255,255,.7), 0 28px 40px -14px rgba(0,0,0,.55); }
+.rt-crear:hover .rt-crear-mas { transform: rotate(180deg) scale(1.1); }
+.rt-crear:active { transform: scale(.94); }
+.rt-crear.pulso { animation: rtPulso .5s cubic-bezier(.22, 1.5, .36, 1); }
+@keyframes rtPulso { 40% { transform: scale(.9); } }
+.rt-crear-halo { position: absolute; inset: 0; border-radius: inherit; z-index: -2; box-shadow: 0 0 0 0 rgba(255,255,255,.7); animation: rtHalo 2.6s ease-out infinite; }
+@keyframes rtHalo { to { box-shadow: 0 0 0 22px rgba(255,255,255,0); } }
+.rt-modal-card { padding-top: 0; }
+@media (prefers-reduced-motion: reduce) { .rt-crear::before, .rt-crear::after, .rt-crear-halo, .rt-crear.pulso { animation: none; } }

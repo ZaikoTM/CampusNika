@@ -20,7 +20,6 @@
     { n: '🔥 Constancia del mes', t: 'Constancia: 40 días activos entre todos', tipo: 'dias', meta: 40, dias: 30 }
   ];
   let cli = null, me = null, retos = [], amigos = [], cargando = false, previos = [];
-  let F = { tipo: 'minutos', meta: 10, dias: 7, modulo: '', invitados: new Set() };
 
   const fmtValor = (tipo, v) => (tipo === 'minutos' ? (v >= 60 ? Math.floor(v / 60) + ' h' + (v % 60 ? ' ' + (v % 60) + ' min' : '') : v + ' min') : v + ' ' + TIPOS[tipo].unidad);
   const iniciales = (n) => String(n || '?').trim().split(/\s+/).slice(0, 2).map((x) => x[0]).join('').toUpperCase() || '?';
@@ -87,7 +86,7 @@
     return '<article class="rt-card' + (logrado ? ' logrado' : '') + (modo === 'fin' ? ' fin' : '') + '" data-id="' + r.id + '" style="--c:' + c + '">'
       + '<div class="rt-top">' + anillo(pct, t.ico, c)
       + '<div class="rt-info"><div class="rt-insig">' + insignia + '</div><h4>' + esc(r.titulo) + '</h4>'
-      + '<small>' + t.nombre + ' · ' + esc((MATERIAS[r.modulo || ''] || [r.modulo])[0]) + ' · ' + aceptados.length + (aceptados.length === 1 ? ' persona' : ' personas') + '</small>'
+      + '<small>' + t.nombre + ' · ' + esc((MATERIAS[r.modulo || ''] || [r.modulo])[0]) + ' · ' + aceptados.length + (aceptados.length === 1 ? ' persona' : ' personas') + (r.modo === 'compartidas' ? ' · 🤝 solo sesiones compartidas' : ' · ⚡ suma automática') + '</small>'
       + '<div class="rt-numeros"><b>' + fmtValor(r.tipo, r.total) + '</b><span>de ' + metaTxt + ' entre todos</span></div></div></div>'
       + '<div class="rt-barra"><i style="--w:' + pct + '%"></i></div>'
       + (logrado ? '<p class="rt-logro">🎉 ¡Meta compartida cumplida! Lo lograron entre todos.</p>' : '')
@@ -123,61 +122,18 @@
     document.body.appendChild(c); setTimeout(() => c.remove(), 3800);
   }
 
-  /* ---------- crear ---------- */
-  function estimar() {
-    const t = TIPOS[F.tipo], personas = 1 + F.invitados.size;
-    const meta = F.tipo === 'minutos' ? F.meta * 60 : F.meta, c = Math.ceil(meta / personas);
-    const e = $('rt-est'); if (!e) return;
-    e.innerHTML = '👥 ' + personas + (personas === 1 ? ' persona' : ' personas') + ' · cada una aporta en promedio <b>' + fmtValor(F.tipo, c) + '</b> en ' + F.dias + ' días';
-    const u = $('rt-meta-u'); if (u) u.textContent = t.campo;
-  }
-  function formHtml() {
-    const t = TIPOS[F.tipo];
-    return '<div class="rt-modal-card"><button type="button" class="rt-x" data-rt="cerrar" aria-label="Cerrar">✕</button>'
-      + '<div class="rt-m-head"><div class="rt-m-ico">🎯</div><div><h3>Nuevo reto</h3><p>Una meta común: entre todos suman, nadie compite.</p></div></div>'
-      + '<div class="rt-plantillas">' + PLANTILLAS.map((p, i) => '<button type="button" data-rt="plantilla" data-i="' + i + '">' + p.n + '</button>').join('') + '</div>'
-      + '<label class="rt-f"><span>Nombre del reto</span><input id="rt-titulo" maxlength="60" placeholder="Ej: Semana de 10 horas de Cirugía"></label>'
-      + '<div class="rt-lbl">¿Qué suman?</div><div class="rt-tipos">' + Object.keys(TIPOS).map((k) => '<button type="button" class="rt-tipo' + (k === F.tipo ? ' on' : '') + '" style="--c:' + TIPOS[k].color + '" data-rt="tipo" data-v="' + k + '"><i>' + TIPOS[k].ico + '</i><span>' + TIPOS[k].nombre + '</span></button>').join('') + '</div>'
-      + '<div class="rt-lbl">Meta entre todos <small id="rt-meta-u">' + t.campo + '</small></div>'
-      + '<div class="rt-meta"><button type="button" data-rt="menos" aria-label="Menos">−</button><input id="rt-meta" type="number" min="1" max="2000" value="' + F.meta + '" aria-label="Meta"><button type="button" data-rt="mas" aria-label="Más">+</button>'
-      + '<div class="rt-sug">' + t.sug.map((s) => '<button type="button" data-rt="sug" data-v="' + s + '">' + s + '</button>').join('') + '</div></div>'
-      + '<p class="rt-est" id="rt-est"></p>'
-      + '<div class="rt-lbl">Duración</div><div class="rt-chips">' + DURS.map((d) => '<button type="button" class="' + (d[0] === F.dias ? 'on' : '') + '" data-rt="dur" data-v="' + d[0] + '">' + d[1] + '</button>').join('') + '</div>'
-      + '<div class="rt-lbl">Materia</div><div class="rt-chips">' + Object.keys(MATERIAS).map((k) => '<button type="button" class="' + (k === F.modulo ? 'on' : '') + '" data-rt="mat" data-v="' + k + '">' + MATERIAS[k][1] + ' ' + MATERIAS[k][0] + '</button>').join('') + '</div>'
-      + '<div class="rt-lbl">Invitá a tus amigos <small>(' + F.invitados.size + ' elegidos)</small></div><div class="rt-amigos" id="rt-amigos">'
-      + (amigos.length ? amigos.map((a) => '<button type="button" class="rt-am' + (F.invitados.has(String(a.id)) ? ' on' : '') + '" data-rt="amigo" data-id="' + esc(a.id) + '"><span class="rt-av">' + avatar(a) + '</span><span class="rt-am-n">' + esc(a.fullname || a.username) + '</span><i>✓</i></button>').join('')
-        : '<p class="rt-sinam">Todavía no tenés amigos agregados. Sumalos desde “Comunidad & Amigos”; también podés crear el reto y sumarlos después.</p>') + '</div>'
-      + '<p class="rt-error" id="rt-error" hidden></p>'
-      + '<div class="rt-acc"><button type="button" class="rt-btn rt-btn--sec" data-rt="cerrar">Cancelar</button><button type="button" class="rt-btn" id="rt-crear" data-rt="crear">Crear reto</button></div></div>';
-  }
-  function redibujarForm() {
-    const titulo = ($('rt-titulo') || {}).value || '';
-    $('rt-modal').innerHTML = formHtml();
-    $('rt-titulo').value = titulo; estimar();
-  }
+  /* ---------- crear (formulario compartido con la sala Pomodoro) ---------- */
   async function abrirModal(pre) {
-    F = { tipo: 'minutos', meta: 10, dias: 7, modulo: '', invitados: new Set() };
     if (!amigos.length) { try { amigos = (window.NikaFriends && (await window.NikaFriends.listFriends())) || []; } catch (_) { amigos = []; } }
-    if (pre && pre.length) amigos.forEach((a) => { if (pre.includes(String(a.username))) F.invitados.add(String(a.id)); });
-    $('rt-modal').hidden = false; redibujarForm();
-    setTimeout(() => { const t = $('rt-titulo'); if (t) t.focus(); }, 80);
-  }
-  async function crear() {
-    const err = (m) => { const e = $('rt-error'); e.textContent = m; e.hidden = false; };
-    const titulo = $('rt-titulo').value.trim(); let meta = Math.round(Number($('rt-meta').value));
-    if (!titulo) return err('Ponele un nombre al reto.'); if (!(meta > 0)) return err('La meta tiene que ser mayor a 0.');
-    if (F.tipo === 'minutos') meta *= 60;
-    const invitar = [...F.invitados];
-    $('rt-crear').disabled = true;
-    try {
-      const desde = new Date(), hasta = new Date(desde.getTime() + F.dias * 86400000);
-      const r = await cli.from('retos').insert({ titulo, tipo: F.tipo, meta, modulo: F.modulo || null, desde: desde.toISOString(), hasta: hasta.toISOString() }).select().single();
-      if (r.error) throw r.error;
-      const filas = [{ reto_id: r.data.id, user_id: me, estado: 'aceptado' }].concat(invitar.map((u) => ({ reto_id: r.data.id, user_id: u, estado: 'invitado' })));
-      const m = await cli.from('retos_miembros').insert(filas); if (m.error) throw m.error;
-      $('rt-modal').hidden = true;
-      await cargar();
-    } catch (e) { err('No se pudo crear el reto: ' + ((e && e.message) || 'error desconocido')); const b = $('rt-crear'); if (b) b.disabled = false; }
+    const m = $('rt-modal');
+    m.innerHTML = '<div class="rt-modal-card"><button type="button" class="rt-x" data-rt="cerrar" aria-label="Cerrar">✕</button><div id="rt-form-host"></div></div>';
+    m.hidden = false;
+    window.NikaRetoCrear.montar($('rt-form-host'), {
+      amigos, preInvitados: pre || [],
+      onCancelar: () => { m.hidden = true; },
+      onCreado: () => { m.hidden = true; cargar(); }
+    });
+    setTimeout(() => { const t = $('rf-titulo'); if (t) t.focus(); }, 120);
   }
 
   async function accion(a, id) {
@@ -196,18 +152,9 @@
       const a = b.dataset.rt;
       if (a === 'cerrar') $('rt-modal').hidden = true;
       else if (a === 'nuevo') abrirModal();
-      else if (a === 'crear') crear();
-      else if (a === 'plantilla') { const p = PLANTILLAS[Number(b.dataset.i)]; F.tipo = p.tipo; F.meta = p.meta; F.dias = p.dias; redibujarForm(); $('rt-titulo').value = p.t; }
-      else if (a === 'tipo') { F.tipo = b.dataset.v; F.meta = TIPOS[F.tipo].def; redibujarForm(); }
-      else if (a === 'dur') { F.dias = Number(b.dataset.v); redibujarForm(); }
-      else if (a === 'mat') { F.modulo = b.dataset.v; redibujarForm(); }
-      else if (a === 'menos' || a === 'mas') { const p = TIPOS[F.tipo].paso; F.meta = Math.max(1, (Number($('rt-meta').value) || F.meta) + (a === 'mas' ? p : -p)); $('rt-meta').value = F.meta; estimar(); }
-      else if (a === 'sug') { F.meta = Number(b.dataset.v); $('rt-meta').value = F.meta; estimar(); }
-      else if (a === 'amigo') { const id = String(b.dataset.id); if (F.invitados.has(id)) F.invitados.delete(id); else F.invitados.add(id); b.classList.toggle('on', F.invitados.has(id)); estimar(); const l = document.querySelector('.rt-lbl:last-of-type small'); }
       else accion(a, b.dataset.id);
     });
-    document.addEventListener('input', (e) => { if (e.target.id === 'rt-meta') { F.meta = Math.max(1, Number(e.target.value) || 1); estimar(); } });
-    $('rt-nuevo').addEventListener('click', () => abrirModal());
+    $('rt-nuevo').addEventListener('click', (ev) => { const b = ev.currentTarget; b.classList.remove('pulso'); void b.offsetWidth; b.classList.add('pulso'); abrirModal(); });
     $('rt-modal').addEventListener('click', (e) => { if (e.target.id === 'rt-modal') $('rt-modal').hidden = true; });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('rt-modal').hidden = true; });
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') cargar(); });

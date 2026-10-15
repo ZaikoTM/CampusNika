@@ -1,0 +1,106 @@
+/* CAMPUS NIKA · Formulario de reto (retos.html y sala Pomodoro compartida) */
+.rf { --rf-bg: var(--card-bg, #fff); --rf-tx: var(--text-main, #0f172a); --rf-bd: var(--border, #e2e8f0); --rf-in: var(--bg-body, #f8fafc); --rf-ac: #f59e0b; color: var(--rf-tx); text-align: left; }
+.rf-head { display: flex; gap: 14px; align-items: center; margin: 0 -24px 16px; padding: 22px 64px 18px 24px; color: #fff; position: relative; overflow: hidden;
+  background: linear-gradient(120deg, #f59e0b, #ef4444 50%, #8b5cf6, #f59e0b); background-size: 220% 100%; animation: rfFluye 9s linear infinite; }
+@keyframes rfFluye { to { background-position: -220% 0; } }
+.rf-ico { font-size: 2rem; width: 54px; height: 54px; border-radius: 18px; display: grid; place-items: center; background: rgba(255,255,255,.22); animation: rfLate 2.6s ease-in-out infinite; }
+@keyframes rfLate { 50% { transform: scale(1.08) rotate(-6deg); } }
+.rf-head h3 { margin: 0; font-size: 1.3rem; } .rf-head p { margin: 2px 0 0; font-size: .85rem; opacity: .94; }
+.rf-plantillas { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+.rf-plantillas button { border: 1px solid var(--rf-bd); background: transparent; color: inherit; border-radius: 99px; padding: 8px 14px; font: inherit; font-weight: 700; font-size: .78rem; cursor: pointer; transition: transform .2s cubic-bezier(.22, 1.4, .36, 1), background .2s, border-color .2s, box-shadow .2s; }
+.rf-plantillas button:hover { background: rgba(245,158,11,.16); border-color: var(--rf-ac); transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 16px -10px var(--rf-ac); }
+.rf-plantillas button:active { transform: scale(.94); }
+.rf-f { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.rf-f > span, .rf-lbl { font-size: .74rem; font-weight: 800; opacity: .72; text-transform: uppercase; letter-spacing: .06em; }
+.rf-lbl { margin: 18px 0 8px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.rf-lbl small { text-transform: none; letter-spacing: 0; opacity: 1; font-weight: 800; color: var(--rf-ac); font-size: .8rem; }
+.rf-f input { font: inherit; padding: 13px 15px; border-radius: 16px; border: 2px solid var(--rf-bd); background: var(--rf-in); color: inherit; transition: border-color .2s, box-shadow .25s, transform .2s; }
+.rf-f input:focus, .rf-meta input:focus { outline: 0; border-color: var(--rf-ac); box-shadow: 0 0 0 4px rgba(245,158,11,.25); }
+.rf-f input:focus { transform: translateY(-1px); }
+.tick { animation: rfTick .35s cubic-bezier(.22, 1.5, .36, 1); }
+@keyframes rfTick { 40% { transform: scale(1.12); } }
+
+.rf-tipos { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 10px; }
+.rf-tipo { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 14px 8px; border-radius: 20px; border: 2px solid var(--rf-bd); background: transparent; color: inherit; cursor: pointer; font: inherit; font-weight: 800; font-size: .8rem; overflow: hidden;
+  transition: transform .25s cubic-bezier(.22, 1.4, .36, 1), border-color .2s, background .2s, box-shadow .25s; }
+.rf-tipo i { font-style: normal; font-size: 1.7rem; width: 50px; height: 50px; display: grid; place-items: center; border-radius: 17px; background: color-mix(in srgb, var(--c) 16%, transparent); transition: transform .3s cubic-bezier(.22, 1.5, .36, 1), background .25s; }
+.rf-tipo:hover { transform: translateY(-4px); border-color: var(--c); }
+.rf-tipo:hover i { transform: scale(1.1) rotate(-6deg); }
+.rf-tipo:active { transform: scale(.95); }
+.rf-tipo.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 13%, var(--rf-bg)); box-shadow: 0 16px 24px -16px var(--c); animation: rfPop .45s cubic-bezier(.22, 1.5, .36, 1); }
+.rf-tipo.on i { background: var(--c); transform: scale(1.12) rotate(-6deg); }
+@keyframes rfPop { 40% { transform: scale(1.06); } }
+
+.rf-meta { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.rf-meta > button { width: 46px; height: 46px; border-radius: 16px; border: 2px solid var(--rf-bd); background: transparent; color: inherit; font-size: 1.5rem; font-weight: 800; cursor: pointer; transition: transform .2s cubic-bezier(.22, 1.5, .36, 1), background .2s, border-color .2s; }
+.rf-meta > button:hover { background: rgba(245,158,11,.2); border-color: var(--rf-ac); transform: scale(1.1); }
+.rf-meta > button:active { transform: scale(.88); }
+.rf-meta input { width: 104px; text-align: center; font: inherit; font-size: 1.5rem; font-weight: 800; padding: 8px; border-radius: 16px; border: 2px solid var(--rf-bd); background: var(--rf-in); color: inherit; -moz-appearance: textfield; }
+.rf-meta input::-webkit-outer-spin-button, .rf-meta input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.rf-sug { display: flex; gap: 6px; margin-left: 4px; flex-wrap: wrap; }
+.rf-sug button { border: 0; background: rgba(148,163,184,.22); color: inherit; border-radius: 99px; padding: 8px 13px; font: inherit; font-weight: 800; font-size: .8rem; cursor: pointer; transition: transform .2s cubic-bezier(.22, 1.5, .36, 1), background .2s; }
+.rf-sug button:hover { background: rgba(245,158,11,.3); transform: translateY(-2px) scale(1.06); }
+
+/* barra de días personalizable */
+.rf-slider { padding: 6px 4px 0; }
+.rf-slider input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 12px; border-radius: 99px; outline: 0; cursor: pointer;
+  background: linear-gradient(90deg, #f59e0b, #ef4444 var(--p, 7%), rgba(148,163,184,.3) var(--p, 7%)); }
+.rf-slider input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 4px solid #ef4444; box-shadow: 0 8px 14px -4px rgba(239,68,68,.7); transition: transform .18s cubic-bezier(.22, 1.5, .36, 1); }
+.rf-slider input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.15); }
+.rf-slider input[type=range]:active::-webkit-slider-thumb { transform: scale(1.3); }
+.rf-slider input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 4px solid #ef4444; }
+.rf-marcas { display: flex; justify-content: space-between; font-size: .7rem; font-weight: 700; opacity: .6; padding: 6px 4px 0; }
+.rf-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+.rf-chips--dur { margin-top: 8px; }
+.rf-chips button { border: 1px solid var(--rf-bd); background: transparent; color: inherit; border-radius: 99px; padding: 8px 15px; font: inherit; font-weight: 700; font-size: .82rem; cursor: pointer; transition: transform .2s cubic-bezier(.22, 1.4, .36, 1), background .2s, border-color .2s, box-shadow .2s; }
+.rf-chips button:hover { transform: translateY(-3px); border-color: #6366f1; }
+.rf-chips button:active { transform: scale(.93); }
+.rf-chips button.on { background: linear-gradient(135deg, #0284c7, #6366f1); color: #fff; border-color: transparent; box-shadow: 0 12px 18px -10px #6366f1; animation: rfPop .4s cubic-bezier(.22, 1.5, .36, 1); }
+
+.rf-modo { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.rf-modo button { text-align: left; padding: 13px 15px; border-radius: 18px; border: 2px solid var(--rf-bd); background: transparent; color: inherit; cursor: pointer; font: inherit; display: flex; flex-direction: column; gap: 3px; transition: transform .22s cubic-bezier(.22, 1.4, .36, 1), border-color .2s, background .2s, box-shadow .25s; }
+.rf-modo button small { opacity: .72; font-weight: 600; line-height: 1.35; }
+.rf-modo button:hover { transform: translateY(-3px); border-color: #6366f1; }
+.rf-modo button.on { border-color: #6366f1; background: rgba(99,102,241,.13); box-shadow: 0 14px 22px -16px #6366f1; }
+
+.rf-amigos { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 9px; max-height: 220px; overflow: auto; padding: 4px 2px; }
+.rf-am { position: relative; display: flex; align-items: center; gap: 9px; padding: 9px 10px; border: 2px solid var(--rf-bd); border-radius: 18px; cursor: pointer; background: transparent; color: inherit; font: inherit; font-weight: 700; font-size: .84rem; text-align: left; transition: transform .2s cubic-bezier(.22, 1.4, .36, 1), border-color .2s, background .2s; }
+.rf-am:hover { transform: translateY(-3px); border-color: #6366f1; }
+.rf-am:active { transform: scale(.95); }
+.rf-am .rf-am-n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.rf-av { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; font-weight: 800; font-size: .74rem; color: #fff; background: linear-gradient(135deg, #0ea5e9, #8b5cf6); flex: 0 0 auto; }
+.rf-av img { width: 100%; height: 100%; object-fit: cover; }
+.rf-am i { font-style: normal; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .75rem; color: #fff; background: #6366f1; transform: scale(0) rotate(-90deg); transition: transform .28s cubic-bezier(.22, 1.6, .36, 1); }
+.rf-am.on { border-color: #6366f1; background: rgba(99,102,241,.14); }
+.rf-am.on i { transform: scale(1) rotate(0); }
+.rf-sinam { grid-column: 1 / -1; opacity: .75; font-size: .85rem; margin: 4px 0; }
+.rf-est { margin: 16px 0 0; padding: 12px 14px; border-radius: 16px; background: linear-gradient(135deg, rgba(14,165,233,.12), rgba(139,92,246,.12)); font-size: .86rem; border: 1px solid rgba(99,102,241,.25); }
+.rf-est span { opacity: .75; }
+.rf-error { color: #b91c1c; font-weight: 800; margin: 10px 0 0; animation: rfTick .4s; }
+
+.rf-acc { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.rf-btn { position: relative; overflow: hidden; font: inherit; font-weight: 800; font-size: .92rem; border: 0; border-radius: 16px; padding: 13px 20px; cursor: pointer; transition: transform .2s cubic-bezier(.22, 1.4, .36, 1), box-shadow .25s, opacity .2s; }
+.rf-btn:active { transform: scale(.94); }
+.rf-btn--sec { background: transparent; color: inherit; border: 2px solid var(--rf-bd); }
+.rf-btn--sec:hover { border-color: #94a3b8; transform: translateY(-2px); }
+.rf-btn--go { color: #fff; padding: 14px 26px; background: linear-gradient(120deg, #f59e0b, #ef4444 45%, #8b5cf6, #f59e0b); background-size: 240% 100%; animation: rfFluye 6s linear infinite; box-shadow: 0 16px 26px -14px rgba(239,68,68,.9); }
+.rf-btn--go::after { content: ''; position: absolute; top: 0; bottom: 0; width: 46%; left: -60%; background: linear-gradient(110deg, transparent, rgba(255,255,255,.55), transparent); transform: skewX(-18deg); animation: rfBarrido 3.2s ease-in-out infinite; }
+@keyframes rfBarrido { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+.rf-btn--go:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 22px 32px -14px rgba(239,68,68,.95); }
+.rf-btn--go:disabled { opacity: .85; cursor: default; transform: none; }
+.rf-spin { display: none; width: 18px; height: 18px; border-radius: 50%; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; margin-left: 8px; vertical-align: -3px; animation: rfGira .7s linear infinite; }
+.rf-btn.cargando .rf-spin { display: inline-block; }
+.rf-btn.listo { background: linear-gradient(135deg, #16a34a, #22c55e); animation: rfPop .5s cubic-bezier(.22, 1.5, .36, 1); }
+@keyframes rfGira { to { transform: rotate(360deg); } }
+
+/* variante dentro de la sala (tema rosa oscuro) */
+.rf--sala { --rf-bd: rgba(255,255,255,.2); --rf-in: rgba(255,255,255,.08); --rf-bg: #2a0a14; --rf-tx: #fff1f2; }
+.rf--sala .rf-head { margin: -26px -24px 14px; padding-top: 24px; border-radius: 26px 26px 0 0; }
+.rf--sala .rf-f input, .rf--sala .rf-meta input { color: #fff1f2; }
+.rf--sala .rf-tipo.on { background: color-mix(in srgb, var(--c) 22%, #2a0a14); }
+.rf--sala .rf-est { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); }
+.rf--sala .rf-error { color: #fda4af; }
+.rf--sala .rf-btn--sec { color: #ffe4e6; }
+.rf--sala .rf-modo button.on, .rf--sala .rf-am.on { background: rgba(255,255,255,.12); border-color: #fda4af; }
+
+@media (prefers-reduced-motion: reduce) { .rf-head, .rf-ico, .rf-btn--go, .rf-btn--go::after, .tick, .rf-tipo.on, .rf-chips button.on, .rf-error { animation: none; } .rf *, .rf-spin { transition: none; } }

@@ -9,7 +9,7 @@
   const NOMBRES_MODULO = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', biblioteca: 'Estudio libre' };
   const AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fca5a5'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
-  let retosAct = null, overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
+  let retoAbierto = false, retoPre = [], retosAct = null, overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
   const E = () => window.PomodoroEngine;
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const toast = (m, t) => { if (typeof window.showToast === 'function') window.showToast(m, t); };
@@ -74,6 +74,7 @@
     .sala-reto small{display:block;margin-top:4px;opacity:.85;font-weight:700}
     .sala-retos-v{margin:6px 0 0;font-size:.8rem;opacity:.85}
     .sala-retos-b{margin-top:10px;width:100%}
+    .sala-card--reto{padding-top:26px}
     .sala-amigos{display:flex;flex-direction:column;gap:6px;max-height:190px;overflow-y:auto}
     .sala-amigo{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.05)}
     .sala-amigo img{width:34px;height:34px;border-radius:50%;object-fit:cover}
@@ -161,7 +162,7 @@
       overlay.addEventListener('change', onChange);
       document.body.appendChild(overlay);
     }
-    abierta = true; contando = false; pickerAbierto = false; ultimoHtml = '';
+    abierta = true; contando = false; pickerAbierto = false; retoAbierto = false; ultimoHtml = '';
     render();
     cargarRetos();
     desuscribir.forEach((f) => f()); desuscribir = [];
@@ -274,6 +275,18 @@
         : `<p class="sala-retos-v">Pónganse una meta entre todos: tiempo, sesiones o simulacros. Suman juntos.</p>`)
       + `<button class="sala-btn sec sala-retos-b" data-reto-nuevo="${esc(joined.join(','))}">＋ Crear reto con la sala</button></div>`;
 
+    if (retoAbierto && window.NikaRetoCrear) {
+      const hr = `<div class="sala-card sala-card--reto" role="dialog" aria-label="Crear reto">${bgTomates()}<button class="sala-x" data-reto-cerrar="1" aria-label="Volver a la sala" title="Volver a la sala">←</button><div id="sala-reto-host"></div></div>`;
+      if (hr === ultimoHtml && document.getElementById('sala-reto-host') && document.getElementById('sala-reto-host').children.length) return;
+      ultimoHtml = hr; overlay.classList.add('sala-quieta'); overlay.innerHTML = hr;
+      window.NikaRetoCrear.montar(document.getElementById('sala-reto-host'), {
+        amigos, preInvitados: retoPre, tema: 'sala',
+        onCancelar: () => { retoAbierto = false; ultimoHtml = ''; render(); },
+        onCreado: () => { retoAbierto = false; ultimoHtml = ''; toast('🎯 ¡Reto creado! Les llegó la invitación a tus compañeros.'); cargarRetos(); render(); }
+      });
+      return;
+    }
+
     const html = `
       <div class="sala-card" role="dialog" aria-label="Sala de estudio">
         ${bgTomates()}
@@ -344,7 +357,8 @@
     const t = e.target;
     const q = (sel) => t.closest(sel);
     let el;
-    if ((el = q('[data-reto-nuevo]'))) { window.open('retos.html?nuevo=1&con=' + encodeURIComponent(el.dataset.retoNuevo), '_blank', 'noopener'); return; }
+    if ((el = q('[data-reto-nuevo]'))) { retoPre = (el.dataset.retoNuevo || '').split(',').filter(Boolean); retoAbierto = true; ultimoHtml = ''; return render(); }
+    if (q('[data-reto-cerrar]')) { retoAbierto = false; ultimoHtml = ''; return render(); }
     if ((el = q('[data-invitar]'))) return invitar(el.dataset.invitar);
     if ((el = q('[data-expulsar]'))) { if (E().kickGuest(el.dataset.expulsar)) toast(`@${el.dataset.expulsar} salió de la sala.`); return render(); }
     if ((el = q('[data-reinvitar]'))) return invitar(el.dataset.reinvitar);
