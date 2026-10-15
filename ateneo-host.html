@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Llamada de Ateneos | NikaMed</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #f8fafc; --card: #fff; --txt: #0f172a; --mut: #64748b; --bd: #e2e8f0; --nika-primary: #0284c7; --card-bg: #fff; --border: #e2e8f0; --text-main: #0f172a; --text-muted: #64748b; --bg-body: #f8fafc; --shadow: 0 10px 24px -18px rgba(15,23,42,.5); }
+        @media (prefers-color-scheme: dark) { :root { --bg: #0b1220; --card: #111a2e; --txt: #f1f5f9; --mut: #94a3b8; --bd: #1e293b; --card-bg: #111a2e; --border: #1e293b; --text-main: #f1f5f9; --text-muted: #94a3b8; --bg-body: #0b1220; } }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--bg); color: var(--txt); display: flex; flex-direction: column; align-items: center; padding: 22px 16px 120px; text-align: center; }
+        .h-logo { width: 54px; height: 54px; border-radius: 16px; margin-bottom: 8px; }
+        h1 { font-size: 1.15rem; margin: 6px 0 4px; font-weight: 800; }
+        p { margin: 4px 0; color: var(--mut); font-size: .86rem; line-height: 1.5; max-width: 340px; }
+        .h-estado { margin-top: 16px; padding: 14px 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--bd); width: 100%; max-width: 380px; }
+        .h-estado b { display: block; font-size: 1rem; }
+        .h-punto { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #22c55e; margin-right: 6px; animation: pulso 1.8s infinite; }
+        .h-punto.off { background: #94a3b8; animation: none; }
+        @keyframes pulso { 70% { box-shadow: 0 0 0 8px rgba(34,197,94,0); } 0% { box-shadow: 0 0 0 0 rgba(34,197,94,.6); } }
+        .h-aviso { margin-top: 14px; padding: 10px 14px; border-radius: 14px; background: rgba(245,158,11,.14); color: #92400e; font-weight: 700; font-size: .8rem; max-width: 380px; }
+    </style>
+</head>
+<body>
+    <img class="h-logo" src="assets/N%20NIKA.png" alt="NikaMed">
+    <h1>Llamada de Ateneos</h1>
+    <p>Esta ventana mantiene tu llamada activa mientras navegás por el campus: <b>no la cierres</b>. Podés minimizarla.</p>
+    <div class="h-estado"><b id="h-nombre"><i class="h-punto off"></i>Sin llamada activa</b><p id="h-sub">Entrá a una sala o llamá a un amigo desde el campus.</p></div>
+    <div class="h-aviso">Al cerrar esta ventana se termina la llamada.</div>
+
+    <script>window.__ateneoHost = true; window.showToast = function (m) { var t = document.getElementById('h-sub'); if (t) t.textContent = m; };</script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="js/voiceManager.js?v=3"></script>
+    <script src="js/ateneos.js?v=11"></script>
+    <script>
+        (function () {
+            var nombre = document.getElementById('h-nombre'), sub = document.getElementById('h-sub');
+            setInterval(function () {
+                try {
+                    var a = JSON.parse(localStorage.getItem('nika_ateneo_activo') || 'null');
+                    if (window.VoiceManager && VoiceManager.yo && a) {
+                        nombre.innerHTML = '<i class="h-punto"></i>' + String(a.nombre || 'Llamada').replace(/</g, '&lt;');
+                        sub.textContent = 'Conectado: usá la barra de abajo para silenciar, cámara o salir.';
+                    } else { nombre.innerHTML = '<i class="h-punto off"></i>Sin llamada activa'; }
+                } catch (_) {}
+            }, 1500);
+        })();
+    </script>
+</body>
+</html>

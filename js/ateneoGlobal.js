@@ -4,6 +4,13 @@
   'use strict';
   if (window.NikaAteneos || window.__ateneoGlobal) return;
   window.__ateneoGlobal = true;
+  // Si la llamada vive en la ventana anfitriona (sin cortes), esta página solo muestra la barra remota
+  try {
+    if (Date.now() - Number(localStorage.getItem('nika_ateneo_host') || 0) < 5000) {
+      const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=1'; document.head.appendChild(sc);
+      return;
+    }
+  } catch (_) {}
   let a = null;
   try { a = JSON.parse(localStorage.getItem('nika_ateneo_activo') || 'null'); } catch (_) {}
   if (!a || Date.now() - (a.t || 0) > 12 * 3600 * 1000) return;
@@ -14,6 +21,6 @@
       if (!window.NikaSupabase) await cargar('supabaseClient.js');
     }
     if (!window.VoiceManager) await cargar('js/voiceManager.js?v=3');
-    await cargar('js/ateneos.js?v=9');
+    await cargar('js/ateneos.js?v=11');
   })();
 })();

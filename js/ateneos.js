@@ -13,6 +13,28 @@ const NikaAteneos = (() => {
   ];
   const SUBSALAS = 6;                          // cada canal tiene varias salas de 4; se entra a la primera con lugar
   const K_ACTIVA = 'nika_ateneo_activo';
+  // ----- Ventana anfitriona: la llamada vive en una ventana aparte que no se recarga al navegar por el campus,
+  // así no hay cortes. Las demás páginas solo muestran una barra remota que le manda órdenes por BroadcastChannel.
+  const K_HOST = 'nika_ateneo_host', K_PEND = 'nika_ateneo_pend_inv', K_HOSTPREF = 'nika_ateneo_host_pref';
+  const SOY_HOST = !!window.__ateneoHost;
+  let bcHost = null; try { bcHost = new BroadcastChannel('nika-ateneo-host'); } catch (_) {}
+  const hostVivo = () => { if (SOY_HOST) return false; try { return Date.now() - Number(localStorage.getItem(K_HOST) || 0) < 5000; } catch (_) { return false; } };
+  const hostPref = () => { try { return localStorage.getItem(K_HOSTPREF) === '1'; } catch (_) { return false; } };
+  const alHost = (m) => { try { if (bcHost) bcHost.postMessage(m); } catch (_) {} };
+  const abrirHost = () => { try { return window.open('ateneo-host.html', 'nika-ateneo-host', 'popup=yes,width=440,height=620'); } catch (_) { return null; } };
+  function cargarRemoto() {
+    if (window.NikaAteneoRemoto) return;
+    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=1'; document.head.appendChild(sc);
+  }
+  // Deja la sala pedida lista en el almacenamiento y abre la ventana anfitriona, que se conecta sola.
+  function abrirEnVentana(sala, nombre, silenciosa, mic) {
+    try { localStorage.setItem(K_ACTIVA, JSON.stringify({ sala, nombre, silenciosa, t: Date.now(), mic: mic !== false })); } catch (_) {}
+    const w = abrirHost();
+    if (!w) return false;
+    cargarRemoto();
+    toast('La llamada se abrió en una ventana aparte: ya no se corta al navegar por el campus.');
+    return true;
+  }
   const ALFABETO = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
   let conectado = null;                        // { sala, nombre, silenciosa }
@@ -105,7 +127,7 @@ const NikaAteneos = (() => {
       #at-dock .at-min { width: 30px; height: 30px; font-size: .8rem; }
       #at-b-ext { display: none; }
       #at-dock.compacto { gap: 8px; padding: 6px 8px; opacity: .92; }
-      #at-dock.compacto .at-d-txt, #at-dock.compacto #at-b-cam, #at-dock.compacto #at-b-scr, #at-dock.compacto #at-b-pip, #at-dock.compacto #at-b-aud { display: none; }
+      #at-dock.compacto .at-d-txt, #at-dock.compacto #at-b-win, #at-dock.compacto #at-b-cam, #at-dock.compacto #at-b-scr, #at-dock.compacto #at-b-pip, #at-dock.compacto #at-b-aud { display: none; }
       body.at-stage #at-b-sala { display: none; }
       #at-dock.compacto #at-b-ext { display: inline-block; width: 34px; height: 34px; }
       #at-dock.compacto:hover { opacity: 1; }
@@ -352,6 +374,15 @@ const NikaAteneos = (() => {
 
   async function conectarSala(sala, nombre, silenciosa, opciones = {}) {
     if (!window.VoiceManager || !VoiceManager.soportado()) throw new Error('Tu navegador no admite videollamadas.');
+    if (!SOY_HOST && !opciones.silencioso) {
+      if (hostVivo()) {
+        alHost({ cmd: 'conectar', sala, nombre, silenciosa, opciones: { micInicial: opciones.micInicial } });
+        cargarRemoto(); toast('Entrando a “' + nombre + '” en la ventana de la llamada.');
+        try { const w = window.open('', 'nika-ateneo-host'); if (w) w.focus(); } catch (_) {}
+        return;
+      }
+      if (hostPref() && abrirEnVentana(sala, nombre, silenciosa, opciones.micInicial)) return;
+    }
     detenerPrueba(false); css(); construirDock(); construirPip();
     await VoiceManager.unirse(sala, metaPropia(), {
       silenciosa, micInicial: opciones.micInicial,
@@ -379,10 +410,12 @@ const NikaAteneos = (() => {
     if (!opciones.silencioso) toast(`Conectado a “${nombre}”`);
   }
 
-  async function desconectar() {
+  // conservar === true: se corta la conexión de esta página pero se deja la sala guardada (para pasarla a la ventana anfitriona)
+  async function desconectar(conservar) {
+    if (!SOY_HOST && !conectado && hostVivo()) { alHost({ cmd: 'salir' }); return; }
     await VoiceManager.salir();
     conectado = null; tiles.forEach((t) => t.remove()); tiles.clear(); ultimoPeers = [];
-    try { localStorage.removeItem(K_ACTIVA); } catch (_) {}
+    if (conservar !== true) { try { localStorage.removeItem(K_ACTIVA); } catch (_) {} }
     if (dock) dock.classList.remove('on'); if (pip) pip.classList.remove('on');
     document.body.classList.remove('at-en-llamada', 'at-stage'); hablando.clear(); invitados.clear();
     if ($('#ateneos-section') && $('#ateneos-section').style.display !== 'none') pintarSeccion();
@@ -397,8 +430,22 @@ const NikaAteneos = (() => {
     finally { if (btn) btn.disabled = false; }
   }
   // Chat de voz privado 1 a 1 desde el chat común: crea una sala privada y le avisa a tu amigo
+  async function pasarAVentana() {
+    if (!conectado) { toast('Primero entrá a una sala.'); return; }
+    try { localStorage.setItem(K_HOSTPREF, '1'); } catch (_) {}
+    const { sala, nombre, silenciosa } = conectado;
+    const mic = !!window.VoiceManager && VoiceManager.micActivo;
+    if (!abrirEnVentana(sala, nombre, silenciosa, mic)) { toast('Tu navegador bloqueó la ventana: permití las ventanas emergentes de este sitio y probá de nuevo.'); return; }
+    await desconectar(true);
+  }
   async function llamarPrivado(username, nombreAmigo) {
     if (!usuario()) throw new Error('Iniciá sesión para llamar.');
+    if (!SOY_HOST && !conectado && (hostVivo() || hostPref())) {
+      if (hostVivo()) { alHost({ cmd: 'privado', username, nombre: nombreAmigo }); cargarRemoto(); toast('Llamando desde la ventana de la llamada…'); return; }
+      try { localStorage.setItem(K_PEND, JSON.stringify({ username, nombre: nombreAmigo, t: Date.now() })); } catch (_) {}
+      if (abrirEnVentana('p-' + codigo(), 'Chat de voz con ' + (nombreAmigo || username), false, true)) return;
+      try { localStorage.removeItem(K_PEND); } catch (_) {}
+    }
     if (!conectado) await conectarSala('p-' + codigo(), 'Chat de voz con ' + (nombreAmigo || username), false);
     await enviarInvitacion(username, true);
   }
@@ -493,6 +540,7 @@ const NikaAteneos = (() => {
         <button type="button" id="at-b-cam" title="Cámara" aria-label="Cámara">📷</button>
         <button type="button" id="at-b-scr" title="Compartir pantalla" aria-label="Compartir pantalla">🖥️</button>
         <button type="button" id="at-b-sala" title="Abrir la sala de Ateneos" aria-label="Abrir la sala">⤢</button>
+        <button type="button" id="at-b-win" title="Pasar la llamada a una ventana aparte: no se corta al navegar por el campus" aria-label="Ventana aparte">🪟</button>
         <button type="button" id="at-b-aud" title="Audio y ruido" aria-label="Audio y ruido">⚙️</button>
         <button type="button" id="at-b-pip" title="Mostrar u ocultar videos" aria-label="Videos">👥</button>
         <button type="button" class="salir" id="at-b-out" title="Desconectar">Salir</button>
@@ -507,6 +555,8 @@ const NikaAteneos = (() => {
     $('#at-b-scr').onclick = async () => { const r = await VoiceManager.alternarPantalla(); if (!r.ok) toast(r.motivo); actualizarDock(); actualizarTiles(); };
     $('#at-b-pip').onclick = () => mostrarVideo(true);
     $('#at-b-aud').onclick = abrirAjustesAudio;
+    $('#at-b-win').onclick = pasarAVentana;
+    if (SOY_HOST) $('#at-b-win').style.display = 'none';
     $('#at-b-sala').onclick = () => { if ($('#ateneos-section')) { try { abrir(); } catch (_) {} } else location.href = 'ateneos.html'; };
     $('#at-b-out').onclick = desconectar;
     $('#at-b-min').onclick = () => cambiarModoDock(modoDock === 'completo' ? 'compacto' : 'mini');
@@ -686,6 +736,7 @@ const NikaAteneos = (() => {
 
   // ------------------------------------------------------------------ reconexión entre páginas + invitaciones por enlace
   async function reconectarSiCorresponde() {
+    if (!SOY_HOST && hostVivo()) { cargarRemoto(); return; }
     let a = null; try { a = JSON.parse(localStorage.getItem(K_ACTIVA) || 'null'); } catch (_) {}
     if (!a || !usuario() || Date.now() - (a.t || 0) > 12 * 3600 * 1000) { try { localStorage.removeItem(K_ACTIVA); } catch (_) {} return; }
     try { await conectarSala(a.sala, a.nombre, a.silenciosa, { micInicial: a.mic, silencioso: true }); }
@@ -738,6 +789,7 @@ const NikaAteneos = (() => {
             <span class="ats-chip" title="Latencia"><i class="at-lat" id="ats-lat"></i><span id="ats-lat-t">-- ms</span></span>
             ${info.codigo ? `<button type="button" class="ats-chip" id="ats-cod" title="Copiar código">🔒 Código ${esc(info.codigo)} 📋</button>` : ''}
             <button type="button" class="ats-chip" id="ats-vista" title="Cambiar la vista: cuadrícula u orador activo. Tocá 📌 en un participante para fijarlo.">▦ Cuadrícula</button>
+            ${SOY_HOST ? '' : '<button type="button" class="ats-chip" id="ats-win" title="La llamada pasa a una ventana aparte y no se corta al navegar por el campus">🪟 Ventana aparte (sin cortes)</button>'}
             <button type="button" class="ats-chip" id="ats-link" title="Copiar enlace de invitación">🔗 Copiar enlace</button>
           </div>
           <div class="ats-audio-aviso" id="ats-audio-aviso" style="display:none">🔈 El navegador bloqueó el sonido de la sala. <button type="button" class="at-btn" id="ats-audio-on">Activar sonido</button></div>
@@ -791,6 +843,7 @@ const NikaAteneos = (() => {
     const bOn = $('#ats-audio-on'); if (bOn) bOn.onclick = () => { try { VoiceManager.reanudarAudio(); } catch (_) {} if (avisoA) avisoA.style.display = 'none'; };
     $('#ats-panel').onclick = () => { panelMovil = !panelMovil; $('#ats-side').classList.toggle('abierto', panelMovil); };
     $('#ats-vista').onclick = alternarVista;
+    if ($('#ats-win')) $('#ats-win').onclick = pasarAVentana;
     $('#ats-link').onclick = () => copiar(enlaceSala(), 'Enlace copiado: pegalo donde quieras.');
     const cod = $('#ats-cod'); if (cod) cod.onclick = () => copiar(info.codigo, 'Código copiado.');
     sec.querySelectorAll('.ats-tabs button').forEach((b) => b.addEventListener('click', () => { tabLateral = b.dataset.t; sec.querySelectorAll('.ats-tabs button').forEach((x) => x.classList.toggle('on', x === b)); pintarLateral(); }));
@@ -922,6 +975,7 @@ const NikaAteneos = (() => {
 
   let timerInv = null;
   function mostrarInvitacion(p) {
+    if (SOY_HOST) alHost({ invitacion: p });
     css();
     let t = $('#at-inv-toast');
     if (!t) { t = document.createElement('div'); t.id = 'at-inv-toast'; document.body.appendChild(t); }
@@ -957,11 +1011,41 @@ const NikaAteneos = (() => {
     if (confirm(`¿Unirte a “${info.nombre}” en la Sala de Ateneos?`)) unirseASala(sala).catch((e) => toast(e.message));
   }
 
+  function iniciarHost() {
+    const latido = () => { try { localStorage.setItem(K_HOST, String(Date.now())); } catch (_) {} };
+    latido(); setInterval(latido, 1500);
+    const estado = () => alHost({ estado: { conectado: !!conectado, nombre: conectado ? conectado.nombre : '', sala: conectado ? conectado.sala : '', mic: !!(window.VoiceManager && VoiceManager.micActivo), cam: !!(window.VoiceManager && VoiceManager.camActiva), n: 1 + ultimoPeers.length, t: Date.now() } });
+    setInterval(estado, 1500);
+    if (bcHost) bcHost.onmessage = async (e) => {
+      const m = e.data || {};
+      if (!m.cmd) return;
+      try {
+        if (m.cmd === 'conectar') { if (conectado) await desconectar(true); await conectarSala(m.sala, m.nombre, m.silenciosa, Object.assign({}, m.opciones, { silencioso: true })); }
+        else if (m.cmd === 'salir') await desconectar();
+        else if (m.cmd === 'mic') alternarMic();
+        else if (m.cmd === 'cam') { await VoiceManager.alternarCamara(); actualizarDock(); actualizarTiles(); }
+        else if (m.cmd === 'privado') await llamarPrivado(m.username, m.nombre);
+        else if (m.cmd === 'unirse') await unirseASala(m.sala);
+      } catch (err) { alHost({ error: (err && err.message) || 'No se pudo completar la acción.' }); }
+      estado();
+    };
+    window.addEventListener('beforeunload', () => {
+      try { localStorage.removeItem(K_HOST); localStorage.removeItem(K_ACTIVA); } catch (_) {}
+      try { VoiceManager.salir(); } catch (_) {}
+    });
+  }
+  async function procesarPendiente() {
+    let p = null; try { p = JSON.parse(localStorage.getItem(K_PEND) || 'null'); } catch (_) {}
+    if (!p) return;
+    try { localStorage.removeItem(K_PEND); } catch (_) {}
+    if (conectado && Date.now() - (p.t || 0) < 60000) { try { await enviarInvitacion(p.username, true); } catch (_) {} }
+  }
   function init() {
     css();
-    reconectarSiCorresponde();
+    if (SOY_HOST) iniciarHost();
+    Promise.resolve(reconectarSiCorresponde()).then(() => { if (SOY_HOST) procesarPendiente(); });
     setTimeout(revisarInvitacion, 700);
-    setTimeout(iniciarInvitaciones, 1800);
+    if (SOY_HOST || !hostVivo()) setTimeout(iniciarInvitaciones, 1800);
   }
   window.addEventListener('hashchange', () => setTimeout(revisarInvitacion, 100));
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
