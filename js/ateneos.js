@@ -28,7 +28,7 @@ const NikaAteneos = (() => {
   const abrirHost = () => { try { return window.open('ateneo-host.html', 'nika-ateneo-host', 'popup=yes,width=440,height=620'); } catch (_) { return null; } };
   function cargarRemoto() {
     if (window.NikaAteneoRemoto) return;
-    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=4'; document.head.appendChild(sc);
+    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=5'; document.head.appendChild(sc);
   }
   // Deja la sala pedida lista en el almacenamiento y abre la ventana anfitriona, que se conecta sola.
   function abrirEnVentana(sala, nombre, silenciosa, mic) {
@@ -238,7 +238,13 @@ const NikaAteneos = (() => {
       .ats-dot { width: 9px; height: 9px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; } .ats-dot.on { background: #22c55e; }
       .ats-fila { display: flex; gap: 8px; } .ats-fila > * { flex: 1; }
       #at-inv-toast { position: fixed; right: 16px; bottom: 18px; z-index: 9600; width: min(340px, calc(100vw - 32px)); display: none; flex-direction: column; gap: 10px; padding: 16px; border-radius: 18px; background: var(--card-bg, #fff); color: var(--text-main, #0f172a); border: 1px solid var(--nika-primary, #0284c7); box-shadow: 0 24px 50px -14px rgba(0,0,0,.55); font-family: inherit; }
-      #at-inv-toast.on { display: flex; animation: ats-in .25s ease; } @keyframes ats-in { from { transform: translateY(14px); opacity: 0; } }
+      #at-inv-toast.on { display: flex; animation: ats-in .25s ease; }
+      #at-inv-toast.llamando { border: 2px solid #22c55e; box-shadow: 0 0 0 0 rgba(34,197,94,.55), 0 24px 50px -18px rgba(0,0,0,.55); animation: ats-in .25s ease, atLlamada 1.4s ease-out infinite .25s; }
+      @keyframes atLlamada { to { box-shadow: 0 0 0 18px rgba(34,197,94,0), 0 24px 50px -18px rgba(0,0,0,.55); } }
+      .at-ll { display: flex; align-items: center; gap: 12px; } .at-ll small { display: block; opacity: .7; font-size: .78rem; margin-top: 2px; }
+      .at-ll-ico { font-size: 1.7rem; animation: atSuena .7s ease-in-out infinite; display: inline-block; }
+      @keyframes atSuena { 0%,100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+      .at-ll-si { background: #16a34a !important; color: #fff !important; } .at-ll-no { background: #dc2626 !important; color: #fff !important; border-color: #dc2626 !important; } @keyframes ats-in { from { transform: translateY(14px); opacity: 0; } }
       #at-inv-toast .f { display: flex; gap: 8px; }
       @media (max-width: 900px) {
         .ats { grid-template-columns: 1fr; }
@@ -989,13 +995,18 @@ const NikaAteneos = (() => {
     let t = $('#at-inv-toast');
     if (!t) { t = document.createElement('div'); t.id = 'at-inv-toast'; document.body.appendChild(t); }
     const info = infoSala(p.sala);
-    t.innerHTML = `<div><b>📹 ${esc(p.deNombre || p.de)}</b> te invita a <b>${esc(info.nombre)}</b></div>
-      <div class="f"><button type="button" class="at-btn" id="at-inv-si">Unirme</button><button type="button" class="at-btn sec" id="at-inv-no">Ahora no</button></div>`;
-    t.classList.add('on');
-    clearTimeout(timerInv); timerInv = setTimeout(() => t.classList.remove('on'), 90000);
-    $('#at-inv-no').onclick = () => t.classList.remove('on');
+    const quien = p.deNombre || p.de;
+    t.innerHTML = `<div class="at-ll"><span class="at-ll-ico">📞</span><div><b>${esc(quien)}</b> te está llamando<small>${esc(info.nombre)}</small></div></div>
+      <div class="f"><button type="button" class="at-btn at-ll-si" id="at-inv-si">📞 Atender</button><button type="button" class="at-btn at-ll-no" id="at-inv-no">✖ Rechazar</button></div>`;
+    t.classList.add('on', 'llamando');
+    // tono de llamada entrante (solo suena en una pestaña); la carga es perezosa por si el script no estaba
+    const sonar = () => { try { if (window.NikaRing) window.NikaRing.start(quien); } catch (_) {} };
+    const apagar = () => { try { if (window.NikaRing) window.NikaRing.stop(); } catch (_) {} t.classList.remove('on', 'llamando'); };
+    if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=1'; sc.onload = sonar; document.head.appendChild(sc); }
+    clearTimeout(timerInv); timerInv = setTimeout(apagar, 45000);
+    $('#at-inv-no').onclick = apagar;
     $('#at-inv-si').onclick = async () => {
-      t.classList.remove('on');
+      apagar();
       try { await unirseASala(p.sala); } catch (e) { toast(e.message || 'No se pudo entrar a la sala.'); }
     };
   }
@@ -1058,6 +1069,7 @@ const NikaAteneos = (() => {
   }
   function init() {
     css();
+    if (!window.NikaRing) { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=1'; document.head.appendChild(sc); }
     if (SOY_HOST) { iniciarHost(); try { document.body.classList.add('at-host'); } catch (_) {} }
     Promise.resolve(reconectarSiCorresponde()).then(() => { if (SOY_HOST) procesarPendiente(); });
     setTimeout(revisarInvitacion, 700);

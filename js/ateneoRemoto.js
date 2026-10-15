@@ -20,6 +20,9 @@
     + '#ar-bar.mini{padding:5px;gap:0;border-radius:50%;width:46px;height:46px;justify-content:center;background:#16a34a}'
     + '#ar-bar.mini .nm,#ar-bar.mini #ar-n,#ar-bar.mini button,#ar-bar.mini .pt{display:none}#ar-bar.mini::after{content:"📞";font-size:1.2rem}'
     + '#ar-inv{position:fixed;right:16px;bottom:18px;z-index:99991;width:min(330px,calc(100vw - 32px));padding:14px;border-radius:18px;background:#fff;color:#0f172a;border:1px solid #e2e8f0;box-shadow:0 24px 50px -18px rgba(0,0,0,.5);font:600 .85rem/1.4 "Plus Jakarta Sans",system-ui,sans-serif;display:none}'
+    + '#ar-inv.llamando{border:2px solid #22c55e;animation:arIn .3s ease,arLlam 1.4s ease-out infinite .3s}@keyframes arLlam{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55),0 24px 50px -18px rgba(0,0,0,.5)}100%{box-shadow:0 0 0 18px rgba(34,197,94,0),0 24px 50px -18px rgba(0,0,0,.5)}}'
+    + '#ar-inv .ll{display:flex;align-items:center;gap:12px}#ar-inv .ll small{display:block;opacity:.65;font-size:.76rem;margin-top:2px}#ar-inv .ico{font-size:1.7rem;display:inline-block;animation:arSuena .7s ease-in-out infinite}@keyframes arSuena{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}}'
+    + '#ar-inv button.si{background:#16a34a}#ar-inv button.no{background:#dc2626;color:#fff}'
     + '#ar-inv.on{display:block;animation:arIn .3s ease}#ar-inv .f{display:flex;gap:8px;margin-top:10px}#ar-inv button{flex:1;border:0;border-radius:12px;padding:9px;font-weight:800;cursor:pointer;background:#0284c7;color:#fff}#ar-inv button.no{background:#e2e8f0;color:#334155}';
   document.head.appendChild(st);
   const bar = document.createElement('div'); bar.id = 'ar-bar';
@@ -49,10 +52,15 @@
     if (m.estado) { est = m.estado; ultimo = Date.now(); pintar(); }
     if (m.invitacion) {
       const p = m.invitacion;
-      inv.innerHTML = '<div><b>📹 ' + esc(p.deNombre || p.de) + '</b> te invita a una llamada de Ateneos</div><div class="f"><button type="button" id="ar-si">Unirme</button><button type="button" class="no" id="ar-no">Ahora no</button></div>';
-      inv.classList.add('on'); clearTimeout(tinv); tinv = setTimeout(() => inv.classList.remove('on'), 90000);
-      q('ar-no').onclick = () => inv.classList.remove('on');
-      q('ar-si').onclick = () => { inv.classList.remove('on'); enviar({ cmd: 'unirse', sala: p.sala }); };
+      const quien = p.deNombre || p.de;
+      inv.innerHTML = '<div class="ll"><span class="ico">📞</span><div><b>' + esc(quien) + '</b> te está llamando<small>Llamada de Ateneos</small></div></div><div class="f"><button type="button" class="si" id="ar-si">📞 Atender</button><button type="button" class="no" id="ar-no">✖ Rechazar</button></div>';
+      inv.classList.add('on', 'llamando');
+      const apagar = () => { try { if (window.NikaRing) window.NikaRing.stop(); } catch (_) {} inv.classList.remove('on', 'llamando'); };
+      const sonar = () => { try { if (window.NikaRing) window.NikaRing.start(quien); } catch (_) {} };
+      if (window.NikaRing) sonar(); else { const sc = document.createElement('script'); sc.src = 'js/nikaRing.js?v=1'; sc.onload = sonar; document.head.appendChild(sc); }
+      clearTimeout(tinv); tinv = setTimeout(apagar, 45000);
+      q('ar-no').onclick = apagar;
+      q('ar-si').onclick = () => { apagar(); enviar({ cmd: 'unirse', sala: p.sala }); };
     }
   };
   setInterval(pintar, 2000);
