@@ -12,10 +12,51 @@
   const leerOk = () => { try { return JSON.parse(localStorage.getItem(KEY_OK) || '{}') || {}; } catch (_) { return {}; } };
   const guardarOk = (o) => { try { localStorage.setItem(KEY_OK, JSON.stringify(o)); } catch (_) {} };
 
+  // ---- sincronización entre dispositivos (tabla flashcards_progreso, RLS por usuario) ----
+  const KEY_PEND = 'nika_fc_pend';
+  const leerPend = () => { try { return JSON.parse(localStorage.getItem(KEY_PEND) || '[]') || []; } catch (_) { return []; } };
+  const guardarPend = (a) => { try { localStorage.setItem(KEY_PEND, JSON.stringify(a)); } catch (_) {} };
+  const cli = () => { try { return window.NikaSupabase && window.NikaSupabase.client; } catch (_) { return null; } };
+  let uid = null, sincronizado = false;
+  async function sesion() {
+    if (uid) return uid;
+    try { const c = cli(); if (!c) return null; if (window.NikaSupabase.ready) await window.NikaSupabase.ready; const r = await c.auth.getSession(); uid = r && r.data && r.data.session && r.data.session.user ? r.data.session.user.id : null; } catch (_) {}
+    return uid;
+  }
+  async function empujar() {   // envía las marcas pendientes a la nube
+    if (!(await sesion())) return false;
+    const c = cli(), pend = leerPend(), resto = [];
+    for (const op of pend) {
+      try {
+        const r = op.v ? await c.from('flashcards_progreso').upsert({ user_id: uid, ficha_id: op.id, actualizado_en: new Date().toISOString() }, { onConflict: 'user_id,ficha_id' })
+                       : await c.from('flashcards_progreso').delete().eq('user_id', uid).eq('ficha_id', op.id);
+        if (r && r.error) resto.push(op);
+      } catch (_) { resto.push(op); }
+    }
+    guardarPend(resto);
+    return resto.length === 0;
+  }
+  async function sincronizar() {   // trae el progreso de la nube y lo vuelca al dispositivo
+    if (sincronizado || !(await sesion())) return;
+    try {
+      if (!(await empujar())) return;
+      const r = await cli().from('flashcards_progreso').select('ficha_id').eq('user_id', uid).limit(2000);
+      if (r.error || !r.data) return;
+      const o = {}; r.data.forEach((x) => { o[x.ficha_id] = 1; });
+      guardarOk(o); sincronizado = true;
+    } catch (_) {}
+  }
+  function marcar(id, v) {         // local primero; nube en segundo plano
+    const o = leerOk(); if (v) o[id] = 1; else delete o[id]; guardarOk(o);
+    const pend = leerPend().filter((x) => x.id !== id); pend.push({ id, v: !!v }); guardarPend(pend);
+    empujar();
+  }
+
   function cargar() {
     if (D) return Promise.resolve(D);
     if (cargando) return cargando;
     cargando = fetch(URL_DATOS, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then((j) => sincronizar().then(() => j))
       .then((j) => {
         D = j;
         D.byId = {}; (j.patologias || []).forEach((p) => { D.byId[p.id] = p; p._h = norm([p.titulo].concat(p.alias || []).join(' ')); p._t = norm([p.definicion, (p.diagnostico || []).join(' ')].join(' ')); });
@@ -83,7 +124,7 @@
         if (e.target === m) return cerrar();
         const b = e.target.closest('[data-fc],[data-fc-sec]'); if (!b) return;
         if (b.dataset.fc === 'cerrar') return cerrar();
-        if (b.dataset.fc === 'ok') { const o = leerOk(); if (o[p.id]) delete o[p.id]; else o[p.id] = 1; guardarOk(o); pintar(); if (alCambiar) alCambiar(); return; }
+        if (b.dataset.fc === 'ok') { marcar(p.id, !leerOk()[p.id]); pintar(); if (alCambiar) alCambiar(); return; }
         const s = b.dataset.fcSec;
         if (s === '__all') sel = sel.length === disp.length ? [disp[0].id] : disp.map((x) => x.id);
         else sel = sel.includes(s) ? (sel.length > 1 ? sel.filter((x) => x !== s) : sel) : sel.concat(s);
@@ -231,7 +272,7 @@
         if (t.closest('[data-go]')) return empezar(pool());
         if (t.closest('[data-mostrar]')) { vista = true; return pintarCarta(); }
         const r = t.closest('[data-r]');
-        if (r) { const p = mazo[i]; if (r.dataset.r === 'si') { sabidas++; const o = leerOk(); o[p.id] = 1; guardarOk(o); } else repasar.push(p); i++; vista = false; return pintarCarta(); }
+        if (r) { const p = mazo[i]; if (r.dataset.r === 'si') { sabidas++; marcar(p.id, true); } else repasar.push(p); i++; vista = false; return pintarCarta(); }
         if (t.closest('[data-salir]') || t.closest('[data-setup]')) return pintarSetup();
         if (t.closest('[data-again]')) { const l = repasar.slice(); mazo = barajar(l); i = 0; vista = false; repasar = []; sabidas = 0; return pintarCarta(); }
         const v = t.closest('[data-ver]'); if (v) return abrir(v.dataset.ver, ['tx', 'dx']);
