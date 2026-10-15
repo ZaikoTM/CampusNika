@@ -301,19 +301,52 @@ const NikaMusic = (() => {
 
   let tBusq = null;
   function buscarDebounce() { clearTimeout(tBusq); tBusq = setTimeout(buscar, 350); }
+  let busqSeq = 0;
   async function buscar() {
-    const q = $('#nm-q').value.trim(), cont = $('#nm-res');
+    const inp = $('#nm-q'), cont = $('#nm-res'); if (!inp || !cont) return;
+    const q = inp.value.trim();
+    const tok = ++busqSeq;
+    cont.classList.remove('nm-album-vista');
     if (q.length < 2) { cont.innerHTML = ''; return; }
-    cont.innerHTML = '<div class="nm-vacio">Buscando...</div>';
-    try {
-      const r = await api('/search?type=track,album&limit=6&q=' + encodeURIComponent(q));
-      const fila = (uri, img, t1, t2, alb, ctx) => `<button type="button" class="nm-item" data-uri="${esc(uri)}" data-album="${alb ? 1 : 0}" data-ctx="${esc(ctx || '')}"><img src="${esc(img || '')}" alt=""><span><b>${esc(t1)}</b><small>${alb ? '💿 ' : ''}${esc(t2)}</small></span></button>`;
-      cont.innerHTML = [
-        ...((r.tracks && r.tracks.items) || []).map((t) => fila(t.uri, t.album.images.slice(-1)[0]?.url, t.name, t.artists.map((a) => a.name).join(', '), false, t.album && t.album.uri)),
-        ...((r.albums && r.albums.items) || []).map((a) => fila(a.uri, a.images.slice(-1)[0]?.url, a.name, a.artists.map((x) => x.name).join(', '), true)),
-      ].join('') || '<div class="nm-vacio">Sin resultados.</div>';
-      cont.querySelectorAll('.nm-item').forEach((b) => b.addEventListener('click', () => (b.dataset.album === '1' ? abrirAlbum(b.dataset.uri, q) : (b.dataset.ctx ? reproducirSdk({ context_uri: b.dataset.ctx, offset: { uri: b.dataset.uri } }) : reproducirSdk({ uris: [b.dataset.uri] })))));
-    } catch (err) { if (err && err.spotify403) { alRechazoSpotify(err.message); return; } cont.innerHTML = `<div class="nm-vacio">${esc(err.message)}</div>`; }
+    cont.innerHTML = '<div class="nm-vacio">🔎 Buscando…</div>';
+    // Si Spotify rechaza alguna combinación (límites o tipos), se reintenta con una más simple
+    const intentos = [['track,album,artist', 8], ['track,album', 5], ['track', 5]];
+    let r = null, ultimo = null;
+    for (const [tipos, lim] of intentos) {
+      try { r = await api('/search?type=' + tipos + '&limit=' + lim + '&q=' + encodeURIComponent(q)); ultimo = null; break; }
+      catch (e) {
+        if (e && e.spotify403) { alRechazoSpotify(e.message); return; }
+        ultimo = e; if (!/limit|invalid|type|400|bad request/i.test(String((e && e.message) || ''))) break;
+      }
+    }
+    if (tok !== busqSeq || !$('#nm-res')) return;
+    if (!r) { cont.innerHTML = `<div class="nm-vacio">No se pudo buscar: ${esc((ultimo && ultimo.message) || 'sin respuesta de Spotify')}. Probá de nuevo en unos segundos.</div>`; return; }
+    const img = (imgs) => ((imgs || []).slice(-1)[0] || {}).url || '';
+    const fila = (uri, im, t1, t2, tipo, ctx) => `<button type="button" class="nm-item" data-uri="${esc(uri)}" data-tipo="${tipo}" data-ctx="${esc(ctx || '')}">${im ? `<img src="${esc(im)}" alt="">` : '<img alt="" style="visibility:hidden">'}<span><b>${esc(t1)}</b><small>${tipo === 'album' ? '💿 Álbum · ' : tipo === 'artist' ? '🎤 Artista' : ''}${esc(t2)}</small></span></button>`;
+    const filas = [];
+    ((r.artists && r.artists.items) || []).filter(Boolean).slice(0, 3).forEach((a) => filas.push(fila(a.uri, img(a.images), a.name, '', 'artist')));
+    ((r.tracks && r.tracks.items) || []).filter(Boolean).slice(0, 6).forEach((t) => filas.push(fila(t.uri, img(t.album && t.album.images), t.name, (t.artists || []).map((a) => a.name).join(', '), 'track', t.album && t.album.uri)));
+    ((r.albums && r.albums.items) || []).filter(Boolean).slice(0, 4).forEach((a) => filas.push(fila(a.uri, img(a.images), a.name, (a.artists || []).map((x) => x.name).join(', '), 'album')));
+    cont.innerHTML = filas.join('') || '<div class="nm-vacio">Sin resultados para “' + esc(q) + '”.</div>';
+    cont.querySelectorAll('.nm-item').forEach((b) => b.addEventListener('click', () => {
+      const t = b.dataset.tipo;
+      if (t === 'album') abrirAlbum(b.dataset.uri, q);
+      else if (t === 'artist') reproducirSdk({ context_uri: b.dataset.uri });
+      else if (b.dataset.ctx) reproducirSdk({ context_uri: b.dataset.ctx, offset: { uri: b.dataset.uri } });
+      else reproducirSdk({ uris: [b.dataset.uri] });
+    }));
+  }
+
+  // Quita la canción actual: se pausa y se reinicia el reproductor para que no quede nada cargado
+  async function quitarCancion() {
+    try { if (player) await player.pause(); } catch (_) {}
+    try { await api('/me/player/pause', { method: 'PUT' }); } catch (_) {}
+    try { if (player) player.disconnect(); } catch (_) {}
+    player = null; deviceId = null; estado = null; clearInterval(tick); sdkCargado = false;
+    if (fuente && fuente.tipo === 'sdk') fuente = null;
+    sonando = false; try { localStorage.setItem(K_ACTIVA, '0'); } catch (_) {}
+    render(); cargarSdk();
+    setMensaje('Canción quitada. Elegí otra playlist o buscá.');
   }
 
   // Álbum: lista de canciones para elegir una (o reproducir todo desde el principio)
@@ -780,7 +813,7 @@ const NikaMusic = (() => {
       .nm-vol { display: flex; align-items: center; gap: 8px; font-size: .9rem; } .nm-vol input { flex: 1; }
       #nm-q { width: 100%; box-sizing: border-box; padding: 9px 13px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: #f1f5f9; font-size: .84rem; font-family: inherit; outline: none; }
       #nm-q:focus { border-color: #1db954; }
-      #nm-res { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; max-height: 170px; overflow-y: auto; }
+      #nm-res { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; min-height: 24px; max-height: 240px; overflow-y: auto; }
       .nm-item { display: flex; gap: 10px; align-items: center; border: none; background: transparent; color: inherit; padding: 6px; border-radius: 10px; cursor: pointer; text-align: left; font-family: inherit; }
       .nm-item:hover { background: rgba(255,255,255,.08); } .nm-item img { width: 36px; height: 36px; border-radius: 6px; background: #1f2630; object-fit: cover; }
       .nm-item span { min-width: 0; } .nm-item b { display: block; font-size: .8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .nm-item small { color: #94a3b8; font-size: .7rem; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -1218,10 +1251,11 @@ const NikaMusic = (() => {
           <button type="button" id="nm-prev" class="med" aria-label="Canción anterior" title="Anterior">⏮</button>
           <button type="button" id="nm-play" class="grande" aria-label="Reproducir o pausar" title="Reproducir / pausar">▶</button>
           <button type="button" id="nm-next" class="med" aria-label="Siguiente canción" title="Siguiente">⏭</button>
+          <button type="button" id="nm-stop" class="med" aria-label="Quitar la canción" title="Quitar la canción que suena">⏹</button>
         </div>
         <div class="nm-volrow"><button type="button" class="nm-mute" id="nm-mute" aria-label="Silenciar">${vol0 === 0 ? '🔇' : '🔊'}</button><input type="range" id="nm-vol" min="0" max="100" value="${vol0}" aria-label="Volumen"><b id="nm-vol-n">${vol0}</b></div>
         <div class="nm-chips nm-scroll">${PLAYLISTS_CUENTA.map((pl, i) => `<button type="button" class="nm-pl" data-i="${i}">${pl.icono} ${pl.label}</button>`).join('')}</div>
-        <input type="search" id="nm-q" placeholder="🔍 Buscar canción o álbum" autocomplete="off"><div id="nm-res"></div>
+        <input type="search" id="nm-q" placeholder="🔍 Buscar canción, artista o álbum" autocomplete="off"><div id="nm-res"></div>
         <button type="button" class="nm-out" id="nm-out">Desconectar Spotify</button>`;
     }
     const compartir = (() => { try { return localStorage.getItem(K_SHARE) !== '0'; } catch (_) { return true; } })();
@@ -1267,6 +1301,7 @@ const NikaMusic = (() => {
       $('#nm-play').onclick = alternarReproduccion;
       $('#nm-prev').onclick = () => player && player.previousTrack();
       $('#nm-next').onclick = () => player && player.nextTrack();
+      $('#nm-stop').onclick = quitarCancion;
       $('#nm-seek').addEventListener('change', (e) => { if (player && estado) player.seek(Math.round((e.target.value / 1000) * estado.duration)); });
       $('#nm-vol').addEventListener('input', (e) => {
         const v = e.target.value / 100; localStorage.setItem(K_VOL, String(v)); if (player) player.setVolume(v);
@@ -1280,6 +1315,7 @@ const NikaMusic = (() => {
       };
       panel.querySelectorAll('.nm-pl').forEach((bt) => bt.addEventListener('click', () => playlistPorNombre(PLAYLISTS_CUENTA[bt.dataset.i].q, bt)));
       $('#nm-q').addEventListener('input', buscarDebounce);
+      $('#nm-q').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); clearTimeout(tBusq); buscar(); } });
       if (sdkCargado && !deviceId) setMensaje('Conectando el reproductor...');
     }
     pintarEstado();
