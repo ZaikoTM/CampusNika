@@ -516,7 +516,13 @@
     try { if (store('nika_notas_side') !== '0') document.body.classList.add('ns-colapsado'); } catch (_) {}
     document.querySelectorAll('.ns-link').forEach((a) => { const t = a.querySelector('.ns-t'); if (t && !a.title) a.title = t.textContent.trim(); });
     const col = $('ns-colapsar'), bur = $('ns-burger');
-    if (col) col.addEventListener('click', () => { const c = document.body.classList.toggle('ns-colapsado'); store('nika_notas_side', c ? '1' : '0'); const t = col.querySelector('.ns-t'); if (t) t.textContent = c ? 'Expandir' : 'Contraer'; });
+    const pintarCol = () => {
+      if (!col) return; const c = document.body.classList.contains('ns-colapsado');
+      const i = col.querySelector('.ns-ic'), t = col.querySelector('.ns-t');
+      if (i) i.textContent = c ? '⇥' : '⇤'; if (t) t.textContent = c ? 'Expandir' : 'Contraer';
+      col.title = c ? 'Expandir la barra lateral' : 'Contraer la barra lateral'; col.setAttribute('aria-label', col.title);
+    };
+    if (col) { col.addEventListener('click', () => { const c = document.body.classList.toggle('ns-colapsado'); store('nika_notas_side', c ? '1' : '0'); pintarCol(); }); pintarCol(); }
     if (bur) bur.addEventListener('click', () => document.body.classList.toggle('ns-abierto'));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.body.classList.remove('ns-abierto'); });
     document.addEventListener('click', (e) => { if (document.body.classList.contains('ns-abierto') && !e.target.closest('#ns-side') && !e.target.closest('#ns-burger')) document.body.classList.remove('ns-abierto'); });
