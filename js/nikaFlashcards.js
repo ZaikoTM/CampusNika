@@ -1,10 +1,11 @@
-// js/nikaFlashcards.js — Flashcards de tratamientos (post-it + recetario) y Simulador FlashCard.
+// js/nikaFlashcards.js — Flashcards de tratamientos (post-it + recetario), panel de NikaFarma, Practicar y Simulador FlashCard.
 // Datos: data/nikafarma_patologias.json (fichas con fuente, tipo guía/apunte y unidades problema `up`).
 (function () {
   'use strict';
   const URL_DATOS = 'data/nikafarma_patologias.json';
   const KEY_OK = 'nika_fc_ok';
   const PAPEL = { 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
+  const LOGO = 'assets/N%20NIKA.png';
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const norm = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
   let D = null, cargando = null, modal = null;
@@ -23,7 +24,7 @@
     try { const c = cli(); if (!c) return null; if (window.NikaSupabase.ready) await window.NikaSupabase.ready; const r = await c.auth.getSession(); uid = r && r.data && r.data.session && r.data.session.user ? r.data.session.user.id : null; } catch (_) {}
     return uid;
   }
-  async function empujar() {   // envía las marcas pendientes a la nube
+  async function empujar() {
     if (!(await sesion())) return false;
     const c = cli(), pend = leerPend(), resto = [];
     for (const op of pend) {
@@ -36,7 +37,7 @@
     guardarPend(resto);
     return resto.length === 0;
   }
-  async function sincronizar() {   // trae el progreso de la nube y lo vuelca al dispositivo
+  async function sincronizar() {
     if (sincronizado || !(await sesion())) return;
     try {
       if (!(await empujar())) return;
@@ -46,7 +47,7 @@
       guardarOk(o); sincronizado = true;
     } catch (_) {}
   }
-  function marcar(id, v) {         // local primero; nube en segundo plano
+  function marcar(id, v) {
     const o = leerOk(); if (v) o[id] = 1; else delete o[id]; guardarOk(o);
     const pend = leerPend().filter((x) => x.id !== id); pend.push({ id, v: !!v }); guardarPend(pend);
     empujar();
@@ -68,12 +69,15 @@
   // ---------- contenido por sección ----------
   const lista = (a, c) => a && a.length ? '<ul' + (c ? ' class="' + c + '"' : '') + '>' + a.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '';
   const SECS = [
-    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => (p.tratamiento || []).map((b) => '<div class="fc-sub">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + esc(s.texto) + '</span></div>').join('')).join('') },
-    { id: 'dx', ico: '🩺', nom: 'Diagnóstico y definición', html: (p) => (p.definicion ? '<p>' + esc(p.definicion) + '</p>' : '') + lista(p.diagnostico) },
-    { id: 'est', ico: '🧪', nom: 'Estudios', html: (p) => lista(p.estudios) },
-    { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento) },
-    { id: 'rojo', ico: '🚩', nom: 'Banderas rojas', html: (p) => lista(p.banderas, 'fc-rojo') },
-    { id: 'con', ico: '⚖️', nom: 'Contraste con consensos', html: (p) => p.contraste ? '<p><b>' + esc(((D.meta.contraste || {})[p.contraste.estado]) || '') + '</b> · ' + esc(p.contraste.fuente) + '</p>' + lista(p.contraste.puntos) : '' }
+    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => (p.tratamiento || []).map((b) => '<div class="fc-sub">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + esc(s.texto) + '</span></div>').join('')).join(''),
+      txt: (p) => (p.tratamiento || []).map((b) => b.titulo + '\n' + (b.pasos || []).map((s) => '• ' + s.etiqueta + ': ' + s.texto).join('\n')).join('\n') },
+    { id: 'dx', ico: '🩺', nom: 'Diagnóstico y definición', html: (p) => (p.definicion ? '<p>' + esc(p.definicion) + '</p>' : '') + lista(p.diagnostico),
+      txt: (p) => (p.definicion ? p.definicion + '\n' : '') + (p.diagnostico || []).map((x) => '• ' + x).join('\n') },
+    { id: 'est', ico: '🧪', nom: 'Estudios', html: (p) => lista(p.estudios), txt: (p) => (p.estudios || []).map((x) => '• ' + x).join('\n') },
+    { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento), txt: (p) => (p.seguimiento || []).map((x) => '• ' + x).join('\n') },
+    { id: 'rojo', ico: '🚩', nom: 'Banderas rojas', html: (p) => lista(p.banderas, 'fc-rojo'), txt: (p) => (p.banderas || []).map((x) => '• ' + x).join('\n') },
+    { id: 'con', ico: '⚖️', nom: 'Contraste con consensos', html: (p) => p.contraste ? '<p><b>' + esc(((D.meta.contraste || {})[p.contraste.estado]) || '') + '</b> · ' + esc(p.contraste.fuente) + '</p>' + lista(p.contraste.puntos) : '',
+      txt: (p) => p.contraste ? p.contraste.fuente + '\n' + (p.contraste.puntos || []).map((x) => '• ' + x).join('\n') : '' }
   ];
   const tieneSec = (p, s) => { const h = s.html(p); return !!h && h.replace(/<[^>]+>/g, '').trim().length > 0; };
 
@@ -86,7 +90,68 @@
     ? '<span class="fc-tag guia">✔ ' + esc((p.fuente.sociedad || '').split('/')[0].trim()) + ' ' + esc(p.fuente.anio || '') + '</span>'
     : '<span class="fc-tag ver" title="Verificar veracidad con guías actuales">⚠️ Verificar con guías</span>';
 
-  // ---------- modal ----------
+  // ---------- tarjeta completa (detalle) ----------
+  function textoCompartir(p, ids) {
+    const f = p.fuente || {};
+    const unidades = (p.up || []).map((u) => (D.meta.unidades || {})[u] || u).join(' · ');
+    const cuerpo = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s)).map((s) => s.ico + ' ' + s.nom.toUpperCase() + '\n' + s.txt(p)).join('\n\n');
+    return '🃏 ' + p.titulo + '\n' + unidades + '\n\n' + cuerpo + '\n\nFuente: ' + (f.sociedad || '') + ' · ' + (f.guia || '') + ' (' + (f.anio || '') + ')' +
+      (f.tipo === 'guia' ? '' : '\n⚠️ Verificar veracidad con guías actuales.') + '\n\nNikaMed · Flashcards clínicas — nikamed.com.ar';
+  }
+  function avisoToast(host, msg) {
+    const t = host.querySelector('.fcd-toast'); if (!t) return;
+    t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2200);
+  }
+  async function copiar(texto) {
+    try { await navigator.clipboard.writeText(texto); return true; } catch (_) {}
+    try { const ta = document.createElement('textarea'); ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); return ok; } catch (_) { return false; }
+  }
+
+  // Dibuja la tarjeta completa dentro de `host`. opts.alVolver: función del botón «Volver».
+  function detalle(host, id, opts) {
+    opts = opts || {};
+    cargar().then((d) => {
+      const p = d && d.byId[id]; if (!p) return;
+      const disp = SECS.filter((s) => tieneSec(p, s));
+      const abiertas = new Set(['tx', 'dx'].filter((x) => disp.some((s) => s.id === x)));
+      const papel = PAPEL[(p.up || [])[0]] || '#fff3a3';
+      const f = p.fuente || {};
+      const pintar = () => {
+        const ok = leerOk()[p.id];
+        const unidades = (p.up || []).map((u) => '<span class="fcd-u">' + esc((d.meta.unidades || {})[u] || u) + '</span>').join('');
+        const chips = disp.map((s) => '<button type="button" class="fc-chip' + (abiertas.has(s.id) ? ' on' : '') + '" data-fcd-sec="' + s.id + '">' + s.ico + ' ' + esc(s.nom) + '</button>').join('') +
+          '<button type="button" class="fc-chip" data-fcd="todo">' + (abiertas.size === disp.length ? '➖ Contraer todo' : '📖 Expandir todo') + '</button>';
+        const secs = disp.map((s) => '<details class="fcd-sec" data-sec="' + s.id + '"' + (abiertas.has(s.id) ? ' open' : '') + '><summary><i>' + s.ico + '</i><b>' + esc(s.nom) + '</b></summary><div class="fcd-in">' + s.html(p) + '</div></details>').join('');
+        host.innerHTML = '<article class="fcd" style="--paper:' + papel + '">' +
+          '<div class="fcd-cab"><button type="button" class="fcd-btn" data-fcd="volver">← ' + esc(opts.textoVolver || 'Volver') + '</button>' +
+          '<div class="fcd-logo"><img src="' + LOGO + '" alt="NikaMed"><span><b>NikaMed</b><small>Flashcards clínicas</small></span></div><span class="fcd-toast"></span></div>' +
+          '<div class="fcd-hoja"><span class="pin"></span><h3>' + esc(p.titulo) + '</h3><div class="fcd-meta">' + unidades + etiquetaFuente(p) + (ok ? '<span class="fc-tag guia">✅ La sabés</span>' : '') + '</div>' +
+          '<div class="fc-elegi">Tocá para desplegar o plegar cada parte</div><div class="fc-chips">' + chips + '</div>' +
+          '<div class="fcd-secs">' + secs + '</div>' + sello(p) +
+          '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small></div></div>' +
+          '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">📋 Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa">💬 WhatsApp</button>' +
+          (navigator.share ? '<button type="button" class="fcd-btn" data-fcd="share">📤 Compartir</button>' : '') +
+          '<button type="button" class="fcd-btn ' + (ok ? 'sec' : 'ok') + '" data-fcd="ok">' + (ok ? '↩ Marcar para repasar' : '✅ Me lo sé') + '</button></div>' +
+          '<p class="fc-legal">' + esc(d.meta.descargo) + '</p></article>';
+      };
+      const ids = () => { const a = Array.from(abiertas); return a.length ? a : disp.map((s) => s.id); };
+      pintar();
+      host.onclick = (e) => {
+        const b = e.target.closest('[data-fcd],[data-fcd-sec],summary'); if (!b) return;
+        if (b.tagName === 'SUMMARY') { setTimeout(() => { const det = b.parentElement; if (det.open) abiertas.add(det.dataset.sec); else abiertas.delete(det.dataset.sec); const c = host.querySelector('[data-fcd="todo"]'); if (c) c.textContent = abiertas.size === disp.length ? '➖ Contraer todo' : '📖 Expandir todo'; host.querySelectorAll('[data-fcd-sec]').forEach((x) => x.classList.toggle('on', abiertas.has(x.dataset.fcdSec))); }, 0); return; }
+        if (b.dataset.fcdSec) { const s = b.dataset.fcdSec; if (abiertas.has(s)) abiertas.delete(s); else abiertas.add(s); return pintar(); }
+        const a = b.dataset.fcd;
+        if (a === 'volver') { if (opts.alVolver) opts.alVolver(); return; }
+        if (a === 'todo') { if (abiertas.size === disp.length) abiertas.clear(); else disp.forEach((s) => abiertas.add(s.id)); return pintar(); }
+        if (a === 'ok') { marcar(p.id, !leerOk()[p.id]); pintar(); if (opts.alCambiar) opts.alCambiar(); return; }
+        if (a === 'copiar') return copiar(textoCompartir(p, ids())).then((ok) => avisoToast(host, ok ? '📋 ¡Copiado!' : 'No se pudo copiar'));
+        if (a === 'wa') { const t = encodeURIComponent(textoCompartir(p, ids())); window.open('https://wa.me/?text=' + t, '_blank', 'noopener'); return avisoToast(host, '💬 Abriendo WhatsApp…'); }
+        if (a === 'share') { navigator.share({ title: p.titulo + ' · NikaMed', text: textoCompartir(p, ids()) }).catch(() => {}); return; }
+      };
+    });
+  }
+
+  // ---------- modal con la tarjeta completa ----------
   function asegurarModal() {
     if (modal) return modal;
     modal = document.createElement('div'); modal.className = 'fc-modal fc-root'; modal.setAttribute('role', 'dialog'); modal.setAttribute('aria-modal', 'true');
@@ -96,41 +161,11 @@
     return modal;
   }
   function cerrar() { if (modal) modal.classList.remove('on'); }
-
   function abrir(id, seleccion, alCambiar) {
-    cargar().then((d) => {
-      const p = d && d.byId[id]; if (!p) return;
-      const disp = SECS.filter((s) => tieneSec(p, s));
-      let sel = (seleccion && seleccion.length ? seleccion : ['tx']).filter((x) => disp.some((s) => s.id === x));
-      if (!sel.length) sel = [disp[0].id];
-      const m = asegurarModal();
-      const papel = PAPEL[(p.up || [])[0]] || '#fff3a3';
-      const ok = leerOk();
-      const pintar = () => {
-        const chips = disp.map((s) => '<button type="button" class="fc-chip' + (sel.includes(s.id) ? ' on' : '') + '" data-fc-sec="' + s.id + '">' + s.ico + ' ' + esc(s.nom) + '</button>').join('') +
-          '<button type="button" class="fc-chip' + (sel.length === disp.length ? ' on' : '') + '" data-fc-sec="__all">📖 Completa</button>';
-        const cuerpo = disp.filter((s) => sel.includes(s.id)).map((s) => '<div class="fc-bloque"><h5>' + s.ico + ' ' + esc(s.nom) + '</h5>' + s.html(p) + '</div>').join('');
-        const unidades = (p.up || []).map((u) => (D.meta.unidades || {})[u] || u).join(' · ');
-        m.innerHTML = '<div class="fc-hoja" style="--paper:' + papel + '"><span class="pin"></span>' +
-          '<header><div><h3>' + esc(p.titulo) + '</h3><div class="sub">' + esc(unidades) + '</div></div><div style="display:flex;gap:10px;align-items:center"><span class="fc-sello-g" title="NikaMed"></span><button type="button" class="fc-x" data-fc="cerrar" aria-label="Cerrar">✕</button></div></header>' +
-          '<div class="fc-elegi">¿Qué querés repasar?</div><div class="fc-chips">' + chips + '</div>' +
-          '<div class="fc-papel">' + cuerpo + '</div>' + sello(p) +
-          '<div class="fc-pie"><span class="fc-fuente"><b>Fuente:</b> ' + esc((p.fuente || {}).guia || '') + '</span>' +
-          '<button type="button" class="fc-btn ' + (ok[p.id] ? 'sec' : 'ok') + '" data-fc="ok">' + (ok[p.id] ? '↩ Marcar para repasar' : '✅ Me lo sé') + '</button></div>' +
-          '<div class="fc-legal">' + esc(d.meta.descargo) + '</div></div>';
-      };
-      pintar(); m.classList.add('on'); m.scrollTop = 0;
-      m.onclick = (e) => {
-        if (e.target === m) return cerrar();
-        const b = e.target.closest('[data-fc],[data-fc-sec]'); if (!b) return;
-        if (b.dataset.fc === 'cerrar') return cerrar();
-        if (b.dataset.fc === 'ok') { marcar(p.id, !leerOk()[p.id]); pintar(); if (alCambiar) alCambiar(); return; }
-        const s = b.dataset.fcSec;
-        if (s === '__all') sel = sel.length === disp.length ? [disp[0].id] : disp.map((x) => x.id);
-        else sel = sel.includes(s) ? (sel.length > 1 ? sel.filter((x) => x !== s) : sel) : sel.concat(s);
-        pintar();
-      };
-    });
+    const m = asegurarModal();
+    m.innerHTML = '<div class="fcd-wrap"></div>';
+    m.classList.add('on'); m.scrollTop = 0;
+    detalle(m.querySelector('.fcd-wrap'), id, { alVolver: cerrar, textoVolver: 'Cerrar', alCambiar });
   }
 
   // ---------- mosaico ----------
@@ -139,7 +174,7 @@
     const rot = [-1.6, 1.2, -0.8, 1.8, -1.1, 0.6][i % 6];
     return '<button type="button" class="fc-tile" data-fc-abrir="' + esc(p.id) + '" style="--paper:' + (PAPEL[(p.up || [])[0]] || '#fff3a3') + ';--rot:' + rot + 'deg;--d:' + Math.min(i, 14) * 0.035 + 's">' +
       '<span class="pin"></span>' + (ok[p.id] ? '<span class="ok" title="Ya la sabés">✅</span>' : '') +
-      '<h4>' + esc(p.titulo) + '</h4><span class="hint">Tocá y elegí qué repasar</span>' +
+      '<h4>' + esc(p.titulo) + '</h4><span class="hint">Tocá para abrir la tarjeta</span>' +
       '<span class="tags">' + etiquetaFuente(p) + '</span><span class="fc-sello" title="NikaMed"></span></button>';
   }
 
@@ -160,30 +195,48 @@
     }).filter((x) => x.s > 0).sort((a, b) => b.s - a.s).map((x) => x.p);
   }
 
-  // host: contenedor; opts: { ups:[...], agrupar:true/false, titulo }
+  const AREAS_MOSAICO = [
+    { id: 'ginecologia', nom: 'Ginecología', ico: '🌸', ok: true },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪' }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
+    { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃' }
+  ];
+
+  // host: contenedor; opts: { ups:[...], agrupar:true/false, areas:true, inline:true }
   function montar(host, opts) {
     opts = opts || {};
     host.classList.add('fc-root');
     host.innerHTML = '<p style="opacity:.7">Preparando flashcards…</p>';
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards. Probá de nuevo más tarde.</div>'; return; }
-      let q = '', fuente = '';
+      let q = '', fuente = '', area = 'ginecologia', unidad = '';
       const base = fichasDe(opts.ups);
       const unidadesTodas = Object.keys(d.meta.unidades || {});
       const cuerpoId = 'fc-cuerpo-' + Math.random().toString(36).slice(2, 7);
-      host.innerHTML = '<div class="fc-bar"><div class="fc-search"><input type="search" placeholder="Buscar patología, fármaco o tema…" aria-label="Buscar flashcards" autocomplete="off"></div>' +
-        '<select class="fc-sel" aria-label="Tipo de fuente"><option value="">Todas las fuentes</option><option value="guia">Solo guías de sociedad</option><option value="apunte">Solo apuntes (verificar)</option></select>' +
-        '<div class="fc-prog"><span class="fc-pt"></span><i><b></b></i></div></div>' +
-        '<div id="' + cuerpoId + '"></div><div class="fc-legal">' + esc(d.meta.descargo) + '</div>';
-      const cuerpo = host.querySelector('#' + cuerpoId);
+      const armar = () => {
+        host.innerHTML =
+          (opts.areas ? '<div class="fc-areas">' + AREAS_MOSAICO.map((a) => '<button type="button" class="fc-area' + (a.ok && area === a.id ? ' on' : '') + '" ' + (a.ok ? 'data-fc-area="' + a.id + '"' : 'disabled title="Próximamente"') + '>' + a.ico + ' ' + a.nom + (a.ok ? '' : '<em>Próximamente</em>') + '</button>').join('') + '</div>' : '') +
+          '<div class="fc-bar"><div class="fc-search"><input type="search" placeholder="Buscar patología, tratamiento o tema…" aria-label="Buscar flashcards" autocomplete="off"></div>' +
+          '<select class="fc-sel" aria-label="Tipo de fuente"><option value="">Todas las fuentes</option><option value="guia">Solo guías de sociedad</option><option value="apunte">Solo apuntes (verificar)</option></select>' +
+          '<div class="fc-prog"><span class="fc-pt"></span><i><b></b></i></div></div>' +
+          (opts.ups ? '' : '<div class="fc-unis"><button type="button" class="fc-uni on" data-fc-uni="">Todas</button>' + unidadesTodas.map((u) => '<button type="button" class="fc-uni" data-fc-uni="' + u + '" style="--c:' + (PAPEL[u] || '#ddd') + '">' + esc(d.meta.unidades[u]) + '</button>').join('') + '</div>') +
+          '<div id="' + cuerpoId + '"></div><div class="fc-legal">' + esc(d.meta.descargo) + '</div>';
+        const inp = host.querySelector('.fc-search input'); inp.value = q;
+        inp.addEventListener('input', (e) => { q = e.target.value; pintar(); });
+        host.querySelector('.fc-sel').value = fuente;
+        host.querySelector('.fc-sel').addEventListener('change', (e) => { fuente = e.target.value; pintar(); });
+        host.querySelectorAll('[data-fc-uni]').forEach((b) => b.classList.toggle('on', b.dataset.fcUni === unidad));
+        pintar();
+      };
       const pintar = () => {
+        const cuerpo = host.querySelector('#' + cuerpoId); if (!cuerpo) return;
         let l = buscar(base, q);
+        if (unidad) l = l.filter((p) => (p.up || []).includes(unidad));
         if (fuente === 'guia') l = l.filter((p) => p.fuente.tipo === 'guia'); else if (fuente === 'apunte') l = l.filter((p) => p.fuente.tipo !== 'guia');
         const ok = leerOk(); const sabidas = base.filter((p) => ok[p.id]).length;
         host.querySelector('.fc-pt').textContent = sabidas + ' / ' + base.length + ' dominadas';
         host.querySelector('.fc-prog b').style.width = (base.length ? sabidas * 100 / base.length : 0) + '%';
-        if (!l.length) { cuerpo.innerHTML = '<div class="fc-vacio">No hay flashcards para esa búsqueda' + (opts.ups ? ' en esta unidad' : '') + '.</div>'; return; }
-        const porUnidad = opts.agrupar !== false && !opts.ups && !q;
+        if (!l.length) { cuerpo.innerHTML = '<div class="fc-vacio">No hay flashcards para esa búsqueda.</div>'; return; }
+        const porUnidad = opts.agrupar !== false && !opts.ups && !q && !unidad;
         if (porUnidad) {
           let h = '';
           unidadesTodas.forEach((u) => {
@@ -193,94 +246,176 @@
           cuerpo.innerHTML = h;
         } else cuerpo.innerHTML = '<div class="fc-grid">' + l.map(tile).join('') + '</div>';
       };
-      host.querySelector('.fc-search input').addEventListener('input', (e) => { q = e.target.value; pintar(); });
-      host.querySelector('.fc-sel').addEventListener('change', (e) => { fuente = e.target.value; pintar(); });
-      host.addEventListener('click', (e) => { const b = e.target.closest('[data-fc-abrir]'); if (b) abrir(b.dataset.fcAbrir, null, pintar); });
-      pintar();
+      host.addEventListener('click', (e) => {
+        const a = e.target.closest('[data-fc-area]'); if (a) { area = a.dataset.fcArea; return armar(); }
+        const u = e.target.closest('[data-fc-uni]'); if (u) { unidad = u.dataset.fcUni; host.querySelectorAll('[data-fc-uni]').forEach((b) => b.classList.toggle('on', b === u)); return pintar(); }
+        const b = e.target.closest('[data-fc-abrir]'); if (!b) return;
+        if (opts.inline) {
+          const y = host.scrollTop; const lista = host.innerHTML;
+          detalle(host, b.dataset.fcAbrir, { textoVolver: 'Volver a las flashcards', alVolver: () => { armar(); }, alCambiar: null });
+          if (host.scrollTo) host.scrollTo(0, 0);
+        } else abrir(b.dataset.fcAbrir, null, pintar);
+      });
+      armar();
     });
   }
 
-  // ---------- Simulador FlashCard ----------
+  // ---------- panel a pantalla completa (NikaFarma) ----------
+  function panel() {
+    let ov = document.getElementById('fc-panel');
+    if (!ov) {
+      ov = document.createElement('div'); ov.id = 'fc-panel'; ov.className = 'fc-panel fc-root'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
+      ov.innerHTML = '<div class="fcpn-top"><button type="button" class="fcd-btn" data-fcpn="cerrar">← Volver a NikaFarma</button>' +
+        '<div class="fcd-logo"><img src="' + LOGO + '" alt="NikaMed"><span><b>NikaMed</b><small>Patologías y tratamiento · guías argentinas</small></span></div></div>' +
+        '<div class="fcpn-hero"><i>📋</i><div><h2>Patologías y tratamiento</h2><p>Tarjetas con el esquema de tratamiento, diagnóstico y alarmas, según guías argentinas. Buscá, filtrá por área y abrí la tarjeta completa.</p></div></div>' +
+        '<div class="fcpn-body" id="fcpn-body"></div>';
+      document.body.appendChild(ov);
+      ov.addEventListener('click', (e) => { if (e.target.closest('[data-fcpn="cerrar"]')) { ov.classList.remove('on'); document.body.style.overflow = ''; } });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ov.classList.contains('on') && !(modal && modal.classList.contains('on'))) { ov.classList.remove('on'); document.body.style.overflow = ''; } });
+      montar(ov.querySelector('#fcpn-body'), { areas: true, inline: false });
+    }
+    ov.classList.add('on'); document.body.style.overflow = 'hidden'; ov.scrollTop = 0;
+  }
+
+  // ---------- Simulador FlashCard y modo Practicar ----------
   const AREAS = [
-    { id: 'ginecologia', nom: 'Ginecología y Obstetricia', ico: '🌸', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪' }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
-    { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃' }
+    { id: 'ginecologia', nom: 'Ginecología y Obstetricia', ico: '🌸', c: '#ec4899', ok: true },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9' }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
+    { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️', c: '#f59e0b' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃', c: '#8b5cf6' }
   ];
   const CONTENIDOS = [
-    { id: 'tx', nom: 'Solo tratamiento', desc: 'Esquemas y conducta terapéutica', secs: ['tx'], q: '¿Cuál es el tratamiento?' },
-    { id: 'dx', nom: 'Diagnóstico y estudios', desc: 'Criterios, definición y estudios', secs: ['dx', 'est'], q: '¿Cómo se diagnostica y qué se pide?' },
-    { id: 'alarma', nom: 'Seguimiento y alarmas', desc: 'Controles y banderas rojas', secs: ['seg', 'rojo'], q: '¿Qué controlar y qué alertas hay?' },
-    { id: 'todo', nom: 'Tema completo', desc: 'Definición, diagnóstico, tratamiento y más', secs: ['dx', 'est', 'tx', 'seg', 'rojo'], q: 'Contá el tema completo' }
+    { id: 'tx', ico: '💊', nom: 'Solo tratamiento', desc: 'Esquemas y conducta terapéutica', secs: ['tx'], q: '¿Cuál es el tratamiento?', c: '#ec4899' },
+    { id: 'dx', ico: '🩺', nom: 'Diagnóstico y estudios', desc: 'Criterios, definición y estudios', secs: ['dx', 'est'], q: '¿Cómo se diagnostica y qué se pide?', c: '#0ea5e9' },
+    { id: 'alarma', ico: '🚩', nom: 'Seguimiento y alarmas', desc: 'Controles y banderas rojas', secs: ['seg', 'rojo'], q: '¿Qué controlar y qué alertas hay?', c: '#ef4444' },
+    { id: 'todo', ico: '📖', nom: 'Tema completo', desc: 'Definición, diagnóstico, tratamiento y más', secs: ['dx', 'est', 'tx', 'seg', 'rojo'], q: 'Contá el tema completo', c: '#8b5cf6' }
   ];
+  const ALCANCES = [
+    { id: 'unidad', ico: '🎯', nom: 'Una unidad problema', desc: 'UP1, UP2, secciones de UP3 o UP4', c: '#6366f1' },
+    { id: 'parcial', ico: '📄', nom: 'Parcial', desc: 'UP1 a UP3, todas las secciones', c: '#0ea5e9' },
+    { id: 'final', ico: '🏁', nom: 'Final', desc: 'Todo el temario de la materia', c: '#ec4899' }
+  ];
+  const PARCIAL_UPS = ['up1', 'up2', 'up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'];
+  const seccionesDe = (c) => c.secs.map((s) => SECS.find((x) => x.id === s)).filter(Boolean);
+  const bloquesHtml = (p, c) => seccionesDe(c).filter((s) => tieneSec(p, s)).map((s) => '<div class="fc-bloque"><h5>' + s.ico + ' ' + esc(s.nom) + '</h5>' + s.html(p) + '</div>').join('');
+  const barajar = (a) => { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; };
+  const poolDe = (st) => {
+    let ups = null;
+    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = PARCIAL_UPS;
+    const c = CONTENIDOS.find((x) => x.id === st.cont);
+    let l = fichasDe(ups).filter((p) => seccionesDe(c).some((s) => tieneSec(p, s)));
+    if (st.soloPend) { const ok = leerOk(); l = l.filter((p) => !ok[p.id]); }
+    return l;
+  };
+  const selUnidad = (d, st) => '<div class="fcs-uni">' + Object.keys(d.meta.unidades).map((u) => '<button type="button" class="fcs-pill' + (st.unidad === u ? ' on' : '') + '" data-unidad="' + u + '" style="--c:' + (PAPEL[u] || '#ddd') + '">' + esc(d.meta.unidades[u]) + '</button>').join('') + '</div>';
+  const tiles = (id, arr, st) => '<div class="fcs-tiles">' + arr.map((o) => '<button type="button" class="fcs-tile' + (st[id] === o.id ? ' on' : '') + '" data-set="' + id + '" data-v="' + o.id + '" style="--c:' + o.c + '"><i>' + o.ico + '</i><span><b>' + o.nom + '</b><small>' + o.desc + '</small></span></button>').join('') + '</div>';
 
-  function simulador(host) {
+  function simulador(host, opts) {
     host.classList.add('fc-root');
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards.</div>'; return; }
-      const st = { area: 'ginecologia', alcance: 'final', unidad: 'up3-sec4', cont: 'tx', n: 10, soloPend: false };
-      const unidades = Object.keys(d.meta.unidades || {});
-      const pintarSetup = () => {
-        const ops = (id, arr) => arr.map((o) => '<button type="button" class="fcs-op' + (st[id] === o.id ? ' on' : '') + '" data-set="' + id + '" data-v="' + o.id + '"><b>' + o.nom + '</b><small>' + o.desc + '</small></button>').join('');
-        const total = pool().length;
-        host.innerHTML = '<div class="fcs-wrap">' +
-          '<div class="fcs-paso"><h3>1 · Área</h3><div class="fcs-areas">' + AREAS.map((a) => '<button type="button" class="fcs-area' + (a.ok && st.area === a.id ? ' on' : '') + '" ' + (a.ok ? 'data-area="' + a.id + '"' : 'disabled') + '><b>' + a.ico + ' ' + a.nom + '</b>' + (a.ok ? '<small>Flashcards de ' + d.patologias.length + ' temas</small>' : '<small>Muy pronto</small><span class="fcs-soon">Próximamente</span>') + '</button>').join('') + '</div></div>' +
-          '<div class="fcs-paso"><h3>2 · Qué rendir</h3><div class="fcs-ops">' + ops('alcance', [
-            { id: 'unidad', nom: 'Una unidad problema', desc: 'Elegís UP1, UP2, secciones de UP3 o UP4' },
-            { id: 'parcial', nom: 'Parcial', desc: 'UP1 a UP3, todas las secciones' },
-            { id: 'final', nom: 'Final', desc: 'Todo el temario de la materia' }]) + '</div>' +
-          (st.alcance === 'unidad' ? '<div style="margin-top:10px"><select class="fc-sel" data-sel="unidad">' + unidades.map((u) => '<option value="' + u + '"' + (st.unidad === u ? ' selected' : '') + '>' + esc(d.meta.unidades[u]) + '</option>').join('') + '</select></div>' : '') + '</div>' +
-          '<div class="fcs-paso"><h3>3 · Qué repasar de cada tarjeta</h3><div class="fcs-ops">' + ops('cont', CONTENIDOS) + '</div></div>' +
-          '<div class="fcs-paso"><h3>4 · Cantidad</h3><div class="fc-bar"><select class="fc-sel" data-sel="n">' + [5, 10, 20, 0].map((n) => '<option value="' + n + '"' + (st.n === n ? ' selected' : '') + '>' + (n ? n + ' tarjetas' : 'Todas (' + total + ')') + '</option>').join('') + '</select>' +
-          '<label style="font-size:.85rem;font-weight:700"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '> Solo las que todavía no domino</label></div></div>' +
-          '<div style="margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button type="button" class="fc-btn" data-go="1"' + (total ? '' : ' disabled') + '>▶ Empezar · ' + total + ' disponibles</button><span class="fc-legal" style="margin:0">Las tarjetas basadas en apuntes llevan el aviso «verificar con guías actuales».</span></div></div>';
-      };
-      const pool = () => {
-        let ups = null;
-        if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ['up1', 'up2', 'up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'];
-        const c = CONTENIDOS.find((x) => x.id === st.cont);
-        let l = fichasDe(ups).filter((p) => c.secs.some((s) => { const sec = SECS.find((x) => x.id === s); return tieneSec(p, sec); }));
-        if (st.soloPend) { const ok = leerOk(); l = l.filter((p) => !ok[p.id]); }
-        return l;
-      };
+      const st = Object.assign({ area: 'ginecologia', alcance: 'final', unidad: 'up3-sec4', cont: 'tx', n: 10, soloPend: false }, (opts && opts.estado) || {});
       let mazo = [], i = 0, vista = false, repasar = [], sabidas = 0;
-      const barajar = (a) => { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; };
-      const empezar = (l) => { mazo = barajar(l); if (st.n) mazo = mazo.slice(0, st.n); i = 0; vista = false; repasar = []; sabidas = 0; pintarCarta(); };
-      const pintarCarta = () => {
-        if (i >= mazo.length) return pintarFin();
-        const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont);
-        const resp = SECS.filter((s) => c.secs.includes(s.id) && tieneSec(p, s)).map((s) => '<div class="fc-bloque"><h5>' + s.ico + ' ' + esc(s.nom) + '</h5>' + s.html(p) + '</div>').join('');
-        host.innerHTML = '<div class="fcs-wrap fcs-mazo"><div class="fcs-top"><span>' + (i + 1) + ' / ' + mazo.length + '</span><span class="fcs-barra"><b style="width:' + (i * 100 / mazo.length) + '%"></b></span><button type="button" class="fc-btn sec" data-salir="1">Salir</button></div>' +
-          '<div class="fcs-carta"><div class="fcs-in" style="--paper:' + (PAPEL[(p.up || [])[0]] || '#fff3a3') + '"><span class="pin"></span><span class="fc-sello-g" style="position:absolute;right:14px;top:12px;width:44px;height:44px"></span>' +
-          '<div class="fcs-pregunta">' + esc((d.meta.unidades[(p.up || [])[0]] || '')) + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pregunta">' + esc(c.q) + '</div>' +
-          (vista ? '<div class="fcs-resp fc-papel">' + resp + '</div>' + sello(p) : '<p style="opacity:.6;font-size:.85rem;margin-top:18px">Pensá tu respuesta y después tocá «Mostrar».</p>') +
-          '</div></div><div class="fcs-acc">' + (vista
-            ? '<button type="button" class="fc-btn sec" data-r="no">😅 A repasar</button><button type="button" class="fc-btn ok" data-r="si">✅ Lo sabía</button>'
-            : '<button type="button" class="fc-btn" data-mostrar="1">👀 Mostrar respuesta</button>') + '</div></div>';
+      const setup = () => {
+        const total = poolDe(st).length;
+        host.innerHTML = '<div class="fcs-setup">' +
+          '<section class="fcs-sec"><h3><span>1</span> Área</h3><div class="fcs-areas">' + AREAS.map((a) => '<button type="button" class="fcs-area' + (a.ok && st.area === a.id ? ' on' : '') + '" style="--c:' + a.c + '" ' + (a.ok ? 'data-area="' + a.id + '"' : 'disabled') + '><i>' + a.ico + '</i><b>' + a.nom + '</b>' + (a.ok ? '<small>' + d.patologias.length + ' flashcards</small>' : '<small>Muy pronto</small><em class="fcs-soon">Próximamente</em>') + '</button>').join('') + '</div></section>' +
+          '<section class="fcs-sec"><h3><span>2</span> Qué rendir</h3>' + tiles('alcance', ALCANCES, st) + (st.alcance === 'unidad' ? selUnidad(d, st) : '') + '</section>' +
+          '<section class="fcs-sec"><h3><span>3</span> Qué repasar de cada tarjeta</h3>' + tiles('cont', CONTENIDOS, st) + '</section>' +
+          '<section class="fcs-sec"><h3><span>4</span> Cantidad</h3><div class="fcs-cant">' + [5, 10, 20, 0].map((n) => '<button type="button" class="fcs-pill' + (st.n === n ? ' on' : '') + '" data-n="' + n + '">' + (n ? n + ' tarjetas' : 'Todas (' + total + ')') + '</button>').join('') +
+          '<label class="fcs-chk"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '><span>Solo las que todavía no domino</span></label></div></section>' +
+          '<div class="fcs-go"><button type="button" class="fcs-start" data-go="1"' + (total ? '' : ' disabled') + '><span>▶ Empezar</span><small>' + total + ' tarjetas disponibles</small></button>' +
+          '<p>Las tarjetas basadas en apuntes llevan el aviso «verificar con guías actuales».</p></div></div>';
       };
-      const pintarFin = () => {
+      const empezar = () => { mazo = barajar(poolDe(st)); if (st.n) mazo = mazo.slice(0, st.n); i = 0; vista = false; repasar = []; sabidas = 0; carta(); };
+      const carta = () => {
+        if (i >= mazo.length) return fin();
+        const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont), pct = Math.round(i * 100 / mazo.length);
+        host.innerHTML = '<div class="fcs-run"><div class="fcs-top"><button type="button" class="fcs-salir" data-salir="1">✕ Salir</button><div class="fcs-barra"><b style="width:' + pct + '%"></b></div><span class="fcs-cont">' + (i + 1) + ' / ' + mazo.length + '</span></div>' +
+          '<div class="fcs-escena"><div class="fcs-in' + (vista ? ' vuelta' : '') + '" style="--paper:' + (PAPEL[(p.up || [])[0]] || '#fff3a3') + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
+          '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.q) + '</div>' +
+          (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p) : '<p class="fcs-pensa">Pensá tu respuesta y después tocá «Mostrar».</p>') + '</div></div>' +
+          '<div class="fcs-acc">' + (vista ? '<button type="button" class="fcs-b no" data-r="no">😅 A repasar</button><button type="button" class="fcs-b si" data-r="si">✅ Lo sabía</button>' : '<button type="button" class="fcs-b mostrar" data-mostrar="1">👀 Mostrar respuesta</button>') + '</div></div>';
+      };
+      const fin = () => {
         const pct = mazo.length ? Math.round(sabidas * 100 / mazo.length) : 0;
-        host.innerHTML = '<div class="fcs-wrap fcs-fin"><div class="big">' + pct + '%</div><p>Sabías <b>' + sabidas + '</b> de <b>' + mazo.length + '</b> tarjetas.</p>' +
-          (repasar.length ? '<div class="fcs-rev">' + repasar.map((p) => '<button type="button" data-ver="' + esc(p.id) + '">📌 ' + esc(p.titulo) + '</button>').join('') + '</div>' : '<p>¡Excelente! No quedó nada para repasar.</p>') +
-          '<div class="fcs-acc" style="margin-top:16px">' + (repasar.length ? '<button type="button" class="fc-btn" data-again="1">🔁 Repetir las que fallé</button>' : '') +
-          '<button type="button" class="fc-btn sec" data-setup="1">⚙️ Nueva configuración</button></div></div>';
+        host.innerHTML = '<div class="fcs-fin"><div class="fcs-anillo" style="--p:' + pct + '"><b>' + pct + '%</b></div><h3>' + (pct >= 80 ? '¡Excelente repaso!' : pct >= 50 ? '¡Vas muy bien!' : 'Seguí practicando, ya casi') + '</h3><p>Sabías <b>' + sabidas + '</b> de <b>' + mazo.length + '</b> tarjetas.</p>' +
+          (repasar.length ? '<div class="fcs-rev">' + repasar.map((p) => '<button type="button" data-ver="' + esc(p.id) + '">📌 ' + esc(p.titulo) + '</button>').join('') + '</div>' : '') +
+          '<div class="fcs-acc">' + (repasar.length ? '<button type="button" class="fcs-b mostrar" data-again="1">🔁 Repetir las que fallé</button>' : '') + '<button type="button" class="fcs-b no" data-setup="1">⚙️ Nueva configuración</button></div></div>';
       };
       host.onclick = (e) => {
         const t = e.target;
-        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; return pintarSetup(); }
-        const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return pintarSetup(); }
-        if (t.closest('[data-chk]')) { st.soloPend = t.closest('[data-chk]').checked; return pintarSetup(); }
-        if (t.closest('[data-go]')) return empezar(pool());
-        if (t.closest('[data-mostrar]')) { vista = true; return pintarCarta(); }
+        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; return setup(); }
+        const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }
+        const u = t.closest('[data-unidad]'); if (u) { st.unidad = u.dataset.unidad; return setup(); }
+        const n = t.closest('[data-n]'); if (n) { st.n = parseInt(n.dataset.n, 10); return setup(); }
+        const ck = t.closest('[data-chk]'); if (ck) { st.soloPend = ck.checked; return setup(); }
+        if (t.closest('[data-go]')) return empezar();
+        if (t.closest('[data-mostrar]')) { vista = true; return carta(); }
         const r = t.closest('[data-r]');
-        if (r) { const p = mazo[i]; if (r.dataset.r === 'si') { sabidas++; marcar(p.id, true); } else repasar.push(p); i++; vista = false; return pintarCarta(); }
-        if (t.closest('[data-salir]') || t.closest('[data-setup]')) return pintarSetup();
-        if (t.closest('[data-again]')) { const l = repasar.slice(); mazo = barajar(l); i = 0; vista = false; repasar = []; sabidas = 0; return pintarCarta(); }
+        if (r) { const p = mazo[i]; if (r.dataset.r === 'si') { sabidas++; marcar(p.id, true); } else repasar.push(p); i++; vista = false; return carta(); }
+        if (t.closest('[data-salir]') || t.closest('[data-setup]')) return setup();
+        if (t.closest('[data-again]')) { mazo = barajar(repasar.slice()); i = 0; vista = false; repasar = []; sabidas = 0; return carta(); }
         const v = t.closest('[data-ver]'); if (v) return abrir(v.dataset.ver, ['tx', 'dx']);
       };
-      host.onchange = (e) => { const el = e.target.closest('[data-sel]'); if (!el) return; const k = el.dataset.sel; st[k] = k === 'n' ? parseInt(el.value, 10) : el.value; pintarSetup(); };
-      pintarSetup();
+      host.onchange = null;
+      setup();
     });
   }
 
-  window.NikaFlashcards = { cargar, montar, abrir, simulador, datos: () => D };
+  // Practicar: repaso rápido sin evaluación, para recorrer el mazo con flechas o deslizando
+  function practicar(host, opts) {
+    host.classList.add('fc-root');
+    cargar().then((d) => {
+      if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards.</div>'; return; }
+      const st = Object.assign({ alcance: 'unidad', unidad: 'up3-sec4', cont: 'tx', soloPend: false }, (opts && opts.estado) || {});
+      let mazo = [], i = 0, vista = false, enMazo = false;
+      const setup = () => {
+        const total = poolDe(st).length;
+        host.innerHTML = '<div class="fcs-setup"><section class="fcs-sec"><h3><span>1</span> ¿Qué unidad querés practicar?</h3>' +
+          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.alcance === 'final' ? ' on' : '') + '" data-alc="final">Toda la materia</button><button type="button" class="fcs-pill' + (st.alcance === 'parcial' ? ' on' : '') + '" data-alc="parcial">Parcial (UP1–UP3)</button></div>' +
+          selUnidad(d, st.alcance === 'unidad' ? st : Object.assign({}, st, { unidad: '' })) + '</section>' +
+          '<section class="fcs-sec"><h3><span>2</span> ¿Qué querés ver al dar vuelta la tarjeta?</h3>' + tiles('cont', CONTENIDOS, st) + '</section>' +
+          '<div class="fcs-go"><label class="fcs-chk"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '><span>Solo las que todavía no domino</span></label>' +
+          '<button type="button" class="fcs-start" data-go="1"' + (total ? '' : ' disabled') + '><span>🏃 Practicar</span><small>' + total + ' tarjetas</small></button></div></div>';
+      };
+      const mostrar = () => {
+        const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont), ok = leerOk()[p.id];
+        host.innerHTML = '<div class="fcs-run"><div class="fcs-top"><button type="button" class="fcs-salir" data-salir="1">✕ Salir</button><div class="fcs-barra"><b style="width:' + ((i + 1) * 100 / mazo.length) + '%"></b></div><span class="fcs-cont">' + (i + 1) + ' / ' + mazo.length + '</span></div>' +
+          '<div class="fcs-escena" data-voltear="1"><div class="fcs-in fcs-pr' + (vista ? ' vuelta' : '') + '" style="--paper:' + (PAPEL[(p.up || [])[0]] || '#fff3a3') + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
+          '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + (ok ? ' · ✅ ya la sabés' : '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.nom) + '</div>' +
+          (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p) : '<p class="fcs-pensa">Tocá la tarjeta o presioná espacio para darla vuelta.</p>') + '</div></div>' +
+          '<div class="fcs-acc"><button type="button" class="fcs-b no" data-prev="1"' + (i ? '' : ' disabled') + '>← Anterior</button><button type="button" class="fcs-b mostrar" data-voltear="1">' + (vista ? '↺ Ver el frente' : '👀 Dar vuelta') + '</button>' +
+          '<button type="button" class="fcs-b si" data-saber="1">' + (ok ? '↩ Repasar' : '✅ La sé') + '</button><button type="button" class="fcs-b no" data-next="1"' + (i < mazo.length - 1 ? '' : ' disabled') + '>Siguiente →</button></div>' +
+          '<p class="fcs-ayuda">Atajos: ← → para moverte · espacio para dar vuelta · S para marcar «La sé»</p></div>';
+      };
+      const ir = (k) => { i = Math.max(0, Math.min(mazo.length - 1, i + k)); vista = false; mostrar(); };
+      host.onclick = (e) => {
+        const t = e.target;
+        const al = t.closest('[data-alc]'); if (al) { st.alcance = al.dataset.alc; return setup(); }
+        const u = t.closest('[data-unidad]'); if (u) { st.alcance = 'unidad'; st.unidad = u.dataset.unidad; return setup(); }
+        const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }
+        const ck = t.closest('[data-chk]'); if (ck) { st.soloPend = ck.checked; return setup(); }
+        if (t.closest('[data-go]')) { mazo = poolDe(st); if (!mazo.length) return; i = 0; vista = false; enMazo = true; return mostrar(); }
+        if (t.closest('[data-voltear]')) { vista = !vista; return mostrar(); }
+        if (t.closest('[data-next]')) return ir(1);
+        if (t.closest('[data-prev]')) return ir(-1);
+        if (t.closest('[data-saber]')) { const p = mazo[i]; marcar(p.id, !leerOk()[p.id]); return mostrar(); }
+        if (t.closest('[data-salir]')) { enMazo = false; return setup(); }
+      };
+      if (!host._fcKeys) {
+        host._fcKeys = true;
+        document.addEventListener('keydown', (e) => {
+          if (!enMazo || !document.body.contains(host) || /input|select|textarea/i.test((e.target.tagName || ''))) return;
+          if (e.key === 'ArrowRight') { e.preventDefault(); ir(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); ir(-1); }
+          else if (e.key === ' ') { e.preventDefault(); vista = !vista; mostrar(); } else if (e.key.toLowerCase() === 's') { marcar(mazo[i].id, !leerOk()[mazo[i].id]); mostrar(); }
+        });
+        let x0 = null;
+        host.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+        host.addEventListener('touchend', (e) => { if (x0 == null || !enMazo) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); });
+      }
+      setup();
+    });
+  }
+
+  window.NikaFlashcards = { cargar, montar, abrir, detalle, panel, simulador, practicar, datos: () => D };
 })();

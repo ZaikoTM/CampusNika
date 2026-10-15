@@ -2751,8 +2751,10 @@ function showUpTab(tabName, btn) {
 
     if (tabName === 'flashcards' && window.NikaFlashcards) {
         const host = document.getElementById('up-flashcards-host');
-        const up = EstudioState.currentUpId || '';
+        const raw = String(EstudioState.currentUpId || '').toLowerCase();
+        const up = raw.replace('__sec', '-sec');           // up3__sec2 -> up3-sec2
         const ups = up === 'up3' ? ['up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'] : [up];
+        const lk = document.getElementById('fc-practicar-link'); if (lk) lk.href = 'flashcards.html?modo=practicar&up=' + encodeURIComponent(up);
         if (host && host.dataset.up !== up) { host.dataset.up = up; NikaFlashcards.montar(host, { ups, agrupar: false }); }
     }
 

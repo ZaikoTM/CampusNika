@@ -3,59 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador FlashCard | NikaMed</title>
-    <meta name="description" content="Flashcards de tratamientos y diagnóstico por unidad problema, con simulador para repasar por unidad, parcial o final.">
+    <title>Simulador FlashCard | Campus Nika</title>
+    <meta name="description" content="Flashcards de tratamientos y diagnóstico: explorá, practicá rápido o rendí un simulador por unidad, parcial o final.">
+    <meta name="theme-color" content="#831843">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#be185d">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/pagina-lateral.css">
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
-    <link rel="stylesheet" href="css/flashcards.css?v=1">
+    <link rel="stylesheet" href="css/nikasim.css?v=4">
+    <link rel="stylesheet" href="css/campus-premium.css?v=3">
+    <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
+    <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
+    <link rel="stylesheet" href="css/micro.css?v=1">
+    <link rel="stylesheet" href="css/flashcards.css?v=4">
+    <script src="js/pomodoroEngine.js?v=7"></script>
+    <script src="js/planPomodoro.js?v=1"></script>
 </head>
-<body class="pagina-lateral" data-pagina="flashcards">
+<body class="nikasim flashcards-pg" data-pagina="flashcards">
 
-    <header class="pl-top">
-        <a class="pl-brand" href="campus.html" title="Volver al Campus">
+    <aside class="ns-side" id="ns-side" aria-label="Navegación">
+        <a class="ns-brand" href="campus.html" title="Volver al Campus">
             <img src="assets/N%20NIKA.png" alt="NIKA">
-            <span>CAMPUS NIKA<small>Simulador FlashCard</small></span>
+            <span><b>CAMPUS NIKA</b><small>Simulador FlashCard</small></span>
         </a>
-        <nav class="rz-nav" aria-label="Navegación">
-            <button type="button" id="fcp-explorar" onclick="fcVista('explorar')"><span class="ic">🃏</span><span class="lbl">Explorar</span></button>
-            <button type="button" id="fcp-sim" onclick="fcVista('sim')"><span class="ic">🎯</span><span class="lbl">Simulador</span></button>
-            <a href="nikafarma.html" title="NikaFarma"><span class="ic">💊</span><span class="lbl">NikaFarma</span></a>
-        </nav>
-        <div class="pl-acciones">
-            <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
-            <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
-        </div>
-    </header>
+        <div class="ns-cat">Navegación</div>
+        <a class="ns-link" href="campus.html"><span class="ns-ic">🏠</span><span class="ns-t">Inicio / Dashboard</span></a>
+        <a class="ns-link" href="sala_estudio.html"><span class="ns-ic">📚</span><span class="ns-t">Sala de Estudio</span></a>
+        <a class="ns-link on" href="flashcards.html" aria-current="page"><span class="ns-ic">🃏</span><span class="ns-t">Simulador FlashCard</span></a>
+        <a class="ns-link" href="examen_oral.html"><span class="ns-ic">🎙️</span><span class="ns-t">Simulador Examen oral</span></a>
+        <a class="ns-link" href="examen.html?modalidad=escrito"><span class="ns-ic">✍️</span><span class="ns-t">Simulador Escrito</span></a>
+        <a class="ns-link" href="nikafarma.html"><span class="ns-ic">💊</span><span class="ns-t">NikaFarma</span></a>
+        <a class="ns-link" href="retos.html"><span class="ns-ic">🎯</span><span class="ns-t">Retos con compañeros</span></a>
+        <a class="ns-link" href="mis_notas.html"><span class="ns-ic">📝</span><span class="ns-t">Mis notas</span></a>
+        <a class="ns-link" href="nikasim.html"><span class="ns-ic">🥽</span><span class="ns-t">Centro de Simulación</span></a>
+        <button type="button" class="ns-link ns-colapsar" id="ns-colapsar" aria-label="Contraer la barra lateral"><span class="ns-ic">⇤</span><span class="ns-t">Contraer</span></button>
+    </aside>
 
-    <main class="pl-main">
-        <div class="fcs-wrap">
-            <h1 style="margin:6px 0 2px;font-size:1.5rem">🃏 Simulador FlashCard</h1>
-            <p id="fcp-sub" style="margin:0 0 12px;opacity:.75;font-size:.9rem">Buscá cualquier tema o armá tu propio repaso por unidad, parcial o final.</p>
+    <div class="ns-shell">
+        <header class="ns-top">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <button type="button" class="ns-burger" id="ns-burger" aria-label="Abrir menú">☰</button>
+                <h1>🃏 Simulador FlashCard <small style="font-weight:600;color:var(--text-muted);font-size:.78rem;">Tratamientos y temas en tarjetas</small></h1>
+            </div>
+            <div class="ns-acc">
+                <span data-nika-racha-slot></span>
+                <button type="button" class="pl-btn music" data-nika-music-toggle title="NikaMusic" aria-label="Abrir NikaMusic"><span class="lbl">🎧 NikaMusic</span></button>
+                <button type="button" class="pl-btn" id="pl-tema" onclick="pl_alternarTema()" title="Modo claro / oscuro" aria-label="Cambiar tema">🌙</button>
+                <a class="pl-btn" href="campus.html">🏠 <span class="lbl">Campus</span></a>
+            </div>
+        </header>
+
+        <main class="ns-main" id="ns-main">
+            <section class="fcp-hero">
+                <div class="ico">🃏</div>
+                <div>
+                    <small>Ginecología y Obstetricia · NikaMed</small>
+                    <h2>Repasá tratamientos en tarjetas</h2>
+                    <p>Explorá todas las flashcards, practicá rápido una unidad o rendí un simulador por unidad problema, parcial o final.</p>
+                    <div class="fcp-sellos"><span>✔ Guías FASGO / SOGIBA</span><span>⚠️ Apuntes marcados para verificar</span><span>☁️ Progreso en tu cuenta</span></div>
+                </div>
+            </section>
+            <nav class="fcp-modos" aria-label="Modo">
+                <button type="button" class="fcp-modo" data-modo="explorar">🔎 Explorar</button>
+                <button type="button" class="fcp-modo" data-modo="practicar">🏃 Practicar</button>
+                <button type="button" class="fcp-modo" data-modo="sim">🎯 Simulador</button>
+            </nav>
             <div id="fcp-host"></div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <div id="toast">Notificación</div>
-    <script src="js/paginaLateral.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
-    <script src="js/nikaFlashcards.js?v=2"></script>
+    <script src="js/nikaAcceso.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/rachas.js"></script>
+    <script src="js/nikaMusic.js?v=10"></script>
+    <script src="js/atajos.js"></script>
+    <script src="js/paginaLateral.js"></script>
+    <script src="js/rendimiento.js?v=4"></script>
+    <script src="js/chatManager.js?v=4"></script>
+    <script src="js/pomodoroSyncManager.js?v=7"></script>
+    <script src="js/pomodoroBar.js?v=8"></script>
+    <script src="js/nikaFlashcards.js?v=4"></script>
     <script>
-    function fcVista(v) {
+    (function () {
         var host = document.getElementById('fcp-host');
-        host.innerHTML = '';
-        document.getElementById('fcp-explorar').style.opacity = v === 'explorar' ? 1 : .6;
-        document.getElementById('fcp-sim').style.opacity = v === 'sim' ? 1 : .6;
-        if (v === 'sim') NikaFlashcards.simulador(host); else NikaFlashcards.montar(host, {});
-        try { history.replaceState(null, '', 'flashcards.html' + (v === 'sim' ? '?modo=sim' : '')); } catch (_) {}
-    }
-    fcVista(/modo=sim/.test(location.search) ? 'sim' : 'explorar');
+        var q = new URLSearchParams(location.search);
+        function modo(m, estado) {
+            host.innerHTML = '';
+            document.querySelectorAll('.fcp-modo').forEach(function (b) { b.classList.toggle('on', b.dataset.modo === m); });
+            if (m === 'sim') NikaFlashcards.simulador(host, { estado: estado });
+            else if (m === 'practicar') NikaFlashcards.practicar(host, { estado: estado });
+            else NikaFlashcards.montar(host, {});
+            try { history.replaceState(null, '', 'flashcards.html' + (m === 'explorar' ? '' : '?modo=' + m)); } catch (e) {}
+        }
+        document.querySelectorAll('.fcp-modo').forEach(function (b) { b.addEventListener('click', function () { modo(b.dataset.modo); }); });
+        var m = q.get('modo') || 'explorar', up = q.get('up');
+        modo(m, up ? { alcance: 'unidad', unidad: up } : undefined);
+        // barra lateral
+        try { if (localStorage.getItem('nika_fc_side') === '1') document.body.classList.add('ns-colapsado'); } catch (e) {}
+        var col = document.getElementById('ns-colapsar'), bur = document.getElementById('ns-burger');
+        function pc() { if (!col) return; var c = document.body.classList.contains('ns-colapsado'); var i = col.querySelector('.ns-ic'), t = col.querySelector('.ns-t'); if (i) i.textContent = c ? '⇥' : '⇤'; if (t) t.textContent = c ? 'Expandir' : 'Contraer'; }
+        if (col) { col.addEventListener('click', function () { var c = document.body.classList.toggle('ns-colapsado'); try { localStorage.setItem('nika_fc_side', c ? '1' : '0'); } catch (e) {} pc(); }); pc(); }
+        if (bur) bur.addEventListener('click', function () { document.body.classList.toggle('ns-abierto'); });
+    })();
     </script>
+    <script src="js/chatFlotante.js?v=7"></script>
+    <script src="js/assistant.js?v=3"></script>
+    <script src="js/campusTema.js?v=3"></script>
+    <script src="js/campusEspacio.js?v=1"></script>
+    <script src="js/micro.js?v=1" defer></script>
+    <script src="js/nikaAccesibilidad.js?v=1" defer></script>
+    <script src="js/nikaMetricas.js?v=1" defer></script>
 </body>
 </html>
