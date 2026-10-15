@@ -153,6 +153,54 @@
     anillos();
   }
 
-  function iniciar() { aurora(); iconos(); entrada(); if (!reducido) luz(); rendimiento(); setTimeout(iconos, 1500); }
+  /* ---------- Fase 3: confeti en hitos, sidebar vivo y esqueletos de carga ---------- */
+  function confeti(origen) {
+    if (reducido) return;
+    try {
+      const r = origen && origen.getBoundingClientRect ? origen.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 3, width: 0, height: 0 };
+      const x0 = r.left + r.width / 2, y0 = r.top + r.height / 2, cols = ['#0ea5e9', '#a78bfa', '#34d399', '#fbbf24', '#f472b6', '#f97316'];
+      const cont = document.createElement('div'); cont.className = 'cv-confeti'; cont.setAttribute('aria-hidden', 'true');
+      for (let i = 0; i < 34; i++) {
+        const p = document.createElement('i'), a = Math.random() * Math.PI * 2, d = 70 + Math.random() * 130;
+        p.style.cssText = 'left:' + x0 + 'px;top:' + y0 + 'px;background:' + cols[i % cols.length] + ';--dx:' + Math.cos(a) * d + 'px;--dy:' + (Math.sin(a) * d - 40) + 'px;--rot:' + (Math.random() * 720 - 360) + 'deg;animation-delay:' + (Math.random() * 90) + 'ms';
+        cont.appendChild(p);
+      }
+      document.body.appendChild(cont); setTimeout(() => cont.remove(), 1800);
+    } catch (_) {}
+  }
+  const HITOS_RACHA = [3, 7, 14, 30, 60, 100];
+  function hitos() {
+    try {
+      const n = leer('perf-streak', (v) => v); if (!n) return;
+      const h = HITOS_RACHA.filter((x) => n >= x).pop(); if (!h) return;
+      const k = 'cv_hito_racha_' + h; if (localStorage.getItem(k)) return;
+      localStorage.setItem(k, '1');
+      const ic = document.querySelector('.perf-tile--streak .perf-tile-icon');
+      if (ic) { ic.classList.add('cv-brillo'); setTimeout(() => ic.classList.remove('cv-brillo'), 1600); }
+      confeti(ic);
+    } catch (_) {}
+  }
+
+  function sidebarVivo() {
+    const menu = document.querySelector('.sidebar-menu'); if (!menu) return;
+    // sección activa: el enlace que apunta a esta página (o "Inicio" en el campus)
+    const pag = location.pathname.split('/').pop() || 'index.html';
+    let act = [...menu.querySelectorAll('a.sidebar-link[href]')].find((a) => (a.getAttribute('href') || '').split(/[?#]/)[0] === pag && pag !== 'campus.html');
+    if (!act && /campus\.html$|\/$/.test(location.pathname)) act = [...menu.querySelectorAll('.sidebar-link')].find((l) => /Inicio/i.test(l.textContent));
+    if (act) act.classList.add('cv-activo');
+  }
+
+  function esqueletos() {
+    const marcar = () => document.querySelectorAll('.plan-vacio, .community-widget-empty, .friends-empty-state, .pc-loading-state').forEach((e) => {
+      if (e.classList.contains('cv-skel')) return;
+      if (/^\s*Cargando/i.test(e.textContent)) e.classList.add('cv-skel');
+    });
+    marcar();
+    let t = 0;
+    try { new MutationObserver(() => { clearTimeout(t); t = setTimeout(marcar, 60); }).observe(document.body, { childList: true, subtree: true }); } catch (_) {}
+  }
+
+  window.CampusVisual = { confeti };
+  function iniciar() { aurora(); iconos(); sidebarVivo(); esqueletos(); entrada(); if (!reducido) luz(); rendimiento(); setTimeout(iconos, 1500); setTimeout(hitos, 2500); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 })();

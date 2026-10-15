@@ -66,3 +66,25 @@ body.dark-mode .sidebar-link .cv-ico { filter: brightness(1.25); }
 .perf-tile--streak .cv-ring-fg { --cv-ring: #f97316; }
 .plan-item.plan-item[style*="--mat-c"] { --acento: var(--mat-c); }
 .plan-item[style*="--mat-c"] .plan-badge--proximo { color: var(--mat-c); border-color: color-mix(in srgb, var(--mat-c) 45%, transparent); }
+
+/* ---------- Fase 3: microinteracciones, sidebar vivo y esqueletos ---------- */
+.sidebar-brand-logo img, .hero-n-logo { animation: cvFlota 5.5s ease-in-out infinite; }
+@keyframes cvFlota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.cv-brillo { animation: cvBrillo 1.5s ease-out 1; }
+@keyframes cvBrillo { 0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, .7); transform: scale(1); } 35% { transform: scale(1.18) rotate(-6deg); } 100% { box-shadow: 0 0 0 22px rgba(249, 115, 22, 0); transform: scale(1); } }
+.cv-confeti { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
+.cv-confeti i { position: absolute; width: 8px; height: 12px; border-radius: 2px; opacity: 0; animation: cvConfeti 1.5s cubic-bezier(.15, .8, .3, 1) forwards; }
+@keyframes cvConfeti { 0% { opacity: 1; transform: translate(0, 0) rotate(0); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), calc(var(--dy) + 160px)) rotate(var(--rot)); } }
+
+.sidebar-link.cv-activo { position: relative; background: linear-gradient(90deg, rgba(14, 165, 233, .18), rgba(14, 165, 233, 0)); color: var(--nika-accent, #0ea5e9); }
+.sidebar-link.cv-activo::before { content: ''; position: absolute; left: 0; top: 18%; bottom: 18%; width: 4px; border-radius: 0 4px 4px 0; background: linear-gradient(180deg, #38bdf8, #a78bfa); animation: cvBarra .4s cubic-bezier(.22, 1, .36, 1); }
+@keyframes cvBarra { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.cv-skel { display: block; position: relative; overflow: hidden; height: 58px; border-radius: 12px; color: transparent !important; font-size: 0 !important; text-indent: -9999px; pointer-events: none;
+  background: linear-gradient(100deg, rgba(148, 163, 184, .16) 30%, rgba(148, 163, 184, .34) 50%, rgba(148, 163, 184, .16) 70%) 0 0 / 220% 100%; animation: cvSkel 1.3s linear infinite; }
+@keyframes cvSkel { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-brand-logo img, .hero-n-logo, .cv-brillo, .cv-skel, .sidebar-link.cv-activo::before { animation: none; }
+  .cv-confeti { display: none; }
+  .cv-grp { transition: none; }
+}
