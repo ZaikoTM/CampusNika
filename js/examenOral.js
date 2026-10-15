@@ -360,7 +360,7 @@
         for (let i = e.resultIndex; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) fin += r[0].transcript + ' '; else par += r[0].transcript; }
         if (fin) texto += fin; parcialTxt = par; pintarTranscripcion();
         if (largoDictado() >= MAX_TURNO - 120) { pausarPorLimite(); return; }
-        clearTimeout(silencio); silencio = setTimeout(() => { if (palabrasN() >= 4) terminarEscucha(); }, 4200);
+        clearTimeout(silencio); silencio = setTimeout(() => { if (palabrasN() >= 6) terminarEscucha(); }, 8000);
       };
       rec.onerror = (e) => {
         if (/not-allowed|service-not-allowed/.test(e.error)) estado.error = 'El navegador no dejó usar el micrófono. Podés responder escribiendo.';
@@ -726,6 +726,7 @@
     const c = estado.conv, area = areaActual(), q = estado.preguntas[estado.i];
     const a = acotar(c, respuesta); if (a.aviso) estado.aviso = a.aviso;
     const partes = c.partes || []; c.partes = [];
+    const alumnoPrev = c.alumno;
     c.turnos++; c.alumno = ((c.alumno ? c.alumno + ' ' : '') + a.t).trim();
     partes.forEach((p) => { c.hist.push({ rol: 'usuario', texto: '[Ánimo actual del examinador: ' + PARAMS[estado.mood].txt.toLowerCase() + '] (primera parte de la respuesta, el alumno sigue) ' + p }, { rol: 'ia', texto: 'Siga, lo escucho.' }); });
     if (estado.respaldo) return cerrarPregunta(c, 'Muy bien. Sigamos.');
@@ -762,6 +763,16 @@
       if (cierre) return cerrarPregunta(c, null);
       abrirRespuesta();
     } catch (e) {
+      if (turno !== estado.turnoId || estado.fase !== 'examen') return;
+      c.errores = (c.errores || 0) + 1;
+      if (c.errores < 3) {
+        // No se salta la pregunta por un fallo de conexión o de demanda: se devuelve el turno con la respuesta guardada
+        c.turnos = Math.max(0, c.turnos - 1); c.alumno = alumnoPrev;
+        estado.aviso = 'El profesor no pudo responder (conexión o mucha demanda). No perdiste tu respuesta: está en el cuadro de abajo, tocá “Enviar respuesta” para reintentar.';
+        estado.estadoVoz = 'escucha'; abrirRespuesta();
+        const ta = $('eo-escrito'); if (ta && a.t) ta.value = a.t;
+        return;
+      }
       estado.respaldo = true; estado.aviso = 'La IA no respondió: se corrige con el motor local de respaldo.';
       cerrarPregunta(c, null);
     }
