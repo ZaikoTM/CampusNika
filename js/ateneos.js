@@ -607,6 +607,8 @@ const NikaAteneos = (() => {
   function actualizarDock() {
     actualizarControlesSala();
     if (!dock || !conectado) return;
+    // se recuerda si el micrófono está silenciado: al cambiar de página la llamada se reconecta con el mismo estado
+    try { const a = JSON.parse(localStorage.getItem(K_ACTIVA) || 'null'); if (a && a.sala === conectado.sala) { const m = !!VoiceManager.micActivo; if (a.mic !== m) { a.mic = m; localStorage.setItem(K_ACTIVA, JSON.stringify(a)); } } } catch (_) {}
     const mic = $('#at-b-mic'), cam = $('#at-b-cam'), scr = $('#at-b-scr');
     const muted = !VoiceManager.micActivo;
     mic.classList.toggle('off', muted); mic.textContent = muted ? '🔇' : '🎤';
