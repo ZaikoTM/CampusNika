@@ -457,6 +457,8 @@ const NikaAteneos = (() => {
     if (!dock) return;
     dock.classList.toggle('compacto', modoDock === 'compacto');
     dock.classList.toggle('mini', modoDock === 'mini');
+    if (modoDock === 'mini') { dock.setAttribute('tabindex', '0'); dock.setAttribute('role', 'button'); dock.setAttribute('aria-label', 'Expandir la barra de llamada'); dock.title = 'Tocá para expandir · arrastrá para mover'; }
+    else { dock.removeAttribute('tabindex'); dock.removeAttribute('role'); dock.removeAttribute('aria-label'); dock.removeAttribute('title'); }
     const b = $('#at-b-min');
     if (b) { b.textContent = modoDock === 'completo' ? '⌄' : modoDock === 'compacto' ? '⇲' : ''; b.title = modoDock === 'completo' ? 'Reducir la barra' : 'Ocultar la barra'; }
   }
@@ -521,6 +523,11 @@ const NikaAteneos = (() => {
       if (fueClic && modoDock === 'mini' && e && e.type === 'pointerup') cambiarModoDock('completo');
     };
     dock.addEventListener('pointerup', soltar); dock.addEventListener('pointercancel', soltar);
+    // Respaldo: si el navegador no entregó el pointerup, el clic común también expande la burbuja
+    dock.addEventListener('click', (e) => { if (modoDock === 'mini' && !dock._arrastro && !e.target.closest('button')) cambiarModoDock('completo'); });
+    dock.addEventListener('keydown', (e) => { if (modoDock === 'mini' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); cambiarModoDock('completo'); } });
+    // Si la ventana se achica, la barra no queda fuera de la pantalla
+    window.addEventListener('resize', () => { if (dock.style.left) { const r = dock.getBoundingClientRect(); const q = dentro(r.left, r.top); ponerPos(q[0], q[1]); } });
     dock.addEventListener('dblclick', (e) => { if (e.target.closest('button')) return; try { localStorage.removeItem(K_POS); } catch (_) {} ['left', 'top', 'right', 'bottom', 'transform'].forEach((k) => { dock.style[k] = ''; }); });
     document.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && !e.altKey && e.key.toLowerCase() === 'm' && conectado) { e.preventDefault(); alternarMic(); } });
   }
