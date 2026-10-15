@@ -27,12 +27,12 @@
   /* ---------- empaquetado: título + formato dentro de "texto" ---------- */
   function unpack(n) {
     if (typeof n.texto === 'string' && n.texto.indexOf('{"nk":1') === 0) {
-      try { const o = JSON.parse(n.texto); n.titulo = n.titulo || o.t || ''; n.contenido_html = n.contenido_html || o.h || null; n.texto = o.p || ''; n.eliminada_en = o.d || null; } catch (_) {}
+      try { const o = JSON.parse(n.texto); n.titulo = n.titulo || o.t || ''; n.contenido_html = n.contenido_html || o.h || null; n.texto = o.p || ''; n.eliminada_en = o.d || null; n.titulo_estilo = (o.e && typeof o.e === 'object') ? o.e : null; } catch (_) {}
     }
     return n;
   }
-  const pack = (n) => JSON.stringify({ nk: 1, t: n.titulo || '', h: n.contenido_html || '', p: n.texto || '', d: n.eliminada_en || '' });
-  const necesitaPack = (n) => !!(n.titulo || n.contenido_html || n.eliminada_en);
+  const pack = (n) => JSON.stringify({ nk: 1, t: n.titulo || '', h: n.contenido_html || '', p: n.texto || '', d: n.eliminada_en || '', e: n.titulo_estilo || '' });
+  const necesitaPack = (n) => !!(n.titulo || n.contenido_html || n.eliminada_en || n.titulo_estilo);
   const DIAS_PAPELERA = 7;
   const vivas = () => todas.filter((n) => !n.eliminada_en);
   const enPapelera = () => todas.filter((n) => n.eliminada_en);
@@ -134,7 +134,7 @@
     c.style.setProperty('--c1', mat(k)[2]); c.style.setProperty('--c2', mat(k)[3]);
     c.classList.remove('gn-abre'); void c.offsetWidth; c.classList.add('gn-abre');
     $('gn-titulo').textContent = mat(k)[1] + ' ' + mat(k)[0];
-    $('gn-color-nueva').value = colorNueva();
+    pintarColorNueva();
     paginas(); window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   const delCuaderno = () => vivas().filter((n) => claveCuaderno(n) === actual);
@@ -163,7 +163,7 @@
     return '<article class="gn-nota" data-id="' + esc(n.id) + '" style="--nk:' + COLORES[c] + ';--i:' + Math.min(i || 0, 14) + '">'
       + '<header><button type="button" class="gn-grip" title="Arrastrá la nota al tacho para borrarla" aria-label="Mover nota al tacho">⠿</button>' + pos + origen
       + '<span class="gn-acc"><button type="button" data-a="color" title="Color de la nota" aria-label="Color">🎨</button><button type="button" data-a="imprimir" title="Imprimir esta nota" aria-label="Imprimir nota">🖨️</button><button type="button" data-a="borrar" title="Borrar" aria-label="Borrar nota">🗑️</button></span></header>'
-      + '<input class="gn-titulo-in" type="text" maxlength="80" value="' + esc(n.titulo || '') + '" placeholder="Título de la nota" aria-label="Título de la nota">'
+      + '<input class="gn-titulo-in" type="text" maxlength="80" style="' + esc(estiloTitulo(n)) + '" value="' + esc(n.titulo || '') + '" placeholder="Título de la nota" aria-label="Título de la nota">'
       + '<div class="gn-texto" contenteditable="true" spellcheck="false" aria-label="Texto de la nota">' + contenido(n) + '</div>'
       + '<footer><small>' + new Date(n.creado_en).toLocaleDateString('es-AR', { day: '2-digit', month: 'short' }) + '</small>' + ir + '</footer></article>';
   }
@@ -174,7 +174,7 @@
     if (n.local) { lsGuardar(lsLeer().map((x) => (x.id === n.id ? Object.assign(x, campos) : x))); return; }
     if (!(uid && cli)) return;
     const db = {};
-    if ('texto' in campos || 'titulo' in campos || 'contenido_html' in campos || 'eliminada_en' in campos) db.texto = necesitaPack(n) ? pack(n) : (n.texto || '');
+    if ('texto' in campos || 'titulo' in campos || 'contenido_html' in campos || 'eliminada_en' in campos || 'titulo_estilo' in campos) db.texto = necesitaPack(n) ? pack(n) : (n.texto || '');
     if ('color' in campos) db.color = campos.color;
     if (!Object.keys(db).length) return;
     try { const { error } = await cli.from('notas_estudio').update(db).eq('id', n.id); if (error) { estadoNube = 'error'; pintarEstado(); } } catch (_) { estadoNube = 'error'; pintarEstado(); }
@@ -297,8 +297,46 @@
     });
   }
 
-  /* ---------- barra de formato: aparece solo al escribir ---------- */
+  /* ---------- color de los post-it nuevos ---------- */
+  function pintarColorNueva() {
+    const c = colorNueva(), b = $('gn-color-btn'); if (!b) return;
+    b.style.setProperty('--sw', COLORES[c]); b.title = 'Color de las notas nuevas: ' + c;
+    document.querySelectorAll('#gn-color-pop button').forEach((x) => { x.style.background = COLORES[x.dataset.c]; x.setAttribute('aria-pressed', String(x.dataset.c === c)); });
+  }
+
+  /* ---------- barra de formato: aparece solo al escribir (en el título o en el texto) ---------- */
   const enNota = (nodo) => { const el = nodo && (nodo.nodeType === 1 ? nodo : nodo.parentElement); return el && el.closest ? el.closest('.gn-texto') : null; };
+  let tituloActivo = null;
+  const ESTILO_OK = ['fontWeight', 'fontStyle', 'textDecoration', 'fontFamily', 'fontSize', 'color', 'backgroundColor', 'textTransform', 'textAlign'];
+  function estiloTitulo(n) {
+    const e = n.titulo_estilo; if (!e || typeof e !== 'object') return '';
+    return ESTILO_OK.filter((k) => typeof e[k] === 'string' && !/[;{}<>]|url\(/i.test(e[k])).map((k) => k.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase()) + ':' + e[k]).join(';');
+  }
+  function aplicarTitulo(inp, cmd, val) {
+    const card = inp.closest('.gn-nota'), n = card && todas.find((x) => String(x.id) === card.dataset.id); if (!n) return;
+    const e = Object.assign({}, n.titulo_estilo || {});
+    const alt = (k, on, off) => { e[k] = e[k] === on ? off : on; };
+    switch (cmd) {
+      case 'bold': e.fontWeight = e.fontWeight === '400' ? '800' : '400'; break;
+      case 'italic': alt('fontStyle', 'italic', 'normal'); break;
+      case 'underline': alt('textDecoration', 'underline', 'none'); break;
+      case 'strikeThrough': alt('textDecoration', 'line-through', 'none'); break;
+      case 'mayus': alt('textTransform', 'uppercase', 'none'); break;
+      case 'minus': alt('textTransform', 'lowercase', 'none'); break;
+      case 'titulo': alt('textTransform', 'capitalize', 'none'); break;
+      case 'justifyLeft': e.textAlign = 'left'; break;
+      case 'justifyCenter': e.textAlign = 'center'; break;
+      case 'justifyRight': e.textAlign = 'right'; break;
+      case 'fontName': e.fontFamily = "'" + String(val).replace(/[^\w \-]/g, '') + "', sans-serif"; break;
+      case 'fontSize': e.fontSize = Math.max(8, Math.min(96, Math.round(val))) + 'px'; break;
+      case 'foreColor': e.color = String(val); break;
+      case 'hiliteColor': e.backgroundColor = String(val); break;
+      case 'removeFormat': ESTILO_OK.forEach((k) => delete e[k]); break;
+      default: return;
+    }
+    inp.style.cssText = estiloTitulo({ titulo_estilo: e });
+    actualizar(n, { titulo_estilo: Object.keys(e).length ? e : null });
+  }
   function guardarRango() { const s = getSelection(); if (s && s.rangeCount && enNota(s.anchorNode)) { rango = s.getRangeAt(0).cloneRange(); mostrarTam(); } }
   function restaurar() {
     const s = getSelection(); if (!rango) return false;
@@ -313,13 +351,18 @@
   function mostrarFormato() { clearTimeout(ocultarT); $('gn-fmt').classList.add('on'); }
   function ocultarFormato(ya) {
     clearTimeout(ocultarT);
-    const f = () => { const a = document.activeElement; if (a && a.closest && (a.closest('#gn-fmt') || a.closest('.gn-texto'))) return; $('gn-fmt').classList.remove('on'); };
-    if (ya) $('gn-fmt').classList.remove('on'); else ocultarT = setTimeout(f, 260);
+    const f = () => {
+      const a = document.activeElement;
+      if (a && a.closest && (a.closest('#gn-fmt') || a.closest('.gn-texto') || a.closest('.gn-titulo-in'))) return;
+      $('gn-fmt').classList.remove('on'); tituloActivo = null;
+    };
+    if (ya) { $('gn-fmt').classList.remove('on'); tituloActivo = null; } else ocultarT = setTimeout(f, 300);
   }
   function mostrarTam() {
     try {
-      const s = getSelection(); if (!s.rangeCount) return;
-      const el = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentElement); if (!el || !enNota(el)) return;
+      let el = null;
+      if (tituloActivo) el = tituloActivo;
+      else { const s = getSelection(); if (!s.rangeCount) return; el = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentElement); if (!el || !enNota(el)) return; }
       $('gn-tam').value = Math.round(parseFloat(getComputedStyle(el).fontSize)) || 18;
     } catch (_) {}
   }
@@ -327,35 +370,40 @@
     document.addEventListener('selectionchange', guardarRango);
     const barra = $('gn-fmt');
     barra.addEventListener('mousedown', (e) => { if (!e.target.closest('select, input')) e.preventDefault(); });
-    document.addEventListener('focusin', (e) => { if (e.target.closest && (e.target.closest('.gn-texto') || e.target.closest('#gn-fmt'))) mostrarFormato(); });
-    document.addEventListener('focusout', (e) => { if (e.target.closest && (e.target.closest('.gn-texto') || e.target.closest('#gn-fmt'))) ocultarFormato(false); });
-    const aplicar = (fn) => { if (!restaurar()) { aviso('Hacé clic dentro de una nota para darle formato', true); return; } fn(); guardarNotaDe(enNota(getSelection().anchorNode)); guardarRango(); };
-    const tamano = (px) => {
-      px = Math.max(8, Math.min(96, Math.round(px)));
-      aplicar(() => {
+    document.addEventListener('focusin', (e) => {
+      const t = e.target; if (!t.closest) return;
+      if (t.closest('.gn-titulo-in')) { tituloActivo = t.closest('.gn-titulo-in'); mostrarFormato(); mostrarTam(); }
+      else if (t.closest('.gn-texto')) { tituloActivo = null; mostrarFormato(); }
+      else if (t.closest('#gn-fmt')) mostrarFormato();
+    });
+    document.addEventListener('focusout', (e) => { if (e.target.closest && (e.target.closest('.gn-texto') || e.target.closest('.gn-titulo-in') || e.target.closest('#gn-fmt'))) ocultarFormato(false); });
+
+    const enNotaCmd = (cmd, val) => {
+      if (!restaurar()) { aviso('Hacé clic dentro de una nota para darle formato', true); return; }
+      if (cmd === 'mayus' || cmd === 'minus' || cmd === 'titulo') {
+        const t = getSelection().toString();
+        if (t) document.execCommand('insertText', false, cmd === 'mayus' ? t.toUpperCase() : cmd === 'minus' ? t.toLowerCase() : t.toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase()));
+      } else if (cmd === 'fontSize') {
         const s = getSelection(), ed = enNota(s.anchorNode); if (!ed) return;
         if (s.isCollapsed) { const r = document.createRange(); r.selectNodeContents(ed); s.removeAllRanges(); s.addRange(r); }
         document.execCommand('fontSize', false, '7');
-        ed.querySelectorAll('font[size="7"]').forEach((f) => { const sp = document.createElement('span'); sp.style.fontSize = px + 'px'; while (f.firstChild) sp.appendChild(f.firstChild); f.replaceWith(sp); });
-        $('gn-tam').value = px;
-      });
+        ed.querySelectorAll('font[size="7"]').forEach((f) => { const sp = document.createElement('span'); sp.style.fontSize = val + 'px'; while (f.firstChild) sp.appendChild(f.firstChild); f.replaceWith(sp); });
+      } else document.execCommand(cmd, false, val == null ? null : val);
+      guardarNotaDe(enNota(getSelection().anchorNode)); guardarRango();
     };
+    const ejecutar = (cmd, val) => {
+      if (tituloActivo && document.contains(tituloActivo)) { aplicarTitulo(tituloActivo, cmd, val); if (cmd === 'fontSize') $('gn-tam').value = Math.round(val); return; }
+      enNotaCmd(cmd, val); if (cmd === 'fontSize') $('gn-tam').value = Math.round(val);
+    };
+    const tamano = (px) => ejecutar('fontSize', Math.max(8, Math.min(96, Math.round(px))));
     barra.addEventListener('click', (e) => {
       const sz = e.target.closest('[data-sz]'); if (sz) { tamano((parseInt($('gn-tam').value, 10) || 18) + Number(sz.dataset.sz) * 2); return; }
-      const b = e.target.closest('[data-cmd]'); if (!b) return;
-      const c = b.dataset.cmd;
-      aplicar(() => {
-        if (c === 'mayus' || c === 'minus' || c === 'titulo') {
-          const t = getSelection().toString(); if (!t) return;
-          document.execCommand('insertText', false, c === 'mayus' ? t.toUpperCase() : c === 'minus' ? t.toLowerCase() : t.toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase()));
-        } else document.execCommand(c, false, null);
-      });
+      const b = e.target.closest('[data-cmd]'); if (b) ejecutar(b.dataset.cmd);
     });
-    $('gn-fuente').addEventListener('change', (e) => { const v = e.target.value; if (v) aplicar(() => document.execCommand('fontName', false, v)); e.target.value = ''; });
+    $('gn-fuente').addEventListener('change', (e) => { const v = e.target.value; if (v) ejecutar('fontName', v); e.target.value = ''; });
     $('gn-tam').addEventListener('change', (e) => { const v = parseInt(e.target.value, 10); if (v) tamano(v); });
-    $('gn-col-texto').addEventListener('input', (e) => aplicar(() => document.execCommand('foreColor', false, e.target.value)));
-    $('gn-col-resalte').addEventListener('input', (e) => aplicar(() => document.execCommand('hiliteColor', false, e.target.value)));
-    $('gn-color-nueva').addEventListener('change', (e) => store(LS_COLOR, e.target.value));
+    $('gn-col-texto').addEventListener('input', (e) => ejecutar('foreColor', e.target.value));
+    $('gn-col-resalte').addEventListener('input', (e) => ejecutar('hiliteColor', e.target.value));
   }
 
   /* ---------- imprimir el cuaderno o una nota ---------- */
@@ -395,9 +443,15 @@
       const oi = e.target.closest('#gn-orden-menu li');
       if (oi) { store(LS_ORDEN, oi.dataset.v); menu.classList.remove('on'); biblioteca(); return; }
       menu.classList.remove('on');
+      const cb = e.target.closest('#gn-color-btn'), cp = $('gn-color-pop');
+      if (cb) { cp.classList.toggle('on'); cb.setAttribute('aria-expanded', String(cp.classList.contains('on'))); return; }
+      const cs = e.target.closest('#gn-color-pop button');
+      if (cs) { store(LS_COLOR, cs.dataset.c); pintarColorNueva(); cp.classList.remove('on'); return; }
+      cp.classList.remove('on');
       const g = e.target.closest('[data-g]');
       if (g) { const a = g.dataset.g; if (a === 'cerrar') cerrarGuia(); else if (a === 'sig') guia(paso + 1); else if (a === 'ant') guia(paso - 1); else if (a === 'ir') guia(Number(g.dataset.j)); return; }
       if (e.target.id === 'gn-guia') return cerrarGuia();
+      const hr = e.target.closest('[data-href]'); if (hr) { location.href = hr.dataset.href; return; }
       const mi = e.target.closest('[data-menu]');
       if (mi) { const a = mi.dataset.menu; $('gn-menu').classList.remove('on'); if (a === 'guia') guia(0); else if (a === 'papelera') verPapelera(); else if (a === 'biblioteca') { $('gn-papelera').hidden = true; biblioteca(); } return; }
       if (e.target.closest('#gn-menu-btn')) { $('gn-menu').classList.toggle('on'); return; }
@@ -457,5 +511,16 @@
     });
   }
 
-  arrastre(); formato(); eventos(); cargar();
+  /* barra lateral: contraída por defecto; se abre con "Contraer/Expandir" y en el celular con el botón ☰ */
+  function lateral() {
+    try { if (store('nika_notas_side') !== '0') document.body.classList.add('ns-colapsado'); } catch (_) {}
+    document.querySelectorAll('.ns-link').forEach((a) => { const t = a.querySelector('.ns-t'); if (t && !a.title) a.title = t.textContent.trim(); });
+    const col = $('ns-colapsar'), bur = $('ns-burger');
+    if (col) col.addEventListener('click', () => { const c = document.body.classList.toggle('ns-colapsado'); store('nika_notas_side', c ? '1' : '0'); const t = col.querySelector('.ns-t'); if (t) t.textContent = c ? 'Expandir' : 'Contraer'; });
+    if (bur) bur.addEventListener('click', () => document.body.classList.toggle('ns-abierto'));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.body.classList.remove('ns-abierto'); });
+    document.addEventListener('click', (e) => { if (document.body.classList.contains('ns-abierto') && !e.target.closest('#ns-side') && !e.target.closest('#ns-burger')) document.body.classList.remove('ns-abierto'); });
+  }
+
+  lateral(); pintarColorNueva(); arrastre(); formato(); eventos(); cargar();
 })();

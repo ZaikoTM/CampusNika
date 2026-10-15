@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
-    <link rel="stylesheet" href="css/mis-notas.css?v=3">
+    <link rel="stylesheet" href="css/mis-notas.css?v=4">
 </head>
 <body class="nikasim mis-notas" data-pagina="mis-notas">
 
@@ -62,6 +62,8 @@
                     <button type="button" class="gn-btn" id="gn-menu-btn" aria-haspopup="menu">☰ Menú <span class="gn-pap-n" hidden></span></button>
                     <ul class="gn-menu" id="gn-menu" role="menu">
                         <li role="menuitem" data-menu="biblioteca">📚 Biblioteca de cuadernos</li>
+                        <li role="menuitem" data-href="campus.html">🏠 Ir al campus</li>
+                        <li role="menuitem" data-href="sala_estudio.html">📖 Sala de estudio</li>
                         <li role="menuitem" data-menu="papelera">♻️ Papelera de reciclaje <span class="gn-pap-n" hidden></span></li>
                         <li role="menuitem" data-menu="guia">❓ Guía de uso y funciones</li>
                     </ul>
@@ -111,12 +113,7 @@
                     <h2 id="gn-titulo"></h2>
                     <span class="gn-cuenta" id="gn-cuenta"></span>
                     <div class="gn-barra-acc">
-                        <input id="gn-q2" type="search" placeholder="Buscar en este cuaderno…" aria-label="Buscar en este cuaderno">
-                        <label class="gn-nc" title="Color de las notas nuevas"><span>Post-it nuevo</span>
-                        <select id="gn-color-nueva" aria-label="Color de las notas nuevas">
-                            <option value="amarillo">🟡 Amarillo</option><option value="rosa">🩷 Rosa</option><option value="celeste">🔵 Celeste</option><option value="verde">🟢 Verde</option>
-                            <option value="naranja">🟠 Naranja</option><option value="lila">🟣 Lila</option><option value="blanco">⚪ Blanco</option><option value="gris">⚫ Gris</option>
-                        </select></label>
+                                                <div class="gn-nc"><span>Post-it nuevo</span><button type="button" class="gn-sw" id="gn-color-btn" aria-haspopup="true" aria-expanded="false" aria-label="Color de las notas nuevas"><i></i></button><div class="gn-pop" id="gn-color-pop" role="group" aria-label="Elegí el color del post-it"><button type="button" data-c="amarillo" title="Amarillo" aria-label="Amarillo"></button><button type="button" data-c="rosa" title="Rosa" aria-label="Rosa"></button><button type="button" data-c="celeste" title="Celeste" aria-label="Celeste"></button><button type="button" data-c="verde" title="Verde" aria-label="Verde"></button><button type="button" data-c="naranja" title="Naranja" aria-label="Naranja"></button><button type="button" data-c="lila" title="Lila" aria-label="Lila"></button><button type="button" data-c="blanco" title="Blanco" aria-label="Blanco"></button><button type="button" data-c="gris" title="Gris" aria-label="Gris"></button></div></div>
                         <button type="button" class="gn-btn" id="gn-nueva">＋ Nueva nota</button>
                         <button type="button" class="gn-btn" id="gn-imprimir">🖨️ Imprimir cuaderno</button>
                     </div>
@@ -149,7 +146,10 @@
                     
                 </div>
                 <div class="gn-libro">
-                    <nav class="gn-indice" id="gn-indice" aria-label="Índice del cuaderno"></nav>
+                    <aside class="gn-lado">
+                        <label class="gn-buscar"><span aria-hidden="true">🔎</span><input id="gn-q2" type="search" placeholder="Buscar en este cuaderno…" aria-label="Buscar en este cuaderno"></label>
+                        <nav class="gn-indice" id="gn-indice" aria-label="Índice del cuaderno"></nav>
+                    </aside>
                     <div class="gn-paginas" id="gn-paginas"></div>
                 </div>
             </section>
@@ -174,7 +174,7 @@
     <script src="js/pomodoroEngine.js?v=7"></script>
     <script src="js/pomodoroSyncManager.js?v=7"></script>
     <script src="js/pomodoroBar.js?v=8"></script>
-    <script src="js/misNotas.js?v=3"></script>
+    <script src="js/misNotas.js?v=4"></script>
     <script src="js/chatFlotante.js?v=7"></script>
     <script src="js/assistant.js?v=3"></script>
     <script>
