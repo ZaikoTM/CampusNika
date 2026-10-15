@@ -1,0 +1,53 @@
+/* CAMPUS NIKA · capa visual del campus (fase 1): fondo aurora, tarjetas de vidrio y entrada escalonada.
+   Todo es decorativo y se apaga con "reducir movimiento". Nada de esto cambia la estructura de la página. */
+
+/* ---------- 1) Fondo aurora ---------- */
+.cv-aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.cv-aurora i { position: absolute; border-radius: 50%; filter: blur(64px); opacity: .8; will-change: transform; }
+.cv-aurora i:nth-child(1) { width: 46vmax; height: 46vmax; left: -10vmax; top: -14vmax; background: radial-gradient(circle at 40% 40%, rgba(56, 189, 248, .55), rgba(56, 189, 248, 0) 68%); animation: cvDeriva1 28s ease-in-out infinite alternate; }
+.cv-aurora i:nth-child(2) { width: 40vmax; height: 40vmax; right: -12vmax; top: 6vmax; background: radial-gradient(circle at 50% 50%, rgba(167, 139, 250, .5), rgba(167, 139, 250, 0) 68%); animation: cvDeriva2 34s ease-in-out infinite alternate; }
+.cv-aurora i:nth-child(3) { width: 38vmax; height: 38vmax; left: 22vmax; bottom: -20vmax; background: radial-gradient(circle at 50% 50%, rgba(52, 211, 153, .42), rgba(52, 211, 153, 0) 68%); animation: cvDeriva3 40s ease-in-out infinite alternate; }
+@keyframes cvDeriva1 { to { transform: translate(14vmax, 10vmax) scale(1.15); } }
+@keyframes cvDeriva2 { to { transform: translate(-12vmax, 12vmax) scale(1.1); } }
+@keyframes cvDeriva3 { to { transform: translate(10vmax, -12vmax) scale(1.2); } }
+body.dark-mode .cv-aurora i { opacity: .4; }
+body.dark-mode .cv-aurora i:nth-child(1) { background: radial-gradient(circle at 40% 40%, rgba(14, 165, 233, .55), rgba(14, 165, 233, 0) 68%); }
+body.dark-mode .cv-aurora i:nth-child(2) { background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, .6), rgba(124, 58, 237, 0) 68%); }
+body.tema-premium .cv-aurora i:nth-child(1) { background: radial-gradient(circle at 40% 40%, rgba(236, 72, 153, .5), rgba(236, 72, 153, 0) 68%); }
+body.tema-premium .cv-aurora i:nth-child(2) { background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, .6), rgba(168, 85, 247, 0) 68%); }
+body.tema-premium .cv-aurora i:nth-child(3) { background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, .5), rgba(99, 102, 241, 0) 68%); }
+
+/* ---------- 2) Tarjetas de vidrio con luz al pasar el mouse ---------- */
+.plan-card, .action-btn-card, .prof-card, .perf-grid > * {
+  background-color: color-mix(in srgb, var(--card-bg, #fff) 76%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25); backdrop-filter: blur(14px) saturate(1.25);
+  border: 1px solid color-mix(in srgb, var(--border, #e2e8f0) 55%, rgba(255, 255, 255, .85));
+  box-shadow: 0 10px 28px -18px rgba(15, 23, 42, .35), inset 0 1px 0 rgba(255, 255, 255, .55);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), box-shadow .28s, border-color .28s;
+  position: relative;
+}
+.plan-card::after, .action-btn-card::after, .prof-card::after, .perf-grid > *::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(260px circle at var(--cv-x, 50%) var(--cv-y, 0%), rgba(14, 165, 233, .16), transparent 60%);
+}
+.plan-card:hover::after, .action-btn-card:hover::after, .prof-card:hover::after, .perf-grid > *:hover::after { opacity: 1; }
+.action-btn-card:hover, .perf-grid > *:hover { transform: translateY(-3px); border-color: color-mix(in srgb, #0ea5e9 45%, var(--border, #e2e8f0)); box-shadow: 0 18px 34px -18px rgba(14, 165, 233, .55), inset 0 1px 0 rgba(255, 255, 255, .6); }
+body.dark-mode .plan-card, body.dark-mode .action-btn-card, body.dark-mode .prof-card, body.dark-mode .perf-grid > * {
+  background-color: color-mix(in srgb, var(--card-bg, #111827) 70%, transparent);
+  border-color: rgba(148, 163, 184, .22); box-shadow: 0 14px 30px -18px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+body.tema-premium .plan-card, body.tema-premium .action-btn-card, body.tema-premium .prof-card, body.tema-premium .perf-grid > * { border-color: rgba(168, 85, 247, .32); }
+body.tema-premium .plan-card::after, body.tema-premium .action-btn-card::after, body.tema-premium .perf-grid > *::after { background: radial-gradient(260px circle at var(--cv-x, 50%) var(--cv-y, 0%), rgba(192, 132, 252, .22), transparent 60%); }
+
+/* ---------- 3) Entrada escalonada ---------- */
+.cv-on .cv-rv:not(.cv-in) { opacity: 0; }
+.cv-rv.cv-in { animation: cvEntra .65s cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--cv-d, 0) * 70ms); }
+@keyframes cvEntra { from { opacity: 0; transform: translateY(22px) scale(.985); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-aurora i { animation: none; }
+  .cv-on .cv-rv:not(.cv-in) { opacity: 1; }
+  .cv-rv.cv-in { animation: none; }
+  .action-btn-card:hover, .perf-grid > *:hover { transform: none; }
+}
+@media (max-width: 640px) { .cv-aurora i { filter: blur(50px); opacity: .42; } .cv-aurora i:nth-child(3) { display: none; } }
