@@ -150,7 +150,16 @@ const NikaMusic = (() => {
     const txt = await r.text(); let json = null; try { json = txt ? JSON.parse(txt) : null; } catch (_) {}
     if (!r.ok) {
       const msg = (json && json.error && (json.error.message || json.error)) || ('Spotify respondió ' + r.status);
-      if (r.status === 403 && /register|whitelist|not.*allowed|user.*not/i.test(String(msg))) throw new Error('Tu cuenta de Spotify todavía no está habilitada en Campus Nika (beta). Escuchá desde “Sin login”, que funciona para todos.');
+      if (r.status === 403) {
+        // 403 de Spotify: casi siempre es que la app está en "modo de prueba" y la cuenta no está autorizada en su panel de desarrolladores,
+        // o que la cuenta no es Premium, o que faltan permisos del login. Se explica cada caso en vez de mostrar el código.
+        const razon = String((json && json.error && json.error.reason) || '').toUpperCase(), t = String(msg);
+        let m;
+        if (razon === 'PREMIUM_REQUIRED' || /premium/i.test(t)) m = 'Para reproducir con tu cuenta Spotify necesita Premium. Mientras tanto podés escuchar “Lofi y ambiente”, que funciona para todos.';
+        else if (/scope/i.test(t)) m = 'Faltan permisos de Spotify: tocá “Desconectar Spotify” y volvé a conectar tu cuenta aceptando todos los permisos.';
+        else m = 'Spotify no dejó entrar a esta cuenta (403): la app de Campus Nika está en modo de prueba y solo admite cuentas que el administrador autoriza. Escuchá “Lofi y ambiente” mientras se habilita.';
+        const e = new Error(m); e.spotify403 = true; throw e;
+      }
       throw new Error(msg);
     }
     return json;
@@ -205,7 +214,13 @@ const NikaMusic = (() => {
       await api('/me/player', { method: 'PUT', body: JSON.stringify({ device_ids: [deviceId], play: false }) });
       await api('/me/player/play?device_id=' + encodeURIComponent(deviceId), { method: 'PUT', body: JSON.stringify(cuerpo) });
       setMensaje('');
-    } catch (err) { setMensaje(err.message || 'No se pudo reproducir.'); }
+    } catch (err) { if (err && err.spotify403) { alRechazoSpotify(err.message); return; } setMensaje(err.message || 'No se pudo reproducir.'); }
+  }
+
+  // Spotify rechazó la cuenta: se vuelve a “Lofi y ambiente” (sin login) con el motivo, así no queda sin música
+  function alRechazoSpotify(msg) {
+    if (vista !== 'ambiente') { vista = 'ambiente'; guardarUi({ vista: 'ambiente' }); desacoplarEmbed(); render(); }
+    setMensaje(msg);
   }
 
   async function playlistPorNombre(q, btnEl) {
@@ -215,7 +230,7 @@ const NikaMusic = (() => {
       const pl = ((r && r.playlists && r.playlists.items) || []).find(Boolean);
       if (!pl) { setMensaje('No se encontró esa playlist.'); return; }
       await reproducirSdk({ context_uri: pl.uri });
-    } catch (err) { setMensaje(err.message); } finally { if (btnEl) btnEl.classList.remove('cargando'); }
+    } catch (err) { if (err && err.spotify403) alRechazoSpotify(err.message); else setMensaje(err.message); } finally { if (btnEl) btnEl.classList.remove('cargando'); }
   }
 
   let tBusq = null;
@@ -232,7 +247,7 @@ const NikaMusic = (() => {
         ...((r.albums && r.albums.items) || []).map((a) => fila(a.uri, a.images.slice(-1)[0]?.url, a.name, a.artists.map((x) => x.name).join(', '), true)),
       ].join('') || '<div class="nm-vacio">Sin resultados.</div>';
       cont.querySelectorAll('.nm-item').forEach((b) => b.addEventListener('click', () => (b.dataset.album === '1' ? abrirAlbum(b.dataset.uri, q) : (b.dataset.ctx ? reproducirSdk({ context_uri: b.dataset.ctx, offset: { uri: b.dataset.uri } }) : reproducirSdk({ uris: [b.dataset.uri] })))));
-    } catch (err) { cont.innerHTML = `<div class="nm-vacio">${esc(err.message)}</div>`; }
+    } catch (err) { if (err && err.spotify403) { alRechazoSpotify(err.message); return; } cont.innerHTML = `<div class="nm-vacio">${esc(err.message)}</div>`; }
   }
 
   // Álbum: lista de canciones para elegir una (o reproducir todo desde el principio)
