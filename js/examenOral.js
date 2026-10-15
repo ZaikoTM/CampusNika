@@ -193,6 +193,7 @@
   // Antes de empezar el examen: la voz elegida tiene que estar descargada y cargada, así nada demora durante la prueba.
   async function prepararVoz() {
     if (!localesOk()) return true;
+    const NV = window.NikaVoz;
     let k = S.sel.startsWith('loc:') ? S.sel.slice(4) : '';
     // sin voz del sistema y sin voz descargada: se baja la voz argentina por defecto
     if (!k && !hayVocesDispositivo()) {
@@ -201,28 +202,32 @@
     }
     if (!k) return true;                                   // voz del dispositivo: nada que preparar
     if (!S.locales[k] || S.locales[k].estado !== 'lista') {
-      const v = VL().VOCES[k];
-      pintarEstadoVoz('⬇ Descargando la voz «' + v.nombre + '» (' + v.mb + ' MB) antes de empezar…', 'wait');
-      await descargarLocal(k);
-      if (!S.locales[k] || S.locales[k].estado !== 'lista') return false;       // falló la descarga: no se arranca
+      await descargarLocal(k, true);                       // muestra la pantalla animada con frases y tiempo restante
+      if (!S.locales[k] || S.locales[k].estado !== 'lista') return false;
     }
-    pintarEstadoVoz('⏳ Preparando la voz del profesor…', 'wait');
+    if (NV) { if (!document.getElementById('nikavoz-ov')) NV.overlay.abrir('Preparando la voz del profesor'); NV.overlay.fase('Cargando la voz en tu dispositivo…', true); }
+    else pintarEstadoVoz('⏳ Preparando la voz del profesor…', 'wait');
     try { await VL().sintetizar(k, 'Buenos días.'); calentado = k; }
     catch (e) { S.nodisp[k] = true; estado.aviso = 'La voz descargada no pudo ejecutarse en este equipo (' + ((e && e.message) || 'error') + '). Se usará la voz del dispositivo o el texto en pantalla.'; }
+    finally { if (NV) NV.overlay.cerrar(); }
     return true;
   }
-  async function descargarLocal(k) {
+  async function descargarLocal(k, mantenerPantalla) {
     if (!localesOk()) return;
     const v = VL().VOCES[k]; if (!v) return;
     if (S.locales[k] && S.locales[k].estado === 'descargando') return;
     S.locales[k] = { estado: 'descargando', pct: 0 }; pintar();
+    const NV = window.NikaVoz;
+    if (NV) NV.overlay.abrir('Descargando la voz «' + v.nombre + '»');
     try {
       let ult = -1;
-      await VL().descargar(k, (c, t) => { const p = Math.min(100, Math.round(c * 100 / (t || 1))); if (p !== ult) { ult = p; S.locales[k].pct = p; marcaProgreso(k); } });
+      await VL().descargar(k, (c, t) => { if (NV) NV.overlay.progreso(c, t); const p = Math.min(100, Math.round(c * 100 / (t || 1))); if (p !== ult) { ult = p; S.locales[k].pct = p; marcaProgreso(k); } });
       S.locales[k] = { estado: 'lista', pct: 100 };
       S.sel = 'loc:' + k; S.pref = true; guardaPref('nika_eo_voz2', S.sel); delete S.nodisp[k];
-      pintar(); pintarEstadoVoz('✅ Voz descargada. Ya podés usarla sin conexión.', 'ok'); precalentar();
+      if (NV && !mantenerPantalla) NV.overlay.cerrar();
+      pintar(); pintarEstadoVoz('✅ Voz descargada. Ya podés usarla sin conexión.', 'ok'); if (!mantenerPantalla) precalentar();
     } catch (e) {
+      if (NV) NV.overlay.cerrar();
       S.locales[k] = { estado: 'no', pct: 0 }; pintar();
       pintarEstadoVoz('❌ No se pudo descargar la voz (' + ((e && e.message) || 'error') + '). Revisá tu conexión y el espacio disponible.', 'err');
     }

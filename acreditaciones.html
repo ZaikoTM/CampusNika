@@ -27,5 +27,16 @@
 <script src="js/nikaMusic.js?v=10"></script>
 <script src="js/nikaAccesibilidad.js?v=1" defer></script>
 <script src="js/nikaMetricas.js?v=1" defer></script>
+<script src="js/vozLocal.js?v=1"></script>
+<script src="js/nikaVoz.js?v=1"></script>
+<script>
+(function () {
+  if (!window.NikaVoz) return;
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = '🔊 Voz'; b.title = 'Elegir la voz de los simuladores';
+  b.style.cssText = 'position:fixed;left:14px;bottom:14px;z-index:9000;border:0;border-radius:99px;padding:9px 14px;font:700 .8rem system-ui;background:rgba(15,23,42,.85);color:#fff;cursor:pointer;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)';
+  b.addEventListener('click', function () { NikaVoz.ajustes(); });
+  document.body.appendChild(b); NikaVoz.refrescar();
+})();
+</script>
 </body>
 </html>

@@ -84,6 +84,7 @@
     try {
       if (mudo || !window.speechSynthesis || !txt) return;
       const limpio = String(txt).replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '').replace(/[«»]/g, '').replace(/\s+/g, ' ').trim(); if (!limpio) return;
+      if (window.NikaVoz && NikaVoz.lista()) { NikaVoz.hablar(limpio, { rol }); return; }   // voz compartida de todos los simuladores
       const u = new SpeechSynthesisUtterance(limpio); u.lang = 'es-AR'; u.rate = 1.08; u.pitch = rol === 'm' ? 0.85 : rol === 'a' ? 1.0 : 1.12; u.volume = 0.9;
       const vs = window.speechSynthesis.getVoices().filter((v) => /^es/i.test(v.lang)); if (vs.length) u.voice = vs.find((v) => /AR|MX|419|US/i.test(v.lang)) || vs[0];
       window.speechSynthesis.speak(u);

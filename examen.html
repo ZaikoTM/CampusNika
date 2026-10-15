@@ -996,6 +996,8 @@
             <button class="nav-tool-btn" data-guardia-open title="Descargar bancos y vademécum para usar sin conexión">🛡️ Guardia</button>
             <button type="button" class="nav-cancel-btn" onclick="confirmarCancelacionExamen()" title="Cancelar el examen">✕ Cancelar Examen</button>
             <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
+            <button class="nav-tool-btn" onclick="toggleVozSim()" id="btn-voz" title="Leer en voz alta lo que dice el paciente / evaluador">🗣️ Voz OFF</button>
+            <button class="nav-tool-btn" onclick="NikaVoz && NikaVoz.ajustes()" id="btn-voz-aj" title="Elegir voz, volumen y velocidad">⚙️</button>
             <button class="nav-tool-btn" onclick="toggleFocusMode()" title="Modo Enfoque (Pantalla Completa)">🔍 Enfoque</button>
             <button class="nav-tool-btn" onclick="openHelpModal()" title="Atajos de Teclado">❓ Atajos</button>
             <a href="campus.html" class="btn-back" id="btn-menu-materia" title="Volver al campus">← Volver al Campus</a>
@@ -1507,6 +1509,8 @@
     <script src="data/banco_trauma_inferior.js"></script>
     <script src="data/banco_suturas.js"></script>
     <script src="js/examModesConfig.js?v=74"></script>
+    <script src="js/vozLocal.js?v=1"></script>
+    <script src="js/nikaVoz.js?v=1"></script>
     <script src="js/examPromptsMaterias.js?v=5"></script>
     <script src="js/formatoEvaluacion.js?v=1"></script>
 
@@ -1637,6 +1641,23 @@
                 osc.start(); osc.stop(audioCtx.currentTime + 0.6);
             }
         }
+
+        // Voz en los simuladores con paciente/evaluador: lee en voz alta cada respuesta (voz del dispositivo o voz descargada)
+        async function toggleVozSim() {
+            const btn = document.getElementById('btn-voz'); if (!window.NikaVoz || !btn) return;
+            const activar = !NikaVoz.activo();
+            btn.disabled = true;
+            const ok = await NikaVoz.activar(activar);
+            btn.disabled = false;
+            const on = NikaVoz.activo();
+            btn.textContent = on ? '🗣️ Voz ON' : '🗣️ Voz OFF'; btn.style.color = on ? 'white' : '#94a3b8';
+            if (activar && !on) showToast('No hay una voz disponible: descargá una desde ⚙️.');
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!window.NikaVoz) return;
+            NikaVoz.iniciarSimulador();
+            const b = document.getElementById('btn-voz'); if (b && NikaVoz.activo()) { b.textContent = '🗣️ Voz ON'; b.style.color = 'white'; }
+        });
 
         function toggleAudio() {
             isAudioMuted = !isAudioMuted; localStorage.setItem('nika_audio_muted', isAudioMuted);
