@@ -307,6 +307,7 @@ const NikaMusic = (() => {
     const q = inp.value.trim();
     const tok = ++busqSeq;
     cont.classList.remove('nm-album-vista');
+    const cuerpoEl = panel && panel.querySelector('.nm-body'); if (cuerpoEl) cuerpoEl.classList.toggle('nm-buscando', q.length >= 2);
     if (q.length < 2) { cont.innerHTML = ''; return; }
     cont.innerHTML = '<div class="nm-vacio">🔎 Buscando…</div>';
     // Si Spotify rechaza alguna combinación (límites o tipos), se reintenta con una más simple
@@ -323,11 +324,11 @@ const NikaMusic = (() => {
     if (!r) { cont.innerHTML = `<div class="nm-vacio">No se pudo buscar: ${esc((ultimo && ultimo.message) || 'sin respuesta de Spotify')}. Probá de nuevo en unos segundos.</div>`; return; }
     const img = (imgs) => ((imgs || []).slice(-1)[0] || {}).url || '';
     const fila = (uri, im, t1, t2, tipo, ctx) => `<button type="button" class="nm-item" data-uri="${esc(uri)}" data-tipo="${tipo}" data-ctx="${esc(ctx || '')}">${im ? `<img src="${esc(im)}" alt="">` : '<img alt="" style="visibility:hidden">'}<span><b>${esc(t1)}</b><small>${tipo === 'album' ? '💿 Álbum · ' : tipo === 'artist' ? '🎤 Artista' : ''}${esc(t2)}</small></span></button>`;
-    const filas = [];
-    ((r.artists && r.artists.items) || []).filter(Boolean).slice(0, 3).forEach((a) => filas.push(fila(a.uri, img(a.images), a.name, '', 'artist')));
-    ((r.tracks && r.tracks.items) || []).filter(Boolean).slice(0, 6).forEach((t) => filas.push(fila(t.uri, img(t.album && t.album.images), t.name, (t.artists || []).map((a) => a.name).join(', '), 'track', t.album && t.album.uri)));
-    ((r.albums && r.albums.items) || []).filter(Boolean).slice(0, 4).forEach((a) => filas.push(fila(a.uri, img(a.images), a.name, (a.artists || []).map((x) => x.name).join(', '), 'album')));
-    cont.innerHTML = filas.join('') || '<div class="nm-vacio">Sin resultados para “' + esc(q) + '”.</div>';
+    const grupo = (titulo, lista) => (lista.length ? `<div class="nm-res-t">${titulo}</div>` + lista.join('') : '');
+    const artistas = ((r.artists && r.artists.items) || []).filter(Boolean).slice(0, 3).map((a) => fila(a.uri, img(a.images), a.name, '', 'artist'));
+    const canciones = ((r.tracks && r.tracks.items) || []).filter(Boolean).slice(0, 8).map((t) => fila(t.uri, img(t.album && t.album.images), t.name, (t.artists || []).map((a) => a.name).join(', '), 'track', t.album && t.album.uri));
+    const albumes = ((r.albums && r.albums.items) || []).filter(Boolean).slice(0, 4).map((a) => fila(a.uri, img(a.images), a.name, (a.artists || []).map((x) => x.name).join(', '), 'album'));
+    cont.innerHTML = (grupo('🎤 Artistas', artistas) + grupo('🎵 Canciones', canciones) + grupo('💿 Álbumes', albumes)) || '<div class="nm-vacio">Sin resultados para “' + esc(q) + '”.</div>';
     cont.querySelectorAll('.nm-item').forEach((b) => b.addEventListener('click', () => {
       const t = b.dataset.tipo;
       if (t === 'album') abrirAlbum(b.dataset.uri, q);
@@ -695,6 +696,13 @@ const NikaMusic = (() => {
       .nm-body::-webkit-scrollbar { display: block !important; width: 10px !important; }
       .nm-body::-webkit-scrollbar-track { background: rgba(255,255,255,.07); border-radius: 8px; }
       .nm-body::-webkit-scrollbar-thumb { background: #1db954; border-radius: 8px; border: 2px solid #0b0e13; }
+      .nm-buscador { display: flex; flex-direction: column; gap: 6px; }
+      .nm-res-t { margin: 8px 4px 2px; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #1db954; }
+      .nm-buscando .nm-prog, .nm-buscando .nm-volrow, .nm-buscando .nm-chips.nm-scroll, .nm-buscando .nm-out { display: none; }
+      .nm-buscando .nm-cover { width: 40px; height: 40px; } .nm-buscando .nm-bigctrl { gap: 10px; }
+      .nm-buscando .nm-bigctrl button { transform: scale(.82); }
+      .nm-buscando #nm-res { max-height: none; }
+      .nm-item { padding: 7px 8px; } .nm-item img { width: 44px; height: 44px; } .nm-item:hover b { color: #1db954; }
       #nm-res { scrollbar-width: thin; scrollbar-color: #1db954 transparent; }
       #nm-res.nm-album-vista { max-height: 300px; }
       .nm-album-cab { display: flex; align-items: center; gap: 10px; padding: 4px 4px 8px; position: sticky; top: 0; background: #0f131a; z-index: 1; }
@@ -813,7 +821,7 @@ const NikaMusic = (() => {
       .nm-vol { display: flex; align-items: center; gap: 8px; font-size: .9rem; } .nm-vol input { flex: 1; }
       #nm-q { width: 100%; box-sizing: border-box; padding: 9px 13px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: #f1f5f9; font-size: .84rem; font-family: inherit; outline: none; }
       #nm-q:focus { border-color: #1db954; }
-      #nm-res { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; min-height: 24px; max-height: 240px; overflow-y: auto; }
+      #nm-res { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; min-height: 0; max-height: 260px; overflow-y: auto; }
       .nm-item { display: flex; gap: 10px; align-items: center; border: none; background: transparent; color: inherit; padding: 6px; border-radius: 10px; cursor: pointer; text-align: left; font-family: inherit; }
       .nm-item:hover { background: rgba(255,255,255,.08); } .nm-item img { width: 36px; height: 36px; border-radius: 6px; background: #1f2630; object-fit: cover; }
       .nm-item span { min-width: 0; } .nm-item b { display: block; font-size: .8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .nm-item small { color: #94a3b8; font-size: .7rem; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -1245,6 +1253,7 @@ const NikaMusic = (() => {
       const vol0 = Math.round(parseFloat(localStorage.getItem(K_VOL) || '0.5') * 100);
       cuerpo = `
         <div id="nm-msg"></div>
+        <div class="nm-buscador"><input type="search" id="nm-q" placeholder="🔍 Buscar canción, artista o álbum" autocomplete="off"><div id="nm-res"></div></div>
         <div class="nm-now"><img id="nm-cover" class="nm-cover" alt=""><div class="nm-meta"><b id="nm-t">Nada sonando</b><small id="nm-a">Elegí una playlist o buscá</small></div></div>
         <div class="nm-prog"><span id="nm-cur">0:00</span><input type="range" id="nm-seek" min="0" max="1000" value="0" aria-label="Progreso"><span id="nm-dur">0:00</span></div>
         <div class="nm-bigctrl">
@@ -1255,7 +1264,6 @@ const NikaMusic = (() => {
         </div>
         <div class="nm-volrow"><button type="button" class="nm-mute" id="nm-mute" aria-label="Silenciar">${vol0 === 0 ? '🔇' : '🔊'}</button><input type="range" id="nm-vol" min="0" max="100" value="${vol0}" aria-label="Volumen"><b id="nm-vol-n">${vol0}</b></div>
         <div class="nm-chips nm-scroll">${PLAYLISTS_CUENTA.map((pl, i) => `<button type="button" class="nm-pl" data-i="${i}">${pl.icono} ${pl.label}</button>`).join('')}</div>
-        <input type="search" id="nm-q" placeholder="🔍 Buscar canción, artista o álbum" autocomplete="off"><div id="nm-res"></div>
         <button type="button" class="nm-out" id="nm-out">Desconectar Spotify</button>`;
     }
     const compartir = (() => { try { return localStorage.getItem(K_SHARE) !== '0'; } catch (_) { return true; } })();
