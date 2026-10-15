@@ -185,6 +185,7 @@
             <div class="sidebar-category">Estudiar</div>
             <li><button onclick="window.location.href='sala_estudio.html'" class="sidebar-link" id="sidebar-estudio-btn" title="Elegí tu año y tu materia: estudio, simulador, duelos y atlas 3D">📚 Sala de Estudio <span class="sidebar-live" style="position:static;transform:none;display:inline-flex;vertical-align:middle;height:auto;min-width:0;font-size:.6rem;padding:2px 7px;margin-left:8px;" aria-label="Nuevo">NUEVO</span></button></li>
             <li><button onclick="abrirSalaEstudio()" class="sidebar-link" id="sidebar-sala-btn">🧉 Sala Pomodoro compartida</button></li>
+            <li><a href="retos.html" class="sidebar-link">🎯 Retos con compañeros</a></li>
             <li><button onclick="window.location.href='ateneos.html'" class="sidebar-link" id="sidebar-ateneos-btn">📹 Sala de Ateneos</button></li>
 
             <div class="sidebar-category">Practicar y simular</div>
@@ -205,7 +206,6 @@
             <div class="sidebar-category">Comunidad</div>
             <li><button onclick="openNewsModal()" class="sidebar-link" style="position:relative;">📢 Novedades<span id="news-unread-badge" class="sidebar-live" style="display:none;" title="Novedades sin leer">0</span></button></li>
             <li><button onclick="openFriendsModal()" class="sidebar-link">🤝 Comunidad & Amigos</button></li>
-            <li><a href="retos.html" class="sidebar-link">🎯 Retos con compañeros</a></li>
             <li><button onclick="openDmInboxModal()" class="sidebar-link" style="position:relative;">🗨️ Mensajes Privados<span id="dm-unread-badge" style="display:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); background:var(--danger,#ef4444); color:#fff; font-size:0.65rem; font-weight:800; border-radius:20px; padding:2px 7px; line-height:1;"></span></button></li>
             <li><button onclick="openChatModal()" class="sidebar-link" style="position:relative;">🗨️ Chat Global<span id="chat-online-badge" class="sidebar-live" style="display:none;" title="Mensajes nuevos sin leer"></span></button></li>
             <li><button onclick="window.location.href='foro.html'" class="sidebar-link" id="sidebar-foro-btn">💬 Foro Académico</button></li>
@@ -1266,7 +1266,7 @@
     <script src="js/friendsManager.js"></script>
     <script src="js/novedadesAviso.js"></script>
     <script src="js/perfilRedes.js?v=1"></script>
-    <script src="js/salaEstudio.js?v=2"></script>
+    <script src="js/salaEstudio.js?v=3"></script>
     <script src="js/presenciaCampus.js"></script>
     <script src="js/moderacion.js"></script>
     <!-- Modo Guardia Offline-First: IndexedDB + cola de sincronización + descarga por lotes -->

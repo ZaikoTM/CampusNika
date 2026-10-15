@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
-    <link rel="stylesheet" href="css/retos.css?v=1">
+    <link rel="stylesheet" href="css/retos.css?v=2">
 </head>
 <body class="nikasim retos-pg" data-pagina="retos">
 
@@ -68,34 +68,8 @@
         </main>
     </div>
 
-    <!-- Crear reto -->
-    <div id="rt-modal" class="rt-modal" hidden role="dialog" aria-modal="true" aria-label="Crear un reto">
-        <div class="rt-modal-card">
-            <button type="button" class="rt-x" data-rt="cerrar" aria-label="Cerrar">✕</button>
-            <h3>＋ Nuevo reto</h3>
-            <div class="rt-plantillas" id="rt-plantillas"></div>
-            <label class="rt-f"><span>Nombre del reto</span><input id="rt-titulo" maxlength="60" placeholder="Ej: Semana de 10 horas de Cirugía"></label>
-            <div class="rt-fila">
-                <label class="rt-f"><span>¿Qué suman?</span>
-                    <select id="rt-tipo">
-                        <option value="minutos">⏱️ Horas de estudio</option>
-                        <option value="sesiones">🍅 Sesiones Pomodoro</option>
-                        <option value="simulacros">📝 Simulacros</option>
-                        <option value="dias">🔥 Días activos (suma de todos)</option>
-                    </select></label>
-                <label class="rt-f"><span id="rt-meta-l">Meta entre todos (horas)</span><input id="rt-meta" type="number" min="1" max="2000" value="10"></label>
-            </div>
-            <div class="rt-fila">
-                <label class="rt-f"><span>Duración</span>
-                    <select id="rt-dias"><option value="3">3 días</option><option value="7" selected>1 semana</option><option value="14">2 semanas</option><option value="30">1 mes</option></select></label>
-                <label class="rt-f"><span>Materia</span>
-                    <select id="rt-modulo"><option value="">Todas</option><option value="cirugia">Cirugía</option><option value="ginecologia">Ginecología</option><option value="siam">S.I.A.M.</option><option value="pfo">PFO</option><option value="medicinalegal">Medicina Legal</option><option value="medicinadeportiva">Medicina Deportiva</option></select></label>
-            </div>
-            <div class="rt-f"><span>Invitá a tus amigos</span><div class="rt-amigos" id="rt-amigos"><p class="rt-vacio">Cargando tus amigos…</p></div></div>
-            <p class="rt-error" id="rt-error" hidden></p>
-            <div class="rt-acc"><button type="button" class="rt-btn rt-btn--sec" data-rt="cerrar">Cancelar</button><button type="button" class="rt-btn" id="rt-crear">Crear reto</button></div>
-        </div>
-    </div>
+    <!-- Crear reto (se arma desde js/retos.js) -->
+    <div id="rt-modal" class="rt-modal" hidden role="dialog" aria-modal="true" aria-label="Crear un reto"></div>
 
     <div id="toast">Notificación</div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -111,7 +85,7 @@
     <script src="js/social.js?v=2"></script>
     <script src="js/moderacion.js"></script>
     <script src="js/chatManager.js?v=4"></script>
-    <script src="js/retos.js?v=1"></script>
+    <script src="js/retos.js?v=2"></script>
     <script src="js/chatFlotante.js?v=7"></script>
     <script src="js/assistant.js?v=3"></script>
 <script src="js/campusTema.js?v=3"></script>

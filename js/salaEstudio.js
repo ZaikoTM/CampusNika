@@ -9,7 +9,7 @@
   const NOMBRES_MODULO = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.', biblioteca: 'Estudio libre' };
   const AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fca5a5'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
-  let overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
+  let retosAct = null, overlay = null, abierta = false, contando = false, amigos = [], unidades = null, timer = null, pickerAbierto = false, desuscribir = [], enCurso = false, ultimoHtml = '';
   const E = () => window.PomodoroEngine;
   const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const toast = (m, t) => { if (typeof window.showToast === 'function') window.showToast(m, t); };
@@ -65,6 +65,15 @@
     .sala-cancel{border:0;background:none;color:#fda4af;font-size:.62rem;cursor:pointer;text-decoration:underline;padding:0}
     .sala-picker{position:relative;margin:10px 0 2px;padding:12px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(251,113,133,.3);animation:salaPop .25s ease}
     .sala-picker h4{margin:0 0 8px;font-size:.82rem;font-weight:800}
+    .sala-retos{position:relative;margin:12px 0 4px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,rgba(251,191,36,.16),rgba(244,63,94,.14));border:1px solid rgba(251,191,36,.35)}
+    .sala-retos-h{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.84rem}
+    .sala-retos-h a{color:#fde68a;font-weight:800;font-size:.76rem;text-decoration:none}
+    .sala-reto{margin-top:8px}.sala-reto .n{display:block;font-weight:800;font-size:.86rem;margin-bottom:6px}
+    .sala-reto .b{height:10px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}
+    .sala-reto .b i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#fbbf24,#fb7185);transition:width 1s cubic-bezier(.22,1,.36,1)}
+    .sala-reto small{display:block;margin-top:4px;opacity:.85;font-weight:700}
+    .sala-retos-v{margin:6px 0 0;font-size:.8rem;opacity:.85}
+    .sala-retos-b{margin-top:10px;width:100%}
     .sala-amigos{display:flex;flex-direction:column;gap:6px;max-height:190px;overflow-y:auto}
     .sala-amigo{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.05)}
     .sala-amigo img{width:34px;height:34px;border-radius:50%;object-fit:cover}
@@ -119,6 +128,21 @@
   }
 
   // ----- apertura / cierre -----
+  // Reto de estudio vigente (si hay): se muestra dentro de la sala con su progreso compartido
+  async function cargarRetos() {
+    try {
+      const c = window.NikaSupabase && window.NikaSupabase.client; if (!c) return;
+      const q = await c.from('retos').select('id,titulo,tipo,meta,hasta').gt('hasta', new Date().toISOString()).order('creado_en', { ascending: false }).limit(1);
+      if (q.error || !q.data || !q.data.length) { retosAct = []; return render(true); }
+      const r = q.data[0], p = await c.rpc('reto_progreso', { p_reto: r.id });
+      const total = (p.data || []).filter((x) => x.estado === 'aceptado').reduce((a, x) => a + (Number(x.valor) || 0), 0);
+      const U = { minutos: 'min', sesiones: 'sesiones', simulacros: 'simulacros', dias: 'días' };
+      const txt = r.tipo === 'minutos' ? (Math.round(total / 6) / 10) + ' de ' + (r.meta / 60) + ' h' : total + ' de ' + r.meta + ' ' + U[r.tipo];
+      retosAct = [{ titulo: r.titulo, pct: Math.min(100, Math.round(total / r.meta * 100)), txt }];
+      render(true);
+    } catch (_) { retosAct = []; }
+  }
+
   async function abrir() {
     if (!E() || !window.PomodoroSyncManager) { toast('El Pomodoro compartido no está disponible todavía.'); return; }
     const { st, sh } = estadoRoom();
@@ -139,6 +163,7 @@
     }
     abierta = true; contando = false; pickerAbierto = false; ultimoHtml = '';
     render();
+    cargarRetos();
     desuscribir.forEach((f) => f()); desuscribir = [];
     desuscribir.push(E().on('change', alCambiar), E().on('shared', alCambiar));
     clearInterval(timer); timer = setInterval(() => { if (abierta && !contando) render(true); }, 2500);
@@ -243,6 +268,12 @@
         <div class="sala-espera"><b>🍅</b> Esperando que @${esc(sh.hostUsername || 'el Host')} inicie el Pomodoro…</div>
       </div>`;
 
+    const r0 = retosAct && retosAct[0];
+    const retosBlk = `<div class="sala-retos"><div class="sala-retos-h"><b>🎯 Reto de estudio</b><a href="retos.html" target="_blank" rel="noopener">Ver retos →</a></div>`
+      + (r0 ? `<div class="sala-reto"><span class="n">${esc(r0.titulo)}</span><div class="b"><i style="width:${r0.pct}%"></i></div><small>${r0.pct}% · ${esc(r0.txt)}</small></div>`
+        : `<p class="sala-retos-v">Pónganse una meta entre todos: tiempo, sesiones o simulacros. Suman juntos.</p>`)
+      + `<button class="sala-btn sec sala-retos-b" data-reto-nuevo="${esc(joined.join(','))}">＋ Crear reto con la sala</button></div>`;
+
     const html = `
       <div class="sala-card" role="dialog" aria-label="Sala de estudio">
         ${bgTomates()}
@@ -255,6 +286,7 @@
         ${config}
         <div class="sala-meter">${tomates}<span>${total} / ${1 + MAX} en la sala</span></div>
         <div class="sala-seats">${asientos}</div>
+        ${retosBlk}
         ${picker}
         ${pie}
       </div>`;
@@ -312,6 +344,7 @@
     const t = e.target;
     const q = (sel) => t.closest(sel);
     let el;
+    if ((el = q('[data-reto-nuevo]'))) { window.open('retos.html?nuevo=1&con=' + encodeURIComponent(el.dataset.retoNuevo), '_blank', 'noopener'); return; }
     if ((el = q('[data-invitar]'))) return invitar(el.dataset.invitar);
     if ((el = q('[data-expulsar]'))) { if (E().kickGuest(el.dataset.expulsar)) toast(`@${el.dataset.expulsar} salió de la sala.`); return render(); }
     if ((el = q('[data-reinvitar]'))) return invitar(el.dataset.reinvitar);
