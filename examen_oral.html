@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
-    <link rel="stylesheet" href="css/examen-oral.css?v=7">
+    <link rel="stylesheet" href="css/examen-oral.css?v=8">
 </head>
 <body class="nikasim examen-oral-pg" data-pagina="examen-oral">
 
@@ -54,7 +54,24 @@
 
         <main class="ns-main" id="ns-main">
             <div id="eo-raiz"><p style="opacity:.7">Preparando el examen…</p></div>
+            <footer class="eo-creditos">Voces: Piper TTS · OpenSLR · <button type="button" id="eo-creditos-btn">Créditos y licencias</button></footer>
         </main>
+    </div>
+
+    <div id="eo-creditos-modal" class="eo-cred-modal" hidden role="dialog" aria-modal="true" aria-label="Créditos y licencias de las voces">
+        <div class="eo-cred-card">
+            <button type="button" class="eo-cred-x" id="eo-creditos-x" aria-label="Cerrar">✕</button>
+            <h3>Créditos y licencias de las voces</h3>
+            <p>Las voces descargables se generan en tu dispositivo con software y modelos abiertos:</p>
+            <ul>
+                <li><b>Piper</b> (motor de síntesis de voz) · licencia MIT · <a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">github.com/rhasspy/piper</a></li>
+                <li><b>Voz «Femenina argentina»</b> (<code>es_AR-daniela-high</code>): datos «High-quality TTS data for Argentinian Spanish», OpenSLR 61, © Google LLC, licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> · <a href="https://www.openslr.org/61/" target="_blank" rel="noopener">openslr.org/61</a>. Modelo entrenado por la comunidad Piper (<a href="https://huggingface.co/rhasspy/piper-voices" target="_blank" rel="noopener">rhasspy/piper-voices</a>).</li>
+                <li><b>Voz «Masculina latina»</b> (<code>es_MX-ald-medium</code>): conjunto de datos Ald Mexican Spanish speech dataset (rmcpantoja), dominio público (Unlicense); modelo ajustado a partir de la voz es_ES-davefx (CC0).</li>
+                <li><b>ONNX Runtime Web</b> · Microsoft · licencia MIT · <a href="https://github.com/microsoft/onnxruntime" target="_blank" rel="noopener">github.com/microsoft/onnxruntime</a></li>
+                <li><b>eSpeak NG</b> (conversión de texto a fonemas, incluido en <code>piper_phonemize</code>) · licencia GPL-3.0 · código fuente: <a href="https://github.com/espeak-ng/espeak-ng" target="_blank" rel="noopener">github.com/espeak-ng/espeak-ng</a> y <a href="https://github.com/rhasspy/piper-phonemize" target="_blank" rel="noopener">github.com/rhasspy/piper-phonemize</a></li>
+            </ul>
+            <p class="eo-cred-pie">Los archivos de las voces se descargan desde el repositorio público de Piper y se guardan solo en tu navegador. No se envía audio ni texto a ningún servidor para generar la voz.</p>
+        </div>
     </div>
 
     <div id="toast">Notificación</div>
@@ -69,11 +86,22 @@
     <script src="js/rendimiento.js?v=4"></script>
     <script src="js/examIntegridad.js"></script>
     <script src="js/examModesConfig.js"></script>
-    <script src="js/examenOral.js?v=7"></script>
+    <script src="js/vozLocal.js?v=1"></script>
+    <script src="js/examenOral.js?v=8"></script>
 <script src="js/campusTema.js?v=3"></script>
 <script src="js/campusEspacio.js?v=1"></script>
 <script src="js/micro.js?v=1" defer></script>
 <script src="js/nikaAccesibilidad.js?v=1" defer></script>
 <script src="js/nikaMetricas.js?v=1" defer></script>
+<script>
+(function () {
+  var m = document.getElementById('eo-creditos-modal'), b = document.getElementById('eo-creditos-btn'), x = document.getElementById('eo-creditos-x');
+  if (!m || !b) return;
+  b.addEventListener('click', function () { m.hidden = false; });
+  x.addEventListener('click', function () { m.hidden = true; });
+  m.addEventListener('click', function (e) { if (e.target === m) m.hidden = true; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') m.hidden = true; });
+})();
+</script>
 </body>
 </html>

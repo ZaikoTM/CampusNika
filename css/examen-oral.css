@@ -182,3 +182,25 @@ input[type=range] { accent-color: #6366f1; width: 100%; height: 6px; cursor: poi
 .eo-voz-estado.err { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.45); }
 
 .eo-voz-ayuda { margin: 4px 0 8px; font-size: .8rem; line-height: 1.45; opacity: .8; }
+
+/* voces descargables */
+.eo-voz-wrap { display: flex; flex-direction: column; gap: 4px; }
+.eo-voz-del { align-self: flex-end; background: transparent; border: 0; color: inherit; opacity: .55; font: inherit; font-size: .72rem; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 0 4px; }
+.eo-voz-del:hover { opacity: 1; }
+.eo-voz-nueva { border-style: dashed; }
+.eo-voz-dl { cursor: default; }
+.eo-voz-dl em { font-style: normal; font-weight: 800; color: #6366f1; }
+.eo-dl { height: 8px; border-radius: 99px; background: rgba(148,163,184,.25); overflow: hidden; margin-top: 6px; }
+.eo-dl i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #6366f1, #a855f7); transition: width .3s; }
+/* creditos: discretos */
+.eo-creditos { margin: 26px 0 8px; text-align: center; font-size: .7rem; opacity: .45; }
+.eo-creditos button { background: none; border: 0; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+.eo-creditos:hover { opacity: .8; }
+.eo-cred-modal { position: fixed; inset: 0; z-index: 10020; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(2,6,23,.6); backdrop-filter: blur(4px); }
+.eo-cred-modal[hidden] { display: none; }
+.eo-cred-card { position: relative; width: min(620px, 100%); max-height: 88vh; overflow: auto; padding: 22px 24px; border-radius: 20px; background: var(--card-bg, #fff); color: var(--text-main, #0f172a); border: 1px solid var(--border, #e2e8f0); font-size: .86rem; line-height: 1.55; }
+.eo-cred-card h3 { margin: 0 0 8px; font-size: 1.05rem; } .eo-cred-card ul { padding-left: 18px; display: flex; flex-direction: column; gap: 8px; } .eo-cred-card a { color: #0369a1; }
+.eo-cred-card code { font-size: .8em; background: rgba(148,163,184,.2); padding: 1px 5px; border-radius: 5px; }
+.eo-cred-pie { opacity: .7; font-size: .8rem; }
+.eo-cred-x { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(148,163,184,.25); color: inherit; cursor: pointer; }
+body.dark-mode .eo-cred-card a { color: #7dd3fc; }

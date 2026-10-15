@@ -142,33 +142,78 @@
   }
 
   /* ===================== voz ===================== */
-  // Voces de IA (Gemini TTS vía la Edge Function `voz-profesor`): funcionan igual en cualquier navegador. Respaldo: voz del dispositivo.
-  const VOCES_IA = {
-    ar_f: { n: 'Femenina argentina', ico: '🇦🇷', sub: 'Acento rioplatense', g: '👩‍⚕️' },
-    ar_m: { n: 'Masculina argentina', ico: '🇦🇷', sub: 'Acento rioplatense', g: '👨‍⚕️' },
-    int_f: { n: 'Femenina internacional', ico: '🌎', sub: 'Español neutro', g: '👩‍⚕️' },
-    int_m: { n: 'Masculino internacional', ico: '🌎', sub: 'Español neutro', g: '👨‍⚕️' }
-  };
-  const S = { voz: null, voces: [], hablando: false, audio: null, tok: 0, cache: new Map(), vol: 0.9, vel: 1.0, sel: 'ia:ar_f', avisoVoz: '', pref: false, iaCaidaHasta: 0 };
+  // Dos fuentes de voz, ambas en el propio dispositivo (sin servidor ni IA):
+  //   · Voz del dispositivo (speechSynthesis): gratis, depende del sistema.
+  //   · Voces descargables (Piper TTS, js/vozLocal.js): se bajan una sola vez y funcionan sin conexión en cualquier navegador.
+  const S = { voz: null, voces: [], hablando: false, audio: null, tok: 0, vol: 0.9, vel: 1.0, sel: 'dev', pref: false, fallo: '', via: '', locales: {}, nodisp: {} };
   (function prefs() {
     try {
-      const v = localStorage.getItem('nika_eo_voz'); if (v && /^(ia:|dev:)/.test(v)) { S.sel = v; S.pref = true; }
-      const vol = Number(localStorage.getItem('nika_eo_vol')); if (vol >= 0 && vol <= 1 && localStorage.getItem('nika_eo_vol') !== null) S.vol = vol;
+      const v = localStorage.getItem('nika_eo_voz2'); if (v && /^(dev|loc:)/.test(v)) { S.sel = v; S.pref = true; }
+      const vol = Number(localStorage.getItem('nika_eo_vol')); if (localStorage.getItem('nika_eo_vol') !== null && vol >= 0 && vol <= 1) S.vol = vol;
       const vel = Number(localStorage.getItem('nika_eo_vel')); if (vel >= 0.7 && vel <= 1.4) S.vel = vel;
     } catch (_) {}
   })();
   const guardaPref = (k, v) => { try { localStorage.setItem(k, String(v)); } catch (_) {} };
+  const VL = () => window.NikaVozLocal;
+  const localesOk = () => !!(VL() && VL().soportado());
 
   function cargarVoces() {
     try { S.voces = (window.speechSynthesis.getVoices() || []).filter((v) => /^es/i.test(v.lang)); } catch (_) { S.voces = []; }
     S.voces.sort((a, b) => (/es-AR/i.test(b.lang) - /es-AR/i.test(a.lang)) || (/es-(MX|US|419)/i.test(b.lang) - /es-(MX|US|419)/i.test(a.lang)) || a.name.localeCompare(b.name));
     const sel = $('eo-voz'); if (!sel) return;
-    sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">Este navegador no expone voces del sistema: usá una de las voces de IA</option>';
-    if (!S.pref && S.voces.length) { S.sel = 'dev:' + S.voces[0].name; }
-    const g = S.sel.startsWith('dev:') ? S.sel.slice(4) : '';
+    sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">Este navegador no expone voces del sistema</option>';
+    let g = ''; try { g = localStorage.getItem('nika_eo_vozdev') || ''; } catch (_) {}
     const k = S.voces.findIndex((v) => v.name === g);
     sel.value = String(k >= 0 ? k : 0); S.voz = S.voces[k >= 0 ? k : 0] || null;
   }
+  function hayVocesDispositivo() { try { return (window.speechSynthesis.getVoices() || []).length > 0; } catch (_) { return false; } }
+  async function refrescarLocales() {
+    if (!localesOk()) return;
+    const ya = await VL().guardadas();
+    Object.keys(VL().VOCES).forEach((k) => { if (S.locales[k] && S.locales[k].estado === 'descargando') return; S.locales[k] = { estado: ya.includes(VL().VOCES[k].id) ? 'lista' : 'no', pct: 0 }; });
+    // primera vez: si el equipo no tiene voces del sistema y ya bajó una voz, se usa; si no, se invita a descargar
+    if (!S.pref) {
+      const lista = Object.keys(S.locales).find((k) => S.locales[k].estado === 'lista');
+      if (lista && !hayVocesDispositivo()) S.sel = 'loc:' + lista;
+    }
+  }
+  function marcaProgreso(k) {
+    const l = S.locales[k]; if (!l) return;
+    const bar = document.querySelector('[data-voz-bar="' + k + '"]'), tx = document.querySelector('[data-voz-pct="' + k + '"]');
+    if (bar) bar.style.width = l.pct + '%'; if (tx) tx.textContent = l.pct + '%';
+  }
+  // Carga el modelo de la voz elegida en segundo plano para que la primera frase del examen no tarde.
+  let calentado = '';
+  function precalentar() {
+    const k = S.sel.startsWith('loc:') ? S.sel.slice(4) : '';
+    if (!k || calentado === k || !localesOk() || !S.locales[k] || S.locales[k].estado !== 'lista') return;
+    calentado = k;
+    try { VL().sintetizar(k, 'Buenos días.').catch(() => { calentado = ''; }); } catch (_) { calentado = ''; }
+  }
+  async function descargarLocal(k) {
+    if (!localesOk()) return;
+    const v = VL().VOCES[k]; if (!v) return;
+    if (S.locales[k] && S.locales[k].estado === 'descargando') return;
+    S.locales[k] = { estado: 'descargando', pct: 0 }; pintar();
+    try {
+      let ult = -1;
+      await VL().descargar(k, (c, t) => { const p = Math.min(100, Math.round(c * 100 / (t || 1))); if (p !== ult) { ult = p; S.locales[k].pct = p; marcaProgreso(k); } });
+      S.locales[k] = { estado: 'lista', pct: 100 };
+      S.sel = 'loc:' + k; S.pref = true; guardaPref('nika_eo_voz2', S.sel); delete S.nodisp[k];
+      pintar(); pintarEstadoVoz('✅ Voz descargada. Ya podés usarla sin conexión.', 'ok'); precalentar();
+    } catch (e) {
+      S.locales[k] = { estado: 'no', pct: 0 }; pintar();
+      pintarEstadoVoz('❌ No se pudo descargar la voz (' + ((e && e.message) || 'error') + '). Revisá tu conexión y el espacio disponible.', 'err');
+    }
+  }
+  async function borrarLocal(k) {
+    if (!localesOk()) return;
+    try { await VL().borrar(k); } catch (_) {}
+    S.locales[k] = { estado: 'no', pct: 0 };
+    if (S.sel === 'loc:' + k) { S.sel = 'dev'; guardaPref('nika_eo_voz2', S.sel); }
+    pintar();
+  }
+
   function trocear(texto, max) {
     const t = String(texto).replace(/\s+/g, ' ').trim();
     const partes = t.match(/[^.!?;:]+[.!?;:]?/g) || [t];
@@ -177,54 +222,23 @@
     if (acc) out.push(acc);
     return out.map((x) => x.trim()).filter(Boolean);
   }
-  async function tokenSesion() {
-    const sb = window.NikaSupabase;
-    const tomar = async () => { try { const { data: { session } } = await sb.client.auth.getSession(); return session && session.access_token; } catch (_) { return null; } };
-    let token = await tomar();
-    if (!token && sb && sb.restaurarSesionSiExiste) { try { await sb.restaurarSesionSiExiste(); } catch (_) {} token = await tomar(); }
-    return token;
-  }
-  function pcmAWav(b64, rate) {
-    const bin = atob(b64), n = bin.length, buf = new ArrayBuffer(44 + n), v = new DataView(buf);
-    const w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
-    w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
-    v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n, true);
-    const u = new Uint8Array(buf, 44); for (let i = 0; i < n; i++) u[i] = bin.charCodeAt(i);
-    return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
-  }
-  async function audioIA(texto, voz, mood) {
-    const key = voz + '|' + mood + '|' + texto;
-    if (S.cache.has(key)) return S.cache.get(key);
-    const token = await tokenSesion(); if (!token) throw new Error('Sin sesión.');
-    const base = (typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL) || 'https://pswjmouuyaxueaqqglko.supabase.co';
-    const apikey = (typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY) || '';
-    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 20000);
-    try {
-      const r = await fetch(base + '/functions/v1/voz-profesor', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token, apikey }, body: JSON.stringify({ texto, voz, animo: mood }), signal: ctrl.signal });
-      const d = await r.json().catch(() => ({}));
-      if (!r.ok || !d.audio) { const e = new Error((d.mensaje || d.error || 'Error ' + r.status) + (d.detalle ? ' — ' + d.detalle : '')); e.status = r.status; e.codigo = d.error; throw e; }
-      const url = pcmAWav(d.audio, d.rate || 24000);
-      if (S.cache.size > 40) S.cache.clear();
-      S.cache.set(key, url); return url;
-    } finally { clearTimeout(to); }
-  }
-  function reproducir(url, tok) {
+  function reproducir(url, tok, mood) {
     return new Promise((resolve) => {
       if (tok !== S.tok) return resolve();
-      const a = new Audio(url); S.audio = a; a.volume = S.vol; a.playbackRate = S.vel;
+      const a = new Audio(url); S.audio = a; a.volume = S.vol; a.playbackRate = Math.max(0.5, Math.min(2, S.vel * (PARAMS[mood || 'cordial'].rate)));
       const fin = () => { if (S.audio === a) S.audio = null; resolve(); };
       a.onended = fin; a.onerror = () => { S.fallo = 'El navegador no pudo reproducir el audio.'; fin(); };
-      a.play().catch((e) => { S.fallo = 'El navegador bloqueó la reproducción del audio (' + ((e && e.name) || 'error') + '). Tocá "Probar voz" de nuevo.'; fin(); });
+      a.play().catch((e) => { S.fallo = 'El navegador bloqueó la reproducción del audio (' + ((e && e.name) || 'error') + '). Tocá “Probar voz”.'; fin(); });
     });
   }
-  async function hablarIA(texto, voz, mood, tok) {
-    const trozos = trocear(texto, 380);
-    let sig = audioIA(trozos[0], voz, mood);
+  async function hablarLocal(texto, clave, mood, tok) {
+    const trozos = trocear(texto, 240);
+    let sig = VL().sintetizar(clave, trozos[0]);
     for (let i = 0; i < trozos.length; i++) {
       const url = await sig;
       if (tok !== S.tok) return;
-      if (i + 1 < trozos.length) sig = audioIA(trozos[i + 1], voz, mood).catch((e) => { throw e; });
-      await reproducir(url, tok);
+      if (i + 1 < trozos.length) sig = VL().sintetizar(clave, trozos[i + 1]);
+      await reproducir(url, tok, mood);
     }
   }
   function hablarDispositivo(texto, mood, tok) {
@@ -248,22 +262,19 @@
     if (!texto) return;
     const tok = ++S.tok; S.hablando = true; avatar(true); S.fallo = ''; S.via = '';
     try {
-      if (S.sel.startsWith('ia:') && Date.now() < S.iaCaidaHasta && hayVocesDispositivo()) { S.via = 'dispositivo'; S.fallo = 'La cuota de voz de IA está agotada por ahora'; await hablarDispositivo(texto, mood, tok); }
-      else if (S.sel.startsWith('ia:')) {
-        try { await hablarIA(texto, S.sel.slice(3), mood || 'cordial', tok); S.via = S.fallo ? 'ninguna' : 'ia'; }
+      const clave = S.sel.startsWith('loc:') ? S.sel.slice(4) : '';
+      if (clave && localesOk() && S.locales[clave] && S.locales[clave].estado === 'lista' && !S.nodisp[clave]) {
+        try { await hablarLocal(texto, clave, mood || 'cordial', tok); S.via = S.fallo ? 'ninguna' : 'local'; }
         catch (e) {
-          // si la voz IA no está disponible, se sigue con la del dispositivo para no cortar el examen
           if (tok === S.tok) {
-            S.fallo = (e && e.message) || 'sin detalle';
-            if (/quota|429|exceeded|cuota|sin audio|OTHER|tts_error|502|timeout|aborted|demasiado/i.test(S.fallo)) { S.iaCaidaHasta = Date.now() + 15 * 60000; S.fallo = /quota|429|exceeded|cuota/i.test(S.fallo) ? 'La cuota de voz de IA está agotada por ahora' : S.fallo; }
+            S.nodisp[clave] = true; S.fallo = (e && e.message) || 'sin detalle';
             if (hayVocesDispositivo()) { S.via = 'dispositivo'; await hablarDispositivo(texto, mood, tok); }
             else { S.via = 'ninguna'; estado.subs = true; }
-            S.avisoVoz = 'No pude generar la voz del profesor (' + S.fallo + ').' + (S.via === 'ninguna' ? ' Este equipo tampoco tiene voces instaladas: seguí con el texto en pantalla.' : ' Uso la voz del dispositivo.');
-            estado.aviso = S.avisoVoz;
+            estado.aviso = 'La voz descargada no pudo ejecutarse en este equipo (' + S.fallo + ').' + (S.via === 'ninguna' ? ' Seguí con el texto en pantalla.' : ' Uso la voz del dispositivo.');
           }
         }
       } else if (hayVocesDispositivo()) { S.via = 'dispositivo'; await hablarDispositivo(texto, mood, tok); }
-      else { S.via = 'ninguna'; S.fallo = 'Este equipo no tiene voces instaladas.'; estado.subs = true; }
+      else { S.via = 'ninguna'; S.fallo = 'Este equipo no tiene voces del sistema: descargá una voz en la configuración o seguí con el texto en pantalla.'; estado.subs = true; }
     } finally { if (tok === S.tok) { S.hablando = false; avatar(false); } }
     pintarEstadoVoz();
   }
@@ -273,19 +284,18 @@
     try { window.speechSynthesis.cancel(); } catch (_) {}
     avatar(false);
   }
-  function hayVocesDispositivo() { try { return (window.speechSynthesis.getVoices() || []).some((v) => /^es/i.test(v.lang)) || (window.speechSynthesis.getVoices() || []).length > 0; } catch (_) { return false; } }
   function pintarEstadoVoz(texto, tipo) {
     const el = $('eo-voz-estado'); if (!el) return;
     let t = texto, c = tipo || '';
     if (t == null) {
-      if (S.via === 'ia') { t = '✅ Voz de IA reproducida correctamente.'; c = 'ok'; }
-      else if (S.via === 'dispositivo') { t = S.fallo ? '⚠️ La voz de IA falló (' + S.fallo + '). Se usó la voz del dispositivo.' : '✅ Voz del dispositivo reproducida.'; c = S.fallo ? 'warn' : 'ok'; }
-      else if (S.via === 'ninguna') { t = '❌ ' + (S.fallo || 'No se pudo reproducir la voz.') + ' Probá con otra voz o revisá el volumen de tu equipo.'; c = 'err'; }
+      if (S.via === 'local') { t = '✅ Voz descargada reproducida correctamente.'; c = 'ok'; }
+      else if (S.via === 'dispositivo') { t = S.fallo ? '⚠️ ' + S.fallo + ' Se usó la voz del dispositivo.' : '✅ Voz del dispositivo reproducida.'; c = S.fallo ? 'warn' : 'ok'; }
+      else if (S.via === 'ninguna') { t = '❌ ' + (S.fallo || 'No se pudo reproducir la voz.'); c = 'err'; }
       else t = '';
     }
     el.textContent = t; el.className = 'eo-voz-estado ' + c; el.hidden = !t;
   }
-  function aplicarVolumen() { if (S.audio) { S.audio.volume = S.vol; S.audio.playbackRate = S.vel; } }
+  function aplicarVolumen() { if (S.audio) { S.audio.volume = S.vol; S.audio.playbackRate = Math.max(0.5, Math.min(2, S.vel)); } }
 
   /* ===================== reconocimiento ===================== */
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -752,13 +762,20 @@
   }
 
   function vozHtml() {
-    const cards = Object.keys(VOCES_IA).map((k) => '<button type="button" class="eo-voz' + (S.sel === 'ia:' + k ? ' on' : '') + '" data-eo="vozia" data-v="' + k + '"><i>' + VOCES_IA[k].g + '</i><span><b>' + VOCES_IA[k].ico + ' ' + VOCES_IA[k].n + '</b><small>' + VOCES_IA[k].sub + '</small></span></button>').join('');
-    return '<div class="eo-lbl">Voz del profesor</div><div class="eo-voces">' + cards
-      + '<button type="button" class="eo-voz' + (S.sel.startsWith('dev:') ? ' on' : '') + '" data-eo="vozdev"><i>💻</i><span><b>Voz del dispositivo</b><small>Gratis · depende de tu equipo</small></span></button></div>'
-      + '<div class="eo-vozdev"' + (S.sel.startsWith('dev:') ? '' : ' hidden') + '><select id="eo-voz" aria-label="Voz del dispositivo"></select></div>'
-      + '<p class="eo-voz-ayuda">Las voces de IA usan cuota del servicio de voz: si se agota o no está disponible, el examen sigue solo con la <b>voz de tu dispositivo</b>.'
-      + (S.voces.length ? '' : ' <b>Este navegador no expone voces del sistema</b>' + (navigator.brave ? ' (Brave las oculta con la protección contra rastreo: probá desactivar los Shields para este sitio, o usá Chrome/Edge o tu celular)' : '') + '; sin voz el examen se hace leyendo el texto en pantalla.')
-      + '</p>'
+    const nota = 'Elegí con qué voz te toma examen el profesor. Las voces descargables se bajan <b>una sola vez</b>, funcionan <b>sin conexión</b> y se generan en tu propio dispositivo.';
+    const dev = '<button type="button" class="eo-voz' + (S.sel === 'dev' ? ' on' : '') + '" data-eo="vozdev"><i>💻</i><span><b>Voz del dispositivo</b><small>' + (hayVocesDispositivo() ? 'Gratis · ya instalada' : 'No disponible en este navegador') + '</small></span></button>';
+    let loc = '';
+    if (localesOk()) {
+      loc = Object.keys(VL().VOCES).map((k) => {
+        const v = VL().VOCES[k], l = S.locales[k] || { estado: 'no', pct: 0 }, sel = S.sel === 'loc:' + k;
+        if (l.estado === 'lista') return '<div class="eo-voz-wrap"><button type="button" class="eo-voz' + (sel ? ' on' : '') + '" data-eo="vozloc" data-v="' + k + '"><i>' + v.g + '</i><span><b>' + v.ico + ' ' + v.nombre + '</b><small>✔ Descargada · ' + v.detalle + '</small></span></button><button type="button" class="eo-voz-del" data-eo="vozdel" data-v="' + k + '" title="Eliminar de este dispositivo">Quitar</button></div>';
+        if (l.estado === 'descargando') return '<div class="eo-voz eo-voz-dl"><i>' + v.g + '</i><span><b>' + v.ico + ' ' + v.nombre + '</b><small>Descargando… <em data-voz-pct="' + k + '">' + l.pct + '%</em></small><div class="eo-dl"><i data-voz-bar="' + k + '" style="width:' + l.pct + '%"></i></div></span></div>';
+        return '<button type="button" class="eo-voz eo-voz-nueva" data-eo="vozdl" data-v="' + k + '"><i>' + v.g + '</i><span><b>' + v.ico + ' ' + v.nombre + '</b><small>⬇ Descargar · ' + v.mb + ' MB · ' + v.detalle + '</small></span></button>';
+      }).join('');
+    } else loc = '<p class="eo-voz-ayuda">Este navegador no permite descargar voces. Usá la voz del dispositivo.</p>';
+    return '<div class="eo-lbl">Voz del profesor</div><p class="eo-voz-ayuda">' + nota + '</p><div class="eo-voces">' + dev + loc + '</div>'
+      + '<div class="eo-vozdev"' + (S.sel === 'dev' ? '' : ' hidden') + '><select id="eo-voz" aria-label="Voz del dispositivo"></select></div>'
+      + (!hayVocesDispositivo() && localesOk() ? '<p class="eo-voz-ayuda">Tu navegador no expone voces del sistema' + (navigator.brave ? ' (Brave las oculta con la protección contra rastreo)' : '') + ': descargá una voz de arriba y listo, funciona igual.</p>' : '')
       + '<p class="eo-voz-estado" id="eo-voz-estado" hidden></p>'
       + '<div class="eo-controles"><label>🔊 Volumen <b id="eo-vol-t">' + Math.round(S.vol * 100) + '%</b><input type="range" id="eo-vol" min="0" max="100" value="' + Math.round(S.vol * 100) + '"></label>'
       + '<label>⏩ Velocidad <b id="eo-vel-t">' + S.vel.toFixed(2).replace(/\.?0+$/, '') + '×</b><input type="range" id="eo-vel" min="70" max="140" value="' + Math.round(S.vel * 100) + '"></label>'
@@ -789,6 +806,7 @@
       + '<button type="button" class="eo-comenzar" data-eo="comenzar"' + (estado.plus ? '' : ' disabled') + '><span>🎓 Comenzar Examen Oral</span></button>'
       + '</div></div>';
     cargarVoces();
+    if (S.locales && Object.keys(S.locales).length === 0) refrescarLocales().then(() => { if (estado.fase === 'inicio' && estado.paso === 2) pintar(); });
     if (!banco) cargarBanco(a.id).then(() => { if (estado.fase === 'inicio' && estado.paso === 2) { const d = document.querySelector('.eo-disp'); if (d) { const n = poolDelModo(bancos[a.id]).length; d.textContent = n + (n === 1 ? ' pregunta' : ' preguntas') + ' en este examen'; } } }).catch(() => {});
   }
 
@@ -850,9 +868,11 @@
       else if (a === 'volver') { estado.paso = 1; callar(); pintar(); }
       else if (a === 'modo') { estado.modo = b.dataset.v; estado.up = ''; pintar(); }
       else if (a === 'up') { estado.up = b.dataset.v; const t = $('eo-temas'); if (t) estado.temas = t.open; pintar(); }
-      else if (a === 'vozia') { S.sel = 'ia:' + b.dataset.v; guardaPref('nika_eo_voz', S.sel); callar(); pintar(); pintarEstadoVoz('⏳ Generando la voz del profesor…', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
-      else if (a === 'vozdev') { cargarVoces(); const g = S.voces[0]; S.sel = 'dev:' + (g ? g.name : ''); guardaPref('nika_eo_voz', S.sel); callar(); pintar(); }
-      else if (a === 'probar') { callar(); pintarEstadoVoz('⏳ Generando la voz del profesor…', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
+      else if (a === 'vozdev') { S.sel = 'dev'; S.pref = true; guardaPref('nika_eo_voz2', S.sel); callar(); pintar(); }
+      else if (a === 'vozloc') { S.sel = 'loc:' + b.dataset.v; S.pref = true; guardaPref('nika_eo_voz2', S.sel); callar(); pintar(); pintarEstadoVoz('⏳ Preparando la voz… (la primera vez tarda unos segundos)', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
+      else if (a === 'vozdl') { const v = VL() && VL().VOCES[b.dataset.v]; if (v && confirm('Se va a descargar la voz «' + v.nombre + '» (' + v.mb + ' MB) una sola vez. Conviene usar WiFi. ¿Descargar ahora?')) descargarLocal(b.dataset.v); }
+      else if (a === 'vozdel') { if (confirm('¿Quitar esta voz de tu dispositivo? Podés volver a descargarla cuando quieras.')) borrarLocal(b.dataset.v); }
+      else if (a === 'probar') { callar(); pintarEstadoVoz('⏳ Preparando la voz…', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
       else if (a === 'comenzar') { if (!estado.plus) return; const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; iniciar(); }
       else if (a === 'listo') { callar(); if (estado.limite) { const c = estado.conv, t = estado.textoPausado; estado.limite = false; estado.textoPausado = ''; detenerEscucha(); const cb = alTerminar || ((x) => alResponder(x)); alTerminar = null; cb(t); } else terminarEscucha(); }
       else if (a === 'seguir') { callar(); seguirRespuesta(); }
@@ -869,7 +889,7 @@
     });
     document.addEventListener('change', (e) => {
       if (e.target.id === 'eo-subs') { estado.subs = e.target.checked; pintar(); }
-      if (e.target.id === 'eo-voz') { const v = S.voces[e.target.value]; if (v) { S.voz = v; S.sel = 'dev:' + v.name; guardaPref('nika_eo_voz', S.sel); } }
+      if (e.target.id === 'eo-voz') { const v = S.voces[e.target.value]; if (v) { S.voz = v; S.sel = 'dev'; S.pref = true; guardaPref('nika_eo_vozdev', v.name); guardaPref('nika_eo_voz2', 'dev'); } }
       if (e.target.id === 'eo-n') estado.n = Number(e.target.value) || 6;
     });
     document.addEventListener('input', (e) => {
@@ -894,6 +914,7 @@
       if (A && A.verificarVipFresco) { try { await A.verificarVipFresco(); } catch (_) {} }
       estado.plus = !!(A && A.tieneAccesoCompleto && A.tieneAccesoCompleto());
     } catch (_) { estado.plus = false; }
+    refrescarLocales().then(() => { if (estado.fase === 'inicio') pintar(); precalentar(); });
     pintar();
     // cuenta gratuita: puede entrar, pero se le explica qué es el simulador y cómo le ayuda, con el acceso al plan
     if (!estado.plus && window.NikaAcceso && window.NikaAcceso.mostrarPromoSimulador) setTimeout(() => window.NikaAcceso.mostrarPromoSimulador('examen_oral', { secundario: { texto: 'Volver al campus', alHacerClic: () => { location.href = 'campus.html'; } } }), 500);
