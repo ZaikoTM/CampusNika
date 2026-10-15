@@ -190,6 +190,27 @@
     calentado = k;
     try { VL().sintetizar(k, 'Buenos días.').catch(() => { calentado = ''; }); } catch (_) { calentado = ''; }
   }
+  // Antes de empezar el examen: la voz elegida tiene que estar descargada y cargada, así nada demora durante la prueba.
+  async function prepararVoz() {
+    if (!localesOk()) return true;
+    let k = S.sel.startsWith('loc:') ? S.sel.slice(4) : '';
+    // sin voz del sistema y sin voz descargada: se baja la voz argentina por defecto
+    if (!k && !hayVocesDispositivo()) {
+      const yaLista = Object.keys(S.locales).find((x) => S.locales[x] && S.locales[x].estado === 'lista');
+      k = yaLista || 'ar_f'; S.sel = 'loc:' + k; S.pref = true; guardaPref('nika_eo_voz2', S.sel);
+    }
+    if (!k) return true;                                   // voz del dispositivo: nada que preparar
+    if (!S.locales[k] || S.locales[k].estado !== 'lista') {
+      const v = VL().VOCES[k];
+      pintarEstadoVoz('⬇ Descargando la voz «' + v.nombre + '» (' + v.mb + ' MB) antes de empezar…', 'wait');
+      await descargarLocal(k);
+      if (!S.locales[k] || S.locales[k].estado !== 'lista') return false;       // falló la descarga: no se arranca
+    }
+    pintarEstadoVoz('⏳ Preparando la voz del profesor…', 'wait');
+    try { await VL().sintetizar(k, 'Buenos días.'); calentado = k; }
+    catch (e) { S.nodisp[k] = true; estado.aviso = 'La voz descargada no pudo ejecutarse en este equipo (' + ((e && e.message) || 'error') + '). Se usará la voz del dispositivo o el texto en pantalla.'; }
+    return true;
+  }
   async function descargarLocal(k) {
     if (!localesOk()) return;
     const v = VL().VOCES[k]; if (!v) return;
@@ -484,7 +505,7 @@
   }
 
   /* ===================== estado y flujo ===================== */
-  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '' };
+  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '', preparando: false };
   const bancos = {};
   async function cargarBanco(m) {
     if (bancos[m]) return bancos[m];
@@ -803,7 +824,8 @@
       + vozHtml()
       + '<ul class="eo-notas"><li>🎧 Usá <b>auriculares</b> y un lugar tranquilo para que el micrófono no capte al profesor.</li><li>🎙️ El reconocimiento de voz funciona mejor en <b>Chrome o Edge</b>. Si tu navegador no lo permite, respondés escribiendo.</li></ul>'
       + (estado.error ? '<p class="eo-error">' + esc(estado.error) + '</p>' : '')
-      + '<button type="button" class="eo-comenzar" data-eo="comenzar"' + (estado.plus ? '' : ' disabled') + '><span>🎓 Comenzar Examen Oral</span></button>'
+      + '<button type="button" class="eo-comenzar' + (estado.preparando ? ' preparando' : '') + '" data-eo="comenzar"' + (estado.plus && !estado.preparando ? '' : ' disabled') + '><span>' + (estado.preparando ? '⏳ Preparando la voz del profesor…' : '🎓 Comenzar Examen Oral') + '</span></button>'
+      + '<p class="eo-regla">La voz se descarga y se prepara antes de empezar para que el examen no se demore.</p>'
       + '</div></div>';
     cargarVoces();
     if (S.locales && Object.keys(S.locales).length === 0) refrescarLocales().then(() => { if (estado.fase === 'inicio' && estado.paso === 2) pintar(); });
@@ -873,7 +895,16 @@
       else if (a === 'vozdl') { const v = VL() && VL().VOCES[b.dataset.v]; if (v && confirm('Se va a descargar la voz «' + v.nombre + '» (' + v.mb + ' MB) una sola vez. Conviene usar WiFi. ¿Descargar ahora?')) descargarLocal(b.dataset.v); }
       else if (a === 'vozdel') { if (confirm('¿Quitar esta voz de tu dispositivo? Podés volver a descargarla cuando quieras.')) borrarLocal(b.dataset.v); }
       else if (a === 'probar') { callar(); pintarEstadoVoz('⏳ Preparando la voz…', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
-      else if (a === 'comenzar') { if (!estado.plus) return; const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; iniciar(); }
+      else if (a === 'comenzar') {
+        if (!estado.plus || estado.preparando) return;
+        const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; const u0 = $('eo-up'); if (u0) estado.up = u0.value;
+        estado.preparando = true; estado.error = '';
+        const btn = document.querySelector('.eo-comenzar'); if (btn) { btn.disabled = true; btn.classList.add('preparando'); btn.firstChild && (btn.firstChild.textContent = '⏳ Preparando la voz del profesor…'); }
+        let ok = true; try { ok = await prepararVoz(); } catch (_) { ok = true; }
+        estado.preparando = false;
+        if (!ok) { estado.error = 'No se pudo descargar la voz. Revisá tu conexión o elegí la voz del dispositivo.'; return pintar(); }
+        iniciar();
+      }
       else if (a === 'listo') { callar(); if (estado.limite) { const c = estado.conv, t = estado.textoPausado; estado.limite = false; estado.textoPausado = ''; detenerEscucha(); const cb = alTerminar || ((x) => alResponder(x)); alTerminar = null; cb(t); } else terminarEscucha(); }
       else if (a === 'seguir') { callar(); seguirRespuesta(); }
       else if (a === 'repetir') { if (estado.repetidas >= 1) return; estado.repetidas++; detenerEscucha(); callar(); estado.estadoVoz = 'pregunta'; pintar(); await hablar(estado.sub, estado.mood); if (estado.fase === 'examen') abrirRespuesta(); }
