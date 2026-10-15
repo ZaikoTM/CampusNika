@@ -87,15 +87,6 @@
   }
   function iconos() {
     try {
-      document.querySelectorAll('.sidebar-link').forEach((a) => {
-        if (a.querySelector('.cv-ico')) return;
-        const t = [...a.childNodes].find((n) => n.nodeType === 3 && n.textContent.trim());
-        if (!t) return;
-        const m = t.textContent.match(RE_EMO); if (!m) return;
-        const el = svg(m[1]); if (!el) return;
-        t.textContent = t.textContent.slice(m[0].length);
-        a.insertBefore(el, t); a.classList.add('cv-has-ico');
-      });
       document.querySelectorAll('.perf-tile-icon, .perf-time-tile-icon').forEach((a) => {
         if (a.querySelector('.cv-ico')) return;
         const txt = a.textContent.trim(); if (!txt || a.querySelector('svg')) return;
