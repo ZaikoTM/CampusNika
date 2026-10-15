@@ -88,3 +88,6 @@ body.dark-mode .sidebar-link .cv-ico { filter: brightness(1.25); }
   .cv-confeti { display: none; }
   .cv-grp { transition: none; }
 }
+
+/* anillos desactivados: se veian cortados junto al icono */
+.cv-ring { display: none !important; }
