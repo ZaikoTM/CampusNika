@@ -96,3 +96,6 @@ body.dark-mode .sidebar-link .cv-ico { filter: brightness(1.25); }
 .perf-tile--streak .cv-barra > i { background: linear-gradient(90deg, #f97316, #fbbf24); }
 body.dark-mode .plan-item[style*="--mat-c"] .plan-badge--proximo, body.tema-premium .plan-item[style*="--mat-c"] .plan-badge--proximo { color: color-mix(in srgb, var(--mat-c) 55%, #fff); }
 body.dark-mode .cv-ico--blanco, body.tema-premium .cv-ico--blanco { color: #fff; }
+
+/* el emoji gigante de fondo de la tarjeta 'Continuá donde lo dejaste' se veía raro: se oculta */
+.cont-marca { display: none !important; }
