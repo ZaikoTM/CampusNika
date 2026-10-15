@@ -60,6 +60,9 @@ const GuardiaModal = (() => {
     ] },
     { id: 'herr', icono: '🧰', titulo: 'Herramientas', sub: 'para la guardia', paquetes: [
       { id: 'farma', icono: '💊', titulo: 'Vademécum NikaFarma', desc: 'Fármacos, síndromes, patógenos y calculadoras.', farma: true, est: EST_FARMA },
+      { id: 'flashcards', icono: '🃏', titulo: 'Flashcards de NikaFarma', desc: 'Tarjetas clínicas de tratamientos y temas: explorar, practicar y rendir el simulador de flashcards sin señal.', urls: ['flashcards.html', 'data/nikafarma_patologias.json', 'js/nikaFlashcards.js', 'css/flashcards.css', 'js/nikafarmaPatologias.js', 'nikafarma.html',
+        'css/pagina-lateral.css', 'css/nika-unificado.css', 'css/nikasim.css', 'css/campus-premium.css', 'css/campus-premium-espacio.css', 'css/tema-premium-salas.css', 'css/micro.css',
+        'js/paginaLateral.js', 'js/auth-guard.js', 'js/nikaAcceso.js', 'js/rachas.js', 'js/atajos.js', 'js/campusTema.js', 'js/campusEspacio.js', 'js/micro.js', 'assets/N%20NIKA.png', 'assets/icons/favicon-32.png', 'favicon.ico', 'manifest.json'], est: 700 * KB },
       { id: 'recetarios', icono: '📝', titulo: 'Recetarios y certificados', desc: 'Para practicar la parte documental sin señal.', urls: ['recetarios.html', 'js/recetarios.js', 'js/recetariosData.js', 'js/recetariosShare.js', 'js/recetariosExamen.js', 'css/recetarios.css'], est: 150 * KB },
     ] },
   ];

@@ -137,9 +137,10 @@
     const logo = await new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = LOGO; });
     const f = p.fuente || {};
     const secs = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s));
-    const cv = document.createElement('canvas'); cv.width = W; cv.height = 9000; const c = cv.getContext('2d');
+    // Se dibuja en dos pasadas: la primera mide el alto real y la segunda renderiza a la mayor nitidez que permita el navegador.
+    const dibujar = (c, Hl) => {
     const papel = colorDe(p);
-    c.fillStyle = '#f8fafc'; c.fillRect(0, 0, W, 9000);
+    c.fillStyle = '#f8fafc'; c.fillRect(0, 0, W, Hl);
     // cabecera NikaMed
     const g = c.createLinearGradient(0, 0, W, 0); g.addColorStop(0, '#0f172a'); g.addColorStop(1, '#4338ca');
     c.fillStyle = g; c.fillRect(0, 0, W, 120);
@@ -160,7 +161,7 @@
     tit.forEach((l) => { yy += 66; });
     yy += 22; yy += 42; // unidades
     // dibujo real
-    c.fillStyle = papel; rr(c, PAD - 10, hojaTop, W - (PAD - 10) * 2, 9000 - hojaTop - 10, 26); c.fill();
+    c.fillStyle = papel; rr(c, PAD - 10, hojaTop, W - (PAD - 10) * 2, Hl - hojaTop - 10, 26); c.fill();
     // pin
     c.fillStyle = '#e11d48'; c.beginPath(); c.arc(W / 2, hojaTop + 4, 12, 0, 7); c.fill();
     let ty = hojaTop + 74;
@@ -180,7 +181,7 @@
         ty += 14;
         if (r.h) { c.font = '800 24px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillStyle = '#334155'; envolver(c, r.h, TW).forEach((l) => { ty += 30; c.fillText(l, PAD + 24, ty); }); continue; }
         let x = PAD + 24, w = TW;
-        if (r.e) { c.font = '700 34px Caveat, cursive'; c.fillStyle = col; c.fillText(r.e, x, ty + 30); x += 150; w = TW - 150; }
+        if (r.e) { c.font = '700 34px Caveat, cursive'; c.fillStyle = col; c.fillText(r.e, x, ty + 30); const lw = Math.min(280, Math.max(150, Math.ceil(c.measureText(r.e).width) + 22)); x += lw; w = TW - lw; }
         else if (r.b) { c.fillStyle = col; c.beginPath(); c.arc(x + 6, ty + 14, 5, 0, 7); c.fill(); x += 24; w = TW - 24; }
         c.font = '500 25px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillStyle = '#1e293b';
         envolver(c, r.t, w).forEach((l, i) => { ty += i === 0 ? 30 : 33; c.fillText(l, x, ty); });
@@ -197,9 +198,15 @@
     // pie
     c.fillStyle = '#0f172a'; c.fillRect(0, fin, W, 70);
     c.fillStyle = '#fff'; c.font = '700 24px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillText('NikaMed · Campus Nika — nikamed.com.ar', PAD + 10, fin + 44);
-    const out = document.createElement('canvas'); out.width = W; out.height = fin + 70;
-    const o = out.getContext('2d'); o.fillStyle = '#f8fafc'; o.fillRect(0, 0, W, out.height); o.drawImage(cv, 0, 0, W, out.height, 0, 0, W, out.height);
-    // recorta el fondo del papel sobrante: redibuja el papel hasta el pie
+    return fin;
+    };
+    const medida = document.createElement('canvas'); medida.width = W; medida.height = 16;
+    const fin = dibujar(medida.getContext('2d'), 9000);
+    const Hf = fin + 70;
+    let S = 3; while (S > 1 && W * S * Hf * S > 15.5e6) S -= 0.5;      // iOS limita el lienzo a unos 16 megapíxeles
+    const out = document.createElement('canvas'); out.width = Math.round(W * S); out.height = Math.round(Hf * S);
+    const o = out.getContext('2d'); o.scale(S, S); o.imageSmoothingEnabled = true; o.imageSmoothingQuality = 'high';
+    dibujar(o, Hf);
     return out;
   }
   const mensajeCorto = (p) => '🃏 ' + p.titulo + ' — flashcard clínica de NikaMed. Más tratamientos y temas en nikamed.com.ar';
