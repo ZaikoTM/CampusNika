@@ -1167,7 +1167,7 @@
                 <article class="sim-card c-pink">
                     <div class="sim-ico">🃏</div>
                     <h3>Simulador FlashCard</h3>
-                    <p>Tarjetas clínicas de tratamientos y temas basadas en guías: escribí tu respuesta, verificá qué cubriste y practicá incluso sin conexión.</p>
+                    <p>Flashcards clínicas de todas las áreas, basadas en guías: escribí tu respuesta, verificá qué cubriste y practicá incluso sin conexión.</p>
                     <div class="sim-badges"><span class="badge">Basado en guías</span><span class="badge">Verifica tu respuesta</span><span class="badge plan plan-free">NikaMed · Gratis</span></div>
                 </article>
                 <article class="sim-card c-violet">
@@ -1228,23 +1228,95 @@
 
 
     <!-- SIMULADOR FLASHCARD: destacado, gratis para todos -->
-    <section class="sim-section" id="flashcards" style="padding-top:0">
+    <section class="sim-section fcx" id="flashcards" style="padding-top:0">
+        <style>
+            .fcx .wrap { position: relative; }
+            .fcx-glow { position: absolute; left: 50%; top: 38%; width: min(760px, 90vw); height: 420px; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(236,72,153,.22), rgba(99,102,241,.14) 55%, transparent 75%); filter: blur(10px); pointer-events: none; animation: fcxPulso 7s ease-in-out infinite; }
+            @keyframes fcxPulso { 50% { opacity: .55; transform: translateX(-50%) scale(1.08); } }
+            .fcx-areas { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 820px; margin: 0 auto 38px; position: relative; }
+            .fcx-area { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; font-weight: 800; font-size: .86rem; color: #e2e8f0; background: rgba(15,23,42,.7); border: 1px solid rgba(148,163,184,.3); opacity: 0; transform: translateY(14px) scale(.94); transition: opacity .5s, transform .5s cubic-bezier(.2,1.3,.4,1), border-color .25s, box-shadow .25s; transition-delay: calc(var(--i) * 70ms); }
+            .fcx.in .fcx-area { opacity: 1; transform: none; }
+            .fcx-area:hover { border-color: var(--c, #ec4899); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c, #ec4899) 22%, transparent); transform: translateY(-3px) scale(1.05); transition-delay: 0s; }
+            .fcx-area.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 18%, #0f172a); color: #fff; }
+            .fcx-area small { font-size: .62rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; background: rgba(34,197,94,.2); color: #86efac; }
+            .fcx-area:not(.on) small { background: rgba(148,163,184,.18); color: #cbd5e1; }
+            .fcx-stage { display: flex; flex-wrap: wrap; gap: 26px; justify-content: center; align-items: flex-start; position: relative; padding: 10px 0 6px; }
+            .fcx-card { position: relative; width: min(250px, 86vw); margin: 0; opacity: 0; transform: translateY(46px) rotate(calc(var(--r) * 2)) scale(.92); transition: opacity .7s ease, transform .8s cubic-bezier(.2,1.1,.3,1); transition-delay: calc(.25s + var(--d)); }
+            .fcx.in .fcx-card { opacity: 1; transform: rotate(var(--r)); animation: fcxFlota 6.5s ease-in-out infinite; animation-delay: calc(1.2s + var(--d)); }
+            @keyframes fcxFlota { 50% { transform: translateY(-9px) rotate(calc(var(--r) * .4)); } }
+            .fcx-in { position: relative; border-radius: 18px; background: #0f172a; border: 1px solid rgba(148,163,184,.28); box-shadow: 0 26px 46px -26px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.03) inset; overflow: hidden; transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .25s ease, box-shadow .3s, border-color .3s; will-change: transform; }
+            .fcx-card:hover .fcx-in { border-color: rgba(236,72,153,.7); box-shadow: 0 34px 60px -24px rgba(236,72,153,.5); }
+            .fcx-img { height: 318px; overflow: hidden; position: relative; background: #f8fafc; }
+            .fcx-img img { display: block; width: 100%; height: auto; transition: transform 1.4s cubic-bezier(.2,.8,.2,1); }
+            .fcx-card:hover .fcx-img img { transform: translateY(-62px); }
+            .fcx-img::after { content: ''; position: absolute; inset: auto 0 0 0; height: 70px; background: linear-gradient(to top, rgba(15,23,42,.92), transparent); pointer-events: none; }
+            .fcx-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.35) 50%, transparent 62%); transform: translateX(-120%); pointer-events: none; }
+            .fcx-card:hover .fcx-shine { animation: fcxBrillo .9s ease; }
+            @keyframes fcxBrillo { to { transform: translateX(120%); } }
+            .fcx-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 1px; }
+            .fcx-cap b { font-size: .88rem; color: #f8fafc; line-height: 1.2; } .fcx-cap span { font-size: .7rem; font-weight: 700; color: #94a3b8; }
+            .fcx-pin { position: absolute; top: -8px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; z-index: 3; background: radial-gradient(circle at 35% 30%, #fda4af, #e11d48 60%, #9f1239); box-shadow: 0 3px 5px rgba(0,0,0,.45); transform: scale(0); transition: transform .5s cubic-bezier(.2,2,.4,1); transition-delay: calc(.7s + var(--d)); }
+            .fcx.in .fcx-pin { transform: scale(1); }
+            .fcx-feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; max-width: 920px; margin: 44px auto 0; }
+            .fcx-feat { padding: 16px 16px 14px; border-radius: 16px; background: rgba(15,23,42,.65); border: 1px solid rgba(148,163,184,.22); text-align: left; transition: transform .3s cubic-bezier(.2,1.3,.4,1), border-color .3s; opacity: 0; transform: translateY(20px); }
+            .fcx.in .fcx-feat { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(.2,1.2,.4,1), border-color .3s; transition-delay: calc(.9s + var(--i) * 90ms); }
+            .fcx-feat:hover { transform: translateY(-5px); border-color: rgba(168,85,247,.6); transition-delay: 0s; }
+            .fcx-feat i { font-style: normal; font-size: 1.4rem; display: inline-block; transition: transform .35s cubic-bezier(.2,2,.4,1); }
+            .fcx-feat:hover i { transform: scale(1.25) rotate(-8deg); }
+            .fcx-feat b { display: block; margin: 6px 0 2px; font-size: .92rem; } .fcx-feat span { font-size: .8rem; color: #94a3b8; line-height: 1.45; }
+            @media (max-width: 640px) { .fcx-img { height: 280px; } .fcx-stage { gap: 20px; } .fcx-card { width: min(220px, 80vw); } }
+            @media (prefers-reduced-motion: reduce) { .fcx-glow, .fcx.in .fcx-card { animation: none; } .fcx-area, .fcx-card, .fcx-feat, .fcx-pin { opacity: 1 !important; transform: none !important; transition: none !important; } .fcx-card { transform: rotate(var(--r)) !important; } .fcx-img img { transition: none; } }
+        </style>
         <div class="wrap">
+            <span class="fcx-glow" aria-hidden="true"></span>
             <div class="f-head">
                 <span class="f-tag" style="--tag: var(--success);">Gratis para todos</span>
-                <h2 class="f-title">Simulador FlashCard: estudiá tratamientos con tarjetas clínicas.</h2>
-                <p class="f-text">Tarjetas de Ginecología y Obstetricia basadas en guías FASGO, SOGIBA y consensos. Escribí tu respuesta como en el examen y verificá qué puntos cubriste. También funciona sin conexión. Estas son tarjetas reales de la plataforma.</p>
+                <h2 class="f-title">Simulador FlashCard: flashcards de todas las áreas de la carrera.</h2>
+                <p class="f-text">Tarjetas clínicas de tratamientos y temas basadas en guías y consensos. Escribí tu respuesta como en el examen y verificá qué puntos cubriste. Ya está completa Ginecología y Obstetricia y vamos sumando el resto de las materias. Estas son tarjetas reales de la plataforma.</p>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:900px;margin:0 auto">
-                <img src="assets/flashcards/flashcards-diabetes-gestacional-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de diabetes gestacional con tratamiento y metas de glucemia en NikaMed" style="width:100%;height:auto;border-radius:16px;border:1px solid rgba(148,163,184,.3);box-shadow:0 24px 50px -24px rgba(0,0,0,.6)">
-                <img src="assets/flashcards/flashcards-trastornos-hipertensivos-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de trastornos hipertensivos del embarazo con tratamiento y diagnóstico en NikaMed" style="width:100%;height:auto;border-radius:16px;border:1px solid rgba(148,163,184,.3);box-shadow:0 24px 50px -24px rgba(0,0,0,.6)">
-                <img src="assets/flashcards/flashcards-colestasis-embarazo-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de colestasis intrahepática del embarazo con diagnóstico y tratamiento en NikaMed" style="width:100%;height:auto;border-radius:16px;border:1px solid rgba(148,163,184,.3);box-shadow:0 24px 50px -24px rgba(0,0,0,.6)">
+            <div class="fcx-areas" aria-label="Áreas con flashcards">
+                <span class="fcx-area on" style="--c:#ec4899;--i:0">🌸 Ginecología y Obstetricia <small>Disponible</small></span>
+                <span class="fcx-area" style="--c:#0ea5e9;--i:1">🔪 Cirugía <small>Se suma</small></span>
+                <span class="fcx-area" style="--c:#10b981;--i:2">🩺 S.I.A.M. <small>Se suma</small></span>
+                <span class="fcx-area" style="--c:#f59e0b;--i:3">⚖️ Medicina Legal <small>Se suma</small></span>
+                <span class="fcx-area" style="--c:#8b5cf6;--i:4">🏃 Medicina Deportiva <small>Se suma</small></span>
+                <span class="fcx-area" style="--c:#6366f1;--i:5">🎓 PFO <small>Se suma</small></span>
             </div>
-            <div class="cta-row" style="justify-content:center; margin-top:34px;">
+            <div class="fcx-stage">
+                <figure class="fcx-card" style="--r:-3.5deg;--d:0s"><span class="fcx-pin"></span><div class="fcx-in"><div class="fcx-img"><img src="assets/flashcards/flashcards-diabetes-gestacional-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de diabetes gestacional con tratamiento y metas de glucemia en NikaMed"><span class="fcx-shine"></span></div><figcaption class="fcx-cap"><b>Diabetes gestacional</b><span>Tratamiento · UP3 Embarazo</span></figcaption></div></figure>
+                <figure class="fcx-card" style="--r:1.2deg;--d:.12s;margin-top:18px"><span class="fcx-pin"></span><div class="fcx-in"><div class="fcx-img"><img src="assets/flashcards/flashcards-trastornos-hipertensivos-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de trastornos hipertensivos del embarazo con tratamiento y diagnóstico en NikaMed"><span class="fcx-shine"></span></div><figcaption class="fcx-cap"><b>Trastornos hipertensivos</b><span>Preeclampsia y eclampsia · UP3</span></figcaption></div></figure>
+                <figure class="fcx-card" style="--r:3.2deg;--d:.24s"><span class="fcx-pin"></span><div class="fcx-in"><div class="fcx-img"><img src="assets/flashcards/flashcards-colestasis-embarazo-480.webp" width="480" height="600" loading="lazy" alt="Flashcard de colestasis intrahepática del embarazo con diagnóstico y tratamiento en NikaMed"><span class="fcx-shine"></span></div><figcaption class="fcx-cap"><b>Colestasis del embarazo</b><span>Diagnóstico y tratamiento · UP3</span></figcaption></div></figure>
+            </div>
+            <div class="fcx-feats">
+                <div class="fcx-feat" style="--i:0"><i>✍️</i><b>Escribí y verificá</b><span>Respondé con tus palabras y mirá qué puntos importantes cubriste.</span></div>
+                <div class="fcx-feat" style="--i:1"><i>🎯</i><b>Explorar, practicar, rendir</b><span>Por unidad, parcial o final, con tu progreso marcado.</span></div>
+                <div class="fcx-feat" style="--i:2"><i>📶</i><b>Sin conexión</b><span>Descargalas en el Modo Guardia y estudiá donde sea.</span></div>
+                <div class="fcx-feat" style="--i:3"><i>📲</i><b>Compartí en alta definición</b><span>Descargá la tarjeta o enviala por WhatsApp como imagen.</span></div>
+            </div>
+            <div class="cta-row" style="justify-content:center; margin-top:38px;">
                 <button class="btn-primary" style="padding: 14px 28px; font-size: .95rem;" onclick="openAuthModal('register')">Probar las flashcards gratis</button>
                 <a href="guia-flashcards-medicina.html" class="btn-ghost" style="padding: 14px 24px; font-size: .95rem; text-decoration:none;">Cómo funcionan</a>
             </div>
         </div>
+        <script>
+        (function () {
+            var sec = document.getElementById('flashcards'); if (!sec) return;
+            var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+            function entrar() { sec.classList.add('in'); }
+            if (!('IntersectionObserver' in window) || reduce) { entrar(); }
+            else { var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { entrar(); io.disconnect(); } }, { threshold: 0.18 }); io.observe(sec); }
+            // inclinación 3D con el mouse (solo en equipos con puntero fino)
+            if (reduce || !(window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches)) return;
+            sec.querySelectorAll('.fcx-card').forEach(function (c) {
+                var inner = c.querySelector('.fcx-in');
+                c.addEventListener('mousemove', function (e) {
+                    var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+                    inner.style.setProperty('--ry', (x * 12).toFixed(1) + 'deg'); inner.style.setProperty('--rx', (-y * 10).toFixed(1) + 'deg');
+                });
+                c.addEventListener('mouseleave', function () { inner.style.setProperty('--ry', '0deg'); inner.style.setProperty('--rx', '0deg'); });
+            });
+        })();
+        </script>
     </section>
 
     <!-- PROGRAMA DE LA CARRERA -->
