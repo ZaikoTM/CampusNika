@@ -149,10 +149,10 @@
     int_f: { n: 'Femenina internacional', ico: '🌎', sub: 'Español neutro', g: '👩‍⚕️' },
     int_m: { n: 'Masculino internacional', ico: '🌎', sub: 'Español neutro', g: '👨‍⚕️' }
   };
-  const S = { voz: null, voces: [], hablando: false, audio: null, tok: 0, cache: new Map(), vol: 0.9, vel: 1.0, sel: 'ia:ar_f', avisoVoz: '' };
+  const S = { voz: null, voces: [], hablando: false, audio: null, tok: 0, cache: new Map(), vol: 0.9, vel: 1.0, sel: 'ia:ar_f', avisoVoz: '', pref: false, iaCaidaHasta: 0 };
   (function prefs() {
     try {
-      const v = localStorage.getItem('nika_eo_voz'); if (v && /^(ia:|dev:)/.test(v)) S.sel = v;
+      const v = localStorage.getItem('nika_eo_voz'); if (v && /^(ia:|dev:)/.test(v)) { S.sel = v; S.pref = true; }
       const vol = Number(localStorage.getItem('nika_eo_vol')); if (vol >= 0 && vol <= 1 && localStorage.getItem('nika_eo_vol') !== null) S.vol = vol;
       const vel = Number(localStorage.getItem('nika_eo_vel')); if (vel >= 0.7 && vel <= 1.4) S.vel = vel;
     } catch (_) {}
@@ -164,6 +164,7 @@
     S.voces.sort((a, b) => (/es-AR/i.test(b.lang) - /es-AR/i.test(a.lang)) || (/es-(MX|US|419)/i.test(b.lang) - /es-(MX|US|419)/i.test(a.lang)) || a.name.localeCompare(b.name));
     const sel = $('eo-voz'); if (!sel) return;
     sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">Este navegador no expone voces del sistema: usá una de las voces de IA</option>';
+    if (!S.pref && S.voces.length) { S.sel = 'dev:' + S.voces[0].name; }
     const g = S.sel.startsWith('dev:') ? S.sel.slice(4) : '';
     const k = S.voces.findIndex((v) => v.name === g);
     sel.value = String(k >= 0 ? k : 0); S.voz = S.voces[k >= 0 ? k : 0] || null;
@@ -197,7 +198,7 @@
     const token = await tokenSesion(); if (!token) throw new Error('Sin sesión.');
     const base = (typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL) || 'https://pswjmouuyaxueaqqglko.supabase.co';
     const apikey = (typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY) || '';
-    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 45000);
+    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 20000);
     try {
       const r = await fetch(base + '/functions/v1/voz-profesor', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token, apikey }, body: JSON.stringify({ texto, voz, animo: mood }), signal: ctrl.signal });
       const d = await r.json().catch(() => ({}));
@@ -247,12 +248,14 @@
     if (!texto) return;
     const tok = ++S.tok; S.hablando = true; avatar(true); S.fallo = ''; S.via = '';
     try {
-      if (S.sel.startsWith('ia:')) {
+      if (S.sel.startsWith('ia:') && Date.now() < S.iaCaidaHasta && hayVocesDispositivo()) { S.via = 'dispositivo'; S.fallo = 'La cuota de voz de IA está agotada por ahora'; await hablarDispositivo(texto, mood, tok); }
+      else if (S.sel.startsWith('ia:')) {
         try { await hablarIA(texto, S.sel.slice(3), mood || 'cordial', tok); S.via = S.fallo ? 'ninguna' : 'ia'; }
         catch (e) {
           // si la voz IA no está disponible, se sigue con la del dispositivo para no cortar el examen
           if (tok === S.tok) {
             S.fallo = (e && e.message) || 'sin detalle';
+            if (/quota|429|exceeded|cuota|sin audio|OTHER|tts_error|502|timeout|aborted|demasiado/i.test(S.fallo)) { S.iaCaidaHasta = Date.now() + 15 * 60000; S.fallo = /quota|429|exceeded|cuota/i.test(S.fallo) ? 'La cuota de voz de IA está agotada por ahora' : S.fallo; }
             if (hayVocesDispositivo()) { S.via = 'dispositivo'; await hablarDispositivo(texto, mood, tok); }
             else { S.via = 'ninguna'; estado.subs = true; }
             S.avisoVoz = 'No pude generar la voz del profesor (' + S.fallo + ').' + (S.via === 'ninguna' ? ' Este equipo tampoco tiene voces instaladas: seguí con el texto en pantalla.' : ' Uso la voz del dispositivo.');
@@ -753,6 +756,9 @@
     return '<div class="eo-lbl">Voz del profesor</div><div class="eo-voces">' + cards
       + '<button type="button" class="eo-voz' + (S.sel.startsWith('dev:') ? ' on' : '') + '" data-eo="vozdev"><i>💻</i><span><b>Voz del dispositivo</b><small>Gratis · depende de tu equipo</small></span></button></div>'
       + '<div class="eo-vozdev"' + (S.sel.startsWith('dev:') ? '' : ' hidden') + '><select id="eo-voz" aria-label="Voz del dispositivo"></select></div>'
+      + '<p class="eo-voz-ayuda">Las voces de IA usan cuota del servicio de voz: si se agota o no está disponible, el examen sigue solo con la <b>voz de tu dispositivo</b>.'
+      + (S.voces.length ? '' : ' <b>Este navegador no expone voces del sistema</b>' + (navigator.brave ? ' (Brave las oculta con la protección contra rastreo: probá desactivar los Shields para este sitio, o usá Chrome/Edge o tu celular)' : '') + '; sin voz el examen se hace leyendo el texto en pantalla.')
+      + '</p>'
       + '<p class="eo-voz-estado" id="eo-voz-estado" hidden></p>'
       + '<div class="eo-controles"><label>🔊 Volumen <b id="eo-vol-t">' + Math.round(S.vol * 100) + '%</b><input type="range" id="eo-vol" min="0" max="100" value="' + Math.round(S.vol * 100) + '"></label>'
       + '<label>⏩ Velocidad <b id="eo-vel-t">' + S.vel.toFixed(2).replace(/\.?0+$/, '') + '×</b><input type="range" id="eo-vel" min="70" max="140" value="' + Math.round(S.vel * 100) + '"></label>'

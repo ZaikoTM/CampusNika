@@ -49,7 +49,34 @@ function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
 }
 
+// Diagnóstico sin datos de usuario: prueba el servicio de voz con la palabra "Hola" y devuelve solo el estado (sin audio).
+// El resultado se guarda 5 minutos para que no se pueda usar para gastar cuota.
+let diagCache: { t: number; r: unknown } | null = null;
+async function diagnostico(prueba: string): Promise<Response> {
+  if (diagCache && Date.now() - diagCache.t < 5 * 60_000) return json(diagCache.r);
+  const apiKey = Deno.env.get("GEMINI_API_KEY");
+  const r: Record<string, unknown> = { clave_configurada: !!apiKey, modelos: [] as unknown[] };
+  if (apiKey) {
+    for (const modelo of MODELOS_TTS.slice(0, 1)) {
+      try {
+        const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${apiKey}`, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prueba }] }], generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } } }),
+        });
+        const d = await resp.json().catch(() => ({}));
+        const tiene = !!d?.candidates?.[0]?.content?.parts?.some((p: any) => p?.inlineData?.data || p?.inline_data?.data);
+        const cand = d?.candidates?.[0];
+        const resumen = JSON.stringify(d, (k, v) => (k === "data" && typeof v === "string" && v.length > 80 ? `<${v.length} chars>` : v)).slice(0, 700);
+        (r.modelos as unknown[]).push({ modelo, http: resp.status, audio: tiene, finishReason: cand?.finishReason ?? null, partes: (cand?.content?.parts ?? []).map((p: any) => Object.keys(p)), error: d?.error?.message ?? null, resumen });
+      } catch (e) { (r.modelos as unknown[]).push({ modelo, error: (e as Error).message }); }
+    }
+  }
+  if ((r.modelos as any[]).some((m) => m.audio)) diagCache = { t: Date.now(), r };
+  return json(r);
+}
+
 async function handler(req: Request): Promise<Response> {
+  if (req.method === "GET" && new URL(req.url).searchParams.get("diag") === "1") { return await diagnostico("Say: Hola, buenos días."); }
   if (req.method !== "POST") return json({ error: "metodo_no_permitido" }, 405);
 
   const authHeader = req.headers.get("Authorization");
