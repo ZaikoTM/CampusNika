@@ -25,7 +25,7 @@ const NikaAteneos = (() => {
   const abrirHost = () => { try { return window.open('ateneo-host.html', 'nika-ateneo-host', 'popup=yes,width=440,height=620'); } catch (_) { return null; } };
   function cargarRemoto() {
     if (window.NikaAteneoRemoto) return;
-    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=1'; document.head.appendChild(sc);
+    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=2'; document.head.appendChild(sc);
   }
   // Deja la sala pedida lista en el almacenamiento y abre la ventana anfitriona, que se conecta sola.
   function abrirEnVentana(sala, nombre, silenciosa, mic) {
@@ -518,6 +518,7 @@ const NikaAteneos = (() => {
   try { modoDock = localStorage.getItem('nika_at_dock') || 'compacto'; } catch (_) {}
   function aplicarModoDock() {
     if (!dock) return;
+    if (SOY_HOST) { dock.classList.remove('compacto', 'mini'); return; }   // en la ventana anfitriona la barra va siempre completa
     dock.classList.toggle('compacto', modoDock === 'compacto');
     dock.classList.toggle('mini', modoDock === 'mini');
     if (modoDock === 'mini') { dock.setAttribute('tabindex', '0'); dock.setAttribute('role', 'button'); dock.setAttribute('aria-label', 'Expandir la barra de llamada'); dock.title = 'Tocá para expandir · arrastrá para mover'; }
@@ -758,10 +759,11 @@ const NikaAteneos = (() => {
 
   // El PiP flotante solo se usa fuera de la página de la sala (dentro, el escenario ocupa su lugar)
   function sincronizarPip() {
-    const stage = !!conectado && stageActivo();
+    const stage = !SOY_HOST && !!conectado && stageActivo();
     document.body.classList.toggle('at-stage', stage);
     const hayVideo = [...tiles.values()].some((t) => !t.classList.contains('sinvideo'));
-    if (pip) pip.classList.toggle('on', !!conectado && !stage && (pipVisible || (hayVideo && !pipOculto)));
+    // en la ventana anfitriona los participantes se ven siempre, integrados en la página
+    if (pip) pip.classList.toggle('on', !!conectado && !stage && (SOY_HOST || pipVisible || (hayVideo && !pipOculto)));
   }
 
   function infoSala(sala) {

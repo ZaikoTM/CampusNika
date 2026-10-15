@@ -7,7 +7,7 @@
   // Si la llamada vive en la ventana anfitriona (sin cortes), esta página solo muestra la barra remota
   try {
     if (Date.now() - Number(localStorage.getItem('nika_ateneo_host') || 0) < 5000) {
-      const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=1'; document.head.appendChild(sc);
+      const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=2'; document.head.appendChild(sc);
       return;
     }
   } catch (_) {}
@@ -21,6 +21,6 @@
       if (!window.NikaSupabase) await cargar('supabaseClient.js');
     }
     if (!window.VoiceManager) await cargar('js/voiceManager.js?v=3');
-    await cargar('js/ateneos.js?v=13');
+    await cargar('js/ateneos.js?v=14');
   })();
 })();

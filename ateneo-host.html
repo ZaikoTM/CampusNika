@@ -24,7 +24,21 @@
         .h-acc button { border: 0; border-radius: 12px; padding: 10px 14px; font: 800 .8rem inherit; font-family: inherit; cursor: pointer; background: #0284c7; color: #fff; transition: transform .15s, box-shadow .2s; }
         .h-acc button:hover { transform: translateY(-2px); box-shadow: 0 10px 18px -12px #0284c7; }
         .h-acc button.sec { background: transparent; color: inherit; border: 2px solid var(--bd); }
+        /* el motor de la llamada (barra de controles y videos) se integra a la tarjeta en vez de flotar encima */
+        body.at-host #at-dock { position: static !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; transform: none !important; width: 100%; max-width: 400px; margin: 14px auto 0; padding: 12px 14px; border-radius: 20px; opacity: 1 !important; flex-direction: column; gap: 10px; z-index: auto; cursor: default; }
+        body.at-host #at-dock.on { display: flex; }
+        body.at-host #at-dock .at-d-info { width: 100%; justify-content: center; }
+        body.at-host #at-dock .at-d-txt { display: block !important; text-align: left; }
+        body.at-host #at-dock .at-d-txt b { max-width: 240px; }
+        body.at-host #at-dock .at-d-btns { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+        body.at-host #at-dock #at-b-cam, body.at-host #at-dock #at-b-scr, body.at-host #at-dock #at-b-aud { display: inline-flex !important; }
+        body.at-host #at-dock #at-b-min, body.at-host #at-dock #at-b-ext, body.at-host #at-dock #at-b-sala, body.at-host #at-dock #at-b-win, body.at-host #at-dock #at-b-pip { display: none !important; }
+        body.at-host #at-pip { position: static !important; right: auto !important; top: auto !important; left: auto !important; width: 100% !important; max-width: 400px; margin: 14px auto 0; border-radius: 20px; z-index: auto; }
+        body.at-host #at-pip .at-pip-h { display: none; }
+        body.at-host #at-pip .at-pip-grid { padding: 8px; }
+        body.at-host .h-estado { max-width: 400px; }
         body.mini { padding: 8px; }
+        body.mini.at-host #at-pip { display: none !important; }
         body.mini h1, body.mini p, body.mini .h-logo, body.mini .h-aviso, body.mini #h-sub { display: none; }
         body.mini .h-estado { margin: 0; padding: 8px 12px; }
         body.mini .h-acc { margin-top: 8px; }
@@ -34,7 +48,7 @@
 <body>
     <img class="h-logo" src="assets/N%20NIKA.png" alt="NikaMed">
     <h1>Llamada de Ateneos</h1>
-    <p>Esta ventana mantiene tu llamada activa mientras navegás por el campus: <b>no la cierres</b>. Podés minimizarla.</p>
+    <p>Esta ventana mantiene tu llamada activa mientras navegás por el campus: <b>no la cierres</b>, minimizala.</p>
     <div class="h-estado"><b id="h-nombre"><i class="h-punto off"></i>Sin llamada activa</b><p id="h-sub">Entrá a una sala o llamá a un amigo desde el campus.</p></div>
     <div class="h-acc">
         <button type="button" id="h-pip" title="Un recuadro pequeño que queda siempre encima de las demás ventanas" hidden>📌 Mini flotante (siempre encima)</button>
@@ -47,7 +61,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
     <script src="js/voiceManager.js?v=3"></script>
-    <script src="js/ateneos.js?v=13"></script>
+    <script src="js/ateneos.js?v=14"></script>
     <script>
         (function () {
             var red = document.getElementById('h-red'), amp = document.getElementById('h-amp'), pipB = document.getElementById('h-pip');
