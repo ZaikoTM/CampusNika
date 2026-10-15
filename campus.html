@@ -23,7 +23,7 @@
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=9">
-    <link rel="stylesheet" href="css/campus-visual.css?v=3">
+    <link rel="stylesheet" href="css/campus-visual.css?v=4">
     <style>
         /* ---- Tarjeta Upsell NikaMed+ (sidebar, solo usuarios free) ----
            No la metemos en styles.css porque ese archivo lo comparten
@@ -134,7 +134,7 @@
     <!-- Control de acceso NikaMed+: límite de simuladores IA, candados y distintivo VIP -->
     <script src="js/nikaAcceso.js"></script>
     <script src="js/campusTema.js?v=3"></script>
-<script src="js/campusVisual.js?v=3" defer></script>
+<script src="js/campusVisual.js?v=4" defer></script>
     <script src="js/campusEspacio.js?v=1"></script>
     <script src="js/sidebarGrupos.js?v=1" defer></script>
     <script src="js/avisoVencimiento.js"></script>
@@ -1457,6 +1457,8 @@
         const q = new URLSearchParams({ nuevo: '1', materia: ev.modulo || '', fecha: ev.fecha, evento: ev.id });
         return `<a class="plan-item-plan is-nuevo" href="plan_examen.html?${q.toString()}" onclick="event.stopPropagation()" title="Armá tu plan de estudio día a día para este examen">🗓️ Armar plan</a>`;
     }
+    const _MAT_C = { cirugia: '#6366f1', ginecologia: '#ec4899', siam: '#06b6d4', pfo: '#f59e0b', medicinalegal: '#be123c', medicinadeportiva: '#16a34a' };
+    function _matStyle(ev) { const c = ev && _MAT_C[ev.modulo]; return c ? ` style="--mat-c:${c}"` : ''; }
     function _etiquetaEv(ev) {
         const nombres = { cirugia: 'Cirugía', ginecologia: 'Ginecología', siam: 'S.I.A.M.' };
         const up = _upNumero(ev.up_id);
@@ -1499,7 +1501,7 @@
                 const est = e.tipo === 'bloque_estudio' ? _estadoBloque(e) : 'pendiente';
                 const horas = e.hora_inicio ? `${_hhmm(e.hora_inicio)}–${_hhmm(e.hora_fin)}` : (e.tipo === 'examen' ? '📝 Hoy' : 'Hoy');
                 const ctx = _etiquetaEv(e);
-                return `<div class="plan-item is-${est}" onclick="editarEvento('${e.id}')" title="Editar evento">
+                return `<div class="plan-item is-${est}"${_matStyle(e)} onclick="editarEvento('${e.id}')" title="Editar evento">
                     <div class="plan-item-main">
                         <span class="plan-item-title">${_esc(e.titulo)}</span>
                         <span class="plan-item-ctx">
@@ -1524,7 +1526,7 @@
                 const ctx = _etiquetaEv(e);
                 const nombreEv = (e.titulo && String(e.titulo).trim()) || ctx || (e.tipo === 'examen' ? 'Examen' : 'Evento');
                 const fechaEv = new Date(e.fecha + 'T00:00:00').toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit' });
-                return `<div class="plan-item is-proximo" onclick="editarEvento('${e.id}')" title="Editar evento">
+                return `<div class="plan-item is-proximo"${_matStyle(e)} onclick="editarEvento('${e.id}')" title="Editar evento">
                     <div class="plan-item-main">
                         <span class="plan-item-title">${icono} ${_esc(nombreEv)}</span>
                         <span class="plan-item-ctx">
