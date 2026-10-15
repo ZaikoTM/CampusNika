@@ -188,6 +188,16 @@
   }
 
   window.CampusVisual = { confeti };
-  function iniciar() { aurora(); iconos(); sidebarVivo(); esqueletos(); entrada(); if (!reducido) luz(); rendimiento(); setTimeout(iconos, 1500); setTimeout(hitos, 2500); }
+  /* Modo liviano: equipos con poca memoria o pocos núcleos, "ahorro de datos" o pantallas chicas */
+  function liviano() {
+    try {
+      const n = navigator, cx = n.connection || {};
+      const poco = (n.deviceMemory && n.deviceMemory <= 4) || (n.hardwareConcurrency && n.hardwareConcurrency <= 4) || cx.saveData === true || /2g/.test(cx.effectiveType || '');
+      if (poco || innerWidth < 700 && n.hardwareConcurrency && n.hardwareConcurrency <= 6) document.documentElement.classList.add('cv-lite');
+      document.querySelectorAll('img:not([loading])').forEach((i) => { if (i.getBoundingClientRect().top > innerHeight * 1.2) i.loading = 'lazy'; i.decoding = 'async'; });
+    } catch (_) {}
+  }
+
+  function iniciar() { liviano(); aurora(); iconos(); sidebarVivo(); esqueletos(); entrada(); if (!reducido) luz(); rendimiento(); setTimeout(iconos, 1500); setTimeout(hitos, 2500); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 })();

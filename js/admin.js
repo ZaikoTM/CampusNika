@@ -518,6 +518,44 @@
   // ------------------------------------------------------------
   function skeleton(box) { box.textContent = ''; for (let i = 0; i < 3; i++) box.appendChild(el('div', 'as-sk')); }
 
+  async function cargarUso() {
+    const box = $('uso-box'); if (!box) return;
+    skeleton(box);
+    try {
+      const c = window.NikaSupabase.client, desde = new Date(Date.now() - 30 * 86400000).toISOString();
+      const { data, error } = await c.from('eventos_uso').select('user_id,seccion,accion,dispositivo,extra,creado_en').gte('creado_en', desde).order('creado_en', { ascending: false }).limit(5000);
+      if (error) throw error;
+      const rows = data || [];
+      box.textContent = '';
+      if (!rows.length) { box.appendChild(el('p', 'as-vacio', 'Todavía no hay datos: se empiezan a juntar cuando los usuarios navegan la plataforma.')); return; }
+      const vistas = rows.filter((r) => r.accion === 'vista'), errs = rows.filter((r) => r.accion === 'error');
+      const usuarios = new Set(rows.map((r) => r.user_id)), hoyIni = new Date(); hoyIni.setHours(0, 0, 0, 0);
+      const act7 = new Set(rows.filter((r) => new Date(r.creado_en) > new Date(Date.now() - 7 * 86400000)).map((r) => r.user_id));
+      const actHoy = new Set(rows.filter((r) => new Date(r.creado_en) >= hoyIni).map((r) => r.user_id));
+      const cuenta = (arr, f) => { const m = {}; arr.forEach((r) => { const k = f(r); m[k] = (m[k] || 0) + 1; }); return Object.entries(m).sort((a, b) => b[1] - a[1]); };
+      const barras = (lista, max) => {
+        const w = el('div', 'uso-barras'); const top = lista.slice(0, max || 8), m = top.length ? top[0][1] : 1;
+        top.forEach(([k, v]) => { const f = el('div', 'uso-fila'); f.innerHTML = '<span class="uso-k"></span><span class="uso-bar"><i></i></span><b class="uso-v"></b>'; f.querySelector('.uso-k').textContent = k; f.querySelector('i').style.width = Math.max(4, v / m * 100) + '%'; f.querySelector('.uso-v').textContent = v; w.appendChild(f); });
+        return w;
+      };
+      const kp = el('div', 'uso-kpis');
+      [['Usuarios únicos (30 d)', usuarios.size], ['Activos 7 días', act7.size], ['Activos hoy', actHoy.size], ['Visitas registradas', vistas.length], ['Errores JS', errs.length]].forEach(([t, v]) => { const k = el('div', 'uso-kpi'); k.innerHTML = '<b></b><small></small>'; k.querySelector('b').textContent = v; k.querySelector('small').textContent = t; kp.appendChild(k); });
+      box.appendChild(kp);
+      const t1 = el('h4', 'uso-t', 'Secciones más abiertas'); box.appendChild(t1); box.appendChild(barras(cuenta(vistas, (r) => r.seccion), 10));
+      const t2 = el('h4', 'uso-t', 'Dispositivos'); box.appendChild(t2); box.appendChild(barras(cuenta(vistas, (r) => r.dispositivo || 'desconocido'), 3));
+      const dias = {}; vistas.forEach((r) => { const d = r.creado_en.slice(0, 10); (dias[d] = dias[d] || new Set()).add(r.user_id); });
+      const t3 = el('h4', 'uso-t', 'Usuarios activos por día'); box.appendChild(t3);
+      box.appendChild(barras(Object.entries(dias).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 10).map(([d, s]) => [d.slice(5), s.size]), 10));
+      if (errs.length) {
+        const t4 = el('h4', 'uso-t', 'Errores más frecuentes'); box.appendChild(t4);
+        box.appendChild(barras(cuenta(errs, (r) => (r.seccion + ' · ' + ((r.extra && r.extra.msg) || '?')).slice(0, 80)), 6));
+      }
+    } catch (e) {
+      box.textContent = '';
+      box.appendChild(el('p', 'as-vacio', 'No se pudo cargar. ¿Ya ejecutaste el SQL supabase/migrations/20261015120000_eventos_uso.sql?'));
+    }
+  }
+
   async function alAbrir(id) {
     if (id === 'tile-erratas') cargarErratas();
     if (id === 'tile-novedad') cargarNovedades();
@@ -527,6 +565,7 @@
       if (window.NikaModeracion && window.NikaModeracion.renderAdminUpStats) await window.NikaModeracion.renderAdminUpStats('fallos-box');
       else $('fallos-box').textContent = 'No se pudo cargar el módulo de métricas.';
     }
+    if (id === 'tile-uso') cargarUso();
     if (id === 'tile-pagos' && !cargado.pagos) {
       skeleton($('pagos-lista')); await cargarPagos(); pintarPagos(); pintarKpis(await contarReportes());
     } else if (id === 'tile-pagos') pintarPagos();

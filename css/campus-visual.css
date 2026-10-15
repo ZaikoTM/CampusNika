@@ -99,3 +99,10 @@ body.dark-mode .cv-ico--blanco, body.tema-premium .cv-ico--blanco { color: #fff;
 
 /* el emoji gigante de fondo de la tarjeta 'Continuá donde lo dejaste' se veía raro: se oculta */
 .cont-marca { display: none !important; }
+
+/* Modo liviano (equipos modestos): sin desenfoques costosos ni animaciones continuas */
+html.cv-lite .cv-aurora i { animation: none; filter: none; opacity: .35; }
+html.cv-lite .cv-aurora i:nth-child(3) { display: none; }
+html.cv-lite .plan-card, html.cv-lite .action-btn-card, html.cv-lite .prof-card, html.cv-lite .perf-grid > * { -webkit-backdrop-filter: none; backdrop-filter: none; background-color: var(--card-bg, #fff); }
+html.cv-lite .sidebar-brand-logo img, html.cv-lite .hero-n-logo, html.cv-lite .cont-wave, html.cv-lite .cont-burbuja { animation: none !important; }
+html.cv-lite .continuity-card::after { animation: none; }

@@ -1,0 +1,49 @@
+/* CAMPUS NIKA · accesibilidad */
+
+/* Foco visible para quien navega con teclado (no molesta al usar el mouse) */
+:focus-visible { outline: 3px solid #0ea5e9 !important; outline-offset: 2px; border-radius: 6px; }
+
+/* Tamaño de letra */
+html.nk-fs-1 { font-size: 112.5%; }
+html.nk-fs-2 { font-size: 125%; }
+html.nk-fs-3 { font-size: 140%; }
+
+/* Reducir movimiento (manual, además de la preferencia del sistema) */
+html.nk-rm *, html.nk-rm *::before, html.nk-rm *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+html.nk-rm .cv-aurora { display: none; }
+html.nk-rm .cv-confeti { display: none; }
+
+/* Alto contraste */
+html.nk-hc body { --text-muted: #1e293b; --border: #475569; }
+html.nk-hc body.dark-mode { --text-muted: #e2e8f0; --border: #94a3b8; }
+html.nk-hc .cv-aurora { display: none; }
+html.nk-hc a, html.nk-hc .sidebar-link { text-decoration: underline; text-underline-offset: 3px; }
+html.nk-hc .plan-card, html.nk-hc .action-btn-card, html.nk-hc .perf-grid > * { border-width: 2px; -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* Panel */
+#nk-a11y { position: fixed; inset: 0; z-index: 10000; display: none; align-items: center; justify-content: center; background: rgba(2, 6, 23, .55); padding: 16px; }
+#nk-a11y.abierto { display: flex; }
+.nk-a11y-card { width: min(420px, 100%); background: var(--card-bg, #fff); color: var(--text-main, #0f172a); border: 1px solid var(--border, #e2e8f0); border-radius: 18px; padding: 20px; box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .55); font-size: 16px; }
+.nk-a11y-card h3 { margin: 0 0 14px; font-size: 1.15rem; }
+.nk-a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border, #e2e8f0); font-weight: 600; }
+.nk-a11y-row > div { display: flex; align-items: center; gap: 10px; }
+.nk-a11y-row button { font: inherit; cursor: pointer; }
+.nk-a11y-row [data-a="mas"], .nk-a11y-row [data-a="menos"] { min-width: 44px; min-height: 40px; border-radius: 10px; border: 1px solid var(--border, #cbd5e1); background: transparent; color: inherit; font-weight: 800; }
+.nk-a11y-sw { width: 52px; height: 30px; border-radius: 99px; border: 0; background: #94a3b8; position: relative; transition: background .2s; flex: 0 0 auto; }
+.nk-a11y-sw i { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.nk-a11y-sw[aria-pressed="true"] { background: #0ea5e9; }
+.nk-a11y-sw[aria-pressed="true"] i { transform: translateX(22px); }
+.nk-a11y-reset { background: transparent; border: 1px solid var(--border, #cbd5e1); color: inherit; padding: 9px 14px; border-radius: 10px; }
+.nk-a11y-ok { background: linear-gradient(135deg, #0284c7, #6366f1); color: #fff; border: 0; padding: 9px 20px; border-radius: 10px; font-weight: 800; }
+
+/* Panel de admin: uso de la plataforma */
+.uso-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.uso-kpi { background: rgba(14, 165, 233, .09); border: 1px solid rgba(14, 165, 233, .25); border-radius: 12px; padding: 10px 12px; }
+.uso-kpi b { display: block; font-size: 1.5rem; }
+.uso-kpi small { opacity: .75; font-weight: 600; }
+.uso-t { margin: 16px 0 8px; font-size: .95rem; }
+.uso-fila { display: grid; grid-template-columns: minmax(80px, 38%) 1fr 44px; gap: 8px; align-items: center; margin-bottom: 6px; font-size: .85rem; }
+.uso-k { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.uso-bar { height: 8px; background: rgba(148, 163, 184, .25); border-radius: 99px; overflow: hidden; }
+.uso-bar i { display: block; height: 100%; background: linear-gradient(90deg, #0ea5e9, #6366f1); border-radius: inherit; }
+.uso-v { text-align: right; }
