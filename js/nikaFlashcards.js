@@ -245,8 +245,8 @@
         const secs = disp.map((s) => '<details class="fcd-sec" data-sec="' + s.id + '"' + (abiertas.has(s.id) ? ' open' : '') + '><summary><i>' + s.ico + '</i><b>' + esc(s.nom) + '</b></summary><div class="fcd-in">' + s.html(p) + '</div></details>').join('');
         host.innerHTML = '<article class="fcd" style="--paper:' + papel + '">' +
           '<div class="fcd-cab"><button type="button" class="fcd-btn" data-fcd="volver">← ' + esc(opts.textoVolver || 'Volver') + '</button>' +
-          '<div class="fcd-logo"><img src="' + LOGO + '" alt="NikaMed"><span><b>NikaMed</b><small>Flashcards clínicas</small></span></div><span class="fcd-toast"></span></div>' +
-          '<div class="fcd-hoja"><span class="pin"></span><h3>' + esc(p.titulo) + '</h3><div class="fcd-meta">' + unidades + etiquetaFuente(p) + (ok ? '<span class="fc-tag guia">✅ La sabés</span>' : '') + '</div>' +
+          '<span class="fcd-toast"></span></div>' +
+          '<div class="fcd-hoja"><span class="pin"></span><span class="fcd-marca" aria-hidden="true"></span><h3>' + esc(p.titulo) + '</h3><div class="fcd-meta">' + unidades + etiquetaFuente(p) + (ok ? '<span class="fc-tag guia">✅ La sabés</span>' : '') + '</div>' +
           '<div class="fc-elegi">Tocá para desplegar o plegar cada parte</div><div class="fc-chips">' + chips + '</div>' +
           '<div class="fcd-secs">' + secs + '</div>' + sello(p) +
           '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small></div></div>' +

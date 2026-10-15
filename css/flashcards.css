@@ -308,3 +308,10 @@ body.dark-mode .fcs-guia{background:color-mix(in srgb,var(--paper) 50%,#fff);col
   box-shadow:none}
 .fcs-in .fcs-input:focus,.fcs-dentro .fcs-input:focus{outline:0;background-color:rgba(255,255,255,.75);box-shadow:0 0 0 3px color-mix(in srgb,var(--paper) 60%,transparent)}
 .fcs-in .fcs-input::placeholder{color:rgba(51,65,85,.55);font-weight:600}
+
+/* marca de agua NikaMed dentro de la tarjeta (arriba a la derecha) */
+.fcd-hoja{position:relative}
+.fcd-marca{position:absolute;top:16px;right:18px;width:96px;height:96px;background:url('../assets/N%20NIKA.png') center/contain no-repeat;opacity:.2;pointer-events:none;mix-blend-mode:multiply;filter:saturate(1.1)}
+.fcd-hoja h3{padding-right:100px}
+@media(max-width:560px){.fcd-marca{width:68px;height:68px;top:14px;right:12px}.fcd-hoja h3{padding-right:74px}}
+body.dark-mode .fcd-marca{mix-blend-mode:normal;opacity:.18}

@@ -74,7 +74,7 @@
 
         /* ================= LAYOUT GENERAL (RESTAURADO PARA PC) ================= */
         .app-container, .suite-container, .container, .main-wrapper { 
-            width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; 
+            width: 100%; max-width: clamp(1200px, 76vw, 1900px); margin: 0 auto; box-sizing: border-box; 
         }
         .app-container { padding: 40px 5% 80px 5%; }
 
@@ -184,10 +184,10 @@
         .up-detail-title-block h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: 900; letter-spacing: -0.5px; color: var(--nika-dark); }
 
         /* RESTAURACIÓN PC: Layout principal + panel lateral */
-        .up-detail-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; width: 100%; }
+        .up-detail-layout { display: grid; grid-template-columns: minmax(0, 1fr) clamp(320px, 22vw, 420px); gap: 24px; align-items: start; width: 100%; }
 
         /* Tabs (Base para PC) */
-        .up-tabs-strip { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; }
+        .up-tabs-strip { display: flex; flex-wrap: wrap; gap: 4px 8px; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow: visible; }
         .up-tabs-strip::-webkit-scrollbar { display: none; }
         .up-tab-btn {
             background: transparent; border: none; color: var(--text-muted);
@@ -614,8 +614,8 @@
     </main>
 
 <!-- 1. Supabase SDK (Base de Datos) -->
-    <link rel="stylesheet" href="css/flashcards.css?v=9">
-    <script src="js/nikaFlashcards.js?v=9"></script>
+    <link rel="stylesheet" href="css/flashcards.css?v=10">
+    <script src="js/nikaFlashcards.js?v=10"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
     <script src="js/presenciaCampus.js"></script>
