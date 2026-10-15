@@ -750,5 +750,5 @@
     if (s.root && s.root.parentNode) s.root.remove();
   }
 
-  window.NikaPdf = { abrir, cerrar, pantalla, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S };
+  window.NikaPdf = { abrir, cerrar, pantalla, reabrir: () => { if (ultimoOp) abrir(ultimoOp); }, activo: () => !!S, pagina: () => (S && S.actual) || null, irA: (n, suave) => { if (S) irA(n, suave); } };
 })();

@@ -843,6 +843,7 @@ function openUpReal(upId, unit) {
     if (typeof NotasModule !== 'undefined') {
         NotasModule.open(moduleId, upId, 'notas-placeholder');
     }
+    if (window.NikaNotas && window.NikaNotas.marcadores) { try { window.NikaNotas.marcadores(moduleId, upId); } catch (_) {} }
 
     if (typeof PomodoroModule !== 'undefined') {
         PomodoroModule.open(moduleId, upId, upLabel, 'pomodoro-placeholder');
@@ -1364,6 +1365,7 @@ function openInlineViewer(url, title, element) {
         container.style.zIndex = '1';
         container.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
+    if (window.NikaNotas) { try { window.NikaNotas.abrir({ url, titulo: title, modulo: EstudioState.modulo, upId: EstudioState.currentUpId }); } catch (_) {} }
 }
 
 // Barra de ayuda para presentaciones y documentos de Google, que a veces no cargan embebidos
@@ -1430,6 +1432,7 @@ function closeInlineViewer() {
     const container = document.getElementById('nika-inline-viewer-container');
     const iframe = document.getElementById('nika-inline-iframe');
     if (window.NikaPdf) window.NikaPdf.cerrar();
+    if (window.NikaNotas) { try { window.NikaNotas.cerrar(); } catch (_) {} }
     configurarModoVisor(null);
     if (iframe) { iframe.src = ''; iframe.style.display = ''; }
     const ayuda = document.getElementById('nika-visor-ayuda'); if (ayuda) ayuda.style.display = 'none';
