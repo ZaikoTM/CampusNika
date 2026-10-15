@@ -377,6 +377,12 @@ const NikaAteneos = (() => {
     catch (e) { toast(e.message || 'No se pudo crear la sala.'); }
     finally { if (btn) btn.disabled = false; }
   }
+  // Chat de voz privado 1 a 1 desde el chat común: crea una sala privada y le avisa a tu amigo
+  async function llamarPrivado(username, nombreAmigo) {
+    if (!usuario()) throw new Error('Iniciá sesión para llamar.');
+    if (!conectado) await conectarSala('p-' + codigo(), 'Chat de voz con ' + (nombreAmigo || username), false);
+    await enviarInvitacion(username, true);
+  }
   async function unirsePorCodigo() {
     const cod = ($('#at-codigo').value || '').trim().toUpperCase();
     if (!/^[A-Z2-9]{6}$/.test(cod)) { toast('El código tiene 6 letras o números.'); return; }
@@ -852,7 +858,7 @@ const NikaAteneos = (() => {
     if (canalInv) canalInv.send({ type: 'broadcast', event: 'invitacion', payload: { para: username, de: yo.username, deNombre: yo.nombre, sala: conectado.sala } });
     // Respaldo: si la otra persona no tiene el campus abierto, le llega por chat con el enlace
     if (tambienChat && window.ChatManager && window.ChatManager.enviarMensaje) {
-      try { await window.ChatManager.enviarMensaje(username, `📹 ${yo.nombre} te invita a “${conectado.nombre}” en la Sala de Ateneos.\n${enlaceSala()}`); } catch (_) {}
+      try { await window.ChatManager.enviarMensaje(username, `📞 ${yo.nombre} te invita a un chat de voz privado en NikaMed.\nEntrá con este enlace: ${enlaceSala()}`); } catch (_) {}
     }
   }
 
@@ -902,7 +908,7 @@ const NikaAteneos = (() => {
   window.addEventListener('hashchange', () => setTimeout(revisarInvitacion, 100));
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
-  return { abrir, volver, unirseASala, entrarCanal, crearPrivada, unirsePorCodigo, desconectar, probarMic, probarCam, mostrarVideo: () => mostrarVideo(false) };
+  return { abrir, volver, unirseASala, entrarCanal, crearPrivada, llamarPrivado, unirsePorCodigo, desconectar, probarMic, probarCam, mostrarVideo: () => mostrarVideo(false) };
 })();
 
 window.NikaAteneos = NikaAteneos;

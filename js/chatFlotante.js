@@ -60,7 +60,8 @@
   @keyframes cf-entra{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
   .cf-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border,#e2e8f0);background:linear-gradient(120deg,rgba(2,132,199,.12),rgba(99,102,241,.1))}
   .cf-h h4{margin:0;font-size:1rem;font-weight:800;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cf-h small{display:block;font-size:.72rem;font-weight:700;color:var(--text-muted,#64748b)}
-  .cf-h small.on{color:#16a34a}.cf-min,.cf-x,.cf-back{border:0;background:transparent;color:inherit;font-size:1.1rem;cursor:pointer;padding:6px 9px;border-radius:10px}.cf-x:hover,.cf-back:hover{background:rgba(148,163,184,.2)}
+  .cf-h small.on{color:#16a34a}.cf-call{border:0;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-size:1rem;cursor:pointer;padding:6px 10px;border-radius:12px;margin-left:auto;transition:transform .15s,box-shadow .2s}.cf-call:hover{transform:translateY(-1px);box-shadow:0 6px 14px -6px #16a34a}.cf-call:disabled{opacity:.6}
+  .cf-min,.cf-x,.cf-back{border:0;background:transparent;color:inherit;font-size:1.1rem;cursor:pointer;padding:6px 9px;border-radius:10px}.cf-x:hover,.cf-back:hover{background:rgba(148,163,184,.2)}
   .cf-min:hover,.cf-x:hover{background:rgba(148,163,184,.2)}
   .cf-panel.min{height:auto!important;right:84px;width:min(260px,calc(100vw - 100px))}.cf-panel.min .cf-lista,.cf-panel.min .cf-msgs,.cf-panel.min .cf-in,.cf-panel.min .cf-buscar{display:none}.cf-panel.min .cf-h{cursor:pointer;border-bottom:0}
   .cf-buscar{padding:8px 10px 2px}.cf-buscar input{width:100%;box-sizing:border-box;padding:9px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .84rem 'Plus Jakarta Sans',sans-serif;outline:none}
@@ -195,10 +196,25 @@
     const CM = window.ChatManager; const f = amigos.find((x) => x.username === user) || { username: user, fullname: '@' + user };
     actual = user; ids = new Set(); ultimoDia = null;
     panel.innerHTML = `<div class="cf-h"><button type="button" class="cf-back" aria-label="Volver">←</button><span class="cf-av"><img src="${esc(f.avatar || AVATAR)}" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover"></span>
-      <h4>${esc(f.fullname)}<small id="cf-est">Conectando…</small></h4>${cabeceraBtns()}</div>
+      <h4>${esc(f.fullname)}<small id="cf-est">Conectando…</small></h4><button type="button" class="cf-call" title="Iniciar chat de voz privado" aria-label="Iniciar chat de voz privado">📞</button>${cabeceraBtns()}</div>
       <div class="cf-msgs"><div class="cf-vacio">Cargando conversación…</div></div>
       <form class="cf-in" autocomplete="off"><input type="text" maxlength="800" placeholder="Escribí un mensaje…" aria-label="Mensaje"><button type="submit" aria-label="Enviar">➤</button></form>`;
     $('.cf-back', panel).onclick = (e) => { e.stopPropagation(); vistaLista(); }; conectarCabecera();
+    const llamar = $('.cf-call', panel);
+    if (llamar) llamar.onclick = async (e) => {
+      e.stopPropagation(); llamar.disabled = true;
+      try {
+        if (!window.NikaAteneos) {
+          const cargar = (src) => new Promise((ok, no) => { const sc = document.createElement('script'); sc.src = src; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc); });
+          if (!window.VoiceManager) await cargar('js/voiceManager.js?v=3');
+          await cargar('js/ateneos.js?v=6');
+        }
+        if (!(window.NikaAteneos && window.NikaAteneos.llamarPrivado)) throw new Error('No se pudo iniciar la llamada.');
+        await window.NikaAteneos.llamarPrivado(user, f.fullname);
+        llamar.textContent = '📞✓'; setTimeout(() => { llamar.textContent = '📞'; }, 2500);
+      } catch (err) { alert((err && err.message) || 'No se pudo iniciar el chat de voz.'); }
+      finally { llamar.disabled = false; }
+    };
     const pintarEstado = (on) => { const s = $('#cf-est', panel); if (s) { s.textContent = on ? 'En línea' : 'Desconectado'; s.classList.toggle('on', !!on); } };
     sincronizarLectura();
     CM.onMensaje = (row) => { if (row.from_username !== user && row.to_username !== user) return; burbuja(row); if (row.from_username === user && abierto && !minimizado && !document.hidden) CM.marcarComoLeido(user).then(refrescarNoLeidos); else refrescarNoLeidos(); };
