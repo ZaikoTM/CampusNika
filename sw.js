@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v219";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v220";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
@@ -39,7 +39,7 @@ const PRECACHE_URLS = [
     "js/offlineStorage.js", "js/syncManager.js", "js/guardiaModal.js", "js/pwa-update.js",
     "js/productivity/pomodoro.js", "js/productivity/notas.js",
     "js/estudio/estudio.js",
-    "js/liga.js", "js/paginaLateral.js", "css/pagina-lateral.css", "css/nika-unificado.css", "js/rachas.js", "js/atajos.js", "js/foro.js", "js/nikaMusic.js", "js/nikafarmaPlus.js", "js/voiceManager.js", "js/ateneos.js", "js/onboardingTour.js",
+    "js/liga.js", "js/paginaLateral.js", "css/pagina-lateral.css", "css/nika-unificado.css", "js/rachas.js", "js/atajos.js", "js/foro.js", "js/nikaMusic.js", "js/nikafarmaPlus.js", "js/nikafarmaPatologias.js", "js/voiceManager.js", "js/ateneos.js", "js/onboardingTour.js",
     // Bancos locales y datos de respaldo del simulador
     "data/banco_trauma_superior.js", "data/banco_trauma_inferior.js", "data/banco_suturas.js",
     "data/cirugia.json", "preguntas.json", "db_cirugia_organizado.json",
