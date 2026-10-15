@@ -13,9 +13,9 @@
     document.body.insertBefore(a, document.body.firstChild);
   }
 
-  const SEL = '.hero-banner, .continuity-card, .plan-card, .action-btn-card, .perf-grid > *, .prof-card, .status-card, .sim-hub-grid > *';
+  const SEL = '.hero-banner, .continuity-card, .plan-card, .action-btn-card, .perf-grid > *, .prof-card, .status-card, .sim-hub-grid > *, .community-widget, .sim-hub-grid';
   function entrada() {
-    if (reducido || !('IntersectionObserver' in window)) return;
+    if (!('IntersectionObserver' in window)) return;
     const nodos = [...document.querySelectorAll(SEL)].filter((n) => !n.classList.contains('cv-rv'));
     if (!nodos.length) return;
     document.documentElement.classList.add('cv-on');
@@ -26,7 +26,7 @@
       n.classList.add('cv-in');
       n.addEventListener('animationend', () => { n.classList.remove('cv-rv', 'cv-in'); n.style.removeProperty('--cv-d'); }, { once: true });
     };
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { mostrar(e.target); io.unobserve(e.target); } }), { threshold: 0.06 });
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { mostrar(e.target); io.unobserve(e.target); } }), { threshold: 0.04, rootMargin: '0px 0px -6% 0px' });
     nodos.forEach((n) => io.observe(n));
     // seguro: pase lo que pase, a los pocos segundos todo se ve
     setTimeout(() => { document.querySelectorAll('.cv-rv:not(.cv-in)').forEach((n) => { n.classList.remove('cv-rv'); }); }, 3500);

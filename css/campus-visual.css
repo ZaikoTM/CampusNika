@@ -41,13 +41,12 @@ body.tema-premium .plan-card::after, body.tema-premium .action-btn-card::after, 
 
 /* ---------- 3) Entrada escalonada ---------- */
 .cv-on .cv-rv:not(.cv-in) { opacity: 0; }
-.cv-rv.cv-in { animation: cvEntra .65s cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--cv-d, 0) * 70ms); }
-@keyframes cvEntra { from { opacity: 0; transform: translateY(22px) scale(.985); } to { opacity: 1; transform: none; } }
+.cv-rv.cv-in { animation: cvEntra .85s cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(var(--cv-d, 0) * 80ms); }
+@keyframes cvEntra { from { opacity: 0; transform: translateY(46px) scale(.97); filter: blur(5px); } to { opacity: 1; transform: none; filter: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   .cv-aurora i { animation: none; }
-  .cv-on .cv-rv:not(.cv-in) { opacity: 1; }
-  .cv-rv.cv-in { animation: none; }
+  .cv-rv.cv-in { animation: cvSuave .6s ease both; }
   .action-btn-card:hover, .perf-grid > *:hover { transform: none; }
 }
 @media (max-width: 640px) { .cv-aurora i { filter: blur(50px); opacity: .42; } .cv-aurora i:nth-child(3) { display: none; } }
@@ -106,3 +105,5 @@ html.cv-lite .cv-aurora i:nth-child(3) { display: none; }
 html.cv-lite .plan-card, html.cv-lite .action-btn-card, html.cv-lite .prof-card, html.cv-lite .perf-grid > * { -webkit-backdrop-filter: none; backdrop-filter: none; background-color: var(--card-bg, #fff); }
 html.cv-lite .sidebar-brand-logo img, html.cv-lite .hero-n-logo, html.cv-lite .cont-wave, html.cv-lite .cont-burbuja { animation: none !important; }
 html.cv-lite .continuity-card::after { animation: none; }
+
+@keyframes cvSuave { from { opacity: 0; } to { opacity: 1; } }
