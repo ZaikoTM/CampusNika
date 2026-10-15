@@ -447,8 +447,32 @@ const NikaAteneos = (() => {
     $('#at-b-out').onclick = desconectar;
     $('#at-b-min').onclick = () => cambiarModoDock(modoDock === 'completo' ? 'compacto' : 'mini');
     $('#at-b-ext').onclick = () => cambiarModoDock('completo');
-    dock.querySelector('.at-d-info').addEventListener('click', () => { if (modoDock === 'mini') cambiarModoDock('compacto'); });
+    dock.querySelector('.at-d-info').addEventListener('click', () => { if (modoDock === 'mini' && !dock._arrastro) cambiarModoDock('compacto'); });
     aplicarModoDock();
+    // Se puede arrastrar desde cualquier parte que no sea un botón; la posición se recuerda
+    const K_POS = 'nika_at_dock_pos';
+    const ponerPos = (x, y) => { dock.style.left = x + 'px'; dock.style.top = y + 'px'; dock.style.right = 'auto'; dock.style.bottom = 'auto'; dock.style.transform = 'none'; };
+    const dentro = (x, y) => { const r = dock.getBoundingClientRect(); return [Math.min(Math.max(0, x), Math.max(0, innerWidth - r.width)), Math.min(Math.max(0, y), Math.max(0, innerHeight - r.height))]; };
+    try { const p = JSON.parse(localStorage.getItem(K_POS) || 'null'); if (p) { const q = dentro(p.x, p.y); ponerPos(q[0], q[1]); } } catch (_) {}
+    let arr = null, movido = false;
+    dock.style.touchAction = 'none';
+    dock.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button')) return;
+      const r = dock.getBoundingClientRect(); arr = { dx: e.clientX - r.left, dy: e.clientY - r.top, x0: e.clientX, y0: e.clientY }; movido = false;
+      dock.setPointerCapture(e.pointerId); dock.style.cursor = 'grabbing';
+    });
+    dock.addEventListener('pointermove', (e) => {
+      if (!arr) return;
+      if (!movido && Math.abs(e.clientX - arr.x0) + Math.abs(e.clientY - arr.y0) < 5) return;
+      movido = true; const q = dentro(e.clientX - arr.dx, e.clientY - arr.dy); ponerPos(q[0], q[1]);
+    });
+    const soltar = (e) => {
+      if (!arr) return; dock.style.cursor = '';
+      if (movido) { const r = dock.getBoundingClientRect(); try { localStorage.setItem(K_POS, JSON.stringify({ x: Math.round(r.left), y: Math.round(r.top) })); } catch (_) {} }
+      dock._arrastro = movido; setTimeout(() => { dock._arrastro = false; }, 0); arr = null;
+    };
+    dock.addEventListener('pointerup', soltar); dock.addEventListener('pointercancel', soltar);
+    dock.addEventListener('dblclick', (e) => { if (e.target.closest('button')) return; try { localStorage.removeItem(K_POS); } catch (_) {} ['left', 'top', 'right', 'bottom', 'transform'].forEach((k) => { dock.style[k] = ''; }); });
     document.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && !e.altKey && e.key.toLowerCase() === 'm' && conectado) { e.preventDefault(); alternarMic(); } });
   }
 
