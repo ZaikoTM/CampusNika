@@ -14,6 +14,9 @@
     + '#ar-bar button{border:0;border-radius:999px;width:34px;height:34px;cursor:pointer;background:rgba(255,255,255,.12);color:#fff;font-size:.95rem;transition:transform .15s,background .2s}'
     + '#ar-bar button:hover{transform:scale(1.1);background:rgba(255,255,255,.22)}#ar-bar button.off{background:#ef4444}#ar-bar button.out{background:#dc2626;width:auto;padding:0 12px;font-size:.74rem;font-weight:800}'
     + '#ar-bar{cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none}#ar-bar button{cursor:pointer}#ar-bar.mov{cursor:grabbing}'
+    + '#ar-bar.vert{flex-direction:column;border-radius:26px;padding:14px 9px;gap:9px;width:64px;box-sizing:border-box}'
+    + '#ar-bar.vert .nm{max-width:52px;white-space:normal;text-align:center;font-size:.64rem;line-height:1.15;overflow:hidden;max-height:3.5em}'
+    + '#ar-bar.vert #ar-n{font-size:.66rem}#ar-bar.vert button.out{width:44px;padding:0;height:30px}'
     + '#ar-bar.mini{padding:5px;gap:0;border-radius:50%;width:46px;height:46px;justify-content:center;background:#16a34a}'
     + '#ar-bar.mini .nm,#ar-bar.mini #ar-n,#ar-bar.mini button,#ar-bar.mini .pt{display:none}#ar-bar.mini::after{content:"📞";font-size:1.2rem}'
     + '#ar-inv{position:fixed;right:16px;bottom:18px;z-index:99991;width:min(330px,calc(100vw - 32px));padding:14px;border-radius:18px;background:#fff;color:#0f172a;border:1px solid #e2e8f0;box-shadow:0 24px 50px -18px rgba(0,0,0,.5);font:600 .85rem/1.4 "Plus Jakarta Sans",system-ui,sans-serif;display:none}'
@@ -22,7 +25,7 @@
   const bar = document.createElement('div'); bar.id = 'ar-bar';
   bar.innerHTML = '<i class="pt"></i><span class="nm" id="ar-nm"></span><span id="ar-n" style="opacity:.7"></span>'
     + '<button type="button" id="ar-mic" title="Micrófono">🎤</button><button type="button" id="ar-cam" title="Cámara">📷</button>'
-    + '<button type="button" id="ar-win" title="Ir a la ventana de la llamada">🪟</button><button type="button" id="ar-min" title="Minimizar">–</button><button type="button" class="out" id="ar-out" title="Salir de la llamada">Salir</button>';
+    + '<button type="button" id="ar-win" title="Ir a la ventana de la llamada">🪟</button><button type="button" id="ar-rot" title="Girar la barra (horizontal / vertical)">⟳</button><button type="button" id="ar-min" title="Minimizar">–</button><button type="button" class="out" id="ar-out" title="Salir de la llamada">Salir</button>';
   document.body.appendChild(bar);
   const inv = document.createElement('div'); inv.id = 'ar-inv'; document.body.appendChild(inv);
   const q = (id) => document.getElementById(id);
@@ -62,6 +65,10 @@
   const minimizar = (v) => { bar.classList.toggle('mini', v); try { localStorage.setItem(K_MIN, v ? '1' : '0'); } catch (_) {} setTimeout(() => { const r = bar.getBoundingClientRect(); if (bar.style.left) { const q = dentro(r.left, r.top); ponerPos(q[0], q[1]); } }, 0); };
   try { if (localStorage.getItem(K_MIN) === '1') bar.classList.add('mini'); } catch (_) {}
   q('ar-min').onclick = (e) => { e.stopPropagation(); minimizar(true); };
+  const K_VERT = 'nika_ar_vert';
+  const girar = (v) => { bar.classList.toggle('vert', v); try { localStorage.setItem(K_VERT, v ? '1' : '0'); } catch (_) {} setTimeout(() => { const r = bar.getBoundingClientRect(); const p = dentro(r.left, r.top); ponerPos(p[0], p[1]); }, 0); };
+  try { if (localStorage.getItem(K_VERT) === '1') bar.classList.add('vert'); } catch (_) {}
+  q('ar-rot').onclick = (e) => { e.stopPropagation(); girar(!bar.classList.contains('vert')); };
   let arr = null, movido = false;
   bar.addEventListener('pointerdown', (e) => {
     if (e.target.closest('button')) return;

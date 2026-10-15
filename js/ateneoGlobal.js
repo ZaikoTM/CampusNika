@@ -7,7 +7,7 @@
   // Si la llamada vive en la ventana anfitriona (sin cortes), esta página solo muestra la barra remota
   try {
     if (Date.now() - Number(localStorage.getItem('nika_ateneo_host') || 0) < 5000) {
-      const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=2'; document.head.appendChild(sc);
+      const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=3'; document.head.appendChild(sc);
       return;
     }
   } catch (_) {}

@@ -25,7 +25,7 @@ const NikaAteneos = (() => {
   const abrirHost = () => { try { return window.open('ateneo-host.html', 'nika-ateneo-host', 'popup=yes,width=440,height=620'); } catch (_) { return null; } };
   function cargarRemoto() {
     if (window.NikaAteneoRemoto) return;
-    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=2'; document.head.appendChild(sc);
+    const sc = document.createElement('script'); sc.src = 'js/ateneoRemoto.js?v=3'; document.head.appendChild(sc);
   }
   // Deja la sala pedida lista en el almacenamiento y abre la ventana anfitriona, que se conecta sola.
   function abrirEnVentana(sala, nombre, silenciosa, mic) {
