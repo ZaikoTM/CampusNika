@@ -59,7 +59,7 @@
 .eo-bocadillo small { font-weight: 800; opacity: .6; } .eo-bocadillo p { margin: 6px 0 0; line-height: 1.55; font-size: .96rem; } .eo-oculto { opacity: .7; font-style: italic; }
 @keyframes eoEntra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .eo-micro { margin-top: 18px; text-align: center; }
-.eo-mic { width: 84px; height: 84px; margin: 0 auto 10px; border-radius: 50%; display: grid; place-items: center; font-size: 2.2rem; background: rgba(148,163,184,.25); transition: all .3s; }
+.eo-mic { cursor: pointer; width: 84px; height: 84px; margin: 0 auto 10px; border-radius: 50%; display: grid; place-items: center; font-size: 2.2rem; background: rgba(148,163,184,.25); transition: all .3s; }
 .eo-mic.on { background: linear-gradient(135deg, #ef4444, #f97316); box-shadow: 0 0 0 0 rgba(239,68,68,.6); animation: eoGrab 1.4s ease-out infinite; }
 @keyframes eoGrab { to { box-shadow: 0 0 0 26px rgba(239,68,68,0); } }
 .eo-trans { min-height: 48px; padding: 12px 16px; border-radius: 16px; background: var(--bg-body, #f8fafc); border: 1px dashed var(--border, #cbd5e1); text-align: left; line-height: 1.5; margin-bottom: 10px; }

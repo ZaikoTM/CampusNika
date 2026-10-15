@@ -127,10 +127,10 @@
     molesto: { ok: ['Bien. Era lo mínimo que tenía que saber.'], medio: ['Esto es básico, tendría que saberlo.'], mal: ['Así no se aprueba un final, tiene que estudiar mucho más.'] }
   };
   const PARAMS = {
-    contento: { rate: 1.05, pitch: 1.12, vol: 1, ico: '😄', txt: 'Contento', color: '#16a34a' },
-    cordial: { rate: 1.0, pitch: 1.0, vol: 1, ico: '🙂', txt: 'Cordial', color: '#0ea5e9' },
-    serio: { rate: 0.92, pitch: 0.86, vol: 1, ico: '😐', txt: 'Serio', color: '#f59e0b' },
-    molesto: { rate: 0.88, pitch: 0.74, vol: 1, ico: '😠', txt: 'Molesto', color: '#dc2626' }
+    contento: { rate: 1.05, pitch: 1.12, vol: 1, ico: '🧑‍⚕️', txt: 'Contento', color: '#16a34a' },
+    cordial: { rate: 1.0, pitch: 1.0, vol: 1, ico: '🧑‍⚕️', txt: 'Cordial', color: '#0ea5e9' },
+    serio: { rate: 0.92, pitch: 0.86, vol: 1, ico: '🧑‍⚕️', txt: 'Serio', color: '#f59e0b' },
+    molesto: { rate: 0.88, pitch: 0.74, vol: 1, ico: '🧑‍⚕️', txt: 'Molesto', color: '#dc2626' }
   };
   const elige = (a) => a[Math.floor(Math.random() * a.length)];
   const corto = (t, n) => { t = String(t || '').replace(/\s+/g, ' ').trim(); if (t.length <= n) return t; const c = t.slice(0, n); return c.slice(0, c.lastIndexOf(' ') > 30 ? c.lastIndexOf(' ') : n) + '…'; };
@@ -257,13 +257,33 @@
       a.play().catch((e) => { S.fallo = 'El navegador bloqueó la reproducción del audio (' + ((e && e.name) || 'error') + '). Tocá “Probar voz”.'; fin(); });
     });
   }
+  // El primer trozo es corto para que el profesor empiece a hablar enseguida; los demás se sintetizan mientras suena el anterior.
+  function trozosVoz(texto) {
+    const t = trocear(texto, 240);
+    if (t[0] && t[0].length > 110) { const sub = trocear(t[0], 80); t.splice(0, 1, ...sub); }
+    return t;
+  }
+  const cacheVoz = new Map();
+  function sintetizarCache(clave, trozo) {
+    const k = clave + '|' + trozo;
+    if (!cacheVoz.has(k)) { if (cacheVoz.size > 24) cacheVoz.delete(cacheVoz.keys().next().value); const p = VL().sintetizar(clave, trozo); p.catch(() => cacheVoz.delete(k)); cacheVoz.set(k, p); }
+    return cacheVoz.get(k);
+  }
+  // Prepara en segundo plano el audio del comienzo de un texto que se va a decir enseguida.
+  function anticiparVoz(texto) {
+    try {
+      const clave = S.sel.startsWith('loc:') ? S.sel.slice(4) : '';
+      if (!clave || !localesOk() || !S.locales[clave] || S.locales[clave].estado !== 'lista' || S.nodisp[clave]) return;
+      const t = trozosVoz(texto); if (t[0]) sintetizarCache(clave, t[0]).catch(() => {});
+    } catch (_) {}
+  }
   async function hablarLocal(texto, clave, mood, tok) {
-    const trozos = trocear(texto, 240);
-    let sig = VL().sintetizar(clave, trozos[0]);
+    const trozos = trozosVoz(texto);
+    let sig = sintetizarCache(clave, trozos[0]);
     for (let i = 0; i < trozos.length; i++) {
       const url = await sig;
       if (tok !== S.tok) return;
-      if (i + 1 < trozos.length) sig = VL().sintetizar(clave, trozos[i + 1]);
+      if (i + 1 < trozos.length) sig = sintetizarCache(clave, trozos[i + 1]);
       await reproducir(url, tok, mood);
     }
   }
@@ -327,8 +347,10 @@
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   let rec = null, escuchando = false, texto = '', parcialTxt = '', silencio = null, alTerminar = null;
   const largoDictado = () => (texto + ' ' + parcialTxt).trim().length;
-  function escuchar(cb) {
-    alTerminar = cb; texto = ''; parcialTxt = ''; pintarTranscripcion();
+  function escuchar(cb, seguir) {
+    if (cb) alTerminar = cb;
+    if (!seguir) { texto = ''; parcialTxt = ''; }
+    pintarTranscripcion();
     if (!SR) return false;
     try {
       rec = new SR(); rec.lang = 'es-AR'; rec.continuous = true; rec.interimResults = true;
@@ -370,8 +392,16 @@
     texto = ''; parcialTxt = ''; alTerminar = (t2) => alResponder(t2);
     abrirRespuesta();
   }
+  // Apaga o enciende el micrófono sin perder lo dictado hasta ahora
+  function alternarMic() {
+    if (escuchando) { detenerEscucha(); estado.micPausado = true; pintar(); return; }
+    estado.micPausado = false; estado.error = '';
+    if (!SR || !escuchar(null, true)) { estado.micPausado = true; estado.error = 'No se pudo encender el micrófono: respondé escribiendo.'; }
+    pintar();
+  }
   function terminarEscucha() {
-    const t = ((texto + ' ' + parcialTxt).trim()) || ($('eo-escrito') && $('eo-escrito').value.trim()) || '';
+    const esc = ($('eo-escrito') && $('eo-escrito').value.trim()) || '';
+    const t = ((texto + ' ' + parcialTxt).trim() + ' ' + esc).trim();
     detenerEscucha(); const cb = alTerminar; alTerminar = null; if (cb) cb(t);
   }
 
@@ -510,7 +540,7 @@
   }
 
   /* ===================== estado y flujo ===================== */
-  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '', preparando: false };
+  const estado = { paso: 1, conv: null, respaldo: false, abogadoIdx: -1, abogado: null, fase: 'inicio', anio: 5, materia: 'cirugia', modo: 'p0', up: '', n: 6, preguntas: [], i: 0, hist: [], resultados: [], pendientes: [], mood: 'cordial', subs: true, error: '', aviso: '', t0: 0, textoLibre: false, plus: false, temas: false, repetidas: 0, forzado: false, reglas: true, limite: false, textoPausado: '', preparando: false, turnoId: 0, cerrando: false, micPausado: false, pre: {} };
   const bancos = {};
   async function cargarBanco(m) {
     if (bancos[m]) return bancos[m];
@@ -552,22 +582,39 @@
     estado.i = 0; estado.hist = []; estado.resultados = []; estado.pendientes = []; estado.t0 = Date.now(); estado.mood = 'cordial'; estado.respaldo = false; estado.forzado = false;
     estado.abogado = await debilidadPendiente();
     estado.abogadoIdx = estado.abogado ? Math.min(estado.preguntas.length - 1, Math.floor(estado.preguntas.length / 2)) : -1;
-    estado.fase = 'examen'; activarIntegridad(); pintar();
+    estado.fase = 'examen'; estado.pre = {}; estado.turnoId++; activarIntegridad(); pintar();
+    precargar(0);                                  // la IA ya prepara la primera pregunta mientras el profesor saluda
     await hablar('Buenos días. Soy su examinador de ' + area.nombre + '. Le voy a hacer ' + estado.preguntas.length + (estado.preguntas.length === 1 ? ' pregunta' : ' preguntas') + '. Desarrolle cada respuesta en voz alta, con claridad y con sus palabras. No se puede volver a una pregunta anterior. Comencemos.', 'cordial');
     preguntar();
   }
 
+  // Pide a la IA la apertura de una pregunta con anticipación (mientras el alumno todavía responde la anterior).
+  function precargar(idx) {
+    if (estado.respaldo || idx < 0 || idx >= estado.preguntas.length || estado.pre[idx]) return;
+    const q = estado.preguntas[idx], area = areaActual();
+    const abogado = idx === estado.abogadoIdx ? estado.abogado : null;
+    const sys = promptExaminador(q, area, abogado);
+    const prom = llamarIA({ modo: 'examen_oral', submodo: area.id, tematica: String(q.up), system_prompt: sys, historial: [], mensaje: MSG_INICIO, es_primer_turno: true });
+    prom.then((d) => anticiparVoz(limpioHablado(d.texto)), () => {});
+    estado.pre[idx] = { sys, abogado, prom };
+  }
+
   async function preguntar() {
     if (estado.fase !== 'examen') return;
+    const turno = ++estado.turnoId; estado.cerrando = false; estado.micPausado = false;
     const q = estado.preguntas[estado.i], area = areaActual();
     estado.error = ''; estado.estadoVoz = 'pregunta'; estado.repetidas = 0; estado.limite = false; estado.textoPausado = ''; estado.mood = animo(estado.hist);
-    const abogado = estado.i === estado.abogadoIdx ? estado.abogado : null;
-    estado.conv = { hist: [], turnos: 0, sys: promptExaminador(q, area, abogado), abogado, alumno: '' };
+    const pre = estado.pre[estado.i]; delete estado.pre[estado.i];
+    const abogado = pre ? pre.abogado : (estado.i === estado.abogadoIdx ? estado.abogado : null);
+    estado.conv = { hist: [], turnos: 0, sys: pre ? pre.sys : promptExaminador(q, area, abogado), abogado, alumno: '' };
     estado.sub = '…'; pintar();
     let dicho = '';
     if (!estado.respaldo) {
       try {
-        const d = await llamarIA({ modo: 'examen_oral', submodo: area.id, tematica: String(q.up), system_prompt: estado.conv.sys, historial: [], mensaje: MSG_INICIO, es_primer_turno: true });
+        if (!pre) precargar(estado.i);
+        const pp = pre || estado.pre[estado.i]; delete estado.pre[estado.i];
+        const d = await pp.prom;
+        if (turno !== estado.turnoId) return;
         dicho = limpioHablado(d.texto);
         estado.conv.hist.push({ rol: 'usuario', texto: MSG_INICIO }, { rol: 'ia', texto: d.texto });
       } catch (e) {
@@ -577,8 +624,10 @@
     }
     if (estado.respaldo || !dicho) { estado.respaldo = true; dicho = 'Pregunta ' + (estado.i + 1) + '. ' + preparaPregunta(q); estado.aviso = 'La IA no está disponible en este momento: se usa el motor local de respaldo.'; }
     estado.sub = dicho; pintar();
-    await hablar(dicho, estado.mood);
-    if (estado.fase !== 'examen') return;
+    precargar(estado.i + 1);                       // la siguiente pregunta se prepara mientras el alumno responde esta
+    const hab = hablar(dicho, estado.mood);
+    await hab;
+    if (estado.fase !== 'examen' || turno !== estado.turnoId) return;
     abrirRespuesta();
   }
 
@@ -604,6 +653,7 @@
 
   async function alResponder(respuesta) {
     if (estado.fase !== 'examen') return;
+    const turno = ++estado.turnoId;
     const c = estado.conv, area = areaActual(), q = estado.preguntas[estado.i];
     const a = acotar(c, respuesta); if (a.aviso) estado.aviso = a.aviso;
     const partes = c.partes || []; c.partes = [];
@@ -618,9 +668,11 @@
       const d = await llamarIA({ modo: 'examen_oral', submodo: area.id, tematica: String(q.up), system_prompt: c.sys, historial: c.hist, mensaje: msg, es_primer_turno: false });
       c.hist.push({ rol: 'usuario', texto: msg }, { rol: 'ia', texto: d.texto });
       const cierre = /\[CIERRE\]/i.test(d.texto) || ultimo, dicho = limpioHablado(d.texto);
+      if (turno !== estado.turnoId) return;
       estado.sub = dicho; estado.estadoVoz = 'pregunta'; pintar();
+      anticiparVoz(dicho);
       await hablar(dicho, estado.mood);
-      if (estado.fase !== 'examen') return;
+      if (estado.fase !== 'examen' || turno !== estado.turnoId) return;
       if (cierre) return cerrarPregunta(c, null);
       abrirRespuesta();
     } catch (e) {
@@ -633,7 +685,7 @@
   async function cerrarPregunta(c, linea) {
     if (estado.fase !== 'examen') return;
     const idx = estado.i, q = estado.preguntas[idx];
-    if (c.encolada) return; c.encolada = true;
+    if (c.encolada) return; c.encolada = true; estado.cerrando = true;
     const item = { idx, q, conv: c, respaldo: estado.respaldo };
     const p = corregirEnSegundoPlano(item);
     estado.pendientes.push(p);
@@ -726,7 +778,10 @@
     if (estado.fase === 'inicio') return estado.paso === 1 ? pintarPaso1(raizEl) : pintarPaso2(raizEl);
     if (estado.fase === 'corrigiendo') { raizEl.innerHTML = '<div class="eo-fin"><div class="eo-pensando">📝 El profesor está terminando de corregir tu examen…</div><p class="eo-aviso">Esto lleva unos segundos.</p></div>'; return; }
     if (estado.fase === 'fin') return pintarFin(raizEl);
+    const prevEsc = $('eo-escrito') ? $('eo-escrito').value : '';
     const P = PARAMS[estado.mood], q = estado.preguntas[estado.i], total = estado.preguntas.length, ev = estado.estadoVoz, area = areaActual();
+    const preparando = ev === 'pregunta' && (!estado.sub || estado.sub === '…') && !estado.cerrando;
+    const hablando = ev === 'pregunta' && !preparando && !estado.cerrando;
     raizEl.innerHTML = '<div class="eo-sala" style="--m:' + P.color + '">'
       + '<div class="eo-prog"><i style="width:' + Math.round(estado.i / total * 100) + '%"></i></div>'
       + '<div class="eo-cab"><span>Pregunta <b>' + (estado.i + 1) + '</b> de ' + total + '</span><span class="eo-estado"><em id="eo-corrigiendo"></em><em id="eo-integridad" class="eo-int"></em></span><span class="eo-animo">' + P.ico + ' ' + P.txt + '</span></div>'
@@ -739,17 +794,24 @@
           + '<div class="eo-trans">' + esc(corto(estado.textoPausado, 260)) + '</div>'
           + '<div class="eo-acc"><button type="button" class="eo-btn" data-eo="seguir">➕ Seguir en el siguiente mensaje</button><button type="button" class="eo-btn eo-btn--ok" data-eo="listo">✅ Terminé, enviar</button></div>'
           + '<p class="eo-regla">Total de esta pregunta: ' + ((estado.conv && estado.conv.alumno ? estado.conv.alumno.length : 0) + estado.textoPausado.length) + ' / ' + MAX_ALUMNO + ' caracteres</p></div></div>'
-        : ev === 'escucha' ? '<div class="eo-micro"><div class="eo-mic ' + (escuchando ? 'on' : '') + '">🎙️</div>'
+        : ev === 'escucha' ? '<div class="eo-micro"><div class="eo-mic ' + (escuchando ? 'on' : '') + '" data-eo="mic" role="button" title="Encender o apagar el micrófono">' + (estado.micPausado ? '🔇' : '🎙️') + '</div>'
           + (estado.conv && estado.conv.partes && estado.conv.partes.length ? '<div class="eo-partes">🧩 Respuesta en ' + (estado.conv.partes.length + 1) + ' partes · llevás ' + (estado.conv.alumno || '').length + ' / ' + MAX_ALUMNO + ' caracteres</div>' : '')
           + '<div class="eo-trans" id="eo-trans">Te escucho…</div><div class="eo-cont" id="eo-cont"></div>'
           + '<div class="eo-escribe"><textarea id="eo-escrito" maxlength="' + MAX_TURNO + '" placeholder="O escribí tu respuesta acá…" rows="3"></textarea></div>'
-          + '<div class="eo-acc">' + (estado.repetidas < 1 ? '<button type="button" class="eo-btn eo-btn--sec" data-eo="repetir">🔁 Repetir la pregunta (1 vez)</button>' : '') + '<button type="button" class="eo-btn eo-btn--sec" data-eo="seguir" title="Guarda lo que dijiste y abre un mensaje nuevo, sin que el profesor te corrija todavía">➕ Seguir en otro mensaje</button><button type="button" class="eo-btn eo-btn--sec" data-eo="saltar">⏭️ Pasar a la siguiente</button><button type="button" class="eo-btn" data-eo="listo">✅ Terminé de responder</button></div>'
+          + '<div class="eo-acc">' + (estado.repetidas < 1 ? '<button type="button" class="eo-btn eo-btn--sec" data-eo="repetir">🔁 Repetir la pregunta (1 vez)</button>' : '') + '<button type="button" class="eo-btn eo-btn--sec" data-eo="seguir" title="Guarda lo que dijiste y abre un mensaje nuevo, sin que el profesor te corrija todavía">➕ Seguir en otro mensaje</button><button type="button" class="eo-btn eo-btn--sec" data-eo="saltar">⏭️ Pasar a la siguiente</button><button type="button" class="eo-btn eo-btn--sec" data-eo="mic">' + (estado.micPausado ? '▶️ Reanudar dictado' : '⏸ Pausar dictado / apagar micrófono') + '</button><button type="button" class="eo-btn" data-eo="listo">📨 Enviar respuesta</button><button type="button" class="eo-btn eo-btn--sec" data-eo="cancelar">🛑 Cancelar examen</button></div>'
           + '<p class="eo-regla">Examen de una sola vía: al pasar a la siguiente pregunta no se puede volver atrás.</p></div>'
         : ev === 'evalua' ? '<div class="eo-micro"><div class="eo-pensando">El profesor está pensando…</div></div>'
+        : preparando ? '<div class="eo-micro"><div class="eo-pensando">⏳ El profesor está preparando la pregunta…</div><p class="eo-aviso">El primer mensaje puede tardar unos segundos. Mientras habla, podés ir escribiendo tu respuesta en el cuadro de abajo: no hace falta esperar a que termine.</p>'
+          + '<div class="eo-escribe"><textarea id="eo-escrito" maxlength="' + MAX_TURNO + '" placeholder="Escribí tu respuesta acá…" rows="3"></textarea></div>'
+          + '<div class="eo-acc"><button type="button" class="eo-btn eo-btn--sec" data-eo="cancelar">🛑 Cancelar examen</button></div></div>'
+        : hablando ? '<div class="eo-micro"><div class="eo-pensando">🎧 El profesor está hablando… podés responder cuando quieras</div>'
+          + '<div class="eo-escribe"><textarea id="eo-escrito" maxlength="' + MAX_TURNO + '" placeholder="Escribí tu respuesta acá (aunque el profesor siga hablando)…" rows="3"></textarea></div>'
+          + '<div class="eo-acc"><button type="button" class="eo-btn eo-btn--sec" data-eo="cortar">⏩ Cortar al profesor y responder</button><button type="button" class="eo-btn" data-eo="enviar">📨 Enviar mensaje</button><button type="button" class="eo-btn eo-btn--sec" data-eo="cancelar">🛑 Cancelar examen</button></div></div>'
         : '<div class="eo-micro"><div class="eo-pensando">🎧 Escuchá al profesor…</div></div>')
       + (estado.error ? '<p class="eo-error">' + esc(estado.error) + '</p>' : '')
       + '<div class="eo-pie"><label class="eo-sw"><input type="checkbox" id="eo-subs"' + (estado.subs ? ' checked' : '') + '> Mostrar lo que dice el profesor</label><label class="eo-volpie">🔊 <b id="eo-vol-t2">' + Math.round(S.vol * 100) + '%</b><input type="range" id="eo-vol" min="0" max="100" value="' + Math.round(S.vol * 100) + '"></label><button type="button" class="eo-btn eo-btn--sec" data-eo="terminar">Terminar examen</button></div>'
       + '</div>';
+    const nuevo = $('eo-escrito'); if (nuevo && prevEsc) nuevo.value = prevEsc;
     if (ev === 'escucha') pintarTranscripcion();
     pintarProgresoCorreccion(); pintarIntegridad();
   }
@@ -912,6 +974,17 @@
       }
       else if (a === 'listo') { callar(); if (estado.limite) { const c = estado.conv, t = estado.textoPausado; estado.limite = false; estado.textoPausado = ''; detenerEscucha(); const cb = alTerminar || ((x) => alResponder(x)); alTerminar = null; cb(t); } else terminarEscucha(); }
       else if (a === 'seguir') { callar(); seguirRespuesta(); }
+      else if (a === 'mic') { alternarMic(); }
+      else if (a === 'cortar') { callar(); estado.turnoId++; abrirRespuesta(); }
+      else if (a === 'enviar') {
+        const esc = ($('eo-escrito') && $('eo-escrito').value.trim()) || '';
+        if (!esc) { estado.aviso = 'Escribí algo antes de enviar el mensaje.'; return pintar(); }
+        callar(); detenerEscucha(); alTerminar = null; estado.aviso = ''; alResponder(esc);
+      }
+      else if (a === 'cancelar') {
+        if (!confirm('¿Cancelar el examen? Se pierde el progreso de esta prueba.')) return;
+        estado.turnoId++; detenerEscucha(); callar(); alTerminar = null; INT.activa = false; estado.pre = {}; estado.fase = 'inicio'; estado.paso = 2; estado.conv = null; pintar();
+      }
       else if (a === 'repetir') { if (estado.repetidas >= 1) return; estado.repetidas++; detenerEscucha(); callar(); estado.estadoVoz = 'pregunta'; pintar(); await hablar(estado.sub, estado.mood); if (estado.fase === 'examen') abrirRespuesta(); }
       else if (a === 'saltar') { detenerEscucha(); callar(); alTerminar = null; const c = estado.conv; if (c) { if (c.turnos === 0) c.alumno = ''; cerrarPregunta(c, 'Muy bien. Pasemos a la siguiente.'); } }
       else if (a === 'terminar') { if (confirm('¿Terminar el examen ahora? Las preguntas que no respondas cuentan como sin responder.')) { if (!estado.resultados.length && !estado.pendientes.length) { estado.fase = 'inicio'; estado.paso = 2; INT.activa = false; detenerEscucha(); callar(); pintar(); } else { const c = estado.conv; if (c && c.turnos > 0 && !c.encolada) { c.encolada = true; const item = { idx: estado.i, q: estado.preguntas[estado.i], conv: c, respaldo: estado.respaldo }; estado.pendientes.push(corregirEnSegundoPlano(item)); estado.i++; } terminarExamen(); } } }
