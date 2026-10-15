@@ -293,7 +293,7 @@
   // ---------- mosaico ----------
   function tile(p, i) {
     const ok = leerOk();
-    const rot = [-1.6, 1.2, -0.8, 1.8, -1.1, 0.6][i % 6];
+    const rot = [-0.9, 0.7, -0.5, 1, -0.7, 0.4][i % 6];   // inclinación suave: con ángulos grandes el texto se ve borroso
     return '<button type="button" class="fc-tile" data-fc-abrir="' + esc(p.id) + '" style="--paper:' + (colorDe(p)) + ';--rot:' + rot + 'deg;--d:' + Math.min(i, 14) * 0.035 + 's">' +
       '<span class="pin"></span>' + (ok[p.id] ? '<span class="ok" title="Ya la sabés">✅</span>' : '') +
       '<h4>' + esc(p.titulo) + '</h4><span class="hint">Tocá para abrir la tarjeta</span>' +
