@@ -236,3 +236,25 @@
 .fcd-sec[open]{border-color:color-mix(in srgb,var(--sc,#6366f1) 45%,transparent);border-left:5px solid var(--sc,#6366f1)}
 .fcd-sec summary b{color:var(--sc,#1e293b)}
 @media(max-width:560px){.fcd-in{padding-left:14px}.fcd-in .fc-paso{grid-template-columns:1fr}}
+
+/* ===== respuesta escrita y verificación ===== */
+.fcs-input { width: 100%; box-sizing: border-box; margin-top: 12px; padding: 12px 14px; border-radius: 14px; border: 2px dashed rgba(15,23,42,.28); background: rgba(255,255,255,.55); color: #0f172a; font: 600 .95rem/1.5 inherit; font-family: inherit; resize: vertical; min-height: 110px; }
+.fcs-input:focus { outline: 0; border-style: solid; border-color: #6366f1; background: rgba(255,255,255,.85); }
+.fcs-escribe { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+.fcs-escribe .fcs-input { margin-top: 0; background: var(--card-bg, #fff); color: var(--text-main, #0f172a); border-color: var(--border, #cbd5e1); }
+.fcs-b.sug { box-shadow: 0 0 0 3px rgba(99,102,241,.45), 0 12px 20px -12px #6366f1; transform: translateY(-2px); }
+.fcv { margin-top: 12px; border-radius: 16px; padding: 12px 14px; background: rgba(255,255,255,.7); color: #0f172a; border: 2px solid #94a3b8; text-align: left; }
+.fcv.ok { border-color: #16a34a; } .fcv.med { border-color: #f59e0b; } .fcv.mal { border-color: #dc2626; }
+.fcv-cab { display: flex; gap: 12px; align-items: center; }
+.fcv-pct { font-size: 1.5rem; font-weight: 900; min-width: 62px; text-align: center; }
+.fcv.ok .fcv-pct { color: #15803d; } .fcv.med .fcv-pct { color: #b45309; } .fcv.mal .fcv-pct { color: #b91c1c; }
+.fcv-cab small { display: block; opacity: .7; font-size: .74rem; margin-top: 2px; }
+.fcv-lista { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.fcv-it { display: flex; gap: 8px; align-items: flex-start; font-size: .86rem; line-height: 1.4; padding: 6px 8px; border-radius: 10px; background: rgba(15,23,42,.05); }
+.fcv-it.ok { background: rgba(22,163,74,.12); } .fcv-it.parcial { background: rgba(245,158,11,.14); } .fcv-it.falta { background: rgba(220,38,38,.1); }
+.fcv-it i { font-style: normal; flex: 0 0 auto; }
+.fcv-mia { margin-top: 8px; font-size: .82rem; } .fcv-mia summary { cursor: pointer; font-weight: 800; } .fcv-mia p { margin: 6px 0 0; opacity: .85; }
+body.dark-mode .fcv { background: rgba(15,23,42,.75); color: #f1f5f9; }
+body.dark-mode .fcv-it { background: rgba(255,255,255,.07); }
+body.dark-mode .fcs-input { background: rgba(15,23,42,.7); color: #f1f5f9; border-color: rgba(255,255,255,.3); }
+body.dark-mode .fcs-escribe .fcs-input { background: #0f172a; border-color: #2b3a57; }

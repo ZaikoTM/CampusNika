@@ -392,6 +392,41 @@
     ov.classList.add('on'); document.body.style.overflow = 'hidden'; ov.scrollTop = 0;
   }
 
+  // ---------- Verificación de la respuesta escrita ----------
+  // Compara lo que escribió la persona contra los puntos de la ficha por coincidencia de conceptos (fármacos, dosis, términos clave).
+  // Es orientativa: no entiende el sentido de la frase, solo si nombró los elementos importantes.
+  const STOP = new Set('de la el los las un una unos unas y o u a en con por para del al se su sus que es son o si no lo le les como mas menos entre sobre sin segun hasta desde tras ante cada todo toda todos todas muy ya ser esta este estos estas esa ese eso otro otra otros otras puede pueden debe deben tambien solo solos sola cuando donde luego mientras durante antes despues'.split(' '));
+  const sinAcento = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const rad = (w) => { w = w.replace(/(mente|aciones|acion|ciones|cion|idades|idad|ados|adas|ado|ada|ando|iendo|ante|es|s)$/, ''); return w.length > 5 ? w.slice(0, 5) : w; };
+  const tokens = (t) => sinAcento(t).replace(/[^a-z0-9.,/%\s]/g, ' ').replace(/(\d)[.,](\d)/g, '$1p$2').split(/\s+/).filter((w) => w && !STOP.has(w) && (w.length >= 3 || /\d/.test(w)));
+  const puntosDe = (p, c) => {
+    const out = [];
+    seccionesDe(c).forEach((sec) => {
+      if (sec.id === 'tx') (p.tratamiento || []).forEach((b) => (b.pasos || []).forEach((st) => out.push({ rot: st.etiqueta, txt: st.texto, sec: b.titulo })));
+      else if (sec.id === 'dx') { if (p.definicion) out.push({ rot: 'Definición', txt: p.definicion, sec: sec.nom }); (p.diagnostico || []).forEach((x) => out.push({ rot: '', txt: x, sec: sec.nom })); }
+      else { const l = sec.id === 'est' ? p.estudios : sec.id === 'seg' ? p.seguimiento : p.banderas; (l || []).forEach((x) => out.push({ rot: '', txt: x, sec: sec.nom })); }
+    });
+    return out;
+  };
+  function verificar(p, c, resp) {
+    const rTok = tokens(resp), rSet = new Set(rTok.map(rad)), crudo = sinAcento(resp);
+    const tiene = (w) => { const r = rad(w); if (rSet.has(r)) return true; if (/\d/.test(w)) return crudo.indexOf(w.replace(/p/, ',')) >= 0 || crudo.indexOf(w.replace(/p/, '.')) >= 0; return r.length >= 5 && [...rSet].some((x) => x.length >= 5 && x.slice(0, 5) === r.slice(0, 5)); };
+    const puntos = puntosDe(p, c).map((pt) => {
+      const clave = [...new Set(tokens((pt.rot ? pt.rot + ' ' : '') + pt.txt))].sort((a, b) => (/\d/.test(b) - /\d/.test(a)) || b.length - a.length).slice(0, 7);
+      const hit = clave.filter(tiene).length, f = clave.length ? hit / clave.length : 0;
+      return Object.assign({}, pt, { f, est: f >= 0.45 ? 'ok' : f >= 0.2 ? 'parcial' : 'falta' });
+    });
+    const n = puntos.length || 1, nota = puntos.reduce((a, x) => a + (x.est === 'ok' ? 1 : x.est === 'parcial' ? 0.5 : 0), 0) / n;
+    return { puntos, nota, vacio: rTok.length === 0 };
+  }
+  const resultadoHtml = (r, resp) => {
+    const pct = Math.round(r.nota * 100), cls = pct >= 70 ? 'ok' : pct >= 40 ? 'med' : 'mal';
+    const veredicto = r.vacio ? 'No escribiste nada: igual podés repasar la respuesta.' : pct >= 70 ? '¡Muy bien! Cubriste casi todo.' : pct >= 40 ? 'Vas bien, pero faltaron puntos importantes.' : 'Te faltaron varios puntos: repasá la respuesta de abajo.';
+    return '<div class="fcv ' + cls + '"><div class="fcv-cab"><div class="fcv-pct">' + (r.vacio ? '–' : pct + '%') + '</div><div><b>' + veredicto + '</b><small>Cubriste ' + r.puntos.filter((x) => x.est === 'ok').length + ' de ' + r.puntos.length + ' puntos. Verificación automática por conceptos: es orientativa.</small></div></div>' +
+      '<div class="fcv-lista">' + r.puntos.map((x) => '<div class="fcv-it ' + x.est + '"><i>' + (x.est === 'ok' ? '✅' : x.est === 'parcial' ? '🟡' : '❌') + '</i><span>' + (x.rot ? '<b>' + esc(x.rot) + '</b> ' : '') + fmt(x.txt) + '</span></div>').join('') + '</div>' +
+      (resp ? '<details class="fcv-mia"><summary>Lo que escribiste</summary><p>' + esc(resp).replace(/\n/g, '<br>') + '</p></details>' : '') + '</div>';
+  };
+
   // ---------- Simulador FlashCard y modo Practicar ----------
   const AREAS = [
     { id: 'ginecologia', nom: 'Ginecología y Obstetricia', ico: '🌸', c: '#ec4899', ok: true },
@@ -429,7 +464,7 @@
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards.</div>'; return; }
       const st = Object.assign({ area: 'ginecologia', alcance: 'final', unidad: 'up3-sec4', cont: 'tx', n: 10, soloPend: false }, (opts && opts.estado) || {});
-      let mazo = [], i = 0, vista = false, repasar = [], sabidas = 0;
+      let mazo = [], i = 0, vista = false, repasar = [], sabidas = 0, miResp = '', res = null;
       const setup = () => {
         const total = poolDe(st).length;
         host.innerHTML = '<div class="fcs-setup">' +
@@ -441,15 +476,17 @@
           '<div class="fcs-go"><button type="button" class="fcs-start" data-go="1"' + (total ? '' : ' disabled') + '><span>▶ Empezar</span><small>' + total + ' tarjetas disponibles</small></button>' +
           '<p>Las tarjetas basadas en apuntes llevan el aviso «verificar con guías actuales».</p></div></div>';
       };
-      const empezar = () => { mazo = barajar(poolDe(st)); if (st.n) mazo = mazo.slice(0, st.n); i = 0; vista = false; repasar = []; sabidas = 0; carta(); };
+      const empezar = () => { mazo = barajar(poolDe(st)); if (st.n) mazo = mazo.slice(0, st.n); i = 0; vista = false; repasar = []; sabidas = 0; miResp = ''; res = null; carta(); };
       const carta = () => {
         if (i >= mazo.length) return fin();
         const p = mazo[i], c = CONTENIDOS.find((x) => x.id === st.cont), pct = Math.round(i * 100 / mazo.length);
         host.innerHTML = '<div class="fcs-run"><div class="fcs-top"><button type="button" class="fcs-salir" data-salir="1">✕ Salir</button><div class="fcs-barra"><b style="width:' + pct + '%"></b></div><span class="fcs-cont">' + (i + 1) + ' / ' + mazo.length + '</span></div>' +
           '<div class="fcs-escena"><div class="fcs-in' + (vista ? ' vuelta' : '') + '" style="--paper:' + (colorDe(p)) + '"><span class="pin"></span><span class="fc-sello-g fcs-sg"></span>' +
           '<div class="fcs-uni-t">' + esc(d.meta.unidades[(p.up || [])[0]] || '') + '</div><div class="fcs-q">' + esc(p.titulo) + '</div><div class="fcs-pq">' + c.ico + ' ' + esc(c.q) + '</div>' +
-          (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p) : '<p class="fcs-pensa">Pensá tu respuesta y después tocá «Mostrar».</p>') + '</div></div>' +
-          '<div class="fcs-acc">' + (vista ? '<button type="button" class="fcs-b no" data-r="no">😅 A repasar</button><button type="button" class="fcs-b si" data-r="si">✅ Lo sabía</button>' : '<button type="button" class="fcs-b mostrar" data-mostrar="1">👀 Mostrar respuesta</button>') + '</div></div>';
+          (vista ? (res ? resultadoHtml(res, miResp) : '') + '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p)
+            : '<textarea class="fcs-input" id="fcs-input" rows="5" maxlength="1500" placeholder="Escribí tu respuesta como la dirías en el examen…" aria-label="Tu respuesta">' + esc(miResp) + '</textarea>') + '</div></div>' +
+          '<div class="fcs-acc">' + (vista ? '<button type="button" class="fcs-b no' + (res && res.nota < 0.7 ? ' sug' : '') + '" data-r="no">😅 A repasar</button><button type="button" class="fcs-b si' + (res && res.nota >= 0.7 ? ' sug' : '') + '" data-r="si">✅ Lo sabía</button>'
+            : '<button type="button" class="fcs-b mostrar" data-verificar="1">✅ Verificar mi respuesta</button><button type="button" class="fcs-b no" data-mostrar="1">👀 Solo mostrar</button>') + '</div></div>';
       };
       const fin = () => {
         const pct = mazo.length ? Math.round(sabidas * 100 / mazo.length) : 0;
@@ -465,11 +502,12 @@
         const n = t.closest('[data-n]'); if (n) { st.n = parseInt(n.dataset.n, 10); return setup(); }
         const ck = t.closest('[data-chk]'); if (ck) { st.soloPend = ck.checked; return setup(); }
         if (t.closest('[data-go]')) return empezar();
-        if (t.closest('[data-mostrar]')) { vista = true; return carta(); }
+        if (t.closest('[data-verificar]')) { const ta = host.querySelector('#fcs-input'); miResp = ta ? ta.value : ''; res = verificar(mazo[i], CONTENIDOS.find((x) => x.id === st.cont), miResp); vista = true; return carta(); }
+        if (t.closest('[data-mostrar]')) { const ta = host.querySelector('#fcs-input'); miResp = ta ? ta.value : ''; res = null; vista = true; return carta(); }
         const r = t.closest('[data-r]');
-        if (r) { const p = mazo[i]; if (r.dataset.r === 'si') { sabidas++; marcar(p.id, true); } else repasar.push(p); i++; vista = false; return carta(); }
+        if (r) { const p = mazo[i]; if (r.dataset.r === 'si') { sabidas++; marcar(p.id, true); } else repasar.push(p); i++; vista = false; miResp = ''; res = null; return carta(); }
         if (t.closest('[data-salir]') || t.closest('[data-setup]')) return setup();
-        if (t.closest('[data-again]')) { mazo = barajar(repasar.slice()); i = 0; vista = false; repasar = []; sabidas = 0; return carta(); }
+        if (t.closest('[data-again]')) { mazo = barajar(repasar.slice()); i = 0; vista = false; repasar = []; sabidas = 0; miResp = ''; res = null; return carta(); }
         const v = t.closest('[data-ver]'); if (v) return abrir(v.dataset.ver, ['tx', 'dx']);
       };
       host.onchange = null;
@@ -483,7 +521,7 @@
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards.</div>'; return; }
       const st = Object.assign({ alcance: 'unidad', unidad: 'up3-sec4', cont: 'tx', soloPend: false }, (opts && opts.estado) || {});
-      let mazo = [], i = 0, vista = false, enMazo = false;
+      let mazo = [], i = 0, vista = false, enMazo = false, miResp = '', res = null;
       const setup = () => {
         const total = poolDe(st).length;
         host.innerHTML = '<div class="fcs-setup"><section class="fcs-sec"><h3><span>1</span> ¿Qué unidad querés practicar?</h3>' +
@@ -501,17 +539,20 @@
           (vista ? '<div class="fcs-resp fc-papel">' + bloquesHtml(p, c) + '</div>' + sello(p) : '<p class="fcs-pensa">Tocá la tarjeta o presioná espacio para darla vuelta.</p>') + '</div></div>' +
           '<div class="fcs-acc"><button type="button" class="fcs-b no" data-prev="1"' + (i ? '' : ' disabled') + '>← Anterior</button><button type="button" class="fcs-b mostrar" data-voltear="1">' + (vista ? '↺ Ver el frente' : '👀 Dar vuelta') + '</button>' +
           '<button type="button" class="fcs-b si" data-saber="1">' + (ok ? '↩ Repasar' : '✅ La sé') + '</button><button type="button" class="fcs-b no" data-next="1"' + (i < mazo.length - 1 ? '' : ' disabled') + '>Siguiente →</button></div>' +
+          (res ? resultadoHtml(res, miResp) : '<div class="fcs-escribe"><textarea class="fcs-input" id="fcs-input" rows="4" maxlength="1500" placeholder="Escribí acá tu respuesta y verificá si es correcta…" aria-label="Tu respuesta">' + esc(miResp) + '</textarea>' +
+            '<button type="button" class="fcs-b si" data-verificar="1">✅ Verificar mi respuesta</button></div>') +
           '<p class="fcs-ayuda">Atajos: ← → para moverte · espacio para dar vuelta · S para marcar «La sé»</p></div>';
       };
-      const ir = (k) => { i = Math.max(0, Math.min(mazo.length - 1, i + k)); vista = false; mostrar(); };
+      const ir = (k) => { i = Math.max(0, Math.min(mazo.length - 1, i + k)); vista = false; miResp = ''; res = null; mostrar(); };
       host.onclick = (e) => {
         const t = e.target;
         const al = t.closest('[data-alc]'); if (al) { st.alcance = al.dataset.alc; return setup(); }
         const u = t.closest('[data-unidad]'); if (u) { st.alcance = 'unidad'; st.unidad = u.dataset.unidad; return setup(); }
         const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }
         const ck = t.closest('[data-chk]'); if (ck) { st.soloPend = ck.checked; return setup(); }
-        if (t.closest('[data-go]')) { mazo = poolDe(st); if (!mazo.length) return; i = 0; vista = false; enMazo = true; return mostrar(); }
-        if (t.closest('[data-voltear]')) { vista = !vista; return mostrar(); }
+        if (t.closest('[data-go]')) { mazo = poolDe(st); if (!mazo.length) return; i = 0; vista = false; enMazo = true; miResp = ''; res = null; return mostrar(); }
+        if (t.closest('[data-verificar]')) { const ta = host.querySelector('#fcs-input'); miResp = ta ? ta.value : ''; res = verificar(mazo[i], CONTENIDOS.find((x) => x.id === st.cont), miResp); vista = true; return mostrar(); }
+        if (t.closest('[data-voltear]')) { const ta = host.querySelector('#fcs-input'); if (ta) miResp = ta.value; vista = !vista; return mostrar(); }
         if (t.closest('[data-next]')) return ir(1);
         if (t.closest('[data-prev]')) return ir(-1);
         if (t.closest('[data-saber]')) { const p = mazo[i]; marcar(p.id, !leerOk()[p.id]); return mostrar(); }
