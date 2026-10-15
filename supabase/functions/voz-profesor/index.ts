@@ -17,7 +17,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { withCors } from "../_shared/cors.ts";
 import { consultarPlan } from "../_shared/evaluador.ts";
 
-const MODELO_TTS = Deno.env.get("GEMINI_MODEL_TTS") ?? "gemini-2.5-flash-preview-tts";
+const MODELOS_TTS = [Deno.env.get("GEMINI_MODEL_TTS"), "gemini-2.5-flash-preview-tts", "gemini-2.5-pro-preview-tts"].filter((m, i, a) => m && a.indexOf(m) === i) as string[];
 const MAX_TEXTO = 700;
 const LIMITE = 80;                 // pedidos por usuario y ventana (mejor esfuerzo, por instancia)
 const VENTANA_MS = 10 * 60_000;
@@ -73,39 +73,41 @@ async function handler(req: Request): Promise<Response> {
   const tono = TONOS[String(body?.animo ?? "cordial")] ?? TONOS.cordial;
 
   const prompt = `Leé en voz alta, ${cfg.acento}, ${tono}, como un profesor examinador de Medicina que toma un examen oral. Hablá a ritmo natural, sin leer signos de puntuación ni indicaciones:\n\n${texto}`;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO_TTS}:generateContent?key=${apiKey}`;
-  const ctrl = new AbortController();
-  const to = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
-  try {
-    const resp = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: ctrl.signal,
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          responseModalities: ["AUDIO"],
-          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: cfg.voz } } },
-        },
-      }),
-    });
-    const data = await resp.json().catch(() => ({}));
-    if (!resp.ok) {
-      console.error("[voz-profesor] Gemini:", resp.status, data?.error?.message);
-      return json({ error: "tts_error", mensaje: data?.error?.message ?? `Gemini respondió HTTP ${resp.status}` }, 502);
+  const cuerpo = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      responseModalities: ["AUDIO"],
+      speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: cfg.voz } } },
+    },
+  });
+  let ultimoError = "";
+  for (const modelo of MODELOS_TTS) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${apiKey}`;
+    const ctrl = new AbortController();
+    const to = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+    try {
+      const resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, signal: ctrl.signal, body: cuerpo });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok) {
+        ultimoError = `${modelo}: HTTP ${resp.status} ${data?.error?.message ?? ""}`.trim();
+        console.error("[voz-profesor] Gemini:", ultimoError);
+        // modelo inexistente / sin acceso: se prueba el siguiente; errores de cuota u otros se informan igual al final
+        continue;
+      }
+      const parte = data?.candidates?.[0]?.content?.parts?.find((p: any) => p?.inlineData?.data || p?.inline_data?.data);
+      const inline = parte?.inlineData ?? parte?.inline_data;
+      if (!inline?.data) { ultimoError = `${modelo}: sin audio en la respuesta (${data?.candidates?.[0]?.finishReason ?? "?"})`; console.error("[voz-profesor]", ultimoError); continue; }
+      const mime = String(inline.mimeType ?? inline.mime_type ?? "audio/L16;codec=pcm;rate=24000");
+      const rate = Number(/rate=(\d+)/.exec(mime)?.[1] ?? 24000);
+      return json({ audio: inline.data, rate, mime, modelo });
+    } catch (e) {
+      ultimoError = `${modelo}: ${(e as Error)?.name === "AbortError" ? "tiempo agotado" : (e as Error)?.message}`;
+      console.error("[voz-profesor] fallo:", ultimoError);
+    } finally {
+      clearTimeout(to);
     }
-    const parte = data?.candidates?.[0]?.content?.parts?.find((p: any) => p?.inlineData?.data);
-    if (!parte) return json({ error: "sin_audio", mensaje: "La IA no devolvió audio." }, 502);
-    const mime = String(parte.inlineData.mimeType ?? "audio/L16;codec=pcm;rate=24000");
-    const rate = Number(/rate=(\d+)/.exec(mime)?.[1] ?? 24000);
-    return json({ audio: parte.inlineData.data, rate, mime });
-  } catch (e) {
-    const abortado = (e as Error)?.name === "AbortError";
-    console.error("[voz-profesor] fallo:", (e as Error)?.message);
-    return json({ error: abortado ? "timeout" : "tts_error", mensaje: abortado ? "La voz tardó demasiado." : "No se pudo generar la voz." }, 504);
-  } finally {
-    clearTimeout(to);
   }
+  return json({ error: "tts_error", mensaje: "No se pudo generar la voz con la IA.", detalle: ultimoError }, 502);
 }
 
 Deno.serve(withCors(handler));

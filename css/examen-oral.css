@@ -173,3 +173,10 @@ input[type=range] { accent-color: #6366f1; width: 100%; height: 6px; cursor: poi
 .eo-volpie { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; font-weight: 800; } .eo-volpie input { width: 110px; }
 
 .eo-bloq-acc { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+.eo-voz-estado { margin: 4px 0 10px; padding: 9px 12px; border-radius: 12px; font-weight: 700; font-size: .84rem; line-height: 1.4; }
+.eo-voz-estado[hidden] { display: none; }
+.eo-voz-estado.wait { background: rgba(14,165,233,.12); border: 1px solid rgba(14,165,233,.4); }
+.eo-voz-estado.ok { background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.4); }
+.eo-voz-estado.warn { background: rgba(245,158,11,.14); border: 1px solid rgba(245,158,11,.45); }
+.eo-voz-estado.err { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.45); }

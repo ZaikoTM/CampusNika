@@ -163,7 +163,7 @@
     try { S.voces = (window.speechSynthesis.getVoices() || []).filter((v) => /^es/i.test(v.lang)); } catch (_) { S.voces = []; }
     S.voces.sort((a, b) => (/es-AR/i.test(b.lang) - /es-AR/i.test(a.lang)) || (/es-(MX|US|419)/i.test(b.lang) - /es-(MX|US|419)/i.test(a.lang)) || a.name.localeCompare(b.name));
     const sel = $('eo-voz'); if (!sel) return;
-    sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">No hay voces en este dispositivo</option>';
+    sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">Este navegador no expone voces del sistema: usá una de las voces de IA</option>';
     const g = S.sel.startsWith('dev:') ? S.sel.slice(4) : '';
     const k = S.voces.findIndex((v) => v.name === g);
     sel.value = String(k >= 0 ? k : 0); S.voz = S.voces[k >= 0 ? k : 0] || null;
@@ -201,7 +201,7 @@
     try {
       const r = await fetch(base + '/functions/v1/voz-profesor', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token, apikey }, body: JSON.stringify({ texto, voz, animo: mood }), signal: ctrl.signal });
       const d = await r.json().catch(() => ({}));
-      if (!r.ok || !d.audio) { const e = new Error(d.mensaje || d.error || 'Error ' + r.status); e.status = r.status; throw e; }
+      if (!r.ok || !d.audio) { const e = new Error((d.mensaje || d.error || 'Error ' + r.status) + (d.detalle ? ' — ' + d.detalle : '')); e.status = r.status; e.codigo = d.error; throw e; }
       const url = pcmAWav(d.audio, d.rate || 24000);
       if (S.cache.size > 40) S.cache.clear();
       S.cache.set(key, url); return url;
@@ -212,8 +212,8 @@
       if (tok !== S.tok) return resolve();
       const a = new Audio(url); S.audio = a; a.volume = S.vol; a.playbackRate = S.vel;
       const fin = () => { if (S.audio === a) S.audio = null; resolve(); };
-      a.onended = fin; a.onerror = fin;
-      a.play().catch(fin);
+      a.onended = fin; a.onerror = () => { S.fallo = 'El navegador no pudo reproducir el audio.'; fin(); };
+      a.play().catch((e) => { S.fallo = 'El navegador bloqueó la reproducción del audio (' + ((e && e.name) || 'error') + '). Tocá "Probar voz" de nuevo.'; fin(); });
     });
   }
   async function hablarIA(texto, voz, mood, tok) {
@@ -245,22 +245,42 @@
   }
   async function hablar(texto, mood) {
     if (!texto) return;
-    const tok = ++S.tok; S.hablando = true; avatar(true);
+    const tok = ++S.tok; S.hablando = true; avatar(true); S.fallo = ''; S.via = '';
     try {
       if (S.sel.startsWith('ia:')) {
-        try { await hablarIA(texto, S.sel.slice(3), mood || 'cordial', tok); }
+        try { await hablarIA(texto, S.sel.slice(3), mood || 'cordial', tok); S.via = S.fallo ? 'ninguna' : 'ia'; }
         catch (e) {
           // si la voz IA no está disponible, se sigue con la del dispositivo para no cortar el examen
-          if (tok === S.tok) { S.avisoVoz = 'La voz del profesor (IA) no está disponible ahora' + (e && e.status === 403 ? ' (requiere NikaMed+)' : '') + ': uso la voz del dispositivo.'; estado.aviso = S.avisoVoz; await hablarDispositivo(texto, mood, tok); }
+          if (tok === S.tok) {
+            S.fallo = (e && e.message) || 'sin detalle';
+            if (hayVocesDispositivo()) { S.via = 'dispositivo'; await hablarDispositivo(texto, mood, tok); }
+            else { S.via = 'ninguna'; estado.subs = true; }
+            S.avisoVoz = 'No pude generar la voz del profesor (' + S.fallo + ').' + (S.via === 'ninguna' ? ' Este equipo tampoco tiene voces instaladas: seguí con el texto en pantalla.' : ' Uso la voz del dispositivo.');
+            estado.aviso = S.avisoVoz;
+          }
         }
-      } else await hablarDispositivo(texto, mood, tok);
+      } else if (hayVocesDispositivo()) { S.via = 'dispositivo'; await hablarDispositivo(texto, mood, tok); }
+      else { S.via = 'ninguna'; S.fallo = 'Este equipo no tiene voces instaladas.'; estado.subs = true; }
     } finally { if (tok === S.tok) { S.hablando = false; avatar(false); } }
+    pintarEstadoVoz();
   }
   function callar() {
     S.tok++; S.hablando = false;
     try { if (S.audio) { S.audio.pause(); S.audio = null; } } catch (_) {}
     try { window.speechSynthesis.cancel(); } catch (_) {}
     avatar(false);
+  }
+  function hayVocesDispositivo() { try { return (window.speechSynthesis.getVoices() || []).some((v) => /^es/i.test(v.lang)) || (window.speechSynthesis.getVoices() || []).length > 0; } catch (_) { return false; } }
+  function pintarEstadoVoz(texto, tipo) {
+    const el = $('eo-voz-estado'); if (!el) return;
+    let t = texto, c = tipo || '';
+    if (t == null) {
+      if (S.via === 'ia') { t = '✅ Voz de IA reproducida correctamente.'; c = 'ok'; }
+      else if (S.via === 'dispositivo') { t = S.fallo ? '⚠️ La voz de IA falló (' + S.fallo + '). Se usó la voz del dispositivo.' : '✅ Voz del dispositivo reproducida.'; c = S.fallo ? 'warn' : 'ok'; }
+      else if (S.via === 'ninguna') { t = '❌ ' + (S.fallo || 'No se pudo reproducir la voz.') + ' Probá con otra voz o revisá el volumen de tu equipo.'; c = 'err'; }
+      else t = '';
+    }
+    el.textContent = t; el.className = 'eo-voz-estado ' + c; el.hidden = !t;
   }
   function aplicarVolumen() { if (S.audio) { S.audio.volume = S.vol; S.audio.playbackRate = S.vel; } }
 
@@ -733,6 +753,7 @@
     return '<div class="eo-lbl">Voz del profesor</div><div class="eo-voces">' + cards
       + '<button type="button" class="eo-voz' + (S.sel.startsWith('dev:') ? ' on' : '') + '" data-eo="vozdev"><i>💻</i><span><b>Voz del dispositivo</b><small>Gratis · depende de tu equipo</small></span></button></div>'
       + '<div class="eo-vozdev"' + (S.sel.startsWith('dev:') ? '' : ' hidden') + '><select id="eo-voz" aria-label="Voz del dispositivo"></select></div>'
+      + '<p class="eo-voz-estado" id="eo-voz-estado" hidden></p>'
       + '<div class="eo-controles"><label>🔊 Volumen <b id="eo-vol-t">' + Math.round(S.vol * 100) + '%</b><input type="range" id="eo-vol" min="0" max="100" value="' + Math.round(S.vol * 100) + '"></label>'
       + '<label>⏩ Velocidad <b id="eo-vel-t">' + S.vel.toFixed(2).replace(/\.?0+$/, '') + '×</b><input type="range" id="eo-vel" min="70" max="140" value="' + Math.round(S.vel * 100) + '"></label>'
       + '<button type="button" class="eo-btn eo-btn--sec" data-eo="probar">▶️ Probar voz</button></div>';
@@ -823,9 +844,9 @@
       else if (a === 'volver') { estado.paso = 1; callar(); pintar(); }
       else if (a === 'modo') { estado.modo = b.dataset.v; estado.up = ''; pintar(); }
       else if (a === 'up') { estado.up = b.dataset.v; const t = $('eo-temas'); if (t) estado.temas = t.open; pintar(); }
-      else if (a === 'vozia') { S.sel = 'ia:' + b.dataset.v; guardaPref('nika_eo_voz', S.sel); callar(); pintar(); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
+      else if (a === 'vozia') { S.sel = 'ia:' + b.dataset.v; guardaPref('nika_eo_voz', S.sel); callar(); pintar(); pintarEstadoVoz('⏳ Generando la voz del profesor…', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
       else if (a === 'vozdev') { cargarVoces(); const g = S.voces[0]; S.sel = 'dev:' + (g ? g.name : ''); guardaPref('nika_eo_voz', S.sel); callar(); pintar(); }
-      else if (a === 'probar') { callar(); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
+      else if (a === 'probar') { callar(); pintarEstadoVoz('⏳ Generando la voz del profesor…', 'wait'); hablar('Buenos días. Así voy a sonar durante el examen. ¿Comenzamos?', 'cordial'); }
       else if (a === 'comenzar') { if (!estado.plus) return; const n = $('eo-n'); if (n) estado.n = Number(n.value) || 6; iniciar(); }
       else if (a === 'listo') { callar(); if (estado.limite) { const c = estado.conv, t = estado.textoPausado; estado.limite = false; estado.textoPausado = ''; detenerEscucha(); const cb = alTerminar || ((x) => alResponder(x)); alTerminar = null; cb(t); } else terminarEscucha(); }
       else if (a === 'seguir') { callar(); seguirRespuesta(); }
