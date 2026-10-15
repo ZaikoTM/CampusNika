@@ -21,15 +21,37 @@ async function asegurar(voz, progreso) {
   return sesion;
 }
 
+// Una voz cuenta como guardada solo si el modelo (.onnx) y su configuración (.json) están completos en el almacenamiento del navegador.
+const MIN_BYTES = { 'es_AR-daniela-high': 90e6, 'es_MX-ald-medium': 50e6 };
+async function completas() {
+  const ok = [];
+  try {
+    const root = await navigator.storage.getDirectory();
+    const dir = await root.getDirectoryHandle('piper', { create: true });
+    const tam = {};
+    for await (const [nombre, h] of dir.entries()) { if (h.kind === 'file') { try { tam[nombre] = (await h.getFile()).size; } catch (_) { tam[nombre] = 0; } } }
+    Object.keys(tam).forEach((n) => {
+      if (!n.endsWith('.onnx')) return;
+      const voz = n.slice(0, -5), min = MIN_BYTES[voz] || 1e6;
+      if (tam[n] >= min && (tam[n + '.json'] || 0) > 100) ok.push(voz);
+    });
+  } catch (_) {}
+  return ok;
+}
 const responder = (id, datos, transfer) => self.postMessage(Object.assign({ id }, datos), transfer || []);
 
 async function atender(m) {
   const { id, cmd, voz, texto } = m;
   try {
     if (cmd === 'guardadas') {
-      responder(id, { tipo: 'listo', voces: await stored() });
+      responder(id, { tipo: 'listo', voces: await completas() });
     } else if (cmd === 'descargar') {
       await download(voz, (p) => { if (p && p.total) responder(id, { tipo: 'progreso', cargado: p.loaded, total: p.total }); });
+      // se comprueba que quedó realmente guardada (modo privado, poco espacio o permisos pueden impedirlo sin dar error)
+      if (!(await completas()).includes(voz)) {
+        try { await remove(voz); } catch (_) {}
+        throw new Error('Tu navegador no pudo guardar la voz (¿modo privado o poco espacio?). Probá en una ventana normal o liberá espacio.');
+      }
       responder(id, { tipo: 'listo' });
     } else if (cmd === 'borrar') {
       await remove(voz);

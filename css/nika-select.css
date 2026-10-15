@@ -1,0 +1,29 @@
+/* Menús desplegables con estilo Nika (js/nikaSelect.js). Paleta por tema: clásico (claro), oscuro y premium (violeta). */
+.nsel { --ns-bg: #fff; --ns-bg2: #f1f5f9; --ns-bd: #cbd5e1; --ns-tx: #0f172a; --ns-mut: #64748b; --ns-ac: #6366f1; --ns-ac2: #0284c7; --ns-on: rgba(99,102,241,.12); position: relative; width: 100%; }
+body.dark-mode .nsel { --ns-bg: #111a2e; --ns-bg2: #172238; --ns-bd: #2b3a57; --ns-tx: #f1f5f9; --ns-mut: #94a3b8; --ns-ac: #818cf8; --ns-ac2: #38bdf8; --ns-on: rgba(129,140,248,.2); }
+body.tema-premium .nsel { --ns-bg: #1b1038; --ns-bg2: #261650; --ns-bd: #4c2f8f; --ns-tx: #f5f3ff; --ns-mut: #c4b5fd; --ns-ac: #a78bfa; --ns-ac2: #c084fc; --ns-on: rgba(167,139,250,.24); }
+.nsel-nativo { position: absolute !important; opacity: 0; pointer-events: none; width: 1px; height: 1px; margin: 0; }
+.nsel-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; font: inherit; font-weight: 700; padding: 12px 14px; border-radius: 14px; cursor: pointer;
+  background: var(--ns-bg); color: var(--ns-tx); border: 2px solid var(--ns-bd); transition: border-color .2s, box-shadow .2s, transform .15s, background .2s; }
+.nsel-btn:hover { border-color: var(--ns-ac); transform: translateY(-1px); }
+.nsel-btn:focus-visible, .nsel.abierto .nsel-btn { outline: 0; border-color: var(--ns-ac); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ns-ac) 28%, transparent); }
+.nsel-btn:disabled { opacity: .55; cursor: not-allowed; }
+.nsel-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nsel-flecha { width: 9px; height: 9px; flex: 0 0 auto; border-right: 2.5px solid var(--ns-ac); border-bottom: 2.5px solid var(--ns-ac); transform: translateY(-2px) rotate(45deg); transition: transform .25s cubic-bezier(.22, 1.4, .36, 1); }
+.nsel.abierto .nsel-flecha { transform: translateY(2px) rotate(225deg); }
+.nsel-lista { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 9999; max-height: 280px; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 3px;
+  background: var(--ns-bg); color: var(--ns-tx); border: 2px solid var(--ns-ac); border-radius: 16px; box-shadow: 0 22px 40px -16px rgba(15,23,42,.45), 0 0 0 4px color-mix(in srgb, var(--ns-ac) 14%, transparent);
+  transform-origin: top; animation: nselIn .18s cubic-bezier(.22, 1.2, .36, 1); }
+.nsel.arriba .nsel-lista { top: auto; bottom: calc(100% + 6px); transform-origin: bottom; }
+@keyframes nselIn { from { opacity: 0; transform: translateY(-6px) scale(.97); } to { opacity: 1; transform: none; } }
+.nsel-op { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; font: inherit; font-weight: 700; font-size: .92rem; padding: 10px 12px; border: 0; border-radius: 11px; cursor: pointer;
+  background: transparent; color: var(--ns-tx); transition: background .12s, transform .12s; }
+.nsel-op:hover, .nsel-op:focus-visible { outline: 0; background: var(--ns-bg2); transform: translateX(2px); }
+.nsel-op.on { background: var(--ns-on); color: var(--ns-ac); }
+.nsel-op b { color: var(--ns-ac); font-size: .9rem; }
+.nsel-op:disabled { opacity: .45; cursor: not-allowed; }
+.nsel-lista::-webkit-scrollbar { width: 8px; } .nsel-lista::-webkit-scrollbar-thumb { background: var(--ns-bd); border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) { .nsel-lista { animation: none; } .nsel-btn, .nsel-op, .nsel-flecha { transition: none; } }
+
+.nsel-sube { position: relative; z-index: 60; }
+.nsel-lista[hidden] { display: none !important; }

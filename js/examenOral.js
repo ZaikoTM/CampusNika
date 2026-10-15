@@ -159,7 +159,7 @@
 
   function cargarVoces() {
     try { S.voces = (window.speechSynthesis.getVoices() || []).filter((v) => /^es/i.test(v.lang)); } catch (_) { S.voces = []; }
-    S.voces.sort((a, b) => (/es-AR/i.test(b.lang) - /es-AR/i.test(a.lang)) || (/es-(MX|US|419)/i.test(b.lang) - /es-(MX|US|419)/i.test(a.lang)) || a.name.localeCompare(b.name));
+    S.voces.sort((a, b) => ((b.localService !== false) - (a.localService !== false)) || (/es-AR/i.test(b.lang) - /es-AR/i.test(a.lang)) || (/es-(MX|US|419)/i.test(b.lang) - /es-(MX|US|419)/i.test(a.lang)) || a.name.localeCompare(b.name));
     const sel = $('eo-voz'); if (!sel) return;
     sel.innerHTML = S.voces.length ? S.voces.map((v, i) => '<option value="' + i + '">' + esc(v.name) + ' · ' + esc(v.lang) + '</option>').join('') : '<option value="">Este navegador no expone voces del sistema</option>';
     let g = ''; try { g = localStorage.getItem('nika_eo_vozdev') || ''; } catch (_) {}
@@ -292,13 +292,36 @@
       const synth = window.speechSynthesis;
       if (!synth || !texto) return resolve();
       const P = PARAMS[mood || 'cordial'], trozos = trocear(texto, 170);
-      let i = 0;
+      let i = 0, voz = S.voz, probadas = 0, hablo = false;
+      try { synth.cancel(); synth.resume(); } catch (_) {}
+      // otras voces en español para reintentar si la elegida no suena (algunas voces del sistema fallan en silencio)
+      const alternativas = () => (S.voces || []).filter((v) => v !== voz && v.localService !== false).concat((S.voces || []).filter((v) => v !== voz && v.localService === false));
       const sig = () => {
         if (tok !== S.tok || i >= trozos.length) return resolve();
-        const u = new SpeechSynthesisUtterance(trozos[i++]);
-        u.lang = (S.voz && S.voz.lang) || 'es-AR'; if (S.voz) u.voice = S.voz;
+        const idx = i;
+        const u = new SpeechSynthesisUtterance(trozos[i]);
+        u.lang = (voz && voz.lang) || 'es-AR'; if (voz) u.voice = voz;
         u.rate = Math.max(0.5, Math.min(2, P.rate * S.vel)); u.pitch = P.pitch; u.volume = S.vol;
-        u.onend = () => setTimeout(sig, 120); u.onerror = () => sig();
+        let empezo = false, cerrado = false;
+        const avanzar = () => { if (cerrado) return; cerrado = true; clearTimeout(vigia); clearTimeout(tope); i = idx + 1; setTimeout(sig, 120); };
+        const reintentar = () => {
+          if (cerrado) return; cerrado = true; clearTimeout(vigia); clearTimeout(tope);
+          try { synth.cancel(); } catch (_) {}
+          const alt = alternativas()[0];
+          if (!hablo && alt && probadas < 3) { probadas++; S.fallo = 'La voz «' + (voz ? voz.name : 'predeterminada') + '» no respondió; se probó «' + alt.name + '».'; voz = alt; setTimeout(sig, 60); }
+          else { S.fallo = S.fallo || 'La voz del dispositivo no pudo reproducir el audio. Elegí otra voz o descargá una voz de arriba.'; resolve(); }
+        };
+        // Chrome/Edge pueden recolectar el objeto y nunca disparar "end" (voces Microsoft): se lo retiene hasta que termina
+        (window.__eoUtt = window.__eoUtt || []).push(u); if (window.__eoUtt.length > 8) window.__eoUtt.shift();
+        u.onstart = () => { empezo = true; hablo = true; };
+        u.onend = avanzar;
+        // red de seguridad: si "end" no llega (voces Online/Natural a veces se cuelgan), se sigue por duración estimada
+        const maxMs = Math.max(6000, trozos[idx].length * 95 / Math.max(0.5, u.rate) + 5000);
+        const tope = setTimeout(() => { if (!cerrado && tok === S.tok) { try { synth.cancel(); } catch (_) {} avanzar(); } }, maxMs);
+        u.onerror = (e) => { if (e && (e.error === 'canceled' || e.error === 'interrupted')) { if (tok !== S.tok) return resolve(); return avanzar(); } reintentar(); };
+        // si en unos segundos no arranca, la voz no funciona en este equipo
+        const vigia = setTimeout(() => { if (!empezo && tok === S.tok) reintentar(); }, 4500);
+        try { synth.resume(); } catch (_) {}
         synth.speak(u);
       };
       sig();
@@ -315,6 +338,7 @@
         catch (e) {
           if (tok === S.tok) {
             S.nodisp[clave] = true; S.fallo = (e && e.message) || 'sin detalle';
+            if (/protobuf|load model|parse|invalid|corrupt|offset|incomplete|ort/i.test(S.fallo)) { try { await VL().borrar(clave); S.locales[clave] = { estado: 'no', pct: 0 }; delete S.nodisp[clave]; S.fallo += ' · La voz descargada estaba incompleta: se quitó, volvé a descargarla (se hace una sola vez).'; } catch (_) {} }
             if (hayVocesDispositivo()) { S.via = 'dispositivo'; await hablarDispositivo(texto, mood, tok); }
             else { S.via = 'ninguna'; estado.subs = true; }
             estado.aviso = 'La voz descargada no pudo ejecutarse en este equipo (' + S.fallo + ').' + (S.via === 'ninguna' ? ' Seguí con el texto en pantalla.' : ' Uso la voz del dispositivo.');
@@ -1039,9 +1063,13 @@
       + '<div class="eo-reglas"><div class="eo-reglas-t">📜 Reglas del examen</div><ul>'
       + '<li><b>Una sola vía:</b> no se puede volver a una pregunta anterior. Al pasar a la siguiente, la anterior se corrige en segundo plano y la devolución llega al final.</li>'
       + '<li><b>Sin machete:</b> no cambies de pestaña, no pegues texto ni abras herramientas del navegador. A la 3.ª incidencia hay una advertencia y, si reincidís, <b>se entrega el examen de forma forzada</b>.</li>'
-      + '<li><b>Respuestas largas:</b> podés dictar con libertad; cada intervención admite hasta ' + MAX_TURNO + ' caracteres y cada pregunta hasta ' + MAX_ALUMNO + '.</li>'
-      + '<li><b>Repreguntas y Abogado del Diablo:</b> el profesor puede repreguntar hasta 2 veces y, si tenés debilidades registradas, ponerte a prueba una vez con una objeción.</li>'
-      + '<li><b>Una repetición:</b> podés pedir que repita la pregunta una vez.</li></ul></div>'
+      + '<li><b>Explayate:</b> el profesor te deja desarrollar la respuesta todo lo que necesites y te repregunta de a una cosa por vez. No te corta: la pregunta se cierra cuando vos tocás <b>“Terminé esta pregunta”</b> (o cuando el profesor ve que ya cubriste el tema). Cada mensaje admite hasta ' + MAX_TURNO + ' caracteres y cada pregunta hasta ' + MAX_ALUMNO + '.</li>'
+      + '<li><b>Podés responder mientras habla:</b> escribí en el cuadro aunque el profesor siga hablando, o tocá <b>“Cortar al profesor”</b>. También podés pausar el dictado, apagar el micrófono o enviar tu mensaje cuando quieras.</li>'
+      + '<li><b>Dificultad:</b> elegís entre Mixta (preguntas variadas, en orden libre), Básica, Intermedia o Avanzada. El profesor y la corrección se ajustan al nivel de cada pregunta.</li>'
+      + '<li><b>Corrección al final:</b> el profesor no te dice si estás bien o mal durante la pregunta; verifica todo lo que dijiste cuando termina el examen.</li>'
+      + '<li><b>Abogado del Diablo:</b> si tenés debilidades registradas, el profesor puede ponerte a prueba una vez con una objeción.</li>'
+      + '<li><b>Una repetición:</b> podés pedir que repita la pregunta una vez.</li>'
+      + '<li><b>Si se corta:</b> si se cae la conexión o cerrás sin querer, al volver podés retomar el examen desde donde lo dejaste (12 horas). También podés rendir <b>solo con texto</b> si no podés hablar.</li></ul></div>'
       + '<div class="eo-fila"><label class="eo-f"><span>Cantidad de preguntas</span><select id="eo-n">' + [3, 5, 6, 8, 10, 15].map((n) => '<option' + (n === estado.n ? ' selected' : '') + '>' + n + '</option>').join('') + '</select></label>'
       + '<div class="eo-fila"><label class="eo-f"><span>Dificultad</span><select id="eo-nivel">' + [['mixto', '🎯 Mixta: preguntas variadas (recomendada)'], ['basico', '🟢 Básica: lo esencial'], ['intermedio', '🟡 Intermedia'], ['avanzado', '🔴 Avanzada: exigente']].map((o) => '<option value="' + o[0] + '"' + (o[0] === (estado.nivel || 'mixto') ? ' selected' : '') + '>' + o[1] + '</option>').join('') + '</select></label></div>'
       + '<div class="eo-f"><span>Preguntas disponibles</span><div class="eo-disp">' + (disp == null ? 'Cargando…' : disp + (disp === 1 ? ' pregunta' : ' preguntas') + ' en este examen') + '</div></div></div>'
@@ -1188,7 +1216,7 @@
   }
 
   async function arrancar() {
-    eventos();
+    eventos(); try { if (window.NikaSelect) window.NikaSelect.observar('#eo-raiz'); } catch (_) {}
     try {
       const A = window.NikaAcceso;
       if (A && A.verificarVipFresco) { try { await A.verificarVipFresco(); } catch (_) {} }

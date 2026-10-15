@@ -258,3 +258,18 @@ body.dark-mode .eo-cred-card a { color: #7dd3fc; }
 .eo-pensando { text-align: center; }
 @media (max-width: 640px) { .eo-prof { flex-direction: column; align-items: center; } .eo-avatar { width: 88px; height: 88px; } .eo-sala { padding: 16px; } .eo-micfila .eo-ondas { display: none; } }
 @media (prefers-reduced-motion: reduce) { .eo-sala::before, .eo-par, .eo-preg, .eo-pasos i.ahora, .eo-tipeo i, .eo-ondas b { animation: none !important; opacity: 1; } }
+
+/* ===== contraste de la sala en modo oscuro y premium ===== */
+body.dark-mode .eo-preg { background: linear-gradient(135deg, color-mix(in srgb, var(--m) 30%, #0b1220), color-mix(in srgb, var(--m) 12%, #0b1220)); color: #f8fafc; }
+body.dark-mode .eo-preg span { color: color-mix(in srgb, var(--m) 55%, #fff); }
+body.dark-mode .eo-par, body.dark-mode .eo-quien b { color: #f1f5f9; }
+body.dark-mode .eo-quien small, body.dark-mode .eo-reloj { opacity: .85; color: #cbd5e1; }
+body.dark-mode .eo-tip { background: rgba(250,204,21,.14); color: #fde68a; }
+body.dark-mode .eo-npreg { color: #e2e8f0; }
+body.dark-mode .eo-st, body.dark-mode .eo-animo { color: color-mix(in srgb, var(--m) 55%, #fff); background: color-mix(in srgb, var(--m) 24%, transparent); }
+body.dark-mode .eo-trans { color: #f1f5f9; }
+body.dark-mode .eo-bocadillo { background: color-mix(in srgb, var(--m) 14%, #111a2e); }
+body.tema-premium .eo-bocadillo { background: color-mix(in srgb, var(--m) 16%, #1b1038); border-color: color-mix(in srgb, var(--m) 40%, #4c2f8f); }
+body.tema-premium .eo-sala { background: radial-gradient(circle at 80% 0%, color-mix(in srgb, var(--m) 24%, transparent), transparent 55%), #150b2e; border-color: color-mix(in srgb, var(--m) 50%, #4c2f8f); }
+body.dark-mode .eo-escribe textarea, body.dark-mode .eo-f select { background: #0f172a; color: #f1f5f9; border-color: #2b3a57; }
+body.tema-premium .eo-escribe textarea { background: #1b1038; border-color: #4c2f8f; color: #f5f3ff; }
