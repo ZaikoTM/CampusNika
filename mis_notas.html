@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/pagina-lateral.css">
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
-    <link rel="stylesheet" href="css/nikasim.css?v=3">
+    <link rel="stylesheet" href="css/nikasim.css?v=4">
     <link rel="stylesheet" href="css/campus-premium.css?v=3">
     <link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
     <link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
     <link rel="stylesheet" href="css/micro.css?v=1">
-    <link rel="stylesheet" href="css/mis-notas.css?v=1">
+    <link rel="stylesheet" href="css/mis-notas.css?v=2">
 </head>
 <body class="nikasim mis-notas" data-pagina="mis-notas">
 
@@ -63,9 +63,19 @@
                     <div><small>Biblioteca</small><h2>Tus cuadernos</h2><p>Cada materia tiene su cuaderno. Las notas que tomás sobre videos y materiales llegan solas, y también podés escribir notas sueltas.</p></div>
                     <div class="gn-hero-acc">
                         <input id="gn-q" type="search" placeholder="Buscar en todas tus notas…" aria-label="Buscar en todas tus notas">
+                        <label class="gn-orden"><span>Ordenar</span>
+                            <select id="gn-orden" aria-label="Ordenar cuadernos">
+                                <option value="anio-asc">Por año (4° → 6°)</option>
+                                <option value="anio-desc">Por año (6° → 4°)</option>
+                                <option value="nombre-asc">Nombre (A → Z)</option>
+                                <option value="nombre-desc">Nombre (Z → A)</option>
+                                <option value="recientes">Más recientes</option>
+                            </select>
+                        </label>
                     </div>
                 </div>
-                <div class="gn-estantes" id="gn-estantes"><p class="gn-vacio">Cargando tus cuadernos…</p></div>
+                <p class="gn-sync" id="gn-sync" role="status" aria-live="polite">Cargando…</p>
+                <div id="gn-estantes"><p class="gn-vacio">Cargando tus cuadernos…</p></div>
                 <div id="gn-resultados" hidden></div>
             </section>
 
@@ -81,6 +91,38 @@
                         <button type="button" class="gn-btn" onclick="window.print()">🖨️ Imprimir</button>
                     </div>
                 </div>
+                <div class="gn-fmt" id="gn-fmt" role="toolbar" aria-label="Formato de texto">
+                    <select id="gn-fuente" aria-label="Tipografía"><option value="">Tipografía</option>
+                        <option value="Caveat">Manuscrita</option><option value="Plus Jakarta Sans">Moderna</option><option value="Arial">Arial</option>
+                        <option value="Georgia">Georgia</option><option value="Times New Roman">Times</option><option value="Courier New">Máquina</option>
+                        <option value="Comic Sans MS">Comic</option><option value="Segoe Print">Letra a mano</option></select>
+                    <select id="gn-tam" aria-label="Tamaño"><option value="">Tamaño</option><option>12</option><option>14</option><option>16</option><option>18</option><option>22</option><option>26</option><option>32</option><option>40</option></select>
+                    <span class="gn-sep"></span>
+                    <button type="button" data-cmd="bold" title="Negrita"><b>N</b></button>
+                    <button type="button" data-cmd="italic" title="Cursiva"><i>C</i></button>
+                    <button type="button" data-cmd="underline" title="Subrayado"><u>S</u></button>
+                    <button type="button" data-cmd="strikeThrough" title="Tachado"><s>T</s></button>
+                    <span class="gn-sep"></span>
+                    <button type="button" data-cmd="mayus" title="MAYÚSCULAS">AA</button>
+                    <button type="button" data-cmd="minus" title="minúsculas">aa</button>
+                    <button type="button" data-cmd="titulo" title="Primera Letra en Mayúscula">Aa</button>
+                    <span class="gn-sep"></span>
+                    <label class="gn-col" title="Color del texto"><span>A</span><input type="color" id="gn-col-texto" value="#1e293b" aria-label="Color del texto"></label>
+                    <label class="gn-col gn-col--r" title="Resaltar"><span>🖍</span><input type="color" id="gn-col-resalte" value="#fde047" aria-label="Color de resaltado"></label>
+                    <span class="gn-sep"></span>
+                    <button type="button" data-cmd="justifyLeft" title="Alinear a la izquierda">⇤</button>
+                    <button type="button" data-cmd="justifyCenter" title="Centrar">↔</button>
+                    <button type="button" data-cmd="justifyRight" title="Alinear a la derecha">⇥</button>
+                    <button type="button" data-cmd="insertUnorderedList" title="Lista con viñetas">•</button>
+                    <button type="button" data-cmd="insertOrderedList" title="Lista numerada">1.</button>
+                    <button type="button" data-cmd="removeFormat" title="Quitar formato">✕</button>
+                    <span class="gn-sep"></span>
+                    <label class="gn-nc" title="Color de las notas nuevas"><span>Post-it nuevo</span>
+                        <select id="gn-color-nueva" aria-label="Color de las notas nuevas">
+                            <option value="amarillo">🟡 Amarillo</option><option value="rosa">🩷 Rosa</option><option value="celeste">🔵 Celeste</option><option value="verde">🟢 Verde</option>
+                            <option value="naranja">🟠 Naranja</option><option value="lila">🟣 Lila</option><option value="blanco">⚪ Blanco</option><option value="gris">⚫ Gris</option>
+                        </select></label>
+                </div>
                 <div class="gn-libro">
                     <nav class="gn-indice" id="gn-indice" aria-label="Índice del cuaderno"></nav>
                     <div class="gn-paginas" id="gn-paginas"></div>
@@ -89,6 +131,7 @@
         </main>
     </div>
 
+    <div class="gn-tacho" id="gn-tacho" aria-hidden="true"><span class="gn-tacho-ico">🗑️</span><small>Soltá acá para borrar</small></div>
     <div id="toast">Notificación</div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
@@ -98,7 +141,26 @@
     <script src="js/nikaMusic.js?v=10"></script>
     <script src="js/atajos.js"></script>
     <script src="js/paginaLateral.js"></script>
-    <script src="js/misNotas.js?v=1"></script>
+    <script src="js/presenciaCampus.js"></script>
+    <script src="js/friendsManager.js"></script>
+    <script src="js/social.js?v=2"></script>
+    <script src="js/moderacion.js"></script>
+    <script src="js/chatManager.js?v=4"></script>
+    <script src="js/pomodoroEngine.js?v=7"></script>
+    <script src="js/pomodoroSyncManager.js?v=7"></script>
+    <script src="js/pomodoroBar.js?v=8"></script>
+    <script src="js/misNotas.js?v=2"></script>
+    <script src="js/chatFlotante.js?v=7"></script>
+    <script src="js/assistant.js?v=3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                if (window.NikaSupabase && typeof window.NikaSupabase.restaurarSesionSiExiste === 'function') await window.NikaSupabase.restaurarSesionSiExiste();
+                if (window.NikaAcceso) window.NikaAcceso.aplicarEstadoVip();
+                if (window.NikaSupabase && window.NikaSupabase.getNikaCurrentUsername() && window.PomodoroSyncManager) await window.PomodoroSyncManager.iniciar();
+            } catch (_) {}
+        });
+    </script>
 <script src="js/campusTema.js?v=3"></script>
 <script src="js/campusEspacio.js?v=1"></script>
 <script src="js/micro.js?v=1" defer></script>

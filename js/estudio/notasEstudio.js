@@ -27,6 +27,10 @@
     notas = lsLeer().filter((n) => n.recurso === ctx.url);
     if (await sesion()) {
       try {
+        const pend = lsLeer().filter((n) => n.local);
+        for (const n of pend) { const f = Object.assign({}, n); delete f.id; delete f.local; delete f.titulo; delete f.contenido_html; const { error } = await cli().from('notas_estudio').insert(f); if (!error) lsGuardar(lsLeer().filter((x) => x.id !== n.id)); }
+      } catch (_) {}
+      try {
         const { data, error } = await cli().from('notas_estudio').select('*').eq('recurso', ctx.url).order('posicion', { ascending: true, nullsFirst: false }).order('creado_en');
         if (!error && data) notas = notas.filter((n) => n.local).concat(data);
       } catch (_) {}
@@ -126,6 +130,7 @@
 .nkn-it .nkn-tx { white-space: pre-wrap; word-break: break-word; }
 .nkn-it .nkn-x { position: absolute; top: 4px; right: 6px; background: transparent; border: 0; cursor: pointer; opacity: 0; font-size: .9rem; color: #334155; transition: opacity .2s; }
 .nkn-it:hover .nkn-x { opacity: .8; }
+.nkn-c-naranja { --nk-c: #fed7aa; } .nkn-c-lila { --nk-c: #ddd6fe; } .nkn-c-blanco { --nk-c: #ffffff; } .nkn-c-gris { --nk-c: #e2e8f0; }
 .nkn-c-amarillo { --nk-c: #fef08a; } .nkn-c-rosa { --nk-c: #fbcfe8; } .nkn-c-celeste { --nk-c: #bae6fd; } .nkn-c-verde { --nk-c: #bbf7d0; }
 .nkn-vacio { opacity: .7; font-size: .88rem; margin: 14px 0 0; text-align: center; }
 body.dark-mode #nk-notas .nkn-hoja, body.tema-premium #nk-notas .nkn-hoja { background-color: #1e293b; background-image: repeating-linear-gradient(transparent 0, transparent 27px, rgba(148,163,184,.25) 27px, rgba(148,163,184,.25) 28px); border-color: rgba(148,163,184,.3); }
