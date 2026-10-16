@@ -102,7 +102,7 @@ def bloque(slug, cfg, caps, temas):
     if figs or cards:
         imgs = f'<div class="mg-sec"><h2>En imágenes</h2><div class="mg-figs">{figs}{cards}</div></div>'
     links = ''.join(f'<a href="/temas/{tid}.html">{e(temas[tid]["titulo"])}<small>{e(temas[tid].get("fuente", {}).get("sociedad", ""))}</small></a>' for tid in cfg['temas'] if tid in temas)
-    rel = f'<div class="mg-sec"><h2>Temas clínicos relacionados</h2><div class="mg-links">{links}</div><p class="mg-more"><a href="/temas-clinicos.html">Ver los 194 temas clínicos →</a></p></div>' if links else ''
+    rel = f'<div class="mg-sec"><h2>Temas clínicos relacionados</h2><div class="mg-links">{links}</div><p class="mg-more"><a href="/temas-clinicos.html">Ver los 213 temas clínicos →</a></p></div>' if links else ''
     faq = ''.join(f'<details class="mg-q"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in cfg['faq'])
     faqs = f'<div class="mg-sec" id="preguntas-frecuentes"><h2>Preguntas frecuentes</h2>{faq}</div>'
     cta = ('<div class="mg-cta"><h2>Llevá esto a la práctica en el campus</h2>'

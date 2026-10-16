@@ -264,6 +264,12 @@ body.nf-guardia .nf-tile p{ display:none; }
 @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
 @media print{ .nf-top,.nf-search,.nf-aside,.nf-fab,.nf-actions{ display:none !important; } .nf-layout{ display:block; } }
 
+
+.nf-calcs{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.nf-calcs a{ display:block; padding:9px 10px; border:1px solid var(--border); border-radius:10px; background:var(--card-bg); color:var(--text-main); font-size:.76rem; font-weight:700; line-height:1.3; text-decoration:none; transition:.15s; }
+.nf-calcs a:hover{ border-color:var(--nika-primary); transform:translateY(-1px); }
+.nf-calcs-todas{ display:block; margin-top:10px; padding:10px; text-align:center; border-radius:10px; background:linear-gradient(135deg,#0ea5e9,#6366f1); color:#fff!important; font-weight:800; font-size:.8rem; text-decoration:none; }
+@media(max-width:420px){ .nf-calcs{ grid-template-columns:1fr; } }
 /* =================== v2 · MINIMALISTA (mosaicos + desplegables) =================== */
 .nf-search{ max-width:1080px; padding-top:14px; }
 .nf-sbox input{ padding:13px 44px 13px 46px; font-size:1rem; box-shadow:none; border-width:1.5px; }
@@ -462,6 +468,28 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
       <summary>📊 Scores de gravedad</summary>
       <div class="nf-body" id="scoresBox"></div>
     </details>
+
+    <details class="nf-panel" open>
+      <summary>🧪 Más calculadoras y escalas</summary>
+      <div class="nf-body">
+        <div class="nf-calcs">
+          <a href="calculadoras.html#ckd-epi">🧮 Filtrado glomerular (CKD-EPI)</a>
+          <a href="calculadoras.html#infusion">💉 Velocidad de infusión (mcg/kg/min)</a>
+          <a href="calculadoras.html#goteo">💧 Goteo: mL/h a gotas/min</a>
+          <a href="calculadoras.html#peso-ideal">⚖️ Peso ideal y ajustado</a>
+          <a href="calculadoras.html#sc-mosteller">🧍 Superficie corporal</a>
+          <a href="calculadoras.html#qtc">📈 QTc (fármacos que prolongan el QT)</a>
+          <a href="calculadoras.html#anion-gap">⚗️ Anión gap y ácido-base</a>
+          <a href="calculadoras.html#fena">🧫 FENa (injuria renal)</a>
+          <a href="calculadoras.html#holliday-segar">🍼 Mantenimiento pediátrico</a>
+          <a href="calculadoras.html#ganzoni">🩸 Déficit de hierro (Ganzoni)</a>
+          <a href="calculadoras.html#child-pugh">🍂 Child-Pugh (ajuste hepático)</a>
+          <a href="calculadoras.html#news2">📈 NEWS2 (deterioro clínico)</a>
+        </div>
+        <a class="nf-calcs-todas" href="calculadoras.html">Ver todas las calculadoras y escalas →</a>
+        <div class="nf-disc">Cada calculadora cita su fundamento. Herramienta de apoyo: verificá con el protocolo de tu institución.</div>
+      </div>
+    </details>
   </aside>
 </div>
 
@@ -488,7 +516,7 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
 <!-- Modo Guardia Offline-First -->
 <script src="js/offlineStorage.js"></script>
 <script src="js/syncManager.js"></script>
-<script src="js/guardiaModal.js?v=8"></script>
+<script src="js/guardiaModal.js?v=9"></script>
 <script>
 /* =====================================================================
    NIKAFARMA · Vanilla JS (sin frameworks)
@@ -976,7 +1004,8 @@ function renderCalcOut() {
   $('#calcOut').innerHTML = (c.ok ? m('Clearance (Cockcroft-Gault)', fmt(c.clcr, 0) + ' mL/min', 'hi') : '') +
     m('IMC', c.bmi ? fmt(c.bmi, 1) + (c.obese ? ' ⚠️' : '') : '—') + m('Peso ideal', c.ibw ? fmt(c.ibw, 1) + ' kg' : '—') +
     m('Peso ajustado', c.adj ? fmt(c.adj, 1) + ' kg' : '—') + m('Peso en CG', c.ok ? fmt(c.cgKg, 1) + ' kg (' + c.cgLab + ')' : '—') +
-    (!c.ok ? '<div class="nf-m hi" style="font-size:.8rem">Completá edad, peso, altura y creatinina para calcular el clearance.</div>' : '');
+    (!c.ok ? '<div class="nf-m hi" style="font-size:.8rem">Completá edad, peso, altura y creatinina para calcular el clearance.</div>' : '') +
+    '<a class="nf-calcs-todas" style="background:none;color:var(--nika-primary)!important;border:1px dashed var(--nika-primary)" href="calculadoras.html#ckd-epi">Estadificar la función renal (CKD-EPI) →</a>';
 }
 function renderTray() {
   updateBadge();

@@ -1,9 +1,9 @@
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from base import UNIDADES
-import cr_a, cr_b
+import cr_a, cr_b, cr_c
 fichas, ids = [], set()
-for m in (cr_a, cr_b):
+for m in (cr_a, cr_b, cr_c):
     for p in m.FICHAS:
         assert p['id'] not in ids, 'id repetido ' + p['id']; ids.add(p['id'])
         assert p['definicion'] and p['diagnostico'], p['id']

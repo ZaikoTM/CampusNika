@@ -2976,6 +2976,1047 @@
     "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-clavien-dindo",
+   "area": "criterios",
+   "titulo": "Clasificación de Clavien-Dindo (complicaciones quirúrgicas)",
+   "alias": [
+    "clavien dindo",
+    "complicaciones",
+    "posoperatorio"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Gradúa las complicaciones posoperatorias según el tratamiento que requieren; es el estándar para comparar resultados quirúrgicos.",
+   "diagnostico": [
+    "Grado I: cualquier desviación del curso normal sin necesidad de tratamiento farmacológico, quirúrgico, endoscópico o radiológico (se permiten antieméticos, antipiréticos, analgésicos, diuréticos, electrolitos y fisioterapia).",
+    "Grado II: requiere tratamiento farmacológico distinto de los permitidos (incluye transfusión y nutrición parenteral).",
+    "Grado III: requiere intervención quirúrgica, endoscópica o radiológica; IIIa sin anestesia general, IIIb con anestesia general.",
+    "Grado IV: complicación que amenaza la vida con necesidad de cuidados intensivos; IVa disfunción de un órgano, IVb disfunción multiorgánica.",
+    "Grado V: muerte del paciente."
+   ],
+   "estudios": [
+    "Se registra el grado más alto que presentó el paciente durante la internación o hasta los 30 a 90 días."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "Grados ≥ III",
+       "texto": "Se consideran complicaciones mayores y son las que se auditan en los servicios."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Dindo D, Demartines N, Clavien PA. Ann Surg 2004;240:205",
+    "sociedad": "Asociación Argentina de Cirugía / European Surgical Association",
+    "anio": "2004",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-bismuth-corlette",
+   "area": "criterios",
+   "titulo": "Clasificación de Bismuth-Corlette (colangiocarcinoma hiliar)",
+   "alias": [
+    "bismuth",
+    "colangiocarcinoma",
+    "tumor de klatskin"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Describe hasta dónde llega el tumor de la vía biliar proximal y orienta la resección.",
+   "diagnostico": [
+    "Tipo I: por debajo de la confluencia de los conductos hepáticos.",
+    "Tipo II: llega a la confluencia sin comprometer los conductos hepáticos derecho ni izquierdo.",
+    "Tipo IIIa: compromete el conducto hepático derecho.",
+    "Tipo IIIb: compromete el conducto hepático izquierdo.",
+    "Tipo IV: afecta ambos conductos o es multifocal."
+   ],
+   "estudios": [
+    "Colangiorresonancia, tomografía y, según el caso, CPRE o colangiografía percutánea."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Tipos I a III",
+       "texto": "Candidatos a resección con márgenes negativos en centros de alta complejidad."
+      },
+      {
+       "etiqueta": "Tipo IV",
+       "texto": "Habitualmente irresecable; evaluar trasplante en protocolos específicos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "No incluye la invasión vascular ni la afectación de ganglios, que también definen la resecabilidad."
+   ],
+   "fuente": {
+    "guia": "Bismuth H, Corlette MB. Surg Gynecol Obstet 1975;140:170",
+    "sociedad": "Manual de Cirugía en Medicina General (Universidad de Chile) / Asociación Argentina de Cirugía",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-nyhus",
+   "area": "criterios",
+   "titulo": "Clasificación de Nyhus (hernias inguinales)",
+   "alias": [
+    "nyhus",
+    "hernia inguinal",
+    "hernia crural"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica las hernias de la ingle según el tipo, el anillo inguinal profundo y la recidiva.",
+   "diagnostico": [
+    "Tipo I: hernia indirecta con anillo inguinal profundo normal (típica de niños y adultos jóvenes).",
+    "Tipo II: hernia indirecta con anillo profundo dilatado, sin comprometer la pared posterior.",
+    "Tipo IIIA: hernia directa; IIIB: indirecta grande con deslizamiento o compromiso de la pared posterior; IIIC: hernia femoral.",
+    "Tipo IV: recidivada: A directa, B indirecta, C femoral, D combinada."
+   ],
+   "estudios": [
+    "Se define con el examen físico y, ante la duda, con ecografía o tomografía."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Tipos I y II",
+       "texto": "Reparación sin tensión con malla (Lichtenstein o abordaje laparoscópico)."
+      },
+      {
+       "etiqueta": "Tipo IV",
+       "texto": "Preferir un abordaje diferente al de la cirugía previa."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La hernia crural es más frecuente en mujeres y se complica más por estrangulación."
+   ],
+   "fuente": {
+    "guia": "Nyhus LM. Arch Surg 1993;128:1073; Guía de hernias inguinocrurales (HerniaSurge 2018)",
+    "sociedad": "HerniaSurge Group / Asociación Argentina de Cirugía",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-canadian-ct-head",
+   "area": "criterios",
+   "titulo": "Regla canadiense de TC de cráneo (traumatismo leve)",
+   "alias": [
+    "canadian ct head",
+    "tce",
+    "traumatismo de craneo"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Decide qué pacientes con traumatismo craneoencefálico leve (Glasgow 13 a 15) necesitan tomografía.",
+   "diagnostico": [
+    "Alto riesgo de lesión que requiere neurocirugía: Glasgow < 15 a las 2 horas; sospecha de fractura abierta o con hundimiento; signos de fractura de base de cráneo (hemotímpano, ojos de mapache, otorrea de LCR, signo de Battle); 2 o más vómitos; edad ≥ 65 años.",
+    "Riesgo medio de lesión en la tomografía: amnesia retrógrada ≥ 30 minutos; mecanismo peligroso (peatón atropellado, expulsión del vehículo, caída de más de 1 metro o 5 escalones)."
+   ],
+   "estudios": [
+    "Se aplica a adultos con pérdida de conciencia, amnesia o desorientación, sin anticoagulación ni convulsiones."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Algún criterio de alto o medio riesgo",
+       "texto": "Tomografía de cráneo."
+      },
+      {
+       "etiqueta": "Ninguno",
+       "texto": "Observación y recomendaciones de alarma al alta."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Anticoagulados, plaquetopénicos y menores de 16 años tienen otros criterios (p. ej. PECARN en niños)."
+   ],
+   "fuente": {
+    "guia": "Stiell IG et al. Lancet 2001;357:1391",
+    "sociedad": "ATLS 10.ª ed. / Sociedad Argentina de Neurocirugía",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-glasgow-imrie",
+   "area": "criterios",
+   "titulo": "Criterios de Glasgow-Imrie (pancreatitis aguda)",
+   "alias": [
+    "glasgow imrie",
+    "pancreatitis"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Escala pronóstica a las 48 horas de la pancreatitis aguda; con 3 o más criterios se considera grave.",
+   "diagnostico": [
+    "PaO₂ < 60 mmHg.",
+    "Edad > 55 años.",
+    "Leucocitos > 15.000/mm³.",
+    "Calcio < 8 mg/dl.",
+    "Urea (BUN) > 45 mg/dl.",
+    "LDH > 600 UI/L.",
+    "Albúmina < 3,2 g/dl.",
+    "Glucemia > 180 mg/dl."
+   ],
+   "estudios": [
+    "Se completa con los datos de las primeras 48 horas."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Puntaje",
+     "pasos": [
+      {
+       "etiqueta": "0 a 2",
+       "texto": "Probablemente leve."
+      },
+      {
+       "etiqueta": "≥ 3",
+       "texto": "Pancreatitis grave: monitoreo estrecho y considerar cuidados intensivos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Se usa junto con la clasificación de Atlanta y el BISAP."
+   ],
+   "fuente": {
+    "guia": "Imrie CW et al. Br J Surg 1978;65:337",
+    "sociedad": "British Society of Gastroenterology / Guía de pancreatitis aguda",
+    "anio": "2019",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "glasgow-imrie"
+  },
+  {
+   "id": "cr-bethesda-tiroides",
+   "area": "criterios",
+   "titulo": "Sistema Bethesda para la citología tiroidea",
+   "alias": [
+    "bethesda",
+    "nodulo tiroideo",
+    "paaf"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Categoriza el resultado de la punción aspirativa del nódulo tiroideo y estima el riesgo de malignidad.",
+   "diagnostico": [
+    "I: no diagnóstico o insatisfactorio (riesgo ≈ 5 a 10 %).",
+    "II: benigno (≈ 0 a 3 %).",
+    "III: atipia o lesión folicular de significado incierto (≈ 10 a 30 %).",
+    "IV: neoplasia folicular o sospechosa de neoplasia folicular (≈ 25 a 40 %).",
+    "V: sospechoso de malignidad (≈ 50 a 75 %).",
+    "VI: maligno (≈ 97 a 99 %)."
+   ],
+   "estudios": [
+    "Punción con aguja fina guiada por ecografía, con estratificación ecográfica previa (por ejemplo, ATA o TI-RADS)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "I",
+       "texto": "Repetir la punción (idealmente con ecografía)."
+      },
+      {
+       "etiqueta": "II",
+       "texto": "Seguimiento clínico y ecográfico."
+      },
+      {
+       "etiqueta": "III y IV",
+       "texto": "Repetir o pruebas moleculares; considerar lobectomía diagnóstica."
+      },
+      {
+       "etiqueta": "V y VI",
+       "texto": "Cirugía (tiroidectomía o lobectomía según el caso)."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Los riesgos varían según la edición (2017 vs 2023) y la institución; usar los de tu servicio."
+   ],
+   "fuente": {
+    "guia": "Cibas ES, Ali SZ. The 2017 Bethesda System for Reporting Thyroid Cytopathology",
+    "sociedad": "Consenso intersociedades argentino de carcinoma diferenciado de tiroides (SAEM/SAEC/SAMN/SAC)",
+    "anio": "2017",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-bethesda-cervical",
+   "area": "criterios",
+   "titulo": "Sistema Bethesda para la citología cervical",
+   "alias": [
+    "bethesda",
+    "papanicolaou",
+    "citologia cervical",
+    "colposcopia"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Terminología para informar el Papanicolaou y orientar la conducta según las guías de tamizaje.",
+   "diagnostico": [
+    "NILM: negativo para lesión intraepitelial o malignidad.",
+    "ASC-US: células escamosas atípicas de significado indeterminado.",
+    "ASC-H: células escamosas atípicas, no se puede excluir lesión de alto grado.",
+    "LSIL: lesión intraepitelial escamosa de bajo grado.",
+    "HSIL: lesión intraepitelial escamosa de alto grado.",
+    "AGC: células glandulares atípicas.",
+    "Carcinoma de células escamosas o adenocarcinoma."
+   ],
+   "estudios": [
+    "Citología convencional o en medio líquido; el test de VPH es el método primario de tamizaje desde los 30 años en la guía vigente."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta (resumen)",
+     "pasos": [
+      {
+       "etiqueta": "ASC-US",
+       "texto": "Test de VPH reflejo o de triage; colposcopia si es positivo."
+      },
+      {
+       "etiqueta": "LSIL",
+       "texto": "Colposcopia o test de VPH según la edad."
+      },
+      {
+       "etiqueta": "ASC-H, HSIL, AGC",
+       "texto": "Colposcopia directa con biopsia y estudio endocervical."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La conducta exacta depende de la edad, el embarazo y la historia previa: seguir la Nueva Guía vigente."
+   ],
+   "fuente": {
+    "guia": "Nayar R, Wilbur DC. The Bethesda System for Reporting Cervical Cytology, 3.ª ed. (2015); Nueva Guía 2022",
+    "sociedad": "SAPTGyC / SOGIBA / FASGO (Nueva Guía 2022) y Programa Nacional de Prevención del Cáncer Cervicouterino",
+    "anio": "2022",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-ferriman-gallwey",
+   "area": "criterios",
+   "titulo": "Escala de Ferriman-Gallwey (hirsutismo)",
+   "alias": [
+    "ferriman gallwey",
+    "hirsutismo",
+    "sop"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Cuantifica el crecimiento de vello terminal en 9 zonas del cuerpo (0 a 4 puntos cada una; máximo 36).",
+   "diagnostico": [
+    "Zonas evaluadas: labio superior, mentón, tórax, espalda superior, espalda inferior, abdomen superior, abdomen inferior, brazos y muslos.",
+    "Cada zona: 0 ausencia de vello terminal; 1 mínimo; 2 leve; 3 moderado; 4 abundante (patrón masculino)."
+   ],
+   "estudios": [
+    "Se evalúa sin depilación reciente; interpretar según la etnia."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Interpretación",
+     "pasos": [
+      {
+       "etiqueta": "≥ 8",
+       "texto": "Sugiere hirsutismo (el umbral varía entre 4 y 8 según la población y la guía)."
+      },
+      {
+       "etiqueta": "Leve, moderado, grave",
+       "texto": "8 a 15, 16 a 25 y > 25, respectivamente."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Si hay hirsutismo con irregularidad menstrual, estudiar síndrome de ovario poliquístico, hiperplasia suprarrenal no clásica y tumores secretores de andrógenos."
+   ],
+   "fuente": {
+    "guia": "Ferriman D, Gallwey JD. J Clin Endocrinol Metab 1961;21:1440; Endocrine Society 2018",
+    "sociedad": "Endocrine Society / Sociedad Argentina de Endocrinología y Metabolismo (SAEM)",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-tanner",
+   "area": "criterios",
+   "titulo": "Estadios de Tanner (desarrollo puberal)",
+   "alias": [
+    "tanner",
+    "pubertad"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Describe la maduración puberal por el desarrollo mamario, del vello pubiano y de los genitales.",
+   "diagnostico": [
+    "Mama (niñas): B1 prepuberal; B2 botón mamario; B3 crecimiento de mama y areola; B4 areola y pezón forman un montículo secundario; B5 mama adulta.",
+    "Vello pubiano: P1 ausente; P2 escaso y fino; P3 más oscuro y rizado sobre el pubis; P4 tipo adulto sin extenderse a muslos; P5 adulto con extensión a la cara interna de muslos.",
+    "Genitales (varones): G1 prepuberal (testículo < 4 ml); G2 aumento testicular (≥ 4 ml) y del escroto; G3 crecimiento del pene en longitud; G4 aumento del grosor y del glande; G5 adulto."
+   ],
+   "estudios": [
+    "Examen físico con orquidómetro de Prader en varones."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Hitos",
+     "pasos": [
+      {
+       "etiqueta": "Inicio normal",
+       "texto": "Niñas: B2 entre los 8 y 13 años. Varones: testículo ≥ 4 ml entre los 9 y 14 años."
+      },
+      {
+       "etiqueta": "Menarca",
+       "texto": "Habitualmente en B4, unos 2 a 2,5 años después de B2."
+      },
+      {
+       "etiqueta": "Alarma",
+       "texto": "Inicio antes de los 8 años en niñas o antes de los 9 en varones: pubertad precoz."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Marshall WA, Tanner JM. Arch Dis Child 1969;44:291 y 1970;45:13",
+    "sociedad": "Sociedad Argentina de Pediatría / SAEM (Pubertad normal y patológica)",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-ramsay",
+   "area": "criterios",
+   "titulo": "Escala de sedación de Ramsay",
+   "alias": [
+    "ramsay",
+    "sedacion"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Valora la profundidad de la sedación del paciente en cuidados críticos (6 niveles).",
+   "diagnostico": [
+    "1: ansioso, agitado o inquieto.",
+    "2: cooperador, orientado y tranquilo.",
+    "3: dormido, responde a órdenes.",
+    "4: dormido, respuesta rápida al estímulo glabelar o a un ruido fuerte.",
+    "5: dormido, respuesta perezosa.",
+    "6: sin respuesta."
+   ],
+   "estudios": [
+    "Se valora en cada control de enfermería y antes de ajustar la sedación."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Objetivo",
+     "pasos": [
+      {
+       "etiqueta": "Habitual",
+       "texto": "Niveles 2 a 3: sedación superficial, paciente tranquilo y colaborador."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Hoy se prefiere la escala RASS o SAS por su mayor validación."
+   ],
+   "fuente": {
+    "guia": "Ramsay MAE et al. Br Med J 1974;2:656; Guías PADIS 2018",
+    "sociedad": "Society of Critical Care Medicine / Sociedad Argentina de Terapia Intensiva (SATI)",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-rass",
+   "area": "criterios",
+   "titulo": "Escala RASS (agitación-sedación de Richmond)",
+   "alias": [
+    "rass",
+    "sedacion",
+    "agitacion"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Valora la agitación y la sedación en el paciente crítico, de +4 a -5.",
+   "diagnostico": [
+    "+4 combativo; +3 muy agitado; +2 agitado; +1 inquieto.",
+    "0 alerta y tranquilo.",
+    "-1 somnoliento: despierta a la voz con contacto visual de más de 10 segundos.",
+    "-2 sedación leve: contacto visual breve (< 10 s) a la voz.",
+    "-3 sedación moderada: movimiento a la voz sin contacto visual.",
+    "-4 sedación profunda: sin respuesta a la voz, movimiento al estímulo físico.",
+    "-5 no despertable."
+   ],
+   "estudios": [
+    "Observar, llamar por el nombre y, si no responde, estimular físicamente."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Objetivo",
+     "pasos": [
+      {
+       "etiqueta": "Habitual",
+       "texto": "RASS de -2 a 0 (sedación ligera), salvo indicaciones específicas."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Evaluar también dolor y delirio (CAM-ICU)."
+   ],
+   "fuente": {
+    "guia": "Sessler CN et al. Am J Respir Crit Care Med 2002;166:1338; Guías PADIS 2018",
+    "sociedad": "Society of Critical Care Medicine / SATI",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-acido-base-compensacion",
+   "area": "criterios",
+   "titulo": "Compensación esperada en los trastornos ácido-base",
+   "alias": [
+    "acido base",
+    "gasometria",
+    "winter"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Fórmulas para saber si la respuesta del organismo es adecuada o si hay un trastorno mixto.",
+   "diagnostico": [
+    "Acidosis metabólica: PaCO₂ esperada = 1,5 × HCO₃ + 8 (± 2).",
+    "Alcalosis metabólica: la PaCO₂ sube ≈ 0,7 mmHg por cada 1 mEq/L de aumento del HCO₃.",
+    "Acidosis respiratoria aguda: el HCO₃ sube ≈ 1 mEq/L por cada 10 mmHg de aumento de la PaCO₂; crónica: ≈ 3,5 mEq/L.",
+    "Alcalosis respiratoria aguda: el HCO₃ baja ≈ 2 mEq/L por cada 10 mmHg de descenso de la PaCO₂; crónica: ≈ 4 a 5 mEq/L."
+   ],
+   "estudios": [
+    "Gasometría arterial, ionograma, anión gap y delta-delta."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "Compensación mayor o menor a la esperada",
+       "texto": "Indica un segundo trastorno ácido-base asociado."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Siempre calcular el anión gap (corregido por albúmina) en una acidosis metabólica."
+   ],
+   "fuente": {
+    "guia": "Kraut JA, Madias NE. N Engl J Med 2014;371:1434",
+    "sociedad": "Sociedad Argentina de Nefrología / Sociedad Argentina de Terapia Intensiva",
+    "anio": "2014",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "ph-winter"
+  },
+  {
+   "id": "cr-geneva",
+   "area": "criterios",
+   "titulo": "Score de Ginebra revisado (TEP)",
+   "alias": [
+    "geneva",
+    "tep"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Estima la probabilidad pretest de embolia pulmonar con variables objetivas.",
+   "diagnostico": [
+    "Edad > 65: 1.",
+    "TEP o TVP previos: 3.",
+    "Cirugía o fractura en el último mes: 2.",
+    "Cáncer activo: 2.",
+    "Dolor unilateral en miembro inferior: 3.",
+    "Hemoptisis: 2.",
+    "Frecuencia cardíaca 75 a 94: 3; ≥ 95: 5.",
+    "Dolor a la palpación profunda de la pierna y edema unilateral: 4."
+   ],
+   "estudios": [
+    "No depende del juicio subjetivo, a diferencia de Wells."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Probabilidad",
+     "pasos": [
+      {
+       "etiqueta": "0 a 3",
+       "texto": "Baja (≈ 8 %)."
+      },
+      {
+       "etiqueta": "4 a 10",
+       "texto": "Intermedia (≈ 28 %)."
+      },
+      {
+       "etiqueta": "≥ 11",
+       "texto": "Alta (≈ 74 %)."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Existe una versión simplificada con 1 punto por ítem."
+   ],
+   "fuente": {
+    "guia": "Le Gal G et al. Ann Intern Med 2006;144:165; ESC 2019",
+    "sociedad": "ESC / Sociedad Argentina de Cardiología",
+    "anio": "2019",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "geneva"
+  },
+  {
+   "id": "cr-rankin",
+   "area": "criterios",
+   "titulo": "Escala de Rankin modificada (discapacidad tras un ACV)",
+   "alias": [
+    "rankin",
+    "acv",
+    "discapacidad"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Mide el grado de discapacidad o dependencia funcional después de un accidente cerebrovascular (0 a 6).",
+   "diagnostico": [
+    "0: sin síntomas.",
+    "1: sin incapacidad significativa a pesar de los síntomas.",
+    "2: incapacidad leve: no puede hacer todo lo previo pero se vale solo.",
+    "3: incapacidad moderada: necesita ayuda pero camina sin asistencia.",
+    "4: incapacidad moderadamente grave: no camina sin ayuda ni atiende sus necesidades.",
+    "5: incapacidad grave: postrado, incontinente, requiere cuidado constante.",
+    "6: muerte."
+   ],
+   "estudios": [
+    "Se mide al alta y a los 90 días."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Interpretación",
+     "pasos": [
+      {
+       "etiqueta": "0 a 2",
+       "texto": "Buen resultado funcional (independiente)."
+      },
+      {
+       "etiqueta": "3 a 5",
+       "texto": "Dependencia creciente."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Van Swieten JC et al. Stroke 1988;19:604; AHA/ASA 2019",
+    "sociedad": "AHA/ASA / Sociedad Neurológica Argentina",
+    "anio": "2019",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-qtc",
+   "area": "criterios",
+   "titulo": "Intervalo QT corregido (QTc)",
+   "alias": [
+    "qtc",
+    "qt largo",
+    "torsades"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Corrección del QT por la frecuencia cardíaca; un QTc prolongado aumenta el riesgo de torsades de pointes.",
+   "diagnostico": [
+    "Bazett: QTc = QT / √RR (sobrecorrige con frecuencia > 100 lpm).",
+    "Fridericia: QTc = QT / ∛RR (más precisa con frecuencias extremas).",
+    "Valores de referencia: prolongado si > 450 ms en varones y > 460 ms en mujeres; muy alto riesgo con > 500 ms o aumento > 60 ms."
+   ],
+   "estudios": [
+    "Medir el QT en derivaciones DII o V5 y promediar varios latidos."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "QTc > 500 ms",
+       "texto": "Suspender fármacos que prolongan el QT, corregir potasio y magnesio y monitorear."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Fármacos frecuentes que lo prolongan: macrólidos, quinolonas, antipsicóticos, ondansetrón, metadona, antiarrítmicos de clase III."
+   ],
+   "fuente": {
+    "guia": "AHA/ACCF/HRS Recommendations for the Standardization and Interpretation of the ECG, parte IV (2009)",
+    "sociedad": "Sociedad Argentina de Cardiología / AHA",
+    "anio": "2009",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "qtc"
+  },
+  {
+   "id": "cr-timi-nste",
+   "area": "criterios",
+   "titulo": "Score TIMI (angina inestable / IAM sin elevación del ST)",
+   "alias": [
+    "timi",
+    "sindrome coronario agudo"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Estima el riesgo de muerte, infarto o isquemia grave a 14 días en el síndrome coronario agudo sin elevación del ST.",
+   "diagnostico": [
+    "Edad ≥ 65 años.",
+    "3 o más factores de riesgo coronario.",
+    "Estenosis coronaria conocida ≥ 50 %.",
+    "Uso de aspirina en los últimos 7 días.",
+    "Angina grave (≥ 2 episodios en 24 horas).",
+    "Desviación del ST ≥ 0,5 mm.",
+    "Marcadores cardíacos elevados."
+   ],
+   "estudios": [
+    "Un punto por cada variable (0 a 7)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Riesgo a 14 días",
+     "pasos": [
+      {
+       "etiqueta": "0 a 2",
+       "texto": "Bajo (≈ 5 a 8 %)."
+      },
+      {
+       "etiqueta": "3 a 4",
+       "texto": "Intermedio (≈ 13 a 20 %)."
+      },
+      {
+       "etiqueta": "5 a 7",
+       "texto": "Alto (≈ 26 a 41 %): estrategia invasiva temprana."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Hoy se usa también el score GRACE y las guías ESC para la estratificación."
+   ],
+   "fuente": {
+    "guia": "Antman EM et al. JAMA 2000;284:835; ESC 2023",
+    "sociedad": "ESC / Sociedad Argentina de Cardiología",
+    "anio": "2023",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "timi-nste"
+  },
+  {
+   "id": "cr-anemia-oms",
+   "area": "criterios",
+   "titulo": "Clasificación de la anemia (OMS)",
+   "alias": [
+    "anemia",
+    "hemoglobina",
+    "oms"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Umbrales de hemoglobina que definen la anemia y su gravedad según edad, sexo y embarazo.",
+   "diagnostico": [
+    "Varón adulto: anemia < 13 g/dl; leve 11 a 12,9; moderada 8 a 10,9; grave < 8.",
+    "Mujer adulta no embarazada: anemia < 12 g/dl; leve 11 a 11,9; moderada 8 a 10,9; grave < 8.",
+    "Embarazada: anemia < 11 g/dl; leve 10 a 10,9; moderada 7 a 9,9; grave < 7.",
+    "Niños de 6 meses a 4 años: anemia < 11 g/dl; de 5 a 11 años: < 11,5 g/dl."
+   ],
+   "estudios": [
+    "Hemograma, reticulocitos, ferritina, saturación de transferrina, B12 y folato según el cuadro."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Ferropenia",
+       "texto": "Hierro oral o endovenoso (cálculo de Ganzoni) y estudio de la causa del déficit."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La altitud y el tabaquismo desplazan los valores de referencia."
+   ],
+   "fuente": {
+    "guia": "OMS. Concentraciones de hemoglobina para diagnosticar la anemia y evaluar su gravedad (2011)",
+    "sociedad": "Organización Mundial de la Salud / Sociedad Argentina de Hematología",
+    "anio": "2011",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "anemia-oms"
+  },
+  {
+   "id": "cr-braden",
+   "area": "criterios",
+   "titulo": "Escala de Braden (riesgo de úlceras por presión)",
+   "alias": [
+    "braden",
+    "ulceras por presion",
+    "escaras"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Valora el riesgo de úlceras por presión con 6 subescalas (6 a 23 puntos; menor puntaje, mayor riesgo).",
+   "diagnostico": [
+    "Percepción sensorial, humedad, actividad, movilidad y nutrición: de 1 a 4 puntos cada una.",
+    "Roce y fricción: de 1 a 3 puntos."
+   ],
+   "estudios": [
+    "Se aplica al ingreso y se repite periódicamente o ante cambios clínicos."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Riesgo",
+     "pasos": [
+      {
+       "etiqueta": "≤ 9",
+       "texto": "Muy alto."
+      },
+      {
+       "etiqueta": "10 a 12",
+       "texto": "Alto."
+      },
+      {
+       "etiqueta": "13 a 14",
+       "texto": "Moderado."
+      },
+      {
+       "etiqueta": "15 a 18",
+       "texto": "Bajo."
+      },
+      {
+       "etiqueta": "19 a 23",
+       "texto": "Sin riesgo."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Es una escala donde un puntaje menor indica mayor riesgo."
+   ],
+   "fuente": {
+    "guia": "Bergstrom N et al. Nurs Res 1987;36:205; EPUAP/NPIAP 2019",
+    "sociedad": "EPUAP / NPIAP / Ministerio de Salud de la Nación (seguridad del paciente)",
+    "anio": "2019",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "braden"
+  },
+  {
+   "id": "cr-silverman",
+   "area": "criterios",
+   "titulo": "Test de Silverman-Andersen (dificultad respiratoria neonatal)",
+   "alias": [
+    "silverman",
+    "distres respiratorio neonatal"
+   ],
+   "up": [
+    "cr6"
+   ],
+   "unidad": "Pediatría y neonatología",
+   "estado": "guia",
+   "definicion": "Valora la dificultad respiratoria del recién nacido con 5 parámetros (0 a 10 puntos).",
+   "diagnostico": [
+    "Movimientos toracoabdominales: sincrónicos 0; tórax inmóvil 1; disociación 2.",
+    "Tiraje intercostal: ausente 0; leve 1; intenso 2.",
+    "Retracción xifoidea: ausente 0; leve 1; intensa 2.",
+    "Aleteo nasal: ausente 0; leve 1; intenso 2.",
+    "Quejido espiratorio: ausente 0; audible con estetoscopio 1; audible a distancia 2."
+   ],
+   "estudios": [
+    "Se valora con el recién nacido en reposo y se repite cada pocos minutos si hay dificultad."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Interpretación",
+     "pasos": [
+      {
+       "etiqueta": "0",
+       "texto": "Sin dificultad."
+      },
+      {
+       "etiqueta": "1 a 3",
+       "texto": "Dificultad leve."
+      },
+      {
+       "etiqueta": "4 a 6",
+       "texto": "Dificultad moderada."
+      },
+      {
+       "etiqueta": "7 a 10",
+       "texto": "Dificultad grave: asistencia ventilatoria."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Silverman WA, Andersen DH. Pediatrics 1956;17:1",
+    "sociedad": "Sociedad Argentina de Pediatría (Guías de atención del recién nacido)",
+    "anio": "2016",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "silverman"
   }
  ]
 }

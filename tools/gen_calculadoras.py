@@ -10,7 +10,7 @@ ROOT = G.ROOT; SITE = G.SITE; e = html.escape
 def listar():
     js = r"""
 global.window=global; global.location={hash:''}; global.document={};
-require('./js/calc/motor.js'); ['obstetricia','cirugia','clinica','general'].forEach(f=>require('./js/calc/datos-'+f+'.js'));
+require('./js/calc/motor.js'); ['obstetricia','cirugia','clinica','general','extra'].forEach(f=>require('./js/calc/datos-'+f+'.js'));
 console.log(JSON.stringify(window.NikaCalcs.REG.map(c=>({id:c.id,nombre:c.nombre,desc:c.desc,area:c.area}))));
 """
     out = subprocess.run(['node', '-e', js], cwd=ROOT, capture_output=True, text=True, encoding='utf8')
@@ -30,7 +30,7 @@ def main():
         {"@type": "ItemList", "numberOfItems": n, "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": c['nombre'], "url": f"{url}#{c['id']}"} for i, c in enumerate(calcs)]},
         {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "NikaMed", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": "Calculadoras clínicas", "item": url}]}]}
     nav, foot = G.nav_footer()
-    head = G.head(titulo, desc, url, img, ld).replace('</head>', '<link rel="stylesheet" href="/css/calculadoras.css?v=1">\n</head>', 1)
+    head = G.head(titulo, desc, url, img, ld).replace('</head>', '<link rel="stylesheet" href="/css/calculadoras.css?v=2">\n</head>', 1)
     body = head + nav + f"""
     <header class="legal-hero art-hero g-hero">
         <span class="g-orb a"></span><span class="g-orb b"></span>
@@ -47,11 +47,12 @@ def main():
             <div class="row"><a class="btn-primary" href="/index.html#crear-cuenta">Crear cuenta gratis</a><a class="btn-ghost" href="/temas-clinicos.html">Ver temas clínicos</a></div></div>
     </main>
     {foot}
-<script src="/js/calc/motor.js?v=1"></script>
-<script src="/js/calc/datos-obstetricia.js?v=1"></script>
-<script src="/js/calc/datos-cirugia.js?v=1"></script>
-<script src="/js/calc/datos-clinica.js?v=1"></script>
-<script src="/js/calc/datos-general.js?v=1"></script>
+<script src="/js/calc/motor.js?v=2"></script>
+<script src="/js/calc/datos-obstetricia.js?v=2"></script>
+<script src="/js/calc/datos-cirugia.js?v=2"></script>
+<script src="/js/calc/datos-clinica.js?v=2"></script>
+<script src="/js/calc/datos-general.js?v=2"></script>
+<script src="/js/calc/datos-extra.js?v=2"></script>
 <script>NikaCalcs.montar(document.getElementById('calc-app'));</script>
 <script src="/js/guias.js?v=2" defer></script>
 <script src="/js/navmovil.js?v=1" defer></script>
