@@ -67,7 +67,7 @@ def nav_footer():
     src = open(os.path.join(ROOT, 'guia-flashcards-medicina.html'), encoding='utf8').read()
     nav = src[src.index('<!-- NAVBAR -->'):src.index('<header class="legal-hero')]
     foot = src[src.index('<!-- FOOTER INSTITUCIONAL -->'):src.index('<script src="js/guias.js')]
-    fix = lambda s: re.sub(r'(href|src)="(?!https?:|mailto:|#|/)', r'\1="/', s)
+    fix = lambda s: re.sub(r'(href|src|srcset)="(?!https?:|mailto:|#|/)', r'\1="/', s)
     return fix(nav), fix(foot)
 
 def estilo_base():
@@ -106,7 +106,7 @@ def head(titulo, desc, url, img, jsonld, extra_meta=''):
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 {estilo_base()}
-<link rel="stylesheet" href="/css/guias.css?v=1">
+<link rel="stylesheet" href="/css/guias.css?v=2">
 <link rel="stylesheet" href="/css/navmovil.css?v=3">
 <style>{CSS_EXTRA}</style>
 </head>

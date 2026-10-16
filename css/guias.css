@@ -6,7 +6,7 @@
 
 /* ---------- hero ---------- */
 .g-hero { position: relative; overflow: hidden; }
-.g-orb { position: absolute; width: 380px; height: 380px; border-radius: 50%; filter: blur(70px); opacity: .5; pointer-events: none; z-index: -1; }
+.g-orb { position: absolute; width: 380px; height: 380px; border-radius: 50%; opacity: .5; will-change: transform; pointer-events: none; z-index: -1; }
 .g-orb.a { top: -140px; left: 8%; background: radial-gradient(circle, rgba(56,189,248,.55), transparent 70%); animation: gOrbA 14s ease-in-out infinite; }
 .g-orb.b { top: -60px; right: 6%; background: radial-gradient(circle, rgba(168,85,247,.55), transparent 70%); animation: gOrbB 17s ease-in-out infinite; }
 @keyframes gOrbA { 50% { transform: translate(60px, 40px) scale(1.15); } }
