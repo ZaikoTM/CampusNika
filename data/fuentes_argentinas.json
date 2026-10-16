@@ -109,6 +109,34 @@
    "d": [
     "Recomienda una ecografía entre las semanas 10 y 13 para calcular la edad gestacional (recomendación A) y señala que el recuerdo de la FUM tiene errores frecuentes."
    ]
+  },
+  "consenso-ira": {
+   "t": "Consenso intersociedades sobre infecciones respiratorias altas en atención primaria",
+   "c": "Sociedad Argentina de Infectología (SADI), con la Sociedad Argentina de Pediatría, la Sociedad Argentina de Medicina y SADEBAC",
+   "n": "Se localizó solo su descripción; no se leyó el documento ni se verificó el año.",
+   "d": [
+    "Según su resumen, cerca de la mitad de las faringitis agudas son virales y más del 70 % de los pacientes recibe antibióticos: busca promover el uso racional de antimicrobianos."
+   ]
+  },
+  "obesidad-2015": {
+   "t": "Guía de Práctica Clínica Nacional sobre diagnóstico y tratamiento de la obesidad en adultos",
+   "c": "Ministerio de Salud de la Nación, 2015 (primer nivel de atención)",
+   "n": "No se leyó el texto ni se verificaron sus puntos de corte; podría existir una versión más reciente."
+  },
+  "sap-laringe": {
+   "t": "Algoritmo de manejo de la obstrucción laríngea en niños",
+   "c": "Arch Argent Pediatr 2022;120(3)",
+   "u": "https://www.sap.org.ar/docs/publicaciones/archivosarg/2022/v120n3a18.pdf",
+   "n": "No se confirmó su contenido sobre crup: no es una guía específica de laringitis."
+  },
+  "torres-2019": {
+   "t": "Ensayo aleatorizado de solución salina 0,45 % vs 0,9 % con dextrosa en niños internados",
+   "c": "Torres SF et al. Hospital Universitario Austral (Buenos Aires). BMJ Paediatrics Open, septiembre de 2019",
+   "u": "https://doaj.org/article/0adc5998dabb4298b019dd3427b93e21",
+   "n": "Es un estudio argentino, no una guía; no se leyó el resultado.",
+   "d": [
+    "Comparó la incidencia de hiponatremia (resultado primario) entre soluciones hipotónicas e isotónicas de mantenimiento."
+   ]
   }
  },
  "calc": {
@@ -160,6 +188,18 @@
   ],
   "eg-discrepancia": [
    "evidencia-prenatal"
+  ],
+  "mcisaac": [
+   "consenso-ira"
+  ],
+  "imc": [
+   "obesidad-2015"
+  ],
+  "westley": [
+   "sap-laringe"
+  ],
+  "holliday-segar": [
+   "torres-2019"
   ]
  },
  "fichas": {
@@ -356,6 +396,220 @@
     "Propone un abordaje escalonado de la evaluación preoperatoria y no respalda estudios extensos antes de cirugías de bajo riesgo.",
     "No se verificó cómo trata el índice RCRI: consultá el texto original."
    ]
+  },
+  "aap-acog-644": {
+   "t": "Committee Opinion 644: The Apgar Score",
+   "c": "AAP y ACOG, 2015",
+   "v": "No se pudo verificar una reafirmación ni la 9.ª edición del programa NRP.",
+   "d": [
+    "No usar el puntaje para predecir mortalidad o evolución neurológica ni como único criterio para diagnosticar asfixia; usar la forma expandida.",
+    "La reanimación debe iniciarse antes de asignar el puntaje del minuto 1: el Apgar no decide si hay que reanimar.",
+    "Con Apgar menor de 5 a los 5 minutos, obtener gases de sangre arterial del cordón umbilical."
+   ]
+  },
+  "acog-cpg9": {
+   "t": "Cervical Ripening in Pregnancy (Clinical Practice Guideline No. 9)",
+   "c": "ACOG. Obstet Gynecol 2025;146(1):148-160",
+   "v": "Vigente (2025). El documento previo era el Practice Bulletin 107 (2009).",
+   "d": [
+    "Trata la maduración cervical en embarazos de término, únicos, cefálicos y con membranas íntegras: la oxitocina y las prostaglandinas son eficaces, y los métodos mecánicos (balón, dilatadores osmóticos) acortan el tiempo hasta el parto.",
+    "Sobre el Bishop (revisión AAFP 2022, no la guía): mayor de 8 es favorable, con la misma probabilidad de parto vaginal que el trabajo de parto espontáneo; 5 o menos es desfavorable; el Bishop simplificado (dilatación, borramiento y posición) predice igual de bien. Los puntos de corte varían según la guía."
+   ]
+  },
+  "who-hb-2024": {
+   "t": "Guideline on haemoglobin cutoffs to define anaemia in individuals and populations",
+   "c": "OMS, marzo de 2024 (ISBN 978-92-4-008854-2)",
+   "u": "https://www.who.int/publications-detail-redirect/9789240088542",
+   "v": "Vigente (2024). Actualiza los cortes de 2011 en niños pequeños.",
+   "d": [
+    "Anemia en niños de 6 a 23 meses: hemoglobina < 105 g/L; de 24 a 59 meses: < 110 g/L (el corte de 110 g/L para menores de 5 años regía desde 1968).",
+    "Revisa también la medición de hemoglobina y los ajustes por tabaquismo y altitud. Para embarazadas las fuentes consultadas discrepan: verificá la tabla del documento.",
+    "Los puntos de corte de la calculadora siguen la edición 2011: conviene contrastarlos con esta tabla."
+   ]
+  },
+  "ldl-2026": {
+   "t": "Guía ACC/AHA 2026 de manejo de dislipemias",
+   "c": "ACC/AHA, 2026 (datos de fuentes secundarias; el texto original no se consultó)",
+   "v": "Vigente (2026).",
+   "d": [
+    "Recomienda estimar el LDL con la ecuación de Martin-Hopkins o la de Sampson-NIH en lugar de Friedewald.",
+    "Friedewald tiende a subestimar el LDL, sobre todo con LDL bajo (< 70 mg/dL) o triglicéridos altos (poco confiable por encima de 400 mg/dL)."
+   ]
+  },
+  "meld3": {
+   "t": "MELD 3.0 (asignación de trasplante hepático)",
+   "c": "OPTN/UNOS, implementado en julio de 2023",
+   "u": "https://optn.transplant.hrsa.gov/media/fyxhlkp5/improving-liver-allocation-meld-30-faq.pdf",
+   "v": "Vigente: MELD 3.0 es la versión en uso en EE. UU. La calculadora implementa MELD y MELD-Na.",
+   "d": [
+    "Agrega sexo y albúmina, actualiza los pesos de sodio, bilirrubina, INR y creatinina, y limita la creatinina a 3,0 mg/dL (antes 4,0).",
+    "Se aplica a candidatos adultos y a adolescentes de 12 a 17 años; se espera un modesto descenso de la mortalidad en lista y mejor acceso para mujeres."
+   ]
+  },
+  "ctp-hist": {
+   "t": "Clasificación de Child-Turcotte-Pugh",
+   "c": "Pugh 1973. No se encontró una guía AASLD reciente que la modifique",
+   "v": "Sin revisión reciente hallada.",
+   "d": [
+    "Validada para pronóstico a corto plazo en cirrosis; se usó para asignar trasplantes en EE. UU. desde 1998, antes de ser reemplazada por MELD."
+   ]
+  },
+  "acg-ugib-2021": {
+   "t": "ACG Clinical Guideline: Upper Gastrointestinal and Ulcer Bleeding",
+   "c": "Laine L et al. Am J Gastroenterol 2021;116:899-917",
+   "u": "https://pubmed.ncbi.nlm.nih.gov/33929377/",
+   "v": "Vigente (2021). No se verificó la guía ESGE 2021.",
+   "d": [
+    "Pacientes con Glasgow-Blatchford de 0 a 1 pueden ser dados de alta con seguimiento ambulatorio (recomendación condicional, evidencia muy baja).",
+    "Hospitalizados: transfusión con umbral de 7 g/dL, eritromicina antes de la endoscopia y endoscopia dentro de las 24 h.",
+    "Tras la hemostasia endoscópica: IBP en dosis altas por 3 días y luego por vía oral dos veces al día durante 2 semanas."
+   ]
+  },
+  "ards-2023": {
+   "t": "ESICM guidelines on acute respiratory distress syndrome",
+   "c": "Intensive Care Medicine, 2023 (se apoya en la guía ATS/ESICM/SCCM 2017)",
+   "v": "Vigente (2023). No se encontró una guía ATS 2024.",
+   "d": [
+    "Volúmenes corrientes bajos de 4 a 8 mL/kg de peso predicho en pacientes intubados con SDRA (recomendación fuerte, evidencia alta).",
+    "La guía de 2017 sugiere empezar con 6 mL/kg y permitir hasta 8 si hay efectos indeseables, con presión meseta menor de 30 cmH₂O."
+   ]
+  },
+  "aba-2024": {
+   "t": "American Burn Association Clinical Practice Guidelines on Burn Shock Resuscitation",
+   "c": "Cartotto R et al. J Burn Care Res 2024 (doi 10.1093/jbcr/irad125)",
+   "u": "https://achpccg.com/wp-content/uploads/2024/02/Cartotto-et-al_2023_American-Burn-Association-CLinical-Practice-Guidelines-on-Burn-Shock-Resuscitation.pdf",
+   "v": "Vigente (2024). Ya no propone 4 mL/kg/%SCQ como punto de partida.",
+   "d": [
+    "Alcance: adultos con quemaduras de 20 % o más de superficie corporal en las primeras 48 h.",
+    "Favorece empezar con 2 mL/kg por %SCQ en las primeras 24 h, titulando por diuresis (alrededor de 0,5 mL/kg/h), en lugar de los 4 mL/kg de la fórmula de Parkland.",
+    "Recomienda considerar albúmina, sobre todo en quemaduras grandes, para reducir los volúmenes y mejorar la diuresis."
+   ]
+  },
+  "ponv-2020": {
+   "t": "Fourth Consensus Guidelines for the Management of Postoperative Nausea and Vomiting",
+   "c": "Gan TJ et al. Anesth Analg 2020;131:411-448",
+   "v": "Vigente (4.ª edición, 2020).",
+   "d": [
+    "Cubre estratificación del riesgo, medidas para reducir el riesgo basal, profilaxis y tratamiento de rescate.",
+    "El score de Apfel (resumen secundario) suma un punto por sexo femenino, no fumador, opioides posoperatorios y antecedente de NVPO o cinetosis; no capta el tipo de cirugía."
+   ]
+  },
+  "ash-prof-2018": {
+   "t": "ASH 2018 guidelines for management of venous thromboembolism: prophylaxis for hospitalized and nonhospitalized medical patients",
+   "c": "Schünemann HJ et al. Blood Adv 2018;2:3198-3225",
+   "u": "https://pubmed.ncbi.nlm.nih.gov/30482763/",
+   "v": "Última edición hallada (2018).",
+   "d": [
+    "Profilaxis durante la hospitalización en pacientes clínicos agudos, pero no después del alta (recomendación fuerte).",
+    "HBPM o fondaparinux preferidos frente a heparina no fraccionada y a anticoagulantes orales directos.",
+    "Padua de 4 o más como alto riesgo (de un resumen secundario: verificá en el original)."
+   ]
+  },
+  "ash-dx-2018": {
+   "t": "ASH 2018 guidelines for management of venous thromboembolism: diagnosis of VTE",
+   "c": "American Society of Hematology, 2018",
+   "u": "https://www.hematology.org:443/-/media/hematology/files/clinicians/guidelines/vte/ash-teaching-slide-setvtediagnosispdffinal71923.pdf",
+   "v": "Última edición hallada (2018).",
+   "d": [
+    "Dímero D como estudio inicial en pacientes de bajo riesgo e imágenes en los de alto riesgo.",
+    "La ecografía es el estudio apropiado para la TVP de miembros inferiores o superiores. No se verificaron los cortes exactos del Wells en el documento."
+   ]
+  },
+  "rcp-news2": {
+   "t": "National Early Warning Score (NEWS) 2",
+   "c": "Royal College of Physicians, diciembre de 2017",
+   "u": "https://www.rcp.ac.uk/media/ctulqqbn/news2-executive-summary_0.pdf",
+   "v": "Sigue en uso; no se halló una revisión 2025. Una revisión sistemática de 2026 indica que falta evidencia sólida de que mejore los resultados clínicos.",
+   "d": [
+    "Estandariza la evaluación de la gravedad de la enfermedad aguda en adultos de 16 años o más; su fecha de revisión prevista era 2022."
+   ]
+  },
+  "aap-ivf-2018": {
+   "t": "Clinical Practice Guideline: Maintenance Intravenous Fluids in Children",
+   "c": "Feld LG et al. Pediatrics 2018;142(4):e20183083",
+   "v": "Vigente (2018).",
+   "d": [
+    "En niños de 28 días a 18 años que necesitan hidratación de mantenimiento, usar soluciones isotónicas con cloruro de potasio y dextrosa (recomendación fuerte, evidencia alta).",
+    "Excluye neonatos, UCIN, cirugía neurológica, cardiopatías, hepatopatías, cáncer, falla renal, diabetes insípida, diarrea voluminosa y quemaduras graves.",
+    "Aborda la tonicidad; no se verificó que fije el volumen total de mantenimiento."
+   ]
+  },
+  "croup-mo-2025": {
+   "t": "Croup Clinical Practice Guideline (V9)",
+   "c": "University of Missouri, Emergencia pediátrica, julio de 2025 (guía institucional, no nacional)",
+   "u": "https://medicine.missouri.edu/sites/default/files/em/Croup_Clinical_Practice_Guideline_V9.pdf",
+   "v": "Las guías difieren: verificá el protocolo local.",
+   "d": [
+    "Dexametasona oral en dosis única de 0,6 mg/kg (máx. 10 mg); 0,15 mg/kg puede considerarse en crup leve.",
+    "Su versión previa clasifica el Westley: leve 0-2, moderado 3-5, grave 6-11."
+   ]
+  },
+  "hypona-2014": {
+   "t": "Clinical practice guideline on diagnosis and treatment of hyponatraemia",
+   "c": "ESE, ESICM y ERA-EDTA, 2014",
+   "v": "Sigue siendo la referencia europea; no se halló una guía nueva de hipernatremia 2025.",
+   "d": [
+    "No se resumió su contenido sobre hipernatremia: la fórmula de Adrogué-Madias es el abordaje clásico. Revisiones recientes advierten que la hiponatremia grave debe corregirse en el hospital con guía especializada."
+   ]
+  },
+  "kdigo-aki-2026": {
+   "t": "KDIGO Clinical Practice Guideline for Acute Kidney Injury and Acute Kidney Disease (borrador)",
+   "c": "KDIGO. Revisión pública hasta el 11 de mayo de 2026",
+   "u": "https://kdigo.org/guidelines/acute-kidney-injury/",
+   "v": "Primera actualización desde 2012; verificá si ya se publicó la versión final.",
+   "d": [
+    "Nuevas definiciones con criterios funcionales y biomarcadores estructurales; recomendaciones sobre modelos de riesgo, biomarcadores y alertas electrónicas.",
+    "En las fuentes consultadas no figura el FENa: sus cortes (< 1 % prerrenal, > 2 % necrosis tubular) son aproximados y fallan con diuréticos, donde la fracción de urea (< 35 %) puede servir más."
+   ]
+  },
+  "idsa-gas-2025": {
+   "t": "IDSA Guideline update: Group A streptococcal pharyngitis (risk assessment)",
+   "c": "Linder JA et al. Clin Infect Dis, 4 de diciembre de 2025 (doi 10.1093/cid/ciaf668)",
+   "u": "https://doi.org/10.1093/cid/ciaf668",
+   "v": "Vigente (2025). Es la primera parte de la actualización: aún no cubre el tratamiento.",
+   "d": [
+    "Sugiere usar un score clínico (Centor, McIsaac o FeverPAIN) para decidir a quién testear por estreptococo del grupo A; apunta a identificar a quienes tienen baja probabilidad.",
+    "Las probabilidades por categoría (baja, moderada, alta) provienen de resúmenes secundarios: verificá en el original."
+   ]
+  },
+  "qt-lit": {
+   "t": "Corrección del QT: Bazett frente a Fridericia",
+   "c": "Revisiones y estudios comparativos (resumen: MDCalc, 2026). No se confirmó el texto de la guía europea de arritmias ventriculares 2022",
+   "u": "https://mdcalc.scholasticahq.com/article/154680-updated-review-of-corrected-qt-interval-qtc",
+   "v": "Sin guía verificada; evidencia de estudios.",
+   "d": [
+    "Bazett corrige de más o de menos cuando la frecuencia está lejos de 60 lpm; Fridericia y Framingham corrigen mejor.",
+    "El riesgo de torsades aumenta con QTc mayor de 500 ms (valor dependiente de la fórmula). Con bloqueo de rama conviene ajustar por el QRS."
+   ]
+  },
+  "eau-2026": {
+   "t": "EAU Guidelines on Management of Non-neurogenic Male LUTS",
+   "c": "European Association of Urology, actualización 2026 (revisión de literatura hasta mayo de 2025)",
+   "u": "https://uroweb.org/guidelines/management-of-non-neurogenic-male-luts",
+   "v": "Vigente (2026). La AUA actualizó su guía de HBP en 2023.",
+   "d": [
+    "Evaluación inicial: scores de síntomas validados, orina, uroflujometría y residuo posmiccional; PSA solo si cambia la conducta.",
+    "La guía AUA 2023 indica historia, examen físico, IPSS y análisis de orina como evaluación inicial de síntomas urinarios bajos por HBP."
+   ]
+  },
+  "epuap-2019": {
+   "t": "Prevention and Treatment of Pressure Ulcers/Injuries: Clinical Practice Guideline (2019)",
+   "c": "EPUAP, NPIAP y PPPIA (con 14 organizaciones asociadas y 174 expertos)",
+   "v": "Vigente (edición 2019).",
+   "d": [
+    "La escala de Braden tiene seis subescalas (percepción sensorial, humedad, actividad, movilidad, fricción y cizallamiento); los puntos de corte publicados van de 11 a 17.",
+    "Se recomienda combinar el puntaje con el juicio clínico de enfermería y repetir la valoración cuando cambia el estado del paciente (evaluación estructurada dentro de las 8 h del ingreso, según un resumen de la edición 2014)."
+   ]
+  },
+  "pesoped-2025": {
+   "t": "Estimación del peso en urgencias pediátricas: evidencia reciente",
+   "c": "Estudios comparativos 2025 (Acta Med Philipp; J Pediatr Pharmacol Ther). No se confirmó el texto de las guías PALS/AHA 2025",
+   "u": "https://actamedicaphilippina.upm.edu.ph/index.php/acta/article/view/5383",
+   "v": "Sin guía verificada; evidencia de estudios.",
+   "d": [
+    "Los métodos por longitud y por antropometría resultaron más fiables que las fórmulas por edad; la cinta de Broselow fue la que más se acercó en una cohorte (sobreestimó 0,7 kg).",
+    "En una cohorte australiana de más de 37.000 niños, el método «Best Guess» fue el más exacto en mayores de 1 año; en otras series la cinta tiende a subestimar o sobreestimar según la población."
+   ]
   }
  },
  "calcInt": {
@@ -448,6 +702,109 @@
   ],
   "rcri": [
    "acc-periop-2024"
+  ],
+  "apgar": [
+   "aap-acog-644"
+  ],
+  "bishop": [
+   "acog-cpg9"
+  ],
+  "anemia-oms": [
+   "who-hb-2024"
+  ],
+  "friedewald": [
+   "ldl-2026"
+  ],
+  "meld": [
+   "meld3"
+  ],
+  "child-pugh": [
+   "ctp-hist"
+  ],
+  "glasgow-blatchford": [
+   "acg-ugib-2021"
+  ],
+  "rockall": [
+   "acg-ugib-2021"
+  ],
+  "vt-ardsnet": [
+   "ards-2023"
+  ],
+  "parkland": [
+   "aba-2024"
+  ],
+  "apfel": [
+   "ponv-2020"
+  ],
+  "padua": [
+   "ash-prof-2018"
+  ],
+  "wells-tvp": [
+   "ash-dx-2018"
+  ],
+  "news2": [
+   "rcp-news2"
+  ],
+  "holliday-segar": [
+   "aap-ivf-2018"
+  ],
+  "westley": [
+   "croup-mo-2025"
+  ],
+  "deficit-agua": [
+   "hypona-2014"
+  ],
+  "fena": [
+   "kdigo-aki-2026"
+  ],
+  "mcisaac": [
+   "idsa-gas-2025"
+  ],
+  "qtc": [
+   "qt-lit"
+  ],
+  "ipss": [
+   "eau-2026"
+  ],
+  "braden": [
+   "epuap-2019"
+  ],
+  "peso-pediatrico": [
+   "pesoped-2025"
   ]
+ },
+ "notaAr": {
+  "ipss": "No se localizó una guía de la Sociedad Argentina de Urología sobre síntomas urinarios bajos; en la búsqueda solo aparecieron documentos de España, Colombia y de la AUA.",
+  "braden": "No se localizó una guía nacional argentina de prevención de úlceras por presión que adopte la escala de Braden; se usa la guía internacional de 2019.",
+  "ganancia-peso": "No se localizó la guía de control prenatal del Ministerio de Salud de la Nación con las recomendaciones de ganancia de peso: se cita la referencia del IOM.",
+  "anemia-oms": "La guía de la SAP es pediátrica; no se localizó una guía argentina vigente de anemia en adultos o embarazo.",
+  "mcisaac": "Existe un consenso intersociedades argentino sobre infecciones respiratorias altas, pero solo se localizó su descripción."
+ },
+ "notaInt": {
+  "ganzoni": "Es la fórmula clásica de déficit de hierro (Ganzoni 1970) para calcular la dosis total de hierro endovenoso: no depende de una guía; en pediatría la guía de la SAP indica el esquema por mg/kg.",
+  "imc": "Clasificación de la OMS: bajo peso < 18,5; normal 18,5-24,9; sobrepeso 25-29,9; obesidad desde 30 kg/m². Es una clasificación poblacional que no distingue la distribución de la grasa: se complementa con el perímetro de cintura.",
+  "glasgow": "La referencia es el curso ATLS del Colegio Americano de Cirujanos; se menciona una 11.ª edición, pero no pudo verificarse su contenido sobre la escala de Glasgow. La revisión de 2014 incorporó la respuesta a la presión en lugar del dolor y la categoría «no evaluable».",
+  "rts": "La referencia es el curso ATLS del Colegio Americano de Cirujanos; no pudo verificarse el contenido de su 11.ª edición.",
+  "regla-nueves": "La referencia es el curso ATLS del Colegio Americano de Cirujanos (en niños se usa la tabla de Lund-Browder); no pudo verificarse su 11.ª edición.",
+  "goteo": "Es un cálculo aritmético estándar (volumen × factor de goteo ÷ tiempo): no depende de una guía clínica.",
+  "infusion": "Es un cálculo farmacológico general (dosis × peso × 60 ÷ concentración): no depende de una guía clínica. Verificá siempre la concentración de la presentación.",
+  "sc-mosteller": "Es una fórmula antropométrica de 1987 sin guía clínica que la reemplace; se usa para dosificar quimioterápicos y otros fármacos.",
+  "peso-ideal": "La fórmula de Devine es una referencia farmacológica clásica; para ventilación protectora se usa el peso predicho por talla (ver ARDSNet).",
+  "cockcroft": "Es la fórmula histórica de dosificación de fármacos; para estadificar la enfermedad renal se prefiere el eFG por CKD-EPI (guía KDIGO 2024).",
+  "calcio-corregido": "Es una corrección empírica de 1973 sin guía clínica que la reemplace: en pacientes críticos conviene confirmar con calcio iónico.",
+  "anion-gap": "Es un cálculo fisiológico de referencia clásica sin guía clínica específica; la corrección por albúmina proviene de Figge 1998.",
+  "osmolaridad": "Es un cálculo fisiológico estándar sin guía clínica específica.",
+  "homa-ir": "Es un índice de investigación (Matthews 1985): no hay un punto de corte único validado por guías; se interpreta según la población y el laboratorio.",
+  "mifflin": "Es la ecuación de gasto energético en reposo recomendada por la Academy of Nutrition and Dietetics para adultos; no se encontró una guía más reciente.",
+  "ph-winter": "Es una regla fisiológica clásica (Albert 1967) sin guía clínica específica.",
+  "delta-delta": "Es un cálculo fisiológico clásico (Rastegar 2007) sin guía clínica específica.",
+  "gradiente-aa": "La relación PaO₂/FiO₂ sigue la definición de Berlín del SDRA (2012); la guía ESICM 2023 de SDRA mantiene ese marco.",
+  "talla-blanco": "Es la fórmula clásica de talla genética (Tanner 1970): se interpreta junto con las curvas de crecimiento locales.",
+  "silverman": "Es una escala neonatal de 1956 sin guía clínica que la reemplace; la conducta ventilatoria sigue los protocolos neonatales vigentes.",
+  "eg-corregida": "Es una convención de seguimiento del prematuro (AAP); se usa hasta los 24 meses.",
+  "ovulacion": "Se basa en estudios de ventana fértil (Wilcox, N Engl J Med 1995); no hay una guía que modifique el cálculo.",
+  "ganancia-peso": "Las recomendaciones de ganancia de peso provienen del Institute of Medicine (2009); no se verificó una actualización posterior.",
+  "morse": "Es una escala de riesgo de caídas de 1989; no se verificó la guía mundial de prevención de caídas 2022 ni su opinión sobre esta escala.",
+  "rockall": "La guía ACG 2021 se centra en Glasgow-Blatchford para decidir el alta; no se resumió su postura sobre el Rockall completo."
  }
 }

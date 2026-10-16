@@ -76,8 +76,8 @@
   const refHtml = (r) => `<li><div class="cc-rt">${r.u ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>` : esc(r.t)}</div><small>${esc(r.c)}</small>${r.v ? `<span class="cc-vig">${esc(r.v)}</span>` : ''}${r.n ? `<span class="cc-vig">${esc(r.n)}</span>` : ''}${r.d && r.d.length ? `<ul class="cc-dice">${r.d.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</li>`;
   function guiasHtml(c) {
     const ar = c.fuenteAr || [], it = c.fuenteInt || [];
-    const vacioAr = '<p class="cc-sin">No se localizó una guía argentina específica vigente para esta escala: se cita la fuente original e internacional en el fundamento.</p>';
-    const vacioInt = '<p class="cc-sin">Sin guía internacional más reciente verificada para esta escala: la referencia vigente es la publicación original citada en el fundamento.</p>';
+    const vacioAr = `<p class="cc-sin">${esc(c.notaAr || 'No se localizó una guía argentina específica vigente para esta escala: se cita la fuente original e internacional en el fundamento.')}</p>`;
+    const vacioInt = `<p class="cc-sin">${esc(c.notaInt || 'No se identificó una guía clínica más reciente que modifique este cálculo en la revisión del 16/10/2026: la referencia vigente es la publicación original citada en el fundamento.')}</p>`;
     const inicial = ar.length || !it.length ? 'ar' : 'int';
     return `<div class="cc-guias" data-tab="${inicial}">
       <div class="cc-gtabs" role="tablist"><button type="button" role="tab" data-g="ar" class="${inicial === 'ar' ? 'on' : ''}">🇦🇷 Guía argentina${ar.length ? ' <i>' + ar.length + '</i>' : ''}</button><button type="button" role="tab" data-g="int" class="${inicial === 'int' ? 'on' : ''}">🌐 Guías internacionales${it.length ? ' <i>' + it.length + '</i>' : ''}</button></div>
