@@ -4,11 +4,13 @@
   'use strict';
   const URL_DATOS = 'data/nikafarma_patologias.json';
   const URL_CX = 'data/flashcards_cirugia.json';
+  const URL_CR = 'data/flashcards_criterios.json';
   const KEY_OK = 'nika_fc_ok';
-  const PAPEL = { 'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe', 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
+  const PAPEL = { 'cr1': '#c7f9cc', 'cr2': '#fbcfe8', 'cr3': '#fecdd3', 'cr4': '#ddd6fe', 'cr5': '#fde68a', 'cr6': '#bae6fd', 'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe', 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
   const LOGO = 'assets/N%20NIKA.png';
   const PALETA = ['#fff3a3', '#fbcfe8', '#bbf7d0', '#ddd6fe', '#fed7aa', '#bae6fd', '#fecdd3', '#e9d5ff', '#c7f9cc', '#fde68a'];
-  const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : 'ginecologia');
+  const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : /^cr\d+$/.test(String(u)) ? 'criterios' : 'ginecologia');
+  const unidadInicial = (ar) => (ar === 'cirugia' ? 'cx5' : ar === 'criterios' ? 'cr1' : 'up3-sec4');
   const descargoDe = (d, ar) => ((d.meta.descargos || {})[ar]) || d.meta.descargo;
   const areaDe = (p) => p.area || areaDeUnidad((p.up || [])[0]);
   const colorDe = (p) => { let h = 0; const t = String(p.id); for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return PALETA[h % PALETA.length]; };
@@ -63,8 +65,8 @@
     if (D) return Promise.resolve(D);
     if (cargando) return cargando;
     const opc = (u) => fetch(u, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
-    cargando = Promise.all([fetch(URL_DATOS, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }), opc(URL_CX)])
-      .then(([j, cx]) => {
+    cargando = Promise.all([fetch(URL_DATOS, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }), opc(URL_CX), opc(URL_CR)])
+      .then(([j, cx, cr]) => {
         (j.patologias || []).forEach((x) => { if (!x.area) x.area = 'ginecologia'; });
         if (cx && Array.isArray(cx.patologias)) {
           cx.patologias.forEach((x) => { if (x.fuente && !x.fuente.url) { const u = urlDeFuente(x.fuente); if (u) x.fuente.url = u; } });
@@ -73,6 +75,12 @@
           j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (cx.meta && cx.meta.unidades) || {});
           j.meta.tipos = Object.assign({}, j.meta.tipos || {}, (cx.meta && cx.meta.tipos) || {});
           j.meta.descargos = { cirugia: cx.meta && cx.meta.descargo };
+        }
+        if (cr && Array.isArray(cr.patologias)) {
+          j.patologias = (j.patologias || []).concat(cr.patologias);
+          j.meta = j.meta || {};
+          j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (cr.meta && cr.meta.unidades) || {});
+          j.meta.descargos = Object.assign({}, j.meta.descargos || {}, { criterios: cr.meta && cr.meta.descargo });
         }
         return j;
       })
@@ -245,7 +253,7 @@
   }
   // Texto que acompaña la imagen en WhatsApp: título, área y unidad, una frase de contexto y el link a la ficha pública
   const mensajeCorto = (p) => {
-    const area = areaDe(p) === 'cirugia' ? 'Cirugía' : 'Ginecología y Obstetricia';
+    const area = ({ cirugia: 'Cirugía', criterios: 'Criterios y escalas' })[areaDe(p)] || 'Ginecología y Obstetricia';
     const uni = ((D && D.meta && D.meta.unidades) || {})[(p.up || [])[0]] || '';
     let lead = String(p.definicion || '').replace(/\s+/g, ' ').trim();
     const m = lead.match(/^(.+?[.!?])(\s|$)/); if (m && m[1].length > 40) lead = m[1];
@@ -340,6 +348,7 @@
           '<div class="fcd-hoja"><span class="pin"></span><span class="fcd-marca" aria-hidden="true"><img src="assets/N%20NIKA.png" alt=""><img class="v" src="assets/TEXTO%20VECTOR%20NIKA.png" alt=""></span><h3>' + esc(p.titulo) + '</h3><div class="fcd-meta">' + unidades + etiquetaFuente(p) + (ok ? '<span class="fc-tag guia">✅ La sabés</span>' : '') + '</div>' +
           '<div class="fc-elegi">Tocá para desplegar o plegar cada parte</div><div class="fc-chips">' + chips + '</div>' +
           '<div class="fcd-secs">' + secs + '</div>' + sello(p) +
+          (p.calculadora ? '<a class="fcd-calc" href="calculadoras.html#' + esc(p.calculadora) + '">🧮 Abrir la calculadora de esta escala</a>' : '') +
           '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small></div></div>' +
           '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">📋 Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa">💬 WhatsApp (imagen)</button><button type="button" class="fcd-btn" data-fcd="img">⬇️ Descargar imagen</button>' +
           (navigator.share ? '<button type="button" class="fcd-btn" data-fcd="share">📤 Compartir</button>' : '') +
@@ -410,7 +419,7 @@
 
   const AREAS_MOSAICO = [
     { id: 'ginecologia', nom: 'Ginecología', ico: '🌸', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃' }
   ];
 
@@ -533,7 +542,7 @@
   // ---------- Simulador FlashCard y modo Practicar ----------
   const AREAS = [
     { id: 'ginecologia', nom: 'Ginecología y Obstetricia', ico: '🌸', c: '#ec4899', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', c: '#8b5cf6', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️', c: '#f59e0b' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃', c: '#8b5cf6' }
   ];
   const CONTENIDOS = [
@@ -567,7 +576,7 @@
   const poolDe = (st) => {
     let ups = null;
     const ar = st.area || 'ginecologia';
-    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ar === 'cirugia' ? PARCIAL_CX : PARCIAL_UPS;
+    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ar === 'cirugia' ? PARCIAL_CX : ar === 'criterios' ? ['cr1', 'cr2', 'cr3', 'cr4', 'cr5', 'cr6'] : PARCIAL_UPS;
     const c = CONTENIDOS.find((x) => x.id === st.cont);
     let l = fichasDe(ups).filter((p) => areaDe(p) === ar && seccionesDe(c).some((s) => tieneSec(p, s)));
     if (st.soloPend) { const ok = leerOk(); l = l.filter((p) => !ok[p.id]); }
@@ -581,7 +590,7 @@
     cargar().then((d) => {
       if (!d) { host.innerHTML = '<div class="fc-vacio">No se pudieron cargar las flashcards.</div>'; return; }
       const st = Object.assign({ area: 'ginecologia', alcance: 'final', unidad: 'up3-sec4', cont: 'tx', n: 10, soloPend: false }, (opts && opts.estado) || {});
-      if (st.area === 'cirugia' && !/^cx/.test(st.unidad)) st.unidad = 'cx5';
+      if (areaDeUnidad(st.unidad) !== st.area) st.unidad = unidadInicial(st.area);
       let mazo = [], i = 0, vista = false, repasar = [], sabidas = 0, miResp = '', res = null;
       const setup = () => {
         const total = poolDe(st).length;
@@ -614,7 +623,7 @@
       };
       host.onclick = (e) => {
         const t = e.target;
-        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; st.unidad = st.area === 'cirugia' ? 'cx5' : 'up3-sec4'; return setup(); }
+        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; st.unidad = unidadInicial(st.area); return setup(); }
         const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }
         const u = t.closest('[data-unidad]'); if (u) { st.unidad = u.dataset.unidad; return setup(); }
         const n = t.closest('[data-n]'); if (n) { st.n = parseInt(n.dataset.n, 10); return setup(); }
@@ -645,7 +654,7 @@
         const total = poolDe(st).length;
         host.innerHTML = '<div class="fcs-setup"><section class="fcs-sec"><h3><span>1</span> ¿Qué unidad querés practicar?</h3>' +
           '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.alcance === 'final' ? ' on' : '') + '" data-alc="final">Toda la materia</button><button type="button" class="fcs-pill' + (st.alcance === 'parcial' ? ' on' : '') + '" data-alc="parcial">' + (st.area === 'cirugia' ? 'Parcial (UP1–UP6)' : 'Parcial (UP1–UP3)') + '</button></div>' +
-          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.area !== 'cirugia' ? ' on' : '') + '" data-parea="ginecologia">🌸 Ginecología y Obstetricia</button><button type="button" class="fcs-pill' + (st.area === 'cirugia' ? ' on' : '') + '" data-parea="cirugia">🔪 Cirugía</button></div>' +
+          '<div class="fcs-uni"><button type="button" class="fcs-pill' + (st.area !== 'cirugia' ? ' on' : '') + '" data-parea="ginecologia">🌸 Ginecología y Obstetricia</button><button type="button" class="fcs-pill' + (st.area === 'cirugia' ? ' on' : '') + '" data-parea="cirugia">🔪 Cirugía</button><button type="button" class="fcs-pill' + (st.area === 'criterios' ? ' on' : '') + '" data-parea="criterios">📊 Criterios y escalas</button></div>' +
           selUnidad(d, st.alcance === 'unidad' ? st : Object.assign({}, st, { unidad: '' })) + '</section>' +
           '<section class="fcs-sec"><h3><span>2</span> ¿Qué querés ver al dar vuelta la tarjeta?</h3>' + tiles('cont', CONTENIDOS, st) + '</section>' +
           '<div class="fcs-go"><label class="fcs-chk"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '><span>Solo las que todavía no domino</span></label>' +
@@ -667,7 +676,7 @@
       const ir = (k) => { i = Math.max(0, Math.min(mazo.length - 1, i + k)); vista = false; miResp = ''; res = null; mostrar(); };
       host.onclick = (e) => {
         const t = e.target;
-        const pa = t.closest('[data-parea]'); if (pa) { st.area = pa.dataset.parea; st.unidad = st.area === 'cirugia' ? 'cx5' : 'up3-sec4'; st.alcance = 'unidad'; return setup(); }
+        const pa = t.closest('[data-parea]'); if (pa) { st.area = pa.dataset.parea; st.unidad = unidadInicial(st.area); st.alcance = 'unidad'; return setup(); }
         const al = t.closest('[data-alc]'); if (al) { st.alcance = al.dataset.alc; return setup(); }
         const u = t.closest('[data-unidad]'); if (u) { st.alcance = 'unidad'; st.unidad = u.dataset.unidad; return setup(); }
         const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }

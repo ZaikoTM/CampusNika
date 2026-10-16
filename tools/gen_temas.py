@@ -11,12 +11,13 @@ FECHA = '2026-10-16'
 AREAS = {
     'ginecologia': dict(nombre='Ginecología y Obstetricia', ico='🌸', acc=(236, 72, 153), guia='Salud Integral de la Mujer'),
     'cirugia': dict(nombre='Cirugía', ico='🔪', acc=(14, 165, 233), guia='Introducción a las Especialidades Clínico-Quirúrgicas'),
+    'criterios': dict(nombre='Criterios y escalas', ico='📊', acc=(139, 92, 246), guia='Criterios, clasificaciones y escalas clínicas'),
 }
 e = html.escape
 
 def cargar():
     out, unidades = [], {}
-    for f in ('data/nikafarma_patologias.json', 'data/flashcards_cirugia.json'):
+    for f in ('data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'data/flashcards_criterios.json'):
         d = json.load(open(os.path.join(ROOT, f), encoding='utf8'))
         unidades.update(d['meta'].get('unidades', {}))
         for p in d['patologias']:
@@ -259,15 +260,16 @@ def main():
         IDX = []
         dx = ''
         if p.get('definicion'): dx += '<p class="tm-def">' + fmt(p['definicion']) + '</p>'
-        if p.get('diagnostico'): dx += '<h3 class="tm-sub">Cómo se diagnostica</h3>' + lista(p['diagnostico'])
-        if dx: n += 1; partes.append(seccion(n, 'Definición y diagnóstico', dx, 'diagnostico')); IDX.append(('diagnostico', 'Diagnóstico'))
-        if p.get('estudios'): n += 1; partes.append(seccion(n, 'Estudios complementarios', lista(p['estudios']), 'estudios')); IDX.append(('estudios', 'Estudios'))
-        if p.get('banderas'): n += 1; partes.append(seccion(n, 'Banderas rojas', lista(p['banderas'], 'tm-rojo'), 'banderas')); IDX.append(('banderas', 'Banderas rojas'))
+        crit = p['area'] == 'criterios'
+        if p.get('diagnostico'): dx += '<h3 class="tm-sub">' + ('Criterios' if crit else 'Cómo se diagnostica') + '</h3>' + lista(p['diagnostico'])
+        if dx: n += 1; partes.append(seccion(n, 'Qué es y criterios' if crit else 'Definición y diagnóstico', dx, 'diagnostico')); IDX.append(('diagnostico', 'Diagnóstico'))
+        if p.get('estudios'): n += 1; partes.append(seccion(n, 'Cómo se usa' if crit else 'Estudios complementarios', lista(p['estudios']), 'estudios')); IDX.append(('estudios', 'Cómo se usa' if crit else 'Estudios'))
+        if p.get('banderas'): n += 1; partes.append(seccion(n, 'Tené en cuenta' if crit else 'Banderas rojas', lista(p['banderas'], 'tm-rojo'), 'banderas')); IDX.append(('banderas', 'Tené en cuenta' if crit else 'Banderas rojas'))
         if p.get('tratamiento'):
             tx = ''
             for b in p['tratamiento']:
                 tx += f'<h3 class="tm-sub">{e(b["titulo"])}</h3><ul class="tm-pasos">' + ''.join(f'<li class="tm-paso"><b>{e(s["etiqueta"])}</b><span>{fmt(s["texto"])}</span></li>' for s in b.get('pasos', [])) + '</ul>'
-            n += 1; partes.append(seccion(n, 'Tratamiento', tx, 'tratamiento')); IDX.append(('tratamiento', 'Tratamiento'))
+            n += 1; partes.append(seccion(n, 'Interpretación y conducta' if crit else 'Tratamiento', tx, 'tratamiento')); IDX.append(('tratamiento', 'Interpretación' if crit else 'Tratamiento'))
         if p.get('seguimiento'): n += 1; partes.append(seccion(n, 'Seguimiento', lista(p['seguimiento']), 'seguimiento')); IDX.append(('seguimiento', 'Seguimiento'))
         tipo = f.get('tipo', 'guia')
         etiqueta = 'Basada en guía' if tipo == 'guia' else 'Fuente validada de la cátedra'
@@ -284,6 +286,7 @@ def main():
                       f'<img src="/assets/temas/{p["id"]}-480.webp" width="{w}" height="{h}" loading="lazy" '
                       f'alt="Flashcard de {e(p["titulo"])} de NikaMed: diagnóstico, estudios, banderas rojas y tratamiento"></a>'
                       f'<figcaption>Así se ve la flashcard de <strong>{e(p["titulo"])}</strong> en NikaMed. Tocá la imagen para verla en grande y guardala para repasar.</figcaption></figure>')
+        calc_html = ('<div class="tm-cta g-rv"><h2>Calculá esta escala</h2><p>Ingresá los datos del paciente y obtené el puntaje con su interpretación.</p><div class="row"><a class="btn-primary" href="/calculadoras.html#%s">🧮 Abrir la calculadora</a></div></div>' % p['calculadora']) if p.get('calculadora') else ''
         # relacionadas
         rel = []
         for u in p.get('up', []):
@@ -330,6 +333,7 @@ def main():
             {''.join(partes)}
         </article>
         {figura}
+        {calc_html}
         <div class="tm-cta g-rv"><h2>Practicá esta ficha en NikaMed</h2><p>Escribí tu respuesta, verificá si es correcta y repasá sin conexión. El Simulador FlashCard de NikaMed es gratis para todos los estudiantes.</p>
             <div class="row"><a class="btn-primary" href="/index.html#crear-cuenta">Crear cuenta gratis</a><a class="btn-ghost" href="/guia-flashcards-medicina.html">Cómo funciona el Simulador FlashCard</a></div></div>
         {rel_html}

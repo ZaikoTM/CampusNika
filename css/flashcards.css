@@ -334,3 +334,6 @@ body.dark-mode .fcd-marca{mix-blend-mode:normal;opacity:.18}
 
 .fc-fuente-link{margin-left:8px;font-weight:800;color:#0369a1;text-decoration:underline;white-space:nowrap}
 body.dark-mode .fc-fuente-link{color:#7dd3fc}
+
+.fcd-calc{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0 4px;padding:11px 16px;border-radius:14px;background:linear-gradient(135deg,#0ea5e9,#6366f1);color:#fff!important;font-weight:800;font-size:.88rem;text-decoration:none!important;box-shadow:0 12px 22px -12px rgba(79,70,229,.8)}
+.fcd-calc:hover{transform:translateY(-2px)}

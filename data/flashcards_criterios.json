@@ -1,0 +1,2981 @@
+{
+ "meta": {
+  "version": "0.1.0",
+  "area": "criterios",
+  "actualizado": "2026-10-16",
+  "unidades": {
+   "cr1": "Cirugía y trauma",
+   "cr2": "Obstetricia y ginecología",
+   "cr3": "Emergencias y terapia",
+   "cr4": "Clínica, cardiología y neurología",
+   "cr5": "Gastro, hepatología y nefrología",
+   "cr6": "Pediatría y neonatología"
+  },
+  "descargo": "Material educativo para estudiantes de medicina. Resume criterios, clasificaciones y escalas validadas, con la publicación original y la guía de la sociedad científica que las respalda; los puntos de corte pueden actualizarse. No reemplaza la guía vigente, el protocolo de la institución ni el juicio del médico tratante.",
+  "regla": "Cada ficha cita la publicación original y la guía de sociedad científica (priorizando fuentes argentinas cuando existen)."
+ },
+ "patologias": [
+  {
+   "id": "cr-ranson",
+   "area": "criterios",
+   "titulo": "Criterios de Ranson (pancreatitis aguda)",
+   "alias": [
+    "ranson",
+    "pancreatitis",
+    "gravedad"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Escala pronóstica de la pancreatitis aguda con 5 criterios al ingreso y 6 a las 48 horas. Cada criterio cumplido suma un punto; hay umbrales distintos para la pancreatitis biliar.",
+   "diagnostico": [
+    "Al ingreso (no biliar): edad > 55 años; leucocitos > 16.000/mm³; glucemia > 200 mg/dl; LDH > 350 UI/L; AST > 250 UI/L.",
+    "A las 48 horas (no biliar): caída del hematocrito > 10 puntos; aumento de urea (BUN) > 5 mg/dl; calcio < 8 mg/dl; PaO₂ < 60 mmHg; déficit de base > 4 mEq/L; secuestro de líquidos > 6 L.",
+    "Pancreatitis biliar: edad > 70; leucocitos > 18.000; glucemia > 220; LDH > 400; AST > 250; a las 48 h, hematocrito, BUN > 2 mg/dl, calcio, déficit de base > 5 y secuestro > 4 L."
+   ],
+   "estudios": [
+    "Se completa en dos momentos: ingreso y 48 horas; no se puede calcular de entrada en su totalidad."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Puntaje",
+     "pasos": [
+      {
+       "etiqueta": "0 a 2",
+       "texto": "Gravedad baja: mortalidad ≈ 1 a 3 %."
+      },
+      {
+       "etiqueta": "3 a 4",
+       "texto": "Mortalidad ≈ 15 %."
+      },
+      {
+       "etiqueta": "5 a 6",
+       "texto": "Pancreatitis grave: mortalidad ≈ 40 %."
+      },
+      {
+       "etiqueta": "≥ 7",
+       "texto": "Muy grave: mortalidad > 50 %."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Hoy se complementa con la clasificación de Atlanta revisada y el BISAP; es una escala histórica con porcentajes aproximados."
+   ],
+   "fuente": {
+    "guia": "Ranson JH et al. Surg Gynecol Obstet 1974;139:69; Guía de pancreatitis aguda",
+    "sociedad": "Atlanta 2012 / Guía argentina de pancreatitis aguda",
+    "anio": "1974",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "ranson"
+  },
+  {
+   "id": "cr-atlanta-2012",
+   "area": "criterios",
+   "titulo": "Clasificación de Atlanta revisada (pancreatitis aguda)",
+   "alias": [
+    "atlanta",
+    "pancreatitis"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica la pancreatitis aguda por gravedad según la falla orgánica y las complicaciones locales; el diagnóstico exige 2 de 3 criterios.",
+   "diagnostico": [
+    "Diagnóstico (2 de 3): dolor abdominal típico en epigastrio; lipasa o amilasa > 3 veces el límite superior normal; hallazgos característicos en imágenes.",
+    "Leve: sin falla orgánica ni complicaciones locales o sistémicas.",
+    "Moderadamente grave: falla orgánica transitoria (< 48 h) o complicaciones locales/sistémicas sin falla persistente.",
+    "Grave: falla orgánica persistente (> 48 h) de uno o más órganos.",
+    "Falla orgánica: puntaje ≥ 2 en el sistema respiratorio, cardiovascular o renal de la escala de Marshall modificada."
+   ],
+   "estudios": [
+    "Colección aguda, necrosis y pseudoquiste se definen con tomografía con contraste (idealmente a partir de las 72 horas)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Leve",
+       "texto": "Dieta oral temprana, analgesia e hidratación; alta cuando tolera la vía oral."
+      },
+      {
+       "etiqueta": "Moderada a grave",
+       "texto": "Reposición dirigida, soporte de órganos, nutrición enteral y evaluación de necrosis infectada."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La falla orgánica persistente es el principal determinante de mortalidad."
+   ],
+   "fuente": {
+    "guia": "Revised Atlanta Classification (Banks PA et al., Gut 2013;62:102)",
+    "sociedad": "Atlanta Working Group / IAP-APA",
+    "anio": "2012",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-bisap",
+   "area": "criterios",
+   "titulo": "Score BISAP (pancreatitis aguda)",
+   "alias": [
+    "bisap",
+    "pancreatitis"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Predice mortalidad intrahospitalaria en las primeras 24 horas con 5 variables simples.",
+   "diagnostico": [
+    "B: BUN > 25 mg/dl.",
+    "I: alteración del estado mental (Glasgow < 15).",
+    "S: SIRS (2 o más criterios).",
+    "A: edad > 60 años.",
+    "P: derrame pleural (Pleural effusion)."
+   ],
+   "estudios": [
+    "Un punto por cada criterio, evaluados en las primeras 24 horas."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Puntaje",
+     "pasos": [
+      {
+       "etiqueta": "0 a 2",
+       "texto": "Riesgo bajo: mortalidad < 2 %."
+      },
+      {
+       "etiqueta": "≥ 3",
+       "texto": "Riesgo alto: mortalidad ≈ 5 a 20 % y mayor riesgo de falla orgánica."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Es una herramienta pronóstica, no reemplaza la reevaluación clínica seriada."
+   ],
+   "fuente": {
+    "guia": "Wu BU et al. Gut 2008;57:1698",
+    "sociedad": "Banks PA / American College of Gastroenterology",
+    "anio": "2008",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "bisap"
+  },
+  {
+   "id": "cr-alvarado",
+   "area": "criterios",
+   "titulo": "Escala de Alvarado (apendicitis aguda)",
+   "alias": [
+    "alvarado",
+    "apendicitis",
+    "mantrels"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Puntaje de 10 puntos que estima la probabilidad de apendicitis aguda en el dolor de fosa ilíaca derecha (regla mnemotécnica MANTRELS).",
+   "diagnostico": [
+    "Migración del dolor a la fosa ilíaca derecha: 1.",
+    "Anorexia: 1.",
+    "Náuseas o vómitos: 1.",
+    "Sensibilidad en fosa ilíaca derecha: 2.",
+    "Signo de rebote: 1.",
+    "Fiebre ≥ 37,3 °C: 1.",
+    "Leucocitosis > 10.000/mm³: 2.",
+    "Neutrofilia > 75 %: 1."
+   ],
+   "estudios": [
+    "Se calcula con la clínica y un hemograma; no requiere imágenes."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Puntaje",
+     "pasos": [
+      {
+       "etiqueta": "1 a 4",
+       "texto": "Apendicitis improbable."
+      },
+      {
+       "etiqueta": "5 a 6",
+       "texto": "Posible: solicitar ecografía o tomografía."
+      },
+      {
+       "etiqueta": "7 a 8",
+       "texto": "Probable: evaluación quirúrgica."
+      },
+      {
+       "etiqueta": "9 a 10",
+       "texto": "Muy probable."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Rinde peor en mujeres en edad fértil y en niños: apoyarse en imágenes."
+   ],
+   "fuente": {
+    "guia": "Alvarado A. Ann Emerg Med 1986;15:557; Jerusalem Guidelines 2020",
+    "sociedad": "World Society of Emergency Surgery (WSES)",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "alvarado"
+  },
+  {
+   "id": "cr-tokio-colecistitis",
+   "area": "criterios",
+   "titulo": "Criterios de Tokio TG18: colecistitis aguda",
+   "alias": [
+    "tokio",
+    "tg18",
+    "colecistitis"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Criterios diagnósticos y de gravedad de la colecistitis aguda (Tokyo Guidelines 2018).",
+   "diagnostico": [
+    "A. Signos locales: signo de Murphy; masa, dolor o defensa en hipocondrio derecho.",
+    "B. Signos sistémicos: fiebre; PCR elevada; leucocitosis.",
+    "C. Imágenes características de colecistitis aguda.",
+    "Sospecha: un criterio A + uno B. Diagnóstico definitivo: un A + un B + C."
+   ],
+   "estudios": [
+    "Gravedad: Grado III (grave) con disfunción de un órgano: hipotensión que requiere vasopresores, alteración de conciencia, PaO₂/FiO₂ < 300, oliguria o creatinina > 2 mg/dl, INR > 1,5 o plaquetas < 100.000.",
+    "Grado II (moderada): leucocitos > 18.000, masa palpable, evolución > 72 horas o inflamación local marcada (gangrena, absceso, peritonitis biliar)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Gravedad y conducta",
+     "pasos": [
+      {
+       "etiqueta": "Grado I (leve)",
+       "texto": "Colecistectomía laparoscópica temprana."
+      },
+      {
+       "etiqueta": "Grado II",
+       "texto": "Colecistectomía temprana en centro con experiencia; si no, drenaje y antibióticos."
+      },
+      {
+       "etiqueta": "Grado III",
+       "texto": "Soporte de órganos y drenaje percutáneo; cirugía diferida según evolución."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La antibioticoterapia y el momento de la cirugía dependen del grado y de los factores de riesgo del paciente."
+   ],
+   "fuente": {
+    "guia": "Tokyo Guidelines 2018 (TG18): criterios de colecistitis aguda",
+    "sociedad": "Tokyo Guidelines Revision Committee",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-tokio-colangitis",
+   "area": "criterios",
+   "titulo": "Criterios de Tokio TG18: colangitis aguda",
+   "alias": [
+    "tokio",
+    "tg18",
+    "colangitis",
+    "charcot"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Criterios diagnósticos y de gravedad de la colangitis aguda (Tokyo Guidelines 2018).",
+   "diagnostico": [
+    "A. Inflamación sistémica: fiebre o escalofríos (> 38 °C); leucocitos < 4.000 o > 10.000; PCR ≥ 1 mg/dl.",
+    "B. Colestasis: ictericia (bilirrubina ≥ 2 mg/dl); pruebas hepáticas > 1,5 veces el límite superior (FA, GGT, AST, ALT).",
+    "C. Imágenes: dilatación biliar o evidencia de la causa (estenosis, litiasis, stent).",
+    "Sospecha: un A + un B o C. Diagnóstico definitivo: un A + un B + un C."
+   ],
+   "estudios": [
+    "Grado III: disfunción de órgano (cardiovascular, neurológica, respiratoria, renal, hepática o hematológica).",
+    "Grado II: 2 de 5: leucocitos > 12.000 o < 4.000; fiebre ≥ 39 °C; edad ≥ 75; bilirrubina ≥ 5 mg/dl; hipoalbuminemia."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta según gravedad",
+     "pasos": [
+      {
+       "etiqueta": "Grado I",
+       "texto": "Antibióticos; drenaje biliar si no mejora en 24 horas."
+      },
+      {
+       "etiqueta": "Grado II",
+       "texto": "Drenaje biliar precoz (CPRE)."
+      },
+      {
+       "etiqueta": "Grado III",
+       "texto": "Soporte de órganos y drenaje biliar urgente."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La tríada de Charcot (fiebre, ictericia y dolor) es poco sensible: ante la sospecha aplicar los criterios completos."
+   ],
+   "fuente": {
+    "guia": "Tokyo Guidelines 2018 (TG18): criterios de colangitis aguda",
+    "sociedad": "Tokyo Guidelines Revision Committee",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-glasgow-blatchford",
+   "area": "criterios",
+   "titulo": "Score de Glasgow-Blatchford (hemorragia digestiva alta)",
+   "alias": [
+    "glasgow blatchford",
+    "hda",
+    "hemorragia digestiva"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Identifica a los pacientes con hemorragia digestiva alta que necesitan intervención y a los de muy bajo riesgo que pueden manejarse de forma ambulatoria.",
+   "diagnostico": [
+    "Urea (BUN) en mg/dl: 18,2 a 22,3: 2; 22,4 a 27,9: 3; 28 a 69,9: 4; ≥ 70: 6.",
+    "Hemoglobina en varones: 12 a 12,9: 1; 10 a 11,9: 3; < 10: 6. En mujeres: 10 a 11,9: 1; < 10: 6.",
+    "Presión sistólica: 100 a 109: 1; 90 a 99: 2; < 90: 3.",
+    "Otros: frecuencia cardíaca ≥ 100: 1; melena: 1; síncope: 2; enfermedad hepática: 2; insuficiencia cardíaca: 2."
+   ],
+   "estudios": [
+    "Se calcula antes de la endoscopia, con datos clínicos y de laboratorio."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Puntaje",
+     "pasos": [
+      {
+       "etiqueta": "0 a 1",
+       "texto": "Riesgo muy bajo: alta ambulatoria y endoscopia diferida."
+      },
+      {
+       "etiqueta": "≥ 2",
+       "texto": "Internación y endoscopia en las primeras 24 horas."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Máximo de 23 puntos. Complementar con el Rockall tras la endoscopia."
+   ],
+   "fuente": {
+    "guia": "Blatchford O et al. Lancet 2000;356:1318; Barkun A et al. Ann Intern Med 2019",
+    "sociedad": "Consenso internacional de HDA no varicosa / ESGE",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "glasgow-blatchford"
+  },
+  {
+   "id": "cr-forrest",
+   "area": "criterios",
+   "titulo": "Clasificación de Forrest (úlcera sangrante)",
+   "alias": [
+    "forrest",
+    "ulcera",
+    "hda"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica los estigmas endoscópicos de sangrado de la úlcera péptica y orienta la necesidad de tratamiento endoscópico.",
+   "diagnostico": [
+    "Ia: sangrado en chorro (arterial).",
+    "Ib: sangrado en napa o babeo.",
+    "IIa: vaso visible no sangrante.",
+    "IIb: coágulo adherido.",
+    "IIc: base con puntos de hematina (mancha plana).",
+    "III: base limpia, sin estigmas."
+   ],
+   "estudios": [
+    "Se informa en la endoscopia digestiva alta de la hemorragia."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Ia, Ib, IIa",
+       "texto": "Alto riesgo: tratamiento endoscópico más inhibidor de la bomba de protones en infusión o dosis altas."
+      },
+      {
+       "etiqueta": "IIb",
+       "texto": "Retirar el coágulo y tratar la lesión subyacente si hay estigmas de alto riesgo."
+      },
+      {
+       "etiqueta": "IIc y III",
+       "texto": "Bajo riesgo: inhibidor de la bomba de protones por vía oral y alta temprana."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "El riesgo de resangrado sin tratamiento va de ≈ 40 a 55 % (Ia, Ib, IIa) hasta ≈ 5 % (III)."
+   ],
+   "fuente": {
+    "guia": "Forrest JA et al. Lancet 1974;2:394; Guías ESGE 2021",
+    "sociedad": "Sociedad Europea de Endoscopia Gastrointestinal (ESGE)",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-rockall",
+   "area": "criterios",
+   "titulo": "Score de Rockall completo",
+   "alias": [
+    "rockall"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Estima el riesgo de resangrado y de mortalidad después de la endoscopia en la hemorragia digestiva alta.",
+   "diagnostico": [
+    "Edad: < 60: 0; 60 a 79: 1; ≥ 80: 2.",
+    "Shock: ninguno: 0; taquicardia (FC ≥ 100, PAS ≥ 100): 1; hipotensión (PAS < 100): 2.",
+    "Comorbilidad: ninguna: 0; cardíaca u otra mayor: 2; insuficiencia renal o hepática, cáncer diseminado: 3.",
+    "Diagnóstico: Mallory-Weiss o sin lesión: 0; otros: 1; neoplasia: 2.",
+    "Estigmas: ninguno o mancha plana: 0; sangre, coágulo adherido o vaso visible: 2."
+   ],
+   "estudios": [
+    "Se completa con la información de la endoscopia."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Puntaje",
+     "pasos": [
+      {
+       "etiqueta": "≤ 2",
+       "texto": "Riesgo bajo: alta temprana."
+      },
+      {
+       "etiqueta": "3 a 4",
+       "texto": "Riesgo intermedio."
+      },
+      {
+       "etiqueta": "≥ 5",
+       "texto": "Riesgo alto de resangrado y mortalidad."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Rockall TA et al. Gut 1996;38:316",
+    "sociedad": "Consenso internacional de HDA no varicosa",
+    "anio": "1996",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "rockall"
+  },
+  {
+   "id": "cr-hinchey",
+   "area": "criterios",
+   "titulo": "Clasificación de Hinchey (diverticulitis aguda complicada)",
+   "alias": [
+    "hinchey",
+    "diverticulitis"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica la gravedad de la diverticulitis aguda según el hallazgo de absceso o peritonitis.",
+   "diagnostico": [
+    "I: absceso pericólico o mesocólico.",
+    "II: absceso pélvico, intraabdominal a distancia o retroperitoneal.",
+    "III: peritonitis purulenta generalizada.",
+    "IV: peritonitis fecal."
+   ],
+   "estudios": [
+    "Se establece con tomografía de abdomen y pelvis o durante la cirugía."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Hinchey I (absceso < 3 cm)",
+       "texto": "Antibióticos y reposo intestinal."
+      },
+      {
+       "etiqueta": "Hinchey I a II con absceso ≥ 3 a 4 cm",
+       "texto": "Drenaje percutáneo guiado por imágenes más antibióticos."
+      },
+      {
+       "etiqueta": "Hinchey III a IV",
+       "texto": "Cirugía urgente: resección con o sin anastomosis; Hartmann si hay inestabilidad."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Si no mejora con tratamiento médico en 48 a 72 horas, reevaluar con imágenes."
+   ],
+   "fuente": {
+    "guia": "Hinchey EJ et al. Adv Surg 1978;12:85; Guía de enfermedad diverticular",
+    "sociedad": "Sociedad Argentina de Coloproctología / ASCRS",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-garden",
+   "area": "criterios",
+   "titulo": "Clasificación de Garden (fractura de cuello femoral)",
+   "alias": [
+    "garden",
+    "cadera",
+    "fractura de cadera"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica las fracturas intracapsulares del cuello femoral según el desplazamiento y orienta entre osteosíntesis y artroplastia.",
+   "diagnostico": [
+    "I: incompleta o en valgo impactada.",
+    "II: completa, sin desplazamiento.",
+    "III: completa, con desplazamiento parcial (varo).",
+    "IV: completa, con desplazamiento total."
+   ],
+   "estudios": [
+    "Radiografía de pelvis frente y cadera de perfil."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Garden I y II",
+       "texto": "Osteosíntesis (tornillos canulados) precoz."
+      },
+      {
+       "etiqueta": "Garden III y IV",
+       "texto": "En ancianos, artroplastia; en jóvenes, reducción y osteosíntesis urgente."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Alto riesgo de necrosis avascular en las desplazadas: la cirugía precoz mejora el pronóstico."
+   ],
+   "fuente": {
+    "guia": "Garden RS. J Bone Joint Surg Br 1961;43:647; Manual CTO de Traumatología",
+    "sociedad": "Manual CTO de Medicina y Cirugía (traumatología)",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-salter-harris",
+   "area": "criterios",
+   "titulo": "Clasificación de Salter-Harris (fracturas fisarias)",
+   "alias": [
+    "salter harris",
+    "fisis",
+    "fractura pediátrica"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica las fracturas que comprometen la placa de crecimiento en niños (regla mnemotécnica SALTR).",
+   "diagnostico": [
+    "I (Slipped): separación a través de la fisis.",
+    "II (Above): fisis y metáfisis (fragmento de Thurston-Holland); es la más frecuente.",
+    "III (Lower): fisis y epífisis, intraarticular.",
+    "IV (Through): metáfisis, fisis y epífisis.",
+    "V (Rammed): compresión de la fisis."
+   ],
+   "estudios": [
+    "Radiografía en dos planos y comparativa si hay duda."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Pronóstico",
+     "pasos": [
+      {
+       "etiqueta": "I y II",
+       "texto": "Buen pronóstico; reducción cerrada e inmovilización."
+      },
+      {
+       "etiqueta": "III y IV",
+       "texto": "Intraarticulares: reducción anatómica, a menudo quirúrgica."
+      },
+      {
+       "etiqueta": "V",
+       "texto": "Peor pronóstico: riesgo de cierre fisario precoz y deformidad."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Control prolongado: pueden aparecer deformidades o discrepancia de longitud tras la consolidación."
+   ],
+   "fuente": {
+    "guia": "Salter RB, Harris WR. J Bone Joint Surg Am 1963;45:587",
+    "sociedad": "Manual de Ortopedia y Traumatología (Orrego y Morán)",
+    "anio": "2014",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-ottawa-tobillo",
+   "area": "criterios",
+   "titulo": "Reglas de Ottawa (tobillo y pie)",
+   "alias": [
+    "ottawa",
+    "tobillo",
+    "esguince"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Reglas de decisión clínica para indicar radiografía en el traumatismo de tobillo o de pie y evitar estudios innecesarios.",
+   "diagnostico": [
+    "Tobillo: dolor en la zona maleolar y uno de estos: sensibilidad ósea en el borde posterior o en la punta del maléolo lateral o medial (últimos 6 cm), o incapacidad de dar 4 pasos.",
+    "Pie: dolor en el mediopié y uno de estos: sensibilidad ósea en la base del 5.º metatarsiano o en el hueso navicular, o incapacidad de dar 4 pasos."
+   ],
+   "estudios": [
+    "Se aplica en adultos con traumatismo agudo, sin intoxicación ni lesiones distractoras."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Resultado",
+     "pasos": [
+      {
+       "etiqueta": "Negativa",
+       "texto": "Sensibilidad cercana al 100 %: no hace falta radiografía."
+      },
+      {
+       "etiqueta": "Positiva",
+       "texto": "Solicitar radiografía de tobillo o de pie."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "No es válida en menores de 18 años de forma estricta, embarazo, déficit neurológico o intoxicación."
+   ],
+   "fuente": {
+    "guia": "Stiell IG et al. JAMA 1994;271:827 (Ottawa Ankle Rules)",
+    "sociedad": "Ottawa Hospital Research Institute",
+    "anio": "1994",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-nexus",
+   "area": "criterios",
+   "titulo": "Criterios NEXUS (columna cervical)",
+   "alias": [
+    "nexus",
+    "cervical",
+    "trauma"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Permite descartar lesión cervical clínicamente significativa sin imágenes cuando se cumplen cinco criterios.",
+   "diagnostico": [
+    "Sin dolor a la palpación en la línea media cervical.",
+    "Sin déficit neurológico focal.",
+    "Estado de alerta normal.",
+    "Sin intoxicación.",
+    "Sin lesión dolorosa que distraiga."
+   ],
+   "estudios": [
+    "Se cumple si se reúnen los cinco criterios (bajo riesgo): no requiere imágenes."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Resultado",
+     "pasos": [
+      {
+       "etiqueta": "Cumple los 5",
+       "texto": "Se puede liberar la columna cervical clínicamente."
+      },
+      {
+       "etiqueta": "No cumple alguno",
+       "texto": "Imágenes (tomografía) y mantener la inmovilización."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La Regla Canadiense de la columna cervical es otra alternativa validada (edad ≥ 65, mecanismo peligroso o parestesias son de alto riesgo)."
+   ],
+   "fuente": {
+    "guia": "Hoffman JR et al. N Engl J Med 2000;343:94; Consenso CISReMET sobre restricción del movimiento espinal",
+    "sociedad": "ATLS 10.ª ed. / CISReMET",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-shock-atls",
+   "area": "criterios",
+   "titulo": "Clases de shock hemorrágico (ATLS)",
+   "alias": [
+    "shock",
+    "atls",
+    "hemorragia"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica la hemorragia según el volumen perdido y los signos clínicos para guiar la reanimación.",
+   "diagnostico": [
+    "Clase I: pérdida < 15 % (< 750 ml); frecuencia cardíaca normal; presión normal.",
+    "Clase II: 15 a 30 % (750 a 1.500 ml); FC 100 a 120; presión de pulso disminuida.",
+    "Clase III: 30 a 40 % (1.500 a 2.000 ml); FC 120 a 140; hipotensión; confusión.",
+    "Clase IV: > 40 % (> 2.000 ml); FC > 140; hipotensión marcada; letargo."
+   ],
+   "estudios": [
+    "Valorar frecuencia cardíaca, presión, diuresis, estado mental y perfusión; el índice de shock (FC/PAS ≥ 0,9) ayuda a detectarlo."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Clase I a II",
+       "texto": "Cristaloides y control del foco de sangrado."
+      },
+      {
+       "etiqueta": "Clase III a IV",
+       "texto": "Control urgente de la hemorragia, protocolo de transfusión masiva y hemoderivados en proporción balanceada."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Los ancianos, los atletas y quienes usan betabloqueantes pueden no taquicardizar: no confiar solo en la frecuencia cardíaca."
+   ],
+   "fuente": {
+    "guia": "ATLS (Advanced Trauma Life Support) 10.ª ed.",
+    "sociedad": "American College of Surgeons / Asociación Argentina de Cirugía",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-asa",
+   "area": "criterios",
+   "titulo": "Clasificación del estado físico ASA",
+   "alias": [
+    "asa",
+    "anestesia",
+    "riesgo quirurgico"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Valora el estado físico del paciente antes de la anestesia y se asocia al riesgo perioperatorio.",
+   "diagnostico": [
+    "ASA I: paciente sano.",
+    "ASA II: enfermedad sistémica leve, sin limitación funcional.",
+    "ASA III: enfermedad sistémica grave con limitación funcional.",
+    "ASA IV: enfermedad grave con amenaza constante para la vida.",
+    "ASA V: moribundo que no sobrevivirá sin la operación.",
+    "ASA VI: muerte encefálica, donante de órganos.",
+    "Sufijo E: cirugía de urgencia."
+   ],
+   "estudios": [
+    "Se asigna en la consulta preanestésica y se registra en el consentimiento y la historia clínica."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "Riesgo",
+       "texto": "A mayor clase, mayor riesgo de complicaciones y mortalidad perioperatoria."
+      },
+      {
+       "etiqueta": "Limitación",
+       "texto": "Es una valoración subjetiva: no reemplaza otros índices como el RCRI."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "ASA Physical Status Classification System (actualización 2020)",
+    "sociedad": "American Society of Anesthesiologists / Asociación de Anestesia, Analgesia y Reanimación de Buenos Aires (AAARBA)",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-mallampati",
+   "area": "criterios",
+   "titulo": "Clasificación de Mallampati (vía aérea)",
+   "alias": [
+    "mallampati",
+    "via aerea",
+    "intubacion"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Predice la dificultad de intubación según las estructuras visibles de la orofaringe con la boca abierta y la lengua protruida.",
+   "diagnostico": [
+    "Clase I: se ven paladar blando, úvula y pilares.",
+    "Clase II: paladar blando y úvula.",
+    "Clase III: paladar blando y base de la úvula.",
+    "Clase IV: solo paladar duro."
+   ],
+   "estudios": [
+    "Paciente sentado, cabeza en posición neutra, boca abierta al máximo y lengua afuera, sin fonación."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Interpretación",
+     "pasos": [
+      {
+       "etiqueta": "Clases I y II",
+       "texto": "Intubación predicha como fácil."
+      },
+      {
+       "etiqueta": "Clases III y IV",
+       "texto": "Posible vía aérea difícil: preparar material y plan alternativo."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Se combina con la distancia tiromentoniana, la apertura bucal y la movilidad cervical para valorar la vía aérea."
+   ],
+   "fuente": {
+    "guia": "Mallampati SR et al. Can Anaesth Soc J 1985;32:429",
+    "sociedad": "American Society of Anesthesiologists, Practice Guidelines for Management of the Difficult Airway",
+    "anio": "2022",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-profundidad-quemaduras",
+   "area": "criterios",
+   "titulo": "Profundidad de las quemaduras",
+   "alias": [
+    "quemaduras",
+    "profundidad",
+    "wallace"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica la quemadura por la profundidad del daño cutáneo, que determina el dolor, la cicatrización y la necesidad de injerto.",
+   "diagnostico": [
+    "Primer grado (superficial): solo epidermis; eritema, doloroso, sin ampollas.",
+    "Segundo grado superficial: dermis papilar; ampollas, base rosada y húmeda, muy dolorosa; cicatriza en 2 semanas.",
+    "Segundo grado profundo: dermis reticular; base blanquecina o moteada, menos dolorosa; cicatriza en más de 3 semanas y suele requerir injerto.",
+    "Tercer grado (espesor total): piel acartonada, blanca o carbonizada, indolora."
+   ],
+   "estudios": [
+    "Se complementa con la superficie corporal quemada (regla de los 9 de Wallace o Lund-Browder)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Derivación",
+     "pasos": [
+      {
+       "etiqueta": "Criterios generales",
+       "texto": "Quemaduras de espesor total, de cara, manos, pies, genitales o articulaciones, eléctricas, químicas, inhalatorias o con superficie extensa: derivar a un centro de quemados."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La profundidad puede progresar en las primeras 48 horas: reevaluar."
+   ],
+   "fuente": {
+    "guia": "ATLS 10.ª ed. y American Burn Association",
+    "sociedad": "Asociación Argentina de Quemaduras",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-gartland",
+   "area": "criterios",
+   "titulo": "Clasificación de Gartland (fractura supracondílea de húmero)",
+   "alias": [
+    "gartland",
+    "supracondilea",
+    "codo"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Clasifica la fractura supracondílea pediátrica de codo según el desplazamiento y guía la conducta.",
+   "diagnostico": [
+    "Tipo I: sin desplazamiento.",
+    "Tipo II: desplazada con cortical posterior conservada.",
+    "Tipo III: completamente desplazada, sin contacto cortical."
+   ],
+   "estudios": [
+    "Radiografía de codo en dos planos; evaluar siempre el estado neurovascular (arteria braquial, nervio interóseo anterior)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Tipo I",
+       "texto": "Inmovilización con férula posterior."
+      },
+      {
+       "etiqueta": "Tipo II",
+       "texto": "Reducción cerrada y fijación, según el grado."
+      },
+      {
+       "etiqueta": "Tipo III",
+       "texto": "Reducción y fijación con clavijas percutáneas, urgente."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Vigilar el síndrome compartimental y la lesión vascular o nerviosa."
+   ],
+   "fuente": {
+    "guia": "Gartland JJ. Surg Gynecol Obstet 1959;109:145",
+    "sociedad": "Manual de Ortopedia y Traumatología (Orrego y Morán)",
+    "anio": "2014",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-glasgow",
+   "area": "criterios",
+   "titulo": "Escala de coma de Glasgow",
+   "alias": [
+    "glasgow",
+    "coma",
+    "tce",
+    "gcs"
+   ],
+   "up": [
+    "cr1"
+   ],
+   "unidad": "Cirugía y trauma",
+   "estado": "guia",
+   "definicion": "Valora el nivel de conciencia según la respuesta ocular, verbal y motora (3 a 15 puntos).",
+   "diagnostico": [
+    "Apertura ocular: espontánea 4; a la voz 3; al dolor 2; ninguna 1.",
+    "Respuesta verbal: orientada 5; confusa 4; palabras inapropiadas 3; sonidos 2; ninguna 1.",
+    "Respuesta motora: obedece 6; localiza el dolor 5; retira 4; flexión anormal 3; extensión 2; ninguna 1."
+   ],
+   "estudios": [
+    "Se registra la mejor respuesta de cada categoría y se anota el desglose (por ejemplo, O3 V4 M5)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Gravedad del traumatismo craneoencefálico",
+     "pasos": [
+      {
+       "etiqueta": "13 a 15",
+       "texto": "Leve."
+      },
+      {
+       "etiqueta": "9 a 12",
+       "texto": "Moderado: tomografía y observación."
+      },
+      {
+       "etiqueta": "≤ 8",
+       "texto": "Grave: asegurar la vía aérea y derivar a neurocirugía."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Una caída de 2 o más puntos es signo de alarma de deterioro neurológico."
+   ],
+   "fuente": {
+    "guia": "Teasdale G, Jennett B. Lancet 1974;2:81; ATLS 10.ª ed.",
+    "sociedad": "American College of Surgeons / Asociación Argentina de Neurocirugía",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "glasgow"
+  },
+  {
+   "id": "cr-bishop",
+   "area": "criterios",
+   "titulo": "Índice de Bishop",
+   "alias": [
+    "bishop",
+    "induccion",
+    "cuello"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Puntaje de 0 a 13 que valora la madurez cervical y predice el éxito de la inducción del parto.",
+   "diagnostico": [
+    "Dilatación: 0 cm: 0; 1 a 2: 1; 3 a 4: 2; ≥ 5: 3.",
+    "Borramiento: 0 a 30 %: 0; 40 a 50: 1; 60 a 70: 2; ≥ 80: 3.",
+    "Altura de la presentación: -3: 0; -2: 1; -1 o 0: 2; +1 o +2: 3.",
+    "Consistencia: firme 0; intermedia 1; blanda 2.",
+    "Posición: posterior 0; intermedia 1; anterior 2."
+   ],
+   "estudios": [
+    "Se valora con tacto vaginal."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Interpretación",
+     "pasos": [
+      {
+       "etiqueta": "≥ 8",
+       "texto": "Cuello favorable: alta probabilidad de parto vaginal con inducción."
+      },
+      {
+       "etiqueta": "≤ 5",
+       "texto": "Cuello desfavorable: considerar maduración cervical previa (misoprostol, balón o dinoprostona)."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Un Bishop bajo no contraindica la inducción: orienta el método."
+   ],
+   "fuente": {
+    "guia": "Bishop EH. Obstet Gynecol 1964;24:266; ACOG Practice Bulletin 107 y Guía de inducción del parto",
+    "sociedad": "ACOG / FASGO",
+    "anio": "2009",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "bishop"
+  },
+  {
+   "id": "cr-apgar",
+   "area": "criterios",
+   "titulo": "Puntaje de Apgar",
+   "alias": [
+    "apgar",
+    "recien nacido"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Valoración rápida del recién nacido al 1.er y 5.º minuto de vida (0 a 10).",
+   "diagnostico": [
+    "Frecuencia cardíaca: ausente 0; < 100 lpm 1; ≥ 100 lpm 2.",
+    "Esfuerzo respiratorio: ausente 0; lento o irregular 1; llanto fuerte 2.",
+    "Tono muscular: flácido 0; alguna flexión 1; movimiento activo 2.",
+    "Respuesta a estímulos: ninguna 0; mueca 1; llanto o tos 2.",
+    "Color: pálido o cianótico 0; acrocianosis 1; rosado 2."
+   ],
+   "estudios": [
+    "Se registra al minuto 1 y al 5; si es < 7 a los 5 minutos se repite cada 5 minutos hasta los 20."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Interpretación",
+     "pasos": [
+      {
+       "etiqueta": "7 a 10",
+       "texto": "Normal."
+      },
+      {
+       "etiqueta": "4 a 6",
+       "texto": "Depresión moderada: estimular y ventilar si es necesario."
+      },
+      {
+       "etiqueta": "0 a 3",
+       "texto": "Depresión grave: reanimación neonatal inmediata."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "No debe retrasar la reanimación: se puntúa mientras se asiste al recién nacido."
+   ],
+   "fuente": {
+    "guia": "Apgar V. Anesth Analg 1953;32:260; AAP/ACOG Committee Opinion 644",
+    "sociedad": "Sociedad Argentina de Pediatría (Reanimación neonatal)",
+    "anio": "2015",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "apgar"
+  },
+  {
+   "id": "cr-hellp",
+   "area": "criterios",
+   "titulo": "Clasificaciones del síndrome HELLP",
+   "alias": [
+    "hellp",
+    "preeclampsia",
+    "tennessee",
+    "mississippi"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Variante grave de la preeclampsia con hemólisis, enzimas hepáticas elevadas y plaquetopenia.",
+   "diagnostico": [
+    "Tennessee (completo): LDH ≥ 600 UI/L; AST ≥ 70 UI/L; plaquetas < 100.000/mm³.",
+    "Mississippi: Clase 1 con plaquetas ≤ 50.000, AST/ALT ≥ 70 y LDH ≥ 600; Clase 2 con 50.000 a 100.000, AST/ALT ≥ 70 y LDH ≥ 600; Clase 3 con 100.000 a 150.000, AST/ALT ≥ 40 y LDH ≥ 600.",
+    "Parcial (ELLP o HELP): cumple solo algunos criterios."
+   ],
+   "estudios": [
+    "Hemograma, frotis, LDH, AST/ALT, bilirrubina y creatinina; vigilar coagulación."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "HELLP confirmado",
+       "texto": "Estabilización, sulfato de magnesio, control de la presión y evaluación de la interrupción del embarazo en centro de alta complejidad."
+      },
+      {
+       "etiqueta": "Clase Mississippi 1",
+       "texto": "Mayor riesgo de morbilidad materna: evaluar transfusión de plaquetas según el procedimiento."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Puede aparecer sin hipertensión marcada o hasta 6 semanas posparto."
+   ],
+   "fuente": {
+    "guia": "Sibai BM. Obstet Gynecol 2004;103:981; ACOG Practice Bulletin 222",
+    "sociedad": "ACOG / FASGO (Trastornos hipertensivos del embarazo)",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "hellp-tennessee"
+  },
+  {
+   "id": "cr-amsel-nugent",
+   "area": "criterios",
+   "titulo": "Criterios de Amsel y score de Nugent (vaginosis bacteriana)",
+   "alias": [
+    "amsel",
+    "nugent",
+    "vaginosis"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Dos métodos diagnósticos de la vaginosis bacteriana: clínico (Amsel) y de laboratorio (Nugent).",
+   "diagnostico": [
+    "Amsel (3 de 4): flujo homogéneo blanco-grisáceo; pH vaginal > 4,5; test de aminas (KOH) positivo; células guía (clue cells) > 20 % en el examen en fresco.",
+    "Nugent (tinción de Gram): 0 a 3 normal; 4 a 6 intermedio; 7 a 10 compatible con vaginosis bacteriana."
+   ],
+   "estudios": [
+    "Examen en fresco, pH con cinta y KOH al 10 %; Gram del exudado vaginal si se necesita Nugent."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Vaginosis sintomática",
+       "texto": "Metronidazol oral o intravaginal, o clindamicina, según guía."
+      },
+      {
+       "etiqueta": "Embarazo",
+       "texto": "Tratar si es sintomática o con antecedentes de parto pretérmino, según el criterio local."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "El Nugent es el estándar de referencia para investigación; en la práctica se usa Amsel."
+   ],
+   "fuente": {
+    "guia": "Amsel R et al. Am J Med 1983;74:14; Nugent RP et al. J Clin Microbiol 1991;29:297; CDC STI Guidelines 2021",
+    "sociedad": "CDC / Sociedad Argentina de Ginecología Infanto Juvenil / FASGO",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-epi-cdc",
+   "area": "criterios",
+   "titulo": "Criterios diagnósticos de enfermedad pélvica inflamatoria (CDC)",
+   "alias": [
+    "epi",
+    "enfermedad pelvica inflamatoria"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Criterios para iniciar tratamiento empírico de la EPI en mujeres con dolor pélvico.",
+   "diagnostico": [
+    "Mínimos: dolor abdominal bajo o pélvico sin otra causa, y dolor a la movilización del cuello, del útero o de los anexos.",
+    "Adicionales: temperatura > 38,3 °C; secreción cervical o vaginal mucopurulenta; leucocitos en el examen en fresco; ERS o PCR elevadas; infección cervical por gonococo o clamidia.",
+    "Específicos: endometritis en la biopsia; absceso tuboovárico en imágenes; hallazgos en la laparoscopia."
+   ],
+   "estudios": [
+    "Hemograma, PCR, test de embarazo, cultivos y PCR para gonococo y clamidia; ecografía transvaginal."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Criterios mínimos presentes",
+       "texto": "Iniciar tratamiento empírico sin esperar resultados (cefalosporina + doxiciclina ± metronidazol)."
+      },
+      {
+       "etiqueta": "Gravedad",
+       "texto": "Internación si hay absceso, embarazo, imposibilidad de tolerar vía oral o fracaso del tratamiento ambulatorio."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "El umbral para tratar es bajo: la demora aumenta el riesgo de infertilidad y embarazo ectópico."
+   ],
+   "fuente": {
+    "guia": "CDC Sexually Transmitted Infections Treatment Guidelines 2021",
+    "sociedad": "CDC / Ministerio de Salud de la Nación (Guía de ITS)",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-palm-coein",
+   "area": "criterios",
+   "titulo": "Clasificación FIGO PALM-COEIN (sangrado uterino anormal)",
+   "alias": [
+    "palm coein",
+    "sangrado uterino anormal",
+    "sua"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Clasifica las causas del sangrado uterino anormal en estructurales (PALM) y no estructurales (COEIN).",
+   "diagnostico": [
+    "P: pólipo.",
+    "A: adenomiosis.",
+    "L: leiomioma (submucoso o de otro tipo).",
+    "M: malignidad e hiperplasia.",
+    "C: coagulopatía.",
+    "O: disfunción ovulatoria.",
+    "E: endometrial (primaria).",
+    "I: iatrogénica.",
+    "N: no clasificada."
+   ],
+   "estudios": [
+    "Ecografía transvaginal, test de embarazo, hemograma y, según el caso, histeroscopia o biopsia endometrial."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "Estructurales (PALM)",
+       "texto": "Se detectan con imágenes o histología: tratamiento dirigido a la lesión."
+      },
+      {
+       "etiqueta": "No estructurales (COEIN)",
+       "texto": "Tratamiento médico: ácido tranexámico, hormonal o del trastorno de base."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Descartar siempre embarazo y neoplasia antes de rotular como disfuncional."
+   ],
+   "fuente": {
+    "guia": "Munro MG et al. Int J Gynaecol Obstet 2011;113:3 y 2018;143:393",
+    "sociedad": "FIGO / FASGO",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-robson",
+   "area": "criterios",
+   "titulo": "Clasificación de Robson (cesáreas)",
+   "alias": [
+    "robson",
+    "cesarea"
+   ],
+   "up": [
+    "cr2"
+   ],
+   "unidad": "Obstetricia y ginecología",
+   "estado": "guia",
+   "definicion": "Sistema de 10 grupos mutuamente excluyentes recomendado por la OMS para monitorear y comparar las tasas de cesárea.",
+   "diagnostico": [
+    "1: nulíparas, feto único cefálico ≥ 37 sem, trabajo de parto espontáneo.",
+    "2: nulíparas, único cefálico ≥ 37 sem, inducido o cesárea antes del trabajo de parto.",
+    "3: multíparas sin cesárea previa, único cefálico ≥ 37 sem, espontáneo.",
+    "4: multíparas sin cesárea previa, único cefálico ≥ 37 sem, inducido o cesárea previa al trabajo.",
+    "5: multíparas con cesárea previa, único cefálico ≥ 37 sem.",
+    "6: nulíparas con presentación podálica.",
+    "7: multíparas con presentación podálica (incluye cesárea previa).",
+    "8: embarazos múltiples (incluye cesárea previa).",
+    "9: situación transversa u oblicua.",
+    "10: único cefálico < 37 semanas (incluye cesárea previa)."
+   ],
+   "estudios": [
+    "Se usa en auditorías de servicios: permite ver qué grupo contribuye más a la tasa de cesáreas."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "Grupos 1 a 4",
+       "texto": "Mayor potencial de reducir las cesáreas innecesarias."
+      },
+      {
+       "etiqueta": "Grupo 5",
+       "texto": "Principal contribuyente en muchos servicios: ofrecer prueba de trabajo de parto cuando corresponde."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Robson MS. Best Pract Res Clin Obstet Gynaecol 2013;27:23; Robson Classification: implementation manual",
+    "sociedad": "Organización Mundial de la Salud / FIGO",
+    "anio": "2017",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-sofa",
+   "area": "criterios",
+   "titulo": "Score SOFA y definiciones de sepsis (Sepsis-3)",
+   "alias": [
+    "sofa",
+    "sepsis",
+    "shock septico",
+    "qsofa"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Valora la disfunción orgánica en 6 sistemas; la sepsis se define por una infección con aumento agudo del SOFA de 2 puntos o más.",
+   "diagnostico": [
+    "Respiratorio (PaO₂/FiO₂): < 400: 1; < 300: 2; < 200 con soporte: 3; < 100 con soporte: 4.",
+    "Coagulación (plaquetas × 10³): < 150: 1; < 100: 2; < 50: 3; < 20: 4.",
+    "Hígado (bilirrubina mg/dl): 1,2 a 1,9: 1; 2 a 5,9: 2; 6 a 11,9: 3; > 12: 4.",
+    "Cardiovascular: PAM < 70: 1; dopamina ≤ 5 o dobutamina: 2; dopamina > 5 o noradrenalina ≤ 0,1: 3; dopamina > 15 o noradrenalina > 0,1: 4.",
+    "Neurológico (Glasgow): 13 a 14: 1; 10 a 12: 2; 6 a 9: 3; < 6: 4.",
+    "Renal (creatinina mg/dl o diuresis): 1,2 a 1,9: 1; 2 a 3,4: 2; 3,5 a 4,9 o < 500 ml/día: 3; > 5 o < 200 ml/día: 4."
+   ],
+   "estudios": [
+    "Se calcula al ingreso y se repite cada 24 horas para ver la tendencia."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Definiciones",
+     "pasos": [
+      {
+       "etiqueta": "Sepsis",
+       "texto": "Infección + aumento del SOFA ≥ 2 respecto del basal."
+      },
+      {
+       "etiqueta": "Shock séptico",
+       "texto": "Sepsis con vasopresores para mantener PAM ≥ 65 mmHg y lactato > 2 mmol/L tras una reanimación adecuada."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "El qSOFA no debe usarse como único tamizaje (Surviving Sepsis Campaign 2021): combinar con NEWS2 y la clínica."
+   ],
+   "fuente": {
+    "guia": "Singer M et al. JAMA 2016;315:801 (Sepsis-3); Surviving Sepsis Campaign 2021",
+    "sociedad": "SCCM/ESICM / Sociedad Argentina de Terapia Intensiva (SATI)",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "qsofa"
+  },
+  {
+   "id": "cr-news2",
+   "area": "criterios",
+   "titulo": "NEWS2 (National Early Warning Score 2)",
+   "alias": [
+    "news2",
+    "alerta temprana",
+    "signos vitales"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Puntaje de signos vitales para detectar deterioro clínico y definir la frecuencia de monitoreo y la escalada.",
+   "diagnostico": [
+    "Frecuencia respiratoria: ≤ 8: 3; 9 a 11: 1; 12 a 20: 0; 21 a 24: 2; ≥ 25: 3.",
+    "Saturación (escala 1): ≤ 91: 3; 92 a 93: 2; 94 a 95: 1; ≥ 96: 0. Oxígeno suplementario: 2.",
+    "Presión sistólica: ≤ 90: 3; 91 a 100: 2; 101 a 110: 1; 111 a 219: 0; ≥ 220: 3.",
+    "Frecuencia cardíaca: ≤ 40: 3; 41 a 50: 1; 51 a 90: 0; 91 a 110: 1; 111 a 130: 2; ≥ 131: 3.",
+    "Conciencia: alerta 0; confusión nueva, voz, dolor o no responde: 3.",
+    "Temperatura: ≤ 35: 3; 35,1 a 36: 1; 36,1 a 38: 0; 38,1 a 39: 1; ≥ 39,1: 2."
+   ],
+   "estudios": [
+    "Se mide en cada ronda de signos vitales."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Respuesta",
+     "pasos": [
+      {
+       "etiqueta": "0 a 4",
+       "texto": "Riesgo bajo: controles cada 4 a 12 horas; un parámetro en 3 requiere revisión urgente."
+      },
+      {
+       "etiqueta": "5 a 6",
+       "texto": "Riesgo medio: revisión urgente por un médico y control cada hora."
+      },
+      {
+       "etiqueta": "≥ 7",
+       "texto": "Riesgo alto: respuesta de emergencia y evaluación para cuidados críticos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "En la insuficiencia respiratoria hipercápnica se usa la escala 2 de saturación (objetivo 88 a 92 %)."
+   ],
+   "fuente": {
+    "guia": "Royal College of Physicians. NEWS2, 2017",
+    "sociedad": "Royal College of Physicians",
+    "anio": "2017",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "news2"
+  },
+  {
+   "id": "cr-curb65",
+   "area": "criterios",
+   "titulo": "CURB-65 (neumonía adquirida en la comunidad)",
+   "alias": [
+    "curb65",
+    "neumonia"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Estima la gravedad de la neumonía comunitaria y ayuda a decidir el lugar de tratamiento.",
+   "diagnostico": [
+    "C: confusión de aparición reciente.",
+    "U: urea (BUN) > 19 mg/dl (urea > 43 mg/dl).",
+    "R: frecuencia respiratoria ≥ 30 rpm.",
+    "B: presión sistólica < 90 o diastólica ≤ 60 mmHg.",
+    "65: edad ≥ 65 años."
+   ],
+   "estudios": [
+    "Un punto por cada criterio; la versión CRB-65 prescinde de la urea."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Puntaje",
+     "pasos": [
+      {
+       "etiqueta": "0 a 1",
+       "texto": "Mortalidad ≈ 1,5 %: tratamiento ambulatorio."
+      },
+      {
+       "etiqueta": "2",
+       "texto": "Mortalidad ≈ 9 %: considerar internación breve."
+      },
+      {
+       "etiqueta": "3 a 5",
+       "texto": "Mortalidad ≈ 15 a 40 %: internación; con 4 a 5 evaluar cuidados intensivos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Siempre interpretar con el contexto social, la saturación y las comorbilidades."
+   ],
+   "fuente": {
+    "guia": "Lim WS et al. Thorax 2003;58:377; ATS/IDSA 2019",
+    "sociedad": "Sociedad Argentina de Infectología (SADI) / ATS-IDSA",
+    "anio": "2019",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "curb65"
+  },
+  {
+   "id": "cr-wells-tep-tvp",
+   "area": "criterios",
+   "titulo": "Criterios de Wells (TEP y TVP) y regla PERC",
+   "alias": [
+    "wells",
+    "tep",
+    "tvp",
+    "perc",
+    "embolia pulmonar"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Estiman la probabilidad clínica pretest de embolia pulmonar y de trombosis venosa profunda y guían el estudio.",
+   "diagnostico": [
+    "Wells TEP: signos de TVP 3; TEP el diagnóstico más probable 3; FC > 100 1,5; inmovilización o cirugía reciente 1,5; antecedente de TEP o TVP 1,5; hemoptisis 1; cáncer 1.",
+    "Wells TVP: cáncer activo, parálisis o yeso, encamamiento o cirugía reciente, dolor en el trayecto venoso, pierna entera edematosa, pantorrilla > 3 cm, edema con fóvea, colaterales venosas, TVP previa (1 cada uno); diagnóstico alternativo igual o más probable: -2.",
+    "PERC: edad ≥ 50, FC ≥ 100, saturación < 95 %, edema unilateral, hemoptisis, cirugía o trauma reciente, TEP o TVP previa, estrógenos."
+   ],
+   "estudios": [
+    "Se aplican antes de pedir dímero D o imágenes."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "TEP",
+     "pasos": [
+      {
+       "etiqueta": "< 2 (baja)",
+       "texto": "Con PERC negativo se descarta; si no, dímero D."
+      },
+      {
+       "etiqueta": "2 a 6 (moderada)",
+       "texto": "Dímero D y, si es positivo, angiotomografía."
+      },
+      {
+       "etiqueta": "> 6 (alta)",
+       "texto": "Angiotomografía directa."
+      }
+     ]
+    },
+    {
+     "titulo": "TVP",
+     "pasos": [
+      {
+       "etiqueta": "≤ 0",
+       "texto": "Baja: dímero D."
+      },
+      {
+       "etiqueta": "1 a 2",
+       "texto": "Moderada: dímero D de alta sensibilidad o ecografía."
+      },
+      {
+       "etiqueta": "≥ 3",
+       "texto": "Alta: ecografía Doppler."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "El PERC solo se aplica si la probabilidad clínica es baja."
+   ],
+   "fuente": {
+    "guia": "Wells PS et al. Thromb Haemost 2000;83:416 y N Engl J Med 2003;349:1227; Kline JA et al. 2004",
+    "sociedad": "ESC 2019 / ASH 2018 / Sociedad Argentina de Cardiología",
+    "anio": "2019",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "wells-tep"
+  },
+  {
+   "id": "cr-killip",
+   "area": "criterios",
+   "titulo": "Clasificación de Killip-Kimball (infarto agudo de miocardio)",
+   "alias": [
+    "killip",
+    "infarto",
+    "iam"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Clasifica el grado de insuficiencia cardíaca en el infarto agudo y se relaciona con la mortalidad.",
+   "diagnostico": [
+    "Killip I: sin signos de insuficiencia cardíaca.",
+    "Killip II: estertores en menos de la mitad de los campos pulmonares, tercer ruido o ingurgitación yugular.",
+    "Killip III: edema agudo de pulmón.",
+    "Killip IV: shock cardiogénico."
+   ],
+   "estudios": [
+    "Se valora al ingreso con la clínica; se complementa con ecocardiograma y laboratorio."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Mortalidad hospitalaria aproximada",
+     "pasos": [
+      {
+       "etiqueta": "I",
+       "texto": "≈ 6 %."
+      },
+      {
+       "etiqueta": "II",
+       "texto": "≈ 17 %."
+      },
+      {
+       "etiqueta": "III",
+       "texto": "≈ 38 %."
+      },
+      {
+       "etiqueta": "IV",
+       "texto": "≈ 70 a 80 %."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Las cifras son de la era previa a la reperfusión: hoy son menores, pero el gradiente se mantiene."
+   ],
+   "fuente": {
+    "guia": "Killip T, Kimball JT. Am J Cardiol 1967;20:457",
+    "sociedad": "Sociedad Argentina de Cardiología / ESC 2023",
+    "anio": "2023",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-kdigo-aki",
+   "area": "criterios",
+   "titulo": "Estadificación de la injuria renal aguda (KDIGO)",
+   "alias": [
+    "kdigo",
+    "insuficiencia renal aguda",
+    "ira"
+   ],
+   "up": [
+    "cr3"
+   ],
+   "unidad": "Emergencias y terapia",
+   "estado": "guia",
+   "definicion": "Define y clasifica la injuria renal aguda según la creatinina y la diuresis.",
+   "diagnostico": [
+    "Definición: aumento de creatinina ≥ 0,3 mg/dl en 48 horas, o ≥ 1,5 veces el basal en 7 días, o diuresis < 0,5 ml/kg/h durante 6 horas.",
+    "Estadio 1: creatinina 1,5 a 1,9 veces el basal o aumento ≥ 0,3 mg/dl; diuresis < 0,5 ml/kg/h por 6 a 12 horas.",
+    "Estadio 2: creatinina 2 a 2,9 veces el basal; diuresis < 0,5 ml/kg/h por ≥ 12 horas.",
+    "Estadio 3: creatinina ≥ 3 veces el basal o ≥ 4 mg/dl o inicio de diálisis; diuresis < 0,3 ml/kg/h por ≥ 24 horas o anuria ≥ 12 horas."
+   ],
+   "estudios": [
+    "Medir creatinina basal, diuresis horaria y buscar la causa (prerrenal, renal o posrenal)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Todos los estadios",
+       "texto": "Suspender nefrotóxicos, optimizar volumen y presión, ajustar dosis y descartar obstrucción."
+      },
+      {
+       "etiqueta": "Estadio 3",
+       "texto": "Evaluar necesidad de diálisis y derivar a nefrología."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Evitar los contrastes y los AINE; reevaluar a diario."
+   ],
+   "fuente": {
+    "guia": "KDIGO Clinical Practice Guideline for Acute Kidney Injury 2012",
+    "sociedad": "KDIGO / Sociedad Argentina de Nefrología",
+    "anio": "2012",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-cha2ds2-vasc",
+   "area": "criterios",
+   "titulo": "Score CHA₂DS₂-VASc (fibrilación auricular)",
+   "alias": [
+    "cha2ds2 vasc",
+    "fibrilacion auricular",
+    "anticoagulacion"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Estima el riesgo de ACV en la fibrilación auricular no valvular y la indicación de anticoagulación.",
+   "diagnostico": [
+    "C: insuficiencia cardíaca: 1.",
+    "H: hipertensión: 1.",
+    "A₂: edad ≥ 75 años: 2.",
+    "D: diabetes: 1.",
+    "S₂: ACV, AIT o tromboembolismo previo: 2.",
+    "V: enfermedad vascular (IAM, arteriopatía periférica, placa aórtica): 1.",
+    "A: edad 65 a 74 años: 1.",
+    "Sc: sexo femenino: 1."
+   ],
+   "estudios": [
+    "Se suma al diagnóstico de fibrilación auricular y se reevalúa periódicamente."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "0 (varón) o 1 (mujer)",
+       "texto": "Sin anticoagulación."
+      },
+      {
+       "etiqueta": "1 (varón) o 2 (mujer)",
+       "texto": "Considerar anticoagulación."
+      },
+      {
+       "etiqueta": "≥ 2 (varón) o ≥ 3 (mujer)",
+       "texto": "Anticoagulación oral recomendada (preferir anticoagulantes directos)."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Evaluar siempre el riesgo de sangrado (HAS-BLED) y corregir los factores modificables."
+   ],
+   "fuente": {
+    "guia": "Lip GYH et al. Chest 2010;137:263; Guías ESC 2020",
+    "sociedad": "Sociedad Argentina de Cardiología / ESC",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "cha2ds2-vasc"
+  },
+  {
+   "id": "cr-has-bled",
+   "area": "criterios",
+   "titulo": "Score HAS-BLED (riesgo de sangrado)",
+   "alias": [
+    "has bled",
+    "sangrado",
+    "anticoagulacion"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Estima el riesgo de sangrado mayor en pacientes anticoagulados y señala factores modificables.",
+   "diagnostico": [
+    "H: hipertensión no controlada (PAS > 160): 1.",
+    "A: función renal o hepática alterada: 1 cada una.",
+    "S: ACV previo: 1.",
+    "B: antecedente de sangrado o predisposición: 1.",
+    "L: INR lábil: 1.",
+    "E: edad > 65 años: 1.",
+    "D: fármacos (antiagregantes, AINE) o alcohol: 1 cada uno."
+   ],
+   "estudios": [
+    "Máximo de 9 puntos."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Interpretación",
+     "pasos": [
+      {
+       "etiqueta": "0 a 2",
+       "texto": "Riesgo bajo a moderado."
+      },
+      {
+       "etiqueta": "≥ 3",
+       "texto": "Riesgo alto: no contraindica anticoagular; exige corregir factores y seguimiento más estrecho."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "No se usa para negar la anticoagulación."
+   ],
+   "fuente": {
+    "guia": "Pisters R et al. Chest 2010;138:1093; Guías ESC 2020",
+    "sociedad": "Sociedad Argentina de Cardiología / ESC",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "has-bled"
+  },
+  {
+   "id": "cr-heart",
+   "area": "criterios",
+   "titulo": "Score HEART (dolor torácico)",
+   "alias": [
+    "heart",
+    "dolor toracico",
+    "sindrome coronario agudo"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Estratifica el riesgo de eventos cardíacos mayores a 6 semanas en el dolor torácico agudo.",
+   "diagnostico": [
+    "H (historia): poco sospechosa 0; moderadamente 1; muy sospechosa 2.",
+    "E (ECG): normal 0; alteración inespecífica 1; desviación del ST 2.",
+    "A (edad): < 45: 0; 45 a 64: 1; ≥ 65: 2.",
+    "R (factores de riesgo): ninguno 0; 1 o 2: 1; ≥ 3 o enfermedad aterosclerótica: 2.",
+    "T (troponina): normal 0; 1 a 3 veces el límite: 1; > 3 veces: 2."
+   ],
+   "estudios": [
+    "Requiere ECG y troponina."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Riesgo",
+     "pasos": [
+      {
+       "etiqueta": "0 a 3",
+       "texto": "Bajo (≈ 1,7 %): alta temprana con seguimiento."
+      },
+      {
+       "etiqueta": "4 a 6",
+       "texto": "Intermedio (≈ 12 a 17 %): observación y estudios."
+      },
+      {
+       "etiqueta": "7 a 10",
+       "texto": "Alto (≈ 50 a 65 %): internación y estrategia invasiva."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Usar troponinas de alta sensibilidad según el protocolo del servicio."
+   ],
+   "fuente": {
+    "guia": "Six AJ et al. Neth Heart J 2008;16:191; ESC 2023 ACS Guidelines",
+    "sociedad": "ESC / Sociedad Argentina de Cardiología",
+    "anio": "2023",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "heart"
+  },
+  {
+   "id": "cr-abcd2",
+   "area": "criterios",
+   "titulo": "Score ABCD² (ataque isquémico transitorio)",
+   "alias": [
+    "abcd2",
+    "ait",
+    "acv"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Estima el riesgo de ACV en los 2 días posteriores a un ataque isquémico transitorio.",
+   "diagnostico": [
+    "A (age): edad ≥ 60: 1.",
+    "B (blood pressure): PA ≥ 140/90: 1.",
+    "C (clinical): debilidad unilateral 2; trastorno del habla sin debilidad 1.",
+    "D (duration): ≥ 60 min 2; 10 a 59 min 1.",
+    "D (diabetes): 1."
+   ],
+   "estudios": [
+    "Se calcula al evaluar al paciente tras la resolución de los síntomas."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Riesgo de ACV a 2 días",
+     "pasos": [
+      {
+       "etiqueta": "0 a 3",
+       "texto": "≈ 1 %."
+      },
+      {
+       "etiqueta": "4 a 5",
+       "texto": "≈ 4 %."
+      },
+      {
+       "etiqueta": "6 a 7",
+       "texto": "≈ 8 %."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Hoy se recomienda estudiar de forma urgente a todo AIT, sin importar el puntaje."
+   ],
+   "fuente": {
+    "guia": "Johnston SC et al. Lancet 2007;369:283; AHA/ASA 2021",
+    "sociedad": "AHA/ASA / Sociedad Neurológica Argentina",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "abcd2"
+  },
+  {
+   "id": "cr-clasificacion-hta",
+   "area": "criterios",
+   "titulo": "Clasificación de la hipertensión arterial",
+   "alias": [
+    "hipertension",
+    "hta",
+    "presion arterial"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Categorías de presión arterial medida en consultorio en adultos (ESC/ESH).",
+   "diagnostico": [
+    "Óptima: < 120 y < 80 mmHg.",
+    "Normal: 120 a 129 y/o 80 a 84.",
+    "Normal alta: 130 a 139 y/o 85 a 89.",
+    "Hipertensión grado 1: 140 a 159 y/o 90 a 99.",
+    "Hipertensión grado 2: 160 a 179 y/o 100 a 109.",
+    "Hipertensión grado 3: ≥ 180 y/o ≥ 110.",
+    "Sistólica aislada: ≥ 140 y < 90."
+   ],
+   "estudios": [
+    "Confirmar con mediciones repetidas, MAPA o automedición domiciliaria."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Grado 1",
+       "texto": "Cambios de estilo de vida; tratamiento farmacológico según riesgo cardiovascular."
+      },
+      {
+       "etiqueta": "Grado 2 y 3",
+       "texto": "Iniciar tratamiento farmacológico junto con el estilo de vida."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Crisis hipertensiva con daño de órgano blanco: emergencia que requiere tratamiento intravenoso."
+   ],
+   "fuente": {
+    "guia": "Williams B et al. ESC/ESH Guidelines 2018 (J Hypertens 2018;36:1953)",
+    "sociedad": "ESC/ESH / Sociedad Argentina de Hipertensión Arterial y Federación Argentina de Cardiología",
+    "anio": "2018",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-sindrome-metabolico",
+   "area": "criterios",
+   "titulo": "Criterios de síndrome metabólico (armonizados)",
+   "alias": [
+    "sindrome metabolico",
+    "perimetro abdominal"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Se diagnostica con 3 o más de 5 criterios (consenso armonizado IDF/AHA/NHLBI 2009).",
+   "diagnostico": [
+    "Perímetro abdominal elevado: específico de cada población (en Sudamérica ≥ 90 cm varones y ≥ 80 cm mujeres).",
+    "Triglicéridos ≥ 150 mg/dl o tratamiento.",
+    "HDL < 40 mg/dl en varones o < 50 mg/dl en mujeres, o tratamiento.",
+    "Presión arterial ≥ 130/85 mmHg o tratamiento antihipertensivo.",
+    "Glucemia en ayunas ≥ 100 mg/dl o tratamiento."
+   ],
+   "estudios": [
+    "Medir perímetro abdominal, presión, glucemia y perfil lipídico."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "≥ 3 criterios",
+       "texto": "Aumenta el riesgo de diabetes tipo 2 y enfermedad cardiovascular: intervención intensiva en estilo de vida."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Alberti KGMM et al. Circulation 2009;120:1640",
+    "sociedad": "IDF / AHA / NHLBI / Sociedad Argentina de Diabetes",
+    "anio": "2009",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-diabetes-ada",
+   "area": "criterios",
+   "titulo": "Criterios diagnósticos de diabetes y prediabetes (ADA)",
+   "alias": [
+    "diabetes",
+    "hba1c",
+    "prediabetes"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Valores de glucemia y HbA1c que definen la diabetes mellitus y la prediabetes.",
+   "diagnostico": [
+    "Diabetes (cualquiera, confirmado en dos pruebas salvo hiperglucemia inequívoca): glucemia en ayunas ≥ 126 mg/dl; glucemia a las 2 horas de la prueba de tolerancia (75 g) ≥ 200; HbA1c ≥ 6,5 %; glucemia al azar ≥ 200 con síntomas.",
+    "Prediabetes: glucemia en ayunas 100 a 125; tolerancia alterada 140 a 199; HbA1c 5,7 a 6,4 %."
+   ],
+   "estudios": [
+    "Ayuno de 8 horas; la HbA1c debe medirse con un método estandarizado."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Prediabetes",
+       "texto": "Intervención en estilo de vida y seguimiento anual; considerar metformina en riesgo alto."
+      },
+      {
+       "etiqueta": "Diabetes",
+       "texto": "Educación, metas individualizadas (HbA1c < 7 % habitual) y control de otros factores de riesgo."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "La HbA1c puede ser poco confiable en anemias, hemoglobinopatías o embarazo."
+   ],
+   "fuente": {
+    "guia": "ADA Standards of Care in Diabetes 2025",
+    "sociedad": "American Diabetes Association / Sociedad Argentina de Diabetes (SAD)",
+    "anio": "2025",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-light",
+   "area": "criterios",
+   "titulo": "Criterios de Light (derrame pleural)",
+   "alias": [
+    "light",
+    "derrame pleural",
+    "exudado"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Distinguen el derrame pleural exudado del trasudado comparando proteínas y LDH pleurales con las séricas.",
+   "diagnostico": [
+    "Es exudado si cumple al menos uno: proteínas pleurales/séricas > 0,5.",
+    "LDH pleural/sérica > 0,6.",
+    "LDH pleural > 2/3 del límite superior normal de la LDH sérica."
+   ],
+   "estudios": [
+    "Toracocentesis con medición simultánea de proteínas y LDH en pleura y suero; agregar glucosa, pH, recuento y citología."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "Trasudado",
+       "texto": "Causas sistémicas (insuficiencia cardíaca, cirrosis, síndrome nefrótico)."
+      },
+      {
+       "etiqueta": "Exudado",
+       "texto": "Estudiar causas pleuropulmonares: infección, neoplasia, tromboembolismo."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Pueden clasificar mal trasudados por diuréticos: usar el gradiente de albúmina sérica-pleural (> 1,2 g/dl sugiere trasudado)."
+   ],
+   "fuente": {
+    "guia": "Light RW et al. Ann Intern Med 1972;77:507",
+    "sociedad": "American Thoracic Society / British Thoracic Society",
+    "anio": "2010",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-nyha",
+   "area": "criterios",
+   "titulo": "Clasificación funcional de la NYHA (insuficiencia cardíaca)",
+   "alias": [
+    "nyha",
+    "insuficiencia cardiaca"
+   ],
+   "up": [
+    "cr4"
+   ],
+   "unidad": "Clínica, cardiología y neurología",
+   "estado": "guia",
+   "definicion": "Clasifica la limitación funcional por síntomas de la insuficiencia cardíaca.",
+   "diagnostico": [
+    "Clase I: sin limitación; la actividad habitual no produce síntomas.",
+    "Clase II: leve limitación; síntomas con la actividad habitual.",
+    "Clase III: marcada limitación; síntomas con actividad menor que la habitual.",
+    "Clase IV: síntomas en reposo o con cualquier actividad."
+   ],
+   "estudios": [
+    "Se asigna por interrogatorio y se registra en cada control."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Uso",
+     "pasos": [
+      {
+       "etiqueta": "Clase II a IV con fracción de eyección reducida",
+       "texto": "Indicación de tratamiento médico óptimo (cuatro pilares) y valoración de dispositivos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "New York Heart Association (1994); Guías ESC 2021 de insuficiencia cardíaca",
+    "sociedad": "NYHA / Sociedad Argentina de Cardiología",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-child-pugh",
+   "area": "criterios",
+   "titulo": "Clasificación de Child-Pugh (cirrosis)",
+   "alias": [
+    "child pugh",
+    "cirrosis"
+   ],
+   "up": [
+    "cr5"
+   ],
+   "unidad": "Gastro, hepatología y nefrología",
+   "estado": "guia",
+   "definicion": "Valora la reserva funcional del hígado y el pronóstico de la cirrosis con 5 variables.",
+   "diagnostico": [
+    "Bilirrubina: < 2 mg/dl 1; 2 a 3: 2; > 3: 3.",
+    "Albúmina: > 3,5 g/dl 1; 2,8 a 3,5: 2; < 2,8: 3.",
+    "INR: < 1,7: 1; 1,7 a 2,3: 2; > 2,3: 3.",
+    "Ascitis: ausente 1; leve o controlada 2; moderada a grave 3.",
+    "Encefalopatía: ausente 1; grado 1 a 2: 2; grado 3 a 4: 3."
+   ],
+   "estudios": [
+    "Hemograma, bilirrubina, albúmina, INR y examen físico."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Clases y sobrevida",
+     "pasos": [
+      {
+       "etiqueta": "A (5 a 6)",
+       "texto": "Compensada: sobrevida a 1 año ≈ 100 %, a 2 años ≈ 85 %."
+      },
+      {
+       "etiqueta": "B (7 a 9)",
+       "texto": "Sobrevida a 1 año ≈ 80 %, a 2 años ≈ 60 %."
+      },
+      {
+       "etiqueta": "C (10 a 15)",
+       "texto": "Descompensada: sobrevida a 1 año ≈ 45 %; evaluar trasplante."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Se usa para ajustar dosis de fármacos de metabolismo hepático."
+   ],
+   "fuente": {
+    "guia": "Pugh RNH et al. Br J Surg 1973;60:646; AASLD 2021",
+    "sociedad": "Asociación Argentina para el Estudio de las Enfermedades del Hígado (AAEEH) / AASLD",
+    "anio": "2021",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "child-pugh"
+  },
+  {
+   "id": "cr-meld",
+   "area": "criterios",
+   "titulo": "Score MELD y MELD-Na",
+   "alias": [
+    "meld",
+    "trasplante hepatico"
+   ],
+   "up": [
+    "cr5"
+   ],
+   "unidad": "Gastro, hepatología y nefrología",
+   "estado": "guia",
+   "definicion": "Estima la mortalidad a 3 meses en hepatopatía terminal y prioriza la lista de trasplante hepático.",
+   "diagnostico": [
+    "MELD = 3,78·ln(bilirrubina) + 11,2·ln(INR) + 9,57·ln(creatinina) + 6,43.",
+    "MELD-Na incorpora el sodio sérico (125 a 137 mEq/L).",
+    "Valores mínimos de 1 para bilirrubina, INR y creatinina; creatinina máxima 4 mg/dl."
+   ],
+   "estudios": [
+    "Bilirrubina, INR, creatinina y sodio recientes."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Mortalidad a 3 meses",
+     "pasos": [
+      {
+       "etiqueta": "< 10",
+       "texto": "≈ 2 %."
+      },
+      {
+       "etiqueta": "10 a 19",
+       "texto": "≈ 6 %."
+      },
+      {
+       "etiqueta": "20 a 29",
+       "texto": "≈ 20 %."
+      },
+      {
+       "etiqueta": "30 a 39",
+       "texto": "≈ 50 %."
+      },
+      {
+       "etiqueta": "≥ 40",
+       "texto": "≈ 70 %."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "En Argentina, la asignación de órganos la regula el INCUCAI."
+   ],
+   "fuente": {
+    "guia": "Kamath PS et al. Hepatology 2001;33:464; Kim WR et al. N Engl J Med 2008;359:1018",
+    "sociedad": "AASLD / INCUCAI (SINTRA)",
+    "anio": "2008",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "meld"
+  },
+  {
+   "id": "cr-west-haven",
+   "area": "criterios",
+   "titulo": "Grados de encefalopatía hepática (West Haven)",
+   "alias": [
+    "west haven",
+    "encefalopatia hepatica"
+   ],
+   "up": [
+    "cr5"
+   ],
+   "unidad": "Gastro, hepatología y nefrología",
+   "estado": "guia",
+   "definicion": "Clasifica la gravedad de la encefalopatía hepática según el estado mental.",
+   "diagnostico": [
+    "Grado mínimo: alteraciones solo en pruebas psicométricas.",
+    "Grado 1: cambios leves de personalidad, ánimo o sueño; déficit de atención.",
+    "Grado 2: letargo, desorientación temporal, asterixis, comportamiento inapropiado.",
+    "Grado 3: somnolencia a semiestupor, desorientación espacial, confusión marcada.",
+    "Grado 4: coma."
+   ],
+   "estudios": [
+    "Buscar el factor precipitante (infección, sangrado, deshidratación, constipación, fármacos)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Todos los grados",
+       "texto": "Tratar el factor desencadenante; lactulosa y, si hay recurrencia, rifaximina."
+      },
+      {
+       "etiqueta": "Grados 3 y 4",
+       "texto": "Proteger la vía aérea y cuidados intensivos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Ferenci P et al. Hepatology 2002;35:716; AASLD/EASL 2014",
+    "sociedad": "AASLD / EASL / AAEEH",
+    "anio": "2014",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-roma-iv-sii",
+   "area": "criterios",
+   "titulo": "Criterios de Roma IV (síndrome de intestino irritable)",
+   "alias": [
+    "roma iv",
+    "colon irritable",
+    "sii"
+   ],
+   "up": [
+    "cr5"
+   ],
+   "unidad": "Gastro, hepatología y nefrología",
+   "estado": "guia",
+   "definicion": "Criterios diagnósticos basados en síntomas del síndrome de intestino irritable.",
+   "diagnostico": [
+    "Dolor abdominal recurrente, al menos 1 día por semana en los últimos 3 meses, asociado a 2 o más de: relación con la defecación; cambio en la frecuencia de las deposiciones; cambio en la forma (consistencia) de las heces.",
+    "Los síntomas deben haberse iniciado al menos 6 meses antes del diagnóstico.",
+    "Subtipos por escala de Bristol: con estreñimiento, con diarrea, mixto o no clasificado."
+   ],
+   "estudios": [
+    "Excluir signos de alarma: pérdida de peso, sangrado, anemia, fiebre, inicio > 50 años, antecedentes familiares de cáncer colorrectal."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Sin alarma",
+       "texto": "Diagnóstico positivo; medidas dietéticas y tratamiento sintomático."
+      },
+      {
+       "etiqueta": "Con alarma",
+       "texto": "Estudios dirigidos (colonoscopia, laboratorio) para descartar enfermedad orgánica."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Lacy BE et al. Gastroenterology 2016;150:1393 (Rome IV)",
+    "sociedad": "Rome Foundation / Sociedad Argentina de Gastroenterología",
+    "anio": "2016",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-los-angeles-erge",
+   "area": "criterios",
+   "titulo": "Clasificación de Los Ángeles (esofagitis por reflujo)",
+   "alias": [
+    "los angeles",
+    "esofagitis",
+    "erge"
+   ],
+   "up": [
+    "cr5"
+   ],
+   "unidad": "Gastro, hepatología y nefrología",
+   "estado": "guia",
+   "definicion": "Gradúa la esofagitis erosiva por la extensión de las lesiones en la endoscopia.",
+   "diagnostico": [
+    "Grado A: una o más lesiones ≤ 5 mm que no se extienden entre las crestas de dos pliegues.",
+    "Grado B: una o más lesiones > 5 mm que no se extienden entre las crestas de dos pliegues.",
+    "Grado C: lesiones que se extienden entre dos o más pliegues, en menos del 75 % de la circunferencia.",
+    "Grado D: lesiones que abarcan al menos el 75 % de la circunferencia."
+   ],
+   "estudios": [
+    "Se informa en la endoscopia digestiva alta."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "A y B",
+       "texto": "Inhibidor de la bomba de protones por 8 semanas."
+      },
+      {
+       "etiqueta": "C y D",
+       "texto": "Tratamiento más prolongado y control endoscópico para descartar esófago de Barrett."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "Lundell LR et al. Gut 1999;45:172",
+    "sociedad": "American College of Gastroenterology / Sociedad Argentina de Gastroenterología",
+    "anio": "2022",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-truelove-witts",
+   "area": "criterios",
+   "titulo": "Criterios de Truelove-Witts (colitis ulcerosa)",
+   "alias": [
+    "truelove",
+    "colitis ulcerosa"
+   ],
+   "up": [
+    "cr5"
+   ],
+   "unidad": "Gastro, hepatología y nefrología",
+   "estado": "guia",
+   "definicion": "Clasifica la gravedad de un brote de colitis ulcerosa.",
+   "diagnostico": [
+    "Leve: menos de 4 deposiciones por día, sin o poca sangre, sin signos sistémicos, PCR normal.",
+    "Grave: 6 o más deposiciones sanguinolentas por día y al menos uno de: temperatura > 37,8 °C; FC > 90; hemoglobina < 10,5 g/dl; ERS > 30 mm/h o PCR elevada.",
+    "Moderada: intermedia entre leve y grave."
+   ],
+   "estudios": [
+    "Hemograma, PCR, albúmina, coprocultivo y toxina de Clostridioides difficile; radiografía de abdomen si se sospecha megacolon."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Leve a moderada",
+       "texto": "Mesalazina oral/tópica; corticoides si no responde."
+      },
+      {
+       "etiqueta": "Grave",
+       "texto": "Internación, corticoides intravenosos y evaluación a las 72 horas (rescate con infliximab o ciclosporina, o cirugía)."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Descartar infección por C. difficile antes de escalar el tratamiento inmunosupresor."
+   ],
+   "fuente": {
+    "guia": "Truelove SC, Witts LJ. Br Med J 1955;2:1041; ECCO 2022",
+    "sociedad": "ECCO / Grupo Argentino de Enfermedad Inflamatoria Intestinal",
+    "anio": "2022",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-erc-kdigo",
+   "area": "criterios",
+   "titulo": "Estadios de la enfermedad renal crónica (KDIGO)",
+   "alias": [
+    "erc",
+    "enfermedad renal cronica",
+    "kdigo"
+   ],
+   "up": [
+    "cr5"
+   ],
+   "unidad": "Gastro, hepatología y nefrología",
+   "estado": "guia",
+   "definicion": "Clasifica la ERC por filtrado glomerular (G) y albuminuria (A); el pronóstico depende de ambos.",
+   "diagnostico": [
+    "G1: ≥ 90 mL/min/1,73 m² (normal o alto).",
+    "G2: 60 a 89 (levemente disminuido).",
+    "G3a: 45 a 59; G3b: 30 a 44.",
+    "G4: 15 a 29 (gravemente disminuido).",
+    "G5: < 15 (falla renal).",
+    "Albuminuria: A1 < 30 mg/g; A2 30 a 300 mg/g; A3 > 300 mg/g."
+   ],
+   "estudios": [
+    "Se requiere persistencia por más de 3 meses. Estimar el filtrado con CKD-EPI 2021 y medir el cociente albúmina/creatinina urinario."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "G3 o albuminuria",
+       "texto": "Control de presión, inhibidor del SRAA, ISGLT2 y evitar nefrotóxicos."
+      },
+      {
+       "etiqueta": "G4 a G5",
+       "texto": "Derivar a nefrología y preparar el tratamiento sustitutivo."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [],
+   "fuente": {
+    "guia": "KDIGO 2024 Clinical Practice Guideline for CKD",
+    "sociedad": "KDIGO / Sociedad Argentina de Nefrología (SAN)",
+    "anio": "2024",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "ckd-epi"
+  },
+  {
+   "id": "cr-westley-crup",
+   "area": "criterios",
+   "titulo": "Score de Westley (crup viral)",
+   "alias": [
+    "westley",
+    "crup",
+    "laringitis"
+   ],
+   "up": [
+    "cr6"
+   ],
+   "unidad": "Pediatría y neonatología",
+   "estado": "guia",
+   "definicion": "Valora la gravedad de la laringotraqueítis aguda en niños.",
+   "diagnostico": [
+    "Estridor: ninguno 0; al agitarse 1; en reposo 2.",
+    "Tiraje: ninguno 0; leve 1; moderado 2; grave 3.",
+    "Entrada de aire: normal 0; disminuida 1; muy disminuida 2.",
+    "Cianosis: ninguna 0; con agitación 4; en reposo 5.",
+    "Conciencia: normal 0; alterada 5."
+   ],
+   "estudios": [
+    "Se valora en la guardia y se repite tras el tratamiento."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Gravedad",
+     "pasos": [
+      {
+       "etiqueta": "≤ 2",
+       "texto": "Leve: dexametasona oral en dosis única."
+      },
+      {
+       "etiqueta": "3 a 5",
+       "texto": "Moderado: dexametasona y adrenalina nebulizada."
+      },
+      {
+       "etiqueta": "6 a 11",
+       "texto": "Grave: adrenalina, dexametasona e internación."
+      },
+      {
+       "etiqueta": "≥ 12",
+       "texto": "Insuficiencia respiratoria inminente: emergencia."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "No agitar al niño: la agitación empeora el estridor."
+   ],
+   "fuente": {
+    "guia": "Westley CR et al. Am J Dis Child 1978;132:484",
+    "sociedad": "Sociedad Argentina de Pediatría / AAP",
+    "anio": "2020",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
+   "calculadora": "westley"
+  },
+  {
+   "id": "cr-deshidratacion-oms",
+   "area": "criterios",
+   "titulo": "Evaluación de la deshidratación (OMS)",
+   "alias": [
+    "deshidratacion",
+    "diarrea",
+    "sro"
+   ],
+   "up": [
+    "cr6"
+   ],
+   "unidad": "Pediatría y neonatología",
+   "estado": "guia",
+   "definicion": "Clasifica el grado de deshidratación en el niño con diarrea y define el plan de rehidratación.",
+   "diagnostico": [
+    "Sin deshidratación: estado general bueno, ojos normales, bebe normalmente, pliegue cutáneo se retrae rápido.",
+    "Algún grado de deshidratación (2 o más): inquieto o irritable, ojos hundidos, bebe ávidamente (sed), pliegue lento.",
+    "Deshidratación grave (2 o más): letárgico o inconsciente, ojos hundidos, bebe mal o no puede beber, pliegue muy lento (> 2 segundos)."
+   ],
+   "estudios": [
+    "Pesar al niño, valorar el estado de conciencia, las mucosas, el llanto con lágrimas, el relleno capilar y la diuresis."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Plan",
+     "pasos": [
+      {
+       "etiqueta": "Plan A (sin deshidratación)",
+       "texto": "Líquidos y alimentación en casa, con signos de alarma."
+      },
+      {
+       "etiqueta": "Plan B (algún grado)",
+       "texto": "Solución de rehidratación oral ≈ 75 ml/kg en 4 horas con control."
+      },
+      {
+       "etiqueta": "Plan C (grave)",
+       "texto": "Rehidratación intravenosa inmediata con Ringer lactato o solución fisiológica."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Si no mejora con la vía oral o hay vómitos incoercibles, pasar a la vía intravenosa."
+   ],
+   "fuente": {
+    "guia": "Organización Mundial de la Salud, Tratamiento de la diarrea (2005); Sociedad Argentina de Pediatría",
+    "sociedad": "OMS / Sociedad Argentina de Pediatría",
+    "anio": "2005",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-kawasaki",
+   "area": "criterios",
+   "titulo": "Criterios diagnósticos de la enfermedad de Kawasaki",
+   "alias": [
+    "kawasaki",
+    "vasculitis"
+   ],
+   "up": [
+    "cr6"
+   ],
+   "unidad": "Pediatría y neonatología",
+   "estado": "guia",
+   "definicion": "Vasculitis aguda de la infancia; el diagnóstico clásico exige fiebre y criterios clínicos.",
+   "diagnostico": [
+    "Fiebre de 5 días o más, más 4 de 5 criterios.",
+    "Conjuntivitis bilateral no exudativa.",
+    "Cambios en los labios y la cavidad oral (labios rojos y fisurados, lengua en frambuesa, eritema faríngeo).",
+    "Linfadenopatía cervical ≥ 1,5 cm, habitualmente unilateral.",
+    "Exantema polimorfo.",
+    "Cambios en las extremidades: eritema y edema en palmas y plantas, descamación periungueal posterior."
+   ],
+   "estudios": [
+    "Hemograma, PCR, albúmina, transaminasas y ecocardiograma (coronarias) desde el diagnóstico."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Dentro de los 10 días",
+       "texto": "Inmunoglobulina intravenosa 2 g/kg más ácido acetilsalicílico."
+      },
+      {
+       "etiqueta": "Seguimiento",
+       "texto": "Ecocardiograma a las 1 a 2 semanas y a las 4 a 6 semanas para vigilar aneurismas coronarios."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "Existen formas incompletas: con fiebre y menos criterios, usar algoritmos con laboratorio y ecocardiograma."
+   ],
+   "fuente": {
+    "guia": "McCrindle BW et al. Circulation 2017;135:e927",
+    "sociedad": "American Heart Association / Sociedad Argentina de Pediatría",
+    "anio": "2017",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  },
+  {
+   "id": "cr-centor-mcisaac",
+   "area": "criterios",
+   "titulo": "Criterios de Centor modificados (McIsaac): faringitis",
+   "alias": [
+    "centor",
+    "mcisaac",
+    "faringitis",
+    "estreptococo"
+   ],
+   "up": [
+    "cr6"
+   ],
+   "unidad": "Pediatría y neonatología",
+   "estado": "guia",
+   "definicion": "Estiman la probabilidad de faringitis por estreptococo del grupo A y guían la necesidad de test rápido o antibióticos.",
+   "diagnostico": [
+    "Fiebre > 38 °C: 1.",
+    "Ausencia de tos: 1.",
+    "Adenopatías cervicales anteriores dolorosas: 1.",
+    "Exudado o hipertrofia amigdalina: 1.",
+    "Edad: 3 a 14 años +1; 15 a 44 años 0; ≥ 45 años -1."
+   ],
+   "estudios": [
+    "Test rápido de antígeno o cultivo de fauces según el puntaje."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "≤ 1",
+       "texto": "No requiere estudio ni antibióticos."
+      },
+      {
+       "etiqueta": "2 a 3",
+       "texto": "Test rápido o cultivo; tratar si es positivo."
+      },
+      {
+       "etiqueta": "≥ 4",
+       "texto": "Considerar test; tratar empíricamente según criterio."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [],
+   "banderas": [
+    "En niños el test rápido negativo se confirma con cultivo según la guía local."
+   ],
+   "fuente": {
+    "guia": "Centor RM et al. Med Decis Making 1981;1:239; McIsaac WJ et al. CMAJ 1998;158:75",
+    "sociedad": "Sociedad Argentina de Pediatría / IDSA",
+    "anio": "2012",
+    "archivo": "",
+    "tipo": "guia",
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+   },
+   "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
+  }
+ ]
+}
