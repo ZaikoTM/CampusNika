@@ -37,18 +37,15 @@ const GuardiaModal = (() => {
   // grupo -> paquetes. `bancos` se guardan en IndexedDB desde Supabase; `urls` en la caché persistente; `farma` en IndexedDB.
   const GRUPOS = [
     { id: 'cir', icono: '🔪', titulo: 'Cirugía', sub: '5.° año', paquetes: [
-      { id: 'cir-lectura', icono: '📖', titulo: 'Lectura de la sala de estudio (PDF)', desc: 'Los libros y apuntes de cada unidad para leer sin señal. Por ahora están en Google Drive y no se pueden guardar en el dispositivo: estamos preparando una copia propia, que podrás elegir unidad por unidad.', proximamente: true, est: 0 },
       { id: 'cir-estudio', icono: '📚', titulo: 'Sala de Estudio de Cirugía', desc: 'Las 11 Unidades Problema: objetivos, contenidos, bibliografía y materiales.', urls: ['data/cirugia.json', 'js/estudio/cirugiaData.js'], est: 60 * KB },
       { id: 'cir-choice', icono: '🩺', titulo: 'Simulador Choice (UP 1 a 11)', desc: 'Banco de preguntas de opción múltiple de las 11 UP, con respaldo local de las UP 6 a 11.', bancos: { modulo: 'cirugia', ups: upsCir }, urls: ['data/banco_up06.json', 'data/banco_up07.json', 'data/banco_up08.json', 'data/banco_up09.json', 'data/banco_up10.json', 'data/banco_up11.json', 'preguntas.json', 'db_cirugia_organizado.json'], est: 2.2 * MB },
       { id: 'cir-local', icono: '🦴', titulo: 'Traumatología y suturas', desc: 'Bancos locales de trauma de miembro superior e inferior y de suturas.', urls: ['data/banco_trauma_superior.js', 'data/banco_trauma_inferior.js', 'data/banco_suturas.js'], est: 230 * KB },
     ] },
     { id: 'gin', icono: '🤰', titulo: 'Ginecología y Obstetricia', sub: '5.° año', paquetes: [
-      { id: 'gin-lectura', icono: '📖', titulo: 'Lectura de la sala de estudio (PDF)', desc: 'Consensos y bibliografía de cada unidad para leer sin señal. Próximamente, con selección por unidad.', proximamente: true, est: 0 },
       { id: 'gin-estudio', icono: '📚', titulo: 'Sala de Estudio de Ginecología', desc: 'Unidades y secciones con objetivos, contenidos y materiales.', urls: ['data/gineco_data.json'], est: 56 * KB },
       { id: 'gin-choice', icono: '🩺', titulo: 'Simulador Choice de Ginecología', desc: 'Banco de preguntas de UP1 a UP4 con las cinco secciones de la UP3.', urls: banco('ginecologia', upsGin), est: 1.4 * MB },
     ] },
     { id: 'siam', icono: '🫀', titulo: 'S.I.A.M.', sub: '5.° año', paquetes: [
-      { id: 'siam-lectura', icono: '📖', titulo: 'Lectura de la sala de estudio (PDF)', desc: 'Bibliografía de cada unidad para leer sin señal. Próximamente, con selección por unidad.', proximamente: true, est: 0 },
       { id: 'siam-estudio', icono: '📚', titulo: 'Sala de Estudio de SIAM', desc: 'Las 9 Unidades Problema con objetivos, contenidos y materiales.', urls: ['data/siam_data.json'], est: 67 * KB },
       { id: 'siam-choice', icono: '🩺', titulo: 'Simulador Choice de SIAM', desc: 'Banco de preguntas de las UP 1 a 9.', urls: banco('siam', upsSiam), est: 1.6 * MB },
     ] },
@@ -60,7 +57,7 @@ const GuardiaModal = (() => {
     ] },
     { id: 'herr', icono: '🧰', titulo: 'Herramientas', sub: 'para la guardia', paquetes: [
       { id: 'farma', icono: '💊', titulo: 'Vademécum NikaFarma', desc: 'Fármacos, síndromes, patógenos y calculadoras.', farma: true, est: EST_FARMA },
-      { id: 'flashcards', icono: '🃏', titulo: 'Flashcards de NikaFarma', desc: 'Tarjetas clínicas de tratamientos y temas: explorar, practicar y rendir el simulador de flashcards sin señal.', urls: ['flashcards.html', 'data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'js/nikaFlashcards.js', 'css/flashcards.css', 'js/nikafarmaPatologias.js', 'nikafarma.html',
+      { id: 'flashcards', icono: '🃏', titulo: 'Flashcards de NikaFarma', desc: 'Tarjetas clínicas de tratamientos y temas: explorar, practicar y rendir el simulador de flashcards sin señal.', urls: ['flashcards.html', 'data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'js/nikaFlashcards.js', 'css/flashcards.css', 'assets/fonts/caveat-latin.woff2', 'assets/fonts/caveat-latin-ext.woff2', 'assets/fonts/plusjakarta-latin.woff2', 'assets/fonts/plusjakarta-latin-ext.woff2', 'assets/N%20NIKA.png', 'assets/TEXTO%20VECTOR%20NIKA.png', 'js/nikafarmaPatologias.js', 'nikafarma.html',
         'css/pagina-lateral.css', 'css/nika-unificado.css', 'css/nikasim.css', 'css/campus-premium.css', 'css/campus-premium-espacio.css', 'css/tema-premium-salas.css', 'css/micro.css',
         'js/paginaLateral.js', 'js/auth-guard.js', 'js/nikaAcceso.js', 'js/rachas.js', 'js/atajos.js', 'js/campusTema.js', 'js/campusEspacio.js', 'js/micro.js', 'assets/N%20NIKA.png', 'assets/icons/favicon-32.png', 'favicon.ico', 'manifest.json'], est: 700 * KB },
       { id: 'recetarios', icono: '📝', titulo: 'Recetarios y certificados', desc: 'Para practicar la parte documental sin señal.', urls: ['recetarios.html', 'js/recetarios.js', 'js/recetariosData.js', 'js/recetariosShare.js', 'js/recetariosExamen.js', 'css/recetarios.css'], est: 150 * KB },

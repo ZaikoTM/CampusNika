@@ -962,6 +962,78 @@
         body.dark-mode .funnel-card:not(.premium-locked), body.dark-mode .mode-card { background: linear-gradient(160deg, color-mix(in srgb, var(--fa) 18%, #0f172a), #0f172a 66%); }
         body.dark-mode .funnel-card:not(.premium-locked) .mode-icon, body.dark-mode .mode-card .mode-icon { background: linear-gradient(135deg, color-mix(in srgb, var(--fa) 32%, #0f172a), color-mix(in srgb, var(--fb) 22%, #0f172a)); box-shadow: 0 10px 20px -12px #000, inset 0 1px 0 rgba(255, 255, 255, .12); }
         @media (prefers-reduced-motion: reduce) { .funnel-card:not(.premium-locked):not(.disabled), .mode-card { animation: none; } }
+
+        /* ===== Fondo vivo + vidrio (config y examen) ===== */
+        .ex-fondo { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .ex-fondo::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--nika-primary, #0284c7) 16%, transparent) 1px, transparent 1.4px); background-size: 28px 28px; mask-image: radial-gradient(ellipse at 50% 20%, #000 10%, transparent 72%); -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 10%, transparent 72%); }
+        .ex-fondo i { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; will-change: transform; }
+        .ex-fondo i:nth-child(1) { width: 46vmax; height: 46vmax; left: -12vmax; top: -16vmax; background: radial-gradient(circle, rgba(14, 165, 233, .55), transparent 68%); animation: exFlota1 22s ease-in-out infinite alternate; }
+        .ex-fondo i:nth-child(2) { width: 40vmax; height: 40vmax; right: -14vmax; top: 6vmax; background: radial-gradient(circle, rgba(139, 92, 246, .45), transparent 68%); animation: exFlota2 27s ease-in-out infinite alternate; }
+        .ex-fondo i:nth-child(3) { width: 36vmax; height: 36vmax; left: 28vw; bottom: -18vmax; background: radial-gradient(circle, rgba(236, 72, 153, .32), transparent 68%); animation: exFlota3 31s ease-in-out infinite alternate; }
+        @keyframes exFlota1 { to { transform: translate(8vmax, 6vmax) scale(1.1); } }
+        @keyframes exFlota2 { to { transform: translate(-7vmax, 9vmax) scale(1.08); } }
+        @keyframes exFlota3 { to { transform: translate(6vmax, -6vmax) scale(1.12); } }
+        body.dark-mode .ex-fondo i { opacity: .3; }
+        html.cv-lite .ex-fondo i { animation: none; filter: blur(50px); }
+        @media (prefers-reduced-motion: reduce) { .ex-fondo i { animation: none; } }
+        .container, .layout-exam, #quiz-screen, #config-screen, #result-screen { position: relative; z-index: 1; }
+        .card { background: color-mix(in srgb, var(--card-bg) 92%, transparent); border-color: color-mix(in srgb, var(--nika-primary, #0284c7) 16%, var(--border)); box-shadow: 0 18px 40px -26px rgba(15, 23, 42, .35); }
+        .cfg-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; position: relative;
+            background: linear-gradient(110deg, color-mix(in srgb, var(--nika-primary, #0284c7) 12%, var(--card-bg)), color-mix(in srgb, #8b5cf6 9%, var(--card-bg)) 60%, var(--card-bg)); }
+        .cfg-head::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899, #0ea5e9); background-size: 200% 100%; animation: exLinea 6s linear infinite; }
+        @keyframes exLinea { to { background-position: 200% 0; } }
+        #config-title { background: linear-gradient(90deg, var(--nika-dark, #0f172a), var(--nika-primary, #0284c7)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; letter-spacing: -.3px; }
+        body.dark-mode #config-title { background: linear-gradient(90deg, #fff, #7dd3fc); -webkit-background-clip: text; background-clip: text; }
+        .cfg-head .modo-switch-wrap { margin: 0; }
+        .cfg-head .modo-switch { min-width: 250px; }
+        .cfg-head .modo-switch button { padding: 9px 14px; font-size: .88rem; }
+        #modo-switch-desc { margin: 0 0 16px; padding: 10px 14px; border-radius: 12px; background: color-mix(in srgb, var(--nika-primary, #0284c7) 8%, var(--card-bg)); border-left: 4px solid var(--nika-primary, #0284c7); }
+        #config-screen.modo-practica #modo-switch-desc { background: rgba(16, 185, 129, .1); border-left-color: #10b981; }
+        @media (max-width: 640px) { .cfg-head .modo-switch { min-width: 0; width: 100%; } .cfg-head .modo-switch-wrap { width: 100%; } }
+
+        /* ===== Barra superior: grupos y cápsulas ===== */
+        .navbar { background: linear-gradient(110deg, #0b1220, #0f2547 55%, #1e1b4b); border-bottom: 1px solid rgba(255, 255, 255, .08); box-shadow: 0 10px 30px -14px rgba(2, 6, 23, .7); }
+        .navbar-actions { gap: 12px; }
+        .navbar .nav-guardia { background: linear-gradient(135deg, rgba(16, 185, 129, .25), rgba(14, 165, 233, .22)); border: 1px solid rgba(52, 211, 153, .45); border-radius: 12px; padding: 8px 14px; font-weight: 800; }
+        .navbar .nav-guardia:hover { background: linear-gradient(135deg, rgba(16, 185, 129, .4), rgba(14, 165, 233, .35)); transform: translateY(-1px); }
+        .nav-grupo { display: inline-flex; align-items: center; gap: 2px; padding: 4px; border-radius: 14px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); }
+        .nav-grupo .nav-tool-btn { background: transparent; border: 0; border-radius: 10px; padding: 8px 11px; font-size: .82rem; font-weight: 700; color: #dbe7f7; transition: background .2s, color .2s, transform .2s; }
+        .nav-grupo .nav-tool-btn:hover { background: rgba(255, 255, 255, .14); color: #fff; transform: translateY(-1px); }
+        .nav-grupo .nav-solo-ico .nb-tx { display: none; }
+        .nav-grupo .nav-solo-ico { padding: 8px 10px; }
+        .nav-grupo .nav-tool-btn + .nav-tool-btn { position: relative; }
+        .nav-grupo .nav-tool-btn + .nav-tool-btn::before { content: ''; position: absolute; left: -1px; top: 22%; bottom: 22%; width: 1px; background: rgba(255, 255, 255, .12); }
+        .navbar .nav-cancel-btn { display: none; border-radius: 12px; }
+        body:has(#quiz-screen[style*="block"]) .navbar .nav-cancel-btn { display: inline-flex; }
+        .navbar .btn-back { border-radius: 12px; padding: 9px 16px; background: linear-gradient(135deg, #0ea5e9, #4f46e5); box-shadow: 0 10px 22px -12px rgba(79, 70, 229, .9); }
+
+        /* ===== Pantalla del examen ===== */
+        #quiz-screen .q-wrapper { position: relative; border-radius: 22px; border-color: color-mix(in srgb, var(--nika-primary, #0284c7) 22%, var(--border)); box-shadow: 0 24px 50px -30px rgba(15, 23, 42, .5); overflow: hidden; }
+        #quiz-screen .q-wrapper::before { content: ''; position: absolute; left: 0; top: 0; height: 4px; width: var(--prog, 0%); background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899); transition: width .5s cubic-bezier(.2, .8, .3, 1); z-index: 2; }
+        #quiz-screen .q-info-col { background: linear-gradient(180deg, color-mix(in srgb, var(--nika-primary, #0284c7) 10%, var(--bg-body)), var(--bg-body)); }
+        #quiz-screen .q-info-col .q-number { font-size: 1.7rem; background: linear-gradient(135deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        #quiz-screen .q-content-col { padding: 28px 30px; }
+        #quiz-screen .q-text { font-size: 1.18rem; line-height: 1.65; margin-bottom: 24px; }
+        #quiz-screen .option-wrap { position: relative; padding: 15px 18px 15px 16px; margin-bottom: 12px; border-radius: 16px; border: 1.5px solid var(--border); background: var(--card-bg);
+            transition: transform .2s cubic-bezier(.3, 1.4, .5, 1), border-color .2s, background .2s, box-shadow .2s; }
+        #quiz-screen .option-wrap:hover { transform: translateX(5px); border-color: color-mix(in srgb, var(--nika-primary, #0284c7) 70%, transparent); background: color-mix(in srgb, var(--nika-primary, #0284c7) 6%, var(--card-bg)); box-shadow: 0 12px 24px -18px var(--nika-primary, #0284c7); }
+        #quiz-screen .option-wrap:has(input:checked) { border-color: var(--nika-primary, #0284c7); background: linear-gradient(100deg, color-mix(in srgb, var(--nika-primary, #0284c7) 14%, var(--card-bg)), color-mix(in srgb, #8b5cf6 8%, var(--card-bg)));
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--nika-primary, #0284c7) 22%, transparent), 0 16px 28px -20px var(--nika-primary, #0284c7); }
+        #quiz-screen .option-text { font-size: 1rem; line-height: 1.55; }
+        #quiz-screen .option-text strong:first-child { display: inline-grid; place-items: center; min-width: 26px; height: 26px; margin-right: 6px; border-radius: 9px; font-size: .8rem; color: #fff; background: linear-gradient(135deg, #0ea5e9, #6366f1); }
+        #quiz-screen .timer-box { border-radius: 20px; overflow: hidden; border-color: color-mix(in srgb, var(--nika-primary, #0284c7) 25%, var(--border)); background: linear-gradient(160deg, color-mix(in srgb, var(--nika-primary, #0284c7) 8%, var(--card-bg)), var(--card-bg) 70%); }
+        #quiz-screen .time-display { font-family: 'Plus Jakarta Sans', ui-monospace, monospace; font-variant-numeric: tabular-nums; letter-spacing: 2px; background: linear-gradient(135deg, var(--text-main), var(--nika-primary, #0284c7)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        #quiz-screen .pace-box { border-radius: 12px; font-size: .82rem; }
+        #quiz-screen .pace-red { animation: exAlerta 1.4s ease-in-out infinite; }
+        @keyframes exAlerta { 50% { box-shadow: 0 0 0 4px rgba(239, 68, 68, .22); } }
+        #quiz-screen .nav-box { height: 42px; border-radius: 12px; border-width: 1.5px; transition: transform .18s cubic-bezier(.3, 1.5, .5, 1), box-shadow .18s; }
+        #quiz-screen .nav-box:hover { transform: translateY(-3px) scale(1.06); box-shadow: 0 10px 18px -10px rgba(2, 132, 199, .7); }
+        #quiz-screen .nav-box.answered { background: linear-gradient(135deg, #0ea5e9, #4f46e5); border-color: transparent; }
+        #quiz-screen .nav-box.current { border: 2px solid transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(135deg, #0ea5e9, #ec4899) border-box; box-shadow: 0 10px 20px -12px #6366f1; }
+        #quiz-screen .nav-box.answered.current { color: #fff; background: linear-gradient(135deg, #0ea5e9, #4f46e5) padding-box, linear-gradient(135deg, #fff, #f9a8d4) border-box; }
+        #quiz-screen .nav-buttons .btn { border-radius: 14px; padding: 13px 22px; font-weight: 800; }
+        #quiz-screen .nav-buttons .btn-primary { background: linear-gradient(135deg, #0ea5e9, #4f46e5); border-color: transparent; box-shadow: 0 14px 26px -14px rgba(79, 70, 229, .9); }
+        body.dark-mode .card { background: color-mix(in srgb, var(--card-bg) 90%, transparent); }
         /* Interruptor Examen / Práctica */
         .modo-switch-wrap { margin: 4px 0 18px; }
         .modo-switch { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 5px; border-radius: 18px; max-width: 420px; background: var(--bg-body, #f1f5f9);
@@ -1046,6 +1118,7 @@
     <link rel="stylesheet" href="css/micro.css?v=1">
 </head>
 <body>
+    <div class="ex-fondo" aria-hidden="true"><i></i><i></i><i></i></div>
     <canvas id="confetti-canvas"></canvas>
 
     <header class="navbar">
@@ -1055,13 +1128,15 @@
         </div>
         <div class="navbar-actions">
             <span data-nika-net-slot></span>
-            <button class="nav-tool-btn" data-guardia-open title="Descargar bancos y vademécum para usar sin conexión">🛡️ Guardia</button>
+            <button class="nav-tool-btn nav-guardia" data-guardia-open title="Descargar bancos y vademécum para usar sin conexión">🛡️ Guardia</button>
+            <div class="nav-grupo" role="group" aria-label="Herramientas del simulador">
+                <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
+                <button class="nav-tool-btn" onclick="toggleVozSim()" id="btn-voz" title="Leer en voz alta lo que dice el paciente / evaluador">🗣️ Voz OFF</button>
+                <button class="nav-tool-btn nav-solo-ico" onclick="NikaVoz && NikaVoz.ajustes()" id="btn-voz-aj" title="Elegir voz, volumen y velocidad" aria-label="Ajustes de voz">⚙️</button>
+                <button class="nav-tool-btn nav-solo-ico" onclick="toggleFocusMode()" title="Modo Enfoque (Pantalla Completa)" aria-label="Modo enfoque">🔍 Enfoque</button>
+                <button class="nav-tool-btn nav-solo-ico" onclick="openHelpModal()" title="Atajos de Teclado" aria-label="Atajos de teclado">❓ Atajos</button>
+            </div>
             <button type="button" class="nav-cancel-btn" onclick="confirmarCancelacionExamen()" title="Cancelar el examen">✕ Cancelar Examen</button>
-            <button class="nav-tool-btn" onclick="toggleAudio()" id="btn-audio" title="Silenciar Sonidos">🔊 Audio ON</button>
-            <button class="nav-tool-btn" onclick="toggleVozSim()" id="btn-voz" title="Leer en voz alta lo que dice el paciente / evaluador">🗣️ Voz OFF</button>
-            <button class="nav-tool-btn" onclick="NikaVoz && NikaVoz.ajustes()" id="btn-voz-aj" title="Elegir voz, volumen y velocidad">⚙️</button>
-            <button class="nav-tool-btn" onclick="toggleFocusMode()" title="Modo Enfoque (Pantalla Completa)">🔍 Enfoque</button>
-            <button class="nav-tool-btn" onclick="openHelpModal()" title="Atajos de Teclado">❓ Atajos</button>
             <a href="campus.html" class="btn-back" id="btn-menu-materia" title="Volver al campus">← Volver al Campus</a>
         </div>
     </header>
@@ -1119,17 +1194,19 @@
 
         <!-- ================= PASO 3: CONFIGURACIÓN ================= -->
             <div class="card" id="config-screen" style="display: none;">
-                <div class="card-header" id="config-title">Configuración del Simulacro</div>
-                <div class="card-body">
-                    <div class="funnel-crumbs" data-crumbs></div>
+                <div class="card-header cfg-head">
+                    <span id="config-title">Configuración del Simulacro</span>
                     <div class="modo-switch-wrap" id="modo-switch-wrap">
                         <div class="modo-switch" id="modo-switch" role="tablist" aria-label="Modo del simulacro" data-modo="examen">
                             <span class="thumb" aria-hidden="true"></span>
                             <button type="button" role="tab" aria-selected="true" data-modo="examen" onclick="setModoSimulacro('examen')"><i>🎯</i> Examen</button>
                             <button type="button" role="tab" aria-selected="false" data-modo="practica" onclick="setModoSimulacro('practica')"><i>🧘</i> Práctica</button>
                         </div>
-                        <p class="modo-switch-desc" id="modo-switch-desc"></p>
                     </div>
+                </div>
+                <div class="card-body">
+                    <div class="funnel-crumbs" data-crumbs></div>
+                    <p class="modo-switch-desc" id="modo-switch-desc"></p>
                     <button type="button" class="btn-volver-modalidades" onclick="volverAlPaso2DesdeConfig()"><span class="arrow">←</span> Volver a modalidades</button>
                     <div class="mode-grid">
                         <div class="mode-card active" data-mode="parcial_1" data-modes="choice,escrito">
@@ -1573,7 +1650,7 @@
     <script src="js/auth-guard.js"></script>
     <script src="js/offlineStorage.js"></script>
     <script src="js/syncManager.js"></script>
-    <script src="js/guardiaModal.js?v=5"></script>
+    <script src="js/guardiaModal.js?v=6"></script>
     <script src="js/friendsManager.js"></script>
     <script src="js/rendimiento.js?v=3"></script>
     <script src="js/chatManager.js?v=4"></script>
@@ -2143,6 +2220,7 @@
             if (currentExam[currentIndex] && currentExam[currentIndex].tipo === 'escrito') postRenderEscrito();
         }
         function renderQuestionBase() {
+            { const qs = document.getElementById('quiz-screen'); if (qs && currentExam && currentExam.length) qs.style.setProperty('--prog', Math.round(((currentIndex + 1) / currentExam.length) * 100) + '%'); }
             visitedQuestions.add(currentIndex); const q = currentExam[currentIndex]; const container = document.getElementById('question-container');
             if (window.ExamIntegridad && q && q.tipo !== 'escrito') ExamIntegridad.preguntaMostrada(currentIndex, String(q.q || '').length);
             const estricto = !!(window.ExamIntegridad && ExamIntegridad.esEstricto());
