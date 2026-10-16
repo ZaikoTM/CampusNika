@@ -26,7 +26,7 @@ def con_deps(pages):
 
 def main():
     pats = {}
-    for f in ('data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'data/flashcards_criterios.json'):
+    for f in ('data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'data/flashcards_criterios.json', 'data/flashcards_farmacos.json'):
         d = json.load(open(os.path.join(ROOT, f), encoding='utf8'))
         for p in d['patologias']: pats[p['id']] = p.get('area') or 'ginecologia'
     comun = ['css/guias.css', 'css/navmovil.css', 'js/guias.js', 'js/navmovil.js', 'assets/n-nika-96.webp', 'assets/n-nika-192.webp', 'assets/N%20NIKA.png', 'favicon.ico',
@@ -41,6 +41,7 @@ def main():
         'temas-gin': temas('ginecologia'),
         'temas-cir': temas('cirugia'),
         'temas-cri': temas('criterios'),
+        'temas-far': temas('farmacos'),
         'guias': guias + comun + ['assets/capturas/nikamed-home.webp', 'assets/capturas/nikamed-temas.webp', 'assets/capturas/nikamed-tema.webp', 'assets/capturas/nikamed-guias.webp', 'assets/capturas/nikamed-flashcards.webp'],
         'calculadoras': ['calculadoras.html'] + comun + ['css/calculadoras.css'] + sorted('js/calc/' + os.path.basename(f) for f in glob.glob(os.path.join(ROOT, 'js/calc/*.js'))),
         'notas': con_deps(['mis_notas.html']) + ['js/misNotas.js'],

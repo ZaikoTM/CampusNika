@@ -6,7 +6,7 @@ import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fuentes_int import DICE, INT, CALC_INT, REF_AR_EXTRA, CALC_AR_EXTRA
 from fuentes_int2 import INT2, CALC_INT2, REF_AR2, CALC_AR2, NOTA_AR, NOTA_INT
-from fuentes_int3 import DICE3, REF_AR3, CALC_AR3, CALC_AR3_ADD, INT3, FICHAS_GUIAS
+from fuentes_int3 import DICE3, REF_AR3, CALC_AR3, CALC_AR3_ADD, INT3, FICHAS_GUIAS, CALC_INT3, NOTA_AR3
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -54,6 +54,9 @@ CALC.update(CALC_AR3)
 for _k, _v in CALC_AR3_ADD.items():
     CALC[_k] = CALC.get(_k, []) + _v
 INT.update(INT3)
+for _k, _v in CALC_INT3.items():
+    CALC_INT[_k] = CALC_INT.get(_k, []) + _v
+NOTA_AR.update(NOTA_AR3)
 for _k, _v in CALC_INT2.items():
     CALC_INT[_k] = CALC_INT.get(_k, []) + _v
 for _k, _v in DICE.items():

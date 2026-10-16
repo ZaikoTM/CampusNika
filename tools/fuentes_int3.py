@@ -79,9 +79,28 @@ INT3.update({
                            'No se verificó su postura sobre Ranson o BISAP. Un metaanálisis de 2024 (17 estudios) halló que Ranson tiene mayor sensibilidad (0,95 vs 0,67) y BISAP mayor especificidad (0,95 vs 0,74) para predecir gravedad.']),
 })
 
+INT3.update({
+    'isuog-fgr-2020': dict(t='ISUOG Practice Guidelines: diagnosis and management of small-for-gestational-age fetus and fetal growth restriction', c='Ultrasound Obstet Gynecol 2020;56:298-312 (doi 10.1002/uog.22134)', u='https://doi.org/10.1002/uog.22134', v='Edición 2020: no se halló una actualización.',
+                           d=['RCIU precoz (< 32 sem): CA/PFE < p3 o flujo diastólico ausente en la arteria umbilical; o CA/PFE < p10 combinada con IP de uterinas y/o umbilical > p95. RCIU tardío (≥ 32 sem): CA/PFE < p3, o al menos dos de tres: CA/PFE < p10, cruce de más de 2 cuartiles, CPR < p5 o IP umbilical > p95 (consenso Delphi).',
+                              'Interrupción según Doppler y cCTG: ductus venoso con onda a en la línea de base o por debajo o STV < 2,6 ms (26+0 a 28+6) / < 3,0 ms (29+0 a 31+6); flujo reverso o STV < 3,5 ms (32+0 a 33+6); flujo ausente o STV < 4,5 ms (desde 34+0); IP umbilical > p95 o CA/PFE < p3 (36+0 a 37+6); redistribución cerebral (38+0 a 39+0). Corticoides si se interrumpe antes de las 34+0 (grado B).',
+                              'PEG tardío: programar el parto desde las 38+0 y no pasar las 39+0 semanas (grado A); crecimiento cada 2 semanas y Doppler semanal.']),
+    'sego-1t-2021': dict(t='Guía de la exploración ecográfica del I trimestre', c='Guía de Asistencia Práctica de la Sección de Ecografía Obstétrico-Ginecológica de la SEGO, julio de 2021', u='https://bibliotecavirtual.sego.es/uploads/app/1297/elements/file/file1680162423.pdf', v='Vigente (2021).',
+                         d=['La TN se mide con LCN de 45 a 84 mm (11+0 a 13+6 semanas), con equipo de gama media-alta, al menos 25 minutos de exploración y control de calidad. Se considera aumentada por encima del p95 o del p99 (3,5 mm); corte de alto riesgo del cribado combinado: mayor de 1 en 270.',
+                            'El ADN fetal libre no está indicado con anomalías estructurales o TN > 3,5 mm. Se recomienda cribar preeclampsia junto con la ecografía del primer trimestre: la detección de la forma precoz (< 34 sem, 10 % de falsos positivos) es 58 % con la historia materna, 70 % con el IP de uterinas, 80 % con PAM + IP y 89 % con PAM + IP + PlGF.',
+                            'El estudio ASPRE mostró que la aspirina en dosis ≥ 100 mg/noche antes de las 16 semanas reduce cerca de un 62 % la preeclampsia pretérmino. Hay calculadoras de riesgo online (FMF; Medicina Fetal Barcelona).']),
+})
+CALC_INT3 = {'pe-aspirina': ['acog-222', 'sego-1t-2021'], 'tn-lcn': ['sego-1t-2021'], 'uta-doppler': ['sego-1t-2021'], 'rciu-isuog': ['isuog-fgr-2020']}
+NOTA_AR3 = {
+    'pe-aspirina': 'Se revisó la guía argentina de hipertensión del embarazo (Ministerio de Salud): la ficha de preeclampsia cita el cribado combinado de las 11 a 13+6 semanas; no se verificó un criterio de aspirina distinto del de ACOG.',
+    'tn-lcn': 'No se localizó una guía argentina específica sobre translucencia nucal; la referencia es la guía de la SEGO.',
+    'uta-doppler': 'No se localizó una guía argentina específica sobre el Doppler de arterias uterinas.',
+    'rciu-isuog': 'No se localizó una guía argentina específica vigente sobre RCIU: se usa la guía ISUOG 2020.',
+}
+
 # Guías por ficha clínica (sin calculadora): claves de REFS (argentinas) y de INT (internacionales)
 FICHAS_GUIAS = {
     'obs-hipertension': {'ar': ['hta-embarazo'], 'int': ['acog-222']},
+    'obs-rciu': {'ar': [], 'int': ['isuog-fgr-2020']},
     'obs-hpp': {'ar': ['hpp-2019'], 'int': ['who-hpp-2025']},
     'obs-anemia': {'ar': ['gpc-prenatal-2023'], 'int': ['who-hb-2024']},
     'obs-control-prenatal': {'ar': ['gpc-prenatal-2023'], 'int': ['acog-co700']},

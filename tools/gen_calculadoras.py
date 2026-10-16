@@ -34,7 +34,7 @@ CSS_EXTRA = '''<style>
 def listar():
     js = r"""
 global.window=global; global.location={hash:''}; global.document={};
-require('./js/calc/motor.js'); ['obstetricia','cirugia','clinica','general','extra'].forEach(f=>require('./js/calc/datos-'+f+'.js'));
+require('./js/calc/motor.js'); ['obstetricia','cirugia','clinica','general','extra','eco'].forEach(f=>require('./js/calc/datos-'+f+'.js'));
 console.log(JSON.stringify(window.NikaCalcs.REG.map(c=>({id:c.id,nombre:c.nombre,desc:c.desc,area:c.area}))));
 """
     out = subprocess.run(['node', '-e', js], cwd=ROOT, capture_output=True, text=True, encoding='utf8')
@@ -74,7 +74,7 @@ def main():
         <div class="cc-aviso"><strong>Herramienta de apoyo para estudio y práctica.</strong> No reemplaza el juicio clínico, las guías vigentes ni el protocolo de tu institución. Los porcentajes de riesgo son aproximados.</div>
         <div id="calc-app" class="cc-herr"><noscript>Activá JavaScript para usar las calculadoras.</noscript></div>
         <div class="mg-sec" id="preguntas-frecuentes"><h2>Preguntas frecuentes</h2>{faq_html}</div>
-        <div class="mg-sec"><h2>Seguí estudiando</h2><div class="mg-links"><a href="/temas-clinicos.html">Temas clínicos<small>213 fichas con diagnóstico y tratamiento</small></a><a href="/guia-flashcards-medicina.html">Flashcards de medicina<small>Cómo repasar con recuperación activa</small></a><a href="/guia-plan-de-estudio-finales-medicina.html">Plan de estudio para finales<small>Organizá tus semanas</small></a><a href="/guia-urgencias-obstetricas.html">Urgencias obstétricas<small>Guía de guardia</small></a></div></div>
+        <div class="mg-sec"><h2>Seguí estudiando</h2><div class="mg-links"><a href="/temas-clinicos.html">Temas clínicos<small>240 fichas con diagnóstico y tratamiento</small></a><a href="/guia-flashcards-medicina.html">Flashcards de medicina<small>Cómo repasar con recuperación activa</small></a><a href="/guia-plan-de-estudio-finales-medicina.html">Plan de estudio para finales<small>Organizá tus semanas</small></a><a href="/guia-urgencias-obstetricas.html">Urgencias obstétricas<small>Guía de guardia</small></a></div></div>
         <div class="tm-cta g-rv" style="margin-top:30px"><h2>Usalas dentro del campus</h2><p>En NikaMed las calculadoras están también en NikaFarma y en la sala de estudio, junto al vademécum, las flashcards y los simuladores.</p>
             <div class="row"><a class="btn-primary" href="/index.html#crear-cuenta">Crear cuenta gratis</a><a class="btn-ghost" href="/temas-clinicos.html">Ver temas clínicos</a></div></div>
     </main>
@@ -85,6 +85,7 @@ def main():
 <script src="/js/calc/datos-clinica.js?v=10"></script>
 <script src="/js/calc/datos-general.js?v=10"></script>
 <script src="/js/calc/datos-extra.js?v=10"></script>
+<script src="/js/calc/datos-eco.js?v=1"></script>
 <script src="/js/calc/fuentes-ar.js?v=10"></script>
 <script>NikaCalcs.montar(document.getElementById('calc-app'));</script>
 <script src="/js/guias.js?v=2" defer></script>

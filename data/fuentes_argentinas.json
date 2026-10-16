@@ -79,7 +79,7 @@
     "HPP grave: pérdida de 1.000 mL o más, o cualquier pérdida que cause compromiso hemodinámico.",
     "La estimación visual del sangrado es imprecisa y lo subestima: propone medirlo con una bolsa colectora calibrada.",
     "Causas: las 4 T (tono, tejido, trauma, trombina). Manejo activo del alumbramiento: uterotónico (ocitocina) inmediato, tracción controlada del cordón y masaje uterino de 5 minutos (recomendación A).",
-    "En el texto revisado no figura un umbral de índice de shock: el valor ≥ 0,9 de la calculadora proviene de la bibliografía internacional."
+    "Índice de shock (frecuencia cardíaca ÷ PAS): en obstetricia es normal entre 0,7 y 0,9 y los valores mayores se consideran anormales; es el predictor más preciso de hipovolemia y de necesidad de transfusión."
    ]
   },
   "hta-embarazo": {
@@ -631,6 +631,28 @@
     "Los métodos por longitud y por antropometría resultaron más fiables que las fórmulas por edad; la cinta de Broselow fue la que más se acercó en una cohorte (sobreestimó 0,7 kg).",
     "En una cohorte australiana de más de 37.000 niños, el método «Best Guess» fue el más exacto en mayores de 1 año; en otras series la cinta tiende a subestimar o sobreestimar según la población."
    ]
+  },
+  "isuog-fgr-2020": {
+   "t": "ISUOG Practice Guidelines: diagnosis and management of small-for-gestational-age fetus and fetal growth restriction",
+   "c": "Ultrasound Obstet Gynecol 2020;56:298-312 (doi 10.1002/uog.22134)",
+   "u": "https://doi.org/10.1002/uog.22134",
+   "v": "Edición 2020: no se halló una actualización.",
+   "d": [
+    "RCIU precoz (< 32 sem): CA/PFE < p3 o flujo diastólico ausente en la arteria umbilical; o CA/PFE < p10 combinada con IP de uterinas y/o umbilical > p95. RCIU tardío (≥ 32 sem): CA/PFE < p3, o al menos dos de tres: CA/PFE < p10, cruce de más de 2 cuartiles, CPR < p5 o IP umbilical > p95 (consenso Delphi).",
+    "Interrupción según Doppler y cCTG: ductus venoso con onda a en la línea de base o por debajo o STV < 2,6 ms (26+0 a 28+6) / < 3,0 ms (29+0 a 31+6); flujo reverso o STV < 3,5 ms (32+0 a 33+6); flujo ausente o STV < 4,5 ms (desde 34+0); IP umbilical > p95 o CA/PFE < p3 (36+0 a 37+6); redistribución cerebral (38+0 a 39+0). Corticoides si se interrumpe antes de las 34+0 (grado B).",
+    "PEG tardío: programar el parto desde las 38+0 y no pasar las 39+0 semanas (grado A); crecimiento cada 2 semanas y Doppler semanal."
+   ]
+  },
+  "sego-1t-2021": {
+   "t": "Guía de la exploración ecográfica del I trimestre",
+   "c": "Guía de Asistencia Práctica de la Sección de Ecografía Obstétrico-Ginecológica de la SEGO, julio de 2021",
+   "u": "https://bibliotecavirtual.sego.es/uploads/app/1297/elements/file/file1680162423.pdf",
+   "v": "Vigente (2021).",
+   "d": [
+    "La TN se mide con LCN de 45 a 84 mm (11+0 a 13+6 semanas), con equipo de gama media-alta, al menos 25 minutos de exploración y control de calidad. Se considera aumentada por encima del p95 o del p99 (3,5 mm); corte de alto riesgo del cribado combinado: mayor de 1 en 270.",
+    "El ADN fetal libre no está indicado con anomalías estructurales o TN > 3,5 mm. Se recomienda cribar preeclampsia junto con la ecografía del primer trimestre: la detección de la forma precoz (< 34 sem, 10 % de falsos positivos) es 58 % con la historia materna, 70 % con el IP de uterinas, 80 % con PAM + IP y 89 % con PAM + IP + PlGF.",
+    "El estudio ASPRE mostró que la aspirina en dosis ≥ 100 mg/noche antes de las 16 semanas reduce cerca de un 62 % la preeclampsia pretérmino. Hay calculadoras de riesgo online (FMF; Medicina Fetal Barcelona)."
+   ]
   }
  },
  "calcInt": {
@@ -724,6 +746,19 @@
   "rcri": [
    "acc-periop-2024"
   ],
+  "pe-aspirina": [
+   "acog-222",
+   "sego-1t-2021"
+  ],
+  "tn-lcn": [
+   "sego-1t-2021"
+  ],
+  "uta-doppler": [
+   "sego-1t-2021"
+  ],
+  "rciu-isuog": [
+   "isuog-fgr-2020"
+  ],
   "apgar": [
    "aap-acog-644"
   ],
@@ -799,7 +834,11 @@
   "braden": "No se localizó una guía nacional argentina de prevención de úlceras por presión que adopte la escala de Braden; se usa la guía internacional de 2019.",
   "ganancia-peso": "No se localizó la guía de control prenatal del Ministerio de Salud de la Nación con las recomendaciones de ganancia de peso: se cita la referencia del IOM.",
   "anemia-oms": "La guía de la SAP es pediátrica; no se localizó una guía argentina vigente de anemia en adultos o embarazo.",
-  "mcisaac": "Existe un consenso intersociedades argentino sobre infecciones respiratorias altas, pero solo se localizó su descripción."
+  "mcisaac": "Existe un consenso intersociedades argentino sobre infecciones respiratorias altas, pero solo se localizó su descripción.",
+  "pe-aspirina": "Se revisó la guía argentina de hipertensión del embarazo (Ministerio de Salud): la ficha de preeclampsia cita el cribado combinado de las 11 a 13+6 semanas; no se verificó un criterio de aspirina distinto del de ACOG.",
+  "tn-lcn": "No se localizó una guía argentina específica sobre translucencia nucal; la referencia es la guía de la SEGO.",
+  "uta-doppler": "No se localizó una guía argentina específica sobre el Doppler de arterias uterinas.",
+  "rciu-isuog": "No se localizó una guía argentina específica vigente sobre RCIU: se usa la guía ISUOG 2020."
  },
  "notaInt": {
   "ganzoni": "Es la fórmula clásica de déficit de hierro (Ganzoni 1970) para calcular la dosis total de hierro endovenoso: no depende de una guía; en pediatría la guía de la SAP indica el esquema por mg/kg.",
@@ -835,6 +874,12 @@
    ],
    "int": [
     "acog-222"
+   ]
+  },
+  "obs-rciu": {
+   "ar": [],
+   "int": [
+    "isuog-fgr-2020"
    ]
   },
   "obs-hpp": {

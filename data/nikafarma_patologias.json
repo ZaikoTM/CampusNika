@@ -146,12 +146,84 @@
         "sociedad": "FASGO",
         "anio": 2025,
         "archivo": "CONSENSO_SOP_FASGO_2025.pdf",
-        "nota": "Incorpora las recomendaciones ESHRE 2023.",
+        "nota": "Incorpora las recomendaciones ESHRE 2023. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas.",
         "tipo": "guia"
       },
       "revisarAntes": "2027-10",
       "up": [
         "up3-sec2"
+      ],
+      "tamizaje": [
+        "Al diagnóstico: peso, IMC, circunferencia de cintura, perfil lipídico, presión arterial y glucemia (riesgo cardiometabólico); presión arterial anual.",
+        "En adolescentes no usar ecografía ni HAM para diagnosticar (no hacer ecografía pélvica hasta 8 años después de la menarca)."
+      ],
+      "algoritmo": {
+        "titulo": "Síndrome de ovario poliquístico (FASGO 2025)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Al menos 2 de 3 criterios (disfunción ovulatoria, hiperandrogenismo, ovarios poliquísticos o HAM elevada) tras excluir otras causas"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Desea embarazo?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Letrozol: droga de primera elección para inducir la ovulación"
+              },
+              {
+                "t": "accion",
+                "txt": "Alternativa: citrato de clomifeno (embarazo múltiple 5-7 %, hiperestimulación 0,3 %)"
+              },
+              {
+                "t": "decision",
+                "txt": "¿No responde al letrozol o al clomifeno?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Gonadotrofinas a dosis bajas, drilling ovárico laparoscópico o FIV/ICSI"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Seguimiento del embarazo"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Estilo de vida: alimentación saludable y ejercicio (primera línea)"
+              },
+              {
+                "t": "accion",
+                "txt": "Anticonceptivos orales combinados para el hirsutismo o la irregularidad menstrual"
+              },
+              {
+                "t": "decision",
+                "txt": "¿IMC ≥ 25 y alteración metabólica?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Agregar metformina 500 mg/día, hasta 2500 mg/día en adultas"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Antiandrógenos si el hirsutismo persiste tras 6 meses de ACO"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-clomifeno"
       ]
     },
     {
@@ -261,7 +333,7 @@
         "sociedad": "FASGO",
         "anio": 2022,
         "archivo": "CONSENSO_SUA_FASGO_2022.pdf",
-        "nota": "Existe también un Consenso SUA de SOGIBA; se tomó el de FASGO por ser el más reciente de los provistos. Cotejar si hace falta.",
+        "nota": "Existe también un Consenso SUA de SOGIBA; se tomó el de FASGO por ser el más reciente de los provistos. Cotejar si hace falta. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas.",
         "tipo": "guia"
       },
       "revisarAntes": "2027-06",
@@ -269,6 +341,54 @@
         "up3-sec2",
         "up3-sec3",
         "up4"
+      ],
+      "algoritmo": {
+        "titulo": "Sangrado uterino anormal (FASGO 2022)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Descartar embarazo y evaluar el estado hemodinámico; clasificar la causa con PALM-COEIN"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Sangrado agudo con inestabilidad hemodinámica?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Reanimación con cristaloides y sangre; ácido tranexámico 1 g en 100 mL en 10 minutos"
+              },
+              {
+                "t": "accion",
+                "txt": "Taponaje con sonda Foley o gasas; embolización uterina y, rara vez, histerectomía de rescate"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Sangrado agudo hemodinámicamente estable?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Hormonal: ACO monofásico (30-35 µg de etinilestradiol) cada 8 h por 7 días y luego 1 por día durante 3 semanas, o acetato de medroxiprogesterona 20 mg cada 8 h"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "SUA crónico: AINE o ácido tranexámico oral 2-4 g/día por 5 días; DIU-LNG, progestágenos o ACO; análogo de GnRH como último recurso"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Tratar la anemia: es la causa más común de déficit de hierro"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-acido-tranexamico"
       ]
     },
     {
@@ -389,13 +509,102 @@
         "sociedad": "FASGO",
         "anio": 2025,
         "archivo": "Consenso Trastornos Hipertensivos del Embarazo FASGO Diciembre_2025.pdf",
-        "nota": "Reemplaza al consenso FASGO 2017 de hipertensión y embarazo.",
+        "nota": "Reemplaza al consenso FASGO 2017 de hipertensión y embarazo. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas.",
         "tipo": "guia"
       },
       "revisarAntes": "2027-12",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "tamizaje": [
+        "Primer trimestre (11 a 13+6 semanas): cribado combinado con factores maternos, presión arterial media, IP de arterias uterinas y PlGF. Con un 10 % de falsos positivos detecta cerca del 89 % de las preeclampsias precoces (< 34 sem) (GAP SEGO 2021).",
+        "Por la ficha: alto riesgo si el riesgo es ≥ 1:100 para preeclampsia < 37 semanas o ≥ 1:50 para < 34 semanas con el algoritmo FMF → aspirina 150 mg por la noche de las 12 a las 36 semanas.",
+        "Cribado por factores clínicos (ACOG 222): aspirina 81 mg/día entre las 12 y las 28 semanas (mejor antes de las 16) si hay un factor de alto riesgo (preeclampsia previa, embarazo múltiple, hipertensión crónica, diabetes, enfermedad renal, enfermedad autoinmune) o más de un factor moderado.",
+        "El Doppler de uterinas por sí solo tiene bajo valor predictivo (ACOG); el estudio ASPRE mostró que la aspirina antes de las 16 semanas reduce cerca de un 62 % la preeclampsia pretérmino.",
+        "Medir la presión y buscar proteinuria en cada control prenatal: hipertensión es ≥ 140/90 mmHg en dos ocasiones separadas por al menos 4 horas después de las 20 semanas."
+      ],
+      "fisiopatologia": [
+        "La preeclampsia nace de un fallo de la transformación fisiológica de las arterias espiraladas en el primer trimestre o principios del segundo, o de lesiones vasculares de la placenta: limita el flujo uteroplacentario.",
+        "Esa isquemia uteroplacentaria crónica se manifiesta en la unidad fetoplacentaria como restricción del crecimiento, oligohidramnios, desprendimiento de placenta y compromiso fetal, y aumenta el riesgo de parto prematuro espontáneo o indicado.",
+        "Intervienen factores angiogénicos (sFlt-1, PlGF y endoglina soluble) y el daño endotelial: de ahí el compromiso renal, hepático, neurológico y hematológico (ACOG 222)."
+      ],
+      "algoritmo": {
+        "titulo": "Embarazada con hipertensión después de las 20 semanas",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Presión ≥ 140/90 mmHg después de las 20 semanas: hemograma con plaquetas, función renal, hepatograma y proteinuria; evaluar el estado fetal"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Presión ≥ 160/110 mmHg o signos de gravedad (cefalea, alteraciones visuales, dolor epigástrico, plaquetas < 100.000, creatinina o transaminasas elevadas, edema pulmonar)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Emergencia hipertensiva: internar y bajar la presión"
+              },
+              {
+                "t": "accion",
+                "txt": "Labetalol 20 mg EV (40 mg a los 10 min y luego 80 mg), o nifedipina 20 mg VO cada 30 min (máx. 5 dosis), o hidralazina 5 mg EV cada 20 min"
+              },
+              {
+                "t": "accion",
+                "txt": "Sulfato de magnesio: ataque 4 g EV y 1 g/h por 24 horas; vigilar reflejo patelar y diuresis"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Hay criterios de interrupción (hipertensión refractaria, eclampsia, HELLP o compromiso fetal)?",
+                "si": [
+                  {
+                    "t": "fin",
+                    "txt": "Estabilizar a la madre y finalizar el embarazo"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Corticoides si < 34 semanas y reevaluar con frecuencia"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿La presión se mantiene ≥ 140/90 mmHg?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Antihipertensivo oral: labetalol, nifedipina de liberación prolongada o alfa-metildopa; meta < 140/90 con diastólica no menor de 70"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Suspender IECA, ARA-II, espironolactona y atenolol"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Vigilancia estrecha clínica, de laboratorio y fetal"
+                  }
+                ]
+              },
+              {
+                "t": "accion",
+                "txt": "Preeclampsia sin criterios de gravedad: finalizar a las 37 semanas (ACOG)"
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-sulfato-magnesio",
+        "fx-labetalol",
+        "fx-nifedipina",
+        "fx-metildopa",
+        "fx-hidralazina"
+      ],
+      "calculadora": "pe-aspirina"
     },
     {
       "id": "gin-ectopico",
@@ -492,13 +701,67 @@
         "sociedad": "FASGO",
         "anio": 2025,
         "archivo": "Consenso_Embarazo_ectopico_FASGO_2025.pdf",
-        "nota": "Año tomado del nombre del archivo.",
+        "nota": "Año tomado del nombre del archivo. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas.",
         "tipo": "guia"
       },
       "revisarAntes": "2028-01",
       "up": [
         "up3-sec3"
-      ]
+      ],
+      "tamizaje": [
+        "β-hCG cuantitativa y ecografía transvaginal combinadas (sensibilidad 87-99 %, especificidad 94-99 %).",
+        "β-hCG > 2000 mUI/mL sin embarazo intrauterino visible es altamente sospechosa de ectópico.",
+        "β-hCG seriada a las 0 y 48 horas: ascenso ≥ 35 % sugiere embarazo intrauterino viable; descenso > 21 %, embarazo fallido; curva plana o ascenso < 35 %, ectópico o aborto."
+      ],
+      "algoritmo": {
+        "titulo": "Embarazo ectópico tubárico (FASGO 2025)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Amenorrea, dolor y/o sangrado: β-hCG cuantitativa y ecografía transvaginal con Doppler"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Hay inestabilidad hemodinámica o sospecha de rotura?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Cirugía de urgencia (laparoscopia de elección; laparotomía si hay inestabilidad)"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Cumple criterios para metotrexato (estable, embarazo no roto, sin contraindicaciones, masa < 3,5-4 cm sin actividad cardíaca)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Metotrexato IM: monodosis 50 mg/m² (β-hCG en los días 4 y 7: si cae < 15 %, segunda dosis) o doble dosis si la β-hCG es > 3000"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿β-hCG decreciente o estancada, en un caso muy seleccionado?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Conducta expectante con β-hCG cada 48 horas (con β-hCG < 200 se resuelve espontáneamente en el 88 %)"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "fin",
+                        "txt": "Tratamiento quirúrgico"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-dg",
@@ -594,13 +857,76 @@
         "sociedad": "FASGO",
         "anio": 2024,
         "archivo": "Consenso_Diabetes_Gestacional_2024.pdf",
-        "nota": "Las metas de glucemia vienen en una tabla mal alineada en el PDF; se interpretó como ayunas / 1 h / 2 h. Revisar contra el original.",
+        "nota": "Las metas de glucemia vienen en una tabla mal alineada en el PDF; se interpretó como ayunas / 1 h / 2 h. Revisar contra el original. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas.",
         "tipo": "guia"
       },
       "revisarAntes": "2027-10",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "tamizaje": [
+        "Tamizaje universal con PTOG de 75 g entre las 24 y 28 semanas (GPC 2023: fuerte a favor); si no se hizo, puede hacerse después de la 28.",
+        "Con múltiples factores de riesgo y PTOG negativa, considerar una segunda entre las 31 y 33 semanas.",
+        "Valores compatibles con diabetes en el primer trimestre (ayunas ≥ 126, azar ≥ 200 con síntomas o ≥ 200 a los 120 min) se tratan como diabetes pregestacional.",
+        "Antecedente de cirugía bariátrica: no hacer PTOG (dumping); usar glucemia en ayunas o automonitoreo capilar durante una semana."
+      ],
+      "algoritmo": {
+        "titulo": "Diabetes gestacional (Consenso FASGO 2024)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Embarazada sin diabetes conocida"
+          },
+          {
+            "t": "decision",
+            "txt": "Primer trimestre: ¿glucemia en ayunas ≥ 126, al azar ≥ 200 con síntomas o ≥ 200 a las 2 horas de la PTOG?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Diabetes pregestacional: tratar como tal"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Entre las 24 y 28 semanas: PTOG con 75 g de glucosa (segunda PTOG entre las 31 y 33 con múltiples factores de riesgo)"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿PTOG alterada? (IADPSG: ayunas ≥ 92, 1 h ≥ 180 o 2 h ≥ 153 mg/dL; ALAD: ayunas ≥ 100 o 2 h ≥ 140 mg/dL)",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Diabetes gestacional: educación, plan alimentario (+300 kcal/día desde las 12 semanas) y automonitoreo"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Se alcanzan las metas en 1 a 2 semanas (ayunas 70-95, 1 h < 140, 2 h < 120 mg/dL)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Continuar las medidas; terminación a las 39-40+6 semanas si el control es bueno y la circunferencia abdominal fetal no supera el p90"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Insulina: 0,1-0,2 U/kg (NPH basal con o sin bolos de rápida); terminación entre las 38 y 39+6 semanas"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Sin diabetes gestacional: control prenatal habitual"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-pubertad-precoz",
@@ -868,12 +1194,61 @@
         "anio": 2019,
         "archivo": "Actualizacion_de_Consenso_Endometriosis_2019.pdf",
         "tipo": "guia",
-        "nota": "El texto da desogestrel como «75 mg/día» (error de tipeo); se transcribió 75 mcg, que es la dosis habitual del comprimido. Verificar."
+        "nota": "El texto da desogestrel como «75 mg/día» (error de tipeo); se transcribió 75 mcg, que es la dosis habitual del comprimido. Verificar. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Endometriosis (FASGO 2019)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Dolor pélvico menstrual invalidante y progresivo o dificultad para el embarazo: ecografía transvaginal y/o resonancia de pelvis"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Busca embarazo de inmediato?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "No dar tratamiento médico supresor: no mejora los resultados y retrasa la gestación"
+              },
+              {
+                "t": "accion",
+                "txt": "Cirugía o reproducción asistida según el caso; los análogos de GnRH 3 a 6 meses antes de la FIV pueden mejorar las tasas"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Analgesia con AINE con o sin paracetamol"
+              },
+              {
+                "t": "accion",
+                "txt": "Gestágenos continuos (dienogest 2 mg/día, desogestrel 75 µg, noretisterona 2,5 mg) o anticonceptivos combinados"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Dolor persistente, endometrioma > 5 cm o compromiso intestinal o urinario?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Cirugía conservadora laparoscópica (escisión o ablación); SIU-LNG; tercer nivel: danazol, gestrinona o análogos de GnRH con add-back"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Continuar y seguir la respuesta con escalas de dolor"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-epi",
@@ -983,12 +1358,57 @@
         "anio": 2017,
         "archivo": "Consenso_EPI_2017.pdf",
         "tipo": "guia",
-        "nota": "Se usa el consenso SOGIBA 2017 y el anexo «Actualización 2024» del apunte de estudiante (Pontelli SIM 2026, pp. 454–455), que coinciden salvo la ventana de la pareja (6 meses en SOGIBA, 60 días en el apunte). El apunte menciona una actualización 2024 sin citar la fuente original; cotejar con la guía nacional."
+        "nota": "Se usa el consenso SOGIBA 2017 y el anexo «Actualización 2024» del apunte de estudiante (Pontelli SIM 2026, pp. 454–455), que coinciden salvo la ventana de la pareja (6 meses en SOGIBA, 60 días en el apunte). El apunte menciona una actualización 2024 sin citar la fuente original; cotejar con la guía nacional. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec1",
         "up3-sec3"
+      ],
+      "algoritmo": {
+        "titulo": "Enfermedad pélvica inflamatoria (SOGIBA 2017)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Dolor o sensibilidad uterina y/o anexial y dolor a la movilización cervical: iniciar tratamiento empírico"
+          },
+          {
+            "t": "accion",
+            "txt": "β-hCG si puede estar embarazada; pesquisa de ITS y serología para VIH"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Criterios de internación (diagnóstico incierto, sin respuesta oral, enfermedad severa, absceso tubo-ovárico, intolerancia oral o embarazo)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Internada: clindamicina 900 mg cada 8 h + gentamicina; o ceftriaxona 1 g/día + metronidazol 500 mg EV cada 8 h + doxiciclina 100 mg cada 12 h; hasta 24-48 h de mejoría y luego vía oral hasta 14 días"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Ambulatoria: ceftriaxona 500 mg IM única + doxiciclina 100 mg cada 12 h + metronidazol 500 mg cada 12 h, 10-14 días; reevaluar a las 72 horas"
+              },
+              {
+                "t": "accion",
+                "txt": "No usar quinolonas: alta resistencia del gonococo"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Evaluar y tratar a las parejas de los 60 días previos"
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-ceftriaxona",
+        "fx-doxiciclina",
+        "fx-metronidazol",
+        "fx-clindamicina",
+        "fx-gentamicina",
+        "fx-azitromicina"
       ]
     },
     {
@@ -1086,11 +1506,103 @@
         "anio": 2019,
         "archivo": "Consenso_2019_Hemorragia_Post_Parto.pdf",
         "tipo": "guia",
-        "nota": "Existe también un consenso HPP de SOGIBA 2018. Los textos coinciden en lo general; no se contrastó punto por punto."
+        "nota": "Existe también un consenso HPP de SOGIBA 2018. Los textos coinciden en lo general; no se contrastó punto por punto. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec5"
+      ],
+      "tamizaje": [
+        "Prevención: manejo activo del alumbramiento en todos los partos (recomendación A): uterotónico inmediato, tracción controlada del cordón y masaje uterino durante 5 minutos.",
+        "Medir la pérdida con bolsa colectora calibrada (la estimación visual es imprecisa) y vigilar signos vitales y el índice de shock.",
+        "Preparar el kit de código rojo (pinzas, balones intrauterinos, sueros, ácido tranexámico de 2 g y uterotónicos) y compatibilizar a las pacientes en riesgo."
+      ],
+      "fisiopatologia": [
+        "Las 4 T explican la causa: Tono (atonía uterina), Tejido (restos y adherencias placentarias), Trauma (lesiones del tracto genital) y Trombina (trastornos de la coagulación).",
+        "La pérdida suele subestimarse hasta en un 50 %: los cambios fisiológicos del embarazo (aumento del volumen plasmático) hacen que una gestante sana tolere hasta un 10 % de la volemia sin signos.",
+        "La taquicardia y la vasoconstricción periférica son los signos más precoces de shock; el índice de shock (frecuencia cardíaca ÷ PAS) es normal entre 0,7 y 0,9 en obstetricia y es el predictor más preciso de hipovolemia.",
+        "El fibrinógeno es el indicador de laboratorio más sensible de la pérdida; su caída refleja pérdida, fibrinólisis y hemodilución (valores < 200 mg/dL predicen gravedad). La acidosis y la hipotermia empeoran la coagulopatía."
+      ],
+      "algoritmo": {
+        "titulo": "Hemorragia posparto: manejo estratégico (FASGO 2019)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Pérdida > 500 mL en parto vaginal o > 1.000 mL en cesárea, o cualquier pérdida con signos de hipovolemia"
+          },
+          {
+            "t": "accion",
+            "txt": "Activar el código rojo y pedir ayuda; dos vías de calibre 14-18, oxígeno, monitoreo y laboratorio (hemograma, coagulación, fibrinógeno, lactato, grupo y factor)"
+          },
+          {
+            "t": "accion",
+            "txt": "Control inicial: verificar que la placenta salió íntegra, masajear el útero y examinar cuello y vagina con valvas"
+          },
+          {
+            "t": "decision",
+            "txt": "¿El útero está atónico (tono)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Uterotónicos: oxitocina, carbetocina 100 µg EV, misoprostol 600 µg VO o metilergonovina 0,2 mg IM"
+              },
+              {
+                "t": "accion",
+                "txt": "Compresión bimanual y balón intrauterino (éxito del 72 al 94 % con Bakri)"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Hay restos placentarios (tejido) o desgarros (trauma)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Extraer los restos y reparar las lesiones del canal"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Sospechar coagulopatía (trombina): fibrinógeno, plasma y crioprecipitado según laboratorio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Reposición: bolos de 250 a 500 mL de cristaloides entibiados y ácido tranexámico 1 g en infusión lenta (idealmente en las primeras 3 horas; repetir a los 30 minutos si persiste)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Persiste el sangrado o la hipoperfusión a los 30-60 minutos?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Hemoderivados: 2 unidades de glóbulos rojos (protocolo 1:1:1 o 1:1:2 si el laboratorio no es óptimo); metas: Hb > 7,5 g/dL, plaquetas > 50.000, fibrinógeno > 200 mg/dL"
+              },
+              {
+                "t": "accion",
+                "txt": "Cirugía: suturas de compresión (B-Lynch, Hayman), ligadura de arterias uterinas o hipogástricas, embolización; histerectomía como último recurso"
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Reevaluar a los 30 minutos: pulso < 90, TAS > 100, mejor estado mental y diuresis > 30 mL/h"
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-oxitocina",
+        "fx-carbetocina",
+        "fx-metilergonovina",
+        "fx-carboprost",
+        "fx-misoprostol",
+        "fx-acido-tranexamico"
       ]
     },
     {
@@ -1209,11 +1721,53 @@
         "anio": 2023,
         "archivo": "FASGO_CONSENSO_2023_MICROBIOMA_VAGINAL_Y_FLUJO_GENITAL.pdf",
         "tipo": "guia",
-        "nota": "El consenso cita las guías de SADI y CDC. Los esquemas de embarazo están en el capítulo de infecciones en la gestación."
+        "nota": "El consenso cita las guías de SADI y CDC. Los esquemas de embarazo están en el capítulo de infecciones en la gestación. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-06",
       "up": [
         "up3-sec1"
+      ],
+      "algoritmo": {
+        "titulo": "Flujo genital (FASGO 2023)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Flujo genital: medir pH vaginal, test de aminas, examen en fresco y Gram"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Cumple 3 de 4 criterios de Amsel (flujo blanco-grisáceo, pH > 4,5, células clave, aminas positivas)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Vaginosis bacteriana: metronidazol 500 mg cada 12 h por 7 días (o clindamicina); no tratar a la pareja; sin alcohol durante el tratamiento"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Levaduras en el examen en fresco (candidiasis)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Azol tópico u oral en dosis única o esquema corto (clotrimazol 500 mg óvulo o fluconazol 150 mg); evitar los azoles orales en el primer trimestre"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Sospechar tricomoniasis: cultivo o prueba de amplificación; metronidazol 500 mg cada 12 h por 7 días y tratar a la pareja"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-metronidazol",
+        "fx-clindamicina",
+        "fx-fluconazol"
       ]
     },
     {
@@ -1316,11 +1870,72 @@
         "anio": "s/f (referencias hasta 2016)",
         "archivo": "Consenso_Ginecologia_TRATAMIENTO_EN_CLIMATERIO.pdf",
         "tipo": "guia",
-        "nota": "El documento no trae año de publicación. Existe también el consenso de THM de SOGIBA 2018, que no se contrastó. Verificar vigencia."
+        "nota": "El documento no trae año de publicación. Existe también el consenso de THM de SOGIBA 2018, que no se contrastó. Verificar vigencia. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up4"
+      ],
+      "algoritmo": {
+        "titulo": "Climaterio y menopausia (FASGO)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Menopausia clínica (12 meses de amenorrea): evaluar el riesgo cardiovascular, de cáncer de mama y de trombosis"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Síntomas vasomotores moderados o graves, menos de 60 años y menos de 10 años de menopausia?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Terapia hormonal a la menor dosis efectiva por el menor tiempo: estrógeno + progestágeno si tiene útero; estrógeno solo si no lo tiene"
+              },
+              {
+                "t": "accion",
+                "txt": "Vía transdérmica con litiasis biliar, hipertrigliceridemia, HTA no estabilizada o riesgo trombótico"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Contraindicación o no desea hormonas?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Paroxetina, sertralina, venlafaxina, gabapentina, pregabalina o clonidina; con tamoxifeno evitar paroxetina y fluoxetina"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Medidas no farmacológicas y control"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Atrofia urogenital?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Estrógenos locales a baja dosis: estriol 50 µg, estrógenos conjugados 0,3-0,625 mg o promestrieno"
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Seguimiento"
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-estradiol",
+        "fx-progesterona"
       ]
     },
     {
@@ -1409,11 +2024,80 @@
         "anio": 2018,
         "archivo": "CONSENSO_PPP_FINAL_2018.pdf; Consenso_Parto_Pretermino.pdf",
         "tipo": "guia",
-        "nota": "Se priorizó SOGIBA 2018 por ser más reciente; los esquemas de corticoides, magnesio y EGB coinciden. El PDF de FASGO sobre predicción y prevención no se pudo leer (imagen)."
+        "nota": "Se priorizó SOGIBA 2018 por ser más reciente; los esquemas de corticoides, magnesio y EGB coinciden. El PDF de FASGO sobre predicción y prevención no se pudo leer (imagen). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec4"
+      ],
+      "tamizaje": [
+        "Longitud cervical por ecografía transvaginal como predictor: < 25 mm antes de las 28 semanas, < 20 mm entre las 28 y 31+6 y < 15 mm desde las 32; no medirla de rutina en bajo riesgo.",
+        "Urocultivo en el primer control (≈ 12 semanas) y tratamiento de la bacteriuria asintomática; pesquisa y tratamiento de la vaginosis antes de las 20 semanas.",
+        "Fibronectina fetal ≥ 50 ng/mL desde las 22 semanas: útil por su valor predictivo negativo; hisopado vaginal-anal para EGB."
+      ],
+      "algoritmo": {
+        "titulo": "Amenaza de parto pretérmino (SOGIBA 2018 / FASGO 2014)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Contracciones (1 cada 10 minutos, de 25 a 30 segundos, durante 60 minutos) con borramiento ≤ 50 % y dilatación ≤ 3 cm entre las 22 y las 36+6 semanas"
+          },
+          {
+            "t": "accion",
+            "txt": "Internar; urocultivo, hisopado vaginal-anal para EGB, evaluación fetal y aviso a neonatología"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Está entre las 24 y 34 semanas?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Corticoides: betametasona 12 mg IM cada 24 h (2 dosis) aun si el parto es inminente"
+              },
+              {
+                "t": "accion",
+                "txt": "Tocolisis 48 horas (nifedipina, atosibán o indometacina) entre las 23 y 33+6, para completar los corticoides y trasladar"
+              },
+              {
+                "t": "decision",
+                "txt": "¿El parto es inminente entre las 24 y 32+6 semanas?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Sulfato de magnesio EV para neuroprotección: ataque 5 g y 1 g/h hasta el parto o 24 h; suspender la tocolisis"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Observación y reevaluación del cuello"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Considerar corticoides desde las 23+0; después de las 34 semanas, sin corticoides de rutina"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Si hay trabajo de parto sin hisopado negativo: profilaxis de EGB con penicilina G 5.000.000 UI y luego 2.500.000 UI cada 4 h"
+          },
+          {
+            "t": "fin",
+            "txt": "Prevención secundaria: progesterona micronizada vaginal 100-200 mg/día en asintomáticas con antecedente o cuello corto"
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-nifedipina",
+        "fx-betametasona",
+        "fx-sulfato-magnesio",
+        "fx-progesterona",
+        "fx-penicilina"
       ]
     },
     {
@@ -1520,11 +2204,95 @@
         "anio": 2018,
         "archivo": "Consenso_FASGO_2018_Rotura_prematura_de_membranas.pdf",
         "tipo": "guia",
-        "nota": "El consenso SOGIBA RPMP 2017 no se contrastó."
+        "nota": "El consenso SOGIBA RPMP 2017 no se contrastó. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec4"
+      ],
+      "algoritmo": {
+        "titulo": "Rotura prematura de membranas (FASGO 2018)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Salida de líquido por vagina: confirmar con espéculo estéril (evitar el tacto), cristalización, nitrazina o inmunocromatografía"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Corioamnionitis, desprendimiento, muerte fetal o malformación letal, o compromiso materno o fetal?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Interrumpir de inmediato, a cualquier edad gestacional"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Tiene 37 semanas o más?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Iniciar la interrupción dentro de las 12 horas (inducir si las condiciones lo permiten); expectar no más de 24-36 horas, internada y con control diario"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Profilaxis de EGB si no hay hisopado negativo"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Entre las 34 y las 36+6 semanas?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Finalizar dentro de las 24 horas; corticoides si no los recibió, sin demorar el parto"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "decision",
+                        "txt": "¿Entre las 24 y las 33+6 semanas?",
+                        "si": [
+                          {
+                            "t": "accion",
+                            "txt": "Internación, reposo y control diario; laboratorio cada 72 h y ecografía o cardiotocografía cada 7 días"
+                          },
+                          {
+                            "t": "accion",
+                            "txt": "Un ciclo de corticoides: betametasona 12 mg IM cada 24 h por 2 dosis"
+                          },
+                          {
+                            "t": "accion",
+                            "txt": "Antibióticos 48 h: azitromicina 500 mg + ampicilina 2 g y luego 1 g; si el EGB es positivo, amoxicilina 500 mg cada 8 h hasta 7 días"
+                          },
+                          {
+                            "t": "accion",
+                            "txt": "Finalizar a partir de las 34+0 semanas"
+                          }
+                        ],
+                        "no": [
+                          {
+                            "t": "accion",
+                            "txt": "Menos de 24 semanas: manejo individual con asesoramiento y neonatología"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-betametasona",
+        "fx-azitromicina",
+        "fx-clindamicina",
+        "fx-gentamicina",
+        "fx-penicilina"
       ]
     },
     {
@@ -1600,12 +2368,69 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante (recopila Testa, Gori y clases); no es una guía de sociedad. El algoritmo de amenorrea secundaria del apunte es una imagen."
+        "nota": "Apunte de estudiante (recopila Testa, Gori y clases); no es una guía de sociedad. El algoritmo de amenorrea secundaria del apunte es una imagen. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Amenorreas primaria y secundaria",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Sin menarca a los 16 años, o ausencia de menstruación por más de 3 meses: β-hCG, TSH y prolactina"
+          },
+          {
+            "t": "decision",
+            "txt": "¿β-hCG positiva?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Embarazo"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Prolactina elevada?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Estudiar hiperprolactinemia y RM de silla turca"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "FSH y LH: FSH elevada → hipogonadismo hipergonadotrófico (cariotipo); FSH y LH bajas o normales → origen hipotálamo-hipofisario"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Prueba de progesterona: sangrado en 14 días indica normoestrogenismo con útero que responde"
+                  },
+                  {
+                    "t": "decision",
+                    "txt": "¿Hay hiperandrogenismo?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Estudiar SOP, hiperplasia suprarrenal no clásica y tumores ováricos o suprarrenales"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Causa funcional (la más frecuente en las secundarias): corregir el ejercicio excesivo, la dieta y el estrés"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-hiperprolactinemia",
@@ -1685,11 +2510,59 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; no se encontró guía de sociedad en las carpetas."
+        "nota": "Apunte de estudiante; no se encontró guía de sociedad en las carpetas. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec2"
+      ],
+      "algoritmo": {
+        "titulo": "Hiperprolactinemia y prolactinoma",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Prolactina > 25 ng/mL en ayunas, tras reposo: repetir y pedir TSH"
+          },
+          {
+            "t": "accion",
+            "txt": "Descartar embarazo, fármacos, hipotiroidismo y falla renal o hepática; luego RM de silla turca con y sin gadolinio"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Macroprolactinoma, galactorrea o mastalgia importantes, infertilidad, alteración del ciclo o hipoestrogenismo?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Agonista dopaminérgico: cabergolina 0,5 mg dos veces por semana (o bromocriptina 2,5 mg dos a tres veces al día)"
+              },
+              {
+                "t": "decision",
+                "txt": "¿Compresión, falta de respuesta o intolerancia?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Cirugía transesfenoidal (recidiva hasta el 50 %)"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Continuar y controlar la prolactina"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Asintomática, por fármacos o por hipotiroidismo: corregir la causa o vigilar (microadenoma sin deseo de embarazo)"
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-cabergolina"
       ]
     },
     {
@@ -1756,7 +2629,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante. La dosis de estradiol 4 mg/día es la del apunte; el consenso FASGO de climaterio trata la falla ovárica prematura en una sección propia (no leída en detalle)."
+        "nota": "Apunte de estudiante. La dosis de estradiol 4 mg/día es la del apunte; el consenso FASGO de climaterio trata la falla ovárica prematura en una sección propia (no leída en detalle). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -1769,6 +2642,47 @@
       },
       "up": [
         "up3-sec2"
+      ],
+      "algoritmo": {
+        "titulo": "Falla ovárica precoz",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Pérdida del ciclo antes de los 40 años durante al menos 6 meses, con hipoestrogenismo"
+          },
+          {
+            "t": "accion",
+            "txt": "Dos dosajes de FSH > 40 UI/L separados por más de 1 mes, estradiol < 20 pg/mL y prueba de progesterona negativa"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Es menor de 30 años?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Estudio genético (bandeo G): cariotipo"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "HAM; TSH, prolactina y tolerancia a la glucosa"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Terapia hormonal hasta la edad de la menopausia natural: estradiol micronizado 4 mg/día VO (o parches) + progesterona micronizada 200 mg/día, 14 días por mes"
+          },
+          {
+            "t": "fin",
+            "txt": "Fertilidad: criopreservación de ovocitos, fertilización asistida u ovodonación"
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-estradiol",
+        "fx-progesterona"
       ]
     },
     {
@@ -1832,7 +2746,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante. El consenso FASGO de SUA 2022 trata los leiomiomas desde el sangrado (no contrastado)."
+        "nota": "Apunte de estudiante. El consenso FASGO de SUA 2022 trata los leiomiomas desde el sangrado (no contrastado). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -1845,7 +2759,48 @@
       },
       "up": [
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Miomatosis uterina",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Mioma diagnosticado por ecografía"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Sintomático (sangrado, dolor, compresión, infertilidad) o con sospecha de malignización?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿Desea conservar la fertilidad?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Miomectomía (laparotómica, laparoscópica, histeroscópica o transvaginal)"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Médico: ácido mefenámico, anticonceptivos o progestágenos; análogos de GnRH (transitorios)"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Embolización de arterias uterinas en sintomáticos sin deseo quirúrgico; histerectomía como tratamiento definitivo"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Conducta expectante: más del 70 % solo requiere seguimiento; en la menopausia los miomas dejan de crecer"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-adenomiosis",
@@ -1911,7 +2866,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante. El consenso FASGO de SUA 2022 incluye una sección de adenomiosis (no contrastada)."
+        "nota": "Apunte de estudiante. El consenso FASGO de SUA 2022 incluye una sección de adenomiosis (no contrastada). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "contraste": {
@@ -1924,7 +2879,36 @@
       },
       "up": [
         "up3-sec2"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Adenomiosis",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Útero aumentado, sangrado uterino anormal o dismenorrea: ecografía transvaginal con Doppler y/o resonancia"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Desea embarazo?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "DIU de levonorgestrel (primera elección) o dienogest oral continuo; el sangrado suele recurrir a los 6 meses de suspender"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "DIU de levonorgestrel para el sangrado (no es curativo)"
+              },
+              {
+                "t": "accion",
+                "txt": "Histerectomía (única curativa) o embolización uterina si hay contraindicación quirúrgica"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "gin-aborto",
@@ -2018,7 +3002,7 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf; FINALGINECO.pdf",
         "tipo": "apunte",
-        "nota": "No hay guía de sociedad en las carpetas para aborto espontáneo (FASGO tiene solo aborto recurrente 2018). Las dosis de misoprostol vienen del resumen FINALGINECO, que es material de estudio: verificar con el protocolo vigente del Ministerio de Salud."
+        "nota": "No hay guía de sociedad en las carpetas para aborto espontáneo (FASGO tiene solo aborto recurrente 2018). Las dosis de misoprostol vienen del resumen FINALGINECO, que es material de estudio: verificar con el protocolo vigente del Ministerio de Salud. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "contraste": {
@@ -2032,6 +3016,70 @@
       },
       "up": [
         "up3-sec3"
+      ],
+      "algoritmo": {
+        "titulo": "Aborto espontáneo según el estadio",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Embarazo < 20 semanas con metrorragia y dolor: β-hCG, ecografía transvaginal, hemograma, grupo y factor"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Embrión vital con cuello cerrado (amenaza)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Reposo y evitar el coito; progestágenos solo si había fase lútea inadecuada o inducción de ovulación"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Aborto en curso o incompleto, con restos en la cavidad?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Estabilizar hemodinámicamente; evacuar con aspiración manual endouterina (≤ 12 semanas) o legrado, con oxitócicos y profilaxis antibiótica"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Misoprostol como premedicación: 5 a 9 semanas, 200 µg 3 horas antes"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Hay fiebre o signos de infección?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Antibióticos de amplio espectro y evacuación rápida: penicilina + gentamicina + metronidazol"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Huevo muerto retenido o aborto completo: confirmar por ecografía; si la retención supera 1 mes, controlar el fibrinógeno"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Siempre: anti-D 300 µg dentro de las 72 horas en Rh negativas, pautas de alarma, analgesia y anticoncepción"
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-misoprostol",
+        "fx-oxitocina",
+        "fx-penicilina",
+        "fx-gentamicina",
+        "fx-metronidazol"
       ]
     },
     {
@@ -2374,12 +3422,110 @@
         "anio": 2017,
         "archivo": "Actualizacion_consenso_RCIU_FASGO_2017.pdf",
         "tipo": "guia",
-        "nota": "La tabla de estadios del PDF está desalineada; la relación estadio-conducta se reconstruyó de la columna de seguimiento y finalización. Verificar contra el original."
+        "nota": "La tabla de estadios del PDF está desalineada; la relación estadio-conducta se reconstruyó de la columna de seguimiento y finalización. Verificar contra el original. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "tamizaje": [
+        "Datar el embarazo con ecografía del primer trimestre y medir el crecimiento fetal en cada control; el RCIU tardío (70 % de los casos) es un desafío de detección.",
+        "El IP de las arterias uterinas en el cribado combinado del primer trimestre se asocia a preeclampsia y a RCIU (GAP SEGO 2021).",
+        "Solo el 30 % de los RCIU tiene factores de riesgo previos: no alcanza con vigilar a los grupos de riesgo."
+      ],
+      "fisiopatologia": [
+        "RCIU precoz (< 32 semanas): se asocia a mala implantación placentaria, anomalías de las arterias espiraladas y malperfusión vascular materna; es frecuente la hipertensión del embarazo y el espectro de alteraciones Doppler abarca la arteria umbilical, la cerebral media y el ductus venoso (ISUOG 2020).",
+        "El aumento progresivo del IP de la arteria umbilical refleja menos superficie placentaria útil para el intercambio y mayor poscarga fetal; en la etapa final aparece flujo diastólico ausente y luego reverso.",
+        "La caída del IP de la cerebral media es la vasodilatación del «brain-sparing»: respuesta hemodinámica a la hipoxemia fetal con redistribución del gasto cardíaco hacia el cerebro, el corazón y las suprarrenales.",
+        "La onda a ausente o reversa del ductus venoso se asocia a la hipoxia extrema, a la mayor presión auricular por la poscarga elevada y a la acidemia: mayor asociación con muerte perinatal.",
+        "RCIU tardío (≥ 32 semanas): lesiones placentarias leves e inespecíficas; las alteraciones de arteria umbilical y venosas son raras y la principal señal es la redistribución cerebral."
+      ],
+      "algoritmo": {
+        "titulo": "Feto con peso estimado < p10: estadios y conducta (Consenso 2017)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "PFE < p10, con edad gestacional bien datada y sin malformaciones: Doppler de arteria umbilical, cerebral media, índice cerebro-placentario, uterinas y ductus venoso"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Menos de 34 semanas (RCIU precoz)?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿Hay flujo diastólico ausente o reverso en la arteria umbilical, o alteración del ductus venoso?",
+                "si": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Onda a del ductus ausente o reversa, o desaceleraciones? (estadio IV)",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Control cada 12 horas o menos; cesárea a las 26 semanas"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "decision",
+                        "txt": "¿Flujo reverso en la umbilical, IP del ductus > p95 o variabilidad < 3 ms? (estadio III)",
+                        "si": [
+                          {
+                            "t": "accion",
+                            "txt": "Control cada 2 a 3 días; cesárea a las 30 semanas"
+                          }
+                        ],
+                        "no": [
+                          {
+                            "t": "accion",
+                            "txt": "Estadio II (fin de diástole ausente): control dos veces por semana; cesárea a las 34 semanas"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Estadio I (IP umbilical > p95, PFE < p3, RCP < p5 o ACM < p5): control semanal; finalizar a las 37 semanas por inducción"
+                  }
+                ]
+              },
+              {
+                "t": "accion",
+                "txt": "Complementos: corticoides entre las 24 y 34 semanas en el estadio III con riesgo de parto en 48 h y en todos los estadios IV; sulfato de magnesio con parto inminente entre las 24 y 34 semanas"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿Índice cerebro-placentario o arterias uterinas alterados (RCIU tardío)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Control semanal; inducción con monitoreo a las 37-38 semanas"
+                  },
+                  {
+                    "t": "accion",
+                    "txt": "Con ACM < p5: control cada 3 a 4 días con ductus venoso y finalización entre las 34 y 37 semanas"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "PEG sin insuficiencia placentaria: control cada 2 semanas con índice cerebro-placentario; evolución espontánea hasta las 40-41 semanas"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-betametasona",
+        "fx-sulfato-magnesio"
+      ],
+      "calculadora": "rciu-isuog"
     },
     {
       "id": "obs-gemelar",
@@ -2677,12 +3823,67 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Verificar dosis con la normativa vigente (suplementación)."
+        "nota": "Apunte de estudiante; sin guía de sociedad en las carpetas. Verificar dosis con la normativa vigente (suplementación). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "tamizaje": [
+        "GPC 2023: suplementar con hierro (60 mg de hierro elemental) y ácido fólico (0,4 mg) por vía oral en esquema diario a las embarazadas de bajo riesgo (fuerte a favor; certeza moderada).",
+        "Hemoglobina en la primera consulta y en los controles; anemia si hay < 11 g/dL (OMS) o < 10,5 g/dL en el segundo trimestre (CDC).",
+        "Prevención de defectos del tubo neural: ácido fólico antes de la concepción hasta la semana 12."
+      ],
+      "fisiopatologia": [
+        "Anemia fisiológica: el volumen plasmático aumenta cerca de 900 mL y la masa globular cerca de un 25 %, por lo que la hemoglobina y el hematocrito caen entre el 3.º y el 5.º mes (mínimos entre el 5.º y el 8.º).",
+        "Ferropénica: microcítica hipocrómica; la ferritina mide las reservas. Por ácido fólico: VCM > 100 con polilobocitos, sobre todo después de la semana 30 o en el puerperio.",
+        "En Argentina la hemoglobinopatía más común es la beta talasemia, con requerimientos de folatos muy aumentados y a veces ferropenia asociada."
+      ],
+      "algoritmo": {
+        "titulo": "Anemia en el embarazo",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Hemoglobina < 11 g/dL o hematocrito < 33 %"
+          },
+          {
+            "t": "accion",
+            "txt": "Hemograma, ferritina y ácido fólico según sospecha"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Microcítica hipocrómica con ferritina baja (ferropénica)?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Sulfato ferroso 600 mg/día (120 mg de hierro elemental) por vía oral, al menos hasta 3 meses después del parto o hasta normalizar las reservas"
+              },
+              {
+                "t": "accion",
+                "txt": "Vía parenteral solo en hiperémesis o intolerancia grave"
+              }
+            ],
+            "no": [
+              {
+                "t": "decision",
+                "txt": "¿VCM > 100 con polilobocitos (megaloblástica)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Ácido fólico 1 mg/día por vía oral"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "accion",
+                    "txt": "Estudiar otras causas: hemoglobinopatías (beta talasemia) y anemia grave con leucopenia o trombocitosis"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "obs-ehp",
@@ -2943,11 +4144,67 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Anexo de actualización del apunte de estudiante; la guía ministerial original no está en tus carpetas."
+        "nota": "Anexo de actualización del apunte de estudiante; la guía ministerial original no está en tus carpetas. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec4"
+      ],
+      "algoritmo": {
+        "titulo": "Sífilis en el embarazo (Guía del Ministerio de Salud)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "VDRL/RPR a la gestante y a su pareja en el control prenatal"
+          },
+          {
+            "t": "decision",
+            "txt": "¿VDRL reactiva?",
+            "si": [
+              {
+                "t": "decision",
+                "txt": "¿Sífilis primaria, secundaria o latente precoz (< 1 año)?",
+                "si": [
+                  {
+                    "t": "accion",
+                    "txt": "Penicilina G benzatínica 2,4 millones UI IM, 2 dosis con 1 semana de intervalo"
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Neurosífilis?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Penicilina G sódica 2-4 millones UI cada 4 horas por 10-14 días"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Latente tardía o de duración desconocida: penicilina G benzatínica 2,4 millones UI IM, 3 dosis con 1 semana de intervalo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "t": "accion",
+                "txt": "Tratar siempre a la pareja; VDRL mensual hasta el parto; si se interrumpe el esquema, reiniciarlo con todas las dosis"
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Sin sífilis: repetir el tamizaje según el control prenatal"
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-penicilina"
       ]
     },
     {
@@ -3167,7 +4424,7 @@
         "anio": 2022,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Contrastada con la Nueva Guía 2022 (PDF convertido)."
+        "nota": "Contrastada con la Nueva Guía 2022 (PDF convertido). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-06",
       "contraste": {
@@ -3181,7 +4438,69 @@
       "up": [
         "up1",
         "up3-sec1"
-      ]
+      ],
+      "tamizaje": [
+        "Inicio: a los 3 años del comienzo de la actividad sexual o desde los 25 años. No usar el test de VPH en menores de 30 años (infecciones transitorias, sobrediagnóstico).",
+        "Fin: a los 65 años con VPH o a los 70 con solo citología, si hubo pruebas negativas previas y sin antecedentes de patología.",
+        "30 años o más: tamizaje primario con test de VPH; si es negativo, repetir cada 5 años (toma dirigida o autotoma con cepillo vaginal)."
+      ],
+      "algoritmo": {
+        "titulo": "Tamizaje de cáncer de cuello uterino (Nueva Guía 2022)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Mujer que inicia el tamizaje (3 años del inicio de relaciones o desde los 25 años)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Tiene 30 años o más?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Test de VPH como tamizaje primario"
+              },
+              {
+                "t": "decision",
+                "txt": "¿VPH positivo?",
+                "si": [
+                  {
+                    "t": "decision",
+                    "txt": "¿Citología ASC-US o mayor?",
+                    "si": [
+                      {
+                        "t": "accion",
+                        "txt": "Colposcopía y biopsia dirigida"
+                      }
+                    ],
+                    "no": [
+                      {
+                        "t": "accion",
+                        "txt": "Repetir el VPH a los 12 meses; si sigue positivo, colposcopía"
+                      }
+                    ]
+                  }
+                ],
+                "no": [
+                  {
+                    "t": "fin",
+                    "txt": "Repetir el test de VPH cada 5 años"
+                  }
+                ]
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Citología (Papanicolaou) anual; tras dos anuales negativas consecutivas, cada 3 años"
+              }
+            ]
+          },
+          {
+            "t": "accion",
+            "txt": "Finalizar a los 65 años con VPH o a los 70 con citología, con pruebas previas negativas"
+          }
+        ]
+      }
     },
     {
       "id": "gin-infertilidad",
@@ -4109,12 +5428,64 @@
         "anio": 2026,
         "archivo": "Libro_Pontelli_SIM2026_Reorganizado.pdf",
         "tipo": "apunte",
-        "nota": "Apunte de estudiante; la guía ministerial original de control prenatal no está en tus carpetas."
+        "nota": "Apunte de estudiante; la guía ministerial original de control prenatal no está en tus carpetas. Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2027-03",
       "up": [
         "up3-sec4"
-      ]
+      ],
+      "tamizaje": [
+        "Primera consulta (antes de las 12 semanas): grupo y factor, hemoglobina, glucemia, orina completa y urocultivo, VDRL, VIH con consentimiento, hepatitis B, Chagas, toxoplasmosis, examen ginecológico con citología y colposcopía, examen odontológico y mamario.",
+        "Ecografía: sistemática entre las semanas 19 y 24 (fuerte); entre la 11 y la 13+6 se sugiere (condicional). La Ley 27.611/2020 garantiza una ecografía morfológica entre las semanas 18 y 22 (GPC 2023).",
+        "PTOG con 75 g entre las 24 y 28 semanas; hierro (60 mg) y ácido fólico (0,4 mg) diarios por vía oral (GPC 2023).",
+        "Anti-D entre las 28 y 32 semanas en Rh negativas no sensibilizadas; cultivo de EGB entre las 35 y 37 semanas."
+      ],
+      "algoritmo": {
+        "titulo": "Control prenatal de bajo riesgo: calendario",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Control precoz, antes de las 12 semanas"
+          },
+          {
+            "t": "accion",
+            "txt": "Primera consulta: laboratorio básico, serologías, examen ginecológico con citología, examen odontológico y mamario; ácido fólico"
+          },
+          {
+            "t": "accion",
+            "txt": "11 a 13+6 semanas: ecografía de datación y vitalidad; cribado combinado de preeclampsia y aneuploidías"
+          },
+          {
+            "t": "accion",
+            "txt": "19 a 24 semanas: ecografía morfológica"
+          },
+          {
+            "t": "accion",
+            "txt": "24 a 28 semanas: PTOG con 75 g; anti-D entre las 28 y 32 en Rh negativas"
+          },
+          {
+            "t": "accion",
+            "txt": "35 a 37 semanas: cultivo de estreptococo del grupo B"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Embarazo múltiple, preeclampsia, hemorragias u otros factores de riesgo?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Control de alto riesgo"
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Control habitual: mensual hasta las 31+6, cada 15 días hasta las 36+6 y luego semanal; mínimo 5 controles"
+              }
+            ]
+          }
+        ]
+      },
+      "calculadora": "eg-fum"
     },
     {
       "id": "obs-puerperio-patologico",
@@ -4272,12 +5643,66 @@
         "anio": 2019,
         "archivo": "Actualizacion_Consenso_2019_Trabajo_de_Parto.pdf",
         "tipo": "guia",
-        "nota": "El consenso es de inducción, no de atención del trabajo de parto normal (periodos, partograma, mecanismos), que sí está en el apunte. Las dosis de misoprostol aparecen como «mg» en el PDF (error tipográfico)."
+        "nota": "El consenso es de inducción, no de atención del trabajo de parto normal (periodos, partograma, mecanismos), que sí está en el apunte. Las dosis de misoprostol aparecen como «mg» en el PDF (error tipográfico). Secciones agregadas el 16/10/2026 (screening, fisiopatología, algoritmo y fármacos): reordenan esta misma fuente y se completan con las guías citadas; revisar con el docente antes de tomarlas como definitivas."
       },
       "revisarAntes": "2026-12",
       "up": [
         "up3-sec5"
-      ]
+      ],
+      "algoritmo": {
+        "titulo": "Inducción del trabajo de parto (FASGO 2019)",
+        "nodos": [
+          {
+            "t": "inicio",
+            "txt": "Indicación médica de inducción: evaluar el cuello (Bishop)"
+          },
+          {
+            "t": "decision",
+            "txt": "¿Cuello desfavorable?",
+            "si": [
+              {
+                "t": "accion",
+                "txt": "Maduración cervical: misoprostol vaginal 25 µg cada 3-6 h (u oral 25 µg cada 2 h), dinoprostona 10 mg o sonda de Foley de 60 mL durante al menos 12 horas"
+              },
+              {
+                "t": "accion",
+                "txt": "La oxitocina sola no se recomienda para madurar el cuello"
+              }
+            ],
+            "no": [
+              {
+                "t": "accion",
+                "txt": "Amniotomía si la dilatación es ≥ 4 cm y la presentación está insinuada"
+              },
+              {
+                "t": "accion",
+                "txt": "Oxitocina por bomba: 5 UI en 500 mL, inicio 1 mU/min y duplicar cada 20 minutos hasta una dinámica eficaz"
+              }
+            ]
+          },
+          {
+            "t": "decision",
+            "txt": "¿Sin fase activa tras unas 12 horas de oxitocina con rotura de membranas y dinámica adecuada?",
+            "si": [
+              {
+                "t": "fin",
+                "txt": "Fracaso de inducción"
+              }
+            ],
+            "no": [
+              {
+                "t": "fin",
+                "txt": "Continuar el trabajo de parto"
+              }
+            ]
+          }
+        ]
+      },
+      "farmacos": [
+        "fx-misoprostol",
+        "fx-oxitocina"
+      ],
+      "calculadora": "bishop"
     },
     {
       "id": "gin-anticoncepcion-ale",

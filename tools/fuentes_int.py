@@ -12,7 +12,7 @@ DICE = {
     'hpp-2019': ['HPP grave: pérdida de 1.000 mL o más, o cualquier pérdida que cause compromiso hemodinámico.',
                  'La estimación visual del sangrado es imprecisa y lo subestima: propone medirlo con una bolsa colectora calibrada.',
                  'Causas: las 4 T (tono, tejido, trauma, trombina). Manejo activo del alumbramiento: uterotónico (ocitocina) inmediato, tracción controlada del cordón y masaje uterino de 5 minutos (recomendación A).',
-                 'En el texto revisado no figura un umbral de índice de shock: el valor ≥ 0,9 de la calculadora proviene de la bibliografía internacional.'],
+                 'Índice de shock (frecuencia cardíaca ÷ PAS): en obstetricia es normal entre 0,7 y 0,9 y los valores mayores se consideran anormales; es el predictor más preciso de hipovolemia y de necesidad de transfusión.'],
     'hta-embarazo': ['Síndrome HELLP: trombocitopenia (plaquetas < 100.000/mm³) y evidencia de hemólisis con LDH aumentada (la guía usa LDH > 600 UI/L), junto con enzimas hepáticas elevadas.'],
     'kawasaki-2016': ['Inmunoglobulina endovenosa 2 g/kg en 10-12 h entre los días 5 y 10 de la enfermedad (clase I, evidencia A).',
                       'Ácido acetilsalicílico 80-100 mg/kg/día cada 6 h hasta 72 h afebril; luego 3-5 mg/kg/día por 6-8 semanas si no hay compromiso coronario.',

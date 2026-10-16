@@ -1,0 +1,1853 @@
+{
+ "meta": {
+  "unidades": {
+   "fx1": "Uterotónicos y hemorragia posparto",
+   "fx2": "Preeclampsia y antihipertensivos del embarazo",
+   "fx3": "Parto pretérmino y maduración fetal",
+   "fx4": "Anticoncepción y endocrinología ginecológica",
+   "fx5": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  "descargo": "Resumen educativo de fármacos usados en Ginecología y Obstetricia: toma datos de los prospectos de la FDA, de consensos y guías nacionales y del vademécum de NikaFarma. Las dosis obstétricas fuera de prospecto provienen de las guías indicadas en cada ficha. No reemplaza el prospecto aprobado por la ANMAT, el protocolo de la institución ni el criterio del médico tratante."
+ },
+ "patologias": [
+  {
+   "id": "fx-oxitocina",
+   "titulo": "Oxitocina",
+   "alias": [
+    "ocitocina",
+    "pitocin",
+    "uterotónico"
+   ],
+   "up": [
+    "fx1"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Hemorragia Posparto + prospecto FDA",
+    "sociedad": "FASGO / FDA",
+    "anio": 2019
+   },
+   "indicaciones": [
+    "Prevención de la hemorragia posparto en el alumbramiento: uterotónico de primera elección (recomendación fuerte de la OMS).",
+    "Tratamiento de la atonía uterina y de la hemorragia posparto.",
+    "Inducción o estimulación del trabajo de parto por indicación médica (no electiva).",
+    "Evacuación en el aborto incompleto o inevitable."
+   ],
+   "mecanismo": [
+    "Actúa sobre el músculo liso uterino: estimula contracciones rítmicas, aumenta su frecuencia y eleva el tono, con acción selectiva hacia el final del embarazo, durante el parto y tras el nacimiento. No tiene los efectos presores de la vasopresina."
+   ],
+   "dosis": [
+    {
+     "titulo": "Hemorragia posparto",
+     "pasos": [
+      {
+       "etiqueta": "Alumbramiento",
+       "texto": "10 UI, por vía EV preferentemente (también IM tras la salida de la placenta)."
+      },
+      {
+       "etiqueta": "Infusión posterior",
+       "texto": "20 UI en 500 mL durante la primera hora y 20 UI más en las 8 horas siguientes (esquema de la mayoría de las guías)."
+      },
+      {
+       "etiqueta": "Atonía establecida",
+       "texto": "10 a 40 UI en 1.000 mL de solución no hidratante, a la velocidad necesaria para controlar la atonía."
+      }
+     ]
+    },
+    {
+     "titulo": "Inducción del trabajo de parto",
+     "pasos": [
+      {
+       "etiqueta": "Preparación",
+       "texto": "5 UI en 500 mL de fisiológica o Ringer lactato por bomba de infusión continua (consenso FASGO 2019); el prospecto usa 10 UI en 1.000 mL (10 mU/mL)."
+      },
+      {
+       "etiqueta": "Inicio",
+       "texto": "1 a 2 mU/min; aumentar de a 1 a 2 mU/min hasta lograr una dinámica similar a la del parto normal."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "No hay una dosis máxima fija: se titula según la respuesta uterina y se suspende de inmediato ante hiperactividad uterina o sufrimiento fetal."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Desproporción cefalopélvica significativa.",
+    "Presentaciones o posiciones fetales que no pueden ser entregadas sin conversión previa (por ejemplo, transversa).",
+    "Emergencias obstétricas en las que el riesgo-beneficio favorece la cirugía.",
+    "Sufrimiento fetal sin parto inminente; patrones uterinos hipertónicos.",
+    "Uso prolongado en inercia uterina o en toxemia grave; hipersensibilidad."
+   ],
+   "efectos": [
+    "Náuseas y vómitos; extrasístoles ventriculares y otras arritmias.",
+    "Reacción anafiláctica; hematoma pélvico.",
+    "Con dosis excesivas: hipertonía uterina, espasmo, contracción tetánica y rotura uterina; mayor pérdida de sangre y afibrinogenemia."
+   ],
+   "tiempos": [
+    "Vida media: 3 a 5 minutos.",
+    "Requiere cadena de frío.",
+    "Vía EV preferente para el alumbramiento; en la inducción solo por infusión continua con bomba."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Uterotónico (hormona sintética)",
+   "unidad": "Uterotónicos y hemorragia posparto"
+  },
+  {
+   "id": "fx-carbetocina",
+   "titulo": "Carbetocina",
+   "alias": [
+    "uterotónico termoestable"
+   ],
+   "up": [
+    "fx1"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Hemorragia Posparto",
+    "sociedad": "FASGO",
+    "anio": 2019
+   },
+   "indicaciones": [
+    "Prevención de la hemorragia posparto por atonía uterina (uterotónico del kit de código rojo)."
+   ],
+   "mecanismo": [
+    "Agonista sintético de la oxitocina con la ventaja de ser termoestable: mantiene su eficacia durante 1 mes a 60 °C."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "100 µg en una única inyección endovenosa lenta."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "Dosis única: no se repite en el esquema del consenso."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "El consenso FASGO revisado no detalla las contraindicaciones: consultar el prospecto ANMAT del preparado."
+   ],
+   "efectos": [
+    "El consenso FASGO revisado no los detalla: consultar el prospecto ANMAT del preparado."
+   ],
+   "tiempos": [
+    "Tras la inyección EV provoca a los 2 minutos una contracción uterina tónica que dura 60 minutos; por vía IM prolonga su acción por 120 minutos."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Uterotónico (agonista sintético de la oxitocina)",
+   "unidad": "Uterotónicos y hemorragia posparto"
+  },
+  {
+   "id": "fx-metilergonovina",
+   "titulo": "Metilergonovina (ergonovina)",
+   "alias": [
+    "ergometrina",
+    "metergin",
+    "alcaloide del cornezuelo"
+   ],
+   "up": [
+    "fx1"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Hemorragia Posparto + prospecto FDA",
+    "sociedad": "FASGO / FDA",
+    "anio": 2019
+   },
+   "indicaciones": [
+    "Tras la salida de la placenta: manejo rutinario de la atonía uterina, la hemorragia y la subinvolución uterina.",
+    "Control de la hemorragia uterina en el segundo período, tras la salida del hombro anterior."
+   ],
+   "mecanismo": [
+    "Actúa directamente sobre el músculo liso uterino: aumenta el tono, la frecuencia y la amplitud de las contracciones rítmicas. Produce un efecto uterotónico tetánico rápido y sostenido que acorta el alumbramiento y reduce la pérdida de sangre."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "IM",
+       "texto": "0,2 mg (1 mL) tras el hombro anterior, tras el alumbramiento o en el puerperio; repetible cada 2 a 4 horas según necesidad."
+      },
+      {
+       "etiqueta": "EV",
+       "texto": "0,2 mg administrados lentamente, en no menos de 60 segundos."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "El prospecto no fija una dosis diaria máxima en las vías parenterales: se repite según respuesta y tolerancia (vigilar la presión arterial)."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipertensión arterial y toxemia (preeclampsia): es vasoconstrictora.",
+    "Embarazo (antes del alumbramiento).",
+    "Hipersensibilidad."
+   ],
+   "efectos": [
+    "Hipertensión, a veces con cefalea y convulsiones; también puede haber hipotensión.",
+    "Dolor abdominal (contracción uterina), náuseas y vómitos.",
+    "Raros: infarto agudo de miocardio, dolor torácico, vasoespasmo y espasmo coronario, bradicardia o taquicardia, disnea, tromboflebitis, alucinaciones."
+   ],
+   "tiempos": [
+    "Inicio: inmediato por vía EV; 2 a 5 minutos por vía IM; 5 a 10 minutos por vía oral.",
+    "Vida media de eliminación por vía IM: 3,4 horas en promedio (rango 1,5 a 12,7). El consenso FASGO describe una acción sostenida con vida media de 30 a 120 minutos.",
+    "Es inestable al calor."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Uterotónico (alcaloide del cornezuelo del centeno)",
+   "unidad": "Uterotónicos y hemorragia posparto"
+  },
+  {
+   "id": "fx-carboprost",
+   "titulo": "Carboprost (PGF2α)",
+   "alias": [
+    "hemabate",
+    "prostaglandina F2 alfa",
+    "carboprost trometamina"
+   ],
+   "up": [
+    "fx1"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Prospecto FDA (Hemabate / carboprost trometamina)",
+    "sociedad": "FDA",
+    "anio": 2026
+   },
+   "indicaciones": [
+    "Hemorragia posparto refractaria por atonía uterina.",
+    "Aborto entre las semanas 13 y 20 en condiciones relacionadas con el aborto del segundo trimestre (falla de otro método, rotura de membranas, necesidad de repetir una instilación)."
+   ],
+   "mecanismo": [
+    "Estimula en el útero grávido contracciones miometriales similares a las del trabajo de parto a término. Posparto, esas contracciones logran la hemostasia en el sitio de la placentación. También estimula el músculo liso gastrointestinal."
+   ],
+   "dosis": [
+    {
+     "titulo": "Hemorragia posparto refractaria",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "250 µg (1 mL) IM profunda."
+      },
+      {
+       "etiqueta": "Repetir",
+       "texto": "Si hace falta, cada 15 a 90 minutos según la respuesta (la mayoría responde a una sola dosis)."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "No superar 2 mg en total (8 dosis)."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad (incluida anafilaxia y angioedema).",
+    "Enfermedad pélvica inflamatoria aguda.",
+    "Enfermedad cardíaca, pulmonar, renal o hepática activa.",
+    "Debe usarse en un hospital con atención intensiva y quirúrgica inmediata."
+   ],
+   "efectos": [
+    "Vómitos y diarrea (cerca de dos tercios de las pacientes) y náuseas (un tercio): se reducen con antieméticos y antidiarreicos.",
+    "Aumento de la temperatura mayor de 2 °F y rubor.",
+    "Los efectos suelen ser transitorios y reversibles al suspender."
+   ],
+   "tiempos": [
+    "Las concentraciones máximas caen por debajo del pico previo a las 2 horas de cada inyección.",
+    "No se halló la vida media en el texto del prospecto revisado."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Prostaglandina F2α (análogo)",
+   "unidad": "Uterotónicos y hemorragia posparto"
+  },
+  {
+   "id": "fx-misoprostol",
+   "titulo": "Misoprostol",
+   "alias": [
+    "cytotec",
+    "prostaglandina E1",
+    "maduración cervical"
+   ],
+   "up": [
+    "fx1"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Hemorragia Posparto, Consenso de Inducción + prospecto FDA",
+    "sociedad": "FASGO / FDA",
+    "anio": 2019
+   },
+   "indicaciones": [
+    "Hemorragia posparto: uterotónico incluido en el consenso FASGO (dosis única sugerida de 600 µg; puede combinarse con oxitocina).",
+    "Maduración cervical e inducción del trabajo de parto con cuello desfavorable.",
+    "Premedicación de la evacuación uterina en el aborto del primer trimestre.",
+    "Indicación del prospecto: reducir el riesgo de úlceras gástricas por AINE."
+   ],
+   "mecanismo": [
+    "Análogo de la prostaglandina E1: protector de la mucosa gástrica y uterotónico. Es termoestable."
+   ],
+   "dosis": [
+    {
+     "titulo": "Hemorragia posparto",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "600 µg por vía oral en dosis única (la sugerida por el consenso); puede combinarse con oxitocina."
+      }
+     ]
+    },
+    {
+     "titulo": "Inducción (consenso FASGO 2019)",
+     "pasos": [
+      {
+       "etiqueta": "Vaginal",
+       "texto": "Iniciar con 25 µg cada 3 a 6 horas según la dinámica."
+      },
+      {
+       "etiqueta": "Oral",
+       "texto": "25 µg cada 2 horas o 50 µg cada 4 horas, 3 dosis."
+      }
+     ]
+    },
+    {
+     "titulo": "Aborto del primer trimestre (premedicación, apunte de la cátedra)",
+     "pasos": [
+      {
+       "etiqueta": "Esquema",
+       "texto": "5 a 9 semanas: 200 µg 3 horas antes; 10 semanas: 200 µg 3 h y 30 min antes; 12 semanas: 200 µg 3 h y 400 µg 30 min antes. Verificar con el protocolo vigente del Ministerio de Salud."
+      }
+     ]
+    },
+    {
+     "titulo": "Gastroprotección (prospecto)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "200 µg cuatro veces al día con las comidas (100 µg si no se tolera)."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Embarazo cuando se usa para la úlcera gástrica: puede causar aborto, parto prematuro, malformaciones congénitas y rotura uterina (advertencia en recuadro).",
+    "Antecedente de alergia a las prostaglandinas.",
+    "Obstétrico: sospecha de ectópico, DIU, EPI, coagulopatías o anticoagulación (apunte de la cátedra); riesgo de rotura uterina que aumenta con la edad gestacional y la cicatriz uterina previa."
+   ],
+   "efectos": [
+    "Diarrea (dependiente de la dosis) y dolor abdominal: los más frecuentes en el prospecto.",
+    "Advertencia en recuadro: en embarazadas puede causar malformaciones congénitas, aborto, parto prematuro y rotura uterina."
+   ],
+   "tiempos": [
+    "Se absorbe a los 10 minutos por vía oral, sublingual, vaginal o rectal.",
+    "Las vías oral y sublingual son más rápidas; la vaginal y la rectal dan una acción más prolongada y mayor biodisponibilidad.",
+    "Vida media terminal del ácido de misoprostol: 20 a 40 minutos; el pico se alcanza a los 12 minutos."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Prostaglandina E1 (análogo)",
+   "unidad": "Uterotónicos y hemorragia posparto"
+  },
+  {
+   "id": "fx-acido-tranexamico",
+   "titulo": "Ácido tranexámico",
+   "alias": [
+    "tranexámico",
+    "antifibrinolítico",
+    "amchafibrin"
+   ],
+   "up": [
+    "fx1"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Hemorragia Posparto + prospecto FDA",
+    "sociedad": "FASGO / FDA",
+    "anio": 2019
+   },
+   "indicaciones": [
+    "Hemorragia posparto: usado dentro de las 3 primeras horas del inicio del sangrado disminuye el riesgo de muerte materna y de laparotomía para controlar el sangrado.",
+    "Prospecto: reducir o prevenir la hemorragia en pacientes con hemofilia durante y tras una extracción dentaria."
+   ],
+   "mecanismo": [
+    "Ocupa los sitios de unión de la lisina del plasminógeno e impide que se una a la fibrina: preserva y estabiliza la matriz de fibrina, de modo que la plasmina disuelve menos el coágulo."
+   ],
+   "dosis": [
+    {
+     "titulo": "Hemorragia posparto (FASGO 2019)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "1 g diluido en 10 mL de solución fisiológica, en infusión lenta."
+      },
+      {
+       "etiqueta": "Repetir",
+       "texto": "Una segunda dosis de 1 g a los 30 minutos si persiste la hemorragia."
+      },
+      {
+       "etiqueta": "Kit de código rojo",
+       "texto": "Ampollas de 2 g."
+      }
+     ]
+    },
+    {
+     "titulo": "Prospecto (hemofilia)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "10 mg/kg EV, no infundir más de 1 mL/min para evitar hipotensión; reducir la dosis en insuficiencia renal."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hemorragia subaracnoidea (riesgo de edema e infarto cerebral).",
+    "Coagulación intravascular activa.",
+    "Hipersensibilidad."
+   ],
+   "efectos": [
+    "Náuseas, vómitos y diarrea; mareo e hipotensión (con infusión rápida).",
+    "Dermatitis alérgica.",
+    "Eventos tromboembólicos; convulsiones y alteraciones visuales."
+   ],
+   "tiempos": [
+    "Vida media de eliminación: unas 2 horas.",
+    "El efecto antifibrinolítico dura hasta 8 horas.",
+    "Cerca del 90 % se elimina por orina en 24 horas."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antifibrinolítico (derivado sintético de la lisina)",
+   "unidad": "Uterotónicos y hemorragia posparto"
+  },
+  {
+   "id": "fx-sulfato-magnesio",
+   "titulo": "Sulfato de magnesio",
+   "alias": [
+    "magnesio",
+    "eclampsia",
+    "neuroprotección fetal"
+   ],
+   "up": [
+    "fx2"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Guía para el diagnóstico y tratamiento de la hipertensión en el embarazo (Ministerio de Salud de la Nación) + prospecto FDA",
+    "sociedad": "Ministerio de Salud de la Nación / FDA",
+    "anio": 2010
+   },
+   "indicaciones": [
+    "Prevención de la eclampsia en la preeclampsia grave (droga de primera línea).",
+    "Tratamiento de las convulsiones y prevención de su recurrencia en la eclampsia.",
+    "Neuroprotección fetal si el parto prematuro es inminente (entre las 24 y las 32+6 semanas, según el consenso SOGIBA 2018)."
+   ],
+   "mecanismo": [
+    "Bloquea la transmisión neuromuscular al disminuir la acetilcolina liberada en la placa terminal; deprime el sistema nervioso central y produce vasodilatación periférica. Podría bloquear los receptores NMDA y proteger a las neuronas de la isquemia. No es antihipertensivo."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema endovenoso (el recomendado por la guía)",
+     "pasos": [
+      {
+       "etiqueta": "Ataque",
+       "texto": "5 g (4 ampollas de 5 mL o 2 de 10 mL al 25 %) en 10 mL de dextrosa 5 %, en bolo EV lento en 10 a 15 minutos."
+      },
+      {
+       "etiqueta": "Mantenimiento",
+       "texto": "20 g en 500 mL de dextrosa 5 % o Ringer, a 1 g por hora (con bomba de infusión continua); 24 horas en el embarazo o el puerperio."
+      },
+      {
+       "etiqueta": "Recurrencia de convulsiones",
+       "texto": "Repetir un bolo de 2,5 a 5 g."
+      }
+     ]
+    },
+    {
+     "titulo": "Esquema intramuscular (solo si no hay vía venosa)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "10 g: 5 g en cada región glútea; muy doloroso."
+      }
+     ]
+    },
+    {
+     "titulo": "Límite (prospecto)",
+     "pasos": [
+      {
+       "etiqueta": "Máxima",
+       "texto": "Entre 30 y 40 g en 24 horas; en insuficiencia renal grave u oliguria (< 0,5 mL/kg/h): carga de 4 g y 1 g/h, sin superar 20 g en 48 horas. No usar más de 5 a 7 días."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Bloqueo cardíaco o daño miocárdico.",
+    "Coma diabético.",
+    "Miastenia gravis.",
+    "No administrar con salicilatos ni carbonatos alcalinos por la misma vía."
+   ],
+   "efectos": [
+    "Maternos: pérdida o abolición de los reflejos osteotendinosos, sofocos, hipotensión, depresión respiratoria hasta paro, bloqueo auriculoventricular, bradicardia.",
+    "Fetales: menor variabilidad de la frecuencia cardíaca fetal a corto plazo, sin relevancia clínica; no se asoció a depresión neonatal.",
+    "Intoxicación: antídoto gluconato de calcio 1 g EV lento; oxígeno y asistencia respiratoria."
+   ],
+   "tiempos": [
+    "Vida media en preeclámpticas: 4 a 5 horas; se elimina por orina.",
+    "Inicio de la acción anticonvulsivante: inmediato por vía EV; dura unos 30 minutos.",
+    "Control clínico: reflejo rotuliano presente, frecuencia respiratoria mayor de 16/min y diuresis mayor de 100 mL/h, cada 30 minutos. La pérdida del reflejo aparece con magnesemias de 10 a 12 mEq/L y la depresión respiratoria por encima de 15 mEq/L."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Anticonvulsivante (catión divalente)",
+   "unidad": "Preeclampsia y antihipertensivos del embarazo"
+  },
+  {
+   "id": "fx-labetalol",
+   "titulo": "Labetalol",
+   "alias": [
+    "trandate",
+    "antihipertensivo en el embarazo",
+    "crisis hipertensiva"
+   ],
+   "up": [
+    "fx2"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Guía para el diagnóstico y tratamiento de la hipertensión en el embarazo (Ministerio de Salud de la Nación) + prospecto FDA",
+    "sociedad": "Ministerio de Salud de la Nación / FDA",
+    "anio": 2010
+   },
+   "indicaciones": [
+    "Hipertensión leve a moderada del embarazo (vía oral): recomendación I-A.",
+    "Crisis hipertensiva y preeclampsia grave (vía EV): droga más utilizada, recomendada con presión diastólica de 105 a 110 mmHg o más."
+   ],
+   "mecanismo": [
+    "Bloqueante no selectivo de los receptores beta y alfa-1, con actividad agonista parcial sobre los receptores beta-2."
+   ],
+   "dosis": [
+    {
+     "titulo": "Vía oral (guía nacional)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis diaria",
+       "texto": "10 a 40 mg/día en comprimidos de 10 y 20 mg, en 1 a 4 tomas (la guía lista los rangos de dosis del cuadro 8)."
+      },
+      {
+       "etiqueta": "Prospecto (hipertensión general)",
+       "texto": "Inicio 100 mg dos veces al día; mantenimiento habitual 200 a 400 mg dos veces al día; titular cada 2 a 3 días sin superar incrementos de 200 mg dos veces al día."
+      }
+     ]
+    },
+    {
+     "titulo": "Emergencia hipertensiva (guía nacional)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "20 mg (1 ampolla de 4 mL) en 100 mL de dextrosa 5 %, EV lento en 10 a 15 minutos; efecto máximo desde los 5 minutos."
+      },
+      {
+       "etiqueta": "Escalada",
+       "texto": "Si no desciende la presión a los 15 minutos, duplicar: 40 mg; luego 80 mg; si persiste, repetir 80 mg."
+      },
+      {
+       "etiqueta": "Meta",
+       "texto": "Tratar al llegar a 160-170/110 mmHg; respuesta: caída de 30 mmHg en la sistólica y 20 mmHg en la diastólica."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Asma bronquial y enfermedad obstructiva de las vías aéreas.",
+    "Insuficiencia cardíaca manifiesta, bloqueo auriculoventricular mayor de primer grado, shock cardiogénico, bradicardia grave.",
+    "Hipersensibilidad."
+   ],
+   "efectos": [
+    "Efectos leves y transitorios al inicio: mareo, fatiga, cefalea, hipotensión ortostática.",
+    "En el embarazo: evitar la caída brusca de la presión, que reduce el flujo uteroplacentario."
+   ],
+   "tiempos": [
+    "Absorción completa por vía oral; picos plasmáticos a las 1 a 2 horas.",
+    "El efecto antihipertensivo completo se ve dentro de 1 a 3 horas de la dosis."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Bloqueante alfa y beta adrenérgico",
+   "unidad": "Preeclampsia y antihipertensivos del embarazo"
+  },
+  {
+   "id": "fx-nifedipina",
+   "titulo": "Nifedipina",
+   "alias": [
+    "bloqueante cálcico",
+    "adalat",
+    "tocolítico",
+    "crisis hipertensiva"
+   ],
+   "up": [
+    "fx2",
+    "fx3"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Guía para el diagnóstico y tratamiento de la hipertensión en el embarazo (Ministerio de Salud de la Nación) + SOGIBA 2018 + prospecto FDA",
+    "sociedad": "Ministerio de Salud / SOGIBA / FDA",
+    "anio": 2018
+   },
+   "indicaciones": [
+    "Hipertensión leve a moderada del embarazo: preparado oral de liberación prolongada (recomendación I-A).",
+    "Crisis hipertensiva (vía oral), eficaz con menos efectos adversos materno-fetales.",
+    "Tocolisis de 48 horas en la amenaza de parto pretérmino (consenso SOGIBA 2018)."
+   ],
+   "mecanismo": [
+    "Reduce la presión arterial por vasodilatación arterial periférica y menor resistencia vascular periférica, al bloquear el ingreso de calcio al músculo liso vascular."
+   ],
+   "dosis": [
+    {
+     "titulo": "Hipertensión (guía nacional)",
+     "pasos": [
+      {
+       "etiqueta": "Preparado",
+       "texto": "Comprimidos de liberación lenta de 10 y 20 mg; no usar la vía sublingual (hipotensión brusca)."
+      },
+      {
+       "etiqueta": "Prospecto",
+       "texto": "30 mg una vez al día en ayunas; mantenimiento 30 a 60 mg; no se recomiendan más de 90 mg por día."
+      }
+     ]
+    },
+    {
+     "titulo": "Crisis hipertensiva (guía nacional)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "10 mg por vía oral cada 30 a 40 minutos según respuesta, en paciente consciente."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "40 mg en total."
+      }
+     ]
+    },
+    {
+     "titulo": "Tocolisis (SOGIBA 2018)",
+     "pasos": [
+      {
+       "etiqueta": "Esquema",
+       "texto": "10 a 20 mg VO; repetir cada 20 minutos hasta 60 mg en la primera hora y luego 10 a 20 mg cada 6 a 8 horas."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "160 mg por día."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Shock cardiogénico.",
+    "Uso con inductores potentes del citocromo P450 (rifampicina).",
+    "Hipersensibilidad.",
+    "Guía nacional: contraindicada con asma, insuficiencia cardíaca, bloqueo auriculoventricular; evitar el jugo de pomelo."
+   ],
+   "efectos": [
+    "Edema periférico (el más frecuente, dependiente de la dosis), cefalea, sofocos.",
+    "Taquicardia refleja; fetal: taquicardia.",
+    "Tocolisis: no figura como indicación aprobada en el prospecto."
+   ],
+   "tiempos": [
+    "Vida media de eliminación de la forma de liberación prolongada: unas 7 horas (2 horas en la forma de liberación inmediata).",
+    "Picos plasmáticos a las 2,5 a 5 horas con la forma de liberación prolongada."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Bloqueante de los canales de calcio (dihidropiridina)",
+   "unidad": "Preeclampsia y antihipertensivos del embarazo"
+  },
+  {
+   "id": "fx-metildopa",
+   "titulo": "Alfa-metildopa",
+   "alias": [
+    "aldomet",
+    "antihipertensivo de primera elección en el embarazo"
+   ],
+   "up": [
+    "fx2"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Guía para el diagnóstico y tratamiento de la hipertensión en el embarazo (Ministerio de Salud de la Nación) + prospecto FDA",
+    "sociedad": "Ministerio de Salud de la Nación / FDA",
+    "anio": 2010
+   },
+   "indicaciones": [
+    "Hipertensión leve a moderada del embarazo: de primera elección para la mayoría de las sociedades científicas (recomendación I-A); seguridad bien documentada después del primer trimestre y durante la lactancia."
+   ],
+   "mecanismo": [
+    "Agonista alfa adrenérgico central que disminuye la resistencia periférica."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Guía nacional",
+       "texto": "500 a 2.000 mg por día en comprimidos de 250 y 500 mg, en 2 a 4 dosis."
+      },
+      {
+       "etiqueta": "Prospecto",
+       "texto": "Inicio 250 mg dos a tres veces al día durante 48 horas; ajustar cada 2 días como mínimo. Con otros antihipertensivos que no sean tiazidas, comenzar con 500 mg diarios."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "El prospecto revisado no la detalla: en la guía nacional el rango llega a 2.000 mg/día."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Enfermedad hepática activa (hepatitis aguda, cirrosis activa) o trastorno hepático previo asociado a metildopa.",
+    "Tratamiento con inhibidores de la MAO.",
+    "Hipersensibilidad."
+   ],
+   "efectos": [
+    "Sedación, habitualmente transitoria al inicio o con los aumentos de dosis; cefalea, astenia.",
+    "Hipotensión ortostática; aumento de enzimas hepáticas; anemia hemolítica con prueba de Coombs positiva (efectos descritos en el prospecto)."
+   ],
+   "tiempos": [
+    "Vida media plasmática: 105 minutos.",
+    "Atraviesa la placenta; la excreción es casi completa a las 36 horas."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Agonista alfa-2 adrenérgico de acción central",
+   "unidad": "Preeclampsia y antihipertensivos del embarazo"
+  },
+  {
+   "id": "fx-hidralazina",
+   "titulo": "Hidralazina",
+   "alias": [
+    "vasodilatador",
+    "crisis hipertensiva"
+   ],
+   "up": [
+    "fx2"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Guía para el diagnóstico y tratamiento de la hipertensión en el embarazo (Ministerio de Salud de la Nación) + prospecto FDA",
+    "sociedad": "Ministerio de Salud de la Nación / FDA",
+    "anio": 2010
+   },
+   "indicaciones": [
+    "Crisis hipertensiva del embarazo (vía EV), como alternativa cuando no se dispone de labetalol ni de nifedipina."
+   ],
+   "mecanismo": [
+    "Vasodilatador arterial directo: reduce la resistencia periférica y mantiene o aumenta el flujo renal y cerebral."
+   ],
+   "dosis": [
+    {
+     "titulo": "Emergencia hipertensiva (guía nacional)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "5 mg EV; luego 5 a 10 mg EV cada 15 a 20 minutos hasta una dosis total de 40 mg."
+      },
+      {
+       "etiqueta": "Mantenimiento",
+       "texto": "Logrado el efecto, continuar con esa dosis cada 6 horas."
+      }
+     ]
+    },
+    {
+     "titulo": "Vía oral (prospecto, hipertensión esencial)",
+     "pasos": [
+      {
+       "etiqueta": "Titulación",
+       "texto": "10 mg cuatro veces al día los primeros 2 a 4 días, luego 25 mg y 50 mg cuatro veces al día."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "En pacientes resistentes pueden requerirse hasta 300 mg por día; a dosis altas aumenta el síndrome lúpico."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad.",
+    "Enfermedad coronaria.",
+    "Enfermedad valvular mitral reumática."
+   ],
+   "efectos": [
+    "Cefalea, anorexia, náuseas, vómitos, palpitaciones, taquicardia, angina.",
+    "Hipotensión; efecto taquicardizante materno-fetal importante.",
+    "Se asoció a mayor incidencia de desprendimiento placentario (guía nacional)."
+   ],
+   "tiempos": [
+    "Absorción rápida por vía oral; picos plasmáticos a las 1 a 2 horas.",
+    "Vida media de la hidralazina aparente: 3 a 7 horas."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Vasodilatador arterial directo",
+   "unidad": "Preeclampsia y antihipertensivos del embarazo"
+  },
+  {
+   "id": "fx-betametasona",
+   "titulo": "Betametasona (maduración pulmonar fetal)",
+   "alias": [
+    "corticoides antenatales",
+    "celestone",
+    "maduración fetal"
+   ],
+   "up": [
+    "fx3"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Prevención del Parto Prematuro + ACOG CO 713 (resúmenes) + prospecto FDA",
+    "sociedad": "SOGIBA / FASGO / ACOG",
+    "anio": 2018
+   },
+   "indicaciones": [
+    "Un ciclo de corticoides antenatales entre las 24 y las 34 semanas (considerar desde las 23+0), aunque el parto sea inminente, ante riesgo de parto prematuro dentro de los 7 días.",
+    "ACOG (resúmenes secundarios): puede considerarse entre las 34+0 y las 36+6 semanas si no recibió corticoides y el parto sería dentro de 7 días; no en corioamnionitis clínica."
+   ],
+   "mecanismo": [
+    "Glucocorticoide de acción prolongada; en obstetricia se usa para acelerar la maduración fetal cuando se prevé un parto prematuro."
+   ],
+   "dosis": [
+    {
+     "titulo": "Ciclo único",
+     "pasos": [
+      {
+       "etiqueta": "Betametasona",
+       "texto": "12 mg IM cada 24 horas, 2 dosis (24 mg en total)."
+      },
+      {
+       "etiqueta": "Alternativa",
+       "texto": "Dexametasona 6 mg IM cada 12 horas, 4 dosis."
+      },
+      {
+       "etiqueta": "Rescate",
+       "texto": "12 mg si pasaron 7 días y vuelve el riesgo, hasta las 34 semanas."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a la betametasona o a otros corticoides.",
+    "Evitar en corioamnionitis clínica (ACOG, resumen secundario)."
+   ],
+   "efectos": [
+    "No se detallan en el texto revisado: consultar el prospecto ANMAT del preparado."
+   ],
+   "tiempos": [
+    "No se verificó la vida media en el texto revisado.",
+    "Las dos dosis se separan por 24 horas."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Corticoide (glucocorticoide)",
+   "unidad": "Parto pretérmino y maduración fetal"
+  },
+  {
+   "id": "fx-progesterona",
+   "titulo": "Progesterona micronizada",
+   "alias": [
+    "utrogestan",
+    "prevención del parto pretérmino",
+    "cuello corto"
+   ],
+   "up": [
+    "fx3",
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de Prevención del Parto Prematuro + prospecto FDA",
+    "sociedad": "SOGIBA / FASGO / FDA",
+    "anio": 2018
+   },
+   "indicaciones": [
+    "Prevención del parto pretérmino en embarazo único con antecedente de parto prematuro espontáneo y/o cuello corto (vía vaginal).",
+    "Prospecto (cápsula oral): amenorrea secundaria y prevención de la hiperplasia endometrial en mujeres posmenopáusicas con útero que reciben estrógenos."
+   ],
+   "mecanismo": [
+    "Progesterona micronizada, químicamente idéntica a la de origen ovárico; la micronización aumenta su biodisponibilidad oral."
+   ],
+   "dosis": [
+    {
+     "titulo": "Prevención del parto pretérmino (SOGIBA / FASGO)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "Vaginal 100 a 200 mg/día desde las 16 semanas (o desde el diagnóstico de cuello corto) hasta la semana 36+6."
+      }
+     ]
+    },
+    {
+     "titulo": "Prospecto (cápsula oral)",
+     "pasos": [
+      {
+       "etiqueta": "Amenorrea secundaria",
+       "texto": "400 mg al acostarse durante 10 días."
+      },
+      {
+       "etiqueta": "Protección endometrial",
+       "texto": "200 mg al acostarse durante 12 días por ciclo de 28."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad; contiene aceite de maní (alergia al maní).",
+    "Sangrado genital anormal sin diagnóstico.",
+    "Cáncer de mama conocido, sospechado o antecedente.",
+    "Trombosis venosa profunda activa."
+   ],
+   "efectos": [
+    "Ver la advertencia en recuadro y las reacciones adversas del ensayo en posmenopáusicas (cápsula oral) del prospecto."
+   ],
+   "tiempos": [
+    "Con la cápsula oral, las concentraciones máximas se alcanzan dentro de las 3 horas."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno natural",
+   "unidad": "Parto pretérmino y maduración fetal"
+  },
+  {
+   "id": "fx-levonorgestrel-ec",
+   "titulo": "Levonorgestrel (anticoncepción de emergencia)",
+   "alias": [
+    "píldora del día después",
+    "plan b",
+    "ae"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Prospecto FDA (Plan B One-Step)",
+    "sociedad": "FDA",
+    "anio": 2026
+   },
+   "indicaciones": [
+    "Reducir la probabilidad de embarazo después de una relación sin protección o de la falla de un método anticonceptivo."
+   ],
+   "mecanismo": [
+    "El texto del prospecto revisado no detalla el mecanismo de acción."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "1,5 mg por vía oral en una sola toma, lo antes posible y dentro de las 72 horas (3 días) de la relación sin protección: cuanto antes, más eficaz."
+      },
+      {
+       "etiqueta": "Vómitos",
+       "texto": "Si vomita dentro de las 2 horas, consultar a un profesional de la salud por si hay que repetir la dosis."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "El texto revisado no las detalla."
+   ],
+   "efectos": [
+    "El texto revisado no los detalla."
+   ],
+   "tiempos": [
+    "Tomar lo antes posible; la eficacia disminuye con el tiempo transcurrido."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-medroxiprogesterona",
+   "titulo": "Medroxiprogesterona de depósito (DMPA)",
+   "alias": [
+    "depo-provera",
+    "inyectable trimestral",
+    "anticonceptivo inyectable"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Prospecto FDA (acetato de medroxiprogesterona, suspensión inyectable)",
+    "sociedad": "FDA",
+    "anio": 2026
+   },
+   "indicaciones": [
+    "Anticoncepción en mujeres en edad reproductiva. No se recomienda como método a largo plazo (más de 2 años) salvo que otras opciones sean inadecuadas."
+   ],
+   "mecanismo": [
+    "Progestágeno de depósito de acción prolongada."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "150 mg IM profunda (glútea o deltoidea) cada 3 meses (13 semanas); agitar bien la jeringa antes de usar."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Embarazo conocido o sospechado.",
+    "Tromboflebitis activa o antecedente de tromboembolismo o enfermedad cerebrovascular.",
+    "Cáncer de mama conocido o sospechado."
+   ],
+   "efectos": [
+    "Pérdida de densidad mineral ósea (advertencia en recuadro), que puede no recuperarse por completo.",
+    "Sangrado irregular, enfermedad tromboembólica, anafilaxia."
+   ],
+   "tiempos": [
+    "Vida media aparente tras la inyección IM: unos 50 días.",
+    "Se aplica cada 13 semanas."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Progestágeno de depósito",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-clomifeno",
+   "titulo": "Citrato de clomifeno",
+   "alias": [
+    "clomid",
+    "inducción de la ovulación",
+    "sop"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Consenso de SOP + prospecto FDA (Clomid)",
+    "sociedad": "FASGO / FDA",
+    "anio": 2025
+   },
+   "indicaciones": [
+    "Disfunción ovulatoria en mujeres que desean embarazo, sobre todo SOP y amenorrea.",
+    "Consenso FASGO de SOP: el letrozol es la droga de primera elección; el clomifeno es la alternativa más accesible y barata."
+   ],
+   "mecanismo": [
+    "Modulador selectivo del receptor de estrógenos: bloquea el feedback negativo y aumenta la liberación de gonadotrofinas, lo que induce la ovulación."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema (prospecto)",
+     "pasos": [
+      {
+       "etiqueta": "Inicio",
+       "texto": "50 mg por día (1 comprimido) durante 5 días."
+      },
+      {
+       "etiqueta": "Aumento",
+       "texto": "Solo en quienes no ovulan con 50 mg cíclicos; con SOP se recomienda dosis y duración bajas por la sensibilidad a las gonadotrofinas."
+      },
+      {
+       "etiqueta": "Evaluación",
+       "texto": "Descartar embarazo, agrandamiento ovárico o quistes entre ciclos; la ovulación ocurre 5 a 10 días después del ciclo."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Embarazo (no ofrece beneficio).",
+    "Hipersensibilidad.",
+    "Antes de indicarlo hay que excluir o tratar otras causas de infertilidad."
+   ],
+   "efectos": [
+    "Embarazo múltiple (5 a 7 % en la guía FASGO) e hiperestimulación ovárica (0,3 %).",
+    "En las dosis recomendadas se tolera bien: las reacciones suelen ser leves y desaparecen al suspender el tratamiento (prospecto)."
+   ],
+   "tiempos": [
+    "El zuclomifeno tiene una vida media más larga que el enclomifeno y puede detectarse más de un mes.",
+    "La ovulación ocurre 5 a 10 días después del curso."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Modulador selectivo del receptor de estrógenos",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-cabergolina",
+   "titulo": "Cabergolina",
+   "alias": [
+    "dostinex",
+    "hiperprolactinemia",
+    "agonista dopaminérgico"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "apunte",
+    "guia": "Apunte de la cátedra (hiperprolactinemia) + prospecto FDA",
+    "sociedad": "Apunte Pontelli SIM / FDA",
+    "anio": 2026
+   },
+   "indicaciones": [
+    "Hiperprolactinemia idiopática o por adenomas hipofisarios: agonista dopaminérgico de primera línea.",
+    "Evitar para inhibir la lactancia posparto por riesgo de reacciones adversas graves."
+   ],
+   "mecanismo": [
+    "Derivado ergótico con acción agonista sobre los receptores dopaminérgicos que inhibe la secreción de prolactina."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema (prospecto)",
+     "pasos": [
+      {
+       "etiqueta": "Antes de empezar",
+       "texto": "Evaluar valvulopatía cardíaca, incluida ecocardiografía."
+      },
+      {
+       "etiqueta": "Inicio",
+       "texto": "0,25 mg por vía oral dos veces por semana."
+      },
+      {
+       "etiqueta": "Titulación",
+       "texto": "Subir 0,25 mg dos veces por semana a intervalos de 4 semanas o más, hasta normalizar la prolactina."
+      },
+      {
+       "etiqueta": "Máxima",
+       "texto": "1 mg dos veces por semana. El apunte de la cátedra cita 0,5 mg dos veces por semana."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipertensión no controlada.",
+    "Hipersensibilidad a los derivados ergóticos.",
+    "Antecedente de valvulopatía cardíaca."
+   ],
+   "efectos": [
+    "Fibrosis valvular, pericárdica, pleural, retroperitoneal y pulmonar; hipotensión ortostática.",
+    "Trastornos del control de impulsos y conductas compulsivas."
+   ],
+   "tiempos": [
+    "Vida media de eliminación: 63 a 69 horas.",
+    "Concentración máxima a las 2 a 3 horas de una dosis oral."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Agonista dopaminérgico (derivado ergótico)",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-estradiol",
+   "titulo": "Estradiol vaginal (crema)",
+   "alias": [
+    "estrace",
+    "atrofia vulvovaginal",
+    "terapia hormonal"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Prospecto FDA (Estrace crema vaginal)",
+    "sociedad": "FDA",
+    "anio": 2026
+   },
+   "indicaciones": [
+    "Síntomas moderados a graves de atrofia vulvar y vaginal por la menopausia."
+   ],
+   "mecanismo": [
+    "Estrógeno natural (17β-estradiol) de aplicación local."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema",
+     "pasos": [
+      {
+       "etiqueta": "Principio",
+       "texto": "Usar la dosis y el esquema más bajos que controlen los síntomas y por el menor tiempo posible; reevaluar periódicamente la necesidad."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "El prospecto incluye una advertencia en recuadro: cáncer de endometrio, trastornos cardiovasculares, cáncer de mama y probable demencia.",
+    "El estrógeno solo aumenta el riesgo de cáncer de endometrio en mujeres con útero: agregar un progestágeno lo reduce."
+   ],
+   "efectos": [
+    "Ver la advertencia en recuadro: riesgo de cáncer de endometrio, eventos cardiovasculares, cáncer de mama y probable demencia."
+   ],
+   "tiempos": [
+    "No se verificó la vida media en el texto revisado."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Estrógeno",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-alendronato",
+   "titulo": "Alendronato",
+   "alias": [
+    "fosamax",
+    "bifosfonato",
+    "osteoporosis posmenopáusica"
+   ],
+   "up": [
+    "fx4"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Prospecto FDA (alendronato, comprimido efervescente)",
+    "sociedad": "FDA",
+    "anio": 2026
+   },
+   "indicaciones": [
+    "Tratamiento de la osteoporosis posmenopáusica.",
+    "Duración óptima no establecida: en bajo riesgo de fractura considerar suspender a los 3 a 5 años."
+   ],
+   "mecanismo": [
+    "Bifosfonato que inhibe la resorción ósea mediada por osteoclastos."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquema (comprimido efervescente de 70 mg)",
+     "pasos": [
+      {
+       "etiqueta": "Dosis",
+       "texto": "70 mg una vez por semana, disuelto en medio vaso de agua; tomar al menos 30 minutos antes de la primera comida, bebida o medicamento del día."
+      },
+      {
+       "etiqueta": "Postura",
+       "texto": "No acostarse durante al menos 30 minutos después de tomarlo."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Anomalías del esófago que retrasan su vaciamiento (estenosis, acalasia).",
+    "Imposibilidad de permanecer sentada o de pie durante 30 minutos.",
+    "Riesgo aumentado de aspiración."
+   ],
+   "efectos": [
+    "Reacciones adversas gastrointestinales altas; trastornos del metabolismo mineral.",
+    "Dolor musculoesquelético; osteonecrosis de la mandíbula; fracturas atípicas."
+   ],
+   "tiempos": [
+    "Vida media terminal en humanos: más de 10 años (liberación desde el esqueleto).",
+    "Las concentraciones plasmáticas caen más de 95 % en 6 horas tras la vía EV."
+   ],
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Bifosfonato",
+   "unidad": "Anticoncepción y endocrinología ginecológica"
+  },
+  {
+   "id": "fx-metronidazol",
+   "titulo": "Metronidazol",
+   "alias": [
+    "vaginosis bacteriana",
+    "tricomoniasis",
+    "enfermedad pélvica inflamatoria",
+    "antibiótico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: vaginosis bacteriana, tricomoniasis, enfermedad pélvica inflamatoria. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "penetra en el citoplasma por difusión pasiva y se activa por un proceso de reducción (propio de microorganismos anaerobios o microaerófilos) del que resultan metabolitos activos que dañan el ADN de la bacteria causando pérdida de su estructura helicoidal dando como resultado inhibición de la síntesis de proteínas y muerte celular. Actividad bactericida rápido dependiente de la concentración e independiente del tamaño del inóculo y de la fase de crecimiento de la población bacteriana."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Metronidazol IV/VO",
+       "texto": "500 mg c/8 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 250-500 mg; Suspensión Oral: 25 mg/ml; Solución IV: 500 mg (5 mg/ml)"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a imidazoles."
+   ],
+   "efectos": [
+    "Náuseas, vómitos, dolor abdominal. Sabor metálico. Diarrea, cefaleas. Color oscuro de orina (presencia de metabolito fotosensible). Candidiasis vaginal. Trastornos SNC (a dosis altas o ttos prolongados: convulsiones, ataxia, neuropatias). Interacción con alcohol produciendo efecto disulfiram."
+   ],
+   "tiempos": [
+    "Vida media: 7-8 hs (hasta 21 hs en IRC).",
+    "Eliminación: Renal (70% inmodificado), fecal 6-15%",
+    "Distribución: Vd: 0,7 L/kg (alcanza hasta 80% en LCR)",
+    "Farmacodinamia: bactericida."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B). No se recomienda su uso en el 1° trimestre.",
+    "Lactancia: En discusión. Se recomienda evitar sobre todo en usos prolongados y en prematuros.",
+    "Precauciones: Valorar riesgo/beneficio en complicaciones neurológica; riesgo de: neuropatías central o periférica, fallo hepático en combinación con otros antibióticos, hepatotoxicidad. Afecta capacidad para conducir.  En pacientes con insuficiencia renal grave se observo un aumento de las concentraciones de metabolitos (hidroxi y acetato metronidazol) de hasta 5 veces las cuales pueden presentar toxicidad. Se recomienda monitoreo y en caso de presencia de toxicidad considerar disminuir la dosis un 50%.",
+    "Administración: - Conservar a TA y protegido de la luz."
+   ],
+   "vademecum": "metronidazol",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Nitroimidazol",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-clindamicina",
+   "titulo": "Clindamicina",
+   "alias": [
+    "vaginosis bacteriana",
+    "profilaxis estreptococo grupo B",
+    "corioamnionitis",
+    "antibiótico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: vaginosis bacteriana, profilaxis estreptococo grupo B, corioamnionitis. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Unión a la subunidad 50S ribosomal bloqueando traslocación del ARNt, inhibiendo así la sintesis protéica.  Actividad bacteriostática (o bactericida) tiempo dependiente."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Clindamicina (IV)",
+       "texto": "600 mg c/6-8 hs"
+      },
+      {
+       "etiqueta": "Clindamicina (VO)",
+       "texto": "300 mg c/6-8 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Cápsulas: 300 mg; Ampollas: 600 mg (150 mg/ml); Solución tópica: 1%"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a clindamicina o lincomicina."
+   ],
+   "efectos": [
+    "Reacciones de hipersensibilidad. Diarrea (20%), náuseas, vómitos, dolor abdominal. Colitis pseudomembranosa por C. difficile (<5%).  Discreto aumento de transaminasas, hepatoxicidad, neutropenia, agranulocitosis y trombocitopenia (raro). Dosis > 600 mg no diluidas pueden producir excepcionalmente arritmias y paro cardíaco."
+   ],
+   "tiempos": [
+    "Vida media: 2,5 hs (5 hs en IRC).",
+    "Eliminación: Renal 10-15%, biliar 85%.",
+    "Distribución: Vd: 0,6-1,2 L/kg. Baja difusión en SNC (<5%).",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Monitorear IR, IH, alteraciones hematológicas; riesgo de: reacciones de hipersensibilidad graves, sobrecrecimiento de Clostridium difficile y microorganismos no sensibles, incluyendo hongos. Precaución en enfermedad intestinal inflamatoria y en tratamiento concomitante con bloqueantes neuromusculares.",
+    "Administración: - Es estable por 24 hs en jeringa diluida a 60 mg/ml."
+   ],
+   "vademecum": "clindamicina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Lincosamida",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-ceftriaxona",
+   "titulo": "Ceftriaxona",
+   "alias": [
+    "enfermedad pélvica inflamatoria",
+    "gonorrea",
+    "antibiótico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: enfermedad pélvica inflamatoria, gonorrea. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Bloquea la actividad transpeptidasa de las PBP. Disminuye la síntesis de peptidoglicano y la bacteria muere por efecto osmótico o digerida por enzimas autolíticas."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Endovascular/OM/Inf. Protesicas",
+       "texto": "2000 mg c/24 hs"
+      },
+      {
+       "etiqueta": "Meningitis/EI por Enterococo faecalis",
+       "texto": "2000 mg c/12 hs"
+      },
+      {
+       "etiqueta": "Otras",
+       "texto": "1000-2000 mg c/24 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Frasco Ampolla: 500 - 1000 - 2000 mg polvo liofilizado"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a ceftriaxona y ß-lactámicos. Recién nacidos con ictericia, hipoalbuminemia o acidosis, que presenten tratamiento con Ca IV o perfusiones por riesgo de precipitación de la ceftriaxona con Ca."
+   ],
+   "efectos": [
+    "Reacciones de hipersensibilidad cutánea (exantema, prurito, eritema multiforme), angioedema, alteraciones gastrointestinales, aumento de enzimas hepáticas, neutropenia, trombocitopenia, eosinofilia, prueba de Coombs positiva. Pseudolitiasis o barro biliar (sales de ceftriaxona-calcio) en ocasiones con clinica de colecistitis aparecen durante la 2da semana de tratamiento. Ceftriaxona compite por la bilirrubina por la union con la albumina y puede ocasionar hiperbilirrubinemia en neonatos."
+   ],
+   "tiempos": [
+    "Vida media: 6-8 hs (15 hs en IRC).",
+    "Eliminación: Renal 50 % inmodificado, biliar 30%.",
+    "Distribución: Vd: 0,15 L/kg (alcanza hasta 10 % en LCR).",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse. Evitar en prematuros.",
+    "Precauciones: Chequear historial de hipersensibilidad. Riesgo de: colitis, sobreinfección por microorganismos resistentes, pancreatitis, reacciones adversas cutaneas graves (eosinofilia y síntomas sistémicos (DRESS)). Monitorear alteraciones hematológicas.",
+    "Administración: - Las mezclas de antibacterianos betalactámicos (penicilinas y cefalosporinas) y aminoglucósidos pueden dar lugar a una sustancial inactivación mutua. Si se administran simultáneamente, debe hacerse en sitios separados. No mezclarlos en la misma jeringa o frasco. - Incompatible con soluciones que contengan Calcio (RL)."
+   ],
+   "vademecum": "ceftriaxona",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Cefalosporina 3° generación",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-azitromicina",
+   "titulo": "Azitromicina",
+   "alias": [
+    "clamidia",
+    "infecciones de transmisión sexual",
+    "antibiótico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: clamidia, infecciones de transmisión sexual. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Unión a la subunidad 50S ribosomal bloqueando traslocación del ARNt, inhibiendo así la sintesis protéica.  Actividad bacteriostática (o bactericida) tiempo dependiente con prolongado efecto post antibiótico. Presenta actividad antiinflamatoria intrínseca y efecto inmunomodulador."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Azitromicina",
+       "texto": "500 mg c/24 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 250-500 mg; Suspensión Oral: 40 mg/ml"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a azitromicina, eritromicina u otro antibiótico macrólido."
+   ],
+   "efectos": [
+    "Molestias gastrointestinales (náusea, diarrea vómitos, dolor abdominal), otoxicidad, alargamiento intervalo QT, aumento de enzimas hepáticas, hepatitis colestásica."
+   ],
+   "tiempos": [
+    "Vida media: 48-72 hs tras una 3era dosis.",
+    "Eliminación: Renal 10%, biliar 90% y a través de mucosa intestinal.",
+    "Distribución: Vd: 23 L/kg",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Probablemente seguro (B).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Pacientes con IR, IH, hepatitis, o con patologias oncologicas. Vigilar aparición de reacciones alérgicas graves y suspender el tratamiento si aparecen; riesgo de: diarrea y sobreinfección por microorganismos no sensibles de tipo fúngico."
+   ],
+   "vademecum": "azitromicina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Macrólido",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-doxiciclina",
+   "titulo": "Doxiciclina",
+   "alias": [
+    "enfermedad pélvica inflamatoria",
+    "clamidia",
+    "antibiótico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: enfermedad pélvica inflamatoria, clamidia. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Se unen a la subunidad 30s del ribosoma e impiden la interacción de este con el ARNt bloqueando así la síntesis protéica bacteriana.   Presenta efecto antipalúdico. Actividad bacteriostática tiempo dependiente con efecto post antibiótico."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Doxiciclina",
+       "texto": "100 mg c/12 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Cápsulas: 50 y 100 mg"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a doxiciclina u otras tetraciclinas, tratamiento concomitante con metoxiflurano, isotretinoina. Lupus eritematoso sistémico."
+   ],
+   "efectos": [
+    "Alteraciones gastrointestinales (náuseas, diarrea y vómitos), úlcera gastroesofágica, reacciones de hipersensibilidad cutánea, fotosensibilidad, hiperpigmentación cutánea. Acumulación en zonas de huesos y en dientes. Hepatotoxicidad, daño renal, bloqueo neuromuscular debil, hipertensión craneal benigna. Anemia hemolítica, neutropenia, eosinofilia, trombocitopenia. Miopatía transitoria, conjuntivitis."
+   ],
+   "tiempos": [
+    "Vida media: 20 hs.",
+    "Eliminación: Renal 40% (FG) inmodificado, biliar 35%.",
+    "Distribución: Vd: 0,7 L/kg",
+    "Farmacodinamia: bacteriostatico (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Evitar si existe otra alternativa (D).",
+    "Lactancia: Riesgo bajo. No conviene un uso prolongado (más de 3-4 semanas) por poder afectar al cartílago de crecimiento, la coloración de dientes o la flora intestinal del lactante.",
+    "Precauciones: Vigilar sobreinfección por microorganismos resistentes. Monitorear: FR, FH, alteraciones hematológicas y agudeza visual. Riesgo de: diarrea asociada a Clostridium difficile, colitis, fotosensibilidad."
+   ],
+   "vademecum": "doxiciclina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Tetraciclina",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-fluconazol",
+   "titulo": "Fluconazol",
+   "alias": [
+    "candidiasis vulvovaginal",
+    "antifúngico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: candidiasis vulvovaginal. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Inhiben la enzima lanosterol 14α-desmetilasa (CYP 450 del hongo) que convierte lanosterol en ergosterol. Causan disrupción de la membrana, aumento de la permeabilidad y acumulación de precursores metilados del ergosterol en el citoplasma que causan la inhibición del crecimiento y/o muerte del hongo."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Fluconazol",
+       "texto": "200-400 mg c/24 hs."
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Comprimidos: 50-100-150-200 mg; Suspensión Oral: 10 mg/ml y 40 mg/ml; Solución IV: 50 y 200 mg (2 mg/ml)"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a compuestos azólicos; concomitancia con fármacos que prolongan intervalo QT y metabolizados por el CYP3A4."
+   ],
+   "efectos": [
+    "Intolerancia digestiva (anorexia, náuseas, vómitos, diarrea, dolor abdominal). Elevación de transaminasas, prurito con o sin erupción cutánea (más marcada en pacienes con VIH). Cefalea, alopecia reversible. Sobreinfección por C. krusei y C. glabrata (en pauta de profilaxis)."
+   ],
+   "tiempos": [
+    "Vida media: 18-30 hs (hasta 98 hs en IRC).",
+    "Eliminación: Renal (70-80 inmodificado), fecal 10%",
+    "Distribución: Vd: 0,6-0,8 L/kg (alcanza hasta 80% en LCR)",
+    "Farmacodinamia: bacteriostatico."
+   ],
+   "precauciones": [
+    "Embarazo: Evitar si existe alternativa (C). Se recomienda uso tópico de ser posible.",
+    "Lactancia: Riesgo muy bajo. Se excreta en leche pero a concentraciones bajas. Puede emplearse.",
+    "Precauciones: Suspender tratamiento en caso de: hepatotoxicidad, riesgo de reacción cutánea exfoliativa, exantema, lesión bullosa o eritema multiforme.",
+    "Administración: - Proteger de la luz. - No conservar a temperaturas mayores a 30°C. No refrigerar."
+   ],
+   "vademecum": "fluconazol",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antifúngico · Triazol",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-penicilina",
+   "titulo": "Penicilina",
+   "alias": [
+    "sífilis",
+    "profilaxis estreptococo grupo B",
+    "antibiótico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: sífilis, profilaxis estreptococo grupo B. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Bloquea la actividad transpeptidasa de las PBP. Disminuye la síntesis de peptidoglicano y la bacteria muere por efecto osmótico o digerida por enzimas autolíticas."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Penicilina G benzatinica",
+       "texto": "2,4 mUI/IM"
+      },
+      {
+       "etiqueta": "Penicilina G Sódica",
+       "texto": "1-4 mUI C/ 4-6 hs (rango 2-24 mUI/día)"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Frasco Ampolla: 1,2 y 2,4 millones UI polvo liofilizado (para administración exlcusiva IM).; 1 UI equivale a 0,75 µg de penicilina."
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a penicilinas, cefalosporinas, ß-lactámicos. Tratamiento concomitante con cloranfenicol, eritromicina y tetraciclinas."
+   ],
+   "efectos": [
+    "Tromboflebitis. Dolor en el sitio de inyección IM.  Reacciones de hipersensibilidad inmediata o acelerada (urticaria, hinchazón local, edema angioneurótico, broncoespasmo, hipotensión) Reacciones de hipersensibilidad tardía (exantema morbiliforme, eritema, vasculitis, sindrome Steven Johnson). Neutropenia, trombocitopenia, eosinofilia. La inyección IV accidental puede ser causa de ansiedad, conducta psicótica, alucinaciones, convulsiones e incluso paro cardiorrespiratorio. Neurotoxicidad a dosis altas. Reacción de Jarisch-Herxheimer en especial cuando se usa para el tratamiento de espiroquetas."
+   ],
+   "tiempos": [
+    "Vida media: 0,5 hs (luego de hidrolisis a penicilina G). En recién nacidos llega a 3 hs y en IRC 20 hs..",
+    "Eliminación: Renal 60-85%",
+    "Distribución: Vd: 0,3-0,42 L/kg (alcanza hasta 10% en LCR)",
+    "Farmacodinamia: bactericida (tiempo_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Seguro (A).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Rash, anafilaxia e hipersensibilidad. Asmáticos e ICC. Riesgo de: alteraciones hematológicas, en la coagulacón, colitis, diarrea, desequilibrio electrolítico. Elevado riesgo de efectos adversos graves por administración IV."
+   ],
+   "vademecum": "penicilina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Betalactámico",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  },
+  {
+   "id": "fx-gentamicina",
+   "titulo": "Gentamicina",
+   "alias": [
+    "corioamnionitis",
+    "endometritis",
+    "aborto séptico",
+    "antibiótico"
+   ],
+   "up": [
+    "fx5"
+   ],
+   "fuente": {
+    "tipo": "guia",
+    "guia": "Vademécum NikaFarma (revisado por farmacéuticos de hospital)",
+    "sociedad": "AAFH",
+    "anio": 2024
+   },
+   "indicaciones": [
+    "Usos en Ginecología y Obstetricia: corioamnionitis, endometritis, aborto séptico. Las indicaciones y dosis completas están en NikaFarma."
+   ],
+   "mecanismo": [
+    "Altera la lectura del ARNm tras la unión a la porción 30s del ribososoma bacteriano originando la sintesis de proteínas anómalas. Actividad bactericida concentracion dependiente con marcado efecto post antibiótico."
+   ],
+   "dosis": [
+    {
+     "titulo": "Esquemas con función renal normal (vademécum NikaFarma)",
+     "pasos": [
+      {
+       "etiqueta": "Monodosis Diaria",
+       "texto": "5 mg/kg c/24 h;  Cl 40-60: 5-7 mg/kg c/36 hs"
+      },
+      {
+       "etiqueta": "Dosis a Intervalos",
+       "texto": "1 - 1,7mg/kg c/8 hs Cl 40-60: 1 - 1.7 mg/kg c/12 hs"
+      },
+      {
+       "etiqueta": "Sinergia",
+       "texto": "3 mg/kg/día c/8-24 hs Cl 40-60: 2 mg/kg/d, c/12-24 hs"
+      }
+     ]
+    },
+    {
+     "titulo": "Presentaciones",
+     "pasos": [
+      {
+       "etiqueta": "Disponibles",
+       "texto": "Ampollas: 20 y 80 mg en 2 ml; Frasco ampolla: 400 mg en 10 ml.; Gotas oftálmicas: 0,3%; Crema: 0,1%"
+      }
+     ]
+    }
+   ],
+   "contraindicaciones": [
+    "Hipersensibilidad a aminoglucósidos. No administrar simultáneamente con neuro-nefrotóxicos-diuréticos."
+   ],
+   "efectos": [
+    "Nefrotoxicidad. Ototoxicidad (coclear y con menor frecuencia vestibular). Bloqueo neuromuscular es raro. Flebitis en sitio de inyección. Parestesias peribucales, toxicodermia, dermatitis de contacto."
+   ],
+   "tiempos": [
+    "Vida media: 2 hs (hasta 60 hs en IRC).",
+    "Eliminación: Renal (95% inmodificado)",
+    "Distribución: Vd: 0,25 L/kg (alcanza hasta 10% en LCR)",
+    "Farmacodinamia: bactericida (concentracion_dependiente)."
+   ],
+   "precauciones": [
+    "Embarazo: Evitar si existe otra alternativa (C-D dependiendo de la bibliografia consultada).",
+    "Lactancia: Riesgo muy bajo. Puede emplearse.",
+    "Precauciones: Monitorear: prematuros, recién nacidos y ancianos, función auditiva. Ajustar dosis en pte con I.R. Riesgo de sobreinfección por microorganismos resistentes, bloqueo neuromuscular con anestesia, y de nefrotoxicidad y ototoxicidad. Trastorno neurológico o muscular, miastenia gravis y párkinson; mantener buena hidratación. No emplear dosis única diaria en inmunocomprometidos, IR y embarazo.",
+    "Administración: - En caso de que se administren otros antibióticos, como penicilinas y cefalosporinas, separar la administración cuando menos 1 h antes o después de la de gentamicina."
+   ],
+   "vademecum": "gentamicina",
+   "area": "farmacos",
+   "tipo": "farmaco",
+   "estado": "guia",
+   "definicion": "Antibiótico · Aminoglucósido",
+   "unidad": "Antimicrobianos en Ginecología y Obstetricia"
+  }
+ ]
+}

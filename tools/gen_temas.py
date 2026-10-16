@@ -14,12 +14,13 @@ AREAS = {
     'ginecologia': dict(nombre='Ginecología y Obstetricia', ico='🌸', acc=(236, 72, 153), guia='Salud Integral de la Mujer'),
     'cirugia': dict(nombre='Cirugía', ico='🔪', acc=(14, 165, 233), guia='Introducción a las Especialidades Clínico-Quirúrgicas'),
     'criterios': dict(nombre='Criterios y escalas', ico='📊', acc=(139, 92, 246), guia='Criterios, clasificaciones y escalas clínicas'),
+    'farmacos': dict(nombre='Fármacos', ico='💊', acc=(20, 184, 166), guia='Farmacología clínica en Ginecología y Obstetricia'),
 }
 e = html.escape
 
 def cargar():
     out, unidades = [], {}
-    for f in ('data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'data/flashcards_criterios.json'):
+    for f in ('data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'data/flashcards_criterios.json', 'data/flashcards_farmacos.json'):
         d = json.load(open(os.path.join(ROOT, f), encoding='utf8'))
         unidades.update(d['meta'].get('unidades', {}))
         for p in d['patologias']:
@@ -41,7 +42,7 @@ def plano_tx(p):
     return ' '.join(f"{b['titulo']}: " + ' '.join(f"{s['etiqueta']} {s['texto']}" for s in b.get('pasos', [])) for b in p.get('tratamiento', []))
 
 PAPEL = {'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe',
-         'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff'}
+         'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff', 'fx1': '#fecdd3', 'fx2': '#ddd6fe', 'fx3': '#bae6fd', 'fx4': '#fbcfe8', 'fx5': '#bbf7d0'}
 RX_DOSIS = re.compile(r'(\d+(?:[.,]\d+)?(?:\s?[–-]\s?\d+(?:[.,]\d+)?)?\s?(?:mg/kg/h|mg/kg/día|mg/kg|mg/día|mg/m²|mg/ml|mg|mcg|µg|µg/kg|UI|mUI/ml|mU/min|UI/l|ml/h|ml|mL|g/día|g|U|%|semanas?|días?|horas?|meses|minutos|h|años|cm|mm|mmHg|mg/dl|ng/ml|µmol/l))(?![A-Za-zÁÉÍÓÚáéíóúñ])')
 def fmt(texto):
     partes = re.split(r'(?<=[.;])\s+(?=[A-ZÁÉÍÓÚÑ¿(])', re.sub(r'\s+', ' ', str(texto)).strip())
@@ -56,7 +57,9 @@ def fmt(texto):
 def lista(items, cls=''):
     return '<ul%s>' % (' class="%s"' % cls if cls else '') + ''.join('<li>%s</li>' % fmt(x) for x in items) + '</ul>'
 
-SEC_ICO = {'diagnostico': ('🩺', '#3b82f6'), 'estudios': ('🧪', '#0d9488'), 'banderas': ('🚩', '#dc2626'), 'tratamiento': ('💊', '#db2777'), 'seguimiento': ('📈', '#d97706')}
+SEC_ICO = {'diagnostico': ('🩺', '#3b82f6'), 'estudios': ('🧪', '#0d9488'), 'banderas': ('🚩', '#dc2626'), 'tratamiento': ('💊', '#db2777'), 'seguimiento': ('📈', '#d97706'),
+           'fisiopatologia': ('🧬', '#9333ea'), 'tamizaje': ('🔍', '#0d9488'), 'algoritmo': ('🗺️', '#ea580c'), 'farmacos': ('🧴', '#be185d'),
+           'indicaciones': ('🎯', '#2563eb'), 'mecanismo': ('⚙️', '#9333ea'), 'dosis': ('💉', '#db2777'), 'contra': ('⛔', '#dc2626'), 'efectos': ('⚠️', '#d97706'), 'tiempos': ('⏱️', '#059669'), 'precauciones': ('🤰', '#7c3aed')}
 def seccion(n, titulo, cuerpo, ident):
     ico, col = SEC_ICO.get(ident, ('📌', '#6366f1'))
     return f'<details class="tm-sec" id="{ident}" open style="--sc:{col}"><summary><span class="ic">{ico}</span><span class="tt">{titulo}</span><span class="chev" aria-hidden="true"></span></summary><div class="tm-body">{cuerpo}</div></details>'
@@ -192,7 +195,7 @@ def head(titulo, desc, url, img, jsonld, extra_meta=''):
 {estilo_base()}
 <link rel="stylesheet" href="/css/guias.css?v=2">
 <link rel="stylesheet" href="/css/navmovil.css?v=3">
-<style>{CSS_EXTRA}</style>
+<style>{CSS_EXTRA}{CSS_ALG}</style>
 </head>
 <body>
 <div id="g-progress" aria-hidden="true"></div>
@@ -258,10 +261,55 @@ def guias_tabs(pid, ar_l, int_l, nota_ar, nota_int):
             '<div class="tm-gpa">%s</div><div class="tm-gpi">%s</div>' % (('<ul>' + ''.join(_ref_li(r) for r in ar_l) + '</ul>') if ar_l else '<p class="tm-gsin">%s</p>' % vac_ar, ('<ul>' + ''.join(_ref_li(r) for r in int_l) + '</ul>') if int_l else '<p class="tm-gsin">%s</p>' % vac_int) +
             '<p class="tm-grev">Fuentes revisadas el 16/10/2026. Resumen de lo verificado: no reemplaza la lectura del documento.</p></div>')
 
+
+def alg_nodos(ns):
+    out = '<ol class="fa-flujo">'
+    for n in ns or []:
+        caja = '<div class="fa-caja">%s</div>' % fmt(n['txt'])
+        if n.get('t') == 'decision':
+            out += '<li class="fa-n fa-decision">%s<div class="fa-ram"><div class="fa-si"><b>Sí</b>%s</div><div class="fa-no"><b>No</b>%s</div></div></li>' % (caja, alg_nodos(n.get('si')), alg_nodos(n.get('no')))
+        else:
+            out += '<li class="fa-n fa-%s">%s</li>' % (e(n.get('t', 'accion')), caja)
+    return out + '</ol>'
+
+def alg_plano(ns):
+    t = []
+    for n in ns or []:
+        t.append(n['txt'])
+        if n.get('t') == 'decision': t += [alg_plano(n.get('si')), alg_plano(n.get('no'))]
+    return ' '.join(x for x in t if x)
+
+def bloques(b):
+    out = ''
+    for q in b or []:
+        out += '<h3 class="tm-sub">%s</h3><ul class="tm-pasos">' % e(q['titulo']) + ''.join('<li class="tm-paso"><b>%s</b><span>%s</span></li>' % (e(x['etiqueta']), fmt(x['texto'])) for x in q.get('pasos', [])) + '</ul>'
+    return out
+
+CSS_ALG = """
+.fa-wrap{overflow-x:auto;padding:6px 2px 2px}
+.fa-flujo{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:center}
+.fa-n{position:relative;display:flex;flex-direction:column;align-items:center;width:100%;padding-bottom:18px;margin:0}
+.fa-n::before{content:none}.fa-n::after{content:'';position:absolute;bottom:2px;left:50%;width:2px;height:14px;margin-left:-1px;background:#64748b}
+.tm-body li.fa-n{padding-left:0}.tm-body li.fa-n::before{content:'';position:absolute;left:50%;top:auto;bottom:0;width:0;height:0;margin-left:-5px;border:5px solid transparent;border-top:7px solid #64748b;border-bottom:0;background:none;border-radius:0}
+.fa-n:last-child{padding-bottom:0}.fa-n:last-child::after,.tm-body li.fa-n:last-child::before{display:none}
+.fa-caja{max-width:100%;padding:9px 14px;border-radius:12px;border:2px solid #38bdf8;background:rgba(15,23,42,.85);color:#e2e8f0;font-size:.86rem;line-height:1.45;text-align:center}
+.fa-inicio>.fa-caja{border-radius:99px;background:rgba(56,189,248,.18);font-weight:800;color:#fff}.fa-accion>.fa-caja{border-color:#2dd4bf}
+.fa-decision>.fa-caja{border-color:#fbbf24;background:rgba(251,191,36,.12);color:#fff;font-weight:700}.fa-decision>.fa-caja::before{content:'◆ ';color:#fbbf24}
+.fa-fin>.fa-caja{border-radius:99px;border-color:#4ade80;background:rgba(74,222,128,.14);color:#fff;font-weight:800}
+.fa-ram{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:12px;position:relative}.fa-ram::before{content:'';position:absolute;top:-8px;left:25%;right:25%;height:2px;background:#64748b}
+.fa-si,.fa-no{padding:8px 6px 6px;border-radius:14px;min-width:0}.fa-si{background:rgba(22,163,74,.1);border:1px dashed rgba(74,222,128,.55)}.fa-no{background:rgba(220,38,38,.08);border:1px dashed rgba(248,113,113,.5)}
+.fa-si>b,.fa-no>b{display:inline-block;margin:0 0 6px;padding:2px 11px;border-radius:99px;font-size:.72rem;color:#fff}.fa-si>b{background:#16a34a}.fa-no>b{background:#dc2626}
+.fa-ram .fa-ram{grid-template-columns:1fr}.fa-ram .fa-ram::before{display:none}
+@media(max-width:560px){.fa-ram{grid-template-columns:1fr}.fa-ram::before{display:none}}
+.tm-fx{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}.tm-fx a{display:block;padding:11px 13px;border:1px solid rgba(148,163,184,.3);border-radius:12px;background:rgba(15,23,42,.55);color:#e2e8f0;font-weight:800;font-size:.88rem;text-decoration:none}
+.tm-fx a:hover{border-color:#c084fc}.tm-fx small{display:block;color:#94a3b8;font-weight:600;margin-top:2px}
+"""
+
 def main():
     pats, unidades = cargar()
     nav, foot = nav_footer()
     os.makedirs(os.path.join(ROOT, 'temas'), exist_ok=True)
+    por_id = {x['id']: x for x in pats}
     por_up = {}
     for p in pats:
         for u in p.get('up', []): por_up.setdefault(u, []).append(p)
@@ -274,27 +322,44 @@ def main():
         url = f"{SITE}/temas/{p['id']}.html"
         img = f"{SITE}/assets/og/temas/{p['id']}.jpg"
         og_imagen(p, a, unidad)
-        titulo = f"{p['titulo']}: diagnóstico y tratamiento (resumen) | NikaMed"
+        es_far0 = p.get('tipo') == 'farmaco'
+        titulo = f"{p['titulo']}: indicaciones, dosis y efectos adversos (resumen) | NikaMed" if es_far0 else f"{p['titulo']}: diagnóstico y tratamiento (resumen) | NikaMed"
         lead = primera_oracion(p.get('definicion', ''))
         desc = corto(f"{p['titulo']}: {lead} Resumen clínico para estudiantes de Medicina con tratamiento y banderas rojas. Practicalo gratis en NikaMed.", 300)
-        desc_meta = corto(f"{p['titulo']}: resumen clínico para estudiantes de Medicina con diagnóstico, tratamiento y banderas rojas según {f.get('sociedad','la bibliografía de la cátedra')}. Gratis en NikaMed.", 158)
+        desc_meta = corto(f"{p['titulo']}: indicaciones, mecanismo, dosis, contraindicaciones, efectos adversos y vida media según {f.get('sociedad','la bibliografía')}. Gratis en NikaMed.", 158) if es_far0 else corto(f"{p['titulo']}: resumen clínico para estudiantes de Medicina con diagnóstico, tratamiento y banderas rojas según {f.get('sociedad','la bibliografía de la cátedra')}. Gratis en NikaMed.", 158)
         # ---- cuerpo
         partes = []
         n = 0
         IDX = []
-        dx = ''
-        if p.get('definicion'): dx += '<p class="tm-def">' + fmt(p['definicion']) + '</p>'
         crit = p['area'] == 'criterios'
-        if p.get('diagnostico'): dx += '<h3 class="tm-sub">' + ('Criterios' if crit else 'Cómo se diagnostica') + '</h3>' + lista(p['diagnostico'])
-        if dx: n += 1; partes.append(seccion(n, 'Qué es y criterios' if crit else 'Definición y diagnóstico', dx, 'diagnostico')); IDX.append(('diagnostico', 'Diagnóstico'))
-        if p.get('estudios'): n += 1; partes.append(seccion(n, 'Cómo se usa' if crit else 'Estudios complementarios', lista(p['estudios']), 'estudios')); IDX.append(('estudios', 'Cómo se usa' if crit else 'Estudios'))
-        if p.get('banderas'): n += 1; partes.append(seccion(n, 'Tené en cuenta' if crit else 'Banderas rojas', lista(p['banderas'], 'tm-rojo'), 'banderas')); IDX.append(('banderas', 'Tené en cuenta' if crit else 'Banderas rojas'))
-        if p.get('tratamiento'):
-            tx = ''
-            for b in p['tratamiento']:
-                tx += f'<h3 class="tm-sub">{e(b["titulo"])}</h3><ul class="tm-pasos">' + ''.join(f'<li class="tm-paso"><b>{e(s["etiqueta"])}</b><span>{fmt(s["texto"])}</span></li>' for s in b.get('pasos', [])) + '</ul>'
-            n += 1; partes.append(seccion(n, 'Interpretación y conducta' if crit else 'Tratamiento', tx, 'tratamiento')); IDX.append(('tratamiento', 'Interpretación' if crit else 'Tratamiento'))
-        if p.get('seguimiento'): n += 1; partes.append(seccion(n, 'Seguimiento', lista(p['seguimiento']), 'seguimiento')); IDX.append(('seguimiento', 'Seguimiento'))
+        es_far = p.get('tipo') == 'farmaco'
+        if es_far:
+            if p.get('indicaciones'): n += 1; partes.append(seccion(n, 'Indicaciones', lista(p['indicaciones']), 'indicaciones')); IDX.append(('indicaciones', 'Indicaciones'))
+            if p.get('mecanismo'): n += 1; partes.append(seccion(n, 'Mecanismo de acción', lista(p['mecanismo']), 'mecanismo')); IDX.append(('mecanismo', 'Mecanismo'))
+            if p.get('dosis'): n += 1; partes.append(seccion(n, 'Dosis, vías y dosis máxima', bloques(p['dosis']), 'dosis')); IDX.append(('dosis', 'Dosis'))
+            if p.get('contraindicaciones'): n += 1; partes.append(seccion(n, 'Contraindicaciones', lista(p['contraindicaciones'], 'tm-rojo'), 'contra')); IDX.append(('contra', 'Contraindicaciones'))
+            if p.get('efectos'): n += 1; partes.append(seccion(n, 'Efectos adversos', lista(p['efectos']), 'efectos')); IDX.append(('efectos', 'Efectos adversos'))
+            if p.get('tiempos'): n += 1; partes.append(seccion(n, 'Tiempos y vida media', lista(p['tiempos']), 'tiempos')); IDX.append(('tiempos', 'Vida media'))
+            if p.get('precauciones'): n += 1; partes.append(seccion(n, 'Precauciones, embarazo y lactancia', lista(p['precauciones']), 'precauciones')); IDX.append(('precauciones', 'Precauciones'))
+        else:
+            dx = ''
+            if p.get('definicion'): dx += '<p class="tm-def">' + fmt(p['definicion']) + '</p>'
+            if p.get('diagnostico'): dx += '<h3 class="tm-sub">' + ('Criterios' if crit else 'Cómo se diagnostica') + '</h3>' + lista(p['diagnostico'])
+            if dx: n += 1; partes.append(seccion(n, 'Qué es y criterios' if crit else 'Definición y diagnóstico', dx, 'diagnostico')); IDX.append(('diagnostico', 'Diagnóstico'))
+            if p.get('fisiopatologia'): n += 1; partes.append(seccion(n, 'Fisiopatología', lista(p['fisiopatologia']), 'fisiopatologia')); IDX.append(('fisiopatologia', 'Fisiopatología'))
+            if p.get('tamizaje'): n += 1; partes.append(seccion(n, 'Screening y prevención', lista(p['tamizaje']), 'tamizaje')); IDX.append(('tamizaje', 'Screening'))
+            if p.get('estudios'): n += 1; partes.append(seccion(n, 'Cómo se usa' if crit else 'Estudios complementarios', lista(p['estudios']), 'estudios')); IDX.append(('estudios', 'Cómo se usa' if crit else 'Estudios'))
+            if p.get('banderas'): n += 1; partes.append(seccion(n, 'Tené en cuenta' if crit else 'Banderas rojas', lista(p['banderas'], 'tm-rojo'), 'banderas')); IDX.append(('banderas', 'Tené en cuenta' if crit else 'Banderas rojas'))
+            if (p.get('algoritmo') or {}).get('nodos'):
+                al = p['algoritmo']; n += 1
+                partes.append(seccion(n, 'Algoritmo de manejo', (('<h3 class="tm-sub">%s</h3>' % e(al['titulo'])) if al.get('titulo') else '') + '<div class="fa-wrap">' + alg_nodos(al['nodos']) + '</div>', 'algoritmo')); IDX.append(('algoritmo', 'Algoritmo'))
+            if p.get('tratamiento'):
+                n += 1; partes.append(seccion(n, 'Interpretación y conducta' if crit else 'Tratamiento', bloques(p['tratamiento']), 'tratamiento')); IDX.append(('tratamiento', 'Interpretación' if crit else 'Tratamiento'))
+            if p.get('farmacos'):
+                fx = [por_id[i] for i in p['farmacos'] if i in por_id]
+                if fx:
+                    n += 1; partes.append(seccion(n, 'Fármacos', '<div class="tm-fx">' + ''.join('<a href="/temas/%s.html">%s<small>%s</small></a>' % (q['id'], e(q['titulo']), e(corto(q.get('definicion', ''), 60))) for q in fx) + '</div>', 'farmacos')); IDX.append(('farmacos', 'Fármacos'))
+            if p.get('seguimiento'): n += 1; partes.append(seccion(n, 'Seguimiento', lista(p['seguimiento']), 'seguimiento')); IDX.append(('seguimiento', 'Seguimiento'))
         tipo = f.get('tipo', 'guia')
         etiqueta = 'Basada en guía' if tipo == 'guia' else 'Fuente validada de la cátedra'
         enlace = f.get('archivo', '')
@@ -327,6 +392,11 @@ def main():
             rel_html = '<div class="legal-card g-sec g-rv" id="relacionados"><h2>Temas relacionados</h2><div class="tm-rel">' + ''.join(
                 f'<a href="/temas/{q["id"]}.html">{e(q["titulo"])}<small>{e(unidades.get((q.get("up") or [""])[0], ""))}</small></a>' for q in rel) + '</div></div>'
         faq = [{"@type": "Question", "name": f"¿Cuál es el tratamiento de {p['titulo']}?", "acceptedAnswer": {"@type": "Answer", "text": corto(plano_tx(p), 900)}}] if p.get('tratamiento') else []
+        if es_far0 and p.get('dosis'):
+            faq = [{"@type": "Question", "name": f"¿Cuál es la dosis de {p['titulo']}?", "acceptedAnswer": {"@type": "Answer", "text": corto(' '.join(b['titulo'] + ': ' + ' '.join(x['etiqueta'] + ' ' + x['texto'] for x in b['pasos']) for b in p['dosis']), 900)}}]
+            if p.get('contraindicaciones'): faq.append({"@type": "Question", "name": f"¿Cuáles son las contraindicaciones de {p['titulo']}?", "acceptedAnswer": {"@type": "Answer", "text": corto(' '.join(p['contraindicaciones']), 700)}})
+        if (p.get('algoritmo') or {}).get('nodos'):
+            faq.append({"@type": "Question", "name": f"¿Cuál es el algoritmo de manejo de {p['titulo']}?", "acceptedAnswer": {"@type": "Answer", "text": corto(alg_plano(p['algoritmo']['nodos']), 900)}})
         if p.get('banderas'):
             faq.append({"@type": "Question", "name": f"¿Cuáles son las banderas rojas de {p['titulo']}?", "acceptedAnswer": {"@type": "Answer", "text": corto(' '.join(p['banderas']), 700)}})
         ld = {"@context": "https://schema.org", "@graph": [
@@ -348,7 +418,7 @@ def main():
         <span class="legal-eyebrow">{e(a['nombre'])}</span>
         <h1>{e(p['titulo'])}</h1>
         <p class="legal-meta">{e(unidad)} · Actualizado el 16 de octubre de 2026</p>
-        <div class="g-chips"><span class="g-chip">Gratis</span><span class="g-chip">{etiqueta}</span><span class="g-chip">Resumen clínico</span></div>
+        <div class="g-chips"><span class="g-chip">Gratis</span><span class="g-chip">{etiqueta}</span><span class="g-chip">{'Ficha de fármaco' if es_far0 else 'Resumen clínico'}</span></div>
     </header>
 
     <main>

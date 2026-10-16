@@ -5,8 +5,8 @@
    El motor y los datos se cargan recién al abrir por primera vez, así no pesan en las páginas que lo incluyen. */
 (function () {
   if (window.NikaCalcPanel) return;
-  const V = '11';
-  const SCRIPTS = ['motor', 'datos-obstetricia', 'datos-cirugia', 'datos-clinica', 'datos-general', 'datos-extra', 'fuentes-ar'].map((n) => '/js/calc/' + n + '.js?v=' + V);
+  const V = '12';
+  const SCRIPTS = ['motor', 'datos-obstetricia', 'datos-cirugia', 'datos-clinica', 'datos-general', 'datos-extra', 'datos-eco', 'fuentes-ar'].map((n) => '/js/calc/' + n + '.js?v=' + V);
   const MODULOS = { ginecologia: ['obstetricia', 'Ginecología y Obstetricia'], obstetricia: ['obstetricia', 'Ginecología y Obstetricia'], cirugia: ['cirugia', 'Cirugía'], siam: ['clinica', 'Clínica médica'], clinica: ['clinica', 'Clínica médica'], pediatria: ['pediatria', 'Pediatría'] };
   let ov = null, host = null, api = null, cargando = null, previo = null;
   let dk = null, dkHost = null, dkApi = null, dkCfg = {};

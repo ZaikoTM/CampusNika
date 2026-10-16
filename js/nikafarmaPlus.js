@@ -476,7 +476,7 @@
     const bar = document.createElement('div');
     bar.className = 'nfp-bar';
     bar.innerHTML = `
-      <button type="button" class="nfp-btn" data-nfp="scores">🧮 Scores y calculadoras <span class="nfp-n">77</span></button>
+      <button type="button" class="nfp-btn" data-nfp="scores">🧮 Scores y calculadoras <span class="nfp-n">81</span></button>
       <button type="button" class="nfp-btn" data-nfp="peds">👶 Dosis pediátrica</button>`;
     (chips || main).parentNode.insertBefore(bar, chips || main);
     bar.querySelector('[data-nfp="scores"]').onclick = () => { if (window.NikaCalcPanel) window.NikaCalcPanel.abrir(); else abrirModal('curb'); };

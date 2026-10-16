@@ -1,0 +1,220 @@
+# -*- coding: utf-8 -*-
+"""Fichas de fármacos de Ginecología y Obstetricia (revisión 2026-10-16).
+Cada dato proviene de: prospectos de la FDA (openFDA, consultados el 2026-10-16), el Consenso FASGO de Hemorragia Posparto 2019,
+la Guía de hipertensión en el embarazo del Ministerio de Salud de la Nación, el consenso SOGIBA 2018 / FASGO 2014 de parto pretérmino (fichas de NikaFarma)
+y el vademécum de NikaFarma (AAFH 2024) para los antimicrobianos. Lo que no se pudo verificar no se incluye."""
+
+FDA = 'Prospecto FDA (openFDA, 2026)'
+FASGO_HPP = 'Consenso FASGO de Hemorragia Posparto (2019)'
+GUIA_HTA = 'Guía para el diagnóstico y tratamiento de la hipertensión en el embarazo (Ministerio de Salud de la Nación)'
+
+def P(etiqueta, texto):
+    return {'etiqueta': etiqueta, 'texto': texto}
+
+UNIDADES = {
+    'fx1': 'Uterotónicos y hemorragia posparto',
+    'fx2': 'Preeclampsia y antihipertensivos del embarazo',
+    'fx3': 'Parto pretérmino y maduración fetal',
+    'fx4': 'Anticoncepción y endocrinología ginecológica',
+    'fx5': 'Antimicrobianos en Ginecología y Obstetricia',
+}
+
+FARMACOS = [
+    # ------------------------------------------------------------------ fx1
+    dict(id='fx-oxitocina', titulo='Oxitocina', alias=['ocitocina', 'pitocin', 'uterotónico'], up=['fx1'], clase='Uterotónico (hormona sintética)',
+         fuente=dict(tipo='guia', guia='Consenso de Hemorragia Posparto + prospecto FDA', sociedad='FASGO / FDA', anio=2019),
+         indicaciones=['Prevención de la hemorragia posparto en el alumbramiento: uterotónico de primera elección (recomendación fuerte de la OMS).', 'Tratamiento de la atonía uterina y de la hemorragia posparto.', 'Inducción o estimulación del trabajo de parto por indicación médica (no electiva).', 'Evacuación en el aborto incompleto o inevitable.'],
+         mecanismo=['Actúa sobre el músculo liso uterino: estimula contracciones rítmicas, aumenta su frecuencia y eleva el tono, con acción selectiva hacia el final del embarazo, durante el parto y tras el nacimiento. No tiene los efectos presores de la vasopresina.'],
+         dosis=[dict(titulo='Hemorragia posparto', pasos=[P('Alumbramiento', '10 UI, por vía EV preferentemente (también IM tras la salida de la placenta).'), P('Infusión posterior', '20 UI en 500 mL durante la primera hora y 20 UI más en las 8 horas siguientes (esquema de la mayoría de las guías).'), P('Atonía establecida', '10 a 40 UI en 1.000 mL de solución no hidratante, a la velocidad necesaria para controlar la atonía.')]),
+                dict(titulo='Inducción del trabajo de parto', pasos=[P('Preparación', '5 UI en 500 mL de fisiológica o Ringer lactato por bomba de infusión continua (consenso FASGO 2019); el prospecto usa 10 UI en 1.000 mL (10 mU/mL).'), P('Inicio', '1 a 2 mU/min; aumentar de a 1 a 2 mU/min hasta lograr una dinámica similar a la del parto normal.'), P('Máxima', 'No hay una dosis máxima fija: se titula según la respuesta uterina y se suspende de inmediato ante hiperactividad uterina o sufrimiento fetal.')])],
+         contraindicaciones=['Desproporción cefalopélvica significativa.', 'Presentaciones o posiciones fetales que no pueden ser entregadas sin conversión previa (por ejemplo, transversa).', 'Emergencias obstétricas en las que el riesgo-beneficio favorece la cirugía.', 'Sufrimiento fetal sin parto inminente; patrones uterinos hipertónicos.', 'Uso prolongado en inercia uterina o en toxemia grave; hipersensibilidad.'],
+         efectos=['Náuseas y vómitos; extrasístoles ventriculares y otras arritmias.', 'Reacción anafiláctica; hematoma pélvico.', 'Con dosis excesivas: hipertonía uterina, espasmo, contracción tetánica y rotura uterina; mayor pérdida de sangre y afibrinogenemia.'],
+         tiempos=['Vida media: 3 a 5 minutos.', 'Requiere cadena de frío.', 'Vía EV preferente para el alumbramiento; en la inducción solo por infusión continua con bomba.']),
+
+    dict(id='fx-carbetocina', titulo='Carbetocina', alias=['uterotónico termoestable'], up=['fx1'], clase='Uterotónico (agonista sintético de la oxitocina)',
+         fuente=dict(tipo='guia', guia='Consenso de Hemorragia Posparto', sociedad='FASGO', anio=2019),
+         indicaciones=['Prevención de la hemorragia posparto por atonía uterina (uterotónico del kit de código rojo).'],
+         mecanismo=['Agonista sintético de la oxitocina con la ventaja de ser termoestable: mantiene su eficacia durante 1 mes a 60 °C.'],
+         dosis=[dict(titulo='Esquema', pasos=[P('Dosis', '100 µg en una única inyección endovenosa lenta.'), P('Máxima', 'Dosis única: no se repite en el esquema del consenso.')])],
+         contraindicaciones=['El consenso FASGO revisado no detalla las contraindicaciones: consultar el prospecto ANMAT del preparado.'],
+         efectos=['El consenso FASGO revisado no los detalla: consultar el prospecto ANMAT del preparado.'],
+         tiempos=['Tras la inyección EV provoca a los 2 minutos una contracción uterina tónica que dura 60 minutos; por vía IM prolonga su acción por 120 minutos.']),
+
+    dict(id='fx-metilergonovina', titulo='Metilergonovina (ergonovina)', alias=['ergometrina', 'metergin', 'alcaloide del cornezuelo'], up=['fx1'], clase='Uterotónico (alcaloide del cornezuelo del centeno)',
+         fuente=dict(tipo='guia', guia='Consenso de Hemorragia Posparto + prospecto FDA', sociedad='FASGO / FDA', anio=2019),
+         indicaciones=['Tras la salida de la placenta: manejo rutinario de la atonía uterina, la hemorragia y la subinvolución uterina.', 'Control de la hemorragia uterina en el segundo período, tras la salida del hombro anterior.'],
+         mecanismo=['Actúa directamente sobre el músculo liso uterino: aumenta el tono, la frecuencia y la amplitud de las contracciones rítmicas. Produce un efecto uterotónico tetánico rápido y sostenido que acorta el alumbramiento y reduce la pérdida de sangre.'],
+         dosis=[dict(titulo='Esquema', pasos=[P('IM', '0,2 mg (1 mL) tras el hombro anterior, tras el alumbramiento o en el puerperio; repetible cada 2 a 4 horas según necesidad.'), P('EV', '0,2 mg administrados lentamente, en no menos de 60 segundos.'), P('Máxima', 'El prospecto no fija una dosis diaria máxima en las vías parenterales: se repite según respuesta y tolerancia (vigilar la presión arterial).')])],
+         contraindicaciones=['Hipertensión arterial y toxemia (preeclampsia): es vasoconstrictora.', 'Embarazo (antes del alumbramiento).', 'Hipersensibilidad.'],
+         efectos=['Hipertensión, a veces con cefalea y convulsiones; también puede haber hipotensión.', 'Dolor abdominal (contracción uterina), náuseas y vómitos.', 'Raros: infarto agudo de miocardio, dolor torácico, vasoespasmo y espasmo coronario, bradicardia o taquicardia, disnea, tromboflebitis, alucinaciones.'],
+         tiempos=['Inicio: inmediato por vía EV; 2 a 5 minutos por vía IM; 5 a 10 minutos por vía oral.', 'Vida media de eliminación por vía IM: 3,4 horas en promedio (rango 1,5 a 12,7). El consenso FASGO describe una acción sostenida con vida media de 30 a 120 minutos.', 'Es inestable al calor.']),
+
+    dict(id='fx-carboprost', titulo='Carboprost (PGF2α)', alias=['hemabate', 'prostaglandina F2 alfa', 'carboprost trometamina'], up=['fx1'], clase='Prostaglandina F2α (análogo)',
+         fuente=dict(tipo='guia', guia='Prospecto FDA (Hemabate / carboprost trometamina)', sociedad='FDA', anio=2026),
+         indicaciones=['Hemorragia posparto refractaria por atonía uterina.', 'Aborto entre las semanas 13 y 20 en condiciones relacionadas con el aborto del segundo trimestre (falla de otro método, rotura de membranas, necesidad de repetir una instilación).'],
+         mecanismo=['Estimula en el útero grávido contracciones miometriales similares a las del trabajo de parto a término. Posparto, esas contracciones logran la hemostasia en el sitio de la placentación. También estimula el músculo liso gastrointestinal.'],
+         dosis=[dict(titulo='Hemorragia posparto refractaria', pasos=[P('Dosis', '250 µg (1 mL) IM profunda.'), P('Repetir', 'Si hace falta, cada 15 a 90 minutos según la respuesta (la mayoría responde a una sola dosis).'), P('Máxima', 'No superar 2 mg en total (8 dosis).')])],
+         contraindicaciones=['Hipersensibilidad (incluida anafilaxia y angioedema).', 'Enfermedad pélvica inflamatoria aguda.', 'Enfermedad cardíaca, pulmonar, renal o hepática activa.', 'Debe usarse en un hospital con atención intensiva y quirúrgica inmediata.'],
+         efectos=['Vómitos y diarrea (cerca de dos tercios de las pacientes) y náuseas (un tercio): se reducen con antieméticos y antidiarreicos.', 'Aumento de la temperatura mayor de 2 °F y rubor.', 'Los efectos suelen ser transitorios y reversibles al suspender.'],
+         tiempos=['Las concentraciones máximas caen por debajo del pico previo a las 2 horas de cada inyección.', 'No se halló la vida media en el texto del prospecto revisado.']),
+
+    dict(id='fx-misoprostol', titulo='Misoprostol', alias=['cytotec', 'prostaglandina E1', 'maduración cervical'], up=['fx1'], clase='Prostaglandina E1 (análogo)',
+         fuente=dict(tipo='guia', guia='Consenso de Hemorragia Posparto, Consenso de Inducción + prospecto FDA', sociedad='FASGO / FDA', anio=2019),
+         indicaciones=['Hemorragia posparto: uterotónico incluido en el consenso FASGO (dosis única sugerida de 600 µg; puede combinarse con oxitocina).', 'Maduración cervical e inducción del trabajo de parto con cuello desfavorable.', 'Premedicación de la evacuación uterina en el aborto del primer trimestre.', 'Indicación del prospecto: reducir el riesgo de úlceras gástricas por AINE.'],
+         mecanismo=['Análogo de la prostaglandina E1: protector de la mucosa gástrica y uterotónico. Es termoestable.'],
+         dosis=[dict(titulo='Hemorragia posparto', pasos=[P('Dosis', '600 µg por vía oral en dosis única (la sugerida por el consenso); puede combinarse con oxitocina.')]),
+                dict(titulo='Inducción (consenso FASGO 2019)', pasos=[P('Vaginal', 'Iniciar con 25 µg cada 3 a 6 horas según la dinámica.'), P('Oral', '25 µg cada 2 horas o 50 µg cada 4 horas, 3 dosis.')]),
+                dict(titulo='Aborto del primer trimestre (premedicación, apunte de la cátedra)', pasos=[P('Esquema', '5 a 9 semanas: 200 µg 3 horas antes; 10 semanas: 200 µg 3 h y 30 min antes; 12 semanas: 200 µg 3 h y 400 µg 30 min antes. Verificar con el protocolo vigente del Ministerio de Salud.')]),
+                dict(titulo='Gastroprotección (prospecto)', pasos=[P('Dosis', '200 µg cuatro veces al día con las comidas (100 µg si no se tolera).')])],
+         contraindicaciones=['Embarazo cuando se usa para la úlcera gástrica: puede causar aborto, parto prematuro, malformaciones congénitas y rotura uterina (advertencia en recuadro).', 'Antecedente de alergia a las prostaglandinas.', 'Obstétrico: sospecha de ectópico, DIU, EPI, coagulopatías o anticoagulación (apunte de la cátedra); riesgo de rotura uterina que aumenta con la edad gestacional y la cicatriz uterina previa.'],
+         efectos=['Diarrea (dependiente de la dosis) y dolor abdominal: los más frecuentes en el prospecto.', 'Advertencia en recuadro: en embarazadas puede causar malformaciones congénitas, aborto, parto prematuro y rotura uterina.'],
+         tiempos=['Se absorbe a los 10 minutos por vía oral, sublingual, vaginal o rectal.', 'Las vías oral y sublingual son más rápidas; la vaginal y la rectal dan una acción más prolongada y mayor biodisponibilidad.', 'Vida media terminal del ácido de misoprostol: 20 a 40 minutos; el pico se alcanza a los 12 minutos.']),
+
+    dict(id='fx-acido-tranexamico', titulo='Ácido tranexámico', alias=['tranexámico', 'antifibrinolítico', 'amchafibrin'], up=['fx1'], clase='Antifibrinolítico (derivado sintético de la lisina)',
+         fuente=dict(tipo='guia', guia='Consenso de Hemorragia Posparto + prospecto FDA', sociedad='FASGO / FDA', anio=2019),
+         indicaciones=['Hemorragia posparto: usado dentro de las 3 primeras horas del inicio del sangrado disminuye el riesgo de muerte materna y de laparotomía para controlar el sangrado.', 'Prospecto: reducir o prevenir la hemorragia en pacientes con hemofilia durante y tras una extracción dentaria.'],
+         mecanismo=['Ocupa los sitios de unión de la lisina del plasminógeno e impide que se una a la fibrina: preserva y estabiliza la matriz de fibrina, de modo que la plasmina disuelve menos el coágulo.'],
+         dosis=[dict(titulo='Hemorragia posparto (FASGO 2019)', pasos=[P('Dosis', '1 g diluido en 10 mL de solución fisiológica, en infusión lenta.'), P('Repetir', 'Una segunda dosis de 1 g a los 30 minutos si persiste la hemorragia.'), P('Kit de código rojo', 'Ampollas de 2 g.')]),
+                dict(titulo='Prospecto (hemofilia)', pasos=[P('Dosis', '10 mg/kg EV, no infundir más de 1 mL/min para evitar hipotensión; reducir la dosis en insuficiencia renal.')])],
+         contraindicaciones=['Hemorragia subaracnoidea (riesgo de edema e infarto cerebral).', 'Coagulación intravascular activa.', 'Hipersensibilidad.'],
+         efectos=['Náuseas, vómitos y diarrea; mareo e hipotensión (con infusión rápida).', 'Dermatitis alérgica.', 'Eventos tromboembólicos; convulsiones y alteraciones visuales.'],
+         tiempos=['Vida media de eliminación: unas 2 horas.', 'El efecto antifibrinolítico dura hasta 8 horas.', 'Cerca del 90 % se elimina por orina en 24 horas.']),
+
+    # ------------------------------------------------------------------ fx2
+    dict(id='fx-sulfato-magnesio', titulo='Sulfato de magnesio', alias=['magnesio', 'eclampsia', 'neuroprotección fetal'], up=['fx2'], clase='Anticonvulsivante (catión divalente)',
+         fuente=dict(tipo='guia', guia=GUIA_HTA + ' + prospecto FDA', sociedad='Ministerio de Salud de la Nación / FDA', anio=2010),
+         indicaciones=['Prevención de la eclampsia en la preeclampsia grave (droga de primera línea).', 'Tratamiento de las convulsiones y prevención de su recurrencia en la eclampsia.', 'Neuroprotección fetal si el parto prematuro es inminente (entre las 24 y las 32+6 semanas, según el consenso SOGIBA 2018).'],
+         mecanismo=['Bloquea la transmisión neuromuscular al disminuir la acetilcolina liberada en la placa terminal; deprime el sistema nervioso central y produce vasodilatación periférica. Podría bloquear los receptores NMDA y proteger a las neuronas de la isquemia. No es antihipertensivo.'],
+         dosis=[dict(titulo='Esquema endovenoso (el recomendado por la guía)', pasos=[P('Ataque', '5 g (4 ampollas de 5 mL o 2 de 10 mL al 25 %) en 10 mL de dextrosa 5 %, en bolo EV lento en 10 a 15 minutos.'), P('Mantenimiento', '20 g en 500 mL de dextrosa 5 % o Ringer, a 1 g por hora (con bomba de infusión continua); 24 horas en el embarazo o el puerperio.'), P('Recurrencia de convulsiones', 'Repetir un bolo de 2,5 a 5 g.')]),
+                dict(titulo='Esquema intramuscular (solo si no hay vía venosa)', pasos=[P('Dosis', '10 g: 5 g en cada región glútea; muy doloroso.')]),
+                dict(titulo='Límite (prospecto)', pasos=[P('Máxima', 'Entre 30 y 40 g en 24 horas; en insuficiencia renal grave u oliguria (< 0,5 mL/kg/h): carga de 4 g y 1 g/h, sin superar 20 g en 48 horas. No usar más de 5 a 7 días.')])],
+         contraindicaciones=['Bloqueo cardíaco o daño miocárdico.', 'Coma diabético.', 'Miastenia gravis.', 'No administrar con salicilatos ni carbonatos alcalinos por la misma vía.'],
+         efectos=['Maternos: pérdida o abolición de los reflejos osteotendinosos, sofocos, hipotensión, depresión respiratoria hasta paro, bloqueo auriculoventricular, bradicardia.', 'Fetales: menor variabilidad de la frecuencia cardíaca fetal a corto plazo, sin relevancia clínica; no se asoció a depresión neonatal.', 'Intoxicación: antídoto gluconato de calcio 1 g EV lento; oxígeno y asistencia respiratoria.'],
+         tiempos=['Vida media en preeclámpticas: 4 a 5 horas; se elimina por orina.', 'Inicio de la acción anticonvulsivante: inmediato por vía EV; dura unos 30 minutos.', 'Control clínico: reflejo rotuliano presente, frecuencia respiratoria mayor de 16/min y diuresis mayor de 100 mL/h, cada 30 minutos. La pérdida del reflejo aparece con magnesemias de 10 a 12 mEq/L y la depresión respiratoria por encima de 15 mEq/L.']),
+
+    dict(id='fx-labetalol', titulo='Labetalol', alias=['trandate', 'antihipertensivo en el embarazo', 'crisis hipertensiva'], up=['fx2'], clase='Bloqueante alfa y beta adrenérgico',
+         fuente=dict(tipo='guia', guia=GUIA_HTA + ' + prospecto FDA', sociedad='Ministerio de Salud de la Nación / FDA', anio=2010),
+         indicaciones=['Hipertensión leve a moderada del embarazo (vía oral): recomendación I-A.', 'Crisis hipertensiva y preeclampsia grave (vía EV): droga más utilizada, recomendada con presión diastólica de 105 a 110 mmHg o más.'],
+         mecanismo=['Bloqueante no selectivo de los receptores beta y alfa-1, con actividad agonista parcial sobre los receptores beta-2.'],
+         dosis=[dict(titulo='Vía oral (guía nacional)', pasos=[P('Dosis diaria', '10 a 40 mg/día en comprimidos de 10 y 20 mg, en 1 a 4 tomas (la guía lista los rangos de dosis del cuadro 8).'), P('Prospecto (hipertensión general)', 'Inicio 100 mg dos veces al día; mantenimiento habitual 200 a 400 mg dos veces al día; titular cada 2 a 3 días sin superar incrementos de 200 mg dos veces al día.')]),
+                dict(titulo='Emergencia hipertensiva (guía nacional)', pasos=[P('Dosis', '20 mg (1 ampolla de 4 mL) en 100 mL de dextrosa 5 %, EV lento en 10 a 15 minutos; efecto máximo desde los 5 minutos.'), P('Escalada', 'Si no desciende la presión a los 15 minutos, duplicar: 40 mg; luego 80 mg; si persiste, repetir 80 mg.'), P('Meta', 'Tratar al llegar a 160-170/110 mmHg; respuesta: caída de 30 mmHg en la sistólica y 20 mmHg en la diastólica.')])],
+         contraindicaciones=['Asma bronquial y enfermedad obstructiva de las vías aéreas.', 'Insuficiencia cardíaca manifiesta, bloqueo auriculoventricular mayor de primer grado, shock cardiogénico, bradicardia grave.', 'Hipersensibilidad.'],
+         efectos=['Efectos leves y transitorios al inicio: mareo, fatiga, cefalea, hipotensión ortostática.', 'En el embarazo: evitar la caída brusca de la presión, que reduce el flujo uteroplacentario.'],
+         tiempos=['Absorción completa por vía oral; picos plasmáticos a las 1 a 2 horas.', 'El efecto antihipertensivo completo se ve dentro de 1 a 3 horas de la dosis.']),
+
+    dict(id='fx-nifedipina', titulo='Nifedipina', alias=['bloqueante cálcico', 'adalat', 'tocolítico', 'crisis hipertensiva'], up=['fx2', 'fx3'], clase='Bloqueante de los canales de calcio (dihidropiridina)',
+         fuente=dict(tipo='guia', guia=GUIA_HTA + ' + SOGIBA 2018 + prospecto FDA', sociedad='Ministerio de Salud / SOGIBA / FDA', anio=2018),
+         indicaciones=['Hipertensión leve a moderada del embarazo: preparado oral de liberación prolongada (recomendación I-A).', 'Crisis hipertensiva (vía oral), eficaz con menos efectos adversos materno-fetales.', 'Tocolisis de 48 horas en la amenaza de parto pretérmino (consenso SOGIBA 2018).'],
+         mecanismo=['Reduce la presión arterial por vasodilatación arterial periférica y menor resistencia vascular periférica, al bloquear el ingreso de calcio al músculo liso vascular.'],
+         dosis=[dict(titulo='Hipertensión (guía nacional)', pasos=[P('Preparado', 'Comprimidos de liberación lenta de 10 y 20 mg; no usar la vía sublingual (hipotensión brusca).'), P('Prospecto', '30 mg una vez al día en ayunas; mantenimiento 30 a 60 mg; no se recomiendan más de 90 mg por día.')]),
+                dict(titulo='Crisis hipertensiva (guía nacional)', pasos=[P('Dosis', '10 mg por vía oral cada 30 a 40 minutos según respuesta, en paciente consciente.'), P('Máxima', '40 mg en total.')]),
+                dict(titulo='Tocolisis (SOGIBA 2018)', pasos=[P('Esquema', '10 a 20 mg VO; repetir cada 20 minutos hasta 60 mg en la primera hora y luego 10 a 20 mg cada 6 a 8 horas.'), P('Máxima', '160 mg por día.')])],
+         contraindicaciones=['Shock cardiogénico.', 'Uso con inductores potentes del citocromo P450 (rifampicina).', 'Hipersensibilidad.', 'Guía nacional: contraindicada con asma, insuficiencia cardíaca, bloqueo auriculoventricular; evitar el jugo de pomelo.'],
+         efectos=['Edema periférico (el más frecuente, dependiente de la dosis), cefalea, sofocos.', 'Taquicardia refleja; fetal: taquicardia.', 'Tocolisis: no figura como indicación aprobada en el prospecto.'],
+         tiempos=['Vida media de eliminación de la forma de liberación prolongada: unas 7 horas (2 horas en la forma de liberación inmediata).', 'Picos plasmáticos a las 2,5 a 5 horas con la forma de liberación prolongada.']),
+
+    dict(id='fx-metildopa', titulo='Alfa-metildopa', alias=['aldomet', 'antihipertensivo de primera elección en el embarazo'], up=['fx2'], clase='Agonista alfa-2 adrenérgico de acción central',
+         fuente=dict(tipo='guia', guia=GUIA_HTA + ' + prospecto FDA', sociedad='Ministerio de Salud de la Nación / FDA', anio=2010),
+         indicaciones=['Hipertensión leve a moderada del embarazo: de primera elección para la mayoría de las sociedades científicas (recomendación I-A); seguridad bien documentada después del primer trimestre y durante la lactancia.'],
+         mecanismo=['Agonista alfa adrenérgico central que disminuye la resistencia periférica.'],
+         dosis=[dict(titulo='Esquema', pasos=[P('Guía nacional', '500 a 2.000 mg por día en comprimidos de 250 y 500 mg, en 2 a 4 dosis.'), P('Prospecto', 'Inicio 250 mg dos a tres veces al día durante 48 horas; ajustar cada 2 días como mínimo. Con otros antihipertensivos que no sean tiazidas, comenzar con 500 mg diarios.'), P('Máxima', 'El prospecto revisado no la detalla: en la guía nacional el rango llega a 2.000 mg/día.')])],
+         contraindicaciones=['Enfermedad hepática activa (hepatitis aguda, cirrosis activa) o trastorno hepático previo asociado a metildopa.', 'Tratamiento con inhibidores de la MAO.', 'Hipersensibilidad.'],
+         efectos=['Sedación, habitualmente transitoria al inicio o con los aumentos de dosis; cefalea, astenia.', 'Hipotensión ortostática; aumento de enzimas hepáticas; anemia hemolítica con prueba de Coombs positiva (efectos descritos en el prospecto).'],
+         tiempos=['Vida media plasmática: 105 minutos.', 'Atraviesa la placenta; la excreción es casi completa a las 36 horas.']),
+
+    dict(id='fx-hidralazina', titulo='Hidralazina', alias=['vasodilatador', 'crisis hipertensiva'], up=['fx2'], clase='Vasodilatador arterial directo',
+         fuente=dict(tipo='guia', guia=GUIA_HTA + ' + prospecto FDA', sociedad='Ministerio de Salud de la Nación / FDA', anio=2010),
+         indicaciones=['Crisis hipertensiva del embarazo (vía EV), como alternativa cuando no se dispone de labetalol ni de nifedipina.'],
+         mecanismo=['Vasodilatador arterial directo: reduce la resistencia periférica y mantiene o aumenta el flujo renal y cerebral.'],
+         dosis=[dict(titulo='Emergencia hipertensiva (guía nacional)', pasos=[P('Dosis', '5 mg EV; luego 5 a 10 mg EV cada 15 a 20 minutos hasta una dosis total de 40 mg.'), P('Mantenimiento', 'Logrado el efecto, continuar con esa dosis cada 6 horas.')]),
+                dict(titulo='Vía oral (prospecto, hipertensión esencial)', pasos=[P('Titulación', '10 mg cuatro veces al día los primeros 2 a 4 días, luego 25 mg y 50 mg cuatro veces al día.'), P('Máxima', 'En pacientes resistentes pueden requerirse hasta 300 mg por día; a dosis altas aumenta el síndrome lúpico.')])],
+         contraindicaciones=['Hipersensibilidad.', 'Enfermedad coronaria.', 'Enfermedad valvular mitral reumática.'],
+         efectos=['Cefalea, anorexia, náuseas, vómitos, palpitaciones, taquicardia, angina.', 'Hipotensión; efecto taquicardizante materno-fetal importante.', 'Se asoció a mayor incidencia de desprendimiento placentario (guía nacional).'],
+         tiempos=['Absorción rápida por vía oral; picos plasmáticos a las 1 a 2 horas.', 'Vida media de la hidralazina aparente: 3 a 7 horas.']),
+
+    # ------------------------------------------------------------------ fx3
+    dict(id='fx-betametasona', titulo='Betametasona (maduración pulmonar fetal)', alias=['corticoides antenatales', 'celestone', 'maduración fetal'], up=['fx3'], clase='Corticoide (glucocorticoide)',
+         fuente=dict(tipo='guia', guia='Consenso de Prevención del Parto Prematuro + ACOG CO 713 (resúmenes) + prospecto FDA', sociedad='SOGIBA / FASGO / ACOG', anio=2018),
+         indicaciones=['Un ciclo de corticoides antenatales entre las 24 y las 34 semanas (considerar desde las 23+0), aunque el parto sea inminente, ante riesgo de parto prematuro dentro de los 7 días.', 'ACOG (resúmenes secundarios): puede considerarse entre las 34+0 y las 36+6 semanas si no recibió corticoides y el parto sería dentro de 7 días; no en corioamnionitis clínica.'],
+         mecanismo=['Glucocorticoide de acción prolongada; en obstetricia se usa para acelerar la maduración fetal cuando se prevé un parto prematuro.'],
+         dosis=[dict(titulo='Ciclo único', pasos=[P('Betametasona', '12 mg IM cada 24 horas, 2 dosis (24 mg en total).'), P('Alternativa', 'Dexametasona 6 mg IM cada 12 horas, 4 dosis.'), P('Rescate', '12 mg si pasaron 7 días y vuelve el riesgo, hasta las 34 semanas.')])],
+         contraindicaciones=['Hipersensibilidad a la betametasona o a otros corticoides.', 'Evitar en corioamnionitis clínica (ACOG, resumen secundario).'],
+         efectos=['No se detallan en el texto revisado: consultar el prospecto ANMAT del preparado.'],
+         tiempos=['No se verificó la vida media en el texto revisado.', 'Las dos dosis se separan por 24 horas.']),
+
+    dict(id='fx-progesterona', titulo='Progesterona micronizada', alias=['utrogestan', 'prevención del parto pretérmino', 'cuello corto'], up=['fx3', 'fx4'], clase='Progestágeno natural',
+         fuente=dict(tipo='guia', guia='Consenso de Prevención del Parto Prematuro + prospecto FDA', sociedad='SOGIBA / FASGO / FDA', anio=2018),
+         indicaciones=['Prevención del parto pretérmino en embarazo único con antecedente de parto prematuro espontáneo y/o cuello corto (vía vaginal).', 'Prospecto (cápsula oral): amenorrea secundaria y prevención de la hiperplasia endometrial en mujeres posmenopáusicas con útero que reciben estrógenos.'],
+         mecanismo=['Progesterona micronizada, químicamente idéntica a la de origen ovárico; la micronización aumenta su biodisponibilidad oral.'],
+         dosis=[dict(titulo='Prevención del parto pretérmino (SOGIBA / FASGO)', pasos=[P('Dosis', 'Vaginal 100 a 200 mg/día desde las 16 semanas (o desde el diagnóstico de cuello corto) hasta la semana 36+6.')]),
+                dict(titulo='Prospecto (cápsula oral)', pasos=[P('Amenorrea secundaria', '400 mg al acostarse durante 10 días.'), P('Protección endometrial', '200 mg al acostarse durante 12 días por ciclo de 28.')])],
+         contraindicaciones=['Hipersensibilidad; contiene aceite de maní (alergia al maní).', 'Sangrado genital anormal sin diagnóstico.', 'Cáncer de mama conocido, sospechado o antecedente.', 'Trombosis venosa profunda activa.'],
+         efectos=['Ver la advertencia en recuadro y las reacciones adversas del ensayo en posmenopáusicas (cápsula oral) del prospecto.'],
+         tiempos=['Con la cápsula oral, las concentraciones máximas se alcanzan dentro de las 3 horas.']),
+
+    # ------------------------------------------------------------------ fx4
+    dict(id='fx-levonorgestrel-ec', titulo='Levonorgestrel (anticoncepción de emergencia)', alias=['píldora del día después', 'plan b', 'ae'], up=['fx4'], clase='Progestágeno',
+         fuente=dict(tipo='guia', guia='Prospecto FDA (Plan B One-Step)', sociedad='FDA', anio=2026),
+         indicaciones=['Reducir la probabilidad de embarazo después de una relación sin protección o de la falla de un método anticonceptivo.'],
+         mecanismo=['El texto del prospecto revisado no detalla el mecanismo de acción.'],
+         dosis=[dict(titulo='Esquema', pasos=[P('Dosis', '1,5 mg por vía oral en una sola toma, lo antes posible y dentro de las 72 horas (3 días) de la relación sin protección: cuanto antes, más eficaz.'), P('Vómitos', 'Si vomita dentro de las 2 horas, consultar a un profesional de la salud por si hay que repetir la dosis.')])],
+         contraindicaciones=['El texto revisado no las detalla.'], efectos=['El texto revisado no los detalla.'],
+         tiempos=['Tomar lo antes posible; la eficacia disminuye con el tiempo transcurrido.']),
+
+    dict(id='fx-medroxiprogesterona', titulo='Medroxiprogesterona de depósito (DMPA)', alias=['depo-provera', 'inyectable trimestral', 'anticonceptivo inyectable'], up=['fx4'], clase='Progestágeno de depósito',
+         fuente=dict(tipo='guia', guia='Prospecto FDA (acetato de medroxiprogesterona, suspensión inyectable)', sociedad='FDA', anio=2026),
+         indicaciones=['Anticoncepción en mujeres en edad reproductiva. No se recomienda como método a largo plazo (más de 2 años) salvo que otras opciones sean inadecuadas.'],
+         mecanismo=['Progestágeno de depósito de acción prolongada.'],
+         dosis=[dict(titulo='Esquema', pasos=[P('Dosis', '150 mg IM profunda (glútea o deltoidea) cada 3 meses (13 semanas); agitar bien la jeringa antes de usar.')])],
+         contraindicaciones=['Embarazo conocido o sospechado.', 'Tromboflebitis activa o antecedente de tromboembolismo o enfermedad cerebrovascular.', 'Cáncer de mama conocido o sospechado.'],
+         efectos=['Pérdida de densidad mineral ósea (advertencia en recuadro), que puede no recuperarse por completo.', 'Sangrado irregular, enfermedad tromboembólica, anafilaxia.'],
+         tiempos=['Vida media aparente tras la inyección IM: unos 50 días.', 'Se aplica cada 13 semanas.']),
+
+    dict(id='fx-clomifeno', titulo='Citrato de clomifeno', alias=['clomid', 'inducción de la ovulación', 'sop'], up=['fx4'], clase='Modulador selectivo del receptor de estrógenos',
+         fuente=dict(tipo='guia', guia='Consenso de SOP + prospecto FDA (Clomid)', sociedad='FASGO / FDA', anio=2025),
+         indicaciones=['Disfunción ovulatoria en mujeres que desean embarazo, sobre todo SOP y amenorrea.', 'Consenso FASGO de SOP: el letrozol es la droga de primera elección; el clomifeno es la alternativa más accesible y barata.'],
+         mecanismo=['Modulador selectivo del receptor de estrógenos: bloquea el feedback negativo y aumenta la liberación de gonadotrofinas, lo que induce la ovulación.'],
+         dosis=[dict(titulo='Esquema (prospecto)', pasos=[P('Inicio', '50 mg por día (1 comprimido) durante 5 días.'), P('Aumento', 'Solo en quienes no ovulan con 50 mg cíclicos; con SOP se recomienda dosis y duración bajas por la sensibilidad a las gonadotrofinas.'), P('Evaluación', 'Descartar embarazo, agrandamiento ovárico o quistes entre ciclos; la ovulación ocurre 5 a 10 días después del ciclo.')])],
+         contraindicaciones=['Embarazo (no ofrece beneficio).', 'Hipersensibilidad.', 'Antes de indicarlo hay que excluir o tratar otras causas de infertilidad.'],
+         efectos=['Embarazo múltiple (5 a 7 % en la guía FASGO) e hiperestimulación ovárica (0,3 %).', 'En las dosis recomendadas se tolera bien: las reacciones suelen ser leves y desaparecen al suspender el tratamiento (prospecto).'],
+         tiempos=['El zuclomifeno tiene una vida media más larga que el enclomifeno y puede detectarse más de un mes.', 'La ovulación ocurre 5 a 10 días después del curso.']),
+
+    dict(id='fx-cabergolina', titulo='Cabergolina', alias=['dostinex', 'hiperprolactinemia', 'agonista dopaminérgico'], up=['fx4'], clase='Agonista dopaminérgico (derivado ergótico)',
+         fuente=dict(tipo='apunte', guia='Apunte de la cátedra (hiperprolactinemia) + prospecto FDA', sociedad='Apunte Pontelli SIM / FDA', anio=2026),
+         indicaciones=['Hiperprolactinemia idiopática o por adenomas hipofisarios: agonista dopaminérgico de primera línea.', 'Evitar para inhibir la lactancia posparto por riesgo de reacciones adversas graves.'],
+         mecanismo=['Derivado ergótico con acción agonista sobre los receptores dopaminérgicos que inhibe la secreción de prolactina.'],
+         dosis=[dict(titulo='Esquema (prospecto)', pasos=[P('Antes de empezar', 'Evaluar valvulopatía cardíaca, incluida ecocardiografía.'), P('Inicio', '0,25 mg por vía oral dos veces por semana.'), P('Titulación', 'Subir 0,25 mg dos veces por semana a intervalos de 4 semanas o más, hasta normalizar la prolactina.'), P('Máxima', '1 mg dos veces por semana. El apunte de la cátedra cita 0,5 mg dos veces por semana.')])],
+         contraindicaciones=['Hipertensión no controlada.', 'Hipersensibilidad a los derivados ergóticos.', 'Antecedente de valvulopatía cardíaca.'],
+         efectos=['Fibrosis valvular, pericárdica, pleural, retroperitoneal y pulmonar; hipotensión ortostática.', 'Trastornos del control de impulsos y conductas compulsivas.'],
+         tiempos=['Vida media de eliminación: 63 a 69 horas.', 'Concentración máxima a las 2 a 3 horas de una dosis oral.']),
+
+    dict(id='fx-estradiol', titulo='Estradiol vaginal (crema)', alias=['estrace', 'atrofia vulvovaginal', 'terapia hormonal'], up=['fx4'], clase='Estrógeno',
+         fuente=dict(tipo='guia', guia='Prospecto FDA (Estrace crema vaginal)', sociedad='FDA', anio=2026),
+         indicaciones=['Síntomas moderados a graves de atrofia vulvar y vaginal por la menopausia.'],
+         mecanismo=['Estrógeno natural (17β-estradiol) de aplicación local.'],
+         dosis=[dict(titulo='Esquema', pasos=[P('Principio', 'Usar la dosis y el esquema más bajos que controlen los síntomas y por el menor tiempo posible; reevaluar periódicamente la necesidad.')])],
+         contraindicaciones=['El prospecto incluye una advertencia en recuadro: cáncer de endometrio, trastornos cardiovasculares, cáncer de mama y probable demencia.', 'El estrógeno solo aumenta el riesgo de cáncer de endometrio en mujeres con útero: agregar un progestágeno lo reduce.'],
+         efectos=['Ver la advertencia en recuadro: riesgo de cáncer de endometrio, eventos cardiovasculares, cáncer de mama y probable demencia.'],
+         tiempos=['No se verificó la vida media en el texto revisado.']),
+
+    dict(id='fx-alendronato', titulo='Alendronato', alias=['fosamax', 'bifosfonato', 'osteoporosis posmenopáusica'], up=['fx4'], clase='Bifosfonato',
+         fuente=dict(tipo='guia', guia='Prospecto FDA (alendronato, comprimido efervescente)', sociedad='FDA', anio=2026),
+         indicaciones=['Tratamiento de la osteoporosis posmenopáusica.', 'Duración óptima no establecida: en bajo riesgo de fractura considerar suspender a los 3 a 5 años.'],
+         mecanismo=['Bifosfonato que inhibe la resorción ósea mediada por osteoclastos.'],
+         dosis=[dict(titulo='Esquema (comprimido efervescente de 70 mg)', pasos=[P('Dosis', '70 mg una vez por semana, disuelto en medio vaso de agua; tomar al menos 30 minutos antes de la primera comida, bebida o medicamento del día.'), P('Postura', 'No acostarse durante al menos 30 minutos después de tomarlo.')])],
+         contraindicaciones=['Anomalías del esófago que retrasan su vaciamiento (estenosis, acalasia).', 'Imposibilidad de permanecer sentada o de pie durante 30 minutos.', 'Riesgo aumentado de aspiración.'],
+         efectos=['Reacciones adversas gastrointestinales altas; trastornos del metabolismo mineral.', 'Dolor musculoesquelético; osteonecrosis de la mandíbula; fracturas atípicas.'],
+         tiempos=['Vida media terminal en humanos: más de 10 años (liberación desde el esqueleto).', 'Las concentraciones plasmáticas caen más de 95 % en 6 horas tras la vía EV.']),
+]
+
+# Antimicrobianos: se arman desde el vademécum de NikaFarma (AAFH 2024)
+ANTIMICROBIANOS = [
+    ('metronidazol', ['vaginosis bacteriana', 'tricomoniasis', 'enfermedad pélvica inflamatoria']),
+    ('clindamicina', ['vaginosis bacteriana', 'profilaxis estreptococo grupo B', 'corioamnionitis']),
+    ('ceftriaxona', ['enfermedad pélvica inflamatoria', 'gonorrea']),
+    ('azitromicina', ['clamidia', 'infecciones de transmisión sexual']),
+    ('doxiciclina', ['enfermedad pélvica inflamatoria', 'clamidia']),
+    ('fluconazol', ['candidiasis vulvovaginal']),
+    ('penicilina', ['sífilis', 'profilaxis estreptococo grupo B']),
+    ('gentamicina', ['corioamnionitis', 'endometritis', 'aborto séptico']),
+]

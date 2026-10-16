@@ -5,12 +5,13 @@
   const URL_DATOS = 'data/nikafarma_patologias.json';
   const URL_CX = 'data/flashcards_cirugia.json';
   const URL_CR = 'data/flashcards_criterios.json';
+  const URL_FX = 'data/flashcards_farmacos.json';
   const KEY_OK = 'nika_fc_ok';
-  const PAPEL = { 'cr1': '#c7f9cc', 'cr2': '#fbcfe8', 'cr3': '#fecdd3', 'cr4': '#ddd6fe', 'cr5': '#fde68a', 'cr6': '#bae6fd', 'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe', 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
+  const PAPEL = { 'cr1': '#c7f9cc', 'cr2': '#fbcfe8', 'cr3': '#fecdd3', 'cr4': '#ddd6fe', 'cr5': '#fde68a', 'cr6': '#bae6fd', 'fx1': '#fecdd3', 'fx2': '#ddd6fe', 'fx3': '#bae6fd', 'fx4': '#fbcfe8', 'fx5': '#bbf7d0', 'cx1': '#c7f9cc', 'cx2': '#bae6fd', 'cx3': '#fde68a', 'cx4': '#fecdd3', 'cx5': '#ddd6fe', 'cx6': '#fed7aa', 'cx7': '#e9d5ff', 'cx8': '#fbcfe8', 'cx9': '#fff3a3', 'cx10': '#bbf7d0', 'cx11': '#c7d2fe', 'up1': '#fff3a3', 'up2': '#fbcfe8', 'up3-sec1': '#bbf7d0', 'up3-sec2': '#ddd6fe', 'up3-sec3': '#fed7aa', 'up3-sec4': '#bae6fd', 'up3-sec5': '#fecdd3', 'up4': '#e9d5ff' };
   const LOGO = 'assets/N%20NIKA.png';
   const PALETA = ['#fff3a3', '#fbcfe8', '#bbf7d0', '#ddd6fe', '#fed7aa', '#bae6fd', '#fecdd3', '#e9d5ff', '#c7f9cc', '#fde68a'];
-  const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : /^cr\d+$/.test(String(u)) ? 'criterios' : 'ginecologia');
-  const unidadInicial = (ar) => (ar === 'cirugia' ? 'cx5' : ar === 'criterios' ? 'cr1' : 'up3-sec4');
+  const areaDeUnidad = (u) => (/^cx\d+$/.test(String(u)) ? 'cirugia' : /^cr\d+$/.test(String(u)) ? 'criterios' : /^fx\d+$/.test(String(u)) ? 'farmacos' : 'ginecologia');
+  const unidadInicial = (ar) => (ar === 'cirugia' ? 'cx5' : ar === 'criterios' ? 'cr1' : ar === 'farmacos' ? 'fx1' : 'up3-sec4');
   const descargoDe = (d, ar) => ((d.meta.descargos || {})[ar]) || d.meta.descargo;
   const areaDe = (p) => p.area || areaDeUnidad((p.up || [])[0]);
   const colorDe = (p) => { let h = 0; const t = String(p.id); for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return PALETA[h % PALETA.length]; };
@@ -65,8 +66,8 @@
     if (D) return Promise.resolve(D);
     if (cargando) return cargando;
     const opc = (u) => fetch(u, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
-    cargando = Promise.all([fetch(URL_DATOS, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }), opc(URL_CX), opc(URL_CR)])
-      .then(([j, cx, cr]) => {
+    cargando = Promise.all([fetch(URL_DATOS, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }), opc(URL_CX), opc(URL_CR), opc(URL_FX)])
+      .then(([j, cx, cr, fx]) => {
         (j.patologias || []).forEach((x) => { if (!x.area) x.area = 'ginecologia'; });
         if (cx && Array.isArray(cx.patologias)) {
           cx.patologias.forEach((x) => { if (x.fuente && !x.fuente.url) { const u = urlDeFuente(x.fuente); if (u) x.fuente.url = u; } });
@@ -82,12 +83,18 @@
           j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (cr.meta && cr.meta.unidades) || {});
           j.meta.descargos = Object.assign({}, j.meta.descargos || {}, { criterios: cr.meta && cr.meta.descargo });
         }
+        if (fx && Array.isArray(fx.patologias)) {
+          j.patologias = (j.patologias || []).concat(fx.patologias);
+          j.meta = j.meta || {};
+          j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (fx.meta && fx.meta.unidades) || {});
+          j.meta.descargos = Object.assign({}, j.meta.descargos || {}, { farmacos: fx.meta && fx.meta.descargo });
+        }
         return j;
       })
       .then((j) => sincronizar().then(() => j))
       .then((j) => {
         D = j;
-        D.byId = {}; (j.patologias || []).forEach((p) => { D.byId[p.id] = p; p._h = norm([p.titulo].concat(p.alias || []).join(' ')); p._t = norm([p.definicion, (p.diagnostico || []).join(' ')].join(' ')); });
+        D.byId = {}; (j.patologias || []).forEach((p) => { D.byId[p.id] = p; p._h = norm([p.titulo].concat(p.alias || []).join(' ')); p._t = norm([p.definicion, (p.diagnostico || []).join(' '), (p.indicaciones || []).join(' ')].join(' ')); });
         return D;
       }).catch((e) => { cargando = null; console.warn('[flashcards]', e); return null; });
     return cargando;
@@ -106,17 +113,74 @@
     }).join('');
   }
   const lista = (a, c) => a && a.length ? '<ul' + (c ? ' class="' + c + '"' : '') + '>' + a.map((x) => '<li>' + fmt(x) + '</li>').join('') + '</ul>' : '';
+  // Algoritmo de manejo: árbol de nodos { t: 'inicio'|'accion'|'decision'|'fin', txt, si:[...], no:[...] }
+  function algNodos(ns) {
+    return '<ol class="fa-flujo">' + (ns || []).map((n) => {
+      const caja = '<div class="fa-caja">' + fmt(n.txt) + '</div>';
+      if (n.t === 'decision') return '<li class="fa-n fa-decision">' + caja + '<div class="fa-ram"><div class="fa-si"><b>Sí</b>' + algNodos(n.si) + '</div><div class="fa-no"><b>No</b>' + algNodos(n.no) + '</div></div></li>';
+      return '<li class="fa-n fa-' + esc(n.t || 'accion') + '">' + caja + '</li>';
+    }).join('') + '</ol>';
+  }
+  function algTxt(ns, nivel) {
+    const sg = '  '.repeat(nivel || 0);
+    return (ns || []).map((n) => {
+      if (n.t === 'decision') return sg + '◆ ' + n.txt + '\n' + sg + '  Sí →\n' + algTxt(n.si, (nivel || 0) + 2) + '\n' + sg + '  No →\n' + algTxt(n.no, (nivel || 0) + 2);
+      return sg + (n.t === 'inicio' ? '▶ ' : n.t === 'fin' ? '■ ' : '→ ') + n.txt;
+    }).join('\n');
+  }
+  function algFilas(ns, pref, out) {
+    out = out || [];
+    (ns || []).forEach((n) => {
+      if (n.t === 'decision') { out.push({ h: (pref || '') + '◆ ' + n.txt }); out.push({ t: 'Sí: ' + (n.si || []).map((x) => x.txt).join(' → '), b: 1 }); out.push({ t: 'No: ' + (n.no || []).map((x) => x.txt).join(' → '), b: 1 }); }
+      else out.push({ t: (n.t === 'inicio' ? '▶ ' : n.t === 'fin' ? '■ ' : '→ ') + n.txt, b: 0 });
+    });
+    return out;
+  }
+  const punt = (a) => (a || []).map((t) => ({ t, b: 1 }));
+  const viñ = (a) => (a || []).map((x) => '• ' + x).join('\n');
+  const bloquesDe = (b) => (b || []).map((q) => '<div class="fc-sub">' + esc(q.titulo) + '</div>' + (q.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + fmt(s.texto) + '</span></div>').join('')).join('');
+  const bloquesTxt = (b) => (b || []).map((q) => q.titulo + '\n' + (q.pasos || []).map((s) => '• ' + s.etiqueta + ': ' + s.texto).join('\n')).join('\n');
+  const bloquesFilas = (b) => (b || []).flatMap((q) => [{ h: q.titulo }].concat((q.pasos || []).map((x) => ({ e: x.etiqueta, t: x.texto }))));
+  // Fármacos vinculados a una patología: resumen y acceso a la ficha completa del fármaco
+  const farmacosDe = (p) => (p.farmacos || []).map((id) => (D && D.byId && D.byId[id])).filter(Boolean);
+  const farmHtml = (p) => farmacosDe(p).map((f) => {
+    const dos = ((f.dosis || [])[0] || {}).pasos || [];
+    return '<div class="fc-fx"><div class="fc-fx-h"><b>' + esc(f.titulo) + '</b><small>' + esc(f.definicion || '') + '</small></div>' +
+      (f.mecanismo && f.mecanismo[0] ? '<div class="fc-fx-r"><i>Mecanismo</i><span>' + fmt(f.mecanismo[0]) + '</span></div>' : '') +
+      (dos.length ? '<div class="fc-fx-r"><i>Dosis</i><span>' + dos.slice(0, 3).map((x) => fmt(x.etiqueta + ': ' + x.texto)).join('') + '</span></div>' : '') +
+      ((f.contraindicaciones || [])[0] ? '<div class="fc-fx-r"><i>Contraindic.</i><span>' + fmt(f.contraindicaciones[0]) + '</span></div>' : '') +
+      ((f.efectos || [])[0] ? '<div class="fc-fx-r"><i>Efectos</i><span>' + fmt(f.efectos[0]) + '</span></div>' : '') +
+      ((f.tiempos || [])[0] ? '<div class="fc-fx-r"><i>Vida media</i><span>' + fmt(f.tiempos[0]) + '</span></div>' : '') +
+      '<button type="button" class="fc-fx-b" data-fcd-ir="' + esc(f.id) + '">Ver la ficha completa del fármaco →</button></div>';
+  }).join('');
+  const farmTxt = (p) => farmacosDe(p).map((f) => '• ' + f.titulo + ' — ' + (f.definicion || '') + (((f.dosis || [])[0] || {}).pasos || []).slice(0, 2).map((x) => '\n   ' + x.etiqueta + ': ' + x.texto).join('')).join('\n');
   const SECS = [
     { id: 'dx', ico: '🩺', nom: 'Diagnóstico y definición', html: (p) => (p.definicion ? '<p class="fc-def">' + fmt(p.definicion) + '</p>' : '') + lista(p.diagnostico),
-      txt: (p) => (p.definicion ? p.definicion + '\n' : '') + (p.diagnostico || []).map((x) => '• ' + x).join('\n') },
-    { id: 'est', ico: '🧪', nom: 'Estudios', html: (p) => lista(p.estudios), txt: (p) => (p.estudios || []).map((x) => '• ' + x).join('\n') },
-    { id: 'rojo', ico: '🚩', nom: 'Banderas rojas', html: (p) => lista(p.banderas, 'fc-rojo'), txt: (p) => (p.banderas || []).map((x) => '• ' + x).join('\n') },
-    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => (p.tratamiento || []).map((b) => '<div class="fc-sub">' + esc(b.titulo) + '</div>' + (b.pasos || []).map((s) => '<div class="fc-paso"><b>' + esc(s.etiqueta) + '</b><span>' + fmt(s.texto) + '</span></div>').join('')).join(''),
-      txt: (p) => (p.tratamiento || []).map((b) => b.titulo + '\n' + (b.pasos || []).map((s) => '• ' + s.etiqueta + ': ' + s.texto).join('\n')).join('\n') },
-    { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento), txt: (p) => (p.seguimiento || []).map((x) => '• ' + x).join('\n') },
+      txt: (p) => (p.definicion ? p.definicion + '\n' : '') + (p.diagnostico || []).map((x) => '• ' + x).join('\n'), filas: (p) => (p.definicion ? [{ t: p.definicion }] : []).concat(punt(p.diagnostico)) },
+    { id: 'fis', ico: '🧬', nom: 'Fisiopatología', html: (p) => lista(p.fisiopatologia), txt: (p) => viñ(p.fisiopatologia), filas: (p) => punt(p.fisiopatologia) },
+    { id: 'scr', ico: '🔍', nom: 'Screening y prevención', html: (p) => lista(p.tamizaje), txt: (p) => viñ(p.tamizaje), filas: (p) => punt(p.tamizaje) },
+    { id: 'est', ico: '🧪', nom: 'Estudios', html: (p) => lista(p.estudios), txt: (p) => viñ(p.estudios), filas: (p) => punt(p.estudios) },
+    { id: 'rojo', ico: '🚩', nom: 'Banderas rojas', html: (p) => lista(p.banderas, 'fc-rojo'), txt: (p) => viñ(p.banderas), filas: (p) => punt(p.banderas) },
+    { id: 'alg', ico: '🗺️', nom: 'Algoritmo de manejo', html: (p) => (p.algoritmo && p.algoritmo.nodos && p.algoritmo.nodos.length) ? (p.algoritmo.titulo ? '<div class="fc-sub">' + esc(p.algoritmo.titulo) + '</div>' : '') + '<div class="fa-wrap">' + algNodos(p.algoritmo.nodos) + '</div>' : '',
+      txt: (p) => (p.algoritmo && p.algoritmo.nodos) ? (p.algoritmo.titulo ? p.algoritmo.titulo + '\n' : '') + algTxt(p.algoritmo.nodos) : '', filas: (p) => (p.algoritmo && p.algoritmo.nodos) ? algFilas(p.algoritmo.nodos) : [] },
+    { id: 'tx', ico: '💊', nom: 'Tratamiento', html: (p) => bloquesDe(p.tratamiento), txt: (p) => bloquesTxt(p.tratamiento), filas: (p) => bloquesFilas(p.tratamiento) },
+    { id: 'far', ico: '🧴', nom: 'Fármacos', html: (p) => farmHtml(p), txt: (p) => farmTxt(p), filas: (p) => farmacosDe(p).flatMap((f) => [{ h: f.titulo + ' — ' + (f.definicion || '') }].concat((((f.dosis || [])[0] || {}).pasos || []).slice(0, 2).map((x) => ({ e: x.etiqueta, t: x.texto })))) },
+    { id: 'seg', ico: '📈', nom: 'Seguimiento', html: (p) => lista(p.seguimiento), txt: (p) => viñ(p.seguimiento), filas: (p) => punt(p.seguimiento) },
     { id: 'con', ico: '⚖️', nom: 'Contraste con consensos', html: (p) => p.contraste ? '<p class="fc-def"><b>' + esc(((D.meta.contraste || {})[p.contraste.estado]) || '') + '</b> · ' + esc(p.contraste.fuente) + '</p>' + lista(p.contraste.puntos) : '',
-      txt: (p) => p.contraste ? p.contraste.fuente + '\n' + (p.contraste.puntos || []).map((x) => '• ' + x).join('\n') : '' }
+      txt: (p) => p.contraste ? p.contraste.fuente + '\n' + (p.contraste.puntos || []).map((x) => '• ' + x).join('\n') : '', filas: (p) => p.contraste ? [{ h: p.contraste.fuente }].concat(punt(p.contraste.puntos)) : [] }
   ];
+  // Secciones de las fichas de fármacos
+  const SECS_FAR = [
+    { id: 'ind', ico: '🎯', nom: 'Indicaciones', html: (p) => lista(p.indicaciones), txt: (p) => viñ(p.indicaciones), filas: (p) => punt(p.indicaciones) },
+    { id: 'mec', ico: '⚙️', nom: 'Mecanismo de acción', html: (p) => lista(p.mecanismo), txt: (p) => viñ(p.mecanismo), filas: (p) => punt(p.mecanismo) },
+    { id: 'dos', ico: '💉', nom: 'Dosis, vías y dosis máxima', html: (p) => bloquesDe(p.dosis), txt: (p) => bloquesTxt(p.dosis), filas: (p) => bloquesFilas(p.dosis) },
+    { id: 'con2', ico: '⛔', nom: 'Contraindicaciones', html: (p) => lista(p.contraindicaciones, 'fc-rojo'), txt: (p) => viñ(p.contraindicaciones), filas: (p) => punt(p.contraindicaciones) },
+    { id: 'efe', ico: '⚠️', nom: 'Efectos adversos', html: (p) => lista(p.efectos), txt: (p) => viñ(p.efectos), filas: (p) => punt(p.efectos) },
+    { id: 'pk', ico: '⏱️', nom: 'Tiempos y vida media', html: (p) => lista(p.tiempos), txt: (p) => viñ(p.tiempos), filas: (p) => punt(p.tiempos) },
+    { id: 'pre', ico: '🤰', nom: 'Precauciones, embarazo y lactancia', html: (p) => lista(p.precauciones), txt: (p) => viñ(p.precauciones), filas: (p) => punt(p.precauciones) }
+  ];
+  const secsDe = (p) => (p.tipo === 'farmaco' ? SECS_FAR : SECS);
+  const SECS_TODAS = SECS.concat(SECS_FAR);
   const tieneSec = (p, s) => { const h = s.html(p); return !!h && h.replace(/<[^>]+>/g, '').trim().length > 0; };
 
   // Fuentes argentinas verificadas (si la ficha las tiene)
@@ -152,7 +216,7 @@
   function textoCompartir(p, ids) {
     const f = p.fuente || {};
     const unidades = (p.up || []).map((u) => (D.meta.unidades || {})[u] || u).join(' · ');
-    const cuerpo = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s)).map((s) => s.ico + ' *' + s.nom.toUpperCase() + '*\n' + s.txt(p)).join('\n\n');
+    const cuerpo = secsDe(p).filter((s) => ids.includes(s.id) && tieneSec(p, s)).map((s) => s.ico + ' *' + s.nom.toUpperCase() + '*\n' + s.txt(p)).join('\n\n');
     return '🃏 *' + p.titulo + '*\n' + unidades + '\n\n' + cuerpo + '\n\nFuente: ' + (f.sociedad || '') + ' · ' + (f.guia || '') + ' (' + (f.anio || '') + ')' +
       (f.tipo === 'guia' || f.tipo === 'libro' ? '' : '\n⚠️ Verificar veracidad con guías actuales.') + '\n\nNikaMed · Flashcards clínicas — nikamed.com.ar';
   }
@@ -166,7 +230,7 @@
   }
 
   // ---- imagen de la tarjeta (canvas propio) ----
-  const COL_SEC = { tx: '#db2777', dx: '#2563eb', est: '#059669', seg: '#d97706', rojo: '#dc2626', con: '#7c3aed' };
+  const COL_SEC = { tx: '#db2777', dx: '#2563eb', est: '#059669', seg: '#d97706', rojo: '#dc2626', con: '#7c3aed', fis: '#9333ea', scr: '#0d9488', alg: '#ea580c', far: '#be185d', ind: '#2563eb', mec: '#9333ea', dos: '#db2777', con2: '#dc2626', efe: '#d97706', pk: '#059669', pre: '#7c3aed' };
   function envolver(ctx, texto, maxW) {
     const out = [];
     String(texto || '').split('\n').forEach((par) => {
@@ -181,7 +245,7 @@
     const W = 1080, PAD = 54, TW = W - PAD * 2 - 40;
     const logo = await new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = LOGO; });
     const f = p.fuente || {};
-    const secs = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s));
+    const secs = secsDe(p).filter((s) => ids.includes(s.id) && tieneSec(p, s));
     // Se dibuja en dos pasadas: la primera mide el alto real y la segunda renderiza a la mayor nitidez que permita el navegador.
     const dibujar = (c, Hl) => {
     const papel = colorDe(p);
@@ -218,10 +282,7 @@
       ty += 26;
       rr(c, PAD + 10, ty, W - (PAD + 10) * 2, 52, 14); c.fillStyle = col; c.fill();
       c.fillStyle = '#fff'; c.font = '800 28px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillText(s.ico + '  ' + s.nom, PAD + 30, ty + 36); ty += 52;
-      const filas = s.id === 'tx' ? (p.tratamiento || []).flatMap((b) => [{ h: b.titulo }].concat((b.pasos || []).map((x) => ({ e: x.etiqueta, t: x.texto }))))
-        : s.id === 'dx' ? (p.definicion ? [{ t: p.definicion }] : []).concat((p.diagnostico || []).map((t) => ({ t, b: 1 })))
-        : s.id === 'est' ? (p.estudios || []).map((t) => ({ t, b: 1 })) : s.id === 'seg' ? (p.seguimiento || []).map((t) => ({ t, b: 1 }))
-        : s.id === 'rojo' ? (p.banderas || []).map((t) => ({ t, b: 1 })) : (p.contraste ? [{ h: p.contraste.fuente }].concat((p.contraste.puntos || []).map((t) => ({ t, b: 1 }))) : []);
+      const filas = s.filas(p);
       for (const r of filas) {
         ty += 14;
         if (r.h) { c.font = '800 24px "Plus Jakarta Sans", system-ui, sans-serif'; c.fillStyle = '#334155'; envolver(c, r.h, TW).forEach((l) => { ty += 30; c.fillText(l, PAD + 24, ty); }); continue; }
@@ -256,7 +317,7 @@
   }
   // Texto que acompaña la imagen en WhatsApp: título, área y unidad, una frase de contexto y el link a la ficha pública
   const mensajeCorto = (p) => {
-    const area = ({ cirugia: 'Cirugía', criterios: 'Criterios y escalas' })[areaDe(p)] || 'Ginecología y Obstetricia';
+    const area = ({ cirugia: 'Cirugía', criterios: 'Criterios y escalas', farmacos: 'Fármacos' })[areaDe(p)] || 'Ginecología y Obstetricia';
     const uni = ((D && D.meta && D.meta.unidades) || {})[(p.up || [])[0]] || '';
     let lead = String(p.definicion || '').replace(/\s+/g, ' ').trim();
     const m = lead.match(/^(.+?[.!?])(\s|$)/); if (m && m[1].length > 40) lead = m[1];
@@ -415,8 +476,8 @@
     opts = opts || {};
     cargar().then((d) => {
       const p = d && d.byId[id]; if (!p) return;
-      const disp = SECS.filter((s) => tieneSec(p, s));
-      const abiertas = new Set(['tx', 'dx'].filter((x) => disp.some((s) => s.id === x)));
+      const disp = secsDe(p).filter((s) => tieneSec(p, s));
+      const abiertas = new Set((p.tipo === 'farmaco' ? ['ind', 'dos'] : ['tx', 'dx']).filter((x) => disp.some((s) => s.id === x)));
       const papel = colorDe(p);
       const f = p.fuente || {};
       const pintar = () => {
@@ -441,10 +502,11 @@
       const ids = () => { const a = Array.from(abiertas); return a.length ? a : disp.map((s) => s.id); };
       pintar();
       host.onclick = (e) => {
-        const b = e.target.closest('[data-fcd],[data-fcd-sec],summary'); if (!b) return;
+        const b = e.target.closest('[data-fcd],[data-fcd-sec],[data-fcd-ir],summary'); if (!b) return;
         if (b.tagName === 'SUMMARY') { setTimeout(() => { const det = b.parentElement; if (det.open) abiertas.add(det.dataset.sec); else abiertas.delete(det.dataset.sec); const c = host.querySelector('[data-fcd="todo"]'); if (c) c.textContent = abiertas.size === disp.length ? '➖ Contraer todo' : '📖 Expandir todo'; host.querySelectorAll('[data-fcd-sec]').forEach((x) => x.classList.toggle('on', abiertas.has(x.dataset.fcdSec))); }, 0); return; }
         if (b.dataset.fcdSec) { const s = b.dataset.fcdSec; if (abiertas.has(s)) abiertas.delete(s); else abiertas.add(s); return pintar(); }
         const a = b.dataset.fcd;
+        if (b.dataset.fcdIr) return detalle(host, b.dataset.fcdIr, { textoVolver: p.titulo, alVolver: () => detalle(host, id, opts), alCambiar: opts.alCambiar });
         if (a === 'volver') { if (opts.alVolver) opts.alVolver(); return; }
         if (a === 'todo') { if (abiertas.size === disp.length) abiertas.clear(); else disp.forEach((s) => abiertas.add(s.id)); return pintar(); }
         if (a === 'ok') { marcar(p.id, !leerOk()[p.id]); pintar(); if (opts.alCambiar) opts.alCambiar(); return; }
@@ -499,7 +561,7 @@
 
   const AREAS_MOSAICO = [
     { id: 'ginecologia', nom: 'Ginecología', ico: '🌸', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', ok: true }, { id: 'farmacos', nom: 'Fármacos', ico: '💊', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃' }
   ];
 
@@ -622,15 +684,23 @@
   // ---------- Simulador FlashCard y modo Practicar ----------
   const AREAS = [
     { id: 'ginecologia', nom: 'Ginecología y Obstetricia', ico: '🌸', c: '#ec4899', ok: true },
-    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', c: '#8b5cf6', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
+    { id: 'cirugia', nom: 'Cirugía', ico: '🔪', c: '#0ea5e9', ok: true }, { id: 'criterios', nom: 'Criterios y escalas', ico: '📊', c: '#8b5cf6', ok: true }, { id: 'farmacos', nom: 'Fármacos', ico: '💊', c: '#14b8a6', ok: true }, { id: 'siam', nom: 'S.I.A.M.', ico: '🩺', c: '#10b981' },
     { id: 'medicinalegal', nom: 'Medicina Legal', ico: '⚖️', c: '#f59e0b' }, { id: 'medicinadeportiva', nom: 'Medicina Deportiva', ico: '🏃', c: '#8b5cf6' }
   ];
   const CONTENIDOS = [
     { id: 'tx', ico: '💊', nom: 'Solo tratamiento', desc: 'Esquemas y conducta terapéutica', secs: ['tx'], q: '¿Cuál es el tratamiento?', c: '#ec4899' },
     { id: 'dx', ico: '🩺', nom: 'Diagnóstico y estudios', desc: 'Criterios, definición y estudios', secs: ['dx', 'est'], q: '¿Cómo se diagnostica y qué se pide?', c: '#0ea5e9' },
     { id: 'alarma', ico: '🚩', nom: 'Seguimiento y alarmas', desc: 'Controles y banderas rojas', secs: ['seg', 'rojo'], q: '¿Qué controlar y qué alertas hay?', c: '#ef4444' },
-    { id: 'todo', ico: '📖', nom: 'Tema completo', desc: 'Definición, diagnóstico, tratamiento y más', secs: ['dx', 'est', 'rojo', 'tx', 'seg'], q: 'Contá el tema completo', c: '#8b5cf6' }
+    { id: 'prev', ico: '🔍', nom: 'Screening y fisiopatología', desc: 'Tamizaje, prevención y mecanismos', secs: ['scr', 'fis'], q: '¿Cómo se previene o se tamiza y cuál es la fisiopatología?', c: '#0d9488' },
+    { id: 'alg', ico: '🗺️', nom: 'Algoritmo de manejo', desc: 'Pasos y decisiones de la conducta', secs: ['alg'], q: '¿Cuál es el algoritmo de manejo?', c: '#ea580c' },
+    { id: 'todo', ico: '📖', nom: 'Tema completo', desc: 'Definición, diagnóstico, tratamiento y más', secs: ['dx', 'fis', 'scr', 'est', 'rojo', 'alg', 'tx', 'far', 'seg'], q: 'Contá el tema completo', c: '#8b5cf6' },
+    { id: 'f-ind', area: 'far', ico: '🎯', nom: 'Indicaciones y mecanismo', desc: 'Para qué se usa y cómo actúa', secs: ['ind', 'mec'], q: '¿Para qué se indica y cuál es su mecanismo de acción?', c: '#2563eb' },
+    { id: 'f-dos', area: 'far', ico: '💉', nom: 'Dosis y dosis máxima', desc: 'Esquemas, vías y límites', secs: ['dos'], q: '¿Cuál es la dosis, la vía y la dosis máxima?', c: '#db2777' },
+    { id: 'f-seg', area: 'far', ico: '⚠️', nom: 'Contraindicaciones y efectos adversos', desc: 'Cuándo no usarlo y qué vigilar', secs: ['con2', 'efe', 'pre'], q: '¿Cuándo está contraindicado y qué efectos adversos tiene?', c: '#dc2626' },
+    { id: 'f-pk', area: 'far', ico: '⏱️', nom: 'Tiempos y vida media', desc: 'Inicio, duración y eliminación', secs: ['pk'], q: '¿Cuáles son sus tiempos y su vida media?', c: '#059669' },
+    { id: 'f-todo', area: 'far', ico: '📖', nom: 'Fármaco completo', desc: 'Todas las secciones del fármaco', secs: ['ind', 'mec', 'dos', 'con2', 'efe', 'pk', 'pre'], q: 'Contá el fármaco completo', c: '#8b5cf6' }
   ];
+  const contenidosDe = (ar) => CONTENIDOS.filter((c) => (c.area === 'far') === (ar === 'farmacos'));
   const ALCANCES = [
     { id: 'unidad', ico: '🎯', nom: 'Una unidad problema', desc: 'UP1, UP2, secciones de UP3 o UP4', c: '#6366f1' },
     { id: 'parcial', ico: '📄', nom: 'Parcial', desc: 'UP1 a UP3, todas las secciones', c: '#0ea5e9' },
@@ -650,13 +720,13 @@
   };
   const PARCIAL_UPS = ['up1', 'up2', 'up3-sec1', 'up3-sec2', 'up3-sec3', 'up3-sec4', 'up3-sec5'];
   const PARCIAL_CX = ['cx1', 'cx2', 'cx3', 'cx4', 'cx5', 'cx6'];
-  const seccionesDe = (c) => c.secs.map((s) => SECS.find((x) => x.id === s)).filter(Boolean);
+  const seccionesDe = (c) => c.secs.map((s) => SECS_TODAS.find((x) => x.id === s)).filter(Boolean);
   const bloquesHtml = (p, c) => seccionesDe(c).filter((s) => tieneSec(p, s)).map((s) => '<div class="fc-bloque"><h5>' + s.ico + ' ' + esc(s.nom) + '</h5>' + s.html(p) + '</div>').join('');
   const barajar = (a) => { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; };
   const poolDe = (st) => {
     let ups = null;
     const ar = st.area || 'ginecologia';
-    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ar === 'cirugia' ? PARCIAL_CX : ar === 'criterios' ? ['cr1', 'cr2', 'cr3', 'cr4', 'cr5', 'cr6'] : PARCIAL_UPS;
+    if (st.alcance === 'unidad') ups = [st.unidad]; else if (st.alcance === 'parcial') ups = ar === 'cirugia' ? PARCIAL_CX : ar === 'criterios' ? ['cr1', 'cr2', 'cr3', 'cr4', 'cr5', 'cr6'] : ar === 'farmacos' ? ['fx1', 'fx2', 'fx3', 'fx4', 'fx5'] : PARCIAL_UPS;
     const c = CONTENIDOS.find((x) => x.id === st.cont);
     let l = fichasDe(ups).filter((p) => areaDe(p) === ar && seccionesDe(c).some((s) => tieneSec(p, s)));
     if (st.soloPend) { const ok = leerOk(); l = l.filter((p) => !ok[p.id]); }
@@ -677,7 +747,7 @@
         host.innerHTML = '<div class="fcs-setup">' +
           '<section class="fcs-sec"><h3><span>1</span> Área</h3><div class="fcs-areas">' + AREAS.map((a) => '<button type="button" class="fcs-area' + (a.ok && st.area === a.id ? ' on' : '') + '" style="--c:' + a.c + '" ' + (a.ok ? 'data-area="' + a.id + '"' : 'disabled') + '><i>' + a.ico + '</i><b>' + a.nom + '</b>' + (a.ok ? '<small>' + d.patologias.filter((x) => areaDe(x) === a.id).length + ' flashcards</small>' : '<small>Muy pronto</small><em class="fcs-soon">Próximamente</em>') + '</button>').join('') + '</div></section>' +
           '<section class="fcs-sec"><h3><span>2</span> Qué rendir</h3>' + tiles('alcance', st.area === 'cirugia' ? ALCANCES_CX : ALCANCES, st) + (st.alcance === 'unidad' ? selUnidad(d, st) : '') + '</section>' +
-          '<section class="fcs-sec"><h3><span>3</span> Qué repasar de cada tarjeta</h3>' + tiles('cont', CONTENIDOS, st) + '</section>' +
+          '<section class="fcs-sec"><h3><span>3</span> Qué repasar de cada tarjeta</h3>' + tiles('cont', contenidosDe(st.area), st) + '</section>' +
           '<section class="fcs-sec"><h3><span>4</span> Cantidad</h3><div class="fcs-cant">' + [5, 10, 20, 0].map((n) => '<button type="button" class="fcs-pill' + (st.n === n ? ' on' : '') + '" data-n="' + n + '">' + (n ? n + ' tarjetas' : 'Todas (' + total + ')') + '</button>').join('') +
           '<label class="fcs-chk"><input type="checkbox" data-chk="pend"' + (st.soloPend ? ' checked' : '') + '><span>Solo las que todavía no domino</span></label></div></section>' +
           '<div class="fcs-go"><button type="button" class="fcs-start" data-go="1"' + (total ? '' : ' disabled') + '><span>▶ Empezar</span><small>' + total + ' tarjetas disponibles</small></button>' +
@@ -703,7 +773,7 @@
       };
       host.onclick = (e) => {
         const t = e.target;
-        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; st.unidad = unidadInicial(st.area); return setup(); }
+        const a = t.closest('[data-area]'); if (a) { st.area = a.dataset.area; st.unidad = unidadInicial(st.area); if (!contenidosDe(st.area).some((c) => c.id === st.cont)) st.cont = st.area === 'farmacos' ? 'f-todo' : 'tx'; return setup(); }
         const s = t.closest('[data-set]'); if (s) { st[s.dataset.set] = s.dataset.v; return setup(); }
         const u = t.closest('[data-unidad]'); if (u) { st.unidad = u.dataset.unidad; return setup(); }
         const n = t.closest('[data-n]'); if (n) { st.n = parseInt(n.dataset.n, 10); return setup(); }

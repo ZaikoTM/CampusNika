@@ -400,3 +400,38 @@ body.dark-mode:not(.tema-premium) .fc-panel{background-color:#0b1220}
 body.tema-premium .fcd-cab .fcd-btn[data-fcd="volver"],body.tema-premium .fcpn-top .fcd-btn{background:linear-gradient(135deg,#6d28d9,#a855f7);border-color:rgba(233,213,255,.5)}
 body.dark-mode:not(.tema-premium) .fcd-cab .fcd-btn[data-fcd="volver"],body.dark-mode:not(.tema-premium) .fcpn-top .fcd-btn{background:#1e293b}
 .fcd-toast{z-index:7}
+
+/* ---- algoritmos de manejo (diagrama de flujo) y fármacos vinculados ---- */
+.fa-wrap{overflow-x:auto;padding:6px 2px 2px;color:#1e293b}
+.fa-flujo{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:center}
+.fa-n{position:relative;display:flex;flex-direction:column;align-items:center;width:100%;padding-bottom:18px}
+.fa-n::after{content:'';position:absolute;bottom:2px;left:50%;width:2px;height:14px;margin-left:-1px;background:#64748b}
+.fa-n::before{content:'';position:absolute;bottom:0;left:50%;margin-left:-5px;border:5px solid transparent;border-top:7px solid #64748b;border-bottom:0}
+.fa-n:last-child{padding-bottom:0}.fa-n:last-child::after,.fa-n:last-child::before{display:none}
+.fa-caja{max-width:100%;padding:9px 14px;border-radius:12px;border:2px solid #2563eb;background:#fff;font-size:.86rem;line-height:1.4;text-align:center;box-shadow:0 6px 14px -10px rgba(15,23,42,.5)}
+.fa-caja .fc-or{display:inline}
+.fa-inicio>.fa-caja{border-radius:99px;background:#dbeafe;font-weight:800}
+.fa-accion>.fa-caja{border-color:#0d9488}
+.fa-decision>.fa-caja{border-color:#d97706;background:#fef3c7;font-weight:700}
+.fa-decision>.fa-caja::before{content:'◆ ';color:#d97706}
+.fa-fin>.fa-caja{border-radius:99px;border-color:#16a34a;background:#dcfce7;font-weight:800}
+.fa-ram{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:12px;position:relative}
+.fa-ram::before{content:'';position:absolute;top:-8px;left:25%;right:25%;height:2px;background:#64748b}
+.fa-si,.fa-no{position:relative;padding:8px 6px 6px;border-radius:14px;min-width:0}
+.fa-si{background:rgba(22,163,74,.1);border:1px dashed rgba(22,163,74,.5)}.fa-no{background:rgba(220,38,38,.08);border:1px dashed rgba(220,38,38,.45)}
+.fa-si>b,.fa-no>b{display:inline-block;margin:0 0 6px;padding:2px 11px;border-radius:99px;font-size:.72rem;color:#fff}
+.fa-si>b{background:#16a34a}.fa-no>b{background:#dc2626}
+.fa-si .fa-n:last-child,.fa-no .fa-n:last-child{padding-bottom:2px}
+@media (max-width:560px){.fa-ram{grid-template-columns:1fr}.fa-ram::before{display:none}}
+.fc-fx{margin:10px 0;padding:11px 13px;border-radius:14px;background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.1)}
+.fc-fx-h{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin-bottom:6px}.fc-fx-h b{font-size:.98rem}.fc-fx-h small{opacity:.75}
+.fc-fx-r{display:grid;grid-template-columns:84px 1fr;gap:8px;padding:5px 0;border-top:1px dashed rgba(0,0,0,.14);font-size:.84rem}
+.fc-fx-r i{font-style:normal;font-weight:800;opacity:.7;font-size:.74rem;text-transform:uppercase;letter-spacing:.4px;padding-top:2px}
+.fc-fx-b{margin-top:8px;border:0;border-radius:99px;padding:7px 13px;font:800 .78rem inherit;font-family:inherit;cursor:pointer;color:#fff;background:linear-gradient(135deg,#be185d,#7c3aed)}
+.fc-fx-b:hover{filter:brightness(1.08)}
+@media (max-width:520px){.fc-fx-r{grid-template-columns:1fr;gap:2px}}
+.fa-ram .fa-ram{grid-template-columns:1fr}.fa-ram .fa-ram::before{display:none}
+.fa-si .fa-caja,.fa-no .fa-caja{font-size:.82rem}
+.fcd-in .fa-flujo{padding-left:0;margin:0}.fcd-in .fa-flujo li.fa-n{padding-left:0;margin:0;padding-bottom:18px}.fcd-in .fa-flujo li.fa-n:last-child{padding-bottom:0}
+.fcd-in .fa-flujo li.fa-n::before{left:50%;top:auto;bottom:0;width:0;height:0;margin-left:-5px;border-radius:0;background:none;border:5px solid transparent;border-top:7px solid #64748b;border-bottom:0}
+.fcd-in .fa-flujo li.fa-n:last-child::before{display:none}
