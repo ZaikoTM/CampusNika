@@ -254,21 +254,69 @@
       '📖 Ficha completa, gratis:\nhttps://nikamed.com.ar/temas/' + p.id + '.html\n\n_NikaMed · Campus Nika — flashcards clínicas para estudiantes de Medicina_';
   };
   const nombreImg = (p) => 'NikaMed-' + norm(p.titulo).replace(/\s+/g, '-').slice(0, 40) + '.png';
+  // WhatsApp reduce todo a ~1600 px de lado mayor: una tarjeta muy larga se veía diminuta y borrosa.
+  // Para compartir se parte en páginas de formato cómodo (cortando en los espacios entre bloques) y cada una conserva el ancho completo.
+  function paginar(cv, titulo) {
+    const S = cv.width / 1080, W = cv.width, H = cv.height;
+    const maxH = Math.round(1560 * S);
+    if (H <= maxH * 1.15) return [cv];
+    const ctx = cv.getContext('2d');
+    const x0 = Math.round(80 * S), ancho = Math.round(920 * S);
+    const filaLibre = (y) => {
+      const d = ctx.getImageData(x0, y, ancho, 1).data, r = d[0], g = d[1], bl = d[2];
+      for (let i = 4; i < d.length; i += 16) { if (Math.abs(d[i] - r) > 6 || Math.abs(d[i + 1] - g) > 6 || Math.abs(d[i + 2] - bl) > 6) return false; }
+      return true;
+    };
+    const cortes = [0]; let y = 0;
+    while (H - y > maxH * 1.1) {
+      const objetivo = y + maxH; let hallado = 0;
+      for (let k = 0; k < Math.round(420 * S); k += 2) { if (filaLibre(objetivo - k)) { hallado = objetivo - k; break; } }
+      y = (hallado && hallado > y + maxH * 0.5) ? hallado : objetivo;
+      cortes.push(y);
+    }
+    cortes.push(H);
+    const n = cortes.length - 1, cab = Math.round(70 * S);
+    const paginas = [];
+    for (let i = 0; i < n; i++) {
+      const ini = cortes[i], fin = cortes[i + 1];
+      const pg = document.createElement('canvas'); pg.width = W; pg.height = (fin - ini) + (i ? cab : 0);
+      const g = pg.getContext('2d'); g.fillStyle = '#f8fafc'; g.fillRect(0, 0, W, pg.height);
+      let oy = 0;
+      if (i) {
+        const gr = g.createLinearGradient(0, 0, W, 0); gr.addColorStop(0, '#0f172a'); gr.addColorStop(1, '#4338ca');
+        g.fillStyle = gr; g.fillRect(0, 0, W, cab); g.fillStyle = '#fff';
+        g.font = '800 ' + Math.round(28 * S) + 'px "Plus Jakarta Sans", system-ui, sans-serif';
+        g.fillText('NikaMed · ' + titulo + ' · parte ' + (i + 1) + '/' + n, Math.round(54 * S), Math.round(46 * S));
+        oy = cab;
+      }
+      g.drawImage(cv, 0, ini, W, fin - ini, 0, oy, W, fin - ini);
+      paginas.push(pg);
+    }
+    return paginas;
+  }
+  const descargarBlob = (blob, nombre) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); a.remove(); };
   async function compartirImagen(p, ids, via, host) {
     const cv = await generarImagen(p, ids);
-    const blob = await new Promise((ok) => cv.toBlob(ok, 'image/png'));
-    if (!blob) return avisoToast(host, 'No se pudo armar la imagen');
-    const file = new File([blob], nombreImg(p), { type: 'image/png' });
-    if (via === 'descargar') { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); return avisoToast(host, '⬇️ Imagen descargada'); }
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file], text: mensajeCorto(p), title: p.titulo + ' · NikaMed' }); return avisoToast(host, '📤 Elegí WhatsApp en la lista'); }
+    const aBlob = (c) => new Promise((ok) => c.toBlob(ok, 'image/png'));
+    if (via === 'descargar') {                     // para guardar: la imagen completa, en la mayor calidad
+      const full = await aBlob(cv); if (!full) return avisoToast(host, 'No se pudo armar la imagen');
+      descargarBlob(full, nombreImg(p)); return avisoToast(host, '⬇️ Imagen descargada');
+    }
+    const paginas = paginar(cv, p.titulo);
+    const blobs = (await Promise.all(paginas.map(aBlob))).filter(Boolean);
+    if (!blobs.length) return avisoToast(host, 'No se pudo armar la imagen');
+    const base = nombreImg(p).replace(/\.png$/, '');
+    const files = blobs.map((b, i) => new File([b], blobs.length > 1 ? base + '-' + (i + 1) + '.png' : base + '.png', { type: 'image/png' }));
+    const blob = blobs[0], file = files[0];
+    if (navigator.canShare && navigator.canShare({ files })) {
+      try { await navigator.share({ files, text: mensajeCorto(p), title: p.titulo + ' · NikaMed' }); return avisoToast(host, '📤 Elegí WhatsApp en la lista'); }
       catch (e) { if (e && e.name === 'AbortError') return; }
     }
     let copiada = false;
-    try { if (navigator.clipboard && window.ClipboardItem) { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); copiada = true; } } catch (_) {}
-    if (!copiada) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); }
+    if (blobs.length === 1) { try { if (navigator.clipboard && window.ClipboardItem) { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); copiada = true; } } catch (_) {} }
+    if (!copiada) files.forEach((f, i) => setTimeout(() => descargarBlob(f, f.name), i * 350));
     window.open('https://web.whatsapp.com/send?text=' + encodeURIComponent(mensajeCorto(p)), '_blank', 'noopener');
-    avisoToast(host, copiada ? '📋 Imagen copiada: pegala con Ctrl + V en el chat' : '⬇️ Imagen descargada: adjuntala en el chat');
+    avisoToast(host, copiada ? '📋 Imagen copiada: pegala con Ctrl + V en el chat' : (blobs.length > 1 ? '⬇️ ' + blobs.length + ' imágenes descargadas: adjuntalas en el chat' : '⬇️ Imagen descargada: adjuntala en el chat'));
   }
 
   // Dibuja la tarjeta completa dentro de `host`. opts.alVolver: función del botón «Volver».
@@ -648,5 +696,5 @@
     });
   }
 
-  window.NikaFlashcards = { cargar, montar, abrir, detalle, panel, simulador, practicar, generarImagen, datos: () => D };
+  window.NikaFlashcards = { cargar, montar, abrir, detalle, panel, simulador, practicar, generarImagen, paginar, datos: () => D };
 })();
