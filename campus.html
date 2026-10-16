@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="styles.css?v=10">
-    <link rel="stylesheet" href="css/campus-visual.css?v=13">
+    <link rel="stylesheet" href="css/campus-visual.css?v=14">
     <link rel="stylesheet" href="css/resumen-semanal.css?v=3">
     <link rel="stylesheet" href="css/retos-form.css?v=2">
     <style>
@@ -305,8 +305,8 @@
             <!-- Contenedor con la Esfera de Latido Médico y centrado perfecto -->
             <div class="medical-pulse-container">
                 <div class="central-branding-logo-wrap" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin-bottom: 0;">
-                    <img src="assets/n-nika-hd-512.webp" srcset="assets/n-nika-hd-256.webp 256w, assets/n-nika-hd-512.webp 512w, assets/n-nika-hd-1024.webp 1024w" sizes="100px" width="512" height="512" alt="N de NIKA" class="nika-asset-img hero-n-logo" decoding="async" fetchpriority="high">
-                    <img src="assets/nika-texto-hd.webp" width="638" height="134" alt="NIKA" class="nika-asset-img hero-text-logo" decoding="async">
+                    <span class="hero-n-wrap"><img src="assets/n-nika.svg" width="1024" height="1024" alt="N de NIKA" class="nika-asset-img hero-n-logo" decoding="async" fetchpriority="high"></span>
+                    <img src="assets/nika-texto.svg" width="638" height="134" alt="NIKA" class="nika-asset-img hero-text-logo" decoding="async">
                 </div>
             </div>
             
@@ -326,12 +326,11 @@
             </div>
         </section>
 
-        <div id="exam-countdown-banner" style="display:none; align-items:center; gap:12px; background:linear-gradient(120deg, rgba(244,114,182,0.10), rgba(192,132,252,0.06)); border:1px solid rgba(244,114,182,0.3); color:#f1f5f9; font-weight:600; font-size:0.88rem; padding:13px 16px; border-radius:10px; margin-bottom:18px;">
-            <span style="font-size:1.15rem;">🔔</span>
-            <span id="exam-countdown-text" style="flex:1;"></span>
-            <a id="exam-countdown-plan" href="plan_examen.html" style="display:inline-flex; align-items:center; gap:6px; flex-shrink:0; text-decoration:none; color:#fff; font-weight:800; font-size:0.8rem; padding:7px 14px; border-radius:999px; background:linear-gradient(135deg,#0ea5e9,#7c3aed);">🗓️ Ver plan de estudio</a>
-            <button type="button" onclick="descartarBannerExamen()" title="Descartar"
-                    style="background:none; border:none; color:#94a3b8; font-size:1rem; cursor:pointer; line-height:1; padding:2px 6px;">✕</button>
+        <div id="exam-countdown-banner" class="exam-banner" style="display:none;">
+            <span class="exam-banner-ico" aria-hidden="true">🔔</span>
+            <span id="exam-countdown-text" class="exam-banner-txt"></span>
+            <a id="exam-countdown-plan" class="exam-banner-plan" href="plan_examen.html">🗓️ Ver plan de estudio</a>
+            <button type="button" class="exam-banner-x" onclick="descartarBannerExamen()" title="Descartar" aria-label="Descartar recordatorio">✕</button>
         </div>
 
         <div class="action-hub">
@@ -1294,7 +1293,7 @@
     <script src="js/chatManager.js?v=4"></script>
     <script src="js/pomodoroSyncManager.js?v=7"></script>
     <script src="js/onboardingTour.js?v=3"></script>
-    <script src="js/pomodoroBar.js?v=8"></script>
+    <script src="js/pomodoroBar.js?v=9"></script>
     <script src="js/liga.js"></script>
     <script src="js/voiceManager.js?v=3"></script>
     <script src="js/ateneos.js?v=18"></script>

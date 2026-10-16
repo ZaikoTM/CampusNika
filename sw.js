@@ -19,7 +19,7 @@
  *  • Mensajes: CACHE_URLS (descarga por lotes desde el modal de Guardia) y SKIP_WAITING.
  */
 
-const SW_VERSION = "nika-v279";   // subir este número en cada deploy grande
+const SW_VERSION = "nika-v280";   // subir este número en cada deploy grande
 const STATIC_CACHE = `${SW_VERSION}-static`;
 const DATA_CACHE = `${SW_VERSION}-data`;
 const CDN_CACHE = `${SW_VERSION}-cdn`;
@@ -163,6 +163,19 @@ async function redPrimeroConTimeout(event, request, nombreCache, timeoutMs) {
     }
 }
 
+// Vademécum (~4 MB): se entrega al instante la copia guardada y se actualiza en segundo plano; solo la primera vez espera a la red
+async function copiaPrimeroYActualiza(event, request, nombreCache, timeoutMs) {
+    const cache = await caches.open(nombreCache);
+    const cacheada = await cache.match(request, { ignoreSearch: true });
+    const red = fetch(request).then(async (resp) => {
+        if (esRespuestaCacheable(resp)) await cache.put(request, resp.clone());
+        return resp;
+    });
+    if (cacheada) { event.waitUntil(red.catch(() => {})); return cacheada; }
+    try { return await conTimeout(red, timeoutMs); }
+    catch (_) { try { return await red; } catch (e2) { return Response.error(); } }
+}
+
 // CDN: copia guardada primero y refresco en segundo plano (admite respuestas opacas)
 async function cdnStaleWhileRevalidate(event, request) {
     const cache = await caches.open(CDN_CACHE);
@@ -193,7 +206,7 @@ self.addEventListener("fetch", (event) => {
     }
 
     if (esVademecum(url)) {
-        event.respondWith(redPrimeroConTimeout(event, request, DATA_CACHE, TIMEOUT_VADEMECUM_MS));
+        event.respondWith(copiaPrimeroYActualiza(event, request, DATA_CACHE, TIMEOUT_VADEMECUM_MS));
         return;
     }
     if (esDatoJSON(url)) {

@@ -16,7 +16,9 @@
 const NikaPomoBar = (() => {
     const PARTNER_KEY = 'nika_pomo_sync_partner';
     let bar = null;
-    let collapsed = false;
+    // Por defecto la barra va MINIMIZADA (píldora): se despliega al pasar el mouse (modo automático) o queda abierta si la fijás (modo manual).
+    const PIN_KEY = 'nika_pomo_bar_fija';
+    let collapsed = (() => { try { return localStorage.getItem(PIN_KEY) !== '1'; } catch (_) { return true; } })();
     let ultimaFase = null;
 
     // (Legado) El compañero ahora vive en el estado del motor (PomodoroEngine.getState().shared).
@@ -140,6 +142,9 @@ const NikaPomoBar = (() => {
             .nika-pomo-bar.is-collapsed:hover, .nika-pomo-bar.is-collapsed:focus-within { left: 0; right: 0; width: auto; transform: none; border-radius: 0; }
             .nika-pomo-bar.is-collapsed:hover .nika-pomo-bar-inner, .nika-pomo-bar.is-collapsed:focus-within .nika-pomo-bar-inner { display: flex; }
             .nika-pomo-bar.is-collapsed:hover .nika-pomo-bar-pill, .nika-pomo-bar.is-collapsed:focus-within .nika-pomo-bar-pill { display: none; }
+            /* Fijar (📌) solo se ofrece cuando está abierta por hover; Minimizar (—) solo cuando está fijada */
+            .nika-pomo-bar:not(.is-collapsed) #nika-pomo-bar-pin { display: none; }
+            .nika-pomo-bar.is-collapsed #nika-pomo-bar-min { display: none; }
             @media (prefers-reduced-motion: reduce) { .nika-pomo-bar, .nika-pomo-bar::after, .nika-pomo-bar *, .nika-pomo-av { animation: none !important; transition: none !important; } }
         `;
         document.head.appendChild(style);
@@ -197,7 +202,8 @@ const NikaPomoBar = (() => {
                 <button type="button" class="nika-pomo-bar-btn cancel" id="nika-pomo-bar-cancel" title="Cancelar este Pomodoro" aria-label="Cancelar el Pomodoro" style="display:none;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/></svg><span class="lbl">Cancelar</span></button>
                 <button type="button" class="nika-pomo-bar-btn leave" id="nika-pomo-bar-leave" title="Salir de la sala compartida" aria-label="Salir de la sala compartida" style="display:none;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span class="lbl">Salir</span></button>
                 <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-cfg" title="Configurar tiempos" aria-label="Configurar tiempos">⚙️</button>
-                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-min" title="Minimizar" aria-label="Minimizar">—</button>
+                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-pin" title="Fijar abierta (modo manual)" aria-label="Fijar la barra abierta">📌</button>
+                <button type="button" class="nika-pomo-bar-btn" id="nika-pomo-bar-min" title="Minimizar (modo automático)" aria-label="Minimizar">—</button>
             </div>
             <div class="nika-pomo-leave" id="nika-pomo-leave" role="dialog" aria-label="Salir de la sala compartida">
                 <h4>🚪 ¿Salir de la sala compartida?</h4>
@@ -283,6 +289,7 @@ const NikaPomoBar = (() => {
         // Minimizar: en vez de ocultar la barra sin dejar forma de volver a
         // abrirla, la encoge a la píldora central (.is-collapsed).
         document.getElementById('nika-pomo-bar-min').addEventListener('click', () => { _setCollapsed(true); });
+        document.getElementById('nika-pomo-bar-pin').addEventListener('click', () => { _setCollapsed(false); });
         document.getElementById('nika-pomo-bar-pill').addEventListener('click', () => { _setCollapsed(false); });
 
         // Si la barra se había minimizado y luego se recreó, respeta el último estado elegido.
@@ -337,7 +344,9 @@ const NikaPomoBar = (() => {
 
     function _setCollapsed(valor) {
         collapsed = valor;
-        if (bar) bar.classList.toggle('is-collapsed', collapsed);
+        try { localStorage.setItem(PIN_KEY, collapsed ? '0' : '1'); } catch (_) {}     // abierta = fijada por la persona
+        if (bar) { bar.classList.toggle('is-collapsed', collapsed); bar.classList.toggle('is-fija', !collapsed); }
+        if (collapsed && document.activeElement && bar && bar.contains(document.activeElement)) document.activeElement.blur();   // que no se quede abierta por el foco
     }
 
     // Compañeros de la sala como avatares (hasta 4 + "+n")
