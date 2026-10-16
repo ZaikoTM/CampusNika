@@ -100,6 +100,15 @@
    "t": "Guía de manejo de las infecciones de transmisión sexual",
    "c": "Ministerio de Salud (Resolución 1078/2004)",
    "n": "Guía antigua: verificar si hay una actualización vigente."
+  },
+  "evidencia-prenatal": {
+   "t": "Guía de práctica clínica de control prenatal (publicada en la revista Evidencia)",
+   "c": "Argentina. Localizada por búsqueda; no es el documento del Ministerio de Salud de la Nación",
+   "u": "https://evidencia.org/index.php/Evidencia/article/download/5405/2969",
+   "n": "No se verificó el año ni la autoría: confirmalo al abrirla.",
+   "d": [
+    "Recomienda una ecografía entre las semanas 10 y 13 para calcular la edad gestacional (recomendación A) y señala que el recuerdo de la FUM tiene errores frecuentes."
+   ]
   }
  },
  "calc": {
@@ -142,6 +151,15 @@
   ],
   "apgar": [
    "sap-rcp-neonatal"
+  ],
+  "eg-fum": [
+   "evidencia-prenatal"
+  ],
+  "eg-eco": [
+   "evidencia-prenatal"
+  ],
+  "eg-discrepancia": [
+   "evidencia-prenatal"
   ]
  },
  "fichas": {
@@ -310,6 +328,34 @@
    "d": [
     "No se resumió su postura sobre Ranson o BISAP. Un metaanálisis de 2024 (17 estudios) halló que Ranson tiene mayor sensibilidad (0,95 vs 0,67) y BISAP mayor especificidad (0,95 vs 0,74) para predecir gravedad."
    ]
+  },
+  "acog-co700": {
+   "t": "Committee Opinion 700: Methods for Estimating the Due Date",
+   "c": "ACOG, 2017 (reafirmada en 2025)",
+   "v": "Vigente: reafirmada en 2025.",
+   "d": [
+    "La edad gestacional y la fecha probable de parto deben determinarse y documentarse apenas se dispone de la FUM, de la primera ecografía confiable o de ambas.",
+    "Un embarazo sin ecografía que confirme o corrija la FPP antes de las 22 0/7 semanas se considera subóptimamente datado.",
+    "Umbrales de rectificación FUM-ecografía (de resúmenes secundarios; verificá la tabla en el original): LCN ≤ 8+6 sem, más de 5 días; 9 a 13+6 sem, más de 7 días; 16 a 21+6 sem, más de 10 días; 22 a 27+6 sem, más de 14 días; desde 28 sem, más de 21 días."
+   ]
+  },
+  "easl-2024": {
+   "t": "EASL-EASD-EASO Clinical Practice Guidelines on the management of MASLD",
+   "c": "J Hepatol, septiembre de 2024",
+   "v": "Vigente (2024).",
+   "d": [
+    "Propone FIB-4 como primer paso: < 1,3 riesgo bajo; 1,3 a 2,67 indeterminado, requiere un segundo test (elastografía, por ejemplo); > 2,67 riesgo alto, derivar a hepatología (umbrales tomados de resúmenes secundarios).",
+    "Recomienda estudiar con tests no invasivos a personas con diabetes tipo 2, obesidad con algún factor metabólico o enzimas hepáticas persistentemente elevadas."
+   ]
+  },
+  "acc-periop-2024": {
+   "t": "2024 AHA/ACC Guideline for Perioperative Cardiovascular Management for Noncardiac Surgery",
+   "c": "Circulation, septiembre de 2024 (reemplaza la guía 2014)",
+   "v": "Vigente (2024).",
+   "d": [
+    "Propone un abordaje escalonado de la evaluación preoperatoria y no respalda estudios extensos antes de cirugías de bajo riesgo.",
+    "No se verificó cómo trata el índice RCRI: consultá el texto original."
+   ]
   }
  },
  "calcInt": {
@@ -387,6 +433,21 @@
   ],
   "glasgow-imrie": [
    "acg-pa-2024"
+  ],
+  "eg-fum": [
+   "acog-co700"
+  ],
+  "eg-eco": [
+   "acog-co700"
+  ],
+  "eg-discrepancia": [
+   "acog-co700"
+  ],
+  "fib4": [
+   "easl-2024"
+  ],
+  "rcri": [
+   "acc-periop-2024"
   ]
  }
 }

@@ -70,20 +70,73 @@
     const id = cid + '_' + f.id;
     if (f.t === 'chk') return `<label class="cc-chk" for="${id}"><input type="checkbox" id="${id}" data-f="${f.id}"><span>${esc(f.label)}</span>${f.pts ? `<em>${f.pts > 0 ? '+' : ''}${f.pts}</em>` : ''}</label>`;
     if (f.t === 'sel') return `<div class="cc-f"><label for="${id}">${esc(f.label)}</label><select id="${id}" data-f="${f.id}"><option value="">Elegir…</option>${f.opts.map((o, i) => `<option value="${i}">${esc(o[0])}${f.val ? '' : ' (' + (o[1] > 0 ? '+' : '') + o[1] + ')'}</option>`).join('')}</select></div>`;
-    if (f.t === 'date') return `<div class="cc-f"><label for="${id}">${esc(f.label)}</label><input type="date" id="${id}" data-f="${f.id}" ${f.hoy ? 'value="' + new Date().toISOString().slice(0, 10) + '"' : ''}></div>`;
+    if (f.t === 'date') { const hoy = f.hoy ? new Date().toISOString().slice(0, 10) : ''; return `<div class="cc-f"><label for="${id}">${esc(f.label)}</label><div class="cc-date"><input type="text" class="cc-dtxt" id="${id}_t" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" autocomplete="off" value="${hoy ? fmtFecha(hoy) : ''}"><button type="button" class="cc-dbtn" aria-label="Abrir calendario" title="Calendario"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button><input type="date" class="cc-dreal" id="${id}" data-f="${f.id}" tabindex="-1" aria-hidden="true" value="${hoy}"></div></div>`; }
     return `<div class="cc-f"><label for="${id}">${esc(f.label)}${f.unit ? ' <small>(' + esc(f.unit) + ')</small>' : ''}</label><input type="number" inputmode="decimal" id="${id}" data-f="${f.id}" step="${f.step}" ${f.min != null ? 'min="' + f.min + '"' : ''} ${f.max != null ? 'max="' + f.max + '"' : ''} placeholder="${f.ph || ''}"></div>`;
   }
   const refHtml = (r) => `<li><div class="cc-rt">${r.u ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>` : esc(r.t)}</div><small>${esc(r.c)}</small>${r.v ? `<span class="cc-vig">${esc(r.v)}</span>` : ''}${r.n ? `<span class="cc-vig">${esc(r.n)}</span>` : ''}${r.d && r.d.length ? `<ul class="cc-dice">${r.d.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</li>`;
   function guiasHtml(c) {
     const ar = c.fuenteAr || [], it = c.fuenteInt || [];
     const vacioAr = '<p class="cc-sin">No se localizó una guía argentina específica vigente para esta escala: se cita la fuente original e internacional en el fundamento.</p>';
-    const vacioInt = '<p class="cc-sin">Todavía no se revisó una guía internacional más reciente para esta escala; el fundamento cita la publicación original y la guía indicada.</p>';
+    const vacioInt = '<p class="cc-sin">Sin guía internacional más reciente verificada para esta escala: la referencia vigente es la publicación original citada en el fundamento.</p>';
     const inicial = ar.length || !it.length ? 'ar' : 'int';
     return `<div class="cc-guias" data-tab="${inicial}">
       <div class="cc-gtabs" role="tablist"><button type="button" role="tab" data-g="ar" class="${inicial === 'ar' ? 'on' : ''}">🇦🇷 Guía argentina${ar.length ? ' <i>' + ar.length + '</i>' : ''}</button><button type="button" role="tab" data-g="int" class="${inicial === 'int' ? 'on' : ''}">🌐 Guías internacionales${it.length ? ' <i>' + it.length + '</i>' : ''}</button></div>
       <div class="cc-gpane" data-p="ar" ${inicial === 'ar' ? '' : 'hidden'}>${ar.length ? `<ul>${ar.map(refHtml).join('')}</ul>` : vacioAr}</div>
       <div class="cc-gpane" data-p="int" ${inicial === 'int' ? '' : 'hidden'}>${it.length ? `<ul>${it.map(refHtml).join('')}</ul>` : vacioInt}</div>
       <p class="cc-rev">Fuentes revisadas el 16/10/2026. Resumen de lo verificado; no reemplaza la lectura del documento.</p></div>`;
+  }
+
+  // ---------- selector de fecha propio (calendario moderno, sigue el tema) ----------
+  const fmtFecha = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? m[3] + '/' + m[2] + '/' + m[1] : ''; };
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const pad2 = (n) => String(n).padStart(2, '0');
+  let calEl = null, calReal = null, calTxt = null, calVista = null;
+  function cerrarCal() { if (calEl) { calEl.remove(); calEl = null; } document.removeEventListener('mousedown', fueraCal, true); document.removeEventListener('keydown', teclaCal, true); }
+  function fueraCal(e) { if (calEl && !calEl.contains(e.target) && !e.target.closest('.cc-dbtn')) cerrarCal(); }
+  function teclaCal(e) { if (e.key === 'Escape') { e.stopPropagation(); cerrarCal(); } }
+  function elegirFecha(iso) {
+    calReal.value = iso; calTxt.value = fmtFecha(iso);
+    calReal.dispatchEvent(new Event('input', { bubbles: true })); cerrarCal();
+  }
+  function pintarCal() {
+    const y = calVista.getFullYear(), m = calVista.getMonth();
+    const primero = new Date(y, m, 1), offset = (primero.getDay() + 6) % 7, dias = new Date(y, m + 1, 0).getDate();
+    const sel = calReal.value, hoyIso = new Date().toISOString().slice(0, 10);
+    let celdas = ''; for (let i = 0; i < offset; i++) celdas += '<span></span>';
+    for (let d = 1; d <= dias; d++) { const iso = y + '-' + pad2(m + 1) + '-' + pad2(d); celdas += `<button type="button" class="cc-cd${iso === sel ? ' sel' : ''}${iso === hoyIso ? ' hoy' : ''}" data-d="${iso}">${d}</button>`; }
+    calEl.innerHTML = `<div class="cc-ch"><button type="button" data-n="-12" aria-label="Año anterior">«</button><button type="button" data-n="-1" aria-label="Mes anterior">‹</button><b>${MESES[m]} ${y}</b><button type="button" data-n="1" aria-label="Mes siguiente">›</button><button type="button" data-n="12" aria-label="Año siguiente">»</button></div>
+      <div class="cc-cw"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div class="cc-cg">${celdas}</div>
+      <div class="cc-cf"><button type="button" data-a="borrar">Borrar</button><button type="button" data-a="hoy">Hoy</button></div>`;
+  }
+  function abrirCal(real, txt, btn) {
+    cerrarCal(); calReal = real; calTxt = txt;
+    const base = /^\d{4}-\d{2}-\d{2}$/.test(real.value) ? new Date(real.value + 'T12:00:00') : new Date();
+    calVista = new Date(base.getFullYear(), base.getMonth(), 1);
+    calEl = document.createElement('div'); calEl.className = 'cc-cal'; calEl.setAttribute('role', 'dialog'); calEl.setAttribute('aria-label', 'Elegir fecha');
+    (btn.closest('.nkc-ov, .nkc-dock') || document.body).appendChild(calEl);
+    pintarCal();
+    const r = btn.getBoundingClientRect(), w = 264, h = calEl.offsetHeight || 300;
+    let left = Math.min(Math.max(8, r.right - w), window.innerWidth - w - 8), top = r.bottom + 6;
+    if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 6);
+    calEl.style.left = left + 'px'; calEl.style.top = top + 'px';
+    calEl.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.d) elegirFecha(b.dataset.d);
+      else if (b.dataset.n) { calVista = new Date(calVista.getFullYear(), calVista.getMonth() + Number(b.dataset.n), 1); pintarCal(); }
+      else if (b.dataset.a === 'hoy') elegirFecha(new Date().toISOString().slice(0, 10));
+      else if (b.dataset.a === 'borrar') { calReal.value = ''; calTxt.value = ''; calReal.dispatchEvent(new Event('input', { bubbles: true })); cerrarCal(); }
+    });
+    document.addEventListener('mousedown', fueraCal, true); document.addEventListener('keydown', teclaCal, true);
+  }
+  function escribirFecha(txt) {
+    const real = txt.parentElement.querySelector('.cc-dreal');
+    let d = txt.value.replace(/\D/g, '').slice(0, 8);
+    let v = d.slice(0, 2) + (d.length > 2 ? '/' + d.slice(2, 4) : '') + (d.length > 4 ? '/' + d.slice(4) : '');
+    txt.value = v;
+    const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v);
+    let iso = '';
+    if (m) { const dt = new Date(+m[3], +m[2] - 1, +m[1]); if (dt.getFullYear() === +m[3] && dt.getMonth() === +m[2] - 1 && dt.getDate() === +m[1]) iso = m[3] + '-' + m[2] + '-' + m[1]; }
+    if (real.value !== iso) { real.value = iso; real.dispatchEvent(new Event('input', { bubbles: true })); }
   }
   function cardHtml(c) {
     const a = AREAS[c.area] || AREAS.general;
@@ -163,6 +216,8 @@
     };
     lista.addEventListener('click', (e) => {
       const card = e.target.closest('.cc-card'); if (!card) return; const c = REG.find((x) => x.id === card.id.slice(2));
+      const db = e.target.closest('.cc-dbtn');
+      if (db) { const w = db.closest('.cc-date'); abrirCal(w.querySelector('.cc-dreal'), w.querySelector('.cc-dtxt'), db); return; }
       const gt = e.target.closest('.cc-gtabs button');
       if (gt) { const w = gt.closest('.cc-guias'); w.dataset.tab = gt.dataset.g; w.querySelectorAll('.cc-gtabs button').forEach((x) => x.classList.toggle('on', x === gt)); w.querySelectorAll('.cc-gpane').forEach((x) => { x.hidden = x.dataset.p !== gt.dataset.g; }); return; }
       const st = e.target.closest('.cc-star');
@@ -170,10 +225,10 @@
       const h = e.target.closest('.cc-head');
       if (h) { abrirCard(card, h.getAttribute('aria-expanded') !== 'true'); return; }
       const b = e.target.closest('[data-a]'); if (!b) return;
-      if (b.dataset.a === 'limpiar') { card.querySelectorAll('[data-f]').forEach((el) => { if (el.type === 'checkbox') el.checked = false; else el.value = ''; }); pintar(card, c); }
+      if (b.dataset.a === 'limpiar') { card.querySelectorAll('[data-f]').forEach((el) => { if (el.type === 'checkbox') el.checked = false; else el.value = ''; }); card.querySelectorAll('.cc-dtxt').forEach((t) => { t.value = ''; }); pintar(card, c); }
       else if (b.dataset.a === 'copiar') { const t = textoCopia(c, card); if (!t) return; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { b.textContent = '✅ Copiado'; setTimeout(() => { b.textContent = '📋 Copiar resultado'; }, 1600); }).catch(() => { window.prompt('Copiá el resultado:', t); }); }
     });
-    lista.addEventListener('input', (e) => { const card = e.target.closest('.cc-card'); if (!card) return; pintar(card, REG.find((x) => x.id === card.id.slice(2))); });
+    lista.addEventListener('input', (e) => { if (e.target.classList && e.target.classList.contains('cc-dtxt')) { escribirFecha(e.target); return; } const card = e.target.closest('.cc-card'); if (!card) return; pintar(card, REG.find((x) => x.id === card.id.slice(2))); });
     lista.addEventListener('change', (e) => { const card = e.target.closest('.cc-card'); if (!card) return; pintar(card, REG.find((x) => x.id === card.id.slice(2))); });
     const setArea = (k) => { const b = host.querySelector('#cc-chips button[data-ar="' + (k || '') + '"]'); if (b) b.click(); };
     pintarFavs(); filtrar(); if (opts.area) setArea(opts.area);

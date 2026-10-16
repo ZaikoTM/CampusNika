@@ -4,7 +4,7 @@ Genera data/fuentes_argentinas.json y js/calc/fuentes-ar.js. Solo se citan docum
 donde no se halló una guía argentina vigente, la escala queda con su fuente original/internacional."""
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from fuentes_int import DICE, INT, CALC_INT
+from fuentes_int import DICE, INT, CALC_INT, REF_AR_EXTRA, CALC_AR_EXTRA
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,6 +38,8 @@ FICHAS = {
     'cr-deshidratacion-oms': ['eda-2015'], 'cr-epi-cdc': ['its-2004'],
 }
 
+REFS.update(REF_AR_EXTRA)
+CALC.update(CALC_AR_EXTRA)
 for _k, _v in DICE.items():
     REFS[_k]['d'] = _v
 

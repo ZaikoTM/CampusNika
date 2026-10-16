@@ -5,7 +5,7 @@
    El motor y los datos se cargan recién al abrir por primera vez, así no pesan en las páginas que lo incluyen. */
 (function () {
   if (window.NikaCalcPanel) return;
-  const V = '6';
+  const V = '8';
   const SCRIPTS = ['motor', 'datos-obstetricia', 'datos-cirugia', 'datos-clinica', 'datos-general', 'datos-extra', 'fuentes-ar'].map((n) => '/js/calc/' + n + '.js?v=' + V);
   const MODULOS = { ginecologia: ['obstetricia', 'Ginecología y Obstetricia'], obstetricia: ['obstetricia', 'Ginecología y Obstetricia'], cirugia: ['cirugia', 'Cirugía'], siam: ['clinica', 'Clínica médica'], clinica: ['clinica', 'Clínica médica'], pediatria: ['pediatria', 'Pediatría'] };
   let ov = null, host = null, api = null, cargando = null, previo = null;
@@ -15,12 +15,12 @@
   function cargarTodo() {
     if (window.NikaCalcs && window.NikaCalcs.REG && window.NikaCalcs.REG.length > 40) return Promise.resolve();
     if (cargando) return cargando;
-    if (!document.querySelector('link[href*="calculadoras.css"]')) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/css/calculadoras.css?v=7'; document.head.appendChild(l); }
+    if (!document.querySelector('link[href*="calculadoras.css"]')) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/css/calculadoras.css?v=8'; document.head.appendChild(l); }
     cargando = SCRIPTS.reduce((p, src) => p.then(() => cargarJs(src)), Promise.resolve()).catch((e) => { cargando = null; throw e; });
     return cargando;
   }
   function estilos() {
-    if (!document.querySelector('link[href*="calculadoras.css"]')) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/css/calculadoras.css?v=7'; document.head.appendChild(l); }
+    if (!document.querySelector('link[href*="calculadoras.css"]')) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/css/calculadoras.css?v=8'; document.head.appendChild(l); }
   }
   const aplicar = (a, o) => { if (o.id) a.abrir(o.id); else { if (o.area) a.area(o.area); if (o.buscar != null) a.buscar(o.buscar); } };
 
@@ -53,23 +53,24 @@
   }
 
   // ---------- mosaico flotante (sala de estudio) ----------
+  const ICONO = '<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="6" y="3.5" width="20" height="25" rx="5" fill="rgba(255,255,255,.96)"/><rect x="9.5" y="7" width="13" height="5.5" rx="2" fill="#0ea5e9"/><g fill="#6366f1"><circle cx="11.5" cy="17" r="1.7"/><circle cx="16" cy="17" r="1.7"/><circle cx="20.5" cy="17" r="1.7"/><circle cx="11.5" cy="22" r="1.7"/><circle cx="16" cy="22" r="1.7"/></g><rect x="18.8" y="20.3" width="3.4" height="5.4" rx="1.7" fill="#ec4899"/></svg>';
   function dockCss() {
     if (document.getElementById('nkc-dock-css')) return;
     const st = document.createElement('style'); st.id = 'nkc-dock-css';
     st.textContent = `
-.nkc-fab{position:fixed;right:20px;bottom:104px;width:56px;height:56px;border:0;border-radius:50%;cursor:pointer;z-index:9997;display:flex;align-items:center;justify-content:center;font-size:25px;color:#fff;background:linear-gradient(135deg,#0ea5e9,#6366f1);box-shadow:0 8px 22px -6px rgba(14,165,233,.6);transition:transform .2s,box-shadow .2s}
+.nkc-fab{position:fixed;right:20px;bottom:104px;width:56px;height:56px;border:0;border-radius:50%;cursor:pointer;z-index:9997;display:flex;align-items:center;justify-content:center;color:#fff;background:radial-gradient(circle at 30% 25%,#38bdf8,#4f46e5 70%);box-shadow:0 8px 22px -6px rgba(79,70,229,.65),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .2s,box-shadow .2s}.nkc-fab svg{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 .nkc-fab:hover{transform:scale(1.08)}.nkc-fab.on{box-shadow:0 0 0 3px rgba(14,165,233,.35),0 8px 22px -6px rgba(14,165,233,.6)}
 body.nkc-con-dock .cf-fab{bottom:176px!important}
-.nkc-dock{position:fixed;right:92px;bottom:16px;width:min(430px,calc(100vw - 108px));height:min(620px,calc(100vh - 32px));z-index:9996;display:none;flex-direction:column;overflow:hidden;border-radius:20px;border:1px solid var(--cc-bd2);background:var(--cc-pan);color:var(--cc-tx);box-shadow:0 30px 70px -22px rgba(0,0,0,.65);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+.nkc-dock{position:fixed;right:92px;bottom:16px;width:min(340px,calc(100vw - 108px));height:min(470px,calc(100vh - 130px));z-index:9996;display:none;flex-direction:column;overflow:hidden;border-radius:20px;border:1px solid var(--cc-bd2);background:var(--cc-pan);color:var(--cc-tx);box-shadow:0 30px 70px -22px rgba(0,0,0,.65);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 .nkc-dock.on{display:flex}
-.nkc-dock .nkc-h{padding:10px 12px;gap:8px;cursor:default}.nkc-dock .nkc-h b{font-size:.95rem}
+.nkc-dock .nkc-h{padding:9px 10px 9px 14px;gap:6px;cursor:grab;touch-action:none;user-select:none}.nkc-dock.arrastrando .nkc-h{cursor:grabbing}.nkc-dock .nkc-h b{font-size:.9rem}.nkc-dock .nkc-h b small{font-size:.66rem}
 .nkc-dock .nkc-bt{width:30px;height:30px;border-radius:50%;border:0;background:var(--cc-soft);color:var(--cc-tx);cursor:pointer;font-size:.95rem;line-height:1}
 .nkc-dock .nkc-bt:hover{background:var(--cc-bd2)}
 .nkc-dock .nkc-body{padding:0 10px 12px}
-.nkc-dock .cc-chips{gap:5px}.nkc-dock .cc-chips button{padding:4px 9px;font-size:.68rem}
+.nkc-dock .cc-chips{gap:5px}.nkc-dock .cc-chips button{padding:3px 8px;font-size:.64rem}.nkc-dock .cc-barra{padding-top:8px}.nkc-dock .cc-grid{grid-template-columns:1fr}.nkc-dock .cc-gtabs button{font-size:.7rem;padding:9px 4px}
 .nkc-dock .cc-busca #cc-q{padding:10px 0;font-size:.9rem}
 .nkc-dock .cc-lista{grid-template-columns:1fr!important}.nkc-dock .cc-card.abierta{grid-column:auto!important}
-.nkc-dock .cc-head{padding:12px 74px 12px 18px!important;gap:10px}.nkc-dock .cc-head .ic{width:36px;height:36px;font-size:1.15rem}
+.nkc-dock .cc-head{padding:12px 74px 12px 18px!important;gap:10px}.nkc-dock .cc-head .ic{width:32px;height:32px;font-size:1rem;border-radius:11px}
 .nkc-dock .cc-head .tt b{font-size:.9rem}.nkc-dock .cc-head .tt small{font-size:.74rem}
 .nkc-dock .cc-body{padding:2px 14px 16px 16px}.nkc-dock .cc-big b{font-size:1.7rem}
 .nkc-dock .cc-star{top:9px;right:40px}.nkc-dock .cc-head .chev{right:16px}
@@ -85,7 +86,7 @@ body.nkc-con-dock .cf-fab{bottom:176px!important}
     estilos(); dockCss();
     document.body.classList.add('nkc-con-dock');
     const fab = document.createElement('button'); fab.type = 'button'; fab.className = 'nkc-fab'; fab.id = 'nkc-fab';
-    fab.setAttribute('aria-label', 'Calculadoras clínicas'); fab.title = 'Calculadoras clínicas' + (dkCfg.etiqueta ? ' · ' + dkCfg.etiqueta : ''); fab.textContent = '🧮';
+    fab.setAttribute('aria-label', 'Calculadoras clínicas'); fab.title = 'Calculadoras clínicas' + (dkCfg.etiqueta ? ' · ' + dkCfg.etiqueta : ''); fab.innerHTML = ICONO;
     dk = document.createElement('div'); dk.className = 'nkc-dock'; dk.setAttribute('role', 'dialog'); dk.setAttribute('aria-label', 'Calculadoras clínicas');
     dk.innerHTML = '<div class="nkc-h"><b>🧮 Calculadoras<small>' + (dkCfg.etiqueta ? 'Sugeridas para ' + dkCfg.etiqueta : 'Escalas y cálculos clínicos') + '</small></b><a href="/calculadoras.html" target="_blank" rel="noopener" title="Ver como guía">↗</a><button type="button" class="nkc-bt" data-a="min" aria-label="Minimizar" title="Minimizar">–</button><button type="button" class="nkc-bt" data-a="x" aria-label="Cerrar" title="Cerrar">✕</button></div><div class="nkc-body"><div id="nkc-dk-host"><p class="nkc-carga">Cargando calculadoras…</p></div></div>';
     document.body.appendChild(fab); document.body.appendChild(dk);
@@ -104,6 +105,13 @@ body.nkc-con-dock .cf-fab{bottom:176px!important}
       else if (dk.classList.contains('min') && e.target.closest('.nkc-h') && !e.target.closest('a')) dk.classList.remove('min');
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dk.classList.contains('on') && !ov?.classList.contains('on') && dk.contains(document.activeElement)) cerrarDock(); });
+    // mover el mosaico arrastrando su encabezado (queda donde lo dejes mientras dure la sesión)
+    try { const g = JSON.parse(sessionStorage.getItem('nkc_pos') || 'null'); if (g) { dk.style.left = g.x + 'px'; dk.style.top = g.y + 'px'; dk.style.right = 'auto'; dk.style.bottom = 'auto'; } } catch (_) {}
+    const hd = dk.querySelector('.nkc-h'); let off = null;
+    hd.addEventListener('pointerdown', (e) => { if (e.target.closest('button,a') || dk.classList.contains('min') && false) return; const r = dk.getBoundingClientRect(); off = { x: e.clientX - r.left, y: e.clientY - r.top }; dk.classList.add('arrastrando'); hd.setPointerCapture(e.pointerId); });
+    hd.addEventListener('pointermove', (e) => { if (!off) return; const w = dk.offsetWidth, h = dk.offsetHeight; const x = Math.min(Math.max(0, e.clientX - off.x), innerWidth - w), y = Math.min(Math.max(0, e.clientY - off.y), innerHeight - 40); dk.style.left = x + 'px'; dk.style.top = y + 'px'; dk.style.right = 'auto'; dk.style.bottom = 'auto'; });
+    const fin = () => { if (!off) return; off = null; dk.classList.remove('arrastrando'); try { sessionStorage.setItem('nkc_pos', JSON.stringify({ x: parseInt(dk.style.left, 10), y: parseInt(dk.style.top, 10) })); } catch (_) {} };
+    hd.addEventListener('pointerup', fin); hd.addEventListener('pointercancel', fin);
     window.NikaCalcPanel.abrirDock = (o) => { abrirDock(); const t = () => { if (dkApi) aplicar(dkApi, o || {}); else setTimeout(t, 120); }; if (o) t(); };
   }
   function autoDock() {

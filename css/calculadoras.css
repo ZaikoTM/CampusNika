@@ -1,8 +1,8 @@
 /* NikaMed · Calculadoras y escalas clínicas */
 /* Temas: oscuro por defecto (página pública); en el panel integrado siguen el modo del campus (claro / oscuro / premium) */
 :root { --cc-tx: #fff; --cc-tx2: #cbd5e1; --cc-mut: #94a3b8; --cc-link: #7dd3fc; --cc-av: #fde68a; --cc-avs: #fff; --cc-base: #0f172a; --cc-in: rgba(2, 6, 23, .6); --cc-chip: rgba(15, 23, 42, .85); --cc-out: rgba(2, 6, 23, .55); --cc-bd: rgba(255, 255, 255, .09); --cc-bd2: rgba(255, 255, 255, .14); --cc-soft: rgba(255, 255, 255, .05); --cc-pan: radial-gradient(900px 300px at 10% -10%, rgba(56, 189, 248, .14), transparent 60%), #020617; --cc-opt: #0f172a; }
-body:not(.dark-mode):not(.tema-premium) .nkc-ov, body:not(.dark-mode):not(.tema-premium) .nkc-dock { --cc-tx: #0f172a; --cc-tx2: #334155; --cc-mut: #64748b; --cc-link: #0369a1; --cc-av: #92400e; --cc-avs: #78350f; --cc-base: #ffffff; --cc-in: #ffffff; --cc-chip: #ffffff; --cc-out: #f8fafc; --cc-bd: rgba(15, 23, 42, .11); --cc-bd2: rgba(15, 23, 42, .2); --cc-soft: rgba(15, 23, 42, .05); --cc-pan: linear-gradient(180deg, #f1f5f9, #ffffff); }
-body.tema-premium .nkc-ov, body.tema-premium .nkc-dock { --cc-base: #1a0b3d; --cc-in: rgba(10, 4, 32, .6); --cc-chip: rgba(30, 12, 70, .8); --cc-out: rgba(10, 4, 32, .55); --cc-bd: rgba(192, 132, 252, .22); --cc-bd2: rgba(192, 132, 252, .38); --cc-link: #c4b5fd; --cc-pan: radial-gradient(800px 320px at 12% -10%, rgba(168, 85, 247, .3), transparent 60%), #0a0420; }
+body:not(.dark-mode):not(.tema-premium) .nkc-ov, body:not(.dark-mode):not(.tema-premium) .nkc-dock, body:not(.dark-mode):not(.tema-premium) .nkc-ov .cc-cal, body:not(.dark-mode):not(.tema-premium) .nkc-dock .cc-cal { --cc-tx: #0f172a; --cc-tx2: #334155; --cc-mut: #64748b; --cc-link: #0369a1; --cc-av: #92400e; --cc-avs: #78350f; --cc-base: #ffffff; --cc-in: #ffffff; --cc-chip: #ffffff; --cc-out: #f8fafc; --cc-bd: rgba(15, 23, 42, .11); --cc-bd2: rgba(15, 23, 42, .2); --cc-soft: rgba(15, 23, 42, .05); --cc-pan: linear-gradient(180deg, #f1f5f9, #ffffff); }
+body.tema-premium .nkc-ov, body.tema-premium .nkc-dock, body.tema-premium .nkc-ov .cc-cal, body.tema-premium .nkc-dock .cc-cal { --cc-base: #1a0b3d; --cc-in: rgba(10, 4, 32, .6); --cc-chip: rgba(30, 12, 70, .8); --cc-out: rgba(10, 4, 32, .55); --cc-bd: rgba(192, 132, 252, .22); --cc-bd2: rgba(192, 132, 252, .38); --cc-link: #c4b5fd; --cc-pan: radial-gradient(800px 320px at 12% -10%, rgba(168, 85, 247, .3), transparent 60%), #0a0420; }
 .cc-aviso { margin: 14px 0 22px; padding: 12px 16px; border-radius: 14px; background: rgba(234, 179, 8, .12); border: 1px solid rgba(234, 179, 8, .45); color: var(--cc-av); font-size: .84rem; line-height: 1.55; }
 .cc-aviso strong { color: var(--cc-avs); }
 .cc-barra { padding: 12px 0 10px; }
@@ -110,3 +110,26 @@ body.tema-premium .nkc-ov, body.tema-premium .nkc-dock { --cc-base: #1a0b3d; --c
 .cc-dice { margin: 8px 0 0 !important; padding-left: 18px !important; list-style: disc !important; display: grid; gap: 4px !important; }
 .cc-sin { margin: 0; color: var(--cc-mut); }
 .cc-rev { margin: 0; padding: 8px 14px 10px; font-size: .7rem; color: var(--cc-mut); border-top: 1px solid var(--cc-bd); }
+
+/* ---- selector de fecha ---- */
+.cc-date { position: relative; display: flex; align-items: center; }
+.cc-date .cc-dtxt { padding-right: 44px; }
+.cc-dbtn { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 10px; background: color-mix(in srgb, var(--ac, #38bdf8) 16%, transparent); color: var(--ac, #38bdf8); cursor: pointer; transition: .2s; }
+.cc-dbtn:hover { background: color-mix(in srgb, var(--ac, #38bdf8) 30%, transparent); }
+.cc-dreal { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.cc-cal { position: fixed; z-index: 10050; width: 264px; padding: 12px; border-radius: 18px; border: 1px solid var(--cc-bd2); background: var(--cc-pan); background-color: #0b1220; color: var(--cc-tx); box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .7); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; animation: ccCalIn .16s ease-out; }
+body:not(.dark-mode):not(.tema-premium) .nkc-ov .cc-cal, body:not(.dark-mode):not(.tema-premium) .nkc-dock .cc-cal { background-color: #fff; }
+body.tema-premium .nkc-ov .cc-cal, body.tema-premium .nkc-dock .cc-cal { background-color: #12072e; }
+@keyframes ccCalIn { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
+.cc-ch { display: flex; align-items: center; gap: 2px; margin-bottom: 8px; }
+.cc-ch b { flex: 1; text-align: center; font-size: .86rem; text-transform: capitalize; }
+.cc-ch button { width: 30px; height: 30px; border: 0; border-radius: 9px; background: transparent; color: var(--cc-tx2); cursor: pointer; font-size: 1.05rem; }
+.cc-ch button:hover { background: var(--cc-bd); }
+.cc-cw, .cc-cg { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+.cc-cw span { font-size: .68rem; font-weight: 800; color: var(--cc-mut); padding: 4px 0; }
+.cc-cd { aspect-ratio: 1; border: 0; border-radius: 10px; background: transparent; color: var(--cc-tx); font: 700 .8rem inherit; font-family: inherit; cursor: pointer; transition: background .12s; }
+.cc-cd:hover { background: var(--cc-bd2); }
+.cc-cd.hoy { box-shadow: inset 0 0 0 1.5px #38bdf8; }
+.cc-cd.sel { background: linear-gradient(135deg, #0ea5e9, #6366f1); color: #fff; }
+.cc-cf { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--cc-bd); }
+.cc-cf button { border: 0; background: none; color: var(--cc-link); font: 800 .78rem inherit; font-family: inherit; cursor: pointer; padding: 4px 6px; }
