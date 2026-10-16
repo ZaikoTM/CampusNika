@@ -38,7 +38,18 @@
     const barrer = (raiz) => { (raiz.querySelectorAll ? raiz.querySelectorAll(SEL) : []).forEach(revelar); if (raiz.matches && raiz.matches(SEL)) revelar(raiz); };
     barrer(document);
     // contenido que se arma después (comunidad, resumen, etc.) también se revela al llegar
-    try { new MutationObserver((ms) => ms.forEach((m) => m.addedNodes.forEach((x) => { if (x.nodeType === 1) barrer(x); }))).observe(document.querySelector('main.container') || document.body, { childList: true, subtree: true }); } catch (_) {}
+    // Se agrupan los nodos nuevos y se procesan juntos (antes: una búsqueda por cada nodo agregado, en cada cambio)
+    try {
+      const nuevos = new Set(); let prog = 0;
+      new MutationObserver((ms) => {
+        ms.forEach((m) => m.addedNodes.forEach((x) => { if (x.nodeType === 1 && !(x.classList && x.classList.contains('cv-confeti'))) nuevos.add(x); }));
+        if (prog || !nuevos.size) return;
+        prog = setTimeout(() => {
+          prog = 0; const lote = Array.from(nuevos); nuevos.clear();
+          lote.forEach((x) => { if (x.isConnected && !lote.some((o) => o !== x && o.contains(x))) barrer(x); });
+        }, 120);
+      }).observe(document.querySelector('main.container') || document.body, { childList: true, subtree: true });
+    } catch (_) {}
     // seguro: pase lo que pase, a los pocos segundos todo se ve
     setTimeout(() => { document.querySelectorAll('.cv-rv:not(.cv-in)').forEach((n) => { const r = n.getBoundingClientRect(); if (r.top < innerHeight * 1.5) { n.classList.remove('cv-rv'); } }); }, 6000);
   }

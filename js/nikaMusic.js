@@ -1466,9 +1466,16 @@ const NikaMusic = (() => {
     if (leerTokens() && localStorage.getItem(K_ACTIVA) === '1') cargarSdk();
     setTimeout(avisoAdminSpotify, 2500);
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  // El reproductor no hace falta para el primer pintado: se arma cuando el navegador está libre (o al primer uso).
+  let iniciado = false;
+  function asegurar() { if (iniciado) return; iniciado = true; init(); }
+  function programar() {
+    if ('requestIdleCallback' in window) requestIdleCallback(asegurar, { timeout: 2500 }); else setTimeout(asegurar, 1200);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', programar); else programar();
+  const usa = (f) => function () { asegurar(); return f.apply(this, arguments); };
 
-  return { abrir, cerrar, minimizar, alternar: () => (abierto && !minimizado ? cerrar() : abrir()), duck, conectar, desconectar, sugerirMusica: cartelPomodoro };
+  return { abrir: usa(abrir), cerrar: usa(cerrar), minimizar: usa(minimizar), alternar: usa(() => (abierto && !minimizado ? cerrar() : abrir())), duck: usa(duck), conectar: usa(conectar), desconectar: usa(desconectar), sugerirMusica: usa(cartelPomodoro) };
 })();
 
 window.NikaMusic = NikaMusic;
