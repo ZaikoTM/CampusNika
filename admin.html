@@ -212,11 +212,17 @@
 
     <div id="toast">Listo</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabaseClient.js"></script>
-    <script src="js/moderacion.js?v=20261001e"></script>
-    <script src="js/examModesConfig.js?v=74"></script>
-    <script src="js/admin.js?v=20261016a"></script>
+    <script>
+    /* SDK de Supabase con respaldo: si jsDelivr falla (red del celular, bloqueo), prueba unpkg; luego carga el resto en orden. */
+    (function () {
+        function cargar(src, ok, fallo) { var s = document.createElement('script'); s.src = src; s.async = false; s.onload = ok; s.onerror = fallo; document.head.appendChild(s); }
+        var sdk = ['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2', 'https://unpkg.com/@supabase/supabase-js@2'];
+        var resto = ['supabaseClient.js', 'js/moderacion.js?v=20261001e', 'js/examModesConfig.js?v=74', 'js/admin.js?v=20261017a'];
+        function seguir(i) { if (i >= resto.length) return; cargar(resto[i], function () { seguir(i + 1); }, function () { seguir(i + 1); }); }
+        function probar(i) { if (i >= sdk.length) { seguir(0); return; } cargar(sdk[i], function () { seguir(0); }, function () { probar(i + 1); }); }
+        probar(0);
+    })();
+    </script>
 <script src="js/ateneoGlobal.js?v=3" defer></script>
 </body>
 </html>

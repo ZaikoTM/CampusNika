@@ -364,7 +364,7 @@ def main():
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "NikaMed", "item": SITE + "/"},
             {"@type": "ListItem", "position": 2, "name": "Temas clínicos", "item": SITE + "/temas-clinicos.html"}]}]}
-    body = head(t_idx, d_idx, SITE + '/temas-clinicos.html', SITE + '/assets/og/nikamed-og-1200x630.png', ld_idx) + nav + f"""
+    body = head(t_idx, d_idx, SITE + '/temas-clinicos.html', SITE + '/assets/og/nikamed-og-1200x630.jpg', ld_idx) + nav + f"""
     <header class="legal-hero art-hero g-hero">
         <span class="g-orb a"></span><span class="g-orb b"></span>
         <div class="g-hero-ico">🃏</div>

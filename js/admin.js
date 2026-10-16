@@ -676,17 +676,33 @@
   // ------------------------------------------------------------
   // Arranque: solo admin
   // ------------------------------------------------------------
+  function falloDeAcceso() {
+    document.body.classList.remove('as-verificando');
+    const m = document.querySelector('.as-main'); if (!m) return;
+    m.innerHTML = '<section class="as-hero"><h1>No pudimos abrir el panel</h1><p>La conexión falló varias veces seguidas. Tus datos están bien: probá de nuevo.</p>' +
+      '<p><button type="button" class="as-btn" id="as-reintentar">🔄 Reintentar</button></p></section>';
+    const b = document.getElementById('as-reintentar'); if (b) b.onclick = () => location.reload();
+  }
+
   async function iniciar() {
-    try {
-      if (!window.NikaSupabase) throw new Error('sin cliente');
-      c = await window.NikaSupabase.ready;
-      const { data: { session } } = await c.auth.getSession();
-      if (!session) { location.replace('index.html'); return; }
-      const { data: yo } = await c.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
-      if (!yo || yo.role !== 'admin') { location.replace('campus.html'); return; }
-    } catch (e) {
-      console.error('[Admin] acceso:', e);
-      location.replace('campus.html'); return;
+    // Un corte de red o un error momentáneo NO debe sacarte del panel: se reintenta y solo se redirige con un resultado definitivo.
+    const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
+    for (let intento = 1; ; intento++) {
+      try {
+        if (!window.NikaSupabase) throw new Error('sin cliente');
+        c = await window.NikaSupabase.ready;
+        if (!c) throw new Error('cliente no listo');
+        const { data: { session } } = await c.auth.getSession();
+        if (!session) { location.replace('index.html'); return; }
+        const { data: yo, error } = await c.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
+        if (error) throw error;
+        if (!yo || yo.role !== 'admin') { location.replace('campus.html'); return; }
+        break;
+      } catch (e) {
+        console.warn('[Admin] acceso (intento ' + intento + '):', e);
+        if (intento >= 4) { falloDeAcceso(); return; }
+        await esperar(700 * intento);
+      }
     }
     document.body.classList.remove('as-verificando');
     const hoy = $('as-hoy'); if (hoy) hoy.textContent = '📅 ' + new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });

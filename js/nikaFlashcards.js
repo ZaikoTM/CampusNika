@@ -243,7 +243,16 @@
     dibujar(o, Hf);
     return out;
   }
-  const mensajeCorto = (p) => '🃏 ' + p.titulo + ' — flashcard clínica de NikaMed. Más tratamientos y temas en nikamed.com.ar';
+  // Texto que acompaña la imagen en WhatsApp: título, área y unidad, una frase de contexto y el link a la ficha pública
+  const mensajeCorto = (p) => {
+    const area = areaDe(p) === 'cirugia' ? 'Cirugía' : 'Ginecología y Obstetricia';
+    const uni = ((D && D.meta && D.meta.unidades) || {})[(p.up || [])[0]] || '';
+    let lead = String(p.definicion || '').replace(/\s+/g, ' ').trim();
+    const m = lead.match(/^(.+?[.!?])(\s|$)/); if (m && m[1].length > 40) lead = m[1];
+    if (lead.length > 190) lead = lead.slice(0, 187).replace(/\s+\S*$/, '') + '…';
+    return '🃏 *' + p.titulo + '*\n' + area + (uni ? ' · ' + uni : '') + '\n\n' + (lead ? lead + '\n\n' : '') +
+      '📖 Ficha completa, gratis:\nhttps://nikamed.com.ar/temas/' + p.id + '.html\n\n_NikaMed · Campus Nika — flashcards clínicas para estudiantes de Medicina_';
+  };
   const nombreImg = (p) => 'NikaMed-' + norm(p.titulo).replace(/\s+/g, '-').slice(0, 40) + '.png';
   async function compartirImagen(p, ids, via, host) {
     const cv = await generarImagen(p, ids);
