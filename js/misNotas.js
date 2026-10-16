@@ -22,6 +22,29 @@
   const store = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (_) {} return null; };
   const lsLeer = () => { try { return JSON.parse(localStorage.getItem(LS) || '[]'); } catch (_) { return []; } };
   const lsGuardar = (a) => { try { localStorage.setItem(LS, JSON.stringify(a)); } catch (_) {} };
+  // Sin conexión: copia de las notas de la nube + cola de cambios que se suben solos al volver la señal
+  const LS_CACHE = 'nika_notas_cache', LS_COLA = 'nika_notas_cola';
+  const cacheLeer = () => { try { return JSON.parse(localStorage.getItem(LS_CACHE) || 'null'); } catch (_) { return null; } };
+  const cacheGuardar = () => { try { localStorage.setItem(LS_CACHE, JSON.stringify({ uid, notas: todas.filter((n) => !n.local) })); } catch (_) {} };
+  const colaLeer = () => { try { return JSON.parse(localStorage.getItem(LS_COLA) || '[]'); } catch (_) { return []; } };
+  const colaGuardar = (c) => { try { localStorage.setItem(LS_COLA, JSON.stringify(c)); } catch (_) {} };
+  function encolar(op) {
+    let c = colaLeer();
+    if (op.op === 'del') c = c.filter((x) => x.id !== op.id);
+    else { const prev = c.find((x) => x.op === 'upd' && x.id === op.id); if (prev) { Object.assign(prev.db, op.db); return colaGuardar(c); } }
+    c.push(op); colaGuardar(c);
+  }
+  async function vaciarCola() {
+    if (!(uid && cli)) return;
+    const resto = [];
+    for (const o of colaLeer()) {
+      try {
+        const r = o.op === 'del' ? await cli.from('notas_estudio').delete().eq('id', o.id) : await cli.from('notas_estudio').update(o.db).eq('id', o.id);
+        if (r.error) resto.push(o);
+      } catch (_) { resto.push(o); }
+    }
+    colaGuardar(resto);
+  }
   const colorNueva = () => { const c = store(LS_COLOR); return COLORES[c] ? c : 'amarillo'; };
 
   /* ---------- empaquetado: título + formato dentro de "texto" ---------- */
@@ -73,6 +96,7 @@
       const { data: s } = await cli.auth.getSession(); uid = s && s.session && s.session.user ? s.session.user.id : null;
     } catch (_) {}
     if (uid && cli) {
+      await vaciarCola();
       const subidas = new Set();
       for (const n of locales) {
         try { const { error } = await cli.from('notas_estudio').insert(filaNube(n)); if (!error) subidas.add(n.id); else if (/relation|does not exist|PGRST205/i.test(error.message + error.code)) break; } catch (_) {}
@@ -81,15 +105,19 @@
       try {
         const { data, error } = await cli.from('notas_estudio').select('*').order('creado_en', { ascending: false });
         if (error) throw error;
-        todas = locales.concat((data || []).map(unpack)); estadoNube = locales.length ? 'parcial' : 'ok';
-      } catch (_) { todas = locales; estadoNube = 'error'; }
-    } else { todas = locales; estadoNube = 'local'; }
+        todas = locales.concat((data || []).map(unpack)); estadoNube = (locales.length || colaLeer().length) ? 'parcial' : 'ok'; cacheGuardar();
+      } catch (_) { const c = cacheLeer(); todas = locales.concat(c && (!uid || !c.uid || c.uid === uid) ? c.notas : []); estadoNube = 'offline'; }
+    } else {
+      const c = cacheLeer();
+      if (c && c.notas && c.notas.length) { todas = locales.concat(c.notas); estadoNube = 'offline'; }
+      else { todas = locales; estadoNube = 'local'; }
+    }
     await purgar(); pintarEstado(); pintarPapelera(); biblioteca();
     if (!store('nika_notas_guia')) setTimeout(() => guia(0), 700);
   }
   function pintarEstado() {
     const el = $('gn-sync'); if (!el) return;
-    const t = { ok: ['☁️ Sincronizado en la nube', 'ok'], parcial: ['☁️ Algunas notas siguen solo en este dispositivo', 'warn'], local: ['📱 Solo en este dispositivo · iniciá sesión para sincronizar', 'warn'], error: ['⚠️ Sin conexión con la nube: se guarda en este dispositivo', 'err'], cargando: ['Cargando…', ''] }[estadoNube];
+    const t = { ok: ['☁️ Sincronizado en la nube', 'ok'], parcial: ['☁️ Algunas notas siguen solo en este dispositivo', 'warn'], offline: ['📴 Sin conexión · tus cambios se guardan en este dispositivo y se suben solos al volver la señal', 'warn'], local: ['📱 Solo en este dispositivo · iniciá sesión para sincronizar', 'warn'], error: ['⚠️ Sin conexión con la nube: se guarda en este dispositivo', 'err'], cargando: ['Cargando…', ''] }[estadoNube];
     el.textContent = t[0]; el.dataset.e = t[1];
   }
 
@@ -172,12 +200,13 @@
   async function actualizar(n, campos) {
     Object.assign(n, campos);
     if (n.local) { lsGuardar(lsLeer().map((x) => (x.id === n.id ? Object.assign(x, campos) : x))); return; }
-    if (!(uid && cli)) return;
+    cacheGuardar();
     const db = {};
     if ('texto' in campos || 'titulo' in campos || 'contenido_html' in campos || 'eliminada_en' in campos || 'titulo_estilo' in campos) db.texto = necesitaPack(n) ? pack(n) : (n.texto || '');
     if ('color' in campos) db.color = campos.color;
     if (!Object.keys(db).length) return;
-    try { const { error } = await cli.from('notas_estudio').update(db).eq('id', n.id); if (error) { estadoNube = 'error'; pintarEstado(); } } catch (_) { estadoNube = 'error'; pintarEstado(); }
+    if (!(uid && cli) || !navigator.onLine) { encolar({ op: 'upd', id: n.id, db }); estadoNube = 'offline'; pintarEstado(); return; }
+    try { const { error } = await cli.from('notas_estudio').update(db).eq('id', n.id); if (error) { encolar({ op: 'upd', id: n.id, db }); estadoNube = 'offline'; pintarEstado(); } } catch (_) { encolar({ op: 'upd', id: n.id, db }); estadoNube = 'offline'; pintarEstado(); }
   }
   async function insertar(n) {
     if (uid && cli) {
@@ -189,7 +218,11 @@
   async function borrarNota(n) {
     todas = todas.filter((x) => x !== n);
     if (n.local) lsGuardar(lsLeer().filter((x) => x.id !== n.id));
-    else if (uid && cli) { try { await cli.from('notas_estudio').delete().eq('id', n.id); } catch (_) {} }
+    else {
+      cacheGuardar();
+      if (!(uid && cli) || !navigator.onLine) { encolar({ op: 'del', id: n.id }); estadoNube = 'offline'; pintarEstado(); }
+      else { try { const r = await cli.from('notas_estudio').delete().eq('id', n.id); if (r.error) throw r.error; } catch (_) { encolar({ op: 'del', id: n.id }); estadoNube = 'offline'; pintarEstado(); } }
+    }
   }
   async function crear() {
     $('gn-q2').value = '';
@@ -529,4 +562,5 @@
   }
 
   lateral(); pintarColorNueva(); arrastre(); formato(); eventos(); cargar();
+  window.addEventListener('online', () => { const a = document.activeElement; if (a && (a.isContentEditable || /^(INPUT|TEXTAREA)$/.test(a.tagName))) { setTimeout(() => window.dispatchEvent(new Event('online')), 4000); return; } cargar(); });
 })();

@@ -1505,4 +1505,6 @@
   }
   window.NikaPlan = { iniciar, _estado: S, ritmo, planesDe: () => S.planes, colorDias, limpiarDuplicados };
   document.addEventListener('DOMContentLoaded', iniciar);
+  // Al volver la conexión se sincronizan solos los planes que se editaron sin señal (gana el cambio más reciente de cada plan)
+  window.addEventListener('online', () => { cargarNube().then(() => { try { render(); } catch (_) {} }); });
 })();

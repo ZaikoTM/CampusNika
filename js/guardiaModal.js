@@ -55,6 +55,15 @@ const GuardiaModal = (() => {
     { id: 'atlas', icono: '🥽', titulo: 'NikaSim · Atlas de procedimientos', sub: 'todas las materias', paquetes: [
       { id: 'atlas-pasos', icono: '📋', titulo: 'Pasos y listas de cotejo', desc: 'Todos los procedimientos con sus pasos, fundamentos y criterios. Los modelos 3D necesitan conexión.', urls: ACR, est: 830 * KB },
     ] },
+    { id: 'consulta', icono: '📖', titulo: 'Consulta rápida', sub: 'tu material siempre a mano', paquetes: [
+      { id: 'calculadoras', icono: '🧮', titulo: 'Calculadoras y escalas clínicas', desc: 'Más de 55 calculadoras (Ranson, Wells, CHA₂DS₂-VASc, NEWS2, MELD, FPP…) con su fundamento. Funcionan sin conexión.', urls: ['calculadoras.html'], lista: 'calculadoras', est: 260 * KB },
+      { id: 'temas-gin', icono: '🤰', titulo: 'Temas clínicos · Ginecología y Obstetricia', desc: 'Las 51 fichas con diagnóstico, tratamiento y banderas rojas, en formato de lectura.', urls: ['temas-clinicos.html'], lista: 'temas-gin', est: 6.3 * MB },
+      { id: 'temas-cir', icono: '🔪', titulo: 'Temas clínicos · Cirugía', desc: 'Las 90 fichas de las 11 unidades problema, en formato de lectura.', urls: ['temas-clinicos.html'], lista: 'temas-cir', est: 7.7 * MB },
+      { id: 'guias', icono: '🧭', titulo: 'Guías de estudio', desc: 'Cómo estudiar, ECOE, abdomen agudo, trauma, urgencias obstétricas y más.', urls: ['guias.html'], lista: 'guias', est: 780 * KB },
+      { id: 'notas', icono: '📓', titulo: 'Mis notas y apuntes', desc: 'Leé y editá tus notas sin señal: los cambios se guardan en el dispositivo y se suben solos al volver la conexión.', urls: ['mis_notas.html'], lista: 'notas', est: 850 * KB },
+      { id: 'plan', icono: '🗓️', titulo: 'Plan de estudio y planificador', desc: 'Mirá y marcá tu plan sin conexión; se sincroniza al volver la señal (queda el cambio más reciente).', urls: ['plan_examen.html'], lista: 'plan', est: 800 * KB },
+      { id: 'glosario', icono: '🔤', titulo: 'Glosario médico', desc: 'Términos clínicos para consultar sin señal.', urls: ['glosario.html'], lista: 'glosario', est: 190 * KB },
+    ] },
     { id: 'herr', icono: '🧰', titulo: 'Herramientas', sub: 'para la guardia', paquetes: [
       { id: 'farma', icono: '💊', titulo: 'Vademécum NikaFarma', desc: 'Fármacos, síndromes, patógenos y calculadoras.', farma: true, est: EST_FARMA },
       { id: 'flashcards', icono: '🃏', titulo: 'Flashcards de NikaFarma', desc: 'Tarjetas clínicas de tratamientos y temas: explorar, practicar y rendir el simulador de flashcards sin señal.', urls: ['flashcards.html', 'data/nikafarma_patologias.json', 'data/flashcards_cirugia.json', 'js/nikaFlashcards.js', 'css/flashcards.css', 'assets/fonts/caveat-latin.woff2', 'assets/fonts/caveat-latin-ext.woff2', 'assets/fonts/plusjakarta-latin.woff2', 'assets/fonts/plusjakarta-latin-ext.woff2', 'assets/N%20NIKA.png', 'assets/TEXTO%20VECTOR%20NIKA.png', 'js/nikafarmaPatologias.js', 'nikafarma.html',
@@ -374,8 +383,21 @@ const GuardiaModal = (() => {
     return info ? info.bytes : 0;
   }
 
+  // Listas de archivos que cambian con el contenido (temas, guías, calculadoras…): se piden al descargar
+  let _listas = null;
+  async function _listaDe(nombre) {
+    if (!_listas) { const r = await fetch('data/guardia_listas.json', { cache: 'no-cache' }); if (!r.ok) throw new Error('lista no disponible'); _listas = await r.json(); }
+    return _listas[nombre] || [];
+  }
+  async function _conLista(p) {
+    if (!p.lista) return p;
+    const l = await _listaDe(p.lista);
+    return Object.assign({}, p, { urls: Array.from(new Set((p.urls || []).concat(l))) });
+  }
+
   // Devuelve { ok, errores[], bytes }
   async function _bajarPack(p) {
+    try { p = await _conLista(p); } catch (e) { return { ok: false, errores: ['No se pudo leer la lista de archivos: ' + e.message], bytes: 0 }; }
     const errores = []; let bytes = 0;
     const partes = (p.bancos ? p.bancos.ups.length : 0) + (p.urls && p.urls.length ? 1 : 0) + (p.farma ? 1 : 0);
     let hechas = 0;
@@ -485,7 +507,7 @@ const GuardiaModal = (() => {
     try {
       if (p.bancos) { const l = await OfflineStorage.listarUPsLocales(p.bancos.modulo); for (const x of l) await OfflineStorage.eliminarUPLocal(x.modulo, x.upId); }
       if (p.farma) { await OfflineStorage.eliminarNikaFarmaLocal(); await _mensajeSW({ type: 'UNCACHE_URLS', urls: [URL_FARMA] }, null, 10000); }
-      if (p.urls && p.urls.length) await _mensajeSW({ type: 'UNCACHE_URLS', urls: p.urls }, null, 20000);
+      if (p.urls && p.urls.length) { let q = p; try { q = await _conLista(p); } catch (_) {} await _mensajeSW({ type: 'UNCACHE_URLS', urls: q.urls }, null, 30000); }
       const m = meta(); delete m[p.id]; guardarMeta(m);
       _fin(`🗑️ “${p.titulo}” quitado.`);
     } catch (e) { _fin('No se pudo quitar: ' + e.message); }
@@ -500,7 +522,8 @@ const GuardiaModal = (() => {
     try {
       const l = await OfflineStorage.listarUPsLocales('cirugia'); for (const x of l) await OfflineStorage.eliminarUPLocal(x.modulo, x.upId);
       await OfflineStorage.eliminarNikaFarmaLocal();
-      const urls = [...new Set(TODOS.flatMap((p) => p.urls || []).concat([URL_FARMA], BASE_URLS))];
+      let urls = [...new Set(TODOS.flatMap((p) => p.urls || []).concat([URL_FARMA], BASE_URLS))];
+      try { await _listaDe('guias'); Object.values(_listas).forEach((l) => { urls = urls.concat(l); }); urls = [...new Set(urls)]; } catch (_) {}
       await _mensajeSW({ type: 'UNCACHE_URLS', urls }, null, 30000);
       guardarMeta({});
       _fin('🗑️ Descargas borradas.');
