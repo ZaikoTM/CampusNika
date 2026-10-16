@@ -79,13 +79,13 @@ def main():
             <div class="row"><a class="btn-primary" href="/index.html#crear-cuenta">Crear cuenta gratis</a><a class="btn-ghost" href="/temas-clinicos.html">Ver temas clínicos</a></div></div>
     </main>
     {foot}
-<script src="/js/calc/motor.js?v=9"></script>
-<script src="/js/calc/datos-obstetricia.js?v=9"></script>
-<script src="/js/calc/datos-cirugia.js?v=9"></script>
-<script src="/js/calc/datos-clinica.js?v=9"></script>
-<script src="/js/calc/datos-general.js?v=9"></script>
-<script src="/js/calc/datos-extra.js?v=9"></script>
-<script src="/js/calc/fuentes-ar.js?v=9"></script>
+<script src="/js/calc/motor.js?v=10"></script>
+<script src="/js/calc/datos-obstetricia.js?v=10"></script>
+<script src="/js/calc/datos-cirugia.js?v=10"></script>
+<script src="/js/calc/datos-clinica.js?v=10"></script>
+<script src="/js/calc/datos-general.js?v=10"></script>
+<script src="/js/calc/datos-extra.js?v=10"></script>
+<script src="/js/calc/fuentes-ar.js?v=10"></script>
 <script>NikaCalcs.montar(document.getElementById('calc-app'));</script>
 <script src="/js/guias.js?v=2" defer></script>
 <script src="/js/navmovil.js?v=1" defer></script>

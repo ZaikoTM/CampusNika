@@ -2,7 +2,9 @@
 """Genera las páginas públicas por tema (temas/<id>.html), el índice temas-clinicos.html,
 las imágenes OG por tema y las entradas del sitemap, a partir de los JSON de flashcards.
 Uso: python tools/gen_temas.py   (desde la raíz del repo)"""
-import json, os, re, html
+import json, os, re, html, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import fuentes_ar as FA
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageChops
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -131,6 +133,13 @@ CSS_EXTRA = """
 .tm-fig img{max-width:min(100%,420px);height:auto;border-radius:14px;border:1px solid var(--border-subtle);box-shadow:0 14px 40px -16px rgba(0,0,0,.7)}
 .tm-fig figcaption{font-size:.82rem;color:var(--text-dim);margin-top:10px}
 .tm-ar{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.3)}.tm-ar ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px}.tm-ar small{display:block;color:var(--text-dim)}
+.tm-guias{margin-top:12px;border-radius:14px;border:1px solid rgba(148,163,184,.3);background:rgba(255,255,255,.04);overflow:hidden}.tm-guias>input{position:absolute;opacity:0;pointer-events:none}
+.tm-gtabs{display:flex;border-bottom:1px solid rgba(148,163,184,.25)}.tm-gtabs label{flex:1;text-align:center;padding:11px 8px;font-weight:800;font-size:.82rem;color:var(--text-dim);cursor:pointer;border-bottom:3px solid transparent;transition:.2s}.tm-gtabs i{font-style:normal;opacity:.7}
+.tm-gtabs label:hover{color:#fff}.tm-r1:checked~.tm-gtabs label:nth-child(1),.tm-r2:checked~.tm-gtabs label:nth-child(2){color:#fff;border-bottom-color:var(--primary);background:rgba(56,189,248,.1)}
+.tm-gpa,.tm-gpi{display:none;padding:12px 14px;font-size:.84rem;line-height:1.55;color:#cbd5e1}.tm-r1:checked~.tm-gpa,.tm-r2:checked~.tm-gpi{display:block}
+.tm-guias ul{margin:0;padding:0;list-style:none;display:grid;gap:14px}.tm-gt1{font-weight:800;color:#fff}.tm-gt1 a{color:var(--primary-glow)}.tm-guias small{display:block;color:var(--text-dim);margin-top:2px}
+.tm-gv{display:inline-block;margin:5px 6px 0 0;padding:2px 9px;border-radius:99px;font-size:.72rem;font-weight:800;background:rgba(148,163,184,.18);color:#e2e8f0}
+.tm-guias ul.tm-gd{margin:8px 0 0;padding-left:18px;list-style:disc;gap:4px}.tm-gsin{margin:0;color:var(--text-dim)}.tm-grev{margin:0;padding:8px 14px 10px;font-size:.72rem;color:var(--text-dim);border-top:1px solid rgba(148,163,184,.2)}
 .tm-aviso{font-size:.78rem;color:var(--text-dim);margin-top:22px;line-height:1.6}
 .tm-buscar{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-subtle);background:rgba(15,23,42,.8);color:#fff;font:inherit;font-weight:600;margin:6px 0 4px}
 .tm-buscar:focus{outline:2px solid var(--violet-glow)}
@@ -235,6 +244,20 @@ def og_imagen(p, a, unidad):
     d.text((64, H - 56), 'nikamed.com.ar', font=ImageFont.truetype('C:/Windows/Fonts/arialbd.ttf', 26), fill=tuple(min(255, c + 70) for c in acc))
     im.convert('RGB').save(out, quality=84, optimize=True, progressive=True)
 
+def _ref_li(r):
+    t = ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (e(r['u']), e(r['t']))) if r.get('u') else e(r['t'])
+    d = ('<ul class="tm-gd">' + ''.join('<li>%s</li>' % e(x) for x in r['d']) + '</ul>') if r.get('d') else ''
+    return '<li><div class="tm-gt1">%s</div><small>%s</small>%s%s%s</li>' % (t, e(r['c']), ('<span class="tm-gv">%s</span>' % e(r['v'])) if r.get('v') else '', ('<span class="tm-gv">%s</span>' % e(r['n'])) if r.get('n') else '', d)
+
+def guias_tabs(pid, ar_l, int_l, nota_ar, nota_int):
+    vac_ar = e(nota_ar or 'No se localizó una guía argentina específica vigente para este tema: se cita la fuente de la ficha.')
+    vac_int = e(nota_int or 'No se revisó una guía internacional más reciente para este tema; la referencia vigente es la fuente citada en la ficha.')
+    ini_int = (not ar_l) and bool(int_l)
+    return ('<div class="tm-guias"><input type="radio" class="tm-r1" name="g-%s" id="ga-%s"%s aria-label="Guía argentina"><input type="radio" class="tm-r2" name="g-%s" id="gi-%s"%s aria-label="Guías internacionales">' % (pid, pid, '' if ini_int else ' checked', pid, pid, ' checked' if ini_int else '') +
+            '<div class="tm-gtabs"><label for="ga-%s">🇦🇷 Guía argentina%s</label><label for="gi-%s">🌐 Guías internacionales%s</label></div>' % (pid, (' <i>%d</i>' % len(ar_l)) if ar_l else '', pid, (' <i>%d</i>' % len(int_l)) if int_l else '') +
+            '<div class="tm-gpa">%s</div><div class="tm-gpi">%s</div>' % (('<ul>' + ''.join(_ref_li(r) for r in ar_l) + '</ul>') if ar_l else '<p class="tm-gsin">%s</p>' % vac_ar, ('<ul>' + ''.join(_ref_li(r) for r in int_l) + '</ul>') if int_l else '<p class="tm-gsin">%s</p>' % vac_int) +
+            '<p class="tm-grev">Fuentes revisadas el 16/10/2026. Resumen de lo verificado: no reemplaza la lectura del documento.</p></div>')
+
 def main():
     pats, unidades = cargar()
     nav, foot = nav_footer()
@@ -277,8 +300,11 @@ def main():
         enlace = f.get('archivo', '')
         enlace_html = f' · <a href="{e(enlace)}" target="_blank" rel="noopener">Ver la fuente</a>' if enlace.startswith('http') else ''
         fuente = f'<div class="tm-fuente"><b>{etiqueta}:</b> {e(f.get("guia",""))} — {e(f.get("sociedad",""))} ({e(str(f.get("anio","")))}){enlace_html}.</div>'
-        if f.get('argentinas'):
-            fuente = fuente[:-6] + '<div class="tm-ar"><b>🇦🇷 Fuentes argentinas:</b><ul>' + ''.join('<li>%s <small>%s%s</small></li>' % (('<a href="%s" target="_blank" rel="noopener">%s</a>' % (e(r['u']), e(r['t']))) if r.get('u') else e(r['t']), e(r['c']), (' · ' + e(r['n'])) if r.get('n') else '') for r in f['argentinas']) + '</ul></div></div>'
+        ar_l, int_l, nota_ar, nota_int = FA.guias_ficha(p['id'], p.get('calculadora'))
+        for r in f.get('argentinas', []):
+            if not any(x['t'] == r['t'] for x in ar_l): ar_l.append(r)
+        if ar_l or int_l:
+            fuente = fuente[:-6] + guias_tabs(p['id'], ar_l, int_l, nota_ar, nota_int) + '</div>'
         # imagen real de la tarjeta (generada con el propio Simulador FlashCard)
         figura = ''
         small = os.path.join(ROOT, 'assets/temas', p['id'] + '-480.webp')

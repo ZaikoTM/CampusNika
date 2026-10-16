@@ -6,6 +6,7 @@ import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fuentes_int import DICE, INT, CALC_INT, REF_AR_EXTRA, CALC_AR_EXTRA
 from fuentes_int2 import INT2, CALC_INT2, REF_AR2, CALC_AR2, NOTA_AR, NOTA_INT
+from fuentes_int3 import DICE3, REF_AR3, CALC_AR3, CALC_AR3_ADD, INT3, FICHAS_GUIAS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,6 +46,14 @@ REFS.update(REF_AR2)
 for _k, _v in CALC_AR2.items():
     CALC[_k] = CALC.get(_k, []) + _v
 INT.update(INT2)
+REFS.update(REF_AR3)
+REFS.pop('evidencia-prenatal', None)
+for _k, _v in DICE3.items():
+    REFS[_k]['d'] = _v
+CALC.update(CALC_AR3)
+for _k, _v in CALC_AR3_ADD.items():
+    CALC[_k] = CALC.get(_k, []) + _v
+INT.update(INT3)
 for _k, _v in CALC_INT2.items():
     CALC_INT[_k] = CALC_INT.get(_k, []) + _v
 for _k, _v in DICE.items():
@@ -53,8 +62,22 @@ for _k, _v in DICE.items():
 def lista(keys):
     return [{k2: v for k2, v in REFS[k].items()} for k in keys]
 
+def guias_ficha(pid, calc):
+    """Guías argentinas e internacionales de una ficha (por su id y, si tiene, por su calculadora)."""
+    ar, it = [], []
+    g = FICHAS_GUIAS.get(pid, {})
+    claves_ar = list(g.get('ar', [])) + list(FICHAS.get(pid, [])) + (CALC.get(calc, []) if calc else [])
+    claves_int = list(g.get('int', [])) + (CALC_INT.get(calc, []) if calc else [])
+    vistos = set()
+    for k in claves_ar:
+        if k not in vistos: vistos.add(k); ar.append(REFS[k])
+    vistos = set()
+    for k in claves_int:
+        if k not in vistos: vistos.add(k); it.append(INT[k])
+    return ar, it, NOTA_AR.get(calc), NOTA_INT.get(calc)
+
 def main():
-    out = {'refs': REFS, 'calc': CALC, 'fichas': FICHAS, 'int': INT, 'calcInt': CALC_INT, 'notaAr': NOTA_AR, 'notaInt': NOTA_INT}
+    out = {'refs': REFS, 'calc': CALC, 'fichas': FICHAS, 'int': INT, 'calcInt': CALC_INT, 'notaAr': NOTA_AR, 'notaInt': NOTA_INT, 'fichasGuias': FICHAS_GUIAS}
     json.dump(out, open(os.path.join(ROOT, 'data/fuentes_argentinas.json'), 'w', encoding='utf8'), ensure_ascii=False, indent=1)
     js = '// Fuentes argentinas verificadas (generado por tools/fuentes_ar.py)\n(function () {\n  const REFS = ' + json.dumps(REFS, ensure_ascii=False) + ';\n  const MAPA = ' + json.dumps(CALC, ensure_ascii=False) + ';\n' \
          '  const INT = ' + json.dumps(INT, ensure_ascii=False) + ';\n  const MAPAI = ' + json.dumps(CALC_INT, ensure_ascii=False) + ';\n  const NA = ' + json.dumps(NOTA_AR, ensure_ascii=False) + ';\n  const NI = ' + json.dumps(NOTA_INT, ensure_ascii=False) + ';\n  NikaCalcs.REG.forEach((c) => { if (MAPA[c.id]) c.fuenteAr = MAPA[c.id].map((k) => REFS[k]); if (MAPAI[c.id]) c.fuenteInt = MAPAI[c.id].map((k) => INT[k]); if (NA[c.id]) c.notaAr = NA[c.id]; if (NI[c.id]) c.notaInt = NI[c.id]; });\n})();\n'
