@@ -67,6 +67,7 @@
       .then(([j, cx]) => {
         (j.patologias || []).forEach((x) => { if (!x.area) x.area = 'ginecologia'; });
         if (cx && Array.isArray(cx.patologias)) {
+          cx.patologias.forEach((x) => { if (x.fuente && !x.fuente.url) { const u = urlDeFuente(x.fuente); if (u) x.fuente.url = u; } });
           j.patologias = (j.patologias || []).concat(cx.patologias);
           j.meta = j.meta || {};
           j.meta.unidades = Object.assign({}, j.meta.unidades || {}, (cx.meta && cx.meta.unidades) || {});
@@ -110,16 +111,30 @@
   ];
   const tieneSec = (p, s) => { const h = s.html(p); return !!h && h.replace(/<[^>]+>/g, '').trim().length > 0; };
 
+  // Enlace a la fuente: solo se muestra cuando hay un link confirmado (Drive de la cátedra o página de la guía)
+  const enlaceFuente = (f) => f.url ? ' <a class="fc-fuente-link" href="' + esc(f.url) + '" target="_blank" rel="noopener">📖 Abrir la fuente</a>' : '';
+  const FUENTE_URL = [
+    ['Enfermedades de colon', 'https://drive.google.com/file/d/16sFGdg4xZAeO47UxIyiscHIcVnUHBUNh/view?usp=sharing'],
+    ['EnfermedadesColonRectoAno', 'https://drive.google.com/file/d/16sFGdg4xZAeO47UxIyiscHIcVnUHBUNh/view?usp=sharing'],
+    ['pancreatitis aguda', 'https://drive.google.com/file/d/1yatJhxdngDGOrEqzNJ_ryuD_hri04ZPe/view?usp=sharing']
+  ];
+  function urlDeFuente(f) {
+    if (f.url) return f.url;
+    const a = String(f.archivo || '');
+    if (/^https?:/.test(a)) return a;
+    const hit = FUENTE_URL.find((x) => a.toLowerCase().includes(x[0].toLowerCase()));
+    return hit ? hit[1] : '';
+  }
   function sello(p) {
     const f = p.fuente || {};
-    if (f.tipo === 'guia') return '<div class="fc-aviso guia">✔ <span>Basada en guía: ' + esc(f.sociedad) + ' · ' + esc(f.anio) + '</span></div>';
-    if (f.tipo === 'libro') return '<div class="fc-aviso libro">📘 <span>Basada en manual de la cátedra: ' + esc(f.sociedad) + ' · ' + esc(f.anio) + '. Contrastá con las guías vigentes.</span></div>';
+    if (f.tipo === 'guia') return '<div class="fc-aviso guia">✔ <span>Basada en guía: ' + esc(f.sociedad) + ' · ' + esc(f.anio) + '</span>' + enlaceFuente(f) + '</div>';
+    if (f.tipo === 'libro') return '<div class="fc-aviso libro">📘 <span>Fuente validada de la cátedra: ' + esc(f.sociedad) + ' · ' + esc(f.anio) + '</span>' + enlaceFuente(f) + '</div>';
     return '<div class="fc-aviso">⚠️ <span>Verificar veracidad con guías actuales. Fuente: ' + esc(f.sociedad) + '</span></div>';
   }
   const etiquetaFuente = (p) => (p.fuente && p.fuente.tipo === 'guia')
     ? '<span class="fc-tag guia">✔ ' + esc((p.fuente.sociedad || '').split('/')[0].trim()) + ' ' + esc(p.fuente.anio || '') + '</span>'
     : (p.fuente && p.fuente.tipo === 'libro')
-      ? '<span class="fc-tag lib" title="Basada en el manual de la cátedra: contrastar con guías vigentes">📘 Manual ' + esc(p.fuente.anio || '') + '</span>'
+      ? '<span class="fc-tag lib" title="Fuente validada de la cátedra">📘 Manual ' + esc(p.fuente.anio || '') + '</span>'
       : '<span class="fc-tag ver" title="Verificar veracidad con guías actuales">⚠️ Verificar con guías</span>';
 
   // ---------- tarjeta completa (detalle) ----------
@@ -128,7 +143,7 @@
     const unidades = (p.up || []).map((u) => (D.meta.unidades || {})[u] || u).join(' · ');
     const cuerpo = SECS.filter((s) => ids.includes(s.id) && tieneSec(p, s)).map((s) => s.ico + ' *' + s.nom.toUpperCase() + '*\n' + s.txt(p)).join('\n\n');
     return '🃏 *' + p.titulo + '*\n' + unidades + '\n\n' + cuerpo + '\n\nFuente: ' + (f.sociedad || '') + ' · ' + (f.guia || '') + ' (' + (f.anio || '') + ')' +
-      (f.tipo === 'guia' ? '' : '\n⚠️ Verificar veracidad con guías actuales.') + '\n\nNikaMed · Flashcards clínicas — nikamed.com.ar';
+      (f.tipo === 'guia' || f.tipo === 'libro' ? '' : '\n⚠️ Verificar veracidad con guías actuales.') + '\n\nNikaMed · Flashcards clínicas — nikamed.com.ar';
   }
   function avisoToast(host, msg) {
     const t = host.querySelector('.fcd-toast'); if (!t) return;

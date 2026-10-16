@@ -326,3 +326,6 @@ body.dark-mode .fcd-marca{mix-blend-mode:normal;opacity:.18}
 .fcd-marca img.v{height:28px}
 .fcd-hoja h3{padding-right:190px}
 @media(max-width:560px){.fcd-marca img{height:30px}.fcd-marca img.v{height:18px}.fcd-hoja h3{padding-right:120px}}
+
+.fc-fuente-link{margin-left:8px;font-weight:800;color:#0369a1;text-decoration:underline;white-space:nowrap}
+body.dark-mode .fc-fuente-link{color:#7dd3fc}

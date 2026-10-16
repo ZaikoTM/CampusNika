@@ -19,8 +19,8 @@
   "tipos": {
    "libro": "Libro o manual de la bibliografía de la cátedra (contrastar con guías vigentes)"
   },
-  "regla": "Se priorizan guías y consensos argentinos recientes; si no hay, se usa el manual más reciente de la bibliografía o una guía internacional justificada en cada ficha.",
-  "descargo": "Material educativo para estudiantes de medicina. Resume guías y consensos argentinos recientes (sociedades científicas, Ministerio de Salud) y, donde se indica, manuales de la bibliografía de la cátedra (Universidad de Chile, Manual CTO, Galindo y otros) que deben contrastarse con las guías vigentes. No reemplaza la guía vigente completa, el protocolo de la institución ni el juicio del médico tratante."
+  "descargo": "Material educativo para estudiantes de medicina. Resume guías y consensos argentinos recientes y la bibliografía validada de la cátedra (Universidad de Chile, Manual CTO, Galindo y otros); cada ficha cita su fuente. No reemplaza la guía vigente completa, el protocolo de la institución ni el juicio del médico tratante.",
+  "regla": "Se priorizan guías y consensos argentinos recientes; si no hay, se usa el manual más reciente de la bibliografía o una guía internacional justificada en cada ficha."
  },
  "patologias": [
   {
@@ -5327,6 +5327,319 @@
     "nota": "Sin guía argentina ni material de urología en las carpetas provistas: se usa la guía de la Asociación Europea de Urología (EAU), actualizada en 2026 y consultada en uroweb.org; contrastar con las guías de la Sociedad Argentina de Urología."
    },
    "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-anestesia-tipos-riesgo",
+   "area": "cirugia",
+   "titulo": "Anestesia: tipos, riesgo anestésico (ASA) y valoración preoperatoria",
+   "alias": [
+    "anestesia",
+    "asa",
+    "riesgo anestesico",
+    "anestesia local",
+    "anestesia regional",
+    "anestesia general",
+    "goldman",
+    "guedel"
+   ],
+   "up": [
+    "cx1"
+   ],
+   "unidad": "UP1 · Trauma de miembro superior y generalidades quirúrgicas",
+   "estado": "verificar",
+   "definicion": "La anestesiología es la especialidad que da comodidad y cuidado al paciente durante procedimientos quirúrgicos o dolorosos, y trata también el dolor agudo o crónico y al paciente crítico en la recuperación y la urgencia.",
+   "diagnostico": [
+    "Anestesia local: se aplica una sustancia que bloquea el dolor en la zona a intervenir; se mantienen las medidas de seguridad de una anestesia general y conviene tener un anestesiólogo disponible.",
+    "Anestesia general: estado reversible de pérdida de conciencia, analgesia y relajación muscular con fármacos intravenosos, inhalatorios o ambos; el paciente pasa luego a recuperación.",
+    "Anestesia regional (locorregional): pérdida reversible de la sensación de dolor en la región a operar con el paciente despierto y tranquilo; se inyectan anestésicos locales cerca de un nervio o de la columna.",
+    "Riesgo anestésico, clasificación ASA en 5 clases: I sano en cirugía programada; II enfermedad sistémica leve; III enfermedad sistémica grave que limita la actividad pero no incapacita; IV enfermedad incapacitante con riesgo vital constante; V moribundo con expectativa de vida menor de 24 h."
+   ],
+   "estudios": [
+    "Valoración preoperatoria: antecedentes, estado físico (ASA) y escala de Goldman (edad, infarto reciente, ECG, estado general) para estimar riesgo cardíaco."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Preparación",
+       "texto": "Reducir la ansiedad, prevenir náuseas y vómitos y controlar los efectos vagales y secreciones; combinar preparación física, psicológica y farmacológica."
+      },
+      {
+       "etiqueta": "Monitoreo",
+       "texto": "Registrar al menos signos vitales y saturación de oxígeno de forma no cruenta; en anestesia general se instalan monitores."
+      },
+      {
+       "etiqueta": "Elección",
+       "texto": "Se elige según el procedimiento, el estado del paciente y su riesgo (ASA); toda técnica exige las mismas precauciones y vigilancia."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Recuperación anestésica en sala; alta ambulatoria según criterios de egreso."
+   ],
+   "banderas": [
+    "ASA IV o V, y paciente con patología de base descompensada: riesgo alto, evaluación conjunta con anestesiología antes de operar."
+   ],
+   "fuente": {
+    "guia": "Cirugía general para el médico general (cap. 4, Anestesiología)",
+    "sociedad": "Márquez Martín y Muñoz Maldonado, McGraw-Hill",
+    "anio": "3.ª ed.",
+    "archivo": "Cirugia General para el Medico General de Marquez 3era Edicion.pdf",
+    "tipo": "libro",
+    "nota": "Bibliografía complementaria de la UP1 de la cátedra."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-infecciones-piel-forunculo-antrax",
+   "area": "cirugia",
+   "titulo": "Infecciones localizadas de la piel: foliculitis, forúnculo, ántrax e hidrosadenitis",
+   "alias": [
+    "forunculo",
+    "antrax",
+    "hidrosadenitis",
+    "foliculitis",
+    "infeccion piel",
+    "estafilococo"
+   ],
+   "up": [
+    "cx1"
+   ],
+   "unidad": "UP1 · Trauma de miembro superior y generalidades quirúrgicas",
+   "estado": "verificar",
+   "definicion": "Infecciones estafilocócicas de la piel con puerta de entrada pilosebácea o glandular, más frecuentes en diabéticos e inmunodeprimidos y en zonas pilosas, húmedas y de roce (nalgas, cara interna de muslos, nuca, axilas).",
+   "diagnostico": [
+    "Foliculitis: pústula pequeña en el folículo (superficial: el pelo sale al traccionarlo; profunda: el pelo se desprende por destrucción del folículo).",
+    "Forúnculo: inflamación aguda focal por Staphylococcus aureus con supuración que expulsa el «clavo» (folículo necrótico) en 3-4 días; puede haber adenomegalias regionales y ligera hipertermia.",
+    "Ántrax: proceso difuso y más virulento que engloba el folículo e invade la dermis y el celular subcutáneo; la piel se torna violácea y se abre por varias bocas; localización en nuca, dorso y glúteos con dolor intenso.",
+    "En la axila, diferenciar de la hidrosadenitis: evolución más prolongada, mayor induración y dolor más intenso. El diagnóstico es clínico y se completa con estudio bacteriológico."
+   ],
+   "estudios": [
+    "Estudio bacteriológico del pus y búsqueda de enfermedad general (diabetes, trastornos nutritivos o metabólicos)."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Tratamiento",
+     "pasos": [
+      {
+       "etiqueta": "Forúnculo aislado",
+       "texto": "Sintomático: curaciones periódicas con antisépticos locales y analgésicos; evaluar afecciones generales (diabetes). Michans no considera indicados antibióticos en el forúnculo aislado."
+      },
+      {
+       "etiqueta": "Qué no hacer",
+       "texto": "No acelerar su evolución quirúrgicamente y no malaxarlo; explicar la enfermedad al paciente."
+      },
+      {
+       "etiqueta": "Ántrax",
+       "texto": "Médico y quirúrgico según el germen y su sensibilidad; la cirugía está indicada cuando se sospecha abscedación en la base."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Furunculosis recurrente: buscar y corregir trastornos nutritivos o metabólicos."
+   ],
+   "banderas": [
+    "Forúnculo de labio superior, ala de la nariz o surcos nasogenianos: conexiones venosas con riesgo de embolización a senos craneanos.",
+    "Forúnculo periorificial mal tratado: puede extenderse al cuello con compromiso respiratorio."
+   ],
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed.",
+    "sociedad": "Ferraina y Oría, Editorial El Ateneo",
+    "anio": "2002",
+    "archivo": "Cirugia-de-Michans-5ta-ed-2002-OPTIMIZADO.pdf",
+    "tipo": "libro",
+    "nota": "Bibliografía de la cátedra (Michans, 5.ª ed.); no hay material argentino más reciente en las carpetas."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-infecciones-severas-partes-blandas",
+   "area": "cirugia",
+   "titulo": "Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa",
+   "alias": [
+    "fournier",
+    "fascitis necrotizante",
+    "gangrena gaseosa",
+    "celulitis anaerobica",
+    "clostridium",
+    "infeccion partes blandas"
+   ],
+   "up": [
+    "cx1"
+   ],
+   "unidad": "UP1 · Trauma de miembro superior y generalidades quirúrgicas",
+   "estado": "verificar",
+   "definicion": "Grupo de infecciones bacterianas graves con destrucción parcial de partes blandas. Michans las clasifica en: enfermedad de Fournier, celulitis subcutánea estreptocócica y gangrena gaseosa o celulitis anaeróbica.",
+   "diagnostico": [
+    "Enfermedad de Fournier: necrosis cutánea fulminante de los tegumentos genitales, con rubicundez, edema y escara negruzca con gran deterioro general; mortalidad cercana al 50 %.",
+    "Celulitis subcutánea estreptocócica: celulitis necrotizante difusa del celular subcutáneo, sin compromiso inicial de los tegumentos.",
+    "Gangrena gaseosa: sospechar ante dolor sordo, profundo o constrictivo de la pared abdominal en el postoperatorio; el enfisema subcutáneo es patognomónico.",
+    "Flora: asociación aerobio-anaerobio (enterobacterias con Staphylococcus; Clostridium perfringens y Bacteroides fragilis). Causas frecuentes: postoperatorio de cirugía visceral complicada (alrededor del 25 %), trauma y extensión de procesos perineales."
+   ],
+   "estudios": [
+    "Retirar uno o dos puntos de la herida en busca de suero, sangre o gas para confirmar; cultivos y evaluación del compromiso sistémico."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Quirúrgico",
+       "texto": "Drenaje y resección de la escara y de los tejidos necróticos, con apertura amplia cuando se extiende; en la enfermedad de Fournier la cirugía es luego principalmente reparadora."
+      },
+      {
+       "etiqueta": "Médico",
+       "texto": "Antisepsia local, antibioticoterapia general adecuada y cuidados intensivos."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Pueden evolucionar a eventración abierta aguda con o sin evisceración."
+   ],
+   "banderas": [
+    "Las formas altamente invasivas difunden en 6 a 12 horas: diagnóstico y cirugía urgentes."
+   ],
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed.",
+    "sociedad": "Ferraina y Oría, Editorial El Ateneo",
+    "anio": "2002",
+    "archivo": "Cirugia-de-Michans-5ta-ed-2002-OPTIMIZADO.pdf",
+    "tipo": "libro",
+    "nota": "Bibliografía de la cátedra (Michans, 5.ª ed.); no hay material argentino más reciente en las carpetas."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-hemorragia-digestiva-baja",
+   "area": "cirugia",
+   "titulo": "Hemorragia digestiva baja",
+   "alias": [
+    "hdb",
+    "hematoquezia",
+    "proctorragia",
+    "colonoscopia",
+    "divertículo de meckel",
+    "angiodisplasia"
+   ],
+   "up": [
+    "cx4"
+   ],
+   "unidad": "UP4 · Enfermedad colorrectal y anorrectal",
+   "estado": "verificar",
+   "definicion": "Sangrado originado en el tubo digestivo distal al ángulo de Treitz. Representa al menos un 30 % de las hemorragias digestivas; alrededor del 85 % se presenta oculta o moderada, autolimitada, y hasta un 15 % requiere manejo quirúrgico.",
+   "diagnostico": [
+    "Causas en adultos: diverticulosis (30 %), patología anorrectal, isquemia (14-20 %), enfermedad inflamatoria intestinal (12 %), neoplasias (9 %) y alteraciones vasculares (6 %).",
+    "En niños: divertículo de Meckel (45 %), pólipos (25 %) y enfermedad inflamatoria (20 %).",
+    "Criterios de HDB severa o masiva: pulso > 100, presión sistólica < 100 mmHg, hemoglobina < 10 g/dl, hipotensión mantenida tras una hora de manejo o más de 6 unidades de glóbulos rojos.",
+    "Siempre realizar tacto rectal; el diagnóstico es clínico y la prioridad es la localización anatómica por encima de la causa en los cuadros severos."
+   ],
+   "estudios": [
+    "Hemograma, grupo y Rh, función renal y coagulación; colonoscopía como estudio de referencia, idealmente dentro de las 48 h.",
+    "Angio-TC (hasta 92 % de sangrados activos), angiografía y cintigrafía con glóbulos rojos marcados como alternativas; sonda nasogástrica para descartar origen alto si la estabilidad lo permite."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Estabilización",
+       "texto": "Ventilación y oxigenación, cristaloides y hemoderivados; mantener hemoglobina alrededor de 7 g/dl, ya que la transfusión excesiva empeora el pronóstico; corregir coagulopatías y medir diuresis."
+      },
+      {
+       "etiqueta": "Ambulatorio",
+       "texto": "Solo si es leve, estable, sin comorbilidades, con buen acceso a un centro de urgencia y comprensión adecuada; si no, internación."
+      },
+      {
+       "etiqueta": "Manejo en UPC",
+       "texto": "Hipotensión al ingreso, taquicardia persistente, coagulación alterada, compromiso de conciencia, edad > 65 años o sangrado persistente a 1 hora."
+      },
+      {
+       "etiqueta": "Terapéutica",
+       "texto": "La colonoscopía es terapéutica hasta en el 50 %; con el sitio identificado se pueden hacer resecciones segmentarias."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "La tasa de resangrado al año es cercana al 19 %: identificar el sitio y la causa."
+   ],
+   "banderas": [
+    "Inestabilidad hemodinámica: reanimar primero; el sangrado masivo puede originarse proximal al ángulo de Treitz."
+   ],
+   "fuente": {
+    "guia": "Cirugía en Medicina General: Hemorragia digestiva baja (cap. 29)",
+    "sociedad": "Universidad de Chile (Rojas Duarte y Marinkovic)",
+    "anio": "2020",
+    "archivo": "manual de cirugia CHILE.pdf",
+    "tipo": "libro",
+    "nota": "Manual de la bibliografía de la cátedra (2020)."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
+  },
+  {
+   "id": "cx-hernias-infrecuentes",
+   "area": "cirugia",
+   "titulo": "Hernias infrecuentes de la pared: Spiegel, lumbar, obturatriz e isquiática",
+   "alias": [
+    "hernia de spiegel",
+    "hernia lumbar",
+    "hernia obturatriz",
+    "howship romberg",
+    "hernia isquiatica"
+   ],
+   "up": [
+    "cx6"
+   ],
+   "unidad": "UP6 · Dolor inguinal y pared abdominal",
+   "estado": "verificar",
+   "definicion": "Hernias poco habituales de la pared abdominal y pélvica. Su importancia está en el diagnóstico tardío y en las complicaciones, sobre todo la obturatriz.",
+   "diagnostico": [
+    "Spiegel: por la línea semilunar, por fuera del recto anterior y por debajo del arco de Douglas; síntomas imprecisos y puede estar encubierta bajo el oblicuo mayor.",
+    "Lumbar: triángulo de Petit (inferior) y cuadrilátero de Grynfeltt (superior); bulto reductible, mejor visible de pie; rara vez se complica. Diferenciar de abscesos, tumores de partes blandas y tumores renales.",
+    "Obturatriz: en ancianas; dolor en la cara interna del muslo por compresión del nervio obturador (signo de Howship-Romberg); suele debutar como obstrucción intestinal.",
+    "Isquiática (glútea): la más rara; diagnóstico habitualmente tardío con un cuadro de obstrucción."
+   ],
+   "estudios": [
+    "Ecografía o tomografía de pared abdominal y pelvis, útiles cuando el examen es dudoso."
+   ],
+   "tratamiento": [
+    {
+     "titulo": "Conducta",
+     "pasos": [
+      {
+       "etiqueta": "Spiegel",
+       "texto": "Quirúrgico, sencillo; los defectos grandes se tratan como eventraciones."
+      },
+      {
+       "etiqueta": "Lumbar",
+       "texto": "Cirugía con colgajos de aponeurosis o músculos; puede diferirse por su baja tasa de complicaciones."
+      },
+      {
+       "etiqueta": "Obturatriz",
+       "texto": "Solo quirúrgico, preferentemente por vía abdominal; cierre del orificio con peritoneo o prótesis; la estrangulación tiene alta mortalidad."
+      }
+     ]
+    }
+   ],
+   "seguimiento": [
+    "Buena evolución salvo la hernia estrangulada."
+   ],
+   "banderas": [
+    "Anciana con obstrucción intestinal y dolor en la cara interna del muslo: pensar en hernia obturatriz."
+   ],
+   "fuente": {
+    "guia": "Cirugía de Michans, 5.ª ed.",
+    "sociedad": "Ferraina y Oría, Editorial El Ateneo",
+    "anio": "2002",
+    "archivo": "Cirugia-de-Michans-5ta-ed-2002-OPTIMIZADO.pdf",
+    "tipo": "libro",
+    "nota": "Bibliografía de la cátedra (Michans, 5.ª ed.); no hay material argentino más reciente en las carpetas."
+   },
+   "revisarAntes": "Contrastar con la guía o el protocolo vigente de la institución antes de aplicar."
   }
  ],
  "cobertura": {
@@ -5344,7 +5657,10 @@
     "Fractura del escafoides carpiano",
     "Fractura de clavícula",
     "Luxaciones: principios y luxación del hombro",
-    "Inmovilizaciones: yesos, férulas y complicaciones"
+    "Inmovilizaciones: yesos, férulas y complicaciones",
+    "Anestesia: tipos, riesgo anestésico (ASA) y valoración preoperatoria",
+    "Infecciones localizadas de la piel: foliculitis, forúnculo, ántrax e hidrosadenitis",
+    "Infecciones severas de partes blandas: Fournier, fascitis y gangrena gaseosa"
    ],
    "cx2": [
     "Abdomen agudo: enfoque inicial y estudios por imágenes",
@@ -5375,7 +5691,8 @@
     "Fisura anal",
     "Absceso y fístula perianal",
     "Ostomías: tipos, indicaciones, cuidados y complicaciones",
-    "Isquemia colónica"
+    "Isquemia colónica",
+    "Hemorragia digestiva baja"
    ],
    "cx5": [
     "Litiasis biliar y cólico biliar",
@@ -5394,7 +5711,8 @@
     "Hernia umbilical y epigástrica",
     "Eventración y evisceración",
     "Hernia complicada: incarcerada y estrangulada",
-    "Dolor inguinal: diagnóstico diferencial"
+    "Dolor inguinal: diagnóstico diferencial",
+    "Hernias infrecuentes de la pared: Spiegel, lumbar, obturatriz e isquiática"
    ],
    "cx7": [
     "Nódulo tiroideo: evaluación",
