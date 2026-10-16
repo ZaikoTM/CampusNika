@@ -104,6 +104,31 @@ CSS_EXTRA = """
 .tm-body ul.tm-rojo li{background:rgba(254,226,226,.85);border-color:rgba(220,38,38,.25)}
 .tm-body ul.tm-rojo li::before{background:#dc2626}
 @media(max-width:600px){.tm-hoja{padding:30px 14px 18px}.tm-titulo{font-size:2rem;padding-right:0;margin-top:30px}.tm-marca{top:14px;right:14px}.tm-body ul.tm-pasos li.tm-paso{grid-template-columns:1fr;gap:0}.tm-ir{top:56px;flex-wrap:nowrap;overflow-x:auto}}
+.tm-hoja{background:linear-gradient(160deg,rgba(168,85,247,.10),rgba(15,23,42,.78) 38%,rgba(14,165,233,.07));color:#e2e8f0;border:1px solid var(--border-subtle);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 50px -18px rgba(0,0,0,.7),0 0 0 1px rgba(168,85,247,.12) inset}
+.tm-hoja::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;border-radius:20px 20px 0 0;background:linear-gradient(90deg,var(--primary),var(--violet))}
+.tm-pin{display:none}
+.tm-marca{opacity:.95}.tm-marca img.v{filter:brightness(0) invert(1)}
+.tm-titulo{font:900 clamp(1.5rem,3.4vw,2rem)/1.15 'Plus Jakarta Sans',sans-serif;color:#fff;letter-spacing:-.5px;padding-right:190px}
+.tm-uni{color:var(--violet-glow)}
+.tm-sec{background:rgba(2,6,23,.45);border:1px solid rgba(255,255,255,.07)}
+.tm-sec>summary{background:rgba(15,23,42,.65);color:#fff;border-left:5px solid var(--sc)}
+.tm-sec .ic{background:color-mix(in srgb,var(--sc) 22%,#0f172a)}
+.tm-sec .chev{border-color:#94a3b8}
+.tm-body p,.tm-body li{color:#cbd5e1!important}
+.tm-body ul li{background:rgba(15,23,42,.7);border:1px solid rgba(255,255,255,.06)}
+.tm-def{background:rgba(15,23,42,.7);color:#e2e8f0}
+.tm-body mark{background:linear-gradient(transparent 52%,rgba(168,85,247,.45) 52%);color:#fff}
+.tm-lead{color:var(--primary-glow)}
+.tm-paso b{font:900 .9rem/1.3 'Plus Jakarta Sans',sans-serif;color:var(--violet-glow);letter-spacing:.2px}
+.tm-body ul.tm-pasos li.tm-paso{grid-template-columns:110px 1fr}
+.tm-body ul.tm-rojo li{background:rgba(127,29,29,.28);border-color:rgba(248,113,113,.35)}
+.tm-body ul.tm-rojo li,.tm-body ul.tm-rojo li *{color:#fecaca!important}
+.tm-body ul.tm-rojo mark{color:#fff;background:linear-gradient(transparent 52%,rgba(248,113,113,.5) 52%)}
+.tm-body .tm-sub{background:linear-gradient(90deg,var(--primary),var(--violet))}
+@media(max-width:600px){.tm-titulo{font-size:1.45rem;margin-top:34px}.tm-body ul.tm-pasos li.tm-paso{grid-template-columns:1fr}}
+.tm-fig{margin:22px 0;text-align:center}
+.tm-fig img{max-width:min(100%,420px);height:auto;border-radius:14px;border:1px solid var(--border-subtle);box-shadow:0 14px 40px -16px rgba(0,0,0,.7)}
+.tm-fig figcaption{font-size:.82rem;color:var(--text-dim);margin-top:10px}
 .tm-aviso{font-size:.78rem;color:var(--text-dim);margin-top:22px;line-height:1.6}
 .tm-buscar{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-subtle);background:rgba(15,23,42,.8);color:#fff;font:inherit;font-weight:600;margin:6px 0 4px}
 .tm-buscar:focus{outline:2px solid var(--violet-glow)}
@@ -249,6 +274,16 @@ def main():
         enlace = f.get('archivo', '')
         enlace_html = f' · <a href="{e(enlace)}" target="_blank" rel="noopener">Ver la fuente</a>' if enlace.startswith('http') else ''
         fuente = f'<div class="tm-fuente"><b>{etiqueta}:</b> {e(f.get("guia",""))} — {e(f.get("sociedad",""))} ({e(str(f.get("anio","")))}){enlace_html}.</div>'
+        # imagen real de la tarjeta (generada con el propio Simulador FlashCard)
+        figura = ''
+        small = os.path.join(ROOT, 'assets/temas', p['id'] + '-480.webp')
+        if os.path.exists(small):
+            from PIL import Image as _I
+            w, h = _I.open(small).size
+            figura = (f'<figure class="tm-fig g-rv"><a href="/assets/temas/{p["id"]}.webp" target="_blank" rel="noopener">'
+                      f'<img src="/assets/temas/{p["id"]}-480.webp" width="{w}" height="{h}" loading="lazy" '
+                      f'alt="Flashcard de {e(p["titulo"])} de NikaMed: diagnóstico, estudios, banderas rojas y tratamiento"></a>'
+                      f'<figcaption>Así se ve la flashcard de <strong>{e(p["titulo"])}</strong> en NikaMed. Tocá la imagen para verla en grande y guardala para repasar.</figcaption></figure>')
         # relacionadas
         rel = []
         for u in p.get('up', []):
@@ -294,6 +329,7 @@ def main():
             <h2 class="tm-titulo">{e(p['titulo'])}</h2><div class="tm-uni">{e(unidad)} · Flashcard NikaMed</div>
             {''.join(partes)}
         </article>
+        {figura}
         <div class="tm-cta g-rv"><h2>Practicá esta ficha en NikaMed</h2><p>Escribí tu respuesta, verificá si es correcta y repasá sin conexión. El Simulador FlashCard de NikaMed es gratis para todos los estudiantes.</p>
             <div class="row"><a class="btn-primary" href="/index.html#crear-cuenta">Crear cuenta gratis</a><a class="btn-ghost" href="/guia-flashcards-medicina.html">Cómo funciona el Simulador FlashCard</a></div></div>
         {rel_html}
@@ -306,7 +342,8 @@ def main():
 </body></html>
 """
         open(os.path.join(ROOT, 'temas', p['id'] + '.html'), 'w', encoding='utf8').write(body)
-        urls.append((url, img, p['titulo'], desc_meta))
+        card = f"{SITE}/assets/temas/{p['id']}.webp" if os.path.exists(small) else ''
+        urls.append((url, img, p['titulo'], desc_meta, card))
 
     # ---- índice
     ind = ''
@@ -360,9 +397,10 @@ document.querySelectorAll('#tm-lista .tm-unidad').forEach(function(u){{var g=u.n
     sm = open(sp, encoding='utf8').read()
     sm = re.sub(r'\s*<url>\s*<loc>https://nikamed\.com\.ar/(temas/[^<]*|temas-clinicos\.html)</loc>.*?</url>', '', sm, flags=re.S)
     add = '  <url>\n    <loc>%s/temas-clinicos.html</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n' % (SITE, FECHA)
-    for url, img, t, d in urls:
+    for url, img, t, d, card in urls:
         add += ('  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n'
-                '    <image:image>\n      <image:loc>%s</image:loc>\n      <image:title>%s</image:title>\n      <image:caption>%s</image:caption>\n    </image:image>\n  </url>\n') % (url, FECHA, img, e(t), e(d))
+                '    <image:image>\n      <image:loc>%s</image:loc>\n      <image:title>%s</image:title>\n      <image:caption>%s</image:caption>\n    </image:image>\n%s  </url>\n') % (url, FECHA, img, e(t), e(d),
+                ('    <image:image>\n      <image:loc>%s</image:loc>\n      <image:title>Flashcard de %s | NikaMed</image:title>\n      <image:caption>Tarjeta clínica de %s con diagnóstico, estudios, banderas rojas y tratamiento.</image:caption>\n    </image:image>\n' % (card, e(t), e(t))) if card else '')
     sm = sm.replace('</urlset>', add + '</urlset>')
     open(sp, 'w', encoding='utf8').write(sm)
     print(len(urls), 'temas + índice')
