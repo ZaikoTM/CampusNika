@@ -44,10 +44,17 @@
   }
 
   function luz() {
+    // Un cálculo por cuadro como máximo (antes se medía el layout en cada movimiento del mouse)
+    let ult = null, esperando = false;
     document.addEventListener('pointermove', (e) => {
-      const c = e.target.closest && e.target.closest('.plan-card, .action-btn-card, .prof-card, .perf-grid > *'); if (!c) return;
-      const r = c.getBoundingClientRect();
-      c.style.setProperty('--cv-x', (e.clientX - r.left) + 'px'); c.style.setProperty('--cv-y', (e.clientY - r.top) + 'px');
+      ult = e;
+      if (esperando) return; esperando = true;
+      requestAnimationFrame(() => {
+        esperando = false; const ev = ult; if (!ev) return;
+        const c = ev.target.closest && ev.target.closest('.plan-card, .action-btn-card, .prof-card, .perf-grid > *'); if (!c) return;
+        const r = c.getBoundingClientRect();
+        c.style.setProperty('--cv-x', (ev.clientX - r.left) + 'px'); c.style.setProperty('--cv-y', (ev.clientY - r.top) + 'px');
+      });
     }, { passive: true });
   }
 

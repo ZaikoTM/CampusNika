@@ -14,10 +14,16 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' }) : null;
 
   function preparar(raiz) {
-    if (!io) return;
-    (raiz.querySelectorAll ? raiz.querySelectorAll(TARJETAS) : []).forEach((el) => {
-      if (el.dataset.mi) return; el.dataset.mi = '1';
-      const r = el.getBoundingClientRect();
+    if (!io || !raiz) return;
+    const lista = [];
+    if (raiz.nodeType === 1 && raiz.matches && raiz.matches(TARJETAS)) lista.push(raiz);
+    if (raiz.querySelectorAll) raiz.querySelectorAll(TARJETAS).forEach((el) => lista.push(el));
+    const nuevos = lista.filter((el) => !el.dataset.mi);
+    if (!nuevos.length) return;
+    nuevos.forEach((el) => { el.dataset.mi = '1'; });
+    const rects = nuevos.map((el) => el.getBoundingClientRect());      // lecturas juntas: un solo cálculo de layout
+    nuevos.forEach((el, i) => {
+      const r = rects[i];
       if (r.width === 0 && r.height === 0) return;          // oculto ahora: no se prepara (se verá normal)
       el.classList.add('mi'); io.observe(el);
       setTimeout(() => { if (el.classList.contains('mi') && !el.classList.contains('mi-in')) el.classList.add('mi-in'); }, 3500);   // red de seguridad: nunca queda invisible
@@ -53,20 +59,33 @@
     requestAnimationFrame(paso);
   }
   const ioNum = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) contar(e.target); }), { threshold: 0.4 }) : null;
-  function numeros(raiz) { if (!ioNum || !raiz.querySelectorAll) return; raiz.querySelectorAll(NUMS).forEach((el) => { if (!el._miObs) { el._miObs = 1; ioNum.observe(el); } }); }
+  function numeros(raiz) { if (!ioNum || !raiz.querySelectorAll) return; if (raiz.matches && raiz.matches(NUMS) && !raiz._miObs) { raiz._miObs = 1; ioNum.observe(raiz); } raiz.querySelectorAll(NUMS).forEach((el) => { if (!el._miObs) { el._miObs = 1; ioNum.observe(el); } }); }
 
   // ------------------------------------------------------------ contenido que aparece después (listas, tarjetas dinámicas)
-  let pendiente = 0;
+  let pendiente = 0; const agregados = new Set();
   const propio = (m) => { const n = m.target.nodeType === 1 ? m.target : m.target.parentElement; return !!(n && n._miBusy); };
   const obs = new MutationObserver((muts) => {
-    if (pendiente || muts.every(propio)) return;
-    pendiente = requestAnimationFrame(() => { pendiente = 0; preparar(document); numeros(document); reintentarNumeros(); });
+    let hay = false;
+    for (const m of muts) {
+      if (propio(m)) continue;
+      m.addedNodes.forEach((n) => {
+        const el = n.nodeType === 1 ? n : n.parentElement;       // un texto nuevo cuenta por su elemento (contadores)
+        if (el && el.isConnected && !(el.classList && (el.classList.contains('mi-rip') || el.classList.contains('cv-confeti')))) { agregados.add(el); hay = true; }
+      });
+    }
+    if (!hay || pendiente) return;
+    pendiente = setTimeout(() => {                         // se agrupa: no se recalcula en cada cuadro de una animación
+      pendiente = 0;
+      const lote = Array.from(agregados); agregados.clear();
+      lote.forEach((el) => { if (el.isConnected) { preparar(el); numeros(el); } });
+      reintentarNumeros();
+    }, 160);
   });
-  function reintentarNumeros() { document.querySelectorAll(NUMS).forEach((el) => { if (!el.dataset.miContado && !el._miBusy) { const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) contar(el); } }); }
+  function reintentarNumeros() { document.querySelectorAll(NUMS).forEach((el) => { if (!el.dataset.miContado && !el._miBusy) { const r = el.getBoundingClientRect(); if (r.width && r.height) contar(el); } }); }
 
   function iniciar() {
     preparar(document); numeros(document);
-    obs.observe(document.body, { childList: true, subtree: true, characterData: true });
+    obs.observe(document.body, { childList: true, subtree: true });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 })();
