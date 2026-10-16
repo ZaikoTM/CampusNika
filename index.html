@@ -104,7 +104,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=2">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png?v=2">
     <!-- Google Fonts: Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
     <style>
         :root {
             --primary: #0ea5e9;
@@ -1015,9 +1018,11 @@
         @media (max-width: 900px) { .nav-btn .lbl-x { display: none; } }
         @media (max-width: 420px) { .nav-btn { padding: 8px 11px; font-size: .76rem; gap: 6px; } .nav-actions { gap: 8px; } }
         @media (prefers-reduced-motion: reduce) { .nav-signup, .nav-login:hover { animation: none; } }
+        /* Rendimiento: lo que está bajo el pliegue no se renderiza hasta acercarse */
+        section.sim-section, section.feat, section.metrics-section, section.section-wrap, footer.public-footer { content-visibility: auto; contain-intrinsic-size: auto 800px; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabaseClient.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabaseClient.js" defer></script>
     <script src="js/auth-guard.js" defer></script>
 <link rel="stylesheet" href="css/navmovil.css?v=3">
 </head>
@@ -3142,6 +3147,7 @@
 
             // La librería (script async) todavía no cargó: reintenta unas pocas veces, sin bucles.
             if (!googleIdentityDisponible()) {
+                if (window.__nikaCargarGsi) window.__nikaCargarGsi();
                 if (!googleReintentoTimer && googleReintentos < GOOGLE_MAX_REINTENTOS) {
                     googleReintentoTimer = setTimeout(() => {
                         googleReintentoTimer = null;
@@ -3415,7 +3421,21 @@
 
 
     <!-- Librería oficial de Google Identity Services -->
-    <script src="https://accounts.google.com/gsi/client" async defer onload="renderGoogleIdentityButtons()"></script>
+    <script>
+(function () {
+    var cargado = false;
+    window.__nikaCargarGsi = function () { cargar(); };
+    function cargar() {
+        if (cargado) return; cargado = true;
+        var g = document.createElement('script');
+        g.src = 'https://accounts.google.com/gsi/client'; g.async = true;
+        g.onload = function () { if (typeof renderGoogleIdentityButtons === 'function') renderGoogleIdentityButtons(); };
+        document.head.appendChild(g);
+    }
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (ev) { addEventListener(ev, cargar, { once: true, passive: true }); });
+    addEventListener('load', function () { setTimeout(cargar, 5000); });
+})();
+</script>
 <script src="js/navmovil.js?v=1" defer></script>
 </body>
 </html>
