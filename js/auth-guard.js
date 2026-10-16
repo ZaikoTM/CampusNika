@@ -109,7 +109,22 @@ window.NikaAuth.ready = new Promise((resolve) => {
             resolve(window.NikaAuth.userId);
         } catch (err) {
             console.error("[AuthGuard] Error al verificar la sesión:", err);
-            resolve(null);
+            // Sin conexión no se puede renovar el token vencido, pero la sesión sigue guardada en el dispositivo:
+            // se usa el usuario guardado (solo lectura/offline) en vez de dejar la app "sin usuario".
+            try {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const k = localStorage.key(i);
+                    if (!/^sb-.*-auth-token$/.test(k)) continue;
+                    const guardada = JSON.parse(localStorage.getItem(k) || 'null');
+                    if (guardada && guardada.user && guardada.user.id) {
+                        window.NikaAuth.session = Object.assign({}, guardada, { offline: true });
+                        window.NikaAuth.userId = guardada.user.id;
+                        window.NikaAuth.offline = true;
+                        break;
+                    }
+                }
+            } catch (_) {}
+            resolve(window.NikaAuth.userId);
         }
         })();
     }

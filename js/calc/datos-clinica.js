@@ -6,7 +6,7 @@
       desc: 'Detecta fuera de terapia a pacientes con sospecha de infección y mayor riesgo de mala evolución.', maximo: 3,
       campos: [C('fr', 'Frecuencia respiratoria ≥ 22 rpm', 1), C('ment', 'Alteración del estado mental (Glasgow < 15)', 1), C('pas', 'Presión sistólica ≤ 100 mmHg', 1)],
       rangos: [{ max: 1, nivel: 'info', titulo: 'qSOFA negativo (0 a 1)', texto: 'No descarta sepsis: si hay sospecha clínica, buscar disfunción orgánica (SOFA) y reevaluar.' }, { max: 3, nivel: 'bad', titulo: 'qSOFA positivo (≥ 2)', texto: 'Mayor riesgo de mortalidad: evaluar disfunción orgánica con SOFA, tomar cultivos y lactato e iniciar el paquete de sepsis.' }],
-      fuente: 'Singer M et al. JAMA 2016;315:801 (Sepsis-3). Surviving Sepsis Campaign 2021 (no recomienda qSOFA como único tamizaje).', nota: 'La Surviving Sepsis Campaign 2021 sugiere no usar qSOFA aislado como herramienta de tamizaje; complementar con NEWS2 o SIRS.' },
+      fuente: 'Singer M et al. JAMA 2016;315:801 (Sepsis-3). Surviving Sepsis Campaign 2021 (no recomendaba qSOFA como único tamizaje); la edición 2026 la reemplaza.', nota: 'La Surviving Sepsis Campaign 2021 sugiere no usar qSOFA aislado como herramienta de tamizaje; complementar con NEWS2 o SIRS.' },
 
     { id: 'sirs', area: 'emergencias', ico: '🌡️', nombre: 'Criterios de SIRS', alias: 'respuesta inflamatoria sistemica',
       desc: 'Síndrome de respuesta inflamatoria sistémica (2 o más criterios).', maximo: 4,
@@ -34,7 +34,7 @@
       desc: 'Decide el sitio de atención de la neumonía comunitaria.', maximo: 5,
       campos: [C('c', 'Confusión (desorientación nueva)', 1), C('u', 'Urea (BUN) > 19 mg/dl (urea > 43 mg/dl)', 1), C('r', 'Frecuencia respiratoria ≥ 30 rpm', 1), C('b', 'Presión sistólica < 90 o diastólica ≤ 60 mmHg', 1), C('e', 'Edad ≥ 65 años', 1)],
       rangos: [{ max: 1, nivel: 'ok', titulo: 'Riesgo bajo (0 a 1)', texto: 'Mortalidad a 30 días ≈ 1,5 %: tratamiento ambulatorio, si el contexto social lo permite.' }, { max: 2, nivel: 'warn', titulo: 'Riesgo intermedio (2)', texto: 'Mortalidad ≈ 9 %: considerar internación breve o seguimiento hospitalario.' }, { max: 5, nivel: 'bad', titulo: 'Riesgo alto (≥ 3)', texto: 'Mortalidad ≈ 15 a 40 %: internar; con 4 a 5 puntos considerar cuidados intensivos.' }],
-      fuente: 'Lim WS et al. Thorax 2003;58:377. ATS/IDSA 2019.' },
+      fuente: 'Lim WS et al. Thorax 2003;58:377. Guía ATS/IDSA 2019, reemplazada por la guía ATS 2025.' },
 
     { id: 'wells-tvp', area: 'clinica', ico: '🦵', nombre: 'Wells para trombosis venosa profunda', alias: 'tvp miembros inferiores',
       desc: 'Probabilidad pretest de TVP de miembros inferiores.', maximo: 9,

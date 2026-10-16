@@ -2,7 +2,9 @@
 """Fuentes argentinas VERIFICADAS (localizadas en la web el 2026-10-16) para calculadoras y fichas de criterios.
 Genera data/fuentes_argentinas.json y js/calc/fuentes-ar.js. Solo se citan documentos efectivamente encontrados;
 donde no se halló una guía argentina vigente, la escala queda con su fuente original/internacional."""
-import json, os
+import json, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from fuentes_int import DICE, INT, CALC_INT
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -36,14 +38,17 @@ FICHAS = {
     'cr-deshidratacion-oms': ['eda-2015'], 'cr-epi-cdc': ['its-2004'],
 }
 
+for _k, _v in DICE.items():
+    REFS[_k]['d'] = _v
+
 def lista(keys):
     return [{k2: v for k2, v in REFS[k].items()} for k in keys]
 
 def main():
-    out = {'refs': REFS, 'calc': CALC, 'fichas': FICHAS}
+    out = {'refs': REFS, 'calc': CALC, 'fichas': FICHAS, 'int': INT, 'calcInt': CALC_INT}
     json.dump(out, open(os.path.join(ROOT, 'data/fuentes_argentinas.json'), 'w', encoding='utf8'), ensure_ascii=False, indent=1)
     js = '// Fuentes argentinas verificadas (generado por tools/fuentes_ar.py)\n(function () {\n  const REFS = ' + json.dumps(REFS, ensure_ascii=False) + ';\n  const MAPA = ' + json.dumps(CALC, ensure_ascii=False) + ';\n' \
-         '  NikaCalcs.REG.forEach((c) => { if (MAPA[c.id]) c.fuenteAr = MAPA[c.id].map((k) => REFS[k]); });\n})();\n'
+         '  const INT = ' + json.dumps(INT, ensure_ascii=False) + ';\n  const MAPAI = ' + json.dumps(CALC_INT, ensure_ascii=False) + ';\n  NikaCalcs.REG.forEach((c) => { if (MAPA[c.id]) c.fuenteAr = MAPA[c.id].map((k) => REFS[k]); if (MAPAI[c.id]) c.fuenteInt = MAPAI[c.id].map((k) => INT[k]); });\n})();\n'
     open(os.path.join(ROOT, 'js/calc/fuentes-ar.js'), 'w', encoding='utf8').write(js)
     print('ok', len(REFS), 'referencias')
 

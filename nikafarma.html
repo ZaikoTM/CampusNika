@@ -16,6 +16,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- Tus variables (--nika-primary, --bg-body, --card-bg, --border, body.dark-mode...) viven acá -->
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/campus-premium.css?v=3">
+<link rel="stylesheet" href="css/campus-premium-espacio.css?v=1">
+<link rel="stylesheet" href="css/tema-premium-salas.css?v=1">
 
 <style>
 /* =====================================================================
@@ -268,6 +271,11 @@ body.nf-guardia .nf-tile p{ display:none; }
 .nf-calcs{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
 .nf-calcs a{ display:block; padding:9px 10px; border:1px solid var(--border); border-radius:10px; background:var(--card-bg); color:var(--text-main); font-size:.76rem; font-weight:700; line-height:1.3; text-decoration:none; transition:.15s; }
 .nf-calcs a:hover{ border-color:var(--nika-primary); transform:translateY(-1px); }
+.nf-cn{ font-size:.7rem; font-weight:800; padding:1px 8px; border-radius:99px; background:var(--nf-info-bg); color:var(--nika-primary); margin-left:6px; }
+.nf-calcq{ width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:var(--bg-body); color:var(--text-main); font:600 .85rem inherit; font-family:inherit; margin-bottom:8px; }
+.nf-calcareas{ display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px; }
+.nf-calcareas button{ padding:5px 10px; border-radius:99px; border:1px solid var(--border); background:var(--card-bg); color:var(--text-main); font:700 .7rem inherit; font-family:inherit; cursor:pointer; }
+.nf-calcareas button:hover{ border-color:var(--nika-primary); }
 .nf-calcs-todas{ display:block; margin-top:10px; padding:10px; text-align:center; border-radius:10px; background:linear-gradient(135deg,#0ea5e9,#6366f1); color:#fff!important; font-weight:800; font-size:.8rem; text-decoration:none; }
 @media(max-width:420px){ .nf-calcs{ grid-template-columns:1fr; } }
 /* =================== v2 · MINIMALISTA (mosaicos + desplegables) =================== */
@@ -406,7 +414,7 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
 </head>
 
-<body>
+<body data-cp-sin-selector>
 <!-- ============================ BARRA SUPERIOR ============================ -->
 <header class="nf-top">
   <a class="nf-back" href="campus.html" title="Volver al Campus" aria-label="Volver al Campus">←<span class="bt">&nbsp;Campus</span></a>
@@ -470,23 +478,19 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
     </details>
 
     <details class="nf-panel" open>
-      <summary>🧪 Más calculadoras y escalas</summary>
+      <summary>🧮 Calculadoras y escalas <span class="nf-cn">77</span></summary>
       <div class="nf-body">
+        <input type="search" id="nfCalcQ" class="nf-calcq" placeholder="Buscar: Wells, FPP, CURB-65, sodio…" aria-label="Buscar calculadora" autocomplete="off">
+        <div class="nf-calcareas" id="nfCalcAreas"></div>
         <div class="nf-calcs">
           <a href="calculadoras.html#ckd-epi" data-nika-calc="ckd-epi">🧮 Filtrado glomerular (CKD-EPI)</a>
-          <a href="calculadoras.html#infusion" data-nika-calc="infusion">💉 Velocidad de infusión (mcg/kg/min)</a>
+          <a href="calculadoras.html#infusion" data-nika-calc="infusion">💉 Velocidad de infusión</a>
           <a href="calculadoras.html#goteo" data-nika-calc="goteo">💧 Goteo: mL/h a gotas/min</a>
-          <a href="calculadoras.html#peso-ideal" data-nika-calc="peso-ideal">⚖️ Peso ideal y ajustado</a>
-          <a href="calculadoras.html#sc-mosteller" data-nika-calc="sc-mosteller">🧍 Superficie corporal</a>
-          <a href="calculadoras.html#qtc" data-nika-calc="qtc">📈 QTc (fármacos que prolongan el QT)</a>
-          <a href="calculadoras.html#anion-gap" data-nika-calc="anion-gap">⚗️ Anión gap y ácido-base</a>
-          <a href="calculadoras.html#fena" data-nika-calc="fena">🧫 FENa (injuria renal)</a>
-          <a href="calculadoras.html#holliday-segar" data-nika-calc="holliday-segar">🍼 Mantenimiento pediátrico</a>
-          <a href="calculadoras.html#ganzoni" data-nika-calc="ganzoni">🩸 Déficit de hierro (Ganzoni)</a>
-          <a href="calculadoras.html#child-pugh" data-nika-calc="child-pugh">🍂 Child-Pugh (ajuste hepático)</a>
-          <a href="calculadoras.html#news2" data-nika-calc="news2">📈 NEWS2 (deterioro clínico)</a>
+          <a href="calculadoras.html#qtc" data-nika-calc="qtc">📈 QTc</a>
+          <a href="calculadoras.html#anion-gap" data-nika-calc="anion-gap">⚗️ Anión gap</a>
+          <a href="calculadoras.html#news2" data-nika-calc="news2">📈 NEWS2</a>
         </div>
-        <a class="nf-calcs-todas" href="calculadoras.html" data-nika-calc>Ver todas las calculadoras y escalas →</a>
+        <a class="nf-calcs-todas" href="calculadoras.html" data-nika-calc>Abrir las 77 calculadoras →</a>
         <div class="nf-disc">Cada calculadora cita su fundamento. Herramienta de apoyo: verificá con el protocolo de tu institución.</div>
       </div>
     </details>
@@ -516,7 +520,7 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
 <!-- Modo Guardia Offline-First -->
 <script src="js/offlineStorage.js"></script>
 <script src="js/syncManager.js"></script>
-<script src="js/guardiaModal.js?v=9"></script>
+<script src="js/guardiaModal.js?v=11"></script>
 <script>
 /* =====================================================================
    NIKAFARMA · Vanilla JS (sin frameworks)
@@ -1176,11 +1180,30 @@ function bindCalc() {
   Object.entries(map).forEach(([id, k]) => { const el = $('#' + id); ['input', 'change'].forEach(evn => el.addEventListener(evn, () => { S.pt[k] = el.value; upd(); })); });
   $('#pHD').addEventListener('change', e => { S.pt.hd = e.target.checked; renderCalcOut(); refreshDose(); updateBadge(); });
 }
+function iniciarCalcAside() {
+  const q = $('#nfCalcQ'), box = $('#nfCalcAreas'); if (!q || !box) return;
+  const AR = [['obstetricia', '🤰 Gineco-Obstetricia'], ['cirugia', '🔪 Cirugía'], ['emergencias', '🚑 Emergencias'], ['clinica', '🩺 Clínica'], ['cardio', '🫀 Cardio/Neuro'], ['gastro', '🧪 Gastro'], ['nefro', '💧 Nefro'], ['pediatria', '🍼 Pediatría']];
+  box.innerHTML = AR.map(([k, t]) => `<button type="button" data-ar="${k}">${t}</button>`).join('');
+  box.addEventListener('click', e => { const b = e.target.closest('button'); if (b && window.NikaCalcPanel) window.NikaCalcPanel.abrir({ area: b.dataset.ar }); });
+  q.addEventListener('keydown', e => { if (e.key === 'Enter' && window.NikaCalcPanel) { window.NikaCalcPanel.abrir({ buscar: q.value }); } });
+}
 async function init() {
+  iniciarCalcAside();
   const saved = localStorage.getItem('nika_theme');
   if (saved === 'dark') document.body.classList.add('dark-mode');
-  $('#btnTheme').textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-  $('#btnTheme').onclick = () => { document.body.classList.toggle('dark-mode'); const d = document.body.classList.contains('dark-mode'); localStorage.setItem('nika_theme', d ? 'dark' : 'light'); $('#btnTheme').textContent = d ? '☀️' : '🌙'; };
+  const ICO_TEMA = { premium: '💜', clasico: '☀️', oscuro: '🌙' };
+  const elegibleTema = () => !!(window.CampusTema && window.CampusTema.elegible && window.CampusTema.elegible());
+  const iconoTema = () => {
+    const b = $('#btnTheme');
+    if (elegibleTema()) { const a = window.CampusTema.actual(); b.textContent = ICO_TEMA[a]; b.title = 'Apariencia: ' + { premium: 'Premium', clasico: 'Clásico', oscuro: 'Oscuro' }[a] + ' (tocá para cambiar)'; }
+    else { const d = document.body.classList.contains('dark-mode'); b.textContent = d ? '☀️' : '🌙'; b.title = 'Claro / oscuro'; }
+  };
+  iconoTema();
+  new MutationObserver(iconoTema).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  $('#btnTheme').onclick = () => {
+    if (elegibleTema()) { const o = ['premium', 'clasico', 'oscuro']; window.CampusTema.elegir(o[(o.indexOf(window.CampusTema.actual()) + 1) % 3]); iconoTema(); return; }
+    document.body.classList.toggle('dark-mode'); const d = document.body.classList.contains('dark-mode'); localStorage.setItem('nika_theme', d ? 'dark' : 'light'); iconoTema();
+  };
   document.addEventListener('click', clickHandler);
   document.addEventListener('change', ev => {
     const t = ev.target.closest('[data-act="score"]'); if (!t) return;
@@ -1215,7 +1238,7 @@ async function init() {
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
-<script src="/js/calc/panel.js?v=1" defer></script>
+<script src="/js/calc/panel.js?v=2" defer></script>
 <script src="js/nikafarmaPlus.js"></script>
 <link rel="stylesheet" href="css/flashcards.css?v=15">
 <script src="js/nikaFlashcards.js?v=18"></script>
@@ -1224,6 +1247,8 @@ document.addEventListener('DOMContentLoaded', init);
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>
     <script src="js/chatFlotante.js?v=7"></script>
+<script src="js/campusTema.js?v=4"></script>
+<script src="js/campusEspacio.js?v=1" defer></script>
 <script src="js/nikaMusic.js?v=15"></script>
 <script src="js/nikaAccesibilidad.js?v=1" defer></script>
 <script src="js/nikaMetricas.js?v=1" defer></script>

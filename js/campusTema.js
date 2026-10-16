@@ -64,6 +64,7 @@
 
   // Salas comunes (NikaSim, Sala de Estudio, hubs): grupo de 3 botones en la barra superior
   function selectorTop() {
+    if (document.body.hasAttribute('data-cp-sin-selector')) return;
     const ancla = document.getElementById('pl-tema') || document.querySelector('.btn-back') || null;
     const cont = document.querySelector('.ns-acc') || (ancla && ancla.parentElement);
     if (!cont) return;
@@ -167,5 +168,5 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 
-  window.CampusTema = { setCuenta, elegir, actual, aplicar };
+  window.CampusTema = { setCuenta, elegir, actual, aplicar, elegible };
 })();

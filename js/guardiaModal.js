@@ -106,6 +106,31 @@ const GuardiaModal = (() => {
   const dias = (ts) => Math.floor((Date.now() - ts) / 86400000);
 
   // ------------------------------------------------------------
+  // Versiones: cada archivo descargable tiene una huella en data/guardia_manifest.json. Se guarda la huella de lo que
+  // quedó en el dispositivo y, al abrir, se compara: solo se bajan los archivos nuevos o modificados y se quitan los eliminados.
+  // ------------------------------------------------------------
+  let _man = null;
+  async function _manifiesto() {
+    if (!hayRed()) return _man;
+    try { const r = await fetch('data/guardia_manifest.json', { cache: 'no-cache' }); if (r.ok) _man = await r.json(); } catch (_) {}
+    return _man;
+  }
+  const _huellas = (urls, fallidas) => { const o = {}; (urls || []).forEach((u) => { if (_man && _man.f[u] && !(fallidas || []).includes(u)) o[u] = _man.f[u]; }); return o; };
+  function _calcDiff(guard, todas, soloGuardadas) {
+    if (!_man || !todas.length) return null;
+    const base = soloGuardadas && guard ? Object.keys(guard) : todas;
+    if (!guard) return { cambios: base.filter((u) => _man.f[u]), quitados: [], legacy: true };
+    return { cambios: base.filter((u) => _man.f[u] && guard[u] !== _man.f[u]), quitados: Object.keys(guard).filter((u) => !todas.includes(u) || !_man.f[u]), legacy: false };
+  }
+  async function _diff(p) {
+    const m = meta()[p.id]; if (!m || p.farma || p.bancos && !(p.urls && p.urls.length) && !p.lista) return null;
+    let q = p; try { q = await _conLista(p); } catch (_) { return null; }
+    return _calcDiff(m.files, q.urls || [], !!UNI[p.id]);
+  }
+  const _diffBase = () => { const m = meta(); return Object.keys(m).some((k) => k !== '_base') ? _calcDiff((m._base || {}).files, BASE_URLS, false) : null; };
+  const _cuantos = (d) => (d ? d.cambios.length + d.quitados.length : 0);
+
+  // ------------------------------------------------------------
   // CSS + HTML
   // ------------------------------------------------------------
   function _css() {
@@ -197,6 +222,7 @@ const GuardiaModal = (() => {
           <div id="gm-warn"></div>
           <div class="gm-cta">
             <button class="gm-btn pri" data-gm="todo" id="gm-todo">⬇️ Descargar todo</button>
+            <button class="gm-btn" data-gm="actualizar-todo" id="gm-upd" style="display:none">🔄 Actualizar cambios</button>
             <span class="gm-est" id="gm-est"></span>
             <span style="flex:1"></span>
             <button class="gm-btn peligro" data-gm="borrar-todo">🗑️ Borrar descargas</button>
@@ -222,6 +248,8 @@ const GuardiaModal = (() => {
       const a = b.dataset.gm, id = b.dataset.id;
       if (a === 'cerrar' && !_ocupado) cerrar();
       else if (a === 'todo') descargarTodo();
+      else if (a === 'actualizar-todo') actualizarTodo();
+      else if (a === 'delta') actualizarCambios(id);
       else if (a === 'borrar-todo') borrarTodo();
       else if (a === 'pack') descargarPack(id);
       else if (a === 'quitar') quitarPack(id);
@@ -263,6 +291,7 @@ const GuardiaModal = (() => {
   async function _estados() {
     const m = meta();
     const out = {};
+    await _manifiesto();
     let enSW = [];
     try {
       const muestras = TODOS.filter((p) => !p.proximamente && p.urls && p.urls.length).flatMap((p) => (UNI[p.id] ? p.urls : [p.urls[0]]));
@@ -288,6 +317,8 @@ const GuardiaModal = (() => {
       }
       out[p.id] = { ok, parcial, ts: (m[p.id] && m[p.id].ts) || (farma && farma.updatedAt) || 0, bytes: (m[p.id] && m[p.id].bytes) || (farma && farma.bytes) || 0 };
     });
+    for (const p of TODOS.filter((x) => !x.proximamente && out[x.id] && out[x.id].ok)) { try { out[p.id].diff = await _diff(p); } catch (_) {} }
+    out.__base = _diffBase();
     return out;
   }
 
@@ -326,9 +357,16 @@ const GuardiaModal = (() => {
     const st = _estado[p.id] || {};
     let chip = '<span class="gm-chip no">Sin descargar</span>', boton = '';
     if (st.ok) {
-      const viejo = st.ts && dias(st.ts) >= DIAS_VIGENCIA;
-      chip = `<span class="gm-chip ${viejo ? 'viejo' : 'ok'}">${viejo ? '⚠️ Para actualizar' : '✓ Listo'} · ${st.bytes ? fmt(st.bytes) + ' · ' : ''}${st.ts ? new Date(st.ts).toLocaleDateString('es-AR') : ''}</span>`;
-      boton = `<button class="gm-mini" data-gm="pack" data-id="${p.id}" ${red && !_ocupado ? '' : 'disabled'}>Actualizar</button><button class="gm-mini" data-gm="quitar" data-id="${p.id}" title="Quitar de este dispositivo" ${_ocupado ? 'disabled' : ''}>🗑️</button>`;
+      const d = st.diff, n = _cuantos(d);
+      const viejo = !d && st.ts && dias(st.ts) >= DIAS_VIGENCIA;
+      const fecha = `${st.bytes ? fmt(st.bytes) + ' · ' : ''}${st.ts ? new Date(st.ts).toLocaleDateString('es-AR') : ''}`;
+      if (d && n) {
+        chip = `<span class="gm-chip viejo">🔄 ${d.legacy ? 'Descargado con una versión anterior' : 'Actualización disponible'} · ${d.cambios.length} archivo${d.cambios.length === 1 ? '' : 's'} nuevo${d.cambios.length === 1 ? '' : 's'} o modificado${d.cambios.length === 1 ? '' : 's'}${d.quitados.length ? ' · ' + d.quitados.length + ' quitado' + (d.quitados.length === 1 ? '' : 's') : ''}</span>`;
+        boton = `<button class="gm-mini dl" data-gm="delta" data-id="${p.id}" ${red && !_ocupado ? '' : 'disabled'}>🔄 Actualizar cambios</button><button class="gm-mini" data-gm="quitar" data-id="${p.id}" title="Quitar de este dispositivo" ${_ocupado ? 'disabled' : ''}>🗑️</button>`;
+      } else {
+        chip = `<span class="gm-chip ${viejo ? 'viejo' : 'ok'}">${d ? '✓ Al día' : (viejo ? '⚠️ Para actualizar' : '✓ Listo')} · ${fecha}</span>`;
+        boton = `<button class="gm-mini" data-gm="pack" data-id="${p.id}" title="${d ? 'Volver a descargar todo el paquete' : ''}" ${red && !_ocupado ? '' : 'disabled'}>${d ? 'Reinstalar' : 'Actualizar'}</button><button class="gm-mini" data-gm="quitar" data-id="${p.id}" title="Quitar de este dispositivo" ${_ocupado ? 'disabled' : ''}>🗑️</button>`;
+      }
     } else {
       if (st.parcial) chip = '<span class="gm-chip viejo">Incompleto</span>';
       boton = `<button class="gm-mini dl" data-gm="pack" data-id="${p.id}" ${red && !_ocupado ? '' : 'disabled'}>⬇️ Descargar · ${fmt(p.est)}</button>`;
@@ -349,7 +387,10 @@ const GuardiaModal = (() => {
   function _estimado() {
     const falta = TODOS.filter((p) => !p.proximamente && !(_estado[p.id] && _estado[p.id].ok));
     const tot = falta.reduce((a, p) => a + (p.est || 0), 0);
-    $('#gm-est').textContent = falta.length ? `Faltan ${falta.length} paquete${falta.length === 1 ? '' : 's'} · ≈ ${fmt(tot)}` : '✓ Todo descargado';
+    const conCambios = TODOS.filter((p) => _estado[p.id] && _estado[p.id].diff && _cuantos(_estado[p.id].diff));
+    const nBase = _cuantos(_estado.__base), nArch = conCambios.reduce((a, p) => a + _cuantos(_estado[p.id].diff), 0) + nBase;
+    $('#gm-est').textContent = (falta.length ? `Faltan ${falta.length} paquete${falta.length === 1 ? '' : 's'} · ≈ ${fmt(tot)}` : '✓ Todo descargado') + (_man ? ` · Contenido v${_man.v}` : '');
+    const u = $('#gm-upd'); if (u) { u.style.display = nArch ? '' : 'none'; u.disabled = _ocupado || !hayRed(); u.textContent = `🔄 Actualizar cambios (${nArch} archivo${nArch === 1 ? '' : 's'})`; }
   }
 
   // ------------------------------------------------------------
@@ -399,7 +440,7 @@ const GuardiaModal = (() => {
   // Devuelve { ok, errores[], bytes }
   async function _bajarPack(p) {
     try { p = await _conLista(p); } catch (e) { return { ok: false, errores: ['No se pudo leer la lista de archivos: ' + e.message], bytes: 0 }; }
-    const errores = []; let bytes = 0;
+    const errores = []; let bytes = 0, falladas = [];
     const partes = (p.bancos ? p.bancos.ups.length : 0) + (p.urls && p.urls.length ? 1 : 0) + (p.farma ? 1 : 0);
     let hechas = 0;
     const avance = (extra) => _barraFila(p.id, (hechas + (extra || 0)) / Math.max(1, partes));
@@ -427,6 +468,7 @@ const GuardiaModal = (() => {
     if (p.urls && p.urls.length) {
       const r = await _mensajeSW({ type: 'CACHE_URLS', urls: p.urls }, (h, t) => avance(h / t));
       bytes += r.bytes || 0;
+      falladas = r.fallidas || [];
       if (r.fallidas && r.fallidas.length) errores.push(`${r.fallidas.length} archivo(s) sin descargar`);
       if (!r.ok && !r.bytes && r.fallidas.length === p.urls.length) return { ok: false, errores: errores.length ? errores : ['El Service Worker no respondió'], bytes };
       hechas++; avance(0);
@@ -437,7 +479,7 @@ const GuardiaModal = (() => {
     }
     // éxito si bajó lo principal (tolera UPs puntuales sin banco cargado)
     const ok = !errores.length || (p.bancos && errores.length < p.bancos.ups.length);
-    return { ok, errores, bytes };
+    return { ok, errores, bytes, urls: p.urls || [], fallidas: falladas };
   }
 
   function _fin(msg) { $('#gm-msg').textContent = msg || ''; }
@@ -447,8 +489,9 @@ const GuardiaModal = (() => {
     if (!hayRed()) { _fin('Necesitás conexión para descargar.'); return; }
     _ocupado = true; OfflineStorage.pedirAlmacenamientoPersistente();
     _fin(`Descargando “${p.titulo}”…`);
+    await _manifiesto();
     const r = await _bajarPack(p);
-    if (r.ok) { const m = meta(); m[p.id] = { ts: Date.now(), bytes: r.bytes || (m[p.id] && m[p.id].bytes) || p.est }; guardarMeta(m); }
+    if (r.ok) { const m = meta(); m[p.id] = { ts: Date.now(), bytes: r.bytes || (m[p.id] && m[p.id].bytes) || p.est, v: _man && _man.v, files: _huellas(r.urls, r.fallidas) }; guardarMeta(m); }
     _ocupado = false;
     _fin(r.ok ? `✅ “${p.titulo}” listo para usar sin conexión.${r.errores.length ? ' Con avisos: ' + r.errores.join(' · ') : ''}` : `⚠️ No se pudo descargar “${p.titulo}”: ${r.errores.join(' · ')}`);
     await refrescar();
@@ -464,9 +507,10 @@ const GuardiaModal = (() => {
     _ocupado = true; OfflineStorage.pedirAlmacenamientoPersistente();
     const q = _subpack(p, ids);
     _fin(`Descargando ${ids.length} unidad${ids.length === 1 ? '' : 'es'} de “${p.titulo}”…`);
-    await _mensajeSW({ type: 'CACHE_URLS', urls: BASE_URLS });
+    await _manifiesto();
+    const rb = await _mensajeSW({ type: 'CACHE_URLS', urls: BASE_URLS }); _guardarBase(rb);
     const r = await _bajarPack(q);
-    if (r.ok) { const m = meta(); const previo = (m[id] && m[id].ups) || []; const ups = Array.from(new Set(previo.concat(ids))); m[id] = { ts: Date.now(), bytes: r.bytes || p.est, ups }; guardarMeta(m); }
+    if (r.ok) { const m = meta(); const previo = (m[id] && m[id].ups) || []; const ups = Array.from(new Set(previo.concat(ids))); m[id] = { ts: Date.now(), bytes: r.bytes || p.est, ups, v: _man && _man.v, files: Object.assign({}, (m[id] && m[id].files) || {}, _huellas(r.urls, r.fallidas)) }; guardarMeta(m); }
     _ocupado = false;
     _fin(r.ok ? `✅ ${ids.length} unidad${ids.length === 1 ? '' : 'es'} lista${ids.length === 1 ? '' : 's'} para usar sin conexión.` : `⚠️ No se pudo descargar: ${r.errores.join(' · ')}`);
     await refrescar();
@@ -481,12 +525,13 @@ const GuardiaModal = (() => {
     let hechos = 0, bien = 0; const malos = [];
     // la base de la app siempre acompaña
     _fin('Preparando la app para uso sin conexión…');
-    await _mensajeSW({ type: 'CACHE_URLS', urls: BASE_URLS });
+    await _manifiesto();
+    _guardarBase(await _mensajeSW({ type: 'CACHE_URLS', urls: BASE_URLS }));
     for (const p of paquetes) {
       $('#gm-bar').style.width = Math.round((hechos / paquetes.length) * 100) + '%';
       _fin(`Descargando ${hechos + 1} de ${paquetes.length}: ${p.titulo}…`);
       const r = await _bajarPack(p);
-      if (r.ok) { bien++; const m = meta(); m[p.id] = { ts: Date.now(), bytes: r.bytes || p.est }; guardarMeta(m); } else malos.push(p.titulo);
+      if (r.ok) { bien++; const m = meta(); m[p.id] = { ts: Date.now(), bytes: r.bytes || p.est, v: _man && _man.v, files: _huellas(r.urls, r.fallidas) }; guardarMeta(m); } else malos.push(p.titulo);
       hechos++;
       await refrescarFila(p.id);
     }
@@ -495,6 +540,53 @@ const GuardiaModal = (() => {
     _fin(malos.length ? `Listo: ${bien} paquete(s) descargados. No se pudo: ${malos.join(', ')}.` : `✅ Todo listo (${bien} paquete${bien === 1 ? '' : 's'}). Ya podés usar Campus Nika sin conexión.`);
     await refrescar();
     setTimeout(() => { const w = $('#gm-bar-wrap'); if (w) w.style.display = 'none'; }, 1800);
+  }
+  function _guardarBase(rb) { const m = meta(); m._base = { v: _man && _man.v, files: _huellas(BASE_URLS, rb && rb.fallidas) }; guardarMeta(m); }
+
+  // Baja solo lo nuevo/modificado y quita lo eliminado; actualiza las huellas guardadas.
+  async function _aplicarDelta(clave, d) {
+    let fallidas = [];
+    if (d.cambios.length) { const r = await _mensajeSW({ type: 'CACHE_URLS', urls: d.cambios }); fallidas = r.fallidas || []; }
+    if (d.quitados.length) await _mensajeSW({ type: 'UNCACHE_URLS', urls: d.quitados }, null, 30000);
+    const m = meta(); const e = m[clave] || (m[clave] = {});
+    const files = Object.assign({}, e.files || {});
+    d.cambios.forEach((u) => { if (!fallidas.includes(u) && _man.f[u]) files[u] = _man.f[u]; });
+    d.quitados.forEach((u) => { delete files[u]; });
+    e.files = files; e.v = _man.v; e.ts = Date.now(); guardarMeta(m);
+    return fallidas.length;
+  }
+  async function actualizarCambios(id) {
+    const p = TODOS.find((x) => x.id === id); if (!p || _ocupado) return;
+    if (!hayRed()) { _fin('Necesitás conexión para actualizar.'); return; }
+    _ocupado = true;
+    try {
+      await _manifiesto(); const d = await _diff(p);
+      if (!d || !_cuantos(d)) { _fin(`“${p.titulo}” ya está al día.`); }
+      else {
+        _fin(`Actualizando “${p.titulo}”: ${d.cambios.length} archivo(s) nuevo(s) o modificado(s)${d.quitados.length ? ', ' + d.quitados.length + ' quitado(s)' : ''}…`);
+        _barraFila(id, 0.2);
+        const f = await _aplicarDelta(id, d);
+        _fin(f ? `⚠️ “${p.titulo}”: ${f} archivo(s) no se pudieron actualizar; reintentá.` : `✅ “${p.titulo}” actualizado (solo lo que cambió).`);
+      }
+    } catch (e) { _fin('No se pudo actualizar: ' + e.message); }
+    _ocupado = false; await refrescar();
+  }
+  async function actualizarTodo() {
+    if (_ocupado) return;
+    if (!hayRed()) { _fin('Necesitás conexión para actualizar.'); return; }
+    _ocupado = true;
+    let total = 0, fallos = 0;
+    try {
+      await _manifiesto();
+      const db = _diffBase();
+      if (db && _cuantos(db)) { total += _cuantos(db); fallos += await _aplicarDelta('_base', db); }
+      for (const p of TODOS.filter((x) => !x.proximamente && _estado[x.id] && _estado[x.id].ok)) {
+        const d = await _diff(p);
+        if (d && _cuantos(d)) { _fin(`Actualizando “${p.titulo}”…`); total += _cuantos(d); fallos += await _aplicarDelta(p.id, d); }
+      }
+      _fin(total ? (fallos ? `⚠️ ${fallos} archivo(s) no se pudieron actualizar; reintentá.` : `✅ Actualizado: ${total} archivo(s) nuevos, modificados o quitados.`) : 'Todo está al día.');
+    } catch (e) { _fin('No se pudo actualizar: ' + e.message); }
+    _ocupado = false; await refrescar();
   }
   async function refrescarFila() { /* el estado completo se repinta al terminar el lote */ }
 

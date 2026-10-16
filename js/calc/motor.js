@@ -73,6 +73,18 @@
     if (f.t === 'date') return `<div class="cc-f"><label for="${id}">${esc(f.label)}</label><input type="date" id="${id}" data-f="${f.id}" ${f.hoy ? 'value="' + new Date().toISOString().slice(0, 10) + '"' : ''}></div>`;
     return `<div class="cc-f"><label for="${id}">${esc(f.label)}${f.unit ? ' <small>(' + esc(f.unit) + ')</small>' : ''}</label><input type="number" inputmode="decimal" id="${id}" data-f="${f.id}" step="${f.step}" ${f.min != null ? 'min="' + f.min + '"' : ''} ${f.max != null ? 'max="' + f.max + '"' : ''} placeholder="${f.ph || ''}"></div>`;
   }
+  const refHtml = (r) => `<li><div class="cc-rt">${r.u ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>` : esc(r.t)}</div><small>${esc(r.c)}</small>${r.v ? `<span class="cc-vig">${esc(r.v)}</span>` : ''}${r.n ? `<span class="cc-vig">${esc(r.n)}</span>` : ''}${r.d && r.d.length ? `<ul class="cc-dice">${r.d.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</li>`;
+  function guiasHtml(c) {
+    const ar = c.fuenteAr || [], it = c.fuenteInt || [];
+    const vacioAr = '<p class="cc-sin">No se localizó una guía argentina específica vigente para esta escala: se cita la fuente original e internacional en el fundamento.</p>';
+    const vacioInt = '<p class="cc-sin">Todavía no se revisó una guía internacional más reciente para esta escala; el fundamento cita la publicación original y la guía indicada.</p>';
+    const inicial = ar.length || !it.length ? 'ar' : 'int';
+    return `<div class="cc-guias" data-tab="${inicial}">
+      <div class="cc-gtabs" role="tablist"><button type="button" role="tab" data-g="ar" class="${inicial === 'ar' ? 'on' : ''}">🇦🇷 Guía argentina${ar.length ? ' <i>' + ar.length + '</i>' : ''}</button><button type="button" role="tab" data-g="int" class="${inicial === 'int' ? 'on' : ''}">🌐 Guías internacionales${it.length ? ' <i>' + it.length + '</i>' : ''}</button></div>
+      <div class="cc-gpane" data-p="ar" ${inicial === 'ar' ? '' : 'hidden'}>${ar.length ? `<ul>${ar.map(refHtml).join('')}</ul>` : vacioAr}</div>
+      <div class="cc-gpane" data-p="int" ${inicial === 'int' ? '' : 'hidden'}>${it.length ? `<ul>${it.map(refHtml).join('')}</ul>` : vacioInt}</div>
+      <p class="cc-rev">Fuentes revisadas el 16/10/2026. Resumen de lo verificado; no reemplaza la lectura del documento.</p></div>`;
+  }
   function cardHtml(c) {
     const a = AREAS[c.area] || AREAS.general;
     const num_ = c.campos.filter((f) => f.t === 'num' || f.t === 'date' || f.t === 'sel');
@@ -87,8 +99,8 @@
         ${chks.length ? `<div class="cc-chks">${chks.map((f) => campoHtml(f, c.id)).join('')}</div>` : ''}
         <div class="cc-out" aria-live="polite"></div>
         <div class="cc-pie"><button type="button" class="cc-btn" data-a="limpiar">↺ Limpiar</button><button type="button" class="cc-btn" data-a="copiar">📋 Copiar resultado</button></div>
-        <div class="cc-fuente"><b>Fundamento:</b> ${esc(c.fuente)}${c.nota ? `<br><span>${esc(c.nota)}</span>` : ''}
-          ${c.fuenteAr && c.fuenteAr.length ? `<div class="cc-ar"><b>🇦🇷 Fuentes argentinas:</b><ul>${c.fuenteAr.map((r) => `<li>${r.u ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>` : esc(r.t)} <small>${esc(r.c)}${r.n ? ' · ' + esc(r.n) : ''}</small></li>`).join('')}</ul></div>` : `<div class="cc-ar sin"><span>🇦🇷 No se localizó una guía argentina específica vigente: se cita la fuente original e internacional.</span></div>`}</div>
+        <div class="cc-fuente"><b>Fundamento:</b> ${esc(c.fuente)}${c.nota ? `<br><span>${esc(c.nota)}</span>` : ''}</div>
+        ${guiasHtml(c)}
       </div></article>`;
   }
   function pintar(card, c) {
@@ -151,6 +163,8 @@
     };
     lista.addEventListener('click', (e) => {
       const card = e.target.closest('.cc-card'); if (!card) return; const c = REG.find((x) => x.id === card.id.slice(2));
+      const gt = e.target.closest('.cc-gtabs button');
+      if (gt) { const w = gt.closest('.cc-guias'); w.dataset.tab = gt.dataset.g; w.querySelectorAll('.cc-gtabs button').forEach((x) => x.classList.toggle('on', x === gt)); w.querySelectorAll('.cc-gpane').forEach((x) => { x.hidden = x.dataset.p !== gt.dataset.g; }); return; }
       const st = e.target.closest('.cc-star');
       if (st) { favs = favs.includes(c.id) ? favs.filter((x) => x !== c.id) : favs.concat(c.id); guardarFav(favs); pintarFavs(); if (area === '__fav') filtrar(); return; }
       const h = e.target.closest('.cc-head');
@@ -161,11 +175,12 @@
     });
     lista.addEventListener('input', (e) => { const card = e.target.closest('.cc-card'); if (!card) return; pintar(card, REG.find((x) => x.id === card.id.slice(2))); });
     lista.addEventListener('change', (e) => { const card = e.target.closest('.cc-card'); if (!card) return; pintar(card, REG.find((x) => x.id === card.id.slice(2))); });
-    pintarFavs(); filtrar();
+    const setArea = (k) => { const b = host.querySelector('#cc-chips button[data-ar="' + (k || '') + '"]'); if (b) b.click(); };
+    pintarFavs(); filtrar(); if (opts.area) setArea(opts.area);
     // abrir la calculadora indicada (opts.abrir o #id de la URL)
     const id = opts.abrir || (opts.sinHash ? '' : (location.hash || '').slice(1)); const t = id && lista.querySelector('#c-' + CSS.escape(id));
     if (t) { abrirCard(t, true); setTimeout(() => t.scrollIntoView({ block: 'start', behavior: 'smooth' }), 120); }
-    return { abrir: (cid) => { const x = lista.querySelector('#c-' + CSS.escape(cid)); if (x) { qi.value = ''; q = ''; area = ''; host.querySelectorAll('#cc-chips button').forEach((b, i) => b.classList.toggle('on', i === 0)); filtrar(); abrirCard(x, true); x.scrollIntoView({ block: 'start' }); } }, buscar: (t) => { qi.value = t; qi.dispatchEvent(new Event('input')); } };
+    return { area: setArea, abrir: (cid) => { const x = lista.querySelector('#c-' + CSS.escape(cid)); if (x) { qi.value = ''; q = ''; area = ''; host.querySelectorAll('#cc-chips button').forEach((b, i) => b.classList.toggle('on', i === 0)); filtrar(); abrirCard(x, true); x.scrollIntoView({ block: 'start' }); } }, buscar: (t) => { qi.value = t; qi.dispatchEvent(new Event('input')); } };
   }
 
   window.NikaCalcs = { evaluar, agregar: (a) => { a.forEach((c) => REG.push(c)); }, montar, N, C, S, D, Sx, AREAS, num, REG };
