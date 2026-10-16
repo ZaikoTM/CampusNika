@@ -77,9 +77,10 @@
     const a = AREAS[c.area] || AREAS.general;
     const num_ = c.campos.filter((f) => f.t === 'num' || f.t === 'date' || f.t === 'sel');
     const chks = c.campos.filter((f) => f.t === 'chk');
-    return `<article class="cc-card" id="c-${c.id}" data-area="${c.area}" data-b="${esc((c.nombre + ' ' + c.desc + ' ' + (c.alias || '')).toLowerCase())}" style="--ac:${a.c}">
+    return `<article class="cc-card" id="c-${c.id}" data-area="${c.area}" data-b="${esc(sinAcento(c.nombre + ' ' + c.desc + ' ' + (c.alias || '') + ' ' + a.nombre))}" style="--ac:${a.c}">
       <button type="button" class="cc-head" aria-expanded="false" aria-controls="p-${c.id}">
         <span class="ic">${c.ico || a.ico}</span><span class="tt"><b>${esc(c.nombre)}</b><small>${esc(c.desc)}</small></span><i class="chev" aria-hidden="true"></i></button>
+      <button type="button" class="cc-star" aria-label="Marcar como favorita" title="Favorita">★</button>
       <div class="cc-body" id="p-${c.id}" hidden>
         ${c.intro ? `<p class="cc-intro">${esc(c.intro)}</p>` : ''}
         <div class="cc-grid">${num_.map((f) => campoHtml(f, c.id)).join('')}</div>
@@ -109,33 +110,62 @@
     return `${c.nombre}: ${typeof p.valor === 'number' ? num(p.valor, p.dec == null ? 1 : p.dec) : p.valor}${p.unidad || ''}${r.titulo ? ' · ' + r.titulo : ''}${r.texto ? '\n' + r.texto : ''}${(r.extra || []).map((x) => '\n' + x[0] + ': ' + x[1]).join('')}\nFundamento: ${c.fuente}\n— Calculadoras clínicas · NikaMed (nikamed.com.ar/calculadoras.html). Herramienta de apoyo: verificá con el protocolo de tu institución.`;
   }
 
+  const sinAcento = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const FAV_KEY = 'nika_calc_fav';
+  const leerFav = () => { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch (_) { return []; } };
+  const guardarFav = (a) => { try { localStorage.setItem(FAV_KEY, JSON.stringify(a)); } catch (_) {} };
+
   function montar(host, opts) {
     opts = opts || {};
     const usadas = {}; REG.forEach((c) => { usadas[c.area] = (usadas[c.area] || 0) + 1; });
-    host.innerHTML = `<div class="cc-barra"><input type="search" id="cc-q" placeholder="Buscar: Ranson, Wells, FPP, CHA2DS2-VASc…" aria-label="Buscar calculadora" autocomplete="off">
-      <div class="cc-chips" id="cc-chips"><button type="button" class="on" data-ar="">Todas <i>${REG.length}</i></button>${Object.keys(AREAS).filter((k) => usadas[k]).map((k) => `<button type="button" data-ar="${k}" style="--ac:${AREAS[k].c}">${AREAS[k].ico} ${esc(AREAS[k].nombre)} <i>${usadas[k]}</i></button>`).join('')}</div></div>
+    let favs = leerFav();
+    host.classList.add('cc-app');
+    host.innerHTML = `<div class="cc-barra"><div class="cc-busca"><span aria-hidden="true">🔎</span><input type="search" id="cc-q" placeholder="Buscar: Ranson, Wells, FPP, CHA2DS2-VASc, sodio…" aria-label="Buscar calculadora" autocomplete="off"><button type="button" class="cc-x" id="cc-x" aria-label="Borrar búsqueda" hidden>✕</button></div>
+      <div class="cc-chips" id="cc-chips" role="group" aria-label="Filtrar por materia o área"><button type="button" class="on" data-ar="">Todas <i>${REG.length}</i></button><button type="button" data-ar="__fav" style="--ac:#fbbf24">★ Favoritas <i id="cc-nfav">${favs.length}</i></button>${Object.keys(AREAS).filter((k) => usadas[k]).map((k) => `<button type="button" data-ar="${k}" style="--ac:${AREAS[k].c}">${AREAS[k].ico} ${esc(AREAS[k].nombre)} <i>${usadas[k]}</i></button>`).join('')}</div>
+      <div class="cc-meta"><span id="cc-cuenta"></span><button type="button" class="cc-link" id="cc-cerrar-todas" hidden>Cerrar todas</button></div></div>
       <div class="cc-lista" id="cc-lista">${REG.map(cardHtml).join('')}</div><p class="cc-vacio" id="cc-vacio" hidden>No encontramos ninguna calculadora con esa búsqueda.</p>`;
     const lista = host.querySelector('#cc-lista'); let area = '', q = '';
+    const cuenta = host.querySelector('#cc-cuenta'), cerrarTodas = host.querySelector('#cc-cerrar-todas');
+    const pintarFavs = () => { lista.querySelectorAll('.cc-card').forEach((c) => c.classList.toggle('fav', favs.includes(c.id.slice(2)))); host.querySelector('#cc-nfav').textContent = favs.length; };
     const filtrar = () => {
       let n = 0;
-      lista.querySelectorAll('.cc-card').forEach((c) => { const ok = (!area || c.dataset.area === area) && (!q || c.dataset.b.includes(q)); c.hidden = !ok; if (ok) n++; });
-      host.querySelector('#cc-vacio').hidden = n > 0;
+      lista.querySelectorAll('.cc-card').forEach((c) => {
+        const ok = (!area || (area === '__fav' ? favs.includes(c.id.slice(2)) : c.dataset.area === area)) && (!q || c.dataset.b.includes(q));
+        c.hidden = !ok; if (ok) n++;
+      });
+      const vacio = host.querySelector('#cc-vacio'); vacio.hidden = n > 0;
+      vacio.textContent = area === '__fav' && !q ? 'Todavía no marcaste favoritas: tocá la ★ de una calculadora para tenerla a mano.' : 'No encontramos ninguna calculadora con esa búsqueda.';
+      cuenta.textContent = n + (n === 1 ? ' calculadora' : ' calculadoras');
+      cerrarTodas.hidden = !lista.querySelector('.cc-card.abierta:not([hidden])');
     };
-    host.querySelector('#cc-q').addEventListener('input', (e) => { q = e.target.value.trim().toLowerCase(); filtrar(); });
+    const qi = host.querySelector('#cc-q'), qx = host.querySelector('#cc-x');
+    qi.addEventListener('input', (e) => { q = sinAcento(e.target.value.trim()); qx.hidden = !q; filtrar(); });
+    qx.addEventListener('click', () => { qi.value = ''; q = ''; qx.hidden = true; filtrar(); qi.focus(); });
     host.querySelector('#cc-chips').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; area = b.dataset.ar; host.querySelectorAll('#cc-chips button').forEach((x) => x.classList.toggle('on', x === b)); filtrar(); });
+    cerrarTodas.addEventListener('click', () => { lista.querySelectorAll('.cc-card.abierta').forEach((c) => { c.classList.remove('abierta'); c.querySelector('.cc-head').setAttribute('aria-expanded', 'false'); c.querySelector('.cc-body').hidden = true; }); filtrar(); });
+    const abrirCard = (card, abrir) => {
+      const c = REG.find((x) => x.id === card.id.slice(2)); const h = card.querySelector('.cc-head');
+      h.setAttribute('aria-expanded', String(abrir)); card.querySelector('.cc-body').hidden = !abrir; card.classList.toggle('abierta', abrir);
+      if (abrir) { pintar(card, c); if (!opts.sinHash) { try { history.replaceState(null, '', '#' + c.id); } catch (_) {} } }
+      cerrarTodas.hidden = !lista.querySelector('.cc-card.abierta:not([hidden])');
+    };
     lista.addEventListener('click', (e) => {
       const card = e.target.closest('.cc-card'); if (!card) return; const c = REG.find((x) => x.id === card.id.slice(2));
+      const st = e.target.closest('.cc-star');
+      if (st) { favs = favs.includes(c.id) ? favs.filter((x) => x !== c.id) : favs.concat(c.id); guardarFav(favs); pintarFavs(); if (area === '__fav') filtrar(); return; }
       const h = e.target.closest('.cc-head');
-      if (h) { const abrir = h.getAttribute('aria-expanded') !== 'true'; h.setAttribute('aria-expanded', String(abrir)); card.querySelector('.cc-body').hidden = !abrir; card.classList.toggle('abierta', abrir); if (abrir) { pintar(card, c); try { history.replaceState(null, '', '#' + c.id); } catch (_) {} } return; }
+      if (h) { abrirCard(card, h.getAttribute('aria-expanded') !== 'true'); return; }
       const b = e.target.closest('[data-a]'); if (!b) return;
-      if (b.dataset.a === 'limpiar') { card.querySelectorAll('[data-f]').forEach((el) => { if (el.type === 'checkbox') el.checked = false; else if (el.type === 'date') el.value = ''; else el.value = ''; }); pintar(card, c); }
+      if (b.dataset.a === 'limpiar') { card.querySelectorAll('[data-f]').forEach((el) => { if (el.type === 'checkbox') el.checked = false; else el.value = ''; }); pintar(card, c); }
       else if (b.dataset.a === 'copiar') { const t = textoCopia(c, card); if (!t) return; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { b.textContent = '✅ Copiado'; setTimeout(() => { b.textContent = '📋 Copiar resultado'; }, 1600); }).catch(() => { window.prompt('Copiá el resultado:', t); }); }
     });
     lista.addEventListener('input', (e) => { const card = e.target.closest('.cc-card'); if (!card) return; pintar(card, REG.find((x) => x.id === card.id.slice(2))); });
     lista.addEventListener('change', (e) => { const card = e.target.closest('.cc-card'); if (!card) return; pintar(card, REG.find((x) => x.id === card.id.slice(2))); });
-    // abrir la calculadora indicada en la URL (#id)
-    const id = (location.hash || '').slice(1); const t = id && lista.querySelector('#c-' + CSS.escape(id));
-    if (t) { t.querySelector('.cc-head').click(); setTimeout(() => t.scrollIntoView({ block: 'start', behavior: 'smooth' }), 120); }
+    pintarFavs(); filtrar();
+    // abrir la calculadora indicada (opts.abrir o #id de la URL)
+    const id = opts.abrir || (opts.sinHash ? '' : (location.hash || '').slice(1)); const t = id && lista.querySelector('#c-' + CSS.escape(id));
+    if (t) { abrirCard(t, true); setTimeout(() => t.scrollIntoView({ block: 'start', behavior: 'smooth' }), 120); }
+    return { abrir: (cid) => { const x = lista.querySelector('#c-' + CSS.escape(cid)); if (x) { qi.value = ''; q = ''; area = ''; host.querySelectorAll('#cc-chips button').forEach((b, i) => b.classList.toggle('on', i === 0)); filtrar(); abrirCard(x, true); x.scrollIntoView({ block: 'start' }); } }, buscar: (t) => { qi.value = t; qi.dispatchEvent(new Event('input')); } };
   }
 
   window.NikaCalcs = { evaluar, agregar: (a) => { a.forEach((c) => REG.push(c)); }, montar, N, C, S, D, Sx, AREAS, num, REG };

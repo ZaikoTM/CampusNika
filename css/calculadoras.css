@@ -1,14 +1,26 @@
 /* NikaMed · Calculadoras y escalas clínicas */
 .cc-aviso { margin: 14px 0 22px; padding: 12px 16px; border-radius: 14px; background: rgba(234, 179, 8, .1); border: 1px solid rgba(234, 179, 8, .4); color: #fde68a; font-size: .84rem; line-height: 1.55; }
 .cc-aviso strong { color: #fff; }
-.cc-barra { position: sticky; top: 64px; z-index: 20; padding: 12px 0 10px; background: linear-gradient(180deg, rgba(2, 6, 23, .96), rgba(2, 6, 23, .82)); backdrop-filter: blur(8px); }
-#cc-q { width: 100%; padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border-subtle); background: rgba(15, 23, 42, .85); color: #fff; font: 600 1rem inherit; font-family: inherit; }
-#cc-q:focus { outline: 2px solid var(--violet-glow); }
-.cc-chips { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
-.cc-chips button { --ac: #38bdf8; flex: none; padding: 8px 14px; border-radius: 99px; border: 1px solid rgba(255, 255, 255, .12); background: rgba(15, 23, 42, .8); color: #cbd5e1; font: 800 .8rem inherit; font-family: inherit; cursor: pointer; transition: .2s; white-space: nowrap; }
+.cc-barra { padding: 12px 0 10px; }
+.cc-busca { position: relative; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, .14); background: rgba(15, 23, 42, .9); transition: border-color .2s, box-shadow .2s; }
+.cc-busca:focus-within { border-color: #38bdf8; box-shadow: 0 0 0 4px rgba(56, 189, 248, .15); }
+#cc-q { flex: 1; min-width: 0; padding: 14px 0; border: 0; outline: 0; background: transparent; color: #fff; font: 600 1rem inherit; font-family: inherit; -webkit-appearance: none; appearance: none; }
+#cc-q::-webkit-search-cancel-button { display: none; }
+.cc-x { width: 28px; height: 28px; border-radius: 50%; border: 0; background: rgba(148, 163, 184, .2); color: #e2e8f0; cursor: pointer; font-size: .8rem; }
+.cc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.cc-chips button { --ac: #38bdf8; padding: 7px 13px; border-radius: 99px; border: 1px solid rgba(255, 255, 255, .12); background: rgba(15, 23, 42, .8); color: #cbd5e1; font: 800 .78rem inherit; font-family: inherit; cursor: pointer; transition: .2s; white-space: nowrap; }
 .cc-chips button i { font-style: normal; opacity: .6; margin-left: 4px; }
 .cc-chips button:hover { border-color: var(--ac); color: #fff; }
 .cc-chips button.on { background: color-mix(in srgb, var(--ac) 25%, #0f172a); border-color: var(--ac); color: #fff; }
+.cc-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: .78rem; color: #94a3b8; min-height: 22px; }
+.cc-link { background: none; border: 0; color: #7dd3fc; font: 800 .78rem inherit; font-family: inherit; cursor: pointer; padding: 2px 0; }
+.cc-star { position: absolute; top: 14px; right: 46px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: transparent; color: #475569; font-size: 1.15rem; cursor: pointer; transition: color .2s, transform .2s; z-index: 2; }
+.cc-star:hover { color: #fbbf24; transform: scale(1.15); }
+.cc-card.fav .cc-star { color: #fbbf24; text-shadow: 0 0 12px rgba(251, 191, 36, .55); }
+.cc-head { padding-right: 84px !important; }
+.cc-head .chev { position: absolute; right: 20px; top: 50%; margin-top: -8px; }
+.cc-card.abierta .chev { margin-top: -2px; }
+@media (min-width: 820px) { .cc-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } .cc-card.abierta { grid-column: 1 / -1; } }
 .cc-lista { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 8px; }
 .cc-card { --ac: #38bdf8; position: relative; overflow: hidden; border-radius: 18px; border: 1px solid rgba(255, 255, 255, .08); background: linear-gradient(160deg, color-mix(in srgb, var(--ac) 10%, #0f172a), #0f172a 55%); transition: border-color .25s, box-shadow .25s; }
 .cc-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--ac); opacity: .85; }
@@ -55,7 +67,7 @@
 .cc-fuente { margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: rgba(56, 189, 248, .07); border: 1px solid rgba(56, 189, 248, .22); font-size: .8rem; color: #cbd5e1; line-height: 1.55; }
 .cc-fuente b { color: #fff; } .cc-fuente span { color: #94a3b8; }
 .cc-vacio { text-align: center; color: #94a3b8; padding: 30px 0; }
-@media (max-width: 640px) { .cc-barra { top: 56px; } .cc-head { padding: 14px; gap: 10px; } .cc-head .ic { width: 40px; height: 40px; } .cc-body { padding: 4px 14px 16px 18px; } .cc-big b { font-size: 1.8rem; } }
+@media (max-width: 640px) { .cc-head { padding: 14px; gap: 10px; } .cc-head .ic { width: 40px; height: 40px; } .cc-body { padding: 4px 14px 16px 18px; } .cc-big b { font-size: 1.8rem; } }
 @media (prefers-reduced-motion: reduce) { .cc-card, .cc-btn, .cc-chk { transition: none; } }
 
 .cc-ar{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.3)}
@@ -63,3 +75,19 @@
 .cc-ar li small{display:block;color:#94a3b8}
 .cc-ar a{color:#7dd3fc;font-weight:700}
 .cc-ar.sin span{color:#94a3b8;font-size:.78rem}
+
+/* ---- panel emergente (NikaFarma, sala de estudio) ---- */
+.nkc-ov { position: fixed; inset: 0; z-index: 9500; display: none; align-items: stretch; justify-content: center; padding: 18px 14px; background: rgba(2, 6, 23, .72); backdrop-filter: blur(6px); }
+.nkc-ov.on { display: flex; }
+.nkc-card { width: min(980px, 100%); max-height: 100%; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .12); background: radial-gradient(900px 300px at 10% -10%, rgba(56, 189, 248, .14), transparent 60%), #020617; color: #e2e8f0; box-shadow: 0 40px 90px -30px #000; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.nkc-h { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+.nkc-h b { flex: 1; font-size: 1.05rem; font-weight: 900; color: #fff; letter-spacing: -.2px; }
+.nkc-h b small { display: block; font-size: .72rem; font-weight: 600; color: #94a3b8; letter-spacing: 0; }
+.nkc-h a { color: #7dd3fc; font-size: .78rem; font-weight: 800; text-decoration: none; }
+.nkc-x { width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(148, 163, 184, .18); color: #fff; cursor: pointer; font-size: 1rem; }
+.nkc-body { flex: 1; min-height: 0; overflow-y: auto; padding: 0 18px 18px; overscroll-behavior: contain; }
+.nkc-body .cc-barra { padding-top: 14px; }
+.nkc-body .cc-aviso { margin: 12px 0 0; font-size: .76rem; padding: 9px 12px; }
+.nkc-carga { padding: 40px 0; text-align: center; color: #94a3b8; }
+@media (max-width: 640px) { .nkc-ov { padding: 0; } .nkc-card { border-radius: 0; } .nkc-body { padding: 0 12px 16px; } }
+.cc-tbtn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }

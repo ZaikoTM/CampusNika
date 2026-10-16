@@ -419,7 +419,7 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
     <label class="nf-sw" title="Lactancia: solo fármacos compatibles"><input type="checkbox" id="swLact" aria-label="Filtro lactancia"><span>🍼</span></label>
     <label class="nf-sw" title="Modo Estudio (high-yield)"><input type="checkbox" id="swStudy" aria-label="Modo estudio"><span>🎓</span></label>
     <button class="nf-ibtn" id="btnTools" title="Calculadora, combinación de fármacos y scores">🧮 <b id="toolsBadge"></b></button>
-    <a class="nf-ibtn" href="calculadoras.html" id="btnCalcs" title="Calculadoras y escalas clínicas (Ranson, Wells, CHA₂DS₂-VASc, NEWS2, FPP…)" aria-label="Calculadoras clínicas" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px">🧪 <b>Calcs</b></a>
+    <a class="nf-ibtn" href="calculadoras.html" data-nika-calc id="btnCalcs" title="77 calculadoras y escalas clínicas, con buscador y filtros por materia" aria-label="Calculadoras clínicas" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px">🧪 <b>Calcs</b></a>
     <button class="nf-ibtn" id="btnHelp" title="Recorrido guiado: cómo usar NikaFarma" aria-label="Ayuda">❓</button>
     <button class="nf-ibtn" id="btnTheme" title="Claro / oscuro" aria-label="Cambiar tema">🌙</button>
   </div>
@@ -473,20 +473,20 @@ body.nf-guardia .nf-hero .big{ font-size:clamp(1.9rem,5vw,3rem); }
       <summary>🧪 Más calculadoras y escalas</summary>
       <div class="nf-body">
         <div class="nf-calcs">
-          <a href="calculadoras.html#ckd-epi">🧮 Filtrado glomerular (CKD-EPI)</a>
-          <a href="calculadoras.html#infusion">💉 Velocidad de infusión (mcg/kg/min)</a>
-          <a href="calculadoras.html#goteo">💧 Goteo: mL/h a gotas/min</a>
-          <a href="calculadoras.html#peso-ideal">⚖️ Peso ideal y ajustado</a>
-          <a href="calculadoras.html#sc-mosteller">🧍 Superficie corporal</a>
-          <a href="calculadoras.html#qtc">📈 QTc (fármacos que prolongan el QT)</a>
-          <a href="calculadoras.html#anion-gap">⚗️ Anión gap y ácido-base</a>
-          <a href="calculadoras.html#fena">🧫 FENa (injuria renal)</a>
-          <a href="calculadoras.html#holliday-segar">🍼 Mantenimiento pediátrico</a>
-          <a href="calculadoras.html#ganzoni">🩸 Déficit de hierro (Ganzoni)</a>
-          <a href="calculadoras.html#child-pugh">🍂 Child-Pugh (ajuste hepático)</a>
-          <a href="calculadoras.html#news2">📈 NEWS2 (deterioro clínico)</a>
+          <a href="calculadoras.html#ckd-epi" data-nika-calc="ckd-epi">🧮 Filtrado glomerular (CKD-EPI)</a>
+          <a href="calculadoras.html#infusion" data-nika-calc="infusion">💉 Velocidad de infusión (mcg/kg/min)</a>
+          <a href="calculadoras.html#goteo" data-nika-calc="goteo">💧 Goteo: mL/h a gotas/min</a>
+          <a href="calculadoras.html#peso-ideal" data-nika-calc="peso-ideal">⚖️ Peso ideal y ajustado</a>
+          <a href="calculadoras.html#sc-mosteller" data-nika-calc="sc-mosteller">🧍 Superficie corporal</a>
+          <a href="calculadoras.html#qtc" data-nika-calc="qtc">📈 QTc (fármacos que prolongan el QT)</a>
+          <a href="calculadoras.html#anion-gap" data-nika-calc="anion-gap">⚗️ Anión gap y ácido-base</a>
+          <a href="calculadoras.html#fena" data-nika-calc="fena">🧫 FENa (injuria renal)</a>
+          <a href="calculadoras.html#holliday-segar" data-nika-calc="holliday-segar">🍼 Mantenimiento pediátrico</a>
+          <a href="calculadoras.html#ganzoni" data-nika-calc="ganzoni">🩸 Déficit de hierro (Ganzoni)</a>
+          <a href="calculadoras.html#child-pugh" data-nika-calc="child-pugh">🍂 Child-Pugh (ajuste hepático)</a>
+          <a href="calculadoras.html#news2" data-nika-calc="news2">📈 NEWS2 (deterioro clínico)</a>
         </div>
-        <a class="nf-calcs-todas" href="calculadoras.html">Ver todas las calculadoras y escalas →</a>
+        <a class="nf-calcs-todas" href="calculadoras.html" data-nika-calc>Ver todas las calculadoras y escalas →</a>
         <div class="nf-disc">Cada calculadora cita su fundamento. Herramienta de apoyo: verificá con el protocolo de tu institución.</div>
       </div>
     </details>
@@ -1005,7 +1005,7 @@ function renderCalcOut() {
     m('IMC', c.bmi ? fmt(c.bmi, 1) + (c.obese ? ' ⚠️' : '') : '—') + m('Peso ideal', c.ibw ? fmt(c.ibw, 1) + ' kg' : '—') +
     m('Peso ajustado', c.adj ? fmt(c.adj, 1) + ' kg' : '—') + m('Peso en CG', c.ok ? fmt(c.cgKg, 1) + ' kg (' + c.cgLab + ')' : '—') +
     (!c.ok ? '<div class="nf-m hi" style="font-size:.8rem">Completá edad, peso, altura y creatinina para calcular el clearance.</div>' : '') +
-    '<a class="nf-calcs-todas" style="background:none;color:var(--nika-primary)!important;border:1px dashed var(--nika-primary)" href="calculadoras.html#ckd-epi">Estadificar la función renal (CKD-EPI) →</a>';
+    '<a class="nf-calcs-todas" data-nika-calc="ckd-epi" style="background:none;color:var(--nika-primary)!important;border:1px dashed var(--nika-primary)" href="calculadoras.html#ckd-epi">Estadificar la función renal (CKD-EPI) →</a>';
 }
 function renderTray() {
   updateBadge();
@@ -1215,6 +1215,7 @@ async function init() {
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
+<script src="/js/calc/panel.js?v=1" defer></script>
 <script src="js/nikafarmaPlus.js"></script>
 <link rel="stylesheet" href="css/flashcards.css?v=15">
 <script src="js/nikaFlashcards.js?v=18"></script>

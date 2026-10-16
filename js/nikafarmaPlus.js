@@ -429,6 +429,7 @@
       .nfp-res.mid { border-color:rgba(245,158,11,.6); background:rgba(245,158,11,.1); }
       .nfp-res.bad { border-color:rgba(239,68,68,.6); background:rgba(239,68,68,.1); }
 
+      .nfp-n { font-size:.68rem; font-weight:800; padding:1px 7px; border-radius:99px; background:rgba(2,132,199,.15); color:var(--nika-primary,#0284c7); }
       #nfEmerg { display:none; margin:10px 0; }
       .nfp-emerg-h { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:12px; padding:12px 14px; border-radius:14px; border:2px solid #ef4444; background:rgba(239,68,68,.1); }
       .nfp-emerg-h small { display:block; color:var(--text-muted,#94a3b8); font-size:.75rem; }
@@ -475,10 +476,10 @@
     const bar = document.createElement('div');
     bar.className = 'nfp-bar';
     bar.innerHTML = `
-      <button type="button" class="nfp-btn" data-nfp="scores">🧮 Scores y calculadoras</button>
+      <button type="button" class="nfp-btn" data-nfp="scores">🧮 Scores y calculadoras <span class="nfp-n">77</span></button>
       <button type="button" class="nfp-btn" data-nfp="peds">👶 Dosis pediátrica</button>`;
     (chips || main).parentNode.insertBefore(bar, chips || main);
-    bar.querySelector('[data-nfp="scores"]').onclick = () => abrirModal(tabActual === 'peds' ? 'curb' : tabActual);
+    bar.querySelector('[data-nfp="scores"]').onclick = () => { if (window.NikaCalcPanel) window.NikaCalcPanel.abrir(); else abrirModal('curb'); };
     bar.querySelector('[data-nfp="peds"]').onclick = () => abrirModal('peds');
 
     const quick = document.createElement('div'); quick.id = 'nfQuick';
