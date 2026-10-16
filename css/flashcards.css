@@ -389,3 +389,14 @@ body.dark-mode .fcs-h small,body.dark-mode .fcs-t,body.dark-mode .fcs-all small,
 .fcs .fcs-all b,.fcs .fcs-s span,.fcs .fcs-fb b,.fcs .fcs-h b{color:#0f172a}
 body.dark-mode .fcs .fcs-all b,body.dark-mode .fcs .fcs-s span,body.dark-mode .fcs .fcs-fb b,body.dark-mode .fcs .fcs-h b,body.tema-premium .fcs .fcs-all b,body.tema-premium .fcs .fcs-s span,body.tema-premium .fcs .fcs-fb b,body.tema-premium .fcs .fcs-h b{color:#f8fafc}
 .fcs .fcs-go,.fcs .fcs-go svg{color:#fff}
+
+/* ---- móvil / premium: panel sólido, botón Volver visible y zona segura de iOS ---- */
+body.tema-premium .fc-panel{background:radial-gradient(circle at 12% 0%,rgba(236,72,153,.18),transparent 40%),radial-gradient(circle at 90% 10%,rgba(99,102,241,.2),transparent 45%),#07031a}
+body.dark-mode:not(.tema-premium) .fc-panel{background-color:#0b1220}
+.fc-panel{padding-top:max(18px,calc(env(safe-area-inset-top) + 10px))}
+.fc-modal{padding-top:max(3vh,calc(env(safe-area-inset-top) + 8px))}
+.fcd-cab{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;padding:6px 0 8px}
+.fcd-cab .fcd-btn[data-fcd="volver"],.fcpn-top .fcd-btn{background:#0f172a;color:#fff;border:1px solid rgba(255,255,255,.28);box-shadow:0 8px 18px -8px rgba(0,0,0,.65);font-size:.86rem;padding:10px 16px}
+body.tema-premium .fcd-cab .fcd-btn[data-fcd="volver"],body.tema-premium .fcpn-top .fcd-btn{background:linear-gradient(135deg,#6d28d9,#a855f7);border-color:rgba(233,213,255,.5)}
+body.dark-mode:not(.tema-premium) .fcd-cab .fcd-btn[data-fcd="volver"],body.dark-mode:not(.tema-premium) .fcpn-top .fcd-btn{background:#1e293b}
+.fcd-toast{z-index:7}

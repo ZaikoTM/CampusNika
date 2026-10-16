@@ -5,7 +5,7 @@
    El motor y los datos se cargan recién al abrir por primera vez, así no pesan en las páginas que lo incluyen. */
 (function () {
   if (window.NikaCalcPanel) return;
-  const V = '10';
+  const V = '11';
   const SCRIPTS = ['motor', 'datos-obstetricia', 'datos-cirugia', 'datos-clinica', 'datos-general', 'datos-extra', 'fuentes-ar'].map((n) => '/js/calc/' + n + '.js?v=' + V);
   const MODULOS = { ginecologia: ['obstetricia', 'Ginecología y Obstetricia'], obstetricia: ['obstetricia', 'Ginecología y Obstetricia'], cirugia: ['cirugia', 'Cirugía'], siam: ['clinica', 'Clínica médica'], clinica: ['clinica', 'Clínica médica'], pediatria: ['pediatria', 'Pediatría'] };
   let ov = null, host = null, api = null, cargando = null, previo = null;
@@ -76,7 +76,7 @@ body.nkc-con-dock .cf-fab{bottom:176px!important}
 .nkc-dock .cc-star{top:9px;right:40px}.nkc-dock .cc-head .chev{right:16px}
 .nkc-sug{margin:8px 0 0;font-size:.74rem;color:var(--cc-mut)}.nkc-sug b{color:var(--cc-tx)}
 .nkc-dock.min{height:auto!important}.nkc-dock.min .nkc-body{display:none}.nkc-dock.min .nkc-h{border-bottom:0;cursor:pointer}
-@media (max-width:640px){.nkc-fab{width:48px;height:48px;right:12px;bottom:74px;font-size:22px}body.nkc-con-dock .cf-fab{bottom:130px!important}.nkc-dock{right:8px;left:8px;width:auto;bottom:8px;height:min(78vh,620px);z-index:10001}.nkc-dock.min{left:auto;width:min(280px,calc(100vw - 16px))}}
+@media (max-width:640px){.nkc-fab{width:48px;height:48px;right:12px;bottom:calc(96px + env(safe-area-inset-bottom,0px));font-size:22px}body.nkc-con-dock .cf-fab{bottom:calc(152px + env(safe-area-inset-bottom,0px))!important}.nkc-dock{right:8px;left:8px;width:auto;bottom:8px;height:min(78vh,620px);z-index:10001}.nkc-dock.min{left:auto;width:min(280px,calc(100vw - 16px))}}
 @media (prefers-reduced-motion:reduce){.nkc-fab{transition:none}}`;
     document.head.appendChild(st);
   }

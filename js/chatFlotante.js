@@ -88,7 +88,7 @@
   #chat-fab-btn,#dm-inbox-modal,#private-chat-modal{display:none!important}
   .cf-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border,#e2e8f0)}.cf-in input{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:1px solid var(--border,#cbd5e1);background:var(--bg-body,#f8fafc);color:inherit;font:600 .88rem 'Plus Jakarta Sans',sans-serif;outline:none}
   .cf-in input:focus{border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.2)}.cf-in button{width:42px;height:42px;border:0;border-radius:50%;background:#0284c7;color:#fff;font-size:1.05rem;cursor:pointer}
-  @media (max-width:640px){.cf-fab{width:48px;height:48px;right:12px;bottom:74px}.cf-panel{right:8px;bottom:8px;width:calc(100vw - 16px);height:min(75vh,520px)}.cf-panel.min{right:70px;bottom:12px;width:calc(100vw - 84px)}}
+  @media (max-width:640px){.cf-fab{width:48px;height:48px;right:12px;bottom:calc(96px + env(safe-area-inset-bottom,0px))}.cf-panel{right:8px;bottom:8px;width:calc(100vw - 16px);height:min(75vh,520px)}.cf-panel.min{right:70px;bottom:12px;width:calc(100vw - 84px)}}
   @media (prefers-reduced-motion:reduce){.cf-fab.hay,.cf-fab.rebota,.cf-panel.on,.cf-b{animation:none!important}}`;
 
   let fab, panel;

@@ -378,7 +378,7 @@ const NikaAssistant = (() => {
 
             @media (max-width: 480px) {
                 #nika-assistant-panel { left: 12px; right: 12px; width: auto; }
-                #nika-assistant-btn { right: 10px; bottom: 8px; }
+                #nika-assistant-btn { right: 10px; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); }
             }
         `;
         document.head.appendChild(style);
