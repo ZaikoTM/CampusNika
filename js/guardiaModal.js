@@ -37,20 +37,20 @@ const GuardiaModal = (() => {
   // grupo -> paquetes. `bancos` se guardan en IndexedDB desde Supabase; `urls` en la caché persistente; `farma` en IndexedDB.
   const GRUPOS = [
     { id: 'cir', icono: '🔪', titulo: 'Cirugía', sub: '5.° año', paquetes: [
+      { id: 'cir-lectura', icono: '📖', titulo: 'Lectura de la sala de estudio (PDF)', desc: 'Los libros y apuntes de cada unidad para leer sin señal. Por ahora están en Google Drive y no se pueden guardar en el dispositivo: estamos preparando una copia propia, que podrás elegir unidad por unidad.', proximamente: true, est: 0 },
       { id: 'cir-estudio', icono: '📚', titulo: 'Sala de Estudio de Cirugía', desc: 'Las 11 Unidades Problema: objetivos, contenidos, bibliografía y materiales.', urls: ['data/cirugia.json', 'js/estudio/cirugiaData.js'], est: 60 * KB },
       { id: 'cir-choice', icono: '🩺', titulo: 'Simulador Choice (UP 1 a 11)', desc: 'Banco de preguntas de opción múltiple de las 11 UP, con respaldo local de las UP 6 a 11.', bancos: { modulo: 'cirugia', ups: upsCir }, urls: ['data/banco_up06.json', 'data/banco_up07.json', 'data/banco_up08.json', 'data/banco_up09.json', 'data/banco_up10.json', 'data/banco_up11.json', 'preguntas.json', 'db_cirugia_organizado.json'], est: 2.2 * MB },
-      { id: 'cir-escrito', icono: '✍️', titulo: 'Simulador Escrito de Cirugía', desc: 'Banco de preguntas a desarrollar con su clave de corrección. La corrección con IA necesita conexión.', urls: ['data/escrito_cirugia.json'], est: 1.0 * MB },
       { id: 'cir-local', icono: '🦴', titulo: 'Traumatología y suturas', desc: 'Bancos locales de trauma de miembro superior e inferior y de suturas.', urls: ['data/banco_trauma_superior.js', 'data/banco_trauma_inferior.js', 'data/banco_suturas.js'], est: 230 * KB },
     ] },
     { id: 'gin', icono: '🤰', titulo: 'Ginecología y Obstetricia', sub: '5.° año', paquetes: [
+      { id: 'gin-lectura', icono: '📖', titulo: 'Lectura de la sala de estudio (PDF)', desc: 'Consensos y bibliografía de cada unidad para leer sin señal. Próximamente, con selección por unidad.', proximamente: true, est: 0 },
       { id: 'gin-estudio', icono: '📚', titulo: 'Sala de Estudio de Ginecología', desc: 'Unidades y secciones con objetivos, contenidos y materiales.', urls: ['data/gineco_data.json'], est: 56 * KB },
       { id: 'gin-choice', icono: '🩺', titulo: 'Simulador Choice de Ginecología', desc: 'Banco de preguntas de UP1 a UP4 con las cinco secciones de la UP3.', urls: banco('ginecologia', upsGin), est: 1.4 * MB },
-      { id: 'gin-escrito', icono: '✍️', titulo: 'Simulador Escrito de Ginecología', desc: 'Banco de preguntas a desarrollar con su clave de corrección.', urls: ['data/escrito_ginecologia.json'], est: 1.5 * MB },
     ] },
     { id: 'siam', icono: '🫀', titulo: 'S.I.A.M.', sub: '5.° año', paquetes: [
+      { id: 'siam-lectura', icono: '📖', titulo: 'Lectura de la sala de estudio (PDF)', desc: 'Bibliografía de cada unidad para leer sin señal. Próximamente, con selección por unidad.', proximamente: true, est: 0 },
       { id: 'siam-estudio', icono: '📚', titulo: 'Sala de Estudio de SIAM', desc: 'Las 9 Unidades Problema con objetivos, contenidos y materiales.', urls: ['data/siam_data.json'], est: 67 * KB },
       { id: 'siam-choice', icono: '🩺', titulo: 'Simulador Choice de SIAM', desc: 'Banco de preguntas de las UP 1 a 9.', urls: banco('siam', upsSiam), est: 1.6 * MB },
-      { id: 'siam-escrito', icono: '✍️', titulo: 'Simulador Escrito de SIAM', desc: 'Banco de preguntas a desarrollar con su clave de corrección.', urls: ['data/escrito_siam.json'], est: 1.7 * MB },
     ] },
     { id: 'pfo', icono: '🎓', titulo: 'PFO · Práctica Final Obligatoria', sub: '6.° año', paquetes: [
       { id: 'pfo-estudio', icono: '📚', titulo: 'Sala de Estudio PFO', desc: 'Los 8 módulos, el recorrido de Generalidades, tutoriales de procedimientos y casos clínicos con su respuesta modelo.', urls: ['data/pfo_data.json', 'data/pfo/estudio.json', 'data/pfo/casos_estudio.json', 'data/pfo/procedimientos.json', 'data/pfo/procedimientos_guias.json'], est: 360 * KB },
@@ -66,6 +66,26 @@ const GuardiaModal = (() => {
       { id: 'recetarios', icono: '📝', titulo: 'Recetarios y certificados', desc: 'Para practicar la parte documental sin señal.', urls: ['recetarios.html', 'js/recetarios.js', 'js/recetariosData.js', 'js/recetariosShare.js', 'js/recetariosExamen.js', 'css/recetarios.css'], est: 150 * KB },
     ] },
   ];
+  // Unidades elegibles de cada banco Choice (para no bajar el área completa)
+  const UNI = {
+    'cir-choice': upsCir.map((u, i) => ({ id: u, label: 'UP ' + (i + 1) })),
+    'gin-choice': upsGin.map((u) => ({ id: u, label: u.replace('_sec_', ' · Sección ').replace('UP', 'UP ').replace('  ', ' ') })),
+    'siam-choice': upsSiam.map((u) => ({ id: u, label: u.replace('UP', 'UP ') })),
+  };
+  // Devuelve una copia del paquete con SOLO las unidades elegidas
+  function _subpack(p, ids) {
+    const q = Object.assign({}, p);
+    if (p.id === 'cir-choice') {
+      q.bancos = { modulo: 'cirugia', ups: ids };
+      const locales = ids.filter((u) => Number(u) >= 6).map((u) => `data/banco_up${u}.json`);
+      q.urls = locales.concat(['preguntas.json', 'db_cirugia_organizado.json']);
+    } else {
+      const mat = p.id === 'gin-choice' ? 'ginecologia' : 'siam';
+      q.urls = ids.map((u) => `data/${u}_${mat}.json`);
+    }
+    q.est = Math.max(60 * KB, Math.round(p.est * ids.length / UNI[p.id].length));
+    return q;
+  }
   const TODOS = GRUPOS.flatMap((g) => g.paquetes.map((p) => Object.assign({ grupo: g.id }, p)));
 
   let _montado = false, _ocupado = false, _estado = {};
@@ -117,6 +137,13 @@ const GuardiaModal = (() => {
       .gm-est{font-size:.78rem;color:var(--text-muted,#64748b)}
       .gm-msg{font-size:.8rem;color:var(--text-muted,#64748b);margin-top:10px;min-height:1.2em}
       .gm-grupo{margin-top:20px}
+      .gm-prox{opacity:.8;border-style:dashed}
+      .gm-ups{margin-top:8px;border:1px dashed var(--border,#cbd5e1);border-radius:12px;padding:8px 10px;background:var(--bg-body,#f8fafc)}
+      .gm-ups>summary{cursor:pointer;font-weight:800;font-size:.78rem;color:var(--nika-primary,#0284c7);list-style:none}
+      .gm-ups>summary::-webkit-details-marker{display:none}
+      .gm-ups-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-top:8px}
+      .gm-ups-g label{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;padding:6px 8px;border:1px solid var(--border,#e2e8f0);border-radius:9px;background:var(--card-bg,#fff);cursor:pointer}
+      .gm-ups-f{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
       .gm-destacado{animation:gmDest 2.4s ease-out}
       @keyframes gmDest{0%,60%{box-shadow:0 0 0 3px rgba(14,165,233,.55);border-radius:16px;background:rgba(14,165,233,.08)}100%{box-shadow:0 0 0 0 rgba(14,165,233,0)}}
       .gm-gh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
@@ -173,8 +200,8 @@ const GuardiaModal = (() => {
           <details class="gm-info">
             <summary>¿Qué funciona sin conexión y qué no?</summary>
             <ul>
-              <li><b>Sin conexión:</b> salas de estudio (datos de cada materia), simuladores Choice y escritos (preguntas), casos y procedimientos de la PFO, pasos del Atlas, NikaFarma y Recetarios.</li>
-              <li><b>Necesita conexión:</b> la corrección con IA, Pase de Sala, Shock Room, Consultorios y Legales, el ECOE FINAL, el chat de práctica, Ateneos, Foro, Duelos, los PDF y presentaciones de Google Drive, los videos de YouTube y los modelos 3D.</li>
+              <li><b>Sin conexión:</b> salas de estudio (datos de cada materia), simuladores Choice (preguntas, con modo práctica), casos y procedimientos de la PFO, pasos del Atlas, NikaFarma y Recetarios.</li>
+              <li><b>Necesita conexión:</b> el Simulador Escrito y la corrección con IA, Pase de Sala, Shock Room, Consultorios y Legales, el ECOE FINAL, el chat de práctica, Ateneos, Foro, Duelos, los PDF y presentaciones de Google Drive, los videos de YouTube y los modelos 3D.</li>
               <li>Tus resultados y notas hechos sin señal se guardan en el dispositivo y se suben solos al volver la conexión.</li>
             </ul>
           </details>
@@ -192,6 +219,8 @@ const GuardiaModal = (() => {
       else if (a === 'pack') descargarPack(id);
       else if (a === 'quitar') quitarPack(id);
       else if (a === 'grupo') descargarGrupo(id);
+      else if (a === 'sel') descargarSeleccion(id);
+      else if (a === 'ups-todas' || a === 'ups-ninguna') { const f = document.getElementById('gm-p-' + id); if (f) f.querySelectorAll('input[data-up]').forEach((i) => { i.checked = a === 'ups-todas'; }); }
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ov.classList.contains('on') && !_ocupado) cerrar(); });
   }
@@ -229,7 +258,7 @@ const GuardiaModal = (() => {
     const out = {};
     let enSW = [];
     try {
-      const muestras = TODOS.filter((p) => p.urls && p.urls.length).map((p) => p.urls[0]);
+      const muestras = TODOS.filter((p) => !p.proximamente && p.urls && p.urls.length).flatMap((p) => (UNI[p.id] ? p.urls : [p.urls[0]]));
       const r = await _mensajeSW({ type: 'HAS_URLS', urls: muestras }, null, 8000);
       enSW = r.presentes || [];
     } catch (_) {}
@@ -241,14 +270,14 @@ const GuardiaModal = (() => {
       }
     } catch (_) {}
     let farma = null; try { farma = await OfflineStorage.infoNikaFarmaLocal(); } catch (_) {}
-    TODOS.forEach((p) => {
+    TODOS.filter((p) => !p.proximamente).forEach((p) => {
       let ok = false, parcial = false;
       if (p.farma) ok = !!farma;
       else {
-        const urlsOk = !p.urls || !p.urls.length || enSW.includes(p.urls[0]);
+        const urlsOk = !p.urls || !p.urls.length || (UNI[p.id] ? p.urls.some((u) => enSW.includes(u)) : enSW.includes(p.urls[0]));
         const bancosOk = !p.bancos || (locales[p.bancos.modulo] || 0) >= Math.min(p.bancos.ups.length, 11);
-        ok = urlsOk && bancosOk && !!m[p.id];
-        parcial = !ok && ((p.urls && enSW.includes(p.urls[0])) || (p.bancos && (locales[p.bancos.modulo] || 0) > 0));
+        ok = urlsOk && bancosOk && !!m[p.id] && !(UNI[p.id] && m[p.id].ups && m[p.id].ups.length < UNI[p.id].length);
+        parcial = !ok && ((p.urls && enSW.includes(p.urls[0])) || (p.bancos && (locales[p.bancos.modulo] || 0) > 0) || !!(UNI[p.id] && m[p.id] && m[p.id].ups));
       }
       out[p.id] = { ok, parcial, ts: (m[p.id] && m[p.id].ts) || (farma && farma.updatedAt) || 0, bytes: (m[p.id] && m[p.id].bytes) || (farma && farma.bytes) || 0 };
     });
@@ -286,6 +315,7 @@ const GuardiaModal = (() => {
   }
 
   function _filaHtml(p, red) {
+    if (p.proximamente) return `<div class="gm-pack gm-prox" id="gm-p-${p.id}"><span class="ic">${p.icono}</span><div class="t"><b>${esc(p.titulo)}</b><small>${esc(p.desc)}</small><span class="gm-chip viejo">Próximamente</span></div></div>`;
     const st = _estado[p.id] || {};
     let chip = '<span class="gm-chip no">Sin descargar</span>', boton = '';
     if (st.ok) {
@@ -296,13 +326,21 @@ const GuardiaModal = (() => {
       if (st.parcial) chip = '<span class="gm-chip viejo">Incompleto</span>';
       boton = `<button class="gm-mini dl" data-gm="pack" data-id="${p.id}" ${red && !_ocupado ? '' : 'disabled'}>⬇️ Descargar · ${fmt(p.est)}</button>`;
     }
+    const m = meta()[p.id] || {};
+    if (UNI[p.id] && m.ups && m.ups.length && m.ups.length < UNI[p.id].length) {
+      chip = `<span class="gm-chip viejo">Parcial · ${m.ups.map((u) => (UNI[p.id].find((x) => x.id === u) || { label: u }).label).join(', ')}</span>`;
+    }
+    const sel = UNI[p.id] ? `<details class="gm-ups"><summary>🎯 Elegir unidades</summary>
+        <div class="gm-ups-g">${UNI[p.id].map((u) => `<label><input type="checkbox" data-up="${esc(u.id)}" ${!m.ups || m.ups.includes(u.id) ? 'checked' : ''}><span>${esc(u.label)}</span></label>`).join('')}</div>
+        <div class="gm-ups-f"><button class="gm-link" data-gm="ups-todas" data-id="${p.id}">Todas</button><button class="gm-link" data-gm="ups-ninguna" data-id="${p.id}">Ninguna</button>
+        <button class="gm-mini dl" data-gm="sel" data-id="${p.id}" ${red && !_ocupado ? '' : 'disabled'}>⬇️ Descargar selección</button></div></details>` : '';
     return `<div class="gm-pack" id="gm-p-${p.id}"><span class="ic">${p.icono}</span>
-      <div class="t"><b>${esc(p.titulo)}</b><small>${esc(p.desc)}</small>${chip}<div class="gm-pbar" style="display:none"><i></i></div></div>
+      <div class="t"><b>${esc(p.titulo)}</b><small>${esc(p.desc)}</small>${chip}<div class="gm-pbar" style="display:none"><i></i></div>${sel}</div>
       <div class="gm-act">${boton}</div></div>`;
   }
 
   function _estimado() {
-    const falta = TODOS.filter((p) => !(_estado[p.id] && _estado[p.id].ok));
+    const falta = TODOS.filter((p) => !p.proximamente && !(_estado[p.id] && _estado[p.id].ok));
     const tot = falta.reduce((a, p) => a + (p.est || 0), 0);
     $('#gm-est').textContent = falta.length ? `Faltan ${falta.length} paquete${falta.length === 1 ? '' : 's'} · ≈ ${fmt(tot)}` : '✓ Todo descargado';
   }
@@ -397,6 +435,23 @@ const GuardiaModal = (() => {
     if (r.ok && typeof window.showToast === 'function') window.showToast('🛡️ Descargado: ' + p.titulo);
   }
 
+  async function descargarSeleccion(id) {
+    const p = TODOS.find((x) => x.id === id); if (!p || _ocupado || !UNI[id]) return;
+    const fila = document.getElementById('gm-p-' + id);
+    const ids = Array.from(fila.querySelectorAll('input[data-up]:checked')).map((i) => i.dataset.up);
+    if (!ids.length) { _fin('Elegí al menos una unidad.'); return; }
+    if (!hayRed()) { _fin('Necesitás conexión para descargar.'); return; }
+    _ocupado = true; OfflineStorage.pedirAlmacenamientoPersistente();
+    const q = _subpack(p, ids);
+    _fin(`Descargando ${ids.length} unidad${ids.length === 1 ? '' : 'es'} de “${p.titulo}”…`);
+    await _mensajeSW({ type: 'CACHE_URLS', urls: BASE_URLS });
+    const r = await _bajarPack(q);
+    if (r.ok) { const m = meta(); const previo = (m[id] && m[id].ups) || []; const ups = Array.from(new Set(previo.concat(ids))); m[id] = { ts: Date.now(), bytes: r.bytes || p.est, ups }; guardarMeta(m); }
+    _ocupado = false;
+    _fin(r.ok ? `✅ ${ids.length} unidad${ids.length === 1 ? '' : 'es'} lista${ids.length === 1 ? '' : 's'} para usar sin conexión.` : `⚠️ No se pudo descargar: ${r.errores.join(' · ')}`);
+    await refrescar();
+  }
+
   async function _lote(paquetes) {
     if (_ocupado) return;
     if (!hayRed()) { _fin('Necesitás conexión para descargar.'); return; }
@@ -423,8 +478,8 @@ const GuardiaModal = (() => {
   }
   async function refrescarFila() { /* el estado completo se repinta al terminar el lote */ }
 
-  function descargarTodo() { _lote(TODOS.filter((p) => !(_estado[p.id] && _estado[p.id].ok))); }
-  function descargarGrupo(gid) { _lote(TODOS.filter((p) => p.grupo === gid && !(_estado[p.id] && _estado[p.id].ok))); }
+  function descargarTodo() { _lote(TODOS.filter((p) => !p.proximamente && !(_estado[p.id] && _estado[p.id].ok))); }
+  function descargarGrupo(gid) { _lote(TODOS.filter((p) => !p.proximamente && p.grupo === gid && !(_estado[p.id] && _estado[p.id].ok))); }
 
   async function quitarPack(id) {
     const p = TODOS.find((x) => x.id === id); if (!p || _ocupado) return;

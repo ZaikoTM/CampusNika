@@ -933,6 +933,64 @@
           .nika-grid-ups { grid-template-columns: repeat(3, 1fr) !important; }
         }
 
+
+
+        /* ===== Mosaicos del embudo (modalidades, submodos, áreas, configuración): color propio, ícono en insignia, brillo y entrada escalonada ===== */
+        .funnel-card:not(.premium-locked):not(.disabled), .mode-card { --fa: #0ea5e9; --fb: #6366f1; position: relative; overflow: hidden; isolation: isolate; border-radius: 18px; border-width: 1.5px;
+            background: linear-gradient(160deg, color-mix(in srgb, var(--fa) 9%, var(--card-bg)) 0%, var(--card-bg) 62%); border-color: color-mix(in srgb, var(--fa) 24%, var(--border));
+            transition: transform .28s cubic-bezier(.22, 1.2, .36, 1), box-shadow .28s, border-color .28s; animation: fcEntra .5s calc(var(--i, 0) * 70ms) both cubic-bezier(.2, .8, .3, 1); }
+        @keyframes fcEntra { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+        .funnel-card:not(.premium-locked)::before, .mode-card::before { content: ''; position: absolute; z-index: -1; left: -30px; top: -50px; width: 150px; height: 120px; background: radial-gradient(closest-side, color-mix(in srgb, var(--fa) 38%, transparent), transparent); opacity: .7; transition: opacity .3s, transform .3s; pointer-events: none; }
+        .funnel-card:not(.premium-locked)::after, .mode-card::after { content: '→'; position: absolute; right: 16px; bottom: 12px; font-weight: 900; color: var(--fa); opacity: 0; transform: translateX(-8px); transition: opacity .25s, transform .25s; }
+        .funnel-card:not(.premium-locked):not(.disabled):hover, .mode-card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--fa) 60%, transparent); box-shadow: 0 22px 38px -22px color-mix(in srgb, var(--fa) 85%, #000); }
+        .funnel-card:not(.premium-locked):hover::before, .mode-card:hover::before { opacity: 1; transform: scale(1.3); }
+        .funnel-card:not(.premium-locked):hover::after, .mode-card:hover::after { opacity: 1; transform: none; }
+        .mode-card.active { border-color: var(--fa); background: linear-gradient(160deg, color-mix(in srgb, var(--fa) 16%, var(--card-bg)), var(--card-bg) 70%); box-shadow: 0 0 0 2px color-mix(in srgb, var(--fa) 45%, transparent), 0 18px 34px -22px color-mix(in srgb, var(--fa) 85%, #000); }
+        .mode-card.active::after { content: '✓'; opacity: 1; transform: none; right: 16px; top: 12px; bottom: auto; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: var(--fa); color: #fff; font-size: .8rem; }
+        .funnel-card:not(.premium-locked) .mode-icon, .mode-card .mode-icon { width: 58px; height: 58px; flex: none; display: grid; place-items: center; padding: 0; border-radius: 18px; font-size: 1.7rem;
+            background: linear-gradient(135deg, color-mix(in srgb, var(--fa) 22%, #fff), color-mix(in srgb, var(--fb) 14%, #fff)); box-shadow: 0 10px 20px -12px color-mix(in srgb, var(--fa) 90%, #000), inset 0 1px 0 rgba(255, 255, 255, .8); transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+        .funnel-card:not(.premium-locked):hover .mode-icon, .mode-card:hover .mode-icon { transform: scale(1.1) rotate(-5deg); }
+        .funnel-card.big:not(.premium-locked) .mode-icon { width: 68px; height: 68px; font-size: 2rem; border-radius: 21px; }
+        .funnel-card .mode-info h4, .mode-card .mode-info h4 { letter-spacing: -.2px; }
+        :is(#modalidad-grid, #submodo-grid, #area-grid, #config-screen .mode-grid) > :nth-child(6n+1) { --fa: #0ea5e9; --fb: #14b8a6; }
+        :is(#modalidad-grid, #submodo-grid, #area-grid, #config-screen .mode-grid) > :nth-child(6n+2) { --fa: #8b5cf6; --fb: #6366f1; }
+        :is(#modalidad-grid, #submodo-grid, #area-grid, #config-screen .mode-grid) > :nth-child(6n+3) { --fa: #ec4899; --fb: #f97316; }
+        :is(#modalidad-grid, #submodo-grid, #area-grid, #config-screen .mode-grid) > :nth-child(6n+4) { --fa: #10b981; --fb: #22c55e; }
+        :is(#modalidad-grid, #submodo-grid, #area-grid, #config-screen .mode-grid) > :nth-child(6n+5) { --fa: #f59e0b; --fb: #ef4444; }
+        :is(#modalidad-grid, #submodo-grid, #area-grid, #config-screen .mode-grid) > :nth-child(6n) { --fa: #06b6d4; --fb: #3b82f6; }
+        #modalidad-grid > .funnel-card, #area-grid > .funnel-card, #config-screen .mode-grid > .mode-card { animation-delay: calc(var(--i, 0) * 70ms); }
+        body.dark-mode .funnel-card:not(.premium-locked), body.dark-mode .mode-card { background: linear-gradient(160deg, color-mix(in srgb, var(--fa) 18%, #0f172a), #0f172a 66%); }
+        body.dark-mode .funnel-card:not(.premium-locked) .mode-icon, body.dark-mode .mode-card .mode-icon { background: linear-gradient(135deg, color-mix(in srgb, var(--fa) 32%, #0f172a), color-mix(in srgb, var(--fb) 22%, #0f172a)); box-shadow: 0 10px 20px -12px #000, inset 0 1px 0 rgba(255, 255, 255, .12); }
+        @media (prefers-reduced-motion: reduce) { .funnel-card:not(.premium-locked):not(.disabled), .mode-card { animation: none; } }
+        /* Interruptor Examen / Práctica */
+        .modo-switch-wrap { margin: 4px 0 18px; }
+        .modo-switch { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 5px; border-radius: 18px; max-width: 420px; background: var(--bg-body, #f1f5f9);
+            border: 1px solid var(--border, #e2e8f0); box-shadow: inset 0 2px 6px rgba(15, 23, 42, .08); }
+        .modo-switch .thumb { position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px); border-radius: 14px; transition: transform .35s cubic-bezier(.3, 1.3, .5, 1), background .3s, box-shadow .3s;
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5); box-shadow: 0 10px 22px -10px rgba(79, 70, 229, .85); }
+        .modo-switch[data-modo="practica"] .thumb { transform: translateX(100%); background: linear-gradient(135deg, #10b981, #0d9488); box-shadow: 0 10px 22px -10px rgba(16, 185, 129, .85); }
+        .modo-switch button { position: relative; z-index: 1; border: 0; background: none; cursor: pointer; padding: 11px 14px; font: 800 .95rem inherit; font-family: inherit; color: var(--text-muted, #64748b);
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: color .25s; }
+        .modo-switch button i { font-style: normal; transition: transform .35s cubic-bezier(.3, 1.6, .5, 1); }
+        .modo-switch button[aria-selected="true"] { color: #fff; }
+        .modo-switch button[aria-selected="true"] i { transform: scale(1.2) rotate(-6deg); }
+        .modo-switch-desc { margin: 10px 2px 0; font-size: .84rem; line-height: 1.5; color: var(--text-muted, #64748b); }
+        #config-screen.modo-practica { box-shadow: 0 0 0 2px rgba(16, 185, 129, .4), 0 20px 40px -26px rgba(16, 185, 129, .6); }
+        #config-screen.modo-practica #btn-comenzar { background: linear-gradient(135deg, #10b981, #0d9488); border-color: transparent; }
+        @media (prefers-reduced-motion: reduce) { .modo-switch .thumb, .modo-switch button i { transition: none; } }
+        /* Cartel de descarga */
+        .dl-banner { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; margin: 0 0 18px; padding: 18px 20px; border-radius: 20px; isolation: isolate;
+            background: linear-gradient(135deg, rgba(14, 165, 233, .12), rgba(99, 102, 241, .12)); border: 1px solid rgba(99, 102, 241, .35); }
+        .dl-banner::before { content: ''; position: absolute; z-index: -1; right: -40px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(closest-side, rgba(99, 102, 241, .35), transparent); }
+        .dl-ico { width: 54px; height: 54px; border-radius: 17px; display: grid; place-items: center; font-size: 1.6rem; background: linear-gradient(135deg, #0ea5e9, #6366f1); box-shadow: 0 12px 22px -10px rgba(79, 70, 229, .8); }
+        .dl-txt b { display: block; font-size: 1.05rem; color: var(--text-main, #0f172a); }
+        .dl-txt span { display: block; font-size: .84rem; line-height: 1.45; color: var(--text-muted, #64748b); margin-top: 2px; }
+        .dl-txt strong { color: var(--text-main, #0f172a); }
+        .dl-txt em { display: block; font-style: normal; font-size: .78rem; font-weight: 700; color: #b45309; margin-top: 4px; }
+        .dl-btn { border: 0; cursor: pointer; font: 800 .9rem inherit; font-family: inherit; color: #fff; padding: 13px 18px; border-radius: 14px; white-space: nowrap;
+            background: linear-gradient(135deg, #0ea5e9, #4f46e5); box-shadow: 0 12px 24px -12px rgba(79, 70, 229, .85); transition: transform .2s, box-shadow .2s; }
+        .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 28px -12px rgba(79, 70, 229, 1); }
+        @media (max-width: 640px) { .dl-banner { grid-template-columns: auto 1fr; } .dl-btn { grid-column: 1 / -1; width: 100%; } }
         /* Botón "Volver a modalidades" del pie del modal — jerarquía visual por
            debajo de las tarjetas de parciales y de la grilla de UP: fantasma/
            outline, centrado, sin competir por atención con las opciones reales. */
@@ -1064,6 +1122,14 @@
                 <div class="card-header" id="config-title">Configuración del Simulacro</div>
                 <div class="card-body">
                     <div class="funnel-crumbs" data-crumbs></div>
+                    <div class="modo-switch-wrap" id="modo-switch-wrap">
+                        <div class="modo-switch" id="modo-switch" role="tablist" aria-label="Modo del simulacro" data-modo="examen">
+                            <span class="thumb" aria-hidden="true"></span>
+                            <button type="button" role="tab" aria-selected="true" data-modo="examen" onclick="setModoSimulacro('examen')"><i>🎯</i> Examen</button>
+                            <button type="button" role="tab" aria-selected="false" data-modo="practica" onclick="setModoSimulacro('practica')"><i>🧘</i> Práctica</button>
+                        </div>
+                        <p class="modo-switch-desc" id="modo-switch-desc"></p>
+                    </div>
                     <button type="button" class="btn-volver-modalidades" onclick="volverAlPaso2DesdeConfig()"><span class="arrow">←</span> Volver a modalidades</button>
                     <div class="mode-grid">
                         <div class="mode-card active" data-mode="parcial_1" data-modes="choice,escrito">
@@ -1140,12 +1206,15 @@
                     </label>
 
                     <div id="bloque-practica">
-                        <label class="ei-opcion" for="cfg-practica">
-                            <input type="checkbox" id="cfg-practica">
-                            <span><b>🧘 Modo práctica</b>
-                            <small>Para estudiar sin presión: <b>no se guardan estadísticas, racha ni errores</b> y no se piden las reglas del examen. Tiene corrección y revisión detallada igual que un examen, y funciona sin conexión con las preguntas descargadas.</small></span>
-                        </label>
-                        <button type="button" class="btn-descargar-practica" id="btn-descargar-practica" onclick="abrirDescargaPractica()">📴 Descargar este banco para practicar sin conexión</button>
+                        <div class="dl-banner">
+                            <div class="dl-ico" aria-hidden="true">📴</div>
+                            <div class="dl-txt">
+                                <b>Practicá sin conexión</b>
+                                <span>Descargá solo lo que necesitás: elegís <strong>el área</strong> y <strong>las unidades</strong>. La práctica funciona igual que el examen, con corrección y revisión detallada.</span>
+                                <em id="dl-estado"></em>
+                            </div>
+                            <button type="button" class="dl-btn" onclick="abrirDescargaPractica()">⬇️ Elegir qué descargar</button>
+                        </div>
                     </div>
 
                     <button id="btn-comenzar" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.15rem;" onclick="startQuiz()">Comenzar Evaluación 🚀</button>
@@ -1504,7 +1573,7 @@
     <script src="js/auth-guard.js"></script>
     <script src="js/offlineStorage.js"></script>
     <script src="js/syncManager.js"></script>
-    <script src="js/guardiaModal.js?v=4"></script>
+    <script src="js/guardiaModal.js?v=5"></script>
     <script src="js/friendsManager.js"></script>
     <script src="js/rendimiento.js?v=3"></script>
     <script src="js/chatManager.js?v=4"></script>
@@ -1775,6 +1844,25 @@
         }
 
         // Modo práctica: mismo motor y misma revisión, pero sin estadísticas, sin integridad/servidor y sin reglas. Funciona sin conexión con lo descargado.
+        const MODO_SIM_KEY = 'nika_modo_simulacro';
+        window.__nikaPracticaSel = (() => { try { return localStorage.getItem(MODO_SIM_KEY) === 'practica'; } catch (_) { return false; } })();
+        function setModoSimulacro(m) {
+            window.__nikaPracticaSel = (m === 'practica');
+            try { localStorage.setItem(MODO_SIM_KEY, m); } catch (_) {}
+            const sw = document.getElementById('modo-switch'); if (sw) { sw.dataset.modo = m; sw.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.modo === m))); }
+            const cfg = document.getElementById('config-screen'); if (cfg) cfg.classList.toggle('modo-practica', m === 'practica');
+            const d = document.getElementById('modo-switch-desc');
+            if (d) d.innerHTML = m === 'practica'
+                ? '<b>Práctica:</b> sin presión. <b>No se guardan estadísticas, racha ni errores</b> y no se piden las reglas. Corrección y revisión detallada igual que un examen; funciona sin conexión con lo descargado.'
+                : '<b>Examen:</b> con cronómetro y reglas de integridad. El resultado cuenta en tus estadísticas.';
+            const btn = document.getElementById('btn-comenzar');
+            if (btn && examMode !== 'escrito') btn.textContent = m === 'practica' ? 'Comenzar Práctica 🧘' : 'Comenzar Evaluación 🚀';
+            const estr = document.querySelector('label[for="cfg-estricto"]'); if (estr) estr.style.display = m === 'practica' ? 'none' : '';
+            const rap = document.getElementById('btn-rapido'); if (rap && examMode !== 'escrito') rap.style.display = m === 'practica' ? 'none' : '';
+            const el = document.getElementById('dl-estado'); if (el) el.textContent = (navigator.onLine ? '' : '📴 Estás sin conexión: podés usar lo que ya descargaste.');
+        }
+        window.addEventListener('online', () => setModoSimulacro(window.__nikaPracticaSel ? 'practica' : 'examen'));
+        window.addEventListener('offline', () => setModoSimulacro(window.__nikaPracticaSel ? 'practica' : 'examen'));
         function abrirDescargaPractica() {
             const g = ({ cirugia: 'cir', ginecologia: 'gin', siam: 'siam' })[getModuloActual()] || '';
             if (window.GuardiaModal) GuardiaModal.abrir({ grupo: g });
@@ -1782,7 +1870,7 @@
         }
 
         async function startQuiz(isDemoForce = false) {
-            { const _cp = document.getElementById('cfg-practica'); window.__nikaPractica = !!(_cp && _cp.checked && examMode !== 'escrito' && !isDemoForce); }
+            window.__nikaPractica = !!(window.__nikaPracticaSel && examMode !== 'escrito' && !isDemoForce);
             // Las reglas se muestran en una ventana emergente y hay que aceptarlas para empezar
             if (!isDemoForce && !window.__nikaPractica && window.ExamIntegridad) {
                 if (window.__reglasAceptadas) { window.__reglasAceptadas = false; }
@@ -2707,14 +2795,16 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             const submodosAMostrar = idsPropios
                 ? (modo.submodos || []).filter((s) => idsPropios.includes(s.id))
                 : (modo.submodos || []);
-            grid.innerHTML = submodosAMostrar.map((sub) => {
+            const ICONO_SUB = { clasico: '🩺', interrogatorio_ciego: '🙈', casos_evolutivos: '📅', caza_iatrogenias: '🕵️', armado_soap: '🗂️', simulador_recetario: '💊',
+                time_attack: '⏱️', malas_noticias: '💬', normal: '🎯' };
+            grid.innerHTML = submodosAMostrar.map((sub, idx) => {
                 // Fallback en cascada: descripción propia de la materia activa para
                 // este submodo → descripción corta del submodo (si existiera) →
                 // descripción base del modo (la que ya existía antes de este cambio).
                 const descripcionCard = conMateriaActiva(getDescripcionPropiaMateria(modo.id, sub.id, true) || sub.descripcion || modo.descripcion || '');
                 return `
-                <div class="funnel-card" onclick="seleccionarSubmodo('${modo.id}', '${sub.id}')">
-                    <div class="mode-icon">${modo.icono}</div>
+                <div class="funnel-card" style="--i:${idx}" onclick="seleccionarSubmodo('${modo.id}', '${sub.id}')">
+                    <div class="mode-icon">${ICONO_SUB[sub.id] || modo.icono}</div>
                     <div class="mode-info">
                         <h4>${escaparHtml(sub.nombre)}</h4>
                         <p>${escaparHtml(descripcionCard)}</p>
@@ -4530,6 +4620,8 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             const rapido = document.getElementById('btn-rapido'); if (rapido) rapido.style.display = esc ? 'none' : '';
             const aviso = document.getElementById('escrito-aviso'); if (aviso) aviso.style.display = esc ? 'block' : 'none';
             const bp = document.getElementById('bloque-practica'); if (bp) bp.style.display = esc ? 'none' : '';
+            const msw = document.getElementById('modo-switch-wrap'); if (msw) msw.style.display = esc ? 'none' : '';
+            if (!esc) setModoSimulacro(window.__nikaPracticaSel ? 'practica' : 'examen');
             const btn = document.getElementById('btn-comenzar'); if (btn) btn.textContent = esc ? 'Comenzar Examen Escrito ✍️' : 'Comenzar Evaluación 🚀';
             const qCount = document.getElementById('q-count');
             qCount.min = esc ? 1 : 5; qCount.max = esc ? 30 : 400;
