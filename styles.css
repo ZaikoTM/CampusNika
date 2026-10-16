@@ -456,7 +456,7 @@
         #toast.toast-info { border-color: rgba(56,189,248,0.45); }
 
         /* NIKA BRAND ASSETS */
-        .nika-asset-img { display: block; margin: 0 auto; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+        .nika-asset-img { display: block; margin: 0 auto; object-fit: contain; image-rendering: auto; }
         .sidebar-brand-box { padding: 16px 20px; display: flex; flex-direction: column; align-items: center; }
         .sidebar-brand-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
         .sidebar-brand-logo .nika-isotipo { height: 52px; max-height: 54px; min-height: 48px; width: auto; }

@@ -107,3 +107,19 @@ html.cv-lite .sidebar-brand-logo img, html.cv-lite .hero-n-logo, html.cv-lite .c
 html.cv-lite .continuity-card::after { animation: none; }
 
 @keyframes cvSuave { from { opacity: 0; } to { opacity: 1; } }
+
+/* Marca central del campus: máxima definición (imágenes HD con transparencia real, sin escalado dentado) */
+.hero-n-logo { width: 104px; height: auto; max-height: none; min-height: 0; image-rendering: auto; filter: drop-shadow(0 6px 14px rgba(14, 116, 240, .28)); }
+.hero-text-logo { width: 150px; max-width: none; height: auto; image-rendering: auto; }
+.central-branding-logo-wrap { gap: 6px !important; }
+@media (max-width: 600px) { .hero-n-logo { width: 84px; } .hero-text-logo { width: 122px; } }
+
+/* Nitidez: la esfera ya no se escala ni se desenfoca (escalar una capa con texto/logo y backdrop-filter lo vuelve borroso).
+   El latido pasa a un anillo aparte; el logo queda fijo para rasterizarse a pixel exacto. */
+.medical-pulse-container { position: relative; animation: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  box-shadow: 0 10px 35px rgba(56, 189, 248, .25), inset 0 0 22px rgba(56, 189, 248, .28); }
+.medical-pulse-container::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid rgba(56, 189, 248, .55); pointer-events: none; animation: mpAnillo 2.8s ease-out infinite; }
+@keyframes mpAnillo { 0% { transform: scale(1); opacity: .75; } 100% { transform: scale(1.14); opacity: 0; } }
+.hero-n-logo { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .medical-pulse-container::after { animation: none; opacity: 0; } }
+html.cv-lite .medical-pulse-container::after { animation: none; opacity: 0; }
