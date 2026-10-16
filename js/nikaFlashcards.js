@@ -306,6 +306,84 @@
     return paginas;
   }
   const descargarBlob = (blob, nombre) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); a.remove(); };
+  // ---------- compartir: iconos, selector de contenido y utilidades ----------
+  const IC = {
+    wa: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>',
+    copy: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="3"/><path d="M5 15V6a3 3 0 013-3h9"/></svg>',
+    dl: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 17v1a3 3 0 003 3h10a3 3 0 003-3v-1"/></svg>',
+    share: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></svg>'
+  };
+  const esMovil = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.platform));
+  const linkFicha = (p) => 'https://nikamed.com.ar/temas/' + p.id + '.html';
+  const LEE = () => { try { return JSON.parse(sessionStorage.getItem('nika_fc_share') || '{}'); } catch (_) { return {}; } };
+  const GUARDA = (o) => { try { sessionStorage.setItem('nika_fc_share', JSON.stringify(o)); } catch (_) {} };
+  const MODOS = {
+    wa: { tit: 'Enviar por WhatsApp', ico: IC.wa, go: 'Abrir WhatsApp', fmt: ['imagen', 'texto', 'enlace'] },
+    share: { tit: 'Compartir', ico: IC.share, go: 'Compartir', fmt: ['imagen', 'texto', 'enlace'] },
+    img: { tit: 'Descargar', ico: IC.dl, go: 'Descargar', fmt: ['imagen', 'texto'] },
+    copiar: { tit: 'Copiar', ico: IC.copy, go: 'Copiar', fmt: ['texto', 'enlace'] }
+  };
+  const FMT = {
+    imagen: { ico: '🖼️', nom: 'Imagen', ayuda: 'Una tarjeta lista para enviar' },
+    texto: { ico: '📝', nom: 'Texto', ayuda: 'Se puede editar y pegar donde quieras' },
+    enlace: { ico: '🔗', nom: 'Solo el enlace', ayuda: 'Va a la ficha pública con todo el contenido' }
+  };
+  // Pregunta qué compartir: la ficha completa o algunas secciones, y en qué formato. Devuelve { ids, fmt } o null si se cancela.
+  function elegirContenido(modo, p, disp, abiertas) {
+    return new Promise((ok) => {
+      const m = MODOS[modo], prev = LEE();
+      const ids0 = (prev[modo + '_ids'] || null);
+      const sel = new Set(ids0 && ids0.every((x) => disp.some((s) => s.id === x)) && ids0.length ? ids0 : (abiertas.size && abiertas.size < disp.length ? Array.from(abiertas) : disp.map((s) => s.id)));
+      let fmt = m.fmt.includes(prev[modo + '_fmt']) ? prev[modo + '_fmt'] : m.fmt[0];
+      const ov = document.createElement('div'); ov.className = 'fcs-ov fc-root'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', m.tit);
+      const pintar = () => {
+        const todo = sel.size === disp.length;
+        ov.innerHTML = '<div class="fcs"><div class="fcs-h"><span class="fcs-ic ' + modo + '">' + m.ico + '</span><div><b>' + m.tit + '</b><small>' + esc(p.titulo) + '</small></div><button type="button" class="fcs-x" data-a="x" aria-label="Cerrar">✕</button></div>' +
+          '<div class="fcs-b">' +
+          (fmt === 'enlace' ? '' : '<div class="fcs-t">¿Qué querés incluir?</div><button type="button" class="fcs-all' + (todo ? ' on' : '') + '" data-a="todo"><i>' + (todo ? '✓' : '') + '</i><span><b>Ficha completa</b><small>' + disp.length + ' secciones</small></span></button>' +
+            '<div class="fcs-g">' + disp.map((s) => '<button type="button" class="fcs-s' + (sel.has(s.id) ? ' on' : '') + '" data-s="' + s.id + '"><i>' + s.ico + '</i><span>' + esc(s.nom) + '</span><em>' + (sel.has(s.id) ? '✓' : '') + '</em></button>').join('') + '</div>') +
+          '<div class="fcs-t">Formato</div><div class="fcs-f">' + m.fmt.map((f) => '<button type="button" class="fcs-fb' + (fmt === f ? ' on' : '') + '" data-f="' + f + '"><i>' + FMT[f].ico + '</i><b>' + FMT[f].nom + '</b><small>' + FMT[f].ayuda + '</small></button>').join('') + '</div></div>' +
+          '<div class="fcs-p"><button type="button" class="fcs-no" data-a="x">Cancelar</button><button type="button" class="fcs-go ' + modo + '" data-a="go"' + (fmt !== 'enlace' && !sel.size ? ' disabled' : '') + '>' + m.ico + ' ' + m.go + '</button></div></div>';
+      };
+      const cerrar = (r) => { document.removeEventListener('keydown', tecla, true); ov.classList.remove('on'); setTimeout(() => ov.remove(), 180); ok(r); };
+      const tecla = (e) => { if (e.key === 'Escape') { e.stopPropagation(); cerrar(null); } };
+      ov.addEventListener('click', (e) => {
+        if (e.target === ov) return cerrar(null);
+        const b = e.target.closest('[data-a],[data-s],[data-f]'); if (!b) return;
+        if (b.dataset.s) { if (sel.has(b.dataset.s)) sel.delete(b.dataset.s); else sel.add(b.dataset.s); return pintar(); }
+        if (b.dataset.f) { fmt = b.dataset.f; return pintar(); }
+        if (b.dataset.a === 'todo') { if (sel.size === disp.length) sel.clear(); else disp.forEach((s) => sel.add(s.id)); return pintar(); }
+        if (b.dataset.a === 'x') return cerrar(null);
+        if (b.dataset.a === 'go') { if (fmt !== 'enlace' && !sel.size) return; const o = LEE(); o[modo + '_fmt'] = fmt; o[modo + '_ids'] = Array.from(sel); GUARDA(o); cerrar({ ids: disp.map((s) => s.id).filter((x) => sel.has(x)), fmt }); }
+      });
+      document.addEventListener('keydown', tecla, true);
+      pintar(); document.body.appendChild(ov); requestAnimationFrame(() => ov.classList.add('on'));
+      const go = ov.querySelector('.fcs-go'); if (go) go.focus();
+    });
+  }
+  const textoPlano = (t) => String(t).replace(/\*/g, '');
+  // Ejecuta la acción elegida (modo) con el contenido elegido (sel)
+  async function accion(modo, p, sel, host) {
+    const { ids, fmt } = sel;
+    const texto = () => textoCompartir(p, ids) + '\n\n📖 Ficha completa: ' + linkFicha(p);
+    if (fmt === 'enlace') {
+      const t = '🃏 ' + p.titulo + ' — ficha clínica gratis en NikaMed:\n' + linkFicha(p);
+      if (modo === 'copiar') return copiar(t).then((o) => avisoToast(host, o ? '🔗 Enlace copiado' : 'No se pudo copiar'));
+      if (modo === 'wa') { window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank', 'noopener'); return avisoToast(host, '💬 Elegí el chat en WhatsApp'); }
+      if (modo === 'share') { if (navigator.share) { try { await navigator.share({ title: p.titulo + ' · NikaMed', text: '🃏 ' + p.titulo, url: linkFicha(p) }); } catch (_) {} return; } return copiar(linkFicha(p)).then(() => avisoToast(host, '🔗 Enlace copiado')); }
+      return;
+    }
+    if (fmt === 'texto') {
+      if (modo === 'copiar') return copiar(texto()).then((o) => avisoToast(host, o ? '📋 ¡Copiado!' : 'No se pudo copiar'));
+      if (modo === 'img') { descargarBlob(new Blob([textoPlano(texto())], { type: 'text/plain;charset=utf-8' }), nombreImg(p).replace(/\.png$/, '.txt')); return avisoToast(host, '⬇️ Texto descargado'); }
+      if (modo === 'wa') { window.open('https://wa.me/?text=' + encodeURIComponent(texto()), '_blank', 'noopener'); return avisoToast(host, '💬 Elegí el chat en WhatsApp'); }
+      if (modo === 'share') { if (navigator.share) { try { await navigator.share({ title: p.titulo + ' · NikaMed', text: texto() }); } catch (_) {} return; } return copiar(texto()).then(() => avisoToast(host, '📋 Texto copiado')); }
+      return;
+    }
+    avisoToast(host, '🖼️ Armando la imagen…');
+    return compartirImagen(p, ids, modo === 'img' ? 'descargar' : modo, host);
+  }
+
   async function compartirImagen(p, ids, via, host) {
     const cv = await generarImagen(p, ids);
     const aBlob = (c) => new Promise((ok) => c.toBlob(ok, 'image/png'));
@@ -319,14 +397,16 @@
     const base = nombreImg(p).replace(/\.png$/, '');
     const files = blobs.map((b, i) => new File([b], blobs.length > 1 ? base + '-' + (i + 1) + '.png' : base + '.png', { type: 'image/png' }));
     const blob = blobs[0], file = files[0];
-    if (navigator.canShare && navigator.canShare({ files })) {
-      try { await navigator.share({ files, text: mensajeCorto(p), title: p.titulo + ' · NikaMed' }); return avisoToast(host, '📤 Elegí WhatsApp en la lista'); }
+    // En el celular el menú del sistema es la única forma de adjuntar la imagen. En PC, «WhatsApp» no usa ese menú (podía abrir el correo): copia la imagen y abre WhatsApp.
+    if ((via === 'share' || esMovil()) && navigator.canShare && navigator.canShare({ files })) {
+      try { await navigator.share({ files, text: mensajeCorto(p), title: p.titulo + ' · NikaMed' }); return avisoToast(host, via === 'wa' ? '📤 Elegí WhatsApp en la lista' : '📤 Compartido'); }
       catch (e) { if (e && e.name === 'AbortError') return; }
     }
+    if (via === 'share') { files.forEach((f, i) => setTimeout(() => descargarBlob(f, f.name), i * 350)); return avisoToast(host, '⬇️ No se pudo abrir el menú de compartir: se descargó la imagen'); }
     let copiada = false;
     if (blobs.length === 1) { try { if (navigator.clipboard && window.ClipboardItem) { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); copiada = true; } } catch (_) {} }
     if (!copiada) files.forEach((f, i) => setTimeout(() => descargarBlob(f, f.name), i * 350));
-    window.open('https://web.whatsapp.com/send?text=' + encodeURIComponent(mensajeCorto(p)), '_blank', 'noopener');
+    window.open('https://wa.me/?text=' + encodeURIComponent(mensajeCorto(p)), '_blank', 'noopener');
     avisoToast(host, copiada ? '📋 Imagen copiada: pegala con Ctrl + V en el chat' : (blobs.length > 1 ? '⬇️ ' + blobs.length + ' imágenes descargadas: adjuntalas en el chat' : '⬇️ Imagen descargada: adjuntala en el chat'));
   }
 
@@ -353,8 +433,8 @@
           '<div class="fcd-secs">' + secs + '</div>' + sello(p) +
           (p.calculadora ? '<a class="fcd-calc" href="calculadoras.html#' + esc(p.calculadora) + '">🧮 Abrir la calculadora de esta escala</a>' : '') +
           '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small>' + argentinasHtml(f) + '</div></div>' +
-          '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">📋 Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa">💬 WhatsApp (imagen)</button><button type="button" class="fcd-btn" data-fcd="img">⬇️ Descargar imagen</button>' +
-          (navigator.share ? '<button type="button" class="fcd-btn" data-fcd="share">📤 Compartir</button>' : '') +
+          '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">' + IC.copy + ' Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa" title="Enviar por WhatsApp">' + IC.wa + ' WhatsApp</button><button type="button" class="fcd-btn" data-fcd="img">' + IC.dl + ' Descargar</button>' +
+          '<button type="button" class="fcd-btn" data-fcd="share" title="Compartir con otras aplicaciones">' + IC.share + ' Compartir</button>' +
           '<button type="button" class="fcd-btn ' + (ok ? 'sec' : 'ok') + '" data-fcd="ok">' + (ok ? '↩ Marcar para repasar' : '✅ Me lo sé') + '</button></div>' +
           '<p class="fc-legal">' + esc(descargoDe(d, areaDe(p))) + '</p></article>';
       };
@@ -368,10 +448,7 @@
         if (a === 'volver') { if (opts.alVolver) opts.alVolver(); return; }
         if (a === 'todo') { if (abiertas.size === disp.length) abiertas.clear(); else disp.forEach((s) => abiertas.add(s.id)); return pintar(); }
         if (a === 'ok') { marcar(p.id, !leerOk()[p.id]); pintar(); if (opts.alCambiar) opts.alCambiar(); return; }
-        if (a === 'copiar') return copiar(textoCompartir(p, ids())).then((ok) => avisoToast(host, ok ? '📋 ¡Copiado!' : 'No se pudo copiar'));
-        if (a === 'wa') { avisoToast(host, '🖼️ Armando la imagen…'); return compartirImagen(p, ids(), 'wa', host); }
-        if (a === 'img') return compartirImagen(p, ids(), 'descargar', host);
-        if (a === 'share') { navigator.share({ title: p.titulo + ' · NikaMed', text: mensajeCorto(p) }).catch(() => {}); return; }
+        if (a === 'copiar' || a === 'wa' || a === 'img' || a === 'share') return elegirContenido(a, p, disp, abiertas).then((r) => { if (r) accion(a, p, r, host); });
       };
     });
   }
