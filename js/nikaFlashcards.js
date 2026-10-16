@@ -119,6 +119,9 @@
   ];
   const tieneSec = (p, s) => { const h = s.html(p); return !!h && h.replace(/<[^>]+>/g, '').trim().length > 0; };
 
+  // Fuentes argentinas verificadas (si la ficha las tiene)
+  const argentinasHtml = (f) => (f.argentinas && f.argentinas.length)
+    ? '<div class="fcd-ar"><b>🇦🇷 Fuentes argentinas</b>' + f.argentinas.map((r) => '<span>' + (r.u ? '<a href="' + esc(r.u) + '" target="_blank" rel="noopener">' + esc(r.t) + '</a>' : esc(r.t)) + '<small>' + esc(r.c) + (r.n ? ' · ' + esc(r.n) : '') + '</small></span>').join('') + '</div>' : '';
   // Enlace a la fuente: solo se muestra cuando hay un link confirmado (Drive de la cátedra o página de la guía)
   const enlaceFuente = (f) => f.url ? ' <a class="fc-fuente-link" href="' + esc(f.url) + '" target="_blank" rel="noopener">📖 Abrir la fuente</a>' : '';
   const FUENTE_URL = [
@@ -349,7 +352,7 @@
           '<div class="fc-elegi">Tocá para desplegar o plegar cada parte</div><div class="fc-chips">' + chips + '</div>' +
           '<div class="fcd-secs">' + secs + '</div>' + sello(p) +
           (p.calculadora ? '<a class="fcd-calc" href="calculadoras.html#' + esc(p.calculadora) + '">🧮 Abrir la calculadora de esta escala</a>' : '') +
-          '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small></div></div>' +
+          '<div class="fcd-fuente"><b>Fuente</b><span>' + esc(f.guia || '') + '</span><small>' + esc(f.sociedad || '') + ' · ' + esc(f.anio || '') + (f.nota ? ' · ' + esc(f.nota) : '') + '</small>' + argentinasHtml(f) + '</div></div>' +
           '<div class="fcd-acc"><button type="button" class="fcd-btn pri" data-fcd="copiar">📋 Copiar</button><button type="button" class="fcd-btn wa" data-fcd="wa">💬 WhatsApp (imagen)</button><button type="button" class="fcd-btn" data-fcd="img">⬇️ Descargar imagen</button>' +
           (navigator.share ? '<button type="button" class="fcd-btn" data-fcd="share">📤 Compartir</button>' : '') +
           '<button type="button" class="fcd-btn ' + (ok ? 'sec' : 'ok') + '" data-fcd="ok">' + (ok ? '↩ Marcar para repasar' : '✅ Me lo sé') + '</button></div>' +

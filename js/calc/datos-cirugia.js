@@ -51,7 +51,7 @@
       desc: 'Riesgo de complicaciones cardíacas mayores en cirugía no cardíaca.', maximo: 6,
       campos: [C('cir', 'Cirugía de alto riesgo (intraperitoneal, intratorácica o vascular suprainguinal)', 1), C('cardiopatia', 'Cardiopatía isquémica', 1), C('ic', 'Insuficiencia cardíaca', 1), C('acv', 'Antecedente de ACV o AIT', 1), C('ins', 'Diabetes en tratamiento con insulina', 1), C('cr', 'Creatinina > 2 mg/dl', 1)],
       rangos: [{ max: 0, nivel: 'ok', titulo: 'Riesgo bajo', texto: 'Riesgo estimado de evento cardíaco mayor ≈ 4 % (CCS 2017; 0,4 % en el estudio original).' }, { max: 1, nivel: 'warn', titulo: 'Riesgo intermedio', texto: 'Riesgo estimado ≈ 6 % (CCS 2017; 0,9 % en el original).' }, { max: 2, nivel: 'bad', titulo: 'Riesgo elevado', texto: 'Riesgo estimado ≈ 10 % (CCS 2017; 6,6 % en el original).' }, { max: 6, nivel: 'bad', titulo: 'Riesgo alto', texto: 'Riesgo estimado ≥ 15 % (CCS 2017; 11 % en el original): evaluación cardiológica y optimización.' }],
-      fuente: 'Lee TH et al. Circulation 1999;100:1043. Canadian Cardiovascular Society 2017 (Duceppe E, Can J Cardiol 2017); Sociedad Argentina de Cardiología, Consenso de evaluación perioperatoria.' },
+      fuente: 'Lee TH et al. Circulation 1999;100:1043. Canadian Cardiovascular Society 2017 (Duceppe E, Can J Cardiol 2017).' },
 
     { id: 'apfel', area: 'cirugia', ico: '🤢', nombre: 'Score de Apfel (náuseas y vómitos posoperatorios)', alias: 'nvpo anestesia',
       desc: 'Riesgo de náuseas y vómitos posoperatorios para decidir la profilaxis.', maximo: 4,
@@ -72,7 +72,7 @@
         return { principal: { label: 'Volumen en 24 horas', valor: t, unidad: ' mL', dec: 0 }, nivel: v.scq >= 20 ? 'bad' : 'warn', titulo: 'Ringer lactato: 4 mL × kg × %SCQ',
           extra: [['Primeras 8 horas (la mitad)', num(t / 2, 0) + ' mL (≈ ' + num(t / 2 / 8, 0) + ' mL/h)'], ['Siguientes 16 horas (la otra mitad)', num(t / 2, 0) + ' mL (≈ ' + num(t / 2 / 16, 0) + ' mL/h)']],
           texto: 'El tiempo se cuenta desde el momento de la quemadura. Ajustar para una diuresis de 0,5 mL/kg/h en adultos (30 a 50 mL/h).' }; },
-      fuente: 'Fórmula de Parkland (Baxter, 1968). Advanced Trauma Life Support (ATLS) 10.ª ed. y American Burn Association; Asociación Argentina de Quemaduras.', nota: 'Los grados superficiales (1.er grado) no se cuentan. Reposición inicial orientativa: titular según la diuresis.' },
+      fuente: 'Fórmula de Parkland (Baxter, 1968). Advanced Trauma Life Support (ATLS) 10.ª ed. y American Burn Association.', nota: 'Los grados superficiales (1.er grado) no se cuentan. Reposición inicial orientativa: titular según la diuresis.' },
 
     { id: 'regla-nueves', area: 'cirugia', ico: '🧍', nombre: 'Superficie corporal quemada (regla de los 9 de Wallace)', alias: 'quemadura adulto scq',
       desc: 'Suma el porcentaje de superficie quemada en el adulto.',

@@ -86,7 +86,8 @@
         ${chks.length ? `<div class="cc-chks">${chks.map((f) => campoHtml(f, c.id)).join('')}</div>` : ''}
         <div class="cc-out" aria-live="polite"></div>
         <div class="cc-pie"><button type="button" class="cc-btn" data-a="limpiar">↺ Limpiar</button><button type="button" class="cc-btn" data-a="copiar">📋 Copiar resultado</button></div>
-        <div class="cc-fuente"><b>Fundamento:</b> ${esc(c.fuente)}${c.nota ? `<br><span>${esc(c.nota)}</span>` : ''}</div>
+        <div class="cc-fuente"><b>Fundamento:</b> ${esc(c.fuente)}${c.nota ? `<br><span>${esc(c.nota)}</span>` : ''}
+          ${c.fuenteAr && c.fuenteAr.length ? `<div class="cc-ar"><b>🇦🇷 Fuentes argentinas:</b><ul>${c.fuenteAr.map((r) => `<li>${r.u ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>` : esc(r.t)} <small>${esc(r.c)}${r.n ? ' · ' + esc(r.n) : ''}</small></li>`).join('')}</ul></div>` : `<div class="cc-ar sin"><span>🇦🇷 No se localizó una guía argentina específica vigente: se cita la fuente original e internacional.</span></div>`}</div>
       </div></article>`;
   }
   function pintar(card, c) {

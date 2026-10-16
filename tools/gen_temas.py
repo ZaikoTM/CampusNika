@@ -130,6 +130,7 @@ CSS_EXTRA = """
 .tm-fig{margin:22px 0;text-align:center}
 .tm-fig img{max-width:min(100%,420px);height:auto;border-radius:14px;border:1px solid var(--border-subtle);box-shadow:0 14px 40px -16px rgba(0,0,0,.7)}
 .tm-fig figcaption{font-size:.82rem;color:var(--text-dim);margin-top:10px}
+.tm-ar{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.3)}.tm-ar ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px}.tm-ar small{display:block;color:var(--text-dim)}
 .tm-aviso{font-size:.78rem;color:var(--text-dim);margin-top:22px;line-height:1.6}
 .tm-buscar{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-subtle);background:rgba(15,23,42,.8);color:#fff;font:inherit;font-weight:600;margin:6px 0 4px}
 .tm-buscar:focus{outline:2px solid var(--violet-glow)}
@@ -276,6 +277,8 @@ def main():
         enlace = f.get('archivo', '')
         enlace_html = f' · <a href="{e(enlace)}" target="_blank" rel="noopener">Ver la fuente</a>' if enlace.startswith('http') else ''
         fuente = f'<div class="tm-fuente"><b>{etiqueta}:</b> {e(f.get("guia",""))} — {e(f.get("sociedad",""))} ({e(str(f.get("anio","")))}){enlace_html}.</div>'
+        if f.get('argentinas'):
+            fuente = fuente[:-6] + '<div class="tm-ar"><b>🇦🇷 Fuentes argentinas:</b><ul>' + ''.join('<li>%s <small>%s%s</small></li>' % (('<a href="%s" target="_blank" rel="noopener">%s</a>' % (e(r['u']), e(r['t']))) if r.get('u') else e(r['t']), e(r['c']), (' · ' + e(r['n'])) if r.get('n') else '') for r in f['argentinas']) + '</ul></div></div>'
         # imagen real de la tarjeta (generada con el propio Simulador FlashCard)
         figura = ''
         small = os.path.join(ROOT, 'assets/temas', p['id'] + '-480.webp')

@@ -20,7 +20,7 @@
         return { principal: { label: 'Edad gestacional', valor: sem(dias), unidad: '' }, nivel: dias > 294 ? 'bad' : dias >= 259 ? 'ok' : 'info',
           titulo: trimestre(dias), texto: dias > 294 ? 'Más de 42 semanas: embarazo postérmino. Requiere conducta activa según protocolo.' : dias >= 259 ? 'A término (37 semanas o más).' : 'Pretérmino (menos de 37 semanas).',
           extra: [['Fecha probable de parto (FPP)', fecha(fpp)], ['Días restantes', Math.max(0, dif(fpp, ref)) + ' días'], ['Semanas cumplidas', Math.floor(dias / 7) + ' ('+ dias + ' días)']] };
-      }, fuente: 'Regla de Naegele (FUM + 280 días, ajustada si el ciclo no es de 28 días). Ministerio de Salud de la Nación, Guía de práctica clínica de control prenatal; ACOG Committee Opinion 700 (2017).', nota: 'Confiable solo si la FUM es segura y el ciclo regular; si no, datar por ecografía precoz.' },
+      }, fuente: 'Regla de Naegele (FUM + 280 días, ajustada si el ciclo no es de 28 días). ACOG Committee Opinion 700 (2017).', nota: 'Confiable solo si la FUM es segura y el ciclo regular; si no, datar por ecografía precoz.' },
 
     { id: 'eg-eco', area: 'obstetricia', ico: '🖥️', nombre: 'Edad gestacional por ecografía', alias: 'longitud craneocaudal LCC fpp ecografia',
       desc: 'Reconstruye la edad gestacional de hoy y la FPP a partir de una ecografía previa.',
@@ -62,7 +62,7 @@
       campos: [S('fc', 'Frecuencia cardíaca', [['Ausente', 0], ['Menos de 100 lpm', 1], ['100 lpm o más', 2]]), S('resp', 'Esfuerzo respiratorio', [['Ausente', 0], ['Lento / irregular', 1], ['Llanto fuerte', 2]]),
         S('tono', 'Tono muscular', [['Flácido', 0], ['Alguna flexión', 1], ['Movimiento activo', 2]]), S('refl', 'Respuesta a estímulos', [['Sin respuesta', 0], ['Mueca', 1], ['Llanto / tos', 2]]), S('color', 'Color', [['Pálido / cianótico', 0], ['Cuerpo rosado, extremidades cianóticas', 1], ['Totalmente rosado', 2]])],
       rangos: [{ max: 3, nivel: 'bad', titulo: 'Depresión severa', texto: 'Requiere reanimación inmediata según el algoritmo neonatal.' }, { max: 6, nivel: 'warn', titulo: 'Depresión moderada', texto: 'Estimulación y soporte; reevaluar.' }, { max: 10, nivel: 'ok', titulo: 'Normal', texto: 'Recién nacido en buenas condiciones (7 a 10).' }],
-      fuente: 'Apgar V. Anesth Analg 1953;32:260. AAP/ACOG Committee Opinion 644 (2015). Sociedad Argentina de Pediatría, Reanimación neonatal.', nota: 'No debe retrasar la reanimación: se asigna después de iniciar las maniobras necesarias.' },
+      fuente: 'Apgar V. Anesth Analg 1953;32:260. AAP/ACOG Committee Opinion 644 (2015).', nota: 'No debe retrasar la reanimación: se asigna después de iniciar las maniobras necesarias.' },
 
     { id: 'ganancia-peso', area: 'obstetricia', ico: '⚖️', nombre: 'Ganancia de peso recomendada en el embarazo', alias: 'iom imc pregestacional peso embarazada',
       desc: 'Rango de aumento de peso total según el IMC pregestacional.',
@@ -71,14 +71,14 @@
         if (v.gem) { r = imc < 18.5 ? 'Sin recomendación específica' : imc < 25 ? '16,8 a 24,5 kg' : imc < 30 ? '14,1 a 22,7 kg' : '11,3 a 19,1 kg'; c = 'Gemelar (IOM 2009, rangos provisionales)'; }
         else { r = imc < 18.5 ? '12,5 a 18 kg' : imc < 25 ? '11,5 a 16 kg' : imc < 30 ? '7 a 11,5 kg' : '5 a 9 kg'; c = imc < 18.5 ? 'Bajo peso' : imc < 25 ? 'Peso normal' : imc < 30 ? 'Sobrepeso' : 'Obesidad'; }
         return { principal: { label: 'Ganancia total recomendada', valor: r, unidad: '' }, nivel: 'info', titulo: 'IMC pregestacional ' + num(imc, 1) + ' · ' + c, extra: [['Ritmo en 2.º y 3.er trimestre', imc < 18.5 ? '≈ 0,5 kg/semana' : imc < 25 ? '≈ 0,4 kg/semana' : imc < 30 ? '≈ 0,3 kg/semana' : '≈ 0,2 kg/semana']] }; },
-      fuente: 'Institute of Medicine (IOM, 2009), «Weight Gain During Pregnancy». En Argentina, el control prenatal usa además la curva de Atalah (Ministerio de Salud, Guía de control prenatal).' },
+      fuente: 'Institute of Medicine (IOM, 2009), «Weight Gain During Pregnancy».' },
 
     { id: 'eg-corregida', area: 'pediatria', ico: '🍼', nombre: 'Edad corregida del prematuro', alias: 'prematuro edad gestacional corregida',
       desc: 'Edad cronológica corregida por prematurez (hasta los 2 años).',
       campos: [N('egn', 'Edad gestacional al nacer', 'semanas', { min: 22, max: 41 }), N('meses', 'Edad cronológica actual', 'meses', { min: 0, max: 48, step: 0.1 })],
       calc: (v) => { const falta = Math.max(0, 40 - v.egn); const corr = v.meses - (falta * 7 / 30.4);
         return { principal: { label: 'Edad corregida', valor: Math.max(0, corr), unidad: ' meses' }, nivel: 'info', titulo: 'Prematurez de ' + falta + ' semanas', texto: v.meses > 24 ? 'Después de los 24 meses habitualmente ya no se corrige.' : 'Usar la edad corregida para evaluar crecimiento y desarrollo.' }; },
-      fuente: 'Edad corregida = edad cronológica − (40 − EG al nacer). Sociedad Argentina de Pediatría, seguimiento del prematuro; AAP.' },
+      fuente: 'Edad corregida = edad cronológica − (40 − EG al nacer). AAP.' },
 
     { id: 'indice-shock', area: 'obstetricia', ico: '🩸', nombre: 'Índice de shock', alias: 'frecuencia cardiaca presion sistolica hemorragia',
       desc: 'Frecuencia cardíaca / presión sistólica: alerta temprana de hipovolemia (incluida la hemorragia obstétrica).',
@@ -86,12 +86,12 @@
       calc: (v) => { const i = v.fc / v.pas; const n = i < 0.7 ? 'ok' : i < 0.9 ? 'info' : i < 1.4 ? 'warn' : 'bad';
         return { principal: { label: 'Índice de shock', valor: i, dec: 2, unidad: '' }, nivel: n, titulo: i < 0.7 ? 'Normal (0,5 a 0,7)' : i < 0.9 ? 'Zona de alerta' : i < 1.4 ? 'Hipovolemia significativa probable' : 'Shock grave',
           texto: i >= 0.9 ? 'En obstetricia, un valor ≥ 0,9 se asocia a hemorragia grave y mayor necesidad de transfusión: activar el protocolo de emergencia obstétrica.' : 'Reevaluar según la clínica y repetir las mediciones.' }; },
-      fuente: 'Allgöwer M, Burri C, 1967. Umbral obstétrico ≥ 0,9: Le Bas A et al., Int J Obstet Anesth 2014; FIGO y FASGO, Hemorragia posparto.', nota: 'No reemplaza el juicio clínico: puede subestimar el compromiso con betabloqueantes o embarazo normal avanzado.' },
+      fuente: 'Allgöwer M, Burri C, 1967. Umbral obstétrico ≥ 0,9: Le Bas A et al., Int J Obstet Anesth 2014;', nota: 'No reemplaza el juicio clínico: puede subestimar el compromiso con betabloqueantes o embarazo normal avanzado.' },
 
     { id: 'hellp-tennessee', area: 'obstetricia', ico: '🧫', nombre: 'Criterios de HELLP (Tennessee)', alias: 'preeclampsia hemolisis plaquetas hepaticas',
       desc: 'Confirma síndrome HELLP completo con tres alteraciones de laboratorio.', maximo: 3,
       campos: [C('ldh', 'LDH ≥ 600 UI/L (hemólisis)', 1), C('ast', 'AST ≥ 70 UI/L (enzimas hepáticas)', 1), C('plq', 'Plaquetas < 100.000/mm³', 1)],
       rangos: [{ max: 0, nivel: 'ok', titulo: 'Sin criterios de HELLP', texto: 'No cumple ningún criterio de laboratorio. Seguir el control habitual de la preeclampsia.' }, { max: 2, nivel: 'warn', titulo: 'HELLP incompleto (parcial)', texto: 'Se sospecha HELLP parcial: control estrecho de laboratorio y de la presión arterial; evaluar la gravedad de la preeclampsia.' }, { max: 3, nivel: 'bad', titulo: 'HELLP completo', texto: 'Cumple los tres criterios de Tennessee: manejo en centro de alta complejidad y evaluación de la interrupción del embarazo.' }],
-      fuente: 'Sibai BM. Obstet Gynecol 2004;103:981 (criterios de Tennessee). ACOG Practice Bulletin 222 (2020); FASGO, Trastornos hipertensivos del embarazo.' },
+      fuente: 'Sibai BM. Obstet Gynecol 2004;103:981 (criterios de Tennessee). ACOG Practice Bulletin 222 (2020).' },
   ]);
 })();

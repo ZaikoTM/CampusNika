@@ -12,7 +12,7 @@
       desc: 'Probabilidad de faringitis estreptocócica y necesidad de test rápido o antibiótico.', maximo: 5,
       campos: [C('f', 'Fiebre > 38 °C', 1), C('t', 'Ausencia de tos', 1), C('a', 'Adenopatías cervicales anteriores dolorosas', 1), C('e', 'Exudado o hipertrofia amigdalina', 1), S('ed', 'Edad', [['3 a 14 años', 1], ['15 a 44 años', 0], ['45 años o más', -1]])],
       rangos: [{ max: 1, nivel: 'ok', titulo: 'Probabilidad baja (≤ 1)', texto: 'Estreptococo ≈ 5 a 10 %: sin estudio ni antibiótico.' }, { max: 3, nivel: 'warn', titulo: 'Probabilidad intermedia (2 a 3)', texto: 'Estreptococo ≈ 15 a 35 %: test rápido o cultivo; tratar si es positivo.' }, { max: 5, nivel: 'bad', titulo: 'Probabilidad alta (≥ 4)', texto: 'Estreptococo ≈ 50 %: test rápido y tratamiento según resultado o criterio clínico.' }],
-      fuente: 'Centor RM et al. Med Decis Making 1981;1:239; McIsaac WJ et al. CMAJ 1998;158:75. Sociedad Argentina de Pediatría e IDSA 2012.' },
+      fuente: 'Centor RM et al. Med Decis Making 1981;1:239; McIsaac WJ et al. CMAJ 1998;158:75. IDSA 2012.' },
 
     { id: 'glasgow-imrie', area: 'cirugia', ico: '🧫', nombre: 'Criterios de Glasgow-Imrie (pancreatitis)', alias: 'pancreatitis gravedad modificada',
       desc: 'Gravedad de la pancreatitis aguda a las 48 horas (3 o más criterios indican gravedad).', maximo: 8,
@@ -24,7 +24,7 @@
       desc: 'Riesgo de muerte, infarto o isquemia grave que requiere revascularización a 14 días.', maximo: 7,
       campos: [C('e', 'Edad ≥ 65 años', 1), C('r', '3 o más factores de riesgo coronario', 1), C('c', 'Estenosis coronaria conocida ≥ 50 %', 1), C('a', 'Uso de aspirina en los últimos 7 días', 1), C('ang', 'Angina grave (≥ 2 episodios en 24 horas)', 1), C('st', 'Desviación del ST ≥ 0,5 mm', 1), C('mar', 'Marcadores cardíacos elevados', 1)],
       rangos: [{ max: 2, nivel: 'ok', titulo: 'Riesgo bajo (0 a 2)', texto: 'Eventos a 14 días ≈ 5 a 8 %.' }, { max: 4, nivel: 'warn', titulo: 'Riesgo intermedio (3 a 4)', texto: 'Eventos ≈ 13 a 20 %.' }, { max: 7, nivel: 'bad', titulo: 'Riesgo alto (5 a 7)', texto: 'Eventos ≈ 26 a 41 %: estrategia invasiva temprana.' }],
-      fuente: 'Antman EM et al. JAMA 2000;284:835. Guías ESC 2023 de síndromes coronarios agudos y Sociedad Argentina de Cardiología.' },
+      fuente: 'Antman EM et al. JAMA 2000;284:835. Guías ESC 2023 de síndromes coronarios agudos.' },
 
     { id: 'pam', area: 'cardio', ico: '🩸', nombre: 'Presión arterial media y de pulso', alias: 'pam presion media',
       desc: 'Presión de perfusión de los órganos (meta habitual en shock: PAM ≥ 65 mmHg).',
@@ -39,7 +39,7 @@
       calc: (v) => { const rr = 60 / v.fc; const b = v.qt / Math.sqrt(rr), f = v.qt / Math.cbrt(rr); const lim = v.sexo === 'F' ? 460 : 450; const q = f;
         return { principal: { label: 'QTc (Fridericia)', valor: f, unidad: ' ms', dec: 0 }, nivel: q > 500 ? 'bad' : q > lim ? 'warn' : 'ok', titulo: q > 500 ? 'Muy prolongado (> 500 ms): alto riesgo de arritmia' : q > lim ? 'Prolongado' : 'Normal',
           extra: [['QTc (Bazett)', num(b, 0) + ' ms'], ['Límite normal', '< ' + lim + ' ms']], texto: 'Fridericia es más precisa con frecuencias cardíacas extremas; Bazett sobrecorrige por encima de 100 lpm. Con > 500 ms o aumento > 60 ms suspender fármacos que prolongan el QT y corregir potasio y magnesio.' }; },
-      fuente: 'Bazett HC, Heart 1920; Fridericia LS, Acta Med Scand 1920. AHA/ACCF/HRS 2009 (Recommendations for the standardization of the ECG, part IV). Sociedad Argentina de Cardiología.' },
+      fuente: 'Bazett HC, Heart 1920; Fridericia LS, Acta Med Scand 1920. AHA/ACCF/HRS 2009 (Recommendations for the standardization of the ECG, part IV).' },
 
     { id: 'ph-winter', area: 'nefro', ico: '🧪', nombre: 'Acidosis metabólica: fórmula de Winter', alias: 'compensacion respiratoria gasometria pco2 esperada',
       desc: 'PaCO₂ esperada en una acidosis metabólica y si hay un trastorno respiratorio agregado.',
@@ -70,7 +70,7 @@
         const esp = Number.isFinite(v.edad) ? v.edad / 4 + 4 : null; const c = pf < 100 ? ['SDRA grave (PaO₂/FiO₂ < 100)', 'bad'] : pf < 200 ? ['SDRA moderado (100 a 199)', 'bad'] : pf < 300 ? ['SDRA leve (200 a 299)', 'warn'] : ['Sin hipoxemia grave por PaO₂/FiO₂', 'ok'];
         return { principal: { label: 'PaO₂/FiO₂', valor: pf, unidad: '', dec: 0 }, nivel: c[1], titulo: c[0], extra: [['Gradiente A-a', num(aa, 0) + ' mmHg' + (esp != null ? ' (esperado ≈ ' + num(esp, 0) + ')' : '')], ['PAO₂ alveolar', num(pao2, 0) + ' mmHg']],
           texto: 'Un gradiente A-a elevado orienta a alteración del intercambio (shunt, V/Q, difusión); si es normal con hipoxemia, pensar en hipoventilación o altura. Las categorías de SDRA aplican con PEEP ≥ 5 cmH₂O.' }; },
-      fuente: 'Definición de Berlín del SDRA (ARDS Definition Task Force, JAMA 2012;307:2526). Sociedad Argentina de Terapia Intensiva (SATI).' },
+      fuente: 'Definición de Berlín del SDRA (ARDS Definition Task Force, JAMA 2012;307:2526).' },
 
     { id: 'vt-ardsnet', area: 'emergencias', ico: '🫁', nombre: 'Volumen corriente protector (ARDSNet)', alias: 'ventilacion mecanica peso ideal predicho sdra',
       desc: 'Volumen corriente según el peso ideal predicho (por talla y sexo).',
@@ -85,7 +85,7 @@
         S('h', 'Hígado (bilirrubina mg/dl)', [['< 1,2', 0], ['1,2 a 1,9', 1], ['2,0 a 5,9', 2], ['6,0 a 11,9', 3], ['> 12', 4]]), S('cv', 'Cardiovascular', [['PAM ≥ 70', 0], ['PAM < 70', 1], ['Dopamina ≤ 5 o dobutamina', 2], ['Dopamina > 5 o noradrenalina ≤ 0,1', 3], ['Dopamina > 15 o noradrenalina > 0,1', 4]]),
         S('n', 'Neurológico (Glasgow)', [['15', 0], ['13 a 14', 1], ['10 a 12', 2], ['6 a 9', 3], ['< 6', 4]]), S('re', 'Renal (creatinina mg/dl o diuresis)', [['< 1,2', 0], ['1,2 a 1,9', 1], ['2,0 a 3,4', 2], ['3,5 a 4,9 o diuresis < 500 ml/día', 3], ['> 5 o diuresis < 200 ml/día', 4]])],
       rangos: [{ max: 1, nivel: 'ok', titulo: 'Disfunción mínima (0 a 1)', texto: 'Mortalidad baja (< 10 %).' }, { max: 6, nivel: 'warn', titulo: 'Disfunción orgánica (2 a 6)', texto: 'Mortalidad ≈ 6 a 21 %. Un aumento ≥ 2 sobre el basal con infección define sepsis.' }, { max: 9, nivel: 'bad', titulo: 'Disfunción grave (7 a 9)', texto: 'Mortalidad ≈ 20 a 35 %.' }, { max: 12, nivel: 'bad', titulo: 'Muy grave (10 a 12)', texto: 'Mortalidad ≈ 50 % o más.' }, { max: 24, nivel: 'bad', titulo: 'Crítico (> 12)', texto: 'Mortalidad muy alta en las series históricas (> 80 %).' }],
-      fuente: 'Vincent JL et al. Intensive Care Med 1996;22:707. Singer M et al. JAMA 2016;315:801 (Sepsis-3). Sociedad Argentina de Terapia Intensiva (SATI).', nota: 'Las mortalidades son aproximadas (Ferreira FL, JAMA 2001).' },
+      fuente: 'Vincent JL et al. Intensive Care Med 1996;22:707. Singer M et al. JAMA 2016;315:801 (Sepsis-3).', nota: 'Las mortalidades son aproximadas (Ferreira FL, JAMA 2001).' },
 
     { id: 'clearance-24h', area: 'nefro', ico: '🕐', nombre: 'Clearance de creatinina en orina de 24 horas', alias: 'depuracion creatinina diuresis',
       desc: 'Depuración medida a partir de creatinina urinaria y plasmática.',
@@ -107,21 +107,21 @@
       calc: (v) => { const T = { v: [13, 11, 8], m: [12, 11, 8], e: [11, 10, 7], n5: [11.5, 11, 8], n0: [11, 10, 7] }[v.g]; const hb = v.hb;
         const c = hb >= T[0] ? ['Sin anemia', 'ok'] : hb >= T[1] ? ['Anemia leve', 'warn'] : hb >= T[2] ? ['Anemia moderada', 'bad'] : ['Anemia grave', 'bad'];
         return { principal: { label: 'Hemoglobina', valor: hb, unidad: ' g/dl', dec: 1 }, nivel: c[1], titulo: c[0], texto: 'Umbral de anemia en este grupo: < ' + T[0] + ' g/dl. Siempre estudiar la causa (ferropenia, déficit de B12 o folato, enfermedad crónica).' }; },
-      fuente: 'Organización Mundial de la Salud (OMS), Concentraciones de hemoglobina para diagnosticar la anemia (2011). Sociedad Argentina de Hematología.' },
+      fuente: 'Organización Mundial de la Salud (OMS), Concentraciones de hemoglobina para diagnosticar la anemia (2011).' },
 
     { id: 'talla-blanco', area: 'pediatria', ico: '📏', nombre: 'Talla blanco familiar (talla objetivo)', alias: 'talla diana pronostico talla adulta',
       desc: 'Talla adulta esperada según la talla de los padres.',
       campos: [Sx('sexo'), N('madre', 'Talla de la madre', 'cm', { min: 130, max: 200 }), N('padre', 'Talla del padre', 'cm', { min: 140, max: 215 })],
       calc: (v) => { const t = v.sexo === 'M' ? (v.madre + v.padre + 13) / 2 : (v.madre + v.padre - 13) / 2;
         return { principal: { label: 'Talla blanco familiar', valor: t, unidad: ' cm', dec: 1 }, nivel: 'info', titulo: 'Rango esperado: ' + num(t - 8.5, 1) + ' a ' + num(t + 8.5, 1) + ' cm (± 8,5 cm)', texto: 'Fórmula de Tanner: (talla madre + talla padre ± 13) / 2. Comparar la talla actual y el pronóstico con la curva de crecimiento (Sociedad Argentina de Pediatría).' }; },
-      fuente: 'Tanner JM et al. Arch Dis Child 1970;45:755. Sociedad Argentina de Pediatría, Guías de crecimiento y desarrollo.' },
+      fuente: 'Tanner JM et al. Arch Dis Child 1970;45:755.' },
 
     { id: 'silverman', area: 'pediatria', ico: '👶', nombre: 'Test de Silverman-Andersen (dificultad respiratoria neonatal)', alias: 'recién nacido distres respiratorio',
       desc: 'Valora la dificultad respiratoria del recién nacido (0 a 10).', maximo: 10,
       campos: [S('a', 'Movimientos tóracoabdominales', [['Rítmicos y regulares', 0], ['Tórax inmóvil, abdomen en movimiento', 1], ['Disociación toracoabdominal', 2]]), S('b', 'Tiraje intercostal', [['Ausente', 0], ['Leve', 1], ['Intenso y constante', 2]]), S('c', 'Retracción xifoidea', [['Ausente', 0], ['Leve', 1], ['Intensa', 2]]),
         S('d', 'Aleteo nasal', [['Ausente', 0], ['Leve', 1], ['Intenso', 2]]), S('e', 'Quejido espiratorio', [['Ausente', 0], ['Audible con estetoscopio', 1], ['Audible a distancia', 2]])],
       rangos: [{ max: 0, nivel: 'ok', titulo: 'Sin dificultad respiratoria', texto: 'Respiración normal.' }, { max: 3, nivel: 'warn', titulo: 'Dificultad leve (1 a 3)', texto: 'Observación y control seriado.' }, { max: 6, nivel: 'bad', titulo: 'Dificultad moderada (4 a 6)', texto: 'Soporte respiratorio según el protocolo neonatal.' }, { max: 10, nivel: 'bad', titulo: 'Dificultad grave (7 a 10)', texto: 'Insuficiencia respiratoria: asistencia ventilatoria y traslado a cuidados intensivos neonatales.' }],
-      fuente: 'Silverman WA, Andersen DH. Pediatrics 1956;17:1. Sociedad Argentina de Pediatría, Guías de atención del recién nacido.' },
+      fuente: 'Silverman WA, Andersen DH. Pediatrics 1956;17:1.' },
 
     { id: 'braden', area: 'general', ico: '🛏️', nombre: 'Escala de Braden (úlceras por presión)', alias: 'escaras enfermeria riesgo lesiones por presion',
       desc: 'Riesgo de desarrollar úlceras por presión (6 a 23 puntos; menor puntaje, mayor riesgo).', maximo: 23,
@@ -136,6 +136,6 @@
       campos: [S('a', 'Antecedente de caídas (últimos 3 meses)', [['No', 0], ['Sí', 25]]), S('d', 'Diagnóstico secundario', [['No', 0], ['Sí', 15]]), S('b', 'Ayuda para la deambulación', [['Ninguna, reposo o ayuda de enfermería', 0], ['Muletas, bastón o andador', 15], ['Se apoya en el mobiliario', 30]]),
         S('v', 'Vía intravenosa o heparinizada', [['No', 0], ['Sí', 20]]), S('m', 'Marcha', [['Normal, en reposo o inmóvil', 0], ['Débil', 10], ['Alterada', 20]]), S('e', 'Estado mental', [['Orientado y consciente de sus limitaciones', 0], ['Olvida sus limitaciones', 15]])],
       rangos: [{ max: 24, nivel: 'ok', titulo: 'Riesgo bajo (0 a 24)', texto: 'Cuidados básicos.' }, { max: 44, nivel: 'warn', titulo: 'Riesgo moderado (25 a 44)', texto: 'Aplicar medidas estándar de prevención de caídas.' }, { max: 125, nivel: 'bad', titulo: 'Riesgo alto (≥ 45)', texto: 'Medidas intensivas: acompañamiento, barandas, calzado adecuado y supervisión frecuente.' }],
-      fuente: 'Morse JM et al. Can J Aging 1989;8:366. Guías de seguridad del paciente (Ministerio de Salud de la Nación, Argentina).' },
+      fuente: 'Morse JM et al. Can J Aging 1989;8:366.' },
   ]);
 })();

@@ -6,7 +6,7 @@
       desc: 'Detecta fuera de terapia a pacientes con sospecha de infección y mayor riesgo de mala evolución.', maximo: 3,
       campos: [C('fr', 'Frecuencia respiratoria ≥ 22 rpm', 1), C('ment', 'Alteración del estado mental (Glasgow < 15)', 1), C('pas', 'Presión sistólica ≤ 100 mmHg', 1)],
       rangos: [{ max: 1, nivel: 'info', titulo: 'qSOFA negativo (0 a 1)', texto: 'No descarta sepsis: si hay sospecha clínica, buscar disfunción orgánica (SOFA) y reevaluar.' }, { max: 3, nivel: 'bad', titulo: 'qSOFA positivo (≥ 2)', texto: 'Mayor riesgo de mortalidad: evaluar disfunción orgánica con SOFA, tomar cultivos y lactato e iniciar el paquete de sepsis.' }],
-      fuente: 'Singer M et al. JAMA 2016;315:801 (Sepsis-3). Surviving Sepsis Campaign 2021 (no recomienda qSOFA como único tamizaje). Sociedad Argentina de Terapia Intensiva (SATI).', nota: 'La Surviving Sepsis Campaign 2021 sugiere no usar qSOFA aislado como herramienta de tamizaje; complementar con NEWS2 o SIRS.' },
+      fuente: 'Singer M et al. JAMA 2016;315:801 (Sepsis-3). Surviving Sepsis Campaign 2021 (no recomienda qSOFA como único tamizaje).', nota: 'La Surviving Sepsis Campaign 2021 sugiere no usar qSOFA aislado como herramienta de tamizaje; complementar con NEWS2 o SIRS.' },
 
     { id: 'sirs', area: 'emergencias', ico: '🌡️', nombre: 'Criterios de SIRS', alias: 'respuesta inflamatoria sistemica',
       desc: 'Síndrome de respuesta inflamatoria sistémica (2 o más criterios).', maximo: 4,
@@ -34,7 +34,7 @@
       desc: 'Decide el sitio de atención de la neumonía comunitaria.', maximo: 5,
       campos: [C('c', 'Confusión (desorientación nueva)', 1), C('u', 'Urea (BUN) > 19 mg/dl (urea > 43 mg/dl)', 1), C('r', 'Frecuencia respiratoria ≥ 30 rpm', 1), C('b', 'Presión sistólica < 90 o diastólica ≤ 60 mmHg', 1), C('e', 'Edad ≥ 65 años', 1)],
       rangos: [{ max: 1, nivel: 'ok', titulo: 'Riesgo bajo (0 a 1)', texto: 'Mortalidad a 30 días ≈ 1,5 %: tratamiento ambulatorio, si el contexto social lo permite.' }, { max: 2, nivel: 'warn', titulo: 'Riesgo intermedio (2)', texto: 'Mortalidad ≈ 9 %: considerar internación breve o seguimiento hospitalario.' }, { max: 5, nivel: 'bad', titulo: 'Riesgo alto (≥ 3)', texto: 'Mortalidad ≈ 15 a 40 %: internar; con 4 a 5 puntos considerar cuidados intensivos.' }],
-      fuente: 'Lim WS et al. Thorax 2003;58:377. Consenso de neumonía adquirida en la comunidad de la Sociedad Argentina de Infectología (SADI) y ATS/IDSA 2019.' },
+      fuente: 'Lim WS et al. Thorax 2003;58:377. ATS/IDSA 2019.' },
 
     { id: 'wells-tvp', area: 'clinica', ico: '🦵', nombre: 'Wells para trombosis venosa profunda', alias: 'tvp miembros inferiores',
       desc: 'Probabilidad pretest de TVP de miembros inferiores.', maximo: 9,
@@ -59,7 +59,7 @@
       desc: 'Riesgo de ACV en la fibrilación auricular no valvular y necesidad de anticoagular.', maximo: 9,
       campos: [C('ic', 'Insuficiencia cardíaca o disfunción ventricular', 1), C('hta', 'Hipertensión arterial', 1), C('e75', 'Edad ≥ 75 años', 2), C('dm', 'Diabetes mellitus', 1), C('acv', 'ACV, AIT o tromboembolismo previo', 2), C('vasc', 'Enfermedad vascular (IAM previo, enfermedad arterial periférica, placa aórtica)', 1), C('e65', 'Edad 65 a 74 años', 1), C('f', 'Sexo femenino', 1)],
       rangos: [{ max: 0, nivel: 'ok', titulo: 'Riesgo bajo', texto: 'Varones con 0 puntos (o mujeres con 1 solo por sexo): no se recomienda anticoagulación.' }, { max: 1, nivel: 'warn', titulo: 'Riesgo intermedio', texto: 'Con 1 punto en varones considerar anticoagulación oral (riesgo anual de ACV ≈ 1,3 %).' }, { max: 9, nivel: 'bad', titulo: 'Riesgo alto', texto: 'Se recomienda anticoagulación oral con ≥ 2 puntos en varones o ≥ 3 en mujeres; en mujeres con 2 (uno es el sexo) considerarla. Salvo contraindicación.' }],
-      fuente: 'Lip GYH et al. Chest 2010;137:263. Guías ESC 2020 de fibrilación auricular y Sociedad Argentina de Cardiología, Consenso de fibrilación auricular. Las guías ESC 2024 proponen el CHA₂DS₂-VA (sin el sexo).' },
+      fuente: 'Lip GYH et al. Chest 2010;137:263. Guías ESC 2020 de fibrilación auricular. Las guías ESC 2024 proponen el CHA₂DS₂-VA (sin el sexo).' },
 
     { id: 'has-bled', area: 'cardio', ico: '🩸', nombre: 'HAS-BLED (riesgo de sangrado)', alias: 'anticoagulacion hemorragia',
       desc: 'Riesgo de sangrado mayor con anticoagulación: identifica factores corregibles.', maximo: 9,
@@ -86,7 +86,7 @@
       campos: [S('b', 'Bilirrubina total', [['< 2 mg/dl', 1], ['2 a 3 mg/dl', 2], ['> 3 mg/dl', 3]]), S('a', 'Albúmina', [['> 3,5 g/dl', 1], ['2,8 a 3,5 g/dl', 2], ['< 2,8 g/dl', 3]]), S('i', 'INR', [['< 1,7', 1], ['1,7 a 2,3', 2], ['> 2,3', 3]]),
         S('as', 'Ascitis', [['Ausente', 1], ['Leve o controlada con diuréticos', 2], ['Moderada a grave o refractaria', 3]]), S('e', 'Encefalopatía hepática', [['Ausente', 1], ['Grado 1 a 2 (controlada)', 2], ['Grado 3 a 4 (refractaria)', 3]])],
       rangos: [{ max: 6, nivel: 'ok', titulo: 'Child-Pugh A (5 a 6)', texto: 'Cirrosis compensada: sobrevida a 1 año ≈ 100 % y a 2 años ≈ 85 %.' }, { max: 9, nivel: 'warn', titulo: 'Child-Pugh B (7 a 9)', texto: 'Compromiso funcional significativo: sobrevida a 1 año ≈ 80 % y a 2 años ≈ 60 %.' }, { max: 15, nivel: 'bad', titulo: 'Child-Pugh C (10 a 15)', texto: 'Descompensada: sobrevida a 1 año ≈ 45 % y a 2 años ≈ 35 %; evaluar trasplante.' }],
-      fuente: 'Pugh RNH et al. Br J Surg 1973;60:646. AASLD 2021 y Asociación Argentina para el Estudio de las Enfermedades del Hígado (AAEEH).' },
+      fuente: 'Pugh RNH et al. Br J Surg 1973;60:646. AASLD 2021.' },
 
     { id: 'meld', area: 'gastro', ico: '🧬', nombre: 'MELD y MELD-Na', alias: 'trasplante hepatico cirrosis lista de espera',
       desc: 'Gravedad de la hepatopatía terminal y prioridad en lista de trasplante.',
@@ -97,7 +97,7 @@
         return { principal: { label: 'MELD', valor: m, dec: 0, unidad: ' puntos' }, nivel: m >= 30 ? 'bad' : m >= 20 ? 'warn' : m >= 10 ? 'info' : 'ok',
           titulo: m >= 40 ? 'Mortalidad a 3 meses ≈ 71 %' : m >= 30 ? 'Mortalidad a 3 meses ≈ 52 %' : m >= 20 ? 'Mortalidad a 3 meses ≈ 20 %' : m >= 10 ? 'Mortalidad a 3 meses ≈ 6 %' : 'Mortalidad a 3 meses ≈ 2 %', extra: ex,
           texto: 'MELD = 3,78·ln(bilirrubina) + 11,2·ln(INR) + 9,57·ln(creatinina) + 6,43. En Argentina la asignación de órganos es fijada por el INCUCAI.' }; },
-      fuente: 'Kamath PS et al. Hepatology 2001;33:464 (MELD). Kim WR et al. N Engl J Med 2008;359:1018 (MELD-Na). INCUCAI / SINTRA (sistema de asignación de hígado).', nota: 'Mortalidad a 3 meses por rangos de MELD según Wiesner (Gastroenterology 2003).' },
+      fuente: 'Kamath PS et al. Hepatology 2001;33:464 (MELD). Kim WR et al. N Engl J Med 2008;359:1018 (MELD-Na).', nota: 'Mortalidad a 3 meses por rangos de MELD según Wiesner (Gastroenterology 2003).' },
 
     { id: 'fib4', area: 'gastro', ico: '🔍', nombre: 'Índice FIB-4 (fibrosis hepática)', alias: 'higado graso nafld masld fibrosis',
       desc: 'Descarta fibrosis avanzada en hígado graso y hepatopatías crónicas sin biopsia.',

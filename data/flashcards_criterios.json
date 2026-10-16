@@ -851,7 +851,7 @@
    ],
    "fuente": {
     "guia": "ATLS (Advanced Trauma Life Support) 10.ª ed.",
-    "sociedad": "American College of Surgeons / Asociación Argentina de Cirugía",
+    "sociedad": "American College of Surgeons",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
@@ -905,7 +905,7 @@
    "banderas": [],
    "fuente": {
     "guia": "ASA Physical Status Classification System (actualización 2020)",
-    "sociedad": "American Society of Anesthesiologists / Asociación de Anestesia, Analgesia y Reanimación de Buenos Aires (AAARBA)",
+    "sociedad": "American Society of Anesthesiologists",
     "anio": "2020",
     "archivo": "",
     "tipo": "guia",
@@ -1007,7 +1007,7 @@
    ],
    "fuente": {
     "guia": "ATLS 10.ª ed. y American Burn Association",
-    "sociedad": "Asociación Argentina de Quemaduras",
+    "sociedad": "Publicación original",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
@@ -1120,7 +1120,7 @@
    ],
    "fuente": {
     "guia": "Teasdale G, Jennett B. Lancet 1974;2:81; ATLS 10.ª ed.",
-    "sociedad": "American College of Surgeons / Asociación Argentina de Neurocirugía",
+    "sociedad": "American College of Surgeons",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
@@ -1233,11 +1233,18 @@
    ],
    "fuente": {
     "guia": "Apgar V. Anesth Analg 1953;32:260; AAP/ACOG Committee Opinion 644",
-    "sociedad": "Sociedad Argentina de Pediatría (Reanimación neonatal)",
+    "sociedad": "Publicación original",
     "anio": "2015",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Manual de reanimación cardiopulmonar neonatal, 3.ª edición",
+      "c": "Sociedad Argentina de Pediatría. Arch Argent Pediatr 2023",
+      "u": "https://www.sap.org.ar/docs/publicaciones/archivosarg/2023/v121n2a22.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "apgar"
@@ -1291,7 +1298,15 @@
     "anio": "2020",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Guía para el diagnóstico y tratamiento de la hipertensión en el embarazo",
+      "c": "Ministerio de Salud de la Nación, consensuada con FASGO, SOGIBA, SATI y otras sociedades",
+      "u": "https://www.sati.org.ar/wp-content/uploads/2022/04/Guia_Hipertension_con-tapas1.pdf",
+      "n": "Edición anterior: sus referencias llegan a 2008-2010."
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "hellp-tennessee"
@@ -1339,7 +1354,7 @@
    ],
    "fuente": {
     "guia": "Amsel R et al. Am J Med 1983;74:14; Nugent RP et al. J Clin Microbiol 1991;29:297; CDC STI Guidelines 2021",
-    "sociedad": "CDC / Sociedad Argentina de Ginecología Infanto Juvenil / FASGO",
+    "sociedad": "CDC / FASGO",
     "anio": "2021",
     "archivo": "",
     "tipo": "guia",
@@ -1394,7 +1409,14 @@
     "anio": "2021",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Guía de manejo de las infecciones de transmisión sexual",
+      "c": "Ministerio de Salud (Resolución 1078/2004)",
+      "n": "Guía antigua: verificar si hay una actualización vigente."
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
   },
@@ -1560,7 +1582,7 @@
    ],
    "fuente": {
     "guia": "Singer M et al. JAMA 2016;315:801 (Sepsis-3); Surviving Sepsis Campaign 2021",
-    "sociedad": "SCCM/ESICM / Sociedad Argentina de Terapia Intensiva (SATI)",
+    "sociedad": "SCCM/ESICM",
     "anio": "2021",
     "archivo": "",
     "tipo": "guia",
@@ -1678,11 +1700,19 @@
    ],
    "fuente": {
     "guia": "Lim WS et al. Thorax 2003;58:377; ATS/IDSA 2019",
-    "sociedad": "Sociedad Argentina de Infectología (SADI) / ATS-IDSA",
+    "sociedad": "ATS-IDSA",
     "anio": "2019",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Neumonía adquirida en la comunidad: guía práctica elaborada por un comité de sociedades médicas (incluye a la SADI)",
+      "c": "Medicina (Buenos Aires) 2003;63:319-343",
+      "u": "https://sadi.org.ar/documentos/guias-recomendaciones-y-consensos/21-neumonia-aguda-de-la-comunidad",
+      "n": "Es de 2003: no se encontró una versión posterior."
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "curb65"
@@ -1754,7 +1784,7 @@
    ],
    "fuente": {
     "guia": "Wells PS et al. Thromb Haemost 2000;83:416 y N Engl J Med 2003;349:1227; Kline JA et al. 2004",
-    "sociedad": "ESC 2019 / ASH 2018 / Sociedad Argentina de Cardiología",
+    "sociedad": "ESC 2019 / ASH 2018",
     "anio": "2019",
     "archivo": "",
     "tipo": "guia",
@@ -1816,7 +1846,7 @@
    ],
    "fuente": {
     "guia": "Killip T, Kimball JT. Am J Cardiol 1967;20:457",
-    "sociedad": "Sociedad Argentina de Cardiología / ESC 2023",
+    "sociedad": "ESC 2023",
     "anio": "2023",
     "archivo": "",
     "tipo": "guia",
@@ -1869,7 +1899,7 @@
    ],
    "fuente": {
     "guia": "KDIGO Clinical Practice Guideline for Acute Kidney Injury 2012",
-    "sociedad": "KDIGO / Sociedad Argentina de Nefrología",
+    "sociedad": "KDIGO",
     "anio": "2012",
     "archivo": "",
     "tipo": "guia",
@@ -1930,11 +1960,17 @@
    ],
    "fuente": {
     "guia": "Lip GYH et al. Chest 2010;137:263; Guías ESC 2020",
-    "sociedad": "Sociedad Argentina de Cardiología / ESC",
+    "sociedad": "ESC",
     "anio": "2020",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Documento de toma de posición sobre el uso de anticoagulantes orales directos en fibrilación auricular no valvular",
+      "c": "Sociedad Argentina de Cardiología y Federación Argentina de Cardiología. Rev Argent Cardiol 2021;89(1)"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "cha2ds2-vasc"
@@ -1987,11 +2023,17 @@
    ],
    "fuente": {
     "guia": "Pisters R et al. Chest 2010;138:1093; Guías ESC 2020",
-    "sociedad": "Sociedad Argentina de Cardiología / ESC",
+    "sociedad": "ESC",
     "anio": "2020",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Documento de toma de posición sobre el uso de anticoagulantes orales directos en fibrilación auricular no valvular",
+      "c": "Sociedad Argentina de Cardiología y Federación Argentina de Cardiología. Rev Argent Cardiol 2021;89(1)"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "has-bled"
@@ -2046,11 +2088,17 @@
    ],
    "fuente": {
     "guia": "Six AJ et al. Neth Heart J 2008;16:191; ESC 2023 ACS Guidelines",
-    "sociedad": "ESC / Sociedad Argentina de Cardiología",
+    "sociedad": "ESC",
     "anio": "2023",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Consenso para el manejo de pacientes con síndrome coronario agudo sin supradesnivel del ST",
+      "c": "Sociedad Argentina de Cardiología. Rev Argent Cardiol 2014;82(Supl 1)"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "heart"
@@ -2105,11 +2153,18 @@
    ],
    "fuente": {
     "guia": "Johnston SC et al. Lancet 2007;369:283; AHA/ASA 2021",
-    "sociedad": "AHA/ASA / Sociedad Neurológica Argentina",
+    "sociedad": "AHA/ASA",
     "anio": "2021",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Consenso sobre accidente cerebrovascular isquémico agudo",
+      "c": "Medicina (Buenos Aires) 2019;79(Supl II):1-46",
+      "u": "https://www.medicinabuenosaires.com/PMID/31116699.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "abcd2"
@@ -2162,11 +2217,18 @@
    ],
    "fuente": {
     "guia": "Williams B et al. ESC/ESH Guidelines 2018 (J Hypertens 2018;36:1953)",
-    "sociedad": "ESC/ESH / Sociedad Argentina de Hipertensión Arterial y Federación Argentina de Cardiología",
+    "sociedad": "ESC/ESH",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Guía Nacional de Práctica Clínica: Hipertensión arterial (2019)",
+      "c": "Ministerio de Salud de la Nación",
+      "u": "https://www.mendoza.gov.ar/wp-content/uploads/sites/7/2021/11/Guia-Nacional-practica-clinica-hipertension-arterial-2019.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
   },
@@ -2209,7 +2271,7 @@
    "banderas": [],
    "fuente": {
     "guia": "Alberti KGMM et al. Circulation 2009;120:1640",
-    "sociedad": "IDF / AHA / NHLBI / Sociedad Argentina de Diabetes",
+    "sociedad": "IDF / AHA / NHLBI",
     "anio": "2009",
     "archivo": "",
     "tipo": "guia",
@@ -2260,11 +2322,23 @@
    ],
    "fuente": {
     "guia": "ADA Standards of Care in Diabetes 2025",
-    "sociedad": "American Diabetes Association / Sociedad Argentina de Diabetes (SAD)",
+    "sociedad": "American Diabetes Association",
     "anio": "2025",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Guía para el tratamiento de la diabetes mellitus tipo 2 en el adulto",
+      "c": "Sociedad Argentina de Diabetes. Rev Soc Arg Diabetes 2025;59(1)",
+      "u": "https://doi.org/10.47196/diab.v59i1.1167"
+     },
+     {
+      "t": "Guía de práctica clínica nacional sobre prevención, diagnóstico y tratamiento de la diabetes mellitus tipo 2 (2019)",
+      "c": "Ministerio de Salud de la Nación",
+      "u": "https://extranet.who.int/ncdccs/Data/ARG_D1_guia-prevencion-diagnostico-tratamiento-diabetes-mellitus-tipo-2.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
   },
@@ -2358,7 +2432,7 @@
    "banderas": [],
    "fuente": {
     "guia": "New York Heart Association (1994); Guías ESC 2021 de insuficiencia cardíaca",
-    "sociedad": "NYHA / Sociedad Argentina de Cardiología",
+    "sociedad": "NYHA",
     "anio": "2021",
     "archivo": "",
     "tipo": "guia",
@@ -2415,7 +2489,7 @@
    ],
    "fuente": {
     "guia": "Pugh RNH et al. Br J Surg 1973;60:646; AASLD 2021",
-    "sociedad": "Asociación Argentina para el Estudio de las Enfermedades del Hígado (AAEEH) / AASLD",
+    "sociedad": "AASLD",
     "anio": "2021",
     "archivo": "",
     "tipo": "guia",
@@ -2479,7 +2553,7 @@
    ],
    "fuente": {
     "guia": "Kamath PS et al. Hepatology 2001;33:464; Kim WR et al. N Engl J Med 2008;359:1018",
-    "sociedad": "AASLD / INCUCAI (SINTRA)",
+    "sociedad": "AASLD",
     "anio": "2008",
     "archivo": "",
     "tipo": "guia",
@@ -2531,7 +2605,7 @@
    "banderas": [],
    "fuente": {
     "guia": "Ferenci P et al. Hepatology 2002;35:716; AASLD/EASL 2014",
-    "sociedad": "AASLD / EASL / AAEEH",
+    "sociedad": "AASLD / EASL",
     "anio": "2014",
     "archivo": "",
     "tipo": "guia",
@@ -2581,7 +2655,7 @@
    "banderas": [],
    "fuente": {
     "guia": "Lacy BE et al. Gastroenterology 2016;150:1393 (Rome IV)",
-    "sociedad": "Rome Foundation / Sociedad Argentina de Gastroenterología",
+    "sociedad": "Rome Foundation",
     "anio": "2016",
     "archivo": "",
     "tipo": "guia",
@@ -2632,7 +2706,7 @@
    "banderas": [],
    "fuente": {
     "guia": "Lundell LR et al. Gut 1999;45:172",
-    "sociedad": "American College of Gastroenterology / Sociedad Argentina de Gastroenterología",
+    "sociedad": "American College of Gastroenterology",
     "anio": "2022",
     "archivo": "",
     "tipo": "guia",
@@ -2683,7 +2757,7 @@
    ],
    "fuente": {
     "guia": "Truelove SC, Witts LJ. Br Med J 1955;2:1041; ECCO 2022",
-    "sociedad": "ECCO / Grupo Argentino de Enfermedad Inflamatoria Intestinal",
+    "sociedad": "ECCO",
     "anio": "2022",
     "archivo": "",
     "tipo": "guia",
@@ -2736,11 +2810,18 @@
    "banderas": [],
    "fuente": {
     "guia": "KDIGO 2024 Clinical Practice Guideline for CKD",
-    "sociedad": "KDIGO / Sociedad Argentina de Nefrología (SAN)",
+    "sociedad": "KDIGO",
     "anio": "2024",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Guía Nacional de Manejo de la enfermedad renal crónica en adultos en el primer nivel de atención (2022)",
+      "c": "Ministerio de Salud de la Nación",
+      "u": "https://salud.neuquen.gob.ar/wp-content/uploads/2024/10/Guia-Nacional-de-Manejo-de-la-ERC-en-adultos-en-el-PNA.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "ckd-epi"
@@ -2799,7 +2880,7 @@
    ],
    "fuente": {
     "guia": "Westley CR et al. Am J Dis Child 1978;132:484",
-    "sociedad": "Sociedad Argentina de Pediatría / AAP",
+    "sociedad": "AAP",
     "anio": "2020",
     "archivo": "",
     "tipo": "guia",
@@ -2856,11 +2937,18 @@
    ],
    "fuente": {
     "guia": "Organización Mundial de la Salud, Tratamiento de la diarrea (2005); Sociedad Argentina de Pediatría",
-    "sociedad": "OMS / Sociedad Argentina de Pediatría",
+    "sociedad": "OMS",
     "anio": "2005",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Plan de abordaje integral de la enfermedad diarreica aguda (guía para el equipo de salud)",
+      "c": "Ministerio de Salud de la Nación, con la Sociedad Argentina de Pediatría y la SADI",
+      "u": "https://ministeriodesalud.cba.gov.ar/wp-content/uploads/2021/11/Plan-de-Abordaje-Integral-de-la-Enfermedad-Diarreica-Aguda-y-Plan-de-Contingencia-de-Colera.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
   },
@@ -2910,11 +2998,18 @@
    ],
    "fuente": {
     "guia": "McCrindle BW et al. Circulation 2017;135:e927",
-    "sociedad": "American Heart Association / Sociedad Argentina de Pediatría",
+    "sociedad": "American Heart Association",
     "anio": "2017",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Enfermedad de Kawasaki: consenso interdisciplinario e intersociedades (guía práctica clínica)",
+      "c": "Sociedad Argentina de Pediatría y Sociedad Argentina de Cardiología. Arch Argent Pediatr 2016;114(4):385-390",
+      "u": "https://sap.org.ar/docs/publicaciones/archivosarg/2016/v114n4a30.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
   },
@@ -2969,7 +3064,7 @@
    ],
    "fuente": {
     "guia": "Centor RM et al. Med Decis Making 1981;1:239; McIsaac WJ et al. CMAJ 1998;158:75",
-    "sociedad": "Sociedad Argentina de Pediatría / IDSA",
+    "sociedad": "IDSA",
     "anio": "2012",
     "archivo": "",
     "tipo": "guia",
@@ -3017,7 +3112,7 @@
    "banderas": [],
    "fuente": {
     "guia": "Dindo D, Demartines N, Clavien PA. Ann Surg 2004;240:205",
-    "sociedad": "Asociación Argentina de Cirugía / European Surgical Association",
+    "sociedad": "European Surgical Association",
     "anio": "2004",
     "archivo": "",
     "tipo": "guia",
@@ -3071,7 +3166,7 @@
    ],
    "fuente": {
     "guia": "Bismuth H, Corlette MB. Surg Gynecol Obstet 1975;140:170",
-    "sociedad": "Manual de Cirugía en Medicina General (Universidad de Chile) / Asociación Argentina de Cirugía",
+    "sociedad": "Manual de Cirugía en Medicina General (Universidad de Chile)",
     "anio": "2020",
     "archivo": "",
     "tipo": "guia",
@@ -3124,7 +3219,7 @@
    ],
    "fuente": {
     "guia": "Nyhus LM. Arch Surg 1993;128:1073; Guía de hernias inguinocrurales (HerniaSurge 2018)",
-    "sociedad": "HerniaSurge Group / Asociación Argentina de Cirugía",
+    "sociedad": "HerniaSurge Group",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
@@ -3175,7 +3270,7 @@
    ],
    "fuente": {
     "guia": "Stiell IG et al. Lancet 2001;357:1391",
-    "sociedad": "ATLS 10.ª ed. / Sociedad Argentina de Neurocirugía",
+    "sociedad": "ATLS 10.ª ed.",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
@@ -3407,7 +3502,7 @@
    ],
    "fuente": {
     "guia": "Ferriman D, Gallwey JD. J Clin Endocrinol Metab 1961;21:1440; Endocrine Society 2018",
-    "sociedad": "Endocrine Society / Sociedad Argentina de Endocrinología y Metabolismo (SAEM)",
+    "sociedad": "Endocrine Society",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
@@ -3460,7 +3555,7 @@
    "banderas": [],
    "fuente": {
     "guia": "Marshall WA, Tanner JM. Arch Dis Child 1969;44:291 y 1970;45:13",
-    "sociedad": "Sociedad Argentina de Pediatría / SAEM (Pubertad normal y patológica)",
+    "sociedad": "Publicación original",
     "anio": "2020",
     "archivo": "",
     "tipo": "guia",
@@ -3510,7 +3605,7 @@
    ],
    "fuente": {
     "guia": "Ramsay MAE et al. Br Med J 1974;2:656; Guías PADIS 2018",
-    "sociedad": "Society of Critical Care Medicine / Sociedad Argentina de Terapia Intensiva (SATI)",
+    "sociedad": "Society of Critical Care Medicine",
     "anio": "2018",
     "archivo": "",
     "tipo": "guia",
@@ -3611,7 +3706,7 @@
    ],
    "fuente": {
     "guia": "Kraut JA, Madias NE. N Engl J Med 2014;371:1434",
-    "sociedad": "Sociedad Argentina de Nefrología / Sociedad Argentina de Terapia Intensiva",
+    "sociedad": "Publicación original",
     "anio": "2014",
     "archivo": "",
     "tipo": "guia",
@@ -3672,7 +3767,7 @@
    ],
    "fuente": {
     "guia": "Le Gal G et al. Ann Intern Med 2006;144:165; ESC 2019",
-    "sociedad": "ESC / Sociedad Argentina de Cardiología",
+    "sociedad": "ESC",
     "anio": "2019",
     "archivo": "",
     "tipo": "guia",
@@ -3727,11 +3822,18 @@
    "banderas": [],
    "fuente": {
     "guia": "Van Swieten JC et al. Stroke 1988;19:604; AHA/ASA 2019",
-    "sociedad": "AHA/ASA / Sociedad Neurológica Argentina",
+    "sociedad": "AHA/ASA",
     "anio": "2019",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Consenso sobre accidente cerebrovascular isquémico agudo",
+      "c": "Medicina (Buenos Aires) 2019;79(Supl II):1-46",
+      "u": "https://www.medicinabuenosaires.com/PMID/31116699.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar."
   },
@@ -3775,7 +3877,7 @@
    ],
    "fuente": {
     "guia": "AHA/ACCF/HRS Recommendations for the Standardization and Interpretation of the ECG, parte IV (2009)",
-    "sociedad": "Sociedad Argentina de Cardiología / AHA",
+    "sociedad": "AHA",
     "anio": "2009",
     "archivo": "",
     "tipo": "guia",
@@ -3835,11 +3937,17 @@
    ],
    "fuente": {
     "guia": "Antman EM et al. JAMA 2000;284:835; ESC 2023",
-    "sociedad": "ESC / Sociedad Argentina de Cardiología",
+    "sociedad": "ESC",
     "anio": "2023",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Consenso para el manejo de pacientes con síndrome coronario agudo sin supradesnivel del ST",
+      "c": "Sociedad Argentina de Cardiología. Rev Argent Cardiol 2014;82(Supl 1)"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "timi-nste"
@@ -3885,11 +3993,18 @@
    ],
    "fuente": {
     "guia": "OMS. Concentraciones de hemoglobina para diagnosticar la anemia y evaluar su gravedad (2011)",
-    "sociedad": "Organización Mundial de la Salud / Sociedad Argentina de Hematología",
+    "sociedad": "Organización Mundial de la Salud",
     "anio": "2011",
     "archivo": "",
     "tipo": "guia",
-    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional."
+    "nota": "Criterio o escala validada; verificar con la versión vigente de la guía y el protocolo institucional.",
+    "argentinas": [
+     {
+      "t": "Deficiencia de hierro y anemia ferropénica: guía para su prevención, diagnóstico y tratamiento",
+      "c": "Sociedad Argentina de Pediatría. Arch Argent Pediatr 2017;115(Supl 4):s68-s82",
+      "u": "https://www.sap.org.ar/docs/pdf/consensos_deficiencia-de-hierro-y-anemia-ferropenica-guia-para-su-prevencion-diagnostico-y-tratamiento--71.pdf"
+     }
+    ]
    },
    "revisarAntes": "Contrastar con la versión vigente de la guía antes de aplicar.",
    "calculadora": "anemia-oms"
@@ -3949,7 +4064,7 @@
    ],
    "fuente": {
     "guia": "Bergstrom N et al. Nurs Res 1987;36:205; EPUAP/NPIAP 2019",
-    "sociedad": "EPUAP / NPIAP / Ministerio de Salud de la Nación (seguridad del paciente)",
+    "sociedad": "EPUAP / NPIAP",
     "anio": "2019",
     "archivo": "",
     "tipo": "guia",
@@ -4009,7 +4124,7 @@
    "banderas": [],
    "fuente": {
     "guia": "Silverman WA, Andersen DH. Pediatrics 1956;17:1",
-    "sociedad": "Sociedad Argentina de Pediatría (Guías de atención del recién nacido)",
+    "sociedad": "Publicación original",
     "anio": "2016",
     "archivo": "",
     "tipo": "guia",

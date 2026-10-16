@@ -337,3 +337,9 @@ body.dark-mode .fc-fuente-link{color:#7dd3fc}
 
 .fcd-calc{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0 4px;padding:11px 16px;border-radius:14px;background:linear-gradient(135deg,#0ea5e9,#6366f1);color:#fff!important;font-weight:800;font-size:.88rem;text-decoration:none!important;box-shadow:0 12px 22px -12px rgba(79,70,229,.8)}
 .fcd-calc:hover{transform:translateY(-2px)}
+
+.fcd-ar{margin-top:10px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.2);display:grid;gap:6px;font-size:.82rem}
+.fcd-ar b{font-size:.78rem}
+.fcd-ar span{display:block;line-height:1.35}
+.fcd-ar small{display:block;opacity:.75}
+.fcd-ar a{color:#075985;font-weight:700}

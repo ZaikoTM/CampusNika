@@ -7,7 +7,7 @@
       campos: [N('peso', 'Peso', 'kg', { min: 20, max: 350 }), N('talla', 'Talla', 'cm', { min: 100, max: 230 })],
       calc: (v) => { const i = v.peso / Math.pow(v.talla / 100, 2); const c = i < 18.5 ? ['Bajo peso', 'warn'] : i < 25 ? ['Peso normal', 'ok'] : i < 30 ? ['Sobrepeso', 'warn'] : i < 35 ? ['Obesidad grado I', 'bad'] : i < 40 ? ['Obesidad grado II', 'bad'] : ['Obesidad grado III (mórbida)', 'bad'];
         return { principal: { label: 'IMC', valor: i, unidad: ' kg/m²' }, nivel: c[1], titulo: c[0], extra: [['Rango de peso normal para esa talla', num(18.5 * Math.pow(v.talla / 100, 2), 1) + ' a ' + num(24.9 * Math.pow(v.talla / 100, 2), 1) + ' kg']] }; },
-      fuente: 'Organización Mundial de la Salud (OMS), clasificación del IMC. Sociedad Argentina de Nutrición y Ministerio de Salud de la Nación, Guía de práctica clínica de obesidad en adultos.', nota: 'En adultos mayores y en personas con mucha masa muscular puede no reflejar la adiposidad.' },
+      fuente: 'Organización Mundial de la Salud (OMS), clasificación del IMC.', nota: 'En adultos mayores y en personas con mucha masa muscular puede no reflejar la adiposidad.' },
 
     { id: 'sc-mosteller', area: 'general', ico: '🧍', nombre: 'Superficie corporal (Mosteller)', alias: 'quimioterapia dosis area corporal',
       desc: 'Área de superficie corporal para dosificar fármacos y calcular índices.',
@@ -38,7 +38,7 @@
         const g = 142 * Math.pow(Math.min(r, 1), a) * Math.pow(Math.max(r, 1), -1.2) * Math.pow(0.9938, v.edad) * (f ? 1.012 : 1);
         const e = g >= 90 ? ['G1 (≥ 90): normal o alto', 'ok'] : g >= 60 ? ['G2 (60 a 89): levemente disminuido', 'info'] : g >= 45 ? ['G3a (45 a 59): leve a moderado', 'warn'] : g >= 30 ? ['G3b (30 a 44): moderado a grave', 'warn'] : g >= 15 ? ['G4 (15 a 29): gravemente disminuido', 'bad'] : ['G5 (< 15): falla renal', 'bad'];
         return { principal: { label: 'eFG', valor: g, unidad: ' mL/min/1,73 m²', dec: 0 }, nivel: e[1], titulo: e[0], texto: 'El diagnóstico de enfermedad renal crónica requiere eFG < 60 o marcadores de daño (albuminuria) durante más de 3 meses.' }; },
-      fuente: 'Inker LA et al. N Engl J Med 2021;385:1737 (CKD-EPI 2021, sin raza). KDIGO 2024 CKD Guideline. Sociedad Argentina de Nefrología (SAN).' },
+      fuente: 'Inker LA et al. N Engl J Med 2021;385:1737 (CKD-EPI 2021, sin raza). KDIGO 2024 CKD Guideline.' },
 
     { id: 'calcio-corregido', area: 'nefro', ico: '🦴', nombre: 'Calcio corregido por albúmina', alias: 'hipocalcemia hipercalcemia',
       desc: 'Corrige el calcio total cuando la albúmina está baja.',
@@ -81,19 +81,19 @@
       campos: [N('peso', 'Peso', 'kg', { min: 2, max: 150 })],
       calc: (v) => { const p = v.peso; const ml = p <= 10 ? p * 100 : p <= 20 ? 1000 + (p - 10) * 50 : 1500 + (p - 20) * 20;
         return { principal: { label: 'Mantenimiento en 24 horas', valor: ml, unidad: ' mL', dec: 0 }, nivel: 'info', titulo: 'Velocidad: ≈ ' + num(ml / 24, 0) + ' mL/h', texto: '100 mL/kg los primeros 10 kg, 50 mL/kg los siguientes 10 kg y 20 mL/kg por cada kg adicional. Adultos: tope habitual de 2.400 mL/día.', extra: [['Regla 4-2-1 (mL/h)', num(p <= 10 ? 4 * p : p <= 20 ? 40 + 2 * (p - 10) : 60 + (p - 20), 0)]] }; },
-      fuente: 'Holliday MA, Segar WE. Pediatrics 1957;19:823. Sociedad Argentina de Pediatría. AAP 2018: se recomiendan soluciones isotónicas para el mantenimiento.' },
+      fuente: 'Holliday MA, Segar WE. Pediatrics 1957;19:823. AAP 2018: se recomiendan soluciones isotónicas para el mantenimiento.' },
 
     { id: 'peso-pediatrico', area: 'pediatria', ico: '⚖️', nombre: 'Peso estimado del niño (urgencias)', alias: 'reanimacion pediatrica peso edad',
       desc: 'Estimación rápida del peso cuando no se puede pesar al niño.',
       campos: [N('edad', 'Edad', 'años', { min: 1, max: 10, step: 0.5 })],
       calc: (v) => ({ principal: { label: 'Peso estimado', valor: 2 * (v.edad + 4), unidad: ' kg', dec: 1 }, nivel: 'info', titulo: 'Fórmula de APLS: 2 × (edad + 4)', texto: 'Solo para emergencias de 1 a 10 años. Usar cinta de longitud (Broselow) o balanza apenas sea posible; no usar en lactantes menores de 1 año.' }),
-      fuente: 'Advanced Paediatric Life Support (APLS), 6.ª ed.; Sociedad Argentina de Pediatría, RCP pediátrica (AHA PALS).' },
+      fuente: 'Advanced Paediatric Life Support (APLS), 6.ª ed.; AHA PALS.' },
 
     { id: 'westley', area: 'pediatria', ico: '🗣️', nombre: 'Score de Westley (crup)', alias: 'laringitis estridor niños',
       desc: 'Gravedad del crup viral (laringotraqueítis) en niños.', maximo: 17,
       campos: [S('estridor', 'Estridor', [['Ninguno', 0], ['Al llorar o agitarse', 1], ['En reposo', 2]]), S('retr', 'Tiraje (retracciones)', [['Ninguno', 0], ['Leve', 1], ['Moderado', 2], ['Grave', 3]]), S('aire', 'Entrada de aire', [['Normal', 0], ['Disminuida', 1], ['Muy disminuida', 2]]), S('cian', 'Cianosis', [['Ninguna', 0], ['Con agitación', 4], ['En reposo', 5]]), S('con', 'Nivel de conciencia', [['Normal', 0], ['Alterado (letargo o agitación)', 5]])],
       rangos: [{ max: 2, nivel: 'ok', titulo: 'Crup leve (≤ 2)', texto: 'Dexametasona oral 0,15 a 0,6 mg/kg en dosis única; manejo ambulatorio con indicaciones de alarma.' }, { max: 5, nivel: 'warn', titulo: 'Crup moderado (3 a 5)', texto: 'Dexametasona y nebulización con adrenalina; observación en guardia.' }, { max: 11, nivel: 'bad', titulo: 'Crup grave (6 a 11)', texto: 'Adrenalina nebulizada, dexametasona e internación; vigilar la vía aérea.' }, { max: 17, nivel: 'bad', titulo: 'Insuficiencia respiratoria inminente (≥ 12)', texto: 'Emergencia: asegurar la vía aérea y trasladar a cuidados intensivos.' }],
-      fuente: 'Westley CR et al. Am J Dis Child 1978;132:484. Sociedad Argentina de Pediatría, Consenso de infecciones respiratorias agudas bajas; Cochrane (corticoides en crup).', nota: 'Las dosis son orientativas: seguir el protocolo del servicio.' },
+      fuente: 'Westley CR et al. Am J Dis Child 1978;132:484. Cochrane (corticoides en crup).', nota: 'Las dosis son orientativas: seguir el protocolo del servicio.' },
 
     { id: 'infusion', area: 'emergencias', ico: '💉', nombre: 'Velocidad de infusión (mcg/kg/min → mL/h)', alias: 'noradrenalina dopamina bomba goteo dilucion',
       desc: 'Convierte una dosis en mcg/kg/min a la velocidad de la bomba en mL/h.',
@@ -118,34 +118,34 @@
       desc: 'Estima el colesterol LDL a partir del perfil lipídico.',
       campos: [N('ct', 'Colesterol total', 'mg/dl', { min: 50, max: 800 }), N('hdl', 'HDL', 'mg/dl', { min: 5, max: 200 }), N('tg', 'Triglicéridos', 'mg/dl', { min: 10, max: 399 })],
       calc: (v) => { const l = v.ct - v.hdl - v.tg / 5; return { principal: { label: 'LDL calculado', valor: l, unidad: ' mg/dl', dec: 0 }, nivel: l >= 190 ? 'bad' : l >= 160 ? 'warn' : l >= 130 ? 'warn' : 'ok', titulo: l >= 190 ? 'Muy alto (≥ 190)' : l >= 160 ? 'Alto (160 a 189)' : l >= 130 ? 'Límite alto (130 a 159)' : l >= 100 ? 'Casi óptimo (100 a 129)' : 'Óptimo (< 100)', extra: [['Colesterol no HDL', num(v.ct - v.hdl, 0) + ' mg/dl']], texto: 'Las metas de LDL dependen del riesgo cardiovascular (< 70 mg/dl en riesgo alto y < 55 en muy alto, ESC/EAS 2019). No válido con TG ≥ 400 mg/dl.' }; },
-      fuente: 'Friedewald WT et al. Clin Chem 1972;18:499. ESC/EAS 2019 Guidelines on Dyslipidaemias; Sociedad Argentina de Cardiología, Consenso de dislipemias.' },
+      fuente: 'Friedewald WT et al. Clin Chem 1972;18:499. ESC/EAS 2019 Guidelines on Dyslipidaemias.' },
 
     { id: 'homa-ir', area: 'nefro', ico: '🍰', nombre: 'HOMA-IR (resistencia a la insulina)', alias: 'insulinorresistencia diabetes sop',
       desc: 'Índice de resistencia a la insulina a partir de glucemia e insulina en ayunas.',
       campos: [N('glu', 'Glucemia en ayunas', 'mg/dl', { min: 40, max: 600 }), N('ins', 'Insulinemia en ayunas', 'µUI/mL', { min: 0.5, max: 300 })],
       calc: (v) => { const h = v.glu * v.ins / 405; return { principal: { label: 'HOMA-IR', valor: h, dec: 2, unidad: '' }, nivel: h >= 2.5 ? 'warn' : 'ok', titulo: h >= 2.5 ? 'Sugiere resistencia a la insulina' : 'Dentro del rango esperado', texto: 'Los puntos de corte varían según la población y el método de laboratorio (habitualmente entre 2,0 y 2,5).' }; },
-      fuente: 'Matthews DR et al. Diabetologia 1985;28:412. Sociedad Argentina de Diabetes (SAD).' },
+      fuente: 'Matthews DR et al. Diabetologia 1985;28:412.' },
 
     { id: 'hba1c-glu', area: 'nefro', ico: '🩸', nombre: 'HbA1c y glucemia promedio estimada', alias: 'hemoglobina glicosilada diabetes control',
       desc: 'Convierte la HbA1c en glucemia promedio estimada y la clasifica.',
       campos: [N('a1c', 'Hemoglobina glicosilada (HbA1c)', '%', { min: 4, max: 18 })],
       calc: (v) => { const g = 28.7 * v.a1c - 46.7; const c = v.a1c >= 6.5 ? ['Rango de diabetes (≥ 6,5 %)', 'bad'] : v.a1c >= 5.7 ? ['Prediabetes (5,7 a 6,4 %)', 'warn'] : ['Normal (< 5,7 %)', 'ok'];
         return { principal: { label: 'Glucemia promedio estimada', valor: g, unidad: ' mg/dl', dec: 0 }, nivel: c[1], titulo: c[0], texto: 'El diagnóstico de diabetes requiere confirmación con una segunda prueba (salvo hiperglucemia inequívoca). La meta habitual en adultos es HbA1c < 7 %, individualizada.' }; },
-      fuente: 'ADAG: Nathan DM et al. Diabetes Care 2008;31:1473. ADA Standards of Care 2025; Sociedad Argentina de Diabetes.' },
+      fuente: 'ADAG: Nathan DM et al. Diabetes Care 2008;31:1473. ADA Standards of Care 2025' },
 
     { id: 'mifflin', area: 'general', ico: '🍽️', nombre: 'Gasto energético en reposo (Mifflin-St Jeor)', alias: 'requerimiento calorico nutricion calorias',
       desc: 'Calorías diarias en reposo y totales según actividad.',
       campos: [Sx(), N('edad', 'Edad', 'años', { min: 15, max: 100 }), N('peso', 'Peso', 'kg', { min: 30, max: 300 }), N('talla', 'Talla', 'cm', { min: 120, max: 230 }), S('af', 'Actividad física', [['Sedentaria (×1,2)', 1.2], ['Ligera (×1,375)', 1.375], ['Moderada (×1,55)', 1.55], ['Intensa (×1,725)', 1.725]], { val: true })],
       calc: (v) => { const g = 10 * v.peso + 6.25 * v.talla - 5 * v.edad + (v.sexo === 'M' ? 5 : -161);
         return { principal: { label: 'Gasto en reposo', valor: g, unidad: ' kcal/día', dec: 0 }, nivel: 'info', titulo: 'Gasto total estimado: ' + num(g * v.af, 0) + ' kcal/día', texto: 'En el paciente internado se usan además factores de estrés y se ajusta con el equipo de nutrición.' }; },
-      fuente: 'Mifflin MD et al. Am J Clin Nutr 1990;51:241. Academy of Nutrition and Dietetics; Asociación Argentina de Nutrición Enteral y Parenteral (AANEP).' },
+      fuente: 'Mifflin MD et al. Am J Clin Nutr 1990;51:241. Academy of Nutrition and Dietetics.' },
 
     { id: 'ganzoni', area: 'general', ico: '🩸', nombre: 'Déficit de hierro (Ganzoni)', alias: 'anemia ferropenica hierro endovenoso',
       desc: 'Dosis total de hierro a reponer, p. ej. por vía endovenosa.',
       campos: [N('peso', 'Peso', 'kg', { min: 20, max: 250 }), N('hbo', 'Hemoglobina objetivo', 'g/dl', { min: 10, max: 16, ph: '15' }), N('hb', 'Hemoglobina actual', 'g/dl', { min: 3, max: 15 }), N('dep', 'Depósitos a reponer', 'mg', { opcional: true, ph: '500' })],
       calc: (v) => { const dep = Number.isFinite(v.dep) ? v.dep : 500; const d = v.peso * (v.hbo - v.hb) * 2.4 + dep;
         return { principal: { label: 'Déficit total de hierro', valor: d, unidad: ' mg', dec: 0 }, nivel: 'info', titulo: 'Peso × (Hb objetivo − Hb actual) × 2,4 + depósitos', texto: 'En embarazo y en la mayoría de los preparados modernos se usa una dosis acumulada y esquemas por ficha técnica; verificar la dosis máxima por infusión.' }; },
-      fuente: 'Ganzoni AM. Schweiz Med Wochenschr 1970;100:301. Guías ESMO y consenso argentino de anemia ferropénica (Sociedad Argentina de Hematología).' },
+      fuente: 'Ganzoni AM. Schweiz Med Wochenschr 1970;100:301.' },
 
     { id: 'ipss', area: 'general', ico: '🚽', nombre: 'IPSS (síntomas prostáticos)', alias: 'hiperplasia prostatica hpb urologia',
       desc: 'Cuestionario de síntomas urinarios inferiores en el varón.', maximo: 35,

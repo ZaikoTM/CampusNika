@@ -57,3 +57,9 @@
 .cc-vacio { text-align: center; color: #94a3b8; padding: 30px 0; }
 @media (max-width: 640px) { .cc-barra { top: 56px; } .cc-head { padding: 14px; gap: 10px; } .cc-head .ic { width: 40px; height: 40px; } .cc-body { padding: 4px 14px 16px 18px; } .cc-big b { font-size: 1.8rem; } }
 @media (prefers-reduced-motion: reduce) { .cc-card, .cc-btn, .cc-chk { transition: none; } }
+
+.cc-ar{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.3)}
+.cc-ar ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px}
+.cc-ar li small{display:block;color:#94a3b8}
+.cc-ar a{color:#7dd3fc;font-weight:700}
+.cc-ar.sin span{color:#94a3b8;font-size:.78rem}
