@@ -25,14 +25,14 @@
     '@keyframes nsSIn{from{opacity:0;transform:translateY(8px)}}' +
     '@keyframes nsSBarra{0%{transform:translateX(-120%)}100%{transform:translateX(260%)}}';
   var st = document.createElement('style'); st.id = 'nika-splash-css'; st.textContent = css; (document.head || document.documentElement).appendChild(st);
-  var estrellas = ''; for (var i = 0; i < 46; i++) estrellas += '<i style="left:' + (Math.random() * 100).toFixed(1) + '%;top:' + (Math.random() * 100).toFixed(1) + '%;--d:' + (3 + Math.random() * 4).toFixed(1) + 's;--w:-' + (Math.random() * 5).toFixed(1) + 's"></i>';
+  var estrellas = ''; for (var i = 0; i < 18; i++) estrellas += '<i style="left:' + (Math.random() * 100).toFixed(1) + '%;top:' + (Math.random() * 100).toFixed(1) + '%;--d:' + (3 + Math.random() * 4).toFixed(1) + 's;--w:-' + (Math.random() * 5).toFixed(1) + 's"></i>';
   var el = document.createElement('div'); el.id = 'nika-splash'; el.setAttribute('aria-hidden', 'true');
   el.innerHTML = '<span class="ns-s-aur a"></span><span class="ns-s-aur b"></span><span class="ns-s-aur c"></span><div class="ns-s-est">' + estrellas + '</div>' +
     '<div class="ns-s-logo"><img src="assets/N%20NIKA.png" alt=""></div><div class="ns-s-txt">CAMPUS NIKA</div><div class="ns-s-barra"><b></b></div>';
   (document.body || document.documentElement).appendChild(el);
   var t0 = Date.now(), cerrado = false;
   function cerrar() { if (cerrado) return; cerrado = true; el.classList.add('fuera'); setTimeout(function () { el.remove(); st.remove(); }, 900); }
-  function listo() { setTimeout(cerrar, Math.max(0, 1500 - (Date.now() - t0))); }
-  if (document.readyState === 'complete') listo(); else window.addEventListener('load', listo);
-  setTimeout(cerrar, 4500);   // red de seguridad: nunca tapa la página
+  function listo() { setTimeout(cerrar, Math.max(0, 700 - (Date.now() - t0))); }
+  if (document.readyState !== 'loading') listo(); else document.addEventListener('DOMContentLoaded', listo);
+  setTimeout(cerrar, 3000);   // red de seguridad: nunca tapa la página
 })();
