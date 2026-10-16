@@ -117,6 +117,8 @@ const GuardiaModal = (() => {
       .gm-est{font-size:.78rem;color:var(--text-muted,#64748b)}
       .gm-msg{font-size:.8rem;color:var(--text-muted,#64748b);margin-top:10px;min-height:1.2em}
       .gm-grupo{margin-top:20px}
+      .gm-destacado{animation:gmDest 2.4s ease-out}
+      @keyframes gmDest{0%,60%{box-shadow:0 0 0 3px rgba(14,165,233,.55);border-radius:16px;background:rgba(14,165,233,.08)}100%{box-shadow:0 0 0 0 rgba(14,165,233,0)}}
       .gm-gh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
       .gm-gh .ic{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:linear-gradient(135deg,rgba(14,165,233,.18),rgba(99,102,241,.18))}
       .gm-gh h4{margin:0;font-size:.98rem;font-weight:800;flex:1} .gm-gh h4 small{font-weight:600;color:var(--text-muted,#64748b);font-size:.72rem;margin-left:6px}
@@ -275,7 +277,7 @@ const GuardiaModal = (() => {
 
     // paquetes
     $('#gm-grupos').innerHTML = GRUPOS.map((g) => `
-      <section class="gm-grupo">
+      <section class="gm-grupo" id="gm-g-${g.id}">
         <div class="gm-gh"><span class="ic">${g.icono}</span><h4>${esc(g.titulo)}<small>${esc(g.sub)}</small></h4>
           <button class="gm-link" data-gm="grupo" data-id="${g.id}" ${red && !_ocupado ? '' : 'disabled'}>Descargar sección</button></div>
         <div class="gm-list">${g.paquetes.map((p) => _filaHtml(p, red)).join('')}</div>
@@ -458,18 +460,21 @@ const GuardiaModal = (() => {
   // ------------------------------------------------------------
   // Abrir / cerrar
   // ------------------------------------------------------------
-  async function abrir() {
+  async function abrir(opts) {
     if (!window.OfflineStorage) { alert('El módulo de almacenamiento offline no está cargado.'); return; }
     if (!_montado) { _css(); _html(); _montado = true; }
     _fin(''); $('#gm-bar-wrap').style.display = 'none';
     $('#guardia-overlay').classList.add('on');
     await refrescar();
+    // Si se abrió desde un simulador, se lleva a la persona directo a su materia y se resalta
+    const g = opts && opts.grupo ? $('#gm-g-' + opts.grupo) : null;
+    if (g) { g.scrollIntoView({ block: 'start', behavior: 'smooth' }); g.classList.add('gm-destacado'); setTimeout(() => g.classList.remove('gm-destacado'), 2600); }
   }
   function cerrar() { const o = $('#guardia-overlay'); if (o) o.classList.remove('on'); }
 
   document.addEventListener('click', (e) => {
     const t = e.target.closest('[data-guardia-open]');
-    if (t) { e.preventDefault(); abrir(); }
+    if (t) { e.preventDefault(); abrir({ grupo: t.getAttribute('data-guardia-grupo') || '' }); }
   });
   window.addEventListener('nika:sync-state', () => { if (_montado && $('#guardia-overlay').classList.contains('on') && !_ocupado) refrescar(); });
   window.addEventListener('online', () => { if (_montado && $('#guardia-overlay').classList.contains('on') && !_ocupado) refrescar(); });

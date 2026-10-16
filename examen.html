@@ -483,6 +483,10 @@
         }
 
         /* ================= BOTÓN "VOLVER" REDISEÑADO (Paso 2 y Paso 3) ================= */
+
+        .btn-descargar-practica { width: 100%; margin: 0 0 16px; padding: 12px 16px; border-radius: 14px; cursor: pointer; font: 800 .9rem inherit; font-family: inherit;
+            border: 2px dashed var(--nika-primary, #0284c7); background: color-mix(in srgb, var(--nika-primary, #0284c7) 8%, var(--card-bg, #fff)); color: var(--nika-primary, #0284c7); transition: transform .2s, background .2s; }
+        .btn-descargar-practica:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--nika-primary, #0284c7) 16%, var(--card-bg, #fff)); }
         .btn-volver-modalidades {
             display: inline-flex;
             align-items: center;
@@ -1135,6 +1139,15 @@
                         <small>Una vez que avanzás a la siguiente pregunta no podés volver ni cambiar lo respondido. Se elige antes de empezar y queda fijo durante el intento.</small></span>
                     </label>
 
+                    <div id="bloque-practica">
+                        <label class="ei-opcion" for="cfg-practica">
+                            <input type="checkbox" id="cfg-practica">
+                            <span><b>🧘 Modo práctica</b>
+                            <small>Para estudiar sin presión: <b>no se guardan estadísticas, racha ni errores</b> y no se piden las reglas del examen. Tiene corrección y revisión detallada igual que un examen, y funciona sin conexión con las preguntas descargadas.</small></span>
+                        </label>
+                        <button type="button" class="btn-descargar-practica" id="btn-descargar-practica" onclick="abrirDescargaPractica()">📴 Descargar este banco para practicar sin conexión</button>
+                    </div>
+
                     <button id="btn-comenzar" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.15rem;" onclick="startQuiz()">Comenzar Evaluación 🚀</button>
 
                     <button id="btn-rapido" class="btn" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 12px; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-weight: 800;" onclick="SimuladorElo.iniciar({ modulo: getModuloActual() })">
@@ -1491,7 +1504,7 @@
     <script src="js/auth-guard.js"></script>
     <script src="js/offlineStorage.js"></script>
     <script src="js/syncManager.js"></script>
-    <script src="js/guardiaModal.js?v=3"></script>
+    <script src="js/guardiaModal.js?v=4"></script>
     <script src="js/friendsManager.js"></script>
     <script src="js/rendimiento.js?v=3"></script>
     <script src="js/chatManager.js?v=4"></script>
@@ -1761,9 +1774,17 @@
             });
         }
 
+        // Modo práctica: mismo motor y misma revisión, pero sin estadísticas, sin integridad/servidor y sin reglas. Funciona sin conexión con lo descargado.
+        function abrirDescargaPractica() {
+            const g = ({ cirugia: 'cir', ginecologia: 'gin', siam: 'siam' })[getModuloActual()] || '';
+            if (window.GuardiaModal) GuardiaModal.abrir({ grupo: g });
+            else showToast('El módulo de descargas no está disponible en esta página.');
+        }
+
         async function startQuiz(isDemoForce = false) {
+            { const _cp = document.getElementById('cfg-practica'); window.__nikaPractica = !!(_cp && _cp.checked && examMode !== 'escrito' && !isDemoForce); }
             // Las reglas se muestran en una ventana emergente y hay que aceptarlas para empezar
-            if (!isDemoForce && window.ExamIntegridad) {
+            if (!isDemoForce && !window.__nikaPractica && window.ExamIntegridad) {
                 if (window.__reglasAceptadas) { window.__reglasAceptadas = false; }
                 else {
                     ExamIntegridad.pedirAceptacion({ escrito: examMode === 'escrito' }).then((ok) => { if (ok) { window.__reglasAceptadas = true; startQuiz(); } });
@@ -1803,7 +1824,7 @@
             //    Si el banco todavía no fue importado (sql/examen_integridad.sql), sigue el camino de siempre.
             let intentoSeguro = null;
             const estrictoElegido = window.ExamIntegridad ? ExamIntegridad.leerEstricto() : false;
-            if (!isLocalBank && !isDemoForce && window.ExamIntegridad) {
+            if (!isLocalBank && !isDemoForce && !window.__nikaPractica && window.ExamIntegridad) {
                 const unidadesSrv = upsToFetch.map((u) => unidadesMateria ? String(u) : String(u).padStart(2, '0'));
                 const seg = await ExamIntegridad.iniciarSeguro({ modulo, unidades: unidadesSrv, cantidad: (selectedMode === 'flash') ? 10 : countInput, modo: selectedMode, estricto: estrictoElegido, limiteSeg: timeInput * 60 });
                 if (seg && seg.pool.length) { pool = seg.pool; intentoSeguro = seg; }
@@ -1938,8 +1959,9 @@
 
             buildNavGrid(); renderQuestion(); startTimer();
             if (!isDemoForce && localStorage.getItem('nika_currentUser')) saveProgressLocally();
+            if (window.__nikaPractica) showToast('🧘 Modo práctica: no se guardan estadísticas');
             // Anti-cheat + intento en el servidor (started_at) + Modo Estricto elegido en la configuración
-            if (!isDemoForce && window.ExamIntegridad) {
+            if (!isDemoForce && !window.__nikaPractica && window.ExamIntegridad) {
                 ExamIntegridad.iniciar({
                     modulo, modo: selectedMode, estricto: estrictoElegido, total: currentExam.length, limiteSeg: timeInput * 60,
                     intento: intentoSeguro ? intentoSeguro.intento : null,
@@ -1951,7 +1973,7 @@
 
         function saveProgressLocally() {
             if (!isExamActive) return;
-            const state = { exam: currentExam, answers: userAnswers, flags: flaggedQuestions, visited: Array.from(visitedQuestions), notes: userNotes, time: timeLeftSeconds, total: totalExamTime, idx: currentIndex, mode: selectedMode, examMode: examMode, funnelCtx: funnelCtx };
+            const state = { practica: !!window.__nikaPractica, exam: currentExam, answers: userAnswers, flags: flaggedQuestions, visited: Array.from(visitedQuestions), notes: userNotes, time: timeLeftSeconds, total: totalExamTime, idx: currentIndex, mode: selectedMode, examMode: examMode, funnelCtx: funnelCtx };
             localStorage.setItem('nika_active_exam', JSON.stringify(state));
         }
 
@@ -1964,12 +1986,13 @@
                     visitedQuestions = new Set(state.visited); userNotes = state.notes;
                     timeLeftSeconds = state.time; totalExamTime = state.total; currentIndex = state.idx; selectedMode = state.mode;
                     examMode = state.examMode || 'choice'; funnelCtx = state.funnelCtx || funnelCtx;
+                    window.__nikaPractica = !!state.practica;
                     ocultarEmbudo();
                     
                     isExamActive = true;
                     document.getElementById('config-screen').style.display = 'none';
                     document.getElementById('quiz-screen').style.display = 'block';
-                    if (window.ExamIntegridad) ExamIntegridad.reanudar({ onForzarEntrega: () => submitQuiz() });
+                    if (window.ExamIntegridad && !window.__nikaPractica) ExamIntegridad.reanudar({ onForzarEntrega: () => submitQuiz() });
                     buildNavGrid(); renderQuestion(); startTimer();
                 } else { localStorage.removeItem('nika_active_exam'); }
             }
@@ -4506,6 +4529,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             ajustarConfigScreenParaMateria();
             const rapido = document.getElementById('btn-rapido'); if (rapido) rapido.style.display = esc ? 'none' : '';
             const aviso = document.getElementById('escrito-aviso'); if (aviso) aviso.style.display = esc ? 'block' : 'none';
+            const bp = document.getElementById('bloque-practica'); if (bp) bp.style.display = esc ? 'none' : '';
             const btn = document.getElementById('btn-comenzar'); if (btn) btn.textContent = esc ? 'Comenzar Examen Escrito ✍️' : 'Comenzar Evaluación 🚀';
             const qCount = document.getElementById('q-count');
             qCount.min = esc ? 1 : 5; qCount.max = esc ? 30 : 400;
@@ -5305,7 +5329,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             // Integridad: en intento seguro el servidor corrige (las claves nunca estuvieron en el navegador).
             // Se hace ANTES de cerrar el examen: si no hay conexión, el alumno puede reintentar sin perder nada.
             let integ = null;
-            if (window.ExamIntegridad && ExamIntegridad.estado) {
+            if (window.ExamIntegridad && ExamIntegridad.estado && !window.__nikaPractica) {
                 try {
                     const aciertosCli = ExamIntegridad.esSeguro() ? null : currentExam.reduce((n, q, i) => n + (userAnswers[i] === q.correct ? 1 : 0), 0);
                     integ = await ExamIntegridad.entregar({ exam: currentExam, answers: userAnswers, aciertos: aciertosCli, puntaje: null });
@@ -5405,12 +5429,13 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             document.getElementById('res-correct').innerText = `${correctCount} de ${currentExam.length} aciertos`;
 
             renderReview('all');
-            recordExamStatsLocally(finalScore, totalQuestions);
+            if (window.__nikaPractica) { document.getElementById('res-mode').innerText = '🧘 Práctica · ' + modeText + ' (no se guardó en tus estadísticas)'; }
+            else recordExamStatsLocally(finalScore, totalQuestions);
             if (integ && window.ExamIntegridad) {
                 const htmlInteg = ExamIntegridad.mensajeFinalHTML(integ, { aciertos: correctCount });
                 if (htmlInteg) { const av = document.createElement('div'); av.innerHTML = htmlInteg; const fb = document.getElementById('motivational-feedback'); if (fb && fb.parentNode) fb.parentNode.insertBefore(av, fb); }
             }
-            if (window.NikaRendimiento) {
+            if (window.NikaRendimiento && !window.__nikaPractica) {
                 Promise.resolve(NikaRendimiento.guardarExamen({
                     modulo: getModuloActual(),
                     mode: selectedMode,
