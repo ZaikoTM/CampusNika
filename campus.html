@@ -1288,7 +1288,7 @@
     <script src="js/offlineStorage.js"></script>
     <script src="js/syncManager.js"></script>
     <script src="js/guardiaModal.js?v=12"></script>
-    <script src="js/rendimiento.js?v=4"></script>
+    <script src="js/rendimiento.js?v=5"></script>
     <!-- Chart.js se quitó: ninguna pantalla lo usa (ahorra ~200 KB bloqueantes al abrir el campus) -->
     <script src="js/chatManager.js?v=4"></script>
     <script src="js/pomodoroSyncManager.js?v=7"></script>
@@ -1987,6 +1987,11 @@
             setTimeout(() => { toast.classList.remove('show'); }, 3000); 
         }
 
+        (function () {
+            const st = document.createElement('style');
+            st.textContent = '#mi-rendimiento-widget.perf-actualizando .perf-tile-value,#mi-rendimiento-widget.perf-actualizando .perf-time-tile-value{opacity:.6;transition:opacity .3s}#mi-rendimiento-widget.perf-actualizando .community-widget-header span::after{content:" · actualizando…";opacity:.7}#mi-rendimiento-widget.perf-error .community-widget-header span::after{content:" · sin conexión con los datos";color:#d97706}';
+            document.head.appendChild(st);
+        })();
         // ================= RENDIMIENTO ACADÉMICO =================
         function renderUserPerformance() {
             const userJson = localStorage.getItem('nika_currentUser');
@@ -2054,8 +2059,8 @@
                 document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescarRend(); });
             }
 
-            try {
-                const datos = await NikaRendimiento.cargarDatos();
+            const widget = document.getElementById('mi-rendimiento-widget');
+            const pintar = (datos) => {
                 const r = NikaRendimiento.analizar(datos);
                 const k = r.kpis;
 
@@ -2089,9 +2094,30 @@
                 window._nikaRendimientoUltimo = r;
                 window._nikaRendimientoDatos = datos;
                 renderOlvidoMini(r);
+            };
+
+            // 1) Pintado inmediato con la última carga guardada (no hay que esperar a la red)
+            if (!window._nikaRendPintado) {
+                const guardado = NikaRendimiento.cargarCache && NikaRendimiento.cargarCache();
+                if (guardado) { try { pintar(guardado.datos); window._nikaRendPintado = true; } catch (_) {} }
+            }
+            if (widget) widget.classList.add('perf-actualizando');
+            // 2) Datos frescos de Supabase, con reintentos si la sesión o la red todavía no estaban listas
+            try {
+                const datos = await NikaRendimiento.cargarDatos();
+                pintar(datos);
+                window._nikaRendPintado = true; window._nikaRendIntentos = 0;
+                if (widget) widget.classList.remove('perf-actualizando', 'perf-error');
             } catch (err) {
                 console.warn('[renderRendimiento]', err);
-                const osub = document.getElementById('perf-olvido-sub'); if (osub) osub.textContent = 'No disponible por ahora';
+                window._nikaRendIntentos = (window._nikaRendIntentos || 0) + 1;
+                if (window._nikaRendIntentos <= 3) {
+                    clearTimeout(window._nikaRendReintento);
+                    window._nikaRendReintento = setTimeout(renderRendimiento, 2500 * window._nikaRendIntentos);
+                } else {
+                    if (widget) { widget.classList.remove('perf-actualizando'); widget.classList.add('perf-error'); }
+                    if (!window._nikaRendPintado) { const osub = document.getElementById('perf-olvido-sub'); if (osub) osub.textContent = 'No disponible por ahora'; }
+                }
             }
         }
 

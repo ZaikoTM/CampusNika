@@ -400,49 +400,67 @@ const NikaRendimiento = (() => {
     return { data: todo, error: null };
   }
 
+  // Una consulta de Supabase con un reintento (el primer intento falla seguido al cargar la página: sesión o red todavía no listas)
+  async function _conReintento(fn) {
+    try { const r = await fn(); if (!r.error) return r; } catch (_) {}
+    await new Promise((res) => setTimeout(res, 1200));
+    return await fn();
+  }
+
+  // Copia de la última carga exitosa: permite pintar el panel al instante mientras se actualiza desde Supabase
+  const CACHE_KEY = 'nika_rend_cache_v1';
+  function cargarCache() {
+    try {
+      const uid = _userIdCacheado(); if (!uid) return null;
+      const c = JSON.parse(localStorage.getItem(CACHE_KEY + '_' + uid) || 'null');
+      return c && c.d ? { datos: c.d, t: c.t } : null;
+    } catch (_) { return null; }
+  }
+  function _guardarCache(userId, datos) {
+    try {
+      const d = {
+        sesiones: (datos.sesiones || []).map((x) => ({ modulo: x.modulo, up_id: x.up_id, duration_minutes: x.duration_minutes, completed: x.completed, completed_at: x.completed_at })),
+        examenes: datos.examenes || [], pendientesPorModulo: datos.pendientesPorModulo || {}, pendientesTotal: datos.pendientesTotal || 0,
+      };
+      const txt = JSON.stringify({ t: Date.now(), d });
+      if (txt.length < 600000) localStorage.setItem(CACHE_KEY + '_' + userId, txt);
+    } catch (_) {}
+  }
+
   async function cargarDatos() {
     const c = await getClient();
     const userId = await getUserId();
     if (!userId) throw new Error('Sin sesión iniciada.');
 
-    // No bloqueamos la pantalla más de 4 s si la cola tarda (señal floja).
-    // Esto ya debería drenar 'progreso_estudio' (pomodoroEngine.js) y
-    // 'resultado_examen' (este archivo) si SyncManager los procesa en el
-    // mismo sync_queue genérico.
-    await Promise.race([forzarSincronizacion(), new Promise((res) => setTimeout(res, 4000))]);
-    await Promise.race([reintentarPendientes(), new Promise((res) => setTimeout(res, 4000))]);
+    // La cola offline se vacía EN PARALELO con las consultas (antes se esperaba hasta 4 s + 4 s en serie antes de pedir nada).
+    // Lo que todavía esté en la cola se muestra aparte como «pendiente», así que no hace falta esperar a que termine.
+    const sincronizando = Promise.race([
+      Promise.all([forzarSincronizacion().catch(() => null), reintentarPendientes().catch(() => null)]),
+      new Promise((res) => setTimeout(res, 2500)),
+    ]);
 
     // 'completed' puede no existir si todavía no corriste sql/rendimiento.sql
-    let sesiones = [];
-    let r = await traerTodo(() => c.from('study_sessions')
-      .select('modulo, up_id, duration_minutes, completed, completed_at')
-      .eq('user_id', userId).order('completed_at', { ascending: false }));
-    if (r.error) {
-      r = await traerTodo(() => c.from('study_sessions')
-        .select('modulo, up_id, duration_minutes, completed_at')
+    const pedirSesiones = async () => {
+      let r = await traerTodo(() => c.from('study_sessions')
+        .select('modulo, up_id, duration_minutes, completed, completed_at')
         .eq('user_id', userId).order('completed_at', { ascending: false }));
-      if (r.error) throw r.error;
-    }
-    sesiones = r.data || [];
-
-    // DIAGNÓSTICO: para confirmar en la consola de Chrome cuántas filas trae
-    // realmente esta consulta (y con qué user_id), y así descartar que algún
-    // filtro (.eq('user_id', ...), el .order por completed_at, o un RLS raro)
-    // esté dejando sesiones afuera antes de que lleguen a analizar(). Si acá
-    // ya aparecen menos de las esperadas, el problema está en Supabase/RLS,
-    // no en el cálculo de rendimiento.js.
-    _mezclarOptimistas(sesiones);
-    console.log('[Rendimiento] Sesiones recuperadas:', sesiones);
-    console.log(
-      `[Rendimiento] user_id consultado: ${userId} · total filas: ${sesiones.length} · ` +
-      `con completed_at nulo: ${sesiones.filter((s) => !s.completed_at).length} · ` +
-      `minutos sumados: ${sesiones.reduce((a, s) => a + (Number(s.duration_minutes) || 0), 0)}`
-    );
-
-    let examenes = [];
-    const e = await traerTodo(() => c.from('exam_results')
+      if (r.error) {
+        r = await traerTodo(() => c.from('study_sessions')
+          .select('modulo, up_id, duration_minutes, completed_at')
+          .eq('user_id', userId).order('completed_at', { ascending: false }));
+      }
+      return r;
+    };
+    const pedirExamenes = () => traerTodo(() => c.from('exam_results')
       .select('modulo, mode, total_questions, correct_count, score, score_pct, by_up, created_at')
       .eq('user_id', userId).order('created_at', { ascending: false }));
+
+    // Sesiones y exámenes se piden a la vez
+    const [r, e] = await Promise.all([_conReintento(pedirSesiones), pedirExamenes().catch((err) => ({ error: err, data: null })), sincronizando]);
+    if (r.error) throw r.error;
+    let sesiones = r.data || [];
+    _mezclarOptimistas(sesiones);
+    let examenes = [];
     if (!e.error) examenes = e.data || [];
     else console.warn('[NikaRendimiento] exam_results no disponible (¿corriste sql/rendimiento.sql?):', e.error.message);
 
@@ -487,7 +505,9 @@ const NikaRendimiento = (() => {
       console.warn(`[Rendimiento] ${pendientesTotal} min esperan en la cola offline (se suben solos al haber señal):`, pendientesPorModulo);
     }
 
-    return { sesiones, examenes, pendientesPorModulo, pendientesTotal };
+    const datos = { sesiones, examenes, pendientesPorModulo, pendientesTotal };
+    _guardarCache(userId, datos);
+    return datos;
   }
 
   // ------------------------------------------------------------
@@ -678,7 +698,7 @@ const NikaRendimiento = (() => {
   }
 
   return {
-    guardarExamen, cargarDatos, analizar, reintentarPendientes, registrarSesionCompartida, avisarCambio, registrarOptimista, resolverOptimista,
+    guardarExamen, cargarDatos, cargarCache, analizar, reintentarPendientes, registrarSesionCompartida, avisarCambio, registrarOptimista, resolverOptimista,
     forzarSincronizacion,
     formatearTiempo, labelModulo, normUp,
     UMBRALES: { FRESCO_MAX, DECAIMIENTO_MAX },
