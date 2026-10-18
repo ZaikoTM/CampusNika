@@ -1451,6 +1451,7 @@
 
                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 40px;">
                     <button class="btn btn-outline" onclick="generateWhatsAppReport()">📱 Compartir Nota</button>
+                    <button class="btn btn-outline" onclick="imprimirResultadosChoice()">🖨️ Imprimir hoja con justificaciones</button>
                     <button class="btn btn-outline" id="btn-retry-errors" style="display: none; color: var(--warning); border-color: var(--warning);" onclick="retryErrors()">🔄 Reintentar Errores</button>
                     <button class="btn btn-primary" onclick="location.href='campus.html'">Volver al Inicio</button>
                 </div>
@@ -6014,6 +6015,46 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             currentIndex = 0; timeLeftSeconds = currentExam.length * 60; totalExamTime = timeLeftSeconds; isExamActive = true;
             document.getElementById('result-screen').style.display = 'none'; document.getElementById('quiz-screen').style.display = 'block';
             buildNavGrid(); renderQuestion(); startTimer(); showToast("Reintentando solo preguntas incorrectas");
+        }
+
+        // Hoja imprimible / "Guardar como PDF" con el resultado, tus respuestas y las justificaciones (estilo NikaMed)
+        function imprimirResultadosChoice() {
+            if (!currentExam || !currentExam.length) return;
+            const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const esFree = usuarioEsFree();
+            let ok = 0; currentExam.forEach((q, i) => { if (userAnswers[i] === q.correct) ok++; });
+            const n = currentExam.length, pct = Math.round(ok / n * 100), nota = (ok / n * 10).toFixed(1);
+            const min = Math.max(0, Math.floor((totalExamTime - timeLeftSeconds) / 60));
+            const fecha = new Date().toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+            const pregs = currentExam.map((q, i) => {
+                const u = userAnswers[i], bien = u === q.correct;
+                const opts = Object.keys(q.options || {}).map((k) => {
+                    const cls = k === q.correct ? 'ok' : (k === u ? 'mal' : '');
+                    return '<li class="' + cls + '"><b>' + k.toUpperCase() + ')</b> ' + q.options[k] + (k === q.correct ? ' <em>✔ correcta</em>' : (k === u ? ' <em>✘ tu respuesta</em>' : '')) + '</li>';
+                }).join('');
+                const just = esFree ? '' : (q.feedback ? '<div class="just"><b>📚 Justificación</b><br>' + q.feedback + '</div>' : '');
+                const up = /^\d+$/.test(String(q.up)) ? 'UP ' + q.up : esc(q.up);
+                return '<section class="q ' + (bien ? 'b' : 'm') + '"><div class="qh"><span class="n">' + (i + 1) + '</span><span class="up">' + up + '</span><span class="est">' + (u ? (bien ? 'Correcta' : 'Incorrecta') : 'Sin responder') + '</span></div><p class="enun">' + q.q + '</p><ul>' + opts + '</ul>' + just + '</section>';
+            }).join('');
+            const html = '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>NikaMed · Resultados del simulacro</title><style>' +
+                '@page{size:A4;margin:14mm 12mm}*{box-sizing:border-box}body{font-family:Segoe UI,Arial,sans-serif;color:#1e1b4b;margin:0;font-size:11.5px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+                '.hd{background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;border-radius:14px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px}.hd h1{margin:0;font-size:20px}.hd p{margin:3px 0 0;opacity:.9;font-size:11px}' +
+                '.nota{background:#fff;color:#4338ca;border-radius:12px;padding:8px 16px;text-align:center}.nota b{font-size:26px;display:block;line-height:1}.nota span{font-size:10px;font-weight:700}' +
+                '.kp{display:flex;gap:8px;margin:12px 0 16px}.kp div{flex:1;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:8px;text-align:center}.kp b{display:block;font-size:16px;color:#4338ca}.kp span{font-size:10px;color:#6b7280}' +
+                '.q{border:1px solid #e5e7eb;border-left:5px solid #22c55e;border-radius:10px;padding:10px 12px;margin:0 0 10px;break-inside:avoid}.q.m{border-left-color:#ef4444}' +
+                '.qh{display:flex;gap:8px;align-items:center;margin-bottom:5px}.n{background:#6366f1;color:#fff;border-radius:6px;padding:1px 8px;font-weight:800}.up{color:#6b7280;font-size:10px}.est{margin-left:auto;font-weight:800;font-size:10px;color:#16a34a}.q.m .est{color:#dc2626}' +
+                '.enun{margin:0 0 6px;font-weight:600}ul{list-style:none;padding:0;margin:0}li{padding:3px 8px;border-radius:6px;margin:2px 0}li.ok{background:#dcfce7;color:#14532d}li.mal{background:#fee2e2;color:#7f1d1d}li em{font-style:normal;font-weight:700;font-size:10px}' +
+                '.just{margin-top:7px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:7px 10px;color:#312e81}' +
+                '.ft{margin-top:14px;padding-top:8px;border-top:2px solid #c7d2fe;font-size:9.5px;color:#6b7280;text-align:center}.ft b{color:#4338ca}' +
+                '</style></head><body><div class="hd"><div><h1>⚕️ NikaMed · Resultados del simulacro</h1><p>' + esc(fecha) + ' · ' + n + ' preguntas · ' + min + ' min</p></div><div class="nota"><b>' + nota + '</b><span>/ 10 · ' + pct + '%</span></div></div>' +
+                '<div class="kp"><div><b>' + ok + '</b><span>Correctas</span></div><div><b>' + (n - ok) + '</b><span>Incorrectas / sin responder</span></div><div><b>' + pct + '%</b><span>Efectividad</span></div></div>' + pregs +
+                (esFree ? '<p class="ft">Las justificaciones están disponibles con <b>NikaMed+</b>.</p>' : '') +
+                '<div class="ft"><b>nikamed.com.ar</b> · Material educativo de estudio; no reemplaza la bibliografía ni el criterio clínico.</div></body></html>';
+            const fr = document.createElement('iframe');
+            fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+            document.body.appendChild(fr);
+            fr.contentDocument.open(); fr.contentDocument.write(html); fr.contentDocument.close();
+            setTimeout(() => { try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch (_) { showToast('No se pudo abrir la impresión.'); } setTimeout(() => fr.remove(), 60000); }, 400);
         }
 
         function generateWhatsAppReport() {
