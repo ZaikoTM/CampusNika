@@ -1,0 +1,20 @@
+/* Botón «Imprimir» de los resultados de los simuladores (claro, oscuro y premium). Texto blanco sobre degradado índigo→violeta oscuro: contraste > 7:1 */
+.nk-print { --a: #4338ca; --b: #7e22ce; position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px 12px 16px; border-radius: 14px; border: 2px solid rgba(255, 255, 255, .55); outline: 2px solid transparent; outline-offset: 3px;
+  background: linear-gradient(135deg, var(--a), var(--b)); background-size: 160% 160%; background-position: 0 50%; color: #fff; font: inherit; font-weight: 800; font-size: .95rem; letter-spacing: .01em; cursor: pointer; overflow: hidden; isolation: isolate;
+  box-shadow: 0 10px 22px -10px rgba(67, 56, 202, .75), inset 0 1px 0 rgba(255, 255, 255, .28); text-shadow: 0 1px 1px rgba(0, 0, 0, .25);
+  transition: transform .25s cubic-bezier(.22, 1.4, .36, 1), box-shadow .25s, background-position .5s, outline-color .2s; animation: nkPrintIn .5s cubic-bezier(.22, 1.4, .36, 1) both; }
+.nk-print::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .4) 50%, transparent 65%); transform: translateX(-120%); }
+.nk-print:hover { transform: translateY(-3px); background-position: 100% 50%; box-shadow: 0 16px 28px -12px rgba(126, 34, 206, .85), inset 0 1px 0 rgba(255, 255, 255, .35); }
+.nk-print:hover::before { transform: translateX(120%); transition: transform .75s ease; }
+.nk-print:active { transform: translateY(0) scale(.95); box-shadow: 0 4px 10px -6px rgba(67, 56, 202, .8); }
+.nk-print:focus-visible { outline-color: #fbbf24; }
+.nk-print-ic { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 8px; background: rgba(255, 255, 255, .2); flex: none; }
+.nk-print-ic svg { width: 18px; height: 18px; overflow: visible; }
+.nk-print-ic .papel { transform-box: fill-box; transition: transform .35s cubic-bezier(.22, 1.4, .36, 1); }
+.nk-print:hover .papel { transform: translateY(3px); }
+.nk-print:hover .nk-print-ic { animation: nkPrintBoing .6s ease; }
+@keyframes nkPrintIn { from { opacity: 0; transform: translateY(8px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes nkPrintBoing { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-9deg) scale(1.1); } 60% { transform: rotate(7deg) scale(1.05); } }
+@media (prefers-reduced-motion: reduce) { .nk-print, .nk-print * { animation: none !important; transition: none !important; } }
+body.tema-premium .nk-print { --a: #5b21b6; --b: #be185d; border-color: rgba(255, 255, 255, .6); box-shadow: 0 12px 26px -10px rgba(190, 24, 93, .7), inset 0 1px 0 rgba(255, 255, 255, .3); }
+@media (max-width: 520px) { .nk-print { width: 100%; justify-content: center; } }

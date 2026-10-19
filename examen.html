@@ -1116,6 +1116,8 @@
     <link rel="stylesheet" href="css/examen-integridad.css">
     <link rel="stylesheet" href="css/examen-navbar.css?v=2">
     <link rel="stylesheet" href="css/micro.css?v=1">
+    <link rel="stylesheet" href="css/nika-imprimir.css?v=1">
+    <script src="js/nikaImprimir.js?v=1"></script>
 </head>
 <body>
     <div class="ex-fondo" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -1451,7 +1453,7 @@
 
                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 40px;">
                     <button class="btn btn-outline" onclick="generateWhatsAppReport()">📱 Compartir Nota</button>
-                    <button class="btn btn-outline" onclick="imprimirResultadosChoice()">🖨️ Imprimir hoja con justificaciones</button>
+                    <button type="button" class="nk-print" onclick="imprimirResultadosChoice()"><span class="nk-print-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect class="papel" x="7" y="14" width="10" height="7" rx="1" fill="rgba(255,255,255,.35)"/><path d="M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/></svg></span><span>Imprimir hoja con justificaciones</span></button>
                     <button class="btn btn-outline" id="btn-retry-errors" style="display: none; color: var(--warning); border-color: var(--warning);" onclick="retryErrors()">🔄 Reintentar Errores</button>
                     <button class="btn btn-primary" onclick="location.href='campus.html'">Volver al Inicio</button>
                 </div>
@@ -3983,6 +3985,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
         function mostrarResultadoCaso(data, opts) {
             NikaCasoPersistencia.limpiar(); // caso cerrado con evaluación: ya no hay nada que retomar
             procesarResultadoParaErrorBank(data, opts && opts.contexto); // Sprint 5: silencioso, sin await
+            window._ultimoCasoData = data;
             const card = document.getElementById('resultado-caso-card');
             const overlay = document.getElementById('modal-resultado-caso');
             if (!card || !overlay) return;
@@ -3990,7 +3993,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
                 <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
                     <button type="button" class="btn btn-primary" onclick="_resultadoCasoNuevoCaso()">🔁 Nuevo Caso</button>
                     <button type="button" class="btn btn-outline" onclick="_resultadoCasoRevisarHistorial()">📖 Revisar Historial</button>
-                    <button type="button" class="btn btn-outline" onclick="imprimirResultadoCaso()">🖨️ Imprimir evaluación</button>
+                    ${NikaImprimir.boton('Imprimir evaluación', 'imprimirResultadoCaso()')}
                     <button type="button" class="btn btn-outline" style="border-color: var(--nika-primary); color: var(--nika-primary);" onclick="_resultadoCasoVolverMenu()">🚪 Volver al Menú</button>
                 </div>`;
             window._resultadoCasoNuevoCaso = () => { cerrarModalResultadoCaso(); if (opts && opts.alNuevoCaso) opts.alNuevoCaso(); };
@@ -5340,7 +5343,7 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
                 <!-- Salida rápida: no hace falta bajar por toda la corrección para volver -->
                 <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px; flex-wrap: wrap;">
                     <button class="btn btn-outline" onclick="compartirNotaEscrito()">📱 Compartir Nota</button>
-                    <button class="btn btn-outline" onclick="imprimirResultadosEscrito()">🖨️ Imprimir corrección</button>
+                    ${NikaImprimir.boton('Imprimir corrección', 'imprimirResultadosEscrito()')}
                     ${aRefuerzo.length ? `<button class="btn btn-outline" style="color: var(--warning); border-color: var(--warning);" onclick="reintentarFlojasEscrito()">🔄 Reintentar las flojas (${aRefuerzo.length})</button>` : ''}
                     <button class="btn btn-outline" onclick="location.href='examen.html?modulo=' + encodeURIComponent(getModuloActual())">🔁 Nuevo simulacro</button>
                     <button class="btn btn-primary" onclick="location.href='campus.html'">Volver al Inicio</button>
@@ -6021,21 +6024,8 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
 
         // Imprime (o guarda como PDF) un bloque de resultados ya renderizado en la página, con el encabezado NikaMed.
         // Reusa los estilos de la página en un iframe sin modo oscuro, así se imprime siempre claro.
-        function nikaImprimirHoja(titulo, subtitulo, notaTxt, cuerpoHtml) {
-            const estilos = Array.from(document.querySelectorAll('style,link[rel="stylesheet"]')).map((e) => e.outerHTML).join('');
-            const css = '<style>:root{--border:#e2e8f0;--text-main:#1e293b;--text-muted:#64748b;--card-bg:#fff;--bg-main:#fff;--success:#16a34a;--danger:#dc2626;--warning:#d97706}' +
-                '@page{size:A4;margin:14mm 12mm}html,body{background:#fff!important;color:#1e293b!important;font-family:Segoe UI,Arial,sans-serif;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-                'body::before,body::after{display:none!important}.np-hd{background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;border-radius:14px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}' +
-                '.np-hd h1{margin:0;font-size:20px;color:#fff}.np-hd p{margin:3px 0 0;opacity:.9;font-size:11px}.np-nota{background:#fff;color:#4338ca;border-radius:12px;padding:8px 16px;text-align:center;font-weight:900;font-size:24px}' +
-                '.esc-card,.pilar-card,.feedback-box,.esc-alerta{break-inside:avoid}.np-ft{margin-top:14px;padding-top:8px;border-top:2px solid #c7d2fe;font-size:10px;color:#6b7280;text-align:center}.np-ft b{color:#4338ca}</style>';
-            const fecha = new Date().toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
-            const html = '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>NikaMed · ' + titulo + '</title>' + estilos + css + '</head><body><div class="np-hd"><div><h1>⚕️ NikaMed · ' + titulo + '</h1><p>' + fecha + (subtitulo ? ' · ' + subtitulo : '') + '</p></div><div class="np-nota">' + notaTxt + ' / 10</div></div>' + cuerpoHtml +
-                '<div class="np-ft"><b>nikamed.com.ar</b> · Corrección orientativa hecha por IA; material educativo que no reemplaza la bibliografía ni el criterio clínico.</div></body></html>';
-            const fr = document.createElement('iframe');
-            fr.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
-            document.body.appendChild(fr);
-            fr.contentDocument.open(); fr.contentDocument.write(html); fr.contentDocument.close();
-            setTimeout(() => { try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch (_) { showToast('No se pudo abrir la impresión.'); } setTimeout(() => fr.remove(), 60000); }, 600);
+        function nikaImprimirHoja(titulo, subtitulo, notaTxt, cuerpoHtml, pilares) {
+            NikaImprimir.hoja({ titulo, sub: subtitulo, nota: notaTxt, cuerpo: cuerpoHtml, pilares, estilosPagina: true });
         }
 
         function imprimirResultadosEscrito() {
@@ -6046,7 +6036,8 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             const r = _resultadoEscrito.resumen || {};
             const min = Math.floor((_envioEscrito ? _envioEscrito.segundos : 0) / 60);
             const com = r.comentario ? '<p style="line-height:1.6">' + escaparHtml(r.comentario) + '</p>' : '';
-            nikaImprimirHoja('Examen escrito · Corrección', min + ' min', (Math.round(_resultadoEscrito.notaFinal * 10) / 10).toFixed(1), com + tmp.innerHTML);
+            nikaImprimirHoja('Examen escrito · Corrección', min + ' min', (Math.round(_resultadoEscrito.notaFinal * 10) / 10).toFixed(1), com + '<h2 style="font-size:14px;color:#4338ca">Corrección pregunta por pregunta</h2>' + tmp.innerHTML,
+                PILARES_UI.map((p) => ({ n: p.nombre, c: p.corto, v: _resultadoEscrito.promPilares[p.k] })));
         }
 
         function imprimirResultadoCaso() {
@@ -6054,7 +6045,10 @@ Reloj con aviso del último minuto e indicador de ritmo, grilla de navegación, 
             const tmp = document.createElement('div'); tmp.innerHTML = card.innerHTML;
             tmp.querySelectorAll('button').forEach((b) => { const w = b.parentElement; if (w && w !== tmp) w.remove(); else b.remove(); });
             const n = tmp.querySelector('.score-huge');
-            nikaImprimirHoja('Evaluación del caso clínico', '', n ? n.childNodes[0].textContent.trim() : '-', tmp.innerHTML);
+            const d = window._ultimoCasoData || {};
+            tmp.querySelectorAll('.pilares-grid,.score-huge').forEach((e) => (e.closest('div[style*="text-align:center"]') || e).remove());
+            nikaImprimirHoja('Evaluación del caso clínico', '', n ? n.childNodes[0].textContent.trim() : '-', tmp.innerHTML,
+                PILARES_EVALUACION.map((p) => ({ n: p.nombre, c: p.nombre, v: Math.max(0, Math.min(10, Number(d[p.k]) || 0)) })));
         }
 
         // Hoja imprimible / "Guardar como PDF" con el resultado, tus respuestas y las justificaciones (estilo NikaMed)

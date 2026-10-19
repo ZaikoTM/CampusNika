@@ -1122,9 +1122,26 @@
         + '<p class="eo-resp"><b>Lo que dijiste (completo):</b> ' + esc(corto(x.respuesta || '(sin respuesta)', 1500)) + '</p>'
         + (x.modelo ? '<div class="eo-modelo"><b>🎯 Cómo lo diría un 10</b><p>' + esc(x.modelo) + '</p></div>' : '')
         + '<div class="eo-just"><b>📚 Justificación de la cátedra</b><p>' + esc(corto(String(x.q.justificacion || clavesDe(x.q).join(' · ')), 1800)) + '</p>' + (x.q.fuente ? '<small>Fuente: ' + esc(corto(x.q.fuente, 300)) + '</small>' : '') + '</div></details>').join('') + '</div>'
+      + (window.NikaImprimir && !estado.forzado ? '<div class="eo-acc">' + window.NikaImprimir.boton('Imprimir corrección', "document.dispatchEvent(new CustomEvent('eo-imprimir'))") + '</div>' : '')
       + '<div class="eo-acc"><button type="button" class="eo-btn eo-btn--sec" data-eo="inicio">Volver</button><button type="button" class="eo-btn" data-eo="comenzar">🔁 Otro examen</button></div></div>';
     if (aprobo) confeti();
   }
+  function imprimirOral() {
+    if (!window.NikaImprimir) return;
+    const E = window.NikaImprimir.esc, a = areaActual();
+    const PIL = [['semiologia', 'Semiología y anamnesis', 'Semiología'], ['diagnostico', 'Criterio diagnóstico', 'Diagnóstico'], ['terapeutica', 'Conducta terapéutica', 'Terapéutica'], ['vocabulario', 'Vocabulario técnico', 'Vocabulario']];
+    const prom = (k) => { const v = estado.resultados.map((x) => x.ia && x.ia.pilares && Number(x.ia.pilares[k])).filter((n) => isFinite(n) && n > 0); return v.length ? Math.round(v.reduce((s, n) => s + n, 0) / v.length * 10) / 10 : null; };
+    const col = (n) => (n >= 0.72 ? '#16a34a' : n >= 0.4 ? '#d97706' : '#dc2626');
+    const cuerpo = estado.resultados.map((x, i) => '<section class="np-it" style="border:1px solid #e5e7eb;border-left:5px solid ' + col(x.nota) + ';border-radius:10px;padding:10px 12px;margin:0 0 10px">'
+      + '<div style="display:flex;gap:8px;align-items:center"><span style="background:#6366f1;color:#fff;border-radius:6px;padding:1px 8px;font-weight:800">' + (i + 1) + '</span><b style="flex:1">' + E(corto(preparaPregunta(x.q), 300)) + '</b><b style="color:' + col(x.nota) + '">' + Math.round(x.nota * 100) + '%</b></div>'
+      + (x.ia && x.ia.feedback ? '<p><b>El profesor:</b> ' + E(x.ia.feedback) + '</p>' : '')
+      + '<p><b>Lo que dijiste:</b> ' + E(corto(x.respuesta || '(sin respuesta)', 1500)) + '</p>'
+      + (x.modelo ? '<p style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px"><b>🎯 Cómo lo diría un 10:</b> ' + E(x.modelo) + '</p>' : '')
+      + '<p style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:6px 10px;color:#312e81"><b>📚 Justificación:</b> ' + E(corto(String(x.q.justificacion || clavesDe(x.q).join(' · ')), 1800)) + (x.q.fuente ? '<br><small>Fuente: ' + E(corto(x.q.fuente, 300)) + '</small>' : '') + '</p></section>').join('');
+    window.NikaImprimir.hoja({ titulo: 'Examen oral · Corrección', sub: a.nombre + ' · ' + estado.resultados.length + ' preguntas', nota: String(estado.nota).replace('.', ','),
+      pilares: PIL.map((p) => ({ n: p[1], c: p[2], v: prom(p[0]) })), cuerpo });
+  }
+  document.addEventListener('eo-imprimir', imprimirOral);
   function confeti() {
     const c = document.createElement('div'); c.className = 'eo-confeti'; const cols = ['#0ea5e9', '#a78bfa', '#34d399', '#fbbf24', '#f472b6'];
     for (let i = 0; i < 60; i++) { const p = document.createElement('i'); p.style.cssText = 'left:' + Math.random() * 100 + '%;background:' + cols[i % 5] + ';animation-delay:' + Math.random() * 0.7 + 's;--dx:' + (Math.random() * 160 - 80) + 'px'; c.appendChild(p); }
