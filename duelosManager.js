@@ -517,6 +517,9 @@ const DuelosManager = (function () {
         }
         if (payload.tipo === "pregunta") state.ultimaPregunta = payload;
         state.ultimoEstado = payload;
+        // El Anfitrión también juega: el broadcast NO vuelve al que lo emite (self:false), así que antes su pantalla se quedaba
+        // en "Esperando la primera pregunta…" mientras el invitado veía todo. Ahora recibe el mismo estado en forma local.
+        _entregarEstado(payload);
         return _enviar("duelo_estado", payload);
     }
 

@@ -55,6 +55,7 @@ const NotificacionesManager = (function () {
     // ------------------------------------------------------------
     // 2. Enviar un desafío directo a un amigo
     // ------------------------------------------------------------
+    // 'tema' es un texto corto que describe el duelo (materia · área · preguntas · tiempo): lo ve el amigo en la invitación.
     async function enviarDesafio({ toUsername, tema = null }) {
         const fromUsername = window.NikaSupabase.getNikaCurrentUsername();
         if (!fromUsername) throw new Error("No hay usuario logueado.");
@@ -75,12 +76,31 @@ const NotificacionesManager = (function () {
 
         if (error) throw error;
 
-        // Notificación en tiempo real al canal personal del destinatario
-        await sb()
-            .channel(`versus_notif_${toUsername}`)
-            .send({ type: "broadcast", event: "nuevo_desafio", payload: desafio });
+        // 1) Aviso en tiempo real al canal personal del destinatario (si está en la Arena)
+        try {
+            const canal = sb().channel(`versus_notif_${toUsername}`);
+            await new Promise((ok) => { const t = setTimeout(ok, 2500); canal.subscribe((st) => { if (st === "SUBSCRIBED") { clearTimeout(t); ok(); } }); });
+            await canal.send({ type: "broadcast", event: "nuevo_desafio", payload: desafio });
+            setTimeout(() => { try { sb().removeChannel(canal); } catch (_) {} }, 1500);
+        } catch (e) { console.warn("[notificacionesManager] aviso en vivo:", e && e.message); }
+
+        // 2) Mensaje en el chat privado, con la tarjeta Aceptar / Rechazar (llega aunque esté en otra sección del campus)
+        try {
+            if (window.ChatManager && typeof window.ChatManager.enviarMensaje === "function") {
+                const detalle = tema ? " (" + tema + ")" : "";
+                await window.ChatManager.enviarMensaje(toUsername, "⚔️ @" + fromUsername + " te desafió a un duelo 1vs1 en la Arena Nika" + detalle + ". [[desafio:" + desafio.id + "]]");
+            }
+        } catch (e) { console.warn("[notificacionesManager] mensaje de chat del desafío:", e && e.message); }
 
         return desafio;
+    }
+
+    // Estado actual de un desafío enviado: 'pending' | 'accepted' | 'rejected' | 'expired'
+    async function estadoDesafio(desafioId) {
+        const { data } = await sb().from("versus_challenges").select("status, expires_at").eq("id", desafioId).maybeSingle();
+        if (!data) return "expired";
+        if (data.status === "pending" && data.expires_at && new Date(data.expires_at) <= new Date()) return "expired";
+        return data.status;
     }
 
     // ------------------------------------------------------------
@@ -127,6 +147,7 @@ const NotificacionesManager = (function () {
         iniciar,
         detener,
         enviarDesafio,
+        estadoDesafio,
         aceptarDesafio,
         rechazarDesafio,
         set onChallengeReceived(cb) {

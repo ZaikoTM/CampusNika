@@ -176,6 +176,24 @@
     const f = new Date(iso), h = new Date(), a = new Date(h); a.setDate(h.getDate() - 1); const igual = (x, y) => x.toDateString() === y.toDateString();
     return igual(f, h) ? 'Hoy' : igual(f, a) ? 'Ayer' : f.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });
   }
+  // Mensaje de desafío a un duelo: tarjeta con Aceptar / Rechazar (solo para quien lo recibe y mientras siga vigente)
+  async function decorarDesafio(el, id, mia) {
+    el.classList.add('cf-desafio');
+    const fila = document.createElement('div'); fila.style.cssText = 'display:flex;gap:6px;margin-top:8px;flex-wrap:wrap'; el.appendChild(fila);
+    const nota = (txt) => { fila.innerHTML = ''; const n = document.createElement('small'); n.style.cssText = 'opacity:.8;font-weight:700'; n.textContent = txt; fila.appendChild(n); };
+    try {
+      const c = window.NikaSupabase.client;
+      const { data } = await c.from('versus_challenges').select('status, expires_at').eq('id', id).maybeSingle();
+      if (!data) return nota('⚔️ Duelo ya no disponible');
+      if (data.status === 'accepted') return nota('✅ Duelo aceptado');
+      if (data.status === 'rejected') return nota('✖️ Duelo rechazado');
+      if (data.expires_at && new Date(data.expires_at) <= new Date()) return nota('⌛ El desafío venció');
+      if (mia) return nota('⏳ Esperando que responda…');
+      const mk = (txt, bg, fn) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = txt; b.style.cssText = 'border:0;border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;color:#fff;background:' + bg; b.onclick = fn; fila.appendChild(b); };
+      mk('Aceptar ⚔️', '#16a34a', () => { location.href = 'versus.html?desafio=' + encodeURIComponent(id); });
+      mk('Rechazar', '#64748b', async () => { nota('✖️ Duelo rechazado'); try { await c.from('versus_challenges').update({ status: 'rejected' }).eq('id', id).eq('status', 'pending'); } catch (_) {} });
+    } catch (_) {}
+  }
   function burbuja(m) {
     const box = $('.cf-msgs', panel); if (!box || (m.id && ids.has(m.id))) return; if (m.id) ids.add(m.id);
     const vacio = $('.cf-vacio', box); if (vacio) vacio.remove();
@@ -188,7 +206,9 @@
       const q = m.shared_question; el.classList.add('cf-pregunta');
       const h = document.createElement('strong'); h.textContent = '📋 Pregunta compartida' + (q.up ? ' · ' + q.up : ''); el.appendChild(h);
     }
-    const t = document.createElement('span'); t.textContent = m.shared_question ? (m.shared_question.q || '') : (m.content || ''); el.appendChild(t);
+    const marca = !m.shared_question && /\[\[desafio:([0-9a-f-]{36})\]\]/i.exec(m.content || '');
+    const t = document.createElement('span'); t.textContent = m.shared_question ? (m.shared_question.q || '') : (marca ? String(m.content).replace(marca[0], '').trim() : (m.content || '')); el.appendChild(t);
+    if (marca) decorarDesafio(el, marca[1], mia);
     const meta = document.createElement('em'); meta.innerHTML = esc(hora(m.created_at)) + (mia ? CM.tickHTML(CM.estadoDeEntrega(m)) : ''); el.appendChild(meta);
     box.appendChild(el); box.scrollTop = box.scrollHeight;
   }
@@ -295,6 +315,7 @@
         document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescarNoLeidos(); });
       }
       montado = true; resolverListo(true);
+      if (!SOLO_PRESENCIA) cargarScript('desafiosGlobal.js?v=1', () => !!window.NikaDesafios);   // avisos de duelos 1vs1 en cualquier página
       return true;
     } finally { corriendo = false; }
   }

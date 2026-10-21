@@ -164,7 +164,7 @@
     .timer-bar-fill { height: 100%; background: var(--nika-accent); width: 100%; transition: width 1s linear; }
 
     .question-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 30px; box-shadow: var(--shadow); }
-    .question-text { font-size: 1.15rem; font-weight: 700; margin-bottom: 22px; }
+    .question-text { font-size: 1.15rem; font-weight: 700; margin-bottom: 22px; white-space: pre-line; }
     .options-grid { display: grid; gap: 12px; }
     .option-btn {
         text-align: left; padding: 14px 18px; border: 1px solid var(--border); border-radius: 10px;
@@ -305,6 +305,7 @@
 </style>
     <link rel="stylesheet" href="css/nika-unificado.css?v=11">
     <link rel="stylesheet" href="css/micro.css?v=1">
+    <link rel="stylesheet" href="css/versus-plus.css?v=1">
 </head>
 <body>
 
@@ -597,6 +598,7 @@
 <script src="js/friendsManager.js"></script>
 <script src="duelosManager.js"></script>
 <script src="notificacionesManager.js"></script>
+<script src="js/versusPlus.js?v=2"></script>
 <script src="js/atajos.js"></script>
 <script>
     // ------------------------------------------------------------
@@ -739,14 +741,35 @@
         });
     }
 
-    async function desafiarAmigo(toUsername) {
+    // Mientras espera, el anfitrión se entera si el amigo rechazó o si el desafío venció (antes quedaba esperando para siempre)
+    let _vigiaDesafio = null;
+    function _vigilarDesafio(desafioId, toUsername) {
+        clearInterval(_vigiaDesafio);
+        _vigiaDesafio = setInterval(async () => {
+            try {
+                const est = await window.NotificacionesManager.estadoDesafio(desafioId);
+                if (est === 'accepted') { clearInterval(_vigiaDesafio); return; }
+                if (est === 'rejected' || est === 'expired') {
+                    clearInterval(_vigiaDesafio);
+                    showToast(est === 'rejected' ? '@' + toUsername + ' rechazó el desafío.' : 'El desafío a @' + toUsername + ' venció sin respuesta.');
+                    cancelarEspera();
+                }
+            } catch (_) {}
+        }, 2500);
+    }
+
+    async function desafiarAmigo(toUsername, cfgPrevia) {
         try {
-            await window.NotificacionesManager.enviarDesafio({ toUsername });
+            const cfg = cfgPrevia || await window.NikaVersusPlus.pedirConfig({ tipo: 'online', titulo: '⚔️ Desafiar a @' + toUsername, subtitulo: 'Elegí las áreas del duelo: se las mostramos en la invitación.', boton: 'Enviar desafío' });
+            if (!cfg) return;
+            configOnlineActual = cfg; cantidadPreguntasOnlineActual = cfg.cantidad;
+            const desafio = await window.NotificacionesManager.enviarDesafio({ toUsername, tema: window.NikaVersusPlus.describir(cfg) });
             showToast('Desafío enviado a ' + toUsername);
             document.getElementById('lobby-status-text').textContent = 'Esperando que ' + toUsername + ' acepte...';
             document.getElementById('lobby-room-code').style.display = 'none';
             mostrarVista('view-lobby');
             _escucharInicioDeDuelo();
+            _vigilarDesafio(desafio.id, toUsername);
         } catch (err) {
             showToast(err.message || 'No se pudo enviar el desafío.');
         }
@@ -845,12 +868,30 @@
         await window.NikaSupabase.ensureVersusPlayer();
         document.getElementById('name-me').textContent = username;
 
-        await window.NotificacionesManager.iniciar();
         window.NotificacionesManager.onChallengeReceived = mostrarToastDesafio;
+        // Llegó desde «Aceptar» de una invitación (tarjeta flotante o mensaje de chat): se une a la sala del anfitrión
+        await _aceptarDesafioDesdeURL();
+        await window.NotificacionesManager.iniciar();
 
         // Si venís desde "⚔️ Desafiar" del Campus (versus.html?opponent=<id>)
         await _procesarRivalDesdeURL();
     });
+
+    async function _aceptarDesafioDesdeURL() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('desafio');
+        if (!id) return;
+        params.delete('desafio');
+        history.replaceState(null, '', window.location.pathname + (params.toString() ? '?' + params.toString() : ''));
+        if (!/^[0-9a-fA-F-]{36}$/.test(id)) { showToast('El enlace del desafío no es válido.'); return; }
+        try {
+            await window.NotificacionesManager.aceptarDesafio(id);
+            showToast('¡Aceptaste el desafío! Entrando a la sala…');
+            _entrarComoInvitado();
+        } catch (err) {
+            showToast(err.message || 'No se pudo aceptar el desafío.');
+        }
+    }
 
     // ------------------------------------------------------------
     // Desafío directo desde el Campus: versus.html?opponent=<id del perfil>
@@ -896,9 +937,10 @@
     // ------------------------------------------------------------
     async function crearSalaPorCodigo() {
         try {
-            const cantidadInput = parseInt(document.getElementById('online-cantidad-preguntas').value, 10);
-            cantidadPreguntasOnlineActual = Number.isFinite(cantidadInput) && cantidadInput > 0 ? cantidadInput : 10;
-            const sala = await window.DuelosManager.crearSala({ roomType: 'code' });
+            const cfg = await window.NikaVersusPlus.pedirConfig({ tipo: 'online', titulo: '🔢 Configurá tu sala', subtitulo: 'Elegí qué áreas van a responder los dos.', boton: 'Crear sala' });
+            if (!cfg) return;
+            configOnlineActual = cfg; cantidadPreguntasOnlineActual = cfg.cantidad;
+            const sala = await window.DuelosManager.crearSala({ roomType: 'code', tema: window.NikaVersusPlus.describir(cfg) });
             document.getElementById('lobby-room-code').style.display = 'block';
             document.getElementById('lobby-room-code').textContent = sala.room_code;
             document.getElementById('lobby-status-text').textContent = 'Compartí este código con tu rival';
@@ -971,6 +1013,8 @@
     let temporizadorActual = null;
     let bancoPreguntas = null;
     let cantidadPreguntasOnlineActual = 10;
+    // Configuración del duelo online que eligió el anfitrión (área, cantidad, tiempo, modo)
+    let configOnlineActual = { alcance: 'todas', up: null, cantidad: 10, tiempo: 20, modoDuelo: 'normal' };
 
     // Engancha TODOS los callbacks del duelo online. Lo necesitan los dos lados: el anfitrión
     // (vía _escucharInicioDeDuelo) y el invitado (vía _entrarComoInvitado). Antes el invitado
@@ -1030,8 +1074,15 @@
                 document.getElementById('name-rival').textContent = roomState.isHost ? room.guest_username : room.host_username;
                 iniciarVistaDuelo({ chatDisponible: true });
                 if (roomState.isHost) {
-                    const preguntas = await _cargarPreguntasParaDuelo(cantidadPreguntasOnlineActual);
-                    window.DuelosManager.iniciarLoopPreguntas(preguntas, { tiempoPorPregunta: 20, modo: 'normal' });
+                    try {
+                        const cfg = configOnlineActual || {};
+                        const preguntas = await _cargarPreguntasParaDuelo(cfg.cantidad || cantidadPreguntasOnlineActual, window.NikaVersusPlus.modoPool(cfg), cfg.up);
+                        window.DuelosManager.iniciarLoopPreguntas(preguntas, { tiempoPorPregunta: cfg.tiempo || 20, modo: cfg.modoDuelo === 'muerte_subita' ? 'muerte_subita' : 'normal' });
+                    } catch (err) {
+                        console.error('[versus] No se pudo armar el duelo:', err);
+                        showToast(err.message || 'No se pudieron cargar las preguntas del duelo.');
+                        cancelarEspera();
+                    }
                 }
             }
         }, 1000);
@@ -1081,6 +1132,34 @@
         upEspecificaIAActual = todas[0] ? todas[0].id : 1;
     }
     document.addEventListener('DOMContentLoaded', _adaptarUIMateria);
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!window.NikaVersusPlus) return;
+        const parciales = () => {
+            const T = (window.TEMATICA_POR_MATERIA || {})[MODULO]; const p = (T && T.parciales) || [];
+            if (UNIDADES_MAT && p.length) return p.map((x, i) => ({ modo: i === 0 ? 'parcial_1' : 'parcial_2', label: x.label || (i === 0 ? 'Primer Parcial' : 'Segundo Parcial') }));
+            return [{ modo: 'parcial_1', label: 'Primer Parcial' }, { modo: 'parcial_2', label: 'Segundo Parcial' }];
+        };
+        window.NikaVersusPlus.init({
+            modulo: MODULO,
+            unidades: () => _todasLasUnidades().map((u) => ({ id: u.id, n: u.n, label: u.label || ('UP ' + u.n) })),
+            parciales,
+            pool: ({ modo, up }) => _poolParaEntrenamiento(modo, up),
+            mostrarVista: (id) => mostrarVista(id),
+            toast: (m) => showToast(m),
+            sonido: (t) => playSound(t),
+        });
+    });
+
+    // Los bancos nuevos guardan HTML (viñeta clínica en <span>, &amp;, <br>): en el duelo se muestra texto plano
+    function _aTexto(h) {
+        if (h == null) return '';
+        let t = String(h)
+            .replace(/<\/span>\s*<span class="q-pregunta">/gi, '\n\n')
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<[^>]+>/g, '');
+        if (/&[a-z#0-9]+;/i.test(t)) { const ta = document.createElement('textarea'); ta.innerHTML = t; t = ta.value; }
+        return t.trim();
+    }
 
     // Convierte un ítem del banco ({q, options:{a..d}, correct}) en pregunta de duelo
     function _mapearPregunta(item, upNum, idx, prefijo) {
@@ -1098,7 +1177,9 @@
         const opciones = ['a', 'b', 'c', 'd']
             .filter((l) => cleanOptions[l] !== undefined && cleanOptions[l] !== '')
             .map((l) => ({ id: l, texto: cleanOptions[l], correcta: l === correcta }));
-        return { id: `${prefijo}_${idx}`, up: upNum, pregunta: cleanQ, opciones };
+        const justificacion = item.justificacion || item.feedback || item.explicacion || item.explanation || '';
+        opciones.forEach((o) => { o.texto = _aTexto(o.texto); });
+        return { id: `${prefijo}_${idx}`, up: upNum, pregunta: _aTexto(cleanQ), opciones, justificacion: typeof justificacion === 'string' ? justificacion : '' };
     }
     const _itemsDe = (res) => (res && res.data && Array.isArray(res.data)) ? res.data : (Array.isArray(res) ? res : (res && res.questions ? res.questions : []));
 
@@ -1155,6 +1236,12 @@
             pregunta: q.pregunta,
             opciones: q.opciones,
         }));
+    }
+
+    // Banco completo (con justificaciones) para el entrenamiento en solitario
+    async function _poolParaEntrenamiento(modo, up) {
+        const banco = await _cargarBancoPreguntas(modo, up);
+        return _filtrarBancoPorModo(banco, modo, up);
     }
 
     function cancelarEspera() {
@@ -1301,6 +1388,7 @@
         grid.dataset.respondido = '1';
 
         const esCorrecta = !!opcion.correcta;
+        if (!esCorrecta && window.NikaVersusPlus) window.NikaVersusPlus.registrarError({ id: payload.questionId, pregunta: payload.pregunta, opciones: payload.opciones });
         playSound(esCorrecta ? 'success' : 'alert');
         clearInterval(temporizadorActual);
 
@@ -1420,6 +1508,7 @@
         ultimoRival = payload.rivalUsername;
         const gane = payload.winnerUsername === window.NikaSupabase.getNikaCurrentUsername();
         playSound(gane ? 'victory' : 'alert');
+        if (gane && window.NikaVersusPlus) setTimeout(() => window.NikaVersusPlus.confeti(), 300);
 
         const esPractica = !!payload.practice;
         const cancelado = !esPractica && !payload.winnerUsername;
@@ -1452,12 +1541,7 @@
     async function pedirRevancha() {
         if (!ultimoRival) return showToast('No se pudo identificar al rival para la revancha.');
         try {
-            await window.NotificacionesManager.enviarDesafio({ toUsername: ultimoRival });
-            showToast('Revancha enviada a ' + ultimoRival);
-            document.getElementById('lobby-status-text').textContent = 'Esperando que ' + ultimoRival + ' acepte la revancha...';
-            document.getElementById('lobby-room-code').style.display = 'none';
-            mostrarVista('view-lobby');
-            _escucharInicioDeDuelo();
+            await desafiarAmigo(ultimoRival, configOnlineActual);
         } catch (err) {
             showToast(err.message || 'No se pudo enviar la revancha.');
         }
@@ -1521,7 +1605,7 @@
     });
 </script>
 
-    <script src="js/chatFlotante.js?v=8"></script>
+    <script src="js/chatFlotante.js?v=9"></script>
 <script src="js/assistant.js?v=4"></script>
 <script src="js/micro.js?v=2" defer></script>
 <script src="js/nikaAccesibilidad.js?v=1" defer></script>
