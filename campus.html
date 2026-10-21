@@ -4611,7 +4611,7 @@ async function handleLogout() {
             <div class="module-card" style="padding: 24px; text-align: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;">
                 <img src="${nikaEsc(user.avatar || 'assets/N%20NIKA.png')}" alt="Avatar" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; margin: 0 auto 12px auto; border: 2px solid var(--nika-primary); background: var(--bg-body);">
                 <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${nikaEsc(user.fullname || 'Estudiante Nika')}</h4>
-                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 16px; font-weight: 600;">${nikaEsc(user.faculty || 'Facultad de Ciencias de la Salud UNER')}</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 16px; font-weight: 600;">${nikaEsc(user.faculty || 'Ciencias de la Salud')}</span>
                 
                 <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <button onclick="abrirPerfilPublico('${user.id}')" class="btn-module" style="padding: 8px 12px; font-size: 0.78rem; font-weight: 700; background:#e2e8f0; color:#334155;">👁️ Ver Perfil</button>

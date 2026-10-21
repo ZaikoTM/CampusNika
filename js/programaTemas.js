@@ -1,7 +1,7 @@
 // js/programaTemas.js
 // CAMPUS NIKA — "¿Qué temas abarca esta unidad?": acordeón bajo el selector "Unidad Problema a Evaluar"
 // (examen.html, modalidad UP Específica). Se actualiza solo al cambiar la UP o la materia.
-// Fuente: programas de cátedra (UNER).
+// Fuente: programas de cátedra.
 
 const PROGRAMA_TEMAS = {
   ginecologia: {
