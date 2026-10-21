@@ -166,3 +166,8 @@ _mu = dict(
 CONTENIDO5 = {'gin-cancer-endometrio': _ce, 'gin-cancer-cuello': _cc, 'gin-mama-benigna': _mb, 'gin-cancer-mama': _cm, 'gin-incontinencia': _inc,
               'gin-prolapso': _pro, 'obs-puerperio-patologico': _pu, 'gin-anticoncepcion-ale': _ac, 'gin-osteoporosis': _os,
               'gin-embarazo-adolescente': _ea, 'gin-malformaciones-mullerianas': _mu}
+
+CONTENIDO5['gin-sop'] = {'farmacos': ['fx-letrozol', 'fx-clomifeno', 'fx-metformina']}
+CONTENIDO5['gin-ectopico'] = {'farmacos': ['fx-metotrexato']}
+CONTENIDO5['obs-dg'] = {'farmacos': ['fx-insulina', 'fx-metformina']}
+CONTENIDO5['gin-etg'] = {'farmacos': ['fx-metotrexato']}

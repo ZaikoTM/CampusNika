@@ -223,7 +223,9 @@
         ]
       },
       "farmacos": [
-        "fx-clomifeno"
+        "fx-letrozol",
+        "fx-clomifeno",
+        "fx-metformina"
       ]
     },
     {
@@ -761,7 +763,10 @@
             ]
           }
         ]
-      }
+      },
+      "farmacos": [
+        "fx-metotrexato"
+      ]
     },
     {
       "id": "obs-dg",
@@ -926,7 +931,11 @@
             ]
           }
         ]
-      }
+      },
+      "farmacos": [
+        "fx-insulina",
+        "fx-metformina"
+      ]
     },
     {
       "id": "gin-pubertad-precoz",
@@ -3629,7 +3638,10 @@
             ]
           }
         ]
-      }
+      },
+      "farmacos": [
+        "fx-metotrexato"
+      ]
     },
     {
       "id": "obs-colestasis",
